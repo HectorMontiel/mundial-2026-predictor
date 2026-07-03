@@ -1,0 +1,517 @@
+{
+ "actualizado": "2026-07-03",
+ "fuente": "lista_oficial_pregrabada",
+ "n_scrapeados": 0,
+ "arbitros": {
+  "Facundo Tello": {
+   "pais": "Argentina",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 4.2,
+   "roj_p90": 0.15,
+   "pen_p90": 0.25,
+   "criterio": "Estricto",
+   "sesgo_local": 0.55,
+   "edad": 42
+  },
+  "Wilton Sampaio": {
+   "pais": "Brasil",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 3.5,
+   "roj_p90": 0.1,
+   "pen_p90": 0.18,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 39
+  },
+  "Jesús Valenzuela": {
+   "pais": "Venezuela",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 4.5,
+   "roj_p90": 0.18,
+   "pen_p90": 0.3,
+   "criterio": "Muy estricto",
+   "sesgo_local": 0.5,
+   "edad": 40
+  },
+  "Andrés Matonte": {
+   "pais": "Uruguay",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 4.0,
+   "roj_p90": 0.14,
+   "pen_p90": 0.22,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 38
+  },
+  "Raphael Claus": {
+   "pais": "Brasil",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 3.8,
+   "roj_p90": 0.12,
+   "pen_p90": 0.2,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 43
+  },
+  "Alexis Herrera": {
+   "pais": "Venezuela",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 4.3,
+   "roj_p90": 0.16,
+   "pen_p90": 0.27,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 36
+  },
+  "Piero Maza": {
+   "pais": "Chile",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 4.1,
+   "roj_p90": 0.13,
+   "pen_p90": 0.23,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 38
+  },
+  "Nicolás Lamolina": {
+   "pais": "Argentina",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 3.8,
+   "roj_p90": 0.11,
+   "pen_p90": 0.21,
+   "criterio": "Moderado",
+   "sesgo_local": 0.53,
+   "edad": 36
+  },
+  "Diego Haro": {
+   "pais": "Perú",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 4.2,
+   "roj_p90": 0.14,
+   "pen_p90": 0.25,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 40
+  },
+  "Yamila Rodríguez": {
+   "pais": "Argentina",
+   "confederacion": "CONMEBOL",
+   "ama_p90": 4.0,
+   "roj_p90": 0.12,
+   "pen_p90": 0.23,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 35
+  },
+  "Clément Turpin": {
+   "pais": "Francia",
+   "confederacion": "UEFA",
+   "ama_p90": 3.8,
+   "roj_p90": 0.12,
+   "pen_p90": 0.22,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 41
+  },
+  "Michael Oliver": {
+   "pais": "Inglaterra",
+   "confederacion": "UEFA",
+   "ama_p90": 3.2,
+   "roj_p90": 0.08,
+   "pen_p90": 0.2,
+   "criterio": "Permisivo",
+   "sesgo_local": 0.52,
+   "edad": 39
+  },
+  "Danny Makkelie": {
+   "pais": "Países Bajos",
+   "confederacion": "UEFA",
+   "ama_p90": 4.0,
+   "roj_p90": 0.14,
+   "pen_p90": 0.28,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 41
+  },
+  "Szymon Marciniak": {
+   "pais": "Polonia",
+   "confederacion": "UEFA",
+   "ama_p90": 3.6,
+   "roj_p90": 0.11,
+   "pen_p90": 0.19,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 44
+  },
+  "Daniele Orsato": {
+   "pais": "Italia",
+   "confederacion": "UEFA",
+   "ama_p90": 4.1,
+   "roj_p90": 0.13,
+   "pen_p90": 0.24,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 48
+  },
+  "Slavko Vinčić": {
+   "pais": "Eslovenia",
+   "confederacion": "UEFA",
+   "ama_p90": 3.9,
+   "roj_p90": 0.1,
+   "pen_p90": 0.21,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 44
+  },
+  "István Kovács": {
+   "pais": "Rumanía",
+   "confederacion": "UEFA",
+   "ama_p90": 4.2,
+   "roj_p90": 0.15,
+   "pen_p90": 0.23,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 39
+  },
+  "Felix Brych": {
+   "pais": "Alemania",
+   "confederacion": "UEFA",
+   "ama_p90": 3.5,
+   "roj_p90": 0.09,
+   "pen_p90": 0.17,
+   "criterio": "Moderado",
+   "sesgo_local": 0.53,
+   "edad": 48
+  },
+  "Anthony Taylor": {
+   "pais": "Inglaterra",
+   "confederacion": "UEFA",
+   "ama_p90": 3.3,
+   "roj_p90": 0.07,
+   "pen_p90": 0.19,
+   "criterio": "Permisivo",
+   "sesgo_local": 0.5,
+   "edad": 45
+  },
+  "Jesús Gil Manzano": {
+   "pais": "España",
+   "confederacion": "UEFA",
+   "ama_p90": 4.4,
+   "roj_p90": 0.17,
+   "pen_p90": 0.26,
+   "criterio": "Muy estricto",
+   "sesgo_local": 0.5,
+   "edad": 41
+  },
+  "Sandro Schärer": {
+   "pais": "Suiza",
+   "confederacion": "UEFA",
+   "ama_p90": 3.7,
+   "roj_p90": 0.1,
+   "pen_p90": 0.2,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 36
+  },
+  "Espen Eskås": {
+   "pais": "Noruega",
+   "confederacion": "UEFA",
+   "ama_p90": 3.6,
+   "roj_p90": 0.08,
+   "pen_p90": 0.19,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 37
+  },
+  "Glenn Nyberg": {
+   "pais": "Suecia",
+   "confederacion": "UEFA",
+   "ama_p90": 3.9,
+   "roj_p90": 0.11,
+   "pen_p90": 0.22,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 35
+  },
+  "Tobias Stieler": {
+   "pais": "Alemania",
+   "confederacion": "UEFA",
+   "ama_p90": 3.5,
+   "roj_p90": 0.08,
+   "pen_p90": 0.18,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 42
+  },
+  "Irfan Peljto": {
+   "pais": "Bosnia",
+   "confederacion": "UEFA",
+   "ama_p90": 4.2,
+   "roj_p90": 0.14,
+   "pen_p90": 0.24,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 39
+  },
+  "Benoît Bastien": {
+   "pais": "Francia",
+   "confederacion": "UEFA",
+   "ama_p90": 3.4,
+   "roj_p90": 0.07,
+   "pen_p90": 0.19,
+   "criterio": "Permisivo",
+   "sesgo_local": 0.5,
+   "edad": 41
+  },
+  "Ovidiu Hațegan": {
+   "pais": "Rumanía",
+   "confederacion": "UEFA",
+   "ama_p90": 3.9,
+   "roj_p90": 0.1,
+   "pen_p90": 0.21,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 43
+  },
+  "Artur Soares Dias": {
+   "pais": "Portugal",
+   "confederacion": "UEFA",
+   "ama_p90": 4.1,
+   "roj_p90": 0.12,
+   "pen_p90": 0.23,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 45
+  },
+  "José María Sánchez": {
+   "pais": "España",
+   "confederacion": "UEFA",
+   "ama_p90": 4.0,
+   "roj_p90": 0.12,
+   "pen_p90": 0.22,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 39
+  },
+  "Mohammed Al-Hakim": {
+   "pais": "Suecia",
+   "confederacion": "UEFA",
+   "ama_p90": 3.8,
+   "roj_p90": 0.11,
+   "pen_p90": 0.2,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 36
+  },
+  "Stephanie Frappart": {
+   "pais": "Francia",
+   "confederacion": "UEFA",
+   "ama_p90": 3.7,
+   "roj_p90": 0.09,
+   "pen_p90": 0.21,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 41
+  },
+  "César Arturo Ramos": {
+   "pais": "México",
+   "confederacion": "CONCACAF",
+   "ama_p90": 4.1,
+   "roj_p90": 0.16,
+   "pen_p90": 0.24,
+   "criterio": "Estricto",
+   "sesgo_local": 0.58,
+   "edad": 42
+  },
+  "Iván Barton": {
+   "pais": "El Salvador",
+   "confederacion": "CONCACAF",
+   "ama_p90": 3.7,
+   "roj_p90": 0.11,
+   "pen_p90": 0.21,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 36
+  },
+  "Mario Escobar": {
+   "pais": "Guatemala",
+   "confederacion": "CONCACAF",
+   "ama_p90": 4.3,
+   "roj_p90": 0.17,
+   "pen_p90": 0.25,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 39
+  },
+  "Said Martínez": {
+   "pais": "Honduras",
+   "confederacion": "CONCACAF",
+   "ama_p90": 4.0,
+   "roj_p90": 0.14,
+   "pen_p90": 0.23,
+   "criterio": "Estricto",
+   "sesgo_local": 0.54,
+   "edad": 34
+  },
+  "Jair Marrufo": {
+   "pais": "Estados Unidos",
+   "confederacion": "CONCACAF",
+   "ama_p90": 3.4,
+   "roj_p90": 0.09,
+   "pen_p90": 0.18,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 45
+  },
+  "Drew Fischer": {
+   "pais": "Canadá",
+   "confederacion": "CONCACAF",
+   "ama_p90": 3.6,
+   "roj_p90": 0.1,
+   "pen_p90": 0.2,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 40
+  },
+  "Katia García": {
+   "pais": "México",
+   "confederacion": "CONCACAF",
+   "ama_p90": 3.9,
+   "roj_p90": 0.08,
+   "pen_p90": 0.22,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 32
+  },
+  "Keylor Herrera": {
+   "pais": "Costa Rica",
+   "confederacion": "CONCACAF",
+   "ama_p90": 4.0,
+   "roj_p90": 0.13,
+   "pen_p90": 0.22,
+   "criterio": "Estricto",
+   "sesgo_local": 0.55,
+   "edad": 35
+  },
+  "Anthony Buttimer": {
+   "pais": "Estados Unidos",
+   "confederacion": "CONCACAF",
+   "ama_p90": 3.7,
+   "roj_p90": 0.1,
+   "pen_p90": 0.2,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 38
+  },
+  "Mustapha Ghorbal": {
+   "pais": "Argelia",
+   "confederacion": "CAF",
+   "ama_p90": 4.0,
+   "roj_p90": 0.13,
+   "pen_p90": 0.22,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 38
+  },
+  "Bakary Gassama": {
+   "pais": "Gambia",
+   "confederacion": "CAF",
+   "ama_p90": 3.8,
+   "roj_p90": 0.12,
+   "pen_p90": 0.21,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 45
+  },
+  "Victor Gomes": {
+   "pais": "Sudáfrica",
+   "confederacion": "CAF",
+   "ama_p90": 4.2,
+   "roj_p90": 0.15,
+   "pen_p90": 0.24,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 41
+  },
+  "Redouane Jiyed": {
+   "pais": "Marruecos",
+   "confederacion": "CAF",
+   "ama_p90": 3.9,
+   "roj_p90": 0.11,
+   "pen_p90": 0.2,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 43
+  },
+  "Jean-Jacques Ndala": {
+   "pais": "RD Congo",
+   "confederacion": "CAF",
+   "ama_p90": 4.1,
+   "roj_p90": 0.14,
+   "pen_p90": 0.23,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 37
+  },
+  "Salima Mukansanga": {
+   "pais": "Ruanda",
+   "confederacion": "CAF",
+   "ama_p90": 3.6,
+   "roj_p90": 0.09,
+   "pen_p90": 0.18,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 36
+  },
+  "Alireza Faghani": {
+   "pais": "Irán",
+   "confederacion": "AFC",
+   "ama_p90": 3.7,
+   "roj_p90": 0.1,
+   "pen_p90": 0.19,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 46
+  },
+  "Abdulla Hassan": {
+   "pais": "EAU",
+   "confederacion": "AFC",
+   "ama_p90": 3.5,
+   "roj_p90": 0.09,
+   "pen_p90": 0.18,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 42
+  },
+  "Ma Ning": {
+   "pais": "China",
+   "confederacion": "AFC",
+   "ama_p90": 4.3,
+   "roj_p90": 0.16,
+   "pen_p90": 0.25,
+   "criterio": "Estricto",
+   "sesgo_local": 0.5,
+   "edad": 44
+  },
+  "Ryuji Sato": {
+   "pais": "Japón",
+   "confederacion": "AFC",
+   "ama_p90": 3.4,
+   "roj_p90": 0.08,
+   "pen_p90": 0.17,
+   "criterio": "Permisivo",
+   "sesgo_local": 0.5,
+   "edad": 46
+  },
+  "Chris Beath": {
+   "pais": "Australia",
+   "confederacion": "AFC",
+   "ama_p90": 3.8,
+   "roj_p90": 0.11,
+   "pen_p90": 0.2,
+   "criterio": "Moderado",
+   "sesgo_local": 0.5,
+   "edad": 39
+  }
+ }
+}

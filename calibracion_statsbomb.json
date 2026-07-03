@@ -1,0 +1,9 @@
+{
+  "xg_intercept": 0.776,
+  "xg_slope_goles": 0.2,
+  "xg_residual_std": 0.529,
+  "shots_on_por_xg": 3.116,
+  "shots_total_por_on": 3.186,
+  "fuente": "statsbomb_wc2022",
+  "n_partidos_calibrados": 10
+}

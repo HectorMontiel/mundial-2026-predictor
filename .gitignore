@@ -1,0 +1,16 @@
+# Entorno local
+.venv/
+__pycache__/
+*.pyc
+*.log
+
+# Artefactos legados de la v1 (no los usa la app desplegada)
+dataset_equipos_mundial.csv
+dataset_equipos_raw.csv
+dataset_jugadores_micro.csv
+dataset_jugadores_raw.csv
+historico_jugadores_partidos.csv
+
+# Cachés y temporales
+api_football_ids.json
+proxies.txt
