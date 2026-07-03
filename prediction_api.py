@@ -32,6 +32,7 @@ import feature_engineering as fe
 from config import TEAMS, TEAM_STYLE, STADIUMS, CALENDARIO_FILE, HISTORICO_FILE
 
 DIRECTORIO_MODELOS = 'modelos'
+DRIFT_LOG = 'predicciones_log.json'   # última consulta por cruce (monitor de cambios)
 NOMBRES_PAIS = {
     'MEX': 'México', 'USA': 'Estados Unidos', 'CAN': 'Canadá', 'ARG': 'Argentina',
     'BRA': 'Brasil', 'URU': 'Uruguay', 'COL': 'Colombia', 'ECU': 'Ecuador',
@@ -408,6 +409,46 @@ class PredictionEngine:
         return insights[:6], factor_decisivo
 
     # ------------------------------------------------------------------ #
+    # Monitor de cambios: qué features variaron desde la consulta anterior #
+    # (auditoría EGY vs AUS: da transparencia a cualquier fluctuación)     #
+    # ------------------------------------------------------------------ #
+    def _monitor_cambios(self, home: str, away: str,
+                         features: Dict[str, float], probs: np.ndarray) -> Optional[Dict]:
+        clave = f"{home}|{away}"
+        try:
+            log = {}
+            ruta = self._ruta(DRIFT_LOG)
+            if os.path.exists(ruta):
+                with open(ruta, 'r', encoding='utf-8') as f:
+                    log = json.load(f)
+            anterior = log.get(clave)
+            cambios = []
+            if anterior:
+                for k, v in features.items():
+                    actual = round(float(v), 4)   # misma precisión que lo almacenado
+                    previo = float(anterior['features'].get(k, actual))
+                    if abs(actual - previo) > 5e-4:
+                        cambios.append({'feature': k, 'antes': round(previo, 3),
+                                        'ahora': round(actual, 3),
+                                        'delta': round(actual - previo, 3)})
+                cambios.sort(key=lambda c: abs(c['delta']), reverse=True)
+                cambios = cambios[:3]
+            log[clave] = {'fecha': pd.Timestamp.today().strftime('%Y-%m-%d %H:%M'),
+                          'estado_al': self.fecha_estado,
+                          'features': {k: round(float(v), 4) for k, v in features.items()},
+                          'probs': [round(float(p), 4) for p in probs]}
+            with open(ruta, 'w', encoding='utf-8') as f:
+                json.dump(log, f, ensure_ascii=False)
+            if anterior:
+                return {'anterior': {'fecha': anterior['fecha'],
+                                     'estado_al': anterior.get('estado_al', '?'),
+                                     'probs': anterior['probs']},
+                        'cambios': cambios}
+            return None
+        except Exception:
+            return None  # el monitor nunca debe tumbar una predicción
+
+    # ------------------------------------------------------------------ #
     # API principal                                                        #
     # ------------------------------------------------------------------ #
     def predecir(self, home: str, away: str, arbitro: Optional[str] = None,
@@ -479,12 +520,16 @@ class PredictionEngine:
         ganador_idx = int(np.argmax(probs))
         ganador = [NOMBRES_PAIS.get(home, home), 'Empate', NOMBRES_PAIS.get(away, away)][ganador_idx]
 
+        monitor = self._monitor_cambios(
+            home, away, dict(zip(fe.FEATURES_MODELO, vector[0])), probs)
+
         resultado = {
             'match': f"{home} vs {away}",
             'stadium': estadio,
             'estado_al': self.fecha_estado,
             'fase': fase,
             'altitude': detalle_altitud,
+            'monitor_cambios': monitor,
             'referee': {'nombre': nombre_arb, **perfil_arb},
             'cards': tarjetas,
             'penalties': penaltis,

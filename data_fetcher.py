@@ -72,7 +72,9 @@ def download_kaggle_results() -> pd.DataFrame:
                 'away_goals', 'tournament', 'city', 'country', 'neutral', 'stadium']
     logger.info(f"Kaggle: {len(df)} partidos reales desde {FECHA_INICIO_HISTORICO} "
                 f"(hasta {df['date'].max().date()}).")
-    return df[columnas].sort_values('date').reset_index(drop=True)
+    # Orden TOTAL determinista (fecha + MATCH_ID, sort estable): los empates de
+    # fecha siempre se procesan en el mismo orden => ELO reproducible.
+    return df[columnas].sort_values(['date', 'MATCH_ID'], kind='mergesort').reset_index(drop=True)
 
 
 def download_kaggle_goalscorers() -> pd.DataFrame:
@@ -300,12 +302,12 @@ def build_unified_history(usar_fbref: bool = False) -> pd.DataFrame:
     if not recientes.empty:
         completo = pd.concat([kaggle_df, recientes], ignore_index=True)
         # Las estadísticas reales pisan a Kaggle en el mismo MATCH_ID
-        completo = completo.sort_values('date').drop_duplicates(subset='MATCH_ID', keep='last')
+        completo = completo.drop_duplicates(subset='MATCH_ID', keep='last')
         logger.info(f"{fuente_recientes}: {len(recientes)} partidos recientes con stats reales inyectados.")
     else:
         completo = kaggle_df
     con_api = fuente_recientes is not None
-    completo = completo.sort_values('date').reset_index(drop=True)
+    completo = completo.sort_values(['date', 'MATCH_ID'], kind='mergesort').reset_index(drop=True)
 
     # ELO previo al partido (insumo del relleno causal y del modelo)
     completo['elo_diff'] = compute_elo_series(completo)

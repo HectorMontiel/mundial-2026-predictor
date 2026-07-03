@@ -47,6 +47,20 @@ Verificación adicional en `backtesting.ipynb`: curvas de calibración por clase
 (guardadas en `modelos/curvas_calibracion.png`), matriz de confusión, precisión
 por trimestre y precisión por nivel de confianza (debe crecer monotónicamente).
 
+### Pruebas de estabilidad del relleno calibrado (auditoría 2026-07-03)
+
+Origen: auditoría EGY vs AUS (`INFORME_DIAGNOSTICO.md`) — la predicción cambiaba
+sin partidos nuevos porque el ruido del relleno dependía del tamaño del dataset.
+
+1. **Determinismo por MATCH_ID**: quitar/añadir partidos de terceros equipos deja
+   diferencia **0.0** en las 13 columnas estimadas (xG, remates, posesión,
+   tarjetas, córners) de todos los partidos compartidos.
+2. **Orden total estable**: `['date','MATCH_ID']` + mergesort ⇒ `elo_diff`
+   idéntico corrida a corrida (antes: 637 filas variaban hasta 16.5 puntos).
+3. **Reproducibilidad e2e**: replay del histórico == `team_stats.json` exacto.
+4. **Monitor de la UI**: tras una segunda consulta del mismo cruce, muestra las
+   probabilidades anteriores y las 3 features que más variaron.
+
 ### Pruebas v11 (Cabo Verde, árbitros, cuotas, frescura)
 
 1. **CPV** en las 49 selecciones: ELO real (1626), 5 partidos en ventana MA5,

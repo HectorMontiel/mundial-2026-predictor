@@ -14,3 +14,5 @@ historico_jugadores_partidos.csv
 # Cachés y temporales
 api_football_ids.json
 proxies.txt
+predicciones_log.json
+gh_login_out.txt

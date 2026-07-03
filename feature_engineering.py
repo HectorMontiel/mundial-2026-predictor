@@ -281,7 +281,9 @@ def construir_dataset_supervisado(historico: pd.DataFrame):
     """
     df = historico.copy()
     df['date'] = pd.to_datetime(df['date'])
-    df = df.sort_values('date').reset_index(drop=True)
+    # Orden total determinista: los empates de fecha se procesan siempre igual
+    claves_orden = ['date', 'MATCH_ID'] if 'MATCH_ID' in df.columns else ['date']
+    df = df.sort_values(claves_orden, kind='mergesort').reset_index(drop=True)
 
     numericas = ['home_goals', 'away_goals', 'home_xg', 'away_xg',
                  'home_shots_on', 'away_shots_on', 'home_yellow',

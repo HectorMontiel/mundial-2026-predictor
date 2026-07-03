@@ -5,54 +5,54 @@
       {
         "ventana": "2024-01-01 → 2024-07-01",
         "n": 588,
-        "precision": 0.5969,
-        "log_loss": 0.902
+        "precision": 0.5918,
+        "log_loss": 0.9563
       },
       {
         "ventana": "2024-07-01 → 2025-01-01",
         "n": 643,
-        "precision": 0.5723,
-        "log_loss": 0.9469
+        "precision": 0.5708,
+        "log_loss": 0.9481
       },
       {
         "ventana": "2025-01-01 → 2025-07-01",
         "n": 407,
-        "precision": 0.6093,
-        "log_loss": 0.8547
+        "precision": 0.5971,
+        "log_loss": 0.8543
       },
       {
         "ventana": "2025-07-01 → 2026-01-01",
         "n": 592,
-        "precision": 0.6267,
-        "log_loss": 0.868
+        "precision": 0.6402,
+        "log_loss": 0.878
       },
       {
         "ventana": "2026-01-01 → 2026-07-01",
         "n": 389,
-        "precision": 0.5835,
-        "log_loss": 0.8939
+        "precision": 0.5733,
+        "log_loss": 0.9032
       }
     ],
-    "precision_media": 0.5977,
-    "log_loss_medio": 0.8931
+    "precision_media": 0.5946,
+    "log_loss_medio": 0.908
   },
   "odds_features": {
     "activas": false,
     "cobertura": 0.0,
     "medias_train": null
   },
-  "entrenado_en": "2026-07-02T21:16:48",
+  "entrenado_en": "2026-07-03T10:03:22",
   "fuente_datos": "real_hybrid",
   "arquitectura": "VotingClassifier(XGBoost+RandomForest+LightGBM) + CalibratedClassifierCV(isotonic)",
   "n_partidos_train_real": 12608,
   "n_partidos_train_aumento": 911,
-  "n_partidos_validacion": 2622,
+  "n_partidos_validacion": 2625,
   "fecha_corte_validacion": "2024-01-01",
-  "precision_validacion": 0.595,
-  "precision_linea_base": 0.5896,
-  "log_loss_validacion": 0.886,
-  "mae_goles_local": 1.0591,
-  "mae_goles_visitante": 0.87,
+  "precision_validacion": 0.5954,
+  "precision_linea_base": 0.5897,
+  "log_loss_validacion": 0.9012,
+  "mae_goles_local": 1.0593,
+  "mae_goles_visitante": 0.8673,
   "deploy_ready": true,
   "umbral_despliegue": 0.55,
   "objetivo_estricto": {

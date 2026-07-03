@@ -317,6 +317,21 @@ class CorrelatedSyntheticGenerator:
     # ------------------------------------------------------------------ #
     # Relleno calibrado de métricas avanzadas para RESULTADOS REALES       #
     # ------------------------------------------------------------------ #
+    @staticmethod
+    def _uniformes_por_partido(match_ids: pd.Series, sal: str) -> np.ndarray:
+        """
+        Uniformes [0,1) DETERMINISTAS por MATCH_ID (hash estable + sal por
+        variable). Garantiza que las métricas estimadas de un partido no
+        cambien cuando el dataset crece con partidos de otros equipos —
+        antes se usaba un flujo RNG global de longitud n y cada actualización
+        diaria re-sorteaba el ruido de TODO el histórico, provocando cambios
+        de predicción espurios (auditoría EGY vs AUS, 2026-07-03).
+        """
+        claves = pd.Index(match_ids.astype(str) + '|' + sal)
+        h = pd.util.hash_pandas_object(claves.to_series().reset_index(drop=True),
+                                       index=False).to_numpy(dtype=np.uint64)
+        return (h >> np.uint64(11)).astype(np.float64) / float(1 << 53)
+
     def generate_advanced_metrics(self, df: pd.DataFrame, calibracion: Dict) -> pd.DataFrame:
         """
         Completa (vectorizado) las columnas avanzadas que el histórico real de
@@ -330,12 +345,26 @@ class CorrelatedSyntheticGenerator:
             posesión ~ 50 + f(diferencia de ELO)
             tarjetas ~ Poisson(importancia del torneo)
 
+        El ruido es DETERMINISTA por MATCH_ID (ver _uniformes_por_partido).
         Solo rellena valores faltantes: si una columna ya trae datos reales
         (p. ej. inyectados por API-Football), esos se respetan.
         """
+        from scipy.stats import norm, poisson as poisson_dist
+
         df = df.copy()
         n = len(df)
-        rng = default_rng(20260701)
+        mids = df['MATCH_ID']
+
+        def z(sal):  # normal estándar determinista por partido
+            u = np.clip(self._uniformes_por_partido(mids, sal), 1e-9, 1 - 1e-9)
+            return norm.ppf(u)
+
+        def pois(sal, mu):  # Poisson determinista por partido
+            u = np.clip(self._uniformes_por_partido(mids, sal), 1e-9, 1 - 1e-9)
+            return poisson_dist.ppf(u, mu).astype(int)
+
+        def bern(sal, p):  # Bernoulli determinista por partido
+            return (self._uniformes_por_partido(mids, sal) < p).astype(int)
 
         goles_h = pd.to_numeric(df['home_goals'], errors='coerce').fillna(0).to_numpy(float)
         goles_a = pd.to_numeric(df['away_goals'], errors='coerce').fillna(0).to_numpy(float)
@@ -351,23 +380,23 @@ class CorrelatedSyntheticGenerator:
         tpo = calibracion['shots_total_por_on']
 
         # xG condicionado a los goles reales + ligera señal de superioridad ELO
-        xg_h = np.clip(a + b * goles_h + 0.10 * np.tanh(elo_diff / 300.0) + rng.normal(0, sd, n), 0.05, 4.5)
-        xg_a = np.clip(a + b * goles_a - 0.10 * np.tanh(elo_diff / 300.0) + rng.normal(0, sd, n), 0.05, 4.5)
+        xg_h = np.clip(a + b * goles_h + 0.10 * np.tanh(elo_diff / 300.0) + z('xg_h') * sd, 0.05, 4.5)
+        xg_a = np.clip(a + b * goles_a - 0.10 * np.tanh(elo_diff / 300.0) + z('xg_a') * sd, 0.05, 4.5)
 
-        sot_h = np.maximum(goles_h, np.round(xg_h * spx + rng.normal(0, 1.0, n))).clip(0, 15)
-        sot_a = np.maximum(goles_a, np.round(xg_a * spx + rng.normal(0, 1.0, n))).clip(0, 15)
-        soff_h = np.round(sot_h * (tpo - 1) + rng.normal(0, 1.2, n)).clip(0, 20)
-        soff_a = np.round(sot_a * (tpo - 1) + rng.normal(0, 1.2, n)).clip(0, 20)
+        sot_h = np.maximum(goles_h, np.round(xg_h * spx + z('sot_h'))).clip(0, 15)
+        sot_a = np.maximum(goles_a, np.round(xg_a * spx + z('sot_a'))).clip(0, 15)
+        soff_h = np.round(sot_h * (tpo - 1) + z('soff_h') * 1.2).clip(0, 20)
+        soff_a = np.round(sot_a * (tpo - 1) + z('soff_a') * 1.2).clip(0, 20)
 
-        pos_h = np.clip(50 + 12 * np.tanh(elo_diff / 300.0) + rng.normal(0, 4, n), 25, 75)
+        pos_h = np.clip(50 + 12 * np.tanh(elo_diff / 300.0) + z('pos') * 4, 25, 75)
 
-        amar_h = rng.poisson(1.6 * imp, n)
-        amar_a = rng.poisson(1.7 * imp, n)
-        roja_h = rng.binomial(1, np.clip(0.03 * imp + 0.015 * amar_h, 0, 0.3), n)
-        roja_a = rng.binomial(1, np.clip(0.03 * imp + 0.015 * amar_a, 0, 0.3), n)
+        amar_h = pois('amar_h', 1.6 * imp)
+        amar_a = pois('amar_a', 1.7 * imp)
+        roja_h = bern('roja_h', np.clip(0.03 * imp + 0.015 * amar_h, 0, 0.3))
+        roja_a = bern('roja_a', np.clip(0.03 * imp + 0.015 * amar_a, 0, 0.3))
 
-        corners_h = rng.poisson(np.clip(2.0 + 0.5 * (sot_h + soff_h) * 0.5, 0.5, 12), n)
-        corners_a = rng.poisson(np.clip(2.0 + 0.5 * (sot_a + soff_a) * 0.5, 0.5, 12), n)
+        corners_h = pois('ck_h', np.clip(2.0 + 0.5 * (sot_h + soff_h) * 0.5, 0.5, 12))
+        corners_a = pois('ck_a', np.clip(2.0 + 0.5 * (sot_a + soff_a) * 0.5, 0.5, 12))
 
         rellenos = {
             'home_xg': np.round(xg_h, 2), 'away_xg': np.round(xg_a, 2),

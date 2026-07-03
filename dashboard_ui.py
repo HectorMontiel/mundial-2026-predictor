@@ -270,6 +270,23 @@ with tab_rapida:
             f"{nombre_visit}: {nivel_aclimatacion(away)} (xG ×{det_alt['factor_xg_visitante']:.2f})"
         )
 
+    # Monitor de transparencia: qué cambió desde la consulta anterior de este cruce
+    monitor = pred.get('monitor_cambios')
+    if monitor and monitor.get('cambios'):
+        pa = monitor['anterior']['probs']
+        st.caption(
+            f"📊 **Desde tu consulta anterior** ({monitor['anterior']['fecha']}, datos al "
+            f"{monitor['anterior']['estado_al']}): probabilidades "
+            f"{pa[0]*100:.0f}/{pa[1]*100:.0f}/{pa[2]*100:.0f} % → "
+            f"{pred['prediction']['probabilities']['home']*100:.0f}/"
+            f"{pred['prediction']['probabilities']['draw']*100:.0f}/"
+            f"{pred['prediction']['probabilities']['away']*100:.0f} %. "
+            f"Features que más variaron: "
+            + " · ".join(f"`{c['feature']}` {c['antes']}→{c['ahora']}" for c in monitor['cambios'])
+        )
+    elif monitor is not None and not monitor.get('cambios'):
+        st.caption("📊 Sin cambios en las features de este cruce desde tu consulta anterior.")
+
     st.divider()
     col_g1, col_g2, col_g3 = st.columns(3)
 
