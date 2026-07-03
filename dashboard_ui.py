@@ -22,14 +22,32 @@ from prediction_api import PredictionEngine, NOMBRES_PAIS, plantilla_a_markdown
 from arbitros import ARBITROS
 from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
 
-hide_ui_style = """
+# --- INICIO DEL CÓDIGO PARA LIMPIAR LA INTERFAZ ---
+limpiar_interfaz = """
     <style>
-    #MainMenu {visibility: hidden;}
-    header {visibility: hidden;}
-    footer {visibility: hidden;}
+        /* 1. Ocultar la burbuja flotante del creador (Creator Badge) */
+        .viewerBadge_container {
+            display: none !important;
+        }
+        
+        /* 2. Ocultar cualquier enlace que dirija al perfil de Streamlit */
+        a[href^="https://share.streamlit.io"] {
+            display: none !important;
+        }
+
+        /* 3. Ocultar el pie de página de "Made with Streamlit" */
+        footer {
+            display: none !important;
+        }
+        
+        /* 4. Ocultar el encabezado superior (opcional, por si queda algún rastro) */
+        [data-testid="stHeader"] {
+            display: none !important;
+        }
     </style>
 """
-st.markdown(hide_ui_style, unsafe_allow_html=True)
+st.markdown(limpiar_interfaz, unsafe_allow_html=True)
+# --- FIN DEL CÓDIGO ---
 
 st.set_page_config(
     page_title="¿Quién gana? — Mundial 2026",
