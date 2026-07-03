@@ -22,15 +22,14 @@ from prediction_api import PredictionEngine, NOMBRES_PAIS, plantilla_a_markdown
 from arbitros import ARBITROS
 from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
 
-hide_header_style = """
+hide_ui_style = """
     <style>
-        /* Oculta la barra superior completa */
-        [data-testid="stHeader"] {
-            visibility: hidden;
-        }
+    #MainMenu {visibility: hidden;}
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
     </style>
 """
-st.markdown(hide_header_style, unsafe_allow_html=True)
+st.markdown(hide_ui_style, unsafe_allow_html=True)
 
 st.set_page_config(
     page_title="¿Quién gana? — Mundial 2026",
