@@ -22,7 +22,14 @@ from prediction_api import PredictionEngine, NOMBRES_PAIS, plantilla_a_markdown
 from arbitros import ARBITROS
 from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
 
-# --- ENFOQUE DE FUERZA BRUTA PARA OCULTAR INTERFAZ DE STREAMLIT ---
+# 1. PRIMER COMANDO DE STREAMLIT (OBLIGATORIO)
+st.set_page_config(
+    page_title="¿Quién gana? — Mundial 2026",
+    page_icon="🏆",
+    layout="wide",
+)
+
+# 2. SEGUNDO COMANDO: TU ENFOQUE DE FUERZA BRUTA
 limpiar_interfaz_v2 = """
     <style>
         /* 1. Apuntar al identificador oficial moderno de Streamlit */
@@ -54,13 +61,7 @@ limpiar_interfaz_v2 = """
     </style>
 """
 st.markdown(limpiar_interfaz_v2, unsafe_allow_html=True)
-# ------------------------------------------------------------------
 
-st.set_page_config(
-    page_title="¿Quién gana? — Mundial 2026",
-    page_icon="🏆",
-    layout="wide",
-)
 
 # ===========================================================================
 # AUTENTICACIÓN (validación EXCLUSIVAMENTE en el servidor)
