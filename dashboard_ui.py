@@ -29,44 +29,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ===========================================================================
-# AUTENTICACIÓN (validación EXCLUSIVAMENTE en el servidor)
-# ===========================================================================
-# Se almacena el hash SHA-256 de la contraseña, nunca el texto plano: ni el
-# repositorio ni el HTML/JS del navegador contienen la clave. Streamlit
-# ejecuta esta comparación en el backend; el cliente solo recibe el HTML
-# renderizado del formulario. Sin components.html ni JavaScript inyectado.
-import hashlib
-
-_HASH_CLAVE = "32378eae9feab1633a0e24afb9dd4725d2d5e0cd8106dae891d55522c51d8693"
-_MAX_INTENTOS = 3
-
-if "autenticado" not in st.session_state:
-    st.session_state.autenticado = False
-    st.session_state.intentos_fallidos = 0
-
-
-def _login():
-    st.title("🔐 Acceso Restringido")
-    st.write("Ingresa la contraseña para acceder al predictor del Mundial 2026.")
-    if st.session_state.intentos_fallidos >= _MAX_INTENTOS:
-        st.error("Demasiados intentos fallidos. Cierra la pestaña y vuelve a intentarlo.")
-        st.stop()
-    password = st.text_input("Contraseña", type="password", key="login_password")
-    if st.button("Entrar", type="primary"):
-        if hashlib.sha256(password.encode()).hexdigest() == _HASH_CLAVE:
-            st.session_state.autenticado = True
-            st.rerun()
-        else:
-            st.session_state.intentos_fallidos += 1
-            restantes = _MAX_INTENTOS - st.session_state.intentos_fallidos
-            st.error(f"Contraseña incorrecta. Inténtalo de nuevo "
-                     f"({restantes} intento(s) restante(s)).")
-
-
-if not st.session_state.autenticado:
-    _login()
-    st.stop()   # nada de la app real se renderiza sin autenticación
+# v14: login con contraseña RETIRADO a petición del usuario — la app es pública.
 
 COLORES = {'local': '#2ecc71', 'empate': '#95a5a6', 'visitante': '#3498db'}
 
