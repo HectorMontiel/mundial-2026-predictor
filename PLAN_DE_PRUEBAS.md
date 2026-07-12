@@ -47,6 +47,22 @@ Verificación adicional en `backtesting.ipynb`: curvas de calibración por clase
 (guardadas en `modelos/curvas_calibracion.png`), matriz de confusión, precisión
 por trimestre y precisión por nivel de confianza (debe crecer monotónicamente).
 
+### Pruebas v13 (resumen — detalle completo en VALIDACION_v13.md)
+
+1. **M1**: fases del Mundial mapeadas por fecha (grupos→final); cadena en vivo
+   degrada limpio sin claves (API-Football sin key, FBref 403 verificado).
+2. **M2**: 38 líneas por partido desde `distributions.py`; caché por partido
+   <1 ms; monotonía verificada.
+3. **M3**: parlay excluye partidos con riesgo 🔴 (probado con flag sintético
+   MEX|ECU=alto); backtest con cuotas de cierre REALES: Premier ROI +10.9 %,
+   LaLiga −20 % (reportado sin maquillaje).
+4. **M4**: riesgo compuesto verificado (divergencia 27 pp + liquidez +50 % →
+   alto); `risk_flags.json` generado por cruce.
+5. **M5**: Liga MX +3.8 pp y LaLiga +2.0 pp adoptados; Premier revertido
+   (−0.6 pp); ratings de jugadores descartados (fuentes bloqueadas).
+6. **M6**: walk-forward Mundial 59.5 %/0.908 idéntico a v12; EGY vs AUS
+   bit a bit intacto; UI verificada por AppTest.
+
 ### Pruebas v12 (distribuciones, parlay, mercado, ligas de clubes)
 
 1. **Distribuciones**: 40 líneas over/under en 11 mercados, todas monótonas

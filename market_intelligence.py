@@ -35,10 +35,18 @@ import requests
 logger = logging.getLogger(__name__)
 
 MARKET_FILE = 'market_data.json'
+RISK_FILE = 'risk_flags.json'
 GAMMA_URL = 'https://gamma-api.polymarket.com/markets'
+# Riesgo compuesto (v13): 🔴 div>20pp Y liquidez>30% · 🟡 div>15pp O liq>20%
 UMBRAL_DIVERGENCIA = 0.15
+UMBRAL_DIVERGENCIA_ALTA = 0.20
 UMBRAL_LIQUIDEZ = 0.20
+UMBRAL_LIQUIDEZ_ALTA = 0.30
 MAX_SNAPSHOTS = 200
+# Frecuencia recomendada en horas previas a partido: cada 10 minutos
+#   schtasks /create /tn "MarketIntel" /tr "...market_intelligence.py" /sc minute /mo 10
+# Limitación documentada: el rastreo de wallets (Polygonscan) requiere clave
+# y un indexador propio; el flujo se aproxima con volumen/liquidez de la API.
 
 
 def _cargar() -> Dict:
@@ -86,41 +94,63 @@ def _senales(snapshots: List[Dict], engine=None) -> List[Dict]:
     senales = []
 
     for m in actual['mercados']:
-        alertas, riesgo = [], 0
+        alertas = []
+        div_abs, liq_abs = 0.0, 0.0
+        equipos_detectados = []
         if previo:
             m_prev = next((x for x in previo['mercados'] if x['pregunta'] == m['pregunta']), None)
             if m_prev:
                 if m_prev['liquidez'] > 0:
-                    delta_liq = (m['liquidez'] - m_prev['liquidez']) / m_prev['liquidez']
-                    if abs(delta_liq) > UMBRAL_LIQUIDEZ:
-                        alertas.append(f"Liquidez {'+' if delta_liq > 0 else ''}{delta_liq*100:.0f} % desde el último snapshot")
-                        riesgo += 1
+                    liq_abs = abs((m['liquidez'] - m_prev['liquidez']) / m_prev['liquidez'])
+                    if liq_abs > UMBRAL_LIQUIDEZ:
+                        alertas.append(f"Liquidez {'+' if m['liquidez'] > m_prev['liquidez'] else '-'}"
+                                       f"{liq_abs*100:.0f} % desde el último snapshot")
                 if m['precios'] and m_prev['precios']:
                     delta_p = m['precios'][0] - m_prev['precios'][0]
                     if abs(delta_p) > 0.05:
                         alertas.append(f"La probabilidad se movió {delta_p*100:+.0f} pts")
-                        riesgo += 1
 
         # Divergencia contra el modelo propio (si el engine puede mapear equipos)
         if engine is not None and m['precios']:
-            equipos = engine.detectar_equipos(m['pregunta'])
-            if len(equipos) >= 2:
-                pred = engine.predecir(equipos[0], equipos[1])
+            equipos_detectados = engine.detectar_equipos(m['pregunta'])
+            if len(equipos_detectados) >= 2:
+                pred = engine.predecir(equipos_detectados[0], equipos_detectados[1])
                 if 'error' not in pred:
                     p_modelo = pred['prediction']['probabilities']['home']
-                    div = m['precios'][0] - p_modelo
-                    if abs(div) > UMBRAL_DIVERGENCIA:
+                    div_abs = abs(m['precios'][0] - p_modelo)
+                    if div_abs > UMBRAL_DIVERGENCIA:
                         alertas.append(
-                            f"Divergencia modelo vs mercado: {div*100:+.0f} pts "
+                            f"Divergencia modelo vs mercado: {(m['precios'][0]-p_modelo)*100:+.0f} pts "
                             f"(modelo {p_modelo*100:.0f} % vs mercado {m['precios'][0]*100:.0f} %)")
-                        riesgo += 2
 
-        nivel = 'alto' if riesgo >= 3 else ('medio' if riesgo >= 1 else 'bajo')
+        # Riesgo COMPUESTO (especificación v13)
+        if div_abs > UMBRAL_DIVERGENCIA_ALTA and liq_abs > UMBRAL_LIQUIDEZ_ALTA:
+            nivel = 'alto'
+        elif div_abs > UMBRAL_DIVERGENCIA or liq_abs > UMBRAL_LIQUIDEZ:
+            nivel = 'medio'
+        else:
+            nivel = 'bajo'
         senales.append({'pregunta': m['pregunta'], 'precios': m['precios'],
                         'salidas': m['salidas'], 'volumen': m['volumen'],
                         'liquidez': m['liquidez'], 'alertas': alertas,
+                        'equipos': equipos_detectados,
                         'riesgo_manipulacion': nivel})
     return senales
+
+
+def _guardar_risk_flags(senales: List[Dict]):
+    """risk_flags.json: nivel de riesgo por pareja de equipos (para el parlay)."""
+    flags = {}
+    orden = {'bajo': 0, 'medio': 1, 'alto': 2}
+    for s in senales:
+        eq = s.get('equipos') or []
+        if len(eq) >= 2:
+            clave = f"{eq[0]}|{eq[1]}"
+            if orden[s['riesgo_manipulacion']] >= orden.get(flags.get(clave, 'bajo'), 0):
+                flags[clave] = s['riesgo_manipulacion']
+    with open(RISK_FILE, 'w', encoding='utf-8') as f:
+        json.dump({'actualizado': datetime.datetime.now().isoformat(timespec='minutes'),
+                   'flags': flags}, f, ensure_ascii=False)
 
 
 def actualizar(engine=None) -> Dict:
@@ -134,6 +164,7 @@ def actualizar(engine=None) -> Dict:
         })
         datos['snapshots'] = datos['snapshots'][-MAX_SNAPSHOTS:]
         datos['senales'] = _senales(datos['snapshots'], engine)
+        _guardar_risk_flags(datos['senales'])
         datos['disponible'] = len(mercados) > 0
         datos['actualizado'] = datetime.datetime.now().isoformat(timespec='minutes')
         logger.info(f"Polymarket: {len(mercados)} mercados del Mundial capturados.")

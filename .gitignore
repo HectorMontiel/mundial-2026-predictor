@@ -16,3 +16,8 @@ api_football_ids.json
 proxies.txt
 predicciones_log.json
 gh_login_out.txt
+
+_backup_v12/
+risk_flags.json
+odds_actuales.json
+market_data.json

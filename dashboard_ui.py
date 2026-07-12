@@ -269,8 +269,11 @@ with col_banner:
                 f"de ayer.** Usa «Actualizar datos ahora» o espera la tarea diaria."
             )
         else:
-            st.markdown(f"🟢 **Datos actualizados al {MOTOR.fecha_estado}** — incluyen "
-                        f"los partidos disputados de la fase actual del torneo.")
+            from live_worldcup import fase_del_torneo
+            fase_actual = fase_del_torneo(MOTOR.fecha_estado)
+            st.markdown(f"🟢 **Datos actualizados al {MOTOR.fecha_estado}**"
+                        + (f" — incluyen partidos de **{fase_actual}**." if fase_actual
+                           else " — incluyen los partidos disputados de la fase actual."))
     except Exception:
         pass
 
@@ -569,12 +572,25 @@ with tab_rapida:
                     'Partido': s['partido'], 'Apuesta': s['apuesta'],
                     'Prob.': f"{s['prob']*100:.1f} %", 'Cuota': s['cuota'],
                     'Fuente': s['cuota_fuente'], 'EV': s['ev'],
+                    'Riesgo': {'bajo': '🟢', 'medio': '🟡', 'alto': '🔴'}[s.get('riesgo', 'bajo')],
                 } for s in parlay['selecciones']]), use_container_width=True, hide_index=True)
-                c1, c2, c3 = st.columns(3)
+                c1, c2, c3, c4 = st.columns(4)
                 c1.metric("Cuota combinada", f"{parlay['cuota_combinada']:.2f}")
                 c2.metric("Prob. conjunta", f"{parlay['prob_conjunta']*100:.1f} %")
                 c3.metric("EV del parlay", f"{parlay['ev_parlay']:+.3f}")
+                c4.metric("Riesgo general",
+                          {'bajo': '🟢 Bajo', 'medio': '🟡 Medio', 'alto': '🔴 Alto'}[parlay['riesgo_parlay']])
+                if parlay.get('partidos_excluidos_por_riesgo'):
+                    st.warning("🔴 Partidos excluidos por riesgo de mercado: "
+                               + ", ".join(parlay['partidos_excluidos_por_riesgo']))
                 st.caption(parlay['nota'])
+                texto = "\n".join(
+                    f"{i}. {s['partido']}: {s['apuesta']} @ {s['cuota']} (p={s['prob']*100:.0f}%)"
+                    for i, s in enumerate(parlay['selecciones'], 1)
+                ) + (f"\nCuota combinada: {parlay['cuota_combinada']} · "
+                     f"Prob: {parlay['prob_conjunta']*100:.1f}% · EV: {parlay['ev_parlay']:+.3f}")
+                st.download_button("📋 Copiar/exportar parlay", data=texto.encode('utf-8'),
+                                   file_name="parlay_mundial.txt", mime="text/plain")
 
     # ---- 📈 Inteligencia de mercado (Mejora 4, v12 — experimental) ------------
     with st.expander("📈 Inteligencia de Mercado — Polymarket (experimental)"):

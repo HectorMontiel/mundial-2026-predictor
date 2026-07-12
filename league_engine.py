@@ -89,8 +89,9 @@ def descargar_liga(clave: str) -> pd.DataFrame:
             'odd_draw': pd.to_numeric(crudo.get('AvgD', crudo.get('PD')), errors='coerce'),
             'odd_away': pd.to_numeric(crudo.get('AvgA', crudo.get('PA')), errors='coerce'),
         })
-        # Liga MX: conservar las últimas 4 temporadas para volumen comparable
-        df = df[df['date'] >= df['date'].max() - pd.DateOffset(years=4)]
+        # Liga MX: ventana configurable de temporadas (v13: 8 años)
+        anios = cfg.get('anios_ventana', 4)
+        df = df[df['date'] >= df['date'].max() - pd.DateOffset(years=anios)]
 
     df = df.dropna(subset=['date', 'home_team', 'away_team', 'home_goals', 'away_goals'])
     df['tournament'] = cfg['nombre']

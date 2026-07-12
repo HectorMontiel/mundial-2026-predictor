@@ -102,6 +102,10 @@ def actualizar_odds():
         completas = nuevas
     completas.to_csv(ODDS_FILE, index=False)
     logger.info(f"{ODDS_FILE}: {len(completas)} partidos con cuotas de apertura acumuladas.")
+    # Snapshot ACTUAL para el parlay (v13): cuotas vigentes de eventos próximos
+    with open('odds_actuales.json', 'w', encoding='utf-8') as f:
+        json.dump({'actualizado': datetime.date.today().isoformat(),
+                   'cuotas': nuevas.set_index('MATCH_ID').to_dict('index')}, f)
 
 
 def cargar_features_cuotas(match_ids) -> pd.DataFrame:

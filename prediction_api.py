@@ -682,17 +682,22 @@ class PredictionEngine:
     def distribuciones(self, home: str, away: str, arbitro: Optional[str] = None,
                        fase: str = 'grupos', estadio: Optional[str] = None) -> Dict:
         """
-        Probabilidades de superar las líneas comunes de cada mercado.
-        Goles: derivados de la matriz Monte Carlo calibrada (marginales).
-        Córners/tarjetas/remates: colas Poisson con las λ del partido
-        (mismas fuentes que la plantilla: StatsBomb + modelo arbitral v3).
+        Probabilidades de superar las líneas comunes de cada mercado (M2 v13,
+        módulo distributions.py). Goles: matriz Monte Carlo calibrada.
+        Córners/tarjetas/remates: colas Poisson con las λ del partido.
+        Cacheado por partido hasta que cambie el estado de los datos.
         """
+        import distributions as dist
+        clave_cache = (home, away, arbitro, fase, estadio, self.fecha_estado)
+        if not hasattr(self, '_cache_dist'):
+            self._cache_dist = {}
+        if clave_cache in self._cache_dist:
+            return self._cache_dist[clave_cache]
+
         pred = self.predecir(home, away, arbitro=arbitro, fase=fase, estadio=estadio)
         if 'error' in pred:
             return pred
         M = np.array(pred['score_matrix'])
-        idx = np.arange(M.shape[0])
-        total_idx = idx[:, None] + idx[None, :]
         lam_h = pred['prediction']['expected_goals']['home']
         lam_a = pred['prediction']['expected_goals']['away']
         spx = float(self.calibracion.get('shots_on_por_xg', 3.1))
@@ -705,36 +710,26 @@ class PredictionEngine:
         extra_alt = 0.2 if pred.get('altitude', {}).get('altitud_sede', 0) > 1500 else 0.0
         ck_h = 2.0 + 0.25 * lam_h * spx * tpo + extra_alt / 2
         ck_a = 2.0 + 0.25 * lam_a * spx * tpo + extra_alt / 2
-        pct = lambda x: round(float(x) * 100, 1)
 
-        def marginal_over(eje: int, linea: float) -> float:
-            g = M.sum(axis=1 - eje)          # marginal de goles del equipo
-            return float(g[int(np.floor(linea)) + 1:].sum())
-
-        mercados = {
-            'goles_totales': {f'over_{l}': pct(M[total_idx > l].sum())
-                              for l in (0.5, 1.5, 2.5, 3.5, 4.5)},
-            'goles_local': {f'over_{l}': pct(marginal_over(0, l)) for l in (0.5, 1.5, 2.5)},
-            'goles_visitante': {f'over_{l}': pct(marginal_over(1, l)) for l in (0.5, 1.5, 2.5)},
-            'corners_totales': {f'over_{l}': pct(prob_over(ck_h + ck_a, l))
-                                for l in (6.5, 7.5, 8.5, 9.5, 10.5)},
-            'corners_local': {f'over_{l}': pct(prob_over(ck_h, l)) for l in (2.5, 3.5, 4.5, 5.5)},
-            'corners_visitante': {f'over_{l}': pct(prob_over(ck_a, l)) for l in (2.5, 3.5, 4.5, 5.5)},
-            'tarjetas_totales': {f'over_{l}': pct(prob_over(cards_h + cards_a, l))
-                                 for l in (2.5, 3.5, 4.5, 5.5)},
-            'tarjetas_local': {f'over_{l}': pct(prob_over(cards_h, l)) for l in (1.5, 2.5)},
-            'tarjetas_visitante': {f'over_{l}': pct(prob_over(cards_a, l)) for l in (1.5, 2.5)},
-            'remates_totales': {f'over_{l}': pct(prob_over(shots_tot, l))
-                                for l in (18.5, 20.5, 22.5, 24.5)},
-            'remates_puerta': {f'over_{l}': pct(prob_over(sot_tot, l))
-                               for l in (4.5, 5.5, 6.5, 7.5)},
-        }
-        return {'match': pred['match'], 'fase': fase, 'arbitro': pred['referee']['nombre'],
-                'medias': {'goles': round(lam_h + lam_a, 2),
-                           'corners': round(ck_h + ck_a, 1),
-                           'tarjetas': round(cards_h + cards_a, 2),
-                           'remates': round(shots_tot, 1), 'remates_puerta': round(sot_tot, 1)},
-                'mercados': mercados}
+        mercados = dist.lineas_desde_matriz(M)
+        mercados.update({
+            'corners_totales': dist.lineas_poisson(ck_h + ck_a, dist.LINEAS['corners_totales']),
+            'corners_local': dist.lineas_poisson(ck_h, dist.LINEAS['corners_equipo']),
+            'corners_visitante': dist.lineas_poisson(ck_a, dist.LINEAS['corners_equipo']),
+            'tarjetas_totales': dist.lineas_poisson(cards_h + cards_a, dist.LINEAS['tarjetas_totales']),
+            'tarjetas_local': dist.lineas_poisson(cards_h, dist.LINEAS['tarjetas_equipo']),
+            'tarjetas_visitante': dist.lineas_poisson(cards_a, dist.LINEAS['tarjetas_equipo']),
+            'remates_totales': dist.lineas_poisson(shots_tot, dist.LINEAS['remates_totales']),
+            'remates_puerta': dist.lineas_poisson(sot_tot, dist.LINEAS['remates_puerta']),
+        })
+        resultado = {'match': pred['match'], 'fase': fase, 'arbitro': pred['referee']['nombre'],
+                     'medias': {'goles': round(lam_h + lam_a, 2),
+                                'corners': round(ck_h + ck_a, 1),
+                                'tarjetas': round(cards_h + cards_a, 2),
+                                'remates': round(shots_tot, 1), 'remates_puerta': round(sot_tot, 1)},
+                     'mercados': mercados}
+        self._cache_dist[clave_cache] = resultado
+        return resultado
 
     # ------------------------------------------------------------------ #
     # PLANTILLA GENERAL DE ANÁLISIS ESTADÍSTICO (9 secciones)              #

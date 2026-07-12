@@ -41,13 +41,36 @@ def _grupo(mercado: str) -> str:
 
 
 def _cuotas_reales() -> Dict[str, Dict]:
-    """Cuotas 1X2 reales por MATCH_ID si fetch_odds las acumuló."""
-    if not os.path.exists('odds_historicas.csv'):
+    """Cuotas 1X2 reales: snapshot vigente (odds_actuales.json) + histórico."""
+    cuotas: Dict[str, Dict] = {}
+    if os.path.exists('odds_historicas.csv'):
+        try:
+            df = pd.read_csv('odds_historicas.csv')
+            cuotas.update({r.MATCH_ID: {'home': r.odd_home, 'draw': r.odd_draw,
+                                        'away': r.odd_away} for r in df.itertuples()})
+        except Exception:
+            pass
+    if os.path.exists('odds_actuales.json'):
+        try:
+            import json
+            with open('odds_actuales.json', 'r', encoding='utf-8') as f:
+                actuales = json.load(f).get('cuotas', {})
+            for mid, o in actuales.items():
+                cuotas[mid] = {'home': o.get('odd_home'), 'draw': o.get('odd_draw'),
+                               'away': o.get('odd_away')}
+        except Exception:
+            pass
+    return cuotas
+
+
+def _risk_flags() -> Dict[str, str]:
+    """Niveles de riesgo por cruce generados por market_intelligence (M4)."""
+    if not os.path.exists('risk_flags.json'):
         return {}
     try:
-        df = pd.read_csv('odds_historicas.csv')
-        return {r.MATCH_ID: {'home': r.odd_home, 'draw': r.odd_draw, 'away': r.odd_away}
-                for r in df.itertuples()}
+        import json
+        with open('risk_flags.json', 'r', encoding='utf-8') as f:
+            return json.load(f).get('flags', {})
     except Exception:
         return {}
 
@@ -112,24 +135,41 @@ def _candidatos_del_partido(engine, home: str, away: str, prob_min: float) -> Li
 
 
 def construir_parlay(engine, n_legs: int = 8, prob_min: float = 0.55,
-                     partidos: Optional[List] = None) -> Dict:
-    """Selecciona el mejor parlay del fixture con control de correlación."""
+                     partidos: Optional[List] = None, ev_min: float = 0.0,
+                     filtrar_riesgo: bool = True) -> Dict:
+    """
+    Selecciona el mejor parlay del fixture con control de correlación.
+    v13: excluye selecciones de partidos con riesgo 🔴 (risk_flags.json de la
+    inteligencia de mercado) y, con cuotas REALES, aplica el filtro ev_min.
+    """
     if partidos is None:
         cal = engine.calendario
         partidos = [(r['home'], r['away']) for _, r in cal.iterrows()] if len(cal) else []
     if not partidos:
         return {'error': 'Sin partidos en el fixture para construir el parlay.'}
 
+    flags = _risk_flags() if filtrar_riesgo else {}
+    excluidos_riesgo = []
     candidatos: List[Dict] = []
     for home, away in partidos:
+        riesgo = flags.get(f"{home}|{away}") or flags.get(f"{away}|{home}") or 'bajo'
+        if riesgo == 'alto':
+            excluidos_riesgo.append(f"{home}-{away}")
+            continue
         try:
-            candidatos.extend(_candidatos_del_partido(engine, home, away, prob_min))
+            legs = _candidatos_del_partido(engine, home, away, prob_min)
+            for l in legs:
+                l['riesgo'] = riesgo
+            candidatos.extend(legs)
         except Exception:
             continue
     if not candidatos:
         return {'error': f'Ningún mercado supera el umbral de probabilidad ({prob_min:.0%}).'}
 
     con_mercado = any(c['cuota_fuente'] == 'mercado' for c in candidatos)
+    if con_mercado and ev_min > 0:
+        candidatos = [c for c in candidatos
+                      if c['cuota_fuente'] != 'mercado' or c['ev'] >= ev_min]
     # Orden: EV con cuotas reales; probabilidad si solo hay cuotas justas
     candidatos.sort(key=lambda c: (c['ev'], c['prob']), reverse=True)
 
@@ -158,6 +198,9 @@ def construir_parlay(engine, n_legs: int = 8, prob_min: float = 0.55,
     prob_conjunta = float(np.prod([s['prob'] for s in seleccion]))
     pares_mismo_partido = sum(1 for p, n in conteo_partido.items() if n >= 2)
     prob_conjunta *= HAIRCUT_MISMO_PARTIDO ** pares_mismo_partido
+    orden_riesgo = {'bajo': 0, 'medio': 1, 'alto': 2}
+    riesgo_parlay = max((s.get('riesgo', 'bajo') for s in seleccion),
+                        key=lambda r: orden_riesgo[r])
     return {
         'selecciones': seleccion,
         'n_legs': len(seleccion),
@@ -165,8 +208,9 @@ def construir_parlay(engine, n_legs: int = 8, prob_min: float = 0.55,
         'prob_conjunta': round(prob_conjunta, 4),
         'ev_parlay': round(cuota_total * prob_conjunta - 1, 4),
         'cuotas_reales': con_mercado,
-        'nota': ('Cuotas de mercado' if con_mercado else
-                 'Cuotas JUSTAS del modelo (1/p): EV≈0 por construcción — '
-                 'parlay informativo; compara contra las cuotas de tu casa '
-                 'para encontrar valor.'),
+        'riesgo_parlay': riesgo_parlay,
+        'partidos_excluidos_por_riesgo': excluidos_riesgo,
+        'nota': ('Cuotas de mercado (The Odds API)' if con_mercado else
+                 'EV teórico (basado en cuotas justas del modelo) — NO accionable; '
+                 'compara contra las cuotas de tu casa para encontrar valor.'),
     }

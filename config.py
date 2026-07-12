@@ -75,19 +75,24 @@ KAGGLE_DATASET = 'martj42/international-football-results-from-1872-to-2017'
 # ---------------------------------------------------------------------------
 FD_BASE = 'https://www.football-data.co.uk'
 LEAGUES = {
+    # v13: histórico ampliado (5 temporadas / 8 años MX) — validado en
+    # VALIDACION_v13.md contra los modelos v12 de 3 temporadas.
     'liga_mx': {
         'nombre': 'Liga MX', 'pais': 'México', 'formato': 'new',
-        'urls': [f'{FD_BASE}/new/MEX.csv'],
+        'urls': [f'{FD_BASE}/new/MEX.csv'], 'anios_ventana': 8,
         'disponible': True,
     },
     'premier': {
+        # Premier se mantiene en 3 temporadas: el experimento de 5 temporadas
+        # bajó la precisión (49.5%→48.9%) — regla de adopción no superada.
         'nombre': 'Premier League', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/E0.csv' for s in ('2324', '2425', '2526')],
         'disponible': True,
     },
     'laliga': {
         'nombre': 'LaLiga', 'pais': 'España', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/{s}/SP1.csv' for s in ('2324', '2425', '2526')],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/SP1.csv'
+                 for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
     },
     'champions': {

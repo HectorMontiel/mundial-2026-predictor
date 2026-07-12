@@ -6,6 +6,28 @@ Análisis Estadístico completa (9 secciones, ~85 campos: 1X2, doble oportunidad
 hándicaps asiáticos, over/under, BTTS, goleadores, córners y tarjetas),
 editable y validable contra el modelo.**
 
+## Novedades v13 — Evolución total (ver [VALIDACION_v13.md](VALIDACION_v13.md))
+
+- **M1**: cadena en vivo del Mundial ([live_worldcup.py](live_worldcup.py)) con
+  API-Football → FBref → base, dedupe por MATCH_ID y banner con la fase oficial
+  del torneo. Cron cada 2 h en días de partido.
+- **M2**: [distributions.py](distributions.py) — 38 líneas over/under por
+  partido (incl. córners y tarjetas POR EQUIPO) con caché <1 ms tras la
+  primera llamada.
+- **M3**: parlay con `odds_actuales.json`, filtro `ev_min` con cuotas reales,
+  **filtro de riesgo** (excluye partidos 🔴), riesgo general del parlay y
+  exportación. Backtest con cuotas de cierre reales: **ROI +10.9 % en Premier**
+  (209 apuestas) y **−20 % en LaLiga** — el EV positivo solo existe donde el
+  modelo supera al mercado, y así se muestra.
+- **M4**: riesgo compuesto (🔴 div>20 pp Y liq>30 % · 🟡 div>15 O liq>20) →
+  `risk_flags.json` consumido por el parlay. Snapshots cada 10 min.
+- **M5**: Liga MX ampliada a 8 años (**47.6 → 51.4 %, +3.8 pp**) y LaLiga a
+  5 temporadas (**47.9 → 49.9 %, +2.0 pp**); Premier revertida a v12 (el
+  candidato bajó −0.6 pp). Ratings de jugadores y FBref: bloqueados desde
+  esta red — módulos listos, features descartadas por no validables.
+- **M6**: no regresión verificada — walk-forward del Mundial **59.5 %/0.908
+  idéntico a v12** y EGY vs AUS bit a bit intacto.
+
 ## Novedades v12 — Plataforma multi-liga con mercados completos
 
 - **Mejora 1 (Mundial en vivo)**: flag `--live` que fuerza la re-descarga de la

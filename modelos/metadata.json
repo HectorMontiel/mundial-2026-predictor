@@ -41,7 +41,7 @@
     "cobertura": 0.0,
     "medias_train": null
   },
-  "entrenado_en": "2026-07-03T10:03:22",
+  "entrenado_en": "2026-07-12T11:46:55",
   "fuente_datos": "real_hybrid",
   "arquitectura": "VotingClassifier(XGBoost+RandomForest+LightGBM) + CalibratedClassifierCV(isotonic)",
   "n_partidos_train_real": 12608,

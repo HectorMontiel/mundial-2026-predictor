@@ -55,6 +55,11 @@ def main():
             #   schtasks /create /tn "MundialLive" /tr "...pipeline_mundial.py --live" /sc hourly /mo 2
             data_fetcher.build_unified_history(usar_fbref='--fbref' in sys.argv,
                                                live='--live' in sys.argv)
+            if '--live' in sys.argv:
+                # Cadena en vivo adicional (API-Football/FBref) para capturar
+                # partidos terminados hace minutos que la base aún no refleje
+                import live_worldcup
+                live_worldcup.actualizar_en_vivo()
         except Exception as e:
             logger.error(f"Capa de datos híbrida falló ({type(e).__name__}: {e}).")
             flujo_sintetico_de_respaldo()
