@@ -1,0 +1,11 @@
+{
+  "liga": "LaLiga",
+  "n_train": 876,
+  "n_validacion": 219,
+  "fecha_corte": "2025-12-15",
+  "precision_validacion": 0.4795,
+  "precision_linea_base_elo": 0.4612,
+  "precision_mercado_cuotas": 0.5251,
+  "log_loss_validacion": 1.0175,
+  "n_equipos": 26
+}

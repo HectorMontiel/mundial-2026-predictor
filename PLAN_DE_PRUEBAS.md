@@ -47,6 +47,27 @@ Verificación adicional en `backtesting.ipynb`: curvas de calibración por clase
 (guardadas en `modelos/curvas_calibracion.png`), matriz de confusión, precisión
 por trimestre y precisión por nivel de confianza (debe crecer monotónicamente).
 
+### Pruebas v12 (distribuciones, parlay, mercado, ligas de clubes)
+
+1. **Distribuciones**: 40 líneas over/under en 11 mercados, todas monótonas
+   (over 6.5 ≥ over 7.5 ≥ …); coherentes con la plantilla (over 2.5 idéntico);
+   endpoint `/distribuciones` operativo.
+2. **Parlay**: 8 selecciones con prob ≥55 % y cuota ≥1.10; máx. 2 por partido;
+   sin pares de mercados dependientes (verificado por grupos); cuota total
+   ≤1000; el EV negativo con cuotas justas + haircut se muestra sin maquillar.
+3. **Polymarket**: snapshot real capturado; degradación limpia a "no
+   disponible"; las señales no tocan el 1X2.
+4. **Ligas**: 3 modelos entrenados sobre 3,640 partidos reales; los tres
+   superan su línea base ELO; Premier supera al favorito del mercado con
+   cuotas de cierre (49.5 % vs 45.9 %); LaLiga queda por debajo del mercado
+   (52.5 %) y se reporta con transparencia. Plantillas de clubes: margen de
+   victoria suma 100 %, HT/2T suma 100 %, JSON serializable.
+5. **UI**: selector de competición; Liga MX renderiza 72 campos editables con
+   hándicap asiático, marcador exacto y margen de victoria; Champions en beta
+   con mensaje claro; Mundial intacto con expanders de Parlay y Mercado.
+6. **No regresión**: EGY vs AUS = 0.388/0.253/0.359 bit a bit; metadata y
+   walk-forward del Mundial sin cambios.
+
 ### Pruebas del modelo de tarjetas v3 y rematadores (mejora 2026-07-03)
 
 Origen: `INFORME_MEJORA_TARJETAS.md` — sobrestimación del +18 % corregida.

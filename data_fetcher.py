@@ -46,10 +46,14 @@ FECHA_INICIO_HISTORICO = '2010-01-01'
 # ---------------------------------------------------------------------------
 # 1. Base histórica real de Kaggle
 # ---------------------------------------------------------------------------
-def download_kaggle_results() -> pd.DataFrame:
-    """Descarga (o usa caché de kagglehub) y normaliza el histórico real."""
+def download_kaggle_results(live: bool = False) -> pd.DataFrame:
+    """
+    Descarga (o usa caché de kagglehub) y normaliza el histórico real.
+    Con live=True fuerza la re-descarga ignorando el caché: modo Mundial en
+    curso, para incorporar la última jornada en cuanto la fuente la publique.
+    """
     import kagglehub
-    path = kagglehub.dataset_download(KAGGLE_DATASET)
+    path = kagglehub.dataset_download(KAGGLE_DATASET, force_download=live)
     df = pd.read_csv(os.path.join(path, 'results.csv'))
     df = df.rename(columns={'home_score': 'home_goals', 'away_score': 'away_goals'})
     df['date'] = pd.to_datetime(df['date'], errors='coerce')
@@ -287,9 +291,9 @@ def compute_elo_series(df: pd.DataFrame) -> pd.Series:
 # ---------------------------------------------------------------------------
 # 4. Unificación
 # ---------------------------------------------------------------------------
-def build_unified_history(usar_fbref: bool = False) -> pd.DataFrame:
+def build_unified_history(usar_fbref: bool = False, live: bool = False) -> pd.DataFrame:
     """Pipeline completo de la capa de datos. Devuelve el histórico unificado."""
-    kaggle_df = download_kaggle_results()
+    kaggle_df = download_kaggle_results(live=live)
 
     # Estadísticas recientes reales: FBref (primaria, opcional por lentitud)
     # con respaldo automático en API-Football; sin ambas, queda el caché.

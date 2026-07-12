@@ -1,0 +1,11 @@
+{
+  "liga": "Liga MX",
+  "n_train": 1064,
+  "n_validacion": 267,
+  "fecha_corte": "2025-09-15",
+  "precision_validacion": 0.4757,
+  "precision_linea_base_elo": 0.4644,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0316,
+  "n_equipos": 18
+}

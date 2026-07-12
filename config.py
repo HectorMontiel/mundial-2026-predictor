@@ -67,6 +67,36 @@ STADIUMS = {
 # Dataset de Kaggle con resultados reales 1872-presente (actualización continua)
 KAGGLE_DATASET = 'martj42/international-football-results-from-1872-to-2017'
 
+# ---------------------------------------------------------------------------
+# Ligas de clubes (v12). Fuente: football-data.co.uk (CSV gratuitos con
+# resultados reales; los formatos 'main' incluyen remates/córners/tarjetas
+# REALES y cuotas de cierre; el formato 'new' solo goles + cuotas).
+# Champions no tiene fuente CSV gratuita -> beta, requiere RAPIDAPI_KEY.
+# ---------------------------------------------------------------------------
+FD_BASE = 'https://www.football-data.co.uk'
+LEAGUES = {
+    'liga_mx': {
+        'nombre': 'Liga MX', 'pais': 'México', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/MEX.csv'],
+        'disponible': True,
+    },
+    'premier': {
+        'nombre': 'Premier League', 'pais': 'Inglaterra', 'formato': 'main',
+        'urls': [f'{FD_BASE}/mmz4281/{s}/E0.csv' for s in ('2324', '2425', '2526')],
+        'disponible': True,
+    },
+    'laliga': {
+        'nombre': 'LaLiga', 'pais': 'España', 'formato': 'main',
+        'urls': [f'{FD_BASE}/mmz4281/{s}/SP1.csv' for s in ('2324', '2425', '2526')],
+        'disponible': True,
+    },
+    'champions': {
+        'nombre': 'UEFA Champions League', 'pais': 'Europa', 'formato': 'api',
+        'urls': [], 'disponible': False,
+        'nota': 'Sin fuente CSV gratuita: requiere RAPIDAPI_KEY (API-Football). Beta.',
+    },
+}
+
 POSITIONS = ['POR', 'DFC', 'DFC', 'DFC', 'LI', 'LD', 'MCD', 'MC', 'MC', 'ED', 'DC']
 
 HISTORICO_FILE = 'historico_partidos.csv'

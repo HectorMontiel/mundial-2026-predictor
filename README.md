@@ -6,6 +6,55 @@ Análisis Estadístico completa (9 secciones, ~85 campos: 1X2, doble oportunidad
 hándicaps asiáticos, over/under, BTTS, goleadores, córners y tarjetas),
 editable y validable contra el modelo.**
 
+## Novedades v12 — Plataforma multi-liga con mercados completos
+
+- **Mejora 1 (Mundial en vivo)**: flag `--live` que fuerza la re-descarga de la
+  fuente ignorando cachés (cron cada 2 h en días de partido); indicador
+  "🟢 Datos actualizados al {fecha}" en la UI cuando el estado incluye la fase
+  actual del torneo.
+- **Mejora 2 (distribuciones)**: probabilidades EXACTAS de superar cada línea
+  en todos los mercados cuantitativos — goles (totales y por equipo), córners
+  (6.5→10.5, totales y por equipo), tarjetas (2.5→5.5), remates (18.5→24.5) y
+  remates a puerta (4.5→7.5). Nueva sección 9b en la plantilla y endpoint
+  `GET /distribuciones?home=&away=`. 40 líneas verificadas monótonas.
+- **Mejora 3 (parlay inteligente)** ([parlay_builder.py](parlay_builder.py)):
+  mejor parlay de 8 selecciones del fixture con umbral de probabilidad ≥55 %,
+  cuota ≥1.10, máx. 2 por partido, exclusión de mercados dependientes,
+  haircut de correlación 0.95 por pareja del mismo partido y cuota total ≤1000.
+  Con `ODDS_API_KEY` usa cuotas reales y ordena por EV; sin ellas usa cuotas
+  JUSTAS del modelo (EV≈0) y se etiqueta como informativo.
+- **Mejora 4 (inteligencia de mercado, EXPERIMENTAL)**
+  ([market_intelligence.py](market_intelligence.py)): snapshots de Polymarket
+  (API pública Gamma) cada 15 min, con alertas de movimiento de probabilidad,
+  cambios de liquidez >20 %, divergencia modelo-mercado >15 pts e indicador de
+  riesgo de manipulación (🟢/🟡/🔴). Panel en la UI con aviso "no es
+  asesoramiento financiero". Las señales NUNCA entran al 1X2 (evita fuga).
+  *Alcance honesto:* el análisis de wallets on-chain requiere nodo/indexador
+  propio; se aproxima el flujo con volumen/liquidez de la propia API.
+- **Mejora 5 (ligas de clubes)** ([league_engine.py](league_engine.py)):
+  **Liga MX, Premier League y LaLiga** con datos 100 % reales de
+  football-data.co.uk (Premier/LaLiga incluyen remates, córners, tarjetas y
+  cuotas de cierre reales) y modelos independientes por liga (misma
+  arquitectura validada: ensemble calibrado + topología + regresores Poisson).
+  Plantilla de clubes con 11 secciones/72 campos: 1X2 con cuota americana
+  justa, doble oportunidad, over/under 0.5-5.5, BTTS, primer/último gol,
+  par/impar, hándicap asiático completo, hándicap 1X2, marcador exacto (top 8),
+  margen de victoria, mitades HT/2T, totales por equipo, multigoles, córners y
+  tarjetas. Selector de competición en la barra lateral. **Champions en beta**
+  (sin fuente CSV gratuita; requiere RAPIDAPI_KEY).
+
+  **Backtesting por liga (temporal, datos reales):**
+
+  | Liga | Partidos | Precisión | Línea base ELO | Favorito del mercado |
+  |---|---|---|---|---|
+  | Liga MX | 1,360 | **47.6 %** | 46.4 % | (sin cuotas en fuente) |
+  | Premier League | 1,140 | **49.5 %** | 43.2 % | 45.9 % ✅ supera al mercado |
+  | LaLiga | 1,140 | **47.9 %** | 46.1 % | 52.5 % (modelo por debajo — se reporta) |
+
+- **No regresión verificada**: el 1X2 del Mundial es bit a bit idéntico
+  (EGY vs AUS 0.388/0.253/0.359) y el benchmark walk-forward (59.5 %/0.908)
+  sigue vigente — todo lo nuevo es aditivo.
+
 ## Novedades v11 — 49 selecciones, árbitros actualizables, cuotas y frescura
 
 - **Cabo Verde (CPV)** integrado en todo el flujo: histórico real de Kaggle,

@@ -92,6 +92,139 @@ def plantilla_cacheada(_motor_id: int, home: str, away: str, arbitro: str = None
 
 MOTOR = cargar_motor()
 
+
+# ===========================================================================
+# MODO LIGAS DE CLUBES (v12): vista independiente, sin tocar el flujo Mundial
+# ===========================================================================
+@st.cache_resource(show_spinner="⚽ Cargando el motor de la liga...")
+def cargar_motor_liga(clave: str):
+    from league_engine import ClubEngine
+    return ClubEngine(clave)
+
+
+@st.cache_data(show_spinner="📋 Calculando la plantilla del partido...")
+def plantilla_club_cacheada(clave: str, home: str, away: str) -> dict:
+    return cargar_motor_liga(clave).plantilla_club(home, away)
+
+
+def render_liga_club(clave: str, nombre_liga: str):
+    from config import LEAGUES
+    if not LEAGUES[clave].get('disponible'):
+        st.info(f"🔧 **{nombre_liga} (beta):** {LEAGUES[clave].get('nota', 'no disponible')}")
+        st.stop()
+    motor = cargar_motor_liga(clave)
+    if not motor.listo:
+        st.error(f"❌ Motor de {nombre_liga} no inicializado: `{motor.error}`\n\n"
+                 f"Ejecuta `python league_engine.py --build {clave}`.")
+        st.stop()
+
+    st.title(f"⚽ {nombre_liga} — Predictor de clubes")
+    st.caption(
+        f"Datos reales (football-data.co.uk) al **{motor.fecha_estado}** · "
+        f"Precisión backtesting 1X2: **{motor.metadata['precision_validacion']*100:.1f} %** "
+        f"(línea base ELO {motor.metadata['precision_linea_base_elo']*100:.1f} %"
+        + (f", favorito del mercado {motor.metadata['precision_mercado_cuotas']*100:.1f} %"
+           if motor.metadata.get('precision_mercado_cuotas') else '') + ")"
+    )
+    c1, c2 = st.columns(2)
+    with c1:
+        home = st.selectbox("🏠 Local", motor.equipos, key=f"club_home_{clave}")
+    with c2:
+        visitantes = [e for e in motor.equipos if e != home]
+        away = st.selectbox("✈️ Visitante", visitantes, key=f"club_away_{clave}")
+
+    pl = plantilla_club_cacheada(clave, home, away)
+    if 'error' in pl:
+        st.error(f"❌ {pl['error']}")
+        st.stop()
+    pred = pl['prediccion_base']
+    p = pred['prediction']
+
+    st.markdown(f"### 🏆 Ganador más probable: **{p['winner']}** "
+                f"({p['confidence']*100:.0f} % de confianza)")
+    st.markdown(f"### ⚽ Marcador más probable: **{p['most_likely_score']}** "
+                f"({p['score_probability']*100:.0f} %) · "
+                f"{p['total_goals_expected']:.1f} goles esperados")
+    st.markdown(f"### 📊 {home} **{p['probabilities']['home']*100:.0f} %** · "
+                f"Empate **{p['probabilities']['draw']*100:.0f} %** · "
+                f"{away} **{p['probabilities']['away']*100:.0f} %**")
+
+    col_g1, col_g2 = st.columns(2)
+    with col_g1:
+        fig_b = go.Figure(go.Bar(
+            x=[f"Gana {home}", "Empate", f"Gana {away}"],
+            y=[p['probabilities']['home'] * 100, p['probabilities']['draw'] * 100,
+               p['probabilities']['away'] * 100],
+            marker_color=['#2ecc71', '#95a5a6', '#3498db'],
+            text=[f"{p['probabilities'][k]*100:.0f} %" for k in ('home', 'draw', 'away')],
+            textposition='outside'))
+        fig_b.update_layout(yaxis_range=[0, 100], height=320, margin=dict(l=0, r=0, t=10, b=0))
+        st.plotly_chart(fig_b, use_container_width=True)
+    with col_g2:
+        matriz = np.array(pred['score_matrix'])
+        fig_h = go.Figure(go.Heatmap(
+            z=matriz * 100, x=[str(i) for i in range(matriz.shape[1])],
+            y=[str(i) for i in range(matriz.shape[0])], colorscale='YlOrRd',
+            colorbar=dict(title='%')))
+        fig_h.update_layout(xaxis_title=f"Goles {away}", yaxis_title=f"Goles {home}",
+                            height=320, margin=dict(l=0, r=0, t=10, b=0))
+        st.plotly_chart(fig_h, use_container_width=True)
+
+    # ---- Plantilla extendida de clubes (editable, mismo formato) ----------
+    st.markdown(f"## 📋 Plantilla de análisis — {pl['partido']}")
+    st.caption("Todos los mercados con probabilidades del modelo; las cuotas entre "
+               "paréntesis son cuotas JUSTAS en formato americano (sin margen).")
+    prefijo = f"club_{clave}_{home}_{away}_".replace(' ', '-')
+    with st.form(key=f"form_{prefijo}"):
+        for seccion in pl['secciones']:
+            st.markdown(f"#### {seccion['titulo']}")
+            editables = [c for c in seccion['campos'] if c['tipo'] != 'texto']
+            columnas = st.columns(3)
+            for i, c in enumerate(editables):
+                with columnas[i % 3]:
+                    if c['tipo'] == 'pct':
+                        st.number_input(f"{c['etiqueta']} (%)", 0.0, 100.0,
+                                        float(c['valor']), 0.5, key=prefijo + c['id'])
+                    else:
+                        st.number_input(c['etiqueta'], 0.0, 60.0,
+                                        float(c['valor']), 0.1, key=prefijo + c['id'])
+        validar = st.form_submit_button("✅ Validar mis estimaciones", type="primary")
+    if validar:
+        hallazgos = []
+        for s in pl['secciones']:
+            for c in s['campos']:
+                if c['tipo'] == 'texto':
+                    continue
+                vu = float(st.session_state.get(prefijo + c['id'], c['valor']))
+                if abs(vu - float(c['valor'])) >= 0.05:
+                    hallazgos.append({'Campo': c['etiqueta'], 'Tu valor': round(vu, 1),
+                                      'Modelo': round(float(c['valor']), 1),
+                                      'Diferencia': round(vu - float(c['valor']), 1)})
+        if hallazgos:
+            st.dataframe(pd.DataFrame(hallazgos), use_container_width=True, hide_index=True)
+        else:
+            st.success("Tus valores coinciden con el modelo.")
+
+    for obs in pl['observaciones']:
+        st.markdown(f"- {obs}")
+    from prediction_api import plantilla_a_markdown
+    st.download_button("⬇️ Descargar plantilla (Markdown)",
+                       data=plantilla_a_markdown(pl).encode('utf-8'),
+                       file_name=f"plantilla_{clave}_{home}_vs_{away}.md".replace(' ', '_'),
+                       mime="text/markdown")
+
+
+COMPETENCIAS = {'🌎 Mundial 2026': 'mundial', '🇲🇽 Liga MX': 'liga_mx',
+                '🏴 Premier League': 'premier', '🇪🇸 LaLiga': 'laliga',
+                '🇪🇺 Champions League (beta)': 'champions'}
+competencia_sel = st.sidebar.radio("🏆 Competición", list(COMPETENCIAS.keys()), index=0)
+_clave_comp = COMPETENCIAS[competencia_sel]
+if _clave_comp != 'mundial':
+    nombres_ligas = {'liga_mx': 'Liga MX', 'premier': 'Premier League',
+                     'laliga': 'LaLiga', 'champions': 'UEFA Champions League'}
+    render_liga_club(_clave_comp, nombres_ligas[_clave_comp])
+    st.stop()
+
 if not MOTOR.listo:
     st.error(
         f"❌ **El motor de predicción no pudo inicializarse.**\n\n"
@@ -126,7 +259,7 @@ with col_banner:
             f"{MOTOR.fuente_detalle}. Las métricas avanzadas (remates, posesión) se "
             f"estiman con un modelo calibrado con datos reales de StatsBomb."
         )
-    # Aviso de frescura: estado calculado hace más de 24 horas
+    # Indicador de frescura: verde si incluye la fase actual del torneo
     try:
         antiguedad = (pd.Timestamp.today().normalize() -
                       pd.Timestamp(MOTOR.generado)).days
@@ -135,6 +268,9 @@ with col_banner:
                 f"⏰ **Datos del {MOTOR.generado}. Pueden no reflejar los partidos "
                 f"de ayer.** Usa «Actualizar datos ahora» o espera la tarea diaria."
             )
+        else:
+            st.markdown(f"🟢 **Datos actualizados al {MOTOR.fecha_estado}** — incluyen "
+                        f"los partidos disputados de la fase actual del torneo.")
     except Exception:
         pass
 
@@ -411,6 +547,70 @@ with tab_rapida:
                              use_container_width=True, hide_index=True)
             else:
                 st.info(f"{emoji} {nombre_eq}: sin goleadores registrados en los últimos 24 meses.")
+
+    # ---- 🎯 Parlay recomendado (Mejora 3, v12) --------------------------------
+    st.divider()
+    with st.expander("🎯 Parlay Recomendado del fixture (informativo)"):
+        st.caption(
+            "Selecciona los mercados de mayor probabilidad del fixture con control "
+            "de correlación (máx. 2 por partido, nunca mercados dependientes). "
+            "⚠️ Sin cuotas de casas conectadas, las cuotas son las JUSTAS del modelo "
+            "(EV≈0): úsalo para comparar contra tu casa de apuestas. No es "
+            "asesoramiento financiero."
+        )
+        if st.button("Generar parlay de 8 selecciones", key="btn_parlay"):
+            from parlay_builder import construir_parlay
+            with st.spinner("🧮 Evaluando todos los mercados del fixture..."):
+                parlay = construir_parlay(MOTOR, n_legs=8)
+            if 'error' in parlay:
+                st.warning(parlay['error'])
+            else:
+                st.dataframe(pd.DataFrame([{
+                    'Partido': s['partido'], 'Apuesta': s['apuesta'],
+                    'Prob.': f"{s['prob']*100:.1f} %", 'Cuota': s['cuota'],
+                    'Fuente': s['cuota_fuente'], 'EV': s['ev'],
+                } for s in parlay['selecciones']]), use_container_width=True, hide_index=True)
+                c1, c2, c3 = st.columns(3)
+                c1.metric("Cuota combinada", f"{parlay['cuota_combinada']:.2f}")
+                c2.metric("Prob. conjunta", f"{parlay['prob_conjunta']*100:.1f} %")
+                c3.metric("EV del parlay", f"{parlay['ev_parlay']:+.3f}")
+                st.caption(parlay['nota'])
+
+    # ---- 📈 Inteligencia de mercado (Mejora 4, v12 — experimental) ------------
+    with st.expander("📈 Inteligencia de Mercado — Polymarket (experimental)"):
+        st.caption(
+            "Probabilidades del mercado de predicción Polymarket vs el modelo, "
+            "con alertas de movimientos de liquidez y divergencias. "
+            "**Experimental — no es asesoramiento financiero.** Las señales del "
+            "mercado NO alimentan al modelo 1X2 (evita fuga de información)."
+        )
+        if st.button("🔄 Actualizar Polymarket ahora", key="btn_market"):
+            import market_intelligence
+            with st.spinner("Consultando Polymarket..."):
+                market_intelligence.actualizar(MOTOR)
+        import os as _os, json as _json
+        if _os.path.exists('market_data.json'):
+            try:
+                md_datos = _json.load(open('market_data.json', encoding='utf-8'))
+            except Exception:
+                md_datos = {'disponible': False}
+            if md_datos.get('disponible') and md_datos.get('senales'):
+                st.markdown(f"Último snapshot: **{md_datos.get('actualizado', '?')}** · "
+                            f"{len(md_datos['senales'])} mercados monitorizados")
+                for s in md_datos['senales'][:8]:
+                    icono = {'bajo': '🟢', 'medio': '🟡', 'alto': '🔴'}[s['riesgo_manipulacion']]
+                    precios = ' / '.join(f"{sal}: {pr*100:.0f} %"
+                                         for sal, pr in zip(s['salidas'], s['precios']))
+                    st.markdown(f"{icono} **{s['pregunta']}** — {precios} · "
+                                f"volumen ${s['volumen']:,.0f}")
+                    for a in s['alertas']:
+                        st.markdown(f"   ⚠️ {a}")
+            else:
+                st.info("Polymarket no disponible en el último intento "
+                        f"({md_datos.get('error', 'sin mercados del Mundial abiertos')}).")
+        else:
+            st.info("Aún sin datos: pulsa «Actualizar Polymarket ahora» o programa "
+                    "`market_intelligence.py` cada 15 minutos.")
 
     # ---- Consultas en texto libre --------------------------------------------
     st.divider()

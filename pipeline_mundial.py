@@ -49,7 +49,12 @@ def main():
     else:
         try:
             import data_fetcher
-            data_fetcher.build_unified_history(usar_fbref='--fbref' in sys.argv)
+            # --live: modo Mundial en curso — fuerza re-descarga de la fuente
+            # ignorando cachés, para incorporar la jornada recién terminada.
+            # Programar cada 2 h en días de partido:
+            #   schtasks /create /tn "MundialLive" /tr "...pipeline_mundial.py --live" /sc hourly /mo 2
+            data_fetcher.build_unified_history(usar_fbref='--fbref' in sys.argv,
+                                               live='--live' in sys.argv)
         except Exception as e:
             logger.error(f"Capa de datos híbrida falló ({type(e).__name__}: {e}).")
             flujo_sintetico_de_respaldo()

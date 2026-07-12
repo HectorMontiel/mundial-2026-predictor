@@ -67,6 +67,21 @@ def _sin_acentos(texto: str) -> str:
                    if unicodedata.category(c) != 'Mn').lower()
 
 
+def prob_over(lam: float, linea: float) -> float:
+    """P(Poisson(λ) > línea) para líneas x.5 (cola superior exacta)."""
+    from scipy.stats import poisson as _p
+    return float(1 - _p.cdf(int(np.floor(linea)), max(lam, 1e-9)))
+
+
+def cuota_americana(prob: float) -> str:
+    """Cuota justa (1/p) en formato americano: -116, +266, etc."""
+    p = float(np.clip(prob, 0.005, 0.995))
+    decimal = 1.0 / p
+    if decimal < 2.0:
+        return f"-{round(100 / (decimal - 1)):.0f}".replace('--', '-')
+    return f"+{round((decimal - 1) * 100):.0f}"
+
+
 class PredictionEngine:
     """Carga artefactos una sola vez y responde predicciones {home, away}."""
 
@@ -661,6 +676,67 @@ class PredictionEngine:
 
 
     # ------------------------------------------------------------------ #
+    # DISTRIBUCIONES: probabilidad exacta de cada línea over/under          #
+    # (Mejora 2 de la v12 — todos los mercados cuantitativos)               #
+    # ------------------------------------------------------------------ #
+    def distribuciones(self, home: str, away: str, arbitro: Optional[str] = None,
+                       fase: str = 'grupos', estadio: Optional[str] = None) -> Dict:
+        """
+        Probabilidades de superar las líneas comunes de cada mercado.
+        Goles: derivados de la matriz Monte Carlo calibrada (marginales).
+        Córners/tarjetas/remates: colas Poisson con las λ del partido
+        (mismas fuentes que la plantilla: StatsBomb + modelo arbitral v3).
+        """
+        pred = self.predecir(home, away, arbitro=arbitro, fase=fase, estadio=estadio)
+        if 'error' in pred:
+            return pred
+        M = np.array(pred['score_matrix'])
+        idx = np.arange(M.shape[0])
+        total_idx = idx[:, None] + idx[None, :]
+        lam_h = pred['prediction']['expected_goals']['home']
+        lam_a = pred['prediction']['expected_goals']['away']
+        spx = float(self.calibracion.get('shots_on_por_xg', 3.1))
+        tpo = float(self.calibracion.get('shots_total_por_on', 2.6))
+        sot_tot = (lam_h + lam_a) * spx
+        shots_tot = sot_tot * tpo
+        t = pred['cards']
+        cards_h = t['amarillas_local'] + t['rojas_local']
+        cards_a = t['amarillas_visitante'] + t['rojas_visitante']
+        extra_alt = 0.2 if pred.get('altitude', {}).get('altitud_sede', 0) > 1500 else 0.0
+        ck_h = 2.0 + 0.25 * lam_h * spx * tpo + extra_alt / 2
+        ck_a = 2.0 + 0.25 * lam_a * spx * tpo + extra_alt / 2
+        pct = lambda x: round(float(x) * 100, 1)
+
+        def marginal_over(eje: int, linea: float) -> float:
+            g = M.sum(axis=1 - eje)          # marginal de goles del equipo
+            return float(g[int(np.floor(linea)) + 1:].sum())
+
+        mercados = {
+            'goles_totales': {f'over_{l}': pct(M[total_idx > l].sum())
+                              for l in (0.5, 1.5, 2.5, 3.5, 4.5)},
+            'goles_local': {f'over_{l}': pct(marginal_over(0, l)) for l in (0.5, 1.5, 2.5)},
+            'goles_visitante': {f'over_{l}': pct(marginal_over(1, l)) for l in (0.5, 1.5, 2.5)},
+            'corners_totales': {f'over_{l}': pct(prob_over(ck_h + ck_a, l))
+                                for l in (6.5, 7.5, 8.5, 9.5, 10.5)},
+            'corners_local': {f'over_{l}': pct(prob_over(ck_h, l)) for l in (2.5, 3.5, 4.5, 5.5)},
+            'corners_visitante': {f'over_{l}': pct(prob_over(ck_a, l)) for l in (2.5, 3.5, 4.5, 5.5)},
+            'tarjetas_totales': {f'over_{l}': pct(prob_over(cards_h + cards_a, l))
+                                 for l in (2.5, 3.5, 4.5, 5.5)},
+            'tarjetas_local': {f'over_{l}': pct(prob_over(cards_h, l)) for l in (1.5, 2.5)},
+            'tarjetas_visitante': {f'over_{l}': pct(prob_over(cards_a, l)) for l in (1.5, 2.5)},
+            'remates_totales': {f'over_{l}': pct(prob_over(shots_tot, l))
+                                for l in (18.5, 20.5, 22.5, 24.5)},
+            'remates_puerta': {f'over_{l}': pct(prob_over(sot_tot, l))
+                               for l in (4.5, 5.5, 6.5, 7.5)},
+        }
+        return {'match': pred['match'], 'fase': fase, 'arbitro': pred['referee']['nombre'],
+                'medias': {'goles': round(lam_h + lam_a, 2),
+                           'corners': round(ck_h + ck_a, 1),
+                           'tarjetas': round(cards_h + cards_a, 2),
+                           'remates': round(shots_tot, 1), 'remates_puerta': round(sot_tot, 1)},
+                'mercados': mercados}
+
+    # ------------------------------------------------------------------ #
     # PLANTILLA GENERAL DE ANÁLISIS ESTADÍSTICO (9 secciones)              #
     # ------------------------------------------------------------------ #
     @staticmethod
@@ -888,6 +964,22 @@ class PredictionEngine:
             campo('corners_1h_par_prob', 'Córners 1ª mitad PAR', pct(self._prob_par(ck_total * 0.44))),
         ]})
 
+        # --- 9b. Líneas Over/Under con probabilidad exacta (Mejora 2, v12) ------ #
+        secciones.append({'titulo': '9b. Líneas Over/Under (probabilidad exacta)', 'campos': [
+            campo('over15_goles', 'Más de 1.5 goles', pct(M[total > 1.5].sum())),
+            campo('over35_goles', 'Más de 3.5 goles', pct(M[total > 3.5].sum())),
+            campo('over65_corners', 'Más de 6.5 córners', pct(prob_over(ck_total, 6.5))),
+            campo('over75_corners', 'Más de 7.5 córners', pct(prob_over(ck_total, 7.5))),
+            campo('over85_corners', 'Más de 8.5 córners', pct(prob_over(ck_total, 8.5))),
+            campo('over95_corners', 'Más de 9.5 córners', pct(prob_over(ck_total, 9.5))),
+            campo('over35_tarjetas', 'Más de 3.5 tarjetas', pct(prob_over(total_cards, 3.5))),
+            campo('over55_tarjetas', 'Más de 5.5 tarjetas', pct(prob_over(total_cards, 5.5))),
+            campo('over205_remates', 'Más de 20.5 remates totales', pct(prob_over(shots_h + shots_a, 20.5))),
+            campo('over225_remates', 'Más de 22.5 remates totales', pct(prob_over(shots_h + shots_a, 22.5))),
+            campo('over55_puerta', 'Más de 5.5 remates a puerta', pct(prob_over(sot_h + sot_a, 5.5))),
+            campo('over65_puerta', 'Más de 6.5 remates a puerta', pct(prob_over(sot_h + sot_a, 6.5))),
+        ]})
+
         # ---- Observaciones automáticas (árbitro, carácter, altitud, fatiga) ----
         arb = pred['referee']
         car = pred['character']
@@ -1006,6 +1098,15 @@ try:
     @api.get("/estadios")
     def lista_estadios():
         return {'estadios': [{'clave': k, **v} for k, v in altitud.ESTADIOS_MUNDIAL.items()]}
+
+    @api.get("/distribuciones")
+    def distribuciones(home: str, away: str, arbitro: str = None,
+                       fase: str = 'grupos', estadio: str = None):
+        resultado = _get_engine().distribuciones(home.upper(), away.upper(),
+                                                 arbitro=arbitro, fase=fase, estadio=estadio)
+        if 'error' in resultado:
+            raise HTTPException(status_code=400, detail=resultado['error'])
+        return resultado
 
     @api.get("/arbitros")
     def lista_arbitros():
