@@ -104,6 +104,12 @@ def descargar_liga(clave: str) -> pd.DataFrame:
     # ELO por liga + relleno determinista de lo que falte (xG siempre; en
     # formato 'new' también remates/córners/tarjetas) — mismo método auditado
     df['elo_diff'] = _elo_diff_liga(df)
+
+    # v14/M8: el xG real de Understat se evaluó como feature y EMPEORÓ el
+    # log-loss en LaLiga (1.014→1.108) y Premier (también la precisión):
+    # el relleno sintético condicionado a goles reales lleva más señal.
+    # understat_scraper.inyectar_xg queda disponible pero DESACTIVADO
+    # (ver VALIDACION_v14.md).
     cal = statsbomb_calibration.calibrar()
     gen = CorrelatedSyntheticGenerator()
     df = gen.generate_advanced_metrics(df, cal)
@@ -131,18 +137,43 @@ def _elo_diff_liga(df: pd.DataFrame) -> pd.Series:
 # ---------------------------------------------------------------------------
 # Entrenamiento por liga (mismo pipeline validado del Mundial)
 # ---------------------------------------------------------------------------
-def entrenar_liga(clave: str) -> Dict:
+def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
+    """Entrena el modelo de una liga.
+
+    con_ratings (v14/M9, experimental): añade VAL_LOG_RATIO (log del cociente
+    de valores de plantilla Transfermarkt) como feature y NO guarda artefactos
+    — es solo para el A/B de backtesting. ADVERTENCIA: los valores son los
+    actuales, así que el backtest con ratings tiene sesgo de anticipación.
+    """
     from train_tda_model import construir_ensemble, calcular_features_topologicas
     from sklearn.ensemble import HistGradientBoostingRegressor
     from sklearn.metrics import accuracy_score, log_loss
 
     df = descargar_liga(clave)
-    df.to_csv(f'historico_{clave}.csv', index=False)
+    if not con_ratings:
+        df.to_csv(f'historico_{clave}.csv', index=False)
 
     ds = fe.construir_dataset_supervisado(df)
     X_df, y, fechas = ds['X_df'], ds['y'], ds['fechas']
     if len(X_df) < 300:
         raise RuntimeError(f"{clave}: solo {len(X_df)} partidos utilizables.")
+
+    if con_ratings:
+        import transfermarkt_scraper as tm
+        vals = tm.mapear_a_football_data(
+            tm.valores_liga(clave),
+            sorted(set(df['home_team']) | set(df['away_team'])))
+        if not vals:
+            raise RuntimeError(f"{clave}: Transfermarkt sin datos; A/B cancelado.")
+        mediana = float(np.median(list(vals.values())))
+        X_df = X_df.copy()
+        X_df['VAL_LOG_RATIO'] = [
+            np.log(max(vals.get(m[0], mediana), 1e-6) /
+                   max(vals.get(m[1], mediana), 1e-6))
+            for m in ds['meta']]
+        logger.info(f"[{clave}] A/B ratings: {len(vals)} equipos con valor de "
+                    f"plantilla (mediana €{mediana:.0f}M).")
+
     topo = calcular_features_topologicas(ds)
 
     corte = fechas.quantile(0.80)
@@ -168,6 +199,18 @@ def entrenar_liga(clave: str) -> Dict:
         pick = disponibles.values.argmin(axis=1)   # cuota mínima = favorito
         reales = pd.Series(y[m_va], index=ids_val).loc[disponibles.index].values
         acc_mercado = float((pick == reales).mean())
+
+    if con_ratings:   # A/B experimental: solo métricas, sin artefactos
+        resultado = {
+            'liga': LEAGUES[clave]['nombre'], 'experimento': 'ratings_transfermarkt',
+            'precision_validacion': round(float(acc), 4),
+            'precision_linea_base_elo': round(float(base), 4),
+            'precision_mercado_cuotas': round(acc_mercado, 4) if acc_mercado else None,
+            'log_loss_validacion': round(float(ll), 4),
+        }
+        logger.info(f"[{clave}] A/B RATINGS: acc={acc:.3f} logloss={ll:.3f} "
+                    f"(sin guardar artefactos).")
+        return resultado
 
     reg_l = HistGradientBoostingRegressor(loss='poisson', max_iter=300,
                                           learning_rate=0.06, max_depth=6, random_state=42)
@@ -478,7 +521,9 @@ class ClubEngine:
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-    objetivo = sys.argv[2] if len(sys.argv) > 2 else None
+    con_ratings = '--ratings' in sys.argv
+    argumentos = [a for a in sys.argv[1:] if not a.startswith('--')]
+    objetivo = argumentos[0] if argumentos else None
     if '--build' in sys.argv:
         for clave, cfg in LEAGUES.items():
             if not cfg.get('disponible'):
@@ -487,6 +532,6 @@ if __name__ == '__main__':
             if objetivo and clave != objetivo:
                 continue
             try:
-                entrenar_liga(clave)
+                entrenar_liga(clave, con_ratings=con_ratings)
             except Exception as e:
                 logger.error(f"[{clave}] falló: {type(e).__name__}: {e}")

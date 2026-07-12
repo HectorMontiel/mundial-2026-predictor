@@ -89,23 +89,84 @@ def descargar_cuotas_historicas(dias_atras: int = 365) -> pd.DataFrame:
     return pd.DataFrame(filas)
 
 
+# v14/M10: cuotas GRATUITAS de próximos partidos de clubes desde
+# football-data.co.uk/fixtures.csv (mismo proveedor confiable del histórico).
+# Trae B365 de 1X2 + over/under 2.5 sin clave ni scraping.
+DIV_A_LIGA = {'E0': 'premier', 'SP1': 'laliga', 'I1': 'serie_a',
+              'D1': 'bundesliga', 'F1': 'ligue_1', 'N1': 'eredivisie',
+              'P1': 'primeira'}
+FIXTURES_URL = 'https://www.football-data.co.uk/fixtures.csv'
+
+
+def descargar_cuotas_fixtures() -> pd.DataFrame:
+    """Cuotas B365 reales de los PRÓXIMOS partidos de las ligas de clubes.
+
+    100 % gratuito y sin clave. El MATCH_ID usa los mismos nombres de equipo
+    de football-data que league_engine, así que el parlay los cruza directo.
+    """
+    try:
+        import io
+        r = requests.get(FIXTURES_URL, headers={'User-Agent': 'Mozilla/5.0'}, timeout=30)
+        r.raise_for_status()
+        # utf-8-sig: fixtures.csv llega con BOM que rompería la columna 'Div'
+        df = pd.read_csv(io.BytesIO(r.content), encoding='utf-8-sig',
+                         on_bad_lines='skip')
+        df = df[df['Div'].isin(DIV_A_LIGA)]
+        df = df.dropna(subset=['Date', 'HomeTeam', 'AwayTeam', 'B365H', 'B365D', 'B365A'])
+        fechas = pd.to_datetime(df['Date'], dayfirst=True, errors='coerce')
+        filas = pd.DataFrame({
+            'MATCH_ID': [f"{f.strftime('%Y%m%d')}_{str(h).replace(' ', '-')}_{str(a).replace(' ', '-')}"
+                         for f, h, a in zip(fechas, df['HomeTeam'], df['AwayTeam'])],
+            'odd_home': pd.to_numeric(df['B365H'], errors='coerce'),
+            'odd_draw': pd.to_numeric(df['B365D'], errors='coerce'),
+            'odd_away': pd.to_numeric(df['B365A'], errors='coerce'),
+            'odd_over25': pd.to_numeric(df.get('B365>2.5'), errors='coerce'),
+            'odd_under25': pd.to_numeric(df.get('B365<2.5'), errors='coerce'),
+            'liga': df['Div'].map(DIV_A_LIGA),
+        }).dropna(subset=['odd_home', 'odd_draw', 'odd_away'])
+        # solo eventos futuros o de hoy: fixtures.csv puede arrastrar filas viejas
+        hoy = pd.Timestamp.today().normalize()
+        filas = filas[fechas.loc[filas.index] >= hoy]
+        logger.info(f"fixtures.csv: {len(filas)} próximos partidos de clubes con cuotas B365.")
+        return filas
+    except Exception as e:
+        logger.warning(f"fixtures.csv no disponible ({e}): sin cuotas de clubes.")
+        return pd.DataFrame()
+
+
 def actualizar_odds():
     """Acumula las cuotas nuevas en odds_historicas.csv (dedupe por MATCH_ID)."""
-    nuevas = descargar_cuotas_historicas()
+    nuevas = descargar_cuotas_historicas()          # Mundial (The Odds API, con clave)
+    fixtures = descargar_cuotas_fixtures()          # clubes (gratuito, sin clave)
+    # Mundial sin clave (v14/M10): Betexplorer en días de partido
     if nuevas.empty:
+        try:
+            from betexplorer_scraper import cuotas_mundial_hoy
+            nuevas = cuotas_mundial_hoy()
+        except Exception as e:
+            logger.warning(f"Betexplorer no disponible: {e}")
+
+    if not nuevas.empty:
+        if os.path.exists(ODDS_FILE):
+            previas = pd.read_csv(ODDS_FILE)
+            completas = pd.concat([previas, nuevas], ignore_index=True)
+            completas = completas.drop_duplicates(subset='MATCH_ID', keep='first')
+        else:
+            completas = nuevas
+        completas.to_csv(ODDS_FILE, index=False)
+        logger.info(f"{ODDS_FILE}: {len(completas)} partidos con cuotas de apertura acumuladas.")
+
+    # Snapshot ACTUAL para el parlay: Mundial (si hay clave) + clubes (siempre)
+    snapshot = pd.concat([nuevas, fixtures], ignore_index=True) \
+        if not (nuevas.empty and fixtures.empty) else pd.DataFrame()
+    if snapshot.empty:
+        logger.info("Sin cuotas vigentes que registrar en odds_actuales.json.")
         return
-    if os.path.exists(ODDS_FILE):
-        previas = pd.read_csv(ODDS_FILE)
-        completas = pd.concat([previas, nuevas], ignore_index=True)
-        completas = completas.drop_duplicates(subset='MATCH_ID', keep='first')
-    else:
-        completas = nuevas
-    completas.to_csv(ODDS_FILE, index=False)
-    logger.info(f"{ODDS_FILE}: {len(completas)} partidos con cuotas de apertura acumuladas.")
-    # Snapshot ACTUAL para el parlay (v13): cuotas vigentes de eventos próximos
+    snapshot = snapshot.drop_duplicates(subset='MATCH_ID', keep='first')
     with open('odds_actuales.json', 'w', encoding='utf-8') as f:
         json.dump({'actualizado': datetime.date.today().isoformat(),
-                   'cuotas': nuevas.set_index('MATCH_ID').to_dict('index')}, f)
+                   'cuotas': snapshot.set_index('MATCH_ID').to_dict('index')}, f)
+    logger.info(f"odds_actuales.json: {len(snapshot)} eventos con cuotas vigentes.")
 
 
 def cargar_features_cuotas(match_ids) -> pd.DataFrame:

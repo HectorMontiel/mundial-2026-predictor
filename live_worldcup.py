@@ -6,8 +6,11 @@ Actualización EN VIVO del Mundial 2026 (M1, v13).
 Cadena de fuentes (orden de preferencia):
   1. API-Football (RAPIDAPI_KEY): /fixtures league=1 season=2026 — goles,
      tarjetas, posesión, remates de los partidos ya finalizados.
-  2. FBref: Scores & Fixtures del Mundial (cloudscraper + rate-limit).
-  3. Kaggle con force_download (la fuente base se actualiza a diario y es
+  2. ESPN (v14/M7): JSON público site.api.espn.com, sin clave ni scraping —
+     resultados finales del Mundial el mismo día. Sustituye a Flashscore
+     (HTML renderizado por JS, frágil) como fuente gratuita primaria.
+  3. FBref: Scores & Fixtures del Mundial (cloudscraper + rate-limit).
+  4. Kaggle con force_download (la fuente base se actualiza a diario y es
      la vía que SIEMPRE funciona sin claves).
 
 Solo añade partidos NUEVOS al histórico (dedupe por MATCH_ID) y dispara el
@@ -30,6 +33,16 @@ logger = logging.getLogger(__name__)
 
 WC_LEAGUE_ID = 1        # API-Football: FIFA World Cup
 WC_SEASON = 2026
+
+# ESPN displayName -> nombre que usa la fuente base Kaggle (para equipos que
+# NO están en TEAMS y por tanto no tienen código FIFA en NAME_EN_TO_FIFA)
+ESPN_A_KAGGLE = {
+    'Türkiye': 'Turkey',
+    'Bosnia-Herzegovina': 'Bosnia and Herzegovina',
+    'Czechia': 'Czech Republic',
+    'Congo-DR': 'DR Congo',
+    'DR Congo': 'DR Congo',
+}
 
 # Fases del Mundial 2026 por rango de fechas (calendario oficial FIFA)
 FASES_2026 = [
@@ -78,6 +91,49 @@ def _desde_api_football() -> pd.DataFrame:
         return pd.DataFrame(filas)
     except Exception as e:
         logger.warning(f"API-Football live no disponible: {e}")
+        return pd.DataFrame()
+
+
+def _desde_espn() -> pd.DataFrame:
+    """Resultados finales del Mundial vía el JSON público de ESPN (sin clave).
+
+    Cubre todo el torneo (fase de grupos a final) con marcador final el mismo
+    día del partido. Las métricas avanzadas ausentes las rellena después el
+    generador calibrado determinista, igual que con las otras fuentes.
+    """
+    try:
+        ini = FASES_2026[0][1].replace('-', '')
+        fin = FASES_2026[-1][2].replace('-', '')
+        r = requests.get(
+            'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard',
+            params={'dates': f'{ini}-{fin}', 'limit': 200},
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'},
+            timeout=30)
+        r.raise_for_status()
+        filas = []
+        for ev in r.json().get('events', []):
+            estado = ev.get('status', {}).get('type', {}).get('name', '')
+            if estado not in ('STATUS_FULL_TIME', 'STATUS_FINAL', 'STATUS_FINAL_AET',
+                              'STATUS_FINAL_PEN'):
+                continue
+            comp = ev['competitions'][0]['competitors']
+            h = next(c for c in comp if c['homeAway'] == 'home')
+            a = next(c for c in comp if c['homeAway'] == 'away')
+            nombre_h = h['team']['displayName']
+            nombre_a = a['team']['displayName']
+            home = NAME_EN_TO_FIFA.get(nombre_h, ESPN_A_KAGGLE.get(nombre_h, nombre_h))
+            away = NAME_EN_TO_FIFA.get(nombre_a, ESPN_A_KAGGLE.get(nombre_a, nombre_a))
+            fecha = pd.to_datetime(ev['date']).tz_localize(None).normalize()
+            filas.append({
+                'MATCH_ID': f"{fecha.strftime('%Y%m%d')}_{str(home).replace(' ', '-')}_{str(away).replace(' ', '-')}",
+                'date': fecha, 'home_team': home, 'away_team': away,
+                'home_goals': int(h.get('score', 0)), 'away_goals': int(a.get('score', 0)),
+                'tournament': 'FIFA World Cup', 'stadium': None,
+            })
+        logger.info(f"ESPN (live): {len(filas)} partidos del Mundial finalizados.")
+        return pd.DataFrame(filas)
+    except Exception as e:
+        logger.warning(f"ESPN live no disponible: {e}")
         return pd.DataFrame()
 
 
@@ -131,6 +187,8 @@ def actualizar_en_vivo() -> int:
 
     nuevos = _desde_api_football()
     if nuevos.empty:
+        nuevos = _desde_espn()
+    if nuevos.empty:
         nuevos = _desde_fbref()
     if nuevos.empty:
         logger.info("Fuentes en vivo sin datos nuevos: la re-descarga base (--live) "
@@ -139,6 +197,22 @@ def actualizar_en_vivo() -> int:
 
     nuevos = nuevos[~nuevos['MATCH_ID'].isin(existentes)]
     nuevos = nuevos[nuevos['home_team'].isin(TEAMS) | nuevos['away_team'].isin(TEAMS)]
+
+    # Dedupe ROBUSTO (v14/M7): además del MATCH_ID exacto, un partido cuenta
+    # como duplicado si el histórico ya tiene ese par de equipos con fecha
+    # ±1 día — las fuentes en vivo reportan en UTC y la base Kaggle en fecha
+    # local, así que el mismo partido puede diferir un día entre fuentes.
+    reciente = historico[historico['date'] >= pd.Timestamp('2026-06-01')]
+    pares: Dict[frozenset, List] = {}
+    for f in reciente.itertuples(index=False):
+        pares.setdefault(frozenset((f.home_team, f.away_team)), []).append(f.date)
+
+    def _ya_existe(fila) -> bool:
+        fechas = pares.get(frozenset((fila.home_team, fila.away_team)), [])
+        return any(abs((fila.date - f).days) <= 1 for f in fechas)
+
+    if not nuevos.empty:
+        nuevos = nuevos[[not _ya_existe(f) for f in nuevos.itertuples(index=False)]]
     if nuevos.empty:
         logger.info("Todos los partidos en vivo ya estaban registrados.")
         return 0

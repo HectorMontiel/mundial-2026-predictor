@@ -217,13 +217,32 @@ def render_liga_club(clave: str, nombre_liga: str):
 
 COMPETENCIAS = {'🌎 Mundial 2026': 'mundial', '🇲🇽 Liga MX': 'liga_mx',
                 '🏴 Premier League': 'premier', '🇪🇸 LaLiga': 'laliga',
+                '🇮🇹 Serie A': 'serie_a', '🇩🇪 Bundesliga': 'bundesliga',
+                '🇫🇷 Ligue 1': 'ligue_1', '🇳🇱 Eredivisie': 'eredivisie',
+                '🇵🇹 Primeira Liga': 'primeira',
                 '🇪🇺 Champions League (beta)': 'champions'}
+NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'premier': 'Premier League',
+                 'laliga': 'LaLiga', 'serie_a': 'Serie A',
+                 'bundesliga': 'Bundesliga', 'ligue_1': 'Ligue 1',
+                 'eredivisie': 'Eredivisie', 'primeira': 'Primeira Liga',
+                 'champions': 'UEFA Champions League'}
 competencia_sel = st.sidebar.radio("🏆 Competición", list(COMPETENCIAS.keys()), index=0)
+
+# v14/M11: modo de uso — Principiante muestra solo lo esencial para apostar
+MODO_USO = st.sidebar.radio(
+    "🎚️ Modo de uso", ['🟢 Principiante', '🔵 Pro'], index=1,
+    help="**Principiante**: ganador, marcador, over/under y parlay guiado, "
+         "sin jerga técnica. **Pro**: plantilla completa (~85 campos), "
+         "distribuciones, monitor de features y todos los mercados.")
+ES_PRO = MODO_USO.startswith('🔵')
+st.sidebar.caption(
+    "💡 **EV** (valor esperado): ganancia media por unidad apostada si "
+    "repitieras la apuesta muchas veces. EV positivo = el modelo cree que "
+    "la cuota paga de más. **Cuota justa** = 1/probabilidad, sin margen de casa.")
+
 _clave_comp = COMPETENCIAS[competencia_sel]
 if _clave_comp != 'mundial':
-    nombres_ligas = {'liga_mx': 'Liga MX', 'premier': 'Premier League',
-                     'laliga': 'LaLiga', 'champions': 'UEFA Champions League'}
-    render_liga_club(_clave_comp, nombres_ligas[_clave_comp])
+    render_liga_club(_clave_comp, NOMBRES_LIGAS[_clave_comp])
     st.stop()
 
 if not MOTOR.listo:
@@ -411,7 +430,7 @@ with tab_rapida:
         )
 
     # Monitor de transparencia: qué cambió desde la consulta anterior de este cruce
-    monitor = pred.get('monitor_cambios')
+    monitor = pred.get('monitor_cambios') if ES_PRO else None
     if monitor and monitor.get('cambios'):
         pa = monitor['anterior']['probs']
         st.caption(
@@ -552,23 +571,40 @@ with tab_rapida:
             else:
                 st.info(f"{emoji} {nombre_eq}: sin goleadores registrados en los últimos 24 meses.")
 
-    # ---- 🎯 Parlay recomendado (Mejora 3, v12) --------------------------------
+    # ---- 🎯 Asistente de Parlay guiado (v12; v14/M11: niveles de riesgo) ------
     st.divider()
-    with st.expander("🎯 Parlay Recomendado del fixture (informativo)"):
+    with st.expander("🎯 Asistente de Parlay — 3 pasos", expanded=not ES_PRO):
+        st.markdown("**Paso 1 — Elige tu perfil de riesgo:**")
+        NIVELES = {
+            '🛡️ Conservador — pocas selecciones muy probables': (4, 0.65),
+            '⚖️ Medio — equilibrio entre cuota y probabilidad': (6, 0.55),
+            '🚀 Agresivo — cuota alta, probabilidad baja': (8, 0.50),
+        }
+        nivel_sel = st.radio("Nivel de riesgo", list(NIVELES.keys()), index=1,
+                             label_visibility='collapsed',
+                             help="Más selecciones y probabilidades más bajas = "
+                                  "cuota combinada mayor pero menos opciones de acertar.")
+        n_legs_sel, prob_min_sel = NIVELES[nivel_sel]
+        st.markdown("**Paso 2 — Genera la propuesta:**")
         st.caption(
-            "Selecciona los mercados de mayor probabilidad del fixture con control "
-            "de correlación (máx. 2 por partido, nunca mercados dependientes). "
-            "⚠️ Sin cuotas de casas conectadas, las cuotas son las JUSTAS del modelo "
-            "(EV≈0): úsalo para comparar contra tu casa de apuestas. No es "
-            "asesoramiento financiero."
+            "El asistente elige los mercados de mayor probabilidad del fixture con "
+            "control de correlación (máx. 2 por partido, nunca mercados dependientes) "
+            "y excluye partidos con riesgo de mercado 🔴. ⚠️ Sin cuotas de casas "
+            "conectadas usa las cuotas JUSTAS del modelo (EV≈0): compáralas con tu "
+            "casa. No es asesoramiento financiero."
         )
-        if st.button("Generar parlay de 8 selecciones", key="btn_parlay"):
+        if st.button("✨ Proponer mi parlay", key="btn_parlay", type="primary"):
             from parlay_builder import construir_parlay
             with st.spinner("🧮 Evaluando todos los mercados del fixture..."):
-                parlay = construir_parlay(MOTOR, n_legs=8)
+                parlay = construir_parlay(MOTOR, n_legs=n_legs_sel, prob_min=prob_min_sel)
             if 'error' in parlay:
                 st.warning(parlay['error'])
             else:
+                st.success(
+                    f"**Este parlay tiene un {parlay['prob_conjunta']*100:.0f} % de "
+                    f"probabilidad de ganar**, cuota total {parlay['cuota_combinada']:.2f}, "
+                    f"EV {parlay['ev_parlay']:+.2f} unidades."
+                )
                 st.dataframe(pd.DataFrame([{
                     'Partido': s['partido'], 'Apuesta': s['apuesta'],
                     'Prob.': f"{s['prob']*100:.1f} %", 'Cuota': s['cuota'],
@@ -576,21 +612,27 @@ with tab_rapida:
                     'Riesgo': {'bajo': '🟢', 'medio': '🟡', 'alto': '🔴'}[s.get('riesgo', 'bajo')],
                 } for s in parlay['selecciones']]), use_container_width=True, hide_index=True)
                 c1, c2, c3, c4 = st.columns(4)
-                c1.metric("Cuota combinada", f"{parlay['cuota_combinada']:.2f}")
-                c2.metric("Prob. conjunta", f"{parlay['prob_conjunta']*100:.1f} %")
-                c3.metric("EV del parlay", f"{parlay['ev_parlay']:+.3f}")
+                c1.metric("Cuota combinada", f"{parlay['cuota_combinada']:.2f}",
+                          help="Producto de todas las cuotas: lo que pagaría 1 unidad si aciertas todo.")
+                c2.metric("Prob. conjunta", f"{parlay['prob_conjunta']*100:.1f} %",
+                          help="Probabilidad de acertar TODAS las selecciones a la vez.")
+                c3.metric("EV del parlay", f"{parlay['ev_parlay']:+.3f}",
+                          help="Ganancia media esperada por unidad apostada. Positivo = valor a favor.")
                 c4.metric("Riesgo general",
-                          {'bajo': '🟢 Bajo', 'medio': '🟡 Medio', 'alto': '🔴 Alto'}[parlay['riesgo_parlay']])
+                          {'bajo': '🟢 Bajo', 'medio': '🟡 Medio', 'alto': '🔴 Alto'}[parlay['riesgo_parlay']],
+                          help="Riesgo compuesto por divergencia con mercados de predicción y liquidez.")
                 if parlay.get('partidos_excluidos_por_riesgo'):
                     st.warning("🔴 Partidos excluidos por riesgo de mercado: "
                                + ", ".join(parlay['partidos_excluidos_por_riesgo']))
                 st.caption(parlay['nota'])
+                st.markdown("**Paso 3 — Llévate las selecciones:**")
                 texto = "\n".join(
                     f"{i}. {s['partido']}: {s['apuesta']} @ {s['cuota']} (p={s['prob']*100:.0f}%)"
                     for i, s in enumerate(parlay['selecciones'], 1)
                 ) + (f"\nCuota combinada: {parlay['cuota_combinada']} · "
                      f"Prob: {parlay['prob_conjunta']*100:.1f}% · EV: {parlay['ev_parlay']:+.3f}")
-                st.download_button("📋 Copiar/exportar parlay", data=texto.encode('utf-8'),
+                st.code(texto, language=None)
+                st.download_button("📥 Descargar parlay (.txt)", data=texto.encode('utf-8'),
                                    file_name="parlay_mundial.txt", mime="text/plain")
 
     # ---- 📈 Inteligencia de mercado (Mejora 4, v12 — experimental) ------------
@@ -701,6 +743,12 @@ with tab_rapida:
 # PESTAÑA 2: PLANTILLA GENERAL DE ANÁLISIS (EDITABLE + VALIDACIÓN)
 # ===========================================================================
 with tab_plantilla:
+    if not ES_PRO:
+        st.info("🎚️ Estás en modo **Principiante**: esta plantilla muestra los ~85 "
+                "campos técnicos del análisis completo (hándicaps, córners, "
+                "tarjetas, distribuciones). Si prefieres solo lo esencial, "
+                "quédate en la Vista Rápida — o cambia a modo **Pro** en la "
+                "barra lateral para trabajar con todo el detalle.")
     pl = plantilla_cacheada(id(MOTOR), home, away, arbitro, fase, estadio)
     if 'error' in pl:
         st.error(f"❌ {pl['error']}")
@@ -815,11 +863,19 @@ with tab_plantilla:
         )
 
 st.divider()
-st.caption(
-    "🔬 Bajo el capó: ensemble XGBoost + Random Forest + LightGBM con calibración "
-    "isotónica, entropías de persistencia H0/H1 (nube del par + últimos 10 partidos "
-    "de cada equipo), regresores Poisson de goles esperados y Monte Carlo de 20,000 "
-    "partidos. Backtesting temporal sobre partidos reales: "
-    f"{MOTOR.metadata.get('precision_validacion', 0)*100:.1f} % de acierto · "
-    f"log-loss {MOTOR.metadata.get('log_loss_validacion', 0):.3f}."
-)
+if ES_PRO:
+    st.caption(
+        "🔬 Bajo el capó: ensemble XGBoost + Random Forest + LightGBM con calibración "
+        "isotónica, entropías de persistencia H0/H1 (nube del par + últimos 10 partidos "
+        "de cada equipo), regresores Poisson de goles esperados y Monte Carlo de 20,000 "
+        "partidos. Backtesting temporal sobre partidos reales: "
+        f"{MOTOR.metadata.get('precision_validacion', 0)*100:.1f} % de acierto · "
+        f"log-loss {MOTOR.metadata.get('log_loss_validacion', 0):.3f}."
+    )
+else:
+    st.caption(
+        f"🔬 El modelo acierta el resultado (gana local / empate / gana visitante) "
+        f"en {MOTOR.metadata.get('precision_validacion', 0)*100:.0f} de cada 100 "
+        f"partidos reales pasados. Ninguna apuesta es segura: apuesta solo lo que "
+        f"puedas permitirte perder."
+    )

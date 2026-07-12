@@ -21,3 +21,7 @@ _backup_v12/
 risk_flags.json
 odds_actuales.json
 market_data.json
+
+# Cachés de scrapers v14 (se regeneran)
+understat_cache/
+transfermarkt_cache/

@@ -1,0 +1,11 @@
+{
+  "liga": "Primeira Liga",
+  "n_train": 699,
+  "n_validacion": 177,
+  "fecha_corte": "2025-12-21",
+  "precision_validacion": 0.5254,
+  "precision_linea_base_elo": 0.4972,
+  "precision_mercado_cuotas": 0.5537,
+  "log_loss_validacion": 0.9639,
+  "n_equipos": 23
+}

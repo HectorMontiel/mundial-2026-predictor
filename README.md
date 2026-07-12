@@ -6,6 +6,34 @@ Análisis Estadístico completa (9 secciones, ~85 campos: 1X2, doble oportunidad
 hándicaps asiáticos, over/under, BTTS, goleadores, córners y tarjetas),
 editable y validable contra el modelo.**
 
+## Novedades v14 — "Solo gratis, solo real" (ver [VALIDACION_v14.md](VALIDACION_v14.md))
+
+- **M7 (en vivo gratis)**: ESPN (JSON público, sin clave) como fuente en vivo
+  del Mundial — sustituye a Flashscore (JS frágil). Dedupe robusto por par de
+  equipos ±1 día y mapeo de nombres ESPN→Kaggle. +19 partidos reales del
+  Mundial el día de la corrida.
+- **M8 (xG real)**: [understat_scraper.py](understat_scraper.py) funcional
+  (5 grandes ligas, 98 % de emparejamiento) pero **descartado como feature**:
+  el A/B controlado empeoró el log-loss (LaLiga 1.014→1.108). Documentado.
+- **M9 (ratings)**: [transfermarkt_scraper.py](transfermarkt_scraper.py)
+  (1 petición/liga, caché 24 h) + flag `--ratings` en league_engine. Premier
+  +1.8 pp en el A/B pero **no adoptado**: sesgo de anticipación (valores
+  actuales aplicados a partidos pasados).
+- **M10 (cuotas gratis)**: `fixtures.csv` de football-data (clubes, B365 sin
+  clave) + [betexplorer_scraper.py](betexplorer_scraper.py) (Mundial, días de
+  partido, robots.txt respetado) → `odds_actuales.json` → parlay.
+- **M11 (UI apostador)**: modo **Principiante/Pro**, Asistente de Parlay en
+  3 pasos con perfil de riesgo (conservador/medio/agresivo), tooltips de
+  EV/cuotas y aviso de juego responsable.
+- **M12 (5 ligas nuevas)**: Serie A, Bundesliga, Ligue 1, Eredivisie y
+  Primeira Liga — todas superan su línea base ELO (ventana de temporadas
+  elegida por backtest, regla ≥0.5 pp).
+- **M13 (orquestador)**: [pipeline_total.py](pipeline_total.py) — un comando
+  actualiza Mundial + 8 ligas + cuotas + Polymarket, con aislamiento de
+  errores por paso.
+- **Infra**: giotto-tda → **ripser** (segfault de giotto en Streamlit Cloud);
+  Mundial reentrenado sin cambio material (59.4 % / 0.902).
+
 ## Novedades v13 — Evolución total (ver [VALIDACION_v13.md](VALIDACION_v13.md))
 
 - **M1**: cadena en vivo del Mundial ([live_worldcup.py](live_worldcup.py)) con

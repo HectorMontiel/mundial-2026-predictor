@@ -1,0 +1,11 @@
+{
+  "liga": "Ligue 1",
+  "n_train": 1303,
+  "n_validacion": 329,
+  "fecha_corte": "2025-05-03",
+  "precision_validacion": 0.5106,
+  "precision_linea_base_elo": 0.4894,
+  "precision_mercado_cuotas": 0.535,
+  "log_loss_validacion": 1.1433,
+  "n_equipos": 25
+}

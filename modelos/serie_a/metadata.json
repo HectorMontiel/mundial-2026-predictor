@@ -1,0 +1,11 @@
+{
+  "liga": "Serie A",
+  "n_train": 876,
+  "n_validacion": 219,
+  "fecha_corte": "2025-12-27",
+  "precision_validacion": 0.5434,
+  "precision_linea_base_elo": 0.5342,
+  "precision_mercado_cuotas": 0.5708,
+  "log_loss_validacion": 1.0169,
+  "n_equipos": 25
+}

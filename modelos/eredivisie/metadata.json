@@ -1,0 +1,11 @@
+{
+  "liga": "Eredivisie",
+  "n_train": 1186,
+  "n_validacion": 298,
+  "fecha_corte": "2025-08-10",
+  "precision_validacion": 0.5134,
+  "precision_linea_base_elo": 0.4966,
+  "precision_mercado_cuotas": 0.5336,
+  "log_loss_validacion": 1.1182,
+  "n_equipos": 24
+}

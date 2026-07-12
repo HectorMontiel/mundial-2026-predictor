@@ -98,26 +98,31 @@ LEAGUES = {
     # v14: grandes ligas europeas (mismo formato 'main' con stats + cuotas B365)
     'serie_a': {
         'nombre': 'Serie A', 'pais': 'Italia', 'formato': 'main',
+        # 3 temporadas: margen sobre ELO +0.9pp vs +0.0pp con 5 (v14)
         'urls': [f'{FD_BASE}/mmz4281/{s}/I1.csv' for s in ('2324', '2425', '2526')],
         'disponible': True,
     },
     'bundesliga': {
         'nombre': 'Bundesliga', 'pais': 'Alemania', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/{s}/D1.csv' for s in ('2324', '2425', '2526')],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/D1.csv'
+                 for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
     },
     'ligue_1': {
         'nombre': 'Ligue 1', 'pais': 'Francia', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/{s}/F1.csv' for s in ('2324', '2425', '2526')],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/F1.csv'
+                 for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
     },
     'eredivisie': {
         'nombre': 'Eredivisie', 'pais': 'Países Bajos', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/{s}/N1.csv' for s in ('2324', '2425', '2526')],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/N1.csv'
+                 for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
     },
     'primeira': {
         'nombre': 'Primeira Liga', 'pais': 'Portugal', 'formato': 'main',
+        # 3 temporadas: margen sobre ELO +2.8pp vs +2.4pp con 5 (v14)
         'urls': [f'{FD_BASE}/mmz4281/{s}/P1.csv' for s in ('2324', '2425', '2526')],
         'disponible': True,
     },

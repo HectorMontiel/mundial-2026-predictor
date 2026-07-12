@@ -3,9 +3,9 @@
   "n_train": 1479,
   "n_validacion": 373,
   "fecha_corte": "2025-08-17",
-  "precision_validacion": 0.4987,
+  "precision_validacion": 0.5067,
   "precision_linea_base_elo": 0.4745,
   "precision_mercado_cuotas": 0.5496,
-  "log_loss_validacion": 1.0158,
+  "log_loss_validacion": 1.0136,
   "n_equipos": 26
 }
