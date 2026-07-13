@@ -88,12 +88,16 @@ LEAGUES = {
         'nombre': 'Premier League', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/E0.csv' for s in ('2324', '2425', '2526')],
         'disponible': True,
+        # v17 (walk-forward +1.2pp / -0.011): extras + cuotas de cierre
+        'features_extra': ['extras', 'cuotas'],
     },
     'laliga': {
         'nombre': 'LaLiga', 'pais': 'España', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/SP1.csv'
                  for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
+        # v17 (walk-forward +1.5pp / -0.055): cuotas de cierre como features
+        'features_extra': ['cuotas'],
     },
     # v14: grandes ligas europeas (mismo formato 'main' con stats + cuotas B365)
     'serie_a': {
@@ -107,23 +111,31 @@ LEAGUES = {
         'urls': [f'{FD_BASE}/mmz4281/{s}/D1.csv'
                  for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
+        # v17 (walk-forward +0.5pp / +0.003): H2H + descanso + rachas + tabla
+        'features_extra': ['extras'],
     },
     'ligue_1': {
         'nombre': 'Ligue 1', 'pais': 'Francia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/F1.csv'
                  for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
+        # v17 (walk-forward +0.1pp / -0.057, regla 2): cuotas de cierre
+        'features_extra': ['cuotas'],
     },
     'eredivisie': {
         'nombre': 'Eredivisie', 'pais': 'Países Bajos', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/N1.csv'
                  for s in ('2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
+        # v17 (walk-forward +0.4pp / -0.023): cuotas de cierre como features
+        'features_extra': ['cuotas'],
     },
     'primeira': {
         'nombre': 'Primeira Liga', 'pais': 'Portugal', 'formato': 'main',
-        # 3 temporadas: margen sobre ELO +2.8pp vs +2.4pp con 5 (v14)
-        'urls': [f'{FD_BASE}/mmz4281/{s}/P1.csv' for s in ('2324', '2425', '2526')],
+        # v17 (walk-forward +0.4pp / -0.043): histórico ampliado a 10 temporadas
+        'urls': [f'{FD_BASE}/mmz4281/{s}/P1.csv'
+                 for s in ('1617', '1718', '1819', '1920', '2021',
+                           '2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
     },
     'champions': {

@@ -1,0 +1,124 @@
+{
+  "premier": {
+    "baseline": {
+      "acc": 0.4789,
+      "logloss": 1.0417,
+      "ventanas": 2,
+      "n_total": 374
+    },
+    "cuotas": {
+      "acc": 0.477,
+      "logloss": 1.0327,
+      "ventanas": 2,
+      "n_total": 374
+    },
+    "h2h_gd3": {
+      "acc": 0.471,
+      "logloss": 1.0407,
+      "ventanas": 2,
+      "n_total": 374
+    },
+    "extras_cuotas": {
+      "acc": 0.491,
+      "logloss": 1.0306,
+      "ventanas": 2,
+      "n_total": 374
+    }
+  },
+  "laliga": {
+    "baseline": {
+      "acc": 0.5151,
+      "logloss": 1.048,
+      "ventanas": 4,
+      "n_total": 723
+    },
+    "cuotas": {
+      "acc": 0.5301,
+      "logloss": 0.9929,
+      "ventanas": 4,
+      "n_total": 723
+    }
+  },
+  "ligue_1": {
+    "baseline": {
+      "acc": 0.5432,
+      "logloss": 1.0431,
+      "ventanas": 4,
+      "n_total": 607
+    },
+    "cuotas": {
+      "acc": 0.5438,
+      "logloss": 0.9863,
+      "ventanas": 4,
+      "n_total": 607
+    }
+  },
+  "eredivisie": {
+    "baseline": {
+      "acc": 0.5035,
+      "logloss": 1.0799,
+      "ventanas": 4,
+      "n_total": 579
+    },
+    "cuotas": {
+      "acc": 0.5068,
+      "logloss": 1.0566,
+      "ventanas": 4,
+      "n_total": 579
+    }
+  },
+  "bundesliga": {
+    "baseline": {
+      "acc": 0.4978,
+      "logloss": 1.0243,
+      "ventanas": 4,
+      "n_total": 591
+    },
+    "cuotas": {
+      "acc": 0.4925,
+      "logloss": 1.0085,
+      "ventanas": 4,
+      "n_total": 591
+    },
+    "extras": {
+      "acc": 0.5032,
+      "logloss": 1.0272,
+      "ventanas": 4,
+      "n_total": 591
+    }
+  },
+  "serie_a": {
+    "baseline": {
+      "acc": 0.4899,
+      "logloss": 1.047,
+      "ventanas": 2,
+      "n_total": 374
+    },
+    "cuotas": {
+      "acc": 0.5341,
+      "logloss": 1.0615,
+      "ventanas": 2,
+      "n_total": 374
+    }
+  },
+  "primeira": {
+    "baseline": {
+      "acc": 0.5563,
+      "logloss": 0.9895,
+      "ventanas": 2,
+      "n_total": 300
+    },
+    "historico_10t": {
+      "acc": 0.56,
+      "logloss": 0.9473,
+      "ventanas": 2,
+      "n_total": 303
+    },
+    "descanso": {
+      "acc": 0.5542,
+      "logloss": 1.0151,
+      "ventanas": 2,
+      "n_total": 300
+    }
+  }
+}

@@ -1,0 +1,588 @@
+{
+  "liga_mx": {
+    "n_partidos": 2615,
+    "cobertura_cuotas": 0.0,
+    "baseline": {
+      "acc": 0.522,
+      "logloss": 1.0166,
+      "n_val": 523,
+      "acc_conf70": 0.8125,
+      "n_conf70": 16
+    },
+    "h2h_gd3": {
+      "acc": 0.5105,
+      "logloss": 1.0183,
+      "n_val": 523,
+      "acc_conf70": 0.6667,
+      "n_conf70": 21
+    },
+    "descanso": {
+      "acc": 0.522,
+      "logloss": 1.0167,
+      "n_val": 523,
+      "acc_conf70": null,
+      "n_conf70": 9
+    },
+    "rachas": {
+      "acc": 0.5105,
+      "logloss": 1.0243,
+      "n_val": 523,
+      "acc_conf70": 0.8,
+      "n_conf70": 15
+    },
+    "tabla": {
+      "acc": 0.5124,
+      "logloss": 1.0903,
+      "n_val": 523,
+      "acc_conf70": 0.6364,
+      "n_conf70": 22
+    },
+    "extras": {
+      "acc": 0.5124,
+      "logloss": 1.0876,
+      "n_val": 523,
+      "acc_conf70": 0.6,
+      "n_conf70": 25
+    },
+    "forma_exp": {
+      "acc": 0.499,
+      "logloss": 1.0222,
+      "n_val": 523,
+      "acc_conf70": 0.8,
+      "n_conf70": 15
+    },
+    "historico_10t": {
+      "acc": 0.5029,
+      "logloss": 1.0093,
+      "n_val": 523,
+      "acc_conf70": 0.8333,
+      "n_conf70": 18
+    },
+    "segundos": 75.4
+  },
+  "premier": {
+    "n_partidos": 1094,
+    "cobertura_cuotas": 1.0,
+    "baseline": {
+      "acc": 0.45,
+      "logloss": 1.077,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 9
+    },
+    "h2h_gd3": {
+      "acc": 0.4864,
+      "logloss": 1.0711,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 11
+    },
+    "descanso": {
+      "acc": 0.4773,
+      "logloss": 1.2185,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 8
+    },
+    "rachas": {
+      "acc": 0.4727,
+      "logloss": 1.0866,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 13
+    },
+    "tabla": {
+      "acc": 0.45,
+      "logloss": 1.0751,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 10
+    },
+    "cuotas": {
+      "acc": 0.4591,
+      "logloss": 1.0454,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 13
+    },
+    "extras_cuotas": {
+      "acc": 0.4727,
+      "logloss": 1.0575,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 12
+    },
+    "extras": {
+      "acc": 0.4591,
+      "logloss": 1.0729,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 10
+    },
+    "forma_exp": {
+      "acc": 0.4591,
+      "logloss": 1.0768,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 9
+    },
+    "historico_10t": {
+      "acc": 0.4545,
+      "logloss": 1.0601,
+      "n_val": 220,
+      "acc_conf70": null,
+      "n_conf70": 8
+    },
+    "segundos": 86.3
+  },
+  "laliga": {
+    "n_partidos": 1852,
+    "cobertura_cuotas": 1.0,
+    "baseline": {
+      "acc": 0.5067,
+      "logloss": 1.0136,
+      "n_val": 373,
+      "acc_conf70": 0.8182,
+      "n_conf70": 22
+    },
+    "h2h_gd3": {
+      "acc": 0.4987,
+      "logloss": 1.0209,
+      "n_val": 373,
+      "acc_conf70": 0.7826,
+      "n_conf70": 23
+    },
+    "descanso": {
+      "acc": 0.5201,
+      "logloss": 1.0177,
+      "n_val": 373,
+      "acc_conf70": 0.75,
+      "n_conf70": 20
+    },
+    "rachas": {
+      "acc": 0.4933,
+      "logloss": 1.0117,
+      "n_val": 373,
+      "acc_conf70": 0.6957,
+      "n_conf70": 23
+    },
+    "tabla": {
+      "acc": 0.5013,
+      "logloss": 1.0097,
+      "n_val": 373,
+      "acc_conf70": 0.8333,
+      "n_conf70": 18
+    },
+    "cuotas": {
+      "acc": 0.5147,
+      "logloss": 0.989,
+      "n_val": 373,
+      "acc_conf70": 0.878,
+      "n_conf70": 41
+    },
+    "extras_cuotas": {
+      "acc": 0.5121,
+      "logloss": 0.9882,
+      "n_val": 373,
+      "acc_conf70": 0.878,
+      "n_conf70": 41
+    },
+    "extras": {
+      "acc": 0.4987,
+      "logloss": 1.0155,
+      "n_val": 373,
+      "acc_conf70": 0.7826,
+      "n_conf70": 23
+    },
+    "forma_exp": {
+      "acc": 0.4745,
+      "logloss": 1.021,
+      "n_val": 373,
+      "acc_conf70": 0.8,
+      "n_conf70": 35
+    },
+    "historico_10t": {
+      "acc": 0.5013,
+      "logloss": 1.0043,
+      "n_val": 373,
+      "acc_conf70": 0.8182,
+      "n_conf70": 33
+    },
+    "segundos": 98.4
+  },
+  "serie_a": {
+    "n_partidos": 1095,
+    "cobertura_cuotas": 1.0,
+    "baseline": {
+      "acc": 0.5434,
+      "logloss": 1.0169,
+      "n_val": 219,
+      "acc_conf70": null,
+      "n_conf70": 10
+    },
+    "h2h_gd3": {
+      "acc": 0.5205,
+      "logloss": 1.0188,
+      "n_val": 219,
+      "acc_conf70": null,
+      "n_conf70": 9
+    },
+    "descanso": {
+      "acc": 0.5342,
+      "logloss": 1.0168,
+      "n_val": 219,
+      "acc_conf70": null,
+      "n_conf70": 12
+    },
+    "rachas": {
+      "acc": 0.5388,
+      "logloss": 1.0165,
+      "n_val": 219,
+      "acc_conf70": null,
+      "n_conf70": 8
+    },
+    "tabla": {
+      "acc": 0.5434,
+      "logloss": 0.9981,
+      "n_val": 219,
+      "acc_conf70": 0.75,
+      "n_conf70": 16
+    },
+    "cuotas": {
+      "acc": 0.5616,
+      "logloss": 1.1485,
+      "n_val": 219,
+      "acc_conf70": 0.675,
+      "n_conf70": 40
+    },
+    "extras_cuotas": {
+      "acc": 0.5434,
+      "logloss": 1.2991,
+      "n_val": 219,
+      "acc_conf70": 0.6486,
+      "n_conf70": 37
+    },
+    "extras": {
+      "acc": 0.5297,
+      "logloss": 1.0138,
+      "n_val": 219,
+      "acc_conf70": 0.6667,
+      "n_conf70": 15
+    },
+    "forma_exp": {
+      "acc": 0.516,
+      "logloss": 1.0167,
+      "n_val": 219,
+      "acc_conf70": null,
+      "n_conf70": 10
+    },
+    "historico_10t": {
+      "acc": 0.5388,
+      "logloss": 1.0038,
+      "n_val": 219,
+      "acc_conf70": 0.5882,
+      "n_conf70": 17
+    },
+    "segundos": 86.5
+  },
+  "bundesliga": {
+    "n_partidos": 1482,
+    "cobertura_cuotas": 1.0,
+    "baseline": {
+      "acc": 0.543,
+      "logloss": 0.9877,
+      "n_val": 302,
+      "acc_conf70": 0.7143,
+      "n_conf70": 21
+    },
+    "h2h_gd3": {
+      "acc": 0.5331,
+      "logloss": 0.9865,
+      "n_val": 302,
+      "acc_conf70": 0.8667,
+      "n_conf70": 15
+    },
+    "descanso": {
+      "acc": 0.5298,
+      "logloss": 0.9873,
+      "n_val": 302,
+      "acc_conf70": 0.6842,
+      "n_conf70": 19
+    },
+    "rachas": {
+      "acc": 0.5464,
+      "logloss": 0.9889,
+      "n_val": 302,
+      "acc_conf70": 0.8,
+      "n_conf70": 15
+    },
+    "tabla": {
+      "acc": 0.5364,
+      "logloss": 0.9921,
+      "n_val": 302,
+      "acc_conf70": 0.7059,
+      "n_conf70": 34
+    },
+    "cuotas": {
+      "acc": 0.5331,
+      "logloss": 0.9693,
+      "n_val": 302,
+      "acc_conf70": 0.7273,
+      "n_conf70": 22
+    },
+    "extras_cuotas": {
+      "acc": 0.5464,
+      "logloss": 0.9707,
+      "n_val": 302,
+      "acc_conf70": 0.8276,
+      "n_conf70": 29
+    },
+    "extras": {
+      "acc": 0.5629,
+      "logloss": 0.9934,
+      "n_val": 302,
+      "acc_conf70": 0.7917,
+      "n_conf70": 24
+    },
+    "forma_exp": {
+      "acc": 0.5364,
+      "logloss": 0.9966,
+      "n_val": 302,
+      "acc_conf70": 0.6316,
+      "n_conf70": 19
+    },
+    "historico_10t": {
+      "acc": 0.5377,
+      "logloss": 0.9755,
+      "n_val": 305,
+      "acc_conf70": 0.85,
+      "n_conf70": 20
+    },
+    "segundos": 89.7
+  },
+  "ligue_1": {
+    "n_partidos": 1632,
+    "cobertura_cuotas": 1.0,
+    "baseline": {
+      "acc": 0.5106,
+      "logloss": 1.1433,
+      "n_val": 329,
+      "acc_conf70": null,
+      "n_conf70": 14
+    },
+    "h2h_gd3": {
+      "acc": 0.5076,
+      "logloss": 1.1251,
+      "n_val": 329,
+      "acc_conf70": 0.6,
+      "n_conf70": 15
+    },
+    "descanso": {
+      "acc": 0.5167,
+      "logloss": 1.2278,
+      "n_val": 329,
+      "acc_conf70": 0.6471,
+      "n_conf70": 17
+    },
+    "rachas": {
+      "acc": 0.5106,
+      "logloss": 1.0321,
+      "n_val": 329,
+      "acc_conf70": 0.6667,
+      "n_conf70": 18
+    },
+    "tabla": {
+      "acc": 0.5046,
+      "logloss": 1.0338,
+      "n_val": 329,
+      "acc_conf70": 0.5455,
+      "n_conf70": 22
+    },
+    "cuotas": {
+      "acc": 0.5167,
+      "logloss": 1.0193,
+      "n_val": 329,
+      "acc_conf70": 0.7083,
+      "n_conf70": 24
+    },
+    "extras_cuotas": {
+      "acc": 0.5076,
+      "logloss": 1.0185,
+      "n_val": 329,
+      "acc_conf70": 0.68,
+      "n_conf70": 25
+    },
+    "extras": {
+      "acc": 0.5137,
+      "logloss": 1.0283,
+      "n_val": 329,
+      "acc_conf70": null,
+      "n_conf70": 14
+    },
+    "forma_exp": {
+      "acc": 0.5076,
+      "logloss": 1.1277,
+      "n_val": 329,
+      "acc_conf70": 0.6923,
+      "n_conf70": 26
+    },
+    "historico_10t": {
+      "acc": 0.5076,
+      "logloss": 1.012,
+      "n_val": 329,
+      "acc_conf70": 0.7895,
+      "n_conf70": 19
+    },
+    "segundos": 94.4
+  },
+  "eredivisie": {
+    "n_partidos": 1484,
+    "cobertura_cuotas": 1.0,
+    "baseline": {
+      "acc": 0.5134,
+      "logloss": 1.1182,
+      "n_val": 298,
+      "acc_conf70": 0.7576,
+      "n_conf70": 33
+    },
+    "h2h_gd3": {
+      "acc": 0.5034,
+      "logloss": 1.1252,
+      "n_val": 298,
+      "acc_conf70": 0.7297,
+      "n_conf70": 37
+    },
+    "descanso": {
+      "acc": 0.4866,
+      "logloss": 1.1274,
+      "n_val": 298,
+      "acc_conf70": 0.7105,
+      "n_conf70": 38
+    },
+    "rachas": {
+      "acc": 0.4765,
+      "logloss": 1.1244,
+      "n_val": 298,
+      "acc_conf70": 0.7647,
+      "n_conf70": 34
+    },
+    "tabla": {
+      "acc": 0.4933,
+      "logloss": 1.2467,
+      "n_val": 298,
+      "acc_conf70": 0.8,
+      "n_conf70": 30
+    },
+    "cuotas": {
+      "acc": 0.5201,
+      "logloss": 1.1135,
+      "n_val": 298,
+      "acc_conf70": 0.7391,
+      "n_conf70": 23
+    },
+    "extras_cuotas": {
+      "acc": 0.5,
+      "logloss": 1.1137,
+      "n_val": 298,
+      "acc_conf70": 0.8333,
+      "n_conf70": 30
+    },
+    "extras": {
+      "acc": 0.4732,
+      "logloss": 1.2459,
+      "n_val": 298,
+      "acc_conf70": 0.8,
+      "n_conf70": 35
+    },
+    "forma_exp": {
+      "acc": 0.5,
+      "logloss": 1.0209,
+      "n_val": 298,
+      "acc_conf70": 0.7568,
+      "n_conf70": 37
+    },
+    "historico_10t": {
+      "acc": 0.5034,
+      "logloss": 0.999,
+      "n_val": 298,
+      "acc_conf70": 0.875,
+      "n_conf70": 32
+    },
+    "segundos": 90.7
+  },
+  "primeira": {
+    "n_partidos": 876,
+    "cobertura_cuotas": 1.0,
+    "baseline": {
+      "acc": 0.5254,
+      "logloss": 0.9639,
+      "n_val": 177,
+      "acc_conf70": 0.75,
+      "n_conf70": 28
+    },
+    "h2h_gd3": {
+      "acc": 0.5198,
+      "logloss": 0.9641,
+      "n_val": 177,
+      "acc_conf70": 0.75,
+      "n_conf70": 28
+    },
+    "descanso": {
+      "acc": 0.5424,
+      "logloss": 0.9535,
+      "n_val": 177,
+      "acc_conf70": 0.7857,
+      "n_conf70": 28
+    },
+    "rachas": {
+      "acc": 0.5254,
+      "logloss": 0.9654,
+      "n_val": 177,
+      "acc_conf70": 0.8,
+      "n_conf70": 35
+    },
+    "tabla": {
+      "acc": 0.5254,
+      "logloss": 0.9442,
+      "n_val": 177,
+      "acc_conf70": 0.8148,
+      "n_conf70": 27
+    },
+    "cuotas": {
+      "acc": 0.5198,
+      "logloss": 0.954,
+      "n_val": 177,
+      "acc_conf70": 0.7812,
+      "n_conf70": 32
+    },
+    "extras_cuotas": {
+      "acc": 0.5254,
+      "logloss": 0.9491,
+      "n_val": 177,
+      "acc_conf70": 0.8065,
+      "n_conf70": 31
+    },
+    "extras": {
+      "acc": 0.5311,
+      "logloss": 0.9643,
+      "n_val": 177,
+      "acc_conf70": 0.8125,
+      "n_conf70": 32
+    },
+    "forma_exp": {
+      "acc": 0.5367,
+      "logloss": 0.9737,
+      "n_val": 177,
+      "acc_conf70": 0.7714,
+      "n_conf70": 35
+    },
+    "historico_10t": {
+      "acc": 0.565,
+      "logloss": 0.9373,
+      "n_val": 177,
+      "acc_conf70": 0.7857,
+      "n_conf70": 42
+    },
+    "segundos": 78.1
+  }
+}

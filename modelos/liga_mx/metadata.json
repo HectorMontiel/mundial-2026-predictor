@@ -7,5 +7,7 @@
   "precision_linea_base_elo": 0.5029,
   "precision_mercado_cuotas": null,
   "log_loss_validacion": 1.0166,
-  "n_equipos": 21
+  "n_equipos": 21,
+  "features_extra_cols": [],
+  "medias_cuotas": {}
 }

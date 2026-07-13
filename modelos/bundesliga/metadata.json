@@ -3,9 +3,18 @@
   "n_train": 1180,
   "n_validacion": 302,
   "fecha_corte": "2025-08-23",
-  "precision_validacion": 0.543,
+  "precision_validacion": 0.5629,
   "precision_linea_base_elo": 0.5331,
   "precision_mercado_cuotas": 0.5497,
-  "log_loss_validacion": 0.9877,
-  "n_equipos": 25
+  "log_loss_validacion": 0.9934,
+  "n_equipos": 25,
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION"
+  ],
+  "medias_cuotas": {}
 }

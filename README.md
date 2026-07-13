@@ -1,5 +1,24 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v17 — Ligas de clubes más precisas (ver [VALIDACION_v17.md](VALIDACION_v17.md))
+
+- **Ciclo de experimentos por liga** ([run_league_experiments.py](run_league_experiments.py)):
+  screening de 10 ideas × 8 ligas + walk-forward de confirmación. Adopciones
+  (todas confirmadas fuera de muestra): **cuotas de cierre B365 como
+  features** (LaLiga +1.5 pp, Eredivisie +0.4, Ligue 1 log-loss −0.057),
+  **extras de contexto** — H2H, descanso, rachas, clasificación viva —
+  (Premier +1.2 pp con cuotas, Bundesliga +0.5) e **histórico de 10
+  temporadas** en Primeira (+0.4 pp). Serie A y Liga MX sin cambios (nada
+  pasó la regla de oro; el caso Serie A +4.4 pp quedó fuera por log-loss).
+- **Bundesliga ahora supera al favorito del mercado** (56.3 % vs 55.0 % del
+  cierre B365) — segunda liga tras Premier donde el modelo bate al mercado.
+- En inferencia, las cuotas usan el snapshot vigente de `odds_actuales.json`
+  o la media del train (imputación v11); el estado de contexto viaja en
+  `team_stats_{liga}.json → estado_extra`.
+- **Fix crítico**: `ClubEngine.predecir` aún importaba giotto-tda (residuo
+  de v14) — en el cloud habría fallado toda predicción de clubes. Migrado a
+  ripser.
+
 ## Novedades v16 — Parlay dinámico + barrera del 60 % superada (ver [VALIDACION_v16.md](VALIDACION_v16.md))
 
 - **Modelo del Mundial: 59.4 → 60.4 % / 0.871** (walk-forward 60.0 % / 0.870,

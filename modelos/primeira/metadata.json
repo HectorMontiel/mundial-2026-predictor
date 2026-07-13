@@ -1,11 +1,13 @@
 {
   "liga": "Primeira Liga",
-  "n_train": 699,
-  "n_validacion": 177,
-  "fecha_corte": "2025-12-21",
-  "precision_validacion": 0.5254,
-  "precision_linea_base_elo": 0.4972,
-  "precision_mercado_cuotas": 0.5537,
-  "log_loss_validacion": 0.9639,
-  "n_equipos": 23
+  "n_train": 2397,
+  "n_validacion": 603,
+  "fecha_corte": "2024-08-11",
+  "precision_validacion": 0.5373,
+  "precision_linea_base_elo": 0.5307,
+  "precision_mercado_cuotas": 0.5605,
+  "log_loss_validacion": 0.9714,
+  "n_equipos": 29,
+  "features_extra_cols": [],
+  "medias_cuotas": {}
 }

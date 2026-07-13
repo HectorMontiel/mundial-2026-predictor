@@ -38,6 +38,121 @@ from correlated_synthetic_generator import CorrelatedSyntheticGenerator
 logger = logging.getLogger(__name__)
 
 
+def _entropias_ripser(nube) -> np.ndarray:
+    """Entropías de persistencia H0/H1 con ripser (mismo cálculo que
+    prediction_api._entropias; aquí replicado para no cargar el motor Mundial)."""
+    import ripser
+    result = ripser.ripser(np.asarray(nube, dtype=float), maxdim=1)
+    ents = []
+    for dgm in result['dgms']:
+        finite = dgm[np.isfinite(dgm[:, 1])]
+        if len(finite) == 0:
+            ents.append(0.0)
+            continue
+        vidas = finite[:, 1] - finite[:, 0]
+        total = vidas.sum()
+        if total == 0:
+            ents.append(0.0)
+        else:
+            p = vidas / total
+            ents.append(float(-np.sum(p * np.log(p + 1e-10))))
+    return np.array(ents)
+
+
+# ---------------------------------------------------------------------------
+# Features extra v17 (adoptadas por liga tras walk-forward — VALIDACION_v17)
+# ---------------------------------------------------------------------------
+COLS_CUOTAS = ['PROB_IMP_H', 'PROB_IMP_D', 'PROB_IMP_A', 'OVERROUND']
+COLS_EXTRAS = ['H2H_GD3', 'DIFF_DESCANSO', 'DIFF_RACHA_V', 'DIFF_SIN_PERDER',
+               'DIFF_PPG', 'DIFF_POSICION']
+
+
+def columnas_extra(clave: str) -> list:
+    """Columnas extra configuradas para la liga, en orden de entrenamiento."""
+    grupos = LEAGUES.get(clave, {}).get('features_extra', [])
+    cols = []
+    if 'extras' in grupos:
+        cols += COLS_EXTRAS
+    if 'cuotas' in grupos:
+        cols += COLS_CUOTAS
+    return cols
+
+
+def features_extra_liga(df: pd.DataFrame):
+    """Features extra por MATCH_ID en un pase cronológico SIN fuga, más el
+    estado FINAL por equipo/pareja para reproducirlas en inferencia."""
+    ultima_fecha, racha_v, racha_sp = {}, {}, {}
+    h2h_gd = {}
+    pts, pj = {}, {}
+    temporada_actual = None
+
+    filas = []
+    for f in df.itertuples(index=False):
+        h, a, fecha = f.home_team, f.away_team, f.date
+        temp = fecha.year if fecha.month >= 7 else fecha.year - 1
+        if temp != temporada_actual:
+            temporada_actual = temp
+            pts, pj = {}, {}
+
+        desc_h = min((fecha - ultima_fecha[h]).days, 21) if h in ultima_fecha else 21
+        desc_a = min((fecha - ultima_fecha[a]).days, 21) if a in ultima_fecha else 21
+        clave_par = tuple(sorted((h, a)))
+        prev = h2h_gd.get(clave_par, [])[-3:]
+        gd3 = float(np.mean([gd if ref == h else -gd for ref, gd in prev])) if prev else 0.0
+        ppg_h = pts.get(h, 0) / pj[h] if pj.get(h) else 1.3
+        ppg_a = pts.get(a, 0) / pj[a] if pj.get(a) else 1.3
+        tabla = sorted(pts, key=lambda e: -pts[e])
+        pos_h = tabla.index(h) + 1 if h in tabla else len(tabla) // 2 + 1
+        pos_a = tabla.index(a) + 1 if a in tabla else len(tabla) // 2 + 1
+
+        fila = {
+            'MATCH_ID': f.MATCH_ID,
+            'H2H_GD3': float(np.clip(gd3, -3, 3)) / 3.0,
+            'DIFF_DESCANSO': (desc_h - desc_a) / 21.0,
+            'DIFF_RACHA_V': (racha_v.get(h, 0) - racha_v.get(a, 0)) / 5.0,
+            'DIFF_SIN_PERDER': (racha_sp.get(h, 0) - racha_sp.get(a, 0)) / 10.0,
+            'DIFF_PPG': (ppg_h - ppg_a) / 3.0,
+            'DIFF_POSICION': (pos_a - pos_h) / 20.0,
+        }
+        oh, od, oa = getattr(f, 'odd_home', None), getattr(f, 'odd_draw', None), \
+            getattr(f, 'odd_away', None)
+        if oh and od and oa and oh > 1 and od > 1 and oa > 1:
+            inv = np.array([1 / oh, 1 / od, 1 / oa])
+            imp = inv / inv.sum()
+            fila.update({'PROB_IMP_H': imp[0], 'PROB_IMP_D': imp[1],
+                         'PROB_IMP_A': imp[2], 'OVERROUND': float(inv.sum() - 1)})
+        else:
+            fila.update({c: np.nan for c in COLS_CUOTAS})
+        filas.append(fila)
+
+        gh, ga = float(f.home_goals), float(f.away_goals)
+        ultima_fecha[h] = ultima_fecha[a] = fecha
+        for eq, propios, rival in ((h, gh, ga), (a, ga, gh)):
+            racha_v[eq] = racha_v.get(eq, 0) + 1 if propios > rival else 0
+            racha_sp[eq] = racha_sp.get(eq, 0) + 1 if propios >= rival else 0
+            pj[eq] = pj.get(eq, 0) + 1
+            pts[eq] = pts.get(eq, 0) + (3 if propios > rival else (1 if propios == rival else 0))
+        h2h_gd.setdefault(clave_par, []).append((h, gh - ga))
+
+    # --- estado final para inferencia ---
+    tabla = sorted(pts, key=lambda e: -pts[e])
+    equipos = sorted(set(df['home_team']) | set(df['away_team']))
+    estado = {'equipos': {}, 'parejas': {}}
+    for eq in equipos:
+        estado['equipos'][eq] = {
+            'ultima_fecha': ultima_fecha[eq].strftime('%Y-%m-%d') if eq in ultima_fecha else None,
+            'racha_v': int(racha_v.get(eq, 0)), 'racha_sp': int(racha_sp.get(eq, 0)),
+            'ppg': round(pts.get(eq, 0) / pj[eq], 4) if pj.get(eq) else 1.3,
+            'pos': tabla.index(eq) + 1 if eq in tabla else len(tabla) // 2 + 1,
+        }
+    for par, historial in h2h_gd.items():
+        prev = historial[-3:]
+        ref = par[0]   # perspectiva del primero en orden alfabético
+        gd3 = float(np.mean([gd if r == ref else -gd for r, gd in prev]))
+        estado['parejas'][f'{par[0]}|{par[1]}'] = round(gd3, 3)
+    return pd.DataFrame(filas).set_index('MATCH_ID'), estado
+
+
 def _match_id(fecha: pd.Timestamp, home: str, away: str) -> str:
     h = str(home).replace(' ', '-')
     a = str(away).replace(' ', '-')
@@ -176,9 +291,31 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
 
     topo = calcular_features_topologicas(ds)
 
+    # v17: features extra adoptadas por liga tras walk-forward (VALIDACION_v17)
+    cols_extra = columnas_extra(clave)
+    estado_extra = None
+    medias_cuotas = {}
+    if cols_extra:
+        extras_df, estado_extra = features_extra_liga(df)
+        ids = [m[3] for m in ds['meta']]
+        ext = extras_df.reindex(ids).reset_index(drop=True)
+        X_df = X_df.reset_index(drop=True).copy()
+        for c in cols_extra:
+            X_df[c] = ext[c].values
+
     corte = fechas.quantile(0.80)
     m_tr = (fechas < corte).values
     m_va = ~m_tr
+    if cols_extra:
+        # cuotas ausentes -> media del TRAIN (misma imputación en inferencia);
+        # el resto de extras ausentes -> 0 (neutro)
+        for c in cols_extra:
+            if c in COLS_CUOTAS:
+                media = float(pd.to_numeric(X_df.loc[m_tr, c], errors='coerce').mean())
+                medias_cuotas[c] = round(media, 4)
+                X_df[c] = X_df[c].fillna(media)
+            else:
+                X_df[c] = X_df[c].fillna(0.0)
     X_tr_n, X_va_n, escalador = fe.normalizar_features(X_df[m_tr], X_df[m_va])
     X_tr = np.hstack([X_tr_n, topo[m_tr]])
     X_va = np.hstack([X_va_n, topo[m_va]])
@@ -243,7 +380,8 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     with open(f'team_stats_{clave}.json', 'w', encoding='utf-8') as f:
         json.dump({'generado': pd.Timestamp.today().strftime('%Y-%m-%d'),
                    'ultima_fecha_historico': str(df['date'].max().date()),
-                   'equipos': equipos, 'h2h': h2h}, f, ensure_ascii=False)
+                   'equipos': equipos, 'h2h': h2h,
+                   'estado_extra': estado_extra}, f, ensure_ascii=False)
 
     metadata = {
         'liga': LEAGUES[clave]['nombre'],
@@ -254,6 +392,8 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         'precision_mercado_cuotas': round(acc_mercado, 4) if acc_mercado else None,
         'log_loss_validacion': round(float(ll), 4),
         'n_equipos': len(equipos_liga),
+        'features_extra_cols': cols_extra,
+        'medias_cuotas': medias_cuotas,
     }
     with open(os.path.join(carpeta, 'metadata.json'), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=2)
@@ -286,6 +426,7 @@ class ClubEngine:
                 ts = json.load(f)
             self.stats = ts['equipos']
             self.h2h = ts.get('h2h', {})
+            self.estado_extra = ts.get('estado_extra')
             self.fecha_estado = ts.get('ultima_fecha_historico', '?')
             with open('calibracion_statsbomb.json', 'r', encoding='utf-8') as f:
                 self.calibracion = json.load(f)
@@ -301,9 +442,55 @@ class ClubEngine:
             return -float(self.h2h[f"{away}|{home}"])
         return 0.0
 
+    def _cuotas_partido(self, home: str, away: str) -> Dict:
+        """Probabilidades implícitas del partido desde odds_actuales.json."""
+        try:
+            with open('odds_actuales.json', encoding='utf-8') as f:
+                cuotas = json.load(f).get('cuotas', {})
+        except Exception:
+            return {}
+        sufijo = f"_{home.replace(' ', '-')}_{away.replace(' ', '-')}"
+        for mid, o in cuotas.items():
+            if mid.endswith(sufijo) and o.get('odd_home'):
+                inv = np.array([1 / o['odd_home'], 1 / o['odd_draw'], 1 / o['odd_away']])
+                imp = inv / inv.sum()
+                return {'PROB_IMP_H': float(imp[0]), 'PROB_IMP_D': float(imp[1]),
+                        'PROB_IMP_A': float(imp[2]), 'OVERROUND': float(inv.sum() - 1)}
+        return {}
+
+    def _vector_extra(self, home: str, away: str) -> np.ndarray:
+        """Reproduce en inferencia las features extra v17 desde el estado
+        guardado en team_stats (y cuotas vigentes si las hay)."""
+        cols = self.metadata.get('features_extra_cols', [])
+        ee = self.estado_extra or {'equipos': {}, 'parejas': {}}
+        eq = ee.get('equipos', {})
+        eh, ea = eq.get(home, {}), eq.get(away, {})
+        hoy = pd.Timestamp.today().normalize()
+
+        def descanso(e):
+            f = e.get('ultima_fecha')
+            return min((hoy - pd.Timestamp(f)).days, 21) if f else 21
+
+        par = tuple(sorted((home, away)))
+        gd3 = float(ee.get('parejas', {}).get(f'{par[0]}|{par[1]}', 0.0))
+        gd3 = gd3 if par[0] == home else -gd3
+        valores = {
+            'H2H_GD3': float(np.clip(gd3, -3, 3)) / 3.0,
+            'DIFF_DESCANSO': (descanso(eh) - descanso(ea)) / 21.0,
+            'DIFF_RACHA_V': (eh.get('racha_v', 0) - ea.get('racha_v', 0)) / 5.0,
+            'DIFF_SIN_PERDER': (eh.get('racha_sp', 0) - ea.get('racha_sp', 0)) / 10.0,
+            'DIFF_PPG': (eh.get('ppg', 1.3) - ea.get('ppg', 1.3)) / 3.0,
+            'DIFF_POSICION': (ea.get('pos', 10) - eh.get('pos', 10)) / 20.0,
+        }
+        # cuotas: reales del snapshot vigente o medias del train (imputación
+        # idéntica a la del entrenamiento)
+        reales = self._cuotas_partido(home, away)
+        medias = self.metadata.get('medias_cuotas', {})
+        for c in COLS_CUOTAS:
+            valores[c] = reales.get(c, medias.get(c, 0.0))
+        return np.array([[valores[c] for c in cols]])
+
     def predecir(self, home: str, away: str) -> Dict:
-        from gtda.homology import VietorisRipsPersistence
-        from gtda.diagrams import PersistenceEntropy
         if home not in self.stats or away not in self.stats:
             return {'error': f"Equipo desconocido en {self.clave}."}
         if home == away:
@@ -312,10 +499,13 @@ class ClubEngine:
         ctx = {'CHOQUE_ESTILOS': 0.0, 'ALTURA_NORM': 0.0, 'VENTAJA_LOCALIA': 0.55,
                'CLIMA_TEMP_NORM': 25 / 40.0, 'H2H_BALANCE': self._h2h(home, away)}
         vec = np.array([fe.vector_features(s_l, s_v, ctx)])
-        vec_n = self.escalador.transform(pd.DataFrame(vec, columns=fe.FEATURES_MODELO))
-        vr = VietorisRipsPersistence(homology_dimensions=[0, 1], n_jobs=-1)
-        pe = PersistenceEntropy(nan_fill_value=0.0)
-        ents = [pe.fit_transform(vr.fit_transform(n[np.newaxis]))[0] for n in (
+        columnas = fe.FEATURES_MODELO + self.metadata.get('features_extra_cols', [])
+        if self.metadata.get('features_extra_cols'):
+            vec = np.hstack([vec, self._vector_extra(home, away)])
+        vec_n = self.escalador.transform(pd.DataFrame(vec, columns=columnas))
+        # entropías con ripser (v17: gtda eliminado también aquí — en el cloud
+        # ya no está instalado y este era el último import que quedaba)
+        ents = [_entropias_ripser(n) for n in (
             fe.nube_de_puntos(s_l, s_v, ctx),
             fe.nube_equipo(s_l.get('PERF10') or [[1, 1, 1, 1, 4, 4]]),
             fe.nube_equipo(s_v.get('PERF10') or [[1, 1, 1, 1, 4, 4]]))]
