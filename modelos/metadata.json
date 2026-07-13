@@ -1,23 +1,58 @@
 {
   "version": 11,
-  "walk_forward": null,
+  "walk_forward": {
+    "ventanas": [
+      {
+        "ventana": "2024-01-01 → 2024-07-01",
+        "n": 588,
+        "precision": 0.5901,
+        "log_loss": 0.8949
+      },
+      {
+        "ventana": "2024-07-01 → 2025-01-01",
+        "n": 643,
+        "precision": 0.5816,
+        "log_loss": 0.9259
+      },
+      {
+        "ventana": "2025-01-01 → 2025-07-01",
+        "n": 407,
+        "precision": 0.6069,
+        "log_loss": 0.8392
+      },
+      {
+        "ventana": "2025-07-01 → 2026-01-01",
+        "n": 592,
+        "precision": 0.6284,
+        "log_loss": 0.8101
+      },
+      {
+        "ventana": "2026-01-01 → 2026-07-01",
+        "n": 389,
+        "precision": 0.5938,
+        "log_loss": 0.8785
+      }
+    ],
+    "precision_media": 0.6002,
+    "log_loss_medio": 0.8697
+  },
   "odds_features": {
     "activas": false,
     "cobertura": 0.0,
     "medias_train": null
   },
-  "entrenado_en": "2026-07-12T16:41:54",
+  "entrenado_en": "2026-07-12T21:28:31",
   "fuente_datos": "real_hybrid",
   "arquitectura": "VotingClassifier(XGBoost+RandomForest+LightGBM) + CalibratedClassifierCV(isotonic)",
-  "n_partidos_train_real": 12608,
+  "n_partidos_train_real": 28995,
   "n_partidos_train_aumento": 911,
-  "n_partidos_validacion": 2625,
+  "n_partidos_validacion": 2640,
   "fecha_corte_validacion": "2024-01-01",
-  "precision_validacion": 0.5943,
-  "precision_linea_base": 0.5897,
-  "log_loss_validacion": 0.9018,
-  "mae_goles_local": 1.0622,
-  "mae_goles_visitante": 0.8677,
+  "precision_validacion": 0.6038,
+  "precision_linea_base": 0.5981,
+  "log_loss_validacion": 0.8712,
+  "mae_goles_local": 1.0521,
+  "mae_goles_visitante": 0.8595,
   "deploy_ready": true,
   "umbral_despliegue": 0.55,
   "objetivo_estricto": {

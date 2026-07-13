@@ -113,14 +113,18 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
     with st.expander(f"🎯 Parlay de ESTE partido — {home} vs {away}"):
         c1, c2 = st.columns(2)
         with c1:
-            n_sel = st.slider("Número de apuestas", 4, 8, 6, key=f"mp_n_{key}",
-                              help="Cuántas selecciones del MISMO partido combinar.")
+            n_sel = st.slider("Número de apuestas", 2, 8, 6, key=f"mp_n_{key}",
+                              help="Cuántas selecciones del MISMO partido combinar "
+                                   "(2 = doble sencilla, 8 = combinada larga).")
         with c2:
             perfil_sel = st.radio(
                 "Perfil de riesgo",
                 ['🛡️ Conservador', '⚖️ Medio', '🚀 Agresivo'],
                 index=1, key=f"mp_perfil_{key}", horizontal=True,
-                help="Conservador: prob ≥65 % por selección · Medio: ≥55 % · Agresivo: ≥50 %.")
+                help="🛡️ Conservador: solo selecciones con prob ≥70 %, maximiza "
+                     "probabilidad (si no alcanzan, devuelve menos picks). "
+                     "⚖️ Medio: prob ≥55 %, balance probabilidad/cuota. "
+                     "🚀 Agresivo: prob ≥30 %, maximiza cuota (o EV con cuotas reales).")
         excluir = st.checkbox("Excluir si el partido tiene riesgo de mercado 🔴",
                               value=True, key=f"mp_riesgo_{key}")
         if st.button("🎯 Proponer parlay para este partido", key=f"mp_btn_{key}",

@@ -41,6 +41,7 @@ ESPN_A_KAGGLE = {
     'Bosnia-Herzegovina': 'Bosnia and Herzegovina',
     'Czechia': 'Czech Republic',
     'Congo-DR': 'DR Congo',
+    'Congo DR': 'DR Congo',   # displayName real de ESPN (con espacio)
     'DR Congo': 'DR Congo',
 }
 

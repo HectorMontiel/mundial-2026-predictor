@@ -40,7 +40,9 @@ logger = logging.getLogger(__name__)
 GOLEADORES_FILE = 'goleadores.csv'
 FUENTE_FILE = 'fuente_datos.json'
 API_IDS_CACHE = 'api_football_ids.json'
-FECHA_INICIO_HISTORICO = '2010-01-01'
+# v16: ampliado de 2010 a 1990 tras el ciclo de experimentos — +1.1 pp de
+# precisión y −0.03 de log-loss en la validación 2024-2026 (VALIDACION_v16.md).
+FECHA_INICIO_HISTORICO = '1990-01-01'
 
 
 # ---------------------------------------------------------------------------

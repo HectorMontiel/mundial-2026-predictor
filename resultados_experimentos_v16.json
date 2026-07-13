@@ -1,0 +1,110 @@
+{
+  "baseline_v15": {
+    "acc": 0.593,
+    "logloss": 0.9005,
+    "n_val": 2641,
+    "acc_conf70": 0.8021,
+    "n_conf70": 778,
+    "descripcion": "Línea base actual (referencia)",
+    "segundos": 15.2
+  },
+  "descanso": {
+    "acc": 0.593,
+    "logloss": 0.8997,
+    "n_val": 2641,
+    "acc_conf70": 0.8057,
+    "n_conf70": 777,
+    "descripcion": "Idea 4: días de descanso entre partidos",
+    "segundos": 13.2
+  },
+  "rachas": {
+    "acc": 0.5926,
+    "logloss": 0.9014,
+    "n_val": 2641,
+    "acc_conf70": 0.8054,
+    "n_conf70": 781,
+    "descripcion": "Idea 10: rachas de victorias / sin perder",
+    "segundos": 13.0
+  },
+  "h2h_rico": {
+    "acc": 0.5983,
+    "logloss": 0.9103,
+    "n_val": 2641,
+    "acc_conf70": 0.8,
+    "n_conf70": 805,
+    "descripcion": "Idea 2: diferencia de goles últimos 3 H2H",
+    "segundos": 13.0
+  },
+  "importancia": {
+    "acc": 0.5979,
+    "logloss": 0.8989,
+    "n_val": 2641,
+    "acc_conf70": 0.7957,
+    "n_conf70": 793,
+    "descripcion": "Idea 5: importancia del torneo",
+    "segundos": 12.9
+  },
+  "extras_combinadas": {
+    "acc": 0.5971,
+    "logloss": 0.8955,
+    "n_val": 2641,
+    "acc_conf70": 0.8015,
+    "n_conf70": 826,
+    "descripcion": "Ideas 2+4+5+10 juntas",
+    "segundos": 13.7
+  },
+  "calibracion_sigmoid": {
+    "acc": 0.5952,
+    "logloss": 0.8938,
+    "n_val": 2641,
+    "acc_conf70": 0.8141,
+    "n_conf70": 721,
+    "descripcion": "Idea 8: calibración sigmoid vs isotónica",
+    "segundos": 14.1
+  },
+  "stacking_logistico": {
+    "acc": 0.5994,
+    "logloss": 0.8878,
+    "n_val": 2641,
+    "acc_conf70": 0.7888,
+    "n_conf70": 876,
+    "descripcion": "Idea 7: meta-modelo sobre XGB/RF/LGBM",
+    "segundos": 18.9
+  },
+  "poisson_1x2": {
+    "acc": 0.5956,
+    "logloss": 0.8908,
+    "n_val": 2641,
+    "acc_conf70": 0.7864,
+    "n_conf70": 899,
+    "descripcion": "Idea 12: 1X2 derivado de regresores Poisson",
+    "segundos": 2.6
+  },
+  "blend_poisson_30": {
+    "acc": 0.5964,
+    "logloss": 0.8869,
+    "n_val": 2641,
+    "acc_conf70": 0.798,
+    "n_conf70": 807,
+    "descripcion": "Idea 12b: 70 % clasificador + 30 % Poisson",
+    "segundos": 14.4
+  },
+  "forma_exponencial": {
+    "acc": 0.5952,
+    "logloss": 0.888,
+    "n_val": 2641,
+    "acc_conf70": 0.8008,
+    "n_conf70": 783,
+    "descripcion": "Idea 1: pesos exponenciales en la forma",
+    "segundos": 31.2
+  },
+  "historico_1990": {
+    "acc": 0.6042,
+    "logloss": 0.8704,
+    "n_val": 2638,
+    "acc_conf70": 0.8113,
+    "n_conf70": 816,
+    "descripcion": "Idea 9: histórico desde 1990",
+    "segundos": 58.9
+  }
+}

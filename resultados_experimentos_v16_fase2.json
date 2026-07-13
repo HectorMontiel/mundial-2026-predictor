@@ -1,0 +1,51 @@
+{
+  "1990_base": {
+    "acc": 0.6042,
+    "logloss": 0.8704,
+    "n_val": 2638,
+    "acc_conf70": 0.8113,
+    "n_conf70": 816
+  },
+  "1990_importancia": {
+    "acc": 0.6008,
+    "logloss": 0.8817,
+    "n_val": 2638,
+    "acc_conf70": 0.8017,
+    "n_conf70": 837
+  },
+  "1990_extras_comb": {
+    "acc": 0.6001,
+    "logloss": 0.8699,
+    "n_val": 2638,
+    "acc_conf70": 0.8082,
+    "n_conf70": 855
+  },
+  "1990_stacking": {
+    "acc": 0.6039,
+    "logloss": 0.8745,
+    "n_val": 2638,
+    "acc_conf70": 0.7931,
+    "n_conf70": 904
+  },
+  "1990_poisson": {
+    "acc": 0.5993,
+    "logloss": 0.8778,
+    "n_val": 2638,
+    "acc_conf70": 0.7955,
+    "n_conf70": 890
+  },
+  "1990_blend30": {
+    "acc": 0.6024,
+    "logloss": 0.871,
+    "n_val": 2638,
+    "acc_conf70": 0.8074,
+    "n_conf70": 841
+  },
+  "1990_stacking_imp": {
+    "acc": 0.6039,
+    "logloss": 0.8733,
+    "n_val": 2638,
+    "acc_conf70": 0.7949,
+    "n_conf70": 936
+  }
+}

@@ -1,5 +1,21 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v16 — Parlay dinámico + barrera del 60 % superada (ver [VALIDACION_v16.md](VALIDACION_v16.md))
+
+- **Modelo del Mundial: 59.4 → 60.4 % / 0.871** (walk-forward 60.0 % / 0.870,
+  +0.5 pp y −0.038 vs v13). La mejora ganadora del ciclo de 12 experimentos
+  gratuitos ([run_experiments.py](run_experiments.py)) fue ampliar el
+  histórico de Kaggle de 2010 a **1990** (32,386 partidos): cero features
+  nuevas, cero cambios de inferencia. Stacking, H2H rico, importancia del
+  torneo y blend Poisson pasaron el screening sobre la base 2010 pero NO
+  aportan sobre la base 1990 — documentado con evidencia.
+- **Parlay por partido DINÁMICO**: los perfiles ahora generan combinaciones
+  distintas (conservador ≥70 % maximiza probabilidad y reduce picks antes que
+  relajar; medio ≥55 % balancea `prob × cuota^0.3`; agresivo ≥30 % maximiza
+  cuota/EV — paga 120-350× vs ~2× del conservador). Slider **2-8** picks y
+  regla estricta de UNA línea por mercado (nunca "más de 6.5" y "más de 7.5"
+  córners juntos).
+
 ## Novedades v15 — Parlay por partido en todas las competiciones
 
 **🎯 Parlay de ESTE partido** ([match_parlay.py](match_parlay.py)): en la vista

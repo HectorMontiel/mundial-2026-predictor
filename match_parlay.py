@@ -21,9 +21,21 @@ from typing import Dict, List, Optional, Set
 
 logger = logging.getLogger(__name__)
 
-PERFILES = {'conservador': 0.65, 'medio': 0.55, 'agresivo': 0.50}
+# v16: cada perfil tiene una FILOSOFÍA distinta, no solo un umbral.
+#   conservador -> máxima probabilidad (umbral duro 70 %; si no alcanza,
+#                  devuelve MENOS picks en lugar de relajar el umbral)
+#   medio       -> balance prob/cuota: greedy por prob * cuota^alpha
+#                  (equivale a maximizar prob_conjunta * cuota_comb^alpha)
+#   agresivo    -> máxima cuota (o EV con cuotas reales) con umbral 30 %
+PERFILES = {
+    'conservador': {'min_prob': 0.70, 'prioridad': 'prob', 'relajar': False},
+    'medio':       {'min_prob': 0.55, 'prioridad': 'balance', 'alpha': 0.3,
+                    'relajar': True, 'umbral_suelo': 0.50},
+    'agresivo':    {'min_prob': 0.30, 'prioridad': 'cuota', 'relajar': False},
+}
 HAIRCUT_CORRELACION = 0.95
 CUOTA_MAXIMA_COMBINADA = 1000.0
+MIN_SELECCIONES = 2
 
 # ---------------------------------------------------------------------------
 # Semántica de los campos de la plantilla
@@ -45,12 +57,13 @@ CAMPOS = {
     'home_or_draw_prob': ('dc', _RESULTADO), 'home_or_away_prob': ('dc', _RESULTADO),
     'draw_or_away_prob': ('dc', _RESULTADO),
     'dc_1x': ('dc', _RESULTADO), 'dc_12': ('dc', _RESULTADO), 'dc_x2': ('dc', _RESULTADO),
-    # total de goles
-    'over25_prob': ('ou_goles_25', _GOLES), 'under25_prob': ('ou_goles_25', _GOLES),
-    'over05': ('ou_goles_05', _GOLES), 'over15': ('ou_goles_15', _GOLES),
-    'over25': ('ou_goles_25', _GOLES), 'over35': ('ou_goles_35', _GOLES),
-    'over45': ('ou_goles_45', _GOLES), 'over55': ('ou_goles_55', _GOLES),
-    'over15_goles': ('ou_goles_15', _GOLES), 'over35_goles': ('ou_goles_35', _GOLES),
+    # total de goles — v16: UNA sola línea o/u de goles por parlay (las líneas
+    # del mismo stat son redundantes entre sí: over 2.5 ⊂ over 1.5)
+    'over25_prob': ('ou_goles', _GOLES), 'under25_prob': ('ou_goles', _GOLES),
+    'over05': ('ou_goles', _GOLES), 'over15': ('ou_goles', _GOLES),
+    'over25': ('ou_goles', _GOLES), 'over35': ('ou_goles', _GOLES),
+    'over45': ('ou_goles', _GOLES), 'over55': ('ou_goles', _GOLES),
+    'over15_goles': ('ou_goles', _GOLES), 'over35_goles': ('ou_goles', _GOLES),
     # btts / momentos de gol / paridad
     'btts_yes_prob': ('btts', _GOLES), 'btts_no_prob': ('btts', _GOLES),
     'btts_si': ('btts', _GOLES), 'btts_no': ('btts', _GOLES),
@@ -58,26 +71,26 @@ CAMPOS = {
     'primer_gol_home': ('primer_gol', _GOLES), 'primer_gol_away': ('primer_gol', _GOLES),
     'ultimo_gol_home': ('ultimo_gol', _GOLES),
     'total_par': ('paridad', _GOLES), 'total_impar': ('paridad', _GOLES),
-    # córners
-    'over65_corners': ('ou_ck_65', _CORNERS), 'over75_corners': ('ou_ck_75', _CORNERS),
-    'over85_corners': ('ou_ck_85', _CORNERS), 'over95_corners': ('ou_ck_95', _CORNERS),
-    'ck_o85': ('ou_ck_85', _CORNERS), 'ck_o95': ('ou_ck_95', _CORNERS),
-    'ck_o105': ('ou_ck_105', _CORNERS),
+    # córners — v16: UNA sola línea o/u de córners por parlay
+    'over65_corners': ('ou_ck', _CORNERS), 'over75_corners': ('ou_ck', _CORNERS),
+    'over85_corners': ('ou_ck', _CORNERS), 'over95_corners': ('ou_ck', _CORNERS),
+    'ck_o85': ('ou_ck', _CORNERS), 'ck_o95': ('ou_ck', _CORNERS),
+    'ck_o105': ('ou_ck', _CORNERS),
     'corners_par_prob': ('ck_paridad', _CORNERS),
     'corners_1h_par_prob': ('ck_paridad_1h', _CORNERS),
     'first_corner_home_prob': ('primer_ck', _CORNERS),
     'last_corner_home_prob': ('ultimo_ck', _CORNERS),
     'last_corner_1h_home_prob': ('ultimo_ck_1h', _CORNERS),
-    # tarjetas
-    'over35_tarjetas': ('ou_cards_35', _TARJETAS), 'over55_tarjetas': ('ou_cards_55', _TARJETAS),
-    'cards_over45_prob': ('ou_cards_45', _TARJETAS),
-    'cards_o35': ('ou_cards_35', _TARJETAS), 'cards_o45': ('ou_cards_45', _TARJETAS),
+    # tarjetas — v16: UNA sola línea o/u de tarjetas por parlay
+    'over35_tarjetas': ('ou_cards', _TARJETAS), 'over55_tarjetas': ('ou_cards', _TARJETAS),
+    'cards_over45_prob': ('ou_cards', _TARJETAS),
+    'cards_o35': ('ou_cards', _TARJETAS), 'cards_o45': ('ou_cards', _TARJETAS),
     'penalty_prob': ('penalty', _TARJETAS),
 }
 
 _PREFIJOS = [
-    # (prefijo, grupo_base, familia). El grupo usa el id completo cuando el
-    # prefijo agrupa opciones NO excluyentes entre sí (p. ej. líneas o/u).
+    # (prefijo, grupo, familia). v16: TODOS los prefijos colapsan a un grupo
+    # único por mercado — nunca dos líneas del mismo stat en el parlay.
     ('ah_', 'ah', _RESULTADO), ('h1x2_', 'h1x2', _RESULTADO),
     ('home_plus', 'ah', _RESULTADO), ('home_minus', 'ah', _RESULTADO),
     ('away_plus', 'ah', _RESULTADO), ('away_minus', 'ah', _RESULTADO),
@@ -125,11 +138,7 @@ def _clasificar(id_: str):
         return CAMPOS[id_]
     for prefijo, grupo, familia in _PREFIJOS:
         if id_.startswith(prefijo):
-            # líneas o/u y marcadores: cada id es su propio grupo salvo los
-            # explícitamente excluyentes (score_, mv_, htft_, h1x2_ = 1 por grupo)
-            if grupo in ('score', 'margen', 'htft', 'h1x2', 'ah', 'multi'):
-                return grupo, familia
-            return id_, familia
+            return grupo, familia
     return None, None
 
 
@@ -238,8 +247,9 @@ def construir_parlay_partido(motor, home: str, away: str,
                              usar_cuotas_reales: bool = True,
                              excluir_alto_riesgo: bool = True) -> Dict:
     """Parlay óptimo dentro de UN partido. Ver docstring del módulo."""
-    num_selecciones = max(4, min(8, int(num_selecciones)))
-    umbral = PERFILES.get(perfil, PERFILES['medio'])
+    num_selecciones = max(MIN_SELECCIONES, min(8, int(num_selecciones)))
+    cfg = PERFILES.get(perfil, PERFILES['medio'])
+    umbral = cfg['min_prob']
 
     # plantilla según el tipo de motor (clubes primero: ClubEngine no tiene .plantilla)
     if hasattr(motor, 'plantilla_club'):
@@ -265,23 +275,37 @@ def construir_parlay_partido(motor, home: str, away: str,
     candidatas = [s for s in todas if s.prob >= umbral]
     aviso_umbral = None
     umbral_usado = umbral
-    # relajar el umbral solo lo necesario para completar el parlay
-    for umbral_relajado in (0.50, 0.45, 0.40):
-        if len({s.grupo for s in candidatas}) >= num_selecciones or umbral <= umbral_relajado:
-            break
-        candidatas = [s for s in todas if s.prob >= umbral_relajado]
-        umbral_usado = umbral_relajado
-        aviso_umbral = (f"⚠️ No había suficientes mercados con prob ≥ {umbral*100:.0f} %: "
-                        f"el umbral se relajó a {umbral_relajado*100:.0f} % para completar el parlay.")
+    # v16: solo el perfil MEDIO relaja el umbral (hasta su suelo); el
+    # conservador NUNCA relaja — antes reduce el número de picks.
+    if cfg.get('relajar'):
+        suelo = cfg.get('umbral_suelo', umbral)
+        if len({s.grupo for s in candidatas}) < num_selecciones and suelo < umbral:
+            candidatas = [s for s in todas if s.prob >= suelo]
+            umbral_usado = suelo
+            aviso_umbral = (f"⚠️ No había suficientes mercados con prob ≥ {umbral*100:.0f} %: "
+                            f"el umbral se relajó a {suelo*100:.0f} % para completar el parlay.")
 
-    if len(candidatas) < 2:
+    if len(candidatas) < MIN_SELECCIONES:
         return {'error': 'Este partido no tiene suficientes mercados con la '
                          'probabilidad mínima del perfil elegido.'}
 
     hay_reales = any(s.cuota_fuente == 'real' for s in candidatas)
-    # greedy: mayor EV (si hay cuotas reales) o mayor probabilidad, añadiendo
-    # solo selecciones compatibles con las ya elegidas
-    clave = (lambda s: (s.ev, s.prob)) if hay_reales else (lambda s: s.prob)
+    # v16: la ORDENACIÓN define la filosofía del perfil.
+    #  - prob    -> selecciones más seguras primero (conservador)
+    #  - balance -> prob * cuota^alpha (greedy que maximiza el score conjunto
+    #               prob_conjunta * cuota_combinada^alpha) (medio)
+    #  - cuota   -> mayor pago primero; con cuotas reales, mayor EV (agresivo)
+    prioridad = cfg['prioridad']
+    if prioridad == 'cuota':
+        clave = (lambda s: (s.ev, s.cuota)) if hay_reales else (lambda s: s.cuota)
+    elif prioridad == 'balance':
+        alpha = cfg.get('alpha', 0.3)
+        if hay_reales:
+            clave = lambda s: (s.prob * s.cuota ** alpha) * (1.0 + max(s.ev, 0.0))
+        else:
+            clave = lambda s: s.prob * s.cuota ** alpha
+    else:  # 'prob'
+        clave = (lambda s: (s.prob, s.ev)) if hay_reales else (lambda s: s.prob)
     orden = sorted(candidatas, key=clave, reverse=True)
     elegidas: List[Seleccion] = []
     for s in orden:
@@ -292,9 +316,9 @@ def construir_parlay_partido(motor, home: str, away: str,
 
     aviso_cantidad = None
     if len(elegidas) < num_selecciones:
-        aviso_cantidad = (f"⚠️ Solo hay {len(elegidas)} selecciones compatibles "
-                          f"(pediste {num_selecciones}).")
-    if len(elegidas) < 2:
+        aviso_cantidad = (f"⚠️ Solo hay {len(elegidas)} selecciones compatibles con el "
+                          f"perfil {perfil} (pediste {num_selecciones}).")
+    if len(elegidas) < MIN_SELECCIONES:
         return {'error': 'No hay suficientes selecciones compatibles en este partido.'}
 
     prob_conjunta = 1.0
