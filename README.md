@@ -1,5 +1,32 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v20 — Simetría local/visitante, SmartParlayBuilder y panel de ROI (ver [VALIDACION_v20.md](VALIDACION_v20.md))
+
+- **Simetría del Mundial corregida** ([prediction_api.py](prediction_api.py)):
+  al invertir local y visitante las probabilidades diferían en promedio 18 pp
+  (hasta 47 pp). Ahora la inferencia es simétrica: en sede neutral
+  `P(gana A | A vs B) = P(gana A | B vs A)` exacto, y el anfitrión
+  (MEX/USA/CAN en su país) conserva su ventaja real lo listes como local o
+  visitante. Validado: mejora la precisión (60.38→60.49 %) y el log-loss
+  (0.8712→0.8688) sobre los 2,640 partidos de validación.
+  Test permanente: [test_simetria.py](test_simetria.py).
+- **SmartParlayBuilder** ([match_parlay.py](match_parlay.py)): perfiles con
+  garantías reales y distintos por construcción — 🛡️ conservador ≥60 %
+  conjunto (reduce picks antes que relajar), ⚖️ medio en la zona 15-60 %,
+  🚀 agresivo con la cuota más alta que respete ≥5 % conjunto y ≥30 % por
+  pick (adiós a los parlays del 0.2 %: ahora cuota ~18× con 5 % real).
+  Diversidad mínima de categorías `min(3, N-1)`, máximo un mercado de
+  córners y uno de tarjetas, y explicación de la composición en la UI.
+- **Panel de rendimiento por liga + simulador de bankroll**: ROI simulado
+  con cuotas de cierre reales por liga (modelo vs mercado) y simulación
+  cronológica de banca con ¼ Kelly (tope 5 %) y gráfico de evolución.
+- **Alineaciones automatizadas (infraestructura)**: minutos estimados desde
+  los flags de ESPN, `jugadores_xg.csv` con xG/90 bayesiano
+  ([player_db.py](player_db.py)) y banner informativo del xG ajustado por
+  once confirmado — sin tocar el 1X2 hasta que haya backtest (v21).
+- Liga MX: modelos separados regular/liguilla evaluados y descartados con
+  evidencia (−0.2 pp); el mercado sigue sin batirse y así se reporta.
+
 ## Novedades v19 — Banca, alineaciones sombra y Liga MX reforzada (ver [VALIDACION_v19.md](VALIDACION_v19.md))
 
 - **Liga MX**: cuotas + features mexicanas (altitud, distancia de viaje,

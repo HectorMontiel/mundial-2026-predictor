@@ -16,5 +16,10 @@
     "DIFF_PPG",
     "DIFF_POSICION"
   ],
-  "medias_cuotas": {}
+  "medias_cuotas": {},
+  "roi_sim": {
+    "n_apuestas": 151,
+    "roi_pct": 3.09,
+    "aciertos": 76
+  }
 }

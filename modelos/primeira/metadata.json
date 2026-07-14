@@ -9,5 +9,10 @@
   "log_loss_validacion": 0.9714,
   "n_equipos": 29,
   "features_extra_cols": [],
-  "medias_cuotas": {}
+  "medias_cuotas": {},
+  "roi_sim": {
+    "n_apuestas": 347,
+    "roi_pct": -7.35,
+    "aciertos": 190
+  }
 }

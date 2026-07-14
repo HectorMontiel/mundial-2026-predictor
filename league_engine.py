@@ -455,6 +455,34 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         reales = pd.Series(y[m_va], index=ids_val).loc[disponibles.index].values
         acc_mercado = float((pick == reales).mean())
 
+    # v20/M3-M4: simulación de apuestas sobre la validación con cuotas de
+    # cierre reales — apuesta 1 u al pick del modelo si conf>70 % o EV>0.
+    # Se persisten las apuestas para el panel de ROI y el simulador de banca.
+    roi_sim = None
+    if len(disponibles) > 50:
+        fechas_val = pd.Series([f for f, keep in zip(fechas, m_tr) if not keep],
+                               index=ids_val)
+        proba_val = pd.DataFrame(proba, index=ids_val)
+        apuestas = []
+        for mid in disponibles.index:
+            p = proba_val.loc[mid].values
+            k = int(p.argmax())
+            cuota = float(disponibles.loc[mid].values[k])
+            ev = cuota * float(p[k]) - 1.0
+            if p[k] <= 0.70 and ev <= 0:
+                continue
+            gano = int(k == int(pd.Series(y[m_va], index=ids_val).loc[mid]))
+            apuestas.append({'fecha': str(pd.Timestamp(fechas_val.loc[mid]).date()),
+                             'prob': round(float(p[k]), 4), 'cuota': round(cuota, 3),
+                             'ev': round(ev, 4), 'gano': gano})
+        if apuestas:
+            ganancia = sum(a['gano'] * (a['cuota'] - 1) - (1 - a['gano']) for a in apuestas)
+            roi_sim = {'n_apuestas': len(apuestas),
+                       'roi_pct': round(100 * ganancia / len(apuestas), 2),
+                       'aciertos': int(sum(a['gano'] for a in apuestas))}
+            with open(f'roi_bets_{clave}.json', 'w', encoding='utf-8') as f:
+                json.dump(sorted(apuestas, key=lambda a: a['fecha']), f)
+
     if con_ratings:   # A/B experimental: solo métricas, sin artefactos
         resultado = {
             'liga': LEAGUES[clave]['nombre'], 'experimento': 'ratings_transfermarkt',
@@ -512,6 +540,7 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         'n_equipos': len(equipos_liga),
         'features_extra_cols': cols_extra,
         'medias_cuotas': medias_cuotas,
+        'roi_sim': roi_sim,
     }
     with open(os.path.join(carpeta, 'metadata.json'), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=2)

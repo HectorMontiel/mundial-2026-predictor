@@ -45,15 +45,36 @@ def probar_motor(nombre, motor, home, away):
                              f"({r['umbral_usado']*100:.0f} %)")
             if r['n_selecciones'] < n:
                 check(bool(r['avisos']), f"{perfil}/n={n}: avisa al devolver menos picks")
+
+            # v20: PISO de probabilidad conjunta del perfil (o aviso honesto)
+            lo, hi = cfg['zona']
+            en_zona = lo - 1e-6 <= r['prob_conjunta'] < hi
+            check(en_zona or bool(r['avisos']),
+                  f"{perfil}/n={n}: prob conjunta {r['prob_conjunta']*100:.1f} % "
+                  f"en zona [{lo*100:.0f}, {hi*100:.0f}) o avisa")
+
+            # v20: diversidad de categorías min(3, N-1) (o aviso honesto)
+            n_sel = r['n_selecciones']
+            min_fam = max(1, min(3, n_sel - 1))
+            n_fam = len({s['categoria'] for s in r['selecciones']})
+            check(n_fam >= min_fam or bool(r['avisos']),
+                  f"{perfil}/n={n}: {n_fam} categorías >= {min_fam} o avisa")
+
+            # v20: nunca más de un mercado de córners ni de tarjetas
+            cats = [s['categoria'] for s in r['selecciones']]
+            check(cats.count('Córners') <= 1 and cats.count('Tarjetas/Disciplina') <= 1,
+                  f"{perfil}/n={n}: máx. 1 córners y 1 tarjetas")
+
             if n == 6:
                 resultados_por_perfil[perfil] = r
 
-    # v16: los perfiles deben producir parlays DISTINTOS (mismo partido, n=6)
+    # v20: los TRES perfiles deben producir parlays DISTINTOS (mismo partido, n=6)
     if len(resultados_por_perfil) >= 2:
-        firmas = {p: tuple(s['apuesta'] for s in r['selecciones'])
+        firmas = {p: tuple(sorted(s['apuesta'] for s in r['selecciones']))
                   for p, r in resultados_por_perfil.items()}
-        distintos = len(set(firmas.values())) >= 2
-        check(distintos, "los perfiles generan parlays DIFERENTES (n=6)")
+        check(len(set(firmas.values())) == len(firmas),
+              f"los perfiles generan parlays DIFERENTES entre sí (n=6): "
+              f"{len(set(firmas.values()))} firmas distintas de {len(firmas)}")
         if 'conservador' in resultados_por_perfil and 'agresivo' in resultados_por_perfil:
             c = resultados_por_perfil['conservador']
             a = resultados_por_perfil['agresivo']
@@ -63,6 +84,13 @@ def probar_motor(nombre, motor, home, away):
             check(c['prob_conjunta'] >= a['prob_conjunta'],
                   f"conservador es más probable que agresivo "
                   f"({c['prob_conjunta']:.3f} >= {a['prob_conjunta']:.3f})")
+        if 'medio' in resultados_por_perfil and not resultados_por_perfil['medio']['avisos']:
+            m = resultados_por_perfil['medio']
+            check(0.15 - 1e-6 <= m['prob_conjunta'] < 0.60,
+                  f"medio queda en su zona 15-60 % ({m['prob_conjunta']*100:.1f} %)")
+        if 'agresivo' in resultados_por_perfil and not resultados_por_perfil['agresivo']['avisos']:
+            check(resultados_por_perfil['agresivo']['prob_conjunta'] >= 0.05 - 1e-6,
+                  "agresivo nunca baja del 5 % conjunto (adiós quimeras)")
 
     # sin conflictos + regla de UNA línea por stat (córners/goles/tarjetas)
     r = construir_parlay_partido(motor, home, away, num_selecciones=8,

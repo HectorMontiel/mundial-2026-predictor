@@ -24,5 +24,10 @@
     "PROB_IMP_D": 0.2671,
     "PROB_IMP_A": 0.2933,
     "OVERROUND": 0.071
+  },
+  "roi_sim": {
+    "n_apuestas": 234,
+    "roi_pct": -7.24,
+    "aciertos": 98
   }
 }

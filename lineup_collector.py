@@ -70,6 +70,10 @@ def _alineacion_evento(codigo_espn: str, event_id: str) -> List[dict]:
                 'jugador': j.get('athlete', {}).get('displayName'),
                 'posicion': (j.get('position') or {}).get('abbreviation'),
                 'titular': bool(j.get('starter')),
+                # v20: para estimar minutos (90 titular completo / ~70 si
+                # sale / ~25 suplente que entra / 0 resto)
+                'entro': bool(j.get('subbedIn')),
+                'salio': bool(j.get('subbedOut')),
             })
     return filas
 

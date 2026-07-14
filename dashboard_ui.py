@@ -173,6 +173,81 @@ def render_cuotas_reales(pl: dict):
 
 
 # ===========================================================================
+# PANEL DE RENDIMIENTO + SIMULADOR DE BANKROLL (v20)
+# ===========================================================================
+def render_rendimiento(key: str):
+    """ROI simulado por liga (validación con cuotas de cierre) + simulador
+    de banca con ¼ Kelly sobre las apuestas históricas persistidas."""
+    import json as _json
+    import os as _os
+    with st.expander("📈 Rendimiento del modelo por liga (ROI simulado)"):
+        st.caption(
+            "Simulación sobre la VALIDACIÓN de cada liga con cuotas de cierre "
+            "reales: 1 unidad al pick del modelo cuando la confianza supera el "
+            "70 % o el EV es positivo. Rendimiento pasado ≠ rendimiento futuro."
+        )
+        filas = []
+        for clave, nombre in NOMBRES_LIGAS.items():
+            ruta = _os.path.join('modelos', clave, 'metadata.json')
+            if not _os.path.exists(ruta):
+                continue
+            with open(ruta, encoding='utf-8') as f:
+                md = _json.load(f)
+            r = md.get('roi_sim')
+            filas.append({
+                'Liga': nombre,
+                'Modelo': f"{md['precision_validacion']*100:.1f} %",
+                'Mercado': (f"{md['precision_mercado_cuotas']*100:.1f} %"
+                            if md.get('precision_mercado_cuotas') else 'N/D'),
+                'Apuestas': r['n_apuestas'] if r else 0,
+                'Aciertos': r['aciertos'] if r else '—',
+                'ROI': f"{r['roi_pct']:+.1f} %" if r else 'N/D',
+            })
+        if filas:
+            st.dataframe(pd.DataFrame(filas), use_container_width=True, hide_index=True)
+
+        # ---- simulador de bankroll ----
+        st.markdown("**💵 Simulador de bankroll (¼ Kelly, tope 5 %)**")
+        ligas_con_bets = [c for c in NOMBRES_LIGAS
+                          if _os.path.exists(f'roi_bets_{c}.json')]
+        if not ligas_con_bets:
+            st.caption("Aún no hay apuestas simuladas persistidas (reentrena las ligas).")
+            return
+        c1, c2 = st.columns(2)
+        with c1:
+            liga_sim = st.selectbox("Liga", ligas_con_bets,
+                                    format_func=lambda c: NOMBRES_LIGAS[c],
+                                    key=f"sim_liga_{key}")
+        with c2:
+            banca0 = st.number_input("Bankroll inicial", 100.0, 1_000_000.0,
+                                     1000.0, step=100.0, key=f"sim_b0_{key}")
+        if st.button("Simular", key=f"sim_btn_{key}"):
+            from bankroll_manager import calcular_stake, AVISO_JUEGO_RESPONSABLE
+            with open(f'roi_bets_{liga_sim}.json', encoding='utf-8') as f:
+                bets = _json.load(f)
+            banca, serie = float(banca0), []
+            for b in bets:
+                k = calcular_stake(b['prob'], b['cuota'], banca)
+                if k['stake'] <= 0:
+                    continue
+                banca += k['stake'] * (b['cuota'] - 1) if b['gano'] else -k['stake']
+                serie.append({'fecha': b['fecha'], 'banca': round(banca, 2)})
+            if not serie:
+                st.info("Ninguna apuesta con stake positivo en el histórico de esta liga.")
+                return
+            df_s = pd.DataFrame(serie)
+            fig = go.Figure(go.Scatter(x=df_s['fecha'], y=df_s['banca'],
+                                       mode='lines', fill='tozeroy'))
+            fig.update_layout(height=260, margin=dict(l=0, r=0, t=10, b=0),
+                              yaxis_title='Bankroll')
+            st.plotly_chart(fig, use_container_width=True)
+            delta = banca - banca0
+            st.metric("Bankroll final", f"{banca:,.2f}",
+                      delta=f"{delta:+,.2f} ({delta/banca0*100:+.1f} %)")
+            st.caption(f"{len(serie)} apuestas simuladas. {AVISO_JUEGO_RESPONSABLE}")
+
+
+# ===========================================================================
 # ASISTENTE DE PARLAY POR PARTIDO (v15): agnóstico de competición
 # ===========================================================================
 def render_parlay_partido(motor, home: str, away: str, key: str):
@@ -188,10 +263,13 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                 "Perfil de riesgo",
                 ['🛡️ Conservador', '⚖️ Medio', '🚀 Agresivo'],
                 index=1, key=f"mp_perfil_{key}", horizontal=True,
-                help="🛡️ Conservador: solo selecciones con prob ≥70 %, maximiza "
-                     "probabilidad (si no alcanzan, devuelve menos picks). "
-                     "⚖️ Medio: prob ≥55 %, balance probabilidad/cuota. "
-                     "🚀 Agresivo: prob ≥30 %, maximiza cuota (o EV con cuotas reales).")
+                help="Cada perfil garantiza un PISO de probabilidad de acertar "
+                     "el parlay completo. 🛡️ Conservador: el parlay más seguro, "
+                     "mínimo 60 % conjunto (si no alcanza, devuelve menos picks). "
+                     "⚖️ Medio: balance probabilidad/cuota en la zona 15-60 % "
+                     "conjunta. 🚀 Agresivo: la cuota más alta posible sin bajar "
+                     "del 5 % conjunto (ni del 30 % por pick) — momio alto pero "
+                     "factible, nunca una quimera.")
         excluir = st.checkbox("Excluir si el partido tiene riesgo de mercado 🔴",
                               value=True, key=f"mp_riesgo_{key}")
         if st.button("🎯 Proponer parlay para este partido", key=f"mp_btn_{key}",
@@ -215,10 +293,17 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                    else " (cuotas justas del modelo).")
             )
             st.dataframe(pd.DataFrame([{
+                'Categoría': s.get('categoria', ''),
                 'Mercado': s['mercado'], 'Apuesta': s['apuesta'],
                 'Prob.': f"{s['prob']*100:.1f} %", 'Cuota': s['cuota'],
                 'Fuente': s['cuota_fuente'], 'EV': s['ev'],
             } for s in r['selecciones']]), use_container_width=True, hide_index=True)
+            # v20: por qué estas categorías encajan con ESTE partido
+            if r.get('explicacion'):
+                st.markdown("**🧭 Composición del parlay** — " +
+                            ", ".join(r.get('categorias', [])))
+                for linea in r['explicacion']:
+                    st.caption(f"• {linea}")
             m1, m2, m3, m4 = st.columns(4)
             m1.metric("Cuota combinada", f"{r['cuota_combinada']:.2f}",
                       help="Producto de las cuotas: lo que pagaría 1 unidad si aciertas todo.")
@@ -357,6 +442,7 @@ def render_liga_club(clave: str, nombre_liga: str):
     # v15: parlay del partido en pantalla
     st.divider()
     render_parlay_partido(motor, home, away, key=clave)
+    render_rendimiento(key=clave)
 
     from prediction_api import plantilla_a_markdown
     st.download_button("⬇️ Descargar plantilla (Markdown)",
@@ -729,9 +815,23 @@ with tab_rapida:
             else:
                 st.info(f"{emoji} {nombre_eq}: sin goleadores registrados en los últimos 24 meses.")
 
+    # v20: ajuste informativo por alineación confirmada (solo si hay del día)
+    try:
+        import player_db
+        fac = player_db.factores_para_partido(home, away)
+        if fac:
+            st.info(f"📋 **Alineación confirmada detectada** ({fac[2]}): factor de "
+                    f"calidad de titulares — local ×{fac[0]:.2f}, visitante ×{fac[1]:.2f}. "
+                    f"xG ajustado (informativo, NO altera el 1X2): "
+                    f"local {pred['prediction']['expected_goals']['home']*fac[0]:.2f} · "
+                    f"visitante {pred['prediction']['expected_goals']['away']*fac[1]:.2f}.")
+    except Exception:
+        pass
+
     # ---- 🎯 Parlay del partido en pantalla (v15) ------------------------------
     st.divider()
     render_parlay_partido(MOTOR, home, away, key='mundial')
+    render_rendimiento(key='mundial')
 
     # ---- 🎯 Asistente de Parlay del FIXTURE (v12; v14/M11: niveles de riesgo) --
     with st.expander("🎯 Asistente de Parlay del fixture — 3 pasos", expanded=False):

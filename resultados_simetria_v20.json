@@ -1,0 +1,25 @@
+{
+  "asimetria_actual": {
+    "media_pp": 18.01,
+    "p90_pp": 24.79,
+    "max_pp": 46.89
+  },
+  "n_validacion": 2640,
+  "n_neutrales": 971,
+  "global": {
+    "acc_antes": 0.6038,
+    "acc_despues": 0.6049,
+    "ll_antes": 0.8712,
+    "ll_despues": 0.8688
+  },
+  "solo_neutrales": {
+    "acc_antes": 0.5675,
+    "acc_despues": 0.5705,
+    "ll_antes": 0.9263,
+    "ll_despues": 0.9198
+  },
+  "mae_goles_suma": {
+    "antes": 1.9116,
+    "despues": 1.8999
+  }
+}

@@ -70,9 +70,12 @@ def actualizar_ratings():
 
 
 def recolectar_alineaciones():
-    """v19: modo SOMBRA — acumula alineaciones (ESPN) sin tocar predicciones."""
+    """v19: modo SOMBRA — acumula alineaciones (ESPN) sin tocar predicciones.
+    v20: reconstruye también la base de jugadores (minutos + xG/90)."""
     import lineup_collector
     lineup_collector.recolectar()
+    import player_db
+    player_db.construir()
 
 
 if __name__ == '__main__':
