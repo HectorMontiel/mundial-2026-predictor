@@ -1,0 +1,14 @@
+{
+  "liga": "UEFA Champions League",
+  "n_train": 352,
+  "n_validacion": 88,
+  "fecha_corte": "2024-12-11",
+  "precision_validacion": 0.5682,
+  "precision_linea_base_elo": 0.5455,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 0.9551,
+  "n_equipos": 145,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null
+}

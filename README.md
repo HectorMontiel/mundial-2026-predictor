@@ -1,5 +1,29 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v21 — API-Football: Champions operativa, backfill de stats y H2H (ver [VALIDACION_v21.md](VALIDACION_v21.md))
+
+- **Gateway API-Football** ([api_football_manager.py](api_football_manager.py)):
+  contador diario (plan Free: 100 req/día), caché agresiva con TTL por tipo y
+  prioridades con reserva de presupuesto. La clave se lee de
+  `API_FOOTBALL_KEY` (env / `st.secrets` / `.streamlit/secrets.toml`
+  gitignorado) y **jamás se commitea**. En Streamlit Cloud: Settings →
+  Secrets → `API_FOOTBALL_KEY = "tu_clave"`.
+- **🇪🇺 Champions League OPERATIVA** (beta desde v12): 707 partidos reales
+  2022-2025 vía API-Football (3 requests, cacheados), nombres canonicalizados
+  por ID. Split 56.8 % / 0.955 (ELO 54.5 %); walk-forward 2024-25: 53.5 %
+  vs ELO 51.6 % — supera el umbral del 50 % y se activa. Limitación honesta
+  del plan Free (solo temporadas 2022-2024): la forma de los equipos queda
+  congelada a 2024-25 y la UI lo avisa.
+- **Backfill progresivo de estadísticas** ([backfill_stats.py](backfill_stats.py)):
+  el pipeline gasta el presupuesto sobrante en posesión/remates/córners/
+  tarjetas de partidos 2022-2024 (Liga MX → Primeira → Champions) para el
+  reentrenamiento de v22 (~25 días de acumulación).
+- **📜 Historial reciente (H2H)**: en clubes vía API-Football (bajo demanda,
+  caché 24 h); en el Mundial desde el histórico local de Kaggle (gratis).
+- **No posible con el plan Free** (documentado con evidencia): alineaciones
+  en vivo, cuotas BTTS y lesiones — requieren la temporada en curso o odds,
+  ambas bloqueadas. ESPN sigue siendo la fuente de alineaciones.
+
 ## Novedades v20 — Simetría local/visitante, SmartParlayBuilder y panel de ROI (ver [VALIDACION_v20.md](VALIDACION_v20.md))
 
 - **Simetría del Mundial corregida** ([prediction_api.py](prediction_api.py)):

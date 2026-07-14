@@ -150,9 +150,14 @@ LEAGUES = {
         'disponible': True,
     },
     'champions': {
-        'nombre': 'UEFA Champions League', 'pais': 'Europa', 'formato': 'api',
-        'urls': [], 'disponible': False,
-        'nota': 'Sin fuente CSV gratuita: requiere RAPIDAPI_KEY (API-Football). Beta.',
+        # v21: activada con API-Football (plan Free). LIMITACIÓN honesta del
+        # plan: solo temporadas 2022-2024 — el estado de los equipos queda
+        # congelado al final de la 2024-25 y se muestra en la UI.
+        'nombre': 'UEFA Champions League', 'pais': 'Europa',
+        'formato': 'api_football',
+        'api_league_id': 2, 'api_seasons': [2022, 2023, 2024],
+        'urls': [], 'disponible': True,
+        'nota': 'Datos reales de API-Football (temporadas 2022-2024 del plan Free).',
     },
 }
 

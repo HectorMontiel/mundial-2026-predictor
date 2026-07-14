@@ -78,6 +78,14 @@ def recolectar_alineaciones():
     player_db.construir()
 
 
+def backfill_estadisticas():
+    """v21: gasta el presupuesto SOBRANTE de API-Football (prioridad 2) en
+    estadísticas de partidos 2022-2024 (Liga MX/Primeira/Champions). El CSV
+    acumulado alimentará el reentrenamiento cuando haya cobertura (v22)."""
+    import backfill_stats
+    backfill_stats.backfill(max_requests=40)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Actualiza toda la plataforma con fuentes gratuitas.')
     parser.add_argument('--solo-mundial', action='store_true')
@@ -93,6 +101,7 @@ if __name__ == '__main__':
         resultados['Clubes'] = paso('LIGAS DE CLUBES (football-data)', actualizar_clubes)
     resultados['Cuotas'] = paso('CUOTAS (fixtures.csv / Betexplorer / Odds API)', actualizar_cuotas)
     resultados['Alineaciones'] = paso('ALINEACIONES (ESPN, modo sombra)', recolectar_alineaciones)
+    resultados['Backfill stats'] = paso('BACKFILL ESTADÍSTICAS (API-Football)', backfill_estadisticas)
     if not args.solo_clubes:
         resultados['Mercado'] = paso('INTELIGENCIA DE MERCADO (Polymarket)', actualizar_mercado)
     if args.ratings:

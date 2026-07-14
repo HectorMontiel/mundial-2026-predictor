@@ -13,6 +13,8 @@ Pestaña 2: la Plantilla General de Análisis (9 secciones, ~85 campos)
 Ejecutar:  streamlit run dashboard_ui.py
 """
 
+import os
+
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -248,6 +250,66 @@ def render_rendimiento(key: str):
 
 
 # ===========================================================================
+# HISTORIAL RECIENTE H2H (v21): API-Football para clubes, histórico local
+# para el Mundial. Solo consume requests al pulsar el botón (caché 24 h).
+# ===========================================================================
+def render_h2h_club(clave: str, home: str, away: str, key: str):
+    with st.expander(f"📜 Historial reciente — {home} vs {away}"):
+        import api_football_manager as afm
+        if not afm.api_key():
+            st.caption("Configura API_FOOTBALL_KEY (Settings → Secrets en "
+                       "Streamlit Cloud) para consultar el historial de cruces.")
+            return
+        st.caption(f"Fuente: API-Football (plan Free: hasta la temporada "
+                   f"2024-25) · Requests restantes hoy: {afm.requests_restantes()}")
+        if st.button("📜 Consultar últimos cruces", key=f"h2h_btn_{key}"):
+            import backfill_stats as bs
+            with st.spinner("Buscando cruces..."):
+                if clave == 'champions' and os.path.exists('historico_champions.csv'):
+                    hc = pd.read_csv('historico_champions.csv')
+                    ids = {}
+                    for lado in ('home', 'away'):
+                        ids.update(dict(zip(hc[f'{lado}_team'], hc[f'api_{lado}_id'])))
+                    id_h, id_a = ids.get(home), ids.get(away)
+                else:
+                    id_h = bs.id_equipo(clave, home)
+                    id_a = bs.id_equipo(clave, away)
+                cruces = bs.h2h(int(id_h), int(id_a)) if id_h and id_a else []
+            if not cruces:
+                st.info("Sin cruces disponibles (equipos no mapeados a la API o "
+                        "sin presupuesto de requests hoy).")
+                return
+            st.dataframe(pd.DataFrame([{
+                'Fecha': c['fecha'], 'Competición': c['competicion'],
+                'Partido': f"{c['local']} {c['goles_local']}-{c['goles_visitante']} "
+                           f"{c['visitante']}",
+            } for c in cruces]), use_container_width=True, hide_index=True)
+
+
+def render_h2h_mundial(home: str, away: str):
+    """H2H del Mundial desde el histórico local de Kaggle — gratis y completo."""
+    with st.expander(f"📜 Historial reciente — {home} vs {away}"):
+        try:
+            h = pd.read_csv('historico_partidos.csv',
+                            usecols=['date', 'home_team', 'away_team',
+                                     'home_goals', 'away_goals', 'tournament'])
+        except Exception:
+            st.caption("Histórico no disponible.")
+            return
+        par = h[((h['home_team'] == home) & (h['away_team'] == away)) |
+                ((h['home_team'] == away) & (h['away_team'] == home))]
+        par = par.sort_values('date', ascending=False).head(5)
+        if par.empty:
+            st.caption("Estas selecciones no se han enfrentado en el histórico (1990-).")
+            return
+        st.dataframe(pd.DataFrame([{
+            'Fecha': str(r['date'])[:10], 'Competición': r['tournament'],
+            'Partido': f"{r['home_team']} {r['home_goals']:.0f}-{r['away_goals']:.0f} "
+                       f"{r['away_team']}",
+        } for _, r in par.iterrows()]), use_container_width=True, hide_index=True)
+
+
+# ===========================================================================
 # ASISTENTE DE PARLAY POR PARTIDO (v15): agnóstico de competición
 # ===========================================================================
 def render_parlay_partido(motor, home: str, away: str, key: str):
@@ -347,13 +409,19 @@ def render_liga_club(clave: str, nombre_liga: str):
         st.stop()
 
     st.title(f"⚽ {nombre_liga} — Predictor de clubes")
+    fuente_liga = ('API-Football' if LEAGUES[clave].get('formato') == 'api_football'
+                   else 'football-data.co.uk')
     st.caption(
-        f"Datos reales (football-data.co.uk) al **{motor.fecha_estado}** · "
+        f"Datos reales ({fuente_liga}) al **{motor.fecha_estado}** · "
         f"Precisión backtesting 1X2: **{motor.metadata['precision_validacion']*100:.1f} %** "
         f"(línea base ELO {motor.metadata['precision_linea_base_elo']*100:.1f} %"
         + (f", favorito del mercado {motor.metadata['precision_mercado_cuotas']*100:.1f} %"
            if motor.metadata.get('precision_mercado_cuotas') else '') + ")"
     )
+    if LEAGUES[clave].get('formato') == 'api_football':
+        st.warning("⚠️ El plan Free de API-Football solo publica hasta la temporada "
+                   "2024-25: la forma de los equipos está congelada a esa fecha. "
+                   "Úsalo como referencia estructural, no como estado actual.")
     c1, c2 = st.columns(2)
     with c1:
         home = st.selectbox("🏠 Local", motor.equipos, key=f"club_home_{clave}")
@@ -442,6 +510,7 @@ def render_liga_club(clave: str, nombre_liga: str):
     # v15: parlay del partido en pantalla
     st.divider()
     render_parlay_partido(motor, home, away, key=clave)
+    render_h2h_club(clave, home, away, key=clave)
     render_rendimiento(key=clave)
 
     from prediction_api import plantilla_a_markdown
@@ -456,7 +525,7 @@ COMPETENCIAS = {'🌎 Mundial 2026': 'mundial', '🇲🇽 Liga MX': 'liga_mx',
                 '🇮🇹 Serie A': 'serie_a', '🇩🇪 Bundesliga': 'bundesliga',
                 '🇫🇷 Ligue 1': 'ligue_1', '🇳🇱 Eredivisie': 'eredivisie',
                 '🇵🇹 Primeira Liga': 'primeira',
-                '🇪🇺 Champions League (beta)': 'champions'}
+                '🇪🇺 Champions League': 'champions'}
 NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'premier': 'Premier League',
                  'laliga': 'LaLiga', 'serie_a': 'Serie A',
                  'bundesliga': 'Bundesliga', 'ligue_1': 'Ligue 1',
@@ -831,6 +900,7 @@ with tab_rapida:
     # ---- 🎯 Parlay del partido en pantalla (v15) ------------------------------
     st.divider()
     render_parlay_partido(MOTOR, home, away, key='mundial')
+    render_h2h_mundial(home, away)
     render_rendimiento(key='mundial')
 
     # ---- 🎯 Asistente de Parlay del FIXTURE (v12; v14/M11: niveles de riesgo) --

@@ -17,6 +17,11 @@ proxies.txt
 predicciones_log.json
 gh_login_out.txt
 
+# v21: API-Football — la CLAVE y el estado/caché jamás se commitean
+.streamlit/secrets.toml
+api_football_state.json
+api_football_cache/
+
 _backup_v12/
 risk_flags.json
 odds_actuales.json

@@ -262,17 +262,79 @@ def _match_id(fecha: pd.Timestamp, home: str, away: str) -> str:
 # ---------------------------------------------------------------------------
 # Descarga y normalización al esquema del histórico
 # ---------------------------------------------------------------------------
+def _descargar_api_football(clave: str, cfg: Dict) -> pd.DataFrame:
+    """v21: histórico desde API-Football (Champions). 1 request por temporada
+    (cacheado de forma permanente por el gateway). Sin clave ni crédito, cae
+    al último historico_{clave}.csv guardado para no romper el build."""
+    import api_football_manager as afm
+    filas = []
+    for season in cfg['api_seasons']:
+        data = afm.api_call('fixtures',
+                            {'league': cfg['api_league_id'], 'season': season},
+                            prioridad=3, ttl=None)
+        if not data or not data.get('response'):
+            logger.warning(f"[{clave}] API-Football sin datos para {season} "
+                           f"({(data or {}).get('errors')})")
+            continue
+        for p in data['response']:
+            if p['fixture']['status']['short'] not in ('FT', 'AET', 'PEN'):
+                continue
+            # score de los 90' (fulltime): el empate se conserva para el 1X2
+            ft = p['score']['fulltime']
+            if ft['home'] is None:
+                continue
+            filas.append({
+                'date': pd.to_datetime(p['fixture']['date']).tz_localize(None),
+                'home_team': p['teams']['home']['name'],
+                'away_team': p['teams']['away']['name'],
+                'home_goals': float(ft['home']), 'away_goals': float(ft['away']),
+                'api_fixture_id': p['fixture']['id'],
+                'api_home_id': p['teams']['home']['id'],
+                'api_away_id': p['teams']['away']['id'],
+            })
+    if not filas:
+        ruta = f'historico_{clave}.csv'
+        if os.path.exists(ruta):
+            logger.warning(f"[{clave}] sin acceso a API-Football: se reutiliza {ruta}.")
+            df = pd.read_csv(ruta, parse_dates=['date'])
+            return df[['date', 'home_team', 'away_team', 'home_goals', 'away_goals']
+                      + [c for c in ('api_fixture_id', 'api_home_id', 'api_away_id')
+                         if c in df.columns]]
+        raise RuntimeError(f"{clave}: API-Football no disponible y no hay CSV previo.")
+    df = pd.DataFrame(filas)
+    # Nombre canónico por ID de equipo: la API renombra clubes entre
+    # temporadas (p. ej. 'Bayern Munich' 2022 → 'Bayern München' 2024) y eso
+    # partiría su historial. Se usa el nombre MÁS RECIENTE de cada id.
+    df = df.sort_values('date')
+    nombre_por_id = {}
+    for lado in ('home', 'away'):
+        for tid, nombre in zip(df[f'api_{lado}_id'], df[f'{lado}_team']):
+            nombre_por_id[tid] = nombre          # el último (más reciente) gana
+    df['home_team'] = df['api_home_id'].map(nombre_por_id)
+    df['away_team'] = df['api_away_id'].map(nombre_por_id)
+    df['odd_home'] = np.nan
+    df['odd_draw'] = np.nan
+    df['odd_away'] = np.nan
+    return df
+
+
 def descargar_liga(clave: str) -> pd.DataFrame:
     cfg = LEAGUES[clave]
-    frames = []
-    for url in cfg['urls']:
-        r = requests.get(url, timeout=30)
-        r.raise_for_status()
-        frames.append(pd.read_csv(io.StringIO(r.text), on_bad_lines='skip',
-                                  encoding_errors='ignore'))
-    crudo = pd.concat(frames, ignore_index=True)
+    if cfg['formato'] == 'api_football':
+        df = _descargar_api_football(clave, cfg)
+        crudo = None
+    else:
+        frames = []
+        for url in cfg['urls']:
+            r = requests.get(url, timeout=30)
+            r.raise_for_status()
+            frames.append(pd.read_csv(io.StringIO(r.text), on_bad_lines='skip',
+                                      encoding_errors='ignore'))
+        crudo = pd.concat(frames, ignore_index=True)
 
-    if cfg['formato'] == 'main':
+    if cfg['formato'] == 'api_football':
+        pass                                   # df ya construido arriba
+    elif cfg['formato'] == 'main':
         df = pd.DataFrame({
             'date': pd.to_datetime(crudo['Date'], dayfirst=True, errors='coerce'),
             'home_team': crudo['HomeTeam'], 'away_team': crudo['AwayTeam'],

@@ -1,0 +1,6 @@
+liga,fixture_id,date,home_team_api,away_team_api,home_id,away_id,home_goals,away_goals,home_remates_arco,home_remates,home_faltas,home_corners,home_posesion,home_amarillas,home_rojas,home_xg,away_remates_arco,away_remates,away_faltas,away_corners,away_posesion,away_amarillas,away_rojas,away_xg
+liga_mx,1206004,2024-07-05,Puebla,Santos Laguna,2291,2285,1,0,5.0,16.0,14.0,8.0,40.0,1.0,,,2.0,6.0,11.0,1.0,60.0,3.0,,
+liga_mx,1206003,2024-07-06,Club Queretaro,Club Tijuana,2290,2280,1,2,4.0,8.0,14.0,4.0,37.0,3.0,,,5.0,18.0,14.0,7.0,63.0,0.0,,
+liga_mx,1206005,2024-07-06,FC Juarez,Atlas,2298,2283,2,2,2.0,11.0,15.0,2.0,58.0,2.0,,,3.0,11.0,14.0,5.0,42.0,2.0,,
+liga_mx,1206006,2024-07-06,Atletico San Luis,Club America,2314,2287,2,1,5.0,10.0,12.0,5.0,36.0,2.0,,,6.0,10.0,11.0,2.0,64.0,2.0,,
+liga_mx,1206008,2024-07-07,Guadalajara Chivas,Toluca,2278,2281,0,0,4.0,16.0,5.0,4.0,51.0,1.0,,,2.0,11.0,11.0,6.0,49.0,2.0,,

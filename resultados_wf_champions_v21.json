@@ -1,0 +1,14 @@
+{
+  "ventanas": [
+    {
+      "temporada_val": "2024-25",
+      "n": 213,
+      "acc": 0.5352,
+      "log_loss": 1.0069,
+      "base_elo": 0.5164
+    }
+  ],
+  "acc_media": 0.5352,
+  "ll_medio": 1.0069,
+  "base_media": 0.5164
+}
