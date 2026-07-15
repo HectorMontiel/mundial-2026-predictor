@@ -1,0 +1,324 @@
+{
+  "liga_mx": {
+    "ventanas": [
+      {
+        "ventana": "2023-04-01 → 2023-10-01",
+        "n": 148,
+        "precision": 0.5203,
+        "log_loss": 1.0853,
+        "precision_mercado": 0.4932
+      },
+      {
+        "ventana": "2023-10-01 → 2024-04-01",
+        "n": 199,
+        "precision": 0.5226,
+        "log_loss": 1.0024,
+        "precision_mercado": 0.5427
+      },
+      {
+        "ventana": "2024-04-01 → 2024-10-01",
+        "n": 148,
+        "precision": 0.4865,
+        "log_loss": 1.0362,
+        "precision_mercado": 0.5203
+      },
+      {
+        "ventana": "2024-10-01 → 2025-04-01",
+        "n": 195,
+        "precision": 0.5128,
+        "log_loss": 0.994,
+        "precision_mercado": 0.5333
+      },
+      {
+        "ventana": "2025-04-01 → 2025-10-01",
+        "n": 152,
+        "precision": 0.5197,
+        "log_loss": 0.9894,
+        "precision_mercado": 0.5461
+      },
+      {
+        "ventana": "2025-10-01 → 2026-04-01",
+        "n": 177,
+        "precision": 0.5367,
+        "log_loss": 0.9831,
+        "precision_mercado": 0.5311
+      },
+      {
+        "ventana": "2026-04-01 → 2026-10-01",
+        "n": 60,
+        "precision": 0.4333,
+        "log_loss": 1.0774,
+        "precision_mercado": 0.4833
+      }
+    ],
+    "precision_media": 0.5046,
+    "log_loss_medio": 1.024,
+    "precision_mercado_media": 0.5214
+  },
+  "premier": {
+    "ventanas": [
+      {
+        "ventana": "2025-04-01 → 2025-10-01",
+        "n": 145,
+        "precision": 0.531,
+        "log_loss": 1.0265,
+        "precision_mercado": 0.5448
+      },
+      {
+        "ventana": "2025-10-01 → 2026-04-01",
+        "n": 249,
+        "precision": 0.4859,
+        "log_loss": 1.0196,
+        "precision_mercado": 0.498
+      },
+      {
+        "ventana": "2026-04-01 → 2026-10-01",
+        "n": 71,
+        "precision": 0.5211,
+        "log_loss": 0.9902,
+        "precision_mercado": 0.493
+      }
+    ],
+    "precision_media": 0.5127,
+    "log_loss_medio": 1.0121,
+    "precision_mercado_media": 0.5119
+  },
+  "laliga": {
+    "ventanas": [
+      {
+        "ventana": "2024-08-01 → 2025-02-01",
+        "n": 208,
+        "precision": 0.5048,
+        "log_loss": 1.1725,
+        "precision_mercado": 0.5192
+      },
+      {
+        "ventana": "2025-02-01 → 2025-08-01",
+        "n": 169,
+        "precision": 0.5799,
+        "log_loss": 0.9743,
+        "precision_mercado": 0.5799
+      },
+      {
+        "ventana": "2025-08-01 → 2026-02-01",
+        "n": 211,
+        "precision": 0.545,
+        "log_loss": 0.9764,
+        "precision_mercado": 0.564
+      },
+      {
+        "ventana": "2026-02-01 → 2026-08-01",
+        "n": 166,
+        "precision": 0.494,
+        "log_loss": 1.0078,
+        "precision_mercado": 0.5301
+      }
+    ],
+    "precision_media": 0.5309,
+    "log_loss_medio": 1.0328,
+    "precision_mercado_media": 0.5483
+  },
+  "serie_a": {
+    "ventanas": [
+      {
+        "ventana": "2025-04-01 → 2025-10-01",
+        "n": 124,
+        "precision": 0.5403,
+        "log_loss": 0.9632,
+        "precision_mercado": 0.5887
+      },
+      {
+        "ventana": "2025-10-01 → 2026-04-01",
+        "n": 250,
+        "precision": 0.524,
+        "log_loss": 1.0006,
+        "precision_mercado": 0.516
+      },
+      {
+        "ventana": "2026-04-01 → 2026-10-01",
+        "n": 80,
+        "precision": 0.55,
+        "log_loss": 1.0428,
+        "precision_mercado": 0.575
+      }
+    ],
+    "precision_media": 0.5381,
+    "log_loss_medio": 1.0022,
+    "precision_mercado_media": 0.5599
+  },
+  "bundesliga": {
+    "ventanas": [
+      {
+        "ventana": "2024-08-01 → 2025-02-01",
+        "n": 166,
+        "precision": 0.5602,
+        "log_loss": 0.9833,
+        "precision_mercado": 0.5843
+      },
+      {
+        "ventana": "2025-02-01 → 2025-08-01",
+        "n": 134,
+        "precision": 0.3507,
+        "log_loss": 1.1415,
+        "precision_mercado": 0.4179
+      },
+      {
+        "ventana": "2025-08-01 → 2026-02-01",
+        "n": 174,
+        "precision": 0.5287,
+        "log_loss": 1.0063,
+        "precision_mercado": 0.5632
+      },
+      {
+        "ventana": "2026-02-01 → 2026-08-01",
+        "n": 129,
+        "precision": 0.5426,
+        "log_loss": 0.9678,
+        "precision_mercado": 0.5349
+      }
+    ],
+    "precision_media": 0.4955,
+    "log_loss_medio": 1.0247,
+    "precision_mercado_media": 0.5251
+  },
+  "ligue_1": {
+    "ventanas": [
+      {
+        "ventana": "2024-04-01 → 2024-10-01",
+        "n": 117,
+        "precision": 0.5556,
+        "log_loss": 0.9916,
+        "precision_mercado": 0.547
+      },
+      {
+        "ventana": "2024-10-01 → 2025-04-01",
+        "n": 189,
+        "precision": 0.5661,
+        "log_loss": 1.1578,
+        "precision_mercado": 0.545
+      },
+      {
+        "ventana": "2025-04-01 → 2025-10-01",
+        "n": 114,
+        "precision": 0.5439,
+        "log_loss": 1.0052,
+        "precision_mercado": 0.5263
+      },
+      {
+        "ventana": "2025-10-01 → 2026-04-01",
+        "n": 188,
+        "precision": 0.5106,
+        "log_loss": 1.1575,
+        "precision_mercado": 0.5532
+      },
+      {
+        "ventana": "2026-04-01 → 2026-10-01",
+        "n": 64,
+        "precision": 0.4062,
+        "log_loss": 1.1245,
+        "precision_mercado": 0.5
+      }
+    ],
+    "precision_media": 0.5165,
+    "log_loss_medio": 1.0873,
+    "precision_mercado_media": 0.5343
+  },
+  "eredivisie": {
+    "ventanas": [
+      {
+        "ventana": "2024-08-01 → 2025-02-01",
+        "n": 175,
+        "precision": 0.5486,
+        "log_loss": 0.9458,
+        "precision_mercado": 0.56
+      },
+      {
+        "ventana": "2025-02-01 → 2025-08-01",
+        "n": 128,
+        "precision": 0.5234,
+        "log_loss": 0.9977,
+        "precision_mercado": 0.5156
+      },
+      {
+        "ventana": "2025-08-01 → 2026-02-01",
+        "n": 179,
+        "precision": 0.5084,
+        "log_loss": 1.1686,
+        "precision_mercado": 0.5196
+      },
+      {
+        "ventana": "2026-02-01 → 2026-08-01",
+        "n": 124,
+        "precision": 0.5081,
+        "log_loss": 1.0095,
+        "precision_mercado": 0.5565
+      }
+    ],
+    "precision_media": 0.5221,
+    "log_loss_medio": 1.0304,
+    "precision_mercado_media": 0.5379
+  },
+  "primeira": {
+    "ventanas": [
+      {
+        "ventana": "2022-08-01 → 2023-02-01",
+        "n": 157,
+        "precision": 0.5605,
+        "log_loss": 0.9362,
+        "precision_mercado": 0.586
+      },
+      {
+        "ventana": "2023-02-01 → 2023-08-01",
+        "n": 146,
+        "precision": 0.6781,
+        "log_loss": 0.8188,
+        "precision_mercado": 0.6759
+      },
+      {
+        "ventana": "2023-08-01 → 2024-02-01",
+        "n": 168,
+        "precision": 0.5833,
+        "log_loss": 0.9401,
+        "precision_mercado": 0.5833
+      },
+      {
+        "ventana": "2024-02-01 → 2024-08-01",
+        "n": 135,
+        "precision": 0.5407,
+        "log_loss": 1.2127,
+        "precision_mercado": 0.5704
+      },
+      {
+        "ventana": "2024-08-01 → 2025-02-01",
+        "n": 169,
+        "precision": 0.5148,
+        "log_loss": 0.9926,
+        "precision_mercado": 0.5503
+      },
+      {
+        "ventana": "2025-02-01 → 2025-08-01",
+        "n": 134,
+        "precision": 0.5224,
+        "log_loss": 0.9435,
+        "precision_mercado": 0.5672
+      },
+      {
+        "ventana": "2025-08-01 → 2026-02-01",
+        "n": 172,
+        "precision": 0.5872,
+        "log_loss": 0.938,
+        "precision_mercado": 0.6047
+      },
+      {
+        "ventana": "2026-02-01 → 2026-08-01",
+        "n": 131,
+        "precision": 0.5344,
+        "log_loss": 0.977,
+        "precision_mercado": 0.5115
+      }
+    ],
+    "precision_media": 0.5652,
+    "log_loss_medio": 0.9699,
+    "precision_mercado_media": 0.5812
+  }
+}

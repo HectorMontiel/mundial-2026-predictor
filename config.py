@@ -156,8 +156,13 @@ LEAGUES = {
         'nombre': 'UEFA Champions League', 'pais': 'Europa',
         'formato': 'api_football',
         'api_league_id': 2, 'api_seasons': [2022, 2023, 2024],
+        # v22: + FBref (resultados 2017-presente, incluida la temporada en
+        # curso). Walk-forward de 3 profundidades de historia (VALIDACION_v22):
+        # desde 2020 = mejor log-loss medio (0.978) y regla de oro superada
+        # en la ventana comparable; 2017+ y solo-2022+ documentados.
+        'desde': '2020-06-01',
         'urls': [], 'disponible': True,
-        'nota': 'Datos reales de API-Football (temporadas 2022-2024 del plan Free).',
+        'nota': 'API-Football (2022-24) + FBref (resto, incl. temporada actual).',
     },
 }
 

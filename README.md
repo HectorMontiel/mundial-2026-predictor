@@ -1,5 +1,27 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v22 — FBref, Champions al día y asistente IA local (ver [VALIDACION_v22.md](VALIDACION_v22.md))
+
+- **Champions con forma ACTUALIZADA**: FBref aporta los resultados que el
+  plan Free de API-Football bloquea (2025-26 completa + fases previas
+  2026-27). Fusión con mapeo de nombres aprendido + 25 alias verificados
+  ([fbref_scraper_v3.py](fbref_scraper_v3.py), caché sembrada con navegador
+  porque cloudscraper NO supera el 403 — documentado). Profundidad de
+  historia validada en walk-forward de 3 variantes: desde 2020 (mejor
+  log-loss, regla de oro superada). 1,174 partidos al día de hoy.
+- **Honestidad radical sobre FBref**: sus calendarios YA NO publican xG —
+  el reentrenamiento de Liga MX/Eredivisie/Primeira con "xG masivo" del
+  plan v22 es imposible hoy y así se documenta. Sin cambios en esas ligas.
+- **🎙️ Comentario del analista con IA local**
+  ([asistente_comentarios.py](asistente_comentarios.py)): comentario natural
+  inline en cada partido, compuesto desde las cifras reales del modelo.
+  Con Ollama corriendo (checkbox en la barra lateral) un SLM gratuito
+  (Phi-3/Llama 3.2) lo reescribe — marcado como tal. Nunca inventa cifras.
+- **Panel ampliado**: barras Modelo vs ELO vs Mercado por liga + evolución
+  de la precisión por ventanas walk-forward de 6 meses
+  ([run_wf_panel_v22.py](run_wf_panel_v22.py)), con las ventanas malas a la
+  vista — la variación entre ventanas es la incertidumbre real.
+
 ## Novedades v21 — API-Football: Champions operativa, backfill de stats y H2H (ver [VALIDACION_v21.md](VALIDACION_v21.md))
 
 - **Gateway API-Football** ([api_football_manager.py](api_football_manager.py)):

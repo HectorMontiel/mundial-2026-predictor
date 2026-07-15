@@ -1,0 +1,65 @@
+[
+  {
+    "variante": "B_solo_futuro",
+    "temporada_val": "2024-25",
+    "n_train": 227,
+    "n_val": 213,
+    "acc": 0.5305,
+    "log_loss": 1.0177,
+    "base_elo": 0.5164
+  },
+  {
+    "variante": "B_solo_futuro",
+    "temporada_val": "2025-26",
+    "n_train": 440,
+    "n_val": 175,
+    "acc": 0.5486,
+    "log_loss": 0.9899,
+    "base_elo": 0.5429
+  },
+  {
+    "variante": "C_completo",
+    "temporada_val": "2023-24",
+    "n_train": 623,
+    "n_val": 146,
+    "acc": 0.5479,
+    "log_loss": 1.2406,
+    "base_elo": 0.5137
+  },
+  {
+    "variante": "C_completo",
+    "temporada_val": "2024-25",
+    "n_train": 769,
+    "n_val": 223,
+    "acc": 0.5471,
+    "log_loss": 0.9825,
+    "base_elo": 0.5336
+  },
+  {
+    "variante": "C_completo",
+    "temporada_val": "2025-26",
+    "n_train": 992,
+    "n_val": 178,
+    "acc": 0.5225,
+    "log_loss": 0.9756,
+    "base_elo": 0.5506
+  },
+  {
+    "variante": "D_desde_2020",
+    "temporada_val": "2024-25",
+    "n_train": 445,
+    "n_val": 218,
+    "acc": 0.5367,
+    "log_loss": 0.9593,
+    "base_elo": 0.5138
+  },
+  {
+    "variante": "D_desde_2020",
+    "temporada_val": "2025-26",
+    "n_train": 663,
+    "n_val": 178,
+    "acc": 0.5337,
+    "log_loss": 0.997,
+    "base_elo": 0.5393
+  }
+]

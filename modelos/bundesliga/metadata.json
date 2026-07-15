@@ -21,5 +21,40 @@
     "n_apuestas": 151,
     "roi_pct": 3.09,
     "aciertos": 76
+  },
+  "walk_forward": {
+    "ventanas": [
+      {
+        "ventana": "2024-08-01 → 2025-02-01",
+        "n": 166,
+        "precision": 0.5602,
+        "log_loss": 0.9833,
+        "precision_mercado": 0.5843
+      },
+      {
+        "ventana": "2025-02-01 → 2025-08-01",
+        "n": 134,
+        "precision": 0.3507,
+        "log_loss": 1.1415,
+        "precision_mercado": 0.4179
+      },
+      {
+        "ventana": "2025-08-01 → 2026-02-01",
+        "n": 174,
+        "precision": 0.5287,
+        "log_loss": 1.0063,
+        "precision_mercado": 0.5632
+      },
+      {
+        "ventana": "2026-02-01 → 2026-08-01",
+        "n": 129,
+        "precision": 0.5426,
+        "log_loss": 0.9678,
+        "precision_mercado": 0.5349
+      }
+    ],
+    "precision_media": 0.4955,
+    "log_loss_medio": 1.0247,
+    "precision_mercado_media": 0.5251
   }
 }

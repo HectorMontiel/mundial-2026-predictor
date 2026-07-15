@@ -35,8 +35,16 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = 'https://v3.football.api-sports.io'
 LIMITE_DIARIO = 100
+# El plan Free TAMBIÉN limita por minuto (~10 req/min, verificado 2026-07-14:
+# ráfagas seguidas devuelven {'rateLimit': 'Too many requests...'} y queman
+# presupuesto). Se espacia cada petición y se reintenta con pausa.
+INTERVALO_MIN_S = 6.5
+REINTENTOS_RATE_LIMIT = 2
+PAUSA_RATE_LIMIT_S = 15.0
 ARCHIVO_ESTADO = 'api_football_state.json'
 DIRECTORIO_CACHE = 'api_football_cache'
+
+_ultima_peticion = [0.0]     # timestamp del último request real (por proceso)
 
 # TTL de caché en segundos por endpoint (None = permanente: datos históricos
 # que no cambian). El llamador puede sobreescribirlo con ttl=...
@@ -181,24 +189,47 @@ def api_call(endpoint: str, params: Optional[Dict] = None, *,
                        f"({estado['usados']}/{LIMITE_DIARIO} usados, reserva {reserva}).")
         return None
 
-    try:
-        r = requests.get(f"{BASE_URL}/{endpoint}", params=params,
-                         headers={'x-apisports-key': key}, timeout=25)
-        estado['usados'] += 1
-        # sincronizar con el contador real del servidor si viene en cabeceras
-        restante_srv = r.headers.get('x-ratelimit-requests-remaining')
-        if restante_srv is not None:
-            try:
-                estado['usados'] = max(estado['usados'],
-                                       LIMITE_DIARIO - int(restante_srv))
-            except ValueError:
-                pass
-        _guardar_estado(estado)
-        data = r.json()
-    except Exception as e:
-        _guardar_estado(estado)
-        logger.warning(f"API-Football: fallo de red en /{endpoint}: {type(e).__name__}: {e}")
-        return None
+    data = None
+    for intento in range(1 + REINTENTOS_RATE_LIMIT):
+        # respeto del límite POR MINUTO: espaciado mínimo entre peticiones
+        espera = INTERVALO_MIN_S - (time.time() - _ultima_peticion[0])
+        if espera > 0:
+            time.sleep(espera)
+        try:
+            _ultima_peticion[0] = time.time()
+            r = requests.get(f"{BASE_URL}/{endpoint}", params=params,
+                             headers={'x-apisports-key': key}, timeout=25)
+            estado['usados'] += 1
+            _guardar_estado(estado)
+            data = r.json()
+            # el contador del SERVIDOR es la verdad (las peticiones rechazadas
+            # por límite de minuto no gastan cuota diaria — verificado):
+            # cabecera x-ratelimit o, en /status, el propio cuerpo
+            restante_srv = r.headers.get('x-ratelimit-requests-remaining')
+            if restante_srv is not None:
+                try:
+                    estado['usados'] = LIMITE_DIARIO - int(restante_srv)
+                except ValueError:
+                    pass
+            if endpoint == 'status':
+                try:
+                    estado['usados'] = int(data['response']['requests']['current'])
+                except (KeyError, TypeError, ValueError):
+                    pass
+            _guardar_estado(estado)
+        except Exception as e:
+            _guardar_estado(estado)
+            logger.warning(f"API-Football: fallo de red en /{endpoint}: "
+                           f"{type(e).__name__}: {e}")
+            return None
+        errores = data.get('errors')
+        if isinstance(errores, dict) and 'rateLimit' in errores \
+                and intento < REINTENTOS_RATE_LIMIT:
+            logger.info(f"API-Football: límite por minuto — pausa de "
+                        f"{PAUSA_RATE_LIMIT_S:.0f}s y reintento ({intento + 1}).")
+            time.sleep(PAUSA_RATE_LIMIT_S)
+            continue
+        break
 
     errores = data.get('errors')
     if errores and (not isinstance(errores, list) or len(errores)):

@@ -318,10 +318,106 @@ def _descargar_api_football(clave: str, cfg: Dict) -> pd.DataFrame:
     return df
 
 
+def _fusionar_fbref_champions(df_api: pd.DataFrame) -> pd.DataFrame:
+    """v22: amplía la Champions con los resultados de FBref (2017-presente,
+    incluida la temporada en curso que el plan Free de API-Football bloquea).
+
+    - Los nombres FBref se traducen a los canónicos de API-Football con un
+      mapeo APRENDIDO del solape 2022-23 (unión por fecha+marcador cuando el
+      candidato es único) + fuzzy 0.85 de respaldo; los clubes que solo
+      existen en FBref conservan su nombre.
+    - Se excluyen los partidos con prórroga/penales de FBref (su calendario
+      no publica el marcador de los 90'; ~8 partidos).
+    - Solo se añaden fechas FUERA de la cobertura de API-Football (que tiene
+      marcadores de 90' exactos y por eso manda en su rango).
+    """
+    from collections import Counter, defaultdict
+    from difflib import SequenceMatcher
+    try:
+        import fbref_scraper_v3 as fb3
+        df_fb = fb3.resultados_champions()
+    except Exception as e:
+        logger.warning(f"[champions] FBref no disponible ({e}): solo API-Football.")
+        return df_api
+    if df_fb.empty:
+        return df_api
+
+    # Alias verificados a mano FBref -> API (el solape 2022-23 solo enseña a
+    # quienes jugaron ESA temporada y el fuzzy 0.85 no llega a estos).
+    # OJO con falsos amigos que NO se fusionan: Rīga FC ≠ Rīgas FS,
+    # Kauno Žalgiris ≠ FK Zalgiris Vilnius, Tre Fiori ≠ Tre Penne,
+    # FK Partizan ≠ Partizani, Atlètic ≠ Inter Club d'Escaldes.
+    ALIAS_FBREF_API = {
+        'Manchester Utd': 'Manchester United',
+        'Olympiacos': 'Olympiakos Piraeus',
+        'Qarabağ': 'Qarabag',
+        'PSV': 'PSV Eindhoven',
+        'Slavia Prague': 'Slavia Praha',
+        'Red Star': 'FK Crvena Zvezda',
+        'Young Boys': 'BSC Young Boys',
+        'Bodø/Glimt': 'Bodo/Glimt',
+        'APOEL FC': 'Apoel Nicosia',
+        'NK Maribor': 'Maribor',
+        'AEK Athens': 'AEK Athens FC',
+        'Ferencváros': 'Ferencvarosi TC',
+        'Midtjylland': 'FC Midtjylland',
+        'Malmö': 'Malmo FF',
+        'Union SG': 'Union St. Gilloise',
+        'Larne FC': 'Larne',
+        'Shamrock': 'Shamrock Rovers',
+        'Lincoln FC': 'Lincoln Red Imps FC',
+        "Inter d'Escaldes": "Inter Club d'Escaldes",
+        'FC Flora': 'Flora Tallinn',
+        'KÍ Klaksvík': 'KI Klaksvik',
+        'FK Egnatia': 'Egnatia Rrogozhinë',
+        'Sutjeska Nikšić': 'Sutjeska',
+        'B. Banja Luka': 'Borac Banja Luka',
+    }
+
+    indice_api = defaultdict(list)
+    for r in df_api.itertuples():
+        indice_api[(r.date.date(), r.home_goals, r.away_goals)].append(r)
+    votos = defaultdict(Counter)
+    for r in df_fb.itertuples():
+        cands = indice_api.get((r.date.date(), r.home_goals, r.away_goals), [])
+        if len(cands) == 1:
+            votos[r.home_team][cands[0].home_team] += 1
+            votos[r.away_team][cands[0].away_team] += 1
+    mapa = {fb: c.most_common(1)[0][0] for fb, c in votos.items()}
+    mapa.update(ALIAS_FBREF_API)          # los alias verificados mandan
+    nombres_api = sorted(set(df_api['home_team']) | set(df_api['away_team']))
+    for nombre in sorted(set(df_fb['home_team']) | set(df_fb['away_team'])):
+        if nombre in mapa:
+            continue
+        mejor, ratio = None, 0.0
+        for n in nombres_api:
+            s = SequenceMatcher(None, nombre.lower(), n.lower()).ratio()
+            if s > ratio:
+                mejor, ratio = n, s
+        if ratio >= 0.85:
+            mapa[nombre] = mejor
+    df_fb = df_fb.copy()
+    df_fb['home_team'] = df_fb['home_team'].map(lambda n: mapa.get(n, n))
+    df_fb['away_team'] = df_fb['away_team'].map(lambda n: mapa.get(n, n))
+
+    df_fb = df_fb[~df_fb['prorroga']]
+    api_min, api_max = df_api['date'].min(), df_api['date'].max()
+    df_fb = df_fb[(df_fb['date'] < api_min) | (df_fb['date'] > api_max)]
+    columnas = ['date', 'home_team', 'away_team', 'home_goals', 'away_goals']
+    fusion = pd.concat([df_api, df_fb[columnas]], ignore_index=True)
+    logger.info(f"[champions] fusión FBref: +{len(df_fb)} partidos "
+                f"({len(mapa)} nombres mapeados) → {len(fusion)} totales.")
+    return fusion
+
+
 def descargar_liga(clave: str) -> pd.DataFrame:
     cfg = LEAGUES[clave]
     if cfg['formato'] == 'api_football':
         df = _descargar_api_football(clave, cfg)
+        if clave == 'champions':
+            df = _fusionar_fbref_champions(df)
+        if cfg.get('desde'):        # profundidad validada en walk-forward
+            df = df[df['date'] >= pd.Timestamp(cfg['desde'])]
         crudo = None
     else:
         frames = []

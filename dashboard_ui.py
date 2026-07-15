@@ -188,7 +188,7 @@ def render_rendimiento(key: str):
             "reales: 1 unidad al pick del modelo cuando la confianza supera el "
             "70 % o el EV es positivo. Rendimiento pasado ≠ rendimiento futuro."
         )
-        filas = []
+        filas, grafico = [], []
         for clave, nombre in NOMBRES_LIGAS.items():
             ruta = _os.path.join('modelos', clave, 'metadata.json')
             if not _os.path.exists(ruta):
@@ -205,8 +205,59 @@ def render_rendimiento(key: str):
                 'Aciertos': r['aciertos'] if r else '—',
                 'ROI': f"{r['roi_pct']:+.1f} %" if r else 'N/D',
             })
+            grafico.append({'liga': nombre,
+                            'Modelo': md['precision_validacion'] * 100,
+                            'ELO': (md.get('precision_linea_base_elo') or 0) * 100,
+                            'Mercado': (md.get('precision_mercado_cuotas') or 0) * 100})
         if filas:
             st.dataframe(pd.DataFrame(filas), use_container_width=True, hide_index=True)
+            # v22: comparativa visual modelo vs líneas base
+            gdf = pd.DataFrame(grafico)
+            fig_cmp = go.Figure()
+            for serie, color in (('Modelo', '#2ecc71'), ('ELO', '#95a5a6'),
+                                 ('Mercado', '#e67e22')):
+                vals = gdf[serie].where(gdf[serie] > 0)
+                fig_cmp.add_bar(name=serie, x=gdf['liga'], y=vals, marker_color=color)
+            fig_cmp.update_layout(barmode='group', height=300,
+                                  margin=dict(l=0, r=0, t=25, b=0),
+                                  yaxis_title='Precisión 1X2 (%)',
+                                  yaxis_range=[40, 62],
+                                  legend=dict(orientation='h', y=1.12))
+            st.plotly_chart(fig_cmp, use_container_width=True)
+            st.caption("El mercado (cuotas de cierre) solo existe donde hay cuotas "
+                       "reales; batirlo de forma sostenida es la vara más alta.")
+
+        # v22: evolución de la precisión por ventanas walk-forward
+        if _os.path.exists('wf_panel_v22.json'):
+            with open('wf_panel_v22.json', encoding='utf-8') as f:
+                wf = _json.load(f)
+            ligas_wf = [c for c in wf if wf[c].get('ventanas')]
+            if ligas_wf:
+                st.markdown("**📉 Evolución walk-forward (ventanas de 6 meses)**")
+                liga_wf = st.selectbox(
+                    "Liga a inspeccionar", ligas_wf,
+                    format_func=lambda c: NOMBRES_LIGAS.get(c, c),
+                    key=f"wf_liga_{key}")
+                vent = wf[liga_wf]['ventanas']
+                etiquetas = [v['ventana'].split(' ')[0] for v in vent]
+                fig_wf = go.Figure()
+                fig_wf.add_scatter(x=etiquetas, y=[v['precision'] * 100 for v in vent],
+                                   mode='lines+markers', name='Modelo',
+                                   line=dict(color='#2ecc71'))
+                if any(v.get('precision_mercado') for v in vent):
+                    fig_wf.add_scatter(
+                        x=etiquetas,
+                        y=[(v.get('precision_mercado') or None) and
+                           v['precision_mercado'] * 100 for v in vent],
+                        mode='lines+markers', name='Mercado',
+                        line=dict(color='#e67e22', dash='dot'))
+                fig_wf.update_layout(height=280, margin=dict(l=0, r=0, t=10, b=0),
+                                     yaxis_title='Precisión (%)',
+                                     legend=dict(orientation='h', y=1.15))
+                st.plotly_chart(fig_wf, use_container_width=True)
+                st.caption("Cada punto es una ventana de validación de 6 meses "
+                           "(entrenamiento expansivo, sin fuga). La variación "
+                           "entre ventanas es la incertidumbre real del modelo.")
 
         # ---- simulador de bankroll ----
         st.markdown("**💵 Simulador de bankroll (¼ Kelly, tope 5 %)**")
@@ -247,6 +298,23 @@ def render_rendimiento(key: str):
             st.metric("Bankroll final", f"{banca:,.2f}",
                       delta=f"{delta:+,.2f} ({delta/banca0*100:+.1f} %)")
             st.caption(f"{len(serie)} apuestas simuladas. {AVISO_JUEGO_RESPONSABLE}")
+
+
+# ===========================================================================
+# COMENTARIO DEL ANALISTA (v22): plantillas desde datos reales del modelo;
+# si hay Ollama local, el SLM lo reescribe (marcado como tal).
+# ===========================================================================
+def render_comentario(pred: dict, home: str, away: str, riesgo: str = 'bajo'):
+    try:
+        from asistente_comentarios import comentario_partido, mejorar_con_slm
+        base = comentario_partido(pred, home, away, riesgo=riesgo)
+        if not base:
+            return
+        slm = mejorar_con_slm(base) if st.session_state.get('usar_slm') else None
+        st.info(f"🎙️ **Comentario del analista:** {slm or base}"
+                + ("\n\n*↳ reescrito por tu SLM local (Ollama).*" if slm else ""))
+    except Exception:
+        pass          # el comentario jamás debe tumbar la vista
 
 
 # ===========================================================================
@@ -419,9 +487,9 @@ def render_liga_club(clave: str, nombre_liga: str):
            if motor.metadata.get('precision_mercado_cuotas') else '') + ")"
     )
     if LEAGUES[clave].get('formato') == 'api_football':
-        st.warning("⚠️ El plan Free de API-Football solo publica hasta la temporada "
-                   "2024-25: la forma de los equipos está congelada a esa fecha. "
-                   "Úsalo como referencia estructural, no como estado actual.")
+        st.info("ℹ️ Fuentes: API-Football (2022-24, marcadores de 90') + FBref "
+                "(resto e incluida la temporada en curso). La forma se actualiza "
+                "con cada corrida del pipeline.")
     c1, c2 = st.columns(2)
     with c1:
         home = st.selectbox("🏠 Local", motor.equipos, key=f"club_home_{clave}")
@@ -444,6 +512,7 @@ def render_liga_club(clave: str, nombre_liga: str):
     st.markdown(f"### 📊 {home} **{p['probabilities']['home']*100:.0f} %** · "
                 f"Empate **{p['probabilities']['draw']*100:.0f} %** · "
                 f"{away} **{p['probabilities']['away']*100:.0f} %**")
+    render_comentario(pred, home, away)
 
     col_g1, col_g2 = st.columns(2)
     with col_g1:
@@ -532,6 +601,11 @@ NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'premier': 'Premier League',
                  'eredivisie': 'Eredivisie', 'primeira': 'Primeira Liga',
                  'champions': 'UEFA Champions League'}
 competencia_sel = st.sidebar.radio("🏆 Competición", list(COMPETENCIAS.keys()), index=0)
+st.sidebar.checkbox(
+    "🤖 Reescribir comentarios con SLM local (Ollama)", value=False, key='usar_slm',
+    help="Opcional y solo en ejecución local: si tienes Ollama corriendo "
+         "(OLLAMA_MODEL, por defecto phi3), el comentario del analista se "
+         "reescribe con el modelo. Sin Ollama, se usa el comentario base.")
 
 # v14/M11: modo de uso — Principiante muestra solo lo esencial para apostar
 MODO_USO = st.sidebar.radio(
@@ -722,6 +796,7 @@ with tab_rapida:
     st.markdown(f"### 📊 Probabilidades: {nombre_local} **{p['probabilities']['home']*100:.0f} %** · "
                 f"Empate **{p['probabilities']['draw']*100:.0f} %** · "
                 f"{nombre_visit} **{p['probabilities']['away']*100:.0f} %**")
+    render_comentario(pred, nombre_local, nombre_visit)
     st.markdown(f"### 🔥 Factor decisivo: *{pred['decisive_factor']}*")
 
     arb = pred['referee']
