@@ -86,6 +86,16 @@ def backfill_estadisticas():
     backfill_stats.backfill(max_requests=40)
 
 
+def actualizar_clima():
+    """v23: clima de los partidos nuevos (Open-Meteo, gratuito). Incremental:
+    solo pide lo que falta en clima_cache.json."""
+    import pandas as pd
+    import clima
+    h = pd.read_csv('historico_partidos.csv', usecols=['date', 'city', 'country'])
+    h = h[pd.to_datetime(h['date']) >= '2015-01-01']
+    clima.backfill(h)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Actualiza toda la plataforma con fuentes gratuitas.')
     parser.add_argument('--solo-mundial', action='store_true')
@@ -102,6 +112,7 @@ if __name__ == '__main__':
     resultados['Cuotas'] = paso('CUOTAS (fixtures.csv / Betexplorer / Odds API)', actualizar_cuotas)
     resultados['Alineaciones'] = paso('ALINEACIONES (ESPN, modo sombra)', recolectar_alineaciones)
     resultados['Backfill stats'] = paso('BACKFILL ESTADÍSTICAS (API-Football)', backfill_estadisticas)
+    resultados['Clima'] = paso('CLIMA (Open-Meteo incremental)', actualizar_clima)
     if not args.solo_clubes:
         resultados['Mercado'] = paso('INTELIGENCIA DE MERCADO (Polymarket)', actualizar_mercado)
     if args.ratings:

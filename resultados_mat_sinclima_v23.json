@@ -1,0 +1,81 @@
+{
+  "ventanas": [
+    {
+      "ventana": "2024-01-01 \u2192 2024-07-01",
+      "n": 1174,
+      "tasa_apagon": 0.3305,
+      "brier_mat": 0.2002,
+      "brier_poisson": 0.21585,
+      "ll_mat": 0.58778,
+      "ll_poisson": 0.62251,
+      "nll_goles_w0.0": 1.56172,
+      "nll_goles_w0.25": 1.49757,
+      "nll_goles_w0.5": 1.45695,
+      "nll_goles_w0.75": 1.43466
+    },
+    {
+      "ventana": "2024-07-01 \u2192 2025-01-01",
+      "n": 1286,
+      "tasa_apagon": 0.3219,
+      "brier_mat": 0.2029,
+      "brier_poisson": 0.21559,
+      "ll_mat": 0.59378,
+      "ll_poisson": 0.62221,
+      "nll_goles_w0.0": 1.54793,
+      "nll_goles_w0.25": 1.49877,
+      "nll_goles_w0.5": 1.47029,
+      "nll_goles_w0.75": 1.45812
+    },
+    {
+      "ventana": "2025-01-01 \u2192 2025-07-01",
+      "n": 814,
+      "tasa_apagon": 0.3268,
+      "brier_mat": 0.18189,
+      "brier_poisson": 0.21123,
+      "ll_mat": 0.54214,
+      "ll_poisson": 0.6116,
+      "nll_goles_w0.0": 1.61824,
+      "nll_goles_w0.25": 1.55153,
+      "nll_goles_w0.5": 1.50756,
+      "nll_goles_w0.75": 1.48097
+    },
+    {
+      "ventana": "2025-07-01 \u2192 2026-01-01",
+      "n": 1184,
+      "tasa_apagon": 0.3395,
+      "brier_mat": 0.18688,
+      "brier_poisson": 0.21263,
+      "ll_mat": 0.55016,
+      "ll_poisson": 0.61442,
+      "nll_goles_w0.0": 1.68715,
+      "nll_goles_w0.25": 1.60029,
+      "nll_goles_w0.5": 1.54436,
+      "nll_goles_w0.75": 1.51165
+    },
+    {
+      "ventana": "2026-01-01 \u2192 2026-07-01",
+      "n": 778,
+      "tasa_apagon": 0.2995,
+      "brier_mat": 0.19547,
+      "brier_poisson": 0.20412,
+      "ll_mat": 0.57344,
+      "ll_poisson": 0.59675,
+      "nll_goles_w0.0": 1.61661,
+      "nll_goles_w0.25": 1.56042,
+      "nll_goles_w0.5": 1.52503,
+      "nll_goles_w0.75": 1.50608
+    }
+  ],
+  "brier_mat_medio": 0.19347,
+  "brier_poisson_medio": 0.21188,
+  "ll_mat_medio": 0.56946,
+  "ll_poisson_medio": 0.6135,
+  "nll_goles_por_w": {
+    "0.0": 1.60633,
+    "0.25": 1.54172,
+    "0.5": 1.50084,
+    "0.75": 1.4783
+  },
+  "mejor_w": 0.75,
+  "mat_supera_poisson": true
+}

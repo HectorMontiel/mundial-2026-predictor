@@ -192,6 +192,64 @@ class PredictionEngine:
                 return fila.iloc[0]['stadium']
         return None
 
+    def _mat(self):
+        """Modelo de Anulación Táctica (v23) — solo si su artefacto validado
+        existe. Carga perezosa y cacheada; None si no está."""
+        if not hasattr(self, '_mat_cache'):
+            try:
+                from anulacion_tactica import MAT
+                m = MAT()
+                self._mat_cache = m if m.listo else None
+            except Exception:
+                self._mat_cache = None
+        return self._mat_cache
+
+    def _clima_sede(self, estadio: Optional[str]) -> Dict:
+        """Pronóstico de la sede, UNA vez por partido (mismo estadio para
+        ambos equipos — garantiza simetría) y cacheado por proceso."""
+        if not hasattr(self, '_clima_cache'):
+            self._clima_cache = {}
+        if estadio in self._clima_cache:
+            return self._clima_cache[estadio]
+        cl = {}
+        try:
+            import clima
+            info = altitud.ESTADIOS_MUNDIAL.get(estadio or '')
+            if info:
+                ciudad = info['ciudad'].split(' (')[0]
+                pais = {'MEX': 'Mexico', 'CAN': 'Canada'}.get(
+                    self._pais_sede(estadio), 'United States')
+                cl = clima.obtener_clima_futuro(ciudad, pais) or {}
+        except Exception:
+            cl = {}
+        self._clima_cache[estadio] = cl
+        return cl
+
+    def _features_mat(self, eq: str, riv: str, s_eq: Dict, s_riv: Dict,
+                      estadio: Optional[str], fase: str, es_local: int,
+                      cl: Optional[Dict] = None) -> Dict:
+        """Vector del MAT en vivo — misma semántica que el entrenamiento."""
+        from anulacion_tactica import _lambda_heuristica
+        lam_b = _lambda_heuristica(s_eq['XGF_MA5'], s_riv['XGC_MA5'], es_local)
+        cl = cl if cl is not None else self._clima_sede(estadio)
+        return {
+            'GF_MA5': s_eq['GF_MA5'], 'XGF_MA5': s_eq['XGF_MA5'],
+            'SOTF_MA5': s_eq['SOTF_MA5'], 'FORMA_MA5': s_eq['FORMA_MA5'],
+            'RIVAL_GA_MA5': s_riv['GA_MA5'], 'RIVAL_XGC_MA5': s_riv['XGC_MA5'],
+            'RIVAL_SOTC_MA5': s_riv['SOTC_MA5'],
+            'RIVAL_AMAR_MA5': s_riv['AMAR_MA5'],
+            'RIVAL_FORMA_MA5': s_riv['FORMA_MA5'],
+            'DESCANSO_DIAS': None, 'PARTIDOS_14D': None,   # → medianas del train
+            'DIFF_DESCANSO': 0.0,
+            'ELO_DIFF': (s_eq['ELO'] - s_riv['ELO']) / 400.0,
+            'ES_LOCAL_REAL': es_local,
+            'TORNEO_FINAL': 1,                             # Mundial: siempre
+            'CLIMA_TMAX': cl.get('tmax'), 'CLIMA_PRECIP': cl.get('precip'),
+            'CLIMA_VIENTO': cl.get('viento'), 'CLIMA_HUMEDAD': cl.get('humedad'),
+            'P0_POISSON': float(np.exp(-lam_b)),
+            'LAMBDA_BASE': lam_b,
+        }
+
     @staticmethod
     def _pais_sede(estadio: Optional[str]) -> Optional[str]:
         """País anfitrión de la sede ('MEX' | 'USA' | 'CAN') o None."""
@@ -562,6 +620,42 @@ class PredictionEngine:
             lam_h, lam_a = la2, lh2
         else:
             lam_h, lam_a = (lh1 + la2) / 2.0, (la1 + lh2) / 2.0
+
+        # ------------------------------------------------------------------
+        # v23 (MAT): factor de supresión táctica sobre la capa de GOLES.
+        # Solo actúa si existe el artefacto (que solo se crea si el MAT superó
+        # la validación walk-forward). El 1X2 calibrado queda intacto: el
+        # Monte Carlo re-pondera la matriz a los marginales del clasificador.
+        # La corrección se aplica por COCIENTE λ'/λ sobre la λ heurística de
+        # entrenamiento, trasladada a la λ del regresor (mismo nivel).
+        apagon_info = None
+        try:
+            mat = self._mat()
+            if mat is not None:
+                ratios, probs0 = {}, {}
+                clima_sede = self._clima_sede(estadio)   # UNA vez por partido
+                for eq, riv, s_eq, s_riv, es_loc in (
+                        (home, away, s_l, s_v, 1 if pais_sede == home else 0),
+                        (away, home, s_v, s_l, 1 if pais_sede == away else 0)):
+                    feats = self._features_mat(eq, riv, s_eq, s_riv, estadio,
+                                               fase, es_loc, cl=clima_sede)
+                    p0 = mat.prob_apagon(feats)
+                    if p0 is None:
+                        continue
+                    lam_b = feats['LAMBDA_BASE']
+                    ratios[eq] = mat.ajustar_lambda(lam_b, p0) / max(lam_b, 1e-6)
+                    probs0[eq] = p0
+                if ratios:
+                    lam_h *= ratios.get(home, 1.0)
+                    lam_a *= ratios.get(away, 1.0)
+                    apagon_info = {
+                        'prob_apagon_home': round(probs0.get(home, 0.0), 3),
+                        'prob_apagon_away': round(probs0.get(away, 0.0), 3),
+                        'factor_xg_home': round(ratios.get(home, 1.0), 3),
+                        'factor_xg_away': round(ratios.get(away, 1.0), 3),
+                    }
+        except Exception:
+            apagon_info = None      # el MAT jamás tumba una predicción
         # Ajuste de reacción tras gol (más acentuado en eliminación directa)
         lam_h, lam_a = arbitros.ajuste_reaccion_eliminatoria(
             lam_h, lam_a,
@@ -579,6 +673,18 @@ class PredictionEngine:
 
         clave_l = self._jugadores_clave(home)
         clave_v = self._jugadores_clave(away)
+        # v23: la anulación táctica se propaga a las ESTRELLAS — el xG y la
+        # prob. de marcar del goleador escalan con el factor del equipo
+        # (xG_individual_ajustado = xG_individual · λ'/λ, spec §1.3).
+        if apagon_info:
+            for lista, factor in ((clave_l, apagon_info['factor_xg_home']),
+                                  (clave_v, apagon_info['factor_xg_away'])):
+                if abs(factor - 1.0) < 1e-3:
+                    continue
+                for j in lista:
+                    j['goles_esperados'] = round(j['goles_esperados'] * factor, 2)
+                    j['prob_marcar'] = round(
+                        1 - (1 - j['prob_marcar']) ** factor, 3)
         insights, factor = self._insights(
             home, away, s_l, s_v, ctx, lam_h, lam_a,
             clave_l[0] if clave_l else None, clave_v[0] if clave_v else None)
@@ -589,6 +695,13 @@ class PredictionEngine:
         else:
             insights.append("🏟️ Sede neutral: la predicción es simétrica y no "
                             "otorga ventaja de localía a ninguno de los dos.")
+        if apagon_info:
+            for eq, k in ((home, 'prob_apagon_home'), (away, 'prob_apagon_away')):
+                if apagon_info[k] >= 0.45:
+                    insights.append(
+                        f"⚡ Alerta de anulación táctica: {apagon_info[k]*100:.0f} % "
+                        f"de que {NOMBRES_PAIS.get(eq, eq)} termine sin marcar — "
+                        f"la presión del rival y el contexto apagan a sus estrellas.")
 
         # Perfil arbitral (opcional): tarjetas y penaltis correlacionados
         nombre_arb, perfil_arb = arbitros.perfil_arbitro(arbitro)
@@ -618,6 +731,7 @@ class PredictionEngine:
                 'anfitrion': pais_sede if pais_sede in (home, away) else None,
                 'pais_sede': pais_sede,
             },
+            'apagon_tactico': apagon_info,
             'altitude': detalle_altitud,
             'monitor_cambios': monitor,
             'referee': {'nombre': nombre_arb, **perfil_arb},

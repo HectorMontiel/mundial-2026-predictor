@@ -1,5 +1,30 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v23 — Anulación táctica, meta-ensemble de mercado y móvil (ver [VALIDACION_v23.md](VALIDACION_v23.md))
+
+- **⚡ Modelo de Anulación Táctica (MAT)** ([anulacion_tactica.py](anulacion_tactica.py)):
+  predice el *apagón ofensivo* (equipo fuerte que acaba en 0 goles) con
+  presión del rival, fatiga, contexto y clima; su **factor de supresión
+  táctica** τ = log(P_MAT(0)/e^(−λ)) corrige la tasa de goles (λ' con w=0.5)
+  y se propaga a los goleadores estrella. Validado walk-forward: Brier de
+  P(0) **0.193 vs 0.212** del baseline Poisson (−8.7 %), NLL de goles
+  1.61→1.50. El 1X2 queda intacto por construcción. Insight "⚡ Alerta de
+  anulación táctica" cuando P(0) ≥ 45 %.
+- **🧠 Meta-Ensemble de Superación de Mercado (MESM)**
+  ([meta_ensemble.py](meta_ensemble.py)): stacking modelo+cuotas con pérdida
+  asimétrica (castiga fallar donde el mercado acierta). Adoptado tras
+  validación contra los modelos de producción en **4 ligas** — y con él la
+  **Liga MX bate al mercado por primera vez (54.9 % vs 53.5 %)**; Serie A
+  56.6 %, Primeira 56.1 %, Eredivisie 53.7 %. Descartado con evidencia en
+  Premier/LaLiga/Bundesliga/Ligue 1. Solo actúa con cuotas vigentes del
+  partido. Ablación incluida: el grueso es el stacking; la asimetría suma
+  ~+0.5 pp.
+- **🌤️ Clima** ([clima.py](clima.py)): Open-Meteo (gratis, sin clave) con
+  caché y backfill incremental en el pipeline. Con la cobertura actual
+  (14 %) el clima aún no aporta señal — dicho sin maquillaje.
+- **📱 Móvil**: el selector de competición ahora está arriba del área
+  principal (la barra lateral llega colapsada en el teléfono).
+
 ## Novedades v22 — FBref, Champions al día y asistente IA local (ver [VALIDACION_v22.md](VALIDACION_v22.md))
 
 - **Champions con forma ACTUALIZADA**: FBref aporta los resultados que el

@@ -641,6 +641,78 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
             with open(f'roi_bets_{clave}.json', 'w', encoding='utf-8') as f:
                 json.dump(sorted(apuestas, key=lambda a: a['fecha']), f)
 
+    # ------------------------------------------------------------------
+    # v23 (MESM): meta-ensemble de superación de mercado. Protocolo SIN
+    # fuga: un modelo con la MISMA config de la liga se entrena con el
+    # primer 75 % del train y sus probs out-of-sample (25 % final) ajustan
+    # el meta con pesos asimétricos; se valida aplicándolo a las probs del
+    # modelo de PRODUCCIÓN sobre la validación (solo filas con cuotas).
+    # El artefacto mesm.joblib solo se escribe si supera la regla de oro.
+    # ------------------------------------------------------------------
+    mesm_info = None
+    try:
+        import meta_ensemble as me
+        ids_all = [m[3] for m in ds['meta']]
+        mkt_all = me.probs_mercado(odds.reindex(ids_all))
+        idx_tr = np.where(m_tr)[0]
+        corte75 = int(len(idx_tr) * 0.75)
+        idx_fit, idx_meta = idx_tr[:corte75], idx_tr[corte75:]
+        ok_meta = np.isfinite(mkt_all[idx_meta]).all(axis=1)
+        idx_va = np.where(m_va)[0]
+        ok_va = np.isfinite(mkt_all[idx_va]).all(axis=1)
+        if ok_meta.sum() >= 100 and ok_va.sum() >= 50:
+            Xf_n, Xm_n, _ = fe.normalizar_features(X_df.iloc[idx_fit],
+                                                   X_df.iloc[idx_meta])
+            if LEAGUES[clave].get('calibracion') == 'beta':
+                import league_engine as _le
+                base75 = _le.ModeloBetaCalibrado()
+            else:
+                base75 = construir_ensemble()
+            base75.fit(np.hstack([Xf_n, topo[idx_fit]]), y[idx_fit])
+
+            def _probs3(mod, Xn, t):
+                pr = mod.predict_proba(np.hstack([Xn, t]))
+                p = np.zeros((len(Xn), 3))
+                for k_idx, k in enumerate(mod.classes_):
+                    p[:, int(k)] = pr[:, k_idx]
+                return p / p.sum(axis=1, keepdims=True)
+
+            p_meta = _probs3(base75, Xm_n[ok_meta], topo[idx_meta][ok_meta])
+            meta = me.MetaEnsemble().fit(y[idx_meta][ok_meta], p_meta,
+                                         mkt_all[idx_meta][ok_meta])
+            # validación con las probs de PRODUCCIÓN (mismas filas con cuotas)
+            p_prod = proba[ok_va]
+            p_mesm = meta.predict_proba(p_prod, mkt_all[idx_va][ok_va])
+            y_sub = y[m_va][ok_va]
+            acc_sub = accuracy_score(y_sub, p_prod.argmax(axis=1))
+            ll_sub = log_loss(y_sub, p_prod, labels=[0, 1, 2])
+            acc_mesm = accuracy_score(y_sub, p_mesm.argmax(axis=1))
+            ll_mesm = log_loss(y_sub, p_mesm, labels=[0, 1, 2])
+            golden = bool((acc_mesm - acc_sub >= 0.003 and ll_mesm - ll_sub <= 0.01)
+                          or (acc_mesm > acc_sub and ll_mesm < ll_sub))
+            mesm_info = {
+                'n_val_con_cuotas': int(ok_va.sum()),
+                'acc_prod': round(float(acc_sub), 4),
+                'acc_mesm': round(float(acc_mesm), 4),
+                'll_prod': round(float(ll_sub), 4),
+                'll_mesm': round(float(ll_mesm), 4),
+                'adoptado': golden,
+            }
+            logger.info(f"[{clave}] MESM: prod {acc_sub:.3f}/{ll_sub:.3f} → "
+                        f"mesm {acc_mesm:.3f}/{ll_mesm:.3f} · "
+                        f"{'ADOPTADO' if golden else 'descartado'}")
+            if golden and not con_ratings:
+                carpeta_mesm = os.path.join('modelos', clave)
+                os.makedirs(carpeta_mesm, exist_ok=True)
+                joblib.dump(meta, os.path.join(carpeta_mesm, 'mesm.joblib'),
+                            compress=3)
+            elif not golden:
+                ruta_vieja = os.path.join('modelos', clave, 'mesm.joblib')
+                if os.path.exists(ruta_vieja) and not con_ratings:
+                    os.remove(ruta_vieja)
+    except Exception as e:
+        logger.warning(f"[{clave}] MESM omitido: {type(e).__name__}: {e}")
+
     if con_ratings:   # A/B experimental: solo métricas, sin artefactos
         resultado = {
             'liga': LEAGUES[clave]['nombre'], 'experimento': 'ratings_transfermarkt',
@@ -699,6 +771,7 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         'features_extra_cols': cols_extra,
         'medias_cuotas': medias_cuotas,
         'roi_sim': roi_sim,
+        'mesm': mesm_info,
     }
     with open(os.path.join(carpeta, 'metadata.json'), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=2)
@@ -727,6 +800,15 @@ class ClubEngine:
             self.reg_v = joblib.load(os.path.join(carpeta, 'reg_visit.joblib'))
             with open(os.path.join(carpeta, 'metadata.json'), 'r', encoding='utf-8') as f:
                 self.metadata = json.load(f)
+            # v23: meta-ensemble de superación de mercado (si fue adoptado)
+            self.mesm = None
+            ruta_mesm = os.path.join(carpeta, 'mesm.joblib')
+            if os.path.exists(ruta_mesm):
+                try:
+                    import meta_ensemble  # noqa: F401 — ruta de clase del pickle
+                    self.mesm = joblib.load(ruta_mesm)
+                except Exception as e:
+                    logger.warning(f"[{clave}] mesm.joblib ilegible: {e}")
             with open(f'team_stats_{clave}.json', 'r', encoding='utf-8') as f:
                 ts = json.load(f)
             self.stats = ts['equipos']
@@ -823,6 +905,17 @@ class ClubEngine:
         for c, v in zip(self.modelo.classes_, crudas):
             probs[int(c)] = v
         probs /= probs.sum()
+        # v23 (MESM): si el meta fue adoptado en validación Y hay cuotas
+        # reales vigentes de ESTE partido, la probabilidad final es la del
+        # meta-ensemble (modelo + mercado con objetivo asimétrico).
+        mesm_aplicado = False
+        if self.mesm is not None:
+            imp = self._cuotas_partido(home, away)
+            if imp:
+                mkt = np.array([[imp['PROB_IMP_H'], imp['PROB_IMP_D'],
+                                 imp['PROB_IMP_A'], imp['OVERROUND']]])
+                probs = self.mesm.predict_proba(probs.reshape(1, -1), mkt)[0]
+                mesm_aplicado = True
         lam_h = float(np.clip(self.reg_l.predict(X)[0], 0.2, 3.8))
         lam_a = float(np.clip(self.reg_v.predict(X)[0], 0.2, 3.8))
         M, marcador, p_marc = self._pe._monte_carlo(lam_h, lam_a, probs)
@@ -846,10 +939,13 @@ class ClubEngine:
             'insights': [
                 f"Nivel dinámico: {home} {s_l['ELO']:.0f} vs {away} {s_v['ELO']:.0f}.",
                 f"Forma (últimos 5): {home} {s_l['FORMA_MA5']:.2f} · {away} {s_v['FORMA_MA5']:.2f}.",
-            ],
+            ] + (["🧠 Probabilidades del meta-ensemble MESM: el modelo se combina "
+                  "con las cuotas vigentes del partido (objetivo asimétrico "
+                  "validado en walk-forward)."] if mesm_aplicado else []),
             'model': {'accuracy_backtest': self.metadata['precision_validacion'],
                       'log_loss_backtest': self.metadata['log_loss_validacion'],
-                      'mercado_ref': self.metadata.get('precision_mercado_cuotas')},
+                      'mercado_ref': self.metadata.get('precision_mercado_cuotas'),
+                      'mesm_aplicado': mesm_aplicado},
         }
 
     # ------------------------------------------------------------------ #

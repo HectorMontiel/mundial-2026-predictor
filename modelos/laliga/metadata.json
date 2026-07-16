@@ -25,39 +25,12 @@
     "roi_pct": -3.04,
     "aciertos": 108
   },
-  "walk_forward": {
-    "ventanas": [
-      {
-        "ventana": "2024-08-01 → 2025-02-01",
-        "n": 208,
-        "precision": 0.5048,
-        "log_loss": 1.1725,
-        "precision_mercado": 0.5192
-      },
-      {
-        "ventana": "2025-02-01 → 2025-08-01",
-        "n": 169,
-        "precision": 0.5799,
-        "log_loss": 0.9743,
-        "precision_mercado": 0.5799
-      },
-      {
-        "ventana": "2025-08-01 → 2026-02-01",
-        "n": 211,
-        "precision": 0.545,
-        "log_loss": 0.9764,
-        "precision_mercado": 0.564
-      },
-      {
-        "ventana": "2026-02-01 → 2026-08-01",
-        "n": 166,
-        "precision": 0.494,
-        "log_loss": 1.0078,
-        "precision_mercado": 0.5301
-      }
-    ],
-    "precision_media": 0.5309,
-    "log_loss_medio": 1.0328,
-    "precision_mercado_media": 0.5483
+  "mesm": {
+    "n_val_con_cuotas": 373,
+    "acc_prod": 0.5147,
+    "acc_mesm": 0.504,
+    "ll_prod": 0.989,
+    "ll_mesm": 0.9747,
+    "adoptado": false
   }
 }

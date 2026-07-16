@@ -196,9 +196,12 @@ def render_rendimiento(key: str):
             with open(ruta, encoding='utf-8') as f:
                 md = _json.load(f)
             r = md.get('roi_sim')
+            mesm = md.get('mesm') or {}
             filas.append({
                 'Liga': nombre,
                 'Modelo': f"{md['precision_validacion']*100:.1f} %",
+                'MESM 🧠': (f"{mesm['acc_mesm']*100:.1f} %" if mesm.get('adoptado')
+                            else '—'),
                 'Mercado': (f"{md['precision_mercado_cuotas']*100:.1f} %"
                             if md.get('precision_mercado_cuotas') else 'N/D'),
                 'Apuestas': r['n_apuestas'] if r else 0,
@@ -600,7 +603,13 @@ NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'premier': 'Premier League',
                  'bundesliga': 'Bundesliga', 'ligue_1': 'Ligue 1',
                  'eredivisie': 'Eredivisie', 'primeira': 'Primeira Liga',
                  'champions': 'UEFA Champions League'}
-competencia_sel = st.sidebar.radio("🏆 Competición", list(COMPETENCIAS.keys()), index=0)
+# v23 (móvil): el selector de competición vive ARRIBA del área principal —
+# en el teléfono la barra lateral llega colapsada y el usuario no encontraba
+# las ligas. El estado se comparte con st.session_state.
+competencia_sel = st.selectbox(
+    "🏆 Competición", list(COMPETENCIAS.keys()), index=0, key='competencia',
+    help="En móvil: elige aquí la liga; los controles finos (modo, bankroll) "
+         "siguen en la barra lateral (botón » arriba a la izquierda).")
 st.sidebar.checkbox(
     "🤖 Reescribir comentarios con SLM local (Ollama)", value=False, key='usar_slm',
     help="Opcional y solo en ejecución local: si tienes Ollama corriendo "
