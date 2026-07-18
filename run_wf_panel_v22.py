@@ -66,6 +66,9 @@ def _dataset_liga(clave: str):
                     df, imt_df, hasta_fecha=fechas_df.quantile(0.60))['coef']
                 imt_df = imt_df.join(_mt.indice_compuesto(imt_df, coef))
             extras_df = extras_df.join(imt_df)
+        if any(g.startswith('mls_') for g in grupos):        # v25
+            import mls_features as _mf
+            extras_df = extras_df.join(_mf.features_mls(df))
         ids = [m[3] for m in ds['meta']]
         ext = extras_df.reindex(ids).reset_index(drop=True)
         for c in cols_extra:

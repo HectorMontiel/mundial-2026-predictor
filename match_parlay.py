@@ -19,6 +19,8 @@ import os
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set
 
+import sgp_correlation
+
 logger = logging.getLogger(__name__)
 
 # v20 (SmartParlayBuilder): cada perfil tiene una ZONA OBJETIVO de
@@ -41,6 +43,11 @@ PERFILES = {
                     'alpha': 0.3},
     'agresivo':    {'min_prob': 0.30, 'zona': (0.05, 1.01), 'objetivo': 'cuota'},
 }
+# v25: el haircut fijo 0.95 fue reemplazado por factores de correlación
+# EMPÍRICOS por pareja de mercados (sgp_correlation.py, cópula gaussiana
+# simplificada con φ de 3 temporadas; validado fuera de muestra: el error de
+# la conjunta baja de 0.049 a 0.003). La constante queda solo como respaldo
+# para parejas sin dato (dentro de sgp_correlation.factor_par).
 HAIRCUT_CORRELACION = 0.95
 CUOTA_MAXIMA_COMBINADA = 1000.0
 MIN_SELECCIONES = 2
@@ -196,6 +203,11 @@ def _cuotas_reales_del_partido(pl: Dict) -> Dict[str, float]:
                 reales['over25_prob'] = reales['over25'] = float(o['odd_over25'])
             if o.get('odd_under25'):
                 reales['under25_prob'] = float(o['odd_under25'])
+            # v25: BTTS real (The Odds API vía almacén CLV)
+            if o.get('odd_btts_yes'):
+                reales['btts_si'] = reales['btts_yes_prob'] = float(o['odd_btts_yes'])
+            if o.get('odd_btts_no'):
+                reales['btts_no'] = reales['btts_no_prob'] = float(o['odd_btts_no'])
             # v19: hándicap asiático — solo cuando la línea es exactamente
             # ±0.5 (los campos de la plantilla son de esa línea)
             linea = o.get('ah_linea')
@@ -356,13 +368,16 @@ def _buscar_combinaciones(candidatas: List[Seleccion], n: int, cfg: Dict,
     cuotas = [s.cuota for s in cands]
     fams = [s.familia for s in cands]
     compat = [[True] * m for _ in range(m)]
-    corr = [[False] * m for _ in range(m)]
+    # v25: factor multiplicativo de correlación por pareja (≤1, empírico)
+    factor = [[1.0] * m for _ in range(m)]
     for i in range(m):
         for j in range(i + 1, m):
             c = _compatibles(cands[i], cands[j])
             compat[i][j] = compat[j][i] = c
-            r = _correlacionadas(cands[i], cands[j])
-            corr[i][j] = corr[j][i] = r
+            f = sgp_correlation.factor_par(
+                cands[i].id, cands[i].prob, cands[j].id, cands[j].prob,
+                misma_familia=_correlacionadas(cands[i], cands[j]))
+            factor[i][j] = factor[j][i] = f
 
     objetivo = cfg['objetivo']
     alpha = cfg.get('alpha', 0.3)
@@ -382,8 +397,13 @@ def _buscar_combinaciones(candidatas: List[Seleccion], n: int, cfg: Dict,
                 tope = MAX_POR_FAMILIA.get(fj)
                 if tope is not None and sum(1 for i in idxs if fams[i] == fj) >= tope:
                     continue
-                add_hc = sum(1 for i in idxs if corr[j][i])
-                prob2 = prob * probs[j] * HAIRCUT_CORRELACION ** add_hc
+                f_par = 1.0
+                add_hc = 0
+                for i in idxs:
+                    fij = factor[j][i]
+                    f_par *= fij
+                    add_hc += fij < 0.999
+                prob2 = prob * probs[j] * f_par
                 if prob2 * tope_resto < piso:   # ya no puede cumplir el piso
                     continue
                 famset2 = famset | {fj}
@@ -466,8 +486,18 @@ def construir_parlay_partido(motor, home: str, away: str,
                              num_selecciones: int = 6,
                              perfil: str = 'medio',
                              usar_cuotas_reales: bool = True,
-                             excluir_alto_riesgo: bool = True) -> Dict:
-    """Parlay óptimo dentro de UN partido (v20: SmartParlayBuilder)."""
+                             excluir_alto_riesgo: bool = True,
+                             solo_cuotas_reales: bool = False,
+                             categorias: Optional[Set[str]] = None) -> Dict:
+    """Parlay óptimo dentro de UN partido (v20: SmartParlayBuilder).
+
+    v25 (§2.1):
+      solo_cuotas_reales — lista blanca dinámica: solo mercados presentes en
+        odds_actuales.json (1X2, O/U 2.5, BTTS, AH ±0.5); el EV es 100 %
+        accionable pero hay menos mercados disponibles.
+      categorias — macro-familias permitidas ({'resultado','goles','corners',
+        'tarjetas'}); None = todas.
+    """
     num_selecciones = max(MIN_SELECCIONES, min(8, int(num_selecciones)))
     cfg = PERFILES.get(perfil, PERFILES['medio'])
     umbral = cfg['min_prob']
@@ -494,6 +524,19 @@ def construir_parlay_partido(motor, home: str, away: str,
                 s.ev = 0.0
 
     candidatas = [s for s in todas if s.prob >= umbral]
+    # v25 (§2.1): lista blanca dinámica y control de categorías
+    if solo_cuotas_reales:
+        candidatas = [s for s in candidatas if s.cuota_fuente == 'real']
+        if len(candidatas) < MIN_SELECCIONES:
+            return {'error': 'Con la lista blanca de cuotas reales no hay '
+                             'suficientes mercados vigentes para este partido '
+                             '(llegan a diario en temporada). Desactívala para '
+                             'usar también cuotas justas del modelo.'}
+    if categorias:
+        candidatas = [s for s in candidatas if s.familia in categorias]
+        if len(candidatas) < MIN_SELECCIONES:
+            return {'error': 'Las categorías elegidas dejan menos de 2 mercados '
+                             'con la probabilidad mínima del perfil.'}
     if len(candidatas) < MIN_SELECCIONES:
         return {'error': 'Este partido no tiene suficientes mercados con la '
                          'probabilidad mínima del perfil elegido.'}

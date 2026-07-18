@@ -118,6 +118,9 @@ LEAGUES = {
         # v17 (walk-forward +1.5pp / -0.055): cuotas de cierre como features
         # v24 (walk-forward 53.09→53.33, ll 1.0328→0.9908): + componentes IMT
         'features_extra': ['cuotas', 'imt'],
+        # v25 (walk-forward 53.33→54.09, ll −0.016): blending con el mercado
+        # en inferencia cuando hay cuotas vigentes del partido
+        'blend_mercado': 0.70,
     },
     # v14: grandes ligas europeas (mismo formato 'main' con stats + cuotas B365)
     'serie_a': {
@@ -146,6 +149,8 @@ LEAGUES = {
         'disponible': True,
         # v17 (walk-forward +0.1pp / -0.057, regla 2): cuotas de cierre
         'features_extra': ['cuotas'],
+        # v25 (walk-forward 51.65→52.17, ll 1.087→1.000): blending 70/30
+        'blend_mercado': 0.70,
     },
     'eredivisie': {
         'nombre': 'Eredivisie', 'pais': 'Países Bajos', 'formato': 'main',

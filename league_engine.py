@@ -31,6 +31,7 @@ import pandas as pd
 import requests
 
 import feature_engineering as fe
+import mls_features
 import momentum_tactico as mt
 import statsbomb_calibration
 from config import LEAGUES
@@ -180,6 +181,10 @@ def columnas_extra(clave: str) -> list:
         cols += mt.COLS_IMT
     if 'imt_c' in grupos:          # v24: variante de índice compuesto
         cols += mt.COLS_IMT_C
+    if 'mls_geo' in grupos:        # v25: geografía continental MLS
+        cols += mls_features.COLS_MLS_GEO
+    if 'mls_clima' in grupos:      # v25: clima extremo MLS
+        cols += mls_features.COLS_MLS_CLIMA
     return cols
 
 
@@ -584,6 +589,9 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
                     df, imt_df, hasta_fecha=fechas.quantile(0.80))['coef']
                 imt_df = imt_df.join(mt.indice_compuesto(imt_df, imt_coef))
             extras_df = extras_df.join(imt_df)
+        # v25: geografía + clima extremo MLS (walk-forward run_wf_mls_v25.py)
+        if any(g.startswith('mls_') for g in grupos):
+            extras_df = extras_df.join(mls_features.features_mls(df))
         ids = [m[3] for m in ds['meta']]
         ext = extras_df.reindex(ids).reset_index(drop=True)
         X_df = X_df.reset_index(drop=True).copy()
@@ -910,6 +918,9 @@ class ClubEngine:
             valores.update(v_imt)
             if 'IMT_DIFF' in cols:
                 valores['IMT_DIFF'] = mt.valor_compuesto(v_imt, self.imt_coef or {})
+        # MLS (v25): geografía continental + clima extremo (forecast memoizado)
+        if any(c in cols for c in mls_features.COLS_MLS):
+            valores.update(mls_features.fila_inferencia(home, away))
         return np.array([[valores[c] for c in cols]])
 
     def predecir(self, home: str, away: str) -> Dict:
@@ -948,6 +959,18 @@ class ClubEngine:
                                  imp['PROB_IMP_A'], imp['OVERROUND']]])
                 probs = self.mesm.predict_proba(probs.reshape(1, -1), mkt)[0]
                 mesm_aplicado = True
+        # v25: blending fijo modelo/mercado (LaLiga y Ligue 1, walk-forward
+        # VALIDACION_v25). Solo si hay cuotas vigentes y el MESM no actuó.
+        blend_aplicado = False
+        w_blend = LEAGUES[self.clave].get('blend_mercado')
+        if w_blend and not mesm_aplicado:
+            imp = self._cuotas_partido(home, away)
+            if imp:
+                pm = np.array([imp['PROB_IMP_H'], imp['PROB_IMP_D'],
+                               imp['PROB_IMP_A']])
+                probs = w_blend * probs + (1 - w_blend) * pm
+                probs /= probs.sum()
+                blend_aplicado = True
         lam_h = float(np.clip(self.reg_l.predict(X)[0], 0.2, 3.8))
         lam_a = float(np.clip(self.reg_v.predict(X)[0], 0.2, 3.8))
         M, marcador, p_marc = self._pe._monte_carlo(lam_h, lam_a, probs)
@@ -991,11 +1014,15 @@ class ClubEngine:
             ] + insights_imt
               + (["🧠 Probabilidades del meta-ensemble MESM: el modelo se combina "
                   "con las cuotas vigentes del partido (objetivo asimétrico "
-                  "validado en walk-forward)."] if mesm_aplicado else []),
+                  "validado en walk-forward)."] if mesm_aplicado else [])
+              + ([f"⚖️ Probabilidades combinadas {int((w_blend or 0)*100)}/"
+                  f"{int((1-(w_blend or 0))*100)} con el mercado (blending "
+                  "validado en walk-forward v25)."] if blend_aplicado else []),
             'model': {'accuracy_backtest': self.metadata['precision_validacion'],
                       'log_loss_backtest': self.metadata['log_loss_validacion'],
                       'mercado_ref': self.metadata.get('precision_mercado_cuotas'),
-                      'mesm_aplicado': mesm_aplicado},
+                      'mesm_aplicado': mesm_aplicado,
+                      'blend_aplicado': blend_aplicado},
         }
 
     # ------------------------------------------------------------------ #

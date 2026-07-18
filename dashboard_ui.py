@@ -13,6 +13,7 @@ Pestaña 2: la Plantilla General de Análisis (9 secciones, ~85 campos)
 Ejecutar:  streamlit run dashboard_ui.py
 """
 
+import json
 import os
 
 import numpy as np
@@ -121,6 +122,15 @@ def render_cuotas_reales(pl: dict):
     from match_parlay import _cuotas_reales_del_partido
     reales = _cuotas_reales_del_partido(pl)
     st.markdown("#### 💰 Cuotas reales y valor (EV)")
+    # v25 (CLV): aviso de frescura — cuotas de hace más de 6 h pierden valor
+    try:
+        with open('odds_actuales.json', encoding='utf-8') as _f:
+            _act = json.load(_f).get('actualizado')
+        if _act and pd.Timestamp(_act) < pd.Timestamp.today().normalize():
+            st.caption(f"⚠️ Cuotas capturadas el {_act} (más de 6 h): pueden "
+                       "haberse movido — el pipeline las refresca a diario.")
+    except Exception:
+        pass
     if not reales:
         st.caption(
             "Cuotas reales: **N/D** por ahora — sin cuotas vigentes para este "
@@ -383,6 +393,50 @@ def render_h2h_mundial(home: str, away: str):
 # ===========================================================================
 # ASISTENTE DE PARLAY POR PARTIDO (v15): agnóstico de competición
 # ===========================================================================
+def render_comparador(motor, equipos: list, key: str):
+    """v25 (§2.4): comparación rápida de DOS partidos lado a lado."""
+    with st.expander("🆚 Comparador rápido de dos partidos"):
+        cols = st.columns(2)
+        preds = []
+        for i, col in enumerate(cols):
+            with col:
+                st.markdown(f"**Partido {'A' if i == 0 else 'B'}**")
+                h = st.selectbox("Local", equipos, index=min(i * 2, len(equipos) - 2),
+                                 key=f'cmp_h{i}_{key}')
+                a = st.selectbox("Visitante", equipos,
+                                 index=min(i * 2 + 1, len(equipos) - 1),
+                                 key=f'cmp_a{i}_{key}')
+                if h == a:
+                    st.warning("Elige equipos distintos.")
+                    preds.append(None)
+                    continue
+                try:
+                    preds.append(motor.predecir(h, a))
+                except Exception as e:
+                    st.error(f"No se pudo predecir: {e}")
+                    preds.append(None)
+        if all(p and 'error' not in p for p in preds):
+            filas = []
+            for p in preds:
+                pr = p['prediction']
+                filas.append({
+                    'Partido': p.get('match', ''),
+                    'Favorito': f"{pr['winner']} ({pr['confidence']*100:.0f} %)",
+                    '1X2': (f"{pr['probabilities']['home']*100:.0f} / "
+                            f"{pr['probabilities']['draw']*100:.0f} / "
+                            f"{pr['probabilities']['away']*100:.0f} %"),
+                    'Marcador probable': pr['most_likely_score'],
+                    'Goles esperados': f"{pr['total_goals_expected']:.2f}",
+                })
+            st.dataframe(pd.DataFrame(filas), use_container_width=True,
+                         hide_index=True)
+            confs = [p['prediction']['confidence'] for p in preds]
+            mas = 'A' if confs[0] >= confs[1] else 'B'
+            st.caption(f"El modelo ve más claro el partido **{mas}** "
+                       f"({max(confs)*100:.0f} % vs {min(confs)*100:.0f} % "
+                       "de confianza en el favorito).")
+
+
 def render_parlay_partido(motor, home: str, away: str, key: str):
     """Sección interactiva de parlay para EL partido en pantalla."""
     with st.expander(f"🎯 Parlay de ESTE partido — {home} vs {away}"):
@@ -405,6 +459,24 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                      "factible, nunca una quimera.")
         excluir = st.checkbox("Excluir si el partido tiene riesgo de mercado 🔴",
                               value=True, key=f"mp_riesgo_{key}")
+        # v25 (§2.1): lista blanca dinámica + control de categorías
+        c3, c4 = st.columns(2)
+        with c3:
+            solo_reales = st.checkbox(
+                "Solo mercados con cuota REAL vigente", value=False,
+                key=f"mp_reales_{key}",
+                help="Lista blanca dinámica: limita el parlay a los mercados "
+                     "presentes en odds_actuales.json (1X2, O/U 2.5, BTTS, "
+                     "AH ±0.5). EV 100 % accionable, menos mercados.")
+        with c4:
+            cats_sel = st.multiselect(
+                "Categorías permitidas",
+                ['Resultado', 'Goles', 'Córners', 'Tarjetas'],
+                default=['Resultado', 'Goles', 'Córners', 'Tarjetas'],
+                key=f"mp_cats_{key}")
+        _MAPA_CAT = {'Resultado': 'resultado', 'Goles': 'goles',
+                     'Córners': 'corners', 'Tarjetas': 'tarjetas'}
+        categorias = {_MAPA_CAT[c] for c in cats_sel} if cats_sel else None
         if st.button("🎯 Proponer parlay para este partido", key=f"mp_btn_{key}",
                      type="primary"):
             from match_parlay import construir_parlay_partido
@@ -413,7 +485,9 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             with st.spinner("🧮 Combinando los mercados del partido..."):
                 r = construir_parlay_partido(motor, home, away,
                                              num_selecciones=n_sel, perfil=perfil,
-                                             excluir_alto_riesgo=excluir)
+                                             excluir_alto_riesgo=excluir,
+                                             solo_cuotas_reales=solo_reales,
+                                             categorias=categorias)
             if 'error' in r:
                 st.warning(r['error'])
                 return
@@ -579,10 +653,43 @@ def render_liga_club(clave: str, nombre_liga: str):
     # v18/M3: cuotas reales vigentes + EV por mercado
     render_cuotas_reales(pl)
 
+    # v25: ajuste por alineación VORP — EXPERIMENTAL con fallback estricto
+    with st.expander("🧪 Ajuste por alineación (VORP) — experimental"):
+        st.caption("Compara el once CONFIRMADO (ESPN, ~1 h antes) contra el "
+                   "once esperado del equipo y ajusta las tasas de goles (λ) "
+                   "— el 1X2 calibrado no se toca. Si la alineación no está "
+                   "publicada o no se parsea con confianza, NO se aplica nada.")
+        if st.checkbox("Consultar alineaciones de hoy", key=f'vorp_{clave}'):
+            import alineacion_vorp
+            with st.spinner("Consultando alineaciones en ESPN…"):
+                aj = alineacion_vorp.ajuste_partido(clave, home, away)
+            if not aj.get('aplicado'):
+                st.info(f"⚠️ Ajuste por alineación no disponible — {aj.get('motivo')}")
+            else:
+                lam_h0 = pl['prediccion_base']['prediction']['expected_goals']['home']
+                lam_a0 = pl['prediccion_base']['prediction']['expected_goals']['away']
+                lam_h = lam_h0 * aj['factor_home']
+                lam_a = lam_a0 * aj['factor_away']
+                c1, c2 = st.columns(2)
+                c1.metric(f"λ {home}", f"{lam_h:.2f}",
+                          f"{(aj['factor_home']-1)*100:+.1f} % por alineación")
+                c2.metric(f"λ {away}", f"{lam_a:.2f}",
+                          f"{(aj['factor_away']-1)*100:+.1f} % por alineación")
+                for lado, aus in (('local', aj['ausentes_home']),
+                                  ('visitante', aj['ausentes_away'])):
+                    if aus:
+                        st.caption(f"Titulares habituales ausentes ({lado}): "
+                                   + ", ".join(aus))
+                st.caption("🧪 Experimental: cada aplicación se registra en "
+                           "vorp_log.json; la adopción permanente se decidirá "
+                           "con la evaluación de la temporada 2026-27 "
+                           "(mejora ≥1 pp en los partidos ajustados).")
+
     # v15: parlay del partido en pantalla
     st.divider()
     render_parlay_partido(motor, home, away, key=clave)
     render_h2h_club(clave, home, away, key=clave)
+    render_comparador(motor, motor.equipos, key=clave)      # v25 (§2.4)
     render_rendimiento(key=clave)
 
     from prediction_api import plantilla_a_markdown
@@ -987,6 +1094,8 @@ with tab_rapida:
     st.divider()
     render_parlay_partido(MOTOR, home, away, key='mundial')
     render_h2h_mundial(home, away)
+    from config import TEAMS as _TEAMS
+    render_comparador(MOTOR, sorted(_TEAMS), key='mundial')     # v25 (§2.4)
     render_rendimiento(key='mundial')
 
     # ---- 🎯 Asistente de Parlay del FIXTURE (v12; v14/M11: niveles de riesgo) --

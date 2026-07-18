@@ -172,14 +172,37 @@ def actualizar_odds():
     # Snapshot ACTUAL para el parlay: Mundial (si hay clave) + clubes (siempre)
     snapshot = pd.concat([nuevas, fixtures], ignore_index=True) \
         if not (nuevas.empty and fixtures.empty) else pd.DataFrame()
+
+    # v25 (CLV): todo snapshot se acumula con marca de tiempo en
+    # odds_historico.db, y The Odds API se captura AGRUPADA por liga
+    # (h2h + totals 2.5 + btts) si hay ODDS_API_KEY.
+    btts = {}
+    try:
+        import odds_api
+        if not snapshot.empty:
+            odds_api.snapshot_desde_fixtures(snapshot)
+        odds_api.capturar_todas()
+        btts = odds_api.cuotas_recientes('btts')
+    except Exception as e:
+        logger.warning(f"Almacén CLV no disponible: {e}")
+
     if snapshot.empty:
         logger.info("Sin cuotas vigentes que registrar en odds_actuales.json.")
         return
     snapshot = snapshot.drop_duplicates(subset='MATCH_ID', keep='first')
+    cuotas_dict = snapshot.set_index('MATCH_ID').to_dict('index')
+    # BTTS de The Odds API → mismo diccionario (v25: EV de BTTS en la UI)
+    for mid, c in btts.items():
+        if mid in cuotas_dict:
+            if c.get('yes'):
+                cuotas_dict[mid]['odd_btts_yes'] = c['yes']
+            if c.get('no'):
+                cuotas_dict[mid]['odd_btts_no'] = c['no']
     with open('odds_actuales.json', 'w', encoding='utf-8') as f:
         json.dump({'actualizado': datetime.date.today().isoformat(),
-                   'cuotas': snapshot.set_index('MATCH_ID').to_dict('index')}, f)
-    logger.info(f"odds_actuales.json: {len(snapshot)} eventos con cuotas vigentes.")
+                   'cuotas': cuotas_dict}, f)
+    logger.info(f"odds_actuales.json: {len(snapshot)} eventos con cuotas vigentes"
+                + (f" ({len(btts)} con BTTS)" if btts else "") + ".")
 
 
 def cargar_features_cuotas(match_ids) -> pd.DataFrame:

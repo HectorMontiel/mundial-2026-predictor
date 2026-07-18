@@ -1,5 +1,32 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v25 — Parlays reales, EV completo y CLV (ver [VALIDACION_v25.md](VALIDACION_v25.md))
+
+- **🎲 Correlación SGP empírica** ([sgp_correlation.py](sgp_correlation.py)):
+  el haircut fijo 0.95 se reemplaza por factores por PAREJA de mercados
+  (cópula gaussiana simplificada, φ de 10,514 partidos). Validado FUERA de
+  muestra: el error de la probabilidad conjunta cae de 0.049 a 0.0034
+  (−93 %). Truncado a f ≤ 1 para no fabricar EV+ ilusorio.
+- **📈 CLV** ([odds_api.py](odds_api.py)): The Odds API agrupada por liga
+  (h2h + O/U 2.5 + BTTS) + almacén SQLite `odds_historico.db` con marca de
+  tiempo — también captura las fuentes gratuitas, así que el CLV acumula
+  desde hoy sin clave. Sección EV ampliada: 1X2, O/U 2.5, BTTS y AH ±0.5,
+  con aviso de frescura (>6 h).
+- **⚖️ Blending 70/30 ADOPTADO en LaLiga y Ligue 1** (walk-forward:
+  53.33→54.09 y 51.65→52.17 con log-loss mejorando en ambas).
+- **🧪 VORP experimental** ([alineacion_vorp.py](alineacion_vorp.py)):
+  ajuste de λ por alineación confirmada (ESPN) con fallback ESTRICTO
+  (aborta si <10 titulares parseados con fuzzy >0.85). El 1X2 no se toca.
+  Evaluación en 2026-27 con vorp_log.json.
+- **🇺🇸 MLS clima extremo: DESCARTADO con evidencia** — backfill Open-Meteo
+  completo (1,801 partidos-día) y walk-forward: la feature resta 0.7 pp.
+  Documentado; la caché queda acumulando.
+- **🎯 SmartParlayBuilder**: lista blanca dinámica (solo mercados con cuota
+  real) + control de categorías por el usuario.
+- **🆚 Comparador rápido** de dos partidos en todas las competiciones.
+- Champions IMT reintentado: sin partidos nuevos, sigue fuera por 0.003 de
+  log-loss — se reintenta cuando arranque la 2026-27.
+
 ## Novedades v24 — FotMob, MLS y el Índice de Momentum Táctico (ver [VALIDACION_v24.md](VALIDACION_v24.md))
 
 - **📈 Índice de Momentum Táctico (IMT)** ([momentum_tactico.py](momentum_tactico.py)):

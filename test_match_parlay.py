@@ -106,12 +106,17 @@ def probar_motor(nombre, motor, home, away):
         check(len(grupos) == len(set(grupos)),
               "una sola seleccion por mercado (nunca dos lineas de corners/goles/tarjetas)")
 
+        # v25: la conjunta usa factores EMPÍRICOS por pareja (sgp_correlation)
+        import sgp_correlation
         prod = 1.0
         for s in elegidas:
             prod *= s.prob
-        n_corr = sum(1 for i, a in enumerate(elegidas) for b in elegidas[:i]
-                     if _correlacionadas(a, b))
-        esperada = prod * HAIRCUT_CORRELACION ** n_corr
+        for i, a in enumerate(elegidas):
+            for b in elegidas[:i]:
+                prod *= sgp_correlation.factor_par(
+                    a.id, a.prob, b.id, b.prob,
+                    misma_familia=_correlacionadas(a, b))
+        esperada = prod
         # prob_conjunta viene redondeada a 4 decimales: usar tolerancia absoluta
         check(math.isclose(r['prob_conjunta'], esperada, rel_tol=1e-3, abs_tol=1e-4),
               f"prob conjunta coherente ({r['prob_conjunta']:.4f} ~ {esperada:.4f})")
