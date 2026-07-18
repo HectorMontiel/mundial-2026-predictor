@@ -41,6 +41,10 @@ DB = 'odds_historico.db'
 ESTADO = 'odds_api_state.json'
 BASE = 'https://api.the-odds-api.com/v4'
 MAX_REQUESTS_DIA = 20            # spec §1.2: margen de sobra con 500/mes
+MAX_BTTS_POR_DIA = 6             # BTTS solo existe en el endpoint POR EVENTO
+                                 # (verificado 2026-07-18: markets=btts en el
+                                 # endpoint de liga devuelve 422) — se piden
+                                 # solo eventos que arrancan en <36 h
 CUOTA_FRESCA_HORAS = 6           # spec: aviso si la cuota es más vieja
 
 # clave del proyecto -> sport key de The Odds API
@@ -188,8 +192,37 @@ def _consumir_request():
         json.dump(st, f)
 
 
+_memo_nombres: Dict[str, Dict[str, str]] = {}
+
+
+def _normalizar_nombre(clave_liga: str, nombre: str) -> str:
+    """Nombre de The Odds API → nombre del motor (team_stats_{liga}.json),
+    para que los MATCH_ID crucen con fixtures.csv y odds_actuales.json.
+    P. ej. 'Inter Miami CF' → 'Inter Miami'. Sin match ≥0.75 → tal cual."""
+    from difflib import SequenceMatcher
+    if clave_liga not in _memo_nombres:
+        equipos = []
+        try:
+            with open(f'team_stats_{clave_liga}.json', encoding='utf-8') as f:
+                equipos = sorted(json.load(f).get('equipos', {}).keys())
+        except Exception:
+            pass
+        _memo_nombres[clave_liga] = {'_equipos': equipos}
+    memo = _memo_nombres[clave_liga]
+    if nombre in memo:
+        return memo[nombre]
+    mejor, ratio = nombre, 0.0
+    for e in memo['_equipos']:
+        s = SequenceMatcher(None, nombre.lower(), str(e).lower()).ratio()
+        if s > ratio:
+            mejor, ratio = e, s
+    memo[nombre] = mejor if ratio >= 0.75 else nombre
+    return memo[nombre]
+
+
 def capturar_liga(clave_liga: str) -> List[Dict]:
-    """Una request: todos los próximos partidos de la liga con h2h+totals+btts."""
+    """Una request: próximos partidos de la liga con h2h + totals (BTTS va
+    aparte por evento — el endpoint de liga lo rechaza con 422, verificado)."""
     k = _clave()
     if not k:
         return []
@@ -200,15 +233,16 @@ def capturar_liga(clave_liga: str) -> List[Dict]:
     try:
         r = requests.get(f"{BASE}/sports/{SPORT_KEYS[clave_liga]}/odds",
                          params={'apiKey': k, 'regions': 'eu',
-                                 'markets': 'h2h,totals,btts',
+                                 'markets': 'h2h,totals',
                                  'oddsFormat': 'decimal'}, timeout=30)
         r.raise_for_status()
         for ev in r.json():
             inicio = ev.get('commence_time')
             fecha = pd.to_datetime(inicio).tz_localize(None)
+            home = _normalizar_nombre(clave_liga, str(ev['home_team']))
+            away = _normalizar_nombre(clave_liga, str(ev['away_team']))
             mid = (f"{fecha.strftime('%Y%m%d')}_"
-                   f"{str(ev['home_team']).replace(' ', '-')}_"
-                   f"{str(ev['away_team']).replace(' ', '-')}")
+                   f"{home.replace(' ', '-')}_{away.replace(' ', '-')}")
             for casa in ev.get('bookmakers', [])[:1]:      # la primera casa
                 for m in casa.get('markets', []):
                     if m['key'] == 'h2h':
@@ -218,7 +252,8 @@ def capturar_liga(clave_liga: str) -> List[Dict]:
                             filas.append({'match_id': mid, 'liga': clave_liga,
                                           'inicio_utc': inicio, 'fuente': 'odds_api',
                                           'mercado': 'h2h', 'seleccion': sel,
-                                          'cuota': o['price']})
+                                          'cuota': o['price'],
+                                          'event_id': ev.get('id')})
                     elif m['key'] == 'totals':
                         for o in m['outcomes']:
                             if abs(float(o.get('point', 0)) - 2.5) < 0.01:
@@ -226,29 +261,69 @@ def capturar_liga(clave_liga: str) -> List[Dict]:
                                               'inicio_utc': inicio, 'fuente': 'odds_api',
                                               'mercado': 'totals25',
                                               'seleccion': o['name'].lower(),
-                                              'cuota': o['price']})
-                    elif m['key'] == 'btts':
-                        for o in m['outcomes']:
-                            filas.append({'match_id': mid, 'liga': clave_liga,
-                                          'inicio_utc': inicio, 'fuente': 'odds_api',
-                                          'mercado': 'btts',
-                                          'seleccion': o['name'].lower(),
-                                          'cuota': o['price']})
+                                              'cuota': o['price'],
+                                              'event_id': ev.get('id')})
         logger.info(f"The Odds API [{clave_liga}]: {len(filas)} cuotas capturadas.")
     except Exception as e:
         logger.warning(f"The Odds API [{clave_liga}] falló: {e}")
     return filas
 
 
+def capturar_btts_evento(clave_liga: str, event_id: str, match_id: str,
+                         inicio_utc: str) -> List[Dict]:
+    """BTTS de UN evento (endpoint por evento; 1 request)."""
+    k = _clave()
+    if not k or not _presupuesto_disponible():
+        return []
+    _consumir_request()
+    filas = []
+    try:
+        r = requests.get(f"{BASE}/sports/{SPORT_KEYS[clave_liga]}/events/"
+                         f"{event_id}/odds",
+                         params={'apiKey': k, 'regions': 'eu', 'markets': 'btts',
+                                 'oddsFormat': 'decimal'}, timeout=30)
+        r.raise_for_status()
+        for casa in (r.json().get('bookmakers') or [])[:1]:
+            for m in casa.get('markets', []):
+                if m['key'] == 'btts':
+                    for o in m['outcomes']:
+                        filas.append({'match_id': match_id, 'liga': clave_liga,
+                                      'inicio_utc': inicio_utc, 'fuente': 'odds_api',
+                                      'mercado': 'btts',
+                                      'seleccion': str(o['name']).lower(),
+                                      'cuota': o['price']})
+    except Exception as e:
+        logger.warning(f"The Odds API btts [{clave_liga}/{event_id}]: {e}")
+    return filas
+
+
 def capturar_todas() -> int:
-    """Captura agrupada por liga (una request por liga, respetando presupuesto)."""
+    """Captura agrupada por liga + BTTS de los eventos que arrancan en <36 h
+    (tope MAX_BTTS_POR_DIA — el BTTS cuesta 1 request POR evento)."""
     if not _clave():
         logger.info("ODDS_API_KEY ausente: captura The Odds API omitida "
                     "(el almacén CLV sigue nutriéndose de fixtures.csv/Betexplorer).")
         return 0
     total = 0
+    proximos = []           # (horas_para_inicio, liga, event_id, match_id, inicio)
     for clave_liga in SPORT_KEYS:
         filas = capturar_liga(clave_liga)
+        guardar_snapshots([{k: v for k, v in f.items() if k != 'event_id'}
+                           for f in filas])
+        total += len(filas)
+        vistos = set()
+        for f in filas:
+            if f.get('event_id') and f['match_id'] not in vistos:
+                vistos.add(f['match_id'])
+                horas = (pd.Timestamp(f['inicio_utc']).tz_localize(None)
+                         - pd.Timestamp.utcnow().tz_localize(None)) \
+                    / pd.Timedelta(hours=1)
+                if 0 <= horas <= 36:
+                    proximos.append((horas, clave_liga, f['event_id'],
+                                     f['match_id'], f['inicio_utc']))
+    proximos.sort()
+    for _, liga, eid, mid, ini in proximos[:MAX_BTTS_POR_DIA]:
+        filas = capturar_btts_evento(liga, eid, mid, ini)
         guardar_snapshots(filas)
         total += len(filas)
     return total

@@ -3,16 +3,19 @@
   "n_train": 2977,
   "n_validacion": 754,
   "fecha_corte": "2025-02-23",
-  "precision_validacion": 0.4721,
+  "precision_validacion": 0.4655,
   "precision_linea_base_elo": 0.4469,
   "precision_mercado_cuotas": 0.5013,
-  "log_loss_validacion": 1.0414,
+  "log_loss_validacion": 1.0397,
   "n_equipos": 30,
   "features_extra_cols": [
     "PROB_IMP_H",
     "PROB_IMP_D",
     "PROB_IMP_A",
-    "OVERROUND"
+    "OVERROUND",
+    "VOLAT_XGF_DIFF",
+    "VOLAT_GC_DIFF",
+    "ENTROPIA_DIFF"
   ],
   "medias_cuotas": {
     "PROB_IMP_H": 0.4831,
@@ -21,65 +24,19 @@
     "OVERROUND": 0.0602
   },
   "roi_sim": {
-    "n_apuestas": 281,
-    "roi_pct": -7.83,
-    "aciertos": 112
+    "n_apuestas": 259,
+    "roi_pct": -12.86,
+    "aciertos": 96,
+    "roi_pct_pinnacle": -14.24,
+    "n_con_pinnacle": 173
   },
   "mesm": {
     "n_val_con_cuotas": 754,
-    "acc_prod": 0.4721,
-    "acc_mesm": 0.5,
-    "ll_prod": 1.0414,
-    "ll_mesm": 1.0383,
+    "acc_prod": 0.4655,
+    "acc_mesm": 0.492,
+    "ll_prod": 1.0397,
+    "ll_mesm": 1.0369,
     "adoptado": true
   },
-  "walk_forward": {
-    "ventanas": [
-      {
-        "ventana": "2023-07-01 → 2024-01-01",
-        "n": 242,
-        "precision": 0.4793,
-        "log_loss": 1.033,
-        "precision_mercado": 0.4876
-      },
-      {
-        "ventana": "2024-01-01 → 2024-07-01",
-        "n": 293,
-        "precision": 0.4334,
-        "log_loss": 1.0596,
-        "precision_mercado": 0.4505
-      },
-      {
-        "ventana": "2024-07-01 → 2025-01-01",
-        "n": 229,
-        "precision": 0.4672,
-        "log_loss": 1.0332,
-        "precision_mercado": 0.4716
-      },
-      {
-        "ventana": "2025-01-01 → 2025-07-01",
-        "n": 288,
-        "precision": 0.4479,
-        "log_loss": 1.0406,
-        "precision_mercado": 0.4896
-      },
-      {
-        "ventana": "2025-07-01 → 2026-01-01",
-        "n": 249,
-        "precision": 0.4699,
-        "log_loss": 1.0444,
-        "precision_mercado": 0.51
-      },
-      {
-        "ventana": "2026-01-01 → 2026-07-01",
-        "n": 218,
-        "precision": 0.5229,
-        "log_loss": 1.0238,
-        "precision_mercado": 0.5092
-      }
-    ],
-    "precision_media": 0.4701,
-    "log_loss_medio": 1.0391,
-    "precision_mercado_media": 0.4864
-  }
+  "imt": null
 }

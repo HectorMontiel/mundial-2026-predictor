@@ -1,5 +1,32 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v26 — Arquitectura de tercera generación (ver [VALIDACION_v26.md](VALIDACION_v26.md))
+
+- **🧮 Features ortogonales adoptadas en 6 de 10 ligas** tras walk-forward
+  ([features_v26.py](features_v26.py)): derivadas del ELO (Serie A +0.5,
+  Bundesliga +0.4, Eredivisie +1.2 pp), urgencia asimétrica (LaLiga +1.0,
+  **Champions +1.7 pp**) y entropía/volatilidad (MLS +0.65 pp). Con ello
+  **Serie A alcanza al mercado (57.1 % vs 57.1) y Bundesliga lo iguala a
+  modelo puro (55.0 vs 55.0)**.
+- **👤 Shadow Booster** ([shadow_booster.py](shadow_booster.py)): XGB sobre
+  el residuo del cierre (Pinnacle) con OOF leak-free. **El mercado resultó
+  eficiente en 7/9 ligas (documentado); ADOPTADO en MLS** (ROI +2.6 % vs
+  −7.8 % del base, 747 apuestas): señales ⚡ en Apuestas del Día.
+- **⏱️ Supervivencia BTTS** ([supervivencia_btts.py](supervivencia_btts.py)):
+  Weibull AFT censurado en numpy puro (lifelines rechazado: rompía el pin de
+  pandas). Brier 0.236 vs 0.252 del baseline en 6/6 ventanas — segunda
+  opinión visible en la vista del Mundial.
+- **💎 Apuestas del Día + 📈 Montecarlo** ([alpha_finder.py](alpha_finder.py),
+  [montecarlo_sim.py](montecarlo_sim.py)): barrido multi-liga con filtros de
+  élite (prob >70 %, EV >+3 %, cuota >1.50) y simulador de bankroll con
+  percentiles y probabilidad de ruina.
+- **🔑 The Odds API activa**: 337 cuotas/día agrupadas por liga + BTTS por
+  evento; `odds_historico.db` acumulando CLV; fuera de temporada europea la
+  API es la fuente viva de Liga MX/MLS (MESM y blending operan hoy).
+- **🎯 Calibración verificada**: ECE local 0.0138 sobre 7,364 OOF — sin
+  sesgo de localía; VENTAJA_LOCALIA intacta.
+- **CLV Pinnacle**: `roi_sim` reporta ROI con cierre Pinnacle junto a B365.
+
 ## Novedades v25 — Parlays reales, EV completo y CLV (ver [VALIDACION_v25.md](VALIDACION_v25.md))
 
 - **🎲 Correlación SGP empírica** ([sgp_correlation.py](sgp_correlation.py)):

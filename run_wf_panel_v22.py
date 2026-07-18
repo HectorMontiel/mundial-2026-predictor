@@ -69,6 +69,9 @@ def _dataset_liga(clave: str):
         if any(g.startswith('mls_') for g in grupos):        # v25
             import mls_features as _mf
             extras_df = extras_df.join(_mf.features_mls(df))
+        if any(g in grupos for g in ('ent', 'elo_d', 'urg')):  # v26
+            import features_v26 as _f26
+            extras_df = extras_df.join(_f26.features_v26(df)[0])
         ids = [m[3] for m in ds['meta']]
         ext = extras_df.reindex(ids).reset_index(drop=True)
         for c in cols_extra:

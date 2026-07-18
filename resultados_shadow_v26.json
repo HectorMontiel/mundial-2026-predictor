@@ -1,0 +1,530 @@
+{
+  "premier": {
+    "ventanas": [
+      {
+        "ventana": "2025-04-01",
+        "n": 145,
+        "roi_base": -6.46,
+        "n_bets_base": 145
+      },
+      {
+        "ventana": "2025-10-01",
+        "n": 249,
+        "roi_base": -4.28,
+        "n_bets_base": 249
+      },
+      {
+        "ventana": "2026-04-01",
+        "n": 71,
+        "roi_base": 7.72,
+        "n_bets_base": 71,
+        "roi_shadow": -7.03,
+        "n_bets_shadow": 58,
+        "aciertos_shadow": 18,
+        "roi_shadow_sin_sev": -10.77,
+        "n_bets_shadow_sin_sev": 47,
+        "aciertos_shadow_sin_sev": 15
+      }
+    ],
+    "roi_base_pct": 7.72,
+    "n_bets_base": 71,
+    "roi_shadow_pct": -7.03,
+    "n_bets_shadow": 58,
+    "roi_shadow_sin_severidad_pct": -10.77,
+    "n_bets_shadow_sin_severidad": 47,
+    "umbral": 0.05,
+    "adoptar": false
+  },
+  "laliga": {
+    "ventanas": [
+      {
+        "ventana": "2024-08-01",
+        "n": 208,
+        "roi_base": -2.67,
+        "n_bets_base": 208
+      },
+      {
+        "ventana": "2025-02-01",
+        "n": 169,
+        "roi_base": 3.88,
+        "n_bets_base": 169
+      },
+      {
+        "ventana": "2025-08-01",
+        "n": 211,
+        "roi_base": 6.91,
+        "n_bets_base": 211,
+        "roi_shadow": 1.06,
+        "n_bets_shadow": 163,
+        "aciertos_shadow": 74,
+        "roi_shadow_sin_sev": -4.26,
+        "n_bets_shadow_sin_sev": 152,
+        "aciertos_shadow_sin_sev": 67
+      },
+      {
+        "ventana": "2026-02-01",
+        "n": 166,
+        "roi_base": 2.79,
+        "n_bets_base": 166,
+        "roi_shadow": 4.1,
+        "n_bets_shadow": 121,
+        "aciertos_shadow": 54,
+        "roi_shadow_sin_sev": 9.24,
+        "n_bets_shadow_sin_sev": 127,
+        "aciertos_shadow_sin_sev": 57
+      }
+    ],
+    "roi_base_pct": 5.1,
+    "n_bets_base": 377,
+    "roi_shadow_pct": 2.36,
+    "n_bets_shadow": 284,
+    "roi_shadow_sin_severidad_pct": 1.89,
+    "n_bets_shadow_sin_severidad": 279,
+    "umbral": 0.05,
+    "adoptar": false
+  },
+  "serie_a": {
+    "ventanas": [
+      {
+        "ventana": "2025-04-01",
+        "n": 124,
+        "roi_base": 6.86,
+        "n_bets_base": 124
+      },
+      {
+        "ventana": "2025-10-01",
+        "n": 250,
+        "roi_base": 5.36,
+        "n_bets_base": 250
+      },
+      {
+        "ventana": "2026-04-01",
+        "n": 80,
+        "roi_base": 3.94,
+        "n_bets_base": 80,
+        "roi_shadow": 22.84,
+        "n_bets_shadow": 62,
+        "aciertos_shadow": 24,
+        "roi_shadow_sin_sev": 19.03,
+        "n_bets_shadow_sin_sev": 61,
+        "aciertos_shadow_sin_sev": 24
+      }
+    ],
+    "roi_base_pct": 3.94,
+    "n_bets_base": 80,
+    "roi_shadow_pct": 22.84,
+    "n_bets_shadow": 62,
+    "roi_shadow_sin_severidad_pct": 19.03,
+    "n_bets_shadow_sin_severidad": 61,
+    "umbral": 0.05,
+    "adoptar": true
+  },
+  "bundesliga": {
+    "ventanas": [
+      {
+        "ventana": "2024-08-01",
+        "n": 166,
+        "roi_base": 0.74,
+        "n_bets_base": 166
+      },
+      {
+        "ventana": "2025-02-01",
+        "n": 134,
+        "roi_base": -28.39,
+        "n_bets_base": 134
+      },
+      {
+        "ventana": "2025-08-01",
+        "n": 174,
+        "roi_base": 4.74,
+        "n_bets_base": 174,
+        "roi_shadow": -8.23,
+        "n_bets_shadow": 140,
+        "aciertos_shadow": 48,
+        "roi_shadow_sin_sev": -7.43,
+        "n_bets_shadow_sin_sev": 147,
+        "aciertos_shadow_sin_sev": 52
+      },
+      {
+        "ventana": "2026-02-01",
+        "n": 129,
+        "roi_base": -5.08,
+        "n_bets_base": 129,
+        "roi_shadow": -14.83,
+        "n_bets_shadow": 100,
+        "aciertos_shadow": 37,
+        "roi_shadow_sin_sev": -16.31,
+        "n_bets_shadow_sin_sev": 97,
+        "aciertos_shadow_sin_sev": 34
+      }
+    ],
+    "roi_base_pct": 0.56,
+    "n_bets_base": 303,
+    "roi_shadow_pct": -10.98,
+    "n_bets_shadow": 240,
+    "roi_shadow_sin_severidad_pct": -10.96,
+    "n_bets_shadow_sin_severidad": 244,
+    "umbral": 0.05,
+    "adoptar": false
+  },
+  "ligue_1": {
+    "ventanas": [
+      {
+        "ventana": "2024-04-01",
+        "n": 117,
+        "roi_base": 13.55,
+        "n_bets_base": 117
+      },
+      {
+        "ventana": "2024-10-01",
+        "n": 189,
+        "roi_base": 0.58,
+        "n_bets_base": 189
+      },
+      {
+        "ventana": "2025-04-01",
+        "n": 114,
+        "roi_base": -5.89,
+        "n_bets_base": 114,
+        "roi_shadow": -11.01,
+        "n_bets_shadow": 92,
+        "aciertos_shadow": 38,
+        "roi_shadow_sin_sev": -13.6,
+        "n_bets_shadow_sin_sev": 84,
+        "aciertos_shadow_sin_sev": 31
+      },
+      {
+        "ventana": "2025-10-01",
+        "n": 188,
+        "roi_base": -6.14,
+        "n_bets_base": 188,
+        "roi_shadow": -5.61,
+        "n_bets_shadow": 144,
+        "aciertos_shadow": 50,
+        "roi_shadow_sin_sev": -0.53,
+        "n_bets_shadow_sin_sev": 142,
+        "aciertos_shadow_sin_sev": 54
+      },
+      {
+        "ventana": "2026-04-01",
+        "n": 64,
+        "roi_base": -24.66,
+        "n_bets_base": 64,
+        "roi_shadow": -45.98,
+        "n_bets_shadow": 44,
+        "aciertos_shadow": 11,
+        "roi_shadow_sin_sev": -14.95,
+        "n_bets_shadow_sin_sev": 37,
+        "aciertos_shadow_sin_sev": 13
+      }
+    ],
+    "roi_base_pct": -9.3,
+    "n_bets_base": 366,
+    "roi_shadow_pct": -13.73,
+    "n_bets_shadow": 280,
+    "roi_shadow_sin_severidad_pct": -6.73,
+    "n_bets_shadow_sin_severidad": 263,
+    "umbral": 0.05,
+    "adoptar": false
+  },
+  "eredivisie": {
+    "ventanas": [
+      {
+        "ventana": "2024-08-01",
+        "n": 175,
+        "roi_base": -11.36,
+        "n_bets_base": 175
+      },
+      {
+        "ventana": "2025-02-01",
+        "n": 128,
+        "roi_base": -7.02,
+        "n_bets_base": 128
+      },
+      {
+        "ventana": "2025-08-01",
+        "n": 179,
+        "roi_base": -9.45,
+        "n_bets_base": 179,
+        "roi_shadow": -25.71,
+        "n_bets_shadow": 126,
+        "aciertos_shadow": 39,
+        "roi_shadow_sin_sev": -29.01,
+        "n_bets_shadow_sin_sev": 137,
+        "aciertos_shadow_sin_sev": 42
+      },
+      {
+        "ventana": "2026-02-01",
+        "n": 124,
+        "roi_base": -13.4,
+        "n_bets_base": 124,
+        "roi_shadow": -22.45,
+        "n_bets_shadow": 95,
+        "aciertos_shadow": 25,
+        "roi_shadow_sin_sev": -17.57,
+        "n_bets_shadow_sin_sev": 89,
+        "aciertos_shadow_sin_sev": 28
+      }
+    ],
+    "roi_base_pct": -11.07,
+    "n_bets_base": 303,
+    "roi_shadow_pct": -24.31,
+    "n_bets_shadow": 221,
+    "roi_shadow_sin_severidad_pct": -24.5,
+    "n_bets_shadow_sin_severidad": 226,
+    "umbral": 0.05,
+    "adoptar": false
+  },
+  "primeira": {
+    "ventanas": [
+      {
+        "ventana": "2022-08-01",
+        "n": 157,
+        "roi_base": -0.42,
+        "n_bets_base": 157
+      },
+      {
+        "ventana": "2023-02-01",
+        "n": 146,
+        "roi_base": 26.77,
+        "n_bets_base": 146
+      },
+      {
+        "ventana": "2023-08-01",
+        "n": 168,
+        "roi_base": 0.72,
+        "n_bets_base": 168,
+        "roi_shadow": -11.2,
+        "n_bets_shadow": 132,
+        "aciertos_shadow": 59,
+        "roi_shadow_sin_sev": -11.71,
+        "n_bets_shadow_sin_sev": 134,
+        "aciertos_shadow_sin_sev": 60
+      },
+      {
+        "ventana": "2024-02-01",
+        "n": 135,
+        "roi_base": -6.8,
+        "n_bets_base": 135,
+        "roi_shadow": -16.88,
+        "n_bets_shadow": 105,
+        "aciertos_shadow": 39,
+        "roi_shadow_sin_sev": -18.07,
+        "n_bets_shadow_sin_sev": 100,
+        "aciertos_shadow_sin_sev": 41
+      },
+      {
+        "ventana": "2024-08-01",
+        "n": 169,
+        "roi_base": -7.91,
+        "n_bets_base": 169,
+        "roi_shadow": -10.55,
+        "n_bets_shadow": 132,
+        "aciertos_shadow": 57,
+        "roi_shadow_sin_sev": -11.83,
+        "n_bets_shadow_sin_sev": 130,
+        "aciertos_shadow_sin_sev": 55
+      },
+      {
+        "ventana": "2025-02-01",
+        "n": 134,
+        "roi_base": -9.81,
+        "n_bets_base": 134,
+        "roi_shadow": -2.32,
+        "n_bets_shadow": 105,
+        "aciertos_shadow": 44,
+        "roi_shadow_sin_sev": -6.0,
+        "n_bets_shadow_sin_sev": 106,
+        "aciertos_shadow_sin_sev": 47
+      },
+      {
+        "ventana": "2025-08-01",
+        "n": 172,
+        "roi_base": 3.98,
+        "n_bets_base": 172,
+        "roi_shadow": -6.66,
+        "n_bets_shadow": 122,
+        "aciertos_shadow": 54,
+        "roi_shadow_sin_sev": -5.02,
+        "n_bets_shadow_sin_sev": 124,
+        "aciertos_shadow_sin_sev": 55
+      },
+      {
+        "ventana": "2026-02-01",
+        "n": 131,
+        "roi_base": -18.91,
+        "n_bets_base": 131,
+        "roi_shadow": -31.27,
+        "n_bets_shadow": 97,
+        "aciertos_shadow": 34,
+        "roi_shadow_sin_sev": -28.88,
+        "n_bets_shadow_sin_sev": 91,
+        "aciertos_shadow_sin_sev": 35
+      }
+    ],
+    "roi_base_pct": -5.77,
+    "n_bets_base": 909,
+    "roi_shadow_pct": -12.6,
+    "n_bets_shadow": 693,
+    "roi_shadow_sin_severidad_pct": -12.85,
+    "n_bets_shadow_sin_severidad": 685,
+    "umbral": 0.05,
+    "adoptar": false
+  },
+  "liga_mx": {
+    "ventanas": [
+      {
+        "ventana": "2023-04-01",
+        "n": 148,
+        "roi_base": 0.41,
+        "n_bets_base": 148
+      },
+      {
+        "ventana": "2023-10-01",
+        "n": 199,
+        "roi_base": -0.76,
+        "n_bets_base": 199
+      },
+      {
+        "ventana": "2024-04-01",
+        "n": 148,
+        "roi_base": -10.14,
+        "n_bets_base": 148,
+        "roi_shadow": -17.46,
+        "n_bets_shadow": 127,
+        "aciertos_shadow": 51,
+        "roi_shadow_sin_sev": -12.07,
+        "n_bets_shadow_sin_sev": 123,
+        "aciertos_shadow_sin_sev": 51
+      },
+      {
+        "ventana": "2024-10-01",
+        "n": 195,
+        "roi_base": -3.62,
+        "n_bets_base": 195,
+        "roi_shadow": -21.47,
+        "n_bets_shadow": 142,
+        "aciertos_shadow": 49,
+        "roi_shadow_sin_sev": -15.97,
+        "n_bets_shadow_sin_sev": 147,
+        "aciertos_shadow_sin_sev": 54
+      },
+      {
+        "ventana": "2025-04-01",
+        "n": 152,
+        "roi_base": 4.03,
+        "n_bets_base": 152,
+        "roi_shadow": -2.43,
+        "n_bets_shadow": 123,
+        "aciertos_shadow": 51,
+        "roi_shadow_sin_sev": -0.09,
+        "n_bets_shadow_sin_sev": 116,
+        "aciertos_shadow_sin_sev": 49
+      },
+      {
+        "ventana": "2025-10-01",
+        "n": 177,
+        "roi_base": 4.57,
+        "n_bets_base": 177,
+        "roi_shadow": -23.26,
+        "n_bets_shadow": 132,
+        "aciertos_shadow": 48,
+        "roi_shadow_sin_sev": -30.01,
+        "n_bets_shadow_sin_sev": 130,
+        "aciertos_shadow_sin_sev": 47
+      },
+      {
+        "ventana": "2026-04-01",
+        "n": 60,
+        "roi_base": -18.65,
+        "n_bets_base": 60,
+        "roi_shadow": -4.04,
+        "n_bets_shadow": 47,
+        "aciertos_shadow": 20,
+        "roi_shadow_sin_sev": -15.88,
+        "n_bets_shadow_sin_sev": 42,
+        "aciertos_shadow_sin_sev": 15
+      }
+    ],
+    "roi_base_pct": -2.6,
+    "n_bets_base": 732,
+    "roi_shadow_pct": -15.46,
+    "n_bets_shadow": 571,
+    "roi_shadow_sin_severidad_pct": -15.07,
+    "n_bets_shadow_sin_severidad": 558,
+    "umbral": 0.05,
+    "adoptar": false
+  },
+  "mls": {
+    "ventanas": [
+      {
+        "ventana": "2023-07-01",
+        "n": 242,
+        "roi_base": -1.67,
+        "n_bets_base": 242
+      },
+      {
+        "ventana": "2024-01-01",
+        "n": 293,
+        "roi_base": -15.37,
+        "n_bets_base": 293
+      },
+      {
+        "ventana": "2024-07-01",
+        "n": 229,
+        "roi_base": -11.84,
+        "n_bets_base": 229,
+        "roi_shadow": 4.58,
+        "n_bets_shadow": 176,
+        "aciertos_shadow": 75,
+        "roi_shadow_sin_sev": 0.64,
+        "n_bets_shadow_sin_sev": 175,
+        "aciertos_shadow_sin_sev": 69
+      },
+      {
+        "ventana": "2025-01-01",
+        "n": 288,
+        "roi_base": -6.33,
+        "n_bets_base": 288,
+        "roi_shadow": 3.76,
+        "n_bets_shadow": 217,
+        "aciertos_shadow": 82,
+        "roi_shadow_sin_sev": 4.95,
+        "n_bets_shadow_sin_sev": 235,
+        "aciertos_shadow_sin_sev": 91
+      },
+      {
+        "ventana": "2025-07-01",
+        "n": 249,
+        "roi_base": -10.76,
+        "n_bets_base": 249,
+        "roi_shadow": -5.65,
+        "n_bets_shadow": 188,
+        "aciertos_shadow": 83,
+        "roi_shadow_sin_sev": -4.01,
+        "n_bets_shadow_sin_sev": 189,
+        "aciertos_shadow_sin_sev": 86
+      },
+      {
+        "ventana": "2026-01-01",
+        "n": 218,
+        "roi_base": -2.04,
+        "n_bets_base": 218,
+        "roi_shadow": 8.34,
+        "n_bets_shadow": 166,
+        "aciertos_shadow": 66,
+        "roi_shadow_sin_sev": -2.21,
+        "n_bets_shadow_sin_sev": 160,
+        "aciertos_shadow_sin_sev": 59
+      }
+    ],
+    "roi_base_pct": -7.78,
+    "n_bets_base": 984,
+    "roi_shadow_pct": 2.6,
+    "n_bets_shadow": 747,
+    "roi_shadow_sin_severidad_pct": 0.22,
+    "n_bets_shadow_sin_severidad": 759,
+    "umbral": 0.05,
+    "adoptar": true
+  }
+}

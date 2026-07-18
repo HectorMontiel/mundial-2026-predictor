@@ -99,7 +99,8 @@ LEAGUES = {
         'nombre': 'MLS', 'pais': 'Estados Unidos/Canadá', 'formato': 'new',
         'urls': [f'{FD_BASE}/new/USA.csv'], 'anios_ventana': 8,
         'disponible': True,
-        'features_extra': ['cuotas'],
+        # v26 (walk-forward 47.01→47.66, ll −0.005): + entropía/volatilidad
+        'features_extra': ['cuotas', 'ent'],
     },
     'premier': {
         # Premier se mantiene en 3 temporadas: el experimento de 5 temporadas
@@ -117,7 +118,8 @@ LEAGUES = {
         'disponible': True,
         # v17 (walk-forward +1.5pp / -0.055): cuotas de cierre como features
         # v24 (walk-forward 53.09→53.33, ll 1.0328→0.9908): + componentes IMT
-        'features_extra': ['cuotas', 'imt'],
+        # v26 (walk-forward 53.33→54.30, +0.97pp): + urgencia asimétrica
+        'features_extra': ['cuotas', 'imt', 'urg'],
         # v25 (walk-forward 53.33→54.09, ll −0.016): blending con el mercado
         # en inferencia cuando hay cuotas vigentes del partido
         'blend_mercado': 0.70,
@@ -130,7 +132,8 @@ LEAGUES = {
         'disponible': True,
         # v18/M1 (walk-forward +3.2pp / -0.049): cuotas de cierre + beta
         # calibration (la isotónica degradaba el log-loss con cuotas)
-        'features_extra': ['cuotas'],
+        # v26 (walk-forward 53.81→54.35, +0.54pp): + derivadas del ELO
+        'features_extra': ['cuotas', 'elo_d'],
         'calibracion': 'beta',
     },
     'bundesliga': {
@@ -140,7 +143,8 @@ LEAGUES = {
         'disponible': True,
         # v17 (walk-forward +0.5pp / +0.003): H2H + descanso + rachas + tabla
         # v24 (walk-forward 49.55→49.81, ll 1.0247→1.0213): + índice IMT
-        'features_extra': ['extras', 'imt_c'],
+        # v26 (walk-forward 48.85→49.25, +0.40pp): + derivadas del ELO
+        'features_extra': ['extras', 'imt_c', 'elo_d'],
     },
     'ligue_1': {
         'nombre': 'Ligue 1', 'pais': 'Francia', 'formato': 'main',
@@ -159,7 +163,8 @@ LEAGUES = {
         'disponible': True,
         # v17 (walk-forward +0.4pp / -0.023): cuotas de cierre como features
         # v24 (walk-forward 52.21→52.82, +0.61pp): + índice compuesto IMT
-        'features_extra': ['cuotas', 'imt_c'],
+        # v26 (walk-forward 51.74→52.93, +1.19pp): + derivadas del ELO
+        'features_extra': ['cuotas', 'imt_c', 'elo_d'],
     },
     'primeira': {
         'nombre': 'Primeira Liga', 'pais': 'Portugal', 'formato': 'main',
@@ -184,6 +189,10 @@ LEAGUES = {
         # en la ventana comparable; 2017+ y solo-2022+ documentados.
         'desde': '2020-06-01',
         'urls': [], 'disponible': True,
+        # v26 (walk-forward 57.99→59.67, +1.68pp): + urgencia asimétrica
+        # (en Champions la "tabla" es la general de la temporada — proxy de
+        # la presión clasificatoria de la fase liga desde 2024)
+        'features_extra': ['urg'],
         'nota': 'API-Football (2022-24) + FBref (resto, incl. temporada actual).',
     },
 }

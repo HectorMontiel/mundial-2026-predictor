@@ -177,14 +177,35 @@ def actualizar_odds():
     # odds_historico.db, y The Odds API se captura AGRUPADA por liga
     # (h2h + totals 2.5 + btts) si hay ODDS_API_KEY.
     btts = {}
+    api_h2h, api_tot = {}, {}
     try:
         import odds_api
         if not snapshot.empty:
             odds_api.snapshot_desde_fixtures(snapshot)
         odds_api.capturar_todas()
         btts = odds_api.cuotas_recientes('btts')
+        # v26: el h2h/totals de The Odds API también alimenta odds_actuales —
+        # clave fuera de temporada europea: fixtures.csv llega vacío pero
+        # Liga MX/MLS juegan y la API sí trae sus cuotas.
+        api_h2h = odds_api.cuotas_recientes('h2h')
+        api_tot = odds_api.cuotas_recientes('totals25')
     except Exception as e:
         logger.warning(f"Almacén CLV no disponible: {e}")
+
+    extra = []
+    ya = set(snapshot['MATCH_ID']) if not snapshot.empty else set()
+    for mid, c in api_h2h.items():
+        if mid in ya or not all(c.get(s) for s in ('home', 'draw', 'away')):
+            continue
+        tot = api_tot.get(mid, {})
+        extra.append({'MATCH_ID': mid, 'odd_home': c['home'],
+                      'odd_draw': c['draw'], 'odd_away': c['away'],
+                      'odd_over25': tot.get('over'),
+                      'odd_under25': tot.get('under')})
+    if extra:
+        snapshot = pd.concat([snapshot, pd.DataFrame(extra)], ignore_index=True)
+        logger.info(f"The Odds API aporta {len(extra)} partidos a odds_actuales "
+                    "(no estaban en fixtures.csv/Betexplorer).")
 
     if snapshot.empty:
         logger.info("Sin cuotas vigentes que registrar en odds_actuales.json.")

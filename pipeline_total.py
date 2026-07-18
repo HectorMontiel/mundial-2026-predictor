@@ -55,6 +55,13 @@ def actualizar_clubes():
 def actualizar_cuotas():
     import fetch_odds
     fetch_odds.actualizar_odds()
+    # v26: señales ⚡ del Shadow Booster (solo ligas adoptadas: MLS) para el
+    # panel Apuestas del Día, con las cuotas recién capturadas
+    try:
+        import shadow_booster
+        shadow_booster.generar_senales()
+    except Exception as e:
+        logger.warning(f"señales shadow no disponibles: {e}")
 
 
 def actualizar_mercado():

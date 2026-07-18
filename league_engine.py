@@ -31,6 +31,7 @@ import pandas as pd
 import requests
 
 import feature_engineering as fe
+import features_v26 as f26
 import mls_features
 import momentum_tactico as mt
 import statsbomb_calibration
@@ -185,6 +186,12 @@ def columnas_extra(clave: str) -> list:
         cols += mls_features.COLS_MLS_GEO
     if 'mls_clima' in grupos:      # v25: clima extremo MLS
         cols += mls_features.COLS_MLS_CLIMA
+    if 'ent' in grupos:            # v26: entropía táctica y volatilidad
+        cols += f26.COLS_ENT
+    if 'elo_d' in grupos:          # v26: derivadas del ELO
+        cols += f26.COLS_ELO_D
+    if 'urg' in grupos:            # v26: urgencia asimétrica
+        cols += f26.COLS_URG
     return cols
 
 
@@ -461,6 +468,15 @@ def descargar_liga(clave: str) -> pd.DataFrame:
             'odd_home': pd.to_numeric(crudo.get('B365H'), errors='coerce'),
             'odd_draw': pd.to_numeric(crudo.get('B365D'), errors='coerce'),
             'odd_away': pd.to_numeric(crudo.get('B365A'), errors='coerce'),
+            # v26: cierre de PINNACLE (PSC*) para CLV/Shadow — la casa más
+            # eficiente; con respaldo PS* (apertura Pinnacle) si falta
+            'odd_home_pin': pd.to_numeric(crudo.get('PSCH'), errors='coerce')
+                              .fillna(pd.to_numeric(crudo.get('PSH'), errors='coerce')),
+            'odd_draw_pin': pd.to_numeric(crudo.get('PSCD'), errors='coerce')
+                              .fillna(pd.to_numeric(crudo.get('PSD'), errors='coerce')),
+            'odd_away_pin': pd.to_numeric(crudo.get('PSCA'), errors='coerce')
+                              .fillna(pd.to_numeric(crudo.get('PSA'), errors='coerce')),
+            'referee': crudo.get('Referee'),
         })
     else:  # 'new': goles + cuotas de CIERRE (v18: AvgC* tiene 100 % de
         # cobertura en MEX.csv; AvgH/PH de apertura no existen en este formato)
@@ -479,6 +495,10 @@ def descargar_liga(clave: str) -> pd.DataFrame:
             'odd_home': _odds('AvgCH', 'PSCH', 'B365CH', 'AvgH', 'PH'),
             'odd_draw': _odds('AvgCD', 'PSCD', 'B365CD', 'AvgD', 'PD'),
             'odd_away': _odds('AvgCA', 'PSCA', 'B365CA', 'AvgA', 'PA'),
+            # v26: cierre Pinnacle puro (CLV/Shadow)
+            'odd_home_pin': _odds('PSCH'),
+            'odd_draw_pin': _odds('PSCD'),
+            'odd_away_pin': _odds('PSCA'),
         })
         # Liga MX: ventana configurable de temporadas (v13: 8 años)
         anios = cfg.get('anios_ventana', 4)
@@ -571,6 +591,7 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     cols_extra = columnas_extra(clave)
     estado_extra = None
     estado_imt = None
+    estado_v26 = None
     imt_coef = None
     medias_cuotas = {}
     if cols_extra:
@@ -592,6 +613,10 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         # v25: geografía + clima extremo MLS (walk-forward run_wf_mls_v25.py)
         if any(g.startswith('mls_') for g in grupos):
             extras_df = extras_df.join(mls_features.features_mls(df))
+        # v26: features ortogonales (walk-forward run_wf_feats_v26.py)
+        if any(g in grupos for g in ('ent', 'elo_d', 'urg')):
+            v26_df, estado_v26 = f26.features_v26(df)
+            extras_df = extras_df.join(v26_df)
         ids = [m[3] for m in ds['meta']]
         ext = extras_df.reindex(ids).reset_index(drop=True)
         X_df = X_df.reset_index(drop=True).copy()
@@ -648,6 +673,13 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         fechas_val = pd.Series([f for f, keep in zip(fechas, m_tr) if not keep],
                                index=ids_val)
         proba_val = pd.DataFrame(proba, index=ids_val)
+        # v26 (§3.1): mismas apuestas valoradas también con el cierre de
+        # PINNACLE (la casa más eficiente) — el edge contra Pinnacle es la
+        # medida realista del CLV.
+        odds_pin = None
+        if {'odd_home_pin', 'odd_draw_pin', 'odd_away_pin'} <= set(df.columns):
+            odds_pin = df.set_index('MATCH_ID')[
+                ['odd_home_pin', 'odd_draw_pin', 'odd_away_pin']].reindex(ids_val)
         apuestas = []
         for mid in disponibles.index:
             p = proba_val.loc[mid].values
@@ -657,14 +689,25 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
             if p[k] <= 0.70 and ev <= 0:
                 continue
             gano = int(k == int(pd.Series(y[m_va], index=ids_val).loc[mid]))
-            apuestas.append({'fecha': str(pd.Timestamp(fechas_val.loc[mid]).date()),
-                             'prob': round(float(p[k]), 4), 'cuota': round(cuota, 3),
-                             'ev': round(ev, 4), 'gano': gano})
+            fila_bet = {'fecha': str(pd.Timestamp(fechas_val.loc[mid]).date()),
+                        'prob': round(float(p[k]), 4), 'cuota': round(cuota, 3),
+                        'ev': round(ev, 4), 'gano': gano}
+            if odds_pin is not None and mid in odds_pin.index:
+                cp = odds_pin.loc[mid].values[k]
+                if pd.notna(cp) and cp > 1:
+                    fila_bet['cuota_pin'] = round(float(cp), 3)
+            apuestas.append(fila_bet)
         if apuestas:
             ganancia = sum(a['gano'] * (a['cuota'] - 1) - (1 - a['gano']) for a in apuestas)
             roi_sim = {'n_apuestas': len(apuestas),
                        'roi_pct': round(100 * ganancia / len(apuestas), 2),
                        'aciertos': int(sum(a['gano'] for a in apuestas))}
+            con_pin = [a for a in apuestas if 'cuota_pin' in a]
+            if len(con_pin) >= 30:
+                gan_pin = sum(a['gano'] * (a['cuota_pin'] - 1) - (1 - a['gano'])
+                              for a in con_pin)
+                roi_sim['roi_pct_pinnacle'] = round(100 * gan_pin / len(con_pin), 2)
+                roi_sim['n_con_pinnacle'] = len(con_pin)
             with open(f'roi_bets_{clave}.json', 'w', encoding='utf-8') as f:
                 json.dump(sorted(apuestas, key=lambda a: a['fecha']), f)
 
@@ -786,6 +829,7 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
                    'equipos': equipos, 'h2h': h2h,
                    'estado_extra': estado_extra,
                    'estado_imt': estado_imt,
+                   'estado_v26': estado_v26,
                    'imt_coef': imt_coef}, f, ensure_ascii=False)
 
     metadata = {
@@ -848,6 +892,7 @@ class ClubEngine:
             self.estado_extra = ts.get('estado_extra')
             self.estado_imt = ts.get('estado_imt')   # v24 (IMT)
             self.imt_coef = ts.get('imt_coef')       # v24 (índice compuesto)
+            self.estado_v26 = ts.get('estado_v26')   # v26 (ortogonales)
             self.fecha_estado = ts.get('ultima_fecha_historico', '?')
             with open('calibracion_statsbomb.json', 'r', encoding='utf-8') as f:
                 self.calibracion = json.load(f)
@@ -921,6 +966,9 @@ class ClubEngine:
         # MLS (v25): geografía continental + clima extremo (forecast memoizado)
         if any(c in cols for c in mls_features.COLS_MLS):
             valores.update(mls_features.fila_inferencia(home, away))
+        # v26: entropía/volatilidad, derivadas ELO y urgencia desde el estado
+        if any(c in cols for c in f26.COLS_V26):
+            valores.update(f26.vector_v26(self.estado_v26, home, away))
         return np.array([[valores[c] for c in cols]])
 
     def predecir(self, home: str, away: str) -> Dict:

@@ -699,7 +699,9 @@ def render_liga_club(clave: str, nombre_liga: str):
                        mime="text/markdown")
 
 
-COMPETENCIAS = {'🌎 Mundial 2026': 'mundial', '🇲🇽 Liga MX': 'liga_mx',
+COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
+                '💎 Apuestas del Día': 'alpha',
+                '🇲🇽 Liga MX': 'liga_mx',
                 '🇺🇸 MLS': 'mls',
                 '🏴 Premier League': 'premier', '🇪🇸 LaLiga': 'laliga',
                 '🇮🇹 Serie A': 'serie_a', '🇩🇪 Bundesliga': 'bundesliga',
@@ -745,7 +747,89 @@ BANKROLL = st.sidebar.number_input(
          "app sugiere el stake por ¼ de Kelly (tope 5 % del bankroll por "
          "apuesta). Solo informativo.")
 
+def render_alpha_finder():
+    """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
+    st.header("💎 Apuestas del Día")
+    st.caption("Barrido de TODAS las ligas con cuotas vigentes (próximas 48 h). "
+               "Élite = prob. del modelo >70 %, EV >+3 % y cuota >1.50.")
+
+    @st.cache_data(ttl=1800, show_spinner="🔍 Buscando valor en todas las ligas…")
+    def _buscar():
+        import alpha_finder
+        return alpha_finder.apuestas_del_dia()
+
+    r = _buscar()
+    if r.get('actualizado'):
+        st.caption(f"Cuotas actualizadas: {r['actualizado']} · "
+                   f"partidos evaluados: {r.get('partidos_evaluados', 0)}")
+    if r.get('aviso'):
+        st.info(r['aviso'])
+
+    def _tarjetas(lista, titulo):
+        if not lista:
+            return
+        st.subheader(titulo)
+        for t in lista:
+            pref = '⚡ ' if t.get('shadow') else ''
+            with st.container(border=True):
+                c1, c2, c3 = st.columns([3, 2, 2])
+                c1.markdown(f"**{pref}{t['partido']}**  \n{t['liga']} · {t['fecha']}")
+                c2.markdown(f"**{t['apuesta']}**  \n{t['mercado']}")
+                c3.markdown(f"{t['valor']} Cuota **{t['cuota']}** "
+                            f"(justa {t['cuota_justa']})  \n"
+                            f"EV **{t['ev']*100:+.1f} %** · prob {t['prob']*100:.0f} %")
+
+    _tarjetas(r.get('elite'), "⭐ Picks de élite")
+    _tarjetas(r.get('candidatos'), "Candidatos con EV positivo")
+    from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+    st.caption(AVISO_JUEGO_RESPONSABLE)
+
+    # ---- 📈 Simulador Montecarlo (v26 §4.1) -------------------------------
+    st.divider()
+    st.subheader("📈 Simulador de bankroll (Montecarlo)")
+    st.caption("1,000 futuros posibles con el rendimiento REAL del modelo: "
+               "ve la varianza antes de arriesgar un peso.")
+    import montecarlo_sim as mc
+    c1, c2, c3, c4 = st.columns(4)
+    bank0 = c1.number_input("Bankroll inicial", 50.0, 1e6, 1000.0, step=50.0,
+                            key='mc_bank')
+    liga_mc = c2.selectbox("Rendimiento de", list(NOMBRES_LIGAS.keys()),
+                           format_func=lambda k: NOMBRES_LIGAS[k], key='mc_liga')
+    estrategia = c3.selectbox(
+        "Estrategia", list(mc.ESTRATEGIAS.keys()),
+        format_func=lambda k: mc.ESTRATEGIAS[k][0], key='mc_estr')
+    n_bets = c4.slider("Apuestas a simular", 20, 500, 100, key='mc_n')
+    par = mc.parametros_de_liga(liga_mc)
+    st.caption(f"Parámetros: win-rate {par['win_rate']*100:.1f} %, cuota media "
+               f"{par['odds_mean']} ± {par['odds_std']} — fuente: {par['fuente']}.")
+    if st.button("🎲 Simular 1,000 trayectorias", key='mc_btn'):
+        res = mc.simular_bankroll(bank0, par['win_rate'], par['odds_mean'],
+                                  par['odds_std'], n_bets, estrategia)
+        x = list(range(n_bets + 1))
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=x, y=res['p95'], name='Percentil 95',
+                                 line=dict(width=1), mode='lines'))
+        fig.add_trace(go.Scatter(x=x, y=res['p5'], name='Percentil 5',
+                                 fill='tonexty', line=dict(width=1), mode='lines'))
+        fig.add_trace(go.Scatter(x=x, y=res['p50'], name='Mediana',
+                                 line=dict(width=3), mode='lines'))
+        fig.update_layout(height=380, margin=dict(l=10, r=10, t=30, b=10),
+                          xaxis_title='Apuesta nº', yaxis_title='Bankroll')
+        st.plotly_chart(fig, use_container_width=True)
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Bankroll final mediano", f"{res['final_mediano']:,.0f}")
+        m2.metric("Rango 5-95 %", f"{res['final_p5']:,.0f} – {res['final_p95']:,.0f}")
+        m3.metric("Probabilidad de ruina (<10 %)", f"{res['prob_ruina']*100:.1f} %")
+        st.caption("⚠️ Educativo: incluso con ventaja real, la varianza puede "
+                   "producir rachas largas de pérdida — por eso el proyecto "
+                   "usa ¼ Kelly con tope del 5 % y nunca all-in. "
+                   + AVISO_JUEGO_RESPONSABLE)
+
+
 _clave_comp = COMPETENCIAS[competencia_sel]
+if _clave_comp == 'alpha':
+    render_alpha_finder()
+    st.stop()
 if _clave_comp != 'mundial':
     render_liga_club(_clave_comp, NOMBRES_LIGAS[_clave_comp])
     st.stop()
@@ -1022,6 +1106,19 @@ with tab_rapida:
     st.caption(f"Se esperan **{p['total_goals_expected']:.1f} goles** en total "
                f"({nombre_local}: {p['expected_goals']['home']:.1f} · "
                f"{nombre_visit}: {p['expected_goals']['away']:.1f}).")
+    # v26 (§2): segunda opinión del modelo de SUPERVIVENCIA (Weibull AFT,
+    # minuto del primer gol; Brier 0.236 vs 0.252 del baseline en walk-forward)
+    try:
+        import supervivencia_btts as _sb
+        _p_btts = _sb.btts_en_vivo(MOTOR.stats_equipo(home),
+                                   MOTOR.stats_equipo(away))
+        if _p_btts is not None:
+            st.caption(f"⏱️ **Ambos marcan (modelo de supervivencia): "
+                       f"{_p_btts*100:.0f} %** — estima el minuto del primer "
+                       f"gol de cada lado (validado en walk-forward; "
+                       "complementa al BTTS de la plantilla).")
+    except Exception:
+        pass
 
     # ---- ¿Quién remata? -----------------------------------------------------
     st.divider()

@@ -3,10 +3,10 @@
   "n_train": 1479,
   "n_validacion": 373,
   "fecha_corte": "2025-08-17",
-  "precision_validacion": 0.5335,
+  "precision_validacion": 0.5282,
   "precision_linea_base_elo": 0.4745,
   "precision_mercado_cuotas": 0.5496,
-  "log_loss_validacion": 0.9991,
+  "log_loss_validacion": 1.0679,
   "n_equipos": 26,
   "features_extra_cols": [
     "PROB_IMP_H",
@@ -16,7 +16,8 @@
     "IMT_M_DIFF",
     "IMT_DXG_DIFF",
     "IMT_FAT_DIFF",
-    "IMT_PSI_DIFF"
+    "IMT_PSI_DIFF",
+    "URGENCIA_DIFF"
   ],
   "medias_cuotas": {
     "PROB_IMP_H": 0.4438,
@@ -25,16 +26,18 @@
     "OVERROUND": 0.0549
   },
   "roi_sim": {
-    "n_apuestas": 214,
-    "roi_pct": 4.5,
-    "aciertos": 113
+    "n_apuestas": 208,
+    "roi_pct": 8.16,
+    "aciertos": 116,
+    "roi_pct_pinnacle": 3.05,
+    "n_con_pinnacle": 100
   },
   "mesm": {
     "n_val_con_cuotas": 373,
-    "acc_prod": 0.5335,
+    "acc_prod": 0.5282,
     "acc_mesm": 0.5174,
-    "ll_prod": 0.9991,
-    "ll_mesm": 0.9703,
+    "ll_prod": 1.0679,
+    "ll_mesm": 0.9716,
     "adoptado": false
   },
   "imt": {
@@ -47,40 +50,5 @@
     "intercepto": 0.382,
     "correlacion": 0.2861,
     "n": 1525
-  },
-  "walk_forward": {
-    "ventanas": [
-      {
-        "ventana": "2024-08-01 → 2025-02-01",
-        "n": 208,
-        "precision": 0.5144,
-        "log_loss": 1.013,
-        "precision_mercado": 0.5192
-      },
-      {
-        "ventana": "2025-02-01 → 2025-08-01",
-        "n": 169,
-        "precision": 0.568,
-        "log_loss": 0.9608,
-        "precision_mercado": 0.5799
-      },
-      {
-        "ventana": "2025-08-01 → 2026-02-01",
-        "n": 211,
-        "precision": 0.545,
-        "log_loss": 0.9702,
-        "precision_mercado": 0.564
-      },
-      {
-        "ventana": "2026-02-01 → 2026-08-01",
-        "n": 166,
-        "precision": 0.506,
-        "log_loss": 1.019,
-        "precision_mercado": 0.5301
-      }
-    ],
-    "precision_media": 0.5333,
-    "log_loss_medio": 0.9908,
-    "precision_mercado_media": 0.5483
   }
 }

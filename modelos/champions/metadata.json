@@ -6,10 +6,13 @@
   "precision_validacion": 0.5385,
   "precision_linea_base_elo": 0.5385,
   "precision_mercado_cuotas": null,
-  "log_loss_validacion": 0.9766,
+  "log_loss_validacion": 0.9997,
   "n_equipos": 174,
-  "features_extra_cols": [],
+  "features_extra_cols": [
+    "URGENCIA_DIFF"
+  ],
   "medias_cuotas": {},
   "roi_sim": null,
-  "mesm": null
+  "mesm": null,
+  "imt": null
 }
