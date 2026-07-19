@@ -777,12 +777,46 @@ def render_alpha_finder():
                 c2.markdown(f"**{t['apuesta']}**  \n{t['mercado']}")
                 c3.markdown(f"{t['valor']} Cuota **{t['cuota']}** "
                             f"(justa {t['cuota_justa']})  \n"
-                            f"EV **{t['ev']*100:+.1f} %** · prob {t['prob']*100:.0f} %")
+                            f"EV **{t['ev']*100:+.1f} %** · prob {t['prob']*100:.0f} %"
+                            + (f"  \n💼 Stake: **{t['stake_txt']}**"
+                               if t.get('stake_txt') else '')
+                            + (f"  \n{t['nota']}" if t.get('nota') else ''))
 
-    _tarjetas(r.get('elite'), "⭐ Picks de élite")
+    # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
+    elite = r.get('elite') or []
+    if elite:
+        import kelly_simultaneo as ks
+        bank = float(st.session_state.get('bankroll', 0) or 1000)
+        con_stake = ks.stakes_jornada(elite, bank)
+        for t, s in zip(elite, con_stake):
+            t['stake_txt'] = (f"{s['stake']:.0f} u ({s['stake_pct']*100:.1f} %)"
+                              if s['stake_pct'] > 0 else '—')
+        expo = sum(s['stake_pct'] for s in con_stake)
+        st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
+                   f"bankroll (⅛ Kelly simultáneo, cap 20 % — v27).")
+    _tarjetas([t for t in elite if t.get('evc')],
+              "💎 EVC — Estrategia de Valor Comprobado (doble validación)")
+    _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
     _tarjetas(r.get('candidatos'), "Candidatos con EV positivo")
     from bankroll_manager import AVISO_JUEGO_RESPONSABLE
     st.caption(AVISO_JUEGO_RESPONSABLE)
+
+    # v27 (§4): arbitraje de mercado cruzado (gasta ~5 requests por corrida)
+    with st.expander("💹 Arbitraje de mercado cruzado (mercados derivados)"):
+        st.caption("Valora double chance, draw no bet y totales alternativos "
+                   "(líneas .5) con la matriz exacta del motor y los compara "
+                   "con las cuotas por evento de The Odds API. Señal si la "
+                   "cuota de la casa supera la justa en >5 %.")
+        if st.button("🔍 Buscar oportunidades ahora (usa ~5 créditos de API)",
+                     key='arb_btn'):
+            import cross_arbitrage
+            with st.spinner("Valorando mercados derivados…"):
+                ra = cross_arbitrage.analizar()
+            if ra.get('aviso'):
+                st.info(ra['aviso'])
+            if ra['oportunidades']:
+                st.dataframe(pd.DataFrame(ra['oportunidades']),
+                             use_container_width=True, hide_index=True)
 
     # ---- 📈 Simulador Montecarlo (v26 §4.1) -------------------------------
     st.divider()
@@ -1115,8 +1149,8 @@ with tab_rapida:
         if _p_btts is not None:
             st.caption(f"⏱️ **Ambos marcan (modelo de supervivencia): "
                        f"{_p_btts*100:.0f} %** — estima el minuto del primer "
-                       f"gol de cada lado (validado en walk-forward; "
-                       "complementa al BTTS de la plantilla).")
+                       f"gol de cada lado. Desde la v27 este modelo ES el "
+                       "BTTS oficial de la plantilla (transición validada).")
     except Exception:
         pass
 

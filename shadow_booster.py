@@ -52,10 +52,14 @@ from train_tda_model import construir_ensemble, calcular_features_topologicas
 
 logger = logging.getLogger(__name__)
 
-ARCHIVO = 'resultados_shadow_v26.json'
+ARCHIVO = 'resultados_shadow_v27.json'   # v26 en resultados_shadow_v26.json
 OOF_CSV = 'predicciones_oof.csv'
 UMBRAL_SENAL = 0.05
 MIN_TRAIN_SHADOW = 300
+# v27: el CASTIGO_NARRATIVO ayudó en LaLiga (+5.1→+7.3 %) y Ligue 1
+# (−9.3→−0.2 %) pero EMPEORÓ la MLS (+2.6→−2.0 vs su variante v26 sin CN):
+# la feature es configurable por liga y cada artefacto guarda su variante.
+CN_LIGAS = {'laliga', 'ligue_1'}
 LIGAS_DEF = ['premier', 'laliga', 'serie_a', 'bundesliga', 'ligue_1',
              'eredivisie', 'primeira', 'liga_mx', 'mls']
 
@@ -201,9 +205,17 @@ def wf_liga(clave: str, oof_acum: list) -> dict:
                              'resultado': int(y_va[j])})
 
         # features del Shadow para ESTA ventana (con y sin severidad)
+        # v27 (§3.2): CASTIGO_NARRATIVO — cruce de la velocidad del ELO con
+        # la entropía de resultados (adaptado a diffs local−visitante:
+        # CN = ELO_VEL_DIFF · (1 − (ENTROPIA_DIFF+1)/2)). El RLM exige
+        # histórico de snapshots que apenas empieza a acumularse
+        # (odds_historico.db, v25) → forward-only, documentado.
+        cn = (Xv.iloc[idx_va]['ELO_VEL_DIFF'].values
+              * (1 - (Xv.iloc[idx_va]['ENTROPIA_DIFF'].values + 1) / 2))
         extras_shadow = np.column_stack([
             p_oof,
             mkt_va[['p_mkt_h', 'p_mkt_d', 'p_mkt_a']].values,
+            cn.reshape(-1, 1),
             sev.iloc[idx_va].values.reshape(-1, 1),
         ])
         Xs_va = np.hstack([Xv.iloc[idx_va].values, extras_shadow])
@@ -310,9 +322,15 @@ def entrenar_produccion(clave: str) -> bool:
             p_oof[:, int(k)] = pr[:, k_idx]
         p_oof /= p_oof.sum(axis=1, keepdims=True)
         idx_va = np.where(m_va)[0]
-        extras_shadow = np.column_stack([
-            p_oof, mkt.iloc[idx_va][['p_mkt_h', 'p_mkt_d', 'p_mkt_a']].values,
-            sev.iloc[idx_va].values.reshape(-1, 1)])
+        con_cn = clave in CN_LIGAS
+        bloques = [p_oof,
+                   mkt.iloc[idx_va][['p_mkt_h', 'p_mkt_d', 'p_mkt_a']].values]
+        if con_cn:
+            cn = (Xv.iloc[idx_va]['ELO_VEL_DIFF'].values
+                  * (1 - (Xv.iloc[idx_va]['ENTROPIA_DIFF'].values + 1) / 2))
+            bloques.append(cn.reshape(-1, 1))
+        bloques.append(sev.iloc[idx_va].values.reshape(-1, 1))
+        extras_shadow = np.column_stack(bloques)
         S_X.append(np.hstack([Xv.iloc[idx_va].values, extras_shadow]))
         S_y.append((y[idx_va] == 0).astype(float)
                    - mkt.iloc[idx_va]['p_mkt_h'].values)
@@ -324,6 +342,7 @@ def entrenar_produccion(clave: str) -> bool:
                        verbosity=0)
     reg.fit(np.vstack(S_X), np.concatenate(S_y))
     joblib.dump({'modelo': reg, 'cols': cols, 'umbral': UMBRAL_SENAL,
+                 'con_cn': clave in CN_LIGAS,
                  'sev_media': round(float(sev.mean()), 4)},
                 os.path.join('modelos', clave, 'shadow.joblib'), compress=3)
     logger.info(f"[{clave}] shadow de producción → modelos/{clave}/shadow.joblib "
@@ -384,9 +403,12 @@ def generar_senales(claves=None) -> Dict:
                 inv = np.array([1 / o['odd_home'], 1 / o['odd_draw'],
                                 1 / o['odd_away']])
                 pm = inv / inv.sum()
-                x = np.array([x_base + [p['home'], p['draw'], p['away'],
-                                        pm[0], pm[1], pm[2],
-                                        art.get('sev_media', 0.75)]])
+                extras = [p['home'], p['draw'], p['away'], pm[0], pm[1], pm[2]]
+                if art.get('con_cn'):
+                    extras.append(vec.get('ELO_VEL_DIFF', 0.0)
+                                  * (1 - (vec.get('ENTROPIA_DIFF', 0.0) + 1) / 2))
+                extras.append(art.get('sev_media', 0.75))
+                x = np.array([x_base + extras])
                 resid = float(art['modelo'].predict(x)[0])
                 if abs(resid) > art['umbral']:
                     senales[mid] = {'residuo': round(resid, 4),

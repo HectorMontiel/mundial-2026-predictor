@@ -5,6 +5,7 @@
       "n": 147,
       "brier_superv": 0.223,
       "brier_poisson": 0.2476,
+      "brier_matriz_choque": 0.2476,
       "k_weibull": 1.331
     },
     {
@@ -12,6 +13,7 @@
       "n": 183,
       "brier_superv": 0.2437,
       "brier_poisson": 0.2571,
+      "brier_matriz_choque": 0.255,
       "k_weibull": 1.329
     },
     {
@@ -19,6 +21,7 @@
       "n": 101,
       "brier_superv": 0.2422,
       "brier_poisson": 0.2589,
+      "brier_matriz_choque": 0.258,
       "k_weibull": 1.317
     },
     {
@@ -26,6 +29,7 @@
       "n": 175,
       "brier_superv": 0.2159,
       "brier_poisson": 0.2439,
+      "brier_matriz_choque": 0.2465,
       "k_weibull": 1.317
     },
     {
@@ -33,6 +37,7 @@
       "n": 75,
       "brier_superv": 0.2439,
       "brier_poisson": 0.2527,
+      "brier_matriz_choque": 0.2523,
       "k_weibull": 1.317
     },
     {
@@ -40,11 +45,14 @@
       "n": 89,
       "brier_superv": 0.2464,
       "brier_poisson": 0.2495,
+      "brier_matriz_choque": 0.2484,
       "k_weibull": 1.315
     }
   ],
   "brier_superv_medio": 0.2358,
   "brier_poisson_medio": 0.2516,
+  "brier_matriz_choque_medio": 0.2513,
   "k_medio": 1.321,
-  "adoptar": true
+  "adoptar": true,
+  "adoptar_transicion": true
 }

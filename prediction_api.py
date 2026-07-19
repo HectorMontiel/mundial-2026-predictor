@@ -1008,6 +1008,19 @@ class PredictionEngine:
 
         # --- 5. BTTS -------------------------------------------------------- #
         btts = M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum()
+        # v27 (§2): TRANSICIÓN VALIDADA — el Weibull AFT de supervivencia
+        # vence a la matriz con choque común en Brier (0.2358 vs 0.2513,
+        # 6/6 ventanas, VALIDACION_v27.md). Si el artefacto existe, el BTTS
+        # de la plantilla es el de supervivencia; la matriz queda de respaldo.
+        fuente_btts = 'matriz'
+        try:
+            import supervivencia_btts as _sb
+            _p = _sb.btts_en_vivo(self.stats_equipo(home), self.stats_equipo(away))
+            if _p is not None:
+                btts = _p
+                fuente_btts = 'supervivencia_weibull'
+        except Exception:
+            pass
         secciones.append({'titulo': '5. Ambos Equipos Marcan (BTTS)', 'campos': [
             campo('btts_yes_prob', 'Sí (ambos marcan)', pct(btts)),
             campo('btts_no_prob', 'No', pct(1 - btts)),

@@ -90,14 +90,32 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str) -> List[Dic
     return candidatos
 
 
-def _senales_shadow() -> Dict[str, int]:
-    """Señales del Shadow Booster si está adoptado (shadow_senales.json,
-    generado por el pipeline cuando el Shadow pasa validación)."""
+def _senales_shadow() -> Dict[str, Dict]:
+    """Residuos del Shadow Booster por partido (solo ligas ADOPTADAS)."""
     try:
         with open('shadow_senales.json', encoding='utf-8') as f:
-            return json.load(f).get('senales', {})
+            return json.load(f).get('detalle', {})
     except Exception:
         return {}
+
+
+def _filtro_evc(tarjeta: Dict, resid: Optional[float]) -> str:
+    """EVC 2.0 (v27 §7): doble validación sin tocar los modelos.
+    Devuelve 'evc' | 'elite' | 'descartada' para un pick que ya cumple los
+    filtros de élite. El residuo del Shadow es local-céntrico: se invierte
+    para apuestas al visitante y se ignora en mercados no direccionales."""
+    if resid is None:                       # liga sin Shadow adoptado → cond 4-5 se omiten
+        return 'evc'
+    apuesta = tarjeta['apuesta'].lower()
+    if apuesta.startswith('gana ') and tarjeta['mercado'] == '1X2':
+        es_home = tarjeta['partido'].lower().startswith(
+            apuesta.replace('gana ', ''))
+        r_dir = resid if es_home else -resid
+    else:
+        return 'evc'                        # mercado no direccional
+    if tarjeta['prob'] > 0.75 and r_dir < -0.05:
+        return 'descartada'                 # divergencia crítica (cond 5)
+    return 'evc' if r_dir > -0.03 else 'elite'   # cond 4
 
 
 def apuestas_del_dia(max_partidos: int = 40) -> Dict:
@@ -145,18 +163,26 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
         pred = eng.predecir(home, away)
         if 'error' in pred:
             continue
-        shadow = senales.get(mid, 0)
+        det = senales.get(mid)
+        resid = det.get('residuo') if det else None
         for c in _mercados_del_partido(pred, o, home, away):
             tarjeta = {
                 'partido': f'{home} vs {away}', 'liga': pred.get('liga', liga),
                 'fecha': str(fecha.date()), **c,
-                'shadow': bool(shadow),
+                'shadow': bool(det),
                 'valor': ('🟢' if c['ev'] > 0.05 else
                           '🟡' if c['ev'] > 0 else '🔴'),
             }
             if (c['prob'] > MIN_PROB and c['ev'] > MIN_EV
                     and c['cuota'] > MIN_CUOTA):
-                elite.append(tarjeta)
+                estado = _filtro_evc(tarjeta, resid)
+                if estado == 'descartada':      # divergencia crítica (v27)
+                    tarjeta['nota'] = ('⚠️ descartada por EVC: confianza alta '
+                                       'con Shadow desfavorable')
+                    candidatos.append(tarjeta)
+                else:
+                    tarjeta['evc'] = estado == 'evc'
+                    elite.append(tarjeta)
             elif c['ev'] > 0:
                 candidatos.append(tarjeta)
 

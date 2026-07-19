@@ -40,7 +40,9 @@ logger = logging.getLogger(__name__)
 DB = 'odds_historico.db'
 ESTADO = 'odds_api_state.json'
 BASE = 'https://api.the-odds-api.com/v4'
-MAX_REQUESTS_DIA = 20            # spec §1.2: margen de sobra con 500/mes
+MAX_REQUESTS_DIA = 30            # v27: capturas + BTTS + arbitraje cruzado
+                                 # (500/mes ≈ 16/día sostenidos; 30 da aire
+                                 # los días de jornada y el estado lo frena)
 MAX_BTTS_POR_DIA = 6             # BTTS solo existe en el endpoint POR EVENTO
                                  # (verificado 2026-07-18: markets=btts en el
                                  # endpoint de liga devuelve 422) — se piden

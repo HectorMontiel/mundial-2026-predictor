@@ -172,8 +172,9 @@ def experimento() -> Dict:
         # esperada de goles recibidos ≈ media(ATQ_RIVAL·3, DEF_PROPIA·3)
         lam_base = (va['ATQ_RIVAL'].values * 3 + va['DEF_PROPIA'].values * 3) / 2
         p_gol_pois = pd.Series(1 - np.exp(-lam_base), index=p_gol.index)
+        lam_por = pd.Series(lam_base, index=p_gol.index)
 
-        y_pred_s, y_pred_p, y_real = [], [], []
+        y_pred_s, y_pred_p, y_pred_m, y_real = [], [], [], []
         for mid, fila_p in va_p.iterrows():
             sub_s = p_gol.loc[mid] if mid in p_gol.index.get_level_values(0) else None
             if sub_s is None or len(sub_s) != 2:
@@ -181,29 +182,43 @@ def experimento() -> Dict:
             y_pred_s.append(float(sub_s.iloc[0] * sub_s.iloc[1]))
             sub_p = p_gol_pois.loc[mid]
             y_pred_p.append(float(sub_p.iloc[0] * sub_p.iloc[1]))
+            # v27: baseline MATRIZ con choque común (mismo λc=0.12·min que
+            # _monte_carlo de producción): BTTS = 1 − P(X=0) − P(Y=0) + P(0,0)
+            l1, l2 = float(lam_por.loc[mid].iloc[0]), float(lam_por.loc[mid].iloc[1])
+            lc = 0.12 * min(l1, l2)
+            p00 = np.exp(-(max(l1 - lc, .05) + max(l2 - lc, .05) + lc))
+            y_pred_m.append(float(1 - np.exp(-l1) - np.exp(-l2) + p00))
             y_real.append(int(fila_p['btts']))
         if len(y_real) < 50:
             continue
         y_real = np.array(y_real)
         brier_s = float(np.mean((np.array(y_pred_s) - y_real) ** 2))
         brier_p = float(np.mean((np.array(y_pred_p) - y_real) ** 2))
+        brier_m = float(np.mean((np.array(y_pred_m) - y_real) ** 2))
         filas.append({'ventana': str(ini.date()), 'n': len(y_real),
                       'brier_superv': round(brier_s, 4),
                       'brier_poisson': round(brier_p, 4),
+                      'brier_matriz_choque': round(brier_m, 4),
                       'k_weibull': round(modelo.k, 3)})
         logger.info(f"  [surv] {ini.date()} n={len(y_real)} "
                     f"brier superv {brier_s:.4f} vs poisson {brier_p:.4f} "
-                    f"(k={modelo.k:.2f})")
+                    f"vs matriz-choque {brier_m:.4f} (k={modelo.k:.2f})")
     if not filas:
         return {'veredicto': 'sin datos suficientes'}
     bs = float(np.mean([f['brier_superv'] for f in filas]))
     bp = float(np.mean([f['brier_poisson'] for f in filas]))
+    bm = float(np.mean([f['brier_matriz_choque'] for f in filas]))
     salida = {'ventanas': filas, 'brier_superv_medio': round(bs, 4),
               'brier_poisson_medio': round(bp, 4),
+              'brier_matriz_choque_medio': round(bm, 4),
               'k_medio': round(float(np.mean([f['k_weibull'] for f in filas])), 3),
-              'adoptar': bool(bs < bp - 0.001)}
+              'adoptar': bool(bs < bp - 0.001),
+              # v27: transición del BTTS de plantilla solo si vence TAMBIÉN
+              # al baseline de matriz con choque común (el de producción)
+              'adoptar_transicion': bool(bs < bm - 0.001)}
     logger.info(f"[surv] Brier medio: supervivencia {bs:.4f} vs poisson {bp:.4f} "
-                f"→ {'ADOPTAR' if salida['adoptar'] else 'descartado'}")
+                f"vs matriz-choque {bm:.4f} → "
+                f"{'TRANSICIONAR' if salida['adoptar_transicion'] else 'solo señal'}")
     with open(ARCHIVO, 'w', encoding='utf-8') as f:
         json.dump(salida, f, ensure_ascii=False, indent=2)
     if salida['adoptar']:

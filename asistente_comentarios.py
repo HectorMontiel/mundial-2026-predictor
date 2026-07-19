@@ -36,6 +36,25 @@ def _elige(opciones: List[str], semilla: int, sal: int = 0) -> str:
     return opciones[(semilla + sal) % len(opciones)]
 
 
+def _residuo_shadow(nombre_home: str, nombre_away: str) -> Optional[float]:
+    """Residuo del Shadow Booster para este partido (solo ligas adoptadas)."""
+    import json
+    import os
+    if not os.path.exists('shadow_senales.json'):
+        return None
+    try:
+        with open('shadow_senales.json', encoding='utf-8') as f:
+            det = json.load(f).get('detalle', {})
+        h = nombre_home.replace(' ', '-')
+        a = nombre_away.replace(' ', '-')
+        for mid, d in det.items():
+            if mid.endswith(f'_{h}_{a}'):
+                return float(d.get('residuo'))
+    except Exception:
+        pass
+    return None
+
+
 def comentario_partido(pred: Dict, nombre_home: str, nombre_away: str,
                        cuotas_ev: Optional[List[Dict]] = None,
                        riesgo: str = 'bajo') -> str:
@@ -93,6 +112,27 @@ def comentario_partido(pred: Dict, nombre_home: str, nombre_away: str,
                 f"Ojo al valor: «{mejor.get('etiqueta', mejor.get('mercado', ''))}» "
                 f"paga {mejor.get('cuota', 0):.2f} y el modelo le da EV "
                 f"+{mejor['ev']*100:.0f} % — la casa lo está pagando de más.")
+
+    # 4b. abogado del diablo (v27 §6): divergencia modelo base vs Shadow.
+    # Determinista — funciona igual sin Ollama; si Ollama está activo, el
+    # bloque viaja dentro del comentario y el SLM lo reescribe con él.
+    resid = _residuo_shadow(nombre_home, nombre_away)
+    if resid is not None:
+        conf = max(ph, pa)
+        favorece_home = ph > pa
+        r_dir = resid if favorece_home else -resid
+        if conf > 0.70 and r_dir < -0.05:
+            frases.append(
+                f"🕵️ Abogado del diablo: el modelo confía un {conf*100:.0f} % "
+                f"en su favorito, pero el Shadow Booster detecta al mercado "
+                f"moviéndose EN CONTRA (residuo {r_dir:+.2f}). Cuando ambos "
+                f"chocan así, la historia dice prudencia: reduce el stake o "
+                f"déjala pasar.")
+        elif r_dir > 0.05:
+            frases.append(
+                f"⚡ El Shadow Booster respalda la jugada: el mercado parece "
+                f"estar subestimando al favorito del modelo "
+                f"(residuo {r_dir:+.2f}).")
 
     # 4. cautela
     if riesgo == 'alto':

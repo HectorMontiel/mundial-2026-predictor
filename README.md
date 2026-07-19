@@ -1,5 +1,26 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v27 — Precisión estructural y riesgo quant (ver [VALIDACION_v27.md](VALIDACION_v27.md))
+
+- **⏱️ BTTS oficial por supervivencia**: el Weibull AFT venció también al
+  baseline de matriz con choque común (Brier 0.236 vs 0.251, 6/6 ventanas)
+  — transición completada en la plantilla del Mundial; 1X2 intacto.
+- **❌ Dixon-Coles descartado con evidencia**: el ρ óptimo en train sale
+  POSITIVO (sobreajuste) y no mejora el log-loss del marcador en validación.
+- **👤 Shadow 2.0**: castigo narrativo (ELO_VEL × entropía) adoptado en
+  **LaLiga (+5.1→+7.3 % ROI)** y **Ligue 1 (−9.3→−0.2 %)**; la MLS conserva
+  su variante v1 (+2.6 %) porque el CN la empeoraba — feature por liga.
+  RLM documentado como forward-only (falta histórico de snapshots).
+- **💎 EVC 2.0**: doble validación (élite ∧ Shadow conforme) con descarte
+  por divergencia crítica y stake del **Kelly simultáneo ⅛ + cap 20 %**
+  (drawdown máximo 24 %→13 % en Montecarlo comparativo).
+- **💹 Arbitraje cruzado** ([cross_arbitrage.py](cross_arbitrage.py)):
+  valora double chance / DNB / totales alternativos (.5) con la matriz
+  exacta vs cuotas por evento (los SGP pre-empaquetados no existen en la
+  capa gratuita — verificado). Con corrección de push en líneas enteras.
+- **🕵️ Abogado del diablo** en el comentario del analista cuando el modelo
+  y el Shadow divergen (determinista, con o sin Ollama).
+
 ## Novedades v26 — Arquitectura de tercera generación (ver [VALIDACION_v26.md](VALIDACION_v26.md))
 
 - **🧮 Features ortogonales adoptadas en 6 de 10 ligas** tras walk-forward
