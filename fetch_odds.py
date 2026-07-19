@@ -182,7 +182,8 @@ def actualizar_odds():
         import odds_api
         if not snapshot.empty:
             odds_api.snapshot_desde_fixtures(snapshot)
-        odds_api.capturar_todas()
+        # v28: orquestador con presupuesto (tier-1 RLM + resto 1×/día)
+        odds_api.capturar_auto()
         btts = odds_api.cuotas_recientes('btts')
         # v26: el h2h/totals de The Odds API también alimenta odds_actuales —
         # clave fuera de temporada europea: fixtures.csv llega vacío pero

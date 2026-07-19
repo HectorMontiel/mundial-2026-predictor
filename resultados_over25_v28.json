@@ -1,0 +1,77 @@
+{
+  "ventanas": [
+    {
+      "ventana": "2021-07-01",
+      "n": 306,
+      "brier_superv": 0.2985,
+      "brier_matriz": 0.2641,
+      "k": 2.446
+    },
+    {
+      "ventana": "2022-01-01",
+      "n": 197,
+      "brier_superv": 0.2429,
+      "brier_matriz": 0.2442,
+      "k": 2.506
+    },
+    {
+      "ventana": "2022-07-01",
+      "n": 107,
+      "brier_superv": 0.3056,
+      "brier_matriz": 0.2488,
+      "k": 2.536
+    },
+    {
+      "ventana": "2023-01-01",
+      "n": 77,
+      "brier_superv": 0.2624,
+      "brier_matriz": 0.2619,
+      "k": 2.541
+    },
+    {
+      "ventana": "2023-07-01",
+      "n": 180,
+      "brier_superv": 0.2248,
+      "brier_matriz": 0.2364,
+      "k": 2.555
+    },
+    {
+      "ventana": "2024-01-01",
+      "n": 233,
+      "brier_superv": 0.2673,
+      "brier_matriz": 0.2415,
+      "k": 2.523
+    },
+    {
+      "ventana": "2024-07-01",
+      "n": 201,
+      "brier_superv": 0.2862,
+      "brier_matriz": 0.2537,
+      "k": 2.568
+    },
+    {
+      "ventana": "2025-01-01",
+      "n": 156,
+      "brier_superv": 0.267,
+      "brier_matriz": 0.2507,
+      "k": 2.562
+    },
+    {
+      "ventana": "2025-07-01",
+      "n": 217,
+      "brier_superv": 0.2383,
+      "brier_matriz": 0.2379,
+      "k": 2.512
+    },
+    {
+      "ventana": "2026-01-01",
+      "n": 120,
+      "brier_superv": 0.2833,
+      "brier_matriz": 0.2554,
+      "k": 2.508
+    }
+  ],
+  "brier_superv_medio": 0.2676,
+  "brier_matriz_medio": 0.2495,
+  "adoptar": false
+}

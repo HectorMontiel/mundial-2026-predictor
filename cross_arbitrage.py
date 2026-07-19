@@ -32,6 +32,23 @@ logger = logging.getLogger(__name__)
 MARGEN = 1.05
 MAX_EVENTOS = 5
 MERCADOS = 'double_chance,draw_no_bet,alternate_totals,team_totals'
+# v28 (§2.2) — índice VACA: ν = EV% / (entropías de resultados NORMALIZADAS
+# de ambos equipos + 0.1). Adaptación de escala documentada: con la fórmula
+# literal del spec (entropías en bits, EV como fracción) ν jamás superaría
+# 1.0; normalizando la entropía a [0,1] (÷log₂3) y el EV a %, el umbral 1.0
+# discrimina como se pretende (EV 5 % con entropías medias ~1.7 → ν≈2.9;
+# EV 1.5 % con equipos caóticos → ν≈0.7, filtrado).
+VACA_UMBRAL = 1.0
+CACHE_ARB = 'arbitraje_cache.json'
+
+
+def _entropia_norm(eng, equipo: str) -> float:
+    import features_v26 as f26
+    try:
+        res = (eng.estado_v26 or {}).get(equipo, {}).get('res') or []
+        return f26._entropia(res[-6:]) / np.log2(3) if len(res) >= 4 else 0.8
+    except Exception:
+        return 0.8
 
 
 def _prob_mercado(M: np.ndarray, mkey: str, o: Dict, home: str, away: str
@@ -150,7 +167,12 @@ def analizar(max_eventos: int = MAX_EVENTOS) -> Dict:
                     justa = 1.0 / p
                     cuota = float(o.get('price', 0))
                     if cuota > justa * MARGEN:
+                        ev_sint = (cuota - justa) / justa * 100
+                        vaca = round(ev_sint / (_entropia_norm(eng, home)
+                                                + _entropia_norm(eng, away)
+                                                + 0.1), 2)
                         oportunidades.append({
+                            'vaca': vaca,
                             'partido': f'{home} vs {away}',
                             'liga': clave_liga, 'inicio': inicio,
                             'casa': casa.get('title', '?'),
@@ -163,11 +185,21 @@ def analizar(max_eventos: int = MAX_EVENTOS) -> Dict:
                             'cuota_justa': round(justa, 2),
                             'prob_modelo': round(p, 3),
                             'ev_pct': round((cuota * p - 1) * 100, 1)})
-    oportunidades.sort(key=lambda x: -x['ev_pct'])
-    return {'oportunidades': oportunidades, 'eventos_evaluados': evaluados,
-            'aviso': None if oportunidades else
-            ('Sin oportunidades con margen >5 % en los eventos evaluados '
-             '(o sin eventos próximos con motor).')}
+    # v28: filtro VACA (solo ν > umbral) y orden por ν descendente
+    filtradas = sorted([o for o in oportunidades if o['vaca'] > VACA_UMBRAL],
+                       key=lambda x: -x['vaca'])
+    salida = {'oportunidades': filtradas,
+              'descartadas_por_vaca': len(oportunidades) - len(filtradas),
+              'eventos_evaluados': evaluados,
+              'generado': pd.Timestamp.today().strftime('%Y-%m-%d %H:%M'),
+              'aviso': None if filtradas else
+              ('Sin oportunidades estables (ν > 1) en los eventos evaluados.')}
+    try:        # caché para el EVC Platino (alpha_finder) y auditoría
+        with open(CACHE_ARB, 'w', encoding='utf-8') as f:
+            json.dump(salida, f, ensure_ascii=False)
+    except Exception:
+        pass
+    return salida
 
 
 if __name__ == '__main__':

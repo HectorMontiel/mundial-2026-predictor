@@ -1,5 +1,26 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v28 — Dos carriles y traductor cognitivo (ver [VALIDACION_v28.md](VALIDACION_v28.md))
+
+- **⏳ Auto-cuotas nativas**: la app se actualiza sola cada 6 h
+  (`st.cache_data`, sin subprocesos) con presupuesto real de The Odds API
+  (~16 req/día; salta si quedan <50 créditos, con aviso).
+- **📈 Acelerador RLM**: snapshots tier-1 (5 ligas, hasta 3/día) alimentando
+  `odds_historico.db` — el Shadow con RLM para Bundesliga/Eredivisie queda
+  calendarizado a +60 días de acumulación.
+- **⚖️ Índice VACA** en el arbitraje cruzado (EV/volatilidad, escala
+  adaptada y documentada): solo oportunidades estables (ν>1).
+- **⭐ EVC Platino**: triple validación (EVC ∧ arbitraje ν>1 ∧ sin
+  divergencia) con stake ×1.5 pre-cap en el Kelly simultáneo.
+- **❌ Weibull Over 2.5 descartado con evidencia** (Brier 0.268 vs 0.250 de
+  la matriz): para totales, el conteo Poisson gana; el Weibull se queda
+  donde demostró valor (BTTS).
+- **🧠 Traductor Quant**: el modo Principiante traduce toda la jerga
+  (glosario + tooltips deterministas, sin depender de ningún LLM).
+- **🧪 Carril B** (rama `experimento/bottom-up`, sin fusionar): PFI por
+  ratings FotMob (787 ratings acumulados) + índice de cohesión Jaccard;
+  el VORP-PFI espera cobertura de datos (brecha documentada).
+
 ## Novedades v27 — Precisión estructural y riesgo quant (ver [VALIDACION_v27.md](VALIDACION_v27.md))
 
 - **⏱️ BTTS oficial por supervivencia**: el Weibull AFT venció también al

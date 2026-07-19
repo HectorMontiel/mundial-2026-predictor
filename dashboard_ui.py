@@ -768,9 +768,11 @@ def render_alpha_finder():
     def _tarjetas(lista, titulo):
         if not lista:
             return
-        st.subheader(titulo)
+        if titulo:
+            st.subheader(titulo)
         for t in lista:
-            pref = '⚡ ' if t.get('shadow') else ''
+            pref = ('⭐ ' if t.get('platino') else '') \
+                + ('⚡ ' if t.get('shadow') else '')
             with st.container(border=True):
                 c1, c2, c3 = st.columns([3, 2, 2])
                 c1.markdown(f"**{pref}{t['partido']}**  \n{t['liga']} · {t['fecha']}")
@@ -794,19 +796,31 @@ def render_alpha_finder():
         expo = sum(s['stake_pct'] for s in con_stake)
         st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
                    f"bankroll (⅛ Kelly simultáneo, cap 20 % — v27).")
-    _tarjetas([t for t in elite if t.get('evc')],
-              "💎 EVC — Estrategia de Valor Comprobado (doble validación)")
+    # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
+    import traductor_quant as tq
+    platino = [t for t in elite if t.get('platino')]
+    if platino:
+        st.subheader(tq.t('evc_platino', ES_PRO))
+        st.caption(tq.tooltip('evc_platino'))
+        _tarjetas(platino, "")
+    _tarjetas([t for t in elite if t.get('evc') and not t.get('platino')],
+              tq.t('evc', ES_PRO))
+    if not ES_PRO:
+        st.caption(tq.tooltip('evc'))
     _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
-    _tarjetas(r.get('candidatos'), "Candidatos con EV positivo")
+    _tarjetas(r.get('candidatos'), "Candidatos con EV positivo"
+              if ES_PRO else "Otras oportunidades con Ventaja Matemática 📈")
     from bankroll_manager import AVISO_JUEGO_RESPONSABLE
     st.caption(AVISO_JUEGO_RESPONSABLE)
 
     # v27 (§4): arbitraje de mercado cruzado (gasta ~5 requests por corrida)
-    with st.expander("💹 Arbitraje de mercado cruzado (mercados derivados)"):
-        st.caption("Valora double chance, draw no bet y totales alternativos "
-                   "(líneas .5) con la matriz exacta del motor y los compara "
-                   "con las cuotas por evento de The Odds API. Señal si la "
-                   "cuota de la casa supera la justa en >5 %.")
+    with st.expander("💹 " + tq.t('arbitraje', ES_PRO)):
+        st.caption(("Valora double chance, draw no bet y totales alternativos "
+                    "(líneas .5) con la matriz exacta del motor. Señal si la "
+                    "cuota supera la justa en >5 % Y el índice "
+                    + tq.t('vaca', ES_PRO) + " > 1 (v28: solo oportunidades "
+                    "estables).") if ES_PRO else
+                   (tq.tooltip('arbitraje') + " " + tq.tooltip('vaca')))
         if st.button("🔍 Buscar oportunidades ahora (usa ~5 créditos de API)",
                      key='arb_btn'):
             import cross_arbitrage
@@ -859,6 +873,31 @@ def render_alpha_finder():
                    "usa ¼ Kelly con tope del 5 % y nunca all-in. "
                    + AVISO_JUEGO_RESPONSABLE)
 
+
+# v28 (§1): auto-actualización de cuotas nativa de Streamlit — sin
+# subprocesos ni cron. TTL 6 h; cada refresco alimenta además los snapshots
+# RLM del tier-1 (§2.1) con presupuesto gestionado en odds_api.
+@st.cache_data(ttl=21600, show_spinner="⏳ Actualizando cuotas…")
+def cargar_cuotas_actualizadas() -> dict:
+    try:
+        import odds_api
+        rem = odds_api.creditos_restantes()
+        if rem is not None and rem < odds_api.MIN_CREDITOS_MES:
+            return {'ok': False,
+                    'aviso': f'Cuotas sin actualizar por límite de API '
+                             f'({rem} créditos restantes este mes).'}
+        import fetch_odds
+        fetch_odds.actualizar_odds()
+        return {'ok': True, 'aviso': None,
+                'restantes': odds_api.creditos_restantes()}
+    except Exception as e:
+        return {'ok': False, 'aviso': f'Cuotas no actualizadas ({e}) — se usa '
+                                      'la última captura disponible.'}
+
+
+_cuotas_estado = cargar_cuotas_actualizadas()
+if _cuotas_estado.get('aviso'):
+    st.caption(f"⚠️ {_cuotas_estado['aviso']}")
 
 _clave_comp = COMPETENCIAS[competencia_sel]
 if _clave_comp == 'alpha':

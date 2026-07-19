@@ -222,6 +222,87 @@ def _normalizar_nombre(clave_liga: str, nombre: str) -> str:
     return memo[nombre]
 
 
+# v28 (§2.1): tier 1 para snapshots RLM (3 potenciales/día vía TTL de la app)
+TIER1 = ['premier', 'laliga', 'serie_a', 'bundesliga', 'mls']
+MIN_CREDITOS_MES = 50            # spec §1.2: bajo esto no se actualiza nada
+
+
+def _estado() -> Dict:
+    try:
+        with open(ESTADO, encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def _guardar_estado(st: Dict):
+    with open(ESTADO, 'w', encoding='utf-8') as f:
+        json.dump(st, f)
+
+
+def creditos_restantes() -> Optional[int]:
+    return _estado().get('restantes')
+
+
+def _registrar_restantes(r):
+    try:
+        rem = int(float(r.headers.get('x-requests-remaining')))
+        st = _estado()
+        st['restantes'] = rem
+        _guardar_estado(st)
+    except (TypeError, ValueError):
+        pass
+
+
+def capturar_auto() -> int:
+    """Orquestador con presupuesto REAL (v28): ~16 req/día sostenibles.
+
+    - restantes < 50  → no se captura nada (aviso del llamador).
+    - TIER1 (5 ligas, h2h+totals): hasta 3 snapshots/día espaciados ≥3 h —
+      el TTL de 6 h de la app produce 2-4 de forma natural (RLM §2.1).
+    - Resto de ligas: 1 captura/día (odds_actuales completo) si restantes>150.
+    - BTTS por evento: máx 2/día y solo si restantes > 200.
+    """
+    if not _clave():
+        logger.info("ODDS_API_KEY ausente: captura omitida.")
+        return 0
+    def _merge(**kv):
+        st = _estado()          # merge atómico sobre disco: capturar_liga
+        st.update(kv)           # escribe 'requests'/'restantes' en paralelo
+        _guardar_estado(st)
+        return st
+
+    hoy = datetime.date.today().isoformat()
+    st = _estado()
+    if st.get('fecha_auto') != hoy:
+        st = _merge(fecha_auto=hoy, tier1_hoy=[], resto_hecho=False)
+    rem = st.get('restantes')
+    if rem is not None and rem < MIN_CREDITOS_MES:
+        logger.warning(f"The Odds API: solo {rem} créditos — captura omitida.")
+        return 0
+    total = 0
+    ahora = pd.Timestamp.utcnow()
+    tier1_hoy = st.get('tier1_hoy', [])
+    ult = pd.Timestamp(tier1_hoy[-1]) if tier1_hoy else None
+    if len(tier1_hoy) < 3 and \
+            (ult is None or (ahora - ult) >= pd.Timedelta(hours=3)):
+        for liga in TIER1:
+            filas = capturar_liga(liga)
+            guardar_snapshots([{k: v for k, v in f.items() if k != 'event_id'}
+                               for f in filas])
+            total += len(filas)
+        st = _merge(tier1_hoy=tier1_hoy + [str(ahora)], fecha_auto=hoy)
+    rem = st.get('restantes')
+    if not st.get('resto_hecho') and (rem is None or rem > 150):
+        for liga in [l for l in SPORT_KEYS if l not in TIER1]:
+            filas = capturar_liga(liga)
+            guardar_snapshots([{k: v for k, v in f.items() if k != 'event_id'}
+                               for f in filas])
+            total += len(filas)
+        _merge(resto_hecho=True, fecha_auto=hoy)
+    return total
+
+
 def capturar_liga(clave_liga: str) -> List[Dict]:
     """Una request: próximos partidos de la liga con h2h + totals (BTTS va
     aparte por evento — el endpoint de liga lo rechaza con 422, verificado)."""
@@ -238,6 +319,7 @@ def capturar_liga(clave_liga: str) -> List[Dict]:
                                  'markets': 'h2h,totals',
                                  'oddsFormat': 'decimal'}, timeout=30)
         r.raise_for_status()
+        _registrar_restantes(r)
         for ev in r.json():
             inicio = ev.get('commence_time')
             fecha = pd.to_datetime(inicio).tz_localize(None)

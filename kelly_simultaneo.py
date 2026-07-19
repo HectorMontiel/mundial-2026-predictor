@@ -32,7 +32,9 @@ def stakes_jornada(apuestas: List[Dict], bankroll: float) -> List[Dict]:
     for a in apuestas:
         b = max(a['cuota'] - 1.0, 1e-6)
         kelly = (b * a['prob'] - (1 - a['prob'])) / b
-        frac = float(np.clip(kelly * FRACCION, 0.0, TOPE_APUESTA))
+        # v28 (§2.5): las apuestas EVC Platino ponderan ×1.5 ANTES del cap
+        peso = 1.5 if a.get('platino') else 1.0
+        frac = float(np.clip(kelly * FRACCION * peso, 0.0, TOPE_APUESTA))
         out.append({**a, 'stake_pct': frac})
     total = sum(a['stake_pct'] for a in out)
     factor = CAP_GLOBAL / total if total > CAP_GLOBAL else 1.0

@@ -186,7 +186,20 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
             elif c['ev'] > 0:
                 candidatos.append(tarjeta)
 
-    orden = lambda t: (-int(t['shadow']), -t['ev'])
+    # v28 (§2.5) EVC PLATINO — triple validación: EVC (conf>75 %) ∧ el mismo
+    # partido tiene arbitraje cruzado con ν>1 (arbitraje_cache.json, del
+    # último barrido) ∧ sin divergencia crítica (ya filtrada arriba).
+    try:
+        with open('arbitraje_cache.json', encoding='utf-8') as f:
+            partidos_arb = {op['partido']
+                            for op in json.load(f).get('oportunidades', [])}
+    except Exception:
+        partidos_arb = set()
+    for t in elite:
+        t['platino'] = bool(t.get('evc') and t['prob'] > 0.75
+                            and t['partido'] in partidos_arb)
+
+    orden = lambda t: (-int(t.get('platino', False)), -int(t['shadow']), -t['ev'])
     return {'actualizado': datos.get('actualizado'),
             'partidos_evaluados': evaluados,
             'elite': sorted(elite, key=orden),
