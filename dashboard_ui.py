@@ -701,6 +701,7 @@ def render_liga_club(clave: str, nombre_liga: str):
 
 COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
                 '💎 Apuestas del Día': 'alpha',
+                '⚾ MLB (béisbol)': 'mlb_deporte',
                 '🇲🇽 Liga MX': 'liga_mx',
                 '🇺🇸 MLS': 'mls',
                 '🏴 Premier League': 'premier', '🇪🇸 LaLiga': 'laliga',
@@ -760,10 +761,24 @@ def render_alpha_finder():
 
     r = _buscar()
     if r.get('actualizado'):
+        cob = r.get('cobertura_ligas', {})
         st.caption(f"Cuotas actualizadas: {r['actualizado']} · "
-                   f"partidos evaluados: {r.get('partidos_evaluados', 0)}")
+                   f"partidos evaluados: {r.get('partidos_evaluados', 0)} · "
+                   f"ligas: {', '.join(f'{k}:{v}' for k, v in cob.items()) or '—'}"
+                   + (f" · {r.get('partidos_sin_liga', 0)} sin mapear"
+                      if r.get('partidos_sin_liga') else ''))
     if r.get('aviso'):
         st.info(r['aviso'])
+    # v29 (§1.1): exportar las apuestas del día
+    if r.get('elite') or r.get('candidatos'):
+        import alpha_finder as _af
+        cexp1, cexp2 = st.columns(2)
+        cexp1.download_button("📋 Exportar (texto)", _af.exportar_txt(r),
+                              file_name=f"apuestas_{r.get('actualizado','hoy')}.txt",
+                              use_container_width=True)
+        cexp2.download_button("📊 Exportar (CSV)", _af.exportar_csv(r),
+                              file_name=f"apuestas_{r.get('actualizado','hoy')}.csv",
+                              mime='text/csv', use_container_width=True)
 
     def _tarjetas(lista, titulo):
         if not lista:
@@ -899,7 +914,74 @@ _cuotas_estado = cargar_cuotas_actualizadas()
 if _cuotas_estado.get('aviso'):
     st.caption(f"⚠️ {_cuotas_estado['aviso']}")
 
+def render_mlb():
+    """v29 (§3-§6): vista del motor MLB (béisbol), aislada del fútbol."""
+    st.header("⚾ MLB — Béisbol")
+    from engines.mlb_engine import MLBEngine, CODIGO_A_NOMBRE
+
+    @st.cache_resource(show_spinner="Cargando modelo MLB…")
+    def _motor():
+        return MLBEngine().cargar_modelo()
+
+    eng = _motor()
+    if not eng.listo:
+        st.error(f"El motor MLB no está disponible: {eng.error}")
+        st.caption("Entrena con `python -m engines.mlb_engine` (descarga "
+                   "Retrosheet y crea modelos/mlb/).")
+        return
+    md = eng.metadata
+    st.caption(f"Modelo entrenado con {md.get('n_juegos')} juegos (Retrosheet "
+               f"2021-2025) · precisión backtest {md.get('precision_validacion')*100:.1f} % "
+               f"(ELO {md.get('precision_linea_base_elo')*100:.1f} %) · estado de "
+               f"equipos congelado al cierre de 2025 hasta que Retrosheet "
+               "publique 2026.")
+
+    nombres = {c: CODIGO_A_NOMBRE.get(c, c) for c in eng.equipos}
+    tab1, tab2 = st.tabs(["🎯 Predecir partido", "💰 Apuestas del Día MLB"])
+    with tab1:
+        c1, c2 = st.columns(2)
+        home = c1.selectbox("🏠 Local", eng.equipos,
+                            format_func=lambda c: nombres.get(c, c), key='mlb_h')
+        away = c2.selectbox("✈️ Visitante", eng.equipos,
+                            index=1, format_func=lambda c: nombres.get(c, c),
+                            key='mlb_a')
+        if home == away:
+            st.warning("Elige equipos distintos.")
+        else:
+            pl = eng.plantilla(home, away)
+            pr = pl['prediccion']
+            m1, m2, m3 = st.columns(3)
+            m1.metric(f"Gana {nombres.get(home, home)}", f"{pr['prob_home']*100:.0f} %")
+            m2.metric(f"Gana {nombres.get(away, away)}", f"{pr['prob_away']*100:.0f} %")
+            m3.metric("Carreras totales (est.)", f"{pr['total_estimado']:.1f}")
+            st.dataframe(pd.DataFrame([{'Mercado': c['etiqueta'],
+                                        'Prob.': f"{c['valor']:.0f} %"}
+                                       for c in pl['campos']]),
+                         use_container_width=True, hide_index=True)
+    with tab2:
+        st.caption("Cuotas en vivo de The Odds API (baseball_mlb, EE. UU.). "
+                   "Filtros: prob >58 %, EV >+3 %, cuota >1.50.")
+        if st.button("🔍 Buscar picks MLB de hoy (usa 1 crédito de API)",
+                     key='mlb_alpha'):
+            with st.spinner("Consultando cuotas MLB…"):
+                r = eng.apuestas_dia()
+            if r.get('aviso'):
+                st.info(r['aviso'])
+            for pk in r['picks']:
+                with st.container(border=True):
+                    cc1, cc2 = st.columns([3, 2])
+                    cc1.markdown(f"**{pk['partido']}**  \n{pk['fecha']}")
+                    cc2.markdown(f"{pk['valor']} {pk['apuesta']}  \n"
+                                 f"Cuota **{pk['cuota']}** (justa {pk['cuota_justa']}) · "
+                                 f"EV **{pk['ev']*100:+.1f} %**")
+            from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+            st.caption(AVISO_JUEGO_RESPONSABLE)
+
+
 _clave_comp = COMPETENCIAS[competencia_sel]
+if _clave_comp == 'mlb_deporte':
+    render_mlb()
+    st.stop()
 if _clave_comp == 'alpha':
     render_alpha_finder()
     st.stop()

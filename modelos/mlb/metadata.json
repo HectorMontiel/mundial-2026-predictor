@@ -1,0 +1,9 @@
+{
+  "deporte": "MLB",
+  "n_juegos": 11844,
+  "precision_validacion": 0.5531,
+  "precision_linea_base_elo": 0.5434,
+  "log_loss_validacion": 0.6861,
+  "linea_total_tipica": 8.0,
+  "fecha_entrenamiento": "2026-07-21"
+}

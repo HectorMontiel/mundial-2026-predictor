@@ -48,6 +48,22 @@ def _mapa_equipo_liga() -> Dict[str, str]:
     return mapa
 
 
+def _liga_fuzzy(home: str, away: str, mapa: Dict[str, str]):
+    """v29 (§1.2): respaldo fuzzy nombre→liga (Betexplorer/API usan grafías
+    que no siempre coinciden exacto con team_stats — la causa del bug "solo
+    salía MLS": los partidos de Liga MX se descartaban en silencio)."""
+    from difflib import SequenceMatcher
+    for equipo in (home, away):
+        mejor, ratio = None, 0.0
+        for nombre, liga in mapa.items():
+            s = SequenceMatcher(None, equipo.lower(), nombre.lower()).ratio()
+            if s > ratio:
+                mejor, ratio = liga, s
+        if ratio >= 0.82:
+            return mejor
+    return None
+
+
 def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str) -> List[Dict]:
     """Evalúa cada mercado con cuota disponible contra el modelo."""
     M = np.array(pred['score_matrix'])
@@ -135,6 +151,10 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
     motores: Dict[str, object] = {}
     elite, candidatos = [], []
     evaluados = 0
+    # v29 (§1.2): diagnóstico de cobertura por liga — el bug "solo MLS" venía
+    # de partidos descartados en silencio cuando el nombre no mapeaba a liga.
+    cobertura: Dict[str, int] = {}
+    sin_liga = 0
     for mid, o in sorted(cuotas.items()):
         partes = mid.split('_')
         if len(partes) != 3:
@@ -147,9 +167,12 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
             continue
         home = partes[1].replace('-', ' ')
         away = partes[2].replace('-', ' ')
-        liga = mapa.get(home) or mapa.get(away)
+        liga = mapa.get(home) or mapa.get(away) or _liga_fuzzy(home, away, mapa)
         if not liga:
+            sin_liga += 1
+            logger.info(f"[alpha] sin liga para {home} vs {away} (revisar mapeo)")
             continue
+        cobertura[liga] = cobertura.get(liga, 0) + 1
         if liga not in motores:
             from league_engine import ClubEngine
             motores[liga] = ClubEngine(liga)
@@ -200,14 +223,56 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
                             and t['partido'] in partidos_arb)
 
     orden = lambda t: (-int(t.get('platino', False)), -int(t['shadow']), -t['ev'])
+    logger.info(f"[alpha] cobertura por liga: {cobertura} · sin liga: {sin_liga}")
     return {'actualizado': datos.get('actualizado'),
             'partidos_evaluados': evaluados,
+            'cobertura_ligas': cobertura, 'partidos_sin_liga': sin_liga,
             'elite': sorted(elite, key=orden),
             'candidatos': sorted(candidatos, key=orden)[:15],
             'aviso': None if elite else
             ('Ningún mercado cumple hoy los filtros de élite (prob >70 %, '
              'EV >+3 %, cuota >1.50) — se muestran los mejores candidatos '
              'con EV positivo.')}
+
+
+def exportar_txt(r: Dict) -> str:
+    """Apuestas del día como texto plano (v29 §1.1)."""
+    lineas = [f"APUESTAS DEL DÍA — {r.get('actualizado', '?')}",
+              f"(cobertura: {r.get('cobertura_ligas', {})})", ""]
+    for grupo, titulo in (('elite', '⭐ ÉLITE / EVC'),
+                          ('candidatos', 'CANDIDATOS')):
+        picks = r.get(grupo) or []
+        if not picks:
+            continue
+        lineas.append(f"== {titulo} ==")
+        for t in picks:
+            estrella = '⭐' if t.get('platino') else ('💎' if t.get('evc') else '')
+            lineas.append(
+                f"{estrella} {t['partido']} ({t['liga']}, {t['fecha']}) — "
+                f"{t['apuesta']} @ {t['cuota']} (justa {t['cuota_justa']}) · "
+                f"EV {t['ev']*100:+.1f}% · prob {t['prob']*100:.0f}%"
+                + (f" · stake {t['stake_txt']}" if t.get('stake_txt') else ''))
+        lineas.append("")
+    lineas.append("Juego responsable. Cuotas justas = 1/probabilidad.")
+    return '\n'.join(lineas)
+
+
+def exportar_csv(r: Dict) -> str:
+    import csv
+    import io
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(['grupo', 'partido', 'liga', 'fecha', 'mercado', 'apuesta',
+                'cuota', 'cuota_justa', 'ev_pct', 'prob_pct', 'stake',
+                'evc', 'platino'])
+    for grupo in ('elite', 'candidatos'):
+        for t in r.get(grupo) or []:
+            w.writerow([grupo, t['partido'], t['liga'], t['fecha'],
+                        t.get('mercado', ''), t['apuesta'], t['cuota'],
+                        t['cuota_justa'], round(t['ev']*100, 1),
+                        round(t['prob']*100, 0), t.get('stake_txt', ''),
+                        t.get('evc', False), t.get('platino', False)])
+    return buf.getvalue()
 
 
 if __name__ == '__main__':

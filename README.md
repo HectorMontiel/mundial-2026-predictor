@@ -1,5 +1,21 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v29 — Ecosistema multi-deporte (ver [VALIDACION_v29.md](VALIDACION_v29.md))
+
+- **⚾ MLB (béisbol) — motor nuevo validado**: Retrosheet (11.9k juegos
+  2021-25, con abridores) + ensemble XGB+LGBM+RF calibrado. Walk-forward
+  **55.0 % vs ELO 54.2 %** (supera en ambas ventanas). Cuotas en vivo de
+  The Odds API (`baseball_mlb`) y Apuestas del Día MLB propias.
+- **🏗️ Arquitectura DRY**: `engines/BaseSportsEngine` (clase base abstracta)
+  para deportes nuevos; el fútbol queda intacto y aislado (no regresión).
+- **🔎 NBA y tenis diferidos con evidencia**: basketball-reference bloqueado
+  (Cloudflare) + NBA fuera de temporada; el repo de tenis de Sackmann da 404
+  y The Odds API no tiene mercado de tenis en la capa gratuita — sin fuente
+  viable no hay motor validable ni accionable (se reevalúan en v30).
+- **📋 Exportar Apuestas del Día** (TXT/CSV) y **cobertura Liga MX
+  corregida** (fuzzy nombre→liga; el barrido descartaba en silencio los
+  partidos que no mapeaban exacto).
+
 ## Novedades v28 — Dos carriles y traductor cognitivo (ver [VALIDACION_v28.md](VALIDACION_v28.md))
 
 - **⏳ Auto-cuotas nativas**: la app se actualiza sola cada 6 h

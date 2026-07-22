@@ -1,0 +1,22 @@
+{
+  "ventanas": [
+    {
+      "ventana": "2024-04-01",
+      "n": 2345,
+      "acc": 0.5467,
+      "ll": 0.6885,
+      "acc_elo": 0.5412
+    },
+    {
+      "ventana": "2025-04-01",
+      "n": 2335,
+      "acc": 0.5529,
+      "ll": 0.6863,
+      "acc_elo": 0.5426
+    }
+  ],
+  "precision_media": 0.5498,
+  "log_loss_medio": 0.6874,
+  "precision_elo_media": 0.5419,
+  "supera_elo": true
+}
