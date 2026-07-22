@@ -1,5 +1,20 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v30 — Tres deportes nuevos, CDI y fix crítico (ver [VALIDACION_v30.md](VALIDACION_v30.md))
+
+- **🔧 Fix crítico de exportación**: el `AttributeError` al exportar las
+  Apuestas del Día está resuelto de raíz y **blindado** (try/except +
+  firma opcional) — nunca vuelve a romper la página.
+- **🏀 NBA — motor nuevo** (nba_api, 6.1k juegos): OFF/DEF rating, pace,
+  back-to-back + **CDI**; 65.4 % ≈ ELO, modo analítico hasta octubre.
+- **🎾 Tenis ATP — motor nuevo** (Kaggle, 68k partidos con superficie y
+  cuotas): **ELO por superficie**, 64.9 % vs ranking 63.3 % (+1.6 pp). El
+  mercado (68.3 %) es más afilado → modo analítico honesto.
+- **🧬 CDI (Índice de Desincronización Circadiana)**: husos cruzados por el
+  visitante. **Adoptado en NBA** (ll 0.644→0.629) y **descartado en MLB**
+  con evidencia — la señal circadiana existe en baloncesto, no en béisbol.
+- **⚾ MLB** consolidado (motor v29 intacto); umpire y live-API diferidos.
+
 ## Novedades v29 — Ecosistema multi-deporte (ver [VALIDACION_v29.md](VALIDACION_v29.md))
 
 - **⚾ MLB (béisbol) — motor nuevo validado**: Retrosheet (11.9k juegos

@@ -1,0 +1,11 @@
+{
+  "deporte": "NBA",
+  "n_juegos": 7287,
+  "con_cdi": true,
+  "precision_validacion": 0.75,
+  "precision_linea_base_elo": 0.7111,
+  "log_loss_validacion": 0.5361,
+  "linea_total_tipica": 228.0,
+  "modo": "analitico hasta temporada 2026-27 (Odds API sin NBA en julio)",
+  "fecha_entrenamiento": "2026-07-21"
+}

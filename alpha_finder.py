@@ -29,6 +29,10 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
+# v30: último barrido almacenado a nivel de módulo (respaldo para la
+# exportación sin argumentos; evita el AttributeError de producción v29).
+_ULTIMO_RESULTADO: Dict = {}
+
 MIN_PROB = 0.70
 MIN_EV = 0.03
 MIN_CUOTA = 1.50
@@ -224,7 +228,8 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
 
     orden = lambda t: (-int(t.get('platino', False)), -int(t['shadow']), -t['ev'])
     logger.info(f"[alpha] cobertura por liga: {cobertura} · sin liga: {sin_liga}")
-    return {'actualizado': datos.get('actualizado'),
+    global _ULTIMO_RESULTADO
+    _ULTIMO_RESULTADO = {'actualizado': datos.get('actualizado'),
             'partidos_evaluados': evaluados,
             'cobertura_ligas': cobertura, 'partidos_sin_liga': sin_liga,
             'elite': sorted(elite, key=orden),
@@ -233,10 +238,13 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
             ('Ningún mercado cumple hoy los filtros de élite (prob >70 %, '
              'EV >+3 %, cuota >1.50) — se muestran los mejores candidatos '
              'con EV positivo.')}
+    return _ULTIMO_RESULTADO
 
 
-def exportar_txt(r: Dict) -> str:
-    """Apuestas del día como texto plano (v29 §1.1)."""
+def exportar_txt(r: Optional[Dict] = None) -> str:
+    """Apuestas del día como texto plano (v30 §1: arg opcional — si es None
+    usa el último barrido; robusto ante cualquier forma de los picks)."""
+    r = r if r is not None else _ULTIMO_RESULTADO
     lineas = [f"APUESTAS DEL DÍA — {r.get('actualizado', '?')}",
               f"(cobertura: {r.get('cobertura_ligas', {})})", ""]
     for grupo, titulo in (('elite', '⭐ ÉLITE / EVC'),
@@ -247,19 +255,23 @@ def exportar_txt(r: Dict) -> str:
         lineas.append(f"== {titulo} ==")
         for t in picks:
             estrella = '⭐' if t.get('platino') else ('💎' if t.get('evc') else '')
+            ev = t.get('ev', 0) or 0
+            prob = t.get('prob', 0) or 0
             lineas.append(
-                f"{estrella} {t['partido']} ({t['liga']}, {t['fecha']}) — "
-                f"{t['apuesta']} @ {t['cuota']} (justa {t['cuota_justa']}) · "
-                f"EV {t['ev']*100:+.1f}% · prob {t['prob']*100:.0f}%"
+                f"{estrella} {t.get('partido','?')} ({t.get('liga','?')}, "
+                f"{t.get('fecha','')}) — {t.get('apuesta','?')} @ "
+                f"{t.get('cuota','?')} (justa {t.get('cuota_justa','?')}) · "
+                f"EV {ev*100:+.1f}% · prob {prob*100:.0f}%"
                 + (f" · stake {t['stake_txt']}" if t.get('stake_txt') else ''))
         lineas.append("")
     lineas.append("Juego responsable. Cuotas justas = 1/probabilidad.")
     return '\n'.join(lineas)
 
 
-def exportar_csv(r: Dict) -> str:
+def exportar_csv(r: Optional[Dict] = None) -> str:
     import csv
     import io
+    r = r if r is not None else _ULTIMO_RESULTADO
     buf = io.StringIO()
     w = csv.writer(buf)
     w.writerow(['grupo', 'partido', 'liga', 'fecha', 'mercado', 'apuesta',
@@ -267,10 +279,11 @@ def exportar_csv(r: Dict) -> str:
                 'evc', 'platino'])
     for grupo in ('elite', 'candidatos'):
         for t in r.get(grupo) or []:
-            w.writerow([grupo, t['partido'], t['liga'], t['fecha'],
-                        t.get('mercado', ''), t['apuesta'], t['cuota'],
-                        t['cuota_justa'], round(t['ev']*100, 1),
-                        round(t['prob']*100, 0), t.get('stake_txt', ''),
+            w.writerow([grupo, t.get('partido', ''), t.get('liga', ''),
+                        t.get('fecha', ''), t.get('mercado', ''),
+                        t.get('apuesta', ''), t.get('cuota', ''),
+                        t.get('cuota_justa', ''), round((t.get('ev', 0) or 0)*100, 1),
+                        round((t.get('prob', 0) or 0)*100, 0), t.get('stake_txt', ''),
                         t.get('evc', False), t.get('platino', False)])
     return buf.getvalue()
 

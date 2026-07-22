@@ -702,6 +702,8 @@ def render_liga_club(clave: str, nombre_liga: str):
 COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
                 '💎 Apuestas del Día': 'alpha',
                 '⚾ MLB (béisbol)': 'mlb_deporte',
+                '🏀 NBA (baloncesto)': 'nba_deporte',
+                '🎾 Tenis (ATP)': 'tennis_deporte',
                 '🇲🇽 Liga MX': 'liga_mx',
                 '🇺🇸 MLS': 'mls',
                 '🏴 Premier League': 'premier', '🇪🇸 LaLiga': 'laliga',
@@ -769,16 +771,23 @@ def render_alpha_finder():
                       if r.get('partidos_sin_liga') else ''))
     if r.get('aviso'):
         st.info(r['aviso'])
-    # v29 (§1.1): exportar las apuestas del día
+    # v30 (§1): exportar las apuestas del día — BLINDADO (pre-genera el
+    # contenido en try/except; un fallo aquí nunca debe romper la página).
     if r.get('elite') or r.get('candidatos'):
-        import alpha_finder as _af
-        cexp1, cexp2 = st.columns(2)
-        cexp1.download_button("📋 Exportar (texto)", _af.exportar_txt(r),
-                              file_name=f"apuestas_{r.get('actualizado','hoy')}.txt",
-                              use_container_width=True)
-        cexp2.download_button("📊 Exportar (CSV)", _af.exportar_csv(r),
-                              file_name=f"apuestas_{r.get('actualizado','hoy')}.csv",
-                              mime='text/csv', use_container_width=True)
+        try:
+            import alpha_finder as _af
+            txt = _af.exportar_txt(r)
+            csv = _af.exportar_csv(r)
+            fecha_exp = r.get('actualizado') or 'hoy'
+            cexp1, cexp2 = st.columns(2)
+            cexp1.download_button("📋 Exportar (texto)", txt,
+                                  file_name=f"apuestas_{fecha_exp}.txt",
+                                  use_container_width=True)
+            cexp2.download_button("📊 Exportar (CSV)", csv,
+                                  file_name=f"apuestas_{fecha_exp}.csv",
+                                  mime='text/csv', use_container_width=True)
+        except Exception as e:
+            st.caption(f"⚠️ Exportación no disponible ahora ({type(e).__name__}).")
 
     def _tarjetas(lista, titulo):
         if not lista:
@@ -978,9 +987,83 @@ def render_mlb():
             st.caption(AVISO_JUEGO_RESPONSABLE)
 
 
+def render_nba():
+    """v30 (§4): vista NBA — modo analítico (sin cuotas en vivo hasta oct 2026)."""
+    st.header("🏀 NBA — Baloncesto")
+    from engines.nba_engine import NBAEngine
+
+    @st.cache_resource(show_spinner="Cargando modelo NBA…")
+    def _m():
+        return NBAEngine().cargar_modelo()
+    eng = _m()
+    if not eng.listo:
+        st.error(f"Motor NBA no disponible: {eng.error}")
+        return
+    md = eng.metadata
+    st.caption(f"Entrenado con {md.get('n_juegos')} juegos (nba_api 2021-26) · "
+               f"precisión backtest {md.get('precision_validacion')*100:.1f} % "
+               f"(ELO {md.get('precision_linea_base_elo')*100:.1f} %) · "
+               f"incluye el CDI (desincronización circadiana). {md.get('modo')}")
+    c1, c2 = st.columns(2)
+    home = c1.selectbox("🏠 Local", eng.equipos, key='nba_h')
+    away = c2.selectbox("✈️ Visitante", eng.equipos, index=1, key='nba_a')
+    if home != away:
+        pl = eng.plantilla(home, away)
+        pr = pl['prediccion']
+        m1, m2, m3 = st.columns(3)
+        m1.metric(f"Gana {home}", f"{pr['prob_home']*100:.0f} %")
+        m2.metric(f"Gana {away}", f"{pr['prob_away']*100:.0f} %")
+        m3.metric("Puntos totales (est.)", f"{pr['total_estimado']:.0f}")
+        st.caption("🎾/🏀 Modo analítico: cuota justa = 1/probabilidad; sin EV "
+                   "real hasta que The Odds API reactive la NBA en octubre.")
+
+
+def render_tennis():
+    """v30 (§5): vista Tenis ATP — modo analítico (ELO por superficie)."""
+    st.header("🎾 Tenis — ATP")
+    from engines.tennis_engine import TennisEngine
+
+    @st.cache_resource(show_spinner="Cargando modelo de tenis…")
+    def _m():
+        return TennisEngine().cargar_modelo()
+    eng = _m()
+    if not eng.listo:
+        st.error(f"Motor de tenis no disponible: {eng.error}")
+        return
+    md = eng.metadata
+    st.caption(f"Entrenado con {md.get('n_partidos')} partidos (Kaggle ATP "
+               f"2000-2026) · precisión {md.get('precision_validacion')*100:.1f} % "
+               f"(ranking {md.get('precision_linea_base_elo')*100:.1f} %, mercado "
+               f"{md.get('precision_mercado')*100:.1f} %). Modo analítico.")
+    c1, c2, c3 = st.columns(3)
+    p1 = c1.selectbox("Jugador 1", eng.jugadores, key='ten_1')
+    p2 = c2.selectbox("Jugador 2", eng.jugadores, index=1, key='ten_2')
+    sup = c3.selectbox("Superficie", ['Hard', 'Clay', 'Grass'], key='ten_s')
+    if p1 != p2:
+        pred = eng.predecir(p1, p2, surface=sup)
+        if 'error' in pred:
+            st.warning(pred['error'])
+        else:
+            m1, m2 = st.columns(2)
+            m1.metric(f"Gana {p1}", f"{pred['prob_home']*100:.0f} %",
+                      f"cuota justa {1/max(pred['prob_home'],1e-6):.2f}")
+            m2.metric(f"Gana {p2}", f"{pred['prob_away']*100:.0f} %",
+                      f"cuota justa {1/max(pred['prob_away'],1e-6):.2f}")
+            st.caption(f"En {sup.lower()}, el modelo favorece a "
+                       f"**{p1 if pred['prob_home']>=0.5 else p2}**. "
+                       "El mercado de tenis (cuotas de cierre) es más preciso "
+                       "que nuestro modelo — herramienta de análisis, no de EV.")
+
+
 _clave_comp = COMPETENCIAS[competencia_sel]
 if _clave_comp == 'mlb_deporte':
     render_mlb()
+    st.stop()
+if _clave_comp == 'nba_deporte':
+    render_nba()
+    st.stop()
+if _clave_comp == 'tennis_deporte':
+    render_tennis()
     st.stop()
 if _clave_comp == 'alpha':
     render_alpha_finder()

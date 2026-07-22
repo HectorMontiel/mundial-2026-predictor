@@ -94,11 +94,12 @@ class BaseSportsEngine(ABC):
             {'id': 'ml_away', 'etiqueta': f'Gana {away}', 'valor': pred['prob_away'] * 100},
         ]
         if pred.get('total_estimado') is not None and linea:
-            # Poisson sobre el total estimado para O/U de la línea de mercado
-            from math import exp, factorial
+            # Poisson sobre el total estimado para O/U de la línea de mercado.
+            # scipy.poisson.cdf es estable para λ pequeño (MLB ~8) y grande
+            # (NBA ~228, donde el manual con factorial se desbordaba).
+            from scipy.stats import poisson
             lam = max(pred['total_estimado'], 0.1)
-            p_under = sum(exp(-lam) * lam ** k / factorial(k)
-                          for k in range(int(np.floor(linea)) + 1))
+            p_under = float(poisson.cdf(int(np.floor(linea)), lam))
             campos += [
                 {'id': 'over', 'etiqueta': f'Más de {linea}', 'valor': (1 - p_under) * 100},
                 {'id': 'under', 'etiqueta': f'Menos de {linea}', 'valor': p_under * 100},
