@@ -1,0 +1,39 @@
+{
+  "liga": "Primera División",
+  "n_train": 2931,
+  "n_validacion": 739,
+  "fecha_corte": "2025-01-29",
+  "precision_validacion": 0.4208,
+  "precision_linea_base_elo": 0.3884,
+  "precision_mercado_cuotas": 0.4168,
+  "log_loss_validacion": 1.069,
+  "n_equipos": 37,
+  "features_extra_cols": [
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4177,
+    "PROB_IMP_D": 0.2949,
+    "PROB_IMP_A": 0.2874,
+    "OVERROUND": 0.0671
+  },
+  "roi_sim": {
+    "n_apuestas": 309,
+    "roi_pct": -1.97,
+    "aciertos": 113,
+    "roi_pct_pinnacle": 0.64,
+    "n_con_pinnacle": 193
+  },
+  "mesm": {
+    "n_val_con_cuotas": 739,
+    "acc_prod": 0.4208,
+    "acc_mesm": 0.4168,
+    "ll_prod": 1.069,
+    "ll_mesm": 1.0634,
+    "adoptado": false
+  },
+  "imt": null
+}

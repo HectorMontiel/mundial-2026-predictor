@@ -1,0 +1,74 @@
+{
+  "liga_mx": {
+    "base": {
+      "acc": 0.5126,
+      "ll": 1.0235
+    },
+    "atkdef": {
+      "acc": 0.5019,
+      "ll": 1.0261
+    },
+    "ventanas": 7,
+    "adoptar": false
+  },
+  "premier": {
+    "base": {
+      "acc": 0.5127,
+      "ll": 1.0121
+    },
+    "atkdef": {
+      "acc": 0.4922,
+      "ll": 1.0133
+    },
+    "ventanas": 3,
+    "adoptar": false
+  },
+  "laliga": {
+    "base": {
+      "acc": 0.543,
+      "ll": 0.984
+    },
+    "atkdef": {
+      "acc": 0.5392,
+      "ll": 0.9828
+    },
+    "ventanas": 4,
+    "adoptar": false
+  },
+  "serie_a": {
+    "base": {
+      "acc": 0.5435,
+      "ll": 1.0074
+    },
+    "atkdef": {
+      "acc": 0.5231,
+      "ll": 1.0154
+    },
+    "ventanas": 3,
+    "adoptar": false
+  },
+  "bundesliga": {
+    "base": {
+      "acc": 0.4924,
+      "ll": 1.0202
+    },
+    "atkdef": {
+      "acc": 0.5,
+      "ll": 1.0207
+    },
+    "ventanas": 4,
+    "adoptar": true
+  },
+  "brasil": {
+    "base": {
+      "acc": 0.5322,
+      "ll": 0.9938
+    },
+    "atkdef": {
+      "acc": 0.5326,
+      "ll": 0.9922
+    },
+    "ventanas": 6,
+    "adoptar": true
+  }
+}

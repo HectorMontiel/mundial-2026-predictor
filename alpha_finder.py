@@ -247,8 +247,31 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
 #   Capa 2 «Alta Confianza»: SIN cuota real y confianza > 75 % → se sugiere
 #   la cuota mínima (1/prob). Sin stake (no hay EV real).
 # ---------------------------------------------------------------------------
-CONF_CAPA2 = 0.75
-UMBRAL_CONF = {'MLB': 0.58, 'Tenis': 0.65, 'NBA': 0.70}
+# v33 (§2): umbrales adaptativos por deporte, centralizados en config.py
+try:
+    from config import UMBRALES_DEPORTE
+except ImportError:
+    UMBRALES_DEPORTE = {}
+CONF_CAPA2 = UMBRALES_DEPORTE.get('Fútbol', {}).get('capa2', 0.75)
+UMBRAL_CONF = {d: u['capa1'] for d, u in UMBRALES_DEPORTE.items()} or \
+    {'MLB': 0.58, 'Tenis': 0.65, 'NBA': 0.70}
+
+
+def umbral(deporte: str, capa: str = 'capa1') -> float:
+    """Umbral de confianza del deporte (§2)."""
+    por_defecto = {'capa1': 0.70, 'capa2': 0.75}[capa]
+    return UMBRALES_DEPORTE.get(deporte, {}).get(capa, por_defecto)
+
+
+def indicador_antiguedad(dias: Optional[int]) -> str:
+    """§5: semáforo de frescura de los datos de la liga."""
+    if dias is None:
+        return ''
+    if dias < 3:
+        return f'🟢 datos de hace {dias} d'
+    if dias <= 7:
+        return f'🟡 datos de hace {dias} d'
+    return f'🔴 sin datos nuevos desde hace {dias} d'
 
 
 def _picks_mlb() -> Dict[str, List[Dict]]:
@@ -453,6 +476,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         dias = (_dias_estado_obsoleto(clave, p.get('fecha'))
                 if p.get('deporte', 'Fútbol') == 'Fútbol' else None)
         p['dias_estado'] = dias
+        p['antiguedad'] = indicador_antiguedad(dias)      # §5 semáforo
         p['pretemporada'] = bool(dias and dias > DIAS_ESTADO_OBSOLETO)
         if p['pretemporada']:
             p['nota'] = (f'⚠️ El modelo de esta liga no ve partidos desde hace '

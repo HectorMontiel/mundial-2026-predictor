@@ -1,5 +1,24 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v33 — Verano, resiliencia y bot (ver [VALIDACION_v33.md](VALIDACION_v33.md))
+
+- **🇧🇷 Brasileirão y 🇦🇷 Primera argentina** añadidas para cubrir el parón
+  europeo. **Brasil bate al mercado (52.3 % vs 52.1 %)**. Japón NO se añade:
+  football-data lleva 228 días sin publicarla (verificado).
+- **🛡️ Cadena de resiliencia** (`source_resilience.py`): fuentes en cascada
+  con degradación elegante. **Probada con fallo forzado**: la primaria cae y
+  ESPN toma el relevo; si todas fallan, no rompe nada.
+- **⏱️ MLS al día**: el estado de 58 días obsoleto que detecté en v32 está
+  resuelto (reentrenada con datos al 18 de julio) y sale de la cuarentena.
+- **🤖 Bot de Telegram** con GitHub Actions (cron diario), credenciales solo
+  desde Secrets, y `--update-only` para refrescar datos en el runner.
+- **📊 Umbrales adaptativos por deporte** y **semáforo de antigüedad** de
+  datos (🟢/🟡/🔴) en cada pick.
+- **❌ ELO Ataque/Defensa descartado**: 4 de 6 ligas se degradan (hasta
+  −2 pp); los dos "positivos" son ruido de comparaciones múltiples.
+- **📐 Optimizador de cartera** (Markowitz con covarianza diagonal entre
+  deportes) como módulo experimental, sin sustituir al Kelly.
+
 ## Novedades v32 — Blindaje cuantitativo y plantillas realistas (ver [VALIDACION_v32.md](VALIDACION_v32.md))
 
 - **🚫 Filtro de EV extremo, probado con datos**: los picks con EV > +15 %

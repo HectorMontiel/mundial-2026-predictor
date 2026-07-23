@@ -114,6 +114,9 @@ def actualizar_clima():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Actualiza toda la plataforma con fuentes gratuitas.')
+    parser.add_argument('--update-only', action='store_true',
+                        help='Solo refresca cuotas y señales (v33: lo que el '
+                             'bot de Telegram necesita en GitHub Actions).')
     parser.add_argument('--solo-mundial', action='store_true')
     parser.add_argument('--solo-clubes', action='store_true')
     parser.add_argument('--ratings', action='store_true',
@@ -121,6 +124,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     resultados = {}
+    if args.update_only:
+        # v33 §4: entorno estéril de CI — solo datos frescos del día, sin
+        # reentrenar nada (el bot usa los artefactos ya commiteados).
+        resultados['Cuotas'] = paso('CUOTAS (update-only)', actualizar_cuotas)
+        logger.info('update-only completado.')
+        sys.exit(0 if all(resultados.values()) else 1)
     if not args.solo_clubes:
         resultados['Mundial'] = paso('MUNDIAL (Kaggle + en vivo)', actualizar_mundial)
     if not args.solo_mundial:

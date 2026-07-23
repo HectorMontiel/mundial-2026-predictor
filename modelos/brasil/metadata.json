@@ -1,0 +1,39 @@
+{
+  "liga": "Brasileirão Serie A",
+  "n_train": 2428,
+  "n_validacion": 608,
+  "fecha_corte": "2024-11-13",
+  "precision_validacion": 0.523,
+  "precision_linea_base_elo": 0.4523,
+  "precision_mercado_cuotas": 0.5214,
+  "log_loss_validacion": 0.9963,
+  "n_equipos": 32,
+  "features_extra_cols": [
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4552,
+    "PROB_IMP_D": 0.2768,
+    "PROB_IMP_A": 0.268,
+    "OVERROUND": 0.0619
+  },
+  "roi_sim": {
+    "n_apuestas": 269,
+    "roi_pct": 2.21,
+    "aciertos": 120,
+    "roi_pct_pinnacle": -1.44,
+    "n_con_pinnacle": 176
+  },
+  "mesm": {
+    "n_val_con_cuotas": 608,
+    "acc_prod": 0.523,
+    "acc_mesm": 0.523,
+    "ll_prod": 0.9963,
+    "ll_mesm": 1.015,
+    "adoptado": false
+  },
+  "imt": null
+}

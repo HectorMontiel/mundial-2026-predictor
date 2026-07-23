@@ -60,6 +60,9 @@ SPORT_KEYS = {
     'primeira': 'soccer_portugal_primeira_liga',
     'liga_mx': 'soccer_mexico_ligamx',
     'mls': 'soccer_usa_mls',
+    # v33 (§1.1): ligas de verano — cubren el hueco de julio-agosto
+    'brasil': 'soccer_brazil_campeonato',
+    'argentina': 'soccer_argentina_primera_division',
     'champions': 'soccer_uefa_champs_league',
     'mundial': 'soccer_fifa_world_cup',
 }
@@ -223,7 +226,9 @@ def _normalizar_nombre(clave_liga: str, nombre: str) -> str:
 
 
 # v28 (§2.1): tier 1 para snapshots RLM (3 potenciales/día vía TTL de la app)
-TIER1 = ['premier', 'laliga', 'serie_a', 'bundesliga', 'mls']
+# v33: en verano el tier-1 útil son las ligas que SÍ juegan (las europeas
+# están paradas); el resto entra igual en la captura diaria general.
+TIER1 = ['mls', 'liga_mx', 'brasil', 'argentina', 'premier']
 MIN_CREDITOS_MES = 50            # spec §1.2: bajo esto no se actualiza nada
 
 

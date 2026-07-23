@@ -102,6 +102,20 @@ LEAGUES = {
         # v26 (walk-forward 47.01→47.66, ll −0.005): + entropía/volatilidad
         'features_extra': ['cuotas', 'ent'],
     },
+    # v33 (§1.1): ligas de VERANO — cubren el hueco de julio-agosto cuando
+    # Europa está parada. Verificado 2026-07-23 en football-data:
+    #   BRA actualizado hace 4 días ✅ · ARG hace 59 (cuarentena v32 lo
+    #   degrada solo) · JPN hace 228 → NO se añade (fuente abandonada).
+    'brasil': {
+        'nombre': 'Brasileirão Serie A', 'pais': 'Brasil', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/BRA.csv'], 'anios_ventana': 8,
+        'disponible': True, 'features_extra': ['cuotas'],
+    },
+    'argentina': {
+        'nombre': 'Primera División', 'pais': 'Argentina', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/ARG.csv'], 'anios_ventana': 8,
+        'disponible': True, 'features_extra': ['cuotas'],
+    },
     'premier': {
         # Premier se mantiene en 3 temporadas: el experimento de 5 temporadas
         # bajó la precisión (49.5%→48.9%) — regla de adopción no superada.
@@ -195,6 +209,16 @@ LEAGUES = {
         'features_extra': ['urg'],
         'nota': 'API-Football (2022-24) + FBref (resto, incl. temporada actual).',
     },
+}
+
+# v33 (§2): umbrales adaptativos de confianza por deporte. El techo de
+# precisión no es igual en todos: exigir 70 % en MLB dejaría al béisbol sin
+# picks (su modelo ronda 55-60 % por diseño del deporte).
+UMBRALES_DEPORTE = {
+    'Fútbol': {'capa1': 0.70, 'capa2': 0.75},
+    'MLB':    {'capa1': 0.58, 'capa2': 0.65},
+    'NBA':    {'capa1': 0.60, 'capa2': 0.70},
+    'Tenis':  {'capa1': 0.65, 'capa2': 0.75},
 }
 
 POSITIONS = ['POR', 'DFC', 'DFC', 'DFC', 'LI', 'LD', 'MCD', 'MC', 'MC', 'ED', 'DC']

@@ -708,6 +708,8 @@ COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
                 '🏀 NBA (baloncesto)': 'nba_deporte',
                 '🎾 Tenis (ATP)': 'tennis_deporte',
                 '🇲🇽 Liga MX': 'liga_mx',
+                '🇧🇷 Brasileirão': 'brasil',
+                '🇦🇷 Primera (ARG)': 'argentina',
                 '🇺🇸 MLS': 'mls',
                 '🏴 Premier League': 'premier', '🇪🇸 LaLiga': 'laliga',
                 '🇮🇹 Serie A': 'serie_a', '🇩🇪 Bundesliga': 'bundesliga',
@@ -715,6 +717,8 @@ COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
                 '🇵🇹 Primeira Liga': 'primeira',
                 '🇪🇺 Champions League': 'champions'}
 NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'mls': 'MLS',
+                 'brasil': 'Brasileirão Serie A',
+                 'argentina': 'Primera División (ARG)',
                  'premier': 'Premier League',
                  'laliga': 'LaLiga', 'serie_a': 'Serie A',
                  'bundesliga': 'Bundesliga', 'ligue_1': 'Ligue 1',
@@ -833,7 +837,13 @@ def render_alpha_finder():
                 c1, c2, c3 = st.columns([3, 2, 2])
                 c1.markdown(f"**{pref}{t.get('partido','?')}**  \n"
                             f"{t.get('deporte','Fútbol')} · {t.get('liga','')} · "
-                            f"{t.get('fecha','')}")
+                            f"{t.get('fecha','')}"
+                            + (f"  \n{t['antiguedad']}" if t.get('antiguedad')
+                               else ''),
+                            help=("Frescura de los datos con los que se entrenó "
+                                  "esta liga: el modelo no ve partidos nuevos "
+                                  "desde hace ese número de días.")
+                            if t.get('antiguedad') else None)
                 c2.markdown(f"**{t.get('apuesta','?')}**  \n{t.get('mercado','')}")
                 c3.markdown(precio
                             + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
