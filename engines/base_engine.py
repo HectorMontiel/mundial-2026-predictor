@@ -84,28 +84,73 @@ class BaseSportsEngine(ABC):
                 'mercado_ref': self.metadata.get('precision_mercado')}
 
     def plantilla(self, home: str, away: str, **ctx) -> Dict:
-        """Plantilla de análisis unificada (Moneyline + Totales + línea)."""
+        """Plantilla de análisis unificada (v32 §8.0: SOLO mercados derivables
+        con rigor de los modelos actuales — moneyline del clasificador,
+        totales del regresor Poisson, y spread/totales por equipo de la
+        distribución NORMAL del margen calibrada con σ histórica.
+        EXCLUIDOS: cuartos NBA y primeras 5 entradas MLB — exigen datos
+        play-by-play que no se ingieren)."""
+        from scipy.stats import norm, poisson
         pred = self.predecir(home, away, **ctx)
         if 'error' in pred:
             return pred
         linea = ctx.get('linea_total', self.metadata.get('linea_total_tipica'))
+        p_home = pred['prob_home']
         campos = [
-            {'id': 'ml_home', 'etiqueta': f'Gana {home}', 'valor': pred['prob_home'] * 100},
+            {'id': 'ml_home', 'etiqueta': f'Gana {home}', 'valor': p_home * 100},
             {'id': 'ml_away', 'etiqueta': f'Gana {away}', 'valor': pred['prob_away'] * 100},
         ]
-        if pred.get('total_estimado') is not None and linea:
-            # Poisson sobre el total estimado para O/U de la línea de mercado.
-            # scipy.poisson.cdf es estable para λ pequeño (MLB ~8) y grande
-            # (NBA ~228, donde el manual con factorial se desbordaba).
-            from scipy.stats import poisson
-            lam = max(pred['total_estimado'], 0.1)
-            p_under = float(poisson.cdf(int(np.floor(linea)), lam))
-            campos += [
-                {'id': 'over', 'etiqueta': f'Más de {linea}', 'valor': (1 - p_under) * 100},
-                {'id': 'under', 'etiqueta': f'Menos de {linea}', 'valor': p_under * 100},
-            ]
+        total = pred.get('total_estimado')
+        if total is not None and linea:
+            lam = max(total, 0.1)
+            for l in self._lineas_totales(linea):
+                p_under = float(poisson.cdf(int(np.floor(l)), lam))
+                campos += [
+                    {'id': f'over_{l}', 'etiqueta': f'Más de {l}',
+                     'valor': (1 - p_under) * 100},
+                    {'id': f'under_{l}', 'etiqueta': f'Menos de {l}',
+                     'valor': p_under * 100},
+                ]
+        # --- spread y totales por equipo desde el margen ~ N(μ, σ) ---
+        sigma = self.metadata.get('sigma_margen')
+        if total is not None and sigma:
+            # μ se deduce de la probabilidad calibrada: P(margen>0)=p_home
+            mu = float(sigma) * float(norm.ppf(min(max(p_home, 1e-4), 1 - 1e-4)))
+            for s in self._lineas_spread():
+                # local cubre −s  ⇔  margen > s
+                p_cubre = float(1 - norm.cdf((s - mu) / sigma))
+                campos += [
+                    {'id': f'sp_home_{s}', 'etiqueta': f'{home} −{s}',
+                     'valor': p_cubre * 100},
+                    {'id': f'sp_away_{s}', 'etiqueta': f'{away} +{s}',
+                     'valor': (1 - p_cubre) * 100},
+                ]
+            # total por equipo: puntos_local = (T + margen)/2
+            media_local = (total + mu) / 2
+            media_visit = (total - mu) / 2
+            for lado, m, nombre in (('home', media_local, home),
+                                    ('away', media_visit, away)):
+                l_eq = round(m * 2) / 2          # línea .0/.5 cercana
+                p_under_eq = float(poisson.cdf(int(np.floor(l_eq)), max(m, 0.1)))
+                campos += [
+                    {'id': f'tt_{lado}_over', 'etiqueta':
+                     f'{nombre}: más de {l_eq}', 'valor': (1 - p_under_eq) * 100},
+                    {'id': f'tt_{lado}_under', 'etiqueta':
+                     f'{nombre}: menos de {l_eq}', 'valor': p_under_eq * 100},
+                ]
+            pred['margen_esperado'] = round(mu, 2)
         return {'deporte': self.deporte, 'partido': f'{home} vs {away}',
-                'prediccion': pred, 'campos': campos}
+                'prediccion': pred, 'campos': campos,
+                'excluidos': self.metadata.get('mercados_excluidos', [])}
+
+    def _lineas_totales(self, base: float) -> List[float]:
+        """Líneas de O/U alrededor de la típica del deporte."""
+        paso = 5.0 if base > 100 else (1.0 if base > 5 else 0.5)
+        return [round(base + k * paso, 1) for k in (-1, 0, 1)]
+
+    def _lineas_spread(self) -> List[float]:
+        base = self.metadata.get('linea_total_tipica', 8)
+        return [1.5, 3.5, 5.5] if base > 100 else [0.5, 1.5, 2.5]
 
     def barrido_apuestas_dia(self, cuotas: Dict, sport_key: str,
                              min_prob: float = 0.60, min_ev: float = 0.03,

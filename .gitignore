@@ -34,3 +34,8 @@ odds_api_state.json
 # Cachés de scrapers v14 (se regeneran)
 understat_cache/
 transfermarkt_cache/
+
+# v32: base de rendimiento real (se genera en cada entorno)
+rendimiento_real.db
+rendimiento_real.db-wal
+rendimiento_real.db-shm

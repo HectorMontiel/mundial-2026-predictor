@@ -183,6 +183,104 @@ class TennisEngine(BaseSportsEngine):
                 float(np.clip(hb, -5, 5)) / 5.0]
 
 
+    # ------------------------------------------------------------------
+    # v32 (§8.1): plantilla de tenis con RESTRICCIÓN MATEMÁTICA ESTRICTA.
+    # Solo lo derivable: ganador (clasificador), total de juegos y hándicap
+    # (regresión de juegos calibrada sobre 68k partidos) y reparto de sets
+    # bajo independencia condicional (asunción declarada, no inventada).
+    # EXCLUIDOS: marcador exacto de sets, «set a cero» y ganador del primer
+    # set — exigen cadenas de Markov / datos de saque que NO tenemos.
+    # ------------------------------------------------------------------
+    def plantilla(self, home: str, away: str, surface: str = 'Hard',
+                  best_of: int = 3, **ctx) -> Dict:
+        from scipy.stats import norm
+        pred = self.predecir(home, away, surface=surface)
+        if 'error' in pred:
+            return pred
+        p = pred['prob_home']
+        md = self.metadata
+        campos = [
+            {'id': 'ml_home', 'etiqueta': f'Gana {home}', 'valor': p * 100},
+            {'id': 'ml_away', 'etiqueta': f'Gana {away}', 'valor': (1 - p) * 100},
+        ]
+        # --- total de juegos ---
+        coef = md.get('coef_juegos')
+        sigma_j = md.get('sigma_juegos')
+        total_juegos = None
+        if coef and sigma_j:
+            jug = self.estado.get('jugadores', {})
+            r1 = (jug.get(home, {}).get('rank') or 100)
+            r2 = (jug.get(away, {}).get('rank') or 100)
+            gap = abs(np.log(max(r1, 1)) - np.log(max(r2, 1)))
+            total_juegos = float(coef[0] + coef[1] * gap
+                                 + coef[2] * (1.0 if best_of == 5 else 0.0))
+            for l in (total_juegos - 2.5, total_juegos + 0.5, total_juegos + 3.5):
+                l = round(l * 2) / 2
+                p_over = float(1 - norm.cdf((l - total_juegos) / sigma_j))
+                campos += [
+                    {'id': f'juegos_over_{l}', 'etiqueta': f'Más de {l} juegos',
+                     'valor': p_over * 100},
+                    {'id': f'juegos_under_{l}', 'etiqueta': f'Menos de {l} juegos',
+                     'valor': (1 - p_over) * 100},
+                ]
+        # --- hándicap de juegos (margen ~ N(μ, σ) con μ del favorito) ---
+        sm = md.get('sigma_margen_juegos')
+        mm = md.get('margen_juegos_medio')
+        if sm and mm:
+            # el favorito gana por mm de media; μ con signo según quién es
+            mu = mm * (1 if p >= 0.5 else -1) * (2 * abs(p - 0.5) * 2)
+            for h in (2.5, 4.5, 6.5):
+                p_cubre = float(1 - norm.cdf((h - mu) / sm))
+                campos += [
+                    {'id': f'hand_home_{h}', 'etiqueta': f'{home} −{h} juegos',
+                     'valor': p_cubre * 100},
+                    {'id': f'hand_away_{h}', 'etiqueta': f'{away} +{h} juegos',
+                     'valor': (1 - p_cubre) * 100},
+                ]
+        # --- sets: se invierte p → prob de ganar UN set (independencia) ---
+        s = _prob_set_desde_partido(p, best_of)
+        if best_of == 3:
+            p20, p21 = s ** 2, 2 * s ** 2 * (1 - s)
+            p_ambos = 1 - s ** 2 - (1 - s) ** 2
+            campos += [
+                {'id': 'set_2_0', 'etiqueta': f'{home} gana 2-0', 'valor': p20 * 100},
+                {'id': 'set_2_1', 'etiqueta': f'{home} gana 2-1', 'valor': p21 * 100},
+                {'id': 'ambos_set', 'etiqueta': 'Ambos ganan al menos un set',
+                 'valor': p_ambos * 100},
+                {'id': 'set_home', 'etiqueta': f'{home} gana al menos un set',
+                 'valor': (1 - (1 - s) ** 2) * 100},
+                {'id': 'set_away', 'etiqueta': f'{away} gana al menos un set',
+                 'valor': (1 - s ** 2) * 100},
+            ]
+        return {'deporte': self.deporte, 'partido': f'{home} vs {away}',
+                'superficie': surface, 'prediccion': pred,
+                'total_juegos_estimado': (round(total_juegos, 1)
+                                          if total_juegos else None),
+                'campos': campos,
+                'excluidos': md.get('mercados_excluidos', []),
+                'nota': ('Sets bajo independencia condicional entre sets '
+                         '(asunción declarada). Sin cuotas en vivo, las '
+                         'cuotas son justas = 1/probabilidad.')}
+
+
+def _prob_set_desde_partido(p_partido: float, best_of: int = 3) -> float:
+    """Invierte numéricamente P(partido) → P(set) suponiendo sets i.i.d.
+    bo3: P = s²(3−2s). Búsqueda binaria (monótona en s)."""
+    p_partido = min(max(p_partido, 1e-4), 1 - 1e-4)
+    lo, hi = 0.0, 1.0
+    for _ in range(60):
+        s = (lo + hi) / 2
+        if best_of == 5:
+            pm = s ** 3 * (1 + 3 * (1 - s) + 6 * (1 - s) ** 2)
+        else:
+            pm = s ** 2 * (3 - 2 * s)
+        if pm < p_partido:
+            lo = s
+        else:
+            hi = s
+    return (lo + hi) / 2
+
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
     print(json.dumps(TennisEngine().entrenar(), indent=2))

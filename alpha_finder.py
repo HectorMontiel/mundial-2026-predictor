@@ -344,6 +344,85 @@ def _picks_nba() -> Dict[str, List[Dict]]:
     return salida
 
 
+# ---------------------------------------------------------------------------
+# v32: fiabilidad histórica (Brier real de los picks publicados por liga),
+# cuarentena de pretemporada y segregación de EV extremo.
+# ---------------------------------------------------------------------------
+EV_EXTREMO = 0.15          # §3: por encima, el modelo está descalibrado
+                           # (gap de calibración −0.154 vs −0.038; ROI −12.4 pp)
+_FIABILIDAD: Dict[str, float] = {}
+
+
+def fiabilidad_liga(liga: str) -> Optional[float]:
+    """Brier score REAL de los picks que el sistema publicó en esa liga
+    (roi_bets_{liga}.json: prob prometida vs resultado). None si no hay datos."""
+    if not _FIABILIDAD:
+        import glob
+        for ruta in glob.glob('roi_bets_*.json'):
+            clave = ruta[len('roi_bets_'):-len('.json')]
+            try:
+                with open(ruta, encoding='utf-8') as f:
+                    bets = json.load(f)
+                if len(bets) >= 30:
+                    _FIABILIDAD[clave] = round(float(np.mean(
+                        [(b['prob'] - b['gano']) ** 2 for b in bets])), 4)
+            except Exception:
+                continue
+        _FIABILIDAD.setdefault('_vacio', 1.0)
+    return _FIABILIDAD.get(liga)
+
+
+def etiqueta_fiabilidad(brier: Optional[float]) -> str:
+    """Traducción UX del Brier (§5.2)."""
+    if brier is None:
+        return '⚪ Sin histórico'
+    if brier < 0.15:
+        return '🟢 Fiabilidad élite'
+    if brier < 0.22:
+        return '🟡 Fiabilidad estándar'
+    return '🔴 Alta incertidumbre'
+
+
+DIAS_ESTADO_OBSOLETO = 45
+
+
+def _dias_estado_obsoleto(liga: str, fecha: str) -> Optional[int]:
+    """§4 (cuarentena): días transcurridos desde el último partido con el que
+    se entrenó la liga. Un desfase grande significa PRETEMPORADA (ligas
+    europeas en julio) o simplemente estado sin refrescar: en ambos casos la
+    varianza sube y el pick baja a Capa 2. Regla dirigida por datos."""
+    try:
+        with open(f'team_stats_{liga}.json', encoding='utf-8') as f:
+            ultima = json.load(f).get('ultima_fecha_historico')
+        if not ultima:
+            return None
+        return int((pd.Timestamp(fecha) - pd.Timestamp(ultima)).days)
+    except Exception:
+        return None
+
+
+def pick_del_dia(picks: List[Dict]) -> Optional[Dict]:
+    """UN solo pick (§5.3): confianza >80 %, EV en [+2 %, +15 %], fiabilidad
+    del mercado ≥ 🟡 y sin pretemporada. Desempate: Brier ↑, EV ↓, prob ↓."""
+    aptos = []
+    for p in picks:
+        ev = p.get('ev')
+        if ev is None or not (0.02 <= ev <= EV_EXTREMO):
+            continue
+        if (p.get('prob') or 0) <= 0.80 or p.get('pretemporada'):
+            continue
+        brier = p.get('brier')
+        if brier is not None and brier >= 0.22:
+            continue
+        aptos.append(p)
+    if not aptos:
+        return None
+    return sorted(aptos, key=lambda p: (p.get('brier') if p.get('brier')
+                                        is not None else 0.21,
+                                        -(p.get('ev') or 0),
+                                        -(p.get('prob') or 0)))[0]
+
+
 def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     """Barrido de TODAS las competiciones activas (11 de fútbol + MLB, NBA,
     tenis) con clasificación en dos capas (§1.2, §5.1)."""
@@ -361,13 +440,48 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])
         no_enlazados += sub.get('no_enlazados', [])
+    # --- v32: fiabilidad, pretemporada y segregación de EV extremo -------
+    LIGA_A_CLAVE = {'Liga MX': 'liga_mx', 'MLS': 'mls', 'Premier League': 'premier',
+                    'LaLiga': 'laliga', 'Serie A': 'serie_a',
+                    'Bundesliga': 'bundesliga', 'Ligue 1': 'ligue_1',
+                    'Eredivisie': 'eredivisie', 'Primeira Liga': 'primeira',
+                    'UEFA Champions League': 'champions'}
+    for p in capa1 + capa2:
+        clave = LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower())
+        p['brier'] = fiabilidad_liga(clave)
+        p['fiabilidad'] = etiqueta_fiabilidad(p['brier'])
+        dias = (_dias_estado_obsoleto(clave, p.get('fecha'))
+                if p.get('deporte', 'Fútbol') == 'Fútbol' else None)
+        p['dias_estado'] = dias
+        p['pretemporada'] = bool(dias and dias > DIAS_ESTADO_OBSOLETO)
+        if p['pretemporada']:
+            p['nota'] = (f'⚠️ El modelo de esta liga no ve partidos desde hace '
+                         f'{dias} días (pretemporada o estado sin refrescar) — '
+                         'alta varianza')
+    # §4: los partidos de pretemporada salen de la Capa 1 (van a Capa 2)
+    pretemporada = [p for p in capa1 if p.get('pretemporada')]
+    capa1 = [p for p in capa1 if not p.get('pretemporada')]
+    capa2 += pretemporada
+    # §3: EV extremo se SEGREGA (no se descarta) — validado en
+    # resultados_ev_extremo_v32.json
+    ev_extremo = [p for p in capa1 if (p.get('ev') or 0) > EV_EXTREMO]
+    capa1 = [p for p in capa1 if (p.get('ev') or 0) <= EV_EXTREMO]
+
     capa1.sort(key=lambda t: (-int(t.get('platino', False)), -(t.get('ev') or 0)))
     capa2.sort(key=lambda t: -(t.get('prob') or 0))
+    ev_extremo.sort(key=lambda t: -(t.get('ev') or 0))
     deportes = sorted({p.get('deporte', 'Fútbol') for p in capa1 + capa2})
-    r.update({'capa1': capa1, 'capa2': capa2, 'no_enlazados': no_enlazados,
-              'deportes_cubiertos': deportes,
+    r.update({'capa1': capa1, 'capa2': capa2, 'ev_extremo': ev_extremo,
+              'no_enlazados': no_enlazados, 'deportes_cubiertos': deportes,
+              'pick_del_dia': pick_del_dia(capa1),
               'elite': capa1,          # compatibilidad con UI/exportación
               })
+    try:                      # v32 §6: registro para el rendimiento REAL
+        import rendimiento_real
+        rendimiento_real.registrar(capa1, 'capa1')
+        rendimiento_real.registrar(capa2, 'capa2')
+    except Exception as e:
+        logger.warning(f"[alpha] rendimiento_real no registrado: {e}")
     global _ULTIMO_RESULTADO
     _ULTIMO_RESULTADO = r
     logger.info(f"[alpha] universal: capa1={len(capa1)} capa2={len(capa2)} "

@@ -790,8 +790,24 @@ def render_alpha_finder():
             cexp2.download_button("📊 Exportar (CSV)", csv,
                                   file_name=f"apuestas_{fecha_exp}.csv",
                                   mime='text/csv', width='stretch')
+            # v32 (§7): copiar al portapapeles — st.code trae botón nativo
+            with st.expander("📋 Copiar al portapapeles"):
+                st.code(txt, language=None)
         except Exception as e:
             st.caption(f"⚠️ Exportación no disponible ahora ({type(e).__name__}).")
+
+    # v32 (§5.3): PICK DEL DÍA único
+    pdd = r.get('pick_del_dia')
+    if pdd:
+        st.success(f"🥇 **Pick del Día** — {pdd['partido']} ({pdd.get('liga','')})  \n"
+                   f"**{pdd['apuesta']}** @ {pdd.get('cuota')} · "
+                   f"EV {(pdd.get('ev') or 0)*100:+.1f} % · "
+                   f"prob {(pdd.get('prob') or 0)*100:.0f} % · "
+                   f"{pdd.get('fiabilidad','')}")
+    else:
+        st.info("🥇 Hoy **no hay Pick del Día**: ninguno reúne confianza >80 %, "
+                "EV entre +2 % y +15 % y fiabilidad histórica suficiente. "
+                "Forzarlo sería el error clásico.")
 
     def _tarjetas(lista, titulo):
         if not lista:
@@ -820,6 +836,7 @@ def render_alpha_finder():
                             f"{t.get('fecha','')}")
                 c2.markdown(f"**{t.get('apuesta','?')}**  \n{t.get('mercado','')}")
                 c3.markdown(precio
+                            + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
                             + (f"  \n💼 Stake: **{t['stake_txt']}**"
                                if t.get('stake_txt') else '')
                             + (f"  \n{t['nota']}" if t.get('nota') else ''))
@@ -866,6 +883,71 @@ def render_alpha_finder():
                        "cruzó con el catálogo del modelo (jugador nuevo o "
                        "grafía distinta).")
             st.write(r['no_enlazados'])
+
+    # v32 (§3): EV extremo segregado, oculto por defecto
+    extremo = r.get('ev_extremo') or []
+    if extremo:
+        st.divider()
+        if st.checkbox(f"⚠️ Mostrar {len(extremo)} picks de EV extremo "
+                       "(alta incertidumbre)", value=False, key='ev_extremo_tog'):
+            st.warning("Estos picks tienen un EV inusualmente alto (>+15 %). "
+                       "En el histórico, ese tramo acertó **15 pp por debajo** "
+                       "de lo que el modelo prometía y su ROI fue 12 pp peor: "
+                       "suele delatar información que el modelo no ve "
+                       "(lesiones, rotaciones). Apuesta con precaución.")
+            _tarjetas(extremo, "")
+
+    # v32 (§2): Reto Escalera (interés compuesto)
+    st.divider()
+    with st.expander("🪜 Reto Escalera (interés compuesto)"):
+        import reto_escalera as re_esc
+        c1, c2 = st.columns(2)
+        cap0 = c1.number_input("Capital inicial", 10.0, 1e6, 100.0, step=10.0,
+                               key='esc_cap')
+        frac = c2.slider("Porcentaje del capital por día", 10, 100, 100,
+                         key='esc_frac',
+                         help="100 % = all-in: un solo fallo liquida la banca.") / 100
+        esc = re_esc.construir((r.get('capa1') or []) + (r.get('capa2') or []),
+                               capital=cap0, fraccion=frac)
+        if not esc.get('picks'):
+            st.info(esc.get('aviso'))
+        else:
+            sim = esc['simulacion']
+            st.warning(esc['aviso'])
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Prob. de completar hoy", f"{esc['prob_conjunta']*100:.1f} %")
+            m2.metric("Cuota combinada", f"{esc['cuota_combinada']:.3f}",
+                      f"+{esc['retorno_por_dia_pct']:.1f} % por día")
+            m3.metric("Prob. de ruina (10 días)",
+                      f"{sim['prob_ruina_10d']*100:.0f} %")
+            st.dataframe(pd.DataFrame([{
+                'Deporte': p.get('deporte', 'Fútbol'), 'Partido': p['partido'],
+                'Apuesta': p['apuesta'], 'Prob.': f"{p['prob']*100:.0f} %",
+                'Cuota': p.get('cuota')} for p in esc['picks']]),
+                width='stretch', hide_index=True)
+            st.caption(f"Monte Carlo (10.000 simulaciones): racha media "
+                       f"{sim['dias_racha_medios']:.1f} días · ruina a 20 días "
+                       f"{sim['prob_ruina_20d']*100:.0f} % · capital mediano a "
+                       f"30 días {sim['capital_mediano_30d']:,.0f}.")
+
+    # v32 (§6): rendimiento REAL de lo recomendado
+    with st.expander("📊 Rendimiento real de las Apuestas del Día"):
+        import rendimiento_real as rreal
+        res7, res30 = rreal.resumen(7), rreal.resumen(30)
+        if res30.get('n'):
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Aciertos (30 d)",
+                      f"{res30['tasa_acierto']*100:.0f} %",
+                      f"prometido {res30['prob_media_prometida']*100:.0f} %")
+            c2.metric("ROI real (30 d)", f"{res30['roi_pct']:+.1f} %")
+            c3.metric("Picks (7 d / 30 d)", f"{res7.get('n',0)} / {res30['n']}")
+            serie = rreal.serie_diaria(30)
+            if not serie.empty:
+                st.line_chart(serie.set_index('fecha')['roi_acumulado_pct'])
+        else:
+            st.info(res30.get('aviso', 'Sin historial todavía.')
+                    + " Los picks se registran automáticamente cada día; el "
+                      "resultado se liquida cuando termina el partido.")
 
     _tarjetas(r.get('candidatos'), "Candidatos con EV positivo"
               if ES_PRO else "Otras oportunidades con Ventaja Matemática 📈")

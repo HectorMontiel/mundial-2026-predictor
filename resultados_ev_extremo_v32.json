@@ -1,0 +1,35 @@
+{
+  "n_total": 1613,
+  "tramos": {
+    "moderado_3_15": {
+      "n": 685,
+      "tasa_acierto": 0.4993,
+      "prob_media_modelo": 0.5369,
+      "calibracion_gap": -0.0376,
+      "roi_pct": 0.48,
+      "cuota_media": 2.15
+    },
+    "extremo_15_mas": {
+      "n": 582,
+      "tasa_acierto": 0.3522,
+      "prob_media_modelo": 0.5064,
+      "calibracion_gap": -0.1542,
+      "roi_pct": -11.9,
+      "cuota_media": 2.7
+    },
+    "bajo_0_3": {
+      "n": 228,
+      "tasa_acierto": 0.5263,
+      "prob_media_modelo": 0.5432,
+      "calibracion_gap": -0.0169,
+      "roi_pct": -2.12,
+      "cuota_media": 1.98
+    }
+  },
+  "veredicto": {
+    "gap_moderado": -0.0376,
+    "gap_extremo": -0.1542,
+    "diferencia_roi": -12.38,
+    "filtro_justificado": true
+  }
+}

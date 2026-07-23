@@ -1,5 +1,23 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v32 — Blindaje cuantitativo y plantillas realistas (ver [VALIDACION_v32.md](VALIDACION_v32.md))
+
+- **🚫 Filtro de EV extremo, probado con datos**: los picks con EV > +15 %
+  aciertan **15 pp por debajo** de lo prometido y su ROI es **12 pp peor**
+  (1,495 apuestas históricas). Se segregan a una sección oculta por defecto.
+- **🪜 Reto Escalera**: picks ≥85 % con suelo de cuota 1.05, un pick por
+  partido y **Monte Carlo de 10.000 escaleras** (ruina a 10/20/30 días). Si
+  no hay picks del nivel, se niega a arrancar en vez de rebajar el listón.
+- **🥇 Pick del Día único** con desempate Brier → EV → probabilidad, y
+  **fiabilidad histórica por liga** (Brier real de los picks publicados,
+  traducido a 🟢/🟡/🔴).
+- **📋 Plantillas ampliadas con rigor**: NBA/MLB suman spread y totales por
+  equipo desde el margen ~N(μ,σ) con σ calibrada (15.58 / 4.48); tenis pasa
+  a **19 mercados** (total y hándicap de juegos con regresión sobre 68k
+  partidos, reparto de sets). Lo no derivable se declara excluido.
+- **📊 Rendimiento real** persistido en SQLite (WAL) y **copiado al
+  portapapeles**.
+
 ## Novedades v31 — Apuestas del Día universales (ver [VALIDACION_v31.md](VALIDACION_v31.md))
 
 - **🌐 Cobertura universal**: el barrido recorre ahora **todas** las

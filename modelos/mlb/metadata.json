@@ -5,5 +5,9 @@
   "precision_linea_base_elo": 0.5434,
   "log_loss_validacion": 0.6861,
   "linea_total_tipica": 8.0,
-  "fecha_entrenamiento": "2026-07-21"
+  "fecha_entrenamiento": "2026-07-21",
+  "sigma_margen": 4.483,
+  "mercados_excluidos": [
+    "Primeras 5 entradas (requiere event files)"
+  ]
 }

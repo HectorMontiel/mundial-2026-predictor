@@ -6,5 +6,19 @@
   "precision_mercado": 0.6826,
   "log_loss_validacion": 0.6192,
   "modo": "analitico (sin cuotas en vivo gratis)",
-  "fecha_entrenamiento": "2026-07-21"
+  "fecha_entrenamiento": "2026-07-21",
+  "coef_juegos": [
+    23.9169,
+    -0.6676,
+    13.1168
+  ],
+  "sigma_juegos": 6.603,
+  "n_partidos_juegos": 68207,
+  "mercados_excluidos": [
+    "Marcador exacto de sets (requiere cadenas de Markov)",
+    "Cualquier set a cero (ídem)",
+    "Ganador del primer set (sin datos de saque/resto)"
+  ],
+  "margen_juegos_medio": 5.063,
+  "sigma_margen_juegos": 2.642
 }

@@ -7,5 +7,9 @@
   "log_loss_validacion": 0.5361,
   "linea_total_tipica": 228.0,
   "modo": "analitico hasta temporada 2026-27 (Odds API sin NBA en julio)",
-  "fecha_entrenamiento": "2026-07-21"
+  "fecha_entrenamiento": "2026-07-21",
+  "sigma_margen": 15.578,
+  "mercados_excluidos": [
+    "Ganador por cuartos (requiere play-by-play)"
+  ]
 }
