@@ -309,18 +309,50 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
 
 
 def _picks_tenis() -> Dict[str, List[Dict]]:
-    """Tenis: cuotas de Betexplorer (ATP) + fuzzy de nombres (§4.2)."""
+    """Tenis ATP **y WTA** (v35 §1.4).
+
+    Cadena de resiliencia de cuotas (principio transversal v33):
+      1. The Odds API — claves por torneo tennis_atp_*/tennis_wta_*,
+         descubiertas dinámicamente (0 créditos si no hay torneo en curso);
+      2. Betexplorer — página /next/tennis/ (ATP y WTA).
+    Cada circuito usa SU modelo (modelos/tennis y modelos/tennis_wta).
+    """
     salida = {'capa1': [], 'capa2': [], 'no_enlazados': []}
     try:
         import betexplorer_scraper as bx
+        import odds_api
+        import source_resilience as sr
         from engines.tennis_engine import TennisEngine
-        eng = TennisEngine().cargar_modelo()
-        if not eng.listo:
+
+        motores = {}
+        for circuito in ('atp', 'wta'):
+            try:
+                eng = TennisEngine(circuito).cargar_modelo()
+                if eng.listo:
+                    motores[circuito] = eng
+            except Exception as e:
+                logger.warning(f"[alpha] tenis {circuito}: {type(e).__name__}: {e}")
+        if not motores:
             return salida
-        partidos = bx.cuotas_tenis_hoy()
+
+        cadena = sr.Cadena('cuotas de tenis', [
+            ('The Odds API', lambda: odds_api.partidos_tenis_hoy()),
+            ('Betexplorer', lambda: bx.cuotas_tenis_hoy()),
+        ])
+        partidos = cadena.obtener(validador=lambda d: d) or []
         for m in partidos:
+            circuito = m.get('circuito', 'atp')
+            eng = motores.get(circuito) or motores.get('atp')
             j1 = bx.emparejar_jugador(m['home'], eng.jugadores)
             j2 = bx.emparejar_jugador(m['away'], eng.jugadores)
+            if not (j1 and j2) and len(motores) > 1:
+                # el circuito puede venir mal etiquetado por la fuente: se
+                # intenta con el otro motor antes de darlo por no enlazado
+                otro = motores['wta' if eng.circuito == 'atp' else 'atp']
+                a1 = bx.emparejar_jugador(m['home'], otro.jugadores)
+                a2 = bx.emparejar_jugador(m['away'], otro.jugadores)
+                if a1 and a2:
+                    eng, j1, j2 = otro, a1, a2
             if not (j1 and j2):
                 salida['no_enlazados'].append(f"{m['home']} vs {m['away']}")
                 continue
@@ -331,7 +363,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                     ('home', m['home'], pred['prob_home'], m['odd_home']),
                     ('away', m['away'], pred['prob_away'], m['odd_away'])):
                 ev = round(cuota * prob - 1, 4)
-                base = {'deporte': 'Tenis', 'liga': 'ATP',
+                base = {'deporte': 'Tenis', 'liga': eng.circuito.upper(),
                         'partido': f"{m['home']} vs {m['away']}",
                         'fecha': str(pd.Timestamp.today().date()),
                         'mercado': 'Ganador', 'apuesta': f'Gana {nombre}',

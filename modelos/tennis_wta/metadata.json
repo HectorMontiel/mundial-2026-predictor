@@ -1,0 +1,23 @@
+{
+  "deporte": "Tenis (WTA)",
+  "circuito": "wta",
+  "features": [
+    "DIFF_ELO_SUP",
+    "DIFF_ELO_GLOBAL",
+    "DIFF_RANK_LOG",
+    "DIFF_FORMA10",
+    "DIFF_WIN_SUP_12M",
+    "H2H",
+    "DIFF_PTS_LOG",
+    "DIFF_DIAS_DESCANSO",
+    "DIFF_PARTIDOS_14D",
+    "DIFF_HORAS_7D"
+  ],
+  "n_partidos": 43821,
+  "precision_validacion": 0.6486,
+  "precision_linea_base_elo": 0.6275,
+  "precision_mercado": 0.6791,
+  "log_loss_validacion": 0.6156,
+  "modo": "analitico (sin cuotas en vivo gratis)",
+  "fecha_entrenamiento": "2026-07-23"
+}

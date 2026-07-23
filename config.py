@@ -100,7 +100,11 @@ LEAGUES = {
         'urls': [f'{FD_BASE}/new/USA.csv'], 'anios_ventana': 8,
         'disponible': True,
         # v26 (walk-forward 47.01→47.66, ll −0.005): + entropía/volatilidad
-        'features_extra': ['cuotas', 'ent'],
+        # v35 (walk-forward 47.61→48.61, ll 1.0395→1.0347): + urgencia y CDI
+        # JUNTAS (mejoran precisión Y log-loss; el CDI SOLO no pasaba: la MLS
+        # cruza hasta 3 husos y la señal aparece al condicionarla al contexto
+        # clasificatorio).
+        'features_extra': ['cuotas', 'ent', 'urg', 'cdi'],
     },
     # v33 (§1.1): ligas de VERANO — cubren el hueco de julio-agosto cuando
     # Europa está parada. Verificado 2026-07-23 en football-data:
@@ -238,6 +242,37 @@ LEAGUES = {
         # la presión clasificatoria de la fase liga desde 2024)
         'features_extra': ['urg'],
         'nota': 'API-Football (2022-24) + FBref (resto, incl. temporada actual).',
+    },
+    # v35 (§2): competiciones UEFA secundarias. CORRECCIÓN DEL SPEC —
+    # football-data.co.uk NO las publica (su índice solo tiene ligas
+    # domésticas; /new/EUR.csv da 404, verificado 2026-07-23). La fuente
+    # gratuita con cobertura profunda es el JSON de ESPN, que además trae la
+    # SEDE de cada partido (insumo del CDI §3) sin peticiones extra.
+    'europa_league': {
+        'nombre': 'UEFA Europa League', 'pais': 'Europa',
+        'formato': 'espn', 'espn_liga': 'uefa.europa',
+        'api_league_id': 3,               # respaldo API-Football (2022-24)
+        'desde': '2019-07-01', 'urls': [], 'disponible': True,
+        # v35 (walk-forward run_wf_v35.py, 4 ventanas de 6 meses):
+        #   base 50.31/1.1123 · +urg 52.13/1.0019 · +cdi 51.79/0.9989 ·
+        #   +urg+cdi 51.71/0.9959 ← mejor log-loss entre las que pasan la
+        # regla de oro (criterio v26). ELO de referencia 50.61 → superado.
+        'features_extra': ['extras', 'urg', 'cdi'],
+    },
+    'conference_league': {
+        'nombre': 'UEFA Conference League', 'pais': 'Europa',
+        'formato': 'espn', 'espn_liga': 'uefa.europa.conf',
+        'api_league_id': 848,
+        # Competición nueva (arrancó en 2021-22).
+        'desde': '2021-07-01', 'urls': [], 'disponible': True,
+        # v35: el CDI pasa la regla por +0.62 pp pero con el log-loss PLANO
+        # (1.0646→1.0670) y solo ~330 partidos de validación entre 4
+        # variantes probadas: mismo criterio de comparaciones múltiples que
+        # tumbó el ELO ataque/defensa en v33 → NO se adopta, se revisa con
+        # una temporada más. El modelo base ya bate al ELO (46.29 vs 43.21).
+        'features_extra': ['extras'],
+        # Menos historia ⇒ criterio conservador (v35 §2.3).
+        'umbral_confianza': 0.75,
     },
 }
 

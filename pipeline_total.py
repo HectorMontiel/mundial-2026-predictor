@@ -27,6 +27,8 @@ import logging
 import subprocess
 import sys
 
+import pandas as pd
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger('pipeline_total')
 
@@ -50,6 +52,31 @@ def actualizar_mundial():
 
 def actualizar_clubes():
     subprocess.run([PYTHON, 'league_engine.py', '--build'], check=True)
+
+
+def actualizar_sedes():
+    """v35 (§3): refresca el histórico de SEDES (ESPN) de las competiciones
+    UEFA — insumo del CDI de fútbol. Sin peticiones de más: el mismo JSON
+    que trae los resultados trae el estadio."""
+    import uefa_scraper
+    from config import LEAGUES
+    dfs = {}
+    for clave in ('europa_league', 'conference_league'):
+        cfg = LEAGUES[clave]
+        dfs[clave] = uefa_scraper.descargar_espn(
+            cfg['espn_liga'], str((pd.Timestamp.today()
+                                   - pd.DateOffset(months=3)).date()))
+    dfs['champions'] = uefa_scraper.descargar_espn(
+        'uefa.champions', str((pd.Timestamp.today()
+                               - pd.DateOffset(months=3)).date()))
+    logger.info(f"sedes acumuladas: {uefa_scraper.volcar_sedes(dfs)}")
+
+
+def actualizar_tenis():
+    """v35 (§1): reentrena ATP y WTA con el dataset del día."""
+    from engines.tennis_engine import TennisEngine
+    for circuito in ('atp', 'wta'):
+        TennisEngine(circuito).entrenar()
 
 
 def actualizar_cuotas():
@@ -139,6 +166,7 @@ if __name__ == '__main__':
     resultados['Backfill stats'] = paso('BACKFILL ESTADÍSTICAS (API-Football)', backfill_estadisticas)
     resultados['FotMob'] = paso('FOTMOB (stats reales incrementales, v24)', backfill_fotmob)
     resultados['Clima'] = paso('CLIMA (Open-Meteo incremental)', actualizar_clima)
+    resultados['Sedes'] = paso('SEDES UEFA (ESPN, insumo del CDI)', actualizar_sedes)
     if not args.solo_clubes:
         resultados['Mercado'] = paso('INTELIGENCIA DE MERCADO (Polymarket)', actualizar_mercado)
     if args.ratings:

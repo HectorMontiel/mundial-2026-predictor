@@ -706,7 +706,7 @@ COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
                 '💎 Apuestas del Día': 'alpha',
                 '⚾ MLB (béisbol)': 'mlb_deporte',
                 '🏀 NBA (baloncesto)': 'nba_deporte',
-                '🎾 Tenis (ATP)': 'tennis_deporte',
+                '🎾 Tenis (ATP/WTA)': 'tennis_deporte',
                 '🇲🇽 Liga MX': 'liga_mx',
                 '🇧🇷 Brasileirão': 'brasil',
                 '🇦🇷 Primera (ARG)': 'argentina',
@@ -715,7 +715,9 @@ COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
                 '🇮🇹 Serie A': 'serie_a', '🇩🇪 Bundesliga': 'bundesliga',
                 '🇫🇷 Ligue 1': 'ligue_1', '🇳🇱 Eredivisie': 'eredivisie',
                 '🇵🇹 Primeira Liga': 'primeira',
-                '🇪🇺 Champions League': 'champions'}
+                '🇪🇺 Champions League': 'champions',
+                '🇪🇺 Europa League': 'europa_league',
+                '🇪🇺 Conference League': 'conference_league'}
 NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'mls': 'MLS',
                  'brasil': 'Brasileirão Serie A',
                  'argentina': 'Primera División (ARG)',
@@ -723,7 +725,9 @@ NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'mls': 'MLS',
                  'laliga': 'LaLiga', 'serie_a': 'Serie A',
                  'bundesliga': 'Bundesliga', 'ligue_1': 'Ligue 1',
                  'eredivisie': 'Eredivisie', 'primeira': 'Primeira Liga',
-                 'champions': 'UEFA Champions League'}
+                 'champions': 'UEFA Champions League',
+                 'europa_league': 'UEFA Europa League',
+                 'conference_league': 'UEFA Conference League'}
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
 # en el teléfono la barra lateral llega colapsada y el usuario no encontraba
 # las ligas. El estado se comparte con st.session_state.
@@ -1171,28 +1175,37 @@ def render_nba():
 
 
 def render_tennis():
-    """v30 (§5): vista Tenis ATP — modo analítico (ELO por superficie)."""
-    st.header("🎾 Tenis — ATP")
+    """v30 (§5) + v35 (§1): vista de Tenis con los DOS circuitos, ELO por
+    superficie (incluida pista cubierta) y features de fatiga."""
+    st.header("🎾 Tenis — ATP / WTA")
     from engines.tennis_engine import TennisEngine
 
     @st.cache_resource(show_spinner="Cargando modelo de tenis…")
-    def _m():
-        return TennisEngine().cargar_modelo()
-    eng = _m()
+    def _m(circuito):
+        return TennisEngine(circuito).cargar_modelo()
+
+    circuito = st.radio("Circuito", ['ATP (masculino)', 'WTA (femenino)'],
+                        horizontal=True, key='ten_circ')
+    eng = _m('wta' if circuito.startswith('WTA') else 'atp')
     if not eng.listo:
         st.error(f"Motor de tenis no disponible: {eng.error}")
         return
     md = eng.metadata
-    st.caption(f"Entrenado con {md.get('n_partidos')} partidos (Kaggle ATP "
-               f"2000-2026) · precisión {md.get('precision_validacion')*100:.1f} % "
-               f"(ranking {md.get('precision_linea_base_elo')*100:.1f} %, mercado "
-               f"{md.get('precision_mercado')*100:.1f} %). Modo analítico.")
+
+    def _pct(v):
+        return f"{v*100:.1f} %" if isinstance(v, (int, float)) else "n/d"
+    st.caption(f"Entrenado con {md.get('n_partidos')} partidos "
+               f"({eng.circuito.upper()}, mirror de Kaggle) · precisión "
+               f"{_pct(md.get('precision_validacion'))} (ranking "
+               f"{_pct(md.get('precision_linea_base_elo'))}, mercado "
+               f"{_pct(md.get('precision_mercado'))}).")
     c1, c2, c3 = st.columns(3)
     p1 = c1.selectbox("Jugador 1", eng.jugadores, key='ten_1')
     p2 = c2.selectbox("Jugador 2", eng.jugadores, index=1, key='ten_2')
     sup = c3.selectbox("Superficie", ['Hard', 'Clay', 'Grass'], key='ten_s')
+    indoor = st.checkbox("Pista cubierta (indoor)", key='ten_in')
     if p1 != p2:
-        pred = eng.predecir(p1, p2, surface=sup)
+        pred = eng.predecir(p1, p2, surface=sup, indoor=indoor)
         if 'error' in pred:
             st.warning(pred['error'])
         else:

@@ -33,6 +33,7 @@ import requests
 import feature_engineering as fe
 import features_v26 as f26
 import mls_features
+import cdi_futbol
 import momentum_tactico as mt
 import statsbomb_calibration
 from config import LEAGUES
@@ -192,6 +193,8 @@ def columnas_extra(clave: str) -> list:
         cols += f26.COLS_ELO_D
     if 'urg' in grupos:            # v26: urgencia asimétrica
         cols += f26.COLS_URG
+    if 'cdi' in grupos:            # v35: desincronización circadiana
+        cols += cdi_futbol.COLS_CDI
     return cols
 
 
@@ -436,6 +439,16 @@ def descargar_liga(clave: str) -> pd.DataFrame:
         if cfg.get('desde'):        # profundidad validada en walk-forward
             df = df[df['date'] >= pd.Timestamp(cfg['desde'])]
         crudo = None
+    elif cfg['formato'] == 'espn':
+        # v35 (§2): Europa League / Conference League desde el JSON de ESPN
+        # con cadena de resiliencia (ESPN → API-Football → CSV local).
+        import uefa_scraper
+        df = uefa_scraper.historico_uefa(clave, cfg['espn_liga'], cfg['desde'],
+                                         cfg.get('api_league_id'))
+        df = df[df['date'] >= pd.Timestamp(cfg['desde'])].copy()
+        for c in ('odd_home', 'odd_draw', 'odd_away'):
+            df[c] = np.nan
+        crudo = None
     else:
         frames = []
         for url in cfg['urls']:
@@ -445,7 +458,7 @@ def descargar_liga(clave: str) -> pd.DataFrame:
                                       encoding_errors='ignore'))
         crudo = pd.concat(frames, ignore_index=True)
 
-    if cfg['formato'] == 'api_football':
+    if cfg['formato'] in ('api_football', 'espn'):
         pass                                   # df ya construido arriba
     elif cfg['formato'] == 'main':
         df = pd.DataFrame({
@@ -592,6 +605,7 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     estado_extra = None
     estado_imt = None
     estado_v26 = None
+    mapa_tz = None
     imt_coef = None
     medias_cuotas = {}
     if cols_extra:
@@ -617,6 +631,13 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         if any(g in grupos for g in ('ent', 'elo_d', 'urg')):
             v26_df, estado_v26 = f26.features_v26(df)
             extras_df = extras_df.join(v26_df)
+        # v35 (§3): CDI — solo en las competiciones donde el walk-forward lo
+        # adoptó (run_wf_v35.py). El mapa club→huso se guarda en team_stats
+        # para poder reproducir la feature en inferencia.
+        if 'cdi' in grupos:
+            mapa_tz = cdi_futbol.mapa_tz_liga(clave, df)
+            extras_df = extras_df.join(cdi_futbol.features_cdi(df, mapa_tz))
+            cdi_futbol.guardar_mapa({clave: mapa_tz})
         ids = [m[3] for m in ds['meta']]
         ext = extras_df.reindex(ids).reset_index(drop=True)
         X_df = X_df.reset_index(drop=True).copy()
@@ -830,6 +851,7 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
                    'estado_extra': estado_extra,
                    'estado_imt': estado_imt,
                    'estado_v26': estado_v26,
+                   'mapa_tz': mapa_tz,
                    'imt_coef': imt_coef}, f, ensure_ascii=False)
 
     metadata = {
@@ -893,6 +915,7 @@ class ClubEngine:
             self.estado_imt = ts.get('estado_imt')   # v24 (IMT)
             self.imt_coef = ts.get('imt_coef')       # v24 (índice compuesto)
             self.estado_v26 = ts.get('estado_v26')   # v26 (ortogonales)
+            self.mapa_tz = ts.get('mapa_tz')         # v35 (CDI: club→huso)
             self.fecha_estado = ts.get('ultima_fecha_historico', '?')
             with open('calibracion_statsbomb.json', 'r', encoding='utf-8') as f:
                 self.calibracion = json.load(f)
@@ -969,6 +992,9 @@ class ClubEngine:
         # v26: entropía/volatilidad, derivadas ELO y urgencia desde el estado
         if any(c in cols for c in f26.COLS_V26):
             valores.update(f26.vector_v26(self.estado_v26, home, away))
+        # v35: CDI del partido (huso de la sede del local − huso del visitante)
+        if any(c in cols for c in cdi_futbol.COLS_CDI):
+            valores.update(cdi_futbol.vector_cdi(self.mapa_tz, home, away))
         return np.array([[valores[c] for c in cols]])
 
     def predecir(self, home: str, away: str) -> Dict:

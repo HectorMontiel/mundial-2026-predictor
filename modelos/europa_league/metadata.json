@@ -1,0 +1,26 @@
+{
+  "liga": "UEFA Europa League",
+  "n_train": 777,
+  "n_validacion": 195,
+  "fecha_corte": "2025-03-06",
+  "precision_validacion": 0.5128,
+  "precision_linea_base_elo": 0.5333,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 0.9795,
+  "n_equipos": 214,
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION",
+    "URGENCIA_DIFF",
+    "CDI_SEDE",
+    "CDI_VIAJE"
+  ],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

@@ -1,0 +1,23 @@
+{
+  "liga": "UEFA Conference League",
+  "n_train": 352,
+  "n_validacion": 99,
+  "fecha_corte": "2025-11-27",
+  "precision_validacion": 0.4444,
+  "precision_linea_base_elo": 0.4646,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0724,
+  "n_equipos": 135,
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION"
+  ],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

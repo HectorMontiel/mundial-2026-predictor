@@ -70,6 +70,9 @@ SPORT_KEYS = {
     'rumania': 'soccer_romania_liga_1',
     'irlanda': 'soccer_league_of_ireland',
     'champions': 'soccer_uefa_champs_league',
+    # v35 (§2): competiciones UEFA secundarias
+    'europa_league': 'soccer_uefa_europa_league',
+    'conference_league': 'soccer_uefa_europa_conference_league',
     'mundial': 'soccer_fifa_world_cup',
     # v34 (§4): la NBA se captura SOLA en cuanto arranca la temporada
     # (oct-jun). Fuera de ese rango ni se intenta, para no gastar créditos.
@@ -77,7 +80,10 @@ SPORT_KEYS = {
 }
 
 # deportes con ventana de temporada: (mes_inicio, mes_fin) inclusive
-TEMPORADA = {'nba': (10, 6)}
+# v35: las competiciones UEFA no juegan en junio (única ventana muerta:
+# las clasificatorias arrancan en julio). Fuera de rango no se gasta crédito.
+TEMPORADA = {'nba': (10, 6), 'europa_league': (7, 5),
+             'conference_league': (7, 5), 'champions': (7, 5)}
 
 
 def _en_temporada(clave: str) -> bool:
@@ -387,6 +393,87 @@ def capturar_liga(clave_liga: str) -> List[Dict]:
     except Exception as e:
         logger.warning(f"The Odds API [{clave_liga}] falló: {e}")
     return filas
+
+
+def deportes_activos() -> List[str]:
+    """Claves de deporte ACTIVAS ahora mismo. El endpoint /sports es
+    GRATUITO (no descuenta cuota), así que se puede consultar siempre."""
+    k = _clave()
+    if not k:
+        return []
+    try:
+        r = requests.get(f"{BASE}/sports", params={'apiKey': k}, timeout=25)
+        r.raise_for_status()
+        return [s['key'] for s in r.json()]
+    except Exception as e:
+        logger.warning(f"The Odds API /sports falló: {e}")
+        return []
+
+
+def capturar_tenis(max_torneos: int = 2) -> List[Dict]:
+    """v35 (§1.4): cuotas de ganador de partido de ATP y WTA.
+
+    HALLAZGO que corrige la nota de la v30 ("The Odds API no tiene tenis en
+    la capa gratuita"): SÍ los tiene, pero como una clave POR TORNEO
+    (tennis_atp_*, tennis_wta_*, 41 en total) que solo existe mientras el
+    torneo se juega. Por eso no aparecía en la lista de deportes activos.
+    Se descubren dinámicamente con /sports (gratis) y solo se gastan
+    créditos por los torneos realmente en curso, con tope diario.
+    """
+    activos = [s for s in deportes_activos()
+               if s.startswith('tennis_atp') or s.startswith('tennis_wta')]
+    if not activos:
+        logger.info("The Odds API: ningún torneo de tenis en curso hoy "
+                    "(0 créditos gastados).")
+        return []
+    k = _clave()
+    filas = []
+    for clave_torneo in activos[:max_torneos]:
+        if not _presupuesto_disponible():
+            break
+        _consumir_request()
+        try:
+            r = requests.get(f"{BASE}/sports/{clave_torneo}/odds",
+                             params={'apiKey': k, 'regions': 'eu',
+                                     'markets': 'h2h', 'oddsFormat': 'decimal'},
+                             timeout=30)
+            r.raise_for_status()
+            _registrar_restantes(r)
+            circuito = 'wta' if '_wta_' in clave_torneo else 'atp'
+            for ev in r.json():
+                inicio = ev.get('commence_time')
+                casas = ev.get('bookmakers', [])
+                if not casas:
+                    continue
+                for m in casas[0].get('markets', []):
+                    if m['key'] != 'h2h':
+                        continue
+                    for o in m['outcomes']:
+                        sel = 'home' if o['name'] == ev['home_team'] else 'away'
+                        filas.append({'match_id': f"{clave_torneo}_{ev.get('id')}",
+                                      'liga': circuito, 'torneo': clave_torneo,
+                                      'inicio_utc': inicio, 'fuente': 'odds_api',
+                                      'mercado': 'h2h', 'seleccion': sel,
+                                      'jugador': o['name'], 'cuota': o['price'],
+                                      'home': ev['home_team'], 'away': ev['away_team']})
+        except Exception as e:
+            logger.warning(f"The Odds API [{clave_torneo}] falló: {e}")
+    logger.info(f"The Odds API tenis: {len(filas)} cuotas de "
+                f"{len(activos[:max_torneos])} torneo(s) de {len(activos)} activos.")
+    return filas
+
+
+def partidos_tenis_hoy(max_torneos: int = 2) -> List[Dict]:
+    """Agrupa capturar_tenis() por partido: [{home, away, odd_home, odd_away,
+    circuito}] — mismo contrato que betexplorer_scraper.cuotas_tenis_hoy()."""
+    por_partido: Dict[str, Dict] = {}
+    for f in capturar_tenis(max_torneos=max_torneos):
+        p = por_partido.setdefault(f['match_id'], {
+            'home': f['home'], 'away': f['away'], 'circuito': f['liga'],
+            'inicio_utc': f['inicio_utc'], 'odd_home': None, 'odd_away': None})
+        p[f"odd_{f['seleccion']}"] = float(f['cuota'])
+    return [p for p in por_partido.values()
+            if p['odd_home'] and p['odd_away']]
 
 
 def capturar_btts_evento(clave_liga: str, event_id: str, match_id: str,

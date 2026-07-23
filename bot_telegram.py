@@ -110,6 +110,12 @@ if __name__ == '__main__':
     except Exception as e:
         logger.error(f"No se pudo construir el resumen: {type(e).__name__}: {e}")
         sys.exit(0)          # nunca romper el workflow por un fallo de datos
-    print(mensaje)
+    # v35 (§4): la consola de Windows usa cp1252 y los emojis del resumen
+    # reventaban el print ANTES de intentar el envío (el mensaje sí es UTF-8
+    # válido y Telegram lo acepta). Se imprime de forma tolerante.
+    try:
+        print(mensaje)
+    except UnicodeEncodeError:
+        sys.stdout.buffer.write(mensaje.encode('utf-8', 'replace') + b'\n')
     if '--dry-run' not in sys.argv:
         enviar(mensaje)
