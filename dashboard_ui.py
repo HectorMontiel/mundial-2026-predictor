@@ -814,7 +814,7 @@ BANKROLL = st.sidebar.number_input(
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     st.header("💎 Apuestas del Día")
-    st.caption("Barrido UNIVERSAL (v49): TODAS las ligas con jornada (fixtures "
+    st.caption("Barrido UNIVERSAL (v51): TODAS las ligas con jornada (fixtures "
                "ESPN, sin depender de cuotas) + ⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA. "
                "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza sin "
                "cuota en vivo; **Pronósticos** = cobertura completa del día.")
