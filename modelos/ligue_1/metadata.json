@@ -23,7 +23,9 @@
   "roi_sim": {
     "n_apuestas": 158,
     "roi_pct": -8.17,
-    "aciertos": 74
+    "aciertos": 74,
+    "roi_pct_pinnacle": -11.52,
+    "n_con_pinnacle": 90
   },
   "mesm": {
     "n_val_con_cuotas": 329,
@@ -32,5 +34,6 @@
     "ll_prod": 1.0193,
     "ll_mesm": 1.0316,
     "adoptado": false
-  }
+  },
+  "imt": null
 }

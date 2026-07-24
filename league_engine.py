@@ -481,6 +481,14 @@ def descargar_liga(clave: str) -> pd.DataFrame:
             'odd_home': pd.to_numeric(crudo.get('B365H'), errors='coerce'),
             'odd_draw': pd.to_numeric(crudo.get('B365D'), errors='coerce'),
             'odd_away': pd.to_numeric(crudo.get('B365A'), errors='coerce'),
+            # v44: cuotas de cierre de OVER/UNDER 2.5 (media de mercado, con
+            # respaldo B365 de cierre) — para validar el mercado de goles.
+            'odd_over25': pd.to_numeric(crudo.get('AvgC>2.5'), errors='coerce')
+                            .fillna(pd.to_numeric(crudo.get('Avg>2.5'), errors='coerce'))
+                            .fillna(pd.to_numeric(crudo.get('B365C>2.5'), errors='coerce')),
+            'odd_under25': pd.to_numeric(crudo.get('AvgC<2.5'), errors='coerce')
+                            .fillna(pd.to_numeric(crudo.get('Avg<2.5'), errors='coerce'))
+                            .fillna(pd.to_numeric(crudo.get('B365C<2.5'), errors='coerce')),
             # v26: cierre de PINNACLE (PSC*) para CLV/Shadow — la casa más
             # eficiente; con respaldo PS* (apertura Pinnacle) si falta
             'odd_home_pin': pd.to_numeric(crudo.get('PSCH'), errors='coerce')
@@ -731,6 +739,47 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
                 roi_sim['n_con_pinnacle'] = len(con_pin)
             with open(f'roi_bets_{clave}.json', 'w', encoding='utf-8') as f:
                 json.dump(sorted(apuestas, key=lambda a: a['fecha']), f)
+
+        # v44: backtest del mercado OVER/UNDER 2.5 (solo si hay cuotas O/U de
+        # cierre — formato 'main'). Regresores Poisson LOCALES entrenados con
+        # X_tr (mismas features ya calculadas); over2.5 = 1−P(≤2 goles) con el
+        # total ~ Poisson(λ_local+λ_visit). Apuesta al lado con EV>0. Valida si
+        # el mercado de goles es rentable — antes solo teníamos 1X2.
+        if {'odd_over25', 'odd_under25'} <= set(df.columns):
+            from sklearn.ensemble import HistGradientBoostingRegressor
+            from scipy.stats import poisson as _poisson
+            rl = HistGradientBoostingRegressor(loss='poisson', max_iter=250,
+                                               learning_rate=0.05).fit(X_tr, ds['goles'][m_tr][:, 0])
+            rv = HistGradientBoostingRegressor(loss='poisson', max_iter=250,
+                                               learning_rate=0.05).fit(X_tr, ds['goles'][m_tr][:, 1])
+            lam = np.clip(rl.predict(X_va), 0.15, 4) + np.clip(rv.predict(X_va), 0.15, 4)
+            p_over = 1.0 - _poisson.cdf(2, lam)         # P(total > 2.5)
+            ou_odds = df.set_index('MATCH_ID')[['odd_over25', 'odd_under25']].reindex(ids_val)
+            gtot = pd.Series(ds['goles'][m_va].sum(axis=1), index=ids_val)
+            ou_bets = []
+            for i, mid in enumerate(ids_val):
+                oo = ou_odds.loc[mid]
+                if pd.isna(oo['odd_over25']) or pd.isna(oo['odd_under25']):
+                    continue
+                po = float(p_over[i])
+                # elegir el lado con EV>0 usando su cuota de cierre
+                lado, prob, cuota = ('over', po, float(oo['odd_over25']))
+                if (1 - po) * float(oo['odd_under25']) > po * float(oo['odd_over25']):
+                    lado, prob, cuota = ('under', 1 - po, float(oo['odd_under25']))
+                ev = cuota * prob - 1.0
+                if ev <= 0:
+                    continue
+                real_over = int(gtot.loc[mid] > 2.5)
+                gano = int((lado == 'over') == bool(real_over))
+                ou_bets.append({'fecha': str(pd.Timestamp(fechas_val.loc[mid]).date()),
+                                'prob': round(prob, 4), 'cuota': round(cuota, 3),
+                                'ev': round(ev, 4), 'gano': gano, 'lado': lado})
+            if ou_bets:
+                gou = sum(a['gano'] * (a['cuota'] - 1) - (1 - a['gano']) for a in ou_bets)
+                logger.info(f"[{clave}] O/U 2.5 backtest: {len(ou_bets)} apuestas, "
+                            f"ROI {100 * gou / len(ou_bets):+.1f}%")
+                with open(f'roi_bets_ou_{clave}.json', 'w', encoding='utf-8') as f:
+                    json.dump(sorted(ou_bets, key=lambda a: a['fecha']), f)
 
     # ------------------------------------------------------------------
     # v23 (MESM): meta-ensemble de superación de mercado. Protocolo SIN

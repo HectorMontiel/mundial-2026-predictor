@@ -18,7 +18,9 @@
   "roi_sim": {
     "n_apuestas": 344,
     "roi_pct": -3.91,
-    "aciertos": 191
+    "aciertos": 191,
+    "roi_pct_pinnacle": -4.18,
+    "n_con_pinnacle": 252
   },
   "mesm": {
     "n_val_con_cuotas": 603,
@@ -38,68 +40,5 @@
     "intercepto": 0.3456,
     "correlacion": 0.3588,
     "n": 2452
-  },
-  "walk_forward": {
-    "ventanas": [
-      {
-        "ventana": "2022-08-01 → 2023-02-01",
-        "n": 157,
-        "precision": 0.586,
-        "log_loss": 0.9349,
-        "precision_mercado": 0.586
-      },
-      {
-        "ventana": "2023-02-01 → 2023-08-01",
-        "n": 146,
-        "precision": 0.6644,
-        "log_loss": 0.8222,
-        "precision_mercado": 0.6759
-      },
-      {
-        "ventana": "2023-08-01 → 2024-02-01",
-        "n": 168,
-        "precision": 0.5655,
-        "log_loss": 0.9405,
-        "precision_mercado": 0.5833
-      },
-      {
-        "ventana": "2024-02-01 → 2024-08-01",
-        "n": 135,
-        "precision": 0.5481,
-        "log_loss": 1.1941,
-        "precision_mercado": 0.5704
-      },
-      {
-        "ventana": "2024-08-01 → 2025-02-01",
-        "n": 169,
-        "precision": 0.5325,
-        "log_loss": 0.9757,
-        "precision_mercado": 0.5503
-      },
-      {
-        "ventana": "2025-02-01 → 2025-08-01",
-        "n": 134,
-        "precision": 0.5448,
-        "log_loss": 0.9465,
-        "precision_mercado": 0.5672
-      },
-      {
-        "ventana": "2025-08-01 → 2026-02-01",
-        "n": 172,
-        "precision": 0.6047,
-        "log_loss": 0.9307,
-        "precision_mercado": 0.6047
-      },
-      {
-        "ventana": "2026-02-01 → 2026-08-01",
-        "n": 131,
-        "precision": 0.5267,
-        "log_loss": 0.9796,
-        "precision_mercado": 0.5115
-      }
-    ],
-    "precision_media": 0.5716,
-    "log_loss_medio": 0.9655,
-    "precision_mercado_media": 0.5812
   }
 }

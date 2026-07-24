@@ -54,6 +54,11 @@ MIN_CUOTA = 1.50
 # de Pinnacle por ≥5 pp. Validado: esos picks rindieron +14.7 % de ROI (p5
 # bootstrap +1.4) vs +12 % del resto. Es la señal que usan las apps de pago.
 SHARP_GAP_MIN = 0.05
+# v44: mercados con edge VALIDADO admitidos en la Capa 1 accionable. El
+# backtest multi-mercado (roi_bets_ou) probó que Over/Under 2.5 NO es rentable
+# de forma robusta (p5 bootstrap negativo) → fuera de Capa 1. Solo 1X2 por
+# ahora; se ampliará a otros mercados a medida que superen el bootstrap p5.
+MERCADOS_VALIDADOS_CAPA1 = {'1X2'}
 # v34 (prioridad: cobertura): 72 h en vez de 48. Las casas ya publican
 # cuotas con 3 días de antelación y el barrido pasaba de 178 partidos con
 # cuotas a solo 23 evaluados por el recorte temporal.
@@ -243,9 +248,16 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
                 'valor': ('🟢' if c['ev'] > 0.05 else
                           '🟡' if c['ev'] > 0 else '🔴'),
             }
-            if (c['prob'] > MIN_PROB and c['ev'] > MIN_EV
-                    and c['cuota'] > MIN_CUOTA
-                    and c['prob'] * c['ev'] >= MIN_CONVICCION):   # v40: convicción
+            pasa_filtros = (c['prob'] > MIN_PROB and c['ev'] > MIN_EV
+                            and c['cuota'] > MIN_CUOTA
+                            and c['prob'] * c['ev'] >= MIN_CONVICCION)  # v40
+            # v44: la Capa 1 (élite) SOLO admite mercados VALIDADOS. El backtest
+            # multi-mercado demostró que Over/Under 2.5 NO es rentable de forma
+            # robusta (ROI medio +2.6 % pero bootstrap p5 NEGATIVO: mercado de
+            # goles muy eficiente). Solo el 1X2 tiene edge validado (+9.9 % con
+            # la selección, +14.7 % con confirmación sharp). O/U y hándicap van
+            # a candidatos (informativo), nunca a la Capa 1 accionable.
+            if pasa_filtros and c['mercado'] in MERCADOS_VALIDADOS_CAPA1:
                 estado = _filtro_evc(tarjeta, resid)
                 if estado == 'descartada':      # divergencia crítica (v27)
                     tarjeta['nota'] = ('⚠️ descartada por EVC: confianza alta '

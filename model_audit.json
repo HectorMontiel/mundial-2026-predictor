@@ -87,12 +87,12 @@
    "disponible": true,
    "n": 78,
    "precision": 0.436,
-   "precision_mercado": 0.466,
+   "precision_mercado": 0.462,
    "bate_mercado": false,
    "roi_pct": -1.67,
-   "clv_pct": null,
+   "clv_pct": -4.36,
    "semaforo": "🟡",
-   "diagnostico": "No bate: pocos datos históricos, mercado muy eficiente (no superamos su implícita)."
+   "diagnostico": "No bate: pocos datos históricos, CLV negativo (-4.4 %): apostamos peor que el cierre, mercado muy eficiente (no superamos su implícita)."
   },
   {
    "liga": "argentina",
@@ -126,12 +126,12 @@
    "disponible": true,
    "n": 344,
    "precision": 0.555,
-   "precision_mercado": 0.579,
+   "precision_mercado": 0.571,
    "bate_mercado": false,
    "roi_pct": -3.91,
-   "clv_pct": null,
+   "clv_pct": -2.71,
    "semaforo": "🔴",
-   "diagnostico": "No bate: mercado muy eficiente (no superamos su implícita)."
+   "diagnostico": "No bate: CLV negativo (-2.7 %): apostamos peor que el cierre, mercado muy eficiente (no superamos su implícita)."
   },
   {
    "liga": "eredivisie",
@@ -165,12 +165,12 @@
    "disponible": true,
    "n": 158,
    "precision": 0.468,
-   "precision_mercado": 0.499,
+   "precision_mercado": 0.492,
    "bate_mercado": false,
    "roi_pct": -8.17,
-   "clv_pct": null,
+   "clv_pct": -2.57,
    "semaforo": "🔴",
-   "diagnostico": "No bate: mercado muy eficiente (no superamos su implícita)."
+   "diagnostico": "No bate: CLV negativo (-2.6 %): apostamos peor que el cierre, mercado muy eficiente (no superamos su implícita)."
   },
   {
    "liga": "finlandia",
@@ -275,6 +275,24 @@
    "clv_pct": null,
    "semaforo": "🔴",
    "diagnostico": "No bate: pocos datos históricos, mercado muy eficiente (no superamos su implícita)."
+  }
+ ],
+ "mercados": [
+  {
+   "mercado": "1X2 (resultado)",
+   "n": 328,
+   "roi_pct": 9.1,
+   "roi_p5_bootstrap": 2.35,
+   "en_capa1": true,
+   "veredicto": "🟢 rentable y robusto"
+  },
+  {
+   "mercado": "Over/Under 2.5",
+   "n": 244,
+   "roi_pct": 1.52,
+   "roi_p5_bootstrap": -7.31,
+   "en_capa1": false,
+   "veredicto": "🟡 marginal"
   }
  ]
 }

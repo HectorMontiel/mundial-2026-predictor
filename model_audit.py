@@ -82,16 +82,65 @@ def auditar(guardar: bool = True) -> Dict:
             'diagnostico': _diagnostico(n, roi, clv, bate),
         })
     filas.sort(key=lambda f: -f['roi_pct'])
+
+    # v44: auditoría por MERCADO (spec §1.3) — 1X2 vs Over/Under 2.5, con la
+    # SELECCIÓN validada (banda ∩ prob ∩ convicción). Verdicto por bootstrap p5.
+    mercados = _auditar_mercados()
+
     salida = {'generado': __import__('pandas').Timestamp.today().strftime('%Y-%m-%d'),
               'n_ligas': len(filas),
               'ligas_rentables': sum(1 for f in filas if f['roi_pct'] > 0),
-              'ligas': filas}
+              'ligas': filas, 'mercados': mercados}
     if guardar:
         with open(ARCHIVO, 'w', encoding='utf-8') as f:
             json.dump(salida, f, ensure_ascii=False, indent=1)
     logger.info(f"[audit] {len(filas)} ligas · "
                 f"{salida['ligas_rentables']} rentables")
     return salida
+
+
+def _auditar_mercados() -> List[Dict]:
+    """1X2 vs Over/Under 2.5 con la selección validada + bootstrap p5."""
+    rng = np.random.default_rng(42)
+
+    def _cargar(patron):
+        out = []
+        for f in glob.glob(patron):
+            try:
+                for b in json.load(open(f, encoding='utf-8')):
+                    if b.get('cuota') and b.get('gano') is not None and b.get('prob'):
+                        out.append(b)
+            except Exception:
+                pass
+        return out
+
+    def _sel(bs):
+        return [b for b in bs if 0.03 <= b['ev'] <= 0.12 and b['prob'] >= 0.55
+                and b['prob'] * b['ev'] >= 0.025]
+
+    def _roi_p5(bs):
+        if not bs:
+            return (0, None)
+        roi = 100 * sum((b['cuota'] - 1) if b['gano'] else -1 for b in bs) / len(bs)
+        if len(bs) < 30:
+            return (round(roi, 2), None)
+        pnl = np.array([(b['cuota'] - 1) if b['gano'] else -1.0 for b in bs])
+        p5 = float(np.percentile([100 * rng.choice(pnl, len(pnl), replace=True).mean()
+                                  for _ in range(2000)], 5))
+        return (round(roi, 2), round(p5, 2))
+
+    out = []
+    for nombre, patron, excl in [('1X2 (resultado)', 'roi_bets_[!o]*.json', 'ou'),
+                                 ('Over/Under 2.5', 'roi_bets_ou_*.json', None)]:
+        bs = _sel(_cargar(patron))
+        roi, p5 = _roi_p5(bs)
+        # criterio v40: rentable SOLO si el bootstrap p5 es positivo
+        veredicto = ('🟢 rentable y robusto' if (p5 is not None and p5 > 0) else
+                     '🟡 marginal' if roi > 0 else '🔴 no rentable')
+        out.append({'mercado': nombre, 'n': len(bs), 'roi_pct': roi,
+                    'roi_p5_bootstrap': p5, 'en_capa1': nombre.startswith('1X2'),
+                    'veredicto': veredicto})
+    return out
 
 
 def cargar() -> Dict:
