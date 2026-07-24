@@ -380,10 +380,15 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
     capa2_futbol, pronosticos = [], []
     cobertura: Dict[str, int] = {}
     n_eval = 0
+    # v50.1: prefetch CONCURRENTE de los fixtures de todas las ligas (evita que
+    # ~14 llamadas secuenciales a ESPN cuelguen el barrido en Streamlit Cloud).
+    claves_disp = [c for c, cfg in _LG.items()
+                   if cfg.get('disponible') and c in fixtures_espn.ESPN_CODIGOS]
+    fixtures_por_liga = fixtures_espn.fixtures_multi(claves_disp)
     for clave, cfg in _LG.items():
         if not cfg.get('disponible') or clave not in fixtures_espn.ESPN_CODIGOS:
             continue
-        fixtures = fixtures_espn.fixtures_liga(clave)
+        fixtures = fixtures_por_liga.get(clave) or []
         if not fixtures:
             continue
         eng = motores.get(clave)

@@ -65,6 +65,11 @@ _CACHE: Dict[str, tuple] = {}
 _TTL = 1800  # 30 min
 
 
+# timeout corto: un scoreboard responde en <2 s cuando está sano. Un timeout
+# largo × muchas ligas secuenciales colgaba el barrido en Streamlit Cloud (v50.1).
+TIMEOUT = 8
+
+
 def fixtures_liga(clave: str, dias: int = 3) -> List[Dict]:
     """Próximos partidos (no finalizados) de una liga en [hoy, hoy+dias].
     Devuelve [{'fecha': 'YYYY-MM-DD', 'home': str, 'away': str}]."""
@@ -82,7 +87,7 @@ def fixtures_liga(clave: str, dias: int = 3) -> List[Dict]:
     try:
         r = requests.get(ESPN_BASE.format(liga=code),
                          params={'dates': f'{ini}-{fin}', 'limit': 500},
-                         timeout=25)
+                         timeout=TIMEOUT)
         r.raise_for_status()
         eventos = r.json().get('events', []) or []
     except Exception as e:
@@ -110,6 +115,27 @@ def fixtures_liga(clave: str, dias: int = 3) -> List[Dict]:
     logger.info(f"[fixtures/{clave}] {len(fixtures)} próximos partidos (ESPN {code}).")
     _CACHE[ck] = (ahora, fixtures)
     return fixtures
+
+
+def fixtures_multi(claves: List[str], dias: int = 3) -> Dict[str, List[Dict]]:
+    """v50.1: descarga los fixtures de MUCHAS ligas EN PARALELO. Convierte
+    ~14 llamadas secuenciales (que colgaban el barrido en Streamlit Cloud) en
+    un único lote concurrente. Cada liga sigue cacheada individualmente."""
+    from concurrent.futures import ThreadPoolExecutor
+    claves = [c for c in claves if c in ESPN_CODIGOS]
+    if not claves:
+        return {}
+    salida: Dict[str, List[Dict]] = {}
+    with ThreadPoolExecutor(max_workers=min(8, len(claves))) as ex:
+        futuros = {ex.submit(fixtures_liga, c, dias): c for c in claves}
+        for fut in futuros:
+            c = futuros[fut]
+            try:
+                salida[c] = fut.result()
+            except Exception as e:
+                logger.warning(f"[fixtures/{c}] {type(e).__name__}: {e}")
+                salida[c] = []
+    return salida
 
 
 if __name__ == '__main__':
