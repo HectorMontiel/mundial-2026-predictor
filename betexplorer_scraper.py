@@ -197,16 +197,32 @@ def _normalizar_club(nombre: str) -> str:
     return re.sub(r'\s+', ' ', s).strip()
 
 
-def cuotas_clubes_hoy(claves=('liga_mx', 'premier', 'laliga', 'serie_a',
-                              'bundesliga', 'ligue_1', 'eredivisie',
-                              'primeira')) -> pd.DataFrame:
-    """Cuotas 1X2 de HOY para partidos de nuestras ligas de clubes (v18/M2).
+def _claves_disponibles():
+    """v50: TODAS las ligas de clubes con modelo disponible (no solo las 8
+    europeas). Así las ligas EN TEMPORADA de verano (Brasil, Argentina, MLS,
+    China, nórdicas) también obtienen cuotas 1X2 reales de Betexplorer y sus
+    picks pasan de Capa 2 (sin cuota) a Capa 1 (con EV validado)."""
+    try:
+        from config import LEAGUES
+        return tuple(c for c, cfg in LEAGUES.items()
+                     if cfg.get('disponible') and cfg.get('formato') != 'espn'
+                     and cfg.get('formato') != 'api_football')
+    except Exception:
+        return ('liga_mx', 'premier', 'laliga', 'serie_a', 'bundesliga',
+                'ligue_1', 'eredivisie', 'primeira')
+
+
+def cuotas_clubes_hoy(claves=None) -> pd.DataFrame:
+    """Cuotas 1X2 de HOY para partidos de nuestras ligas de clubes (v18/M2,
+    ampliado en v50 a todas las ligas disponibles).
 
     La página diaria de Betexplorer lista todos los partidos del día con
     cuotas; se emparejan los equipos contra team_stats_{liga}.json (fuzzy,
     cutoff alto para evitar falsos positivos). Es la única fuente gratuita de
     cuotas EN VIVO para Liga MX (fixtures.csv no la cubre). 1 petición.
     """
+    if claves is None:
+        claves = _claves_disponibles()
     import difflib
     import json as _json
     import os as _os
