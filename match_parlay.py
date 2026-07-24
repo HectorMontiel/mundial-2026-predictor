@@ -154,6 +154,10 @@ _PREFIJOS = [
     ('th_o', 'th', _GOLES), ('ta_o', 'ta', _GOLES),
     ('multi_', 'multi', _GOLES),
     ('player_', 'goleador', _GOLES), ('shooter_', 'rematador', _GOLES),
+    # v57: goleadores desde el roster de ESPN. Cada jugador es su propio grupo
+    # (se pueden combinar dos goleadores distintos), familia común _GOLES para
+    # que el haircut de correlación con los totales se aplique.
+    ('scorer2_', 'goleador2', _GOLES), ('scorer_', 'goleador', _GOLES),
     # v54: córners por equipo / 1X2 / hándicap y tarjetas por equipo / 1X2.
     # Cada uno su propio grupo (no excluyente entre sí) pero misma familia
     # (_CORNERS / _TARJETAS) → se les aplica el haircut de correlación.
@@ -215,6 +219,12 @@ class Seleccion:
 def _clasificar(id_: str):
     if id_ in CAMPOS:
         return CAMPOS[id_]
+    # v57: cada GOLEADOR es su propio grupo — dos jugadores distintos pueden
+    # marcar ambos, así que no deben tratarse como opciones excluyentes. Pero
+    # «X marca» y «X marca 2+» del MISMO jugador sí comparten grupo (redundantes).
+    if id_.startswith(('scorer_', 'scorer2_')):
+        pid = id_.split('_')[-1]
+        return f'goleador_{pid}', _GOLES
     for prefijo, grupo, familia in _PREFIJOS:
         if id_.startswith(prefijo):
             return grupo, familia
@@ -256,11 +266,53 @@ CATEGORIAS_UI = ['Resultado', 'Doble oportunidad', 'Hándicap', 'Más de goles',
                  'Primeros innings', 'Extra innings']    # v56: MLB
 
 
+# v57: los ids de MLB usan guion bajo tras el prefijo ('over_7.5', 'under_8.5',
+# 'tt_home_over_3.5'), mientras que los de fútbol no ('over05'). Eso permite
+# nombrar las categorías con el vocabulario de CADA deporte (carreras vs goles).
+_CAT_MLB = {
+    '1x2': 'Resultado', 'ah': 'Run line (hándicap)',
+    'margen': 'Margen de victoria', 'paridad': 'Par/Impar carreras',
+    'th': 'Carreras por equipo', 'ta': 'Carreras por equipo',
+    'inn1': 'Primer inning', 'f5': 'Primeras 5 entradas',
+    'extra': 'Extra innings', 'props_k': 'Ponches (pitcher)',
+    'props_bat': 'Bateadores',
+}
+
+
+def _es_id_mlb(id_: str) -> bool:
+    return (id_.startswith(('rl_', 'inn1_', 'f5_', 'extra_', 'tot_par',
+                            'tot_impar', 'k_', 'bat_'))
+            or id_.startswith(('over_', 'under_', 'tt_home_', 'tt_away_')))
+
+
 def categoria_ui(id_: str) -> Optional[str]:
     grupo, _ = _clasificar(id_)
+    if grupo is None:
+        return None
+    if grupo.startswith('goleador_'):
+        return 'Goleadores'                       # v57
+    mlb = _es_id_mlb(id_)
     if grupo == 'ou_goles':
-        return 'Menos de goles' if id_.startswith('under') else 'Más de goles'
+        unidad = 'carreras' if mlb else 'goles'
+        return (f'Menos de {unidad}' if id_.startswith('under')
+                else f'Más de {unidad}')
+    if mlb and grupo in _CAT_MLB:
+        return _CAT_MLB[grupo]
     return _GRUPO_A_CAT.get(grupo)
+
+
+def categorias_disponibles(pl: Dict) -> List[str]:
+    """v57: categorías que EXISTEN realmente en la plantilla de este partido,
+    en el orden canónico. Así el selector del parlay muestra las de béisbol en
+    MLB y las de fútbol en fútbol (antes era una lista fija de fútbol)."""
+    presentes = {c for c in (categoria_ui(s.id) for s in obtener_selecciones(pl))
+                 if c}
+    orden: Dict[str, int] = {}
+    for i, c in enumerate(CATEGORIAS_UI + ['Más de carreras', 'Menos de carreras',
+                                           'Descanso/Final']
+                          + list(_CAT_MLB.values())):
+        orden.setdefault(c, i)          # conserva la PRIMERA aparición
+    return sorted(presentes, key=lambda c: orden.get(c, 999))
 
 
 def _cuotas_reales_del_partido(pl: Dict) -> Dict[str, float]:

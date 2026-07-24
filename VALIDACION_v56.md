@@ -59,3 +59,47 @@ frágil. Los props de BATEO (hits/HR/bases) exigen además el lineup del día.
 ## No regresión
 - `test_simetria.py` → TODO OK · `test_match_parlay.py` → TODO OK
 - Smoke `dashboard_ui.py` (⚾ MLB con plantilla + combinador) → OK
+
+---
+
+# v57 — Categorías por deporte + GOLEADORES (fuente nueva)
+
+## 1. Categorías del parlay, por deporte ✅
+El selector mostraba SIEMPRE las categorías de fútbol (córners, tarjetas,
+goles) aunque el partido fuera de MLB. Ahora `categorias_disponibles(pl)`
+las deriva de la plantilla REAL del partido, y `categoria_ui` usa el
+vocabulario de cada deporte (carreras vs goles):
+
+- **MLB**: Resultado · Run line (hándicap) · Margen de victoria · Par/Impar
+  carreras · Carreras por equipo · Primer inning · Primeras 5 entradas ·
+  Extra innings · Más/Menos de carreras.
+- **Fútbol**: las 21 de siempre + Goleadores.
+
+## 2. GOLEADORES — fuente encontrada e integrada ✅
+Tras auditar varias opciones:
+- Understat → solo top-5 ligas y la temporada nueva viene vacía. ❌
+- scores24.live → Cloudflare + SPA React. ❌
+- FBref / API-Football → rate-limit agresivo o de pago. ❌
+- **ESPN roster** (`/teams/{id}/roster`) → ✅ **gratis, sin clave, cubre TODAS
+  nuestras ligas** y devuelve por jugador `totalGoals`, `goalAssists`,
+  `appearances`, `totalShots`. Es el mismo JSON que ya usamos para fixtures.
+
+`goleadores.py`:
+- Descarga equipos y rosters por liga (caché 3 días en `goleadores_cache.json`).
+- Si la temporada en curso tiene muestra pobre (arranque de torneo), cae a la
+  **temporada anterior** automáticamente.
+- Modelo: λ_jugador = xG del equipo en ESTE partido × cuota goleadora del
+  jugador, con **shrinkage bayesiano** (PRIOR_CUOTA 0.06, K=12) para que con
+  pocos goles de muestra un jugador no acapare el 100 %.
+- Mercados: «X marca en cualquier momento» y «X marca 2 o más».
+- Verificado (Atlante vs América): 7-18 % por jugador, en línea con las casas.
+  Sin shrinkage daba 75 % (irreal) — el ajuste es lo que lo hace usable.
+
+Integrado como sección «14. Goleadores» en la plantilla de TODAS las ligas de
+fútbol, y clasificado en el parlay: cada jugador es su propio grupo (dos
+goleadores distintos SÍ se pueden combinar; «marca» y «marca 2+» del mismo
+jugador no, por redundantes).
+
+## No regresión
+- `test_simetria.py` → TODO OK · `test_match_parlay.py` → TODO OK
+- Smoke `dashboard_ui.py` (⚾ MLB, 🇲🇽 Liga MX) → OK

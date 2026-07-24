@@ -1524,6 +1524,18 @@ class ClubEngine:
                           'campos': _mercados_mitad(lam_h, lam_a, f1h, f2h,
                                                     home, away, campo, pct, _po, _np)})
 
+        # 14. GOLEADORES (v57) — jugadores desde el roster de ESPN (gratis, sin
+        # clave, cobertura de todas nuestras ligas). Degrada en silencio si la
+        # liga o el equipo no tienen datos.
+        try:
+            import goleadores
+            campos_gol = goleadores.mercados_goleadores(self.clave, home, away,
+                                                        lam_h, lam_a)
+            if campos_gol:
+                secciones.append({'titulo': '14. Goleadores', 'campos': campos_gol})
+        except Exception as e:
+            logger.warning(f"[{self.clave}] goleadores no disponibles: {e}")
+
         return {
             'partido': f'{home} vs {away}',
             'codigos': {'home': home, 'away': away},

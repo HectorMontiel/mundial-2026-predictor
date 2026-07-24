@@ -501,13 +501,22 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                      "presentes en odds_actuales.json (1X2, O/U 2.5, BTTS, "
                      "AH ±0.5). EV 100 % accionable, menos mercados.")
         with c4:
-            from match_parlay import CATEGORIAS_UI
+            # v57: las categorías salen de la plantilla REAL de este partido, así
+            # que en MLB se ven las de béisbol (run line, innings, carreras...) y
+            # en fútbol las de fútbol. Antes era una lista fija de fútbol.
+            from match_parlay import categorias_disponibles
+            try:
+                _pl_cats = (motor.plantilla_club(home, away)
+                            if hasattr(motor, 'plantilla_club')
+                            else motor.plantilla(home, away))
+                _cats_disp = categorias_disponibles(_pl_cats)
+            except Exception:
+                _cats_disp = []
             cats_sel = st.multiselect(
-                "Categorías permitidas", CATEGORIAS_UI, default=CATEGORIAS_UI,
+                "Categorías permitidas", _cats_disp, default=_cats_disp,
                 key=f"mp_cats_{key}",
-                help="Incluye TODOS los tipos de mercado: resultado, hándicap, "
-                     "más/menos de goles, ambos marcan, córners (y por equipo), "
-                     "tarjetas, remates, 1ª/2ª mitad...")
+                help="Tipos de mercado disponibles en ESTE partido "
+                     "(cambian según el deporte).")
         categorias = set(cats_sel) if cats_sel else None
         if st.button("🎯 Proponer parlay para este partido", key=f"mp_btn_{key}",
                      type="primary"):
