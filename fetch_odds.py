@@ -190,8 +190,11 @@ def actualizar_odds():
         # Liga MX/MLS juegan y la API sí trae sus cuotas.
         api_h2h = odds_api.cuotas_recientes('h2h')
         api_tot = odds_api.cuotas_recientes('totals25')
+        # v42: línea SHARP de Pinnacle (referencia de confirmación)
+        api_pin = odds_api.cuotas_recientes('h2h', fuente='pinnacle')
     except Exception as e:
         logger.warning(f"Almacén CLV no disponible: {e}")
+        api_pin = {}
 
     extra = []
     ya = set(snapshot['MATCH_ID']) if not snapshot.empty else set()
@@ -220,6 +223,13 @@ def actualizar_odds():
                 cuotas_dict[mid]['odd_btts_yes'] = c['yes']
             if c.get('no'):
                 cuotas_dict[mid]['odd_btts_no'] = c['no']
+    # v42: cuotas de cierre SHARP de Pinnacle → confirmación sharp en alpha
+    for mid, c in (api_pin or {}).items():
+        if mid in cuotas_dict:
+            for sel, attr in (('home', 'odd_home_pin'), ('draw', 'odd_draw_pin'),
+                              ('away', 'odd_away_pin')):
+                if c.get(sel):
+                    cuotas_dict[mid][attr] = c[sel]
     with open('odds_actuales.json', 'w', encoding='utf-8') as f:
         json.dump({'actualizado': datetime.date.today().isoformat(),
                    'cuotas': cuotas_dict}, f)

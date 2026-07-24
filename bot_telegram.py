@@ -34,10 +34,12 @@ def _fmt_pick(p: dict) -> str:
                   f"EV {(p.get('ev') or 0)*100:+.1f}%")
     else:
         precio = f"sin cuota en vivo · mínima sugerida {p.get('cuota_justa','?')}"
-    marca = '⭐' if p.get('platino') else ('💎' if p.get('evc') else '•')
+    marca = '💠' if p.get('sharp_confirmado') else \
+            ('⭐' if p.get('platino') else ('💎' if p.get('evc') else '•'))
+    sharp = ' · 💠 confirmado sharp' if p.get('sharp_confirmado') else ''
     return (f"{marca} [{p.get('deporte','Fútbol')}] {p.get('partido','?')}\n"
             f"   {p.get('apuesta','?')} {precio} · prob "
-            f"{(p.get('prob') or 0)*100:.0f}% {p.get('fiabilidad','')}")
+            f"{(p.get('prob') or 0)*100:.0f}% {p.get('fiabilidad','')}{sharp}")
 
 
 def construir_mensaje() -> str:

@@ -891,7 +891,8 @@ def render_alpha_finder():
         if titulo:
             st.subheader(titulo)
         for t in lista:
-            pref = ('⭐ ' if t.get('platino') else '') \
+            pref = ('💠 ' if t.get('sharp_confirmado') else '') \
+                + ('⭐ ' if t.get('platino') else '') \
                 + ('⚡ ' if t.get('shadow') else '')
             # v31: las tarjetas sirven a las DOS capas — con cuota real
             # (EV) o sin ella (cuota mínima sugerida). Todo defensivo.
@@ -919,6 +920,8 @@ def render_alpha_finder():
                 c2.markdown(f"**{t.get('apuesta','?')}**  \n{t.get('mercado','')}")
                 rent = t.get('rentabilidad') or {}
                 c3.markdown(precio
+                            + ("  \n💠 **Confirmado por línea sharp** (Pinnacle)"
+                               if t.get('sharp_confirmado') else '')
                             + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
                             + (f"  \n{rent['etiqueta']}" if rent.get('etiqueta')
                                and rent.get('tier') != 'sin_ev' else '')
