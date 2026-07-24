@@ -1541,6 +1541,70 @@ def render_nba():
                    "real hasta que The Odds API reactive la NBA en octubre.")
 
 
+def _prob_set_local(p_partido: float, best_of: int = 3) -> float:
+    """v51.2: invierte P(partido)→P(set) bajo sets i.i.d. Réplica local (en el
+    script principal, siempre fresco) para no depender de que Streamlit Cloud
+    recargue el módulo del motor tras un despliegue."""
+    p_partido = min(max(p_partido, 1e-4), 1 - 1e-4)
+    lo, hi = 0.0, 1.0
+    for _ in range(60):
+        s = (lo + hi) / 2
+        pm = (s ** 3 * (1 + 3 * (1 - s) + 6 * (1 - s) ** 2) if best_of == 5
+              else s ** 2 * (3 - 2 * s))
+        if pm < p_partido:
+            lo = s
+        else:
+            hi = s
+    return (lo + hi) / 2
+
+
+def _mercados_sets_tenis(home: str, away: str, p: float, best_of: int = 3):
+    """v51.2: TODOS los mercados de sets derivables (primer set, marcador
+    exacto ambos lados, gana exactamente 1 set, ambos ganan un set, hándicap
+    de sets ±1.5, doble resultado 1er set/partido) calculados AQUÍ, en el
+    script principal. Robusto ante el caché de módulos de Streamlit Cloud."""
+    s = _prob_set_local(p, best_of)
+    campos = []
+    if best_of == 3:
+        h20, h21 = s ** 2, 2 * s ** 2 * (1 - s)
+        a20, a21 = (1 - s) ** 2, 2 * (1 - s) ** 2 * s
+        p_ambos = 1 - s ** 2 - (1 - s) ** 2
+        dr_hh = s * (1 - (1 - s) ** 2)
+        dr_ha = s * (1 - s) ** 2
+        dr_ah = (1 - s) * s ** 2
+        dr_aa = (1 - s) * (1 - s ** 2)
+        campos = [
+            {'id': 'set1_home', 'etiqueta': f'Gana 1er set: {home}', 'valor': s * 100},
+            {'id': 'set1_away', 'etiqueta': f'Gana 1er set: {away}', 'valor': (1 - s) * 100},
+            {'id': 'set_2_0', 'etiqueta': f'{home} gana 2-0', 'valor': h20 * 100},
+            {'id': 'set_2_1', 'etiqueta': f'{home} gana 2-1', 'valor': h21 * 100},
+            {'id': 'set_0_2', 'etiqueta': f'{away} gana 2-0', 'valor': a20 * 100},
+            {'id': 'set_1_2', 'etiqueta': f'{away} gana 2-1', 'valor': a21 * 100},
+            {'id': 'ambos_set', 'etiqueta': 'Ambos ganan al menos un set', 'valor': p_ambos * 100},
+            {'id': 'set_home', 'etiqueta': f'{home} gana al menos un set', 'valor': (1 - (1 - s) ** 2) * 100},
+            {'id': 'set_away', 'etiqueta': f'{away} gana al menos un set', 'valor': (1 - s ** 2) * 100},
+            {'id': 'exact1_home', 'etiqueta': f'{home} gana exactamente 1 set', 'valor': a21 * 100},
+            {'id': 'exact1_away', 'etiqueta': f'{away} gana exactamente 1 set', 'valor': h21 * 100},
+            {'id': 'hset_home_-1.5', 'etiqueta': f'{home} −1.5 sets (gana 2-0)', 'valor': h20 * 100},
+            {'id': 'hset_home_+1.5', 'etiqueta': f'{home} +1.5 sets (gana ≥1 set)', 'valor': (1 - (1 - s) ** 2) * 100},
+            {'id': 'hset_away_-1.5', 'etiqueta': f'{away} −1.5 sets (gana 2-0)', 'valor': a20 * 100},
+            {'id': 'hset_away_+1.5', 'etiqueta': f'{away} +1.5 sets (gana ≥1 set)', 'valor': (1 - s ** 2) * 100},
+            {'id': 'dr_hh', 'etiqueta': f'Doble: {home} 1er set y {home} partido', 'valor': dr_hh * 100},
+            {'id': 'dr_ha', 'etiqueta': f'Doble: {home} 1er set y {away} partido', 'valor': dr_ha * 100},
+            {'id': 'dr_ah', 'etiqueta': f'Doble: {away} 1er set y {home} partido', 'valor': dr_ah * 100},
+            {'id': 'dr_aa', 'etiqueta': f'Doble: {away} 1er set y {away} partido', 'valor': dr_aa * 100},
+        ]
+    else:
+        p20 = s ** 3 * (1 + 3 * (1 - s))
+        campos = [
+            {'id': 'set1_home', 'etiqueta': f'Gana 1er set: {home}', 'valor': s * 100},
+            {'id': 'set1_away', 'etiqueta': f'Gana 1er set: {away}', 'valor': (1 - s) * 100},
+            {'id': 'set_home', 'etiqueta': f'{home} gana al menos un set', 'valor': (1 - (1 - s) ** 3) * 100},
+            {'id': 'set_away', 'etiqueta': f'{away} gana al menos un set', 'valor': (1 - s ** 3) * 100},
+        ]
+    return campos
+
+
 def render_tennis():
     """v30 (§5) + v35 (§1): vista de Tenis con los DOS circuitos, ELO por
     superficie (incluida pista cubierta) y features de fatiga."""
@@ -1594,7 +1658,14 @@ def render_tennis():
             # y juegos, totales de juegos, gana exactamente 1 set, doble
             # resultado. Todo derivado del modelo con cuota justa (1/prob).
             pl = eng.plantilla(p1, p2, surface=sup, best_of=best_of, indoor=indoor)
-            campos = pl.get('campos', [])
+            campos = list(pl.get('campos', []))
+            # v51.2: los mercados de SETS se calculan aquí (script principal,
+            # siempre fresco) y se fusionan por id, de modo que aparezcan aunque
+            # Streamlit Cloud sirva una versión cacheada del módulo del motor.
+            ids = {c.get('id') for c in campos}
+            for c in _mercados_sets_tenis(p1, p2, pred['prob_home'], best_of):
+                if c['id'] not in ids:
+                    campos.append(c)
             if campos:
                 st.divider()
                 st.subheader("📋 Plantilla completa de mercados (para parlays)")
