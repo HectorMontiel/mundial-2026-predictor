@@ -226,6 +226,68 @@ def fixtures_deporte(deporte: str, dias: int = 2) -> List[Dict]:
     return salida
 
 
+# v60: competiciones de SELECCIONES NACIONALES. Tras el Mundial 2026 la vista
+# «Partidos Internacionales» debe mostrar lo que viene de verdad: amistosos,
+# Nations League y clasificatorias. Verificado 2026-07-24: 165 partidos
+# programados a 200 días (amistosos desde el 23-sep, Nations League 24-sep).
+LIGAS_SELECCIONES = [
+    ('fifa.friendly', 'Amistoso'),
+    ('uefa.nations', 'UEFA Nations League'),
+    ('fifa.worldq.uefa', 'Clasif. UEFA'),
+    ('fifa.worldq.concacaf', 'Clasif. CONCACAF'),
+    ('fifa.worldq.conmebol', 'Clasif. CONMEBOL'),
+    ('fifa.worldq.afc', 'Clasif. AFC'),
+    ('fifa.worldq.caf', 'Clasif. CAF'),
+]
+
+
+def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
+    """Próximos partidos de SELECCIONES NACIONALES (amistosos, Nations League y
+    clasificatorias) desde ESPN. Devuelve [{'fecha','home','away','torneo'}]
+    ordenados por fecha. La ventana es amplia porque las fechas FIFA son
+    ventanas concretas separadas por meses."""
+    ck = f'selecciones:{dias}'
+    ahora = time.time()
+    if ck in _CACHE and ahora - _CACHE[ck][0] < _TTL:
+        return _CACHE[ck][1]
+    hoy = pd.Timestamp.today().normalize()
+    ini = hoy.strftime('%Y%m%d')
+    fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
+    salida: List[Dict] = []
+    for liga, torneo in LIGAS_SELECCIONES:
+        try:
+            r = requests.get(ESPN_BASE.format(liga=liga),
+                             params={'dates': f'{ini}-{fin}', 'limit': 400},
+                             timeout=TIMEOUT,
+                             headers={'User-Agent': 'Mozilla/5.0'})
+            r.raise_for_status()
+            eventos = r.json().get('events', []) or []
+        except Exception as e:
+            logger.warning(f"[selecciones/{liga}] {type(e).__name__}: {e}")
+            continue
+        for ev in eventos:
+            try:
+                comp = ev['competitions'][0]
+                if comp.get('status', ev.get('status', {})).get('type', {}).get('completed'):
+                    continue
+                loc = next(c for c in comp['competitors'] if c['homeAway'] == 'home')
+                vis = next(c for c in comp['competitors'] if c['homeAway'] == 'away')
+                fecha = pd.to_datetime(ev['date'])
+                if fecha.tzinfo:
+                    fecha = fecha.tz_convert(None)
+                salida.append({'fecha': fecha.strftime('%Y-%m-%d'),
+                               'home': loc['team']['displayName'],
+                               'away': vis['team']['displayName'],
+                               'torneo': torneo})
+            except Exception:
+                continue
+    salida.sort(key=lambda x: x['fecha'])
+    salida = salida[:limite]
+    logger.info(f"[selecciones] {len(salida)} próximos partidos de selecciones.")
+    _CACHE[ck] = (ahora, salida)
+    return salida
+
+
 def fixtures_multi(claves: List[str], dias: int = 3) -> Dict[str, List[Dict]]:
     """v50.1: descarga los fixtures de MUCHAS ligas EN PARALELO. Convierte
     ~14 llamadas secuenciales (que colgaban el barrido en Streamlit Cloud) en

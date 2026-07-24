@@ -1086,6 +1086,34 @@ def proponer_parlays(motor, home: str, away: str, max_opciones: int = 5,
     Se descartan duplicados (misma combinación de patas)."""
     vistas: Set[tuple] = set()
     opciones: List[Dict] = []
+    # v60: variantes ANCLADAS EN EL RESULTADO — el usuario quiere ver siempre
+    # la parte de «quién gana». Una con doble oportunidad (más segura) y otra
+    # con el 1X2 puro (ganador directo, más cuota).
+    for n, etiq, desc, pref1x2, minp in (
+            (3, '🥅 Con resultado', 'Incluye doble oportunidad (1X/12/X2).', False, 0.55),
+            (3, '🎯 Ganador directo', 'Incluye el 1X2 puro: gana local, empate o visitante.', True, 0.0)):
+        try:
+            r = construir_parlay_con_resultado(
+                motor, home, away, num_selecciones=n, perfil='medio',
+                preferir_1x2=pref1x2, min_prob_ancla=minp,
+                solo_cuotas_reales=solo_cuotas_reales)
+        except Exception as e:
+            logger.warning(f"[multiparlay/resultado] {type(e).__name__}: {e}")
+            continue
+        if 'error' in r:
+            continue
+        firma = tuple(sorted(s['apuesta'] for s in r['selecciones']))
+        if firma in vistas:
+            continue
+        pfp = float(r.get('prob_conjunta') or 0)
+        cuota = float(r.get('cuota_combinada') or 1)
+        if pfp < 0.15 or cuota < MIN_CUOTA_OPCION:
+            continue
+        vistas.add(firma)
+        r['etiqueta_opcion'] = etiq
+        r['descripcion_opcion'] = desc
+        r['score_opcion'] = round(pfp * (cuota ** 0.5), 4)
+        opciones.append(r)
     for perfil, n, etiqueta, desc, min_pfp in _ETIQUETAS_OPCION:
         try:
             r = construir_parlay_partido(
@@ -1157,3 +1185,103 @@ def plantilla_a_texto(pl: Dict) -> str:
     lineas.append('Cuotas justas = 1/probabilidad (sin margen de casa). '
                   'Juego responsable.')
     return '\n'.join(lineas)
+
+
+# ---------------------------------------------------------------------------
+# v60 — PARLAYS CON MERCADO DE RESULTADO. El buscador maximiza probabilidad, y
+# los mercados de resultado (1X2 / doble oportunidad) casi nunca ganaban a un
+# «Menos de 5.5 goles» al 98 %. Pero el usuario quiere ver SIEMPRE la parte de
+# quién gana. Estas variantes fijan un ANCLA de resultado y completan alrededor.
+# ---------------------------------------------------------------------------
+GRUPOS_RESULTADO = {'1x2', 'dc'}
+# Una pata con prob > 0.95 tiene cuota < 1.05: no paga, solo alarga el boleto.
+MAX_PROB_RELLENO = 0.95
+
+
+def _mejor_ancla_resultado(sels: List['Seleccion'], min_prob: float,
+                           preferir_1x2: bool = False) -> Optional['Seleccion']:
+    """Elige la pata de resultado a fijar: la de mayor probabilidad que supere
+    `min_prob`. Con `preferir_1x2` se restringe al 1X2 puro (gana local /
+    empate / gana visitante), que es lo que más busca el usuario."""
+    grupos = {'1x2'} if preferir_1x2 else GRUPOS_RESULTADO
+    cands = [s for s in sels if _clasificar(s.id)[0] in grupos and s.prob >= min_prob]
+    if not cands:
+        return None
+    return max(cands, key=lambda s: (s.prob, s.cuota))
+
+
+def construir_parlay_con_resultado(motor, home: str, away: str,
+                                   num_selecciones: int = 3,
+                                   perfil: str = 'conservador',
+                                   preferir_1x2: bool = False,
+                                   min_prob_ancla: float = 0.0,
+                                   solo_cuotas_reales: bool = False) -> Dict:
+    """Parlay que SIEMPRE incluye un mercado de resultado (1X2 o doble
+    oportunidad) como ancla, completado con los mejores mercados compatibles.
+    Devuelve la misma estructura que `construir_parlay_partido`."""
+    pl = (motor.plantilla_club(home, away) if hasattr(motor, 'plantilla_club')
+          else motor.plantilla(home, away))
+    if 'error' in pl:
+        return {'error': pl['error']}
+    sels = obtener_selecciones(pl)
+    if solo_cuotas_reales:
+        sels = [s for s in sels if s.cuota_fuente == 'real']
+    ancla = _mejor_ancla_resultado(sels, min_prob_ancla, preferir_1x2)
+    if ancla is None:
+        return {'error': 'Este partido no tiene mercado de resultado utilizable.'}
+    cfg = PERFILES.get(perfil, PERFILES['conservador'])
+    # candidatas compatibles con el ancla (y que no sean equivalentes a ella)
+    # v60: se excluyen las patas "de relleno" (prob > MAX_PROB_RELLENO): un
+    # mercado al 98 % tiene cuota ~1.02 y no aporta premio, solo alarga el
+    # boleto. El ancla de resultado sí puede tener cualquier probabilidad.
+    resto = [s for s in sels
+             if s.id != ancla.id and _compatibles(ancla, s)
+             and cfg['min_prob'] <= s.prob <= MAX_PROB_RELLENO]
+    elegidas = [ancla]
+    usadas_fam: Dict[str, int] = {ancla.familia: 1}
+    # completado voraz por probabilidad, respetando compatibilidad y topes
+    for s in sorted(resto, key=lambda x: -x.prob):
+        if len(elegidas) >= num_selecciones:
+            break
+        if not all(_compatibles(s, e) for e in elegidas):
+            continue
+        tope = MAX_POR_FAMILIA.get(s.familia)
+        if tope is not None and usadas_fam.get(s.familia, 0) >= tope:
+            continue
+        elegidas.append(s)
+        usadas_fam[s.familia] = usadas_fam.get(s.familia, 0) + 1
+    if len(elegidas) < MIN_SELECCIONES:
+        return {'error': 'No hay mercados compatibles suficientes con el '
+                         'mercado de resultado.'}
+    # probabilidad conjunta ajustada por correlación (mismo motor que el resto)
+    prob = 1.0
+    for s in elegidas:
+        prob *= s.prob
+    for i in range(len(elegidas)):
+        for j in range(i + 1, len(elegidas)):
+            prob *= sgp_correlation.factor_par(
+                elegidas[i].id, elegidas[i].prob,
+                elegidas[j].id, elegidas[j].prob,
+                misma_familia=_correlacionadas(elegidas[i], elegidas[j]))
+    cuota = 1.0
+    for s in elegidas:
+        cuota *= s.cuota
+    hay_reales = all(s.cuota_fuente == 'real' for s in elegidas)
+    return {
+        'partido': f'{home} vs {away}',
+        'n_selecciones': len(elegidas),
+        'prob_conjunta': round(max(min(prob, 1.0), 1e-9), 4),
+        'cuota_combinada': round(cuota, 2),
+        'ev_parlay': round(cuota * prob - 1.0, 3) if hay_reales else 0.0,
+        'cuotas_reales': hay_reales,
+        'riesgo_partido': _riesgo_partido(pl),
+        'avisos': [],
+        'selecciones': [{'mercado': s.mercado, 'apuesta': s.apuesta,
+                         'prob': round(s.prob, 3), 'cuota': s.cuota,
+                         'cuota_fuente': s.cuota_fuente,
+                         'categoria': categoria_ui(s.id) or s.familia}
+                        for s in elegidas],
+        'nota': ('Combinada anclada en el mercado de RESULTADO; el resto de '
+                 'patas se eligen entre las compatibles de mayor probabilidad. '
+                 'Probabilidad conjunta ajustada por correlación.'),
+    }

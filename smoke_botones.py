@@ -22,6 +22,7 @@ VISTAS = {
     '🇲🇽 Liga MX': ['Proponer parlays'],
     '🎾 Tenis (ATP/WTA)': [],
     '💎 Apuestas del Día': ['Generar combinadas'],
+    '🌍 Partidos Internacionales': ['Proponer parlays'],
 }
 
 fallos = []

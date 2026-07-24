@@ -2189,13 +2189,47 @@ col_sel1, col_sel2, col_sel3 = st.columns([2, 1, 1])
 with col_sel1:
     opciones_fixture = ["(elegir equipos manualmente)"]
     fixture_map = {}
-    for _, f in MOTOR.calendario.iterrows():
-        etiqueta = (f"{NOMBRES_PAIS.get(f['home'], f['home'])} vs "
-                    f"{NOMBRES_PAIS.get(f['away'], f['away'])} — "
-                    f"{pd.to_datetime(f['date']).strftime('%d %b')} · {f['stadium']}")
+    # v60: el Mundial 2026 ya terminó. La vista pasa a los PRÓXIMOS PARTIDOS
+    # REALES de selecciones (amistosos, Nations League y clasificatorias) desde
+    # ESPN, que se refrescan solos. Si ESPN no devuelve nada se cae al
+    # calendario oficial guardado (degradación honesta).
+    _sel_fx = []
+    try:
+        import fixtures_espn as _fx_mod
+        _sel_fx = _fx_mod.fixtures_selecciones()
+    except Exception:
+        _sel_fx = []
+    import name_mapper as _nm_int
+    # ESPN publica los nombres en INGLÉS ("Netherlands", "Germany"), así que el
+    # catálogo se construye con TEAM_NAMES_EN (mapear contra los nombres en
+    # español dejaba fuera casi todo).
+    from config import TEAM_NAMES_EN as _EN
+    _cat_int = {}
+    for _c in MOTOR.equipos:
+        _cat_int[_EN.get(_c, _c)] = _c
+        _cat_int.setdefault(NOMBRES_PAIS.get(_c, _c), _c)
+    _n_int = 0
+    for f in _sel_fx:
+        _h = _nm_int.mapear(f['home'], _cat_int.keys(), contexto='selecciones')
+        _a = _nm_int.mapear(f['away'], _cat_int.keys(), contexto='selecciones')
+        if not (_h and _a) or _h == _a:
+            continue
+        etiqueta = (f"{f['fecha']} · {f['home']} vs {f['away']} — {f['torneo']}")
         opciones_fixture.append(etiqueta)
-        fixture_map[etiqueta] = (f['home'], f['away'])
-    partido_fixture = st.selectbox("📅 Partido del fixture oficial (opcional)", opciones_fixture)
+        fixture_map[etiqueta] = (_cat_int[_h], _cat_int[_a])
+        _n_int += 1
+    if _n_int == 0:      # respaldo: calendario oficial del Mundial
+        for _, f in MOTOR.calendario.iterrows():
+            etiqueta = (f"{NOMBRES_PAIS.get(f['home'], f['home'])} vs "
+                        f"{NOMBRES_PAIS.get(f['away'], f['away'])} — "
+                        f"{pd.to_datetime(f['date']).strftime('%d %b')} · {f['stadium']}")
+            opciones_fixture.append(etiqueta)
+            fixture_map[etiqueta] = (f['home'], f['away'])
+    partido_fixture = st.selectbox(
+        f"📅 Próximos partidos de selecciones ({_n_int})" if _n_int
+        else "📅 Partido del fixture oficial (opcional)", opciones_fixture,
+        help="Amistosos, Nations League y clasificatorias que vienen, desde "
+             "ESPN (se actualizan solos)." if _n_int else None)
 
 equipos_disponibles = MOTOR.equipos
 if partido_fixture != "(elegir equipos manualmente)":
