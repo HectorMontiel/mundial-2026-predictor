@@ -98,6 +98,8 @@ _RESULTADO = 'resultado'      # macro-familia: todo lo que depende del ganador
 _GOLES = 'goles'              # macro-familia: volumen de goles
 _CORNERS = 'corners'
 _TARJETAS = 'tarjetas'
+_REMATES = 'remates'          # v55: remates y remates a puerta
+_MITAD = 'mitad'              # v55: mercados de 1ª/2ª mitad
 
 CAMPOS = {
     # --- comunes (Mundial y clubes) ---
@@ -148,6 +150,7 @@ _PREFIJOS = [
     ('away_plus', 'ah', _RESULTADO), ('away_minus', 'ah', _RESULTADO),
     ('score_', 'score', _RESULTADO), ('mv_', 'margen', _RESULTADO),
     ('htft_', 'htft', _RESULTADO),
+    ('over', 'ou_goles', _GOLES), ('under', 'ou_goles', _GOLES),  # v55: incl. Under
     ('th_o', 'th', _GOLES), ('ta_o', 'ta', _GOLES),
     ('multi_', 'multi', _GOLES),
     ('player_', 'goleador', _GOLES), ('shooter_', 'rematador', _GOLES),
@@ -159,6 +162,15 @@ _PREFIJOS = [
     ('cards1x2_', 'cards_1x2', _TARJETAS),
     ('cards_home_o', 'ou_cards_home', _TARJETAS),
     ('cards_away_o', 'ou_cards_away', _TARJETAS),
+    # v55: remates (total, a puerta, por equipo) y medias partes
+    ('sh_home_o', 'sh_home', _REMATES), ('sh_away_o', 'sh_away', _REMATES),
+    ('sot_home_o', 'sot_home', _REMATES), ('sot_away_o', 'sot_away', _REMATES),
+    ('sh_o', 'sh_tot', _REMATES), ('sh_u', 'sh_tot', _REMATES),
+    ('sot_o', 'sot_tot', _REMATES), ('sot_u', 'sot_tot', _REMATES),
+    ('1h_1x2_', '1h_1x2', _MITAD), ('1h_over', '1h_ou', _MITAD),
+    ('1h_under', '1h_ou', _MITAD), ('1h_btts_', '1h_btts', _MITAD),
+    ('2h_1x2_', '2h_1x2', _MITAD), ('2h_over', '2h_ou', _MITAD),
+    ('2h_under', '2h_ou', _MITAD), ('2h_btts_', '2h_btts', _MITAD),
 ]
 
 # Parejas EQUIVALENTES entre grupos (misma apuesta con otro nombre): nunca
@@ -200,6 +212,45 @@ def _clasificar(id_: str):
         if id_.startswith(prefijo):
             return grupo, familia
     return None, None
+
+
+# v55: categorías FINAS para la UI del parlay (más granulares que las 4
+# macro-familias). Permiten al usuario incluir explícitamente «Ambos marcan»,
+# «Menos de goles», «Remates», «1ª/2ª mitad», etc.
+_GRUPO_A_CAT = {
+    '1x2': 'Resultado', 'dc': 'Doble oportunidad', 'ah': 'Hándicap',
+    'h1x2': 'Hándicap', 'score': 'Marcador exacto', 'margen': 'Margen de victoria',
+    'htft': 'Descanso/Final', 'btts': 'Ambos marcan',
+    'th': 'Goles por equipo', 'ta': 'Goles por equipo', 'multi': 'Multigoles',
+    'primer_gol': 'Goles especiales', 'ultimo_gol': 'Goles especiales',
+    'paridad': 'Par/Impar goles',
+    'ou_ck': 'Córners', 'ck_1x2': 'Córners', 'ck_hand': 'Córners',
+    'ck_paridad': 'Córners',
+    'ou_ck_home': 'Córners por equipo', 'ou_ck_away': 'Córners por equipo',
+    'ou_cards': 'Tarjetas', 'cards_1x2': 'Tarjetas',
+    'ou_cards_home': 'Tarjetas por equipo', 'ou_cards_away': 'Tarjetas por equipo',
+    'sh_tot': 'Remates', 'sot_tot': 'Remates',
+    'sh_home': 'Remates por equipo', 'sh_away': 'Remates por equipo',
+    'sot_home': 'Remates por equipo', 'sot_away': 'Remates por equipo',
+    '1h_1x2': '1ª mitad', '1h_ou': '1ª mitad', '1h_btts': '1ª mitad',
+    '2h_1x2': '2ª mitad', '2h_ou': '2ª mitad', '2h_btts': '2ª mitad',
+    'goleador': 'Goleadores', 'rematador': 'Remates',
+}
+
+# orden de las categorías para el selector de la UI
+CATEGORIAS_UI = ['Resultado', 'Doble oportunidad', 'Hándicap', 'Más de goles',
+                 'Menos de goles', 'Ambos marcan', 'Goles por equipo',
+                 'Multigoles', 'Marcador exacto', 'Margen de victoria',
+                 'Par/Impar goles', 'Goles especiales', 'Córners',
+                 'Córners por equipo', 'Tarjetas', 'Tarjetas por equipo',
+                 'Remates', 'Remates por equipo', '1ª mitad', '2ª mitad']
+
+
+def categoria_ui(id_: str) -> Optional[str]:
+    grupo, _ = _clasificar(id_)
+    if grupo == 'ou_goles':
+        return 'Menos de goles' if id_.startswith('under') else 'Más de goles'
+    return _GRUPO_A_CAT.get(grupo)
 
 
 def _cuotas_reales_del_partido(pl: Dict) -> Dict[str, float]:
@@ -470,9 +521,12 @@ def _elegir_combo(candidatas: List[Seleccion], n: int, cfg: Dict,
       3. sin piso de probabilidad: la combinación más segura posible (avisa)
     """
     zona_lo, zona_hi = cfg['zona']
+    # v55: margen para no aterrizar EXACTAMENTE en el borde superior (el redondeo
+    # a 4 decimales de la prob reportada podía cruzar el límite; p.ej. 0.59996 →
+    # 0.6). Solo afecta al perfil MEDIO (los demás tienen tope 1.01).
     for diversidad in (True, False):
         finales = _buscar_combinaciones(candidatas, n, cfg, hay_reales, diversidad)
-        en_zona = [e for e in finales if zona_lo <= e[1] < zona_hi]
+        en_zona = [e for e in finales if zona_lo <= e[1] < zona_hi - 1e-3]
         if en_zona:
             mejor = max(en_zona, key=lambda e: _score_combo(e[0], e[1], e[2], cfg, hay_reales))
             avisos = [] if diversidad else \
@@ -605,7 +659,13 @@ def construir_parlay_partido(motor, home: str, away: str,
                              '(llegan a diario en temporada). Desactívala para '
                              'usar también cuotas justas del modelo.'}
     if categorias:
-        candidatas = [s for s in candidatas if s.familia in categorias]
+        # v55: filtro por CATEGORÍA FINA (Ambos marcan, Menos de goles, Remates,
+        # 1ª/2ª mitad, ...). Compatibilidad: si llega una macro-familia antigua
+        # ('goles','corners'...) también se acepta.
+        _macro = {'resultado', 'goles', 'corners', 'tarjetas', 'remates', 'mitad'}
+        candidatas = [s for s in candidatas
+                      if categoria_ui(s.id) in categorias
+                      or (categorias & _macro and s.familia in categorias)]
         if len(candidatas) < MIN_SELECCIONES:
             return {'error': 'Las categorías elegidas dejan menos de 2 mercados '
                              'con la probabilidad mínima del perfil.'}

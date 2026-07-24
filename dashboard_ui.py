@@ -501,14 +501,14 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                      "presentes en odds_actuales.json (1X2, O/U 2.5, BTTS, "
                      "AH ±0.5). EV 100 % accionable, menos mercados.")
         with c4:
+            from match_parlay import CATEGORIAS_UI
             cats_sel = st.multiselect(
-                "Categorías permitidas",
-                ['Resultado', 'Goles', 'Córners', 'Tarjetas'],
-                default=['Resultado', 'Goles', 'Córners', 'Tarjetas'],
-                key=f"mp_cats_{key}")
-        _MAPA_CAT = {'Resultado': 'resultado', 'Goles': 'goles',
-                     'Córners': 'corners', 'Tarjetas': 'tarjetas'}
-        categorias = {_MAPA_CAT[c] for c in cats_sel} if cats_sel else None
+                "Categorías permitidas", CATEGORIAS_UI, default=CATEGORIAS_UI,
+                key=f"mp_cats_{key}",
+                help="Incluye TODOS los tipos de mercado: resultado, hándicap, "
+                     "más/menos de goles, ambos marcan, córners (y por equipo), "
+                     "tarjetas, remates, 1ª/2ª mitad...")
+        categorias = set(cats_sel) if cats_sel else None
         if st.button("🎯 Proponer parlay para este partido", key=f"mp_btn_{key}",
                      type="primary"):
             from match_parlay import construir_parlay_partido

@@ -156,6 +156,45 @@ def _liquidar_ah(adj: float, cuota: float) -> float:
     return -1.0                        # pierde entero
 
 
+def _mercados_mitad(lam_h, lam_a, f1h, f2h, home, away, campo, pct, poisson, np):
+    """v55: mercados de 1ª y 2ª mitad. Reparte el xG del partido por mitad
+    (f1h/f2h) y construye una mini-matriz de marcador por mitad (Poisson
+    independiente) para derivar 1X2, totales y ambos-marcan de cada mitad.
+    Asunción declarada: goles i.i.d. dentro de cada mitad."""
+    def _mat(lh, la):
+        kk = np.arange(0, 8)
+        ph, pa = poisson.pmf(kk, lh), poisson.pmf(kk, la)
+        return np.outer(ph, pa)
+
+    campos = []
+    for etq, lh, la, lineas, ident in (
+            ('1ª mitad', lam_h * f1h, lam_a * f1h, (0.5, 1.5), '1h'),
+            ('2ª mitad', lam_h * f2h, lam_a * f2h, (0.5, 1.5, 2.5), '2h')):
+        M = _mat(lh, la)
+        idx = np.arange(M.shape[0])
+        diff = idx[:, None] - idx[None, :]
+        total = idx[:, None] + idx[None, :]
+        p1 = float(M[diff > 0].sum()); px = float(M[diff == 0].sum())
+        p2 = float(M[diff < 0].sum())
+        btts = float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum())
+        campos += [
+            campo(f'{ident}_1x2_home', f'{etq}: gana {home}', pct(p1)),
+            campo(f'{ident}_1x2_empate', f'{etq}: empate', pct(px)),
+            campo(f'{ident}_1x2_away', f'{etq}: gana {away}', pct(p2)),
+        ]
+        for l in lineas:
+            po = float(M[total > l].sum())
+            campos.append(campo(f'{ident}_over{str(l).replace(".", "")}',
+                                f'{etq}: más de {l} goles', pct(po)))
+            campos.append(campo(f'{ident}_under{str(l).replace(".", "")}',
+                                f'{etq}: menos de {l} goles', pct(1 - po)))
+        campos += [
+            campo(f'{ident}_btts_si', f'{etq}: ambos marcan Sí', pct(btts)),
+            campo(f'{ident}_btts_no', f'{etq}: ambos marcan No', pct(1 - btts)),
+        ]
+    return campos
+
+
 def _haversine_km(lat1, lon1, lat2, lon2) -> float:
     p1, p2 = np.radians(lat1), np.radians(lat2)
     dp, dl = np.radians(lat2 - lat1), np.radians(lon2 - lon1)
@@ -1254,10 +1293,15 @@ class ClubEngine:
             ]},
         ]
 
-        # 3. Over/Under con línea deslizable (0.5 a 5.5)
-        secciones.append({'titulo': '3. Total de goles (línea deslizable)', 'campos': [
-            campo(f'over{str(l).replace(".", "")}', f'Más de {l} goles', pct(M[total > l].sum()))
-            for l in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5)]})
+        # 3. Over/Under con línea deslizable (0.5 a 5.5) — v55: + MENOS DE (Under)
+        campos_ou = []
+        for l in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5):
+            p_over = float(M[total > l].sum())
+            sl = str(l).replace('.', '')
+            campos_ou.append(campo(f'over{sl}', f'Más de {l} goles', pct(p_over)))
+            campos_ou.append(campo(f'under{sl}', f'Menos de {l} goles', pct(1 - p_over)))
+        secciones.append({'titulo': '3. Total de goles (línea deslizable)',
+                          'campos': campos_ou})
 
         # 4. BTTS, primer/último gol, par/impar
         btts = float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum())
@@ -1443,6 +1487,42 @@ class ClubEngine:
             campo('cards_o35', 'Más de 3.5 tarjetas', pct(prob_over(cards, 3.5))),
             campo('cards_o45', 'Más de 4.5 tarjetas', pct(prob_over(cards, 4.5))),
         ] + _mercados_tarjetas()})
+
+        # 12. REMATES (v55) — remates a puerta ≈ xG × factor, total ≈ a-puerta ×
+        # factor. Derivado del xG → funciona en TODAS las ligas (las 'main'
+        # afinarían con HST/AST reales, pendiente de enriquecer stats).
+        sot_h, sot_a = lam_h * spx, lam_a * spx          # remates a puerta
+        sh_h, sh_a = sot_h * tpo, sot_a * tpo            # remates totales
+        sot_tot, sh_tot = sot_h + sot_a, sh_h + sh_a
+        secciones.append({'titulo': '12. Remates', 'campos': [
+            campo('sh_tot_media', 'Remates totales (media)', round(sh_tot, 1), 'media'),
+            campo('sh_o205', 'Más de 20.5 remates', pct(prob_over(sh_tot, 20.5))),
+            campo('sh_o245', 'Más de 24.5 remates', pct(prob_over(sh_tot, 24.5))),
+            campo('sh_u205', 'Menos de 20.5 remates', pct(1 - prob_over(sh_tot, 20.5))),
+            campo('sot_tot_media', 'Remates a puerta (media)', round(sot_tot, 1), 'media'),
+            campo('sot_o75', 'Más de 7.5 remates a puerta', pct(prob_over(sot_tot, 7.5))),
+            campo('sot_o95', 'Más de 9.5 remates a puerta', pct(prob_over(sot_tot, 9.5))),
+            campo('sot_u75', 'Menos de 7.5 remates a puerta', pct(1 - prob_over(sot_tot, 7.5))),
+            campo('sh_home_media', f'{home} remates (media)', round(sh_h, 1), 'media'),
+            campo('sh_home_o95', f'{home} más de 9.5 remates', pct(prob_over(sh_h, 9.5))),
+            campo('sh_home_o125', f'{home} más de 12.5 remates', pct(prob_over(sh_h, 12.5))),
+            campo('sot_home_o35', f'{home} más de 3.5 a puerta', pct(prob_over(sot_h, 3.5))),
+            campo('sh_away_media', f'{away} remates (media)', round(sh_a, 1), 'media'),
+            campo('sh_away_o95', f'{away} más de 9.5 remates', pct(prob_over(sh_a, 9.5))),
+            campo('sh_away_o125', f'{away} más de 12.5 remates', pct(prob_over(sh_a, 12.5))),
+            campo('sot_away_o35', f'{away} más de 3.5 a puerta', pct(prob_over(sot_a, 3.5))),
+        ]})
+
+        # 13. MEDIAS PARTES (v55) — modelo de goles por mitad bajo el reparto
+        # observado (señal G2H_MA5: fracción de goles en la 2ª mitad; por
+        # defecto 55/45). Se construye una mini-matriz de marcador por mitad
+        # (Poisson independiente) y de ahí 1X2, totales y BTTS por mitad.
+        f2h = float(_np.clip((s_l.get('G2H_MA5', 0.55) + s_v.get('G2H_MA5', 0.55)) / 2,
+                             0.4, 0.65))
+        f1h = 1 - f2h
+        secciones.append({'titulo': '13. 1ª y 2ª mitad',
+                          'campos': _mercados_mitad(lam_h, lam_a, f1h, f2h,
+                                                    home, away, campo, pct, _po, _np)})
 
         return {
             'partido': f'{home} vs {away}',
