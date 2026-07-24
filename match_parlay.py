@@ -849,3 +849,73 @@ def construir_sgp_plus(motor, home: str, away: str) -> Dict:
                  'cercano al producto de cuotas, tiene EV+ esperado. Sin feed '
                  'histórico de SGP no se puede backtestear el ROI (documentado).'),
     }
+
+
+# ---------------------------------------------------------------------------
+# v53 — COMBINADOR MANUAL: el usuario elige los mercados y la app calcula la
+# probabilidad conjunta REAL (ajustada por correlación entre mercados del mismo
+# partido) y la cuota combinada. Funciona en cualquier liga/deporte cuya
+# plantilla exponga 'secciones' con campos 'pct' (todas las de clubes y Mundial).
+# ---------------------------------------------------------------------------
+def combinar_manual(pl: Dict, ids: List[str]) -> Dict:
+    """Combina las selecciones elegidas por el usuario (por id) del MISMO
+    partido y devuelve la probabilidad conjunta ajustada por correlación, la
+    cuota combinada (justa y real si la hay) y el EV. Avisa de picks
+    incompatibles (excluyentes/contradictorios)."""
+    sels = {s.id: s for s in obtener_selecciones(pl)}
+    elegidas = [sels[i] for i in ids if i in sels]
+    if len(elegidas) < 2:
+        return {'error': 'Elige al menos 2 mercados para combinar.'}
+
+    # incompatibilidades (mismo grupo excluyente / contradicciones / equivalencias)
+    incompatibles = []
+    for i in range(len(elegidas)):
+        for j in range(i + 1, len(elegidas)):
+            if not _compatibles(elegidas[i], elegidas[j]):
+                incompatibles.append((elegidas[i].apuesta, elegidas[j].apuesta))
+
+    # probabilidad conjunta con corrección de correlación por pareja (mismo
+    # motor empírico φ que usa el proponedor automático y el SGP+)
+    prob = 1.0
+    for s in elegidas:
+        prob *= s.prob
+    factores = []
+    for i in range(len(elegidas)):
+        for j in range(i + 1, len(elegidas)):
+            f = sgp_correlation.factor_par(
+                elegidas[i].id, elegidas[i].prob,
+                elegidas[j].id, elegidas[j].prob,
+                misma_familia=_correlacionadas(elegidas[i], elegidas[j]))
+            prob *= f
+            if f < 0.999 or f > 1.001:
+                factores.append(round(f, 3))
+    prob = max(min(prob, 1.0), 1e-9)
+
+    cuota_justa_comb = round(1.0 / prob, 2)               # combinada "justa"
+    hay_reales = all(s.cuota_fuente == 'real' for s in elegidas)
+    cuota_real_comb = None
+    ev = None
+    if hay_reales:
+        cuota_real_comb = 1.0
+        for s in elegidas:
+            cuota_real_comb *= s.cuota
+        cuota_real_comb = round(cuota_real_comb, 2)
+        ev = round(cuota_real_comb * prob - 1.0, 3)
+
+    return {
+        'n': len(elegidas),
+        'prob_conjunta': round(prob, 4),
+        'cuota_justa_combinada': cuota_justa_comb,
+        'cuota_real_combinada': cuota_real_comb,
+        'ev': ev,
+        'hay_cuotas_reales': hay_reales,
+        'correlacion_aplicada': bool(factores),
+        'patas': [{'mercado': s.mercado, 'apuesta': s.apuesta,
+                   'prob': round(s.prob, 3), 'cuota': s.cuota,
+                   'cuota_fuente': s.cuota_fuente} for s in elegidas],
+        'incompatibles': incompatibles,
+        'nota': ('Probabilidad conjunta REAL ajustada por la correlación entre '
+                 'mercados del mismo partido (no es el simple producto). Cuota '
+                 'justa = 1/prob. Si hay cuotas reales, el EV es accionable; '
+                 'si no, compara la cuota combinada contra tu casa.'),
+    }

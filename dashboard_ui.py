@@ -580,6 +580,65 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                                file_name=f"parlay_{home}_vs_{away}.txt".replace(' ', '_'),
                                mime="text/plain", key=f"mp_dl_{key}")
 
+        # v53: COMBINADOR MANUAL — el usuario elige los mercados y la app calcula
+        # la probabilidad conjunta REAL (ajustada por correlación) y la cuota.
+        st.divider()
+        st.markdown("**🎰 Arma TU combinada de este partido**")
+        st.caption("Elige 2 o más mercados y te calculo la probabilidad REAL de "
+                   "que acierten TODOS a la vez (ajustada por la correlación "
+                   "entre mercados del mismo partido) y la cuota combinada. Ideal "
+                   "para juntar mercados seguros y subir la ganancia en un solo "
+                   "partido.")
+        pl_manual = (motor.plantilla_club(home, away)
+                     if hasattr(motor, 'plantilla_club')
+                     else motor.plantilla(home, away))
+        if isinstance(pl_manual, dict) and 'error' not in pl_manual:
+            from match_parlay import obtener_selecciones, combinar_manual
+            sels_manual = obtener_selecciones(pl_manual)
+            opciones = {}
+            for s in sorted(sels_manual, key=lambda x: -x.prob):
+                etq = f"{s.apuesta} — {s.prob*100:.0f}% (cuota {s.cuota})"
+                opciones[etq] = s.id
+            if opciones:
+                elegidas = st.multiselect(
+                    "Mercados a combinar (ordenados por probabilidad)",
+                    list(opciones.keys()), key=f"manual_ms_{key}",
+                    help="Combina mercados de alta probabilidad para una cuota "
+                         "mayor con un solo partido.")
+                if len(elegidas) >= 2:
+                    rm = combinar_manual(pl_manual, [opciones[e] for e in elegidas])
+                    if 'error' in rm:
+                        st.warning(rm['error'])
+                    else:
+                        for a, b in rm['incompatibles']:
+                            st.error(f"⚠️ «{a}» y «{b}» no pueden ocurrir a la vez "
+                                     "— quita una para que la combinada sea válida.")
+                        cc1, cc2, cc3 = st.columns(3)
+                        cc1.metric("Prob. de acertar TODO",
+                                   f"{rm['prob_conjunta']*100:.0f}%")
+                        cc2.metric("Cuota combinada",
+                                   rm['cuota_real_combinada'] or rm['cuota_justa_combinada'],
+                                   help="Real si hay cuotas vigentes; si no, justa "
+                                        "(1/probabilidad, sin margen de casa).")
+                        if rm['ev'] is not None:
+                            cc3.metric("EV (cuotas reales)", f"{rm['ev']*100:+.1f}%")
+                        else:
+                            cc3.metric("Cuota justa", rm['cuota_justa_combinada'])
+                        if not rm['incompatibles']:
+                            ganancia = (rm['cuota_real_combinada']
+                                        or rm['cuota_justa_combinada'])
+                            st.success(f"Combinada de {rm['n']} mercados · "
+                                       f"**{rm['prob_conjunta']*100:.0f}%** de acertar "
+                                       f"todo · cuota **{ganancia}** "
+                                       f"(100 u → {ganancia*100:.0f} u si entra).")
+                        if rm['correlacion_aplicada']:
+                            st.caption("✔️ Ajustado por correlación entre mercados "
+                                       "del mismo partido (no es el simple producto "
+                                       "de probabilidades).")
+                        st.caption(rm['nota'])
+                else:
+                    st.caption("Selecciona al menos 2 mercados arriba.")
+
         # v37 (§1): SGP+ — pareja correlacionada del MISMO partido que la casa
         # tiende a infrapreciar (requiere cuotas reales vigentes).
         st.divider()
@@ -921,6 +980,45 @@ def render_alpha_finder():
         st.info("🥇 Hoy **no hay Pick del Día**: ninguno reúne confianza >80 %, "
                 "EV entre +2 % y +15 % y fiabilidad histórica suficiente. "
                 "Forzarlo sería el error clásico.")
+
+    # v53: COMBINADA DEL DÍA (un solo partido) — la app propone automáticamente
+    # la combinada más SEGURA de mercados del MISMO partido para el mejor pick
+    # de fútbol del día. Es "la mejor selección propuesta" surfaceada en
+    # Apuestas del Día (el usuario la pidió aquí, no solo por partido).
+    cand_combo = pdd if (pdd and pdd.get('deporte', 'Fútbol') == 'Fútbol') else None
+    if not cand_combo:
+        for _p in (r.get('capa1') or []):
+            if _p.get('deporte', 'Fútbol') == 'Fútbol':
+                cand_combo = _p
+                break
+    if cand_combo:
+        _REV_LIGAS = {v: k for k, v in NOMBRES_LIGAS.items()}
+        _clave_liga = _REV_LIGAS.get(cand_combo.get('liga', ''))
+        partes = str(cand_combo.get('partido', '')).split(' vs ')
+        if _clave_liga and len(partes) == 2:
+            with st.expander(f"🎰 Combinada segura del día — {cand_combo['partido']} "
+                             "(un solo partido)", expanded=False):
+                try:
+                    from match_parlay import construir_parlay_partido
+                    _motor_combo = cargar_motor_liga(_clave_liga)
+                    rc = construir_parlay_partido(
+                        _motor_combo, partes[0].strip(), partes[1].strip(),
+                        num_selecciones=3, perfil='super_seguro',
+                        excluir_alto_riesgo=True)
+                    if 'error' in rc:
+                        st.caption(rc['error'])
+                    else:
+                        st.markdown(f"**{rc['prob_conjunta']*100:.0f}% de acertar todo** "
+                                    f"· cuota combinada **{rc['cuota_combinada']:.2f}** "
+                                    f"(100 u → {rc['cuota_combinada']*100:.0f} u).")
+                        for i, s in enumerate(rc['selecciones'], 1):
+                            st.write(f"{i}. [{s['mercado']}] **{s['apuesta']}** "
+                                     f"@ {s['cuota']} · {s['prob']*100:.0f}%")
+                        st.caption("Propuesta automática (perfil súper seguro). "
+                                   "Puedes armar la tuya en la vista de la liga → "
+                                   "«🎰 Arma TU combinada de este partido».")
+                except Exception as e:
+                    st.caption(f"Combinada no disponible ahora ({type(e).__name__}).")
 
     # v37 (§5): PLAN DE ATAQUE TEMPORAL (oleadas)
     oleadas = r.get('oleadas') or {}
