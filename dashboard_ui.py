@@ -80,6 +80,22 @@ if not st.session_state.get('_refresco_inicial'):
         st.cache_data.clear()
     except Exception:
         pass
+    # v52: Streamlit Cloud hot-sincroniza ESTE script pero cachea en sys.modules
+    # los módulos importados (alpha_finder, fixtures_espn, ...), así que un
+    # despliegue no surtía efecto hasta reiniciar el contenedor. Al abrir una
+    # sesión nueva se recargan los módulos propios en orden de dependencia, de
+    # modo que cada push se refleje al instante para cada visitante.
+    import sys as _sys
+    import importlib as _il
+    for _mod in ('config', 'name_mapper', 'fixtures_espn', 'odds_api',
+                 'source_resilience', 'betexplorer_scraper', 'edge_engine',
+                 'traductor_quant', 'league_engine', 'reto_escalera',
+                 'data_health', 'alpha_finder', 'bot_telegram'):
+        if _mod in _sys.modules:
+            try:
+                _il.reload(_sys.modules[_mod])
+            except Exception:
+                pass
 
 COLORES = {'local': '#2ecc71', 'empate': '#95a5a6', 'visitante': '#3498db'}
 
