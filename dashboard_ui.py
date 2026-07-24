@@ -471,6 +471,11 @@ def render_comparador(motor, equipos: list, key: str):
 
 def render_parlay_partido(motor, home: str, away: str, key: str):
     """Sección interactiva de parlay para EL partido en pantalla."""
+    # v58.1 FIX: este símbolo se importa MÁS ABAJO dentro de esta misma función
+    # (bloque de Kelly), lo que lo convierte en local para todo el cuerpo. Sin
+    # este import al principio, usarlo antes lanzaba UnboundLocalError en
+    # producción al pulsar «Proponer parlays». Se importa aquí una sola vez.
+    from bankroll_manager import AVISO_JUEGO_RESPONSABLE
     # v58: VARIAS combinadas propuestas automáticamente + copiar estadísticas.
     # Universal: funciona con cualquier motor (fútbol, MLB, ...).
     st.markdown("#### 🎲 Parlays propuestos con cuotas")
@@ -1139,6 +1144,7 @@ def render_alpha_finder():
                    "de la más segura a la de más cuota.")
         if st.button("🎲 Generar combinadas del día", key='combo_dia_btn',
                      type="primary"):
+            from bankroll_manager import AVISO_JUEGO_RESPONSABLE   # v58.1 FIX
             from match_parlay import proponer_parlays
             _REV = {v: k for k, v in NOMBRES_LIGAS.items()}
             # candidatos: mejores picks de fútbol del día (Capa 1 → pronósticos)
