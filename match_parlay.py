@@ -171,6 +171,13 @@ _PREFIJOS = [
     ('1h_under', '1h_ou', _MITAD), ('1h_btts_', '1h_btts', _MITAD),
     ('2h_1x2_', '2h_1x2', _MITAD), ('2h_over', '2h_ou', _MITAD),
     ('2h_under', '2h_ou', _MITAD), ('2h_btts_', '2h_btts', _MITAD),
+    # v56: MLB (béisbol). Reutiliza el motor de parlay. tt_home/tt_away y
+    # over/under ya los cubren los prefijos de arriba; se añaden los propios.
+    ('ml_', '1x2', _RESULTADO), ('rl_', 'ah', _RESULTADO),
+    ('tt_home', 'th', _GOLES), ('tt_away', 'ta', _GOLES),
+    ('inn1_', 'inn1', _MITAD), ('f5_', 'f5', _MITAD),
+    ('extra_', 'extra', _RESULTADO), ('tot_par', 'paridad', _GOLES),
+    ('tot_impar', 'paridad', _GOLES),
 ]
 
 # Parejas EQUIVALENTES entre grupos (misma apuesta con otro nombre): nunca
@@ -235,6 +242,8 @@ _GRUPO_A_CAT = {
     '1h_1x2': '1ª mitad', '1h_ou': '1ª mitad', '1h_btts': '1ª mitad',
     '2h_1x2': '2ª mitad', '2h_ou': '2ª mitad', '2h_btts': '2ª mitad',
     'goleador': 'Goleadores', 'rematador': 'Remates',
+    # v56: MLB
+    'inn1': 'Primeros innings', 'f5': 'Primeros innings', 'extra': 'Extra innings',
 }
 
 # orden de las categorías para el selector de la UI
@@ -243,7 +252,8 @@ CATEGORIAS_UI = ['Resultado', 'Doble oportunidad', 'Hándicap', 'Más de goles',
                  'Multigoles', 'Marcador exacto', 'Margen de victoria',
                  'Par/Impar goles', 'Goles especiales', 'Córners',
                  'Córners por equipo', 'Tarjetas', 'Tarjetas por equipo',
-                 'Remates', 'Remates por equipo', '1ª mitad', '2ª mitad']
+                 'Remates', 'Remates por equipo', '1ª mitad', '2ª mitad',
+                 'Primeros innings', 'Extra innings']    # v56: MLB
 
 
 def categoria_ui(id_: str) -> Optional[str]:

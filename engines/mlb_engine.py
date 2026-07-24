@@ -289,6 +289,156 @@ class MLBEngine(BaseSportsEngine):
                 'aviso': None if picks else
                 'Sin picks MLB con EV suficiente hoy (o fuera de horario de juego).'}
 
+    # ------------------------------------------------------------------
+    # v56: PLANTILLA MLB COMPLETA en formato 'secciones' (como fútbol) →
+    # habilita el combinador de mercados y el proponedor automático. Todos los
+    # mercados se derivan de una MATRIZ DE CARRERAS (dos Poisson por equipo),
+    # con la asunción declarada de carreras i.i.d. por entrada para 1er inning
+    # y F5 (primeras 5). Los props de jugador se añaden aparte (MLB Stats API).
+    # ------------------------------------------------------------------
+    def plantilla_club(self, home: str, away: str, **ctx) -> Dict:
+        """Alias para reutilizar el motor de parlay del fútbol (que busca
+        `plantilla_club`). Devuelve la plantilla MLB en formato 'secciones'."""
+        return self.plantilla_mlb(home, away, **ctx)
+
+    def plantilla_mlb(self, home: str, away: str, **ctx) -> Dict:
+        from scipy.stats import poisson
+        pred = self.predecir(home, away, **ctx)
+        if 'error' in pred:
+            return pred
+        p_home = pred['prob_home']
+        total = pred.get('total_estimado') or self.metadata.get('linea_total_tipica', 8.0)
+        sigma = float(self.metadata.get('sigma_margen', 4.4))
+        from scipy.stats import norm
+        mu = sigma * float(norm.ppf(min(max(p_home, 1e-4), 1 - 1e-4)))
+        media_h = max((total + mu) / 2, 0.15)          # carreras local
+        media_a = max((total - mu) / 2, 0.15)          # carreras visitante
+        N = 26
+        kk = np.arange(N)
+        ph, pa = poisson.pmf(kk, media_h), poisson.pmf(kk, media_a)
+        M = np.outer(ph, pa)                            # matriz de carreras
+        idx = np.arange(N)
+        diff = idx[:, None] - idx[None, :]
+        tot = idx[:, None] + idx[None, :]
+        pct = lambda x: round(float(x) * 100, 1)
+
+        def campo(id_, etiqueta, valor, tipo='pct'):
+            return {'id': id_, 'etiqueta': etiqueta, 'valor': valor, 'tipo': tipo}
+
+        secciones = []
+        # 1. Ganador (moneyline, incl. extra innings — sin empates)
+        secciones.append({'titulo': '1. Ganador (incl. extra innings)', 'campos': [
+            campo('ml_home', f'Gana {home}', pct(p_home)),
+            campo('ml_away', f'Gana {away}', pct(1 - p_home)),
+        ]})
+        # 2. Hándicap de carreras (run line)
+        campos_rl = []
+        for l in (1.5, 2.5):
+            n = int(l + 0.5)
+            campos_rl += [
+                campo(f'rl_home_-{l}', f'{home} −{l} carreras', pct(M[diff >= n].sum())),
+                campo(f'rl_away_+{l}', f'{away} +{l} carreras', pct(M[diff < n].sum())),
+                campo(f'rl_away_-{l}', f'{away} −{l} carreras', pct(M[diff <= -n].sum())),
+                campo(f'rl_home_+{l}', f'{home} +{l} carreras', pct(M[diff > -n].sum())),
+            ]
+        secciones.append({'titulo': '2. Hándicap de carreras (run line)', 'campos': campos_rl})
+        # 3. Margen de victoria
+        secciones.append({'titulo': '3. Margen de victoria', 'campos': [
+            campo('mv_home_1', f'{home} gana por 1', pct(M[diff == 1].sum())),
+            campo('mv_home_2', f'{home} gana por 2', pct(M[diff == 2].sum())),
+            campo('mv_home_3', f'{home} gana por 3+', pct(M[diff >= 3].sum())),
+            campo('mv_away_1', f'{away} gana por 1', pct(M[diff == -1].sum())),
+            campo('mv_away_2', f'{away} gana por 2', pct(M[diff == -2].sum())),
+            campo('mv_away_3', f'{away} gana por 3+', pct(M[diff <= -3].sum())),
+        ]})
+        # 4. Totales de carreras (partido) + por equipo + par/impar
+        campos_t = []
+        for l in (7.5, 8.5, 9.5, 10.5):
+            po = float(M[tot > l].sum())
+            campos_t += [campo(f'over_{l}', f'Más de {l} carreras', pct(po)),
+                         campo(f'under_{l}', f'Menos de {l} carreras', pct(1 - po))]
+        for lado, m, nombre, pref in (('home', media_h, home, 'tt_home'),
+                                      ('away', media_a, away, 'tt_away')):
+            for l in (3.5, 4.5, 5.5):
+                po = float(1 - poisson.cdf(int(np.floor(l)), m))
+                campos_t += [campo(f'{pref}_over_{l}', f'{nombre}: más de {l} carreras', pct(po)),
+                             campo(f'{pref}_under_{l}', f'{nombre}: menos de {l} carreras', pct(1 - po))]
+        par = float(M[(tot % 2) == 0].sum())
+        campos_t += [campo('tot_par', 'Carreras totales PAR', pct(par)),
+                     campo('tot_impar', 'Carreras totales IMPAR', pct(1 - par))]
+        secciones.append({'titulo': '4. Totales de carreras', 'campos': campos_t})
+        # 5. Primeros innings (1er inning y F5) — reparto i.i.d. de carreras
+        def _mat(frac):
+            lh, la = media_h * frac, media_a * frac
+            return np.outer(poisson.pmf(kk, lh), poisson.pmf(kk, la))
+        M1 = _mat(1 / 9.0)                 # 1er inning
+        M5 = _mat(5 / 9.0)                 # primeras 5 entradas
+        d1, t1 = diff, tot
+        secciones.append({'titulo': '5. Primeros innings (1er inning y F5)', 'campos': [
+            campo('inn1_home', f'1er inning: {home} anota más', pct(M1[d1 > 0].sum())),
+            campo('inn1_empate', '1er inning: empate (o 0)', pct(M1[d1 == 0].sum())),
+            campo('inn1_away', f'1er inning: {away} anota más', pct(M1[d1 < 0].sum())),
+            campo('inn1_over05', '1er inning: más de 0.5 carreras', pct(M1[t1 > 0.5].sum())),
+            campo('inn1_under05', '1er inning: menos de 0.5 carreras', pct(M1[t1 <= 0.5].sum())),
+            campo('inn1_home_si', f'1er inning: {home} marca', pct(1 - poisson.pmf(0, media_h / 9))),
+            campo('inn1_away_si', f'1er inning: {away} marca', pct(1 - poisson.pmf(0, media_a / 9))),
+            campo('f5_home', f'F5: gana {home}', pct(M5[diff > 0].sum())),
+            campo('f5_empate', 'F5: empate', pct(M5[diff == 0].sum())),
+            campo('f5_away', f'F5: gana {away}', pct(M5[diff < 0].sum())),
+            campo('f5_over45', 'F5: más de 4.5 carreras', pct(M5[tot > 4.5].sum())),
+            campo('f5_under45', 'F5: menos de 4.5 carreras', pct(M5[tot <= 4.5].sum())),
+        ]})
+        # 6. Extra innings (empate en la regulación de 9)
+        p_extra = float(M[diff == 0].sum())
+        secciones.append({'titulo': '6. Eventos y extras', 'campos': [
+            campo('extra_si', '¿Habrá extra innings?: Sí', pct(p_extra)),
+            campo('extra_no', '¿Habrá extra innings?: No', pct(1 - p_extra)),
+        ]})
+        # 7. Props de pitcher (ponches) — MLB Stats API, bajo demanda/opcional
+        if ctx.get('con_props'):
+            props = self._props_pitchers(home, away, ctx)
+            if props:
+                secciones.append({'titulo': '7. Props de jugadores (ponches)',
+                                  'campos': props})
+
+        return {
+            'partido': f'{home} vs {away}',
+            'codigos': {'home': home, 'away': away},
+            'liga': 'MLB', 'deporte': 'MLB',
+            'fecha': pd.Timestamp.today().strftime('%Y-%m-%d'),
+            'secciones': secciones,
+            'prediccion_base': pred,
+            'observaciones': [
+                f"Modelo MLB: precisión de backtesting "
+                f"{(self.metadata.get('precision_validacion') or 0)*100:.1f} %.",
+                "Mercados derivados de la matriz de carreras (dos Poisson por "
+                "equipo). 1er inning y F5 asumen carreras i.i.d. por entrada.",
+                "Cuotas mostradas = JUSTAS del modelo (sin margen de casa).",
+            ],
+        }
+
+    def _props_pitchers(self, home: str, away: str, ctx: Dict) -> list:
+        """v56: ponches esperados de los pitchers probables vía MLB Stats API
+        (statsapi, gratis, sin clave). On-demand para no ralentizar la vista."""
+        try:
+            import props_model
+            from scipy.stats import poisson
+            filas = []
+            for pid, nombre in (ctx.get('pitchers') or []):
+                k_esp = props_model.strikeouts_esperados(pid) if hasattr(
+                    props_model, 'strikeouts_esperados') else None
+                if not k_esp:
+                    continue
+                for l in (4.5, 5.5, 6.5):
+                    po = float(1 - poisson.cdf(int(l), k_esp))
+                    filas.append({'id': f'k_{pid}_{l}',
+                                  'etiqueta': f'{nombre}: más de {l} ponches',
+                                  'valor': round(po * 100, 1), 'tipo': 'pct'})
+            return filas
+        except Exception as e:
+            logger.warning(f"[mlb] props pitchers no disponibles: {e}")
+            return []
+
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')

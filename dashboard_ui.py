@@ -1594,16 +1594,25 @@ def render_mlb():
         if home == away:
             st.warning("Elige equipos distintos.")
         else:
-            pl = eng.plantilla(home, away)
-            pr = pl['prediccion']
+            # v56: plantilla MLB COMPLETA en secciones (run line, margen,
+            # totales por equipo, primeros innings/F5, extra innings).
+            pl = eng.plantilla_mlb(home, away)
+            pr = pl['prediccion_base']
             m1, m2, m3 = st.columns(3)
             m1.metric(f"Gana {nombres.get(home, home)}", f"{pr['prob_home']*100:.0f} %")
             m2.metric(f"Gana {nombres.get(away, away)}", f"{pr['prob_away']*100:.0f} %")
             m3.metric("Carreras totales (est.)", f"{pr['total_estimado']:.1f}")
-            st.dataframe(pd.DataFrame([{'Mercado': c['etiqueta'],
-                                        'Prob.': f"{c['valor']:.0f} %"}
-                                       for c in pl['campos']]),
-                         width='stretch', hide_index=True)
+            for sec in pl['secciones']:
+                with st.expander(f"📋 {sec['titulo']}", expanded=sec['titulo'].startswith('1.')):
+                    st.dataframe(pd.DataFrame([{
+                        'Mercado': c['etiqueta'], 'Prob.': f"{c['valor']:.0f} %",
+                        'Cuota justa': round(100 / max(c['valor'], 1e-6), 2)}
+                        for c in sec['campos'] if c.get('tipo', 'pct') == 'pct']),
+                        width='stretch', hide_index=True)
+            for obs in pl.get('observaciones', []):
+                st.caption(obs)
+            # v56: combinador de mercados (manual + automático) para MLB
+            render_parlay_partido(eng, home, away, key='mlb')
     with tab2:
         st.caption("Cuotas en vivo de The Odds API (baseball_mlb, EE. UU.). "
                    "Filtros: prob >58 %, EV >+3 %, cuota >1.50.")
