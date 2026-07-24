@@ -541,6 +541,18 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                 motor, home, away, max_opciones=5,
                 solo_cuotas_reales=_solo_reales,
                 bankroll=float(st.session_state.get('bankroll', 0) or 0))
+        # v62: se guardan en sesión para que el botón de Telegram (que provoca
+        # un rerun) siga teniéndolas disponibles.
+        st.session_state[f'parlays_{key}'] = {
+            'partido': f'{home} vs {away}', 'opciones': opciones}
+
+    # v62: el RENDER se hace desde la sesión (no dentro del bloque del botón),
+    # así las combinadas siguen en pantalla tras pulsar «Enviar a Telegram»
+    # (que provoca un rerun). Universal: fútbol, MLB, tenis, internacional...
+    _guardado = st.session_state.get(f'parlays_{key}') or {}
+    _vigente = _guardado.get('partido') == f'{home} vs {away}'
+    if _vigente:
+        opciones = _guardado.get('opciones') or []
         if not opciones:
             st.warning("No hay combinadas que superen el listón de "
                        "probabilidad para este partido (no se fuerzan parlays "
@@ -577,6 +589,24 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                         st.code(_txt, language=None)
             st.caption("⚠️ Con cuotas justas del modelo el EV es teórico: "
                        "compara contra tu casa. " + AVISO_JUEGO_RESPONSABLE)
+
+    if _vigente and _guardado.get('opciones'):
+        if st.button("📲 Enviar estos parlays a Telegram",
+                     key=f"mpv_tg_{key}", width='stretch'):
+            try:
+                import bot_telegram
+                _comp = (getattr(motor, 'deporte', None)
+                         or NOMBRES_LIGAS.get(key, key))
+                msg = bot_telegram.formatear_parlays(
+                    _guardado['partido'], _guardado['opciones'], str(_comp))
+                if bot_telegram.enviar(msg):
+                    st.success("✅ Parlays enviados a Telegram.")
+                else:
+                    st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en "
+                               "los Secrets. Vista previa del mensaje:")
+                    st.code(msg, language=None)
+            except Exception as e:
+                st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
 
     # v58: copiar TODAS las estadísticas del partido (universal)
     with st.expander("📋 Copiar todas las estadísticas de este partido"):

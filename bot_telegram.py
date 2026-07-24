@@ -206,3 +206,38 @@ if __name__ == '__main__':
         sys.stdout.buffer.write(mensaje.encode('utf-8', 'replace') + b'\n')
     if '--dry-run' not in sys.argv:
         enviar(mensaje)
+
+
+# ---------------------------------------------------------------------------
+# v62 — envío de las COMBINADAS PROPUESTAS de un partido concreto. Lo usa el
+# botón «Enviar estos parlays a Telegram» de la ficha del partido, que existe
+# en todas las ligas y deportes (fútbol, MLB, tenis, internacional...).
+# ---------------------------------------------------------------------------
+def formatear_parlays(partido: str, opciones: list, competicion: str = '') -> str:
+    """Mensaje Markdown con las combinadas propuestas de UN partido."""
+    cab = f"🎲 *PARLAYS PROPUESTOS* — {partido}"
+    if competicion:
+        cab += f"\n_{competicion}_"
+    lineas = [cab, ""]
+    for op in opciones:
+        prob = (op.get('prob_conjunta') or 0) * 100
+        cuota = op.get('cuota_combinada') or 1
+        lineas.append(f"{op.get('etiqueta_opcion', '•')} · "
+                      f"{op.get('n_selecciones', len(op.get('selecciones', [])))} patas "
+                      f"· prob *{prob:.0f}%* · cuota *{cuota:.2f}*")
+        for s in op.get('selecciones', []):
+            real = ' (cuota real)' if s.get('cuota_fuente') == 'real' else ''
+            lineas.append(f"   • {s.get('apuesta', '?')} @ {s.get('cuota', '?')} "
+                          f"· {(s.get('prob') or 0)*100:.0f}%{real}")
+        if op.get('ev_parlay'):
+            lineas.append(f"   EV: {op['ev_parlay']:+.3f}")
+        lineas.append("")
+    lineas.append("_Cuotas justas = 1/probabilidad si no se indica lo "
+                  "contrario. Compara con tu casa. Juego responsable._")
+    return '\n'.join(lineas)[:MAX_LEN]
+
+
+def enviar_parlays(partido: str, opciones: list, competicion: str = '') -> bool:
+    """Formatea y envía las combinadas del partido. Devuelve False (sin
+    excepción) si faltan credenciales, para que la UI muestre la vista previa."""
+    return enviar(formatear_parlays(partido, opciones, competicion))
