@@ -126,6 +126,8 @@ CAMPOS = {
     'over85_corners': ('ou_ck', _CORNERS), 'over95_corners': ('ou_ck', _CORNERS),
     'ck_o85': ('ou_ck', _CORNERS), 'ck_o95': ('ou_ck', _CORNERS),
     'ck_o105': ('ou_ck', _CORNERS),
+    # v54: córners por equipo, 1X2, hándicap y paridad
+    'ck_par': ('ck_paridad', _CORNERS), 'ck_impar': ('ck_paridad', _CORNERS),
     'corners_par_prob': ('ck_paridad', _CORNERS),
     'corners_1h_par_prob': ('ck_paridad_1h', _CORNERS),
     'first_corner_home_prob': ('primer_ck', _CORNERS),
@@ -149,6 +151,14 @@ _PREFIJOS = [
     ('th_o', 'th', _GOLES), ('ta_o', 'ta', _GOLES),
     ('multi_', 'multi', _GOLES),
     ('player_', 'goleador', _GOLES), ('shooter_', 'rematador', _GOLES),
+    # v54: córners por equipo / 1X2 / hándicap y tarjetas por equipo / 1X2.
+    # Cada uno su propio grupo (no excluyente entre sí) pero misma familia
+    # (_CORNERS / _TARJETAS) → se les aplica el haircut de correlación.
+    ('ck_home_o', 'ou_ck_home', _CORNERS), ('ck_away_o', 'ou_ck_away', _CORNERS),
+    ('ck1x2_', 'ck_1x2', _CORNERS), ('ckhand_', 'ck_hand', _CORNERS),
+    ('cards1x2_', 'cards_1x2', _TARJETAS),
+    ('cards_home_o', 'ou_cards_home', _TARJETAS),
+    ('cards_away_o', 'ou_cards_away', _TARJETAS),
 ]
 
 # Parejas EQUIVALENTES entre grupos (misma apuesta con otro nombre): nunca

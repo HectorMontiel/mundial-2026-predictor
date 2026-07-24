@@ -1370,15 +1370,79 @@ class ClubEngine:
         ck = 4.0 + 0.25 * (lam_h + lam_a) * spx * tpo
         cards = (s_l['AMAR_MA5'] + s_v['AMAR_MA5'] +
                  s_l['ROJAS_MA5'] + s_v['ROJAS_MA5'])
+        # v54: CÓRNERS POR EQUIPO — el total se reparte por la cuota de ataque
+        # (xG) de cada equipo, con base de 2 córners cada uno. Funciona en TODAS
+        # las ligas (usa xG, disponible en todas), incluidas las 'new' (Liga MX,
+        # MLS...) que no traen córners en football-data. Es una estimación del
+        # modelo (declarada), coherente con que el total = ck.
+        from scipy.stats import poisson as _po
+        import numpy as _np
+        _sh = lam_h / (lam_h + lam_a) if (lam_h + lam_a) > 0 else 0.5
+        ck_var = max(ck - 4.0, 0.0)
+        ck_h = max(2.0 + ck_var * _sh, 0.3)
+        ck_a = max(2.0 + ck_var * (1 - _sh), 0.3)
+        _kk = _np.arange(0, 31)
+        _ph, _pa = _po.pmf(_kk, ck_h), _po.pmf(_kk, ck_a)
+        # córners 1X2 (quién saca más) y hándicap por convolución de la diferencia
+        p_ck_home = float(sum(_ph[i] * _pa[:i].sum() for i in range(1, 31)))
+        p_ck_away = float(sum(_pa[j] * _ph[:j].sum() for j in range(1, 31)))
+        p_ck_eq = max(1.0 - p_ck_home - p_ck_away, 0.0)
+        _tot = _np.convolve(_ph, _pa)                    # distrib. del total
+        p_ck_par = float(_tot[0::2].sum())
+        def _ck_hand(margen):                            # P(home_ck - away_ck >= margen)
+            return float(sum(_ph[i] * _pa[:max(i - margen + 1, 0)].sum()
+                             for i in range(31)))
+
+        def _mercados_tarjetas():
+            # v54: tarjetas 1X2 y por equipo (rojas cuentan doble, como en las
+            # casas). Medias por MA5 de cada equipo → Poisson independiente.
+            ch = max(s_l['AMAR_MA5'] + 2 * s_l['ROJAS_MA5'], 0.2)
+            ca = max(s_v['AMAR_MA5'] + 2 * s_v['ROJAS_MA5'], 0.2)
+            kk = _np.arange(0, 16)
+            pch, pca = _po.pmf(kk, ch), _po.pmf(kk, ca)
+            p_home_mas = float(sum(pch[i] * pca[:i].sum() for i in range(1, 16)))
+            p_away_mas = float(sum(pca[j] * pch[:j].sum() for j in range(1, 16)))
+            p_eq = max(1.0 - p_home_mas - p_away_mas, 0.0)
+            return [
+                campo('cards1x2_home', f'{home} recibe más tarjetas', pct(p_home_mas)),
+                campo('cards1x2_empate', 'Empate en tarjetas', pct(p_eq)),
+                campo('cards1x2_away', f'{away} recibe más tarjetas', pct(p_away_mas)),
+                campo('cards_home_media', f'{home} tarjetas (media)', round(ch, 1), 'media'),
+                campo('cards_home_o15', f'{home} más de 1.5 tarjetas', pct(prob_over(ch, 1.5))),
+                campo('cards_home_o25', f'{home} más de 2.5 tarjetas', pct(prob_over(ch, 2.5))),
+                campo('cards_away_media', f'{away} tarjetas (media)', round(ca, 1), 'media'),
+                campo('cards_away_o15', f'{away} más de 1.5 tarjetas', pct(prob_over(ca, 1.5))),
+                campo('cards_away_o25', f'{away} más de 2.5 tarjetas', pct(prob_over(ca, 2.5))),
+            ]
         secciones.append({'titulo': '11. Córners y tarjetas', 'campos': [
             campo('corners_media', 'Córners totales (media)', round(ck, 1), 'media'),
             campo('ck_o85', 'Más de 8.5 córners', pct(prob_over(ck, 8.5))),
             campo('ck_o95', 'Más de 9.5 córners', pct(prob_over(ck, 9.5))),
             campo('ck_o105', 'Más de 10.5 córners', pct(prob_over(ck, 10.5))),
+            # córners por EQUIPO (v54)
+            campo('ck_home_media', f'{home} córners (media)', round(ck_h, 1), 'media'),
+            campo('ck_home_o35', f'{home} más de 3.5 córners', pct(prob_over(ck_h, 3.5))),
+            campo('ck_home_o45', f'{home} más de 4.5 córners', pct(prob_over(ck_h, 4.5))),
+            campo('ck_home_o55', f'{home} más de 5.5 córners', pct(prob_over(ck_h, 5.5))),
+            campo('ck_away_media', f'{away} córners (media)', round(ck_a, 1), 'media'),
+            campo('ck_away_o35', f'{away} más de 3.5 córners', pct(prob_over(ck_a, 3.5))),
+            campo('ck_away_o45', f'{away} más de 4.5 córners', pct(prob_over(ck_a, 4.5))),
+            campo('ck_away_o55', f'{away} más de 5.5 córners', pct(prob_over(ck_a, 5.5))),
+            # córners 1X2 y hándicap (v54)
+            campo('ck1x2_home', f'{home} saca más córners', pct(p_ck_home)),
+            campo('ck1x2_empate', 'Empate en córners', pct(p_ck_eq)),
+            campo('ck1x2_away', f'{away} saca más córners', pct(p_ck_away)),
+            campo('ckhand_home_15', f'{home} −1.5 córners', pct(_ck_hand(2))),
+            campo('ckhand_away_15', f'{away} +1.5 córners', pct(1 - _ck_hand(2))),
+            campo('ckhand_home_25', f'{home} −2.5 córners', pct(_ck_hand(3))),
+            campo('ckhand_away_25', f'{away} +2.5 córners', pct(1 - _ck_hand(3))),
+            campo('ck_par', 'Córners totales PAR', pct(p_ck_par)),
+            campo('ck_impar', 'Córners totales IMPAR', pct(1 - p_ck_par)),
+            # tarjetas (v54: 1X2 y por equipo; rojas cuentan doble)
             campo('cards_media', 'Tarjetas totales (media)', round(cards, 1), 'media'),
             campo('cards_o35', 'Más de 3.5 tarjetas', pct(prob_over(cards, 3.5))),
             campo('cards_o45', 'Más de 4.5 tarjetas', pct(prob_over(cards, 4.5))),
-        ]})
+        ] + _mercados_tarjetas()})
 
         return {
             'partido': f'{home} vs {away}',
