@@ -556,6 +556,31 @@ def _seccion_btts(picks: List[Dict]) -> List[Dict]:
     return sorted(out, key=lambda p: (-(p.get('ev') or 0), -(p.get('prob') or 0)))
 
 
+def _mejores_patas(picks: List[Dict]) -> List[Dict]:
+    """v41 (§3.1): patas candidatas para construir PARLAYS seguros — umbrales
+    más amplios que Capa 1 (prob ≥ 0.55 y EV > +2 %), con BTTS incluido de
+    forma prioritaria (prob > 60 % y EV > +1 %). No son apuestas simples
+    recomendadas: son ladrillos de alta probabilidad para combinar."""
+    vistos = set()
+    out = []
+    for p in picks:
+        prob = p.get('prob') or 0
+        ev = p.get('ev')
+        es_btts = str(p.get('mercado', '')).upper() == 'BTTS'
+        ok = ((prob >= 0.55 and (ev is None or ev > 0.02))
+              or (es_btts and prob > 0.60 and (ev is None or ev > 0.01)))
+        if not ok:
+            continue
+        clave = (p.get('partido'), p.get('apuesta'))
+        if clave in vistos:
+            continue
+        vistos.add(clave)
+        q = dict(p)
+        q['btts'] = es_btts
+        out.append(q)
+    return sorted(out, key=lambda p: (-(p.get('prob') or 0), -(p.get('ev') or 0)))
+
+
 def _oleadas(picks: List[Dict]) -> Dict[str, List[Dict]]:
     """v37 (§5): plan de ataque temporal — agrupa por fecha del partido.
       🔴 Oleada 1 (hoy): el/los mejores picks de hoy.
@@ -644,13 +669,17 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     deportes = sorted({p.get('deporte', 'Fútbol') for p in capa1 + capa2})
     # v37 (§6): sección BTTS destacada — de todo el universo de picks
     # (capa1 + capa2 + candidatos del barrido de fútbol)
-    btts = _seccion_btts(capa1 + capa2 + list(r.get('candidatos') or []))
+    todos_pool = capa1 + capa2 + list(r.get('candidatos') or [])
+    btts = _seccion_btts(todos_pool)
     # v37 (§5): oleadas temporales sobre la capa 1 (la accionable con cuota)
     oleadas = _oleadas(capa1)
+    # v41 (§3.1): mejores patas para construir parlays
+    mejores_patas = _mejores_patas(todos_pool)
     r.update({'capa1': capa1, 'capa2': capa2, 'ev_extremo': ev_extremo,
               'no_enlazados': no_enlazados, 'deportes_cubiertos': deportes,
               'pick_del_dia': pick_del_dia(capa1),
               'btts_destacado': btts, 'oleadas': oleadas,
+              'mejores_patas': mejores_patas,
               'elite': capa1,          # compatibilidad con UI/exportación
               })
     try:                      # v32 §6: registro para el rendimiento REAL

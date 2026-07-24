@@ -27,7 +27,7 @@ from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
 
 # 1. PRIMER COMANDO DE STREAMLIT (OBLIGATORIO)
 st.set_page_config(
-    page_title="¿Quién gana? — Mundial 2026",
+    page_title="¿Quién gana? — Predictor deportivo",
     page_icon="🏆",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -736,7 +736,7 @@ def render_liga_club(clave: str, nombre_liga: str):
                        mime="text/markdown")
 
 
-COMPETENCIAS = {'🌎 Mundial 2026': 'mundial',
+COMPETENCIAS = {'🌍 Partidos Internacionales': 'mundial',
                 '💎 Apuestas del Día': 'alpha',
                 '⚾ MLB (béisbol)': 'mlb_deporte',
                 '🏀 NBA (baloncesto)': 'nba_deporte',
@@ -811,6 +811,20 @@ def render_alpha_finder():
         return alpha_finder.apuestas_del_dia_universal()
 
     r = _buscar()
+    # v41: BANNER de salud de datos — distingue "no llegan datos" (problema)
+    # de "llegan pero hoy no hay picks" (normal). Antes salía indistinguible.
+    try:
+        import data_health
+        salud = data_health.estado_datos()
+        if salud['nivel'] == 'critico':
+            st.error("🚨 **Alerta de datos** — " + (salud.get('alarma') or ''))
+            for d in salud['detalles']:
+                st.caption(d)
+        elif salud['nivel'] == 'degradado':
+            st.warning("⚠️ Cobertura de datos parcial hoy. " +
+                       " · ".join(salud['detalles']))
+    except Exception:
+        pass
     if r.get('actualizado'):
         cob = r.get('cobertura_ligas', {})
         st.caption(f"Cuotas actualizadas: {r['actualizado']} · "
@@ -1006,6 +1020,45 @@ def render_alpha_finder():
                              hide_index=True, width='stretch')
         except Exception as e:
             st.caption(f"Métricas de rentabilidad no disponibles ({type(e).__name__}).")
+
+    # v41 (§3.1-§3.2): Mejores Patas + constructor integrado de parlays
+    patas = r.get('mejores_patas') or []
+    if patas:
+        st.divider()
+        st.subheader("🧩 Mejores Patas para Parlay")
+        st.caption("Picks de alta probabilidad (≥ 55 %) para COMBINAR en "
+                   "parlays seguros — no son apuestas simples. ⚽ = BTTS.")
+        opciones = {}
+        for i, p in enumerate(patas[:20]):
+            icono = '⚽ ' if p.get('btts') else ''
+            cuota = p.get('cuota')
+            precio = (f"@ {cuota} · EV {(p.get('ev') or 0)*100:+.0f} %" if cuota
+                      else f"cuota justa {p.get('cuota_justa','?')}")
+            etq = (f"{icono}{p.get('partido','?')} — {p.get('apuesta','?')} "
+                   f"(prob {(p.get('prob') or 0)*100:.0f} % {precio})")
+            opciones[etq] = p
+        elegidas_lbl = st.multiselect(
+            "Elige 2–4 patas y púlsalo abajo para combinar:",
+            list(opciones.keys()), max_selections=6, key='patas_sel')
+        if st.button("🧩 Calcular Parlay", key='patas_btn', type="primary") \
+                and len(elegidas_lbl) >= 2:
+            from match_parlay import combinar_patas
+            res = combinar_patas([opciones[l] for l in elegidas_lbl],
+                                 bankroll=float(st.session_state.get('bankroll', 0) or 0))
+            if 'error' in res:
+                st.warning(res['error'])
+            else:
+                for a in res['avisos']:
+                    st.warning(a)
+                pm1, pm2, pm3, pm4 = st.columns(4)
+                pm1.metric("🎯 PFP", f"{res['pfp']*100:.1f} %", res['riesgo'])
+                pm2.metric("Cuota combinada", f"{res['cuota_combinada']:.2f}")
+                pm3.metric("EV", f"{res['ev_parlay']:+.2f}")
+                pm4.metric("Patas", res['n_patas'])
+                if res.get('stake', {}).get('stake', 0) > 0:
+                    st.info(f"💵 Stake sugerido (¼ Kelly): "
+                            f"**{res['stake']['stake']:.2f} u** "
+                            f"({res['stake']['pct']*100:.1f} % del bankroll).")
 
     # v37 (§7): informe mensual de rendimiento
     st.divider()
@@ -1463,7 +1516,7 @@ if MOTOR.metadata.get('deploy_ready') and not objetivo.get('cumplido', False):
 # ===========================================================================
 # SELECCIÓN DEL PARTIDO
 # ===========================================================================
-st.title("🏆 ¿Quién gana? — Mundial 2026")
+st.title("🏆 ¿Quién gana? — Predictor deportivo")
 st.caption(
     f"Motor topológico-predictivo · Ensemble XGBoost+RF+LightGBM calibrado · "
     f"Enfrenta a **cualquiera de las 49 selecciones clasificadas** (incluye Cabo Verde) · "

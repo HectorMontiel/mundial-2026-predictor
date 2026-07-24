@@ -693,6 +693,96 @@ def construir_parlay_partido(motor, home: str, away: str,
 # diversificado (que busca patas independientes), aquí buscamos DOS patas
 # correlacionadas cuya prob conjunta real supera lo que la casa paga.
 # ---------------------------------------------------------------------------
+def combinar_patas(patas: List[Dict], bankroll: float = 0.0) -> Dict:
+    """v41 (§3.2): combina 2-4 patas elegidas por el usuario (de 'Mejores
+    Patas') en un parlay, calculando el PFP real. Aplica el factor de
+    correlación empírico a los pares del MISMO partido (SGP), la cuota
+    combinada, el EV y el riesgo por PFP. Las patas son dicts con al menos
+    {partido, apuesta, prob, cuota, mercado}.
+    """
+    patas = [p for p in patas if p.get('prob') and p.get('cuota')]
+    if len(patas) < 2:
+        return {'error': 'Elige al menos 2 patas para combinar.'}
+    if len(patas) > 6:
+        return {'error': 'Máximo 6 patas (un parlay más largo casi nunca acierta).'}
+
+    # detectar pares del mismo partido y aplicar factor de correlación (≤1)
+    from collections import defaultdict
+    por_partido = defaultdict(list)
+    for i, p in enumerate(patas):
+        por_partido[p.get('partido', f'_{i}')].append(i)
+    # incompatibilidad: dos patas del mismo partido y mismo "grupo" (1X2 con
+    # 1X2) o mutuamente excluyentes → se avisa
+    avisos = []
+    prob = 1.0
+    for p in patas:
+        prob *= float(p['prob'])
+    pares_corr = 0
+    for partido, idxs in por_partido.items():
+        for a in range(len(idxs)):
+            for b in range(a + 1, len(idxs)):
+                pa, pb = patas[idxs[a]], patas[idxs[b]]
+                # mismo mercado en el mismo partido = casi seguro excluyente
+                if pa.get('mercado') and pa.get('mercado') == pb.get('mercado'):
+                    avisos.append(f"⚠️ '{pa['apuesta']}' y '{pb['apuesta']}' son del "
+                                  f"mismo mercado del mismo partido: probablemente "
+                                  f"excluyentes (no se pueden dar a la vez).")
+                ida = _id_desde_apuesta(pa)
+                idb = _id_desde_apuesta(pb)
+                pares_corr += 1
+                if ida and idb:
+                    prob *= sgp_correlation.factor_par(
+                        ida, pa['prob'], idb, pb['prob'], misma_familia=True)
+                else:
+                    prob *= HAIRCUT_CORRELACION
+
+    cuota = 1.0
+    for p in patas:
+        cuota *= float(p['cuota'])
+    cuota = min(cuota, CUOTA_MAXIMA_COMBINADA)
+    pfp = round(float(prob), 4)
+    ev = round(cuota * prob - 1.0, 3)
+    riesgo = ('🟢 PFP alto' if pfp >= 0.45 else
+              '🟡 PFP medio' if pfp >= 0.30 else '🔴 PFP bajo')
+    if pfp < 0.30:
+        avisos.append("🔴 Este parlay tiene BAJA probabilidad de acierto "
+                      "(PFP < 30 %). Considera reducir patas o elegir opciones "
+                      "más seguras.")
+    salida = {
+        'n_patas': len(patas), 'pfp': pfp, 'cuota_combinada': round(cuota, 2),
+        'ev_parlay': ev, 'riesgo': riesgo, 'pares_mismo_partido': pares_corr,
+        'patas': [{'partido': p.get('partido'), 'apuesta': p.get('apuesta'),
+                   'mercado': p.get('mercado'), 'prob': round(p['prob'], 3),
+                   'cuota': p['cuota']} for p in patas],
+        'avisos': avisos,
+    }
+    if bankroll and pfp > 0:
+        from bankroll_manager import calcular_stake
+        k = calcular_stake(pfp, cuota, bankroll)
+        salida['stake'] = k
+    return salida
+
+
+def _id_desde_apuesta(p: Dict) -> Optional[str]:
+    """Mapea una pata (mercado + etiqueta) a un id canónico de sgp_correlation
+    para el factor de correlación. Devuelve None si no se reconoce."""
+    m = str(p.get('mercado', '')).upper()
+    ap = str(p.get('apuesta', '')).lower()
+    if m == '1X2':
+        if ap.startswith('gana'):
+            return None            # ganador local/visit (ambiguo sin lado)
+        if 'empate' in ap:
+            return 'draw_prob'
+    if m == 'BTTS':
+        return 'btts_si' if ('sí' in ap or 'si' in ap.split()) else 'btts_no'
+    if m == 'GOLES':
+        if 'más de 2.5' in ap:
+            return 'over25'
+        if 'menos de 2.5' in ap:
+            return 'under25'
+    return None
+
+
 def construir_sgp_plus(motor, home: str, away: str) -> Dict:
     """Mejor SGP+ de 2 patas del partido (o aviso si no hay ninguno).
 

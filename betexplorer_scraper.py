@@ -27,6 +27,35 @@ logger = logging.getLogger(__name__)
 URL = 'https://www.betexplorer.com/football/world/world-cup/fixtures/'
 UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/126.0 Safari/537.36')
+# UAs alternativos para rotar ante un 429 (v41 §resiliencia)
+UAS = [UA,
+       ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 '
+        '(KHTML, like Gecko) Version/17.0 Safari/605.1.15'),
+       ('Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0')]
+
+
+def _get(url: str, intentos: int = 3, timeout: int = 25):
+    """GET con reintento y backoff ante 429/5xx (v41). Rota User-Agent. Ético:
+    espera creciente, no martillea. Devuelve el Response o lanza la última
+    excepción para que el llamador la registre y degrade a la siguiente
+    fuente de la cadena de resiliencia."""
+    import time
+    ultima = None
+    for i in range(intentos):
+        try:
+            r = requests.get(url, headers={'User-Agent': UAS[i % len(UAS)],
+                                           'Accept-Language': 'en-US,en;q=0.9'},
+                             timeout=timeout)
+            if r.status_code == 429 or r.status_code >= 500:
+                ultima = requests.HTTPError(f"{r.status_code} en {url}")
+                time.sleep(2 * (i + 1))          # 2 s, 4 s, 6 s
+                continue
+            r.raise_for_status()
+            return r
+        except Exception as e:
+            ultima = e
+            time.sleep(1.5 * (i + 1))
+    raise ultima if ultima else RuntimeError(f"GET falló: {url}")
 
 # nombres Betexplorer -> inglés estándar (solo donde difieren)
 BETEXPLORER_ALIAS = {
@@ -53,9 +82,7 @@ def _partidos_next(deporte: str, filtro_href: str = '') -> List[Dict]:
     """Partidos próximos de Betexplorer con cuotas medias (2 vías)."""
     from bs4 import BeautifulSoup
     try:
-        r = requests.get(URL_NEXT.format(deporte), headers={'User-Agent': UA},
-                         timeout=25)
-        r.raise_for_status()
+        r = _get(URL_NEXT.format(deporte))
     except Exception as e:
         logger.warning(f"[betexplorer/{deporte}] no disponible: {e}")
         return []
@@ -133,8 +160,7 @@ def cuotas_mundial_hoy() -> pd.DataFrame:
     """
     try:
         from bs4 import BeautifulSoup
-        r = requests.get(URL, headers={'User-Agent': UA}, timeout=25)
-        r.raise_for_status()
+        r = _get(URL)
         soup = BeautifulSoup(r.text, 'lxml')
         filas: List[Dict] = []
         hoy = pd.Timestamp.today().normalize()
@@ -206,8 +232,7 @@ def cuotas_clubes_hoy(claves=('liga_mx', 'premier', 'laliga', 'serie_a',
 
     try:
         from bs4 import BeautifulSoup
-        r = requests.get(URL, headers={'User-Agent': UA}, timeout=25)
-        r.raise_for_status()
+        r = _get(URL)
         soup = BeautifulSoup(r.text, 'lxml')
         filas: List[Dict] = []
         hoy = pd.Timestamp.today().normalize()

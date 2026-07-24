@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+r"""
 Orquestador TOTAL de la plataforma (v14/M13) — un solo comando actualiza todo.
 
 Secuencia:

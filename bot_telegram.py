@@ -47,6 +47,17 @@ def construir_mensaje() -> str:
     lineas = [f"🎯 *APUESTAS DEL DÍA* — {r.get('actualizado', 'hoy')}",
               f"Deportes: {', '.join(r.get('deportes_cubiertos') or ['—'])}", ""]
 
+    # v41: ALARMA de datos AL PRINCIPIO — distingue "no llegaron datos"
+    # (problema) de "llegaron pero hoy no hay picks" (normal). El fallo del
+    # runner sin ODDS_API_KEY salía como un mensaje vacío indistinguible.
+    try:
+        import data_health
+        alarma = data_health.linea_alarma_telegram()
+        if alarma:
+            lineas.insert(0, alarma.strip())
+    except Exception as e:
+        logger.warning(f"data_health no disponible: {e}")
+
     pdd = r.get('pick_del_dia')
     if pdd:
         lineas += ["🥇 *PICK DEL DÍA*", _fmt_pick(pdd), ""]

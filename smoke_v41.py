@@ -8,7 +8,7 @@ import sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from streamlit.testing.v1 import AppTest
 
-VISTAS = ['🌎 Mundial 2026', '💎 Apuestas del Día', '🎾 Tenis (ATP/WTA)',
+VISTAS = ['🌍 Partidos Internacionales', '💎 Apuestas del Día', '🎾 Tenis (ATP/WTA)',
           '🇪🇺 Europa League', '🇪🇺 Conference League', '🇺🇸 MLS', '🇹🇷 Süper Lig', '🇩🇰 Superliga',
           '🇲🇽 Liga MX', '🇪🇸 LaLiga', '🇪🇺 Champions League']
 
