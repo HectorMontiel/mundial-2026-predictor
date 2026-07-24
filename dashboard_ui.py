@@ -900,8 +900,11 @@ def render_alpha_finder():
                                   "desde hace ese número de días.")
                             if t.get('antiguedad') else None)
                 c2.markdown(f"**{t.get('apuesta','?')}**  \n{t.get('mercado','')}")
+                rent = t.get('rentabilidad') or {}
                 c3.markdown(precio
                             + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
+                            + (f"  \n{rent['etiqueta']}" if rent.get('etiqueta')
+                               and rent.get('tier') != 'sin_ev' else '')
                             + (f"  \n💼 Stake: **{t['stake_txt']}**"
                                if t.get('stake_txt') else '')
                             + (f"  \n{t['nota']}" if t.get('nota') else ''))
@@ -952,6 +955,45 @@ def render_alpha_finder():
                    + (" y EV > +3 % donde hay cuota real." if any(p.get('cuota')
                       for p in btts) else "."))
         _tarjetas(btts, "")
+
+    # v38: MOTOR DE RENTABILIDAD — CLV (métrica rey) + banda validada + mapa
+    st.divider()
+    with st.expander("📉 Rentabilidad y CLV (motor v38)"):
+        st.caption("El **CLV** (Closing Line Value) mide si apostamos a MEJOR "
+                   "precio que el cierre del mercado — el único predictor "
+                   "robusto del beneficio a largo plazo.")
+        try:
+            import clv_tracker
+            import edge_engine
+            clv = clv_tracker.clv_historico()
+            if clv.get('n'):
+                cc1, cc2, cc3 = st.columns(3)
+                cc1.metric("CLV medio", f"{clv['clv_medio_pct']:+.2f} %",
+                           help="Negativo = apostamos peor que el cierre "
+                                "(causa estructural de pérdidas).")
+                cc2.metric("Batimos el cierre", f"{clv['pct_batimos_cierre']:.0f} %")
+                cc3.metric("ROI si batimos vs no",
+                           f"{clv.get('roi_cuando_batimos','?')} / "
+                           f"{clv.get('roi_cuando_no','?')} %")
+                st.caption(clv['interpretacion'])
+            lo, hi = edge_engine.banda_rentable()
+            st.markdown(f"**🎯 Banda de EV rentable validada:** "
+                        f"{lo*100:.0f} %–{hi*100:.0f} % "
+                        "(maximin walk-forward, todas las ventanas OOS positivas). "
+                        "Los picks fuera de esta banda se degradan o segregan.")
+            m = edge_engine._mapa()
+            ligas = m.get('ligas', {})
+            if ligas:
+                st.caption("Mapa de rentabilidad por liga (DIAGNÓSTICO — no "
+                           "filtro; la rentabilidad por liga no es estable):")
+                import pandas as _pd
+                dfm = _pd.DataFrame([{'liga': k, 'n': v['n'], 'ROI %': v['roi'],
+                                      'acierto': v['hit']}
+                                     for k, v in ligas.items()])
+                st.dataframe(dfm.sort_values('ROI %', ascending=False),
+                             hide_index=True, width='stretch')
+        except Exception as e:
+            st.caption(f"Métricas de rentabilidad no disponibles ({type(e).__name__}).")
 
     # v37 (§7): informe mensual de rendimiento
     st.divider()

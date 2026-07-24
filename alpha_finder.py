@@ -442,8 +442,16 @@ def _picks_nba() -> Dict[str, List[Dict]]:
 # v32: fiabilidad histórica (Brier real de los picks publicados por liga),
 # cuarentena de pretemporada y segregación de EV extremo.
 # ---------------------------------------------------------------------------
-EV_EXTREMO = 0.15          # §3: por encima, el modelo está descalibrado
-                           # (gap de calibración −0.154 vs −0.038; ROI −12.4 pp)
+# v38: el umbral de EV extremo lo fija el MOTOR DE RENTABILIDAD (edge_engine),
+# calibrado por maximin walk-forward sobre 2.846 apuestas reales. La banda
+# rentable validada es EV ∈ [3 %, 14 %]; por encima del tope, el histórico da
+# −10 % de ROI (descalibración del modelo en los extremos). Fallback 0.15.
+try:
+    import edge_engine
+    _BANDA = edge_engine.banda_rentable()
+    EV_EXTREMO = _BANDA[1]
+except Exception:
+    EV_EXTREMO = 0.15
 _FIABILIDAD: Dict[str, float] = {}
 
 
@@ -603,6 +611,16 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # resultados_ev_extremo_v32.json
     ev_extremo = [p for p in capa1 if (p.get('ev') or 0) > EV_EXTREMO]
     capa1 = [p for p in capa1 if (p.get('ev') or 0) <= EV_EXTREMO]
+
+    # v38: etiqueta de rentabilidad esperada (edge_engine) por pick de capa1 —
+    # en qué tramo de EV real cae y si su liga es históricamente deficitaria.
+    try:
+        import edge_engine
+        for p in capa1:
+            clave = LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower())
+            p['rentabilidad'] = edge_engine.clasificar_pick(p.get('ev'), clave)
+    except Exception as e:
+        logger.warning(f"[alpha] edge_engine no disponible: {e}")
 
     capa1.sort(key=lambda t: (-int(t.get('platino', False)), -(t.get('ev') or 0)))
     capa2.sort(key=lambda t: -(t.get('prob') or 0))

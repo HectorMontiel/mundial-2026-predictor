@@ -1,0 +1,309 @@
+{
+ "generado": "2026-07-23",
+ "n_apuestas": 2846,
+ "banda_adoptada": [
+  0.03,
+  0.14
+ ],
+ "roi_banda_global": 0.78,
+ "ventanas_oos_banda": [
+  2.23,
+  7.39,
+  9.88,
+  14.28
+ ],
+ "escaneo_bandas": [
+  {
+   "banda": [
+    0.03,
+    0.14
+   ],
+   "roi_global": 0.78,
+   "n": 1125,
+   "ventanas_oos": [
+    2.23,
+    7.39,
+    9.88,
+    14.28
+   ],
+   "peor_ventana": 2.23,
+   "ventanas_positivas": 4,
+   "valida": true
+  },
+  {
+   "banda": [
+    0.04,
+    0.12
+   ],
+   "roi_global": 0.77,
+   "n": 851,
+   "ventanas_oos": [
+    1.64,
+    4.41,
+    6.64,
+    22.59
+   ],
+   "peor_ventana": 1.64,
+   "ventanas_positivas": 4,
+   "valida": true
+  },
+  {
+   "banda": [
+    0.03,
+    0.13
+   ],
+   "roi_global": 0.41,
+   "n": 1059,
+   "ventanas_oos": [
+    1.03,
+    11.18,
+    8.03,
+    17.88
+   ],
+   "peor_ventana": 1.03,
+   "ventanas_positivas": 4,
+   "valida": true
+  },
+  {
+   "banda": [
+    0.03,
+    0.12
+   ],
+   "roi_global": 0.59,
+   "n": 982,
+   "ventanas_oos": [
+    0.77,
+    7.86,
+    9.01,
+    19.24
+   ],
+   "peor_ventana": 0.77,
+   "ventanas_positivas": 4,
+   "valida": true
+  },
+  {
+   "banda": [
+    0.03,
+    0.1
+   ],
+   "roi_global": 2.45,
+   "n": 795,
+   "ventanas_oos": [
+    -0.66,
+    4.71,
+    15.24,
+    17.03
+   ],
+   "peor_ventana": -0.66,
+   "ventanas_positivas": 3,
+   "valida": true
+  },
+  {
+   "banda": [
+    0.025,
+    0.11
+   ],
+   "roi_global": 0.32,
+   "n": 967,
+   "ventanas_oos": [
+    -2.56,
+    7.63,
+    9.53,
+    16.28
+   ],
+   "peor_ventana": -2.56,
+   "ventanas_positivas": 3,
+   "valida": true
+  },
+  {
+   "banda": [
+    0.02,
+    0.12
+   ],
+   "roi_global": -0.87,
+   "n": 1122,
+   "ventanas_oos": [
+    -6.55,
+    14.41,
+    13.31,
+    14.75
+   ],
+   "peor_ventana": -6.55,
+   "ventanas_positivas": 3,
+   "valida": true
+  },
+  {
+   "banda": [
+    0.02,
+    0.1
+   ],
+   "roi_global": 0.42,
+   "n": 935,
+   "ventanas_oos": [
+    -8.76,
+    12.63,
+    18.9,
+    11.66
+   ],
+   "peor_ventana": -8.76,
+   "ventanas_positivas": 3,
+   "valida": true
+  }
+ ],
+ "tramos_ev": [
+  {
+   "ev": [
+    -1,
+    0
+   ],
+   "n": 172,
+   "roi": 4.37,
+   "hit": 0.855
+  },
+  {
+   "ev": [
+    0,
+    0.03
+   ],
+   "n": 437,
+   "roi": -6.53,
+   "hit": 0.492
+  },
+  {
+   "ev": [
+    0.03,
+    0.08
+   ],
+   "n": 586,
+   "roi": 1.04,
+   "hit": 0.497
+  },
+  {
+   "ev": [
+    0.08,
+    0.12
+   ],
+   "n": 396,
+   "roi": -0.07,
+   "hit": 0.467
+  },
+  {
+   "ev": [
+    0.12,
+    0.13
+   ],
+   "n": 77,
+   "roi": -1.95,
+   "hit": 0.442
+  },
+  {
+   "ev": [
+    0.13,
+    0.14
+   ],
+   "n": 64,
+   "roi": 10.08,
+   "hit": 0.516
+  },
+  {
+   "ev": [
+    0.12,
+    0.15
+   ],
+   "n": 222,
+   "roi": -3.71,
+   "hit": 0.432
+  },
+  {
+   "ev": [
+    0.15,
+    10
+   ],
+   "n": 1033,
+   "roi": -10.03,
+   "hit": 0.35
+  }
+ ],
+ "ligas": {
+  "argentina": {
+   "n": 309,
+   "roi": -1.97,
+   "hit": 0.366
+  },
+  "brasil": {
+   "n": 269,
+   "roi": 2.21,
+   "hit": 0.446
+  },
+  "bundesliga": {
+   "n": 141,
+   "roi": 1.52,
+   "hit": 0.489
+  },
+  "eredivisie": {
+   "n": 120,
+   "roi": -4.01,
+   "hit": 0.5
+  },
+  "finlandia": {
+   "n": 134,
+   "roi": -8.57,
+   "hit": 0.47
+  },
+  "irlanda": {
+   "n": 91,
+   "roi": -15.38,
+   "hit": 0.352
+  },
+  "laliga": {
+   "n": 208,
+   "roi": 8.16,
+   "hit": 0.558
+  },
+  "liga_mx": {
+   "n": 234,
+   "roi": -8.95,
+   "hit": 0.415
+  },
+  "ligue_1": {
+   "n": 158,
+   "roi": -8.17,
+   "hit": 0.468
+  },
+  "mls": {
+   "n": 245,
+   "roi": -18.54,
+   "hit": 0.347
+  },
+  "noruega": {
+   "n": 102,
+   "roi": -11.44,
+   "hit": 0.441
+  },
+  "premier": {
+   "n": 78,
+   "roi": -1.67,
+   "hit": 0.436
+  },
+  "primeira": {
+   "n": 344,
+   "roi": -3.91,
+   "hit": 0.555
+  },
+  "rumania": {
+   "n": 241,
+   "roi": 3.81,
+   "hit": 0.523
+  },
+  "serie_a": {
+   "n": 71,
+   "roi": 2.9,
+   "hit": 0.451
+  },
+  "suecia": {
+   "n": 101,
+   "roi": -21.11,
+   "hit": 0.386
+  }
+ }
+}
