@@ -158,6 +158,37 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str) -> List[Dic
     return candidatos
 
 
+def _mercados_modelo(pred: Dict, home: str, away: str) -> List[Dict]:
+    """v49: mercados derivados SOLO del modelo (sin cuota real) — para los
+    fixtures sin cuota en vivo. Devuelve 1X2, O/U 2.5 y BTTS con la CUOTA JUSTA
+    (1/prob) y sin EV. Alimenta la Capa 2 y la lista de pronósticos del día,
+    para que TODO partido con jornada tenga apuestas visibles."""
+    M = np.array(pred['score_matrix'])
+    idx = np.arange(M.shape[0])
+    total = idx[:, None] + idx[None, :]
+    pr = pred['prediction']['probabilities']
+    btts = float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum())
+    over25 = float(M[total > 2.5].sum())
+    crudos = [
+        ('1X2', f'Gana {home}', pr['home']),
+        ('1X2', 'Empate', pr['draw']),
+        ('1X2', f'Gana {away}', pr['away']),
+        ('Goles', 'Más de 2.5', over25),
+        ('Goles', 'Menos de 2.5', 1 - over25),
+        ('BTTS', 'Ambos marcan: Sí', btts),
+        ('BTTS', 'Ambos marcan: No', 1 - btts),
+    ]
+    salida = []
+    for mercado, etiqueta, prob in crudos:
+        prob = float(prob)
+        salida.append({'mercado': mercado, 'apuesta': etiqueta,
+                       'prob': round(prob, 3),
+                       'cuota': None, 'ev': None,
+                       'cuota_justa': round(1 / max(prob, 1e-6), 2),
+                       'valor': '🎯'})
+    return salida
+
+
 def _senales_shadow() -> Dict[str, Dict]:
     """Residuos del Shadow Booster por partido (solo ligas ADOPTADAS)."""
     try:
@@ -207,6 +238,9 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
     # de partidos descartados en silencio cuando el nombre no mapeaba a liga.
     cobertura: Dict[str, int] = {}
     sin_liga = 0
+    # v49: pares (liga, home, away) ya evaluados vía cuotas, para que el pase
+    # de fixtures no los duplique.
+    evaluados_pares: set = set()
     for mid, o in sorted(cuotas.items()):
         partes = mid.split('_')
         if len(partes) != 3:
@@ -238,6 +272,7 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
         pred = eng.predecir(home, away)
         if 'error' in pred:
             continue
+        evaluados_pares.add((liga, home, away))   # v49: no duplicar en fixtures
         det = senales.get(mid)
         resid = det.get('residuo') if det else None
         for c in _mercados_del_partido(pred, o, home, away):
@@ -293,25 +328,116 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
                            "nombres_sin_mapear.json (añade alias para llegar a 0)")
     except Exception:
         pass
+    # v49: PASE DE FIXTURES (ESPN) — evalúa TODO partido con jornada aunque no
+    # haya cuota en vivo. Sin esto, un fallo de The Odds API dejaba el barrido a
+    # cero. Los partidos sin cuota generan Capa 2 (cuota justa) y pronósticos.
+    capa2_futbol, pronosticos, cob_fix, n_fix = _barrido_fixtures(
+        motores, evaluados_pares, HORIZONTE_HORAS)
+    for liga, n in cob_fix.items():
+        cobertura[liga] = cobertura.get(liga, 0) + n
+    evaluados += n_fix
+
     from config import LEAGUES as _LG
     activas = [c for c, cfg in _LG.items() if cfg.get('disponible')]
     vacias = [c for c in activas if cobertura.get(c, 0) == 0]
-    logger.info(f"[alpha] cobertura por liga: {cobertura} · sin liga: {sin_liga}")
+    logger.info(f"[alpha] cobertura por liga: {cobertura} · sin liga: {sin_liga} "
+                f"· fixtures ESPN: {n_fix}")
     if vacias:
         logger.warning(f"[alpha] ligas SIN partidos evaluados hoy "
                        f"({len(vacias)}/{len(activas)}): {vacias} — puede ser "
-                       "parón de temporada o falta de cuotas capturadas")
+                       "parón de temporada")
     global _ULTIMO_RESULTADO
     _ULTIMO_RESULTADO = {'actualizado': datos.get('actualizado'),
             'partidos_evaluados': evaluados,
             'cobertura_ligas': cobertura, 'partidos_sin_liga': sin_liga,
             'elite': sorted(elite, key=orden),
             'candidatos': sorted(candidatos, key=orden)[:15],
+            'capa2_futbol': capa2_futbol,        # v49
+            'pronosticos': pronosticos,          # v49: TODOS los partidos
             'aviso': None if elite else
             ('Ningún mercado cumple hoy los filtros de élite (prob >70 %, '
-             'EV >+3 %, cuota >1.50) — se muestran los mejores candidatos '
-             'con EV positivo.')}
+             'EV >+3 %, cuota >1.50) — se muestran Capa 2 (sin cuota) y '
+             'candidatos con EV positivo.')}
     return _ULTIMO_RESULTADO
+
+
+def _barrido_fixtures(motores: Dict, evaluados_pares: set,
+                      horizonte_horas: int = 72):
+    """v49: recorre los FIXTURES (ESPN) de todas las ligas disponibles y
+    predice cada partido con su motor. Devuelve:
+      · capa2_futbol: mejor selección 1X2 por partido con prob ≥ CONF_CAPA2
+        (sin cuota real → cuota justa),
+      · pronosticos: TODO partido con su 1X2 del modelo (informativo),
+      · cobertura por liga y número de partidos evaluados nuevos.
+    """
+    import fixtures_espn
+    import name_mapper
+    from config import LEAGUES as _LG
+    from league_engine import ClubEngine
+
+    hoy = pd.Timestamp.today().normalize()
+    limite = hoy + pd.Timedelta(hours=horizonte_horas)
+    capa2_futbol, pronosticos = [], []
+    cobertura: Dict[str, int] = {}
+    n_eval = 0
+    for clave, cfg in _LG.items():
+        if not cfg.get('disponible') or clave not in fixtures_espn.ESPN_CODIGOS:
+            continue
+        fixtures = fixtures_espn.fixtures_liga(clave)
+        if not fixtures:
+            continue
+        eng = motores.get(clave)
+        if eng is None:
+            try:
+                eng = ClubEngine(clave)
+            except Exception as e:
+                logger.warning(f"[alpha/fix] motor {clave}: {e}")
+                continue
+            motores[clave] = eng
+        if not getattr(eng, 'listo', False):
+            continue
+        catalogo = list(eng.stats.keys())
+        for fx in fixtures:
+            try:
+                fecha = pd.Timestamp(fx['fecha'])
+            except (ValueError, TypeError):
+                continue
+            if not (hoy <= fecha <= limite):
+                continue
+            home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
+            away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
+            if not (home and away) or home == away:
+                continue
+            if (clave, home, away) in evaluados_pares:
+                continue                        # ya evaluado con cuota real
+            evaluados_pares.add((clave, home, away))
+            pred = eng.predecir(home, away)
+            if 'error' in pred:
+                continue
+            n_eval += 1
+            cobertura[clave] = cobertura.get(clave, 0) + 1
+            mercados = _mercados_modelo(pred, home, away)
+            partido = f'{home} vs {away}'
+            base = {'deporte': 'Fútbol', 'liga': cfg.get('nombre', clave),
+                    'partido': partido, 'fecha': str(fecha.date()),
+                    'shadow': False, 'sin_cuota': True}
+            # 1X2 del modelo (el más probable) → pronóstico + Capa 2 si ≥ umbral
+            x2 = [m for m in mercados if m['mercado'] == '1X2']
+            mejor = max(x2, key=lambda m: m['prob'])
+            # v50: board COMPLETO por partido (todas las apuestas posibles) para
+            # que el usuario arme cualquier parlay de un vistazo.
+            board = {m['apuesta']: round(m['prob'], 3) for m in mercados}
+            pron = {**base, **mejor, 'mercados': mercados, 'board': board}
+            pronosticos.append(pron)
+            if mejor['prob'] >= CONF_CAPA2:
+                capa2_futbol.append({**pron, 'valor': '🎯'})
+            # también surfaceamos BTTS "Sí" y Under/Over confiables como opciones
+            for m in mercados:
+                if m['mercado'] in ('BTTS', 'Goles') and m['prob'] >= 0.62:
+                    capa2_futbol.append({**base, **m, 'valor': '🎯'})
+    logger.info(f"[alpha/fix] fixtures evaluados={n_eval} · "
+                f"capa2={len(capa2_futbol)} · pronósticos={len(pronosticos)}")
+    return capa2_futbol, pronosticos, cobertura, n_eval
 
 
 # ---------------------------------------------------------------------------
@@ -716,7 +842,8 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     capa1 = list(r.get('elite') or [])
     for p in capa1:
         p.setdefault('deporte', 'Fútbol')
-    capa2, no_enlazados, parlay_legs = [], [], []
+    # v49: Capa 2 de fútbol desde el pase de fixtures (partidos sin cuota real)
+    capa2, no_enlazados, parlay_legs = list(r.get('capa2_futbol') or []), [], []
     for fn in (_picks_mlb, _picks_tenis, _picks_nba):
         try:
             sub = fn()
@@ -807,6 +934,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               'mejores_patas': mejores_patas,
               'tenis_parlay': tenis_parlay,
               'seleccion_dia': seleccion_dia,
+              'pronosticos': r.get('pronosticos') or [],   # v49: todos los partidos
               'elite': capa1,          # compatibilidad con UI/exportación
               })
     try:                      # v32 §6: registro para el rendimiento REAL

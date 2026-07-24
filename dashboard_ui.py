@@ -814,14 +814,32 @@ BANKROLL = st.sidebar.number_input(
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     st.header("💎 Apuestas del Día")
-    st.caption("Barrido UNIVERSAL (v31): 10 ligas de fútbol + Mundial, ⚾ MLB, "
-               "🏀 NBA y 🎾 tenis ATP/WTA. **Capa 1** = cuota real con EV; "
-               "**Capa 2** = alta confianza sin cuota en vivo.")
-    # v47: refresco manual bajo demanda (además del automático al abrir)
-    if st.button("🔄 Actualizar ahora", key='refresh_alpha',
-                 help="Vuelve a bajar cuotas y recalcula todas las apuestas."):
+    st.caption("Barrido UNIVERSAL (v49): TODAS las ligas con jornada (fixtures "
+               "ESPN, sin depender de cuotas) + ⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA. "
+               "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza sin "
+               "cuota en vivo; **Pronósticos** = cobertura completa del día.")
+    # v47/v49: acciones SIEMPRE visibles arriba — refrescar y enviar a Telegram
+    # (el botón de Telegram estaba escondido en un expander; ahora es fijo).
+    cacc1, cacc2 = st.columns(2)
+    if cacc1.button("🔄 Actualizar ahora", key='refresh_alpha', width='stretch',
+                    help="Vuelve a bajar cuotas y recalcula todas las apuestas."):
         st.cache_data.clear()
         st.rerun()
+    if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
+                    width='stretch', type="primary",
+                    help="Envía el resumen del día a tu Telegram (mismo mensaje "
+                         "que el envío diario automático)."):
+        try:
+            import bot_telegram
+            msg = bot_telegram.construir_mensaje()
+            if bot_telegram.enviar(msg):
+                st.success("✅ Enviado a Telegram.")
+            else:
+                st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en los "
+                           "Secrets. Vista previa del mensaje:")
+                st.code(msg, language=None)
+        except Exception as e:
+            st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
 
     @st.cache_data(ttl=1800, show_spinner="🔍 Buscando valor en todos los deportes…")
     def _buscar():
@@ -854,7 +872,9 @@ def render_alpha_finder():
         st.info(r['aviso'])
     # v30 (§1): exportar las apuestas del día — BLINDADO (pre-genera el
     # contenido en try/except; un fallo aquí nunca debe romper la página).
-    if r.get('elite') or r.get('candidatos'):
+    # v49: también con Capa 2 / pronósticos (el barrido ya casi nunca va vacío).
+    if (r.get('elite') or r.get('candidatos') or r.get('capa2')
+            or r.get('pronosticos')):
         try:
             import alpha_finder as _af
             txt = _af.exportar_txt(r)
@@ -1020,6 +1040,43 @@ def render_alpha_finder():
                    + (" y EV > +3 % donde hay cuota real." if any(p.get('cuota')
                       for p in btts) else "."))
         _tarjetas(btts, "")
+
+    # v49: TODOS LOS PRONÓSTICOS DEL DÍA — cada partido con jornada, aunque no
+    # haya cuota en vivo (el modelo da su 1X2 con cuota justa). Máxima cobertura
+    # de opciones sin relajar los filtros de la Capa 1.
+    pronos = r.get('pronosticos') or []
+    if pronos:
+        st.divider()
+        st.subheader(f"📋 Todos los pronósticos del día ({len(pronos)})")
+        st.caption("Cobertura completa: el 1X2 del modelo para cada partido "
+                   "programado, con cuota justa (1/probabilidad). Informativo — "
+                   "solo la Capa 1 lleva EV validado.")
+        import pandas as _pd
+        def _pct(v):
+            return f"{v*100:.0f}%" if isinstance(v, (int, float)) else '—'
+        filas_p = []
+        for p in sorted(pronos, key=lambda x: (x.get('fecha', ''),
+                                               -(x.get('prob') or 0))):
+            board = p.get('board') or {}
+            partes = p.get('partido', ' vs ').split(' vs ')
+            home = partes[0] if partes else ''
+            away = partes[-1] if len(partes) > 1 else ''
+            filas_p.append({
+                'Fecha': p.get('fecha', ''), 'Liga': p.get('liga', ''),
+                'Partido': p.get('partido', ''),
+                '1 (local)': _pct(board.get(f'Gana {home}')),
+                'X': _pct(board.get('Empate')),
+                '2 (visita)': _pct(board.get(f'Gana {away}')),
+                '+2.5': _pct(board.get('Más de 2.5')),
+                '−2.5': _pct(board.get('Menos de 2.5')),
+                'BTTS Sí': _pct(board.get('Ambos marcan: Sí')),
+                'Mejor pronóstico': f"{p.get('apuesta','')} "
+                                    f"({(p.get('prob') or 0)*100:.0f}%)",
+            })
+        st.dataframe(_pd.DataFrame(filas_p), hide_index=True, width='stretch')
+        st.caption("1/X/2 = victoria local / empate / visitante · +2.5/−2.5 = "
+                   "más/menos de 2.5 goles · BTTS = ambos marcan. Todas con la "
+                   "probabilidad del modelo (cuota justa = 1/prob).")
 
     # v47: PARLAY DEL DÍA DE TENIS — combinación contundente de los mercados
     # derivados más seguros (uno por partido). El usuario pidió una apuesta de
