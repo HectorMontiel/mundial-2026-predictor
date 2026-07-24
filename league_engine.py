@@ -1275,12 +1275,25 @@ class ClubEngine:
             campo('total_impar', 'Total de goles IMPAR', pct(1 - par)),
         ]})
 
-        # 5. Hándicap asiático completo
+        # 5. Hándicap asiático COMPLETO — ambos lados y ambos signos (v53.1).
+        # Antes solo salían el local NEGATIVO (-0.5..-3.5) y el visitante
+        # POSITIVO (+0.5..+3.5): faltaban el local POSITIVO (p.ej. «Atlante
+        # +1.5», un mercado seguro para el ligero favorito) y el visitante
+        # NEGATIVO. Se AÑADEN sin renombrar los ids existentes (los usa el motor
+        # de parlay para detectar contradicciones y la correlación).
         campos_h = []
-        for k, linea in [(1, '-0.5'), (2, '-1.5'), (3, '-2.5'), (4, '-3.5')]:
-            pk = float(M[diff >= k].sum())
-            campos_h.append(campo(f'ah_home_{k}', f'{home} {linea}', pct(pk)))
-            campos_h.append(campo(f'ah_away_{k}', f'{away} +{linea[1:]}', pct(1 - pk)))
+        for k, v in [(1, '0.5'), (2, '1.5'), (3, '2.5'), (4, '3.5')]:
+            pk = float(M[diff >= k].sum())                    # local gana por ≥k
+            campos_h.append(campo(f'ah_home_{k}', f'{home} -{v}', pct(pk)))
+            campos_h.append(campo(f'ah_away_{k}', f'{away} +{v}', pct(1 - pk)))
+            # visitante NEGATIVO (gana por ≥k) — mercado que faltaba
+            campos_h.append(campo(f'ah_away_m{k}', f'{away} -{v}',
+                                  pct(float(M[diff <= -k].sum()))))
+            # local POSITIVO (no pierde por ≥k) — «home +1.5/+2.5/+3.5».
+            # El +0.5 ya existe como ah_home_mas05, así que solo k≥2.
+            if k >= 2:
+                campos_h.append(campo(f'ah_home_p{k}', f'{home} +{v}',
+                                      pct(float(M[diff >= -(k - 1)].sum()))))
         campos_h.insert(0, campo('ah_home_mas05', f'{home} +0.5 (no pierde)', pct(p1 + px)))
         campos_h.insert(1, campo('ah_away_mas05', f'{away} +0.5 (no pierde)', pct(p2 + px)))
         secciones.append({'titulo': '5. Hándicap asiático', 'campos': campos_h})
