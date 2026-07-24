@@ -141,6 +141,21 @@ GEO_MX = {
 }
 
 
+def _liquidar_ah(adj: float, cuota: float) -> float:
+    """v45: PnL de 1 unidad en un hándicap asiático dado el margen NETO ya
+    ajustado por la línea (adj = margen_real + línea, desde la óptica del
+    apostante). Maneja líneas de cuarto (medio-gana/medio-pierde) y push."""
+    if adj >= 0.5:
+        return cuota - 1.0            # gana entero
+    if abs(adj - 0.25) < 1e-6:
+        return (cuota - 1.0) / 2.0     # medio gana (cuarto)
+    if abs(adj) < 1e-6:
+        return 0.0                     # push
+    if abs(adj + 0.25) < 1e-6:
+        return -0.5                    # medio pierde (cuarto)
+    return -1.0                        # pierde entero
+
+
 def _haversine_km(lat1, lon1, lat2, lon2) -> float:
     p1, p2 = np.radians(lat1), np.radians(lat2)
     dp, dl = np.radians(lat2 - lat1), np.radians(lon2 - lon1)
@@ -489,6 +504,15 @@ def descargar_liga(clave: str) -> pd.DataFrame:
             'odd_under25': pd.to_numeric(crudo.get('AvgC<2.5'), errors='coerce')
                             .fillna(pd.to_numeric(crudo.get('Avg<2.5'), errors='coerce'))
                             .fillna(pd.to_numeric(crudo.get('B365C<2.5'), errors='coerce')),
+            # v45: HÁNDICAP ASIÁTICO de cierre — línea (AHCh) + cuotas home/away
+            # (media de mercado, respaldo B365 de cierre). Para validar el
+            # mercado de hándicap.
+            'ah_linea': pd.to_numeric(crudo.get('AHCh'), errors='coerce')
+                          .fillna(pd.to_numeric(crudo.get('AHh'), errors='coerce')),
+            'odd_ah_home': pd.to_numeric(crudo.get('AvgCAHH'), errors='coerce')
+                            .fillna(pd.to_numeric(crudo.get('B365CAHH'), errors='coerce')),
+            'odd_ah_away': pd.to_numeric(crudo.get('AvgCAHA'), errors='coerce')
+                            .fillna(pd.to_numeric(crudo.get('B365CAHA'), errors='coerce')),
             # v26: cierre de PINNACLE (PSC*) para CLV/Shadow — la casa más
             # eficiente; con respaldo PS* (apertura Pinnacle) si falta
             'odd_home_pin': pd.to_numeric(crudo.get('PSCH'), errors='coerce')
@@ -780,6 +804,55 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
                             f"ROI {100 * gou / len(ou_bets):+.1f}%")
                 with open(f'roi_bets_ou_{clave}.json', 'w', encoding='utf-8') as f:
                     json.dump(sorted(ou_bets, key=lambda a: a['fecha']), f)
+
+            # v45: backtest del HÁNDICAP ASIÁTICO en la línea de cierre real.
+            # Reparto de margen (home−away) por convolución de dos Poisson
+            # (marginales de arriba). Liquidación AH estándar con cuartos.
+            if {'ah_linea', 'odd_ah_home', 'odd_ah_away'} <= set(df.columns):
+                lam_h = np.clip(rl.predict(X_va), 0.15, 4)
+                lam_a = np.clip(rv.predict(X_va), 0.15, 4)
+                ah_cols = df.set_index('MATCH_ID')[
+                    ['ah_linea', 'odd_ah_home', 'odd_ah_away']].reindex(ids_val)
+                gd = pd.Series([g0 - g1 for g0, g1 in ds['goles'][m_va]], index=ids_val)
+                kk = np.arange(0, 11)
+                ah_bets = []
+                for i, mid in enumerate(ids_val):
+                    fila = ah_cols.loc[mid]
+                    linea, oh, oa = (fila['ah_linea'], fila['odd_ah_home'],
+                                     fila['odd_ah_away'])
+                    if pd.isna(linea) or pd.isna(oh) or pd.isna(oa) or oh <= 1 or oa <= 1:
+                        continue
+                    ph = _poisson.pmf(kk, lam_h[i]); pa = _poisson.pmf(kk, lam_a[i])
+                    # distribución del margen home−away
+                    pm = {}
+                    for a_ in kk:
+                        for b_ in kk:
+                            m_ = int(a_ - b_)
+                            pm[m_] = pm.get(m_, 0.0) + ph[a_] * pa[b_]
+                    # prob de que el LOCAL cubra la línea (>0.5 = cubre neto)
+                    p_home = sum(p for m_, p in pm.items()
+                                 if (m_ + linea) > 0.25) + 0.5 * sum(
+                                 p for m_, p in pm.items() if abs(m_ + linea) <= 0.25)
+                    lado, prob, cuota = ('home', p_home, float(oh))
+                    if (1 - p_home) * float(oa) > p_home * float(oh):
+                        lado, prob, cuota = ('away', 1 - p_home, float(oa))
+                    ev = cuota * prob - 1.0
+                    if ev <= 0:
+                        continue
+                    # liquidación real del margen con la línea de cierre
+                    adj = (gd.loc[mid] + linea) if lado == 'home' else (-gd.loc[mid] - linea)
+                    pnl = _liquidar_ah(adj, cuota)
+                    ah_bets.append({'fecha': str(pd.Timestamp(fechas_val.loc[mid]).date()),
+                                    'prob': round(float(prob), 4), 'cuota': round(cuota, 3),
+                                    'ev': round(float(ev), 4),
+                                    'gano': int(pnl > 0), 'pnl': round(pnl, 3),
+                                    'lado': lado, 'linea': float(linea)})
+                if ah_bets:
+                    gah = sum(a['pnl'] for a in ah_bets)
+                    logger.info(f"[{clave}] Hándicap asiático backtest: "
+                                f"{len(ah_bets)} apuestas, ROI {100*gah/len(ah_bets):+.1f}%")
+                    with open(f'roi_bets_ah_{clave}.json', 'w', encoding='utf-8') as f:
+                        json.dump(sorted(ah_bets, key=lambda a: a['fecha']), f)
 
     # ------------------------------------------------------------------
     # v23 (MESM): meta-ensemble de superación de mercado. Protocolo SIN

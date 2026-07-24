@@ -103,9 +103,13 @@ def _auditar_mercados() -> List[Dict]:
     """1X2 vs Over/Under 2.5 con la selección validada + bootstrap p5."""
     rng = np.random.default_rng(42)
 
-    def _cargar(patron):
+    def _cargar(patron, solo_1x2=False):
         out = []
         for f in glob.glob(patron):
+            base = f.replace('\\', '/').split('/')[-1]
+            if solo_1x2 and (base.startswith('roi_bets_ou_')
+                             or base.startswith('roi_bets_ah_')):
+                continue
             try:
                 for b in json.load(open(f, encoding='utf-8')):
                     if b.get('cuota') and b.get('gano') is not None and b.get('prob'):
@@ -121,18 +125,22 @@ def _auditar_mercados() -> List[Dict]:
     def _roi_p5(bs):
         if not bs:
             return (0, None)
-        roi = 100 * sum((b['cuota'] - 1) if b['gano'] else -1 for b in bs) / len(bs)
+        # v45: usa 'pnl' si existe (hándicap con cuartos/push); si no, la
+        # fórmula estándar (cuota−1 si gana, −1 si no).
+        pnl = np.array([b['pnl'] if 'pnl' in b else
+                        ((b['cuota'] - 1) if b['gano'] else -1.0) for b in bs])
+        roi = 100 * pnl.mean()
         if len(bs) < 30:
             return (round(roi, 2), None)
-        pnl = np.array([(b['cuota'] - 1) if b['gano'] else -1.0 for b in bs])
         p5 = float(np.percentile([100 * rng.choice(pnl, len(pnl), replace=True).mean()
                                   for _ in range(2000)], 5))
         return (round(roi, 2), round(p5, 2))
 
     out = []
-    for nombre, patron, excl in [('1X2 (resultado)', 'roi_bets_[!o]*.json', 'ou'),
-                                 ('Over/Under 2.5', 'roi_bets_ou_*.json', None)]:
-        bs = _sel(_cargar(patron))
+    for nombre, patron, s1 in [('1X2 (resultado)', 'roi_bets_*.json', True),
+                               ('Over/Under 2.5', 'roi_bets_ou_*.json', False),
+                               ('Hándicap asiático', 'roi_bets_ah_*.json', False)]:
+        bs = _sel(_cargar(patron, solo_1x2=s1))
         roi, p5 = _roi_p5(bs)
         # criterio v40: rentable SOLO si el bootstrap p5 es positivo
         veredicto = ('🟢 rentable y robusto' if (p5 is not None and p5 > 0) else

@@ -293,6 +293,14 @@
    "roi_p5_bootstrap": -7.31,
    "en_capa1": false,
    "veredicto": "🟡 marginal"
+  },
+  {
+   "mercado": "Hándicap asiático",
+   "n": 383,
+   "roi_pct": -9.39,
+   "roi_p5_bootstrap": -16.7,
+   "en_capa1": false,
+   "veredicto": "🔴 no rentable"
   }
  ]
 }
