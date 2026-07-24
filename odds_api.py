@@ -636,6 +636,41 @@ def cuotas_recientes(mercado: str, horas: int = 24,
     return out
 
 
+def extraer_precios(ev: Dict, mercado: str = 'h2h') -> Dict[str, Dict]:
+    """v46: de un evento de The Odds API, la MEJOR cuota de cada selección
+    entre casas (line shopping) + la casa que la ofrece + el precio de
+    PINNACLE (referencia sharp). Reutilizable por cualquier deporte.
+    Devuelve {nombre_outcome: {'cuota': mejor, 'casa': str, 'pin': float|None}}.
+    """
+    out: Dict[str, Dict] = {}
+    for b in ev.get('bookmakers', []):
+        es_pin = b.get('key') == 'pinnacle'
+        for m in b.get('markets', []):
+            if m['key'] != mercado:
+                continue
+            for o in m['outcomes']:
+                nombre = o['name']
+                precio = float(o['price'])
+                d = out.setdefault(nombre, {'cuota': 0.0, 'casa': None, 'pin': None})
+                if es_pin:
+                    d['pin'] = precio
+                elif precio > d['cuota']:
+                    d['cuota'] = precio
+                    d['casa'] = b.get('title') or b.get('key')
+    return {k: v for k, v in out.items() if v['cuota'] > 1}
+
+
+def sharp_gap_2via(prob_modelo: float, pin_a: Optional[float],
+                   pin_b: Optional[float]) -> Optional[float]:
+    """v46: gap del modelo sobre la devig de Pinnacle en un mercado a 2 vías
+    (sin empate: MLB, tenis, NBA). Positivo = el modelo supera al sharp."""
+    if not pin_a or not pin_b or pin_a <= 1 or pin_b <= 1:
+        return None
+    ia, ib = 1.0 / pin_a, 1.0 / pin_b
+    devig = ia / (ia + ib)               # prob implícita sin margen
+    return prob_modelo - devig
+
+
 def casas_recientes(mercado: str, horas: int = 24) -> Dict[str, Dict[str, str]]:
     """v43: la CASA que ofrece la mejor cuota de cada selección (line shopping)
     — para decirle al usuario DÓNDE apostar. {match_id: {seleccion: casa}}."""

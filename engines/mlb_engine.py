@@ -232,8 +232,11 @@ class MLBEngine(BaseSportsEngine):
         import requests
         odds_api._consumir_request()
         try:
+            # v46: us,eu para incluir Pinnacle (referencia sharp) y más casas
+            # (line shopping — mejor precio). Cuesta 1 crédito más pero MLB es
+            # 1 llamada/día y aporta el edge más transferible.
             r = requests.get(f'{odds_api.BASE}/sports/baseball_mlb/odds',
-                             params={'apiKey': k, 'regions': 'us',
+                             params={'apiKey': k, 'regions': 'us,eu',
                                      'markets': 'h2h', 'oddsFormat': 'decimal'},
                              timeout=30)
             r.raise_for_status()
@@ -247,21 +250,22 @@ class MLBEngine(BaseSportsEngine):
             pred = self.predecir(hc, ac)
             if 'error' in pred:
                 continue
-            o = {}
-            for casa in ev.get('bookmakers', [])[:1]:
-                for m in casa.get('markets', []):
-                    if m['key'] == 'h2h':
-                        for out in m['outcomes']:
-                            o[out['name']] = out['price']
+            # v46: mejor precio + casa + Pinnacle por selección
+            precios = odds_api.extraer_precios(ev, 'h2h')
             for lado, cod, prob in (('home', hc, pred['prob_home']),
                                     ('away', ac, pred['prob_away'])):
                 nombre = ev['home_team'] if lado == 'home' else ev['away_team']
-                cuota = o.get(nombre)
-                if not cuota:
+                otro = ev['away_team'] if lado == 'home' else ev['home_team']
+                info = precios.get(nombre)
+                if not info:
                     continue
+                cuota = info['cuota']
                 ev_val = self.calcular_ev(prob, float(cuota))
                 if prob > min_prob and ev_val > min_ev and float(cuota) > min_cuota:
-                    picks.append({
+                    # v46: confirmación sharp (modelo vs devig de Pinnacle)
+                    gap = odds_api.sharp_gap_2via(
+                        prob, info.get('pin'), (precios.get(otro) or {}).get('pin'))
+                    pick = {
                         'deporte': 'MLB',
                         'partido': f"{CODIGO_A_NOMBRE.get(ac, ac)} @ "
                                    f"{CODIGO_A_NOMBRE.get(hc, hc)}",
@@ -269,9 +273,18 @@ class MLBEngine(BaseSportsEngine):
                         'apuesta': f"Gana {nombre}", 'prob': round(prob, 3),
                         'cuota': round(float(cuota), 2),
                         'cuota_justa': round(1 / max(prob, 1e-6), 2),
-                        'ev': ev_val,
-                        'valor': '🟢' if ev_val > 0.05 else '🟡'})
-        picks.sort(key=lambda p: -p['ev'])
+                        'ev': ev_val, 'casa': info.get('casa'),
+                        'valor': '🟢' if ev_val > 0.05 else '🟡'}
+                    if gap is not None:
+                        pick['sharp_gap'] = round(gap, 4)
+                        # v46 GUARDARRAÍL: la confirmación sharp solo cuenta en
+                        # picks razonablemente probables (prob≥0.52). En
+                        # underdogs el modelo tiende a sobreconfiar y el gap es
+                        # espurio (la trampa de EV extremo, no valor real).
+                        pick['sharp_confirmado'] = bool(gap >= 0.03 and prob >= 0.52)
+                    picks.append(pick)
+        # los confirmados por el sharp primero (más valor)
+        picks.sort(key=lambda p: (-int(p.get('sharp_confirmado', False)), -p['ev']))
         return {'picks': picks, 'eventos': len(r.json()),
                 'aviso': None if picks else
                 'Sin picks MLB con EV suficiente hoy (o fuera de horario de juego).'}
