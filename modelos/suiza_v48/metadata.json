@@ -1,0 +1,39 @@
+{
+  "liga": "Swiss Super League",
+  "n_train": 1249,
+  "n_validacion": 315,
+  "fecha_corte": "2025-02-16",
+  "precision_validacion": 0.4603,
+  "precision_linea_base_elo": 0.473,
+  "precision_mercado_cuotas": 0.4921,
+  "log_loss_validacion": 1.0339,
+  "n_equipos": 18,
+  "features_extra_cols": [
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4321,
+    "PROB_IMP_D": 0.248,
+    "PROB_IMP_A": 0.3199,
+    "OVERROUND": 0.0673
+  },
+  "roi_sim": {
+    "n_apuestas": 122,
+    "roi_pct": -2.29,
+    "aciertos": 52,
+    "roi_pct_pinnacle": 5.6,
+    "n_con_pinnacle": 65
+  },
+  "mesm": {
+    "n_val_con_cuotas": 315,
+    "acc_prod": 0.4603,
+    "acc_mesm": 0.4984,
+    "ll_prod": 1.0339,
+    "ll_mesm": 1.0392,
+    "adoptado": true
+  },
+  "imt": null
+}

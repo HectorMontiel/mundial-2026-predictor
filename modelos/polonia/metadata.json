@@ -1,0 +1,39 @@
+{
+  "liga": "Ekstraklasa",
+  "n_train": 1836,
+  "n_validacion": 460,
+  "fecha_corte": "2024-12-06",
+  "precision_validacion": 0.4609,
+  "precision_linea_base_elo": 0.3913,
+  "precision_mercado_cuotas": 0.437,
+  "log_loss_validacion": 1.0609,
+  "n_equipos": 30,
+  "features_extra_cols": [
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.424,
+    "PROB_IMP_D": 0.2706,
+    "PROB_IMP_A": 0.3054,
+    "OVERROUND": 0.0698
+  },
+  "roi_sim": {
+    "n_apuestas": 196,
+    "roi_pct": 10.07,
+    "aciertos": 83,
+    "roi_pct_pinnacle": 25.92,
+    "n_con_pinnacle": 101
+  },
+  "mesm": {
+    "n_val_con_cuotas": 460,
+    "acc_prod": 0.4609,
+    "acc_mesm": 0.4348,
+    "ll_prod": 1.0609,
+    "ll_mesm": 1.0629,
+    "adoptado": false
+  },
+  "imt": null
+}

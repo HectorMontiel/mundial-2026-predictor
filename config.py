@@ -168,6 +168,33 @@ LEAGUES = {
         'urls': [f'{FD_BASE}/new/DNK.csv'], 'anios_ventana': 8,
         'disponible': True, 'features_extra': ['cuotas'],
     },
+    # v48 (HALLAZGO): football-data SÍ publica estas ligas en formato 'new'
+    # (verificado 2026-07-24). La nota de la v34 ("China/Corea sin histórico
+    # gratuito") era incorrecta para China: CHN.csv tiene 2.900+ partidos y
+    # está EN TEMPORADA (último 18/07/2026, hace 6 días) → cubre el hueco
+    # asiático del verano. Polonia y Suiza cerraron en mayo (reanudan agosto);
+    # se dejan listas y la cuarentena de pretemporada (v32) las degrada sola
+    # hasta que vuelvan. Todas comparten pipeline con brasil/noruega (mismo
+    # formato barato). disponible=True para que entrenen y capturen cuotas.
+    'china': {
+        'nombre': 'Chinese Super League', 'pais': 'China', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/CHN.csv'], 'anios_ventana': 8,
+        'disponible': True, 'features_extra': ['cuotas'],
+    },
+    'polonia': {
+        'nombre': 'Ekstraklasa', 'pais': 'Polonia', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/POL.csv'], 'anios_ventana': 8,
+        'disponible': True, 'features_extra': ['cuotas'],
+    },
+    # Suiza: entrenada en v48 pero NO bate al ELO (0.460<0.473) ni al mercado
+    # (0.492) → disponible=False (regla de oro §2.2). Modelo disponible para el
+    # explorador de plantillas, pero fuera de la Capa 1 y sin capturar cuotas.
+    'suiza_v48': {
+        'nombre': 'Swiss Super League', 'pais': 'Suiza', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/SWZ.csv'], 'anios_ventana': 8,
+        'disponible': False, 'features_extra': ['cuotas'],
+        'nota': 'entrenada v48 pero no bate ELO (0.460<0.473) — informativa.',
+    },
     # NO adoptadas (no baten ELO en split Y su backtest sangra: Grecia −24.9 %,
     # Suiza −2.3 % pero acc<ELO, Austria −17.7 %). Se dejan definidas pero
     # `disponible: False` para NO meter picks deficitarios en la Capa 1 (regla

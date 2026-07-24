@@ -73,6 +73,12 @@ SPORT_KEYS = {
     # y Austria NO se capturan (disponible=False: no baten ELO / sangran ROI).
     'turquia': 'soccer_turkey_super_league',
     'dinamarca': 'soccer_denmark_superliga',
+    # v48: ligas nuevas trainable con football-data (China en temporada ahora;
+    # Polonia y Suiza reanudan en agosto). Las claves de The Odds API solo
+    # devuelven eventos si el torneo está activo → 0 créditos fuera de temporada.
+    'china': 'soccer_china_superleague',
+    'polonia': 'soccer_poland_ekstraklasa',
+    # (Suiza queda fuera: disponible=False, no se capturan sus cuotas)
     'champions': 'soccer_uefa_champs_league',
     # v35 (§2): competiciones UEFA secundarias
     'europa_league': 'soccer_uefa_europa_league',
