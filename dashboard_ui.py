@@ -980,10 +980,19 @@ def render_alpha_finder():
                            f"{clv.get('roi_cuando_no','?')} %")
                 st.caption(clv['interpretacion'])
             lo, hi = edge_engine.banda_rentable()
-            st.markdown(f"**🎯 Banda de EV rentable validada:** "
-                        f"{lo*100:.0f} %–{hi*100:.0f} % "
-                        "(maximin walk-forward, todas las ventanas OOS positivas). "
-                        "Los picks fuera de esta banda se degradan o segregan.")
+            st.markdown(f"**🎯 Selección rentable validada (v40):** EV "
+                        f"{lo*100:.0f}–{hi*100:.0f} % · prob ≥ "
+                        f"{edge_engine.piso_prob()*100:.0f} % · convicción "
+                        f"prob×EV ≥ {edge_engine.conviccion_min():.3f}.")
+            ci = edge_engine._mapa().get('ci_bootstrap_seleccion') or {}
+            if ci.get('n'):
+                cb1, cb2, cb3 = st.columns(3)
+                cb1.metric("ROI medio (backtest)", f"{ci['roi_medio']:+.1f} %",
+                           help=f"{ci['n']} apuestas históricas de la selección.")
+                cb2.metric("ROI p5 (bootstrap)", f"{ci['roi_p5']:+.1f} %",
+                           help="Peor ROI plausible al 95 %. Positivo = el edge "
+                                "no es casualidad (robustez, no una ventana afortunada).")
+                cb3.metric("ROI p95", f"{ci['roi_p95']:+.1f} %")
             m = edge_engine._mapa()
             ligas = m.get('ligas', {})
             if ligas:

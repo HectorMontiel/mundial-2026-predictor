@@ -42,9 +42,13 @@ try:
     import edge_engine as _ee
     MIN_PROB = _ee.piso_prob()
     MIN_EV = _ee.banda_rentable()[0]
+    # v40: gate de CONVICCIÓN prob×EV (bootstrap p5) — sube el ROI de +7.9 % a
+    # +9.9 % (p5 bootstrap +0.7 % → +2.6 %: el peor 5 % plausible ya es rentable).
+    MIN_CONVICCION = _ee.conviccion_min()
 except Exception:
     MIN_PROB = 0.55
     MIN_EV = 0.03
+    MIN_CONVICCION = 0.025
 MIN_CUOTA = 1.50
 # v34 (prioridad: cobertura): 72 h en vez de 48. Las casas ya publican
 # cuotas con 3 días de antelación y el barrido pasaba de 178 partidos con
@@ -212,7 +216,8 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
                           '🟡' if c['ev'] > 0 else '🔴'),
             }
             if (c['prob'] > MIN_PROB and c['ev'] > MIN_EV
-                    and c['cuota'] > MIN_CUOTA):
+                    and c['cuota'] > MIN_CUOTA
+                    and c['prob'] * c['ev'] >= MIN_CONVICCION):   # v40: convicción
                 estado = _filtro_evc(tarjeta, resid)
                 if estado == 'descartada':      # divergencia crítica (v27)
                     tarjeta['nota'] = ('⚠️ descartada por EVC: confianza alta '

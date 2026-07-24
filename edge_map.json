@@ -13,6 +13,13 @@
   17.61
  ],
  "piso_prob_adoptado": 0.55,
+ "conviccion_adoptada": 0.025,
+ "ci_bootstrap_seleccion": {
+  "n": 297,
+  "roi_medio": 9.92,
+  "roi_p5": 2.6,
+  "roi_p95": 17.18
+ },
  "escaneo_prob": [
   {
    "piso": 0.55,
@@ -78,6 +85,38 @@
    ],
    "peor_ventana": -7.33,
    "ventanas_positivas": 3
+  }
+ ],
+ "escaneo_conviccion": [
+  {
+   "conviccion": 0.025,
+   "n": 297,
+   "roi_global": 9.88,
+   "roi_p5_bootstrap": 2.7
+  },
+  {
+   "conviccion": 0.02,
+   "n": 324,
+   "roi_global": 9.54,
+   "roi_p5_bootstrap": 2.42
+  },
+  {
+   "conviccion": 0.0,
+   "n": 337,
+   "roi_global": 7.93,
+   "roi_p5_bootstrap": 0.84
+  },
+  {
+   "conviccion": 0.015,
+   "n": 337,
+   "roi_global": 7.93,
+   "roi_p5_bootstrap": 0.56
+  },
+  {
+   "conviccion": 0.03,
+   "n": 254,
+   "roi_global": 8.37,
+   "roi_p5_bootstrap": 0.25
   }
  ],
  "escaneo_bandas": [
