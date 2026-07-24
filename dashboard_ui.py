@@ -471,6 +471,77 @@ def render_comparador(motor, equipos: list, key: str):
 
 def render_parlay_partido(motor, home: str, away: str, key: str):
     """Sección interactiva de parlay para EL partido en pantalla."""
+    # v58: VARIAS combinadas propuestas automáticamente + copiar estadísticas.
+    # Universal: funciona con cualquier motor (fútbol, MLB, ...).
+    st.markdown("#### 🎲 Parlays propuestos con cuotas")
+    st.caption("La app arma varias combinadas de ESTE partido con distintos "
+               "perfiles (de la más segura a la de más cuota), con su "
+               "probabilidad real de acertar todo y la cuota combinada.")
+    cmp1, cmp2 = st.columns([2, 1])
+    _solo_reales = cmp2.checkbox("Solo cuotas reales", value=False,
+                                 key=f"mpv_reales_{key}",
+                                 help="Limita a mercados con cuota vigente "
+                                      "(EV accionable).")
+    if cmp1.button("🎲 Proponer parlays con cuotas", key=f"mpv_btn_{key}",
+                   type="primary", width='stretch'):
+        from match_parlay import proponer_parlays
+        with st.spinner("Buscando las mejores combinadas del partido…"):
+            opciones = proponer_parlays(
+                motor, home, away, max_opciones=5,
+                solo_cuotas_reales=_solo_reales,
+                bankroll=float(st.session_state.get('bankroll', 0) or 0))
+        if not opciones:
+            st.warning("No hay combinadas que superen el listón de "
+                       "probabilidad para este partido (no se fuerzan parlays "
+                       "soñadores).")
+        else:
+            st.success(f"{len(opciones)} combinadas propuestas, ordenadas por "
+                       "calidad (probabilidad × cuota).")
+            for i, op in enumerate(opciones, 1):
+                with st.container(border=True):
+                    oc1, oc2, oc3 = st.columns([2, 1, 1])
+                    oc1.markdown(f"**{op['etiqueta_opcion']}** · "
+                                 f"{op['n_selecciones']} patas  \n"
+                                 f"{op['descripcion_opcion']}")
+                    oc2.metric("Prob. de acertar todo",
+                               f"{op['prob_conjunta']*100:.0f}%")
+                    oc3.metric("Cuota combinada", f"{op['cuota_combinada']:.2f}",
+                               help=f"100 u → {op['cuota_combinada']*100:.0f} u "
+                                    "si entra.")
+                    for s in op['selecciones']:
+                        st.write(f"• [{s['mercado']}] **{s['apuesta']}** "
+                                 f"@ {s['cuota']} · {s['prob']*100:.0f}%"
+                                 + ("  ·  cuota real" if s.get('cuota_fuente') == 'real'
+                                    else ""))
+                    if op.get('avisos'):
+                        for av in op['avisos']:
+                            st.caption(av)
+                    _txt = "\n".join(
+                        f"{j}. [{s['mercado']}] {s['apuesta']} @ {s['cuota']} "
+                        f"(p={s['prob']*100:.0f}%)"
+                        for j, s in enumerate(op['selecciones'], 1))
+                    _txt += (f"\nCuota combinada: {op['cuota_combinada']:.2f} · "
+                             f"Prob: {op['prob_conjunta']*100:.1f}%")
+                    with st.expander("📋 Copiar esta combinada"):
+                        st.code(_txt, language=None)
+            st.caption("⚠️ Con cuotas justas del modelo el EV es teórico: "
+                       "compara contra tu casa. " + AVISO_JUEGO_RESPONSABLE)
+
+    # v58: copiar TODAS las estadísticas del partido (universal)
+    with st.expander("📋 Copiar todas las estadísticas de este partido"):
+        try:
+            from match_parlay import plantilla_a_texto
+            _pl_txt = (motor.plantilla_club(home, away)
+                       if hasattr(motor, 'plantilla_club')
+                       else motor.plantilla(home, away))
+            _texto = plantilla_a_texto(_pl_txt)
+            st.code(_texto, language=None)
+            st.download_button("⬇️ Descargar (.txt)", data=_texto.encode('utf-8'),
+                               file_name=f"stats_{home}_vs_{away}.txt".replace(' ', '_'),
+                               mime='text/plain', key=f"dl_stats_{key}")
+        except Exception as e:
+            st.caption(f"No disponible ahora ({type(e).__name__}).")
+
     with st.expander(f"🎯 Parlay de ESTE partido — {home} vs {away}"):
         c1, c2 = st.columns(2)
         with c1:
@@ -701,6 +772,35 @@ def render_liga_club(clave: str, nombre_liga: str):
         st.info("ℹ️ Fuentes: API-Football (2022-24, marcadores de 90') + FBref "
                 "(resto e incluida la temporada en curso). La forma se actualiza "
                 "con cada corrida del pipeline.")
+    # v58: PRÓXIMOS PARTIDOS de la liga (fixtures ESPN) — el usuario elige el
+    # partido real y se autorrellenan los selectores de local/visitante.
+    try:
+        import fixtures_espn
+        import name_mapper as _nm
+        _fx = fixtures_espn.fixtures_liga(clave)
+    except Exception:
+        _fx = []
+    if _fx:
+        _cat = list(motor.equipos)
+        _ops = {}
+        for f in _fx:
+            h = _nm.mapear(f['home'], _cat, contexto=f'ui→{clave}')
+            a = _nm.mapear(f['away'], _cat, contexto=f'ui→{clave}')
+            if h and a and h != a:
+                _ops[f"{f['fecha']} · {h} vs {a}"] = (h, a)
+        if _ops:
+            cfx1, cfx2 = st.columns([3, 1])
+            _sel_fx = cfx1.selectbox(
+                f"📅 Próximos partidos de {nombre_liga} ({len(_ops)})",
+                list(_ops.keys()), key=f"fx_sel_{clave}",
+                help="Elige un partido programado y pulsa «Cargar» para "
+                     "rellenar los equipos automáticamente.")
+            if cfx2.button("⬇️ Cargar", key=f"fx_btn_{clave}", width='stretch'):
+                h, a = _ops[_sel_fx]
+                st.session_state[f"club_home_{clave}"] = h
+                st.session_state[f"club_away_{clave}"] = a
+                st.rerun()
+
     c1, c2 = st.columns(2)
     with c1:
         home = st.selectbox("🏠 Local", motor.equipos, key=f"club_home_{clave}")
@@ -1028,6 +1128,57 @@ def render_alpha_finder():
                                    "«🎰 Arma TU combinada de este partido».")
                 except Exception as e:
                     st.caption(f"Combinada no disponible ahora ({type(e).__name__}).")
+
+    # v58: COMBINADAS DEL DÍA — varias, de distintos partidos y perfiles. Se
+    # arman sobre los mejores partidos del día (Capa 1 y pronósticos) para que
+    # el usuario tenga una selección amplia y no solo la "súper segura".
+    st.divider()
+    with st.expander("🎲 Combinadas del Día — varias opciones con cuota", expanded=False):
+        st.caption("Combinadas de UN SOLO partido (más controlables que las "
+                   "multi-partido), de los mejores encuentros del día. Escalera "
+                   "de la más segura a la de más cuota.")
+        if st.button("🎲 Generar combinadas del día", key='combo_dia_btn',
+                     type="primary"):
+            from match_parlay import proponer_parlays
+            _REV = {v: k for k, v in NOMBRES_LIGAS.items()}
+            # candidatos: mejores picks de fútbol del día (Capa 1 → pronósticos)
+            vistos, candidatos = set(), []
+            for p in ((r.get('capa1') or []) + (r.get('seleccion_dia') or [])
+                      + (r.get('pronosticos') or [])):
+                if p.get('deporte', 'Fútbol') != 'Fútbol':
+                    continue
+                cl = _REV.get(p.get('liga', ''))
+                partes = str(p.get('partido', '')).split(' vs ')
+                if not cl or len(partes) != 2 or p['partido'] in vistos:
+                    continue
+                vistos.add(p['partido'])
+                candidatos.append((cl, partes[0].strip(), partes[1].strip()))
+                if len(candidatos) >= 4:
+                    break
+            if not candidatos:
+                st.info("Hoy no hay partidos con datos suficientes para armar "
+                        "combinadas.")
+            with st.spinner("Armando combinadas de los mejores partidos…"):
+                for cl, h, a in candidatos:
+                    try:
+                        ops = proponer_parlays(cargar_motor_liga(cl), h, a,
+                                               max_opciones=3)
+                    except Exception as e:
+                        st.caption(f"{h} vs {a}: no disponible ({type(e).__name__}).")
+                        continue
+                    if not ops:
+                        continue
+                    st.markdown(f"**⚽ {h} vs {a}** — {NOMBRES_LIGAS.get(cl, cl)}")
+                    for op in ops:
+                        with st.container(border=True):
+                            k1, k2, k3 = st.columns([2, 1, 1])
+                            k1.markdown(f"{op['etiqueta_opcion']} · "
+                                        f"{op['n_selecciones']} patas")
+                            k2.metric("Prob.", f"{op['prob_conjunta']*100:.0f}%")
+                            k3.metric("Cuota", f"{op['cuota_combinada']:.2f}")
+                            st.caption(" + ".join(s['apuesta']
+                                                  for s in op['selecciones']))
+            st.caption(AVISO_JUEGO_RESPONSABLE)
 
     # v37 (§5): PLAN DE ATAQUE TEMPORAL (oleadas)
     oleadas = r.get('oleadas') or {}

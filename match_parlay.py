@@ -1051,3 +1051,109 @@ def combinar_manual(pl: Dict, ids: List[str]) -> Dict:
                  'justa = 1/prob. Si hay cuotas reales, el EV es accionable; '
                  'si no, compara la cuota combinada contra tu casa.'),
     }
+
+
+# ---------------------------------------------------------------------------
+# v58 — MULTI-PARLAY: varias opciones de combinada para el MISMO partido, con
+# cuotas combinadas, de perfiles distintos (no solo el "súper seguro"), para
+# que el usuario elija según su apetito de riesgo. Escalable a cualquier
+# deporte cuyo motor exponga `plantilla_club`/`plantilla` con 'secciones'.
+# ---------------------------------------------------------------------------
+# (perfil, nº patas, etiqueta, descripción, PFP mínimo propio). El PFP mínimo
+# baja al subir la ambición: así hay una ESCALERA de cuotas (de ~1.4 a ~5) sin
+# caer en parlays soñadores — el más agresivo aún exige 1 de cada 5 de acierto.
+MIN_CUOTA_OPCION = 1.25      # por debajo, la combinada no compensa el riesgo
+
+_ETIQUETAS_OPCION = [
+    ('super_seguro', 2, '🛡️ Ancla', 'La más probable: dos patas muy seguras.', 0.55),
+    ('conservador', 3, '🔒 Segura+', 'Tres patas de alta probabilidad.', 0.50),
+    ('medio', 3, '⚖️ Equilibrada', 'Balance entre probabilidad y cuota.', 0.33),
+    ('medio', 4, '📈 Valor', 'Cuatro patas: más cuota, riesgo contenido.', 0.26),
+    ('agresivo', 4, '🚀 Cuota', 'Cuota alta asumiendo más riesgo.', 0.20),
+    ('agresivo', 5, '💥 Cuota+', 'Cinco patas para maximizar el premio.', 0.15),
+]
+
+
+def proponer_parlays(motor, home: str, away: str, max_opciones: int = 5,
+                     solo_cuotas_reales: bool = False,
+                     bankroll: float = 0.0) -> List[Dict]:
+    """v58: devuelve VARIAS combinadas del mismo partido (perfiles y tamaños
+    distintos), ordenadas por calidad. Cada una trae cuota combinada, PFP
+    (probabilidad real de acertar todo) y EV cuando hay cuotas reales.
+
+    Criterio de orden (no 'parlays soñadores'): se exige PFP >= PFP_MINIMO y se
+    puntúa por PFP × cuota^0.35 — premia la cuota pero domina la probabilidad.
+    Se descartan duplicados (misma combinación de patas)."""
+    vistas: Set[tuple] = set()
+    opciones: List[Dict] = []
+    for perfil, n, etiqueta, desc, min_pfp in _ETIQUETAS_OPCION:
+        try:
+            r = construir_parlay_partido(
+                motor, home, away, num_selecciones=n, perfil=perfil,
+                solo_cuotas_reales=solo_cuotas_reales, bankroll=bankroll,
+                aplicar_pfp=False, modo_avanzado=True)
+        except Exception as e:
+            logger.warning(f"[multiparlay] {perfil}/{n}: {type(e).__name__}: {e}")
+            continue
+        if 'error' in r:
+            continue
+        firma = tuple(sorted(s['apuesta'] for s in r['selecciones']))
+        if firma in vistas:
+            continue
+        pfp = float(r.get('prob_conjunta') or 0)
+        if pfp < min_pfp:
+            continue                       # nada de combinadas soñadoras
+        cuota = float(r.get('cuota_combinada') or 1)
+        if cuota < MIN_CUOTA_OPCION:
+            continue                       # cuota irrelevante: no aporta valor
+        vistas.add(firma)
+        r['etiqueta_opcion'] = etiqueta
+        r['descripcion_opcion'] = desc
+        # score informativo (prob × cuota^0.5): premia la cuota sin que domine
+        r['score_opcion'] = round(pfp * (cuota ** 0.5), 4)
+        opciones.append(r)
+    # se presentan como ESCALERA: de la más segura a la de más cuota
+    opciones.sort(key=lambda x: float(x.get('cuota_combinada') or 1))
+    return opciones[:max_opciones]
+
+
+def plantilla_a_texto(pl: Dict) -> str:
+    """v58: TODAS las estadísticas/mercados del partido en texto plano, para el
+    botón de copiar al portapapeles. Genérico: sirve a cualquier deporte cuya
+    plantilla tenga 'secciones' (fútbol, MLB, ...)."""
+    lineas = [f"ESTADÍSTICAS Y MERCADOS — {pl.get('partido', '?')}"]
+    if pl.get('liga'):
+        lineas.append(f"Competición: {pl['liga']}")
+    if pl.get('fecha'):
+        lineas.append(f"Fecha: {pl['fecha']}")
+    base = pl.get('prediccion_base') or pl.get('prediccion') or {}
+    pr = base.get('prediction', base)
+    probs = pr.get('probabilities') if isinstance(pr, dict) else None
+    if probs:
+        lineas.append(f"1X2 del modelo: local {probs.get('home', 0)*100:.0f}% · "
+                      f"empate {probs.get('draw', 0)*100:.0f}% · "
+                      f"visitante {probs.get('away', 0)*100:.0f}%")
+    elif base.get('prob_home') is not None:
+        lineas.append(f"Ganador: local {base['prob_home']*100:.0f}% · "
+                      f"visitante {base.get('prob_away', 0)*100:.0f}%")
+    lineas.append('')
+    for sec in pl.get('secciones', []):
+        lineas.append(f"== {sec.get('titulo', '')} ==")
+        for c in sec.get('campos', []):
+            val = c.get('valor')
+            if c.get('tipo') == 'media':
+                lineas.append(f"  {c.get('etiqueta', '')}: {val}")
+            else:
+                try:
+                    justa = round(100 / max(float(val), 1e-6), 2)
+                    lineas.append(f"  {c.get('etiqueta', '')}: {float(val):.1f}% "
+                                  f"(cuota justa {justa})")
+                except (TypeError, ValueError):
+                    lineas.append(f"  {c.get('etiqueta', '')}: {val}")
+        lineas.append('')
+    for obs in pl.get('observaciones', []):
+        lineas.append(f"* {obs}")
+    lineas.append('')
+    lineas.append('Cuotas justas = 1/probabilidad (sin margen de casa). '
+                  'Juego responsable.')
+    return '\n'.join(lineas)
