@@ -26,9 +26,11 @@ Features v35 (todas cronológicas, sin fuga):
   · FATIGA: días desde el último partido, partidos en 14 días y horas en
     pista en 7 días (estimadas del marcador: ~3.75 min por juego).
   · H2H acumulado.
-ELO de saque/resto: IMPOSIBLE con esta fuente (no publica aces, dobles
-faltas ni puntos ganados al saque) → fallback al ELO global, exactamente
-como prevé el propio spec §1.3.
+SAQUE Y RESTO (v69): RESUELTO. La fuente de Kaggle sigue sin publicar aces
+ni puntos de saque, pero `tenis_saque.py` los obtiene de los logs de
+TennisAbstract (esquema Sackmann verificado al 99.9 %). Eso habilita
+DIFF_ELO_SAQUE, DIFF_SPW y DIFF_RPW. Si el CSV de saque no está, las tres
+features caen a su valor neutro y el modelo se comporta como en v68.
 """
 
 import json
@@ -79,10 +81,23 @@ FEATURES = ['DIFF_ELO_SUP', 'DIFF_ELO_GLOBAL', 'DIFF_RANK_LOG',
             # Grand Slam que en un ITF, y el ELO global no lo distingue.
             'DIFF_ELO_NIVEL',      # ELO específico del nivel del partido
             'NIVEL_PARTIDO',       # nivel absoluto (contexto, no diferencia)
-            'DIFF_EXP_NIVEL']      # experiencia previa en ese nivel
+            'DIFF_EXP_NIVEL',      # experiencia previa en ese nivel
+            # --- v69: SAQUE Y RESTO ------------------------------------
+            # Hasta v68 esto era imposible: ninguna fuente gratuita publicaba
+            # aces ni puntos de saque desde que desaparecieron los repos de
+            # Sackmann. `tenis_saque.py` lo resuelve con los logs de
+            # TennisAbstract. Son las tres señales clásicas del tenis:
+            'DIFF_ELO_SAQUE',      # ELO calculado sobre % de puntos ganados al saque
+            'DIFF_SPW',            # % de puntos ganados con su saque (rolling)
+            'DIFF_RPW']            # % de puntos ganados al resto (rolling)
 FEATURES_V30 = FEATURES[:6]                    # para el A/B de la v35
 FEATURES_V35 = FEATURES[:10]                   # producción hasta v66
-FEATURES_V67 = list(FEATURES)                  # candidato v67
+FEATURES_V67 = FEATURES[:13]                   # candidato v67 (descartado)
+FEATURES_SAQUE = FEATURES[13:]                 # las tres de v69
+# Candidato v69: el vector de producción de cada circuito + saque/resto. NO
+# incluye las de nivel (v67), que se midieron y degradaban.
+FEATURES_V69_ATP = FEATURES_V30 + FEATURES_SAQUE
+FEATURES_V69_WTA = FEATURES_V35 + FEATURES_SAQUE
 
 # Nivel numérico de competición (0 = más bajo). Se usa como contexto y para el
 # ELO por nivel. Las claves son las de `Series`/`Tier` de la fuente y las
@@ -116,6 +131,101 @@ def nivel_partido(series=None, categoria=None, fase=None) -> float:
 SUP = {'Clay': 'clay', 'Hard': 'hard', 'Grass': 'grass',
        'Carpet': 'hard', 'Indoor': 'hard', 'Greenset': 'hard'}
 MIN_POR_JUEGO = 3.75 / 60.0                    # horas por juego disputado
+
+
+_CACHE_SAQUE: Dict[str, dict] = {}
+
+
+def _ck(nombre: str) -> str:
+    try:
+        import tenis_fuentes as tf
+        return tf.clave_jugador(nombre)
+    except Exception:
+        return str(nombre).lower()
+
+
+# TennisAbstract fecha los partidos por el INICIO DEL TORNEO, no por el día en
+# que se jugaron: todo Wimbledon comparte una sola fecha. Enlazar por fecha
+# exacta hacía casar apenas el 4.2 % de los partidos y dejaba las features de
+# saque en su valor neutro el 96 % de las veces —parecían no aportar nada
+# cuando en realidad casi nunca se rellenaban—. Se enlaza por PAREJA de
+# jugadores y se resuelve la fecha con una ventana.
+VENTANA_SAQUE_DIAS = 21
+
+
+def _clave_pareja(p1: str, p2: str) -> str:
+    """Clave simétrica SOLO de la pareja, con los nombres normalizados."""
+    try:
+        import tenis_fuentes as tf
+        a, b = tf.clave_jugador(p1), tf.clave_jugador(p2)
+    except Exception:
+        a, b = str(p1).lower(), str(p2).lower()
+    return '|'.join(sorted((a, b)))
+
+
+def _buscar_saque(indice, fecha, p1: str, p2: str):
+    """Estadística del cruce más cercano en el tiempo dentro de la ventana."""
+    entradas = indice.get(_clave_pareja(p1, p2))
+    if not entradas:
+        return None
+    objetivo = pd.Timestamp(fecha)
+    mejor, dmin = None, None
+    for f, stats in entradas:
+        d = abs((objetivo - f).days)
+        if d <= VENTANA_SAQUE_DIAS and (dmin is None or d < dmin):
+            mejor, dmin = stats, d
+    return mejor
+
+
+def _indice_saque(df: pd.DataFrame) -> Dict[str, list]:
+    """
+    Estadística de saque por partido, indexada por clave simétrica.
+
+    Se lee de `saque_{circuito}.csv` (lo genera `tenis_saque.py` desde
+    TennisAbstract). Si el fichero no existe, devuelve {} y las features de
+    saque se quedan en su valor neutro — degradación limpia, el modelo sigue
+    funcionando exactamente como antes.
+    """
+    import os
+    salida: Dict[str, dict] = {}
+    for circuito in ('atp', 'wta'):
+        # Se prefiere el .gz (1.9 MB vs 6.9 MB en ATP, 1.4 vs 27.3 en WTA);
+        # pandas lo lee igual. El .csv plano sigue valiendo si está.
+        ruta = next((r for r in (f'saque_{circuito}.csv.gz', f'saque_{circuito}.csv')
+                     if os.path.exists(r)), f'saque_{circuito}.csv')
+        if ruta in _CACHE_SAQUE:
+            salida.update(_CACHE_SAQUE[ruta])
+            continue
+        if not os.path.exists(ruta):
+            _CACHE_SAQUE[ruta] = {}
+            continue
+        try:
+            import tenis_fuentes as tf
+            d = pd.read_csv(ruta, parse_dates=['fecha'])
+        except Exception:
+            _CACHE_SAQUE[ruta] = {}
+            continue
+        idx: Dict[str, list] = {}
+        for r in d.itertuples(index=False):
+            k = _clave_pareja(r.jugador, r.rival)
+            # OJO: la clave interna es `clave_jugador` (sin tildes, guiones ni
+            # mayúsculas). TennisAbstract escribe "Auger Aliassime" y Kaggle
+            # "Auger-Aliassime": indexar por el nombre tal cual perdería esos
+            # partidos en silencio.
+            idx.setdefault(k, []).append((pd.Timestamp(r.fecha), {
+                tf.clave_jugador(r.jugador): {
+                    'svpt': int(r.svpt or 0),
+                    'primeros_gan': int(r.primeros_gan or 0),
+                    'segundos_gan': int(r.segundos_gan or 0)},
+                tf.clave_jugador(r.rival): {
+                    'svpt': int(getattr(r, 'riv_svpt', 0) or 0),
+                    'primeros_gan': int(getattr(r, 'riv_primeros_gan', 0) or 0),
+                    'segundos_gan': int(getattr(r, 'riv_segundos_gan', 0) or 0)},
+            }))
+        _CACHE_SAQUE[ruta] = idx
+        salida.update(idx)
+        logger.info(f"[tenis] estadística de saque: {len(idx)} partidos de {ruta}")
+    return salida
 
 
 def _juegos_del_marcador(score) -> float:
@@ -208,6 +318,13 @@ class TennisEngine(BaseSportsEngine):
         agenda: Dict[str, list] = {}      # v35: (fecha, juegos) por jugador
         elo_n: Dict[str, Dict[float, float]] = {}   # v67: ELO por nivel
         exp_n: Dict[str, Dict[float, int]] = {}     # v67: partidos por nivel
+        # v69: saque/resto. `spw`/`rpw` son ventanas de los últimos 20 partidos
+        # con estadística; `elo_sv` es un ELO alimentado por el % de puntos
+        # ganados al saque frente al % que el rival concede al resto.
+        spw: Dict[str, list] = {}
+        rpw: Dict[str, list] = {}
+        elo_sv: Dict[str, float] = {}
+        saque = _indice_saque(df)
         features = features or FEATURES
         idx = [FEATURES.index(f) for f in features]
         tiene_nivel = ('Series' in df.columns or 'Categoria' in df.columns
@@ -261,6 +378,13 @@ class TennisEngine(BaseSportsEngine):
             ex1 = exp_n.get(p1, {}).get(niv, 0)
             ex2 = exp_n.get(p2, {}).get(niv, 0)
 
+            # --- v69: saque y resto (estado PREVIO al partido) --------------
+            sv1 = float(np.mean(spw.get(p1, [])[-20:])) if spw.get(p1) else 0.62
+            sv2 = float(np.mean(spw.get(p2, [])[-20:])) if spw.get(p2) else 0.62
+            rt1 = float(np.mean(rpw.get(p1, [])[-20:])) if rpw.get(p1) else 0.38
+            rt2 = float(np.mean(rpw.get(p2, [])[-20:])) if rpw.get(p2) else 0.38
+            ev1, ev2 = elo_sv.get(p1, 1500.0), elo_sv.get(p2, 1500.0)
+
             if p1 in elo_g and p2 in elo_g:   # ambos con historial
                 completo = [(es1 - es2) / 100.0, (eg1 - eg2) / 100.0,
                             (np.log(r2) - np.log(r1)) / 3.0, f1 - f2,
@@ -268,7 +392,8 @@ class TennisEngine(BaseSportsEngine):
                             (np.log(pt1) - np.log(pt2)) / 5.0,
                             (d1 - d2) / 21.0, (n1 - n2) / 8.0, (h1 - h2_) / 10.0,
                             (en1 - en2) / 100.0, niv / 6.0,
-                            (np.log1p(ex1) - np.log1p(ex2)) / 5.0]
+                            (np.log1p(ex1) - np.log1p(ex2)) / 5.0,
+                            (ev1 - ev2) / 100.0, (sv1 - sv2) * 5.0, (rt1 - rt2) * 5.0]
                 X.append([completo[i] for i in idx])
                 y.append(gano1)
                 fechas.append(r.Date)
@@ -289,6 +414,29 @@ class TennisEngine(BaseSportsEngine):
             elo_n.setdefault(p2, {})[niv] = en2 + 32 * ((1 - gano1) - (1 - expn))
             exp_n.setdefault(p1, {})[niv] = ex1 + 1
             exp_n.setdefault(p2, {})[niv] = ex2 + 1
+
+            # v69: actualizar saque/resto con la estadística REAL del partido,
+            # si TennisAbstract la tiene. Se hace DESPUÉS de haber leído el
+            # estado previo, así que no hay fuga.
+            est = _buscar_saque(saque, r.Date, p1, p2)
+            if est:
+                s1, s2 = est.get(_ck(p1)), est.get(_ck(p2))
+                if s1 and s2 and s1['svpt'] > 0 and s2['svpt'] > 0:
+                    g1 = (s1['primeros_gan'] + s1['segundos_gan']) / s1['svpt']
+                    g2 = (s2['primeros_gan'] + s2['segundos_gan']) / s2['svpt']
+                    spw.setdefault(p1, []).append(g1)
+                    spw.setdefault(p2, []).append(g2)
+                    rpw.setdefault(p1, []).append(1.0 - g2)   # lo que le quitó al rival
+                    rpw.setdefault(p2, []).append(1.0 - g1)
+                    for lista in (spw, rpw):
+                        for p in (p1, p2):
+                            if len(lista.get(p, [])) > 40:
+                                lista[p] = lista[p][-40:]
+                    # ELO de saque: "gana" quien defendió mejor su servicio
+                    esp = 1 / (1 + 10 ** ((ev2 - ev1) / 400))
+                    real = 1.0 if g1 > g2 else (0.5 if abs(g1 - g2) < 1e-9 else 0.0)
+                    elo_sv[p1] = ev1 + 24 * (real - esp)
+                    elo_sv[p2] = ev2 + 24 * ((1 - real) - (1 - esp))
             forma.setdefault(p1, []).append(gano1)
             forma.setdefault(p2, []).append(1 - gano1)
             win_sup.setdefault(p1, []).append((r.Date, sup, gano1))
@@ -309,6 +457,11 @@ class TennisEngine(BaseSportsEngine):
                 # v67: ELO y partidos por nivel de competición
                 'elo_nivel': {str(k): round(v, 1) for k, v in elo_n.get(p, {}).items()},
                 'exp_nivel': {str(k): int(v) for k, v in exp_n.get(p, {}).items()},
+                # v69: estado de saque/resto a la fecha de corte
+                'elo_saque': round(elo_sv.get(p, 1500.0), 1),
+                'spw': round(float(np.mean(spw.get(p, [])[-20:])), 4) if spw.get(p) else None,
+                'rpw': round(float(np.mean(rpw.get(p, [])[-20:])), 4) if rpw.get(p) else None,
+                'n_saque': len(spw.get(p, [])),
                 'forma': [int(x) for x in forma.get(p, [])[-10:]],
                 'rank': None, 'pts': None,
                 # v35: estado de fatiga a la fecha de corte del dataset
@@ -494,6 +647,12 @@ class TennisEngine(BaseSportsEngine):
             'DIFF_ELO_NIVEL': (en1 - en2) / 100.0,
             'NIVEL_PARTIDO': niv / 6.0,
             'DIFF_EXP_NIVEL': (np.log1p(_exp_niv(p1)) - np.log1p(_exp_niv(p2))) / 5.0,
+            # v69 — saque y resto. Mismos valores neutros que en entrenamiento
+            # (0.62 al saque, 0.38 al resto) cuando no hay datos del jugador.
+            'DIFF_ELO_SAQUE': ((p1.get('elo_saque') or 1500.0)
+                               - (p2.get('elo_saque') or 1500.0)) / 100.0,
+            'DIFF_SPW': ((p1.get('spw') or 0.62) - (p2.get('spw') or 0.62)) * 5.0,
+            'DIFF_RPW': ((p1.get('rpw') or 0.38) - (p2.get('rpw') or 0.38)) * 5.0,
         }
         return [completo[c] for c in cols]
 

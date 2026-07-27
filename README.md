@@ -1,5 +1,27 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v69 — Estadísticas de saque en tenis (ver [VALIDACION_v69.md](VALIDACION_v69.md))
+
+- **🎾 Encontrada la fuente que v67 dio por inexistente.** ATP Tour y SofaScore
+  devuelven 403, pero **TennisAbstract publica el esquema Sackmann completo**
+  (aces, dobles faltas, puntos al saque, 1os dentro/ganados, break points) en el
+  array `matchmx` de cada página de jugador. **54.308 partidos ATP y 220.500
+  WTA** descargados y validados.
+- **✅ Datos verificados, no supuestos**: 99.9 % de coherencia interna sobre
+  2.300 partidos, y las medias coinciden con la realidad de cada circuito
+  (64.06 % de puntos ganados al saque en ATP, 60.39 % en WTA).
+- **🐛 Defecto que casi tira la mejora**: TennisAbstract fecha por el INICIO DEL
+  TORNEO, no por el día del partido — todo Wimbledon comparte una fecha. El
+  enlace por fecha exacta casaba solo el **4.2 %**; corregido a pareja de
+  jugadores + ventana, sube al **34.5 %**.
+- **❌ Features NO adoptadas**: `DIFF_ELO_SAQUE`, `DIFF_SPW` y `DIFF_RPW` dan
+  −0.08 pp de precisión y −0.0023 de log-loss. No pasan la regla de oro; el
+  signo cambia en cada ventana (ruido). Causa medida: techo de cobertura del
+  34.5 % y colinealidad con el ELO por superficie.
+- **📦 Lo que sí se sube**: `tenis_saque.py`, los datos comprimidos
+  (`saque_*.csv.gz`, 34 MB → 3.3 MB) y el enlace corregido, para que cualquier
+  reevaluación futura arranque sin volver a raspar.
+
 ## Novedades v68 — 40 competiciones nuevas (ver [VALIDACION_v68.md](VALIDACION_v68.md))
 
 - **⚽ De 27 a 67 competiciones** en el catálogo y de 23 a **45 desplegadas**.

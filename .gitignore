@@ -76,3 +76,10 @@ modelos/par_division/
 modelos/slv_primera/
 modelos/sudamericana/
 modelos/ven_primera/
+
+# v69: caché por jugador de TennisAbstract (700+ JSON por circuito). Los datos
+# consolidados y validados van en saque_*.csv.gz, que sí se versiona para no
+# tener que volver a raspar un sitio pequeño.
+tenis_saque_cache/
+_v69_*
+resultados_tenis_v69.json
