@@ -1,5 +1,30 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v67 — Tenis multicompetición y remates reales por jugador (ver [VALIDACION_v67.md](VALIDACION_v67.md))
+
+- **🎾 Tenis por competición**: selector con Grand Slams (M/F), ATP, WTA,
+  WTA 125, Challenger e ITF. ATP 66.570→**72.891** partidos, WTA
+  43.821→**56.213**; jugadores cubiertos 1.820→**2.136** (ATP) y
+  1.319→**2.000** (WTA).
+- **✅ Sin degradar**: sobre el circuito principal (métrica comparable),
+  ATP 0.6522→**0.6555** y WTA 0.6486→**0.6574**.
+- **📅 Próximos partidos de tenis desde ESPN** a 10 días, refresco automático
+  cada 20 min. **Se eliminó el botón «Cargar»**: al elegir el partido se ven las
+  estadísticas directamente, con superficie y formato (bo3/bo5) deducidos.
+- **🎲 El tenis ya tiene parlays combinados** y envío a Telegram, como el resto
+  de deportes. Antes no tenía: su plantilla no publicaba `secciones` y el
+  generador no veía ninguno de sus 33 mercados.
+- **🎯 Remates y remates a puerta REALES por jugador** (`remates_jugadores.py`),
+  desde la estadística por jugador de ESPN. Antes eran un estimado derivado de
+  los goles y solo salían los goleadores. Disponible en la vista internacional
+  **y** en cada liga.
+- **🔍 Auditoría de fuentes**: los repos `JeffSackmann/tennis_atp` y
+  `tennis_wta` —la fuente estándar del tenis— **ya no existen**. Documentado
+  con qué se sustituyen y qué queda sin cubrir (ITF masculino y UTR: sin fuente
+  gratuita; la API de UTR solo expone eventos amateur).
+- **❌ Features de nivel de competición NO adoptadas**: degradan el ATP 0.49 pp
+  y en la WTA mejoran +0.01 pp (ruido).
+
 ## Novedades v66 — El modelo internacional pasa de 49 a 200 selecciones (ver [VALIDACION_v66.md](VALIDACION_v66.md))
 
 - **🌍 De 49 a 200 selecciones** seleccionables. Criterio reproducible (≥100

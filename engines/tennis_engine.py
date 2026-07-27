@@ -55,17 +55,64 @@ CIRCUITOS = {
             'dataset': 'dissfya/atp-tennis-2000-2023daily-pull',
             'archivo': 'atp_tennis.csv', 'etiqueta': 'Tenis (ATP)',
             'features': None},          # None → FEATURES_V30 (ver abajo)
+    # La WTA sí adoptó el vector completo de v35 (10 features).
+    # v67: se declara EXPLÍCITAMENTE. Antes se derivaba de "si la clave
+    # 'features' no está, usa FEATURES", y al ampliar FEATURES con las de nivel
+    # el circuito femenino habría pasado de 10 a 13 columnas sin reentrenar —
+    # el modelo guardado habría reventado en el primer arranque.
     'wta': {'carpeta': os.path.join('modelos', 'tennis_wta'),
             'dataset': 'dissfya/wta-tennis-2007-2023-daily-update',
-            'archivo': 'wta.csv', 'etiqueta': 'Tenis (WTA)'},
+            'archivo': 'wta.csv', 'etiqueta': 'Tenis (WTA)',
+            'features': None},          # None → se resuelve más abajo
 }
+# Vector por defecto de cada circuito cuando `metadata.json` no dice otra cosa.
+FEATURES_POR_DEFECTO = {'atp': 'FEATURES_V30', 'wta': 'FEATURES_V35'}
 CARPETA = CIRCUITOS['atp']['carpeta']          # compatibilidad v30-v34
 DATASET = CIRCUITOS['atp']['dataset']
 FEATURES = ['DIFF_ELO_SUP', 'DIFF_ELO_GLOBAL', 'DIFF_RANK_LOG',
             'DIFF_FORMA10', 'DIFF_WIN_SUP_12M', 'H2H',
             'DIFF_PTS_LOG', 'DIFF_DIAS_DESCANSO', 'DIFF_PARTIDOS_14D',
-            'DIFF_HORAS_7D']
+            'DIFF_HORAS_7D',
+            # --- v67: contexto de NIVEL de competición -----------------
+            # El universo pasa de "circuito principal" a incluir previas,
+            # Challenger, WTA 125 e ITF. Un jugador no rinde igual en un
+            # Grand Slam que en un ITF, y el ELO global no lo distingue.
+            'DIFF_ELO_NIVEL',      # ELO específico del nivel del partido
+            'NIVEL_PARTIDO',       # nivel absoluto (contexto, no diferencia)
+            'DIFF_EXP_NIVEL']      # experiencia previa en ese nivel
 FEATURES_V30 = FEATURES[:6]                    # para el A/B de la v35
+FEATURES_V35 = FEATURES[:10]                   # producción hasta v66
+FEATURES_V67 = list(FEATURES)                  # candidato v67
+
+# Nivel numérico de competición (0 = más bajo). Se usa como contexto y para el
+# ELO por nivel. Las claves son las de `Series`/`Tier` de la fuente y las
+# categorías de `tenis_fuentes`.
+NIVELES = {
+    'itf_w': 0.0, 'itf_m': 0.0,
+    'challenger_atp': 1.0, 'wta_125': 1.0, 'wta125': 1.0,
+    'atp250': 3.0, 'international': 3.0, 'wta250': 3.0,
+    'atp500': 4.0, 'international gold': 4.0, 'wta500': 4.0,
+    'masters 1000': 5.0, 'masters': 5.0, 'masters cup': 5.5, 'wta1000': 5.0,
+    'premier': 4.0, 'premier 5': 5.0, 'premier mandatory': 5.0,
+    'grand slam': 6.0,
+}
+NIVEL_POR_DEFECTO = 3.0
+NIVEL_CLASIFICACION = 2.0      # la previa está entre Challenger y ATP250
+
+
+def nivel_partido(series=None, categoria=None, fase=None) -> float:
+    """Nivel numérico del partido. `Fase` manda: una previa de Grand Slam se
+    juega entre jugadores de rango Challenger, no de Grand Slam."""
+    if str(fase) == 'clasificacion':
+        return NIVEL_CLASIFICACION
+    for clave in (str(series or '').strip().lower(), str(categoria or '').strip().lower()):
+        if clave in NIVELES:
+            return NIVELES[clave]
+        if clave.startswith('gs_'):
+            return NIVELES['grand slam']
+        if clave in ('atp_tour', 'wta_tour'):
+            return NIVEL_POR_DEFECTO
+    return NIVEL_POR_DEFECTO
 SUP = {'Clay': 'clay', 'Hard': 'hard', 'Grass': 'grass',
        'Carpet': 'hard', 'Indoor': 'hard', 'Greenset': 'hard'}
 MIN_POR_JUEGO = 3.75 / 60.0                    # horas por juego disputado
@@ -92,7 +139,8 @@ class TennisEngine(BaseSportsEngine):
         super().__init__(cfg['etiqueta'], cfg['carpeta'])
         # Conjunto de features ADOPTADO por circuito (run_wf_tenis_v35.py);
         # se fija tras la validación walk-forward, no por defecto.
-        self.features = list(cfg.get('features') or FEATURES_V30)             if 'features' in cfg else list(FEATURES)
+        self.features = list(cfg.get('features')
+                             or globals()[FEATURES_POR_DEFECTO.get(circuito, 'FEATURES_V30')])
         self.estado = {}
         ruta = os.path.join(cfg['carpeta'], 'estado.json')
         if os.path.exists(ruta):
@@ -100,11 +148,40 @@ class TennisEngine(BaseSportsEngine):
                 self.estado = json.load(f)
         self.jugadores = sorted((self.estado.get('jugadores') or {}).keys())
 
-    def cargar_datos_historicos(self) -> pd.DataFrame:
+    def cargar_datos_historicos(self, unificado: Optional[bool] = None) -> pd.DataFrame:
+        """
+        `unificado=True` (v67) usa `tenis_fuentes.historico_unificado`: Kaggle
+        + tennis-data.co.uk (nivel de la WTA y cuotas de más casas) + ESPN
+        (fases previas y las categorías inferiores que publica). `False`
+        conserva exactamente el camino de v35-v66 (solo Kaggle).
+        Por defecto se lee de `MUNDIAL_TENIS_UNIFICADO` para poder hacer el A/B
+        sin tocar código.
+        """
+        # v67: el histórico unificado pasa a ser el DEFECTO. Walk-forward de 5
+        # temporadas con el mismo conjunto de test (run_wf_tenis_v67.py):
+        #   ATP  base 0.6557/0.6154 → datos 0.6559/0.6154  (empate técnico)
+        #   WTA  base 0.6585/0.6129 → datos 0.6597/0.6121  (mejora ambas)
+        # No degrada y añade cobertura que antes no existía (previas,
+        # Challenger, WTA 125, ITF). Con MUNDIAL_TENIS_UNIFICADO=0 se vuelve al
+        # comportamiento de v66 (solo Kaggle) sin tocar código.
+        if unificado is None:
+            unificado = os.getenv('MUNDIAL_TENIS_UNIFICADO', '1') != '0'
+        if unificado:
+            try:
+                import tenis_fuentes
+                df = tenis_fuentes.historico_unificado(self.circuito)
+                return self._preparar(df)
+            except Exception as e:
+                logger.warning(f"[tenis/{self.circuito}] histórico unificado no "
+                               f"disponible ({type(e).__name__}: {e}); se usa Kaggle.")
         import kagglehub
         p = kagglehub.dataset_download(self.cfg['dataset'])
         df = pd.read_csv(os.path.join(p, self.cfg['archivo']),
                          parse_dates=['Date'], low_memory=False)
+        return self._preparar(df)
+
+    @staticmethod
+    def _preparar(df: pd.DataFrame) -> pd.DataFrame:
         for c in ('Rank_1', 'Rank_2', 'Pts_1', 'Pts_2', 'Odd_1', 'Odd_2'):
             if c in df.columns:
                 df[c] = pd.to_numeric(df[c], errors='coerce')
@@ -129,9 +206,17 @@ class TennisEngine(BaseSportsEngine):
         win_sup: Dict[str, list] = {}     # (fecha, ganó) por superficie
         h2h: Dict[tuple, int] = {}
         agenda: Dict[str, list] = {}      # v35: (fecha, juegos) por jugador
+        elo_n: Dict[str, Dict[float, float]] = {}   # v67: ELO por nivel
+        exp_n: Dict[str, Dict[float, int]] = {}     # v67: partidos por nivel
         features = features or FEATURES
         idx = [FEATURES.index(f) for f in features]
+        tiene_nivel = ('Series' in df.columns or 'Categoria' in df.columns
+                       or 'Fase' in df.columns)
         X, y, fechas, odds = [], [], [], []
+        # v67: procedencia y contexto de CADA fila utilizable. Va dentro de
+        # `estado` para no cambiar la firma de retorno (run_wf_tenis_v35.py la
+        # desempaqueta como 5-tupla).
+        filas_meta: List[tuple] = []
         for r in df.itertuples(index=False):
             p1, p2, sup = r.Player_1, r.Player_2, r.sup
             eg1, eg2 = elo_g.get(p1, 1500.0), elo_g.get(p2, 1500.0)
@@ -166,16 +251,31 @@ class TennisEngine(BaseSportsEngine):
             d1, n1, h1 = _fatiga(p1)
             d2, n2, h2_ = _fatiga(p2)
             gano1 = int(r.Winner == p1)
+
+            # --- v67: nivel de competición (contexto y ELO por nivel) -------
+            niv = nivel_partido(getattr(r, 'Series', None),
+                                getattr(r, 'Categoria', None),
+                                getattr(r, 'Fase', None)) if tiene_nivel else NIVEL_POR_DEFECTO
+            en1 = elo_n.get(p1, {}).get(niv, eg1)   # sin historia en el nivel
+            en2 = elo_n.get(p2, {}).get(niv, eg2)   # -> arranca del ELO global
+            ex1 = exp_n.get(p1, {}).get(niv, 0)
+            ex2 = exp_n.get(p2, {}).get(niv, 0)
+
             if p1 in elo_g and p2 in elo_g:   # ambos con historial
                 completo = [(es1 - es2) / 100.0, (eg1 - eg2) / 100.0,
                             (np.log(r2) - np.log(r1)) / 3.0, f1 - f2,
                             ws1 - ws2, float(np.clip(hb, -5, 5)) / 5.0,
                             (np.log(pt1) - np.log(pt2)) / 5.0,
-                            (d1 - d2) / 21.0, (n1 - n2) / 8.0, (h1 - h2_) / 10.0]
+                            (d1 - d2) / 21.0, (n1 - n2) / 8.0, (h1 - h2_) / 10.0,
+                            (en1 - en2) / 100.0, niv / 6.0,
+                            (np.log1p(ex1) - np.log1p(ex2)) / 5.0]
                 X.append([completo[i] for i in idx])
                 y.append(gano1)
                 fechas.append(r.Date)
                 odds.append((getattr(r, 'Odd_1', None), getattr(r, 'Odd_2', None)))
+                filas_meta.append((getattr(r, 'Fuente', 'kaggle'),
+                                   getattr(r, 'Categoria', None),
+                                   getattr(r, 'Fase', 'cuadro_principal'), niv))
             # actualizar (sin fuga)
             exp1 = 1 / (1 + 10 ** ((eg2 - eg1) / 400))
             elo_g[p1] = eg1 + 32 * (gano1 - exp1)
@@ -183,6 +283,12 @@ class TennisEngine(BaseSportsEngine):
             exps = 1 / (1 + 10 ** ((es2 - es1) / 400))
             elo_s.setdefault(p1, {})[sup] = es1 + 32 * (gano1 - exps)
             elo_s.setdefault(p2, {})[sup] = es2 + 32 * ((1 - gano1) - (1 - exps))
+            # v67: ELO y experiencia por NIVEL de competición
+            expn = 1 / (1 + 10 ** ((en2 - en1) / 400))
+            elo_n.setdefault(p1, {})[niv] = en1 + 32 * (gano1 - expn)
+            elo_n.setdefault(p2, {})[niv] = en2 + 32 * ((1 - gano1) - (1 - expn))
+            exp_n.setdefault(p1, {})[niv] = ex1 + 1
+            exp_n.setdefault(p2, {})[niv] = ex2 + 1
             forma.setdefault(p1, []).append(gano1)
             forma.setdefault(p2, []).append(1 - gano1)
             win_sup.setdefault(p1, []).append((r.Date, sup, gano1))
@@ -193,13 +299,16 @@ class TennisEngine(BaseSportsEngine):
                 agenda.setdefault(p, []).append((r.Date, juegos))
                 if len(agenda[p]) > 30:
                     agenda[p] = agenda[p][-30:]
-        estado = {'jugadores': {}}
+        estado = {'jugadores': {}, 'filas_meta': filas_meta}
         ultima = pd.Timestamp(df['Date'].max())
         for p in elo_g:
             hist = agenda.get(p, [])
             estado['jugadores'][p] = {
                 'elo': round(elo_g[p], 1),
                 'elo_sup': {k: round(v, 1) for k, v in elo_s.get(p, {}).items()},
+                # v67: ELO y partidos por nivel de competición
+                'elo_nivel': {str(k): round(v, 1) for k, v in elo_n.get(p, {}).items()},
+                'exp_nivel': {str(k): int(v) for k, v in exp_n.get(p, {}).items()},
                 'forma': [int(x) for x in forma.get(p, [])[-10:]],
                 'rank': None, 'pts': None,
                 # v35: estado de fatiga a la fecha de corte del dataset
@@ -256,13 +365,43 @@ class TennisEngine(BaseSportsEngine):
             if mask.sum() > 50 else None
         base = accuracy_score(y[~m_tr], (X[~m_tr][:, 0] > 0).astype(int))
 
+        # v67 — MÉTRICA COMPARABLE. Al unificar fuentes, la validación pasa a
+        # incluir previas, Challenger, WTA 125 e ITF, que son intrínsecamente
+        # menos predecibles. La precisión GLOBAL deja de ser comparable con la
+        # de v66 (mismo problema que el universo de selecciones en fútbol), así
+        # que se reporta también restringida al CIRCUITO PRINCIPAL, que es el
+        # universo con el que se validó hasta ahora.
+        meta = estado.get('filas_meta') or []
+        sub = {}
+        if len(meta) == len(y):
+            fuente_fila = np.array([m[0] for m in meta])
+            for etiqueta, mascara in (
+                    ('circuito_principal', fuente_fila == 'kaggle'),
+                    ('categorias_nuevas', fuente_fila != 'kaggle')):
+                m = mascara & ~m_tr
+                if m.sum() < 50:
+                    sub[etiqueta] = {'n': int(m.sum())}
+                    continue
+                p_s = modelo.predict_proba(sc.transform(X[m]))[:, list(modelo.classes_).index(1)]
+                sub[etiqueta] = {
+                    'n': int(m.sum()),
+                    'precision': round(float(accuracy_score(y[m], (p_s >= 0.5).astype(int))), 4),
+                    'log_loss': round(float(log_loss(y[m], np.column_stack([1 - p_s, p_s]),
+                                                     labels=[0, 1])), 4)}
+            logger.info(f"[tenis/{self.circuito}] desglose: " +
+                        ' · '.join(f"{k} n={v['n']} acc={v.get('precision')}"
+                                   for k, v in sub.items()))
+
         carpeta = self.cfg['carpeta']
         os.makedirs(carpeta, exist_ok=True)
         import joblib
         joblib.dump(modelo, os.path.join(carpeta, 'moneyline.joblib'), compress=3)
         joblib.dump(sc, os.path.join(carpeta, 'scaler.joblib'), compress=3)
+        # `filas_meta` es un diagnóstico del A/B (una entrada por partido): no
+        # se persiste, engordaría estado.json en decenas de miles de filas.
+        estado_persistente = {k: v for k, v in estado.items() if k != 'filas_meta'}
         with open(os.path.join(carpeta, 'estado.json'), 'w', encoding='utf-8') as f:
-            json.dump(estado, f)
+            json.dump(estado_persistente, f)
         previa = {}
         ruta_meta = os.path.join(carpeta, 'metadata.json')
         if os.path.exists(ruta_meta):
@@ -272,6 +411,10 @@ class TennisEngine(BaseSportsEngine):
                 'deporte': self.cfg['etiqueta'], 'circuito': self.circuito,
                 'features': cols, 'n_partidos': len(X),
                 'precision_validacion': round(float(acc), 4),
+                'validacion_por_universo': sub,
+                'fuente_datos': ('unificado (Kaggle + tennis-data + ESPN)'
+                                 if 'Fuente' in df.columns and
+                                 (df['Fuente'] != 'kaggle').any() else 'kaggle'),
                 'precision_linea_base_elo': round(float(base), 4),
                 'precision_mercado': round(float(acc_mkt), 4) if acc_mkt else None,
                 'log_loss_validacion': round(float(ll), 4),
@@ -284,7 +427,8 @@ class TennisEngine(BaseSportsEngine):
         return meta
 
     def construir_features(self, home: str, away: str, surface: str = 'hard',
-                           indoor: bool = False, **ctx) -> Optional[List[float]]:
+                           indoor: bool = False, categoria: Optional[str] = None,
+                           fase: Optional[str] = None, **ctx) -> Optional[List[float]]:
         jug = self.estado.get('jugadores', {})
         if home not in jug or away not in jug:
             return None
@@ -320,7 +464,20 @@ class TennisEngine(BaseSportsEngine):
             f = e.get('ultimo_partido')
             return min((hoy - pd.Timestamp(f)).days, 21) if f else 21.0
 
-        cols = (self.metadata.get('features') or FEATURES_V30)
+        # v67: nivel del partido para el ELO por nivel (mismo cálculo que en
+        # entrenamiento: `Fase` manda sobre la categoría).
+        niv = nivel_partido(None, categoria, fase)
+
+        def _elo_niv(e, elo_global):
+            return (e.get('elo_nivel') or {}).get(str(niv), elo_global)
+
+        def _exp_niv(e):
+            return (e.get('exp_nivel') or {}).get(str(niv), 0)
+
+        en1, en2 = _elo_niv(p1, p1['elo']), _elo_niv(p2, p2['elo'])
+
+        cols = (self.metadata.get('features')
+                or globals()[FEATURES_POR_DEFECTO.get(self.circuito, 'FEATURES_V30')])
         completo = {
             'DIFF_ELO_SUP': (es1 - es2) / 100.0,
             'DIFF_ELO_GLOBAL': (p1['elo'] - p2['elo']) / 100.0,
@@ -334,9 +491,51 @@ class TennisEngine(BaseSportsEngine):
                                   - p2.get('partidos_14d', 0)) / 8.0,
             'DIFF_HORAS_7D': (p1.get('horas_7d', 0.0)
                               - p2.get('horas_7d', 0.0)) / 10.0,
+            'DIFF_ELO_NIVEL': (en1 - en2) / 100.0,
+            'NIVEL_PARTIDO': niv / 6.0,
+            'DIFF_EXP_NIVEL': (np.log1p(_exp_niv(p1)) - np.log1p(_exp_niv(p2))) / 5.0,
         }
         return [completo[c] for c in cols]
 
+
+    def con_contexto(self, surface: str = 'Hard', best_of: int = 3,
+                     indoor: bool = False, categoria: Optional[str] = None,
+                     fase: Optional[str] = None):
+        """
+        Devuelve una vista del motor con el contexto del partido YA FIJADO.
+
+        `match_parlay` llama a `motor.plantilla(home, away)` sin más argumentos
+        (es agnóstico del deporte), así que sin esto el parlay de tenis se
+        calculaba siempre sobre pista dura y al mejor de 3 — aunque el usuario
+        hubiese elegido hierba y cinco sets. Con la vista, las combinadas usan
+        exactamente el mismo contexto que la tabla de mercados.
+        """
+        motor = self
+
+        class _VistaConContexto:
+            def __init__(self):
+                # se delega todo lo demás en el motor real
+                self.__dict__['_motor'] = motor
+
+            def __getattr__(self, nombre):
+                return getattr(motor, nombre)
+
+            def plantilla(self, home, away, **kw):
+                kw.setdefault('surface', surface)
+                kw.setdefault('best_of', best_of)
+                kw.setdefault('indoor', indoor)
+                kw.setdefault('categoria', categoria)
+                kw.setdefault('fase', fase)
+                return motor.plantilla(home, away, **kw)
+
+            def predecir(self, home, away, **kw):
+                kw.setdefault('surface', surface)
+                kw.setdefault('indoor', indoor)
+                kw.setdefault('categoria', categoria)
+                kw.setdefault('fase', fase)
+                return motor.predecir(home, away, **kw)
+
+        return _VistaConContexto()
 
     # ------------------------------------------------------------------
     # v32 (§8.1): plantilla de tenis con RESTRICCIÓN MATEMÁTICA ESTRICTA.
@@ -349,7 +548,10 @@ class TennisEngine(BaseSportsEngine):
     def plantilla(self, home: str, away: str, surface: str = 'Hard',
                   best_of: int = 3, **ctx) -> Dict:
         from scipy.stats import norm
-        pred = self.predecir(home, away, surface=surface)
+        pred = self.predecir(home, away, surface=surface,
+                             indoor=ctx.get('indoor', False),
+                             categoria=ctx.get('categoria'),
+                             fase=ctx.get('fase'))
         if 'error' in pred:
             return pred
         p = pred['prob_home']
@@ -449,15 +651,102 @@ class TennisEngine(BaseSportsEngine):
                 {'id': 'dr_aa', 'etiqueta': f'Doble: {away} 1er set y {away} partido',
                  'valor': dr_aa * 100},
             ]
+        else:
+            # v67 — AL MEJOR DE 5. Los Grand Slam masculinos se juegan a cinco
+            # sets y la plantilla solo tenía ahí los mercados de juegos: el
+            # parlay de un Grand Slam salía casi vacío frente a los 20 mercados
+            # de un bo3. Mismo supuesto declarado de independencia entre sets.
+            q = 1 - s
+            h30, h31, h32 = s ** 3, 3 * s ** 3 * q, 6 * s ** 3 * q ** 2
+            a30, a31, a32 = q ** 3, 3 * q ** 3 * s, 6 * q ** 3 * s ** 2
+            campos += [
+                {'id': 'set_3_0', 'etiqueta': f'{home} gana 3-0', 'valor': h30 * 100},
+                {'id': 'set_3_1', 'etiqueta': f'{home} gana 3-1', 'valor': h31 * 100},
+                {'id': 'set_3_2', 'etiqueta': f'{home} gana 3-2', 'valor': h32 * 100},
+                {'id': 'set_0_3', 'etiqueta': f'{away} gana 3-0', 'valor': a30 * 100},
+                {'id': 'set_1_3', 'etiqueta': f'{away} gana 3-1', 'valor': a31 * 100},
+                {'id': 'set_2_3', 'etiqueta': f'{away} gana 3-2', 'valor': a32 * 100},
+                {'id': 'set1_home', 'etiqueta': f'Gana 1er set: {home}', 'valor': s * 100},
+                {'id': 'set1_away', 'etiqueta': f'Gana 1er set: {away}', 'valor': q * 100},
+                {'id': 'set_home', 'etiqueta': f'{home} gana al menos un set',
+                 'valor': (1 - a30) * 100},
+                {'id': 'set_away', 'etiqueta': f'{away} gana al menos un set',
+                 'valor': (1 - h30) * 100},
+                {'id': 'ambos_set', 'etiqueta': 'Ambos ganan al menos un set',
+                 'valor': (1 - h30 - a30) * 100},
+                {'id': 'hset_home_-1.5', 'etiqueta': f'{home} −1.5 sets (gana 3-0 o 3-1)',
+                 'valor': (h30 + h31) * 100},
+                {'id': 'hset_away_-1.5', 'etiqueta': f'{away} −1.5 sets (gana 3-0 o 3-1)',
+                 'valor': (a30 + a31) * 100},
+                {'id': 'hset_home_+1.5', 'etiqueta': f'{home} +1.5 sets (gana ≥2 sets)',
+                 'valor': (1 - a30 - a31) * 100},
+                {'id': 'hset_away_+1.5', 'etiqueta': f'{away} +1.5 sets (gana ≥2 sets)',
+                 'valor': (1 - h30 - h31) * 100},
+                {'id': 'dr_hh', 'etiqueta': f'Doble: {home} 1er set y {home} partido',
+                 'valor': s * (h30 + h31 + h32) * 100},
+                {'id': 'dr_aa', 'etiqueta': f'Doble: {away} 1er set y {away} partido',
+                 'valor': q * (a30 + a31 + a32) * 100},
+            ]
+        # v67: además de `campos` (que consume la tabla de la UI desde v51), se
+        # publica `secciones` en el MISMO formato que fútbol y MLB. Es lo que
+        # lee `match_parlay.obtener_selecciones`, y sin ello el tenis era el
+        # único deporte de la app sin combinadas: la plantilla tenía 33
+        # mercados y el generador de parlays no veía ninguno.
+        secciones = _agrupar_en_secciones(campos)
         return {'deporte': self.deporte, 'partido': f'{home} vs {away}',
                 'superficie': surface, 'prediccion': pred,
                 'total_juegos_estimado': (round(total_juegos, 1)
                                           if total_juegos else None),
-                'campos': campos,
+                'campos': campos, 'secciones': secciones,
+                'codigos': {'home': home, 'away': away},
                 'excluidos': md.get('mercados_excluidos', []),
                 'nota': ('Sets bajo independencia condicional entre sets '
                          '(asunción declarada). Sin cuotas en vivo, las '
                          'cuotas son justas = 1/probabilidad.')}
+
+
+SECCIONES_TENIS = [
+    ('🏆 Ganador', ('ml_',)),
+    ('1️⃣ Primer set', ('set1_',)),
+    ('📐 Sets (marcador y especiales)', ('set_', 'ambos_set', 'exact1_')),
+    ('➕ Hándicap de sets', ('hset_',)),
+    ('🎾 Total de juegos', ('juegos_',)),
+    ('➕ Hándicap de juegos', ('hand_',)),
+    ('🔗 Doble resultado (1er set / partido)', ('dr_',)),
+]
+
+
+# Un mercado por encima de este listón tiene cuota justa < 1.03: no paga nada y
+# solo alarga el boleto. El hándicap de juegos de un partido parejo (+6.5
+# juegos) llega al 99 %: informativo sí, apostable no. Se queda en `campos` (la
+# tabla) pero fuera de `secciones` (el parlay).
+PROB_MAX_APOSTABLE = 97.0
+
+
+def _agrupar_en_secciones(campos: List[Dict]) -> List[Dict]:
+    """Convierte la lista plana de mercados al formato `secciones`/`campos`
+    con `tipo='pct'` que espera el motor de parlays del proyecto."""
+    usados = set()
+    secciones = []
+    for titulo, prefijos in SECCIONES_TENIS:
+        dentro = []
+        for c in campos:
+            cid = c.get('id', '')
+            if cid in usados or not cid.startswith(prefijos):
+                continue
+            usados.add(cid)
+            try:
+                if float(c.get('valor', 0)) >= PROB_MAX_APOSTABLE:
+                    continue
+            except (TypeError, ValueError):
+                pass
+            dentro.append({**c, 'tipo': 'pct'})
+        if dentro:
+            secciones.append({'titulo': titulo, 'campos': dentro})
+    sobrantes = [{**c, 'tipo': 'pct'} for c in campos if c.get('id') not in usados]
+    if sobrantes:
+        secciones.append({'titulo': '📊 Otros mercados', 'campos': sobrantes})
+    return secciones
 
 
 def _prob_set_desde_partido(p_partido: float, best_of: int = 3) -> float:

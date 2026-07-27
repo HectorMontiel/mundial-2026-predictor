@@ -20,7 +20,9 @@ from streamlit.testing.v1 import AppTest
 VISTAS = {
     '⚾ MLB (béisbol)': ['Proponer parlays', 'Enviar estos parlays'],
     '🇲🇽 Liga MX': ['Proponer parlays', 'Enviar estos parlays', 'Traer cuotas reales ahora'],
-    '🎾 Tenis (ATP/WTA)': [],
+    # v67: el tenis ya tiene combinadas y envío a Telegram, así que sus botones
+    # entran al smoke igual que los del resto de deportes.
+    '🎾 Tenis (ATP/WTA)': ['Proponer parlays', 'Enviar estos parlays'],
     '💎 Apuestas del Día': ['Generar combinadas'],
     '🌍 Partidos Internacionales': ['Proponer parlays'],
 }

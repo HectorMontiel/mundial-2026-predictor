@@ -142,7 +142,32 @@ CAMPOS = {
     'penalty_prob': ('penalty', _TARJETAS),
 }
 
-_PREFIJOS = [
+# v67 — TENIS. Sin esto, `obtener_selecciones` no reconocía un solo mercado de
+# la plantilla de tenis (33 campos) y el parlay salía siempre vacío: el tenis
+# era el único deporte de la app sin combinadas.
+# Macro-familia: todo lo que se deriva del ganador va a _RESULTADO (para que el
+# haircut de correlación se aplique); el volumen de juegos va a _JUEGOS.
+_JUEGOS = 'juegos'
+_PREFIJOS_TENIS = [
+    ('ml_', '1x2', _RESULTADO),                 # ganador del partido
+    ('set1_', 'set1', _RESULTADO),              # ganador del 1er set
+    ('set_2_', 'score_sets', _RESULTADO),       # marcador exacto de sets
+    ('set_0_', 'score_sets', _RESULTADO),
+    ('set_1_', 'score_sets', _RESULTADO),
+    ('set_3_', 'score_sets', _RESULTADO),
+    ('exact1_', 'sets_exactos', _RESULTADO),
+    ('ambos_set', 'ambos_set', _RESULTADO),
+    ('set_home', 'set_al_menos', _RESULTADO),
+    ('set_away', 'set_al_menos', _RESULTADO),
+    ('hset_', 'hand_sets', _RESULTADO),         # hándicap de sets
+    ('dr_', 'doble_res', _RESULTADO),           # 1er set / partido
+    ('juegos_over', 'ou_juegos', _JUEGOS),
+    ('juegos_under', 'ou_juegos', _JUEGOS),
+    ('hand_home_', 'hand_juegos', _JUEGOS),     # hándicap de juegos
+    ('hand_away_', 'hand_juegos', _JUEGOS),
+]
+
+_PREFIJOS = _PREFIJOS_TENIS + [
     # (prefijo, grupo, familia). v16: TODOS los prefijos colapsan a un grupo
     # único por mercado — nunca dos líneas del mismo stat en el parlay.
     ('ah_', 'ah', _RESULTADO), ('h1x2_', 'h1x2', _RESULTADO),
@@ -191,6 +216,15 @@ EQUIVALENCIAS = [
     ({'away_minus05_prob'}, {'away_win_prob'}),
     ({'home_plus05_prob', 'ah_home_mas05'}, {'home_or_draw_prob', 'dc_1x'}),
     ({'away_plus05_prob', 'ah_away_mas05'}, {'draw_or_away_prob', 'dc_x2'}),
+    # v67 TENIS: el hándicap de sets en un bo3 es la MISMA apuesta que el
+    # marcador exacto o que "gana al menos un set". Sin esto el parlay pagaba
+    # dos veces por el mismo suceso.
+    ({'hset_home_-1.5'}, {'set_2_0'}),
+    ({'hset_away_-1.5'}, {'set_0_2'}),
+    ({'hset_home_+1.5'}, {'set_home'}),
+    ({'hset_away_+1.5'}, {'set_away'}),
+    ({'exact1_home'}, {'set_1_2'}),
+    ({'exact1_away'}, {'set_2_1'}),
 ]
 
 # 1X2 vs doble oportunidad CONTRADICTORIAS (estrictamente incompatibles)
@@ -200,6 +234,12 @@ CONTRADICCIONES = [
     ({'away_win_prob'}, {'home_or_draw_prob', 'dc_1x'}),
     ({'btts_si', 'btts_yes_prob'}, {'sin_goles', 'under25_prob'}),  # btts≥2 goles
     ({'btts_si', 'btts_yes_prob'}, {'over05', 'over15', 'over15_goles'}),  # redundante
+    # v67 TENIS: incompatibilidades duras de un bo3
+    ({'ml_home'}, {'set_0_2', 'set_1_2', 'dr_ha', 'dr_aa', 'hset_away_-1.5'}),
+    ({'ml_away'}, {'set_2_0', 'set_2_1', 'dr_hh', 'dr_ah', 'hset_home_-1.5'}),
+    ({'ambos_set'}, {'set_2_0', 'set_0_2'}),      # 2-0 no deja ganar un set al rival
+    ({'set_2_0'}, {'set_away', 'exact1_away'}),
+    ({'set_0_2'}, {'set_home', 'exact1_home'}),
 ]
 
 

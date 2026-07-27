@@ -425,6 +425,59 @@ def render_h2h_mundial(home: str, away: str):
 # ===========================================================================
 # ASISTENTE DE PARLAY POR PARTIDO (v15): agnóstico de competición
 # ===========================================================================
+def render_remates_reales(lados: list, key: str):
+    """
+    v67 — Remates y remates a puerta REALES **por jugador**.
+
+    `lados` = [(etiqueta, callable_que_devuelve_df), ...]. El callable se
+    resuelve dentro de un `st.cache_data` para no repetir las llamadas a ESPN.
+
+    Antes de v67 esta información era un ESTIMADO derivado de los goles
+    (goles × calibración StatsBomb) y solo aparecían jugadores que habían
+    marcado. Ahora son remates observados partido a partido, así que también
+    salen los que rematan mucho y no anotan — que es justo lo que sirve para
+    el mercado de remates.
+    """
+    st.divider()
+    st.subheader("🎯 Remates por jugador (datos reales)")
+    cols = st.columns(len(lados))
+    hubo = False
+    for col, (etiqueta, obtener) in zip(cols, lados):
+        with col:
+            st.markdown(f"**{etiqueta}**")
+            try:
+                df = obtener()
+            except Exception as e:
+                st.caption(f"No disponible: {type(e).__name__}")
+                continue
+            if df is None or df.empty:
+                st.caption("ESPN no publica estadística por jugador de sus "
+                           "últimos partidos.")
+                continue
+            hubo = True
+            muestra = int(df['n_partidos_muestra'].iloc[0]) if 'n_partidos_muestra' in df else None
+            vista = df.head(12).copy()
+            tabla = pd.DataFrame({
+                'Jugador': vista['jugador'],
+                'Pos': vista['posicion'],
+                'PJ': vista['partidos'],
+                'Remates': vista['remates'],
+                'Rem/PJ': vista['remates_pp'],
+                'A puerta': vista['al_arco'],
+                'AP/PJ': vista['al_arco_pp'],
+                'Puntería': (vista['punteria'] * 100).round(0).map(
+                    lambda v: f"{v:.0f} %" if pd.notna(v) else '—'),
+                'Goles': vista['goles'],
+            })
+            st.dataframe(tabla, hide_index=True, width='stretch')
+            if muestra:
+                st.caption(f"Últimos {muestra} partidos.")
+    if hubo:
+        st.caption("Fuente: estadística por jugador de ESPN, partido a partido. "
+                   "«Rem/PJ» y «AP/PJ» son las medias que se comparan con la "
+                   "línea de la casa en los mercados de remates.")
+
+
 def render_comparador(motor, equipos: list, key: str):
     """v25 (§2.4): comparación rápida de DOS partidos lado a lado."""
     with st.expander("🆚 Comparador rápido de dos partidos"):
@@ -1093,6 +1146,25 @@ def render_liga_club(clave: str, nombre_liga: str):
                            "vorp_log.json; la adopción permanente se decidirá "
                            "con la evaluación de la temporada 2026-27 "
                            "(mejora ≥1 pp en los partidos ajustados).")
+
+    # v67: remates REALES por jugador (antes solo existía en la vista
+    # internacional, y ahí eran estimados a partir de los goles)
+    @st.cache_data(ttl=6 * 3600, show_spinner="Buscando remates por jugador…")
+    def _remates_club(liga_clave: str, equipo: str):
+        import remates_jugadores as _rj
+        import fixtures_espn as _fx
+        code = _fx.ESPN_CODIGOS.get(liga_clave)
+        if not code:
+            return None
+        nombre_espn = _rj.resolver_equipo(code, equipo)
+        if not nombre_espn:
+            return None
+        return _rj.remates_equipo(code, nombre_espn)
+
+    render_remates_reales(
+        [(f"🏠 {home}", lambda: _remates_club(clave, home)),
+         (f"✈️ {away}", lambda: _remates_club(clave, away))],
+        key=clave)
 
     # v15: parlay del partido en pantalla
     st.divider()
@@ -2089,50 +2161,113 @@ def render_tennis():
 
     def _pct(v):
         return f"{v*100:.1f} %" if isinstance(v, (int, float)) else "n/d"
-    st.caption(f"Entrenado con {md.get('n_partidos')} partidos "
-               f"({eng.circuito.upper()}, mirror de Kaggle) · precisión "
-               f"{_pct(md.get('precision_validacion'))} (ranking "
-               f"{_pct(md.get('precision_linea_base_elo'))}, mercado "
-               f"{_pct(md.get('precision_mercado'))}).")
-    # v59: próximos partidos de tenis (Betexplorer, la fuente que ya usa el
-    # barrido) con autorrelleno de los dos jugadores.
-    try:
-        import betexplorer_scraper as _bx
-        _tp = _bx.cuotas_tenis_hoy() or []
-    except Exception:
-        _tp = []
-    _ops_t = {}
-    for _m in _tp:
-        try:
-            _j1 = _bx.emparejar_jugador(_m['home'], eng.jugadores)
-            _j2 = _bx.emparejar_jugador(_m['away'], eng.jugadores)
-        except Exception:
-            continue
-        if _j1 and _j2 and _j1 != _j2:
-            _ops_t[f"{_m['home']} vs {_m['away']}"] = (_j1, _j2)
-    if _ops_t:
-        ct1, ct2 = st.columns([3, 1])
-        _sel_t = ct1.selectbox(f"📅 Partidos de hoy ({len(_ops_t)})",
-                               list(_ops_t.keys()), key='ten_fx_sel',
-                               help="Elige un partido y pulsa «Cargar».")
-        if ct2.button("⬇️ Cargar", key='ten_fx_btn', width='stretch'):
-            _a, _b = _ops_t[_sel_t]
-            st.session_state['ten_1'] = _a
-            st.session_state['ten_2'] = _b
-            st.rerun()
-    else:
-        st.caption("📅 Sin partidos de tenis enlazables hoy en la fuente de "
-                   "cuotas (fuera de torneo o nombres no reconocidos).")
+    # v67: la precisión GLOBAL ya no es comparable con versiones anteriores
+    # (el conjunto de validación incluye ahora previas, Challenger, WTA 125 e
+    # ITF, mucho menos predecibles). Se muestran las dos por separado.
+    _uni = md.get('validacion_por_universo') or {}
+    _princ = (_uni.get('circuito_principal') or {}).get('precision')
+    _nuevas = (_uni.get('categorias_nuevas') or {}).get('precision')
+    st.caption(
+        f"Entrenado con {md.get('n_partidos')} partidos "
+        f"({eng.circuito.upper()} · {md.get('fuente_datos', 'Kaggle')}) · "
+        f"precisión **{_pct(_princ) if _princ else _pct(md.get('precision_validacion'))}** "
+        f"en el circuito principal"
+        + (f" y {_pct(_nuevas)} en categorías inferiores" if _nuevas else "")
+        + f" · ranking {_pct(md.get('precision_linea_base_elo'))}, "
+        f"mercado {_pct(md.get('precision_mercado'))}. "
+        f"{len(eng.jugadores)} jugadores cubiertos.")
+    # ---- v67: próximos partidos desde ESPN, por COMPETICIÓN ----------------
+    # Antes: solo los partidos de hoy que apareciesen en la fuente de cuotas de
+    # Betexplorer, y hacía falta pulsar «Cargar». Ahora: el calendario completo
+    # de ESPN (que se refresca solo cada 20 min), filtrable por competición, y
+    # al elegir el partido las estadísticas salen directamente.
+    _circ = 'wta' if circuito.startswith('WTA') else 'atp'
+    _ranks = {j: (d.get('rank') or 0)
+              for j, d in (eng.estado.get('jugadores') or {}).items()}
+    _ranks = {j: r for j, r in _ranks.items() if r}
 
+    @st.cache_data(ttl=20 * 60, show_spinner="Buscando próximos partidos…")
+    def _fixtures_tenis(circ, ranks_firma):
+        import tenis_fuentes as _tf
+        return _tf.fixtures_tenis(circ, dias=10, rankings=_ranks)
+
+    try:
+        import tenis_fuentes as _tf
+        _fx_t = _fixtures_tenis(_circ, len(_ranks))
+    except Exception as _e:
+        _fx_t, _tf = [], None
+        st.caption(f"📅 Calendario no disponible ahora ({type(_e).__name__}).")
+
+    _sel_fx = None
+    if _fx_t and _tf is not None:
+        _cats_presentes = {f['categoria'] for f in _fx_t}
+        _opciones_cat = ['Todas las competiciones']
+        _mapa_cat = {}
+        for _grupo, _claves in _tf.GRUPOS_UI:
+            for _c in _claves:
+                if _c in _cats_presentes:
+                    _et = f"{_grupo} — {_tf.CATEGORIAS[_c]}"
+                    _opciones_cat.append(_et)
+                    _mapa_cat[_et] = _c
+        cf1, cf2 = st.columns([1, 2])
+        _cat_sel = cf1.selectbox("🏆 Competición", _opciones_cat, key='ten_cat')
+        _clave_cat = _mapa_cat.get(_cat_sel)
+        _lista = [f for f in _fx_t
+                  if _clave_cat is None or f['categoria'] == _clave_cat]
+        _lista = [f for f in _lista
+                  if f['p1'] in eng.jugadores and f['p2'] in eng.jugadores]
+        if _lista:
+            def _etq(f):
+                _fase = ' · previa' if f['fase'] == 'clasificacion' else ''
+                return (f"{f['fecha']} {f['hora']} · {f['p1']} vs {f['p2']} "
+                        f"— {f['torneo']}{_fase}")
+            _etiquetas = ['(elegir jugadores manualmente)'] + [_etq(f) for f in _lista]
+            _elegido = cf2.selectbox(
+                f"📅 Próximos partidos ({len(_lista)})", _etiquetas, key='ten_fx_sel',
+                help="Se actualiza solo cada 20 minutos desde ESPN. Al elegir un "
+                     "partido, las estadísticas aparecen abajo — sin botones.")
+            if _elegido != '(elegir jugadores manualmente)':
+                _sel_fx = _lista[_etiquetas.index(_elegido) - 1]
+        else:
+            cf2.caption("Sin partidos de esta competición con los dos jugadores "
+                        "en el modelo.")
+    elif _fx_t is not None:
+        st.caption("📅 No hay partidos programados en los próximos 10 días.")
+
+    # v67: SIN botón «Cargar». Si hay partido elegido, sus datos mandan sobre
+    # los selectores manuales (que se muestran igualmente, deshabilitados).
     c1, c2, c3 = st.columns(3)
-    p1 = c1.selectbox("Jugador 1", eng.jugadores, key='ten_1')
-    p2 = c2.selectbox("Jugador 2", eng.jugadores, index=1, key='ten_2')
-    sup = c3.selectbox("Superficie", ['Hard', 'Clay', 'Grass'], key='ten_s')
-    c4, c5 = st.columns(2)
-    indoor = c4.checkbox("Pista cubierta (indoor)", key='ten_in')
-    formato = c5.radio("Formato", ['Al mejor de 3 sets', 'Al mejor de 5 sets (Grand Slam)'],
-                       key='ten_bo', horizontal=False)
-    best_of = 5 if formato.startswith('Al mejor de 5') else 3
+    if _sel_fx:
+        p1, p2 = _sel_fx['p1'], _sel_fx['p2']
+        c1.text_input("Jugador 1", p1, disabled=True, key='ten_1_fx')
+        c2.text_input("Jugador 2", p2, disabled=True, key='ten_2_fx')
+        _sup_auto = None
+        try:
+            _sup_auto = _tf._superficie_espn(_sel_fx['torneo'],
+                                             pd.Timestamp(_sel_fx['fecha']), {})
+        except Exception:
+            pass
+        _sups = ['Hard', 'Clay', 'Grass']
+        sup = c3.selectbox("Superficie", _sups,
+                           index=_sups.index(_sup_auto) if _sup_auto in _sups else 0,
+                           key='ten_s_fx',
+                           help="Deducida del torneo; puedes corregirla.")
+        best_of = 5 if int(_sel_fx.get('best_of') or 3) >= 5 else 3
+        indoor = False
+        st.caption(f"🎾 **{_sel_fx['torneo']}** · {_sel_fx['ronda']} · "
+                   f"al mejor de {best_of} sets"
+                   + (f" · categoría: {_tf.CATEGORIAS.get(_sel_fx['categoria'], '—')}"
+                      if _tf else ''))
+    else:
+        p1 = c1.selectbox("Jugador 1", eng.jugadores, key='ten_1')
+        p2 = c2.selectbox("Jugador 2", eng.jugadores, index=1, key='ten_2')
+        sup = c3.selectbox("Superficie", ['Hard', 'Clay', 'Grass'], key='ten_s')
+        c4, c5 = st.columns(2)
+        indoor = c4.checkbox("Pista cubierta (indoor)", key='ten_in')
+        formato = c5.radio("Formato", ['Al mejor de 3 sets',
+                                       'Al mejor de 5 sets (Grand Slam)'],
+                           key='ten_bo', horizontal=False)
+        best_of = 5 if formato.startswith('Al mejor de 5') else 3
     if p1 != p2:
         pred = eng.predecir(p1, p2, surface=sup, indoor=indoor)
         if 'error' in pred:
@@ -2206,6 +2341,19 @@ def render_tennis():
                                    "no publica, así que NO se inventan:")
                         for e in pl['excluidos']:
                             st.caption(f"• {e}")
+
+            # ---- v67: PARLAY COMBINADO + TELEGRAM ------------------------
+            # El tenis era el único deporte de la app sin combinadas: su
+            # plantilla publicaba `campos` pero no `secciones`, que es lo que
+            # lee match_parlay. Con eso resuelto, reutiliza EXACTAMENTE el
+            # mismo componente que fútbol y MLB (incluido el envío a Telegram).
+            st.divider()
+            _eng_ctx = eng.con_contexto(
+                surface=sup, best_of=best_of, indoor=indoor,
+                categoria=(_sel_fx or {}).get('categoria'),
+                fase=(_sel_fx or {}).get('fase'))
+            render_parlay_partido(_eng_ctx, p1, p2, key=f'tenis_{eng.circuito}')
+            render_rendimiento(key=f'tenis_{eng.circuito}')
 
 
 _clave_comp = COMPETENCIAS[competencia_sel]
@@ -2563,10 +2711,23 @@ with tab_rapida:
     except Exception:
         pass
 
+    # ---- Remates REALES por jugador (v67) -----------------------------------
+    @st.cache_data(ttl=6 * 3600, show_spinner="Buscando remates por jugador…")
+    def _remates_sel(codigo: str):
+        import remates_jugadores as _rj
+        return _rj.remates_seleccion(codigo)
+
+    render_remates_reales(
+        [(f"🏠 {nombre_local}", lambda c=home: _remates_sel(c)),
+         (f"✈️ {nombre_visit}", lambda c=away: _remates_sel(c))],
+        key='mundial')
+
     # ---- ¿Quién remata? -----------------------------------------------------
     st.divider()
-    st.subheader("🎯 ¿Quién remata? — Goleadores reales de cada equipo")
-    st.caption("Goles reales de los últimos 24 meses (fuente Kaggle); remates estimados con calibración StatsBomb.")
+    st.subheader("⚽ Goleadores de cada equipo")
+    st.caption("Goles reales de los últimos 24 meses (fuente Kaggle). El xG y "
+               "los remates de esta tabla son ESTIMADOS por calibración "
+               "StatsBomb — los remates observados están en la tabla de arriba.")
 
     EJES_RADAR = ['Goles (24 meses)', 'Remates', 'Al arco', 'Goles esperados', 'Racha (últ. 5)']
     MAXIMOS_RADAR = [15.0, 4.0, 2.5, 0.8, 5.0]
@@ -2598,8 +2759,8 @@ with tab_rapida:
         return pd.DataFrame([{
             'Jugador': j['nombre'],
             'Goles (24 m)': j['goles_24m'],
-            'Remates/partido': j['remates_totales'],
-            'Al arco': j['remates_al_arco'],
+            'Remates/partido (est.)': j['remates_totales'],
+            'Al arco (est.)': j['remates_al_arco'],
             'Prob. de marcar': f"{j['prob_marcar']*100:.0f} %",
             'Marcó en (últ. 5)': f"{j['partidos_marcando_de_5']}/5",
         } for j in jugadores])

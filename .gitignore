@@ -45,3 +45,9 @@ rendimiento_real.db-shm
 modelos_ab_*/
 _v66_*
 universo_selecciones.json
+
+# v67: cachés de las fuentes de tenis y de remates por jugador (se regeneran)
+tenis_cache/
+remates_cache/
+_v67_*
+resultados_tenis_v67.json

@@ -24,3 +24,9 @@ uvicorn>=0.29
 kagglehub>=0.3
 requests>=2.31
 matplotlib>=3.8
+# v67: tennis-data.co.uk dejó de publicar .zip y ahora solo sirve .xlsx, que es
+# de donde sale el nivel (Tier) de los torneos WTA. Solo se usa al construir el
+# histórico de tenis, no en el arranque de la app.
+openpyxl>=3.1
+# v67: caché en disco de las descargas anuales de tennis-data
+pyarrow>=14.0
