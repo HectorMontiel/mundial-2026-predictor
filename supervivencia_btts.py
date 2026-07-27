@@ -58,13 +58,22 @@ class WeibullAFT:
         self.beta = None
         self.k = 1.0
 
-    def fit(self, X: np.ndarray, t: np.ndarray, evento: np.ndarray):
+    def fit(self, X: np.ndarray, t: np.ndarray, evento: np.ndarray,
+            k_fijo: Optional[float] = None):
+        """
+        MLE censurado. `k_fijo` (v70) clava la forma de Weibull en vez de
+        estimarla: hace falta cuando NO hay minuto de gol y todas las
+        observaciones están censuradas en t=90 (ver `ajustar_cloglog`), porque
+        con t90≡1 el término log(t90) desaparece y k deja de estar identificado
+        (la verosimilitud crece de forma monótona con k). Con k fijo el modelo
+        sigue siendo el mismo evaluado en t=90, que es lo único que se usa.
+        """
         X = np.column_stack([np.ones(len(X)), X])       # intercepto
         t90 = np.clip(t / 90.0, 1e-4, 1.0)
 
         def _nll(par):
             logk, beta = par[0], par[1:]
-            k = np.exp(logk)
+            k = np.exp(logk) if k_fijo is None else float(k_fijo)
             eta = np.clip(X @ beta, -8, 8)
             lam = np.exp(eta)
             # h(t) = k/90 · t90^(k−1) · lam ;  H(t) = t90^k · lam
@@ -74,7 +83,7 @@ class WeibullAFT:
 
         x0 = np.zeros(X.shape[1] + 1)
         r = minimize(_nll, x0, method='L-BFGS-B', options={'maxiter': 500})
-        self.k = float(np.exp(r.x[0]))
+        self.k = float(k_fijo) if k_fijo is not None else float(np.exp(r.x[0]))
         self.beta = r.x[1:]
         return self
 
@@ -257,6 +266,158 @@ def btts_en_vivo(stats_local: Dict, stats_visit: Dict) -> Optional[float]:
         return float(p[0] * p[1])
     except Exception:
         return None
+
+
+# ---------------------------------------------------------------------------
+# v70 (Mejora C): P(BTTS) para CLUBES, como feature del clasificador 1X2
+#
+# Por qué hace falta una variante y no vale el modelo de arriba
+# -------------------------------------------------------------
+# El AFT de v26 se ajusta con el MINUTO del primer gol recibido, y ese dato sólo
+# existe en `goleadores.csv`, que es de SELECCIONES (10.354 goles con minuto).
+# Para clubes no hay minuto en ninguna fuente del proyecto: sólo sabemos si el
+# equipo encajó o no. Medido, no supuesto — verificado en Fase 1 de v70.
+#
+# Eso no bloquea la mejora: con todas las observaciones censuradas en t=90, el
+# Weibull AFT evaluado en 90 es exactamente
+#
+#     P(encajar) = 1 − exp(−exp(β·x))
+#
+# es decir, una regresión binomial con enlace **complementary log-log**. Es el
+# MISMO modelo, la misma familia de valor extremo y la misma asimetría (que es
+# lo que le daba ventaja de calibración sobre Poisson en v27, Brier 0.2358 vs
+# 0.2516); lo único que se pierde es la forma temporal k, que no interviene en
+# la probabilidad a 90 minutos. Por eso `ajustar_cloglog` fija k=1.
+#
+# La aportación al 1X2 se mide en walk-forward (`_v70_wf_btts.py`); si no supera
+# la regla de oro, la columna no entra en el vector y el código queda apagado.
+# ---------------------------------------------------------------------------
+COVS_CLUB = ['ATQ_RIVAL', 'DEF_PROPIA', 'DIFF_ELO', 'LOCAL']
+
+
+def ajustar_cloglog(X: np.ndarray, encajo: np.ndarray) -> WeibullAFT:
+    """
+    AFT de Weibull evaluado en t=90, ajustado por máxima verosimilitud
+    BINOMIAL con enlace cloglog:
+
+        ll = Σ [ y·log(1 − exp(−exp(η))) − (1−y)·exp(η) ]
+
+    Ojo con el atajo que NO funciona (medido, v70): reutilizar `WeibullAFT.fit`
+    con t=90 para todas las filas y k=1 parece equivalente y no lo es. La
+    verosimilitud censurada le carga H(90) completo también a las filas CON
+    evento —porque les está diciendo que encajaron exactamente en el minuto 90—
+    y eso la convierte en una verosimilitud de POISSON. El estimador resultante
+    iguala E[exp(η)] a la tasa de eventos (0,72 en LaLiga) en vez de igualar
+    E[P] a esa tasa, y P sale 0,51 en lugar de 0,72: P(BTTS) media 0,25 contra
+    un 0,52 real. Con la verosimilitud binomial correcta el ajuste es exacto.
+
+    Devuelve un `WeibullAFT` (k=1) para que `prob_gol_90` y el resto del módulo
+    sigan funcionando sin cambios.
+    """
+    X = np.asarray(X, dtype=float)
+    y = np.asarray(encajo, dtype=float)
+    Xi = np.column_stack([np.ones(len(X)), X])
+
+    def _nll(beta):
+        eta = np.clip(Xi @ beta, -8.0, 4.0)
+        lam = np.exp(eta)
+        # log P(evento) = log(1 − exp(−lam)), estable con expm1
+        log_p = np.log(-np.expm1(-lam) + 1e-12)
+        return -float(np.sum(y * log_p - (1.0 - y) * lam))
+
+    beta0 = np.zeros(Xi.shape[1])
+    # intercepto de arranque: cloglog de la tasa media observada
+    tasa = float(np.clip(y.mean(), 1e-3, 1 - 1e-3))
+    beta0[0] = float(np.log(-np.log1p(-tasa)))
+    r = minimize(_nll, beta0, method='L-BFGS-B', options={'maxiter': 800})
+    m = WeibullAFT()
+    m.k = 1.0
+    m.beta = r.x
+    return m
+
+
+def covariables_club(gf_h, gc_h, gf_a, gc_a, elo_diff) -> np.ndarray:
+    """
+    Dos filas por partido —una por equipo— con las covariables del spec §2.2.
+    Fila 0 = el LOCAL (su ataque rival es el GF del visitante); fila 1 = el
+    visitante. Misma convención y misma escala que `construir_dataset`, para
+    que los coeficientes sean comparables con los de selecciones.
+    """
+    return np.array([
+        [gf_a / 3.0, gc_h / 3.0, elo_diff / 400.0, 1.0],
+        [gf_h / 3.0, gc_a / 3.0, -elo_diff / 400.0, 0.0],
+    ], dtype=float)
+
+
+def prob_btts(modelo: WeibullAFT, gf_h, gc_h, gf_a, gc_a, elo_diff) -> float:
+    """
+    P(marcan ambos) = P(el local encaja) · P(el visitante encaja).
+
+    «Que el local encaje» y «que el visitante marque» son el mismo suceso, así
+    que el producto es el BTTS con la independencia entre los dos equipos que ya
+    asume el proyecto (la cópula gaussiana se probó en v68 y se descartó: el ρ
+    óptimo huía al borde de la malla).
+    """
+    p = modelo.prob_gol_90(covariables_club(gf_h, gc_h, gf_a, gc_a, elo_diff))
+    return float(p[0] * p[1])
+
+
+def serie_btts_sin_fuga(df: pd.DataFrame, reajustar_cada: int = 200,
+                        minimo_train: int = 150) -> np.ndarray:
+    """
+    P(BTTS) partido a partido para una liga, SIN FUGA.
+
+    Recorre el histórico en orden y, cada `reajustar_cada` partidos, reajusta el
+    cloglog con TODO lo anterior y sólo con lo anterior. Los primeros
+    `minimo_train` partidos no tienen modelo aún y salen como NaN (el motor los
+    imputará con la media del train, igual que hace con las cuotas ausentes).
+
+    `df` necesita: date, home_team, away_team, home_goals, away_goals, elo_diff.
+    """
+    d = df.sort_values(['date', 'MATCH_ID'] if 'MATCH_ID' in df.columns else ['date'],
+                       kind='mergesort').reset_index(drop=True)
+    gf: Dict[str, list] = {}
+    gc: Dict[str, list] = {}
+    filas_X, filas_y = [], []          # historial acumulado para reajustar
+    salida = np.full(len(d), np.nan)
+    modelo: Optional[WeibullAFT] = None
+
+    for i, r in enumerate(d.itertuples(index=False)):
+        h, a = r.home_team, r.away_team
+        gf_h = float(np.mean(gf.get(h, [])[-MA:])) if gf.get(h) else np.nan
+        gc_h = float(np.mean(gc.get(h, [])[-MA:])) if gc.get(h) else np.nan
+        gf_a = float(np.mean(gf.get(a, [])[-MA:])) if gf.get(a) else np.nan
+        gc_a = float(np.mean(gc.get(a, [])[-MA:])) if gc.get(a) else np.nan
+        elo = float(getattr(r, 'elo_diff', 0.0) or 0.0)
+        completo = not any(np.isnan(v) for v in (gf_h, gc_h, gf_a, gc_a))
+
+        if modelo is not None and completo:
+            salida[i] = prob_btts(modelo, gf_h, gc_h, gf_a, gc_a, elo)
+
+        if completo:
+            Xi = covariables_club(gf_h, gc_h, gf_a, gc_a, elo)
+            filas_X.append(Xi)
+            # fila 0 = local: ¿encajó? = el visitante marcó
+            filas_y.append([float(r.away_goals > 0), float(r.home_goals > 0)])
+
+        n = len(filas_y)
+        if n >= minimo_train and (modelo is None or n % reajustar_cada == 0):
+            try:
+                modelo = ajustar_cloglog(np.vstack(filas_X),
+                                         np.concatenate(filas_y))
+            except Exception as e:
+                logger.debug(f"[btts-club] reajuste fallido en {i}: {e}")
+
+        for eq, propios, contra in ((h, r.home_goals, r.away_goals),
+                                    (a, r.away_goals, r.home_goals)):
+            gf.setdefault(eq, []).append(float(propios))
+            gc.setdefault(eq, []).append(float(contra))
+            gf[eq] = gf[eq][-MA:]
+            gc[eq] = gc[eq][-MA:]
+
+    # devolver en el orden original del dataframe recibido
+    orden = pd.Series(salida, index=d.index)
+    return orden.reindex(range(len(d))).values
 
 
 # ---------------------------------------------------------------------------

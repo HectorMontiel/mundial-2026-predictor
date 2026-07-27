@@ -20,6 +20,14 @@ logger = logging.getLogger(__name__)
 SALIDA = 'historico_nba.csv'
 
 
+def _clave_gid(gid) -> str:
+    """
+    Clave canónica del partido, igual venga de la API (cadena con ceros a la
+    izquierda) o del CSV (entero). Sin esto la deduplicación no funciona.
+    """
+    return str(gid).strip().lstrip('0') or '0'
+
+
 def descargar_temporada(season: str) -> pd.DataFrame:
     from nba_api.stats.endpoints import leaguegamelog
     lg = leaguegamelog.LeagueGameLog(season=season, timeout=45)
@@ -57,6 +65,15 @@ def actualizar(seasons: List[str]) -> pd.DataFrame:
     df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     if not df.empty:
         df['date'] = pd.to_datetime(df['date'])
+        # v70: la deduplicación fallaba silenciosamente. `leaguegamelog` devuelve
+        # el GAME_ID como cadena con ceros a la izquierda ('0022500001') y al
+        # releerlo del CSV vuelve como entero (22500001); al concatenar quedaban
+        # los dos tipos en la misma columna y `drop_duplicates` no los veía
+        # iguales, así que CADA actualización volvía a duplicar la temporada en
+        # curso. Encontrado con 1.225 juegos repetidos de 2025-26 sobre 7.365
+        # filas. Normalizar la clave antes de deduplicar lo arregla y además
+        # limpia de una vez el fichero ya existente.
+        df['GAME_ID'] = df['GAME_ID'].map(_clave_gid)
         df = df.sort_values('date').drop_duplicates(subset='GAME_ID', keep='last')
         df.to_csv(SALIDA, index=False)
         logger.info(f"[nba] {SALIDA}: {len(df)} juegos "

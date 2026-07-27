@@ -996,6 +996,32 @@ def render_liga_club(clave: str, nombre_liga: str):
         + (f", favorito del mercado {motor.metadata['precision_mercado_cuotas']*100:.1f} %"
            if motor.metadata.get('precision_mercado_cuotas') else '') + ")"
     )
+    # v70 (Mejora D): la familia de clasificador se elige por liga. Se muestra
+    # cuando NO es el ensemble por defecto, que es cuando aporta información.
+    _FAMILIAS_UI = {
+        'logistica': 'regresión logística regularizada',
+        'logistica_base': 'regresión logística sobre el vector base',
+        'elo_logit': 'logística calibrada sobre el ELO',
+        'gbm_regular': 'GBM regularizado',
+        'blend_elo': 'mezcla ensemble + ELO calibrado',
+        'beta': 'ensemble con beta calibration',
+    }
+    _fam = motor.metadata.get('familia_modelo')
+    if _fam and _fam not in ('ensemble', None):
+        st.caption(
+            f"🧩 Modelo de esta competición: **{_FAMILIAS_UI.get(_fam, _fam)}** "
+            f"(v70). En ligas con poca señal el ensemble XGB+RF+LGBM sobreajusta; "
+            f"la familia se eligió por walk-forward con selección secuencial.")
+    try:
+        import distributions as _d
+        _s = _d.factor_shrink(clave)
+        if _s < 1.0:
+            st.caption(
+                f"📉 Goles esperados con encogimiento **s={_s:.2f}** (v70): los "
+                f"regresores separaban demasiado las dos λ. Afecta al marcador "
+                f"exacto y a los mercados de goles, no al 1X2.")
+    except Exception:
+        pass
     if LEAGUES[clave].get('formato') == 'api_football':
         st.info("ℹ️ Fuentes: API-Football (2022-24, marcadores de 90') + FBref "
                 "(resto e incluida la temporada en curso). La forma se actualiza "

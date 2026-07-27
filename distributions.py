@@ -45,6 +45,70 @@ FRACCION_CHOQUE_COMUN = 0.12      # la de producción en el modelo internacional
 MAX_GOLES_MATRIZ = 8
 
 
+# ---------------------------------------------------------------------------
+# v70 (Mejora G) — encogimiento de la diferencia de λ
+#
+# Hallazgo no previsto en el spec, encontrado al validar el ajuste por
+# alineaciones. El control de ese diagnóstico medía la correlación entre
+# (λ_local − λ_visitante) y el residuo de Pearson del margen, que debería ser
+# ~0 si las λ estuviesen bien calibradas. Salió −0,193 en MLS y −0,238 en Liga
+# MX (ambas p<0,001): cuando el modelo predice un margen grande, el margen real
+# se queda corto de forma sistemática. Los regresores Poisson SEPARAN DEMASIADO
+# las dos λ.
+#
+# Corrección: encoger la diferencia hacia la media conservando el total.
+#
+#     m = (λ_h + λ_a)/2 ;  d = (λ_h − λ_a)/2
+#     λ_h' = m + s·d    ;  λ_a' = m − s·d
+#
+# s se calibra por liga en walk-forward (`_v70_wf_shrink.py`) minimizando la
+# desvianza de Poisson sólo con datos de train. Medido en 15 competiciones,
+# s cae entre 0,50 y 0,70 y la desvianza mejora en TODAS (−0,05 a −0,11), con
+# el log-loss del 1X2 derivado mejorando en 14 de 15.
+#
+# s = 1 es no tocar nada, así que una liga sin coeficiente adoptado se queda
+# exactamente como estaba.
+# ---------------------------------------------------------------------------
+ARCHIVO_SHRINK = 'lambda_shrink.json'
+_CACHE_SHRINK = {}
+
+
+def factor_shrink(clave_liga: str) -> float:
+    """Factor de encogimiento adoptado para esa liga (1.0 = sin ajuste)."""
+    import json
+    import os
+    if 'ligas' not in _CACHE_SHRINK:
+        datos = {}
+        try:
+            if os.path.exists(ARCHIVO_SHRINK):
+                with open(ARCHIVO_SHRINK, encoding='utf-8') as f:
+                    datos = json.load(f).get('ligas') or {}
+        except Exception:
+            datos = {}
+        _CACHE_SHRINK['ligas'] = datos
+    try:
+        s = float(_CACHE_SHRINK['ligas'].get(clave_liga, 1.0))
+    except (TypeError, ValueError):
+        return 1.0
+    return s if 0.2 <= s <= 1.0 else 1.0
+
+
+def encoger_lambdas(lam_h: float, lam_a: float, clave_liga: str = None,
+                    s: float = None):
+    """
+    Aplica el encogimiento de v70. Conserva λ_h + λ_a (el total esperado de
+    goles no cambia; sólo se reparte de forma menos extrema).
+    """
+    if s is None:
+        s = factor_shrink(clave_liga) if clave_liga else 1.0
+    if s >= 1.0:
+        return float(lam_h), float(lam_a)
+    m = (lam_h + lam_a) / 2.0
+    d = (lam_h - lam_a) / 2.0
+    return (float(np.clip(m + s * d, 0.15, 5.0)),
+            float(np.clip(m - s * d, 0.15, 5.0)))
+
+
 def _pmf_poisson(lam: float, n: int) -> np.ndarray:
     k = np.arange(n + 1)
     p = poisson.pmf(k, max(lam, 1e-9))

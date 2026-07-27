@@ -1,0 +1,368 @@
+[
+ {
+  "liga": "usa.1",
+  "nombre": "MLS",
+  "ventanas": [
+   {
+    "desde": "2019-03-01",
+    "hasta": "2019-10-31",
+    "eventos": 421,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2022-03-01",
+    "hasta": "2022-10-31",
+    "eventos": 475,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2024-03-01",
+    "hasta": "2024-10-31",
+    "eventos": 489,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2025-08-01",
+    "hasta": "2026-03-31",
+    "eventos": 250,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2026-04-01",
+    "hasta": "2026-07-26",
+    "eventos": 179,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   }
+  ]
+ },
+ {
+  "liga": "mex.1",
+  "nombre": "Liga MX",
+  "ventanas": [
+   {
+    "desde": "2019-03-01",
+    "hasta": "2019-10-31",
+    "eventos": 240,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2022-03-01",
+    "hasta": "2022-10-31",
+    "eventos": 281,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2024-03-01",
+    "hasta": "2024-10-31",
+    "eventos": 217,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2025-08-01",
+    "hasta": "2026-03-31",
+    "eventos": 251,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2026-04-01",
+    "hasta": "2026-07-26",
+    "eventos": 78,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   }
+  ]
+ },
+ {
+  "liga": "eng.1",
+  "nombre": "Premier",
+  "ventanas": [
+   {
+    "desde": "2019-03-01",
+    "hasta": "2019-10-31",
+    "eventos": 201,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2022-03-01",
+    "hasta": "2022-10-31",
+    "eventos": 250,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2024-03-01",
+    "hasta": "2024-10-31",
+    "eventos": 212,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2025-08-01",
+    "hasta": "2026-03-31",
+    "eventos": 309,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2026-04-01",
+    "hasta": "2026-07-26",
+    "eventos": 71,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   }
+  ]
+ },
+ {
+  "liga": "esp.1",
+  "nombre": "LaLiga",
+  "ventanas": [
+   {
+    "desde": "2019-03-01",
+    "hasta": "2019-10-31",
+    "eventos": 239,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2022-03-01",
+    "hasta": "2022-10-31",
+    "eventos": 242,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2024-03-01",
+    "hasta": "2024-10-31",
+    "eventos": 231,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2025-08-01",
+    "hasta": "2026-03-31",
+    "eventos": 290,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2026-04-01",
+    "hasta": "2026-07-26",
+    "eventos": 90,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   }
+  ]
+ },
+ {
+  "liga": "ita.1",
+  "nombre": "Serie A",
+  "ventanas": [
+   {
+    "desde": "2019-03-01",
+    "hasta": "2019-10-31",
+    "eventos": 230,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2022-03-01",
+    "hasta": "2022-10-31",
+    "eventos": 235,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2024-03-01",
+    "hasta": "2024-10-31",
+    "eventos": 219,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2025-08-01",
+    "hasta": "2026-03-31",
+    "eventos": 300,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2026-04-01",
+    "hasta": "2026-07-26",
+    "eventos": 80,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   }
+  ]
+ },
+ {
+  "liga": "bra.1",
+  "nombre": "Brasileirao",
+  "ventanas": [
+   {
+    "desde": "2019-03-01",
+    "hasta": "2019-10-31",
+    "eventos": 290,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2022-03-01",
+    "hasta": "2022-10-31",
+    "eventos": 341,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2024-03-01",
+    "hasta": "2024-10-31",
+    "eventos": 309,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2025-08-01",
+    "hasta": "2026-03-31",
+    "eventos": 299,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   },
+   {
+    "desde": "2026-04-01",
+    "hasta": "2026-07-26",
+    "eventos": 122,
+    "muestra": 25,
+    "pct_rosters": 100.0,
+    "pct_11_titulares": 100.0,
+    "pct_stats_jugador": 100.0,
+    "pct_portero_sv": 100.0,
+    "pct_portero_ga": 100.0
+   }
+  ]
+ }
+]

@@ -1,0 +1,22 @@
+{
+ "generado": "2026-07-27",
+ "nota": "v70 Mejora G: factor de encogimiento de la diferencia de lambdas (s<1 acerca las dos lambdas a su media conservando el total). Calibrado por liga en walk-forward de 5 pliegues minimizando la desvianza de Poisson solo con train. Liga ausente = s=1 = sin ajuste. Incluye MLB (matriz de carreras de plantilla_mlb).",
+ "criterio": "desvianza de Poisson mejora Y log-loss del 1X2 derivado no empeora",
+ "ligas": {
+  "premier": 0.5,
+  "laliga": 0.64,
+  "serie_a": 0.64,
+  "bundesliga": 0.52,
+  "ligue_1": 0.68,
+  "liga_mx": 0.6,
+  "mls": 0.54,
+  "eredivisie": 0.7,
+  "argentina": 0.5,
+  "eng_championship": 0.54,
+  "ned_eerste": 0.46,
+  "bra_serie_b": 0.44,
+  "gre_super_league": 0.58,
+  "crc_fpd": 0.5,
+  "mlb": 0.58
+ }
+}

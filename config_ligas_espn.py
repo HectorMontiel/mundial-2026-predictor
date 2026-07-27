@@ -23,7 +23,7 @@ LIGAS_V68 = {
     'eng_championship': {
         'nombre': 'EFL Championship', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/2122/E1.csv', f'{FD_BASE}/mmz4281/2223/E1.csv', f'{FD_BASE}/mmz4281/2324/E1.csv', f'{FD_BASE}/mmz4281/2425/E1.csv', f'{FD_BASE}/mmz4281/2526/E1.csv'],
-        'disponible': False, 'features_extra': ['cuotas', 'extras'],
+        'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'eng_league_one': {
@@ -35,7 +35,7 @@ LIGAS_V68 = {
     'eng_league_two': {
         'nombre': 'EFL League Two', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/2122/E3.csv', f'{FD_BASE}/mmz4281/2223/E3.csv', f'{FD_BASE}/mmz4281/2324/E3.csv', f'{FD_BASE}/mmz4281/2425/E3.csv', f'{FD_BASE}/mmz4281/2526/E3.csv'],
-        'disponible': False, 'features_extra': ['cuotas', 'extras'],
+        'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'eng_national': {
@@ -59,7 +59,7 @@ LIGAS_V68 = {
     'esp_hypermotion': {
         'nombre': 'LaLiga Hypermotion', 'pais': 'España', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/2122/SP2.csv', f'{FD_BASE}/mmz4281/2223/SP2.csv', f'{FD_BASE}/mmz4281/2324/SP2.csv', f'{FD_BASE}/mmz4281/2425/SP2.csv', f'{FD_BASE}/mmz4281/2526/SP2.csv'],
-        'disponible': False, 'features_extra': ['cuotas', 'extras'],
+        'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'ita_serie_b': {
@@ -83,7 +83,7 @@ LIGAS_V68 = {
     'bel_pro_league': {
         'nombre': 'Jupiler Pro League', 'pais': 'Bélgica', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/2122/B1.csv', f'{FD_BASE}/mmz4281/2223/B1.csv', f'{FD_BASE}/mmz4281/2324/B1.csv', f'{FD_BASE}/mmz4281/2425/B1.csv', f'{FD_BASE}/mmz4281/2526/B1.csv'],
-        'disponible': False, 'features_extra': ['cuotas', 'extras'],
+        'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'jpn_j1': {
@@ -113,13 +113,13 @@ LIGAS_V68 = {
     'ned_eerste': {
         'nombre': 'Eerste Divisie', 'pais': 'Países Bajos', 'formato': 'espn',
         'espn_liga': 'ned.2', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 1140,
     },
     'bra_serie_b': {
         'nombre': 'Brasileirão Série B', 'pais': 'Brasil', 'formato': 'espn',
         'espn_liga': 'bra.2', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 1136,
     },
     'per_liga1': {
@@ -143,7 +143,7 @@ LIGAS_V68 = {
     'slv_primera': {
         'nombre': 'Primera División', 'pais': 'El Salvador', 'formato': 'espn',
         'espn_liga': 'slv.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 832,
     },
     'bol_division': {
@@ -155,13 +155,13 @@ LIGAS_V68 = {
     'par_division': {
         'nombre': 'División Profesional', 'pais': 'Paraguay', 'formato': 'espn',
         'espn_liga': 'par.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 774,
     },
     'crc_fpd': {
         'nombre': 'Liga FPD', 'pais': 'Costa Rica', 'formato': 'espn',
         'espn_liga': 'crc.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 741,
     },
     'mex_expansion': {
@@ -173,7 +173,7 @@ LIGAS_V68 = {
     'gre_super_league': {
         'nombre': 'Super League Greece', 'pais': 'Grecia', 'formato': 'espn',
         'espn_liga': 'gre.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 712,
     },
     'rus_premier': {
@@ -221,13 +221,13 @@ LIGAS_V68 = {
     'sudamericana': {
         'nombre': 'Copa Sudamericana', 'pais': 'Américas', 'formato': 'espn',
         'espn_liga': 'conmebol.sudamericana', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 462,
     },
     'eng_fa_cup': {
         'nombre': 'FA Cup', 'pais': 'Inglaterra', 'formato': 'espn',
         'espn_liga': 'eng.fa', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 395,
     },
     'ind_isl': {

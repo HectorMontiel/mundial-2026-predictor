@@ -1,5 +1,47 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v70 — Un modelo por liga y las λ recalibradas (ver [VALIDACION_v70.md](VALIDACION_v70.md))
+
+- **🧩 La familia de modelo se elige por competición, no por un umbral de
+  tamaño.** El spec proponía «logística si hay menos de 800 partidos», pero al
+  medir sólo 4 de las 15 ligas que perdían contra el ELO en v68 bajan de 800: el
+  EFL Championship pierde con 2.144. El problema es la relación señal/ruido, así
+  que se compiten seis familias por liga en **walk-forward de 5 pliegues con
+  selección secuencial** (la familia de cada pliegue se decide con los pliegues
+  anteriores, nunca con el propio test). **8 competiciones pasan a batir al ELO
+  y entran en Capa 1**: Brasileirão Série B, Copa Sudamericana, LaLiga
+  Hypermotion, Costa Rica, EFL League Two, Bélgica, EFL Championship y Grecia.
+  La logística regularizada gana en 5 de las 8.
+
+- **📉 Las λ separaban demasiado a los dos equipos — hallazgo no previsto.**
+  Validando el ajuste por alineaciones, un control detectó una correlación de
+  **−0,19 (MLS) y −0,24 (Liga MX)** entre la diferencia de goles esperados y el
+  residuo del margen: cuando el modelo predice una goleada, el marcador real se
+  queda corto de forma sistemática. La corrección —encoger la diferencia de λ
+  hacia su media conservando el total, con `s` calibrado por liga— **mejora la
+  desvianza de Poisson en las 15 competiciones medidas y también en MLB**.
+  Adoptada en 14 ligas + MLB. Afecta al marcador exacto y a los mercados de
+  goles, no al 1X2.
+
+- **🏀 El motor NBA ya bate a su propia línea base.** Las features de fatiga y
+  estadística avanzada que pedía el spec **no aportan** (todas bajan la
+  precisión), pero el experimento destapó que el ensemble de 9 features
+  sobreajustaba: no superaba al argmax del ELO. Una mezcla con una logística de
+  **un solo grado de libertad sobre el ELO** sube el moneyline de 0,6544 a
+  **0,6721** y ahora sí supera al ELO (0,6664).
+
+- **🐛 1.225 juegos NBA duplicados, corregidos.** `nba_scraper` deduplicaba por
+  `GAME_ID`, pero la API lo sirve como cadena con ceros a la izquierda y el CSV
+  lo relee como entero: cada actualización volvía a duplicar la temporada en
+  curso. **7.365 filas → 6.140 reales.**
+
+- **📋 Medido y rechazado, con los números publicados**: ajuste por alineaciones
+  confirmadas (+0,07 pp, signos que se invierten entre ligas — y eso con
+  cobertura del 92,6 % y 268.000 filas de alineaciones reales recolectadas de
+  ESPN), impacto del portero (γ = 0 en los 10 pliegues), P(BTTS) como feature
+  del 1X2 (2 de 7 ligas, lo esperable por azar) y el modelo de carreras de MLB
+  (el clasificador actual calibra mejor: ECE 0,0093 vs 0,0167).
+
 ## Novedades v69 — Estadísticas de saque en tenis (ver [VALIDACION_v69.md](VALIDACION_v69.md))
 
 - **🎾 Encontrada la fuente que v67 dio por inexistente.** ATP Tour y SofaScore

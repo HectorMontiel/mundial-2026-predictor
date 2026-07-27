@@ -1,0 +1,692 @@
+[
+ {
+  "clave": "eng_fa_cup",
+  "estado": "ok",
+  "n": 384,
+  "n_oos": 154,
+  "pliegues": 5,
+  "elo_acc": 0.5325,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "ensemble",
+    "blend_elo",
+    "blend_elo",
+    "blend_elo"
+   ],
+   "acc": 0.474,
+   "ll": 1.004
+  },
+  "segundos": 53.5,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.474,
+    "ll": 1.0218
+   },
+   "logistica": {
+    "acc": 0.4481,
+    "ll": 1.0274
+   },
+   "logistica_base": {
+    "acc": 0.4675,
+    "ll": 0.9943
+   },
+   "elo_logit": {
+    "acc": 0.5,
+    "ll": 0.9931
+   },
+   "blend_elo": {
+    "acc": 0.4805,
+    "ll": 0.9925
+   },
+   "gbm_regular": {
+    "acc": 0.4675,
+    "ll": 1.0506
+   }
+  }
+ },
+ {
+  "clave": "sudamericana",
+  "estado": "ok",
+  "n": 417,
+  "n_oos": 167,
+  "pliegues": 5,
+  "elo_acc": 0.4311,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "logistica",
+    "ensemble",
+    "logistica",
+    "logistica"
+   ],
+   "acc": 0.485,
+   "ll": 1.0586
+  },
+  "segundos": 51.2,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4671,
+    "ll": 1.0822
+   },
+   "logistica": {
+    "acc": 0.485,
+    "ll": 1.0427
+   },
+   "logistica_base": {
+    "acc": 0.479,
+    "ll": 1.0393
+   },
+   "elo_logit": {
+    "acc": 0.4491,
+    "ll": 1.0616
+   },
+   "blend_elo": {
+    "acc": 0.4551,
+    "ll": 1.0767
+   },
+   "gbm_regular": {
+    "acc": 0.4731,
+    "ll": 1.0741
+   }
+  }
+ },
+ {
+  "clave": "ind_isl",
+  "estado": "ok",
+  "n": 595,
+  "n_oos": 238,
+  "pliegues": 5,
+  "elo_acc": 0.4706,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "elo_logit",
+    "elo_logit",
+    "elo_logit",
+    "elo_logit"
+   ],
+   "acc": 0.4328,
+   "ll": 1.0332
+  },
+  "segundos": 49.2,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4538,
+    "ll": 1.0536
+   },
+   "logistica": {
+    "acc": 0.4664,
+    "ll": 1.0288
+   },
+   "logistica_base": {
+    "acc": 0.4664,
+    "ll": 1.0303
+   },
+   "elo_logit": {
+    "acc": 0.4538,
+    "ll": 1.0203
+   },
+   "blend_elo": {
+    "acc": 0.437,
+    "ll": 1.0294
+   },
+   "gbm_regular": {
+    "acc": 0.479,
+    "ll": 1.0533
+   }
+  }
+ },
+ {
+  "clave": "par_division",
+  "estado": "ok",
+  "n": 1126,
+  "n_oos": 451,
+  "pliegues": 5,
+  "elo_acc": 0.4102,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "logistica",
+    "logistica",
+    "logistica",
+    "logistica"
+   ],
+   "acc": 0.4035,
+   "ll": 1.0775
+  },
+  "segundos": 64.8,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.3925,
+    "ll": 1.1751
+   },
+   "logistica": {
+    "acc": 0.4058,
+    "ll": 1.0756
+   },
+   "logistica_base": {
+    "acc": 0.4058,
+    "ll": 1.0861
+   },
+   "elo_logit": {
+    "acc": 0.4102,
+    "ll": 1.0888
+   },
+   "blend_elo": {
+    "acc": 0.4058,
+    "ll": 1.0933
+   },
+   "gbm_regular": {
+    "acc": 0.4146,
+    "ll": 1.0975
+   }
+  }
+ },
+ {
+  "clave": "ned_eerste",
+  "estado": "ok",
+  "n": 1849,
+  "n_oos": 740,
+  "pliegues": 5,
+  "elo_acc": 0.4865,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "elo_logit",
+    "elo_logit",
+    "elo_logit",
+    "elo_logit"
+   ],
+   "acc": 0.4892,
+   "ll": 1.0312
+  },
+  "segundos": 74.4,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4541,
+    "ll": 1.095
+   },
+   "logistica": {
+    "acc": 0.5014,
+    "ll": 1.0311
+   },
+   "logistica_base": {
+    "acc": 0.4986,
+    "ll": 1.0284
+   },
+   "elo_logit": {
+    "acc": 0.4905,
+    "ll": 1.0244
+   },
+   "blend_elo": {
+    "acc": 0.4892,
+    "ll": 1.0255
+   },
+   "gbm_regular": {
+    "acc": 0.4824,
+    "ll": 1.0446
+   }
+  }
+ },
+ {
+  "clave": "aus_aleague",
+  "estado": "ok",
+  "n": 813,
+  "n_oos": 326,
+  "pliegues": 5,
+  "elo_acc": 0.4356,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "elo_logit",
+    "blend_elo",
+    "blend_elo",
+    "blend_elo"
+   ],
+   "acc": 0.4018,
+   "ll": 1.0993
+  },
+  "segundos": 66.1,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.411,
+    "ll": 1.1099
+   },
+   "logistica": {
+    "acc": 0.3988,
+    "ll": 1.0921
+   },
+   "logistica_base": {
+    "acc": 0.4018,
+    "ll": 1.0958
+   },
+   "elo_logit": {
+    "acc": 0.4018,
+    "ll": 1.0902
+   },
+   "blend_elo": {
+    "acc": 0.411,
+    "ll": 1.0894
+   },
+   "gbm_regular": {
+    "acc": 0.3957,
+    "ll": 1.134
+   }
+  }
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "ok",
+  "n": 2680,
+  "n_oos": 1072,
+  "pliegues": 5,
+  "elo_acc": 0.4478,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "logistica",
+    "logistica",
+    "logistica",
+    "logistica"
+   ],
+   "acc": 0.4683,
+   "ll": 1.0443
+  },
+  "segundos": 107.9,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.459,
+    "ll": 1.0494
+   },
+   "logistica": {
+    "acc": 0.4618,
+    "ll": 1.0422
+   },
+   "logistica_base": {
+    "acc": 0.4599,
+    "ll": 1.05
+   },
+   "elo_logit": {
+    "acc": 0.4571,
+    "ll": 1.0499
+   },
+   "blend_elo": {
+    "acc": 0.4618,
+    "ll": 1.0468
+   },
+   "gbm_regular": {
+    "acc": 0.4515,
+    "ll": 1.058
+   }
+  }
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "ok",
+  "n": 1156,
+  "n_oos": 463,
+  "pliegues": 5,
+  "elo_acc": 0.4946,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "gbm_regular",
+    "blend_elo",
+    "blend_elo",
+    "blend_elo"
+   ],
+   "acc": 0.5032,
+   "ll": 0.9928
+  },
+  "segundos": 75.3,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.486,
+    "ll": 1.0137
+   },
+   "logistica": {
+    "acc": 0.4968,
+    "ll": 1.0003
+   },
+   "logistica_base": {
+    "acc": 0.5054,
+    "ll": 0.9983
+   },
+   "elo_logit": {
+    "acc": 0.5205,
+    "ll": 0.9909
+   },
+   "blend_elo": {
+    "acc": 0.5119,
+    "ll": 0.9893
+   },
+   "gbm_regular": {
+    "acc": 0.5119,
+    "ll": 0.9996
+   }
+  }
+ },
+ {
+  "clave": "slv_primera",
+  "estado": "ok",
+  "n": 1264,
+  "n_oos": 506,
+  "pliegues": 5,
+  "elo_acc": 0.4881,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "elo_logit",
+    "elo_logit",
+    "elo_logit",
+    "blend_elo"
+   ],
+   "acc": 0.4644,
+   "ll": 1.0402
+  },
+  "segundos": 79.7,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4506,
+    "ll": 1.0531
+   },
+   "logistica": {
+    "acc": 0.4644,
+    "ll": 1.0391
+   },
+   "logistica_base": {
+    "acc": 0.4644,
+    "ll": 1.0388
+   },
+   "elo_logit": {
+    "acc": 0.4723,
+    "ll": 1.0337
+   },
+   "blend_elo": {
+    "acc": 0.4743,
+    "ll": 1.0335
+   },
+   "gbm_regular": {
+    "acc": 0.4664,
+    "ll": 1.0394
+   }
+  }
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "ok",
+  "n": 1508,
+  "n_oos": 604,
+  "pliegues": 5,
+  "elo_acc": 0.4818,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "logistica",
+    "logistica",
+    "logistica",
+    "logistica"
+   ],
+   "acc": 0.5066,
+   "ll": 1.0115
+  },
+  "segundos": 77.5,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4884,
+    "ll": 1.0775
+   },
+   "logistica": {
+    "acc": 0.5033,
+    "ll": 1.0079
+   },
+   "logistica_base": {
+    "acc": 0.4801,
+    "ll": 1.0203
+   },
+   "elo_logit": {
+    "acc": 0.4818,
+    "ll": 1.0254
+   },
+   "blend_elo": {
+    "acc": 0.4901,
+    "ll": 1.0172
+   },
+   "gbm_regular": {
+    "acc": 0.4967,
+    "ll": 1.0218
+   }
+  }
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "ok",
+  "n": 2670,
+  "n_oos": 1068,
+  "pliegues": 5,
+  "elo_acc": 0.4373,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "logistica",
+    "logistica",
+    "logistica",
+    "logistica"
+   ],
+   "acc": 0.4794,
+   "ll": 1.0447
+  },
+  "segundos": 84.7,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4522,
+    "ll": 1.0591
+   },
+   "logistica": {
+    "acc": 0.4813,
+    "ll": 1.0436
+   },
+   "logistica_base": {
+    "acc": 0.4691,
+    "ll": 1.0582
+   },
+   "elo_logit": {
+    "acc": 0.4522,
+    "ll": 1.0612
+   },
+   "blend_elo": {
+    "acc": 0.4691,
+    "ll": 1.0554
+   },
+   "gbm_regular": {
+    "acc": 0.4457,
+    "ll": 1.0576
+   }
+  }
+ },
+ {
+  "clave": "bra_serie_b",
+  "estado": "ok",
+  "n": 1579,
+  "n_oos": 632,
+  "pliegues": 5,
+  "elo_acc": 0.4066,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "blend_elo",
+    "blend_elo",
+    "elo_logit",
+    "elo_logit"
+   ],
+   "acc": 0.4778,
+   "ll": 1.0533
+  },
+  "segundos": 68.2,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4668,
+    "ll": 1.0651
+   },
+   "logistica": {
+    "acc": 0.4763,
+    "ll": 1.0563
+   },
+   "logistica_base": {
+    "acc": 0.4715,
+    "ll": 1.056
+   },
+   "elo_logit": {
+    "acc": 0.4747,
+    "ll": 1.0501
+   },
+   "blend_elo": {
+    "acc": 0.4763,
+    "ll": 1.0538
+   },
+   "gbm_regular": {
+    "acc": 0.4446,
+    "ll": 1.0733
+   }
+  }
+ },
+ {
+  "clave": "ven_primera",
+  "estado": "ok",
+  "n": 1081,
+  "n_oos": 433,
+  "pliegues": 5,
+  "elo_acc": 0.4758,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "ensemble",
+    "ensemble",
+    "elo_logit",
+    "elo_logit"
+   ],
+   "acc": 0.4711,
+   "ll": 1.0346
+  },
+  "segundos": 60.7,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.4642,
+    "ll": 1.0458
+   },
+   "logistica": {
+    "acc": 0.4734,
+    "ll": 1.045
+   },
+   "logistica_base": {
+    "acc": 0.4619,
+    "ll": 1.0386
+   },
+   "elo_logit": {
+    "acc": 0.4734,
+    "ll": 1.0346
+   },
+   "blend_elo": {
+    "acc": 0.4781,
+    "ll": 1.037
+   },
+   "gbm_regular": {
+    "acc": 0.4527,
+    "ll": 1.0427
+   }
+  }
+ },
+ {
+  "clave": "crc_fpd",
+  "estado": "ok",
+  "n": 1178,
+  "n_oos": 472,
+  "pliegues": 5,
+  "elo_acc": 0.4619,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "elo_logit",
+    "blend_elo",
+    "blend_elo",
+    "blend_elo"
+   ],
+   "acc": 0.5064,
+   "ll": 1.0204
+  },
+  "segundos": 63.8,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.5064,
+    "ll": 1.0328
+   },
+   "logistica": {
+    "acc": 0.5085,
+    "ll": 1.0205
+   },
+   "logistica_base": {
+    "acc": 0.5106,
+    "ll": 1.0245
+   },
+   "elo_logit": {
+    "acc": 0.5169,
+    "ll": 1.0141
+   },
+   "blend_elo": {
+    "acc": 0.5106,
+    "ll": 1.0131
+   },
+   "gbm_regular": {
+    "acc": 0.5064,
+    "ll": 1.0405
+   }
+  }
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "ok",
+  "n": 2230,
+  "n_oos": 892,
+  "pliegues": 5,
+  "elo_acc": 0.4283,
+  "seleccion_secuencial": {
+   "familias": [
+    "ensemble",
+    "logistica",
+    "logistica",
+    "logistica",
+    "logistica"
+   ],
+   "acc": 0.4821,
+   "ll": 1.0748
+  },
+  "segundos": 81.7,
+  "modelos": {
+   "ensemble": {
+    "acc": 0.472,
+    "ll": 1.0824
+   },
+   "logistica": {
+    "acc": 0.4854,
+    "ll": 1.033
+   },
+   "logistica_base": {
+    "acc": 0.4641,
+    "ll": 1.0535
+   },
+   "elo_logit": {
+    "acc": 0.4697,
+    "ll": 1.0473
+   },
+   "blend_elo": {
+    "acc": 0.4652,
+    "ll": 1.0422
+   },
+   "gbm_regular": {
+    "acc": 0.4798,
+    "ll": 1.0469
+   }
+  }
+ }
+]

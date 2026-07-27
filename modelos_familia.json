@@ -1,0 +1,169 @@
+{
+ "generado": "2026-07-27",
+ "version": "v70",
+ "nota": "Mejora D. Familia de clasificador por liga, elegida con seleccion SECUENCIAL en walk-forward de 5 pliegues: la familia de cada pliegue se decide con el log-loss de los pliegues ANTERIORES, nunca con el propio test. Liga ausente = ensemble de siempre.",
+ "ligas": {
+  "sudamericana": "logistica",
+  "par_division": "logistica",
+  "ned_eerste": "elo_logit",
+  "eng_championship": "logistica",
+  "gre_super_league": "blend_elo",
+  "slv_primera": "elo_logit",
+  "bel_pro_league": "logistica",
+  "eng_league_two": "logistica",
+  "bra_serie_b": "blend_elo",
+  "esp_hypermotion": "logistica"
+ },
+ "detalle": {
+  "eng_fa_cup": {
+   "familia": "blend_elo",
+   "acc_secuencial": 0.474,
+   "ll_secuencial": 1.004,
+   "elo": 0.5325,
+   "acc_ensemble": 0.474,
+   "bate_elo": false,
+   "mejora_sobre_ensemble": false,
+   "n_oos": 154
+  },
+  "sudamericana": {
+   "familia": "logistica",
+   "acc_secuencial": 0.485,
+   "ll_secuencial": 1.0586,
+   "elo": 0.4311,
+   "acc_ensemble": 0.4671,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 167
+  },
+  "ind_isl": {
+   "familia": "elo_logit",
+   "acc_secuencial": 0.4328,
+   "ll_secuencial": 1.0332,
+   "elo": 0.4706,
+   "acc_ensemble": 0.4538,
+   "bate_elo": false,
+   "mejora_sobre_ensemble": false,
+   "n_oos": 238
+  },
+  "par_division": {
+   "familia": "logistica",
+   "acc_secuencial": 0.4035,
+   "ll_secuencial": 1.0775,
+   "elo": 0.4102,
+   "acc_ensemble": 0.3925,
+   "bate_elo": false,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 451
+  },
+  "ned_eerste": {
+   "familia": "elo_logit",
+   "acc_secuencial": 0.4892,
+   "ll_secuencial": 1.0312,
+   "elo": 0.4865,
+   "acc_ensemble": 0.4541,
+   "bate_elo": false,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 740
+  },
+  "aus_aleague": {
+   "familia": "blend_elo",
+   "acc_secuencial": 0.4018,
+   "ll_secuencial": 1.0993,
+   "elo": 0.4356,
+   "acc_ensemble": 0.411,
+   "bate_elo": false,
+   "mejora_sobre_ensemble": false,
+   "n_oos": 326
+  },
+  "eng_championship": {
+   "familia": "logistica",
+   "acc_secuencial": 0.4683,
+   "ll_secuencial": 1.0443,
+   "elo": 0.4478,
+   "acc_ensemble": 0.459,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 1072
+  },
+  "gre_super_league": {
+   "familia": "blend_elo",
+   "acc_secuencial": 0.5032,
+   "ll_secuencial": 0.9928,
+   "elo": 0.4946,
+   "acc_ensemble": 0.486,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 463
+  },
+  "slv_primera": {
+   "familia": "elo_logit",
+   "acc_secuencial": 0.4644,
+   "ll_secuencial": 1.0402,
+   "elo": 0.4881,
+   "acc_ensemble": 0.4506,
+   "bate_elo": false,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 506
+  },
+  "bel_pro_league": {
+   "familia": "logistica",
+   "acc_secuencial": 0.5066,
+   "ll_secuencial": 1.0115,
+   "elo": 0.4818,
+   "acc_ensemble": 0.4884,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 604
+  },
+  "eng_league_two": {
+   "familia": "logistica",
+   "acc_secuencial": 0.4794,
+   "ll_secuencial": 1.0447,
+   "elo": 0.4373,
+   "acc_ensemble": 0.4522,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 1068
+  },
+  "bra_serie_b": {
+   "familia": "blend_elo",
+   "acc_secuencial": 0.4778,
+   "ll_secuencial": 1.0533,
+   "elo": 0.4066,
+   "acc_ensemble": 0.4668,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 632
+  },
+  "ven_primera": {
+   "familia": "ensemble",
+   "acc_secuencial": 0.4711,
+   "ll_secuencial": 1.0346,
+   "elo": 0.4758,
+   "acc_ensemble": 0.4642,
+   "bate_elo": false,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 433
+  },
+  "crc_fpd": {
+   "familia": "blend_elo",
+   "acc_secuencial": 0.5064,
+   "ll_secuencial": 1.0204,
+   "elo": 0.4619,
+   "acc_ensemble": 0.5064,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": false,
+   "n_oos": 472
+  },
+  "esp_hypermotion": {
+   "familia": "logistica",
+   "acc_secuencial": 0.4821,
+   "ll_secuencial": 1.0748,
+   "elo": 0.4283,
+   "acc_ensemble": 0.472,
+   "bate_elo": true,
+   "mejora_sobre_ensemble": true,
+   "n_oos": 892
+  }
+ }
+}

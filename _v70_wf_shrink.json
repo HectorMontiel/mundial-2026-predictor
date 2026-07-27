@@ -1,0 +1,452 @@
+[
+ {
+  "clave": "premier",
+  "estado": "ok",
+  "n": 1094,
+  "n_oos": 438,
+  "s_por_pliegue": [
+   0.5,
+   0.42,
+   0.44,
+   0.52,
+   0.6
+  ],
+  "s_mediano": 0.5,
+  "ramas": {
+   "base": {
+    "deviance": 2.42772,
+    "acc": 0.4726,
+    "ll": 1.0488
+   },
+   "encogido": {
+    "deviance": 2.36604,
+    "acc": 0.484,
+    "ll": 1.0392
+   }
+  },
+  "d_dev": -0.06168,
+  "d_acc": 0.0114,
+  "d_ll": -0.0096,
+  "regla_oro": true
+ },
+ {
+  "clave": "laliga",
+  "estado": "ok",
+  "n": 1852,
+  "n_oos": 741,
+  "s_por_pliegue": [
+   0.62,
+   0.76,
+   0.72,
+   0.6,
+   0.64
+  ],
+  "s_mediano": 0.64,
+  "ramas": {
+   "base": {
+    "deviance": 2.26977,
+    "acc": 0.5128,
+    "ll": 1.0085
+   },
+   "encogido": {
+    "deviance": 2.19426,
+    "acc": 0.5047,
+    "ll": 1.0046
+   }
+  },
+  "d_dev": -0.07551,
+  "d_acc": -0.0081,
+  "d_ll": -0.0039,
+  "regla_oro": false
+ },
+ {
+  "clave": "serie_a",
+  "estado": "ok",
+  "n": 1095,
+  "n_oos": 438,
+  "s_por_pliegue": [
+   0.72,
+   0.8,
+   0.64,
+   0.56,
+   0.58
+  ],
+  "s_mediano": 0.64,
+  "ramas": {
+   "base": {
+    "deviance": 2.56934,
+    "acc": 0.5068,
+    "ll": 1.022
+   },
+   "encogido": {
+    "deviance": 2.48203,
+    "acc": 0.4954,
+    "ll": 1.0106
+   }
+  },
+  "d_dev": -0.08731,
+  "d_acc": -0.0114,
+  "d_ll": -0.0114,
+  "regla_oro": false
+ },
+ {
+  "clave": "bundesliga",
+  "estado": "ok",
+  "n": 1482,
+  "n_oos": 593,
+  "s_por_pliegue": [
+   0.52,
+   0.52,
+   0.5,
+   0.52,
+   0.46
+  ],
+  "s_mediano": 0.52,
+  "ramas": {
+   "base": {
+    "deviance": 2.72313,
+    "acc": 0.4924,
+    "ll": 1.0484
+   },
+   "encogido": {
+    "deviance": 2.61743,
+    "acc": 0.4924,
+    "ll": 1.0303
+   }
+  },
+  "d_dev": -0.1057,
+  "d_acc": 0.0,
+  "d_ll": -0.0181,
+  "regla_oro": false
+ },
+ {
+  "clave": "ligue_1",
+  "estado": "ok",
+  "n": 1632,
+  "n_oos": 653,
+  "s_por_pliegue": [
+   0.54,
+   0.68,
+   0.68,
+   0.68,
+   0.62
+  ],
+  "s_mediano": 0.68,
+  "ramas": {
+   "base": {
+    "deviance": 2.72448,
+    "acc": 0.5054,
+    "ll": 1.0259
+   },
+   "encogido": {
+    "deviance": 2.6749,
+    "acc": 0.5054,
+    "ll": 1.0152
+   }
+  },
+  "d_dev": -0.04958,
+  "d_acc": 0.0,
+  "d_ll": -0.0107,
+  "regla_oro": false
+ },
+ {
+  "clave": "liga_mx",
+  "estado": "ok",
+  "n": 2620,
+  "n_oos": 1048,
+  "s_por_pliegue": [
+   0.6,
+   0.58,
+   0.6,
+   0.64,
+   0.64
+  ],
+  "s_mediano": 0.6,
+  "ramas": {
+   "base": {
+    "deviance": 2.46067,
+    "acc": 0.4933,
+    "ll": 1.0355
+   },
+   "encogido": {
+    "deviance": 2.39749,
+    "acc": 0.4895,
+    "ll": 1.024
+   }
+  },
+  "d_dev": -0.06318,
+  "d_acc": -0.0038,
+  "d_ll": -0.0115,
+  "regla_oro": false
+ },
+ {
+  "clave": "mls",
+  "estado": "ok",
+  "n": 3646,
+  "n_oos": 1459,
+  "s_por_pliegue": [
+   0.72,
+   0.62,
+   0.54,
+   0.52,
+   0.5
+  ],
+  "s_mediano": 0.54,
+  "ramas": {
+   "base": {
+    "deviance": 2.54628,
+    "acc": 0.4565,
+    "ll": 1.071
+   },
+   "encogido": {
+    "deviance": 2.47669,
+    "acc": 0.4572,
+    "ll": 1.0561
+   }
+  },
+  "d_dev": -0.06959,
+  "d_acc": 0.0007,
+  "d_ll": -0.0149,
+  "regla_oro": true
+ },
+ {
+  "clave": "eredivisie",
+  "estado": "ok",
+  "n": 1484,
+  "n_oos": 594,
+  "s_por_pliegue": [
+   0.7,
+   0.88,
+   0.72,
+   0.66,
+   0.54
+  ],
+  "s_mediano": 0.7,
+  "ramas": {
+   "base": {
+    "deviance": 2.54496,
+    "acc": 0.5034,
+    "ll": 1.0116
+   },
+   "encogido": {
+    "deviance": 2.4887,
+    "acc": 0.5017,
+    "ll": 1.0056
+   }
+  },
+  "d_dev": -0.05626,
+  "d_acc": -0.0017,
+  "d_ll": -0.006,
+  "regla_oro": false
+ },
+ {
+  "clave": "brasil",
+  "estado": "ok",
+  "n": 3024,
+  "n_oos": 1210,
+  "s_por_pliegue": [
+   0.5,
+   0.5,
+   0.46,
+   0.62,
+   0.68
+  ],
+  "s_mediano": 0.5,
+  "ramas": {
+   "base": {
+    "deviance": 2.38532,
+    "acc": 0.4983,
+    "ll": 1.0204
+   },
+   "encogido": {
+    "deviance": 2.32983,
+    "acc": 0.4983,
+    "ll": 1.0252
+   }
+  },
+  "d_dev": -0.05549,
+  "d_acc": 0.0,
+  "d_ll": 0.0048,
+  "regla_oro": false
+ },
+ {
+  "clave": "argentina",
+  "estado": "ok",
+  "n": 3673,
+  "n_oos": 1470,
+  "s_por_pliegue": [
+   0.46,
+   0.5,
+   0.5,
+   0.6,
+   0.52
+  ],
+  "s_mediano": 0.5,
+  "ramas": {
+   "base": {
+    "deviance": 2.45822,
+    "acc": 0.4136,
+    "ll": 1.0992
+   },
+   "encogido": {
+    "deviance": 2.4027,
+    "acc": 0.4082,
+    "ll": 1.0809
+   }
+  },
+  "d_dev": -0.05552,
+  "d_acc": -0.0054,
+  "d_ll": -0.0183,
+  "regla_oro": false
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "ok",
+  "n": 2680,
+  "n_oos": 1072,
+  "s_por_pliegue": [
+   0.5,
+   0.6,
+   0.68,
+   0.54,
+   0.42
+  ],
+  "s_mediano": 0.54,
+  "ramas": {
+   "base": {
+    "deviance": 2.35263,
+    "acc": 0.4366,
+    "ll": 1.0806
+   },
+   "encogido": {
+    "deviance": 2.27553,
+    "acc": 0.4347,
+    "ll": 1.0612
+   }
+  },
+  "d_dev": -0.0771,
+  "d_acc": -0.0019,
+  "d_ll": -0.0194,
+  "regla_oro": false
+ },
+ {
+  "clave": "ned_eerste",
+  "estado": "ok",
+  "n": 1849,
+  "n_oos": 740,
+  "s_por_pliegue": [
+   0.46,
+   0.4,
+   0.46,
+   0.56,
+   0.5
+  ],
+  "s_mediano": 0.46,
+  "ramas": {
+   "base": {
+    "deviance": 2.7207,
+    "acc": 0.4486,
+    "ll": 1.0761
+   },
+   "encogido": {
+    "deviance": 2.63394,
+    "acc": 0.4486,
+    "ll": 1.0506
+   }
+  },
+  "d_dev": -0.08676,
+  "d_acc": 0.0,
+  "d_ll": -0.0255,
+  "regla_oro": false
+ },
+ {
+  "clave": "bra_serie_b",
+  "estado": "ok",
+  "n": 1579,
+  "n_oos": 632,
+  "s_por_pliegue": [
+   0.5,
+   0.58,
+   0.44,
+   0.4,
+   0.4
+  ],
+  "s_mediano": 0.44,
+  "ramas": {
+   "base": {
+    "deviance": 2.47404,
+    "acc": 0.4335,
+    "ll": 1.1098
+   },
+   "encogido": {
+    "deviance": 2.2833,
+    "acc": 0.4114,
+    "ll": 1.0736
+   }
+  },
+  "d_dev": -0.19074,
+  "d_acc": -0.0221,
+  "d_ll": -0.0362,
+  "regla_oro": false
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "ok",
+  "n": 1156,
+  "n_oos": 463,
+  "s_por_pliegue": [
+   0.62,
+   0.5,
+   0.58,
+   0.54,
+   0.68
+  ],
+  "s_mediano": 0.58,
+  "ramas": {
+   "base": {
+    "deviance": 2.64003,
+    "acc": 0.4557,
+    "ll": 1.0698
+   },
+   "encogido": {
+    "deviance": 2.52707,
+    "acc": 0.4492,
+    "ll": 1.0324
+   }
+  },
+  "d_dev": -0.11296,
+  "d_acc": -0.0065,
+  "d_ll": -0.0374,
+  "regla_oro": false
+ },
+ {
+  "clave": "crc_fpd",
+  "estado": "ok",
+  "n": 1178,
+  "n_oos": 472,
+  "s_por_pliegue": [
+   0.56,
+   0.5,
+   0.48,
+   0.4,
+   0.58
+  ],
+  "s_mediano": 0.5,
+  "ramas": {
+   "base": {
+    "deviance": 2.65033,
+    "acc": 0.4555,
+    "ll": 1.0848
+   },
+   "encogido": {
+    "deviance": 2.51282,
+    "acc": 0.4492,
+    "ll": 1.0513
+   }
+  },
+  "d_dev": -0.13751,
+  "d_acc": -0.0063,
+  "d_ll": -0.0335,
+  "regla_oro": false
+ }
+]

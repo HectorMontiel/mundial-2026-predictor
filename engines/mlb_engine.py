@@ -313,6 +313,17 @@ class MLBEngine(BaseSportsEngine):
         mu = sigma * float(norm.ppf(min(max(p_home, 1e-4), 1 - 1e-4)))
         media_h = max((total + mu) / 2, 0.15)          # carreras local
         media_a = max((total - mu) / 2, 0.15)          # carreras visitante
+        # v70 (Mejora G): la inversión normal separa demasiado a los dos equipos
+        # —λ medias (4.62, 4.29) contra unas carreras reales de (4.43, 4.38)—,
+        # el mismo defecto medido en las ligas de fútbol. El encogimiento acerca
+        # las dos λ conservando el total; s=0.58 calibrado en walk-forward de 5
+        # pliegues sobre 11.844 juegos (desvianza −0.0088, MAE −0.0009).
+        # Sin entrada en lambda_shrink.json -> s=1 -> nada cambia.
+        try:
+            import distributions as _dist
+            media_h, media_a = _dist.encoger_lambdas(media_h, media_a, 'mlb')
+        except Exception as e:
+            logger.debug(f"[mlb] encogimiento omitido: {type(e).__name__}: {e}")
         N = 26
         kk = np.arange(N)
         ph, pa = poisson.pmf(kk, media_h), poisson.pmf(kk, media_a)

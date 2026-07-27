@@ -83,3 +83,6 @@ modelos/ven_primera/
 tenis_saque_cache/
 _v69_*
 resultados_tenis_v69.json
+
+# v70: caché de datasets supervisados de los experimentos (regenerable)
+_v70_cache_ds/

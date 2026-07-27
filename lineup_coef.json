@@ -1,0 +1,46 @@
+{
+ "generado": "2026-07-27",
+ "version": "v70",
+ "nota": "Coeficientes del ajuste de lambda por alineacion (beta), portero (gamma) y rotacion respecto al once habitual (delta). NINGUNA liga los tiene adoptados: `lineup_impact.adjust_lambda` comprueba `adoptado` y devuelve las lambda originales sin tocar. El codigo y los datos quedan listos por si una fuente futura de alineaciones PREVIAS al partido cambia el resultado.",
+ "criterio": "regla de oro del proyecto: +0.3 pp de precision sin empeorar el log-loss mas de 0.01, o mejorar ambas metricas",
+ "ligas": {
+  "mls": {
+   "adoptado": false,
+   "beta": 0.03,
+   "gamma": 0.0,
+   "delta": 0.02,
+   "cobertura_alineacion": 0.926,
+   "cobertura_portero": 0.662,
+   "d_acc": 0.0007,
+   "d_log_loss": -0.0003,
+   "d_deviance": -0.0013,
+   "motivo": "la mejora (+0.07 pp) es un orden de magnitud menor que el umbral de +0.3 pp; pasa solo por la segunda rama de la regla y equivale a 1 partido de 1459"
+  },
+  "liga_mx": {
+   "adoptado": false,
+   "beta": 0.02,
+   "gamma": 0.0,
+   "delta": 0.02,
+   "cobertura_alineacion": 0.775,
+   "cobertura_portero": 0.506,
+   "d_acc": 0.001,
+   "d_log_loss": -0.0001,
+   "d_deviance": 0.0007,
+   "motivo": "la desvianza de Poisson EMPEORA (+0.0007) mientras la precision sube 2 partidos de 1048: ruido"
+  }
+ },
+ "diagnostico": {
+  "nota": "correlacion de Pearson entre cada senal y el residuo de Pearson del margen sobre el 40% final (lo que el modelo de goles NO explica ya)",
+  "mls": {
+   "lineup_diff": {"r": 0.0611, "p": 0.024},
+   "gk_diff": {"r": -0.0571, "p": 0.042},
+   "lineup_delta": {"r": 0.0406, "p": 0.135}
+  },
+  "liga_mx": {
+   "lineup_diff": {"r": -0.0397, "p": 0.257},
+   "gk_diff": {"r": 0.0438, "p": 0.233},
+   "lineup_delta": {"r": -0.052, "p": 0.137}
+  },
+  "conclusion": "los signos SE INVIERTEN entre las dos ligas y nada es significativo en Liga MX. Es la misma firma que llevo a descartar la copula gaussiana en v68 y Dixon-Coles en v27: parametro optimo con signo inconsistente = absorcion de ruido, no efecto real."
+ }
+}

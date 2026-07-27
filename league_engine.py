@@ -115,6 +115,190 @@ class ModeloBetaCalibrado:
 
 
 # ---------------------------------------------------------------------------
+# v70 (Mejora D) — familia de modelo por liga
+#
+# El spec proponía «si len(partidos) < 800, usa LogisticRegressionCV». Al medir,
+# esa regla no encaja: de las 15 competiciones de v68 que perdieron contra el
+# ELO, sólo 4 tienen menos de 800 partidos, y ligas de 2.144 partidos (EFL
+# Championship) también perdían. El problema no es el tamaño sino la relación
+# señal/ruido, así que la familia se elige POR LIGA con walk-forward
+# (`_v70_wf_modelos.py`) y se persiste en `modelos_familia.json`.
+#
+# Una liga sin entrada en ese fichero usa el ensemble de siempre: el cambio no
+# puede degradar nada que ya funcionase.
+# ---------------------------------------------------------------------------
+ARCHIVO_FAMILIAS = 'modelos_familia.json'
+FAMILIAS = ('ensemble', 'logistica', 'logistica_base', 'elo_logit',
+            'gbm_regular', 'blend_elo')
+
+
+class ModeloSubconjunto:
+    """
+    Envuelve un estimador que sólo usa ALGUNAS columnas del vector.
+
+    Hace falta porque `ClubEngine` construye siempre el vector completo
+    (features base + extras + 6 entropías topológicas) y lo pasa tal cual al
+    modelo. Las familias `logistica_base` y `elo_logit` se entrenan con un
+    subconjunto, así que el recorte tiene que viajar DENTRO del artefacto; si
+    no, en inferencia habría que saber qué columnas quitar y sería una fuente
+    silenciosa de desalineación (el fallo que casi rompe el modelo WTA en v67).
+    """
+
+    def __init__(self, base, indices):
+        self.base = base
+        self.indices = list(indices)
+        self.classes_ = np.array([0, 1, 2])
+
+    def _corte(self, X):
+        return np.asarray(X)[:, self.indices]
+
+    def fit(self, X, y):
+        self.base.fit(self._corte(X), y)
+        self.classes_ = self.base.classes_
+        return self
+
+    def predict_proba(self, X):
+        return self.base.predict_proba(self._corte(X))
+
+    def predict(self, X):
+        return self.classes_[self.predict_proba(X).argmax(axis=1)]
+
+
+class ModeloBlendElo:
+    """
+    Mezcla convexa del ensemble con una logística de UN SOLO grado de libertad
+    (DIFF_ELO), con el peso ajustado en el último 25 % del train.
+
+    La idea: en una liga con poca señal, el ensemble sobreajusta y el ELO solo
+    se queda corto; el peso óptimo entre ambos lo dicen los datos. A diferencia
+    del argmax del ELO —que nunca puede devolver un empate y no tiene
+    probabilidades— esta rama sí está calibrada, así que sirve para EV y Kelly.
+
+    El peso se busca minimizando log-loss sobre un tramo del TRAIN que ninguno
+    de los dos modelos ha visto, nunca sobre validación.
+    """
+
+    def __init__(self, indice_elo: int = 0):
+        self.indice_elo = indice_elo
+        self.ensemble = None
+        self.elo = None
+        self.w = 0.5
+        self.classes_ = np.array([0, 1, 2])
+
+    @staticmethod
+    def _logistica():
+        from sklearn.linear_model import LogisticRegressionCV
+        from sklearn.model_selection import TimeSeriesSplit
+        return LogisticRegressionCV(
+            Cs=np.logspace(-3, 2, 10), cv=TimeSeriesSplit(n_splits=3),
+            penalty='l2', solver='lbfgs', max_iter=3000,
+            scoring='neg_log_loss', n_jobs=-1, random_state=42)
+
+    @staticmethod
+    def _p3(modelo, X):
+        pr = modelo.predict_proba(X)
+        p = np.full((len(X), 3), 1e-9)
+        for i, k in enumerate(modelo.classes_):
+            p[:, int(k)] = pr[:, i]
+        return p / p.sum(axis=1, keepdims=True)
+
+    def fit(self, X, y):
+        from sklearn.metrics import log_loss
+        from train_tda_model import construir_ensemble
+        X, y = np.asarray(X), np.asarray(y)
+        Xe = X[:, [self.indice_elo]]
+
+        # 1) buscar el peso con un corte interno del train
+        corte = int(len(X) * 0.75)
+        if corte > 100 and len(np.unique(y[:corte])) == 3:
+            e_i = construir_ensemble().fit(X[:corte], y[:corte])
+            l_i = self._logistica().fit(Xe[:corte], y[:corte])
+            pa = self._p3(e_i, X[corte:])
+            pe = self._p3(l_i, Xe[corte:])
+            mejor_w, mejor_ll = 0.5, np.inf
+            for w in np.linspace(0.0, 1.0, 11):
+                ll = log_loss(y[corte:], w * pa + (1 - w) * pe, labels=[0, 1, 2])
+                if ll < mejor_ll:
+                    mejor_ll, mejor_w = ll, float(w)
+            self.w = mejor_w
+
+        # 2) reajustar ambos con TODO el train
+        self.ensemble = construir_ensemble().fit(X, y)
+        self.elo = self._logistica().fit(Xe, y)
+        self.classes_ = np.array([0, 1, 2])
+        return self
+
+    def predict_proba(self, X):
+        X = np.asarray(X)
+        p = (self.w * self._p3(self.ensemble, X)
+             + (1 - self.w) * self._p3(self.elo, X[:, [self.indice_elo]]))
+        return p / p.sum(axis=1, keepdims=True)
+
+    def predict(self, X):
+        return self.classes_[self.predict_proba(X).argmax(axis=1)]
+
+
+def familia_de_liga(clave: str) -> str:
+    """Familia adoptada para esa liga; `ensemble` si no hay nada registrado."""
+    try:
+        if os.path.exists(ARCHIVO_FAMILIAS):
+            with open(ARCHIVO_FAMILIAS, encoding='utf-8') as f:
+                fam = (json.load(f).get('ligas') or {}).get(clave)
+            if fam in FAMILIAS:
+                return fam
+    except Exception as e:
+        logger.warning(f"[{clave}] no se pudo leer {ARCHIVO_FAMILIAS}: {e}")
+    return 'ensemble'
+
+
+def construir_modelo_familia(familia: str, n_base: int, n_total: int):
+    """
+    Instancia el clasificador de esa familia.
+
+    `n_base` es cuántas columnas del vector son features base (las primeras) y
+    `n_total` el ancho completo con extras y topológicas. DIFF_ELO es siempre la
+    columna 0 (ver `feature_engineering.FEATURES_MODELO`).
+    """
+    from train_tda_model import construir_ensemble
+
+    if familia == 'ensemble':
+        return construir_ensemble()
+
+    if familia == 'blend_elo':
+        import league_engine as _le
+        return _le.ModeloBlendElo(indice_elo=0)
+
+    if familia == 'gbm_regular':
+        # un solo LGBM muy regularizado: sin voting ni isotónica, que es lo que
+        # más varianza añade cuando hay poco dato
+        from lightgbm import LGBMClassifier
+        return LGBMClassifier(
+            n_estimators=180, num_leaves=7, max_depth=3, learning_rate=0.04,
+            min_child_samples=40, subsample=0.8, subsample_freq=1,
+            colsample_bytree=0.6, reg_lambda=20.0, reg_alpha=1.0,
+            objective='multiclass', random_state=42, n_jobs=-1, verbose=-1)
+
+    from sklearn.linear_model import LogisticRegressionCV
+    from sklearn.model_selection import TimeSeriesSplit
+
+    def _logistica():
+        return LogisticRegressionCV(
+            Cs=np.logspace(-3, 2, 10), cv=TimeSeriesSplit(n_splits=3),
+            penalty='l2', solver='lbfgs', max_iter=3000,
+            scoring='neg_log_loss', n_jobs=-1, random_state=42)
+
+    if familia == 'logistica':
+        return _logistica()
+    if familia == 'logistica_base':
+        import league_engine as _le
+        return _le.ModeloSubconjunto(_logistica(), range(n_base))
+    if familia == 'elo_logit':
+        import league_engine as _le
+        return _le.ModeloSubconjunto(_logistica(), [0])       # DIFF_ELO
+    raise ValueError(f'familia desconocida: {familia}')
+
+
+# ---------------------------------------------------------------------------
 # Features extra v17 (adoptadas por liga tras walk-forward — VALIDACION_v17)
 # ---------------------------------------------------------------------------
 COLS_CUOTAS = ['PROB_IMP_H', 'PROB_IMP_D', 'PROB_IMP_A', 'OVERROUND']
@@ -747,10 +931,22 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     if LEAGUES[clave].get('calibracion') == 'beta':
         import league_engine as _le
         modelo = _le.ModeloBetaCalibrado()
+        familia = 'beta'
     else:
-        modelo = construir_ensemble()
+        # v70 (Mejora D): familia elegida por liga en walk-forward
+        familia = familia_de_liga(clave)
+        modelo = construir_modelo_familia(
+            familia, n_base=len(fe.FEATURES_MODELO), n_total=X_tr.shape[1])
+    if familia not in ('ensemble', 'beta'):
+        logger.info(f"[{clave}] familia de modelo: {familia} (v70)")
     modelo.fit(X_tr, y[m_tr])
     proba = modelo.predict_proba(X_va)
+    if proba.shape[1] == 3 and list(getattr(modelo, 'classes_', [0, 1, 2])) != [0, 1, 2]:
+        # reordenar a [local, empate, visitante] si el estimador barajó clases
+        p = np.zeros_like(proba)
+        for i, k in enumerate(modelo.classes_):
+            p[:, int(k)] = proba[:, i]
+        proba = p / p.sum(axis=1, keepdims=True)
     acc = accuracy_score(y[m_va], proba.argmax(axis=1))
     ll = log_loss(y[m_va], proba, labels=[0, 1, 2])
     base = accuracy_score(y[m_va], np.where(X_df[m_va]['DIFF_ELO'].values > 0, 0, 2))
@@ -1033,6 +1229,9 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
         'precision_mercado_cuotas': round(acc_mercado, 4) if acc_mercado else None,
         'log_loss_validacion': round(float(ll), 4),
         'n_equipos': len(equipos_liga),
+        # v70 (Mejora D): qué familia de modelo se entrenó, para que la UI lo
+        # muestre y para poder auditar por qué una liga rinde como rinde
+        'familia_modelo': familia,
         'features_extra_cols': cols_extra,
         'medias_cuotas': medias_cuotas,
         'roi_sim': roi_sim,
@@ -1221,6 +1420,13 @@ class ClubEngine:
                 blend_aplicado = True
         lam_h = float(np.clip(self.reg_l.predict(X)[0], 0.2, 3.8))
         lam_a = float(np.clip(self.reg_v.predict(X)[0], 0.2, 3.8))
+        # v70 (Mejora G): los regresores Poisson separan demasiado las dos λ
+        # (correlación −0.19/−0.24 entre λ_h−λ_a y el residuo del margen). El
+        # encogimiento conserva el total de goles y sólo reparte menos extremo.
+        # Liga sin coeficiente adoptado -> s=1 -> λ intactas.
+        import distributions as _dist
+        s_shrink = _dist.factor_shrink(self.clave)
+        lam_h, lam_a = _dist.encoger_lambdas(lam_h, lam_a, s=s_shrink)
         M, marcador, p_marc = self._pe._monte_carlo(lam_h, lam_a, probs)
         timeline = self._pe._linea_de_tiempo(lam_h, lam_a)
         ganador_idx = int(np.argmax(probs))
@@ -1270,7 +1476,10 @@ class ClubEngine:
                       'log_loss_backtest': self.metadata['log_loss_validacion'],
                       'mercado_ref': self.metadata.get('precision_mercado_cuotas'),
                       'mesm_aplicado': mesm_aplicado,
-                      'blend_aplicado': blend_aplicado},
+                      'blend_aplicado': blend_aplicado,
+                      # v70
+                      'familia_modelo': self.metadata.get('familia_modelo', 'ensemble'),
+                      'shrink_lambda': round(s_shrink, 3) if s_shrink < 1.0 else None},
         }
 
     # ------------------------------------------------------------------ #
