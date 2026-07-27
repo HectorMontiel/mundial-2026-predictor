@@ -1,0 +1,45 @@
+{
+  "liga": "National League",
+  "n_train": 2090,
+  "n_validacion": 532,
+  "fecha_corte": "2025-08-16",
+  "precision_validacion": 0.5207,
+  "precision_linea_base_elo": 0.5094,
+  "precision_mercado_cuotas": 0.5336,
+  "log_loss_validacion": 1.0541,
+  "n_equipos": 44,
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION",
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4255,
+    "PROB_IMP_D": 0.2555,
+    "PROB_IMP_A": 0.319,
+    "OVERROUND": 0.0854
+  },
+  "roi_sim": {
+    "n_apuestas": 171,
+    "roi_pct": 4.89,
+    "aciertos": 95,
+    "roi_pct_pinnacle": -10.08,
+    "n_con_pinnacle": 48
+  },
+  "mesm": {
+    "n_val_con_cuotas": 521,
+    "acc_prod": 0.5202,
+    "acc_mesm": 0.5086,
+    "ll_prod": 1.0546,
+    "ll_mesm": 1.0143,
+    "adoptado": false
+  },
+  "imt": null
+}

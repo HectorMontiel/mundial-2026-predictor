@@ -1,0 +1,16 @@
+{
+  "liga": "Liga 1",
+  "n_train": 1106,
+  "n_validacion": 277,
+  "fecha_corte": "2025-08-05",
+  "precision_validacion": 0.5271,
+  "precision_linea_base_elo": 0.4621,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.1172,
+  "n_equipos": 28,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

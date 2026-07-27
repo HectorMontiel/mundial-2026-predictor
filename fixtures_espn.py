@@ -52,11 +52,25 @@ ESPN_CODIGOS: Dict[str, str] = {
     'china': 'chn.1',
     # (Polonia: ESPN devuelve 400 para pol.1 y está en receso hasta agosto; su
     #  cobertura llega por la vía de cuotas cuando reanuda.)
+    # v68: las 40 competiciones nuevas se inyectan más abajo desde
+    # config_ligas_espn.ESPN_CODIGOS_V68 (generado).
     'champions': 'uefa.champions',
     'europa_league': 'uefa.europa',
     'conference_league': 'uefa.europa.conf',
     'mundial': 'fifa.world',
 }
+
+# v68 — Competiciones nuevas. Sin esta línea, `alpha_finder.barrido_*` NO las
+# recorre: filtra por `clave in fixtures_espn.ESPN_CODIGOS`, así que una liga
+# entrenada y disponible pero ausente de este mapa nunca llegaría a Apuestas
+# del Día. Las que se entrenan con football-data también van aquí, porque su
+# histórico viene del CSV pero sus PRÓXIMOS partidos y cuotas salen de ESPN.
+try:
+    from config_ligas_espn import ESPN_CODIGOS_V68 as _CODIGOS_V68
+    for _k, _v in _CODIGOS_V68.items():
+        ESPN_CODIGOS.setdefault(_k, _v)
+except Exception:                       # degradación limpia al catálogo previo
+    pass
 
 # memoización en proceso (clave, dias) -> (timestamp, fixtures). El barrido de
 # la UI ya está cacheado a nivel de Streamlit; esto evita repetir la llamada a

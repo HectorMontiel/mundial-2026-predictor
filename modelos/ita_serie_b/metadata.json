@@ -1,0 +1,45 @@
+{
+  "liga": "Serie B",
+  "n_train": 1442,
+  "n_validacion": 364,
+  "fecha_corte": "2025-08-24",
+  "precision_validacion": 0.4588,
+  "precision_linea_base_elo": 0.4286,
+  "precision_mercado_cuotas": 0.4863,
+  "log_loss_validacion": 1.0444,
+  "n_equipos": 44,
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION",
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4223,
+    "PROB_IMP_D": 0.2864,
+    "PROB_IMP_A": 0.2913,
+    "OVERROUND": 0.0667
+  },
+  "roi_sim": {
+    "n_apuestas": 144,
+    "roi_pct": -3.19,
+    "aciertos": 47,
+    "roi_pct_pinnacle": 23.54,
+    "n_con_pinnacle": 41
+  },
+  "mesm": {
+    "n_val_con_cuotas": 364,
+    "acc_prod": 0.4588,
+    "acc_mesm": 0.4725,
+    "ll_prod": 1.0444,
+    "ll_mesm": 1.0563,
+    "adoptado": false
+  },
+  "imt": null
+}

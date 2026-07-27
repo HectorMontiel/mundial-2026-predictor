@@ -51,3 +51,28 @@ tenis_cache/
 remates_cache/
 _v67_*
 resultados_tenis_v67.json
+
+# v68: medidas y logs temporales de la ampliacion de ligas
+_v68_*
+resultados_bivariante_v68.json
+
+# v68: modelos de las ligas ENTRENADAS pero NO adoptadas (no baten al ELO).
+# La app nunca las carga —el selector solo muestra las `disponible`— así que
+# son 170 MB de peso muerto en el clon que hace Streamlit Cloud en cada
+# despliegue. Se regeneran con `entrenar_ligas_v68.py` cuando toque
+# re-evaluarlas con otra temporada.
+modelos/aus_aleague/
+modelos/bel_pro_league/
+modelos/bra_serie_b/
+modelos/crc_fpd/
+modelos/eng_championship/
+modelos/eng_fa_cup/
+modelos/eng_league_two/
+modelos/esp_hypermotion/
+modelos/gre_super_league/
+modelos/ind_isl/
+modelos/ned_eerste/
+modelos/par_division/
+modelos/slv_primera/
+modelos/sudamericana/
+modelos/ven_primera/

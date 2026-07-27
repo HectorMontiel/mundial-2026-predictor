@@ -46,6 +46,32 @@ jobs:
           # reentrena cada liga disponible. Un fallo puntual no aborta el resto.
           python league_engine.py --build || echo "reentrenamiento con avisos, se continúa"
 
+      # v68: NUNCA se commitea un modelo que no se pueda volver a cargar.
+      # Contexto: el 2026-07-27 el bot publicó 22 `modelo.joblib` que no abrían
+      # fuera del runner. El workflow había terminado "con éxito" porque nadie
+      # comprobaba que el artefacto fuese legible — sólo que el proceso saliera
+      # con código 0. Esta verificación cierra ese hueco: si un modelo no carga,
+      # se restaura su versión anterior y el resto del reentrenamiento sigue.
+      - name: Verificar que todos los modelos se pueden cargar
+        run: |
+          python - <<'PY'
+          import glob, os, subprocess, sys
+          import joblib
+          malos = []
+          for f in sorted(glob.glob('modelos/*/*.joblib')):
+              try:
+                  joblib.load(f)
+              except Exception as e:
+                  malos.append((f, f'{type(e).__name__}: {e}'))
+          for f, err in malos:
+              print(f'::warning::modelo ilegible, se restaura el anterior: {f} ({err})')
+              subprocess.run(['git', 'checkout', '--', f], check=False)
+          print(f'Modelos verificados. Ilegibles restaurados: {len(malos)}')
+          if len(malos) > 10:
+              print('::error::demasiados modelos ilegibles; no se publica nada.')
+              sys.exit(1)
+          PY
+
       - name: Commitear artefactos actualizados (si cambiaron)
         run: |
           git config user.name  "retrain-bot"

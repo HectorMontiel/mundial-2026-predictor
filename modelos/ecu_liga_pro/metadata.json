@@ -1,0 +1,16 @@
+{
+  "liga": "LigaPro Serie A",
+  "n_train": 932,
+  "n_validacion": 233,
+  "fecha_corte": "2025-08-23",
+  "precision_validacion": 0.4549,
+  "precision_linea_base_elo": 0.4464,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.076,
+  "n_equipos": 23,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

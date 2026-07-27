@@ -1,0 +1,643 @@
+date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre,odd_home,odd_draw,odd_away,tournament,stadium,MATCH_ID,elo_diff,home_xg,away_xg,home_shots_on,away_shots_on,home_shots_off,away_shots_off,home_possession,away_possession,home_yellow,away_yellow,home_red,away_red,home_corners,away_corners
+2021-11-17 14:00:00,Nalón CF,SD Solares,1.0,1.0,Olloniego,,Fumea Lolo Rodríguez,,,,Copa del Rey,,20211117_Nalón-CF_SD-Solares,0.0,1.13,0.05,4,1,8,3,51.3,48.7,2,5,0,0,3,5
+2021-11-17 18:00:00,Utrillas,CD Injerto,2.0,0.0,Utrillas,Spain,La Vega,,,,Copa del Rey,,20211117_Utrillas_CD-Injerto,0.0,2.63,0.46,9,0,19,0,52.7,47.3,2,1,0,0,8,2
+2021-11-17 18:30:00,Aldeano,Unami CP,1.0,3.0,Aldeanueva de Ebro,,San Bartolomé,,,,Copa del Rey,,20211117_Aldeano_Unami-CP,0.0,0.39,1.87,2,8,2,18,47.8,52.2,1,1,0,0,1,8
+2021-11-17 18:30:00,Victoria CF,CD Hernani,1.0,0.0,A Coruña,,Campo Municipal de Fútbol Rodrigo García Vizoso,,,,Copa del Rey,,20211117_Victoria-CF_CD-Hernani,0.0,0.77,0.4,2,0,4,1,47.6,52.4,2,2,0,0,2,2
+2021-11-17 19:00:00,San Agustín de Guadalix,Mora,6.0,2.0,San Agustín de Guadalix,Spain,Municipal San Agustín de Guadalix,,,,Copa del Rey,,20211117_San-Agustín-de-Guadalix_Mora,0.0,2.3,0.92,7,2,13,5,51.3,48.7,0,5,0,1,7,1
+2021-11-17 19:30:00,CF Independiente Alicante,CD 6 de Junio,7.0,1.0,Alicante,,Ciudad Deportiva Antonio Valls,,,,Copa del Rey,,20211117_CF-Independiente-Alicante_CD-6-de-Junio,0.0,2.49,1.6,7,6,15,13,46.7,53.3,2,3,0,0,7,2
+2021-11-17 19:30:00,CF Joventut Mollerussa,SE Penya Independent,1.0,0.0,Mollerussa,Spain,Camp Municipal d´Esports,,,,Copa del Rey,,20211117_CF-Joventut-Mollerussa_SE-Penya-Independent,0.0,0.55,0.4,1,1,1,2,48.8,51.2,3,3,0,0,1,4
+2021-11-17 19:30:00,Villa de Fortuna,Atlético Espeleño,1.0,0.0,Fortuna,,"Complejo Municipal Fortuna ""José Luis Belda""",,,,Copa del Rey,,20211117_Villa-de-Fortuna_Atlético-Espeleño,0.0,1.65,0.92,5,1,11,3,49.6,50.4,1,3,0,0,6,1
+2021-11-17 20:00:00,Huracán Melilla,Atarfe Industrial,2.0,1.0,Melilla,,La Espiguera,,,,Copa del Rey,,20211117_Huracán-Melilla_Atarfe-Industrial,0.0,1.67,0.93,5,4,10,10,51.8,48.2,3,2,0,0,1,6
+2021-11-17 20:30:00,CD Laguna,CF Jaraíz,4.0,1.0,Tegueste,,Ciudad Deportiva Los Laureles,,,,Copa del Rey,,20211117_CD-Laguna_CF-Jaraíz,0.0,1.04,0.75,4,2,8,5,45.1,54.9,5,2,0,0,9,5
+2021-11-30 15:00:00,Cayon,Huesca,0.0,2.0,Sarón,Spain,Complejo Deportivo Fernando Astobiza,,,,Copa del Rey,,20211130_Cayon_Huesca,0.0,0.07,1.53,0,6,0,13,51.9,48.1,1,2,0,1,4,9
+2021-11-30 15:00:00,Marchamalo,Real Valladolid,0.0,1.0,Marchamalo,Spain,La Solana,,,,Copa del Rey,,20211130_Marchamalo_Real-Valladolid,0.0,1.4,0.51,3,2,7,5,53.0,47.0,1,1,0,0,6,4
+2021-11-30 17:30:00,Naxara,FC Andorra,0.0,1.0,Náxara,Spain,Estadio de Náxara,,,,Copa del Rey,,20211130_Naxara_FC-Andorra,0.0,0.05,2.0,0,7,1,15,46.2,53.8,2,1,0,0,4,6
+2021-11-30 18:00:00,CD Laguna,Granada,0.0,7.0,Santa Cruz de Tenerife,Spain,Heliodoro Rodríguez López,,,,Copa del Rey,,20211130_CD-Laguna_Granada,12.0,0.05,2.41,0,8,0,17,57.2,42.8,4,4,0,0,4,3
+2021-11-30 18:00:00,Unami CP,Alavés,0.0,3.0,Segovia,Spain,La Albuera,,,,Copa del Rey,,20211130_Unami-CP_Alavés,12.0,0.05,1.77,1,6,2,14,48.5,51.5,2,1,0,0,3,6
+2021-11-30 18:00:00,Victoria CF,Villarreal,0.0,8.0,La Coruña,Spain,ABANCA-Riazor,,,,Copa del Rey,,20211130_Victoria-CF_Villarreal,12.0,0.78,3.03,3,9,8,20,50.7,49.3,1,1,0,0,4,9
+2021-11-30 19:00:00,Ceares,Sporting Gijón,0.0,1.0,Gijón,Spain,El Molinón - Enrique Castro Quini,,,,Copa del Rey,,20211130_Ceares_Sporting-Gijón,0.0,0.56,1.48,1,4,2,9,55.7,44.3,1,2,0,0,5,6
+2021-11-30 19:00:00,Racing Rioja,FC Cartagena,0.0,2.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20211130_Racing-Rioja_FC-Cartagena,0.0,1.3,1.6,3,4,8,9,53.0,47.0,2,3,0,0,5,4
+2021-11-30 19:00:00,Teruel,AD Alcorcón,0.0,1.0,Teruel,Spain,Pinilla,,,,Copa del Rey,,20211130_Teruel_AD-Alcorcón,0.0,0.78,1.11,3,3,5,6,51.2,48.8,2,4,1,0,4,5
+2021-11-30 19:30:00,Atlético Sanluqueño CF,CD Sabadell,2.0,0.0,Sanlucar de Barrameda,Spain,El Palmar,,,,Copa del Rey,,20211130_Atlético-Sanluqueño-CF_CD-Sabadell,0.0,1.31,0.9,3,2,5,4,54.3,45.7,1,3,0,0,6,3
+2021-11-30 20:00:00,Aguilas,Almería,1.0,1.0,Águilas,Spain,Estadio El Rubial,,,,Copa del Rey,,20211130_Aguilas_Almería,0.0,1.32,1.78,4,4,8,10,42.0,58.0,0,3,0,0,2,5
+2021-11-30 20:00:00,Albacete,Racing Ferrol,2.0,1.0,Albacete,Spain,Carlos Belmonte,,,,Copa del Rey,,20211130_Albacete_Racing-Ferrol,0.0,1.42,0.44,3,2,5,1,51.3,48.7,2,1,0,0,7,2
+2021-11-30 20:00:00,Badajoz,Alcoyano,0.0,3.0,Badajoz,Spain,Nuevo Vivero,,,,Copa del Rey,,20211130_Badajoz_Alcoyano,0.0,0.75,1.39,4,5,9,12,49.6,50.4,4,2,0,0,5,6
+2021-11-30 20:00:00,CD Ebro,Celta Vigo,0.0,5.0,Zaragoza,Spain,La Romareda,,,,Copa del Rey,,20211130_CD-Ebro_Celta-Vigo,0.0,1.54,1.21,7,5,13,13,54.4,45.6,2,0,1,0,4,5
+2021-11-30 20:00:00,CF Joventut Mollerussa,Getafe,1.0,5.0,Mollerussa,Spain,Camp Municipal d´Esports,,,,Copa del Rey,,20211130_CF-Joventut-Mollerussa_Getafe,12.0,0.6,1.44,1,5,1,10,46.6,53.4,2,3,1,0,6,7
+2021-11-30 20:00:00,Union Deportiva Montijo,Burgos,0.0,1.0,Monitjo,Spain,Estadio Municipal Emilio Macarro,,,,Copa del Rey,,20211130_Union-Deportiva-Montijo_Burgos,0.0,1.32,0.07,4,1,8,1,45.6,54.4,2,0,0,0,3,2
+2021-12-01 15:30:00,Mensajero,Real Zaragoza,0.0,1.0,Santa Cruz de La Palma,Spain,Nuevo Silvestre Carrillo,,,,Copa del Rey,,20211201_Mensajero_Real-Zaragoza,0.0,0.91,1.45,6,5,14,9,45.8,54.2,2,5,0,0,11,7
+2021-12-01 17:30:00,Bergantiños,CD Tudelano,2.0,0.0,Carballo,Spain,Estadio As Eiroas,,,,Copa del Rey,,20211201_Bergantiños_CD-Tudelano,0.0,0.73,1.66,3,6,6,14,49.9,50.1,3,2,0,1,2,12
+2021-12-01 18:00:00,Algeciras CF,Unionistas de Salamanca,1.0,2.0,Algeciras,Spain,Nuevo Mirador,,,,Copa del Rey,,20211201_Algeciras-CF_Unionistas-de-Salamanca,0.0,0.87,1.15,2,4,4,6,52.4,47.6,0,0,0,0,6,2
+2021-12-01 18:00:00,Brea,UD Ibiza,0.0,2.0,Brea,Spain,Municipal Piedrabuena,,,,Copa del Rey,,20211201_Brea_UD-Ibiza,0.0,1.06,1.56,4,5,9,12,43.9,56.1,1,1,0,0,6,6
+2021-12-01 18:00:00,Córdoba,Sevilla,0.0,1.0,Córdoba,Spain,Nuevo Arcángel,,,,Copa del Rey,,20211201_Córdoba_Sevilla,0.0,0.69,2.25,3,6,10,13,49.8,50.2,3,0,0,0,6,7
+2021-12-01 18:00:00,Gimnastica Segoviana,Mallorca,0.0,2.0,Segovia,Spain,La Albuera,,,,Copa del Rey,,20211201_Gimnastica-Segoviana_Mallorca,0.0,0.36,1.06,0,2,1,5,45.3,54.7,2,1,0,0,4,7
+2021-12-01 18:00:00,SD Solares,Espanyol,2.0,3.0,Solares Medio Cudeyo,Spain,La Estación,,,,Copa del Rey,,20211201_SD-Solares_Espanyol,0.0,1.04,0.8,2,3,4,5,47.5,52.5,5,3,0,1,4,2
+2021-12-01 19:00:00,AD San Juan,San Sebastián de los Reyes,1.0,2.0,Pamplona,Spain,San Juan,,,,Copa del Rey,,20211201_AD-San-Juan_San-Sebastián-de-los-Reyes,0.0,1.11,1.26,2,4,4,9,42.7,57.3,1,3,0,0,2,5
+2021-12-01 19:00:00,Alzira,Fuenlabrada,0.0,1.0,"Alzira, Valencia",Spain,Luis Suñer Picó,,,,Copa del Rey,,20211201_Alzira_Fuenlabrada,0.0,0.05,1.05,0,2,1,5,52.8,47.2,0,4,0,0,1,0
+2021-12-01 19:00:00,Andratx,Real Oviedo,2.0,1.0,Andratx,Spain,Sa Plana,,,,Copa del Rey,,20211201_Andratx_Real-Oviedo,0.0,0.65,0.92,2,3,5,7,49.5,50.5,0,0,0,0,2,5
+2021-12-01 19:00:00,Atlético Mancha Real,Internacional de Madrid,2.0,1.0,Mancha Real,Spain,Estadio Polideportivo La Juventud,,,,Copa del Rey,,20211201_Atlético-Mancha-Real_Internacional-de-Madrid,0.0,2.18,1.2,6,5,13,12,47.0,53.0,1,0,0,0,5,5
+2021-12-01 19:00:00,UCAM Murcia,Deportivo La Coruña,3.0,4.0,Murcia,Spain,Enrique Roca,,,,Copa del Rey,,20211201_UCAM-Murcia_Deportivo-La-Coruña,0.0,1.54,0.78,6,4,13,8,50.9,49.1,0,2,0,0,9,4
+2021-12-01 19:15:00,Talavera,UE Cornellà,2.0,0.0,Talavera de la Reina,Spain,Municipal El Prado,,,,Copa del Rey,,20211201_Talavera_UE-Cornellà,0.0,0.2,0.91,2,2,4,4,47.4,52.6,2,1,0,0,5,5
+2021-12-01 19:30:00,Arenteiro,SD Logroñés,2.0,1.0,Carballiño,Spain,Estadio Municipal do Espiñedo,,,,Copa del Rey,,20211201_Arenteiro_SD-Logroñés,0.0,0.99,1.02,2,4,6,10,46.2,53.8,2,3,1,0,1,12
+2021-12-01 19:30:00,CD Calahorra,Atlético Baleares,1.0,1.0,Calahorra,Spain,La Planilla,,,,Copa del Rey,,20211201_CD-Calahorra_Atlético-Baleares,0.0,1.16,1.02,4,4,8,8,52.8,47.2,1,2,0,1,6,8
+2021-12-01 19:30:00,CE Europa,Amorebieta,0.0,1.0,Barcelona,Spain,Camp Municipal de Futbol Nou Sardenya,,,,Copa del Rey,,20211201_CE-Europa_Amorebieta,0.0,0.63,0.9,1,4,4,11,47.5,52.5,0,2,0,0,3,4
+2021-12-01 19:30:00,Cacereno,Ponferradina,1.0,2.0,Cáceres,Spain,Príncipe Felipe,,,,Copa del Rey,,20211201_Cacereno_Ponferradina,0.0,1.78,1.11,5,2,12,4,58.5,41.5,0,1,0,0,6,2
+2021-12-01 19:30:00,Extremadura UD,Zamora CF,1.0,4.0,Almendralejo,Spain,Francisco de la Hera,,,,Copa del Rey,,20211201_Extremadura-UD_Zamora-CF,0.0,0.58,2.53,2,7,3,16,47.7,52.3,5,1,0,0,2,10
+2021-12-01 19:30:00,Linares Deportivo,Gimnàstic de Tarragona,0.0,0.0,Linares,Spain,Estadio Municipal de Linarejos,,,,Copa del Rey,,20211201_Linares-Deportivo_Gimnàstic-de-Tarragona,0.0,1.41,0.82,3,2,9,5,43.4,56.6,0,1,0,0,3,5
+2021-12-01 19:30:00,San Fernando CD,Cultural Leonesa,2.0,3.0,,Spain,Estadio Iberoamericano 2010,,,,Copa del Rey,,20211201_San-Fernando-CD_Cultural-Leonesa,0.0,2.12,1.61,8,4,16,10,47.7,52.3,2,0,0,0,5,5
+2021-12-01 20:00:00,CF Independiente Alicante,Real Betis,0.0,4.0,"Alcoy, Alicante",Spain,El Collao,,,,Copa del Rey,,20211201_CF-Independiente-Alicante_Real-Betis,12.0,0.37,1.01,2,4,5,9,50.6,49.4,1,0,0,0,3,6
+2021-12-01 20:00:00,Panaderia Pulido,Real Sociedad,0.0,4.0,Las Palmas de Gran Canaria,Spain,Estadio Gran Canaria,,,,Copa del Rey,,20211201_Panaderia-Pulido_Real-Sociedad,0.0,0.46,1.9,1,7,4,15,49.0,51.0,1,0,0,0,3,3
+2021-12-01 20:00:00,San Roque de Lepe,Mirandés,0.0,3.0,Lepe,Spain,Ciudad de Lepe,,,,Copa del Rey,,20211201_San-Roque-de-Lepe_Mirandés,0.0,0.53,1.82,1,5,4,10,50.2,49.8,1,0,0,0,2,5
+2021-12-02 15:00:00,Velez,Las Palmas,2.0,3.0,Velez-Malaga,Spain,Estadio Vivar Téllez,,,,Copa del Rey,,20211202_Velez_Las-Palmas,0.0,0.63,0.91,2,3,6,3,46.6,53.4,1,2,0,0,4,5
+2021-12-02 18:00:00,Gernika Club,Eibar,1.0,2.0,Gernika-Lumo,Spain,Urbieta,,,,Copa del Rey,,20211202_Gernika-Club_Eibar,0.0,0.43,0.92,1,4,5,7,43.7,56.3,1,0,0,0,5,6
+2021-12-02 18:00:00,Guijuelo,Rayo Vallecano,1.0,1.0,Guijuelo,Spain,Estadio Municipal Luis Ramos,,,,Copa del Rey,,20211202_Guijuelo_Rayo-Vallecano,0.0,1.45,0.91,6,2,13,5,49.0,51.0,1,3,0,0,7,5
+2021-12-02 18:00:00,Huracán Melilla,Levante,0.0,8.0,Melilla,Spain,Municipal Álvarez Claro,,,,Copa del Rey,,20211202_Huracán-Melilla_Levante,12.0,0.44,2.98,0,8,0,17,48.9,51.1,2,2,0,0,3,6
+2021-12-02 18:00:00,San Agustín de Guadalix,Osasuna,0.0,4.0,San Agustín de Guadalix,Spain,Municipal San Agustín de Guadalix,,,,Copa del Rey,,20211202_San-Agustín-de-Guadalix_Osasuna,12.0,0.21,0.52,1,4,3,11,49.7,50.3,2,2,0,0,2,8
+2021-12-02 18:30:00,Peña Sport,Málaga,0.0,3.0,Tafalia,Spain,San Francisco,,,,Copa del Rey,,20211202_Peña-Sport_Málaga,0.0,0.51,1.4,2,5,4,12,52.3,47.7,3,0,0,0,6,7
+2021-12-02 18:30:00,Utrillas,Valencia,0.0,3.0,Utrillas,Spain,La Vega,,,,Copa del Rey,,20211202_Utrillas_Valencia,12.0,0.05,1.94,0,4,0,7,56.6,43.4,1,3,0,0,2,2
+2021-12-02 19:00:00,Calvo Sotelo,Girona,1.0,5.0,Ciudad Real,Spain,Nuevo Ciudad de Puertollano,,,,Copa del Rey,,20211202_Calvo-Sotelo_Girona,0.0,0.48,1.81,3,7,7,18,54.2,45.8,2,3,0,0,4,9
+2021-12-02 19:00:00,Cristo Atletico,Real Unión Irun,2.0,0.0,Palencia,Spain,Nueva Balastera,,,,Copa del Rey,,20211202_Cristo-Atletico_Real-Unión-Irun,0.0,0.81,1.32,3,6,8,14,46.3,53.7,0,1,0,0,5,3
+2021-12-02 19:00:00,Leioa,Elche,0.0,2.0,Leioa,Spain,Sarriena,,,,Copa del Rey,,20211202_Leioa_Elche,0.0,1.56,0.82,4,2,9,5,54.7,45.3,2,2,0,0,6,2
+2021-12-02 19:00:00,Llanera,UD Logroñés,2.0,1.0,La Felguera,Spain,Estadio Nuevo Ganzábal,,,,Copa del Rey,,20211202_Llanera_UD-Logroñés,0.0,1.7,2.0,6,7,13,16,50.0,50.0,3,1,0,0,10,12
+2021-12-02 19:00:00,Pulpileño,Castellón,0.0,1.0,"Fuentes del Ebro, Zaragoza",Spain,Campo de Fútbol San Miguel,,,,Copa del Rey,,20211202_Pulpileño_Castellón,0.0,1.18,0.74,4,1,7,2,54.2,45.8,0,0,0,0,3,3
+2021-12-02 19:15:00,AD Union Adarve,Lugo,2.0,2.0,Madrid,Spain,Polideportivo Vicente del Bosque,,,,Copa del Rey,,20211202_AD-Union-Adarve_Lugo,0.0,1.89,1.51,5,4,11,9,54.1,45.9,2,1,0,0,2,3
+2021-12-02 19:30:00,Eldense,Rayo Majadahonda,0.0,1.0,Elda,Spain,Estadio Municipal Nuevo Pepico Amat,,,,Copa del Rey,,20211202_Eldense_Rayo-Majadahonda,0.0,1.0,1.03,4,3,8,6,51.3,48.7,0,1,0,0,5,6
+2021-12-02 19:45:00,Xerez Deportivo,Leganés,1.0,2.0,Jerez De La Frontera,Spain,Municipal de Chapín,,,,Copa del Rey,,20211202_Xerez-Deportivo_Leganés,0.0,1.63,1.25,6,4,11,11,49.5,50.5,0,1,0,0,5,4
+2021-12-02 20:00:00,Ibiza Islas Pitiusas,Tenerife,1.0,2.0,Eivissa,Spain,Palladium Can Misses,,,,Copa del Rey,,20211202_Ibiza-Islas-Pitiusas_Tenerife,0.0,0.46,1.16,1,2,3,6,48.4,51.6,3,2,0,0,3,6
+2021-12-02 20:00:00,Villa de Fortuna,Cádiz,0.0,7.0,Murcia,Spain,Enrique Roca,,,,Copa del Rey,,20211202_Villa-de-Fortuna_Cádiz,12.0,0.43,2.17,1,8,2,19,50.5,49.5,1,1,0,0,2,6
+2021-12-14 18:00:00,FC Andorra,Celta Vigo,1.0,2.0,Andorra la Vieja,Andorra,Estadi Nacional d'Andorra,,,,Copa del Rey,,20211214_FC-Andorra_Celta-Vigo,0.0,2.13,2.19,6,7,12,17,57.8,42.2,0,0,0,1,8,9
+2021-12-14 18:00:00,San Sebastián de los Reyes,Fuenlabrada,0.0,0.0,San Sebastian,Spain,Nuevo Matapiñonera,,,,Copa del Rey,,20211214_San-Sebastián-de-los-Reyes_Fuenlabrada,0.0,0.61,1.15,0,2,0,5,48.0,52.0,1,1,0,0,2,3
+2021-12-14 19:00:00,Huesca,Girona,0.0,1.0,Huesca,Spain,El Alcoraz,,,,Copa del Rey,,20211214_Huesca_Girona,0.0,0.84,0.98,2,3,4,4,44.8,55.2,0,3,0,0,2,3
+2021-12-14 19:00:00,Rayo Majadahonda,Málaga,1.0,0.0,Madrid,Spain,Cerro del Espino,,,,Copa del Rey,,20211214_Rayo-Majadahonda_Málaga,0.0,1.29,1.04,3,4,10,8,48.7,51.3,2,0,0,0,2,1
+2021-12-14 19:00:00,Real Zaragoza,Burgos,2.0,0.0,Zaragoza,Spain,La Romareda,,,,Copa del Rey,,20211214_Real-Zaragoza_Burgos,0.0,1.43,0.54,6,1,13,3,52.8,47.2,2,2,0,0,9,5
+2021-12-14 20:00:00,Alcoyano,Levante,3.0,3.0,"Alcoy, Alicante",Spain,El Collao,,,,Copa del Rey,,20211214_Alcoyano_Levante,-0.4143005863770668,0.99,1.28,3,3,6,4,46.6,53.4,0,0,0,0,1,4
+2021-12-14 20:00:00,Cristo Atletico,Espanyol,1.0,2.0,Palencia,Spain,Nueva Balastera,,,,Copa del Rey,,20211214_Cristo-Atletico_Espanyol,0.0,1.27,0.97,3,4,6,10,47.4,52.6,0,1,0,0,4,4
+2021-12-14 20:00:00,Linares Deportivo,Alavés,2.0,1.0,Linares,Spain,Estadio Municipal de Linarejos,,,,Copa del Rey,,20211214_Linares-Deportivo_Alavés,-12.414300586377067,1.84,0.53,6,3,17,9,56.9,43.1,1,2,0,0,8,4
+2021-12-15 18:00:00,Andratx,Sevilla,1.0,1.0,Andratx,Spain,Sa Plana,,,,Copa del Rey,,20211215_Andratx_Sevilla,0.0,0.22,0.73,1,1,2,2,46.1,53.9,1,1,0,0,3,4
+2021-12-15 18:00:00,Bergantiños,Rayo Vallecano,1.0,3.0,Carballo,Spain,Estadio As Eiroas,,,,Copa del Rey,,20211215_Bergantiños_Rayo-Vallecano,12.0,1.09,1.0,3,4,8,6,46.8,53.2,4,0,0,0,8,5
+2021-12-15 18:00:00,Zamora CF,Real Sociedad,0.0,3.0,Zamora,Spain,Estadio Ruta de la Plata,,,,Copa del Rey,,20211215_Zamora-CF_Real-Sociedad,0.0,0.46,1.95,4,7,10,14,42.2,57.8,0,0,0,0,9,9
+2021-12-15 18:30:00,Cultural Leonesa,Leganés,2.0,3.0,León,Spain,Reino de León,,,,Copa del Rey,,20211215_Cultural-Leonesa_Leganés,0.0,1.09,1.23,3,5,6,10,52.9,47.1,2,3,0,0,1,6
+2021-12-15 19:00:00,Castellón,FC Cartagena,1.0,2.0,Castellón,Spain,Estadio SkyFi Castalia,,,,Copa del Rey,,20211215_Castellón_FC-Cartagena,0.0,0.66,1.21,3,2,7,4,49.5,50.5,2,3,1,0,8,3
+2021-12-15 19:00:00,Ponferradina,UD Ibiza,2.0,1.0,Ponferrada,Spain,El Toralín,,,,Copa del Rey,,20211215_Ponferradina_UD-Ibiza,0.0,1.64,0.99,5,4,12,8,52.1,47.9,2,3,0,0,6,3
+2021-12-15 19:00:00,Real Valladolid,Las Palmas,3.0,1.0,Valladolid,Spain,José Zorrilla,,,,Copa del Rey,,20211215_Real-Valladolid_Las-Palmas,0.0,1.67,1.76,5,6,11,11,41.4,58.6,1,4,0,0,6,5
+2021-12-15 19:00:00,Sporting Gijón,AD Alcorcón,2.0,1.0,Gijón,Spain,El Molinón - Enrique Castro Quini,,,,Copa del Rey,,20211215_Sporting-Gijón_AD-Alcorcón,0.0,0.63,0.73,3,2,6,4,45.0,55.0,2,3,0,0,3,6
+2021-12-15 20:00:00,Atlético Sanluqueño CF,Villarreal,1.0,7.0,Sanlucar de Barrameda,Spain,El Palmar,,,,Copa del Rey,,20211215_Atlético-Sanluqueño-CF_Villarreal,-0.4143005863770668,1.49,2.0,3,7,8,13,54.9,45.1,4,1,0,0,2,5
+2021-12-15 20:00:00,Tenerife,Eibar,1.0,2.0,Santa Cruz de Tenerife,Spain,Heliodoro Rodríguez López,,,,Copa del Rey,,20211215_Tenerife_Eibar,0.0,0.78,1.63,1,5,3,11,47.1,52.9,0,0,0,0,2,8
+2021-12-15 20:00:00,Unionistas de Salamanca,Elche,0.0,1.0,Salamanca,Spain,Campo de Fútbol Reina Sofía,,,,Copa del Rey,,20211215_Unionistas-de-Salamanca_Elche,0.0,1.14,1.11,2,4,3,9,52.4,47.6,1,0,0,0,4,2
+2021-12-16 18:00:00,Amorebieta,Almería,1.0,2.0,Amorebieta,Spain,Urritxe,,,,Copa del Rey,,20211216_Amorebieta_Almería,12.0,0.05,1.19,1,3,3,7,52.4,47.6,4,2,0,0,1,7
+2021-12-16 18:00:00,Arenteiro,Valencia,1.0,3.0,Carballiño,Spain,Estadio Municipal do Espiñedo,,,,Copa del Rey,,20211216_Arenteiro_Valencia,-0.4143005863770668,0.15,0.62,1,3,2,7,51.3,48.7,2,2,0,0,7,7
+2021-12-16 18:00:00,Llanera,Mallorca,0.0,6.0,La Felguera,Spain,Estadio Nuevo Ganzábal,,,,Copa del Rey,,20211216_Llanera_Mallorca,0.0,1.01,1.61,1,7,3,17,48.6,51.4,0,1,1,0,3,9
+2021-12-16 18:00:00,Talavera,Real Betis,2.0,4.0,Talavera de la Reina,Spain,Municipal El Prado,,,,Copa del Rey,,20211216_Talavera_Real-Betis,-0.4143005863770668,0.31,1.62,2,4,3,8,52.8,47.2,0,3,0,0,1,3
+2021-12-16 19:00:00,Lugo,Mirandés,1.0,2.0,Lugo,Spain,Anxo Carro,,,,Copa del Rey,,20211216_Lugo_Mirandés,-12.0,0.56,1.39,3,5,8,9,46.6,53.4,2,2,0,0,7,2
+2021-12-16 20:00:00,Albacete,Cádiz,0.0,1.0,Albacete,Spain,Carlos Belmonte,,,,Copa del Rey,,20211216_Albacete_Cádiz,-0.4143005863770668,1.1,0.88,5,2,11,3,49.6,50.4,0,0,0,0,10,2
+2021-12-16 20:00:00,Atlético Baleares,Getafe,5.0,0.0,Palma de Mallorca,Spain,Estadio Balear,,,,Copa del Rey,,20211216_Atlético-Baleares_Getafe,-12.414300586377067,1.14,0.89,5,2,10,5,40.0,60.0,4,2,0,0,5,6
+2021-12-16 20:00:00,Atlético Mancha Real,Granada,1.0,0.0,Mancha Real,Spain,Estadio Polideportivo La Juventud,,,,Copa del Rey,,20211216_Atlético-Mancha-Real_Granada,-0.4143005863770668,1.14,0.74,3,2,6,4,52.3,47.7,1,2,0,0,3,4
+2021-12-16 20:00:00,Deportivo La Coruña,Osasuna,1.0,2.0,La Coruña,Spain,ABANCA-Riazor,,,,Copa del Rey,,20211216_Deportivo-La-Coruña_Osasuna,-0.4143005863770668,1.54,1.47,5,4,10,9,46.0,54.0,0,1,0,0,3,6
+2022-01-04 20:00:00,Ponferradina,Espanyol,1.0,1.0,Ponferrada,Spain,El Toralín,,,,Copa del Rey,,20220104_Ponferradina_Espanyol,0.0,1.13,1.4,4,5,9,9,49.1,50.9,3,0,0,0,3,6
+2022-01-05 15:00:00,Eibar,Mallorca,1.0,2.0,Eibar,Spain,Ipurua,,,,Copa del Rey,,20220105_Eibar_Mallorca,0.0,1.86,1.36,5,4,12,8,49.5,50.5,3,1,0,0,6,4
+2022-01-05 15:00:00,FC Cartagena,Valencia,1.0,2.0,Cartagena,Spain,Cartagonova,,,,Copa del Rey,,20220105_FC-Cartagena_Valencia,-0.3999911578462161,0.05,1.01,1,3,1,7,50.3,49.7,2,1,0,0,1,2
+2022-01-05 15:00:00,Leganés,Real Sociedad,2.0,3.0,"Leganés, Madrid",Spain,Estadio Ontime Butarque,,,,Copa del Rey,,20220105_Leganés_Real-Sociedad,0.0,1.63,1.62,5,3,13,6,51.2,48.8,2,1,0,0,10,3
+2022-01-05 18:30:00,Linares Deportivo,Barcelona,1.0,2.0,Linares,Spain,Estadio Municipal de Linarejos,,,,Copa del Rey,,20220105_Linares-Deportivo_Barcelona,12.428592369984244,0.79,1.28,2,4,3,9,47.4,52.6,0,2,0,0,1,6
+2022-01-05 19:00:00,Atlético Baleares,Celta Vigo,2.0,1.0,Palma de Mallorca,Spain,Estadio Balear,,,,Copa del Rey,,20220105_Atlético-Baleares_Celta-Vigo,-11.571407630015756,1.1,1.38,3,4,6,8,54.3,45.7,1,2,0,0,3,5
+2022-01-05 19:00:00,Mirandés,Rayo Vallecano,0.0,1.0,Miranda de Ebro,Spain,Municipal de Anduva,,,,Copa del Rey,,20220105_Mirandés_Rayo-Vallecano,11.171398827245866,0.74,0.53,1,2,2,7,55.9,44.1,0,1,0,0,1,0
+2022-01-05 19:00:00,Real Valladolid,Real Betis,0.0,3.0,Valladolid,Spain,José Zorrilla,,,,Copa del Rey,,20220105_Real-Valladolid_Real-Betis,-0.3999911578462161,1.38,0.73,5,3,13,5,48.4,51.6,2,3,1,0,7,5
+2022-01-05 20:30:00,Alcoyano,Real Madrid,1.0,3.0,"Alcoy, Alicante",Spain,El Collao,,,,Copa del Rey,,20220105_Alcoyano_Real-Madrid,12.01430942853085,1.29,1.42,3,3,6,6,43.2,56.8,1,4,0,0,3,1
+2022-01-06 15:00:00,Fuenlabrada,Cádiz,0.0,1.0,Fuenlabrada,Spain,Estadio Fernando Torres,,,,Copa del Rey,,20220106_Fuenlabrada_Cádiz,-12.399991157846216,0.79,0.61,1,1,2,4,46.4,53.6,1,1,0,0,1,2
+2022-01-06 15:00:00,Girona,Osasuna,1.0,0.0,Girona,Spain,Municipal de Montilivi,,,,Copa del Rey,,20220106_Girona_Osasuna,-0.3999911578462161,0.68,0.21,2,0,4,0,50.9,49.1,2,0,0,0,3,1
+2022-01-06 17:00:00,Real Zaragoza,Sevilla,0.0,2.0,Zaragoza,Spain,La Romareda,,,,Copa del Rey,,20220106_Real-Zaragoza_Sevilla,12.0,1.23,0.24,4,2,7,4,61.7,38.3,0,1,0,0,5,3
+2022-01-06 17:00:00,Sporting Gijón,Villarreal,2.0,1.0,Gijón,Spain,El Molinón - Enrique Castro Quini,,,,Copa del Rey,,20220106_Sporting-Gijón_Villarreal,-0.3999911578462161,2.32,1.04,6,1,13,3,48.6,51.4,2,1,0,0,9,6
+2022-01-06 19:00:00,Almería,Elche,1.0,2.0,Almería,Spain,UD Almería Stadium,,,,Copa del Rey,,20220106_Almería_Elche,-11.585699413622933,1.6,1.56,4,4,9,8,50.4,49.6,2,3,0,0,2,3
+2022-01-06 19:00:00,Atlético Mancha Real,Athletic Club,0.0,2.0,Mancha Real,Spain,Estadio Polideportivo La Juventud,,,,Copa del Rey,,20220106_Atlético-Mancha-Real_Athletic-Club,24.01430942853085,1.82,0.35,6,2,12,3,50.2,49.8,4,2,0,0,6,3
+2022-01-06 20:30:00,Rayo Majadahonda,Atlético Madrid,0.0,5.0,Madrid,Spain,Riyadh Air Metropolitano,,,,Copa del Rey,,20220106_Rayo-Majadahonda_Atlético-Madrid,24.0,1.54,2.64,4,10,7,20,44.0,56.0,2,2,0,0,3,7
+2022-01-15 15:00:00,Mallorca,Espanyol,2.0,1.0,Palma de Mallorca,Spain,Estadi Mallorca Son Moix,,,,Copa del Rey,,20220115_Mallorca_Espanyol,12.0,1.04,0.8,2,3,2,5,57.2,42.8,0,2,0,0,5,3
+2022-01-15 17:30:00,Girona,Rayo Vallecano,1.0,2.0,Girona,Spain,Municipal de Montilivi,,,,Copa del Rey,,20220115_Girona_Rayo-Vallecano,11.213801083467388,2.03,1.21,7,4,16,8,53.9,46.1,2,0,0,0,5,5
+2022-01-15 17:30:00,Sporting Gijón,Cádiz,0.0,0.0,Gijón,Spain,El Molinón - Enrique Castro Quini,,,,Copa del Rey,,20220115_Sporting-Gijón_Cádiz,0.04192281077439475,1.53,0.05,5,0,11,1,54.9,45.1,1,1,0,0,8,2
+2022-01-16 11:00:00,Atlético Baleares,Valencia,0.0,1.0,Palma de Mallorca,Spain,Estadio Balear,,,,Copa del Rey,,20220116_Atlético-Baleares_Valencia,-11.558069035759672,0.38,1.22,1,4,1,10,45.7,54.3,3,1,0,0,3,4
+2022-01-16 15:00:00,Real Betis,Sevilla,2.0,1.0,Sevilla,Spain,Benito Villamarín,,,,Copa del Rey,,20220116_Real-Betis_Sevilla,11.971875372411887,0.05,0.92,2,2,5,4,50.4,49.6,4,2,0,0,2,2
+2022-01-19 20:00:00,Real Sociedad,Atlético Madrid,2.0,0.0,San Sebastian,Spain,Estadio Municipal de Anoeta,,,,Copa del Rey,,20220119_Real-Sociedad_Atlético-Madrid,23.17238532655597,1.56,1.16,4,4,9,11,53.8,46.2,1,1,0,0,5,10
+2022-01-20 18:00:00,Elche,Real Madrid,1.0,2.0,Elche,Spain,Martínez Valero,,,,Copa del Rey,,20220120_Elche_Real-Madrid,23.18519814733395,1.09,1.3,3,5,6,13,57.2,42.8,3,2,0,1,4,3
+2022-01-20 20:30:00,Athletic Club,Barcelona,3.0,2.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20220120_Athletic-Club_Barcelona,0.39902119106045575,1.36,1.8,6,5,12,11,56.0,44.0,1,2,0,0,8,8
+2022-02-02 19:00:00,Rayo Vallecano,Mallorca,1.0,0.0,Madrid,Spain,Estadio de Vallecas,,,,Copa del Rey,,20220202_Rayo-Vallecano_Mallorca,-10.398508765604674,1.54,0.97,5,4,11,10,51.6,48.4,2,0,0,0,7,6
+2022-02-02 20:00:00,Valencia,Cádiz,2.0,1.0,Manises,Spain,Mestalla,,,,Copa del Rey,,20220202_Valencia_Cádiz,12.013781243547328,1.06,0.4,3,2,7,4,56.7,43.3,3,1,0,1,2,3
+2022-02-03 19:00:00,Real Sociedad,Real Betis,0.0,4.0,San Sebastian,Spain,Estadio Municipal de Anoeta,,,,Copa del Rey,,20220203_Real-Sociedad_Real-Betis,-0.7720068276621532,0.58,1.72,0,5,0,12,55.5,44.5,2,3,0,0,0,6
+2022-02-03 20:30:00,Athletic Club,Real Madrid,1.0,0.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20220203_Athletic-Club_Real-Madrid,-0.4000711685373517,1.03,1.16,2,3,4,6,44.1,55.9,1,0,0,0,4,4
+2022-02-09 20:00:00,Rayo Vallecano,Real Betis,1.0,2.0,Madrid,Spain,Estadio de Vallecas,,,,Copa del Rey,,20220209_Rayo-Vallecano_Real-Betis,-10.399946263020865,0.43,0.29,2,2,6,4,49.0,51.0,1,1,0,0,2,3
+2022-02-10 20:30:00,Athletic Club,Valencia,1.0,1.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20220210_Athletic-Club_Valencia,-22.7442027725142,0.92,0.54,4,1,9,2,49.5,50.5,0,0,0,0,6,4
+2022-03-02 20:30:00,Valencia,Athletic Club,1.0,0.0,Manises,Spain,Mestalla,,,,Copa del Rey,,20220302_Valencia_Athletic-Club,21.17532935582085,1.5,0.21,3,0,6,1,50.0,50.0,0,3,0,0,10,0
+2022-03-03 20:00:00,Real Betis,Rayo Vallecano,1.0,1.0,Sevilla,Spain,Benito Villamarín,,,,Copa del Rey,,20220303_Real-Betis_Rayo-Vallecano,33.68175791489193,0.82,0.83,1,3,2,8,54.0,46.0,1,3,0,0,4,8
+2022-04-23 20:00:00,Real Betis,Valencia,1.0,1.0,Sevilla,Spain,Estadio La Cartuja,,,,Copa del Rey,,20220423_Real-Betis_Valencia,0.36994816054107105,0.67,1.04,3,3,7,9,51.2,48.8,1,1,1,0,6,2
+2022-10-19 17:30:00,Amigó,Fuentes,0.0,3.0,Valle de Aranguren,Spain,Polideportivo Valle Aranguren,,,,Copa del Rey,,20221019_Amigó_Fuentes,0.0,1.21,0.39,4,3,9,6,52.6,47.4,2,2,0,0,4,4
+2022-10-19 17:30:00,CD 6 de Junio,Alcora,0.0,3.0,Ceuta,Spain,Estadio José Martínez,,,,Copa del Rey,,20221019_CD-6-de-Junio_Alcora,-12.0,1.16,1.47,3,4,6,9,50.7,49.3,0,1,0,0,2,8
+2022-10-19 18:00:00,Algar,Melilla CD,4.0,1.0,"Algar, Murcia",,Estadio Sánchez Luengo,,,,Copa del Rey,,20221019_Algar_Melilla-CD,0.0,1.5,0.84,6,1,14,1,48.6,51.4,5,3,0,0,10,1
+2022-10-19 18:00:00,Autol,Dinamo San Juan,1.0,1.0,"Autol, La Rioja",,La Manzanera,,,,Copa del Rey,,20221019_Autol_Dinamo-San-Juan,0.0,1.64,0.56,6,2,15,5,49.8,50.2,0,0,0,0,7,5
+2022-10-19 18:00:00,Santa Amalia,Universitario FC,2.0,1.0,"Santa Amalia, Badajoz",,Estadio Municipal de Santa Amalia,,,,Copa del Rey,,20221019_Santa-Amalia_Universitario-FC,0.0,1.16,1.81,4,6,9,12,46.2,53.8,0,1,0,0,4,5
+2022-10-19 18:00:00,Velarde,Turégano,1.0,0.0,Muriedas,Spain,La Maruca,,,,Copa del Rey,,20221019_Velarde_Turégano,0.0,0.3,0.88,1,3,2,7,46.6,53.4,0,1,1,0,2,4
+2022-10-19 18:30:00,Barbadás,Atlético Lugones,2.0,1.0,Barbadás -Ourense-,,Os Carrís,,,,Copa del Rey,,20221019_Barbadás_Atlético-Lugones,0.0,1.46,1.08,6,3,16,6,52.5,47.5,0,1,0,0,7,2
+2022-10-19 18:30:00,CF Joventut Mollerussa,Cardassar,4.0,2.0,Mollerussa,Spain,Camp Municipal d´Esports,,,,Copa del Rey,,20221019_CF-Joventut-Mollerussa_Cardassar,-0.4143005863770668,2.59,0.05,8,2,15,4,47.4,52.6,1,3,1,0,8,3
+2022-10-19 18:30:00,Cazalegas,Los Yébenes San Bruno,2.0,1.0,"Cazalegas, Toledo",,Ciudad Deportiva Ebora Formación,,,,Copa del Rey,,20221019_Cazalegas_Los-Yébenes-San-Bruno,0.0,1.85,0.32,5,1,10,3,53.5,46.5,1,1,0,0,6,4
+2022-10-19 18:30:00,Montilla,Rincón,0.0,0.0,"Montilla, Córdoba",,Estadio Municipal de Montilla,,,,Copa del Rey,,20221019_Montilla_Rincón,0.0,0.05,1.51,0,4,1,11,49.7,50.3,0,1,0,0,1,5
+2022-11-12 15:00:00,Barbadás,Real Valladolid,0.0,2.0,Orense,Spain,O Couto,,,,Copa del Rey,,20221112_Barbadás_Real-Valladolid,-0.013815199057262362,1.24,2.3,6,8,12,19,49.3,50.7,2,1,0,0,4,9
+2022-11-12 15:00:00,Fuentes,Osasuna,1.0,4.0,"Fuentes del Ebro, Zaragoza",Spain,Campo de Fútbol San Miguel,,,,Copa del Rey,,20221112_Fuentes_Osasuna,-0.3861759587889537,1.58,1.71,5,4,13,8,53.2,46.8,3,2,0,0,5,4
+2022-11-12 15:00:00,Manacor,FC Andorra,1.0,3.0,Mallorca,Spain,Na Capellera,,,,Copa del Rey,,20221112_Manacor_FC-Andorra,0.0,1.79,1.5,6,3,12,6,51.4,48.6,1,4,0,0,6,2
+2022-11-12 16:00:00,Atlético Saguntino,Amorebieta,1.0,0.0,Sagunto,Spain,Nou Camp de Morvedre,,,,Copa del Rey,,20221112_Atlético-Saguntino_Amorebieta,0.4143005863770668,0.73,1.02,3,5,7,11,54.9,45.1,2,4,0,0,7,4
+2022-11-12 16:00:00,CD Artistico Navalcarnero,UD Logroñés,1.0,3.0,Navalcarnero,Spain,Estadio Municipal Mariano González,,,,Copa del Rey,,20221112_CD-Artistico-Navalcarnero_UD-Logroñés,12.0,1.14,0.43,3,3,5,6,52.2,47.8,1,0,0,0,1,4
+2022-11-12 16:00:00,Guijuelo,Deportivo La Coruña,2.0,0.0,Guijuelo,Spain,Estadio Municipal Luis Ramos,,,,Copa del Rey,,20221112_Guijuelo_Deportivo-La-Coruña,-0.01430942853085071,2.0,0.36,8,1,18,1,48.9,51.1,2,0,0,0,12,4
+2022-11-12 16:00:00,Olot,Levante,0.0,4.0,,Spain,Estadi Municipal d'Olot,,,,Copa del Rey,,20221112_Olot_Levante,-12.399991157846216,0.5,1.43,1,5,2,11,54.9,45.1,0,4,0,0,2,6
+2022-11-12 17:00:00,Arenas Club,Lugo,1.0,0.0,Getxo,Spain,Polideportivo de Gobela,,,,Copa del Rey,,20221112_Arenas-Club_Lugo,11.585699413622933,1.89,1.39,7,4,16,7,57.1,42.9,1,2,0,0,10,4
+2022-11-12 17:00:00,Beasain,Sporting Gijón,2.0,3.0,Beasain,Spain,Loinaz,,,,Copa del Rey,,20221112_Beasain_Sporting-Gijón,-36.012367236477075,1.72,1.72,4,4,9,8,45.0,55.0,1,0,0,0,4,5
+2022-11-12 17:00:00,CD Guadalajara,Ponferradina,2.0,1.0,Guadalajara,Spain,Pedro Escartín,,,,Copa del Rey,,20221112_CD-Guadalajara_Ponferradina,-24.0,1.63,0.34,5,1,12,1,51.9,48.1,0,0,0,0,10,1
+2022-11-12 17:00:00,Gernika Club,Leganés,0.0,0.0,Gernika-Lumo,Spain,Urbieta,,,,Copa del Rey,,20221112_Gernika-Club_Leganés,-24.0,1.29,1.14,3,5,5,11,40.6,59.4,1,0,0,0,5,6
+2022-11-12 17:00:00,Huétor Tájar,Albacete,0.0,3.0,Huétor-Tájar,Spain,Municipal Miguel Moranto,,,,Copa del Rey,,20221112_Huétor-Tájar_Albacete,-0.01430942853085071,1.66,0.76,6,3,14,7,50.8,49.2,3,0,0,0,12,7
+2022-11-12 17:00:00,Racing Rioja,Gimnàstic de Tarragona,0.0,2.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20221112_Racing-Rioja_Gimnàstic-de-Tarragona,-12.0,0.16,0.54,0,2,1,3,43.1,56.9,1,6,0,0,2,2
+2022-11-12 17:00:00,Sestao,Racing Ferrol,1.0,0.0,Vizcaya,Spain,Las Llanas,,,,Copa del Rey,,20221112_Sestao_Racing-Ferrol,12.0,0.54,0.05,1,1,3,2,49.8,50.2,3,2,0,0,4,3
+2022-11-12 17:00:00,Utrera,Ceuta,0.0,1.0,Utrera,Spain,San Juan Bosco,,,,Copa del Rey,,20221112_Utrera_Ceuta,0.0,0.94,1.0,3,2,5,2,48.3,51.7,1,0,0,0,4,2
+2022-11-12 17:30:00,Alcora,Elche,0.0,3.0,Villarreal,Spain,Ciudad Deportiva Villarreal,,,,Copa del Rey,,20221112_Alcora_Elche,-11.21469116488106,0.57,0.88,2,3,4,6,50.4,49.6,2,5,0,0,1,3
+2022-11-12 17:30:00,Autol,Mallorca,0.0,6.0,Calahorra,Spain,La Planilla,,,,Copa del Rey,,20221112_Autol_Mallorca,-35.226654844506584,0.45,1.09,1,6,2,15,47.1,52.9,3,2,0,0,2,8
+2022-11-12 19:00:00,Cacereno,Córdoba,3.0,0.0,Cáceres,Spain,Príncipe Felipe,,,,Copa del Rey,,20221112_Cacereno_Córdoba,0.0,2.62,1.27,8,2,18,3,47.4,52.6,2,3,0,1,14,5
+2022-11-12 19:00:00,Coria,Fuenlabrada,2.0,0.0,Logroño,Spain,Estadio La Isla,,,,Copa del Rey,,20221112_Coria_Fuenlabrada,-0.42809876956334847,0.78,1.16,2,2,4,8,45.5,54.5,2,1,0,0,4,5
+2022-11-12 19:00:00,Cristo Atletico,UD Ibiza,0.0,2.0,Palencia,Spain,Nueva Balastera,,,,Copa del Rey,,20221112_Cristo-Atletico_UD-Ibiza,0.0,1.16,0.39,2,2,5,3,54.1,45.9,0,1,0,0,3,4
+2022-11-12 20:00:00,Rincón,Espanyol,0.0,3.0,Malaga,Spain,La Rosaleda,,,,Copa del Rey,,20221112_Rincón_Espanyol,-12.414300586377067,0.07,1.62,0,5,1,12,51.4,48.6,2,3,0,0,5,3
+2022-11-12 20:00:00,Santa Amalia,Villarreal,0.0,9.0,Almendralejo,Spain,Francisco de la Hera,,,,Copa del Rey,,20221112_Santa-Amalia_Villarreal,-0.3861759587889537,0.05,2.27,1,9,2,20,51.6,48.4,1,4,0,0,1,13
+2022-11-12 21:00:00,Almazán,Atlético Madrid,0.0,2.0,Soria,Spain,Los Pajaritos,,,,Copa del Rey,,20221112_Almazán_Atlético-Madrid,-1.6267758936380687,0.89,1.31,5,3,11,8,53.1,46.9,1,3,0,0,4,4
+2022-11-13 11:00:00,AD Union Adarve,Linares Deportivo,1.0,2.0,Madrid,Spain,Román Valero,,,,Copa del Rey,,20221113_AD-Union-Adarve_Linares-Deportivo,0.000492990313887276,1.22,0.77,1,4,2,8,56.8,43.2,0,0,0,0,2,9
+2022-11-13 11:00:00,Alfaro,FC Cartagena,0.0,1.0,Alfaro,Spain,La Molineta,,,,Copa del Rey,,20221113_Alfaro_FC-Cartagena,-12.013815199057262,0.67,1.77,2,6,4,14,51.9,48.1,1,0,0,0,8,5
+2022-11-13 11:00:00,Arnedo,Atlético Baleares,1.0,1.0,Arnedo,Spain,Campo Municipal de Fútbol Sendero,,,,Copa del Rey,,20221113_Arnedo_Atlético-Baleares,-13.227161287407853,0.31,0.05,1,1,3,3,54.5,45.5,0,0,0,0,1,3
+2022-11-13 11:00:00,Atlético Paso,Real Murcia,1.0,1.0,El Paso,Spain,Campo Municipal de El Paso,,,,Copa del Rey,,20221113_Atlético-Paso_Real-Murcia,0.0,1.32,1.06,4,3,9,7,52.5,47.5,2,1,0,0,4,6
+2022-11-13 11:00:00,CF Joventut Mollerussa,Rayo Vallecano,1.0,3.0,Mollerussa,Spain,Camp Municipal d´Esports,,,,Copa del Rey,,20221113_CF-Joventut-Mollerussa_Rayo-Vallecano,-27.465016541757905,1.76,1.37,4,3,11,7,50.8,49.2,1,3,0,0,3,9
+2022-11-13 11:00:00,Diocesano,Real Zaragoza,1.0,0.0,Cáceres,Spain,Municipal de Arroyo de la Luz,,,,Copa del Rey,,20221113_Diocesano_Real-Zaragoza,-11.585699413622933,0.54,0.64,1,2,5,5,47.4,52.6,1,4,0,0,5,3
+2022-11-13 11:00:00,Gimnástica Torrelavega,Real Oviedo,2.0,3.0,Torrelavega,Spain,El Malecón,,,,Copa del Rey,,20221113_Gimnástica-Torrelavega_Real-Oviedo,12.0,0.72,0.81,2,3,4,7,46.7,53.3,4,4,1,0,2,10
+2022-11-13 11:00:00,Hercules,La Nucía,2.0,4.0,Alicante,Spain,José Rico Pérez,,,,Copa del Rey,,20221113_Hercules_La-Nucía,0.0,0.84,2.45,2,7,5,16,57.1,42.9,0,3,0,0,7,5
+2022-11-13 11:00:00,Ibiza Islas Pitiusas,Rayo Majadahonda,3.0,1.0,Eivissa,Spain,Palladium Can Misses,,,,Copa del Rey,,20221113_Ibiza-Islas-Pitiusas_Rayo-Majadahonda,-23.17238532655597,1.01,0.63,3,1,6,2,43.4,56.6,2,2,0,1,3,2
+2022-11-13 11:00:00,Juventud Torremolinos,Huesca,2.0,2.0,Torremolinos,Spain,Estadio Municipal El Pozuelo,,,,Copa del Rey,,20221113_Juventud-Torremolinos_Huesca,0.0,1.51,1.82,4,6,7,13,45.7,54.3,4,2,0,0,5,6
+2022-11-13 11:00:00,Las Rozas CF,Eibar,0.0,3.0,Madrid,Spain,Estadio Navalcarbón,,,,Copa del Rey,,20221113_Las-Rozas-CF_Eibar,-12.0,1.31,0.34,3,3,8,5,51.3,48.7,1,2,0,1,2,6
+2022-11-13 11:00:00,Lealtad,Tenerife,0.0,2.0,La Felguera,Spain,Estadio Nuevo Ganzábal,,,,Copa del Rey,,20221113_Lealtad_Tenerife,0.0,1.36,0.28,4,2,10,4,52.7,47.3,4,2,0,0,6,7
+2022-11-13 11:00:00,Manresa,Pontevedra,1.0,3.0,Manresa,Spain,Estadi Municipal el Congost,,,,Copa del Rey,,20221113_Manresa_Pontevedra,0.0,0.45,1.23,1,5,1,10,52.4,47.6,1,1,0,0,2,4
+2022-11-13 11:00:00,PD Santa Eulalia,Málaga,1.0,1.0,Ibiza,Spain,"Estadio Municipal, Santa Eulària",,,,Copa del Rey,,20221113_PD-Santa-Eulalia_Málaga,0.0,1.74,0.73,4,1,10,1,43.0,57.0,1,1,0,0,7,5
+2022-11-13 11:00:00,Quintanar del Rey,Girona,1.0,2.0,Quintanar del Rey,Spain,Estadio Municipal San Marcos,,,,Copa del Rey,,20221113_Quintanar-del-Rey_Girona,-23.626638666628878,1.01,1.06,2,3,6,7,51.2,48.8,0,1,0,0,7,2
+2022-11-13 11:00:00,Recreativo Huelva,Burgos,0.0,0.0,Huelva,Spain,Nuevo Colombino,,,,Copa del Rey,,20221113_Recreativo-Huelva_Burgos,0.0,0.53,0.6,3,2,6,5,53.0,47.0,2,4,1,0,5,5
+2022-11-13 11:00:00,Vimenor,Mirandés,0.0,2.0,Vioño de Piélagos,Spain,La Vidriera,,,,Copa del Rey,,20221113_Vimenor_Mirandés,-11.199985884410125,0.38,0.92,1,3,3,6,50.8,49.2,1,1,1,0,1,3
+2022-11-13 15:00:00,Algar,Celta Vigo,1.0,6.0,Cartagena,Spain,Cartagonova,,,,Copa del Rey,,20221113_Algar_Celta-Vigo,0.39951455304503725,0.52,0.78,2,6,6,13,52.3,47.7,0,1,0,0,4,6
+2022-11-13 15:00:00,CA Cirbonero,CF Intercity,0.0,1.0,Corella,Spain,Ciudad Deportiva Ombatillo,,,,Copa del Rey,,20221113_CA-Cirbonero_CF-Intercity,0.0,0.59,1.71,3,5,7,11,47.4,52.6,0,3,0,0,4,4
+2022-11-13 15:00:00,Velarde,Sevilla,0.0,2.0,Muriedas,Spain,La Maruca,,,,Copa del Rey,,20221113_Velarde_Sevilla,-0.8276309376979043,0.19,2.6,2,7,4,17,48.7,51.3,1,2,0,0,3,6
+2022-11-13 15:30:00,Teruel,Las Palmas,0.0,1.0,Teruel,Spain,Pinilla,,,,Copa del Rey,,20221113_Teruel_Las-Palmas,-12.0,0.76,1.0,2,5,4,12,58.1,41.9,1,2,0,0,5,4
+2022-11-13 16:00:00,AD San Juan,Numancia,0.0,2.0,Pamplona,Spain,San Juan,,,,Copa del Rey,,20221113_AD-San-Juan_Numancia,-12.0,0.58,1.08,1,4,1,7,46.2,53.8,1,2,0,0,1,4
+2022-11-13 16:00:00,Coruxo,Eldense,2.0,2.0,Vigo,Spain,O Vao,,,,Copa del Rey,,20221113_Coruxo_Eldense,12.0,1.63,0.82,5,3,10,5,46.3,53.7,2,1,0,0,7,3
+2022-11-13 16:00:00,Ourense CF,AD Alcorcón,1.0,1.0,Orense,Spain,O Couto,,,,Copa del Rey,,20221113_Ourense-CF_AD-Alcorcón,0.0,0.16,0.81,1,3,1,9,50.3,49.7,1,0,0,0,5,6
+2022-11-13 16:00:00,Yeclano Deportivo,Granada,2.0,3.0,Yecla,Spain,La Constitución,,,,Copa del Rey,,20221113_Yeclano-Deportivo_Granada,-0.3999911578462161,2.19,1.72,6,5,14,11,50.4,49.6,0,3,0,0,5,11
+2022-11-13 17:00:00,Lleida,Alavés,0.0,1.0,Lleida,Spain,Camp d'Esports,,,,Copa del Rey,,20221113_Lleida_Alavés,0.014291783607177422,1.5,0.54,5,1,12,1,49.9,50.1,1,0,0,0,5,2
+2022-11-13 17:00:00,Utebo,Mérida,2.0,2.0,Utebo,Spain,Campo de Fútbol Municipal Santa Ana,,,,Copa del Rey,,20221113_Utebo_Mérida,0.0,1.39,1.06,3,3,7,6,50.8,49.2,1,0,0,0,0,8
+2022-11-13 17:30:00,Real Unión Irun,Cádiz,3.0,2.0,Guipúzcoa,Spain,Stadium Gal,,,,Copa del Rey,,20221113_Real-Unión-Irun_Cádiz,-36.38811635651132,0.31,1.38,3,4,7,8,52.3,47.7,3,3,0,0,3,11
+2022-11-13 17:30:00,San Roque de Lepe,Getafe,2.0,3.0,Lepe,Spain,Ciudad de Lepe,,,,Copa del Rey,,20221113_San-Roque-de-Lepe_Getafe,-11.985708216392823,1.63,2.09,5,5,11,12,44.7,55.3,1,3,0,0,5,11
+2022-11-13 18:00:00,Cazalegas,Real Sociedad,1.0,4.0,Talavera de la Reina,Spain,Municipal El Prado,,,,Copa del Rey,,20221113_Cazalegas_Real-Sociedad,-23.227502907118605,1.12,2.2,4,7,8,16,49.6,50.4,1,1,0,0,5,10
+2022-11-13 20:00:00,Alzira,Athletic Club,0.0,2.0,"Alzira, Valencia",Spain,Luis Suñer Picó,,,,Copa del Rey,,20221113_Alzira_Athletic-Club,-38.343045252172715,1.39,1.37,3,4,6,8,44.7,55.3,3,0,0,0,4,5
+2022-11-13 20:00:00,Arenteiro,Almería,2.0,0.0,Carballiño,Spain,Estadio Municipal do Espiñedo,,,,Copa del Rey,,20221113_Arenteiro_Almería,-0.7999987837970366,1.44,0.05,5,1,12,1,50.2,49.8,2,2,0,0,7,2
+2022-12-20 18:00:00,CD Guadalajara,Elche,0.0,3.0,Guadalajara,Spain,Pedro Escartín,,,,Copa del Rey,,20221220_CD-Guadalajara_Elche,-21.585568662314245,0.68,1.01,1,3,2,5,51.2,48.8,1,1,0,0,3,6
+2022-12-20 18:00:00,CF Intercity,Mirandés,2.0,0.0,Alicante,Spain,Ciudad Deportiva Antonio Solana,,,,Copa del Rey,,20221220_CF-Intercity_Mirandés,-10.813286015934864,0.21,0.05,2,0,4,0,49.3,50.7,2,1,0,0,3,1
+2022-12-20 18:00:00,Diocesano,Getafe,0.0,2.0,Cáceres,Spain,Municipal de Arroyo de la Luz,,,,Copa del Rey,,20221220_Diocesano_Getafe,0.8281069629024387,0.82,0.55,3,2,7,3,51.2,48.8,1,1,0,1,7,2
+2022-12-20 20:00:00,AD Alcorcón,FC Cartagena,1.0,1.0,Madrid,Spain,Municipal de Santo Domingo,,,,Copa del Rey,,20221220_AD-Alcorcón_FC-Cartagena,-23.59903802202848,0.71,0.23,2,1,3,3,42.7,57.3,1,0,0,0,3,4
+2022-12-20 20:00:00,Guijuelo,Villarreal,1.0,2.0,Guijuelo,Spain,Estadio Municipal Luis Ramos,,,,Copa del Rey,,20221220_Guijuelo_Villarreal,-12.372343689040008,0.26,1.02,1,3,5,7,52.6,47.4,2,3,0,0,8,3
+2022-12-20 20:00:00,Real Unión Irun,Mallorca,0.0,1.0,Guipúzcoa,Spain,Stadium Gal,,,,Copa del Rey,,20221220_Real-Unión-Irun_Mallorca,-44.76189563626963,0.52,0.49,3,2,5,4,56.9,43.1,2,0,0,1,2,5
+2022-12-20 20:00:00,Sestao,Athletic Club,0.0,1.0,Vizcaya,Spain,Las Llanas,,,,Copa del Rey,,20221220_Sestao_Athletic-Club,-25.43837437398861,0.15,0.68,0,2,2,4,44.1,55.9,2,0,0,0,0,1
+2022-12-20 21:00:00,Atlético Paso,Espanyol,0.0,1.0,El Paso,Spain,Campo Municipal de El Paso,,,,Copa del Rey,,20221220_Atlético-Paso_Espanyol,-23.985708216392823,1.75,0.05,4,1,9,3,51.7,48.3,3,2,0,0,5,4
+2022-12-21 18:00:00,Atlético Saguntino,Rayo Vallecano,0.0,0.0,Sagunto,Spain,Nou Camp de Morvedre,,,,Copa del Rey,,20221221_Atlético-Saguntino_Rayo-Vallecano,-38.13269777415394,1.29,1.04,5,4,12,7,47.3,52.7,0,1,0,0,5,1
+2022-12-21 18:00:00,Ibiza Islas Pitiusas,Eibar,1.0,0.0,Eivissa,Spain,Palladium Can Misses,,,,Copa del Rey,,20221221_Ibiza-Islas-Pitiusas_Eibar,-22.786538193428896,0.05,0.36,2,1,4,3,41.6,58.4,2,2,0,0,2,1
+2022-12-21 18:00:00,Levante,FC Andorra,2.0,1.0,Manises,Spain,Ciutat de Valencia,,,,Copa del Rey,,20221221_Levante_FC-Andorra,11.971892388282868,0.72,1.45,2,5,6,8,56.3,43.7,1,2,0,0,6,3
+2022-12-21 18:00:00,Mérida,Alavés,0.0,1.0,Mérida,Spain,Romano,,,,Copa del Rey,,20221221_Mérida_Alavés,-11.986201837110912,0.83,0.05,2,1,6,4,44.9,55.1,2,1,0,0,4,1
+2022-12-21 18:00:00,Numancia,Sporting Gijón,0.0,3.0,Soria,Spain,Los Pajaritos,,,,Copa del Rey,,20221221_Numancia_Sporting-Gijón,-35.18728009312372,0.05,2.07,0,5,2,12,48.9,51.1,2,2,0,0,2,7
+2022-12-21 20:00:00,Arenas Club,Real Valladolid,1.0,5.0,Getxo,Spain,Polideportivo de Gobela,,,,Copa del Rey,,20221221_Arenas-Club_Real-Valladolid,-12.413345664937196,1.64,1.96,5,6,9,14,47.5,52.5,1,0,0,0,8,3
+2022-12-21 20:00:00,Arnedo,Osasuna,1.0,3.0,Arnedo,Spain,Campo Municipal de Fútbol Sendero,,,,Copa del Rey,,20221221_Arnedo_Osasuna,-23.916208542899767,1.55,1.94,5,5,11,11,47.4,52.6,1,2,0,0,9,8
+2022-12-21 20:00:00,Ceuta,UD Ibiza,3.0,2.0,Ceuta,Spain,Alfonso Murube,,,,Copa del Rey,,20221221_Ceuta_UD-Ibiza,0.0,2.23,0.54,7,2,16,5,44.2,55.8,2,1,0,0,6,5
+2022-12-21 20:00:00,Coria,Real Sociedad,0.0,5.0,Logroño,Spain,Estadio La Isla,,,,Copa del Rey,,20221221_Coria_Real-Sociedad,-34.41166045610771,0.67,2.09,0,6,0,13,50.2,49.8,1,0,0,0,4,2
+2022-12-21 20:00:00,Juventud Torremolinos,Sevilla,0.0,3.0,Torremolinos,Spain,Estadio Municipal El Pozuelo,,,,Copa del Rey,,20221221_Juventud-Torremolinos_Sevilla,-24.799045631871877,0.33,1.25,1,4,2,8,49.7,50.3,0,1,0,0,2,4
+2022-12-21 20:00:00,Pontevedra,Tenerife,2.0,1.0,Pontevedra,Spain,Pasarón,,,,Copa del Rey,,20221221_Pontevedra_Tenerife,0.0,0.79,2.05,3,4,6,8,47.9,52.1,4,1,0,1,4,6
+2022-12-21 20:00:00,UD Logroñés,Albacete,0.0,0.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20221221_UD-Logroñés_Albacete,-11.599514612001713,1.13,0.15,3,1,6,3,48.0,52.0,0,2,0,0,4,5
+2022-12-22 18:00:00,Cacereno,Girona,2.0,1.0,Cáceres,Spain,Príncipe Felipe,,,,Copa del Rey,,20221222_Cacereno_Girona,-34.81185904503559,1.73,1.54,8,7,20,15,48.9,51.1,3,0,0,0,10,12
+2022-12-22 18:00:00,Eldense,Burgos,1.0,0.0,Elda,Spain,Estadio Municipal Nuevo Pepico Amat,,,,Copa del Rey,,20221222_Eldense_Burgos,-11.585699413622933,1.4,1.01,6,5,13,10,43.5,56.5,0,4,0,0,6,3
+2022-12-22 18:00:00,Gernika Club,Celta Vigo,0.0,3.0,Gernika-Lumo,Spain,Urbieta,,,,Copa del Rey,,20221222_Gernika-Club_Celta-Vigo,-34.78666951124319,0.52,1.8,1,5,4,10,46.1,53.9,3,0,0,0,3,1
+2022-12-22 18:00:00,Linares Deportivo,Racing Santander,1.0,0.0,Linares,Spain,Estadio Municipal de Linarejos,,,,Copa del Rey,,20221222_Linares-Deportivo_Racing-Santander,11.999524036968296,0.61,0.05,3,1,7,2,46.6,53.4,2,2,0,0,4,1
+2022-12-22 20:00:00,Arenteiro,Atlético Madrid,1.0,3.0,Carballiño,Spain,Estadio Municipal do Espiñedo,,,,Copa del Rey,,20221222_Arenteiro_Atlético-Madrid,-1.528649096592062,1.37,1.59,6,6,14,16,53.5,46.5,1,1,0,0,3,6
+2022-12-22 20:00:00,Gimnàstic de Tarragona,Málaga,2.0,1.0,Tarragona,Spain,Nou Estadi Costa Daurada,,,,Copa del Rey,,20221222_Gimnàstic-de-Tarragona_Málaga,11.585699413622933,1.55,1.43,4,3,11,6,49.6,50.4,0,0,0,0,1,3
+2022-12-22 20:00:00,La Nucía,Las Palmas,0.0,0.0,La Nucia,Spain,Estadio Camilo Cano,,,,Copa del Rey,,20221222_La-Nucía_Las-Palmas,0.4143005863770668,2.08,0.2,7,1,15,2,53.0,47.0,1,2,0,0,9,1
+2022-12-22 20:00:00,Real Oviedo,Granada,1.0,0.0,Oviedo,Spain,Carlos Tartiere,,,,Copa del Rey,,20221222_Real-Oviedo_Granada,-11.971875372411887,0.82,0.82,3,3,8,7,53.3,46.7,3,2,0,0,5,3
+2023-01-03 18:00:00,Espanyol,Celta Vigo,3.0,1.0,Barcelona,Spain,RCDE Stadium,,,,Copa del Rey,,20230103_Espanyol_Celta-Vigo,0.7417907581741474,1.39,0.54,5,1,11,1,50.7,49.3,3,0,0,0,4,5
+2023-01-03 18:00:00,FC Cartagena,Villarreal,1.0,5.0,Cartagena,Spain,Cartagonova,,,,Copa del Rey,,20230103_FC-Cartagena_Villarreal,-13.160485543570985,0.46,2.2,1,8,3,18,44.4,55.6,1,1,1,0,3,6
+2023-01-03 18:00:00,La Nucía,Valencia,0.0,3.0,La Nucia,Spain,Estadi Olímpic Camilo Cano,,,,Copa del Rey,,20230103_La-Nucía_Valencia,-58.08453013333383,0.57,0.4,2,3,5,8,51.3,48.7,0,2,0,1,7,4
+2023-01-03 20:00:00,Cacereno,Real Madrid,0.0,1.0,Cáceres,Spain,Príncipe Felipe,,,,Copa del Rey,,20230103_Cacereno_Real-Madrid,-0.0022265883524141827,0.39,1.57,0,5,2,11,47.7,52.3,2,4,0,0,2,4
+2023-01-03 20:00:00,Ceuta,Elche,1.0,0.0,Ceuta,Spain,Alfonso Murube,,,,Copa del Rey,,20230103_Ceuta_Elche,-21.66860196830794,0.24,1.03,1,3,2,6,48.8,51.2,3,3,0,0,3,4
+2023-01-03 20:00:00,Levante,Getafe,3.0,2.0,Manises,Spain,Ciutat de Valencia,,,,Copa del Rey,,20230103_Levante_Getafe,11.958059039842738,2.25,1.07,6,4,13,8,49.3,50.7,0,2,0,0,3,4
+2023-01-03 20:00:00,Sporting Gijón,Rayo Vallecano,2.0,0.0,Gijón,Spain,El Molinón - Enrique Castro Quini,,,,Copa del Rey,,20230103_Sporting-Gijón_Rayo-Vallecano,8.75519742057918,1.34,1.37,3,5,7,12,58.1,41.9,3,0,0,0,5,10
+2023-01-04 18:00:00,Linares Deportivo,Sevilla,0.0,5.0,Linares,Spain,Estadio Municipal de Linarejos,,,,Copa del Rey,,20230104_Linares-Deportivo_Sevilla,-12.358728706296006,0.85,2.35,2,8,5,17,44.8,55.2,2,1,0,0,1,6
+2023-01-04 18:00:00,Pontevedra,Mallorca,0.0,2.0,Pontevedra,Spain,Pasarón,,,,Copa del Rey,,20230104_Pontevedra_Mallorca,-32.476597752768384,1.02,1.22,3,4,7,10,62.1,37.9,1,0,0,0,4,6
+2023-01-04 18:00:00,UD Logroñés,Real Sociedad,0.0,1.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20230104_UD-Logroñés_Real-Sociedad,-56.42699623700264,0.47,0.15,2,4,6,8,50.2,49.8,1,2,0,0,6,3
+2023-01-04 19:00:00,Real Oviedo,Atlético Madrid,0.0,2.0,Oviedo,Spain,Carlos Tartiere,,,,Copa del Rey,,20230104_Real-Oviedo_Atlético-Madrid,-12.690161189057562,0.86,0.78,2,2,4,5,47.7,52.3,1,2,0,0,4,8
+2023-01-04 20:00:00,Alavés,Real Valladolid,1.0,0.0,Vitoria-Gasteiz,Spain,Mendizorroza,,,,Copa del Rey,,20230104_Alavés_Real-Valladolid,-12.012401353764972,1.52,1.69,5,7,12,17,47.6,52.4,2,0,0,0,7,5
+2023-01-04 20:00:00,CF Intercity,Barcelona,3.0,4.0,Alicante,Spain,José Rico Pérez,,,,Copa del Rey,,20230104_CF-Intercity_Barcelona,23.930490066883294,0.78,1.65,4,7,9,16,54.7,45.3,3,1,0,0,6,7
+2023-01-05 15:00:00,Gimnàstic de Tarragona,Osasuna,1.0,2.0,Tarragona,Spain,Nou Estadi Costa Daurada,,,,Copa del Rey,,20230105_Gimnàstic-de-Tarragona_Osasuna,-12.36241179455783,0.88,0.78,2,4,3,8,36.4,63.6,1,2,0,0,9,3
+2023-01-05 15:00:00,Ibiza Islas Pitiusas,Real Betis,1.0,4.0,Eivissa,Spain,Palladium Can Misses,,,,Copa del Rey,,20230105_Ibiza-Islas-Pitiusas_Real-Betis,-56.82955987917262,1.25,1.79,5,6,10,12,54.0,46.0,1,4,0,0,4,7
+2023-01-05 20:00:00,Eldense,Athletic Club,1.0,6.0,Elda,Spain,Estadio Municipal Nuevo Pepico Amat,,,,Copa del Rey,,20230105_Eldense_Athletic-Club,-47.33272191150081,0.71,2.09,2,7,4,14,44.9,55.1,5,2,0,0,5,3
+2023-01-17 18:00:00,Real Sociedad,Mallorca,1.0,0.0,San Sebastian,Spain,Estadio Municipal de Anoeta,,,,Copa del Rey,,20230117_Real-Sociedad_Mallorca,-0.048333090494452335,0.86,1.58,2,6,3,14,40.7,59.3,3,0,0,0,1,5
+2023-01-17 20:00:00,Alavés,Sevilla,0.0,1.0,Vitoria-Gasteiz,Spain,Mendizorroza,,,,Copa del Rey,,20230117_Alavés_Sevilla,-11.530187495867494,0.94,0.9,2,3,4,6,50.3,49.7,4,1,0,0,3,5
+2023-01-18 18:00:00,Sporting Gijón,Valencia,0.0,4.0,Gijón,Spain,El Molinón - Enrique Castro Quini,,,,Copa del Rey,,20230118_Sporting-Gijón_Valencia,-10.82307354986824,0.87,0.82,3,4,6,8,42.5,57.5,0,2,0,1,7,5
+2023-01-18 19:00:00,Athletic Club,Espanyol,1.0,0.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20230118_Athletic-Club_Espanyol,11.389290956107516,1.28,1.53,4,5,7,11,57.3,42.7,2,1,0,0,9,7
+2023-01-18 20:00:00,Levante,Atlético Madrid,0.0,2.0,Manises,Spain,Ciutat de Valencia,,,,Copa del Rey,,20230118_Levante_Atlético-Madrid,10.066023437308786,0.55,1.51,0,5,0,9,54.6,45.4,4,0,0,0,4,10
+2023-01-18 20:00:00,Real Betis,Osasuna,2.0,2.0,Sevilla,Spain,Benito Villamarín,,,,Copa del Rey,,20230118_Real-Betis_Osasuna,33.347808774346504,1.53,1.87,5,7,11,14,54.3,45.7,1,2,1,1,9,5
+2023-01-19 19:00:00,Ceuta,Barcelona,0.0,5.0,Ceuta,Spain,Alfonso Murube,,,,Copa del Rey,,20230119_Ceuta_Barcelona,23.47934582258017,0.7,1.36,3,5,7,10,53.3,46.7,3,1,0,0,7,6
+2023-01-19 20:00:00,Villarreal,Real Madrid,2.0,3.0,Villarreal,Spain,Estadio de la Cerámica,,,,Copa del Rey,,20230119_Villarreal_Real-Madrid,22.290861895175112,0.8,1.98,3,6,6,13,48.2,51.8,0,4,0,0,5,8
+2023-01-25 20:00:00,Barcelona,Real Sociedad,1.0,0.0,Barcelona,Spain,Spotify Camp Nou,,,,Copa del Rey,,20230125_Barcelona_Real-Sociedad,-53.23367975383621,1.72,1.65,5,5,10,9,42.1,57.9,0,1,0,0,7,2
+2023-01-25 21:00:00,Osasuna,Sevilla,2.0,1.0,Pamplona,Spain,El Sadar,,,,Copa del Rey,,20230125_Osasuna_Sevilla,-10.849631146059437,1.13,0.3,4,1,9,2,44.4,55.6,2,3,0,0,5,0
+2023-01-26 19:00:00,Valencia,Athletic Club,1.0,3.0,Manises,Spain,Mestalla,,,,Copa del Rey,,20230126_Valencia_Athletic-Club,21.579817102497373,0.83,0.61,1,3,3,8,51.7,48.3,1,1,0,0,5,7
+2023-01-26 20:00:00,Real Madrid,Atlético Madrid,3.0,1.0,Madrid,Spain,Estadio Bernabéu,,,,Copa del Rey,,20230126_Real-Madrid_Atlético-Madrid,-11.457909569974163,2.04,1.08,7,1,16,2,54.2,45.8,3,1,0,0,8,2
+2023-03-01 20:00:00,Osasuna,Athletic Club,1.0,0.0,Pamplona,Spain,El Sadar,,,,Copa del Rey,,20230301_Osasuna_Athletic-Club,-22.229226621259386,0.88,0.44,3,2,6,6,43.3,56.7,1,3,0,0,3,3
+2023-03-02 20:00:00,Real Madrid,Barcelona,0.0,1.0,Madrid,Spain,Estadio Bernabéu,,,,Copa del Rey,,20230302_Real-Madrid_Barcelona,10.462764313795333,1.33,2.01,2,8,3,18,54.6,45.4,3,3,1,0,7,10
+2023-04-04 19:10:00,Athletic Club,Osasuna,1.0,1.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20230404_Athletic-Club_Osasuna,-3.30422210855113,1.35,1.53,4,4,7,10,51.7,48.3,1,0,0,0,7,6
+2023-04-05 19:00:00,Barcelona,Real Madrid,0.0,4.0,Barcelona,Spain,Spotify Camp Nou,,,,Copa del Rey,,20230405_Barcelona_Real-Madrid,14.25975944229117,1.52,0.86,5,4,10,9,46.0,54.0,1,7,0,0,4,9
+2023-05-06 20:00:00,Real Madrid,Osasuna,2.0,1.0,Sevilla,Spain,Estadio La Cartuja,,,,Copa del Rey,,20230506_Real-Madrid_Osasuna,-22.80086402818256,1.31,1.25,6,4,13,11,49.2,50.8,3,0,0,0,10,8
+2023-10-11 17:30:00,CD Pradejón,Atlético Lugones,1.0,2.0,Pradejón,,Polideportivo Municipal Pradejón,,,,Copa del Rey,,20231011_CD-Pradejón_Atlético-Lugones,12.0,0.83,1.17,3,3,7,7,59.6,40.4,0,3,0,0,8,3
+2023-10-11 18:00:00,Mijas Las Lagunas,Chiclana,0.0,1.0,Las Lagunas de Mijas,,Ciudad Deportiva Las Lagunas,,,,Copa del Rey,,20231011_Mijas-Las-Lagunas_Chiclana,0.0,1.27,0.88,4,2,9,3,49.2,50.8,0,2,0,0,5,3
+2023-10-11 19:00:00,CD 6 de Junio,Bunñol,0.0,3.0,Ceuta,Spain,Alfonso Murube,,,,Copa del Rey,,20231011_CD-6-de-Junio_Bunñol,-23.585699413622933,0.93,0.53,3,3,7,6,54.7,45.3,0,2,0,0,5,4
+2023-10-12 10:00:00,Hernán Cortés,Sauzal,3.0,1.0,Villanueva de la Serena,,Estadio Municipal de Hernán Cortés,,,,Copa del Rey,,20231012_Hernán-Cortés_Sauzal,0.0,0.93,0.67,3,1,9,2,49.4,50.6,0,0,0,0,1,3
+2023-10-12 14:30:00,Turégano,Santurtzi,3.0,1.0,"Turégano, Segovia",Spain,El Burgo,,,,Copa del Rey,,20231012_Turégano_Santurtzi,-12.0,1.23,1.14,5,4,11,8,50.6,49.4,3,2,0,0,5,3
+2023-10-12 15:00:00,Rubi,Rotlet Molinar,0.0,0.0,Rubí,Spain,Estadio Can Rosés,,,,Copa del Rey,,20231012_Rubi_Rotlet-Molinar,0.0,0.54,0.43,1,0,4,0,46.9,53.1,0,0,0,0,5,1
+2023-10-12 15:00:00,Tardienta,Zirauki,2.0,1.0,Barbastro,Spain,Campo Municipal de Deportes,,,,Copa del Rey,,20231012_Tardienta_Zirauki,0.0,1.42,0.9,3,2,7,4,43.6,56.4,1,0,0,0,3,3
+2023-10-12 15:30:00,Melilla,Deportivo Murcia,1.0,3.0,Melilla,Spain,Municipal Álvarez Claro,,,,Copa del Rey,,20231012_Melilla_Deportivo-Murcia,0.0,1.47,2.39,6,7,12,13,46.1,53.9,1,0,0,0,3,7
+2023-10-12 15:30:00,Monte Azul,CD Boiro,0.0,1.0,Santander,,Campo San Juan de Monte,,,,Copa del Rey,,20231012_Monte-Azul_CD-Boiro,0.0,0.74,1.27,4,4,8,7,53.1,46.9,1,3,0,0,8,6
+2023-10-12 15:30:00,Quintanar del Rey,Unión Zona Norte,1.0,0.0,Quintanar de la Orden,Spain,Estadio Alfonso Viller García,,,,Copa del Rey,,20231012_Quintanar-del-Rey_Unión-Zona-Norte,-11.185220378406711,0.66,0.99,3,5,8,15,46.1,53.9,1,0,0,0,5,7
+2023-10-31 19:00:00,CD Varea,Levante,0.0,3.0,Varea,Spain,Nueva Picona,,,,Copa del Rey,,20231031_CD-Varea_Levante,-34.79813684418241,0.21,0.82,2,3,6,7,50.1,49.9,2,0,0,0,4,2
+2023-10-31 19:00:00,Mensajero,Espanyol,0.0,2.0,Santa Cruz de La Palma,Spain,Rosendo Hernández,,,,Copa del Rey,,20231031_Mensajero_Espanyol,-47.5261956398449,0.55,0.96,2,5,5,12,43.6,56.4,3,3,0,0,2,8
+2023-10-31 19:45:00,Cacereno,Castellón,2.0,3.0,Cáceres,Spain,Príncipe Felipe,,,,Copa del Rey,,20231031_Cacereno_Castellón,1.1984283750202849,1.07,1.71,4,5,11,10,47.9,52.1,5,0,0,0,7,6
+2023-10-31 20:00:00,Lorca Deportiva,Eibar,0.0,4.0,Lorca,Spain,Francisco Artés Carrasco,,,,Copa del Rey,,20231031_Lorca-Deportiva_Eibar,-10.799806751576853,1.32,0.96,4,4,10,11,47.9,52.1,1,3,0,0,4,5
+2023-10-31 20:00:00,Manacor,Las Palmas,0.0,3.0,Mallorca,Spain,Na Capellera,,,,Copa del Rey,,20231031_Manacor_Las-Palmas,-23.600008842153784,1.17,1.25,6,4,13,8,48.6,51.4,3,3,0,0,2,7
+2023-10-31 20:00:00,Talavera,Almería,0.0,2.0,Talavera de la Reina,Spain,Municipal El Prado,,,,Copa del Rey,,20231031_Talavera_Almería,11.2276321464808,0.68,0.05,2,2,4,5,50.1,49.9,2,1,0,0,1,5
+2023-11-01 11:00:00,Atlético Lugones,Rayo Vallecano,0.0,6.0,Lugones,Spain,Santa Bárbara,,,,Copa del Rey,,20231101_Atlético-Lugones_Rayo-Vallecano,-36.694623958819875,1.05,1.59,2,6,3,14,41.8,58.2,3,2,0,0,2,3
+2023-11-01 11:00:00,Azuaga,FC Cartagena,0.0,0.0,Azuaga,Spain,Estadio CD Azuaga,,,,Copa del Rey,,20231101_Azuaga_FC-Cartagena,-11.239537098686014,0.05,0.88,0,4,0,11,48.4,51.6,0,4,0,0,3,2
+2023-11-01 11:00:00,Badalona,Cádiz,0.0,0.0,Vic,Spain,Hipòlit Planàs,,,,Copa del Rey,,20231101_Badalona_Cádiz,-11.135890589422615,0.75,1.35,3,3,6,6,45.1,54.9,1,0,0,0,6,0
+2023-11-01 11:00:00,Barbastro,Ponferradina,1.0,0.0,Barbastro,Spain,Campo Municipal de Deportes,,,,Copa del Rey,,20231101_Barbastro_Ponferradina,-11.172385326555968,1.95,0.92,6,2,13,5,53.7,46.3,0,3,0,0,8,4
+2023-11-01 11:00:00,CD Artistico Navalcarnero,AD Alcorcón,0.0,1.0,Navalcarnero,Spain,Estadio Municipal Mariano González,,,,Copa del Rey,,20231101_CD-Artistico-Navalcarnero_AD-Alcorcón,-13.228131305211264,0.48,1.82,4,5,7,11,46.3,53.7,2,0,0,0,2,8
+2023-11-01 11:00:00,Llerenense,Leganés,0.0,2.0,Don Benito,Spain,Estadio Vicente Sanz,,,,Copa del Rey,,20231101_Llerenense_Leganés,-11.172385326555968,0.33,0.79,0,2,3,3,45.0,55.0,1,3,0,1,5,5
+2023-11-01 11:00:00,Naxara,Melilla,1.0,2.0,Náxara,Spain,Estadio de Náxara,,,,Copa del Rey,,20231101_Naxara_Melilla,0.0,0.53,1.04,3,3,8,8,45.0,55.0,3,0,0,0,3,3
+2023-11-01 11:00:00,PD Santa Eulalia,Real Valladolid,1.0,5.0,Santa Eulalia del Rio,Spain,Campo Municipal del Santa Eulalia del Rio,,,,Copa del Rey,,20231101_PD-Santa-Eulalia_Real-Valladolid,-23.17005020587385,1.03,1.25,4,5,8,12,48.4,51.6,1,2,0,0,6,4
+2023-11-01 11:00:00,SD Compostela,Tenerife,0.0,1.0,Santiago de Compostela,Spain,Estadio Municipal Vero Boquete de San Lázaro,,,,Copa del Rey,,20231101_SD-Compostela_Tenerife,0.0,0.71,1.11,2,4,4,8,54.0,46.0,1,0,1,0,4,3
+2023-11-01 11:00:00,San Roque de Lepe,Girona,1.0,2.0,Lepe,Spain,Ciudad de Lepe,,,,Copa del Rey,,20231101_San-Roque-de-Lepe_Girona,-45.199700020308,0.66,0.61,1,2,1,3,53.6,46.4,0,1,0,0,2,4
+2023-11-01 11:00:00,UCAM Murcia,Linares Deportivo,0.0,0.0,Murcia,Spain,Enrique Roca,,,,Copa del Rey,,20231101_UCAM-Murcia_Linares-Deportivo,-24.011915292921458,0.76,0.69,1,3,1,7,43.7,56.3,1,1,0,0,1,5
+2023-11-01 14:30:00,Quintanar del Rey,Sevilla,0.0,3.0,Quintanar de la Orden,Spain,Estadio Alfonso Viller García,,,,Copa del Rey,,20231101_Quintanar-del-Rey_Sevilla,-45.54361946291965,0.05,2.13,1,6,1,16,44.8,55.2,1,2,0,0,3,9
+2023-11-01 14:30:00,Turégano,Celta Vigo,0.0,4.0,Segovia,Spain,La Albuera,,,,Copa del Rey,,20231101_Turégano_Celta-Vigo,-22.02811397876667,0.75,1.47,2,6,6,13,45.0,55.0,4,1,0,0,1,8
+2023-11-01 15:00:00,Atletico Astorga,FC Andorra,1.0,0.0,Astorga,Spain,Estadio La Eragudina,,,,Copa del Rey,,20231101_Atletico-Astorga_FC-Andorra,-0.41333093833100065,1.6,1.03,6,2,14,4,49.6,50.4,0,1,0,0,9,2
+2023-11-01 15:00:00,Club Atlético Antoniano,Lugo,0.0,1.0,Lebrija,Spain,Municipal de Lebrija,,,,Copa del Rey,,20231101_Club-Atlético-Antoniano_Lugo,23.185691787672113,0.58,0.96,0,3,0,7,52.8,47.2,2,3,0,0,3,5
+2023-11-01 15:00:00,Egüés,Teruel,1.0,0.0,Sarriguren,Spain,Estadio Sarriguren,,,,Copa del Rey,,20231101_Egüés_Teruel,23.585699413622933,0.69,0.05,2,0,3,0,48.6,51.4,0,2,0,0,4,0
+2023-11-01 15:30:00,Real Aviles Industrial,Arenteiro,0.0,1.0,Avilés,Spain,Nuevo Román Suárez Puerta,,,,Copa del Rey,,20231101_Real-Aviles-Industrial_Arenteiro,-0.09473768745397138,0.76,0.63,1,2,3,5,46.3,53.7,3,2,0,0,1,3
+2023-11-01 15:30:00,Real Jaen CF,Eldense,2.0,3.0,Jaén,Spain,Nuevo Estadio de la Victoria,,,,Copa del Rey,,20231101_Real-Jaen-CF_Eldense,9.560916930871372,1.27,1.3,4,3,10,4,48.0,52.0,1,2,0,0,6,2
+2023-11-01 16:00:00,Covadonga,Deportivo La Coruña,1.0,3.0,La Felguera,Spain,Estadio Nuevo Ganzábal,,,,Copa del Rey,,20231101_Covadonga_Deportivo-La-Coruña,11.98618480162122,1.35,0.97,6,4,12,11,45.7,54.3,1,1,0,0,5,5
+2023-11-01 16:00:00,Ursaria,Cayon,1.0,2.0,Madrid,Spain,Estadio Polideportivo la Dehesa,,,,Copa del Rey,,20231101_Ursaria_Cayon,12.0,1.32,1.66,5,5,10,12,45.4,54.6,3,1,0,0,7,3
+2023-11-01 16:30:00,Arandina,Real Murcia,1.0,0.0,Burgos,Spain,El Montecillo,,,,Copa del Rey,,20231101_Arandina_Real-Murcia,0.0,0.47,1.36,1,6,4,14,52.6,47.4,0,2,1,0,5,11
+2023-11-01 16:30:00,Guijuelo,Sporting Gijón,0.0,3.0,Guijuelo,Spain,Estadio Municipal Luis Ramos,,,,Copa del Rey,,20231101_Guijuelo_Sporting-Gijón,-57.20551788160719,0.33,0.07,1,3,3,8,53.0,47.0,3,0,0,0,3,3
+2023-11-01 16:30:00,Manchego,Antequera CF,1.0,3.0,Ciudad Real,Spain,Polideportivo Juan Carlos I,,,,Copa del Rey,,20231101_Manchego_Antequera-CF,0.0,0.72,1.3,3,5,7,10,50.7,49.3,1,2,0,0,2,6
+2023-11-01 16:30:00,Zamora CF,Racing Santander,2.0,2.0,Zamora,Spain,Estadio Ruta de la Plata,,,,Copa del Rey,,20231101_Zamora-CF_Racing-Santander,11.585715833209406,1.31,1.15,5,3,12,4,56.9,43.1,1,2,0,0,10,4
+2023-11-01 17:00:00,Barakaldo,Málaga,0.0,0.0,Barakaldo,Spain,Lasesarre,,,,Copa del Rey,,20231101_Barakaldo_Málaga,11.59999237404918,0.72,1.04,1,5,1,10,46.4,53.6,2,5,0,0,1,5
+2023-11-01 17:00:00,CD Tudelano,Recreativo Huelva,1.0,0.0,Tudela,Spain,Ciudad de Tudela,,,,Copa del Rey,,20231101_CD-Tudelano_Recreativo-Huelva,-12.0,0.98,1.81,3,6,6,12,48.7,51.3,1,1,0,0,4,7
+2023-11-01 17:00:00,CE Europa,Elche,0.0,2.0,Barcelona,Spain,Camp Municipal de Futbol Nou Sardenya,,,,Copa del Rey,,20231101_CE-Europa_Elche,-44.92116381580877,1.5,1.66,5,6,10,13,43.5,56.5,1,0,0,0,6,2
+2023-11-01 17:00:00,Gernika Club,Unionistas de Salamanca,0.0,2.0,Gernika-Lumo,Spain,Urbieta,,,,Copa del Rey,,20231101_Gernika-Club_Unionistas-de-Salamanca,-21.974895200813762,0.14,0.72,0,3,0,5,43.7,56.3,2,1,1,0,2,5
+2023-11-01 17:00:00,Orihuela,Gimnàstic de Tarragona,0.0,0.0,"Orihuela, Alicante",Spain,Los Arcos,,,,Copa del Rey,,20231101_Orihuela_Gimnàstic-de-Tarragona,-11.612494258905372,0.69,0.13,2,0,4,2,55.1,44.9,2,0,0,0,1,0
+2023-11-01 17:00:00,Terrassa,Albacete,1.0,0.0,Terrasa,Spain,Esatdi Olímpic,,,,Copa del Rey,,20231101_Terrassa_Albacete,-11.613330943210258,0.05,1.19,3,3,8,5,53.2,46.8,3,2,0,0,5,7
+2023-11-01 17:00:00,Utebo,Mirandés,1.0,2.0,Utebo,Spain,Campo de Fútbol Municipal Santa Ana,,,,Copa del Rey,,20231101_Utebo_Mirandés,-10.439928891117916,1.14,1.36,2,4,6,9,48.8,51.2,2,4,0,0,1,3
+2023-11-01 17:00:00,Yeclano Deportivo,Atlético Sanluqueño CF,2.0,0.0,Yecla,Spain,La Constitución,,,,Copa del Rey,,20231101_Yeclano-Deportivo_Atlético-Sanluqueño-CF,-12.000494229473588,1.04,0.05,4,0,10,1,51.5,48.5,1,1,0,0,10,1
+2023-11-01 17:30:00,Bunñol,Real Sociedad,0.0,1.0,Alcudia,Spain,Estadi Municipal Els Arcs,,,,Copa del Rey,,20231101_Bunñol_Real-Sociedad,-54.30048770996609,0.05,1.47,0,5,0,10,49.0,51.0,4,1,0,0,2,8
+2023-11-01 17:30:00,CD Boiro,Mallorca,0.0,4.0,Boiro,Spain,Municipal de Barraña,,,,Copa del Rey,,20231101_CD-Boiro_Mallorca,-43.35648205761822,0.89,2.3,2,6,3,11,42.6,57.4,5,2,0,0,3,6
+2023-11-01 17:30:00,Tardienta,Getafe,0.0,12.0,Huesca,Spain,El Alcoraz,,,,Copa del Rey,,20231101_Tardienta_Getafe,-0.013356127706629195,0.79,3.63,3,12,6,20,50.4,49.6,4,1,0,0,2,6
+2023-11-01 18:00:00,Aguilas,Huesca,0.0,1.0,Águilas,Spain,Estadio El Rubial,,,,Copa del Rey,,20231101_Aguilas_Huesca,0.0,0.21,1.35,1,3,1,6,56.9,43.1,2,1,0,0,2,3
+2023-11-01 18:30:00,Andratx,Tarazona,3.0,2.0,Andratx,Spain,Sa Plana,,,,Copa del Rey,,20231101_Andratx_Tarazona,12.0,0.97,0.93,3,2,9,3,53.9,46.1,2,3,0,0,8,6
+2023-11-01 19:00:00,Manresa,Real Oviedo,1.0,2.0,Manresa,Spain,Estadi Municipal el Congost,,,,Copa del Rey,,20231101_Manresa_Real-Oviedo,-13.26573876940779,0.56,2.07,1,5,0,11,48.3,51.7,8,2,0,0,4,5
+2023-11-01 19:00:00,Marbella FC,Racing Ferrol,1.0,3.0,Marbella,Spain,Municipal Antonio Lorenzo Cuevas,,,,Copa del Rey,,20231101_Marbella-FC_Racing-Ferrol,23.585699413622933,0.47,1.78,1,7,2,14,57.5,42.5,2,1,0,0,4,7
+2023-11-01 19:30:00,Hernán Cortés,Real Betis,1.0,12.0,Almendralejo,Spain,Francisco de la Hera,,,,Copa del Rey,,20231101_Hernán-Cortés_Real-Betis,-67.3208414211515,0.27,3.04,1,12,1,20,45.9,54.1,3,0,0,0,3,15
+2023-11-01 20:30:00,Rubi,Athletic Club,1.0,2.0,Rubí,Spain,Estadio Can Rosés,,,,Copa del Rey,,20231101_Rubi_Athletic-Club,-70.2208034014252,0.85,1.06,2,3,4,7,51.4,48.6,0,2,0,0,1,4
+2023-11-02 18:00:00,Arosa,Granada,0.0,3.0,Vilagarcía de Arousa,Spain,Estadio de A Lomba,,,,Copa del Rey,,20231102_Arosa_Granada,0.027154392531883786,0.47,0.82,1,3,1,4,51.5,48.5,0,3,0,0,1,4
+2023-11-02 18:00:00,Chiclana,Villarreal,0.0,5.0,Chiclana,Spain,Estadio Municipal del Chiclana,,,,Copa del Rey,,20231102_Chiclana_Villarreal,-22.722518594128587,0.33,2.22,0,5,0,12,50.0,50.0,1,1,0,0,1,8
+2023-11-02 19:00:00,UD Logroñés,Valencia,0.0,2.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20231102_UD-Logroñés_Valencia,-88.21770997320482,1.13,1.91,3,5,6,8,43.7,56.3,2,0,0,0,4,8
+2023-11-02 19:30:00,Hercules,Burgos,1.0,2.0,Alicante,Spain,José Rico Pérez,,,,Copa del Rey,,20231102_Hercules_Burgos,0.4000076259508205,1.42,0.88,6,2,13,6,48.9,51.1,1,2,0,0,10,0
+2023-11-02 19:30:00,Villanovense,UD Ibiza,2.0,1.0,Badajoz,Spain,Municipal Villanovense,,,,Copa del Rey,,20231102_Villanovense_UD-Ibiza,0.0,1.02,1.5,5,4,11,7,53.7,46.3,1,2,0,0,8,6
+2023-11-02 20:00:00,Deportivo Murcia,Alavés,0.0,10.0,Murcia,Spain,Enrique Roca,,,,Copa del Rey,,20231102_Deportivo-Murcia_Alavés,-12.385198090344602,0.5,2.3,3,10,6,20,47.3,52.7,2,1,0,0,3,6
+2023-11-08 17:00:00,Gimnastica Segoviana,Sestao,3.0,4.0,Segovia,Spain,La Albuera,,,,Copa del Rey,,20231108_Gimnastica-Segoviana_Sestao,-12.462743077405776,1.13,2.46,3,5,7,9,47.7,52.3,1,1,0,0,4,8
+2023-11-14 19:00:00,Atzeneta,Real Zaragoza,2.0,1.0,Atzeneta d'Albaida,Spain,Camp Municipal El Regit,,,,Copa del Rey,,20231114_Atzeneta_Real-Zaragoza,0.8143082123278873,1.12,0.49,5,3,11,7,54.1,45.9,0,3,0,0,2,5
+2023-11-22 20:00:00,Zamora CF,Villarreal,1.0,2.0,Zamora,Spain,Estadio Ruta de la Plata,,,,Copa del Rey,,20231122_Zamora-CF_Villarreal,-46.33883582585281,1.24,0.69,4,2,9,3,49.7,50.3,2,1,0,0,5,4
+2023-12-05 18:00:00,Atzeneta,Getafe,1.0,2.0,Atzeneta d'Albaida,Spain,Camp Municipal El Regit,,,,Copa del Rey,,20231205_Atzeneta_Getafe,-12.041019981161071,1.13,1.2,4,4,8,7,50.3,49.7,3,1,0,0,9,6
+2023-12-05 20:00:00,Arosa,Valencia,0.0,1.0,Vilagarcía de Arousa,Spain,Estadio de A Lomba,,,,Copa del Rey,,20231205_Arosa_Valencia,-99.98229738290797,1.0,1.45,4,4,10,7,45.4,54.6,3,1,0,0,5,6
+2023-12-05 20:00:00,Castellón,Real Oviedo,2.0,1.0,Castellón,Spain,Estadio SkyFi Castalia,,,,Copa del Rey,,20231205_Castellón_Real-Oviedo,-0.7663868235370046,1.8,1.19,6,3,13,6,50.1,49.9,2,0,0,0,5,3
+2023-12-05 20:00:00,Espanyol,Real Valladolid,3.0,1.0,Barcelona,Spain,RCDE Stadium,,,,Copa del Rey,,20231205_Espanyol_Real-Valladolid,11.52389215694211,1.15,0.97,4,4,9,9,49.4,50.6,4,3,0,0,4,5
+2023-12-06 11:00:00,AD Alcorcón,FC Cartagena,0.0,0.0,Madrid,Spain,Municipal de Santo Domingo,,,,Copa del Rey,,20231206_AD-Alcorcón_FC-Cartagena,1.505695284577996,0.81,0.66,2,2,6,3,40.3,59.7,1,2,0,0,3,3
+2023-12-06 11:00:00,Antequera CF,Huesca,0.0,2.0,Antequera,Spain,Estadio Maulí,,,,Copa del Rey,,20231206_Antequera-CF_Huesca,0.0,0.79,0.99,1,4,0,9,49.4,50.6,0,0,0,0,4,6
+2023-12-06 11:00:00,Barbastro,Almería,1.0,0.0,Barbastro,Spain,Campo Municipal de Deportes,,,,Copa del Rey,,20231206_Barbastro_Almería,11.211416541928202,0.67,1.18,2,4,5,8,48.0,52.0,1,1,0,0,3,4
+2023-12-06 11:00:00,Deportivo La Coruña,Tenerife,2.0,3.0,La Coruña,Spain,ABANCA-Riazor,,,,Copa del Rey,,20231206_Deportivo-La-Coruña_Tenerife,-11.572360807181212,0.95,0.05,4,3,10,10,50.9,49.1,1,2,0,0,12,8
+2023-12-06 11:00:00,Yeclano Deportivo,Rayo Vallecano,0.0,2.0,Yecla,Spain,La Constitución,,,,Copa del Rey,,20231206_Yeclano-Deportivo_Rayo-Vallecano,-47.41809579120013,0.05,0.75,0,3,0,6,55.0,45.0,2,4,0,1,1,6
+2023-12-06 15:00:00,Andratx,Real Sociedad,0.0,1.0,Andratx,Spain,Sa Plana,,,,Copa del Rey,,20231206_Andratx_Real-Sociedad,-52.041066342287195,1.02,0.83,4,3,11,6,47.7,52.3,1,2,0,0,9,4
+2023-12-06 15:00:00,Arenteiro,Burgos,1.0,3.0,Carballiño,Spain,Estadio Municipal do Espiñedo,,,,Copa del Rey,,20231206_Arenteiro_Burgos,12.477657421838103,0.37,1.44,1,5,1,11,48.9,51.1,2,1,0,0,1,4
+2023-12-06 15:00:00,Terrassa,Alavés,0.0,1.0,Terrasa,Spain,Esatdi Olímpic,,,,Copa del Rey,,20231206_Terrassa_Alavés,-23.556648683537333,0.68,1.09,2,4,5,10,43.7,56.3,1,2,0,1,2,2
+2023-12-06 15:00:00,Unionistas de Salamanca,Sporting Gijón,2.0,0.0,Salamanca,Spain,Campo de Fútbol Reina Sofía,,,,Copa del Rey,,20231206_Unionistas-de-Salamanca_Sporting-Gijón,-56.43298723290195,1.6,0.63,7,1,15,3,48.0,52.0,1,1,1,0,7,3
+2023-12-06 16:00:00,Málaga,Eldense,1.0,0.0,Malaga,Spain,La Rosaleda,,,,Copa del Rey,,20231206_Málaga_Eldense,-13.968713746537787,0.64,0.16,2,0,8,2,49.2,50.8,2,3,0,0,4,1
+2023-12-06 18:00:00,Egüés,Mallorca,0.0,3.0,Sarriguren,Spain,Estadio Sarriguren,,,,Copa del Rey,,20231206_Egüés_Mallorca,-54.680099428518815,0.24,1.14,3,5,5,14,51.0,49.0,5,1,0,0,7,2
+2023-12-06 18:00:00,Levante,Amorebieta,0.0,1.0,Manises,Spain,Ciutat de Valencia,,,,Copa del Rey,,20231206_Levante_Amorebieta,58.00024575405564,0.33,1.41,3,5,7,11,50.1,49.9,3,1,0,0,3,5
+2023-12-06 18:00:00,Lugo,Mirandés,2.0,0.0,Lugo,Spain,Anxo Carro,,,,Copa del Rey,,20231206_Lugo_Mirandés,-32.46552802546512,0.49,0.05,2,0,6,1,50.1,49.9,1,5,0,0,3,0
+2023-12-06 18:00:00,Villanovense,Real Betis,1.0,2.0,Badajoz,Spain,Municipal Villanovense,,,,Copa del Rey,,20231206_Villanovense_Real-Betis,-77.0243309712248,0.63,1.72,2,6,3,13,46.6,53.4,3,4,0,1,4,9
+2023-12-06 20:00:00,Atletico Astorga,Sevilla,0.0,2.0,Astorga,Spain,Estadio La Eragudina,,,,Copa del Rey,,20231206_Atletico-Astorga_Sevilla,-45.1662410671197,0.63,1.48,1,6,3,13,50.0,50.0,3,1,0,0,2,10
+2023-12-06 20:00:00,CD Tudelano,Las Palmas,1.0,2.0,Tudela,Spain,Ciudad de Tudela,,,,Copa del Rey,,20231206_CD-Tudelano_Las-Palmas,-22.371844160233422,1.46,1.5,4,5,9,10,49.0,51.0,1,1,0,0,8,9
+2023-12-07 18:00:00,Arandina,Cádiz,2.0,1.0,Burgos,Spain,El Montecillo,,,,Copa del Rey,,20231207_Arandina_Cádiz,1.24859779176154,0.05,1.68,2,5,5,13,54.6,45.4,4,1,0,0,1,3
+2023-12-07 19:00:00,Linares Deportivo,Elche,1.0,3.0,Linares,Spain,Estadio Municipal de Linarejos,,,,Copa del Rey,,20231207_Linares-Deportivo_Elche,-32.19433882310432,0.31,2.17,1,7,2,16,48.5,51.5,1,1,0,0,5,5
+2023-12-07 19:00:00,Melilla,Eibar,1.0,1.0,Melilla,Spain,Municipal Álvarez Claro,,,,Copa del Rey,,20231207_Melilla_Eibar,-22.426914733947797,0.51,1.08,3,4,7,6,49.0,51.0,2,1,0,0,9,3
+2023-12-07 19:00:00,Racing Ferrol,Leganés,1.0,0.0,Ferrol,Spain,A Malata,,,,Copa del Rey,,20231207_Racing-Ferrol_Leganés,-33.558965036303334,2.21,1.32,8,3,18,6,39.8,60.2,4,2,0,0,8,5
+2023-12-07 20:00:00,Cayon,Athletic Club,0.0,3.0,Santander,Spain,El Sardinero,,,,Copa del Rey,,20231207_Cayon_Athletic-Club,-79.4136557231127,1.14,1.75,4,4,9,10,44.5,55.5,3,1,0,0,8,2
+2023-12-07 20:00:00,Orihuela,Girona,2.0,5.0,"Orihuela, Alicante",Spain,Los Arcos,,,,Copa del Rey,,20231207_Orihuela_Girona,-31.660181285644285,0.95,2.16,2,8,7,16,57.9,42.1,2,3,1,0,3,7
+2023-12-07 20:00:00,Sestao,Celta Vigo,1.0,2.0,Vizcaya,Spain,Las Llanas,,,,Copa del Rey,,20231207_Sestao_Celta-Vigo,-21.650128577074156,0.17,1.61,1,4,5,7,51.8,48.2,3,2,1,0,4,6
+2024-01-06 15:00:00,Lugo,Atlético Madrid,1.0,3.0,Lugo,Spain,Anxo Carro,,,,Copa del Rey,,20240106_Lugo_Atlético-Madrid,-34.29966211502915,0.76,0.6,3,3,8,4,53.2,46.8,0,1,0,0,2,3
+2024-01-06 16:00:00,Espanyol,Getafe,0.0,1.0,Barcelona,Spain,RCDE Stadium,,,,Copa del Rey,,20240106_Espanyol_Getafe,21.899807047213017,0.3,0.71,2,1,6,3,50.5,49.5,2,3,1,0,6,4
+2024-01-06 17:00:00,Elche,Girona,0.0,2.0,Elche,Spain,Martínez Valero,,,,Copa del Rey,,20240106_Elche_Girona,11.298822296349499,0.25,1.25,0,3,1,6,47.0,53.0,2,2,0,0,6,4
+2024-01-06 18:00:00,Huesca,Rayo Vallecano,0.0,2.0,Huesca,Spain,El Alcoraz,,,,Copa del Rey,,20240106_Huesca_Rayo-Vallecano,-34.21855921407541,0.89,0.33,3,2,7,2,42.9,57.1,0,0,0,1,2,2
+2024-01-06 19:00:00,Alavés,Real Betis,1.0,0.0,Vitoria-Gasteiz,Spain,Mendizorroza,,,,Copa del Rey,,20240106_Alavés_Real-Betis,-51.26151186012817,1.7,1.15,5,4,11,9,48.0,52.0,2,2,0,0,3,7
+2024-01-06 20:30:00,Arandina,Real Madrid,1.0,3.0,Burgos,Spain,El Montecillo,,,,Copa del Rey,,20240106_Arandina_Real-Madrid,-39.32543097536018,1.07,1.88,2,5,2,12,53.2,46.8,0,1,0,1,1,6
+2024-01-07 11:00:00,Amorebieta,Celta Vigo,2.0,4.0,Lezama,Spain,Instalaciones de Lezama Campo 2,,,,Copa del Rey,,20240107_Amorebieta_Celta-Vigo,-43.35094336821999,0.69,1.41,2,4,4,9,46.8,53.2,1,1,0,0,5,3
+2024-01-07 11:00:00,Burgos,Mallorca,0.0,3.0,Burgos,Spain,Estadio Municipal de El Plantío,,,,Copa del Rey,,20240107_Burgos_Mallorca,-63.94899746672627,0.3,1.61,0,6,0,13,49.9,50.1,2,2,0,1,3,7
+2024-01-07 15:00:00,Castellón,Osasuna,0.0,1.0,Castellón,Spain,Estadio SkyFi Castalia,,,,Copa del Rey,,20240107_Castellón_Osasuna,-36.44253737295958,1.36,1.4,5,4,10,7,47.8,52.2,0,0,0,0,9,7
+2024-01-07 15:00:00,Racing Ferrol,Sevilla,1.0,2.0,Ferrol,Spain,A Malata,,,,Copa del Rey,,20240107_Racing-Ferrol_Sevilla,-65.2460920114379,0.93,1.58,4,6,8,14,41.5,58.5,2,0,0,0,10,8
+2024-01-07 18:00:00,Eibar,Athletic Club,0.0,3.0,Eibar,Spain,Ipurua,,,,Copa del Rey,,20240107_Eibar_Athletic-Club,-67.47850409819807,0.26,1.14,0,3,0,5,56.7,43.3,1,1,0,0,1,3
+2024-01-07 18:00:00,FC Cartagena,Valencia,1.0,2.0,Cartagena,Spain,Cartagonova,,,,Copa del Rey,,20240107_FC-Cartagena_Valencia,-85.71688581211197,0.38,1.35,1,5,2,11,45.3,54.7,3,2,0,0,2,9
+2024-01-07 20:00:00,Barbastro,Barcelona,2.0,3.0,Barbastro,Spain,Campo Municipal de Deportes,,,,Copa del Rey,,20240107_Barbastro_Barcelona,-15.772550362550646,1.64,1.17,6,4,14,8,45.2,54.8,3,1,0,0,13,5
+2024-01-07 20:00:00,Málaga,Real Sociedad,0.0,1.0,Malaga,Spain,La Rosaleda,,,,Copa del Rey,,20240107_Málaga_Real-Sociedad,-84.55994296254516,0.3,0.75,0,3,0,7,47.2,52.8,2,3,1,0,3,2
+2024-01-07 21:00:00,Tenerife,Las Palmas,2.0,0.0,Santa Cruz de Tenerife,Spain,Heliodoro Rodríguez López,,,,Copa del Rey,,20240107_Tenerife_Las-Palmas,-10.414062222730308,1.26,0.86,5,2,12,4,51.0,49.0,2,0,0,0,13,2
+2024-01-08 15:30:00,Unionistas de Salamanca,Villarreal,1.0,1.0,Salamanca,Spain,Campo de Fútbol Reina Sofía,,,,Copa del Rey,,20240108_Unionistas-de-Salamanca_Villarreal,-31.173575255966625,0.5,0.69,1,1,3,1,45.3,54.7,0,1,0,0,3,3
+2024-01-16 19:00:00,Getafe,Sevilla,1.0,3.0,Getafe,Spain,Estadio Coliseum,,,,Copa del Rey,,20240116_Getafe_Sevilla,-29.049290061922875,0.36,1.66,3,6,7,13,48.8,51.2,0,1,0,0,11,5
+2024-01-16 20:00:00,Athletic Club,Alavés,2.0,0.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20240116_Athletic-Club_Alavés,37.927128909587054,1.12,1.33,2,5,5,12,45.8,54.2,0,4,0,0,5,11
+2024-01-16 21:00:00,Tenerife,Mallorca,0.0,1.0,Santa Cruz de Tenerife,Spain,Heliodoro Rodríguez López,,,,Copa del Rey,,20240116_Tenerife_Mallorca,-49.849438445746955,0.05,0.43,1,2,3,4,43.6,56.4,0,0,0,0,2,5
+2024-01-17 19:00:00,Valencia,Celta Vigo,1.0,3.0,Manises,Spain,Mestalla,,,,Copa del Rey,,20240117_Valencia_Celta-Vigo,50.27220707706806,0.75,1.34,3,3,8,7,56.1,43.9,1,2,0,0,5,4
+2024-01-17 20:00:00,Osasuna,Real Sociedad,0.0,2.0,Pamplona,Spain,El Sadar,,,,Copa del Rey,,20240117_Osasuna_Real-Sociedad,-23.722075392221996,1.01,1.42,4,5,10,11,53.5,46.5,2,0,0,0,1,11
+2024-01-17 20:30:00,Girona,Rayo Vallecano,3.0,1.0,Girona,Spain,Municipal de Montilivi,,,,Copa del Rey,,20240117_Girona_Rayo-Vallecano,-13.679762541254377,1.01,1.26,4,3,8,8,49.6,50.4,3,3,0,0,3,5
+2024-01-18 18:30:00,Unionistas de Salamanca,Barcelona,1.0,3.0,Salamanca,Spain,Campo de Fútbol Reina Sofía,,,,Copa del Rey,,20240118_Unionistas-de-Salamanca_Barcelona,-24.97880713362656,1.38,2.35,4,6,9,12,47.2,52.8,2,4,0,0,8,3
+2024-01-18 20:30:00,Atlético Madrid,Real Madrid,4.0,2.0,Madrid,Spain,Riyadh Air Metropolitano,,,,Copa del Rey,,20240118_Atlético-Madrid_Real-Madrid,-26.079002936919778,1.14,2.0,5,5,10,13,46.7,53.3,3,0,0,0,5,8
+2024-01-23 20:30:00,Celta Vigo,Real Sociedad,1.0,2.0,Vigo,Spain,Estadio Abanca-Balaídos,,,,Copa del Rey,,20240123_Celta-Vigo_Real-Sociedad,-36.989766617801706,1.22,1.85,3,6,7,15,47.7,52.3,1,3,0,0,8,5
+2024-01-24 18:30:00,Mallorca,Girona,3.0,2.0,Palma de Mallorca,Spain,Estadi Mallorca Son Moix,,,,Copa del Rey,,20240124_Mallorca_Girona,28.26647738417887,1.58,0.78,3,3,8,9,54.5,45.5,2,0,0,0,4,5
+2024-01-24 20:30:00,Athletic Club,Barcelona,4.0,2.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20240124_Athletic-Club_Barcelona,47.15980178151631,0.96,1.46,4,5,8,12,52.2,47.8,0,2,0,0,6,7
+2024-01-25 20:00:00,Atlético Madrid,Sevilla,1.0,0.0,Madrid,Spain,Riyadh Air Metropolitano,,,,Copa del Rey,,20240125_Atlético-Madrid_Sevilla,-27.650995389791206,1.31,1.03,2,2,5,7,55.0,45.0,1,2,1,0,3,4
+2024-02-06 20:00:00,Mallorca,Real Sociedad,0.0,0.0,Palma de Mallorca,Spain,Estadi Mallorca Son Moix,,,,Copa del Rey,,20240206_Mallorca_Real-Sociedad,-9.762242747711298,0.73,0.05,2,0,5,0,54.1,45.9,1,3,0,0,6,1
+2024-02-07 20:30:00,Atlético Madrid,Athletic Club,0.0,1.0,Madrid,Spain,Riyadh Air Metropolitano,,,,Copa del Rey,,20240207_Atlético-Madrid_Athletic-Club,-46.203558215552675,0.61,1.49,2,4,1,10,41.8,58.2,1,2,0,0,5,10
+2024-02-27 20:30:00,Real Sociedad,Mallorca,1.0,1.0,San Sebastian,Spain,Estadio Municipal de Anoeta,,,,Copa del Rey,,20240227_Real-Sociedad_Mallorca,9.08806831923539,0.32,1.45,1,5,3,7,49.1,50.9,4,1,0,0,3,4
+2024-02-29 20:30:00,Athletic Club,Atlético Madrid,3.0,0.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20240229_Athletic-Club_Atlético-Madrid,67.03061186604509,1.46,1.09,6,3,14,7,52.8,47.2,3,3,0,0,9,8
+2024-04-06 20:00:00,Athletic Club,Mallorca,1.0,1.0,Sevilla,Spain,Estadio La Cartuja,,,,Copa del Rey,,20240406_Athletic-Club_Mallorca,32.25690721930664,0.44,0.62,1,3,1,6,53.7,46.3,0,3,0,0,1,2
+2024-10-09 15:30:00,San Tirso SD,Selaya FC,1.0,1.0,A Coruna,Spain,Campo de Fútbol O Monte,,,,Copa del Rey,,20241009_San-Tirso-SD_Selaya-FC,0.0,1.22,0.71,5,1,12,1,52.2,47.8,1,2,0,0,7,1
+2024-10-09 16:30:00,CD Sonseca,CP Parla Escuela,0.0,1.0,Sonseca,Spain,Estadio Martin Juanes,,,,Copa del Rey,,20241009_CD-Sonseca_CP-Parla-Escuela,0.0,1.08,1.29,3,3,8,8,44.1,55.9,5,2,0,0,3,4
+2024-10-09 17:00:00,Astur CF,Promesas EDF,2.0,0.0,Oviedo,Spain,Estadio Hermanos Llana,,,,Copa del Rey,,20241009_Astur-CF_Promesas-EDF,0.0,1.23,0.97,6,5,14,10,54.1,45.9,3,1,0,0,5,9
+2024-10-09 17:00:00,CD Baztán,Ontiñena CF,1.0,1.0,Elizondo,,Paraje Gilxaurdi,,,,Copa del Rey,,20241009_CD-Baztán_Ontiñena-CF,0.0,1.42,1.45,5,4,11,12,50.8,49.2,2,0,0,0,5,3
+2024-10-09 17:00:00,UD San Pedro,CD 6 de Junio,4.0,2.0,San Pedro de Alcántara,Spain,Estadio Municipal Antonio Naranjo,,,,Copa del Rey,,20241009_UD-San-Pedro_CD-6-de-Junio,34.77232727623391,1.41,1.47,5,6,11,12,61.8,38.2,1,1,0,0,4,9
+2024-10-09 17:30:00,CD Villamuriel,Aurrerá Vitoria,1.0,0.0,Palencia,Spain,Municipal Rafael Vázquez Sedano,,,,Copa del Rey,,20241009_CD-Villamuriel_Aurrerá-Vitoria,0.0,0.6,0.3,3,0,10,1,45.5,54.5,1,3,0,0,6,3
+2024-10-09 18:00:00,EF Dolorense,Manises CF,1.0,3.0,Utrera,Spain,San Juan Bosco,,,,Copa del Rey,,20241009_EF-Dolorense_Manises-CF,0.0,1.15,1.43,4,6,7,13,47.8,52.2,1,3,0,0,3,7
+2024-10-09 18:30:00,CD Gévora,UD Playas de Sotavento,1.0,1.0,Gévora,Spain,Campo De Fútbol Gévora,,,,Copa del Rey,,20241009_CD-Gévora_UD-Playas-de-Sotavento,0.0,0.58,1.06,1,3,0,6,50.8,49.2,4,1,0,0,6,7
+2024-10-09 18:30:00,UE Vic,CF Sporting de Mahón,4.0,0.0,Vic,Spain,Hipòlit Planàs,,,,Copa del Rey,,20241009_UE-Vic_CF-Sporting-de-Mahón,0.0,0.93,0.22,4,1,8,1,47.6,52.4,1,2,1,0,2,2
+2024-10-09 19:00:00,Chiclana,Melilla CD,4.0,0.0,Chiclana,Spain,Estadio Municipal del Chiclana,,,,Copa del Rey,,20241009_Chiclana_Melilla-CD,12.78369096070901,1.15,0.05,4,1,11,2,45.1,54.9,1,2,0,0,4,1
+2024-10-29 18:00:00,CD Villamuriel,Rayo Vallecano,0.0,5.0,Palencia,Spain,Nueva Balastera,,,,Copa del Rey,,20241029_CD-Villamuriel_Rayo-Vallecano,-44.56826042569173,0.61,1.02,0,5,1,12,48.2,51.8,1,1,0,0,3,2
+2024-10-29 18:00:00,SD Compostela,Alavés,0.0,1.0,Santiago de Compostela,Spain,Estadio Municipal Vero Boquete de San Lázaro,,,,Copa del Rey,,20241029_SD-Compostela_Alavés,-62.20778765429941,0.05,0.61,0,2,0,1,41.9,58.1,3,0,0,0,4,3
+2024-10-29 19:00:00,Guijuelo,Ourense CF,1.0,2.0,Guijuelo,Spain,Estadio Municipal Luis Ramos,,,,Copa del Rey,,20241029_Guijuelo_Ourense-CF,-9.614215223878773,2.12,1.19,6,3,12,6,45.6,54.4,1,0,0,0,7,6
+2024-10-29 20:00:00,Astur CF,Real Valladolid,1.0,4.0,Oviedo,Spain,Estadio Hermanos Llana,,,,Copa del Rey,,20241029_Astur-CF_Real-Valladolid,-10.76884451856563,0.32,1.55,1,5,4,12,42.7,57.3,2,0,0,1,1,5
+2024-10-29 20:00:00,Hospitalet,Real Zaragoza,1.0,5.0,"L´Hospitalet de Llobregat, Barcelona",Spain,Estadio Municipal de Hospitalet,,,,Copa del Rey,,20241029_Hospitalet_Real-Zaragoza,12.7861830545653,1.26,1.95,4,7,8,16,42.5,57.5,1,3,1,0,2,8
+2024-10-29 20:00:00,Poblense,Villarreal,1.0,6.0,,Spain,Nou Camp de Sa Pobla,,,,Copa del Rey,,20241029_Poblense_Villarreal,-55.273946946416345,0.3,2.43,2,9,3,17,44.6,55.4,5,2,0,0,3,8
+2024-10-29 20:00:00,Real Jaen CF,Cádiz,0.0,3.0,Jaén,Spain,Nuevo Estadio de la Victoria,,,,Copa del Rey,,20241029_Real-Jaen-CF_Cádiz,-11.12466610398701,0.81,2.09,2,6,5,13,44.6,55.4,5,1,0,1,3,4
+2024-10-29 20:00:00,UD Lanzarote,Racing Santander,3.0,4.0,Lanzarote,Spain,"Ciudad Deportiva, Arrecife",,,,Copa del Rey,,20241029_UD-Lanzarote_Racing-Santander,11.185707640776172,1.22,1.14,4,4,9,10,57.5,42.5,0,3,0,0,8,11
+2024-10-30 17:30:00,CE Europa,Albacete,2.0,1.0,Barcelona,Spain,Camp Municipal de Futbol Nou Sardenya,,,,Copa del Rey,,20241030_CE-Europa_Albacete,-21.66943606662744,2.25,1.18,6,3,13,6,50.4,49.6,2,1,0,0,1,3
+2024-10-30 18:00:00,Ibiza Islas Pitiusas,Gimnàstic de Tarragona,1.0,2.0,Eivissa,Spain,Palladium Can Misses,,,,Copa del Rey,,20241030_Ibiza-Islas-Pitiusas_Gimnàstic-de-Tarragona,-7.681004444182918,1.0,1.56,5,4,12,9,47.3,52.7,1,0,0,0,3,3
+2024-10-30 18:00:00,Las Rozas CF,Sevilla,0.0,3.0,Madrid,Spain,Estadio Navalcarbón,,,,Copa del Rey,,20241030_Las-Rozas-CF_Sevilla,-87.03354527462852,0.68,1.88,4,7,9,14,41.3,58.7,2,2,0,0,5,4
+2024-10-30 18:00:00,Lucena CF,Leganés,1.0,2.0,,Spain,Nuevo Estadio Municipal de Lucena,,,,Copa del Rey,,20241030_Lucena-CF_Leganés,-9.631143416367195,0.74,0.88,2,3,2,8,50.6,49.4,0,3,0,0,2,1
+2024-10-30 18:00:00,Olot,Córdoba,1.0,1.0,,Spain,Estadi Municipal d'Olot,,,,Copa del Rey,,20241030_Olot_Córdoba,12.428098769563348,1.08,0.43,4,3,10,8,51.5,48.5,2,1,0,0,8,6
+2024-10-30 18:30:00,Beasain,FC Cartagena,0.0,1.0,Beasain,Spain,Loinaz,,,,Copa del Rey,,20241030_Beasain_FC-Cartagena,-12.566006015767016,0.47,0.7,1,2,2,4,43.7,56.3,2,1,0,0,3,4
+2024-10-30 18:30:00,Bergantiños,Marbella FC,1.0,2.0,Carballo,Spain,Estadio As Eiroas,,,,Copa del Rey,,20241030_Bergantiños_Marbella-FC,12.399071551011957,1.05,0.71,2,2,2,3,52.4,47.6,3,3,0,0,2,5
+2024-10-30 18:30:00,Langreo,Orihuela,1.0,2.0,La Felguera,Spain,Estadio Nuevo Ganzábal,,,,Copa del Rey,,20241030_Langreo_Orihuela,10.508580756897118,2.27,1.24,6,2,12,5,51.1,48.9,0,0,0,0,6,5
+2024-10-30 18:30:00,Móstoles URJC,Burgos,2.0,5.0,Móstoles,Spain,El Soto,,,,Copa del Rey,,20241030_Móstoles-URJC_Burgos,-2.228697121768164,1.31,1.74,4,6,8,14,60.7,39.3,1,1,0,0,6,9
+2024-10-30 19:00:00,Badalona,Huesca,0.0,2.0,Badalona,Spain,Municipal de Badalona,,,,Copa del Rey,,20241030_Badalona_Huesca,-12.793572155361062,0.22,1.44,1,5,2,10,46.9,53.1,0,1,0,0,5,6
+2024-10-30 19:00:00,CD Cortes,Granada,0.0,2.0,Tudela,Spain,Ciudad de Tudela,,,,Copa del Rey,,20241030_CD-Cortes_Granada,-11.973783486957927,0.7,0.54,2,2,5,5,49.1,50.9,1,0,0,0,3,0
+2024-10-30 19:00:00,CD Laredo,Yeclano Deportivo,0.0,6.0,Laredo,Spain,San Lorenzo,,,,Copa del Rey,,20241030_CD-Laredo_Yeclano-Deportivo,9.944197752540049,0.66,1.73,3,6,6,12,50.7,49.3,1,1,0,0,4,10
+2024-10-30 19:00:00,Escobedo,Ponferradina,0.0,0.0,Escobedo,Spain,Estadio Eusebio Arce,,,,Copa del Rey,,20241030_Escobedo_Ponferradina,1.213362239930575,1.19,1.04,4,3,9,6,51.3,48.7,1,2,0,0,11,8
+2024-10-30 19:00:00,Juventud Torremolinos,Zamora CF,1.0,2.0,Torremolinos,Spain,Estadio Municipal El Pozuelo,,,,Copa del Rey,,20241030_Juventud-Torremolinos_Zamora-CF,-0.33597834855095243,0.72,1.21,2,2,5,4,47.9,52.1,5,1,0,0,2,2
+2024-10-30 19:00:00,Lleida,Barakaldo,1.0,3.0,Lleida,Spain,Camp d'Esports,,,,Copa del Rey,,20241030_Lleida_Barakaldo,-11.59999288261315,0.99,0.47,3,3,8,9,48.5,51.5,1,3,1,0,4,3
+2024-10-30 19:00:00,Numancia,Sporting Gijón,0.0,1.0,Soria,Spain,Los Pajaritos,,,,Copa del Rey,,20241030_Numancia_Sporting-Gijón,-52.945960638563065,0.78,0.94,2,2,6,3,46.4,53.6,4,2,0,0,5,4
+2024-10-30 19:00:00,Salamanca UDS,AD Alcorcón,1.0,0.0,Villares de la Reina,Spain,Helmántico,,,,Copa del Rey,,20241030_Salamanca-UDS_AD-Alcorcón,-12.305163340647368,1.32,0.85,2,5,5,10,49.6,50.4,1,2,0,0,4,6
+2024-10-30 19:00:00,Sant Andreu,Mirandés,2.0,1.0,Barcelona,Spain,Narcís Sala,,,,Copa del Rey,,20241030_Sant-Andreu_Mirandés,-8.961387692646667,1.3,1.28,4,3,11,6,53.6,46.4,2,0,0,0,2,2
+2024-10-30 19:00:00,UD Logroñés,Eibar,1.0,0.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20241030_UD-Logroñés_Eibar,-30.225300972508876,0.84,0.05,2,0,5,2,52.2,47.8,1,2,0,0,5,4
+2024-10-30 19:00:00,Utebo,Unionistas de Salamanca,0.0,4.0,Utebo,Spain,Campo de Fútbol Municipal Santa Ana,,,,Copa del Rey,,20241030_Utebo_Unionistas-de-Salamanca,-26.748786032621183,0.83,0.3,4,4,9,10,35.3,64.7,2,2,0,0,6,4
+2024-10-30 19:30:00,Cacereno,Gimnastica Segoviana,2.0,1.0,Cáceres,Spain,Príncipe Felipe,,,,Copa del Rey,,20241030_Cacereno_Gimnastica-Segoviana,12.726772917815197,1.4,1.37,3,5,6,11,49.8,50.2,3,0,0,0,2,8
+2024-10-30 19:30:00,Conquense,UD Ibiza,1.0,0.0,,Spain,La Fuensanta,,,,Copa del Rey,,20241030_Conquense_UD-Ibiza,12.0,1.16,1.25,4,4,9,9,46.4,53.6,1,1,0,0,6,4
+2024-10-30 19:30:00,Coria,Elche,0.0,3.0,Logroño,Spain,Estadio La Isla,,,,Copa del Rey,,20241030_Coria_Elche,-40.67988709286033,0.42,0.97,0,5,0,12,43.9,56.1,3,2,1,0,2,1
+2024-10-30 20:00:00,Aguilas,Castellón,0.0,1.0,Águilas,Spain,Estadio El Rubial,,,,Copa del Rey,,20241030_Aguilas_Castellón,-25.32194700966511,0.94,0.08,3,1,5,4,49.3,50.7,0,0,0,0,2,4
+2024-10-30 20:00:00,CD Extremadura,Girona,0.0,4.0,Almendralejo,Spain,Francisco de la Hera,,,,Copa del Rey,,20241030_CD-Extremadura_Girona,-56.80711558569874,1.0,1.37,2,4,3,10,41.3,58.7,2,2,0,0,4,7
+2024-10-30 20:00:00,San Sebastián de los Reyes,Almería,1.0,2.0,San Sebastian,Spain,Nuevo Matapiñonera,,,,Copa del Rey,,20241030_San-Sebastián-de-los-Reyes_Almería,22.438574716441735,1.27,1.55,4,3,8,7,52.4,47.6,3,0,0,0,6,2
+2024-10-30 20:00:00,UD San Pedro,Celta Vigo,1.0,5.0,San Pedro de Alcántara,Spain,Estadio Municipal Antonio Naranjo,,,,Copa del Rey,,20241030_UD-San-Pedro_Celta-Vigo,-47.64033842373283,1.42,2.45,5,8,10,19,45.7,54.3,0,1,0,0,7,10
+2024-10-30 20:30:00,Atlético Paso,Eldense,0.0,1.0,El Paso,Spain,Campo Municipal de El Paso,,,,Copa del Rey,,20241030_Atlético-Paso_Eldense,-1.459896222620955,0.4,1.97,1,5,6,11,53.4,46.6,0,1,0,0,4,5
+2024-10-31 18:00:00,Barbastro,Amorebieta,4.0,0.0,Barbastro,Spain,Campo Municipal de Deportes,,,,Copa del Rey,,20241031_Barbastro_Amorebieta,21.468615220161837,0.94,0.89,4,5,7,10,53.3,46.7,1,0,0,0,3,5
+2024-10-31 18:00:00,San Tirso SD,Espanyol,0.0,4.0,La Coruña,Spain,ABANCA-Riazor,,,,Copa del Rey,,20241031_San-Tirso-SD_Espanyol,-44.741593817454714,0.86,2.11,3,9,6,20,48.8,51.2,0,1,0,0,7,13
+2024-10-31 18:00:00,UE Vic,Atlético Madrid,0.0,2.0,Vic,Spain,Hipòlit Planàs,,,,Copa del Rey,,20241031_UE-Vic_Atlético-Madrid,-41.57621606539578,0.44,1.59,1,4,2,10,43.0,57.0,0,1,0,0,2,3
+2024-10-31 19:00:00,CD Tudelano,CD Minera,0.0,5.0,Tudela,Spain,Ciudad de Tudela,,,,Copa del Rey,,20241031_CD-Tudelano_CD-Minera,-10.81406945161848,0.78,1.4,3,5,7,11,41.4,58.6,3,0,0,0,3,5
+2024-10-31 19:00:00,Real Ávila,Real Oviedo,0.0,0.0,Ávila,Spain,Municipal Adolfo Suárez,,,,Copa del Rey,,20241031_Real-Ávila_Real-Oviedo,-0.781308888847434,0.37,1.03,0,5,0,11,44.0,56.0,1,2,0,0,1,4
+2024-10-31 19:30:00,Don Benito,FC Andorra,1.0,2.0,Don Benito,Spain,Estadio Vicente Sanz,,,,Copa del Rey,,20241031_Don-Benito_FC-Andorra,11.600944999790272,0.4,1.32,1,2,3,4,45.6,54.4,3,3,0,0,3,2
+2024-10-31 20:00:00,Alfaro,Tenerife,0.0,2.0,Alfaro,Spain,La Molineta,,,,Copa del Rey,,20241031_Alfaro_Tenerife,-37.255277189897015,1.79,0.34,5,2,11,3,49.1,50.9,0,1,0,0,7,4
+2024-10-31 20:00:00,CD Cuarte,Racing Ferrol,1.0,3.0,Cuarte de Huerva,Spain,Estadio Municipal Juan Guerrero El Lobo,,,,Copa del Rey,,20241031_CD-Cuarte_Racing-Ferrol,7.3894354485287295,0.44,0.15,3,3,7,7,50.0,50.0,0,3,0,0,5,4
+2024-10-31 20:00:00,CD Estepona,Málaga,3.0,2.0,La Línea de la Concepción,Spain,Municipal de La Línea de la Concepción,,,,Copa del Rey,,20241031_CD-Estepona_Málaga,7.853025298875991,1.18,1.08,5,3,12,4,47.2,52.8,1,2,0,0,7,3
+2024-10-31 20:00:00,CD Gévora,Real Betis,1.0,6.0,Almendralejo,Spain,Francisco de la Hera,,,,Copa del Rey,,20241031_CD-Gévora_Real-Betis,-84.6489745984984,1.66,2.29,6,6,12,12,43.9,56.1,1,2,0,0,7,8
+2024-10-31 20:00:00,Llanera,Cultural Leonesa,0.0,2.0,Posada de Llanera,Spain,Estadio Pepe Quimarán,,,,Copa del Rey,,20241031_Llanera_Cultural-Leonesa,0.0,0.46,0.83,0,2,0,5,52.0,48.0,2,1,0,0,4,3
+2024-10-31 20:00:00,Ontiñena CF,Las Palmas,0.0,7.0,Monzón,Spain,Isidro Calderón,,,,Copa del Rey,,20241031_Ontiñena-CF_Las-Palmas,-21.654933499745766,0.24,1.67,0,7,0,16,51.1,48.9,2,0,0,0,4,9
+2024-11-05 18:00:00,Chiclana,Osasuna,0.0,5.0,Chiclana,Spain,Estadio Municipal del Chiclana,,,,Copa del Rey,,20241105_Chiclana_Osasuna,-47.732018143625965,1.11,1.67,3,5,5,9,49.5,50.5,2,2,0,0,2,5
+2024-11-06 18:00:00,Xerez,Ceuta,0.0,1.0,Jerez De La Frontera,Spain,Municipal de Chapín,,,,Copa del Rey,,20241106_Xerez_Ceuta,-23.937722537542186,1.42,0.7,4,2,8,4,48.9,51.1,2,1,0,0,5,2
+2024-11-14 17:00:00,Ejea,Hercules,1.0,0.0,Zaragoza,Spain,Nuevo Estadio Ejea de los Caballeros,,,,Copa del Rey,,20241114_Ejea_Hercules,24.013815767844562,0.48,0.05,1,0,2,0,42.7,57.3,1,1,0,1,2,1
+2024-11-19 19:00:00,Pontevedra,Levante,4.0,1.0,Pontevedra,Spain,Pasarón,,,,Copa del Rey,,20241119_Pontevedra_Levante,-18.496954771887886,1.45,0.66,4,1,9,0,50.4,49.6,1,2,0,0,2,6
+2024-11-21 20:00:00,Jove Español,Real Sociedad,0.0,5.0,Alicante,Spain,José Rico Pérez,,,,Copa del Rey,,20241121_Jove-Español_Real-Sociedad,-116.23664691896943,0.97,2.04,4,5,9,10,46.7,53.3,3,1,0,0,5,8
+2024-11-26 18:00:00,CP Parla Escuela,Valencia,0.0,1.0,Parla,Spain,Campo Las Américas,,,,Copa del Rey,,20241126_CP-Parla-Escuela_Valencia,-79.99412294042531,0.6,0.97,3,3,6,5,46.3,53.7,2,2,0,0,5,4
+2024-11-26 18:00:00,Manises CF,Getafe,0.0,3.0,Manises,Spain,Polideportivo Municipal de Manises,,,,Copa del Rey,,20241126_Manises-CF_Getafe,-25.35356699065801,0.57,1.51,4,6,10,13,39.3,60.7,1,2,0,0,5,5
+2024-12-03 18:00:00,Real Ávila,Real Valladolid,2.0,4.0,Ávila,Spain,Municipal Adolfo Suárez,,,,Copa del Rey,,20241203_Real-Ávila_Real-Valladolid,-34.3700354613909,0.05,0.83,2,4,4,9,53.7,46.3,0,3,0,0,6,8
+2024-12-03 19:00:00,Yeclano Deportivo,Elche,0.0,1.0,Yecla,Spain,La Constitución,,,,Copa del Rey,,20241203_Yeclano-Deportivo_Elche,-50.08152162990018,0.71,1.46,0,4,0,10,45.9,54.1,0,2,1,0,3,7
+2024-12-03 20:00:00,Barbastro,Espanyol,2.0,0.0,Barbastro,Spain,Campo Municipal de Deportes,,,,Copa del Rey,,20241203_Barbastro_Espanyol,-31.40227329514687,0.81,1.35,2,4,6,9,48.4,51.6,2,2,0,1,5,8
+2024-12-03 20:00:00,Real Zaragoza,Granada,2.0,2.0,Zaragoza,Spain,La Romareda,,,,Copa del Rey,,20241203_Real-Zaragoza_Granada,-23.90515050906629,1.42,0.91,3,3,7,5,51.5,48.5,1,2,0,0,1,4
+2024-12-03 20:00:00,Salamanca UDS,Celta Vigo,0.0,7.0,Villares de la Reina,Spain,Helmántico,,,,Copa del Rey,,20241203_Salamanca-UDS_Celta-Vigo,-56.38330753736,0.59,2.06,0,7,0,17,48.9,51.1,1,3,1,0,2,10
+2024-12-03 20:15:00,CE Europa,Las Palmas,1.0,2.0,Barcelona,Spain,Camp Municipal de Futbol Nou Sardenya,,,,Copa del Rey,,20241203_CE-Europa_Las-Palmas,-42.61756480520239,0.43,1.65,3,5,5,8,51.2,48.8,3,3,0,0,5,8
+2024-12-04 18:00:00,Gimnàstic de Tarragona,Huesca,0.0,1.0,Tarragona,Spain,Nou Estadi Costa Daurada,,,,Copa del Rey,,20241204_Gimnàstic-de-Tarragona_Huesca,-1.7900728964896189,0.9,1.29,2,4,4,8,47.5,52.5,0,1,0,0,4,2
+2024-12-04 18:00:00,Sant Andreu,Real Betis,1.0,3.0,Barcelona,Spain,Narcís Sala,,,,Copa del Rey,,20241204_Sant-Andreu_Real-Betis,-81.47236432978184,0.68,0.88,3,3,6,8,42.3,57.7,3,0,0,0,6,7
+2024-12-04 18:00:00,Unionistas de Salamanca,Rayo Vallecano,2.0,3.0,Salamanca,Spain,Campo de Fútbol Reina Sofía,,,,Copa del Rey,,20241204_Unionistas-de-Salamanca_Rayo-Vallecano,-40.85010475235231,0.87,2.15,2,8,5,16,43.0,57.0,0,1,0,0,3,5
+2024-12-04 19:00:00,Cultural Leonesa,Almería,1.0,2.0,León,Spain,Reino de León,,,,Copa del Rey,,20241204_Cultural-Leonesa_Almería,9.664649520931334,0.68,1.34,2,3,5,5,50.4,49.6,1,0,0,0,7,5
+2024-12-04 19:00:00,Cádiz,Eldense,0.0,1.0,La Línea de la Concepción,Spain,Nuevo Mirandilla,,,,Copa del Rey,,20241204_Cádiz_Eldense,8.173829074278501,0.11,0.05,0,1,0,2,48.5,51.5,2,4,0,0,4,5
+2024-12-04 19:00:00,Ourense CF,Deportivo La Coruña,1.0,0.0,Orense,Spain,O Couto,,,,Copa del Rey,,20241204_Ourense-CF_Deportivo-La-Coruña,22.84083487086741,0.96,0.58,3,2,5,5,41.6,58.4,1,0,0,0,7,8
+2024-12-04 19:30:00,Racing Santander,Sporting Gijón,1.0,0.0,Santander,Spain,El Sardinero,,,,Copa del Rey,,20241204_Racing-Santander_Sporting-Gijón,-62.727684692504226,0.05,1.26,1,4,3,8,47.0,53.0,2,2,0,1,1,4
+2024-12-04 20:00:00,CD Estepona,Leganés,2.0,2.0,Estepona,Spain,Francisco Muñoz Pérez,,,,Copa del Rey,,20241204_CD-Estepona_Leganés,-9.569768391637353,1.2,1.06,5,4,12,8,48.5,51.5,1,2,0,0,7,5
+2024-12-04 20:00:00,Ejea,Valencia,1.0,3.0,Zaragoza,Spain,Nuevo Estadio Ejea de los Caballeros,,,,Copa del Rey,,20241204_Ejea_Valencia,-90.10712143319506,0.65,1.48,3,4,6,9,46.0,54.0,3,3,0,0,1,2
+2024-12-04 20:00:00,Pontevedra,Villarreal,1.0,0.0,Pontevedra,Spain,Pasarón,,,,Copa del Rey,,20241204_Pontevedra_Villarreal,-39.6240918327685,0.6,1.0,2,3,5,6,49.9,50.1,5,1,0,0,5,2
+2024-12-04 20:00:00,UD Logroñés,Girona,0.0,0.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20241204_UD-Logroñés_Girona,-72.09120163105035,0.05,0.51,0,3,2,6,39.8,60.2,3,5,0,0,3,4
+2024-12-04 20:00:00,Zamora CF,Tenerife,0.0,0.0,Zamora,Spain,Estadio Ruta de la Plata,,,,Copa del Rey,,20241204_Zamora-CF_Tenerife,-35.20876071841826,0.78,1.55,1,4,3,8,46.0,54.0,1,4,0,1,5,1
+2024-12-05 18:00:00,Cacereno,Atlético Madrid,1.0,3.0,Cáceres,Spain,Príncipe Felipe,,,,Copa del Rey,,20241205_Cacereno_Atlético-Madrid,-63.42937421569377,0.65,1.36,2,4,3,8,53.3,46.7,2,0,0,0,2,5
+2024-12-05 18:00:00,Ceuta,Osasuna,2.0,3.0,Ceuta,Spain,Alfonso Murube,,,,Copa del Rey,,20241205_Ceuta_Osasuna,-35.32381544054442,1.77,1.62,6,4,12,10,48.7,51.3,0,4,0,0,7,5
+2024-12-05 18:00:00,Orihuela,Getafe,0.0,0.0,"Orihuela, Alicante",Spain,Los Arcos,,,,Copa del Rey,,20241205_Orihuela_Getafe,-46.6251747508818,0.05,1.41,0,5,0,12,51.1,48.9,4,0,0,0,3,7
+2024-12-05 19:00:00,Barakaldo,Racing Ferrol,1.0,2.0,Barakaldo,Spain,Lasesarre,,,,Copa del Rey,,20241205_Barakaldo_Racing-Ferrol,6.333250372343173,1.54,1.52,6,4,12,9,53.2,46.8,1,3,0,0,9,4
+2024-12-05 19:00:00,FC Andorra,FC Cartagena,0.0,1.0,Andorra la Vieja,Andorra,Estadi Nacional d'Andorra,,,,Copa del Rey,,20241205_FC-Andorra_FC-Cartagena,-12.571979817331112,1.79,0.76,8,2,17,4,53.6,46.4,1,1,0,0,12,4
+2024-12-05 19:00:00,Marbella FC,Burgos,1.0,0.0,Marbella,Spain,Municipal Antonio Lorenzo Cuevas,,,,Copa del Rey,,20241205_Marbella-FC_Burgos,-14.537026795530892,1.08,0.05,3,0,4,1,45.3,54.7,2,1,0,0,7,2
+2024-12-05 19:00:00,Ponferradina,Castellón,1.0,1.0,Ponferrada,Spain,El Toralín,,,,Copa del Rey,,20241205_Ponferradina_Castellón,-25.620357585234387,1.71,0.08,5,1,12,1,42.5,57.5,3,2,0,0,9,3
+2024-12-05 20:00:00,CD Minera,Alavés,2.0,2.0,Cartagena,Spain,Cartagonova,,,,Copa del Rey,,20241205_CD-Minera_Alavés,-48.45526026471043,1.17,1.86,5,7,12,14,48.9,51.1,1,1,0,0,5,7
+2024-12-05 20:00:00,Conquense,Real Sociedad,0.0,1.0,,Spain,La Fuensanta,,,,Copa del Rey,,20241205_Conquense_Real-Sociedad,-112.77964487904023,1.09,0.59,2,2,4,5,47.5,52.5,0,2,0,0,5,2
+2024-12-05 20:00:00,Olot,Sevilla,1.0,3.0,,Spain,Estadi Municipal d'Olot,,,,Copa del Rey,,20241205_Olot_Sevilla,-96.50412185571372,0.83,1.02,2,3,4,7,42.4,57.6,0,6,0,0,7,5
+2025-01-03 18:00:00,Granada,Getafe,0.0,1.0,Granada,Spain,Nuevo Los Cármenes,,,,Copa del Rey,,20250103_Granada_Getafe,-24.142625306143145,0.66,0.93,0,4,0,10,55.1,44.9,4,0,0,0,4,6
+2025-01-03 18:00:00,Pontevedra,Mallorca,3.0,0.0,Pontevedra,Spain,Pasarón,,,,Copa del Rey,,20250103_Pontevedra_Mallorca,-69.767770524257,1.45,0.24,6,1,11,2,42.1,57.9,3,1,0,0,8,2
+2025-01-03 18:00:00,Racing Ferrol,Rayo Vallecano,1.0,3.0,Ferrol,Spain,A Malata,,,,Copa del Rey,,20250103_Racing-Ferrol_Rayo-Vallecano,-60.54840190810796,0.77,1.06,1,3,0,8,47.7,52.3,3,0,0,0,1,4
+2025-01-04 14:30:00,Huesca,Real Betis,0.0,1.0,Huesca,Spain,El Alcoraz,,,,Copa del Rey,,20250104_Huesca_Real-Betis,-66.34376450058448,0.83,0.34,2,1,3,4,45.2,54.8,3,1,0,0,4,3
+2025-01-04 15:30:00,Tenerife,Osasuna,1.0,2.0,Santa Cruz de Tenerife,Spain,Heliodoro Rodríguez López,,,,Copa del Rey,,20250104_Tenerife_Osasuna,-46.043919056549385,0.4,1.41,1,4,2,8,43.9,56.1,0,4,0,0,4,2
+2025-01-04 16:30:00,Almería,Sevilla,4.0,1.0,Almería,Spain,UD Almería Stadium,,,,Copa del Rey,,20250104_Almería_Sevilla,-78.58410173980747,1.0,1.47,4,4,8,12,50.7,49.3,1,2,0,0,5,7
+2025-01-04 18:00:00,Barbastro,Barcelona,0.0,4.0,Barbastro,Spain,Campo Municipal de Deportes,,,,Copa del Rey,,20250104_Barbastro_Barcelona,-15.10033157060002,0.78,1.96,4,6,8,14,58.5,41.5,2,5,0,0,4,6
+2025-01-04 20:30:00,Marbella FC,Atlético Madrid,0.0,1.0,Malaga,Spain,La Rosaleda,,,,Copa del Rey,,20250104_Marbella-FC_Atlético-Madrid,-61.86379277679566,0.25,1.24,0,4,0,7,49.4,50.6,3,1,0,0,3,5
+2025-01-04 20:30:00,UD Logroñés,Athletic Club,0.0,0.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20250104_UD-Logroñés_Athletic-Club,-141.6962227580384,0.05,1.39,2,3,4,7,43.9,56.1,2,2,0,0,5,4
+2025-01-05 11:00:00,Elche,Las Palmas,4.0,0.0,Elche,Spain,Martínez Valero,,,,Copa del Rey,,20250105_Elche_Las-Palmas,19.319472281105618,1.88,1.53,6,4,14,8,55.3,44.7,4,2,0,0,4,3
+2025-01-05 11:00:00,Ourense CF,Real Valladolid,3.0,2.0,Orense,Spain,O Couto,,,,Copa del Rey,,20250105_Ourense-CF_Real-Valladolid,-22.333517611124762,1.6,1.3,5,5,10,10,46.0,54.0,2,1,0,0,2,8
+2025-01-05 14:30:00,FC Cartagena,Leganés,1.0,2.0,Cartagena,Spain,Cartagonova,,,,Copa del Rey,,20250105_FC-Cartagena_Leganés,3.9694008806284273,0.93,1.38,3,4,7,9,56.0,44.0,3,0,0,0,4,5
+2025-01-05 14:30:00,Ponferradina,Real Sociedad,0.0,2.0,Ponferrada,Spain,El Toralín,,,,Copa del Rey,,20250105_Ponferradina_Real-Sociedad,-132.88951548764658,0.44,1.35,2,3,3,6,44.6,55.4,2,2,0,0,1,5
+2025-01-05 14:30:00,Racing Santander,Celta Vigo,2.0,3.0,Santander,Spain,El Sardinero,,,,Copa del Rey,,20250105_Racing-Santander_Celta-Vigo,-63.53384279046713,0.88,1.36,5,4,13,8,51.6,48.4,3,0,0,0,5,2
+2025-01-06 18:00:00,CD Minera,Real Madrid,0.0,5.0,Cartagena,Spain,Cartagonova,,,,Copa del Rey,,20250106_CD-Minera_Real-Madrid,-47.741341420383606,1.08,2.07,2,7,4,16,47.0,53.0,0,1,0,1,7,9
+2025-01-07 20:00:00,Eldense,Valencia,0.0,2.0,Elda,Spain,Estadio Municipal Nuevo Pepico Amat,,,,Copa del Rey,,20250107_Eldense_Valencia,-95.71593301715279,1.27,1.98,4,6,8,14,44.0,56.0,1,1,0,0,7,8
+2025-01-14 20:00:00,Ourense CF,Valencia,0.0,2.0,Orense,Spain,O Couto,,,,Copa del Rey,,20250114_Ourense-CF_Valencia,-83.35947941148356,0.05,1.29,0,4,1,8,43.6,56.4,1,4,0,0,2,4
+2025-01-15 18:30:00,Almería,Leganés,2.0,3.0,Almería,Spain,UD Almería Stadium,,,,Copa del Rey,,20250115_Almería_Leganés,-3.7673173038979257,0.21,0.05,2,3,4,7,46.1,53.9,3,0,0,0,4,8
+2025-01-15 18:30:00,Pontevedra,Getafe,0.0,1.0,Pontevedra,Spain,Pasarón,,,,Copa del Rey,,20250115_Pontevedra_Getafe,-4.548952631851989,0.86,1.08,3,4,6,7,49.9,50.1,0,2,0,0,11,7
+2025-01-15 20:00:00,Barcelona,Real Betis,5.0,1.0,Barcelona,Spain,Estadi Olímpic Lluís Companys,,,,Copa del Rey,,20250115_Barcelona_Real-Betis,-49.291090337567766,1.88,1.15,5,3,9,6,47.0,53.0,1,1,0,0,5,2
+2025-01-15 20:30:00,Elche,Atlético Madrid,0.0,4.0,Elche,Spain,Martínez Valero,,,,Copa del Rey,,20250115_Elche_Atlético-Madrid,-9.769651114492945,1.24,0.05,4,4,10,9,50.5,49.5,0,0,0,0,9,5
+2025-01-16 18:30:00,Athletic Club,Osasuna,2.0,3.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20250116_Athletic-Club_Osasuna,42.643457194516714,1.66,1.06,7,3,16,7,55.7,44.3,1,2,0,0,8,5
+2025-01-16 18:30:00,Real Sociedad,Rayo Vallecano,3.0,1.0,San Sebastian,Spain,Estadio Municipal de Anoeta,,,,Copa del Rey,,20250116_Real-Sociedad_Rayo-Vallecano,52.66045687022188,1.16,1.17,3,5,7,11,48.5,51.5,1,0,0,0,6,4
+2025-01-16 20:30:00,Real Madrid,Celta Vigo,5.0,2.0,Madrid,Spain,Estadio Bernabéu,,,,Copa del Rey,,20250116_Real-Madrid_Celta-Vigo,-17.315249577015038,0.75,1.16,5,3,10,5,41.3,58.7,1,2,0,0,5,5
+2025-02-04 20:30:00,Atlético Madrid,Getafe,5.0,0.0,Madrid,Spain,Riyadh Air Metropolitano,,,,Copa del Rey,,20250204_Atlético-Madrid_Getafe,25.639506940040064,2.27,1.66,8,4,18,10,55.8,44.2,4,0,1,0,15,5
+2025-02-05 20:00:00,Leganés,Real Madrid,2.0,3.0,"Leganés, Madrid",Spain,Estadio Ontime Butarque,,,,Copa del Rey,,20250205_Leganés_Real-Madrid,-39.01458641765157,1.0,1.6,6,6,15,11,49.2,50.8,4,2,0,0,5,6
+2025-02-06 18:30:00,Real Sociedad,Osasuna,2.0,0.0,San Sebastian,Spain,Estadio Municipal de Anoeta,,,,Copa del Rey,,20250206_Real-Sociedad_Osasuna,45.31329342926051,1.46,0.4,4,3,9,5,49.8,50.2,2,3,0,0,6,3
+2025-02-06 20:30:00,Valencia,Barcelona,0.0,5.0,Manises,Spain,Mestalla,,,,Copa del Rey,,20250206_Valencia_Barcelona,51.030546451211194,0.32,2.39,2,7,4,17,53.9,46.1,2,0,0,0,3,9
+2025-02-25 20:30:00,Barcelona,Atlético Madrid,4.0,4.0,Barcelona,Spain,Estadi Olímpic Lluís Companys,,,,Copa del Rey,,20250225_Barcelona_Atlético-Madrid,-15.740247285777286,0.62,1.16,4,5,7,9,43.8,56.2,1,0,0,0,6,7
+2025-02-26 20:30:00,Real Sociedad,Real Madrid,0.0,1.0,San Sebastian,Spain,Estadio Municipal de Anoeta,,,,Copa del Rey,,20250226_Real-Sociedad_Real-Madrid,66.21387567097372,0.94,1.03,2,4,3,8,50.6,49.4,2,2,0,0,3,3
+2025-04-01 19:30:00,Real Madrid,Real Sociedad,4.0,4.0,Madrid,Spain,Estadio Bernabéu,,,,Copa del Rey,,20250401_Real-Madrid_Real-Sociedad,-37.69456538739905,1.24,2.38,6,5,14,11,45.6,54.4,0,4,0,0,7,7
+2025-04-02 19:30:00,Atlético Madrid,Barcelona,0.0,1.0,Madrid,Spain,Riyadh Air Metropolitano,,,,Copa del Rey,,20250402_Atlético-Madrid_Barcelona,14.653692790816649,0.81,1.0,1,1,3,1,51.7,48.3,0,0,0,0,3,0
+2025-04-26 20:00:00,Barcelona,Real Madrid,3.0,2.0,Sevilla,Spain,Estadio La Cartuja,,,,Copa del Rey,,20250426_Barcelona_Real-Madrid,-6.250876435180771,2.1,0.92,6,4,13,8,47.9,52.1,1,2,1,0,5,2
+2025-09-27 14:30:00,Atlètic Sant Just,Atlético Calatayud,3.0,0.0,Sant Just Desvern,Spain,Camp Municipal Sant Just Desvern,,,,Copa del Rey,,20250927_Atlètic-Sant-Just_Atlético-Calatayud,0.0,1.55,0.68,6,2,14,6,54.7,45.3,0,3,0,1,4,5
+2025-09-27 15:00:00,Getxo,Betis CF,0.0,0.0,Getxo,Spain,Campo Municipal de Fadura,,,,Copa del Rey,,20250927_Getxo_Betis-CF,0.0,1.21,0.09,4,0,9,1,55.6,44.4,3,2,0,0,5,3
+2025-09-27 15:15:00,Puerto De Vega,Alberite,4.0,0.0,,Spain,Campo de Fútbol El Campón,,,,Copa del Rey,,20250927_Puerto-De-Vega_Alberite,0.0,1.28,0.44,5,0,10,0,57.6,42.4,3,3,0,0,6,1
+2025-09-27 16:00:00,Manises CF,Unión Deportiva Los Garres,2.0,0.0,Manises,Spain,Polideportivo Municipal de Manises,,,,Copa del Rey,,20250927_Manises-CF_Unión-Deportiva-Los-Garres,0.8741301152333563,0.82,0.05,3,0,6,0,52.4,47.6,3,3,1,0,5,2
+2025-09-27 16:00:00,Sporting Ceuta,Maracena,1.0,1.0,Ceuta,Spain,Estadio José Martínez,,,,Copa del Rey,,20250927_Sporting-Ceuta_Maracena,0.0,0.5,0.72,1,1,2,2,51.4,48.6,1,2,0,0,1,1
+2025-09-27 16:00:00,Textil Escudo,Negreira,2.0,1.0,,Spain,Campo de Fútbol Juan María Parés Serra,,,,Copa del Rey,,20250927_Textil-Escudo_Negreira,0.0,1.72,1.43,6,4,11,8,46.1,53.9,1,2,0,0,4,4
+2025-09-27 16:45:00,Campanario,Yuncos,0.0,0.0,,,Estadio Municipal El Ejido,,,,Copa del Rey,,20250927_Campanario_Yuncos,0.0,1.31,0.74,4,0,7,0,45.9,54.1,0,0,0,0,1,1
+2025-09-27 18:00:00,Atlético Melilla,Palma del Río,0.0,5.0,Melilla,,La Espiguera,,,,Copa del Rey,,20250927_Atlético-Melilla_Palma-del-Río,0.0,0.69,1.64,2,6,3,14,49.4,50.6,2,3,0,0,2,4
+2025-09-27 18:00:00,CE Sant Jordi,Lourdes,1.0,0.0,Sant Jordi,Spain,Camp Municipal de Sant Jordi,,,,Copa del Rey,,20250927_CE-Sant-Jordi_Lourdes,0.0,0.67,0.77,1,2,0,5,52.0,48.0,1,1,0,1,6,5
+2025-09-27 18:00:00,Inter de Valdemoro,Universitario FC,1.0,1.0,,Spain,Estadio Amelia del Castillo,,,,Copa del Rey,,20250927_Inter-de-Valdemoro_Universitario-FC,12.0,0.53,0.73,1,2,4,4,43.0,57.0,1,2,0,0,4,8
+2025-10-04 14:45:00,Alberite,Puerto De Vega,1.0,1.0,,Spain,Campo Municipal Marino Sáenz Andollo,,,,Copa del Rey,,20251004_Alberite_Puerto-De-Vega,-24.0,0.87,1.73,3,5,7,11,53.1,46.9,2,2,0,1,5,7
+2025-10-04 15:00:00,Betis CF,Getxo,1.0,2.0,Valladolid,Spain,Campo Municipal Finca de Canterac,,,,Copa del Rey,,20251004_Betis-CF_Getxo,0.0,1.34,1.24,6,2,17,4,48.7,51.3,0,1,0,0,10,1
+2025-10-04 15:30:00,Atlético Calatayud,Atlètic Sant Just,1.0,4.0,,,Estadio Municipal de San Inigo,,,,Copa del Rey,,20251004_Atlético-Calatayud_Atlètic-Sant-Just,-24.0,0.05,1.45,1,6,3,14,52.9,47.1,4,4,0,0,4,7
+2025-10-04 15:30:00,Lourdes,CE Sant Jordi,1.0,3.0,Tudela,Spain,Estadio Luis Asarta,,,,Copa del Rey,,20251004_Lourdes_CE-Sant-Jordi,-24.0,0.91,1.25,2,4,5,10,45.6,54.4,0,2,0,0,4,4
+2025-10-04 15:30:00,Negreira,Textil Escudo,4.0,0.0,,Spain,Estadio Municipal Jesús García Calvo,,,,Copa del Rey,,20251004_Negreira_Textil-Escudo,-24.0,1.87,0.61,5,3,8,7,46.2,53.8,2,2,0,0,7,3
+2025-10-04 16:00:00,Palma del Río,Atlético Melilla,2.0,0.0,,Spain,Estadio Municipal Sergio León,,,,Copa del Rey,,20251004_Palma-del-Río_Atlético-Melilla,24.0,1.89,0.05,6,1,14,2,48.4,51.6,2,1,0,0,7,2
+2025-10-04 16:00:00,Unión Deportiva Los Garres,Manises CF,4.0,0.0,Murcia,Spain,Campo Municipal Las Tejeras,,,,Copa del Rey,,20251004_Unión-Deportiva-Los-Garres_Manises-CF,-24.81374747346058,1.91,0.88,8,4,14,9,55.9,44.1,0,2,0,0,5,8
+2025-10-04 16:00:00,Yuncos,Campanario,2.0,0.0,,Spain,Complejo Deportivo Villa de Yuncos,,,,Copa del Rey,,20251004_Yuncos_Campanario,0.0,0.69,0.5,2,1,6,2,48.4,51.6,1,1,0,0,4,4
+2025-10-04 16:30:00,Maracena,Sporting Ceuta,2.0,0.0,,Spain,Ciudad Deportiva de Maracena,,,,Copa del Rey,,20251004_Maracena_Sporting-Ceuta,0.0,1.83,0.59,4,1,8,2,53.1,46.9,2,4,1,0,6,3
+2025-10-04 18:00:00,Universitario FC,Inter de Valdemoro,1.0,3.0,Las Palmas de Gran Canaria,Spain,Campo de Fútbol Nicolás Sánchez Santana,,,,Copa del Rey,,20251004_Universitario-FC_Inter-de-Valdemoro,-11.171398827245866,1.86,1.28,5,3,12,7,44.6,55.4,2,2,1,0,7,5
+2025-10-28 18:00:00,Atlético Tordesillas,Burgos,1.0,2.0,Madrid,Spain,Las Salinas,,,,Copa del Rey,,20251028_Atlético-Tordesillas_Burgos,-1.6499233805318454,0.85,1.18,4,6,8,14,56.2,43.8,1,2,0,1,5,4
+2025-10-28 18:00:00,Constancia,Girona,2.0,3.0,Mallorca,Spain,Nou Camp de Inca,,,,Copa del Rey,,20251028_Constancia_Girona,-64.40755396996178,1.0,1.91,3,6,5,14,46.7,53.3,1,2,0,0,7,9
+2025-10-28 18:00:00,Ourense CF,Real Oviedo,4.0,2.0,Orense,Spain,Estadio de O Couto,,,,Copa del Rey,,20251028_Ourense-CF_Real-Oviedo,25.721381158185068,1.2,1.41,5,6,11,14,46.6,53.4,1,4,0,0,7,9
+2025-10-28 18:30:00,Langreo,Racing Ferrol,0.0,0.0,La Felguera,Spain,Estadio Nuevo Ganzábal,,,,Copa del Rey,,20251028_Langreo_Racing-Ferrol,-19.517660110784618,0.58,0.86,1,2,3,3,55.7,44.3,1,0,0,0,4,5
+2025-10-28 18:30:00,SD Logroñés,Racing Santander,0.0,4.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20251028_SD-Logroñés_Racing-Santander,-17.51404375799052,0.37,1.4,1,4,1,9,51.6,48.4,4,2,0,0,2,7
+2025-10-28 18:30:00,UCAM Murcia,Cádiz,1.0,3.0,Murcia,Spain,Estadio de La Condomina,,,,Copa del Rey,,20251028_UCAM-Murcia_Cádiz,-9.300139728055228,1.97,2.18,6,5,12,10,50.7,49.3,2,1,0,0,8,7
+2025-10-28 19:00:00,CD Guadalajara,Cacereno,2.0,1.0,Guadalajara,Spain,Pedro Escartín,,,,Copa del Rey,,20251028_CD-Guadalajara_Cacereno,10.687776590307521,1.13,0.15,4,1,8,2,38.5,61.5,6,2,0,0,6,7
+2025-10-28 19:00:00,Inter de Valdemoro,Getafe,0.0,11.0,Getafe,Spain,Estadio Coliseum,,,,Copa del Rey,,20251028_Inter-de-Valdemoro_Getafe,-47.573002170503514,1.06,2.66,2,11,5,20,48.9,51.1,4,2,0,0,3,12
+2025-10-28 19:00:00,Maracena,Valencia,0.0,5.0,Granada,Spain,Nuevo Estadio de Los Cármenes,,,,Copa del Rey,,20251028_Maracena_Valencia,-102.43495459638984,0.25,2.06,0,6,0,13,43.4,56.6,1,1,0,0,0,6
+2025-10-28 19:00:00,Rayo Majadahonda,Talavera,1.0,4.0,Madrid,Spain,Cerro del Espino,,,,Copa del Rey,,20251028_Rayo-Majadahonda_Talavera,10.746568420339372,0.59,0.9,1,4,2,7,50.4,49.6,1,2,0,0,8,3
+2025-10-28 19:00:00,Roda,Granada,1.0,5.0,Villarreal,Spain,Ciudad Deportiva Villarreal CF,,,,Copa del Rey,,20251028_Roda_Granada,-11.56855030723591,1.46,2.74,4,8,9,15,36.0,64.0,1,1,0,0,5,10
+2025-10-28 19:00:00,Tropezón,Cultural Leonesa,1.0,3.0,Torrelavega,Spain,Campo Municipal Santa Ana,,,,Copa del Rey,,20251028_Tropezón_Cultural-Leonesa,0.33371909691095425,0.72,0.95,3,5,5,12,51.0,49.0,0,0,0,0,3,7
+2025-10-28 19:00:00,UD San Fernando,Albacete,0.0,3.0,Las Palmas de Gran Canaria,Spain,Estadio Gran Canaria,,,,Copa del Rey,,20251028_UD-San-Fernando_Albacete,13.535096828457199,0.96,1.08,3,5,8,12,48.4,51.6,3,4,0,0,7,6
+2025-10-28 19:30:00,Alcalá,Tenerife,0.0,4.0,,Spain,Virgen del Val,,,,Copa del Rey,,20251028_Alcalá_Tenerife,-24.757345614473934,0.98,1.41,5,4,9,10,40.3,59.7,3,1,0,0,7,4
+2025-10-28 19:30:00,Utebo,Huesca,0.0,3.0,Utebo,Spain,Campo de Fútbol Municipal Santa Ana,,,,Copa del Rey,,20251028_Utebo_Huesca,-49.656018222002785,0.57,1.45,2,4,6,9,50.1,49.9,0,2,0,0,5,7
+2025-10-28 20:00:00,CD Extremadura,Las Palmas,3.0,1.0,Almendralejo,Spain,Francisco de la Hera,,,,Copa del Rey,,20251028_CD-Extremadura_Las-Palmas,-42.16518039659036,1.45,0.64,6,1,14,2,47.8,52.2,1,5,0,0,9,7
+2025-10-28 20:00:00,Negreira,Real Sociedad,0.0,3.0,,Spain,Estadio Municipal Jesús García Calvo,,,,Copa del Rey,,20251028_Negreira_Real-Sociedad,-144.47758688108706,0.33,1.9,2,6,3,11,46.4,53.6,4,2,0,0,3,6
+2025-10-28 20:00:00,Toledo,Sevilla,1.0,4.0,,Spain,Estadio Salto del Caballo,,,,Copa del Rey,,20251028_Toledo_Sevilla,-78.58432975202481,1.38,1.17,4,5,8,9,50.1,49.9,1,2,0,0,8,5
+2025-10-29 17:00:00,Poblense,CD Sabadell,1.0,2.0,,Spain,Camp Nou de Sa Pobla,,,,Copa del Rey,,20251029_Poblense_CD-Sabadell,1.8931495000315408,1.16,0.75,5,2,10,5,50.2,49.8,0,4,0,0,2,2
+2025-10-29 18:00:00,CD Ebro,Tarazona,1.0,1.0,Zaragoza,Spain,Estadio Pedro Sancho,,,,Copa del Rey,,20251029_CD-Ebro_Tarazona,-0.4143005863770668,1.66,1.47,4,4,8,9,48.0,52.0,5,0,0,0,8,6
+2025-10-29 18:00:00,CE Sant Jordi,Osasuna,0.0,5.0,Palma de Mallorca,Spain,Son Malferit,,,,Copa del Rey,,20251029_CE-Sant-Jordi_Osasuna,-71.48852135044285,0.91,0.84,1,5,2,11,49.6,50.4,1,0,0,0,4,8
+2025-10-29 18:00:00,Mutilvera,Real Zaragoza,1.0,3.0,Valle de Aranguren,Spain,Polideportivo Valle Aranguren,,,,Copa del Rey,,20251029_Mutilvera_Real-Zaragoza,-0.4795910100610854,1.68,1.69,5,5,11,11,47.4,52.6,0,1,0,0,6,6
+2025-10-29 18:00:00,Unión Deportiva Los Garres,Elche,0.0,4.0,Murcia,Spain,Estadio Enrique Roca de Murcia,,,,Copa del Rey,,20251029_Unión-Deportiva-Los-Garres_Elche,-61.54780294129887,0.26,2.47,2,8,2,18,52.9,47.1,0,2,0,0,1,10
+2025-10-29 18:30:00,La Unión Atlético,Ceuta,0.0,2.0,Murcia,Spain,Estadio Juan Cayuela,,,,Copa del Rey,,20251029_La-Unión-Atlético_Ceuta,-24.32810353913851,0.79,1.05,3,2,7,5,48.1,51.9,2,2,0,0,3,3
+2025-10-29 19:00:00,Atletico Astorga,Mirandés,1.0,1.0,Astorga,Spain,Estadio Municipal La Eragudina,,,,Copa del Rey,,20251029_Atletico-Astorga_Mirandés,4.913592918046561,0.69,1.22,2,4,4,8,48.5,51.5,1,5,0,1,3,12
+2025-10-29 19:00:00,Atlètic Sant Just,Mallorca,0.0,2.0,"L´Hospitalet de Llobregat, Barcelona",Spain,Estadi Municipal de Futbol de L'Hospitalet,,,,Copa del Rey,,20251029_Atlètic-Sant-Just_Mallorca,-71.33693745731512,0.84,1.33,3,5,8,12,43.4,56.6,2,1,0,0,6,8
+2025-10-29 19:00:00,Azuaga,Leganés,1.0,4.0,Azuaga,Spain,Estadio Municipal de Deportes de Azuaga,,,,Copa del Rey,,20251029_Azuaga_Leganés,-33.9289310840129,1.39,1.61,4,4,8,10,43.7,56.3,2,3,0,0,5,7
+2025-10-29 19:00:00,CD Artistico Navalcarnero,Mérida,2.0,1.0,Navalcarnero,Spain,Estadio Municipal Mariano González,,,,Copa del Rey,,20251029_CD-Artistico-Navalcarnero_Mérida,-12.37146233749786,0.9,2.01,3,6,7,13,52.6,47.4,3,2,0,0,3,10
+2025-10-29 19:00:00,Caudal Deportivo,Sporting Gijón,0.0,1.0,,Spain,Hermanos Antuña,,,,Copa del Rey,,20251029_Caudal-Deportivo_Sporting-Gijón,-49.784884322145444,0.44,1.62,2,4,2,8,45.9,54.1,3,2,0,0,1,8
+2025-10-29 19:00:00,Cieza,Córdoba,1.0,0.0,Murcia,Spain,Estadio Municipal La Arboleja,,,,Copa del Rey,,20251029_Cieza_Córdoba,23.57093166625964,1.9,0.05,6,0,14,1,51.6,48.4,1,1,0,0,6,2
+2025-10-29 19:00:00,Lorca Deportiva,Almería,0.0,2.0,Lorca,Spain,Francisco Artés Carrasco,,,,Copa del Rey,,20251029_Lorca-Deportiva_Almería,-29.095132552748964,0.05,0.58,2,3,3,7,45.7,54.3,1,0,0,0,2,4
+2025-10-29 19:00:00,Naxara,Eibar,2.0,4.0,Haro,Spain,El Mazo,,,,Copa del Rey,,20251029_Naxara_Eibar,-22.913827351665077,1.05,1.37,3,4,5,10,51.5,48.5,1,4,0,0,4,7
+2025-10-29 19:00:00,Numancia,Arenas Club,3.0,0.0,Soria,Spain,Los Pajaritos,,,,Copa del Rey,,20251029_Numancia_Arenas-Club,-9.417001906819905,0.19,0.87,3,3,7,5,49.3,50.7,1,1,0,0,8,4
+2025-10-29 19:00:00,Portugalete,Real Valladolid,1.0,0.0,Portugalete,Spain,La Florida,,,,Copa del Rey,,20251029_Portugalete_Real-Valladolid,-32.443467498684186,0.39,0.45,1,2,4,5,41.3,58.7,2,2,0,0,3,6
+2025-10-29 19:00:00,Sant Andreu,Teruel,2.0,1.0,Barcelona,Spain,Narcís Sala,,,,Copa del Rey,,20251029_Sant-Andreu_Teruel,37.84526116215238,1.52,0.41,4,2,8,6,46.6,53.4,1,2,0,1,9,6
+2025-10-29 19:00:00,Torrent,Juventud Torremolinos,3.0,1.0,Manises,Spain,San Gregorio de Torrent,,,,Copa del Rey,,20251029_Torrent_Juventud-Torremolinos,23.133318667164986,1.77,1.02,5,3,9,7,49.7,50.3,2,1,0,0,7,4
+2025-10-29 19:30:00,Puente Genil,FC Cartagena,0.0,1.0,Córdoba,Spain,Campo de Fútbol Manuel Polinario,,,,Copa del Rey,,20251029_Puente-Genil_FC-Cartagena,-12.800444754811906,0.05,1.81,2,6,2,14,50.5,49.5,3,1,0,0,5,6
+2025-10-29 19:30:00,Reddis,CE Europa,2.0,2.0,Reus,Spain,Camp Nou Municipal,,,,Copa del Rey,,20251029_Reddis_CE-Europa,20.24497898427785,0.78,1.15,2,3,4,9,55.1,44.9,1,3,0,0,4,7
+2025-10-29 19:30:00,UD Ourense,Pontevedra,1.0,1.0,Orense,Spain,Estadio de O Couto,,,,Copa del Rey,,20251029_UD-Ourense_Pontevedra,-41.65429484895526,0.47,1.1,1,3,2,3,46.7,53.3,1,0,0,0,0,3
+2025-10-29 20:00:00,Lucena CF,Villarreal,0.0,6.0,,Spain,Nuevo Estadio Municipal de Lucena,,,,Copa del Rey,,20251029_Lucena-CF_Villarreal,-63.68556991702553,1.01,1.91,4,7,9,14,45.2,54.8,1,3,0,0,6,8
+2025-10-29 20:00:00,Quintanar del Rey,UD Ibiza,1.0,1.0,Quintanar del Rey,Spain,Estadio Municipal San Marcos,,,,Copa del Rey,,20251029_Quintanar-del-Rey_UD-Ibiza,14.350741944205993,1.36,0.77,5,2,10,6,45.9,54.1,0,0,0,0,7,3
+2025-10-29 20:00:00,Real Jaen CF,Eldense,1.0,3.0,Jaén,Spain,Nuevo Estadio Municipal de La Victoria,,,,Copa del Rey,,20251029_Real-Jaen-CF_Eldense,-29.689636053848062,0.65,1.66,2,4,4,8,48.8,51.2,0,0,0,0,2,6
+2025-10-29 20:00:00,Yuncos,Rayo Vallecano,1.0,6.0,,Spain,Complejo Deportivo Villa de Yuncos,,,,Copa del Rey,,20251029_Yuncos_Rayo-Vallecano,-65.36754441747439,1.25,1.39,4,6,10,12,58.1,41.9,3,2,0,0,3,8
+2025-10-30 18:00:00,Orihuela,Levante,3.0,4.0,"Orihuela, Alicante",Spain,Los Arcos,,,,Copa del Rey,,20251030_Orihuela_Levante,-15.52210122382462,2.15,1.64,7,5,17,13,43.4,56.6,0,0,0,0,8,8
+2025-10-30 18:00:00,Puerto De Vega,Celta Vigo,0.0,2.0,,Spain,Campo de El Pardo,,,,Copa del Rey,,20251030_Puerto-De-Vega_Celta-Vigo,-64.93745990094226,1.75,0.75,6,3,10,4,46.6,53.4,2,1,0,0,8,1
+2025-10-30 18:30:00,Egüés,FC Andorra,1.0,5.0,Sarriguren,Spain,Estadio Sarriguren,,,,Copa del Rey,,20251030_Egüés_FC-Andorra,11.82615172708256,1.11,2.31,5,10,12,20,51.1,48.9,3,2,0,0,2,14
+2025-10-30 19:00:00,Atlético Baleares,Gimnàstic de Tarragona,2.0,0.0,Palma de Mallorca,Spain,Estadio Balear,,,,Copa del Rey,,20251030_Atlético-Baleares_Gimnàstic-de-Tarragona,1.7623926109915828,1.83,1.06,7,4,16,7,46.7,53.3,5,0,0,0,8,8
+2025-10-30 19:00:00,Getxo,Alavés,0.0,7.0,Getxo,Spain,Polideportivo de Gobela,,,,Copa del Rey,,20251030_Getxo_Alavés,-46.419057698932875,1.44,2.61,6,9,13,20,43.6,56.4,1,2,0,0,6,14
+2025-10-30 19:00:00,Real Ávila,Real Aviles Industrial,1.0,0.0,Ávila,Spain,Municipal Adolfo Suárez,,,,Copa del Rey,,20251030_Real-Ávila_Real-Aviles-Industrial,1.2069549800073673,0.53,0.92,1,3,3,6,51.5,48.5,1,3,0,0,2,4
+2025-10-30 19:00:00,UD Logroñés,Ponferradina,1.0,3.0,Logroño,Spain,Las Gaunas,,,,Copa del Rey,,20251030_UD-Logroñés_Ponferradina,9.77534419479639,1.16,1.86,3,8,7,18,50.0,50.0,0,0,0,0,8,13
+2025-10-30 20:00:00,Atlètic Lleida,Espanyol,1.0,2.0,Lleida,Spain,Camp d'Esports,,,,Copa del Rey,,20251030_Atlètic-Lleida_Espanyol,-42.123107533354414,0.82,0.12,2,2,5,6,50.1,49.9,2,1,0,0,6,2
+2025-10-30 20:00:00,CD Estepona,Málaga,1.0,3.0,Estepona,Spain,Francisco Muñoz Pérez,,,,Copa del Rey,,20251030_CD-Estepona_Málaga,31.64109441886535,1.41,2.41,4,9,9,20,49.4,50.6,3,3,0,0,3,7
+2025-10-30 20:00:00,Club Atlético Antoniano,Castellón,1.0,0.0,Lebrija,Spain,Estadio Municipal de Lebrija,,,,Copa del Rey,,20251030_Club-Atlético-Antoniano_Castellón,-36.365226665440105,0.29,2.07,1,7,3,16,47.4,52.6,1,1,0,0,9,7
+2025-10-30 20:00:00,Palma del Río,Real Betis,1.0,7.0,,Spain,Estadio Municipal Sergio León,,,,Copa del Rey,,20251030_Palma-del-Río_Real-Betis,-75.89083348917461,0.83,2.36,2,8,4,19,46.0,54.0,0,1,0,0,5,13
+2025-10-30 20:00:00,Real Murcia,Antequera CF,1.0,1.0,Murcia,Spain,Estadio Enrique Roca de Murcia,,,,Copa del Rey,,20251030_Real-Murcia_Antequera-CF,-12.0,0.62,1.3,1,4,4,10,53.1,46.9,1,4,0,0,4,7
+2025-10-30 20:00:00,Sámano,Deportivo La Coruña,1.0,5.0,Castro-Urdiales,Spain,Estadio Municipal de Riomar,,,,Copa del Rey,,20251030_Sámano_Deportivo-La-Coruña,22.3850534288199,1.75,2.05,5,5,8,10,51.6,48.4,3,0,0,0,7,7
+2025-12-02 18:00:00,CD Ebro,Osasuna,3.0,5.0,Zaragoza,Spain,Ibercaja Estadio,,,,Copa del Rey,,20251202_CD-Ebro_Osasuna,-116.2117364774715,1.02,1.79,3,5,9,10,44.7,55.3,1,0,0,0,5,3
+2025-12-02 18:00:00,Numancia,Mallorca,2.0,3.0,Soria,Spain,Los Pajaritos,,,,Copa del Rey,,20251202_Numancia_Mallorca,-101.14276043430345,1.15,1.14,2,3,4,4,47.8,52.2,3,0,0,0,5,2
+2025-12-02 18:00:00,Portugalete,Alavés,0.0,3.0,Portugalete,Spain,La Florida,,,,Copa del Rey,,20251202_Portugalete_Alavés,-55.70796014880284,1.04,1.41,1,4,4,8,46.2,53.8,0,3,0,0,2,4
+2025-12-02 18:00:00,Racing Ferrol,Huesca,0.0,2.0,Ferrol,Spain,A Malata,,,,Copa del Rey,,20251202_Racing-Ferrol_Huesca,-30.753656878568336,1.41,1.21,4,5,10,13,40.8,59.2,4,1,0,0,5,4
+2025-12-02 19:00:00,CD Guadalajara,Ceuta,1.0,0.0,Guadalajara,Spain,Pedro Escartín,,,,Copa del Rey,,20251202_CD-Guadalajara_Ceuta,-22.28604150142155,2.01,1.09,6,1,13,0,41.7,58.3,1,1,0,0,12,2
+2025-12-02 20:00:00,CD Artistico Navalcarnero,Getafe,2.0,3.0,Navalcarnero,Spain,Estadio Municipal Mariano González,,,,Copa del Rey,,20251202_CD-Artistico-Navalcarnero_Getafe,-80.67059020317743,1.39,1.29,3,4,7,9,50.3,49.7,2,2,0,0,5,7
+2025-12-03 19:00:00,Cultural Leonesa,FC Andorra,4.0,2.0,León,Spain,Estadio Reino de León,,,,Copa del Rey,,20251203_Cultural-Leonesa_FC-Andorra,10.035884028752207,1.5,1.89,4,5,9,12,47.6,52.4,1,2,0,0,4,5
+2025-12-03 19:00:00,Eldense,Almería,2.0,1.0,Elda,Spain,Estadio Municipal Nuevo Pepico Amat,,,,Copa del Rey,,20251203_Eldense_Almería,-11.74481362181541,0.05,0.76,2,2,2,5,47.4,52.6,2,0,0,0,3,3
+2025-12-03 19:00:00,Mirandés,Sporting Gijón,0.0,2.0,Vitoria-Gasteiz,Spain,Mendizorrotza,,,,Copa del Rey,,20251203_Mirandés_Sporting-Gijón,-63.25540908396442,0.05,0.9,3,4,6,10,42.7,57.3,3,1,0,1,2,10
+2025-12-03 19:00:00,Real Murcia,Cádiz,3.0,2.0,Murcia,Spain,Estadio de La Condomina,,,,Copa del Rey,,20251203_Real-Murcia_Cádiz,-21.392724647239675,0.9,0.92,3,3,6,8,49.2,50.8,2,3,0,0,5,5
+2025-12-03 19:00:00,Talavera,Málaga,2.0,1.0,Talavera de la Reina,Spain,Estadio Municipal El Prado,,,,Copa del Rey,,20251203_Talavera_Málaga,6.489714887860373,1.43,0.05,5,1,9,2,55.8,44.2,3,0,0,0,5,1
+2025-12-03 20:00:00,Cieza,Levante,0.0,1.0,Murcia,Spain,Estadio Municipal La Arboleja,,,,Copa del Rey,,20251203_Cieza_Levante,-19.25424825655159,0.88,0.92,2,2,5,4,48.3,51.7,2,0,0,0,6,2
+2025-12-03 20:00:00,Club Atlético Antoniano,Villarreal,1.0,1.0,Lebrija,Spain,Estadio Municipal de Lebrija,,,,Copa del Rey,,20251203_Club-Atlético-Antoniano_Villarreal,-61.39099474831437,0.08,0.75,1,3,2,6,46.6,53.4,1,1,0,0,0,2
+2025-12-03 20:00:00,Ourense CF,Girona,2.0,1.0,Orense,Spain,Estadio de O Couto,,,,Copa del Rey,,20251203_Ourense-CF_Girona,-36.61919413644773,1.66,0.5,7,2,18,6,51.9,48.1,1,1,0,0,8,6
+2025-12-03 20:00:00,Pontevedra,Eibar,0.0,3.0,Pontevedra,Spain,Estadio Municipal de Pasarón,,,,Copa del Rey,,20251203_Pontevedra_Eibar,30.098902960572104,0.18,0.63,0,3,1,6,53.9,46.1,0,1,0,0,3,8
+2025-12-03 20:00:00,Quintanar del Rey,Elche,1.0,2.0,Quintanar del Rey,Spain,Estadio Municipal San Marcos,,,,Copa del Rey,,20251203_Quintanar-del-Rey_Elche,-82.06008486394558,0.66,1.09,1,4,4,7,46.6,53.4,3,3,0,0,2,3
+2025-12-03 20:00:00,Reddis,Real Sociedad,0.0,2.0,Reus,Spain,Camp Nou Municipal,,,,Copa del Rey,,20251203_Reddis_Real-Sociedad,-153.28260787676754,2.08,1.62,7,7,15,16,40.4,59.6,2,5,0,1,3,11
+2025-12-03 20:00:00,Torrent,Real Betis,1.0,4.0,Manises,Spain,Estadi Ciutat de València,,,,Copa del Rey,,20251203_Torrent_Real-Betis,-97.28076706447973,0.1,1.44,1,5,1,10,43.9,56.1,0,3,0,0,1,7
+2025-12-04 18:00:00,Atlético Baleares,Espanyol,1.0,0.0,Palma de Mallorca,Spain,Estadio Balear,,,,Copa del Rey,,20251204_Atlético-Baleares_Espanyol,-27.965652229509715,0.94,0.61,3,2,6,3,50.8,49.2,3,1,0,0,3,4
+2025-12-04 18:00:00,CD Sabadell,Deportivo La Coruña,0.0,2.0,Sabadell,Spain,Estadi Municipal de la Nova Creu Alta,,,,Copa del Rey,,20251204_CD-Sabadell_Deportivo-La-Coruña,9.678355542526333,0.05,1.62,0,5,0,12,50.4,49.6,0,0,0,0,2,6
+2025-12-04 18:00:00,Leganés,Albacete,1.0,2.0,"Leganés, Madrid",Spain,Estadio Municipal de Butarque,,,,Copa del Rey,,20251204_Leganés_Albacete,46.2166903397499,0.71,1.11,1,3,4,8,51.4,48.6,4,2,0,0,3,4
+2025-12-04 18:00:00,Real Ávila,Rayo Vallecano,1.0,2.0,Ávila,Spain,Municipal Adolfo Suárez,,,,Copa del Rey,,20251204_Real-Ávila_Rayo-Vallecano,-85.96755638169839,0.31,2.57,3,8,6,16,48.1,51.9,1,1,0,0,8,11
+2025-12-04 19:00:00,Ponferradina,Racing Santander,1.0,2.0,Ponferrada,Spain,El Toralín,,,,Copa del Rey,,20251204_Ponferradina_Racing-Santander,-12.481880007600694,1.01,0.94,4,3,10,8,48.2,51.8,1,0,0,0,2,7
+2025-12-04 20:00:00,CD Extremadura,Sevilla,1.0,2.0,Almendralejo,Spain,Francisco de la Hera,,,,Copa del Rey,,20251204_CD-Extremadura_Sevilla,-84.52150593017927,1.35,1.34,3,6,7,15,45.5,54.5,0,2,0,0,2,6
+2025-12-04 20:00:00,FC Cartagena,Valencia,1.0,2.0,Cartagena,Spain,Estadio Cartagonova,,,,Copa del Rey,,20251204_FC-Cartagena_Valencia,-98.63751397462465,1.59,1.17,4,4,6,8,50.5,49.5,3,1,0,0,4,6
+2025-12-04 20:00:00,Real Zaragoza,Burgos,0.0,1.0,Zaragoza,Spain,Ibercaja Estadio,,,,Copa del Rey,,20251204_Real-Zaragoza_Burgos,-1.1299109402739305,0.05,0.67,1,2,2,6,48.7,51.3,4,1,0,0,1,8
+2025-12-04 20:00:00,Sant Andreu,Celta Vigo,1.0,1.0,Barcelona,Spain,Narcís Sala,,,,Copa del Rey,,20251204_Sant-Andreu_Celta-Vigo,-72.12179171849584,0.62,0.59,2,2,2,4,48.2,51.8,1,2,0,1,5,5
+2025-12-04 21:00:00,Tenerife,Granada,0.0,1.0,Santa Cruz de Tenerife,Spain,Estadio Heliodoro Rodríguez López,,,,Copa del Rey,,20251204_Tenerife_Granada,12.734567192711893,0.05,0.05,0,1,0,2,51.5,48.5,3,0,0,0,2,2
+2025-12-16 18:00:00,Deportivo La Coruña,Mallorca,1.0,0.0,La Coruña,Spain,Riazor,,,,Copa del Rey,,20251216_Deportivo-La-Coruña_Mallorca,-109.96036079022565,0.74,0.18,1,0,4,0,44.6,55.4,1,1,0,0,3,4
+2025-12-16 18:00:00,Eibar,Elche,0.0,1.0,Eibar,Spain,Ipurua,,,,Copa del Rey,,20251216_Eibar_Elche,-58.38650615924098,0.72,0.28,2,1,2,1,43.6,56.4,0,1,0,0,3,3
+2025-12-16 20:00:00,Eldense,Real Sociedad,1.0,2.0,Elda,Spain,Estadio Municipal Nuevo Pepico Amat,,,,Copa del Rey,,20251216_Eldense_Real-Sociedad,-130.48252846485548,1.8,1.66,5,6,13,15,48.3,51.7,1,2,0,1,5,9
+2025-12-16 20:00:00,Sporting Gijón,Valencia,0.0,2.0,Gijón,Spain,"Estadio El Molinón-Enrique Castro ""Quini""",,,,Copa del Rey,,20251216_Sporting-Gijón_Valencia,-61.761792663540064,0.91,2.34,2,7,6,14,42.6,57.4,0,2,0,1,7,3
+2025-12-16 20:30:00,CD Guadalajara,Barcelona,0.0,2.0,Guadalajara,Spain,Pedro Escartín,,,,Copa del Rey,,20251216_CD-Guadalajara_Barcelona,-90.19746538115987,0.66,1.35,1,5,1,9,40.8,59.2,2,3,0,0,1,4
+2025-12-17 17:00:00,Cultural Leonesa,Levante,1.0,0.0,León,Spain,Estadio Reino de León,,,,Copa del Rey,,20251217_Cultural-Leonesa_Levante,-18.445769254166635,1.1,0.94,3,4,7,8,47.9,52.1,3,2,0,0,7,3
+2025-12-17 18:00:00,Albacete,Celta Vigo,2.0,2.0,Albacete,Spain,Carlos Belmonte,,,,Copa del Rey,,20251217_Albacete_Celta-Vigo,-70.91784574975827,1.59,0.94,5,5,11,11,38.6,61.4,3,1,0,0,8,11
+2025-12-17 18:00:00,Atlético Baleares,Atlético Madrid,2.0,3.0,Palma de Mallorca,Spain,Estadio Balear,,,,Copa del Rey,,20251217_Atlético-Baleares_Atlético-Madrid,-55.922010392373295,1.44,1.03,5,3,11,9,46.6,53.4,0,0,0,0,2,2
+2025-12-17 18:00:00,Huesca,Osasuna,2.0,4.0,Huesca,Spain,Estadio El Alcoraz,,,,Copa del Rey,,20251217_Huesca_Osasuna,-64.17987610364708,1.74,1.78,5,6,12,14,42.3,57.7,6,0,0,0,8,6
+2025-12-17 18:00:00,Racing Santander,Villarreal,2.0,1.0,Santander,Spain,El Sardineros,,,,Copa del Rey,,20251217_Racing-Santander_Villarreal,-31.26552667342412,0.91,1.63,2,5,4,9,46.6,53.4,2,1,0,0,3,2
+2025-12-17 20:00:00,Alavés,Sevilla,1.0,0.0,Vitoria-Gasteiz,Spain,Mendizorrotza,,,,Copa del Rey,,20251217_Alavés_Sevilla,-18.13496049493324,1.56,0.59,6,1,15,5,40.2,59.8,2,3,0,0,7,3
+2025-12-17 20:00:00,Talavera,Real Madrid,2.0,3.0,Talavera de la Reina,Spain,Estadio Municipal El Prado,,,,Copa del Rey,,20251217_Talavera_Real-Madrid,-86.21485157621146,2.61,1.68,9,6,20,14,41.8,58.2,2,0,0,0,8,5
+2025-12-18 18:00:00,Burgos,Getafe,3.0,1.0,Burgos,Spain,Estadio Municipal de El Plantío,,,,Copa del Rey,,20251218_Burgos_Getafe,-52.84890567563343,1.47,1.59,5,4,10,8,44.0,56.0,0,1,0,0,10,5
+2025-12-18 18:00:00,Ourense CF,Athletic Club,0.0,1.0,Orense,Spain,Estadio de O Couto,,,,Copa del Rey,,20251218_Ourense-CF_Athletic-Club,-69.96805122474188,1.15,0.79,3,1,6,3,57.1,42.9,0,2,0,0,2,2
+2025-12-18 20:00:00,Real Murcia,Real Betis,0.0,2.0,Murcia,Spain,Estadio Enrique Roca de Murcia,,,,Copa del Rey,,20251218_Real-Murcia_Real-Betis,-116.0558797048418,0.95,2.04,2,8,6,18,37.4,62.6,0,2,0,0,3,7
+2026-01-06 18:00:00,Granada,Rayo Vallecano,1.0,3.0,Granada,Spain,Nuevo Estadio de Los Cármenes,,,,Copa del Rey,,20260106_Granada_Rayo-Vallecano,-60.617256347345574,0.05,1.56,1,4,1,8,49.5,50.5,2,3,0,0,2,4
+2026-01-13 20:00:00,Cultural Leonesa,Athletic Club,3.0,4.0,León,Spain,Estadio Reino de León,,,,Copa del Rey,,20260113_Cultural-Leonesa_Athletic-Club,-94.46487374628578,1.51,1.18,5,4,11,7,43.7,56.3,4,3,0,0,8,6
+2026-01-13 20:00:00,Deportivo La Coruña,Atlético Madrid,0.0,1.0,La Coruña,Spain,Riazor,,,,Copa del Rey,,20260113_Deportivo-La-Coruña_Atlético-Madrid,-85.28332704200966,1.1,1.0,6,3,13,5,46.9,53.1,1,1,0,0,6,7
+2026-01-13 20:00:00,Real Sociedad,Osasuna,2.0,2.0,San Sebastian,Spain,Reale Arena,,,,Copa del Rey,,20260113_Real-Sociedad_Osasuna,45.138841690692516,1.73,1.63,6,4,13,8,49.0,51.0,1,1,0,0,8,3
+2026-01-14 20:00:00,Alavés,Rayo Vallecano,2.0,0.0,Vitoria-Gasteiz,Spain,Mendizorrotza,,,,Copa del Rey,,20260114_Alavés_Rayo-Vallecano,-14.61007285306664,1.72,1.0,6,6,12,13,52.7,47.3,2,2,0,0,5,11
+2026-01-14 20:00:00,Albacete,Real Madrid,3.0,2.0,Albacete,Spain,Carlos Belmonte,,,,Copa del Rey,,20260114_Albacete_Real-Madrid,-92.13531036291693,1.16,0.54,4,2,7,5,46.6,53.4,1,3,0,0,3,4
+2026-01-14 20:00:00,Real Betis,Elche,2.0,1.0,Sevilla,Spain,Estadio La Cartuja,,,,Copa del Rey,,20260114_Real-Betis_Elche,33.793195777144774,1.51,1.66,3,4,5,9,55.8,44.2,2,3,0,0,4,6
+2026-01-15 20:00:00,Burgos,Valencia,0.0,2.0,Burgos,Spain,Estadio Municipal de El Plantío,,,,Copa del Rey,,20260115_Burgos_Valencia,-102.20161334893078,0.14,1.57,0,5,0,10,40.3,59.7,0,2,0,0,2,8
+2026-01-15 20:15:00,Racing Santander,Barcelona,0.0,2.0,Santander,Spain,El Sardineros,,,,Copa del Rey,,20260115_Racing-Santander_Barcelona,-83.56646844940883,0.69,1.4,3,4,7,8,51.5,48.5,3,1,0,0,2,1
+2026-02-03 20:00:00,Albacete,Barcelona,1.0,2.0,Albacete,Spain,Carlos Belmonte,,,,Copa del Rey,,20260203_Albacete_Barcelona,-104.24555902301563,0.81,1.39,2,5,3,9,38.3,61.7,1,1,0,0,1,2
+2026-02-04 20:00:00,Alavés,Real Sociedad,2.0,3.0,Vitoria-Gasteiz,Spain,Mendizorrotza,,,,Copa del Rey,,20260204_Alavés_Real-Sociedad,-61.70459184790707,1.21,1.16,2,4,5,9,48.5,51.5,3,0,0,0,4,5
+2026-02-04 20:00:00,Valencia,Athletic Club,1.0,2.0,Manises,Spain,Mestalla Stadium,,,,Copa del Rey,,20260204_Valencia_Athletic-Club,10.887368374006428,1.24,1.25,4,5,10,10,52.6,47.4,4,3,0,0,4,6
+2026-02-05 20:00:00,Real Betis,Atlético Madrid,0.0,5.0,Sevilla,Spain,Estadio La Cartuja,,,,Copa del Rey,,20260205_Real-Betis_Atlético-Madrid,23.386201607527255,0.56,1.32,1,5,1,9,49.1,50.9,1,1,0,0,3,5
+2026-02-11 20:00:00,Athletic Club,Real Sociedad,0.0,1.0,Bilbao,Spain,San Mamés,,,,Copa del Rey,,20260211_Athletic-Club_Real-Sociedad,-24.019186264200926,0.47,0.17,2,1,5,2,47.6,52.4,4,4,0,0,7,5
+2026-02-12 20:00:00,Atlético Madrid,Barcelona,4.0,0.0,Madrid,Spain,Riyadh Air Metropolitano,,,,Copa del Rey,,20260212_Atlético-Madrid_Barcelona,-17.194828165621175,0.98,0.19,4,3,11,6,48.0,52.0,1,2,0,0,4,8
+2026-03-03 20:00:00,Barcelona,Atlético Madrid,3.0,0.0,Barcelona,Spain,Spotify Camp Nou,,,,Copa del Rey,,20260303_Barcelona_Atlético-Madrid,-7.991979682016563,2.55,1.13,8,3,18,6,47.2,52.8,2,2,0,0,5,3
+2026-03-04 20:00:00,Real Sociedad,Athletic Club,1.0,0.0,San Sebastian,Spain,Reale Arena,,,,Copa del Rey,,20260304_Real-Sociedad_Athletic-Club,46.36263788623273,1.61,0.26,4,2,9,3,43.7,56.3,0,1,0,0,10,1
+2026-04-18 19:00:00,Atlético Madrid,Real Sociedad,2.0,2.0,Sevilla,Spain,Estadio La Cartuja,,,,Copa del Rey,,20260418_Atlético-Madrid_Real-Sociedad,-71.30634922786044,0.98,1.28,3,4,7,8,54.7,45.3,2,2,0,0,2,4

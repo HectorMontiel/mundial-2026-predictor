@@ -1,5 +1,27 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v68 — 40 competiciones nuevas (ver [VALIDACION_v68.md](VALIDACION_v68.md))
+
+- **⚽ De 27 a 67 competiciones** en el catálogo y de 23 a **45 desplegadas**.
+  Cada una desde la mejor fuente que la sirva: 11 de football-data `/mmz4281/`
+  (con remates, córners y cuotas), 1 de `/new/` y 28 de ESPN.
+- **✅ 37 entrenadas · 22 adoptadas** (baten al ELO, regla del proyecto desde
+  v39) · **3 baten también al mercado**: Scottish Premiership, J1 League y
+  Ligue 2. Las 15 que no lo superan quedan documentadas con su número.
+- **🔍 Trampas de las fuentes**: football-data devuelve HTTP 200 para códigos
+  inexistentes (60 países falsos → 16 reales al validar el contenido) y dejó de
+  servir `/new/` por HTTP plano. El dropdown de ESPN está curado: 11 ligas que
+  no aparecen ahí sí las sirve la API.
+- **🚨 22 modelos de liga ilegibles** detectados por el smoke test y reparados.
+  El workflow de reentrenamiento ahora **verifica que cada modelo se pueda
+  cargar** antes de publicarlo; antes solo miraba el código de salida.
+- **❌ Cópula bivariante NO adoptada**: parecía ganar en 1X2 pero el ρ óptimo
+  huye al borde de la malla sin óptimo interior — es absorción de sesgo, no
+  dependencia. Mismo modo de fallo que Dixon-Coles en v27.
+- **📋 Diagnóstico honesto del spec v68**: la caché de FotMob tiene 28 partidos,
+  el histórico de alineaciones 204 filas y no hay ni una cuota de BTTS. Las tres
+  mejoras se replantearon sobre datos que sí existen.
+
 ## Novedades v67 — Tenis multicompetición y remates reales por jugador (ver [VALIDACION_v67.md](VALIDACION_v67.md))
 
 - **🎾 Tenis por competición**: selector con Grand Slams (M/F), ATP, WTA,

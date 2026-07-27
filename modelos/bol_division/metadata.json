@@ -1,0 +1,16 @@
+{
+  "liga": "División Profesional",
+  "n_train": 1003,
+  "n_validacion": 251,
+  "fecha_corte": "2025-04-16",
+  "precision_validacion": 0.5657,
+  "precision_linea_base_elo": 0.4582,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 0.9551,
+  "n_equipos": 24,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

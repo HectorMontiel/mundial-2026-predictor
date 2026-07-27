@@ -1,0 +1,16 @@
+{
+  "liga": "Austrian Bundesliga",
+  "n_train": 733,
+  "n_validacion": 186,
+  "fecha_corte": "2025-08-10",
+  "precision_validacion": 0.4086,
+  "precision_linea_base_elo": 0.3763,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0851,
+  "n_equipos": 15,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

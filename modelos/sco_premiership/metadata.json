@@ -1,0 +1,43 @@
+{
+  "liga": "Scottish Premiership",
+  "n_train": 891,
+  "n_validacion": 225,
+  "fecha_corte": "2025-08-02",
+  "precision_validacion": 0.5333,
+  "precision_linea_base_elo": 0.5156,
+  "precision_mercado_cuotas": 0.5156,
+  "log_loss_validacion": 1.1167,
+  "n_equipos": 14,
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION",
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.432,
+    "PROB_IMP_D": 0.2429,
+    "PROB_IMP_A": 0.3251,
+    "OVERROUND": 0.0571
+  },
+  "roi_sim": {
+    "n_apuestas": 113,
+    "roi_pct": 4.92,
+    "aciertos": 60
+  },
+  "mesm": {
+    "n_val_con_cuotas": 225,
+    "acc_prod": 0.5333,
+    "acc_mesm": 0.52,
+    "ll_prod": 1.1167,
+    "ll_mesm": 0.9914,
+    "adoptado": false
+  },
+  "imt": null
+}

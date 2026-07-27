@@ -1,0 +1,16 @@
+{
+  "liga": "Copa Libertadores",
+  "n_train": 420,
+  "n_validacion": 105,
+  "fecha_corte": "2025-08-27",
+  "precision_validacion": 0.5048,
+  "precision_linea_base_elo": 0.4667,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0357,
+  "n_equipos": 106,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

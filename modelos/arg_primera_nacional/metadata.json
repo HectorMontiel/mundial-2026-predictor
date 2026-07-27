@@ -1,0 +1,16 @@
+{
+  "liga": "Primera Nacional",
+  "n_train": 2298,
+  "n_validacion": 581,
+  "fecha_corte": "2025-06-01",
+  "precision_validacion": 0.4527,
+  "precision_linea_base_elo": 0.3752,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0499,
+  "n_equipos": 55,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

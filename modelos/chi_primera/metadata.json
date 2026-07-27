@@ -1,0 +1,16 @@
+{
+  "liga": "Campeonato Nacional",
+  "n_train": 875,
+  "n_validacion": 219,
+  "fecha_corte": "2025-08-02",
+  "precision_validacion": 0.4932,
+  "precision_linea_base_elo": 0.4795,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0347,
+  "n_equipos": 25,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

@@ -1,0 +1,16 @@
+{
+  "liga": "Categoría Primera A",
+  "n_train": 1606,
+  "n_validacion": 402,
+  "fecha_corte": "2025-06-14",
+  "precision_validacion": 0.4876,
+  "precision_linea_base_elo": 0.4751,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0251,
+  "n_equipos": 26,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

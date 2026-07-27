@@ -407,6 +407,31 @@ LEAGUES = {
     },
 }
 
+# ---------------------------------------------------------------------------
+# v68 — Ampliación del catálogo de competiciones.
+#
+# Hasta v67 el catálogo eran 19 competiciones, casi todas atadas a las ~22 ligas
+# que publica football-data.co.uk. `config_ligas_espn.py` (generado por
+# `generar_ligas_v68.py`) añade 49 más, cada una desde la mejor fuente que la
+# sirva: segundas divisiones europeas con estadística y cuotas desde
+# football-data /mmz4281/, y Latinoamérica, copas y competiciones continentales
+# desde ESPN.
+#
+# TODAS entran con `disponible: False`. Sólo el entrenamiento
+# (`entrenar_ligas_v68.py`) las activa, y sólo si baten a la línea base ELO —
+# la misma regla que se aplicó a Grecia, Suiza y Austria en v39.
+# ---------------------------------------------------------------------------
+LIGAS_V68_ANADIDAS = []
+try:
+    import config_ligas_espn as _lg68
+    for _clave, _cfg in _lg68.LIGAS_V68.items():
+        if _clave not in LEAGUES:            # nunca se pisa una liga existente
+            LEAGUES[_clave] = dict(_cfg)
+            LIGAS_V68_ANADIDAS.append(_clave)
+    LIGAS_SIN_COBERTURA = dict(getattr(_lg68, 'SIN_VOLUMEN', {}))
+except Exception:
+    LIGAS_SIN_COBERTURA = {}
+
 # v33 (§2): umbrales adaptativos de confianza por deporte. El techo de
 # precisión no es igual en todos: exigir 70 % en MLB dejaría al béisbol sin
 # picks (su modelo ronda 55-60 % por diseño del deporte).

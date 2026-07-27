@@ -1,0 +1,16 @@
+{
+  "liga": "USL Championship",
+  "n_train": 1476,
+  "n_validacion": 369,
+  "fecha_corte": "2025-06-07",
+  "precision_validacion": 0.4526,
+  "precision_linea_base_elo": 0.4228,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0744,
+  "n_equipos": 38,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

@@ -1,0 +1,16 @@
+{
+  "liga": "AFC Champions League",
+  "n_train": 302,
+  "n_validacion": 76,
+  "fecha_corte": "2025-11-03",
+  "precision_validacion": 0.5395,
+  "precision_linea_base_elo": 0.4868,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.9342,
+  "n_equipos": 73,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

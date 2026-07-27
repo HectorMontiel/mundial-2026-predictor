@@ -1,0 +1,594 @@
+date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre,odd_home,odd_draw,odd_away,tournament,stadium,MATCH_ID,elo_diff,home_xg,away_xg,home_shots_on,away_shots_on,home_shots_off,away_shots_off,home_possession,away_possession,home_yellow,away_yellow,home_red,away_red,home_corners,away_corners
+2021-08-03 22:00:00,Grêmio,Vitória,1.0,0.0,Porto Alegre,Brazil,Grêmio Arena,,,,Copa do Brasil,,20210803_Grêmio_Vitória,0.0,2.04,1.08,6,1,13,5,57.0,43.0,2,1,0,0,6,4
+2021-08-04 19:30:00,CRB,Fortaleza,0.0,1.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20210804_CRB_Fortaleza,0.0,0.6,1.15,2,2,2,4,54.9,45.1,1,0,0,0,3,2
+2021-08-04 22:15:00,Atlético Goianiense,Athletico-PR,2.0,2.0,Goiãnia,Brazil,Estádio Antônio Accioly,,,,Copa do Brasil,,20210804_Atlético-Goianiense_Athletico-PR,0.0,1.0,1.0,3,2,7,4,56.3,43.7,0,0,0,0,6,3
+2021-08-05 00:30:00,Bahia,Atlético-MG,2.0,1.0,Feira de Santana,Brazil,Joia do Princesa,,,,Copa do Brasil,,20210805_Bahia_Atlético-MG,0.0,1.42,1.15,5,2,10,5,51.1,48.9,2,2,0,0,7,8
+2021-08-05 00:30:00,Vasco da Gama,São Paulo,1.0,2.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20210805_Vasco-da-Gama_São-Paulo,0.0,0.08,0.91,1,4,0,10,54.7,45.3,3,0,0,0,1,5
+2021-08-05 22:15:00,Juazeirense,Santos,2.0,0.0,Juazeiro do Norte,Brazil,Estádio Adauto Moraes,,,,Copa do Brasil,,20210805_Juazeirense_Santos,0.0,0.76,1.18,2,2,3,3,53.8,46.2,0,1,0,0,4,1
+2021-08-06 00:30:00,ABC,Flamengo,0.0,1.0,Natal,Brazil,Arena das Dunas,,,,Copa do Brasil,,20210806_ABC_Flamengo,0.0,0.05,0.6,0,2,0,6,48.0,52.0,0,1,0,0,4,5
+2021-08-25 22:00:00,Athletico-PR,Santos,1.0,0.0,Curitiba,Brazil,Estádio Mário Celso Petraglia,,,,Copa do Brasil,,20210825_Athletico-PR_Santos,12.0,1.17,1.04,4,5,10,13,54.0,46.0,1,1,0,0,7,11
+2021-08-26 00:30:00,Grêmio,Flamengo,0.0,4.0,Porto Alegre,Brazil,Grêmio Arena,,,,Copa do Brasil,,20210826_Grêmio_Flamengo,0.0,0.87,2.44,4,8,9,18,50.2,49.8,1,2,0,0,6,9
+2021-08-26 00:30:00,São Paulo,Fortaleza,2.0,2.0,Sao Paulo,Brazil,MorumBIS,,,,Copa do Brasil,,20210826_São-Paulo_Fortaleza,0.0,1.86,2.63,6,11,14,20,50.6,49.4,2,1,0,0,5,11
+2021-08-27 00:30:00,Fluminense,Atlético-MG,1.0,2.0,Rio de Janeiro,Brazil,Joao Havelange Stadium,,,,Copa do Brasil,,20210827_Fluminense_Atlético-MG,12.0,1.76,0.69,3,2,8,7,53.7,46.3,2,1,0,0,2,1
+2021-09-15 00:30:00,Santos,Athletico-PR,0.0,1.0,Santos,Brazil,Estádio Vila Belmiro (Urbano Caldeira),,,,Copa do Brasil,,20210915_Santos_Athletico-PR,-35.171398827245866,0.48,1.34,2,5,4,10,45.6,54.4,1,2,0,0,3,4
+2021-09-15 22:00:00,Atlético-MG,Fluminense,1.0,0.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20210915_Atlético-MG_Fluminense,12.828601172754134,0.9,0.74,2,2,4,7,43.7,56.3,1,0,0,0,3,2
+2021-09-16 00:30:00,Flamengo,Grêmio,2.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20210916_Flamengo_Grêmio,24.0,1.52,1.3,5,5,11,11,49.2,50.8,2,1,0,0,3,2
+2021-09-16 00:30:00,Fortaleza,São Paulo,3.0,1.0,Fortaleza,Brazil,Castelão,,,,Copa do Brasil,,20210916_Fortaleza_São-Paulo,0.0,1.43,0.4,5,1,9,1,49.9,50.1,2,1,0,0,6,4
+2021-10-21 00:30:00,Athletico-PR,Flamengo,2.0,2.0,Curitiba,Brazil,Estádio Mário Celso Petraglia,,,,Copa do Brasil,,20211021_Athletico-PR_Flamengo,-12.79733033401294,2.18,1.08,7,3,15,6,51.6,48.4,2,3,0,0,5,4
+2021-10-21 00:30:00,Atlético-MG,Fortaleza,4.0,0.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20211021_Atlético-MG_Fortaleza,-12.028582349901626,1.21,1.31,4,5,7,11,44.6,55.4,1,1,0,0,4,6
+2021-10-28 00:30:00,Flamengo,Athletico-PR,0.0,3.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20211028_Flamengo_Athletico-PR,11.913721639295773,1.19,0.07,3,3,9,6,40.7,59.3,2,2,0,0,2,4
+2021-10-28 00:30:00,Fortaleza,Atlético-MG,1.0,2.0,Fortaleza,Brazil,Castelão,,,,Copa do Brasil,,20211028_Fortaleza_Atlético-MG,-12.801990862589264,0.99,1.51,2,4,4,11,56.6,43.4,0,1,0,0,4,8
+2021-12-12 20:30:00,Atlético-MG,Athletico-PR,4.0,0.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20211212_Atlético-MG_Athletico-PR,0.7165556544530318,1.61,0.05,4,0,10,0,45.2,54.8,3,2,0,0,4,0
+2021-12-16 00:30:00,Athletico-PR,Atlético-MG,1.0,2.0,Curitiba,Brazil,Estádio Mário Celso Petraglia,,,,Copa do Brasil,,20211216_Athletico-PR_Atlético-MG,-24.667057813586098,0.05,1.89,1,6,2,13,44.4,55.6,0,0,0,0,2,6
+2022-02-22 19:30:00,Lagarto,Figueirense,0.0,0.0,,,,,,,Copa do Brasil,,20220222_Lagarto_Figueirense,0.0,0.46,1.18,2,4,2,8,51.8,48.2,1,3,0,0,2,5
+2022-02-22 22:00:00,URT,Avaí,1.0,1.0,,,,,,,Copa do Brasil,,20220222_URT_Avaí,0.0,2.25,0.58,9,2,20,5,44.5,55.5,2,1,0,0,8,1
+2022-02-23 00:30:00,Cascavel,Ponte Preta,1.0,0.0,,,,,,,Copa do Brasil,,20220223_Cascavel_Ponte-Preta,0.0,1.11,0.43,3,2,7,5,46.8,53.2,2,2,0,0,5,7
+2022-02-23 18:30:00,Tuntum,Volta Redonda,4.0,2.0,,,,,,,Copa do Brasil,,20220223_Tuntum_Volta-Redonda,0.0,1.39,0.78,4,4,8,9,49.5,50.5,1,3,0,0,6,5
+2022-02-23 22:00:00,ASA,Cuiabá,0.0,2.0,,,,,,,Copa do Brasil,,20220223_ASA_Cuiabá,0.0,1.16,0.47,3,2,10,4,47.2,52.8,2,4,0,0,6,7
+2022-02-23 22:00:00,Azuriz,Botafogo-SP,1.0,0.0,,,,,,,Copa do Brasil,,20220223_Azuriz_Botafogo-SP,0.0,0.8,0.64,1,0,3,1,52.5,47.5,1,3,0,0,2,1
+2022-02-23 22:00:00,Salgueiro,Santos,0.0,3.0,,,,,,,Copa do Brasil,,20220223_Salgueiro_Santos,34.37505499254303,0.94,1.09,3,3,6,5,53.7,46.3,2,2,0,1,7,7
+2022-02-23 23:00:00,GE Gloria,Brasil de Pelotas,1.0,0.0,,,,,,,Copa do Brasil,,20220223_GE-Gloria_Brasil-de-Pelotas,0.0,1.41,0.05,4,1,7,2,42.0,58.0,1,1,0,0,3,0
+2022-02-23 23:30:00,Tocantinopolis,Náutico,1.0,0.0,,,,,,,Copa do Brasil,,20220223_Tocantinopolis_Náutico,0.0,1.05,1.02,4,3,12,7,41.4,58.6,2,1,0,0,2,6
+2022-02-24 00:30:00,Atletico Alagoinhas,CSA,1.0,1.0,,,,,,,Copa do Brasil,,20220224_Atletico-Alagoinhas_CSA,0.0,1.0,0.15,2,1,4,2,50.8,49.2,1,1,0,0,3,2
+2022-02-24 00:30:00,Sergipe SE,Cruzeiro,0.0,5.0,,,,,,,Copa do Brasil,,20220224_Sergipe-SE_Cruzeiro,0.0,1.89,1.22,7,5,14,12,48.4,51.6,1,1,0,0,3,5
+2022-02-24 01:00:00,Humaita,Brasiliense,2.0,2.0,,,,,,,Copa do Brasil,,20220224_Humaita_Brasiliense,0.0,1.8,1.66,5,5,10,13,52.8,47.2,2,5,1,0,8,8
+2022-02-24 18:30:00,Fluminense PI,Oeste,2.0,0.0,,,,,,,Copa do Brasil,,20220224_Fluminense-PI_Oeste,0.0,1.64,0.49,5,1,11,1,51.7,48.3,1,1,0,0,11,4
+2022-02-24 18:30:00,Nova Iguaçu,Criciúma,0.0,0.0,,,,,,,Copa do Brasil,,20220224_Nova-Iguaçu_Criciúma,0.0,0.83,1.39,2,5,6,11,47.4,52.6,1,1,1,0,5,4
+2022-02-24 19:30:00,Sao Raimundo AM,Manaus,0.0,1.0,,,,,,,Copa do Brasil,,20220224_Sao-Raimundo-AM_Manaus,0.0,0.98,0.93,2,5,1,13,53.7,46.3,1,2,0,0,2,3
+2022-02-24 22:00:00,Bahia de Feira,Coritiba,2.0,5.0,,,,,,,Copa do Brasil,,20220224_Bahia-de-Feira_Coritiba,0.0,0.79,1.6,2,5,3,11,45.5,54.5,2,3,0,0,2,7
+2022-02-25 00:30:00,Campinense PB,São Paulo,0.0,0.0,,,,,,,Copa do Brasil,,20220225_Campinense-PB_São-Paulo,0.0,0.84,0.8,4,2,11,5,51.5,48.5,2,1,0,0,3,0
+2022-03-01 18:30:00,Icasa,Tombense,0.0,0.0,,,,,,,Copa do Brasil,,20220301_Icasa_Tombense,0.0,1.16,1.01,4,4,8,11,53.3,46.7,1,2,0,0,7,6
+2022-03-01 19:00:00,Maricá,Guarani,0.0,1.0,,,,,,,Copa do Brasil,,20220301_Maricá_Guarani,0.0,0.34,0.98,0,3,0,7,52.8,47.2,1,2,0,0,1,3
+2022-03-01 22:00:00,Moto Club,Chapecoense,3.0,2.0,,,,,,,Copa do Brasil,,20220301_Moto-Club_Chapecoense,0.0,1.37,1.75,4,6,8,14,53.2,46.8,0,1,0,0,1,9
+2022-03-01 22:00:00,Pouso Alegre,Paraná,2.0,0.0,,,,,,,Copa do Brasil,,20220301_Pouso-Alegre_Paraná,0.0,1.57,0.86,5,3,9,5,39.9,60.1,3,4,1,0,4,9
+2022-03-02 00:30:00,Mirassol,Grêmio,3.0,2.0,,,,,,,Copa do Brasil,,20220302_Mirassol_Grêmio,11.172385326555968,2.37,0.89,8,4,17,9,53.1,46.9,1,1,0,1,9,5
+2022-03-02 00:30:00,Sousa EC,Goiás,1.0,1.0,,,,,,,Copa do Brasil,,20220302_Sousa-EC_Goiás,0.0,1.57,0.66,6,1,13,2,45.2,54.8,3,0,0,0,7,3
+2022-03-02 18:30:00,Ceilândia,Londrina,2.0,0.0,,,,,,,Copa do Brasil,,20220302_Ceilândia_Londrina,0.0,0.26,1.27,2,2,4,4,49.1,50.9,3,2,0,0,3,4
+2022-03-02 18:30:00,Tuna Luso,Novorizontino,1.0,0.0,,,,,,,Copa do Brasil,,20220302_Tuna-Luso_Novorizontino,0.0,1.41,1.3,4,3,8,7,50.2,49.8,0,2,0,0,3,5
+2022-03-02 19:30:00,CEOV Operário,Sampaio Corrêa,1.0,2.0,,,,,,,Copa do Brasil,,20220302_CEOV-Operário_Sampaio-Corrêa,0.0,1.3,1.05,4,4,8,10,50.8,49.2,0,2,0,0,8,6
+2022-03-02 19:30:00,Porto Velho,Juventude,1.0,2.0,,,,,,,Copa do Brasil,,20220302_Porto-Velho_Juventude,0.0,0.59,1.11,1,3,3,7,44.7,55.3,2,1,1,0,4,5
+2022-03-02 22:00:00,Altos,Sport,1.0,0.0,,,,,,,Copa do Brasil,,20220302_Altos_Sport,0.0,0.91,0.32,4,1,8,0,50.4,49.6,0,2,0,0,3,2
+2022-03-02 22:00:00,Real Noroeste,Operário PR,2.0,1.0,,,,,,,Copa do Brasil,,20220302_Real-Noroeste_Operário-PR,0.0,1.72,0.75,4,3,8,5,49.2,50.8,1,1,0,0,4,4
+2022-03-02 22:00:00,São Raimundo-RR,Ceará,0.0,3.0,,,,,,,Copa do Brasil,,20220302_São-Raimundo-RR_Ceará,0.0,0.17,1.07,0,5,0,12,48.6,51.4,2,1,0,0,4,5
+2022-03-02 23:00:00,Rio Branco FC,Vila Nova,0.0,0.0,,,,,,,Copa do Brasil,,20220302_Rio-Branco-FC_Vila-Nova,0.0,1.2,0.51,4,1,10,2,37.8,62.2,1,3,0,0,7,3
+2022-03-02 23:30:00,Gremio Anapolis,Juazeirense,0.0,0.0,,,,,,,Copa do Brasil,,20220302_Gremio-Anapolis_Juazeirense,-12.0,0.65,1.21,0,4,1,10,43.6,56.4,2,0,0,0,3,6
+2022-03-02 23:30:00,Trem,Paysandu,0.0,3.0,,,,,,,Copa do Brasil,,20220302_Trem_Paysandu,0.0,0.3,2.45,2,8,5,17,47.2,52.8,3,3,0,0,5,11
+2022-03-03 00:00:00,Costa Rica EC,ABC,0.0,3.0,,,,,,,Copa do Brasil,,20220303_Costa-Rica-EC_ABC,12.0,1.64,1.18,4,4,8,11,52.6,47.4,0,2,0,0,4,5
+2022-03-03 00:30:00,Ferroviária,Vasco da Gama,0.0,1.0,,,,,,,Copa do Brasil,,20220303_Ferroviária_Vasco-da-Gama,12.0,0.05,0.85,0,3,0,5,51.3,48.7,3,5,0,0,1,5
+2022-03-03 00:30:00,Portuguesa-RJ,CRB,1.0,0.0,,,,,,,Copa do Brasil,,20220303_Portuguesa-RJ_CRB,12.0,1.16,0.65,4,1,8,1,47.9,52.1,2,4,0,0,7,3
+2022-03-03 18:30:00,Nova Venécia,Ferroviário,2.0,1.0,,,,,,,Copa do Brasil,,20220303_Nova-Venécia_Ferroviário,0.0,0.64,0.14,2,1,3,2,47.0,53.0,4,0,0,0,2,3
+2022-03-03 22:00:00,União Rondonópolis-MT,Atlético Goianiense,0.0,3.0,,,,,,,Copa do Brasil,,20220303_União-Rondonópolis-MT_Atlético-Goianiense,0.0,0.46,1.47,2,3,4,6,49.5,50.5,0,2,0,0,1,4
+2022-03-03 23:30:00,Castanhal U20,Vitória,1.0,1.0,,,,,,,Copa do Brasil,,20220303_Castanhal-U20_Vitória,12.0,0.46,1.31,2,4,3,9,53.6,46.4,3,1,0,0,7,5
+2022-03-04 00:30:00,Globo,Internacional,2.0,0.0,,,,,,,Copa do Brasil,,20220304_Globo_Internacional,0.0,1.57,0.48,5,3,11,6,49.4,50.6,0,2,0,1,3,2
+2022-03-09 00:30:00,Figueirense,Cuiabá,2.0,2.0,,,,,,,Copa do Brasil,,20220309_Figueirense_Cuiabá,-12.0,0.43,1.49,2,5,5,10,58.1,41.9,0,2,0,0,4,9
+2022-03-09 00:30:00,Fluminense PI,Santos,1.0,1.0,,,,,,,Copa do Brasil,,20220309_Fluminense-PI_Santos,33.19164161371236,1.54,0.85,5,4,12,10,49.3,50.7,0,1,0,0,10,6
+2022-03-09 22:00:00,Azuriz,Mirassol,1.0,0.0,,,,,,,Copa do Brasil,,20220309_Azuriz_Mirassol,0.3857475664865433,1.35,0.05,5,0,12,1,52.4,47.6,1,0,0,0,4,3
+2022-03-10 00:30:00,Juazeirense,Vasco da Gama,1.0,1.0,,,,,,,Copa do Brasil,,20220310_Juazeirense_Vasco-da-Gama,11.171398827245866,0.18,0.2,1,1,2,0,50.8,49.2,1,0,0,0,2,3
+2022-03-11 00:30:00,Avaí,Ceilândia,1.0,2.0,,,,,,,Copa do Brasil,,20220311_Avaí_Ceilândia,-12.0,0.86,0.48,2,2,4,3,44.9,55.1,1,1,0,0,4,3
+2022-03-11 00:30:00,Pouso Alegre,Coritiba,1.0,1.0,,,,,,,Copa do Brasil,,20220311_Pouso-Alegre_Coritiba,0.0,1.11,1.07,4,3,9,8,49.4,50.6,0,2,0,1,6,9
+2022-03-15 19:00:00,Portuguesa-RJ,Sampaio Corrêa,2.0,0.0,,,,,,,Copa do Brasil,,20220315_Portuguesa-RJ_Sampaio-Corrêa,-0.4143005863770668,1.29,0.88,3,1,7,3,50.3,49.7,2,4,0,0,5,2
+2022-03-15 22:00:00,Atlético Goianiense,Nova Venécia,2.0,1.0,,,,,,,Copa do Brasil,,20220315_Atlético-Goianiense_Nova-Venécia,0.0,1.07,1.56,2,6,3,12,53.4,46.6,5,2,0,0,3,4
+2022-03-16 00:30:00,Ceará,Tuna Luso,2.0,0.0,,,,,,,Copa do Brasil,,20220316_Ceará_Tuna-Luso,0.0,0.96,1.1,3,3,8,8,49.3,50.7,0,5,0,0,4,4
+2022-03-16 00:30:00,Guarani,Vila Nova,2.0,3.0,,,,,,,Copa do Brasil,,20220316_Guarani_Vila-Nova,12.0,1.1,1.12,4,3,8,7,52.4,47.6,3,0,0,0,6,7
+2022-03-16 19:00:00,ABC,Altos,1.0,1.0,,,,,,,Copa do Brasil,,20220316_ABC_Altos,-11.585699413622933,0.96,1.28,2,5,4,14,49.8,50.2,3,1,0,0,4,6
+2022-03-16 22:00:00,Moto Club,Tombense,1.0,1.0,,,,,,,Copa do Brasil,,20220316_Moto-Club_Tombense,12.0,1.39,1.38,4,3,9,8,53.1,46.9,2,3,0,1,7,4
+2022-03-16 23:30:00,Globo,Brasiliense,1.0,1.0,,,,,,,Copa do Brasil,,20220316_Globo_Brasiliense,12.0,0.21,1.7,1,5,4,10,47.9,52.1,2,1,0,0,3,4
+2022-03-16 23:30:00,Tocantinopolis,Cascavel,2.0,0.0,,,,,,,Copa do Brasil,,20220316_Tocantinopolis_Cascavel,0.0,0.9,0.16,2,0,4,0,44.6,55.4,0,2,0,0,5,0
+2022-03-16 23:30:00,Tuntum,Cruzeiro,0.0,3.0,,,,,,,Copa do Brasil,,20220316_Tuntum_Cruzeiro,0.0,0.47,1.57,2,4,2,8,56.0,44.0,0,1,0,0,5,7
+2022-03-17 00:30:00,CSA,Paysandu,4.0,1.0,,,,,,,Copa do Brasil,,20220317_CSA_Paysandu,-12.0,1.63,0.48,4,1,8,1,45.5,54.5,5,1,0,0,7,3
+2022-03-17 00:30:00,São Paulo,Manaus,2.0,0.0,,,,,,,Copa do Brasil,,20220317_São-Paulo_Manaus,-12.0,0.8,0.83,2,3,5,9,48.6,51.4,1,1,0,0,4,2
+2022-03-17 22:00:00,Real Noroeste,Juventude,0.0,1.0,,,,,,,Copa do Brasil,,20220317_Real-Noroeste_Juventude,0.0,1.95,1.24,6,4,11,10,44.4,55.6,1,3,0,0,5,8
+2022-03-18 00:30:00,Goiás,Criciúma,1.0,0.0,,,,,,,Copa do Brasil,,20220318_Goiás_Criciúma,0.0,1.94,0.78,5,1,12,1,47.5,52.5,2,1,0,0,7,1
+2022-03-24 00:30:00,Vitória,GE Gloria,2.0,0.0,,,,,,,Copa do Brasil,,20220324_Vitória_GE-Gloria,-23.585699413622933,0.97,1.5,2,4,5,9,54.9,45.1,1,0,0,0,4,6
+2022-04-19 22:00:00,CSA,América Mineiro,0.0,3.0,,,,,,,Copa do Brasil,,20220419_CSA_América-Mineiro,12.414300586377067,0.7,1.3,2,4,6,8,47.3,52.7,0,3,0,0,3,9
+2022-04-19 22:30:00,Bahia,Azuriz,0.0,0.0,,,,,,,Copa do Brasil,,20220419_Bahia_Azuriz,-11.98667675653087,0.79,0.63,3,0,9,1,51.7,48.3,1,3,0,0,2,1
+2022-04-20 00:30:00,Fluminense,Vila Nova,3.0,2.0,,,,,,,Copa do Brasil,,20220420_Fluminense_Vila-Nova,-36.38571823647544,0.51,1.28,3,4,7,7,46.7,53.3,3,1,0,0,6,3
+2022-04-20 00:30:00,Remo,Cruzeiro,2.0,1.0,,,,,,,Copa do Brasil,,20220420_Remo_Cruzeiro,-24.0,1.2,1.25,4,5,9,10,48.9,51.1,3,1,0,0,5,5
+2022-04-20 22:00:00,Atlético-MG,Brasiliense,3.0,0.0,,,,,,,Copa do Brasil,,20220420_Atlético-MG_Brasiliense,58.6551482697123,1.03,0.54,3,2,8,4,54.2,45.8,1,1,0,0,7,1
+2022-04-20 22:00:00,Fortaleza,Vitória,3.0,0.0,,,,,,,Copa do Brasil,,20220420_Fortaleza_Vitória,-1.200994231970526,0.07,1.16,3,3,7,10,45.5,54.5,0,3,0,1,3,5
+2022-04-20 22:00:00,Goiás,Red Bull Bragantino,1.0,2.0,,,,,,,Copa do Brasil,,20220420_Goiás_Red-Bull-Bragantino,12.0,1.0,1.06,3,2,8,4,53.8,46.2,1,0,0,0,6,3
+2022-04-20 22:00:00,Tocantinopolis,Athletico-PR,2.0,5.0,,,,,,,Copa do Brasil,,20220420_Tocantinopolis_Athletico-PR,11.89652619393678,1.59,1.97,4,7,9,13,51.7,48.3,3,0,0,0,3,6
+2022-04-20 22:30:00,Coritiba,Santos,1.0,0.0,,,,,,,Copa do Brasil,,20220420_Coritiba_Santos,32.04871781372526,0.05,1.01,2,1,4,3,50.9,49.1,0,0,0,0,5,3
+2022-04-20 22:30:00,Juventude,São Paulo,2.0,2.0,,,,,,,Copa do Brasil,,20220420_Juventude_São-Paulo,11.585699413622933,1.67,1.7,4,5,9,11,50.9,49.1,2,3,0,0,5,4
+2022-04-21 00:30:00,Ceilândia,Botafogo,0.0,3.0,,,,,,,Copa do Brasil,,20220421_Ceilândia_Botafogo,23.585699413622933,0.35,1.77,3,5,7,9,46.0,54.0,1,3,0,0,4,9
+2022-04-21 00:30:00,Portuguesa-RJ,Corinthians,1.0,1.0,,,,,,,Copa do Brasil,,20220421_Portuguesa-RJ_Corinthians,23.600008842153784,0.59,0.53,3,1,6,1,52.3,47.7,1,3,0,0,6,2
+2022-04-21 00:30:00,Tombense,Ceará,0.0,2.0,,,,,,,Copa do Brasil,,20220421_Tombense_Ceará,-23.585699413622933,0.71,1.23,5,4,13,11,49.5,50.5,1,4,0,0,7,4
+2022-04-22 00:30:00,Atlético Goianiense,Cuiabá,1.0,1.0,,,,,,,Copa do Brasil,,20220422_Atlético-Goianiense_Cuiabá,12.414300586377067,0.17,1.96,1,6,0,15,48.9,51.1,0,4,0,0,6,11
+2022-05-01 00:00:00,Palmeiras,Juazeirense,2.0,1.0,,,,,,,Copa do Brasil,,20220501_Palmeiras_Juazeirense,-11.199985884410125,0.46,0.6,2,3,2,8,47.4,52.6,6,1,0,0,1,3
+2022-05-01 21:00:00,Altos,Flamengo,1.0,2.0,,,,,,,Copa do Brasil,,20220501_Altos_Flamengo,-10.719264441200039,0.75,0.05,2,2,4,3,50.7,49.3,2,2,0,0,4,2
+2022-05-10 22:00:00,América Mineiro,CSA,2.0,0.0,,,,,,,Copa do Brasil,,20220510_América-Mineiro_CSA,12.442884153591422,1.34,0.82,5,3,11,7,49.4,50.6,3,3,0,0,9,3
+2022-05-10 23:30:00,Azuriz,Bahia,1.0,1.0,,,,,,,Copa do Brasil,,20220510_Azuriz_Bahia,11.15899482502482,0.62,0.95,1,3,3,7,56.6,43.4,2,3,0,0,2,1
+2022-05-11 00:30:00,Athletico-PR,Tocantinopolis,4.0,0.0,,,,,,,Copa do Brasil,,20220511_Athletico-PR_Tocantinopolis,12.924935708248313,2.27,0.92,7,3,15,6,49.4,50.6,1,3,0,0,9,6
+2022-05-11 22:00:00,Ceará,Tombense,2.0,0.0,,,,,,,Copa do Brasil,,20220511_Ceará_Tombense,45.958955138844885,0.4,1.05,2,5,4,12,48.2,51.8,3,1,0,0,2,4
+2022-05-11 22:00:00,Juazeirense,Palmeiras,1.0,2.0,,,,,,,Copa do Brasil,,20220511_Juazeirense_Palmeiras,-13.573413852540398,0.54,1.53,1,5,1,10,54.4,45.6,1,4,0,0,3,4
+2022-05-11 22:30:00,Flamengo,Altos,2.0,0.0,,,,,,,Copa do Brasil,,20220511_Flamengo_Altos,33.97903873922428,2.29,1.09,7,5,16,12,45.9,54.1,1,0,0,0,6,11
+2022-05-12 00:30:00,Corinthians,Portuguesa-RJ,2.0,0.0,,,,,,,Copa do Brasil,,20220512_Corinthians_Portuguesa-RJ,-21.972280651067194,1.28,0.21,3,0,7,0,48.8,51.2,0,0,0,0,3,2
+2022-05-12 00:30:00,Vila Nova,Fluminense,0.0,2.0,,,,,,,Copa do Brasil,,20220512_Vila-Nova_Fluminense,9.881430554786675,0.49,1.03,2,2,5,5,50.3,49.7,0,2,0,0,5,5
+2022-05-12 01:00:00,Cuiabá,Atlético Goianiense,0.0,0.0,,,,,,,Copa do Brasil,,20220512_Cuiabá_Atlético-Goianiense,-11.557115846408578,1.72,0.45,5,2,8,5,51.0,49.0,1,1,0,0,9,3
+2022-05-12 22:00:00,Vitória,Fortaleza,0.0,1.0,,,,,,,Copa do Brasil,,20220512_Vitória_Fortaleza,-22.88196718005247,0.05,1.28,1,4,3,11,51.5,48.5,2,4,0,0,3,8
+2022-05-12 22:30:00,Cruzeiro,Remo,1.0,0.0,,,,,,,Copa do Brasil,,20220512_Cruzeiro_Remo,-1.6552293468880634,0.24,0.59,2,3,4,6,48.5,51.5,2,2,0,0,2,8
+2022-05-12 22:30:00,São Paulo,Juventude,2.0,0.0,,,,,,,Copa do Brasil,,20220512_São-Paulo_Juventude,-10.785684161721292,0.78,1.94,3,5,6,11,49.3,50.7,5,1,0,0,6,14
+2022-05-13 00:30:00,Botafogo,Ceilândia,3.0,0.0,,,,,,,Copa do Brasil,,20220513_Botafogo_Ceilândia,2.0410448611551146,1.68,0.09,4,1,7,3,51.7,48.3,2,0,0,0,2,3
+2022-05-13 00:30:00,Santos,Coritiba,3.0,0.0,,,,,,,Copa do Brasil,,20220513_Santos_Coritiba,-53.84112864325857,0.66,0.52,3,3,6,7,50.7,49.3,1,2,0,0,1,5
+2022-05-22 22:00:00,Brasiliense,Atlético-MG,0.0,1.0,,,,,,,Copa do Brasil,,20220522_Brasiliense_Atlético-MG,-78.64145366228331,0.05,1.3,0,4,0,9,47.6,52.4,0,3,0,0,1,4
+2022-06-01 00:30:00,Red Bull Bragantino,Goiás,0.0,1.0,,,,,,,Copa do Brasil,,20220601_Red-Bull-Bragantino_Goiás,12.828601172754134,0.59,1.65,2,6,4,13,53.2,46.8,3,1,0,0,3,8
+2022-06-22 22:00:00,Atlético Goianiense,Goiás,0.0,0.0,,,,,,,Copa do Brasil,,20220622_Atlético-Goianiense_Goiás,11.143803801325248,1.38,0.39,4,1,8,2,51.1,48.9,1,2,0,0,11,3
+2022-06-22 22:30:00,Bahia,Athletico-PR,1.0,2.0,,,,,,,Copa do Brasil,,20220622_Bahia_Athletico-PR,-23.268872592093885,1.33,1.33,4,3,8,8,44.9,55.1,1,2,0,0,0,2
+2022-06-22 23:00:00,Fortaleza,Ceará,2.0,0.0,,,,,,,Copa do Brasil,,20220622_Fortaleza_Ceará,-22.329471355819578,0.6,0.31,2,2,5,3,46.6,53.4,3,0,0,1,3,3
+2022-06-23 00:30:00,Atlético-MG,Flamengo,2.0,1.0,,,,,,,Copa do Brasil,,20220623_Atlético-MG_Flamengo,33.61260017768586,1.12,0.35,3,2,7,5,49.4,50.6,2,1,0,0,8,3
+2022-06-23 00:30:00,Corinthians,Santos,4.0,0.0,,,,,,,Copa do Brasil,,20220623_Corinthians_Santos,30.671810635245038,1.26,0.88,4,3,9,6,46.0,54.0,1,2,0,0,5,4
+2022-06-23 22:00:00,Fluminense,Cruzeiro,2.0,1.0,,,,,,,Copa do Brasil,,20220623_Fluminense_Cruzeiro,-21.60762777246191,1.31,1.43,5,3,11,7,42.7,57.3,3,1,0,0,1,6
+2022-06-23 23:00:00,São Paulo,Palmeiras,1.0,0.0,,,,,,,Copa do Brasil,,20220623_São-Paulo_Palmeiras,1.268583797608244,1.07,2.19,3,6,6,15,42.4,57.6,3,1,1,0,3,8
+2022-06-30 22:00:00,América Mineiro,Botafogo,3.0,0.0,,,,,,,Copa do Brasil,,20220630_América-Mineiro_Botafogo,-0.7438637354352977,1.59,1.27,5,4,11,10,52.1,47.9,1,2,0,0,7,8
+2022-08-17 23:00:00,Fluminense,Fortaleza,2.0,2.0,,,,,,,Copa do Brasil,,20220817_Fluminense_Fortaleza,-21.68189018463454,0.65,1.24,2,6,4,14,50.4,49.6,0,1,0,0,3,3
+2022-08-18 00:30:00,Athletico-PR,Flamengo,0.0,1.0,,,,,,,Copa do Brasil,,20220818_Athletico-PR_Flamengo,13.328913552359609,0.83,0.54,2,1,4,0,44.0,56.0,0,0,0,0,4,1
+2022-08-18 00:30:00,Corinthians,Atlético Goianiense,4.0,1.0,,,,,,,Copa do Brasil,,20220818_Corinthians_Atlético-Goianiense,1.7275016189582857,0.86,0.63,4,2,10,2,55.8,44.2,2,0,0,0,2,2
+2022-08-19 00:00:00,América Mineiro,São Paulo,2.0,2.0,,,,,,,Copa do Brasil,,20220819_América-Mineiro_São-Paulo,-1.1181916611692486,1.59,0.51,4,2,9,5,58.7,41.3,2,2,0,0,5,1
+2022-08-24 22:30:00,Fluminense,Corinthians,2.0,2.0,,,,,,,Copa do Brasil,,20220824_Fluminense_Corinthians,-21.34029868341713,0.81,1.03,4,3,7,6,50.5,49.5,2,1,0,0,4,3
+2022-08-25 00:30:00,São Paulo,Flamengo,1.0,3.0,,,,,,,Copa do Brasil,,20220825_São-Paulo_Flamengo,-9.292468326681501,0.96,1.0,3,3,8,5,44.3,55.7,2,0,1,0,6,3
+2022-09-15 00:45:00,Flamengo,São Paulo,1.0,0.0,,,,,,,Copa do Brasil,,20220915_Flamengo_São-Paulo,32.650720371038915,0.45,0.09,2,2,4,5,51.5,48.5,0,1,0,0,5,3
+2022-09-15 23:00:00,Corinthians,Fluminense,3.0,0.0,,,,,,,Copa do Brasil,,20220915_Corinthians_Fluminense,19.868014105568363,1.02,0.06,3,1,6,3,56.4,43.6,1,1,0,0,4,2
+2022-10-13 00:45:00,Corinthians,Flamengo,0.0,0.0,,,,,,,Copa do Brasil,,20221013_Corinthians_Flamengo,-21.917614614967306,1.46,0.73,5,2,12,4,49.9,50.1,2,3,1,0,8,2
+2022-10-20 00:45:00,Flamengo,Corinthians,1.0,1.0,,,,,,,Copa do Brasil,,20221020_Flamengo_Corinthians,20.405604627416096,1.18,1.39,3,4,6,8,55.0,45.0,3,2,0,0,5,3
+2023-02-21 22:00:00,Marcílio Dias,Chapecoense,1.0,0.0,Itajaí,Brazil,Estadio Doutor Hercilio Luz,,,,Copa do Brasil,,20230221_Marcílio-Dias_Chapecoense,12.0,0.99,1.07,4,1,9,3,47.2,52.8,2,1,0,0,6,1
+2023-02-22 19:00:00,Falcon,Volta Redonda,1.0,3.0,"Aracaju, Sergipe",Brazil,Estadio Estadual Lourival Baptista,,,,Copa do Brasil,,20230222_Falcon_Volta-Redonda,12.0,0.07,1.28,1,5,2,11,45.0,55.0,2,1,0,0,2,1
+2023-02-22 20:00:00,Nova Mutum,Londrina,4.0,2.0,Nova Mutum,Brazil,Estádio Municipal Valdir Doilho Wons,,,,Copa do Brasil,,20230222_Nova-Mutum_Londrina,12.0,1.39,1.97,5,5,12,11,55.1,44.9,2,1,0,0,4,1
+2023-02-22 22:00:00,Caucaia,Tombense,0.0,0.0,Pacajus,Brazil,Estadio Municipal João Ronaldo,,,,Copa do Brasil,,20230222_Caucaia_Tombense,21.194155500693114,0.9,1.04,1,4,3,9,58.4,41.6,1,7,0,0,4,2
+2023-02-22 22:00:00,São Raimundo-RR,Cuiabá,4.0,3.0,Boa Vista,Brazil,Canarinho,,,,Copa do Brasil,,20230222_São-Raimundo-RR_Cuiabá,-24.41331326239606,1.29,1.93,4,5,8,12,49.5,50.5,1,3,0,0,7,8
+2023-02-22 23:00:00,Marília AC,Brusque,0.0,3.0, São Paulo,Brazil,Estádio Bento de Abreu Sampaio Vidal,,,,Copa do Brasil,,20230222_Marília-AC_Brusque,0.0,1.08,0.97,4,3,9,7,43.2,56.8,5,1,0,0,4,1
+2023-02-23 00:00:00,São Francisco AC,Ypiranga,1.0,1.0,Acre,Brazil,Antônio Aquino Lopes,,,,Copa do Brasil,,20230223_São-Francisco-AC_Ypiranga,0.0,1.4,0.89,4,3,9,8,54.5,45.5,5,0,0,0,0,5
+2023-02-23 22:00:00,Humaita,Coritiba,0.0,3.0,Acre,Brazil,Antônio Aquino Lopes,,,,Copa do Brasil,,20230223_Humaita_Coritiba,-9.0513431468205,0.27,1.51,2,6,3,12,50.2,49.8,3,1,0,0,2,6
+2023-02-23 22:00:00,São Luiz-RS,Juventude,1.0,0.0,Ljuí,Brazil,Estadio 19 de Octubro,,,,Copa do Brasil,,20230223_São-Luiz-RS_Juventude,-11.227587663003987,1.12,1.73,2,4,5,7,50.9,49.1,2,2,0,0,3,8
+2023-02-23 23:00:00,Ceilândia,Santos,0.0,1.0,Taguatinga,Brazil,Estádio Serejão,,,,Copa do Brasil,,20230223_Ceilândia_Santos,26.886259300340043,0.05,1.14,0,3,0,7,50.7,49.3,1,1,0,0,1,5
+2023-02-24 00:30:00,Trem,Vasco da Gama,0.0,4.0,Brasília,Brazil,Arena BRB Mané Garrincha,,,,Copa do Brasil,,20230224_Trem_Vasco-da-Gama,-12.800014115589875,0.7,1.32,3,4,6,11,44.4,55.6,3,2,1,0,6,6
+2023-02-28 18:30:00,Resende,Ferroviário,1.0,2.0,Resende,Brazil,Estádio do Trabalhador,,,,Copa do Brasil,,20230228_Resende_Ferroviário,12.0,1.03,1.3,3,3,7,5,58.8,41.2,2,2,1,0,4,4
+2023-02-28 22:30:00,Democrata GV,Santa Cruz,1.0,1.0,Goverbador Valadares,Brazil,Mamudão,,,,Copa do Brasil,,20230228_Democrata-GV_Santa-Cruz,0.0,0.32,0.56,1,2,2,3,47.3,52.7,2,2,0,0,2,4
+2023-02-28 22:30:00,Tocantinopolis,América Mineiro,1.0,1.0,Tocantinopolis,Brazil,Estadio Joao Ribeiro,,,,Copa do Brasil,,20230228_Tocantinopolis_América-Mineiro,-36.027852267268145,0.36,0.57,2,2,6,5,46.0,54.0,1,2,0,1,4,7
+2023-02-28 23:00:00,Real Noroeste,Vila Nova,1.0,1.0,Aguila Branca,Brazil,Estádio José Olímpio da Rocha,,,,Copa do Brasil,,20230228_Real-Noroeste_Vila-Nova,13.179043781588234,1.73,1.4,3,5,7,13,49.5,50.5,2,1,0,0,6,5
+2023-03-01 00:30:00,Fluminense PI,Ponte Preta,0.0,4.0,Teresina,Brazil,Estadio Municipal Lindolfo Monteiro,,,,Copa do Brasil,,20230301_Fluminense-PI_Ponte-Preta,22.857076200012898,0.95,1.68,3,5,8,10,58.7,41.3,3,2,0,0,3,8
+2023-03-01 18:30:00,Nova Iguaçu,Vitória,2.0,0.0,Nova Iguaçu,Brazil,Estádio Jânio Moraes,,,,Copa do Brasil,,20230301_Nova-Iguaçu_Vitória,22.024633515688947,1.61,0.37,6,1,10,2,47.0,53.0,4,2,0,1,6,2
+2023-03-01 18:30:00,Tuna Luso,CSA,0.0,1.0,Belém,Brazil,Estádio Francisco Vasques,,,,Copa do Brasil,,20230301_Tuna-Luso_CSA,11.584713434445348,0.58,1.47,1,2,2,3,44.6,55.4,1,2,0,0,3,4
+2023-03-01 22:00:00,ASA,Goiás,1.0,1.0,Arapiraca,Brazil,Fumeirão,,,,Copa do Brasil,,20230301_ASA_Goiás,-24.413343762958448,0.73,0.71,5,3,11,11,53.7,46.3,2,1,0,0,6,3
+2023-03-01 22:00:00,Atletico Alagoinhas,Atlético Goianiense,0.0,0.0,Alagoinhas,Brazil,Estadio Carneirão,,,,Copa do Brasil,,20230301_Atletico-Alagoinhas_Atlético-Goianiense,-10.84729003862276,0.85,1.6,3,6,6,14,47.0,53.0,0,0,0,0,5,14
+2023-03-01 22:00:00,Bahia de Feira,Red Bull Bragantino,1.0,1.0,Salvador,Brazil,Professor Jodilton Souza (Arena Cajueiro),,,,Copa do Brasil,,20230301_Bahia-de-Feira_Red-Bull-Bragantino,-11.971417650098374,1.34,1.37,4,4,6,7,50.2,49.8,2,1,0,0,7,3
+2023-03-01 22:00:00,Cordino,Brasil de Pelotas,0.0,2.0,Barra do Corda,Brazil,Leandrão,,,,Copa do Brasil,,20230301_Cordino_Brasil-de-Pelotas,12.0,1.83,1.48,4,5,11,12,57.9,42.1,1,2,0,0,2,8
+2023-03-01 22:00:00,Tuntum,ABC,0.0,5.0,Tuntum,Brazil,Estádio Rafael Seabra,,,,Copa do Brasil,,20230301_Tuntum_ABC,-0.8143082123278873,1.46,2.13,5,8,10,16,53.3,46.7,1,1,0,0,10,10
+2023-03-01 23:00:00,Athletic,Brasiliense,1.0,1.0,Sao Joao del Rei,Brazil,Estádio Joaquim Portugal,,,,Copa do Brasil,,20230301_Athletic_Brasiliense,18.90812773019252,1.0,0.89,4,1,9,3,51.3,48.7,1,2,0,0,3,3
+2023-03-01 23:00:00,Camboriu,Manaus,1.0,0.0,Balneario Camboriu,Brazil,Estadio Eduardo Zeferino Tiago,,,,Copa do Brasil,,20230301_Camboriu_Manaus,0.4143005863770668,0.94,0.31,2,0,4,0,47.4,52.6,0,3,0,0,3,1
+2023-03-01 23:00:00,Campinense PB,Grêmio,0.0,2.0,Brasília,Brazil,Arena BRB Mané Garrincha,,,,Copa do Brasil,,20230301_Campinense-PB_Grêmio,22.786637760069425,1.58,1.96,5,7,11,14,45.1,54.9,2,2,0,0,9,7
+2023-03-01 23:00:00,Parnahyba,Botafogo-SP,0.0,0.0,Parnaíba,Brazil,Piscinão,,,,Copa do Brasil,,20230301_Parnahyba_Botafogo-SP,12.0,1.41,0.05,5,1,10,2,53.8,46.2,1,2,0,0,6,3
+2023-03-01 23:00:00,São Bernardo,Náutico,0.0,1.0,São Bernardo do Campo ,Brazil,Estádio Primeiro de Maio,,,,Copa do Brasil,,20230301_São-Bernardo_Náutico,12.0,0.15,1.27,1,5,1,12,47.1,52.9,2,2,0,0,2,8
+2023-03-01 23:00:00,União Rondonópolis-MT,CRB,0.0,1.0,Rondonópolis,Brazil,Engenheiro Luthero Lopes (Caldeirão),,,,Copa do Brasil,,20230301_União-Rondonópolis-MT_CRB,11.585699413622933,0.89,1.25,3,4,7,8,54.6,45.4,2,2,0,0,3,10
+2023-03-02 00:00:00,Operário MS,Operário PR,1.0,0.0,,Brazil,Estádio Jacques da Luz,,,,Copa do Brasil,,20230302_Operário-MS_Operário-PR,12.0,1.91,1.02,6,3,11,6,48.1,51.9,2,2,1,0,8,3
+2023-03-02 00:00:00,Princesa do Solimoes,Ituano,1.0,1.0,Manacapuru,Brazil,Estádio Gilberto Mestrinho (Gilbertão),,,,Copa do Brasil,,20230302_Princesa-do-Solimoes_Ituano,0.0,1.09,1.33,2,1,5,1,55.4,44.6,1,4,0,0,3,3
+2023-03-02 00:30:00,Caldense,Ceará,0.0,3.0,Pocos de Caldas,Brazil,Ronaldão,,,,Copa do Brasil,,20230302_Caldense_Ceará,-32.83828358998903,1.79,1.62,5,5,10,12,52.2,47.8,0,4,0,0,7,4
+2023-03-02 00:30:00,Jacuipense,Bahia,1.0,4.0,Salvador,Brazil,Estádio Roberto Santos (Pituaçu),,,,Copa do Brasil,,20230302_Jacuipense_Bahia,-1.601605448578539,1.65,1.4,7,5,17,11,48.5,51.5,1,1,0,0,7,11
+2023-03-02 00:30:00,Retró,Avaí,3.0,2.0,Recife,Brazil,Arena Pernambuco,,,,Copa do Brasil,,20230302_Retró_Avaí,11.585699413622933,1.44,1.2,7,4,15,8,48.5,51.5,0,2,0,0,7,5
+2023-03-02 19:00:00,Aguia de Maraba,Botafogo PB,2.0,1.0,Marabá,Brazil,Estádio Municipal Zinho de Oliveira,,,,Copa do Brasil,,20230302_Aguia-de-Maraba_Botafogo-PB,0.0,1.39,1.71,5,6,12,15,59.8,40.2,2,0,0,0,2,8
+2023-03-02 19:30:00,Real Ariquemes,Criciúma,0.0,3.0,Ariquemes,Brazil,Gentil Valério,,,,Copa do Brasil,,20230302_Real-Ariquemes_Criciúma,12.0,0.78,0.99,3,3,8,5,54.3,45.7,0,1,0,0,2,4
+2023-03-02 22:15:00,Iguatu,América-RN,1.0,0.0,Iguatu,Brazil,Estadio Municipal Joao Elmo Moreno Cavalcante,,,,Copa do Brasil,,20230302_Iguatu_América-RN,0.0,1.0,1.02,4,3,7,7,46.3,53.7,0,0,0,0,1,4
+2023-03-02 23:00:00,Maringá,Sampaio Corrêa,2.0,1.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20230302_Maringá_Sampaio-Corrêa,0.01430942853085071,2.53,0.81,8,3,19,7,56.6,43.4,0,0,0,0,7,5
+2023-03-02 23:00:00,Sergipe SE,Botafogo,1.0,1.0,"Aracaju, Sergipe",Brazil,Estadio Estadual Lourival Baptista,,,,Copa do Brasil,,20230302_Sergipe-SE_Botafogo,-24.717185652288208,1.14,1.31,4,3,10,6,45.2,54.8,2,1,0,0,6,2
+2023-03-07 23:00:00,Brasil de Pelotas,Ponte Preta,2.0,0.0,Pelotas,Brazil,Estádio Bento Freitas,,,,Copa do Brasil,,20230307_Brasil-de-Pelotas_Ponte-Preta,-0.3740178903517517,1.37,1.59,7,5,16,12,44.4,55.6,1,0,0,0,11,12
+2023-03-08 22:00:00,Camboriu,Bahia,0.0,1.0,Balneario Camboriu,Brazil,Estadio Eduardo Zeferino Tiago,,,,Copa do Brasil,,20230308_Camboriu_Bahia,-1.5605977764801082,0.45,0.77,2,3,2,5,48.1,51.9,0,0,1,0,2,8
+2023-03-08 23:00:00,Remo,São Luiz-RS,2.0,1.0,Belém,Brazil,Estadio Evandro Almeida (Baenao),,,,Copa do Brasil,,20230308_Remo_São-Luiz-RS,-11.617206698035716,1.06,1.76,4,7,9,15,44.3,55.7,3,3,0,0,4,7
+2023-03-09 00:30:00,Tombense,Retró,1.0,0.0,"Muriaé, Minas Gerais",Brazil,Estádio Soares de Azevedo,,,,Copa do Brasil,,20230309_Tombense_Retró,-32.063034326674824,1.49,1.06,5,3,12,6,55.6,44.4,0,1,0,0,8,10
+2023-03-09 22:00:00,Náutico,Vila Nova,2.0,1.0,Recife,Brazil,Estádio dos Aflitos,,,,Copa do Brasil,,20230309_Náutico_Vila-Nova,13.138374513741155,1.24,0.98,5,3,12,8,51.0,49.0,0,0,0,0,5,5
+2023-03-09 23:00:00,Botafogo-SP,São Raimundo-RR,3.0,1.0,Ribeirão Preto,Brazil,Arena Nicnet,,,,Copa do Brasil,,20230309_Botafogo-SP_São-Raimundo-RR,-12.427520347540167,0.37,0.84,3,3,10,9,53.0,47.0,1,1,0,0,6,2
+2023-03-10 00:30:00,Santos,Iguatu,3.0,0.0,Santos,Brazil,Estádio Vila Belmiro (Urbano Caldeira),,,,Copa do Brasil,,20230310_Santos_Iguatu,-27.116668367636976,1.33,0.4,4,1,9,4,45.3,54.7,3,2,0,0,4,0
+2023-03-14 23:00:00,Coritiba,Criciúma,1.0,1.0,Curitiba,Brazil,Couto Pereira,,,,Copa do Brasil,,20230314_Coritiba_Criciúma,20.324490949752544,1.55,1.15,4,3,9,6,47.4,52.6,2,0,1,0,6,4
+2023-03-14 23:00:00,Maringá,Marcílio Dias,2.0,0.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20230314_Maringá_Marcílio-Dias,0.4138063562249954,1.01,0.17,2,2,4,4,55.3,44.7,2,3,0,0,6,4
+2023-03-15 00:30:00,América Mineiro,Santa Cruz,1.0,0.0,Belo Horizonte,Brazil,Estádio Raimundo Sampaio (Independência),,,,Copa do Brasil,,20230315_América-Mineiro_Santa-Cruz,34.8234101070866,1.29,0.91,3,3,6,8,49.7,50.3,3,2,0,0,2,6
+2023-03-15 18:30:00,Nova Iguaçu,Nova Mutum,5.0,2.0,Nova Iguaçu,Brazil,Estádio Jânio Moraes,,,,Copa do Brasil,,20230315_Nova-Iguaçu_Nova-Mutum,-0.34538596690481427,1.88,1.13,6,5,13,12,50.4,49.6,1,2,0,0,9,12
+2023-03-15 22:00:00,Aguia de Maraba,Goiás,0.0,0.0,Marabá,Brazil,Estádio Municipal Zinho de Oliveira,,,,Copa do Brasil,,20230315_Aguia-de-Maraba_Goiás,0.42847821922669027,0.84,0.05,4,0,10,0,45.2,54.8,3,1,0,0,7,3
+2023-03-15 22:00:00,Atlético Goianiense,Volta Redonda,1.0,2.0,Goiãnia,Brazil,Estádio Antônio Accioly,,,,Copa do Brasil,,20230315_Atlético-Goianiense_Volta-Redonda,10.058459010572733,1.53,0.85,7,3,14,6,50.0,50.0,1,6,0,0,2,5
+2023-03-15 22:00:00,Ituano,Ceará,1.0,1.0,Itu,Brazil,Estadio Municipal Dr. Novelli Junior,,,,Copa do Brasil,,20230315_Ituano_Ceará,-43.707454799396146,0.83,1.59,1,6,2,14,51.8,48.2,3,3,0,0,2,6
+2023-03-15 22:30:00,CRB,Operário MS,5.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20230315_CRB_Operário-MS,-22.771391201295046,1.92,0.54,6,1,13,1,55.2,44.8,2,2,0,0,7,2
+2023-03-15 23:00:00,Botafogo,Brasiliense,7.0,1.0,Espírito Santo,Brazil,Kléber Andrade,,,,Copa do Brasil,,20230315_Botafogo_Brasiliense,30.120629740515824,2.95,1.42,9,3,19,5,43.3,56.7,1,0,0,0,7,4
+2023-03-16 00:30:00,Ypiranga,Red Bull Bragantino,3.0,1.0,Rio Grande do Sul,Brazil,Estádio Olímpico Colosso da Lagoa,,,,Copa do Brasil,,20230316_Ypiranga_Red-Bull-Bragantino,0.44189691080919147,1.94,1.55,7,5,14,10,49.6,50.4,0,2,0,0,10,9
+2023-03-16 22:00:00,CSA,Brusque,1.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20230316_CSA_Brusque,-11.1847398251723,1.36,1.01,6,4,14,10,46.7,53.3,1,3,0,0,8,5
+2023-03-16 23:00:00,Grêmio,Ferroviário,3.0,0.0,Porto Alegre,Brazil,Grêmio Arena,,,,Copa do Brasil,,20230316_Grêmio_Ferroviário,-10.415042260240398,1.59,0.49,5,1,12,2,49.6,50.4,1,1,0,0,5,2
+2023-03-17 00:30:00,Vasco da Gama,ABC,0.0,0.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20230317_Vasco-da-Gama_ABC,-0.42806585519247164,0.05,0.18,3,1,7,3,54.5,45.5,1,0,0,0,10,1
+2023-04-11 19:30:00,Volta Redonda,Bahia,1.0,2.0,Volta Redonda,Brazil,Estádio Raulino de Oliveira,,,,Copa do Brasil,,20230411_Volta-Redonda_Bahia,-12.730777145279717,0.22,0.16,1,2,3,6,48.1,51.9,2,5,0,0,3,3
+2023-04-11 22:00:00,Botafogo-SP,Santos,0.0,2.0,Ribeirão Preto,Brazil,Arena Nicnet,,,,Copa do Brasil,,20230411_Botafogo-SP_Santos,3.025337885516592,0.87,0.05,3,2,6,3,54.7,45.3,2,0,0,0,5,3
+2023-04-11 23:00:00,Internacional,CSA,2.0,1.0,Porto Alegre,Brazil,Estadio Beira-Rio,,,,Copa do Brasil,,20230411_Internacional_CSA,-25.20143400915572,1.0,0.38,4,2,9,2,47.1,52.9,1,3,0,0,8,1
+2023-04-12 00:30:00,Fortaleza,Aguia de Maraba,6.0,1.0,Fortaleza,Brazil,Castelão,,,,Copa do Brasil,,20230412_Fortaleza_Aguia-de-Maraba,23.31606100467161,1.81,1.19,6,4,13,11,51.3,48.7,1,1,0,0,11,7
+2023-04-12 00:30:00,São Paulo,Ituano,0.0,0.0,Sao Paulo,Brazil,MorumBIS,,,,Copa do Brasil,,20230412_São-Paulo_Ituano,13.047870110218355,0.05,0.82,0,2,0,4,49.1,50.9,3,4,0,0,2,5
+2023-04-12 19:30:00,Nova Iguaçu,América Mineiro,1.0,2.0,Volta Redonda,Brazil,Estádio Raulino de Oliveira,,,,Copa do Brasil,,20230412_Nova-Iguaçu_América-Mineiro,-22.372421004638,0.05,0.85,1,2,3,3,47.8,52.2,1,2,0,0,4,7
+2023-04-12 22:00:00,Coritiba,Sport,3.0,3.0,Curitiba,Brazil,Couto Pereira,,,,Copa do Brasil,,20230412_Coritiba_Sport,32.037608141788496,1.75,0.81,4,3,11,7,53.9,46.1,4,4,0,1,8,2
+2023-04-12 22:30:00,CRB,Athletico-PR,1.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20230412_CRB_Athletico-PR,-33.20570157441648,1.06,0.79,3,3,6,6,42.0,58.0,1,3,0,0,3,3
+2023-04-12 22:30:00,Fluminense,Paysandu,3.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20230412_Fluminense_Paysandu,4.951075124212821,1.75,0.77,7,2,18,5,55.7,44.3,3,3,0,1,5,7
+2023-04-12 23:00:00,Palmeiras,Tombense,4.0,2.0,Sao Paulo,Brazil,Allianz Parque,,,,Copa do Brasil,,20230412_Palmeiras_Tombense,19.320701341265703,1.92,2.37,6,8,13,17,55.4,44.6,2,1,0,0,9,11
+2023-04-13 00:30:00,Atlético-MG,Brasil de Pelotas,2.0,1.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20230413_Atlético-MG_Brasil-de-Pelotas,76.80732883872474,0.9,0.4,4,1,9,3,57.4,42.6,2,2,0,0,3,2
+2023-04-13 00:30:00,Remo,Corinthians,2.0,0.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20230413_Remo_Corinthians,-35.322289097680596,0.94,0.85,4,2,8,4,52.5,47.5,2,2,0,0,6,4
+2023-04-13 00:30:00,Ypiranga,Botafogo,0.0,2.0,Rio Grande do Sul,Brazil,Estádio Olímpico Colosso da Lagoa,,,,Copa do Brasil,,20230413_Ypiranga_Botafogo,-10.842453023947655,0.59,1.78,2,5,6,11,50.3,49.7,1,4,0,0,1,6
+2023-04-13 22:00:00,Náutico,Cruzeiro,1.0,0.0,Recife,Brazil,Estádio dos Aflitos,,,,Copa do Brasil,,20230413_Náutico_Cruzeiro,1.476519221436547,0.89,0.95,2,1,6,5,51.2,48.8,2,1,0,0,4,3
+2023-04-13 23:00:00,Maringá,Flamengo,2.0,0.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20230413_Maringá_Flamengo,-43.50626974388433,1.14,1.63,4,6,9,14,44.2,55.8,4,2,0,0,4,4
+2023-04-14 00:30:00,ABC,Grêmio,0.0,2.0,Natal,Brazil,Frasqueirão,,,,Copa do Brasil,,20230414_ABC_Grêmio,10.412524761294662,0.13,1.41,1,5,3,11,53.1,46.9,0,0,0,0,4,3
+2023-04-25 22:00:00,Cruzeiro,Náutico,2.0,0.0,Belo Horizonte,Brazil,Estádio Raimundo Sampaio (Independência),,,,Copa do Brasil,,20230425_Cruzeiro_Náutico,-25.374525500991012,0.93,0.82,4,3,9,7,49.9,50.1,1,3,0,0,3,5
+2023-04-25 23:00:00,Paysandu,Fluminense,0.0,3.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20230425_Paysandu_Fluminense,-28.609090119854045,0.33,0.71,0,5,0,12,44.9,55.1,3,4,0,0,1,8
+2023-04-26 00:30:00,Athletico-PR,CRB,2.0,1.0,Curitiba,Brazil,Estádio Mário Celso Petraglia,,,,Copa do Brasil,,20230426_Athletico-PR_CRB,6.9188915608235675,1.11,0.67,4,2,8,5,51.2,48.8,2,0,0,1,3,2
+2023-04-26 00:30:00,Ituano,São Paulo,0.0,1.0,Itu,Brazil,Estadio Municipal Dr. Novelli Junior,,,,Copa do Brasil,,20230426_Ituano_São-Paulo,-12.146978661810408,0.54,1.16,3,3,7,7,60.7,39.3,3,2,0,0,7,3
+2023-04-26 22:00:00,Santos,Botafogo-SP,1.0,0.0,Santos,Brazil,Estádio Vila Belmiro (Urbano Caldeira),,,,Copa do Brasil,,20230426_Santos_Botafogo-SP,21.183639770254786,0.49,1.24,2,4,4,7,52.4,47.6,2,0,0,0,2,8
+2023-04-26 22:00:00,Sport,Coritiba,2.0,0.0,Recife,Brazil,Ilha do Retiro,,,,Copa do Brasil,,20230426_Sport_Coritiba,-29.830779909407283,1.15,1.61,4,4,8,9,51.1,48.9,1,1,0,1,5,12
+2023-04-26 22:30:00,Aguia de Maraba,Fortaleza,0.0,2.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20230426_Aguia-de-Maraba_Fortaleza,-45.70785809032941,0.74,1.04,2,5,6,12,43.2,56.8,3,1,0,0,3,4
+2023-04-26 22:30:00,Brasil de Pelotas,Atlético-MG,1.0,1.0,Pelotas,Brazil,Estádio Bento Freitas,,,,Copa do Brasil,,20230426_Brasil-de-Pelotas_Atlético-MG,-95.58644177210749,0.94,0.62,3,3,9,7,47.7,52.3,2,1,0,0,8,4
+2023-04-26 23:00:00,Tombense,Palmeiras,1.0,1.0,Uberlandia,Brazil,Estádio Parque do Sabiá,,,,Copa do Brasil,,20230426_Tombense_Palmeiras,-41.98744861288151,1.48,1.3,5,3,13,5,41.5,58.5,2,0,0,0,8,5
+2023-04-27 00:30:00,América Mineiro,Nova Iguaçu,5.0,0.0,Belo Horizonte,Brazil,Estádio Raimundo Sampaio (Independência),,,,Copa do Brasil,,20230427_América-Mineiro_Nova-Iguaçu,44.829121398393,2.88,1.28,8,5,18,10,48.9,51.1,1,3,1,0,9,4
+2023-04-27 00:30:00,Corinthians,Remo,2.0,0.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20230427_Corinthians_Remo,8.890683666212908,0.81,0.19,3,2,5,6,52.8,47.2,1,4,0,0,5,3
+2023-04-27 00:30:00,Flamengo,Maringá,8.0,2.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20230427_Flamengo_Maringá,16.516573260380483,1.98,1.23,8,6,17,12,46.3,53.7,0,0,0,0,9,11
+2023-04-27 22:00:00,Bahia,Volta Redonda,4.0,0.0,Salvador,Brazil,Casa de Apostas Arena Fonte Nova,,,,Copa do Brasil,,20230427_Bahia_Volta-Redonda,35.85175958264017,1.04,0.05,5,0,14,0,52.9,47.1,2,0,0,0,4,5
+2023-04-27 22:30:00,Botafogo,Ypiranga,2.0,0.0,Rio de Janeiro,Brazil,Estádio Olímpico Nilton Santos,,,,Copa do Brasil,,20230427_Botafogo_Ypiranga,34.09372594440174,0.67,0.67,5,2,12,3,49.7,50.3,1,1,0,0,5,1
+2023-04-27 23:00:00,CSA,Internacional,2.0,1.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20230427_CSA_Internacional,-0.5363726779821718,1.54,0.73,4,4,9,9,49.2,50.8,1,1,0,0,6,4
+2023-04-28 00:30:00,Grêmio,ABC,1.0,1.0,Porto Alegre,Brazil,Grêmio Arena,,,,Copa do Brasil,,20230428_Grêmio_ABC,14.306531699699462,1.07,1.09,3,4,7,7,48.3,51.7,2,0,0,0,4,4
+2023-05-17 00:00:00,Fluminense,Flamengo,0.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20230517_Fluminense_Flamengo,-38.046715686311245,0.56,1.43,1,5,1,12,45.8,54.2,2,2,0,1,2,6
+2023-05-17 22:00:00,Palmeiras,Fortaleza,3.0,0.0,Sao Paulo,Brazil,Allianz Parque,,,,Copa do Brasil,,20230517_Palmeiras_Fortaleza,-35.075370407347464,1.33,0.45,3,1,5,4,39.9,60.1,1,1,0,0,5,3
+2023-05-17 22:00:00,Santos,Bahia,0.0,0.0,Santos,Brazil,Estádio Vila Belmiro (Urbano Caldeira),,,,Copa do Brasil,,20230517_Santos_Bahia,-26.627231127132745,1.4,0.72,7,4,15,7,44.4,55.6,0,1,0,0,5,1
+2023-05-17 22:30:00,Grêmio,Cruzeiro,1.0,1.0,Porto Alegre,Brazil,Grêmio Arena,,,,Copa do Brasil,,20230517_Grêmio_Cruzeiro,2.8144894749862033,0.89,1.19,3,2,8,5,54.4,45.6,4,1,0,0,3,2
+2023-05-17 23:00:00,Sport,São Paulo,0.0,2.0,Recife,Brazil,Ilha do Retiro,,,,Copa do Brasil,,20230517_Sport_São-Paulo,-23.548533678621197,0.64,1.69,3,5,4,10,47.1,52.9,3,2,1,0,3,5
+2023-05-18 00:30:00,América Mineiro,Internacional,2.0,0.0,Belo Horizonte,Brazil,Estádio Raimundo Sampaio (Independência),,,,Copa do Brasil,,20230518_América-Mineiro_Internacional,78.46282877862336,1.52,0.51,5,1,10,1,51.6,48.4,0,2,0,0,6,1
+2023-05-18 00:30:00,Athletico-PR,Botafogo,3.0,2.0,Curitiba,Brazil,Estádio Mário Celso Petraglia,,,,Copa do Brasil,,20230518_Athletico-PR_Botafogo,-11.85599850030826,1.45,1.17,5,2,11,5,50.8,49.2,2,2,0,0,4,6
+2023-05-18 00:30:00,Atlético-MG,Corinthians,2.0,0.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20230518_Atlético-MG_Corinthians,48.43249447088988,1.69,0.61,5,2,11,3,55.4,44.6,3,3,0,0,6,4
+2023-05-31 22:00:00,Bahia,Santos,1.0,1.0,Salvador,Brazil,Casa de Apostas Arena Fonte Nova,,,,Copa do Brasil,,20230531_Bahia_Santos,24.79147990500178,1.96,0.81,5,5,12,11,51.4,48.6,2,2,0,0,8,3
+2023-05-31 22:00:00,Fortaleza,Palmeiras,1.0,0.0,Fortaleza,Brazil,Castelão,,,,Copa do Brasil,,20230531_Fortaleza_Palmeiras,8.66064764024145,0.64,0.89,1,4,3,9,49.3,50.7,2,1,0,0,4,9
+2023-05-31 23:00:00,Cruzeiro,Grêmio,0.0,1.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20230531_Cruzeiro_Grêmio,-2.620075682301831,0.85,0.8,3,3,7,6,54.4,45.6,4,1,1,0,3,6
+2023-06-01 00:30:00,Botafogo,Athletico-PR,1.0,0.0,Rio de Janeiro,Brazil,Estádio Olímpico Nilton Santos,,,,Copa do Brasil,,20230601_Botafogo_Athletico-PR,-12.96266711658268,0.76,0.79,2,5,3,11,51.6,48.4,0,1,0,1,4,6
+2023-06-01 00:30:00,Corinthians,Atlético-MG,2.0,0.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20230601_Corinthians_Atlético-MG,-69.10840007789943,0.57,0.68,2,1,5,3,46.8,53.2,4,1,1,0,5,1
+2023-06-01 00:30:00,Internacional,América Mineiro,3.0,1.0,Porto Alegre,Brazil,Estadio Beira-Rio,,,,Copa do Brasil,,20230601_Internacional_América-Mineiro,-97.13310914245199,0.46,0.05,3,1,6,3,44.7,55.3,0,1,0,0,5,1
+2023-06-01 22:30:00,São Paulo,Sport,1.0,3.0,Sao Paulo,Brazil,MorumBIS,,,,Copa do Brasil,,20230601_São-Paulo_Sport,45.92434494544318,0.25,1.14,1,4,3,8,54.5,45.5,3,3,0,0,2,5
+2023-06-01 23:00:00,Flamengo,Fluminense,2.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20230601_Flamengo_Fluminense,35.42899707168158,1.31,1.82,4,8,7,18,46.9,53.1,0,2,0,1,3,5
+2023-08-16 22:30:00,São Paulo,Corinthians,2.0,0.0,Sao Paulo,Brazil,MorumBIS,,,,Copa do Brasil,,20230816_São-Paulo_Corinthians,-27.698347034067183,1.35,1.82,4,6,8,12,50.1,49.9,1,2,0,0,7,9
+2023-08-17 00:30:00,Flamengo,Grêmio,1.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20230817_Flamengo_Grêmio,48.86144112355464,1.13,0.25,3,1,6,4,58.1,41.9,1,0,0,0,4,1
+2023-09-17 19:00:00,Flamengo,São Paulo,0.0,1.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20230917_Flamengo_São-Paulo,48.97642052699962,1.61,1.28,5,5,11,12,52.5,47.5,1,2,0,0,4,5
+2023-09-24 19:00:00,São Paulo,Flamengo,1.0,1.0,Sao Paulo,Brazil,MorumBIS,,,,Copa do Brasil,,20230924_São-Paulo_Flamengo,-21.61548184951903,2.04,1.11,7,4,17,9,44.0,56.0,2,0,0,0,7,3
+2024-02-20 19:30:00,Porto Velho,Remo,1.0,0.0,Porto Velho,Brazil,Aluízio Ferreira,,,,Copa do Brasil,,20240220_Porto-Velho_Remo,-26.69434918874481,1.12,0.93,4,1,9,2,49.2,50.8,4,0,0,0,7,2
+2024-02-20 23:00:00,Nova Venécia,Botafogo-SP,1.0,2.0,Aguila Branca,Brazil,Estádio José Olímpio da Rocha,,,,Copa do Brasil,,20240220_Nova-Venécia_Botafogo-SP,22.530388165081376,1.67,0.66,6,2,15,4,49.9,50.1,1,3,0,0,10,6
+2024-02-21 18:30:00,Real Brasília,São Raimundo-RR,2.0,1.0,Distrito Federal,Brazil,Estádio Ciro Machado do Espírito Santo (Defelê),,,,Copa do Brasil,,20240221_Real-Brasília_São-Raimundo-RR,11.58722744737429,1.25,0.92,3,1,8,2,52.7,47.3,1,2,0,0,3,2
+2024-02-21 19:00:00,Ríver AC,Ypiranga,1.0,1.0,Teresina,Brazil,Albertão,,,,Copa do Brasil,,20240221_Ríver-AC_Ypiranga,10.467108679139756,0.45,0.3,1,1,2,1,43.5,56.5,2,1,0,0,4,3
+2024-02-21 19:30:00,Manauara,Retró,1.0,2.0,Manaus,Brazil,Municipal Carlos Zamith,,,,Copa do Brasil,,20240221_Manauara_Retró,1.5042925004875087,1.43,1.28,3,6,6,13,45.6,54.4,3,2,0,0,2,9
+2024-02-21 22:15:00,Sousa EC,Cruzeiro,2.0,0.0,Sousa,Brazil,Estádio Governador Antônio Mariz,,,,Copa do Brasil,,20240221_Sousa-EC_Cruzeiro,0.4022394339629045,1.11,0.29,2,0,6,1,55.3,44.7,3,1,0,0,0,3
+2024-02-21 22:30:00,Anápolis,Tombense,1.0,0.0,Anápolis,Brazil,Estádio Jonas Duarte,,,,Copa do Brasil,,20240221_Anápolis_Tombense,17.248954465921315,0.05,0.79,1,2,5,4,55.8,44.2,4,1,1,0,2,3
+2024-02-21 22:30:00,Audax Rio,Portuguesa-RJ,0.0,0.0,Saquarema,Brazil,Elcyr Resende de Mendonça,,,,Copa do Brasil,,20240221_Audax-Rio_Portuguesa-RJ,-10.028259167454507,0.17,0.2,0,2,1,5,43.2,56.8,3,0,0,0,4,1
+2024-02-21 22:30:00,Itabaiana,Brasiliense,0.0,1.0,Lagarto,,Barretão,,,,Copa do Brasil,,20240221_Itabaiana_Brasiliense,29.217976930455734,0.98,0.16,1,1,3,2,48.2,51.8,1,1,0,0,3,2
+2024-02-21 22:30:00,Treze,ABC,1.0,1.0,Campina Grande,Brazil,Estádio Governador Ernani Sátyro,,,,Copa do Brasil,,20240221_Treze_ABC,-0.9057209691229673,0.95,1.25,3,4,7,9,49.3,50.7,1,3,0,0,4,4
+2024-02-21 23:00:00,Moto Club,Bahia,0.0,4.0,Sao Luis,Brazil,Estádio Nhozinho Santos,,,,Copa do Brasil,,20240221_Moto-Club_Bahia,-34.4605872464997,1.15,1.23,4,4,8,7,49.2,50.8,1,3,0,0,6,5
+2024-02-21 23:30:00,Capital,Tocantinopolis,2.0,1.0,Rio de Janeiro,Brazil,Estádio Olímpico Nilton Santos,,,,Copa do Brasil,,20240221_Capital_Tocantinopolis,-1.2753915520381724,1.07,0.61,2,2,4,2,50.1,49.9,1,6,0,0,6,6
+2024-02-21 23:30:00,Costa Rica EC,América-RN,1.0,2.0,Costa Rica,,Estádio Municipal Laerte Paes Coelho,,,,Copa do Brasil,,20240221_Costa-Rica-EC_América-RN,-0.4143005863770668,1.04,1.7,2,4,3,11,48.4,51.6,0,5,0,1,3,7
+2024-02-21 23:30:00,Independente AP,Amazonas,0.0,1.0,Macapa,Brazil,Estádio Milton de Souza Corrêa (Zerão),,,,Copa do Brasil,,20240221_Independente-AP_Amazonas,0.0,0.05,0.66,1,1,1,2,44.2,55.8,3,1,0,1,3,3
+2024-02-21 23:30:00,São Luiz-RS,Ituano,2.0,1.0,Ljuí,Brazil,Estadio 19 de Octubro,,,,Copa do Brasil,,20240221_São-Luiz-RS_Ituano,9.615052318343942,0.98,1.73,2,6,4,15,50.2,49.8,1,1,0,0,0,7
+2024-02-22 00:30:00,Rio Branco FC,CRB,0.0,0.0,Acre,Brazil,Antônio Aquino Lopes,,,,Copa do Brasil,,20240222_Rio-Branco-FC_CRB,-2.982023428722414,1.42,0.05,5,0,11,0,48.2,51.8,0,3,0,0,5,0
+2024-02-22 00:30:00,União Rondonópolis-MT,Atlético Goianiense,1.0,3.0,Rondonópolis,Brazil,Engenheiro Luthero Lopes (Caldeirão),,,,Copa do Brasil,,20240222_União-Rondonópolis-MT_Atlético-Goianiense,-22.52545738175354,1.34,2.25,4,7,9,16,55.2,44.8,0,0,0,0,3,8
+2024-02-22 20:30:00,Real Noroeste,Cuiabá,1.0,4.0,Aguila Branca,Brazil,Estádio José Olímpio da Rocha,,,,Copa do Brasil,,20240222_Real-Noroeste_Cuiabá,-0.026462182702971404,0.49,1.74,2,6,3,13,44.9,55.1,0,4,0,0,1,8
+2024-02-22 23:00:00,Aguia de Maraba,Coritiba,3.0,2.0,Marabá,Brazil,Estádio Municipal Zinho de Oliveira,,,,Copa do Brasil,,20240222_Aguia-de-Maraba_Coritiba,-15.547449019489704,1.1,1.38,3,4,4,11,47.1,52.9,2,0,0,0,5,7
+2024-02-22 23:00:00,Cianorte,Corinthians,0.0,3.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20240222_Cianorte_Corinthians,-38.03435228078661,0.7,1.34,1,3,3,7,53.6,46.4,1,1,0,0,1,7
+2024-02-27 22:15:00,Athletic,Volta Redonda,1.0,0.0,Sao Joao del Rei,Brazil,Estádio Joaquim Portugal,,,,Copa do Brasil,,20240227_Athletic_Volta-Redonda,8.912561720207123,1.65,0.74,6,2,15,4,56.7,43.3,6,1,0,0,4,3
+2024-02-27 23:00:00,Iguatu,Juventude,0.0,0.0,"Campo Grande, Mato Grosso do Sul",Brazil,Estadio Morenão,,,,Copa do Brasil,,20240227_Iguatu_Juventude,0.22538509491391778,0.77,0.7,4,2,8,5,47.7,52.3,1,0,0,0,5,5
+2024-02-28 00:30:00,Marcílio Dias,Vasco da Gama,1.0,3.0,Itajaí,Brazil,Estadio Doutor Hercilio Luz,,,,Copa do Brasil,,20240228_Marcílio-Dias_Vasco-da-Gama,-12.77291029067328,1.93,1.78,7,6,14,12,48.1,51.9,2,0,0,0,5,5
+2024-02-28 18:30:00,Olaria,São Bernardo,0.0,1.0,Rio de Janeiro,,Estádio da Rua Bariri,,,,Copa do Brasil,,20240228_Olaria_São-Bernardo,12.414300586377067,1.49,1.13,4,5,9,10,48.7,51.3,3,2,0,0,1,1
+2024-02-28 22:15:00,Maringá,América Mineiro,2.0,0.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20240228_Maringá_América-Mineiro,-35.328150067577326,1.77,0.65,6,3,15,5,46.8,53.2,0,2,0,0,3,2
+2024-02-28 22:30:00,Itabuna,Nova Iguaçu,0.0,8.0,Ilheus,,Estádio Mário Pessoa,,,,Copa do Brasil,,20240228_Itabuna_Nova-Iguaçu,-1.563699826655693,0.16,2.17,0,8,2,16,55.1,44.9,1,1,0,0,2,10
+2024-02-28 22:30:00,Maranhao,Ferroviário,1.0,2.0,Sao Luis,Brazil,Castelão (São Luis),,,,Copa do Brasil,,20240228_Maranhao_Ferroviário,11.945314517383167,0.05,0.58,1,3,4,4,56.3,43.7,4,1,0,0,3,3
+2024-02-28 22:30:00,Murici,Confiança,2.0,1.0,Alagoas,Brazil,Estádio José Gomes da Costa,,,,Copa do Brasil,,20240228_Murici_Confiança,0.0,2.08,0.6,6,2,10,5,53.2,46.8,0,1,0,0,5,2
+2024-02-28 22:30:00,aPetrolina,Cascavel,3.0,2.0,Petrolina,,Paulo Coelho,,,,Copa do Brasil,,20240228_aPetrolina_Cascavel,0.0,1.64,1.59,4,6,9,13,53.1,46.9,2,0,0,0,4,6
+2024-02-28 23:00:00,ASA,Internacional,0.0,2.0,Arapiraca,Brazil,Fumeirão,,,,Copa do Brasil,,20240228_ASA_Internacional,-5.9435175928031185,0.46,2.12,1,7,0,15,46.5,53.5,0,1,0,0,5,11
+2024-02-28 23:30:00,GA Sampaio,Brusque,0.0,1.0,Boa Vista,Brazil,Canarinho,,,,Copa do Brasil,,20240228_GA-Sampaio_Brusque,0.38617383432801944,0.36,1.39,0,6,0,15,49.7,50.3,2,1,0,0,2,8
+2024-02-28 23:30:00,Portuguesa Santista,Caxias do Sul,0.0,1.0,Santos,,Estádio Ulrico Mursa,,,,Copa do Brasil,,20240228_Portuguesa-Santista_Caxias-do-Sul,0.0,0.24,0.09,0,2,1,1,52.9,47.1,1,1,0,0,5,1
+2024-02-28 23:30:00,Villa Nova-MG,Aparecidense,1.0,0.0,Nova Lima,Brazil,Estádio Castor Cifuentes,,,,Copa do Brasil,,20240228_Villa-Nova-MG_Aparecidense,0.0,1.28,0.05,4,1,10,2,49.8,50.2,6,1,0,0,4,2
+2024-02-28 23:30:00,Água Santa,Jacuipense,2.0,1.0,Barueri,Brazil,Arena Barueri,,,,Copa do Brasil,,20240228_Água-Santa_Jacuipense,11.944682899370719,1.16,0.44,4,1,9,0,49.5,50.5,1,1,0,0,9,2
+2024-02-29 00:30:00,CEOV Operário,Criciúma,0.0,0.0,Cuiabá,Brazil,Arena Pantanal,,,,Copa do Brasil,,20240229_CEOV-Operário_Criciúma,-13.115483980718182,1.12,1.16,4,2,11,4,49.1,50.9,1,0,0,0,11,6
+2024-02-29 00:30:00,Humaita,Sampaio Corrêa,1.0,1.0,Acre,Brazil,Antônio Aquino Lopes,,,,Copa do Brasil,,20240229_Humaita_Sampaio-Corrêa,0.3263668090696683,1.43,1.22,3,5,9,13,53.4,46.6,3,0,0,0,5,7
+2024-02-29 00:30:00,Operário MS,Operário PR,0.0,0.0,,Brazil,Estádio Jacques da Luz,,,,Copa do Brasil,,20240229_Operário-MS_Operário-PR,22.386027081393195,0.85,0.86,2,4,6,8,47.9,52.1,1,2,0,0,4,3
+2024-02-29 00:30:00,Trem,Sport,0.0,4.0,Macapa,Brazil,Estádio Milton de Souza Corrêa (Zerão),,,,Copa do Brasil,,20240229_Trem_Sport,-28.078402880129488,0.82,1.74,2,5,5,10,47.4,52.6,1,2,0,0,6,8
+2024-03-01 00:30:00,Ji-Paraná FC,Paysandu,0.0,0.0,Rondônia,,Estádio Municipal José de Abreu Bianco,,,,Copa do Brasil,,20240301_Ji-Paraná-FC_Paysandu,23.257412388256853,1.09,2.16,2,6,4,14,54.0,46.0,3,1,0,0,5,5
+2024-03-04 19:00:00,Fluminense PI,Fortaleza,0.0,3.0,Teresina,Brazil,Estadio Municipal Lindolfo Monteiro,,,,Copa do Brasil,,20240304_Fluminense-PI_Fortaleza,-57.352326720532346,1.16,0.22,5,3,12,5,42.1,57.9,2,4,0,1,9,3
+2024-03-06 23:00:00,Real Brasília,Atlético Goianiense,1.0,3.0,Gama,Brazil,Bezerrão,,,,Copa do Brasil,,20240306_Real-Brasília_Atlético-Goianiense,2.25140338693177,1.85,0.6,6,3,13,4,48.8,51.2,2,1,0,0,12,3
+2024-03-07 22:00:00,Villa Nova-MG,Operário PR,0.0,2.0,Nova Lima,Brazil,Estádio Castor Cifuentes,,,,Copa do Brasil,,20240307_Villa-Nova-MG_Operário-PR,34.81358161763819,0.64,0.76,2,2,4,5,55.0,45.0,2,1,0,0,3,5
+2024-03-07 23:00:00,Vasco da Gama,Água Santa,3.0,3.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20240307_Vasco-da-Gama_Água-Santa,12.344332281018296,2.04,0.35,6,3,12,7,52.0,48.0,1,2,0,0,9,4
+2024-03-07 23:30:00,Sousa EC,aPetrolina,1.0,0.0,Sousa,Brazil,Estádio Governador Antônio Mariz,,,,Copa do Brasil,,20240307_Sousa-EC_aPetrolina,-0.013892851659647931,1.01,0.55,3,3,8,6,48.9,51.1,0,3,0,0,3,4
+2024-03-12 22:00:00,CRB,Athletic,2.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20240312_CRB_Athletic,-8.160788388923038,1.73,1.34,6,4,11,9,52.1,47.9,0,2,0,0,5,3
+2024-03-12 23:00:00,Portuguesa-RJ,Cuiabá,0.0,0.0,Ilha do Governador,Brazil,Estádio Luso Brasileiro,,,,Copa do Brasil,,20240312_Portuguesa-RJ_Cuiabá,-1.8885868362560814,0.7,0.31,4,1,9,2,51.8,48.2,1,2,0,0,7,4
+2024-03-13 00:30:00,ABC,Brusque,1.0,1.0,Natal,Brazil,Frasqueirão,,,,Copa do Brasil,,20240313_ABC_Brusque,-10.752725585935423,0.26,0.62,1,2,2,2,46.8,53.2,2,2,0,0,2,2
+2024-03-13 00:30:00,Caxias do Sul,Bahia,2.0,2.0,Caxias do Sul,Brazil,Estádio Francisco Stédile (Centenário),,,,Copa do Brasil,,20240313_Caxias-do-Sul_Bahia,-44.85994790375298,2.43,1.55,8,4,16,10,44.7,55.3,1,1,0,0,8,4
+2024-03-13 22:00:00,Sport,Murici,1.0,1.0,Recife,Brazil,Arena Pernambuco,,,,Copa do Brasil,,20240313_Sport_Murici,3.552611937619986,1.11,0.85,1,4,2,11,50.9,49.1,3,1,0,0,1,7
+2024-03-13 22:00:00,Ypiranga,Porto Velho,2.0,0.0,Rio Grande do Sul,Brazil,Estádio Olímpico Colosso da Lagoa,,,,Copa do Brasil,,20240313_Ypiranga_Porto-Velho,-11.025877077920086,1.37,0.13,6,0,11,1,40.1,59.9,0,1,0,0,5,2
+2024-03-13 23:00:00,Nova Iguaçu,Internacional,0.0,2.0,Brasília,Brazil,Arena BRB Mané Garrincha,,,,Copa do Brasil,,20240313_Nova-Iguaçu_Internacional,6.929614140371314,0.5,0.89,2,4,6,10,50.4,49.6,2,3,0,0,4,5
+2024-03-14 00:30:00,América-RN,São Luiz-RS,3.0,0.0,Natal,Brazil,Arena das Dunas,,,,Copa do Brasil,,20240314_América-RN_São-Luiz-RS,-11.66885961142907,2.17,0.84,7,2,18,3,54.9,45.1,3,2,0,0,6,0
+2024-03-14 00:30:00,Juventude,Paysandu,3.0,1.0,Caxias do Sul,Brazil,Alfredo Jaconi,,,,Copa do Brasil,,20240314_Juventude_Paysandu,21.30304748948174,2.05,0.05,8,1,17,3,55.4,44.6,3,1,0,1,15,5
+2024-03-14 00:30:00,Sampaio Corrêa,Ferroviário,0.0,0.0,Sao Luis,Brazil,Castelão (São Luis),,,,Copa do Brasil,,20240314_Sampaio-Corrêa_Ferroviário,-12.469642431928605,1.0,0.45,3,2,6,2,54.6,45.4,1,2,0,0,4,2
+2024-03-14 22:00:00,Brasiliense,Criciúma,1.0,1.0,Taguatinga,Brazil,Estádio Serejão,,,,Copa do Brasil,,20240314_Brasiliense_Criciúma,-16.873902273840713,2.26,1.19,6,1,11,3,56.1,43.9,0,2,0,0,11,1
+2024-03-14 23:00:00,São Bernardo,Corinthians,0.0,2.0,São Bernardo do Campo ,Brazil,Estádio Primeiro de Maio,,,,Copa do Brasil,,20240314_São-Bernardo_Corinthians,-48.711623128344854,0.05,0.37,0,2,1,6,48.0,52.0,1,0,0,0,2,1
+2024-03-14 23:30:00,Aguia de Maraba,Capital,3.0,0.0,Marabá,Brazil,Estádio Municipal Zinho de Oliveira,,,,Copa do Brasil,,20240314_Aguia-de-Maraba_Capital,-9.148467817577739,1.48,1.09,4,3,8,6,46.0,54.0,2,3,0,0,2,2
+2024-03-15 00:30:00,Botafogo-SP,Anápolis,2.0,1.0,Ribeirão Preto,Brazil,Arena Nicnet,,,,Copa do Brasil,,20240315_Botafogo-SP_Anápolis,-21.15803629523748,0.56,0.76,2,4,7,11,49.1,50.9,1,0,0,0,7,6
+2024-03-15 00:30:00,Fortaleza,Retró,0.0,0.0,Fortaleza,Brazil,Castelão,,,,Copa do Brasil,,20240315_Fortaleza_Retró,54.91034013245303,0.85,0.27,3,0,5,0,60.6,39.4,0,1,0,0,3,3
+2024-03-15 00:30:00,Maringá,Amazonas,0.0,1.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20240315_Maringá_Amazonas,27.266097608798646,1.02,0.13,4,1,7,3,49.1,50.9,3,1,0,0,5,6
+2024-04-30 22:00:00,Bahia,Criciúma,1.0,0.0,Salvador,Brazil,Casa de Apostas Arena Fonte Nova,,,,Copa do Brasil,,20240430_Bahia_Criciúma,55.23873324017927,0.92,1.14,2,3,5,5,51.3,48.7,1,1,0,0,3,3
+2024-04-30 23:00:00,Operário PR,Grêmio,0.0,0.0,Ponta Grossa,Brazil,Germano Krüger,,,,Copa do Brasil,,20240430_Operário-PR_Grêmio,-25.328598297452572,0.81,1.1,2,4,6,11,45.7,54.3,0,2,0,0,7,5
+2024-05-01 00:30:00,Atlético-MG,Sport,2.0,0.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20240501_Atlético-MG_Sport,75.95562383712331,0.97,0.36,3,2,5,7,53.3,46.7,1,0,0,0,2,9
+2024-05-01 19:00:00,Brusque,Atlético Goianiense,0.0,1.0,Joinville,Brazil,Arena Joinville,,,,Copa do Brasil,,20240501_Brusque_Atlético-Goianiense,-10.170399222368133,1.66,0.44,4,2,9,6,52.0,48.0,1,3,0,0,3,6
+2024-05-01 19:00:00,Sampaio Corrêa,Fluminense,0.0,2.0,Espírito Santo,Brazil,Kléber Andrade,,,,Copa do Brasil,,20240501_Sampaio-Corrêa_Fluminense,-29.480237510295865,0.42,1.86,3,6,6,14,43.8,56.2,1,2,0,0,8,9
+2024-05-01 21:00:00,Sousa EC,Red Bull Bragantino,1.0,1.0,Sousa,Brazil,Estádio Governador Antônio Mariz,,,,Copa do Brasil,,20240501_Sousa-EC_Red-Bull-Bragantino,36.4132213308842,0.58,0.89,1,3,4,4,45.8,54.2,1,3,0,0,3,4
+2024-05-01 21:00:00,Ypiranga,Athletico-PR,2.0,1.0,Rio Grande do Sul,Brazil,Estádio Olímpico Colosso da Lagoa,,,,Copa do Brasil,,20240501_Ypiranga_Athletico-PR,-31.109868210437526,1.53,0.23,4,1,10,1,47.0,53.0,0,3,0,0,4,2
+2024-05-01 22:00:00,Fortaleza,Vasco da Gama,0.0,0.0,Fortaleza,Brazil,Castelão,,,,Copa do Brasil,,20240501_Fortaleza_Vasco-da-Gama,40.07134101550082,1.35,0.63,5,2,10,7,50.7,49.3,2,1,0,0,8,3
+2024-05-01 23:00:00,América-RN,Corinthians,1.0,2.0,Natal,Brazil,Arena das Dunas,,,,Copa do Brasil,,20240501_América-RN_Corinthians,-46.6658457148485,0.74,1.2,3,4,8,7,51.6,48.4,4,3,0,0,2,4
+2024-05-02 00:30:00,Flamengo,Amazonas,1.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20240502_Flamengo_Amazonas,45.85582763892853,0.81,1.42,2,5,7,11,56.2,43.8,2,0,0,0,6,6
+2024-05-02 22:00:00,Botafogo,Vitória,1.0,0.0,Rio de Janeiro,Brazil,Estádio Olímpico Nilton Santos,,,,Copa do Brasil,,20240502_Botafogo_Vitória,78.58215775291546,1.85,1.25,5,5,11,12,54.8,45.2,5,1,0,0,8,3
+2024-05-02 22:30:00,Aguia de Maraba,São Paulo,1.0,3.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20240502_Aguia-de-Maraba_São-Paulo,-35.459889630894395,0.73,2.82,3,8,5,20,47.5,52.5,4,0,0,0,3,7
+2024-05-02 23:30:00,CRB,Ceará,1.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20240502_CRB_Ceará,-27.044923856948117,0.67,0.98,2,3,3,7,54.3,45.7,1,6,0,0,2,0
+2024-05-03 00:30:00,Goiás,Cuiabá,1.0,0.0,Goiãnia,Brazil,Estádio de Hailé Pinheiro,,,,Copa do Brasil,,20240503_Goiás_Cuiabá,0.08097136558990314,1.21,0.56,3,1,6,3,45.3,54.7,1,1,0,0,3,3
+2024-05-03 00:30:00,Palmeiras,Botafogo-SP,2.0,1.0,Sao Paulo,Brazil,Allianz Parque,,,,Copa do Brasil,,20240503_Palmeiras_Botafogo-SP,20.382003697161508,0.36,1.24,2,3,6,6,50.0,50.0,2,3,0,0,1,4
+2024-05-21 22:30:00,Red Bull Bragantino,Sousa EC,3.0,0.0,Bragança Paulista,Brazil,Estádio Nabi Abi Chedid,,,,Copa do Brasil,,20240521_Red-Bull-Bragantino_Sousa-EC,-33.90705450369046,2.35,0.2,8,2,19,5,54.9,45.1,0,1,0,0,9,5
+2024-05-22 00:30:00,Vasco da Gama,Fortaleza,3.0,3.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20240522_Vasco-da-Gama_Fortaleza,-37.315519393996965,2.19,1.69,6,6,12,12,55.5,44.5,0,2,0,0,12,7
+2024-05-22 22:00:00,Atlético Goianiense,Brusque,4.0,2.0,Goiãnia,Brazil,Estádio Antônio Accioly,,,,Copa do Brasil,,20240522_Atlético-Goianiense_Brusque,33.46805353380773,1.43,1.41,5,3,12,4,48.7,51.3,2,1,0,0,6,5
+2024-05-22 22:00:00,Fluminense,Sampaio Corrêa,2.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20240522_Fluminense_Sampaio-Corrêa,51.44868801284156,1.81,0.26,8,2,18,4,53.6,46.4,3,2,0,0,9,4
+2024-05-22 22:00:00,Vitória,Botafogo,1.0,2.0,Salvador,Brazil,Estadio Manoel Barradas,,,,Copa do Brasil,,20240522_Vitória_Botafogo,-97.24460226918518,0.36,1.45,2,5,4,9,48.5,51.5,3,1,0,0,5,4
+2024-05-22 23:00:00,Corinthians,América-RN,2.0,1.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20240522_Corinthians_América-RN,67.46152936446174,1.11,1.12,2,4,6,9,53.7,46.3,1,0,0,0,2,8
+2024-05-22 23:00:00,Sport,Atlético-MG,1.0,0.0,Recife,Brazil,Arena Pernambuco,,,,Copa do Brasil,,20240522_Sport_Atlético-MG,-94.79081611326592,1.15,0.91,4,3,8,8,53.9,46.1,1,2,0,1,5,4
+2024-05-23 00:30:00,Amazonas,Flamengo,0.0,1.0,Manaus,Brazil,Arena Amazonia,,,,Copa do Brasil,,20240523_Amazonas_Flamengo,-66.70648494298075,0.55,0.91,2,5,5,11,47.9,52.1,3,2,0,0,2,7
+2024-05-23 22:00:00,Botafogo-SP,Palmeiras,0.0,0.0,Ribeirão Preto,Brazil,Arena Nicnet,,,,Copa do Brasil,,20240523_Botafogo-SP_Palmeiras,-42.975677671404355,0.68,0.6,2,2,3,4,49.7,50.3,4,2,0,0,4,4
+2024-05-23 22:00:00,Criciúma,Bahia,0.0,2.0,Criciúma,Brazil,Heriberto Hülse,,,,Copa do Brasil,,20240523_Criciúma_Bahia,-75.45480621279171,0.84,1.34,3,3,7,7,47.9,52.1,4,1,0,0,1,1
+2024-05-23 22:30:00,Cuiabá,Goiás,1.0,0.0,Cuiabá,Brazil,Arena Pantanal,,,,Copa do Brasil,,20240523_Cuiabá_Goiás,-24.075378061910214,1.52,1.62,4,4,10,10,56.2,43.8,3,4,0,1,5,6
+2024-05-24 00:30:00,Ceará,CRB,0.0,1.0,Fortaleza,Brazil,Castelão,,,,Copa do Brasil,,20240524_Ceará_CRB,1.1804909048632908,0.33,0.95,1,3,3,8,47.9,52.1,3,1,0,0,3,6
+2024-05-24 00:30:00,São Paulo,Aguia de Maraba,2.0,0.0,Sao Paulo,Brazil,MorumBIS,,,,Copa do Brasil,,20240524_São-Paulo_Aguia-de-Maraba,57.018877040301504,1.07,0.41,4,2,9,3,52.6,47.4,2,3,0,1,7,2
+2024-08-01 22:00:00,Juventude,Fluminense,3.0,2.0,Caxias do Sul,Brazil,Alfredo Jaconi,,,,Copa do Brasil,,20240801_Juventude_Fluminense,-29.015462638747977,0.85,1.84,3,7,7,14,52.8,47.2,1,3,0,0,8,5
+2024-08-07 00:45:00,Vasco da Gama,Atlético Goianiense,1.0,0.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20240807_Vasco-da-Gama_Atlético-Goianiense,-17.755168205917926,1.97,0.34,6,1,14,3,47.9,52.1,3,1,0,0,6,1
+2024-08-07 22:00:00,Atlético-MG,CRB,3.0,0.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20240807_Atlético-MG_CRB,45.474228834520545,1.17,0.6,5,1,11,1,46.7,53.3,1,1,0,0,3,2
+2024-08-07 22:00:00,Bahia,Botafogo,1.0,0.0,Salvador,Brazil,Casa de Apostas Arena Fonte Nova,,,,Copa do Brasil,,20240807_Bahia_Botafogo,11.486461214670271,1.79,0.26,4,1,9,1,50.7,49.3,7,2,0,0,5,2
+2024-08-07 22:00:00,Red Bull Bragantino,Athletico-PR,2.0,3.0,Bragança Paulista,Brazil,Estádio Nabi Abi Chedid,,,,Copa do Brasil,,20240807_Red-Bull-Bragantino_Athletico-PR,-18.319376148191623,1.27,1.46,3,4,6,8,51.6,48.4,1,3,0,0,5,2
+2024-08-07 23:00:00,Palmeiras,Flamengo,1.0,0.0,Sao Paulo,Brazil,Allianz Parque,,,,Copa do Brasil,,20240807_Palmeiras_Flamengo,-57.76630073491788,0.94,1.66,3,6,6,13,42.5,57.5,0,2,0,0,6,9
+2024-08-08 00:30:00,Fluminense,Juventude,2.0,2.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20240808_Fluminense_Juventude,3.015792198326835,1.55,1.04,5,3,10,7,44.5,55.5,1,1,0,0,7,6
+2024-08-08 00:30:00,Grêmio,Corinthians,0.0,0.0,Curitiba,Brazil,Couto Pereira,,,,Copa do Brasil,,20240808_Grêmio_Corinthians,-64.31090870952289,1.22,0.84,4,2,9,6,47.4,52.6,2,1,0,0,3,3
+2024-08-08 23:00:00,Goiás,São Paulo,0.0,0.0,Goiãnia,Brazil,Estádio de Hailé Pinheiro,,,,Copa do Brasil,,20240808_Goiás_São-Paulo,-60.74568091712467,0.78,0.24,2,0,4,0,44.3,55.7,1,2,0,0,2,1
+2024-08-29 00:30:00,Bahia,Flamengo,0.0,1.0,Salvador,Brazil,Casa de Apostas Arena Fonte Nova,,,,Copa do Brasil,,20240829_Bahia_Flamengo,9.496733538030185,1.0,1.81,2,5,3,10,57.6,42.4,0,1,0,0,7,2
+2024-08-29 00:30:00,São Paulo,Atlético-MG,0.0,1.0,Sao Paulo,Brazil,MorumBIS,,,,Copa do Brasil,,20240829_São-Paulo_Atlético-MG,-26.624305195196712,0.84,1.06,4,2,12,4,47.3,52.7,2,1,1,0,6,3
+2024-08-29 23:00:00,Juventude,Corinthians,2.0,1.0,Caxias do Sul,Brazil,Alfredo Jaconi,,,,Copa do Brasil,,20240829_Juventude_Corinthians,-53.73801488664708,0.54,1.6,2,3,6,8,44.8,55.2,3,2,0,0,3,11
+2024-08-29 23:00:00,Vasco da Gama,Athletico-PR,2.0,1.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20240829_Vasco-da-Gama_Athletico-PR,7.099193541244858,0.53,1.33,2,5,4,12,53.6,46.4,2,2,0,0,5,8
+2024-09-12 00:00:00,Corinthians,Juventude,3.0,1.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20240912_Corinthians_Juventude,26.05524516158289,1.22,1.05,5,4,13,9,56.6,43.4,1,2,0,0,9,3
+2024-09-12 00:30:00,Athletico-PR,Vasco da Gama,2.0,1.0,Curitiba,Brazil,Estádio Mário Celso Petraglia,,,,Copa do Brasil,,20240912_Athletico-PR_Vasco-da-Gama,-30.608866861900424,0.69,0.05,2,1,4,3,52.9,47.1,3,2,0,0,7,2
+2024-09-13 00:45:00,Atlético-MG,São Paulo,0.0,0.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20240913_Atlético-MG_São-Paulo,48.78875490689893,1.06,0.05,3,0,4,1,51.3,48.7,4,1,0,0,5,0
+2024-09-13 00:45:00,Flamengo,Bahia,1.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20240913_Flamengo_Bahia,15.159114246486297,1.48,1.25,5,4,11,9,43.9,56.1,5,2,0,0,9,8
+2024-10-02 22:15:00,Atlético-MG,Vasco da Gama,2.0,1.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20241002_Atlético-MG_Vasco-da-Gama,67.97380388147553,1.14,1.48,3,6,7,14,49.6,50.4,0,5,0,0,2,6
+2024-10-03 00:45:00,Flamengo,Corinthians,1.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20241003_Flamengo_Corinthians,26.55733807921979,2.04,0.05,5,0,12,0,54.5,45.5,2,0,1,0,2,0
+2024-10-19 21:30:00,Vasco da Gama,Atlético-MG,1.0,1.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20241019_Vasco-da-Gama_Atlético-MG,-87.33734556692457,0.21,0.58,1,3,4,8,55.3,44.7,1,5,0,1,2,7
+2024-10-20 19:00:00,Corinthians,Flamengo,0.0,0.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20241020_Corinthians_Flamengo,-48.72638672434323,1.2,1.12,4,4,9,9,53.5,46.5,3,3,0,0,6,1
+2024-11-03 19:00:00,Flamengo,Atlético-MG,3.0,1.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20241103_Flamengo_Atlético-MG,-1.9965614524392095,1.8,0.82,5,1,10,4,48.0,52.0,1,0,0,0,13,4
+2024-11-10 19:00:00,Atlético-MG,Flamengo,0.0,1.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20241110_Atlético-MG_Flamengo,-22.14135460855846,1.06,0.34,4,1,9,0,47.1,52.9,2,2,0,0,4,2
+2025-02-18 21:00:00,Tocantinopolis,Atlético-MG,0.0,2.0,Tocantinopolis,Brazil,Estadio Joao Ribeiro,,,,Copa do Brasil,,20250218_Tocantinopolis_Atlético-MG,-99.64507509394161,1.34,0.72,5,2,11,3,45.8,54.2,1,0,0,0,4,2
+2025-02-19 00:30:00,União Rondonópolis-MT,Vasco da Gama,0.0,3.0,Espírito Santo,Brazil,Kléber Andrade,,,,Copa do Brasil,,20250219_União-Rondonópolis-MT_Vasco-da-Gama,-66.3765262559316,1.24,2.63,5,9,11,20,49.1,50.9,1,3,0,0,9,10
+2025-02-19 18:30:00,Tuna Luso,Sampaio Corrêa,1.0,0.0,Belém,Brazil,Estádio Francisco Vasques,,,,Copa do Brasil,,20250219_Tuna-Luso_Sampaio-Corrêa,20.39219404915616,0.05,0.71,1,3,2,7,55.5,44.5,2,3,0,0,1,13
+2025-02-19 22:00:00,Santa Cruz de Natal,Náutico,0.0,4.0,Natal,Brazil,Frasqueirão,,,,Copa do Brasil,,20250219_Santa-Cruz-de-Natal_Náutico,-11.034886373454356,0.77,1.75,1,5,5,10,46.0,54.0,1,0,0,0,8,3
+2025-02-19 22:30:00,Boavista,CSA,0.0,2.0,Saquarema,Brazil,Estádio Elcyr Resende de Mendonca,,,,Copa do Brasil,,20250219_Boavista_CSA,-12.351056306858254,1.17,0.37,4,2,9,2,49.1,50.9,2,1,1,0,6,3
+2025-02-19 22:30:00,São Raimundo-RR,Grêmio,1.0,1.0,Boa Vista,Brazil,Canarinho,,,,Copa do Brasil,,20250219_São-Raimundo-RR_Grêmio,-40.22351659132096,0.51,0.73,1,1,1,1,56.4,43.6,1,3,0,1,3,2
+2025-02-19 23:00:00,Capital CF,Portuguesa-RJ,0.0,0.0,Paranoá,Brazil,Estádio JK Paranoá,,,,Copa do Brasil,,20250219_Capital-CF_Portuguesa-RJ,-9.747220356797925,1.64,0.25,6,3,13,8,52.9,47.1,0,0,0,0,4,9
+2025-02-19 23:00:00,Porto Velho,Cuiabá,0.0,0.0,Porto Velho,Brazil,Aluízio Ferreira,,,,Copa do Brasil,,20250219_Porto-Velho_Cuiabá,-23.798864211732507,0.6,1.05,2,4,4,7,54.0,46.0,0,2,0,0,3,1
+2025-02-19 23:00:00,Sergipe SE,Ceará,0.0,2.0,"Aracaju, Sergipe",Brazil,Estadio Estadual Lourival Baptista,,,,Copa do Brasil,,20250219_Sergipe-SE_Ceará,-28.38051314387849,0.35,0.3,0,2,2,4,43.7,56.3,2,1,0,0,4,2
+2025-02-19 23:30:00,Trem,Brusque,0.0,2.0,Macapa,Brazil,Zerão,,,,Copa do Brasil,,20250219_Trem_Brusque,-23.349868153209854,0.88,1.24,4,5,11,11,45.3,54.7,4,0,0,0,6,4
+2025-02-20 00:00:00,Independência,Manaus,1.0,1.0,Rio Branco,Brazil,Arena da Floresta,,,,Copa do Brasil,,20250220_Independência_Manaus,12.399991157846216,1.96,1.29,5,5,12,11,53.7,46.3,1,1,0,1,7,5
+2025-02-20 00:30:00,ASA,Atlético Goianiense,1.0,1.0,Arapiraca,Brazil,Fumeirão,,,,Copa do Brasil,,20250220_ASA_Atlético-Goianiense,-54.262947361648685,0.46,0.51,3,1,7,2,44.7,55.3,3,1,1,0,0,6
+2025-02-20 23:00:00,Rio Branco (Venda Nova),Amazonas,0.0,0.0,Espírito Santo,Brazil,Kléber Andrade,,,,Copa do Brasil,,20250220_Rio-Branco-(Venda-Nova)_Amazonas,-4.790541991855889,0.09,0.21,2,0,6,1,52.8,47.2,3,1,0,0,5,0
+2025-02-21 00:30:00,Olaria,ABC,1.0,0.0,Rio de Janeiro,Brazil,Estádio Moça Bonita,,,,Copa do Brasil,,20250221_Olaria_ABC,-13.674298371097393,1.07,1.29,4,4,8,10,48.9,51.1,1,3,0,0,3,7
+2025-02-25 22:00:00,Maranhao,Vitória,0.0,1.0,Sao Luis,Brazil,Castelão (São Luis),,,,Copa do Brasil,,20250225_Maranhao_Vitória,38.91008855024552,0.05,1.34,0,4,0,9,51.0,49.0,2,4,0,0,2,8
+2025-02-25 22:30:00,Barcelona BA,Athletic,1.0,2.0,Jequié,,Estádio Waldomiro Borges,,,,Copa do Brasil,,20250225_Barcelona-BA_Athletic,1.2419929142870387,0.96,0.7,3,3,6,6,50.3,49.7,1,2,0,0,5,2
+2025-02-25 22:30:00,Maringá,Juventude,1.0,0.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20250225_Maringá_Juventude,0.3698167886111605,0.88,0.95,2,2,4,5,54.7,45.3,2,3,0,0,3,5
+2025-02-25 23:00:00,Operário MS,Criciúma,0.0,1.0,,Brazil,Estádio Jacques da Luz,,,,Copa do Brasil,,20250225_Operário-MS_Criciúma,17.489984033580185,1.0,1.25,4,4,9,10,46.1,53.9,1,3,0,0,8,4
+2025-02-26 00:30:00,CEOV Operário,Sport,0.0,0.0,Cuiabá,Brazil,Estádio Eurico Gaspar Dutra,,,,Copa do Brasil,,20250226_CEOV-Operário_Sport,-32.754612606215915,1.01,0.1,2,0,4,0,48.8,51.2,1,1,0,0,3,4
+2025-02-26 00:30:00,Pouso Alegre,Athletico-PR,0.0,2.0,Pouso Alegre,Brazil,Estádio Municipal Irmão Gino Maria Rossi,,,,Copa do Brasil,,20250226_Pouso-Alegre_Athletico-PR,-20.980715878964702,0.36,1.05,1,3,3,8,52.6,47.4,2,1,0,0,5,2
+2025-02-26 19:00:00,Dourados Atlético,Caxias do Sul,0.0,2.0,Mato Grosso do Sul,Brazil,Estádio Municipal Fredis Saldivar,,,,Copa do Brasil,,20250226_Dourados-Atlético_Caxias-do-Sul,-13.540854539122847,0.05,0.11,0,2,0,3,42.5,57.5,1,2,0,0,3,6
+2025-02-26 22:00:00,CSE,Tombense,1.0,3.0,Palmeira dos Indios,Brazil,Estádio Municipal Juca Sampaio,,,,Copa do Brasil,,20250226_CSE_Tombense,28.653685671747326,1.2,1.47,3,5,8,11,60.3,39.7,0,2,0,0,10,7
+2025-02-26 22:00:00,Cascavel,América Mineiro,1.0,0.0,Cascavel,,Estádio Olímpico Regional Jacy Miguel Scanagatta,,,,Copa do Brasil,,20250226_Cascavel_América-Mineiro,-60.162241540084096,0.91,0.05,4,1,8,3,48.3,51.7,0,2,0,0,4,4
+2025-02-26 22:00:00,Guarany de Bagé,Altos,2.0,1.0,Bage,Brazil,Estadio Antonio Magalhães Rossel,,,,Copa do Brasil,,20250226_Guarany-de-Bagé_Altos,10.86002780567469,1.24,0.87,4,3,7,7,51.0,49.0,1,2,0,0,8,2
+2025-02-26 22:30:00,Aguia de Maraba,Fluminense,0.0,8.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20250226_Aguia-de-Maraba_Fluminense,-31.640464882089645,0.8,2.33,1,8,1,16,55.4,44.6,3,0,0,0,8,5
+2025-02-26 22:30:00,Jequié,Retró,1.0,2.0,Jequié,,Estádio Waldomiro Borges,,,,Copa do Brasil,,20250226_Jequié_Retró,-12.428565114288403,1.0,1.62,2,5,4,12,45.6,54.4,0,0,0,0,5,7
+2025-02-26 22:30:00,Votuporanguense S20,Aparecidense,2.0,3.0,Sao Paulo,Brazil,Estádio Municipal Dr. Plínio Marin,,,,Copa do Brasil,,20250226_Votuporanguense-S20_Aparecidense,12.0,0.93,0.97,3,4,6,8,58.6,41.4,1,2,0,0,8,4
+2025-02-26 23:00:00,Barcelona RO,Nova Iguaçu,1.0,4.0,Porto Velho,Brazil,Aluízio Ferreira,,,,Copa do Brasil,,20250226_Barcelona-RO_Nova-Iguaçu,-1.2703832511940618,0.79,1.72,2,5,4,12,44.0,56.0,2,2,0,0,4,8
+2025-02-26 23:00:00,Maracanã,Ferroviário,2.0,1.0,Horizonte,Brazil,Estádio Domingão,,,,Copa do Brasil,,20250226_Maracanã_Ferroviário,-0.03659818003802684,0.9,0.05,6,1,14,2,52.7,47.3,2,2,0,0,5,3
+2025-02-26 23:00:00,Oratorio,São José-RS,1.0,3.0,Macapa,Brazil,Zerão,,,,Copa do Brasil,,20250226_Oratorio_São-José-RS,0.0,0.61,0.93,1,3,2,7,54.6,45.4,2,0,0,0,7,6
+2025-02-26 23:00:00,Parnahyba,Confiança,0.0,5.0,Teresina,Brazil,Albertão,,,,Copa do Brasil,,20250226_Parnahyba_Confiança,11.585699413622933,1.03,1.73,3,5,7,10,52.2,47.8,2,0,0,0,1,2
+2025-02-26 23:00:00,Uniáo TO,América-RN,4.0,2.0,Araguaína,Brazil,Estádio Leôncio de Souza Miranda,,,,Copa do Brasil,,20250226_Uniáo-TO_América-RN,7.708083280492247,1.8,1.46,7,5,15,10,45.9,54.1,1,4,0,0,12,6
+2025-02-26 23:30:00,GA Sampaio,Remo,0.0,4.0,Boa Vista,Brazil,Canarinho,,,,Copa do Brasil,,20250226_GA-Sampaio_Remo,-13.787506965127477,0.67,0.94,2,4,3,6,53.5,46.5,1,0,0,0,2,2
+2025-02-27 00:00:00,Humaita,Operário PR,0.0,1.0,Rio Branco,Brazil,Arena da Floresta,,,,Copa do Brasil,,20250227_Humaita_Operário-PR,-2.9568217508788166,0.81,1.34,2,3,7,7,52.3,47.7,3,2,0,0,2,5
+2025-02-27 00:30:00,Concordia,Ponte Preta,2.0,1.0,Brusque,Brazil,Estádio Domingos Machado De Lima,,,,Copa do Brasil,,20250227_Concordia_Ponte-Preta,11.224599638563632,1.27,0.34,5,2,11,6,39.0,61.0,1,1,0,0,7,4
+2025-02-27 22:00:00,Ceilândia,Coritiba,2.0,2.0,Distrito Federal,Brazil,Abadião,,,,Copa do Brasil,,20250227_Ceilândia_Coritiba,-7.453715658297142,1.7,1.81,6,5,15,11,49.6,50.4,0,2,1,0,8,8
+2025-02-27 22:00:00,Sousa EC,Red Bull Bragantino,1.0,1.0,Sousa,Brazil,Estádio Governador Antônio Mariz,,,,Copa do Brasil,,20250227_Sousa-EC_Red-Bull-Bragantino,18.9401027789836,1.49,0.72,3,3,8,4,50.3,49.7,2,3,0,0,4,6
+2025-02-27 23:00:00,Rio Branco (ES),Novorizontino,1.0,3.0,Espírito Santo,Brazil,Kléber Andrade,,,,Copa do Brasil,,20250227_Rio-Branco-(ES)_Novorizontino,12.0,0.8,1.04,2,4,5,8,49.0,51.0,0,1,0,0,3,5
+2025-02-28 00:00:00,Portuguesa,Botafogo PB,1.0,1.0,Sao Paulo,Brazil,Estadio do Pacaembu (Paulo Machado de Carvalho),,,,Copa do Brasil,,20250228_Portuguesa_Botafogo-PB,12.0,1.48,0.25,3,1,5,3,42.4,57.6,0,3,0,0,3,1
+2025-02-28 00:30:00,Inter de Limeira,Vila Nova,0.0,0.0,Limeira,Brazil,Estádio Major José Levy Sobrinho,,,,Copa do Brasil,,20250228_Inter-de-Limeira_Vila-Nova,24.27050672692212,1.81,0.35,6,0,12,0,34.9,65.1,2,2,0,0,7,5
+2025-03-05 00:30:00,Aparecidense,Cascavel,1.0,0.0,Aparecida de Goiânia,Brazil,Annibal Batista de Toledo,,,,Copa do Brasil,,20250305_Aparecidense_Cascavel,-1.6431070407795687,0.54,1.28,3,5,9,11,57.7,42.3,2,1,0,0,8,5
+2025-03-05 22:00:00,Caxias do Sul,Fluminense,1.0,2.0,Caxias do Sul,Brazil,Estádio Francisco Stédile (Centenário),,,,Copa do Brasil,,20250305_Caxias-do-Sul_Fluminense,-11.861109258959232,0.05,1.36,1,4,2,9,47.4,52.6,1,3,0,0,3,6
+2025-03-05 22:30:00,Atlético-MG,Manaus,4.0,1.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20250305_Atlético-MG_Manaus,109.49804870242701,1.76,0.25,6,1,13,2,52.8,47.2,0,2,0,0,5,3
+2025-03-06 00:30:00,Nova Iguaçu,Vasco da Gama,0.0,3.0,Rio de Janeiro,Brazil,Joao Havelange Stadium,,,,Copa do Brasil,,20250306_Nova-Iguaçu_Vasco-da-Gama,-27.261852934537274,1.34,1.64,5,5,10,10,48.5,51.5,5,1,0,0,6,6
+2025-03-06 22:30:00,Maringá,Uniáo TO,4.0,2.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20250306_Maringá_Uniáo-TO,26.579699619181383,0.81,1.33,4,4,9,8,39.6,60.4,2,4,0,0,5,9
+2025-03-07 00:30:00,Olaria,Brusque,1.0,2.0,Ilha do Governador,Brazil,Estádio Luso Brasileiro,,,,Copa do Brasil,,20250307_Olaria_Brusque,0.08926838430193129,1.55,1.45,5,4,12,9,45.7,54.3,3,2,0,0,3,5
+2025-03-11 22:00:00,CEOV Operário,Novorizontino,0.0,1.0,Cuiabá,Brazil,Estádio Eurico Gaspar Dutra,,,,Copa do Brasil,,20250311_CEOV-Operário_Novorizontino,-10.833558373830328,0.69,1.01,1,3,1,8,52.3,47.7,1,1,0,1,1,6
+2025-03-11 22:30:00,Remo,Criciúma,1.0,2.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20250311_Remo_Criciúma,20.15641646876111,0.7,1.28,3,2,4,4,47.0,53.0,3,1,0,0,2,4
+2025-03-12 00:30:00,Botafogo PB,Concordia,4.0,0.0,Joao Pessoa,Brazil,Estádio José Américo de Almeida Filho,,,,Copa do Brasil,,20250312_Botafogo-PB_Concordia,-23.19815030095333,2.6,1.56,8,6,17,14,48.5,51.5,4,2,0,0,5,8
+2025-03-12 00:30:00,Red Bull Bragantino,São José-RS,1.0,1.0,Bragança Paulista,Brazil,Estádio Nabi Abi Chedid,,,,Copa do Brasil,,20250312_Red-Bull-Bragantino_São-José-RS,-20.720482773225285,0.99,0.28,4,1,10,1,57.1,42.9,1,0,1,0,5,2
+2025-03-12 22:00:00,Vitória,Náutico,0.0,2.0,Salvador,Brazil,Estadio Manoel Barradas,,,,Copa do Brasil,,20250312_Vitória_Náutico,-60.63806926370512,0.7,0.49,1,2,4,5,51.4,48.6,5,1,0,0,3,4
+2025-03-12 22:30:00,Athletic,Grêmio,3.0,3.0,Sao Joao del Rei,Brazil,Estádio Joaquim Portugal,,,,Copa do Brasil,,20250312_Athletic_Grêmio,-4.852348461100064,1.66,1.21,5,3,10,6,46.6,53.4,2,1,0,0,10,5
+2025-03-12 22:30:00,Operário PR,Tombense,1.0,0.0,Ponta Grossa,Brazil,Germano Krüger,,,,Copa do Brasil,,20250312_Operário-PR_Tombense,18.822238627733213,0.92,0.37,3,2,6,5,55.6,44.4,5,1,0,0,5,3
+2025-03-12 23:00:00,Capital CF,Porto Velho,3.0,1.0,Paranoá,Brazil,Estádio JK Paranoá,,,,Copa do Brasil,,20250312_Capital-CF_Porto-Velho,10.97638063178988,0.97,1.28,3,6,7,12,43.4,56.6,5,5,0,0,6,5
+2025-03-12 23:00:00,Maracanã,Ceilândia,0.0,0.0,Horizonte,Brazil,Estádio Domingão,,,,Copa do Brasil,,20250312_Maracanã_Ceilândia,25.827808944844037,0.94,1.13,3,4,9,10,47.3,52.7,1,1,1,0,9,11
+2025-03-13 00:30:00,Atlético Goianiense,Retró,1.0,1.0,Goiãnia,Brazil,Estádio Antônio Accioly,,,,Copa do Brasil,,20250313_Atlético-Goianiense_Retró,5.451466092113378,0.42,1.48,1,5,3,13,48.5,51.5,1,1,0,0,1,9
+2025-03-13 00:30:00,Ceará,Confiança,2.0,2.0,Fortaleza,Brazil,Arena Castelão,,,,Copa do Brasil,,20250313_Ceará_Confiança,27.854715745089152,1.04,1.25,3,4,8,12,50.3,49.7,1,4,0,0,5,8
+2025-03-13 22:30:00,Athletico-PR,Guarany de Bagé,3.0,1.0,Curitiba,Brazil,Arena da Baixada,,,,Copa do Brasil,,20250313_Athletico-PR_Guarany-de-Bagé,32.63191714314394,1.78,1.34,5,4,10,7,51.1,48.9,1,1,0,0,4,6
+2025-03-14 00:30:00,CSA,Tuna Luso,5.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20250314_CSA_Tuna-Luso,25.028132919931068,2.57,0.23,8,0,16,0,51.0,49.0,2,3,0,0,6,0
+2025-03-14 00:30:00,Vila Nova,Rio Branco (Venda Nova),6.0,0.0,Goiãnia,Brazil,Estádio Serra Dourada,,,,Copa do Brasil,,20250314_Vila-Nova_Rio-Branco-(Venda-Nova),-23.599042997693232,1.23,0.59,6,2,13,4,45.1,54.9,1,1,0,0,6,4
+2025-04-29 22:00:00,Internacional,Maracanã,1.0,0.0,Porto Alegre,Brazil,Estadio Beira-Rio,,,,Copa do Brasil,,20250429_Internacional_Maracanã,7.708543684112101,0.23,0.05,1,0,2,1,49.0,51.0,4,4,0,0,3,3
+2025-04-29 22:00:00,Retró,Fortaleza,1.0,1.0,Recife,Brazil,Arena de Pernambuco,,,,Copa do Brasil,,20250429_Retró_Fortaleza,-36.72753975535102,1.67,0.05,7,1,15,1,45.2,54.8,1,3,0,0,6,1
+2025-04-29 22:30:00,Maringá,Atlético-MG,2.0,2.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20250429_Maringá_Atlético-MG,-56.46738806622466,1.62,1.18,6,3,13,9,52.5,47.5,0,1,0,0,4,5
+2025-04-30 00:30:00,Fluminense,Aparecidense,1.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20250430_Fluminense_Aparecidense,36.05395571141548,0.94,0.76,4,1,8,2,57.1,42.9,3,1,0,0,12,3
+2025-04-30 00:30:00,São Paulo,Náutico,2.0,1.0,Sao Paulo,Brazil,Estádio Cícero Pompeu de Toledo,,,,Copa do Brasil,,20250430_São-Paulo_Náutico,27.433400178950706,1.13,1.13,3,3,8,7,47.1,52.9,1,1,1,0,7,6
+2025-04-30 22:00:00,Botafogo,Capital CF,4.0,0.0,Rio de Janeiro,Brazil,Joao Havelange Stadium,,,,Copa do Brasil,,20250430_Botafogo_Capital-CF,39.81376618192439,1.51,1.68,5,5,11,9,53.6,46.4,0,1,0,0,6,6
+2025-04-30 22:30:00,Ceará,Palmeiras,0.0,1.0,Fortaleza,Brazil,Arena Castelão,,,,Copa do Brasil,,20250430_Ceará_Palmeiras,-19.860885010102265,0.42,1.59,0,6,1,13,51.8,48.2,3,1,0,0,2,10
+2025-05-01 00:30:00,CSA,Grêmio,3.0,2.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20250501_CSA_Grêmio,19.576027643620137,1.12,1.59,4,4,10,7,53.7,46.3,1,2,0,0,4,9
+2025-05-01 00:30:00,Novorizontino,Corinthians,0.0,1.0,Novo Horizonte,Brazil,Estádio Dr. Jorge Ismael de Biasi,,,,Copa do Brasil,,20250501_Novorizontino_Corinthians,-52.762484526820344,0.82,0.38,4,1,9,0,45.3,54.7,0,1,0,0,7,0
+2025-05-01 00:30:00,Paysandu,Bahia,0.0,1.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20250501_Paysandu_Bahia,-96.38043218582379,0.59,1.4,2,3,4,7,47.0,53.0,0,1,0,0,4,3
+2025-05-01 19:00:00,Brusque,Athletico-PR,0.0,0.0,Joinville,Brazil,Arena Joinville,,,,Copa do Brasil,,20250501_Brusque_Athletico-PR,-43.17591085142226,0.45,0.96,4,3,8,7,54.4,45.6,6,2,0,0,3,3
+2025-05-01 19:00:00,Operário PR,Vasco da Gama,1.0,1.0,Ponta Grossa,Brazil,Germano Krüger,,,,Copa do Brasil,,20250501_Operário-PR_Vasco-da-Gama,-37.04217886703486,1.38,0.88,4,4,8,9,46.6,53.4,6,3,0,0,5,5
+2025-05-01 21:00:00,Santos,CRB,1.0,1.0,Santos,Brazil,Estádio Vila Belmiro (Urbano Caldeira),,,,Copa do Brasil,,20250501_Santos_CRB,-6.731106952528535,2.23,2.37,7,7,15,14,48.6,51.4,4,3,0,0,6,9
+2025-05-01 21:30:00,Criciúma,Red Bull Bragantino,1.0,0.0,Criciúma,Brazil,Heriberto Hülse,,,,Copa do Brasil,,20250501_Criciúma_Red-Bull-Bragantino,13.842866607953738,1.04,0.51,3,0,5,2,58.2,41.8,5,3,0,0,2,5
+2025-05-01 23:00:00,Botafogo PB,Flamengo,0.0,1.0,Sao Luis,Brazil,Castelão (São Luis),,,,Copa do Brasil,,20250501_Botafogo-PB_Flamengo,-132.27601981388534,0.95,0.19,5,1,14,4,49.3,50.7,1,1,0,1,5,5
+2025-05-02 00:30:00,Cruzeiro,Vila Nova,2.0,0.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20250502_Cruzeiro_Vila-Nova,-1.7685834484257157,1.18,1.46,5,6,12,13,59.2,40.8,1,0,0,0,7,7
+2025-05-20 22:00:00,Vasco da Gama,Operário PR,1.0,1.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20250520_Vasco-da-Gama_Operário-PR,34.493047118417735,0.3,0.34,1,3,4,9,51.0,49.0,2,0,0,0,1,7
+2025-05-20 22:30:00,Athletico-PR,Brusque,1.0,0.0,Curitiba,Brazil,Arena da Baixada,,,,Copa do Brasil,,20250520_Athletico-PR_Brusque,40.20868328294705,0.44,0.78,2,1,2,2,48.2,51.8,0,1,0,0,1,2
+2025-05-21 00:30:00,Grêmio,CSA,0.0,0.0,Porto Alegre,Brazil,Arena do Grêmio,,,,Copa do Brasil,,20250521_Grêmio_CSA,-42.22519274963702,0.99,0.8,3,3,7,6,50.3,49.7,0,2,0,0,3,4
+2025-05-21 00:30:00,Náutico,São Paulo,1.0,2.0,Recife,Brazil,Estádio dos Aflitos,,,,Copa do Brasil,,20250521_Náutico_São-Paulo,-49.54229650785828,0.7,2.2,2,7,4,15,56.2,43.8,1,1,0,0,5,8
+2025-05-21 22:00:00,Fortaleza,Retró,1.0,1.0,Fortaleza,Brazil,Arena Castelão,,,,Copa do Brasil,,20250521_Fortaleza_Retró,34.199899372841855,1.16,0.62,4,4,9,9,48.0,52.0,5,0,0,0,7,6
+2025-05-21 22:30:00,Aparecidense,Fluminense,1.0,4.0,Brasília,Brazil,Arena BRB Mané Garrincha,,,,Copa do Brasil,,20250521_Aparecidense_Fluminense,-57.57233810218827,0.69,1.2,2,4,6,11,41.3,58.7,2,1,0,0,6,4
+2025-05-21 22:30:00,Bahia,Paysandu,4.0,0.0,Salvador,Brazil,Arena Fonte Nova,,,,Copa do Brasil,,20250521_Bahia_Paysandu,113.88838846297494,1.38,1.48,4,7,10,17,62.8,37.2,0,3,0,0,4,6
+2025-05-22 00:30:00,Atlético-MG,Maringá,4.0,0.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20250522_Atlético-MG_Maringá,52.600744778303806,1.51,1.18,6,5,15,10,54.7,45.3,1,0,0,0,9,6
+2025-05-22 00:30:00,Corinthians,Novorizontino,1.0,0.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20250522_Corinthians_Novorizontino,73.14554350631738,0.74,1.62,2,5,4,10,48.8,51.2,0,1,0,0,3,5
+2025-05-22 00:30:00,Flamengo,Botafogo PB,4.0,2.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20250522_Flamengo_Botafogo-PB,147.55601720508685,2.08,1.55,6,4,14,9,64.1,35.9,1,2,0,0,2,6
+2025-05-22 22:00:00,Maracanã,Internacional,0.0,3.0,Florianópolis,Brazil,Orlando Scarpelli,,,,Copa do Brasil,,20250522_Maracanã_Internacional,-31.176143708019026,0.53,1.85,1,6,1,14,50.2,49.8,1,2,0,0,1,13
+2025-05-22 22:00:00,Vila Nova,Cruzeiro,0.0,3.0,Goiãnia,Brazil,Estádio Serra Dourada,,,,Copa do Brasil,,20250522_Vila-Nova_Cruzeiro,-22.353584912885026,1.54,1.6,6,3,11,7,53.9,46.1,2,3,0,1,2,3
+2025-05-22 22:30:00,Palmeiras,Ceará,3.0,0.0,Sao Paulo,Brazil,Allianz Parque,,,,Copa do Brasil,,20250522_Palmeiras_Ceará,42.49043611295201,2.0,0.72,7,3,16,5,59.3,40.7,0,3,0,0,7,2
+2025-05-23 00:30:00,CRB,Santos,0.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20250523_CRB_Santos,6.266196721632241,1.27,1.36,5,4,13,9,48.6,51.4,0,3,0,1,6,5
+2025-05-23 00:30:00,Capital CF,Botafogo,1.0,0.0,Brasília,Brazil,Arena BRB Mané Garrincha,,,,Copa do Brasil,,20250523_Capital-CF_Botafogo,-61.075504095437964,1.08,0.45,3,1,9,1,48.0,52.0,1,3,0,0,4,4
+2025-05-23 00:30:00,Red Bull Bragantino,Criciúma,6.0,0.0,Bragança Paulista,Brazil,Estádio Municipal Cicero de Souza Marques,,,,Copa do Brasil,,20250523_Red-Bull-Bragantino_Criciúma,-36.88714093178646,1.29,0.17,6,2,12,5,49.8,50.2,1,2,0,0,3,3
+2025-08-06 22:00:00,Atlético-MG,Flamengo,0.0,1.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20250806_Atlético-MG_Flamengo,-34.19144461618066,1.01,1.05,5,3,10,7,44.0,56.0,1,4,0,0,4,2
+2025-08-06 22:00:00,Red Bull Bragantino,Botafogo,0.0,1.0,Bragança Paulista,Brazil,Estádio Municipal Cicero de Souza Marques,,,,Copa do Brasil,,20250806_Red-Bull-Bragantino_Botafogo,-54.57274557429537,0.06,0.8,0,2,1,5,45.7,54.3,1,1,0,0,1,4
+2025-08-06 22:30:00,Athletico-PR,São Paulo,1.0,0.0,Curitiba,Brazil,Arena da Baixada,,,,Copa do Brasil,,20250806_Athletico-PR_São-Paulo,-17.10177207485367,1.07,1.08,2,6,5,15,48.9,51.1,3,1,0,1,1,9
+2025-08-06 22:30:00,Retró,Bahia,0.0,0.0,Recife,Brazil,Arena de Pernambuco,,,,Copa do Brasil,,20250806_Retró_Bahia,-52.98646848297244,1.26,1.88,4,5,9,10,57.9,42.1,1,0,0,0,7,4
+2025-08-07 00:30:00,Fluminense,Internacional,1.0,1.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20250807_Fluminense_Internacional,27.834441111548358,1.42,0.85,6,4,13,9,52.9,47.1,0,1,0,0,5,12
+2025-08-07 00:30:00,Palmeiras,Corinthians,0.0,2.0,Sao Paulo,Brazil,Allianz Parque,,,,Copa do Brasil,,20250807_Palmeiras_Corinthians,-15.494497849710797,1.35,1.44,3,5,6,12,53.2,46.8,1,2,0,0,5,2
+2025-08-07 23:00:00,Vasco da Gama,CSA,3.0,1.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20250807_Vasco-da-Gama_CSA,4.151669761117319,0.58,1.2,3,2,8,6,43.0,57.0,0,3,0,0,3,0
+2025-08-08 00:00:00,CRB,Cruzeiro,0.0,2.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20250808_CRB_Cruzeiro,18.344953747068985,0.66,1.48,2,6,6,12,47.7,52.3,4,1,0,0,3,3
+2025-08-27 22:30:00,Atlético-MG,Cruzeiro,0.0,2.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20250827_Atlético-MG_Cruzeiro,79.77070099849084,0.35,1.45,1,2,0,5,56.7,43.3,1,2,1,0,1,1
+2025-08-28 00:30:00,Athletico-PR,Corinthians,0.0,1.0,Curitiba,Brazil,Arena da Baixada,,,,Copa do Brasil,,20250828_Athletico-PR_Corinthians,-19.11259354964932,0.15,2.06,1,6,2,13,54.9,45.1,1,0,0,0,1,8
+2025-08-28 00:30:00,Vasco da Gama,Botafogo,1.0,1.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20250828_Vasco-da-Gama_Botafogo,2.498610421950616,1.91,1.49,6,5,12,10,56.1,43.9,1,3,0,0,10,4
+2025-08-28 22:30:00,Bahia,Fluminense,1.0,0.0,Salvador,Brazil,Arena Fonte Nova,,,,Copa do Brasil,,20250828_Bahia_Fluminense,9.445026515277732,0.43,0.94,1,5,3,10,54.2,45.8,0,2,1,0,4,3
+2025-09-10 22:00:00,Fluminense,Bahia,2.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20250910_Fluminense_Bahia,-32.79274787255463,0.89,0.43,2,2,3,4,54.6,45.4,0,1,0,0,1,5
+2025-09-11 00:30:00,Corinthians,Athletico-PR,2.0,0.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20250911_Corinthians_Athletico-PR,41.79367250969608,1.78,0.6,6,2,12,2,51.2,48.8,1,2,0,1,6,4
+2025-09-11 22:30:00,Cruzeiro,Atlético-MG,2.0,0.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20250911_Cruzeiro_Atlético-MG,-50.355164313253,0.96,1.03,4,4,9,9,49.8,50.2,3,3,0,0,8,4
+2025-09-12 00:30:00,Botafogo,Vasco da Gama,1.0,1.0,Rio de Janeiro,Brazil,Joao Havelange Stadium,,,,Copa do Brasil,,20250912_Botafogo_Vasco-da-Gama,-2.3260155040848076,1.74,0.05,7,1,15,2,48.9,51.1,5,3,0,0,10,1
+2025-12-11 00:30:00,Cruzeiro,Corinthians,0.0,1.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20251211_Cruzeiro_Corinthians,-65.90407105122699,0.19,1.05,2,2,4,2,50.0,50.0,2,3,0,0,4,3
+2025-12-11 23:00:00,Vasco da Gama,Fluminense,2.0,1.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20251211_Vasco-da-Gama_Fluminense,-9.033155746025841,1.12,1.62,3,5,8,11,48.6,51.4,2,0,0,0,3,5
+2025-12-14 21:00:00,Corinthians,Cruzeiro,1.0,2.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20251214_Corinthians_Cruzeiro,85.40540593986611,0.6,1.71,3,6,8,14,54.1,45.9,2,1,0,0,5,4
+2025-12-14 23:30:00,Fluminense,Vasco da Gama,1.0,0.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20251214_Fluminense_Vasco-da-Gama,-15.590691984799378,0.55,0.57,2,2,4,3,49.3,50.7,3,2,0,0,3,4
+2025-12-18 00:30:00,Corinthians,Vasco da Gama,0.0,0.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20251218_Corinthians_Vasco-da-Gama,52.18214903480862,0.58,0.52,0,1,0,0,57.1,42.9,2,0,0,0,2,2
+2025-12-21 21:00:00,Vasco da Gama,Corinthians,1.0,2.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20251221_Vasco-da-Gama_Corinthians,-48.60439550546084,0.23,1.64,1,6,1,14,53.5,46.5,2,5,0,0,2,8
+2026-02-17 23:00:00,Sampaio Correa RJ,Ferroviaria,1.0,1.0,Rio de Janeiro,Brazil,Estádio Lourival Gomes de Almeida,,,,Copa do Brasil,,20260217_Sampaio-Correa-RJ_Ferroviaria,0.0,1.1,1.42,4,5,8,11,56.2,43.8,1,0,0,0,7,9
+2026-02-18 19:00:00,Porta BA,Serra Branca,2.0,1.0,,,,,,,Copa do Brasil,,20260218_Porta-BA_Serra-Branca,0.0,0.4,2.08,2,5,3,9,55.0,45.0,0,2,0,0,3,3
+2026-02-18 19:30:00,Maguary PE,Clube Laguna,1.0,0.0,Bonito,Brazil,Estádio Arthur Tavares Melo,,,,Copa do Brasil,,20260218_Maguary-PE_Clube-Laguna,0.0,1.24,0.09,4,0,10,0,46.7,53.3,2,3,0,1,5,2
+2026-02-18 20:00:00,Bare,Madureira,0.0,3.0,Boa Vista,Brazil,Canarinho,,,,Copa do Brasil,,20260218_Bare_Madureira,0.0,0.36,1.25,0,4,1,9,42.6,57.4,1,3,0,0,4,4
+2026-02-18 22:30:00,Araguaiana,Primavera SP,0.0,3.0,Araguaína,Brazil,Estádio Leôncio de Souza Miranda,,,,Copa do Brasil,,20260218_Araguaiana_Primavera-SP,0.0,0.05,0.05,0,3,0,6,51.7,48.3,0,2,0,0,1,4
+2026-02-18 23:00:00,América SE,Tirol,1.0,1.0,"Aracaju, Sergipe",Brazil,Estadio Estadual Lourival Baptista,,,,Copa do Brasil,,20260218_América-SE_Tirol,0.0,1.09,0.48,5,2,10,6,49.8,50.2,1,0,0,0,5,4
+2026-02-18 23:00:00,Betim FC,Piauí Teresina,1.0,0.0,Betim,Brazil,Arena Vera Cruz,,,,Copa do Brasil,,20260218_Betim-FC_Piauí-Teresina,0.0,0.67,0.68,1,2,3,4,58.9,41.1,2,6,0,1,8,5
+2026-02-18 23:00:00,SE Gama,Monte Roraima,2.0,0.0,Gama,Brazil,Bezerrão,,,,Copa do Brasil,,20260218_SE-Gama_Monte-Roraima,0.0,0.98,0.07,2,0,6,0,47.0,53.0,1,1,0,0,6,5
+2026-02-18 23:00:00,Santa Catarina,IAPE,2.0,0.0,,,,,,,Copa do Brasil,,20260218_Santa-Catarina_IAPE,0.0,1.52,2.01,3,6,6,13,41.3,58.7,1,3,0,0,3,4
+2026-02-18 23:30:00,Ivinhema,Independente AP,1.0,0.0,,,,,,,Copa do Brasil,,20260218_Ivinhema_Independente-AP,12.0,0.08,0.9,1,2,0,6,52.5,47.5,4,3,0,1,4,5
+2026-02-18 23:30:00,Ji-Paraná FC,Pantanal Corumba,2.0,0.0,,,,,,,Copa do Brasil,,20260218_Ji-Paraná-FC_Pantanal-Corumba,-0.8020848783762631,1.65,1.79,3,5,6,12,48.8,51.2,1,2,0,0,5,6
+2026-02-19 00:00:00,Galvez,Guapore,1.0,1.0,Rio Branco,Brazil,Arena da Floresta,,,,Copa do Brasil,,20260219_Galvez_Guapore,0.0,0.12,1.82,1,6,3,11,49.5,50.5,5,1,1,0,6,9
+2026-02-19 23:00:00,Primavera MG,Bragantino PA,2.0,1.0,,,,,,,Copa do Brasil,,20260219_Primavera-MG_Bragantino-PA,0.0,0.73,0.27,2,1,4,2,50.4,49.6,1,2,0,0,3,4
+2026-02-20 00:00:00,Vasco da Gama AC,AE Velo Clube,1.0,1.0,Rio Branco,Brazil,Arena da Floresta,,,,Copa do Brasil,,20260220_Vasco-da-Gama-AC_AE-Velo-Clube,0.0,1.68,0.69,5,4,12,10,53.1,46.9,2,2,0,0,6,7
+2026-02-24 19:30:00,Boavista,Maringá,2.0,3.0,Saquarema,Brazil,Estádio Elcyr Resende de Mendonca,,,,Copa do Brasil,,20260224_Boavista_Maringá,-52.70719359992745,1.68,0.77,5,3,9,7,50.1,49.9,3,4,0,1,8,2
+2026-02-24 22:00:00,Joinville,CSA,1.0,0.0,Joinville,Brazil,Arena Joinville,,,,Copa do Brasil,,20260224_Joinville_CSA,-33.07839775635148,0.89,0.72,4,1,8,3,44.8,55.2,3,0,0,0,3,3
+2026-02-25 00:30:00,América-RN,GA Sampaio,3.0,0.0,Natal,Brazil,Arena das Dunas,,,,Copa do Brasil,,20260225_América-RN_GA-Sampaio,4.095484976055332,0.93,2.12,3,8,7,18,46.6,53.4,2,3,0,0,6,5
+2026-02-25 00:30:00,Fortaleza,Maguary PE,4.0,3.0,Fortaleza,Brazil,Arena Castelão,,,,Copa do Brasil,,20260225_Fortaleza_Maguary-PE,46.474049519965774,1.05,1.87,5,5,9,10,46.7,53.3,0,1,0,1,9,8
+2026-02-25 18:30:00,Castanhal U20,Guarani,1.0,1.0,,,,,,,Copa do Brasil,,20260225_Castanhal-U20_Guarani,0.0,0.89,0.85,4,1,9,2,57.2,42.8,3,4,0,0,7,4
+2026-02-25 18:30:00,Juazeirense,Capital CF,1.0,1.0,Juazeiro do Norte,Brazil,Estádio Adauto Moraes,,,,Copa do Brasil,,20260225_Juazeirense_Capital-CF,-28.132867895619484,1.07,0.42,5,1,10,2,44.8,55.2,0,0,0,0,6,5
+2026-02-25 19:00:00,Atlético Goianiense,Primavera MG,1.0,0.0,Goiãnia,Brazil,Estádio Antônio Accioly,,,,Copa do Brasil,,20260225_Atlético-Goianiense_Primavera-MG,17.26267526810443,0.3,0.67,2,1,3,1,50.1,49.9,0,1,0,0,2,1
+2026-02-25 21:00:00,Madureira,ABC,1.0,0.0,Rio de Janeiro,Brazil,Estádio Aniceto Moscoso,,,,Copa do Brasil,,20260225_Madureira_ABC,23.22634381713192,0.48,1.63,1,6,2,15,51.4,48.6,1,1,0,0,1,4
+2026-02-25 21:00:00,Novorizontino,Nacional de Manaus,4.0,0.0,Novo Horizonte,Brazil,Estádio Dr. Jorge Ismael de Biasi,,,,Copa do Brasil,,20260225_Novorizontino_Nacional-de-Manaus,-7.661602958515459,2.52,0.65,7,3,15,7,46.5,53.5,0,1,0,0,11,5
+2026-02-25 22:00:00,Londrina,SC Penedense,1.0,0.0,Londrina,Brazil,Estádio do Café,,,,Copa do Brasil,,20260225_Londrina_SC-Penedense,-23.585699413622933,1.5,0.05,5,0,11,0,49.1,50.9,1,1,1,0,10,0
+2026-02-25 22:00:00,Retró,Uberlândia,1.0,2.0,Recife,Brazil,Arena de Pernambuco,,,,Copa do Brasil,,20260225_Retró_Uberlândia,28.44502486152578,1.13,1.24,3,4,7,8,46.0,54.0,2,3,0,0,4,3
+2026-02-25 22:00:00,São Luiz-RS,Maranhao,0.0,1.0,Ljuí,Brazil,Estádio 19 de Outubro,,,,Copa do Brasil,,20260225_São-Luiz-RS_Maranhao,25.002403927469913,0.85,0.71,4,3,7,6,55.6,44.4,2,2,0,0,8,4
+2026-02-25 22:00:00,Tombense,Oratorio,1.0,1.0,Tombos,Brazil,Estádio Antônio Guimarães Almeida,,,,Copa do Brasil,,20260225_Tombense_Oratorio,-15.016798266882233,1.09,0.32,3,1,6,1,46.1,53.9,2,3,0,0,4,3
+2026-02-25 22:30:00,Anápolis,Cianorte,3.0,1.0,Anápolis,Brazil,Estádio Jonas Duarte,,,,Copa do Brasil,,20260225_Anápolis_Cianorte,9.366423179192225,2.08,1.62,6,4,13,10,45.4,54.6,2,2,0,0,5,9
+2026-02-25 22:30:00,Sociedade Imperatriz de Desportos,Amazonas,0.0,3.0,,,,,,,Copa do Brasil,,20260225_Sociedade-Imperatriz-de-Desportos_Amazonas,-4.625093017937388,0.54,1.08,3,3,6,7,56.0,44.0,1,0,0,0,8,0
+2026-02-25 22:45:00,Ceilândia,Jacuipense,1.0,1.0,Distrito Federal,Brazil,Abadião,,,,Copa do Brasil,,20260225_Ceilândia_Jacuipense,10.596167049279757,0.74,0.93,3,2,6,4,49.5,50.5,4,2,0,0,1,5
+2026-02-25 23:00:00,ASA,Operário MS,1.0,2.0,Arapiraca,Brazil,Fumeirão,,,,Copa do Brasil,,20260225_ASA_Operário-MS,-6.518468838469744,1.31,0.8,3,2,6,5,47.4,52.6,1,0,1,0,3,5
+2026-02-25 23:00:00,Aguia de Maraba,Independência,2.0,0.0,,,,,,,Copa do Brasil,,20260225_Aguia-de-Maraba_Independência,-16.098226556152667,1.43,1.9,4,7,8,15,54.4,45.6,0,1,0,0,5,7
+2026-02-25 23:00:00,Caxias do Sul,Guarany de Bagé,0.0,1.0,Caxias do Sul,Brazil,Estádio Francisco Stédile (Centenário),,,,Copa do Brasil,,20260225_Caxias-do-Sul_Guarany-de-Bagé,12.73412167897959,0.91,1.12,2,5,6,11,50.7,49.3,2,2,0,0,0,5
+2026-02-25 23:00:00,SE Gama,Goiás,2.0,2.0,Gama,Brazil,Bezerrão,,,,Copa do Brasil,,20260225_SE-Gama_Goiás,-0.8302794256721882,1.16,1.23,2,5,5,10,48.6,51.4,1,1,0,0,1,5
+2026-02-25 23:00:00,São Bernardo,Atletico Alagoinhas,2.0,0.0,São Bernardo do Campo ,Brazil,Estádio Primeiro de Maio,,,,Copa do Brasil,,20260225_São-Bernardo_Atletico-Alagoinhas,-10.688736695401303,2.05,1.22,5,4,10,7,42.4,57.6,1,2,0,0,5,9
+2026-02-25 23:00:00,Ypiranga,Ji-Paraná FC,2.0,0.0,Rio Grande do Sul,Brazil,Estádio Olímpico Colosso da Lagoa,,,,Copa do Brasil,,20260225_Ypiranga_Ji-Paraná-FC,4.121011831687383,0.87,1.02,2,4,2,10,44.3,55.7,2,2,0,0,1,6
+2026-02-26 00:00:00,Mixto,Botafogo PB,1.0,1.0,Cuiabá,Brazil,Estádio Eurico Gaspar Dutra,,,,Copa do Brasil,,20260226_Mixto_Botafogo-PB,13.615057026711838,1.26,1.41,4,4,10,9,53.7,46.3,1,3,0,0,4,3
+2026-02-26 23:00:00,Ceará,Primavera SP,2.0,1.0,Fortaleza,Brazil,Arena Castelão,,,,Copa do Brasil,,20260226_Ceará_Primavera-SP,-6.559769443945015,0.64,1.33,2,4,2,11,56.7,43.3,4,0,0,0,4,7
+2026-02-27 00:00:00,CEOV Operário,Porto Velho,1.0,1.0,Cuiabá,Brazil,Estádio Eurico Gaspar Dutra,,,,Copa do Brasil,,20260227_CEOV-Operário_Porto-Velho,0.2156260267865946,0.84,0.96,1,2,4,3,51.8,48.2,0,0,0,0,5,4
+2026-02-27 00:30:00,Portuguesa,Altos,5.0,1.0,Sao Paulo,Brazil,Estádio do Canindé,,,,Copa do Brasil,,20260227_Portuguesa_Altos,22.070757259800075,1.34,1.47,5,4,11,9,50.6,49.4,2,2,0,0,6,5
+2026-03-03 23:00:00,CRB,Porta BA,6.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20260303_CRB_Porta-BA,4.6136653445962565,0.69,1.89,6,6,14,15,52.9,47.1,1,1,0,0,5,12
+2026-03-04 00:30:00,Figueirense,Azuriz,1.0,0.0,Florianópolis,Brazil,Orlando Scarpelli,,,,Copa do Brasil,,20260304_Figueirense_Azuriz,-22.77324965211278,1.11,1.31,2,4,5,9,50.0,50.0,1,5,0,0,3,8
+2026-03-04 22:00:00,AE Velo Clube,Vila Nova,0.0,0.0,Rio Claro,Brazil,Estádio Benito Agnelo Castellano,,,,Copa do Brasil,,20260304_AE-Velo-Clube_Vila-Nova,33.90984539908436,1.04,1.01,2,2,7,5,46.7,53.3,2,3,1,0,2,2
+2026-03-04 22:00:00,Nova Iguaçu,Lagarto,1.0,1.0,Ilha do Governador,Brazil,Estádio Luso Brasileiro,,,,Copa do Brasil,,20260304_Nova-Iguaçu_Lagarto,2.1661693260825814,1.69,0.99,5,5,12,11,52.2,47.8,2,0,0,0,6,5
+2026-03-04 22:00:00,Tuna Luso,Tocantinopolis,4.0,1.0,Belém,Brazil,Estádio Leônidas Sodré de Castro,,,,Copa do Brasil,,20260304_Tuna-Luso_Tocantinopolis,7.177860176339436,1.72,0.34,7,1,15,1,49.0,51.0,1,5,0,0,9,4
+2026-03-04 22:30:00,Avaí,Porto Vitória FC,3.0,0.0,Florianópolis,Brazil,Estádio da Ressacada,,,,Copa do Brasil,,20260304_Avaí_Porto-Vitória-FC,-23.185691787672113,1.42,1.21,4,3,9,7,49.5,50.5,2,1,0,0,11,1
+2026-03-04 22:30:00,Betim FC,Operário PR,0.0,2.0,Betim,Brazil,Arena Vera Cruz,,,,Copa do Brasil,,20260304_Betim-FC_Operário-PR,-4.968531456042911,0.05,0.89,2,3,4,4,50.8,49.2,1,1,0,0,1,5
+2026-03-04 22:30:00,Capital,Manaus,1.0,1.0,Rio de Janeiro,Brazil,Joao Havelange Stadium,,,,Copa do Brasil,,20260304_Capital_Manaus,20.03854253466011,0.88,0.21,4,1,8,2,47.8,52.2,1,1,0,0,4,3
+2026-03-04 23:00:00,Rio Branco (ES),Athletic,1.0,1.0,Espírito Santo,Brazil,Kléber Andrade,,,,Copa do Brasil,,20260304_Rio-Branco-(ES)_Athletic,-23.382787687605287,0.77,0.96,2,4,5,9,51.5,48.5,3,0,0,0,1,6
+2026-03-04 23:00:00,Santa Catarina,Cuiabá,1.0,1.0,,,,,,,Copa do Brasil,,20260304_Santa-Catarina_Cuiabá,0.482348567938061,1.04,1.86,3,5,6,13,45.1,54.9,0,3,0,0,5,4
+2026-03-04 23:30:00,Ivinhema,Volta Redonda,2.0,4.0,,,,,,,Copa do Brasil,,20260304_Ivinhema_Volta-Redonda,32.84291928311586,1.35,1.63,5,5,9,11,47.9,52.1,2,3,1,0,4,6
+2026-03-05 00:00:00,Manauara,Itabaiana,3.0,1.0,Manaus,Brazil,Arena Amazonia,,,,Copa do Brasil,,20260305_Manauara_Itabaiana,0.954824822719047,1.96,1.75,6,6,14,13,48.2,51.8,4,3,0,0,5,5
+2026-03-05 00:30:00,América Mineiro,Tirol,1.0,1.0,Belo Horizonte,Brazil,Estádio Raimundo Sampaio (Independência),,,,Copa do Brasil,,20260305_América-Mineiro_Tirol,34.10483391292746,0.63,2.29,2,8,4,18,53.1,46.9,2,2,0,0,3,13
+2026-03-05 19:00:00,Trem,Fluminense PI,0.0,0.0,Macapa,Brazil,Zerão,,,,Copa do Brasil,,20260305_Trem_Fluminense-PI,-33.816989798351415,0.44,0.66,1,2,3,4,42.3,57.7,0,2,0,0,6,2
+2026-03-05 22:00:00,Ferroviaria,Sport,0.0,0.0,Espírito Santo,Brazil,Kléber Andrade,,,,Copa do Brasil,,20260305_Ferroviaria_Sport,-20.079425827606656,0.73,1.5,1,4,2,11,44.4,55.6,1,1,0,0,4,6
+2026-03-05 22:00:00,Portuguesa-RJ,Maracanã,1.0,0.0,Ilha do Governador,Brazil,Estádio Luso Brasileiro,,,,Copa do Brasil,,20260305_Portuguesa-RJ_Maracanã,20.959703759687272,1.39,1.21,3,3,5,7,55.2,44.8,3,0,0,1,6,3
+2026-03-06 00:30:00,Juventude,Guapore,5.0,0.0,Caxias do Sul,Brazil,Alfredo Jaconi,,,,Copa do Brasil,,20260306_Juventude_Guapore,13.9692447655666,1.68,1.52,5,5,11,12,44.5,55.5,5,2,0,0,4,11
+2026-03-06 00:30:00,Santa Cruz,Sousa EC,0.0,0.0,Recife,Brazil,Arena de Pernambuco,,,,Copa do Brasil,,20260306_Santa-Cruz_Sousa-EC,-19.71383209357964,1.22,0.55,4,1,9,2,56.2,43.8,3,2,0,0,6,2
+2026-03-10 22:00:00,Portuguesa,Avaí,1.0,1.0,Sao Paulo,Brazil,Estádio do Canindé,,,,Copa do Brasil,,20260310_Portuguesa_Avaí,21.21049921875897,0.53,0.05,4,1,11,1,52.9,47.1,3,2,0,0,3,3
+2026-03-10 22:30:00,Joinville,São Bernardo,0.0,1.0,Joinville,Brazil,Arena Joinville,,,,Copa do Brasil,,20260310_Joinville_São-Bernardo,11.084194649916753,1.09,1.64,4,4,9,7,41.9,58.1,4,3,0,0,6,4
+2026-03-11 00:30:00,Ponte Preta,Guarany de Bagé,1.0,0.0,Ponte Preta,Brazil,Moisés Lucarelli,,,,Copa do Brasil,,20260311_Ponte-Preta_Guarany-de-Bagé,-36.02546875638723,1.58,1.63,5,6,11,13,45.8,54.2,2,6,0,1,8,5
+2026-03-11 22:30:00,Athletic,Ypiranga,2.0,0.0,Sao Joao del Rei,Brazil,Estádio Joaquim Portugal,,,,Copa do Brasil,,20260311_Athletic_Ypiranga,-17.04221053891888,0.73,1.11,2,4,6,7,48.5,51.5,3,1,0,0,5,3
+2026-03-11 22:30:00,Goiás,Fluminense PI,3.0,0.0,Goiãnia,Brazil,Estádio da Serrinha,,,,Copa do Brasil,,20260311_Goiás_Fluminense-PI,25.934087146929414,1.68,1.0,5,2,12,7,45.2,54.8,1,2,0,0,5,7
+2026-03-11 22:30:00,Manauara,Fortaleza,0.0,1.0,Manaus,Brazil,Arena Amazonia,,,,Copa do Brasil,,20260311_Manauara_Fortaleza,-68.96333264011173,1.2,0.5,4,1,9,2,45.5,54.5,2,0,0,0,9,0
+2026-03-11 22:30:00,Maringá,Uberlândia,3.0,2.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20260311_Maringá_Uberlândia,38.34673309049981,2.18,1.6,7,5,15,10,55.2,44.8,3,2,1,0,6,4
+2026-03-11 22:30:00,Volta Redonda,América-RN,0.0,0.0,Volta Redonda,Brazil,Estádio Raulino de Oliveira,,,,Copa do Brasil,,20260311_Volta-Redonda_América-RN,-0.5428867148852987,0.6,1.03,1,2,3,5,51.8,48.2,2,0,0,0,3,3
+2026-03-11 23:00:00,Castanhal U20,Nova Iguaçu,0.0,4.0,,,,,,,Copa do Brasil,,20260311_Castanhal-U20_Nova-Iguaçu,-2.505654043882714,1.87,2.45,7,8,16,18,52.3,47.7,2,1,0,0,6,5
+2026-03-11 23:00:00,Confiança,Tombense,2.0,0.0,"Aracaju, Sergipe",Brazil,Estadio Estadual Lourival Baptista,,,,Copa do Brasil,,20260311_Confiança_Tombense,27.85847861139814,0.42,1.21,2,4,2,11,50.1,49.9,2,2,0,1,0,8
+2026-03-11 23:00:00,Santa Catarina,Jacuipense,0.0,1.0,,,,,,,Copa do Brasil,,20260311_Santa-Catarina_Jacuipense,35.14976569650594,1.46,0.33,3,2,7,3,47.1,52.9,2,1,0,1,3,3
+2026-03-11 23:30:00,Porto Velho,Atlético Goianiense,0.0,1.0,Porto Velho,Brazil,Aluízio Ferreira,,,,Copa do Brasil,,20260311_Porto-Velho_Atlético-Goianiense,-62.920313469159964,0.95,0.05,2,1,5,3,48.4,51.6,0,2,0,0,4,6
+2026-03-12 00:30:00,Manaus,Londrina,0.0,0.0,Manaus,Brazil,Municipal Carlos Zamith,,,,Copa do Brasil,,20260312_Manaus_Londrina,-8.846728534986596,0.98,1.66,3,4,6,7,48.2,51.8,2,2,0,0,6,7
+2026-03-12 00:30:00,Paysandu,Portuguesa-RJ,3.0,1.0,Belém,Brazil,Estádio Leônidas Sodré de Castro,,,,Copa do Brasil,,20260312_Paysandu_Portuguesa-RJ,-71.36357094257914,1.76,0.5,5,1,13,2,50.9,49.1,0,1,0,0,8,4
+2026-03-12 21:00:00,Madureira,Aguia de Maraba,0.0,1.0,Rio de Janeiro,Brazil,Estádio Aniceto Moscoso,,,,Copa do Brasil,,20260312_Madureira_Aguia-de-Maraba,27.169693238776745,0.97,1.0,3,4,6,7,58.5,41.5,1,6,0,1,2,8
+2026-03-12 22:00:00,Vila Nova,Operário MS,1.0,1.0,Goiãnia,Brazil,Estádio Onésio Brasileiro Alvarenga,,,,Copa do Brasil,,20260312_Vila-Nova_Operário-MS,-29.94186907430958,1.13,1.22,4,4,8,8,57.5,42.5,2,0,1,0,6,2
+2026-03-12 22:30:00,Maranhao,Ceará,0.0,1.0,Sao Luis,Brazil,Castelão (São Luis),,,,Copa do Brasil,,20260312_Maranhao_Ceará,-30.555435608798234,0.05,1.5,1,5,3,11,49.6,50.4,1,2,0,0,5,3
+2026-03-12 22:30:00,Operário PR,Capital CF,2.0,0.0,Ponta Grossa,Brazil,Germano Krüger,,,,Copa do Brasil,,20260312_Operário-PR_Capital-CF,14.351768259194387,1.92,0.92,6,4,12,9,54.9,45.1,1,0,0,0,6,6
+2026-03-12 22:30:00,Sousa EC,CRB,0.0,2.0,Sousa,Brazil,Estádio Governador Antônio Mariz,,,,Copa do Brasil,,20260312_Sousa-EC_CRB,-20.221907669750863,1.09,0.52,4,2,8,4,50.6,49.4,0,2,0,0,5,3
+2026-03-12 23:00:00,Amazonas,Figueirense,0.0,1.0,Manaus,Brazil,Arena Amazonia,,,,Copa do Brasil,,20260312_Amazonas_Figueirense,3.2656211540665936,0.05,0.74,0,3,0,5,56.1,43.9,2,1,0,0,0,0
+2026-03-12 23:30:00,Mixto,Novorizontino,0.0,3.0,Cuiabá,Brazil,Estádio Eurico Gaspar Dutra,,,,Copa do Brasil,,20260312_Mixto_Novorizontino,-5.072983394552466,0.1,1.38,2,4,3,7,56.2,43.8,2,5,0,0,3,8
+2026-03-13 00:30:00,Barra FC,América Mineiro,0.0,0.0,,,,,,,Copa do Brasil,,20260313_Barra-FC_América-Mineiro,-32.93066357782095,0.43,0.86,2,3,4,7,52.5,47.5,0,2,0,0,7,3
+2026-03-13 00:30:00,Sport,Anápolis,1.0,1.0,Recife,Brazil,Ilha do Retiro,,,,Copa do Brasil,,20260313_Sport_Anápolis,9.035244028584657,1.01,0.23,4,1,9,3,54.8,45.2,0,1,0,0,9,5
+2026-03-13 00:30:00,Tuna Luso,Juventude,1.0,1.0,Belém,Brazil,Estádio Leônidas Sodré de Castro,,,,Copa do Brasil,,20260313_Tuna-Luso_Juventude,-25.975441679355527,0.71,1.61,3,7,6,15,49.4,50.6,0,1,0,0,4,7
+2026-03-17 22:00:00,Nova Iguaçu,Fortaleza,0.0,1.0,Ilha do Governador,Brazil,Estádio Luso Brasileiro,,,,Copa do Brasil,,20260317_Nova-Iguaçu_Fortaleza,-64.52247283835709,0.05,1.68,0,6,0,14,55.3,44.7,2,1,0,0,2,6
+2026-03-17 22:30:00,São Bernardo,Ceará,0.0,0.0,São Bernardo do Campo ,Brazil,Estádio Primeiro de Maio,,,,Copa do Brasil,,20260317_São-Bernardo_Ceará,-14.176577238085201,1.03,1.23,3,2,7,7,47.4,52.6,0,3,0,0,3,2
+2026-03-18 00:30:00,Londrina,Operário PR,0.0,1.0,Londrina,Brazil,Estádio do Café,,,,Copa do Brasil,,20260318_Londrina_Operário-PR,-51.37934182249501,1.79,0.45,6,3,14,7,45.8,54.2,1,3,0,0,5,4
+2026-03-18 00:30:00,Portuguesa,Paysandu,2.0,3.0,Sao Paulo,Brazil,Estádio do Canindé,,,,Copa do Brasil,,20260318_Portuguesa_Paysandu,46.33799269956785,1.26,1.29,4,3,9,5,55.7,44.3,2,0,0,0,6,6
+2026-03-18 00:30:00,Sport,Athletic,1.0,3.0,Recife,Brazil,Ilha do Retiro,,,,Copa do Brasil,,20260318_Sport_Athletic,-3.6755546514293655,1.34,1.46,2,4,5,9,50.5,49.5,3,2,0,1,3,5
+2026-03-18 22:00:00,Vila Nova,Confiança,0.0,0.0,Goiãnia,Brazil,Estádio Onésio Brasileiro Alvarenga,,,,Copa do Brasil,,20260318_Vila-Nova_Confiança,-44.11062120448878,0.05,0.05,0,0,1,1,46.2,53.8,1,1,0,0,2,1
+2026-03-18 23:00:00,Atlético Goianiense,Ponte Preta,1.0,0.0,Goiãnia,Brazil,Estádio Antônio Accioly,,,,Copa do Brasil,,20260318_Atlético-Goianiense_Ponte-Preta,60.11440861756637,0.56,1.36,2,5,4,11,57.1,42.9,4,1,0,0,4,7
+2026-03-19 00:00:00,CRB,Figueirense,1.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20260319_CRB_Figueirense,14.444148541631193,0.86,0.18,3,0,5,1,48.5,51.5,1,1,0,0,2,2
+2026-03-19 00:30:00,Jacuipense,Novorizontino,0.0,0.0,Salvador,Brazil,Estádio Roberto Santos (Pituaçu),,,,Copa do Brasil,,20260319_Jacuipense_Novorizontino,-26.384294934376157,0.47,0.69,0,1,2,0,52.8,47.2,3,0,0,0,1,3
+2026-03-19 22:30:00,Juventude,Aguia de Maraba,3.0,0.0,Caxias do Sul,Brazil,Alfredo Jaconi,,,,Copa do Brasil,,20260319_Juventude_Aguia-de-Maraba,15.625741943139246,0.53,0.54,3,1,6,4,55.7,44.3,0,1,0,0,4,2
+2026-03-19 22:30:00,Maringá,Goiás,0.0,1.0,Maringá,Brazil,Estádio Regional Willie Davids,,,,Copa do Brasil,,20260319_Maringá_Goiás,38.100371992798046,1.22,0.52,5,1,12,3,55.3,44.7,2,3,0,0,5,3
+2026-03-19 23:00:00,Volta Redonda,Barra FC,0.0,0.0,Volta Redonda,Brazil,Estádio Raulino de Oliveira,,,,Copa do Brasil,,20260319_Volta-Redonda_Barra-FC,-9.241472830677594,1.06,0.81,3,3,6,6,49.4,50.6,1,0,1,0,3,4
+2026-04-21 20:00:00,Botafogo,Chapecoense,1.0,0.0,Rio de Janeiro,Brazil,Joao Havelange Stadium,,,,Copa do Brasil,,20260421_Botafogo_Chapecoense,82.19701695944354,0.67,1.1,3,4,8,9,59.7,40.3,1,2,0,0,7,4
+2026-04-21 22:15:00,São Paulo,Juventude,1.0,0.0,Sao Paulo,Brazil,Estádio Cícero Pompeu de Toledo,,,,Copa do Brasil,,20260421_São-Paulo_Juventude,32.7263506225388,1.55,0.62,4,1,10,3,51.4,48.6,1,1,0,0,5,4
+2026-04-21 22:30:00,Grêmio,Confiança,2.0,0.0,Porto Alegre,Brazil,Arena do Grêmio,,,,Copa do Brasil,,20260421_Grêmio_Confiança,-5.272130426753847,0.65,0.24,3,2,7,5,54.1,45.9,1,2,0,0,2,7
+2026-04-22 00:30:00,Barra FC,Corinthians,0.0,1.0,Florianópolis,Brazil,Estádio da Ressacada,,,,Copa do Brasil,,20260422_Barra-FC_Corinthians,-120.46098653718946,0.05,1.04,0,2,0,3,44.4,55.6,3,2,0,0,3,3
+2026-04-22 00:30:00,Paysandu,Vasco da Gama,0.0,2.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20260422_Paysandu_Vasco-da-Gama,-74.66141595036538,1.4,1.0,5,2,14,6,44.7,55.3,3,1,0,0,5,6
+2026-04-22 22:00:00,Bahia,Remo,1.0,3.0,Salvador,Brazil,Arena Fonte Nova,,,,Copa do Brasil,,20260422_Bahia_Remo,75.74120639970079,1.3,1.09,5,4,13,9,59.0,41.0,3,1,0,0,8,4
+2026-04-22 22:00:00,Goiás,Cruzeiro,2.0,2.0,Goiãnia,Brazil,Estádio Serra Dourada,,,,Copa do Brasil,,20260422_Goiás_Cruzeiro,-19.892554115772782,1.09,1.9,5,4,10,9,49.2,50.8,1,2,0,0,3,7
+2026-04-22 22:30:00,Santos,Coritiba,0.0,0.0,Santos,Brazil,Estádio Vila Belmiro (Urbano Caldeira),,,,Copa do Brasil,,20260422_Santos_Coritiba,30.300934005340196,0.78,1.42,3,5,6,12,54.3,45.7,1,5,0,0,6,8
+2026-04-22 23:30:00,Athletic,Internacional,1.0,2.0,Florianópolis,Brazil,Orlando Scarpelli,,,,Copa do Brasil,,20260422_Athletic_Internacional,-7.815304980766541,0.51,1.6,3,7,7,15,50.6,49.4,1,1,0,0,4,6
+2026-04-22 23:30:00,Fortaleza,CRB,2.0,1.0,Fortaleza,Brazil,Arena Castelão,,,,Copa do Brasil,,20260422_Fortaleza_CRB,37.06595318627956,0.9,0.4,2,1,5,0,43.3,56.7,2,2,0,0,5,4
+2026-04-23 00:30:00,Flamengo,Vitória,2.0,1.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20260423_Flamengo_Vitória,207.05347025880337,1.67,1.37,6,3,14,7,58.4,41.6,0,2,0,0,4,3
+2026-04-23 00:30:00,Red Bull Bragantino,Mirassol,1.0,1.0,Bragança Paulista,Brazil,Estádio Municipal Cicero de Souza Marques,,,,Copa do Brasil,,20260423_Red-Bull-Bragantino_Mirassol,-16.01658539243749,1.13,1.68,4,7,10,13,48.7,51.3,4,0,0,0,9,6
+2026-04-23 22:00:00,Atlético-MG,Ceará,2.0,1.0,Belo Horizonte,Brazil,Arena MRV,,,,Copa do Brasil,,20260423_Atlético-MG_Ceará,46.745797950904944,1.23,0.94,4,3,10,5,53.3,46.7,0,1,0,0,10,5
+2026-04-23 22:30:00,Palmeiras,Jacuipense,3.0,0.0,Sao Paulo,Brazil,Allianz Parque,,,,Copa do Brasil,,20260423_Palmeiras_Jacuipense,66.5918710789474,1.23,0.1,4,1,7,2,54.5,45.5,1,0,0,0,6,3
+2026-04-24 00:30:00,Athletico-PR,Atlético Goianiense,0.0,0.0,Curitiba,Brazil,Arena da Baixada,,,,Copa do Brasil,,20260424_Athletico-PR_Atlético-Goianiense,-5.508173740159236,0.93,1.27,5,5,12,12,55.3,44.7,3,2,0,0,9,6
+2026-04-24 00:30:00,Operário PR,Fluminense,0.0,0.0,Ponta Grossa,Brazil,Germano Krüger,,,,Copa do Brasil,,20260424_Operário-PR_Fluminense,-19.496244447544086,0.05,0.24,0,0,0,1,45.4,54.6,0,2,0,0,2,1
+2026-05-12 22:30:00,Internacional,Athletic,3.0,2.0,Porto Alegre,Brazil,Estadio Beira-Rio,,,,Copa do Brasil,,20260512_Internacional_Athletic,31.27553387519083,1.97,0.05,5,2,9,6,54.5,45.5,1,1,0,0,3,2
+2026-05-13 00:30:00,Cruzeiro,Goiás,1.0,0.0,Belo Horizonte,Brazil,Estadio Mineirão,,,,Copa do Brasil,,20260513_Cruzeiro_Goiás,18.51992473872042,0.9,0.05,4,1,8,4,60.1,39.9,3,4,1,0,4,1
+2026-05-13 00:30:00,Fluminense,Operário PR,2.0,1.0,Rio de Janeiro,Brazil,Estadio do Maracana,,,,Copa do Brasil,,20260513_Fluminense_Operário-PR,18.150903392965574,1.55,0.08,7,1,17,3,49.0,51.0,2,3,0,0,4,7
+2026-05-13 22:00:00,Juventude,São Paulo,3.0,1.0,Caxias do Sul,Brazil,Alfredo Jaconi,,,,Copa do Brasil,,20260513_Juventude_São-Paulo,-54.472356665683265,3.05,0.21,9,1,19,3,42.0,58.0,0,2,0,0,9,4
+2026-05-13 22:00:00,Vasco da Gama,Paysandu,2.0,2.0,Rio de Janeiro,Brazil,Estádio São Januário,,,,Copa do Brasil,,20260513_Vasco-da-Gama_Paysandu,93.58193669470597,0.94,1.3,2,4,7,10,55.4,44.6,0,3,0,0,5,2
+2026-05-13 22:30:00,Coritiba,Santos,0.0,2.0,Curitiba,Brazil,Couto Pereira,,,,Copa do Brasil,,20260513_Coritiba_Santos,-28.213110370347067,0.05,0.43,0,2,0,3,42.9,57.1,1,1,0,0,4,7
+2026-05-13 23:30:00,Mirassol,Red Bull Bragantino,2.0,1.0,Mirassol,Brazil,Estadio Municipal José Maria de Campos Maia,,,,Copa do Brasil,,20260513_Mirassol_Red-Bull-Bragantino,14.910981952621796,1.54,0.05,5,1,13,1,53.6,46.4,3,0,0,0,5,4
+2026-05-14 00:30:00,Ceará,Atlético-MG,2.0,1.0,Fortaleza,Brazil,Arena Castelão,,,,Copa do Brasil,,20260514_Ceará_Atlético-MG,-67.53605731249263,0.51,1.84,2,6,5,14,51.3,48.7,3,1,0,0,3,5
+2026-05-14 00:30:00,Jacuipense,Palmeiras,1.0,4.0,Londrina,Brazil,Estádio do Café,,,,Copa do Brasil,,20260514_Jacuipense_Palmeiras,-86.04738082607855,1.24,1.46,4,4,9,12,52.4,47.6,0,1,0,1,5,3
+2026-05-14 00:30:00,Remo,Bahia,2.0,1.0,Belém,Brazil,Mangueirão,,,,Copa do Brasil,,20260514_Remo_Bahia,-46.59052604728504,1.58,0.82,4,2,9,5,49.6,50.4,1,1,0,0,6,4
+2026-05-14 21:00:00,Chapecoense,Botafogo,2.0,0.0,Chapecó,Brazil,Arena Condá,,,,Copa do Brasil,,20260514_Chapecoense_Botafogo,-100.62266299901535,1.4,0.43,4,1,10,0,40.2,59.8,2,2,0,0,4,2
+2026-05-14 22:00:00,Atlético Goianiense,Athletico-PR,0.0,0.0,Goiãnia,Brazil,Estádio Antônio Accioly,,,,Copa do Brasil,,20260514_Atlético-Goianiense_Athletico-PR,5.1277144525638505,0.82,0.81,2,4,5,9,45.7,54.3,1,1,0,0,5,6
+2026-05-14 22:00:00,Confiança,Grêmio,0.0,3.0,"Aracaju, Sergipe",Brazil,Estadio Estadual Lourival Baptista,,,,Copa do Brasil,,20260514_Confiança_Grêmio,-19.092027490875807,1.01,1.61,4,4,8,10,53.7,46.3,5,3,0,0,10,2
+2026-05-14 22:30:00,Corinthians,Barra FC,1.0,0.0,Sao Paulo,Brazil,Neo Química Arena,,,,Copa do Brasil,,20260514_Corinthians_Barra-FC,136.45797868754016,0.27,0.95,1,4,1,9,59.9,40.1,0,5,0,0,4,10
+2026-05-14 23:00:00,CRB,Fortaleza,0.0,0.0,"Maceio, Alagoas",Brazil,Estádio Rei Pelé,,,,Copa do Brasil,,20260514_CRB_Fortaleza,-58.51519770475966,1.34,1.1,4,6,9,12,46.1,53.9,1,2,0,0,3,7
+2026-05-15 00:30:00,Vitória,Flamengo,2.0,0.0,Salvador,Brazil,Estadio Manoel Barradas,,,,Copa do Brasil,,20260515_Vitória_Flamengo,-218.23363425748448,0.83,0.96,2,5,5,11,44.9,55.1,1,1,0,0,6,7

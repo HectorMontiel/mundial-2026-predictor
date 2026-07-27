@@ -1,0 +1,18 @@
+# v68 — Los artefactos de modelo son BINARIOS. Sin esto, un clon con
+# core.autocrlf=true (el valor por defecto en Windows) puede intentar convertir
+# saltos de línea dentro del binario y dejarlo ilegible.
+# Git suele detectar el binario solo, pero declararlo elimina la posibilidad.
+*.joblib   binary
+*.npz      binary
+*.db       binary
+*.parquet  binary
+*.png      binary
+*.xlsx     binary
+
+# Los CSV y JSON de datos se normalizan a LF para que el diff sea estable
+# entre el runner de GitHub (Linux) y las máquinas locales (Windows).
+*.csv      text eol=lf
+*.json     text eol=lf
+*.py       text eol=lf
+*.md       text eol=lf
+*.yml      text eol=lf

@@ -1209,6 +1209,35 @@ NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'mls': 'MLS',
                  'turquia': 'Süper Lig', 'dinamarca': 'Superliga',
                  'europa_league': 'UEFA Europa League',
                  'conference_league': 'UEFA Conference League'}
+
+# v68 — Las competiciones nuevas se añaden solas al selector, agrupadas por
+# país, y SOLO las que el entrenamiento marcó `disponible` (es decir, las que
+# baten a la línea base ELO). Así el menú crece con el catálogo sin tener que
+# mantener dos listas a mano.
+_BANDERAS = {
+    'Inglaterra': '🏴', 'Escocia': '🏴', 'España': '🇪🇸', 'Italia': '🇮🇹',
+    'Francia': '🇫🇷', 'Alemania': '🇩🇪', 'Bélgica': '🇧🇪', 'Japón': '🇯🇵',
+    'México': '🇲🇽', 'Argentina': '🇦🇷', 'Brasil': '🇧🇷', 'Chile': '🇨🇱',
+    'Colombia': '🇨🇴', 'Perú': '🇵🇪', 'Uruguay': '🇺🇾', 'Bolivia': '🇧🇴',
+    'Ecuador': '🇪🇨', 'Paraguay': '🇵🇾', 'Venezuela': '🇻🇪',
+    'Costa Rica': '🇨🇷', 'El Salvador': '🇸🇻', 'Estados Unidos': '🇺🇸',
+    'Australia': '🇦🇺', 'Austria': '🇦🇹', 'Grecia': '🇬🇷', 'Rusia': '🇷🇺',
+    'Sudáfrica': '🇿🇦', 'India': '🇮🇳', 'Países Bajos': '🇳🇱',
+    'Américas': '🏆', 'Asia': '🏆', 'África': '🏆', 'Europa': '🇪🇺', 'Mundo': '🌍',
+}
+try:
+    import config as _cfg68
+    for _k in getattr(_cfg68, 'LIGAS_V68_ANADIDAS', []):
+        _c = _cfg68.LEAGUES.get(_k, {})
+        if not _c.get('disponible'):
+            continue                    # entrenada pero no supera al ELO
+        _pais = _c.get('pais', '')
+        _et = f"{_BANDERAS.get(_pais, '⚽')} {_c.get('nombre', _k)}"
+        if _et not in COMPETENCIAS:
+            COMPETENCIAS[_et] = _k
+        NOMBRES_LIGAS.setdefault(_k, _c.get('nombre', _k))
+except Exception:
+    pass
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
 # en el teléfono la barra lateral llega colapsada y el usuario no encontraba
 # las ligas. El estado se comparte con st.session_state.

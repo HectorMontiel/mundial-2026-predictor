@@ -1,0 +1,16 @@
+{
+  "liga": "South African Premier Division",
+  "n_train": 904,
+  "n_validacion": 227,
+  "fecha_corte": "2025-08-12",
+  "precision_validacion": 0.4802,
+  "precision_linea_base_elo": 0.4449,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.028,
+  "n_equipos": 23,
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

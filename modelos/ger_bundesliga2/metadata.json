@@ -1,0 +1,43 @@
+{
+  "liga": "2. Bundesliga",
+  "n_train": 1172,
+  "n_validacion": 293,
+  "fecha_corte": "2025-08-08",
+  "precision_validacion": 0.471,
+  "precision_linea_base_elo": 0.4369,
+  "precision_mercado_cuotas": 0.4915,
+  "log_loss_validacion": 1.0504,
+  "n_equipos": 31,
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION",
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4311,
+    "PROB_IMP_D": 0.2545,
+    "PROB_IMP_A": 0.3145,
+    "OVERROUND": 0.0574
+  },
+  "roi_sim": {
+    "n_apuestas": 106,
+    "roi_pct": -0.44,
+    "aciertos": 45
+  },
+  "mesm": {
+    "n_val_con_cuotas": 293,
+    "acc_prod": 0.471,
+    "acc_mesm": 0.4915,
+    "ll_prod": 1.0504,
+    "ll_mesm": 1.0481,
+    "adoptado": true
+  },
+  "imt": null
+}
