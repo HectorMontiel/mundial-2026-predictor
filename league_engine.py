@@ -1248,6 +1248,110 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     return metadata
 
 
+def _props_rematadores(home: str, away: str, sh_h: float, sh_a: float,
+                       sot_h: float, sot_a: float, clave_liga: str = None,
+                       max_jug: int = 4) -> list:
+    """
+    v71 — props de remates POR JUGADOR para clubes.
+
+    Por qué
+    -------
+    Hasta v70 la plantilla de clubes solo ofrecía totales de equipo y de
+    partido («Más de 9.5 remates a puerta»), y esos mercados **las casas no los
+    listan**: lo que sí publican son props de JUGADOR («X remates o más de
+    Fulano»). El motor de selecciones ya tenía props por jugador desde v57;
+    esto los trae a las ligas de clubes, que es donde se usan.
+
+    Cómo
+    ----
+    Los remates por jugador NO se estiman desde el xG: se leen OBSERVADOS del
+    bloque `rosters` de ESPN vía `remates_jugadores.remates_equipo()`, que da
+    remates y remates a puerta por partido de los últimos encuentros. La cuota
+    de cada jugador sobre el volumen de su equipo se reparte con esas medias
+    observadas, y el volumen del equipo lo pone el modelo (sh_h/sot_h). Así el
+    reparto es empírico y el nivel, del modelo.
+
+    P(remata ≥1) = 1 − e^(−λ) con λ = remates esperados del jugador (Poisson).
+    Se publican además las líneas .5 que ofrecen las casas (1.5, 2.5).
+
+    Si ESPN no tiene datos del equipo, no se inventa nada: se devuelve lista
+    vacía y la sección se queda con los totales, como hasta ahora.
+    """
+    salida = []
+    try:
+        import remates_jugadores as rj
+    except Exception:
+        return salida
+
+    liga_espn = None
+    if clave_liga:
+        liga_espn = LEAGUES.get(clave_liga, {}).get('espn_liga')
+    if not liga_espn:
+        liga_espn = _ESPN_POR_LIGA.get(clave_liga or '')
+    if not liga_espn:
+        return salida
+
+    def _pct(x):
+        return round(float(x) * 100, 1)
+
+    for equipo, nombre_eq, shots_eq, sot_eq, pref in (
+            (home, home, sh_h, sot_h, 'h'), (away, away, sh_a, sot_a, 'a')):
+        try:
+            nombre_espn = rj.resolver_equipo(liga_espn, equipo)
+            if not nombre_espn:
+                continue
+            tabla = rj.remates_equipo(liga_espn, nombre_espn)
+        except Exception:
+            continue
+        if tabla is None or tabla.empty:
+            continue
+        # solo jugadores con presencia real y con remates observados
+        t = tabla[(tabla.get('partidos', 0) >= 2) & (tabla.get('remates', 0) > 0)]
+        if t.empty:
+            continue
+        t = t.head(max_jug)
+        peso_total = float(t['remates_pp'].sum()) or 1.0
+        for i, r in enumerate(t.itertuples(index=False), start=1):
+            cuota = float(r.remates_pp) / peso_total
+            # el 11 titular no acapara todo el volumen del equipo: se deja un
+            # margen para el resto de la plantilla (mismo criterio que v57)
+            lam_sh = float(min(6.0, shots_eq * cuota * 0.85))
+            punteria = float(r.punteria) if pd.notna(getattr(r, 'punteria', None)) else 0.35
+            lam_sot = float(min(3.5, lam_sh * max(0.15, min(punteria, 0.75))))
+            if lam_sh < 0.2:
+                continue
+            base = f'shooter_{pref}{i}'
+            etq = f'{r.jugador} ({nombre_eq})'
+            salida.extend([
+                campo_prop(f'{base}_shots', f'{etq} — remates esperados',
+                           round(lam_sh, 2), 'media'),
+                campo_prop(f'{base}_s05', f'{etq} — 1+ remate', _pct(1 - np.exp(-lam_sh))),
+                campo_prop(f'{base}_s15', f'{etq} — 2+ remates',
+                           _pct(1 - np.exp(-lam_sh) * (1 + lam_sh))),
+                campo_prop(f'{base}_s25', f'{etq} — 3+ remates',
+                           _pct(1 - np.exp(-lam_sh) * (1 + lam_sh + lam_sh ** 2 / 2))),
+                campo_prop(f'{base}_sot05', f'{etq} — 1+ remate a puerta',
+                           _pct(1 - np.exp(-lam_sot))),
+                campo_prop(f'{base}_sot15', f'{etq} — 2+ remates a puerta',
+                           _pct(1 - np.exp(-lam_sot) * (1 + lam_sot))),
+            ])
+    return salida
+
+
+def campo_prop(id_, etiqueta, valor, tipo='pct'):
+    return {'id': id_, 'etiqueta': etiqueta, 'valor': valor, 'tipo': tipo}
+
+
+# nombre ESPN por liga para las que no lo llevan en config (formato 'main'/'new')
+_ESPN_POR_LIGA = {
+    'liga_mx': 'mex.1', 'brasil': 'bra.1', 'mls': 'usa.1', 'premier': 'eng.1',
+    'laliga': 'esp.1', 'serie_a': 'ita.1', 'bundesliga': 'ger.1',
+    'ligue_1': 'fra.1', 'argentina': 'arg.1', 'eredivisie': 'ned.1',
+    'portugal': 'por.1', 'eng_championship': 'eng.2', 'esp_hypermotion': 'esp.2',
+    'ita_serie_b': 'ita.2', 'ger_bundesliga2': 'ger.2', 'fra_ligue2': 'fra.2',
+}
+
+
 # ---------------------------------------------------------------------------
 # Motor de inferencia por liga
 # ---------------------------------------------------------------------------
@@ -1733,7 +1837,8 @@ class ClubEngine:
             campo('sh_away_o95', f'{away} más de 9.5 remates', pct(prob_over(sh_a, 9.5))),
             campo('sh_away_o125', f'{away} más de 12.5 remates', pct(prob_over(sh_a, 12.5))),
             campo('sot_away_o35', f'{away} más de 3.5 a puerta', pct(prob_over(sot_a, 3.5))),
-        ]})
+        ] + _props_rematadores(home, away, sh_h, sh_a, sot_h, sot_a,
+                               clave_liga=self.clave)})
 
         # 13. MEDIAS PARTES (v55) — modelo de goles por mitad bajo el reparto
         # observado (señal G2H_MA5: fracción de goles en la 2ª mitad; por

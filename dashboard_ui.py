@@ -557,15 +557,70 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
         st.caption(f"📅 {len(fx)} partidos de {etiqueta} encontrados, pero sus "
                    "equipos no coinciden con los del modelo.")
         return
-    c1, c2 = st.columns([3, 1])
-    sel = c1.selectbox(f"📅 Próximos partidos de {etiqueta} ({len(ops)})",
+    # v71: sin botón «Cargar». Elegir el partido YA carga los equipos y sus
+    # estadísticas; el botón era un paso manual que no decidía nada.
+    def _cargar_dep():
+        elegido = st.session_state.get(f"fxd_sel_{deporte}")
+        par = ops.get(elegido)
+        if par:
+            st.session_state[key_home], st.session_state[key_away] = par
+
+    sel = st.selectbox(f"📅 Próximos partidos de {etiqueta} ({len(ops)})",
                        list(ops.keys()), key=f"fxd_sel_{deporte}",
-                       help="Elige un partido programado y pulsa «Cargar».")
-    if c2.button("⬇️ Cargar", key=f"fxd_btn_{deporte}", width='stretch'):
-        h, a = ops[sel]
-        st.session_state[key_home] = h
-        st.session_state[key_away] = a
-        st.rerun()
+                       on_change=_cargar_dep,
+                       help="Al elegir un partido se cargan sus datos solos.")
+    # primera carga: dejar el estado coherente con lo que muestra el selector
+    if key_home not in st.session_state and sel in ops:
+        st.session_state[key_home], st.session_state[key_away] = ops[sel]
+
+
+def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
+                          deporte: str = 'futbol') -> bool:
+    """
+    v71 — cuotas del partido desde TODAS las fuentes sin cuota de API
+    (Pinnacle + ESPN), con line shopping.
+
+    Es el respaldo de `cuotas_auto` (que depende del core de ESPN y solo cubre
+    algunas ligas). Si tampoco hay nada, lo dice con el motivo real en vez de
+    dejar un «sin cuota» sin explicación.
+    """
+    try:
+        import cuotas_multi as _cm
+    except Exception:
+        return False
+    try:
+        res = _cm.cuotas_partido(deporte, home, away)
+    except Exception:
+        return False
+    if not res.get('n_casas'):
+        st.info(
+            "Ninguna casa ha abierto línea todavía para este partido. "
+            "Suele pasar a más de 3 días vista (las casas publican 2-4 días "
+            "antes) o en ligas que ningún operador grande cubre. "
+            "Mientras tanto se muestra la **cuota justa** del modelo.")
+        return False
+    import pandas as _pd
+    filas = []
+    for casa, c in res['casas'].items():
+        filas.append({'Casa': casa,
+                      f'{home}': c.get('home'), 'Empate': c.get('draw'),
+                      f'{away}': c.get('away')})
+    st.dataframe(_pd.DataFrame(filas), hide_index=True, width='stretch')
+    mejor = res.get('mejor') or {}
+    partes = []
+    for lado, etiq in (('home', home), ('draw', 'Empate'), ('away', away)):
+        if lado in mejor:
+            partes.append(f"**{etiq}** {mejor[lado]['cuota']} "
+                          f"({mejor[lado]['casa']})")
+    if partes:
+        st.success("🛒 Mejor precio disponible — " + " · ".join(partes))
+    if res.get('pinnacle'):
+        st.caption("📌 Pinnacle es la referencia *sharp*: si tu casa te paga "
+                   "más que ella, ahí está el valor.")
+    if res.get('emparejado_difuso'):
+        st.caption(f"ℹ️ Partido emparejado por similitud de nombres "
+                   f"({res['emparejado_difuso']}). Verifica que sea el correcto.")
+    return True
 
 
 def render_parlay_partido(motor, home: str, away: str, key: str):
@@ -669,16 +724,16 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                        "over/under, **hándicap** y props de jugador) y cruzadas "
                        "con el modelo para darte el EV real de cada mercado.")
             _clave_liga_auto = getattr(motor, 'clave', None) or key
-            if st.button("💰 Traer cuotas reales ahora", key=f"ca_btn_{key}",
-                         type="primary"):
+            # v71: sin botón. Las cuotas se descargan solas al abrir el
+            # desplegable; el resultado se cachea 30 min en `cuotas_multi`, así
+            # que abrirlo no cuesta una petición nueva cada vez.
+            if True:
                 try:
                     import cuotas_auto as _ca
                     with st.spinner("Descargando cuotas reales…"):
                         _eid = _ca.buscar_event_id(_clave_liga_auto, home, away)
                         if not _eid:
-                            st.info("Este partido no aparece entre los próximos "
-                                    "fixtures con cuotas (puede estar fuera de "
-                                    "la ventana de 3 días).")
+                            _mostrar_cuotas_multi(_clave_liga_auto, home, away)
                         else:
                             _plc = (motor.plantilla_club(home, away)
                                     if hasattr(motor, 'plantilla_club')
@@ -686,8 +741,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                             _res = _ca.evaluar(_clave_liga_auto, home, away,
                                                _eid, _plc)
                             if not _res:
-                                st.info("La casa aún no publica cuotas para "
-                                        "este partido.")
+                                _mostrar_cuotas_multi(_clave_liga_auto, home, away)
                             else:
                                 _pos = [r for r in _res if r['ev'] > 0]
                                 st.success(f"**{len(_res)} mercados** con cuota "
@@ -1043,17 +1097,18 @@ def render_liga_club(clave: str, nombre_liga: str):
             if h and a and h != a:
                 _ops[f"{f['fecha']} · {h} vs {a}"] = (h, a)
         if _ops:
-            cfx1, cfx2 = st.columns([3, 1])
-            _sel_fx = cfx1.selectbox(
+            # v71: sin botón. Elegir el partido rellena los equipos y dispara
+            # el análisis; el paso manual sobraba.
+            def _cargar_fx():
+                par = _ops.get(st.session_state.get(f"fx_sel_{clave}"))
+                if par:
+                    (st.session_state[f"club_home_{clave}"],
+                     st.session_state[f"club_away_{clave}"]) = par
+
+            st.selectbox(
                 f"📅 Próximos partidos de {nombre_liga} ({len(_ops)})",
-                list(_ops.keys()), key=f"fx_sel_{clave}",
-                help="Elige un partido programado y pulsa «Cargar» para "
-                     "rellenar los equipos automáticamente.")
-            if cfx2.button("⬇️ Cargar", key=f"fx_btn_{clave}", width='stretch'):
-                h, a = _ops[_sel_fx]
-                st.session_state[f"club_home_{clave}"] = h
-                st.session_state[f"club_away_{clave}"] = a
-                st.rerun()
+                list(_ops.keys()), key=f"fx_sel_{clave}", on_change=_cargar_fx,
+                help="Al elegir un partido se cargan sus equipos y sus datos.")
 
     c1, c2 = st.columns(2)
     with c1:

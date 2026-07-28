@@ -41,15 +41,35 @@ SEDES_FILE = 'sedes_futbol.csv'          # sede por partido (para el CDI)
 
 # Meses SIN actividad UEFA (receso de verano): se saltan para no gastar
 # peticiones. Junio se conserva (finales tardías).
+#
+# v71 — ESTO SOLO VALE PARA LAS COMPETICIONES UEFA. El módulo se llama
+# `uefa_scraper` por su origen, pero `league_engine.descargar_liga` lo usa para
+# TODAS las ligas de formato 'espn', y muchas son de año natural y juegan en
+# julio: Bolivia, Rusia, Paraguay, Costa Rica, Venezuela, El Salvador, ISL,
+# A-League, MLS... Saltarse julio les borraba un mes entero de resultados.
+#
+# Medido el 2026-07-28: ESPN tenía 29 partidos terminados de Bolivia y 8 de
+# Rusia en los últimos 45 días, con el último el 27 y el 26 de julio; el
+# histórico local se quedaba en el 2 de junio y el 17 de mayo. La app lo
+# mostraba como «sin datos nuevos desde hace 68 días (pretemporada)», que era
+# falso: no era pretemporada, era este filtro.
+#
+# Ahora el salto es OPCIONAL y solo lo piden explícitamente las competiciones
+# UEFA. El coste de no saltarlo es una petición más por año y liga.
 MESES_SIN_UEFA = (7,)
 
+# Competiciones a las que SÍ se les aplica el receso de julio
+LIGAS_CON_RECESO_JULIO = ('uefa.champions', 'uefa.europa', 'uefa.europa.conf',
+                          'uefa.super_cup')
 
-def _rango_meses(desde: str, hasta: Optional[str] = None):
+
+def _rango_meses(desde: str, hasta: Optional[str] = None,
+                 saltar_meses: tuple = ()):
     ini = pd.Timestamp(desde).normalize().replace(day=1)
     fin = pd.Timestamp(hasta) if hasta else pd.Timestamp.today()
     cur = ini
     while cur <= fin:
-        if cur.month not in MESES_SIN_UEFA:
+        if cur.month not in saltar_meses:
             ultimo = (cur + pd.offsets.MonthEnd(1)).normalize()
             yield cur.strftime('%Y%m%d'), min(ultimo, fin).strftime('%Y%m%d')
         cur = (cur + pd.offsets.MonthBegin(1)).normalize()
@@ -59,7 +79,10 @@ def descargar_espn(liga_espn: str, desde: str, hasta: Optional[str] = None,
                    pausa: float = 0.2) -> pd.DataFrame:
     """Resultados finalizados de una competición ESPN entre dos fechas."""
     filas = []
-    for ini, fin in _rango_meses(desde, hasta):
+    # el receso de julio solo se salta en las competiciones UEFA (ver la nota
+    # de MESES_SIN_UEFA); una liga de año natural juega en julio
+    saltar = MESES_SIN_UEFA if liga_espn in LIGAS_CON_RECESO_JULIO else ()
+    for ini, fin in _rango_meses(desde, hasta, saltar_meses=saltar):
         try:
             r = requests.get(ESPN_BASE.format(liga=liga_espn),
                              params={'dates': f'{ini}-{fin}', 'limit': 500},

@@ -1,0 +1,937 @@
+{
+ "generado": "2026-07-28 01:05:40.146093",
+ "dias": 7,
+ "total_fixtures": 327,
+ "total_con_cuota": 185,
+ "pct_global": 56.6,
+ "por_liga": [
+  {
+   "clave": "liga_mx",
+   "liga_espn": "mex.1",
+   "fixtures": 9,
+   "con_cuota": 9,
+   "via_espn": 9,
+   "via_pinnacle": 9,
+   "pct": 100.0
+  },
+  {
+   "clave": "brasil",
+   "liga_espn": "bra.1",
+   "fixtures": 10,
+   "con_cuota": 6,
+   "via_espn": 5,
+   "via_pinnacle": 6,
+   "pct": 60.0
+  },
+  {
+   "clave": "mls",
+   "liga_espn": "usa.1",
+   "fixtures": 16,
+   "con_cuota": 15,
+   "via_espn": 15,
+   "via_pinnacle": 11,
+   "pct": 93.8
+  },
+  {
+   "clave": "argentina",
+   "liga_espn": "arg.1",
+   "fixtures": 27,
+   "con_cuota": 12,
+   "via_espn": 12,
+   "via_pinnacle": 11,
+   "pct": 44.4
+  },
+  {
+   "clave": "arg_primera_nacional",
+   "liga_espn": "arg.2",
+   "fixtures": 18,
+   "con_cuota": 16,
+   "via_espn": 0,
+   "via_pinnacle": 16,
+   "pct": 88.9
+  },
+  {
+   "clave": "col_primera_a",
+   "liga_espn": "col.1",
+   "fixtures": 13,
+   "con_cuota": 9,
+   "via_espn": 9,
+   "via_pinnacle": 8,
+   "pct": 69.2
+  },
+  {
+   "clave": "usl_championship",
+   "liga_espn": "usa.usl.1",
+   "fixtures": 14,
+   "con_cuota": 14,
+   "via_espn": 14,
+   "via_pinnacle": 10,
+   "pct": 100.0
+  },
+  {
+   "clave": "bra_serie_b",
+   "liga_espn": "bra.2",
+   "fixtures": 3,
+   "con_cuota": 3,
+   "via_espn": 3,
+   "via_pinnacle": 3,
+   "pct": 100.0
+  },
+  {
+   "clave": "per_liga1",
+   "liga_espn": "per.1",
+   "fixtures": 9,
+   "con_cuota": 8,
+   "via_espn": 3,
+   "via_pinnacle": 8,
+   "pct": 88.9
+  },
+  {
+   "clave": "uru_primera",
+   "liga_espn": "uru.1",
+   "fixtures": 8,
+   "con_cuota": 8,
+   "via_espn": 6,
+   "via_pinnacle": 8,
+   "pct": 100.0
+  },
+  {
+   "clave": "ecu_liga_pro",
+   "liga_espn": "ecu.1",
+   "fixtures": 8,
+   "con_cuota": 6,
+   "via_espn": 0,
+   "via_pinnacle": 6,
+   "pct": 75.0
+  },
+  {
+   "clave": "slv_primera",
+   "liga_espn": "slv.1",
+   "fixtures": 10,
+   "con_cuota": 0,
+   "via_espn": 0,
+   "via_pinnacle": 0,
+   "pct": 0.0
+  },
+  {
+   "clave": "bol_division",
+   "liga_espn": "bol.1",
+   "fixtures": 11,
+   "con_cuota": 0,
+   "via_espn": 0,
+   "via_pinnacle": 0,
+   "pct": 0.0
+  },
+  {
+   "clave": "par_division",
+   "liga_espn": "par.1",
+   "fixtures": 12,
+   "con_cuota": 6,
+   "via_espn": 5,
+   "via_pinnacle": 5,
+   "pct": 50.0
+  },
+  {
+   "clave": "crc_fpd",
+   "liga_espn": "crc.1",
+   "fixtures": 5,
+   "con_cuota": 3,
+   "via_espn": 2,
+   "via_pinnacle": 3,
+   "pct": 60.0
+  },
+  {
+   "clave": "mex_expansion",
+   "liga_espn": "mex.2",
+   "fixtures": 8,
+   "con_cuota": 7,
+   "via_espn": 5,
+   "via_pinnacle": 4,
+   "pct": 87.5
+  },
+  {
+   "clave": "rus_premier",
+   "liga_espn": "rus.1",
+   "fixtures": 8,
+   "con_cuota": 5,
+   "via_espn": 0,
+   "via_pinnacle": 5,
+   "pct": 62.5
+  },
+  {
+   "clave": "chi_primera",
+   "liga_espn": "chi.1",
+   "fixtures": 8,
+   "con_cuota": 8,
+   "via_espn": 5,
+   "via_pinnacle": 8,
+   "pct": 100.0
+  },
+  {
+   "clave": "rsa_premier",
+   "liga_espn": "rsa.1",
+   "fixtures": 8,
+   "con_cuota": 6,
+   "via_espn": 0,
+   "via_pinnacle": 6,
+   "pct": 75.0
+  },
+  {
+   "clave": "aut_bundesliga",
+   "liga_espn": "aut.1",
+   "fixtures": 6,
+   "con_cuota": 6,
+   "via_espn": 6,
+   "via_pinnacle": 4,
+   "pct": 100.0
+  },
+  {
+   "clave": "sudamericana",
+   "liga_espn": "conmebol.sudamericana",
+   "fixtures": 8,
+   "con_cuota": 8,
+   "via_espn": 7,
+   "via_pinnacle": 8,
+   "pct": 100.0
+  },
+  {
+   "clave": "atp",
+   "liga_espn": "atp",
+   "fixtures": 0,
+   "con_cuota": 0,
+   "via_espn": 0,
+   "via_pinnacle": 0,
+   "pct": null
+  },
+  {
+   "clave": "wta",
+   "liga_espn": "wta",
+   "fixtures": 0,
+   "con_cuota": 0,
+   "via_espn": 0,
+   "via_pinnacle": 0,
+   "pct": null
+  },
+  {
+   "clave": "mlb",
+   "liga_espn": "mlb",
+   "fixtures": 108,
+   "con_cuota": 30,
+   "via_espn": 0,
+   "via_pinnacle": 26,
+   "pct": 27.8
+  }
+ ],
+ "sin_cuota": [
+  {
+   "liga": "brasil",
+   "partido": "Atlético-MG vs Red Bull Bragantino",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "brasil",
+   "partido": "Botafogo vs Grêmio",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "brasil",
+   "partido": "Chapecoense vs Vasco da Gama",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "brasil",
+   "partido": "São Paulo vs Santos",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "mls",
+   "partido": "MLS All-Stars vs Liga MX All-Stars",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Estudiantes de Río Cuarto vs Banfield",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Gimnasia (Mendoza) vs Unión (Santa Fe)",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Belgrano (Córdoba) vs Argentinos Juniors",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Estudiantes de La Plata vs Defensa y Justicia",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Racing Club vs Tigre",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Aldosivi vs Gimnasia La Plata",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Deportivo Riestra vs Barracas Central",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Newell's Old Boys vs Boca Juniors",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "argentina",
+   "partido": "River Plate vs Rosario Central",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Lanús vs Instituto (Córdoba)",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Sarmiento (Junín) vs Independiente Rivadavia",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Platense vs Talleres (Córdoba)",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Vélez Sarsfield vs Independiente",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Central Córdoba (Santiago del Estero) vs San Lorenzo",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "argentina",
+   "partido": "Huracán vs Atlético Tucumán",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "arg_primera_nacional",
+   "partido": "Defensores de Belgrano vs Estudiantes (Buenos Aires)",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "arg_primera_nacional",
+   "partido": "Ciudad de Bolívar vs Mitre (Santiago del Estero)",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "col_primera_a",
+   "partido": "Atlético Bucaramanga vs Cúcuta Deportivo",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "col_primera_a",
+   "partido": "Llaneros FC vs Fortaleza CEIF",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "col_primera_a",
+   "partido": "Deportes Tolima vs Independiente Medellín",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "col_primera_a",
+   "partido": "Millonarios vs Deportivo Pasto",
+   "fecha": "2026-08-05"
+  },
+  {
+   "liga": "per_liga1",
+   "partido": "ADT vs Deportivo Garcilaso",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "ecu_liga_pro",
+   "partido": "Universidad Católica (Quito) vs Técnico Universitario",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "ecu_liga_pro",
+   "partido": "Liga de Quito vs Delfín",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Cacahuatique vs Atletico Balboa",
+   "fecha": "2026-07-28"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "CD Municipal Limeño vs Inca Aruba",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Luis Ángel Firpo vs Fuerte San Francisco",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Isidro Metapán vs CD FAS",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Internacional Santa Tecla vs Águila",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Fuerte San Francisco vs Internacional Santa Tecla",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "CD Municipal Limeño vs C.D. Platense",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Águila vs Cacahuatique",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Atletico Balboa vs Isidro Metapán",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "slv_primera",
+   "partido": "Inca Aruba vs CD FAS",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Universitario de Vinto vs Guabirá",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "The Strongest vs Aurora",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Real Tomayapo vs ABB",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Real Oruro vs Independiente Petrolero",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "San Antonio Bulo Bulo vs Blooming",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Real Potosí vs GV San José",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Always Ready vs Bolívar",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Oriente Petrolero vs Nacional Potosí",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "ABB vs Real Oruro",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Independiente Petrolero vs Aurora",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "bol_division",
+   "partido": "Guabirá vs Real Tomayapo",
+   "fecha": "2026-08-05"
+  },
+  {
+   "liga": "par_division",
+   "partido": "Sportivo Ameliano vs 2 de Mayo",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "par_division",
+   "partido": "Cerro Porteño vs Sportivo Luqueño",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "par_division",
+   "partido": "Club Olimpia vs Rubio Ñú",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "par_division",
+   "partido": "Guaraní vs Libertad",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "par_division",
+   "partido": "Sportivo Trinidense vs Sportivo San Lorenzo",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "par_division",
+   "partido": "Deportivo Recoleta vs Nacional Asunción",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "crc_fpd",
+   "partido": "Alajuelense vs Escorpiones Belén",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "crc_fpd",
+   "partido": "Inter de San Carlos vs Herediano",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "mex_expansion",
+   "partido": "Cruz Azul Hidalgo vs Venados FC",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "rus_premier",
+   "partido": "Rodina Moscow vs Rostov",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "rus_premier",
+   "partido": "Akron Tolyatti vs Rubin Kazan",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "rus_premier",
+   "partido": "Krasnodar vs Fakel Voronezh",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "rsa_premier",
+   "partido": "Orlando Pirates vs Milford FC",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "rsa_premier",
+   "partido": "Kruger United vs Kaizer Chiefs",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Tampa Bay Rays vs Texas Rangers",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cincinnati Reds vs Cleveland Guardians",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "mlb",
+   "partido": "St. Louis Cardinals vs Chicago Cubs",
+   "fecha": "2026-07-29"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Dodgers vs Seattle Mariners",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Tampa Bay Rays vs Texas Rangers",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "mlb",
+   "partido": "St. Louis Cardinals vs Chicago Cubs",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Atlanta Braves vs Washington Nationals",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "mlb",
+   "partido": "New York Mets vs Miami Marlins",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cincinnati Reds vs Pittsburgh Pirates",
+   "fecha": "2026-07-30"
+  },
+  {
+   "liga": "mlb",
+   "partido": "San Diego Padres vs San Francisco Giants",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Dodgers vs Seattle Mariners",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Chicago Cubs vs New York Yankees",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cincinnati Reds vs Pittsburgh Pirates",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Baltimore Orioles vs Philadelphia Phillies",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Toronto Blue Jays vs St. Louis Cardinals",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cleveland Guardians vs Arizona Diamondbacks",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Tampa Bay Rays vs Chicago White Sox",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "New York Mets vs Miami Marlins",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Atlanta Braves vs Washington Nationals",
+   "fecha": "2026-07-31"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Houston Astros vs Texas Rangers",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Colorado Rockies vs Kansas City Royals",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Angels vs Milwaukee Brewers",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Athletics vs Detroit Tigers",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "San Diego Padres vs San Francisco Giants",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Dodgers vs Boston Red Sox",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Seattle Mariners vs Minnesota Twins",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Toronto Blue Jays vs St. Louis Cardinals",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Tampa Bay Rays vs Chicago White Sox",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "New York Mets vs Miami Marlins",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Seattle Mariners vs Minnesota Twins",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cincinnati Reds vs Pittsburgh Pirates",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Baltimore Orioles vs Philadelphia Phillies",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Houston Astros vs Texas Rangers",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cleveland Guardians vs Arizona Diamondbacks",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Atlanta Braves vs Washington Nationals",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Chicago Cubs vs New York Yankees",
+   "fecha": "2026-08-01"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Colorado Rockies vs Kansas City Royals",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "San Diego Padres vs San Francisco Giants",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Dodgers vs Boston Red Sox",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Angels vs Milwaukee Brewers",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Athletics vs Detroit Tigers",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Baltimore Orioles vs Philadelphia Phillies",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Atlanta Braves vs Washington Nationals",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Toronto Blue Jays vs St. Louis Cardinals",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cleveland Guardians vs Arizona Diamondbacks",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Tampa Bay Rays vs Chicago White Sox",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "New York Mets vs Miami Marlins",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cincinnati Reds vs Pittsburgh Pirates",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Houston Astros vs Texas Rangers",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Chicago Cubs vs New York Yankees",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Colorado Rockies vs Kansas City Royals",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Angels vs Milwaukee Brewers",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Athletics vs Detroit Tigers",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Seattle Mariners vs Minnesota Twins",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "San Diego Padres vs San Francisco Giants",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Los Angeles Dodgers vs Boston Red Sox",
+   "fecha": "2026-08-02"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Philadelphia Phillies vs Washington Nationals",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "mlb",
+   "partido": "New York Yankees vs St. Louis Cardinals",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Milwaukee Brewers vs Pittsburgh Pirates",
+   "fecha": "2026-08-03"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Chicago Cubs vs Los Angeles Dodgers",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Texas Rangers vs San Francisco Giants",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Houston Astros vs Toronto Blue Jays",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Colorado Rockies vs Tampa Bay Rays",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Arizona Diamondbacks vs San Diego Padres",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Baltimore Orioles vs Los Angeles Angels",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cincinnati Reds vs Athletics",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Cleveland Guardians vs New York Mets",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Philadelphia Phillies vs Washington Nationals",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "New York Yankees vs St. Louis Cardinals",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Boston Red Sox vs Chicago White Sox",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Atlanta Braves vs Miami Marlins",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Milwaukee Brewers vs Pittsburgh Pirates",
+   "fecha": "2026-08-04"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Chicago Cubs vs Los Angeles Dodgers",
+   "fecha": "2026-08-05"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Texas Rangers vs San Francisco Giants",
+   "fecha": "2026-08-05"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Houston Astros vs Toronto Blue Jays",
+   "fecha": "2026-08-05"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Colorado Rockies vs Tampa Bay Rays",
+   "fecha": "2026-08-05"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Seattle Mariners vs Detroit Tigers",
+   "fecha": "2026-08-05"
+  },
+  {
+   "liga": "mlb",
+   "partido": "Arizona Diamondbacks vs San Diego Padres",
+   "fecha": "2026-08-05"
+  }
+ ]
+}

@@ -191,11 +191,18 @@ _PREFIJOS = _PREFIJOS_TENIS + [
     ('cards1x2_', 'cards_1x2', _TARJETAS),
     ('cards_home_o', 'ou_cards_home', _TARJETAS),
     ('cards_away_o', 'ou_cards_away', _TARJETAS),
-    # v55: remates (total, a puerta, por equipo) y medias partes
-    ('sh_home_o', 'sh_home', _REMATES), ('sh_away_o', 'sh_away', _REMATES),
-    ('sot_home_o', 'sot_home', _REMATES), ('sot_away_o', 'sot_away', _REMATES),
-    ('sh_o', 'sh_tot', _REMATES), ('sh_u', 'sh_tot', _REMATES),
-    ('sot_o', 'sot_tot', _REMATES), ('sot_u', 'sot_tot', _REMATES),
+    # v55: remates y medias partes.
+    #
+    # v71 — los totales de remates POR EQUIPO y DE PARTIDO salen de aquí: no
+    # son mercados reales. Ninguna casa lista «Más de 9.5 remates a puerta del
+    # partido» ni «X remates del equipo»; lo que publican son props de JUGADOR
+    # («1+ remate de Fulano», «2+ remates a puerta»). Ofrecer un mercado que no
+    # se puede jugar era peor que no ofrecerlo: el parlay quedaba inservible.
+    # Las medias y totales siguen en la plantilla como INFORMACIÓN (tipo
+    # 'media'), simplemente ya no son seleccionables.
+    #
+    # Los props de jugador entran por el prefijo `shooter_` (abajo, familia
+    # _GOLES), que sí es un mercado real y ya existía para selecciones.
     ('1h_1x2_', '1h_1x2', _MITAD), ('1h_over', '1h_ou', _MITAD),
     ('1h_under', '1h_ou', _MITAD), ('1h_btts_', '1h_btts', _MITAD),
     ('2h_1x2_', '2h_1x2', _MITAD), ('2h_over', '2h_ou', _MITAD),

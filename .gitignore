@@ -86,3 +86,6 @@ resultados_tenis_v69.json
 
 # v70: caché de datasets supervisados de los experimentos (regenerable)
 _v70_cache_ds/
+
+# v71: cache de cuotas (regenerable, TTL 30 min)
+cuotas_cache/
