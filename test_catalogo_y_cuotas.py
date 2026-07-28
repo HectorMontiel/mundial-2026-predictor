@@ -272,6 +272,178 @@ def test_playdoit_integrada():
           f"si las hubiera, el parseo estaría mal")
 
 
+def test_claves_de_tenista():
+    """
+    v77: los nombres de tenista tienen que colapsar a la misma clave se
+    escriban como se escriban, o el mismo partido entra dos veces.
+    Cada caso viene de un duplicado real observado en producción.
+    """
+    import cuotas_multi as cm
+    iguales = [
+        ('Andrés Andrade (PAN)', 'Andres Andrade'),     # el (PAN) hacía de apellido
+        ('Martin Damm', 'Martin Damm Jr'),              # el sufijo hacía de apellido
+        ('Mensik J.', 'Jakub Mensik'),
+        ('Félix Auger-Aliassime', 'Auger-Aliassime F.'),  # apellido compuesto
+        ('Juan Martín del Potro', 'Del Potro J.'),        # partícula
+        ('Botic van de Zandschulp', 'Van De Zandschulp B.'),  # doble partícula
+        ('Carlos Alcaraz (ESP)', 'Alcaraz C.'),
+    ]
+    for a, b in iguales:
+        check(cm._clave_tenista(a) == cm._clave_tenista(b),
+              f"«{a}» y «{b}» dan la misma clave "
+              f"({cm._clave_tenista(a)} vs {cm._clave_tenista(b)})")
+    # y jugadores distintos NO pueden colapsar
+    distintos = [('Zverev A.', 'Zverev M.'),
+                 ('Alex de Minaur', 'Juan Martin del Potro'),
+                 ('Carlos Alcaraz', 'Jaume Munar')]
+    for a, b in distintos:
+        check(cm._clave_tenista(a) != cm._clave_tenista(b),
+              f"«{a}» y «{b}» siguen siendo jugadores distintos")
+
+
+def test_orientacion_local_visitante():
+    """
+    v77: en MLB/NBA el evento se llama «VISITANTE @ LOCAL», al revés que en
+    fútbol. Fiarse del orden de `competitorIds` invertía todos los partidos de
+    béisbol y generaba picks del equipo equivocado con un EV inventado (+49 %).
+    Se comprueba contra Pinnacle, que sí declara los bandos.
+    """
+    import cuotas_multi as cm
+    try:
+        pin = cm._indice('mlb')
+        pdt = cm._indice_pdt('mlb')
+    except Exception as e:
+        check(False, f"los índices de MLB cargan ({type(e).__name__}: {e})")
+        return
+    if not pin or not pdt:
+        print('AVISO sin partidos de MLB ahora mismo; se omite la comprobación')
+        return
+    coincidencias, invertidos = 0, 0
+    for k, v in pdt.items():
+        p = pin.get(k)
+        if not p:
+            continue
+        coincidencias += 1
+        cp, cv = p.get('cuotas') or {}, v.get('cuotas') or {}
+        if not (cp.get('home') and cv.get('home')):
+            continue
+        # si estuviera invertido, el 'home' de uno se parecería al 'away' del otro
+        d_ok = abs(cp['home'] - cv['home'])
+        d_inv = abs(cp['home'] - (cv.get('away') or 0))
+        if d_inv < d_ok - 0.15:
+            invertidos += 1
+    if coincidencias:
+        check(invertidos == 0,
+              f"Playdoit y Pinnacle coinciden en el bando local en MLB "
+              f"({invertidos} invertidos de {coincidencias} comparables)")
+    else:
+        print('AVISO ningún partido de MLB en común entre casas; se omite')
+
+
+def test_playdoit_multideporte():
+    """v77: Playdoit tiene que cubrir los cuatro deportes. El mercado ganador
+    lleva un `typeId` distinto en cada uno (1 fútbol, 186 tenis, 223 NBA,
+    251 MLB), y fijarlo a 1 dejaba tres deportes a cero EN SILENCIO."""
+    import cuotas_multi as cm
+    vivos = 0
+    for dep in ('futbol', 'tenis', 'mlb', 'nba'):
+        try:
+            n = len(cm._indice_pdt(dep))
+        except Exception as e:
+            check(False, f"Playdoit {dep} carga ({type(e).__name__})")
+            continue
+        if n:
+            vivos += 1
+        print(f"      · Playdoit {dep}: {n} partidos")
+    check(vivos >= 2,
+          f"Playdoit devuelve partidos en al menos 2 deportes ({vivos}/4 con "
+          f"partidos ahora mismo)")
+
+
+def test_precio_accionable():
+    """v77: el EV se calcula con el precio que el usuario PUEDE tomar."""
+    import cuotas_multi as cm
+    check(cm.CASA_PRIORITARIA == 'Playdoit', "la casa prioritaria es Playdoit")
+    c = {'casas': {'Pinnacle': {'home': 2.0, 'away': 2.0},
+                   'Playdoit': {'home': 1.9, 'away': 2.3}},
+         'mejor': {'home': {'cuota': 2.0, 'casa': 'Pinnacle'},
+                   'away': {'cuota': 2.3, 'casa': 'Playdoit'}},
+         'preferida': {'home': {'cuota': 1.9, 'casa': 'Playdoit',
+                                'mejor_alternativa': 'Pinnacle',
+                                'ventaja_alternativa': 0.0526},
+                       'away': {'cuota': 2.3, 'casa': 'Playdoit',
+                                'mejor_alternativa': 'Playdoit',
+                                'ventaja_alternativa': 0.0}}}
+    a = cm.precio_accionable(c, 'home')
+    check(a and a['casa'] == 'Playdoit' and a['cuota'] == 1.9,
+          f"se toma el precio de Playdoit aunque otro sea mejor ({a})")
+    check(a and a['ventaja_alternativa'] > 0,
+          "y se informa de cuánto se deja en la otra casa")
+    # sin Playdoit, cae al mejor del mercado
+    c2 = dict(c, preferida={})
+    b = cm.precio_accionable(c2, 'home')
+    check(b and b['casa'] == 'Pinnacle',
+          f"sin Playdoit se usa el mejor del mercado ({b})")
+
+
+def test_calibracion_confianza():
+    """
+    v77: la pestaña «Máxima Confianza» no puede prometer lo que no cumple.
+    Medido: el modelo dice 79,6 % en la banda ≥0,75 y acierta el 57,8 %.
+    """
+    if not os.path.exists('calibracion_confianza.json'):
+        check(False, 'calibracion_confianza.json existe')
+        return
+    with open('calibracion_confianza.json', encoding='utf-8') as f:
+        cal = json.load(f)
+    check(cal.get('n_total', 0) > 10000,
+          f"calibrado sobre muestra grande ({cal.get('n_total')} predicciones)")
+    bandas = [b for b in cal.get('bandas', []) if b.get('acierto') is not None]
+    check(len(bandas) >= 4, f"{len(bandas)} bandas con muestra suficiente")
+    u = cal.get('umbral_recomendado')
+    check(u and 0.55 <= u <= 0.80,
+          f"umbral recomendado en rango sensato ({u})")
+
+    import calibracion_confianza as cc
+    # la banda alta tiene que estar marcada como sobreconfiada
+    alta = [b for b in bandas if b['desde'] >= 0.75]
+    if alta:
+        check(alta[0]['sesgo'] > 0.10,
+              f"la banda ≥0,75 está sobreconfiada y queda registrado "
+              f"(sesgo {alta[0]['sesgo']:+.1%})")
+        aviso = cc.aviso_calibracion(0.79)
+        check(bool(aviso), f"y se genera aviso para el usuario ({aviso})")
+
+
+def test_combinadas_multideporte():
+    """v77: una combinada no puede tener dos patas del mismo partido ni
+    quedarse en un solo deporte (correlación)."""
+    import cross_sport_parlay as csp
+    picks = [
+        {'deporte': 'Fútbol', 'liga': 'L1', 'partido': 'A vs B',
+         'apuesta': 'Gana A', 'prob': 0.70, 'cuota': 1.60},
+        {'deporte': 'Fútbol', 'liga': 'L1', 'partido': 'A vs B',
+         'apuesta': 'Más de 1.5', 'prob': 0.75, 'cuota': 1.55},
+        {'deporte': 'Tenis', 'liga': 'ATP', 'partido': 'C vs D',
+         'apuesta': 'Gana C', 'prob': 0.68, 'cuota': 1.70},
+        {'deporte': 'MLB', 'liga': 'MLB', 'partido': 'E @ F',
+         'apuesta': 'Gana F', 'prob': 0.66, 'cuota': 1.75},
+    ]
+    combis = csp.generar(picks, [])
+    check(bool(combis), f"se generan combinadas ({len(combis)})")
+    for c in combis:
+        partidos = [p['partido'] for p in c['patas']]
+        check(len(partidos) == len(set(partidos)),
+              f"la combinada {c['perfil']} no repite partido")
+        check(len(c['deportes']) >= 2,
+              f"la combinada {c['perfil']} cruza deportes ({c['deportes']})")
+        check(c['stake_sugerido_pct'] >= 0, "stake sugerido no negativo")
+    # un solo deporte no debe producir nada
+    solo_uno = [p for p in picks if p['deporte'] == 'Fútbol']
+    check(csp.generar(solo_uno, []) == [],
+          "con un solo deporte NO se generan combinadas")
+
+
 def test_ledger_sin_fuga():
     if not os.path.exists('pick_ledger.csv'):
         print('AVISO pick_ledger.csv no existe todavía; se omiten sus comprobaciones')
@@ -353,6 +525,14 @@ if __name__ == '__main__':
     test_backfill_betexplorer()
     print('\n=== v76: casas de apuestas ===')
     test_playdoit_integrada()
+    print('\n=== v77: casas, deportes y orientación ===')
+    test_playdoit_multideporte()
+    test_orientacion_local_visitante()
+    test_precio_accionable()
+    print('\n=== v77: tenis y pestañas nuevas ===')
+    test_claves_de_tenista()
+    test_calibracion_confianza()
+    test_combinadas_multideporte()
     print('\n=== v75: ledger de predicciones ===')
     test_ledger_sin_fuga()
     print('\n=== v75: umbrales en producción ===')

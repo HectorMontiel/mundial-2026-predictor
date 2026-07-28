@@ -1,0 +1,113 @@
+{
+ "generado_de": "pick_ledger.csv",
+ "n_total": 36006,
+ "bandas": [
+  {
+   "desde": 0.5,
+   "hasta": 0.55,
+   "n": 4791,
+   "acierto": 0.5162,
+   "prob_media_modelo": 0.5235,
+   "sesgo": 0.0073,
+   "roi": -0.0372,
+   "p5": -0.0594,
+   "cuota_media": 1.896
+  },
+  {
+   "desde": 0.55,
+   "hasta": 0.6,
+   "n": 3325,
+   "acierto": 0.5714,
+   "prob_media_modelo": 0.5731,
+   "sesgo": 0.0017,
+   "roi": -0.0119,
+   "p5": -0.0366,
+   "cuota_media": 1.742
+  },
+  {
+   "desde": 0.6,
+   "hasta": 0.65,
+   "n": 1761,
+   "acierto": 0.6292,
+   "prob_media_modelo": 0.6205,
+   "sesgo": -0.0087,
+   "roi": 0.0163,
+   "p5": -0.0157,
+   "cuota_media": 1.623
+  },
+  {
+   "desde": 0.65,
+   "hasta": 0.7,
+   "n": 426,
+   "acierto": 0.6268,
+   "prob_media_modelo": 0.668,
+   "sesgo": 0.0413,
+   "roi": -0.0119,
+   "p5": -0.0744,
+   "cuota_media": 1.586
+  },
+  {
+   "desde": 0.7,
+   "hasta": 0.75,
+   "n": 68,
+   "acierto": 0.6765,
+   "prob_media_modelo": 0.7172,
+   "sesgo": 0.0407,
+   "roi": 0.1038,
+   "p5": -0.0565,
+   "cuota_media": 1.686
+  },
+  {
+   "desde": 0.75,
+   "hasta": 1.01,
+   "n": 45,
+   "acierto": 0.5778,
+   "prob_media_modelo": 0.7957,
+   "sesgo": 0.2179,
+   "roi": -0.0647,
+   "p5": -0.2673,
+   "cuota_media": 1.626
+  }
+ ],
+ "umbrales": [
+  {
+   "umbral": 0.6,
+   "n": 2300,
+   "pct_partidos": 0.0639,
+   "acierto": 0.6291,
+   "roi": 0.012,
+   "p5": -0.0151
+  },
+  {
+   "umbral": 0.65,
+   "n": 539,
+   "pct_partidos": 0.015,
+   "acierto": 0.6289,
+   "roi": -0.0017,
+   "p5": -0.0518
+  },
+  {
+   "umbral": 0.7,
+   "n": 113,
+   "pct_partidos": 0.0031,
+   "acierto": 0.6372,
+   "roi": 0.0367,
+   "p5": -0.088
+  },
+  {
+   "umbral": 0.75,
+   "n": 45,
+   "pct_partidos": 0.0012,
+   "acierto": 0.5778,
+   "roi": -0.0647,
+   "p5": -0.2642
+  },
+  {
+   "umbral": 0.8,
+   "n": 17,
+   "pct_partidos": 0.0005
+  }
+ ],
+ "umbral_recomendado": 0.7,
+ "nota": "Acierto REAL por banda de probabilidad, medido fuera de muestra. El acierto no crece con el umbral: se estanca en ~63 % y por encima de 0,75 baja (el modelo sobreconfía en la cola). La pestaña de Máxima Confianza lo muestra junto a la probabilidad del modelo para no prometer lo que no cumple."
+}

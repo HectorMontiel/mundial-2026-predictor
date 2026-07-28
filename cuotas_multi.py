@@ -77,6 +77,11 @@ PIN_HEADERS = {'User-Agent': 'Mozilla/5.0', 'X-API-Key': PIN_KEY,
 # deporte del proyecto -> id de Pinnacle
 DEPORTES = {'futbol': 29, 'tenis': 33, 'mlb': 3, 'nba': 4}
 
+# v77: casa de referencia del usuario. Es donde apuesta de verdad, así que su
+# precio es el que convierte un EV teórico en un EV cobrable. Ver
+# `precio_accionable` para por qué esto NO sustituye al line shopping.
+CASA_PRIORITARIA = 'Playdoit'
+
 CACHE_DIR = 'cuotas_cache'
 TTL = 1800                     # 30 min: las líneas se mueven, pero no tanto
 _LOCK = threading.Lock()
@@ -157,18 +162,68 @@ def _sim_club(a: str, b: str) -> float:
     return max(jac, 0.5 * jac + 0.5 * cad)
 
 
+# Sufijos que no forman parte del apellido y que unas casas ponen y otras no.
+_SUFIJOS_TENIS = {'jr', 'sr', 'ii', 'iii', 'iv'}
+# Partículas que van pegadas al apellido, no sueltas.
+_PARTICULAS_APELLIDO = {'de', 'del', 'della', 'di', 'da', 'dos', 'das', 'van',
+                        'von', 'der', 'den', 'la', 'le', 'el', 'al', 'bin',
+                        'mc', 'mac', "o"}
+
+
 def _clave_tenista(nombre: str) -> tuple:
     """
     (apellido, inicial) de un tenista, escriba quien lo escriba.
 
     Las fuentes del proyecto usan «Mensik J.» y Pinnacle «Jakub Mensik»: sin
     esto no empareja ni uno. Se detecta el formato por la posición del punto.
+
+    v77 — TRES FALLOS CORREGIDOS, todos ellos causa de partidos duplicados en
+    la Capa 2 (cada variante del nombre entraba como un partido distinto):
+
+      1. **Texto entre paréntesis.** «Andrés Andrade (PAN)» daba `('pan','a')`:
+         el código de país se colaba como apellido. Se elimina antes de nada.
+      2. **Sufijos de linaje.** «Martin Damm Jr» daba `('jr','m')`. Una casa
+         escribe el Jr y otra no, así que se descartan.
+      3. **Apellidos compuestos.** «Félix Auger-Aliassime» daba
+         `('aliassime','f')` y «Auger-Aliassime F.» daba `('auger','f')` —
+         el mismo jugador con dos claves. `normalizar` convierte el guion en
+         espacio, y como cada rama del formato elige una parte distinta, no
+         coincidían nunca. Ahora el guion se une ANTES de normalizar, de modo
+         que el apellido compuesto es un solo token en los dos formatos.
+
+    Las tildes ya las quitaba `normalizar`; el problema nunca fue ese.
     """
-    s = normalizar(nombre)
-    partes = [p for p in s.split() if p]
+    import re
+    crudo = str(nombre or '').strip()
+    # 1) fuera lo que va entre paréntesis (país, categoría, etc.)
+    crudo = re.sub(r'\([^)]*\)', ' ', crudo)
+    # 3) el apellido compuesto se vuelve un token: «Auger-Aliassime» ->
+    #    «augeraliassime», igual se escriba en un formato o en el otro
+    crudo_unido = re.sub(r'(\w)[-‐‑’\']\s*(\w)', r'\1\2', crudo)
+
+    s = normalizar(crudo_unido)
+    partes = [p for p in s.split() if p and p not in _SUFIJOS_TENIS]   # 2)
+    # 4) partículas de apellido: «del Potro» y «de Minaur» se parten distinto
+    #    según el formato (la rama con punto se quedaba con «del» y la otra con
+    #    «potro»), así que se pegan al token siguiente: «delpotro». Se unen en
+    #    vez de descartarse para no fundir jugadores realmente distintos.
+    unidas, i = [], 0
+    while i < len(partes):
+        if partes[i] in _PARTICULAS_APELLIDO and i + 1 < len(partes):
+            # codicioso: «van de Zandschulp» son DOS partículas seguidas, y
+            # unir solo la primera dejaba «vande» frente a «zandschulp»
+            j = i
+            while j < len(partes) and partes[j] in _PARTICULAS_APELLIDO:
+                j += 1
+            if j < len(partes):
+                unidas.append(''.join(partes[i:j + 1]))
+                i = j + 1
+                continue
+        unidas.append(partes[i])
+        i += 1
+    partes = unidas
     if not partes:
         return ('', '')
-    crudo = str(nombre).strip()
     if '.' in crudo:
         # formato «Apellido X.» (puede llevar apellido compuesto)
         sin_inicial = [p for p in partes if len(p) > 1]
@@ -575,6 +630,72 @@ UA_PDT = {'User-Agent': UA_WEB['User-Agent'], 'Accept': 'application/json',
 _ALT_LADO = {1: 'home', 2: 'draw', 3: 'away'}
 
 
+def _ganador_altenar(ev: dict, ids: list, mercados: dict,
+                     precios: dict) -> Dict[str, float]:
+    """
+    Cuotas del mercado GANADOR de un evento de Altenar, sea el deporte que sea.
+
+    v77 — por qué no se busca por `typeId`. La v76 lo fijaba a 1, que es el
+    Resultado Final del FÚTBOL, y por eso Playdoit devolvía 0 partidos en MLB,
+    NBA y tenis sin dar el menor error: cada deporte usa el suyo (1 fútbol,
+    186 tenis, 223 NBA, 251 MLB) y seguirá inventando más. Codificar cuatro
+    números habría arreglado hoy y roto en cuanto añadan un deporte.
+    Peor aún: fallaba EN SILENCIO — no había excepción, simplemente no
+    encontraba mercado y el deporte desaparecía del barrido.
+    Se identifica por ESTRUCTURA, que es lo que no cambia:
+      · cada selección apunta a un competidor del evento (o es el empate);
+      · y su nombre es EXACTAMENTE el del competidor. Esto último es lo que
+        distingue al ganador del hándicap, que comparte competidores pero
+        escribe «Orioles (+1.5)».
+    """
+    equipos_ev = {i for i in ids if i is not None}
+    for mid in (ev.get('marketIds') or []):
+        m = mercados.get(mid)
+        if not m:
+            continue
+        sel = [precios.get(o) for o in (m.get('oddIds') or [])]
+        sel = [s for s in sel if s]
+        if len(sel) not in (2, 3):
+            continue
+        cuotas: Dict[str, float] = {}
+        valido = True
+        for s in sel:
+            try:
+                p = float(s.get('price'))
+            except (TypeError, ValueError):
+                valido = False
+                break
+            if p <= 1:
+                valido = False
+                break
+            cid = s.get('competitorId')
+            nombre = ' '.join(str(s.get('name') or '').split())
+            if cid in equipos_ev:
+                # el nombre tiene que ser el del competidor tal cual: si lleva
+                # una línea entre paréntesis es hándicap, no ganador
+                esperado = ' '.join(str(_NOMBRE_COMP.get(cid) or '').split())
+                if esperado and nombre != esperado:
+                    valido = False
+                    break
+                lado = 'home' if cid == ids[0] else 'away'
+                cuotas[lado] = round(p, 4)
+            elif cid is None and len(sel) == 3:
+                cuotas['draw'] = round(p, 4)      # el empate no tiene competidor
+            else:
+                valido = False
+                break
+        if valido and cuotas.get('home') and cuotas.get('away'):
+            if len(sel) == 3 and not cuotas.get('draw'):
+                continue
+            return cuotas
+    return {}
+
+
+# nombres de competidor del volcado en curso (lo rellena `_indice_playdoit`);
+# `_ganador_altenar` los necesita para distinguir ganador de hándicap.
+_NOMBRE_COMP: Dict[int, str] = {}
+
+
 def _indice_playdoit(deporte: str) -> Dict[str, dict]:
     """{clave_partido: {...,'cuotas':{home,draw,away}}} desde Playdoit."""
     sid = ALTENAR_SPORT.get(deporte)
@@ -593,6 +714,8 @@ def _indice_playdoit(deporte: str) -> Dict[str, dict]:
     mercados = {m['id']: m for m in (j.get('markets') or [])}
     precios = {o['id']: o for o in (j.get('odds') or [])}
     equipos = {c['id']: c.get('name') for c in (j.get('competitors') or [])}
+    _NOMBRE_COMP.clear()
+    _NOMBRE_COMP.update(equipos)
     cats = {c['id']: c.get('name') for c in (j.get('categories') or [])}
     champs = {c['id']: c.get('name') for c in (j.get('champs') or [])}
 
@@ -604,28 +727,28 @@ def _indice_playdoit(deporte: str) -> Dict[str, dict]:
         # Altenar mete tabulaciones y dobles espacios en algunos nombres
         # («RC Celta\t\t»); sin limpiarlos, `normalizar` genera una clave
         # distinta y el partido no empareja nunca.
-        home = ' '.join(str(equipos.get(ids[0]) or '').split())
-        away = ' '.join(str(equipos.get(ids[1]) or '').split())
+        a0 = ' '.join(str(equipos.get(ids[0]) or '').split())
+        a1 = ' '.join(str(equipos.get(ids[1]) or '').split())
+        if not a0 or not a1:
+            continue
+        # v77 — ORIENTACIÓN LOCAL/VISITANTE. El orden de `competitorIds` NO es
+        # constante: en fútbol el evento se llama «A vs. B» y A es el local,
+        # pero en los deportes de formato estadounidense (MLB, NBA) se llama
+        # «A @ B» y ahí A es el VISITANTE. Fiarse de la posición invertía todos
+        # los partidos de MLB — verificado contra Pinnacle: para
+        # «BAL Orioles @ DET Tigers», Pinnacle da home=Detroit 1,7194 y
+        # away=Baltimore 2,28, mientras nosotros etiquetábamos Baltimore como
+        # local. Los precios eran correctos; el bando, no. Habría generado
+        # picks del equipo equivocado con un EV inventado enorme (+49 %).
+        if ' @ ' in str(ev.get('name') or ''):
+            home, away = a1, a0
+        else:
+            home, away = a0, a1
+        if home != a0:
+            ids = [ids[1], ids[0]]        # que `_ganador_altenar` case bandos
         if not home or not away:
             continue
-        cuotas = {}
-        for mid in (ev.get('marketIds') or []):
-            m = mercados.get(mid)
-            # typeId 1 = Resultado Final (1X2) con sus tres selecciones
-            if not m or m.get('typeId') != 1 or len(m.get('oddIds') or []) != 3:
-                continue
-            for oid in m['oddIds']:
-                o = precios.get(oid)
-                if not o:
-                    continue
-                lado = _ALT_LADO.get(o.get('typeId'))
-                try:
-                    p = float(o.get('price'))
-                except (TypeError, ValueError):
-                    continue
-                if lado and p > 1:
-                    cuotas[lado] = round(p, 4)
-            break
+        cuotas = _ganador_altenar(ev, ids, mercados, precios)
         if not (cuotas.get('home') and cuotas.get('away')):
             continue
         clave = f"{normalizar(home)}|{normalizar(away)}"
@@ -774,10 +897,62 @@ def cuotas_partido(deporte: str, home: str, away: str,
         if cands:
             cuota, casa = max(cands)
             mejor[lado] = {'cuota': cuota, 'casa': casa}
-    return {'casas': reales, 'mejor': mejor, 'totales': totales,
+
+    # -----------------------------------------------------------------------
+    # v77 — CUOTA ACCIONABLE vs MEJOR CUOTA
+    #
+    # El usuario apuesta en Playdoit, así que un precio de Bovada que no puede
+    # tomar no es una oportunidad: es un número bonito. Pero fijar la política
+    # en "usa siempre Playdoit" tampoco sale gratis. Medido sobre 894
+    # selecciones con dos o más casas: **Playdoit da el mejor precio el 41,1 %
+    # de las veces** y, cuando no lo da, deja un 3,34 % de cuota de media
+    # (mediana 2,55 %, peor caso 23,9 %). Ese 3 % en un pick de cuota 2,00 y
+    # probabilidad 0,55 baja el EV de +13,3 % a +10,0 % — un tercio del margen.
+    #
+    # Así que no se elige: se devuelven las dos.
+    #   · `preferida`  — el precio de la casa del usuario. Es con el que se
+    #                    calcula el EV accionable, porque es el que puede
+    #                    cobrar de verdad.
+    #   · `mejor`      — el mejor del mercado, con su casa, y el diferencial.
+    #                    Es información para que decida si le compensa abrir o
+    #                    usar otra cuenta, no un EV que se apunte solo.
+    # -----------------------------------------------------------------------
+    preferida = {}
+    p_casa = reales.get(CASA_PRIORITARIA)
+    if p_casa:
+        for lado in ('home', 'draw', 'away'):
+            v = p_casa.get(lado)
+            if v and v > 1:
+                mj = (mejor.get(lado) or {}).get('cuota')
+                preferida[lado] = {
+                    'cuota': v, 'casa': CASA_PRIORITARIA,
+                    'mejor_alternativa': (mejor.get(lado) or {}).get('casa'),
+                    'ventaja_alternativa': (round((mj - v) / v, 4)
+                                            if mj and mj > v else 0.0)}
+    return {'casas': reales, 'mejor': mejor, 'preferida': preferida,
+            'casa_prioritaria': CASA_PRIORITARIA,
+            'totales': totales,
             'pinnacle': reales.get('Pinnacle'), 'n_casas': len(reales),
             'fuentes': fuentes,
             'emparejado_difuso': (pin or {}).get('emparejado_difuso')}
+
+
+def precio_accionable(c: Dict, lado: str) -> Optional[dict]:
+    """
+    Precio con el que se debe calcular el EV de una selección.
+
+    Prioriza la casa del usuario (`CASA_PRIORITARIA`) y solo cae al mejor del
+    mercado si esa casa no cotiza ese partido. Devuelve el mismo dict que
+    `mejor[lado]`, con `mejor_alternativa` y `ventaja_alternativa` cuando otra
+    casa paga más, para que la interfaz lo pueda avisar.
+    """
+    if not c:
+        return None
+    p = (c.get('preferida') or {}).get(lado)
+    if p:
+        return p
+    m = (c.get('mejor') or {}).get(lado)
+    return dict(m, mejor_alternativa=None, ventaja_alternativa=0.0) if m else None
 
 
 def devig(cuotas: Dict[str, float], metodo: str = 'proporcional') -> Dict[str, float]:
@@ -843,20 +1018,28 @@ def valor_vs_sharp(deporte: str, home: str, away: str,
         return salida
     salida['prob_justa'] = {k: round(v, 4) for k, v in just.items()}
     for lado, p_just in just.items():
-        mejor = (res.get('mejor') or {}).get(lado)
-        if not mejor or p_just <= 0:
+        # v77: se valora el precio ACCIONABLE (la casa del usuario) y no el
+        # mejor del mercado. Un pick de line shopping que solo existe en una
+        # casa donde no se puede apostar no es una oportunidad; y como el EV
+        # aquí sale de superar el precio justo de Pinnacle, usar una cuota que
+        # el usuario no puede tomar inflaría el EV de toda la Capa 1.
+        precio = precio_accionable(res, lado)
+        if not precio or p_just <= 0:
             continue
-        cuota = mejor['cuota']
-        if mejor['casa'] == 'Pinnacle':
+        cuota = precio['cuota']
+        if precio['casa'] == 'Pinnacle':
             continue                     # el valor está en superar a Pinnacle
         ev = cuota * p_just - 1.0
         if ev >= min_edge:
             salida['valor'].append({
-                'lado': lado, 'cuota': cuota, 'casa': mejor['casa'],
+                'lado': lado, 'cuota': cuota, 'casa': precio['casa'],
                 'prob_justa': round(p_just, 4),
                 'cuota_justa': round(1.0 / p_just, 3),
                 'ev': round(ev, 4),
-                'pinnacle': pin.get(lado)})
+                'pinnacle': pin.get(lado),
+                # para que la UI pueda decir «en X pagan un Y % más»
+                'mejor_alternativa': precio.get('mejor_alternativa'),
+                'ventaja_alternativa': precio.get('ventaja_alternativa', 0.0)})
     salida['valor'].sort(key=lambda x: -x['ev'])
     return salida
 

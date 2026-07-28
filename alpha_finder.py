@@ -50,6 +50,11 @@ except Exception:
     MIN_EV = 0.03
     MIN_CONVICCION = 0.025
 MIN_CUOTA = 1.50
+# v77: pestaña «Máxima Confianza». Umbral de probabilidad alto y sin mínimo de
+# EV; el stake se reduce a ¼ de Kelly porque acertar mucho no es lo mismo que
+# ganar dinero (ver el bloque que la construye).
+PROB_MAXIMA_CONFIANZA = 0.80
+FRACCION_KELLY_CONFIANZA = 0.25
 # v39/v40 no tenían techo de EV en el filtro, aunque `edge_engine` sí calibra
 # una BANDA: el tramo de EV alto es tóxico (−10 % de ROI en 1.033 apuestas).
 try:
@@ -752,19 +757,35 @@ def indicador_antiguedad(dias: Optional[int]) -> str:
 
 
 def _picks_mlb() -> Dict[str, List[Dict]]:
-    """MLB: cuotas en vivo de The Odds API (capa 1) + alta confianza (capa 2)."""
+    """
+    MLB con la capa de cuotas sin límite (Pinnacle + Bovada + Playdoit).
+
+    v77: hasta ahora dependía de The Odds API y, con la cuota mensual a 0, la
+    MLB desaparecía del barrido **sin que nadie lo viera**: el motor cargaba
+    bien, devolvía cero picks con un aviso interno y ese aviso no llegaba a
+    ninguna parte. Ahora las incidencias suben hasta la interfaz.
+    """
     try:
         from engines.mlb_engine import MLBEngine
         eng = MLBEngine().cargar_modelo()
         if not eng.listo:
-            return {'capa1': [], 'capa2': []}
+            return {'capa1': [], 'capa2': [],
+                    'incidencias': ['MLB: el modelo no está disponible.']}
         r = eng.apuestas_dia(min_prob=UMBRAL_CONF['MLB'])
         capa1 = [{**p, 'liga': 'MLB', 'mercado': 'Moneyline',
                   'valor': p.get('valor', '🟡')} for p in r.get('picks', [])]
-        return {'capa1': capa1, 'capa2': []}
+        inc = list(r.get('incidencias') or [])
+        if not capa1 and r.get('aviso'):
+            inc.append(f"MLB: {r['aviso']}")
+        if r.get('eventos'):
+            inc.append(f"MLB: {r['eventos']} partidos con cuota, "
+                       f"{r.get('evaluados', 0)} evaluados por el modelo, "
+                       f"{len(capa1)} superaron los filtros.")
+        return {'capa1': capa1, 'capa2': [], 'incidencias': inc}
     except Exception as e:
         logger.warning(f"[alpha] MLB omitido: {type(e).__name__}: {e}")
-        return {'capa1': [], 'capa2': []}
+        return {'capa1': [], 'capa2': [],
+                'incidencias': [f'MLB omitido por error: {type(e).__name__}: {e}']}
 
 
 def _cuotas_tenis_multi() -> List[Dict]:
@@ -1279,16 +1300,23 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         p.setdefault('deporte', 'Fútbol')
     # v49: Capa 2 de fútbol desde el pase de fixtures (partidos sin cuota real)
     capa2, no_enlazados, parlay_legs = list(r.get('capa2_futbol') or []), [], []
+    # v77: registro de incidencias visible para el usuario. Nace de que la MLB
+    # llevaba semanas fuera del barrido porque The Odds API se quedaba sin
+    # cuota, y el aviso existía pero moría dentro del motor sin llegar a
+    # ninguna pantalla. Un fallo que no se ve es un fallo que no se arregla.
+    incidencias: List[str] = list(r.get('incidencias') or [])
     for fn in (_picks_mlb, _picks_tenis, _picks_nba):
         try:
             sub = fn()
         except Exception as e:
             logger.warning(f"[alpha] {fn.__name__}: {e}")
+            incidencias.append(f'{fn.__name__}: {type(e).__name__}: {e}')
             continue
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])
         no_enlazados += sub.get('no_enlazados', [])
         parlay_legs += sub.get('parlay_legs', [])
+        incidencias += sub.get('incidencias', [])      # v77
     # --- v32: fiabilidad, pretemporada y segregación de EV extremo -------
     # v52: mapa nombre→clave DERIVADO de la config (cubre TODAS las ligas, no
     # solo un puñado) + circuitos de tenis. Antes faltaban Veikkausliiga,
@@ -1327,6 +1355,63 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     ev_extremo = [p for p in capa1 if (p.get('ev') or 0) > _techo_ev(p)]
     capa1 = [p for p in capa1 if (p.get('ev') or 0) <= _techo_ev(p)]
 
+    # -----------------------------------------------------------------------
+    # v77 — PESTAÑA «MÁXIMA CONFIANZA»
+    #
+    # Mismos modelos y mismas cuotas reales que la Capa 1; lo único que cambia
+    # es el criterio de selección: prioriza ACERTAR por encima de cobrar caro.
+    # Se exige prob ≥ 0,80 y cuota ≥ 1,50, sin mínimo de EV.
+    #
+    # Con un aviso que hay que decir claro y que la UI repite: un pick de
+    # probabilidad muy alta y EV negativo es, por definición, una apuesta
+    # perdedora a largo plazo — se acierta mucho y se pierde despacio. Por eso
+    # va con stake reducido (¼ de Kelly) y por eso se marca `ev_negativo`
+    # cuando toca, en vez de esconderlo detrás de un porcentaje de acierto
+    # bonito. La pestaña existe porque el usuario la pidió para construir
+    # combinadas, no porque sea la más rentable.
+    # -----------------------------------------------------------------------
+    universo_prob = capa1 + ev_extremo + list(r.get('candidatos') or [])
+    vistos_prob, capa1_prob = set(), []
+    try:
+        import calibracion_confianza as _cc
+        umbral_conf = float((_cc._tabla() or {}).get('umbral_recomendado')
+                            or PROB_MAXIMA_CONFIANZA)
+    except Exception:
+        _cc, umbral_conf = None, PROB_MAXIMA_CONFIANZA
+    for p in sorted(universo_prob, key=lambda x: -(x.get('prob') or 0)):
+        prob, cuota = p.get('prob') or 0, p.get('cuota') or 0
+        if prob < umbral_conf or cuota < MIN_CUOTA:
+            continue
+        clave = (p.get('deporte'), p.get('partido'), p.get('apuesta'))
+        if clave in vistos_prob:
+            continue
+        vistos_prob.add(clave)
+        q = dict(p)
+        q['perfil'] = 'confianza'
+        q['fraccion_kelly'] = FRACCION_KELLY_CONFIANZA
+        q['ev_negativo'] = bool((p.get('ev') or 0) <= 0)
+        # el acierto que esa banda de probabilidad da DE VERDAD, junto al que
+        # promete el modelo. Sin esto la pestaña vendería un 79 % que en el
+        # histórico se convierte en 58 %.
+        if _cc is not None:
+            q['acierto_real'] = _cc.acierto_real(prob)
+            q['aviso_calibracion'] = _cc.aviso_calibracion(prob)
+        capa1_prob.append(q)
+    if not capa1_prob:
+        pct = None
+        try:
+            for u in ((_cc._tabla() or {}).get('umbrales') or []):
+                if abs(float(u.get('umbral', 0)) - umbral_conf) < 1e-9:
+                    pct = u.get('pct_partidos')
+                    break
+        except Exception:
+            pass
+        incidencias.append(
+            f'Máxima Confianza: hoy ningún pick alcanza prob ≥ {umbral_conf:.0%} '
+            f'con cuota ≥ {MIN_CUOTA:.2f}.'
+            + (f' Históricamente solo lo consigue el {pct:.2%} de los partidos, '
+               f'así que es normal que algunos días esté vacía.' if pct else ''))
+
     # v38: etiqueta de rentabilidad esperada (edge_engine) por pick de capa1 —
     # en qué tramo de EV real cae y si su liga es históricamente deficitaria.
     try:
@@ -1351,6 +1436,20 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     oleadas = _oleadas(capa1)
     # v41 (§3.1): mejores patas para construir parlays
     mejores_patas = _mejores_patas(todos_pool)
+    # v77: combinadas MULTI-DEPORTE a partir de las dos primeras pestañas
+    try:
+        import cross_sport_parlay
+        combinadas = cross_sport_parlay.generar(capa1, capa1_prob)
+        if not combinadas:
+            deportes_disp = sorted({p.get('deporte') for p in capa1 + capa1_prob})
+            incidencias.append(
+                f'Combinadas: no se pudo cruzar deportes hoy (material '
+                f'disponible: {deportes_disp}). Hacen falta picks de al menos '
+                f'dos deportes distintos con prob ≥ '
+                f'{cross_sport_parlay.MIN_PROB_PATA:.0%}.')
+    except Exception as e:
+        combinadas = []
+        incidencias.append(f'Combinadas no generadas: {type(e).__name__}: {e}')
     # v47: PARLAY DEL DÍA DE TENIS — combina los mercados derivados más seguros
     # (uno por partido para diversificar), objetivo cuota combinada contundente.
     tenis_parlay = _construir_parlay_tenis(parlay_legs)
@@ -1378,6 +1477,10 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               'seleccion_dia': seleccion_dia,
               'pronosticos': r.get('pronosticos') or [],   # v49: todos los partidos
               'elite': capa1,          # compatibilidad con UI/exportación
+              # --- v77: las tres pestañas ---
+              'capa1_prob': capa1_prob,
+              'combinadas': combinadas,
+              'incidencias': incidencias,
               })
     try:                      # v32 §6: registro para el rendimiento REAL
         import rendimiento_real

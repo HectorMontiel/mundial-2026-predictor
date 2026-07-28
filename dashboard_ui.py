@@ -187,6 +187,135 @@ def _panel_calibracion_v75(st) -> None:
 
 
 # ===========================================================================
+# v77 — Pestañas «Máxima Confianza» y «Combinadas»
+# ===========================================================================
+def _render_maxima_confianza(r) -> None:
+    """
+    Picks de probabilidad alta, con el acierto REAL de su banda al lado.
+
+    La honestidad aquí no es un adorno. Medido sobre 36.006 predicciones fuera
+    de muestra, el modelo dice 79,6 % en la banda ≥0,75 y acierta el 57,8 %:
+    los picks que la app presentaría como los más seguros son los peor
+    calibrados. Enseñar solo la probabilidad del modelo en una pestaña que se
+    llama «Máxima Confianza» sería vender exactamente lo que no cumple.
+    """
+    picks = r.get('capa1_prob') or []
+    st.caption(
+        "Mismos modelos y mismas cuotas reales que «Máximo Valor»; lo que "
+        "cambia es el criterio: prioriza acertar sobre cobrar caro. "
+        "Stake reducido a ¼ de Kelly."
+    )
+    try:
+        with open('calibracion_confianza.json', encoding='utf-8') as f:
+            cal = json.load(f)
+        st.warning(
+            f"**Cómo leer esta pestaña.** Sobre {cal['n_total']:,} predicciones "
+            f"fuera de muestra, el acierto **no crece** con la probabilidad: se "
+            f"estanca en torno al 63 % y por encima de 0,75 empeora (el modelo "
+            f"dice 79,6 % y acierta 57,8 %). Por eso el umbral está en "
+            f"{cal.get('umbral_recomendado', 0.70):.0%}, que es el que mejor "
+            f"rindió, y por eso cada pick muestra el acierto real de su banda."
+            .replace(',', '.')
+        )
+        with st.expander("📊 Acierto real por banda de probabilidad"):
+            dfb = pd.DataFrame([
+                {'Banda': f"{b['desde']:.2f}–{b['hasta']:.2f}", 'n': b['n'],
+                 'Dice el modelo': (f"{b['prob_media_modelo']:.1%}"
+                                    if b.get('prob_media_modelo') else '—'),
+                 'Acierta de verdad': (f"{b['acierto']:.1%}"
+                                       if b.get('acierto') else 'muestra corta'),
+                 'ROI': (f"{b['roi']:+.2%}" if b.get('roi') is not None else '—')}
+                for b in cal.get('bandas', [])])
+            st.dataframe(dfb, hide_index=True, width='stretch')
+    except Exception:
+        pass
+
+    if not picks:
+        st.info("Hoy ningún pick alcanza el umbral de confianza. Es lo normal "
+                "algunos días: históricamente solo un 0,31 % de los partidos lo "
+                "consigue. Mejor una pestaña vacía que un pick forzado.")
+        return
+
+    neg = [p for p in picks if p.get('ev_negativo')]
+    if neg:
+        st.error(f"⚠️ {len(neg)} de estos picks tienen **EV negativo**: se "
+                 f"acierta mucho y aun así se pierde dinero a la larga, porque "
+                 f"la cuota no paga el riesgo. Úsalos como patas de combinada, "
+                 f"no como apuesta simple.")
+    filas = []
+    for p in picks:
+        ar = p.get('acierto_real')
+        filas.append({
+            'Deporte': p.get('deporte'), 'Liga': p.get('liga'),
+            'Partido': p.get('partido'), 'Apuesta': p.get('apuesta'),
+            'Dice el modelo': f"{(p.get('prob') or 0):.0%}",
+            'Acierta de verdad': f"{ar:.0%}" if ar else 'n/d',
+            'Cuota': p.get('cuota'), 'Casa': p.get('casa'),
+            'EV': f"{(p.get('ev') or 0):+.1%}",
+        })
+    st.dataframe(pd.DataFrame(filas), hide_index=True, width='stretch')
+    for p in picks:
+        if p.get('aviso_calibracion'):
+            st.caption(f"· {p.get('partido')} — {p['aviso_calibracion']}")
+
+
+def _render_combinadas(r) -> None:
+    """Combinadas multi-deporte, con su supuesto declarado."""
+    combis = r.get('combinadas') or []
+    st.caption(
+        "Combinadas que cruzan **al menos dos deportes**. No es un capricho: "
+        "el riesgo de una combinada es la correlación entre patas, y dos picks "
+        "de la misma liga fallan juntos mucho más de lo que sugiere multiplicar "
+        "sus probabilidades — comparten contexto y comparten el sesgo del "
+        "modelo que los generó. Cruzar deportes rompe esa correlación."
+    )
+    if not combis:
+        st.info("Hoy no hay material para cruzar deportes: hacen falta picks "
+                "de al menos dos deportes distintos que superen el mínimo por "
+                "pata. Revisa el registro de incidencias.")
+        return
+    st.warning("Estas combinadas **no entran solas en el Plan de Ataque**. Una "
+               "combinada concentra varianza, así que la decisión es tuya: "
+               "abajo va el stake sugerido (⅛ de Kelly) y las añades a mano.")
+    for c in combis:
+        with st.container(border=True):
+            st.markdown(
+                f"### {c['perfil'].capitalize()} · cuota **{c['cuota_total']}** · "
+                f"probabilidad **{c['prob_conjunta']:.1%}**")
+            st.caption(c['descripcion'])
+            m1, m2, m3 = st.columns(3)
+            m1.metric("EV", f"{c['ev']:+.1%}")
+            m2.metric("Stake sugerido", f"{c['stake_sugerido_pct']:.2f} %",
+                      help="⅛ de Kelly sobre la combinada completa.")
+            m3.metric("Deportes", " + ".join(c['deportes']))
+            st.dataframe(pd.DataFrame([
+                {'Deporte': p['deporte'], 'Partido': p['partido'],
+                 'Apuesta': p['apuesta'], 'Prob': f"{p['prob']:.0%}",
+                 'Cuota': p['cuota'], 'Casa': p.get('casa')}
+                for p in c['patas']]), hide_index=True, width='stretch')
+            st.caption(f"ℹ️ {c['supuesto']}")
+
+
+def _render_incidencias(r) -> None:
+    """
+    Registro de incidencias del barrido.
+
+    Existe porque la MLB llevaba semanas fuera de la app —The Odds API sin
+    cuota— y el aviso moría dentro del motor sin llegar a ninguna pantalla.
+    Un fallo que no se ve es un fallo que no se arregla.
+    """
+    inc = r.get('incidencias') or []
+    with st.expander(f"🔍 Registro de incidencias ({len(inc)})"):
+        if not inc:
+            st.success("Sin incidencias en el barrido de hoy.")
+            return
+        for i in inc:
+            st.markdown(f"- {i}")
+        st.caption("Si algo que esperabas no aparece, la explicación suele "
+                   "estar aquí. Cópialo tal cual para reportarlo.")
+
+
+# ===========================================================================
 # CARGA DEL MOTOR (una sola vez)
 # ===========================================================================
 @st.cache_resource(show_spinner="🔮 Cargando el motor de predicción...")
@@ -1746,464 +1875,482 @@ def render_alpha_finder():
                             for c in sorted(mts, key=lambda x: -x['valor'])])
                         st.dataframe(df, hide_index=True, width='stretch')
 
-    # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
-    elite = r.get('elite') or []
-    if elite:
-        import kelly_simultaneo as ks
-        bank = float(st.session_state.get('bankroll', 0) or 1000)
-        con_stake = ks.stakes_jornada(elite, bank)
-        for t, s in zip(elite, con_stake):
-            t['stake_txt'] = (f"{s['stake']:.0f} u ({s['stake_pct']*100:.1f} %)"
-                              if s['stake_pct'] > 0 else '—')
-        expo = sum(s['stake_pct'] for s in con_stake)
-        st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
-                   f"bankroll (⅛ Kelly simultáneo, cap 20 % — v27).")
-    # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
-    import traductor_quant as tq
-    platino = [t for t in elite if t.get('platino')]
-    if platino:
-        st.subheader(tq.t('evc_platino', ES_PRO))
-        st.caption(tq.tooltip('evc_platino'))
-        _tarjetas(platino, "")
-    _tarjetas([t for t in elite if t.get('evc') and not t.get('platino')],
-              tq.t('evc', ES_PRO))
-    if not ES_PRO:
-        st.caption(tq.tooltip('evc'))
-    _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
+    # -----------------------------------------------------------------------
+    # v77 — TRES PESTAÑAS. La sección de siempre pasa a ser la primera; las
+    # otras dos son vistas nuevas sobre los MISMOS modelos y las mismas cuotas
+    # reales, así que no hay riesgo de degradar nada: cambia el criterio de
+    # selección, no la predicción.
+    # -----------------------------------------------------------------------
+    _render_incidencias(r)          # v77: visible antes de las pestañas
+    _tab_ev, _tab_prob, _tab_combi = st.tabs([
+        f"⚡ Máximo Valor ({len(r.get('capa1') or [])})",
+        f"🎯 Máxima Confianza ({len(r.get('capa1_prob') or [])})",
+        f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
+    ])
+    with _tab_prob:
+        _render_maxima_confianza(r)
+    with _tab_combi:
+        _render_combinadas(r)
 
-    # v47: SELECCIÓN DEL DÍA — la Capa 1 nunca queda vacía. Si hoy no hubo
-    # ningún 1X2 con cuota real y confirmación, se promueven las mejores
-    # oportunidades por valor esperado (con aviso honesto).
-    seleccion = r.get('seleccion_dia') or []
-    if not elite and seleccion:
-        st.subheader("⭐ Selección del Día — mejor valor disponible")
-        st.info("Hoy ninguna apuesta reunió cuota real + confirmación profesional. "
-                "Estas son las de mayor valor esperado del día. Úsalas con stake "
-                "prudente: no llevan el sello de la línea sharp.")
-        _tarjetas(seleccion, "")
+    with _tab_ev:
+        # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
+        elite = r.get('elite') or []
+        if elite:
+            import kelly_simultaneo as ks
+            bank = float(st.session_state.get('bankroll', 0) or 1000)
+            con_stake = ks.stakes_jornada(elite, bank)
+            for t, s in zip(elite, con_stake):
+                t['stake_txt'] = (f"{s['stake']:.0f} u ({s['stake_pct']*100:.1f} %)"
+                                  if s['stake_pct'] > 0 else '—')
+            expo = sum(s['stake_pct'] for s in con_stake)
+            st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
+                       f"bankroll (⅛ Kelly simultáneo, cap 20 % — v27).")
+        # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
+        import traductor_quant as tq
+        platino = [t for t in elite if t.get('platino')]
+        if platino:
+            st.subheader(tq.t('evc_platino', ES_PRO))
+            st.caption(tq.tooltip('evc_platino'))
+            _tarjetas(platino, "")
+        _tarjetas([t for t in elite if t.get('evc') and not t.get('platino')],
+                  tq.t('evc', ES_PRO))
+        if not ES_PRO:
+            st.caption(tq.tooltip('evc'))
+        _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
 
-    # v31 (§5): CAPA 2 — alta confianza SIN cuota real (modo analítico)
-    capa2 = r.get('capa2') or []
-    if capa2:
+        # v47: SELECCIÓN DEL DÍA — la Capa 1 nunca queda vacía. Si hoy no hubo
+        # ningún 1X2 con cuota real y confirmación, se promueven las mejores
+        # oportunidades por valor esperado (con aviso honesto).
+        seleccion = r.get('seleccion_dia') or []
+        if not elite and seleccion:
+            st.subheader("⭐ Selección del Día — mejor valor disponible")
+            st.info("Hoy ninguna apuesta reunió cuota real + confirmación profesional. "
+                    "Estas son las de mayor valor esperado del día. Úsalas con stake "
+                    "prudente: no llevan el sello de la línea sharp.")
+            _tarjetas(seleccion, "")
+
+        # v31 (§5): CAPA 2 — alta confianza SIN cuota real (modo analítico)
+        capa2 = r.get('capa2') or []
+        if capa2:
+            st.divider()
+            st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
+                         if ES_PRO else "🎯 Apuestas sugeridas (sin cuota confirmada)")
+            # v73: la Capa 2 ya NO es «sin cuota». Muchos de estos partidos tienen
+            # precio real y lo que no alcanzan es un filtro de élite (casi siempre
+            # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
+            # cuota son los que ninguna casa ha abierto todavía.
+            _con = sum(1 for t in capa2 if t.get('cuota'))
+            st.warning(
+                f"Alta confianza que **no** entra en Capa 1. De estos, **{_con} "
+                f"llevan cuota real** y se indica por qué se quedan fuera "
+                f"(normalmente la cuota es menor que el mínimo de 1.50, que es el "
+                f"guardarraíl contra la sobreconfianza documentada en v71); el "
+                f"resto aún no tiene precio en ninguna casa. No se calcula stake.")
+            _tarjetas(capa2, "")
+
+        # v37 (§6): sección destacada de Ambos Marcan (BTTS)
+        btts = r.get('btts_destacado') or []
+        if btts:
+            st.divider()
+            st.subheader("⚽ Ambos Marcan (BTTS)")
+            # v75: el texto anterior decía "uno de los mercados mejor calibrados del
+            # sistema". La medición lo desmiente y no se puede seguir afirmando:
+            # sobre 15.950 partidos fuera de muestra de 20 ligas, el Weibull de BTTS
+            # da Brier 0.24880 frente a 0.24891 de contestar siempre la tasa base de
+            # la liga — no discrimina — y el cierre de 1X2 + O/U 2.5 ya lo hace
+            # mejor (0.24559). Se mantiene la sección (la pidió el usuario en v43)
+            # con la etiqueta honesta.
+            st.caption("Picks con confianza > 60 %"
+                       + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
+                          for p in btts) else ". ")
+                       + "⚠️ Medido en la v75 sobre 15.950 partidos fuera de muestra: "
+                         "la probabilidad de BTTS del modelo **no bate a la tasa base "
+                         "de la liga** (Brier 0.2488 vs 0.2489) ni a lo que el cierre "
+                         "de 1X2 + Over/Under ya implica (0.2456). Por eso BTTS no "
+                         "entra en la Capa 1 ni tiene listón rebajado en los parlays: "
+                         "lo único que puede sostener un pick aquí es el PRECIO, no la "
+                         "probabilidad.")
+            _tarjetas(btts, "")
+
+        # v49: TODOS LOS PRONÓSTICOS DEL DÍA — cada partido con jornada, aunque no
+        # haya cuota en vivo (el modelo da su 1X2 con cuota justa). Máxima cobertura
+        # de opciones sin relajar los filtros de la Capa 1.
+        pronos = r.get('pronosticos') or []
+        if pronos:
+            st.divider()
+            st.subheader(f"📋 Todos los pronósticos del día ({len(pronos)})")
+            st.caption("Cobertura completa: el 1X2 del modelo para cada partido "
+                       "programado, con cuota justa (1/probabilidad). Informativo — "
+                       "solo la Capa 1 lleva EV validado.")
+            import pandas as _pd
+            def _pct(v):
+                return f"{v*100:.0f}%" if isinstance(v, (int, float)) else '—'
+            filas_p = []
+            for p in sorted(pronos, key=lambda x: (x.get('fecha', ''),
+                                                   -(x.get('prob') or 0))):
+                board = p.get('board') or {}
+                partes = p.get('partido', ' vs ').split(' vs ')
+                home = partes[0] if partes else ''
+                away = partes[-1] if len(partes) > 1 else ''
+                filas_p.append({
+                    'Fecha': p.get('fecha', ''), 'Liga': p.get('liga', ''),
+                    'Partido': p.get('partido', ''),
+                    '1 (local)': _pct(board.get(f'Gana {home}')),
+                    'X': _pct(board.get('Empate')),
+                    '2 (visita)': _pct(board.get(f'Gana {away}')),
+                    '+2.5': _pct(board.get('Más de 2.5')),
+                    '−2.5': _pct(board.get('Menos de 2.5')),
+                    'BTTS Sí': _pct(board.get('Ambos marcan: Sí')),
+                    'Mejor pronóstico': f"{p.get('apuesta','')} "
+                                        f"({(p.get('prob') or 0)*100:.0f}%)",
+                })
+            st.dataframe(_pd.DataFrame(filas_p), hide_index=True, width='stretch')
+            st.caption("1/X/2 = victoria local / empate / visitante · +2.5/−2.5 = "
+                       "más/menos de 2.5 goles · BTTS = ambos marcan. Todas con la "
+                       "probabilidad del modelo (cuota justa = 1/prob).")
+
+        # v47: PARLAY DEL DÍA DE TENIS — combinación contundente de los mercados
+        # derivados más seguros (uno por partido). El usuario pidió una apuesta de
+        # tenis "contundente" para parlay a partir de la plantilla de mercados.
+        tp = r.get('tenis_parlay') or {}
+        if tp.get('patas'):
+            st.divider()
+            st.subheader("🎾 Parlay del Día — Tenis")
+            st.caption(tp.get('nota', ''))
+            cpa, cpb = st.columns(2)
+            cpa.metric("Cuota combinada", tp['cuota_combinada'])
+            cpb.metric("Prob. conjunta", f"{tp['prob_conjunta']*100:.0f}%")
+            import pandas as _pd
+            st.dataframe(_pd.DataFrame([
+                {'Circuito': p['circuito'], 'Partido': p['partido'],
+                 'Mercado': p['mercado'], 'Prob': f"{p['prob']*100:.0f}%",
+                 'Cuota justa': p['cuota_justa']} for p in tp['patas']],
+            ), hide_index=True, width='stretch')
+
+        # v47: ENVIAR A TELEGRAM AHORA — el usuario quiere un botón bajo demanda
+        # además del envío diario automático (GitHub Actions).
         st.divider()
-        st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
-                     if ES_PRO else "🎯 Apuestas sugeridas (sin cuota confirmada)")
-        # v73: la Capa 2 ya NO es «sin cuota». Muchos de estos partidos tienen
-        # precio real y lo que no alcanzan es un filtro de élite (casi siempre
-        # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
-        # cuota son los que ninguna casa ha abierto todavía.
-        _con = sum(1 for t in capa2 if t.get('cuota'))
-        st.warning(
-            f"Alta confianza que **no** entra en Capa 1. De estos, **{_con} "
-            f"llevan cuota real** y se indica por qué se quedan fuera "
-            f"(normalmente la cuota es menor que el mínimo de 1.50, que es el "
-            f"guardarraíl contra la sobreconfianza documentada en v71); el "
-            f"resto aún no tiene precio en ninguna casa. No se calcula stake.")
-        _tarjetas(capa2, "")
+        with st.expander("📲 Enviar estas apuestas a Telegram"):
+            st.caption("Envía el resumen completo del día a tu canal de Telegram. "
+                       "El envío automático diario sigue activo por separado.")
+            if st.button("📤 Enviar a Telegram ahora", key='tg_send', type="primary"):
+                try:
+                    import bot_telegram
+                    msg = bot_telegram.construir_mensaje()
+                    if bot_telegram.enviar(msg):
+                        st.success("✅ Enviado a Telegram.")
+                    else:
+                        st.warning("No hay TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID "
+                                   "configurados en los Secrets. Vista previa abajo:")
+                        st.code(msg, language=None)
+                except Exception as e:
+                    st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
 
-    # v37 (§6): sección destacada de Ambos Marcan (BTTS)
-    btts = r.get('btts_destacado') or []
-    if btts:
+        # v43 (§4.1): Auditoría de modelos — matriz de rendimiento por liga
         st.divider()
-        st.subheader("⚽ Ambos Marcan (BTTS)")
-        # v75: el texto anterior decía "uno de los mercados mejor calibrados del
-        # sistema". La medición lo desmiente y no se puede seguir afirmando:
-        # sobre 15.950 partidos fuera de muestra de 20 ligas, el Weibull de BTTS
-        # da Brier 0.24880 frente a 0.24891 de contestar siempre la tasa base de
-        # la liga — no discrimina — y el cierre de 1X2 + O/U 2.5 ya lo hace
-        # mejor (0.24559). Se mantiene la sección (la pidió el usuario en v43)
-        # con la etiqueta honesta.
-        st.caption("Picks con confianza > 60 %"
-                   + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
-                      for p in btts) else ". ")
-                   + "⚠️ Medido en la v75 sobre 15.950 partidos fuera de muestra: "
-                     "la probabilidad de BTTS del modelo **no bate a la tasa base "
-                     "de la liga** (Brier 0.2488 vs 0.2489) ni a lo que el cierre "
-                     "de 1X2 + Over/Under ya implica (0.2456). Por eso BTTS no "
-                     "entra en la Capa 1 ni tiene listón rebajado en los parlays: "
-                     "lo único que puede sostener un pick aquí es el PRECIO, no la "
-                     "probabilidad.")
-        _tarjetas(btts, "")
-
-    # v49: TODOS LOS PRONÓSTICOS DEL DÍA — cada partido con jornada, aunque no
-    # haya cuota en vivo (el modelo da su 1X2 con cuota justa). Máxima cobertura
-    # de opciones sin relajar los filtros de la Capa 1.
-    pronos = r.get('pronosticos') or []
-    if pronos:
-        st.divider()
-        st.subheader(f"📋 Todos los pronósticos del día ({len(pronos)})")
-        st.caption("Cobertura completa: el 1X2 del modelo para cada partido "
-                   "programado, con cuota justa (1/probabilidad). Informativo — "
-                   "solo la Capa 1 lleva EV validado.")
-        import pandas as _pd
-        def _pct(v):
-            return f"{v*100:.0f}%" if isinstance(v, (int, float)) else '—'
-        filas_p = []
-        for p in sorted(pronos, key=lambda x: (x.get('fecha', ''),
-                                               -(x.get('prob') or 0))):
-            board = p.get('board') or {}
-            partes = p.get('partido', ' vs ').split(' vs ')
-            home = partes[0] if partes else ''
-            away = partes[-1] if len(partes) > 1 else ''
-            filas_p.append({
-                'Fecha': p.get('fecha', ''), 'Liga': p.get('liga', ''),
-                'Partido': p.get('partido', ''),
-                '1 (local)': _pct(board.get(f'Gana {home}')),
-                'X': _pct(board.get('Empate')),
-                '2 (visita)': _pct(board.get(f'Gana {away}')),
-                '+2.5': _pct(board.get('Más de 2.5')),
-                '−2.5': _pct(board.get('Menos de 2.5')),
-                'BTTS Sí': _pct(board.get('Ambos marcan: Sí')),
-                'Mejor pronóstico': f"{p.get('apuesta','')} "
-                                    f"({(p.get('prob') or 0)*100:.0f}%)",
-            })
-        st.dataframe(_pd.DataFrame(filas_p), hide_index=True, width='stretch')
-        st.caption("1/X/2 = victoria local / empate / visitante · +2.5/−2.5 = "
-                   "más/menos de 2.5 goles · BTTS = ambos marcan. Todas con la "
-                   "probabilidad del modelo (cuota justa = 1/prob).")
-
-    # v47: PARLAY DEL DÍA DE TENIS — combinación contundente de los mercados
-    # derivados más seguros (uno por partido). El usuario pidió una apuesta de
-    # tenis "contundente" para parlay a partir de la plantilla de mercados.
-    tp = r.get('tenis_parlay') or {}
-    if tp.get('patas'):
-        st.divider()
-        st.subheader("🎾 Parlay del Día — Tenis")
-        st.caption(tp.get('nota', ''))
-        cpa, cpb = st.columns(2)
-        cpa.metric("Cuota combinada", tp['cuota_combinada'])
-        cpb.metric("Prob. conjunta", f"{tp['prob_conjunta']*100:.0f}%")
-        import pandas as _pd
-        st.dataframe(_pd.DataFrame([
-            {'Circuito': p['circuito'], 'Partido': p['partido'],
-             'Mercado': p['mercado'], 'Prob': f"{p['prob']*100:.0f}%",
-             'Cuota justa': p['cuota_justa']} for p in tp['patas']],
-        ), hide_index=True, width='stretch')
-
-    # v47: ENVIAR A TELEGRAM AHORA — el usuario quiere un botón bajo demanda
-    # además del envío diario automático (GitHub Actions).
-    st.divider()
-    with st.expander("📲 Enviar estas apuestas a Telegram"):
-        st.caption("Envía el resumen completo del día a tu canal de Telegram. "
-                   "El envío automático diario sigue activo por separado.")
-        if st.button("📤 Enviar a Telegram ahora", key='tg_send', type="primary"):
+        with st.expander("📊 Auditoría de Modelos (transparencia total)"):
+            st.caption("Rendimiento REAL de cada liga contra su mercado de cierre "
+                       "(pool 1X2 crudo, ANTES del filtro de selección validado). "
+                       "🟢 bate al mercado y es rentable · 🟡 marginal · 🔴 no bate.")
             try:
-                import bot_telegram
-                msg = bot_telegram.construir_mensaje()
-                if bot_telegram.enviar(msg):
-                    st.success("✅ Enviado a Telegram.")
-                else:
-                    st.warning("No hay TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID "
-                               "configurados en los Secrets. Vista previa abajo:")
-                    st.code(msg, language=None)
+                import model_audit
+                aud = model_audit.cargar() or model_audit.auditar()
+                ligas = aud.get('ligas', [])
+                if ligas:
+                    st.caption(f"**{aud.get('ligas_rentables')}/{aud.get('n_ligas')} "
+                               "ligas rentables en el pool crudo.**")
+                    import pandas as _pd
+                    dfa = _pd.DataFrame([{
+                        '': l['semaforo'], 'Liga': l['nombre'], 'n': l['n'],
+                        'ROI %': l['roi_pct'], 'Precisión': l['precision'],
+                        'CLV %': l['clv_pct'], 'En Capa 1': '✅' if l['disponible'] else '—',
+                    } for l in ligas])
+                    st.dataframe(dfa, hide_index=True, width='stretch')
             except Exception as e:
-                st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+                st.caption(f"Auditoría no disponible ({type(e).__name__}).")
 
-    # v43 (§4.1): Auditoría de modelos — matriz de rendimiento por liga
-    st.divider()
-    with st.expander("📊 Auditoría de Modelos (transparencia total)"):
-        st.caption("Rendimiento REAL de cada liga contra su mercado de cierre "
-                   "(pool 1X2 crudo, ANTES del filtro de selección validado). "
-                   "🟢 bate al mercado y es rentable · 🟡 marginal · 🔴 no bate.")
-        try:
-            import model_audit
-            aud = model_audit.cargar() or model_audit.auditar()
-            ligas = aud.get('ligas', [])
-            if ligas:
-                st.caption(f"**{aud.get('ligas_rentables')}/{aud.get('n_ligas')} "
-                           "ligas rentables en el pool crudo.**")
-                import pandas as _pd
-                dfa = _pd.DataFrame([{
-                    '': l['semaforo'], 'Liga': l['nombre'], 'n': l['n'],
-                    'ROI %': l['roi_pct'], 'Precisión': l['precision'],
-                    'CLV %': l['clv_pct'], 'En Capa 1': '✅' if l['disponible'] else '—',
-                } for l in ligas])
-                st.dataframe(dfa, hide_index=True, width='stretch')
-        except Exception as e:
-            st.caption(f"Auditoría no disponible ({type(e).__name__}).")
-
-    # v38: MOTOR DE RENTABILIDAD — CLV (métrica rey) + banda validada + mapa
-    st.divider()
-    with st.expander("📉 Rentabilidad y CLV (motor v38)"):
-        st.caption("El **CLV** (Closing Line Value) mide si apostamos a MEJOR "
-                   "precio que el cierre del mercado — el único predictor "
-                   "robusto del beneficio a largo plazo.")
-        try:
-            import clv_tracker
-            import edge_engine
-            clv = clv_tracker.clv_historico()
-            if clv.get('n'):
-                cc1, cc2, cc3 = st.columns(3)
-                cc1.metric("CLV medio", f"{clv['clv_medio_pct']:+.2f} %",
-                           help="Negativo = apostamos peor que el cierre "
-                                "(causa estructural de pérdidas).")
-                cc2.metric("Batimos el cierre", f"{clv['pct_batimos_cierre']:.0f} %")
-                cc3.metric("ROI si batimos vs no",
-                           f"{clv.get('roi_cuando_batimos','?')} / "
-                           f"{clv.get('roi_cuando_no','?')} %")
-                st.caption(clv['interpretacion'])
-            lo, hi = edge_engine.banda_rentable()
-            st.markdown(f"**🎯 Selección rentable validada (v40):** EV "
-                        f"{lo*100:.0f}–{hi*100:.0f} % · prob ≥ "
-                        f"{edge_engine.piso_prob()*100:.0f} % · convicción "
-                        f"prob×EV ≥ {edge_engine.conviccion_min():.3f}.")
-            _panel_calibracion_v75(st)
-            ci = edge_engine._mapa().get('ci_bootstrap_seleccion') or {}
-            if ci.get('n'):
-                cb1, cb2, cb3 = st.columns(3)
-                cb1.metric("ROI medio (backtest)", f"{ci['roi_medio']:+.1f} %",
-                           help=f"{ci['n']} apuestas históricas de la selección.")
-                cb2.metric("ROI p5 (bootstrap)", f"{ci['roi_p5']:+.1f} %",
-                           help="Peor ROI plausible al 95 %. Positivo = el edge "
-                                "no es casualidad (robustez, no una ventana afortunada).")
-                cb3.metric("ROI p95", f"{ci['roi_p95']:+.1f} %")
-            m = edge_engine._mapa()
-            ligas = m.get('ligas', {})
-            if ligas:
-                st.caption("Mapa de rentabilidad por liga (DIAGNÓSTICO — no "
-                           "filtro; la rentabilidad por liga no es estable):")
-                import pandas as _pd
-                dfm = _pd.DataFrame([{'liga': k, 'n': v['n'], 'ROI %': v['roi'],
-                                      'acierto': v['hit']}
-                                     for k, v in ligas.items()])
-                st.dataframe(dfm.sort_values('ROI %', ascending=False),
-                             hide_index=True, width='stretch')
-        except Exception as e:
-            st.caption(f"Métricas de rentabilidad no disponibles ({type(e).__name__}).")
-
-    # v41 (§3.1-§3.2): Mejores Patas + constructor integrado de parlays
-    patas = r.get('mejores_patas') or []
-    if patas:
+        # v38: MOTOR DE RENTABILIDAD — CLV (métrica rey) + banda validada + mapa
         st.divider()
-        st.subheader("🧩 Mejores Patas para Parlay")
-        st.caption("Picks de alta probabilidad (≥ 55 %) para COMBINAR en "
-                   "parlays seguros — no son apuestas simples. ⚽ = BTTS.")
-        opciones = {}
-        for i, p in enumerate(patas[:20]):
-            icono = '⚽ ' if p.get('btts') else ''
-            cuota = p.get('cuota')
-            precio = (f"@ {cuota} · EV {(p.get('ev') or 0)*100:+.0f} %" if cuota
-                      else f"cuota justa {p.get('cuota_justa','?')}")
-            etq = (f"{icono}{p.get('partido','?')} — {p.get('apuesta','?')} "
-                   f"(prob {(p.get('prob') or 0)*100:.0f} % {precio})")
-            opciones[etq] = p
-        elegidas_lbl = st.multiselect(
-            "Elige 2–4 patas y púlsalo abajo para combinar:",
-            list(opciones.keys()), max_selections=6, key='patas_sel')
-        if st.button("🧩 Calcular Parlay", key='patas_btn', type="primary") \
-                and len(elegidas_lbl) >= 2:
-            from match_parlay import combinar_patas
-            res = combinar_patas([opciones[l] for l in elegidas_lbl],
-                                 bankroll=float(st.session_state.get('bankroll', 0) or 0))
-            if 'error' in res:
-                st.warning(res['error'])
-            else:
-                for a in res['avisos']:
-                    st.warning(a)
-                pm1, pm2, pm3, pm4 = st.columns(4)
-                pm1.metric("🎯 PFP", f"{res['pfp']*100:.1f} %", res['riesgo'])
-                pm2.metric("Cuota combinada", f"{res['cuota_combinada']:.2f}")
-                pm3.metric("EV", f"{res['ev_parlay']:+.2f}")
-                pm4.metric("Patas", res['n_patas'])
-                if res.get('stake', {}).get('stake', 0) > 0:
-                    st.info(f"💵 Stake sugerido (¼ Kelly): "
-                            f"**{res['stake']['stake']:.2f} u** "
-                            f"({res['stake']['pct']*100:.1f} % del bankroll).")
-
-    # v37 (§7): informe mensual de rendimiento
-    st.divider()
-    with st.expander("📊 Informe Mensual de rendimiento"):
-        import resumen_mensual as rm
-        meses = rm.meses_disponibles()
-        if not meses:
-            st.info("Aún no hay picks liquidados. El informe se llena a medida "
-                    "que los partidos publicados terminan y se registran sus "
-                    "resultados (rendimiento_real.db).")
-        else:
-            mes_sel = st.selectbox("Mes", meses, key='rm_mes')
-            inf = rm.informe_mes(mes_sel)
-            if inf.get('n'):
-                m1, m2, m3, m4 = st.columns(4)
-                m1.metric("Picks liquidados", inf['n'])
-                m2.metric("Tasa de acierto", f"{inf['tasa_acierto']*100:.1f} %")
-                m3.metric("ROI real", f"{inf['roi_pct']:+.1f} %",
-                          help="Con la cuota registrada al publicar el pick.")
-                m4.metric("EV prometido",
-                          f"{(inf.get('ev_medio_prometido') or 0)*100:+.1f} %",
-                          help="Compara el EV que prometía el modelo con el ROI real.")
-                serie = rm.serie_mensual()
-                if not serie.empty:
-                    st.line_chart(serie.set_index('mes')[['roi_pct']],
-                                  height=200)
-                if inf.get('por_deporte'):
-                    st.caption("Por deporte:")
-                    st.dataframe(pd.DataFrame(inf['por_deporte']),
+        with st.expander("📉 Rentabilidad y CLV (motor v38)"):
+            st.caption("El **CLV** (Closing Line Value) mide si apostamos a MEJOR "
+                       "precio que el cierre del mercado — el único predictor "
+                       "robusto del beneficio a largo plazo.")
+            try:
+                import clv_tracker
+                import edge_engine
+                clv = clv_tracker.clv_historico()
+                if clv.get('n'):
+                    cc1, cc2, cc3 = st.columns(3)
+                    cc1.metric("CLV medio", f"{clv['clv_medio_pct']:+.2f} %",
+                               help="Negativo = apostamos peor que el cierre "
+                                    "(causa estructural de pérdidas).")
+                    cc2.metric("Batimos el cierre", f"{clv['pct_batimos_cierre']:.0f} %")
+                    cc3.metric("ROI si batimos vs no",
+                               f"{clv.get('roi_cuando_batimos','?')} / "
+                               f"{clv.get('roi_cuando_no','?')} %")
+                    st.caption(clv['interpretacion'])
+                lo, hi = edge_engine.banda_rentable()
+                st.markdown(f"**🎯 Selección rentable validada (v40):** EV "
+                            f"{lo*100:.0f}–{hi*100:.0f} % · prob ≥ "
+                            f"{edge_engine.piso_prob()*100:.0f} % · convicción "
+                            f"prob×EV ≥ {edge_engine.conviccion_min():.3f}.")
+                _panel_calibracion_v75(st)
+                ci = edge_engine._mapa().get('ci_bootstrap_seleccion') or {}
+                if ci.get('n'):
+                    cb1, cb2, cb3 = st.columns(3)
+                    cb1.metric("ROI medio (backtest)", f"{ci['roi_medio']:+.1f} %",
+                               help=f"{ci['n']} apuestas históricas de la selección.")
+                    cb2.metric("ROI p5 (bootstrap)", f"{ci['roi_p5']:+.1f} %",
+                               help="Peor ROI plausible al 95 %. Positivo = el edge "
+                                    "no es casualidad (robustez, no una ventana afortunada).")
+                    cb3.metric("ROI p95", f"{ci['roi_p95']:+.1f} %")
+                m = edge_engine._mapa()
+                ligas = m.get('ligas', {})
+                if ligas:
+                    st.caption("Mapa de rentabilidad por liga (DIAGNÓSTICO — no "
+                               "filtro; la rentabilidad por liga no es estable):")
+                    import pandas as _pd
+                    dfm = _pd.DataFrame([{'liga': k, 'n': v['n'], 'ROI %': v['roi'],
+                                          'acierto': v['hit']}
+                                         for k, v in ligas.items()])
+                    st.dataframe(dfm.sort_values('ROI %', ascending=False),
                                  hide_index=True, width='stretch')
-            else:
-                st.info(inf.get('aviso', 'Sin datos.'))
+            except Exception as e:
+                st.caption(f"Métricas de rentabilidad no disponibles ({type(e).__name__}).")
 
-    if r.get('no_enlazados'):
-        with st.expander(f"ℹ️ {len(r['no_enlazados'])} partidos no evaluados "
-                         "(nombre no enlazado con el modelo)"):
-            st.caption("No se descartan en silencio: el nombre de la casa no "
-                       "cruzó con el catálogo del modelo (jugador nuevo o "
-                       "grafía distinta).")
-            st.write(r['no_enlazados'])
+        # v41 (§3.1-§3.2): Mejores Patas + constructor integrado de parlays
+        patas = r.get('mejores_patas') or []
+        if patas:
+            st.divider()
+            st.subheader("🧩 Mejores Patas para Parlay")
+            st.caption("Picks de alta probabilidad (≥ 55 %) para COMBINAR en "
+                       "parlays seguros — no son apuestas simples. ⚽ = BTTS.")
+            opciones = {}
+            for i, p in enumerate(patas[:20]):
+                icono = '⚽ ' if p.get('btts') else ''
+                cuota = p.get('cuota')
+                precio = (f"@ {cuota} · EV {(p.get('ev') or 0)*100:+.0f} %" if cuota
+                          else f"cuota justa {p.get('cuota_justa','?')}")
+                etq = (f"{icono}{p.get('partido','?')} — {p.get('apuesta','?')} "
+                       f"(prob {(p.get('prob') or 0)*100:.0f} % {precio})")
+                opciones[etq] = p
+            elegidas_lbl = st.multiselect(
+                "Elige 2–4 patas y púlsalo abajo para combinar:",
+                list(opciones.keys()), max_selections=6, key='patas_sel')
+            if st.button("🧩 Calcular Parlay", key='patas_btn', type="primary") \
+                    and len(elegidas_lbl) >= 2:
+                from match_parlay import combinar_patas
+                res = combinar_patas([opciones[l] for l in elegidas_lbl],
+                                     bankroll=float(st.session_state.get('bankroll', 0) or 0))
+                if 'error' in res:
+                    st.warning(res['error'])
+                else:
+                    for a in res['avisos']:
+                        st.warning(a)
+                    pm1, pm2, pm3, pm4 = st.columns(4)
+                    pm1.metric("🎯 PFP", f"{res['pfp']*100:.1f} %", res['riesgo'])
+                    pm2.metric("Cuota combinada", f"{res['cuota_combinada']:.2f}")
+                    pm3.metric("EV", f"{res['ev_parlay']:+.2f}")
+                    pm4.metric("Patas", res['n_patas'])
+                    if res.get('stake', {}).get('stake', 0) > 0:
+                        st.info(f"💵 Stake sugerido (¼ Kelly): "
+                                f"**{res['stake']['stake']:.2f} u** "
+                                f"({res['stake']['pct']*100:.1f} % del bankroll).")
 
-    # v32 (§3): EV extremo segregado, oculto por defecto
-    extremo = r.get('ev_extremo') or []
-    if extremo:
+        # v37 (§7): informe mensual de rendimiento
         st.divider()
-        if st.checkbox(f"⚠️ Mostrar {len(extremo)} picks de EV extremo "
-                       "(alta incertidumbre)", value=False, key='ev_extremo_tog'):
-            st.warning("Estos picks tienen un EV inusualmente alto (>+15 %). "
-                       "En el histórico, ese tramo acertó **15 pp por debajo** "
-                       "de lo que el modelo prometía y su ROI fue 12 pp peor: "
-                       "suele delatar información que el modelo no ve "
-                       "(lesiones, rotaciones). Apuesta con precaución.")
-            _tarjetas(extremo, "")
+        with st.expander("📊 Informe Mensual de rendimiento"):
+            import resumen_mensual as rm
+            meses = rm.meses_disponibles()
+            if not meses:
+                st.info("Aún no hay picks liquidados. El informe se llena a medida "
+                        "que los partidos publicados terminan y se registran sus "
+                        "resultados (rendimiento_real.db).")
+            else:
+                mes_sel = st.selectbox("Mes", meses, key='rm_mes')
+                inf = rm.informe_mes(mes_sel)
+                if inf.get('n'):
+                    m1, m2, m3, m4 = st.columns(4)
+                    m1.metric("Picks liquidados", inf['n'])
+                    m2.metric("Tasa de acierto", f"{inf['tasa_acierto']*100:.1f} %")
+                    m3.metric("ROI real", f"{inf['roi_pct']:+.1f} %",
+                              help="Con la cuota registrada al publicar el pick.")
+                    m4.metric("EV prometido",
+                              f"{(inf.get('ev_medio_prometido') or 0)*100:+.1f} %",
+                              help="Compara el EV que prometía el modelo con el ROI real.")
+                    serie = rm.serie_mensual()
+                    if not serie.empty:
+                        st.line_chart(serie.set_index('mes')[['roi_pct']],
+                                      height=200)
+                    if inf.get('por_deporte'):
+                        st.caption("Por deporte:")
+                        st.dataframe(pd.DataFrame(inf['por_deporte']),
+                                     hide_index=True, width='stretch')
+                else:
+                    st.info(inf.get('aviso', 'Sin datos.'))
 
-    # v32 (§2): Reto Escalera (interés compuesto)
-    st.divider()
-    with st.expander("🪜 Reto Escalera (interés compuesto)"):
-        import reto_escalera as re_esc
-        c1, c2 = st.columns(2)
-        cap0 = c1.number_input("Capital inicial", 10.0, 1e6, 100.0, step=10.0,
-                               key='esc_cap')
-        frac = c2.slider("Porcentaje del capital por día", 10, 100, 100,
-                         key='esc_frac',
-                         help="100 % = all-in: un solo fallo liquida la banca.") / 100
-        esc = re_esc.construir((r.get('capa1') or []) + (r.get('capa2') or []),
-                               capital=cap0, fraccion=frac)
-        if not esc.get('picks'):
-            st.info(esc.get('aviso'))
-        else:
-            sim = esc['simulacion']
-            st.warning(esc['aviso'])
+        if r.get('no_enlazados'):
+            with st.expander(f"ℹ️ {len(r['no_enlazados'])} partidos no evaluados "
+                             "(nombre no enlazado con el modelo)"):
+                st.caption("No se descartan en silencio: el nombre de la casa no "
+                           "cruzó con el catálogo del modelo (jugador nuevo o "
+                           "grafía distinta).")
+                st.write(r['no_enlazados'])
+
+        # v32 (§3): EV extremo segregado, oculto por defecto
+        extremo = r.get('ev_extremo') or []
+        if extremo:
+            st.divider()
+            if st.checkbox(f"⚠️ Mostrar {len(extremo)} picks de EV extremo "
+                           "(alta incertidumbre)", value=False, key='ev_extremo_tog'):
+                st.warning("Estos picks tienen un EV inusualmente alto (>+15 %). "
+                           "En el histórico, ese tramo acertó **15 pp por debajo** "
+                           "de lo que el modelo prometía y su ROI fue 12 pp peor: "
+                           "suele delatar información que el modelo no ve "
+                           "(lesiones, rotaciones). Apuesta con precaución.")
+                _tarjetas(extremo, "")
+
+        # v32 (§2): Reto Escalera (interés compuesto)
+        st.divider()
+        with st.expander("🪜 Reto Escalera (interés compuesto)"):
+            import reto_escalera as re_esc
+            c1, c2 = st.columns(2)
+            cap0 = c1.number_input("Capital inicial", 10.0, 1e6, 100.0, step=10.0,
+                                   key='esc_cap')
+            frac = c2.slider("Porcentaje del capital por día", 10, 100, 100,
+                             key='esc_frac',
+                             help="100 % = all-in: un solo fallo liquida la banca.") / 100
+            esc = re_esc.construir((r.get('capa1') or []) + (r.get('capa2') or []),
+                                   capital=cap0, fraccion=frac)
+            if not esc.get('picks'):
+                st.info(esc.get('aviso'))
+            else:
+                sim = esc['simulacion']
+                st.warning(esc['aviso'])
+                m1, m2, m3 = st.columns(3)
+                m1.metric("Prob. de completar hoy", f"{esc['prob_conjunta']*100:.1f} %")
+                m2.metric("Cuota combinada", f"{esc['cuota_combinada']:.3f}",
+                          f"+{esc['retorno_por_dia_pct']:.1f} % por día")
+                m3.metric("Prob. de ruina (10 días)",
+                          f"{sim['prob_ruina_10d']*100:.0f} %")
+                st.dataframe(pd.DataFrame([{
+                    'Deporte': p.get('deporte', 'Fútbol'), 'Partido': p['partido'],
+                    'Apuesta': p['apuesta'], 'Prob.': f"{p['prob']*100:.0f} %",
+                    'Cuota': p.get('cuota')} for p in esc['picks']]),
+                    width='stretch', hide_index=True)
+                st.caption(f"Monte Carlo (10.000 simulaciones): racha media "
+                           f"{sim['dias_racha_medios']:.1f} días · ruina a 20 días "
+                           f"{sim['prob_ruina_20d']*100:.0f} % · capital mediano a "
+                           f"30 días {sim['capital_mediano_30d']:,.0f}.")
+
+        # v34 (§6): Valor en Vivo — SIN consumir API (solo snapshots guardados)
+        with st.expander("📡 Valor en Vivo (sin gastar API)"):
+            st.caption("Evolución del EV a partir de los snapshots de cuotas ya "
+                       "capturados para el RLM. No hace ni una petición nueva.")
+
+            @st.cache_data(ttl=1800, show_spinner="Leyendo snapshots…")
+            def _vivo():
+                import valor_en_vivo
+                return valor_en_vivo.valor_en_vivo()
+
+            rv = _vivo()
+            if rv.get('aviso'):
+                st.info(rv['aviso'])
+            if rv.get('filas'):
+                st.caption(f"{rv.get('n_partidos', 0)} partidos con snapshots · "
+                           "⚠️ recuerda: los EV por encima de +15 % son la zona "
+                           "que el backtest v32 marcó como poco fiable.")
+                st.dataframe(pd.DataFrame(rv['filas'])[
+                    ['partido', 'liga', 'mercado', 'cuota_inicial', 'cuota_actual',
+                     'ev_pct', 'tendencia', 'snapshots']],
+                    width='stretch', hide_index=True)
+
+        # v32 (§6): rendimiento REAL de lo recomendado
+        with st.expander("📊 Rendimiento real de las Apuestas del Día"):
+            import rendimiento_real as rreal
+            res7, res30 = rreal.resumen(7), rreal.resumen(30)
+            if res30.get('n'):
+                c1, c2, c3 = st.columns(3)
+                c1.metric("Aciertos (30 d)",
+                          f"{res30['tasa_acierto']*100:.0f} %",
+                          f"prometido {res30['prob_media_prometida']*100:.0f} %")
+                c2.metric("ROI real (30 d)", f"{res30['roi_pct']:+.1f} %")
+                c3.metric("Picks (7 d / 30 d)", f"{res7.get('n',0)} / {res30['n']}")
+                serie = rreal.serie_diaria(30)
+                if not serie.empty:
+                    st.line_chart(serie.set_index('fecha')['roi_acumulado_pct'])
+            else:
+                st.info(res30.get('aviso', 'Sin historial todavía.')
+                        + " Los picks se registran automáticamente cada día; el "
+                          "resultado se liquida cuando termina el partido.")
+
+        _tarjetas(r.get('candidatos'), "Candidatos con EV positivo"
+                  if ES_PRO else "Otras oportunidades con Ventaja Matemática 📈")
+        if r.get('deportes_cubiertos'):
+            st.caption(f"🌐 Deportes cubiertos hoy: "
+                       f"{', '.join(r['deportes_cubiertos'])}.")
+        from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+        st.caption(AVISO_JUEGO_RESPONSABLE)
+
+        # v27 (§4): arbitraje de mercado cruzado (gasta ~5 requests por corrida)
+        with st.expander("💹 " + tq.t('arbitraje', ES_PRO)):
+            st.caption(("Valora double chance, draw no bet y totales alternativos "
+                        "(líneas .5) con la matriz exacta del motor. Señal si la "
+                        "cuota supera la justa en >5 % Y el índice "
+                        + tq.t('vaca', ES_PRO) + " > 1 (v28: solo oportunidades "
+                        "estables).") if ES_PRO else
+                       (tq.tooltip('arbitraje') + " " + tq.tooltip('vaca')))
+            if st.button("🔍 Buscar oportunidades ahora (usa ~5 créditos de API)",
+                         key='arb_btn'):
+                import cross_arbitrage
+                with st.spinner("Valorando mercados derivados…"):
+                    ra = cross_arbitrage.analizar()
+                if ra.get('aviso'):
+                    st.info(ra['aviso'])
+                if ra['oportunidades']:
+                    st.dataframe(pd.DataFrame(ra['oportunidades']),
+                                 width='stretch', hide_index=True)
+
+        # ---- 📈 Simulador Montecarlo (v26 §4.1) -------------------------------
+        st.divider()
+        st.subheader("📈 Simulador de bankroll (Montecarlo)")
+        st.caption("1,000 futuros posibles con el rendimiento REAL del modelo: "
+                   "ve la varianza antes de arriesgar un peso.")
+        import montecarlo_sim as mc
+        c1, c2, c3, c4 = st.columns(4)
+        bank0 = c1.number_input("Bankroll inicial", 50.0, 1e6, 1000.0, step=50.0,
+                                key='mc_bank')
+        liga_mc = c2.selectbox("Rendimiento de", list(NOMBRES_LIGAS.keys()),
+                               format_func=lambda k: NOMBRES_LIGAS[k], key='mc_liga')
+        estrategia = c3.selectbox(
+            "Estrategia", list(mc.ESTRATEGIAS.keys()),
+            format_func=lambda k: mc.ESTRATEGIAS[k][0], key='mc_estr')
+        n_bets = c4.slider("Apuestas a simular", 20, 500, 100, key='mc_n')
+        par = mc.parametros_de_liga(liga_mc)
+        st.caption(f"Parámetros: win-rate {par['win_rate']*100:.1f} %, cuota media "
+                   f"{par['odds_mean']} ± {par['odds_std']} — fuente: {par['fuente']}.")
+        if st.button("🎲 Simular 1,000 trayectorias", key='mc_btn'):
+            res = mc.simular_bankroll(bank0, par['win_rate'], par['odds_mean'],
+                                      par['odds_std'], n_bets, estrategia)
+            x = list(range(n_bets + 1))
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=x, y=res['p95'], name='Percentil 95',
+                                     line=dict(width=1), mode='lines'))
+            fig.add_trace(go.Scatter(x=x, y=res['p5'], name='Percentil 5',
+                                     fill='tonexty', line=dict(width=1), mode='lines'))
+            fig.add_trace(go.Scatter(x=x, y=res['p50'], name='Mediana',
+                                     line=dict(width=3), mode='lines'))
+            fig.update_layout(height=380, margin=dict(l=10, r=10, t=30, b=10),
+                              xaxis_title='Apuesta nº', yaxis_title='Bankroll')
+            st.plotly_chart(fig, width='stretch')
             m1, m2, m3 = st.columns(3)
-            m1.metric("Prob. de completar hoy", f"{esc['prob_conjunta']*100:.1f} %")
-            m2.metric("Cuota combinada", f"{esc['cuota_combinada']:.3f}",
-                      f"+{esc['retorno_por_dia_pct']:.1f} % por día")
-            m3.metric("Prob. de ruina (10 días)",
-                      f"{sim['prob_ruina_10d']*100:.0f} %")
-            st.dataframe(pd.DataFrame([{
-                'Deporte': p.get('deporte', 'Fútbol'), 'Partido': p['partido'],
-                'Apuesta': p['apuesta'], 'Prob.': f"{p['prob']*100:.0f} %",
-                'Cuota': p.get('cuota')} for p in esc['picks']]),
-                width='stretch', hide_index=True)
-            st.caption(f"Monte Carlo (10.000 simulaciones): racha media "
-                       f"{sim['dias_racha_medios']:.1f} días · ruina a 20 días "
-                       f"{sim['prob_ruina_20d']*100:.0f} % · capital mediano a "
-                       f"30 días {sim['capital_mediano_30d']:,.0f}.")
-
-    # v34 (§6): Valor en Vivo — SIN consumir API (solo snapshots guardados)
-    with st.expander("📡 Valor en Vivo (sin gastar API)"):
-        st.caption("Evolución del EV a partir de los snapshots de cuotas ya "
-                   "capturados para el RLM. No hace ni una petición nueva.")
-
-        @st.cache_data(ttl=1800, show_spinner="Leyendo snapshots…")
-        def _vivo():
-            import valor_en_vivo
-            return valor_en_vivo.valor_en_vivo()
-
-        rv = _vivo()
-        if rv.get('aviso'):
-            st.info(rv['aviso'])
-        if rv.get('filas'):
-            st.caption(f"{rv.get('n_partidos', 0)} partidos con snapshots · "
-                       "⚠️ recuerda: los EV por encima de +15 % son la zona "
-                       "que el backtest v32 marcó como poco fiable.")
-            st.dataframe(pd.DataFrame(rv['filas'])[
-                ['partido', 'liga', 'mercado', 'cuota_inicial', 'cuota_actual',
-                 'ev_pct', 'tendencia', 'snapshots']],
-                width='stretch', hide_index=True)
-
-    # v32 (§6): rendimiento REAL de lo recomendado
-    with st.expander("📊 Rendimiento real de las Apuestas del Día"):
-        import rendimiento_real as rreal
-        res7, res30 = rreal.resumen(7), rreal.resumen(30)
-        if res30.get('n'):
-            c1, c2, c3 = st.columns(3)
-            c1.metric("Aciertos (30 d)",
-                      f"{res30['tasa_acierto']*100:.0f} %",
-                      f"prometido {res30['prob_media_prometida']*100:.0f} %")
-            c2.metric("ROI real (30 d)", f"{res30['roi_pct']:+.1f} %")
-            c3.metric("Picks (7 d / 30 d)", f"{res7.get('n',0)} / {res30['n']}")
-            serie = rreal.serie_diaria(30)
-            if not serie.empty:
-                st.line_chart(serie.set_index('fecha')['roi_acumulado_pct'])
-        else:
-            st.info(res30.get('aviso', 'Sin historial todavía.')
-                    + " Los picks se registran automáticamente cada día; el "
-                      "resultado se liquida cuando termina el partido.")
-
-    _tarjetas(r.get('candidatos'), "Candidatos con EV positivo"
-              if ES_PRO else "Otras oportunidades con Ventaja Matemática 📈")
-    if r.get('deportes_cubiertos'):
-        st.caption(f"🌐 Deportes cubiertos hoy: "
-                   f"{', '.join(r['deportes_cubiertos'])}.")
-    from bankroll_manager import AVISO_JUEGO_RESPONSABLE
-    st.caption(AVISO_JUEGO_RESPONSABLE)
-
-    # v27 (§4): arbitraje de mercado cruzado (gasta ~5 requests por corrida)
-    with st.expander("💹 " + tq.t('arbitraje', ES_PRO)):
-        st.caption(("Valora double chance, draw no bet y totales alternativos "
-                    "(líneas .5) con la matriz exacta del motor. Señal si la "
-                    "cuota supera la justa en >5 % Y el índice "
-                    + tq.t('vaca', ES_PRO) + " > 1 (v28: solo oportunidades "
-                    "estables).") if ES_PRO else
-                   (tq.tooltip('arbitraje') + " " + tq.tooltip('vaca')))
-        if st.button("🔍 Buscar oportunidades ahora (usa ~5 créditos de API)",
-                     key='arb_btn'):
-            import cross_arbitrage
-            with st.spinner("Valorando mercados derivados…"):
-                ra = cross_arbitrage.analizar()
-            if ra.get('aviso'):
-                st.info(ra['aviso'])
-            if ra['oportunidades']:
-                st.dataframe(pd.DataFrame(ra['oportunidades']),
-                             width='stretch', hide_index=True)
-
-    # ---- 📈 Simulador Montecarlo (v26 §4.1) -------------------------------
-    st.divider()
-    st.subheader("📈 Simulador de bankroll (Montecarlo)")
-    st.caption("1,000 futuros posibles con el rendimiento REAL del modelo: "
-               "ve la varianza antes de arriesgar un peso.")
-    import montecarlo_sim as mc
-    c1, c2, c3, c4 = st.columns(4)
-    bank0 = c1.number_input("Bankroll inicial", 50.0, 1e6, 1000.0, step=50.0,
-                            key='mc_bank')
-    liga_mc = c2.selectbox("Rendimiento de", list(NOMBRES_LIGAS.keys()),
-                           format_func=lambda k: NOMBRES_LIGAS[k], key='mc_liga')
-    estrategia = c3.selectbox(
-        "Estrategia", list(mc.ESTRATEGIAS.keys()),
-        format_func=lambda k: mc.ESTRATEGIAS[k][0], key='mc_estr')
-    n_bets = c4.slider("Apuestas a simular", 20, 500, 100, key='mc_n')
-    par = mc.parametros_de_liga(liga_mc)
-    st.caption(f"Parámetros: win-rate {par['win_rate']*100:.1f} %, cuota media "
-               f"{par['odds_mean']} ± {par['odds_std']} — fuente: {par['fuente']}.")
-    if st.button("🎲 Simular 1,000 trayectorias", key='mc_btn'):
-        res = mc.simular_bankroll(bank0, par['win_rate'], par['odds_mean'],
-                                  par['odds_std'], n_bets, estrategia)
-        x = list(range(n_bets + 1))
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=x, y=res['p95'], name='Percentil 95',
-                                 line=dict(width=1), mode='lines'))
-        fig.add_trace(go.Scatter(x=x, y=res['p5'], name='Percentil 5',
-                                 fill='tonexty', line=dict(width=1), mode='lines'))
-        fig.add_trace(go.Scatter(x=x, y=res['p50'], name='Mediana',
-                                 line=dict(width=3), mode='lines'))
-        fig.update_layout(height=380, margin=dict(l=10, r=10, t=30, b=10),
-                          xaxis_title='Apuesta nº', yaxis_title='Bankroll')
-        st.plotly_chart(fig, width='stretch')
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Bankroll final mediano", f"{res['final_mediano']:,.0f}")
-        m2.metric("Rango 5-95 %", f"{res['final_p5']:,.0f} – {res['final_p95']:,.0f}")
-        m3.metric("Probabilidad de ruina (<10 %)", f"{res['prob_ruina']*100:.1f} %")
-        st.caption("⚠️ Educativo: incluso con ventaja real, la varianza puede "
-                   "producir rachas largas de pérdida — por eso el proyecto "
-                   "usa ¼ Kelly con tope del 5 % y nunca all-in. "
-                   + AVISO_JUEGO_RESPONSABLE)
+            m1.metric("Bankroll final mediano", f"{res['final_mediano']:,.0f}")
+            m2.metric("Rango 5-95 %", f"{res['final_p5']:,.0f} – {res['final_p95']:,.0f}")
+            m3.metric("Probabilidad de ruina (<10 %)", f"{res['prob_ruina']*100:.1f} %")
+            st.caption("⚠️ Educativo: incluso con ventaja real, la varianza puede "
+                       "producir rachas largas de pérdida — por eso el proyecto "
+                       "usa ¼ Kelly con tope del 5 % y nunca all-in. "
+                       + AVISO_JUEGO_RESPONSABLE)
 
 
 # v28 (§1): auto-actualización de cuotas nativa de Streamlit — sin

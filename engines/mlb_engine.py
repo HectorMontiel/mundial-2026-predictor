@@ -222,70 +222,122 @@ class MLBEngine(BaseSportsEngine):
 
     def apuestas_dia(self, min_prob: float = 0.58, min_ev: float = 0.03,
                      min_cuota: float = 1.50, max_req: int = 1) -> Dict:
-        """Picks MLB desde The Odds API (baseball_mlb) en vivo (§4)."""
-        import odds_api
-        k = odds_api._clave()
-        if not k or not self.listo:
-            return {'picks': [], 'aviso': 'Sin clave de API o modelo MLB.'}
-        if not odds_api._presupuesto_disponible():
-            return {'picks': [], 'aviso': 'Presupuesto de API agotado hoy.'}
-        import requests
-        odds_api._consumir_request()
+        """
+        Picks de MLB con la capa de cuotas UNIVERSAL (Pinnacle + Bovada +
+        Playdoit).
+
+        v77 — POR QUÉ SE REESCRIBE. Esta función seguía colgando de The Odds
+        API, que tiene cuota mensual. Medido el 2026-07-28: la cuota estaba a
+        **0 de 500**, así que devolvía `{'picks': [], 'aviso': 'Presupuesto de
+        API agotado hoy.'}` y **la MLB desaparecía del barrido entero**. No era
+        que no hubiera partidos ni que el modelo fallase: el motor cargaba
+        bien, simplemente se quedaba sin crédito y nadie lo veía porque el
+        aviso no llegaba a la interfaz.
+
+        El fútbol y el tenis se migraron a la capa sin cuota en la v71 y la
+        v72; la MLB se quedó atrás y arrastraba el problema desde entonces.
+        Ahora usa las mismas fuentes gratuitas e ilimitadas — medido el mismo
+        día: Pinnacle 32 partidos, Bovada 14, Playdoit 47.
+
+        Se conserva el `sharp_gap` contra Pinnacle, que era lo valioso de la
+        implementación anterior: sigue siendo la referencia eficiente.
+        """
+        if not self.listo:
+            return {'picks': [], 'aviso': 'Modelo MLB no disponible.',
+                    'incidencias': ['MLB: el modelo no está entrenado.']}
         try:
-            # v46: us,eu para incluir Pinnacle (referencia sharp) y más casas
-            # (line shopping — mejor precio). Cuesta 1 crédito más pero MLB es
-            # 1 llamada/día y aporta el edge más transferible.
-            r = requests.get(f'{odds_api.BASE}/sports/baseball_mlb/odds',
-                             params={'apiKey': k, 'regions': 'us,eu',
-                                     'markets': 'h2h', 'oddsFormat': 'decimal'},
-                             timeout=30)
-            r.raise_for_status()
-            odds_api._registrar_restantes(r)
+            import cuotas_multi as cm
         except Exception as e:
-            return {'picks': [], 'aviso': f'The Odds API MLB no disponible: {e}'}
-        picks = []
-        for ev in r.json():
-            hc = codigo_mlb(ev['home_team'])
-            ac = codigo_mlb(ev['away_team'])
+            return {'picks': [], 'aviso': f'Capa de cuotas no disponible: {e}',
+                    'incidencias': [f'MLB: capa de cuotas no disponible ({e}).']}
+
+        incidencias = []
+        try:
+            cm.precargar('mlb')
+        except Exception as e:
+            incidencias.append(f'MLB: precarga de cuotas con avisos ({e}).')
+
+        # Universo de partidos: la unión de las tres casas, porque cada una
+        # cubre ligas distintas (Pinnacle trae también la Liga Mexicana).
+        #
+        # v77: la clave de deduplicación es el CÓDIGO DEL MODELO, no el nombre
+        # que use la casa. Con el nombre normalizado, «Baltimore Orioles»
+        # (Bovada) y «BAL Orioles» (Playdoit) son claves distintas y el mismo
+        # partido entraba dos veces, saliendo duplicado en la Capa 1 con dos
+        # cuotas distintas. Los códigos Retrosheet son la identidad canónica
+        # del partido para el modelo, así que dos fuentes que hablen del mismo
+        # encuentro colapsan sí o sí.
+        universo = {}
+        for idx in (cm._indice('mlb'), cm._indice_bov('mlb'), cm._indice_pdt('mlb')):
+            for v in (idx or {}).values():
+                if not (v.get('home') and v.get('away')):
+                    continue
+                clave = (codigo_mlb(v['home']), codigo_mlb(v['away']))
+                universo.setdefault(clave, v)
+
+        picks, evaluados, sin_modelo = [], 0, 0
+        for v in universo.values():
+            hc = codigo_mlb(v['home'])
+            ac = codigo_mlb(v['away'])
             pred = self.predecir(hc, ac)
             if 'error' in pred:
+                sin_modelo += 1
                 continue
-            # v46: mejor precio + casa + Pinnacle por selección
-            precios = odds_api.extraer_precios(ev, 'h2h')
+            evaluados += 1
+            c = cm.cuotas_partido('mlb', v['home'], v['away'])
+            mejor = c.get('mejor') or {}
+            pin = c.get('pinnacle') or {}
+            if not mejor:
+                continue
             for lado, cod, prob in (('home', hc, pred['prob_home']),
                                     ('away', ac, pred['prob_away'])):
-                nombre = ev['home_team'] if lado == 'home' else ev['away_team']
-                otro = ev['away_team'] if lado == 'home' else ev['home_team']
-                info = precios.get(nombre)
-                if not info:
+                info = mejor.get(lado)
+                if not info or not info.get('cuota'):
                     continue
-                cuota = info['cuota']
-                ev_val = self.calcular_ev(prob, float(cuota))
-                if prob > min_prob and ev_val > min_ev and float(cuota) > min_cuota:
-                    # v46: confirmación sharp (modelo vs devig de Pinnacle)
-                    gap = odds_api.sharp_gap_2via(
-                        prob, info.get('pin'), (precios.get(otro) or {}).get('pin'))
-                    pick = {
-                        'deporte': 'MLB',
-                        'partido': f"{CODIGO_A_NOMBRE.get(ac, ac)} @ "
-                                   f"{CODIGO_A_NOMBRE.get(hc, hc)}",
-                        'fecha': str(pd.to_datetime(ev['commence_time']).date()),
-                        'apuesta': f"Gana {nombre}", 'prob': round(prob, 3),
-                        'cuota': round(float(cuota), 2),
-                        'cuota_justa': round(1 / max(prob, 1e-6), 2),
-                        'ev': ev_val, 'casa': info.get('casa'),
-                        'valor': '🟢' if ev_val > 0.05 else '🟡'}
-                    if gap is not None:
-                        pick['sharp_gap'] = round(gap, 4)
-                        # v46 GUARDARRAÍL: la confirmación sharp solo cuenta en
-                        # picks razonablemente probables (prob≥0.52). En
-                        # underdogs el modelo tiende a sobreconfiar y el gap es
-                        # espurio (la trampa de EV extremo, no valor real).
-                        pick['sharp_confirmado'] = bool(gap >= 0.03 and prob >= 0.52)
-                    picks.append(pick)
-        # los confirmados por el sharp primero (más valor)
+                cuota = float(info['cuota'])
+                ev_val = self.calcular_ev(prob, cuota)
+                if not (prob > min_prob and ev_val > min_ev and cuota > min_cuota):
+                    continue
+                otro = 'away' if lado == 'home' else 'home'
+                nombre = v['home'] if lado == 'home' else v['away']
+                gap = None
+                try:
+                    import odds_api
+                    gap = odds_api.sharp_gap_2via(prob, pin.get(lado), pin.get(otro))
+                except Exception:
+                    pass
+                pick = {
+                    'deporte': 'MLB',
+                    'partido': f"{CODIGO_A_NOMBRE.get(ac, v['away'])} @ "
+                               f"{CODIGO_A_NOMBRE.get(hc, v['home'])}",
+                    'fecha': str(pd.to_datetime(v.get('fecha')).date())
+                             if v.get('fecha') else str(pd.Timestamp.today().date()),
+                    'apuesta': f"Gana {nombre}", 'prob': round(prob, 3),
+                    'cuota': round(cuota, 2),
+                    'cuota_justa': round(1 / max(prob, 1e-6), 2),
+                    'ev': ev_val, 'casa': info.get('casa'),
+                    'n_casas': c.get('n_casas'),
+                    'valor': '🟢' if ev_val > 0.05 else '🟡'}
+                if gap is not None:
+                    pick['sharp_gap'] = round(gap, 4)
+                    # v46 GUARDARRAÍL: la confirmación sharp solo cuenta en
+                    # picks razonablemente probables (prob≥0.52). En underdogs
+                    # el modelo tiende a sobreconfiar y el gap es espurio.
+                    pick['sharp_confirmado'] = bool(gap >= 0.03 and prob >= 0.52)
+                picks.append(pick)
+
+        if sin_modelo:
+            incidencias.append(
+                f'MLB: {sin_modelo} partidos con cuota pero sin equipos '
+                f'reconocidos por el modelo (probablemente ligas no MLB, '
+                f'como la Liga Mexicana de Béisbol).')
+        if not universo:
+            incidencias.append('MLB: ninguna casa publica partidos ahora mismo '
+                               '(fuera de temporada o sin jornada).')
+
         picks.sort(key=lambda p: (-int(p.get('sharp_confirmado', False)), -p['ev']))
-        return {'picks': picks, 'eventos': len(r.json()),
+        return {'picks': picks, 'eventos': len(universo),
+                'evaluados': evaluados, 'incidencias': incidencias,
                 'aviso': None if picks else
                 'Sin picks MLB con EV suficiente hoy (o fuera de horario de juego).'}
 
