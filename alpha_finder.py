@@ -557,6 +557,31 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                           'pin_home': fx.get('odd_home_pin'),
                           'pin_draw': fx.get('odd_draw_pin'),
                           'pin_away': fx.get('odd_away_pin')}
+            # v71 — VALOR DE MERCADO: una casa blanda pagando por encima del
+            # precio justo de Pinnacle. Es edge de baja varianza y no depende
+            # de que el modelo acierte más que el mercado, solo de que dos
+            # casas discrepen. Requiere 2+ casas: con solo Pinnacle+DraftKings
+            # no salía ninguna; con Bovada aparecen.
+            try:
+                import cuotas_multi as _cmv
+                _vm = _cmv.valor_vs_sharp('futbol', fx['home'], fx['away'],
+                                          odds_espn=fx)
+                for _v in (_vm.get('valor') or [])[:2]:
+                    _etq = {'home': f'Gana {home}', 'draw': 'Empate',
+                            'away': f'Gana {away}'}.get(_v['lado'])
+                    if not _etq or _v['cuota'] <= MIN_CUOTA:
+                        continue
+                    elite_fix.append({
+                        **base, 'mercado': '1X2', 'apuesta': _etq,
+                        'prob': round(_v['prob_justa'], 3),
+                        'cuota': _v['cuota'], 'cuota_justa': _v['cuota_justa'],
+                        'ev': _v['ev'], 'casa': _v['casa'],
+                        'valor': '🟢', 'evc': True, 'valor_mercado': True,
+                        'pinnacle': _v.get('pinnacle'),
+                        'origen': 'line shopping vs Pinnacle'})
+            except Exception as e:
+                logger.debug(f"[alpha] valor de mercado omitido: {e}")
+
             if o_espn:
                 for c in _mercados_del_partido(pred, o_espn, home, away, clave):
                     tarjeta = {**base, **c, 'deporte': 'Fútbol',

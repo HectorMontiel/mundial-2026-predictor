@@ -80,7 +80,8 @@ DEPORTES = {'futbol': 29, 'tenis': 33, 'mlb': 3, 'nba': 4}
 CACHE_DIR = 'cuotas_cache'
 TTL = 1800                     # 30 min: las líneas se mueven, pero no tanto
 _LOCK = threading.Lock()
-_MEM: Dict[str, tuple] = {}    # deporte -> (timestamp, indice)
+_MEM: Dict[str, tuple] = {}      # deporte -> (timestamp, índice Pinnacle)
+_MEM_BOV: Dict[str, tuple] = {}  # deporte -> (timestamp, índice Bovada)
 
 
 # ---------------------------------------------------------------------------
@@ -332,7 +333,101 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
 
 
 # ---------------------------------------------------------------------------
-# 2/3. ESPN — scoreboard (gratis con los fixtures) y core API por evento
+# 2. Bovada — la tercera casa, y la que tapa los huecos de Pinnacle
+#
+# Investigadas y descartadas (v71, medido): Smarkets (403), Betfair (403),
+# Betano (403), 1xBet (404), Betsson y Marathonbet (devuelven HTML, no JSON),
+# Kambi/Unibet (200 pero solo 185 eventos, mayoría esports y amistosos, con el
+# catálogo filtrado al mercado británico) y BetExplorer (HTML puramente JS,
+# cero filas de cuotas en 738 KB).
+#
+# Bovada sirve el mismo JSON que consume su web: **904 partidos de fútbol en
+# 126 competiciones y 312 de tenis**, con cuota DECIMAL directa. Y sobre todo,
+# cubre justo lo que a Pinnacle le faltaba:
+#
+#     El Salvador  → Pinnacle NO tenía nada     Perú     ✓
+#     Costa Rica   ✓                            Chile    ✓
+#     Paraguay     ✓                            Ecuador  ✓
+#     Rusia        15 eventos (Pinnacle: 6)
+#
+# Siguen sin cubrir Bolivia y Venezuela: ninguna de las casas probadas les pone
+# precio. Es una limitación real del mercado, no del código.
+#
+# Aporta además la segunda pata para el LINE SHOPPING: con solo Pinnacle y
+# DraftKings no había ninguna oportunidad porque DraftKings es retail y nunca
+# paga por encima del justo de Pinnacle.
+# ---------------------------------------------------------------------------
+BOVADA = ('https://www.bovada.lv/services/sports/event/coupon/events/A/'
+          'description/{path}?marketFilterId=def&preMatchOnly=true&lang=en')
+BOVADA_PATH = {'futbol': 'soccer', 'tenis': 'tennis',
+               'mlb': 'baseball/mlb', 'nba': 'basketball/nba'}
+UA_WEB = {'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                         'AppleWebKit/537.36 (KHTML, like Gecko) '
+                         'Chrome/126.0 Safari/537.36'),
+          'Accept': 'application/json'}
+
+
+def _indice_bovada(deporte: str) -> Dict[str, dict]:
+    """{clave_partido: {...,'cuotas':{home,draw,away}}} desde Bovada."""
+    path = BOVADA_PATH.get(deporte)
+    if not path:
+        return {}
+    cacheado = _leer_cache(f'bovada_{deporte}.json')
+    if cacheado is not None:
+        return cacheado
+    j = _get(BOVADA.format(path=path), headers=UA_WEB, timeout=45)
+    if not j:
+        logger.warning(f"[bovada] {deporte}: sin respuesta")
+        return {}
+    indice: Dict[str, dict] = {}
+    for blk in (j if isinstance(j, list) else []):
+        p = blk.get('path') or []
+        liga = p[0].get('description') if p else None
+        pais = p[1].get('description') if len(p) > 1 else None
+        for ev in blk.get('events', []):
+            comps = ev.get('competitors') or []
+            if len(comps) < 2:
+                continue
+            loc = next((c for c in comps if c.get('home')), comps[0])
+            vis = next((c for c in comps if not c.get('home')), comps[-1])
+            home, away = loc.get('name'), vis.get('name')
+            if not home or not away:
+                continue
+            cuotas = {}
+            for dg in (ev.get('displayGroups') or []):
+                for mk in (dg.get('markets') or []):
+                    desc = (mk.get('description') or '').lower()
+                    if 'moneyline' not in desc:
+                        continue
+                    for o in (mk.get('outcomes') or []):
+                        nom = (o.get('description') or '').strip()
+                        try:
+                            dec = float((o.get('price') or {}).get('decimal'))
+                        except (TypeError, ValueError):
+                            continue
+                        if dec <= 1:
+                            continue
+                        if nom.lower() == 'draw':
+                            cuotas['draw'] = round(dec, 4)
+                        elif normalizar(nom) == normalizar(home):
+                            cuotas['home'] = round(dec, 4)
+                        elif normalizar(nom) == normalizar(away):
+                            cuotas['away'] = round(dec, 4)
+                    break
+            if not cuotas.get('home') or not cuotas.get('away'):
+                continue
+            indice[f'{normalizar(home)}|{normalizar(away)}'] = {
+                'home': home, 'away': away,
+                'liga': f'{pais} — {liga}' if pais else liga,
+                'fecha': ev.get('startTime'), 'casa': 'Bovada',
+                'cuotas': cuotas}
+    _escribir_cache(f'bovada_{deporte}.json', indice)
+    logger.info(f"[bovada] {deporte}: {len(indice)} partidos con cuotas")
+    return indice
+
+
+# ---------------------------------------------------------------------------
+# 3/4. ESPN — scoreboard (gratis con los fixtures) y core API por evento
 # ---------------------------------------------------------------------------
 CORE = ('https://sports.core.api.espn.com/v2/sports/{dep}/leagues/{liga}'
         '/events/{ev}/competitions/{comp}/odds')
@@ -371,11 +466,13 @@ def cuotas_core_espn(deporte_espn: str, liga: str, event_id: str,
 # API pública
 # ---------------------------------------------------------------------------
 def precargar(deporte: str) -> int:
-    """Carga (y cachea) el tablón de Pinnacle de ese deporte."""
+    """Carga (y cachea) los tablones de ese deporte. Devuelve el total."""
     with _LOCK:
         idx = _indice_pinnacle(deporte)
         _MEM[deporte] = (time.time(), idx)
-    return len(idx)
+        bov = _indice_bovada(deporte)
+        _MEM_BOV[deporte] = (time.time(), bov)
+    return len(idx) + len(bov)
 
 
 def _indice(deporte: str) -> Dict[str, dict]:
@@ -384,6 +481,15 @@ def _indice(deporte: str) -> Dict[str, dict]:
         with _LOCK:
             idx = _indice_pinnacle(deporte)
             _MEM[deporte] = (time.time(), idx)
+    return idx
+
+
+def _indice_bov(deporte: str) -> Dict[str, dict]:
+    ts, idx = _MEM_BOV.get(deporte, (0, None))
+    if idx is None or time.time() - ts > TTL:
+        with _LOCK:
+            idx = _indice_bovada(deporte)
+            _MEM_BOV[deporte] = (time.time(), idx)
     return idx
 
 
@@ -466,6 +572,18 @@ def cuotas_partido(deporte: str, home: str, away: str,
         if c.get('under25'):
             casas.setdefault('_totales', {})['under25'] = c['under25']
         fuentes.append('pinnacle')
+
+    # Bovada: tercera casa. Aporta las ligas que Pinnacle no cubre y la
+    # segunda pata del line shopping.
+    bov = _buscar(_indice_bov(deporte), home, away, deporte)
+    if bov and bov.get('cuotas'):
+        c = dict(bov['cuotas'])
+        if bov.get('invertido'):
+            c['home'], c['away'] = c.get('away'), c.get('home')
+        if c.get('home') and c.get('away'):
+            casas['Bovada'] = {k: v for k, v in c.items()
+                               if k in ('home', 'draw', 'away')}
+            fuentes.append('bovada')
 
     if not casas and espn_ref:
         extra = cuotas_core_espn(*espn_ref)

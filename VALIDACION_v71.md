@@ -234,12 +234,71 @@ Aplicado a todas las ligas con mapeo a ESPN.
 
 ---
 
-## 6. Qué queda pendiente y por qué
+## 5.bis La tercera casa: investigación y resultado
 
-**Tercera casa de apuestas.** Es la palanca que desbloquea el line shopping
-(§3.3) y más cobertura en Bolivia y El Salvador. Probado y descartado en esta
-versión: **BetExplorer ya no sirve** — su HTML es JS puro y no trae ni una fila
-de cuotas en el estático (verificado: 0 `<tr>` en 738 KB).
+El §3.3 dejaba claro que con dos casas el line shopping era imposible. Se
+investigaron **nueve** fuentes gratuitas de cuotas en tiempo real:
+
+| Fuente | Resultado | Detalle |
+|---|---|---|
+| **Bovada** | ✅ **ADOPTADA** | 200 · **904 partidos de fútbol** en 126 competiciones y **312 de tenis**, con cuota DECIMAL directa |
+| Kambi (Unibet/888) | ❌ | 200 pero solo 185 eventos, mayoría esports y amistosos; catálogo filtrado al mercado británico |
+| Smarkets | ❌ | 403 |
+| Betfair | ❌ | 403 en el árbol de navegación y en el endpoint de precios |
+| Betano | ❌ | 403 |
+| 1xBet | ❌ | 404 en el feed de líneas |
+| Betsson | ❌ | 200 pero devuelve HTML, no JSON |
+| Marathonbet | ❌ | 200 pero devuelve HTML |
+| BetExplorer | ❌ | HTML puramente JS: **0 filas de cuotas en 738 KB** |
+
+### Por qué Bovada era la que encajaba
+
+No es solo que responda: es que cubre **justo lo que a Pinnacle le faltaba**,
+que es el criterio que importa para este proyecto (fuerte en Latinoamérica):
+
+| Liga | Pinnacle | Bovada |
+|---|---|---|
+| El Salvador | **nada** | ✓ |
+| Costa Rica | — | ✓ |
+| Paraguay | — | ✓ (Primera y Segunda) |
+| Ecuador | — | ✓ |
+| Perú | — | ✓ |
+| Chile | — | ✓ |
+| Rusia Premier | 6 eventos | **15 eventos** |
+
+### Efecto medido
+
+**Cobertura global: 56,6 % → 65,4 %.**
+
+| Liga | Antes | Después |
+|---|---|---|
+| argentina | 44,4 % | **96,3 %** |
+| rus_premier | 62,5 % | **100 %** |
+| mls | 93,8 % | **100 %** |
+| chi_primera | 100 % | 100 % |
+| ecu_liga_pro | 75,0 % | 87,5 % |
+
+**Line shopping: de 0 a 2 oportunidades reales.** Sobre 92 partidos con 2+
+casas aparecen dos selecciones con valor ≥2 % (ambas +3,0 %: DraftKings pagando
+1,80 donde el justo de Pinnacle es 1,75, y 1,54 donde el justo es 1,50). Son
+pocas, pero son **edge de verdad y de baja varianza**: no dependen de que el
+modelo acierte más que el mercado, solo de que dos casas discrepen. Entran en
+Capa 1 marcadas como `valor_mercado`.
+
+Capa 1 pasa de 1 a **3 picks**, uno de ellos line shopping puro.
+
+### Lo que sigue sin cubrir
+
+**Bolivia y Venezuela: ninguna de las nueve fuentes les pone precio.** No es un
+límite del código sino del mercado — son ligas que ningún operador internacional
+cotiza. Se documenta como tal y la UI lo dice.
+
+El Salvador queda en 1 de 10 no por fallo de emparejado (ese único partido casó
+bien) sino porque Bovada aún no ha publicado los otros nueve.
+
+---
+
+## 6. Qué queda pendiente y por qué
 
 **Umbrales de Capa 1 por liga.** El diagnóstico de §3.2 dice que el problema
 principal era la calibración, no los umbrales; tocarlos antes de corregir el
