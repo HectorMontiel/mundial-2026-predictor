@@ -1,5 +1,42 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v71 — Cuotas sin límite y el porqué del ROI negativo (ver [VALIDACION_v71.md](VALIDACION_v71.md))
+
+- **💰 Cuotas en vivo sin cuota de API.** El «sin cuota en vivo» generalizado
+  tenía una causa concreta: **The Odds API estaba a 0 de 500 peticiones
+  mensuales**. La arquitectura gastaba una petición por liga y hasta 3 capturas
+  al día. Ahora las cuotas salen del **endpoint público de Pinnacle** (610
+  partidos de fútbol, **297 de tenis**, MLB y NBA, sin clave ni límite) más
+  ESPN. Cobertura medida: **93,3 % de los partidos de hoy** y 74,2 % a dos días.
+  A 5-7 días cae al 3 % porque *ninguna casa ha abierto línea todavía*.
+
+- **📅 2.925 partidos recuperados.** `MESES_SIN_UEFA=(7,)` saltaba **julio
+  entero** en toda liga de formato ESPN — correcto para las competiciones UEFA,
+  desastroso para las de año natural. **21 ligas afectadas**; Bolivia se quedaba
+  en el 2 de junio y Rusia en el 17 de mayo mientras ESPN tenía partidos hasta
+  el 27 de julio. El aviso «sin datos nuevos (pretemporada)» era falso en 15
+  ligas. Tras reentrenar, las 5 que siguen marcadas están en **parón real**.
+
+- **🔍 Diagnóstico del ROI negativo.** Con Pinnacle como ancla se midió el
+  modelo contra el mercado sharp en 315 selecciones. El sesgo **global** es
+  0,0000 — pero el sesgo **en la selección que el modelo elige** es de **+4 a
+  +13 pp** según la liga. Es la maldición del ganador: al tomar el argmax se
+  toma justo donde el ruido fue favorable, y como el EV se calcula sobre esa
+  cifra inflada, la Capa 1 se llenaba de apuestas perdedoras. Corregido
+  encogiendo la probabilidad hacia el mercado, con peso por liga.
+
+- **🎯 Capa 1 ya no se queda vacía por calendario.** El horizonte del barrido lo
+  marcan las cuotas abiertas, no un corte fijo de 72 h: Liga MX juega el 1 de
+  agosto y quedaba fuera pese a tener sus 9 partidos con cuota.
+
+- **👟 Remates por JUGADOR.** Fuera los totales por equipo y de partido de la
+  plantilla y de las combinadas — ninguna casa los lista. En su lugar, props de
+  jugador con datos **observados** de los rosters de ESPN: 48 en un Liga MX,
+  con tiros esperados y P(1+/2+/3+) y a puerta.
+
+- **🖱️ Sin pasos manuales.** Fuera los botones de «Cargar» y «Traer cuotas»:
+  elegir un partido carga sus datos y sus cuotas solo, en todos los deportes.
+
 ## Novedades v70 — Un modelo por liga y las λ recalibradas (ver [VALIDACION_v70.md](VALIDACION_v70.md))
 
 - **🧩 La familia de modelo se elige por competición, no por un umbral de

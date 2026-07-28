@@ -92,13 +92,35 @@ def _liga_fuzzy(home: str, away: str, mapa: Dict[str, str]):
     return None
 
 
-def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str) -> List[Dict]:
+def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
+                          clave_liga: str = None) -> List[Dict]:
     """Evalúa cada mercado con cuota disponible contra el modelo."""
     M = np.array(pred['score_matrix'])
     idx = np.arange(M.shape[0])
     diff = idx[:, None] - idx[None, :]
     total = idx[:, None] + idx[None, :]
     pr = pred['prediction']['probabilities']
+    # v71 — corrección de la sobreconfianza del pick contra el mercado sharp.
+    # Medido: el modelo infla la selección que elige entre +4 y +13 pp según la
+    # liga (maldición del ganador), y con el EV calculado sobre esa cifra la
+    # Capa 1 se llenaba de apuestas perdedoras. Si hay cuota de Pinnacle para
+    # este partido, la probabilidad del 1X2 se encoge hacia la del mercado.
+    calib_info = None
+    if clave_liga and o.get('pin_home') and o.get('pin_away'):
+        try:
+            import calibracion_mercado as _cal
+            import cuotas_multi as _cm
+            justa = _cm.devig({'home': o.get('pin_home'),
+                               'draw': o.get('pin_draw'),
+                               'away': o.get('pin_away')}, metodo='potencia')
+            if len(justa) >= 2:
+                pr2, calib_info = _cal.corregir(
+                    {'home': pr['home'], 'draw': pr['draw'], 'away': pr['away']},
+                    justa, clave_liga)
+                if calib_info.get('aplicado'):
+                    pr = pr2
+        except Exception as e:
+            logger.debug(f"[alpha] calibración de mercado omitida: {e}")
     btts = float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum())
     over25 = float(M[total > 2.5].sum())
 
@@ -419,6 +441,9 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
 
     hoy = pd.Timestamp.today().normalize()
     limite = hoy + pd.Timedelta(hours=horizonte_horas)
+    # v71: tope duro de la semana. Entre `limite` y `tope_max` solo entran los
+    # partidos que YA tienen cuota abierta (ver el filtro de abajo).
+    tope_max = hoy + pd.Timedelta(days=fixtures_espn.DIAS_SEMANA)
     elite_fix, candidatos_fix, capa2_futbol, pronosticos = [], [], [], []
     cobertura: Dict[str, int] = {}
     n_eval = 0
@@ -458,7 +483,23 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                 fecha = pd.Timestamp(fx['fecha'])
             except (ValueError, TypeError):
                 continue
-            if not (hoy <= fecha <= limite):
+            # v71 — HORIZONTE DIRIGIDO POR LAS CUOTAS.
+            #
+            # Antes se cortaba en seco a 72 h. Con la ventana de fixtures
+            # ampliada a la semana eso dejaba fuera ligas enteras: Liga MX
+            # juega el 1 de agosto y el barrido del 28 de julio la descartaba,
+            # así que aparecía como «sin partidos evaluados» aunque sus 9
+            # partidos YA tenían cuota real.
+            #
+            # El criterio correcto no es el calendario sino el mercado: si una
+            # casa ya abrió línea, el partido es apostable y se evalúa; si no,
+            # no hay EV que calcular y sobra. Así el barrido se concentra
+            # exactamente donde hay cuotas en vivo, que es donde el EV y el
+            # Kelly significan algo.
+            tiene_cuota = bool(fx.get('odd_home') and fx.get('odd_away'))
+            if fecha < hoy or fecha > tope_max:
+                continue
+            if fecha > limite and not tiene_cuota:
                 continue
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
             away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
@@ -476,7 +517,12 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
             partido = f'{home} vs {away}'
             base = {'deporte': 'Fútbol', 'liga': cfg.get('nombre', clave),
                     'partido': partido, 'fecha': str(fecha.date()),
-                    'shadow': False}
+                    'shadow': False,
+                    # v71: antelación y nº de casas, para poder ordenar por
+                    # cercanía y ver de cuántas casas sale el precio
+                    'dias_hasta': int((fecha - hoy).days),
+                    'n_casas': fx.get('n_casas'),
+                    'casas': fx.get('casas')}
             # v50: board COMPLETO por partido (todas las apuestas posibles)
             board = {m['apuesta']: round(m['prob'], 3) for m in mercados}
             x2 = [m for m in mercados if m['mercado'] == '1X2']
@@ -506,9 +552,13 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                           'ah_linea': _ricas.get('ah_linea'),
                           'odd_ah_home': _ricas.get('odd_ah_home'),
                           'odd_ah_away': _ricas.get('odd_ah_away'),
-                          'casa_home': casa, 'casa_draw': casa, 'casa_away': casa}
+                          'casa_home': casa, 'casa_draw': casa, 'casa_away': casa,
+                          # v71: ancla sharp para la calibración de mercado
+                          'pin_home': fx.get('odd_home_pin'),
+                          'pin_draw': fx.get('odd_draw_pin'),
+                          'pin_away': fx.get('odd_away_pin')}
             if o_espn:
-                for c in _mercados_del_partido(pred, o_espn, home, away):
+                for c in _mercados_del_partido(pred, o_espn, home, away, clave):
                     tarjeta = {**base, **c, 'deporte': 'Fútbol',
                                'valor': ('🟢' if c['ev'] > 0.05 else
                                          '🟡' if c['ev'] > 0 else '🔴')}

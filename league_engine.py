@@ -1820,23 +1820,22 @@ class ClubEngine:
         sot_h, sot_a = lam_h * spx, lam_a * spx          # remates a puerta
         sh_h, sh_a = sot_h * tpo, sot_a * tpo            # remates totales
         sot_tot, sh_tot = sot_h + sot_a, sh_h + sh_a
+        # v71: fuera los totales de remates por EQUIPO y de PARTIDO con
+        # probabilidad. Ninguna casa lista «Más de 9.5 remates a puerta del
+        # partido» ni «X remates del equipo»: lo que publican son props de
+        # JUGADOR. Ofrecer un mercado que no se puede jugar era ruido que
+        # además se colaba en las combinadas.
+        #
+        # Se conservan las MEDIAS como contexto (tipo 'media', no
+        # seleccionables) porque sirven para leer el partido, y el volumen del
+        # equipo es justo lo que reparte los props de jugador.
         secciones.append({'titulo': '12. Remates', 'campos': [
             campo('sh_tot_media', 'Remates totales (media)', round(sh_tot, 1), 'media'),
-            campo('sh_o205', 'Más de 20.5 remates', pct(prob_over(sh_tot, 20.5))),
-            campo('sh_o245', 'Más de 24.5 remates', pct(prob_over(sh_tot, 24.5))),
-            campo('sh_u205', 'Menos de 20.5 remates', pct(1 - prob_over(sh_tot, 20.5))),
             campo('sot_tot_media', 'Remates a puerta (media)', round(sot_tot, 1), 'media'),
-            campo('sot_o75', 'Más de 7.5 remates a puerta', pct(prob_over(sot_tot, 7.5))),
-            campo('sot_o95', 'Más de 9.5 remates a puerta', pct(prob_over(sot_tot, 9.5))),
-            campo('sot_u75', 'Menos de 7.5 remates a puerta', pct(1 - prob_over(sot_tot, 7.5))),
             campo('sh_home_media', f'{home} remates (media)', round(sh_h, 1), 'media'),
-            campo('sh_home_o95', f'{home} más de 9.5 remates', pct(prob_over(sh_h, 9.5))),
-            campo('sh_home_o125', f'{home} más de 12.5 remates', pct(prob_over(sh_h, 12.5))),
-            campo('sot_home_o35', f'{home} más de 3.5 a puerta', pct(prob_over(sot_h, 3.5))),
+            campo('sot_home_media', f'{home} a puerta (media)', round(sot_h, 1), 'media'),
             campo('sh_away_media', f'{away} remates (media)', round(sh_a, 1), 'media'),
-            campo('sh_away_o95', f'{away} más de 9.5 remates', pct(prob_over(sh_a, 9.5))),
-            campo('sh_away_o125', f'{away} más de 12.5 remates', pct(prob_over(sh_a, 12.5))),
-            campo('sot_away_o35', f'{away} más de 3.5 a puerta', pct(prob_over(sot_a, 3.5))),
+            campo('sot_away_media', f'{away} a puerta (media)', round(sot_a, 1), 'media'),
         ] + _props_rematadores(home, away, sh_h, sh_a, sot_h, sot_a,
                                clave_liga=self.clave)})
 

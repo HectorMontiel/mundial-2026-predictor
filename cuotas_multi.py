@@ -488,6 +488,87 @@ def cuotas_partido(deporte: str, home: str, away: str,
             'emparejado_difuso': (pin or {}).get('emparejado_difuso')}
 
 
+def devig(cuotas: Dict[str, float], metodo: str = 'proporcional') -> Dict[str, float]:
+    """
+    Probabilidades JUSTAS a partir de las cuotas de una casa, quitándole el
+    margen (overround).
+
+    `proporcional` reparte el margen en proporción a la probabilidad implícita;
+    `potencia` (Shin/logarítmico simplificado) castiga más al favorito, que es
+    lo que mejor reproduce el sesgo favorito-perdedor en mercados de 3 vías.
+    """
+    imp = {k: 1.0 / v for k, v in cuotas.items() if v and v > 1}
+    s = sum(imp.values())
+    if not imp or s <= 0:
+        return {}
+    if metodo == 'potencia' and len(imp) >= 2:
+        # busca k tal que sum(p^k) = 1
+        lo, hi = 0.5, 1.5
+        for _ in range(40):
+            mid = (lo + hi) / 2
+            tot = sum(p ** mid for p in imp.values())
+            if tot > 1:
+                lo = mid
+            else:
+                hi = mid
+        k = (lo + hi) / 2
+        out = {kk: v ** k for kk, v in imp.items()}
+        t = sum(out.values())
+        return {kk: v / t for kk, v in out.items()}
+    return {k: v / s for k, v in imp.items()}
+
+
+def valor_vs_sharp(deporte: str, home: str, away: str,
+                   odds_espn: Optional[dict] = None,
+                   min_edge: float = 0.02) -> Dict:
+    """
+    v71 — VALOR DE MERCADO: dónde una casa blanda paga más que el precio justo
+    de Pinnacle.
+
+    Por qué esto y no el EV contra el modelo
+    ----------------------------------------
+    La Capa 1 exigía «EV > +3 % contra la cuota real». Con Pinnacle en el
+    tablón eso casi nunca se cumple, porque Pinnacle es eficiente: si el modelo
+    le gana por 3 puntos suele ser que el modelo se equivoca, no que haya
+    valor. Los pocos que pasaban el filtro traían EV de +130 % o +170 %, que es
+    la firma clásica de una probabilidad mal calibrada, no de una oportunidad.
+
+    El edge que sí es real y de baja varianza es el **line shopping**: tomar la
+    probabilidad justa que implica Pinnacle (quitándole el margen) y buscar la
+    casa que paga por encima de ella. Eso no depende de que el modelo acierte
+    más que el mercado; depende de que dos casas discrepen, que es un hecho
+    observable.
+
+    Devuelve, por selección: mejor cuota, casa, probabilidad justa de Pinnacle,
+    EV contra esa probabilidad y el margen que se está capturando.
+    """
+    res = cuotas_partido(deporte, home, away, odds_espn=odds_espn)
+    pin = res.get('pinnacle') or {}
+    salida = {'valor': [], 'n_casas': res.get('n_casas', 0),
+              'casas': res.get('casas'), 'pinnacle': pin}
+    just = devig({k: v for k, v in pin.items() if v}, metodo='potencia')
+    if not just:
+        return salida
+    salida['prob_justa'] = {k: round(v, 4) for k, v in just.items()}
+    for lado, p_just in just.items():
+        mejor = (res.get('mejor') or {}).get(lado)
+        if not mejor or p_just <= 0:
+            continue
+        cuota = mejor['cuota']
+        if mejor['casa'] == 'Pinnacle':
+            continue                     # el valor está en superar a Pinnacle
+        ev = cuota * p_just - 1.0
+        if ev >= min_edge:
+            salida['valor'].append({
+                'lado': lado, 'cuota': cuota, 'casa': mejor['casa'],
+                'prob_justa': round(p_just, 4),
+                'cuota_justa': round(1.0 / p_just, 3),
+                'ev': round(ev, 4),
+                'pinnacle': pin.get(lado)})
+    salida['valor'].sort(key=lambda x: -x['ev'])
+    return salida
+
+
 def diagnostico() -> Dict[str, int]:
     """Cuántos partidos hay hoy en cada deporte (para el aviso de la UI)."""
     return {d: len(_indice(d)) for d in DEPORTES}
