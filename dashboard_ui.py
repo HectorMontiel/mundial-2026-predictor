@@ -1612,8 +1612,13 @@ def render_alpha_finder():
                           f"(justa {t.get('cuota_justa','?')})  \n"
                           f"EV **{(t.get('ev') or 0)*100:+.1f} %** · "
                           f"prob {(t.get('prob') or 0)*100:.0f} %")
+                if t.get('casa'):
+                    precio += f"  \n🏠 {t['casa']}"
+                # v73: por qué no está en Capa 1 aunque tenga cuota real
+                if t.get('motivo_capa2'):
+                    precio += f"  \nℹ️ Fuera de élite: {t['motivo_capa2']}"
             else:
-                precio = (f"🎯 Sin cuota en vivo  \n"
+                precio = (f"🎯 Sin cuota abierta todavía  \n"
                           f"Cuota mínima sugerida **{t.get('cuota_justa','?')}** · "
                           f"prob {(t.get('prob') or 0)*100:.0f} %")
             with st.container(border=True):
@@ -1697,9 +1702,17 @@ def render_alpha_finder():
         st.divider()
         st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
                      if ES_PRO else "🎯 Apuestas sugeridas (sin cuota confirmada)")
-        st.warning("Sin cuotas en vivo para estos partidos: compara "
-                   "manualmente con tu casa. Solo apuesta si te ofrecen MÁS "
-                   "que la cuota mínima sugerida. No se calcula stake.")
+        # v73: la Capa 2 ya NO es «sin cuota». Muchos de estos partidos tienen
+        # precio real y lo que no alcanzan es un filtro de élite (casi siempre
+        # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
+        # cuota son los que ninguna casa ha abierto todavía.
+        _con = sum(1 for t in capa2 if t.get('cuota'))
+        st.warning(
+            f"Alta confianza que **no** entra en Capa 1. De estos, **{_con} "
+            f"llevan cuota real** y se indica por qué se quedan fuera "
+            f"(normalmente la cuota es menor que el mínimo de 1.50, que es el "
+            f"guardarraíl contra la sobreconfianza documentada en v71); el "
+            f"resto aún no tiene precio en ninguna casa. No se calcula stake.")
         _tarjetas(capa2, "")
 
     # v37 (§6): sección destacada de Ambos Marcan (BTTS)

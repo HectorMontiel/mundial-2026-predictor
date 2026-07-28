@@ -77,10 +77,38 @@ def estado_datos() -> Dict:
     n_cuotas = _cuotas_actuales()
     captura = _ultima_captura()
 
+    # v73 — este diagnóstico contaba SOLO las cuotas de The Odds API
+    # (`odds_actuales.json`), que desde v71 ya no es la fuente principal. Por
+    # eso avisaba «⚠️ Solo 8 cuotas vigentes» mientras la app tenía cientos de
+    # partidos con precio de Pinnacle y Bovada: medía el termómetro viejo.
+    # Ahora se suman las fuentes sin cuota de API y el aviso refleja lo que la
+    # app realmente tiene.
+    n_multi = 0
+    detalle_multi = {}
+    try:
+        import cuotas_multi as _cm
+        detalle_multi = _cm.diagnostico()
+        n_multi = sum(detalle_multi.values())
+    except Exception:
+        pass
+    if n_multi:
+        det.append(f"✅ {n_multi} partidos con cuota de fuentes sin límite "
+                   f"(Pinnacle + Bovada): "
+                   + ' · '.join(f'{k} {v}' for k, v in detalle_multi.items()
+                                if v))
+        n_cuotas = n_cuotas + n_multi
+
     if not clave:
-        nivel = 'critico'
-        det.append("❌ ODDS_API_KEY AUSENTE — sin ella no se capturan cuotas en "
-                    "vivo (revisa los Secrets del repo / la variable de entorno).")
+        # v73: ya no es crítico. The Odds API pasó a refuerzo opcional; sin
+        # clave la app sigue teniendo cuotas de Pinnacle, Bovada y ESPN.
+        if not n_multi:
+            nivel = 'critico'
+            det.append("❌ Sin ODDS_API_KEY y sin fuentes alternativas "
+                       "disponibles: no están llegando cuotas.")
+        else:
+            det.append("ℹ️ Sin ODDS_API_KEY (opcional desde v71): las cuotas "
+                       "vienen de Pinnacle, Bovada y ESPN, que no tienen "
+                       "límite de peticiones.")
     if n_cuotas == 0:
         # sin cuotas: crítico si además no hay clave o la captura es vieja
         horas = captura.get('horas_desde')

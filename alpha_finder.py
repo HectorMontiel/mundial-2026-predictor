@@ -696,6 +696,14 @@ def _cuotas_tenis_multi() -> List[Dict]:
     except Exception:
         return []
     salida, vistos = [], set()
+    # v73 — dedup por APELLIDOS, no por nombre completo. Pinnacle escribe
+    # «Martin Damm» y Bovada «Martin Damm Jr»; «Andres Andrade» y «Andrés
+    # Andrade (PAN)». Como la clave era el nombre normalizado completo, el
+    # mismo partido entraba dos veces y salía duplicado en la Capa 2.
+    def _clave_par(h, a):
+        ap = sorted((cm._clave_tenista(h)[0], cm._clave_tenista(a)[0]))
+        return '|'.join(ap)
+
     for idx in (cm._indice('tenis'), cm._indice_bov('tenis')):
         for v in (idx or {}).values():
             c = v.get('cuotas') or {}
@@ -709,7 +717,7 @@ def _cuotas_tenis_multi() -> List[Dict]:
             # Melichar → Gana Katie Boulter» con EV +210 %.
             if '/' in v['home'] or '/' in v['away']:
                 continue
-            clave = f"{cm.normalizar(v['home'])}|{cm.normalizar(v['away'])}"
+            clave = _clave_par(v['home'], v['away'])
             if clave in vistos:
                 continue
             vistos.add(clave)
@@ -821,11 +829,31 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                         'cuota_justa': round(1 / max(prob, 1e-6), 2)}
                 if prob > UMBRAL_CONF['Tenis'] and ev > MIN_EV and cuota > MIN_CUOTA:
                     salida['capa1'].append({**base, 'cuota': round(cuota, 2),
-                                            'ev': ev,
+                                            'ev': ev, 'casa': m.get('casa'),
                                             'valor': '🟢' if ev > 0.05 else '🟡'})
                 elif prob > CONF_CAPA2:
-                    salida['capa2'].append({**base, 'cuota': None, 'ev': None,
-                                            'valor': '🎯'})
+                    # v73 — la Capa 2 TIRABA LA CUOTA. Un partido con precio
+                    # real que no pasaba los filtros de élite acababa aquí con
+                    # `cuota: None`, y la UI lo rotulaba «sin cuota en vivo»,
+                    # que es falso: la cuota existe, lo que no llega es el
+                    # filtro. Caso típico: un favorito al 86 % pagado a 1.10,
+                    # por debajo del mínimo de 1.50.
+                    #
+                    # Ahora la cuota real viaja a la Capa 2 y se dice POR QUÉ
+                    # no es Capa 1, que es información accionable: si el
+                    # motivo es «cuota baja», el usuario sabe que solo le
+                    # interesa si su casa paga bastante más.
+                    if cuota <= MIN_CUOTA:
+                        motivo = (f'cuota {cuota:.2f} por debajo del mínimo '
+                                  f'{MIN_CUOTA:.2f}')
+                    elif ev <= MIN_EV:
+                        motivo = f'EV {ev:+.1%} por debajo del mínimo'
+                    else:
+                        motivo = 'no alcanza el umbral de confianza de élite'
+                    salida['capa2'].append({
+                        **base, 'cuota': round(cuota, 2), 'ev': ev,
+                        'casa': m.get('casa'), 'motivo_capa2': motivo,
+                        'valor': '🎯'})
     except Exception as e:
         logger.warning(f"[alpha] tenis omitido: {type(e).__name__}: {e}")
     return salida
