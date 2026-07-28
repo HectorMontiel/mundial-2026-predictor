@@ -85,11 +85,70 @@ jobs:
               sys.exit(1)
           PY
 
+      # v75 — HISTÓRICO DE CUOTAS.
+      #
+      # 28 de las 64 competiciones no tienen NINGUNA cuota histórica y no la
+      # tendrán nunca por la vía del backfill: son las de ESPN, y ESPN borra el
+      # bloque `odds` en cuanto el partido acaba (medido: 0 de 40+ partidos
+      # pasados lo conservan, frente a 25/25 de los futuros). La única forma de
+      # tener historia ahí es fotografiar la línea ANTES del pitido inicial, y
+      # eso solo se consigue ejecutándolo todos los días.
+      #
+      # Va DESPUÉS del reentrenamiento a propósito: así la importación de
+      # cierres ve los CSV ya actualizados de hoy, y los snapshots resuelven los
+      # nombres contra los `team_stats_*.json` recién escritos.
+      #
+      # Ningún paso puede tumbar el workflow: el valor principal del job es el
+      # reentrenamiento, y un fallo de red de Pinnacle no debe impedir que se
+      # publiquen los modelos.
+      # `odds_historico.db` está en .gitignore (49 MB y creciendo), así que el
+      # runner clona SIN base de datos. Los cierres se vuelven a derivar de los
+      # `historico_*.csv` del repo; las fotos, que son irrepetibles, se recargan
+      # de `odds_snapshots.csv` y se vuelven a volcar ahí al terminar. Sin este
+      # ida y vuelta, cada ejecución empezaría de cero y el histórico de líneas
+      # nunca pasaría de un día.
+      - name: Importar cuotas de cierre al histórico
+        run: python import_historical_odds.py || echo "::warning::importación de cuotas con avisos"
+
+      - name: Fotografiar la línea de hoy (snapshots + CLV)
+        run: python daily_snapshots.py || echo "::warning::snapshots con avisos"
+
+      - name: Comprobar que las fotos quedaron persistidas
+        run: |
+          python - <<'PY'
+          import csv, os, sys
+          ruta = 'odds_snapshots.csv'
+          if not os.path.exists(ruta):
+              print('::warning::no se generó odds_snapshots.csv — el histórico de '
+                    'líneas NO se está acumulando')
+              sys.exit(0)
+          with open(ruta, encoding='utf-8', newline='') as f:
+              filas = list(csv.DictReader(f))
+          dias = len({r['snapshot_key'].split('|')[0][:10] for r in filas})
+          print(f'{len(filas)} fotos acumuladas a lo largo de {dias} días.')
+          PY
+
+      - name: Recalibrar encogimiento al mercado
+        run: |
+          # Solo si hay ledger: reconstruirlo entero cada día costaría ~40 min.
+          # Lo regenera `build_pick_ledger.py` a mano cuando cambian modelos o
+          # features; aquí únicamente se refresca el peso con lo que ya hay.
+          if [ -f pick_ledger.csv ]; then
+            python recalibrate_from_history.py || echo "::warning::recalibración con avisos"
+          else
+            echo "sin pick_ledger.csv: se conserva calibracion_mercado.json"
+          fi
+
       - name: Commitear artefactos actualizados (si cambiaron)
         run: |
           git config user.name  "retrain-bot"
           git config user.email "actions@github.com"
           git add -A team_stats_*.json modelos/ historico_*.csv roi_bets_*.json 2>/dev/null || true
+          # odds_historico.db NO: está en .gitignore y es regenerable. Lo que
+          # se commitea es `odds_snapshots.csv`, que contiene lo único que no
+          # se puede reconstruir (la línea antes del partido).
+          git add -A odds_snapshots.csv calibracion_mercado.json umbrales_capa1.json \
+                     _v75_import_odds.json _v75_snapshots.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Sin cambios en los modelos (ligas en receso). Nada que commitear."
           else

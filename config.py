@@ -245,25 +245,71 @@ LEAGUES = {
         'urls': [f'{FD_BASE}/new/POL.csv'], 'anios_ventana': 8,
         'disponible': True, 'features_extra': ['cuotas'],
     },
-    # Suiza: entrenada en v48 pero NO bate al ELO (0.460<0.473) ni al mercado
-    # (0.492) → disponible=False (regla de oro §2.2). Modelo disponible para el
-    # explorador de plantillas, pero fuera de la Capa 1 y sin capturar cuotas.
-    'suiza_v48': {
-        'nombre': 'Swiss Super League', 'pais': 'Suiza', 'formato': 'new',
-        'urls': [f'{FD_BASE}/new/SWZ.csv'], 'anios_ventana': 8,
+    # v75 (HALLAZGO): dos ligas ACTIVAS de la Capa 1 venían de ESPN y por eso
+    # tenían CERO cuota histórica — no se podían calibrar, ni medir su ROI, ni
+    # devigar contra Pinnacle. Y `aut_bundesliga` era justo la peor calibrada
+    # del proyecto (+13,1 pp de sobreconfianza en v71), a ciegas.
+    #
+    # football-data SÍ las publica en formato 'new'. Verificado por CONTENIDO
+    # con `odds_store.fuente_football_data_valida` (no por HTTP 200: el
+    # servidor responde 200 con OTRA liga para códigos inexistentes —
+    # /new/COL.csv y /new/BOL.csv son byte a byte la Ekstraklasa polaca y
+    # /new/KOR.csv es la Eliteserien noruega; con 404 solo fallan PER, URY,
+    # ECU, VEN, PRY, CRI, SLV, IND, ZAF, GRC, NED).
+    #   AUT: Country='Austria', League='Bundesliga', 969 partidos desde
+    #        2021-07, cierre de mercado 100 %, cierre de Pinnacle 87 %.
+    #   RUS: Country='Russia',  League='Premier League', 1.220 partidos,
+    #        cierre de mercado 93 %, cierre de Pinnacle 88 %.
+    # La red de seguridad ESPN de la v74 (`_completar_desde_espn`) sigue
+    # cubriendo la cola reciente: el mapeo aut.1/rus.1 no se toca.
+    # RESULTADO v75 (regla de oro): con las cuotas ya disponibles se pudo
+    # medir por fin, y NO bate al ELO — acc 0.373 vs 0.425 de ELO y 0.442 del
+    # mercado, exactamente el mismo veredicto que la vieja `austria` (37.3 <
+    # 42.5). Es decir: llevaba desde la v68 metiendo picks en la Capa 1 una
+    # liga cuyo modelo pierde contra su propia línea base, y no se veía porque
+    # sin cuotas no había con qué medirla. `disponible=False`.
+    'aut_bundesliga': {
+        'nombre': 'Austrian Bundesliga', 'pais': 'Austria', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/AUT.csv'], 'anios_ventana': 8,
         'disponible': False, 'features_extra': ['cuotas'],
-        'nota': 'entrenada v48 pero no bate ELO (0.460<0.473) — informativa.',
+        'nota': 'no bate ELO (37.3<42.5) — medido en v75 con cuotas reales.',
     },
+    # RESULTADO v75: sigue adoptada y ahora medible — acc 0.530 vs 0.512 de
+    # ELO (+1,8 pp), 1.944 partidos y cuota de cierre en el 100 % de las filas
+    # donde antes había 0 %.
+    'rus_premier': {
+        'nombre': 'Russian Premier League', 'pais': 'Rusia', 'formato': 'new',
+        'urls': [f'{FD_BASE}/new/RUS.csv'], 'anios_ventana': 8,
+        'disponible': True, 'features_extra': ['cuotas'],
+    },
+    # v75: `suiza_v48` ELIMINADA. Era un duplicado EXACTO de `suiza` (misma
+    # URL SWZ.csv, misma ventana de 8 años, ambas disponible=False): dos claves
+    # para la misma competición. Contaba dos veces los mismos 1.599 partidos en
+    # cualquier agregado (la importación de cuotas de la v75 lo destapó:
+    # 3.028 filas idénticas por partida doble) y duplicaba descarga y
+    # entrenamiento en cada reentreno. `validar_catalogo()` (abajo) impide que
+    # vuelva a colarse un gemelo.
     # NO adoptadas (no baten ELO en split Y su backtest sangra: Grecia −24.9 %,
     # Suiza −2.3 % pero acc<ELO, Austria −17.7 %). Se dejan definidas pero
     # `disponible: False` para NO meter picks deficitarios en la Capa 1 (regla
     # del spec §2.2). Candidatas a re-evaluar en v40 con más datos / como
     # Capa 2. edge_engine excluye de la calibración las ligas no disponibles.
-    'grecia': {
-        'nombre': 'Super League', 'pais': 'Grecia', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/{s}/G1.csv' for s in ('2324', '2425', '2526')],
-        'disponible': False, 'features_extra': ['cuotas'],
-        'nota': 'no bate ELO (42.6<44.1) y ROI backtest −24.9 % — v40.',
+    # v75: `grecia` FUSIONADA en `gre_super_league` — mismo caso que Austria.
+    # La misma Super League griega estaba dos veces: rechazada bajo `grecia`
+    # (football-data, ROI backtest −24,9 %) y ACTIVA en Capa 1 bajo
+    # `gre_super_league` (ESPN, sin cuotas y por tanto sin backtest posible).
+    # Se unifica en `gre_super_league` con la fuente rica (formato 'main':
+    # remates, córners, árbitro, cierre de mercado ~100 % y de Pinnacle ~85 %,
+    # 5 temporadas / 1.189 partidos verificados) y la regla de oro decide.
+    # RESULTADO v75: adoptada. Con 5 temporadas (1.189 partidos) en vez de las
+    # 3 que tenía `grecia`, acc 0.536 vs 0.506 de ELO y 0.507 del mercado:
+    # +3,0 pp sobre ELO y bate también al mercado. El rechazo de la v40
+    # (42.6<44.1) era de una muestra un 40 % más corta.
+    'gre_super_league': {
+        'nombre': 'Super League Greece', 'pais': 'Grecia', 'formato': 'main',
+        'urls': [f'{FD_BASE}/mmz4281/{s}/G1.csv'
+                 for s in ('2122', '2223', '2324', '2425', '2526')],
+        'disponible': True, 'features_extra': ['cuotas'],
     },
     'suiza': {
         'nombre': 'Super League', 'pais': 'Suiza', 'formato': 'new',
@@ -271,12 +317,17 @@ LEAGUES = {
         'disponible': False, 'features_extra': ['cuotas'],
         'nota': 'no bate ELO (46.0<47.3) — v40.',
     },
-    'austria': {
-        'nombre': 'Bundesliga', 'pais': 'Austria', 'formato': 'new',
-        'urls': [f'{FD_BASE}/new/AUT.csv'], 'anios_ventana': 8,
-        'disponible': False, 'features_extra': ['cuotas'],
-        'nota': 'no bate ELO (37.3<42.5) y ROI backtest −17.7 % — v40.',
-    },
+    # v75: `austria` FUSIONADA en `aut_bundesliga`. Eran la MISMA competición
+    # (ambas AUT.csv) con veredictos contradictorios: `austria` medida con
+    # football-data y RECHAZADA (no bate ELO 37.3<42.5, ROI backtest −17,7 %),
+    # mientras `aut_bundesliga` — la misma liga, servida por ESPN y por tanto
+    # sin cuotas con las que medir nada — estaba ACTIVA en la Capa 1. Es decir,
+    # el proyecto estaba metiendo picks de una liga que su propio backtest
+    # había declarado deficitaria, solo porque llevaba otra clave.
+    # Se conserva una única clave (`aut_bundesliga`, la que usa el mapeo ESPN),
+    # ya apuntando a football-data, y su `disponible` lo decide el
+    # reentrenamiento de la v75 con la regla de oro. `validar_catalogo()`
+    # impide que vuelva a haber dos claves para una competición.
     'premier': {
         # Premier se mantiene en 3 temporadas: el experimento de 5 temporadas
         # bajó la precisión (49.5%→48.9%) — regla de adopción no superada.
@@ -453,3 +504,44 @@ JUGADORES_OUTPUT = 'dataset_jugadores_micro.csv'
 
 # IDs de selecciones en FBref (actualizados dinámicamente en la primera ejecución)
 TEAM_IDS_FBREF = {}
+
+
+# ---------------------------------------------------------------------------
+# v75 — Guardia de catálogo: dos claves NO pueden apuntar a la misma liga
+# ---------------------------------------------------------------------------
+def validar_catalogo(leagues: dict = None) -> list:
+    """
+    Devuelve la lista de conflictos del catálogo. Vacía = catálogo sano.
+
+    Nace de un fallo real: `suiza` y `suiza_v48` eran la misma competición con
+    dos claves (misma URL de football-data), así que sus 1.599 partidos se
+    contaban dos veces en todo agregado y se descargaban y entrenaban dos
+    veces. Se detecta por la HUELLA de la fuente, que es lo único que no puede
+    mentir: el conjunto de URLs para football-data, o (liga ESPN, fecha de
+    inicio) para ESPN. Dos claves con la misma huella son la misma liga.
+
+    Lo usa `tests/test_catalogo.py` — si alguien vuelve a clonar una liga, el
+    test falla antes de que los números se ensucien.
+    """
+    leagues = LEAGUES if leagues is None else leagues
+    huellas = {}
+    conflictos = []
+    for clave, cfg in leagues.items():
+        formato = cfg.get('formato')
+        if formato == 'espn':
+            huella = ('espn', cfg.get('espn_liga'), str(cfg.get('desde')))
+        elif cfg.get('urls'):
+            huella = ('urls', tuple(sorted(cfg['urls'])),
+                      cfg.get('anios_ventana'))
+        elif formato == 'api_football':
+            huella = ('api', cfg.get('api_league_id'),
+                      tuple(cfg.get('api_seasons') or ()))
+        else:
+            continue
+        if huella in huellas:
+            conflictos.append(
+                f"'{clave}' duplica a '{huellas[huella]}': misma fuente {huella[0]} "
+                f"({huella[1]}). Una de las dos sobra.")
+        else:
+            huellas[huella] = clave
+    return conflictos

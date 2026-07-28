@@ -50,6 +50,80 @@ except Exception:
     MIN_EV = 0.03
     MIN_CONVICCION = 0.025
 MIN_CUOTA = 1.50
+# v39/v40 no tenían techo de EV en el filtro, aunque `edge_engine` sí calibra
+# una BANDA: el tramo de EV alto es tóxico (−10 % de ROI en 1.033 apuestas).
+try:
+    MAX_EV = _ee.banda_rentable()[1]
+except Exception:
+    MAX_EV = 0.12
+
+# ---------------------------------------------------------------------------
+# v75 — UMBRALES POR LIGA
+#
+# `edge_engine` calibra un único juego de umbrales para TODAS las competiciones,
+# y con razón: en la v38 se comprobó que elegir ligas por su ROI pasado
+# sobreajusta. Pero eso no implica que los umbrales tengan que ser idénticos en
+# todas partes, solo que una liga no puede tener los suyos "porque le fue bien".
+#
+# `backtest_thresholds.py` (v75) los somete a walk-forward anidado: la
+# combinación se elige con los pliegues anteriores y se juzga en el siguiente, y
+# solo se publica si bate a la configuración vigente por ≥2 pp de ROI con ≥50
+# apuestas y bootstrap p5 > 0. Lo que llega aquí ya pasó por ahí.
+#
+# Sin `umbrales_capa1.json`, o con una liga que no lo superó, rige exactamente
+# lo de antes (los umbrales de `edge_engine`): degradación limpia.
+# ---------------------------------------------------------------------------
+UMBRALES_ARCHIVO = 'umbrales_capa1.json'
+_UMBRALES_CACHE: Dict = {}
+
+
+def _umbrales_por_defecto() -> Dict[str, float]:
+    return {'prob_min': MIN_PROB, 'ev_min': MIN_EV, 'ev_max': MAX_EV,
+            'cuota_min': MIN_CUOTA, 'conviccion': MIN_CONVICCION}
+
+
+def _tabla_umbrales() -> Dict:
+    if 'datos' not in _UMBRALES_CACHE:
+        datos = {}
+        try:
+            if os.path.exists(UMBRALES_ARCHIVO):
+                with open(UMBRALES_ARCHIVO, encoding='utf-8') as f:
+                    datos = json.load(f) or {}
+        except Exception as e:
+            logger.warning(f"[alpha] no se pudo leer {UMBRALES_ARCHIVO}: {e}")
+        _UMBRALES_CACHE['datos'] = datos
+    return _UMBRALES_CACHE['datos']
+
+
+def umbrales_liga(clave_liga: Optional[str]) -> Dict[str, float]:
+    """Umbrales de Capa 1 vigentes para esa liga (validados o los generales)."""
+    base = _umbrales_por_defecto()
+    tabla = _tabla_umbrales()
+    for fuente in (tabla.get('global'), (tabla.get('ligas') or {}).get(clave_liga)):
+        if isinstance(fuente, dict):
+            for k in base:
+                if fuente.get(k) is not None:
+                    base[k] = float(fuente[k])
+    return base
+
+
+def pasa_capa1(prob: float, ev: float, cuota: float,
+               clave_liga: Optional[str] = None) -> bool:
+    """
+    Filtro de élite ÚNICO (antes estaba copiado en dos sitios del módulo).
+
+    Deliberadamente NO aplica aquí el techo de EV: el proyecto ya lo aplica al
+    final del barrido (`ev_extremo`), donde los picks de EV tóxico no se
+    descartan sino que se APARTAN a su propia bandeja para que el usuario los
+    vea marcados. Repetir el corte aquí los mandaría a "candidatos" y esa
+    bandeja se quedaría vacía. El techo por liga se respeta en ese punto.
+    """
+    u = umbrales_liga(clave_liga)
+    return bool(prob > u['prob_min'] and ev > u['ev_min']
+                and cuota > u['cuota_min']
+                and prob * ev >= u['conviccion'])
+
+
 # v42: umbral de CONFIRMACIÓN SHARP — el modelo supera la prob devig del cierre
 # de Pinnacle por ≥5 pp. Validado: esos picks rindieron +14.7 % de ROI (p5
 # bootstrap +1.4) vs +12 % del resto. Es la señal que usan las apps de pago.
@@ -352,9 +426,8 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
                 'valor': ('🟢' if c['ev'] > 0.05 else
                           '🟡' if c['ev'] > 0 else '🔴'),
             }
-            pasa_filtros = (c['prob'] > MIN_PROB and c['ev'] > MIN_EV
-                            and c['cuota'] > MIN_CUOTA
-                            and c['prob'] * c['ev'] >= MIN_CONVICCION)  # v40
+            # v75: filtro único con umbrales por liga (ver `pasa_capa1`)
+            pasa_filtros = pasa_capa1(c['prob'], c['ev'], c['cuota'], liga)
             # v44: la Capa 1 (élite) SOLO admite mercados VALIDADOS. El backtest
             # multi-mercado demostró que Over/Under 2.5 NO es rentable de forma
             # robusta (ROI medio +2.6 % pero bootstrap p5 NEGATIVO: mercado de
@@ -624,9 +697,7 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                     tarjeta = {**base, **c, 'deporte': 'Fútbol',
                                'valor': ('🟢' if c['ev'] > 0.05 else
                                          '🟡' if c['ev'] > 0 else '🔴')}
-                    pasa = (c['prob'] > MIN_PROB and c['ev'] > MIN_EV
-                            and c['cuota'] > MIN_CUOTA
-                            and c['prob'] * c['ev'] >= MIN_CONVICCION)
+                    pasa = pasa_capa1(c['prob'], c['ev'], c['cuota'], clave)
                     if pasa and c['mercado'] in MERCADOS_VALIDADOS_CAPA1:
                         tarjeta['evc'] = True
                         elite_fix.append(tarjeta)
@@ -1066,11 +1137,21 @@ def pick_del_dia(picks: List[Dict]) -> Optional[Dict]:
 
 
 def _seccion_btts(picks: List[Dict]) -> List[Dict]:
-    """v37 (§6): sección destacada de Ambos Marcan. Picks de BTTS con
-    confianza > 70 % y (si hay cuota real) EV > +3 %; si no hay cuota, se
-    muestran igual con la cuota mínima sugerida (1/prob)."""
-    # v43: el usuario prioriza BTTS (buen momio, base de parlays) → umbral más
-    # amplio (prob > 0.60, EV > +1 %) para surfacear más oportunidades.
+    """
+    v37 (§6): sección destacada de Ambos Marcan. Picks de BTTS con confianza
+    > 60 % y (si hay cuota real) EV > +1 %; sin cuota se muestran con la cuota
+    mínima sugerida (1/prob).
+
+    Se MANTIENE (la v43 la pidió expresamente: buen momio y base de parlays) y
+    sigue fuera de la Capa 1 accionable, que solo admite 1X2.
+
+    v75 — pero deja de venderse como ventaja del modelo. Medido sobre 15.950
+    partidos fuera de muestra (`backtest_btts.py`), el Weibull de BTTS da un
+    Brier de 0.24880 frente a 0.24891 de responder siempre la tasa base de la
+    liga: no discrimina. La sección se marca con `sin_edge_modelo` para que la
+    UI lo diga y el usuario decida sabiendo qué está mirando — lo único que
+    puede sostener un pick de BTTS hoy es el PRECIO, no la probabilidad.
+    """
     out = []
     for p in picks:
         if str(p.get('mercado', '')).upper() != 'BTTS':
@@ -1079,23 +1160,44 @@ def _seccion_btts(picks: List[Dict]) -> List[Dict]:
             continue
         if p.get('cuota') and (p.get('ev') or 0) <= 0.01:
             continue
-        out.append(p)
+        q = dict(p)
+        q['sin_edge_modelo'] = True
+        out.append(q)
     return sorted(out, key=lambda p: (-(p.get('ev') or 0), -(p.get('prob') or 0)))
 
 
 def _mejores_patas(picks: List[Dict]) -> List[Dict]:
-    """v41 (§3.1): patas candidatas para construir PARLAYS seguros — umbrales
-    más amplios que Capa 1 (prob ≥ 0.55 y EV > +2 %), con BTTS incluido de
-    forma prioritaria (prob > 60 % y EV > +1 %). No son apuestas simples
-    recomendadas: son ladrillos de alta probabilidad para combinar."""
+    """
+    v41 (§3.1): patas candidatas para construir PARLAYS seguros — umbrales más
+    amplios que Capa 1 (prob ≥ 0.55 y EV > +2 %). No son apuestas simples
+    recomendadas: son ladrillos de alta probabilidad para combinar.
+
+    v75 — SE RETIRA EL TRATO DE FAVOR AL BTTS (antes entraba con prob > 60 % y
+    EV > +1 %, un listón más bajo que el resto). El privilegio venía de una
+    preferencia de producto de la v43, no de una medida. Medido ahora sobre
+    **15.950 partidos fuera de muestra de 20 ligas** (`backtest_btts.py`):
+
+        Brier   modelo 0.24880 · tasa base 0.24891 · mercado 0.24559
+        LogLoss modelo 0.69077 · tasa base 0.69096 · mercado 0.68427
+
+    El modelo Weibull de BTTS es indistinguible de contestar siempre "la tasa
+    base de la liga" (0,0001 de Brier), y peor que lo que el cierre de 1X2 +
+    O/U 2.5 ya implica. Combinarlo con el mercado tampoco aporta nada
+    (0.24561 vs 0.24559). Es decir: no lleva información.
+
+    Bajarle el listón por eso equivalía a promocionar patas cuya probabilidad
+    es la media de la liga disfrazada de predicción, y las patas de un parlay
+    multiplican sus errores. El BTTS sigue disponible — pero pasando por el
+    mismo rasero que cualquier otro mercado, donde lo que lo sostenga sea el
+    precio (line shopping) y no una probabilidad que no discrimina.
+    """
     vistos = set()
     out = []
     for p in picks:
         prob = p.get('prob') or 0
         ev = p.get('ev')
         es_btts = str(p.get('mercado', '')).upper() == 'BTTS'
-        ok = ((prob >= 0.55 and (ev is None or ev > 0.02))
-              or (es_btts and prob > 0.60 and (ev is None or ev > 0.01)))
+        ok = prob >= 0.55 and (ev is None or ev > 0.02)
         if not ok:
             continue
         clave = (p.get('partido'), p.get('apuesta'))
@@ -1215,8 +1317,15 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     capa2 += pretemporada
     # §3: EV extremo se SEGREGA (no se descarta) — validado en
     # resultados_ev_extremo_v32.json
-    ev_extremo = [p for p in capa1 if (p.get('ev') or 0) > EV_EXTREMO]
-    capa1 = [p for p in capa1 if (p.get('ev') or 0) <= EV_EXTREMO]
+    # v75: el techo se toma POR LIGA cuando el backtest de umbrales le adoptó
+    # uno propio; si no, es el `EV_EXTREMO` global de `edge_engine`, igual que
+    # hasta ahora.
+    def _techo_ev(p) -> float:
+        clave = LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower())
+        return umbrales_liga(clave).get('ev_max', EV_EXTREMO)
+
+    ev_extremo = [p for p in capa1 if (p.get('ev') or 0) > _techo_ev(p)]
+    capa1 = [p for p in capa1 if (p.get('ev') or 0) <= _techo_ev(p)]
 
     # v38: etiqueta de rentabilidad esperada (edge_engine) por pick de capa1 —
     # en qué tramo de EV real cae y si su liga es históricamente deficitaria.

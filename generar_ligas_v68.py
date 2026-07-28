@@ -197,6 +197,22 @@ YA_CUBIERTAS = {
     'conference_league',
 }
 
+# v75: slug de ESPN de cada competición que ya sirve football-data. Es lo que
+# permite cruzar YA_CUBIERTAS (claves de football-data) con los candidatos de
+# ESPN (que llegan por slug): comparar cadenas de clave no valía, porque
+# `austria` y `aut_bundesliga` son la misma liga con nombres distintos.
+ESPN_DE_FOOTBALL_DATA = {
+    'liga_mx': 'mex.1', 'mls': 'usa.1', 'brasil': 'bra.1', 'argentina': 'arg.1',
+    'premier': 'eng.1', 'laliga': 'esp.1', 'serie_a': 'ita.1',
+    'bundesliga': 'ger.1', 'ligue_1': 'fra.1', 'eredivisie': 'ned.1',
+    'primeira': 'por.1', 'noruega': 'nor.1', 'suecia': 'swe.1',
+    'finlandia': 'fin.1', 'rumania': 'rou.1', 'irlanda': 'irl.1',
+    'turquia': 'tur.1', 'dinamarca': 'den.1', 'china': 'chn.1',
+    'polonia': 'pol.1', 'grecia': 'gre.1', 'suiza': 'sui.1',
+    'austria': 'aut.1', 'champions': 'uefa.champions',
+    'europa_league': 'uefa.europa', 'conference_league': 'uefa.europa.conf',
+}
+
 
 def catalogo_espn() -> Dict[str, str]:
     """Slug -> nombre de las 220 competiciones que publica ESPN."""
@@ -266,6 +282,21 @@ def escribir_config(filas: List[Dict], salida: str = SALIDA) -> None:
     # Ligue 2, etc. de "con remates y cuotas" a "solo resultados".
     mejores = {f['clave'] for f in FD_MAIN} | {f['clave'] for f in FD_NEW}
     entrenables = [f for f in filas if f['entrenable'] and f['clave'] not in mejores]
+    # v75: el filtro de arriba compara CLAVES, y por eso dejó pasar duplicados
+    # con nombre distinto: `austria` (football-data) y `aut_bundesliga` (ESPN)
+    # eran la misma Bundesliga austriaca, igual que `grecia` y
+    # `gre_super_league`. Resultado: la misma competición evaluada dos veces
+    # con veredictos opuestos, y la variante SIN cuotas — imposible de
+    # backtestear — activa en la Capa 1. `YA_CUBIERTAS` estaba definida para
+    # esto desde la v68 pero NO se usaba en ninguna parte; ahora sí, cruzando
+    # por el slug ESPN de las ligas que ya sirve football-data.
+    ya_por_slug = {ESPN_DE_FOOTBALL_DATA[c] for c in YA_CUBIERTAS
+                   if c in ESPN_DE_FOOTBALL_DATA}
+    descartadas = [f for f in entrenables if f['espn'] in ya_por_slug]
+    if descartadas:
+        logger.info("Descartadas por duplicar una liga de football-data: "
+                    + ', '.join(f"{f['clave']}({f['espn']})" for f in descartadas))
+    entrenables = [f for f in entrenables if f['espn'] not in ya_por_slug]
     for f in filas:
         if f['clave'] in mejores:
             logger.info(f"  {f['clave']}: se toma de football-data (mejor fuente), "

@@ -1,17 +1,40 @@
 {
   "liga": "Austrian Bundesliga",
-  "n_train": 757,
-  "n_validacion": 191,
-  "fecha_corte": "2025-08-03",
-  "precision_validacion": 0.4084,
-  "precision_linea_base_elo": 0.3874,
-  "precision_mercado_cuotas": null,
-  "log_loss_validacion": 1.0797,
-  "n_equipos": 15,
+  "n_train": 1220,
+  "n_validacion": 308,
+  "fecha_corte": "2024-11-23",
+  "precision_validacion": 0.3734,
+  "precision_linea_base_elo": 0.4253,
+  "precision_mercado_cuotas": 0.4416,
+  "log_loss_validacion": 1.104,
+  "n_equipos": 19,
   "familia_modelo": "ensemble",
-  "features_extra_cols": [],
-  "medias_cuotas": {},
-  "roi_sim": null,
-  "mesm": null,
+  "features_extra_cols": [
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4269,
+    "PROB_IMP_D": 0.2373,
+    "PROB_IMP_A": 0.3358,
+    "OVERROUND": 0.0655
+  },
+  "roi_sim": {
+    "n_apuestas": 181,
+    "roi_pct": -17.71,
+    "aciertos": 59,
+    "roi_pct_pinnacle": 6.18,
+    "n_con_pinnacle": 97
+  },
+  "mesm": {
+    "n_val_con_cuotas": 308,
+    "acc_prod": 0.3734,
+    "acc_mesm": 0.4416,
+    "ll_prod": 1.104,
+    "ll_mesm": 1.0705,
+    "adoptado": true
+  },
   "imt": null
 }

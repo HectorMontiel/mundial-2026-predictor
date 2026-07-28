@@ -1,75 +1,215 @@
 {
- "generado": "2026-07-28 01:52:45.641927",
- "nota": "v71. Peso del modelo frente a la probabilidad justa de Pinnacle, por liga. Sale del sesgo medido en la selección que el modelo elige (maldición del ganador). Liga ausente = w=1 = sin corrección.",
+ "generado": "2026-07-28T18:56:02Z",
+ "nota": "v75. Peso del modelo frente al cierre devigado (Pinnacle, método potencia). Elegido por log-loss fuera de muestra con encogimiento jerárquico hacia el w global y validado en un pliegue que no participó en la selección. Liga ausente = w=1 = sin corrección. Sustituye a los w de la v71, que salían de 4-11 partidos por liga.",
+ "w_global": 0.25,
  "global": {
-  "n": 315,
-  "sesgo_medio": -0.0,
-  "mae": 0.0781,
-  "corr": 0.7004
+  "logloss_antes": 1.0226,
+  "logloss_despues": 1.003,
+  "delta_logloss": 0.0196,
+  "acc_antes": 0.4986,
+  "acc_despues": 0.512,
+  "delta_acc": 0.0134
  },
  "ligas": {
-  "liga_mx": {
-   "w": 0.934,
-   "sesgo_pick": 0.0414,
-   "n_partidos": 8,
-   "mae": 0.1247,
-   "corr": 0.511
+  "bel_pro_league": {
+   "w": 0.25,
+   "sesgo_pick": -0.004,
+   "n_partidos": 751,
+   "delta_logloss": 0.0081,
+   "delta_acc": 0.0068,
+   "ancla": "pinnacle"
   },
   "brasil": {
-   "w": 0.885,
-   "sesgo_pick": 0.0957,
-   "n_partidos": 6,
-   "mae": 0.097,
-   "corr": 0.3702
+   "w": 0.25,
+   "sesgo_pick": 0.0149,
+   "n_partidos": 1516,
+   "delta_logloss": 0.0112,
+   "delta_acc": 0.0263,
+   "ancla": "pinnacle"
   },
-  "argentina": {
-   "w": 0.993,
-   "sesgo_pick": 0.0031,
-   "n_partidos": 11,
-   "mae": 0.0634,
-   "corr": 0.5335
+  "bundesliga": {
+   "w": 0.25,
+   "sesgo_pick": 0.0,
+   "n_partidos": 741,
+   "delta_logloss": 0.0248,
+   "delta_acc": 0.0067,
+   "ancla": "pinnacle"
   },
-  "usl_championship": {
-   "w": 0.895,
-   "sesgo_pick": 0.0526,
-   "n_partidos": 10,
-   "mae": 0.0807,
-   "corr": 0.6862
+  "dinamarca": {
+   "w": 0.25,
+   "sesgo_pick": -0.0239,
+   "n_partidos": 803,
+   "delta_logloss": 0.0133,
+   "delta_acc": 0.0435,
+   "ancla": "pinnacle"
   },
-  "per_liga1": {
-   "w": 0.945,
-   "sesgo_pick": 0.0341,
-   "n_partidos": 8,
-   "mae": 0.0588,
-   "corr": 0.9116
+  "eng_championship": {
+   "w": 0.25,
+   "sesgo_pick": -0.011,
+   "n_partidos": 1340,
+   "delta_logloss": 0.0121,
+   "delta_acc": 0.0037,
+   "ancla": "pinnacle"
   },
-  "chi_primera": {
-   "w": 0.893,
-   "sesgo_pick": 0.0671,
-   "n_partidos": 8,
-   "mae": 0.081,
-   "corr": 0.323
+  "eng_league_one": {
+   "w": 0.25,
+   "sesgo_pick": -0.0035,
+   "n_partidos": 1332,
+   "delta_logloss": 0.0174,
+   "delta_acc": 0.0337,
+   "ancla": "pinnacle"
   },
-  "sudamericana": {
-   "w": 0.971,
-   "sesgo_pick": 0.0205,
-   "n_partidos": 7,
-   "mae": 0.0987,
-   "corr": 0.7254
+  "eng_league_two": {
+   "w": 0.338,
+   "sesgo_pick": -0.0305,
+   "n_partidos": 1335,
+   "delta_logloss": 0.0137,
+   "delta_acc": 0.0037,
+   "ancla": "pinnacle"
   },
-  "aut_bundesliga": {
-   "w": 0.9,
-   "sesgo_pick": 0.1313,
-   "n_partidos": 4,
-   "mae": 0.1131,
-   "corr": 0.4668
+  "eng_national": {
+   "w": 0.294,
+   "sesgo_pick": -0.0106,
+   "n_partidos": 1311,
+   "delta_logloss": 0.0726,
+   "delta_acc": 0.0114,
+   "ancla": "pinnacle"
   },
-  "par_division": {
-   "w": 0.974,
-   "sesgo_pick": 0.0256,
-   "n_partidos": 5,
-   "mae": 0.0569,
-   "corr": 0.5582
+  "eredivisie": {
+   "w": 0.25,
+   "sesgo_pick": -0.0117,
+   "n_partidos": 742,
+   "delta_logloss": 0.033,
+   "delta_acc": 0.0336,
+   "ancla": "pinnacle"
+  },
+  "finlandia": {
+   "w": 0.25,
+   "sesgo_pick": 0.0156,
+   "n_partidos": 646,
+   "delta_logloss": 0.0309,
+   "delta_acc": 0.0,
+   "ancla": "pinnacle"
+  },
+  "gre_super_league": {
+   "w": 0.25,
+   "sesgo_pick": -0.0117,
+   "n_partidos": 569,
+   "delta_logloss": 0.0048,
+   "delta_acc": 0.0093,
+   "ancla": "pinnacle"
+  },
+  "irlanda": {
+   "w": 0.25,
+   "sesgo_pick": -0.0182,
+   "n_partidos": 668,
+   "delta_logloss": 0.0383,
+   "delta_acc": 0.0299,
+   "ancla": "pinnacle"
+  },
+  "ita_serie_b": {
+   "w": 0.25,
+   "sesgo_pick": -0.0176,
+   "n_partidos": 903,
+   "delta_logloss": 0.0292,
+   "delta_acc": 0.0387,
+   "ancla": "pinnacle"
+  },
+  "jpn_j1": {
+   "w": 0.25,
+   "sesgo_pick": 0.0156,
+   "n_partidos": 1308,
+   "delta_logloss": 0.0191,
+   "delta_acc": 0.0273,
+   "ancla": "pinnacle"
+  },
+  "laliga": {
+   "w": 0.25,
+   "sesgo_pick": 0.0247,
+   "n_partidos": 926,
+   "delta_logloss": 0.023,
+   "delta_acc": 0.0054,
+   "ancla": "pinnacle"
+  },
+  "ligue_1": {
+   "w": 0.25,
+   "sesgo_pick": -0.0007,
+   "n_partidos": 816,
+   "delta_logloss": 0.1247,
+   "delta_acc": 0.0305,
+   "ancla": "pinnacle"
+  },
+  "mls": {
+   "w": 0.25,
+   "sesgo_pick": -0.0296,
+   "n_partidos": 1830,
+   "delta_logloss": 0.0253,
+   "delta_acc": 0.0,
+   "ancla": "pinnacle"
+  },
+  "noruega": {
+   "w": 0.25,
+   "sesgo_pick": -0.0353,
+   "n_partidos": 931,
+   "delta_logloss": 0.0254,
+   "delta_acc": 0.0,
+   "ancla": "pinnacle"
+  },
+  "primeira": {
+   "w": 0.25,
+   "sesgo_pick": 0.0212,
+   "n_partidos": 1500,
+   "delta_logloss": 0.0457,
+   "delta_acc": 0.02,
+   "ancla": "pinnacle"
+  },
+  "rumania": {
+   "w": 0.25,
+   "sesgo_pick": 0.0116,
+   "n_partidos": 1194,
+   "delta_logloss": 0.0137,
+   "delta_acc": 0.0502,
+   "ancla": "pinnacle"
+  },
+  "rus_premier": {
+   "w": 0.25,
+   "sesgo_pick": -0.0101,
+   "n_partidos": 942,
+   "delta_logloss": 0.0124,
+   "delta_acc": 0.0,
+   "ancla": "pinnacle"
+  },
+  "sco_championship": {
+   "w": 0.25,
+   "sesgo_pick": -0.032,
+   "n_partidos": 429,
+   "delta_logloss": 0.0328,
+   "delta_acc": 0.0581,
+   "ancla": "pinnacle"
+  },
+  "sco_premiership": {
+   "w": 0.25,
+   "sesgo_pick": -0.005,
+   "n_partidos": 558,
+   "delta_logloss": 0.0265,
+   "delta_acc": 0.0089,
+   "ancla": "pinnacle"
+  },
+  "serie_a": {
+   "w": 0.25,
+   "sesgo_pick": 0.0124,
+   "n_partidos": 548,
+   "delta_logloss": 0.0122,
+   "delta_acc": 0.0364,
+   "ancla": "pinnacle"
+  },
+  "turquia": {
+   "w": 0.286,
+   "sesgo_pick": 0.0097,
+   "n_partidos": 491,
+   "delta_logloss": 0.0019,
+   "delta_acc": 0.0101,
+   "ancla": "pinnacle"
   }
  }
 }

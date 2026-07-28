@@ -1,0 +1,281 @@
+{
+ "generado": "2026-07-28T19:03:11Z",
+ "nota": "v75. Umbrales de la Capa 1 validados con walk-forward anidado (la combinación se elige con pliegues anteriores y se juzga en el siguiente) + bootstrap p5. null = no se encontró mejora sobre los umbrales vigentes y se mantienen los de edge_engine.",
+ "regla": "se adopta si el ROI fuera de muestra supera a la referencia en ≥2%, con ≥50 apuestas y bootstrap p5 > 0.",
+ "referencia_produccion": {
+  "prob_min": 0.55,
+  "ev_min": 0.03,
+  "ev_max": 0.12,
+  "cuota_min": 1.5,
+  "conviccion": 0.025
+ },
+ "global": null,
+ "global_metricas": {
+  "optimizado": {
+   "n": 61,
+   "roi": 0.117,
+   "p5": -0.0249,
+   "peor_ventana": -0.0688,
+   "ventanas": [
+    0.1242,
+    0.1745,
+    -0.0688
+   ],
+   "aciertos": 45
+  },
+  "referencia": {
+   "n": 253,
+   "roi": 0.0164,
+   "p5": -0.0703,
+   "peor_ventana": -0.0591,
+   "ventanas": [
+    0.0409,
+    -0.0591,
+    0.0996
+   ],
+   "aciertos": 151
+  },
+  "adoptada": false
+ },
+ "ligas": {},
+ "ligas_evaluadas": {
+  "argentina": {
+   "adoptada": false,
+   "roi_oos": 0.0382,
+   "roi_base": null,
+   "p5": -0.2081,
+   "n": 45
+  },
+  "bel_pro_league": {
+   "adoptada": false,
+   "roi_oos": -0.395,
+   "roi_base": null,
+   "p5": null,
+   "n": 6
+  },
+  "brasil": {
+   "adoptada": false,
+   "roi_oos": 0.2095,
+   "roi_base": null,
+   "p5": -0.0559,
+   "n": 43
+  },
+  "bundesliga": {
+   "adoptada": false,
+   "roi_oos": -0.07,
+   "roi_base": null,
+   "p5": -0.3152,
+   "n": 33
+  },
+  "china": {
+   "adoptada": false,
+   "roi_oos": -0.1632,
+   "roi_base": 0.1938,
+   "p5": -0.3341,
+   "n": 59
+  },
+  "dinamarca": {
+   "adoptada": false,
+   "roi_oos": -0.2975,
+   "roi_base": null,
+   "p5": -0.6351,
+   "n": 20
+  },
+  "eng_championship": {
+   "adoptada": false,
+   "roi_oos": 0.2437,
+   "roi_base": null,
+   "p5": 0.0032,
+   "n": 41
+  },
+  "eng_league_one": {
+   "adoptada": false,
+   "roi_oos": 0.083,
+   "roi_base": null,
+   "p5": -0.1652,
+   "n": 37
+  },
+  "eng_league_two": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "eng_national": {
+   "adoptada": false,
+   "roi_oos": 0.1541,
+   "roi_base": 0.22,
+   "p5": -0.0592,
+   "n": 32
+  },
+  "eredivisie": {
+   "adoptada": false,
+   "roi_oos": -0.3171,
+   "roi_base": null,
+   "p5": -0.6377,
+   "n": 21
+  },
+  "esp_hypermotion": {
+   "adoptada": false,
+   "roi_oos": -0.1235,
+   "roi_base": null,
+   "p5": -0.3368,
+   "n": 68
+  },
+  "finlandia": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "fra_ligue2": {
+   "adoptada": false,
+   "roi_oos": -0.026,
+   "roi_base": -0.384,
+   "p5": -0.2061,
+   "n": 81
+  },
+  "ger_bundesliga2": {
+   "adoptada": false,
+   "roi_oos": -0.1287,
+   "roi_base": 0.475,
+   "p5": -0.3466,
+   "n": 47
+  },
+  "gre_super_league": {
+   "adoptada": false,
+   "roi_oos": 0.62,
+   "roi_base": null,
+   "p5": null,
+   "n": 1
+  },
+  "irlanda": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "ita_serie_b": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "jpn_j1": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "laliga": {
+   "adoptada": false,
+   "roi_oos": 0.1144,
+   "roi_base": null,
+   "p5": -0.1624,
+   "n": 27
+  },
+  "liga_mx": {
+   "adoptada": false,
+   "roi_oos": -0.0583,
+   "roi_base": 0.54,
+   "p5": -0.2157,
+   "n": 107
+  },
+  "ligue_1": {
+   "adoptada": false,
+   "roi_oos": -0.0306,
+   "roi_base": 0.36,
+   "p5": -0.2451,
+   "n": 50
+  },
+  "mls": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "noruega": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "polonia": {
+   "adoptada": false,
+   "roi_oos": -0.1467,
+   "roi_base": null,
+   "p5": -0.3439,
+   "n": 75
+  },
+  "premier": {
+   "adoptada": false,
+   "roi_oos": -0.0431,
+   "roi_base": 0.0033,
+   "p5": -0.3239,
+   "n": 36
+  },
+  "primeira": {
+   "adoptada": false,
+   "roi_oos": -0.2383,
+   "roi_base": null,
+   "p5": -0.4119,
+   "n": 54
+  },
+  "rumania": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "rus_premier": {
+   "adoptada": false,
+   "roi_oos": 0.1077,
+   "roi_base": null,
+   "p5": -0.1258,
+   "n": 47
+  },
+  "sco_championship": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "sco_premiership": {
+   "adoptada": false,
+   "roi_oos": 0.0835,
+   "roi_base": null,
+   "p5": -0.2415,
+   "n": 20
+  },
+  "serie_a": {
+   "adoptada": false,
+   "roi_oos": 0.0394,
+   "roi_base": null,
+   "p5": null,
+   "n": 16
+  },
+  "suecia": {
+   "adoptada": false,
+   "roi_oos": 0.0277,
+   "roi_base": 0.33,
+   "p5": -0.2598,
+   "n": 35
+  },
+  "turquia": {
+   "adoptada": false,
+   "roi_oos": -0.0327,
+   "roi_base": 0.0133,
+   "p5": -0.2155,
+   "n": 44
+  }
+ }
+}

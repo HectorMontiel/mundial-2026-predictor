@@ -1,0 +1,42 @@
+{
+ "generado": "2026-07-28T18:49:29Z",
+ "dia": "2026-07-28T18",
+ "filas_nuevas": 553,
+ "filas_generadas": 553,
+ "partidos": 241,
+ "ligas": 26,
+ "sin_nombre_resuelto": 10,
+ "snapshots_acumulados": 989,
+ "por_liga": {
+  "liga_mx": 8,
+  "mls": 15,
+  "brasil": 10,
+  "argentina": 27,
+  "noruega": 7,
+  "suecia": 6,
+  "dinamarca": 3,
+  "china": 8,
+  "rus_premier": 8,
+  "sco_premiership": 5,
+  "sco_championship": 4,
+  "arg_primera_nacional": 18,
+  "col_primera_a": 13,
+  "usl_championship": 14,
+  "bra_serie_b": 3,
+  "per_liga1": 9,
+  "uru_primera": 8,
+  "ecu_liga_pro": 8,
+  "slv_primera": 10,
+  "bol_division": 11,
+  "par_division": 12,
+  "crc_fpd": 5,
+  "mex_expansion": 8,
+  "chi_primera": 8,
+  "rsa_premier": 5,
+  "sudamericana": 8
+ },
+ "reconciliacion": {
+  "reasignadas": 0,
+  "sin_cierre": 201
+ }
+}

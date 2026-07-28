@@ -1,0 +1,952 @@
+{
+ "generado": "2026-07-28T19:03:11Z",
+ "n_candidatos": 33476,
+ "ligas": 34,
+ "referencia_produccion": {
+  "prob_min": 0.55,
+  "ev_min": 0.03,
+  "ev_max": 0.12,
+  "cuota_min": 1.5,
+  "conviccion": 0.025
+ },
+ "global": {
+  "combo": {
+   "prob_min": 0.7,
+   "ev_min": 0.08,
+   "ev_max": 0.15,
+   "cuota_min": 1.3,
+   "conviccion": 0.0
+  },
+  "oos_optimizado": {
+   "n": 61,
+   "roi": 0.117,
+   "p5": -0.0249,
+   "peor_ventana": -0.0688,
+   "ventanas": [
+    0.1242,
+    0.1745,
+    -0.0688
+   ],
+   "aciertos": 45
+  },
+  "oos_referencia": {
+   "n": 253,
+   "roi": 0.0164,
+   "p5": -0.0703,
+   "peor_ventana": -0.0591,
+   "ventanas": [
+    0.0409,
+    -0.0591,
+    0.0996
+   ],
+   "aciertos": 151
+  },
+  "adoptada": false,
+  "elegidas_por_pliegue": [
+   {
+    "pliegue": 2,
+    "prob_min": 0.65,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.5,
+    "conviccion": 0.035,
+    "n_oos": 31,
+    "roi_oos": 0.1242
+   },
+   {
+    "pliegue": 3,
+    "prob_min": 0.7,
+    "ev_min": 0.08,
+    "ev_max": 0.25,
+    "cuota_min": 1.3,
+    "conviccion": 0.0,
+    "n_oos": 22,
+    "roi_oos": 0.1745
+   },
+   {
+    "pliegue": 4,
+    "prob_min": 0.7,
+    "ev_min": 0.08,
+    "ev_max": 0.25,
+    "cuota_min": 1.3,
+    "conviccion": 0.0,
+    "n_oos": 8,
+    "roi_oos": -0.0688
+   }
+  ]
+ },
+ "por_liga": {
+  "argentina": {
+   "n_candidatos": 1843,
+   "combo": {
+    "prob_min": 0.55,
+    "ev_min": 0.02,
+    "ev_max": 0.25,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 45,
+    "roi": 0.0382,
+    "p5": -0.2081,
+    "peor_ventana": 0.0133,
+    "ventanas": [
+     0.0133,
+     0.0756
+    ],
+    "aciertos": 22
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "bel_pro_league": {
+   "n_candidatos": 749,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.5,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 6,
+    "roi": -0.395,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 2
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "brasil": {
+   "n_candidatos": 1516,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.0,
+    "ev_max": 0.1,
+    "cuota_min": 2.0,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 43,
+    "roi": 0.2095,
+    "p5": -0.0559,
+    "peor_ventana": 0.096,
+    "ventanas": [
+     0.2515,
+     0.239,
+     0.096
+    ],
+    "aciertos": 26
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "bundesliga": {
+   "n_candidatos": 741,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 0.12,
+    "cuota_min": 1.5,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 33,
+    "roi": -0.07,
+    "p5": -0.3152,
+    "peor_ventana": -0.1495,
+    "ventanas": [
+     -0.1495,
+     0.0692
+    ],
+    "aciertos": 18
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "china": {
+   "n_candidatos": 899,
+   "combo": {
+    "prob_min": 0.65,
+    "ev_min": 0.0,
+    "ev_max": 0.12,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 59,
+    "roi": -0.1632,
+    "p5": -0.3341,
+    "peor_ventana": -0.2977,
+    "ventanas": [
+     -0.2977,
+     0.115,
+     -0.1557
+    ],
+    "aciertos": 30
+   },
+   "oos_base": {
+    "n": 8,
+    "roi": 0.1938,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 7
+   },
+   "adoptada": false
+  },
+  "dinamarca": {
+   "n_candidatos": 803,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.02,
+    "ev_max": 0.12,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 20,
+    "roi": -0.2975,
+    "p5": -0.6351,
+    "peor_ventana": -0.1767,
+    "ventanas": [
+     -0.1767
+    ],
+    "aciertos": 8
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "eng_championship": {
+   "n_candidatos": 1340,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.02,
+    "ev_max": 0.12,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 41,
+    "roi": 0.2437,
+    "p5": 0.0032,
+    "peor_ventana": 0.1717,
+    "ventanas": [
+     0.1717
+    ],
+    "aciertos": 27
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "eng_league_one": {
+   "n_candidatos": 1332,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 37,
+    "roi": 0.083,
+    "p5": -0.1652,
+    "peor_ventana": 0.1672,
+    "ventanas": [
+     0.1672
+    ],
+    "aciertos": 22
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "eng_league_two": {
+   "n_candidatos": 1335,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "eng_national": {
+   "n_candidatos": 1299,
+   "combo": {
+    "prob_min": 0.55,
+    "ev_min": 0.02,
+    "ev_max": 0.12,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 32,
+    "roi": 0.1541,
+    "p5": -0.0592,
+    "peor_ventana": 0.1809,
+    "ventanas": [
+     0.1809
+    ],
+    "aciertos": 23
+   },
+   "oos_base": {
+    "n": 5,
+    "roi": 0.22,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 4
+   },
+   "adoptada": false
+  },
+  "eredivisie": {
+   "n_candidatos": 742,
+   "combo": {
+    "prob_min": 0.55,
+    "ev_min": 0.0,
+    "ev_max": 0.25,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 21,
+    "roi": -0.3171,
+    "p5": -0.6377,
+    "peor_ventana": -0.3567,
+    "ventanas": [
+     -0.3567
+    ],
+    "aciertos": 8
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "esp_hypermotion": {
+   "n_candidatos": 1112,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 9.99,
+    "cuota_min": 1.3,
+    "conviccion": 0.025
+   },
+   "oos_optimizado": {
+    "n": 68,
+    "roi": -0.1235,
+    "p5": -0.3368,
+    "peor_ventana": -0.2222,
+    "ventanas": [
+     0.0625,
+     -0.2222
+    ],
+    "aciertos": 29
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "finlandia": {
+   "n_candidatos": 646,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "fra_ligue2": {
+   "n_candidatos": 837,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.7,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 81,
+    "roi": -0.026,
+    "p5": -0.2061,
+    "peor_ventana": -0.1358,
+    "ventanas": [
+     0.1129,
+     -0.1358,
+     -0.0395
+    ],
+    "aciertos": 42
+   },
+   "oos_base": {
+    "n": 5,
+    "roi": -0.384,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 2
+   },
+   "adoptada": false
+  },
+  "ger_bundesliga2": {
+   "n_candidatos": 733,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.02,
+    "ev_max": 0.25,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 47,
+    "roi": -0.1287,
+    "p5": -0.3466,
+    "peor_ventana": -0.2,
+    "ventanas": [
+     -0.2,
+     -0.0969,
+     0.001
+    ],
+    "aciertos": 23
+   },
+   "oos_base": {
+    "n": 2,
+    "roi": 0.475,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 2
+   },
+   "adoptada": false
+  },
+  "gre_super_league": {
+   "n_candidatos": 569,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 1,
+    "roi": 0.62,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 1
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "irlanda": {
+   "n_candidatos": 668,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "ita_serie_b": {
+   "n_candidatos": 903,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "jpn_j1": {
+   "n_candidatos": 1308,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.0,
+    "ev_max": 0.1,
+    "cuota_min": 1.5,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "laliga": {
+   "n_candidatos": 926,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.3,
+    "conviccion": 0.015
+   },
+   "oos_optimizado": {
+    "n": 27,
+    "roi": 0.1144,
+    "p5": -0.1624,
+    "peor_ventana": 0.1062,
+    "ventanas": [
+     0.1062
+    ],
+    "aciertos": 17
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "liga_mx": {
+   "n_candidatos": 1311,
+   "combo": {
+    "prob_min": 0.55,
+    "ev_min": 0.0,
+    "ev_max": 0.1,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 107,
+    "roi": -0.0583,
+    "p5": -0.2157,
+    "peor_ventana": -0.1881,
+    "ventanas": [
+     -0.1881,
+     0.0142,
+     0.0056
+    ],
+    "aciertos": 54
+   },
+   "oos_base": {
+    "n": 2,
+    "roi": 0.54,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 2
+   },
+   "adoptada": false
+  },
+  "ligue_1": {
+   "n_candidatos": 816,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.3,
+    "conviccion": 0.015
+   },
+   "oos_optimizado": {
+    "n": 50,
+    "roi": -0.0306,
+    "p5": -0.2451,
+    "peor_ventana": -0.0591,
+    "ventanas": [
+     -0.0591,
+     0.0247
+    ],
+    "aciertos": 28
+   },
+   "oos_base": {
+    "n": 1,
+    "roi": 0.36,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 1
+   },
+   "adoptada": false
+  },
+  "mls": {
+   "n_candidatos": 1830,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "noruega": {
+   "n_candidatos": 931,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "polonia": {
+   "n_candidatos": 1148,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.08,
+    "ev_max": 0.15,
+    "cuota_min": 2.0,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 75,
+    "roi": -0.1467,
+    "p5": -0.3439,
+    "peor_ventana": -0.3318,
+    "ventanas": [
+     -0.1475,
+     0.1939,
+     -0.3318
+    ],
+    "aciertos": 30
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "premier": {
+   "n_candidatos": 547,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.0,
+    "ev_max": 0.25,
+    "cuota_min": 1.3,
+    "conviccion": 0.035
+   },
+   "oos_optimizado": {
+    "n": 36,
+    "roi": -0.0431,
+    "p5": -0.3239,
+    "peor_ventana": -0.1085,
+    "ventanas": [
+     -0.1085,
+     0.127
+    ],
+    "aciertos": 17
+   },
+   "oos_base": {
+    "n": 3,
+    "roi": 0.0033,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 2
+   },
+   "adoptada": false
+  },
+  "primeira": {
+   "n_candidatos": 1498,
+   "combo": {
+    "prob_min": 0.6,
+    "ev_min": 0.0,
+    "ev_max": 0.15,
+    "cuota_min": 1.3,
+    "conviccion": 0.025
+   },
+   "oos_optimizado": {
+    "n": 54,
+    "roi": -0.2383,
+    "p5": -0.4119,
+    "peor_ventana": -0.8444,
+    "ventanas": [
+     -0.0987,
+     -0.1364,
+     -0.8444
+    ],
+    "aciertos": 27
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "rumania": {
+   "n_candidatos": 1194,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "rus_premier": {
+   "n_candidatos": 942,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.0,
+    "ev_max": 0.1,
+    "cuota_min": 1.7,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 47,
+    "roi": 0.1077,
+    "p5": -0.1258,
+    "peor_ventana": -0.024,
+    "ventanas": [
+     -0.024,
+     0.4686
+    ],
+    "aciertos": 27
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "sco_championship": {
+   "n_candidatos": 429,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "sco_premiership": {
+   "n_candidatos": 558,
+   "combo": {
+    "prob_min": 0.5,
+    "ev_min": 0.0,
+    "ev_max": 0.12,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 20,
+    "roi": 0.0835,
+    "p5": -0.2415,
+    "peor_ventana": 0.1307,
+    "ventanas": [
+     0.1307
+    ],
+    "aciertos": 13
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "serie_a": {
+   "n_candidatos": 548,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.0,
+    "ev_max": 0.1,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 16,
+    "roi": 0.0394,
+    "p5": null,
+    "peor_ventana": 0.0271,
+    "ventanas": [
+     0.0271
+    ],
+    "aciertos": 9
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "suecia": {
+   "n_candidatos": 932,
+   "combo": {
+    "prob_min": 0.45,
+    "ev_min": 0.05,
+    "ev_max": 0.25,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 35,
+    "roi": 0.0277,
+    "p5": -0.2598,
+    "peor_ventana": 0.0268,
+    "ventanas": [
+     0.0268,
+     0.03
+    ],
+    "aciertos": 19
+   },
+   "oos_base": {
+    "n": 1,
+    "roi": 0.33,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 1
+   },
+   "adoptada": false
+  },
+  "turquia": {
+   "n_candidatos": 491,
+   "combo": {
+    "prob_min": 0.6,
+    "ev_min": 0.0,
+    "ev_max": 0.1,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 44,
+    "roi": -0.0327,
+    "p5": -0.2155,
+    "peor_ventana": -0.1455,
+    "ventanas": [
+     -0.1455,
+     -0.1227,
+     0.3678
+    ],
+    "aciertos": 27
+   },
+   "oos_base": {
+    "n": 3,
+    "roi": 0.0133,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 2
+   },
+   "adoptada": false
+  }
+ },
+ "regla": "se adopta si el ROI fuera de muestra supera a la referencia en ≥2%, con ≥50 apuestas y bootstrap p5 > 0."
+}

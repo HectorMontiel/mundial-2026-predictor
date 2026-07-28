@@ -101,6 +101,92 @@ COLORES = {'local': '#2ecc71', 'empate': '#95a5a6', 'visitante': '#3498db'}
 
 
 # ===========================================================================
+# v75 — Estado de la calibración de mercado y de los umbrales por liga
+# ===========================================================================
+def _panel_calibracion_v75(st) -> None:
+    """
+    Muestra, sin adornos, en qué se apoya hoy la selección de picks:
+    el encogimiento hacia el cierre sharp, los umbrales de Capa 1 y cuánto
+    histórico de cuotas hay detrás. Es la parte de "transparencia total": si un
+    número no se puede sostener, se dice que no se puede.
+    """
+    try:
+        if os.path.exists('calibracion_mercado.json'):
+            with open('calibracion_mercado.json', encoding='utf-8') as f:
+                cal = json.load(f)
+            ligas = cal.get('ligas') or {}
+            g = cal.get('global') or {}
+            if ligas:
+                txt = (f"**⚖️ Encogimiento al mercado (v75):** {len(ligas)} ligas "
+                       f"con peso propio · w global {cal.get('w_global', '—')}")
+                if g.get('delta_logloss') is not None:
+                    txt += (f" · validación fuera de muestra: log-loss "
+                            f"{g.get('logloss_antes')} → {g.get('logloss_despues')} "
+                            f"({g.get('delta_logloss'):+.4f}), precisión "
+                            f"{g.get('delta_acc'):+.4f}")
+                st.markdown(txt)
+                with st.expander("Ver peso por liga"):
+                    dfc = pd.DataFrame([
+                        {'liga': k, 'w': v.get('w'),
+                         'n partidos': v.get('n_partidos'),
+                         'Δ log-loss': v.get('delta_logloss'),
+                         'Δ precisión': v.get('delta_acc'),
+                         'sesgo del pick': v.get('sesgo_pick')}
+                        for k, v in ligas.items()])
+                    st.dataframe(dfc.sort_values('w'), hide_index=True,
+                                 width='stretch')
+                    st.caption("w = peso del modelo frente al cierre devigado de "
+                               "Pinnacle. w<1 corrige la sobreconfianza del lado "
+                               "elegido (maldición del ganador). Elegido por "
+                               "log-loss fuera de muestra, no por fórmula.")
+
+        if os.path.exists('umbrales_capa1.json'):
+            with open('umbrales_capa1.json', encoding='utf-8') as f:
+                umb = json.load(f)
+            met = (umb.get('global_metricas') or {}).get('optimizado') or {}
+            base = (umb.get('global_metricas') or {}).get('referencia') or {}
+            if umb.get('global'):
+                st.markdown(
+                    f"**🎚️ Umbrales de Capa 1 recalibrados (v75):** "
+                    f"{umb['global']} · ROI fuera de muestra "
+                    f"{(met.get('roi') or 0)*100:+.1f} % vs "
+                    f"{(base.get('roi') or 0)*100:+.1f} % de los anteriores "
+                    f"(p5 bootstrap {(met.get('p5') or 0)*100:+.1f} %, "
+                    f"n={met.get('n')}).")
+            else:
+                st.caption(
+                    "🎚️ Umbrales de Capa 1: el backtest de la v75 no encontró "
+                    "ninguna combinación que batiera a la vigente fuera de "
+                    "muestra, así que se mantiene la de edge_engine. "
+                    "(No mejorar y decirlo también es un resultado.)")
+            propias = umb.get('ligas') or {}
+            if propias:
+                st.caption(f"Con umbrales propios validados: "
+                           f"{', '.join(sorted(propias))}.")
+
+        if os.path.exists('_v75_import_odds.json'):
+            with open('_v75_import_odds.json', encoding='utf-8') as f:
+                imp = json.load(f)
+            snaps = 0
+            try:
+                import sqlite3
+                _c = sqlite3.connect('odds_historico.db')
+                snaps = _c.execute("SELECT COUNT(*) FROM historical_odds "
+                                   "WHERE fase='snapshot'").fetchone()[0]
+                _c.close()
+            except Exception:
+                pass
+            st.caption(
+                f"📚 Histórico de cuotas: {imp.get('filas_insertadas', 0):,} "
+                f"cierres en {imp.get('ligas_con_cuota', 0)} ligas · "
+                f"{snaps:,} fotos diarias acumuladas para las "
+                f"{len(imp.get('ligas_sin_cuota') or [])} competiciones que "
+                f"ESPN deja sin cuota tras el partido.")
+    except Exception as e:
+        st.caption(f"Estado de calibración no disponible ({type(e).__name__}).")
+
+
+# ===========================================================================
 # CARGA DEL MOTOR (una sola vez)
 # ===========================================================================
 @st.cache_resource(show_spinner="🔮 Cargando el motor de predicción...")
@@ -1720,10 +1806,23 @@ def render_alpha_finder():
     if btts:
         st.divider()
         st.subheader("⚽ Ambos Marcan (BTTS)")
-        st.caption("Uno de los mercados mejor calibrados del sistema (modelo de "
-                   "supervivencia Weibull, v27). Picks con confianza > 70 %"
-                   + (" y EV > +3 % donde hay cuota real." if any(p.get('cuota')
-                      for p in btts) else "."))
+        # v75: el texto anterior decía "uno de los mercados mejor calibrados del
+        # sistema". La medición lo desmiente y no se puede seguir afirmando:
+        # sobre 15.950 partidos fuera de muestra de 20 ligas, el Weibull de BTTS
+        # da Brier 0.24880 frente a 0.24891 de contestar siempre la tasa base de
+        # la liga — no discrimina — y el cierre de 1X2 + O/U 2.5 ya lo hace
+        # mejor (0.24559). Se mantiene la sección (la pidió el usuario en v43)
+        # con la etiqueta honesta.
+        st.caption("Picks con confianza > 60 %"
+                   + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
+                      for p in btts) else ". ")
+                   + "⚠️ Medido en la v75 sobre 15.950 partidos fuera de muestra: "
+                     "la probabilidad de BTTS del modelo **no bate a la tasa base "
+                     "de la liga** (Brier 0.2488 vs 0.2489) ni a lo que el cierre "
+                     "de 1X2 + Over/Under ya implica (0.2456). Por eso BTTS no "
+                     "entra en la Capa 1 ni tiene listón rebajado en los parlays: "
+                     "lo único que puede sostener un pick aquí es el PRECIO, no la "
+                     "probabilidad.")
         _tarjetas(btts, "")
 
     # v49: TODOS LOS PRONÓSTICOS DEL DÍA — cada partido con jornada, aunque no
@@ -1848,6 +1947,7 @@ def render_alpha_finder():
                         f"{lo*100:.0f}–{hi*100:.0f} % · prob ≥ "
                         f"{edge_engine.piso_prob()*100:.0f} % · convicción "
                         f"prob×EV ≥ {edge_engine.conviccion_min():.3f}.")
+            _panel_calibracion_v75(st)
             ci = edge_engine._mapa().get('ci_bootstrap_seleccion') or {}
             if ci.get('n'):
                 cb1, cb2, cb3 = st.columns(3)

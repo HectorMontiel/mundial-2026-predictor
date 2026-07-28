@@ -1,0 +1,990 @@
+match_id,league_key,match_date,home_team,away_team,bookmaker,fase,snapshot_key,dias_al_partido,odds_home,odds_draw,odds_away,odds_over25,odds_under25,odds_btts_yes,odds_btts_no,ah_linea,odds_ah_home,odds_ah_away,source_file,ingested_at
+20260801_Acassuso_Colón-(Santa-Fe),arg_primera_nacional,2026-08-01,Acassuso,Colón (Santa Fe),Bovada,snapshot,2026-07-28T18|Bovada,4.0,4.0,2.85,1.9524,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_Chacarita-Juniors_Agropecuario,arg_primera_nacional,2026-08-01,Chacarita Juniors,Agropecuario,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.25,2.83,3.79,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_Colegiales_Gimnasia-y-Esgrima-(Jujuy),arg_primera_nacional,2026-08-01,Colegiales,Gimnasia y Esgrima (Jujuy),Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.55,2.8,2.8,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_Defensores-de-Belgrano_Estudiantes-(Buenos-Aires),arg_primera_nacional,2026-08-01,Defensores de Belgrano,Estudiantes (Buenos Aires),Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.65,2.6,2.9,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_Ferro-Carril-Oeste_Godoy-Cruz-Antonio-Tomba,arg_primera_nacional,2026-08-01,Ferro Carril Oeste,Godoy Cruz Antonio Tomba,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.9091,3.0,4.77,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260801_Nueva-Chicago_San-Martín-(Tucumán),arg_primera_nacional,2026-08-01,Nueva Chicago,San Martín (Tucumán),Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.75,2.55,2.8,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260801_San-Martín-(San-Juan)_Atletico-Rafaela,arg_primera_nacional,2026-08-01,San Martín (San Juan),Atletico Rafaela,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.8,2.9,4.9,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260802_Almagro_Midland,arg_primera_nacional,2026-08-02,Almagro,Midland,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.75,2.6,2.75,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260802_Almirante-Brown_Racing-(Córdoba),arg_primera_nacional,2026-08-02,Almirante Brown,Racing (Córdoba),Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.3,2.5,3.6,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260802_Central-Norte_Los-Andes,arg_primera_nacional,2026-08-02,Central Norte,Los Andes,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.65,2.5,3.0,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Chaco-For-Ever_Deportivo-Morón,arg_primera_nacional,2026-08-02,Chaco For Ever,Deportivo Morón,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.7,2.7,2.7,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Ciudad-de-Bolívar_Mitre-(Santiago-del-Estero),arg_primera_nacional,2026-08-02,Ciudad de Bolívar,Mitre (Santiago del Estero),Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.15,2.65,3.7,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Deportivo-Madryn_All-Boys,arg_primera_nacional,2026-08-02,Deportivo Madryn,All Boys,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.87,2.75,4.7,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Deportivo-Maipú_Atlanta,arg_primera_nacional,2026-08-02,Deportivo Maipú,Atlanta,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.65,2.75,2.7,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Güemes_Tristán-Suárez,arg_primera_nacional,2026-08-02,Güemes,Tristán Suárez,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.85,2.5,2.8,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Patronato_Quilmes,arg_primera_nacional,2026-08-02,Patronato,Quilmes,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.5,2.65,2.95,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_San-Telmo_San-Miguel,arg_primera_nacional,2026-08-02,San Telmo,San Miguel,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.55,2.6,2.95,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Temperley_Gimnasia-y-Tiro-(Salta),arg_primera_nacional,2026-08-02,Temperley,Gimnasia y Tiro (Salta),Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.0,2.7,4.2,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260728_Banfield_Sarmiento-Junin,argentina,2026-07-28,Banfield,Sarmiento Junin,Bovada,snapshot,2026-07-28T18|Bovada,0.0,1.625,3.05,2.6,,,,,,,,daily_snapshots,2026-07-28T18:48:50Z
+20260728_San-Lorenzo_Gimnasia-Mendoza,argentina,2026-07-28,San Lorenzo,Gimnasia Mendoza,Bovada,snapshot,2026-07-28T18|Bovada,0.0,1.625,3.0,2.65,,,,,,,,daily_snapshots,2026-07-28T18:48:50Z
+20260729_Barracas-Central_Aldosivi,argentina,2026-07-29,Barracas Central,Aldosivi,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.9091,2.8,2.6,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Defensa-y-Justicia_Dep.-Riestra,argentina,2026-07-29,Defensa y Justicia,Dep. Riestra,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.6452,2.95,2.6,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Gimnasia-L.P._River-Plate,argentina,2026-07-29,Gimnasia L.P.,River Plate,Bovada,snapshot,2026-07-28T18|Bovada,1.0,2.55,3.1,1.6667,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Rosario-Central_Racing-Club,argentina,2026-07-29,Rosario Central,Racing Club,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.741,2.95,2.4,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Independiente_Huracan,argentina,2026-07-30,Independiente,Huracan,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.7143,2.9,2.5,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Instituto_Platense,argentina,2026-07-30,Instituto,Platense,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.6667,2.9,2.65,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Talleres-Cordoba_Velez-Sarsfield,argentina,2026-07-30,Talleres Cordoba,Velez Sarsfield,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.8,2.8,2.4,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260731_Central-Cordoba_Atl.-Tucuman,argentina,2026-07-31,Central Cordoba,Atl. Tucuman,Bovada,snapshot,2026-07-28T18|Bovada,3.0,2.25,2.95,1.8333,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260801_Belgrano_Argentinos-Jrs,argentina,2026-08-01,Belgrano,Argentinos Jrs,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.55,2.95,3.0,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260801_Estudiantes-L.P._Defensa-y-Justicia,argentina,2026-08-01,Estudiantes L.P.,Defensa y Justicia,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.6757,3.45,5.4,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260801_Estudiantes-Rio-Cuarto_Banfield,argentina,2026-08-01,Estudiantes Rio Cuarto,Banfield,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.7,2.9,2.85,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260801_Gimnasia-Mendoza_Union-de-Santa-Fe,argentina,2026-08-01,Gimnasia Mendoza,Union de Santa Fe,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.85,3.05,2.55,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260801_Racing-Club_Tigre,argentina,2026-08-01,Racing Club,Tigre,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.15,2.9,3.8,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260802_Aldosivi_Gimnasia-L.P.,argentina,2026-08-02,Aldosivi,Gimnasia L.P.,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.75,2.9,2.75,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260802_Dep.-Riestra_Barracas-Central,argentina,2026-08-02,Dep. Riestra,Barracas Central,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.3,2.85,3.5,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260802_Newells-Old-Boys_Boca-Juniors,argentina,2026-08-02,Newells Old Boys,Boca Juniors,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.35,3.1,2.2,,,,,,,,daily_snapshots,2026-07-28T18:48:52Z
+20260802_River-Plate_Rosario-Central,argentina,2026-08-02,River Plate,Rosario Central,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.2,3.05,3.5,,,,,,,,daily_snapshots,2026-07-28T18:48:53Z
+20260803_Lanus_Instituto,argentina,2026-08-03,Lanus,Instituto,Bovada,snapshot,2026-07-28T18|Bovada,6.0,2.25,2.9,3.6,,,,,,,,daily_snapshots,2026-07-28T18:48:53Z
+20260803_Platense_Talleres-Cordoba,argentina,2026-08-03,Platense,Talleres Cordoba,Bovada,snapshot,2026-07-28T18|Bovada,6.0,2.75,2.9,2.75,,,,,,,,daily_snapshots,2026-07-28T18:48:53Z
+20260803_Sarmiento-Junin_Independiente,argentina,2026-08-03,Sarmiento Junin,Independiente,Bovada,snapshot,2026-07-28T18|Bovada,6.0,3.25,2.9,2.4,,,,,,,,daily_snapshots,2026-07-28T18:48:53Z
+20260803_Velez-Sarsfield_Independiente,argentina,2026-08-03,Velez Sarsfield,Independiente,Bovada,snapshot,2026-07-28T18|Bovada,6.0,2.3,2.95,3.4,,,,,,,,daily_snapshots,2026-07-28T18:48:53Z
+20260804_Central-Cordoba_San-Lorenzo,argentina,2026-08-04,Central Cordoba,San Lorenzo,Bovada,snapshot,2026-07-28T18|Bovada,7.0,2.75,2.9,2.75,,,,,,,,daily_snapshots,2026-07-28T18:48:53Z
+20260804_Huracan_Atl.-Tucuman,argentina,2026-08-04,Huracan,Atl. Tucuman,Bovada,snapshot,2026-07-28T18|Bovada,7.0,2.35,2.85,3.35,,,,,,,,daily_snapshots,2026-07-28T18:48:53Z
+20260728_Juventude_Avaí,bra_serie_b,2026-07-28,Juventude,Avaí,Bovada,snapshot,2026-07-28T18|Bovada,0.0,1.6289,3.4,5.75,,,,,,,,daily_snapshots,2026-07-28T18:49:11Z
+20260729_Fortaleza_Botafogo-SP,bra_serie_b,2026-07-29,Fortaleza,Botafogo-SP,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.7519,3.35,4.7,,,,,,,,daily_snapshots,2026-07-28T18:49:11Z
+20260729_Internacional_Flamengo-RJ,brasil,2026-07-29,Internacional,Flamengo RJ,Bovada,snapshot,2026-07-28T18|Bovada,1.0,2.4,3.55,1.5,,,,,,,,daily_snapshots,2026-07-28T18:48:04Z
+20260729_Mirassol_Remo,brasil,2026-07-29,Mirassol,Remo,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.4167,3.75,2.7,,,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Corinthians_Athletico-PR,brasil,2026-07-30,Corinthians,Athletico-PR,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.5882,3.3,2.65,,,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Fluminense_Bahia,brasil,2026-07-30,Fluminense,Bahia,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.4762,3.7,2.5,,,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Vitoria_Palmeiras,brasil,2026-07-30,Vitoria,Palmeiras,Bovada,snapshot,2026-07-28T18|Bovada,2.0,2.4,3.3,1.5556,,,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260731_Coritiba_Cruzeiro,brasil,2026-07-31,Coritiba,Cruzeiro,Bovada,snapshot,2026-07-28T18|Bovada,3.0,2.15,3.3,1.6667,,,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260801_Cobresal_Unión-La-Calera,chi_primera,2026-08-01,Cobresal,Unión La Calera,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.35,3.15,2.85,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Everton-CD_Colo-Colo,chi_primera,2026-08-01,Everton CD,Colo Colo,Bovada,snapshot,2026-07-28T18|Bovada,4.0,3.6,3.4,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Palestino_Coquimbo-Unido,chi_primera,2026-08-01,Palestino,Coquimbo Unido,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.75,3.1,2.45,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Universidad-de-Concepción_Audax-Italiano,chi_primera,2026-08-01,Universidad de Concepción,Audax Italiano,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.55,3.25,2.55,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Deportes-Concepcion_Universidad-Católica,chi_primera,2026-08-02,Deportes Concepcion,Universidad Católica,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.6,3.45,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Deportes-Limache_Ñublense,chi_primera,2026-08-02,Deportes Limache,Ñublense,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.1,3.3,3.2,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_La-Serena_O'Higgins,chi_primera,2026-08-02,La Serena,O'Higgins,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.55,3.35,2.5,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Universidad-de-Chile_Huachipato,chi_primera,2026-08-02,Universidad de Chile,Huachipato,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.6173,3.7,5.0,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260731_Henan-Songshan-Longmen_Dalian-Yingbo,china,2026-07-31,Henan Songshan Longmen,Dalian Yingbo,Bovada,snapshot,2026-07-28T18|Bovada,3.0,1.8197,3.85,3.85,,,,,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260801_Beijing-Guoan_Zhejiang-Professional,china,2026-08-01,Beijing Guoan,Zhejiang Professional,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.5587,4.6,4.8,,,,,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260801_Chengdu-Rongcheng_Wuhan-Three-Towns,china,2026-08-01,Chengdu Rongcheng,Wuhan Three Towns,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.3448,5.0,8.0,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Shanghai-Port_Shandong-Taishan,china,2026-08-01,Shanghai Port,Shandong Taishan,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.9524,3.95,3.3,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Tianjin-Jinmen-Tiger_Yunnan-Yukun,china,2026-08-01,Tianjin Jinmen Tiger,Yunnan Yukun,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.6,3.5,2.5,,,,,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260802_Liaoning-Tieren_Shanghai-Shenhua,china,2026-08-02,Liaoning Tieren,Shanghai Shenhua,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.55,3.95,1.8772,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260802_Qingdao-West-Coast_Qingdao-Hainiu,china,2026-08-02,Qingdao West Coast,Qingdao Hainiu,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.7576,3.9,4.2,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260731_Atlético-Bucaramanga_Llaneros-FC,col_primera_a,2026-07-31,Atlético Bucaramanga,Llaneros FC,Bovada,snapshot,2026-07-28T18|Bovada,3.0,1.5263,3.65,6.0,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Alianza-FC_Deportes-Tolima,col_primera_a,2026-08-01,Alianza FC,Deportes Tolima,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.7,3.0,2.6,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Deportivo-Pasto_Águilas-Doradas,col_primera_a,2026-08-01,Deportivo Pasto,Águilas Doradas,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.8197,3.2,4.4,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Fortaleza-CEIF_Deportivo-Pereira,col_primera_a,2026-08-01,Fortaleza CEIF,Deportivo Pereira,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.5263,3.7,6.0,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Independiente-Medellín_Deportivo-Cali,col_primera_a,2026-08-01,Independiente Medellín,Deportivo Cali,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.9091,3.2,3.9,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260802_América-de-Cali_Boyacá-Chicó-FC,col_primera_a,2026-08-02,América de Cali,Boyacá Chicó FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.3448,4.3,9.0,,,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260802_Atlético-Junior_Millonarios,col_primera_a,2026-08-02,Atlético Junior,Millonarios,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.0,3.2,3.55,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260802_Jaguares-de-Córdoba_Atlético-Nacional,col_primera_a,2026-08-02,Jaguares de Córdoba,Atlético Nacional,Bovada,snapshot,2026-07-28T18|Bovada,5.0,4.4,3.4,1.7576,,,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260803_Independiente-Santa-Fe_Once-Caldas,col_primera_a,2026-08-03,Independiente Santa Fe,Once Caldas,Bovada,snapshot,2026-07-28T18|Bovada,6.0,2.1,3.1,3.45,,,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260801_Puntarenas-FC_Sporting-San-José,crc_fpd,2026-08-01,Puntarenas FC,Sporting San José,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.25,2.9,3.05,,,,,,,,daily_snapshots,2026-07-28T18:49:23Z
+20260802_Saprissa_AD-San-Carlos,crc_fpd,2026-08-02,Saprissa,AD San Carlos,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.3175,4.5,8.0,,,,,,,,daily_snapshots,2026-07-28T18:49:23Z
+20260804_Pérez-Zeledón_Cartaginés,crc_fpd,2026-08-04,Pérez Zeledón,Cartaginés,Bovada,snapshot,2026-07-28T18|Bovada,7.0,3.8,3.15,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:49:24Z
+20260802_Midtjylland_Horsens,dinamarca,2026-08-02,Midtjylland,Horsens,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.3279,4.9,7.5,,,,,,,,daily_snapshots,2026-07-28T18:48:57Z
+20260801_Libertad-(Ecuador)_Orense,ecu_liga_pro,2026-08-01,Libertad (Ecuador),Orense,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.8,3.1,2.45,,,,,,,,daily_snapshots,2026-07-28T18:49:15Z
+20260801_Manta-F.C._Mushuc-Runa,ecu_liga_pro,2026-08-01,Manta F.C.,Mushuc Runa,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.95,3.05,2.35,,,,,,,,daily_snapshots,2026-07-28T18:49:15Z
+20260802_Emelec_Aucas,ecu_liga_pro,2026-08-02,Emelec,Aucas,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.3,3.0,3.15,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260802_Independiente-del-Valle_Deportivo-Cuenca,ecu_liga_pro,2026-08-02,Independiente del Valle,Deportivo Cuenca,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.2778,5.0,9.5,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260802_Leones_Barcelona-SC,ecu_liga_pro,2026-08-02,Leones,Barcelona SC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.75,3.05,2.5,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260802_Macará_Guayaquil-City-FC,ecu_liga_pro,2026-08-02,Macará,Guayaquil City FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.6369,3.59,5.56,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260804_Liga-de-Quito_Delfín,ecu_liga_pro,2026-08-04,Liga de Quito,Delfín,Bovada,snapshot,2026-07-28T18|Bovada,7.0,1.3077,4.5,9.75,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260801_Atl.-San-Luis_Club-Tijuana,liga_mx,2026-08-01,Atl. San Luis,Club Tijuana,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.6667,3.15,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260801_Puebla_Guadalajara-Chivas,liga_mx,2026-08-01,Puebla,Guadalajara Chivas,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.45,3.95,1.3509,,,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260801_Queretaro_Tigres-UANL,liga_mx,2026-08-01,Queretaro,Tigres UANL,Bovada,snapshot,2026-07-28T18|Bovada,4.0,3.7,3.65,1.8547,,,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Atlas_Monterrey,liga_mx,2026-08-02,Atlas,Monterrey,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.74,3.3,2.4,,,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Club-America_Santos-Laguna,liga_mx,2026-08-02,Club America,Santos Laguna,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.4167,4.55,6.25,,,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260802_Club-Leon_Pachuca,liga_mx,2026-08-02,Club Leon,Pachuca,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.95,3.3,2.24,,,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Cruz-Azul_Atlante,liga_mx,2026-08-02,Cruz Azul,Atlante,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.2941,5.05,8.75,,,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260731_Alebrijes-de-Oaxaca_Dorados-de-Sinaloa,mex_expansion,2026-07-31,Alebrijes de Oaxaca,Dorados de Sinaloa,Bovada,snapshot,2026-07-28T18|Bovada,3.0,1.7353,3.55,4.3,,,,,,,,daily_snapshots,2026-07-28T18:49:24Z
+20260801_Club-Atlético-La-Paz_Durango,mex_expansion,2026-08-01,Club Atlético La Paz,Durango,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.0,3.4,3.35,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Correcaminos-UAT_Tepatitlán-FC,mex_expansion,2026-08-01,Correcaminos UAT,Tepatitlán FC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.55,3.1,2.7,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Cruz-Azul-Hidalgo_Venados-FC,mex_expansion,2026-08-01,Cruz Azul Hidalgo,Venados FC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.55,3.1,2.65,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Mineros-de-Zacatecas_Tlaxcala-FC,mex_expansion,2026-08-01,Mineros de Zacatecas,Tlaxcala FC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.05,3.2,3.5,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Tapatío_Club-Jaiba-Brava,mex_expansion,2026-08-01,Tapatío,Club Jaiba Brava,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.35,3.2,2.85,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260802_Cancún-FC_Leones-Negros,mex_expansion,2026-08-02,Cancún FC,Leones Negros,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.8547,3.5,3.8,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260802_Piratas_Club-Atlético-Morelia,mex_expansion,2026-08-02,Piratas,Club Atlético Morelia,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.5,3.1,2.75,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260731_New-York-City_Toronto-FC,mls,2026-07-31,New York City,Toronto FC,Bovada,snapshot,2026-07-28T18|Bovada,3.0,1.3333,4.0,2.6,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_CF-Montreal_New-England-Revolution,mls,2026-08-01,CF Montreal,New England Revolution,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.25,3.5,3.0,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_DC-United_Nashville-SC,mls,2026-08-01,DC United,Nashville SC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.9,3.4,2.35,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_FC-Cincinnati_San-Jose-Earthquakes,mls,2026-08-01,FC Cincinnati,San Jose Earthquakes,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.9524,4.05,3.25,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Inter-Miami_Columbus-Crew,mls,2026-08-01,Inter Miami,Columbus Crew,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.7092,3.95,4.45,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_New-York-City_Orlando-City,mls,2026-08-01,New York City,Orlando City,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.09,4.05,2.95,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Philadelphia-Union_Atlanta-Utd,mls,2026-08-01,Philadelphia Union,Atlanta Utd,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.7042,4.05,4.35,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Vancouver-Whitecaps_Los-Angeles-FC,mls,2026-08-01,Vancouver Whitecaps,Los Angeles FC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.77,4.15,3.9,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260802_Chicago-Fire_Charlotte,mls,2026-08-02,Chicago Fire,Charlotte,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.5102,4.8,5.2,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260802_Colorado-Rapids_Austin-FC,mls,2026-08-02,Colorado Rapids,Austin FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.7246,4.1,4.15,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Minnesota-United_San-Diego-FC,mls,2026-08-02,Minnesota United,San Diego FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.01,3.8,3.3,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Portland-Timbers_Seattle-Sounders,mls,2026-08-02,Portland Timbers,Seattle Sounders,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.12,3.95,2.95,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Sporting-Kansas-City_Houston-Dynamo,mls,2026-08-02,Sporting Kansas City,Houston Dynamo,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.35,3.3,2.16,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_St.-Louis-City_Real-Salt-Lake,mls,2026-08-02,St. Louis City,Real Salt Lake,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.13,3.7,3.05,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260801_Fredrikstad_Sandefjord,noruega,2026-08-01,Fredrikstad,Sandefjord,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.25,3.35,2.9,,,,,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260801_Start_Viking,noruega,2026-08-01,Start,Viking,Bovada,snapshot,2026-07-28T18|Bovada,4.0,5.2,4.4,1.5,,,,,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260802_Brann_Rosenborg,noruega,2026-08-02,Brann,Rosenborg,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.8,3.8,3.8,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260802_KFUM-Oslo_Kristiansund,noruega,2026-08-02,KFUM Oslo,Kristiansund,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.6757,3.75,4.5,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260802_Molde_Sarpsborg-08,noruega,2026-08-02,Molde,Sarpsborg 08,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.6173,4.1,4.4,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260728_2-de-Mayo_Cerro-Porteño,par_division,2026-07-28,2 de Mayo,Cerro Porteño,Bovada,snapshot,2026-07-28T18|Bovada,0.0,3.9,3.1,1.9524,,,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260728_Rubio-Ñú_Sportivo-Ameliano,par_division,2026-07-28,Rubio Ñú,Sportivo Ameliano,Bovada,snapshot,2026-07-28T18|Bovada,0.0,3.35,2.85,2.3,,,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260729_Nacional-Asunción_Club-Olimpia,par_division,2026-07-29,Nacional Asunción,Club Olimpia,Bovada,snapshot,2026-07-28T18|Bovada,1.0,3.05,3.05,2.3,,,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260729_Sportivo-Luqueño_Sportivo-Trinidense,par_division,2026-07-29,Sportivo Luqueño,Sportivo Trinidense,Bovada,snapshot,2026-07-28T18|Bovada,1.0,3.0,2.95,2.4,,,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260730_Libertad_Deportivo-Recoleta,par_division,2026-07-30,Libertad,Deportivo Recoleta,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.8333,3.55,4.15,1.9434,1.8475,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260730_Sportivo-San-Lorenzo_Guaraní,par_division,2026-07-30,Sportivo San Lorenzo,Guaraní,Bovada,snapshot,2026-07-28T18|Bovada,2.0,3.4,3.05,2.1,,,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260731_Los-Chankas_Comerciantes-Unidos,per_liga1,2026-07-31,Los Chankas,Comerciantes Unidos,Bovada,snapshot,2026-07-28T18|Bovada,3.0,1.8,3.4,4.1,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Atlético-Grau_Sport-Boys,per_liga1,2026-08-01,Atlético Grau,Sport Boys,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.05,3.05,3.7,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Cusco-FC_UTC,per_liga1,2026-08-01,Cusco FC,UTC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.5587,3.85,5.2,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_FC-Cajamarca_Sport-Huancayo,per_liga1,2026-08-01,FC Cajamarca,Sport Huancayo,Bovada,snapshot,2026-07-28T18|Bovada,4.0,3.2,3.2,2.15,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260802_Alianza-Lima_Alianza-Atlético,per_liga1,2026-08-02,Alianza Lima,Alianza Atlético,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.4,4.2,7.0,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260802_Cienciano-del-Cusco_Universitario,per_liga1,2026-08-02,Cienciano del Cusco,Universitario,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.55,3.1,2.65,,,,,,,,daily_snapshots,2026-07-28T18:49:13Z
+20260802_Deportivo-Moquegua_Melgar,per_liga1,2026-08-02,Deportivo Moquegua,Melgar,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.5,3.28,2.03,,,,,,,,daily_snapshots,2026-07-28T18:49:13Z
+20260802_Sporting-Cristal_Juan-Pablo-II,per_liga1,2026-08-02,Sporting Cristal,Juan Pablo II,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.25,5.88,10.0,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Golden-Arrows_Chippa-United,rsa_premier,2026-08-01,Golden Arrows,Chippa United,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.0,3.2,3.65,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260801_Sekhukhune-United-FC_Durban-City,rsa_premier,2026-08-01,Sekhukhune United FC,Durban City,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.8772,3.05,4.4,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260801_Stellenbosch_AmaZulu,rsa_premier,2026-08-01,Stellenbosch,AmaZulu,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.05,2.9,3.95,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260802_Richards-Bay-FC_Polokwane-City-FC,rsa_premier,2026-08-02,Richards Bay FC,Polokwane City FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.7,2.65,2.95,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260802_Siwelele_TS-Galaxy-FC,rsa_premier,2026-08-02,Siwelele,TS Galaxy FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.2,2.85,3.5,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260731_Rodina-Moscow_FK-Rostov,rus_premier,2026-07-31,Rodina Moscow,FK Rostov,Bovada,snapshot,2026-07-28T18|Bovada,3.0,3.1,3.15,2.2,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Akron-Togliatti_Rubin-Kazan,rus_premier,2026-08-01,Akron Togliatti,Rubin Kazan,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.9,3.2,2.3,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_Baltika_Dynamo-Moscow,rus_premier,2026-08-01,Baltika,Dynamo Moscow,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.8,3.15,2.4,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_CSKA-Moscow_Krylya-Sovetov,rus_premier,2026-08-01,CSKA Moscow,Krylya Sovetov,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.4762,4.3,5.6,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_Dynamo-Makhachkala_Lokomotiv-Moscow,rus_premier,2026-08-01,Dynamo Makhachkala,Lokomotiv Moscow,Bovada,snapshot,2026-07-28T18|Bovada,4.0,3.4,3.25,2.05,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260802_Akhmat-Grozny_Spartak-Moscow,rus_premier,2026-08-02,Akhmat Grozny,Spartak Moscow,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.65,3.55,1.8772,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260802_Krasnodar_Fakel-Voronezh,rus_premier,2026-08-02,Krasnodar,Fakel Voronezh,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.3077,4.7,9.0,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260802_Orenburg_Zenit,rus_premier,2026-08-02,Orenburg,Zenit,Bovada,snapshot,2026-07-28T18|Bovada,5.0,8.0,4.9,1.3175,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_Ayr_Arbroath,sco_championship,2026-08-01,Ayr,Arbroath,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.5,2.95,2.7,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260801_Morton_Partick,sco_championship,2026-08-01,Morton,Partick,Bovada,snapshot,2026-07-28T18|Bovada,4.0,5.0,3.75,1.5682,,,,,,,,daily_snapshots,2026-07-28T18:49:02Z
+20260731_Dundee-United_Rangers,sco_premiership,2026-07-31,Dundee United,Rangers,Bovada,snapshot,2026-07-28T18|Bovada,3.0,5.3,4.4,1.495,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260801_Falkirk_St-Mirren,sco_premiership,2026-08-01,Falkirk,St Mirren,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.9434,3.45,3.55,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260802_Hibernian_Motherwell,sco_premiership,2026-08-02,Hibernian,Motherwell,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.23,3.3,3.0,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260802_St-Johnstone_Kilmarnock,sco_premiership,2026-08-02,St Johnstone,Kilmarnock,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.13,3.35,3.15,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260803_Celtic_Dundee,sco_premiership,2026-08-03,Celtic,Dundee,Bovada,snapshot,2026-07-28T18|Bovada,6.0,1.1818,6.75,10.5,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260728_Cacahuatique_Atletico-Balboa,slv_primera,2026-07-28,Cacahuatique,Atletico Balboa,Bovada,snapshot,2026-07-28T18|Bovada,0.0,2.25,3.05,3.4,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260728_Tigre_Nacional,sudamericana,2026-07-28,Tigre,Nacional,Bovada,snapshot,2026-07-28T18|Bovada,0.0,1.5556,3.35,2.25,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260729_Santos_UCV-FC,sudamericana,2026-07-29,Santos,UCV FC,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.1667,6.0,3.6,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260729_Vasco-da-Gama_Independiente-Medellín,sudamericana,2026-07-29,Vasco da Gama,Independiente Medellín,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.3175,4.0,2.8,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260730_Cienciano-del-Cusco_Lanús,sudamericana,2026-07-30,Cienciano del Cusco,Lanús,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.6667,3.4,2.05,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260730_Grêmio_Bolívar,sudamericana,2026-07-30,Grêmio,Bolívar,Bovada,snapshot,2026-07-28T18|Bovada,2.0,1.2,5.4,3.5,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260731_Caracas-FC_Independiente-Santa-Fe,sudamericana,2026-07-31,Caracas FC,Independiente Santa Fe,Bovada,snapshot,2026-07-28T18|Bovada,3.0,2.1,3.25,1.8,,,,,,,,daily_snapshots,2026-07-28T18:49:29Z
+20260731_O'Higgins_Boca-Juniors,sudamericana,2026-07-31,O'Higgins,Boca Juniors,Bovada,snapshot,2026-07-28T18|Bovada,3.0,2.35,3.3,1.5263,,,,,,,,daily_snapshots,2026-07-28T18:49:29Z
+20260801_Hacken_Kalmar,suecia,2026-08-01,Hacken,Kalmar,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.8065,3.9,3.9,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_AIK_Orgryte,suecia,2026-08-02,AIK,Orgryte,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.4808,4.85,5.5,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_Brommapojkarna_Malmo-FF,suecia,2026-08-02,Brommapojkarna,Malmo FF,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.1,3.55,2.17,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_Goteborg_Degerfors,suecia,2026-08-02,Goteborg,Degerfors,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.7353,3.75,4.5,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260731_Montevideo-City-Torque_Montevideo-Wanderers,uru_primera,2026-07-31,Montevideo City Torque,Montevideo Wanderers,Bovada,snapshot,2026-07-28T18|Bovada,3.0,1.9091,3.39,4.13,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260801_Albion-FC_Danubio,uru_primera,2026-08-01,Albion FC,Danubio,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.1,3.05,3.45,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260801_Deportivo-Maldonado_Juventud,uru_primera,2026-08-01,Deportivo Maldonado,Juventud,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.8197,3.5,4.0,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260801_Peñarol_Cerro-Largo,uru_primera,2026-08-01,Peñarol,Cerro Largo,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.5587,3.75,5.6,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Central-Español-Fútbol-Club_Liverpool,uru_primera,2026-08-02,Central Español Fútbol Club,Liverpool,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.4,3.0,2.2,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Nacional_Progreso,uru_primera,2026-08-02,Nacional,Progreso,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.4762,4.1,5.75,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Racing-(Montevideo)_Boston-River,uru_primera,2026-08-02,Racing (Montevideo),Boston River,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.7576,3.3,4.6,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260803_Defensor-Sporting_Cerro,uru_primera,2026-08-03,Defensor Sporting,Cerro,Bovada,snapshot,2026-07-28T18|Bovada,6.0,1.7353,3.25,4.8,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260729_Louisville-City-FC_Birmingham-Legion-FC,usl_championship,2026-07-29,Louisville City FC,Birmingham Legion FC,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.4,4.6,6.5,,,,,,,,daily_snapshots,2026-07-28T18:49:08Z
+20260729_Pittsburgh-Riverhounds_FC-Tulsa,usl_championship,2026-07-29,Pittsburgh Riverhounds,FC Tulsa,Bovada,snapshot,2026-07-28T18|Bovada,1.0,1.9091,3.3,3.85,,,,,,,,daily_snapshots,2026-07-28T18:49:08Z
+20260801_Charleston-Battery_Brooklyn-FC,usl_championship,2026-08-01,Charleston Battery,Brooklyn FC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.4255,4.6,5.75,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Lexington_Monterey-Bay,usl_championship,2026-08-01,Lexington,Monterey Bay,Bovada,snapshot,2026-07-28T18|Bovada,4.0,1.5747,3.9,5.0,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Loudoun-United-FC_Hartford-Athletic,usl_championship,2026-08-01,Loudoun United FC,Hartford Athletic,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.25,3.3,2.85,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Miami-FC_Detroit-City-FC,usl_championship,2026-08-01,Miami FC,Detroit City FC,Bovada,snapshot,2026-07-28T18|Bovada,4.0,3.65,3.45,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_San-Antonio-FC_Indy-Eleven,usl_championship,2026-08-01,San Antonio FC,Indy Eleven,Bovada,snapshot,2026-07-28T18|Bovada,4.0,2.1,3.3,3.2,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Birmingham-Legion-FC_Rhode-Island-FC,usl_championship,2026-08-02,Birmingham Legion FC,Rhode Island FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,3.1,3.35,2.1,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Las-Vegas-Lights-FC_Phoenix-Rising-FC,usl_championship,2026-08-02,Las Vegas Lights FC,Phoenix Rising FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.45,3.4,2.6,,,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_New-Mexico-United_Colorado-Springs-Switchbacks-FC,usl_championship,2026-08-02,New Mexico United,Colorado Springs Switchbacks FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.85,3.4,2.25,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Oakland-Roots_Pittsburgh-Riverhounds,usl_championship,2026-08-02,Oakland Roots,Pittsburgh Riverhounds,Bovada,snapshot,2026-07-28T18|Bovada,5.0,2.3,3.3,2.85,,,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_Sacramento-Republic-FC_Sporting-JAX,usl_championship,2026-08-02,Sacramento Republic FC,Sporting JAX,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.3175,5.0,7.5,,,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_Tampa-Bay-Rowdies_Louisville-City-FC,usl_championship,2026-08-02,Tampa Bay Rowdies,Louisville City FC,Bovada,snapshot,2026-07-28T18|Bovada,5.0,1.9091,3.6,3.5,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Colegiales_Gimnasia-y-Esgrima-(Jujuy),arg_primera_nacional,2026-08-01,Colegiales,Gimnasia y Esgrima (Jujuy),DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.45,2.9,2.85,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_San-Martín-(San-Juan)_Atletico-Rafaela,arg_primera_nacional,2026-08-01,San Martín (San Juan),Atletico Rafaela,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.769,2.95,5.0,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260802_Deportivo-Maipú_Atlanta,arg_primera_nacional,2026-08-02,Deportivo Maipú,Atlanta,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.6,2.8,2.8,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Patronato_Quilmes,arg_primera_nacional,2026-08-02,Patronato,Quilmes,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.6,2.7,2.85,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Temperley_Gimnasia-y-Tiro-(Salta),arg_primera_nacional,2026-08-02,Temperley,Gimnasia y Tiro (Salta),DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.05,2.65,4.2,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260728_Banfield_Sarmiento-Junin,argentina,2026-07-28,Banfield,Sarmiento Junin,DraftKings,snapshot,2026-07-28T18|DraftKings,0.0,2.1,3.05,3.95,2.45,1.513,,,,,,daily_snapshots,2026-07-28T18:48:50Z
+20260728_San-Lorenzo_Gimnasia-Mendoza,argentina,2026-07-28,San Lorenzo,Gimnasia Mendoza,DraftKings,snapshot,2026-07-28T18|DraftKings,0.0,2.05,3.1,4.0,,,,,,,,daily_snapshots,2026-07-28T18:48:50Z
+20260729_Argentinos-Jrs_Estudiantes-Rio-Cuarto,argentina,2026-07-29,Argentinos Jrs,Estudiantes Rio Cuarto,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,1.364,4.4,10.5,2.2,1.625,,,,,,daily_snapshots,2026-07-28T18:48:50Z
+20260729_Barracas-Central_Aldosivi,argentina,2026-07-29,Barracas Central,Aldosivi,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,2.35,2.8,3.65,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Defensa-y-Justicia_Dep.-Riestra,argentina,2026-07-29,Defensa y Justicia,Dep. Riestra,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,2.15,2.9,3.8,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Gimnasia-L.P._River-Plate,argentina,2026-07-29,Gimnasia L.P.,River Plate,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,3.65,3.0,2.15,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Rosario-Central_Racing-Club,argentina,2026-07-29,Rosario Central,Racing Club,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,2.1,3.05,3.9,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Independiente_Huracan,argentina,2026-07-30,Independiente,Huracan,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,2.2,2.9,3.65,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Instituto_Platense,argentina,2026-07-30,Instituto,Platense,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,2.1,2.85,4.2,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Talleres-Cordoba_Velez-Sarsfield,argentina,2026-07-30,Talleres Cordoba,Velez Sarsfield,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,2.35,2.75,3.55,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260731_Central-Cordoba_Atl.-Tucuman,argentina,2026-07-31,Central Cordoba,Atl. Tucuman,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,3.2,2.9,2.4,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260731_Independiente_Newells-Old-Boys,argentina,2026-07-31,Independiente,Newells Old Boys,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,1.645,3.55,5.5,2.25,1.571,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260728_Juventude_Avaí,bra_serie_b,2026-07-28,Juventude,Avaí,DraftKings,snapshot,2026-07-28T18|DraftKings,0.0,1.714,3.4,5.5,2.35,1.541,,,,,,daily_snapshots,2026-07-28T18:49:11Z
+20260728_Ponte-Preta_Athletic,bra_serie_b,2026-07-28,Ponte Preta,Athletic,DraftKings,snapshot,2026-07-28T18|DraftKings,0.0,3.7,3.2,2.1,2.4,1.526,,,,,,daily_snapshots,2026-07-28T18:49:11Z
+20260729_Fortaleza_Botafogo-SP,bra_serie_b,2026-07-29,Fortaleza,Botafogo-SP,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,1.833,3.4,4.6,2.2,1.625,,,,,,daily_snapshots,2026-07-28T18:49:11Z
+20260729_Internacional_Flamengo-RJ,brasil,2026-07-29,Internacional,Flamengo RJ,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,3.95,3.5,1.909,1.87,1.833,,,,,,daily_snapshots,2026-07-28T18:48:04Z
+20260729_Mirassol_Remo,brasil,2026-07-29,Mirassol,Remo,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,1.69,3.7,4.8,1.909,1.769,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Corinthians_Athletico-PR,brasil,2026-07-30,Corinthians,Athletico-PR,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,1.952,3.2,4.1,2.4,1.513,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Fluminense_Bahia,brasil,2026-07-30,Fluminense,Bahia,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,1.769,3.6,4.4,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260731_Coritiba_Cruzeiro,brasil,2026-07-31,Coritiba,Cruzeiro,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,3.25,3.25,2.2,2.05,1.69,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260801_Cobresal_Unión-La-Calera,chi_primera,2026-08-01,Cobresal,Unión La Calera,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.45,3.2,2.8,1.87,1.8,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Everton-CD_Colo-Colo,chi_primera,2026-08-01,Everton CD,Colo Colo,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,3.5,3.4,2.0,1.769,1.87,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Palestino_Coquimbo-Unido,chi_primera,2026-08-01,Palestino,Coquimbo Unido,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.75,3.25,2.45,2.1,1.625,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Universidad-de-Concepción_Audax-Italiano,chi_primera,2026-08-01,Universidad de Concepción,Audax Italiano,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.65,3.25,2.55,1.909,1.769,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Deportes-Concepcion_Universidad-Católica,chi_primera,2026-08-02,Deportes Concepcion,Universidad Católica,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,3.3,3.55,2.05,1.8,1.87,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Deportes-Limache_Ñublense,chi_primera,2026-08-02,Deportes Limache,Ñublense,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.1,3.35,3.25,1.8,1.87,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_La-Serena_O'Higgins,chi_primera,2026-08-02,La Serena,O'Higgins,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.45,3.4,2.65,1.741,1.952,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Universidad-de-Chile_Huachipato,chi_primera,2026-08-02,Universidad de Chile,Huachipato,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.625,3.9,4.9,1.833,1.833,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260731_Henan-Songshan-Longmen_Dalian-Yingbo,china,2026-07-31,Henan Songshan Longmen,Dalian Yingbo,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,1.833,3.8,3.75,,,,,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260801_Beijing-Guoan_Zhejiang-Professional,china,2026-08-01,Beijing Guoan,Zhejiang Professional,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.556,4.5,4.7,,,,,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260801_Chengdu-Rongcheng_Wuhan-Three-Towns,china,2026-08-01,Chengdu Rongcheng,Wuhan Three Towns,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.333,5.0,7.5,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Shanghai-Port_Shandong-Taishan,china,2026-08-01,Shanghai Port,Shandong Taishan,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.952,3.95,3.25,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Tianjin-Jinmen-Tiger_Yunnan-Yukun,china,2026-08-01,Tianjin Jinmen Tiger,Yunnan Yukun,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.55,3.45,2.5,1.625,2.1,,,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260802_Liaoning-Tieren_Shanghai-Shenhua,china,2026-08-02,Liaoning Tieren,Shanghai Shenhua,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,3.45,3.95,1.87,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260802_Qingdao-West-Coast_Qingdao-Hainiu,china,2026-08-02,Qingdao West Coast,Qingdao Hainiu,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.741,3.85,4.1,1.606,2.1,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260802_Shenzhen-Xinpengcheng_Chongqing-Tonglianglong,china,2026-08-02,Shenzhen Xinpengcheng,Chongqing Tonglianglong,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.1,3.4,3.2,1.87,1.8,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260731_Atlético-Bucaramanga_Llaneros-FC,col_primera_a,2026-07-31,Atlético Bucaramanga,Llaneros FC,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,1.488,3.8,6.0,1.952,1.741,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Alianza-FC_Deportes-Tolima,col_primera_a,2026-08-01,Alianza FC,Deportes Tolima,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.7,3.0,2.5,2.15,1.588,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Deportivo-Pasto_Águilas-Doradas,col_primera_a,2026-08-01,Deportivo Pasto,Águilas Doradas,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.8,3.15,4.3,2.15,1.588,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Fortaleza-CEIF_Deportivo-Pereira,col_primera_a,2026-08-01,Fortaleza CEIF,Deportivo Pereira,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.465,3.75,6.5,2.0,1.667,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Independiente-Medellín_Deportivo-Cali,col_primera_a,2026-08-01,Independiente Medellín,Deportivo Cali,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.909,3.1,3.9,2.1,1.625,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260802_América-de-Cali_Boyacá-Chicó-FC,col_primera_a,2026-08-02,América de Cali,Boyacá Chicó FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.323,4.3,8.5,1.909,1.769,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260802_Atlético-Junior_Millonarios,col_primera_a,2026-08-02,Atlético Junior,Millonarios,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.952,3.15,3.65,1.909,1.741,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260802_Jaguares-de-Córdoba_Atlético-Nacional,col_primera_a,2026-08-02,Jaguares de Córdoba,Atlético Nacional,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,4.1,3.35,1.769,1.87,1.8,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260803_Independiente-Santa-Fe_Once-Caldas,col_primera_a,2026-08-03,Independiente Santa Fe,Once Caldas,DraftKings,snapshot,2026-07-28T18|DraftKings,6.0,2.05,3.1,3.35,1.952,1.714,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260801_Puntarenas-FC_Sporting-San-José,crc_fpd,2026-08-01,Puntarenas FC,Sporting San José,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.25,3.0,3.05,2.05,1.606,,,,,,daily_snapshots,2026-07-28T18:49:23Z
+20260804_Pérez-Zeledón_Cartaginés,crc_fpd,2026-08-04,Pérez Zeledón,Cartaginés,DraftKings,snapshot,2026-07-28T18|DraftKings,7.0,3.6,3.15,1.909,2.0,1.625,,,,,,daily_snapshots,2026-07-28T18:49:24Z
+20260802_Brondby_Viborg,dinamarca,2026-08-02,Brondby,Viborg,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.87,3.65,3.6,1.645,2.1,,,,,,daily_snapshots,2026-07-28T18:48:57Z
+20260802_Midtjylland_Horsens,dinamarca,2026-08-02,Midtjylland,Horsens,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.333,5.25,7.5,,,,,,,,daily_snapshots,2026-07-28T18:48:57Z
+20260802_Nordsjaelland_Randers-FC,dinamarca,2026-08-02,Nordsjaelland,Randers FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.69,3.95,4.3,1.606,2.15,,,,,,daily_snapshots,2026-07-28T18:48:57Z
+20260801_Atl.-San-Luis_Club-Tijuana,liga_mx,2026-08-01,Atl. San Luis,Club Tijuana,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.35,3.15,2.9,1.667,2.05,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260801_Puebla_Guadalajara-Chivas,liga_mx,2026-08-01,Puebla,Guadalajara Chivas,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,4.4,3.95,1.667,1.645,2.05,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260801_Queretaro_Tigres-UANL,liga_mx,2026-08-01,Queretaro,Tigres UANL,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,3.7,3.65,1.87,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Atlas_Monterrey,liga_mx,2026-08-02,Atlas,Monterrey,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.7,3.35,2.4,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Club-America_Santos-Laguna,liga_mx,2026-08-02,Club America,Santos Laguna,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.408,4.7,6.5,1.571,2.2,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260802_Club-Leon_Pachuca,liga_mx,2026-08-02,Club Leon,Pachuca,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.95,3.35,2.25,1.667,2.0,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Cruz-Azul_Atlante,liga_mx,2026-08-02,Cruz Azul,Atlante,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.312,5.0,8.5,,,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260803_Toluca_Necaxa,liga_mx,2026-08-03,Toluca,Necaxa,DraftKings,snapshot,2026-07-28T18|DraftKings,6.0,1.513,4.2,5.5,,,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260731_Alebrijes-de-Oaxaca_Dorados-de-Sinaloa,mex_expansion,2026-07-31,Alebrijes de Oaxaca,Dorados de Sinaloa,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,1.714,3.45,4.4,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:49:24Z
+20260801_Club-Atlético-La-Paz_Durango,mex_expansion,2026-08-01,Club Atlético La Paz,Durango,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.05,3.25,3.2,1.833,1.769,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Correcaminos-UAT_Tepatitlán-FC,mex_expansion,2026-08-01,Correcaminos UAT,Tepatitlán FC,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.5,3.05,2.65,2.1,1.606,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Cruz-Azul-Hidalgo_Venados-FC,mex_expansion,2026-08-01,Cruz Azul Hidalgo,Venados FC,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.55,2.9,2.7,2.1,1.571,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Mineros-de-Zacatecas_Tlaxcala-FC,mex_expansion,2026-08-01,Mineros de Zacatecas,Tlaxcala FC,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.05,3.15,3.3,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Tapatío_Club-Jaiba-Brava,mex_expansion,2026-08-01,Tapatío,Club Jaiba Brava,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.25,3.25,2.85,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260802_Cancún-FC_Leones-Negros,mex_expansion,2026-08-02,Cancún FC,Leones Negros,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.8,3.45,3.9,1.8,1.8,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260731_New-York-City_Toronto-FC,mls,2026-07-31,New York City,Toronto FC,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,1.606,3.9,4.7,1.714,2.05,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_CF-Montreal_New-England-Revolution,mls,2026-08-01,CF Montreal,New England Revolution,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.15,3.4,3.0,1.69,2.1,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_DC-United_Nashville-SC,mls,2026-08-01,DC United,Nashville SC,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.8,3.3,2.3,1.833,1.87,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_FC-Cincinnati_San-Jose-Earthquakes,mls,2026-08-01,FC Cincinnati,San Jose Earthquakes,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.909,3.9,3.15,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Inter-Miami_Columbus-Crew,mls,2026-08-01,Inter Miami,Columbus Crew,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.69,3.9,4.1,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_New-York-City_Orlando-City,mls,2026-08-01,New York City,Orlando City,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.05,3.9,2.85,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Philadelphia-Union_Atlanta-Utd,mls,2026-08-01,Philadelphia Union,Atlanta Utd,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.667,3.95,4.2,1.588,2.3,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Vancouver-Whitecaps_Los-Angeles-FC,mls,2026-08-01,Vancouver Whitecaps,Los Angeles FC,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.741,3.95,3.8,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260802_Chicago-Fire_Charlotte,mls,2026-08-02,Chicago Fire,Charlotte,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.5,4.5,4.9,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260802_Colorado-Rapids_Austin-FC,mls,2026-08-02,Colorado Rapids,Austin FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.714,3.9,4.0,1.588,2.25,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Los-Angeles-Galaxy_FC-Dallas,mls,2026-08-02,Los Angeles Galaxy,FC Dallas,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.1,3.7,2.85,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Minnesota-United_San-Diego-FC,mls,2026-08-02,Minnesota United,San Diego FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.952,3.7,3.2,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Portland-Timbers_Seattle-Sounders,mls,2026-08-02,Portland Timbers,Seattle Sounders,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.05,3.8,2.85,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Sporting-Kansas-City_Houston-Dynamo,mls,2026-08-02,Sporting Kansas City,Houston Dynamo,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,3.15,3.4,2.1,1.588,2.3,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_St.-Louis-City_Real-Salt-Lake,mls,2026-08-02,St. Louis City,Real Salt Lake,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.1,3.6,3.0,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260731_Bodo/Glimt_Lillestrom,noruega,2026-07-31,Bodo/Glimt,Lillestrom,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,1.263,6.0,8.0,,,,,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260801_Fredrikstad_Sandefjord,noruega,2026-08-01,Fredrikstad,Sandefjord,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.3,3.15,3.1,1.69,2.0,,,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260801_Start_Viking,noruega,2026-08-01,Start,Viking,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,5.25,4.5,1.5,,,,,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260802_Aalesund_Tromso,noruega,2026-08-02,Aalesund,Tromso,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,3.8,3.75,1.833,1.625,2.1,,,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260802_Brann_Rosenborg,noruega,2026-08-02,Brann,Rosenborg,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.833,3.85,3.65,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260802_KFUM-Oslo_Kristiansund,noruega,2026-08-02,KFUM Oslo,Kristiansund,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.667,3.6,4.8,1.667,2.0,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260802_Molde_Sarpsborg-08,noruega,2026-08-02,Molde,Sarpsborg 08,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.625,3.95,4.8,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260728_2-de-Mayo_Cerro-Porteño,par_division,2026-07-28,2 de Mayo,Cerro Porteño,DraftKings,snapshot,2026-07-28T18|DraftKings,0.0,4.3,3.1,1.909,,,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260728_Rubio-Ñú_Sportivo-Ameliano,par_division,2026-07-28,Rubio Ñú,Sportivo Ameliano,DraftKings,snapshot,2026-07-28T18|DraftKings,0.0,3.5,2.7,2.35,,,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260729_Nacional-Asunción_Club-Olimpia,par_division,2026-07-29,Nacional Asunción,Club Olimpia,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,3.15,2.8,2.3,2.0,1.667,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260729_Sportivo-Luqueño_Sportivo-Trinidense,par_division,2026-07-29,Sportivo Luqueño,Sportivo Trinidense,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,3.05,2.7,2.45,2.1,1.588,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260730_Sportivo-San-Lorenzo_Guaraní,par_division,2026-07-30,Sportivo San Lorenzo,Guaraní,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,3.45,3.0,2.05,2.35,1.476,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260731_Los-Chankas_Comerciantes-Unidos,per_liga1,2026-07-31,Los Chankas,Comerciantes Unidos,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,1.8,3.35,4.0,1.87,1.741,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Atlético-Grau_Sport-Boys,per_liga1,2026-08-01,Atlético Grau,Sport Boys,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.05,3.05,3.45,2.25,1.513,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_FC-Cajamarca_Sport-Huancayo,per_liga1,2026-08-01,FC Cajamarca,Sport Huancayo,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,3.15,3.15,2.15,1.8,1.8,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Ayr_Arbroath,sco_championship,2026-08-01,Ayr,Arbroath,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.55,3.05,2.75,2.25,1.541,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260801_Morton_Partick,sco_championship,2026-08-01,Morton,Partick,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,4.7,3.9,1.645,1.714,1.952,,,,,,daily_snapshots,2026-07-28T18:49:02Z
+20260731_Dundee-United_Rangers,sco_premiership,2026-07-31,Dundee United,Rangers,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,5.25,4.3,1.513,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260801_Falkirk_St-Mirren,sco_premiership,2026-08-01,Falkirk,St Mirren,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.0,3.45,3.5,1.714,1.952,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260802_Hibernian_Motherwell,sco_premiership,2026-08-02,Hibernian,Motherwell,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.25,3.3,3.0,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260802_St-Johnstone_Kilmarnock,sco_premiership,2026-08-02,St Johnstone,Kilmarnock,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.15,3.4,3.15,1.741,1.952,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260803_Celtic_Dundee,sco_premiership,2026-08-03,Celtic,Dundee,DraftKings,snapshot,2026-07-28T18|DraftKings,6.0,1.182,7.0,11.0,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260728_Tigre_Nacional,sudamericana,2026-07-28,Tigre,Nacional,DraftKings,snapshot,2026-07-28T18|DraftKings,0.0,2.15,3.05,3.65,2.3,1.588,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260729_Santos_UCV-FC,sudamericana,2026-07-29,Santos,UCV FC,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,1.235,6.0,12.0,1.625,2.2,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260729_Vasco-da-Gama_Independiente-Medellín,sudamericana,2026-07-29,Vasco da Gama,Independiente Medellín,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,1.606,3.9,5.25,1.833,1.833,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260730_Cienciano-del-Cusco_Lanús,sudamericana,2026-07-30,Cienciano del Cusco,Lanús,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,2.15,3.4,3.2,2.0,1.714,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260730_Grêmio_Bolívar,sudamericana,2026-07-30,Grêmio,Bolívar,DraftKings,snapshot,2026-07-28T18|DraftKings,2.0,1.323,5.0,8.5,1.571,2.25,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260731_Caracas-FC_Independiente-Santa-Fe,sudamericana,2026-07-31,Caracas FC,Independiente Santa Fe,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,2.95,3.25,2.35,2.2,1.588,,,,,,daily_snapshots,2026-07-28T18:49:29Z
+20260731_O'Higgins_Boca-Juniors,sudamericana,2026-07-31,O'Higgins,Boca Juniors,DraftKings,snapshot,2026-07-28T18|DraftKings,3.0,3.85,3.3,1.952,2.25,1.556,,,,,,daily_snapshots,2026-07-28T18:49:29Z
+20260801_Hacken_Kalmar,suecia,2026-08-01,Hacken,Kalmar,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.8,3.85,3.8,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_AIK_Orgryte,suecia,2026-08-02,AIK,Orgryte,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.476,4.7,5.25,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_Brommapojkarna_Malmo-FF,suecia,2026-08-02,Brommapojkarna,Malmo FF,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,3.05,3.5,2.15,1.588,2.15,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_Goteborg_Degerfors,suecia,2026-08-02,Goteborg,Degerfors,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.714,3.7,4.3,1.714,1.952,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260803_Djurgarden_Vasteras-SK,suecia,2026-08-03,Djurgarden,Vasteras SK,DraftKings,snapshot,2026-07-28T18|DraftKings,6.0,1.455,4.7,5.5,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260803_Halmstad_Sirius,suecia,2026-08-03,Halmstad,Sirius,DraftKings,snapshot,2026-07-28T18|DraftKings,6.0,6.0,4.7,1.426,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260801_Albion-FC_Danubio,uru_primera,2026-08-01,Albion FC,Danubio,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.15,3.15,3.4,2.35,1.526,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260801_Deportivo-Maldonado_Juventud,uru_primera,2026-08-01,Deportivo Maldonado,Juventud,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.833,3.45,4.1,1.952,1.8,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Central-Español-Fútbol-Club_Liverpool,uru_primera,2026-08-02,Central Español Fútbol Club,Liverpool,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,3.15,3.25,2.2,2.35,1.556,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Nacional_Progreso,uru_primera,2026-08-02,Nacional,Progreso,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.541,3.95,5.5,1.8,1.909,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Racing-(Montevideo)_Boston-River,uru_primera,2026-08-02,Racing (Montevideo),Boston River,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.741,3.45,4.3,2.2,1.571,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260803_Defensor-Sporting_Cerro,uru_primera,2026-08-03,Defensor Sporting,Cerro,DraftKings,snapshot,2026-07-28T18|DraftKings,6.0,1.8,3.4,4.3,2.4,1.526,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260729_Louisville-City-FC_Birmingham-Legion-FC,usl_championship,2026-07-29,Louisville City FC,Birmingham Legion FC,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,1.377,4.8,6.0,,,,,,,,daily_snapshots,2026-07-28T18:49:08Z
+20260729_Pittsburgh-Riverhounds_FC-Tulsa,usl_championship,2026-07-29,Pittsburgh Riverhounds,FC Tulsa,DraftKings,snapshot,2026-07-28T18|DraftKings,1.0,1.87,3.3,3.75,2.05,1.606,,,,,,daily_snapshots,2026-07-28T18:49:08Z
+20260801_Charleston-Battery_Brooklyn-FC,usl_championship,2026-08-01,Charleston Battery,Brooklyn FC,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.392,4.7,5.75,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Lexington_Monterey-Bay,usl_championship,2026-08-01,Lexington,Monterey Bay,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,1.541,4.0,4.9,1.667,1.952,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Loudoun-United-FC_Hartford-Athletic,usl_championship,2026-08-01,Loudoun United FC,Hartford Athletic,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.3,3.2,2.8,1.769,1.87,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Miami-FC_Detroit-City-FC,usl_championship,2026-08-01,Miami FC,Detroit City FC,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,3.65,3.45,1.87,1.8,1.8,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_San-Antonio-FC_Indy-Eleven,usl_championship,2026-08-01,San Antonio FC,Indy Eleven,DraftKings,snapshot,2026-07-28T18|DraftKings,4.0,2.15,3.3,3.0,1.833,1.8,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Birmingham-Legion-FC_Rhode-Island-FC,usl_championship,2026-08-02,Birmingham Legion FC,Rhode Island FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,3.0,3.35,2.1,1.833,1.8,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Las-Vegas-Lights-FC_Phoenix-Rising-FC,usl_championship,2026-08-02,Las Vegas Lights FC,Phoenix Rising FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.4,3.4,2.5,1.667,2.0,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_New-Mexico-United_Colorado-Springs-Switchbacks-FC,usl_championship,2026-08-02,New Mexico United,Colorado Springs Switchbacks FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.75,3.35,2.25,1.714,1.909,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Oakland-Roots_Pittsburgh-Riverhounds,usl_championship,2026-08-02,Oakland Roots,Pittsburgh Riverhounds,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.2,3.35,2.85,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_Orange-County-SC_El-Paso-Locomotive-FC,usl_championship,2026-08-02,Orange County SC,El Paso Locomotive FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,2.15,3.5,2.8,1.714,1.909,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_Sacramento-Republic-FC_Sporting-JAX,usl_championship,2026-08-02,Sacramento Republic FC,Sporting JAX,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.278,5.25,7.5,,,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_Tampa-Bay-Rowdies_Louisville-City-FC,usl_championship,2026-08-02,Tampa Bay Rowdies,Louisville City FC,DraftKings,snapshot,2026-07-28T18|DraftKings,5.0,1.909,3.5,3.35,1.625,2.05,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Acassuso_Colón-(Santa-Fe),arg_primera_nacional,2026-08-01,Acassuso,Colón (Santa Fe),Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,4.16,2.91,2.07,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_Chacarita-Juniors_Agropecuario,arg_primera_nacional,2026-08-01,Chacarita Juniors,Agropecuario,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.22,2.83,3.79,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_Colegiales_Gimnasia-y-Esgrima-(Jujuy),arg_primera_nacional,2026-08-01,Colegiales,Gimnasia y Esgrima (Jujuy),Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.53,3.02,2.95,,,,,,,,daily_snapshots,2026-07-28T18:49:03Z
+20260801_Ferro-Carril-Oeste_Godoy-Cruz-Antonio-Tomba,arg_primera_nacional,2026-08-01,Ferro Carril Oeste,Godoy Cruz Antonio Tomba,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.9009,3.0,4.77,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260801_Nueva-Chicago_San-Martín-(Tucumán),arg_primera_nacional,2026-08-01,Nueva Chicago,San Martín (Tucumán),Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.88,2.6,3.0,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260801_San-Martín-(San-Juan)_Atletico-Rafaela,arg_primera_nacional,2026-08-01,San Martín (San Juan),Atletico Rafaela,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.8065,3.06,5.24,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260802_Almagro_Midland,arg_primera_nacional,2026-08-02,Almagro,Midland,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.86,2.68,2.93,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260802_Almirante-Brown_Racing-(Córdoba),arg_primera_nacional,2026-08-02,Almirante Brown,Racing (Córdoba),Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.42,2.5,3.94,,,,,,,,daily_snapshots,2026-07-28T18:49:04Z
+20260802_Central-Norte_Los-Andes,arg_primera_nacional,2026-08-02,Central Norte,Los Andes,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.98,2.53,3.0,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Chaco-For-Ever_Deportivo-Morón,arg_primera_nacional,2026-08-02,Chaco For Ever,Deportivo Morón,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.84,2.85,2.77,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Deportivo-Madryn_All-Boys,arg_primera_nacional,2026-08-02,Deportivo Madryn,All Boys,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.9009,2.9,5.06,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Deportivo-Maipú_Atlanta,arg_primera_nacional,2026-08-02,Deportivo Maipú,Atlanta,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.68,2.9,2.89,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Güemes_Tristán-Suárez,arg_primera_nacional,2026-08-02,Güemes,Tristán Suárez,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.0,2.5,3.06,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Patronato_Quilmes,arg_primera_nacional,2026-08-02,Patronato,Quilmes,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.7,2.82,2.95,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_San-Telmo_San-Miguel,arg_primera_nacional,2026-08-02,San Telmo,San Miguel,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.62,2.73,3.15,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260802_Temperley_Gimnasia-y-Tiro-(Salta),arg_primera_nacional,2026-08-02,Temperley,Gimnasia y Tiro (Salta),Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.11,2.72,4.45,,,,,,,,daily_snapshots,2026-07-28T18:49:05Z
+20260728_Banfield_Sarmiento-Junin,argentina,2026-07-28,Banfield,Sarmiento Junin,Pinnacle,snapshot,2026-07-28T18|Pinnacle,0.0,2.13,3.04,4.25,,,2.18,1.7246,,,,daily_snapshots,2026-07-28T18:48:50Z
+20260728_San-Lorenzo_Gimnasia-Mendoza,argentina,2026-07-28,San Lorenzo,Gimnasia Mendoza,Pinnacle,snapshot,2026-07-28T18|Pinnacle,0.0,2.07,3.18,4.25,,,2.27,1.6711,,,,daily_snapshots,2026-07-28T18:48:50Z
+20260729_Barracas-Central_Aldosivi,argentina,2026-07-29,Barracas Central,Aldosivi,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,2.42,2.82,3.71,,,2.56,1.5319,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Defensa-y-Justicia_Dep.-Riestra,argentina,2026-07-29,Defensa y Justicia,Dep. Riestra,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,2.25,2.9,3.84,,,2.45,1.5618,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Gimnasia-L.P._River-Plate,argentina,2026-07-29,Gimnasia L.P.,River Plate,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,3.78,3.04,2.19,,,2.25,1.6579,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260729_Rosario-Central_Racing-Club,argentina,2026-07-29,Rosario Central,Racing Club,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,2.15,3.12,4.02,,,2.21,1.7092,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Independiente_Huracan,argentina,2026-07-30,Independiente,Huracan,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,2.24,2.91,3.85,,,2.43,1.5618,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Instituto_Platense,argentina,2026-07-30,Instituto,Platense,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,2.1,2.87,4.39,,,2.45,1.565,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260730_Talleres-Cordoba_Velez-Sarsfield,argentina,2026-07-30,Talleres Cordoba,Velez Sarsfield,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,2.38,2.79,3.69,,,2.2,1.6711,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260731_Central-Cordoba_Atl.-Tucuman,argentina,2026-07-31,Central Cordoba,Atl. Tucuman,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,3.26,3.01,2.44,,,2.14,1.7092,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260731_Independiente_Newells-Old-Boys,argentina,2026-07-31,Independiente,Newells Old Boys,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,1.6623,3.61,5.68,,,,,,,,daily_snapshots,2026-07-28T18:48:51Z
+20260728_Juventude_Avaí,bra_serie_b,2026-07-28,Juventude,Avaí,Pinnacle,snapshot,2026-07-28T18|Pinnacle,0.0,1.7353,3.41,5.8,,,2.34,1.625,,,,daily_snapshots,2026-07-28T18:49:11Z
+20260729_Fortaleza_Botafogo-SP,bra_serie_b,2026-07-29,Fortaleza,Botafogo-SP,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,1.813,3.48,4.95,,,2.12,1.7519,,,,daily_snapshots,2026-07-28T18:49:11Z
+20260729_Internacional_Flamengo-RJ,brasil,2026-07-29,Internacional,Flamengo RJ,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,4.23,3.48,1.9009,1.9524,1.9009,1.8264,2.01,,,,daily_snapshots,2026-07-28T18:48:04Z
+20260729_Mirassol_Remo,brasil,2026-07-29,Mirassol,Remo,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,1.7299,3.73,4.89,2.0,1.8547,1.9346,1.885,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Corinthians_Athletico-PR,brasil,2026-07-30,Corinthians,Athletico-PR,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,1.9524,3.23,4.4,,,2.21,1.6667,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Fluminense_Bahia,brasil,2026-07-30,Fluminense,Bahia,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,1.7812,3.59,4.74,1.8621,1.9901,1.7463,2.11,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260730_Vitoria_Palmeiras,brasil,2026-07-30,Vitoria,Palmeiras,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,4.35,3.3,1.9346,,,,,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260731_Coritiba_Cruzeiro,brasil,2026-07-31,Coritiba,Cruzeiro,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,3.33,3.34,2.23,,,1.8621,1.9434,,,,daily_snapshots,2026-07-28T18:48:05Z
+20260801_Cobresal_Unión-La-Calera,chi_primera,2026-08-01,Cobresal,Unión La Calera,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.49,3.27,2.88,1.9524,1.8696,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Everton-CD_Colo-Colo,chi_primera,2026-08-01,Everton CD,Colo Colo,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,3.62,3.52,2.01,1.8547,1.9615,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Palestino_Coquimbo-Unido,chi_primera,2026-08-01,Palestino,Coquimbo Unido,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.87,3.15,2.57,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260801_Universidad-de-Concepción_Audax-Italiano,chi_primera,2026-08-01,Universidad de Concepción,Audax Italiano,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.65,3.38,2.62,1.9524,1.8621,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Deportes-Concepcion_Universidad-Católica,chi_primera,2026-08-02,Deportes Concepcion,Universidad Católica,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.32,3.7,2.06,1.8621,1.9615,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Deportes-Limache_Ñublense,chi_primera,2026-08-02,Deportes Limache,Ñublense,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.15,3.44,3.32,1.8772,1.9434,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_La-Serena_O'Higgins,chi_primera,2026-08-02,La Serena,O'Higgins,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.45,3.54,2.74,,,,,,,,daily_snapshots,2026-07-28T18:49:26Z
+20260802_Universidad-de-Chile_Huachipato,chi_primera,2026-08-02,Universidad de Chile,Huachipato,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.6173,3.93,5.29,1.8772,1.9434,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260731_Henan-Songshan-Longmen_Dalian-Yingbo,china,2026-07-31,Henan Songshan Longmen,Dalian Yingbo,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,1.8264,3.93,3.89,,,1.5076,2.54,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260801_Beijing-Guoan_Zhejiang-Professional,china,2026-08-01,Beijing Guoan,Zhejiang Professional,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.5376,4.72,4.99,,,,,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260801_Chengdu-Rongcheng_Wuhan-Three-Towns,china,2026-08-01,Chengdu Rongcheng,Wuhan Three Towns,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.346,4.95,8.43,,,1.6803,2.17,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Shanghai-Port_Shandong-Taishan,china,2026-08-01,Shanghai Port,Shandong Taishan,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.9804,4.08,3.27,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Tianjin-Jinmen-Tiger_Yunnan-Yukun,china,2026-08-01,Tianjin Jinmen Tiger,Yunnan Yukun,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.64,3.55,2.53,,,1.5181,2.51,,,,daily_snapshots,2026-07-28T18:48:58Z
+20260802_Liaoning-Tieren_Shanghai-Shenhua,china,2026-08-02,Liaoning Tieren,Shanghai Shenhua,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.68,4.0,1.8621,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260802_Qingdao-West-Coast_Qingdao-Hainiu,china,2026-08-02,Qingdao West Coast,Qingdao Hainiu,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.7634,3.93,4.2,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260731_Atlético-Bucaramanga_Llaneros-FC,col_primera_a,2026-07-31,Atlético Bucaramanga,Llaneros FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,1.4854,3.98,6.88,1.9804,1.813,2.05,1.7299,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Alianza-FC_Deportes-Tolima,col_primera_a,2026-08-01,Alianza FC,Deportes Tolima,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.85,3.07,2.6,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Deportivo-Pasto_Águilas-Doradas,col_primera_a,2026-08-01,Deportivo Pasto,Águilas Doradas,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.8547,3.28,4.5,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Fortaleza-CEIF_Deportivo-Pereira,col_primera_a,2026-08-01,Fortaleza CEIF,Deportivo Pereira,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.4902,3.9,7.05,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260801_Independiente-Medellín_Deportivo-Cali,col_primera_a,2026-08-01,Independiente Medellín,Deportivo Cali,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.9434,3.25,4.13,,,,,,,,daily_snapshots,2026-07-28T18:49:06Z
+20260802_América-de-Cali_Boyacá-Chicó-FC,col_primera_a,2026-08-02,América de Cali,Boyacá Chicó FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.3425,4.54,9.46,1.9804,1.813,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260802_Jaguares-de-Córdoba_Atlético-Nacional,col_primera_a,2026-08-02,Jaguares de Córdoba,Atlético Nacional,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,4.34,3.53,1.8065,1.9259,1.8621,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260803_Independiente-Santa-Fe_Once-Caldas,col_primera_a,2026-08-03,Independiente Santa Fe,Once Caldas,Pinnacle,snapshot,2026-07-28T18|Pinnacle,6.0,2.12,3.21,3.58,,,,,,,,daily_snapshots,2026-07-28T18:49:07Z
+20260801_Puntarenas-FC_Sporting-San-José,crc_fpd,2026-08-01,Puntarenas FC,Sporting San José,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.34,3.12,3.15,,,,,,,,daily_snapshots,2026-07-28T18:49:23Z
+20260802_Saprissa_AD-San-Carlos,crc_fpd,2026-08-02,Saprissa,AD San Carlos,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.3367,4.9,8.07,,,,,,,,daily_snapshots,2026-07-28T18:49:23Z
+20260804_Pérez-Zeledón_Cartaginés,crc_fpd,2026-08-04,Pérez Zeledón,Cartaginés,Pinnacle,snapshot,2026-07-28T18|Pinnacle,7.0,3.8,3.31,1.9901,,,,,,,,daily_snapshots,2026-07-28T18:49:24Z
+20260802_Brondby_Viborg,dinamarca,2026-08-02,Brondby,Viborg,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.9091,3.75,3.81,,,,,,,,daily_snapshots,2026-07-28T18:48:57Z
+20260802_Midtjylland_Horsens,dinamarca,2026-08-02,Midtjylland,Horsens,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.3257,5.55,8.14,,,,,,,,daily_snapshots,2026-07-28T18:48:57Z
+20260802_Nordsjaelland_Randers-FC,dinamarca,2026-08-02,Nordsjaelland,Randers FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.7143,4.03,4.49,,,,,,,,daily_snapshots,2026-07-28T18:48:57Z
+20260801_Libertad-(Ecuador)_Orense,ecu_liga_pro,2026-08-01,Libertad (Ecuador),Orense,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.81,3.19,2.53,2.02,1.7812,,,,,,daily_snapshots,2026-07-28T18:49:15Z
+20260801_Manta-F.C._Mushuc-Runa,ecu_liga_pro,2026-08-01,Manta F.C.,Mushuc Runa,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,3.05,3.16,2.38,,,,,,,,daily_snapshots,2026-07-28T18:49:15Z
+20260802_Emelec_Aucas,ecu_liga_pro,2026-08-02,Emelec,Aucas,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.35,3.05,3.2,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260802_Independiente-del-Valle_Deportivo-Cuenca,ecu_liga_pro,2026-08-02,Independiente del Valle,Deportivo Cuenca,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.3289,5.0,9.5,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260802_Leones_Barcelona-SC,ecu_liga_pro,2026-08-02,Leones,Barcelona SC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.89,3.26,2.5,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260802_Macará_Guayaquil-City-FC,ecu_liga_pro,2026-08-02,Macará,Guayaquil City FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.6289,3.59,5.56,,,,,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260801_Atl.-San-Luis_Club-Tijuana,liga_mx,2026-08-01,Atl. San Luis,Club Tijuana,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.46,3.24,2.98,,,1.5376,2.49,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260801_Puebla_Guadalajara-Chivas,liga_mx,2026-08-01,Puebla,Guadalajara Chivas,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,4.53,4.1,1.6944,,,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260801_Queretaro_Tigres-UANL,liga_mx,2026-08-01,Queretaro,Tigres UANL,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,3.84,3.77,1.9009,1.8403,2.0,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Atlas_Monterrey,liga_mx,2026-08-02,Atlas,Monterrey,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.83,3.44,2.47,1.8333,2.01,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Club-America_Santos-Laguna,liga_mx,2026-08-02,Club America,Santos Laguna,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.4386,4.74,6.6,,,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260802_Club-Leon_Pachuca,liga_mx,2026-08-02,Club Leon,Pachuca,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.06,3.45,2.31,,,,,,,,daily_snapshots,2026-07-28T18:48:44Z
+20260802_Cruz-Azul_Atlante,liga_mx,2026-08-02,Cruz Azul,Atlante,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.3125,5.26,9.54,,,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260803_Toluca_Necaxa,liga_mx,2026-08-03,Toluca,Necaxa,Pinnacle,snapshot,2026-07-28T18|Pinnacle,6.0,1.5376,4.24,5.9,,,,,,,,daily_snapshots,2026-07-28T18:48:45Z
+20260801_Club-Atlético-La-Paz_Durango,mex_expansion,2026-08-01,Club Atlético La Paz,Durango,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.12,3.41,3.3,1.9259,1.8547,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Cruz-Azul-Hidalgo_Venados-FC,mex_expansion,2026-08-01,Cruz Azul Hidalgo,Venados FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.65,3.04,2.79,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260801_Tapatío_Club-Jaiba-Brava,mex_expansion,2026-08-01,Tapatío,Club Jaiba Brava,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.33,3.4,2.92,2.02,1.7812,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260802_Cancún-FC_Leones-Negros,mex_expansion,2026-08-02,Cancún FC,Leones Negros,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.8264,3.58,4.12,1.9009,1.885,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260802_Piratas_Club-Atlético-Morelia,mex_expansion,2026-08-02,Piratas,Club Atlético Morelia,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.58,3.1,2.88,,,,,,,,daily_snapshots,2026-07-28T18:49:25Z
+20260731_New-York-City_Toronto-FC,mls,2026-07-31,New York City,Toronto FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,1.641,4.06,5.03,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_CF-Montreal_New-England-Revolution,mls,2026-08-01,CF Montreal,New England Revolution,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.27,3.54,3.06,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_FC-Cincinnati_San-Jose-Earthquakes,mls,2026-08-01,FC Cincinnati,San Jose Earthquakes,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.9709,4.13,3.32,,,1.303,3.52,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Inter-Miami_Columbus-Crew,mls,2026-08-01,Inter Miami,Columbus Crew,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.7194,3.98,4.51,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_New-York-City_Orlando-City,mls,2026-08-01,New York City,Orlando City,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.11,4.1,3.0,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Philadelphia-Union_Atlanta-Utd,mls,2026-08-01,Philadelphia Union,Atlanta Utd,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.7143,4.08,4.43,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260801_Vancouver-Whitecaps_Los-Angeles-FC,mls,2026-08-01,Vancouver Whitecaps,Los Angeles FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.7812,4.2,3.94,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260802_Chicago-Fire_Charlotte,mls,2026-08-02,Chicago Fire,Charlotte,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.5155,4.86,5.24,,,,,,,,daily_snapshots,2026-07-28T18:48:46Z
+20260802_Colorado-Rapids_Austin-FC,mls,2026-08-02,Colorado Rapids,Austin FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.7353,4.16,4.2,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Los-Angeles-Galaxy_FC-Dallas,mls,2026-08-02,Los Angeles Galaxy,FC Dallas,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.16,3.86,3.04,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Minnesota-United_San-Diego-FC,mls,2026-08-02,Minnesota United,San Diego FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.03,3.86,3.35,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Portland-Timbers_Seattle-Sounders,mls,2026-08-02,Portland Timbers,Seattle Sounders,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.14,4.0,3.0,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_Sporting-Kansas-City_Houston-Dynamo,mls,2026-08-02,Sporting Kansas City,Houston Dynamo,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.38,3.37,2.18,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260802_St.-Louis-City_Real-Salt-Lake,mls,2026-08-02,St. Louis City,Real Salt Lake,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.15,3.77,3.13,,,,,,,,daily_snapshots,2026-07-28T18:48:47Z
+20260731_Bodo/Glimt_Lillestrom,noruega,2026-07-31,Bodo/Glimt,Lillestrom,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,1.2747,6.41,8.55,,,1.6329,2.26,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260801_Fredrikstad_Sandefjord,noruega,2026-08-01,Fredrikstad,Sandefjord,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.35,3.26,3.16,,,1.5747,2.41,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260801_Start_Viking,noruega,2026-08-01,Start,Viking,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,5.48,4.71,1.5208,,,,,,,,daily_snapshots,2026-07-28T18:48:54Z
+20260802_Brann_Rosenborg,noruega,2026-08-02,Brann,Rosenborg,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.8696,3.95,3.82,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260802_KFUM-Oslo_Kristiansund,noruega,2026-08-02,KFUM Oslo,Kristiansund,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.7042,3.71,5.13,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260802_Molde_Sarpsborg-08,noruega,2026-08-02,Molde,Sarpsborg 08,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.6369,4.04,5.17,,,,,,,,daily_snapshots,2026-07-28T18:48:55Z
+20260728_2-de-Mayo_Cerro-Porteño,par_division,2026-07-28,2 de Mayo,Cerro Porteño,Pinnacle,snapshot,2026-07-28T18|Pinnacle,0.0,4.65,3.07,1.9524,,,2.29,1.6211,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260728_Rubio-Ñú_Sportivo-Ameliano,par_division,2026-07-28,Rubio Ñú,Sportivo Ameliano,Pinnacle,snapshot,2026-07-28T18|Pinnacle,0.0,3.49,2.71,2.54,,,2.18,1.6849,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260729_Nacional-Asunción_Club-Olimpia,par_division,2026-07-29,Nacional Asunción,Club Olimpia,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,3.35,2.85,2.4,,,1.7519,2.04,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260729_Sportivo-Luqueño_Sportivo-Trinidense,par_division,2026-07-29,Sportivo Luqueño,Sportivo Trinidense,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,3.24,2.75,2.54,,,1.8,1.9804,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260730_Libertad_Deportivo-Recoleta,par_division,2026-07-30,Libertad,Deportivo Recoleta,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,1.8264,3.55,4.15,1.9434,1.8475,,,,,,daily_snapshots,2026-07-28T18:49:21Z
+20260731_Los-Chankas_Comerciantes-Unidos,per_liga1,2026-07-31,Los Chankas,Comerciantes Unidos,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,1.8333,3.47,4.08,1.9709,1.8333,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Atlético-Grau_Sport-Boys,per_liga1,2026-08-01,Atlético Grau,Sport Boys,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.11,3.1,3.54,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Cusco-FC_UTC,per_liga1,2026-08-01,Cusco FC,UTC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.5882,3.85,5.2,1.8547,1.9346,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_FC-Cajamarca_Sport-Huancayo,per_liga1,2026-08-01,FC Cajamarca,Sport Huancayo,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,3.26,3.13,2.18,1.8929,1.8929,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260802_Alianza-Lima_Alianza-Atlético,per_liga1,2026-08-02,Alianza Lima,Alianza Atlético,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.4525,4.2,7.0,1.9174,1.885,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260802_Cienciano-del-Cusco_Universitario,per_liga1,2026-08-02,Cienciano del Cusco,Universitario,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.62,3.1,2.69,2.01,1.8,,,,,,daily_snapshots,2026-07-28T18:49:13Z
+20260802_Deportivo-Moquegua_Melgar,per_liga1,2026-08-02,Deportivo Moquegua,Melgar,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.49,3.28,2.03,,,,,,,,daily_snapshots,2026-07-28T18:49:13Z
+20260802_Sporting-Cristal_Juan-Pablo-II,per_liga1,2026-08-02,Sporting Cristal,Juan Pablo II,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.232,5.88,10.0,,,,,,,,daily_snapshots,2026-07-28T18:49:12Z
+20260801_Golden-Arrows_Chippa-United,rsa_premier,2026-08-01,Golden Arrows,Chippa United,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.03,3.27,3.73,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260801_Sekhukhune-United-FC_Durban-City,rsa_premier,2026-08-01,Sekhukhune United FC,Durban City,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.8772,3.13,4.61,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260801_Stellenbosch_AmaZulu,rsa_premier,2026-08-01,Stellenbosch,AmaZulu,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.1,2.9,4.35,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260802_Richards-Bay-FC_Polokwane-City-FC,rsa_premier,2026-08-02,Richards Bay FC,Polokwane City FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.77,2.67,3.03,,,,,,,,daily_snapshots,2026-07-28T18:49:27Z
+20260802_Siwelele_TS-Galaxy-FC,rsa_premier,2026-08-02,Siwelele,TS Galaxy FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.23,2.94,3.61,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260731_Rodina-Moscow_FK-Rostov,rus_premier,2026-07-31,Rodina Moscow,FK Rostov,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,3.23,3.26,2.31,,,,,,,,daily_snapshots,2026-07-28T18:48:59Z
+20260801_Akron-Togliatti_Rubin-Kazan,rus_premier,2026-08-01,Akron Togliatti,Rubin Kazan,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,3.03,3.25,2.43,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_Baltika_Dynamo-Moscow,rus_premier,2026-08-01,Baltika,Dynamo Moscow,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.87,3.25,2.55,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_CSKA-Moscow_Krylya-Sovetov,rus_premier,2026-08-01,CSKA Moscow,Krylya Sovetov,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.5236,4.44,5.73,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_Dynamo-Makhachkala_Lokomotiv-Moscow,rus_premier,2026-08-01,Dynamo Makhachkala,Lokomotiv Moscow,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,3.5,3.36,2.14,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260802_Akhmat-Grozny_Spartak-Moscow,rus_premier,2026-08-02,Akhmat Grozny,Spartak Moscow,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.78,3.65,1.9434,1.8929,1.9434,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260802_Krasnodar_Fakel-Voronezh,rus_premier,2026-08-02,Krasnodar,Fakel Voronezh,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.3497,4.89,9.0,1.9346,1.9009,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260802_Orenburg_Zenit,rus_premier,2026-08-02,Orenburg,Zenit,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,8.29,4.94,1.3623,,,,,,,,daily_snapshots,2026-07-28T18:49:00Z
+20260801_Ayr_Arbroath,sco_championship,2026-08-01,Ayr,Arbroath,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.62,3.08,2.78,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260801_Morton_Partick,sco_championship,2026-08-01,Morton,Partick,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,4.81,3.94,1.6369,,,,,,,,daily_snapshots,2026-07-28T18:49:02Z
+20260731_Dundee-United_Rangers,sco_premiership,2026-07-31,Dundee United,Rangers,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,5.46,4.54,1.5155,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260801_Falkirk_St-Mirren,sco_premiership,2026-08-01,Falkirk,St Mirren,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.9901,3.56,3.66,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260802_Hibernian_Motherwell,sco_premiership,2026-08-02,Hibernian,Motherwell,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.28,3.39,3.11,1.8264,2.0,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260802_St-Johnstone_Kilmarnock,sco_premiership,2026-08-02,St Johnstone,Kilmarnock,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.18,3.47,3.25,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260803_Celtic_Dundee,sco_premiership,2026-08-03,Celtic,Dundee,Pinnacle,snapshot,2026-07-28T18|Pinnacle,6.0,1.1942,7.29,11.51,,,,,,,,daily_snapshots,2026-07-28T18:49:01Z
+20260728_Cacahuatique_Atletico-Balboa,slv_primera,2026-07-28,Cacahuatique,Atletico Balboa,Pinnacle,snapshot,2026-07-28T18|Pinnacle,0.0,2.18,2.95,3.4,,,1.8264,1.9174,,,,daily_snapshots,2026-07-28T18:49:16Z
+20260728_Tigre_Nacional,sudamericana,2026-07-28,Tigre,Nacional,Pinnacle,snapshot,2026-07-28T18|Pinnacle,0.0,2.18,3.05,3.77,,,1.9709,1.8333,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260729_Santos_UCV-FC,sudamericana,2026-07-29,Santos,UCV FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,1.2193,5.7,10.98,,,2.22,1.6061,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260729_Vasco-da-Gama_Independiente-Medellín,sudamericana,2026-07-29,Vasco da Gama,Independiente Medellín,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,1.5917,3.89,5.32,1.8929,1.9091,1.885,1.885,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260730_Cienciano-del-Cusco_Lanús,sudamericana,2026-07-30,Cienciano del Cusco,Lanús,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,2.12,3.39,3.33,,,1.8547,1.9174,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260730_Grêmio_Bolívar,sudamericana,2026-07-30,Grêmio,Bolívar,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,1.3106,5.07,8.66,,,1.9709,1.7937,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260730_Red-Bull-Bragantino_Sporting-Cristal,sudamericana,2026-07-30,Red Bull Bragantino,Sporting Cristal,Pinnacle,snapshot,2026-07-28T18|Pinnacle,2.0,1.3003,5.3,8.44,,,,,,,,daily_snapshots,2026-07-28T18:49:28Z
+20260731_Caracas-FC_Independiente-Santa-Fe,sudamericana,2026-07-31,Caracas FC,Independiente Santa Fe,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,3.0,3.28,2.34,,,1.9901,1.7752,,,,daily_snapshots,2026-07-28T18:49:29Z
+20260731_O'Higgins_Boca-Juniors,sudamericana,2026-07-31,O'Higgins,Boca Juniors,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,3.89,3.3,1.9709,,,2.07,1.7194,,,,daily_snapshots,2026-07-28T18:49:29Z
+20260801_Hacken_Kalmar,suecia,2026-08-01,Hacken,Kalmar,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.8065,3.94,3.95,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_AIK_Orgryte,suecia,2026-08-02,AIK,Orgryte,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.4785,4.86,5.52,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_Brommapojkarna_Malmo-FF,suecia,2026-08-02,Brommapojkarna,Malmo FF,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.12,3.59,2.17,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260802_Goteborg_Degerfors,suecia,2026-08-02,Goteborg,Degerfors,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.7407,3.79,4.52,,,,,,,,daily_snapshots,2026-07-28T18:48:56Z
+20260731_Montevideo-City-Torque_Montevideo-Wanderers,uru_primera,2026-07-31,Montevideo City Torque,Montevideo Wanderers,Pinnacle,snapshot,2026-07-28T18|Pinnacle,3.0,1.885,3.39,4.13,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260801_Albion-FC_Danubio,uru_primera,2026-08-01,Albion FC,Danubio,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.13,3.12,3.64,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260801_Deportivo-Maldonado_Juventud,uru_primera,2026-08-01,Deportivo Maldonado,Juventud,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.7752,3.76,4.21,1.9901,1.8065,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260801_Peñarol_Cerro-Largo,uru_primera,2026-08-01,Peñarol,Cerro Largo,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.5747,3.88,5.67,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Central-Español-Fútbol-Club_Liverpool,uru_primera,2026-08-02,Central Español Fútbol Club,Liverpool,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,3.42,3.14,2.2,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Nacional_Progreso,uru_primera,2026-08-02,Nacional,Progreso,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.4505,4.39,6.53,1.813,1.9804,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260802_Racing-(Montevideo)_Boston-River,uru_primera,2026-08-02,Racing (Montevideo),Boston River,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,1.7634,3.43,4.8,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260803_Defensor-Sporting_Cerro,uru_primera,2026-08-03,Defensor Sporting,Cerro,Pinnacle,snapshot,2026-07-28T18|Pinnacle,6.0,1.6849,3.59,5.14,,,,,,,,daily_snapshots,2026-07-28T18:49:14Z
+20260729_Louisville-City-FC_Birmingham-Legion-FC,usl_championship,2026-07-29,Louisville City FC,Birmingham Legion FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,1.3891,5.04,6.33,,,1.7042,2.11,,,,daily_snapshots,2026-07-28T18:49:08Z
+20260729_Pittsburgh-Riverhounds_FC-Tulsa,usl_championship,2026-07-29,Pittsburgh Riverhounds,FC Tulsa,Pinnacle,snapshot,2026-07-28T18|Pinnacle,1.0,1.9259,3.4,3.91,,,2.02,1.7692,,,,daily_snapshots,2026-07-28T18:49:08Z
+20260801_Charleston-Battery_Brooklyn-FC,usl_championship,2026-08-01,Charleston Battery,Brooklyn FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.3984,5.04,6.17,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Lexington_Monterey-Bay,usl_championship,2026-08-01,Lexington,Monterey Bay,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,1.5618,4.15,5.19,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Loudoun-United-FC_Hartford-Athletic,usl_championship,2026-08-01,Loudoun United FC,Hartford Athletic,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.37,3.41,2.85,1.8475,1.9434,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_Miami-FC_Detroit-City-FC,usl_championship,2026-08-01,Miami FC,Detroit City FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,3.75,3.61,1.9009,1.885,1.9009,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260801_San-Antonio-FC_Indy-Eleven,usl_championship,2026-08-01,San Antonio FC,Indy Eleven,Pinnacle,snapshot,2026-07-28T18|Pinnacle,4.0,2.2,3.41,3.13,1.9346,1.8475,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Las-Vegas-Lights-FC_Phoenix-Rising-FC,usl_championship,2026-08-02,Las Vegas Lights FC,Phoenix Rising FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.57,3.56,2.52,,,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_New-Mexico-United_Colorado-Springs-Switchbacks-FC,usl_championship,2026-08-02,New Mexico United,Colorado Springs Switchbacks FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.85,3.52,2.32,,,,,,,,daily_snapshots,2026-07-28T18:49:09Z
+20260802_Oakland-Roots_Pittsburgh-Riverhounds,usl_championship,2026-08-02,Oakland Roots,Pittsburgh Riverhounds,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.23,3.51,3.01,2.02,1.7812,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260802_Orange-County-SC_El-Paso-Locomotive-FC,usl_championship,2026-08-02,Orange County SC,El Paso Locomotive FC,Pinnacle,snapshot,2026-07-28T18|Pinnacle,5.0,2.21,3.64,2.95,,,,,,,,daily_snapshots,2026-07-28T18:49:10Z
+20260801_Acassuso_Colón-(Santa-Fe),arg_primera_nacional,2026-08-01,Acassuso,Colón (Santa Fe),Bovada,snapshot,2026-07-28|Bovada,4.0,4.0,2.85,1.9524,,,,,,,,daily_snapshots,2026-07-28T18:33:27Z
+20260801_Chacarita-Juniors_Agropecuario,arg_primera_nacional,2026-08-01,Chacarita Juniors,Agropecuario,Bovada,snapshot,2026-07-28|Bovada,4.0,2.25,2.83,3.79,,,,,,,,daily_snapshots,2026-07-28T18:33:27Z
+20260801_Colegiales_Gimnasia-y-Esgrima-(Jujuy),arg_primera_nacional,2026-08-01,Colegiales,Gimnasia y Esgrima (Jujuy),Bovada,snapshot,2026-07-28|Bovada,4.0,2.55,3.02,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:27Z
+20260801_Defensores-de-Belgrano_Estudiantes-(Buenos-Aires),arg_primera_nacional,2026-08-01,Defensores de Belgrano,Estudiantes (Buenos Aires),Bovada,snapshot,2026-07-28|Bovada,4.0,2.65,2.6,2.9,,,,,,,,daily_snapshots,2026-07-28T18:33:28Z
+20260801_Ferro-Carril-Oeste_Godoy-Cruz-Antonio-Tomba,arg_primera_nacional,2026-08-01,Ferro Carril Oeste,Godoy Cruz Antonio Tomba,Bovada,snapshot,2026-07-28|Bovada,4.0,1.9091,3.0,4.77,,,,,,,,daily_snapshots,2026-07-28T18:33:28Z
+20260801_Nueva-Chicago_San-Martín-(Tucumán),arg_primera_nacional,2026-08-01,Nueva Chicago,San Martín (Tucumán),Bovada,snapshot,2026-07-28|Bovada,4.0,2.75,2.55,2.8,,,,,,,,daily_snapshots,2026-07-28T18:33:28Z
+20260801_San-Martín-(San-Juan)_Atletico-Rafaela,arg_primera_nacional,2026-08-01,San Martín (San Juan),Atletico Rafaela,Bovada,snapshot,2026-07-28|Bovada,4.0,1.8,2.9,4.9,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Almagro_Midland,arg_primera_nacional,2026-08-02,Almagro,Midland,Bovada,snapshot,2026-07-28|Bovada,5.0,2.75,2.6,2.75,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Almirante-Brown_Racing-(Córdoba),arg_primera_nacional,2026-08-02,Almirante Brown,Racing (Córdoba),Bovada,snapshot,2026-07-28|Bovada,5.0,2.3,2.5,3.6,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Central-Norte_Los-Andes,arg_primera_nacional,2026-08-02,Central Norte,Los Andes,Bovada,snapshot,2026-07-28|Bovada,5.0,2.65,2.5,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Chaco-For-Ever_Deportivo-Morón,arg_primera_nacional,2026-08-02,Chaco For Ever,Deportivo Morón,Bovada,snapshot,2026-07-28|Bovada,5.0,2.7,2.7,2.7,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Ciudad-de-Bolívar_Mitre-(Santiago-del-Estero),arg_primera_nacional,2026-08-02,Ciudad de Bolívar,Mitre (Santiago del Estero),Bovada,snapshot,2026-07-28|Bovada,5.0,2.15,2.65,3.7,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Deportivo-Madryn_All-Boys,arg_primera_nacional,2026-08-02,Deportivo Madryn,All Boys,Bovada,snapshot,2026-07-28|Bovada,5.0,1.87,2.75,4.7,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Deportivo-Maipú_Atlanta,arg_primera_nacional,2026-08-02,Deportivo Maipú,Atlanta,Bovada,snapshot,2026-07-28|Bovada,5.0,2.65,2.75,2.7,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Güemes_Tristán-Suárez,arg_primera_nacional,2026-08-02,Güemes,Tristán Suárez,Bovada,snapshot,2026-07-28|Bovada,5.0,2.85,2.5,2.8,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Patronato_Quilmes,arg_primera_nacional,2026-08-02,Patronato,Quilmes,Bovada,snapshot,2026-07-28|Bovada,5.0,2.5,2.65,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_San-Telmo_San-Miguel,arg_primera_nacional,2026-08-02,San Telmo,San Miguel,Bovada,snapshot,2026-07-28|Bovada,5.0,2.55,2.6,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Temperley_Gimnasia-y-Tiro-(Salta),arg_primera_nacional,2026-08-02,Temperley,Gimnasia y Tiro (Salta),Bovada,snapshot,2026-07-28|Bovada,5.0,2.0,2.7,4.2,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260728_Banfield_Sarmiento-Junin,argentina,2026-07-28,Banfield,Sarmiento Junin,Bovada,snapshot,2026-07-28|Bovada,0.0,1.625,3.05,2.6,,,,,,,,daily_snapshots,2026-07-28T18:33:11Z
+20260728_San-Lorenzo_Gimnasia-Mendoza,argentina,2026-07-28,San Lorenzo,Gimnasia Mendoza,Bovada,snapshot,2026-07-28|Bovada,0.0,1.625,3.0,2.65,,,,,,,,daily_snapshots,2026-07-28T18:33:11Z
+20260729_Barracas-Central_Aldosivi,argentina,2026-07-29,Barracas Central,Aldosivi,Bovada,snapshot,2026-07-28|Bovada,1.0,1.9091,2.8,2.6,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Defensa-y-Justicia_Dep.-Riestra,argentina,2026-07-29,Defensa y Justicia,Dep. Riestra,Bovada,snapshot,2026-07-28|Bovada,1.0,1.6452,2.95,2.6,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Gimnasia-L.P._River-Plate,argentina,2026-07-29,Gimnasia L.P.,River Plate,Bovada,snapshot,2026-07-28|Bovada,1.0,2.55,3.1,1.6667,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Rosario-Central_Racing-Club,argentina,2026-07-29,Rosario Central,Racing Club,Bovada,snapshot,2026-07-28|Bovada,1.0,1.741,2.95,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Independiente_Huracan,argentina,2026-07-30,Independiente,Huracan,Bovada,snapshot,2026-07-28|Bovada,2.0,1.7143,2.9,2.5,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Instituto_Platense,argentina,2026-07-30,Instituto,Platense,Bovada,snapshot,2026-07-28|Bovada,2.0,1.6667,2.9,2.65,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Talleres-Cordoba_Velez-Sarsfield,argentina,2026-07-30,Talleres Cordoba,Velez Sarsfield,Bovada,snapshot,2026-07-28|Bovada,2.0,1.8,2.8,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260731_Central-Cordoba_Atl.-Tucuman,argentina,2026-07-31,Central Cordoba,Atl. Tucuman,Bovada,snapshot,2026-07-28|Bovada,3.0,2.25,2.95,1.8333,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260801_Belgrano_Argentinos-Jrs,argentina,2026-08-01,Belgrano,Argentinos Jrs,Bovada,snapshot,2026-07-28|Bovada,4.0,2.55,2.95,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260801_Estudiantes-L.P._Defensa-y-Justicia,argentina,2026-08-01,Estudiantes L.P.,Defensa y Justicia,Bovada,snapshot,2026-07-28|Bovada,4.0,1.6757,3.45,5.4,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260801_Estudiantes-Rio-Cuarto_Banfield,argentina,2026-08-01,Estudiantes Rio Cuarto,Banfield,Bovada,snapshot,2026-07-28|Bovada,4.0,2.7,2.9,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260801_Gimnasia-Mendoza_Union-de-Santa-Fe,argentina,2026-08-01,Gimnasia Mendoza,Union de Santa Fe,Bovada,snapshot,2026-07-28|Bovada,4.0,2.85,3.05,2.55,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260801_Racing-Club_Tigre,argentina,2026-08-01,Racing Club,Tigre,Bovada,snapshot,2026-07-28|Bovada,4.0,2.15,2.9,3.8,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260802_Aldosivi_Gimnasia-L.P.,argentina,2026-08-02,Aldosivi,Gimnasia L.P.,Bovada,snapshot,2026-07-28|Bovada,5.0,2.75,2.9,2.75,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260802_Dep.-Riestra_Barracas-Central,argentina,2026-08-02,Dep. Riestra,Barracas Central,Bovada,snapshot,2026-07-28|Bovada,5.0,2.3,2.85,3.5,,,,,,,,daily_snapshots,2026-07-28T18:33:14Z
+20260802_Newells-Old-Boys_Boca-Juniors,argentina,2026-08-02,Newells Old Boys,Boca Juniors,Bovada,snapshot,2026-07-28|Bovada,5.0,3.35,3.1,2.2,,,,,,,,daily_snapshots,2026-07-28T18:33:14Z
+20260802_River-Plate_Rosario-Central,argentina,2026-08-02,River Plate,Rosario Central,Bovada,snapshot,2026-07-28|Bovada,5.0,2.2,3.05,3.5,,,,,,,,daily_snapshots,2026-07-28T18:33:14Z
+20260803_Lanus_Instituto,argentina,2026-08-03,Lanus,Instituto,Bovada,snapshot,2026-07-28|Bovada,6.0,2.25,2.9,3.6,,,,,,,,daily_snapshots,2026-07-28T18:33:14Z
+20260803_Platense_Talleres-Cordoba,argentina,2026-08-03,Platense,Talleres Cordoba,Bovada,snapshot,2026-07-28|Bovada,6.0,2.75,2.9,2.75,,,,,,,,daily_snapshots,2026-07-28T18:33:15Z
+20260803_Sarmiento-Junin_Independiente,argentina,2026-08-03,Sarmiento Junin,Independiente,Bovada,snapshot,2026-07-28|Bovada,6.0,3.25,2.9,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:15Z
+20260803_Velez-Sarsfield_Independiente,argentina,2026-08-03,Velez Sarsfield,Independiente,Bovada,snapshot,2026-07-28|Bovada,6.0,2.3,2.95,3.4,,,,,,,,daily_snapshots,2026-07-28T18:33:15Z
+20260804_Central-Cordoba_San-Lorenzo,argentina,2026-08-04,Central Cordoba,San Lorenzo,Bovada,snapshot,2026-07-28|Bovada,7.0,2.75,2.9,2.75,,,,,,,,daily_snapshots,2026-07-28T18:33:15Z
+20260804_Huracan_Atl.-Tucuman,argentina,2026-08-04,Huracan,Atl. Tucuman,Bovada,snapshot,2026-07-28|Bovada,7.0,2.35,2.85,3.35,,,,,,,,daily_snapshots,2026-07-28T18:33:15Z
+20260728_Juventude_Avaí,bra_serie_b,2026-07-28,Juventude,Avaí,Bovada,snapshot,2026-07-28|Bovada,0.0,1.6289,3.4,5.75,,,,,,,,daily_snapshots,2026-07-28T18:33:37Z
+20260729_Fortaleza_Botafogo-SP,bra_serie_b,2026-07-29,Fortaleza,Botafogo-SP,Bovada,snapshot,2026-07-28|Bovada,1.0,1.7519,3.35,4.7,,,,,,,,daily_snapshots,2026-07-28T18:33:37Z
+20260729_Internacional_Flamengo-RJ,brasil,2026-07-29,Internacional,Flamengo RJ,Bovada,snapshot,2026-07-28|Bovada,1.0,2.4,3.55,1.5,,,,,,,,daily_snapshots,2026-07-28T18:33:09Z
+20260729_Mirassol_Remo,brasil,2026-07-29,Mirassol,Remo,Bovada,snapshot,2026-07-28|Bovada,1.0,1.4167,3.75,2.7,,,,,,,,daily_snapshots,2026-07-28T18:33:09Z
+20260730_Corinthians_Athletico-PR,brasil,2026-07-30,Corinthians,Athletico-PR,Bovada,snapshot,2026-07-28|Bovada,2.0,1.5882,3.3,2.65,,,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260730_Fluminense_Bahia,brasil,2026-07-30,Fluminense,Bahia,Bovada,snapshot,2026-07-28|Bovada,2.0,1.4762,3.7,2.5,,,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260730_Vitoria_Palmeiras,brasil,2026-07-30,Vitoria,Palmeiras,Bovada,snapshot,2026-07-28|Bovada,2.0,2.4,3.3,1.5556,,,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260731_Coritiba_Cruzeiro,brasil,2026-07-31,Coritiba,Cruzeiro,Bovada,snapshot,2026-07-28|Bovada,3.0,2.15,3.3,1.6667,,,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260801_Cobresal_Unión-La-Calera,chi_primera,2026-08-01,Cobresal,Unión La Calera,Bovada,snapshot,2026-07-28|Bovada,4.0,2.35,3.15,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Everton-CD_Colo-Colo,chi_primera,2026-08-01,Everton CD,Colo Colo,Bovada,snapshot,2026-07-28|Bovada,4.0,3.6,3.4,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Palestino_Coquimbo-Unido,chi_primera,2026-08-01,Palestino,Coquimbo Unido,Bovada,snapshot,2026-07-28|Bovada,4.0,2.75,3.1,2.45,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Universidad-de-Concepción_Audax-Italiano,chi_primera,2026-08-01,Universidad de Concepción,Audax Italiano,Bovada,snapshot,2026-07-28|Bovada,4.0,2.55,3.25,2.55,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Deportes-Concepcion_Universidad-Católica,chi_primera,2026-08-02,Deportes Concepcion,Universidad Católica,Bovada,snapshot,2026-07-28|Bovada,5.0,3.6,3.45,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Deportes-Limache_Ñublense,chi_primera,2026-08-02,Deportes Limache,Ñublense,Bovada,snapshot,2026-07-28|Bovada,5.0,2.1,3.3,3.2,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_La-Serena_O'Higgins,chi_primera,2026-08-02,La Serena,O'Higgins,Bovada,snapshot,2026-07-28|Bovada,5.0,2.55,3.35,2.5,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Universidad-de-Chile_Huachipato,chi_primera,2026-08-02,Universidad de Chile,Huachipato,Bovada,snapshot,2026-07-28|Bovada,5.0,1.6173,3.7,5.0,,,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260731_Henan-Songshan-Longmen_Dalian-Yingbo,china,2026-07-31,Henan Songshan Longmen,Dalian Yingbo,Bovada,snapshot,2026-07-28|Bovada,3.0,1.8197,3.85,3.85,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260801_Beijing-Guoan_Zhejiang-Professional,china,2026-08-01,Beijing Guoan,Zhejiang Professional,Bovada,snapshot,2026-07-28|Bovada,4.0,1.5587,4.6,4.8,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260801_Chengdu-Rongcheng_Wuhan-Three-Towns,china,2026-08-01,Chengdu Rongcheng,Wuhan Three Towns,Bovada,snapshot,2026-07-28|Bovada,4.0,1.3448,5.0,8.0,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260801_Shanghai-Port_Shandong-Taishan,china,2026-08-01,Shanghai Port,Shandong Taishan,Bovada,snapshot,2026-07-28|Bovada,4.0,1.9524,3.95,3.3,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260801_Tianjin-Jinmen-Tiger_Yunnan-Yukun,china,2026-08-01,Tianjin Jinmen Tiger,Yunnan Yukun,Bovada,snapshot,2026-07-28|Bovada,4.0,2.6,3.5,2.5,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260802_Liaoning-Tieren_Shanghai-Shenhua,china,2026-08-02,Liaoning Tieren,Shanghai Shenhua,Bovada,snapshot,2026-07-28|Bovada,5.0,3.55,3.95,1.8772,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260802_Qingdao-West-Coast_Qingdao-Hainiu,china,2026-08-02,Qingdao West Coast,Qingdao Hainiu,Bovada,snapshot,2026-07-28|Bovada,5.0,1.7576,3.9,4.2,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260731_Atlético-Bucaramanga_Llaneros-FC,col_primera_a,2026-07-31,Atlético Bucaramanga,Llaneros FC,Bovada,snapshot,2026-07-28|Bovada,3.0,1.5263,3.65,6.0,,,,,,,,daily_snapshots,2026-07-28T18:33:31Z
+20260801_Alianza-FC_Deportes-Tolima,col_primera_a,2026-08-01,Alianza FC,Deportes Tolima,Bovada,snapshot,2026-07-28|Bovada,4.0,2.7,3.0,2.6,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Deportivo-Pasto_Águilas-Doradas,col_primera_a,2026-08-01,Deportivo Pasto,Águilas Doradas,Bovada,snapshot,2026-07-28|Bovada,4.0,1.8197,3.2,4.4,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Fortaleza-CEIF_Deportivo-Pereira,col_primera_a,2026-08-01,Fortaleza CEIF,Deportivo Pereira,Bovada,snapshot,2026-07-28|Bovada,4.0,1.5263,3.7,6.0,,,,,,,,daily_snapshots,2026-07-28T18:33:31Z
+20260801_Independiente-Medellín_Deportivo-Cali,col_primera_a,2026-08-01,Independiente Medellín,Deportivo Cali,Bovada,snapshot,2026-07-28|Bovada,4.0,1.9091,3.2,3.9,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_América-de-Cali_Boyacá-Chicó-FC,col_primera_a,2026-08-02,América de Cali,Boyacá Chicó FC,Bovada,snapshot,2026-07-28|Bovada,5.0,1.3448,4.3,9.0,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_Atlético-Junior_Millonarios,col_primera_a,2026-08-02,Atlético Junior,Millonarios,Bovada,snapshot,2026-07-28|Bovada,5.0,2.0,3.2,3.55,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_Jaguares-de-Córdoba_Atlético-Nacional,col_primera_a,2026-08-02,Jaguares de Córdoba,Atlético Nacional,Bovada,snapshot,2026-07-28|Bovada,5.0,4.4,3.4,1.7576,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260803_Independiente-Santa-Fe_Once-Caldas,col_primera_a,2026-08-03,Independiente Santa Fe,Once Caldas,Bovada,snapshot,2026-07-28|Bovada,6.0,2.1,3.1,3.45,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Puntarenas-FC_Sporting-San-José,crc_fpd,2026-08-01,Puntarenas FC,Sporting San José,Bovada,snapshot,2026-07-28|Bovada,4.0,2.25,2.9,3.05,,,,,,,,daily_snapshots,2026-07-28T18:33:51Z
+20260802_Saprissa_AD-San-Carlos,crc_fpd,2026-08-02,Saprissa,AD San Carlos,Bovada,snapshot,2026-07-28|Bovada,5.0,1.3175,4.5,8.0,,,,,,,,daily_snapshots,2026-07-28T18:33:52Z
+20260804_Pérez-Zeledón_Cartaginés,crc_fpd,2026-08-04,Pérez Zeledón,Cartaginés,Bovada,snapshot,2026-07-28|Bovada,7.0,3.8,3.15,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:33:52Z
+20260802_Midtjylland_Horsens,dinamarca,2026-08-02,Midtjylland,Horsens,Bovada,snapshot,2026-07-28|Bovada,5.0,1.3279,4.9,7.5,,,,,,,,daily_snapshots,2026-07-28T18:33:20Z
+20260801_Libertad-(Ecuador)_Orense,ecu_liga_pro,2026-08-01,Libertad (Ecuador),Orense,Bovada,snapshot,2026-07-28|Bovada,4.0,2.8,3.1,2.45,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260801_Manta-F.C._Mushuc-Runa,ecu_liga_pro,2026-08-01,Manta F.C.,Mushuc Runa,Bovada,snapshot,2026-07-28|Bovada,4.0,2.95,3.05,2.35,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260802_Emelec_Aucas,ecu_liga_pro,2026-08-02,Emelec,Aucas,Bovada,snapshot,2026-07-28|Bovada,5.0,2.3,3.0,3.15,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260802_Independiente-del-Valle_Deportivo-Cuenca,ecu_liga_pro,2026-08-02,Independiente del Valle,Deportivo Cuenca,Bovada,snapshot,2026-07-28|Bovada,5.0,1.2778,5.0,9.5,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260802_Leones_Barcelona-SC,ecu_liga_pro,2026-08-02,Leones,Barcelona SC,Bovada,snapshot,2026-07-28|Bovada,5.0,2.75,3.05,2.5,,,,,,,,daily_snapshots,2026-07-28T18:33:43Z
+20260802_Macará_Guayaquil-City-FC,ecu_liga_pro,2026-08-02,Macará,Guayaquil City FC,Bovada,snapshot,2026-07-28|Bovada,5.0,1.6369,3.59,5.56,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260804_Liga-de-Quito_Delfín,ecu_liga_pro,2026-08-04,Liga de Quito,Delfín,Bovada,snapshot,2026-07-28|Bovada,7.0,1.3077,4.5,9.75,,,,,,,,daily_snapshots,2026-07-28T18:33:43Z
+20260801_Atl.-San-Luis_Club-Tijuana,liga_mx,2026-08-01,Atl. San Luis,Club Tijuana,Bovada,snapshot,2026-07-28|Bovada,4.0,1.6667,3.15,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:33:04Z
+20260801_Puebla_Guadalajara-Chivas,liga_mx,2026-08-01,Puebla,Guadalajara Chivas,Bovada,snapshot,2026-07-28|Bovada,4.0,2.45,3.95,1.3509,,,,,,,,daily_snapshots,2026-07-28T18:33:04Z
+20260801_Queretaro_Tigres-UANL,liga_mx,2026-08-01,Queretaro,Tigres UANL,Bovada,snapshot,2026-07-28|Bovada,4.0,3.7,3.65,1.8547,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Atlas_Monterrey,liga_mx,2026-08-02,Atlas,Monterrey,Bovada,snapshot,2026-07-28|Bovada,5.0,2.74,3.3,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Club-America_Santos-Laguna,liga_mx,2026-08-02,Club America,Santos Laguna,Bovada,snapshot,2026-07-28|Bovada,5.0,1.4167,4.55,6.25,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Club-Leon_Pachuca,liga_mx,2026-08-02,Club Leon,Pachuca,Bovada,snapshot,2026-07-28|Bovada,5.0,2.95,3.3,2.24,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Cruz-Azul_Atlante,liga_mx,2026-08-02,Cruz Azul,Atlante,Bovada,snapshot,2026-07-28|Bovada,5.0,1.2941,5.05,8.75,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260731_Alebrijes-de-Oaxaca_Dorados-de-Sinaloa,mex_expansion,2026-07-31,Alebrijes de Oaxaca,Dorados de Sinaloa,Bovada,snapshot,2026-07-28|Bovada,3.0,1.7353,3.55,4.3,,,,,,,,daily_snapshots,2026-07-28T18:33:53Z
+20260801_Club-Atlético-La-Paz_Durango,mex_expansion,2026-08-01,Club Atlético La Paz,Durango,Bovada,snapshot,2026-07-28|Bovada,4.0,2.0,3.4,3.35,,,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260801_Correcaminos-UAT_Tepatitlán-FC,mex_expansion,2026-08-01,Correcaminos UAT,Tepatitlán FC,Bovada,snapshot,2026-07-28|Bovada,4.0,2.55,3.1,2.7,,,,,,,,daily_snapshots,2026-07-28T18:33:53Z
+20260801_Cruz-Azul-Hidalgo_Venados-FC,mex_expansion,2026-08-01,Cruz Azul Hidalgo,Venados FC,Bovada,snapshot,2026-07-28|Bovada,4.0,2.55,3.1,2.65,,,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260801_Mineros-de-Zacatecas_Tlaxcala-FC,mex_expansion,2026-08-01,Mineros de Zacatecas,Tlaxcala FC,Bovada,snapshot,2026-07-28|Bovada,4.0,2.05,3.2,3.5,,,,,,,,daily_snapshots,2026-07-28T18:33:53Z
+20260801_Tapatío_Club-Jaiba-Brava,mex_expansion,2026-08-01,Tapatío,Club Jaiba Brava,Bovada,snapshot,2026-07-28|Bovada,4.0,2.35,3.2,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260802_Cancún-FC_Leones-Negros,mex_expansion,2026-08-02,Cancún FC,Leones Negros,Bovada,snapshot,2026-07-28|Bovada,5.0,1.8547,3.5,3.8,,,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260802_Piratas_Club-Atlético-Morelia,mex_expansion,2026-08-02,Piratas,Club Atlético Morelia,Bovada,snapshot,2026-07-28|Bovada,5.0,2.5,3.1,2.75,,,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260731_New-York-City_Toronto-FC,mls,2026-07-31,New York City,Toronto FC,Bovada,snapshot,2026-07-28|Bovada,3.0,1.3333,4.0,2.6,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_CF-Montreal_New-England-Revolution,mls,2026-08-01,CF Montreal,New England Revolution,Bovada,snapshot,2026-07-28|Bovada,4.0,2.25,3.5,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_DC-United_Nashville-SC,mls,2026-08-01,DC United,Nashville SC,Bovada,snapshot,2026-07-28|Bovada,4.0,2.9,3.4,2.35,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_FC-Cincinnati_San-Jose-Earthquakes,mls,2026-08-01,FC Cincinnati,San Jose Earthquakes,Bovada,snapshot,2026-07-28|Bovada,4.0,1.9524,4.05,3.25,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_Inter-Miami_Columbus-Crew,mls,2026-08-01,Inter Miami,Columbus Crew,Bovada,snapshot,2026-07-28|Bovada,4.0,1.7092,3.95,4.45,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_New-York-City_Orlando-City,mls,2026-08-01,New York City,Orlando City,Bovada,snapshot,2026-07-28|Bovada,4.0,2.09,4.05,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260801_Philadelphia-Union_Atlanta-Utd,mls,2026-08-01,Philadelphia Union,Atlanta Utd,Bovada,snapshot,2026-07-28|Bovada,4.0,1.7042,4.05,4.35,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_Vancouver-Whitecaps_Los-Angeles-FC,mls,2026-08-01,Vancouver Whitecaps,Los Angeles FC,Bovada,snapshot,2026-07-28|Bovada,4.0,1.77,4.15,3.9,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Chicago-Fire_Charlotte,mls,2026-08-02,Chicago Fire,Charlotte,Bovada,snapshot,2026-07-28|Bovada,5.0,1.5102,4.8,5.2,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Colorado-Rapids_Austin-FC,mls,2026-08-02,Colorado Rapids,Austin FC,Bovada,snapshot,2026-07-28|Bovada,5.0,1.7246,4.1,4.15,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Minnesota-United_San-Diego-FC,mls,2026-08-02,Minnesota United,San Diego FC,Bovada,snapshot,2026-07-28|Bovada,5.0,2.01,3.8,3.3,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Portland-Timbers_Seattle-Sounders,mls,2026-08-02,Portland Timbers,Seattle Sounders,Bovada,snapshot,2026-07-28|Bovada,5.0,2.12,3.95,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Sporting-Kansas-City_Houston-Dynamo,mls,2026-08-02,Sporting Kansas City,Houston Dynamo,Bovada,snapshot,2026-07-28|Bovada,5.0,3.35,3.3,2.16,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_St.-Louis-City_Real-Salt-Lake,mls,2026-08-02,St. Louis City,Real Salt Lake,Bovada,snapshot,2026-07-28|Bovada,5.0,2.13,3.7,3.05,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260801_Fredrikstad_Sandefjord,noruega,2026-08-01,Fredrikstad,Sandefjord,Bovada,snapshot,2026-07-28|Bovada,4.0,2.25,3.35,2.9,,,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260801_Start_Viking,noruega,2026-08-01,Start,Viking,Bovada,snapshot,2026-07-28|Bovada,4.0,5.2,4.4,1.5,,,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260802_Brann_Rosenborg,noruega,2026-08-02,Brann,Rosenborg,Bovada,snapshot,2026-07-28|Bovada,5.0,1.8,3.8,3.8,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260802_KFUM-Oslo_Kristiansund,noruega,2026-08-02,KFUM Oslo,Kristiansund,Bovada,snapshot,2026-07-28|Bovada,5.0,1.6757,3.75,4.5,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260802_Molde_Sarpsborg-08,noruega,2026-08-02,Molde,Sarpsborg 08,Bovada,snapshot,2026-07-28|Bovada,5.0,1.6173,4.1,4.4,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260728_2-de-Mayo_Cerro-Porteño,par_division,2026-07-28,2 de Mayo,Cerro Porteño,Bovada,snapshot,2026-07-28|Bovada,0.0,3.9,3.1,1.9524,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260728_Rubio-Ñú_Sportivo-Ameliano,par_division,2026-07-28,Rubio Ñú,Sportivo Ameliano,Bovada,snapshot,2026-07-28|Bovada,0.0,3.35,2.85,2.3,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260729_Nacional-Asunción_Club-Olimpia,par_division,2026-07-29,Nacional Asunción,Club Olimpia,Bovada,snapshot,2026-07-28|Bovada,1.0,3.05,3.05,2.3,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260729_Sportivo-Luqueño_Sportivo-Trinidense,par_division,2026-07-29,Sportivo Luqueño,Sportivo Trinidense,Bovada,snapshot,2026-07-28|Bovada,1.0,3.0,2.95,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260730_Libertad_Deportivo-Recoleta,par_division,2026-07-30,Libertad,Deportivo Recoleta,Bovada,snapshot,2026-07-28|Bovada,2.0,1.8333,3.55,4.15,1.9434,1.8475,,,,,,daily_snapshots,2026-07-28T18:33:49Z
+20260730_Sportivo-San-Lorenzo_Guaraní,par_division,2026-07-30,Sportivo San Lorenzo,Guaraní,Bovada,snapshot,2026-07-28|Bovada,2.0,3.4,3.05,2.1,,,,,,,,daily_snapshots,2026-07-28T18:33:49Z
+20260731_Los-Chankas_Comerciantes-Unidos,per_liga1,2026-07-31,Los Chankas,Comerciantes Unidos,Bovada,snapshot,2026-07-28|Bovada,3.0,1.8,3.4,4.1,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Atlético-Grau_Sport-Boys,per_liga1,2026-08-01,Atlético Grau,Sport Boys,Bovada,snapshot,2026-07-28|Bovada,4.0,2.05,3.05,3.7,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Cusco-FC_UTC,per_liga1,2026-08-01,Cusco FC,UTC,Bovada,snapshot,2026-07-28|Bovada,4.0,1.5587,3.85,5.2,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_FC-Cajamarca_Sport-Huancayo,per_liga1,2026-08-01,FC Cajamarca,Sport Huancayo,Bovada,snapshot,2026-07-28|Bovada,4.0,3.2,3.2,2.15,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260802_Alianza-Lima_Alianza-Atlético,per_liga1,2026-08-02,Alianza Lima,Alianza Atlético,Bovada,snapshot,2026-07-28|Bovada,5.0,1.4,4.2,7.0,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260802_Cienciano-del-Cusco_Universitario,per_liga1,2026-08-02,Cienciano del Cusco,Universitario,Bovada,snapshot,2026-07-28|Bovada,5.0,2.55,3.1,2.65,,,,,,,,daily_snapshots,2026-07-28T18:33:39Z
+20260802_Deportivo-Moquegua_Melgar,per_liga1,2026-08-02,Deportivo Moquegua,Melgar,Bovada,snapshot,2026-07-28|Bovada,5.0,3.5,3.28,2.03,,,,,,,,daily_snapshots,2026-07-28T18:33:39Z
+20260802_Sporting-Cristal_Juan-Pablo-II,per_liga1,2026-08-02,Sporting Cristal,Juan Pablo II,Bovada,snapshot,2026-07-28|Bovada,5.0,1.25,5.88,10.0,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Golden-Arrows_Chippa-United,rsa_premier,2026-08-01,Golden Arrows,Chippa United,Bovada,snapshot,2026-07-28|Bovada,4.0,2.0,3.2,3.65,,,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260801_Sekhukhune-United-FC_Durban-City,rsa_premier,2026-08-01,Sekhukhune United FC,Durban City,Bovada,snapshot,2026-07-28|Bovada,4.0,1.8772,3.05,4.4,,,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260801_Stellenbosch_AmaZulu,rsa_premier,2026-08-01,Stellenbosch,AmaZulu,Bovada,snapshot,2026-07-28|Bovada,4.0,2.05,2.9,3.95,,,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260802_Richards-Bay-FC_Polokwane-City-FC,rsa_premier,2026-08-02,Richards Bay FC,Polokwane City FC,Bovada,snapshot,2026-07-28|Bovada,5.0,2.7,2.65,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260802_Siwelele_TS-Galaxy-FC,rsa_premier,2026-08-02,Siwelele,TS Galaxy FC,Bovada,snapshot,2026-07-28|Bovada,5.0,2.2,2.85,3.5,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260731_Rodina-Moscow_FK-Rostov,rus_premier,2026-07-31,Rodina Moscow,FK Rostov,Bovada,snapshot,2026-07-28|Bovada,3.0,3.1,3.15,2.2,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_Akron-Togliatti_Rubin-Kazan,rus_premier,2026-08-01,Akron Togliatti,Rubin Kazan,Bovada,snapshot,2026-07-28|Bovada,4.0,2.9,3.2,2.3,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_Baltika_Dynamo-Moscow,rus_premier,2026-08-01,Baltika,Dynamo Moscow,Bovada,snapshot,2026-07-28|Bovada,4.0,2.8,3.15,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_CSKA-Moscow_Krylya-Sovetov,rus_premier,2026-08-01,CSKA Moscow,Krylya Sovetov,Bovada,snapshot,2026-07-28|Bovada,4.0,1.4762,4.3,5.6,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_Dynamo-Makhachkala_Lokomotiv-Moscow,rus_premier,2026-08-01,Dynamo Makhachkala,Lokomotiv Moscow,Bovada,snapshot,2026-07-28|Bovada,4.0,3.4,3.25,2.05,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260802_Akhmat-Grozny_Spartak-Moscow,rus_premier,2026-08-02,Akhmat Grozny,Spartak Moscow,Bovada,snapshot,2026-07-28|Bovada,5.0,3.65,3.55,1.8772,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_Krasnodar_Fakel-Voronezh,rus_premier,2026-08-02,Krasnodar,Fakel Voronezh,Bovada,snapshot,2026-07-28|Bovada,5.0,1.3077,4.7,9.0,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_Orenburg_Zenit,rus_premier,2026-08-02,Orenburg,Zenit,Bovada,snapshot,2026-07-28|Bovada,5.0,8.0,4.9,1.3175,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260801_Ayr_Arbroath,sco_championship,2026-08-01,Ayr,Arbroath,Bovada,snapshot,2026-07-28|Bovada,4.0,2.5,2.95,2.7,,,,,,,,daily_snapshots,2026-07-28T18:33:25Z
+20260801_Morton_Partick,sco_championship,2026-08-01,Morton,Partick,Bovada,snapshot,2026-07-28|Bovada,4.0,5.0,3.75,1.5682,,,,,,,,daily_snapshots,2026-07-28T18:33:26Z
+20260731_Dundee-United_Rangers,sco_premiership,2026-07-31,Dundee United,Rangers,Bovada,snapshot,2026-07-28|Bovada,3.0,5.3,4.4,1.495,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260801_Falkirk_St-Mirren,sco_premiership,2026-08-01,Falkirk,St Mirren,Bovada,snapshot,2026-07-28|Bovada,4.0,1.9434,3.45,3.55,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_Hibernian_Motherwell,sco_premiership,2026-08-02,Hibernian,Motherwell,Bovada,snapshot,2026-07-28|Bovada,5.0,2.23,3.3,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_St-Johnstone_Kilmarnock,sco_premiership,2026-08-02,St Johnstone,Kilmarnock,Bovada,snapshot,2026-07-28|Bovada,5.0,2.13,3.35,3.15,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260803_Celtic_Dundee,sco_premiership,2026-08-03,Celtic,Dundee,Bovada,snapshot,2026-07-28|Bovada,6.0,1.1818,6.75,10.5,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260728_Cacahuatique_Atletico-Balboa,slv_primera,2026-07-28,Cacahuatique,Atletico Balboa,Bovada,snapshot,2026-07-28|Bovada,0.0,2.25,3.05,3.4,,,,,,,,daily_snapshots,2026-07-28T18:33:43Z
+20260728_Tigre_Nacional,sudamericana,2026-07-28,Tigre,Nacional,Bovada,snapshot,2026-07-28|Bovada,0.0,1.5556,3.35,2.25,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260729_Santos_UCV-FC,sudamericana,2026-07-29,Santos,UCV FC,Bovada,snapshot,2026-07-28|Bovada,1.0,1.1667,6.0,3.6,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260729_Vasco-da-Gama_Independiente-Medellín,sudamericana,2026-07-29,Vasco da Gama,Independiente Medellín,Bovada,snapshot,2026-07-28|Bovada,1.0,1.3175,4.0,2.8,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260730_Cienciano-del-Cusco_Lanús,sudamericana,2026-07-30,Cienciano del Cusco,Lanús,Bovada,snapshot,2026-07-28|Bovada,2.0,1.6667,3.4,2.05,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260730_Grêmio_Bolívar,sudamericana,2026-07-30,Grêmio,Bolívar,Bovada,snapshot,2026-07-28|Bovada,2.0,1.2,5.4,3.5,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260731_Caracas-FC_Independiente-Santa-Fe,sudamericana,2026-07-31,Caracas FC,Independiente Santa Fe,Bovada,snapshot,2026-07-28|Bovada,3.0,2.1,3.25,1.8,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260731_O'Higgins_Boca-Juniors,sudamericana,2026-07-31,O'Higgins,Boca Juniors,Bovada,snapshot,2026-07-28|Bovada,3.0,2.35,3.3,1.5263,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260801_Hacken_Kalmar,suecia,2026-08-01,Hacken,Kalmar,Bovada,snapshot,2026-07-28|Bovada,4.0,1.8065,3.9,3.9,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_AIK_Orgryte,suecia,2026-08-02,AIK,Orgryte,Bovada,snapshot,2026-07-28|Bovada,5.0,1.4808,4.85,5.5,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_Brommapojkarna_Malmo-FF,suecia,2026-08-02,Brommapojkarna,Malmo FF,Bovada,snapshot,2026-07-28|Bovada,5.0,3.1,3.55,2.17,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_Goteborg_Degerfors,suecia,2026-08-02,Goteborg,Degerfors,Bovada,snapshot,2026-07-28|Bovada,5.0,1.7353,3.75,4.5,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260731_Montevideo-City-Torque_Montevideo-Wanderers,uru_primera,2026-07-31,Montevideo City Torque,Montevideo Wanderers,Bovada,snapshot,2026-07-28|Bovada,3.0,1.9091,3.39,4.13,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260801_Albion-FC_Danubio,uru_primera,2026-08-01,Albion FC,Danubio,Bovada,snapshot,2026-07-28|Bovada,4.0,2.1,3.05,3.45,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260801_Deportivo-Maldonado_Juventud,uru_primera,2026-08-01,Deportivo Maldonado,Juventud,Bovada,snapshot,2026-07-28|Bovada,4.0,1.8197,3.5,4.0,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260801_Peñarol_Cerro-Largo,uru_primera,2026-08-01,Peñarol,Cerro Largo,Bovada,snapshot,2026-07-28|Bovada,4.0,1.5587,3.75,5.6,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260802_Central-Español-Fútbol-Club_Liverpool,uru_primera,2026-08-02,Central Español Fútbol Club,Liverpool,Bovada,snapshot,2026-07-28|Bovada,5.0,3.4,3.0,2.2,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260802_Nacional_Progreso,uru_primera,2026-08-02,Nacional,Progreso,Bovada,snapshot,2026-07-28|Bovada,5.0,1.4762,4.1,5.75,,,,,,,,daily_snapshots,2026-07-28T18:33:41Z
+20260802_Racing-(Montevideo)_Boston-River,uru_primera,2026-08-02,Racing (Montevideo),Boston River,Bovada,snapshot,2026-07-28|Bovada,5.0,1.7576,3.3,4.6,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260803_Defensor-Sporting_Cerro,uru_primera,2026-08-03,Defensor Sporting,Cerro,Bovada,snapshot,2026-07-28|Bovada,6.0,1.7353,3.25,4.8,,,,,,,,daily_snapshots,2026-07-28T18:33:41Z
+20260729_Louisville-City-FC_Birmingham-Legion-FC,usl_championship,2026-07-29,Louisville City FC,Birmingham Legion FC,Bovada,snapshot,2026-07-28|Bovada,1.0,1.4,4.6,6.5,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260729_Pittsburgh-Riverhounds_FC-Tulsa,usl_championship,2026-07-29,Pittsburgh Riverhounds,FC Tulsa,Bovada,snapshot,2026-07-28|Bovada,1.0,1.9091,3.3,3.85,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Charleston-Battery_Brooklyn-FC,usl_championship,2026-08-01,Charleston Battery,Brooklyn FC,Bovada,snapshot,2026-07-28|Bovada,4.0,1.4255,4.6,5.75,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260801_Lexington_Monterey-Bay,usl_championship,2026-08-01,Lexington,Monterey Bay,Bovada,snapshot,2026-07-28|Bovada,4.0,1.5747,3.9,5.0,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Loudoun-United-FC_Hartford-Athletic,usl_championship,2026-08-01,Loudoun United FC,Hartford Athletic,Bovada,snapshot,2026-07-28|Bovada,4.0,2.25,3.3,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Miami-FC_Detroit-City-FC,usl_championship,2026-08-01,Miami FC,Detroit City FC,Bovada,snapshot,2026-07-28|Bovada,4.0,3.65,3.45,1.9091,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_San-Antonio-FC_Indy-Eleven,usl_championship,2026-08-01,San Antonio FC,Indy Eleven,Bovada,snapshot,2026-07-28|Bovada,4.0,2.1,3.3,3.2,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260802_Birmingham-Legion-FC_Rhode-Island-FC,usl_championship,2026-08-02,Birmingham Legion FC,Rhode Island FC,Bovada,snapshot,2026-07-28|Bovada,5.0,3.1,3.35,2.1,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Las-Vegas-Lights-FC_Phoenix-Rising-FC,usl_championship,2026-08-02,Las Vegas Lights FC,Phoenix Rising FC,Bovada,snapshot,2026-07-28|Bovada,5.0,2.45,3.4,2.6,,,,,,,,daily_snapshots,2026-07-28T18:33:36Z
+20260802_New-Mexico-United_Colorado-Springs-Switchbacks-FC,usl_championship,2026-08-02,New Mexico United,Colorado Springs Switchbacks FC,Bovada,snapshot,2026-07-28|Bovada,5.0,2.85,3.4,2.25,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Oakland-Roots_Pittsburgh-Riverhounds,usl_championship,2026-08-02,Oakland Roots,Pittsburgh Riverhounds,Bovada,snapshot,2026-07-28|Bovada,5.0,2.3,3.3,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Sacramento-Republic-FC_Sporting-JAX,usl_championship,2026-08-02,Sacramento Republic FC,Sporting JAX,Bovada,snapshot,2026-07-28|Bovada,5.0,1.3175,5.0,7.5,,,,,,,,daily_snapshots,2026-07-28T18:33:36Z
+20260802_Tampa-Bay-Rowdies_Louisville-City-FC,usl_championship,2026-08-02,Tampa Bay Rowdies,Louisville City FC,Bovada,snapshot,2026-07-28|Bovada,5.0,1.9091,3.6,3.5,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260801_San-Martín-(San-Juan)_Atletico-Rafaela,arg_primera_nacional,2026-08-01,San Martín (San Juan),Atletico Rafaela,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.769,2.95,5.0,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Deportivo-Maipú_Atlanta,arg_primera_nacional,2026-08-02,Deportivo Maipú,Atlanta,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.6,2.8,2.8,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Patronato_Quilmes,arg_primera_nacional,2026-08-02,Patronato,Quilmes,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.6,2.7,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Temperley_Gimnasia-y-Tiro-(Salta),arg_primera_nacional,2026-08-02,Temperley,Gimnasia y Tiro (Salta),DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.05,2.65,4.2,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260728_Banfield_Sarmiento-Junin,argentina,2026-07-28,Banfield,Sarmiento Junin,DraftKings,snapshot,2026-07-28|DraftKings,0.0,2.05,3.0,4.1,,,,,,,,daily_snapshots,2026-07-28T18:33:11Z
+20260728_San-Lorenzo_Gimnasia-Mendoza,argentina,2026-07-28,San Lorenzo,Gimnasia Mendoza,DraftKings,snapshot,2026-07-28|DraftKings,0.0,2.0,3.1,4.1,,,,,,,,daily_snapshots,2026-07-28T18:33:11Z
+20260729_Argentinos-Jrs_Estudiantes-Rio-Cuarto,argentina,2026-07-29,Argentinos Jrs,Estudiantes Rio Cuarto,DraftKings,snapshot,2026-07-28|DraftKings,1.0,1.392,4.2,9.5,2.3,1.571,,,,,,daily_snapshots,2026-07-28T18:33:11Z
+20260729_Barracas-Central_Aldosivi,argentina,2026-07-29,Barracas Central,Aldosivi,DraftKings,snapshot,2026-07-28|DraftKings,1.0,2.35,2.75,3.6,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Defensa-y-Justicia_Dep.-Riestra,argentina,2026-07-29,Defensa y Justicia,Dep. Riestra,DraftKings,snapshot,2026-07-28|DraftKings,1.0,2.15,2.9,3.8,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Gimnasia-L.P._River-Plate,argentina,2026-07-29,Gimnasia L.P.,River Plate,DraftKings,snapshot,2026-07-28|DraftKings,1.0,3.65,3.0,2.15,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Rosario-Central_Racing-Club,argentina,2026-07-29,Rosario Central,Racing Club,DraftKings,snapshot,2026-07-28|DraftKings,1.0,2.25,3.0,3.6,2.45,1.526,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Independiente_Huracan,argentina,2026-07-30,Independiente,Huracan,DraftKings,snapshot,2026-07-28|DraftKings,2.0,2.2,2.9,3.65,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Instituto_Platense,argentina,2026-07-30,Instituto,Platense,DraftKings,snapshot,2026-07-28|DraftKings,2.0,2.1,2.85,4.2,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Talleres-Cordoba_Velez-Sarsfield,argentina,2026-07-30,Talleres Cordoba,Velez Sarsfield,DraftKings,snapshot,2026-07-28|DraftKings,2.0,2.35,2.75,3.55,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260731_Central-Cordoba_Atl.-Tucuman,argentina,2026-07-31,Central Cordoba,Atl. Tucuman,DraftKings,snapshot,2026-07-28|DraftKings,3.0,3.2,2.9,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260731_Independiente_Newells-Old-Boys,argentina,2026-07-31,Independiente,Newells Old Boys,DraftKings,snapshot,2026-07-28|DraftKings,3.0,1.645,3.55,5.5,2.25,1.571,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260728_Juventude_Avaí,bra_serie_b,2026-07-28,Juventude,Avaí,DraftKings,snapshot,2026-07-28|DraftKings,0.0,1.606,3.6,6.0,2.3,1.571,,,,,,daily_snapshots,2026-07-28T18:33:37Z
+20260728_Ponte-Preta_Athletic,bra_serie_b,2026-07-28,Ponte Preta,Athletic,DraftKings,snapshot,2026-07-28|DraftKings,0.0,4.2,3.25,1.952,2.3,1.571,,,,,,daily_snapshots,2026-07-28T18:33:37Z
+20260729_Fortaleza_Botafogo-SP,bra_serie_b,2026-07-29,Fortaleza,Botafogo-SP,DraftKings,snapshot,2026-07-28|DraftKings,1.0,1.833,3.4,4.6,2.2,1.625,,,,,,daily_snapshots,2026-07-28T18:33:37Z
+20260729_Internacional_Flamengo-RJ,brasil,2026-07-29,Internacional,Flamengo RJ,DraftKings,snapshot,2026-07-28|DraftKings,1.0,3.95,3.5,1.909,1.87,1.833,,,,,,daily_snapshots,2026-07-28T18:33:09Z
+20260729_Mirassol_Remo,brasil,2026-07-29,Mirassol,Remo,DraftKings,snapshot,2026-07-28|DraftKings,1.0,1.69,3.7,4.8,1.909,1.769,,,,,,daily_snapshots,2026-07-28T18:33:09Z
+20260730_Corinthians_Athletico-PR,brasil,2026-07-30,Corinthians,Athletico-PR,DraftKings,snapshot,2026-07-28|DraftKings,2.0,1.952,3.2,4.1,2.4,1.513,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260730_Fluminense_Bahia,brasil,2026-07-30,Fluminense,Bahia,DraftKings,snapshot,2026-07-28|DraftKings,2.0,1.769,3.6,4.4,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260731_Coritiba_Cruzeiro,brasil,2026-07-31,Coritiba,Cruzeiro,DraftKings,snapshot,2026-07-28|DraftKings,3.0,3.25,3.25,2.2,2.05,1.69,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260801_Cobresal_Unión-La-Calera,chi_primera,2026-08-01,Cobresal,Unión La Calera,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.45,3.2,2.8,1.87,1.8,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Everton-CD_Colo-Colo,chi_primera,2026-08-01,Everton CD,Colo Colo,DraftKings,snapshot,2026-07-28|DraftKings,4.0,3.5,3.4,2.0,1.769,1.87,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Palestino_Coquimbo-Unido,chi_primera,2026-08-01,Palestino,Coquimbo Unido,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.75,3.25,2.45,2.1,1.625,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Universidad-de-Concepción_Audax-Italiano,chi_primera,2026-08-01,Universidad de Concepción,Audax Italiano,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.65,3.25,2.55,1.909,1.769,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Deportes-Concepcion_Universidad-Católica,chi_primera,2026-08-02,Deportes Concepcion,Universidad Católica,DraftKings,snapshot,2026-07-28|DraftKings,5.0,3.3,3.55,2.05,1.8,1.87,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Deportes-Limache_Ñublense,chi_primera,2026-08-02,Deportes Limache,Ñublense,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.1,3.35,3.25,1.8,1.87,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_La-Serena_O'Higgins,chi_primera,2026-08-02,La Serena,O'Higgins,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.45,3.4,2.65,1.741,1.952,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Universidad-de-Chile_Huachipato,chi_primera,2026-08-02,Universidad de Chile,Huachipato,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.625,3.9,4.9,1.833,1.833,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260731_Henan-Songshan-Longmen_Dalian-Yingbo,china,2026-07-31,Henan Songshan Longmen,Dalian Yingbo,DraftKings,snapshot,2026-07-28|DraftKings,3.0,1.833,3.8,3.75,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260801_Beijing-Guoan_Zhejiang-Professional,china,2026-08-01,Beijing Guoan,Zhejiang Professional,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.556,4.5,4.7,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260801_Chengdu-Rongcheng_Wuhan-Three-Towns,china,2026-08-01,Chengdu Rongcheng,Wuhan Three Towns,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.333,5.0,7.5,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260801_Shanghai-Port_Shandong-Taishan,china,2026-08-01,Shanghai Port,Shandong Taishan,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.952,3.95,3.25,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260801_Tianjin-Jinmen-Tiger_Yunnan-Yukun,china,2026-08-01,Tianjin Jinmen Tiger,Yunnan Yukun,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.55,3.45,2.5,1.625,2.1,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260802_Liaoning-Tieren_Shanghai-Shenhua,china,2026-08-02,Liaoning Tieren,Shanghai Shenhua,DraftKings,snapshot,2026-07-28|DraftKings,5.0,3.45,3.95,1.87,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260802_Qingdao-West-Coast_Qingdao-Hainiu,china,2026-08-02,Qingdao West Coast,Qingdao Hainiu,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.741,3.85,4.1,1.606,2.1,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260802_Shenzhen-Xinpengcheng_Chongqing-Tonglianglong,china,2026-08-02,Shenzhen Xinpengcheng,Chongqing Tonglianglong,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.1,3.4,3.2,1.87,1.8,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260731_Atlético-Bucaramanga_Llaneros-FC,col_primera_a,2026-07-31,Atlético Bucaramanga,Llaneros FC,DraftKings,snapshot,2026-07-28|DraftKings,3.0,1.488,3.8,6.0,1.952,1.741,,,,,,daily_snapshots,2026-07-28T18:33:31Z
+20260801_Alianza-FC_Deportes-Tolima,col_primera_a,2026-08-01,Alianza FC,Deportes Tolima,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.7,3.0,2.5,2.15,1.588,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Deportivo-Pasto_Águilas-Doradas,col_primera_a,2026-08-01,Deportivo Pasto,Águilas Doradas,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.8,3.15,4.3,2.15,1.588,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Fortaleza-CEIF_Deportivo-Pereira,col_primera_a,2026-08-01,Fortaleza CEIF,Deportivo Pereira,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.465,3.75,6.5,2.0,1.667,,,,,,daily_snapshots,2026-07-28T18:33:31Z
+20260801_Independiente-Medellín_Deportivo-Cali,col_primera_a,2026-08-01,Independiente Medellín,Deportivo Cali,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.909,3.1,3.9,2.1,1.625,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_América-de-Cali_Boyacá-Chicó-FC,col_primera_a,2026-08-02,América de Cali,Boyacá Chicó FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.323,4.3,8.5,1.909,1.769,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_Atlético-Junior_Millonarios,col_primera_a,2026-08-02,Atlético Junior,Millonarios,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.0,3.1,3.6,1.909,1.741,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_Jaguares-de-Córdoba_Atlético-Nacional,col_primera_a,2026-08-02,Jaguares de Córdoba,Atlético Nacional,DraftKings,snapshot,2026-07-28|DraftKings,5.0,4.1,3.35,1.769,1.87,1.8,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260803_Independiente-Santa-Fe_Once-Caldas,col_primera_a,2026-08-03,Independiente Santa Fe,Once Caldas,DraftKings,snapshot,2026-07-28|DraftKings,6.0,2.05,3.1,3.35,1.952,1.714,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Puntarenas-FC_Sporting-San-José,crc_fpd,2026-08-01,Puntarenas FC,Sporting San José,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.25,3.0,3.05,2.05,1.606,,,,,,daily_snapshots,2026-07-28T18:33:51Z
+20260804_Pérez-Zeledón_Cartaginés,crc_fpd,2026-08-04,Pérez Zeledón,Cartaginés,DraftKings,snapshot,2026-07-28|DraftKings,7.0,3.6,3.15,1.909,2.0,1.625,,,,,,daily_snapshots,2026-07-28T18:33:52Z
+20260802_Brondby_Viborg,dinamarca,2026-08-02,Brondby,Viborg,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.87,3.65,3.6,1.645,2.1,,,,,,daily_snapshots,2026-07-28T18:33:20Z
+20260802_Midtjylland_Horsens,dinamarca,2026-08-02,Midtjylland,Horsens,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.333,5.25,7.5,,,,,,,,daily_snapshots,2026-07-28T18:33:20Z
+20260802_Nordsjaelland_Randers-FC,dinamarca,2026-08-02,Nordsjaelland,Randers FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.69,3.95,4.3,1.606,2.15,,,,,,daily_snapshots,2026-07-28T18:33:20Z
+20260801_Atl.-San-Luis_Club-Tijuana,liga_mx,2026-08-01,Atl. San Luis,Club Tijuana,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.35,3.15,2.9,1.667,2.05,,,,,,daily_snapshots,2026-07-28T18:33:04Z
+20260801_Puebla_Guadalajara-Chivas,liga_mx,2026-08-01,Puebla,Guadalajara Chivas,DraftKings,snapshot,2026-07-28|DraftKings,4.0,4.4,3.95,1.667,1.645,2.05,,,,,,daily_snapshots,2026-07-28T18:33:04Z
+20260801_Queretaro_Tigres-UANL,liga_mx,2026-08-01,Queretaro,Tigres UANL,DraftKings,snapshot,2026-07-28|DraftKings,4.0,3.7,3.65,1.87,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Atlas_Monterrey,liga_mx,2026-08-02,Atlas,Monterrey,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.7,3.35,2.4,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Club-America_Santos-Laguna,liga_mx,2026-08-02,Club America,Santos Laguna,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.408,4.7,6.5,1.571,2.2,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Club-Leon_Pachuca,liga_mx,2026-08-02,Club Leon,Pachuca,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.95,3.35,2.25,1.667,2.0,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Cruz-Azul_Atlante,liga_mx,2026-08-02,Cruz Azul,Atlante,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.312,5.0,8.5,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260803_Toluca_Necaxa,liga_mx,2026-08-03,Toluca,Necaxa,DraftKings,snapshot,2026-07-28|DraftKings,6.0,1.513,4.2,5.5,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260731_Alebrijes-de-Oaxaca_Dorados-de-Sinaloa,mex_expansion,2026-07-31,Alebrijes de Oaxaca,Dorados de Sinaloa,DraftKings,snapshot,2026-07-28|DraftKings,3.0,1.714,3.45,4.4,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:33:53Z
+20260801_Club-Atlético-La-Paz_Durango,mex_expansion,2026-08-01,Club Atlético La Paz,Durango,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.05,3.25,3.2,1.833,1.769,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260801_Correcaminos-UAT_Tepatitlán-FC,mex_expansion,2026-08-01,Correcaminos UAT,Tepatitlán FC,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.5,3.05,2.65,2.1,1.606,,,,,,daily_snapshots,2026-07-28T18:33:53Z
+20260801_Cruz-Azul-Hidalgo_Venados-FC,mex_expansion,2026-08-01,Cruz Azul Hidalgo,Venados FC,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.55,2.9,2.7,2.1,1.571,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260801_Mineros-de-Zacatecas_Tlaxcala-FC,mex_expansion,2026-08-01,Mineros de Zacatecas,Tlaxcala FC,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.05,3.15,3.3,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:33:53Z
+20260801_Tapatío_Club-Jaiba-Brava,mex_expansion,2026-08-01,Tapatío,Club Jaiba Brava,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.25,3.25,2.85,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260802_Cancún-FC_Leones-Negros,mex_expansion,2026-08-02,Cancún FC,Leones Negros,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.8,3.45,3.9,1.8,1.8,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260731_New-York-City_Toronto-FC,mls,2026-07-31,New York City,Toronto FC,DraftKings,snapshot,2026-07-28|DraftKings,3.0,1.606,3.9,4.7,1.714,2.05,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_CF-Montreal_New-England-Revolution,mls,2026-08-01,CF Montreal,New England Revolution,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.15,3.4,3.0,1.69,2.1,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_DC-United_Nashville-SC,mls,2026-08-01,DC United,Nashville SC,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.8,3.3,2.3,1.833,1.87,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_FC-Cincinnati_San-Jose-Earthquakes,mls,2026-08-01,FC Cincinnati,San Jose Earthquakes,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.909,3.9,3.15,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_Inter-Miami_Columbus-Crew,mls,2026-08-01,Inter Miami,Columbus Crew,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.69,3.9,4.1,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_New-York-City_Orlando-City,mls,2026-08-01,New York City,Orlando City,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.05,3.9,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260801_Philadelphia-Union_Atlanta-Utd,mls,2026-08-01,Philadelphia Union,Atlanta Utd,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.667,3.95,4.2,1.588,2.3,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_Vancouver-Whitecaps_Los-Angeles-FC,mls,2026-08-01,Vancouver Whitecaps,Los Angeles FC,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.741,3.95,3.8,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Chicago-Fire_Charlotte,mls,2026-08-02,Chicago Fire,Charlotte,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.5,4.5,4.9,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Colorado-Rapids_Austin-FC,mls,2026-08-02,Colorado Rapids,Austin FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.714,3.9,4.0,1.588,2.25,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Los-Angeles-Galaxy_FC-Dallas,mls,2026-08-02,Los Angeles Galaxy,FC Dallas,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.1,3.7,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Minnesota-United_San-Diego-FC,mls,2026-08-02,Minnesota United,San Diego FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.952,3.7,3.2,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Portland-Timbers_Seattle-Sounders,mls,2026-08-02,Portland Timbers,Seattle Sounders,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.05,3.8,2.85,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Sporting-Kansas-City_Houston-Dynamo,mls,2026-08-02,Sporting Kansas City,Houston Dynamo,DraftKings,snapshot,2026-07-28|DraftKings,5.0,3.15,3.4,2.1,1.588,2.3,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_St.-Louis-City_Real-Salt-Lake,mls,2026-08-02,St. Louis City,Real Salt Lake,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.1,3.6,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260731_Bodo/Glimt_Lillestrom,noruega,2026-07-31,Bodo/Glimt,Lillestrom,DraftKings,snapshot,2026-07-28|DraftKings,3.0,1.263,6.0,8.0,,,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260801_Fredrikstad_Sandefjord,noruega,2026-08-01,Fredrikstad,Sandefjord,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.3,3.15,3.1,1.69,2.0,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260801_Start_Viking,noruega,2026-08-01,Start,Viking,DraftKings,snapshot,2026-07-28|DraftKings,4.0,5.25,4.5,1.5,,,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260802_Aalesund_Tromso,noruega,2026-08-02,Aalesund,Tromso,DraftKings,snapshot,2026-07-28|DraftKings,5.0,3.8,3.75,1.833,1.625,2.1,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260802_Brann_Rosenborg,noruega,2026-08-02,Brann,Rosenborg,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.833,3.85,3.65,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260802_KFUM-Oslo_Kristiansund,noruega,2026-08-02,KFUM Oslo,Kristiansund,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.667,3.6,4.8,1.667,2.0,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260802_Molde_Sarpsborg-08,noruega,2026-08-02,Molde,Sarpsborg 08,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.625,3.95,4.8,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260728_2-de-Mayo_Cerro-Porteño,par_division,2026-07-28,2 de Mayo,Cerro Porteño,DraftKings,snapshot,2026-07-28|DraftKings,0.0,4.3,3.1,1.909,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260728_Rubio-Ñú_Sportivo-Ameliano,par_division,2026-07-28,Rubio Ñú,Sportivo Ameliano,DraftKings,snapshot,2026-07-28|DraftKings,0.0,3.5,2.7,2.35,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260729_Nacional-Asunción_Club-Olimpia,par_division,2026-07-29,Nacional Asunción,Club Olimpia,DraftKings,snapshot,2026-07-28|DraftKings,1.0,3.15,2.8,2.3,2.0,1.667,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260729_Sportivo-Luqueño_Sportivo-Trinidense,par_division,2026-07-29,Sportivo Luqueño,Sportivo Trinidense,DraftKings,snapshot,2026-07-28|DraftKings,1.0,3.05,2.7,2.45,2.1,1.588,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260730_Sportivo-San-Lorenzo_Guaraní,par_division,2026-07-30,Sportivo San Lorenzo,Guaraní,DraftKings,snapshot,2026-07-28|DraftKings,2.0,3.45,3.0,2.05,2.35,1.476,,,,,,daily_snapshots,2026-07-28T18:33:49Z
+20260731_Los-Chankas_Comerciantes-Unidos,per_liga1,2026-07-31,Los Chankas,Comerciantes Unidos,DraftKings,snapshot,2026-07-28|DraftKings,3.0,1.8,3.35,4.0,1.87,1.741,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Atlético-Grau_Sport-Boys,per_liga1,2026-08-01,Atlético Grau,Sport Boys,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.05,3.05,3.45,2.25,1.513,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_FC-Cajamarca_Sport-Huancayo,per_liga1,2026-08-01,FC Cajamarca,Sport Huancayo,DraftKings,snapshot,2026-07-28|DraftKings,4.0,3.15,3.15,2.15,1.8,1.8,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Ayr_Arbroath,sco_championship,2026-08-01,Ayr,Arbroath,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.55,3.05,2.75,2.25,1.541,,,,,,daily_snapshots,2026-07-28T18:33:25Z
+20260801_Morton_Partick,sco_championship,2026-08-01,Morton,Partick,DraftKings,snapshot,2026-07-28|DraftKings,4.0,4.7,3.9,1.645,1.714,1.952,,,,,,daily_snapshots,2026-07-28T18:33:26Z
+20260731_Dundee-United_Rangers,sco_premiership,2026-07-31,Dundee United,Rangers,DraftKings,snapshot,2026-07-28|DraftKings,3.0,5.25,4.3,1.513,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260801_Falkirk_St-Mirren,sco_premiership,2026-08-01,Falkirk,St Mirren,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.0,3.45,3.5,1.714,1.952,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_Hibernian_Motherwell,sco_premiership,2026-08-02,Hibernian,Motherwell,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.25,3.3,3.0,1.769,1.909,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_St-Johnstone_Kilmarnock,sco_premiership,2026-08-02,St Johnstone,Kilmarnock,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.15,3.4,3.15,1.741,1.952,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260803_Celtic_Dundee,sco_premiership,2026-08-03,Celtic,Dundee,DraftKings,snapshot,2026-07-28|DraftKings,6.0,1.182,7.0,11.0,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260728_Tigre_Nacional,sudamericana,2026-07-28,Tigre,Nacional,DraftKings,snapshot,2026-07-28|DraftKings,0.0,2.15,3.05,3.65,2.3,1.588,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260729_Santos_UCV-FC,sudamericana,2026-07-29,Santos,UCV FC,DraftKings,snapshot,2026-07-28|DraftKings,1.0,1.235,6.0,12.0,1.625,2.2,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260729_Vasco-da-Gama_Independiente-Medellín,sudamericana,2026-07-29,Vasco da Gama,Independiente Medellín,DraftKings,snapshot,2026-07-28|DraftKings,1.0,1.606,3.9,5.25,1.833,1.833,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260730_Cienciano-del-Cusco_Lanús,sudamericana,2026-07-30,Cienciano del Cusco,Lanús,DraftKings,snapshot,2026-07-28|DraftKings,2.0,2.15,3.4,3.2,2.0,1.714,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260730_Grêmio_Bolívar,sudamericana,2026-07-30,Grêmio,Bolívar,DraftKings,snapshot,2026-07-28|DraftKings,2.0,1.323,5.0,8.5,1.571,2.25,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260731_Caracas-FC_Independiente-Santa-Fe,sudamericana,2026-07-31,Caracas FC,Independiente Santa Fe,DraftKings,snapshot,2026-07-28|DraftKings,3.0,2.95,3.25,2.35,2.2,1.588,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260731_O'Higgins_Boca-Juniors,sudamericana,2026-07-31,O'Higgins,Boca Juniors,DraftKings,snapshot,2026-07-28|DraftKings,3.0,3.85,3.3,1.952,2.25,1.556,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260801_Hacken_Kalmar,suecia,2026-08-01,Hacken,Kalmar,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.8,3.85,3.8,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_AIK_Orgryte,suecia,2026-08-02,AIK,Orgryte,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.476,4.7,5.25,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_Brommapojkarna_Malmo-FF,suecia,2026-08-02,Brommapojkarna,Malmo FF,DraftKings,snapshot,2026-07-28|DraftKings,5.0,3.05,3.5,2.15,1.588,2.15,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_Goteborg_Degerfors,suecia,2026-08-02,Goteborg,Degerfors,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.714,3.7,4.3,1.714,1.952,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260803_Djurgarden_Vasteras-SK,suecia,2026-08-03,Djurgarden,Vasteras SK,DraftKings,snapshot,2026-07-28|DraftKings,6.0,1.455,4.7,5.5,,,,,,,,daily_snapshots,2026-07-28T18:33:19Z
+20260803_Halmstad_Sirius,suecia,2026-08-03,Halmstad,Sirius,DraftKings,snapshot,2026-07-28|DraftKings,6.0,6.0,4.7,1.426,,,,,,,,daily_snapshots,2026-07-28T18:33:19Z
+20260801_Albion-FC_Danubio,uru_primera,2026-08-01,Albion FC,Danubio,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.15,3.15,3.4,2.35,1.526,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260801_Deportivo-Maldonado_Juventud,uru_primera,2026-08-01,Deportivo Maldonado,Juventud,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.833,3.45,4.1,1.952,1.8,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260802_Central-Español-Fútbol-Club_Liverpool,uru_primera,2026-08-02,Central Español Fútbol Club,Liverpool,DraftKings,snapshot,2026-07-28|DraftKings,5.0,3.15,3.25,2.2,2.35,1.556,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260802_Nacional_Progreso,uru_primera,2026-08-02,Nacional,Progreso,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.541,3.95,5.5,1.8,1.909,,,,,,daily_snapshots,2026-07-28T18:33:41Z
+20260802_Racing-(Montevideo)_Boston-River,uru_primera,2026-08-02,Racing (Montevideo),Boston River,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.741,3.45,4.3,2.2,1.571,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260803_Defensor-Sporting_Cerro,uru_primera,2026-08-03,Defensor Sporting,Cerro,DraftKings,snapshot,2026-07-28|DraftKings,6.0,1.8,3.4,4.3,2.4,1.526,,,,,,daily_snapshots,2026-07-28T18:33:41Z
+20260729_Louisville-City-FC_Birmingham-Legion-FC,usl_championship,2026-07-29,Louisville City FC,Birmingham Legion FC,DraftKings,snapshot,2026-07-28|DraftKings,1.0,1.377,4.8,6.0,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260729_Pittsburgh-Riverhounds_FC-Tulsa,usl_championship,2026-07-29,Pittsburgh Riverhounds,FC Tulsa,DraftKings,snapshot,2026-07-28|DraftKings,1.0,1.87,3.3,3.75,2.05,1.606,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Charleston-Battery_Brooklyn-FC,usl_championship,2026-08-01,Charleston Battery,Brooklyn FC,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.392,4.7,5.75,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260801_Lexington_Monterey-Bay,usl_championship,2026-08-01,Lexington,Monterey Bay,DraftKings,snapshot,2026-07-28|DraftKings,4.0,1.541,4.0,4.9,1.667,1.952,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Loudoun-United-FC_Hartford-Athletic,usl_championship,2026-08-01,Loudoun United FC,Hartford Athletic,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.3,3.2,2.8,1.769,1.87,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Miami-FC_Detroit-City-FC,usl_championship,2026-08-01,Miami FC,Detroit City FC,DraftKings,snapshot,2026-07-28|DraftKings,4.0,3.65,3.45,1.87,1.8,1.8,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_San-Antonio-FC_Indy-Eleven,usl_championship,2026-08-01,San Antonio FC,Indy Eleven,DraftKings,snapshot,2026-07-28|DraftKings,4.0,2.15,3.3,3.0,1.833,1.8,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260802_Birmingham-Legion-FC_Rhode-Island-FC,usl_championship,2026-08-02,Birmingham Legion FC,Rhode Island FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,3.0,3.35,2.1,1.833,1.8,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Las-Vegas-Lights-FC_Phoenix-Rising-FC,usl_championship,2026-08-02,Las Vegas Lights FC,Phoenix Rising FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.4,3.4,2.5,1.667,2.0,,,,,,daily_snapshots,2026-07-28T18:33:36Z
+20260802_New-Mexico-United_Colorado-Springs-Switchbacks-FC,usl_championship,2026-08-02,New Mexico United,Colorado Springs Switchbacks FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.75,3.35,2.25,1.714,1.909,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Oakland-Roots_Pittsburgh-Riverhounds,usl_championship,2026-08-02,Oakland Roots,Pittsburgh Riverhounds,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.3,3.25,2.75,1.909,1.714,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Orange-County-SC_El-Paso-Locomotive-FC,usl_championship,2026-08-02,Orange County SC,El Paso Locomotive FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,2.15,3.5,2.8,1.714,1.909,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Sacramento-Republic-FC_Sporting-JAX,usl_championship,2026-08-02,Sacramento Republic FC,Sporting JAX,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.278,5.25,7.5,,,,,,,,daily_snapshots,2026-07-28T18:33:36Z
+20260802_Tampa-Bay-Rowdies_Louisville-City-FC,usl_championship,2026-08-02,Tampa Bay Rowdies,Louisville City FC,DraftKings,snapshot,2026-07-28|DraftKings,5.0,1.909,3.5,3.35,1.625,2.05,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260801_Acassuso_Colón-(Santa-Fe),arg_primera_nacional,2026-08-01,Acassuso,Colón (Santa Fe),Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,4.16,2.91,2.07,,,,,,,,daily_snapshots,2026-07-28T18:33:27Z
+20260801_Chacarita-Juniors_Agropecuario,arg_primera_nacional,2026-08-01,Chacarita Juniors,Agropecuario,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.22,2.83,3.79,,,,,,,,daily_snapshots,2026-07-28T18:33:27Z
+20260801_Colegiales_Gimnasia-y-Esgrima-(Jujuy),arg_primera_nacional,2026-08-01,Colegiales,Gimnasia y Esgrima (Jujuy),Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.53,3.02,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:27Z
+20260801_Ferro-Carril-Oeste_Godoy-Cruz-Antonio-Tomba,arg_primera_nacional,2026-08-01,Ferro Carril Oeste,Godoy Cruz Antonio Tomba,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.9009,3.0,4.77,,,,,,,,daily_snapshots,2026-07-28T18:33:28Z
+20260801_Nueva-Chicago_San-Martín-(Tucumán),arg_primera_nacional,2026-08-01,Nueva Chicago,San Martín (Tucumán),Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.88,2.6,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:28Z
+20260801_San-Martín-(San-Juan)_Atletico-Rafaela,arg_primera_nacional,2026-08-01,San Martín (San Juan),Atletico Rafaela,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.8065,3.06,5.24,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Almagro_Midland,arg_primera_nacional,2026-08-02,Almagro,Midland,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.86,2.68,2.93,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Almirante-Brown_Racing-(Córdoba),arg_primera_nacional,2026-08-02,Almirante Brown,Racing (Córdoba),Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.42,2.5,3.94,,,,,,,,daily_snapshots,2026-07-28T18:33:29Z
+20260802_Central-Norte_Los-Andes,arg_primera_nacional,2026-08-02,Central Norte,Los Andes,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.98,2.53,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Chaco-For-Ever_Deportivo-Morón,arg_primera_nacional,2026-08-02,Chaco For Ever,Deportivo Morón,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.84,2.85,2.77,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Deportivo-Madryn_All-Boys,arg_primera_nacional,2026-08-02,Deportivo Madryn,All Boys,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.9009,2.9,5.06,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Deportivo-Maipú_Atlanta,arg_primera_nacional,2026-08-02,Deportivo Maipú,Atlanta,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.68,2.9,2.89,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Güemes_Tristán-Suárez,arg_primera_nacional,2026-08-02,Güemes,Tristán Suárez,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.0,2.5,3.06,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Patronato_Quilmes,arg_primera_nacional,2026-08-02,Patronato,Quilmes,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.7,2.82,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_San-Telmo_San-Miguel,arg_primera_nacional,2026-08-02,San Telmo,San Miguel,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.62,2.73,3.15,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260802_Temperley_Gimnasia-y-Tiro-(Salta),arg_primera_nacional,2026-08-02,Temperley,Gimnasia y Tiro (Salta),Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.11,2.72,4.45,,,,,,,,daily_snapshots,2026-07-28T18:33:30Z
+20260728_Banfield_Sarmiento-Junin,argentina,2026-07-28,Banfield,Sarmiento Junin,Pinnacle,snapshot,2026-07-28|Pinnacle,0.0,2.12,3.07,4.22,,,,,,,,daily_snapshots,2026-07-28T18:33:11Z
+20260728_San-Lorenzo_Gimnasia-Mendoza,argentina,2026-07-28,San Lorenzo,Gimnasia Mendoza,Pinnacle,snapshot,2026-07-28|Pinnacle,0.0,2.07,3.18,4.25,,,,,,,,daily_snapshots,2026-07-28T18:33:11Z
+20260729_Barracas-Central_Aldosivi,argentina,2026-07-29,Barracas Central,Aldosivi,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,2.42,2.82,3.71,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Defensa-y-Justicia_Dep.-Riestra,argentina,2026-07-29,Defensa y Justicia,Dep. Riestra,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,2.25,2.9,3.84,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Gimnasia-L.P._River-Plate,argentina,2026-07-29,Gimnasia L.P.,River Plate,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,3.78,3.04,2.19,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260729_Rosario-Central_Racing-Club,argentina,2026-07-29,Rosario Central,Racing Club,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,2.15,3.13,4.02,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Independiente_Huracan,argentina,2026-07-30,Independiente,Huracan,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,2.24,2.91,3.85,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Instituto_Platense,argentina,2026-07-30,Instituto,Platense,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,2.1,2.87,4.39,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260730_Talleres-Cordoba_Velez-Sarsfield,argentina,2026-07-30,Talleres Cordoba,Velez Sarsfield,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,2.38,2.79,3.69,,,,,,,,daily_snapshots,2026-07-28T18:33:12Z
+20260731_Central-Cordoba_Atl.-Tucuman,argentina,2026-07-31,Central Cordoba,Atl. Tucuman,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,3.26,3.01,2.44,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260731_Independiente_Newells-Old-Boys,argentina,2026-07-31,Independiente,Newells Old Boys,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,1.6623,3.61,5.68,,,,,,,,daily_snapshots,2026-07-28T18:33:13Z
+20260728_Juventude_Avaí,bra_serie_b,2026-07-28,Juventude,Avaí,Pinnacle,snapshot,2026-07-28|Pinnacle,0.0,1.7194,3.44,5.87,,,,,,,,daily_snapshots,2026-07-28T18:33:37Z
+20260729_Fortaleza_Botafogo-SP,bra_serie_b,2026-07-29,Fortaleza,Botafogo-SP,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,1.813,3.48,4.95,,,,,,,,daily_snapshots,2026-07-28T18:33:37Z
+20260729_Internacional_Flamengo-RJ,brasil,2026-07-29,Internacional,Flamengo RJ,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,4.23,3.48,1.9009,1.9524,1.9009,,,,,,daily_snapshots,2026-07-28T18:33:09Z
+20260729_Mirassol_Remo,brasil,2026-07-29,Mirassol,Remo,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,1.7299,3.73,4.89,2.0,1.8547,,,,,,daily_snapshots,2026-07-28T18:33:09Z
+20260730_Corinthians_Athletico-PR,brasil,2026-07-30,Corinthians,Athletico-PR,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,1.9524,3.23,4.4,,,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260730_Fluminense_Bahia,brasil,2026-07-30,Fluminense,Bahia,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,1.7812,3.59,4.74,1.8621,1.9901,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260730_Vitoria_Palmeiras,brasil,2026-07-30,Vitoria,Palmeiras,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,4.39,3.3,1.9259,,,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260731_Coritiba_Cruzeiro,brasil,2026-07-31,Coritiba,Cruzeiro,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,3.33,3.34,2.23,,,,,,,,daily_snapshots,2026-07-28T18:33:10Z
+20260801_Cobresal_Unión-La-Calera,chi_primera,2026-08-01,Cobresal,Unión La Calera,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.49,3.27,2.88,1.9524,1.8696,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Everton-CD_Colo-Colo,chi_primera,2026-08-01,Everton CD,Colo Colo,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,3.62,3.52,2.01,1.8547,1.9615,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Palestino_Coquimbo-Unido,chi_primera,2026-08-01,Palestino,Coquimbo Unido,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.87,3.15,2.57,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260801_Universidad-de-Concepción_Audax-Italiano,chi_primera,2026-08-01,Universidad de Concepción,Audax Italiano,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.65,3.38,2.62,1.9524,1.8621,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Deportes-Concepcion_Universidad-Católica,chi_primera,2026-08-02,Deportes Concepcion,Universidad Católica,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.32,3.7,2.06,1.8621,1.9615,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Deportes-Limache_Ñublense,chi_primera,2026-08-02,Deportes Limache,Ñublense,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.15,3.44,3.32,1.8772,1.9434,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_La-Serena_O'Higgins,chi_primera,2026-08-02,La Serena,O'Higgins,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.45,3.54,2.74,,,,,,,,daily_snapshots,2026-07-28T18:33:55Z
+20260802_Universidad-de-Chile_Huachipato,chi_primera,2026-08-02,Universidad de Chile,Huachipato,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.6173,3.93,5.29,1.8772,1.9434,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260731_Henan-Songshan-Longmen_Dalian-Yingbo,china,2026-07-31,Henan Songshan Longmen,Dalian Yingbo,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,1.8264,3.93,3.89,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260801_Beijing-Guoan_Zhejiang-Professional,china,2026-08-01,Beijing Guoan,Zhejiang Professional,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.5376,4.72,4.99,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260801_Chengdu-Rongcheng_Wuhan-Three-Towns,china,2026-08-01,Chengdu Rongcheng,Wuhan Three Towns,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.346,4.95,8.43,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260801_Shanghai-Port_Shandong-Taishan,china,2026-08-01,Shanghai Port,Shandong Taishan,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.9804,4.08,3.27,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260801_Tianjin-Jinmen-Tiger_Yunnan-Yukun,china,2026-08-01,Tianjin Jinmen Tiger,Yunnan Yukun,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.64,3.55,2.53,,,,,,,,daily_snapshots,2026-07-28T18:33:21Z
+20260802_Liaoning-Tieren_Shanghai-Shenhua,china,2026-08-02,Liaoning Tieren,Shanghai Shenhua,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.68,4.0,1.8621,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260802_Qingdao-West-Coast_Qingdao-Hainiu,china,2026-08-02,Qingdao West Coast,Qingdao Hainiu,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.7634,3.93,4.2,,,,,,,,daily_snapshots,2026-07-28T18:33:22Z
+20260731_Atlético-Bucaramanga_Llaneros-FC,col_primera_a,2026-07-31,Atlético Bucaramanga,Llaneros FC,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,1.4854,3.98,6.88,1.9804,1.813,,,,,,daily_snapshots,2026-07-28T18:33:31Z
+20260801_Alianza-FC_Deportes-Tolima,col_primera_a,2026-08-01,Alianza FC,Deportes Tolima,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.85,3.07,2.6,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Deportivo-Pasto_Águilas-Doradas,col_primera_a,2026-08-01,Deportivo Pasto,Águilas Doradas,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.8547,3.28,4.5,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Fortaleza-CEIF_Deportivo-Pereira,col_primera_a,2026-08-01,Fortaleza CEIF,Deportivo Pereira,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.4902,3.9,7.05,,,,,,,,daily_snapshots,2026-07-28T18:33:31Z
+20260801_Independiente-Medellín_Deportivo-Cali,col_primera_a,2026-08-01,Independiente Medellín,Deportivo Cali,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.9434,3.25,4.13,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_América-de-Cali_Boyacá-Chicó-FC,col_primera_a,2026-08-02,América de Cali,Boyacá Chicó FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.3425,4.54,9.46,1.9804,1.813,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260802_Jaguares-de-Córdoba_Atlético-Nacional,col_primera_a,2026-08-02,Jaguares de Córdoba,Atlético Nacional,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,4.34,3.53,1.8065,1.9259,1.8621,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260803_Independiente-Santa-Fe_Once-Caldas,col_primera_a,2026-08-03,Independiente Santa Fe,Once Caldas,Pinnacle,snapshot,2026-07-28|Pinnacle,6.0,2.12,3.21,3.58,,,,,,,,daily_snapshots,2026-07-28T18:33:32Z
+20260801_Puntarenas-FC_Sporting-San-José,crc_fpd,2026-08-01,Puntarenas FC,Sporting San José,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.34,3.12,3.15,,,,,,,,daily_snapshots,2026-07-28T18:33:51Z
+20260802_Saprissa_AD-San-Carlos,crc_fpd,2026-08-02,Saprissa,AD San Carlos,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.3367,4.9,8.07,,,,,,,,daily_snapshots,2026-07-28T18:33:52Z
+20260804_Pérez-Zeledón_Cartaginés,crc_fpd,2026-08-04,Pérez Zeledón,Cartaginés,Pinnacle,snapshot,2026-07-28|Pinnacle,7.0,3.8,3.31,1.9901,,,,,,,,daily_snapshots,2026-07-28T18:33:52Z
+20260802_Brondby_Viborg,dinamarca,2026-08-02,Brondby,Viborg,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.9091,3.75,3.81,,,,,,,,daily_snapshots,2026-07-28T18:33:20Z
+20260802_Midtjylland_Horsens,dinamarca,2026-08-02,Midtjylland,Horsens,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.3257,5.55,8.14,,,,,,,,daily_snapshots,2026-07-28T18:33:20Z
+20260802_Nordsjaelland_Randers-FC,dinamarca,2026-08-02,Nordsjaelland,Randers FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.7143,4.03,4.49,,,,,,,,daily_snapshots,2026-07-28T18:33:20Z
+20260801_Libertad-(Ecuador)_Orense,ecu_liga_pro,2026-08-01,Libertad (Ecuador),Orense,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.81,3.19,2.53,2.02,1.7812,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260801_Manta-F.C._Mushuc-Runa,ecu_liga_pro,2026-08-01,Manta F.C.,Mushuc Runa,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,3.05,3.16,2.38,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260802_Emelec_Aucas,ecu_liga_pro,2026-08-02,Emelec,Aucas,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.35,3.05,3.2,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260802_Independiente-del-Valle_Deportivo-Cuenca,ecu_liga_pro,2026-08-02,Independiente del Valle,Deportivo Cuenca,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.3289,5.0,9.5,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260802_Leones_Barcelona-SC,ecu_liga_pro,2026-08-02,Leones,Barcelona SC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.89,3.26,2.5,,,,,,,,daily_snapshots,2026-07-28T18:33:43Z
+20260802_Macará_Guayaquil-City-FC,ecu_liga_pro,2026-08-02,Macará,Guayaquil City FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.6289,3.59,5.56,,,,,,,,daily_snapshots,2026-07-28T18:33:42Z
+20260801_Atl.-San-Luis_Club-Tijuana,liga_mx,2026-08-01,Atl. San Luis,Club Tijuana,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.46,3.24,2.98,,,,,,,,daily_snapshots,2026-07-28T18:33:04Z
+20260801_Puebla_Guadalajara-Chivas,liga_mx,2026-08-01,Puebla,Guadalajara Chivas,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,4.53,4.1,1.6944,,,,,,,,daily_snapshots,2026-07-28T18:33:04Z
+20260801_Queretaro_Tigres-UANL,liga_mx,2026-08-01,Queretaro,Tigres UANL,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,3.84,3.77,1.9009,1.8403,2.0,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Atlas_Monterrey,liga_mx,2026-08-02,Atlas,Monterrey,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.83,3.44,2.47,1.8333,2.01,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Club-America_Santos-Laguna,liga_mx,2026-08-02,Club America,Santos Laguna,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.4386,4.74,6.6,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Club-Leon_Pachuca,liga_mx,2026-08-02,Club Leon,Pachuca,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.06,3.45,2.31,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260802_Cruz-Azul_Atlante,liga_mx,2026-08-02,Cruz Azul,Atlante,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.3125,5.26,9.54,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260803_Toluca_Necaxa,liga_mx,2026-08-03,Toluca,Necaxa,Pinnacle,snapshot,2026-07-28|Pinnacle,6.0,1.5376,4.24,5.9,,,,,,,,daily_snapshots,2026-07-28T18:33:05Z
+20260801_Club-Atlético-La-Paz_Durango,mex_expansion,2026-08-01,Club Atlético La Paz,Durango,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.12,3.41,3.3,1.9259,1.8547,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260801_Cruz-Azul-Hidalgo_Venados-FC,mex_expansion,2026-08-01,Cruz Azul Hidalgo,Venados FC,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.65,3.04,2.79,,,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260801_Tapatío_Club-Jaiba-Brava,mex_expansion,2026-08-01,Tapatío,Club Jaiba Brava,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.33,3.4,2.92,2.02,1.7812,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260802_Cancún-FC_Leones-Negros,mex_expansion,2026-08-02,Cancún FC,Leones Negros,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.8264,3.58,4.12,1.9009,1.885,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260802_Piratas_Club-Atlético-Morelia,mex_expansion,2026-08-02,Piratas,Club Atlético Morelia,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.58,3.1,2.88,,,,,,,,daily_snapshots,2026-07-28T18:33:54Z
+20260731_New-York-City_Toronto-FC,mls,2026-07-31,New York City,Toronto FC,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,1.641,4.06,5.03,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_CF-Montreal_New-England-Revolution,mls,2026-08-01,CF Montreal,New England Revolution,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.27,3.54,3.06,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_FC-Cincinnati_San-Jose-Earthquakes,mls,2026-08-01,FC Cincinnati,San Jose Earthquakes,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.9709,4.13,3.32,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_Inter-Miami_Columbus-Crew,mls,2026-08-01,Inter Miami,Columbus Crew,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.7194,3.98,4.51,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_New-York-City_Orlando-City,mls,2026-08-01,New York City,Orlando City,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.11,4.1,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260801_Philadelphia-Union_Atlanta-Utd,mls,2026-08-01,Philadelphia Union,Atlanta Utd,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.7143,4.08,4.43,,,,,,,,daily_snapshots,2026-07-28T18:33:06Z
+20260801_Vancouver-Whitecaps_Los-Angeles-FC,mls,2026-08-01,Vancouver Whitecaps,Los Angeles FC,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.7812,4.2,3.94,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Chicago-Fire_Charlotte,mls,2026-08-02,Chicago Fire,Charlotte,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.5155,4.86,5.24,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Colorado-Rapids_Austin-FC,mls,2026-08-02,Colorado Rapids,Austin FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.7353,4.16,4.2,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Los-Angeles-Galaxy_FC-Dallas,mls,2026-08-02,Los Angeles Galaxy,FC Dallas,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.16,3.86,3.04,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Minnesota-United_San-Diego-FC,mls,2026-08-02,Minnesota United,San Diego FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.03,3.86,3.35,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Portland-Timbers_Seattle-Sounders,mls,2026-08-02,Portland Timbers,Seattle Sounders,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.14,4.0,3.0,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_Sporting-Kansas-City_Houston-Dynamo,mls,2026-08-02,Sporting Kansas City,Houston Dynamo,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.38,3.37,2.18,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260802_St.-Louis-City_Real-Salt-Lake,mls,2026-08-02,St. Louis City,Real Salt Lake,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.15,3.77,3.13,,,,,,,,daily_snapshots,2026-07-28T18:33:07Z
+20260731_Bodo/Glimt_Lillestrom,noruega,2026-07-31,Bodo/Glimt,Lillestrom,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,1.2747,6.41,8.55,,,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260801_Fredrikstad_Sandefjord,noruega,2026-08-01,Fredrikstad,Sandefjord,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.35,3.26,3.16,,,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260801_Start_Viking,noruega,2026-08-01,Start,Viking,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,5.48,4.71,1.5208,,,,,,,,daily_snapshots,2026-07-28T18:33:16Z
+20260802_Brann_Rosenborg,noruega,2026-08-02,Brann,Rosenborg,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.8696,3.95,3.82,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260802_KFUM-Oslo_Kristiansund,noruega,2026-08-02,KFUM Oslo,Kristiansund,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.7042,3.71,5.13,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260802_Molde_Sarpsborg-08,noruega,2026-08-02,Molde,Sarpsborg 08,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.6369,4.04,5.17,,,,,,,,daily_snapshots,2026-07-28T18:33:17Z
+20260728_2-de-Mayo_Cerro-Porteño,par_division,2026-07-28,2 de Mayo,Cerro Porteño,Pinnacle,snapshot,2026-07-28|Pinnacle,0.0,4.61,3.06,1.9709,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260728_Rubio-Ñú_Sportivo-Ameliano,par_division,2026-07-28,Rubio Ñú,Sportivo Ameliano,Pinnacle,snapshot,2026-07-28|Pinnacle,0.0,3.83,2.65,2.43,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260729_Nacional-Asunción_Club-Olimpia,par_division,2026-07-29,Nacional Asunción,Club Olimpia,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,3.35,2.85,2.4,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260729_Sportivo-Luqueño_Sportivo-Trinidense,par_division,2026-07-29,Sportivo Luqueño,Sportivo Trinidense,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,3.24,2.75,2.54,,,,,,,,daily_snapshots,2026-07-28T18:33:48Z
+20260730_Libertad_Deportivo-Recoleta,par_division,2026-07-30,Libertad,Deportivo Recoleta,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,1.8264,3.55,4.15,1.9434,1.8475,,,,,,daily_snapshots,2026-07-28T18:33:49Z
+20260731_Los-Chankas_Comerciantes-Unidos,per_liga1,2026-07-31,Los Chankas,Comerciantes Unidos,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,1.8333,3.47,4.08,1.9709,1.8333,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Atlético-Grau_Sport-Boys,per_liga1,2026-08-01,Atlético Grau,Sport Boys,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.11,3.1,3.54,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Cusco-FC_UTC,per_liga1,2026-08-01,Cusco FC,UTC,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.5882,3.85,5.2,1.8547,1.9346,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_FC-Cajamarca_Sport-Huancayo,per_liga1,2026-08-01,FC Cajamarca,Sport Huancayo,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,3.26,3.13,2.18,1.8929,1.8929,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260802_Alianza-Lima_Alianza-Atlético,per_liga1,2026-08-02,Alianza Lima,Alianza Atlético,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.4525,4.2,7.0,1.9174,1.885,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260802_Cienciano-del-Cusco_Universitario,per_liga1,2026-08-02,Cienciano del Cusco,Universitario,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.62,3.1,2.69,2.01,1.8,,,,,,daily_snapshots,2026-07-28T18:33:39Z
+20260802_Deportivo-Moquegua_Melgar,per_liga1,2026-08-02,Deportivo Moquegua,Melgar,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.49,3.28,2.03,,,,,,,,daily_snapshots,2026-07-28T18:33:39Z
+20260802_Sporting-Cristal_Juan-Pablo-II,per_liga1,2026-08-02,Sporting Cristal,Juan Pablo II,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.232,5.88,10.0,,,,,,,,daily_snapshots,2026-07-28T18:33:38Z
+20260801_Golden-Arrows_Chippa-United,rsa_premier,2026-08-01,Golden Arrows,Chippa United,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.03,3.27,3.73,,,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260801_Sekhukhune-United-FC_Durban-City,rsa_premier,2026-08-01,Sekhukhune United FC,Durban City,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.8772,3.13,4.61,,,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260801_Stellenbosch_AmaZulu,rsa_premier,2026-08-01,Stellenbosch,AmaZulu,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.1,2.9,4.35,,,,,,,,daily_snapshots,2026-07-28T18:33:56Z
+20260802_Richards-Bay-FC_Polokwane-City-FC,rsa_premier,2026-08-02,Richards Bay FC,Polokwane City FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.77,2.67,3.03,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260802_Siwelele_TS-Galaxy-FC,rsa_premier,2026-08-02,Siwelele,TS Galaxy FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.23,2.94,3.61,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260731_Rodina-Moscow_FK-Rostov,rus_premier,2026-07-31,Rodina Moscow,FK Rostov,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,3.23,3.26,2.31,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_Akron-Togliatti_Rubin-Kazan,rus_premier,2026-08-01,Akron Togliatti,Rubin Kazan,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,3.03,3.25,2.43,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_Baltika_Dynamo-Moscow,rus_premier,2026-08-01,Baltika,Dynamo Moscow,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.87,3.25,2.55,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_CSKA-Moscow_Krylya-Sovetov,rus_premier,2026-08-01,CSKA Moscow,Krylya Sovetov,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.5236,4.44,5.73,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260801_Dynamo-Makhachkala_Lokomotiv-Moscow,rus_premier,2026-08-01,Dynamo Makhachkala,Lokomotiv Moscow,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,3.5,3.36,2.14,,,,,,,,daily_snapshots,2026-07-28T18:33:23Z
+20260802_Akhmat-Grozny_Spartak-Moscow,rus_premier,2026-08-02,Akhmat Grozny,Spartak Moscow,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.78,3.65,1.9434,1.8929,1.9434,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_Krasnodar_Fakel-Voronezh,rus_premier,2026-08-02,Krasnodar,Fakel Voronezh,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.3497,4.89,9.0,1.9346,1.9009,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_Orenburg_Zenit,rus_premier,2026-08-02,Orenburg,Zenit,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,8.29,4.94,1.3623,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260801_Ayr_Arbroath,sco_championship,2026-08-01,Ayr,Arbroath,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.62,3.08,2.78,,,,,,,,daily_snapshots,2026-07-28T18:33:25Z
+20260801_Morton_Partick,sco_championship,2026-08-01,Morton,Partick,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,4.81,3.94,1.6369,,,,,,,,daily_snapshots,2026-07-28T18:33:26Z
+20260731_Dundee-United_Rangers,sco_premiership,2026-07-31,Dundee United,Rangers,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,5.46,4.54,1.5155,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260801_Falkirk_St-Mirren,sco_premiership,2026-08-01,Falkirk,St Mirren,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.9901,3.56,3.66,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_Hibernian_Motherwell,sco_premiership,2026-08-02,Hibernian,Motherwell,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.28,3.39,3.11,1.8264,2.0,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260802_St-Johnstone_Kilmarnock,sco_premiership,2026-08-02,St Johnstone,Kilmarnock,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.18,3.47,3.25,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260803_Celtic_Dundee,sco_premiership,2026-08-03,Celtic,Dundee,Pinnacle,snapshot,2026-07-28|Pinnacle,6.0,1.1942,7.29,11.51,,,,,,,,daily_snapshots,2026-07-28T18:33:24Z
+20260728_Cacahuatique_Atletico-Balboa,slv_primera,2026-07-28,Cacahuatique,Atletico Balboa,Pinnacle,snapshot,2026-07-28|Pinnacle,0.0,2.18,2.95,3.4,,,,,,,,daily_snapshots,2026-07-28T18:33:43Z
+20260728_Tigre_Nacional,sudamericana,2026-07-28,Tigre,Nacional,Pinnacle,snapshot,2026-07-28|Pinnacle,0.0,2.18,3.05,3.77,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260729_Santos_UCV-FC,sudamericana,2026-07-29,Santos,UCV FC,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,1.2188,5.71,11.0,,,,,,,,daily_snapshots,2026-07-28T18:33:57Z
+20260729_Vasco-da-Gama_Independiente-Medellín,sudamericana,2026-07-29,Vasco da Gama,Independiente Medellín,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,1.5917,3.89,5.32,1.8929,1.9091,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260730_Cienciano-del-Cusco_Lanús,sudamericana,2026-07-30,Cienciano del Cusco,Lanús,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,2.12,3.39,3.33,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260730_Grêmio_Bolívar,sudamericana,2026-07-30,Grêmio,Bolívar,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,1.3106,5.07,8.66,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260730_Red-Bull-Bragantino_Sporting-Cristal,sudamericana,2026-07-30,Red Bull Bragantino,Sporting Cristal,Pinnacle,snapshot,2026-07-28|Pinnacle,2.0,1.3155,5.19,8.1,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260731_Caracas-FC_Independiente-Santa-Fe,sudamericana,2026-07-31,Caracas FC,Independiente Santa Fe,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,3.0,3.28,2.34,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260731_O'Higgins_Boca-Juniors,sudamericana,2026-07-31,O'Higgins,Boca Juniors,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,3.89,3.3,1.9709,,,,,,,,daily_snapshots,2026-07-28T18:33:58Z
+20260801_Hacken_Kalmar,suecia,2026-08-01,Hacken,Kalmar,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.8065,3.94,3.95,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_AIK_Orgryte,suecia,2026-08-02,AIK,Orgryte,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.4785,4.86,5.52,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_Brommapojkarna_Malmo-FF,suecia,2026-08-02,Brommapojkarna,Malmo FF,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.12,3.59,2.17,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260802_Goteborg_Degerfors,suecia,2026-08-02,Goteborg,Degerfors,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.7407,3.79,4.52,,,,,,,,daily_snapshots,2026-07-28T18:33:18Z
+20260731_Montevideo-City-Torque_Montevideo-Wanderers,uru_primera,2026-07-31,Montevideo City Torque,Montevideo Wanderers,Pinnacle,snapshot,2026-07-28|Pinnacle,3.0,1.885,3.39,4.13,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260801_Albion-FC_Danubio,uru_primera,2026-08-01,Albion FC,Danubio,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.13,3.12,3.64,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260801_Deportivo-Maldonado_Juventud,uru_primera,2026-08-01,Deportivo Maldonado,Juventud,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.7752,3.76,4.21,1.9901,1.8065,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260801_Peñarol_Cerro-Largo,uru_primera,2026-08-01,Peñarol,Cerro Largo,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.5747,3.88,5.67,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260802_Central-Español-Fútbol-Club_Liverpool,uru_primera,2026-08-02,Central Español Fútbol Club,Liverpool,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,3.42,3.14,2.2,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260802_Nacional_Progreso,uru_primera,2026-08-02,Nacional,Progreso,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.4505,4.39,6.53,1.813,1.9804,,,,,,daily_snapshots,2026-07-28T18:33:41Z
+20260802_Racing-(Montevideo)_Boston-River,uru_primera,2026-08-02,Racing (Montevideo),Boston River,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,1.7634,3.43,4.8,,,,,,,,daily_snapshots,2026-07-28T18:33:40Z
+20260803_Defensor-Sporting_Cerro,uru_primera,2026-08-03,Defensor Sporting,Cerro,Pinnacle,snapshot,2026-07-28|Pinnacle,6.0,1.6849,3.59,5.14,,,,,,,,daily_snapshots,2026-07-28T18:33:41Z
+20260729_Louisville-City-FC_Birmingham-Legion-FC,usl_championship,2026-07-29,Louisville City FC,Birmingham Legion FC,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,1.3891,5.04,6.33,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260729_Pittsburgh-Riverhounds_FC-Tulsa,usl_championship,2026-07-29,Pittsburgh Riverhounds,FC Tulsa,Pinnacle,snapshot,2026-07-28|Pinnacle,1.0,1.9259,3.4,3.91,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Charleston-Battery_Brooklyn-FC,usl_championship,2026-08-01,Charleston Battery,Brooklyn FC,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.3984,5.04,6.17,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260801_Lexington_Monterey-Bay,usl_championship,2026-08-01,Lexington,Monterey Bay,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,1.5618,4.15,5.19,,,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Loudoun-United-FC_Hartford-Athletic,usl_championship,2026-08-01,Loudoun United FC,Hartford Athletic,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.37,3.41,2.85,1.8475,1.9434,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_Miami-FC_Detroit-City-FC,usl_championship,2026-08-01,Miami FC,Detroit City FC,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,3.75,3.61,1.9009,1.885,1.9009,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260801_San-Antonio-FC_Indy-Eleven,usl_championship,2026-08-01,San Antonio FC,Indy Eleven,Pinnacle,snapshot,2026-07-28|Pinnacle,4.0,2.2,3.41,3.13,1.9346,1.8475,,,,,,daily_snapshots,2026-07-28T18:33:34Z
+20260802_Las-Vegas-Lights-FC_Phoenix-Rising-FC,usl_championship,2026-08-02,Las Vegas Lights FC,Phoenix Rising FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.57,3.56,2.52,,,,,,,,daily_snapshots,2026-07-28T18:33:36Z
+20260802_New-Mexico-United_Colorado-Springs-Switchbacks-FC,usl_championship,2026-08-02,New Mexico United,Colorado Springs Switchbacks FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.85,3.52,2.32,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Oakland-Roots_Pittsburgh-Riverhounds,usl_championship,2026-08-02,Oakland Roots,Pittsburgh Riverhounds,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.23,3.51,3.01,2.02,1.7812,,,,,,daily_snapshots,2026-07-28T18:33:35Z
+20260802_Orange-County-SC_El-Paso-Locomotive-FC,usl_championship,2026-08-02,Orange County SC,El Paso Locomotive FC,Pinnacle,snapshot,2026-07-28|Pinnacle,5.0,2.21,3.64,2.95,,,,,,,,daily_snapshots,2026-07-28T18:33:35Z

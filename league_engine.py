@@ -922,6 +922,90 @@ def _elo_diff_liga(df: pd.DataFrame) -> pd.Series:
 # ---------------------------------------------------------------------------
 # Entrenamiento por liga (mismo pipeline validado del Mundial)
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# v75: construcción de features extra COMPARTIDA entre entrenamiento y backtest
+# ---------------------------------------------------------------------------
+def preparar_features_extra(clave, df, ds, X_df, corte_imt):
+    """
+    Añade a `X_df` las features extra adoptadas por la liga y devuelve
+    (X_df, cols_extra, estados).
+
+    Extraída de `entrenar_liga` en la v75 para que el BACKTEST
+    (`build_pick_ledger.py`) construya EXACTAMENTE la misma matriz de features
+    que el entrenamiento de producción. Antes este bloque solo vivía dentro de
+    `entrenar_liga`, así que cualquier backtest tenía que reimplementarlo y
+    habría derivado en silencio en cuanto se añadiese una feature nueva. Un
+    backtest que mide un modelo distinto del desplegado es peor que no tener
+    backtest: da una cifra de ROI en la que se confía y que no corresponde a
+    nada que esté en producción.
+    """
+    # v17: features extra adoptadas por liga tras walk-forward (VALIDACION_v17)
+    cols_extra = columnas_extra(clave)
+    estado_extra = None
+    estado_imt = None
+    imt_df = None
+    estado_v26 = None
+    estado_ck = None
+    mapa_tz = None
+    imt_coef = None
+    medias_cuotas = {}
+    if cols_extra:
+        grupos = LEAGUES[clave].get('features_extra', [])
+        extras_df, estado_extra = features_extra_liga(df)
+        if 'mx' in grupos:
+            extras_df = extras_df.join(features_mx(df))
+        # v24: Índice de Momentum Táctico (walk-forward por liga en
+        # run_wf_imt_v24.py; solo las ligas donde superó la regla de oro
+        # llevan 'imt' — componentes — o 'imt_c' — índice compuesto con
+        # α,β,γ,δ ajustados en train-only — en features_extra)
+        if 'imt' in grupos or 'imt_c' in grupos:
+            imt_df, estado_imt = mt.features_imt(df)
+            if 'imt_c' in grupos:
+                # `corte_imt` NO puede ser None: `optimizar_coeficientes`
+                # interpreta None como "usa todo el histórico", que dentro de
+                # un backtest sería fuga temporal pura (los coeficientes del
+                # índice habrían visto el futuro del pliegue). Se exige que el
+                # llamante diga hasta dónde puede mirar.
+                if corte_imt is None:
+                    raise ValueError(
+                        f"[{clave}] corte_imt es obligatorio: sin él los "
+                        f"coeficientes del IMT se ajustarían con datos "
+                        f"posteriores al partido que se predice.")
+                imt_coef = mt.optimizar_coeficientes(
+                    df, imt_df, hasta_fecha=corte_imt)['coef']
+                imt_df = imt_df.join(mt.indice_compuesto(imt_df, imt_coef))
+            extras_df = extras_df.join(imt_df)
+        # v25: geografía + clima extremo MLS (walk-forward run_wf_mls_v25.py)
+        if any(g.startswith('mls_') for g in grupos):
+            extras_df = extras_df.join(mls_features.features_mls(df))
+        # v26: features ortogonales (walk-forward run_wf_feats_v26.py)
+        if any(g in grupos for g in ('ent', 'elo_d', 'urg')):
+            v26_df, estado_v26 = f26.features_v26(df)
+            extras_df = extras_df.join(v26_df)
+        # v35 (§3): CDI — solo en las competiciones donde el walk-forward lo
+        # adoptó (run_wf_v35.py). El mapa club→huso se guarda en team_stats
+        # para poder reproducir la feature en inferencia.
+        # v59: dominio territorial (walk-forward run_wf_ck_v59.py)
+        if 'ck' in grupos:
+            ck_df, estado_ck = f59.features_ck(df)
+            extras_df = extras_df.join(ck_df)
+        if 'cdi' in grupos:
+            mapa_tz = cdi_futbol.mapa_tz_liga(clave, df)
+            extras_df = extras_df.join(cdi_futbol.features_cdi(df, mapa_tz))
+            cdi_futbol.guardar_mapa({clave: mapa_tz})
+        ids = [m[3] for m in ds['meta']]
+        ext = extras_df.reindex(ids).reset_index(drop=True)
+        X_df = X_df.reset_index(drop=True).copy()
+        for c in cols_extra:
+            X_df[c] = ext[c].values
+    estados = {'extra': estado_extra, 'imt': estado_imt, 'v26': estado_v26,
+               'ck': estado_ck, 'mapa_tz': mapa_tz, 'imt_coef': imt_coef,
+               # `imt_df` lo necesita `entrenar_liga` para dejar α,β,γ,δ en la
+               # metadata (interpretabilidad); vive solo dentro de la rama IMT.
+               'imt_df': imt_df}
+    return X_df, cols_extra, estados
+
+
 def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     """Entrena el modelo de una liga.
 
@@ -961,54 +1045,18 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
 
     topo = calcular_features_topologicas(ds)
 
-    # v17: features extra adoptadas por liga tras walk-forward (VALIDACION_v17)
-    cols_extra = columnas_extra(clave)
-    estado_extra = None
-    estado_imt = None
-    estado_v26 = None
-    estado_ck = None
-    mapa_tz = None
-    imt_coef = None
+    # v75: mismo constructor de features que usa el backtest — ver
+    # `preparar_features_extra`, para que ambos no puedan divergir.
+    X_df, cols_extra, _estados = preparar_features_extra(clave, df, ds, X_df,
+                                                       fechas.quantile(0.80))
+    estado_extra = _estados['extra']
+    estado_imt = _estados['imt']
+    estado_v26 = _estados['v26']
+    estado_ck = _estados['ck']
+    mapa_tz = _estados['mapa_tz']
+    imt_coef = _estados['imt_coef']
+    imt_df = _estados['imt_df']
     medias_cuotas = {}
-    if cols_extra:
-        grupos = LEAGUES[clave].get('features_extra', [])
-        extras_df, estado_extra = features_extra_liga(df)
-        if 'mx' in grupos:
-            extras_df = extras_df.join(features_mx(df))
-        # v24: Índice de Momentum Táctico (walk-forward por liga en
-        # run_wf_imt_v24.py; solo las ligas donde superó la regla de oro
-        # llevan 'imt' — componentes — o 'imt_c' — índice compuesto con
-        # α,β,γ,δ ajustados en train-only — en features_extra)
-        if 'imt' in grupos or 'imt_c' in grupos:
-            imt_df, estado_imt = mt.features_imt(df)
-            if 'imt_c' in grupos:
-                imt_coef = mt.optimizar_coeficientes(
-                    df, imt_df, hasta_fecha=fechas.quantile(0.80))['coef']
-                imt_df = imt_df.join(mt.indice_compuesto(imt_df, imt_coef))
-            extras_df = extras_df.join(imt_df)
-        # v25: geografía + clima extremo MLS (walk-forward run_wf_mls_v25.py)
-        if any(g.startswith('mls_') for g in grupos):
-            extras_df = extras_df.join(mls_features.features_mls(df))
-        # v26: features ortogonales (walk-forward run_wf_feats_v26.py)
-        if any(g in grupos for g in ('ent', 'elo_d', 'urg')):
-            v26_df, estado_v26 = f26.features_v26(df)
-            extras_df = extras_df.join(v26_df)
-        # v35 (§3): CDI — solo en las competiciones donde el walk-forward lo
-        # adoptó (run_wf_v35.py). El mapa club→huso se guarda en team_stats
-        # para poder reproducir la feature en inferencia.
-        # v59: dominio territorial (walk-forward run_wf_ck_v59.py)
-        if 'ck' in grupos:
-            ck_df, estado_ck = f59.features_ck(df)
-            extras_df = extras_df.join(ck_df)
-        if 'cdi' in grupos:
-            mapa_tz = cdi_futbol.mapa_tz_liga(clave, df)
-            extras_df = extras_df.join(cdi_futbol.features_cdi(df, mapa_tz))
-            cdi_futbol.guardar_mapa({clave: mapa_tz})
-        ids = [m[3] for m in ds['meta']]
-        ext = extras_df.reindex(ids).reset_index(drop=True)
-        X_df = X_df.reset_index(drop=True).copy()
-        for c in cols_extra:
-            X_df[c] = ext[c].values
 
     corte = fechas.quantile(0.80)
     m_tr = (fechas < corte).values

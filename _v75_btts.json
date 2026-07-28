@@ -1,0 +1,88 @@
+{
+ "generado": "2026-07-28T19:04:31Z",
+ "por_pliegue": [
+  {
+   "pliegue": 0,
+   "n": 3190,
+   "brier_modelo": 0.24854429493083338,
+   "brier_mercado": 0.24612585198154166,
+   "brier_base": 0.24908019771818277,
+   "brier_combinado": 0.24602370386199376,
+   "ll_modelo": 0.6902874720422087,
+   "ll_mercado": 0.6853591013177871,
+   "ll_base": 0.6913070180425086,
+   "ll_combinado": 0.6851532912416335
+  },
+  {
+   "pliegue": 1,
+   "n": 3190,
+   "brier_modelo": 0.24901344629409972,
+   "brier_mercado": 0.24552202562635597,
+   "brier_base": 0.24958534649270783,
+   "brier_combinado": 0.24554571586858123,
+   "ll_modelo": 0.6911998640621392,
+   "ll_mercado": 0.6841141511698143,
+   "ll_base": 0.6923176452463744,
+   "ll_combinado": 0.6841651495580153
+  },
+  {
+   "pliegue": 2,
+   "n": 3190,
+   "brier_modelo": 0.24991056150749277,
+   "brier_mercado": 0.24568464088695485,
+   "brier_base": 0.24892896099684558,
+   "brier_combinado": 0.2458165053201034,
+   "ll_modelo": 0.6929846718615273,
+   "ll_mercado": 0.684443033655778,
+   "ll_base": 0.6910041906253356,
+   "ll_combinado": 0.6847134793895531
+  },
+  {
+   "pliegue": 3,
+   "n": 3190,
+   "brier_modelo": 0.2490617391754354,
+   "brier_mercado": 0.24694811760580343,
+   "brier_base": 0.24891422211112313,
+   "brier_combinado": 0.24695614540040597,
+   "ll_modelo": 0.6913027750738215,
+   "ll_mercado": 0.6870196610939582,
+   "ll_base": 0.6909745413760834,
+   "ll_combinado": 0.6870364270425434
+  },
+  {
+   "pliegue": 4,
+   "n": 3190,
+   "brier_modelo": 0.24747032517185605,
+   "brier_mercado": 0.24368828830766273,
+   "brier_base": 0.24802165470994061,
+   "brier_combinado": 0.2436943402577166,
+   "ll_modelo": 0.6880777764525705,
+   "ll_mercado": 0.6804189467866809,
+   "ll_base": 0.6891879905440275,
+   "ll_combinado": 0.6804333156656148
+  }
+ ],
+ "resumen": {
+  "brier_modelo": 0.2488,
+  "brier_mercado": 0.24559,
+  "brier_base": 0.24891,
+  "brier_combinado": 0.24561,
+  "ll_modelo": 0.69077,
+  "ll_mercado": 0.68427,
+  "ll_base": 0.69096,
+  "ll_combinado": 0.6843,
+  "n_total": 15950
+ },
+ "bate_al_mercado": false,
+ "aporta_informacion": false,
+ "ligas": 20,
+ "partidos": 31900,
+ "precios_reales": {
+  "suficiente": false,
+  "n_precios": 39,
+  "n_con_resultado": 0,
+  "motivo": "los precios BTTS son de partidos que aún no se han jugado; hacen falta ≥100 con resultado para un bootstrap con sentido."
+ },
+ "veredicto": "NO adoptar: el modelo no bate a lo que el cierre 1X2+O/U ya implica sobre el BTTS",
+ "fuente_precios": "Pinnacle \"Both Teams To Score?\" (endpoint público, sin clave ni límite). football-data NO publica BTTS en ningún formato."
+}

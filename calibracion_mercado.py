@@ -56,7 +56,34 @@ _CACHE: Dict[str, dict] = {}
 
 # Peso mínimo del modelo: por muy sesgada que salga una liga nunca se anula del
 # todo (si no, la app sería un espejo de Pinnacle y no aportaría nada).
-W_MIN, W_MAX = 0.45, 0.90
+#
+# v75 — EL SUELO BAJA DE 0.45 A 0.25, y no por gusto.
+#
+# El 0.45 de la v71 fue una decisión de producto, no una medida: se eligió para
+# que el modelo siguiera mandando. Con `pick_ledger.csv` (33.476 predicciones
+# fuera de muestra con cuota de cierre real) se pudo medir por primera vez qué
+# rinde cada peso, y el 0.45 cae de lleno en la zona de pérdidas:
+#
+#     w      picks   ROI (cierre medio)   ROI (mejor precio)   p5 bootstrap
+#     1.00     951        −3,93 %              −1,15 %            −5,72 %
+#     0.80     816        −1,78 %              −1,28 %            −5,92 %
+#     0.60     622        −3,11 %              −0,38 %            −5,08 %
+#     0.45     451        −3,27 %              −2,71 %            −8,01 %
+#     0.40     427        +3,16 %              +1,02 %            −4,64 %
+#     0.30     339        +5,03 %              +6,41 %            **+0,24 %**
+#     0.20     252        +8,65 %              +6,57 %            −0,73 %
+#
+# La selección solo pasa a rentable por debajo de 0.40, y el único punto donde
+# el peor 5 % plausible también gana es w≈0.30. La log-loss y la precisión
+# apuntan en la misma dirección y de forma monótona (log-loss 1.0294 → 0.9996 y
+# precisión 0.4904 → 0.5039 al bajar w de 1 a 0), así que no hay conflicto
+# entre calibrar bien y ganar dinero: las dos piden más peso al mercado.
+#
+# Con el suelo en 0.45 la corrección de la v71 no podía llegar a donde estaba
+# la mejora. Se baja a 0.25 — el modelo sigue aportando un cuarto de la señal y
+# no se convierte en un espejo — y el valor concreto de cada liga lo elige
+# `recalibrate_from_history.py` fuera de muestra, no esta constante.
+W_MIN, W_MAX = 0.25, 0.90
 
 
 def _tabla() -> dict:

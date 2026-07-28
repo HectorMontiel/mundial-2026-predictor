@@ -254,10 +254,20 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
     if cacheado is not None:
         return cacheado
 
+    # v75: `withSpecials=true`. Con `false` se perdía el mercado **Both Teams
+    # To Score?**, que Pinnacle SÍ publica en este mismo endpoint (medido el
+    # 2026-07-28: 102 partidos con precio Sí y No, gratis y sin límite). Es la
+    # única fuente sharp de BTTS que existe para el proyecto: football-data no
+    # publica ninguna columna BTTS en NINGÚN formato — verificado sobre los 132
+    # campos de /mmz4281/ (E0, SC0) y los 25 de /new/ (MEX, JPN) —, así que sin
+    # esto el mercado BTTS no tenía forma de acumular histórico jamás.
+    # Los specials llegan como matchups aparte, con `parent` apuntando al
+    # partido y participantes 'Yes'/'No'; el bucle de abajo los aparta antes de
+    # construir el índice 1X2 para no confundirlos con partidos.
     partidos = _get(f'{PIN_BASE}/sports/{sid}/matchups',
-                    {'withSpecials': 'false', 'brandId': 0})
+                    {'withSpecials': 'true', 'brandId': 0})
     mercados = _get(f'{PIN_BASE}/sports/{sid}/markets/straight',
-                    {'primaryOnly': 'false', 'withSpecials': 'false'})
+                    {'primaryOnly': 'false', 'withSpecials': 'true'})
     if not partidos or not mercados:
         logger.warning(f"[pinnacle] {deporte}: sin respuesta")
         return {}
@@ -272,6 +282,9 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
         precios = {p.get('designation'): p.get('price')
                    for p in (mk.get('prices') or [])}
         d = por_id.setdefault(mid, {})
+        # v75: precios en crudo (con su participantId) — los specials como BTTS
+        # no usan `designation` sino participantes nombrados 'Yes'/'No'.
+        d.setdefault('_precios', []).extend(mk.get('prices') or [])
         if tipo == 'moneyline':
             d['moneyline'] = precios
         elif tipo == 'total':
@@ -288,10 +301,34 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
                     d.setdefault('spreads', {}).setdefault(
                         str(p['points']), {})[p.get('designation')] = p.get('price')
 
+    # v75: BTTS de partido completo, indexado por el id del partido PADRE.
+    # `Both Teams To Score?` a secas es el mercado del partido entero; hay una
+    # variante `... 1st Half` que se descarta comparando la descripción exacta.
+    btts_por_padre: Dict[int, dict] = {}
+    for m in partidos:
+        desc = ((m.get('special') or {}).get('description') or '').strip()
+        if desc != 'Both Teams To Score?':
+            continue
+        padre = (m.get('parent') or {}).get('id')
+        if padre is None:
+            continue
+        nombres = {p.get('id'): str(p.get('name') or '').lower()
+                   for p in (m.get('participants') or [])}
+        precios = {}
+        for pr in (por_id.get(m.get('id'), {}).get('_precios') or []):
+            n = nombres.get(pr.get('participantId'))
+            d = american_a_decimal(pr.get('price'))
+            if n in ('yes', 'no') and d:
+                precios[f'btts_{"yes" if n == "yes" else "no"}'] = d
+        if len(precios) == 2:
+            btts_por_padre[padre] = precios
+
     indice: Dict[str, dict] = {}
     for m in partidos:
         if m.get('parentId') is not None:      # mercados derivados
             continue
+        if (m.get('special') or {}).get('description'):
+            continue                           # v75: special, no es un partido
         parts = m.get('participants') or []
         if len(parts) < 2:
             continue
@@ -318,6 +355,7 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
                 cuotas['over25'] = o
             if u:
                 cuotas['under25'] = u
+        cuotas.update(btts_por_padre.get(m.get('id')) or {})   # v75: BTTS sharp
         clave = f"{normalizar(home)}|{normalizar(away)}"
         indice[clave] = {
             'home': home, 'away': away,
@@ -571,6 +609,10 @@ def cuotas_partido(deporte: str, home: str, away: str,
             casas.setdefault('_totales', {})['over25'] = c['over25']
         if c.get('under25'):
             casas.setdefault('_totales', {})['under25'] = c['under25']
+        # v75: BTTS sharp de Pinnacle (única fuente que lo publica gratis)
+        for k in ('btts_yes', 'btts_no'):
+            if c.get(k):
+                casas.setdefault('_totales', {})[k] = c[k]
         fuentes.append('pinnacle')
 
     # Bovada: tercera casa. Aporta las ligas que Pinnacle no cubre y la
