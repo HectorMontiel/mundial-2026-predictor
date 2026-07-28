@@ -82,6 +82,7 @@ TTL = 1800                     # 30 min: las líneas se mueven, pero no tanto
 _LOCK = threading.Lock()
 _MEM: Dict[str, tuple] = {}      # deporte -> (timestamp, índice Pinnacle)
 _MEM_BOV: Dict[str, tuple] = {}  # deporte -> (timestamp, índice Bovada)
+_MEM_PDT: Dict[str, tuple] = {}  # v76: deporte -> (timestamp, índice Playdoit)
 
 
 # ---------------------------------------------------------------------------
@@ -510,7 +511,9 @@ def precargar(deporte: str) -> int:
         _MEM[deporte] = (time.time(), idx)
         bov = _indice_bovada(deporte)
         _MEM_BOV[deporte] = (time.time(), bov)
-    return len(idx) + len(bov)
+        pdt = _indice_playdoit(deporte)          # v76
+        _MEM_PDT[deporte] = (time.time(), pdt)
+    return len(idx) + len(bov) + len(pdt)
 
 
 def _indice(deporte: str) -> Dict[str, dict]:
@@ -528,6 +531,122 @@ def _indice_bov(deporte: str) -> Dict[str, dict]:
         with _LOCK:
             idx = _indice_bovada(deporte)
             _MEM_BOV[deporte] = (time.time(), idx)
+    return idx
+
+
+# ---------------------------------------------------------------------------
+# 4. PLAYDOIT — la casa del usuario (v76)
+#
+# Es la cuarta casa y la más importante en la práctica: de nada sirve detectar
+# valor en un precio que el usuario no puede tomar. Playdoit es donde apuesta
+# de verdad, así que su cuota es la que convierte un EV teórico en un EV
+# cobrable.
+#
+# Corre sobre **Altenar**, cuya API de widget es pública y sin clave. La
+# integración se llama `playdoit2` y se descubrió inspeccionando las peticiones
+# que hace su propia web (el SDK `sb2wsdk-altenar2.biahosted.com` la lleva en
+# cada llamada). Una sola petición trae todo el catálogo.
+#
+# Medido el 2026-07-28: **953 eventos de fútbol, 948 con 1X2 completo, en 70
+# países** — más cobertura que Pinnacle (619) y en el mismo orden que Bovada.
+#
+# Casas investigadas y DESCARTADAS en la v76, con el motivo medido:
+#   · Kambi (Rushbet MX/CO, Unibet, 888sport) → 429 persistente, incluso con
+#     cabeceras de navegador y espaciado. Nos limita por IP.
+#   · Matchbook, Smarkets, Betfair (los tres exchanges) → 403 de Cloudflare.
+#   · Bodog (.eu/.net/.ca) → DNS/522, el dominio ya no responde.
+#   · Betcris MX → 404 en su propia ruta de deportes.
+#   · 1xBet LineFeed → 404 (la API cambió).
+#   · BetOnline → sin API JSON localizable.
+#   · Otras integraciones de Altenar (betano, winpot, strendus, codere,
+#     betsson, sportium…) → 400: `playdoit2` es la única válida, así que
+#     Altenar no da una quinta casa por esta vía.
+#   · ESPN core API → expone un único proveedor (DraftKings), no varios.
+# ---------------------------------------------------------------------------
+ALTENAR = 'https://sb2frontend-altenar2.biahosted.com/api/widget/GetEvents'
+ALTENAR_SPORT = {'futbol': 66, 'tenis': 68, 'mlb': 76, 'nba': 67}
+ALTENAR_BASE = {'culture': 'es-ES', 'timezoneOffset': '360',
+                'integration': 'playdoit2', 'deviceType': '1',
+                'numFormat': 'en-GB', 'countryCode': 'MX'}
+UA_PDT = {'User-Agent': UA_WEB['User-Agent'], 'Accept': 'application/json',
+          'Origin': 'https://www.playdoit.mx',
+          'Referer': 'https://www.playdoit.mx/'}
+# typeId de la selección dentro del mercado 1X2 de Altenar
+_ALT_LADO = {1: 'home', 2: 'draw', 3: 'away'}
+
+
+def _indice_playdoit(deporte: str) -> Dict[str, dict]:
+    """{clave_partido: {...,'cuotas':{home,draw,away}}} desde Playdoit."""
+    sid = ALTENAR_SPORT.get(deporte)
+    if not sid:
+        return {}
+    cacheado = _leer_cache(f'playdoit_{deporte}.json')
+    if cacheado is not None:
+        return cacheado
+    params = {**ALTENAR_BASE, 'sportid': sid, 'categoryids': '', 'champids': '',
+              'group': 'AllEvents', 'period': 'periodall'}
+    j = _get(ALTENAR, params=params, headers=UA_PDT, timeout=60)
+    if not isinstance(j, dict) or not j.get('events'):
+        logger.warning(f"[playdoit] {deporte}: sin respuesta")
+        return {}
+
+    mercados = {m['id']: m for m in (j.get('markets') or [])}
+    precios = {o['id']: o for o in (j.get('odds') or [])}
+    equipos = {c['id']: c.get('name') for c in (j.get('competitors') or [])}
+    cats = {c['id']: c.get('name') for c in (j.get('categories') or [])}
+    champs = {c['id']: c.get('name') for c in (j.get('champs') or [])}
+
+    indice: Dict[str, dict] = {}
+    for ev in j['events']:
+        ids = ev.get('competitorIds') or []
+        if len(ids) < 2:
+            continue
+        # Altenar mete tabulaciones y dobles espacios en algunos nombres
+        # («RC Celta\t\t»); sin limpiarlos, `normalizar` genera una clave
+        # distinta y el partido no empareja nunca.
+        home = ' '.join(str(equipos.get(ids[0]) or '').split())
+        away = ' '.join(str(equipos.get(ids[1]) or '').split())
+        if not home or not away:
+            continue
+        cuotas = {}
+        for mid in (ev.get('marketIds') or []):
+            m = mercados.get(mid)
+            # typeId 1 = Resultado Final (1X2) con sus tres selecciones
+            if not m or m.get('typeId') != 1 or len(m.get('oddIds') or []) != 3:
+                continue
+            for oid in m['oddIds']:
+                o = precios.get(oid)
+                if not o:
+                    continue
+                lado = _ALT_LADO.get(o.get('typeId'))
+                try:
+                    p = float(o.get('price'))
+                except (TypeError, ValueError):
+                    continue
+                if lado and p > 1:
+                    cuotas[lado] = round(p, 4)
+            break
+        if not (cuotas.get('home') and cuotas.get('away')):
+            continue
+        clave = f"{normalizar(home)}|{normalizar(away)}"
+        indice[clave] = {
+            'home': home, 'away': away,
+            'liga': champs.get(ev.get('champId')),
+            'pais': cats.get(ev.get('catId')),
+            'fecha': ev.get('startDate'),
+            'casa': 'Playdoit', 'cuotas': cuotas,
+        }
+    _escribir_cache(f'playdoit_{deporte}.json', indice)
+    logger.info(f"[playdoit] {deporte}: {len(indice)} partidos con cuotas")
+    return indice
+
+
+def _indice_pdt(deporte: str) -> Dict[str, dict]:
+    ts, idx = _MEM_PDT.get(deporte, (0, None))
+    if idx is None or time.time() - ts > TTL:
+        with _LOCK:
+            idx = _indice_playdoit(deporte)
+            _MEM_PDT[deporte] = (time.time(), idx)
     return idx
 
 
@@ -626,6 +745,19 @@ def cuotas_partido(deporte: str, home: str, away: str,
             casas['Bovada'] = {k: v for k, v in c.items()
                                if k in ('home', 'draw', 'away')}
             fuentes.append('bovada')
+
+    # v76: Playdoit — la casa donde el usuario apuesta de verdad. Va la última
+    # a propósito: si algo falla en su API, las tres anteriores ya han dado
+    # precio y el barrido no se resiente.
+    pdt = _buscar(_indice_pdt(deporte), home, away, deporte)
+    if pdt and pdt.get('cuotas'):
+        c = dict(pdt['cuotas'])
+        if pdt.get('invertido'):
+            c['home'], c['away'] = c.get('away'), c.get('home')
+        if c.get('home') and c.get('away'):
+            casas['Playdoit'] = {k: v for k, v in c.items()
+                                 if k in ('home', 'draw', 'away')}
+            fuentes.append('playdoit')
 
     if not casas and espn_ref:
         extra = cuotas_core_espn(*espn_ref)
@@ -732,6 +864,14 @@ def valor_vs_sharp(deporte: str, home: str, away: str,
 def diagnostico() -> Dict[str, int]:
     """Cuántos partidos hay hoy en cada deporte (para el aviso de la UI)."""
     return {d: len(_indice(d)) for d in DEPORTES}
+
+
+def diagnostico_casas(deporte: str = 'futbol') -> Dict[str, int]:
+    """v76: partidos con cuota POR CASA — para ver de un vistazo si una fuente
+    se ha caído en vez de descubrirlo cuando la Capa 1 aparezca medio vacía."""
+    return {'Pinnacle': len(_indice(deporte)),
+            'Bovada': len(_indice_bov(deporte)),
+            'Playdoit': len(_indice_pdt(deporte))}
 
 
 if __name__ == '__main__':

@@ -94,7 +94,22 @@ def conectar(ruta: str = DB) -> sqlite3.Connection:
 
 
 def _limpiar(fila: dict) -> dict:
-    """Deja solo cuotas plausibles (>1.01) y descarta el resto."""
+    """
+    Deja solo cuotas plausibles y descarta el resto.
+
+    Además del rango por cuota individual, se comprueba el MARGEN de la terna
+    1X2: la suma de probabilidades implícitas tiene que estar entre 1,00 y
+    1,50. Por debajo de 1,00 la terna implicaría arbitraje garantizado, que
+    ninguna casa ofrece — es la firma inconfundible de un error de extracción.
+
+    La guardia nace de un caso real: el backfill de la v76 metió 9 ternas del
+    Eerste Divisie, todas de la misma fecha, con márgenes de 0,61 a 0,96
+    (frente al 1,078 de mediana del resto). Son 9 de 7.379 —el 0,12 %— pero
+    una cuota inventada de 7,69 en un partido que pagaba 2,50 genera un EV
+    fantasma enorme y se colaría directa en la Capa 1. Mejor perderlas que
+    creérselas, y mejor filtrarlas AQUÍ que en cada importador, para que
+    ninguna fuente futura pueda saltarse la comprobación.
+    """
     out = dict(fila)
     for c in COLUMNAS_CUOTA:
         v = out.get(c)
@@ -103,6 +118,15 @@ def _limpiar(fila: dict) -> dict:
         except (TypeError, ValueError):
             v = None
         out[c] = v if (v is not None and 1.01 < v < 1000) else None
+
+    h, d, a = out.get('odds_home'), out.get('odds_draw'), out.get('odds_away')
+    if h and d and a:
+        margen = 1.0 / h + 1.0 / d + 1.0 / a
+        if not (1.0 <= margen <= 1.5):
+            logger.debug(f"terna 1X2 descartada por margen implausible "
+                         f"({margen:.3f}): {out.get('match_id')} "
+                         f"{out.get('bookmaker')} {h}/{d}/{a}")
+            out['odds_home'] = out['odds_draw'] = out['odds_away'] = None
     return out
 
 
@@ -203,14 +227,28 @@ def cierres(con: sqlite3.Connection, league_key: Optional[str] = None,
 # ---------------------------------------------------------------------------
 CSV_SNAPSHOTS = 'odds_snapshots.csv'
 
+# v76: qué filas NO se pueden reconstruir desde el repositorio y por tanto hay
+# que persistir sí o sí.
+#
+#   · `fase='snapshot'` — la línea antes del partido. Si no se fotografió, no
+#     existe en ninguna parte.
+#   · `source_file='betexplorer'` — el backfill histórico de las 22 ligas que
+#     ESPN dejaba a ciegas. Se puede volver a raspar, pero depende de que un
+#     sitio de terceros siga en pie y con la misma estructura; tratarlo como
+#     "regenerable" sería confiar el histórico a que nada cambie nunca.
+#
+# Todo lo demás (los cierres de football-data) sale de los `historico_*.csv`
+# que ya están versionados, así que no se duplica.
+_COND_NO_REPRODUCIBLE = "(fase = 'snapshot' OR source_file = 'betexplorer')"
+
 
 def exportar_snapshots(con: sqlite3.Connection,
                        ruta: str = CSV_SNAPSHOTS) -> int:
-    """Vuelca las fotos a CSV (lo único que el repositorio tiene que guardar)."""
+    """Vuelca al CSV todo lo que el repositorio no puede reconstruir solo."""
     import csv
     cur = con.execute(f"SELECT {','.join(CAMPOS)} FROM historical_odds "
-                      f"WHERE fase='snapshot' "
-                      f"ORDER BY snapshot_key, league_key, match_id, bookmaker")
+                      f"WHERE {_COND_NO_REPRODUCIBLE} "
+                      f"ORDER BY fase, snapshot_key, league_key, match_id, bookmaker")
     filas = cur.fetchall()
     with open(ruta, 'w', encoding='utf-8', newline='') as f:
         w = csv.writer(f)
@@ -228,8 +266,14 @@ def importar_snapshots(con: sqlite3.Connection,
         return 0
     with open(ruta, encoding='utf-8', newline='') as f:
         filas = list(csv.DictReader(f))
-    n = guardar(con, filas, reemplazar=False)
-    logger.info(f"{n} fotos recargadas desde {ruta}")
+    # Las fotos no se pisan (INSERT OR IGNORE conserva la primera del día); los
+    # cierres del backfill sí pueden refrescarse si se vuelve a raspar.
+    fotos = [f for f in filas if f.get('fase') == 'snapshot']
+    cierres = [f for f in filas if f.get('fase') != 'snapshot']
+    n = guardar(con, fotos, reemplazar=False)
+    n += guardar(con, cierres, reemplazar=True)
+    logger.info(f"{n} filas no reproducibles recargadas desde {ruta} "
+                f"({len(fotos)} fotos, {len(cierres)} cierres de backfill)")
     return n
 
 

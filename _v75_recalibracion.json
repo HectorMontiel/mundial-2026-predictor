@@ -1,19 +1,19 @@
 {
- "generado": "2026-07-28T18:56:02Z",
+ "generado": "2026-07-28T20:44:09Z",
  "metodo": "w por log-loss fuera de muestra + encogimiento jerárquico hacia el w global; validado en el último pliegue, que no participa en la selección.",
  "w_global": 0.25,
- "n_total": 33495,
- "n_seleccion": 26798,
- "n_validacion": 6697,
- "ligas_evaluadas": 34,
- "ligas_adoptadas": 25,
+ "n_total": 36025,
+ "n_seleccion": 29250,
+ "n_validacion": 6775,
+ "ligas_evaluadas": 35,
+ "ligas_adoptadas": 26,
  "validacion": {
-  "logloss_antes": 1.0226,
-  "logloss_despues": 1.003,
-  "delta_logloss": 0.0196,
-  "acc_antes": 0.4986,
-  "acc_despues": 0.512,
-  "delta_acc": 0.0134
+  "logloss_antes": 1.0203,
+  "logloss_despues": 1.0003,
+  "delta_logloss": 0.02,
+  "acc_antes": 0.5014,
+  "acc_despues": 0.515,
+  "delta_acc": 0.0136
  },
  "por_liga": {
   "argentina": {
@@ -49,6 +49,23 @@
    "delta_acc": 0.0068,
    "adoptada": true,
    "ancla": "pinnacle"
+  },
+  "bol_division": {
+   "w": 0.25,
+   "w_crudo_liga": 0.25,
+   "lambda": 0.597,
+   "n_seleccion": 222,
+   "n_validacion": 53,
+   "sesgo_pick_sin_w": -0.0306,
+   "sesgo_pick_con_w": -0.0224,
+   "logloss_sin_w": 0.7726,
+   "logloss_con_w": 0.6923,
+   "delta_logloss": 0.0802,
+   "acc_sin_w": 0.7358,
+   "acc_con_w": 0.7736,
+   "delta_acc": 0.0377,
+   "adoptada": true,
+   "ancla": "mercado"
   },
   "brasil": {
    "w": 0.25,

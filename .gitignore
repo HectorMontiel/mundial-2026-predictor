@@ -89,3 +89,8 @@ _v70_cache_ds/
 
 # v71: cache de cuotas (regenerable, TTL 30 min)
 cuotas_cache/
+
+# v76: caché HTML del backfill de BetExplorer. Es reproducible (el script lo
+# vuelve a descargar) y son cientos de MB; lo que sí se conserva es el
+# resultado ya en odds_historico.db / odds_snapshots.csv.
+betexplorer_cache/

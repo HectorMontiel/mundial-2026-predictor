@@ -171,8 +171,22 @@ def test_snapshots_persisten_en_el_repo():
     with open(odds_store.CSV_SNAPSHOTS, encoding='utf-8', newline='') as f:
         filas = list(csv.DictReader(f))
     check(len(filas) > 0, f"el CSV de fotos tiene datos ({len(filas)} filas)")
-    check(all(r.get('fase') == 'snapshot' for r in filas),
-          "el CSV solo lleva fotos (los cierres se regeneran de los CSV de liga)")
+    # v76: el CSV ya no lleva SOLO fotos. También guarda el backfill de
+    # BetExplorer, que tampoco se puede reconstruir desde el repositorio (se
+    # podría volver a raspar, pero eso depende de que un sitio de terceros siga
+    # en pie). Lo que NO debe entrar son los cierres de football-data, que sí
+    # salen de los `historico_*.csv` versionados: duplicarlos engordaría el
+    # repositorio sin aportar nada.
+    fases = {r.get('fase') for r in filas}
+    fuentes = {r.get('source_file') for r in filas}
+    check(fases <= {'snapshot', 'cierre'}, f"fases esperadas en el CSV ({fases})")
+    regenerables = [r for r in filas
+                    if r.get('fase') == 'cierre' and r.get('source_file') != 'betexplorer']
+    check(not regenerables,
+          f"el CSV no duplica los cierres regenerables de football-data "
+          f"({len(regenerables)} colados)")
+    check('betexplorer' in fuentes,
+          "el backfill de BetExplorer viaja en el repositorio (no es regenerable)")
     check(any(r.get('odds_btts_yes') for r in filas),
           "hay precios de BTTS acumulándose (única fuente: Pinnacle)")
 
@@ -188,6 +202,74 @@ def test_snapshots_persisten_en_el_repo():
     os.remove(ruta)
     check(total == n1,
           f"recargar dos veces no duplica ({n1} insertadas, {total} en tabla)")
+
+
+def test_backfill_betexplorer():
+    """
+    v76: el backfill histórico tiene que existir y ser CORRECTO.
+
+    El riesgo real de un backfill no es que falten datos, es que asigne la
+    cuota del partido equivocado: contamina el backtest sin dejar rastro. Por
+    eso `backfill_betexplorer.enlazar` empareja por fecha + marcador exacto y
+    solo usa el nombre para desempatar; aquí se comprueba que las cuotas
+    importadas son plausibles y que no hay partidos duplicados por fuente.
+    """
+    import sqlite3
+    if not os.path.exists('odds_historico.db'):
+        check(False, 'odds_historico.db existe')
+        return
+    con = sqlite3.connect('odds_historico.db')
+    try:
+        n = con.execute("SELECT COUNT(*) FROM historical_odds "
+                        "WHERE source_file='betexplorer'").fetchone()[0]
+        ligas = con.execute("SELECT COUNT(DISTINCT league_key) FROM historical_odds "
+                            "WHERE source_file='betexplorer'").fetchone()[0]
+        check(n > 3000, f"backfill de BetExplorer con volumen ({n} cuotas)")
+        check(ligas >= 10, f"backfill en {ligas} competiciones que antes no tenían nada")
+
+        # margen plausible: ninguna terna puede implicar arbitraje
+        malas = con.execute(
+            "SELECT COUNT(*) FROM historical_odds WHERE source_file='betexplorer' "
+            "AND odds_home IS NOT NULL AND odds_draw IS NOT NULL "
+            "AND odds_away IS NOT NULL "
+            "AND (1.0/odds_home + 1.0/odds_draw + 1.0/odds_away) < 1.0").fetchone()[0]
+        check(malas == 0,
+              f"ninguna cuota importada implica arbitraje (margen<1) — {malas} malas")
+
+        # un partido no puede tener dos cierres de la misma casa
+        dup = con.execute(
+            "SELECT COUNT(*) FROM (SELECT match_id, bookmaker, COUNT(*) c "
+            "FROM historical_odds WHERE fase='cierre' "
+            "GROUP BY match_id, bookmaker HAVING c > 1)").fetchone()[0]
+        check(dup == 0, f"sin cierres duplicados por partido y casa ({dup})")
+    except sqlite3.OperationalError as e:
+        check(False, f"consulta de backfill ({e})")
+    finally:
+        con.close()
+
+
+def test_playdoit_integrada():
+    """v76: Playdoit es la casa donde apuesta el usuario — si se cae, la Capa 1
+    pierde el precio que de verdad puede tomar, así que tiene que estar
+    cableada y dar márgenes plausibles."""
+    import cuotas_multi as cm
+    check(hasattr(cm, '_indice_playdoit'), "cuotas_multi expone _indice_playdoit")
+    check(hasattr(cm, 'diagnostico_casas'), "cuotas_multi expone diagnostico_casas")
+    try:
+        idx = cm._indice_pdt('futbol')
+    except Exception as e:
+        check(False, f"el índice de Playdoit carga ({type(e).__name__}: {e})")
+        return
+    check(len(idx) > 100, f"Playdoit devuelve partidos ({len(idx)})")
+    malos = 0
+    for v in idx.values():
+        c = v.get('cuotas') or {}
+        if c.get('home') and c.get('draw') and c.get('away'):
+            if 1 / c['home'] + 1 / c['draw'] + 1 / c['away'] < 1.0:
+                malos += 1
+    check(malos == 0,
+          f"ninguna terna de Playdoit implica arbitraje ({malos}) — "
+          f"si las hubiera, el parseo estaría mal")
 
 
 def test_ledger_sin_fuga():
@@ -268,6 +350,9 @@ if __name__ == '__main__':
     test_esquema_e_idempotencia()
     test_db_poblada()
     test_snapshots_persisten_en_el_repo()
+    test_backfill_betexplorer()
+    print('\n=== v76: casas de apuestas ===')
+    test_playdoit_integrada()
     print('\n=== v75: ledger de predicciones ===')
     test_ledger_sin_fuga()
     print('\n=== v75: umbrales en producción ===')

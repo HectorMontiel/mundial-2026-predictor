@@ -1,5 +1,5 @@
 {
- "generado": "2026-07-28T19:03:11Z",
+ "generado": "2026-07-28T20:51:37Z",
  "nota": "v75. Umbrales de la Capa 1 validados con walk-forward anidado (la combinación se elige con pliegues anteriores y se juzga en el siguiente) + bootstrap p5. null = no se encontró mejora sobre los umbrales vigentes y se mantienen los de edge_engine.",
  "regla": "se adopta si el ROI fuera de muestra supera a la referencia en ≥2%, con ≥50 apuestas y bootstrap p5 > 0.",
  "referencia_produccion": {
@@ -12,28 +12,28 @@
  "global": null,
  "global_metricas": {
   "optimizado": {
-   "n": 61,
-   "roi": 0.117,
-   "p5": -0.0249,
-   "peor_ventana": -0.0688,
+   "n": 70,
+   "roi": 0.0063,
+   "p5": -0.1232,
+   "peor_ventana": -0.1173,
    "ventanas": [
-    0.1242,
-    0.1745,
+    -0.1173,
+    0.2132,
     -0.0688
    ],
-   "aciertos": 45
+   "aciertos": 49
   },
   "referencia": {
-   "n": 253,
-   "roi": 0.0164,
-   "p5": -0.0703,
-   "peor_ventana": -0.0591,
+   "n": 264,
+   "roi": 0.0063,
+   "p5": -0.0782,
+   "peor_ventana": -0.0991,
    "ventanas": [
-    0.0409,
-    -0.0591,
+    0.0509,
+    -0.0991,
     0.0996
    ],
-   "aciertos": 151
+   "aciertos": 156
   },
   "adoptada": false
  },
@@ -53,6 +53,20 @@
    "p5": null,
    "n": 6
   },
+  "bol_division": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
+  },
+  "bra_serie_b": {
+   "adoptada": false,
+   "roi_oos": -1.0,
+   "roi_base": null,
+   "p5": null,
+   "n": 2
+  },
   "brasil": {
    "adoptada": false,
    "roi_oos": 0.2095,
@@ -66,6 +80,13 @@
    "roi_base": null,
    "p5": -0.3152,
    "n": 33
+  },
+  "chi_primera": {
+   "adoptada": false,
+   "roi_oos": null,
+   "roi_base": null,
+   "p5": null,
+   "n": 0
   },
   "china": {
    "adoptada": false,
@@ -199,6 +220,13 @@
    "roi_base": null,
    "p5": null,
    "n": 0
+  },
+  "ned_eerste": {
+   "adoptada": false,
+   "roi_oos": -0.0514,
+   "roi_base": 0.435,
+   "p5": -0.3051,
+   "n": 51
   },
   "noruega": {
    "adoptada": false,

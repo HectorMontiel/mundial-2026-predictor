@@ -1,0 +1,162 @@
+{
+ "generado": "2026-07-28T20:42:06Z",
+ "total_insertados": 7381,
+ "ligas": 22,
+ "detalle": [
+  {
+   "clave": "chi_primera",
+   "temporadas": 10,
+   "partidos": 1740,
+   "enlazados": 912,
+   "insertados": 912
+  },
+  {
+   "clave": "per_liga1",
+   "temporadas": 10,
+   "partidos": 173,
+   "enlazados": 129,
+   "insertados": 129
+  },
+  {
+   "clave": "uru_primera",
+   "temporadas": 10,
+   "partidos": 253,
+   "enlazados": 124,
+   "insertados": 124
+  },
+  {
+   "clave": "ecu_liga_pro",
+   "temporadas": 10,
+   "partidos": 54,
+   "enlazados": 37,
+   "insertados": 37
+  },
+  {
+   "clave": "bol_division",
+   "temporadas": 10,
+   "partidos": 1302,
+   "enlazados": 853,
+   "insertados": 853
+  },
+  {
+   "clave": "par_division",
+   "temporadas": 10,
+   "partidos": 1019,
+   "enlazados": 484,
+   "insertados": 484
+  },
+  {
+   "clave": "crc_fpd",
+   "temporadas": 10,
+   "partidos": 30,
+   "enlazados": 10,
+   "insertados": 10
+  },
+  {
+   "clave": "slv_primera",
+   "temporadas": 10,
+   "partidos": 136,
+   "enlazados": 39,
+   "insertados": 39
+  },
+  {
+   "clave": "col_primera_a",
+   "temporadas": 9,
+   "partidos": 11,
+   "enlazados": 8,
+   "insertados": 8
+  },
+  {
+   "clave": "mex_expansion",
+   "temporadas": 8,
+   "partidos": 10,
+   "enlazados": 6,
+   "insertados": 6
+  },
+  {
+   "clave": "bra_serie_b",
+   "temporadas": 10,
+   "partidos": 2249,
+   "enlazados": 1035,
+   "insertados": 1035
+  },
+  {
+   "clave": "arg_primera_nacional",
+   "temporadas": 10,
+   "partidos": 390,
+   "enlazados": 49,
+   "insertados": 49
+  },
+  {
+   "clave": "usl_championship",
+   "temporadas": 10,
+   "partidos": 104,
+   "enlazados": 57,
+   "insertados": 57
+  },
+  {
+   "clave": "rsa_premier",
+   "temporadas": 10,
+   "partidos": 2397,
+   "enlazados": 659,
+   "insertados": 659
+  },
+  {
+   "clave": "ned_eerste",
+   "temporadas": 10,
+   "partidos": 2774,
+   "enlazados": 1554,
+   "insertados": 1554
+  },
+  {
+   "clave": "eng_fa_cup",
+   "temporadas": 10,
+   "partidos": 1040,
+   "enlazados": 559,
+   "insertados": 559
+  },
+  {
+   "clave": "champions",
+   "temporadas": 10,
+   "partidos": 213,
+   "enlazados": 130,
+   "insertados": 130
+  },
+  {
+   "clave": "europa_league",
+   "temporadas": 10,
+   "partidos": 353,
+   "enlazados": 246,
+   "insertados": 246
+  },
+  {
+   "clave": "conference_league",
+   "temporadas": 3,
+   "partidos": 135,
+   "enlazados": 117,
+   "insertados": 117
+  },
+  {
+   "clave": "libertadores",
+   "temporadas": 10,
+   "partidos": 203,
+   "enlazados": 129,
+   "insertados": 129
+  },
+  {
+   "clave": "sudamericana",
+   "temporadas": 10,
+   "partidos": 403,
+   "enlazados": 170,
+   "insertados": 170
+  },
+  {
+   "clave": "afc_champions",
+   "temporadas": 10,
+   "partidos": 159,
+   "enlazados": 74,
+   "insertados": 74
+  }
+ ],
+ "fuente": "betexplorer (páginas /results/ permitidas por robots.txt, descubiertas vía sitemap oficial)"
+}

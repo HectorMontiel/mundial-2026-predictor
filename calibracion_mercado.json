@@ -1,14 +1,14 @@
 {
- "generado": "2026-07-28T18:56:02Z",
+ "generado": "2026-07-28T20:44:09Z",
  "nota": "v75. Peso del modelo frente al cierre devigado (Pinnacle, método potencia). Elegido por log-loss fuera de muestra con encogimiento jerárquico hacia el w global y validado en un pliegue que no participó en la selección. Liga ausente = w=1 = sin corrección. Sustituye a los w de la v71, que salían de 4-11 partidos por liga.",
  "w_global": 0.25,
  "global": {
-  "logloss_antes": 1.0226,
-  "logloss_despues": 1.003,
-  "delta_logloss": 0.0196,
-  "acc_antes": 0.4986,
-  "acc_despues": 0.512,
-  "delta_acc": 0.0134
+  "logloss_antes": 1.0203,
+  "logloss_despues": 1.0003,
+  "delta_logloss": 0.02,
+  "acc_antes": 0.5014,
+  "acc_despues": 0.515,
+  "delta_acc": 0.0136
  },
  "ligas": {
   "bel_pro_league": {
@@ -18,6 +18,14 @@
    "delta_logloss": 0.0081,
    "delta_acc": 0.0068,
    "ancla": "pinnacle"
+  },
+  "bol_division": {
+   "w": 0.25,
+   "sesgo_pick": -0.0306,
+   "n_partidos": 275,
+   "delta_logloss": 0.0802,
+   "delta_acc": 0.0377,
+   "ancla": "mercado"
   },
   "brasil": {
    "w": 0.25,

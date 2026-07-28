@@ -1,7 +1,7 @@
 {
- "generado": "2026-07-28T19:03:11Z",
- "n_candidatos": 33476,
- "ligas": 34,
+ "generado": "2026-07-28T20:51:37Z",
+ "n_candidatos": 36006,
+ "ligas": 56,
  "referencia_produccion": {
   "prob_min": 0.55,
   "ev_min": 0.03,
@@ -18,40 +18,40 @@
    "conviccion": 0.0
   },
   "oos_optimizado": {
-   "n": 61,
-   "roi": 0.117,
-   "p5": -0.0249,
-   "peor_ventana": -0.0688,
+   "n": 70,
+   "roi": 0.0063,
+   "p5": -0.1232,
+   "peor_ventana": -0.1173,
    "ventanas": [
-    0.1242,
-    0.1745,
+    -0.1173,
+    0.2132,
     -0.0688
    ],
-   "aciertos": 45
+   "aciertos": 49
   },
   "oos_referencia": {
-   "n": 253,
-   "roi": 0.0164,
-   "p5": -0.0703,
-   "peor_ventana": -0.0591,
+   "n": 264,
+   "roi": 0.0063,
+   "p5": -0.0782,
+   "peor_ventana": -0.0991,
    "ventanas": [
-    0.0409,
-    -0.0591,
+    0.0509,
+    -0.0991,
     0.0996
    ],
-   "aciertos": 151
+   "aciertos": 156
   },
   "adoptada": false,
   "elegidas_por_pliegue": [
    {
     "pliegue": 2,
-    "prob_min": 0.65,
+    "prob_min": 0.7,
     "ev_min": 0.0,
-    "ev_max": 0.15,
-    "cuota_min": 1.5,
-    "conviccion": 0.035,
-    "n_oos": 31,
-    "roi_oos": 0.1242
+    "ev_max": 0.12,
+    "cuota_min": 1.3,
+    "conviccion": 0.025,
+    "n_oos": 37,
+    "roi_oos": -0.1173
    },
    {
     "pliegue": 3,
@@ -60,8 +60,8 @@
     "ev_max": 0.25,
     "cuota_min": 1.3,
     "conviccion": 0.0,
-    "n_oos": 22,
-    "roi_oos": 0.1745
+    "n_oos": 25,
+    "roi_oos": 0.2132
    },
    {
     "pliegue": 4,
@@ -129,6 +129,42 @@
    },
    "adoptada": false
   },
+  "bol_division": {
+   "n_candidatos": 275,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "bra_serie_b": {
+   "n_candidatos": 352,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 2,
+    "roi": -1.0,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 0
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
   "brasil": {
    "n_candidatos": 1516,
    "combo": {
@@ -177,6 +213,23 @@
      0.0692
     ],
     "aciertos": 18
+   },
+   "oos_base": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "chi_primera": {
+   "n_candidatos": 256,
+   "combo": null,
+   "oos_optimizado": {
+    "n": 0,
+    "roi": null,
+    "p5": null,
+    "peor_ventana": null
    },
    "oos_base": {
     "n": 0,
@@ -662,6 +715,36 @@
     "roi": null,
     "p5": null,
     "peor_ventana": null
+   },
+   "adoptada": false
+  },
+  "ned_eerste": {
+   "n_candidatos": 677,
+   "combo": {
+    "prob_min": 0.55,
+    "ev_min": 0.02,
+    "ev_max": 9.99,
+    "cuota_min": 1.3,
+    "conviccion": 0.0
+   },
+   "oos_optimizado": {
+    "n": 51,
+    "roi": -0.0514,
+    "p5": -0.3051,
+    "peor_ventana": -0.2389,
+    "ventanas": [
+     0.3588,
+     -0.2389
+    ],
+    "aciertos": 22
+   },
+   "oos_base": {
+    "n": 2,
+    "roi": 0.435,
+    "p5": null,
+    "peor_ventana": null,
+    "ventanas": [],
+    "aciertos": 2
    },
    "adoptada": false
   },
