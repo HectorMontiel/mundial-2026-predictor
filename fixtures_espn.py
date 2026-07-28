@@ -202,6 +202,44 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA) -> List[Dict]:
     return fixtures
 
 
+def con_cuota(fixtures: List[Dict]) -> Dict:
+    """
+    v72 — separa los fixtures APOSTABLES (los que ya tienen cuota) del resto, y
+    dice cuándo merece la pena volver si no hay ninguno.
+
+    Por qué: enseñar los 8 partidos de la semana cuando solo 2 tienen precio
+    invita a apostar a ciegas. Las casas abren línea 2-4 días antes, así que
+    con la fecha del próximo partido se puede decir con precisión la fecha de
+    vuelta en vez de un «no hay nada» sin más.
+
+    Devuelve:
+      {'apostables': [...], 'sin_cuota': [...], 'proximo': 'YYYY-MM-DD'|None,
+       'volver_el': 'YYYY-MM-DD'|None, 'dias_para_volver': int|None}
+    """
+    apostables = [f for f in fixtures if f.get('odd_home') and f.get('odd_away')]
+    sin_cuota = [f for f in fixtures if f not in apostables]
+    info = {'apostables': apostables, 'sin_cuota': sin_cuota,
+            'proximo': None, 'volver_el': None, 'dias_para_volver': None}
+    if apostables or not sin_cuota:
+        return info
+    try:
+        fechas = sorted(pd.Timestamp(f['fecha']) for f in sin_cuota if f.get('fecha'))
+    except Exception:
+        return info
+    if not fechas:
+        return info
+    prox = fechas[0]
+    # las casas suelen abrir 3 días antes; se recomienda volver ese día, y
+    # nunca antes de mañana
+    hoy = pd.Timestamp.today().normalize()
+    volver = max(prox - pd.Timedelta(days=3), hoy + pd.Timedelta(days=1))
+    volver = min(volver, prox)
+    info['proximo'] = prox.strftime('%Y-%m-%d')
+    info['volver_el'] = volver.strftime('%Y-%m-%d')
+    info['dias_para_volver'] = int((volver - hoy).days)
+    return info
+
+
 def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
                       liga_espn: str) -> int:
     """

@@ -539,6 +539,28 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
         st.caption(f"📅 Sin partidos programados de {etiqueta} en las próximas "
                    "48 h (fuera de temporada o sin datos).")
         return
+    # v72: mismo criterio que en fútbol — solo lo que ya tiene cuota, y si no
+    # hay nada, cuándo volver.
+    try:
+        import fixtures_espn as _fe
+        _sel = _fe.con_cuota(fx)
+        if not _sel['apostables'] and _sel.get('volver_el'):
+            _d = _sel['dias_para_volver']
+            st.info(
+                f"📅 **Ninguna casa ha abierto línea todavía en {etiqueta}.** "
+                f"El próximo partido es el **{_sel['proximo']}**; las casas "
+                f"publican 2-4 días antes, así que vuelve el "
+                f"**{_sel['volver_el']}**"
+                + (f" (en {_d} día{'s' if _d != 1 else ''})" if _d else "")
+                + f". Hay {len(_sel['sin_cuota'])} partidos esperando precio.")
+            return
+        if _sel['apostables']:
+            if _sel['sin_cuota']:
+                st.caption(f"ℹ️ {len(_sel['apostables'])} partidos con cuota "
+                           f"abierta · {len(_sel['sin_cuota'])} aún sin precio.")
+            fx = _sel['apostables']
+    except Exception:
+        pass
     cat = list(catalogo)
     ops = {}
     for f in fx:
@@ -1089,9 +1111,27 @@ def render_liga_club(clave: str, nombre_liga: str):
     except Exception:
         _fx = []
     if _fx:
+        # v72: solo los partidos que YA tienen cuota. Enseñar la jornada
+        # entera cuando la mitad no tiene precio invita a apostar a ciegas.
+        _sel = fixtures_espn.con_cuota(_fx)
+        _fx_mostrar = _sel['apostables'] or []
+        if not _fx_mostrar and _sel.get('volver_el'):
+            _d = _sel['dias_para_volver']
+            st.info(
+                f"📅 **Ninguna casa ha abierto línea todavía en {nombre_liga}.** "
+                f"El próximo partido es el **{_sel['proximo']}** y las casas "
+                f"suelen publicar 2-4 días antes: vuelve el "
+                f"**{_sel['volver_el']}**"
+                + (f" (en {_d} día{'s' if _d != 1 else ''})" if _d else "")
+                + f". Hay {len(_sel['sin_cuota'])} partidos programados "
+                  f"esperando precio.")
+        elif _sel['sin_cuota']:
+            st.caption(f"ℹ️ Se muestran los **{len(_fx_mostrar)} partidos con "
+                       f"cuota abierta**; otros {len(_sel['sin_cuota'])} de la "
+                       f"jornada aún no tienen precio en ninguna casa.")
         _cat = list(motor.equipos)
         _ops = {}
-        for f in _fx:
+        for f in _fx_mostrar:
             h = _nm.mapear(f['home'], _cat, contexto=f'ui→{clave}')
             a = _nm.mapear(f['away'], _cat, contexto=f'ui→{clave}')
             if h and a and h != a:

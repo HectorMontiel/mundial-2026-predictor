@@ -141,6 +141,28 @@ def emparejar_jugador(nombre: str, catalogo: List[str],
     from difflib import SequenceMatcher
     if nombre in _CACHE_FUZZY:
         return _CACHE_FUZZY[nombre]
+
+    # v72 — primero, comparación por APELLIDO + INICIAL.
+    #
+    # La similitud de cadena sola no sirve cuando las fuentes usan formatos
+    # distintos: el catálogo del modelo guarda «Mensik J.» y Pinnacle o Bovada
+    # publican «Jakub Mensik». SequenceMatcher entre esas dos cadenas da ~0,55,
+    # por debajo del umbral, así que el partido se daba por no enlazado. Con
+    # las cuotas de tenis conectadas en v72 eso dejaba 249 de 250 partidos
+    # fuera de la Capa 1.
+    try:
+        from cuotas_multi import _sim_tenista
+        mejor_t, score_t = None, 0.0
+        for c in catalogo:
+            s = _sim_tenista(nombre, c)
+            if s > score_t:
+                mejor_t, score_t = c, s
+        if mejor_t and score_t >= 0.85:
+            _CACHE_FUZZY[nombre] = mejor_t
+            return mejor_t
+    except Exception:
+        pass
+
     objetivo = normalizar_nombre(nombre)
     mejor, ratio = None, 0.0
     for c in catalogo:

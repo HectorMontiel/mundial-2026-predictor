@@ -370,7 +370,28 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
         t['platino'] = bool(t.get('evc') and t['prob'] > 0.75
                             and t['partido'] in partidos_arb)
 
-    orden = lambda t: (-int(t.get('platino', False)), -int(t['shadow']), -t['ev'])
+    # v72 — ORDEN POR CALIDAD, NO POR EV BRUTO.
+    #
+    # Ordenar por EV descendente ponía primero justo los peores picks: un EV
+    # del +169 % no es una oportunidad, es una probabilidad rota. En la lista
+    # de candidatos salían «Lillestrom a 8.00 con 34 %» y «Estudiantes Río
+    # Cuarto a 9.50 con 28 %» por delante de picks sanos del +5 %.
+    #
+    # La puntuación premia el EV **dentro de la banda creíble** y penaliza lo
+    # que se sale de ella, porque a partir de cierto punto más EV significa
+    # peor calibración, no más valor. Se pondera además por la probabilidad
+    # (convicción) para que un 80 % al +4 % gane a un 25 % al +12 %.
+    def _calidad(t):
+        ev = float(t.get('ev') or 0.0)
+        prob = float(t.get('prob') or 0.0)
+        if ev <= 0:
+            return 0.0
+        creible = min(ev, EV_EXTREMO)          # el tramo que nos creemos
+        exceso = max(0.0, ev - EV_EXTREMO)     # lo que huele a descalibración
+        return prob * creible - 0.25 * prob * min(exceso, 1.0)
+
+    orden = lambda t: (-int(t.get('platino', False)), -int(t['shadow']),
+                       -_calidad(t), -t['ev'])
     # v34 (§1): auditoría de cobertura — log detallado y aviso si una liga
     # activa se queda a cero partidos evaluados.
     try:
@@ -659,6 +680,51 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         return {'capa1': [], 'capa2': []}
 
 
+def _cuotas_tenis_multi() -> List[Dict]:
+    """
+    v72 — partidos de tenis con cuota desde Pinnacle y Bovada, en el mismo
+    formato que esperaba la cadena de resiliencia
+    (`home`, `away`, `odd_home`, `odd_away`, `circuito`).
+
+    El circuito se deduce del nombre del torneo que publica la casa: los ITF y
+    challengers femeninos y los WTA llevan marca explícita; el resto se trata
+    como ATP, que es el motor por defecto (y si el emparejado falla,
+    `_picks_tenis` ya reintenta con el otro motor).
+    """
+    try:
+        import cuotas_multi as cm
+    except Exception:
+        return []
+    salida, vistos = [], set()
+    for idx in (cm._indice('tenis'), cm._indice_bov('tenis')):
+        for v in (idx or {}).values():
+            c = v.get('cuotas') or {}
+            oh, oa = c.get('home'), c.get('away')
+            if not oh or not oa:
+                continue
+            # DOBLES fuera. Las casas los publican con los dos nombres
+            # separados por «/» y el modelo del proyecto es de INDIVIDUALES.
+            # Sin este filtro el emparejado difuso casaba una pareja con un
+            # jugador suelto y salían picks absurdos: «Sara Errani / Nicole
+            # Melichar → Gana Katie Boulter» con EV +210 %.
+            if '/' in v['home'] or '/' in v['away']:
+                continue
+            clave = f"{cm.normalizar(v['home'])}|{cm.normalizar(v['away'])}"
+            if clave in vistos:
+                continue
+            vistos.add(clave)
+            liga = (v.get('liga') or '')
+            circuito = 'wta' if ('women' in liga.lower() or 'wta' in liga.lower()
+                                 or '(w)' in liga.lower()) else 'atp'
+            salida.append({'home': v['home'], 'away': v['away'],
+                           'odd_home': oh, 'odd_away': oa,
+                           'circuito': circuito, 'torneo': liga,
+                           'casa': v.get('casa')})
+    logger.info(f"[alpha/tenis] {len(salida)} partidos con cuota "
+                f"(Pinnacle + Bovada)")
+    return salida
+
+
 def _picks_tenis() -> Dict[str, List[Dict]]:
     """Tenis ATP **y WTA** (v35 §1.4).
 
@@ -686,7 +752,14 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
         if not motores:
             return salida
 
+        # v72 — el tenis entero caía a Capa 2 «sin cuota en vivo» aunque
+        # hubiera cuotas de sobra. Motivo: los dos eslabones de esta cadena
+        # están muertos — The Odds API con la cuota mensual agotada y
+        # Betexplorer sirviendo HTML puramente JS. Se antepone `cuotas_multi`,
+        # que trae ~252 partidos de tenis de Pinnacle y ~274 de Bovada sin
+        # límite de peticiones.
         cadena = sr.Cadena('cuotas de tenis', [
+            ('Pinnacle/Bovada', _cuotas_tenis_multi),
             ('The Odds API', lambda: odds_api.partidos_tenis_hoy()),
             ('Betexplorer', lambda: bx.cuotas_tenis_hoy()),
         ])
