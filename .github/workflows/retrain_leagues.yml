@@ -8,9 +8,22 @@ name: Reentrenar modelos de ligas (datos frescos)
 # modelos al día. Las ligas en receso no cambian (no hay datos nuevos) — es
 # correcto y honesto.
 
+# v74 — DE DOS VECES POR SEMANA A DIARIO.
+#
+# El diagnóstico de v71/v73 culpó a football-data.co.uk de publicar «por lotes
+# semanales». Se comprobó y es FALSO: el 2026-07-28 la fuente estaba al día de
+# ayer en Dinamarca, Liga MX, Suecia y China. Lo que iba atrasado eran los CSV
+# del repo, que solo se reescriben cuando corre este workflow.
+#
+# Con cron los lunes y jueves, un partido del viernes tardaba hasta 4 días en
+# entrar en el estado del modelo. Medido en local: Dinamarca 71 días de desfase,
+# China 8, Suecia 7, Liga MX 5.
+#
+# Diario a las 05:30 UTC: después de que football-data cierre la jornada
+# europea y antes de la hora punta de uso.
 on:
   schedule:
-    - cron: '0 6 * * 1,4'   # lunes y jueves 06:00 UTC (2 veces/semana)
+    - cron: '30 5 * * *'    # todos los días 05:30 UTC
   workflow_dispatch:          # ejecución manual desde la web de GitHub
 
 # permiso para que el runner pueda commitear los modelos actualizados

@@ -1,13 +1,14 @@
 {
   "liga": "Premier Division",
-  "n_train": 1064,
-  "n_validacion": 272,
-  "fecha_corte": "2025-03-28",
-  "precision_validacion": 0.4522,
-  "precision_linea_base_elo": 0.4265,
-  "precision_mercado_cuotas": 0.4743,
-  "log_loss_validacion": 1.0547,
+  "n_train": 1065,
+  "n_validacion": 270,
+  "fecha_corte": "2025-04-04",
+  "precision_validacion": 0.463,
+  "precision_linea_base_elo": 0.4185,
+  "precision_mercado_cuotas": 0.4704,
+  "log_loss_validacion": 1.0565,
   "n_equipos": 18,
+  "familia_modelo": "ensemble",
   "features_extra_cols": [
     "PROB_IMP_H",
     "PROB_IMP_D",
@@ -15,24 +16,24 @@
     "OVERROUND"
   ],
   "medias_cuotas": {
-    "PROB_IMP_H": 0.4183,
-    "PROB_IMP_D": 0.2574,
-    "PROB_IMP_A": 0.3243,
+    "PROB_IMP_H": 0.4177,
+    "PROB_IMP_D": 0.2575,
+    "PROB_IMP_A": 0.3248,
     "OVERROUND": 0.0727
   },
   "roi_sim": {
     "n_apuestas": 91,
-    "roi_pct": -15.38,
-    "aciertos": 32,
-    "roi_pct_pinnacle": -4.04,
-    "n_con_pinnacle": 51
+    "roi_pct": -9.9,
+    "aciertos": 35,
+    "roi_pct_pinnacle": -4.06,
+    "n_con_pinnacle": 49
   },
   "mesm": {
-    "n_val_con_cuotas": 272,
-    "acc_prod": 0.4522,
-    "acc_mesm": 0.4743,
-    "ll_prod": 1.0547,
-    "ll_mesm": 1.0214,
+    "n_val_con_cuotas": 270,
+    "acc_prod": 0.463,
+    "acc_mesm": 0.4741,
+    "ll_prod": 1.0565,
+    "ll_mesm": 1.0243,
     "adoptado": true
   },
   "imt": null

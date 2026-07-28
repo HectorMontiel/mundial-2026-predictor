@@ -776,6 +776,9 @@ def descargar_liga(clave: str) -> pd.DataFrame:
         df = df[df['date'] >= df['date'].max() - pd.DateOffset(years=anios)]
 
     df = df.dropna(subset=['date', 'home_team', 'away_team', 'home_goals', 'away_goals'])
+    # v74: cola reciente desde ESPN para las ligas cuya fuente publica por lotes
+    if cfg['formato'] in ('main', 'new'):
+        df = _completar_desde_espn(df, clave)
     df['tournament'] = cfg['nombre']
     df['stadium'] = None
     df['MATCH_ID'] = [
@@ -799,6 +802,106 @@ def descargar_liga(clave: str) -> pd.DataFrame:
                 f"({df['date'].min().date()} → {df['date'].max().date()}), "
                 f"cuotas de cierre en {df['odd_home'].notna().mean()*100:.0f} % de filas.")
     return df
+
+
+def _completar_desde_espn(df: pd.DataFrame, clave: str,
+                          margen_dias: int = 45) -> pd.DataFrame:
+    """
+    v74 — añade al histórico los partidos RECIENTES que su fuente aún no ha
+    publicado, tomándolos de ESPN.
+
+    El problema
+    -----------
+    Las ligas de formato `main` y `new` vienen de football-data.co.uk, que
+    publica **por lotes semanales**. Entre lote y lote el histórico se queda
+    atrás y la app avisa «datos de hace N días», con dos consecuencias: la
+    cuarentena de pretemporada baja los picks a Capa 2 y el estado del modelo
+    (forma, ELO, medias móviles) ignora la última jornada.
+
+    Medido el 2026-07-28 sobre las 57 competiciones desplegadas: **9 tenían
+    partidos que ESPN ya publicaba y el histórico no**, desde 2 días
+    (Argentina) hasta **71** (Dinamarca).
+
+    Cómo
+    ----
+    football-data sigue siendo la base: es la única que trae **cuotas de
+    cierre**, y sin ellas no hay CLV ni backtest de EV. ESPN solo aporta la
+    COLA: los partidos posteriores a la última fecha publicada. Esas filas
+    entran sin cuotas —el resto del pipeline ya imputa lo que falta— y con las
+    estadísticas avanzadas que genera `CorrelatedSyntheticGenerator`, igual que
+    cualquier partido de formato `new`.
+
+    Los nombres se traducen con `name_mapper` contra el catálogo que ya tiene
+    el histórico, así que un equipo que ESPN escriba distinto no crea un
+    duplicado: si no se puede mapear con confianza, la fila se descarta (mejor
+    perder un partido que partir el historial de un equipo en dos).
+    """
+    liga_espn = LEAGUES.get(clave, {}).get('espn_liga') or _ESPN_POR_LIGA.get(clave)
+    if not liga_espn or df.empty:
+        return df
+    try:
+        ultima = pd.Timestamp(df['date'].max()).normalize()
+    except Exception:
+        return df
+    hoy = pd.Timestamp.today().normalize()
+    if (hoy - ultima).days <= 1:
+        return df                      # ya está al día
+    desde = max(ultima + pd.Timedelta(days=1), hoy - pd.Timedelta(days=margen_dias))
+    if desde > hoy:
+        return df
+
+    try:
+        import uefa_scraper
+        nuevos = uefa_scraper.descargar_espn(liga_espn, desde.strftime('%Y-%m-%d'))
+    except Exception as e:
+        logger.warning(f"[{clave}] cola ESPN no disponible: {type(e).__name__}: {e}")
+        return df
+    if nuevos is None or nuevos.empty:
+        return df
+    nuevos = nuevos[pd.to_datetime(nuevos['date']).dt.normalize() > ultima].copy()
+    if nuevos.empty:
+        return df
+
+    catalogo = sorted(set(df['home_team']) | set(df['away_team']))
+    try:
+        import name_mapper
+        def _map(n):
+            if n in catalogo:
+                return n
+            return name_mapper.mapear(n, catalogo, contexto=f'espn→{clave}')
+    except Exception:
+        def _map(n):
+            return n if n in catalogo else None
+
+    filas = []
+    descartados = 0
+    for r in nuevos.itertuples(index=False):
+        h, a = _map(r.home_team), _map(r.away_team)
+        if not h or not a or h == a:
+            descartados += 1
+            continue
+        filas.append({'date': pd.Timestamp(r.date).normalize(),
+                      'home_team': h, 'away_team': a,
+                      'home_goals': float(r.home_goals),
+                      'away_goals': float(r.away_goals)})
+    if not filas:
+        if descartados:
+            logger.info(f"[{clave}] cola ESPN: {descartados} partidos sin "
+                        f"equipo mapeable, no se añade nada.")
+        return df
+
+    cola = pd.DataFrame(filas)
+    for c in df.columns:
+        if c not in cola.columns:
+            cola[c] = np.nan
+    cola = cola[df.columns] if set(df.columns) <= set(cola.columns) else cola
+    salida = pd.concat([df, cola], ignore_index=True)
+    salida = salida.dropna(subset=['date', 'home_team', 'away_team',
+                                   'home_goals', 'away_goals'])
+    logger.info(f"[{clave}] cola ESPN: +{len(cola)} partidos "
+                f"({ultima.date()} → {cola['date'].max().date()})"
+                + (f", {descartados} descartados por nombre" if descartados else ""))
+    return salida
 
 
 def _elo_diff_liga(df: pd.DataFrame) -> pd.Series:
@@ -1343,12 +1446,23 @@ def campo_prop(id_, etiqueta, valor, tipo='pct'):
 
 
 # nombre ESPN por liga para las que no lo llevan en config (formato 'main'/'new')
+#
+# v74: completado. Faltaban 18 competiciones desplegadas, y sin este mapeo no
+# se podía ni medir su retraso ni refrescarlas a diario desde ESPN.
 _ESPN_POR_LIGA = {
     'liga_mx': 'mex.1', 'brasil': 'bra.1', 'mls': 'usa.1', 'premier': 'eng.1',
     'laliga': 'esp.1', 'serie_a': 'ita.1', 'bundesliga': 'ger.1',
     'ligue_1': 'fra.1', 'argentina': 'arg.1', 'eredivisie': 'ned.1',
     'portugal': 'por.1', 'eng_championship': 'eng.2', 'esp_hypermotion': 'esp.2',
     'ita_serie_b': 'ita.2', 'ger_bundesliga2': 'ger.2', 'fra_ligue2': 'fra.2',
+    # v74
+    'noruega': 'nor.1', 'suecia': 'swe.1', 'finlandia': 'fin.1',
+    'rumania': 'rou.1', 'irlanda': 'irl.1', 'turquia': 'tur.1',
+    'dinamarca': 'den.1', 'china': 'chn.1', 'polonia': 'pol.1',
+    'primeira': 'por.1', 'champions': 'uefa.champions',
+    'eng_league_one': 'eng.3', 'eng_league_two': 'eng.4',
+    'eng_national': 'eng.5', 'sco_premiership': 'sco.1',
+    'sco_championship': 'sco.2', 'bel_pro_league': 'bel.1', 'jpn_j1': 'jpn.1',
 }
 
 

@@ -139,6 +139,22 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
             c['sharp_confirmado'] = bool(sharp_gap >= SHARP_GAP_MIN)   # v42
         if casa:
             c['casa'] = casa                                          # v43 line shopping
+        # v74 — DEDUPLICACIÓN CON LINE SHOPPING.
+        #
+        # El mismo mercado llegaba dos veces cuando dos fuentes lo cubrían: el
+        # over/under 2.5 se emitía desde `odd_over25` (scoreboard) y otra vez
+        # desde `odd_over` cuando la línea rica del core API también era 2.5.
+        # Resultado: «Menos de 2.5» duplicado en 4 partidos de la lista de
+        # candidatos.
+        #
+        # En vez de descartar el segundo sin más, se conserva **la mejor
+        # cuota**: es la misma apuesta y el usuario quiere el precio más alto.
+        # Así el duplicado deja de ser ruido y pasa a ser line shopping.
+        for i, prev in enumerate(candidatos):
+            if prev['mercado'] == mercado and prev['apuesta'] == etiqueta:
+                if c['cuota'] > prev['cuota']:
+                    candidatos[i] = c
+                return
         candidatos.append(c)
 
     # v42: confirmación SHARP — la prob implícita (devig) del cierre de

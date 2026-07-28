@@ -1,13 +1,14 @@
 {
   "liga": "Eliteserien",
-  "n_train": 1479,
-  "n_validacion": 375,
-  "fecha_corte": "2024-11-03",
-  "precision_validacion": 0.552,
-  "precision_linea_base_elo": 0.5333,
-  "precision_mercado_cuotas": 0.584,
-  "log_loss_validacion": 0.9576,
+  "n_train": 1487,
+  "n_validacion": 374,
+  "fecha_corte": "2024-11-10",
+  "precision_validacion": 0.5642,
+  "precision_linea_base_elo": 0.5348,
+  "precision_mercado_cuotas": 0.5882,
+  "log_loss_validacion": 0.9539,
   "n_equipos": 27,
+  "familia_modelo": "ensemble",
   "features_extra_cols": [
     "PROB_IMP_H",
     "PROB_IMP_D",
@@ -15,24 +16,24 @@
     "OVERROUND"
   ],
   "medias_cuotas": {
-    "PROB_IMP_H": 0.4632,
+    "PROB_IMP_H": 0.4633,
     "PROB_IMP_D": 0.2438,
-    "PROB_IMP_A": 0.293,
-    "OVERROUND": 0.0615
+    "PROB_IMP_A": 0.2929,
+    "OVERROUND": 0.0616
   },
   "roi_sim": {
-    "n_apuestas": 102,
-    "roi_pct": -11.44,
-    "aciertos": 45,
-    "roi_pct_pinnacle": -19.97,
-    "n_con_pinnacle": 74
+    "n_apuestas": 108,
+    "roi_pct": -3.23,
+    "aciertos": 51,
+    "roi_pct_pinnacle": -13.06,
+    "n_con_pinnacle": 72
   },
   "mesm": {
-    "n_val_con_cuotas": 375,
-    "acc_prod": 0.552,
-    "acc_mesm": 0.5893,
-    "ll_prod": 0.9576,
-    "ll_mesm": 0.9265,
+    "n_val_con_cuotas": 374,
+    "acc_prod": 0.5642,
+    "acc_mesm": 0.5882,
+    "ll_prod": 0.9539,
+    "ll_mesm": 0.9208,
     "adoptado": true
   },
   "imt": null

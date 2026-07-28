@@ -1,13 +1,14 @@
 {
   "liga": "Brasileirão Serie A",
-  "n_train": 2418,
-  "n_validacion": 606,
-  "fecha_corte": "2024-11-21",
-  "precision_validacion": 0.5297,
-  "precision_linea_base_elo": 0.4538,
-  "precision_mercado_cuotas": 0.5198,
-  "log_loss_validacion": 0.994,
+  "n_train": 2422,
+  "n_validacion": 610,
+  "fecha_corte": "2024-11-24",
+  "precision_validacion": 0.5164,
+  "precision_linea_base_elo": 0.4492,
+  "precision_mercado_cuotas": 0.5164,
+  "log_loss_validacion": 0.9985,
   "n_equipos": 32,
+  "familia_modelo": "ensemble",
   "features_extra_cols": [
     "PROB_IMP_H",
     "PROB_IMP_D",
@@ -15,24 +16,24 @@
     "OVERROUND"
   ],
   "medias_cuotas": {
-    "PROB_IMP_H": 0.4549,
-    "PROB_IMP_D": 0.2768,
-    "PROB_IMP_A": 0.2684,
+    "PROB_IMP_H": 0.4548,
+    "PROB_IMP_D": 0.2767,
+    "PROB_IMP_A": 0.2685,
     "OVERROUND": 0.0618
   },
   "roi_sim": {
     "n_apuestas": 281,
-    "roi_pct": 3.54,
-    "aciertos": 127,
-    "roi_pct_pinnacle": 4.74,
-    "n_con_pinnacle": 180
+    "roi_pct": 3.44,
+    "aciertos": 129,
+    "roi_pct_pinnacle": 6.17,
+    "n_con_pinnacle": 172
   },
   "mesm": {
-    "n_val_con_cuotas": 606,
-    "acc_prod": 0.5297,
-    "acc_mesm": 0.5215,
-    "ll_prod": 0.994,
-    "ll_mesm": 1.0019,
+    "n_val_con_cuotas": 610,
+    "acc_prod": 0.5164,
+    "acc_mesm": 0.5148,
+    "ll_prod": 0.9985,
+    "ll_mesm": 1.0063,
     "adoptado": false
   },
   "imt": null
