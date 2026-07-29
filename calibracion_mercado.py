@@ -128,6 +128,40 @@ def w_desde_sesgo(sesgo_pick: float, n: int) -> float:
     return round(1.0 - (1.0 - w) * confianza, 3)
 
 
+def encoger_dos_vias(p_home: float, cuota_home: Optional[float],
+                     cuota_away: Optional[float],
+                     clave_liga: str) -> Tuple[float, dict]:
+    """
+    v79 — punto de entrada RESILIENTE para el encogimiento a dos vías.
+
+    En producción se vio esto:
+
+        [alpha] tenis omitido: AttributeError: module 'calibracion_mercado'
+                has no attribute 'corregir_dos_vias'
+
+    ...con la función presente en el fichero y en los dos remotos. La causa es
+    de Streamlit, no del código: los módulos importados sobreviven entre
+    ejecuciones en `sys.modules`, así que al desplegar la v78 quedó un
+    `calibracion_mercado` de la v77 ya cargado en memoria mientras
+    `alpha_finder` sí era el nuevo. El import de dentro de la función devolvía
+    el módulo viejo y el atributo no existía.
+
+    Lo grave no fue el fallo, sino el radio de daño: el `except` que lo
+    recogía envolvía el barrido ENTERO de tenis, así que un problema de
+    calibración borró los 319 partidos del día. Aquí se invierte esa relación
+    — si el encogimiento no se puede aplicar, se devuelve la probabilidad sin
+    corregir y se sigue. Perder la corrección es un grado de calidad; perder
+    el deporte es perderlo todo.
+    """
+    try:
+        return corregir_dos_vias(p_home, cuota_home, cuota_away, clave_liga)
+    except Exception as e:                       # nunca tumbar un deporte
+        logger.warning(f"[calibracion] encogimiento no aplicado en "
+                       f"{clave_liga}: {type(e).__name__}: {e}")
+        return p_home, {'aplicado': False, 'w': 1.0, 'liga': clave_liga,
+                        'error': f'{type(e).__name__}: {e}'}
+
+
 def corregir_dos_vias(p_home: float, cuota_home: Optional[float],
                       cuota_away: Optional[float],
                       clave_liga: str) -> Tuple[float, dict]:

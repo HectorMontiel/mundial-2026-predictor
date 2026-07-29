@@ -1542,6 +1542,19 @@ class ClubEngine:
                     self.mesm = joblib.load(ruta_mesm)
                 except Exception as e:
                     logger.warning(f"[{clave}] mesm.joblib ilegible: {e}")
+            # v79 — n_jobs=1 en inferencia. Los modelos se entrenaron con
+            # `n_jobs=-1` (correcto para miles de filas), pero esa opción viaja
+            # dentro del pickle y en producción se predice UNA fila por
+            # partido: repartir 200 árboles entre todos los núcleos costaba
+            # 0,12 s por predicción en pura coordinación de procesos. Medido en
+            # el perfil del barrido: 44,3 s de 112 s. Las predicciones no
+            # cambian, solo se calculan sin montar la maquinaria de reparto.
+            try:
+                import inferencia_rapida
+                inferencia_rapida.preparar(self.modelo, self.reg_l,
+                                           self.reg_v, self.mesm)
+            except Exception as e:
+                logger.debug(f"[{clave}] inferencia_rapida no aplicada: {e}")
             with open(f'team_stats_{clave}.json', 'r', encoding='utf-8') as f:
                 ts = json.load(f)
             self.stats = ts['equipos']

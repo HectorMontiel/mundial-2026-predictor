@@ -218,6 +218,21 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
             c['sharp_confirmado'] = bool(sharp_gap >= SHARP_GAP_MIN)   # v42
         if casa:
             c['casa'] = casa                                          # v43 line shopping
+        # v79 — el pick de fútbol dice ahora SI se le encogió hacia el mercado.
+        #
+        # La v78 adjuntó `calibracion` a los picks de MLB y de tenis, pero el
+        # fútbol se quedó sin ello: la corrección se aplicaba y luego el `info`
+        # se tiraba. Se descubrió al instrumentar el barrido, porque el
+        # diagnóstico daba «Fútbol: SIN encogimiento aplicado» cuando en
+        # realidad sí se aplicaba — simplemente no había forma de saberlo desde
+        # fuera.
+        #
+        # Importa más aquí que en los otros dos deportes: el fútbol es HOY el
+        # único con edge validado, o sea el único cuyos picks son accionables,
+        # y `w=0,25` significa que tres cuartas partes de la probabilidad que
+        # ve el usuario vienen del mercado. Eso tiene que poder auditarse.
+        if calib_info:
+            c['calibracion'] = calib_info
         # v74 — DEDUPLICACIÓN CON LINE SHOPPING.
         #
         # El mismo mercado llegaba dos veces cuando dos fuentes lo cubrían: el
@@ -929,8 +944,14 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
             # cuota real: encoger mejora la precisión de 65,9 % a 68,3 % y la
             # log-loss de 0,6105 a 0,5842. ATP y WTA adoptan w=0,25 con
             # muestras de 30.327 y 15.883 partidos.
-            import calibracion_mercado as _cal
-            _ph, _info_cal = _cal.corregir_dos_vias(
+            #
+            # v79 — se pasa por `calibracion_segura`. El import directo de
+            # `calibracion_mercado` tumbó el barrido entero de tenis en
+            # producción con un AttributeError, porque Streamlit conservaba en
+            # `sys.modules` el módulo de la v77 mientras este fichero ya era el
+            # de la v78. Ver el docstring de `calibracion_segura`.
+            import calibracion_segura as _cal
+            _ph, _info_cal = _cal.encoger_dos_vias(
                 pred['prob_home'], m.get('odd_home'), m.get('odd_away'),
                 eng.circuito.lower())
             _probs = {'home': _ph, 'away': 1.0 - _ph}
@@ -1306,7 +1327,54 @@ def _construir_parlay_tenis(legs: List[Dict], objetivo_cuota: float = 2.0,
 def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     """Barrido de TODAS las competiciones activas (11 de fútbol + MLB, NBA,
     tenis) con clasificación en dos capas (§1.2, §5.1)."""
-    r = apuestas_del_dia(max_partidos=max_partidos)
+    # -----------------------------------------------------------------------
+    # v79 — LAS CUATRO RAMAS EN PARALELO.
+    #
+    # Medido con `_v79_diag_barrido.py` sobre el barrido real:
+    #
+    #     TOTAL                     197,9 s
+    #       apuestas_del_dia (fútbol) 117,4 s
+    #         └ _barrido_fixtures     112,0 s
+    #       _picks_tenis               77,7 s
+    #       _picks_mlb                  2,6 s
+    #       _picks_nba                  0,0 s
+    #
+    # Los tiempos SUMAN porque las cuatro ramas corrían una detrás de otra, y
+    # sin embargo son independientes: ninguna lee lo que produce otra. Casi
+    # todo el gasto es espera de red (ESPN, Pinnacle, Bovada, Playdoit), o sea
+    # tiempo en el que el proceso está parado sin hacer nada.
+    #
+    # Se lanzan a la vez con hilos. No se quita ni una feature: se calcula
+    # exactamente lo mismo, solo que a la vez. El techo pasa a ser la rama más
+    # lenta en vez de la suma de todas.
+    #
+    # Hilos y no procesos a propósito: los modelos ya están cargados en este
+    # intérprete y serializarlos a subprocesos costaría más de lo que ahorra.
+    # Las esperas de red y las llamadas de numpy/sklearn sueltan el GIL, que es
+    # donde está el tiempo.
+    # -----------------------------------------------------------------------
+    from concurrent.futures import ThreadPoolExecutor
+
+    _ramas = {'futbol': lambda: apuestas_del_dia(max_partidos=max_partidos),
+              'mlb': _picks_mlb, 'tenis': _picks_tenis, 'nba': _picks_nba}
+    _res: Dict[str, Dict] = {}
+    _fallos: Dict[str, str] = {}
+    with ThreadPoolExecutor(max_workers=4,
+                            thread_name_prefix='alpha') as _ex:
+        _fut = {_ex.submit(fn): nombre for nombre, fn in _ramas.items()}
+        for f, nombre in _fut.items():
+            try:
+                _res[nombre] = f.result() or {}
+            except Exception as e:
+                # Una rama caída no puede llevarse el barrido. Se anota y el
+                # resto sigue — es la misma lección del tenis omitido por un
+                # AttributeError de calibración.
+                logger.warning(f"[alpha] rama '{nombre}' falló: "
+                               f"{type(e).__name__}: {e}")
+                _fallos[nombre] = f'{type(e).__name__}: {e}'
+                _res[nombre] = {}
+
+    r = _res.get('futbol') or {}
     capa1 = list(r.get('elite') or [])
     for p in capa1:
         p.setdefault('deporte', 'Fútbol')
@@ -1322,13 +1390,50 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         incidencias += monitor_playdoit.incidencias()
     except Exception as e:
         logger.debug(f"[alpha] monitor de Playdoit no disponible: {e}")
-    for fn in (_picks_mlb, _picks_tenis, _picks_nba):
-        try:
-            sub = fn()
-        except Exception as e:
-            logger.warning(f"[alpha] {fn.__name__}: {e}")
-            incidencias.append(f'{fn.__name__}: {type(e).__name__}: {e}')
-            continue
+    for nombre, motivo in _fallos.items():
+        incidencias.append(f'La rama de {nombre} falló y se omitió: {motivo}')
+
+    # -----------------------------------------------------------------------
+    # v79 — AVISO: ¿a cuántos picks de fútbol les llega el encogimiento?
+    #
+    # El fútbol es el único deporte con edge validado, y ese edge se midió
+    # concretamente EN w=0,25: +6,72 % de ROI con bootstrap p5 +0,92 %. Con
+    # w=1,00 el mismo ledger da +0,47 % y p5 −2,62 %, o sea sin edge.
+    #
+    # Medido el 2026-07-29: **0 de 41 picks** de fútbol salieron encogidos. No
+    # era falta de cuota sharp (Pinnacle cubría el 73 % de los partidos), sino
+    # que `calibracion_mercado.json` no tiene peso para las ligas que juegan en
+    # julio. La tabla se construye desde el ledger, y el ledger de fútbol viene
+    # de fuentes que cubren sobre todo Europa — que ahora está de vacaciones:
+    #
+    #     18 ligas CON peso medido y SIN partidos hoy (parón)
+    #     20 ligas jugando hoy SIN peso medido
+    #     cobertura real: 49 de 160 partidos = 30,6 %
+    #
+    # O sea: el pick que ve el usuario en julio no es el que se validó. Es
+    # información que tiene que estar delante, no enterrada en un JSON.
+    # Arreglarlo de verdad exige histórico de cuotas sudamericano (BetExplorer
+    # ya demostró servir para 22 ligas en la v76); mientras tanto, se avisa.
+    try:
+        import calibracion_mercado as _calm
+        _f1 = [p for p in capa1 if p.get('deporte', 'Fútbol') == 'Fútbol']
+        if _f1:
+            _sin = sorted({p.get('liga', '?') for p in _f1
+                           if not (p.get('calibracion') or {}).get('aplicado')})
+            _n_sin = sum(1 for p in _f1
+                         if not (p.get('calibracion') or {}).get('aplicado'))
+            if _n_sin:
+                incidencias.append(
+                    f'{_n_sin} de {len(_f1)} picks de fútbol salen SIN calibrar '
+                    f'contra el mercado: sus ligas no tienen peso medido '
+                    f'({", ".join(_sin[:6])}'
+                    f'{"…" if len(_sin) > 6 else ""}). El edge del fútbol se '
+                    f'validó con encogimiento (w=0,25); sin él, el mismo '
+                    f'histórico no muestra edge. Trátalos con más cautela.')
+    except Exception as e:
+        logger.debug(f'[alpha] aviso de cobertura de calibración: {e}')
+    for nombre in ('mlb', 'tenis', 'nba'):
+        sub = _res.get(nombre) or {}
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])
         no_enlazados += sub.get('no_enlazados', [])

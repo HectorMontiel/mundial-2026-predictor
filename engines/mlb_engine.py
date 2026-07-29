@@ -16,6 +16,7 @@ Estado por equipo/pitcher persistido en modelos/mlb/estado.json para
 reproducir las features en inferencia (mismo patrón que las ligas de fútbol).
 """
 
+import datetime
 import json
 import logging
 import os
@@ -50,7 +51,57 @@ NOMBRES_MLB = {
     'Tampa Bay Rays': 'TBA', 'Texas Rangers': 'TEX', 'Toronto Blue Jays': 'TOR',
     'Washington Nationals': 'WAS',
 }
+# v79 — «Athletics» y «Oakland Athletics» son el MISMO equipo. Retrosheet
+# cambió el código OAK (1.502 juegos, hasta 2024-09-29) por ATH (162 juegos,
+# desde 2025-03-27) cuando la franquicia se mudó, y el histórico acabó con 31
+# códigos para 30 equipos: el ELO de los Athletics se reiniciaba a 1500 a
+# mitad del dataset. Se canonaliza en OAK, que es donde está la historia larga.
+NOMBRES_MLB['Athletics'] = 'OAK'
+NOMBRES_MLB['Oakland Athletics'] = 'OAK'
+NOMBRES_MLB['Sacramento Athletics'] = 'OAK'
+
 CODIGO_A_NOMBRE = {v: k for k, v in NOMBRES_MLB.items()}
+CODIGO_A_NOMBRE['OAK'] = 'Athletics'
+
+
+def _json_seguro(o):
+    """
+    v79 — `estado['filas']` guarda (Timestamp, local, visitante) y `json.dump`
+    no sabe serializar un Timestamp.
+
+    Esto rompía `entrenar()` **desde la v78**, que fue quien añadió `filas` para
+    poder alinear el ledger. No se notó porque el ledger llama a `_dataset` en
+    memoria y nunca pasa por JSON: el único camino roto era el reentrenamiento,
+    y mientras no se reentrenara no saltaba. La huella quedó en el
+    `estado.json` de producción, que tenía `filas: 0` — se había escrito con
+    código anterior a la v78.
+    """
+    if isinstance(o, (pd.Timestamp, datetime.date, datetime.datetime)):
+        return str(pd.Timestamp(o).date())
+    if isinstance(o, (np.integer,)):
+        return int(o)
+    if isinstance(o, (np.floating,)):
+        return float(o)
+    raise TypeError(f'no serializable: {type(o).__name__}')
+
+
+def _escribir_json(ruta: str, datos) -> None:
+    """
+    v79 — escritura ATÓMICA del estado.
+
+    `json.dump` va escribiendo a medida que serializa, así que si falla a mitad
+    (por ejemplo con un tipo no serializable) deja el fichero TRUNCADO. Pasó al
+    reparar esto: `estado.json` quedó cortado en el carácter 48.380 y el motor
+    dejó de arrancar con `JSONDecodeError`, que es peor que el fallo original —
+    el modelo entero se cae en producción por un error de escritura.
+
+    Se escribe a un temporal y se reemplaza de golpe: o está el fichero viejo
+    entero, o el nuevo entero. Nunca medio.
+    """
+    tmp = f'{ruta}.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        json.dump(datos, f, default=_json_seguro)
+    os.replace(tmp, ruta)
 
 
 def codigo_mlb(nombre: str) -> str:
@@ -77,10 +128,22 @@ class MLBEngine(BaseSportsEngine):
         self.equipos = sorted((self.estado.get('equipos') or {}).keys())
 
     def cargar_datos_historicos(self) -> pd.DataFrame:
-        import retrosheet_scraper
+        """
+        v79 — se cambia Retrosheet por la API oficial de la MLB.
+
+        Retrosheet publica los game logs **por temporada cerrada**, así que la
+        temporada en curso no existía para el modelo. Medido el 2026-07-29: el
+        último partido conocido era de **2025-09-28**, 304 días atrás, y la
+        2026 se predecía con la forma del año anterior.
+
+        `mlb_statsapi` es la API oficial (gratuita, sin clave), trae la
+        temporada viva y además el abridor probable. Se ingieren 11 años para
+        tener pasado largo con un solo espacio de nombres de lanzadores.
+        """
         import datetime
+        import mlb_statsapi
         y = datetime.date.today().year
-        return retrosheet_scraper.actualizar(list(range(y - 5, y + 1)))
+        return mlb_statsapi.actualizar(list(range(y - 11, y + 1)))
 
     # ---- construcción de features sin fuga (train + estado final) -------
     @staticmethod
@@ -123,8 +186,16 @@ class MLBEngine(BaseSportsEngine):
             gh, ga = float(r.home_runs), float(r.away_runs)
             rs.setdefault(h, []).append(gh); ra.setdefault(h, []).append(ga)
             rs.setdefault(a, []).append(ga); ra.setdefault(a, []).append(gh)
-            pit_ra.setdefault(r.home_pitcher, []).append(ga)
-            pit_ra.setdefault(r.away_pitcher, []).append(gh)
+            # v79: un abridor sin identificar ('' o NaN) NO puede acumularse.
+            # Si se deja, todos los partidos sin abridor anunciado caen en el
+            # mismo cubo y ese cubo se convierte en un «lanzador» con miles de
+            # aperturas cuya media es la de la liga entera — ruido disfrazado
+            # de señal. Se ignora: el partido sigue entrenando, solo no aporta
+            # historial de lanzador.
+            if isinstance(r.home_pitcher, str) and r.home_pitcher:
+                pit_ra.setdefault(r.home_pitcher, []).append(ga)
+            if isinstance(r.away_pitcher, str) and r.away_pitcher:
+                pit_ra.setdefault(r.away_pitcher, []).append(gh)
             for eq, gano in ((h, gh > ga), (a, ga > gh)):
                 streak[eq] = max(streak.get(eq, 0), 0) + 1 if gano else \
                     min(streak.get(eq, 0), 0) - 1
@@ -197,22 +268,62 @@ class MLBEngine(BaseSportsEngine):
         joblib.dump(modelo, os.path.join(CARPETA, 'moneyline.joblib'), compress=3)
         joblib.dump(sc, os.path.join(CARPETA, 'scaler.joblib'), compress=3)
         joblib.dump(reg, os.path.join(CARPETA, 'totales.joblib'), compress=3)
-        with open(os.path.join(CARPETA, 'estado.json'), 'w', encoding='utf-8') as f:
-            json.dump(estado, f)
-        meta = {'deporte': 'MLB', 'n_juegos': len(X),
-                'precision_validacion': round(float(acc), 4),
-                'precision_linea_base_elo': round(float(base), 4),
-                'log_loss_validacion': round(float(ll), 4),
-                'linea_total_tipica': float(np.median(tot)),
-                'fecha_entrenamiento': pd.Timestamp.today().strftime('%Y-%m-%d')}
-        with open(os.path.join(CARPETA, 'metadata.json'), 'w', encoding='utf-8') as f:
+        _escribir_json(os.path.join(CARPETA, 'estado.json'), estado)
+        # v79 — el metadata se FUNDE, no se sobrescribe.
+        #
+        # `sigma_margen` lo calcula `calibrar_margenes_v32.py`, no el
+        # entrenamiento, y `mercados_excluidos` se anota a mano. Al escribir el
+        # dict entero se borraban los dos, y sin `sigma_margen` la plantilla de
+        # `base_engine` deja de emitir spread y totales por equipo — en
+        # silencio, porque están detrás de un `if sigma`. Cada reentrenamiento
+        # amputaba mercados sin que saltara ningún error.
+        ruta_meta = os.path.join(CARPETA, 'metadata.json')
+        meta = {}
+        if os.path.exists(ruta_meta):
+            try:
+                with open(ruta_meta, encoding='utf-8') as f:
+                    meta = json.load(f)
+            except Exception:
+                meta = {}
+        meta.update({'deporte': 'MLB', 'n_juegos': len(X),
+                     'precision_validacion': round(float(acc), 4),
+                     'precision_linea_base_elo': round(float(base), 4),
+                     'log_loss_validacion': round(float(ll), 4),
+                     'linea_total_tipica': float(np.median(tot)),
+                     'fecha_entrenamiento':
+                         pd.Timestamp.today().strftime('%Y-%m-%d')})
+        with open(ruta_meta, 'w', encoding='utf-8') as f:
             json.dump(meta, f, indent=2)
         logger.info(f"[mlb] acc={acc:.4f} (ELO {base:.4f}) ll={ll:.4f}")
         return meta
 
     def construir_features(self, home: str, away: str,
                            home_pitcher: str = None,
-                           away_pitcher: str = None, **ctx) -> Optional[List[float]]:
+                           away_pitcher: str = None,
+                           fecha=None, **ctx) -> Optional[List[float]]:
+        """
+        v79 — se reparan las TRES features que estaban muertas en inferencia.
+
+        El entrenamiento usa 9 features, pero en producción `apuestas_dia`
+        llamaba a `predecir(home, away)` sin abridores ni fecha, así que tres
+        de ellas salían con el mismo valor en todos los partidos. Medido sobre
+        todos los emparejamientos posibles:
+
+            DIFF_REST     media +0,0000   std 0,0000   <- constante
+            DIFF_PIT_RA   media +0,0000   std 0,0000   <- constante
+            MEDIA_PIT_RA  media +1,0000   std 0,0000   <- constante
+
+        Un tercio de las entradas del modelo era ruido fijo, y justo el tercio
+        que más pesa en béisbol: quién abre. El clasificador estaba entrenado
+        para apoyarse en ellas y en producción no las recibía nunca, así que
+        se replegaba al centro. De ahí que el 58,5 % de los partidos saliera
+        entre 45 % y 55 %.
+
+        Ahora el descanso se calcula contra la fecha real del partido y los
+        abridores llegan desde `mlb_statsapi`. Si un abridor no está anunciado
+        se degrada al valor neutro 4,5 (igual que en entrenamiento cuando no
+        había historial), pero eso ahora es la excepción, no la norma.
+        """
         eq = self.estado.get('equipos', {})
         if home not in eq or away not in eq:
             return None
@@ -224,10 +335,62 @@ class MLBEngine(BaseSportsEngine):
         ra_a = np.mean(a['ra']) if a['ra'] else 4.5
         pr_h = np.mean(pit.get(home_pitcher, [])[-5:]) if pit.get(home_pitcher) else 4.5
         pr_a = np.mean(pit.get(away_pitcher, [])[-5:]) if pit.get(away_pitcher) else 4.5
+
+        # DIFF_REST con la misma fórmula del entrenamiento: días desde el
+        # último partido, tope 7, y 3 por defecto si no consta.
+        ref = pd.to_datetime(fecha) if fecha is not None else pd.Timestamp.today()
+        ref = pd.Timestamp(ref).normalize()
+
+        def _descanso(info):
+            u = info.get('ult_fecha')
+            if not u:
+                return 3.0
+            try:
+                d = (ref - pd.Timestamp(u).normalize()).days
+            except Exception:
+                return 3.0
+            return float(min(max(d, 0), 7)) if d >= 0 else 3.0
+
+        rest_h, rest_a = _descanso(h), _descanso(a)
         return [(h['elo'] - a['elo']) / 100.0, (rs_h - rs_a) / 3.0,
                 (ra_h - ra_a) / 3.0, (h['streak'] - a['streak']) / 5.0,
-                0.0, (pr_h - pr_a) / 3.0, (rs_h + rs_a) / 9.0,
-                (ra_h + ra_a) / 9.0, (pr_h + pr_a) / 9.0]
+                (rest_h - rest_a) / 5.0, (pr_h - pr_a) / 3.0,
+                (rs_h + rs_a) / 9.0, (ra_h + ra_a) / 9.0,
+                (pr_h + pr_a) / 9.0]
+
+    # ------------------------------------------------------------------
+    def refrescar_estado(self, df: Optional[pd.DataFrame] = None) -> Dict:
+        """
+        v79 — recalcula `estado.json` SIN reentrenar el modelo.
+
+        El estado (ELO, forma de 10 partidos, racha, última fecha, aperturas de
+        cada lanzador) sólo se escribía al entrenar. Entrenar es caro, así que
+        se hacía de tarde en tarde y el estado envejecía con la temporada: el
+        modelo del 2026-07-29 miraba el mundo del 2025-09-28.
+
+        Separar las dos cosas es lo que arregla el problema de raíz: los pesos
+        del clasificador cambian poco y pueden reentrenarse de vez en cuando,
+        pero el estado tiene que ir al día — y recalcularlo es un solo barrido
+        sobre el CSV, sin sklearn de por medio.
+        """
+        if df is None:
+            df = self.cargar_datos_historicos()
+        if df is None or df.empty:
+            return {'error': 'sin datos históricos'}
+        _X, _y, _t, _f, estado = self._dataset(df)
+        os.makedirs(CARPETA, exist_ok=True)
+        ruta = os.path.join(CARPETA, 'estado.json')
+        _escribir_json(ruta, estado)
+        self.estado = estado
+        self.equipos = sorted((estado.get('equipos') or {}).keys())
+        fechas = [v.get('ult_fecha') for v in estado['equipos'].values()
+                  if v.get('ult_fecha')]
+        ultima = max(fechas) if fechas else None
+        logger.info(f"[mlb] estado refrescado: {len(estado['equipos'])} equipos, "
+                    f"{len(estado['pitchers'])} lanzadores, último {ultima}")
+        return {'equipos': len(estado['equipos']),
+                'pitchers': len(estado['pitchers']),
+                'ultimo_partido': ultima, 'juegos': int(len(_X))}
 
 
     def apuestas_dia(self, min_prob: float = 0.58, min_ev: float = 0.03,
@@ -285,11 +448,28 @@ class MLBEngine(BaseSportsEngine):
                 clave = (codigo_mlb(v['home']), codigo_mlb(v['away']))
                 universo.setdefault(clave, v)
 
-        picks, evaluados, sin_modelo = [], 0, 0
+        # v79 — ABRIDORES PROBABLES. El modelo se entrena con las carreras que
+        # concede cada abridor en sus últimas 5 salidas, pero aquí se le
+        # llamaba sin pasarlos, así que en producción esa señal era una
+        # constante. Es la variable más predictiva del béisbol y era justo la
+        # que faltaba. La API oficial los publica el mismo día.
+        abridores = {}
+        try:
+            import mlb_statsapi
+            abridores = mlb_statsapi.indice_abridores()
+        except Exception as e:
+            incidencias.append(f'MLB: abridores probables no disponibles ({e}); '
+                               f'se predice sin ellos.')
+
+        picks, evaluados, sin_modelo, con_abridor = [], 0, 0, 0
         for v in universo.values():
             hc = codigo_mlb(v['home'])
             ac = codigo_mlb(v['away'])
-            pred = self.predecir(hc, ac)
+            hp, ap = abridores.get((hc, ac), ('', ''))
+            if hp and ap:
+                con_abridor += 1
+            pred = self.predecir(hc, ac, home_pitcher=hp, away_pitcher=ap,
+                                 fecha=v.get('fecha'))
             if 'error' in pred:
                 sin_modelo += 1
                 continue
@@ -303,8 +483,10 @@ class MLBEngine(BaseSportsEngine):
             # selección solo llegaba al fútbol, y se notaba: los picks de MLB
             # salían con EV de +11 % justo donde el fútbol ya estaba corregido.
             # Se aplica el mismo método (misma función, para que no diverja).
-            import calibracion_mercado as _cal
-            _ph, _info_cal = _cal.corregir_dos_vias(
+            # v79 — vía `calibracion_segura` (ver su docstring: un módulo
+            # obsoleto en `sys.modules` tumbaba el deporte entero).
+            import calibracion_segura as _cal
+            _ph, _info_cal = _cal.encoger_dos_vias(
                 pred['prob_home'],
                 (mejor.get('home') or {}).get('cuota'),
                 (mejor.get('away') or {}).get('cuota'), 'mlb')
@@ -356,9 +538,16 @@ class MLBEngine(BaseSportsEngine):
             incidencias.append('MLB: ninguna casa publica partidos ahora mismo '
                                '(fuera de temporada o sin jornada).')
 
+        if evaluados and con_abridor < evaluados:
+            incidencias.append(
+                f'MLB: {evaluados - con_abridor} de {evaluados} partidos sin '
+                f'abridor anunciado todavía; esos se predicen con el lanzador '
+                f'neutro y su probabilidad es menos fiable.')
+
         picks.sort(key=lambda p: (-int(p.get('sharp_confirmado', False)), -p['ev']))
         return {'picks': picks, 'eventos': len(universo),
-                'evaluados': evaluados, 'incidencias': incidencias,
+                'evaluados': evaluados, 'con_abridor': con_abridor,
+                'incidencias': incidencias,
                 'aviso': None if picks else
                 'Sin picks MLB con EV suficiente hoy (o fuera de horario de juego).'}
 

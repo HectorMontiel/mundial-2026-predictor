@@ -603,6 +603,229 @@ def test_alpha_finder_lee_umbrales():
               "los valores por defecto son sensatos")
 
 
+# ---------------------------------------------------------------------------
+# v79 — las causas raíz de esta versión, fijadas para que no vuelvan
+# ---------------------------------------------------------------------------
+def test_mlb_estado_fresco():
+    """El estado del modelo de MLB no puede envejecer sin que nadie lo vea.
+
+    En producción llevaba 304 días congelado (2025-09-28 mientras corría la
+    temporada 2026) y no daba ningún error: solo devolvía probabilidades
+    planas. Un test es la única forma de que eso vuelva a doler antes que al
+    usuario.
+    """
+    import json as _j
+    import pandas as _pd
+    ruta = os.path.join('modelos', 'mlb', 'estado.json')
+    if not os.path.exists(ruta):
+        print('AVISO no hay estado de MLB; se omite')
+        return
+    with open(ruta, encoding='utf-8') as f:
+        est = _j.load(f)
+    fechas = [v.get('ult_fecha') for v in est.get('equipos', {}).values()
+              if v.get('ult_fecha')]
+    check(bool(fechas), 'el estado de MLB registra la última fecha por equipo')
+    if not fechas:
+        return
+    dias = (_pd.Timestamp.today().normalize()
+            - _pd.Timestamp(max(fechas)).normalize()).days
+    # 200 días cubre el parón entre temporadas (octubre a marzo) sin dejar
+    # pasar el caso real, que fueron 304 en plena temporada.
+    check(dias <= 200,
+          f'el estado de MLB no está obsoleto ({dias} días desde {max(fechas)})')
+    check(len(est.get('equipos', {})) == 30,
+          f"MLB tiene 30 equipos, no 31 ({len(est.get('equipos', {}))}) — "
+          f"OAK y ATH son la misma franquicia")
+
+
+def test_mlb_features_vivas():
+    """Las features de abridor no pueden ser constantes en inferencia.
+
+    `apuestas_dia` predecía sin abridores, así que DIFF_PIT_RA y MEDIA_PIT_RA
+    salían con desviación típica 0,0000 en todos los partidos: un tercio del
+    vector era ruido fijo, y justo el que más pesa en béisbol.
+    """
+    import numpy as _np
+    try:
+        from engines.mlb_engine import MLBEngine, FEATURES
+        import mlb_statsapi
+    except Exception as e:
+        print(f'AVISO motor de MLB no disponible ({e}); se omite')
+        return
+    eng = MLBEngine().cargar_modelo()
+    if not eng.listo:
+        print('AVISO modelo de MLB no cargado; se omite')
+        return
+    eq = sorted((eng.estado.get('equipos') or {}).keys())
+    pit = list((eng.estado.get('pitchers') or {}).keys())
+    if len(eq) < 4 or len(pit) < 4:
+        print('AVISO estado de MLB insuficiente; se omite')
+        return
+    # Se fabrican enfrentamientos con abridores REALES del estado, que es lo
+    # que hace producción desde la v79.
+    filas = []
+    for i in range(0, min(len(eq) - 1, 12), 2):
+        x = eng.construir_features(eq[i], eq[i + 1],
+                                   home_pitcher=pit[i % len(pit)],
+                                   away_pitcher=pit[(i + 1) % len(pit)])
+        if x:
+            filas.append(x)
+    if len(filas) < 3:
+        print('AVISO no se pudieron construir features; se omite')
+        return
+    M = _np.array(filas)
+    for nombre in ('DIFF_PIT_RA', 'MEDIA_PIT_RA'):
+        j = FEATURES.index(nombre)
+        check(float(M[:, j].std()) > 1e-9,
+              f'{nombre} varía en inferencia (no es una constante muerta)')
+
+
+def test_mlb_entrenamiento_serializable():
+    """`entrenar()` estaba roto desde la v78: `filas` guarda `Timestamp` y
+    `json.dump` no sabe serializarlo. El modelo no se podía reentrenar y nadie
+    lo notó porque el ledger usa `_dataset` en memoria."""
+    import json as _j
+    import pandas as _pd
+    try:
+        from engines.mlb_engine import _json_seguro
+    except Exception as e:
+        check(False, f'engines.mlb_engine expone _json_seguro ({e})')
+        return
+    muestra = {'filas': [(_pd.Timestamp('2026-07-28'), 'DET', 'KCA')]}
+    try:
+        texto = _j.dumps(muestra, default=_json_seguro)
+        check('2026-07-28' in texto,
+              'el estado de MLB con Timestamp se serializa a JSON')
+    except Exception as e:
+        check(False, f'el estado de MLB sigue sin serializarse: {e}')
+
+
+def test_calibracion_segura_degrada():
+    """Un fallo de calibración no puede tumbar un deporte entero.
+
+    El AttributeError de `corregir_dos_vias` borró los 319 partidos de tenis
+    del día. La corrección es calidad; el barrido es el producto.
+    """
+    try:
+        import calibracion_segura as cs
+    except Exception as e:
+        check(False, f'calibracion_segura importable ({e})')
+        return
+    p, info = cs.encoger_dos_vias(0.80, 2.50, 1.55, 'atp')
+    check(0.0 < p < 1.0, f'encoge y devuelve probabilidad válida ({p:.4f})')
+    check(p < 0.80, 'la probabilidad se mueve HACIA el mercado')
+    # sin cuota no hay hacia dónde encoger: degradación limpia, sin excepción
+    p2, info2 = cs.encoger_dos_vias(0.80, None, None, 'atp')
+    check(abs(p2 - 0.80) < 1e-9 and not info2.get('aplicado'),
+          'sin cuota devuelve la probabilidad intacta y no lanza')
+    # liga inexistente: tampoco puede reventar
+    p3, _ = cs.encoger_dos_vias(0.60, 2.0, 2.0, 'liga_que_no_existe_v79')
+    check(0.0 < p3 < 1.0, 'una liga desconocida no rompe el encogimiento')
+
+
+def test_inferencia_rapida_no_cambia_nada():
+    """`n_jobs=1` es una optimización, no un cambio de modelo.
+
+    Matiz medido, porque importa: prediciendo **fila a fila** —que es lo que
+    hace producción— el resultado es bit a bit idéntico (diferencia 0,0).
+    Prediciendo un LOTE aparece una diferencia de ~1e-16, y no es del modelo:
+    es que sumar los votos de los árboles en distinto orden da distinto último
+    bit (la suma en coma flotante no es asociativa). Además no es determinista
+    entre ejecuciones, así que exigir igualdad exacta haría el test
+    intermitente. Se comprueba lo que de verdad se afirma: que la diferencia
+    es del orden del epsilon de máquina y no puede mover ninguna decisión.
+    """
+    import glob
+    import numpy as _np
+    try:
+        import joblib
+        import inferencia_rapida as ir
+    except Exception as e:
+        print(f'AVISO inferencia_rapida no disponible ({e}); se omite')
+        return
+    rutas = sorted(glob.glob(os.path.join('modelos', '*', 'modelo.joblib')))
+    if not rutas:
+        print('AVISO no hay modelos de liga; se omite')
+        return
+    m1, m2 = joblib.load(rutas[0]), joblib.load(rutas[0])
+    n = ir.secuencial(m2)
+    check(n > 0, f'inferencia_rapida secuencializa estimadores ({n})')
+    X = _np.random.RandomState(0).randn(8, m1.n_features_in_)
+    # fila a fila: el camino real de producción
+    d_fila = max(float(_np.abs(m1.predict_proba(X[i:i + 1])
+                               - m2.predict_proba(X[i:i + 1])).max())
+                 for i in range(len(X)))
+    check(d_fila == 0.0,
+          f'prediciendo fila a fila el resultado es idéntico (dif = {d_fila:.1e})')
+    d_lote = float(_np.abs(m1.predict_proba(X) - m2.predict_proba(X)).max())
+    check(d_lote < 1e-12,
+          f'en lote la diferencia es epsilon de máquina, no del modelo '
+          f'(max|dif| = {d_lote:.1e})')
+
+
+def test_ledger_total_reproducible():
+    """`pick_ledger_total.csv` decide qué deportes entran en la Capa 1 y no lo
+    escribía ningún script: se había hecho a mano en la v78."""
+    import pandas as _pd
+    try:
+        import build_ledger_total
+    except Exception as e:
+        check(False, f'build_ledger_total importable ({e})')
+        return
+    check(hasattr(build_ledger_total, 'construir'),
+          'build_ledger_total expone construir()')
+    if not os.path.exists('pick_ledger_total.csv'):
+        print('AVISO no hay ledger total; se omite el resto')
+        return
+    d = _pd.read_csv('pick_ledger_total.csv', usecols=['deporte', 'match_id'])
+    check(d.duplicated(subset=['deporte', 'match_id']).sum() == 0,
+          'el ledger total no tiene partidos duplicados')
+    check(d['deporte'].nunique() >= 2,
+          f"el ledger total cubre varios deportes "
+          f"({sorted(d['deporte'].unique())})")
+
+
+def test_mlb_statsapi_mapea_la_liga():
+    """La fuente nueva tiene que cubrir los 30 equipos y unir la franquicia de
+    Oakland, que Retrosheet tenía partida en OAK + ATH."""
+    try:
+        import mlb_statsapi
+    except Exception as e:
+        check(False, f'mlb_statsapi importable ({e})')
+        return
+    codigos = set(mlb_statsapi.ID_A_CODIGO.values())
+    check(len(mlb_statsapi.ID_A_CODIGO) == 30,
+          f'StatsAPI mapea 30 equipos ({len(mlb_statsapi.ID_A_CODIGO)})')
+    check(len(codigos) == 30,
+          f'los 30 equipos dan 30 códigos distintos ({len(codigos)})')
+    check('ATH' not in codigos and 'OAK' in codigos,
+          'la franquicia de Oakland es OAK, no está duplicada como ATH')
+    from engines.mlb_engine import codigo_mlb
+    check(codigo_mlb('Athletics') == codigo_mlb('Oakland Athletics') == 'OAK',
+          'los dos nombres de los Athletics caen en el mismo código')
+
+
+def test_memoizacion_no_cambia_el_emparejamiento():
+    """El atajo de `_sim_club` sin tokens comunes es demostrablemente inocuo:
+    nunca puede alcanzar el umbral 0,80 que exige `_buscar`."""
+    try:
+        import cuotas_multi as cm
+    except Exception as e:
+        print(f'AVISO cuotas_multi no disponible ({e}); se omite')
+        return
+    check(cm._sim_club('Gremio', 'Gremio FBPA') >= 0.99,
+          'un nombre contenido en otro sigue casando («Gremio» / «Gremio FBPA»)')
+    check(cm._sim_club('Dinamo Moscow', 'Dynamo Moscow') > 0.5,
+          'las variantes de transliteración siguen casando')
+    check(cm._sim_club('Palmeiras', 'Boca Juniors') < 0.80,
+          'dos equipos distintos no casan')
+    check(isinstance(cm._tokens_club('Real Madrid'), frozenset),
+          '_tokens_club devuelve frozenset (la caché no se puede corromper)')
+    # la caché tiene que estar activa
+    check(hasattr(cm.normalizar, 'cache_info'),
+          'normalizar está memoizada')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -629,6 +852,16 @@ if __name__ == '__main__':
     test_ledger_multideporte_alineado()
     test_deportes_con_edge()
     test_monitor_playdoit()
+    print('\n=== v79: MLB al día y features vivas ===')
+    test_mlb_estado_fresco()
+    test_mlb_features_vivas()
+    test_mlb_entrenamiento_serializable()
+    test_mlb_statsapi_mapea_la_liga()
+    print('\n=== v79: resiliencia y rendimiento ===')
+    test_calibracion_segura_degrada()
+    test_inferencia_rapida_no_cambia_nada()
+    test_memoizacion_no_cambia_el_emparejamiento()
+    test_ledger_total_reproducible()
     print('\n=== v75: ledger de predicciones ===')
     test_ledger_sin_fuga()
     print('\n=== v75: umbrales en producción ===')

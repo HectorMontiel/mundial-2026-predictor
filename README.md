@@ -1,5 +1,59 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v79 — MLB predecía 2026 con la forma de 2025, y el barrido tardaba el doble (ver [VALIDACION_v79.md](VALIDACION_v79.md))
+
+- **⚾ El «todo da 50-50» era de MLB, y tenía tres causas.** Medido: el 58,5 %
+  de los emparejamientos caía entre 45 % y 55 %. (1) El estado del modelo
+  llevaba **304 días congelado** — Retrosheet publica los game logs por
+  temporada cerrada, así que la 2026 se predecía con el ELO y la forma del
+  final de 2025. (2) Tres de las nueve features eran **constantes** en
+  inferencia: `apuestas_dia` predecía sin abridores ni fecha, y el abridor es
+  la variable que más pesa en béisbol. (3) `entrenar()` estaba **roto desde la
+  v78** (`Timestamp` no serializable), así que el modelo ni siquiera se podía
+  reentrenar. El fútbol nunca estuvo aplanado: repartía entre 20 % y 85 %.
+- **📡 Fuente nueva: la API oficial de la MLB.** `statsapi.mlb.com` es gratuita
+  y sin clave, y da una temporada completa (2.464 juegos) en **una petición de
+  1,6 s**, con marcador y **abridor probable**. El histórico pasa de 24.778
+  juegos (hasta 2025-09-28) a **26.395 (hasta 2026-07-28)**. De paso se
+  descubrió que la franquicia de Oakland estaba **partida en dos** (`OAK` hasta
+  2024, `ATH` desde 2025): había 31 códigos para 30 equipos y su ELO se
+  reiniciaba a mitad del dataset.
+- **⚡ Apuestas del Día: 197,9 s → 104,3 s (−47 %), sin quitar ni una feature.**
+  Perfilado, no adivinado. El cuello no era la red: era el emparejamiento
+  difuso de nombres (2,8 millones de llamadas a `normalizar` sobre un puñado de
+  nombres distintos) y el `n_jobs=-1` heredado del entrenamiento, que gastaba
+  0,12 s **por predicción de una sola fila** en coordinar procesos. Prediciendo
+  fila a fila, como hace producción, el resultado es bit a bit idéntico
+  (`max|diferencia| = 0,0`); en lote difiere ~1e-16 por la no asociatividad de
+  la suma en coma flotante, no por el modelo.
+- **🛡️ El tenis ya no puede desaparecer por un fallo de calibración.** El
+  `AttributeError` que borró los 319 partidos del día venía de Streamlit, que
+  conservaba en `sys.modules` un módulo de la v77. `calibracion_segura.py`
+  recarga el módulo si hace falta y, si aun así no puede, devuelve la
+  probabilidad sin corregir en vez de tumbar el deporte entero.
+- **🔁 `pick_ledger_total.csv` ya tiene constructor.** De él dependen el peso de
+  cada liga, las bandas de confianza y **qué deportes entran en la Capa 1**, y
+  no lo escribía ningún script: se había hecho a mano en la v78 y se quedaba
+  obsoleto en silencio.
+- **⚠️ El pick de julio NO es el que se validó (lo más importante de la
+  versión).** Al exponer la calibración del fútbol salió un **0 %**: ni un solo
+  pick llevaba corrección de mercado. No era falta de cuota sharp (Pinnacle
+  cubre el 73 % de los partidos de hoy) sino que **`calibracion_mercado.json`
+  no tiene peso para las ligas que juegan en julio**: la tabla se construye
+  desde un ledger que cubre sobre todo Europa, y en julio Europa está de
+  vacaciones. **18 ligas con peso medido y sin partidos; 20 ligas jugando sin
+  peso; cobertura real 49 de 160 partidos = 30,6 %.** Importa porque el edge
+  del fútbol se midió *en w=0,25* (+6,72 % ROI, p5 +0,92 %) y con w=1,00 —lo
+  que sale hoy— el mismo histórico da +0,47 % con p5 −2,62 %, o sea **sin
+  edge**. Esta versión lo deja **a la vista con una incidencia explícita** en
+  la interfaz; arreglarlo exige histórico de cuotas sudamericano y es la
+  prioridad de la v80.
+- **🔬 Lo que se midió y se rechazó.** Ocho features nuevas para MLB (abridor
+  encogido, factor de parque, ELO por margen, descanso del abridor): **no
+  mejoran** (log-loss 0,6834 vs 0,6833; precisión 0,5599 vs 0,5647). El ratio
+  de dispersión no se mueve de 0,527 con ninguno de los dos vectores, lo que
+  dice que el techo está en las estadísticas de equipo, no en cómo se combinan.
+
 ## Novedades v71 — Cuotas sin límite y el porqué del ROI negativo (ver [VALIDACION_v71.md](VALIDACION_v71.md))
 
 - **💰 Cuotas en vivo sin cuota de API.** El «sin cuota en vivo» generalizado

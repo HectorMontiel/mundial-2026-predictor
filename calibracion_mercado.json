@@ -1,20 +1,20 @@
 {
- "generado": "2026-07-29T06:22:58Z",
+ "generado": "2026-07-29T08:08:25Z",
  "nota": "v75. Peso del modelo frente al cierre devigado (Pinnacle, método potencia). Elegido por log-loss fuera de muestra con encogimiento jerárquico hacia el w global y validado en un pliegue que no participó en la selección. Liga ausente = w=1 = sin corrección. Sustituye a los w de la v71, que salían de 4-11 partidos por liga.",
  "w_global": 0.25,
  "global": {
   "logloss_antes": 0.8055,
-  "logloss_despues": 0.7855,
-  "delta_logloss": 0.02,
+  "logloss_despues": 0.7854,
+  "delta_logloss": 0.0201,
   "acc_antes": 0.5801,
-  "acc_despues": 0.5992,
-  "delta_acc": 0.0191
+  "acc_despues": 0.599,
+  "delta_acc": 0.0189
  },
  "ligas": {
   "atp": {
    "w": 0.25,
    "sesgo_pick": -0.0039,
-   "n_partidos": 30326,
+   "n_partidos": 30324,
    "delta_logloss": 0.021,
    "delta_acc": 0.026,
    "ancla": "mercado"
@@ -157,10 +157,10 @@
   },
   "mlb": {
    "w": 0.25,
-   "sesgo_pick": -0.0195,
+   "sesgo_pick": -0.0161,
    "n_partidos": 7541,
-   "delta_logloss": 0.0127,
-   "delta_acc": 0.0179,
+   "delta_logloss": 0.0136,
+   "delta_acc": 0.0152,
    "ancla": "mercado"
   },
   "mls": {
@@ -238,7 +238,7 @@
   "wta": {
    "w": 0.25,
    "sesgo_pick": -0.0068,
-   "n_partidos": 15883,
+   "n_partidos": 15882,
    "delta_logloss": 0.0235,
    "delta_acc": 0.0238,
    "ancla": "mercado"

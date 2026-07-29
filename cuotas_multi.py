@@ -125,6 +125,30 @@ RUIDO_CLUB = {
 }
 
 
+# -----------------------------------------------------------------------
+# v79 — MEMOIZACIÓN DEL EMPAREJAMIENTO DE NOMBRES.
+#
+# El perfilado del barrido (`_v79_perfil.py`) señaló aquí, no a la red ni a
+# los modelos:
+#
+#     cuotas_multi.normalizar      2.845.780 llamadas    77,8 s
+#     cuotas_multi._tokens_club    2.844.616 llamadas   128,3 s
+#     cuotas_multi._sim_club       1.422.308 llamadas   106,9 s
+#     difflib.ratio                1.417.516 llamadas    56,0 s
+#
+# El motivo es estructural: `_buscar` recorre el tablón entero (unos 976
+# partidos de fútbol) y por cada candidato llama cuatro veces a `_sim_club`,
+# que normaliza dos nombres cada vez. Con ~580 búsquedas salen millones de
+# llamadas... sobre un puñado de nombres DISTINTOS. Se estaba recalculando
+# «Palmeiras» miles de veces.
+#
+# Las tres son funciones puras de sus argumentos, así que se memoizan. No
+# cambia ni un resultado: cambia cuántas veces se calcula el mismo.
+# -----------------------------------------------------------------------
+from functools import lru_cache
+
+
+@lru_cache(maxsize=100_000)
 def normalizar(nombre: str) -> str:
     """Clave de comparación: sin acentos, sin puntuación, sin sufijos de club."""
     if not nombre:
@@ -137,12 +161,21 @@ def normalizar(nombre: str) -> str:
     return ' '.join(partes)
 
 
-def _tokens_club(nombre: str) -> set:
-    """Palabras significativas de un nombre de club (sin las de relleno)."""
-    return {t for t in normalizar(nombre).split()
-            if t and t not in RUIDO_CLUB and len(t) > 1}
+@lru_cache(maxsize=100_000)
+def _tokens_club(nombre: str) -> frozenset:
+    """
+    Palabras significativas de un nombre de club (sin las de relleno).
+
+    Devuelve `frozenset` y no `set` porque el resultado se cachea y se comparte
+    entre llamadas: un `set` mutable dejaría que un consumidor descuidado
+    corrompiera la entrada de la caché para todos los demás. `frozenset`
+    soporta `&`, `|` y `==` igual que antes, así que ningún llamador cambia.
+    """
+    return frozenset(t for t in normalizar(nombre).split()
+                     if t and t not in RUIDO_CLUB and len(t) > 1)
 
 
+@lru_cache(maxsize=200_000)
 def _sim_club(a: str, b: str) -> float:
     """
     Similitud entre dos nombres de club: Jaccard de palabras significativas,
@@ -158,6 +191,17 @@ def _sim_club(a: str, b: str) -> float:
     if inter and (inter == ta or inter == tb):
         return 1.0                      # uno contiene al otro: mismo club
     jac = len(inter) / len(ta | tb)
+    if not inter:
+        # v79 — atajo DEMOSTRABLEMENTE inocuo, no una heurística.
+        #
+        # Sin ningún token compartido, jac = 0 y el valor de retorno sería
+        # `max(0, 0.5·cad)` = 0,5·cad. Como `cad` nunca pasa de 1, ese valor
+        # nunca llega a 0,5 — muy por debajo del umbral 0,80 que exige
+        # `_buscar` para aceptar un emparejamiento. Es decir: calcular aquí el
+        # SequenceMatcher no puede cambiar ninguna decisión, solo consume
+        # tiempo. Y este es el caso mayoritario, porque casi todos los pares
+        # del tablón son partidos que no tienen nada que ver.
+        return 0.0
     cad = SequenceMatcher(None, ' '.join(sorted(ta)), ' '.join(sorted(tb))).ratio()
     return max(jac, 0.5 * jac + 0.5 * cad)
 
@@ -170,6 +214,7 @@ _PARTICULAS_APELLIDO = {'de', 'del', 'della', 'di', 'da', 'dos', 'das', 'van',
                         'mc', 'mac', "o"}
 
 
+@lru_cache(maxsize=100_000)
 def _clave_tenista(nombre: str) -> tuple:
     """
     (apellido, inicial) de un tenista, escriba quien lo escriba.
@@ -235,7 +280,11 @@ def _clave_tenista(nombre: str) -> tuple:
     return (partes[-1], partes[0][:1])
 
 
+@lru_cache(maxsize=200_000)
 def _sim_tenista(a: str, b: str) -> float:
+    # v79 — memoizada por el mismo motivo que `_sim_club`: `_buscar` la llama
+    # cuatro veces por candidato del tablón (unos 421 partidos de tenis) y
+    # siempre sobre los mismos nombres.
     from difflib import SequenceMatcher
     ap_a, in_a = _clave_tenista(a)
     ap_b, in_b = _clave_tenista(b)

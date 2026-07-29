@@ -41,6 +41,15 @@ class BaseSportsEngine(ABC):
                 self.modelo_totales = joblib.load(ruta_tot)
             with open(os.path.join(self.carpeta, 'metadata.json'), encoding='utf-8') as f:
                 self.metadata = json.load(f)
+            # v79 — ver `inferencia_rapida`: el paralelismo de joblib que se
+            # guardó al entrenar es puro coste cuando se predice de uno en uno.
+            try:
+                import inferencia_rapida
+                inferencia_rapida.preparar(self.modelo_ml, self.modelo_totales)
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).debug(
+                    f"[{self.deporte}] inferencia_rapida no aplicada: {e}")
             self.listo = True
         except Exception as e:
             self.error = f"{type(e).__name__}: {e}"

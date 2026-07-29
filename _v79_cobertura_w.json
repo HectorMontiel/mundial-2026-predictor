@@ -1,0 +1,28 @@
+{
+ "con_peso": 8,
+ "sin_peso": 20,
+ "partidos_con_peso": 49,
+ "partidos_sin_peso": 111,
+ "ligas_sin_peso": [
+  "arg_primera_nacional",
+  "argentina",
+  "aut_bundesliga",
+  "bra_copa",
+  "chi_primera",
+  "china",
+  "col_primera_a",
+  "crc_fpd",
+  "ecu_liga_pro",
+  "eng_carabao",
+  "liga_mx",
+  "mex_expansion",
+  "par_division",
+  "per_liga1",
+  "rsa_premier",
+  "slv_primera",
+  "sudamericana",
+  "suecia",
+  "uru_primera",
+  "usl_championship"
+ ]
+}
