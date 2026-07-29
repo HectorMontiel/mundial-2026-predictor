@@ -1004,7 +1004,7 @@ def precio_accionable(c: Dict, lado: str) -> Optional[dict]:
     return dict(m, mejor_alternativa=None, ventaja_alternativa=0.0) if m else None
 
 
-def devig(cuotas: Dict[str, float], metodo: str = 'proporcional') -> Dict[str, float]:
+def devig(cuotas: Dict[str, float], metodo: str = 'potencia') -> Dict[str, float]:
     """
     Probabilidades JUSTAS a partir de las cuotas de una casa, quitándole el
     margen (overround).
@@ -1012,6 +1012,30 @@ def devig(cuotas: Dict[str, float], metodo: str = 'proporcional') -> Dict[str, f
     `proporcional` reparte el margen en proporción a la probabilidad implícita;
     `potencia` (Shin/logarítmico simplificado) castiga más al favorito, que es
     lo que mejor reproduce el sesgo favorito-perdedor en mercados de 3 vías.
+
+    v80 — EL DEFECTO PASA DE `proporcional` A `potencia`, y esta vez medido.
+    ------------------------------------------------------------------------
+    De este paso cuelga todo lo demás: el ancla del encogimiento, el
+    `valor_vs_sharp` que hoy llena la Capa 1 y el `m_*` con el que se valida.
+    Si el devigado sesga, sesga todo a la vez. La preferencia por `potencia`
+    estaba escrita como argumento razonable pero **nunca se había comprobado**.
+
+    Comparados cuatro métodos por log-loss contra el resultado real
+    (`_v80_devig.py`), incluido el de Shin, que es el estándar académico:
+
+        FÚTBOL, cierre genérico (n=36.006)     log-loss      ECE
+          potencia (el que se usa)              0,99926    0,00414
+          aditivo                               0,99930    0,00464
+          Shin                                  0,99943    0,00523
+          proporcional                          1,00011    0,00700
+
+        FÚTBOL, Pinnacle (n=26.666)            0,99910 / 0,99912 / 0,99917 / 0,99946
+        TENIS y MLB, 2 vías (n=53.685)         0,59430 / 0,59434 / 0,59434 / 0,59500
+
+    `potencia` gana en los tres, y `proporcional` pierde en los tres — y era
+    justo el valor por defecto. Hoy ningún llamador lo usa (todos pasan
+    `metodo='potencia'` explícitamente), así que esto no cambia ningún número:
+    quita una trampa para el siguiente que llame a `devig` sin pensarlo.
     """
     imp = {k: 1.0 / v for k, v in cuotas.items() if v and v > 1}
     s = sum(imp.values())

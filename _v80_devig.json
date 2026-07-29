@@ -1,0 +1,68 @@
+{
+ "futbol_cierre": {
+  "proporcional": {
+   "log_loss": 1.00011,
+   "precision": 0.5039,
+   "ece": 0.007
+  },
+  "potencia (actual)": {
+   "log_loss": 0.99926,
+   "precision": 0.5039,
+   "ece": 0.00414
+  },
+  "aditivo": {
+   "log_loss": 0.9993,
+   "precision": 0.5039,
+   "ece": 0.00464
+  },
+  "Shin": {
+   "log_loss": 0.99943,
+   "precision": 0.5039,
+   "ece": 0.00523
+  }
+ },
+ "futbol_pinnacle": {
+  "proporcional": {
+   "log_loss": 0.99946,
+   "precision": 0.503,
+   "ece": 0.00436
+  },
+  "potencia (actual)": {
+   "log_loss": 0.9991,
+   "precision": 0.503,
+   "ece": 0.00261
+  },
+  "aditivo": {
+   "log_loss": 0.99912,
+   "precision": 0.503,
+   "ece": 0.00256
+  },
+  "Shin": {
+   "log_loss": 0.99917,
+   "precision": 0.503,
+   "ece": 0.00246
+  }
+ },
+ "dos_vias": {
+  "proporcional": {
+   "log_loss": 0.595,
+   "precision": 0.6712,
+   "ece": 0.01044
+  },
+  "potencia (actual)": {
+   "log_loss": 0.5943,
+   "precision": 0.6712,
+   "ece": 0.00786
+  },
+  "aditivo": {
+   "log_loss": 0.59434,
+   "precision": 0.6712,
+   "ece": 0.00639
+  },
+  "Shin": {
+   "log_loss": 0.59434,
+   "precision": 0.6712,
+   "ece": 0.00639
+  }
+ }
+}

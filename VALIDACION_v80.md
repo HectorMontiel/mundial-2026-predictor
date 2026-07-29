@@ -216,9 +216,51 @@ desalineación que fabricó el +37,68 % en la v78.** El número queda descartado
 La guardia que lo cazó fue la de siempre: desconfiar de un resultado demasiado
 bueno antes que celebrarlo.
 
-Estado: las features están construidas, medidas y disponibles; su adopción
-queda pendiente de una prueba de rentabilidad **con el emparejamiento
-verificado**, que es la única forma honesta de cerrarlo.
+### Cerrado: la prueba de rentabilidad con el emparejamiento verificado
+
+Rehecha recogiendo la cuota **dentro del mismo bucle que emite la predicción**
+—así no hay orden que adivinar—, con la guardia de alineación de la v78 activa:
+
+| variante | n | ROI | p5 | acierto |
+|---|---|---|---|---|
+| BASE (9, equipo) | 451 | **+1,65 %** | −5,82 % | 52,8 % |
+| CON ABRIDOR (15) | 417 | **−2,83 %** | −10,79 % | 50,8 % |
+
+**RECHAZADAS.** Las features de abridor **empeoran la rentabilidad**, y el
++31,75 % anterior era íntegramente el artefacto de desalineación.
+
+Lo interesante es lo incómodo del resultado: las features mejoran la precisión
+(+0,32 pp), mejoran el log-loss (aunque no de forma significativa) y son las
+primeras que mueven el ratio de dispersión (0,527 → 0,564) — y aun así el
+negocio empeora. **Mejor probabilidad no es mejor negocio**, que es la misma
+lección que dejó el tenis en la v79, ahora con las tres métricas de calidad
+apuntando en la dirección contraria a la caja.
+
+Los datos quedan ingeridos y el experimento reproducible: si el modelo cambia,
+volver a medirlo cuesta una ejecución.
+
+---
+
+## 4 bis. El devigado: el método que se usaba era el correcto, y ahora está medido
+
+De este paso cuelga todo lo demás —el ancla del encogimiento, el
+`valor_vs_sharp` que llena la Capa 1 y el `m_*` con el que se valida—, y la
+preferencia por `potencia` estaba escrita como argumento razonable pero nunca
+comprobada. Comparados cuatro métodos por log-loss contra el resultado real,
+incluido el de **Shin** (el estándar académico):
+
+| método | fútbol, cierre (n=36.006) | fútbol, Pinnacle (n=26.666) | 2 vías (n=53.685) |
+|---|---|---|---|
+| **potencia** (el que se usa) | **0,99926** | **0,99910** | **0,59430** |
+| aditivo | 0,99930 | 0,99912 | 0,59434 |
+| Shin | 0,99943 | 0,99917 | 0,59434 |
+| proporcional | 1,00011 | 0,99946 | 0,59500 |
+
+`potencia` gana en los tres. No se cambia nada... salvo una trampa: **el valor
+por defecto de `devig()` era `proporcional`**, que pierde en los tres. Hoy
+ningún llamador lo usa (todos pasan el método explícitamente), así que el
+cambio no mueve ningún número — quita el pie del que se resbalaría el
+siguiente.
 
 ---
 

@@ -31,13 +31,22 @@
   robustez es el **piso de probabilidad**: con margen 1 % y prob ≥ 30 % el p5
   sale **+3,92 % y +3,91 %** en los dos periodos. Adoptado: la Capa 1 pasa de
   10 picks (prob 0,199-0,579) a **6, todos con prob ≥ 0,327**.
-- **⚾ MLB: la estadística real del abridor ya es accesible.** La v79 la dio por
-  inviable (~900 lanzadores por temporada); son **873 en una petición de
-  1,2 s**. Con ella, **el ratio de dispersión se mueve por primera vez**
-  (0,527 → 0,564) y la precisión gana +0,32 pp. El log-loss mejora pero su IC
-  toca el cero, así que la adopción queda pendiente de una prueba de
-  rentabilidad — **y la que escribí dio +31,75 % de ROI, que es imposible: era
-  la misma desalineación que fabricó el +37,68 % en la v78. Descartada.**
+- **⚾ MLB: la estadística real del abridor ya es accesible… y no sirve.** La
+  v79 la dio por inviable (~900 lanzadores por temporada); son **873 en una
+  petición de 1,2 s**, y ya están ingeridos (10.421 filas, 2.850 lanzadores).
+  Con ella **el ratio de dispersión se mueve por primera vez** (0,527 → 0,564)
+  y la precisión gana +0,32 pp. Pero la prueba de rentabilidad —rehecha con el
+  emparejamiento **verificado**, porque la primera dio +31,75 % de ROI, que era
+  la misma desalineación que fabricó el +37,68 % en la v78— dice lo contrario:
+  **ROI +1,65 % → −2,83 %**. **Rechazadas.** Mejor probabilidad no es mejor
+  negocio, con las tres métricas de calidad apuntando al revés que la caja.
+- **🎲 El devigado que se usaba era el correcto, y ahora está medido.** De ese
+  paso cuelga el ancla, el `valor_vs_sharp` y la validación entera, y la
+  elección de `potencia` estaba escrita como argumento razonable pero sin
+  comprobar. Comparados cuatro métodos —incluido el de **Shin**, el estándar
+  académico— sobre 36.006 + 26.666 + 53.685 partidos: `potencia` gana en los
+  tres. No cambia nada… salvo que **el valor por defecto de `devig()` era
+  `proporcional`, que pierde en los tres**. Corregido.
 
 ## Novedades v79 — MLB predecía 2026 con la forma de 2025, y el barrido tardaba el doble (ver [VALIDACION_v79.md](VALIDACION_v79.md))
 

@@ -190,7 +190,20 @@ def walk_forward(X, y, fechas, ids, cuotas, etiqueta):
     if len(con) < N_FOLDS * MIN_TEST:
         return None
     bordes = np.linspace(int(len(con) * INICIO), len(con), N_FOLDS + 1).astype(int)
-    P, Y, M = [], [], []
+    # v80 — LAS CUOTAS SE RECOGEN EN EL MISMO BUCLE QUE EMITE LA PREDICCIÓN.
+    #
+    # La primera versión de la prueba de rentabilidad las reconstruía después,
+    # filtrando la lista completa de cuotas y emparejándola por posición con P.
+    # Eso está mal: `walk_forward` solo emite desde `bordes[k]`, no desde el
+    # índice 0, así que P[i] quedaba pegado a la cuota de otro partido.
+    # Resultado: ROI +31,75 % con p5 +26,43 %, imposible en un mercado como el
+    # de MLB. Es EXACTAMENTE la desalineación que fabricó el +37,68 % en la
+    # v78, cometida otra vez y por el mismo motivo: adivinar el orden en vez de
+    # arrastrarlo.
+    #
+    # Recogiendo `ch`/`ca` aquí dentro, junto a `P` y `Y`, no hay orden que
+    # adivinar: los tres salen de la misma iteración.
+    P, Y, M, CH, CA = [], [], [], [], []
     for k in range(N_FOLDS):
         sel = con[bordes[k]:bordes[k + 1]]
         if len(sel) < MIN_TEST:
@@ -211,9 +224,11 @@ def walk_forward(X, y, fechas, ids, cuotas, etiqueta):
             if not c or not (c[0] and c[1]):
                 continue
             P.append(pr[j]); Y.append(y[i])
+            CH.append(float(c[0])); CA.append(float(c[1]))
             ih, ia = 1 / c[0], 1 / c[1]
             M.append(ih / (ih + ia))
     P, Y, M = np.array(P), np.array(Y), np.array(M)
+    CH, CA = np.array(CH), np.array(CA)
     ll = lambda p: float(-(Y * np.log(p.clip(1e-6, 1 - 1e-6)) +
                            (1 - Y) * np.log((1 - p).clip(1e-6, 1 - 1e-6))).mean())
     res = {'etiqueta': etiqueta, 'n': int(len(P)), 'log_loss': round(ll(P), 4),
@@ -223,9 +238,17 @@ def walk_forward(X, y, fechas, ids, cuotas, etiqueta):
            'std': round(float(P.std()), 4),
            'ratio_dispersion': round(float(P.std() / max(M.std(), 1e-9)), 3),
            'corr_mercado': round(float(np.corrcoef(P, M)[0, 1]), 4)}
+    # GUARDIA DE ALINEACIÓN (obligatoria desde la v78): unas cuotas de cierre
+    # reales, por malas que sean, siempre baten al azar. Si el log-loss del
+    # mercado supera ln(2), están pegadas al partido equivocado.
+    res['alineado'] = bool(res['log_loss_mercado'] < float(np.log(2)))
+    if not res['alineado']:
+        log.error(f"{etiqueta}: CUOTAS DESALINEADAS "
+                  f"(log-loss del mercado {res['log_loss_mercado']} > "
+                  f"{np.log(2):.4f}) — cualquier ROI de aquí es ficticio")
     log.info(f"{etiqueta}: n={res['n']} ll={res['log_loss']} "
              f"acc={res['precision']} ratio={res['ratio_dispersion']}")
-    return res, P, Y
+    return res, P, Y, CH, CA
 
 
 def main():
@@ -250,7 +273,7 @@ def main():
     if not base or not pit:
         print('sin datos suficientes')
         return
-    (rb, Pb, Yb), (rp, Pp, Yp) = base, pit
+    (rb, Pb, Yb, CHb, CAb), (rp, Pp, Yp, CHp, CAp) = base, pit
 
     print('\n' + '=' * 78)
     print(f"{'variante':22s} {'n':>6} {'log-loss':>9} {'precision':>10} "
@@ -291,24 +314,17 @@ def main():
     print(f"{'variante':22s} {'n':>6} {'ROI':>9} {'p5':>9} {'acierto':>9}")
     print('-' * 78)
     roi_res = {}
-    for etiqueta, P, Yv, ids_, X_ in (('BASE (9, equipo)', Pb, Yb, idb, Xb),
-                                      ('CON ABRIDOR (15)', Pp, Yp, idp, Xp)):
-        mid = [f"{f.strftime('%Y%m%d')}_{h}_{a}" for f, h, a in ids_]
-        # se reconstruye el emparejamiento con la cuota, igual que walk_forward
-        cs = []
-        for m in mid:
-            c = cuotas.get(m)
-            cs.append(c if c and c[0] and c[1] else None)
-        # walk_forward emitió P en el mismo orden que las filas con cuota
-        pares = [c for c in cs if c]
-        n_ = min(len(P), len(pares))
+    for etiqueta, P, Yv, CH, CA, r_ in (
+            ('BASE (9, equipo)', Pb, Yb, CHb, CAb, rb),
+            ('CON ABRIDOR (15)', Pp, Yp, CHp, CAp, rp)):
+        if not r_.get('alineado'):
+            print(f'{etiqueta:22s}   OMITIDO: cuotas desalineadas')
+            continue
         gan = []
-        for i in range(n_):
-            ch, ca = pares[i]
-            ph = P[i]
-            for lado, prob, cuota in ((1, ph, ch), (0, 1 - ph, ca)):
+        for i in range(len(P)):
+            for prob, cuota, acierto in ((P[i], CH[i], Yv[i] == 1),
+                                         (1 - P[i], CA[i], Yv[i] == 0)):
                 if prob > 0.58 and cuota * prob - 1 > 0.03 and cuota > 1.50:
-                    acierto = (Yv[i] == 1) if lado == 1 else (Yv[i] == 0)
                     gan.append(cuota - 1.0 if acierto else -1.0)
         if len(gan) < 60:
             print(f'{etiqueta:22s} {len(gan):6d}   muestra insuficiente')
@@ -317,10 +333,20 @@ def main():
         rng2 = np.random.default_rng(3)
         bs = g[rng2.integers(0, len(g), size=(5000, len(g)))].mean(axis=1)
         p5r = float(np.percentile(bs, 5))
-        roi_res[etiqueta] = {'n': len(g), 'roi': float(g.mean()), 'p5': p5r}
+        roi_res[etiqueta] = {'n': len(g), 'roi': float(g.mean()), 'p5': p5r,
+                             'hit': float((g > 0).mean())}
         print(f'{etiqueta:22s} {len(g):6d} {g.mean():9.2%} {p5r:9.2%} '
               f'{float((g>0).mean()):9.1%}')
     print('=' * 78)
+
+    # Cordura: el MERCADO apostado contra sí mismo debe rondar el −margen.
+    # Si el ROI del modelo se dispara muy por encima de lo plausible, es que
+    # algo sigue mal pegado.
+    if roi_res:
+        peor = max(r['roi'] for r in roi_res.values())
+        if peor > 0.15:
+            print(f'\n⚠️  ROI de {peor:.1%}: implausible en MLB. Revisar '
+                  f'alineación ANTES de creérselo (lección v78).')
 
     json.dump({'base': rb, 'con_pitcher': rp,
                'delta_medio': round(float(d.mean()), 5),

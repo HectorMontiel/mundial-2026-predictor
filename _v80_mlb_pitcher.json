@@ -8,7 +8,8 @@
   "precision_mercado": 0.5932,
   "std": 0.0553,
   "ratio_dispersion": 0.527,
-  "corr_mercado": 0.5519
+  "corr_mercado": 0.5519,
+  "alineado": true
  },
  "con_pitcher": {
   "etiqueta": "CON ABRIDOR (15)",
@@ -19,7 +20,8 @@
   "precision_mercado": 0.5932,
   "std": 0.0592,
   "ratio_dispersion": 0.564,
-  "corr_mercado": 0.5493
+  "corr_mercado": 0.5493,
+  "alineado": true
  },
  "delta_medio": 0.00047,
  "ic90": [
