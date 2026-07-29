@@ -50,6 +50,15 @@ except Exception:
     MIN_EV = 0.03
     MIN_CONVICCION = 0.025
 MIN_CUOTA = 1.50
+
+# v80 — filtros del «valor de mercado» (line shopping contra Pinnacle), que es
+# lo que hoy llena la Capa 1. Elegidos en el 70 % más antiguo del ledger y
+# validados en el 30 % más reciente, que no participó en la elección: p5
+# +3,92 % y +3,91 % sobre 3.009 y 1.309 apuestas. Sin el piso de probabilidad
+# el p5 del periodo reciente es NEGATIVO con cualquier margen. Ver el bloque
+# comentado en `_barrido_fixtures`.
+VS_PROB_MIN = 0.30
+VS_EV_MIN = 0.01
 # v77: pestaña «Máxima Confianza». Umbral de probabilidad alto y sin mínimo de
 # EV; el stake se reduce a ¼ de Kelly porque acertar mucho no es lo mismo que
 # ganar dinero (ver el bloque que la construye).
@@ -184,18 +193,45 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
     # liga (maldición del ganador), y con el EV calculado sobre esa cifra la
     # Capa 1 se llenaba de apuestas perdedoras. Si hay cuota de Pinnacle para
     # este partido, la probabilidad del 1X2 se encoge hacia la del mercado.
+    #
+    # v80 — EL ANCLA CAE AL MERCADO CUANDO NO HAY PINNACLE.
+    #
+    # Exigir Pinnacle era MÁS ESTRICTO QUE LO QUE SE VALIDÓ.
+    # `recalibrate_from_history.cargar` construye la probabilidad de mercado
+    # así: usa Pinnacle si está y, si no, el cierre genérico — y lo deja
+    # anotado en la columna `ancla` ('pinnacle' | 'mercado'). O sea que el
+    # +6,72 % de ROI con p5 +1,02 % que el sistema exhibe se midió anclando
+    # también en cuotas no-Pinnacle.
+    #
+    # Producción, en cambio, no encogía nada sin Pinnacle. Y Pinnacle no cubre
+    # Bolivia, Colombia ni la Scottish Championship, que son parte de lo que
+    # juega en julio. Con el ancla de respaldo la cobertura del encogimiento
+    # pasa de 35 % a cubrir también esas ligas.
+    #
+    # El orden importa: Pinnacle primero por ser la casa más eficiente, y el
+    # consenso disponible como segunda opción. Cuál se usó viaja en la info,
+    # para que se pueda auditar desde fuera.
     calib_info = None
-    if clave_liga and o.get('pin_home') and o.get('pin_away'):
+    _ancla, _fuente_ancla = None, None
+    if clave_liga:
+        if o.get('pin_home') and o.get('pin_away'):
+            _ancla = {'home': o.get('pin_home'), 'draw': o.get('pin_draw'),
+                      'away': o.get('pin_away')}
+            _fuente_ancla = 'pinnacle'
+        elif o.get('odd_home') and o.get('odd_away'):
+            _ancla = {'home': o.get('odd_home'), 'draw': o.get('odd_draw'),
+                      'away': o.get('odd_away')}
+            _fuente_ancla = 'mercado'
+    if _ancla:
         try:
             import calibracion_mercado as _cal
             import cuotas_multi as _cm
-            justa = _cm.devig({'home': o.get('pin_home'),
-                               'draw': o.get('pin_draw'),
-                               'away': o.get('pin_away')}, metodo='potencia')
+            justa = _cm.devig(_ancla, metodo='potencia')
             if len(justa) >= 2:
                 pr2, calib_info = _cal.corregir(
                     {'home': pr['home'], 'draw': pr['draw'], 'away': pr['away']},
                     justa, clave_liga)
+                calib_info['ancla'] = _fuente_ancla
                 if calib_info.get('aplicado'):
                     pr = pr2
         except Exception as e:
@@ -438,7 +474,28 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
         evaluados_pares.add((liga, home, away))   # v49: no duplicar en fixtures
         det = senales.get(mid)
         resid = det.get('residuo') if det else None
-        for c in _mercados_del_partido(pred, o, home, away):
+        # v80 — SE PASA `liga`. No se pasaba, y `clave_liga=None` desactiva el
+        # encogimiento hacia el mercado por completo.
+        #
+        # Este es el camino de `odds_actuales` y es EL QUE LLENA LA CAPA 1. El
+        # de fixtures (`_barrido_fixtures`) sí pasaba la clave, así que los
+        # candidatos salían calibrados y los picks de élite no. Medido antes
+        # del arreglo, con todo lo demás ya corregido:
+        #
+        #     candidatos  15 de 15 encogidos (100 %)
+        #     capa 1       0 de 10 encogidos   (0 %)
+        #
+        # La consecuencia era peor que un hueco de cobertura: es un SESGO DE
+        # SELECCIÓN. Encoger baja la probabilidad, así que un pick calibrado
+        # tiene más difícil pasar el umbral de élite. Con esta rama sin
+        # calibrar, la Capa 1 se llenaba justo con los picks cuya probabilidad
+        # nadie había corregido — los más sobreconfiados — mientras los
+        # corregidos caían a candidatos. La capa que el sistema vende como
+        # accionable estaba seleccionando adversamente.
+        #
+        # `liga` ya estaba en el ámbito: se usa dos líneas más abajo en
+        # `pasa_capa1`.
+        for c in _mercados_del_partido(pred, o, home, away, liga):
             tarjeta = {
                 'partido': f'{home} vs {away}', 'liga': pred.get('liga', liga),
                 'fecha': str(fecha.date()), **c,
@@ -701,14 +758,64 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                             'away': f'Gana {away}'}.get(_v['lado'])
                     if not _etq or _v['cuota'] <= MIN_CUOTA:
                         continue
-                    elite_fix.append({
+                    _t = {
                         **base, 'mercado': '1X2', 'apuesta': _etq,
                         'prob': round(_v['prob_justa'], 3),
                         'cuota': _v['cuota'], 'cuota_justa': _v['cuota_justa'],
                         'ev': _v['ev'], 'casa': _v['casa'],
                         'valor': '🟢', 'evc': True, 'valor_mercado': True,
                         'pinnacle': _v.get('pinnacle'),
-                        'origen': 'line shopping vs Pinnacle'})
+                        'origen': 'line shopping vs Pinnacle'}
+                    # -------------------------------------------------------
+                    # v80 — ESTOS PICKS SON HOY TODA LA CAPA 1, Y NADIE LOS
+                    # HABÍA MEDIDO NUNCA.
+                    #
+                    # Se añadían directos a `elite_fix`: sin pasar por
+                    # `_mercados_del_partido` (por eso jamás se calibraban) y
+                    # **sin pasar por `pasa_capa1`** (por eso salían con
+                    # probabilidad de 20-40 %). De ahí lo que se veía en la
+                    # interfaz: «Empate · EV +9,5 % · prob 29 %» presentado
+                    # como pick de élite.
+                    #
+                    # Medidos por fin sobre las 26.647 filas del ledger que
+                    # tienen precio tomable Y cuota de Pinnacle, la estrategia
+                    # SÍ tiene edge —y del bueno—, pero solo con el filtro
+                    # correcto. Partiendo el histórico en 70 % para elegir y
+                    # 30 % para validar:
+                    #
+                    #   config              70 % (elige)      30 % (valida)
+                    #   margen 1 %, sin pmin  p5 +4,48 %        p5 −0,29 %
+                    #   margen 3 %, sin pmin  p5 +3,88 %        p5 −5,67 %
+                    #   margen 5 %, sin pmin  p5 +4,66 %        p5 −7,57 %
+                    #   margen 1 % + p≥30 %   p5 +3,92 %        p5 **+3,91 %**
+                    #
+                    # Dos lecciones en esa tabla. La primera: subir el margen
+                    # de EV parecía lo obvio —el máximo del barrido estaba en
+                    # el 10 % con p5 +10,09 %— y fuera de muestra se hunde a
+                    # −9,44 %. Es el máximo del barrido, nada más. La segunda:
+                    # lo que da robustez es el **piso de probabilidad**, no el
+                    # margen. Y encaja con lo que se veía: los picks al 20-29 %
+                    # son los que arrastran el resultado.
+                    #
+                    # Con margen 1 % y probabilidad ≥ 30 % el p5 sale casi
+                    # idéntico en los dos periodos (+3,92 % y +3,91 %) sobre
+                    # 3.009 y 1.309 apuestas. Esa estabilidad es la señal.
+                    #
+                    # Lo que no pasa el filtro NO se tira: baja a candidatos
+                    # con su motivo, igual que se hace con el resto.
+                    # -------------------------------------------------------
+                    if _v['prob_justa'] >= VS_PROB_MIN and _v['ev'] >= VS_EV_MIN:
+                        elite_fix.append(_t)
+                    else:
+                        _t['valor'] = '🟡'
+                        _t['evc'] = False
+                        _t['motivo_fuera'] = (
+                            f"valor sobre Pinnacle pero probabilidad "
+                            f"{_v['prob_justa']:.0%} < {VS_PROB_MIN:.0%}"
+                            if _v['prob_justa'] < VS_PROB_MIN else
+                            f"valor sobre Pinnacle pero EV {_v['ev']:.1%} < "
+                            f"{VS_EV_MIN:.1%}")
+                        candidatos_fix.append(_t)
             except Exception as e:
                 logger.debug(f"[alpha] valor de mercado omitido: {e}")
 

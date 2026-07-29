@@ -53,6 +53,7 @@ import os
 import time
 from typing import Dict, List, Optional
 
+import numpy as np
 import pandas as pd
 import requests
 
@@ -209,6 +210,109 @@ def partidos_del_dia(fecha: Optional[str] = None) -> List[dict]:
     logger.info(f"[mlb/statsapi] {f}: {len(fuera)} partidos, "
                 f"{con} con ambos abridores anunciados")
     return fuera
+
+
+# ---------------------------------------------------------------------------
+# v80 — CALIDAD DEL LANZADOR: lo que faltaba, y no era caro
+# ---------------------------------------------------------------------------
+BASE_STATS = 'https://statsapi.mlb.com/api/v1/stats'
+SALIDA_PIT = 'mlb_pitchers_temporada.csv.gz'
+
+
+def _num(x, dv=None):
+    try:
+        v = float(x)
+        return v if np.isfinite(v) else dv
+    except (TypeError, ValueError):
+        return dv
+
+
+def stats_pitcheo(anio: int) -> pd.DataFrame:
+    """
+    Línea de pitcheo de TODOS los lanzadores de una temporada, en UNA petición.
+
+    Por qué importa
+    ---------------
+    La v79 dejó escrito que el techo de MLB estaba en la falta de estadística
+    real del abridor: la única señal disponible era «carreras que concedió el
+    EQUIPO en las últimas aperturas de este lanzador», que mezcla bullpen y
+    defensa y se calcula sobre 5 partidos. Se dio por inviable traerla porque
+    parecía exigir un game log por lanzador (~900 por temporada).
+
+    Era falso. `/api/v1/stats?stats=season&group=pitching&sportId=1` devuelve
+    **los 873 lanzadores de la temporada 2025 en 1,2 segundos**, con ERA, WHIP,
+    ponches, bases por bolas, jonrones, entradas y aperturas. Doce temporadas
+    son doce peticiones, unos quince segundos en total.
+
+    Cómo se usa SIN FUGA
+    --------------------
+    La línea de una temporada solo se conoce cuando esa temporada ha
+    terminado, así que para un partido de la temporada Y se usa la línea de
+    Y-1 (y el acumulado de todas las anteriores). Eso es información
+    disponible antes del primer lanzamiento de Y: cero fuga, y a la vez la
+    medida más limpia de «cómo de bueno es este lanzador» que existe gratis.
+    """
+    d = _pedir_stats({'stats': 'season', 'group': 'pitching', 'season': anio,
+                      'sportId': 1, 'limit': 2000, 'playerPool': 'All'})
+    bloques = d.get('stats') or []
+    filas = []
+    for b in bloques:
+        for s in (b.get('splits') or []):
+            p = s.get('player') or {}
+            st = s.get('stat') or {}
+            ip = _num(st.get('inningsPitched'), 0.0) or 0.0
+            if not p.get('id'):
+                continue
+            filas.append({
+                'anio': anio, 'pitcher': str(p['id']),
+                'nombre': p.get('fullName'),
+                'ip': ip,
+                'gs': _num(st.get('gamesStarted'), 0.0) or 0.0,
+                'era': _num(st.get('era')),
+                'whip': _num(st.get('whip')),
+                'so': _num(st.get('strikeOuts'), 0.0) or 0.0,
+                'bb': _num(st.get('baseOnBalls'), 0.0) or 0.0,
+                'hr': _num(st.get('homeRuns'), 0.0) or 0.0,
+                'bf': _num(st.get('battersFaced'), 0.0) or 0.0,
+            })
+    df = pd.DataFrame(filas)
+    logger.info(f'[mlb/statsapi] pitcheo {anio}: {len(df)} lanzadores')
+    return df
+
+
+def _pedir_stats(params: dict, reintentos: int = 3) -> dict:
+    ultimo = None
+    for i in range(reintentos):
+        try:
+            r = requests.get(BASE_STATS, params=params, timeout=TIEMPO_ESPERA)
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            ultimo = e
+            time.sleep(1.5 * (i + 1))
+    raise RuntimeError(f'StatsAPI (stats) no respondió: {ultimo}')
+
+
+def actualizar_pitcheo(anios: List[int], salida: str = SALIDA_PIT) -> pd.DataFrame:
+    """Consolida la línea de pitcheo de varias temporadas en un CSV cacheable."""
+    partes = []
+    for a in sorted(anios):
+        try:
+            d = stats_pitcheo(a)
+            if not d.empty:
+                partes.append(d)
+        except Exception as e:
+            logger.warning(f'[mlb/statsapi] pitcheo {a} no disponible: {e}')
+    if not partes:
+        return (pd.read_csv(salida) if os.path.exists(salida)
+                else pd.DataFrame())
+    df = pd.concat(partes, ignore_index=True)
+    df = df.drop_duplicates(subset=['anio', 'pitcher'], keep='last')
+    df.to_csv(salida, index=False, compression='gzip')
+    logger.info(f"[mlb/statsapi] {salida}: {len(df)} filas · "
+                f"{df['anio'].min()}-{df['anio'].max()} · "
+                f"{df['pitcher'].nunique()} lanzadores distintos")
+    return df
 
 
 def indice_abridores(fecha: Optional[str] = None) -> Dict[tuple, tuple]:

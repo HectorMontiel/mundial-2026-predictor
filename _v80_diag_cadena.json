@@ -1,0 +1,40 @@
+{
+ "sin_almacen": [
+  "bra_copa",
+  "eng_carabao"
+ ],
+ "sin_ledger": [
+  "aut_bundesliga"
+ ],
+ "sin_cuota_ledger": [
+  "usl_championship",
+  "arg_primera_nacional",
+  "mex_expansion",
+  "col_primera_a",
+  "slv_primera",
+  "par_division",
+  "sudamericana",
+  "per_liga1",
+  "rsa_premier",
+  "uru_primera",
+  "ecu_liga_pro",
+  "crc_fpd"
+ ],
+ "medida_no_adoptada": [
+  "argentina",
+  "liga_mx",
+  "china",
+  "chi_primera",
+  "suecia"
+ ],
+ "ok": [
+  "mls",
+  "brasil",
+  "rus_premier",
+  "sco_championship",
+  "bol_division",
+  "noruega",
+  "sco_premiership",
+  "dinamarca"
+ ]
+}

@@ -263,16 +263,52 @@ def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
         return 0
     n = 0
     for fx in fixtures:
-        if fx.get('odd_home'):
-            continue
+        # v80 — AQUÍ ESTABA EL «0 PICKS CALIBRADOS».
+        #
+        # Esto era `if fx.get('odd_home'): continue`. Tenía sentido en la v71,
+        # cuando esta función solo servía para RELLENAR el precio que ESPN no
+        # traía: si ya había precio, no había nada que rellenar.
+        #
+        # Pero desde la v71 esta misma llamada es también la ÚNICA que trae el
+        # ancla sharp (`odd_home_pin`), que es lo que activa el encogimiento
+        # hacia el mercado. Con el `continue`, todo fixture que ESPN sí cubría
+        # se saltaba la consulta y se quedaba sin ancla — y los que ESPN cubre
+        # son justo los partidos populares, o sea los que acaban produciendo
+        # picks. Medido el 2026-07-29: solo **23 de 160 fixtures** llevaban
+        # `odd_home_pin`, y **0 de 40 picks** de fútbol salían calibrados,
+        # pese a que Pinnacle publicaba precio para el **73 %** de los
+        # partidos del día.
+        #
+        # Importa porque el edge del fútbol se validó CON encogimiento: sobre
+        # las 36.006 filas del ledger, la política que producción aplicaba de
+        # verdad da ROI +3,65 % con p5 **−1,11 %** (sin edge), y la validada
+        # +6,72 % con p5 +1,02 %.
+        #
+        # Ahora se consulta SIEMPRE para obtener el ancla, y el precio de ESPN
+        # se respeta: solo se escribe `odd_home` si no venía ya.
+        tenia_precio = bool(fx.get('odd_home'))
         try:
             ref = (dep_espn, liga_espn, fx.get('event_id'), fx.get('_comp_id'))
             res = cm.cuotas_partido(deporte, fx['home'], fx['away'],
                                     espn_ref=ref if fx.get('event_id') else None)
         except Exception:
             continue
+        # El ANCLA SHARP se toma siempre que exista, traiga o no precio ESPN:
+        # es lo que activa el encogimiento hacia el mercado.
+        pin = res.get('pinnacle')
+        if pin and pin.get('home') and pin.get('away'):
+            fx['odd_home_pin'] = pin.get('home')
+            fx['odd_draw_pin'] = pin.get('draw')
+            fx['odd_away_pin'] = pin.get('away')
+
         mejor = res.get('mejor') or {}
         if not mejor.get('home') or not mejor.get('away'):
+            continue
+        if tenia_precio:
+            # ESPN ya había traído precio: no se pisa (es el que la UI viene
+            # mostrando y con el que se calcularon los mercados derivados).
+            # Solo se ha venido a por el ancla.
+            n += 1
             continue
         fx['odd_home'] = mejor['home']['cuota']
         fx['odd_away'] = mejor['away']['cuota']
@@ -281,11 +317,6 @@ def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
         fx['casa'] = mejor['home']['casa']
         fx['n_casas'] = res.get('n_casas')
         fx['casas'] = res.get('casas')
-        pin = res.get('pinnacle')
-        if pin:
-            fx['odd_home_pin'] = pin.get('home')
-            fx['odd_draw_pin'] = pin.get('draw')
-            fx['odd_away_pin'] = pin.get('away')
         tot = res.get('totales') or {}
         if tot.get('over25'):
             fx.setdefault('odd_over25', tot['over25'])

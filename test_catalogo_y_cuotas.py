@@ -841,8 +841,20 @@ def test_peso_modelo_insensible_a_mayusculas():
             check(cm_cal.peso_modelo(dep) < 1.0,
                   f"'{dep}' resuelve su peso tal como lo pide producción "
                   f"({cm_cal.peso_modelo(dep):.2f})")
-    check(cm_cal.peso_modelo('liga_inventada_v79') == 1.0,
-          'una liga desconocida sigue devolviendo w=1,0 (sin corrección)')
+    # v80 — CAMBIO DELIBERADO respecto a la v79: una liga sin peso medido ya
+    # NO cae a w=1,0 («sin corregir») sino al w GLOBAL. Devolver 1,0 no era
+    # abstenerse, era elegir la opción que la evidencia global descarta, y
+    # estaba medido lo que costaba: con la caída a 1,0 el fútbol daba ROI
+    # +3,65 % con p5 **−1,11 %** (sin edge validado); cayendo al global,
+    # +5,92 % con p5 +0,34 %.
+    g = cm_cal.w_global()
+    check(g is not None and 0 < g < 1,
+          f'la tabla publica un w global utilizable ({g})')
+    if g is not None:
+        check(abs(cm_cal.peso_modelo('liga_inventada_v80') - g) < 1e-9,
+              f'una liga sin medición hereda el w global ({g}), no w=1,0')
+    check(cm_cal.peso_modelo('') == 1.0,
+          'una clave vacía sigue devolviendo w=1,0 (no hay liga que calibrar)')
 
 
 def test_memoizacion_no_cambia_el_emparejamiento():

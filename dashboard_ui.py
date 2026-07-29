@@ -2394,11 +2394,28 @@ def render_mlb():
                    "Retrosheet y crea modelos/mlb/).")
         return
     md = eng.metadata
-    st.caption(f"Modelo entrenado con {md.get('n_juegos')} juegos (Retrosheet "
-               f"2021-2025) · precisión backtest {md.get('precision_validacion')*100:.1f} % "
-               f"(ELO {md.get('precision_linea_base_elo')*100:.1f} %) · estado de "
-               f"equipos congelado al cierre de 2025 hasta que Retrosheet "
-               "publique 2026.")
+    # v80 — el pie decía «Retrosheet 2021-2025 · estado congelado al cierre de
+    # 2025» y desde la v79 eso es FALSO en las tres afirmaciones: la fuente ya
+    # no es Retrosheet sino la API oficial, el histórico llega a la temporada
+    # en curso y el estado se refresca. Un pie de página que miente sobre la
+    # frescura del modelo es peor que no tenerlo: el usuario decide con él.
+    # Ahora se calcula de los datos, no se escribe a mano.
+    import pandas as _pd
+    _fechas = [v.get('ult_fecha') for v in (eng.estado.get('equipos') or {}).values()
+               if v.get('ult_fecha')]
+    if _fechas:
+        _ult = _pd.Timestamp(max(_fechas))
+        _dias = (_pd.Timestamp.today().normalize() - _ult.normalize()).days
+        _sem = '🟢' if _dias <= 3 else ('🟡' if _dias <= 14 else '🔴')
+        _frescura = (f"{_sem} último partido en el estado: {_ult.date()} "
+                     f"({_dias} d)")
+    else:
+        _frescura = "⚠️ el estado del modelo no registra fechas"
+    st.caption(
+        f"Modelo entrenado con {md.get('n_juegos')} juegos "
+        f"(MLB StatsAPI oficial, {md.get('temporadas', '2015-actual')}) · "
+        f"precisión backtest {md.get('precision_validacion')*100:.1f} % "
+        f"(ELO {md.get('precision_linea_base_elo')*100:.1f} %) · {_frescura}")
 
     nombres = {c: CODIGO_A_NOMBRE.get(c, c) for c in eng.equipos}
     tab1, tab2 = st.tabs(["🎯 Predecir partido", "💰 Apuestas del Día MLB"])

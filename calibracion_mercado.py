@@ -112,20 +112,36 @@ def _tabla() -> dict:
     """
     if 'datos' not in _CACHE:
         datos = {}
+        w_glob = None
         try:
             if os.path.exists(ARCHIVO):
                 with open(ARCHIVO, encoding='utf-8') as f:
-                    crudo = json.load(f).get('ligas') or {}
+                    doc = json.load(f)
+                crudo = doc.get('ligas') or {}
                 for k, v in crudo.items():
                     datos[str(k).strip().lower()] = v
                 if len(datos) != len(crudo):
                     logger.warning(
                         f"[calibracion] {len(crudo) - len(datos)} claves de "
                         f"{ARCHIVO} colisionan al normalizar la caja")
+                try:
+                    w_glob = float(doc.get('w_global'))
+                except (TypeError, ValueError):
+                    w_glob = None
         except Exception as e:
             logger.warning(f"[calibracion] no se pudo leer {ARCHIVO}: {e}")
         _CACHE['datos'] = datos
+        _CACHE['w_global'] = w_glob
     return _CACHE['datos']
+
+
+def w_global() -> Optional[float]:
+    """Peso elegido sobre TODO el histórico, no sobre una liga suelta."""
+    _tabla()
+    w = _CACHE.get('w_global')
+    if w is None:
+        return None
+    return max(W_MIN, min(W_MAX, float(w)))
 
 
 def peso_modelo(clave_liga: str) -> float:
@@ -137,7 +153,41 @@ def peso_modelo(clave_liga: str) -> float:
         return 1.0
     info = _tabla().get(str(clave_liga).strip().lower())
     if not info:
-        return 1.0
+        # v80 — UNA LIGA SIN PESO MEDIDO CAE AL GLOBAL, NO A «SIN CORREGIR».
+        #
+        # Hasta ahora devolvía 1,00, y eso no era abstenerse: era elegir
+        # activamente la opción que la evidencia global descarta. El w global
+        # se elige sobre 75.131 partidos y se valida en un pliegue aparte de
+        # 14.636 (log-loss 0,8056 → 0,7855); el w por liga se decide con
+        # muestras de 52 a 124 picks, y con 38 ligas evaluadas eso son 38
+        # decisiones tomadas sobre ruido.
+        #
+        # El coste de la caída a 1,00 estaba medido y era grave. Replicando el
+        # método exacto de `validacion_deportes` (line shopping y un pick por
+        # partido, el del argmax) sobre las 36.006 filas de fútbol del ledger:
+        #
+        #     política                          n     ROI      p5
+        #     A) actual   (sin peso → w=1,00)  1235   +3,65 %  −1,11 %
+        #     B) caer al global (w=0,25)        589   +5,92 %  +0,34 %
+        #     C) uniforme w=0,25                584   +6,72 %  +1,02 %
+        #
+        # La política A **no tiene edge validado**: su p5 es negativo. Y ahí
+        # está la incoherencia que esto arregla — `validacion_deportes` valida
+        # el fútbol aplicando un w UNIFORME (de ahí el +6,72 % que luce el
+        # sistema), mientras producción aplicaba w por liga con caída a 1,00.
+        # Lo que se validaba no era lo que se desplegaba.
+        #
+        # Se adopta B: la liga medida conserva su w, y la que no tiene medición
+        # hereda el global. Es encogimiento jerárquico de manual — sin datos
+        # propios, se usa el previo — y es lo que ya prometía la nota de método
+        # del propio `recalibrate_from_history`.
+        #
+        # C midió algo mejor todavía, pero su ventaja sobre B descansa en tres
+        # ligas (turquia, eng_national, eng_league_two) que son las únicas con
+        # w distinto de 0,25: tirar su medición por 5 picks de diferencia sería
+        # cambiar evidencia por ruido.
+        g = w_global()
+        return max(W_MIN, min(W_MAX, g)) if g is not None else 1.0
     try:
         w = float(info.get('w', 1.0))
     except (TypeError, ValueError):

@@ -1,5 +1,44 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v80 — La Capa 1 no tenía ni un pick del modelo (ver [VALIDACION_v80.md](VALIDACION_v80.md))
+
+- **🔎 El diagnóstico de la v79 era incorrecto, y comprobarlo evitó días de
+  trabajo inútil.** La v79 cerró diciendo que el fútbol de julio salía sin
+  calibrar por «falta de histórico de cuotas sudamericano». Medida la cadena
+  eslabón por eslabón: `liga_mx` tiene **5.086 cuotas de cierre —más que
+  ninguna otra liga—** y `argentina` **7.193**, y aun así su peso era 1,00.
+  Ingerir BetExplorer habría costado días y no habría arreglado nada de los 31
+  partidos que más pesaban.
+- **⚖️ Una liga sin peso medido ya no cae a «sin corregir», cae al w global.**
+  Devolver 1,00 no era abstenerse: era elegir la opción que la evidencia global
+  descarta. Medido con el método exacto de la validación (line shopping, un
+  pick por partido): la política que había daba ROI +3,65 % con p5 **−1,11 %**
+  —**sin edge validado**— frente a +5,92 % con p5 +0,34 % cayendo al global.
+  Era la incoherencia de fondo: **lo que se validaba no era lo que se
+  desplegaba**.
+- **⚓ El ancla sharp solo llegaba a los partidos que ESPN NO cubría.** Una
+  línea (`if fx.get('odd_home'): continue`) que en la v71 tenía sentido —solo
+  rellenaba precios— y que desde entonces mataba en silencio el ancla de
+  calibración, justo en los partidos populares. **23 de 160 fixtures** la
+  tenían, con Pinnacle publicando precio para el **73 %** del día.
+- **🥇 Lo más importante: la Capa 1 no contenía ni un pick del modelo.** Los
+  diez picks de élite venían de `valor_vs_sharp` y se añadían **directos**,
+  saltándose la calibración y `pasa_capa1`. De ahí lo que se veía: «Empate ·
+  EV +9,5 % · **prob 29 %**» como pick de élite. Esa estrategia **nunca se
+  había medido**. Medida ahora sobre **26.647** partidos: sí tiene edge, pero
+  subir el margen de EV —lo intuitivo— es lo que peor generaliza (el máximo del
+  barrido pasa de p5 +10,09 % a **−9,44 %** fuera de muestra). Lo que da
+  robustez es el **piso de probabilidad**: con margen 1 % y prob ≥ 30 % el p5
+  sale **+3,92 % y +3,91 %** en los dos periodos. Adoptado: la Capa 1 pasa de
+  10 picks (prob 0,199-0,579) a **6, todos con prob ≥ 0,327**.
+- **⚾ MLB: la estadística real del abridor ya es accesible.** La v79 la dio por
+  inviable (~900 lanzadores por temporada); son **873 en una petición de
+  1,2 s**. Con ella, **el ratio de dispersión se mueve por primera vez**
+  (0,527 → 0,564) y la precisión gana +0,32 pp. El log-loss mejora pero su IC
+  toca el cero, así que la adopción queda pendiente de una prueba de
+  rentabilidad — **y la que escribí dio +31,75 % de ROI, que es imposible: era
+  la misma desalineación que fabricó el +37,68 % en la v78. Descartada.**
+
 ## Novedades v79 — MLB predecía 2026 con la forma de 2025, y el barrido tardaba el doble (ver [VALIDACION_v79.md](VALIDACION_v79.md))
 
 - **⚾ El «todo da 50-50» era de MLB, y tenía tres causas.** Medido: el 58,5 %
