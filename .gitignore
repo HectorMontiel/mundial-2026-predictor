@@ -94,3 +94,6 @@ cuotas_cache/
 # vuelve a descargar) y son cientos de MB; lo que sí se conserva es el
 # resultado ya en odds_historico.db / odds_snapshots.csv.
 betexplorer_cache/
+
+# v78: caché de los .xlsx de sportsbookreviewsonline (regenerable)
+mlb_odds_cache/

@@ -93,6 +93,7 @@ class MLBEngine(BaseSportsEngine):
         ult_fecha: Dict[str, pd.Timestamp] = {}
         pit_ra: Dict[str, list] = {}  # carreras permitidas por apertura
         X, y, tot, fechas = [], [], [], []
+        filas_id = []                      # v78: (fecha, local, visitante)
         for r in df.itertuples(index=False):
             h, a = r.home_team, r.away_team
             eh, ea = elo.get(h, 1500.0), elo.get(a, 1500.0)
@@ -117,6 +118,7 @@ class MLBEngine(BaseSportsEngine):
                 y.append(int(r.home_runs > r.away_runs))
                 tot.append(r.home_runs + r.away_runs)
                 fechas.append(r.date)
+                filas_id.append((r.date, str(h), str(a)))
             # actualizar estado (sin fuga: después de emitir)
             gh, ga = float(r.home_runs), float(r.away_runs)
             rs.setdefault(h, []).append(gh); ra.setdefault(h, []).append(ga)
@@ -131,7 +133,15 @@ class MLBEngine(BaseSportsEngine):
             elo[h] = eh + 20 * (s_h - e_h)
             elo[a] = ea + 20 * ((1 - s_h) - (1 - e_h))
             ult_fecha[h] = ult_fecha[a] = r.date
-        estado = {'equipos': {}, 'pitchers': {}}
+        # v78: identidad de CADA fila emitida, en el mismo orden que X e y.
+        # Sin esto, quien quiera cruzar las predicciones con cuotas externas
+        # tiene que adivinar el orden replicando este bucle, y basta con que el
+        # desempate de `sort_values('date')` difiera para que las cuotas se
+        # peguen al partido equivocado. Eso no da error: FABRICA un edge falso,
+        # porque el filtro de EV se queda justo con las filas donde la cuota
+        # ajena salió alta. Se detectó porque el log-loss del mercado salía
+        # 0,7142 — peor que una moneda al aire, imposible en cuotas reales.
+        estado = {'equipos': {}, 'pitchers': {}, 'filas': filas_id}
         for t in set(list(rs) + list(ra)):
             estado['equipos'][t] = {
                 'elo': round(elo.get(t, 1500), 1),
@@ -289,8 +299,17 @@ class MLBEngine(BaseSportsEngine):
             pin = c.get('pinnacle') or {}
             if not mejor:
                 continue
-            for lado, cod, prob in (('home', hc, pred['prob_home']),
-                                    ('away', ac, pred['prob_away'])):
+            # v78 — ENCOGIMIENTO HACIA EL MERCADO. La corrección del sesgo de
+            # selección solo llegaba al fútbol, y se notaba: los picks de MLB
+            # salían con EV de +11 % justo donde el fútbol ya estaba corregido.
+            # Se aplica el mismo método (misma función, para que no diverja).
+            import calibracion_mercado as _cal
+            _ph, _info_cal = _cal.corregir_dos_vias(
+                pred['prob_home'],
+                (mejor.get('home') or {}).get('cuota'),
+                (mejor.get('away') or {}).get('cuota'), 'mlb')
+            for lado, cod, prob in (('home', hc, _ph),
+                                    ('away', ac, 1.0 - _ph)):
                 info = mejor.get(lado)
                 if not info or not info.get('cuota'):
                     continue
@@ -317,6 +336,8 @@ class MLBEngine(BaseSportsEngine):
                     'cuota_justa': round(1 / max(prob, 1e-6), 2),
                     'ev': ev_val, 'casa': info.get('casa'),
                     'n_casas': c.get('n_casas'),
+                    'calibracion': _info_cal,          # v78
+
                     'valor': '🟢' if ev_val > 0.05 else '🟡'}
                 if gap is not None:
                     pick['sharp_gap'] = round(gap, 4)

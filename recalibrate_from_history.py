@@ -67,7 +67,10 @@ except Exception:
 
 logger = logging.getLogger(__name__)
 
-LEDGER = 'pick_ledger.csv'
+# v78: el ledger TOTAL incluye fútbol (1X2) y los deportes a dos vías
+# (tenis, MLB, NBA). Una sola calibración para todos, para que el número
+# publicado signifique lo mismo en cualquier deporte.
+LEDGER = 'pick_ledger_total.csv'
 ARCHIVO = 'calibracion_mercado.json'
 SALIDA_DIAG = '_v75_recalibracion.json'
 
@@ -112,18 +115,56 @@ def devig_potencia(cuotas: np.ndarray) -> np.ndarray:
 
 
 def cargar(ledger: str = LEDGER) -> pd.DataFrame:
+    """
+    Carga un ledger y le añade la probabilidad justa del mercado.
+
+    v78 — admite mercados de DOS vías. El fútbol es 1X2, pero tenis, MLB y NBA
+    no tienen empate, y la versión anterior exigía las tres cuotas presentes:
+    con `cuota_draw` a nulo, `notna().all()` daba False y **descartaba el
+    deporte entero en silencio**. Ahora el empate es opcional; cuando no
+    existe, el devig se hace sobre las dos vías y la columna del empate queda
+    en 0, que es lo correcto (no puede ocurrir) y deja intactos el argmax y la
+    log-loss.
+
+    Se generaliza ESTE módulo en vez de escribir uno paralelo para los otros
+    deportes a propósito: dos calibraciones distintas divergen, y entonces el
+    número que se publica deja de significar lo mismo según el deporte.
+    """
     d = pd.read_csv(ledger)
-    tiene_pin = d[['pin_home', 'pin_draw', 'pin_away']].notna().all(axis=1)
-    tiene_mer = d[['cuota_home', 'cuota_draw', 'cuota_away']].notna().all(axis=1)
+    for c in ('pin_home', 'pin_draw', 'pin_away',
+              'cuota_home', 'cuota_draw', 'cuota_away'):
+        if c not in d.columns:
+            d[c] = np.nan
+
+    # ¿tiene empate este mercado? Se decide por fila, no por fichero: un mismo
+    # ledger puede mezclar fútbol (3 vías) y tenis (2 vías).
+    dos_vias = d['cuota_draw'].isna() & d['pin_draw'].isna()
+    tiene_pin = (d[['pin_home', 'pin_away']].notna().all(axis=1) &
+                 (dos_vias | d['pin_draw'].notna()))
+    tiene_mer = (d[['cuota_home', 'cuota_away']].notna().all(axis=1) &
+                 (dos_vias | d['cuota_draw'].notna()))
     d = d[tiene_pin | tiene_mer].copy()
+    dos_vias = dos_vias[tiene_pin | tiene_mer].values
+    usa_pin = tiene_pin[tiene_pin | tiene_mer].values
+
     cuotas = np.where(
-        tiene_pin[tiene_pin | tiene_mer].values[:, None],
-        d[['pin_home', 'pin_draw', 'pin_away']].fillna(2.0).values,
-        d[['cuota_home', 'cuota_draw', 'cuota_away']].fillna(2.0).values)
-    p_mkt = devig_potencia(cuotas.astype(float))
+        usa_pin[:, None],
+        d[['pin_home', 'pin_draw', 'pin_away']].values,
+        d[['cuota_home', 'cuota_draw', 'cuota_away']].values).astype(float)
+
+    p_mkt = np.zeros_like(cuotas)
+    tres = ~dos_vias
+    if tres.any():
+        p_mkt[tres] = devig_potencia(np.nan_to_num(cuotas[tres], nan=2.0))
+    if dos_vias.any():
+        par = devig_potencia(cuotas[dos_vias][:, [0, 2]])
+        p_mkt[dos_vias, 0] = par[:, 0]
+        p_mkt[dos_vias, 1] = 0.0            # sin empate posible
+        p_mkt[dos_vias, 2] = par[:, 1]
+
     d['m_home'], d['m_draw'], d['m_away'] = p_mkt[:, 0], p_mkt[:, 1], p_mkt[:, 2]
-    d['ancla'] = np.where(tiene_pin[tiene_pin | tiene_mer].values,
-                          'pinnacle', 'mercado')
+    d['ancla'] = np.where(usa_pin, 'pinnacle', 'mercado')
+    d['dos_vias'] = dos_vias
     return d
 
 

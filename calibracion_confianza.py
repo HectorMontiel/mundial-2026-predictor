@@ -52,7 +52,9 @@ except Exception:
     pass
 
 ARCHIVO = 'calibracion_confianza.json'
-LEDGER = 'pick_ledger.csv'
+# v78: el ledger TOTAL incluye los tres deportes, así que las bandas se
+# calculan sobre 120.076 predicciones en vez de 36.006.
+LEDGER = 'pick_ledger_total.csv'
 # Bordes de banda. Se paran en 0,80 porque por encima no hay muestra suficiente
 # para afirmar nada (17 casos en todo el histórico).
 BANDAS = [(0.50, 0.55), (0.55, 0.60), (0.60, 0.65), (0.65, 0.70),
@@ -106,7 +108,11 @@ def calcular(ledger: str = LEDGER) -> dict:
     import calibracion_mercado as cm
     import recalibrate_from_history as rec
 
-    d = rec.cargar(ledger).dropna(subset=['cuota_home', 'cuota_draw', 'cuota_away'])
+    # v78: NO se exige `cuota_draw`. Es nula en tenis, MLB y NBA —no tienen
+    # empate— y pedirla descartaba los tres deportes en silencio, dejando las
+    # bandas calculadas solo con fútbol. Es el mismo descuido que tenía
+    # `recalibrate_from_history.cargar` antes de generalizarla.
+    d = rec.cargar(ledger).dropna(subset=['cuota_home', 'cuota_away'])
     pm = d[['p_home', 'p_draw', 'p_away']].values
     mk = d[['m_home', 'm_draw', 'm_away']].values
     cu = d[['cuota_home', 'cuota_draw', 'cuota_away']].values.astype(float)

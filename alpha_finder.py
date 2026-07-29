@@ -923,9 +923,20 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                         'circuito': eng.circuito.upper(),
                         'mercado': c['etiqueta'], 'prob': round(pr, 3),
                         'cuota_justa': round(1 / max(pr, 1e-6), 2)})
+            # v78 — ENCOGIMIENTO HACIA EL MERCADO también en tenis. Hasta la
+            # v77 solo se corregía el fútbol, así que los EV de tenis salían
+            # sin corregir. Medido sobre 46.210 partidos fuera de muestra con
+            # cuota real: encoger mejora la precisión de 65,9 % a 68,3 % y la
+            # log-loss de 0,6105 a 0,5842. ATP y WTA adoptan w=0,25 con
+            # muestras de 30.327 y 15.883 partidos.
+            import calibracion_mercado as _cal
+            _ph, _info_cal = _cal.corregir_dos_vias(
+                pred['prob_home'], m.get('odd_home'), m.get('odd_away'),
+                eng.circuito.lower())
+            _probs = {'home': _ph, 'away': 1.0 - _ph}
             for lado, nombre, prob, cuota in (
-                    ('home', m['home'], pred['prob_home'], m['odd_home']),
-                    ('away', m['away'], pred['prob_away'], m['odd_away'])):
+                    ('home', m['home'], _probs['home'], m['odd_home']),
+                    ('away', m['away'], _probs['away'], m['odd_away'])):
                 ev = round(cuota * prob - 1, 4)
                 base = {'deporte': 'Tenis', 'liga': eng.circuito.upper(),
                         'partido': f"{m['home']} vs {m['away']}",
@@ -934,6 +945,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                         'prob': round(prob, 3),
                         'superficie': superficie,
                         'mercados_tenis': mercados,   # v47: 19 mercados
+                        'calibracion': _info_cal,     # v78: w aplicado
                         'cuota_justa': round(1 / max(prob, 1e-6), 2)}
                 if prob > UMBRAL_CONF['Tenis'] and ev > MIN_EV and cuota > MIN_CUOTA:
                     salida['capa1'].append({**base, 'cuota': round(cuota, 2),
@@ -1305,6 +1317,11 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # cuota, y el aviso existía pero moría dentro del motor sin llegar a
     # ninguna pantalla. Un fallo que no se ve es un fallo que no se arregla.
     incidencias: List[str] = list(r.get('incidencias') or [])
+    try:                                    # v78: cobertura de Playdoit
+        import monitor_playdoit
+        incidencias += monitor_playdoit.incidencias()
+    except Exception as e:
+        logger.debug(f"[alpha] monitor de Playdoit no disponible: {e}")
     for fn in (_picks_mlb, _picks_tenis, _picks_nba):
         try:
             sub = fn()
@@ -1354,6 +1371,43 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
 
     ev_extremo = [p for p in capa1 if (p.get('ev') or 0) > _techo_ev(p)]
     capa1 = [p for p in capa1 if (p.get('ev') or 0) <= _techo_ev(p)]
+
+    # -----------------------------------------------------------------------
+    # v78 — SOLO DEPORTES CON EDGE VALIDADO EN LA CAPA 1.
+    #
+    # Al extender la calibración a tenis y MLB se pudo medir su rentabilidad
+    # por primera vez, y el resultado es incómodo pero claro: barriendo el peso
+    # de 1,00 a 0,25 con los umbrales de producción, ninguno de los dos alcanza
+    # un ROI robusto. El tenis llevaba emitiendo picks que perdían un 5 %
+    # sostenido sobre 3.666 apuestas.
+    #
+    #     Fútbol  +6,72 % (n=584, p5 +0,92 %)  → entra
+    #     MLB     +3,46 % (n=394, p5 −3,98 %)  → fuera
+    #     Tenis   −0,54 % (n=1.971, p5 −6,29 %) → fuera
+    #
+    # Es la misma regla que dejó el Over/Under 2.5 fuera de la Capa 1 en la
+    # v44. Los picks se siguen calculando y mostrando como candidatos con su
+    # motivo; no desaparecen, dejan de venderse como élite. En cuanto un
+    # deporte pase la regla (`validacion_deportes.py` se recalcula con el
+    # ledger), vuelve solo.
+    # -----------------------------------------------------------------------
+    try:
+        import validacion_deportes as _vd
+        sin_edge = [p for p in capa1 if not _vd.tiene_edge(p.get('deporte'))]
+        if sin_edge:
+            capa1 = [p for p in capa1 if _vd.tiene_edge(p.get('deporte'))]
+            for p in sin_edge:
+                p['sin_edge_deporte'] = True
+                p['nota'] = ((p.get('nota') or '') + ' ' +
+                             (_vd.motivo(p.get('deporte')) or '')).strip()
+            candidatos_extra = sin_edge
+            for dep in sorted({p.get('deporte') for p in sin_edge}):
+                incidencias.append(_vd.motivo(dep) or f'{dep}: sin edge validado.')
+        else:
+            candidatos_extra = []
+    except Exception as e:
+        logger.warning(f"[alpha] validacion_deportes no disponible: {e}")
+        candidatos_extra = []
 
     # -----------------------------------------------------------------------
     # v77 — PESTAÑA «MÁXIMA CONFIANZA»
@@ -1430,6 +1484,8 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     deportes = sorted({p.get('deporte', 'Fútbol') for p in capa1 + capa2})
     # v37 (§6): sección BTTS destacada — de todo el universo de picks
     # (capa1 + capa2 + candidatos del barrido de fútbol)
+    if candidatos_extra:
+        r['candidatos'] = list(r.get('candidatos') or []) + candidatos_extra
     todos_pool = capa1 + capa2 + list(r.get('candidatos') or [])
     btts = _seccion_btts(todos_pool)
     # v37 (§5): oleadas temporales sobre la capa 1 (la accionable con cuota)

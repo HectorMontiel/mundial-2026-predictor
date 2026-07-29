@@ -444,6 +444,97 @@ def test_combinadas_multideporte():
           "con un solo deporte NO se generan combinadas")
 
 
+def test_calibracion_multideporte():
+    """
+    v78: la corrección hacia el mercado tiene que llegar a los tres deportes,
+    no solo al fútbol. Antes `cargar()` exigía las tres cuotas (1X2) y
+    descartaba EN SILENCIO todo mercado a dos vías.
+    """
+    import calibracion_mercado as cm
+    for clave in ('atp', 'wta', 'mlb'):
+        w = cm.peso_modelo(clave)
+        check(w < 1.0, f"{clave} tiene peso de calibración propio (w={w})")
+    check(hasattr(cm, 'corregir_dos_vias'),
+          "calibracion_mercado expone corregir_dos_vias (deportes sin empate)")
+    # el encogimiento tiene que MOVER la probabilidad hacia el mercado
+    p, info = cm.corregir_dos_vias(0.80, 2.50, 1.55, 'atp')
+    check(info['aplicado'] and p < 0.80,
+          f"la probabilidad se encoge hacia el mercado (0.80 -> {p:.3f})")
+    # sin cuotas no hay hacia dónde encoger: degradación limpia
+    p2, info2 = cm.corregir_dos_vias(0.80, None, None, 'atp')
+    check(p2 == 0.80 and not info2['aplicado'],
+          "sin cuota no se toca la probabilidad")
+
+
+def test_ledger_multideporte_alineado():
+    """
+    v78: la guardia que destapó el fallo más grave de esta versión.
+
+    Si las cuotas se pegan al partido equivocado, el log-loss del MERCADO sale
+    peor que el azar — imposible en cuotas reales. Aquel desalineado no daba
+    error: fabricaba un ROI de +37,68 % con p5 +31,7 %, justo lo que uno
+    querría ver.
+    """
+    import numpy as np
+    import pandas as pd
+    if not os.path.exists('pick_ledger_total.csv'):
+        print('AVISO pick_ledger_total.csv no existe; se omite')
+        return
+    d = pd.read_csv('pick_ledger_total.csv')
+    check(d['deporte'].nunique() >= 3,
+          f"el ledger cubre varios deportes ({sorted(d['deporte'].unique())})")
+    import build_ledger_deportes as bl
+    for dep, g in d.groupby('deporte'):
+        v = bl.verificar_alineacion(g, dep)
+        check(v['ok'],
+              f"{dep}: cuotas alineadas con las predicciones "
+              f"(log-loss del mercado {v.get('logloss_mercado')} < "
+              f"azar {v.get('techo_azar')})")
+
+
+def test_deportes_con_edge():
+    """v78: solo entran en la Capa 1 los deportes cuyo ROI fuera de muestra
+    es positivo Y su bootstrap p5 también. Misma regla que dejó fuera el
+    Over/Under 2.5 en la v44."""
+    import validacion_deportes as vd
+    if not os.path.exists(vd.ARCHIVO):
+        check(False, f"{vd.ARCHIVO} existe")
+        return
+    with open(vd.ARCHIVO, encoding='utf-8') as f:
+        doc = json.load(f)
+    deportes = doc.get('deportes') or {}
+    check(len(deportes) >= 3, f"{len(deportes)} deportes evaluados")
+    for dep, v in deportes.items():
+        if 'mejor_roi' not in v:
+            continue
+        esperado = bool(v['mejor_roi'] > 0 and v['p5_mejor'] > 0)
+        check(v['edge_validado'] == esperado,
+              f"{dep}: el veredicto coincide con la regla "
+              f"(ROI {v['mejor_roi']:+.2%}, p5 {v['p5_mejor']:+.2%})")
+    # un deporte sin medición NO se castiga
+    check(vd.tiene_edge('_deporte_inexistente_'),
+          "un deporte sin medición se permite (no se castiga la falta de datos)")
+    # y el motivo se puede mostrar
+    fuera = [k for k, v in deportes.items() if not v.get('edge_validado', True)]
+    for k in fuera:
+        check(bool(vd.motivo(k)), f"{k} tiene motivo legible para la UI")
+
+
+def test_monitor_playdoit():
+    """v78: la cobertura de Playdoit decide qué picks son TOMABLES."""
+    import monitor_playdoit as mp
+    if not os.path.exists(mp.ARCHIVO):
+        print('AVISO playdoit_cobertura.json no existe todavía; se omite')
+        return
+    with open(mp.ARCHIVO, encoding='utf-8') as f:
+        d = json.load(f)
+    check(d.get('competiciones', {}).get('futbol', 0) > 50,
+          f"Playdoit cubre muchas competiciones de fútbol "
+          f"({d.get('competiciones', {}).get('futbol')})")
+    check(isinstance(mp.incidencias(), list),
+          "el monitor produce incidencias para la UI")
+
+
 def test_ledger_sin_fuga():
     if not os.path.exists('pick_ledger.csv'):
         print('AVISO pick_ledger.csv no existe todavía; se omiten sus comprobaciones')
@@ -533,6 +624,11 @@ if __name__ == '__main__':
     test_claves_de_tenista()
     test_calibracion_confianza()
     test_combinadas_multideporte()
+    print('\n=== v78: multideporte ===')
+    test_calibracion_multideporte()
+    test_ledger_multideporte_alineado()
+    test_deportes_con_edge()
+    test_monitor_playdoit()
     print('\n=== v75: ledger de predicciones ===')
     test_ledger_sin_fuga()
     print('\n=== v75: umbrales en producción ===')

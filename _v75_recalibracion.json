@@ -1,19 +1,19 @@
 {
- "generado": "2026-07-28T20:44:09Z",
+ "generado": "2026-07-29T06:22:58Z",
  "metodo": "w por log-loss fuera de muestra + encogimiento jerárquico hacia el w global; validado en el último pliegue, que no participa en la selección.",
  "w_global": 0.25,
- "n_total": 36025,
- "n_seleccion": 29250,
- "n_validacion": 6775,
- "ligas_evaluadas": 35,
- "ligas_adoptadas": 26,
+ "n_total": 89775,
+ "n_seleccion": 75137,
+ "n_validacion": 14638,
+ "ligas_evaluadas": 38,
+ "ligas_adoptadas": 29,
  "validacion": {
-  "logloss_antes": 1.0203,
-  "logloss_despues": 1.0003,
+  "logloss_antes": 0.8055,
+  "logloss_despues": 0.7855,
   "delta_logloss": 0.02,
-  "acc_antes": 0.5014,
-  "acc_despues": 0.515,
-  "delta_acc": 0.0136
+  "acc_antes": 0.5801,
+  "acc_despues": 0.5992,
+  "delta_acc": 0.0191
  },
  "por_liga": {
   "argentina": {
@@ -32,6 +32,23 @@
    "delta_acc": -0.0136,
    "adoptada": false,
    "ancla": "pinnacle"
+  },
+  "atp": {
+   "w": 0.25,
+   "w_crudo_liga": 0.25,
+   "lambda": 0.994,
+   "n_seleccion": 25943,
+   "n_validacion": 4383,
+   "sesgo_pick_sin_w": -0.0039,
+   "sesgo_pick_con_w": -0.0101,
+   "logloss_sin_w": 0.6121,
+   "logloss_con_w": 0.5911,
+   "delta_logloss": 0.021,
+   "acc_sin_w": 0.658,
+   "acc_con_w": 0.684,
+   "delta_acc": 0.026,
+   "adoptada": true,
+   "ancla": "mercado"
   },
   "bel_pro_league": {
    "w": 0.25,
@@ -407,6 +424,23 @@
    "adoptada": true,
    "ancla": "pinnacle"
   },
+  "mlb": {
+   "w": 0.25,
+   "w_crudo_liga": 0.25,
+   "lambda": 0.976,
+   "n_seleccion": 6032,
+   "n_validacion": 1509,
+   "sesgo_pick_sin_w": -0.0195,
+   "sesgo_pick_con_w": -0.0138,
+   "logloss_sin_w": 0.6777,
+   "logloss_con_w": 0.665,
+   "delta_logloss": 0.0127,
+   "acc_sin_w": 0.5871,
+   "acc_con_w": 0.605,
+   "delta_acc": 0.0179,
+   "adoptada": true,
+   "ancla": "mercado"
+  },
   "mls": {
    "w": 0.25,
    "w_crudo_liga": 0.25,
@@ -610,6 +644,23 @@
    "delta_acc": 0.0101,
    "adoptada": true,
    "ancla": "pinnacle"
+  },
+  "wta": {
+   "w": 0.25,
+   "w_crudo_liga": 0.25,
+   "lambda": 0.989,
+   "n_seleccion": 13912,
+   "n_validacion": 1971,
+   "sesgo_pick_sin_w": -0.0068,
+   "sesgo_pick_con_w": -0.0096,
+   "logloss_sin_w": 0.595,
+   "logloss_con_w": 0.5715,
+   "delta_logloss": 0.0235,
+   "acc_sin_w": 0.6717,
+   "acc_con_w": 0.6956,
+   "delta_acc": 0.0238,
+   "adoptada": true,
+   "ancla": "mercado"
   }
  }
 }
