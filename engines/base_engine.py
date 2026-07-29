@@ -61,7 +61,43 @@ class BaseSportsEngine(ABC):
 
     @staticmethod
     def aplicar_kelly(prob: float, cuota: float, bankroll: float,
-                      fraccion: float = 0.125, cap: float = 0.05) -> Dict:
+                      fraccion: float = 0.25, cap: float = 0.05) -> Dict:
+        """
+        v81 — LA FRACCIÓN SUBE DE ⅛ A ¼, y por primera vez está medida.
+
+        El ⅛ venía de la v27 como decisión de prudencia: bajaba la caída máxima
+        de 24,3 % a 13,0 %. Nunca se optimizó la fracción en sí.
+
+        Se propuso un Kelly DINÁMICO que subiera o bajara con la racha. Medido
+        con Monte Carlo sobre la secuencia real de 589 picks del ledger,
+        remuestreada **por bloques de 20** para conservar las rachas (con un
+        bootstrap i.i.d. no habría rachas que detectar y el experimento estaría
+        amañado):
+
+            política                 cap. mediano    p5     caída    ruina
+            ⅟₁₆ Kelly                   1,351      1,105    7,5 %    0,00 %
+            ⅛ Kelly (lo que había)      1,760      1,178   14,6 %    0,00 %
+            ¼ Kelly                     2,592      1,193   27,5 %    0,00 %
+            ½ Kelly                     3,117      0,878   44,3 %    0,53 %
+            1 Kelly                     2,950      0,300   57,0 %    5,03 %
+            DINÁMICA (racha, ⅟₁₆-¼)     2,352      1,174   23,6 %    0,00 %
+            DINÁMICA inversa            1,515      1,083   14,2 %    0,00 %
+
+        **La dinámica no aporta nada**: 2,352 frente a 2,592 del ¼ liso, con el
+        mismo p5 y la misma ruina. Acaba siendo una forma ruidosa de promediar
+        entre ⅟₁₆ y ¼, y el ¼ constante la domina. La racha reciente no predice
+        la siguiente apuesta — que es justo lo que uno esperaría si los picks
+        son aproximadamente independientes, y es tranquilizador que salga así.
+
+        Lo que sí mejora es subir la fracción fija: **+47 % de capital mediano
+        y un p5 MEJOR** (1,193 frente a 1,178), con ruina 0,00 % en las dos.
+
+        La contrapartida es real y hay que decirla: la caída máxima típica pasa
+        de 14,6 % a 27,5 %. Se para aquí y no en ½ porque ahí el p5 cae por
+        debajo de 1,0 (0,878: en el peor 5 % de escenarios se pierde dinero) y
+        aparece ruina. El cap del 5 % por pick y el 20 % por jornada siguen
+        puestos.
+        """
         b = max(cuota - 1.0, 1e-6)
         kelly = (b * prob - (1 - prob)) / b
         frac = float(np.clip(kelly * fraccion, 0.0, cap))

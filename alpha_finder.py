@@ -1523,7 +1523,18 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # ya demostró servir para 22 ligas en la v76); mientras tanto, se avisa.
     try:
         import calibracion_mercado as _calm
-        _f1 = [p for p in capa1 if p.get('deporte', 'Fútbol') == 'Fútbol']
+        # v81 — el aviso EXCLUYE los picks de `valor_vs_sharp`.
+        #
+        # Decía «4 de 4 picks de fútbol salen SIN calibrar contra el mercado:
+        # sus ligas no tienen peso medido», y las dos mitades eran falsas.
+        # Desde la v80 todas las ligas tienen peso (caen al global), y sobre
+        # todo: esos picks son de line shopping contra Pinnacle, así que su
+        # probabilidad **ES** la del mercado. No es que no se calibren — es que
+        # no hay nada que calibrar, ya son mercado puro. Avisar de lo contrario
+        # mandaba a desconfiar precisamente de los picks mejor anclados.
+        _f1 = [p for p in capa1
+               if p.get('deporte', 'Fútbol') == 'Fútbol'
+               and not p.get('valor_mercado')]
         if _f1:
             _sin = sorted({p.get('liga', '?') for p in _f1
                            if not (p.get('calibracion') or {}).get('aplicado')})
@@ -1688,16 +1699,34 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     except Exception as e:
         logger.warning(f"[alpha] edge_engine no disponible: {e}")
 
-    # v42: los picks CONFIRMADOS por la línea sharp (+14.7 % ROI) van primero
-    capa1.sort(key=lambda t: (-int(t.get('sharp_confirmado', False)),
-                              -int(t.get('platino', False)), -(t.get('ev') or 0)))
-    capa2.sort(key=lambda t: -(t.get('prob') or 0))
-    ev_extremo.sort(key=lambda t: -(t.get('ev') or 0))
+    # -----------------------------------------------------------------------
+    # v81 — TODAS LAS CAPAS SE ORDENAN POR PROBABILIDAD DESCENDENTE.
+    #
+    # La Capa 1 se ordenaba por EV y la lista de candidatos por EV×probabilidad,
+    # así que un pick al 34 % podía aparecer por encima de uno al 58 % solo por
+    # llevar más EV. Para leer la lista de un vistazo —que es como se usa— la
+    # probabilidad es el criterio natural: primero lo más probable.
+    #
+    # Se conservan como desempates las señales que sí están medidas y que antes
+    # mandaban: la confirmación sharp (v42, +14,7 % de ROI frente a +9,9 % sin
+    # ella) y el EV. No se pierde información de orden, se subordina.
+    # -----------------------------------------------------------------------
+    def _orden_prob(t):
+        return (-(t.get('prob') or 0),
+                -int(t.get('sharp_confirmado', False)),
+                -int(t.get('platino', False)),
+                -(t.get('ev') or 0))
+
+    capa1.sort(key=_orden_prob)
+    capa2.sort(key=_orden_prob)
+    ev_extremo.sort(key=_orden_prob)
     deportes = sorted({p.get('deporte', 'Fútbol') for p in capa1 + capa2})
     # v37 (§6): sección BTTS destacada — de todo el universo de picks
     # (capa1 + capa2 + candidatos del barrido de fútbol)
     if candidatos_extra:
         r['candidatos'] = list(r.get('candidatos') or []) + candidatos_extra
+    # v81 — los candidatos también, por el mismo motivo que las capas.
+    r['candidatos'] = sorted(list(r.get('candidatos') or []), key=_orden_prob)
     todos_pool = capa1 + capa2 + list(r.get('candidatos') or [])
     btts = _seccion_btts(todos_pool)
     # v37 (§5): oleadas temporales sobre la capa 1 (la accionable con cuota)
@@ -1709,12 +1738,36 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         import cross_sport_parlay
         combinadas = cross_sport_parlay.generar(capa1, capa1_prob)
         if not combinadas:
+            # v81 — el aviso decía «hacen falta picks de dos deportes con prob
+            # ≥ 55 %», y eso apuntaba al sitio equivocado: hoy hay picks de
+            # tenis al 88 %, 85 % y 83 %. Lo que falta no es probabilidad, es
+            # que el tenis y la MLB **no tienen edge validado** (v78), así que
+            # no entran en el material de las combinadas. Decir «faltan picks
+            # buenos» invitaba a buscar donde no hay nada; decir el motivo real
+            # explica también cuándo volverán: cuando el ledger valide un
+            # segundo deporte.
             deportes_disp = sorted({p.get('deporte') for p in capa1 + capa1_prob})
-            incidencias.append(
-                f'Combinadas: no se pudo cruzar deportes hoy (material '
-                f'disponible: {deportes_disp}). Hacen falta picks de al menos '
-                f'dos deportes distintos con prob ≥ '
-                f'{cross_sport_parlay.MIN_PROB_PATA:.0%}.')
+            _fuera = []
+            try:
+                import validacion_deportes as _vd2
+                for _d in ('Tenis', 'MLB', 'NBA'):
+                    if not _vd2.tiene_edge(_d):
+                        _fuera.append(_d)
+            except Exception:
+                pass
+            _msg = (f'Combinadas: no se pudo cruzar deportes hoy (material '
+                    f'disponible: {deportes_disp}).')
+            if _fuera:
+                _msg += (f' No es falta de probabilidad: {", ".join(_fuera)} '
+                         f'tienen picks pero están fuera de la Capa 1 por no '
+                         f'superar la regla de edge, y una pata sin edge '
+                         f'validado empeora la combinada en vez de mejorarla. '
+                         f'Volverán solas en cuanto el ledger las valide.')
+            else:
+                _msg += (f' Hacen falta picks de al menos dos deportes '
+                         f'distintos con prob ≥ '
+                         f'{cross_sport_parlay.MIN_PROB_PATA:.0%}.')
+            incidencias.append(_msg)
     except Exception as e:
         combinadas = []
         incidencias.append(f'Combinadas no generadas: {type(e).__name__}: {e}')

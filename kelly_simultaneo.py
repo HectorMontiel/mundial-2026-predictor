@@ -20,7 +20,19 @@ from typing import Dict, List
 
 import numpy as np
 
-FRACCION = 0.125          # ⅛ Kelly
+# v81 — ¼ Kelly. Medido con Monte Carlo por bloques sobre la secuencia real de
+# 589 picks del ledger (`_v81_kelly.py`): frente al ⅛ que había, el capital
+# mediano sube un 47 % (1,760 → 2,592), el p5 MEJORA (1,178 → 1,193) y la ruina
+# se queda en 0,00 % en ambos. La contrapartida es la caída máxima típica, que
+# pasa de 14,6 % a 27,5 %.
+#
+# El Kelly DINÁMICO que se propuso (fracción variable con la racha) se midió y
+# NO aporta: 2,352 de capital mediano frente a 2,592 del ¼ liso, con el mismo
+# p5. La racha reciente no predice la siguiente apuesta.
+#
+# No se sube a ½ porque ahí el p5 cae a 0,878 —en el peor 5 % de escenarios se
+# pierde dinero— y aparece ruina (0,53 %).
+FRACCION = 0.25           # ¼ Kelly
 TOPE_APUESTA = 0.05       # 5 % por apuesta (convención del proyecto)
 CAP_GLOBAL = 0.20         # exposición máxima de la jornada
 

@@ -1,5 +1,37 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v81 — El Kelly dinámico no era la mejora (ver [VALIDACION_v81.md](VALIDACION_v81.md))
+
+- **💰 La fracción de Kelly sube de ⅛ a ¼, y por primera vez está medida.** El ⅛
+  venía de la v27 como decisión de prudencia y nunca se optimizó. Monte Carlo
+  por **bloques de 20** sobre la secuencia real de 589 picks (el bloque importa:
+  un bootstrap i.i.d. destruye las rachas, que es justo lo que la política
+  dinámica dice aprovechar): **capital mediano 1,760 → 2,592 (+47 %), p5
+  1,178 → 1,193 (mejor) y ruina 0,00 % en ambas.** Contrapartida real: la caída
+  máxima típica pasa de 14,6 % a 27,5 %. No se sube a ½ porque ahí el p5 cae a
+  0,878 —en el peor 5 % se pierde dinero— y aparece ruina.
+- **🚫 El Kelly DINÁMICO se midió y NO aporta.** 2,352 de capital mediano frente
+  a 2,592 del ¼ liso, con el mismo p5. Acaba siendo una forma ruidosa de
+  promediar entre ⅟₁₆ y ¼. La variante inversa (subir tras rachas malas) es aún
+  peor: 1,515. **La racha reciente no predice la siguiente apuesta** — que es lo
+  esperable si los picks son independientes, y si hubiera ganado lo primero a
+  sospechar sería una fuga.
+- **🎯 «Máxima Confianza»: se estudió poner techo en 0,75 y habría sido un
+  error.** La tabla de bandas sugería que por encima de 0,75 el modelo promete
+  79,6 % y acierta 57,8 %. Medido sobre el ledger con el precio que producción
+  toma, esa banda es **la única con edge validado** (n=605, ROI **+20,92 %**,
+  p5 **+3,71 %**), mientras la banda 0,70-0,75 pierde (−7,62 %). Las dos tablas
+  miden cosas distintas: las bandas se calculan sobre la probabilidad **encogida
+  del 1X2** y se muestran junto a picks de **hándicap y totales**, que no se
+  encogen. Error de categoría documentado; la selección no se toca.
+- **↕️ Todas las capas se ordenan por probabilidad descendente.** Antes la Capa 1
+  iba por EV, así que un pick al 34 % podía salir por encima de uno al 58 %.
+- **🔔 Dos avisos que apuntaban al sitio equivocado, corregidos.** «Picks sin
+  calibrar» señalaba precisamente los picks **mejor anclados** (los de line
+  shopping, cuya probabilidad ya *es* la del mercado). Y el de combinadas decía
+  que faltaban picks con prob ≥ 55 % habiendo tenis al 88 %: lo que falta es
+  **edge validado en un segundo deporte**, no probabilidad.
+
 ## Novedades v80 — La Capa 1 no tenía ni un pick del modelo (ver [VALIDACION_v80.md](VALIDACION_v80.md))
 
 - **🔎 El diagnóstico de la v79 era incorrecto, y comprobarlo evitó días de
