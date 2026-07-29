@@ -276,7 +276,7 @@ def _render_combinadas(r) -> None:
         return
     st.warning("Estas combinadas **no entran solas en el Plan de Ataque**. Una "
                "combinada concentra varianza, así que la decisión es tuya: "
-               "abajo va el stake sugerido (⅛ de Kelly) y las añades a mano.")
+               "abajo va el stake sugerido (¼ de Kelly, v81) y las añades a mano.")
     for c in combis:
         with st.container(border=True):
             st.markdown(
@@ -286,7 +286,7 @@ def _render_combinadas(r) -> None:
             m1, m2, m3 = st.columns(3)
             m1.metric("EV", f"{c['ev']:+.1%}")
             m2.metric("Stake sugerido", f"{c['stake_sugerido_pct']:.2f} %",
-                      help="⅛ de Kelly sobre la combinada completa.")
+                      help="¼ de Kelly sobre la combinada completa (v81).")
             m3.metric("Deportes", " + ".join(c['deportes']))
             st.dataframe(pd.DataFrame([
                 {'Deporte': p['deporte'], 'Partido': p['partido'],
@@ -1713,8 +1713,15 @@ def render_alpha_finder():
                 cand_combo = _p
                 break
     if cand_combo:
+        # v82 — se usa la CLAVE que trae el pick. Invertir el mapa de nombres
+        # elegía la liga equivocada cuando dos comparten nombre: «Primera
+        # División» son Argentina, Uruguay Y El Salvador, y el inverso se
+        # quedaba con la última. Resultado: se cargaba el motor salvadoreño y
+        # se le pedían equipos argentinos → AttributeError, que es el
+        # «Combinada no disponible ahora» que se veía en pantalla.
         _REV_LIGAS = {v: k for k, v in NOMBRES_LIGAS.items()}
-        _clave_liga = _REV_LIGAS.get(cand_combo.get('liga', ''))
+        _clave_liga = (cand_combo.get('clave_liga')
+                       or _REV_LIGAS.get(cand_combo.get('liga', '')))
         partes = str(cand_combo.get('partido', '')).split(' vs ')
         if _clave_liga and len(partes) == 2:
             with st.expander(f"🎰 Combinada segura del día — {cand_combo['partido']} "
@@ -1904,7 +1911,11 @@ def render_alpha_finder():
                                   if s['stake_pct'] > 0 else '—')
             expo = sum(s['stake_pct'] for s in con_stake)
             st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
-                       f"bankroll (⅛ Kelly simultáneo, cap 20 % — v27).")
+                       f"bankroll (¼ Kelly simultáneo, cap 20 % — v81)."  # v82: el texto
+                       # decía ⅛ y la v81 subió la fracción a ¼ tras
+                       # medirla; un pie que miente sobre cuánto se
+                       # arriesga es peor que no tenerlo.
+                       )
         # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
         import traductor_quant as tq
         platino = [t for t in elite if t.get('platino')]

@@ -59,6 +59,34 @@ MIN_CUOTA = 1.50
 # comentado en `_barrido_fixtures`.
 VS_PROB_MIN = 0.30
 VS_EV_MIN = 0.01
+
+# v82 — la misma estrategia, en TENIS.
+#
+# El modelo de tenis no bate al mercado (log-loss 0,6109 frente a 0,5831) y por
+# eso está fuera de la Capa 1. Pero `valor_vs_sharp` NO USA EL MODELO: apuesta
+# donde una casa se ha quedado descolgada respecto a Pinnacle. Si el edge vive
+# en la discrepancia entre casas, no hace falta arreglar el modelo.
+#
+# Medido sobre los datos de tennis-data, que traen Pinnacle (`Odd_PS`) y la
+# mejor cuota (`Odd_Max`) en el mismo fichero — 26.397 partidos ATP y 24.594
+# WTA, sin ninguna fuente nueva. Parámetros elegidos en el 70 % más antiguo y
+# validados en el 30 % más reciente:
+#
+#     WTA · margen 1 % + prob ≥ 30 %
+#         elección    n=7.909  ROI +4,68 %  p5 +1,70 %
+#         validación  n=2.436  ROI +4,22 %  p5 +0,61 %   <- EDGE VALIDADO
+#
+#     ATP · NINGUNA configuración con p5 positivo en los dos periodos.
+#         Todas las que funcionan en el 70 % se hunden en el 30 %.
+#
+# Por eso se habilita **solo en WTA**. Y hay un motivo para sospechar del ATP
+# más allá del resultado: la mejor cuota supera a Pinnacle un 26,45 % de MEDIA
+# con mediana 1,72 %, o sea que su columna `Odd_Max` tiene valores atípicos
+# extremos. Antes de habilitar el ATP hay que limpiar esa fuente, no bajar el
+# listón.
+VS_TENIS_CIRCUITOS = {'wta'}
+VS_TENIS_PROB_MIN = 0.30
+VS_TENIS_EV_MIN = 0.01
 # v77: pestaña «Máxima Confianza». Umbral de probabilidad alto y sin mínimo de
 # EV; el stake se reduce a ¼ de Kelly porque acertar mucho no es lo mismo que
 # ganar dinero (ver el bloque que la construye).
@@ -498,6 +526,7 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
         for c in _mercados_del_partido(pred, o, home, away, liga):
             tarjeta = {
                 'partido': f'{home} vs {away}', 'liga': pred.get('liga', liga),
+                'clave_liga': liga,          # v82: ver `base` en _barrido_fixtures
                 'fecha': str(fecha.date()), **c,
                 'shadow': bool(det),
                 'valor': ('🟢' if c['ev'] > 0.05 else
@@ -703,6 +732,12 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
             mercados = _mercados_modelo(pred, home, away)
             partido = f'{home} vs {away}'
             base = {'deporte': 'Fútbol', 'liga': cfg.get('nombre', clave),
+                    # v82: la CLAVE de la liga viaja con el pick. El nombre
+                    # visible no la identifica: tres competiciones se llaman
+                    # «Primera División» y dos «División Profesional», así que
+                    # deducir la clave del nombre resolvía Argentina como El
+                    # Salvador y Bolivia como Paraguay.
+                    'clave_liga': clave,
                     'partido': partido, 'fecha': str(fecha.date()),
                     'shadow': False,
                     # v71: antelación y nº de casas, para poder ordenar por
@@ -1062,6 +1097,50 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 pred['prob_home'], m.get('odd_home'), m.get('odd_away'),
                 eng.circuito.lower())
             _probs = {'home': _ph, 'away': 1.0 - _ph}
+
+            # -------------------------------------------------------------
+            # v82 — VALOR DE MERCADO EN TENIS (no usa el modelo).
+            #
+            # Ver `VS_TENIS_*` arriba: medido sobre 24.594 partidos WTA con
+            # Pinnacle y mejor precio, con elección y validación en periodos
+            # distintos, la estrategia da p5 +1,70 % y +4,22 %/+0,61 %. El ATP
+            # no pasa la validación y queda fuera a propósito.
+            #
+            # Estos picks NO dependen de que el modelo de tenis acierte, así
+            # que el veto por «deporte sin edge» —que es un juicio sobre el
+            # MODELO— no debe aplicárseles. Se marcan con `valor_mercado` para
+            # que el filtro los deje pasar, igual que en fútbol.
+            # -------------------------------------------------------------
+            if eng.circuito.lower() in VS_TENIS_CIRCUITOS:
+                try:
+                    import cuotas_multi as _cmt
+                    _vt = _cmt.valor_vs_sharp('tenis', m['home'], m['away'])
+                    for _v in (_vt.get('valor') or [])[:1]:
+                        _lado = _v.get('lado')
+                        _nom = m['home'] if _lado == 'home' else m['away']
+                        if (_v.get('prob_justa', 0) >= VS_TENIS_PROB_MIN
+                                and _v.get('ev', 0) >= VS_TENIS_EV_MIN
+                                and _v.get('cuota', 0) > MIN_CUOTA):
+                            salida['capa1'].append({
+                                'deporte': 'Tenis',
+                                'liga': eng.circuito.upper(),
+                                'clave_liga': eng.circuito.lower(),
+                                'partido': f"{m['home']} vs {m['away']}",
+                                'fecha': str(pd.Timestamp.today().date()),
+                                'mercado': 'Ganador',
+                                'apuesta': f'Gana {_nom}',
+                                'prob': round(_v['prob_justa'], 3),
+                                'cuota': _v['cuota'],
+                                'cuota_justa': _v.get('cuota_justa'),
+                                'ev': _v['ev'], 'casa': _v.get('casa'),
+                                'valor': '🟢', 'evc': True,
+                                'valor_mercado': True,
+                                'pinnacle': _v.get('pinnacle'),
+                                'superficie': superficie,
+                                'origen': 'line shopping vs Pinnacle'})
+                except Exception as e:
+                    logger.debug(f'[alpha/tenis] valor de mercado omitido: {e}')
+
             for lado, nombre, prob, cuota in (
                     ('home', m['home'], _probs['home'], m['odd_home']),
                     ('away', m['away'], _probs['away'], m['odd_away'])):
@@ -1561,13 +1640,37 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # v52: mapa nombre→clave DERIVADO de la config (cubre TODAS las ligas, no
     # solo un puñado) + circuitos de tenis. Antes faltaban Veikkausliiga,
     # Allsvenskan, etc. → su fiabilidad salía vacía.
+    # -----------------------------------------------------------------------
+    # v82 — EL NOMBRE DE LA LIGA NO IDENTIFICA A LA LIGA.
+    #
+    # Este mapa invierte «nombre visible → clave», y hay nombres REPETIDOS:
+    #
+    #     «Primera División»    -> argentina, uru_primera, slv_primera
+    #     «División Profesional» -> bol_division, par_division
+    #
+    # Al invertir el diccionario gana el último, así que **todo pick argentino
+    # o uruguayo se estaba resolviendo como `slv_primera` (El Salvador)** y
+    # todo boliviano como `par_division`. Con la liga equivocada se leían la
+    # fiabilidad (Brier), la antigüedad del estado y los umbrales de Capa 1 de
+    # OTRA competición — de ahí que picks de River Plate salieran con «🔴 Alta
+    # incertidumbre» que en realidad era el histórico salvadoreño.
+    #
+    # El mismo fallo tumbaba la «Combinada segura del día» con un
+    # AttributeError: cargaba el motor de El Salvador y le pedía equipos
+    # argentinos.
+    #
+    # La solución es no adivinar: cada pick lleva ahora su `clave_liga` desde
+    # donde se genera, y el mapa por nombre queda solo como último recurso.
+    # -----------------------------------------------------------------------
     from config import LEAGUES as _LGN
     LIGA_A_CLAVE = {cfg.get('nombre', c): c for c, cfg in _LGN.items()}
     LIGA_A_CLAVE.update({'ATP': 'atp', 'WTA': 'wta', 'MLB': 'mlb', 'NBA': 'nba',
                          'Brasileirão Serie A': 'brasil',
                          'Primera División': 'argentina'})
     for p in capa1 + capa2 + list(r.get('candidatos') or []):
-        clave = LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower())
+        # v82: la clave REAL viaja en el pick; el nombre solo es respaldo.
+        clave = (p.get('clave_liga')
+                 or LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower()))
         p['brier'] = fiabilidad_liga(clave)
         p['fiabilidad'] = fiabilidad_label(clave, p['brier'])   # v52
         dias = (_dias_estado_obsoleto(clave, p.get('fecha'))
@@ -1589,7 +1692,9 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # uno propio; si no, es el `EV_EXTREMO` global de `edge_engine`, igual que
     # hasta ahora.
     def _techo_ev(p) -> float:
-        clave = LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower())
+        # v82: la clave REAL viaja en el pick; el nombre solo es respaldo.
+        clave = (p.get('clave_liga')
+                 or LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower()))
         return umbrales_liga(clave).get('ev_max', EV_EXTREMO)
 
     ev_extremo = [p for p in capa1 if (p.get('ev') or 0) > _techo_ev(p)]
@@ -1616,9 +1721,19 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # -----------------------------------------------------------------------
     try:
         import validacion_deportes as _vd
-        sin_edge = [p for p in capa1 if not _vd.tiene_edge(p.get('deporte'))]
+        # v82 — el veto por deporte es un juicio sobre el MODELO, y los picks
+        # de `valor_vs_sharp` no lo usan: apuestan la discrepancia entre casas.
+        # Aplicarles el veto los expulsaba por un defecto que no es suyo, y era
+        # justo lo que dejaba la Capa 1 sin tenis pese a tener edge validado
+        # (WTA: p5 +1,70 % en elección y +0,61 % en validación, n=2.436).
+        def _exento(p):
+            return bool(p.get('valor_mercado'))
+
+        sin_edge = [p for p in capa1
+                    if not _exento(p) and not _vd.tiene_edge(p.get('deporte'))]
         if sin_edge:
-            capa1 = [p for p in capa1 if _vd.tiene_edge(p.get('deporte'))]
+            capa1 = [p for p in capa1
+                     if _exento(p) or _vd.tiene_edge(p.get('deporte'))]
             for p in sin_edge:
                 p['sin_edge_deporte'] = True
                 p['nota'] = ((p.get('nota') or '') + ' ' +
@@ -1694,7 +1809,10 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     try:
         import edge_engine
         for p in capa1:
-            clave = LIGA_A_CLAVE.get(p.get('liga', ''), p.get('liga', '').lower())
+            # v82: la clave REAL viaja en el pick; el nombre solo es respaldo.
+            clave = (p.get('clave_liga')
+                     or LIGA_A_CLAVE.get(p.get('liga', ''),
+                                         p.get('liga', '').lower()))
             p['rentabilidad'] = edge_engine.clasificar_pick(p.get('ev'), clave)
     except Exception as e:
         logger.warning(f"[alpha] edge_engine no disponible: {e}")
@@ -1746,27 +1864,34 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
             # buenos» invitaba a buscar donde no hay nada; decir el motivo real
             # explica también cuándo volverán: cuando el ledger valide un
             # segundo deporte.
-            deportes_disp = sorted({p.get('deporte') for p in capa1 + capa1_prob})
-            _fuera = []
-            try:
-                import validacion_deportes as _vd2
-                for _d in ('Tenis', 'MLB', 'NBA'):
-                    if not _vd2.tiene_edge(_d):
-                        _fuera.append(_d)
-            except Exception:
-                pass
-            _msg = (f'Combinadas: no se pudo cruzar deportes hoy (material '
-                    f'disponible: {deportes_disp}).')
-            if _fuera:
-                _msg += (f' No es falta de probabilidad: {", ".join(_fuera)} '
-                         f'tienen picks pero están fuera de la Capa 1 por no '
-                         f'superar la regla de edge, y una pata sin edge '
-                         f'validado empeora la combinada en vez de mejorarla. '
-                         f'Volverán solas en cuanto el ledger las valide.')
+            # v82 — el aviso dice el motivo EXACTO, comprobándolo en vez de
+            # suponerlo. Ha ido cambiando dos veces porque la causa cambió: al
+                        # principio faltaban deportes, luego faltaba edge, y
+            # ahora que el tenis vuelve a la Capa 1 lo que falta puede ser
+            # simplemente que sus picks no lleguen al mínimo por pata.
+            _pool = capa1 + capa1_prob
+            _min = cross_sport_parlay.MIN_PROB_PATA
+            _aptos = {}
+            for _p in _pool:
+                if (_p.get('prob') or 0) >= _min:
+                    _aptos.setdefault(_p.get('deporte'), 0)
+                    _aptos[_p.get('deporte')] += 1
+            deportes_disp = sorted({p.get('deporte') for p in _pool})
+            _msg = (f'Combinadas: no se pudo cruzar deportes hoy. '
+                    f'Deportes en Capa 1: {deportes_disp}.')
+            if len(_aptos) >= 2:
+                _msg += (f' Hay patas de {len(_aptos)} deportes '
+                         f'({_aptos}) pero ninguna combinación superó los '
+                         f'filtros de probabilidad conjunta o cuota máxima.')
+            elif _aptos:
+                _dep, _n = next(iter(_aptos.items()))
+                _msg += (f' Solo {_dep} tiene picks con prob ≥ {_min:.0%} '
+                         f'({_n}); los de los demás deportes se quedan por '
+                         f'debajo de ese mínimo por pata, que existe porque '
+                         f'una pata floja arrastra a toda la combinada.')
             else:
-                _msg += (f' Hacen falta picks de al menos dos deportes '
-                         f'distintos con prob ≥ '
-                         f'{cross_sport_parlay.MIN_PROB_PATA:.0%}.')
+                _msg += (f' Ningún pick alcanza el mínimo por pata '
+                         f'({_min:.0%}).')
             incidencias.append(_msg)
     except Exception as e:
         combinadas = []

@@ -102,10 +102,9 @@
   Perfilado, no adivinado. El cuello no era la red: era el emparejamiento
   difuso de nombres (2,8 millones de llamadas a `normalizar` sobre un puñado de
   nombres distintos) y el `n_jobs=-1` heredado del entrenamiento, que gastaba
-  0,12 s **por predicción de una sola fila** en coordinar procesos. Prediciendo
-  fila a fila, como hace producción, el resultado es bit a bit idéntico
-  (`max|diferencia| = 0,0`); en lote difiere ~1e-16 por la no asociatividad de
-  la suma en coma flotante, no por el modelo.
+  0,12 s **por predicción de una sola fila** en coordinar procesos. La diferencia,
+  fila a fila o en lote, es del orden del epsilon de máquina (~1e-16) por la no
+  asociatividad de la suma en coma flotante, no por el modelo.
 - **🛡️ El tenis ya no puede desaparecer por un fallo de calibración.** El
   `AttributeError` que borró los 319 partidos del día venía de Streamlit, que
   conservaba en `sys.modules` un módulo de la v77. `calibracion_segura.py`

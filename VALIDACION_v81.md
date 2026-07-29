@@ -143,3 +143,89 @@ una hipótesis de qué señal nueva entra, y ahora mismo no la hay. Queda
 planteado, no ejecutado — y sin fingir que está a medias.
 
 ---
+
+---
+
+## 5. v82 — Un bug de identidad que envenenaba cinco competiciones
+
+Perseguir el «Combinada no disponible ahora (AttributeError)» llevó a algo
+bastante peor que una combinada rota.
+
+**Tres competiciones se llaman «Primera División»** (`argentina`,
+`uru_primera`, `slv_primera`) y **dos «División Profesional»** (`bol_division`,
+`par_division`). El código resolvía la liga **invirtiendo el mapa
+nombre→clave**, y al invertir un diccionario gana el último:
+
+```
+reverse('Primera División') -> slv_primera   (El Salvador)
+```
+
+Así que **todo pick argentino o uruguayo se resolvía como El Salvador**, y todo
+boliviano como Paraguay. Con la liga equivocada se leían:
+
+- la **fiabilidad** (Brier histórico) de otra competición — de ahí que picks de
+  River Plate salieran con «🔴 Alta incertidumbre» que era el histórico
+  salvadoreño;
+- la **antigüedad del estado** del modelo equivocado;
+- los **umbrales de Capa 1** de otra liga;
+- y en la combinada, se cargaba el motor de El Salvador y se le pedían equipos
+  argentinos → `AttributeError`.
+
+**Arreglado de raíz**: cada pick lleva ahora su `clave_liga` desde donde se
+genera. El nombre visible queda solo como último recurso. Test de no regresión
+que comprueba que el sistema no depende del nombre para identificar la liga.
+
+---
+
+## 6. v82 — El tenis vuelve a la Capa 1, y no por el modelo
+
+Llevamos varias versiones intentando que los modelos de tenis y MLB batan al
+mercado, sin conseguirlo, mientras **lo único con edge validado y estable de
+todo el proyecto no usa el modelo para nada**: `valor_vs_sharp`.
+
+La hipótesis era directa: si el edge vive en la **discrepancia entre casas** y
+no en nuestra predicción, debería existir también en tenis.
+
+**Y los datos ya estaban ahí.** tennis-data.co.uk publica en el mismo fichero
+`Odd_PS` (Pinnacle) y `Odd_Max` (la mejor del mercado): 26.397 partidos ATP y
+24.594 WTA. Ninguna fuente nueva.
+
+Con el protocolo de la v80 —elegir en el 70 % antiguo, validar en el 30 %
+reciente, ROI **y** p5 positivos en LOS DOS periodos—:
+
+| circuito | configuración | elección (70 %) | validación (30 %) |
+|---|---|---|---|
+| **WTA** | margen 1 % + prob ≥ 30 % | n=7.909 · ROI +4,68 % · p5 **+1,70 %** | n=2.436 · ROI **+4,22 %** · p5 **+0,61 %** |
+| ATP | ninguna robusta | varias positivas | **todas se hunden** |
+
+**WTA entra. ATP no**, y no se fuerza. Hay además un motivo independiente para
+desconfiar de la fuente del ATP: su `Odd_Max` supera a Pinnacle un **26,45 % de
+media** con mediana 1,72 %, o sea que tiene valores atípicos extremos. Antes de
+habilitarlo hay que limpiar esa columna, no bajar el listón.
+
+**Consecuencia arquitectónica.** El veto de `validacion_deportes` es un juicio
+sobre el **modelo** de un deporte. Aplicarlo a un pick que no usa el modelo lo
+expulsaba por un defecto que no es suyo — y era justo lo que mantenía la Capa 1
+sin tenis teniendo edge validado. Los picks de `valor_vs_sharp` quedan exentos.
+
+Resultado en vivo: Capa 1 pasa de 4 picks (solo fútbol) a **5, con tenis WTA
+incluido**.
+
+---
+
+## 7. v82 — Las combinadas: por qué siguen vacías, dicho con precisión
+
+El aviso ha cambiado dos veces en dos versiones porque **la causa cambió**:
+primero faltaban deportes, luego faltaba edge validado, y ahora que el tenis
+vuelve a la Capa 1 lo que falta es otra cosa. Ahora el aviso lo **comprueba**
+en vez de suponerlo:
+
+> *Deportes en Capa 1: ['Fútbol', 'Tenis']. Solo Fútbol tiene picks con prob
+> ≥ 55 % (11); los de los demás deportes se quedan por debajo de ese mínimo por
+> pata, que existe porque una pata floja arrastra a toda la combinada.*
+
+El pick de WTA de hoy tiene probabilidad 0,398 — es un pick de **precio**, no de
+probabilidad, y como pata de combinada sería malo. Que las combinadas sigan
+vacías es el comportamiento correcto, y ahora se entiende por qué sin tener que
+leer el código.
+

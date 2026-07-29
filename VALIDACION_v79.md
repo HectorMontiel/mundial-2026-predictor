@@ -242,8 +242,9 @@ evaluarlos. `inferencia_rapida.py` pone `n_jobs=1` al cargar.
 
 Verificado con una aceleración de **2,1×** y un matiz que conviene precisar,
 porque el test lo destapó: prediciendo **fila a fila** —que es lo que hace
-producción— el resultado es bit a bit idéntico (`max|diferencia| = 0,0` sobre
-60 predicciones). Prediciendo un **lote** aparece una diferencia de ~1e-16, y
+producción— la diferencia es del orden del epsilon de máquina (se observó
+`0,0` en 60 predicciones, y ~1e-16 de forma esporádica: ver la corrección en
+la v82). Prediciendo un **lote** aparece una diferencia de ~1e-16, y
 no es del modelo: sumar los votos de los árboles en distinto orden cambia el
 último bit, porque la suma en coma flotante no es asociativa. Ni siquiera es
 determinista entre ejecuciones, así que el test exige epsilon de máquina y no

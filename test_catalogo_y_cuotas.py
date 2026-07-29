@@ -755,8 +755,15 @@ def test_inferencia_rapida_no_cambia_nada():
     d_fila = max(float(_np.abs(m1.predict_proba(X[i:i + 1])
                                - m2.predict_proba(X[i:i + 1])).max())
                  for i in range(len(X)))
-    check(d_fila == 0.0,
-          f'prediciendo fila a fila el resultado es idéntico (dif = {d_fila:.1e})')
+    # v82 — la v79 exigía igualdad EXACTA aquí, y era una afirmación demasiado
+    # fuerte sacada de una sola observación que dio 0,0. El test resultó
+    # intermitente: fila a fila también aparece de vez en cuando una diferencia
+    # de ~1e-16. Es el mismo efecto que en lote —la suma en coma flotante no es
+    # asociativa— solo que más raro. Lo que se puede afirmar, y se afirma, es
+    # que la diferencia es del orden del epsilon de máquina y no puede mover
+    # ninguna decisión.
+    check(d_fila < 1e-12,
+          f'fila a fila la diferencia es epsilon de máquina (dif = {d_fila:.1e})')
     d_lote = float(_np.abs(m1.predict_proba(X) - m2.predict_proba(X)).max())
     check(d_lote < 1e-12,
           f'en lote la diferencia es epsilon de máquina, no del modelo '
@@ -857,6 +864,51 @@ def test_peso_modelo_insensible_a_mayusculas():
           'una clave vacía sigue devolviendo w=1,0 (no hay liga que calibrar)')
 
 
+def test_nombre_de_liga_no_identifica_liga():
+    """El nombre visible de una liga NO es su identidad.
+
+    Tres competiciones se llaman «Primera División» (argentina, uru_primera,
+    slv_primera) y dos «División Profesional» (bol_division, par_division). El
+    código invertía el mapa nombre→clave, y al invertir gana el último: todo
+    pick argentino se resolvía como **El Salvador**. Con la liga equivocada se
+    leían la fiabilidad, la antigüedad del estado y los umbrales de otra
+    competición, y la «Combinada segura del día» moría con un AttributeError
+    al pedirle equipos argentinos al motor salvadoreño.
+    """
+    from collections import Counter
+    try:
+        from config import LEAGUES
+    except Exception as e:
+        check(False, f'config.LEAGUES importable ({e})')
+        return
+    nombres = Counter(cfg.get('nombre', c) for c, cfg in LEAGUES.items())
+    duplicados = {n: v for n, v in nombres.items() if v > 1}
+    # No se exige que no haya duplicados —son nombres reales— sino que el
+    # sistema NO dependa de ellos para identificar la liga.
+    check(bool(duplicados),
+          f'hay nombres de liga repetidos, como se esperaba ({len(duplicados)})')
+
+    import alpha_finder as af
+    src = open(af.__file__, encoding='utf-8').read()
+    check("p.get('clave_liga')" in src,
+          'alpha_finder resuelve la liga por CLAVE, no por nombre visible')
+    check("'clave_liga': clave" in src or "'clave_liga': liga" in src,
+          'los picks de fútbol llevan su clave_liga')
+
+
+def test_dashboard_usa_clave_de_liga():
+    """La UI tampoco puede deducir la liga del nombre (mismo motivo)."""
+    ruta = 'dashboard_ui.py'
+    if not os.path.exists(ruta):
+        print('AVISO dashboard_ui.py no encontrado; se omite')
+        return
+    src = open(ruta, encoding='utf-8').read()
+    check("cand_combo.get('clave_liga')" in src,
+          'la Combinada segura usa la clave del pick, no el nombre invertido')
+    check('¼ Kelly simultáneo' in src or '¼ Kelly' in src,
+          'el pie de exposición refleja la fracción de Kelly vigente (¼)')
+
+
 def test_memoizacion_no_cambia_el_emparejamiento():
     """El atajo de `_sim_club` sin tokens comunes es demostrablemente inocuo:
     nunca puede alcanzar el umbral 0,80 que exige `_buscar`."""
@@ -911,6 +963,8 @@ if __name__ == '__main__':
     test_mlb_statsapi_mapea_la_liga()
     print('\n=== v79: resiliencia y rendimiento ===')
     test_calibracion_segura_degrada()
+    test_nombre_de_liga_no_identifica_liga()
+    test_dashboard_usa_clave_de_liga()
     test_peso_modelo_insensible_a_mayusculas()
     test_inferencia_rapida_no_cambia_nada()
     test_memoizacion_no_cambia_el_emparejamiento()
