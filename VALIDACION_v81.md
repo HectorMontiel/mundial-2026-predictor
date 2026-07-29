@@ -229,3 +229,42 @@ probabilidad, y como pata de combinada sería malo. Que las combinadas sigan
 vacías es el comportamiento correcto, y ahora se entiende por qué sin tener que
 leer el código.
 
+
+---
+
+## 8. v83 — MLB entra por la misma puerta que el tenis
+
+El ledger no guarda ancla de Pinnacle para MLB, así que la estrategia que
+devolvió el tenis a la Capa 1 no se podía medir ahí. **Pero la fuente sí tenía
+con qué**: `sportsbookreviewsonline` publica el moneyline de **apertura** y el
+de **cierre**, y solo se ingería el cierre.
+
+Con los dos se reconstruye la misma estructura —precio tomable temprano contra
+referencia eficiente— que es CLV puro, y es lo que la app hace de forma natural
+al tomar precios con días de antelación.
+
+**27.977 juegos**, con el cierre alineado (log-loss 0,6738 < ln 2):
+
+| configuración | elección (70 %) | validación (30 %) |
+|---|---|---|
+| margen 1 % | n=7.114 · ROI +6,64 % · p5 +4,63 % | n=3.426 · ROI +4,40 % · p5 **+1,52 %** |
+| **margen 2 % + prob ≥ 30 %** | n=5.474 · ROI +7,27 % · p5 **+5,05 %** | n=2.658 · ROI **+5,01 %** · p5 **+1,67 %** |
+| margen 5 % | n=2.261 · ROI +9,70 % · p5 +6,00 % | n=1.209 · ROI **+10,15 %** · p5 +4,84 % |
+
+Lo que da confianza no es ese punto concreto sino **la forma de la tabla: 16 de
+las 20 configuraciones probadas son positivas en LOS DOS periodos**. En tenis
+solo lo fueron 2 de 15. Eso no es un máximo afortunado, es una superficie
+estable — y es la diferencia entre una regla y una casualidad.
+
+**Matiz honesto**: la medición usa el CIERRE como referencia sharp y producción
+usa a Pinnacle AHORA. No son idénticos. Lo que queda validado es el mecanismo
+—el precio temprano bate al precio eficiente en MLB— y la implementación es la
+misma que ya está validada en fútbol con Pinnacle como ancla.
+
+**Estado en vivo**: hoy la vía comparó 43 partidos de MLB contra Pinnacle y
+encontró **cero** con precio descolgado por encima del 2 %. Eso no es un fallo:
+Pinnacle publica 26 partidos y Playdoit 38, y hoy coinciden. Para que no
+parezca que la función está apagada, el barrido emite ahora una incidencia con
+el recuento — «43 comparados, 0 descolgados» dice algo muy distinto de un
+silencio.
+

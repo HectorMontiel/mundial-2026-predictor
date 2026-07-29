@@ -156,6 +156,11 @@ def parsear(d: pd.DataFrame, anio: int) -> List[dict]:
     asignaría cuotas a juegos equivocados sin dar ningún error.
     """
     cols = {c.strip().lower(): c for c in d.columns}
+    # v83 — se lee tambien `Open`. La fuente publica la linea de APERTURA y la
+    # de CIERRE, y hasta ahora solo se ingeria el cierre. Con las dos se puede
+    # medir la estrategia que si funciono en WTA: precio tomable (apertura)
+    # contra referencia eficiente (cierre). Es accionable porque la app toma
+    # precios con dias de antelacion, no al cierre.
     req = ('date', 'vh', 'team', 'final', 'close')
     if not all(k in cols for k in req):
         logger.warning(f"[mlb {anio}] faltan columnas: {sorted(set(req) - set(cols))}")
@@ -163,6 +168,8 @@ def parsear(d: pd.DataFrame, anio: int) -> List[dict]:
     d = d.rename(columns={cols['date']: 'Date', cols['vh']: 'VH',
                           cols['team']: 'Team', cols['final']: 'Final',
                           cols['close']: 'Close'})
+    if 'open' in cols:
+        d = d.rename(columns={cols['open']: 'Open'})
     d = d[d['VH'].astype(str).str.upper().isin(['V', 'H'])].reset_index(drop=True)
 
     salida, saltadas = [], 0
@@ -189,8 +196,11 @@ def parsear(d: pd.DataFrame, anio: int) -> List[dict]:
             continue
         cv = _american_a_decimal(v.get('Close'))
         cl = _american_a_decimal(h.get('Close'))
+        av = _american_a_decimal(v.get('Open')) if 'Open' in d.columns else None
+        al = _american_a_decimal(h.get('Open')) if 'Open' in d.columns else None
         if cv and cl:
             salida.append({
+                'apertura_visitante': av, 'apertura_local': al,
                 'fecha': fecha.isoformat(),
                 'visitante': _codigo(v['Team']),
                 'local': _codigo(h['Team']),
