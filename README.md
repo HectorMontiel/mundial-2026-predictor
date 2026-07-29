@@ -48,6 +48,23 @@
   edge**. Esta versión lo deja **a la vista con una incidencia explícita** en
   la interfaz; arreglarlo exige histórico de cuotas sudamericano y es la
   prioridad de la v80.
+- **🎾 Tenis: la WTA adopta 13 features, el ATP no — y la diferencia la decide
+  un contraste, no un umbral a ojo.** Se remidieron las 5 variantes de vector en
+  los dos circuitos. El A/B automático dijo «adoptar» en ambos, y era un
+  espejismo: el umbral lo había fijado yo y las dos ganancias caían justo
+  encima, con **10 combinaciones probadas**. Un **bootstrap pareado** (5.000
+  remuestreos sobre la diferencia partido a partido) lo resuelve: **ATP no
+  sobrevive** (IC 90 % toca el cero, p1 Bonferroni −0,00037) y **la WTA sí**
+  (100 % de remuestreos positivos, p1 +0,00047). WTA reentrenada: precisión
+  **0,6341 → 0,6401**. Aun así **el tenis sigue fuera de la Capa 1**: su ROI
+  pasa a +1,85 % pero sobre **112 apuestas en vez de 1.971** y con p5 −9,55 %
+  — eso no es edge, es una muestra más pequeña.
+- **🔇 Dos fallos silenciosos que me hice yo al reconstruir.** Reconstruir un
+  deporte **borraba a los demás** del ledger (64.587 filas de tenis
+  desaparecieron sin aviso, y de ese fichero sale qué deportes entran en Capa
+  1). Y la **caja de la clave** decidía si un deporte se calibraba:
+  `peso_modelo('atp')` daba 1,00 y `peso_modelo('ATP')` 0,25, así que el tenis
+  se quedaba sin encoger en silencio. Los dos corregidos y con test.
 - **🔬 Lo que se midió y se rechazó.** Ocho features nuevas para MLB (abridor
   encogido, factor de parque, ELO por margen, descanso del abridor): **no
   mejoran** (log-loss 0,6834 vs 0,6833; precisión 0,5599 vs 0,5647). El ratio

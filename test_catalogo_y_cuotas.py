@@ -805,6 +805,46 @@ def test_mlb_statsapi_mapea_la_liga():
           'los dos nombres de los Athletics caen en el mismo código')
 
 
+def test_peso_modelo_insensible_a_mayusculas():
+    """La caja de la clave no puede decidir si un deporte se calibra o no.
+
+    `ledger_tenis` escribe `liga` como `circuito.upper()` y `ledger_mlb` en
+    minúsculas, así que `calibracion_mercado.json` acabó con «ATP»/«WTA» en
+    mayúsculas mientras producción pregunta por «atp»/«wta». Medido antes del
+    arreglo: `peso_modelo('atp')` daba 1,00 y `peso_modelo('ATP')` 0,25 — el
+    tenis se quedaba sin encoger EN SILENCIO, justo después de que la v78
+    midiera que encoger le da +2,6 pp (ATP) y +2,4 pp (WTA) de precisión.
+    """
+    import json as _j
+    try:
+        import calibracion_mercado as cm_cal
+    except Exception as e:
+        check(False, f'calibracion_mercado importable ({e})')
+        return
+    if not os.path.exists('calibracion_mercado.json'):
+        print('AVISO no hay tabla de calibración; se omite')
+        return
+    with open('calibracion_mercado.json', encoding='utf-8') as f:
+        ligas = (_j.load(f).get('ligas') or {})
+    if not ligas:
+        print('AVISO tabla de calibración vacía; se omite')
+        return
+    clave = next(iter(ligas))
+    w_bajo = cm_cal.peso_modelo(clave.lower())
+    w_alto = cm_cal.peso_modelo(clave.upper())
+    check(w_bajo == w_alto and w_bajo < 1.0,
+          f"'{clave}' pesa igual en mayúsculas y minúsculas "
+          f"({w_alto:.2f} / {w_bajo:.2f})")
+    # los deportes que producción consulta en minúsculas deben resolver
+    for dep in ('atp', 'wta', 'mlb'):
+        if dep in {k.lower() for k in ligas}:
+            check(cm_cal.peso_modelo(dep) < 1.0,
+                  f"'{dep}' resuelve su peso tal como lo pide producción "
+                  f"({cm_cal.peso_modelo(dep):.2f})")
+    check(cm_cal.peso_modelo('liga_inventada_v79') == 1.0,
+          'una liga desconocida sigue devolviendo w=1,0 (sin corrección)')
+
+
 def test_memoizacion_no_cambia_el_emparejamiento():
     """El atajo de `_sim_club` sin tokens comunes es demostrablemente inocuo:
     nunca puede alcanzar el umbral 0,80 que exige `_buscar`."""
@@ -859,6 +899,7 @@ if __name__ == '__main__':
     test_mlb_statsapi_mapea_la_liga()
     print('\n=== v79: resiliencia y rendimiento ===')
     test_calibracion_segura_degrada()
+    test_peso_modelo_insensible_a_mayusculas()
     test_inferencia_rapida_no_cambia_nada()
     test_memoizacion_no_cambia_el_emparejamiento()
     test_ledger_total_reproducible()

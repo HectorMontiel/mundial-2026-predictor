@@ -1,49 +1,49 @@
 {
  "generado_de": "pick_ledger_total.csv",
- "n_total": 89753,
+ "n_total": 89748,
  "bandas": [
   {
    "desde": 0.5,
    "hasta": 0.55,
-   "n": 13765,
-   "acierto": 0.5195,
+   "n": 13758,
+   "acierto": 0.5196,
    "prob_media_modelo": 0.5248,
    "sesgo": 0.0053,
-   "roi": -0.0532,
-   "p5": -0.0668,
+   "roi": -0.053,
+   "p5": -0.0655,
    "cuota_media": 1.838
   },
   {
    "desde": 0.55,
    "hasta": 0.6,
-   "n": 12768,
-   "acierto": 0.5677,
-   "prob_media_modelo": 0.5746,
-   "sesgo": 0.0069,
-   "roi": -0.0521,
-   "p5": -0.0647,
+   "n": 12779,
+   "acierto": 0.5694,
+   "prob_media_modelo": 0.5745,
+   "sesgo": 0.0051,
+   "roi": -0.0491,
+   "p5": -0.0615,
    "cuota_media": 1.676
   },
   {
    "desde": 0.6,
    "hasta": 0.65,
-   "n": 8676,
-   "acierto": 0.6113,
-   "prob_media_modelo": 0.621,
-   "sesgo": 0.0096,
-   "roi": -0.0441,
-   "p5": -0.0578,
+   "n": 8687,
+   "acierto": 0.6108,
+   "prob_media_modelo": 0.6209,
+   "sesgo": 0.0101,
+   "roi": -0.0453,
+   "p5": -0.0586,
    "cuota_media": 1.566
   },
   {
    "desde": 0.65,
    "hasta": 0.7,
-   "n": 1499,
-   "acierto": 0.6157,
+   "n": 1483,
+   "acierto": 0.6109,
    "prob_media_modelo": 0.6632,
-   "sesgo": 0.0475,
-   "roi": -0.0583,
-   "p5": -0.0903,
+   "sesgo": 0.0522,
+   "roi": -0.0654,
+   "p5": -0.0968,
    "cuota_media": 1.532
   },
   {
@@ -54,7 +54,7 @@
    "prob_media_modelo": 0.7166,
    "sesgo": 0.0221,
    "roi": 0.1263,
-   "p5": -0.0207,
+   "p5": -0.0221,
    "cuota_media": 1.676
   },
   {
@@ -65,26 +65,26 @@
    "prob_media_modelo": 0.7957,
    "sesgo": 0.2179,
    "roi": -0.0647,
-   "p5": -0.2698,
+   "p5": -0.2709,
    "cuota_media": 1.626
   }
  ],
  "umbrales": [
   {
    "umbral": 0.6,
-   "n": 10292,
-   "pct_partidos": 0.1147,
-   "acierto": 0.6124,
-   "roi": -0.0451,
-   "p5": -0.057
+   "n": 10287,
+   "pct_partidos": 0.1146,
+   "acierto": 0.6113,
+   "roi": -0.0471,
+   "p5": -0.0592
   },
   {
    "umbral": 0.65,
-   "n": 1616,
-   "pct_partidos": 0.018,
-   "acierto": 0.6182,
-   "roi": -0.0502,
-   "p5": -0.0813
+   "n": 1600,
+   "pct_partidos": 0.0178,
+   "acierto": 0.6138,
+   "roi": -0.0568,
+   "p5": -0.0866
   },
   {
    "umbral": 0.7,
@@ -92,7 +92,7 @@
    "pct_partidos": 0.0013,
    "acierto": 0.6496,
    "roi": 0.0528,
-   "p5": -0.0646
+   "p5": -0.072
   },
   {
    "umbral": 0.75,
@@ -100,7 +100,7 @@
    "pct_partidos": 0.0005,
    "acierto": 0.5778,
    "roi": -0.0647,
-   "p5": -0.2592
+   "p5": -0.264
   },
   {
    "umbral": 0.8,

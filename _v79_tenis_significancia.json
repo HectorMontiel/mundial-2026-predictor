@@ -1,0 +1,34 @@
+[
+ {
+  "circuito": "atp",
+  "n": 32813,
+  "ll_produccion": 0.62264,
+  "ll_candidato": 0.62177,
+  "precision_produccion": 0.6429,
+  "precision_candidato": 0.6458,
+  "delta_medio": 0.00088,
+  "ic90": [
+   0.0,
+   0.0018
+  ],
+  "frac_positiva": 0.951,
+  "p1_bonferroni": -0.00037,
+  "veredicto": "NO ADOPTAR — indistinguible del ruido tras corregir por comparaciones múltiples"
+ },
+ {
+  "circuito": "wta",
+  "n": 25319,
+  "ll_produccion": 0.62884,
+  "ll_candidato": 0.62776,
+  "precision_produccion": 0.639,
+  "precision_candidato": 0.6428,
+  "delta_medio": 0.00108,
+  "ic90": [
+   0.00066,
+   0.00149
+  ],
+  "frac_positiva": 1.0,
+  "p1_bonferroni": 0.00047,
+  "veredicto": "ADOPTAR"
+ }
+]

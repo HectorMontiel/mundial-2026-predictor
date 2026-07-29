@@ -377,6 +377,30 @@ def construir(deporte: Optional[str] = None) -> pd.DataFrame:
     if not validas:
         raise RuntimeError('ningún ledger pasó la verificación de alineación')
     out = pd.concat(validas, ignore_index=True)
+
+    # v79 — RECONSTRUIR UN DEPORTE NO PUEDE BORRAR A LOS OTROS.
+    #
+    # Con `--deporte mlb` esta función escribía el CSV entero con solo MLB, y
+    # las 64.587 filas de tenis desaparecían sin un aviso. Pasó de verdad en
+    # esta versión: el ledger total siguió tan campante con datos viejos y los
+    # tests continuaron dando por buenos los números de la v78 durante un rato.
+    # Es grave porque de este fichero sale QUÉ DEPORTES ENTRAN EN LA CAPA 1.
+    #
+    # Ahora, al reconstruir un subconjunto, los deportes que no se han tocado
+    # se conservan del fichero anterior.
+    if deporte is not None and os.path.exists(SALIDA_CSV):
+        try:
+            previo = pd.read_csv(SALIDA_CSV, low_memory=False)
+            nuevos = set(out['deporte'].unique())
+            conservar = previo[~previo['deporte'].isin(nuevos)]
+            if not conservar.empty:
+                logger.info(f"[ledger] se conservan {len(conservar)} filas de "
+                            f"{sorted(conservar['deporte'].unique())} "
+                            f"(no se reconstruyeron en esta pasada)")
+                out = pd.concat([conservar, out], ignore_index=True)
+        except Exception as e:
+            logger.warning(f'[ledger] no se pudo leer el ledger previo: {e}')
+
     out.to_csv(SALIDA_CSV, index=False)
     meta = {'generado': _ahora(), 'filas': int(len(out)),
             'por_deporte': {k: int(v) for k, v in out['deporte'].value_counts().items()},

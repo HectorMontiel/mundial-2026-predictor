@@ -1,13 +1,13 @@
 {
- "total_s": 107.73,
- "import_s": 0.9,
+ "total_s": 80.79,
+ "import_s": 0.95,
  "fases": {
   "alpha_finder._picks_mlb": {
-   "s": 12.96,
+   "s": 12.37,
    "n": 1
   },
   "alpha_finder._picks_tenis": {
-   "s": 61.5,
+   "s": 33.49,
    "n": 1
   },
   "alpha_finder._picks_nba": {
@@ -15,21 +15,21 @@
    "n": 1
   },
   "alpha_finder._cuotas_tenis_multi": {
-   "s": 2.55,
+   "s": 0.03,
    "n": 1
   },
   "alpha_finder._barrido_fixtures": {
-   "s": 102.36,
+   "s": 74.15,
    "n": 1
   },
   "alpha_finder.apuestas_del_dia": {
-   "s": 107.58,
+   "s": 80.65,
    "n": 1
   }
  },
  "conteo": {
-  "capa1": 10,
-  "capa2": 33,
+  "capa1": 15,
+  "capa2": 25,
   "candidatos": 15,
   "confianza": 0
  },

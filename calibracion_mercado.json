@@ -1,22 +1,30 @@
 {
- "generado": "2026-07-29T08:08:25Z",
+ "generado": "2026-07-29T14:02:58Z",
  "nota": "v75. Peso del modelo frente al cierre devigado (Pinnacle, método potencia). Elegido por log-loss fuera de muestra con encogimiento jerárquico hacia el w global y validado en un pliegue que no participó en la selección. Liga ausente = w=1 = sin corrección. Sustituye a los w de la v71, que salían de 4-11 partidos por liga.",
  "w_global": 0.25,
  "global": {
-  "logloss_antes": 0.8055,
-  "logloss_despues": 0.7854,
+  "logloss_antes": 0.8056,
+  "logloss_despues": 0.7855,
   "delta_logloss": 0.0201,
-  "acc_antes": 0.5801,
-  "acc_despues": 0.599,
-  "delta_acc": 0.0189
+  "acc_antes": 0.5808,
+  "acc_despues": 0.5987,
+  "delta_acc": 0.018
  },
  "ligas": {
-  "atp": {
+  "ATP": {
    "w": 0.25,
-   "sesgo_pick": -0.0039,
-   "n_partidos": 30324,
-   "delta_logloss": 0.021,
-   "delta_acc": 0.026,
+   "sesgo_pick": -0.0035,
+   "n_partidos": 30321,
+   "delta_logloss": 0.0207,
+   "delta_acc": 0.0256,
+   "ancla": "mercado"
+  },
+  "WTA": {
+   "w": 0.25,
+   "sesgo_pick": -0.0113,
+   "n_partidos": 15880,
+   "delta_logloss": 0.0241,
+   "delta_acc": 0.0183,
    "ancla": "mercado"
   },
   "bel_pro_league": {
@@ -234,14 +242,6 @@
    "delta_logloss": 0.0019,
    "delta_acc": 0.0101,
    "ancla": "pinnacle"
-  },
-  "wta": {
-   "w": 0.25,
-   "sesgo_pick": -0.0068,
-   "n_partidos": 15882,
-   "delta_logloss": 0.0235,
-   "delta_acc": 0.0238,
-   "ancla": "mercado"
   }
  }
 }

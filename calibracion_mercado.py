@@ -87,12 +87,41 @@ W_MIN, W_MAX = 0.25, 0.90
 
 
 def _tabla() -> dict:
+    """
+    Tabla de pesos, indexada en MINÚSCULAS.
+
+    v79 — la clave venía con la caja que le tocara según quién construyera el
+    ledger: `build_ledger_deportes.ledger_tenis` escribe `liga` como
+    `circuito.upper()` («ATP», «WTA») y `ledger_mlb` la escribe en minúsculas
+    («mlb»). `recalibrate_from_history` usa esa columna tal cual como clave del
+    JSON, así que el fichero acababa con «ATP» y «WTA» en mayúsculas.
+
+    Producción, en cambio, pregunta en minúsculas: `alpha_finder._picks_tenis`
+    llama con `eng.circuito.lower()`. Resultado medido:
+
+        peso_modelo('atp') -> 1.00      peso_modelo('ATP') -> 0.25
+        peso_modelo('wta') -> 1.00      peso_modelo('WTA') -> 0.25
+
+    O sea: el tenis se quedaba **sin encoger, en silencio**, justo después de
+    que la v78 midiera que encoger le mejora la precisión +2,6 pp (ATP) y
+    +2,4 pp (WTA). Ningún error, ninguna traza: solo w=1 y picks más
+    sobreconfiados.
+
+    Se normaliza al leer, que arregla el fichero actual y cualquier otro que
+    escriba un constructor futuro con otra convención de caja.
+    """
     if 'datos' not in _CACHE:
         datos = {}
         try:
             if os.path.exists(ARCHIVO):
                 with open(ARCHIVO, encoding='utf-8') as f:
-                    datos = json.load(f).get('ligas') or {}
+                    crudo = json.load(f).get('ligas') or {}
+                for k, v in crudo.items():
+                    datos[str(k).strip().lower()] = v
+                if len(datos) != len(crudo):
+                    logger.warning(
+                        f"[calibracion] {len(crudo) - len(datos)} claves de "
+                        f"{ARCHIVO} colisionan al normalizar la caja")
         except Exception as e:
             logger.warning(f"[calibracion] no se pudo leer {ARCHIVO}: {e}")
         _CACHE['datos'] = datos
@@ -100,8 +129,13 @@ def _tabla() -> dict:
 
 
 def peso_modelo(clave_liga: str) -> float:
-    """Peso `w` del modelo frente al mercado en esa liga (1.0 = sin corrección)."""
-    info = _tabla().get(clave_liga)
+    """Peso `w` del modelo frente al mercado en esa liga (1.0 = sin corrección).
+
+    La búsqueda es INSENSIBLE A MAYÚSCULAS a propósito: ver `_tabla`.
+    """
+    if not clave_liga:
+        return 1.0
+    info = _tabla().get(str(clave_liga).strip().lower())
     if not info:
         return 1.0
     try:

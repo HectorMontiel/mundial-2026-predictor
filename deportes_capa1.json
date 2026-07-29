@@ -1,5 +1,5 @@
 {
- "generado": "2026-07-29T08:08:14Z",
+ "generado": "2026-07-29T14:02:02Z",
  "regla": "Un deporte entra en la Capa 1 accionable solo si, con ALGÚN peso de calibración, su ROI fuera de muestra es positivo Y su bootstrap p5 también. Es la misma regla que dejó fuera el Over/Under 2.5 en la v44.",
  "nota": "Sin medición = se permite. No se castiga la falta de datos, se castiga la evidencia en contra.",
  "deportes": {
@@ -144,72 +144,72 @@
   },
   "Tenis": {
    "edge_validado": false,
-   "mejor_w": 0.7,
-   "mejor_roi": -0.0054,
-   "p5_mejor": -0.0614,
-   "n_mejor": 1971,
-   "hit_mejor": 0.5677,
+   "mejor_w": 0.3,
+   "mejor_roi": 0.0185,
+   "p5_mejor": -0.0955,
+   "n_mejor": 112,
+   "hit_mejor": 0.6518,
    "umbral_prob": 0.65,
    "curva": [
     {
      "w": 1.0,
-     "n": 3666,
-     "roi": -0.0503,
-     "p5": -0.087,
-     "hit": 0.5327
+     "n": 3513,
+     "roi": -0.0444,
+     "p5": -0.0816,
+     "hit": 0.5354
     },
     {
      "w": 0.9,
-     "n": 3133,
-     "roi": -0.0428,
-     "p5": -0.0833,
-     "hit": 0.541
+     "n": 3009,
+     "roi": -0.0368,
+     "p5": -0.0802,
+     "hit": 0.544
     },
     {
      "w": 0.8,
-     "n": 2534,
-     "roi": -0.0255,
-     "p5": -0.0717,
-     "hit": 0.5552
+     "n": 2455,
+     "roi": -0.0229,
+     "p5": -0.0728,
+     "hit": 0.556
     },
     {
      "w": 0.7,
-     "n": 1971,
-     "roi": -0.0054,
-     "p5": -0.0614,
-     "hit": 0.5677
+     "n": 1926,
+     "roi": -0.0019,
+     "p5": -0.0617,
+     "hit": 0.5685
     },
     {
      "w": 0.6,
-     "n": 1401,
-     "roi": -0.0716,
-     "p5": -0.1059,
-     "hit": 0.5796
+     "n": 1378,
+     "roi": -0.0856,
+     "p5": -0.1219,
+     "hit": 0.5704
     },
     {
      "w": 0.5,
-     "n": 884,
-     "roi": -0.0848,
-     "p5": -0.1285,
-     "hit": 0.5769
+     "n": 865,
+     "roi": -0.0838,
+     "p5": -0.1304,
+     "hit": 0.578
     },
     {
      "w": 0.4,
-     "n": 438,
-     "roi": -0.0605,
-     "p5": -0.1211,
-     "hit": 0.5982
+     "n": 426,
+     "roi": -0.0819,
+     "p5": -0.1423,
+     "hit": 0.5845
     },
     {
      "w": 0.3,
-     "n": 115,
-     "roi": -0.0083,
-     "p5": -0.1183,
-     "hit": 0.6348
+     "n": 112,
+     "roi": 0.0185,
+     "p5": -0.0955,
+     "hit": 0.6518
     },
     {
      "w": 0.25,
-     "n": 44
+     "n": 43
     }
    ]
   }

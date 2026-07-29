@@ -68,7 +68,38 @@ CIRCUITOS = {
             'features': None},          # None → se resuelve más abajo
 }
 # Vector por defecto de cada circuito cuando `metadata.json` no dice otra cosa.
-FEATURES_POR_DEFECTO = {'atp': 'FEATURES_V30', 'wta': 'FEATURES_V35'}
+#
+# v79 — LA WTA PASA A FEATURES_V67 (13 features, con contexto de nivel).
+#
+# Las features de nivel se midieron en la v67 y se DESCARTARON, y las de saque
+# en la v69 también. Aquellas decisiones se tomaron antes de que existiera el
+# walk-forward con cuota real, así que se volvieron a medir las cinco variantes
+# en los dos circuitos con el mismo protocolo y el mismo estimador
+# (`_v79_tenis_features.py`, 5 vectores × 2 circuitos × 5 pliegues).
+#
+# El primer A/B dijo «adoptar» en los dos circuitos, y era un espejismo: el
+# umbral (Δ log-loss > 0,001) lo había fijado yo a ojo y las dos ganancias
+# caían justo encima. Con 10 combinaciones probadas, quedarse con la mejor y
+# llamarlo mejora es el error de comparaciones múltiples que este proyecto ya
+# evitó en la v33 (ELO ataque/defensa) y en la v35 (CDI en UECL).
+#
+# Lo que decide es un BOOTSTRAP PAREADO sobre la diferencia de log-loss partido
+# a partido (`_v79_tenis_significancia.py`, 5.000 remuestreos), pareado porque
+# los dos vectores predicen los MISMOS partidos y así se cancela la varianza
+# compartida:
+#
+#     ATP  V30 -> V69-WTA   Δ +0,00088   IC90 [+0,00000, +0,00180]
+#                            95,1 % positivo   p1 Bonferroni −0,00037  -> NO
+#     WTA  V35 -> V67       Δ +0,00108   IC90 [+0,00066, +0,00149]
+#                           100,0 % positivo   p1 Bonferroni +0,00047  -> SÍ
+#
+# El ATP no sobrevive: su intervalo toca el cero y tras corregir por las cinco
+# variantes queda en negativo. La WTA sí: 5.000 de 5.000 remuestreos positivos.
+# Precisión WTA 0,6390 -> 0,6428 (+0,38 pp).
+#
+# OJO: cambiar esto OBLIGA a reentrenar la WTA. El modelo guardado espera 10
+# columnas y pasaría a recibir 13 — es exactamente el aviso que dejó la v67.
+FEATURES_POR_DEFECTO = {'atp': 'FEATURES_V30', 'wta': 'FEATURES_V67'}
 CARPETA = CIRCUITOS['atp']['carpeta']          # compatibilidad v30-v34
 DATASET = CIRCUITOS['atp']['dataset']
 FEATURES = ['DIFF_ELO_SUP', 'DIFF_ELO_GLOBAL', 'DIFF_RANK_LOG',

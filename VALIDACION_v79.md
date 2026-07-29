@@ -286,6 +286,124 @@ Y en cuanto se pudo auditar, apareció lo que sigue.
 
 ---
 
+## 7 bis. Tenis: el A/B automático dijo «adoptar» dos veces y se equivocó una
+
+Se remidieron las cinco variantes de vector en los dos circuitos con el mismo
+protocolo, el mismo estimador y los mismos pliegues
+(`_v79_tenis_features.py`, 5 vectores × 2 circuitos × 5 pliegues). Las features
+de nivel se habían descartado en la v67 y las de saque en la v69, pero aquellas
+decisiones son anteriores al walk-forward con cuota real.
+
+| circuito | vector | n | log-loss | precisión | ll mercado |
+|---|---|---|---|---|---|
+| ATP | **V30 (producción)** | 32.811 | 0,6228 | 0,6430 | 0,5844 |
+| ATP | V69-WTA (V35+saque) | 32.811 | **0,6217** | **0,6443** | 0,5844 |
+| WTA | **V35 (producción)** | 25.317 | 0,6289 | 0,6404 | 0,5853 |
+| WTA | V67 (con nivel) | 25.317 | **0,6279** | **0,6429** | 0,5853 |
+
+El script imprimió **ADOPTAR en los dos**, y era un espejismo: el umbral
+(Δ log-loss > 0,001) lo había fijado yo a ojo y las dos ganancias caían justo
+encima. Con **10 combinaciones probadas**, quedarse con la mejor de cada
+circuito y llamarlo mejora es el error de comparaciones múltiples que este
+proyecto ya evitó en la v33 (ELO ataque/defensa) y en la v35 (CDI en UECL).
+
+Lo que decide es un **bootstrap pareado** sobre la diferencia de log-loss
+partido a partido (`_v79_tenis_significancia.py`, 5.000 remuestreos). Pareado
+porque los dos vectores predicen **los mismos partidos**, así que la varianza
+compartida se cancela y el contraste es mucho más sensible que comparar dos
+medias sueltas:
+
+| circuito | Δ log-loss | IC 90 % pareado | remuestreos > 0 | p1 Bonferroni | veredicto |
+|---|---|---|---|---|---|
+| **ATP** | +0,00088 | [**+0,00000**, +0,00180] | 95,1 % | **−0,00037** | **NO adoptar** |
+| **WTA** | +0,00108 | [+0,00066, +0,00149] | **100,0 %** | **+0,00047** | **ADOPTAR** |
+
+El ATP no sobrevive: su intervalo **toca el cero** y, tras corregir por las
+cinco variantes probadas, queda en negativo. La WTA sí: 5.000 de 5.000
+remuestreos positivos y el percentil 1 aún por encima de cero. Precisión WTA
+**0,6390 → 0,6428 (+0,38 pp)**.
+
+Se adopta **solo la WTA** (`FEATURES_POR_DEFECTO['wta'] = FEATURES_V67`), con
+el reentrenamiento que exige el cambio de 10 a 13 columnas — el aviso que dejó
+escrito la propia v67.
+
+Dos cosas que conviene no perder de vista:
+
+- **Esto no rescata al tenis.** El mercado está en 0,584 (ATP) y 0,585 (WTA)
+  frente a 0,622-0,628 del modelo: la brecha es de ~0,037, unas **treinta
+  veces** la mejora medida. El tenis sigue fuera de la Capa 1 salvo que el
+  ledger diga otra cosa, y se comprueba en vez de suponerlo.
+- **Coherencia entre circuitos.** Los mismos dos vectores de 13 features ganan
+  en ATP y en WTA. Eso es evidencia débil pero real de que hay señal en las
+  features de nivel; lo que dice el contraste es que en el ATP esa señal es
+  demasiado pequeña para distinguirla del ruido con la muestra disponible.
+
+_(De paso, una lección de fontanería que costó 50 minutos: la primera ejecución
+del contraste murió por un `UnicodeEncodeError` al imprimir «Δ» en una consola
+cp1252, **con los resultados ya calculados y perdidos**. Ahora el script fuerza
+UTF-8 y **cachea las predicciones en disco**, para que reanalizar no obligue a
+reentrenar.)_
+
+### Resultado del reentrenamiento y del ledger
+
+La WTA reentrenada con 13 features confirma lo que predijo el walk-forward:
+
+| | antes (V35) | después (V67) |
+|---|---|---|
+| precisión de validación | 0,6341 | **0,6401** (+0,60 pp) |
+| log-loss de validación | 0,6317 | **0,6296** |
+| features | 10 | 13 |
+
+Y ahora la pregunta que de verdad importa, que es si eso mueve la rentabilidad.
+Reconstruido el ledger de tenis (28.132 predicciones WTA nuevas, guardia de
+alineación en verde en los dos circuitos):
+
+| | v78 | v79 |
+|---|---|---|
+| mejor ROI | −0,54 % | **+1,85 %** |
+| n | 1.971 | **112** |
+| bootstrap p5 | −6,14 % | **−9,55 %** |
+
+**El tenis sigue fuera de la Capa 1, y hay que leer bien por qué.** El ROI ha
+cambiado de signo, pero sobre **112 apuestas en vez de 1.971** y con un p5 que
+empeora. Eso no es edge que aparece: es una selección más pequeña y más
+ruidosa. La regla de la v44 —ROI **y** p5 positivos— lo deja fuera, y es el
+veredicto correcto. Mejor probabilidad no es lo mismo que mejor negocio; es la
+misma lección de la v78, ahora en la dirección contraria.
+
+---
+
+## 7 ter. Dos fallos que me hice yo mismo al reconstruir
+
+Los dos son del tipo que este proyecto persigue: **no dan ningún error**.
+
+**a) Reconstruir un deporte borraba a los demás.** `build_ledger_deportes
+.construir(deporte='mlb')` escribía el CSV entero con solo MLB, y las 64.587
+filas de tenis desaparecían sin un aviso. Pasó de verdad: el ledger total
+siguió con datos viejos y los tests continuaron dando por buenos los números de
+la v78 un buen rato. Es grave porque de ese fichero sale **qué deportes entran
+en la Capa 1**. Ahora, al reconstruir un subconjunto, los deportes que no se
+tocan se conservan del fichero anterior, y se dice cuántas filas se conservan.
+
+**b) La caja de la clave decidía si un deporte se calibraba.** `ledger_tenis`
+escribe `liga` como `circuito.upper()` («ATP», «WTA») y `ledger_mlb` en
+minúsculas («mlb»). `recalibrate_from_history` usa esa columna tal cual como
+clave del JSON, así que la tabla quedó con «ATP» y «WTA» en mayúsculas —
+mientras producción pregunta en minúsculas (`eng.circuito.lower()`):
+
+```
+peso_modelo('atp') -> 1.00        peso_modelo('ATP') -> 0.25
+peso_modelo('wta') -> 1.00        peso_modelo('WTA') -> 0.25
+```
+
+El tenis se quedaba **sin encoger, en silencio**, justo después de que la v78
+midiera que encoger le da +2,6 pp (ATP) y +2,4 pp (WTA) de precisión. Ni un
+error, ni una traza: solo w=1 y picks más sobreconfiados. La búsqueda es ahora
+insensible a mayúsculas, lo que arregla el fichero actual y cualquiera que
+escriba un constructor futuro con otra convención.
+
+---
+
 ## 8. Lo más importante de esta versión: el pick de julio no es el que se validó
 
 Al exponer la calibración salió un **0 %**. Ni un solo pick de fútbol llevaba

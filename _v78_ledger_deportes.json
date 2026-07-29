@@ -1,22 +1,32 @@
 {
- "generado": "2026-07-29T07:19:50Z",
- "filas": 7541,
+ "generado": "2026-07-29T14:01:46Z",
+ "filas": 72132,
  "por_deporte": {
+  "Tenis": 64591,
   "MLB": 7541
  },
  "por_liga": {
+  "ATP": 36459,
+  "WTA": 28132,
   "mlb": 7541
  },
- "con_cuota": 7541,
+ "con_cuota": 53746,
  "rango": [
-  "2018-05-01",
-  "2021-10-03"
+  "2013-10-24",
+  "2026-07-29"
  ],
  "verificacion_alineacion": {
-  "MLB/mlb": {
+  "Tenis/ATP": {
    "ok": true,
-   "n": 7541,
-   "logloss_mercado": 0.6688,
+   "n": 30322,
+   "logloss_mercado": 0.5808,
+   "techo_azar": 0.6931,
+   "motivo": "ok"
+  },
+  "Tenis/WTA": {
+   "ok": true,
+   "n": 15881,
+   "logloss_mercado": 0.5875,
    "techo_azar": 0.6931,
    "motivo": "ok"
   }
