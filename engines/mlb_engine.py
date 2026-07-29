@@ -530,10 +530,34 @@ class MLBEngine(BaseSportsEngine):
                 picks.append(pick)
 
         if sin_modelo:
-            incidencias.append(
-                f'MLB: {sin_modelo} partidos con cuota pero sin equipos '
-                f'reconocidos por el modelo (probablemente ligas no MLB, '
-                f'como la Liga Mexicana de Béisbol).')
+            # v84 — se deja de decir «probablemente». Se comprueba.
+            #
+            # Este aviso llevaba versiones diciendo «probablemente ligas no MLB,
+            # como la Liga Mexicana» sobre 33-45 partidos al día. Era una
+            # suposición, y descartar a ciegas un tercio de los partidos con
+            # precio es tirar información. Comprobado: la API oficial SÍ cubre
+            # la Liga Mexicana (leagueId 125, sportId 23, 20 equipos, ~1.000
+            # juegos por temporada). Ahora se cuentan por separado.
+            _lmb = 0
+            try:
+                import mlb_statsapi as _msa
+                for v in universo.values():
+                    if _msa.es_lmb(v.get('home')) or _msa.es_lmb(v.get('away')):
+                        _lmb += 1
+            except Exception:
+                _lmb = 0
+            if _lmb:
+                incidencias.append(
+                    f'Liga Mexicana de Béisbol: {_lmb} partidos con cuota, '
+                    f'identificados como LMB (no son un error de mapeo). El '
+                    f'modelo de MLB no los cubre —es otra liga— pero la vía de '
+                    f'valor de mercado sí puede operarlos, porque no usa modelo.')
+            _otros = sin_modelo - _lmb
+            if _otros > 0:
+                incidencias.append(
+                    f'MLB: {_otros} partidos con cuota cuyos equipos no se '
+                    f'reconocen ni como MLB ni como Liga Mexicana. Si son '
+                    f'recurrentes, hay una liga que falta por mapear.')
         if not universo:
             incidencias.append('MLB: ninguna casa publica partidos ahora mismo '
                                '(fuera de temporada o sin jornada).')

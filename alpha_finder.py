@@ -1866,9 +1866,28 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         # el acierto que esa banda de probabilidad da DE VERDAD, junto al que
         # promete el modelo. Sin esto la pestaña vendería un 79 % que en el
         # histórico se convierte en 58 %.
+        # v84 — SE MUESTRA UNA SOLA PROBABILIDAD: la de ganar la apuesta.
+        #
+        # Antes se enseñaba la del modelo (80 %) con una nota diciendo que esa
+        # banda acierta el 58 %, y eso obliga a hacer la corrección de cabeza.
+        # Si el histórico dice 58 %, la probabilidad de ganar es 58 %.
+        #
+        # Solo se corrige donde HAY medición para ese mercado: el ledger tiene
+        # 1X2 y ganador, no hándicaps ni totales. Donde no la hay se dice, en
+        # vez de importar el número de otro mercado (ver `calibracion_confianza`).
         if _cc is not None:
-            q['acierto_real'] = _cc.acierto_real(prob)
-            q['aviso_calibracion'] = _cc.aviso_calibracion(prob)
+            _merc = p.get('mercado')
+            _real = _cc.probabilidad_real(prob, _merc)
+            q['prob_modelo'] = prob              # se conserva para auditoría
+            q['acierto_real'] = _real
+            q['medido'] = _cc.hay_medicion(_merc)
+            if _real is not None:
+                q['prob'] = round(_real, 3)      # LA probabilidad que se muestra
+                q['cuota_justa'] = round(1 / max(_real, 1e-6), 2)
+                if q.get('cuota'):
+                    q['ev'] = round(q['cuota'] * _real - 1, 4)
+                    q['ev_negativo'] = bool(q['ev'] <= 0)
+            q['aviso_calibracion'] = _cc.aviso_calibracion(prob, _merc)
         capa1_prob.append(q)
     if not capa1_prob:
         pct = None

@@ -91,14 +91,57 @@ def acierto_real(prob: Optional[float]) -> Optional[float]:
     return None
 
 
-def aviso_calibracion(prob: Optional[float]) -> Optional[str]:
-    """Texto para la UI cuando el modelo promete más de lo que cumple."""
+# v84 — LAS BANDAS SOLO VALEN PARA EL MERCADO CON EL QUE SE MIDIERON.
+#
+# `calcular()` construye las bandas desde `pick_ledger_total.csv`, y ese ledger
+# contiene **1X2 y ganador de tenis/MLB**: nada de hándicaps, totales ni BTTS.
+# Sin embargo el aviso se mostraba junto a picks de «Menos de 3.5» o «+0.5», que
+# son otro mercado y otra distribución. Se estaba importando el acierto de un
+# sitio para describir otro.
+#
+# Se declara explícitamente para qué mercados hay medición. Para el resto la
+# respuesta honesta no es un número prestado, es «no medido».
+MERCADOS_MEDIDOS = {'1X2', 'Ganador', 'Moneyline'}
+
+
+def hay_medicion(mercado: Optional[str]) -> bool:
+    return (mercado or '1X2') in MERCADOS_MEDIDOS
+
+
+def probabilidad_real(prob: Optional[float],
+                      mercado: Optional[str] = None) -> Optional[float]:
+    """
+    v84 — LA probabilidad de ganar la apuesta, ya corregida con el histórico.
+
+    Es lo único que hace falta saber para decidir: si el modelo dice 80 % y esa
+    banda acierta el 58 %, la probabilidad de ganar es **58 %**. Enseñar el 80 %
+    con una nota al pie obliga al usuario a hacer la corrección mentalmente, y
+    la mayoría de las veces no la hace.
+
+    Devuelve None cuando no hay medición para ese mercado — y entonces hay que
+    decir que no la hay, no rellenar con el número de otro mercado.
+    """
+    if prob is None or not hay_medicion(mercado):
+        return None
+    return acierto_real(prob)
+
+
+def aviso_calibracion(prob: Optional[float],
+                      mercado: Optional[str] = None) -> Optional[str]:
+    """Texto para la UI. Distingue «medido y corregido» de «sin medir»."""
+    if prob is None:
+        return None
+    if not hay_medicion(mercado):
+        return (f"Sin histórico propio para «{mercado}»: la probabilidad que se "
+                f"muestra es la del modelo, sin corregir. Las bandas de acierto "
+                f"del proyecto se midieron sobre 1X2 y ganador, no sobre este "
+                f"mercado, y usarlas aquí sería importar el dato de otro sitio.")
     real = acierto_real(prob)
-    if real is None or prob is None:
+    if real is None:
         return None
     if prob - real >= 0.05:
-        return (f"El modelo da {prob:.0%}, pero esta banda de probabilidad "
-                f"acierta históricamente un {real:.0%}.")
+        return (f"Probabilidad corregida con el histórico: {real:.0%} "
+                f"(el modelo sin corregir decía {prob:.0%}).")
     return None
 
 

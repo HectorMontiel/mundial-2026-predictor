@@ -327,3 +327,62 @@ if __name__ == '__main__':
     y = datetime.date.today().year
     actualizar(list(range(y - 11, y + 1)))
     partidos_del_dia()
+
+
+# ---------------------------------------------------------------------------
+# v84 — LIGA MEXICANA DE BÉISBOL (LMB): dejar de tirarla a la basura
+# ---------------------------------------------------------------------------
+# El barrido decía cada día: «MLB: 33 partidos con cuota pero sin equipos
+# reconocidos por el modelo (probablemente ligas no MLB, como la Liga Mexicana
+# de Béisbol)». Ese «probablemente» era una suposición, y descartar a ciegas un
+# tercio de los partidos con precio es tirar información.
+#
+# Comprobado: la API oficial SÍ cubre la Liga Mexicana — `leagueId 125`,
+# `sportId 23`, 20 equipos, ~1.000 juegos por temporada (2024: 1.059, 2025:
+# 1.044, 2026: 966). No es una liga opaca, es una liga que no habíamos mirado.
+#
+# Con los equipos identificados dejan de ser «desconocidos»: se pueden etiquetar
+# como lo que son, y la vía de `valor_vs_sharp` —que NO usa modelo— puede
+# operar sobre ellos igual que sobre la MLB.
+LMB_SPORT_ID = 23
+LMB_LEAGUE_ID = 125
+_CACHE_LMB: Dict[str, set] = {}
+
+
+def equipos_lmb() -> set:
+    """Nombres de los equipos de la Liga Mexicana, normalizados en minúsculas."""
+    if 'nombres' in _CACHE_LMB:
+        return _CACHE_LMB['nombres']
+    nombres = set()
+    try:
+        r = requests.get('https://statsapi.mlb.com/api/v1/teams',
+                         params={'sportId': LMB_SPORT_ID,
+                                 'leagueId': LMB_LEAGUE_ID},
+                         timeout=TIEMPO_ESPERA)
+        r.raise_for_status()
+        for t in (r.json().get('teams') or []):
+            for k in ('name', 'teamName', 'shortName', 'clubName'):
+                v = t.get(k)
+                if v:
+                    nombres.add(str(v).strip().lower())
+    except Exception as e:
+        logger.warning(f'[lmb] no se pudo leer el catálogo de equipos: {e}')
+    _CACHE_LMB['nombres'] = nombres
+    logger.info(f'[lmb] {len(nombres)} nombres de equipo de la Liga Mexicana')
+    return nombres
+
+
+def es_lmb(nombre: str) -> bool:
+    """¿Este nombre es de un equipo de la Liga Mexicana de Béisbol?"""
+    if not nombre:
+        return False
+    n = str(nombre).strip().lower()
+    eq = equipos_lmb()
+    if n in eq:
+        return True
+    # las casas abrevian ('Sultanes', 'Diablos Rojos'): basta con que un nombre
+    # del catálogo contenga al otro y comparta una palabra significativa.
+    for c in eq:
+        if n in c or c in n:
+            return True
+    return False
