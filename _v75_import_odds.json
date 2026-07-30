@@ -1,6 +1,6 @@
 {
- "generado": "2026-07-28T20:54:00Z",
- "filas_insertadas": 137185,
+ "generado": "2026-07-30T08:21:21Z",
+ "filas_insertadas": 137164,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -34,7 +34,7 @@
  ],
  "por_liga": {
   "argentina": {
-   "filas": 7195,
+   "filas": 7193,
    "partidos": 3758
   },
   "aut_bundesliga": {
@@ -62,7 +62,7 @@
    "partidos": 1642
   },
   "eng_championship": {
-   "filas": 5239,
+   "filas": 5238,
    "partidos": 2760
   },
   "eng_league_one": {
@@ -86,7 +86,7 @@
    "partidos": 2310
   },
   "finlandia": {
-   "filas": 2556,
+   "filas": 2555,
    "partidos": 1334
   },
   "fra_ligue2": {
@@ -118,7 +118,7 @@
    "partidos": 1900
   },
   "liga_mx": {
-   "filas": 5089,
+   "filas": 5086,
    "partidos": 2660
   },
   "ligue_1": {
@@ -146,11 +146,11 @@
    "partidos": 3060
   },
   "rumania": {
-   "filas": 4685,
+   "filas": 4681,
    "partidos": 2460
   },
   "rus_premier": {
-   "filas": 3727,
+   "filas": 3719,
    "partidos": 1942
   },
   "sco_championship": {
@@ -170,7 +170,7 @@
    "partidos": 1931
   },
   "suiza": {
-   "filas": 3028,
+   "filas": 3026,
    "partidos": 1599
   },
   "turquia": {
