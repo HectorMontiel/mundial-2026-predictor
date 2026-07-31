@@ -386,6 +386,150 @@ def test_precio_accionable():
           f"sin Playdoit se usa el mejor del mercado ({b})")
 
 
+def test_handicap_medido():
+    """
+    v87: el hándicap asiático deja de ser el mercado sin medición.
+
+    No hizo falta histórico de líneas asiáticas: para calibrar hace falta la
+    probabilidad del modelo y si se cubrió, y las dos se reconstruyen de la
+    MISMA matriz de marcadores que usa `alpha_finder`, con los λ y las
+    probabilidades 1X2 fuera de muestra que ya estaban en los ledgers.
+
+    Resulta ser el mercado mejor calibrado: sesgos de −0,5 % a +0,7 %.
+    """
+    import calibracion_confianza as cc
+    check(cc.hay_medicion('Hándicap'), "«Hándicap» tiene medición")
+    check(cc.hay_medicion('Hándicap asiático'),
+          "«Hándicap asiático» resuelve al mismo mercado")
+    check(cc.hay_medicion('Handicap'), "sin tilde también resuelve")
+
+    r = cc.probabilidad_real(0.72, 'Hándicap')
+    check(r is not None, "devuelve un número medido")
+    check(r <= 0.72 + 1e-9, f"y sigue sin inflar ({r:.3f} <= 0.72)")
+
+    import json
+    d = json.load(open('calibracion_confianza.json', encoding='utf-8'))
+    b = (d.get('bandas_por_mercado') or {}).get('Hándicap') or []
+    con_dato = [x for x in b if x.get('acierto') is not None]
+    check(len(con_dato) >= 5,
+          f"hay bandas con muestra suficiente ({len(con_dato)} de {len(b)})")
+    peor = max(abs(x['sesgo']) for x in con_dato)
+    check(peor < 0.05,
+          f"el hándicap está bien calibrado (peor sesgo {peor:+.3f})")
+
+    # y cada mercado sigue con SU tabla
+    vals = {m: cc.probabilidad_real(0.80, m)
+            for m in ('Goles', 'BTTS', 'Hándicap')}
+    check(len(set(round(v, 4) for v in vals.values() if v is not None)) == 3,
+          f"los tres mercados dan cifras distintas ({vals})")
+
+
+def test_modelos_portables():
+    """
+    v87: los modelos entrenados en el runner de Linux se cargan en Windows.
+
+    El workflow serializa con la rueda de Linux y esos `modelo.joblib` daban
+    «input stream corrupted» en Windows con la MISMA versión de XGBoost: 43 de
+    43 ligas reentrenadas. No era corrupción (v86 lo descartó midiendo).
+
+    La causa: el pickle guarda el formato de SERIALIZACIÓN
+    (`XGBoosterSerializeToBuffer`), que XGBoost documenta como dependiente del
+    entorno. Dentro lleva la sección «Model», que sí es portable. La reparación
+    la recorta y la carga con `Booster.load_model`.
+    """
+    import modelos_portables as mp
+    check(hasattr(mp, 'cargar'), "existe el cargador con reparación")
+    check(mp.MARCA_MODEL == b'L\x00\x00\x00\x00\x00\x00\x00\x05Model',
+          "la marca busca la clave «Model», no «learner»")
+
+    # el recorte tiene que fallar limpio con basura, no devolver algo raro
+    check(mp.recortar_a_modelo(b'') is None, "sin datos devuelve None")
+    check(mp.recortar_a_modelo(b'no soy un booster') is None,
+          "con basura devuelve None (no adivina)")
+
+    check(mp.es_error_de_plataforma(Exception('input stream corrupted')),
+          "reconoce el error de plataforma")
+    check(not mp.es_error_de_plataforma(Exception('otra cosa')),
+          "y no confunde otros errores")
+
+    # y el cargador no cambia nada donde el joblib ya funciona
+    import glob
+    import joblib
+    import numpy as np
+    for r in sorted(glob.glob(os.path.join('modelos', '*', 'modelo.joblib'))):
+        try:
+            a = joblib.load(r)
+        except Exception:
+            continue
+        b = mp.cargar(r)
+        n = getattr(a, 'n_features_in_', None)
+        if not n:
+            continue
+        X = np.random.RandomState(0).randn(12, n)
+        d = float(np.abs(a.predict_proba(X) - b.predict_proba(X)).max())
+        check(d < 1e-9,
+              f"la reparación no altera un modelo que ya cargaba "
+              f"(diferencia {d:.1e})")
+        break
+
+    # el motor de liga usa el cargador
+    fuente = open('league_engine.py', encoding='utf-8').read()
+    check('modelos_portables' in fuente,
+          "ClubEngine carga por la ruta con reparación")
+
+
+def test_ficha_anclada_al_mercado():
+    """
+    v87: la ficha se ancla al mercado, igual que los picks desde la v75.
+
+    El caso: Puebla vs Chivas mostraba Puebla 53,6 % cuando Pinnacle, quitado
+    el margen, daba Puebla 18,8 % y Chivas 59,4 %. Las cuotas estaban en la
+    app; la ficha no las miraba porque `_cuotas_partido` sólo lee
+    `odds_actuales.json` (4 partidos) y el ancla sólo alimentaba al MESM y al
+    `blend_mercado` (configurado en 2 ligas).
+
+    Medido sobre 28.555 filas del ledger con cuota, donde el modelo se aleja
+    del mercado más de 0,25: precisión 33,6 % -> 55,5 % y ECE 0,2795 -> 0,0644.
+    """
+    fuente = open('league_engine.py', encoding='utf-8').read()
+    check('_mercado_ficha' in fuente, "existe la búsqueda de mercado de la ficha")
+    check('_tablon_con_presupuesto' in fuente,
+          "el tablón de cuotas tiene presupuesto de tiempo (no bloquea la ficha)")
+    check('PRESUPUESTO_MERCADO_S' in fuente,
+          "el presupuesto es configurable por variable de entorno")
+    check('calibracion_mercado' in fuente,
+          "la ficha usa el encogimiento al mercado ya validado")
+
+    # el orden de preferencia tiene que ser mercado ANTES que ELO
+    i_mkt = fuente.find('mercado_info = ')
+    i_elo = fuente.find("import calibracion_elo as _celo")
+    check(0 < i_mkt < i_elo,
+          "el ancla de mercado va ANTES del prior de ELO (es mejor referencia)")
+
+    # los picks siguen sin pasar por aquí
+    af = open('alpha_finder.py', encoding='utf-8').read()
+    check(af.count('prior_elo=False') >= 2,
+          "alpha_finder sigue desactivando la corrección de la ficha")
+
+    # el interruptor viejo sigue funcionando
+    import inspect
+    import league_engine as le
+    sig = inspect.signature(le.ClubEngine.predecir)
+    check('anclar' in sig.parameters and 'prior_elo' in sig.parameters,
+          f"predecir acepta `anclar` y el `prior_elo` antiguo ({list(sig.parameters)})")
+
+    # y la corrección hacia el mercado hace lo que dice
+    import calibracion_mercado as cm
+    p0 = {'home': 0.536, 'draw': 0.248, 'away': 0.216}
+    mk = {'home': 0.188, 'draw': 0.218, 'away': 0.594}
+    q, info = cm.corregir(p0, mk, 'liga_mx')
+    check(info.get('aplicado'), "el encogimiento al mercado se aplica en liga_mx")
+    check(q['away'] > q['home'],
+          f"con el mercado dando 59,4 % al visitante, la ficha ya no hace "
+          f"favorito al local ({q['home']:.1%} vs {q['away']:.1%})")
+    check(abs(sum(q.values()) - 1) < 1e-9, "las probabilidades siguen sumando 1")
+
+
 def test_calibracion_de_totales_y_btts():
     """
     v86: Goles y BTTS dejan de decir «no medido» y llevan su acierto real.
@@ -403,8 +547,10 @@ def test_calibracion_de_totales_y_btts():
     check(cc.hay_medicion('Goles'), "Goles ya tiene medición propia")
     check(cc.hay_medicion('BTTS'), "BTTS ya tiene medición propia")
     check(cc.hay_medicion('1X2'), "1X2 la sigue teniendo")
-    check(not cc.hay_medicion('Hándicap asiático'),
-          "el hándicap asiático sigue diciendo que no la tiene")
+    # v87: el hándicap ya tiene la suya (ver test_handicap_medido). Lo que
+    # sigue sin medición es cualquier mercado del que no haya ledger.
+    check(not cc.hay_medicion('Córners'),
+          "un mercado sin ledger sigue diciendo que no tiene medición")
 
     # cada mercado usa SU tabla, no la prestada de otro
     g = cc.probabilidad_real(0.80, 'Goles')
@@ -1143,6 +1289,10 @@ if __name__ == '__main__':
     test_guardia_precio_imposible()
     test_prior_elo_solo_en_la_ficha()
     test_calibracion_de_totales_y_btts()
+    print('\n=== v87: mercado en la ficha, hándicap y portabilidad ===')
+    test_ficha_anclada_al_mercado()
+    test_handicap_medido()
+    test_modelos_portables()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

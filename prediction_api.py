@@ -109,7 +109,10 @@ class PredictionEngine:
         return os.path.join(self.dir, *partes)
 
     def _cargar(self):
-        self.modelo = joblib.load(self._ruta(DIRECTORIO_MODELOS, 'modelo_tda.joblib'))
+        # v87 — mismo motivo que en league_engine: los artefactos entrenados en
+        # el runner de Linux no se deserializan en Windows. Ver modelos_portables.
+        import modelos_portables as _mp
+        self.modelo = _mp.cargar(self._ruta(DIRECTORIO_MODELOS, 'modelo_tda.joblib'))
         self.escalador = joblib.load(self._ruta(DIRECTORIO_MODELOS, 'escalador.joblib'))
         with open(self._ruta(DIRECTORIO_MODELOS, 'metadata.json'), 'r', encoding='utf-8') as f:
             self.metadata = json.load(f)

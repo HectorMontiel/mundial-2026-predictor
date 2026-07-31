@@ -127,6 +127,10 @@ def _mercado_normalizado(mercado: Optional[str]) -> str:
         return 'BTTS'
     if m.lower().startswith('gol'):
         return 'Goles'
+    # v87: «Hándicap», «Handicap», «Hándicap asiático»... todo al mismo cajón
+    b = m.lower().replace('á', 'a')
+    if b.startswith('handicap') or b.startswith('ah '):
+        return 'Hándicap'
     return m
 
 
@@ -197,6 +201,7 @@ def aviso_calibracion(prob: Optional[float],
 
 
 LEDGER_TOTALES = 'pick_ledger_totales.csv'
+LEDGER_HANDICAP = 'pick_ledger_handicap.csv'
 
 
 def bandas_de_totales(ledger: str = LEDGER_TOTALES) -> dict:
@@ -262,6 +267,25 @@ def bandas_de_totales(ledger: str = LEDGER_TOTALES) -> dict:
         calibrar(np.concatenate(probs), np.concatenate(ganos), 'Goles')
     if 'p_btts' in d.columns and 'btts_real' in d.columns:
         calibrar(d['p_btts'].values, d['btts_real'].values.astype(bool), 'BTTS')
+
+    # v87 — HÁNDICAP ASIÁTICO. Era el último mercado popular sin medición.
+    # `build_ledger_handicap.py` reconstruye P(el local cubre la línea) desde la
+    # MISMA matriz de marcadores que usa `alpha_finder`, con los λ y las
+    # probabilidades 1X2 fuera de muestra que ya estaban en los ledgers. No hizo
+    # falta histórico de líneas asiáticas: para calibrar hace falta la
+    # probabilidad y si se cubrió, no la cuota.
+    if os.path.exists(LEDGER_HANDICAP):
+        h = pd.read_csv(LEDGER_HANDICAP)
+        probs, ganos = [], []
+        for col in h.columns:
+            if col.startswith('p_ah_'):
+                L = col[len('p_ah_'):]
+                real = f'ah_{L}_real'
+                if real in h.columns:
+                    probs.append(h[col].values)
+                    ganos.append(h[real].values.astype(bool))
+        if probs:
+            calibrar(np.concatenate(probs), np.concatenate(ganos), 'Hándicap')
     return out
 
 

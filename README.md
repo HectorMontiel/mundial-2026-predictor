@@ -1,5 +1,46 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v87 — La ficha no miraba el mercado (ver [VALIDACION_v87.md](VALIDACION_v87.md))
+
+Las tres tareas que quedaban abiertas se cierran, y **ninguna por el camino que
+se había propuesto** — eso también es resultado.
+
+- **⚓ El caso Puebla-Chivas, cerrado: la ficha ya se ancla al mercado.**
+  Pinnacle, con el margen quitado, daba **Puebla 18,8 % · Chivas 59,4 %** y la
+  ficha decía **Puebla 53,6 %**. Y esas cuotas **estaban en la app**: la ficha
+  no las miraba porque sólo leía `odds_actuales.json` (4 partidos) y porque el
+  ancla al mercado sólo alimentaba a dos ligas. Medido sobre 28.555 filas con
+  cuota, en los partidos donde el modelo se aleja del mercado más de 0,25:
+  **precisión 33,6 % → 55,5 % y ECE 0,2795 → 0,0644**. La ficha pasa de errar
+  0,756 a **0,188** contra Pinnacle, muestra a **Chivas** como favorito y la
+  coherencia local/visitante pasa de incoherente a coherente. Los picks salen
+  idénticos: `alpha_finder` sigue desactivando la corrección.
+- **🚫 El `w` por liga se midió y NO funciona.** Era la propuesta para cerrar
+  Puebla. Con la población correcta (Liga MX pasa de ~0 a **1.311** filas
+  útiles) resulta ser **la peor política en ECE** de las cuatro probadas. Y la
+  prueba que lo entierra: barajando qué `w` le toca a cada liga, el ECE de
+  validación sale igual o mejor **el 80 % de las veces**; la correlación con el
+  mecanismo que se suponía es **+0,022 (p=0,88)**.
+- **🤝 Cuando modelo y ELO discrepan, es empate.** Sobre 7.361 partidos con
+  favorito distinto: el modelo acierta 36,34 % y el ELO 34,89 % (z=+1,84).
+  «Hacer caso al ELO» no habría acertado más — por eso la solución era el
+  mercado y no el ELO.
+- **📐 El hándicap asiático ya está medido, y sin cuotas históricas.** No hacían
+  falta: para calibrar se necesita la probabilidad y si se cubrió, y las dos
+  salen de la misma matriz de marcadores que ya usa `alpha_finder`. **47.794
+  partidos**, con la matriz analítica comprobada contra el Monte Carlo de
+  producción (peor diferencia 0,00606 frente a un ruido propio de 0,00354).
+  Resulta ser **el mercado mejor calibrado**: sesgos de −0,8 % a +0,7 %, frente
+  al +27,4 % del BTTS.
+- **🔧 Los modelos del CI ya se abren en Windows: 43 de 43 recuperados.** La
+  propuesta era migrar a `save_model` (UBJSON) — y **no habría servido**: el
+  buffer YA es UBJSON en los dos casos, con cabeceras idénticas. La causa real
+  es que el pickle guarda el formato de **serialización**, que XGBoost documenta
+  como dependiente del entorno, y que **contiene dentro** al formato de modelo.
+  `modelos_portables.py` recorta esa sección y la carga por la ruta portable.
+  Sobre los modelos que ya abrían no cambia nada (diferencia **1,7e−16**), y en
+  Linux ni se ejecuta.
+
 ## Novedades v86 — La app se caía con dos usuarios, y el modelo no miraba el ELO (ver [VALIDACION_v86.md](VALIDACION_v86.md))
 
 - **🩹 Arreglada la caída con varios usuarios a la vez.** No era misterio, era

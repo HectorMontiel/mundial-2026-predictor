@@ -1527,7 +1527,18 @@ class ClubEngine:
         self.listo, self.error = False, None
         try:
             carpeta = os.path.join('modelos', clave)
-            self.modelo = joblib.load(os.path.join(carpeta, 'modelo.joblib'))
+            # v87 — se carga por `modelos_portables`, que repara los boosters
+            # serializados en otra plataforma. El workflow entrena en el runner
+            # de Linux y esos `modelo.joblib` no abrían en Windows («input
+            # stream corrupted»): 43 de 43 ligas reentrenadas. La reparación
+            # recorta la sección «Model» del buffer —que sí es portable— y la
+            # carga con `Booster.load_model`. Medido: 43 de 43 recuperadas, y
+            # sobre modelos que ya abrían las predicciones salen idénticas
+            # (diferencia máxima 1,7e-16, el épsilon de la máquina).
+            # En Linux no cambia nada: el joblib abre a la primera y no se
+            # llega a tocar el camino de reparación.
+            import modelos_portables as _mp
+            self.modelo = _mp.cargar(os.path.join(carpeta, 'modelo.joblib'))
             self.escalador = joblib.load(os.path.join(carpeta, 'escalador.joblib'))
             self.reg_l = joblib.load(os.path.join(carpeta, 'reg_local.joblib'))
             self.reg_v = joblib.load(os.path.join(carpeta, 'reg_visit.joblib'))
@@ -1539,7 +1550,7 @@ class ClubEngine:
             if os.path.exists(ruta_mesm):
                 try:
                     import meta_ensemble  # noqa: F401 — ruta de clase del pickle
-                    self.mesm = joblib.load(ruta_mesm)
+                    self.mesm = _mp.cargar(ruta_mesm)
                 except Exception as e:
                     logger.warning(f"[{clave}] mesm.joblib ilegible: {e}")
             # v79 — n_jobs=1 en inferencia. Los modelos se entrenaron con
@@ -1596,6 +1607,84 @@ class ClubEngine:
                         'PROB_IMP_A': float(imp[2]), 'OVERROUND': float(inv.sum() - 1)}
         return {}
 
+    # Segundos que la ficha está dispuesta a esperar por el tablón de cuotas.
+    PRESUPUESTO_MERCADO_S = float(os.environ.get('PRESUPUESTO_MERCADO_S', '6'))
+
+    def _tablon_con_presupuesto(self, home: str, away: str) -> Optional[Dict]:
+        """`cuotas_multi.cuotas_partido` con tope de tiempo (ver `_mercado_ficha`)."""
+        import threading
+        import cuotas_multi as _cm
+
+        caja: Dict[str, object] = {}
+
+        def _trabajo():
+            try:
+                caja['res'] = _cm.cuotas_partido('futbol', home, away)
+            except Exception as e:
+                caja['err'] = e
+
+        h = threading.Thread(target=_trabajo, daemon=True)
+        h.start()
+        h.join(self.PRESUPUESTO_MERCADO_S)
+        if h.is_alive():
+            logger.debug(f'[{self.clave}] tablón de cuotas por encima del '
+                         f'presupuesto; la ficha sigue sin ancla de mercado')
+            return None
+        return caja.get('res')
+
+    def _mercado_ficha(self, home: str, away: str) -> Dict[str, float]:
+        """
+        v87 — Probabilidad JUSTA del mercado para la ficha, de TODAS las fuentes.
+
+        `_cuotas_partido` sólo lee `odds_actuales.json`, que es el volcado de
+        The Odds API y hoy trae 4 partidos. `cuotas_multi.cuotas_partido`
+        consulta además Pinnacle, Playdoit y Bovada, y está cacheado en disco
+        con TTL de 30 min — es de donde ya salen los picks.
+
+        Ésa era la incoherencia: los picks se anclan al mercado desde la v75 y
+        la ficha no, aunque las cuotas estén ahí. En Puebla vs Chivas la ficha
+        decía Puebla 50,0 % mientras Pinnacle, devigado, daba Puebla 19,6 % y
+        Chivas 58,2 %.
+
+        Se prefiere Pinnacle (precio sharp) y, si no está, la media del resto.
+        Devuelve {} si no hay nada: nunca inventa un ancla.
+        """
+        # 1) lo barato primero: el volcado local, sin red
+        imp = self._cuotas_partido(home, away)
+        if imp:
+            return {'home': imp['PROB_IMP_H'], 'draw': imp['PROB_IMP_D'],
+                    'away': imp['PROB_IMP_A']}
+        # 2) el tablón multi-casa. Está cacheado por DEPORTE (30 min, memoria y
+        # disco), así que en caliente esto no toca la red. En frío sí, y los
+        # timeouts de `cuotas_multi._get` llegan a 40 s con 3 intentos: una
+        # ficha bloqueada dos minutos es peor que una ficha sin anclar. Se le
+        # pone presupuesto: si no vuelve a tiempo se sigue sin mercado y el
+        # hilo termina en segundo plano dejando el tablón caliente, así que el
+        # siguiente render sí lo aprovecha.
+        try:
+            res = self._tablon_con_presupuesto(home, away)
+            if not res:
+                return {}
+            import cuotas_multi as _cm
+            pin = res.get('pinnacle') or {}
+            cuotas = {k: v for k, v in pin.items() if v and v > 1}
+            if len(cuotas) < 3:
+                casas = res.get('casas') or {}
+                acum: Dict[str, list] = {}
+                for cu in casas.values():
+                    for k, v in (cu or {}).items():
+                        if v and v > 1:
+                            acum.setdefault(k, []).append(float(v))
+                cuotas = {k: sum(v) / len(v) for k, v in acum.items()
+                          if len(v) and k in ('home', 'draw', 'away')}
+            if len(cuotas) >= 3:
+                justa = _cm.devig(cuotas, metodo='potencia')
+                if len(justa) >= 3:
+                    return {k: float(justa[k]) for k in ('home', 'draw', 'away')}
+        except Exception as e:
+            logger.debug(f'[{self.clave}] mercado de ficha no disponible: {e}')
+        return {}
+
     def _vector_extra(self, home: str, away: str) -> np.ndarray:
         """Reproduce en inferencia las features extra v17 desde el estado
         guardado en team_stats (y cuotas vigentes si las hay)."""
@@ -1649,17 +1738,32 @@ class ClubEngine:
             valores.update(cdi_futbol.vector_cdi(self.mapa_tz, home, away))
         return np.array([[valores[c] for c in cols]])
 
-    def predecir(self, home: str, away: str, prior_elo: bool = True) -> Dict:
+    def predecir(self, home: str, away: str, prior_elo: bool = True,
+                 anclar: bool = None) -> Dict:
         """
-        v86 — `prior_elo` encoge la probabilidad hacia el prior de ELO cuando
-        NO hay ancla de mercado. Es la ficha de partido: ahí el modelo va
-        suelto, y se midió que apenas responde a la fuerza de los equipos
-        (subir 600 puntos de ELO mueve P(local) +0,075 de mediana; en Liga MX
-        +0,017, que es el caso Puebla que reportó el usuario).
+        `anclar` controla la corrección de la probabilidad que MUESTRA la ficha,
+        en este orden de preferencia:
+
+            MESM  >  blend_mercado  >  mercado (v87)  >  prior de ELO (v86)
+
+        v87 — la ficha se ancla al mercado igual que los picks desde la v75.
+        Antes no lo hacía y por eso Puebla salía al 50 % mientras Pinnacle lo
+        ponía al 19,6 %.
+
+        v86 — el prior de ELO queda de último recurso, para cuando no hay
+        mercado en ninguna fuente. Se midió que el modelo apenas responde a la
+        fuerza de los equipos (subir 600 puntos de ELO mueve P(local) +0,075 de
+        mediana; en Liga MX +0,017).
 
         `alpha_finder` lo pasa a False para que los picks de Capa 1 y Capa 2
-        salgan idénticos a antes: ahí la corrección buena es la del mercado.
+        salgan idénticos: ahí la corrección la aplica él mismo, con su propio
+        ancla y sus propios umbrales.
+
+        `prior_elo` se mantiene como nombre antiguo del mismo interruptor para
+        no romper a quien ya lo pasaba.
         """
+        if anclar is None:
+            anclar = prior_elo
         if home not in self.stats or away not in self.stats:
             return {'error': f"Equipo desconocido en {self.clave}."}
         if home == away:
@@ -1707,17 +1811,58 @@ class ClubEngine:
                 probs = w_blend * probs + (1 - w_blend) * pm
                 probs /= probs.sum()
                 blend_aplicado = True
-        # v86 — ENCOGIMIENTO HACIA EL PRIOR DE ELO, sólo si no hubo ancla de
-        # mercado. Cuando el MESM o el blend actuaron, la corrección ya se hizo
-        # contra algo mejor que el ELO y no se toca nada.
+        # v87 — LA FICHA SE ANCLA AL MERCADO, igual que los picks desde la v75.
         #
-        # Medido sobre las 9.870 filas del ledger SIN mercado, eligiendo w en
-        # los pliegues 1-2 y validando en los 3-4:
-        #     w=1,00 (antes)  log-loss 1,04769  ECE 0,0106  precisión 0,4771
-        #     w=0,90 (ahora)  log-loss 1,03789  ECE 0,0045  precisión 0,4797
-        # El ECE baja un 58 %. Ver calibracion_elo.py para el porqué de 0,90.
+        # El caso que lo destapó: Puebla vs Chivas. La ficha decía Puebla 50,0 %
+        # mientras Pinnacle, quitado el margen, daba Puebla 19,6 % · empate
+        # 22,2 % · Chivas 58,2 %. Treinta puntos de diferencia contra la casa
+        # más eficiente del mercado — y esas cuotas ESTABAN en la app, sólo que
+        # la ficha no las miraba (ver `_mercado_ficha`).
+        #
+        # Medido sobre 28.555 filas del ledger con cuota utilizable (70 % con
+        # Pinnacle), usando el w por liga ya validado de `calibracion_mercado`:
+        #
+        #                              ECE    log-loss   precisión
+        #   modelo crudo (antes)     0,0068    1,02579     0,4926
+        #   encogido al mercado      0,0090    0,99946     0,5054
+        #
+        # Y donde de verdad importa, los partidos en que el modelo se aleja del
+        # mercado más de 0,25 (el caso Puebla, 0,4 % de los partidos):
+        #
+        #   modelo crudo             0,2795    1,32849     0,3359
+        #   encogido al mercado      0,0644    0,99931     0,5547
+        #
+        # O sea: +22 puntos de precisión y el error de calibración dividido por
+        # cuatro justo en las fichas que estaban mal. El ECE global sube 0,002,
+        # que es el precio de arreglar un 0,28 en la cola.
+        #
+        # ORDEN DE PREFERENCIA: MESM > blend > mercado > prior de ELO. El prior
+        # de ELO (v86) queda como último recurso, para cuando no hay mercado
+        # ninguno — que es donde se midió y donde sigue siendo lo mejor
+        # disponible.
+        mercado_info = {'aplicado': False}
         elo_info = {'aplicado': False}
-        if prior_elo and not mesm_aplicado and not blend_aplicado:
+        if anclar and not mesm_aplicado and not blend_aplicado:
+            try:
+                mk = self._mercado_ficha(home, away)
+                if mk:
+                    import calibracion_mercado as _cmer
+                    _p, mercado_info = _cmer.corregir(
+                        {'home': probs[0], 'draw': probs[1], 'away': probs[2]},
+                        mk, self.clave)
+                    if mercado_info.get('aplicado'):
+                        probs = np.array([_p['home'], _p['draw'], _p['away']])
+                        probs /= probs.sum()
+            except Exception as _e:
+                logger.debug(f'ancla de mercado no aplicada: {_e}')
+
+        if anclar and not mesm_aplicado and not blend_aplicado \
+                and not mercado_info.get('aplicado'):
+            # Sin mercado de ninguna fuente: se cae al prior de ELO (v86).
+            # Medido sobre las 9.870 filas del ledger SIN mercado, eligiendo w
+            # en los pliegues 1-2 y validando en los 3-4:
+            #     w=1,00 (antes)  log-loss 1,04769  ECE 0,0106  precisión 0,4771
+            #     w=0,90 (v86)    log-loss 1,03789  ECE 0,0045  precisión 0,4797
             try:
                 import calibracion_elo as _celo
                 d_elo = ((float(s_l.get('ELO', 0)) - float(s_v.get('ELO', 0)))
@@ -1784,6 +1929,12 @@ class ClubEngine:
               + ([f"⚖️ Probabilidades combinadas {int((w_blend or 0)*100)}/"
                   f"{int((1-(w_blend or 0))*100)} con el mercado (blending "
                   "validado en walk-forward v25)."] if blend_aplicado else [])
+              + ([f"⚓ Probabilidad ajustada con las cuotas reales de este "
+                  f"partido ({int((1 - (mercado_info.get('w') or 0)) * 100)} % "
+                  f"de peso al mercado). Medido: en los partidos donde el "
+                  f"modelo se aleja mucho del mercado, hacerlo sube el acierto "
+                  f"del 33,6 % al 55,5 %."]
+                 if mercado_info.get('aplicado') else [])
               + ([f"🧭 Sin cuotas para este partido, así que la probabilidad se "
                   f"acerca un {int((1 - elo_info.get('w', 1)) * 100)} % a lo que "
                   f"dice la diferencia de nivel (ELO {s_l['ELO']:.0f} vs "
@@ -1795,9 +1946,11 @@ class ClubEngine:
                       'mercado_ref': self.metadata.get('precision_mercado_cuotas'),
                       'mesm_aplicado': mesm_aplicado,
                       'blend_aplicado': blend_aplicado,
-                      # v86
+                      # v86 / v87
                       'prior_elo_aplicado': bool(elo_info.get('aplicado')),
                       'prior_elo_w': elo_info.get('w') if elo_info.get('aplicado') else None,
+                      'ancla_mercado_aplicada': bool(mercado_info.get('aplicado')),
+                      'ancla_mercado_w': mercado_info.get('w') if mercado_info.get('aplicado') else None,
                       # v70
                       'familia_modelo': self.metadata.get('familia_modelo', 'ensemble'),
                       'shrink_lambda': round(s_shrink, 3) if s_shrink < 1.0 else None},
