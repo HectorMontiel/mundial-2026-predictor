@@ -1649,7 +1649,17 @@ class ClubEngine:
             valores.update(cdi_futbol.vector_cdi(self.mapa_tz, home, away))
         return np.array([[valores[c] for c in cols]])
 
-    def predecir(self, home: str, away: str) -> Dict:
+    def predecir(self, home: str, away: str, prior_elo: bool = True) -> Dict:
+        """
+        v86 — `prior_elo` encoge la probabilidad hacia el prior de ELO cuando
+        NO hay ancla de mercado. Es la ficha de partido: ahí el modelo va
+        suelto, y se midió que apenas responde a la fuerza de los equipos
+        (subir 600 puntos de ELO mueve P(local) +0,075 de mediana; en Liga MX
+        +0,017, que es el caso Puebla que reportó el usuario).
+
+        `alpha_finder` lo pasa a False para que los picks de Capa 1 y Capa 2
+        salgan idénticos a antes: ahí la corrección buena es la del mercado.
+        """
         if home not in self.stats or away not in self.stats:
             return {'error': f"Equipo desconocido en {self.clave}."}
         if home == away:
@@ -1697,6 +1707,29 @@ class ClubEngine:
                 probs = w_blend * probs + (1 - w_blend) * pm
                 probs /= probs.sum()
                 blend_aplicado = True
+        # v86 — ENCOGIMIENTO HACIA EL PRIOR DE ELO, sólo si no hubo ancla de
+        # mercado. Cuando el MESM o el blend actuaron, la corrección ya se hizo
+        # contra algo mejor que el ELO y no se toca nada.
+        #
+        # Medido sobre las 9.870 filas del ledger SIN mercado, eligiendo w en
+        # los pliegues 1-2 y validando en los 3-4:
+        #     w=1,00 (antes)  log-loss 1,04769  ECE 0,0106  precisión 0,4771
+        #     w=0,90 (ahora)  log-loss 1,03789  ECE 0,0045  precisión 0,4797
+        # El ECE baja un 58 %. Ver calibracion_elo.py para el porqué de 0,90.
+        elo_info = {'aplicado': False}
+        if prior_elo and not mesm_aplicado and not blend_aplicado:
+            try:
+                import calibracion_elo as _celo
+                d_elo = ((float(s_l.get('ELO', 0)) - float(s_v.get('ELO', 0)))
+                         / 400.0)
+                _p, elo_info = _celo.corregir(
+                    {'home': probs[0], 'draw': probs[1], 'away': probs[2]},
+                    d_elo)
+                if elo_info.get('aplicado'):
+                    probs = np.array([_p['home'], _p['draw'], _p['away']])
+                    probs /= probs.sum()
+            except Exception as _e:
+                logger.debug(f'prior de ELO no aplicado: {_e}')
         lam_h = float(np.clip(self.reg_l.predict(X)[0], 0.2, 3.8))
         lam_a = float(np.clip(self.reg_v.predict(X)[0], 0.2, 3.8))
         # v70 (Mejora G): los regresores Poisson separan demasiado las dos λ
@@ -1750,12 +1783,21 @@ class ClubEngine:
                   "validado en walk-forward)."] if mesm_aplicado else [])
               + ([f"⚖️ Probabilidades combinadas {int((w_blend or 0)*100)}/"
                   f"{int((1-(w_blend or 0))*100)} con el mercado (blending "
-                  "validado en walk-forward v25)."] if blend_aplicado else []),
+                  "validado en walk-forward v25)."] if blend_aplicado else [])
+              + ([f"🧭 Sin cuotas para este partido, así que la probabilidad se "
+                  f"acerca un {int((1 - elo_info.get('w', 1)) * 100)} % a lo que "
+                  f"dice la diferencia de nivel (ELO {s_l['ELO']:.0f} vs "
+                  f"{s_v['ELO']:.0f}). Se midió que el modelo solo apenas "
+                  f"reacciona al nivel, y corregirlo mejora la fidelidad del "
+                  f"número mostrado."] if elo_info.get('aplicado') else []),
             'model': {'accuracy_backtest': self.metadata['precision_validacion'],
                       'log_loss_backtest': self.metadata['log_loss_validacion'],
                       'mercado_ref': self.metadata.get('precision_mercado_cuotas'),
                       'mesm_aplicado': mesm_aplicado,
                       'blend_aplicado': blend_aplicado,
+                      # v86
+                      'prior_elo_aplicado': bool(elo_info.get('aplicado')),
+                      'prior_elo_w': elo_info.get('w') if elo_info.get('aplicado') else None,
                       # v70
                       'familia_modelo': self.metadata.get('familia_modelo', 'ensemble'),
                       'shrink_lambda': round(s_shrink, 3) if s_shrink < 1.0 else None},

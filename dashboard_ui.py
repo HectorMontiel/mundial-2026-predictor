@@ -68,25 +68,35 @@ limpiar_interfaz_v2 = """
 """
 st.markdown(limpiar_interfaz_v2, unsafe_allow_html=True)
 
-# v47: REFRESCO AUTOMÁTICO AL ABRIR LA APP. En Streamlit Cloud el proceso es
-# compartido entre visitantes, así que el caché de datos (cuotas, picks) puede
-# venir de la sesión de otra persona y quedar obsoleto. Al abrir la app en una
-# sesión NUEVA se limpia el caché de datos una sola vez, garantizando que cada
-# usuario ve la última información al entrar. No toca @st.cache_resource (los
-# modelos, que no cambian) para no recargarlos en balde.
-if not st.session_state.get('_refresco_inicial'):
-    st.session_state['_refresco_inicial'] = True
-    try:
-        st.cache_data.clear()
-    except Exception:
-        pass
-    # v52: Streamlit Cloud hot-sincroniza ESTE script pero cachea en sys.modules
-    # los módulos importados (alpha_finder, fixtures_espn, ...), así que un
-    # despliegue no surtía efecto hasta reiniciar el contenedor. Al abrir una
-    # sesión nueva se recargan los módulos propios en orden de dependencia, de
-    # modo que cada push se refleje al instante para cada visitante.
-    import sys as _sys
+# v47/v52 -> v86: REFRESCO AL ARRANCAR EL PROCESO, NO POR VISITANTE.
+#
+# Hasta v85 este bloque se ejecutaba en cada sesión nueva (`session_state`), y
+# hacía dos cosas globales al proceso entero:
+#
+#   st.cache_data.clear()   -> el caché de datos NO es por sesión. Cada visitante
+#                              nuevo borraba el de todos los que ya estaban
+#                              dentro, obligándoles a recalcular el barrido de
+#                              alpha_finder y las cuotas. Con dos usuarios eso
+#                              es trabajo pesado duplicado en el mismo proceso.
+#
+#   importlib.reload(...)   -> reescribe el __dict__ del módulo en caliente
+#                              mientras otra hebra puede estar ejecutando código
+#                              de ese mismo módulo. Medido en
+#                              _v86_repro_concurrencia.py: tras la recarga, el
+#                              ClubEngine que guarda @st.cache_resource deja de
+#                              ser instancia de league_engine.ClubEngine
+#                              (isinstance -> False), porque la clase es un
+#                              objeto nuevo y el motor cacheado apunta al viejo.
+#
+# El propósito original (que un despliegue se vea sin reiniciar) se conserva:
+# Streamlit Cloud reinicia el contenedor en cada push, y este bloque se ejecuta
+# igualmente al arrancar el proceso. Lo que se elimina es repetirlo por cada
+# visitante, que es lo que rompía a los demás.
+@st.cache_resource
+def _refresco_de_arranque() -> bool:
+    """Se ejecuta UNA vez por proceso: cache_resource es global, no por sesión."""
     import importlib as _il
+    import sys as _sys
     for _mod in ('config', 'name_mapper', 'fixtures_espn', 'odds_api',
                  'source_resilience', 'betexplorer_scraper', 'edge_engine',
                  'traductor_quant', 'league_engine', 'reto_escalera',
@@ -96,6 +106,10 @@ if not st.session_state.get('_refresco_inicial'):
                 _il.reload(_sys.modules[_mod])
             except Exception:
                 pass
+    return True
+
+
+_refresco_de_arranque()
 
 COLORES = {'local': '#2ecc71', 'empate': '#95a5a6', 'visitante': '#3498db'}
 
@@ -323,6 +337,22 @@ def cargar_motor() -> PredictionEngine:
     return PredictionEngine()
 
 
+# ===========================================================================
+# v86 — UN SOLO BARRIDO A LA VEZ EN TODO EL PROCESO
+# ===========================================================================
+# El barrido de alpha_finder pica a 1297,7 MB; dos a la vez, a 2172,2 MB
+# (_v86_barrido_concurrente.py). La lógica del guardia vive en
+# guardia_barrido.py, que es un módulo importado de verdad: app.py re-ejecuta
+# ESTE script con runpy en cada rerun, así que un global de aquí no recordaría
+# nada entre interacciones.
+def barrido_universal(forzar: bool = False) -> dict:
+    """Barrido de alpha_finder con garantía de no solaparse consigo mismo."""
+    import alpha_finder
+    import guardia_barrido
+    return guardia_barrido.barrido(alpha_finder.apuestas_del_dia_universal,
+                                   forzar=forzar)
+
+
 @st.cache_data(show_spinner=False)
 def prediccion_cacheada(_motor_id: int, home: str, away: str, arbitro: str = None,
                         fase: str = 'grupos', estadio: str = None) -> dict:
@@ -341,7 +371,31 @@ MOTOR = cargar_motor()
 # ===========================================================================
 # MODO LIGAS DE CLUBES (v12): vista independiente, sin tocar el flujo Mundial
 # ===========================================================================
-@st.cache_resource(show_spinner="⚽ Cargando el motor de la liga...")
+# v86 — TECHO DE MEMORIA. Este caché se indexa POR LIGA y hay 56 disponibles.
+# Sin `max_entries` cada liga que alguien abriera quedaba residente para
+# siempre. Medido en _v86_memoria.py sobre 12 ligas reales:
+#
+#     coste medio por motor .......... 59,0 MB
+#     RSS con 12 ligas cargadas ..... 847,8 MB
+#     proyección a las 56 ligas .... 3445,3 MB
+#
+# El contenedor gratuito de Streamlit Cloud muere bastante antes de eso. Con un
+# usuario el límite se alcanza despacio; con dos navegando ligas distintas se
+# alcanza al doble de velocidad, y cuando el contenedor cae se les cae a los
+# dos a la vez. Ése es el síntoma de "se cae cuando entran dos personas".
+#
+# _v86_liberacion.py confirma que el desalojo SÍ devuelve la RAM (71 % del pico,
+# 0 de 8 motores retenidos; el resto es fragmentación del asignador), así que
+# el tope funciona de verdad y no es cosmético.
+#
+# 6 motores ~= 494 MB con el proceso base incluido, dejando aire para MLB, NBA,
+# tenis y los DataFrames de cuotas. El coste de un desalojo es recargar la liga
+# (~3,8 s medidos en liga_mx), que es infinitamente preferible a un OOM.
+MAX_LIGAS_EN_MEMORIA = int(os.environ.get('MAX_LIGAS_EN_MEMORIA', '6'))
+
+
+@st.cache_resource(show_spinner="⚽ Cargando el motor de la liga...",
+                   max_entries=MAX_LIGAS_EN_MEMORIA)
 def cargar_motor_liga(clave: str):
     from league_engine import ClubEngine
     return ClubEngine(clave)
@@ -1619,7 +1673,12 @@ def render_alpha_finder():
     cacc1, cacc2 = st.columns(2)
     if cacc1.button("🔄 Actualizar ahora", key='refresh_alpha', width='stretch',
                     help="Vuelve a bajar cuotas y recalcula todas las apuestas."):
-        st.cache_data.clear()
+        # v86: antes esto hacía `st.cache_data.clear()`, que es GLOBAL al
+        # proceso: un usuario pulsando "Actualizar" borraba el caché de todos
+        # los demás y, de paso, los cerrojos que impiden barridos simultáneos.
+        # Ahora sólo se marca que este usuario quiere datos frescos; el guardia
+        # se encarga de que siga habiendo un único barrido a la vez.
+        st.session_state['_forzar_barrido'] = True
         st.rerun()
     if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
                     width='stretch', type="primary",
@@ -1637,12 +1696,11 @@ def render_alpha_finder():
         except Exception as e:
             st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
 
-    @st.cache_data(ttl=1800, show_spinner="🔍 Buscando valor en todos los deportes…")
-    def _buscar():
-        import alpha_finder
-        return alpha_finder.apuestas_del_dia_universal()
-
-    r = _buscar()
+    # v86: pasa por el guardia de proceso (ver barrido_universal), que impide
+    # que dos sesiones lancen el barrido a la vez. El spinner se pone aquí
+    # porque el guardia no es un decorador de Streamlit.
+    with st.spinner("🔍 Buscando valor en todos los deportes…"):
+        r = barrido_universal(forzar=st.session_state.pop('_forzar_barrido', False))
     # v41: BANNER de salud de datos — distingue "no llegan datos" (problema)
     # de "llegan pero hoy no hay picks" (normal). Antes salía indistinguible.
     try:

@@ -76,18 +76,27 @@ def _tabla() -> dict:
     return _CACHE['datos']
 
 
-def acierto_real(prob: Optional[float]) -> Optional[float]:
+def acierto_real(prob: Optional[float],
+                 mercado: Optional[str] = None) -> Optional[float]:
     """
     Acierto histórico medido de la banda a la que pertenece `prob`.
+
+    v86 — la banda se busca en la tabla DEL MERCADO. Antes sólo existía una
+    tabla (la de 1X2) y era la que se devolvía para todo.
 
     None si no hay muestra suficiente para esa banda — que es una respuesta
     mejor que inventar un número.
     """
     if prob is None:
         return None
-    for b in (_tabla().get('bandas') or []):
+    m = _mercado_normalizado(mercado)
+    if m == '1X2':
+        bandas = _tabla().get('bandas') or []
+    else:
+        bandas = (_tabla().get('bandas_por_mercado') or {}).get(m) or []
+    for b in bandas:
         if b['desde'] <= prob < b['hasta'] and b.get('n', 0) >= MIN_MUESTRA:
-            return b['acierto']
+            return b.get('acierto')
     return None
 
 
@@ -101,11 +110,33 @@ def acierto_real(prob: Optional[float]) -> Optional[float]:
 #
 # Se declara explícitamente para qué mercados hay medición. Para el resto la
 # respuesta honesta no es un número prestado, es «no medido».
-MERCADOS_MEDIDOS = {'1X2', 'Ganador', 'Moneyline'}
+#
+# v86 — GOLES Y BTTS YA TIENEN MEDICIÓN PROPIA. `build_ledger_totales.py`
+# construye P(over) y P(BTTS) fuera de muestra con walk-forward de los
+# regresores de Poisson, así que estos mercados dejan de decir «no medido» y
+# pasan a llevar su propio acierto real. El que sigue sin medición es el
+# hándicap asiático, y ahí se sigue diciendo que no la hay.
+MERCADOS_BASE = {'1X2', 'Ganador', 'Moneyline'}
+
+
+def _mercado_normalizado(mercado: Optional[str]) -> str:
+    m = (mercado or '1X2').strip()
+    if m in MERCADOS_BASE:
+        return '1X2'
+    if m.upper() == 'BTTS':
+        return 'BTTS'
+    if m.lower().startswith('gol'):
+        return 'Goles'
+    return m
 
 
 def hay_medicion(mercado: Optional[str]) -> bool:
-    return (mercado or '1X2') in MERCADOS_MEDIDOS
+    m = _mercado_normalizado(mercado)
+    if m == '1X2':
+        return True
+    por_mercado = (_tabla().get('bandas_por_mercado') or {})
+    bandas = por_mercado.get(m) or []
+    return any(b.get('n', 0) >= MIN_MUESTRA for b in bandas)
 
 
 def probabilidad_real(prob: Optional[float],
@@ -120,10 +151,30 @@ def probabilidad_real(prob: Optional[float],
 
     Devuelve None cuando no hay medición para ese mercado — y entonces hay que
     decir que no la hay, no rellenar con el número de otro mercado.
+
+    v86 — LA CORRECCIÓN NUNCA INFLA. Se devuelve `min(modelo, histórico)`.
+
+    Motivo, medido: en 1X2 la banda 0,70-0,75 dice que el acierto real es del
+    81,8 % frente al 71,3 % del modelo, o sea que "corregiría" hacia ARRIBA.
+    Pero esa banda tiene **n=33** y su intervalo bootstrap del 90 % es
+    [69,7 %, 90,9 %] — veintiún puntos de ancho. El 81,8 % no se sostiene.
+
+    Y hay un patrón que lo confirma: TODAS las bandas con muestra decente van
+    en la otra dirección (sesgo +0,2 % · 0,0 % · +0,9 % · +4,8 % en 1X2;
+    de +0,9 % a +8,6 % en Goles; de +1,1 % a +27,4 % en BTTS). El fenómeno
+    medido es la SOBRECONFIANZA. La única banda que parece rendir de más es
+    justo la de 33 casos.
+
+    Subir una probabilidad mostrada apoyándose en 33 partidos es el único
+    error de los dos que no tiene ninguna ventaja para el usuario: le haría
+    apostar más sobre una cifra que no está respaldada.
     """
     if prob is None or not hay_medicion(mercado):
         return None
-    return acierto_real(prob)
+    real = acierto_real(prob, mercado)
+    if real is None:
+        return None
+    return min(float(prob), float(real))
 
 
 def aviso_calibracion(prob: Optional[float],
@@ -134,15 +185,84 @@ def aviso_calibracion(prob: Optional[float],
     if not hay_medicion(mercado):
         return (f"Sin histórico propio para «{mercado}»: la probabilidad que se "
                 f"muestra es la del modelo, sin corregir. Las bandas de acierto "
-                f"del proyecto se midieron sobre 1X2 y ganador, no sobre este "
-                f"mercado, y usarlas aquí sería importar el dato de otro sitio.")
-    real = acierto_real(prob)
+                f"del proyecto se midieron sobre otros mercados, y usarlas aquí "
+                f"sería importar el dato de otro sitio.")
+    real = acierto_real(prob, mercado)
     if real is None:
         return None
     if prob - real >= 0.05:
         return (f"Probabilidad corregida con el histórico: {real:.0%} "
                 f"(el modelo sin corregir decía {prob:.0%}).")
     return None
+
+
+LEDGER_TOTALES = 'pick_ledger_totales.csv'
+
+
+def bandas_de_totales(ledger: str = LEDGER_TOTALES) -> dict:
+    """
+    v86 — bandas de acierto real para GOLES y BTTS.
+
+    Hasta v85 estos mercados no tenían medición propia y la pestaña «Máxima
+    Confianza» decía «no medido» (que era honesto: v84 quitó el número prestado
+    de 1X2). `build_ledger_totales.py` genera el sustrato que faltaba —
+    P(over 1.5/2.5/3.5) y P(BTTS) fuera de muestra, con walk-forward de los
+    regresores de Poisson y paridad exacta con `ClubEngine.predecir`.
+
+    Se calibra el LADO QUE EL MODELO FAVORECE, que es el único que llega a
+    mostrarse: si el modelo da 30 % al «Más de 2.5», el pick que aparece es
+    «Menos de 2.5» al 70 %. Por eso se toma max(p, 1−p) y si acertó ESE lado.
+    """
+    import os
+
+    import numpy as np
+    import pandas as pd
+
+    if not os.path.exists(ledger):
+        logger.info(f'[confianza] {ledger} no existe: Goles y BTTS sin medir')
+        return {}
+    d = pd.read_csv(ledger)
+    rng = np.random.default_rng(20260731)
+    out: Dict[str, List[dict]] = {}
+
+    def calibrar(prob, gano, etiqueta):
+        prob = np.asarray(prob, dtype=float)
+        gano = np.asarray(gano).astype(bool)
+        # lado favorecido por el modelo
+        lado_alto = prob >= 0.5
+        p = np.where(lado_alto, prob, 1 - prob)
+        g = np.where(lado_alto, gano, ~gano)
+        filas = []
+        for lo, hi in BANDAS:
+            sel = (p >= lo) & (p < hi)
+            n = int(sel.sum())
+            fila = {'desde': lo, 'hasta': hi, 'n': n}
+            if n >= MIN_MUESTRA:
+                ac = float(g[sel].mean())
+                idx = rng.integers(0, n, size=(2000, n))
+                boot = g[sel][idx].mean(axis=1)
+                fila.update({
+                    'acierto': round(ac, 4),
+                    'prob_media_modelo': round(float(p[sel].mean()), 4),
+                    'sesgo': round(float(p[sel].mean() - ac), 4),
+                    'acierto_p5': round(float(np.percentile(boot, 5)), 4)})
+            filas.append(fila)
+        out[etiqueta] = filas
+        return filas
+
+    # GOLES: se juntan las tres líneas, porque el mercado que se muestra usa
+    # cualquiera de ellas y la banda describe la probabilidad, no la línea.
+    probs, ganos = [], []
+    for L in (1.5, 2.5, 3.5):
+        cp, cg = f'p_over_{L}', f'over_{L}_real'
+        if cp in d.columns and cg in d.columns:
+            probs.append(d[cp].values)
+            ganos.append(d[cg].values.astype(bool))
+    if probs:
+        calibrar(np.concatenate(probs), np.concatenate(ganos), 'Goles')
+    if 'p_btts' in d.columns and 'btts_real' in d.columns:
+        calibrar(d['p_btts'].values, d['btts_real'].values.astype(bool), 'BTTS')
+    return out
 
 
 def calcular(ledger: str = LEDGER) -> dict:
@@ -178,8 +298,14 @@ def calcular(ledger: str = LEDGER) -> dict:
         if n >= MIN_MUESTRA:
             pnl = np.where(gano[sel], cuota[sel] - 1, -1.0)
             idx = rng.integers(0, len(pnl), size=(2000, len(pnl)))
+            # v86: intervalo del ACIERTO, no sólo del ROI. Hace falta para saber
+            # si una banda con muestra corta sostiene lo que dice.
+            ac_boot = gano[sel].astype(float)[
+                rng.integers(0, n, size=(2000, n))].mean(axis=1)
             fila.update({
                 'acierto': round(float(gano[sel].mean()), 4),
+                'acierto_p5': round(float(np.percentile(ac_boot, 5)), 4),
+                'acierto_p95': round(float(np.percentile(ac_boot, 95)), 4),
                 'prob_media_modelo': round(float(prob[sel].mean()), 4),
                 'sesgo': round(float(prob[sel].mean() - gano[sel].mean()), 4),
                 'roi': round(float(pnl.mean()), 4),
@@ -207,6 +333,7 @@ def calcular(ledger: str = LEDGER) -> dict:
     salida = {
         'generado_de': ledger, 'n_total': int(len(d)),
         'bandas': bandas, 'umbrales': umbrales,
+        'bandas_por_mercado': bandas_de_totales(),
         'umbral_recomendado': recomendado,
         'nota': 'Acierto REAL por banda de probabilidad, medido fuera de '
                 'muestra. El acierto no crece con el umbral: se estanca en '

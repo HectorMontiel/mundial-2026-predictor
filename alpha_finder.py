@@ -523,7 +523,10 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
         if evaluados >= max_partidos:
             break
         evaluados += 1
-        pred = eng.predecir(home, away)
+        # v86: `prior_elo=False`. El encogimiento hacia el ELO es para la FICHA,
+        # donde no hay mercado. Aquí sí lo hay y la corrección buena es la de
+        # `calibracion_mercado`, así que los picks salen idénticos a v85.
+        pred = eng.predecir(home, away, prior_elo=False)
         if 'error' in pred:
             continue
         evaluados_pares.add((liga, home, away))   # v49: no duplicar en fixtures
@@ -751,7 +754,9 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
             if (clave, home, away) in evaluados_pares:
                 continue                        # ya evaluado con cuota real
             evaluados_pares.add((clave, home, away))
-            pred = eng.predecir(home, away)
+            # v86: igual que en el barrido de cuotas — el prior de ELO es de la
+            # ficha, no del pick. Ver el comentario en `_barrido_cuotas`.
+            pred = eng.predecir(home, away, prior_elo=False)
             if 'error' in pred:
                 continue
             n_eval += 1
@@ -1872,9 +1877,23 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         # banda acierta el 58 %, y eso obliga a hacer la corrección de cabeza.
         # Si el histórico dice 58 %, la probabilidad de ganar es 58 %.
         #
-        # Solo se corrige donde HAY medición para ese mercado: el ledger tiene
-        # 1X2 y ganador, no hándicaps ni totales. Donde no la hay se dice, en
-        # vez de importar el número de otro mercado (ver `calibracion_confianza`).
+        # Solo se corrige donde HAY medición para ese mercado. Donde no la hay
+        # se dice, en vez de importar el número de otro mercado (ver
+        # `calibracion_confianza`).
+        #
+        # v86 — GOLES y BTTS ya tienen medición propia, construida con
+        # `build_ledger_totales.py` (47.794 partidos fuera de muestra con
+        # walk-forward de los regresores de Poisson). Antes decían «no medido».
+        # Lo que aparece ahora no es cosmético:
+        #
+        #     Goles, banda >=0,75 : el modelo dice 83,1 % y acierta 74,5 %
+        #     BTTS,  banda >=0,75 : el modelo dice 80,6 % y acierta 53,2 %
+        #
+        # El BTTS está PLANO: 51-55 % de acierto real en todas las bandas, diga
+        # lo que diga el modelo. Es la confirmación medida de lo que la v75
+        # sospechaba, y ahora el usuario ve el 53 % en vez del 80 %.
+        #
+        # El hándicap asiático sigue sin medición y sigue diciéndolo.
         if _cc is not None:
             _merc = p.get('mercado')
             _real = _cc.probabilidad_real(prob, _merc)

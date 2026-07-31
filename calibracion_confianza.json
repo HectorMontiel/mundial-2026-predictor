@@ -5,109 +5,224 @@
   {
    "desde": 0.5,
    "hasta": 0.55,
-   "n": 13758,
-   "acierto": 0.5196,
-   "prob_media_modelo": 0.5248,
-   "sesgo": 0.0053,
-   "roi": -0.053,
-   "p5": -0.0655,
-   "cuota_media": 1.838
+   "n": 13792,
+   "acierto": 0.5233,
+   "acierto_p5": 0.5165,
+   "acierto_p95": 0.5307,
+   "prob_media_modelo": 0.5249,
+   "sesgo": 0.0016,
+   "roi": -0.0503,
+   "p5": -0.0631,
+   "cuota_media": 1.82
   },
   {
    "desde": 0.55,
    "hasta": 0.6,
-   "n": 12779,
-   "acierto": 0.5694,
+   "n": 13106,
+   "acierto": 0.5745,
+   "acierto_p5": 0.5674,
+   "acierto_p95": 0.5816,
    "prob_media_modelo": 0.5745,
-   "sesgo": 0.0051,
-   "roi": -0.0491,
-   "p5": -0.0615,
-   "cuota_media": 1.676
+   "sesgo": 0.0001,
+   "roi": -0.0466,
+   "p5": -0.0594,
+   "cuota_media": 1.663
   },
   {
    "desde": 0.6,
    "hasta": 0.65,
-   "n": 8687,
-   "acierto": 0.6108,
-   "prob_media_modelo": 0.6209,
-   "sesgo": 0.0101,
-   "roi": -0.0453,
-   "p5": -0.0586,
-   "cuota_media": 1.566
+   "n": 8821,
+   "acierto": 0.6114,
+   "acierto_p5": 0.6029,
+   "acierto_p95": 0.6199,
+   "prob_media_modelo": 0.6208,
+   "sesgo": 0.0094,
+   "roi": -0.0488,
+   "p5": -0.0617,
+   "cuota_media": 1.557
   },
   {
    "desde": 0.65,
    "hasta": 0.7,
-   "n": 1483,
-   "acierto": 0.6109,
-   "prob_media_modelo": 0.6632,
-   "sesgo": 0.0522,
-   "roi": -0.0654,
-   "p5": -0.0968,
-   "cuota_media": 1.532
+   "n": 1439,
+   "acierto": 0.615,
+   "acierto_p5": 0.5942,
+   "acierto_p95": 0.6372,
+   "prob_media_modelo": 0.6627,
+   "sesgo": 0.0477,
+   "roi": -0.0652,
+   "p5": -0.0977,
+   "cuota_media": 1.52
   },
   {
    "desde": 0.7,
    "hasta": 0.75,
-   "n": 72,
-   "acierto": 0.6944,
-   "prob_media_modelo": 0.7166,
-   "sesgo": 0.0221,
-   "roi": 0.1263,
-   "p5": -0.0221,
-   "cuota_media": 1.676
+   "n": 33,
+   "acierto": 0.8182,
+   "acierto_p5": 0.697,
+   "acierto_p95": 0.9091,
+   "prob_media_modelo": 0.7128,
+   "sesgo": -0.1053,
+   "roi": 0.2776,
+   "p5": 0.0875,
+   "cuota_media": 1.553
   },
   {
    "desde": 0.75,
    "hasta": 1.01,
-   "n": 45,
-   "acierto": 0.5778,
-   "prob_media_modelo": 0.7957,
-   "sesgo": 0.2179,
-   "roi": -0.0647,
-   "p5": -0.2709,
-   "cuota_media": 1.626
+   "n": 3
   }
  ],
  "umbrales": [
   {
    "umbral": 0.6,
-   "n": 10287,
-   "pct_partidos": 0.1146,
-   "acierto": 0.6113,
-   "roi": -0.0471,
-   "p5": -0.0592
+   "n": 10296,
+   "pct_partidos": 0.1147,
+   "acierto": 0.6127,
+   "roi": -0.0499,
+   "p5": -0.0623
   },
   {
    "umbral": 0.65,
-   "n": 1600,
-   "pct_partidos": 0.0178,
-   "acierto": 0.6138,
-   "roi": -0.0568,
-   "p5": -0.0866
+   "n": 1475,
+   "pct_partidos": 0.0164,
+   "acierto": 0.6203,
+   "roi": -0.0562,
+   "p5": -0.0875
   },
   {
    "umbral": 0.7,
-   "n": 117,
-   "pct_partidos": 0.0013,
-   "acierto": 0.6496,
-   "roi": 0.0528,
-   "p5": -0.072
+   "n": 36,
+   "pct_partidos": 0.0004,
+   "acierto": 0.8333,
+   "roi": 0.3031,
+   "p5": 0.1339
   },
   {
    "umbral": 0.75,
-   "n": 45,
-   "pct_partidos": 0.0005,
-   "acierto": 0.5778,
-   "roi": -0.0647,
-   "p5": -0.264
+   "n": 3,
+   "pct_partidos": 0.0
   },
   {
    "umbral": 0.8,
-   "n": 17,
-   "pct_partidos": 0.0002
+   "n": 0,
+   "pct_partidos": 0.0
   }
  ],
+ "bandas_por_mercado": {
+  "Goles": [
+   {
+    "desde": 0.5,
+    "hasta": 0.55,
+    "n": 18629,
+    "acierto": 0.5163,
+    "prob_media_modelo": 0.5251,
+    "sesgo": 0.0088,
+    "acierto_p5": 0.5101
+   },
+   {
+    "desde": 0.55,
+    "hasta": 0.6,
+    "n": 18815,
+    "acierto": 0.567,
+    "prob_media_modelo": 0.5752,
+    "sesgo": 0.0082,
+    "acierto_p5": 0.5611
+   },
+   {
+    "desde": 0.6,
+    "hasta": 0.65,
+    "n": 18857,
+    "acierto": 0.6031,
+    "prob_media_modelo": 0.6251,
+    "sesgo": 0.022,
+    "acierto_p5": 0.5975
+   },
+   {
+    "desde": 0.65,
+    "hasta": 0.7,
+    "n": 19111,
+    "acierto": 0.6478,
+    "prob_media_modelo": 0.675,
+    "sesgo": 0.0272,
+    "acierto_p5": 0.642
+   },
+   {
+    "desde": 0.7,
+    "hasta": 0.75,
+    "n": 18306,
+    "acierto": 0.6821,
+    "prob_media_modelo": 0.7247,
+    "sesgo": 0.0426,
+    "acierto_p5": 0.6766
+   },
+   {
+    "desde": 0.75,
+    "hasta": 1.01,
+    "n": 49664,
+    "acierto": 0.7452,
+    "prob_media_modelo": 0.831,
+    "sesgo": 0.0858,
+    "acierto_p5": 0.7419
+   }
+  ],
+  "BTTS": [
+   {
+    "desde": 0.5,
+    "hasta": 0.55,
+    "n": 13625,
+    "acierto": 0.5138,
+    "prob_media_modelo": 0.5248,
+    "sesgo": 0.011,
+    "acierto_p5": 0.5069
+   },
+   {
+    "desde": 0.55,
+    "hasta": 0.6,
+    "n": 12059,
+    "acierto": 0.5117,
+    "prob_media_modelo": 0.5741,
+    "sesgo": 0.0624,
+    "acierto_p5": 0.5043
+   },
+   {
+    "desde": 0.6,
+    "hasta": 0.65,
+    "n": 9236,
+    "acierto": 0.5319,
+    "prob_media_modelo": 0.6234,
+    "sesgo": 0.0915,
+    "acierto_p5": 0.5238
+   },
+   {
+    "desde": 0.65,
+    "hasta": 0.7,
+    "n": 6026,
+    "acierto": 0.5256,
+    "prob_media_modelo": 0.6729,
+    "sesgo": 0.1474,
+    "acierto_p5": 0.5148
+   },
+   {
+    "desde": 0.7,
+    "hasta": 0.75,
+    "n": 3559,
+    "acierto": 0.5479,
+    "prob_media_modelo": 0.7226,
+    "sesgo": 0.1747,
+    "acierto_p5": 0.5344
+   },
+   {
+    "desde": 0.75,
+    "hasta": 1.01,
+    "n": 3289,
+    "acierto": 0.5324,
+    "prob_media_modelo": 0.8064,
+    "sesgo": 0.274,
+    "acierto_p5": 0.5178
+   }
+  ]
+ },
  "umbral_recomendado": 0.7,
  "nota": "Acierto REAL por banda de probabilidad, medido fuera de muestra. El acierto no crece con el umbral: se estanca en ~63 % y por encima de 0,75 baja (el modelo sobreconfía en la cola). La pestaña de Máxima Confianza lo muestra junto a la probabilidad del modelo para no prometer lo que no cumple."
 }

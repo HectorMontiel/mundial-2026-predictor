@@ -1,5 +1,59 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v86 — La app se caía con dos usuarios, y el modelo no miraba el ELO (ver [VALIDACION_v86.md](VALIDACION_v86.md))
+
+- **🩹 Arreglada la caída con varios usuarios a la vez.** No era misterio, era
+  una cadena de tres fallos medidos. Al entrar, cada visitante ejecutaba
+  `st.cache_data.clear()`, que es **del proceso, no de la sesión**: le borraba
+  el caché a todos los que ya estaban dentro y —esto es lo letal— también el
+  diccionario de cerrojos con el que Streamlit impide calcular dos veces lo
+  mismo (`cache_utils.py:162-166`). Resultado: dos barridos de `alpha_finder`
+  en paralelo. Medido: **uno pica 1.297,7 MB y dos a la vez 2.172,2 MB**, y el
+  contenedor muere para los dos. Además el caché de motores de liga no tenía
+  techo: **59,0 MB por liga** y **3.445 MB proyectados** a las 56 disponibles.
+  Ahora el refresco corre una vez por proceso, el caché de ligas tiene
+  `max_entries`, y `guardia_barrido.py` garantiza **un solo barrido**: cinco
+  sesiones simultáneas lo comprueban en `test_concurrencia.py`.
+- **✍️ Escritura atómica donde se escribía en cada predicción.**
+  `predicciones_log.json` se reescribía con `open('w')`, que trunca el archivo
+  a cero: con seis hebras, **34,4 % de lecturas corruptas**. Ahora **0 %**.
+- **🧭 El modelo apenas responde a la fuerza de los equipos — y la auditoría de
+  la v85 lo había diagnosticado mal.** Aquella medía correlaciones sobre
+  emparejamientos **inventados** entre los 14 mejores equipos de cada liga, lo
+  que comprime el rango de ELO y hace que la correlación acabe midiendo la
+  forma. Sobre partidos reales no hay ni una liga invertida (mediana +0,76),
+  pero eso **también engaña**, porque el ELO va correlacionado con la forma. La
+  medición que decide es la **dependencia parcial**: mover sólo el ELO y
+  congelar el resto. **Subir 600 puntos de ELO mueve P(local) +0,0751 de
+  mediana; en Liga MX, +0,0173.** El usuario que reportó lo de Puebla tenía
+  razón.
+- **⚖️ Encogimiento hacia un prior de ELO en la ficha de partido (w=0,90).**
+  Sólo donde no hay mercado —cuando lo hay, la corrección buena sigue siendo la
+  de `calibracion_mercado`, y `alpha_finder` lo desactiva para que los picks
+  salgan idénticos. Elegido en los pliegues 1-2 y validado en los 3-4:
+  **ECE 0,0106 → 0,0045 (−58 %)**, log-loss +0,0098, precisión +0,0026. De 17
+  ligas con el modelo plano o invertido respecto al ELO, **quedan 0**.
+- **🚧 Un precio imposible ya no puede entrar en la Capa 1.**
+  `valor_vs_sharp` no comprobaba que la cuota fuese un precio real: calculaba
+  el EV y, como la lista va ordenada por EV, un dato corrupto se colocaba
+  **arriba del todo**. En el histórico de tenis **una sola apuesta a 100× el
+  precio de Pinnacle aporta el 26 % del ROI de +4,57 % de la WTA**. Techo en
+  2,0× el sharp: bloquea entre el 0,02 % y el 0,23 % de los picks.
+- **🎯 Goles y BTTS ya llevan su acierto REAL, no «no medido».** 47.794 partidos
+  fuera de muestra. Y lo que aparece no es cosmético: **el BTTS al 80 % del
+  modelo acierta el 53,2 %**, y está plano entre el 51 % y el 55 % diga lo que
+  diga. Un pick de BTTS ahora se muestra corregido.
+- **🛑 Y el histórico ya no puede INFLAR una probabilidad.** La banda de 1X2
+  0,70-0,75 subía el 71,3 % del modelo a 81,8 %… con **n=33** e intervalo
+  [69,7 %, 90,9 %]. Todas las demás bandas con muestra van al revés. Ahora se
+  muestra `min(modelo, histórico)`.
+- **🔬 Rechazado con números** (ver la tabla final de la validación): el
+  `malloc_trim` para los 417 MB huérfanos del motor del Mundial (no hay Linux
+  aquí para medirlo), el `w` de encogimiento por liga (sólo 20 de 9.870 fichas
+  caen en ligas planas), el filtro de overround (bloquea line shopping
+  legítimo) y el saneamiento del ATP como llave de la Capa 1 (**0/15**
+  configuraciones robustas antes y después: los outliers no tapaban nada).
+
 ## Novedades v81 — El Kelly dinámico no era la mejora (ver [VALIDACION_v81.md](VALIDACION_v81.md))
 
 - **💰 La fracción de Kelly sube de ⅛ a ¼, y por primera vez está medida.** El ⅛

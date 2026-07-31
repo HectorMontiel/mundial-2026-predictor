@@ -28,11 +28,13 @@ import ripser
 import altitud
 import arbitros
 import feature_engineering as fe
+import io_atomico
 from config import (TEAMS, TEAM_STYLE, STADIUMS, CALENDARIO_FILE, HISTORICO_FILE,
                     TEAM_NAMES_ES, TEAMS_MUNDIAL_2026)
 
 DIRECTORIO_MODELOS = 'modelos'
 DRIFT_LOG = 'predicciones_log.json'   # última consulta por cruce (monitor de cambios)
+MAX_CRUCES_LOG = 500                  # v86: techo del log de deriva (antes crecía sin fin)
 NOMBRES_PAIS = {
     'MEX': 'México', 'USA': 'Estados Unidos', 'CAN': 'Canadá', 'ARG': 'Argentina',
     'BRA': 'Brasil', 'URU': 'Uruguay', 'COL': 'Colombia', 'ECU': 'Ecuador',
@@ -550,11 +552,8 @@ class PredictionEngine:
                          features: Dict[str, float], probs: np.ndarray) -> Optional[Dict]:
         clave = f"{home}|{away}"
         try:
-            log = {}
             ruta = self._ruta(DRIFT_LOG)
-            if os.path.exists(ruta):
-                with open(ruta, 'r', encoding='utf-8') as f:
-                    log = json.load(f)
+            log = io_atomico.leer_json(ruta, {})
             anterior = log.get(clave)
             cambios = []
             if anterior:
@@ -571,8 +570,27 @@ class PredictionEngine:
                           'estado_al': self.fecha_estado,
                           'features': {k: round(float(v), 4) for k, v in features.items()},
                           'probs': [round(float(p), 4) for p in probs]}
-            with open(ruta, 'w', encoding='utf-8') as f:
-                json.dump(log, f, ensure_ascii=False)
+            # v86: ESCRITURA ATÓMICA. Esto corre en CADA predicción y en
+            # Streamlit hay una hebra por sesión: con dos usuarios, `open(w)`
+            # truncaba el archivo a cero mientras el otro estaba en `json.load`
+            # (34,4 % de lecturas corruptas medidas con 6 hebras). El try/except
+            # de fuera evitaba la caída, pero el archivo quedaba corrupto y el
+            # monitor de cambios dejaba de funcionar en silencio para todos.
+            #
+            # Además se acota el tamaño: el log guarda una entrada por cruce
+            # consultado y no se purgaba nunca, así que crecía sin techo con el
+            # uso y se releía entero en cada predicción.
+            if len(log) > MAX_CRUCES_LOG:
+                por_fecha = sorted(log.items(),
+                                   key=lambda kv: kv[1].get('fecha', ''))
+                log = dict(por_fecha[-MAX_CRUCES_LOG:])
+                log[clave] = log.get(clave) or {
+                    'fecha': pd.Timestamp.today().strftime('%Y-%m-%d %H:%M'),
+                    'estado_al': self.fecha_estado,
+                    'features': {k: round(float(v), 4)
+                                 for k, v in features.items()},
+                    'probs': [round(float(p), 4) for p in probs]}
+            io_atomico.escribir_json(ruta, log)
             if anterior:
                 return {'anterior': {'fecha': anterior['fecha'],
                                      'estado_al': anterior.get('estado_al', '?'),

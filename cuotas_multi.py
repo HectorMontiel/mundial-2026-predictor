@@ -1058,6 +1058,12 @@ def devig(cuotas: Dict[str, float], metodo: str = 'potencia') -> Dict[str, float
     return {k: v / s for k, v in imp.items()}
 
 
+# v86 — Techo del precio accionable frente al sharp. Ver el comentario dentro de
+# `valor_vs_sharp`: es un límite de plausibilidad económica, no un parámetro
+# ajustado. Doblar el precio de Pinnacle implicaría un EV de más del 100 %.
+RATIO_MAX_SOBRE_SHARP = 2.0
+
+
 def valor_vs_sharp(deporte: str, home: str, away: str,
                    odds_espn: Optional[dict] = None,
                    min_edge: float = 0.02) -> Dict:
@@ -1090,6 +1096,7 @@ def valor_vs_sharp(deporte: str, home: str, away: str,
     if not just:
         return salida
     salida['prob_justa'] = {k: round(v, 4) for k, v in just.items()}
+    salida['descartes_imposibles'] = []
     for lado, p_just in just.items():
         # v77: se valora el precio ACCIONABLE (la casa del usuario) y no el
         # mejor del mercado. Un pick de line shopping que solo existe en una
@@ -1102,6 +1109,38 @@ def valor_vs_sharp(deporte: str, home: str, away: str,
         cuota = precio['cuota']
         if precio['casa'] == 'Pinnacle':
             continue                     # el valor está en superar a Pinnacle
+        # v86 — GUARDIA DE PRECIO IMPOSIBLE.
+        #
+        # Hasta v85 no había ninguna comprobación de que la cuota accionable
+        # fuera un precio POSIBLE: se calculaba el EV y, si superaba el umbral,
+        # el pick entraba en la Capa 1. Un feed corrupto (una coma decimal
+        # desplazada, un valor rancio) produce un EV gigantesco y se cuela
+        # directo arriba del todo, porque la lista va ordenada por EV.
+        #
+        # No es hipotético. En el histórico de tennis-data.co.uk hay una cuota
+        # a 100x el precio de Pinnacle, y esa ÚNICA apuesta aporta 1,21 puntos
+        # del ROI de +4,57 % de la WTA: el 26 % del titular sale de un dato que
+        # nadie pudo cobrar jamás.
+        #
+        # El corte es de PRINCIPIO, no de barrido: doblar el precio del sharp
+        # implicaría un EV de más del 100 %, y eso no existe en un mercado de
+        # dos vías. Se midieron 1,5 · 2,0 · 2,5 · 3,0 y dan prácticamente lo
+        # mismo (bloquean entre el 0,02 % y el 0,23 % de los picks), así que el
+        # valor concreto no está ajustado a los datos.
+        #
+        # Lo que NO se filtra, aunque se probó: el sobre-redondeo (overround) de
+        # las mejores cuotas por debajo de 0,95. Bloqueaba entre el 3,6 % y el
+        # 4,8 % de los picks y costaba hasta 1,54 puntos de ROI, porque un
+        # overround bajo es precisamente lo que el line shopping busca — dos
+        # casas discrepando — y no una señal de dato corrupto.
+        pin_lado = pin.get(lado)
+        if pin_lado and pin_lado > 1 and cuota > RATIO_MAX_SOBRE_SHARP * pin_lado:
+            salida['descartes_imposibles'].append({
+                'lado': lado, 'cuota': cuota, 'casa': precio['casa'],
+                'pinnacle': pin_lado,
+                'ratio': round(cuota / pin_lado, 2),
+                'motivo': f'precio {cuota / pin_lado:.1f}x el de Pinnacle'})
+            continue
         ev = cuota * p_just - 1.0
         if ev >= min_edge:
             salida['valor'].append({

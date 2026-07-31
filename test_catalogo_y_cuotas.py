@@ -386,6 +386,134 @@ def test_precio_accionable():
           f"sin Playdoit se usa el mejor del mercado ({b})")
 
 
+def test_calibracion_de_totales_y_btts():
+    """
+    v86: Goles y BTTS dejan de decir «no medido» y llevan su acierto real.
+
+    Medido sobre 47.794 partidos fuera de muestra (`build_ledger_totales.py`,
+    walk-forward de los regresores de Poisson):
+
+        Goles, banda >=0,75 : el modelo dice 83,1 % y acierta 74,5 %
+        BTTS,  banda >=0,75 : el modelo dice 80,6 % y acierta 53,2 %
+
+    El BTTS está PLANO (51-55 % en todas las bandas): es una moneda al aire
+    vendida como confianza, y ahora se ve.
+    """
+    import calibracion_confianza as cc
+    check(cc.hay_medicion('Goles'), "Goles ya tiene medición propia")
+    check(cc.hay_medicion('BTTS'), "BTTS ya tiene medición propia")
+    check(cc.hay_medicion('1X2'), "1X2 la sigue teniendo")
+    check(not cc.hay_medicion('Hándicap asiático'),
+          "el hándicap asiático sigue diciendo que no la tiene")
+
+    # cada mercado usa SU tabla, no la prestada de otro
+    g = cc.probabilidad_real(0.80, 'Goles')
+    b = cc.probabilidad_real(0.80, 'BTTS')
+    check(g is not None and b is not None, "los dos devuelven número")
+    check(abs(g - b) > 0.10,
+          f"Goles y BTTS dan cifras DISTINTAS ({g:.3f} vs {b:.3f}); "
+          f"si coincidieran estarían compartiendo tabla")
+    check(b < 0.60,
+          f"el BTTS al 80 % del modelo se muestra como {b:.1%}, no como 80 %")
+
+    # v86: la corrección nunca infla
+    for merc in ('1X2', 'Goles', 'BTTS'):
+        for p in (0.52, 0.57, 0.62, 0.67, 0.72, 0.80):
+            r = cc.probabilidad_real(p, merc)
+            if r is not None:
+                check(r <= p + 1e-9,
+                      f"{merc} al {p:.0%}: el histórico no infla "
+                      f"({r:.1%} <= {p:.0%})")
+    # y el caso concreto que lo motivó
+    check(abs(cc.probabilidad_real(0.72, '1X2') - 0.72) < 1e-9,
+          "la banda 1X2 0,70-0,75 (n=33, IC [69,7 %, 90,9 %]) ya no sube "
+          "el 71,3 % a 81,8 %")
+
+    # las bandas llevan intervalo, no sólo el punto
+    import json
+    d = json.load(open('calibracion_confianza.json', encoding='utf-8'))
+    con_ic = [x for x in d['bandas']
+              if x.get('acierto') is not None and 'acierto_p5' in x]
+    check(len(con_ic) >= 4,
+          f"las bandas de 1X2 llevan intervalo del acierto ({len(con_ic)})")
+    check('bandas_por_mercado' in d and
+          {'Goles', 'BTTS'} <= set(d['bandas_por_mercado']),
+          "el JSON guarda las bandas por mercado")
+
+
+def test_guardia_precio_imposible():
+    """
+    v86: un precio corrupto no puede entrar en la Capa 1.
+
+    `valor_vs_sharp` ordena por EV descendente y no comprobaba que la cuota
+    fuese un precio POSIBLE, así que un feed con una coma decimal desplazada se
+    colocaba el primero. Medido en el histórico de tenis: una única apuesta a
+    100x el precio de Pinnacle aporta 1,21 puntos del ROI de +4,57 % de la WTA.
+    """
+    import cuotas_multi as cm
+    check(hasattr(cm, 'RATIO_MAX_SOBRE_SHARP'),
+          "existe el techo de precio frente al sharp")
+    r = getattr(cm, 'RATIO_MAX_SOBRE_SHARP', None)
+    check(r and 1.2 <= r <= 3.0,
+          f"el techo es plausible ({r}x el precio de Pinnacle)")
+
+    # el filtro se aplica de verdad: se simula un feed corrupto
+    fuente = open('cuotas_multi.py', encoding='utf-8').read()
+    check('descartes_imposibles' in fuente,
+          "los descartes se reportan en vez de desaparecer en silencio")
+    check('RATIO_MAX_SOBRE_SHARP * pin_lado' in fuente,
+          "el techo se compara contra la cuota de Pinnacle del MISMO lado")
+    # y NO se filtra por overround, que bloqueaba line shopping legítimo.
+    # Se miran sólo líneas de CÓDIGO: el comentario de v86 explica justamente
+    # por qué ese filtro se descartó, así que contiene la palabra.
+    cuerpo = fuente.split('def valor_vs_sharp')[1][:6000]
+    codigo = [l for l in cuerpo.splitlines()
+              if l.strip() and not l.strip().startswith('#')]
+    check(not any('overround' in l for l in codigo),
+          "no se filtra por overround (bloqueaba 3,6-4,8 % de picks legítimos)")
+
+
+def test_prior_elo_solo_en_la_ficha():
+    """
+    v86: el encogimiento hacia el ELO es de la FICHA, no de los picks.
+
+    Se midió que el modelo apenas responde a la fuerza de los equipos: subir
+    600 puntos de ELO mueve P(local) +0,075 de mediana, y en Liga MX +0,017
+    (el caso Puebla). La corrección se aplica donde el modelo va suelto —sin
+    ancla de mercado— y `alpha_finder` la desactiva para que Capa 1 y Capa 2
+    salgan idénticas.
+    """
+    import calibracion_elo as ce
+    check(ce.hay_prior(), "la tabla del prior de ELO está generada")
+    check(0.5 <= ce.W_FICHA < 1.0, f"w de la ficha en rango ({ce.W_FICHA})")
+
+    # el prior tiene que ser MONÓTONO: más ELO -> más P(local)
+    ps = [ce.prior(d)['home'] for d in (-0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75)]
+    check(all(b > a for a, b in zip(ps, ps[1:])),
+          f"el prior de ELO es monótono creciente ({[round(p, 3) for p in ps]})")
+    pa = [ce.prior(d)['away'] for d in (-0.75, 0.0, 0.75)]
+    check(all(b < a for a, b in zip(pa, pa[1:])),
+          f"y decreciente para el visitante ({[round(p, 3) for p in pa]})")
+
+    # corregir no debe romperse sin datos
+    p0 = {'home': 0.5, 'draw': 0.3, 'away': 0.2}
+    q, info = ce.corregir(p0, None)
+    check(q == p0 and not info['aplicado'],
+          "sin ELO devuelve las probabilidades intactas")
+    q, info = ce.corregir(p0, 0.0, w=1.0)
+    check(q == p0 and not info['aplicado'], "w=1 desactiva la corrección")
+    q, info = ce.corregir(p0, -0.62)
+    check(info['aplicado'] and abs(sum(q.values()) - 1) < 1e-9,
+          "con ELO se aplica y las probabilidades suman 1")
+    check(q['home'] < p0['home'],
+          f"con el ELO en contra baja P(local) ({q['home']:.3f} < 0.5)")
+
+    # y los picks NO pasan por aquí
+    af = open('alpha_finder.py', encoding='utf-8').read()
+    check(af.count('prior_elo=False') >= 2,
+          "alpha_finder desactiva el prior en los dos barridos de fútbol")
+
+
 def test_calibracion_confianza():
     """
     v77: la pestaña «Máxima Confianza» no puede prometer lo que no cumple.
@@ -974,6 +1102,10 @@ if __name__ == '__main__':
     print('\n=== v75: umbrales en producción ===')
     test_umbrales_publicados()
     test_alpha_finder_lee_umbrales()
+    print('\n=== v86: precio imposible, prior de ELO y totales ===')
+    test_guardia_precio_imposible()
+    test_prior_elo_solo_en_la_ficha()
+    test_calibracion_de_totales_y_btts()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
