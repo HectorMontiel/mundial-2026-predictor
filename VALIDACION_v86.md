@@ -390,7 +390,54 @@ histórico de líneas asiáticas, que hoy no está en `odds_historico.db`.
 
 ---
 
-## 6. Resumen de lo desplegado
+## 6. Hallazgo colateral: los modelos de CI no se pueden abrir en Windows
+
+Al rebasar sobre los dos commits de «reentrenamiento automático de ligas» (que
+entraron en los dos remotos mientras se trabajaba en esta versión), la suite
+local reventó con:
+
+```
+xgboost._c_api.XGBoostError: input stream corrupted
+```
+
+**43 de 43** ligas reentrenadas dejan de cargar; **0** de las que el job no
+tocó. Antes de tocar nada se descartó una por una cada explicación:
+
+| hipótesis | comprobación | resultado |
+|---|---|---|
+| Conversión CRLF al hacer checkout | blob del repo vs disco | **idénticos** (0 bytes de diferencia) |
+| Falta declarar el binario | `.gitattributes` | ya dice `*.joblib binary` |
+| El fichero pasó por un filtro de texto | proporción de CRLF sobre LF | 0,4 % en el bueno **y** en el malo: ruido, no conversión |
+| Corrupción en tránsito | otros artefactos del MISMO commit | `escalador`, `reg_local` y `reg_visit` (sklearn) **cargan bien** |
+| Versión distinta de XGBoost | log del runner | **xgboost 3.3.0**, igual que en local |
+
+La causa real es la **rueda**: el runner instala
+`xgboost-3.3.0-py3-none-manylinux_2_28_x86_64.whl` y serializa allí; la rueda de
+Windows de la **misma versión** no deserializa ese buffer.
+
+**Producción NO está afectada, y hay prueba.** El paso «Verificar que todos los
+modelos se pueden cargar» del workflow recorre `modelos/*/*.joblib` en Linux, e
+incluye también los modelos que el job no reentrenó. El run del 2026-07-31
+(30615749580) reportó **«Ilegibles restaurados: 0»**: en Linux cargan todos.
+Streamlit Cloud también es Linux.
+
+Por eso **no se han revertido los modelos**: hacerlo desplegaría artefactos
+viejos para arreglar un problema que sólo existe en la máquina de desarrollo.
+
+Lo que sí se ha hecho: `test_inferencia_rapida_no_cambia_nada` detecta la
+situación y **avisa** en vez de reventar con un traceback de XGBoost que hacía
+parecer que el fallo era del cambio que se estaba probando.
+
+Queda abierto: el paso de verificación del workflow **no puede detectar esto**,
+porque valida en el mismo entorno que acaba de escribir los ficheros. La
+solución de fondo es serializar los modelos de XGBoost con `save_model`
+(UBJSON), que sí es portable entre plataformas, en vez de con pickle. Es un
+cambio de formato de artefacto que toca entrenamiento y carga, y no se ha hecho
+aquí porque no hay Linux en esta máquina para validar las dos mitades.
+
+---
+
+## 7. Resumen de lo desplegado
 
 | cambio | justificación medida |
 |---|---|

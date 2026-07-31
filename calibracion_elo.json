@@ -3,14 +3,14 @@
  "n_partidos": 47948,
  "w_ficha": 0.9,
  "coeficientes": [
-  1.300314987413557,
-  -0.0715229462130937,
-  -1.2287920412004654
+  1.300333079934343,
+  -0.0715221307717478,
+  -1.228810949162595
  ],
  "intercepto": [
-  0.31925959199230686,
-  -0.16663698869467894,
-  -0.1526226032973816
+  0.3192596278479435,
+  -0.16663664231345726,
+  -0.1526229855342459
  ],
  "nota": "logística multinomial con una única variable (DIFF_ELO), monótona por construcción; w elegido en los pliegues 1-2 y validado en los 3-4 sobre las filas SIN ancla de mercado"
 }
