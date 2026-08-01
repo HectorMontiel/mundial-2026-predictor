@@ -386,6 +386,165 @@ def test_precio_accionable():
           f"sin Playdoit se usa el mejor del mercado ({b})")
 
 
+def test_solo_mlb_en_el_tablon_de_mlb():
+    """
+    v88: el tablón de cuotas «mlb» trae LMB, NPB, KBO, CPBL y Triple-A.
+
+    Medido el 2026-07-31: de 80 entradas en Pinnacle/Bovada/Playdoit, sólo 16
+    eran MLB. Sin filtro llegaban a la Capa 1 partidos de la CPBL de Taiwán
+    etiquetados «MLB» — y por duplicado, porque los nombres desconocidos no
+    colapsan en la clave de deduplicación.
+
+    Peor todavía: el fuzzy con umbral 0,60 daba por MLB a un 10 % de los
+    equipos de otras ligas (Kia Tigers -> Detroit Tigers, Chiba Lotte Marines
+    -> Seattle Mariners, Fubon Guardians -> Cleveland Guardians). Y `codigo_mlb`
+    es la puerta al MOTOR, así que esos partidos se predecían con las
+    estadísticas del equipo equivocado.
+    """
+    from engines.mlb_engine import (NOMBRES_MLB, codigo_mlb, es_equipo_mlb,
+                                    es_partido_mlb, UMBRAL_FUZZY_MLB)
+
+    check(UMBRAL_FUZZY_MLB >= 0.85,
+          f"el umbral del fuzzy es estricto ({UMBRAL_FUZZY_MLB})")
+
+    # los 30 equipos reales siguen resolviendo
+    fallan = [n for n in NOMBRES_MLB if not es_equipo_mlb(n)]
+    check(not fallan, f"los 30 equipos de MLB siguen reconociéndose ({fallan})")
+
+    # y los de otras ligas ya no
+    intrusos = {
+        'Kia Tigers': 'KBO', 'Chiba Lotte Marines': 'NPB',
+        'Fubon Guardians': 'CPBL', 'Sacramento River Cats': 'Triple-A',
+        'Tacoma Rainiers': 'Triple-A', 'Rakuten Monkeys': 'CPBL',
+        'Uni-President 7-Eleven Lions': 'CPBL', 'Hanshin Tigers': 'NPB',
+        'Olmecas de Tabasco': 'LMB', 'Toros de Tijuana': 'LMB',
+        'Lotte Giants': 'KBO', 'Samsung Lions': 'KBO',
+    }
+    colados = [f'{n} ({liga}) -> {codigo_mlb(n)}'
+               for n, liga in intrusos.items() if es_equipo_mlb(n)]
+    check(not colados, f"ningún equipo de otra liga pasa por MLB ({colados})")
+
+    check(not es_partido_mlb('Rakuten Monkeys', 'Uni-President Lions'),
+          "el partido de la CPBL que llegó a la Capa 1 ya no pasa")
+    check(es_partido_mlb('New York Yankees', 'Boston Red Sox'),
+          "un partido de MLB de verdad sí pasa")
+
+    # alias habituales de las casas
+    for alias, cod in (('LA Dodgers', 'LAN'), ('NY Yankees', 'NYA'),
+                       ('St Louis Cardinals', 'SLN'), ('Athletics', 'OAK')):
+        check(codigo_mlb(alias) == cod,
+              f"alias de casa reconocido: {alias} -> {cod} "
+              f"(dio {codigo_mlb(alias)})")
+
+    # y el barrido aplica el filtro
+    af = open('alpha_finder.py', encoding='utf-8').read()
+    check('es_partido_mlb' in af,
+          "el barrido de valor de mercado filtra a MLB de verdad")
+
+
+def test_sin_the_odds_api():
+    """
+    v88: The Odds API se retira. La clave devolvía 401 en TODAS las ligas y
+    sólo llenaba el arranque de errores, uno por competición.
+
+    Las cuotas vienen de `cuotas_multi` (Pinnacle + Bovada + Playdoit) y de los
+    fixtures de ESPN, que son gratuitas y cubren más partidos.
+    """
+    import importlib.util
+    for mod in ('odds_api', 'cross_arbitrage', 'props_scraper'):
+        check(importlib.util.find_spec(mod) is None,
+              f"el módulo {mod} ya no existe")
+
+    # la función pura que se usaba de allí sigue disponible
+    import cuotas_multi as cm
+    check(hasattr(cm, 'sharp_gap_2via'),
+          "sharp_gap_2via se conserva en cuotas_multi")
+    g = cm.sharp_gap_2via(0.60, 2.0, 2.0)
+    check(g is not None and abs(g - 0.10) < 1e-9,
+          f"y calcula igual que antes ({g})")
+    check(cm.sharp_gap_2via(0.6, None, 2.0) is None,
+          "sin cuota sharp devuelve None")
+
+    # y la lectura de cuotas históricas para el entrenamiento se conserva
+    import fetch_odds
+    check(hasattr(fetch_odds, 'cargar_features_cuotas'),
+          "fetch_odds conserva la lectura local para el entrenamiento")
+    check(not hasattr(fetch_odds, 'actualizar_odds'),
+          "y ya no tiene la descarga por API")
+
+    # nadie llama al módulo retirado
+    for f in ('alpha_finder.py', 'dashboard_ui.py', 'engines/mlb_engine.py',
+              'pipeline_total.py', 'pipeline_mundial.py'):
+        codigo = [l for l in open(f, encoding='utf-8').read().splitlines()
+                  if l.strip() and not l.strip().startswith('#')]
+        malos = [l.strip() for l in codigo
+                 if 'import odds_api' in l or 'odds_api.' in l]
+        check(not malos, f"{f} no llama a odds_api ({malos[:2]})")
+
+
+def test_ventana_24h():
+    """
+    v88: «Apuestas del Día» se acota a las próximas 24 h desde la consulta.
+
+    A 24 horas vista las casas ya han abierto línea prácticamente en todo, así
+    que los picks salen con cuota real. Con el horizonte de 72 h entraban
+    partidos de pasado mañana que todavía no cotizaban.
+    """
+    import pandas as pd
+    import alpha_finder as af
+
+    check(af.VENTANA_APUESTAS_H == 24,
+          f"la ventana es de 24 h ({af.VENTANA_APUESTAS_H})")
+
+    ahora = pd.Timestamp.now('UTC').tz_localize(None)
+
+    def fx(horas):
+        return {'inicio': str(ahora + pd.Timedelta(hours=horas)),
+                'fecha': str((ahora + pd.Timedelta(hours=horas)).date())}
+
+    check(af._dentro_de_la_ventana(fx(1)), "un partido en 1 h entra")
+    check(af._dentro_de_la_ventana(fx(23)), "uno en 23 h entra")
+    check(not af._dentro_de_la_ventana(fx(30)), "uno en 30 h NO entra")
+    check(not af._dentro_de_la_ventana(fx(70)), "uno en 70 h NO entra")
+    check(af._dentro_de_la_ventana(fx(-1)),
+          "uno que empezó hace 1 h sigue entrando (apostable en vivo)")
+    check(not af._dentro_de_la_ventana(fx(-10)),
+          "uno de hace 10 h ya no")
+
+    # y ESPN debe entregar la hora
+    import fixtures_espn
+    src = open('fixtures_espn.py', encoding='utf-8').read()
+    check("'inicio':" in src,
+          "fixtures_espn conserva la hora de inicio (antes la truncaba a día)")
+
+
+def test_telegram_no_rehace_el_barrido():
+    """
+    v88: pulsar «Enviar a Telegram» tumbaba la app.
+
+    `construir_mensaje()` llamaba a `apuestas_del_dia_universal()` por su
+    cuenta, saltándose el guardia de la v86. Como el dashboard ya tenía el
+    barrido en memoria, el botón lanzaba un SEGUNDO barrido completo:
+    1.297,7 MB uno, 2.172,2 MB dos.
+    """
+    import inspect
+    import bot_telegram
+
+    sig = inspect.signature(bot_telegram.construir_mensaje)
+    check('resultado' in sig.parameters,
+          f"construir_mensaje acepta un barrido ya hecho ({list(sig.parameters)})")
+
+    src = inspect.getsource(bot_telegram.construir_mensaje)
+    check('guardia_barrido' in src,
+          "y sin argumento pasa por el guardia, no por alpha_finder a pelo")
+
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    check('construir_mensaje(r)' in dash,
+          "el dashboard le pasa el barrido que ya calculó")
+    check('_enviar_telegram' in dash,
+          "el botón marca la intención y el envío va después del barrido")
+
+
 def test_handicap_medido():
     """
     v87: el hándicap asiático deja de ser el mercado sin medición.
@@ -1293,6 +1452,11 @@ if __name__ == '__main__':
     test_ficha_anclada_al_mercado()
     test_handicap_medido()
     test_modelos_portables()
+    print('\n=== v88: MLB limpio, sin Odds API, 24 h y Telegram ===')
+    test_solo_mlb_en_el_tablon_de_mlb()
+    test_sin_the_odds_api()
+    test_ventana_24h()
+    test_telegram_no_rehace_el_barrido()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

@@ -104,17 +104,88 @@ def _escribir_json(ruta: str, datos) -> None:
     os.replace(tmp, ruta)
 
 
+# v88 — ALIAS DECLARADOS de las casas. Se ponen a mano a propósito: la
+# alternativa (fuzzy permisivo) resultó ser una fuente de errores graves.
+ALIAS_MLB = {
+    'la dodgers': 'LAN', 'l a dodgers': 'LAN', 'los angeles dodgers': 'LAN',
+    'la angels': 'ANA', 'l a angels': 'ANA', 'los angeles angels of anaheim': 'ANA',
+    'ny yankees': 'NYA', 'n y yankees': 'NYA',
+    'ny mets': 'NYN', 'n y mets': 'NYN',
+    'sf giants': 'SFN', 'san francisco giants': 'SFN',
+    'sd padres': 'SDN', 'san diego padres': 'SDN',
+    'st louis cardinals': 'SLN', 'saint louis cardinals': 'SLN',
+    'tampa bay devil rays': 'TBA',
+    'cleveland indians': 'CLE',
+    'florida marlins': 'MIA',
+    'montreal expos': 'WAS',
+    'chicago cubs': 'CHN', 'chicago white sox': 'CHA',
+    'oakland as': 'OAK', 'oakland a s': 'OAK', 'las vegas athletics': 'OAK',
+}
+
+# Umbral del respaldo difuso. 0,60 —el valor anterior— daba un 10 % de FALSOS
+# POSITIVOS sobre equipos de otras ligas de béisbol que sí están en el mismo
+# tablón de cuotas (medido en _v88_falsos_positivos_mlb.py):
+#
+#     Chiba Lotte Marines (NPB)      -> SEA  Seattle Mariners
+#     Kia Tigers (KBO)               -> DET  Detroit Tigers
+#     Fubon Guardians (CPBL)         -> CLE  Cleveland Guardians
+#     Sacramento River Cats (AAA)    -> OAK  Oakland Athletics
+#     Tacoma Rainiers (AAA)          -> TEX  Texas Rangers
+#
+# Y eso importa porque `codigo_mlb` es la puerta por la que los nombres de las
+# casas entran al MOTOR: un partido de la KBO acababa prediciéndose con las
+# estadísticas de Detroit y colándose en la Capa 1 etiquetado como «MLB».
+UMBRAL_FUZZY_MLB = 0.90
+
+
+def _norm_mlb(nombre: str) -> str:
+    import re
+    import unicodedata
+    s = unicodedata.normalize('NFKD', str(nombre or ''))
+    s = ''.join(c for c in s if not unicodedata.combining(c)).lower()
+    s = re.sub(r"[.\-'’,]", ' ', s)
+    return ' '.join(s.split())
+
+
+_NORM_A_CODIGO = {_norm_mlb(n): c for n, c in NOMBRES_MLB.items()}
+_NORM_A_CODIGO.update(ALIAS_MLB)
+CODIGOS_MLB = set(NOMBRES_MLB.values())
+
+
 def codigo_mlb(nombre: str) -> str:
-    """Nombre de casa → código Retrosheet (con respaldo fuzzy)."""
-    if nombre in NOMBRES_MLB:
-        return NOMBRES_MLB[nombre]
+    """
+    Nombre de casa → código Retrosheet.
+
+    Devuelve el nombre CRUDO si no lo reconoce, igual que antes, para no romper
+    a quien lo use como identificador. Para decidir si un partido es de la MLB
+    hay que usar `es_equipo_mlb`, que no adivina.
+    """
+    n = _norm_mlb(nombre)
+    if n in _NORM_A_CODIGO:
+        return _NORM_A_CODIGO[n]
     from difflib import SequenceMatcher
     mejor, ratio = nombre, 0.0
-    for n, c in NOMBRES_MLB.items():
-        s = SequenceMatcher(None, nombre.lower(), n.lower()).ratio()
+    for clave, c in _NORM_A_CODIGO.items():
+        s = SequenceMatcher(None, n, clave).ratio()
         if s > ratio:
             mejor, ratio = c, s
-    return mejor if ratio >= 0.6 else nombre
+    return mejor if ratio >= UMBRAL_FUZZY_MLB else nombre
+
+
+def es_equipo_mlb(nombre: str) -> bool:
+    """¿Es este nombre un equipo de la MLB? Sin adivinar."""
+    return codigo_mlb(nombre) in CODIGOS_MLB
+
+
+def es_partido_mlb(home: str, away: str) -> bool:
+    """
+    ¿Es este partido de la MLB?
+
+    Los tablones de cuotas de «mlb» traen también LMB (México), NPB (Japón),
+    KBO (Corea), CPBL (Taiwán) y Triple-A. Medido el 2026-07-31: de 80 entradas
+    en Pinnacle/Bovada/Playdoit, sólo **16 partidos** eran MLB de verdad.
+    """
+    return es_equipo_mlb(home) and es_equipo_mlb(away)
 
 
 class MLBEngine(BaseSportsEngine):
@@ -440,13 +511,32 @@ class MLBEngine(BaseSportsEngine):
         # cuotas distintas. Los códigos Retrosheet son la identidad canónica
         # del partido para el modelo, así que dos fuentes que hablen del mismo
         # encuentro colapsan sí o sí.
+        #
+        # v88 — SE FILTRA A LA MLB DE VERDAD. El tablón de «mlb» trae también
+        # LMB (México), NPB (Japón), KBO (Corea), CPBL (Taiwán) y Triple-A.
+        # Medido el 2026-07-31: de 80 entradas en las tres casas, sólo **16
+        # partidos** eran MLB. Sin este filtro, la deduplicación por código no
+        # colapsaba nada (los nombres desconocidos se devuelven crudos, así que
+        # «Uni-President Lions» y «Uni-President 7-Eleven Lions» contaban como
+        # equipos distintos) y esos partidos llegaban a la Capa 1 etiquetados
+        # como MLB.
         universo = {}
+        fuera_mlb = 0
         for idx in (cm._indice('mlb'), cm._indice_bov('mlb'), cm._indice_pdt('mlb')):
             for v in (idx or {}).values():
                 if not (v.get('home') and v.get('away')):
                     continue
+                if not es_partido_mlb(v['home'], v['away']):
+                    fuera_mlb += 1
+                    continue
                 clave = (codigo_mlb(v['home']), codigo_mlb(v['away']))
                 universo.setdefault(clave, v)
+        if fuera_mlb:
+            incidencias.append(
+                f'MLB: {fuera_mlb} entradas del tablón de béisbol NO son de la '
+                f'MLB (Liga Mexicana, Japón, Corea, Taiwán, Triple-A) y se '
+                f'descartan. El modelo y la vía de valor sólo están validados '
+                f'sobre MLB.')
 
         # v79 — ABRIDORES PROBABLES. El modelo se entrena con las carreras que
         # concede cada abridor en sus últimas 5 salidas, pero aquí se le
@@ -503,8 +593,9 @@ class MLBEngine(BaseSportsEngine):
                 nombre = v['home'] if lado == 'home' else v['away']
                 gap = None
                 try:
-                    import odds_api
-                    gap = odds_api.sharp_gap_2via(prob, pin.get(lado), pin.get(otro))
+                    # v88: `sharp_gap_2via` se mudó de `odds_api` (retirado) a
+                    # `cuotas_multi`, junto a `devig`. Es una función pura.
+                    gap = cm.sharp_gap_2via(prob, pin.get(lado), pin.get(otro))
                 except Exception:
                     pass
                 pick = {

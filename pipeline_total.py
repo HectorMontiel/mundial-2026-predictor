@@ -80,10 +80,12 @@ def actualizar_tenis():
 
 
 def actualizar_cuotas():
-    import fetch_odds
-    fetch_odds.actualizar_odds()
+    # v88 — `fetch_odds.actualizar_odds()` se retira con The Odds API (401 en
+    # todas las ligas). Las cuotas en vivo vienen de `cuotas_multi` (Pinnacle,
+    # Bovada, Playdoit) y de los fixtures de ESPN, que no necesitan captura
+    # previa: se consultan en el momento del barrido.
     # v26: señales ⚡ del Shadow Booster (solo ligas adoptadas: MLS) para el
-    # panel Apuestas del Día, con las cuotas recién capturadas
+    # panel Apuestas del Día
     try:
         import shadow_booster
         shadow_booster.generar_senales()

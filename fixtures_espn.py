@@ -184,6 +184,13 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA) -> List[Dict]:
                 fecha = fecha.tz_convert(None)
             fx = {
                 'fecha': fecha.strftime('%Y-%m-%d'),
+                # v88 — HORA DE INICIO (UTC). ESPN la publica y aquí se estaba
+                # tirando al formatear a '%Y-%m-%d'. Sin ella no se puede
+                # acotar «las próximas 24 horas»: con la fecha a secas, un
+                # partido de mañana a las 23:00 y otro de dentro de una hora
+                # son indistinguibles. `fecha` se mantiene para no romper a
+                # nadie que ya la use.
+                'inicio': fecha.strftime('%Y-%m-%d %H:%M:%S'),
                 'home': loc['team']['displayName'],
                 'away': vis['team']['displayName'],
                 'event_id': ev.get('id'),      # v64: para las cuotas por evento
@@ -371,6 +378,8 @@ def fixtures_deporte(deporte: str, dias: int = DIAS_SEMANA) -> List[Dict]:
             if fecha.tzinfo:
                 fecha = fecha.tz_convert(None)
             fx = {'fecha': fecha.strftime('%Y-%m-%d'),
+                  # v88 — hora de inicio en UTC; ver `fixtures_liga`.
+                  'inicio': fecha.strftime('%Y-%m-%d %H:%M:%S'),
                   'home': loc['team']['displayName'],
                   'away': vis['team']['displayName'],
                   'event_id': ev.get('id'), '_comp_id': comp.get('id')}

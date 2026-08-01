@@ -78,10 +78,32 @@ def _guia_simple(r: dict) -> str:
             f"@ {p.get('cuota','?')}{casa} — {porque}.")
 
 
-def construir_mensaje() -> str:
-    import alpha_finder
+def construir_mensaje(resultado: Optional[dict] = None) -> str:
+    """
+    Resumen del día para Telegram.
+
+    v88 — `resultado` permite pasar un barrido YA calculado, y por defecto se
+    pide por el guardia de proceso en vez de llamar a `alpha_finder` a pelo.
+
+    Por qué: este módulo nació para el runner de GitHub Actions, donde es lo
+    único que corre. Pero el botón «Enviar a Telegram» del dashboard también lo
+    llama, y ahí el barrido YA está en memoria. Llamar otra vez a
+    `apuestas_del_dia_universal()` lanzaba un SEGUNDO barrido completo dentro
+    del proceso de Streamlit:
+
+        1 barrido  -> pico de 1.297,7 MB
+        2 barridos -> pico de 2.172,2 MB      (medido en _v86_barrido_concurrente)
+
+    y el contenedor moría. Ése era el «se cae al enviar a Telegram»: no fallaba
+    el envío, fallaba la memoria de rehacer el trabajo.
+    """
     import reto_escalera
-    r = alpha_finder.apuestas_del_dia_universal()
+    if resultado is not None:
+        r = resultado
+    else:
+        import alpha_finder
+        import guardia_barrido
+        r = guardia_barrido.barrido(alpha_finder.apuestas_del_dia_universal)
     lineas = [f"🎯 *APUESTAS DEL DÍA* — {r.get('actualizado', 'hoy')}",
               f"Deportes: {', '.join(r.get('deportes_cubiertos') or ['—'])}", ""]
 

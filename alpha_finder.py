@@ -22,6 +22,7 @@ blanca implícita de mercados disponibles).
 import json
 import logging
 import os
+import traceback
 from typing import Dict, List, Optional
 
 import numpy as np
@@ -206,6 +207,48 @@ MERCADOS_VALIDADOS_CAPA1 = {'1X2'}
 # cuotas con 3 días de antelación y el barrido pasaba de 178 partidos con
 # cuotas a solo 23 evaluados por el recorte temporal.
 HORIZONTE_HORAS = 72
+
+# v88 — VENTANA DE «APUESTAS DEL DÍA»: las próximas 24 horas, contadas desde el
+# momento en que se consulta.
+#
+# El usuario lo pidió así y tiene una consecuencia buena: a 24 horas vista las
+# casas ya han abierto línea prácticamente en todo, de modo que los picks salen
+# con cuota real en vez de con cuota justa. Con el horizonte de 72 h entraban
+# partidos de pasado mañana que todavía no cotizaban.
+#
+# Sólo afecta a esta pestaña. Las vistas por deporte y por liga siguen con su
+# ventana amplia, que es donde tiene sentido mirar la semana.
+#
+# Se mide contra la HORA DE INICIO (`inicio`, UTC), que ESPN publica y que
+# `fixtures_espn` estaba descartando al formatear a '%Y-%m-%d'. Con la fecha a
+# secas no se puede distinguir un partido de dentro de una hora de otro de
+# mañana por la noche.
+VENTANA_APUESTAS_H = int(os.environ.get('VENTANA_APUESTAS_H', '24'))
+
+
+def _dentro_de_la_ventana(fx: dict, horas: int = None) -> bool:
+    """¿Empieza este partido dentro de la ventana de Apuestas del Día?"""
+    horas = VENTANA_APUESTAS_H if horas is None else horas
+    ahora = pd.Timestamp.utcnow().tz_localize(None)
+    ini = fx.get('inicio')
+    if ini:
+        try:
+            t = pd.Timestamp(ini)
+            if t.tzinfo is not None:
+                t = t.tz_convert(None)
+            # margen de 3 h hacia atrás: un partido que acaba de empezar sigue
+            # siendo apostable en vivo y no debe desaparecer de golpe
+            return (ahora - pd.Timedelta(hours=3)) <= t <= (ahora + pd.Timedelta(hours=horas))
+        except (ValueError, TypeError):
+            pass
+    # Respaldo sin hora: se compara por día. Es menos fino, pero nunca deja
+    # fuera un partido de hoy por no saber a qué hora se juega.
+    try:
+        d = pd.Timestamp(fx.get('fecha')).normalize()
+    except (ValueError, TypeError):
+        return False
+    hoy = ahora.normalize()
+    return hoy <= d <= (hoy + pd.Timedelta(hours=horas))
 
 
 def _mapa_equipo_liga() -> Dict[str, str]:
@@ -743,6 +786,13 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
             # exactamente donde hay cuotas en vivo, que es donde el EV y el
             # Kelly significan algo.
             tiene_cuota = bool(fx.get('odd_home') and fx.get('odd_away'))
+            # v88 — Apuestas del Día se acota a las próximas 24 h (ver
+            # `VENTANA_APUESTAS_H`). Antes el corte era de 72 h desde
+            # medianoche, y entraban partidos de pasado mañana que todavía no
+            # cotizaban: por eso la pestaña mezclaba picks con cuota real y
+            # picks con cuota sólo justa.
+            if not _dentro_de_la_ventana(fx):
+                continue
             if fecha < hoy or fecha > tope_max:
                 continue
             if fecha > limite and not tiene_cuota:
@@ -973,12 +1023,24 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         # de 20 configuraciones positivas en los dos periodos de validación.
         try:
             import cuotas_multi as _cmm
-            from engines.mlb_engine import codigo_mlb as _cmlb, CODIGO_A_NOMBRE
+            from engines.mlb_engine import (codigo_mlb as _cmlb,
+                                            es_partido_mlb as _es_mlb,
+                                            CODIGO_A_NOMBRE)
             _vistos = set()
+            _no_mlb = 0
             for _idx in (_cmm._indice('mlb'), _cmm._indice_bov('mlb'),
                          _cmm._indice_pdt('mlb')):
                 for _v0 in (_idx or {}).values():
                     if not (_v0.get('home') and _v0.get('away')):
+                        continue
+                    # v88 — SÓLO MLB. El tablón trae LMB, NPB, KBO, CPBL y
+                    # Triple-A. Sin este filtro llegaban a la Capa 1 partidos
+                    # de la CPBL de Taiwán etiquetados «MLB», y por duplicado
+                    # (los nombres desconocidos no colapsan en la clave). El
+                    # edge de esta vía se midió sobre 27.977 juegos DE MLB;
+                    # operar otras ligas con él es extrapolar.
+                    if not _es_mlb(_v0['home'], _v0['away']):
+                        _no_mlb += 1
                         continue
                     _cl = (_cmlb(_v0['home']), _cmlb(_v0['away']))
                     if _cl in _vistos:
@@ -1010,11 +1072,14 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
                             'origen': 'line shopping vs Pinnacle'})
             _n_vs = sum(1 for p in capa1 if p.get('valor_mercado'))
             inc.append(
-                f'MLB · valor de mercado: {len(_vistos)} partidos comparados '
-                f'contra Pinnacle, {_n_vs} con precio descolgado por encima del '
-                f'{VS_MLB_EV_MIN:.0%}. Esta vía no usa el modelo (validada sobre '
-                f'27.977 juegos, p5 +1,67 % fuera de muestra); si sale 0 es que '
-                f'hoy las casas coinciden, no que esté apagada.')
+                f'MLB · valor de mercado: {len(_vistos)} partidos DE MLB '
+                f'comparados contra Pinnacle, {_n_vs} con precio descolgado por '
+                f'encima del {VS_MLB_EV_MIN:.0%}. Esta vía no usa el modelo '
+                f'(validada sobre 27.977 juegos, p5 +1,67 % fuera de muestra); '
+                f'si sale 0 es que hoy las casas coinciden, no que esté apagada.'
+                + (f' Se descartaron {_no_mlb} entradas del tablón que no son '
+                   f'MLB (Liga Mexicana, Japón, Corea, Taiwán, Triple-A).'
+                   if _no_mlb else ''))
         except Exception as e:
             logger.debug(f'[alpha/mlb] valor de mercado omitido: {e}')
             inc.append(f'MLB: valor de mercado no evaluado ({type(e).__name__}).')
@@ -1026,7 +1091,11 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
                        f"{len(capa1)} superaron los filtros.")
         return {'capa1': capa1, 'capa2': [], 'incidencias': inc}
     except Exception as e:
-        logger.warning(f"[alpha] MLB omitido: {type(e).__name__}: {e}")
+        # v88 — se registra la TRAZA. «MLB omitido por error: OSError» sin más
+        # obliga a adivinar dónde falló, y este proyecto ya ha perdido tiempo
+        # con fallos silenciosos que sólo dejaban el nombre de la excepción.
+        logger.warning(f"[alpha] MLB omitido: {type(e).__name__}: {e}\n"
+                       + traceback.format_exc())
         return {'capa1': [], 'capa2': [],
                 'incidencias': [f'MLB omitido por error: {type(e).__name__}: {e}']}
 
@@ -1096,7 +1165,6 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
     salida = {'capa1': [], 'capa2': [], 'no_enlazados': [], 'parlay_legs': []}
     try:
         import betexplorer_scraper as bx
-        import odds_api
         import source_resilience as sr
         from engines.tennis_engine import TennisEngine
 
@@ -1117,9 +1185,11 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
         # Betexplorer sirviendo HTML puramente JS. Se antepone `cuotas_multi`,
         # que trae ~252 partidos de tenis de Pinnacle y ~274 de Bovada sin
         # límite de peticiones.
+        # v88: se retira el eslabón de The Odds API — la clave devuelve 401 en
+        # todas las ligas y sólo servía para ensuciar los logs. Quedan las dos
+        # fuentes que sí responden.
         cadena = sr.Cadena('cuotas de tenis', [
             ('Pinnacle/Bovada', _cuotas_tenis_multi),
-            ('The Odds API', lambda: odds_api.partidos_tenis_hoy()),
             ('Betexplorer', lambda: bx.cuotas_tenis_hoy()),
         ])
         partidos = cadena.obtener(validador=lambda d: d) or []
@@ -1273,36 +1343,36 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
 
 
 def _picks_nba() -> Dict[str, List[Dict]]:
-    """NBA (v34 §4): cuotas reales EN CUANTO arranque la temporada, con
-    cadena de resiliencia The Odds API → Betexplorer. Fuera de temporada
-    (julio) ninguna fuente devuelve partidos y no se gasta ni un crédito."""
+    """NBA (v34 §4): cuotas reales EN CUANTO arranque la temporada. Fuera de
+    temporada (julio) ninguna fuente devuelve partidos y no se consulta nada."""
     salida = {'capa1': [], 'capa2': []}
     try:
         import betexplorer_scraper as bx
-        import odds_api
         import source_resilience as sr
 
-        # v52: fuera de temporada (jul-sep) ninguna fuente tiene NBA — se evita
-        # la cadena de resiliencia entera para no ensuciar los logs con ERROR.
-        if not odds_api._en_temporada('nba'):
+        # v88 — la ventana de temporada vivía en `odds_api`, que se retira. Se
+        # declara aquí: la NBA va de octubre a junio.
+        _m = pd.Timestamp.today().month
+        if not (_m >= 10 or _m <= 6):
             logger.info("[alpha] NBA fuera de temporada: barrido omitido.")
             return salida
 
-        def _de_odds_api():
-            filas = odds_api.capturar_liga('nba')      # respeta temporada
-            por_partido: Dict[str, Dict] = {}
-            for f in filas:
-                if f['mercado'] != 'h2h':
-                    continue
-                d = por_partido.setdefault(f['match_id'], {})
-                partes = f['match_id'].split('_')
-                d['home'] = partes[1].replace('-', ' ')
-                d['away'] = partes[2].replace('-', ' ')
-                d[f"odd_{f['seleccion']}"] = f['cuota']
-            return [m for m in por_partido.values()
-                    if m.get('odd_home') and m.get('odd_away')]
+        # v88: el eslabón de The Odds API se retira (401 en todas las ligas).
+        # Pinnacle y Bovada cubren la NBA vía `cuotas_multi` en cuanto arranca
+        # la temporada — medido: 57 partidos de NBA en el tablón de Pinnacle.
+        def _de_cuotas_multi():
+            import cuotas_multi as _cm
+            out = []
+            for idx in (_cm._indice('nba'), _cm._indice_bov('nba')):
+                for v in (idx or {}).values():
+                    c = v.get('cuotas') or {}
+                    if v.get('home') and v.get('away') and \
+                            c.get('home') and c.get('away'):
+                        out.append({'home': v['home'], 'away': v['away'],
+                                    'odd_home': c['home'], 'odd_away': c['away']})
+            return out
 
-        cadena = sr.Cadena('cuotas NBA', [('The Odds API', _de_odds_api),
+        cadena = sr.Cadena('cuotas NBA', [('Pinnacle/Bovada', _de_cuotas_multi),
                                           ('Betexplorer', bx.cuotas_baloncesto_hoy)])
         partidos = cadena.obtener(lambda d: d is not None and len(d) > 0) or []
         if not partidos:

@@ -97,7 +97,8 @@ def _refresco_de_arranque() -> bool:
     """Se ejecuta UNA vez por proceso: cache_resource es global, no por sesión."""
     import importlib as _il
     import sys as _sys
-    for _mod in ('config', 'name_mapper', 'fixtures_espn', 'odds_api',
+    # v88: `odds_api` sale de la lista — el módulo se ha retirado.
+    for _mod in ('config', 'name_mapper', 'fixtures_espn', 'cuotas_multi',
                  'source_resilience', 'betexplorer_scraper', 'edge_engine',
                  'traductor_quant', 'league_engine', 'reto_escalera',
                  'data_health', 'alpha_finder', 'bot_telegram'):
@@ -1680,13 +1681,36 @@ def render_alpha_finder():
         # se encarga de que siga habiendo un único barrido a la vez.
         st.session_state['_forzar_barrido'] = True
         st.rerun()
+    # v88 — El botón sólo MARCA la intención; el envío se hace más abajo,
+    # cuando el barrido `r` ya está calculado, y se le pasa.
+    #
+    # Antes llamaba a `bot_telegram.construir_mensaje()` sin argumentos, y esa
+    # función lanzaba `alpha_finder.apuestas_del_dia_universal()` por su cuenta:
+    # un SEGUNDO barrido completo dentro del proceso de Streamlit, encima del
+    # que ya estaba en memoria.
+    #
+    #     1 barrido  -> pico de 1.297,7 MB
+    #     2 barridos -> pico de 2.172,2 MB   (_v86_barrido_concurrente.py)
+    #
+    # Eso es lo que tumbaba la app al pulsar «Enviar a Telegram»: no fallaba el
+    # envío, fallaba la memoria de rehacer un trabajo que ya estaba hecho.
     if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
                     width='stretch', type="primary",
                     help="Envía el resumen del día a tu Telegram (mismo mensaje "
                          "que el envío diario automático)."):
+        st.session_state['_enviar_telegram'] = True
+
+    # v86: pasa por el guardia de proceso (ver barrido_universal), que impide
+    # que dos sesiones lancen el barrido a la vez. El spinner se pone aquí
+    # porque el guardia no es un decorador de Streamlit.
+    with st.spinner("🔍 Buscando valor en todos los deportes…"):
+        r = barrido_universal(forzar=st.session_state.pop('_forzar_barrido', False))
+
+    if st.session_state.pop('_enviar_telegram', False):
         try:
             import bot_telegram
-            msg = bot_telegram.construir_mensaje()
+            # se le pasa el barrido YA calculado: cero trabajo repetido
+            msg = bot_telegram.construir_mensaje(r)
             if bot_telegram.enviar(msg):
                 st.success("✅ Enviado a Telegram.")
             else:
@@ -1695,12 +1719,6 @@ def render_alpha_finder():
                 st.code(msg, language=None)
         except Exception as e:
             st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
-
-    # v86: pasa por el guardia de proceso (ver barrido_universal), que impide
-    # que dos sesiones lancen el barrido a la vez. El spinner se pone aquí
-    # porque el guardia no es un decorador de Streamlit.
-    with st.spinner("🔍 Buscando valor en todos los deportes…"):
-        r = barrido_universal(forzar=st.session_state.pop('_forzar_barrido', False))
     # v41: BANNER de salud de datos — distingue "no llegan datos" (problema)
     # de "llegan pero hoy no hay picks" (normal). Antes salía indistinguible.
     try:
@@ -2361,24 +2379,12 @@ def render_alpha_finder():
         from bankroll_manager import AVISO_JUEGO_RESPONSABLE
         st.caption(AVISO_JUEGO_RESPONSABLE)
 
-        # v27 (§4): arbitraje de mercado cruzado (gasta ~5 requests por corrida)
-        with st.expander("💹 " + tq.t('arbitraje', ES_PRO)):
-            st.caption(("Valora double chance, draw no bet y totales alternativos "
-                        "(líneas .5) con la matriz exacta del motor. Señal si la "
-                        "cuota supera la justa en >5 % Y el índice "
-                        + tq.t('vaca', ES_PRO) + " > 1 (v28: solo oportunidades "
-                        "estables).") if ES_PRO else
-                       (tq.tooltip('arbitraje') + " " + tq.tooltip('vaca')))
-            if st.button("🔍 Buscar oportunidades ahora (usa ~5 créditos de API)",
-                         key='arb_btn'):
-                import cross_arbitrage
-                with st.spinner("Valorando mercados derivados…"):
-                    ra = cross_arbitrage.analizar()
-                if ra.get('aviso'):
-                    st.info(ra['aviso'])
-                if ra['oportunidades']:
-                    st.dataframe(pd.DataFrame(ra['oportunidades']),
-                                 width='stretch', hide_index=True)
+        # v88 — El arbitraje de mercado cruzado se retira con The Odds API.
+        # `cross_arbitrage` colgaba entera de esa API (clave, presupuesto de
+        # créditos y endpoint de eventos), que lleva devolviendo 401. El botón
+        # decía «usa ~5 créditos de API» y ya no había créditos que usar: sólo
+        # podía fallar. Lo que hacía —valorar mercados derivados con la matriz
+        # del motor— sigue disponible en la ficha de cada partido.
 
         # ---- 📈 Simulador Montecarlo (v26 §4.1) -------------------------------
         st.divider()
@@ -2422,31 +2428,21 @@ def render_alpha_finder():
                        + AVISO_JUEGO_RESPONSABLE)
 
 
-# v28 (§1): auto-actualización de cuotas nativa de Streamlit — sin
-# subprocesos ni cron. TTL 6 h; cada refresco alimenta además los snapshots
-# RLM del tier-1 (§2.1) con presupuesto gestionado en odds_api.
-@st.cache_data(ttl=21600, show_spinner="⏳ Actualizando cuotas…")
-def cargar_cuotas_actualizadas() -> dict:
-    try:
-        import odds_api
-        rem = odds_api.creditos_restantes()
-        if rem is not None and rem < odds_api.MIN_CREDITOS_MES:
-            return {'ok': False,
-                    'aviso': f'Cuotas sin actualizar por límite de API '
-                             f'({rem} créditos restantes este mes).'}
-        import fetch_odds
-        fetch_odds.actualizar_odds()
-        return {'ok': True, 'aviso': None,
-                'restantes': odds_api.creditos_restantes()}
-    except Exception as e:
-        return {'ok': False, 'aviso': f'Cuotas no actualizadas ({e}) — se usa '
-                                      'la última captura disponible.'}
-
-
-_cuotas_estado = cargar_cuotas_actualizadas()
-if _cuotas_estado.get('aviso'):
-    st.caption(f"⚠️ {_cuotas_estado['aviso']}")
-
+# v88 — SE RETIRA LA ACTUALIZACIÓN VÍA THE ODDS API.
+#
+# La clave lleva devolviendo 401 en TODAS las ligas, así que este bloque no
+# actualizaba nada: sólo escupía veinticinco líneas de error en el arranque de
+# cada sesión, una por competición.
+#
+# Y no hace falta. Las cuotas del proyecto vienen desde la v71/v72 de
+# `cuotas_multi` (Pinnacle + Bovada + Playdoit) y de los fixtures de ESPN, que
+# son gratuitas, sin cuota mensual y cubren más partidos. Medido el mismo día
+# de la retirada: Pinnacle 881 partidos de fútbol, 64 de tenis, 39 de MLB y 57
+# de NBA; The Odds API, 0.
+#
+# `apuestas_del_dia` ya contemplaba esta situación desde la v61: si falta
+# `odds_actuales.json` sigue adelante con el barrido de ESPN, que trae fixtures
+# Y cuotas. Por eso quitarlo no deja hueco de cobertura.
 def render_mlb():
     """v29 (§3-§6): vista del motor MLB (béisbol), aislada del fútbol."""
     st.header("⚾ MLB — Béisbol")

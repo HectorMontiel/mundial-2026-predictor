@@ -1,5 +1,47 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v88 — Telegram tumbaba la app, y los picks de «MLB» eran de Taiwán (ver [VALIDACION_v88.md](VALIDACION_v88.md))
+
+- **📤 Arreglado: enviar a Telegram tumbaba la app.** `construir_mensaje()`
+  llamaba a `apuestas_del_dia_universal()` por su cuenta, saltándose el guardia
+  de la v86. Como el dashboard ya tenía el barrido en memoria, el botón lanzaba
+  un **segundo barrido completo**: 1.297,7 MB uno, **2.172,2 MB dos**. No
+  fallaba el envío, fallaba la memoria de rehacer el trabajo. Ahora se le pasa
+  el barrido ya hecho: el botón provoca **0 barridos** en vez de 1.
+- **⚾ Los picks de «MLB» no eran de MLB.** Lo que llegaba a la Capa 1 era
+  `Rakuten Monkeys @ Uni-President Lions` — la **CPBL de Taiwán** —, y por
+  duplicado. De las **80 entradas** del tablón de béisbol en Pinnacle, Bovada y
+  Playdoit, sólo **16 eran MLB**; el resto, Liga Mexicana, Japón, Corea, Taiwán
+  y Triple-A. Y peor: el fuzzy daba por equipos de MLB a un **10 %** de los
+  ajenos (*Kia Tigers* → Detroit **Tigers**, *Chiba Lotte Marines* → Seattle
+  **Mariners**, *Fubon Guardians* → Cleveland **Guardians**), así que se
+  predecían con las estadísticas del equipo equivocado. Con el filtro estricto:
+  **falsos positivos 10 % → 0 %**, y los 30 equipos reales siguen reconociéndose.
+- **⚾ MLB ya entra en el barrido — y hoy no da picks por una razón legítima.**
+  Se evalúan sus **15 partidos** reales. El modelo llega al umbral de
+  probabilidad (61,3 % sobre 58 %) pero **todos los EV son negativos**, de
+  −1,97 % a −6,33 %, y la vía de valor no encuentra ninguna casa descolgada.
+  **No se bajan los umbrales para forzar picks**: serían apuestas de EV
+  negativo. Está conectada y dará picks el día que haya valor.
+- **🧵 Cazado un fallo de concurrencia que dejaba MLB fuera** (introducido en la
+  v87). La reparación de modelos parchea `Booster.__setstate__`, que es **global
+  al proceso**, y el barrido corre sus cuatro ramas en paralelo: el hilo de MLB
+  cargaba su modelo a través del parche del hilo de fútbol y reventaba con
+  `access violation` dentro de `XGBoosterPredict`. Ahora va bajo cerrojo y el
+  parche sólo actúa sobre el hilo que lo puso.
+- **🧹 The Odds API, retirada.** Devolvía **401 en las 25 competiciones** y sólo
+  llenaba el arranque de errores. Las cuotas vienen de `cuotas_multi` (Pinnacle
+  881 partidos de fútbol, 64 de tenis, 39 de MLB, 57 de NBA) y de ESPN. Se
+  eliminan `odds_api.py`, `cross_arbitrage.py` y `props_scraper.py`; se
+  conservan las dos piezas que **no** tocaban la red (`sharp_gap_2via`, que se
+  muda a `cuotas_multi`, y la lectura de `odds_historicas.csv` que alimenta el
+  entrenamiento).
+- **⏱️ «Apuestas del Día» se acota a las próximas 24 horas** desde la consulta,
+  y por eso ahora **toda la Capa 1 lleva cuota real**. Para acotarlo de verdad
+  hacía falta la hora de inicio, que ESPN publica y `fixtures_espn` estaba
+  **tirando** al formatear a `'%Y-%m-%d'`. Las vistas por deporte y por liga no
+  cambian.
+
 ## Novedades v87 — La ficha no miraba el mercado (ver [VALIDACION_v87.md](VALIDACION_v87.md))
 
 Las tres tareas que quedaban abiertas se cierran, y **ninguna por el camino que

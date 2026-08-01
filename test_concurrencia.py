@@ -235,6 +235,80 @@ def prueba_arranque():
        'ya no se usa session_state para el refresco (era por visitante)')
 
 
+def prueba_reparacion_entre_hilos():
+    """
+    v88 — La reparación de modelos parchea `Booster.__setstate__`, que es GLOBAL
+    al proceso, y el barrido corre sus cuatro ramas en un ThreadPoolExecutor.
+
+    Mientras el hilo de fútbol tenía el parche puesto, el hilo de MLB cargaba
+    SU modelo a través del parche ajeno. El resultado, varios pasos más tarde:
+
+        OSError: exception: access violation reading 0x0000000000000000
+
+    dentro de `XGBoosterPredict` — y en el barrido salía como «MLB omitido por
+    error», dejando el deporte fuera de las Apuestas del Día.
+    """
+    print('\n=== reparar modelos desde varios hilos a la vez ===')
+    import glob
+    import os
+
+    import joblib
+    import numpy as np
+    import modelos_portables as mp
+
+    fuente = open('modelos_portables.py', encoding='utf-8').read()
+    ok('_CERROJO' in fuente, 'la reparación va bajo cerrojo')
+    ok('threading.get_ident() != hilo' in fuente,
+       'el parche sólo actúa sobre el hilo que lo puso')
+
+    rutas = sorted(glob.glob(os.path.join('modelos', '*', 'modelo.joblib')))
+    if len(rutas) < 4:
+        print('  (menos de 4 modelos; se omite)')
+        return
+
+    errores, resultados = [], {}
+    lock = threading.Lock()
+
+    def cargar(i, ruta):
+        try:
+            m = mp.cargar(ruta)
+            n = getattr(m, 'n_features_in_', None)
+            if n:
+                p = m.predict_proba(np.random.RandomState(i).randn(4, n))
+                with lock:
+                    resultados[i] = bool(np.all(np.isfinite(p)))
+            else:
+                with lock:
+                    resultados[i] = True
+        except Exception as e:
+            with lock:
+                errores.append(f'{os.path.basename(os.path.dirname(ruta))}: '
+                               f'{type(e).__name__}: {str(e)[:60]}')
+
+    hilos = [threading.Thread(target=cargar, args=(i, r))
+             for i, r in enumerate(rutas[:8])]
+    for h in hilos:
+        h.start()
+    for h in hilos:
+        h.join()
+
+    ok(not errores, f'8 modelos cargados en paralelo sin errores ({errores[:2]})')
+    ok(all(resultados.values()) and len(resultados) >= 1,
+       f'y todos predicen valores finitos ({len(resultados)} probados)')
+
+    # y después de todo eso, un modelo distinto debe seguir prediciendo:
+    # es lo que fallaba (MLB reventaba DESPUÉS, no durante)
+    try:
+        from engines.mlb_engine import MLBEngine
+        eng = MLBEngine().cargar_modelo()
+        pred = eng.predecir('NYA', 'BOS') if eng.listo else {}
+        ok('prob_home' in pred,
+           f'MLB sigue prediciendo después de las reparaciones ({list(pred)[:3]})')
+    except Exception as e:
+        ok(False, f'MLB sigue vivo tras las reparaciones ({type(e).__name__}: '
+                  f'{str(e)[:60]})')
+
+
 def main():
     print('=' * 60)
     print('v86 · PRUEBA DE CONCURRENCIA (dos usuarios a la vez)')
@@ -242,6 +316,7 @@ def main():
     prueba_arranque()
     prueba_techo_ligas()
     prueba_escritura_atomica()
+    prueba_reparacion_entre_hilos()
     prueba_dos_sesiones()
 
     print('\n' + '=' * 40)

@@ -14,7 +14,7 @@ SILENCIOSAS de partidos. Aquí se unifica:
   4. registro de TODO fallo en `nombres_sin_mapear.json` para poder añadir
      el alias y llevar los "sin mapear" a cero.
 
-Se usa desde odds_api, betexplorer_scraper y alpha_finder.
+Se usa desde cuotas_multi, betexplorer_scraper y alpha_finder.
 """
 
 import json

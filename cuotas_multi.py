@@ -1064,6 +1064,23 @@ def devig(cuotas: Dict[str, float], metodo: str = 'potencia') -> Dict[str, float
 RATIO_MAX_SOBRE_SHARP = 2.0
 
 
+def sharp_gap_2via(prob_modelo: float, pin_a: Optional[float],
+                   pin_b: Optional[float]) -> Optional[float]:
+    """
+    Gap del modelo sobre la devig de Pinnacle en un mercado a 2 vías (sin
+    empate: MLB, tenis, NBA). Positivo = el modelo supera al sharp.
+
+    v88 — venía de `odds_api`, que se retira. Es una función PURA (no toca la
+    red ni la clave de API) y su sitio natural es aquí, junto a `devig`, que es
+    lo mismo generalizado a tres vías.
+    """
+    if not pin_a or not pin_b or pin_a <= 1 or pin_b <= 1:
+        return None
+    ia, ib = 1.0 / pin_a, 1.0 / pin_b
+    devig_a = ia / (ia + ib)             # prob implícita sin margen
+    return prob_modelo - devig_a
+
+
 def valor_vs_sharp(deporte: str, home: str, away: str,
                    odds_espn: Optional[dict] = None,
                    min_edge: float = 0.02) -> Dict:

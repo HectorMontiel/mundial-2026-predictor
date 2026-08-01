@@ -77,11 +77,10 @@ def main():
         referee_scraper.actualizar_arbitros(intentar_scraping='--scrape-arbitros' in sys.argv)
     except Exception as e:
         logger.warning(f"Actualización de árbitros omitida: {e}")
-    try:
-        import fetch_odds
-        fetch_odds.actualizar_odds()
-    except Exception as e:
-        logger.warning(f"Cuotas de apertura omitidas: {e}")
+    # v88 — la captura de cuotas de apertura vía The Odds API se retira (401 en
+    # todas las ligas). `odds_historicas.csv` se conserva tal cual: es lo que
+    # alimenta las features de cuotas del entrenamiento, y se sigue leyendo
+    # desde `fetch_odds.cargar_features_cuotas`.
 
     # ------------------------------------------------------------------ 6
     if '--train' in sys.argv:

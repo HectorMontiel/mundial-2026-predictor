@@ -47,9 +47,31 @@ Si el joblib abre de forma normal, se devuelve tal cual y no se toca nada. Sólo
 si XGBoost se queja se aplica la reparación.
 """
 import logging
+import threading
 from typing import List, Optional
 
 logger = logging.getLogger(__name__)
+
+# v88 — LA REPARACIÓN PARCHEA `Booster.__setstate__`, QUE ES GLOBAL AL PROCESO.
+#
+# `alpha_finder.apuestas_del_dia_universal` corre sus cuatro ramas (fútbol,
+# MLB, tenis, NBA) en un ThreadPoolExecutor. Mientras el hilo de fútbol tenía
+# el parche puesto para reparar un modelo de liga, el hilo de MLB cargaba SU
+# modelo y pasaba por el parche del otro. El resultado era
+#
+#     OSError: exception: access violation reading 0x0000000000000000
+#
+# dentro de `XGBoosterPredict`, varios pasos más adelante — y en el barrido
+# salía como «MLB omitido por error», dejando el deporte entero fuera de las
+# Apuestas del Día.
+#
+# Dos candados:
+#   · `_CERROJO` serializa las reparaciones, para que dos hilos no se pisen el
+#     parche ni su restauración.
+#   · `reponer` comprueba la identidad del hilo y delega en el original si la
+#     llamada viene de otro. Así, aunque el parche esté puesto, sólo afecta al
+#     `joblib.load` que lo pidió.
+_CERROJO = threading.RLock()
 
 # Clave "Model" del objeto UBJSON exterior, escrita como cadena con longitud
 # int64 (0x4C = 'L'). Su VALOR es el modelo portable.
@@ -91,13 +113,32 @@ def _boosters_del_pickle(ruta: str) -> List[bytes]:
 
     cap: List[bytes] = []
     original = xc.Booster.__setstate__
+    hilo = threading.get_ident()
 
     def espia(self, state):
-        if isinstance(state, dict) and isinstance(state.get('handle'),
-                                                  (bytes, bytearray)):
-            cap.append(bytes(state['handle']))
-        # se deja el objeto a medio construir a propósito: sólo interesa el buffer
-        self.__dict__.update(state if isinstance(state, dict) else {})
+        # sólo para el hilo que pidió la captura; ver `_CERROJO`
+        if threading.get_ident() != hilo:
+            return original(self, state)
+        st = dict(state) if isinstance(state, dict) else {}
+        h = st.get('handle')
+        if isinstance(h, (bytes, bytearray)):
+            cap.append(bytes(h))
+        # `handle` DEBE quedar en None. `Booster.__del__` hace
+        #
+        #     if hasattr(self, "handle") and self.handle is not None:
+        #         _check_call(_LIB.XGBoosterFree(self.handle))
+        #
+        # así que si se le deja el bytearray del buffer, al recolectar el
+        # objeto intenta liberar unos bytes como si fueran un puntero y lanza
+        #
+        #     ArgumentError: argument 1: TypeError: Don't know how to convert
+        #     parameter 1
+        #
+        # desde `__del__`, o sea en un momento impredecible. En el barrido eso
+        # caía dentro del try/except de MLB y salía como «MLB omitido por
+        # error», dejando el deporte entero fuera de las Apuestas del Día.
+        st['handle'] = None
+        self.__dict__.update(st)
 
     xc.Booster.__setstate__ = espia
     try:
@@ -109,21 +150,39 @@ def _boosters_del_pickle(ruta: str) -> List[bytes]:
     return cap
 
 
-def _booster_desde_buffer(buf: bytes):
-    """Reconstruye un Booster por la ruta portable."""
+def _cargar_en(booster, buf: bytes) -> bool:
+    """
+    Carga la sección portable de `buf` DENTRO de `booster`.
+
+    v88 — antes esto construía un Booster temporal y le trasplantaba el handle
+    al definitivo (`self.handle = tmp.handle; tmp.handle = None`). Parecía
+    funcionar —los 43 modelos se reparaban y predecían— pero dejaba la
+    biblioteca en un estado inconsistente: más adelante, en el mismo proceso,
+    otro modelo cualquiera reventaba con
+
+        OSError: exception: access violation reading 0x0000000000000000
+
+    dentro de `XGBoosterPredict`. Es la firma de un uso-después-de-liberar. En
+    el barrido salía como «MLB omitido por error», o sea que el trasplante se
+    cargaba un deporte entero a varios pasos de distancia.
+
+    Ahora cada Booster crea y conserva SU handle: se inicializa `booster` como
+    un Booster vacío en condiciones y se le carga el modelo encima. Sin
+    trasplantes y usando sólo la API pública.
+    """
     import xgboost as xgb
 
     modelo = recortar_a_modelo(buf)
     if modelo is None:
-        return None
+        return False
     for candidato in (modelo, modelo[:-1]):
         try:
-            b = xgb.Booster()
-            b.load_model(bytearray(candidato))
-            return b
+            xgb.Booster.__init__(booster)          # handle propio y limpio
+            booster.load_model(bytearray(candidato))
+            return True
         except Exception:
             continue
-    return None
+    return False
 
 
 def cargar(ruta: str):
@@ -144,35 +203,48 @@ def cargar(ruta: str):
         logger.info(f'{ruta}: booster de otra plataforma, se repara por la '
                     f'ruta portable')
 
-    buffers = _boosters_del_pickle(ruta)
-    if not buffers:
-        raise RuntimeError(f'{ruta}: no se pudo extraer ningún booster')
+    # El parche de `__setstate__` es global al proceso, así que la reparación
+    # entera va bajo cerrojo. Ver el comentario de `_CERROJO`.
+    with _CERROJO:
+        # Comprobación previa: que TODOS los boosters se puedan reconstruir
+        # antes de tocar nada. Si alguno no, se falla limpio en vez de devolver
+        # un modelo a medias.
+        buffers = _boosters_del_pickle(ruta)
+        if not buffers:
+            raise RuntimeError(f'{ruta}: no se pudo extraer ningún booster')
+        if any(recortar_a_modelo(b) is None for b in buffers):
+            malos = sum(1 for b in buffers if recortar_a_modelo(b) is None)
+            raise RuntimeError(f'{ruta}: {malos} de {len(buffers)} boosters sin '
+                               f'sección de modelo recuperable')
 
-    reparados = [_booster_desde_buffer(b) for b in buffers]
-    if any(r is None for r in reparados):
-        malos = sum(1 for r in reparados if r is None)
-        raise RuntimeError(f'{ruta}: {malos} de {len(reparados)} boosters no '
-                           f'se pudieron reparar')
+        # Segunda pasada: cada Booster se reconstruye SOBRE SÍ MISMO (ver
+        # `_cargar_en`: nada de trasplantar handles entre objetos).
+        fallos = []
+        original = xc.Booster.__setstate__
+        hilo = threading.get_ident()
 
-    # segunda pasada: ahora __setstate__ coge el booster ya reconstruido
-    pendientes = list(reparados)
-    original = xc.Booster.__setstate__
+        def reponer(self, state):
+            # Si la llamada viene de OTRO hilo, este parche no es asunto suyo:
+            # se delega en el original. Sin esto, el hilo de MLB cargaba su
+            # modelo a través del parche del hilo de fútbol.
+            if threading.get_ident() != hilo:
+                return original(self, state)
+            h = state.get('handle') if isinstance(state, dict) else None
+            if isinstance(h, (bytes, bytearray)):
+                if _cargar_en(self, bytes(h)):
+                    for k, v in state.items():
+                        if k != 'handle':
+                            setattr(self, k, v)
+                    return
+                fallos.append(1)
+            original(self, state)
 
-    def reponer(self, state):
-        if isinstance(state, dict) and isinstance(state.get('handle'),
-                                                  (bytes, bytearray)):
-            b = pendientes.pop(0)
-            self.__dict__.update(
-                {k: v for k, v in state.items() if k != 'handle'})
-            self.handle = b.handle
-            # se le quita la propiedad al Booster temporal para que su __del__
-            # no libere un handle que ahora usa otro objeto
-            b.handle = None
-            return
-        original(self, state)
-
-    xc.Booster.__setstate__ = reponer
-    try:
-        return joblib.load(ruta)
-    finally:
-        xc.Booster.__setstate__ = original
+        xc.Booster.__setstate__ = reponer
+        try:
+            modelo = joblib.load(ruta)
+        finally:
+            xc.Booster.__setstate__ = original
+        if fallos:
+            raise RuntimeError(f'{ruta}: {len(fallos)} boosters no se pudieron '
+                               f'reconstruir')
+        return modelo
