@@ -1,12 +1,12 @@
 {
   "liga": "Chinese Super League",
   "n_train": 1446,
-  "n_validacion": 365,
+  "n_validacion": 366,
   "fecha_corte": "2025-04-02",
-  "precision_validacion": 0.5534,
-  "precision_linea_base_elo": 0.4959,
+  "precision_validacion": 0.5519,
+  "precision_linea_base_elo": 0.4945,
   "precision_mercado_cuotas": 0.526,
-  "log_loss_validacion": 0.9764,
+  "log_loss_validacion": 0.977,
   "n_equipos": 40,
   "familia_modelo": "ensemble",
   "features_extra_cols": [

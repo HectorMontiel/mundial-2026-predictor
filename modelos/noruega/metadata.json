@@ -1,12 +1,12 @@
 {
   "liga": "Eliteserien",
   "n_train": 1487,
-  "n_validacion": 374,
+  "n_validacion": 376,
   "fecha_corte": "2024-11-10",
-  "precision_validacion": 0.5802,
-  "precision_linea_base_elo": 0.5348,
+  "precision_validacion": 0.5798,
+  "precision_linea_base_elo": 0.5346,
   "precision_mercado_cuotas": 0.5882,
-  "log_loss_validacion": 0.953,
+  "log_loss_validacion": 0.9536,
   "n_equipos": 27,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
