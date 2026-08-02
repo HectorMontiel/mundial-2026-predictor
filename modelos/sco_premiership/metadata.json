@@ -1,12 +1,12 @@
 {
   "liga": "Scottish Premiership",
   "n_train": 893,
-  "n_validacion": 224,
-  "fecha_corte": "2025-08-02",
-  "precision_validacion": 0.5357,
-  "precision_linea_base_elo": 0.5179,
+  "n_validacion": 225,
+  "fecha_corte": "2025-08-03",
+  "precision_validacion": 0.5333,
+  "precision_linea_base_elo": 0.5156,
   "precision_mercado_cuotas": 0.5202,
-  "log_loss_validacion": 1.1132,
+  "log_loss_validacion": 1.1128,
   "n_equipos": 14,
   "familia_modelo": "ensemble",
   "features_extra_cols": [

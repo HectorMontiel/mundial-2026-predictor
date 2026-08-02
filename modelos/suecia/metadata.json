@@ -1,12 +1,12 @@
 {
   "liga": "Allsvenskan",
   "n_train": 1490,
-  "n_validacion": 373,
-  "fecha_corte": "2024-10-24",
-  "precision_validacion": 0.4799,
-  "precision_linea_base_elo": 0.504,
+  "n_validacion": 374,
+  "fecha_corte": "2024-10-26",
+  "precision_validacion": 0.4786,
+  "precision_linea_base_elo": 0.5027,
   "precision_mercado_cuotas": 0.5174,
-  "log_loss_validacion": 1.0244,
+  "log_loss_validacion": 1.025,
   "n_equipos": 31,
   "familia_modelo": "ensemble",
   "features_extra_cols": [

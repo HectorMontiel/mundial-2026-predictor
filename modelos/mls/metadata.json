@@ -1,12 +1,12 @@
 {
   "liga": "MLS",
-  "n_train": 2927,
-  "n_validacion": 734,
-  "fecha_corte": "2025-03-22",
-  "precision_validacion": 0.4768,
-  "precision_linea_base_elo": 0.4482,
-  "precision_mercado_cuotas": 0.5061,
-  "log_loss_validacion": 1.0384,
+  "n_train": 2934,
+  "n_validacion": 741,
+  "fecha_corte": "2025-03-23",
+  "precision_validacion": 0.4737,
+  "precision_linea_base_elo": 0.4467,
+  "precision_mercado_cuotas": 0.5055,
+  "log_loss_validacion": 1.0382,
   "n_equipos": 30,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
@@ -28,18 +28,18 @@
     "OVERROUND": 0.06
   },
   "roi_sim": {
-    "n_apuestas": 236,
-    "roi_pct": -13.14,
+    "n_apuestas": 227,
+    "roi_pct": -12.08,
     "aciertos": 85,
-    "roi_pct_pinnacle": -20.27,
-    "n_con_pinnacle": 151
+    "roi_pct_pinnacle": -21.01,
+    "n_con_pinnacle": 140
   },
   "mesm": {
-    "n_val_con_cuotas": 733,
-    "acc_prod": 0.4775,
-    "acc_mesm": 0.4911,
-    "ll_prod": 1.0379,
-    "ll_mesm": 1.052,
+    "n_val_con_cuotas": 726,
+    "acc_prod": 0.4752,
+    "acc_mesm": 0.4959,
+    "ll_prod": 1.0371,
+    "ll_mesm": 1.0484,
     "adoptado": false
   },
   "imt": null
