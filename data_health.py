@@ -25,39 +25,22 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
-ODDS_ACTUALES = 'odds_actuales.json'
 DB_ODDS = 'odds_historico.db'
 # umbrales
 MIN_CUOTAS_SANO = 10          # menos que esto en temporada activa = sospechoso
 HORAS_FRESCURA = 18           # snapshots más viejos que esto = obsoleto
 
 
-def _clave_odds_presente() -> bool:
-    if os.getenv('ODDS_API_KEY'):
-        return True
-    try:
-        import tomllib
-        with open('.streamlit/secrets.toml', 'rb') as f:
-            return bool(tomllib.load(f).get('ODDS_API_KEY'))
-    except Exception:
-        return False
-
-
-def _cuotas_actuales() -> int:
-    try:
-        with open(ODDS_ACTUALES, encoding='utf-8') as f:
-            return len(json.load(f).get('cuotas', {}))
-    except Exception:
-        return 0
-
-
 def _ultima_captura() -> Dict:
-    """Última captura registrada en odds_historico.db (fuente + antigüedad)."""
+    """Última foto registrada en odds_historico.db (fuente + antigüedad).
+    v89: se lee `historical_odds` fase='snapshot' (daily_snapshots) — la
+    tabla `snapshots` de la v43 murió con The Odds API en la v88."""
     if not os.path.exists(DB_ODDS):
         return {'existe': False}
     try:
         con = sqlite3.connect(DB_ODDS)
-        row = con.execute("SELECT MAX(capturado_utc), COUNT(*) FROM snapshots").fetchone()
+        row = con.execute("SELECT MAX(ingested_at), COUNT(*) "
+                          "FROM historical_odds WHERE fase='snapshot'").fetchone()
         con.close()
     except Exception as e:
         return {'existe': False, 'error': str(e)}
@@ -70,84 +53,62 @@ def _ultima_captura() -> Dict:
 
 
 def estado_datos() -> Dict:
-    """Diagnóstico completo de la llegada de datos. Nunca lanza."""
+    """Diagnóstico completo de la llegada de datos. Nunca lanza.
+
+    v89 — el diagnóstico giraba alrededor de ODDS_API_KEY y de
+    `odds_actuales.json`, que son de The Odds API, RETIRADA en la v88. Contar
+    un fichero que ya nada escribe podía inflar el número con cuotas rancias,
+    y «sin clave» señalaba como causa una clave que ya no se usa. Las fuentes
+    reales de la app son Pinnacle, Bovada, Playdoit y ESPN (cuotas_multi),
+    todas sin clave ni límite: el diagnóstico mide eso.
+    """
     det: List[str] = []
     nivel = 'ok'
-    clave = _clave_odds_presente()
-    n_cuotas = _cuotas_actuales()
     captura = _ultima_captura()
 
-    # v73 — este diagnóstico contaba SOLO las cuotas de The Odds API
-    # (`odds_actuales.json`), que desde v71 ya no es la fuente principal. Por
-    # eso avisaba «⚠️ Solo 8 cuotas vigentes» mientras la app tenía cientos de
-    # partidos con precio de Pinnacle y Bovada: medía el termómetro viejo.
-    # Ahora se suman las fuentes sin cuota de API y el aviso refleja lo que la
-    # app realmente tiene.
-    n_multi = 0
+    n_cuotas = 0
     detalle_multi = {}
     try:
         import cuotas_multi as _cm
         detalle_multi = _cm.diagnostico()
-        n_multi = sum(detalle_multi.values())
+        n_cuotas = sum(detalle_multi.values())
     except Exception:
         pass
-    if n_multi:
-        det.append(f"✅ {n_multi} partidos con cuota de fuentes sin límite "
-                   f"(Pinnacle + Bovada): "
-                   + ' · '.join(f'{k} {v}' for k, v in detalle_multi.items()
-                                if v))
-        n_cuotas = n_cuotas + n_multi
 
-    if not clave:
-        # v73: ya no es crítico. The Odds API pasó a refuerzo opcional; sin
-        # clave la app sigue teniendo cuotas de Pinnacle, Bovada y ESPN.
-        if not n_multi:
-            nivel = 'critico'
-            det.append("❌ Sin ODDS_API_KEY y sin fuentes alternativas "
-                       "disponibles: no están llegando cuotas.")
-        else:
-            det.append("ℹ️ Sin ODDS_API_KEY (opcional desde v71): las cuotas "
-                       "vienen de Pinnacle, Bovada y ESPN, que no tienen "
-                       "límite de peticiones.")
     if n_cuotas == 0:
-        # sin cuotas: crítico si además no hay clave o la captura es vieja
         horas = captura.get('horas_desde')
-        if not clave:
+        if horas is not None and horas > HORAS_FRESCURA:
             nivel = 'critico'
-            det.append("❌ 0 cuotas vigentes y sin clave: NO están llegando datos.")
-        elif horas is not None and horas > HORAS_FRESCURA:
-            nivel = 'critico' if nivel != 'critico' else nivel
             det.append(f"❌ 0 cuotas vigentes y la última captura fue hace "
-                       f"{horas:.0f} h: la fuente puede estar caída o rate-limited.")
+                       f"{horas:.0f} h: las fuentes pueden estar caídas.")
         else:
-            # clave ok y captura reciente pero 0 vigentes → probable parón de
-            # temporada (no es un fallo del sistema)
-            if nivel == 'ok':
-                nivel = 'degradado'
-            det.append("⚠️ 0 cuotas vigentes ahora mismo, pero la clave está y la "
-                       "captura es reciente → probable parón de calendario, no un "
-                       "fallo de datos.")
-    elif n_cuotas < MIN_CUOTAS_SANO:
-        if nivel == 'ok':
             nivel = 'degradado'
+            det.append("⚠️ 0 cuotas vigentes ahora mismo con captura reciente "
+                       "→ probable parón de calendario, no un fallo de datos.")
+    elif n_cuotas < MIN_CUOTAS_SANO:
+        nivel = 'degradado'
         det.append(f"⚠️ Solo {n_cuotas} cuotas vigentes (poca cobertura hoy).")
     else:
-        det.append(f"✅ {n_cuotas} cuotas vigentes.")
+        det.append(f"✅ {n_cuotas} partidos con cuota de fuentes sin límite "
+                   f"(Pinnacle + Bovada + Playdoit): "
+                   + ' · '.join(f'{k} {v}' for k, v in detalle_multi.items()
+                                if v))
 
     if captura.get('existe') and captura.get('horas_desde') is not None:
         h = captura['horas_desde']
-        det.append(f"{'✅' if h <= HORAS_FRESCURA else '⚠️'} Última captura hace "
-                   f"{h:.0f} h ({captura.get('total_snapshots')} snapshots totales).")
+        det.append(f"{'✅' if h <= HORAS_FRESCURA else '⚠️'} Última foto de la "
+                   f"línea hace {h:.0f} h "
+                   f"({captura.get('total_snapshots')} fotos acumuladas).")
     elif not captura.get('existe'):
         det.append("ℹ️ Sin odds_historico.db (disco efímero del cloud entre "
                    "despliegues) — normal salvo que persista tras el pipeline.")
 
     alarma = None
     if nivel == 'critico':
-        alarma = ("🚨 ALERTA DE DATOS: no están llegando cuotas. Causa probable: "
-                  + ("falta ODDS_API_KEY. " if not clave else "fuente caída / "
-                     "rate-limit. ") + "Los picks de hoy pueden estar incompletos.")
-    return {'nivel': nivel, 'ok': nivel == 'ok', 'clave_odds': clave,
+        alarma = ("🚨 ALERTA DE DATOS: no están llegando cuotas de ninguna "
+                  "fuente (Pinnacle/Bovada/Playdoit/ESPN caídas o bloqueadas). "
+                  "Los picks de hoy pueden estar incompletos.")
+    return {'nivel': nivel, 'ok': nivel == 'ok',
             'cuotas_vigentes': n_cuotas, 'captura': captura,
             'detalles': det, 'alarma': alarma}
 

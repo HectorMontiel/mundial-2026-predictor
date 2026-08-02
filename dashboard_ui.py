@@ -258,9 +258,12 @@ def _render_maxima_confianza(r) -> None:
                  f"la cuota no paga el riesgo. Úsalos como patas de combinada, "
                  f"no como apuesta simple.")
     filas = []
-    for p in picks:
+    # v89: la semana entera entra al barrido — HOY primero y el resto por fecha
+    for p in sorted(picks, key=lambda p: (not p.get('es_hoy'),
+                                          str(p.get('fecha', '')))):
         ar = p.get('acierto_real')
         filas.append({
+            'Fecha': p.get('fecha', ''),
             'Deporte': p.get('deporte'), 'Liga': p.get('liga'),
             'Partido': p.get('partido'), 'Apuesta': p.get('apuesta'),
             'Dice el modelo': f"{(p.get('prob') or 0):.0%}",
@@ -1665,10 +1668,12 @@ BANKROLL = st.sidebar.number_input(
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     st.header("💎 Apuestas del Día")
-    st.caption("Barrido UNIVERSAL (v61): TODAS las ligas con jornada (fixtures "
-               "ESPN, sin depender de cuotas) + ⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA. "
-               "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza sin "
-               "cuota en vivo; **Pronósticos** = cobertura completa del día.")
+    st.caption("Barrido UNIVERSAL de la SEMANA (v89): TODAS las ligas con "
+               "jornada en los próximos 7 días (fixtures ESPN) + ⚾ MLB, 🏀 NBA "
+               "y 🎾 tenis ATP/WTA, con cuota y EV automáticos. Los partidos de "
+               "**HOY** van primero y el resto se agrupa por día. **Capa 1** = "
+               "cuota real con EV; **Capa 2** = alta confianza sin cuota en "
+               "vivo; **Pronósticos** = cobertura completa de la semana.")
     # v47/v49: acciones SIEMPRE visibles arriba — refrescar y enviar a Telegram
     # (el botón de Telegram estaba escondido en un expander; ahora es fijo).
     cacc1, cacc2 = st.columns(2)
@@ -1832,49 +1837,66 @@ def render_alpha_finder():
         st.caption("Combinadas de UN SOLO partido (más controlables que las "
                    "multi-partido), de los mejores encuentros del día. Escalera "
                    "de la más segura a la de más cuota.")
-        if st.button("🎲 Generar combinadas del día", key='combo_dia_btn',
-                     type="primary"):
-            from bankroll_manager import AVISO_JUEGO_RESPONSABLE   # v58.1 FIX
+        # v89 — SIN BOTÓN: el usuario pidió que todo lo automático sea
+        # automático. Se calculan solas (cacheadas 30 min por lista de
+        # partidos, así abrir el expander no repite el trabajo).
+        from bankroll_manager import AVISO_JUEGO_RESPONSABLE   # v58.1 FIX
+        _REV = {v: k for k, v in NOMBRES_LIGAS.items()}
+        # candidatos: mejores picks de fútbol del día (Capa 1 → pronósticos),
+        # HOY primero (v89: con la semana evaluada, sin este orden las
+        # combinadas podían armarse con partidos del sábado)
+        vistos, candidatos = set(), []
+        _pool_combo = sorted(
+            (r.get('capa1') or []) + (r.get('seleccion_dia') or [])
+            + (r.get('pronosticos') or []),
+            key=lambda p: (not p.get('es_hoy'), str(p.get('fecha', ''))))
+        for p in _pool_combo:
+            if p.get('deporte', 'Fútbol') != 'Fútbol':
+                continue
+            cl = p.get('clave_liga') or _REV.get(p.get('liga', ''))
+            partes = str(p.get('partido', '')).split(' vs ')
+            if not cl or len(partes) != 2 or p['partido'] in vistos:
+                continue
+            vistos.add(p['partido'])
+            candidatos.append((cl, partes[0].strip(), partes[1].strip()))
+            if len(candidatos) >= 4:
+                break
+
+        @st.cache_data(ttl=1800, show_spinner="Armando combinadas…",
+                       max_entries=4)
+        def _combinadas_dia(lista):
             from match_parlay import proponer_parlays
-            _REV = {v: k for k, v in NOMBRES_LIGAS.items()}
-            # candidatos: mejores picks de fútbol del día (Capa 1 → pronósticos)
-            vistos, candidatos = set(), []
-            for p in ((r.get('capa1') or []) + (r.get('seleccion_dia') or [])
-                      + (r.get('pronosticos') or [])):
-                if p.get('deporte', 'Fútbol') != 'Fútbol':
+            out = []
+            for cl, h, a in lista:
+                try:
+                    ops = proponer_parlays(cargar_motor_liga(cl), h, a,
+                                           max_opciones=3)
+                except Exception as e:
+                    out.append((cl, h, a, None, type(e).__name__))
                     continue
-                cl = _REV.get(p.get('liga', ''))
-                partes = str(p.get('partido', '')).split(' vs ')
-                if not cl or len(partes) != 2 or p['partido'] in vistos:
-                    continue
-                vistos.add(p['partido'])
-                candidatos.append((cl, partes[0].strip(), partes[1].strip()))
-                if len(candidatos) >= 4:
-                    break
-            if not candidatos:
-                st.info("Hoy no hay partidos con datos suficientes para armar "
-                        "combinadas.")
-            with st.spinner("Armando combinadas de los mejores partidos…"):
-                for cl, h, a in candidatos:
-                    try:
-                        ops = proponer_parlays(cargar_motor_liga(cl), h, a,
-                                               max_opciones=3)
-                    except Exception as e:
-                        st.caption(f"{h} vs {a}: no disponible ({type(e).__name__}).")
-                        continue
-                    if not ops:
-                        continue
-                    st.markdown(f"**⚽ {h} vs {a}** — {NOMBRES_LIGAS.get(cl, cl)}")
-                    for op in ops:
-                        with st.container(border=True):
-                            k1, k2, k3 = st.columns([2, 1, 1])
-                            k1.markdown(f"{op['etiqueta_opcion']} · "
-                                        f"{op['n_selecciones']} patas")
-                            k2.metric("Prob.", f"{op['prob_conjunta']*100:.0f}%")
-                            k3.metric("Cuota", f"{op['cuota_combinada']:.2f}")
-                            st.caption(" + ".join(s['apuesta']
-                                                  for s in op['selecciones']))
-            st.caption(AVISO_JUEGO_RESPONSABLE)
+                out.append((cl, h, a, ops or [], None))
+            return out
+
+        if not candidatos:
+            st.info("Hoy no hay partidos con datos suficientes para armar "
+                    "combinadas.")
+        for cl, h, a, ops, err in _combinadas_dia(tuple(candidatos)):
+            if err:
+                st.caption(f"{h} vs {a}: no disponible ({err}).")
+                continue
+            if not ops:
+                continue
+            st.markdown(f"**⚽ {h} vs {a}** — {NOMBRES_LIGAS.get(cl, cl)}")
+            for op in ops:
+                with st.container(border=True):
+                    k1, k2, k3 = st.columns([2, 1, 1])
+                    k1.markdown(f"{op['etiqueta_opcion']} · "
+                                f"{op['n_selecciones']} patas")
+                    k2.metric("Prob.", f"{op['prob_conjunta']*100:.0f}%")
+                    k3.metric("Cuota", f"{op['cuota_combinada']:.2f}")
+                    st.caption(" + ".join(s['apuesta']
+                                          for s in op['selecciones']))
+        st.caption(AVISO_JUEGO_RESPONSABLE)
 
     # v37 (§5): PLAN DE ATAQUE TEMPORAL (oleadas)
     oleadas = r.get('oleadas') or {}
@@ -1893,70 +1915,107 @@ def render_alpha_finder():
             co3.metric("📋 Días siguientes", len(oleadas.get('resto', [])),
                        help=_mejor(oleadas.get('resto', [])))
 
-    def _tarjetas(lista, titulo):
+    def _fila_apuesta(t):
+        """Una apuesta (mercado) de un partido, como fila de columnas."""
+        pref = ('💠 ' if t.get('sharp_confirmado') else '') \
+            + ('⭐ ' if t.get('platino') else '') \
+            + ('⚡ ' if t.get('shadow') else '')
+        # v31: las tarjetas sirven a las DOS capas — con cuota real
+        # (EV) o sin ella (cuota mínima sugerida). Todo defensivo.
+        cuota = t.get('cuota')
+        if cuota:
+            precio = (f"{t.get('valor','')} Cuota **{cuota}** "
+                      f"(justa {t.get('cuota_justa','?')})  \n"
+                      f"EV **{(t.get('ev') or 0)*100:+.1f} %** · "
+                      f"prob {(t.get('prob') or 0)*100:.0f} %")
+            if t.get('casa'):
+                precio += f"  \n🏠 {t['casa']}"
+            # v73: por qué no está en Capa 1 aunque tenga cuota real
+            if t.get('motivo_capa2'):
+                precio += f"  \nℹ️ Fuera de élite: {t['motivo_capa2']}"
+        else:
+            precio = (f"🎯 Sin cuota abierta todavía  \n"
+                      f"Cuota mínima sugerida **{t.get('cuota_justa','?')}** · "
+                      f"prob {(t.get('prob') or 0)*100:.0f} %")
+        c2, c3 = st.columns([2, 3])
+        c2.markdown(f"**{pref}{t.get('apuesta','?')}**  \n{t.get('mercado','')}")
+        rent = t.get('rentabilidad') or {}
+        _gap = t.get('sharp_gap')
+        import traductor_quant as _tq
+        c3.markdown(precio
+                    + (f"  \n**{_tq.frase_sharp(_gap, ES_PRO)}**"
+                       if t.get('sharp_confirmado') else '')
+                    + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
+                    + (f"  \n{rent['etiqueta']}" if rent.get('etiqueta')
+                       and rent.get('tier') != 'sin_ev' else '')
+                    + (f"  \n💼 Stake: **{t['stake_txt']}**"
+                       if t.get('stake_txt') else '')
+                    + (f"  \nℹ️ {t['nota_seleccion']}" if t.get('nota_seleccion') else '')
+                    + (f"  \n{t['nota']}" if t.get('nota') else ''))
+        # v47: tenis — 19 mercados derivados para armar parlays
+        mts = t.get('mercados_tenis') or []
+        if mts:
+            with st.expander(f"🎾 Ver {len(mts)} mercados de este partido "
+                             "(para parlays)"):
+                import pandas as _pd
+                df = _pd.DataFrame([
+                    {'Mercado': c['etiqueta'],
+                     'Probabilidad': f"{c['valor']:.0f}%",
+                     'Cuota justa': round(100 / max(c['valor'], 1e-6), 2)}
+                    for c in sorted(mts, key=lambda x: -x['valor'])])
+                st.dataframe(df, hide_index=True, width='stretch')
+
+    def _etiqueta_dia(fecha):
+        hoy = pd.Timestamp.today().normalize()
+        try:
+            f = pd.Timestamp(fecha).normalize()
+        except (ValueError, TypeError):
+            return str(fecha or 'Sin fecha')
+        if f <= hoy:
+            return f"📅 Hoy · {fecha}"
+        if f == hoy + pd.Timedelta(days=1):
+            return f"📅 Mañana · {fecha}"
+        return f"📅 {fecha}"
+
+    def _tarjetas(lista, titulo, agrupar_dia=True):
+        """v89 — agrupación en dos niveles, pedida por el usuario:
+          · por DÍA (hoy primero, luego el resto de la semana), y
+          · por PARTIDO (todas las apuestas con valor de un partido juntas,
+            no solo la mejor).
+        """
         if not lista:
             return
         if titulo:
             st.subheader(titulo)
+        # nivel 1: día (el orden de llegada dentro del día se conserva)
+        dias: dict = {}
         for t in lista:
-            pref = ('💠 ' if t.get('sharp_confirmado') else '') \
-                + ('⭐ ' if t.get('platino') else '') \
-                + ('⚡ ' if t.get('shadow') else '')
-            # v31: las tarjetas sirven a las DOS capas — con cuota real
-            # (EV) o sin ella (cuota mínima sugerida). Todo defensivo.
-            cuota = t.get('cuota')
-            if cuota:
-                precio = (f"{t.get('valor','')} Cuota **{cuota}** "
-                          f"(justa {t.get('cuota_justa','?')})  \n"
-                          f"EV **{(t.get('ev') or 0)*100:+.1f} %** · "
-                          f"prob {(t.get('prob') or 0)*100:.0f} %")
-                if t.get('casa'):
-                    precio += f"  \n🏠 {t['casa']}"
-                # v73: por qué no está en Capa 1 aunque tenga cuota real
-                if t.get('motivo_capa2'):
-                    precio += f"  \nℹ️ Fuera de élite: {t['motivo_capa2']}"
-            else:
-                precio = (f"🎯 Sin cuota abierta todavía  \n"
-                          f"Cuota mínima sugerida **{t.get('cuota_justa','?')}** · "
-                          f"prob {(t.get('prob') or 0)*100:.0f} %")
-            with st.container(border=True):
-                c1, c2, c3 = st.columns([3, 2, 2])
-                c1.markdown(f"**{pref}{t.get('partido','?')}**  \n"
-                            f"{t.get('deporte','Fútbol')} · {t.get('liga','')} · "
-                            f"{t.get('fecha','')}"
-                            + (f"  \n{t['antiguedad']}" if t.get('antiguedad')
-                               else ''),
-                            help=("Frescura de los datos con los que se entrenó "
-                                  "esta liga: el modelo no ve partidos nuevos "
-                                  "desde hace ese número de días.")
-                            if t.get('antiguedad') else None)
-                c2.markdown(f"**{t.get('apuesta','?')}**  \n{t.get('mercado','')}")
-                rent = t.get('rentabilidad') or {}
-                _gap = t.get('sharp_gap')
-                import traductor_quant as _tq
-                c3.markdown(precio
-                            + (f"  \n**{_tq.frase_sharp(_gap, ES_PRO)}**"
-                               if t.get('sharp_confirmado') else '')
-                            + (f"  \n🏠 mejor cuota en **{t['casa']}**" if t.get('casa') else '')
-                            + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
-                            + (f"  \n{rent['etiqueta']}" if rent.get('etiqueta')
-                               and rent.get('tier') != 'sin_ev' else '')
-                            + (f"  \n💼 Stake: **{t['stake_txt']}**"
-                               if t.get('stake_txt') else '')
-                            + (f"  \nℹ️ {t['nota_seleccion']}" if t.get('nota_seleccion') else '')
-                            + (f"  \n{t['nota']}" if t.get('nota') else ''))
-                # v47: tenis — 19 mercados derivados para armar parlays
-                mts = t.get('mercados_tenis') or []
-                if mts:
-                    with st.expander(f"🎾 Ver {len(mts)} mercados de este partido "
-                                     "(para parlays)"):
-                        import pandas as _pd
-                        df = _pd.DataFrame([
-                            {'Mercado': c['etiqueta'],
-                             'Probabilidad': f"{c['valor']:.0f}%",
-                             'Cuota justa': round(100 / max(c['valor'], 1e-6), 2)}
-                            for c in sorted(mts, key=lambda x: -x['valor'])])
-                        st.dataframe(df, hide_index=True, width='stretch')
+            dias.setdefault(str(t.get('fecha', '')), []).append(t)
+        for fecha in sorted(dias):
+            if agrupar_dia and len(dias) > 1:
+                st.markdown(f"**{_etiqueta_dia(fecha)}**")
+            # nivel 2: partido
+            partidos: dict = {}
+            for t in dias[fecha]:
+                clave = (t.get('deporte', 'Fútbol'), t.get('partido', '?'))
+                partidos.setdefault(clave, []).append(t)
+            for (_dep, _p), ts in partidos.items():
+                t0 = ts[0]
+                with st.container(border=True):
+                    st.markdown(
+                        f"**{t0.get('partido','?')}**  \n"
+                        f"{t0.get('deporte','Fútbol')} · {t0.get('liga','')} · "
+                        f"{t0.get('fecha','')}"
+                        + (f"  \n{t0['antiguedad']}" if t0.get('antiguedad')
+                           else ''),
+                        help=("Frescura de los datos con los que se entrenó "
+                              "esta liga: el modelo no ve partidos nuevos "
+                              "desde hace ese número de días.")
+                        if t0.get('antiguedad') else None)
+                    for i, t in enumerate(ts):
+                        if i:
+                            st.divider()
+                        _fila_apuesta(t)
 
     # -----------------------------------------------------------------------
     # v77 — TRES PESTAÑAS. La sección de siempre pasa a ser la primera; las
@@ -2065,10 +2124,11 @@ def render_alpha_finder():
         pronos = r.get('pronosticos') or []
         if pronos:
             st.divider()
-            st.subheader(f"📋 Todos los pronósticos del día ({len(pronos)})")
-            st.caption("Cobertura completa: el 1X2 del modelo para cada partido "
-                       "programado, con cuota justa (1/probabilidad). Informativo — "
-                       "solo la Capa 1 lleva EV validado.")
+            st.subheader(f"📋 Todos los pronósticos de la semana ({len(pronos)})")
+            st.caption("Cobertura completa de los próximos 7 días: el 1X2 del "
+                       "modelo para cada partido programado, con cuota justa "
+                       "(1/probabilidad). Informativo — solo la Capa 1 lleva EV "
+                       "validado.")
             import pandas as _pd
             def _pct(v):
                 return f"{v*100:.0f}%" if isinstance(v, (int, float)) else '—'
@@ -2114,24 +2174,13 @@ def render_alpha_finder():
                  'Cuota justa': p['cuota_justa']} for p in tp['patas']],
             ), hide_index=True, width='stretch')
 
-        # v47: ENVIAR A TELEGRAM AHORA — el usuario quiere un botón bajo demanda
-        # además del envío diario automático (GitHub Actions).
-        st.divider()
-        with st.expander("📲 Enviar estas apuestas a Telegram"):
-            st.caption("Envía el resumen completo del día a tu canal de Telegram. "
-                       "El envío automático diario sigue activo por separado.")
-            if st.button("📤 Enviar a Telegram ahora", key='tg_send', type="primary"):
-                try:
-                    import bot_telegram
-                    msg = bot_telegram.construir_mensaje()
-                    if bot_telegram.enviar(msg):
-                        st.success("✅ Enviado a Telegram.")
-                    else:
-                        st.warning("No hay TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID "
-                                   "configurados en los Secrets. Vista previa abajo:")
-                        st.code(msg, language=None)
-                except Exception as e:
-                    st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+        # v89 — SE ELIMINA el segundo botón «Enviar a Telegram» que vivía aquí
+        # en un expander: llamaba a `bot_telegram.construir_mensaje()` SIN
+        # pasarle el barrido ya calculado, que es exactamente el bug que
+        # tumbaba la app en la v88 (segundo barrido de 1,3 GB encima del que ya
+        # estaba en memoria). La v88 arregló el botón de arriba y este
+        # duplicado se quedó con el código viejo. El de arriba hace lo mismo y
+        # lo hace bien.
 
         # v43 (§4.1): Auditoría de modelos — matriz de rendimiento por liga
         st.divider()
@@ -2518,23 +2567,30 @@ def render_mlb():
             # v56: combinador de mercados (manual + automático) para MLB
             render_parlay_partido(eng, home, away, key='mlb')
     with tab2:
-        st.caption("Cuotas en vivo de The Odds API (baseball_mlb, EE. UU.). "
-                   "Filtros: prob >58 %, EV >+3 %, cuota >1.50.")
-        if st.button("🔍 Buscar picks MLB de hoy (usa 1 crédito de API)",
-                     key='mlb_alpha'):
-            with st.spinner("Consultando cuotas MLB…"):
-                r = eng.apuestas_dia()
-            if r.get('aviso'):
-                st.info(r['aviso'])
-            for pk in r['picks']:
-                with st.container(border=True):
-                    cc1, cc2 = st.columns([3, 2])
-                    cc1.markdown(f"**{pk['partido']}**  \n{pk['fecha']}")
-                    cc2.markdown(f"{pk['valor']} {pk['apuesta']}  \n"
-                                 f"Cuota **{pk['cuota']}** (justa {pk['cuota_justa']}) · "
-                                 f"EV **{pk['ev']*100:+.1f} %**")
-            from bankroll_manager import AVISO_JUEGO_RESPONSABLE
-            st.caption(AVISO_JUEGO_RESPONSABLE)
+        # v89 — automático y con la fuente REAL. El texto decía «The Odds API
+        # (usa 1 crédito)» pero esa API se retiró en la v88: las cuotas salen
+        # de Pinnacle/Bovada (cuotas_multi, sin límite) desde la v77. Y el
+        # botón manual sobraba: el usuario pidió que el EV y la cuota lleguen
+        # solos. Cacheado 30 min, igual que el tablón de cuotas.
+        st.caption("Cuotas en vivo de Pinnacle y Bovada (sin límite de "
+                   "peticiones). Filtros: prob >58 %, EV >+3 %, cuota >1.50.")
+
+        @st.cache_data(ttl=1800, show_spinner="Consultando cuotas MLB…")
+        def _picks_mlb_hoy():
+            return eng.apuestas_dia()
+
+        r = _picks_mlb_hoy()
+        if r.get('aviso'):
+            st.info(r['aviso'])
+        for pk in r.get('picks') or []:
+            with st.container(border=True):
+                cc1, cc2 = st.columns([3, 2])
+                cc1.markdown(f"**{pk['partido']}**  \n{pk['fecha']}")
+                cc2.markdown(f"{pk['valor']} {pk['apuesta']}  \n"
+                             f"Cuota **{pk['cuota']}** (justa {pk['cuota_justa']}) · "
+                             f"EV **{pk['ev']*100:+.1f} %**")
+        from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+        st.caption(AVISO_JUEGO_RESPONSABLE)
 
 
 def render_nba():
@@ -2875,23 +2931,14 @@ if not MOTOR.listo:
     st.stop()
 
 # ---- Transparencia: procedencia y FRESCURA de los datos ---------------------
-col_banner, col_boton = st.columns([5, 1])
-with col_boton:
-    if st.button("🔄 Actualizar datos ahora", width='stretch',
-                 help="Ejecuta el pipeline completo (Kaggle + árbitros + estado de equipos). Tarda ~1 minuto."):
-        import subprocess, sys as _sys
-        with st.spinner("⏬ Descargando resultados y recalculando el estado de todas las selecciones..."):
-            proceso = subprocess.run(
-                [_sys.executable, "pipeline_mundial.py"],
-                capture_output=True, text=True, cwd=".", timeout=1800)
-        if proceso.returncode == 0:
-            st.cache_data.clear()
-            st.cache_resource.clear()
-            st.success("✅ Datos actualizados. Recargando...")
-            st.rerun()
-        else:
-            st.error(f"La actualización falló:\n```\n{(proceso.stderr or '')[-800:]}\n```")
-
+# v89 — SE RETIRA el botón «Actualizar datos ahora»: lanzaba pipeline_mundial
+# en un subprocess de hasta 30 minutos DENTRO del proceso de Streamlit y
+# después hacía `st.cache_data.clear()` + `st.cache_resource.clear()`, que son
+# GLOBALES al proceso — exactamente el patrón que la v86 identificó como causa
+# de las caídas con varios usuarios (borra también los cerrojos internos).
+# La actualización de datos vive en la tarea diaria (actualizacion_diaria.bat
+# en local, retrain_leagues.yml en CI), donde siempre debió estar.
+col_banner = st.container()
 with col_banner:
     if MOTOR.fuente == 'real_hybrid':
         st.info(
@@ -2906,7 +2953,7 @@ with col_banner:
         if antiguedad >= 1:
             st.warning(
                 f"⏰ **Datos del {MOTOR.generado}. Pueden no reflejar los partidos "
-                f"de ayer.** Usa «Actualizar datos ahora» o espera la tarea diaria."
+                f"de ayer.** La tarea diaria los refresca automáticamente."
             )
         else:
             from live_worldcup import fase_del_torneo
@@ -3356,41 +3403,11 @@ with tab_rapida:
                 st.download_button("📥 Descargar parlay (.txt)", data=texto.encode('utf-8'),
                                    file_name="parlay_mundial.txt", mime="text/plain")
 
-    # ---- 📈 Inteligencia de mercado (Mejora 4, v12 — experimental) ------------
-    with st.expander("📈 Inteligencia de Mercado — Polymarket (experimental)"):
-        st.caption(
-            "Probabilidades del mercado de predicción Polymarket vs el modelo, "
-            "con alertas de movimientos de liquidez y divergencias. "
-            "**Experimental — no es asesoramiento financiero.** Las señales del "
-            "mercado NO alimentan al modelo 1X2 (evita fuga de información)."
-        )
-        if st.button("🔄 Actualizar Polymarket ahora", key="btn_market"):
-            import market_intelligence
-            with st.spinner("Consultando Polymarket..."):
-                market_intelligence.actualizar(MOTOR)
-        import os as _os, json as _json
-        if _os.path.exists('market_data.json'):
-            try:
-                md_datos = _json.load(open('market_data.json', encoding='utf-8'))
-            except Exception:
-                md_datos = {'disponible': False}
-            if md_datos.get('disponible') and md_datos.get('senales'):
-                st.markdown(f"Último snapshot: **{md_datos.get('actualizado', '?')}** · "
-                            f"{len(md_datos['senales'])} mercados monitorizados")
-                for s in md_datos['senales'][:8]:
-                    icono = {'bajo': '🟢', 'medio': '🟡', 'alto': '🔴'}[s['riesgo_manipulacion']]
-                    precios = ' / '.join(f"{sal}: {pr*100:.0f} %"
-                                         for sal, pr in zip(s['salidas'], s['precios']))
-                    st.markdown(f"{icono} **{s['pregunta']}** — {precios} · "
-                                f"volumen ${s['volumen']:,.0f}")
-                    for a in s['alertas']:
-                        st.markdown(f"   ⚠️ {a}")
-            else:
-                st.info("Polymarket no disponible en el último intento "
-                        f"({md_datos.get('error', 'sin mercados del Mundial abiertos')}).")
-        else:
-            st.info("Aún sin datos: pulsa «Actualizar Polymarket ahora» o programa "
-                    "`market_intelligence.py` cada 15 minutos.")
+    # v89 — SE RETIRA la sección «Inteligencia de Mercado — Polymarket»:
+    # consultaba los mercados de predicción del Mundial 2026, que CERRARON al
+    # terminar el torneo. Desde entonces la sección vivía en un bucle de «sin
+    # mercados del Mundial abiertos» con un botón manual que nunca podía traer
+    # nada. El módulo market_intelligence.py se retira con ella.
 
     # ---- Consultas en texto libre --------------------------------------------
     st.divider()

@@ -111,17 +111,33 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
 
 
 def volcar_fallos() -> int:
-    """Persiste los nombres no mapeados (para crear alias y llegar a 0)."""
+    """Persiste los nombres no mapeados (para crear alias y llegar a 0).
+
+    v89 — el fichero acumulaba fallos PARA SIEMPRE: seguía listando las 38
+    selecciones que dejaron de fallar cuando la v66 amplió el catálogo a 200
+    (verificado: hoy todas mapean). Una lista de pendientes con entradas ya
+    resueltas deja de servir para llegar a 0. Ahora cada entrada guarda cuándo
+    se vio por última vez y las que llevan >30 días sin reaparecer se retiran
+    solas; las del formato antiguo (sin fecha) se conservan solo si vuelven a
+    fallar hoy.
+    """
     if not _fallos:
         return 0
+    import datetime as _dt
+    hoy = _dt.date.today().isoformat()
+    limite = (_dt.date.today() - _dt.timedelta(days=30)).isoformat()
     previos = {}
     if os.path.exists(ARCHIVO_FALLOS):
         try:
             with open(ARCHIVO_FALLOS, encoding='utf-8') as f:
-                previos = json.load(f)
+                bruto = json.load(f)
+            for k, v in bruto.items():
+                if isinstance(v, dict) and v.get('visto', '') >= limite:
+                    previos[k] = v
         except Exception:
             pass
-    previos.update(_fallos)
+    for k, ctx in _fallos.items():
+        previos[k] = {'contexto': ctx, 'visto': hoy}
     with open(ARCHIVO_FALLOS, 'w', encoding='utf-8') as f:
         json.dump(previos, f, ensure_ascii=False, indent=2)
     return len(_fallos)

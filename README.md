@@ -1,5 +1,41 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v89 — El crash de snapshots, la semana completa y la gran limpieza (ver [VALIDACION_v89.md](VALIDACION_v89.md))
+
+- **💥 Arreglado el crash de producción** (`no such table: snapshots`): «Valor
+  en Vivo» leía la tabla de la v43, cuyo único escritor se retiró con The Odds
+  API en la v88. Los 3 lectores migran a la fuente viva (`historical_odds`
+  fase='snapshot'), que en Cloud se **rehidrata sola** desde
+  `odds_snapshots.csv`. Verificado simulando el disco efímero. Y de paso la
+  vista deja de enseñar EV fantasma: **+93,9 %** que eran desacuerdo
+  modelo-mercado (el patrón que la v87 midió en 33,6 % de acierto) ahora se
+  encogen con el w por liga validado → +8/+16 % de line shopping real.
+- **📅 Apuestas del Día cubre la SEMANA, con HOY destacado.** Dos recortes se
+  sumaban: `fixtures_multi` usaba el default de **3 días** (no los 7 de
+  `DIAS_SEMANA`) y la ventana de 24 h de la v88 **filtraba antes de evaluar**.
+  Medido el 2026-08-02: la semana tenía 302 fixtures (78 % ya con cuota) y el
+  barrido evaluaba **25**; 44/56 ligas salían «sin partidos» jugando esa
+  semana. Ahora: **274 evaluados en 32 ligas**, la ventana es etiqueta
+  (`es_hoy`), la UI agrupa por día y por partido (**todas** las apuestas con
+  valor de un partido, no solo una), candidatos 15→40, y cuota+EV automáticos
+  en todo — sin botones manuales.
+- **⚡ Barrido semanal en 102 s** (antes 304 s): las cuotas por evento de todas
+  las ligas se prefetchean en paralelo y la red queda escondida detrás de la
+  CPU; los motores se liberan al terminar su liga (con ~32 ligas, retenerlos
+  era el patrón de memoria de 1,3 GB de la v86).
+- **🧨 Dos bombas del historial desactivadas**: el expander duplicado de
+  Telegram que aún llamaba `construir_mensaje()` sin el barrido (el bug de
+  2.172 MB de la v88 arregló un botón y este quedó vivo), y «Actualizar datos
+  ahora» del Mundial, que hacía `st.cache_data.clear()` GLOBAL + un subprocess
+  de 30 min (el patrón de caídas de la v86).
+- **🧹 Gran limpieza (177 archivos)**: Polymarket retirado (mercados del
+  Mundial cerrados con el torneo), pestaña MLB manual → automática con la
+  fuente real, `data_health` reescrito sin la API retirada, 141 scratch
+  `_vNN_*` y 34 módulos muertos/one-off fuera (los números de aquellos
+  experimentos siguen en `resultados_*.json` y los VALIDACION). Alias nuevos
+  (AGF, København, Sønderjyske, Hearts) y `nombres_sin_mapear.json` deja de
+  acumular fallos ya resueltos.
+
 ## Novedades v88 — Telegram tumbaba la app, y los picks de «MLB» eran de Taiwán (ver [VALIDACION_v88.md](VALIDACION_v88.md))
 
 - **📤 Arreglado: enviar a Telegram tumbaba la app.** `construir_mensaje()`
@@ -680,7 +716,7 @@ se había propuesto** — eso también es resultado.
   (entradas/intercepciones/despejes), ratings y clima. Caché incremental
   commiteable + paso en el pipeline; las features llegarán cuando la
   cobertura permita validarlas (protocolo clima v23).
-- **❌ Soccer24 inviable, documentado** ([soccer24_scraper.py](soccer24_scraper.py)):
+- **❌ Soccer24 inviable, documentado** (`soccer24_scraper.py` (retirado en v89)):
   el endpoint `/api/matches/{id}/statistics` del plan NO existe (404); sus
   feeds reales exigen firma `x-fsign` generada en cliente. FotMob cubre lo
   que se esperaba de él.
@@ -731,7 +767,7 @@ se había propuesto** — eso también es resultado.
   (Phi-3/Llama 3.2) lo reescribe — marcado como tal. Nunca inventa cifras.
 - **Panel ampliado**: barras Modelo vs ELO vs Mercado por liga + evolución
   de la precisión por ventanas walk-forward de 6 meses
-  ([run_wf_panel_v22.py](run_wf_panel_v22.py)), con las ventanas malas a la
+  (`run_wf_panel_v22.py` (retirado en v89)), con las ventanas malas a la
   vista — la variación entre ventanas es la incertidumbre real.
 
 ## Novedades v21 — API-Football: Champions operativa, backfill de stats y H2H (ver [VALIDACION_v21.md](VALIDACION_v21.md))
@@ -826,7 +862,7 @@ se había propuesto** — eso también es resultado.
 
 ## Novedades v17 — Ligas de clubes más precisas (ver [VALIDACION_v17.md](VALIDACION_v17.md))
 
-- **Ciclo de experimentos por liga** ([run_league_experiments.py](run_league_experiments.py)):
+- **Ciclo de experimentos por liga** (`run_league_experiments.py` (retirado en v89)):
   screening de 10 ideas × 8 ligas + walk-forward de confirmación. Adopciones
   (todas confirmadas fuera de muestra): **cuotas de cierre B365 como
   features** (LaLiga +1.5 pp, Eredivisie +0.4, Ligue 1 log-loss −0.057),
@@ -847,7 +883,7 @@ se había propuesto** — eso también es resultado.
 
 - **Modelo del Mundial: 59.4 → 60.4 % / 0.871** (walk-forward 60.0 % / 0.870,
   +0.5 pp y −0.038 vs v13). La mejora ganadora del ciclo de 12 experimentos
-  gratuitos ([run_experiments.py](run_experiments.py)) fue ampliar el
+  gratuitos (`run_experiments.py` (retirado en v89)) fue ampliar el
   histórico de Kaggle de 2010 a **1990** (32,386 partidos): cero features
   nuevas, cero cambios de inferencia. Stacking, H2H rico, importancia del
   torneo y blend Poisson pasaron el screening sobre la base 2010 pero NO
@@ -895,7 +931,7 @@ editable y validable contra el modelo.**
   del Mundial — sustituye a Flashscore (JS frágil). Dedupe robusto por par de
   equipos ±1 día y mapeo de nombres ESPN→Kaggle. +19 partidos reales del
   Mundial el día de la corrida.
-- **M8 (xG real)**: [understat_scraper.py](understat_scraper.py) funcional
+- **M8 (xG real)**: `understat_scraper.py` (retirado en v89) funcional
   (5 grandes ligas, 98 % de emparejamiento) pero **descartado como feature**:
   el A/B controlado empeoró el log-loss (LaLiga 1.014→1.108). Documentado.
 - **M9 (ratings)**: [transfermarkt_scraper.py](transfermarkt_scraper.py)
@@ -957,7 +993,7 @@ editable y validable contra el modelo.**
   Con `ODDS_API_KEY` usa cuotas reales y ordena por EV; sin ellas usa cuotas
   JUSTAS del modelo (EV≈0) y se etiqueta como informativo.
 - **Mejora 4 (inteligencia de mercado, EXPERIMENTAL)**
-  ([market_intelligence.py](market_intelligence.py)): snapshots de Polymarket
+  (`market_intelligence.py` (retirado en v89)): snapshots de Polymarket
   (API pública Gamma) cada 15 min, con alertas de movimiento de probabilidad,
   cambios de liquidez >20 %, divergencia modelo-mercado >15 pts e indicador de
   riesgo de manipulación (🟢/🟡/🔴). Panel en la UI con aviso "no es

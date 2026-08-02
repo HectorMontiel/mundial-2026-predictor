@@ -93,12 +93,6 @@ def actualizar_cuotas():
         logger.warning(f"señales shadow no disponibles: {e}")
 
 
-def actualizar_mercado():
-    import market_intelligence
-    from prediction_api import PredictionEngine
-    market_intelligence.actualizar(PredictionEngine())
-
-
 def actualizar_ratings():
     import transfermarkt_scraper as tm
     for clave in tm.LIGAS_TM:
@@ -169,8 +163,8 @@ if __name__ == '__main__':
     resultados['FotMob'] = paso('FOTMOB (stats reales incrementales, v24)', backfill_fotmob)
     resultados['Clima'] = paso('CLIMA (Open-Meteo incremental)', actualizar_clima)
     resultados['Sedes'] = paso('SEDES UEFA (ESPN, insumo del CDI)', actualizar_sedes)
-    if not args.solo_clubes:
-        resultados['Mercado'] = paso('INTELIGENCIA DE MERCADO (Polymarket)', actualizar_mercado)
+    # v89: se retira el paso de Polymarket — los mercados del Mundial 2026
+    # cerraron con el torneo y el paso solo podía fallar (ver dashboard_ui).
     if args.ratings:
         resultados['Ratings'] = paso('TRANSFERMARKT (--ratings)', actualizar_ratings)
 

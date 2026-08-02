@@ -132,20 +132,27 @@ def construir_mensaje(resultado: Optional[dict] = None) -> str:
         lineas += ["🥇 Hoy no hay Pick del Día que cumpla el listón "
                    "(confianza >80% y EV en rango). Mejor no forzarlo.", ""]
 
-    capa1 = r.get('capa1') or []
+    # v89 — el barrido ahora cubre la SEMANA completa: para que el mensaje del
+    # día no se llene de picks del sábado, los de HOY van primero y el resto
+    # por fecha (sin perder ninguno del recuento).
+    def _hoy_primero(picks):
+        return sorted(picks, key=lambda p: (not p.get('es_hoy'),
+                                            str(p.get('fecha', ''))))
+
+    capa1 = _hoy_primero(r.get('capa1') or [])
     if capa1:
         lineas.append(f"💎 *CAPA 1 — con cuota real* ({len(capa1)})")
         lineas += [_fmt_pick(p) for p in capa1[:8]]
         lineas.append("")
     # v47: si la Capa 1 quedó vacía, mostramos la Selección del día para que
     # el usuario nunca vea un panel sin recomendaciones accionables.
-    seleccion = r.get('seleccion_dia') or []
+    seleccion = _hoy_primero(r.get('seleccion_dia') or [])
     if not capa1 and seleccion:
         lineas.append(f"⭐ *SELECCIÓN DEL DÍA — mejor valor* ({len(seleccion)})")
         lineas += [_fmt_pick(p) for p in seleccion[:6]]
         lineas.append("")
 
-    capa2 = r.get('capa2') or []
+    capa2 = _hoy_primero(r.get('capa2') or [])
     if capa2:
         lineas.append(f"🎯 *CAPA 2 — alta confianza, sin cuota* ({len(capa2)})")
         lineas += [_fmt_pick(p) for p in capa2[:5]]

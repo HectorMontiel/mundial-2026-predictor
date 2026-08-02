@@ -89,43 +89,39 @@ def clv_historico() -> Dict:
 
 
 def clv_reciente(dias: int = 30) -> Dict:
-    """CLV aproximado desde odds_historico.db: por partido, primera cuota
-    capturada (nuestra "entrada") vs última (proxy del cierre). El DB es
+    """CLV aproximado desde las fotos diarias (`historical_odds`,
+    fase='snapshot'): por partido/casa/selección, primera cuota capturada
+    (nuestra "entrada") vs última (proxy del cierre). v89: la tabla
+    `snapshots` de la v43 se quedó sin escritores al retirar The Odds API
+    (v88); la fuente viva son las fotos de daily_snapshots. El DB es
     gitignored/efímero en cloud; si no existe, se informa sin romper."""
     if not os.path.exists(DB_ODDS):
-        return {'n': 0, 'aviso': 'Sin odds_historico.db (snapshots CLV).'}
+        return {'n': 0, 'aviso': 'Sin odds_historico.db (fotos CLV).'}
     try:
-        con = sqlite3.connect(DB_ODDS)
-        # esquema flexible: se intenta la forma conocida (match_id, mercado,
-        # seleccion, cuota, capturado_utc)
-        cur = con.execute("SELECT name FROM sqlite_master WHERE type='table'")
-        tablas = [r[0] for r in cur.fetchall()]
-        if 'snapshots' not in tablas:
-            con.close()
-            return {'n': 0, 'aviso': f'odds_historico.db sin tabla snapshots '
-                                     f'(tablas: {tablas}).'}
         import pandas as pd
-        df = pd.read_sql_query("SELECT * FROM snapshots", con)
+        con = sqlite3.connect(DB_ODDS)
+        df = pd.read_sql_query(
+            "SELECT match_id, bookmaker, ingested_at, "
+            "odds_home, odds_draw, odds_away "
+            "FROM historical_odds WHERE fase='snapshot' "
+            "ORDER BY ingested_at", con)
         con.close()
     except Exception as e:
         return {'n': 0, 'aviso': f'odds_historico.db ilegible: {e}'}
-    if df.empty or 'match_id' not in df.columns:
-        return {'n': 0, 'aviso': 'Snapshots insuficientes para CLV.'}
-    col_t = next((c for c in ('capturado_utc', 'timestamp', 'ts', 'fecha')
-                  if c in df.columns), None)
-    col_c = next((c for c in ('cuota', 'odd', 'price') if c in df.columns), None)
-    col_s = next((c for c in ('seleccion', 'sel', 'outcome') if c in df.columns), None)
-    if not (col_t and col_c and col_s):
-        return {'n': 0, 'aviso': 'Snapshots sin columnas de cuota/tiempo/selección.'}
-    df = df.sort_values(col_t)
+    if df.empty:
+        return {'n': 0, 'aviso': 'Sin fotos de cuotas para CLV.'}
     clvs = []
-    for (mid, sel), g in df.groupby(['match_id', col_s]):
-        if len(g) < 2:
-            continue
-        entrada = float(g.iloc[0][col_c])
-        cierre = float(g.iloc[-1][col_c])
-        if entrada > 1 and cierre > 1:
-            clvs.append(entrada / cierre - 1)
+    # se compara SIEMPRE dentro de la misma casa: mezclar casas convertiría
+    # diferencias de margen en falso movimiento de línea
+    for col in ('odds_home', 'odds_draw', 'odds_away'):
+        sub = df.dropna(subset=[col])
+        for (mid, casa), g in sub.groupby(['match_id', 'bookmaker']):
+            if len(g) < 2:
+                continue
+            entrada = float(g.iloc[0][col])
+            cierre = float(g.iloc[-1][col])
+            if entrada > 1 and cierre > 1:
+                clvs.append(entrada / cierre - 1)
     if not clvs:
         return {'n': 0, 'aviso': 'Sin partidos con ≥2 snapshots para CLV.'}
     arr = np.array(clvs)

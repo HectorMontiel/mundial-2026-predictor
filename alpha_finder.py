@@ -208,21 +208,21 @@ MERCADOS_VALIDADOS_CAPA1 = {'1X2'}
 # cuotas a solo 23 evaluados por el recorte temporal.
 HORIZONTE_HORAS = 72
 
-# v88 — VENTANA DE «APUESTAS DEL DÍA»: las próximas 24 horas, contadas desde el
-# momento en que se consulta.
+# v88 — VENTANA DE «HOY»: las próximas 24 horas, contadas desde el momento en
+# que se consulta (contra la HORA DE INICIO `inicio` UTC que publica ESPN).
 #
-# El usuario lo pidió así y tiene una consecuencia buena: a 24 horas vista las
-# casas ya han abierto línea prácticamente en todo, de modo que los picks salen
-# con cuota real en vez de con cuota justa. Con el horizonte de 72 h entraban
-# partidos de pasado mañana que todavía no cotizaban.
+# v89 — LA VENTANA YA NO FILTRA: ETIQUETA. En la v88 `_dentro_de_la_ventana`
+# descartaba los fixtures ANTES de evaluarlos, y eso tuvo dos consecuencias
+# medidas el 2026-08-02:
 #
-# Sólo afecta a esta pestaña. Las vistas por deporte y por liga siguen con su
-# ventana amplia, que es donde tiene sentido mirar la semana.
+#     · 44 de 56 ligas salían como «SIN partidos evaluados» aunque 32 de 55
+#       tenían jornada esa semana (302 fixtures, 235 con cuota ya abierta).
+#     · El barrido evaluaba 25 partidos donde la semana traía 302.
 #
-# Se mide contra la HORA DE INICIO (`inicio`, UTC), que ESPN publica y que
-# `fixtures_espn` estaba descartando al formatear a '%Y-%m-%d'. Con la fecha a
-# secas no se puede distinguir un partido de dentro de una hora de otro de
-# mañana por la noche.
+# El usuario pidió las dos cosas a la vez y son compatibles: los partidos DEL
+# DÍA destacados arriba (esta ventana), y la selección de TODA la semana
+# debajo, agrupada por día. Así que la ventana pasa a marcar `es_hoy` en cada
+# pick y el barrido evalúa la semana completa (`fixtures_espn.DIAS_SEMANA`).
 VENTANA_APUESTAS_H = int(os.environ.get('VENTANA_APUESTAS_H', '24'))
 
 
@@ -601,6 +601,7 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
                 'partido': f'{home} vs {away}', 'liga': pred.get('liga', liga),
                 'clave_liga': liga,          # v82: ver `base` en _barrido_fixtures
                 'fecha': str(fecha.date()), **c,
+                'es_hoy': bool(fecha.normalize() == hoy),   # v89
                 'shadow': bool(det),
                 'valor': ('🟢' if c['ev'] > 0.05 else
                           '🟡' if c['ev'] > 0 else '🔴'),
@@ -700,7 +701,9 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
             'partidos_evaluados': evaluados,
             'cobertura_ligas': cobertura, 'partidos_sin_liga': sin_liga,
             'elite': sorted(elite, key=orden),
-            'candidatos': sorted(candidatos, key=orden)[:15],
+            # v89: 15 → 40. Con la semana completa evaluada, el recorte a 15
+            # tiraba apuestas con EV positivo que el usuario pidió ver.
+            'candidatos': sorted(candidatos, key=orden)[:40],
             'capa2_futbol': capa2_futbol,        # v49
             'pronosticos': pronosticos,          # v49: TODOS los partidos
             'sin_captura_odds': sin_captura,                     # v61
@@ -730,8 +733,6 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
 
     hoy = pd.Timestamp.today().normalize()
     limite = hoy + pd.Timedelta(hours=horizonte_horas)
-    # v71: tope duro de la semana. Entre `limite` y `tope_max` solo entran los
-    # partidos que YA tienen cuota abierta (ver el filtro de abajo).
     tope_max = hoy + pd.Timedelta(days=fixtures_espn.DIAS_SEMANA)
     elite_fix, candidatos_fix, capa2_futbol, pronosticos = [], [], [], []
     cobertura: Dict[str, int] = {}
@@ -740,19 +741,58 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
     # ~14 llamadas secuenciales a ESPN cuelguen el barrido en Streamlit Cloud).
     claves_disp = [c for c, cfg in _LG.items()
                    if cfg.get('disponible') and c in fixtures_espn.ESPN_CODIGOS]
-    fixtures_por_liga = fixtures_espn.fixtures_multi(claves_disp)
+    # v89 — LA SEMANA COMPLETA. Se llamaba sin `dias` y el default es 3, así
+    # que aunque `DIAS_SEMANA=7` existía desde la v71, el barrido nunca veía el
+    # fin de semana hasta el jueves. Medido el 2026-08-02 (domingo): con 3 días
+    # llegaban 56 fixtures; con 7, llegan 302 (la jornada grande es el sábado).
+    fixtures_por_liga = fixtures_espn.fixtures_multi(
+        claves_disp, dias=fixtures_espn.DIAS_SEMANA)
+    # v89 — los motores que cargue ESTE pase se liberan al terminar su liga.
+    # Con la semana completa entran ~32 ligas y retener 32 motores a la vez es
+    # el mismo patrón de memoria que tumbó la app en la v86 (1,3 GB con menos
+    # ligas). El pase procesa cada liga exactamente una vez, así que retener el
+    # motor después no sirve a nadie; los precargados por el pase de cuotas se
+    # respetan.
+    _precargados = set(motores)
+
+    # v65: cuotas RICAS por evento (hándicap con su línea y O/U real). El
+    # scoreboard solo trae 1X2 + O/U 2.5; este endpoint añade el hándicap, que
+    # es donde suele estar el valor.
+    # v89: sólo para los fixtures ya apostables (cuota abierta o ≤72 h) — a
+    # 5-7 días vista el endpoint por evento casi nunca trae nada y con la
+    # semana completa serían cientos de peticiones vacías.
+    def _pide_ricas(f):
+        if f.get('odd_home') and f.get('odd_away'):
+            return True
+        try:
+            return pd.Timestamp(f['fecha']) <= limite
+        except (ValueError, TypeError):
+            return False
+
+    # v89 — PREFETCH: las cuotas por evento de TODAS las ligas se piden a la
+    # vez al principio, en vez de liga a liga dentro del bucle. Antes la red de
+    # la liga N esperaba a la CPU de la liga N−1 y los tiempos SUMABAN (304 s
+    # el barrido completo medido el 2026-08-02); así la descarga corre en
+    # paralelo con las predicciones y queda escondida detrás de ellas.
+    from concurrent.futures import ThreadPoolExecutor
+    _pool_odds = ThreadPoolExecutor(max_workers=4, thread_name_prefix='odds89')
+    _fut_odds = {}
+    for _cl in claves_disp:
+        _ids = [f.get('event_id') for f in (fixtures_por_liga.get(_cl) or [])
+                if _pide_ricas(f)]
+        if _ids:
+            _fut_odds[_cl] = _pool_odds.submit(
+                fixtures_espn.odds_multi, _cl, _ids)
+
     for clave, cfg in _LG.items():
         if not cfg.get('disponible') or clave not in fixtures_espn.ESPN_CODIGOS:
             continue
         fixtures = fixtures_por_liga.get(clave) or []
         if not fixtures:
             continue
-        # v65: cuotas RICAS por evento (hándicap con su línea y O/U real) en
-        # paralelo. El scoreboard solo trae 1X2 + O/U 2.5; este endpoint añade
-        # el hándicap, que es donde suele estar el valor.
         try:
-            odds_ricas = fixtures_espn.odds_multi(
-                clave, [f.get('event_id') for f in fixtures])
+            odds_ricas = (_fut_odds[clave].result(timeout=90)
+                          if clave in _fut_odds else {})
         except Exception as e:
             logger.warning(f"[alpha/fix] odds_multi {clave}: {e}")
             odds_ricas = {}
@@ -772,31 +812,14 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                 fecha = pd.Timestamp(fx['fecha'])
             except (ValueError, TypeError):
                 continue
-            # v71 — HORIZONTE DIRIGIDO POR LAS CUOTAS.
-            #
-            # Antes se cortaba en seco a 72 h. Con la ventana de fixtures
-            # ampliada a la semana eso dejaba fuera ligas enteras: Liga MX
-            # juega el 1 de agosto y el barrido del 28 de julio la descartaba,
-            # así que aparecía como «sin partidos evaluados» aunque sus 9
-            # partidos YA tenían cuota real.
-            #
-            # El criterio correcto no es el calendario sino el mercado: si una
-            # casa ya abrió línea, el partido es apostable y se evalúa; si no,
-            # no hay EV que calcular y sobra. Así el barrido se concentra
-            # exactamente donde hay cuotas en vivo, que es donde el EV y el
-            # Kelly significan algo.
             tiene_cuota = bool(fx.get('odd_home') and fx.get('odd_away'))
-            # v88 — Apuestas del Día se acota a las próximas 24 h (ver
-            # `VENTANA_APUESTAS_H`). Antes el corte era de 72 h desde
-            # medianoche, y entraban partidos de pasado mañana que todavía no
-            # cotizaban: por eso la pestaña mezclaba picks con cuota real y
-            # picks con cuota sólo justa.
-            if not _dentro_de_la_ventana(fx):
-                continue
+            # v89 — se evalúa TODA la semana y la ventana de 24 h pasa a ser
+            # una ETIQUETA (`es_hoy`), no un filtro. Ver `VENTANA_APUESTAS_H`:
+            # el filtro dejaba 44/56 ligas «sin partidos» y 25 de 302 fixtures
+            # evaluados. La UI destaca lo de hoy y agrupa el resto por día.
             if fecha < hoy or fecha > tope_max:
                 continue
-            if fecha > limite and not tiene_cuota:
-                continue
+            es_hoy = _dentro_de_la_ventana(fx)
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
             away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
             if not (home and away) or home == away:
@@ -822,6 +845,11 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                     'clave_liga': clave,
                     'partido': partido, 'fecha': str(fecha.date()),
                     'shadow': False,
+                    # v89: hora de inicio y bandera de «hoy» (ventana de 24 h
+                    # desde la consulta) para que la UI destaque el día actual
+                    # y agrupe el resto de la semana por fecha.
+                    'inicio': fx.get('inicio'),
+                    'es_hoy': es_hoy,
                     # v71: antelación y nº de casas, para poder ordenar por
                     # cercanía y ver de cuántas casas sale el precio
                     'dias_hasta': int((fecha - hoy).days),
@@ -955,6 +983,11 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
                     if m['mercado'] in ('BTTS', 'Goles') and m['prob'] >= 0.62:
                         capa2_futbol.append({**base, **m, 'sin_cuota': True,
                                              'valor': '🎯'})
+        # v89: liberar el motor que cargó este pase — cada liga se procesa una
+        # sola vez y retener ~32 motores era el patrón de memoria de la v86.
+        if clave not in _precargados:
+            motores.pop(clave, None)
+    _pool_odds.shutdown(wait=False)
     logger.info(f"[alpha/fix] fixtures evaluados={n_eval} · elite={len(elite_fix)} "
                 f"· candidatos={len(candidatos_fix)} · capa2={len(capa2_futbol)} "
                 f"· pronósticos={len(pronosticos)}")
@@ -2096,13 +2129,22 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     if not capa1:
         pool = [p for p in (r.get('candidatos') or []) if (p.get('ev') or 0) > 0]
         pool.sort(key=lambda p: -((p.get('prob') or 0) * (p.get('ev') or 0)))
-        for p in pool[:6]:
-            q = dict(p)
-            q['seleccion_dia'] = True
-            q['nota_seleccion'] = ('Mejor oportunidad del día por valor esperado. '
-                                   'Sin confirmación de la línea profesional: '
-                                   'apuesta con stake prudente.')
-            seleccion_dia.append(q)
+        # v89 — VARIAS APUESTAS POR PARTIDO. Antes se tomaban las 6 mejores
+        # tarjetas del pool y en la práctica salía una apuesta por partido; el
+        # usuario pidió que si un partido tiene varios mercados con buena
+        # probabilidad/EV se muestren todos. Se eligen los mejores PARTIDOS
+        # por convicción y de cada uno se llevan hasta 3 mercados con EV > 0.
+        _por_partido: Dict[str, List[Dict]] = {}
+        for p in pool:
+            _por_partido.setdefault(p.get('partido', '?'), []).append(p)
+        for _partido, _picks in list(_por_partido.items())[:8]:
+            for p in _picks[:3]:
+                q = dict(p)
+                q['seleccion_dia'] = True
+                q['nota_seleccion'] = ('Mejor oportunidad del día por valor '
+                                       'esperado. Sin confirmación de la línea '
+                                       'profesional: apuesta con stake prudente.')
+                seleccion_dia.append(q)
     r.update({'capa1': capa1, 'capa2': capa2, 'ev_extremo': ev_extremo,
               'no_enlazados': no_enlazados, 'deportes_cubiertos': deportes,
               'pick_del_dia': pick_del_dia(capa1),

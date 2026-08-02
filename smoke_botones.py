@@ -23,7 +23,10 @@ VISTAS = {
     # v67: el tenis ya tiene combinadas y envío a Telegram, así que sus botones
     # entran al smoke igual que los del resto de deportes.
     '🎾 Tenis (ATP/WTA)': ['Proponer parlays', 'Enviar estos parlays'],
-    '💎 Apuestas del Día': ['Generar combinadas'],
+    # v89: «Generar combinadas» dejó de ser botón — las combinadas del día se
+    # calculan solas (el usuario pidió cero pasos manuales). La vista se sigue
+    # cargando entera en el smoke, que es lo que detecta los crashes.
+    '💎 Apuestas del Día': [],
     '🌍 Partidos Internacionales': ['Proponer parlays'],
 }
 
