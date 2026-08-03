@@ -1,5 +1,5 @@
 {
- "generado": "2026-07-29T14:02:58Z",
+ "generado": "2026-08-03T18:04:54Z",
  "metodo": "w por log-loss fuera de muestra + encogimiento jerárquico hacia el w global; validado en el último pliegue, que no participa en la selección.",
  "w_global": 0.25,
  "n_total": 89767,

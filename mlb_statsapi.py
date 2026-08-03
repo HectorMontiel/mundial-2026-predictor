@@ -121,6 +121,39 @@ def _fila(g: dict, solo_finalizados: bool) -> Optional[dict]:
     }
 
 
+def resultados_entre(desde: str, hasta: str) -> List[dict]:
+    """
+    v93 — juegos FINALIZADOS con su marcador, para liquidar los picks de MLB.
+
+    La API oficial ya se usaba para entrenar y para los abridores probables;
+    esto sólo pide el mismo rango con el estado final. Hace falta porque el
+    liquidador de la v92 se apoyaba en el scoreboard de ESPN **por liga de
+    fútbol**, y la MLB no está ahí: sus picks se quedaban pendientes para
+    siempre (143 el día que se conectó el circuito).
+
+    Devuelve los códigos canónicos del proyecto (`home`/`away` en Retrosheet),
+    que son los mismos con los que se emiten los picks.
+    """
+    try:
+        d = _pedir({'sportId': 1, 'startDate': desde, 'endDate': hasta})
+    except Exception as e:
+        logger.warning(f'[mlb/statsapi] resultados {desde}..{hasta}: {e}')
+        return []
+    fuera = []
+    for dia in d.get('dates') or []:
+        for g in dia.get('games') or []:
+            fila = _fila(g, solo_finalizados=True)
+            if not fila:
+                continue
+            fuera.append({'fecha': str(fila['date'].date()),
+                          'home': fila['home_team'], 'away': fila['away_team'],
+                          'carreras_home': fila['home_runs'],
+                          'carreras_away': fila['away_runs']})
+    logger.info(f'[mlb/statsapi] {len(fuera)} juegos finalizados '
+                f'entre {desde} y {hasta}.')
+    return fuera
+
+
 def descargar_temporada(anio: int, solo_finalizados: bool = True) -> pd.DataFrame:
     """Temporada regular completa en una sola petición."""
     d = _pedir({'sportId': 1, 'gameType': 'R',

@@ -1,21 +1,21 @@
 fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,liquidado_utc
-2026-07-22,Tenis,ATP,Bublik A. vs Molcan A.,Ganador,Gana Bublik A.,0.691,1.51,0.043,capa1,,,
+2026-07-22,Tenis,ATP,Bublik A. vs Molcan A.,Ganador,Gana Bublik A.,0.691,1.51,0.043,capa1,,1,2026-08-03T18:11:05Z
 2026-07-22,Fútbol,MLS,FC Cincinnati vs Vancouver Whitecaps,1X2,Gana Vancouver Whitecaps,0.774,1.78,0.378,capa2,,0,2026-08-03T04:04:39Z
 2026-07-22,Fútbol,MLS,New England Revolution vs Toronto FC,Goles,Menos de 2.5,0.775,2.08,0.613,capa2,,1,2026-08-03T04:04:39Z
-2026-07-22,Tenis,ATP,Rublev A. vs Skatov T.,Ganador,Gana Rublev A.,0.862,,,capa2,,,
-2026-07-23,Tenis,ATP,Bublik A. vs Molcan A.,Ganador,Gana Bublik A.,0.691,1.51,0.043,capa1,,,
+2026-07-22,Tenis,ATP,Rublev A. vs Skatov T.,Ganador,Gana Rublev A.,0.862,,,capa2,,1,2026-08-03T18:11:05Z
+2026-07-23,Tenis,ATP,Bublik A. vs Molcan A.,Ganador,Gana Bublik A.,0.691,1.51,0.043,capa1,,1,2026-08-03T18:08:14Z
 2026-07-23,Fútbol,MLS,Charlotte vs Atlanta Utd,Goles,Menos de 2.5,0.739,2.15,0.588,capa2,,,
 2026-07-23,Fútbol,Primeira Liga,Estrela vs Nacional,1X2,Gana Nacional,0.589,1.82,0.072,capa2,,,
-2026-07-23,Tenis,ATP,Martinez P. vs Darderi L.,Ganador,Gana Darderi L.,0.764,,,capa2,,,
-2026-07-23,MLB,MLB,Minnesota Twins @ Cleveland Guardians,Moneyline,Gana Cleveland Guardians,0.594,1.77,0.0521,capa1,,,
+2026-07-23,Tenis,ATP,Martinez P. vs Darderi L.,Ganador,Gana Darderi L.,0.764,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-23,MLB,MLB,Minnesota Twins @ Cleveland Guardians,Moneyline,Gana Cleveland Guardians,0.594,1.77,0.0521,capa1,,0,2026-08-03T18:08:14Z
 2026-07-23,Fútbol,MLS,Portland Timbers vs FC Dallas,1X2,Gana FC Dallas,0.811,1.54,0.249,capa2,,0,2026-08-03T04:04:39Z
-2026-07-23,Tenis,ATP,Rublev A. vs Skatov T.,Ganador,Gana Rublev A.,0.862,,,capa2,,,
-2026-07-23,Tenis,ATP,Rublev A. vs van Assche L.,Ganador,Gana Rublev A.,0.775,,,capa2,,,
+2026-07-23,Tenis,ATP,Rublev A. vs Skatov T.,Ganador,Gana Rublev A.,0.862,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-23,Tenis,ATP,Rublev A. vs van Assche L.,Ganador,Gana Rublev A.,0.775,,,capa2,,0,2026-08-03T18:11:05Z
 2026-07-23,Fútbol,MLS,Sporting Kansas City vs Minnesota United,1X2,Gana Minnesota United,0.709,2.02,0.432,capa2,,0,2026-08-03T04:04:39Z
 2026-07-24,Fútbol,Primera División,Racing Club vs Gimnasia L.P.,Goles,Menos de 2.5,0.647,,,capa2,,,
-2026-07-24,Tenis,ATP,Rublev A. vs van Assche L.,Ganador,Gana Rublev A.,0.775,,,capa2,,,
+2026-07-24,Tenis,ATP,Rublev A. vs van Assche L.,Ganador,Gana Rublev A.,0.775,,,capa2,,0,2026-08-03T18:08:14Z
 2026-07-24,Fútbol,Primera División,Velez Sarsfield vs Instituto,Goles,Menos de 2.5,0.651,,,capa2,,,
-2026-07-24,Tenis,ATP,van Assche L. vs Gaston H.,Ganador,Gana van Assche L.,0.678,1.6,0.0854,capa1,,,
+2026-07-24,Tenis,ATP,van Assche L. vs Gaston H.,Ganador,Gana van Assche L.,0.678,1.6,0.0854,capa1,,1,2026-08-03T18:11:05Z
 2026-07-25,Fútbol,Brasileirão Serie A,Athletico-PR vs Internacional,BTTS,Ambos marcan: No,0.646,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-25,Fútbol,Brasileirão Serie A,Athletico-PR vs Internacional,Goles,Menos de 2.5,0.686,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-25,Fútbol,Primera División,Estudiantes Rio Cuarto vs Tigre,BTTS,Ambos marcan: Sí,0.648,,,capa2,,,
@@ -23,7 +23,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-25,Fútbol,MLS,New York City vs Charlotte,Goles,Más de 2.5,0.804,,,capa2,,,
 2026-07-25,Fútbol,Chinese Super League,Shanghai Port vs Shanghai Shenhua,BTTS,Ambos marcan: Sí,0.687,,,capa2,,0,2026-08-03T04:04:39Z
 2026-07-25,Fútbol,Chinese Super League,Shanghai Port vs Shanghai Shenhua,Goles,Más de 2.5,0.666,,,capa2,,0,2026-08-03T04:04:39Z
-2026-07-25,Tenis,ATP,van Assche L. vs Gaston H.,Ganador,Gana van Assche L.,0.678,1.59,0.0787,capa1,,,
+2026-07-25,Tenis,ATP,van Assche L. vs Gaston H.,Ganador,Gana van Assche L.,0.678,1.59,0.0787,capa1,,1,2026-08-03T18:08:14Z
 2026-07-26,Fútbol,Primera División,Atl. Tucuman vs Independiente,Goles,Menos de 2.5,0.659,,,capa2,,,
 2026-07-26,Fútbol,Brasileirão Serie A,Bragantino vs Coritiba,BTTS,Ambos marcan: No,0.665,,,capa2,,,
 2026-07-26,Fútbol,Brasileirão Serie A,Bragantino vs Coritiba,Goles,Menos de 2.5,0.692,,,capa2,,,
@@ -38,88 +38,88 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-26,Fútbol,Liga MX,Tigres UANL vs Atl. San Luis,Goles,Menos de 2.5,0.752,,,capa2,,,
 2026-07-26,Fútbol,Chinese Super League,Zhejiang Professional vs Dalian Yingbo,BTTS,Ambos marcan: Sí,0.694,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-26,Fútbol,Chinese Super League,Zhejiang Professional vs Dalian Yingbo,Goles,Más de 2.5,0.701,,,capa2,,1,2026-08-03T04:04:39Z
-2026-07-27,Tenis,ATP,Damm M. vs Shelton B.,Ganador,Gana Shelton B.,0.791,,,capa2,,,
-2026-07-27,Tenis,ATP,Fritz T. vs Bergs Z.,Ganador,Gana Fritz T.,0.756,,,capa2,,,
+2026-07-27,Tenis,ATP,Damm M. vs Shelton B.,Ganador,Gana Shelton B.,0.791,,,capa2,,1,2026-08-03T18:11:05Z
+2026-07-27,Tenis,ATP,Fritz T. vs Bergs Z.,Ganador,Gana Fritz T.,0.756,,,capa2,,1,2026-08-03T18:08:14Z
 2026-07-27,Fútbol,LigaPro Serie A,Guayaquil City FC vs Universidad Católica (Quito),1X2,Gana Universidad Católica (Quito),0.615,2.05,0.261,capa2,,0,2026-08-03T04:04:39Z
 2026-07-27,Fútbol,Allsvenskan,Hacken vs AIK,1X2,Gana Hacken,0.609,1.73,0.054,capa1,,,
-2026-07-27,Tenis,ATP,Humbert U. vs Martin A.,Ganador,Gana Humbert U.,0.848,,,capa2,,,
-2026-07-27,Tenis,ATP,Mannarino A. vs Tien L.,Ganador,Gana Tien L.,0.753,,,capa2,,,
-2026-07-27,Tenis,ATP,Mayo A. vs Duckworth J.,Ganador,Gana Duckworth J.,0.655,1.64,0.0739,capa1,,,
+2026-07-27,Tenis,ATP,Humbert U. vs Martin A.,Ganador,Gana Humbert U.,0.848,,,capa2,,1,2026-08-03T18:11:05Z
+2026-07-27,Tenis,ATP,Mannarino A. vs Tien L.,Ganador,Gana Tien L.,0.753,,,capa2,,0,2026-08-03T18:11:05Z
+2026-07-27,Tenis,ATP,Mayo A. vs Duckworth J.,Ganador,Gana Duckworth J.,0.655,1.64,0.0739,capa1,,1,2026-08-03T18:11:05Z
 2026-07-27,Fútbol,Liga MX,Pachuca vs Queretaro,1X2,Gana Pachuca,0.671,1.57,0.054,capa1,,0,2026-08-03T04:04:39Z
 2026-07-27,Fútbol,Superliga,Randers FC vs Silkeborg,Goles,Menos de 2.5,0.668,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-27,Fútbol,Eliteserien,Rosenborg vs Fredrikstad,BTTS,Ambos marcan: No,0.717,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-27,Fútbol,Eliteserien,Rosenborg vs Fredrikstad,Goles,Menos de 2.5,0.689,,,capa2,,0,2026-08-03T04:04:39Z
-2026-07-27,Tenis,ATP,Svajda T. vs Mensik J.,Ganador,Gana Mensik J.,0.856,,,capa2,,,
-2026-07-27,Tenis,ATP,Tiafoe F. vs Atmane T.,Ganador,Gana Tiafoe F.,0.767,,,capa2,,,
-2026-07-28,Tenis,ATP,Adrian Mannarino vs Learner Tien,Ganador,Gana Learner Tien,0.753,,,capa2,,,
-2026-07-28,Tenis,ATP,Aidan Mayo vs James Duckworth,Ganador,Gana James Duckworth,0.655,1.61,0.0541,capa1,,,
-2026-07-28,Tenis,ATP,Aleksandar Vukic vs Lorenzo Musetti,Ganador,Gana Lorenzo Musetti,0.828,,,capa2,,,
-2026-07-28,Tenis,WTA,Anastasia Potapova vs Venus Williams,Ganador,Gana Anastasia Potapova,0.893,,,capa2,,,
+2026-07-27,Tenis,ATP,Svajda T. vs Mensik J.,Ganador,Gana Mensik J.,0.856,,,capa2,,1,2026-08-03T18:11:05Z
+2026-07-27,Tenis,ATP,Tiafoe F. vs Atmane T.,Ganador,Gana Tiafoe F.,0.767,,,capa2,,0,2026-08-03T18:11:05Z
+2026-07-28,Tenis,ATP,Adrian Mannarino vs Learner Tien,Ganador,Gana Learner Tien,0.753,,,capa2,,0,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Aidan Mayo vs James Duckworth,Ganador,Gana James Duckworth,0.655,1.61,0.0541,capa1,,1,2026-08-03T18:11:05Z
+2026-07-28,Tenis,ATP,Aleksandar Vukic vs Lorenzo Musetti,Ganador,Gana Lorenzo Musetti,0.828,,,capa2,,1,2026-08-03T18:11:05Z
+2026-07-28,Tenis,WTA,Anastasia Potapova vs Venus Williams,Ganador,Gana Anastasia Potapova,0.893,,,capa2,,1,2026-08-03T18:11:05Z
 2026-07-28,Tenis,ATP,Andres Andrade vs Alexei Popyrin,Ganador,Gana Alexei Popyrin,0.767,,,capa2,,,
 2026-07-28,Tenis,ATP,Andrés Andrade (PAN) vs Alexei Popyrin,Ganador,Gana Alexei Popyrin,0.767,,,capa2,,,
 2026-07-28,Fútbol,Primera División,Banfield vs Sarmiento Junin,1X2,Gana Sarmiento Junin,0.225,4.62,0.0389,capa1,,0,2026-08-03T04:04:39Z
 2026-07-28,Tenis,ATP,Benjamin Bonzi vs Blaise Bicknell,Ganador,Gana Benjamin Bonzi,0.756,,,capa2,,,
-2026-07-28,Tenis,ATP,Bernard Tomic vs Karen Khachanov,Ganador,Gana Karen Khachanov,0.753,,,capa2,,,
+2026-07-28,Tenis,ATP,Bernard Tomic vs Karen Khachanov,Ganador,Gana Karen Khachanov,0.753,,,capa2,,0,2026-08-03T18:11:05Z
 2026-07-28,Fútbol,Primera División,Cacahuatique vs Atletico Balboa,BTTS,Ambos marcan: No,0.671,,,capa2,,0,2026-08-03T04:04:39Z
 2026-07-28,Fútbol,Primera División,Cacahuatique vs Atletico Balboa,Goles,Menos de 2.5,0.728,,,capa2,,0,2026-08-03T04:04:39Z
-2026-07-28,Tenis,ATP,Cerundolo F. vs Boyer T.,Ganador,Gana Cerundolo F.,0.769,,,capa2,,,
-2026-07-28,Tenis,ATP,Damm M. vs Shelton B.,Ganador,Gana Shelton B.,0.791,,,capa2,,,
-2026-07-28,Tenis,WTA,Darja Vidmanova vs Marina Bassols Ribera,Ganador,Gana Darja Vidmanova,0.752,,,capa2,,,
+2026-07-28,Tenis,ATP,Cerundolo F. vs Boyer T.,Ganador,Gana Cerundolo F.,0.769,,,capa2,,1,2026-08-03T18:11:05Z
+2026-07-28,Tenis,ATP,Damm M. vs Shelton B.,Ganador,Gana Shelton B.,0.791,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-28,Tenis,WTA,Darja Vidmanova vs Marina Bassols Ribera,Ganador,Gana Darja Vidmanova,0.752,,,capa2,,1,2026-08-03T18:08:14Z
 2026-07-28,Fútbol,LigaPro Serie A,Deportivo Cuenca vs Emelec,1X2,Gana Deportivo Cuenca,0.73,2.25,0.643,capa2,,1,2026-08-03T04:04:39Z
-2026-07-28,Tenis,WTA,Ekaterina Alexandrova vs Kristina Liutova,Ganador,Gana Ekaterina Alexandrova,0.772,,,capa2,,,
-2026-07-28,Tenis,ATP,Francisco Cerundolo vs Tristan Boyer,Ganador,Gana Francisco Cerundolo,0.769,,,capa2,,,
-2026-07-28,Tenis,WTA,Hong Yi Cody Wong vs Himeno Sakatsume,Ganador,Gana Himeno Sakatsume,0.793,1.38,0.0974,capa2,,,
-2026-07-28,Tenis,ATP,Humbert U. vs Martin A.,Ganador,Gana Humbert U.,0.848,,,capa2,,,
-2026-07-28,Tenis,ATP,Jiri Lehecka vs Chak Lam Coleman Wong,Ganador,Gana Jiri Lehecka,0.821,,,capa2,,,
-2026-07-28,Tenis,WTA,Kaitlin Quevedo vs Irene Burillo,Ganador,Gana Kaitlin Quevedo,0.792,1.23,-0.0257,capa2,,,
+2026-07-28,Tenis,WTA,Ekaterina Alexandrova vs Kristina Liutova,Ganador,Gana Ekaterina Alexandrova,0.772,,,capa2,,0,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Francisco Cerundolo vs Tristan Boyer,Ganador,Gana Francisco Cerundolo,0.769,,,capa2,,1,2026-08-03T18:11:05Z
+2026-07-28,Tenis,WTA,Hong Yi Cody Wong vs Himeno Sakatsume,Ganador,Gana Himeno Sakatsume,0.793,1.38,0.0974,capa2,,1,2026-08-03T18:11:05Z
+2026-07-28,Tenis,ATP,Humbert U. vs Martin A.,Ganador,Gana Humbert U.,0.848,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Jiri Lehecka vs Chak Lam Coleman Wong,Ganador,Gana Jiri Lehecka,0.821,,,capa2,,0,2026-08-03T18:11:05Z
+2026-07-28,Tenis,WTA,Kaitlin Quevedo vs Irene Burillo,Ganador,Gana Kaitlin Quevedo,0.792,1.23,-0.0257,capa2,,1,2026-08-03T18:11:05Z
 2026-07-28,Tenis,WTA,Kaitlin Quevedo vs Irene Burillo Escorihuela,Ganador,Gana Kaitlin Quevedo,0.792,1.25,-0.0122,capa2,,,
-2026-07-28,Tenis,ATP,Lehecka J. vs Wong C.,Ganador,Gana Lehecka J.,0.821,,,capa2,,,
-2026-07-28,Tenis,ATP,Mannarino A. vs Tien L.,Ganador,Gana Tien L.,0.753,,,capa2,,,
-2026-07-28,Tenis,ATP,Martin Damm Jr vs Ben Shelton,Ganador,Gana Ben Shelton,0.791,,,capa2,,,
-2026-07-28,Tenis,ATP,Martin Damm vs Ben Shelton,Ganador,Gana Ben Shelton,0.791,,,capa2,,,
-2026-07-28,Tenis,ATP,Mayo A. vs Duckworth J.,Ganador,Gana Duckworth J.,0.655,1.63,0.0673,capa1,,,
+2026-07-28,Tenis,ATP,Lehecka J. vs Wong C.,Ganador,Gana Lehecka J.,0.821,,,capa2,,0,2026-08-03T18:11:05Z
+2026-07-28,Tenis,ATP,Mannarino A. vs Tien L.,Ganador,Gana Tien L.,0.753,,,capa2,,0,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Martin Damm Jr vs Ben Shelton,Ganador,Gana Ben Shelton,0.791,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Martin Damm vs Ben Shelton,Ganador,Gana Ben Shelton,0.791,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Mayo A. vs Duckworth J.,Ganador,Gana Duckworth J.,0.655,1.63,0.0673,capa1,,1,2026-08-03T18:11:05Z
 2026-07-28,Tenis,ATP,Mili Poljicak vs Nikoloz Basilashvili,Ganador,Gana Nikoloz Basilashvili,0.677,1.56,0.0554,capa1,,,
 2026-07-28,Tenis,WTA,Polona Hercog vs Laura Pigossi,Ganador,Gana Polona Hercog,0.691,1.51,0.0458,capa1,,,
 2026-07-28,Fútbol,División Profesional,Rubio Ñú vs Sportivo Ameliano,1X2,Empate,0.358,2.9,0.0377,capa1,,1,2026-08-03T04:04:39Z
 2026-07-28,Fútbol,Primera División,San Lorenzo vs Gimnasia Mendoza,BTTS,Ambos marcan: No,0.78,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-28,Fútbol,Primera División,San Lorenzo vs Gimnasia Mendoza,Goles,Menos de 2.5,0.843,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-28,Tenis,WTA,Sapfo Sakellaridi vs Fiona Ferro,Ganador,Gana Fiona Ferro,0.786,,,capa2,,,
-2026-07-28,Tenis,ATP,Svajda T. vs Mensik J.,Ganador,Gana Mensik J.,0.856,,,capa2,,,
-2026-07-28,Tenis,ATP,Taylor Fritz vs Kamil Majchrzak,Ganador,Gana Taylor Fritz,0.768,1.29,-0.0122,capa2,,,
+2026-07-28,Tenis,ATP,Svajda T. vs Mensik J.,Ganador,Gana Mensik J.,0.856,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Taylor Fritz vs Kamil Majchrzak,Ganador,Gana Taylor Fritz,0.768,1.29,-0.0122,capa2,,1,2026-08-03T18:11:05Z
 2026-07-28,Fútbol,Copa Sudamericana,Tigre vs Nacional,1X2,Empate,0.309,3.35,0.0344,capa1,,0,2026-08-03T04:04:39Z
 2026-07-28,Fútbol,Copa Sudamericana,Tigre vs Nacional,1X2,Gana Tigre,0.584,2.05,0.197,capa2,,0,2026-08-03T04:04:39Z
-2026-07-28,Tenis,ATP,Tomic B. vs Khachanov K.,Ganador,Gana Khachanov K.,0.753,,,capa2,,,
-2026-07-28,Tenis,ATP,Trevor Svajda vs Jakub Mensik,Ganador,Gana Jakub Mensik,0.856,,,capa2,,,
-2026-07-28,Tenis,ATP,Vukic A. vs Musetti L.,Ganador,Gana Musetti L.,0.828,,,capa2,,,
+2026-07-28,Tenis,ATP,Tomic B. vs Khachanov K.,Ganador,Gana Khachanov K.,0.753,,,capa2,,0,2026-08-03T18:11:05Z
+2026-07-28,Tenis,ATP,Trevor Svajda vs Jakub Mensik,Ganador,Gana Jakub Mensik,0.856,,,capa2,,1,2026-08-03T18:08:14Z
+2026-07-28,Tenis,ATP,Vukic A. vs Musetti L.,Ganador,Gana Musetti L.,0.828,,,capa2,,1,2026-08-03T18:11:05Z
 2026-07-28,Tenis,WTA,Yexin Ma vs Kimberly Birrell,Ganador,Gana Kimberly Birrell,0.763,,,capa2,,,
 2026-07-29,Tenis,WTA,Anna Siskova vs Meritxell Teixido Garcia,Ganador,Gana Anna Siskova,0.865,1.0,-0.1345,capa2,,,
 2026-07-29,Fútbol,Primera División,Barracas Central vs Aldosivi,1X2,Empate,0.349,2.97,0.0376,capa1,,0,2026-08-03T04:04:39Z
-2026-07-29,Tenis,ATP,Bernard Tomic vs Karen Khachanov,Ganador,Gana Karen Khachanov,0.754,1.27,-0.0445,capa2,,,
+2026-07-29,Tenis,ATP,Bernard Tomic vs Karen Khachanov,Ganador,Gana Karen Khachanov,0.754,1.27,-0.0445,capa2,,0,2026-08-03T18:11:05Z
 2026-07-29,Fútbol,Brasileirão Serie A,Botafogo RJ vs Gremio,Goles,Menos de 2.5,0.661,,,capa2,,,
 2026-07-29,Fútbol,Primera División,CD Municipal Limeño vs Inca Aruba,BTTS,Ambos marcan: No,0.687,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-29,Fútbol,Primera División,CD Municipal Limeño vs Inca Aruba,Goles,Menos de 2.5,0.706,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-29,Fútbol,Brasileirão Serie A,Chapecoense-SC vs Vasco,Goles,Menos de 2.5,0.652,,,capa2,,,
-2026-07-29,MLB,MLB,Chicago Cubs @ St. Louis Cardinals,Moneyline,Gana St. Louis Cardinals,0.514,2.03,0.0444,capa1,,,
-2026-07-29,MLB,MLB,Colorado Rockies @ San Diego Padres,Moneyline,Gana San Diego Padres,0.656,1.7,0.1174,capa1,,,
+2026-07-29,MLB,MLB,Chicago Cubs @ St. Louis Cardinals,Moneyline,Gana St. Louis Cardinals,0.514,2.03,0.0444,capa1,,1,2026-08-03T18:08:14Z
+2026-07-29,MLB,MLB,Colorado Rockies @ San Diego Padres,Moneyline,Gana San Diego Padres,0.656,1.7,0.1174,capa1,,1,2026-08-03T18:08:14Z
 2026-07-29,Fútbol,Primera División,Defensa y Justicia vs Dep. Riestra,1X2,Empate,0.339,3.02,0.025,capa1,,,
 2026-07-29,Fútbol,Primera División,Defensa y Justicia vs Dep. Riestra,1X2,Gana Defensa y Justicia,0.401,2.55,0.0215,capa1,,,
 2026-07-29,Fútbol,Primera División,Defensa y Justicia vs Dep. Riestra,1X2,Gana Dep. Riestra,0.251,4.07,0.0231,capa1,,,
 2026-07-29,Tenis,WTA,Demi Tran vs Laura Hietaranta,Ganador,Gana Laura Hietaranta,0.809,1.05,-0.1526,capa2,,,
 2026-07-29,Tenis,ATP,Duje Ajdukovic vs Kilian Feldbausch,Ganador,Gana Kilian Feldbausch,0.764,1.11,-0.1496,capa2,,,
-2026-07-29,Tenis,ATP,Edward Winter vs Jenson Brooksby,Ganador,Gana Jenson Brooksby,0.823,1.13,-0.0676,capa2,,,
+2026-07-29,Tenis,ATP,Edward Winter vs Jenson Brooksby,Ganador,Gana Jenson Brooksby,0.823,1.13,-0.0676,capa2,,1,2026-08-03T18:11:05Z
 2026-07-29,Fútbol,Brasileirão Série B,Fortaleza vs Botafogo-SP,1X2,Gana Fortaleza,0.57,1.83,0.045,capa1,,1,2026-08-03T04:04:39Z
-2026-07-29,Tenis,WTA,Francesca Jones vs Lucija Ciric Bagaric,Ganador,Gana Francesca Jones,0.828,1.12,-0.0753,capa2,,,
+2026-07-29,Tenis,WTA,Francesca Jones vs Lucija Ciric Bagaric,Ganador,Gana Francesca Jones,0.828,1.12,-0.0753,capa2,,1,2026-08-03T18:11:05Z
 2026-07-29,Fútbol,Primera División,Gimnasia L.P. vs River Plate,1X2,Gana Gimnasia L.P.,0.248,4.16,0.0327,capa1,,,
 2026-07-29,Fútbol,Primera División,Gimnasia L.P. vs River Plate,1X2,Gana River Plate,0.447,2.3,0.0287,capa1,,,
 2026-07-29,Fútbol,Brasileirão Serie A,Internacional vs Flamengo RJ,1X2,Empate,0.279,3.69,0.0287,capa1,,,
 2026-07-29,Fútbol,Brasileirão Serie A,Internacional vs Flamengo RJ,1X2,Gana Flamengo RJ,0.51,2.05,0.0448,capa1,,,
 2026-07-29,Fútbol,Brasileirão Serie A,Internacional vs Flamengo RJ,1X2,Gana Internacional,0.249,4.29,0.0672,capa1,,,
-2026-07-29,Tenis,WTA,Iryna Shymanovich vs Katie Volynets,Ganador,Gana Katie Volynets,0.758,1.23,-0.0654,capa2,,,
-2026-07-29,Tenis,WTA,Jessica Pegula vs Magdalena Frech,Ganador,Gana Jessica Pegula,0.863,1.12,-0.0356,capa2,,,
-2026-07-29,Tenis,ATP,Jiri Lehecka vs Chak Lam Coleman Wong,Ganador,Gana Jiri Lehecka,0.777,1.25,-0.0292,capa2,,,
-2026-07-29,Tenis,WTA,Kaitlin Quevedo vs Irene Burillo,Ganador,Gana Kaitlin Quevedo,0.773,1.22,-0.0558,capa2,,,
+2026-07-29,Tenis,WTA,Iryna Shymanovich vs Katie Volynets,Ganador,Gana Katie Volynets,0.758,1.23,-0.0654,capa2,,1,2026-08-03T18:08:14Z
+2026-07-29,Tenis,WTA,Jessica Pegula vs Magdalena Frech,Ganador,Gana Jessica Pegula,0.863,1.12,-0.0356,capa2,,1,2026-08-03T18:11:05Z
+2026-07-29,Tenis,ATP,Jiri Lehecka vs Chak Lam Coleman Wong,Ganador,Gana Jiri Lehecka,0.777,1.25,-0.0292,capa2,,0,2026-08-03T18:11:05Z
+2026-07-29,Tenis,WTA,Kaitlin Quevedo vs Irene Burillo,Ganador,Gana Kaitlin Quevedo,0.773,1.22,-0.0558,capa2,,1,2026-08-03T18:08:14Z
 2026-07-29,Tenis,WTA,Kaitlin Quevedo vs Irene Burillo Escorihuela,Ganador,Gana Kaitlin Quevedo,0.776,1.24,-0.0347,capa2,,,
-2026-07-29,MLB,MLB,Kansas City Royals @ Minnesota Twins,Moneyline,Gana Minnesota Twins,0.648,1.7246,0.1183,capa1,,,
+2026-07-29,MLB,MLB,Kansas City Royals @ Minnesota Twins,Moneyline,Gana Minnesota Twins,0.648,1.7246,0.1183,capa1,,0,2026-08-03T18:08:14Z
 2026-07-29,Tenis,WTA,Maiko Uchijima vs Laquisa Khan,Ganador,Gana Maiko Uchijima,0.655,1.6,0.0486,capa1,,,
 2026-07-29,Tenis,ATP,Marco Alvarez vs Alvin Nicholas Tudorica,Ganador,Gana Alvin Nicholas Tudorica,0.764,1.1,-0.1628,capa2,,,
 2026-07-29,Tenis,ATP,Mark Lajal vs Evan Zhu,Ganador,Gana Mark Lajal,0.783,1.13,-0.1147,capa2,,,
@@ -127,11 +127,11 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-29,Fútbol,Brasileirão Serie A,Mirassol vs Remo,1X2,Gana Remo,0.188,5.92,0.1138,capa1,,0,2026-08-03T04:04:39Z
 2026-07-29,Fútbol,División Profesional,Nacional Asunción vs Club Olimpia,1X2,Empate,0.333,3.1,0.0324,capa1,,0,2026-08-03T04:04:39Z
 2026-07-29,Tenis,WTA,Nadia Podoroska vs Sara Cakarevic,Ganador,Gana Nadia Podoroska,0.786,1.14,-0.1002,capa2,,,
-2026-07-29,MLB,MLB,New York Yankees @ Chicago White Sox,Moneyline,Gana New York Yankees,0.576,1.9259,0.109,capa1,,,
+2026-07-29,MLB,MLB,New York Yankees @ Chicago White Sox,Moneyline,Gana New York Yankees,0.576,1.9259,0.109,capa1,,0,2026-08-03T18:08:14Z
 2026-07-29,Tenis,WTA,Nuria Brancaccio vs Cagla Buyukakcay,Ganador,Gana Nuria Brancaccio,0.821,1.11,-0.0878,capa2,,,
 2026-07-29,Tenis,WTA,Panna Bartha vs Eszter Meri,Ganador,Gana Eszter Meri,0.772,1.1,-0.1472,capa2,,,
-2026-07-29,Tenis,WTA,Polina Kudermetova vs Elina Svitolina,Ganador,Gana Elina Svitolina,0.789,1.2,-0.0533,capa2,,,
-2026-07-29,Tenis,ATP,Rafael Jodar vs Kei Nishikori,Ganador,Gana Rafael Jodar,0.757,1.17,-0.1168,capa2,,,
+2026-07-29,Tenis,WTA,Polina Kudermetova vs Elina Svitolina,Ganador,Gana Elina Svitolina,0.789,1.2,-0.0533,capa2,,1,2026-08-03T18:11:05Z
+2026-07-29,Tenis,ATP,Rafael Jodar vs Kei Nishikori,Ganador,Gana Rafael Jodar,0.757,1.17,-0.1168,capa2,,1,2026-08-03T18:11:05Z
 2026-07-29,Tenis,WTA,Rebeca Pereira vs Francesca Mattioli,Ganador,Gana Francesca Mattioli,0.821,1.04,-0.1487,capa2,,,
 2026-07-29,Fútbol,Primera División,Rosario Central vs Racing Club,1X2,Gana Racing Club,0.233,4.69,0.0909,capa1,,0,2026-08-03T04:04:39Z
 2026-07-29,Fútbol,Primera División,Rosario Central vs Racing Club,1X2,Gana Rosario Central,0.491,2.1,0.0308,capa1,,0,2026-08-03T04:04:39Z
@@ -139,9 +139,9 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-29,Fútbol,Brasileirão Serie A,Sao Paulo vs Santos,Goles,Menos de 2.5,0.713,,,capa2,,,
 2026-07-29,Tenis,WTA,Sapfo Sakellaridi vs Fiona Ferro,Ganador,Gana Fiona Ferro,0.883,1.05,-0.0702,capa2,,,
 2026-07-29,Fútbol,División Profesional,Sportivo Luqueño vs Sportivo Trinidense,1X2,Empate,0.333,3.3334,0.109,capa1,,0,2026-08-03T04:04:39Z
-2026-07-29,Tenis,WTA,Tatiana Prozorova vs Peyton Stearns,Ganador,Gana Tatiana Prozorova,0.398,2.6,0.0356,capa1,,,
-2026-07-29,Tenis,ATP,Taylor Fritz vs Kamil Majchrzak,Ganador,Gana Taylor Fritz,0.751,1.29,-0.035,capa2,,,
-2026-07-29,MLB,MLB,Texas Rangers @ Tampa Bay Rays,Moneyline,Gana Tampa Bay Rays,0.575,1.7812,0.0241,capa1,,,
+2026-07-29,Tenis,WTA,Tatiana Prozorova vs Peyton Stearns,Ganador,Gana Tatiana Prozorova,0.398,2.6,0.0356,capa1,,0,2026-08-03T18:11:05Z
+2026-07-29,Tenis,ATP,Taylor Fritz vs Kamil Majchrzak,Ganador,Gana Taylor Fritz,0.751,1.29,-0.035,capa2,,1,2026-08-03T18:08:14Z
+2026-07-29,MLB,MLB,Texas Rangers @ Tampa Bay Rays,Moneyline,Gana Tampa Bay Rays,0.575,1.7812,0.0241,capa1,,1,2026-08-03T18:08:14Z
 2026-07-29,Tenis,WTA,Yexin Ma vs Catherine McNally,Ganador,Gana Catherine McNally,0.832,1.12,-0.0639,capa2,,,
 2026-07-29,Tenis,WTA,Yexin Ma vs Caty Mcnally,Ganador,Gana Caty Mcnally,0.848,1.11,-0.061,capa2,,,
 2026-07-29,Tenis,ATP,Ziga Sesko vs Aaron Gil Garcia,Ganador,Gana Ziga Sesko,0.81,1.05,-0.1489,capa2,,,
@@ -159,14 +159,14 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-31,Tenis,WTA,Ariana Geerlings Martinez vs Marianna Argyrokastriti,Ganador,Gana Ariana Geerlings Martinez,0.753,1.13,-0.1463,capa2,,,
 2026-07-31,Tenis,WTA,Ariana Geerlings vs Marianna Argyrokastriti,Ganador,Gana Ariana Geerlings,0.755,1.14,-0.1397,capa2,,,
 2026-07-31,Fútbol,Brasileirão Serie A,Coritiba vs Cruzeiro,1X2,Gana Cruzeiro,0.432,2.41,0.0419,capa1,,1,2026-08-03T04:04:39Z
-2026-07-31,Tenis,WTA,Darja Vidmanova vs Katie Volynets,Ganador,Gana Katie Volynets,0.666,1.6154,0.0763,capa1,,,
+2026-07-31,Tenis,WTA,Darja Vidmanova vs Katie Volynets,Ganador,Gana Katie Volynets,0.666,1.6154,0.0763,capa1,,0,2026-08-03T18:11:05Z
 2026-07-31,MLB,MLB,Detroit Tigers @ NC Dinos,Moneyline,Gana NC Dinos,0.466,2.25,0.0475,capa1,,,
 2026-07-31,Fútbol,Russian Premier League,Dinamo Moscow vs Rostov,BTTS,Ambos marcan: No,0.629,,,capa2,,,
 2026-07-31,Fútbol,Russian Premier League,Dinamo Moscow vs Rostov,Goles,Menos de 2.5,0.656,,,capa2,,,
-2026-07-31,Tenis,WTA,Elisabetta Cocciaretto vs Naomi Osaka,Ganador,Gana Naomi Osaka,0.806,1.16,-0.0646,capa2,,,
+2026-07-31,Tenis,WTA,Elisabetta Cocciaretto vs Naomi Osaka,Ganador,Gana Naomi Osaka,0.806,1.16,-0.0646,capa2,,1,2026-08-03T18:08:14Z
 2026-07-31,Tenis,WTA,Esther Adeshina vs Viktoria Hruncakova,Ganador,Gana Viktoria Hruncakova,0.788,1.14,-0.099,capa2,,,
 2026-07-31,Tenis,WTA,Eva Bennemann vs Fiona Ferro,Ganador,Gana Fiona Ferro,0.809,1.14,-0.0808,capa2,,,
-2026-07-31,Tenis,WTA,Francesca Jones vs Alice Rame,Ganador,Gana Francesca Jones,0.84,1.12,-0.0604,capa2,,,
+2026-07-31,Tenis,WTA,Francesca Jones vs Alice Rame,Ganador,Gana Francesca Jones,0.84,1.12,-0.0604,capa2,,1,2026-08-03T18:08:14Z
 2026-07-31,Fútbol,Primera División,Internacional Santa Tecla vs Águila,BTTS,Ambos marcan: No,0.752,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-31,Fútbol,Primera División,Internacional Santa Tecla vs Águila,BTTS,Ambos marcan: Sí,0.707,,,capa2,,0,2026-08-03T04:04:39Z
 2026-07-31,Fútbol,Primera División,Internacional Santa Tecla vs Águila,Goles,Menos de 2.5,0.8,,,capa2,,1,2026-08-03T04:04:39Z
@@ -204,7 +204,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-01,Fútbol,División Profesional,San Antonio Bulo Bulo vs Blooming,Goles,Menos de 2.5,0.632,,,capa2,,1,2026-08-03T04:04:39Z
 2026-08-01,Fútbol,División Profesional,Sportivo Ameliano vs 2 de Mayo,Goles,Menos de 2.5,0.667,,,capa2,,1,2026-08-03T04:04:39Z
 2026-08-02,Tenis,WTA,Alana Smith vs Yue Yuan,Ganador,Gana Yue Yuan,0.815,1.15,-0.0653,capa2,,,
-2026-08-02,Tenis,WTA,Aliona Falei vs Urszula Radwanska,Ganador,Gana Aliona Falei,0.794,1.06,-0.1577,capa2,,,
+2026-08-02,Tenis,WTA,Aliona Falei vs Urszula Radwanska,Ganador,Gana Aliona Falei,0.794,1.06,-0.1577,capa2,,1,2026-08-03T18:11:05Z
 2026-08-02,Fútbol,Liga MX,Atlas vs Monterrey,1X2,Gana Monterrey,0.388,2.67,0.0371,capa1,,1,2026-08-03T04:04:39Z
 2026-08-02,Fútbol,Primera División,Atletico Balboa vs Isidro Metapán,BTTS,Ambos marcan: No,0.675,,,capa2,,1,2026-08-03T04:04:39Z
 2026-08-02,Fútbol,Primera División,Atletico Balboa vs Isidro Metapán,BTTS,Ambos marcan: Sí,0.74,,,capa2,,0,2026-08-03T04:04:39Z
@@ -216,15 +216,15 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-02,Fútbol,Liga 1,Cienciano del Cusco vs Universitario,1X2,Gana Cienciano del Cusco,0.443,2.3637,0.0474,capa1,,1,2026-08-03T04:04:39Z
 2026-08-02,Tenis,WTA,Elina Svitolina vs Jessica Bouzas Maneiro,Ganador,Gana Elina Svitolina,0.793,1.24,-0.0205,capa2,,,
 2026-08-02,Fútbol,Primera División,Inca Aruba vs CD FAS,Goles,Menos de 2.5,0.627,,,capa2,,0,2026-08-03T04:04:39Z
-2026-08-02,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,,
+2026-08-02,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,0,2026-08-03T18:11:05Z
 2026-08-02,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,,
 2026-08-02,Tenis,WTA,Magdalena Frech vs Leolia Jeanjean,Ganador,Gana Magdalena Frech,0.629,1.6667,0.0479,capa1,,,
 2026-08-02,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.825,1.15,-0.05,capa2,,,
 2026-08-03,Tenis,WTA,Alana Smith vs Yue Yuan,Ganador,Gana Yue Yuan,0.813,1.15,-0.0651,capa2,,,
-2026-08-03,Tenis,WTA,Aliona Falei vs Urszula Radwanska,Ganador,Gana Aliona Falei,0.794,1.06,-0.1577,capa2,,,
+2026-08-03,Tenis,WTA,Aliona Falei vs Urszula Radwanska,Ganador,Gana Aliona Falei,0.794,1.06,-0.1577,capa2,,1,2026-08-03T18:08:14Z
 2026-08-03,Tenis,WTA,Carol Zhao vs Magda Linette,Ganador,Gana Magda Linette,0.883,1.08,-0.0453,capa2,,,
 2026-08-03,Tenis,WTA,Elina Svitolina vs Jessica Bouzas Maneiro,Ganador,Gana Elina Svitolina,0.793,1.24,-0.0205,capa2,,,
-2026-08-03,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,,
+2026-08-03,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,0,2026-08-03T18:08:14Z
 2026-08-03,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,,
 2026-08-03,Tenis,WTA,Magdalena Frech vs Leolia Jeanjean,Ganador,Gana Magdalena Frech,0.629,1.6667,0.0479,capa1,,,
 2026-08-03,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.824,1.15,-0.0539,capa2,,,

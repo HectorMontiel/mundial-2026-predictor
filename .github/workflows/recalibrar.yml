@@ -1,0 +1,92 @@
+name: Recalibrar la cadena completa (semanal)
+
+# v93 — POR QUÉ HACE FALTA UN WORKFLOW APARTE
+#
+# El diario (`retrain_leagues.yml`) reentrena los modelos de fútbol y refresca
+# `team_stats`, así que las PREDICCIONES mejoran cada día. Pero las
+# CALIBRACIONES que corrigen esas predicciones estaban congeladas en el día en
+# que alguien las generó a mano. Auditado el 2026-08-03:
+#
+#     modelos de fútbol            1 día    ← se regeneraba
+#     calibracion_mercado.json     1 día    ← se regeneraba
+#     ───────────────────────────────────────────────────────
+#     pick_ledger_total.csv        5 días   ← NUNCA
+#     calibracion_confianza.json   3 días   ← NUNCA
+#     umbrales_capa1.json          6 días   ← NUNCA
+#     edge_map.json               11 días   ← NUNCA
+#
+# La inconsistencia es peor que la antigüedad: `calibracion_confianza` mide
+# cuánto acierta DE VERDAD cada banda de probabilidad, y si el modelo se
+# reentrena a diario y esa medición no, se está corrigiendo con la huella de un
+# modelo que ya no existe.
+#
+# Va SEMANAL y no diario a propósito: reconstruir el ledger re-predice decenas
+# de miles de partidos (~40 min). Las calibraciones se mueven despacio; hacerlo
+# a diario sería gastar una hora de CI para cambiar el cuarto decimal.
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'          # lunes 05:00 UTC, después del reentrenamiento
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  recalibrar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # El orden es estrictamente secuencial: todo cuelga del ledger. Cada paso
+      # falla de forma independiente — un artefacto viejo es peor que uno
+      # nuevo, pero mucho mejor que ninguno, así que lo que no se regenere
+      # conserva el anterior en vez de quedarse a medias.
+      - name: Recalibrar la cadena completa
+        run: python recalibrar_todo.py || echo "::warning::recalibración con avisos"
+
+      - name: Publicar el estado de la recalibración
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          if not os.path.exists('recalibracion_estado.json'):
+              print('::warning::no se generó recalibracion_estado.json')
+              sys.exit(0)
+          d = json.load(open('recalibracion_estado.json', encoding='utf-8'))
+          print(f"{d['ok']}/{len(d['pasos'])} pasos OK en {d['segundos_total']:.0f}s")
+          for p in d['pasos']:
+              print(f"  {'OK ' if p['ok'] else 'FALLO'} {p['paso']}: "
+                    f"{p.get('detalle') or p.get('error')}")
+          for f in d.get('fallos') or []:
+              print(f'::warning::paso fallido: {f}')
+          PY
+
+      - name: Commitear las calibraciones actualizadas
+        run: |
+          git config user.name  "recalibrar-bot"
+          git config user.email "actions@github.com"
+          git add -A pick_ledger_total.csv calibracion_confianza.json \
+                     precision_ligas.json edge_map.json deportes_capa1.json \
+                     calibracion_mercado.json umbrales_capa1.json \
+                     recalibracion_estado.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Las calibraciones no cambiaron esta semana."
+          else
+            fecha=$(date -u +%Y-%m-%d)
+            git commit -m "chore(calibracion): recalibración semanal de la cadena ($fecha)"
+            git push
+            echo "Calibraciones actualizadas y publicadas."
+          fi

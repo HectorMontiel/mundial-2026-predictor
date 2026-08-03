@@ -1394,9 +1394,54 @@ def _dias_estado_obsoleto(liga: str, fecha: str) -> Optional[int]:
         return None
 
 
+def prob_calibrada(p: Dict) -> float:
+    """
+    Probabilidad de que ESTA apuesta se acierte, corregida por lo que su
+    mercado y su banda aciertan DE VERDAD.
+
+    v93 — el sistema mostraba la probabilidad del modelo y ordenaba por EV.
+    Medido sobre los primeros 142 picks liquidados en producción (v92-v93), la
+    diferencia entre lo que se promete y lo que pasa no es uniforme, es
+    ENORME y depende del mercado:
+
+        mercado    n    promete   acierta   brecha
+        Ganador   58     77,2 %    70,7 %   −6,5 pp
+        1X2       27     48,1 %    40,7 %   −7,4 pp
+        Goles     29     69,7 %    51,7 %  −18,0 pp
+        BTTS      22     69,7 %    50,0 %  −19,7 pp
+
+    Coincide con lo que el backtest ya decía sobre 89.748 predicciones (v86:
+    el BTTS promete 80 % y acierta 53 %), así que no es ruido de muestra
+    pequeña: son dos mediciones independientes apuntando a lo mismo.
+
+    La consecuencia práctica es que ordenar por probabilidad del modelo pone
+    arriba justo los mercados que peor cumplen. Esta función devuelve la
+    probabilidad que ya está medida (`calibracion_confianza`) y, donde no hay
+    medición, la del modelo sin inflar.
+    """
+    prob = float(p.get('prob') or 0)
+    try:
+        import calibracion_confianza as _cc
+        real = _cc.probabilidad_real(prob, p.get('mercado'))
+        if real is not None:
+            return float(real)
+    except Exception:
+        pass
+    return prob
+
+
 def pick_del_dia(picks: List[Dict]) -> Optional[Dict]:
-    """UN solo pick (§5.3): confianza >80 %, EV en [+2 %, +15 %], fiabilidad
-    del mercado ≥ 🟡 y sin pretemporada. Desempate: Brier ↑, EV ↓, prob ↓."""
+    """
+    UN solo pick: el que TIENE MÁS PROBABILIDAD DE ACERTARSE.
+
+    v93 — cambia el criterio de selección, no los filtros. Antes se ordenaba
+    por Brier de la liga y EV, con lo que un pick de BTTS al «80 %» que en
+    realidad acierta el 50 % podía salir por delante de uno de 1X2 al 72 %
+    que acierta el 70 %. El usuario pide lo contrario: la apuesta más probable
+    de acertar. Ahora manda `prob_calibrada` (ver ahí los números) y el EV
+    queda de desempate — sigue exigiéndose que sea positivo y esté dentro de
+    la banda validada, así que no se recomienda nada con valor esperado malo.
+    """
     aptos = []
     for p in picks:
         ev = p.get('ev')
@@ -1410,10 +1455,21 @@ def pick_del_dia(picks: List[Dict]) -> Optional[Dict]:
         aptos.append(p)
     if not aptos:
         return None
-    return sorted(aptos, key=lambda p: (p.get('brier') if p.get('brier')
-                                        is not None else 0.21,
-                                        -(p.get('ev') or 0),
-                                        -(p.get('prob') or 0)))[0]
+    mejor = sorted(aptos, key=lambda p: (-prob_calibrada(p),
+                                         -(p.get('ev') or 0),
+                                         (p.get('brier') if p.get('brier')
+                                          is not None else 0.21)))[0]
+    q = dict(mejor)
+    pc = prob_calibrada(mejor)
+    q['prob_calibrada'] = round(pc, 3)
+    q['prob_modelo'] = mejor.get('prob')
+    if abs(pc - float(mejor.get('prob') or 0)) > 0.005:
+        q['nota_calibracion'] = (
+            f"El modelo dice {float(mejor.get('prob') or 0)*100:.0f} %; en el "
+            f"histórico, los picks de {mejor.get('mercado','este mercado')} en "
+            f"esa banda aciertan el {pc*100:.0f} %. Se muestra el segundo, que "
+            f"es el que importa.")
+    return q
 
 
 def _seccion_btts(picks: List[Dict]) -> List[Dict]:

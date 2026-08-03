@@ -275,6 +275,74 @@ def resultados_liga(clave: str, desde: str, hasta: str) -> List[Dict]:
     return salida
 
 
+def resultados_tenis(desde: str, hasta: str) -> List[Dict]:
+    """
+    v93 — partidos de tenis YA JUGADOS con su GANADOR, de ATP y WTA.
+
+    La estructura del scoreboard de tenis no es la de los deportes de equipo:
+    cada `event` es un TORNEO y los partidos cuelgan de
+    `groupings[*].competitions[*]`, cada uno con su `status.completed` y sus
+    dos `competitors` con la bandera `winner`. Por eso el parser genérico no
+    servía y el tenis se quedaba sin liquidar.
+
+    Medido el 2026-08-03 sobre un solo día: 564 competiciones, **294
+    finalizadas** con ganador — suficiente para cerrar el circuito del deporte
+    que más picks emite después del fútbol.
+    """
+    ck = f'restenis:{desde}:{hasta}'
+    ahora = time.time()
+    if ck in _CACHE and ahora - _CACHE[ck][0] < _TTL:
+        return _CACHE[ck][1]
+    ini, fin = str(desde).replace('-', ''), str(hasta).replace('-', '')
+    salida: List[Dict] = []
+    for circuito in ('atp', 'wta'):
+        try:
+            r = requests.get(
+                ESPN_BASE_DEP.format(path=f'tennis/{circuito}'),
+                params={'dates': f'{ini}-{fin}'}, timeout=TIMEOUT)
+            r.raise_for_status()
+            eventos = r.json().get('events', []) or []
+        except Exception as e:
+            logger.warning(f'[tenis/{circuito}] ESPN falló: '
+                           f'{type(e).__name__}: {e}')
+            continue
+        for ev in eventos:
+            torneo = ev.get('name')
+            for g in ev.get('groupings', []) or []:
+                for c in g.get('competitions', []) or []:
+                    try:
+                        if not c.get('status', {}).get('type', {}).get('completed'):
+                            continue
+                        cs = c.get('competitors') or []
+                        if len(cs) != 2:
+                            continue      # dobles con formato raro, o walkover
+                        nombres, ganador = [], None
+                        for x in cs:
+                            nom = (x.get('athlete') or {}).get('displayName')
+                            if not nom:
+                                nombres = []
+                                break
+                            nombres.append(nom)
+                            if x.get('winner'):
+                                ganador = nom
+                        if len(nombres) != 2 or not ganador:
+                            continue
+                        fecha = pd.to_datetime(c.get('date') or ev.get('date'))
+                        if fecha.tzinfo:
+                            fecha = fecha.tz_convert(None)
+                        salida.append({'fecha': fecha.strftime('%Y-%m-%d'),
+                                       'circuito': circuito.upper(),
+                                       'torneo': torneo,
+                                       'jugadores': nombres,
+                                       'ganador': ganador})
+                    except (KeyError, TypeError, ValueError):
+                        continue
+    logger.info(f'[tenis] {len(salida)} partidos con ganador entre '
+                f'{desde} y {hasta}.')
+    _CACHE[ck] = (ahora, salida)
+    return salida
+
+
 def con_cuota(fixtures: List[Dict]) -> Dict:
     """
     v72 — separa los fixtures APOSTABLES (los que ya tienen cuota) del resto, y

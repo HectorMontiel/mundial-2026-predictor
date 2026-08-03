@@ -1418,6 +1418,73 @@ def test_memoizacion_no_cambia_el_emparejamiento():
           'normalizar está memoizada')
 
 
+def test_pick_por_probabilidad_calibrada():
+    """
+    v93 — el Pick del Día es el MÁS PROBABLE DE ACERTAR, no el de más EV.
+
+    Medido sobre los primeros 142 picks liquidados en producción, la brecha
+    entre lo prometido y lo que pasa depende del mercado y es enorme:
+    Goles promete 69,7 % y acierta 51,7 %; BTTS promete 69,7 % y acierta
+    50,0 %; el Ganador de tenis promete 77,2 % y acierta 70,7 %. Ordenar por
+    la probabilidad del modelo ponía arriba justo los mercados que peor
+    cumplen.
+    """
+    import alpha_finder as af
+
+    # un BTTS que promete más que un 1X2 pero acierta mucho menos
+    picks = [
+        {'partido': 'A vs B', 'mercado': 'BTTS',
+         'apuesta': 'Ambos marcan: Sí', 'prob': 0.84, 'ev': 0.05, 'cuota': 1.9},
+        {'partido': 'C vs D', 'mercado': '1X2',
+         'apuesta': 'Gana C', 'prob': 0.82, 'ev': 0.04, 'cuota': 1.7},
+    ]
+    p_btts = af.prob_calibrada(picks[0])
+    check(p_btts < 0.84,
+          f"la probabilidad del BTTS se corrige a la baja ({p_btts:.3f} < 0,84)")
+    elegido = af.pick_del_dia(picks)
+    check(elegido is not None, "hay Pick del Día con estos dos candidatos")
+    if elegido:
+        check(elegido['mercado'] == '1X2',
+              f"gana el mercado que MÁS ACIERTA, no el que más promete "
+              f"(salió {elegido['mercado']})")
+        check(elegido.get('prob_calibrada') is not None,
+              "el pick viaja con su probabilidad calibrada")
+
+    # sin medición para ese mercado, no se inventa una corrección
+    p = af.prob_calibrada({'mercado': '__mercado_inexistente__', 'prob': 0.7})
+    check(abs(p - 0.7) < 1e-9,
+          "un mercado sin medición conserva la probabilidad del modelo")
+
+
+def test_recalibracion_automatica():
+    """
+    v93 — las calibraciones se regeneran solas.
+
+    El workflow diario reentrenaba los modelos de fútbol pero NINGUNA de sus
+    calibraciones: `pick_ledger_total.csv` (5 días), `calibracion_confianza`
+    (3), `umbrales_capa1` (6), `edge_map` (11) no los tocaba nadie. La
+    inconsistencia era peor que la antigüedad: se corregía el modelo de hoy
+    con la huella de un modelo que ya no existe.
+    """
+    import os
+    check(os.path.exists('recalibrar_todo.py'),
+          "existe la cadena de recalibración")
+    import recalibrar_todo
+    nombres = [n for n, _ in recalibrar_todo.PASOS]
+    check(len(nombres) >= 6,
+          f"la cadena cubre los {len(nombres)} artefactos que cuelgan del ledger")
+    check('ledger' in nombres[0].lower(),
+          "y empieza por el ledger, del que dependen todos los demás")
+
+    wf = '.github/workflows/recalibrar.yml'
+    check(os.path.exists(wf), "hay un workflow que la ejecuta")
+    if os.path.exists(wf):
+        src = open(wf, encoding='utf-8').read()
+        check('recalibrar_todo.py' in src, "y llama a la cadena completa")
+        check('schedule' in src and 'cron' in src,
+              "de forma programada, no sólo a mano")
+
+
 def test_circuito_de_liquidacion():
     """
     v92 — el circuito de retroalimentación está CONECTADO y el ROI no miente.
@@ -1649,6 +1716,9 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v93: probabilidad calibrada y recalibración automática ===')
+    test_pick_por_probabilidad_calibrada()
+    test_recalibracion_automatica()
     print('\n=== v92: circuito de liquidación ===')
     test_circuito_de_liquidacion()
     print('\n=== v91: un solo reloj ===')

@@ -1782,11 +1782,17 @@ def render_alpha_finder():
     # v32 (§5.3): PICK DEL DÍA único
     pdd = r.get('pick_del_dia')
     if pdd:
+        # v93: se muestra la probabilidad CALIBRADA — la que el mercado
+        # acierta de verdad en su banda, no la que promete el modelo.
+        _pc = pdd.get('prob_calibrada')
+        _pc = _pc if _pc is not None else (pdd.get('prob') or 0)
         st.success(f"🥇 **Pick del Día** — {pdd['partido']} ({pdd.get('liga','')})  \n"
                    f"**{pdd['apuesta']}** @ {pdd.get('cuota')} · "
+                   f"**{_pc*100:.0f} % de acertar** · "
                    f"EV {(pdd.get('ev') or 0)*100:+.1f} % · "
-                   f"prob {(pdd.get('prob') or 0)*100:.0f} % · "
                    f"{pdd.get('fiabilidad','')}")
+        if pdd.get('nota_calibracion'):
+            st.caption(f"ℹ️ {pdd['nota_calibracion']}")
     else:
         st.info("🥇 Hoy **no hay Pick del Día**: ninguno reúne confianza >80 %, "
                 "EV entre +2 % y +15 % y fiabilidad histórica suficiente. "

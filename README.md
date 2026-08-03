@@ -1,5 +1,32 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v93 — El modelo mejoraba a diario; sus calibraciones, nunca (ver [VALIDACION_v93.md](VALIDACION_v93.md))
+
+- **♻️ Ahora TODO se recalibra solo.** El workflow diario reentrenaba los
+  modelos de fútbol, pero **ninguna de sus calibraciones**: el ledger (5 días),
+  `calibracion_confianza` (3), `umbrales_capa1` (6), `edge_map` (11) no los
+  tocaba nadie. Y la antigüedad era lo de menos: `calibracion_confianza` mide
+  cuánto acierta cada banda del modelo, así que **se estaba corrigiendo el
+  modelo de hoy con la huella de uno que ya no existe**. Nuevo
+  `recalibrar_todo.py` + workflow semanal: ledger → confianza → techo por liga
+  → banda de EV → deportes con edge → peso de mercado. Verificado: 5/5 pasos.
+- **🎾 Tenis y ⚾ MLB por fin se liquidan.** MLB vía la Stats API oficial (164
+  juegos). Tenis: ESPN **sí** publica resultados, pero cada evento es un TORNEO
+  y los partidos cuelgan de `groupings[*].competitions[*]` — por eso el parser
+  genérico no los veía. 664 partidos con ganador. Y al conectarlo apareció la
+  causa raíz de por qué sólo cerraba el 24 %: **los picks de tenis y MLB se
+  sellan con la fecha de publicación, no con la del partido**. Emparejado por
+  pareja de jugadores con tolerancia de 2 días → **tenis 23 % → 57 %**, total
+  liquidado 107 → **142 picks**.
+- **🎯 El Pick del Día es ahora el MÁS PROBABLE DE ACERTAR, no el de más EV.**
+  Con 142 picks liquidados hay medición de producción, y confirma el backtest
+  con dinero real: *Ganador* promete 77,2 % y acierta **70,7 %**; *Goles*
+  promete 69,7 % y acierta **51,7 %**; *BTTS* promete 69,7 % y acierta
+  **50,0 %**. Ordenar por la probabilidad del modelo ponía arriba justo los
+  mercados que peor cumplen — un BTTS «al 84 %» (real: 53 %) ganaba a un 1X2 al
+  82 % (real: 82 %). Ahora manda la probabilidad **calibrada** y la UI muestra
+  «X % de acertar» en vez de la promesa del modelo.
+
 ## Novedades v92 — El circuito de retroalimentación llevaba 60 versiones abierto (ver [VALIDACION_v92.md](VALIDACION_v92.md))
 
 - **🔌 `liquidar()` no tenía UN SOLO llamador.** Desde la v32 el sistema
