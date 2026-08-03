@@ -1,5 +1,42 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v92 — El circuito de retroalimentación llevaba 60 versiones abierto (ver [VALIDACION_v92.md](VALIDACION_v92.md))
+
+- **🔌 `liquidar()` no tenía UN SOLO llamador.** Desde la v32 el sistema
+  registraba los picks de cada día y la interfaz prometía que «el resultado se
+  liquida cuando termina el partido». Medido: **315 registrados, 0 liquidados**.
+  Todo lo que el proyecto sabía de su rentabilidad venía de backtests; la
+  comprobación contra la realidad estaba desconectada. Nuevo `liquidador.py`:
+  resuelve cada apuesta contra el marcador de ESPN (1X2, Goles, BTTS y
+  hándicap, con la misma semántica con la que se emitió; lo que no sabe
+  resolver lo deja pendiente en vez de inventarlo). Primera ejecución: **78
+  picks liquidados**.
+- **💥 Y al conectarlo, el ROI mentía: −62,93 %.** Con un acierto del 47,4 %,
+  dos números imposibles de conciliar. Causa: `df['cuota'].fillna(0)` — los
+  picks de Capa 2 no tienen cuota **por definición**, así que un acierto de
+  Capa 2 puntuaba `1·(0−1) = −1`, un acierto contado como pérdida total (50 de
+  los 78 liquidados). Corregido: **ROI real +3,26 %** (30 d, sobre los picks
+  con cuota) y **+11,81 %** (7 d). Y aparece el dato honesto: el modelo
+  **promete 62,2 % y acierta 47,4 %** en producción.
+- **💾 El historial tampoco persistía.** `rendimiento_real.db` está en
+  `.gitignore`: el runner clona limpio y Cloud tiene disco efímero, así que la
+  base arrancaba vacía cada vez. Ahora se persiste a `picks_historico.csv`
+  (mismo patrón que las fotos de cuotas), el liquidador recarga antes y vuelca
+  después, y corre a diario en el workflow.
+- **🎯 Panel producción-vs-backtest por canal.** `monitor_canales.py` compara
+  el ROI real de cada vía con el p5 de su validación fuera de muestra. Con
+  tres estados, y el importante es ⏳ **sin muestra**: con menos de 30 picks
+  resueltos **lo dice** en vez de enseñar un ROI de tres apuestas como si
+  significara algo.
+- **❌ RECHAZADO con números: BetExplorer para las 11 ligas sin cuotas.**
+  2.695 cuotas nuevas y **cero partidos del ledger que ganen cuota** — los que
+  cruzan son exactamente los que ya la tenían. No es alineación (los
+  identificadores casan perfectamente); es rango: BetExplorer sirve 2021-2024 y
+  el ledger es 2024-2026, y las páginas permitidas por `robots.txt` no dan las
+  fases de Apertura/Clausura. **La vía que sí funciona ya está en marcha**: las
+  fotos diarias capturan esas ligas a **28 partidos/día**, muestra validable en
+  ~4 meses.
+
 ## Novedades v91 — Un solo reloj, un solo día, y la app deja de mentir (ver [VALIDACION_v91.md](VALIDACION_v91.md))
 
 - **🕐 Había DOS relojes.** `fixtures_espn` pedía el rango a ESPN en hora

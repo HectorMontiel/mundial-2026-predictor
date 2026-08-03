@@ -2468,6 +2468,9 @@ def render_alpha_finder():
                     width='stretch', hide_index=True)
 
         # v32 (§6): rendimiento REAL de lo recomendado
+        # v92: el circuito por fin se cierra — `liquidador.py` resuelve los
+        # picks contra el marcador de ESPN. Hasta ahora esto siempre salía
+        # vacío porque nadie llamaba a `liquidar()`.
         with st.expander("📊 Rendimiento real de las Apuestas del Día"):
             import rendimiento_real as rreal
             res7, res30 = rreal.resumen(7), rreal.resumen(30)
@@ -2475,16 +2478,59 @@ def render_alpha_finder():
                 c1, c2, c3 = st.columns(3)
                 c1.metric("Aciertos (30 d)",
                           f"{res30['tasa_acierto']*100:.0f} %",
-                          f"prometido {res30['prob_media_prometida']*100:.0f} %")
-                c2.metric("ROI real (30 d)", f"{res30['roi_pct']:+.1f} %")
-                c3.metric("Picks (7 d / 30 d)", f"{res7.get('n',0)} / {res30['n']}")
+                          f"prometido {res30['prob_media_prometida']*100:.0f} %",
+                          help="Si el acierto real va muy por debajo de lo "
+                               "prometido, el modelo sobreconfía — es la misma "
+                               "brecha que la pestaña de Máxima Confianza "
+                               "corrige por banda.")
+                c2.metric("ROI real (30 d)",
+                          f"{res30['roi_pct']:+.1f} %"
+                          if res30.get('roi_pct') is not None else "—",
+                          f"sobre {res30.get('n_con_cuota', 0)} con cuota real",
+                          help="Sólo cuenta los picks que llevaban precio: una "
+                               "apuesta sin cuota no tiene retorno que medir.")
+                c3.metric("Picks (7 d / 30 d)", f"{res7.get('n',0)} / {res30['n']}",
+                          f"{res30.get('pendientes', 0)} sin resolver")
+                if res30.get('n_sin_cuota'):
+                    st.caption(
+                        f"De los {res30['n']} liquidados, **{res30['n_sin_cuota']} "
+                        f"no llevaban cuota** (Capa 2): de esos sólo se puede "
+                        f"medir el acierto, "
+                        f"**{(res30.get('acierto_sin_cuota') or 0)*100:.0f} %**, "
+                        f"no el ROI.")
                 serie = rreal.serie_diaria(30)
                 if not serie.empty:
                     st.line_chart(serie.set_index('fecha')['roi_acumulado_pct'])
             else:
                 st.info(res30.get('aviso', 'Sin historial todavía.')
-                        + " Los picks se registran automáticamente cada día; el "
-                          "resultado se liquida cuando termina el partido.")
+                        + " Los picks se registran automáticamente cada día y "
+                          "se liquidan contra el marcador cuando el partido "
+                          "termina.")
+
+        # v92 — PRODUCCIÓN CONTRA BACKTEST, por canal de valor.
+        with st.expander("🎯 ¿Se está cobrando el edge? (producción vs backtest)"):
+            st.caption("El backtest es una promesa; esto es la factura. Cada "
+                       "canal de valor se compara con el peor caso plausible "
+                       "(p5) que midió su validación fuera de muestra.")
+            try:
+                import monitor_canales as _mc
+                _rc = _mc.rendimiento(30)
+                if _rc.get('aviso'):
+                    st.info(_rc['aviso'])
+                for _f in _rc.get('canales', []):
+                    with st.container(border=True):
+                        st.markdown(f"**{_f['nombre']}**"
+                                    + (f" · {', '.join(_f['deportes'])}"
+                                       if _f.get('deportes') else ''))
+                        _v = _mc.veredicto(_f)
+                        (st.success if _f['estado'] == 'ok' else
+                         st.error if _f['estado'] == 'bajo' else st.info)(_v)
+                        if _f.get('ref_fuente'):
+                            st.caption(f"Referencia: ROI {_f['ref_roi']:+.2f} % "
+                                       f"· p5 {_f['ref_p5']:+.2f} % "
+                                       f"({_f['ref_fuente']})")
+            except Exception as e:
+                st.caption(f"Monitor no disponible ({type(e).__name__}).")
 
         _tarjetas(r.get('candidatos'), "Candidatos con EV positivo"
                   if ES_PRO else "Otras oportunidades con Ventaja Matemática 📈")

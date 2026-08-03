@@ -218,6 +218,63 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA) -> List[Dict]:
     return fixtures
 
 
+def resultados_liga(clave: str, desde: str, hasta: str) -> List[Dict]:
+    """
+    v92 — partidos YA JUGADOS con su marcador, en [desde, hasta] (YYYY-MM-DD).
+
+    Es el reverso exacto de `fixtures_liga`, que descarta los eventos
+    `completed`. Hace falta para cerrar el circuito de retroalimentación: el
+    proyecto registra los picks de cada día desde la v32 y NUNCA los liquidaba
+    —`rendimiento_real.liquidar()` no tenía un solo llamador—, así que el
+    panel de rendimiento real llevaba versiones vacío y no había forma de
+    saber si el edge validado en backtest se estaba cobrando de verdad.
+
+    Mismo endpoint, misma caché, coste cero: el scoreboard ya trae el marcador.
+    """
+    code = ESPN_CODIGOS.get(clave)
+    if not code:
+        return []
+    ck = f'res:{clave}:{desde}:{hasta}'
+    ahora = time.time()
+    if ck in _CACHE and ahora - _CACHE[ck][0] < _TTL:
+        return _CACHE[ck][1]
+    ini = str(desde).replace('-', '')
+    fin = str(hasta).replace('-', '')
+    salida: List[Dict] = []
+    try:
+        r = requests.get(ESPN_BASE.format(liga=code),
+                         params={'dates': f'{ini}-{fin}', 'limit': 500},
+                         timeout=TIMEOUT)
+        r.raise_for_status()
+        eventos = r.json().get('events', []) or []
+    except Exception as e:
+        logger.warning(f"[resultados/{clave}] ESPN falló: {type(e).__name__}: {e}")
+        _CACHE[ck] = (ahora, [])
+        return []
+    for ev in eventos:
+        try:
+            comp = ev['competitions'][0]
+            estado = comp.get('status', ev.get('status', {})).get('type', {})
+            if not estado.get('completed'):
+                continue                       # aún no ha terminado
+            loc = next(c for c in comp['competitors'] if c['homeAway'] == 'home')
+            vis = next(c for c in comp['competitors'] if c['homeAway'] == 'away')
+            gl, gv = int(loc.get('score')), int(vis.get('score'))
+            fecha = pd.to_datetime(ev['date'])
+            if fecha.tzinfo:
+                fecha = fecha.tz_convert(None)
+            salida.append({'fecha': fecha.strftime('%Y-%m-%d'),
+                           'home': loc['team']['displayName'],
+                           'away': vis['team']['displayName'],
+                           'goles_home': gl, 'goles_away': gv})
+        except (KeyError, StopIteration, TypeError, ValueError):
+            continue
+    logger.info(f"[resultados/{clave}] {len(salida)} partidos jugados "
+                f"entre {desde} y {hasta}.")
+    _CACHE[ck] = (ahora, salida)
+    return salida
+
+
 def con_cuota(fixtures: List[Dict]) -> Dict:
     """
     v72 — separa los fixtures APOSTABLES (los que ya tienen cuota) del resto, y

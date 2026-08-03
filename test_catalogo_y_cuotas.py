@@ -1418,6 +1418,65 @@ def test_memoizacion_no_cambia_el_emparejamiento():
           'normalizar está memoizada')
 
 
+def test_circuito_de_liquidacion():
+    """
+    v92 — el circuito de retroalimentación está CONECTADO y el ROI no miente.
+
+    Dos fallos que convivían desde la v32:
+
+    1. `rendimiento_real.liquidar()` no tenía UN SOLO llamador. El sistema
+       registraba los picks de cada día y nunca los resolvía — 315 registrados,
+       0 liquidados —, así que el panel de rendimiento real llevaba versiones
+       vacío y no había forma de saber si el edge se cobraba.
+    2. `resumen()` hacía `df['cuota'].fillna(0)`, y los picks de Capa 2 no
+       tienen cuota por definición: un acierto de Capa 2 puntuaba 1·(0−1) = −1,
+       o sea un acierto contado como pérdida total. Al conectar la liquidación,
+       el panel mostró −62,93 % de ROI con 47,4 % de acierto: imposible de
+       conciliar, y la señal de que el roto era el cálculo.
+    """
+    import liquidador
+
+    # el ROI no puede castigar a una apuesta sin precio
+    import inspect
+    src = inspect.getsource(__import__('rendimiento_real').resumen)
+    # se mira el CÓDIGO, no los comentarios: el comentario cita `fillna(0)`
+    # a propósito, para explicar qué se rompía
+    codigo = [l for l in src.splitlines() if not l.lstrip().startswith('#')]
+    check(not [l for l in codigo if 'fillna(0)' in l],
+          "el ROI ya no rellena con 0 las cuotas ausentes")
+    check(any('notna()' in l for l in codigo),
+          "y calcula el ROI sólo sobre los picks con cuota real")
+
+    # la resolución de mercados, contra marcadores conocidos
+    r = liquidador.resolver
+    check(r('1X2', 'Gana Boca', 'Boca', 'River', 2, 1) is True,
+          "1X2: gana el local con 2-1")
+    check(r('1X2', 'Gana River', 'Boca', 'River', 2, 1) is False,
+          "1X2: el visitante pierde ese mismo partido")
+    check(r('1X2', 'Empate', 'Boca', 'River', 1, 1) is True, "1X2: empate")
+    check(r('Goles', 'Más de 2.5', 'A', 'B', 2, 1) is True, "Goles: 3 > 2.5")
+    check(r('Goles', 'Menos de 2.5', 'A', 'B', 2, 1) is False, "Goles: 3 no es < 2.5")
+    check(r('BTTS', 'Ambos marcan: Sí', 'A', 'B', 1, 2) is True, "BTTS sí")
+    check(r('BTTS', 'Ambos marcan: No', 'A', 'B', 1, 0) is True, "BTTS no")
+    check(r('Hándicap', 'B +1.5', 'A', 'B', 2, 1) is True,
+          "hándicap: el visitante con +1.5 cubre perdiendo por 1")
+    check(r('Hándicap', 'A −1.5', 'A', 'B', 2, 1) is False,
+          "hándicap: el local con −1.5 NO cubre ganando por 1")
+    check(r('Hándicap', 'A −1.5', 'A', 'B', 3, 1) is True,
+          "y sí cubre ganando por 2")
+    check(r('Mercado raro', 'lo que sea', 'A', 'B', 1, 0) is None,
+          "un mercado que no se sabe resolver devuelve None, no se inventa")
+
+    # y el workflow tiene que ejecutarlo, o el circuito seguiría abierto
+    wf = open('.github/workflows/retrain_leagues.yml', encoding='utf-8').read()
+    check('liquidador.py' in wf,
+          "el workflow diario ejecuta el liquidador")
+    # el histórico tiene que persistir: la base está en .gitignore
+    import rendimiento_real as rr
+    check(hasattr(rr, 'exportar') and hasattr(rr, 'importar'),
+          "los picks se persisten a CSV (la base es efímera en cloud)")
+
+
 def test_un_solo_reloj():
     """
     v91 — TODO el barrido usa el MISMO reloj (UTC).
@@ -1590,6 +1649,8 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v92: circuito de liquidación ===')
+    test_circuito_de_liquidacion()
     print('\n=== v91: un solo reloj ===')
     test_un_solo_reloj()
     print('\n=== v90: totales por casa y techo por liga ===')

@@ -113,6 +113,13 @@ jobs:
       - name: Fotografiar la línea de hoy (snapshots + CLV)
         run: python daily_snapshots.py || echo "::warning::snapshots con avisos"
 
+      # v92 — CIERRA EL CIRCUITO. El proyecto registraba los picks de cada día
+      # desde la v32 y nunca los resolvía (`liquidar()` no tenía llamador):
+      # 315 registrados, 0 liquidados. Sin esto no hay forma de saber si el
+      # edge validado en backtest se cobra de verdad en producción.
+      - name: Liquidar los picks ya jugados contra el resultado
+        run: python liquidador.py --dias 10 || echo "::warning::liquidación con avisos"
+
       - name: Comprobar que las fotos quedaron persistidas
         run: |
           python - <<'PY'

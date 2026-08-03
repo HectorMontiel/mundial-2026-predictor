@@ -69,6 +69,39 @@ def escribir_json(ruta: str, datos, *, indent=None, reintentos: int = 5) -> bool
                 pass
 
 
+def escribir_texto(ruta: str, texto: str, *, reintentos: int = 5) -> bool:
+    """
+    Igual que `escribir_json` pero para texto plano (CSV commiteables).
+
+    v92 — hace falta para `rendimiento_real.exportar`: el histórico de picks se
+    persiste como CSV y se reescribe entero cada día, así que una escritura a
+    medias lo dejaría truncado y se perdería el historial acumulado.
+    """
+    tmp = f'{ruta}.{os.getpid()}.{threading.get_ident()}.tmp'
+    try:
+        with open(tmp, 'w', encoding='utf-8', newline='') as f:
+            f.write(texto)
+        espera = 0.01
+        for intento in range(reintentos):
+            try:
+                os.replace(tmp, ruta)
+                return True
+            except PermissionError:
+                if intento == reintentos - 1:
+                    raise
+                time.sleep(espera)
+                espera *= 2
+        return False
+    except Exception:
+        return False
+    finally:
+        if os.path.exists(tmp):
+            try:
+                os.remove(tmp)
+            except Exception:
+                pass
+
+
 def leer_json(ruta: str, por_defecto=None, *, reintentos: int = 4):
     """
     Lee un JSON tolerando que no exista, que esté corrupto de antes, o que otra
