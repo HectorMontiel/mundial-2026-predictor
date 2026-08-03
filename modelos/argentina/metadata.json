@@ -1,12 +1,12 @@
 {
   "liga": "Primera División",
   "n_train": 2961,
-  "n_validacion": 741,
-  "fecha_corte": "2025-02-07",
-  "precision_validacion": 0.4197,
-  "precision_linea_base_elo": 0.3873,
+  "n_validacion": 746,
+  "fecha_corte": "2025-02-08",
+  "precision_validacion": 0.4169,
+  "precision_linea_base_elo": 0.3887,
   "precision_mercado_cuotas": 0.4198,
-  "log_loss_validacion": 1.0659,
+  "log_loss_validacion": 1.0676,
   "n_equipos": 37,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
