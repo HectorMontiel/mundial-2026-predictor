@@ -107,6 +107,57 @@ jobs:
       # de `odds_snapshots.csv` y se vuelven a volcar ahí al terminar. Sin este
       # ida y vuelta, cada ejecución empezaría de cero y el histórico de líneas
       # nunca pasaría de un día.
+      # v94 — LOS OTROS TRES DEPORTES TAMBIÉN SE REENTRENAN SOLOS.
+      #
+      # Hasta aquí el workflow sólo hacía `league_engine --build`, que es
+      # fútbol. MLB, tenis (ATP y WTA) y NBA se reentrenaban A MANO y sus
+      # modelos llevaban 5-7 días de retraso: el sistema predecía la MLB de
+      # agosto con el estado de julio. Cada motor ya traía su CLI de
+      # entrenamiento; sólo faltaba llamarla.
+      #
+      # Fuera de temporada no hay datos nuevos y el entrenamiento no cambia
+      # nada — es correcto y barato, así que no se condiciona por calendario.
+      # Un fallo en un deporte no aborta los demás ni el resto del workflow.
+      - name: Reentrenar MLB, tenis (ATP/WTA) y NBA
+        run: |
+          python -m engines.mlb_engine    || echo "::warning::MLB con avisos"
+          python -m engines.tennis_engine atp wta || echo "::warning::tenis con avisos"
+          python -m engines.nba_engine    || echo "::warning::NBA con avisos"
+
+      # Mismo blindaje que el fútbol (v68): NUNCA se commitea un modelo que no
+      # se pueda volver a cargar. Si uno no abre, se restaura su versión
+      # anterior desde git y el resto sigue.
+      - name: Verificar que los modelos de MLB, tenis y NBA cargan
+        run: |
+          python - <<'PY'
+          import subprocess, sys
+          casos = [('MLB', 'engines.mlb_engine', 'MLBEngine', ()),
+                   ('tenis ATP', 'engines.tennis_engine', 'TennisEngine', ('atp',)),
+                   ('tenis WTA', 'engines.tennis_engine', 'TennisEngine', ('wta',)),
+                   ('NBA', 'engines.nba_engine', 'NBAEngine', ())]
+          malos = []
+          for etq, mod, clase, args in casos:
+              try:
+                  m = __import__(mod, fromlist=[clase])
+                  eng = getattr(m, clase)(*args).cargar_modelo()
+                  if not getattr(eng, 'listo', False):
+                      raise RuntimeError(getattr(eng, 'error', 'no listo'))
+                  print(f'OK  {etq}')
+              except Exception as e:
+                  print(f'::warning::{etq} no carga tras reentrenar: '
+                        f'{type(e).__name__}: {e}')
+                  malos.append((etq, mod))
+          if malos:
+              # restaurar los artefactos del deporte que falló
+              carpetas = {'engines.mlb_engine': 'modelos/mlb',
+                          'engines.tennis_engine': 'modelos/tennis modelos/tennis_wta',
+                          'engines.nba_engine': 'modelos/nba'}
+              for etq, mod in malos:
+                  for c in carpetas.get(mod, '').split():
+                      subprocess.run(['git', 'checkout', '--', c], check=False)
+                      print(f'restaurado {c} (el reentrenamiento de {etq} no sirve)')
+          PY
+
       - name: Importar cuotas de cierre al histórico
         run: python import_historical_odds.py || echo "::warning::importación de cuotas con avisos"
 

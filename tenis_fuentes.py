@@ -805,9 +805,111 @@ def fixtures_tenis(circuito: str = 'atp', dias: int = 8,
                                           catalogo or [], f['major'],
                                           float(np.median(muestras)),
                                           por_descarte='principal')
+    # -----------------------------------------------------------------------
+    # v94 — SEGUNDA FUENTE: el tablón de cuotas (Pinnacle + Bovada).
+    #
+    # El calendario de ESPN sólo sirve el cuadro principal de ATP/WTA, y
+    # además la mayor parte de sus partidos futuros son **TBD vs TBD**: rondas
+    # cuyo emparejamiento aún no existe. Medido el 2026-08-03 en ATP: de 128
+    # competiciones no jugadas a 10 días vista, **127 eran TBD** y sólo 1 tenía
+    # los dos jugadores definidos. Por eso la vista de tenis enseñaba UN
+    # partido mientras el barrido de Apuestas del Día operaba decenas.
+    #
+    # La diferencia es que el barrido sí mira el tablón de cuotas, que trae
+    # challengers e ITF y sólo lista partidos con los dos jugadores puestos
+    # (una casa no cotiza un TBD). Medido el mismo día: **96 partidos, 74 con
+    # los dos jugadores en el catálogo del modelo**.
+    #
+    # Es exactamente el patrón que el fútbol ya usa desde la v71 —ESPN para el
+    # calendario, cuotas_multi para completar—, aplicado aquí. Los de ESPN
+    # mandan cuando el mismo partido está en las dos (traen ronda, formato y
+    # categoría del torneo); los del tablón rellenan el resto.
+    # -----------------------------------------------------------------------
+    try:
+        salida.extend(_fixtures_desde_cuotas(circuito, salida, catalogo or [],
+                                             rankings))
+    except Exception as e:
+        logger.warning(f'[tenis/{circuito}] tablón de cuotas no disponible: {e}')
+
     salida.sort(key=lambda x: (x['fecha'], x['hora']))
     _CACHE_FIXTURES[ck] = (ahora, salida)
     logger.info(f"[tenis/{circuito}] {len(salida)} próximos partidos de individuales.")
+    return salida
+
+
+def _fixtures_desde_cuotas(circuito: str, ya: List[Dict], catalogo: List[str],
+                           rankings: Optional[Dict[str, float]]) -> List[Dict]:
+    """
+    Partidos del tablón de cuotas que ESPN no trae (ver el porqué arriba).
+
+    Se devuelven en el MISMO esquema que los de ESPN para que la UI no tenga
+    que distinguirlos. Lo que no se sabe se deja vacío en vez de inventarlo:
+    sin ronda ni formato, la categoría se decide por el ranking medio de los
+    dos jugadores, que es el criterio que ya usa `categoria_de`.
+    """
+    import cuotas_multi as cm
+
+    vistos = {tuple(sorted((f['p1'], f['p2']))) for f in ya}
+    hoy = pd.Timestamp.today().normalize()
+    salida: List[Dict] = []
+    for idx in (cm._indice('tenis'), cm._indice_bov('tenis')):
+        for v in (idx or {}).values():
+            h, a = v.get('home'), v.get('away')
+            c = v.get('cuotas') or {}
+            if not (h and a) or not (c.get('home') and c.get('away')):
+                continue
+            if '/' in h or '/' in a:
+                continue                      # dobles: el modelo es individual
+            liga = (v.get('liga') or '')
+            circ = 'wta' if ('women' in liga.lower() or 'wta' in liga.lower()
+                             or '(w)' in liga.lower()) else 'atp'
+            if circ != circuito:
+                continue
+            p1, p2 = canonico(h), canonico(a)
+            if not p1 or not p2 or p1 == p2:
+                continue
+            clave = tuple(sorted((p1, p2)))
+            if clave in vistos:
+                continue
+            vistos.add(clave)
+            # las dos casas fechan distinto: Pinnacle en ISO
+            # ('2026-08-03T21:30:00Z') y Bovada en milisegundos epoch
+            # (1785781800000). Sin distinguirlos, el epoch se interpretaba como
+            # nanosegundos y todos los partidos de Bovada caían en 1970-01-01.
+            f = None
+            cruda = v.get('fecha')
+            try:
+                if isinstance(cruda, (int, float)) and cruda > 1e11:
+                    f = pd.to_datetime(int(cruda), unit='ms')
+                elif cruda:
+                    f = pd.to_datetime(cruda)
+                    if f.tzinfo:
+                        f = f.tz_convert(None)
+            except Exception:
+                f = None
+            if f is None or f.year < 2000:
+                f = hoy
+            rank_medio = None
+            if rankings:
+                rs = [rankings.get(n) for n in (p1, p2)]
+                rs = [r for r in rs if r]
+                if rs:
+                    rank_medio = float(np.mean(rs))
+            salida.append({
+                'fecha': f.strftime('%Y-%m-%d'), 'hora': f.strftime('%H:%M'),
+                'torneo': liga or 'Torneo por confirmar',
+                'categoria': categoria_de(circuito, liga, None, 'cuotas',
+                                          catalogo, False, rank_medio,
+                                          por_descarte='principal'),
+                'rank_medio': round(rank_medio, 1) if rank_medio else None,
+                'ronda': '', 'fase': 'cuadro_principal',
+                'best_of': 3,
+                'p1': p1, 'p2': p2, 'p1_largo': h, 'p2_largo': a,
+                'major': False, 'estado': 'programado',
+                'fuente': 'cuotas',
+            })
+    logger.info(f'[tenis/{circuito}] +{len(salida)} partidos del tablón de '
+                f'cuotas que ESPN no traía.')
     return salida
 
 

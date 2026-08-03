@@ -1,5 +1,35 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v94 — El tenis usaba media fuente, y ya nada se entrena a mano (ver [VALIDACION_v94.md](VALIDACION_v94.md))
+
+- **🎾 La vista de tenis mostraba 1 partido de los 41 que hay.** El calendario
+  sólo miraba ESPN, y ahí casi todos los partidos futuros son **TBD vs TBD**:
+  medido en ATP a 10 días vista, de **128** competiciones no jugadas **127**
+  eran TBD y sólo 1 tenía los dos jugadores definidos. El filtro era correcto;
+  faltaba la segunda fuente. Ahora se completa con el tablón de cuotas
+  (Pinnacle + Bovada), que trae challengers e ITF y sólo lista partidos con los
+  dos jugadores puestos — el mismo patrón que el fútbol usa desde la v71.
+  Resultado: **ATP 1 → 41 · WTA → 33**. Y un bug de paso: Bovada fecha en
+  milisegundos epoch, así que **todos sus partidos caían en 1970-01-01**.
+- **🏆 El marcador por sets ya estaba en ESPN.** Se propuso buscar una fuente
+  complementaria (TennisAbstract) para liquidar los mercados derivados; no hace
+  falta — ESPN lo publica en `linescores` y sólo faltaba leerlo. **188 de 189
+  partidos (99 %)** lo traen. El liquidador resuelve ya total de juegos y
+  marcador por sets, además del ganador.
+- **🤖 Ya nada se entrena a mano.** El workflow diario sólo reentrenaba fútbol;
+  MLB, tenis (ATP/WTA) y NBA llevaban **5-7 días** de retraso — se predecía la
+  MLB de agosto con el estado de julio. Automatizados los tres, con el mismo
+  blindaje que el fútbol (si un modelo no vuelve a cargar, se restaura el
+  anterior). **Autonomía completa**: modelos a diario + calibraciones semanales
+  (v93) + liquidación diaria (v92).
+- **❌ RECHAZADO con números: bajar el `w` de tenis y MLB.** La premisa era
+  falsa — el encogimiento **sí se aplica** (w=0,25 en ambos) y la MLB tiene su
+  peso medido (n=7.541). Medido para ATP/WTA, el óptimo sale **w=0,00** («usa
+  sólo el mercado»)… pero `W_MIN=0,25` es un **suelo de diseño** ya medido en
+  la v75, porque por debajo la app sería un espejo de Pinnacle. O sea que el
+  peso actual ya es el más bajo permitido, y bajar más daría +0,002 de log-loss
+  con ROI que no mejora (ATP −4,15 % vs −4,28 %; WTA −3,85 % vs −3,55 %).
+
 ## Novedades v93 — El modelo mejoraba a diario; sus calibraciones, nunca (ver [VALIDACION_v93.md](VALIDACION_v93.md))
 
 - **♻️ Ahora TODO se recalibra solo.** El workflow diario reentrenaba los

@@ -219,15 +219,21 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-02,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,0,2026-08-03T18:11:05Z
 2026-08-02,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,,
 2026-08-02,Tenis,WTA,Magdalena Frech vs Leolia Jeanjean,Ganador,Gana Magdalena Frech,0.629,1.6667,0.0479,capa1,,,
-2026-08-02,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.825,1.15,-0.05,capa2,,,
+2026-08-02,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.825,1.15,-0.05,capa2,,1,2026-08-03T18:46:44Z
 2026-08-03,Tenis,WTA,Alana Smith vs Yue Yuan,Ganador,Gana Yue Yuan,0.813,1.15,-0.0651,capa2,,,
+2026-08-03,Tenis,ATP,Alex Michelsen vs Jan-Lennard Struff,Ganador,Gana Alex Michelsen,0.755,1.32,-0.0051,capa2,modelo,,
+2026-08-03,Tenis,ATP,Alex Molcan vs Chun Hsin Tseng,Ganador,Gana Alex Molcan,0.773,1.29,-0.0035,capa2,modelo,,
 2026-08-03,Tenis,WTA,Aliona Falei vs Urszula Radwanska,Ganador,Gana Aliona Falei,0.794,1.06,-0.1577,capa2,,1,2026-08-03T18:08:14Z
+2026-08-03,Tenis,WTA,Aryna Sabalenka vs Moyuka Uchijima,Ganador,Gana Aryna Sabalenka,0.938,1.03,-0.0298,capa2,modelo,,
 2026-08-03,Tenis,WTA,Carol Zhao vs Magda Linette,Ganador,Gana Magda Linette,0.883,1.08,-0.0453,capa2,,,
 2026-08-03,Tenis,WTA,Elina Svitolina vs Jessica Bouzas Maneiro,Ganador,Gana Elina Svitolina,0.793,1.24,-0.0205,capa2,,,
+2026-08-03,Fútbol,Primera Nacional,Güemes vs Tristán Suárez,1X2,Empate,0.4,2.5715,0.0279,capa1,line_shopping,,
 2026-08-03,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,0,2026-08-03T18:08:14Z
 2026-08-03,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,,
 2026-08-03,Tenis,WTA,Magdalena Frech vs Leolia Jeanjean,Ganador,Gana Magdalena Frech,0.629,1.6667,0.0479,capa1,,,
-2026-08-03,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.824,1.15,-0.0539,capa2,,,
+2026-08-03,Tenis,WTA,Marta Kostyuk vs Katherine Sebov,Ganador,Gana Marta Kostyuk,0.927,1.03,-0.0469,capa2,modelo,,
+2026-08-03,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.824,1.15,-0.0539,capa2,,1,2026-08-03T18:46:44Z
+2026-08-03,Tenis,WTA,Sara Bejlek vs Iga Swiatek,Ganador,Gana Iga Swiatek,0.856,1.08,-0.0737,capa2,modelo,,
 2026-08-03,MLB,MLB,St. Louis Cardinals @ New York Yankees,Moneyline,Gana New York Yankees,0.628,1.52,-0.0457,capa2,,,
 2026-08-06,Fútbol,División Profesional,Bolívar vs Oriente Petrolero,BTTS,Ambos marcan: No,0.82,,,capa2,,,
 2026-08-06,Fútbol,División Profesional,Bolívar vs Oriente Petrolero,1X2,Gana Bolívar,0.787,,,capa2,,,

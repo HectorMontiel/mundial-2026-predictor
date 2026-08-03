@@ -1418,6 +1418,73 @@ def test_memoizacion_no_cambia_el_emparejamiento():
           'normalizar está memoizada')
 
 
+def test_tenis_dos_fuentes_y_sets():
+    """
+    v94 — dos arreglos del tenis, ambos con la misma raíz: se estaba usando
+    media fuente.
+
+    1. El CALENDARIO sólo miraba ESPN, cuyo scoreboard sirve el cuadro
+       principal y en su mayoría con emparejamientos **TBD vs TBD** (rondas sin
+       definir). Medido: de 128 competiciones ATP no jugadas a 10 días vista,
+       127 eran TBD y la vista enseñaba UN partido mientras el barrido operaba
+       decenas. Ahora se completa con el tablón de cuotas, igual que el fútbol
+       desde la v71.
+    2. El MARCADOR POR SETS se creía no disponible («habría que buscar una
+       fuente complementaria»), y ESPN ya lo publica en `linescores`. Medido:
+       188 de 189 partidos (99 %) lo traen.
+    """
+    import fixtures_espn
+    import tenis_fuentes
+
+    src = open('tenis_fuentes.py', encoding='utf-8').read()
+    check('_fixtures_desde_cuotas' in src,
+          "el calendario de tenis se completa con el tablón de cuotas")
+    check('unit=\'ms\'' in src or 'unit="ms"' in src,
+          "y entiende el epoch en milisegundos de Bovada "
+          "(si no, sus partidos caían en 1970-01-01)")
+
+    # el marcador por sets se lee y se usa para liquidar
+    fsrc = open('fixtures_espn.py', encoding='utf-8').read()
+    check('linescores' in fsrc,
+          "resultados_tenis lee el marcador set a set de ESPN")
+    check('juegos_totales' in fsrc,
+          "y calcula el total de juegos del partido")
+
+    import liquidador
+    partido = {'_ganador': 'vukic', 'sets': [0, 2], 'juegos_totales': 18}
+    check(liquidador._gano_tenis('Gana Vukic A.', partido) is True,
+          "se resuelve el ganador")
+    check(liquidador._gano_tenis('Más de 17.5 juegos', partido) is True,
+          "se resuelve el total de juegos (18 > 17,5)")
+    check(liquidador._gano_tenis('Menos de 17.5 juegos', partido) is False,
+          "y su contrario")
+    check(liquidador._gano_tenis('Resultado 2-0 en sets', partido) is True,
+          "se resuelve el marcador por sets")
+    check(liquidador._gano_tenis('Algo que no existe', partido) is None,
+          "y lo que no se sabe leer devuelve None, no se inventa")
+
+
+def test_reentrenamiento_multideporte():
+    """
+    v94 — MLB, tenis y NBA se reentrenan solos.
+
+    El workflow diario sólo hacía `league_engine --build`, que es fútbol. Los
+    otros tres motores se reentrenaban a mano y sus modelos llevaban 5-7 días
+    de retraso: el sistema predecía la MLB de agosto con el estado de julio.
+    """
+    wf = open('.github/workflows/retrain_leagues.yml', encoding='utf-8').read()
+    for mod in ('engines.mlb_engine', 'engines.tennis_engine',
+                'engines.nba_engine'):
+        check(mod in wf, f"el workflow reentrena {mod}")
+    check('atp wta' in wf,
+          "y el tenis reentrena LOS DOS circuitos")
+    # mismo blindaje que el fútbol: no se commitea un modelo que no carga
+    check('no carga tras reentrenar' in wf,
+          "con verificación de que el modelo vuelve a abrir")
+    check('git' in wf and 'checkout' in wf,
+          "y restauración del anterior si no abre")
+
+
 def test_pick_por_probabilidad_calibrada():
     """
     v93 — el Pick del Día es el MÁS PROBABLE DE ACERTAR, no el de más EV.
@@ -1716,6 +1783,9 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v94: tenis con dos fuentes y reentrenamiento multideporte ===')
+    test_tenis_dos_fuentes_y_sets()
+    test_reentrenamiento_multideporte()
     print('\n=== v93: probabilidad calibrada y recalibración automática ===')
     test_pick_por_probabilidad_calibrada()
     test_recalibracion_automatica()

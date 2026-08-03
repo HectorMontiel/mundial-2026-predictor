@@ -4,10 +4,10 @@
   "con_cdi": true,
   "familia_modelo": "blend_elo",
   "peso_ensemble": 0.4,
-  "precision_validacion": 0.6721,
+  "precision_validacion": 0.6697,
   "precision_linea_base_elo": 0.6664,
-  "log_loss_validacion": 0.6134,
+  "log_loss_validacion": 0.6128,
   "linea_total_tipica": 227.0,
   "modo": "analitico hasta temporada 2026-27 (Odds API sin NBA en julio)",
-  "fecha_entrenamiento": "2026-07-27"
+  "fecha_entrenamiento": "2026-08-03"
 }

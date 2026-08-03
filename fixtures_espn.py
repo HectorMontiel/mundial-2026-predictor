@@ -316,7 +316,7 @@ def resultados_tenis(desde: str, hasta: str) -> List[Dict]:
                         cs = c.get('competitors') or []
                         if len(cs) != 2:
                             continue      # dobles con formato raro, o walkover
-                        nombres, ganador = [], None
+                        nombres, ganador, juegos = [], None, []
                         for x in cs:
                             nom = (x.get('athlete') or {}).get('displayName')
                             if not nom:
@@ -325,16 +325,37 @@ def resultados_tenis(desde: str, hasta: str) -> List[Dict]:
                             nombres.append(nom)
                             if x.get('winner'):
                                 ganador = nom
+                            # v94 — MARCADOR POR SETS. ESPN lo publica en
+                            # `linescores` (un valor por set) y no se estaba
+                            # leyendo, así que los mercados derivados de tenis
+                            # —juegos totales, hándicap de juegos, sets— no se
+                            # podían liquidar. Se propuso buscar una fuente
+                            # complementaria; no hace falta, ya estaba aquí.
+                            juegos.append([float(l.get('value'))
+                                           for l in (x.get('linescores') or [])
+                                           if l.get('value') is not None])
                         if len(nombres) != 2 or not ganador:
                             continue
                         fecha = pd.to_datetime(c.get('date') or ev.get('date'))
                         if fecha.tzinfo:
                             fecha = fecha.tz_convert(None)
-                        salida.append({'fecha': fecha.strftime('%Y-%m-%d'),
-                                       'circuito': circuito.upper(),
-                                       'torneo': torneo,
-                                       'jugadores': nombres,
-                                       'ganador': ganador})
+                        fila = {'fecha': fecha.strftime('%Y-%m-%d'),
+                                'circuito': circuito.upper(),
+                                'torneo': torneo,
+                                'jugadores': nombres,
+                                'ganador': ganador}
+                        # sólo si los dos tienen el mismo número de sets: un
+                        # abandono deja las listas descuadradas y liquidar con
+                        # eso daría un total de juegos falso
+                        if (len(juegos) == 2 and juegos[0] and
+                                len(juegos[0]) == len(juegos[1])):
+                            fila['juegos'] = juegos
+                            fila['juegos_totales'] = int(sum(juegos[0])
+                                                         + sum(juegos[1]))
+                            fila['sets'] = [
+                                sum(1 for a, b in zip(*juegos) if a > b),
+                                sum(1 for a, b in zip(*juegos) if b > a)]
+                        salida.append(fila)
                     except (KeyError, TypeError, ValueError):
                         continue
     logger.info(f'[tenis] {len(salida)} partidos con ganador entre '
