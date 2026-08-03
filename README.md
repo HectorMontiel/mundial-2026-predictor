@@ -1,5 +1,44 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v91 — Un solo reloj, un solo día, y la app deja de mentir (ver [VALIDACION_v91.md](VALIDACION_v91.md))
+
+- **🕐 Había DOS relojes.** `fixtures_espn` pedía el rango a ESPN en hora
+  **local** y las fechas que ESPN devuelve son **UTC**. En Streamlit Cloud el
+  servidor va en UTC y coincidían, así que el fallo era invisible en
+  producción; al acotar el barrido al día apareció como «partidos evaluados:
+  0» con 12 disponibles. Unificado en `hoy_utc()`, y el test de regresión
+  —que recorre el AST buscando llamadas a `.today()`— **encontró dos más que
+  se me habían escapado**.
+- **📅 «Apuestas del Día» es el DÍA CALENDARIO**, tercer intento y el que se
+  pidió: si es 3 de agosto, sólo partidos del 3 de agosto, sea cual sea la
+  hora de consulta. (v88 fue rolling 24 h, v89 la semana entera: ambas
+  rechazadas). El barrido pasa de **227 partidos a 11** y de **102 s a 34 s**.
+  La semana completa vive ahora en la vista de cada liga, ordenada por fecha.
+- **⚡ Las secciones ya no esperan.** Máximo Valor, Máxima Confianza y
+  Combinadas no aparecían hasta hacer click: las dos secciones de combinadas
+  —que cargan motores y corren Monte Carlo— estaban **antes** de las pestañas y
+  Streamlit ejecuta de arriba abajo. Movidas al final.
+- **🎯 Máxima Confianza, por fin multi-deporte.** Los favoritos de tenis y MLB
+  (82-88 % a cuota 1,08-1,15) viven en la capa 2 —no pasan el filtro de élite
+  por la cuota corta— y la capa 2 no entraba en el universo; además la MLB
+  devolvía `capa2: []` por construcción. Medido: de **{Fútbol: 19}** a
+  **{Fútbol: 7, Tenis: 7}**, con MLB ya fluyendo.
+- **🩺 «Registro de incidencias» → «Estado del sistema», en verde.** De seis
+  avisos que parecían fallos, ninguno lo era. Ahora cada línea trae severidad
+  (✅ operativo · ℹ️ contexto · ⚠️ problema) y el filtro anti-CPBL de la v88
+  deja de reportarse: es el guardarraíl trabajando. Hoy: **3 líneas, 0
+  problemas**.
+- **🏷️ Los partidos sin modelo tienen tarjeta con cuota.** Los 22 nombres en
+  crudo eran challengers/ITF con precio real; ahora salen **45 tarjetas** con
+  su cuota y la probabilidad implícita del precio, etiquetadas «sin predicción
+  propia».
+- **🧹 Fuera el camino muerto de la API de cuotas retirada en la v88.** El
+  aviso «Sin captura de cuotas propia» salía porque el barrido seguía
+  intentando leer `odds_actuales.json`: en producción ese fichero no existe, o
+  sea que **ese bucle llevaba meses sin ejecutarse**. Retirado con sus cuatro
+  satélites huérfanos. Y el stack de Streamlit en la vista MLB (widget con
+  `index=` sobre una clave que el código ya escribe) arreglado, en MLB y NBA.
+
 ## Novedades v90 — Seis rechazos medidos, y dónde estaba el techo de verdad (ver [VALIDACION_v90.md](VALIDACION_v90.md))
 
 - **📊 El techo real de cada competición, a la vista.** El acierto del cierre

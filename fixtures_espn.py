@@ -157,7 +157,16 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA) -> List[Dict]:
     ahora = time.time()
     if ck in _CACHE and ahora - _CACHE[ck][0] < _TTL:
         return _CACHE[ck][1]
-    hoy = pd.Timestamp.today().normalize()
+    # v91 — EL RANGO SE ANCLA EN UTC, que es el reloj de ESPN.
+    #
+    # Estaba en hora local, y las fechas que ESPN devuelve (`ev['date']`) son
+    # UTC: en cuanto la máquina va por detrás de UTC —cualquier huso de
+    # América— el rango empezaba un día tarde respecto a lo que se filtraba
+    # después. Medido en esta máquina (local 2026-08-02, UTC 2026-08-03): el
+    # barrido del día pedía fixtures y luego descartaba los 12 que había,
+    # dejando «partidos evaluados: 0». En Streamlit Cloud el servidor va en
+    # UTC y por eso allí nunca se vio.
+    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     fixtures: List[Dict] = []

@@ -484,38 +484,53 @@ def test_sin_the_odds_api():
 
 def test_ventana_24h():
     """
-    v88: «Apuestas del Día» se acota a las próximas 24 h desde la consulta.
+    v91: «Apuestas del Día» es el DÍA CALENDARIO — si es 1 de agosto, solo
+    partidos del 1 de agosto, sin importar la hora de la consulta.
 
-    A 24 horas vista las casas ya han abierto línea prácticamente en todo, así
-    que los picks salen con cuota real. Con el horizonte de 72 h entraban
-    partidos de pasado mañana que todavía no cotizaban.
+    Sustituye el contrato de la v88 (rolling 24 h): a las 20:00 aquella
+    ventana ya metía los partidos de mañana por la mañana, y la de la v89
+    (semana entera etiquetada) mezclaba picks del sábado con los de hoy. El
+    usuario rechazó ambas expresamente.
     """
     import pandas as pd
     import alpha_finder as af
 
-    check(af.VENTANA_APUESTAS_H == 24,
-          f"la ventana es de 24 h ({af.VENTANA_APUESTAS_H})")
+    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
 
-    ahora = pd.Timestamp.now('UTC').tz_localize(None)
+    def fx(dias):
+        return {'fecha': str((hoy + pd.Timedelta(days=dias)).date())}
 
-    def fx(horas):
-        return {'inicio': str(ahora + pd.Timedelta(hours=horas)),
-                'fecha': str((ahora + pd.Timedelta(hours=horas)).date())}
+    check(af._es_del_dia(fx(0)), "un partido de HOY entra, a cualquier hora")
+    check(not af._es_del_dia(fx(1)), "uno de MAÑANA no entra")
+    check(not af._es_del_dia(fx(-1)), "uno de AYER no entra")
+    check(not af._es_del_dia(fx(3)), "uno del fin de semana no entra")
+    check(not af._es_del_dia({'fecha': 'no-es-fecha'}),
+          "una fecha ilegible no revienta: simplemente no entra")
 
-    check(af._dentro_de_la_ventana(fx(1)), "un partido en 1 h entra")
-    check(af._dentro_de_la_ventana(fx(23)), "uno en 23 h entra")
-    check(not af._dentro_de_la_ventana(fx(30)), "uno en 30 h NO entra")
-    check(not af._dentro_de_la_ventana(fx(70)), "uno en 70 h NO entra")
-    check(af._dentro_de_la_ventana(fx(-1)),
-          "uno que empezó hace 1 h sigue entrando (apostable en vivo)")
-    check(not af._dentro_de_la_ventana(fx(-10)),
-          "uno de hace 10 h ya no")
-
-    # y ESPN debe entregar la hora
-    import fixtures_espn
-    src = open('fixtures_espn.py', encoding='utf-8').read()
-    check("'inicio':" in src,
-          "fixtures_espn conserva la hora de inicio (antes la truncaba a día)")
+    # el camino de The Odds API está retirado del barrido (v91)
+    src = open('alpha_finder.py', encoding='utf-8').read()
+    check("odds_actuales.json'" not in src.replace(
+        "SE RETIRA EL CAMINO DE `odds_actuales.json`", ''),
+          "alpha_finder ya no lee odds_actuales.json")
+    # Se comprueba sobre las CADENAS QUE VE EL USUARIO, no sobre comentarios
+    # ni docstrings — que sí nombran lo retirado, y deben hacerlo, para
+    # explicar por qué ya no está. Se recorre el árbol y se ignoran los
+    # literales que son documentación.
+    import ast
+    _arbol = ast.parse(src)
+    _docs = set()
+    for _n in ast.walk(_arbol):
+        if isinstance(_n, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
+                           ast.ClassDef)):
+            _d = ast.get_docstring(_n, clean=False)
+            if _d:
+                _docs.add(_d)
+    _vivas = [_n.value for _n in ast.walk(_arbol)
+              if isinstance(_n, ast.Constant) and isinstance(_n.value, str)
+              and 'Odds API' in _n.value and _n.value not in _docs]
+    check(not _vivas,
+          f"ninguna cadena viva de alpha_finder menciona The Odds API "
+          f"({[v[:60] for v in _vivas[:1]]})")
 
 
 def test_telegram_no_rehace_el_barrido():
@@ -667,7 +682,9 @@ def test_ficha_anclada_al_mercado():
 
     # los picks siguen sin pasar por aquí
     af = open('alpha_finder.py', encoding='utf-8').read()
-    check(af.count('prior_elo=False') >= 2,
+    # v91: un solo barrido de fútbol (el de `odds_actuales.json` se retiró),
+    # así que la comprobación pasa de «>=2 sitios» a «el que hay».
+    check(af.count('prior_elo=False') >= 1,
           "alpha_finder sigue desactivando la corrección de la ficha")
 
     # el interruptor viejo sigue funcionando
@@ -815,8 +832,9 @@ def test_prior_elo_solo_en_la_ficha():
 
     # y los picks NO pasan por aquí
     af = open('alpha_finder.py', encoding='utf-8').read()
-    check(af.count('prior_elo=False') >= 2,
-          "alpha_finder desactiva el prior en los dos barridos de fútbol")
+    # v91: ver arriba — queda un único barrido de fútbol.
+    check(af.count('prior_elo=False') >= 1,
+          "alpha_finder desactiva el prior en el barrido de fútbol")
 
 
 def test_calibracion_confianza():
@@ -1400,6 +1418,45 @@ def test_memoizacion_no_cambia_el_emparejamiento():
           'normalizar está memoizada')
 
 
+def test_un_solo_reloj():
+    """
+    v91 — TODO el barrido usa el MISMO reloj (UTC).
+
+    Convivían `pd.Timestamp.today()` (local) y `utcnow()` según el punto del
+    código, y las fechas de los fixtures vienen de ESPN en UTC. En Streamlit
+    Cloud el servidor va en UTC y coincidían, así que la mezcla era invisible;
+    en cualquier máquina de América el barrido pedía los fixtures del día y
+    después los descartaba todos por un desfase de 24 h — «partidos evaluados:
+    0» con 12 partidos disponibles. Este test fija el contrato.
+    """
+    import pandas as pd
+    import alpha_finder as af
+
+    hoy = af.hoy_utc()
+    check(hoy == pd.Timestamp.utcnow().tz_localize(None).normalize(),
+          "hoy_utc() es la medianoche UTC de hoy")
+    check(hoy.hour == 0 and hoy.tzinfo is None,
+          "normalizado y sin zona (comparable con las fechas de los fixtures)")
+
+    # Ningún punto del barrido puede volver a LLAMAR al reloj local. Se busca
+    # la llamada en el árbol, no la cadena en el texto: los comentarios y
+    # docstrings nombran `Timestamp.today()` justamente para explicar por qué
+    # ya no se usa.
+    import ast
+    src = open('alpha_finder.py', encoding='utf-8').read()
+    llamadas = [n for n in ast.walk(ast.parse(src))
+                if isinstance(n, ast.Call)
+                and isinstance(n.func, ast.Attribute)
+                and n.func.attr == 'today']
+    check(not llamadas,
+          f"alpha_finder no llama al reloj local en ningún sitio "
+          f"({len(llamadas)} llamadas a .today())")
+
+    fsrc = open('fixtures_espn.py', encoding='utf-8').read()
+    check('utcnow' in fsrc.split('def fixtures_liga')[1][:1500],
+          "fixtures_liga ancla su rango de fechas en UTC (el reloj de ESPN)")
+
+
 def test_totales_conservan_su_casa():
     """
     v90 — los totales tienen que llegar con la casa que puso cada precio.
@@ -1533,6 +1590,8 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v91: un solo reloj ===')
+    test_un_solo_reloj()
     print('\n=== v90: totales por casa y techo por liga ===')
     test_totales_conservan_su_casa()
     test_techo_por_liga_estable()

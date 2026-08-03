@@ -496,6 +496,7 @@ class MLBEngine(BaseSportsEngine):
                     'incidencias': [f'MLB: capa de cuotas no disponible ({e}).']}
 
         incidencias = []
+        confianza = []          # v91: alta prob sin filtros de élite
         try:
             cm.precargar('mlb')
         except Exception as e:
@@ -532,11 +533,12 @@ class MLBEngine(BaseSportsEngine):
                 clave = (codigo_mlb(v['home']), codigo_mlb(v['away']))
                 universo.setdefault(clave, v)
         if fuera_mlb:
-            incidencias.append(
-                f'MLB: {fuera_mlb} entradas del tablón de béisbol NO son de la '
-                f'MLB (Liga Mexicana, Japón, Corea, Taiwán, Triple-A) y se '
-                f'descartan. El modelo y la vía de valor sólo están validados '
-                f'sobre MLB.')
+            # v91: filtrar las ligas ajenas (LMB/NPB/KBO/CPBL/AAA) es la
+            # OPERACIÓN NORMAL del guardarraíl de la v88, no una incidencia —
+            # mostrarlo como aviso hacía parecer un fallo lo que es el sistema
+            # funcionando. Queda en el log para auditoría.
+            logger.info(f'[mlb] {fuera_mlb} entradas del tablón no-MLB '
+                        f'filtradas (LMB/NPB/KBO/CPBL/AAA) — normal.')
 
         # v79 — ABRIDORES PROBABLES. El modelo se entrena con las carreras que
         # concede cada abridor en sus últimas 5 salidas, pero aquí se le
@@ -588,6 +590,37 @@ class MLBEngine(BaseSportsEngine):
                 cuota = float(info['cuota'])
                 ev_val = self.calcular_ev(prob, cuota)
                 if not (prob > min_prob and ev_val > min_ev and cuota > min_cuota):
+                    # v91 — LO QUE NO PASA LOS FILTROS DE ÉLITE NO SE TIRA.
+                    #
+                    # La MLB no aparecía JAMÁS en «Máxima Confianza» aunque
+                    # evaluara 8 partidos al día: `apuestas_dia` sólo devolvía
+                    # lo que superaba prob+EV+cuota y `capa2` iba vacía por
+                    # construcción. Un favorito de MLB al 68 % con cuota real
+                    # es exactamente el material de esa pestaña (acertar por
+                    # encima de cobrar caro, v77) y se estaba descartando.
+                    #
+                    # Se guarda aparte, con su EV real —negativo si lo es— para
+                    # que la pestaña pueda marcarlo. No entra en Capa 1: los
+                    # filtros de élite siguen mandando ahí.
+                    if prob >= 0.60 and cuota > 1.0:
+                        confianza.append({
+                            'deporte': 'MLB', 'liga': 'MLB',
+                            'clave_liga': 'mlb',
+                            'partido': f"{CODIGO_A_NOMBRE.get(ac, v['away'])} @ "
+                                       f"{CODIGO_A_NOMBRE.get(hc, v['home'])}",
+                            'fecha': (str(pd.to_datetime(v.get('fecha')).date())
+                                      if v.get('fecha')
+                                      else str(pd.Timestamp.utcnow().date())),
+                            'mercado': 'Moneyline',
+                            'apuesta': f"Gana {v['home'] if lado == 'home' else v['away']}",
+                            'prob': round(prob, 3), 'cuota': round(cuota, 2),
+                            'cuota_justa': round(1 / max(prob, 1e-6), 2),
+                            'ev': ev_val, 'casa': info.get('casa'),
+                            'valor': '🎯',
+                            'motivo_capa2': (
+                                f'cuota {cuota:.2f} por debajo del mínimo '
+                                f'{min_cuota:.2f}' if cuota <= min_cuota else
+                                f'EV {ev_val:+.1%} por debajo del mínimo')})
                     continue
                 otro = 'away' if lado == 'home' else 'home'
                 nombre = v['home'] if lado == 'home' else v['away']
@@ -650,17 +683,19 @@ class MLBEngine(BaseSportsEngine):
                     f'reconocen ni como MLB ni como Liga Mexicana. Si son '
                     f'recurrentes, hay una liga que falta por mapear.')
         if not universo:
-            incidencias.append('MLB: ninguna casa publica partidos ahora mismo '
+            incidencias.append('ℹ️ MLB: ninguna casa publica partidos ahora mismo '
                                '(fuera de temporada o sin jornada).')
 
         if evaluados and con_abridor < evaluados:
             incidencias.append(
-                f'MLB: {evaluados - con_abridor} de {evaluados} partidos sin '
+                f'ℹ️ MLB: {evaluados - con_abridor} de {evaluados} partidos sin '
                 f'abridor anunciado todavía; esos se predicen con el lanzador '
                 f'neutro y su probabilidad es menos fiable.')
 
         picks.sort(key=lambda p: (-int(p.get('sharp_confirmado', False)), -p['ev']))
+        confianza.sort(key=lambda p: -p['prob'])
         return {'picks': picks, 'eventos': len(universo),
+                'confianza': confianza,          # v91
                 'evaluados': evaluados, 'con_abridor': con_abridor,
                 'incidencias': incidencias,
                 'aviso': None if picks else

@@ -153,20 +153,22 @@ def incidencias() -> List[str]:
             d = json.load(f)
     except Exception:
         return []
+    # v91: con severidad. Que Playdoit no cotice una liga chica NO es un fallo
+    # del sistema (Pinnacle/Bovada la cubren): es información, y así se marca.
     out = []
     for dep, v in (d.get('altas') or {}).items():
         if v:
-            out.append(f'Playdoit ({dep}): {len(v)} competiciones nuevas — '
+            out.append(f'ℹ️ Playdoit ({dep}): {len(v)} competiciones nuevas — '
                        f'{", ".join(v[:5])}{"…" if len(v) > 5 else ""}')
     for dep, v in (d.get('bajas') or {}).items():
         if v:
-            out.append(f'Playdoit ({dep}): {len(v)} competiciones ya no cotizan — '
-                       f'{", ".join(v[:5])}{"…" if len(v) > 5 else ""}')
+            out.append(f'ℹ️ Playdoit ({dep}): {len(v)} competiciones ya no '
+                       f'cotizan — {", ".join(v[:5])}{"…" if len(v) > 5 else ""}')
     sin = d.get('ligas_sin_precio') or []
     if sin:
-        out.append(f'Playdoit no cotiza hoy {len(sin)} ligas activas: '
-                   f'{"; ".join(sin[:4])}{"…" if len(sin) > 4 else ""}. '
-                   f'Sus picks solo tendrán precio en Pinnacle/Bovada.')
+        out.append(f'ℹ️ Playdoit no cotiza hoy {len(sin)} ligas activas '
+                   f'({"; ".join(sin[:4])}{"…" if len(sin) > 4 else ""}); sus '
+                   f'picks llevan precio de Pinnacle/Bovada — cubierto.')
     return out
 
 

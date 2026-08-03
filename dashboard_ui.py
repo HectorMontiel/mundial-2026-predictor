@@ -316,21 +316,34 @@ def _render_combinadas(r) -> None:
 
 def _render_incidencias(r) -> None:
     """
-    Registro de incidencias del barrido.
+    v91 — «Estado del sistema», ya no «registro de incidencias».
 
-    Existe porque la MLB llevaba semanas fuera de la app —The Odds API sin
-    cuota— y el aviso moría dentro del motor sin llegar a ninguna pantalla.
-    Un fallo que no se ve es un fallo que no se arregla.
+    El registro mezclaba fallos reales con operación normal (el filtro
+    anti-CPBL trabajando, Playdoit sin cotizar una liga chica cubierta por
+    Pinnacle…) y el usuario veía seis avisos donde todo funcionaba. Ahora
+    cada línea trae severidad desde su origen — ✅ operativo · ℹ️ contexto ·
+    ⚠️ problema real — y el titular resume: verde si no hay ⚠️.
     """
     inc = r.get('incidencias') or []
-    with st.expander(f"🔍 Registro de incidencias ({len(inc)})"):
+    problemas = [i for i in inc if str(i).startswith('⚠️')]
+    ok = [i for i in inc if str(i).startswith('✅')]
+    info = [i for i in inc if i not in problemas and i not in ok]
+    titulo = (f"🩺 Estado del sistema — ⚠️ {len(problemas)} problema"
+              f"{'s' if len(problemas) != 1 else ''}" if problemas else
+              "🩺 Estado del sistema — ✅ todo operativo")
+    with st.expander(titulo, expanded=bool(problemas)):
         if not inc:
-            st.success("Sin incidencias en el barrido de hoy.")
+            st.success("✅ Barrido completado sin nada que reportar.")
             return
-        for i in inc:
+        for i in problemas:
+            st.error(i)
+        for i in ok:
+            st.success(i)
+        for i in info:
             st.markdown(f"- {i}")
-        st.caption("Si algo que esperabas no aparece, la explicación suele "
-                   "estar aquí. Cópialo tal cual para reportarlo.")
+        if not problemas:
+            st.caption("Las líneas ℹ️ son contexto de operación normal, no "
+                       "fallos.")
 
 
 # ===========================================================================
@@ -812,28 +825,22 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
         st.caption(f"📅 Sin partidos programados de {etiqueta} en las próximas "
                    "48 h (fuera de temporada o sin datos).")
         return
-    # v72: mismo criterio que en fútbol — solo lo que ya tiene cuota, y si no
-    # hay nada, cuándo volver.
+    # v91 — misma política que en las ligas de fútbol: se enseña la SEMANA
+    # completa ordenada por fecha (el más próximo primero) y lo que aún no
+    # cotiza se marca «· sin cuota aún» en vez de esconderse.
+    _con = set()
     try:
         import fixtures_espn as _fe
         _sel = _fe.con_cuota(fx)
-        if not _sel['apostables'] and _sel.get('volver_el'):
-            _d = _sel['dias_para_volver']
-            st.info(
-                f"📅 **Ninguna casa ha abierto línea todavía en {etiqueta}.** "
-                f"El próximo partido es el **{_sel['proximo']}**; las casas "
-                f"publican 2-4 días antes, así que vuelve el "
-                f"**{_sel['volver_el']}**"
-                + (f" (en {_d} día{'s' if _d != 1 else ''})" if _d else "")
-                + f". Hay {len(_sel['sin_cuota'])} partidos esperando precio.")
-            return
-        if _sel['apostables']:
-            if _sel['sin_cuota']:
-                st.caption(f"ℹ️ {len(_sel['apostables'])} partidos con cuota "
-                           f"abierta · {len(_sel['sin_cuota'])} aún sin precio.")
-            fx = _sel['apostables']
+        _con = {id(f) for f in (_sel['apostables'] or [])}
+        if _sel['sin_cuota']:
+            st.caption(f"ℹ️ {len(_sel['apostables'])} partidos con cuota "
+                       f"abierta · {len(_sel['sin_cuota'])} aún sin precio "
+                       f"(las casas publican 2-4 días antes).")
     except Exception:
         pass
+    fx = sorted(fx, key=lambda f: (str(f.get('fecha', '')),
+                                   str(f.get('inicio', ''))))
     cat = list(catalogo)
     ops = {}
     for f in fx:
@@ -847,7 +854,10 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
         except Exception:
             continue
         if h in cat and a in cat and h != a:
-            ops[f"{f['fecha']} · {f['away']} @ {f['home']}"] = (h, a)
+            _etq = f"{f['fecha']} · {f['away']} @ {f['home']}"
+            if _con and id(f) not in _con:
+                _etq += "  · sin cuota aún"
+            ops[_etq] = (h, a)
     if not ops:
         st.caption(f"📅 {len(fx)} partidos de {etiqueta} encontrados, pero sus "
                    "equipos no coinciden con los del modelo.")
@@ -1384,31 +1394,29 @@ def render_liga_club(clave: str, nombre_liga: str):
     except Exception:
         _fx = []
     if _fx:
-        # v72: solo los partidos que YA tienen cuota. Enseñar la jornada
-        # entera cuando la mitad no tiene precio invita a apostar a ciegas.
+        # v91 — LA SEMANA COMPLETA, ORDENADA POR FECHA (el más próximo
+        # primero). La v72 escondía los partidos sin cuota; el usuario pidió
+        # ver la jornada entera en la vista de la liga, así que ahora entran
+        # todos y los que aún no cotizan se marcan «· sin cuota aún» en vez de
+        # desaparecer — visibilidad sin invitar a apostar a ciegas.
         _sel = fixtures_espn.con_cuota(_fx)
-        _fx_mostrar = _sel['apostables'] or []
-        if not _fx_mostrar and _sel.get('volver_el'):
-            _d = _sel['dias_para_volver']
-            st.info(
-                f"📅 **Ninguna casa ha abierto línea todavía en {nombre_liga}.** "
-                f"El próximo partido es el **{_sel['proximo']}** y las casas "
-                f"suelen publicar 2-4 días antes: vuelve el "
-                f"**{_sel['volver_el']}**"
-                + (f" (en {_d} día{'s' if _d != 1 else ''})" if _d else "")
-                + f". Hay {len(_sel['sin_cuota'])} partidos programados "
-                  f"esperando precio.")
-        elif _sel['sin_cuota']:
-            st.caption(f"ℹ️ Se muestran los **{len(_fx_mostrar)} partidos con "
-                       f"cuota abierta**; otros {len(_sel['sin_cuota'])} de la "
-                       f"jornada aún no tienen precio en ninguna casa.")
+        _con = {id(f) for f in (_sel['apostables'] or [])}
+        _fx_mostrar = sorted(_fx, key=lambda f: (str(f.get('fecha', '')),
+                                                 str(f.get('inicio', ''))))
+        if _sel['sin_cuota']:
+            st.caption(f"ℹ️ {len(_sel['apostables'])} partidos con cuota "
+                       f"abierta · {len(_sel['sin_cuota'])} de la semana aún "
+                       f"sin precio (las casas publican 2-4 días antes).")
         _cat = list(motor.equipos)
         _ops = {}
         for f in _fx_mostrar:
             h = _nm.mapear(f['home'], _cat, contexto=f'ui→{clave}')
             a = _nm.mapear(f['away'], _cat, contexto=f'ui→{clave}')
             if h and a and h != a:
-                _ops[f"{f['fecha']} · {h} vs {a}"] = (h, a)
+                _etq = f"{f['fecha']} · {h} vs {a}"
+                if id(f) not in _con:
+                    _etq += "  · sin cuota aún"
+                _ops[_etq] = (h, a)
         if _ops:
             # v71: sin botón. Elegir el partido rellena los equipos y dispara
             # el análisis; el paso manual sobraba.
@@ -1668,12 +1676,13 @@ BANKROLL = st.sidebar.number_input(
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     st.header("💎 Apuestas del Día")
-    st.caption("Barrido UNIVERSAL de la SEMANA (v89): TODAS las ligas con "
-               "jornada en los próximos 7 días (fixtures ESPN) + ⚾ MLB, 🏀 NBA "
-               "y 🎾 tenis ATP/WTA, con cuota y EV automáticos. Los partidos de "
-               "**HOY** van primero y el resto se agrupa por día. **Capa 1** = "
-               "cuota real con EV; **Capa 2** = alta confianza sin cuota en "
-               "vivo; **Pronósticos** = cobertura completa de la semana.")
+    st.caption("SOLO los partidos de **HOY** (v91): todas las ligas con "
+               "jornada este día (ESPN + Pinnacle + Bovada + Playdoit) + "
+               "⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA, con cuota y EV automáticos. "
+               "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza "
+               "sin cuota en vivo; **Pronósticos** = todos los partidos de "
+               "hoy. La semana completa vive en la vista de cada liga "
+               "(«Próximos partidos»).")
     # v47/v49: acciones SIEMPRE visibles arriba — refrescar y enviar a Telegram
     # (el botón de Telegram estaba escondido en un expander; ahora es fijo).
     cacc1, cacc2 = st.columns(2)
@@ -1783,17 +1792,23 @@ def render_alpha_finder():
                 "EV entre +2 % y +15 % y fiabilidad histórica suficiente. "
                 "Forzarlo sería el error clásico.")
 
-    # v53: COMBINADA DEL DÍA (un solo partido) — la app propone automáticamente
-    # la combinada más SEGURA de mercados del MISMO partido para el mejor pick
-    # de fútbol del día. Es "la mejor selección propuesta" surfaceada en
-    # Apuestas del Día (el usuario la pidió aquí, no solo por partido).
-    cand_combo = pdd if (pdd and pdd.get('deporte', 'Fútbol') == 'Fútbol') else None
-    if not cand_combo:
-        for _p in (r.get('capa1') or []):
-            if _p.get('deporte', 'Fútbol') == 'Fútbol':
-                cand_combo = _p
-                break
-    if cand_combo:
+    # v91 — LAS COMBINADAS SE MUEVEN AL FINAL DE LA PÁGINA.
+    #
+    # Estaban AQUÍ, antes de las pestañas, y las dos cargan motores de liga y
+    # corren Monte Carlo: Streamlit ejecuta el script de arriba abajo, así que
+    # Máximo Valor, Máxima Confianza y todo lo demás no aparecía hasta que las
+    # combinadas terminaban (minutos en frío). El usuario lo veía como «la
+    # página no abre hasta que clickeo» — el click forzaba un rerun con los
+    # cachés ya calientes. Ver el final de esta función.
+    def _render_combinada_segura(pdd):
+        cand_combo = pdd if (pdd and pdd.get('deporte', 'Fútbol') == 'Fútbol') else None
+        if not cand_combo:
+            for _p in (r.get('capa1') or []):
+                if _p.get('deporte', 'Fútbol') == 'Fútbol':
+                    cand_combo = _p
+                    break
+        if not cand_combo:
+            return
         # v82 — se usa la CLAVE que trae el pick. Invertir el mapa de nombres
         # elegía la liga equivocada cuando dos comparten nombre: «Primera
         # División» son Argentina, Uruguay Y El Salvador, y el inverso se
@@ -1829,11 +1844,12 @@ def render_alpha_finder():
                 except Exception as e:
                     st.caption(f"Combinada no disponible ahora ({type(e).__name__}).")
 
-    # v58: COMBINADAS DEL DÍA — varias, de distintos partidos y perfiles. Se
-    # arman sobre los mejores partidos del día (Capa 1 y pronósticos) para que
-    # el usuario tenga una selección amplia y no solo la "súper segura".
-    st.divider()
-    with st.expander("🎲 Combinadas del Día — varias opciones con cuota", expanded=False):
+    # v58: COMBINADAS DEL DÍA — varias, de distintos partidos y perfiles.
+    # v91: también diferidas al final de la página (ver el comentario de
+    # arriba: cargan motores y bloqueaban el render de las pestañas).
+    def _render_combinadas_dia():
+      with st.expander("🎲 Combinadas del Día — varias opciones con cuota",
+                       expanded=False):
         st.caption("Combinadas de UN SOLO partido (más controlables que las "
                    "multi-partido), de los mejores encuentros del día. Escalera "
                    "de la más segura a la de más cuota.")
@@ -2133,11 +2149,11 @@ def render_alpha_finder():
         pronos = r.get('pronosticos') or []
         if pronos:
             st.divider()
-            st.subheader(f"📋 Todos los pronósticos de la semana ({len(pronos)})")
-            st.caption("Cobertura completa de los próximos 7 días: el 1X2 del "
-                       "modelo para cada partido programado, con cuota justa "
-                       "(1/probabilidad). Informativo — solo la Capa 1 lleva EV "
-                       "validado.")
+            st.subheader(f"📋 Todos los pronósticos del día ({len(pronos)})")
+            st.caption("Cobertura completa de HOY: el 1X2 del modelo para "
+                       "cada partido programado, con cuota justa "
+                       "(1/probabilidad). Informativo — solo la Capa 1 lleva "
+                       "EV validado.")
             import pandas as _pd
             def _pct(v):
                 return f"{v*100:.0f}%" if isinstance(v, (int, float)) else '—'
@@ -2357,12 +2373,30 @@ def render_alpha_finder():
                 else:
                     st.info(inf.get('aviso', 'Sin datos.'))
 
-        if r.get('no_enlazados'):
-            with st.expander(f"ℹ️ {len(r['no_enlazados'])} partidos no evaluados "
-                             "(nombre no enlazado con el modelo)"):
-                st.caption("No se descartan en silencio: el nombre de la casa no "
-                           "cruzó con el catálogo del modelo (jugador nuevo o "
-                           "grafía distinta).")
+        # v91 — LOS PARTIDOS SIN MODELO YA TIENEN TARJETA CON CUOTA.
+        #
+        # Antes esto era una lista de 22 nombres en crudo («Duncan Chan vs
+        # Thiago Agustin Tirante», …) que no servía para nada: son partidos de
+        # challenger/ITF con precio real en las casas cuyos jugadores no están
+        # en el catálogo del modelo. Ahora cada uno sale con su cuota y la
+        # probabilidad implícita del precio, y la etiqueta dice que ahí no hay
+        # predicción propia.
+        _sm = r.get('sin_modelo') or []
+        if _sm:
+            st.divider()
+            st.subheader(f"🏷️ Con cuota, sin modelo propio ({len(_sm)})")
+            st.info("Partidos con precio real de las casas cuyos jugadores no "
+                    "están en el catálogo del modelo (típico en challengers e "
+                    "ITF). La probabilidad que se muestra es **la implícita "
+                    "del precio**, no una predicción nuestra: sirve para "
+                    "ver el mercado, no lleva EV ni entra en ninguna capa.")
+            _tarjetas(_sm, "", agrupar_dia=False)
+        elif r.get('no_enlazados'):
+            with st.expander(f"ℹ️ {len(r['no_enlazados'])} partidos sin modelo "
+                             "propio y sin cuota utilizable"):
+                st.caption("No se descartan en silencio: ni el nombre cruzó "
+                           "con el catálogo ni hay precio con el que armar "
+                           "una tarjeta.")
                 st.write(r['no_enlazados'])
 
         # v32 (§3): EV extremo segregado, oculto por defecto
@@ -2508,6 +2542,14 @@ def render_alpha_finder():
                        "usa ¼ Kelly con tope del 5 % y nunca all-in. "
                        + AVISO_JUEGO_RESPONSABLE)
 
+    # v91 — LAS COMBINADAS, AL FINAL. Cargan motores de liga y corren Monte
+    # Carlo; cuando vivían antes de las pestañas, todo lo importante (Máximo
+    # Valor, Máxima Confianza) esperaba a que terminaran. Aquí abajo cuestan
+    # lo mismo pero ya no retrasan nada.
+    st.divider()
+    _render_combinada_segura(pdd)
+    _render_combinadas_dia()
+
 
 # v88 — SE RETIRA LA ACTUALIZACIÓN VÍA THE ODDS API.
 #
@@ -2570,11 +2612,18 @@ def render_mlb():
         from engines.mlb_engine import codigo_mlb as _cod_mlb
         selector_proximos('mlb', eng.equipos, 'mlb_h', 'mlb_a', 'MLB',
                           mapear=_cod_mlb)
+        # v91 — el default se siembra en session_state ANTES de crear el
+        # widget, nunca con `index=`. `selector_proximos` escribe estas claves
+        # vía Session State API, y un widget creado con default + clave ya
+        # escrita dispara el aviso de Streamlit que en producción salía como
+        # un stack de 30 líneas en el arranque (policies.check_session_state_rules).
+        if 'mlb_a' not in st.session_state and len(eng.equipos) > 1:
+            st.session_state['mlb_a'] = eng.equipos[1]
         c1, c2 = st.columns(2)
         home = c1.selectbox("🏠 Local", eng.equipos,
                             format_func=lambda c: nombres.get(c, c), key='mlb_h')
         away = c2.selectbox("✈️ Visitante", eng.equipos,
-                            index=1, format_func=lambda c: nombres.get(c, c),
+                            format_func=lambda c: nombres.get(c, c),
                             key='mlb_a')
         if home == away:
             st.warning("Elige equipos distintos.")
@@ -2643,9 +2692,13 @@ def render_nba():
                f"(ELO {md.get('precision_linea_base_elo')*100:.1f} %) · "
                f"incluye el CDI (desincronización circadiana). {md.get('modo')}")
     selector_proximos('nba', eng.equipos, 'nba_h', 'nba_a', 'NBA')  # v59
+    # v91: mismo arreglo que en MLB — default sembrado, sin `index=` (evita el
+    # aviso de Streamlit por widget con default + clave escrita por código)
+    if 'nba_a' not in st.session_state and len(eng.equipos) > 1:
+        st.session_state['nba_a'] = eng.equipos[1]
     c1, c2 = st.columns(2)
     home = c1.selectbox("🏠 Local", eng.equipos, key='nba_h')
-    away = c2.selectbox("✈️ Visitante", eng.equipos, index=1, key='nba_a')
+    away = c2.selectbox("✈️ Visitante", eng.equipos, key='nba_a')
     if home != away:
         pl = eng.plantilla(home, away)
         pr = pl['prediccion']

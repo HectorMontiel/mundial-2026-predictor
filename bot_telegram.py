@@ -117,11 +117,10 @@ def construir_mensaje(resultado: Optional[dict] = None) -> str:
         import data_health
         hay_picks = bool((r.get('capa1') or []) or (r.get('capa2') or []))
         alarma = data_health.linea_alarma_telegram()
+        # v91: `sin_captura_odds` murió con el camino de The Odds API — la
+        # única distinción que queda es la real: hay picks o no los hay.
         if alarma and not hay_picks:
             lineas.insert(0, alarma.strip())
-        elif alarma and r.get('sin_captura_odds'):
-            lineas.insert(0, 'ℹ️ Sin captura propia de cuotas: los partidos y '
-                             'las cuotas de hoy vienen de ESPN.')
     except Exception as e:
         logger.warning(f"data_health no disponible: {e}")
 

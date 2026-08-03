@@ -203,79 +203,50 @@ SHARP_GAP_MIN = 0.05
 # de forma robusta (p5 bootstrap negativo) → fuera de Capa 1. Solo 1X2 por
 # ahora; se ampliará a otros mercados a medida que superen el bootstrap p5.
 MERCADOS_VALIDADOS_CAPA1 = {'1X2'}
-# v34 (prioridad: cobertura): 72 h en vez de 48. Las casas ya publican
-# cuotas con 3 días de antelación y el barrido pasaba de 178 partidos con
-# cuotas a solo 23 evaluados por el recorte temporal.
-HORIZONTE_HORAS = 72
-
-# v88 — VENTANA DE «HOY»: las próximas 24 horas, contadas desde el momento en
-# que se consulta (contra la HORA DE INICIO `inicio` UTC que publica ESPN).
+# v91 — «APUESTAS DEL DÍA» ES EL DÍA CALENDARIO, y punto.
 #
-# v89 — LA VENTANA YA NO FILTRA: ETIQUETA. En la v88 `_dentro_de_la_ventana`
-# descartaba los fixtures ANTES de evaluarlos, y eso tuvo dos consecuencias
-# medidas el 2026-08-02:
+# La historia de esta ventana en tres actos, todos pedidos por el usuario y
+# cada uno corrigiendo al anterior:
+#   · v88: «las próximas 24 h desde la consulta» (rolling). Funcionaba, pero
+#     a las 20:00 metía ya los partidos de mañana por la mañana.
+#   · v89: la ventana pasó a etiqueta y el barrido evaluó la SEMANA entera.
+#     Resultado: la pestaña mezclaba picks del sábado con los de hoy, y el
+#     usuario lo rechazó expresamente.
+#   · v91: «si es 1 de agosto, solo apuestas del 1 de agosto, sin importar la
+#     hora en que se consulte». Día calendario sobre la fecha que muestra la
+#     app. La SEMANA vive en las vistas por liga/deporte (próximos partidos),
+#     que es donde el usuario dijo que la quiere.
 #
-#     · 44 de 56 ligas salían como «SIN partidos evaluados» aunque 32 de 55
-#       tenían jornada esa semana (302 fixtures, 235 con cuota ya abierta).
-#     · El barrido evaluaba 25 partidos donde la semana traía 302.
-#
-# El usuario pidió las dos cosas a la vez y son compatibles: los partidos DEL
-# DÍA destacados arriba (esta ventana), y la selección de TODA la semana
-# debajo, agrupada por día. Así que la ventana pasa a marcar `es_hoy` en cada
-# pick y el barrido evalúa la semana completa (`fixtures_espn.DIAS_SEMANA`).
-VENTANA_APUESTAS_H = int(os.environ.get('VENTANA_APUESTAS_H', '24'))
+# Consecuencia buena: el barrido vuelve a evaluar ~25-40 partidos en vez de
+# ~300, así que el arranque en frío baja de minutos a decenas de segundos.
 
 
-def _dentro_de_la_ventana(fx: dict, horas: int = None) -> bool:
-    """¿Empieza este partido dentro de la ventana de Apuestas del Día?"""
-    horas = VENTANA_APUESTAS_H if horas is None else horas
-    ahora = pd.Timestamp.utcnow().tz_localize(None)
-    ini = fx.get('inicio')
-    if ini:
-        try:
-            t = pd.Timestamp(ini)
-            if t.tzinfo is not None:
-                t = t.tz_convert(None)
-            # margen de 3 h hacia atrás: un partido que acaba de empezar sigue
-            # siendo apostable en vivo y no debe desaparecer de golpe
-            return (ahora - pd.Timedelta(hours=3)) <= t <= (ahora + pd.Timedelta(hours=horas))
-        except (ValueError, TypeError):
-            pass
-    # Respaldo sin hora: se compara por día. Es menos fino, pero nunca deja
-    # fuera un partido de hoy por no saber a qué hora se juega.
+def hoy_utc() -> pd.Timestamp:
+    """
+    El «hoy» del sistema, en UTC y normalizado a medianoche.
+
+    v91 — UN SOLO RELOJ. Antes convivían `pd.Timestamp.today()` (local) y
+    `utcnow()` según el punto del código, y las fechas de los fixtures vienen
+    de ESPN en UTC. En Streamlit Cloud el servidor va en UTC y coincidían, así
+    que la mezcla no se notaba; en cualquier máquina de América el barrido
+    filtraba con un día de desfase y se quedaba a cero partidos.
+    """
+    return pd.Timestamp.utcnow().tz_localize(None).normalize()
+
+
+def _es_del_dia(fx: dict) -> bool:
+    """¿Este fixture se juega HOY (día calendario UTC)?"""
     try:
         d = pd.Timestamp(fx.get('fecha')).normalize()
     except (ValueError, TypeError):
         return False
-    hoy = ahora.normalize()
-    return hoy <= d <= (hoy + pd.Timedelta(hours=horas))
+    return d == hoy_utc()
 
 
-def _mapa_equipo_liga() -> Dict[str, str]:
-    from config import LEAGUES
-    mapa = {}
-    for clave in LEAGUES:
-        try:
-            with open(f'team_stats_{clave}.json', encoding='utf-8') as f:
-                for eq in json.load(f).get('equipos', {}):
-                    mapa[eq] = clave
-        except Exception:
-            continue
-    return mapa
-
-
-def _liga_fuzzy(home: str, away: str, mapa: Dict[str, str]):
-    """v34 (§4): resolución de liga vía name_mapper CENTRALIZADO (alias
-    manuales + normalización + fuzzy), con registro de los fallos para
-    poder llevarlos a cero. Antes cada módulo tenía su propio fuzzy y los
-    partidos se perdían en silencio."""
-    import name_mapper
-    for equipo in (home, away):
-        encontrado = name_mapper.mapear(equipo, mapa.keys(),
-                                        contexto='equipo→liga')
-        if encontrado:
-            return mapa[encontrado]
-    return None
+# v91 — `_mapa_equipo_liga` y `_liga_fuzzy` se retiraron con el camino de
+# `odds_actuales.json` (ver el docstring de `apuestas_del_dia`): resolvían la
+# liga desde el match_id de The Odds API, y los fixtures de ESPN ya llegan con
+# su clave de liga puesta.
 
 
 def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
@@ -477,167 +448,31 @@ def _mercados_modelo(pred: Dict, home: str, away: str) -> List[Dict]:
     return salida
 
 
-def _senales_shadow() -> Dict[str, Dict]:
-    """Residuos del Shadow Booster por partido (solo ligas ADOPTADAS)."""
-    try:
-        with open('shadow_senales.json', encoding='utf-8') as f:
-            return json.load(f).get('detalle', {})
-    except Exception:
-        return {}
-
-
-def _filtro_evc(tarjeta: Dict, resid: Optional[float]) -> str:
-    """EVC 2.0 (v27 §7): doble validación sin tocar los modelos.
-    Devuelve 'evc' | 'elite' | 'descartada' para un pick que ya cumple los
-    filtros de élite. El residuo del Shadow es local-céntrico: se invierte
-    para apuestas al visitante y se ignora en mercados no direccionales."""
-    if resid is None:                       # liga sin Shadow adoptado → cond 4-5 se omiten
-        return 'evc'
-    apuesta = tarjeta['apuesta'].lower()
-    if apuesta.startswith('gana ') and tarjeta['mercado'] == '1X2':
-        es_home = tarjeta['partido'].lower().startswith(
-            apuesta.replace('gana ', ''))
-        r_dir = resid if es_home else -resid
-    else:
-        return 'evc'                        # mercado no direccional
-    if tarjeta['prob'] > 0.75 and r_dir < -0.05:
-        return 'descartada'                 # divergencia crítica (cond 5)
-    return 'evc' if r_dir > -0.03 else 'elite'   # cond 4
+# v91 — `_senales_shadow` y `_filtro_evc` se retiraron con el camino de
+# `odds_actuales.json`: sólo se llamaban desde el bucle de The Odds API, que
+# en producción llevaba meses sin ejecutarse (el fichero no existe en cloud).
+# El Shadow Booster como experimento sigue documentado en la v26/v27.
 
 
 def apuestas_del_dia(max_partidos: int = 40) -> Dict:
-    """Tarjetas del panel. Devuelve élite + candidatos (degradación honesta)."""
-    # v61 FIX: antes se hacía `return` aquí si faltaba odds_actuales.json, lo
-    # que ANULABA el pase de fixtures de ESPN (v49) — que además trae sus
-    # PROPIAS cuotas desde la v52. Resultado en producción: con The Odds API
-    # caída (401) y el disco efímero del cloud sin el fichero, las Apuestas del
-    # Día se quedaban solo con tenis. Ahora se sigue adelante sin cuotas
-    # capturadas: el barrido ESPN cubre fixtures Y cuotas.
-    sin_captura = False
-    try:
-        with open('odds_actuales.json', encoding='utf-8') as f:
-            datos = json.load(f)
-    except Exception:
-        sin_captura = True
-        datos = {}
-        logger.warning("[alpha] sin odds_actuales.json — se continúa con el "
-                       "barrido de fixtures/cuotas de ESPN.")
-    cuotas = datos.get('cuotas', {})
-    mapa = _mapa_equipo_liga()
-    senales = _senales_shadow()
+    """Tarjetas del panel. Devuelve élite + candidatos (degradación honesta).
 
-    hoy = pd.Timestamp.today().normalize()
-    limite = hoy + pd.Timedelta(hours=HORIZONTE_HORAS)
+    v91 — SE RETIRA EL CAMINO DE `odds_actuales.json`, el volcado de la API de
+    cuotas que se dio de baja en la v88. En producción ese fichero no existe,
+    así que el bucle llevaba meses sin ejecutarse: todo lo que se ve en la app
+    sale del pase de fixtures (`_barrido_fixtures`, ESPN + Pinnacle + Bovada +
+    Playdoit vía cuotas_multi). Con él se van sus satélites sin otro llamador
+    (`_mapa_equipo_liga`, `_liga_fuzzy`, `_senales_shadow`, `_filtro_evc`) y el
+    aviso «sin captura de cuotas propia», que confundía al usuario citando una
+    fuente que ya no forma parte del sistema.
+    """
+    hoy = hoy_utc()
     motores: Dict[str, object] = {}
     elite, candidatos = [], []
-    evaluados = 0
     # v29 (§1.2): diagnóstico de cobertura por liga — el bug "solo MLS" venía
     # de partidos descartados en silencio cuando el nombre no mapeaba a liga.
     cobertura: Dict[str, int] = {}
-    sin_liga = 0
-    # v49: pares (liga, home, away) ya evaluados vía cuotas, para que el pase
-    # de fixtures no los duplique.
     evaluados_pares: set = set()
-    for mid, o in sorted(cuotas.items()):
-        partes = mid.split('_')
-        if len(partes) != 3:
-            continue
-        try:
-            fecha = pd.Timestamp(partes[0])
-        except ValueError:
-            continue
-        if not (hoy <= fecha <= limite):
-            continue
-        home = partes[1].replace('-', ' ')
-        away = partes[2].replace('-', ' ')
-        liga = mapa.get(home) or mapa.get(away) or _liga_fuzzy(home, away, mapa)
-        if not liga:
-            sin_liga += 1
-            logger.info(f"[alpha] sin liga para {home} vs {away} (revisar mapeo)")
-            continue
-        cobertura[liga] = cobertura.get(liga, 0) + 1
-        if liga not in motores:
-            from league_engine import ClubEngine
-            motores[liga] = ClubEngine(liga)
-        eng = motores[liga]
-        if not getattr(eng, 'listo', False) or home not in eng.stats \
-                or away not in eng.stats:
-            continue
-        if evaluados >= max_partidos:
-            break
-        evaluados += 1
-        # v86: `prior_elo=False`. El encogimiento hacia el ELO es para la FICHA,
-        # donde no hay mercado. Aquí sí lo hay y la corrección buena es la de
-        # `calibracion_mercado`, así que los picks salen idénticos a v85.
-        pred = eng.predecir(home, away, prior_elo=False)
-        if 'error' in pred:
-            continue
-        evaluados_pares.add((liga, home, away))   # v49: no duplicar en fixtures
-        det = senales.get(mid)
-        resid = det.get('residuo') if det else None
-        # v80 — SE PASA `liga`. No se pasaba, y `clave_liga=None` desactiva el
-        # encogimiento hacia el mercado por completo.
-        #
-        # Este es el camino de `odds_actuales` y es EL QUE LLENA LA CAPA 1. El
-        # de fixtures (`_barrido_fixtures`) sí pasaba la clave, así que los
-        # candidatos salían calibrados y los picks de élite no. Medido antes
-        # del arreglo, con todo lo demás ya corregido:
-        #
-        #     candidatos  15 de 15 encogidos (100 %)
-        #     capa 1       0 de 10 encogidos   (0 %)
-        #
-        # La consecuencia era peor que un hueco de cobertura: es un SESGO DE
-        # SELECCIÓN. Encoger baja la probabilidad, así que un pick calibrado
-        # tiene más difícil pasar el umbral de élite. Con esta rama sin
-        # calibrar, la Capa 1 se llenaba justo con los picks cuya probabilidad
-        # nadie había corregido — los más sobreconfiados — mientras los
-        # corregidos caían a candidatos. La capa que el sistema vende como
-        # accionable estaba seleccionando adversamente.
-        #
-        # `liga` ya estaba en el ámbito: se usa dos líneas más abajo en
-        # `pasa_capa1`.
-        for c in _mercados_del_partido(pred, o, home, away, liga):
-            tarjeta = {
-                'partido': f'{home} vs {away}', 'liga': pred.get('liga', liga),
-                'clave_liga': liga,          # v82: ver `base` en _barrido_fixtures
-                'fecha': str(fecha.date()), **c,
-                'es_hoy': bool(fecha.normalize() == hoy),   # v89
-                'shadow': bool(det),
-                'valor': ('🟢' if c['ev'] > 0.05 else
-                          '🟡' if c['ev'] > 0 else '🔴'),
-            }
-            # v75: filtro único con umbrales por liga (ver `pasa_capa1`)
-            pasa_filtros = pasa_capa1(c['prob'], c['ev'], c['cuota'], liga)
-            # v44: la Capa 1 (élite) SOLO admite mercados VALIDADOS. El backtest
-            # multi-mercado demostró que Over/Under 2.5 NO es rentable de forma
-            # robusta (ROI medio +2.6 % pero bootstrap p5 NEGATIVO: mercado de
-            # goles muy eficiente). Solo el 1X2 tiene edge validado (+9.9 % con
-            # la selección, +14.7 % con confirmación sharp). O/U y hándicap van
-            # a candidatos (informativo), nunca a la Capa 1 accionable.
-            if pasa_filtros and c['mercado'] in MERCADOS_VALIDADOS_CAPA1:
-                estado = _filtro_evc(tarjeta, resid)
-                if estado == 'descartada':      # divergencia crítica (v27)
-                    tarjeta['nota'] = ('⚠️ descartada por EVC: confianza alta '
-                                       'con Shadow desfavorable')
-                    candidatos.append(tarjeta)
-                else:
-                    tarjeta['evc'] = estado == 'evc'
-                    elite.append(tarjeta)
-            elif c['ev'] > 0:
-                candidatos.append(tarjeta)
-
-    # v28 (§2.5) EVC PLATINO — triple validación: EVC (conf>75 %) ∧ el mismo
-    # partido tiene arbitraje cruzado con ν>1 (arbitraje_cache.json, del
-    # último barrido) ∧ sin divergencia crítica (ya filtrada arriba).
-    try:
-        with open('arbitraje_cache.json', encoding='utf-8') as f:
-            partidos_arb = {op['partido']
-                            for op in json.load(f).get('oportunidades', [])}
-    except Exception:
-        partidos_arb = set()
-    for t in elite:
-        t['platino'] = bool(t.get('evc') and t['prob'] > 0.75
-                            and t['partido'] in partidos_arb)
 
     # v72 — ORDEN POR CALIDAD, NO POR EV BRUTO.
     #
@@ -659,8 +494,9 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
         exceso = max(0.0, ev - EV_EXTREMO)     # lo que huele a descalibración
         return prob * creible - 0.25 * prob * min(exceso, 1.0)
 
-    orden = lambda t: (-int(t.get('platino', False)), -int(t['shadow']),
-                       -_calidad(t), -t['ev'])
+    orden = lambda t: (-int(t.get('platino', False)),
+                       -int(t.get('shadow', False)),
+                       -_calidad(t), -(t.get('ev') or 0))
     # v34 (§1): auditoría de cobertura — log detallado y aviso si una liga
     # activa se queda a cero partidos evaluados.
     try:
@@ -672,53 +508,45 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
     except Exception:
         pass
     # v49: PASE DE FIXTURES (ESPN) — evalúa TODO partido con jornada aunque no
-    # haya cuota en vivo. Sin esto, un fallo de The Odds API dejaba el barrido a
-    # cero. Los partidos sin cuota generan Capa 2 (cuota justa) y pronósticos.
+    # haya cuota en vivo. Los partidos sin cuota generan Capa 2 (cuota justa)
+    # y pronósticos. Desde la v91 es EL camino (ver el docstring).
     elite_fix, candidatos_fix, capa2_futbol, pronosticos, cob_fix, n_fix = \
-        _barrido_fixtures(motores, evaluados_pares, HORIZONTE_HORAS)
+        _barrido_fixtures(motores, evaluados_pares)
     # v52: los fixtures con cuota REAL de ESPN entran a la Capa 1 / candidatos
     elite.extend(elite_fix)
     candidatos.extend(candidatos_fix)
     for liga, n in cob_fix.items():
         cobertura[liga] = cobertura.get(liga, 0) + n
-    evaluados += n_fix
+    evaluados = n_fix
 
     from config import LEAGUES as _LG
     activas = [c for c, cfg in _LG.items() if cfg.get('disponible')]
     vacias = [c for c in activas if cobertura.get(c, 0) == 0]
-    logger.info(f"[alpha] cobertura por liga: {cobertura} · sin liga: {sin_liga} "
+    logger.info(f"[alpha] cobertura por liga: {cobertura} "
                 f"· fixtures ESPN: {n_fix}")
     if vacias:
-        logger.warning(f"[alpha] ligas SIN partidos evaluados hoy "
-                       f"({len(vacias)}/{len(activas)}): {vacias} — puede ser "
-                       "parón de temporada")
+        logger.info(f"[alpha] ligas sin partidos HOY "
+                    f"({len(vacias)}/{len(activas)}) — normal: sólo se "
+                    f"evalúa el día calendario (v91)")
     global _ULTIMO_RESULTADO
     _ULTIMO_RESULTADO = {
-            # v61: sin captura propia la fecha es la de HOY (los fixtures y las
-            # cuotas vienen de ESPN en esta misma corrida), no None.
-            'actualizado': (datos.get('actualizado')
-                            or pd.Timestamp.today().strftime('%Y-%m-%d')),
+            'actualizado': hoy_utc().strftime('%Y-%m-%d'),
             'partidos_evaluados': evaluados,
-            'cobertura_ligas': cobertura, 'partidos_sin_liga': sin_liga,
+            'cobertura_ligas': cobertura, 'partidos_sin_liga': 0,
             'elite': sorted(elite, key=orden),
-            # v89: 15 → 40. Con la semana completa evaluada, el recorte a 15
-            # tiraba apuestas con EV positivo que el usuario pidió ver.
+            # v89: 15 → 40 para no tirar apuestas con EV positivo.
             'candidatos': sorted(candidatos, key=orden)[:40],
             'capa2_futbol': capa2_futbol,        # v49
             'pronosticos': pronosticos,          # v49: TODOS los partidos
-            'sin_captura_odds': sin_captura,                     # v61
             'aviso': None if elite else
-            (('Sin captura de cuotas propia (The Odds API caída o disco '
-              'efímero): las cuotas y los partidos salen de ESPN. ' if sin_captura
-              else '')
-             + 'Ningún mercado cumple hoy los filtros de élite (prob >70 %, '
-             'EV >+3 %, cuota >1.50) — se muestran Capa 2 (sin cuota) y '
+            ('Hoy ningún mercado cumple los filtros de élite (prob, EV y '
+             'cuota mínimos) con las cuotas de Pinnacle, Bovada, Playdoit y '
+             'ESPN — se muestran la Selección del Día, la Capa 2 y los '
              'candidatos con EV positivo.')}
     return _ULTIMO_RESULTADO
 
 
-def _barrido_fixtures(motores: Dict, evaluados_pares: set,
-                      horizonte_horas: int = 72):
+def _barrido_fixtures(motores: Dict, evaluados_pares: set):
     """v49: recorre los FIXTURES (ESPN) de todas las ligas disponibles y
     predice cada partido con su motor. Devuelve:
       · capa2_futbol: mejor selección 1X2 por partido con prob ≥ CONF_CAPA2
@@ -731,9 +559,7 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
     from config import LEAGUES as _LG
     from league_engine import ClubEngine
 
-    hoy = pd.Timestamp.today().normalize()
-    limite = hoy + pd.Timedelta(hours=horizonte_horas)
-    tope_max = hoy + pd.Timedelta(days=fixtures_espn.DIAS_SEMANA)
+    hoy = hoy_utc()
     elite_fix, candidatos_fix, capa2_futbol, pronosticos = [], [], [], []
     cobertura: Dict[str, int] = {}
     n_eval = 0
@@ -741,45 +567,34 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
     # ~14 llamadas secuenciales a ESPN cuelguen el barrido en Streamlit Cloud).
     claves_disp = [c for c, cfg in _LG.items()
                    if cfg.get('disponible') and c in fixtures_espn.ESPN_CODIGOS]
-    # v89 — LA SEMANA COMPLETA. Se llamaba sin `dias` y el default es 3, así
-    # que aunque `DIAS_SEMANA=7` existía desde la v71, el barrido nunca veía el
-    # fin de semana hasta el jueves. Medido el 2026-08-02 (domingo): con 3 días
-    # llegaban 56 fixtures; con 7, llegan 302 (la jornada grande es el sábado).
-    fixtures_por_liga = fixtures_espn.fixtures_multi(
-        claves_disp, dias=fixtures_espn.DIAS_SEMANA)
-    # v89 — los motores que cargue ESTE pase se liberan al terminar su liga.
-    # Con la semana completa entran ~32 ligas y retener 32 motores a la vez es
-    # el mismo patrón de memoria que tumbó la app en la v86 (1,3 GB con menos
-    # ligas). El pase procesa cada liga exactamente una vez, así que retener el
-    # motor después no sirve a nadie; los precargados por el pase de cuotas se
+    # v91 — SÓLO EL DÍA. `dias=1` trae hoy y mañana (rango de ESPN) y el
+    # filtro `_es_del_dia` se queda con hoy. La semana completa vive en las
+    # vistas por liga (fixtures_liga con DIAS_SEMANA), que es donde el usuario
+    # la pidió. Ver el comentario junto a `_es_del_dia`.
+    # dias=2: el rango de ESPN es UTC y así cubre el día completo aunque la
+    # consulta caiga justo en el cambio de fecha; `_es_del_dia` recorta.
+    fixtures_por_liga = fixtures_espn.fixtures_multi(claves_disp, dias=2)
+    for _cl in list(fixtures_por_liga):
+        fixtures_por_liga[_cl] = [f for f in (fixtures_por_liga[_cl] or [])
+                                  if _es_del_dia(f)]
+    # v89 — los motores que cargue ESTE pase se liberan al terminar su liga
+    # (patrón de memoria de la v86); los precargados por el llamador se
     # respetan.
     _precargados = set(motores)
 
     # v65: cuotas RICAS por evento (hándicap con su línea y O/U real). El
     # scoreboard solo trae 1X2 + O/U 2.5; este endpoint añade el hándicap, que
     # es donde suele estar el valor.
-    # v89: sólo para los fixtures ya apostables (cuota abierta o ≤72 h) — a
-    # 5-7 días vista el endpoint por evento casi nunca trae nada y con la
-    # semana completa serían cientos de peticiones vacías.
-    def _pide_ricas(f):
-        if f.get('odd_home') and f.get('odd_away'):
-            return True
-        try:
-            return pd.Timestamp(f['fecha']) <= limite
-        except (ValueError, TypeError):
-            return False
-
     # v89 — PREFETCH: las cuotas por evento de TODAS las ligas se piden a la
-    # vez al principio, en vez de liga a liga dentro del bucle. Antes la red de
-    # la liga N esperaba a la CPU de la liga N−1 y los tiempos SUMABAN (304 s
-    # el barrido completo medido el 2026-08-02); así la descarga corre en
-    # paralelo con las predicciones y queda escondida detrás de ellas.
+    # vez al principio; la descarga corre en paralelo con las predicciones y
+    # queda escondida detrás de ellas (304 s → 102 s medido con la semana; con
+    # el día solo, el barrido entero baja a decenas de segundos).
     from concurrent.futures import ThreadPoolExecutor
     _pool_odds = ThreadPoolExecutor(max_workers=4, thread_name_prefix='odds89')
     _fut_odds = {}
     for _cl in claves_disp:
-        _ids = [f.get('event_id') for f in (fixtures_por_liga.get(_cl) or [])
-                if _pide_ricas(f)]
+        _ids = [f.get('event_id') for f in (fixtures_por_liga.get(_cl) or [])]
+        _ids = [i for i in _ids if i]
         if _ids:
             _fut_odds[_cl] = _pool_odds.submit(
                 fixtures_espn.odds_multi, _cl, _ids)
@@ -813,13 +628,11 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set,
             except (ValueError, TypeError):
                 continue
             tiene_cuota = bool(fx.get('odd_home') and fx.get('odd_away'))
-            # v89 — se evalúa TODA la semana y la ventana de 24 h pasa a ser
-            # una ETIQUETA (`es_hoy`), no un filtro. Ver `VENTANA_APUESTAS_H`:
-            # el filtro dejaba 44/56 ligas «sin partidos» y 25 de 302 fixtures
-            # evaluados. La UI destaca lo de hoy y agrupa el resto por día.
-            if fecha < hoy or fecha > tope_max:
+            # v91 — los fixtures ya vienen filtrados al DÍA calendario (ver
+            # `_es_del_dia`); este segundo chequeo es cinturón y tirantes.
+            if fecha.normalize() != hoy:
                 continue
-            es_hoy = _dentro_de_la_ventana(fx)
+            es_hoy = True
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
             away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
             if not (home and away) or home == away:
@@ -1094,7 +907,7 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
                             'clave_liga': 'mlb',
                             'partido': f"{CODIGO_A_NOMBRE.get(_cl[1], _v0['away'])}"
                                        f" @ {CODIGO_A_NOMBRE.get(_cl[0], _v0['home'])}",
-                            'fecha': str(pd.Timestamp.today().date()),
+                            'fecha': str(hoy_utc().date()),
                             'mercado': 'Moneyline', 'apuesta': f'Gana {_nom}',
                             'prob': round(_v['prob_justa'], 3),
                             'cuota': _v['cuota'],
@@ -1103,26 +916,33 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
                             'valor': '🟢', 'evc': True, 'valor_mercado': True,
                             'pinnacle': _v.get('pinnacle'),
                             'origen': 'line shopping vs Pinnacle'})
+            # v91 — UNA sola línea de estado en vez de tres solapadas. Que el
+            # tablón traiga LMB/NPB/KBO y se filtren es OPERACIÓN NORMAL, no
+            # una incidencia: se degrada al log. El usuario ve un ✅ con los
+            # números que importan.
             _n_vs = sum(1 for p in capa1 if p.get('valor_mercado'))
+            if _no_mlb:
+                logger.info(f'[alpha/mlb] {_no_mlb} entradas del tablón no-MLB '
+                            f'filtradas (LMB/NPB/KBO/CPBL/AAA) — normal.')
             inc.append(
-                f'MLB · valor de mercado: {len(_vistos)} partidos DE MLB '
-                f'comparados contra Pinnacle, {_n_vs} con precio descolgado por '
-                f'encima del {VS_MLB_EV_MIN:.0%}. Esta vía no usa el modelo '
-                f'(validada sobre 27.977 juegos, p5 +1,67 % fuera de muestra); '
-                f'si sale 0 es que hoy las casas coinciden, no que esté apagada.'
-                + (f' Se descartaron {_no_mlb} entradas del tablón que no son '
-                   f'MLB (Liga Mexicana, Japón, Corea, Taiwán, Triple-A).'
-                   if _no_mlb else ''))
+                f'✅ MLB operativa: {r.get("eventos", len(_vistos))} partidos '
+                f'con cuota, {r.get("evaluados", 0)} evaluados por el modelo y '
+                f'{len(_vistos)} comparados contra Pinnacle → {len(capa1)} '
+                f'picks hoy'
+                + (f' ({_n_vs} por valor de mercado).' if _n_vs else
+                   '. Cero picks = las casas coinciden y el modelo no ve EV '
+                   'suficiente — es el sistema no forzando apuestas, no un '
+                   'fallo.'))
         except Exception as e:
             logger.debug(f'[alpha/mlb] valor de mercado omitido: {e}')
-            inc.append(f'MLB: valor de mercado no evaluado ({type(e).__name__}).')
-        if not capa1 and r.get('aviso'):
-            inc.append(f"MLB: {r['aviso']}")
-        if r.get('eventos'):
-            inc.append(f"MLB: {r['eventos']} partidos con cuota, "
-                       f"{r.get('evaluados', 0)} evaluados por el modelo, "
-                       f"{len(capa1)} superaron los filtros.")
-        return {'capa1': capa1, 'capa2': [], 'incidencias': inc}
+            inc.append(f'⚠️ MLB: valor de mercado no evaluado '
+                       f'({type(e).__name__}).')
+        # v91 — la MLB aporta CAPA 2. Los favoritos claros con cuota real que
+        # no pasan los filtros de élite (casi siempre por cuota corta) son el
+        # material de «Máxima Confianza»; antes se descartaban dentro del
+        # motor y la MLB no aparecía nunca en esa pestaña.
+        _conf = [{**p, 'deporte': 'MLB'} for p in (r.get('confianza') or [])]
+        return {'capa1': capa1, 'capa2': _conf, 'incidencias': inc}
     except Exception as e:
         # v88 — se registra la TRAZA. «MLB omitido por error: OSError» sin más
         # obliga a adivinar dónde falló, y este proyecto ya ha perdido tiempo
@@ -1240,7 +1060,38 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 if a1 and a2:
                     eng, j1, j2 = otro, a1, a2
             if not (j1 and j2):
+                # v91 — el partido sin modelo YA NO se pierde en una lista de
+                # texto: sale como tarjeta con su cuota real y la probabilidad
+                # implícita del precio (devigada). El usuario pidió que todo lo
+                # que tenga precio tenga tarjeta; la etiqueta dice honestamente
+                # que ahí no hay predicción propia (jugador fuera del catálogo,
+                # típico en challengers/ITF).
                 salida['no_enlazados'].append(f"{m['home']} vs {m['away']}")
+                try:
+                    oh, oa = float(m['odd_home']), float(m['odd_away'])
+                    imp_h = (1 / oh) / (1 / oh + 1 / oa)
+                except (TypeError, ValueError, ZeroDivisionError):
+                    oh = oa = imp_h = None
+                if oh and oa:
+                    fav_home = imp_h >= 0.5
+                    salida.setdefault('sin_modelo', []).append({
+                        'deporte': 'Tenis',
+                        'liga': (m.get('torneo') or
+                                 m.get('circuito', 'tenis').upper()),
+                        'partido': f"{m['home']} vs {m['away']}",
+                        'fecha': str(hoy_utc().date()),
+                        'mercado': 'Ganador',
+                        'apuesta': ('Gana ' + (m['home'] if fav_home
+                                               else m['away'])),
+                        'prob': round(imp_h if fav_home else 1 - imp_h, 3),
+                        'cuota': round(oh if fav_home else oa, 2),
+                        'cuota_justa': round(1 / max(
+                            imp_h if fav_home else 1 - imp_h, 1e-6), 2),
+                        'ev': None, 'casa': m.get('casa'),
+                        'sin_modelo': True, 'valor': '🏷️',
+                        'nota': ('🏷️ Sin predicción propia: jugador fuera del '
+                                 'catálogo del modelo. La probabilidad es la '
+                                 'implícita del precio de la casa.')})
                 continue
             pred = eng.predecir(j1, j2)
             if 'error' in pred:
@@ -1315,7 +1166,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                                 'liga': eng.circuito.upper(),
                                 'clave_liga': eng.circuito.lower(),
                                 'partido': f"{m['home']} vs {m['away']}",
-                                'fecha': str(pd.Timestamp.today().date()),
+                                'fecha': str(hoy_utc().date()),
                                 'mercado': 'Ganador',
                                 'apuesta': f'Gana {_nom}',
                                 'prob': round(_v['prob_justa'], 3),
@@ -1336,7 +1187,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 ev = round(cuota * prob - 1, 4)
                 base = {'deporte': 'Tenis', 'liga': eng.circuito.upper(),
                         'partido': f"{m['home']} vs {m['away']}",
-                        'fecha': str(pd.Timestamp.today().date()),
+                        'fecha': str(hoy_utc().date()),
                         'mercado': 'Ganador', 'apuesta': f'Gana {nombre}',
                         'prob': round(prob, 3),
                         'superficie': superficie,
@@ -1385,7 +1236,7 @@ def _picks_nba() -> Dict[str, List[Dict]]:
 
         # v88 — la ventana de temporada vivía en `odds_api`, que se retira. Se
         # declara aquí: la NBA va de octubre a junio.
-        _m = pd.Timestamp.today().month
+        _m = hoy_utc().month
         if not (_m >= 10 or _m <= 6):
             logger.info("[alpha] NBA fuera de temporada: barrido omitido.")
             return salida
@@ -1423,7 +1274,7 @@ def _picks_nba() -> Dict[str, List[Dict]]:
                 ev = round(cuota * prob - 1, 4)
                 base = {'deporte': 'NBA', 'liga': 'NBA',
                         'partido': f"{m['home']} vs {m['away']}",
-                        'fecha': str(pd.Timestamp.today().date()),
+                        'fecha': str(hoy_utc().date()),
                         'mercado': 'Moneyline', 'apuesta': f'Gana {nombre}',
                         'prob': round(prob, 3),
                         'cuota_justa': round(1 / max(prob, 1e-6), 2)}
@@ -1645,7 +1496,7 @@ def _oleadas(picks: List[Dict]) -> Dict[str, List[Dict]]:
       🟡 Oleada 2 (mañana): los mejores del día siguiente.
       📋 Resto: lo demás, colapsable.
     """
-    hoy = pd.Timestamp.today().normalize()
+    hoy = hoy_utc()
     manana = hoy + pd.Timedelta(days=1)
     o1, o2, resto = [], [], []
     for p in picks:
@@ -1755,6 +1606,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         p.setdefault('deporte', 'Fútbol')
     # v49: Capa 2 de fútbol desde el pase de fixtures (partidos sin cuota real)
     capa2, no_enlazados, parlay_legs = list(r.get('capa2_futbol') or []), [], []
+    sin_modelo: List[Dict] = []          # v91: partidos con cuota y sin modelo
     # v77: registro de incidencias visible para el usuario. Nace de que la MLB
     # llevaba semanas fuera del barrido porque The Odds API se quedaba sin
     # cuota, y el aviso existía pero moría dentro del motor sin llegar a
@@ -1766,7 +1618,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     except Exception as e:
         logger.debug(f"[alpha] monitor de Playdoit no disponible: {e}")
     for nombre, motivo in _fallos.items():
-        incidencias.append(f'La rama de {nombre} falló y se omitió: {motivo}')
+        incidencias.append(f'⚠️ La rama de {nombre} falló y se omitió: {motivo}')
 
     # -----------------------------------------------------------------------
     # v79 — AVISO: ¿a cuántos picks de fútbol les llega el encogimiento?
@@ -1810,7 +1662,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                          if not (p.get('calibracion') or {}).get('aplicado'))
             if _n_sin:
                 incidencias.append(
-                    f'{_n_sin} de {len(_f1)} picks de fútbol salen SIN calibrar '
+                    f'⚠️ {_n_sin} de {len(_f1)} picks de fútbol salen SIN calibrar '
                     f'contra el mercado: sus ligas no tienen peso medido '
                     f'({", ".join(_sin[:6])}'
                     f'{"…" if len(_sin) > 6 else ""}). El edge del fútbol se '
@@ -1823,6 +1675,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])
         no_enlazados += sub.get('no_enlazados', [])
+        sin_modelo += sub.get('sin_modelo', [])          # v91
         parlay_legs += sub.get('parlay_legs', [])
         incidencias += sub.get('incidencias', [])      # v77
     # --- v32: fiabilidad, pretemporada y segregación de EV extremo -------
@@ -1929,7 +1782,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                              (_vd.motivo(p.get('deporte')) or '')).strip()
             candidatos_extra = sin_edge
             for dep in sorted({p.get('deporte') for p in sin_edge}):
-                incidencias.append(_vd.motivo(dep) or f'{dep}: sin edge validado.')
+                incidencias.append('ℹ️ ' + (_vd.motivo(dep) or f'{dep}: sin edge validado.'))
         else:
             candidatos_extra = []
     except Exception as e:
@@ -1951,7 +1804,14 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # bonito. La pestaña existe porque el usuario la pidió para construir
     # combinadas, no porque sea la más rentable.
     # -----------------------------------------------------------------------
-    universo_prob = capa1 + ev_extremo + list(r.get('candidatos') or [])
+    # v91 — LA CAPA 2 ENTRA AL UNIVERSO de Máxima Confianza. El usuario
+    # señaló que la pestaña sólo enseñaba fútbol, y el motivo era estructural:
+    # los favoritos claros de tenis y MLB (82-88 % con cuota real de 1,08-1,15)
+    # viven en la capa2 — no pasan los filtros de élite justamente por la
+    # cuota corta — y la capa2 no entraba aquí. Son exactamente el material
+    # que esta pestaña promete («acertar por encima de cobrar caro», v77).
+    universo_prob = (capa1 + ev_extremo + list(r.get('candidatos') or [])
+                     + capa2)
     vistos_prob, capa1_prob = set(), []
     try:
         import calibracion_confianza as _cc
@@ -1961,7 +1821,15 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         _cc, umbral_conf = None, PROB_MAXIMA_CONFIANZA
     for p in sorted(universo_prob, key=lambda x: -(x.get('prob') or 0)):
         prob, cuota = p.get('prob') or 0, p.get('cuota') or 0
-        if prob < umbral_conf or cuota < MIN_CUOTA:
+        # v91 — el piso de cuota baja de 1,50 a 1,05 SÓLO en esta pestaña.
+        # El 1,50 es un guardarraíl de APUESTA SIMPLE (v71: los favoritos
+        # cortos concentraban la sobreconfianza); pero esta pestaña prioriza
+        # acertar y alimenta combinadas (v77), y con 1,50 dejaba fuera a todo
+        # el tenis y la MLB (favoritos a 1,08-1,15) — que es lo que el usuario
+        # pidió ver aquí. La honestidad la ponen el acierto real por banda y
+        # la bandera `ev_negativo`, que ya avisan de que un favorito corto con
+        # EV negativo pierde dinero como apuesta simple.
+        if prob < umbral_conf or cuota < 1.05:
             continue
         clave = (p.get('deporte'), p.get('partido'), p.get('apuesta'))
         if clave in vistos_prob:
@@ -2021,8 +1889,8 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         except Exception:
             pass
         incidencias.append(
-            f'Máxima Confianza: hoy ningún pick alcanza prob ≥ {umbral_conf:.0%} '
-            f'con cuota ≥ {MIN_CUOTA:.2f}.'
+            f'ℹ️ Máxima Confianza: hoy ningún pick alcanza prob ≥ '
+            f'{umbral_conf:.0%} con cuota real.'
             + (f' Históricamente solo lo consigue el {pct:.2%} de los partidos, '
                f'así que es normal que algunos días esté vacía.' if pct else ''))
 
@@ -2099,7 +1967,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                     _aptos.setdefault(_p.get('deporte'), 0)
                     _aptos[_p.get('deporte')] += 1
             deportes_disp = sorted({p.get('deporte') for p in _pool})
-            _msg = (f'Combinadas: no se pudo cruzar deportes hoy. '
+            _msg = (f'ℹ️ Combinadas: no se pudo cruzar deportes hoy. '
                     f'Deportes en Capa 1: {deportes_disp}.')
             if len(_aptos) >= 2:
                 _msg += (f' Hay patas de {len(_aptos)} deportes '
@@ -2117,7 +1985,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
             incidencias.append(_msg)
     except Exception as e:
         combinadas = []
-        incidencias.append(f'Combinadas no generadas: {type(e).__name__}: {e}')
+        incidencias.append(f'⚠️ Combinadas no generadas: {type(e).__name__}: {e}')
     # v47: PARLAY DEL DÍA DE TENIS — combina los mercados derivados más seguros
     # (uno por partido para diversificar), objetivo cuota combinada contundente.
     tenis_parlay = _construir_parlay_tenis(parlay_legs)
@@ -2147,6 +2015,10 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                 seleccion_dia.append(q)
     r.update({'capa1': capa1, 'capa2': capa2, 'ev_extremo': ev_extremo,
               'no_enlazados': no_enlazados, 'deportes_cubiertos': deportes,
+              # v91: los partidos con cuota que el modelo no cubre salen como
+              # tarjeta con precio real, no como lista de texto.
+              'sin_modelo': sorted(sin_modelo,
+                                   key=lambda p: -(p.get('prob') or 0)),
               'pick_del_dia': pick_del_dia(capa1),
               'btts_destacado': btts, 'oleadas': oleadas,
               'mejores_patas': mejores_patas,
