@@ -1400,6 +1400,82 @@ def test_memoizacion_no_cambia_el_emparejamiento():
           'normalizar está memoizada')
 
 
+def test_totales_conservan_su_casa():
+    """
+    v90 — los totales tienen que llegar con la casa que puso cada precio.
+
+    `_totales` era un dict PLANO: el over25 de ESPN y el de Pinnacle iban a la
+    misma clave y el segundo pisaba al primero, así que `daily_snapshots` sólo
+    podía etiquetarlos como Pinnacle. Consecuencia medida: de 35.606 filas con
+    over25 en `historical_odds`, CERO tenían dos casas para el mismo partido,
+    y sin dos precios el line shopping sobre Goles no se puede validar nunca.
+
+    Este test fija las dos mitades del contrato: que `totales_por_casa`
+    distinga, y que `totales` siga siendo exactamente el dict fusionado de
+    antes (nada de lo desplegado puede cambiar de comportamiento).
+    """
+    try:
+        import cuotas_multi as cm
+    except Exception as e:
+        print(f'AVISO cuotas_multi no disponible ({e}); se omite')
+        return
+    espn = {'casa': 'DraftKings', 'odd_home': 2.10, 'odd_draw': 3.30,
+            'odd_away': 3.50, 'odd_over25': 1.85, 'odd_under25': 1.95}
+    c = cm.cuotas_partido('futbol', '__equipo_inexistente_a__',
+                          '__equipo_inexistente_b__', odds_espn=espn)
+    tpc = c.get('totales_por_casa') or {}
+    check('DraftKings' in tpc,
+          'el over/under de ESPN se atribuye a su casa, no se pierde')
+    check((tpc.get('DraftKings') or {}).get('over25') == 1.85,
+          'y conserva el precio exacto')
+    check((c.get('totales') or {}).get('over25') == 1.85,
+          '`totales` sigue existiendo con la misma forma de siempre')
+
+    # y que daily_snapshots lo use: sin esto el histórico no acumularía nada
+    import inspect
+    import daily_snapshots
+    src = inspect.getsource(daily_snapshots.capturar)
+    check('totales_por_casa' in src,
+          'daily_snapshots guarda los totales de CADA casa')
+    check("if casa == 'Pinnacle':" not in src,
+          'y ya no los reserva solo a Pinnacle')
+
+
+def test_techo_por_liga_estable():
+    """
+    v90 — el techo de acierto por liga sólo vale si es ESTABLE.
+
+    La v38 midió que el ROI por liga no es estacionario y por eso se rechazó
+    elegir ligas por rentabilidad pasada. El acierto es otra cosa (refleja el
+    equilibrio competitivo), pero eso hay que comprobarlo, no suponerlo: el
+    fichero sólo se publica si la correlación entre las dos mitades del ledger
+    supera el umbral. Este test verifica que lo publicado cumple su propia
+    condición y que la consulta degrada limpia con una liga desconocida.
+    """
+    try:
+        import precision_ligas as pl
+    except Exception as e:
+        print(f'AVISO precision_ligas no disponible ({e}); se omite')
+        return
+    t = pl._tabla()
+    if not t:
+        print('AVISO precision_ligas.json no generado todavía; se omite')
+        return
+    check(t.get('estable') is True,
+          'el fichero publicado declara que el techo es estable')
+    check(t.get('correlacion_mitades', 0) >= pl.MIN_CORRELACION,
+          f'y su correlación entre mitades ({t.get("correlacion_mitades")}) '
+          f'supera el umbral {pl.MIN_CORRELACION}')
+    check(pl.techo('__liga_que_no_existe__') is None,
+          'una liga sin medir devuelve None, no un número inventado')
+    check(pl.etiqueta('__liga_que_no_existe__') == '',
+          'y su etiqueta es vacía (la UI no enseña nada)')
+    arg = pl.techo('argentina')
+    if arg:
+        check(0.30 < arg['mercado'] < 0.75,
+              'el techo medido está en un rango plausible para un 1X2')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -1457,6 +1533,9 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v90: totales por casa y techo por liga ===')
+    test_totales_conservan_su_casa()
+    test_techo_por_liga_estable()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

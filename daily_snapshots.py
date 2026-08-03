@@ -155,6 +155,22 @@ def capturar(dias: int = DIAS_VISTA, solo: Optional[str] = None) -> dict:
                 c = None
             if c:
                 totales = c.get('totales') or {}
+                # v90 — CADA CASA GUARDA SUS PROPIOS TOTALES.
+                #
+                # Hasta ahora los de Goles y BTTS se escribían SÓLO en la fila
+                # de Pinnacle, porque `cuotas_partido` devolvía un único dict
+                # `totales` con las casas ya fusionadas. Consecuencia medida al
+                # intentar validar el canal de valor sobre Goles: de 35.606
+                # filas con over25 en `historical_odds`, **cero** tienen dos
+                # casas para el mismo partido. Sin dos precios no hay line
+                # shopping que medir, y el mercado quedaba condenado a no poder
+                # validarse nunca — no por falta de tiempo, sino porque el dato
+                # se fusionaba antes de guardarse.
+                #
+                # `totales_por_casa` (v90) conserva la atribución. Se cae al
+                # dict fusionado para Pinnacle si la fuente no lo trae, así que
+                # el histórico que ya existe no cambia de forma.
+                por_casa = c.get('totales_por_casa') or {}
                 for casa, precios in (c.get('casas') or {}).items():
                     if not precios.get('home'):
                         continue
@@ -163,17 +179,19 @@ def capturar(dias: int = DIAS_VISTA, solo: Optional[str] = None) -> dict:
                             'odds_home': precios.get('home'),
                             'odds_draw': precios.get('draw'),
                             'odds_away': precios.get('away')}
-                    if casa == 'Pinnacle':
-                        fila['odds_over25'] = totales.get('over25')
-                        fila['odds_under25'] = totales.get('under25')
+                    tot = por_casa.get(casa) or (totales if casa == 'Pinnacle'
+                                                 else {})
+                    if tot:
+                        fila['odds_over25'] = tot.get('over25')
+                        fila['odds_under25'] = tot.get('under25')
                         # v75: BTTS. Es la ÚNICA vía por la que este mercado
                         # puede acumular histórico: football-data no publica
                         # ninguna columna BTTS en ningún formato (verificado
                         # sobre los 132 campos de /mmz4281/ y los 25 de /new/),
                         # así que sin estas fotos el modelo Weibull nunca
                         # podría validarse contra precios reales.
-                        fila['odds_btts_yes'] = totales.get('btts_yes')
-                        fila['odds_btts_no'] = totales.get('btts_no')
+                        fila['odds_btts_yes'] = tot.get('btts_yes')
+                        fila['odds_btts_no'] = tot.get('btts_no')
                     filas.append(fila)
             por_liga[clave] = por_liga.get(clave, 0) + 1
 

@@ -2001,13 +2001,22 @@ def render_alpha_finder():
                 partidos.setdefault(clave, []).append(t)
             for (_dep, _p), ts in partidos.items():
                 t0 = ts[0]
+                # v90: techo real de acierto de la competición (medido sobre el
+                # ledger, estable entre mitades con correlación 0,72)
+                _techo = ''
+                try:
+                    import precision_ligas as _pl
+                    _techo = _pl.etiqueta(t0.get('clave_liga'))
+                except Exception:
+                    pass
                 with st.container(border=True):
                     st.markdown(
                         f"**{t0.get('partido','?')}**  \n"
                         f"{t0.get('deporte','Fútbol')} · {t0.get('liga','')} · "
                         f"{t0.get('fecha','')}"
                         + (f"  \n{t0['antiguedad']}" if t0.get('antiguedad')
-                           else ''),
+                           else '')
+                        + (f"  \n{_techo}" if _techo else ''),
                         help=("Frescura de los datos con los que se entrenó "
                               "esta liga: el modelo no ve partidos nuevos "
                               "desde hace ese número de días.")
@@ -2132,6 +2141,21 @@ def render_alpha_finder():
             import pandas as _pd
             def _pct(v):
                 return f"{v*100:.0f}%" if isinstance(v, (int, float)) else '—'
+            # v90 — TECHO DE LA COMPETICIÓN.
+            #
+            # Medido sobre las 26.666 filas del ledger con cierre de Pinnacle:
+            # el acierto del mercado —el mejor predictor que existe, y por
+            # tanto el techo práctico— va del 42,4 % en la Serie B italiana al
+            # 59,1 % en la Superliga turca. Sin esta columna, los 274
+            # pronósticos se leen como si valieran lo mismo, y un 55 % en
+            # Turquía y un 55 % en la Serie B son cosas muy distintas: en una
+            # queda margen y en la otra se está prometiendo más de lo que nadie
+            # consigue. Es estable (correlación 0,72 entre mitades del ledger),
+            # a diferencia del ROI por liga, que la v38 midió no estacionario.
+            try:
+                import precision_ligas as _pl
+            except Exception:
+                _pl = None
             filas_p = []
             for p in sorted(pronos, key=lambda x: (x.get('fecha', ''),
                                                    -(x.get('prob') or 0))):
@@ -2139,8 +2163,10 @@ def render_alpha_finder():
                 partes = p.get('partido', ' vs ').split(' vs ')
                 home = partes[0] if partes else ''
                 away = partes[-1] if len(partes) > 1 else ''
+                _t = _pl.techo(p.get('clave_liga')) if _pl else None
                 filas_p.append({
                     'Fecha': p.get('fecha', ''), 'Liga': p.get('liga', ''),
+                    'Techo liga': f"{_t['mercado']*100:.0f}%" if _t else '—',
                     'Partido': p.get('partido', ''),
                     '1 (local)': _pct(board.get(f'Gana {home}')),
                     'X': _pct(board.get('Empate')),
@@ -2152,6 +2178,12 @@ def render_alpha_finder():
                                         f"({(p.get('prob') or 0)*100:.0f}%)",
                 })
             st.dataframe(_pd.DataFrame(filas_p), hide_index=True, width='stretch')
+            st.caption("**Techo liga** = cuánto acierta el CIERRE DEL MERCADO en "
+                       "esa competición sobre el histórico (v90, 26.666 partidos "
+                       "con Pinnacle). Es el mejor resultado que consigue nadie "
+                       "ahí: va del 42 % en la Serie B italiana al 59 % en "
+                       "Turquía. Un pronóstico que promete bastante más que el "
+                       "techo de su liga hay que mirarlo con lupa.")
             st.caption("1/X/2 = victoria local / empate / visitante · +2.5/−2.5 = "
                        "más/menos de 2.5 goles · BTTS = ambos marcan. Todas con la "
                        "probabilidad del modelo (cuota justa = 1/prob).")

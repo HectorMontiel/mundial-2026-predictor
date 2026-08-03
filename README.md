@@ -1,5 +1,42 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v90 — Seis rechazos medidos, y dónde estaba el techo de verdad (ver [VALIDACION_v90.md](VALIDACION_v90.md))
+
+- **📊 El techo real de cada competición, a la vista.** El acierto del cierre
+  del mercado —el mejor predictor que existe— va del **42,4 %** en la Serie B
+  italiana al **59,1 %** en la Superliga turca. Diecisiete puntos. La app
+  enseñaba los 274 pronósticos con el mismo aire de autoridad; ahora cada
+  partido y la tabla de pronósticos llevan el techo de su liga, porque un 55 %
+  en Turquía y un 55 % en la Serie B no valen lo mismo. **Validado antes de
+  publicarse**: a diferencia del ROI por liga (que la v38 midió no
+  estacionario), el techo se sostiene entre mitades del ledger con correlación
+  **0,72**, y el fichero sólo se publica si supera 0,50.
+- **🔓 Desbloqueado el line shopping en Goles y BTTS.** `cuotas_partido`
+  fusionaba los totales de todas las casas en un único dict —el over25 de ESPN
+  y el de Pinnacle iban a la misma clave y el segundo pisaba al primero—, así
+  que `daily_snapshots` sólo podía etiquetarlos como Pinnacle. En
+  `historical_odds` había **35.606 filas con over25 y CERO partidos con dos
+  casas**: el histórico necesario no podía existir. Arreglado sin cambiar nada
+  de lo desplegado; medido tras una captura real: DraftKings pasa de 0 a **571**
+  filas con over25 y ya hay **56 de 178** partidos con dos casas.
+- **🧪 Seis palancas de edge probadas y rechazadas con números**, todas con
+  elección en pliegues tempranos y juicio en tardíos sobre 26.666 partidos: w
+  por liga (gana en el 54 %, una moneda al aire), mezcla en logit, w global
+  reoptimizado, stacking aprendido, corrección del sesgo favorito-perdedor
+  (b=1,0158 ≈ nada, y **baja** el ROI de +8,57 % a +7,15 %) y el modelo como
+  filtro del line shopping (superficie dentada, 4/11 configs). **El modelo
+  propio bate al mercado en 4 de 34 ligas**: el 1X2 está en un óptimo local y
+  el edge vive en el line shopping, que sí valida fuera de muestra (n=643,
+  ROI +8,57 %, **p5 +1,07 %**). Queda escrito para no volver a gastar ahí.
+- **❌ Dos propuestas rechazadas, una con premisa falsa.** *Cuotas
+  sudamericanas para medir el w por liga*: el ledger YA tiene 1.534 filas de
+  Argentina con Pinnacle, 1.562 de MLS, 1.276 de Brasil — se midió sin
+  scrapear nada y el w por liga sale peor en ECE, ROI y p5. *Calibrar córners
+  y tarjetas*: no son mercados de la app (Máxima Confianza sólo puede contener
+  1X2/Ganador/Moneyline/Goles/BTTS/Hándicap, los cuatro medibles ya medidos),
+  **0 de 71** históricos traen columnas de córners, y el número que se muestra
+  es una transformación determinista de los goles esperados.
+
 ## Novedades v89 — El crash de snapshots, la semana completa y la gran limpieza (ver [VALIDACION_v89.md](VALIDACION_v89.md))
 
 - **💥 Arreglado el crash de producción** (`no such table: snapshots`): «Valor

@@ -878,9 +878,28 @@ def cuotas_partido(deporte: str, home: str, away: str,
     """
     casas: Dict[str, dict] = {}
     fuentes = []
+    # v90 — LOS TOTALES SE GUARDAN TAMBIÉN POR CASA.
+    #
+    # `_totales` es un dict PLANO: el over25 de ESPN y el de Pinnacle se
+    # escriben en la misma clave y el segundo pisa al primero. O sea que la
+    # casa que puso cada precio de Goles/BTTS se perdía por construcción, y con
+    # ella la posibilidad de hacer line shopping en esos mercados: comparar dos
+    # casas exige conservar las dos.
+    #
+    # Se vio al intentar validar el canal de valor sobre Goles: en
+    # `historical_odds` hay 35.606 filas con over25 y **ni una** con dos casas
+    # para el mismo partido, porque `daily_snapshots` sólo podía etiquetarlas
+    # como Pinnacle. No es que faltara histórico — es que el dato nunca se
+    # llegó a distinguir.
+    #
+    # `totales` se mantiene EXACTAMENTE igual (mismo dict fusionado, misma
+    # precedencia), así que nada de lo que hay hoy cambia de comportamiento;
+    # `totales_por_casa` es información nueva que antes se tiraba.
+    tot_casa: Dict[str, dict] = {}
 
     if odds_espn and odds_espn.get('odd_home'):
-        casas[odds_espn.get('casa') or 'ESPN'] = {
+        _casa_espn = odds_espn.get('casa') or 'ESPN'
+        casas[_casa_espn] = {
             'home': odds_espn['odd_home'],
             'draw': odds_espn.get('odd_draw'),
             'away': odds_espn['odd_away']}
@@ -888,6 +907,7 @@ def cuotas_partido(deporte: str, home: str, away: str,
         for k_src, k_dst in (('odd_over25', 'over25'), ('odd_under25', 'under25')):
             if odds_espn.get(k_src):
                 casas.setdefault('_totales', {})[k_dst] = odds_espn[k_src]
+                tot_casa.setdefault(_casa_espn, {})[k_dst] = odds_espn[k_src]
 
     pin = _buscar(_indice(deporte), home, away, deporte)
     if pin and pin.get('cuotas'):
@@ -904,6 +924,9 @@ def cuotas_partido(deporte: str, home: str, away: str,
         for k in ('btts_yes', 'btts_no'):
             if c.get(k):
                 casas.setdefault('_totales', {})[k] = c[k]
+        for k in ('over25', 'under25', 'btts_yes', 'btts_no'):
+            if c.get(k):
+                tot_casa.setdefault('Pinnacle', {})[k] = c[k]
         fuentes.append('pinnacle')
 
     # Bovada: tercera casa. Aporta las ligas que Pinnacle no cubre y la
@@ -981,6 +1004,12 @@ def cuotas_partido(deporte: str, home: str, away: str,
     return {'casas': reales, 'mejor': mejor, 'preferida': preferida,
             'casa_prioritaria': CASA_PRIORITARIA,
             'totales': totales,
+            # v90: los mismos totales SIN fusionar, con la casa que puso cada
+            # precio. Nadie lo consume todavía para decidir picks; lo escribe
+            # `daily_snapshots` para que dentro de unas semanas exista el
+            # histórico de dos casas que hoy no existe (ver el comentario de
+            # `tot_casa` arriba).
+            'totales_por_casa': tot_casa or None,
             'pinnacle': reales.get('Pinnacle'), 'n_casas': len(reales),
             'fuentes': fuentes,
             'emparejado_difuso': (pin or {}).get('emparejado_difuso')}
