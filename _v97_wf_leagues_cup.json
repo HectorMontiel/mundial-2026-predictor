@@ -1,0 +1,40 @@
+{
+ "ediciones": [
+  {
+   "edicion": 2023,
+   "n": 77,
+   "acc_agrupado": 0.3896,
+   "acc_solo_lc": null,
+   "acc_elo": 0.4805,
+   "ll_agrupado": 1.0989,
+   "ll_solo_lc": null
+  },
+  {
+   "edicion": 2024,
+   "n": 77,
+   "acc_agrupado": 0.4416,
+   "acc_solo_lc": 0.3506,
+   "acc_elo": 0.4026,
+   "ll_agrupado": 1.0746,
+   "ll_solo_lc": 1.1104
+  },
+  {
+   "edicion": 2025,
+   "n": 62,
+   "acc_agrupado": 0.4839,
+   "acc_solo_lc": 0.4032,
+   "acc_elo": 0.4516,
+   "ll_agrupado": 1.0447,
+   "ll_solo_lc": 1.0781
+  }
+ ],
+ "n": 216,
+ "acc_agrupado": 0.4352,
+ "acc_solo_lc": 0.3741,
+ "acc_elo": 0.4444,
+ "ventaja": -0.0093,
+ "p5": -0.0556,
+ "p50": -0.0093,
+ "p95": 0.037,
+ "prob_positiva": 0.3427
+}

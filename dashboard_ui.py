@@ -1585,8 +1585,10 @@ def render_liga_club(clave: str, nombre_liga: str):
 COMPETENCIAS = {'🌍 Partidos Internacionales': 'mundial',
                 '💎 Apuestas del Día': 'alpha',
                 '⚾ MLB (béisbol)': 'mlb_deporte',
+                '⚾ KBO (béisbol coreano)': 'kbo_deporte',       # v97
                 '🏀 NBA (baloncesto)': 'nba_deporte',
                 '🎾 Tenis (ATP/WTA)': 'tennis_deporte',
+                '🏆 Leagues Cup': 'leagues_cup',                 # v97
                 '🇲🇽 Liga MX': 'liga_mx',
                 '🇧🇷 Brasileirão': 'brasil',
                 '🇦🇷 Primera (ARG)': 'argentina',
@@ -1610,7 +1612,8 @@ NOMBRES_LIGAS = {'liga_mx': 'Liga MX', 'mls': 'MLS',
                  'champions': 'UEFA Champions League',
                  'turquia': 'Süper Lig', 'dinamarca': 'Superliga',
                  'europa_league': 'UEFA Europa League',
-                 'conference_league': 'UEFA Conference League'}
+                 'conference_league': 'UEFA Conference League',
+                 'leagues_cup': 'Leagues Cup'}                   # v97
 
 # v68 — Las competiciones nuevas se añaden solas al selector, agrupadas por
 # país, y SOLO las que el entrenamiento marcó `disponible` (es decir, las que
@@ -2733,6 +2736,121 @@ def render_mlb():
         st.caption(AVISO_JUEGO_RESPONSABLE)
 
 
+def render_kbo():
+    """
+    v97 — vista de la KBO (béisbol coreano).
+
+    Misma estructura que la de la MLB porque es el mismo motor de béisbol,
+    con dos diferencias que el usuario tiene que ver escritas: el modelo va
+    en modo informativo (no hay cuota de cierre histórica con la que validar
+    un edge de apuesta) y en la KBO existe el empate.
+    """
+    st.header("⚾ KBO — Béisbol coreano")
+    from engines.kbo_engine import KBOEngine
+
+    @st.cache_resource(show_spinner="Cargando modelo KBO…")
+    def _motor():
+        return KBOEngine().cargar_modelo()
+
+    eng = _motor()
+    if not eng.listo:
+        st.error(f"El motor KBO no está disponible: {eng.error}")
+        st.caption("Entrena con `python -m engines.kbo_engine` (descarga el "
+                   "histórico de Naver Sports y crea modelos/kbo/).")
+        return
+
+    md = eng.metadata
+    import pandas as _pd
+    _fechas = [v.get('ult_fecha') for v in (eng.estado.get('equipos') or {}).values()
+               if v.get('ult_fecha')]
+    if _fechas:
+        _ult = _pd.Timestamp(max(_fechas))
+        _dias = (_pd.Timestamp.today().normalize() - _ult.normalize()).days
+        _sem = '🟢' if _dias <= 3 else ('🟡' if _dias <= 14 else '🔴')
+        _frescura = f"{_sem} último partido en el estado: {_ult.date()} ({_dias} d)"
+    else:
+        _frescura = "⚠️ el estado del modelo no registra fechas"
+    _wf = md.get('walk_forward') or {}
+    st.caption(
+        f"Modelo entrenado con {md.get('n_juegos')} juegos "
+        f"(Naver Sports, 2008-actual) · precisión backtest "
+        f"{md.get('precision_validacion', 0)*100:.1f} % "
+        f"(ELO {md.get('precision_linea_base_elo', 0)*100:.1f} %) · {_frescura}")
+    if _wf:
+        st.info(
+            f"**Modo informativo.** En validación cronológica el modelo acierta "
+            f"el **{_wf.get('precision', 0)*100:.1f} %** frente al "
+            f"**{_wf.get('precision_elo', 0)*100:.1f} %** de la línea base, así que "
+            f"aporta — pero de la KBO no existe histórico gratuito de cuotas de "
+            f"cierre, y sin él no se puede demostrar que ganar dinero con esto "
+            f"sea posible. Por eso sus partidos se muestran y **no se proponen "
+            f"como apuesta de élite**.")
+    st.caption(
+        "En la KBO se corta a las 12 entradas: alrededor del 4 % de los juegos "
+        "acaba en empate. Las probabilidades de abajo son de ganar **a condición "
+        "de que haya ganador**.")
+
+    tab1, tab2 = st.tabs(["🎯 Predecir partido", "📅 Partidos de hoy"])
+    with tab1:
+        if 'kbo_a' not in st.session_state and len(eng.equipos) > 1:
+            st.session_state['kbo_a'] = eng.equipos[1]
+        c1, c2 = st.columns(2)
+        home = c1.selectbox("🏠 Local", eng.equipos, key='kbo_h')
+        away = c2.selectbox("✈️ Visitante", eng.equipos, key='kbo_a')
+        if home == away:
+            st.warning("Elige equipos distintos.")
+        else:
+            pl = eng.plantilla_kbo(home, away)
+            if 'error' in pl:
+                st.error(pl['error'])
+            else:
+                pr = pl['prediccion_base']
+                m1, m2, m3 = st.columns(3)
+                m1.metric(f"Gana {home}", f"{pr['prob_home']*100:.0f} %")
+                m2.metric(f"Gana {away}", f"{pr['prob_away']*100:.0f} %")
+                m3.metric("Carreras totales (est.)",
+                          f"{pr['total_estimado']:.1f}")
+                for sec in pl['secciones']:
+                    with st.expander(f"📋 {sec['titulo']}",
+                                     expanded=sec['titulo'].startswith('1.')):
+                        st.dataframe(pd.DataFrame([{
+                            'Mercado': c['etiqueta'], 'Prob.': f"{c['valor']:.0f} %",
+                            'Cuota justa': round(100 / max(c['valor'], 1e-6), 2)}
+                            for c in sec['campos'] if c.get('tipo', 'pct') == 'pct']),
+                            width='stretch', hide_index=True)
+                for obs in pl.get('observaciones', []):
+                    st.caption(obs)
+                if pl.get('nota_empate'):
+                    st.caption(pl['nota_empate'])
+
+    with tab2:
+        @st.cache_data(ttl=1800, show_spinner="Consultando cuotas KBO…")
+        def _kbo_hoy():
+            return eng.apuestas_dia()
+
+        r = _kbo_hoy()
+        st.caption(f"{r.get('eventos', 0)} partidos con cuota · "
+                   f"{r.get('evaluados', 0)} evaluados por el modelo · "
+                   f"{r.get('con_abridor', 0)} con abridor anunciado. "
+                   f"Cuotas de Pinnacle y Playdoit.")
+        filas = (r.get('picks') or []) + (r.get('confianza') or [])
+        if not filas:
+            st.info("Hoy no hay ningún partido de KBO donde el modelo se "
+                    "separe del precio lo suficiente como para destacarlo. "
+                    "La temporada va de marzo a octubre.")
+        for pk in filas:
+            with st.container(border=True):
+                cc1, cc2 = st.columns([3, 2])
+                cc1.markdown(f"**{pk['partido']}**  \n{pk['fecha']}")
+                cc2.markdown(f"{pk.get('valor', '🎯')} {pk['apuesta']}  \n"
+                             f"Cuota **{pk['cuota']}** (justa {pk['cuota_justa']}) · "
+                             f"EV **{pk['ev']*100:+.1f} %**")
+        for inc in r.get('incidencias') or []:
+            st.caption(inc)
+        from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+        st.caption(AVISO_JUEGO_RESPONSABLE)
+
+
 def render_nba():
     """v30 (§4): vista NBA — modo analítico (sin cuotas en vivo hasta oct 2026)."""
     st.header("🏀 NBA — Baloncesto")
@@ -3051,6 +3169,9 @@ def render_tennis():
 _clave_comp = COMPETENCIAS[competencia_sel]
 if _clave_comp == 'mlb_deporte':
     render_mlb()
+    st.stop()
+if _clave_comp == 'kbo_deporte':                          # v97
+    render_kbo()
     st.stop()
 if _clave_comp == 'nba_deporte':
     render_nba()

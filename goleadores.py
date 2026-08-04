@@ -171,6 +171,38 @@ def _buscar_team_id(clave: str, nombre_equipo: str) -> Optional[str]:
     if not equipos:
         return None
     catalogo = {e['nombre']: e['id'] for e in equipos}
+
+    # v97 — en la Leagues Cup manda la tabla explícita y NO hay respaldo difuso.
+    #
+    # ESPN publica sólo los ~36 participantes de la edición en curso, así que
+    # los equipos del histórico que este año no juegan **no están** en el
+    # catálogo. Y cuando el nombre buscado no está, el emparejamiento difuso no
+    # se queda callado: elige el más parecido. Medido aquí — «New York Red
+    # Bulls» acababa en **«New York City FC»**, otro club de la misma ciudad, y
+    # los goleadores del partido habrían salido de la plantilla equivocada sin
+    # un solo error por pantalla. Es el mismo choque que la tabla de
+    # `leagues_cup` existe para evitar (ver su docstring).
+    #
+    # Con un universo cerrado de 47 equipos no hace falta adivinar: se traduce
+    # por la tabla y, si el equipo no está en el cuadro de este año, se
+    # devuelve None — sin goleadores es peor que con goleadores, pero mucho
+    # mejor que con los del rival equivocado.
+    if clave == 'leagues_cup':
+        try:
+            import leagues_cup as _lc
+            espn = next((k for k, v in _lc.ALIAS.items() if v == nombre_equipo),
+                        nombre_equipo)
+            if espn in catalogo:
+                return catalogo[espn]
+            logger.info(f"[goleadores/leagues_cup] '{nombre_equipo}' "
+                        f"('{espn}') no está en el cuadro de esta edición; "
+                        f"sin goleadores para él.")
+            return None
+        except Exception as e:
+            logger.warning(f"[goleadores/leagues_cup] tabla de alias: "
+                           f"{type(e).__name__}: {e}")
+            return None
+
     m = name_mapper.mapear(nombre_equipo, catalogo.keys(),
                            contexto=f'goleadores→{clave}')
     return catalogo.get(m) if m else None

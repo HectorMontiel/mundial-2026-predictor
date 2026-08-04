@@ -685,6 +685,41 @@ def historico_unificado(circuito: str, con_espn: bool = True,
     except Exception as e:
         logger.warning(f"[tenis/{circuito}] ITF omitido: {type(e).__name__}: {e}")
 
+    # -----------------------------------------------------------------------
+    # v97 — EL ITF, AHORA VIVO.
+    #
+    # `ingesta_itf` (arriba) es un ARCHIVO: su último partido es del
+    # 2026-06-01. Para entrenar da igual, pero el ESTADO DE FORMA de un
+    # jugador de M15 en ocho semanas cambia entero. `acumular_itf` recoge cada
+    # día los resultados que BetExplorer publica (~275 partidos ITF por
+    # semana, masculino y femenino) y ésta es la mitad reciente que faltaba.
+    #
+    # Se añade igual que las otras: sólo lo que no está, por pareja canónica y
+    # fecha ±1 día. Va DESPUÉS del archivo a propósito — si un partido está en
+    # las dos, manda el archivo, que trae ranking y superficie.
+    # -----------------------------------------------------------------------
+    try:
+        import acumular_itf
+        vivo = acumular_itf.cargar(circuito)
+        if not vivo.empty:
+            claves = set()
+            for m in marcos:
+                for delta in (-1, 0, 1):
+                    claves |= set(_clave_partido(
+                        m['Date'] + pd.Timedelta(days=delta),
+                        m['Player_1'], m['Player_2']))
+            kv = _clave_partido(vivo['Date'], vivo['Player_1'], vivo['Player_2'])
+            nuevos_vivo = vivo[~kv.isin(claves)].copy()
+            nuevos_vivo['Retirado'] = False
+            logger.info(f"[tenis/{circuito}] ITF vivo aporta "
+                        f"{len(nuevos_vivo)} partidos nuevos "
+                        f"({len(vivo) - len(nuevos_vivo)} ya estaban).")
+            if not nuevos_vivo.empty:
+                marcos.append(nuevos_vivo)
+    except Exception as e:
+        logger.warning(f"[tenis/{circuito}] ITF vivo omitido: "
+                       f"{type(e).__name__}: {e}")
+
     df = pd.concat(marcos, ignore_index=True, sort=False)
     # Catálogo de torneos del circuito principal (para reconocer los de ESPN).
     # SOLO los de los últimos años: con el catálogo histórico completo (200+

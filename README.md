@@ -1,5 +1,75 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v97 — El ITF ya llega vivo, y dos competiciones nuevas (ver [VALIDACION_v97.md](VALIDACION_v97.md))
+
+- **📡 EL ITF DEJA DE LLEGAR CON DOS MESES DE RETRASO.** La v96 le dio histórico
+  al circuito (566.860 partidos) con una limitación escrita: el espejo es un
+  **archivo** y su último partido era del **2026-06-01**. Para entrenar da
+  igual; para el estado de forma de un chico de M15, que en ocho semanas juega
+  quince torneos, no. **Fuente viva encontrada: BetExplorer** — primera
+  ejecución **118 partidos ITF en 3 días** (2026-08-02 → 04), **235 jugadores**,
+  50 torneos, masculino **y** femenino, con fecha explícita, ganador, sets y
+  juegos. Ritmo **~275 partidos/semana**. Corre a diario.
+  **Descartadas con evidencia:** `itftennis.com` (**212 bytes** de página
+  anti-bot en la web y en sus 4 rutas de API), **TennisAbstract** — que SÍ tiene
+  el dato en `matchmx`, pero su `robots.txt` dice `Disallow: /jsmatches/`, así
+  que queda fuera **por norma, no por falta de dato** —, Sofascore (403), ESPN
+  (0 partidos ITF, reconfirmado) y **TennisExplorer**, que cubre las **11**
+  torneos ITF femeninos que Pinnacle cotiza hoy y **0 masculinos**: media
+  fuente no sirve.
+- **⚾ KBO (béisbol coreano): 13.009 juegos, 2008-2026, y modelo que bate al
+  ELO.** `statsapi.mlb.com` tiene la liga **registrada** (`sportId=32`, los 10
+  equipos con sus ids) y **0 juegos** en cinco temporadas; ESPN devuelve 400.
+  La fuente es **Naver Sports**, con marcador, estadio y **abridor de cada
+  lado**, y llega a HOY. **Y el ensemble de la MLB NO servía**: con un corte
+  80/20 daba 54,35 % y parecía bien, pero el walk-forward de 5 pliegues lo
+  desmintió — **0,5426 frente a un ELO de 0,5452**, p5 −1,31 %, ganando 2
+  pliegues de 5 y con peor log-loss en 4. Barrido de 6 familias **eligiendo en
+  los pliegues 1-3 y juzgando en el 4-5**: sale **ELO + abridor, logística**,
+  con **0,5469 frente al 0,5366 del ELO (+1,02 pp, P(>0)=89,1 %)** y el mejor
+  log-loss de las seis. *(`base_logit` sacó un pelo más en el juicio y **no** se
+  adopta: quedarse con eso sería elegir por el pliegue de juicio.)*
+- **🏆 Leagues Cup: cobertura completa, y el modelo NO bate al ELO — se dice.**
+  ESPN sirve las 230 finalizadas (2019-2025) y las 54 de la edición que
+  **arranca hoy**, y la cotizan **cuatro casas** (Pinnacle, Bovada, Playdoit y
+  DraftKings): 70 fotos de 42 partidos en la primera captura. Como 230 partidos entre 47
+  equipos no dan para nada, el histórico se **agrupa con MLS y Liga MX**
+  (**6.609 partidos, 52 equipos**): los clubes no son nuevos, lo que falta es la
+  escala entre las dos ligas. Aun así, medido por ediciones: **agrupado 0,4352 ·
+  solo-LC 0,3741 · ELO 0,4444**. También se probó —y se **rechazó**— un
+  desplazamiento de escala entre MLS y Liga MX: gana en 2025 y pierde en 2023 y
+  2024 (agregado 0,4306 vs 0,4444; con 62 partidos el bootstrap es de ±10 pp).
+  **Se despliega la línea base, no un modelo que sólo añadiría varianza.**
+- **Las dos, en Capa 2 (informativa) — y el reloj ya está en marcha.** Batir al
+  ELO habilita el modelo; **no** demuestra edge de apuesta, que exige ROI contra
+  cuota de cierre, y de KBO y Leagues Cup **no existe histórico gratuito de
+  cierre**: afirmarlo hoy sería inventarlo. La única vía es guardarlo desde hoy,
+  así que la Leagues Cup entra sola en las fotos diarias y la KBO tiene ahora
+  las suyas (`daily_snapshots.capturar_kbo()`, que antes no existía porque la
+  captura recorría sólo el catálogo de fútbol — **sin fotos esa competición no
+  habría podido salir de Capa 2 jamás**). Primera ejecución: 5 partidos × 2
+  casas, y ya se ve el material del canal que **sí** está validado (line
+  shopping): **Doosan Bears a 2,29 en Pinnacle y 2,40 en Playdoit, un 4,8 %**.
+  La vista de KBO dice en pantalla que es informativa.
+- **🕳️ Y otra vez la fuga de posición, cortada dos veces.** BetExplorer coloca
+  al ganador en la primera columna el **41,5 %** de las veces; `acumular_itf`
+  **lanza `ValueError` y no escribe el fichero** si el reparto se sale de
+  [40 %, 60 %], y al cargar se reasigna de forma determinista → 56,5 % / 53,6 %.
+  De paso: el marcador tenía que viajar CON la columna (`Player_1` ganaba y el
+  Score decía `0-2`). En la KBO el equivalente es la ventaja de campo: Naver
+  publica un `reversedHomeAway`, así que se comprueba que **el local gane el
+  52,1 %** antes de escribir — cruzar local y visitante no da error, enseña la
+  localía con el signo cambiado.
+- **🗽 Dos clubes de Nueva York.** El emparejamiento difuso acertó 46 de los 47
+  equipos de la Leagues Cup y falló donde más caro sale: **«Red Bull New York» →
+  «New York City»**. Fundir sus historiales les habría dado a los dos un ELO
+  promediado y **nadie lo habría notado mirando la precisión**. Tabla de alias
+  explícita, aviso ante cualquier nombre nuevo y test de regresión.
+- **Hallazgo abierto (regla de oro 6):** el test nuevo de `robots.txt` encontró
+  que **`tenis_saque.py:88` pide `/jsplayers/`, que tennisabstract prohíbe**. Es
+  de la v69, es ajeno a esta versión y **no se toca** aquí; queda anotado con su
+  localización exacta en VALIDACION_v97.md para decidirlo por separado.
+
 ## Novedades v96 — El circuito ITF: la fuente existía, y casi la estropeo (ver [VALIDACION_v96.md](VALIDACION_v96.md))
 
 - **🔎 Encontrada la fuente de datos del ITF.** La v95 excluyó el circuito

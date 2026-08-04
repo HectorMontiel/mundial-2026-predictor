@@ -12,7 +12,8 @@
   "bel_pro_league": "logistica",
   "eng_league_two": "logistica",
   "bra_serie_b": "blend_elo",
-  "esp_hypermotion": "logistica"
+  "esp_hypermotion": "logistica",
+  "leagues_cup": "elo_logit"
  },
  "detalle": {
   "eng_fa_cup": {
@@ -164,6 +165,15 @@
    "bate_elo": true,
    "mejora_sobre_ensemble": true,
    "n_oos": 892
+  },
+  "leagues_cup": {
+   "familia": "elo_logit",
+   "nota": "v97 — ninguna variante aprendida bate al ELO en la Leagues Cup. Juicio sobre la edicion 2025 (no mirada para elegir): la mejor variante empata con el ELO crudo (0.4516 vs 0.4516) y pierde con el ELO+offset (0.4839). Agregado de 2023-2025: modelo 0.4352 vs ELO 0.4444 sobre 216 partidos. Se despliega elo_logit porque es la linea base, no porque mejore nada.",
+   "acc_modelo_oos": 0.4352,
+   "elo": 0.4444,
+   "bate_elo": false,
+   "n_oos": 216,
+   "capa": 2
   }
  }
 }

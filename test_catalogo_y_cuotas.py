@@ -52,11 +52,28 @@ def test_catalogo_sin_duplicados():
         check(muerta not in config.LEAGUES,
               f"la clave duplicada '{muerta}' sigue fuera del catálogo")
 
-    # ninguna liga disponible puede quedarse sin fuente
+    # ninguna liga disponible puede quedarse sin fuente.
+    # v97: `leagues_cup` tampoco lleva `urls` — su histórico lo arma
+    # `leagues_cup.historico()` juntando MLS, Liga MX y ESPN, así que su fuente
+    # es el módulo, no una lista de CSV.
+    FORMATOS_SIN_URLS = ('espn', 'api_football', 'leagues_cup')
     sin_fuente = [k for k, v in config.LEAGUES.items()
                   if v.get('disponible') and not v.get('urls')
-                  and v.get('formato') not in ('espn', 'api_football')]
+                  and v.get('formato') not in FORMATOS_SIN_URLS]
     check(not sin_fuente, f"toda liga disponible tiene fuente ({sin_fuente})")
+
+    # …y todo formato declarado tiene que saber descargarse. Sin esto, añadir
+    # un formato nuevo y olvidar la rama de `descargar_liga` no da error hasta
+    # el reentrenamiento nocturno, que es donde peor se ve.
+    import inspect
+    import league_engine
+    fuente_descarga = inspect.getsource(league_engine.descargar_liga)
+    formatos = {v.get('formato') for v in config.LEAGUES.values()
+                if v.get('disponible')}
+    sin_rama = [f for f in formatos
+                if f and f not in ('main', 'new') and f"'{f}'" not in fuente_descarga]
+    check(not sin_rama,
+          f"todo formato del catálogo tiene rama en descargar_liga ({sin_rama})")
 
 
 def test_ligas_migradas():
@@ -1868,6 +1885,207 @@ def test_techo_por_liga_estable():
               'el techo medido está en un rango plausible para un 1X2')
 
 
+# ---------------------------------------------------------------------------
+# v97 — ITF en vivo, KBO y Leagues Cup
+# ---------------------------------------------------------------------------
+def test_itf_fuente_viva():
+    """
+    La fuente viva de ITF existe, y no puede volver a colar una fuga de
+    posición como la de la v96.
+    """
+    import acumular_itf
+
+    # 1) La guardia anti-fuga corta ANTES de escribir.
+    filas = [{'fecha': '2026-08-04', 'circuito': 'itf_masculino', 'nivel': 'M15',
+              'torneo': 'T', 'superficie': 'Hard',
+              'jugador_1': f'A{i}', 'jugador_2': f'B{i}', 'ganador': f'A{i}',
+              'sets_1': 2, 'sets_2': 0, 'juegos_totales': 12,
+              'cuota_1': None, 'cuota_2': None}
+             for i in range(acumular_itf.MUESTRA_MINIMA + 20)]
+    check(abs(acumular_itf.reparto_ganadores(filas) - 1.0) < 1e-9,
+          "el medidor detecta el 100 % de ganadores en la primera columna")
+
+    import tempfile
+    import unittest.mock as _mock
+    with _mock.patch.object(acumular_itf, 'descargar', lambda: filas):
+        ruta = os.path.join(tempfile.gettempdir(), '_test_itf_fuga.csv')
+        if os.path.exists(ruta):
+            os.remove(ruta)
+        try:
+            acumular_itf.acumular(ruta=ruta)
+            salto = False
+        except ValueError:
+            salto = True
+        check(salto, "un reparto de ganadores imposible LANZA ValueError")
+        check(not os.path.exists(ruta),
+              "y no llega a escribir el fichero contaminado")
+
+    # 2) Lo ya acumulado es coherente: el marcador viaja con la columna.
+    if os.path.exists(acumular_itf.ARCHIVO):
+        for circuito in ('atp', 'wta'):
+            df = acumular_itf.cargar(circuito)
+            if df.empty:
+                continue
+            sets = df['Score'].str.split('-', expand=True).astype(int)
+            gana_p1 = (df['Winner'] == df['Player_1']).to_numpy()
+            check(bool(((sets[0] > sets[1]).to_numpy() == gana_p1).all()),
+                  f"ITF vivo {circuito}: el marcador concuerda con el ganador "
+                  f"en los {len(df)} partidos")
+            frac = float(gana_p1.mean())
+            check(0.35 <= frac <= 0.65,
+                  f"ITF vivo {circuito}: el ganador se reparte entre columnas "
+                  f"({frac:.1%}), no siempre en la misma")
+
+    # 3) TennisAbstract quedó descartado por robots.txt, no por falta de dato.
+    #    Que no se cuele una petición a las rutas prohibidas — comprobado sobre
+    #    el AST y NO sobre el texto, porque el docstring de `acumular_itf` cita
+    #    esas rutas precisamente para explicar por qué no se usan. Es la misma
+    #    técnica del test de jerga de la v95: las cadenas VIVAS son las que
+    #    importan, los comentarios y docstrings pueden decir lo que haga falta.
+    #
+    # ALCANCE: los módulos que la v97 escribe o toca. `tenis_saque.py` (v69)
+    # pide `/jsplayers/curr_rank_{circuito}.js`, que ESTÁ en el Disallow — es
+    # un hallazgo real de este test, anterior a la v97 y ajeno a ella, y queda
+    # anotado en VALIDACION_v97.md como pendiente en vez de arreglarse aquí:
+    # ese fichero alimenta el ranking del motor de tenis, que funciona, y esta
+    # versión no toca los modelos que ya funcionan.
+    import ast
+    PROHIBIDAS = ('/jsmatches/', '/jsplayers/', '/jsfrags/')
+    for mod in ('acumular_itf.py', 'tenis_fuentes.py'):
+        if not os.path.exists(mod):
+            continue
+        arbol = ast.parse(open(mod, encoding='utf-8').read())
+        docstrings = set()
+        for nodo in ast.walk(arbol):
+            if isinstance(nodo, (ast.Module, ast.FunctionDef,
+                                 ast.AsyncFunctionDef, ast.ClassDef)):
+                d = ast.get_docstring(nodo, clean=False)
+                if d:
+                    docstrings.add(d)
+        vivas = [n.value for n in ast.walk(arbol)
+                 if isinstance(n, ast.Constant) and isinstance(n.value, str)
+                 and n.value not in docstrings]
+        malas = [s for s in vivas if any(p in s for p in PROHIBIDAS)]
+        check(not malas,
+              f"{mod} no pide las rutas que tennisabstract prohíbe en "
+              f"robots.txt ({malas[:2]})")
+
+
+def test_kbo_integrada():
+    """La KBO tiene datos, modelo y no se mezcla con la MLB."""
+    import config
+
+    check('KBO' in config.UMBRALES_DEPORTE,
+          "la KBO declara su umbral de confianza (no hereda uno escondido)")
+
+    import kbo_naver
+    check(len(kbo_naver.CODIGO_A_EQUIPO) == 10,
+          f"la KBO mapea sus 10 equipos ({len(kbo_naver.CODIGO_A_EQUIPO)})")
+    check(len(set(kbo_naver.CODIGO_A_EQUIPO.values())) == 10,
+          "y ningún código apunta al mismo equipo que otro")
+
+    if os.path.exists(kbo_naver.SALIDA):
+        import pandas as _pd
+        df = _pd.read_csv(kbo_naver.SALIDA, parse_dates=['date'])
+        check(len(df) > 10000,
+              f"histórico de KBO con volumen ({len(df)} juegos)")
+        dec = df[df.home_runs != df.away_runs]
+        pct = float((dec.home_runs > dec.away_runs).mean())
+        check(kbo_naver.LOCAL_MIN <= pct <= kbo_naver.LOCAL_MAX,
+              f"local y visitante NO están cruzados (el local gana {pct:.1%})")
+        check(df['date'].max() >= _pd.Timestamp('2026-01-01'),
+              f"la fuente llega a la temporada en curso "
+              f"(último {df['date'].max().date()})")
+
+    # El filtro anti-KBO de la v88 en la MLB sigue puesto: son ligas distintas
+    # y el edge de la MLB se midió sólo con partidos de MLB.
+    from engines.mlb_engine import es_partido_mlb
+    from engines.kbo_engine import es_partido_kbo
+    check(not es_partido_mlb('LG Twins', 'SSG Landers'),
+          "un partido de KBO NO se cuela como MLB")
+    check(es_partido_kbo('LG Twins', 'SSG Landers'),
+          "y el motor de KBO sí lo reconoce")
+    check(not es_partido_kbo('New York Yankees', 'Boston Red Sox'),
+          "y un partido de MLB no se cuela como KBO")
+
+    # El clasificador es binario: un empate no puede entrar como «no gana el
+    # local», que es lo que pasaría si no se filtrasen.
+    import pandas as _pd
+    from engines.kbo_engine import KBOEngine
+    demo = _pd.DataFrame({
+        'date': _pd.to_datetime(['2025-04-0%d' % i for i in range(1, 9)] * 3),
+        'home_team': ['LG Twins', 'KT Wiz'] * 12,
+        'away_team': ['NC Dinos', 'Doosan Bears'] * 12,
+        'home_runs': [3, 3] * 12, 'away_runs': [3, 1] * 12,
+        'home_pitcher': ['x'] * 24, 'away_pitcher': ['y'] * 24})
+    _X, _y, _t, _f, _e = KBOEngine._dataset(demo)
+    check(len(_X) == 0 or set(_y.tolist()) <= {0, 1},
+          "el dataset de KBO no etiqueta empates como derrota local")
+
+
+def test_leagues_cup_integrada():
+    """La Leagues Cup está en el catálogo, con nombres correctos."""
+    import config
+    check('leagues_cup' in config.LEAGUES,
+          "la Leagues Cup está en el catálogo de competiciones")
+    check(config.LEAGUES['leagues_cup'].get('capa') == 2,
+          "y declarada en Capa 2 (informativa): ningún modelo batió al ELO")
+
+    import fixtures_espn
+    check(fixtures_espn.ESPN_CODIGOS.get('leagues_cup') == 'concacaf.leagues.cup',
+          "tiene código ESPN (sin él nunca llegaría a Apuestas del Día)")
+
+    import leagues_cup
+    # EL fallo que el emparejamiento difuso cometió: dos clubes de Nueva York.
+    check(leagues_cup.ALIAS.get('Red Bull New York') == 'New York Red Bulls',
+          "«Red Bull New York» NO se confunde con «New York City»")
+    check(leagues_cup.ALIAS.get('New York City FC') == 'New York City',
+          "y «New York City FC» sigue siendo el suyo")
+    check(len(set(leagues_cup.ALIAS.values())) == len(leagues_cup.ALIAS),
+          "ningún par de equipos de la Leagues Cup cae en el mismo club")
+
+    # Los alias tienen que estar TAMBIÉN en el fichero global, que es lo que
+    # usa `alpha_finder` al resolver los fixtures de ESPN.
+    import json as _json
+    if os.path.exists('alias_manuales.json'):
+        alias = _json.load(open('alias_manuales.json', encoding='utf-8'))
+        faltan = [k for k, v in leagues_cup.ALIAS.items()
+                  if alias.get(k) not in (v, None) or k not in alias]
+        check(not faltan,
+              f"los alias de Leagues Cup están en alias_manuales.json ({faltan[:4]})")
+
+    if os.path.exists('historico_leagues_cup.csv'):
+        import pandas as _pd
+        df = _pd.read_csv('historico_leagues_cup.csv')
+        check(len(df) > 5000,
+              f"su histórico es el AGRUPADO con MLS y Liga MX ({len(df)} "
+              f"partidos; la competición sola son 230)")
+
+    # Los goleadores van por la MISMA tabla, sin respaldo difuso. ESPN sólo
+    # publica los ~36 participantes de la edición en curso, y cuando el equipo
+    # buscado no está el emparejamiento difuso no calla: elige el más parecido.
+    # Medido: «New York Red Bulls» acababa en «New York City FC» y los
+    # goleadores habrían salido de la plantilla equivocada, sin ningún error.
+    try:
+        import goleadores
+        cat = {e['nombre']: e['id'] for e in goleadores.equipos_liga('leagues_cup')}
+    except Exception:
+        cat = {}
+    if cat:
+        nyc = cat.get('New York City FC')
+        rb = goleadores._buscar_team_id('leagues_cup', 'New York Red Bulls')
+        check(rb is None or rb != nyc,
+              "los goleadores de «New York Red Bulls» NO salen del New York City")
+        malos = []
+        for espn, canon in leagues_cup.ALIAS.items():
+            tid = goleadores._buscar_team_id('leagues_cup', canon)
+            if tid is not None and tid != cat.get(espn):
+                malos.append((canon, espn))
+        check(not malos,
+              f"ningún equipo de Leagues Cup resuelve a la plantilla de otro "
+              f"({malos[:3]})")
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -1925,6 +2143,10 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v97: ITF en vivo, KBO y Leagues Cup ===')
+    test_itf_fuente_viva()
+    test_kbo_integrada()
+    test_leagues_cup_integrada()
     print('\n=== v96: el circuito ITF tiene datos y modelo ===')
     test_itf_tiene_datos_y_modelo()
     print('\n=== v95: fecha en el origen y mensajes sin jerga ===')

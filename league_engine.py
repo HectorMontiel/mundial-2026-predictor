@@ -690,6 +690,20 @@ def descargar_liga(clave: str) -> pd.DataFrame:
         for c in ('odd_home', 'odd_draw', 'odd_away'):
             df[c] = np.nan
         crudo = None
+    elif cfg['formato'] == 'leagues_cup':
+        # v97 — histórico AGRUPADO (MLS + Liga MX + Leagues Cup).
+        #
+        # La competición sola son 230 partidos entre 47 equipos: ~5 por equipo.
+        # Lo que hace predecible un México-Seattle no es la historia de la
+        # Leagues Cup, es la de la MLS y la Liga MX, que el proyecto ya tiene
+        # con 3.719 y 2.660 partidos. Ver `leagues_cup.py`.
+        import leagues_cup as _lc
+        df = _lc.historico(con_ligas=True)
+        df = df[df['date'] >= pd.Timestamp(cfg['desde'])].copy()
+        for c in ('odd_home', 'odd_draw', 'odd_away'):
+            if c not in df.columns:
+                df[c] = np.nan
+        crudo = None
     else:
         frames = []
         for url in cfg['urls']:
@@ -699,7 +713,7 @@ def descargar_liga(clave: str) -> pd.DataFrame:
                                       encoding_errors='ignore'))
         crudo = pd.concat(frames, ignore_index=True)
 
-    if cfg['formato'] in ('api_football', 'espn'):
+    if cfg['formato'] in ('api_football', 'espn', 'leagues_cup'):
         pass                                   # df ya construido arriba
     elif cfg['formato'] == 'main':
         df = pd.DataFrame({

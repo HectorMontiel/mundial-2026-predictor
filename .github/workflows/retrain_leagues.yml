@@ -123,6 +123,9 @@ jobs:
           python -m engines.mlb_engine    || echo "::warning::MLB con avisos"
           python -m engines.tennis_engine atp wta || echo "::warning::tenis con avisos"
           python -m engines.nba_engine    || echo "::warning::NBA con avisos"
+          # v97 — KBO. Naver publica los resultados el mismo dia, asi que el
+          # estado del modelo puede ir al dia igual que el de la MLB.
+          python -m engines.kbo_engine    || echo "::warning::KBO con avisos"
 
       # Mismo blindaje que el fútbol (v68): NUNCA se commitea un modelo que no
       # se pueda volver a cargar. Si uno no abre, se restaura su versión
@@ -134,7 +137,8 @@ jobs:
           casos = [('MLB', 'engines.mlb_engine', 'MLBEngine', ()),
                    ('tenis ATP', 'engines.tennis_engine', 'TennisEngine', ('atp',)),
                    ('tenis WTA', 'engines.tennis_engine', 'TennisEngine', ('wta',)),
-                   ('NBA', 'engines.nba_engine', 'NBAEngine', ())]
+                   ('NBA', 'engines.nba_engine', 'NBAEngine', ()),
+                   ('KBO', 'engines.kbo_engine', 'KBOEngine', ())]
           malos = []
           for etq, mod, clase, args in casos:
               try:
@@ -151,7 +155,8 @@ jobs:
               # restaurar los artefactos del deporte que falló
               carpetas = {'engines.mlb_engine': 'modelos/mlb',
                           'engines.tennis_engine': 'modelos/tennis modelos/tennis_wta',
-                          'engines.nba_engine': 'modelos/nba'}
+                          'engines.nba_engine': 'modelos/nba',
+                          'engines.kbo_engine': 'modelos/kbo'}
               for etq, mod in malos:
                   for c in carpetas.get(mod, '').split():
                       subprocess.run(['git', 'checkout', '--', c], check=False)
@@ -174,6 +179,16 @@ jobs:
       # reentrenamiento amplíe el catálogo.
       - name: Acumular resultados de tenis (amplía el catálogo)
         run: python acumular_tenis.py --dias 7 || echo "::warning::acumulación de tenis con avisos"
+
+      # v97 — EL ITF, EN VIVO.
+      #
+      # `ingesta_itf` (semanal, en recalibrar.yml) trae el ARCHIVO de Sackmann,
+      # que se quedó en el 2026-06-01. Esto recoge lo que BetExplorer publica
+      # cada día (~275 partidos ITF por semana, masculino y femenino), que es
+      # lo que mantiene vivo el estado de forma de los jugadores de M15/W15.
+      # Igual que el acumulador de tenis: si no se guarda hoy, se pierde.
+      - name: Acumular resultados de ITF (fuente viva)
+        run: python acumular_itf.py || echo "::warning::acumulación de ITF con avisos"
 
       # v92 — CIERRA EL CIRCUITO. El proyecto registraba los picks de cada día
       # desde la v32 y nunca los resolvía (`liquidar()` no tenía llamador):

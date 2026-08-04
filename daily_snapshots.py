@@ -221,6 +221,83 @@ def capturar(dias: int = DIAS_VISTA, solo: Optional[str] = None) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# v97 — Fotos de la KBO
+# ---------------------------------------------------------------------------
+def capturar_kbo() -> dict:
+    """
+    Fotografía la línea de la KBO. Es la ÚNICA vía a un edge validado.
+
+    `capturar()` recorre el catálogo de fútbol, así que la KBO se quedaba
+    fuera: sin fotos no hay cuota de cierre, sin cierre no hay ROI, y sin ROI
+    la competición no puede salir nunca de Capa 2 — daría igual lo bueno que
+    fuese su modelo. Como de la KBO no existe histórico gratuito de cierre que
+    comprar ni descargar, la única forma de tenerlo algún día es **empezar a
+    guardarlo hoy**. Es exactamente lo que la v90 dejó en marcha para las 11
+    ligas sin cuotas (n≈300 por liga en ~4 meses).
+
+    Reutiliza el mismo almacén y la misma clave de foto que el fútbol, así que
+    `clv_tracker`, `monitor_canales` y el exportador a CSV la ven sin cambios.
+    """
+    import cuotas_multi
+    from engines.kbo_engine import KBOEngine, equipo_kbo, es_partido_kbo
+
+    filas: List[dict] = []
+    try:
+        cuotas_multi.precargar('mlb')
+    except Exception as e:
+        logger.warning(f"[kbo] precarga de cuotas falló ({e}).")
+
+    vistos = set()
+    hoy = pd.Timestamp.today().normalize()
+    for idx in (cuotas_multi._indice('mlb'), cuotas_multi._indice_bov('mlb'),
+                cuotas_multi._indice_pdt('mlb')):
+        for v in (idx or {}).values():
+            h, a = v.get('home'), v.get('away')
+            if not (h and a) or not es_partido_kbo(h, a):
+                continue
+            hc, ac = equipo_kbo(h), equipo_kbo(a)
+            iso = cuotas_multi.fecha_normalizada(v.get('fecha'))
+            fecha = (iso or str(hoy.date()))[:10]
+            if (hc, ac, fecha) in vistos:
+                continue
+            vistos.add((hc, ac, fecha))
+            try:
+                dias = (pd.Timestamp(fecha) - hoy).days
+            except Exception:
+                dias = 0
+            try:
+                c = cuotas_multi.cuotas_partido('mlb', h, a)
+            except Exception as e:
+                logger.debug(f'[kbo] cuotas_partido {h}-{a}: {e}')
+                continue
+            mid = f"{fecha.replace('-', '')}_{hc}_{ac}".replace(' ', '-')
+            base = _fila_base('kbo', mid, fecha, hc, ac, dias)
+            for casa, precios in (c.get('casas') or {}).items():
+                if not isinstance(precios, dict) or not precios.get('home'):
+                    continue
+                # `snapshot_key` lleva la casa, igual que en el fútbol: la
+                # tabla es UNIQUE(match_id, bookmaker, snapshot_key) y sin ella
+                # dos casas del mismo día colisionarían.
+                filas.append({**base, 'bookmaker': casa,
+                              'snapshot_key': f"{_clave_dia()}|{casa}",
+                              'odds_home': precios.get('home'),
+                              'odds_away': precios.get('away'),
+                              'source_file': 'daily_snapshots/kbo'})
+
+    if not filas:
+        logger.info('[kbo] sin partidos con cuota que fotografiar.')
+        return {'filas_nuevas': 0, 'partidos': 0}
+    con = odds_store.conectar()
+    odds_store.importar_snapshots(con)
+    n = odds_store.guardar(con, filas, reemplazar=False)
+    odds_store.exportar_snapshots(con)
+    con.close()
+    logger.info(f"[kbo] {n} filas nuevas de {len(vistos)} partidos.")
+    return {'filas_nuevas': n, 'partidos': len(vistos),
+            'filas_generadas': len(filas)}
+
+
+# ---------------------------------------------------------------------------
 # Reconciliación snapshot -> cierre
 # ---------------------------------------------------------------------------
 def reconciliar(tolerancia_dias: int = 1) -> dict:
@@ -287,6 +364,13 @@ if __name__ == '__main__':
         salida = reconciliar()
     else:
         salida = capturar(dias=args.dias, solo=args.liga)
+        # v97 — la KBO va aparte porque `capturar` recorre el catálogo de
+        # fútbol. Un fallo suyo no puede llevarse las fotos del fútbol.
+        try:
+            salida['kbo'] = capturar_kbo()
+        except Exception as e:
+            logger.warning(f'[kbo] fotos omitidas: {type(e).__name__}: {e}')
+            salida['kbo'] = {'error': f'{type(e).__name__}: {e}'}
         salida['reconciliacion'] = reconciliar()
     with open(SALIDA, 'w', encoding='utf-8') as f:
         json.dump(salida, f, ensure_ascii=False, indent=1)

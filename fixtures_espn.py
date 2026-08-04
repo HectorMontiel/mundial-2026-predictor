@@ -58,6 +58,10 @@ ESPN_CODIGOS: Dict[str, str] = {
     'europa_league': 'uefa.europa',
     'conference_league': 'uefa.europa.conf',
     'mundial': 'fifa.world',
+    # v97 — Leagues Cup. Sin esta entrada la competición se entrena y no llega
+    # nunca a Apuestas del Día: `alpha_finder.barrido_*` sólo recorre las
+    # claves que estén en este mapa (ver la nota de v68 justo debajo).
+    'leagues_cup': 'concacaf.leagues.cup',
 }
 
 # v68 — Competiciones nuevas. Sin esta línea, `alpha_finder.barrido_*` NO las

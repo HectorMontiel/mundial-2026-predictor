@@ -1,0 +1,69 @@
+{
+ "n_total": 6344,
+ "pliegues": [
+  {
+   "pliegue": 1,
+   "n": 1269,
+   "desde": "2018-04-29",
+   "hasta": "2019-09-13",
+   "acc_modelo": 0.5477,
+   "acc_elo": 0.5548,
+   "acc_local": 0.5508,
+   "ll_modelo": 0.6884,
+   "ll_elo": 0.6826
+  },
+  {
+   "pliegue": 2,
+   "n": 1268,
+   "desde": "2019-09-14",
+   "hasta": "2021-09-01",
+   "acc_modelo": 0.5379,
+   "acc_elo": 0.5576,
+   "acc_local": 0.5308,
+   "ll_modelo": 0.6874,
+   "ll_elo": 0.685
+  },
+  {
+   "pliegue": 3,
+   "n": 1269,
+   "desde": "2021-09-01",
+   "hasta": "2023-05-30",
+   "acc_modelo": 0.5414,
+   "acc_elo": 0.5406,
+   "acc_local": 0.5012,
+   "ll_modelo": 0.6904,
+   "ll_elo": 0.6879
+  },
+  {
+   "pliegue": 4,
+   "n": 1269,
+   "desde": "2023-05-30",
+   "hasta": "2025-03-11",
+   "acc_modelo": 0.5351,
+   "acc_elo": 0.5398,
+   "acc_local": 0.5185,
+   "ll_modelo": 0.6916,
+   "ll_elo": 0.6904
+  },
+  {
+   "pliegue": 5,
+   "n": 1269,
+   "desde": "2025-03-11",
+   "hasta": "2026-08-04",
+   "acc_modelo": 0.5508,
+   "acc_elo": 0.5335,
+   "acc_local": 0.5185,
+   "ll_modelo": 0.6856,
+   "ll_elo": 0.6876
+  }
+ ],
+ "acc_modelo": 0.5426,
+ "acc_elo": 0.5452,
+ "acc_local": 0.524,
+ "ventaja": -0.0027,
+ "bootstrap_p5": -0.0131,
+ "bootstrap_p50": -0.003,
+ "bootstrap_p95": 0.0082,
+ "prob_ventaja_positiva": 0.3262,
+ "pliegues_ganados": 2
+}

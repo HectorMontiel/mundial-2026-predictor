@@ -456,6 +456,37 @@ LEAGUES = {
         # Menos historia ⇒ criterio conservador (v35 §2.3).
         'umbral_confianza': 0.75,
     },
+    # v97 — LEAGUES CUP (MLS vs Liga MX).
+    #
+    # Formato propio porque su histórico NO es el de la competición: son 230
+    # partidos en 7 años y con eso no se entrena nada. `leagues_cup.historico()`
+    # devuelve MLS + Liga MX + Leagues Cup en un solo hilo cronológico (6.609
+    # partidos, 52 equipos), que es donde de verdad está el nivel de cada club;
+    # los 230 cruces son los que fijan la escala entre las dos ligas.
+    #
+    # FAMILIA `elo_logit` Y NO EL ENSEMBLE, y con la razón medida
+    # (`_v97_familias_leagues_cup.py`, juicio sobre la edición 2025 que no se
+    # miró para elegir): NINGUNA variante aprendida bate a la línea base ELO.
+    # La mejor empata con ella (0,4516 frente a 0,4516) y el agregado de las
+    # tres ediciones da 43,52 % del modelo contra 44,44 % del ELO. Con 216
+    # partidos fuera de muestra y 62 en el pliegue de juicio, el intervalo del
+    # bootstrap es de ±10 pp: aquí no hay nada que demostrar todavía. Se
+    # despliega la línea base, que es lo que mejor funciona, en vez de un
+    # modelo que sólo añadiría varianza.
+    #
+    # Por eso entra en CAPA 2 (informativa): la ficha y los pronósticos sí, la
+    # apuesta de Capa 1 no, hasta que los snapshots diarios acumulen cuota de
+    # cierre con la que medir ROI (mismo camino que las 11 ligas de la v90).
+    'leagues_cup': {
+        'nombre': 'Leagues Cup', 'pais': 'Norteamérica',
+        'formato': 'leagues_cup', 'urls': [], 'disponible': True,
+        'desde': '2018-08-01',
+        'features_extra': ['extras'],
+        'capa': 2,
+        'nota': ('Histórico agrupado con MLS y Liga MX: la competición sola '
+                 'tiene 230 partidos. Modo informativo — ningún modelo batió '
+                 'al ELO en walk-forward (VALIDACION_v97.md).'),
+    },
 }
 
 # ---------------------------------------------------------------------------
@@ -491,6 +522,12 @@ UMBRALES_DEPORTE = {
     'MLB':    {'capa1': 0.58, 'capa2': 0.65},
     'NBA':    {'capa1': 0.60, 'capa2': 0.70},
     'Tenis':  {'capa1': 0.65, 'capa2': 0.75},
+    # v97 — KBO. Mismo techo que la MLB porque es el mismo deporte y su modelo
+    # ronda el 54-55 %: exigir el 70 % del fútbol la dejaría siempre vacía.
+    # `capa1` no llega a usarse (la KBO va a Capa 2 por decisión, ver
+    # `alpha_finder._picks_kbo`), pero se declara para que el umbral no dependa
+    # de un valor por defecto escondido.
+    'KBO':    {'capa1': 0.58, 'capa2': 0.62},
 }
 
 POSITIONS = ['POR', 'DFC', 'DFC', 'DFC', 'LI', 'LD', 'MCD', 'MC', 'MC', 'ED', 'DC']

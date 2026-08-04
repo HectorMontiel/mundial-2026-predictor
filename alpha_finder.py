@@ -1251,6 +1251,45 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
     return salida
 
 
+def _picks_kbo() -> Dict[str, List[Dict]]:
+    """
+    v97 — KBO (béisbol coreano), SÓLO Capa 2.
+
+    Su modelo bate al ELO fuera de muestra (+1,02 pp, juicio en los pliegues
+    4-5 que no se miraron para elegir la familia) pero no hay cuota de cierre
+    histórica de la KBO con la que medir ROI, así que no puede haber edge
+    validado y no entra en Capa 1. Va a la pestaña de máxima confianza y a los
+    pronósticos, que es donde vive lo informativo.
+
+    No cuesta ni una petición extra: el tablón de «mlb» que ya se descarga
+    trae la KBO dentro (la v88 la filtraba por no ser MLB, con razón — aquel
+    filtro sigue intacto y este motor recoge lo que descarta).
+    """
+    salida: Dict[str, List] = {'capa1': [], 'capa2': [], 'incidencias': []}
+    try:
+        from engines.kbo_engine import KBOEngine
+        eng = KBOEngine().cargar_modelo()
+        if not eng.listo:
+            return {'capa1': [], 'capa2': [],
+                    'incidencias': ['KBO: el modelo no está disponible.']}
+        r = eng.apuestas_dia(min_prob=UMBRAL_CONF.get('KBO', 0.58))
+        # Los `picks` del motor pasarían los filtros de élite, pero la KBO NO
+        # tiene edge de apuesta validado: se degradan a Capa 2 en vez de
+        # colarse en la Capa 1 por la puerta de atrás.
+        for p in r.get('picks', []):
+            salida['capa2'].append({
+                **p, 'liga': 'KBO', 'mercado': 'Moneyline', 'valor': '🎯',
+                'motivo_capa2': ('KBO en modo informativo: el modelo bate al '
+                                 'ELO pero su edge de apuesta no está '
+                                 'validado contra cuota de cierre')})
+        salida['capa2'] += r.get('confianza', [])
+        salida['incidencias'] = list(r.get('incidencias') or [])
+    except Exception as e:
+        logger.warning(f"[alpha] KBO omitida: {type(e).__name__}: {e}")
+        salida['incidencias'].append(f'KBO omitida: {type(e).__name__}: {e}')
+    return salida
+
+
 def _picks_nba() -> Dict[str, List[Dict]]:
     """NBA (v34 §4): cuotas reales EN CUANTO arranque la temporada. Fuera de
     temporada (julio) ninguna fuente devuelve partidos y no se consulta nada."""
@@ -1663,10 +1702,11 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     from concurrent.futures import ThreadPoolExecutor
 
     _ramas = {'futbol': lambda: apuestas_del_dia(max_partidos=max_partidos),
-              'mlb': _picks_mlb, 'tenis': _picks_tenis, 'nba': _picks_nba}
+              'mlb': _picks_mlb, 'tenis': _picks_tenis, 'nba': _picks_nba,
+              'kbo': _picks_kbo}                       # v97
     _res: Dict[str, Dict] = {}
     _fallos: Dict[str, str] = {}
-    with ThreadPoolExecutor(max_workers=4,
+    with ThreadPoolExecutor(max_workers=5,
                             thread_name_prefix='alpha') as _ex:
         _fut = {_ex.submit(fn): nombre for nombre, fn in _ramas.items()}
         for f, nombre in _fut.items():
@@ -1751,7 +1791,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                     f'histórico no muestra edge. Trátalos con más cautela.')
     except Exception as e:
         logger.debug(f'[alpha] aviso de cobertura de calibración: {e}')
-    for nombre in ('mlb', 'tenis', 'nba'):
+    for nombre in ('mlb', 'tenis', 'nba', 'kbo'):        # v97: + KBO
         sub = _res.get(nombre) or {}
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])

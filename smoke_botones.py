@@ -28,6 +28,12 @@ VISTAS = {
     # cargando entera en el smoke, que es lo que detecta los crashes.
     '💎 Apuestas del Día': [],
     '🌍 Partidos Internacionales': ['Proponer parlays'],
+    # v97 — las dos competiciones nuevas. La de KBO tiene motor propio (vista
+    # aparte, como la de MLB) y la Leagues Cup es una liga de fútbol más, pero
+    # con un histórico construido a mano (MLS + Liga MX + ESPN): si ese armado
+    # se rompe, es aquí donde tiene que verse y no en producción.
+    '⚾ KBO (béisbol coreano)': [],
+    '🏆 Leagues Cup': ['Proponer parlays'],
 }
 
 fallos = []
