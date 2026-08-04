@@ -64,6 +64,26 @@ CODIGO_A_NOMBRE = {v: k for k, v in NOMBRES_MLB.items()}
 CODIGO_A_NOMBRE['OAK'] = 'Athletics'
 
 
+def _fecha_dia(cruda) -> str:
+    """
+    Día del partido en 'YYYY-MM-DD', cayendo a HOY si la casa no lo trajo.
+
+    v95 — la normalización de formatos vive en `cuotas_multi.fecha_normalizada`
+    (Bovada publica milisegundos epoch y `pd.to_datetime` los lee como
+    nanosegundos → 1970-01-01). Aquí sólo se recorta a día y se protege el
+    caso de que falte: una tarjeta con fecha de 1970 es peor que una con la de
+    hoy, porque el usuario no puede distinguir si el partido es real.
+    """
+    try:
+        import cuotas_multi
+        iso = cuotas_multi.fecha_normalizada(cruda)
+        if iso:
+            return iso[:10]
+    except Exception:
+        pass
+    return str(pd.Timestamp.utcnow().date())
+
+
 def _json_seguro(o):
     """
     v79 — `estado['filas']` guarda (Timestamp, local, visitante) y `json.dump`
@@ -608,9 +628,10 @@ class MLBEngine(BaseSportsEngine):
                             'clave_liga': 'mlb',
                             'partido': f"{CODIGO_A_NOMBRE.get(ac, v['away'])} @ "
                                        f"{CODIGO_A_NOMBRE.get(hc, v['home'])}",
-                            'fecha': (str(pd.to_datetime(v.get('fecha')).date())
-                                      if v.get('fecha')
-                                      else str(pd.Timestamp.utcnow().date())),
+                            # v95: `fecha_normalizada` (cuotas_multi) ya la
+                            # deja en ISO desde el origen; esto sólo la recorta
+                            # a día y cae a hoy si la casa no la trajo.
+                            'fecha': _fecha_dia(v.get('fecha')),
                             'mercado': 'Moneyline',
                             'apuesta': f"Gana {v['home'] if lado == 'home' else v['away']}",
                             'prob': round(prob, 3), 'cuota': round(cuota, 2),
@@ -635,8 +656,7 @@ class MLBEngine(BaseSportsEngine):
                     'deporte': 'MLB',
                     'partido': f"{CODIGO_A_NOMBRE.get(ac, v['away'])} @ "
                                f"{CODIGO_A_NOMBRE.get(hc, v['home'])}",
-                    'fecha': str(pd.to_datetime(v.get('fecha')).date())
-                             if v.get('fecha') else str(pd.Timestamp.today().date()),
+                    'fecha': _fecha_dia(v.get('fecha')),
                     'apuesta': f"Gana {nombre}", 'prob': round(prob, 3),
                     'cuota': round(cuota, 2),
                     'cuota_justa': round(1 / max(prob, 1e-6), 2),

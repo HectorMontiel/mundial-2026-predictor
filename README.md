@@ -1,5 +1,35 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v95 — La fecha de 1970, y hablar como el que lee (ver [VALIDACION_v95.md](VALIDACION_v95.md))
+
+- **📅 La fecha de 1970, arreglada donde debía estarlo.** Salían tarjetas de
+  MLB con `Hoy · 1970-01-01` — **el mismo bug de la v94**, que allí corregí en
+  la vista de tenis y volvió en MLB porque cada consumidor parsea la fecha por
+  su cuenta y hay tres formatos (Pinnacle ISO, **Bovada milisegundos epoch**,
+  Playdoit ISO sin zona); `pd.to_datetime` lee un entero como nanosegundos.
+  Ahora se normaliza **donde el dato entra al sistema**
+  (`cuotas_multi.fecha_normalizada`), con guardia final en la UI y un test que
+  comprueba que **ningún índice pueda volver a guardar la fecha en crudo**.
+- **🎾 «Todo debe tener un modelo»: 41 % → 77 % de cobertura.** Los 182
+  partidos «sin modelo propio» eran casi todos **ITF**, y el histórico lo
+  explica: 58.941 partidos del circuito principal, **1.225 de challenger y 0 de
+  ITF**. Los challengers **sí** se pueden cubrir — ESPN los sirve (785
+  partidos y 488 jugadores en 15 días) pero sólo en una ventana reciente, así
+  que lo que faltaba era guardarlos: nuevo `acumular_tenis.py` en el workflow
+  diario (**616 partidos ya acumulados**) para que el catálogo crezca solo. El
+  ITF **no**: ESPN devuelve 0 partidos y sin resultados no hay modelo posible,
+  así que se excluye el circuito en vez de ofrecerlo vacío. Y fuera las cuotas
+  de **1.00-1.01**, que no son apuestas (devuelven el importe y nada más) y
+  salían como «prob 96 %, EV +0,0 %».
+- **💬 Los mensajes ahora hablan para quien lee.** El texto de la Capa 2 citaba
+  «el guardarraíl contra la sobreconfianza documentada en v71» — una
+  referencia interna, desactualizada, que explicaba el mecanismo en vez de lo
+  que importa. Reescritos **14 mensajes**: breves, sin jerga y diciendo la
+  consecuencia («basta con fallar una pata para perderlo todo» en vez de «una
+  combinada concentra varianza»). El test recorre el AST y falla si alguna
+  cadena visible vuelve a citar una versión interna — encontró 4 que se me
+  habían escapado.
+
 ## Novedades v94 — El tenis usaba media fuente, y ya nada se entrena a mano (ver [VALIDACION_v94.md](VALIDACION_v94.md))
 
 - **🎾 La vista de tenis mostraba 1 partido de los 41 que hay.** El calendario

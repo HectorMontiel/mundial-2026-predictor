@@ -164,6 +164,17 @@ jobs:
       - name: Fotografiar la línea de hoy (snapshots + CLV)
         run: python daily_snapshots.py || echo "::warning::snapshots con avisos"
 
+      # v95 — EL CATÁLOGO DE TENIS CRECE SOLO.
+      #
+      # 182 partidos salían como «con cuota, sin modelo propio» porque el
+      # histórico tiene 58.941 partidos del circuito principal y sólo 1.225 de
+      # challenger. ESPN sí publica los challengers (medido: 785 partidos y 488
+      # jugadores en 15 días) pero sólo sirve una ventana reciente: si no se
+      # guardan cada día, se pierden. Esto los acumula para que el próximo
+      # reentrenamiento amplíe el catálogo.
+      - name: Acumular resultados de tenis (amplía el catálogo)
+        run: python acumular_tenis.py --dias 7 || echo "::warning::acumulación de tenis con avisos"
+
       # v92 — CIERRA EL CIRCUITO. El proyecto registraba los picks de cada día
       # desde la v32 y nunca los resolvía (`liquidar()` no tenía llamador):
       # 315 registrados, 0 liquidados. Sin esto no hay forma de saber si el

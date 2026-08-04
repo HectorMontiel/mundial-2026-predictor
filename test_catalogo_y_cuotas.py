@@ -1418,6 +1418,75 @@ def test_memoizacion_no_cambia_el_emparejamiento():
           'normalizar está memoizada')
 
 
+def test_fecha_normalizada_en_el_origen():
+    """
+    v95 — la fecha se normaliza EN EL ORIGEN, no en cada consumidor.
+
+    Bovada publica milisegundos epoch y `pd.to_datetime` los interpreta como
+    nanosegundos → 1970-01-01. El bug salió en la vista de tenis (v94), se
+    corrigió AHÍ, y volvió a aparecer en las tarjetas de MLB. Con tres casas y
+    media docena de consumidores, parchear caso por caso garantiza que
+    reaparezca; por eso ahora la conversión vive en `cuotas_multi`, donde la
+    fecha entra al sistema.
+    """
+    import cuotas_multi as cm
+
+    f = cm.fecha_normalizada
+    check(f(1785781800000) is not None and f(1785781800000).startswith('2026'),
+          "el epoch en MILISEGUNDOS de Bovada se lee como 2026, no como 1970")
+    check(f(1785781800) is not None and f(1785781800).startswith('2026'),
+          "y también el epoch en segundos")
+    check(f('2026-08-03T21:30:00Z') == '2026-08-03T21:30:00',
+          "el ISO con zona de Pinnacle se conserva")
+    check(f('2026-08-03T21:30:00') == '2026-08-03T21:30:00',
+          "y el ISO sin zona de Playdoit")
+    for basura in (None, '', 'no es fecha', 0, -1, True):
+        check(f(basura) is None,
+              f"lo que no es una fecha devuelve None ({basura!r})")
+
+    # y ningún índice puede volver a guardar la fecha en crudo
+    src = open('cuotas_multi.py', encoding='utf-8').read()
+    crudas = [l for l in src.splitlines()
+              if "'fecha':" in l and 'fecha_normalizada' not in l
+              and not l.lstrip().startswith('#')]
+    check(not crudas,
+          f"los tres índices normalizan la fecha al construirse ({crudas[:1]})")
+
+    # última guardia: la UI no puede imprimir un año imposible
+    ui = open('dashboard_ui.py', encoding='utf-8').read()
+    check('Fecha no disponible' in ui,
+          "la UI tiene una última guardia contra una fecha absurda")
+
+
+def test_mensajes_sin_jerga_interna():
+    """
+    v95 — los mensajes que ve el usuario no citan versiones internas.
+
+    El texto de la Capa 2 decía «el guardarraíl contra la sobreconfianza
+    documentada en v71». Al usuario no le dice nada esa referencia —y encima
+    quedó desactualizada—, así que los mensajes visibles se reescribieron para
+    que los entienda alguien que nunca ha apostado.
+    """
+    import ast
+    import re
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    arbol = ast.parse(src)
+    docs = set()
+    for n in ast.walk(arbol):
+        if isinstance(n, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
+                          ast.ClassDef)):
+            d = ast.get_docstring(n, clean=False)
+            if d:
+                docs.add(d)
+    # cadenas vivas (ni comentarios ni docstrings) que citen «vNN»
+    pat = re.compile(r'\bv\d{2,3}\b')
+    malas = [n.value[:70] for n in ast.walk(arbol)
+             if isinstance(n, ast.Constant) and isinstance(n.value, str)
+             and n.value not in docs and pat.search(n.value)]
+    check(not malas,
+          f"ningún texto visible cita una versión interna ({malas[:2]})")
+
+
 def test_tenis_dos_fuentes_y_sets():
     """
     v94 — dos arreglos del tenis, ambos con la misma raíz: se estaba usando
@@ -1783,6 +1852,9 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v95: fecha en el origen y mensajes sin jerga ===')
+    test_fecha_normalizada_en_el_origen()
+    test_mensajes_sin_jerga_interna()
     print('\n=== v94: tenis con dos fuentes y reentrenamiento multideporte ===')
     test_tenis_dos_fuentes_y_sets()
     test_reentrenamiento_multideporte()

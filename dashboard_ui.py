@@ -132,7 +132,7 @@ def _panel_calibracion_v75(st) -> None:
             ligas = cal.get('ligas') or {}
             g = cal.get('global') or {}
             if ligas:
-                txt = (f"**⚖️ Encogimiento al mercado (v75):** {len(ligas)} ligas "
+                txt = (f"**⚖️ Ajuste hacia el mercado:** {len(ligas)} ligas "
                        f"con peso propio · w global {cal.get('w_global', '—')}")
                 if g.get('delta_logloss') is not None:
                     txt += (f" · validación fuera de muestra: log-loss "
@@ -162,7 +162,7 @@ def _panel_calibracion_v75(st) -> None:
             base = (umb.get('global_metricas') or {}).get('referencia') or {}
             if umb.get('global'):
                 st.markdown(
-                    f"**🎚️ Umbrales de Capa 1 recalibrados (v75):** "
+                    f"**🎚️ Filtros de selección recalibrados:** "
                     f"{umb['global']} · ROI fuera de muestra "
                     f"{(met.get('roi') or 0)*100:+.1f} % vs "
                     f"{(base.get('roi') or 0)*100:+.1f} % de los anteriores "
@@ -170,10 +170,9 @@ def _panel_calibracion_v75(st) -> None:
                     f"n={met.get('n')}).")
             else:
                 st.caption(
-                    "🎚️ Umbrales de Capa 1: el backtest de la v75 no encontró "
-                    "ninguna combinación que batiera a la vigente fuera de "
-                    "muestra, así que se mantiene la de edge_engine. "
-                    "(No mejorar y decirlo también es un resultado.)")
+                    "🎚️ Filtros de selección: ninguna combinación nueva "
+                    "superó a la actual en las pruebas, así que se mantiene. "
+                    "No mejorar y decirlo también es un resultado.")
             propias = umb.get('ligas') or {}
             if propias:
                 st.caption(f"Con umbrales propios validados: "
@@ -292,9 +291,10 @@ def _render_combinadas(r) -> None:
                 "de al menos dos deportes distintos que superen el mínimo por "
                 "pata. Revisa el registro de incidencias.")
         return
-    st.warning("Estas combinadas **no entran solas en el Plan de Ataque**. Una "
-               "combinada concentra varianza, así que la decisión es tuya: "
-               "abajo va el stake sugerido (¼ de Kelly, v81) y las añades a mano.")
+    st.warning("Una combinada paga más, pero **basta con fallar una pata para "
+               "perderlo todo**: gana menos veces de las que parece. Por eso "
+               "no se añaden solas — abajo tienes cuánto arriesgar y la "
+               "decisión es tuya.")
     for c in combis:
         with st.container(border=True):
             st.markdown(
@@ -304,7 +304,7 @@ def _render_combinadas(r) -> None:
             m1, m2, m3 = st.columns(3)
             m1.metric("EV", f"{c['ev']:+.1%}")
             m2.metric("Stake sugerido", f"{c['stake_sugerido_pct']:.2f} %",
-                      help="¼ de Kelly sobre la combinada completa (v81).")
+                      help="Fracción prudente del bankroll sobre la combinada entera.")
             m3.metric("Deportes", " + ".join(c['deportes']))
             st.dataframe(pd.DataFrame([
                 {'Deporte': p['deporte'], 'Partido': p['partido'],
@@ -1140,7 +1140,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                 "Perfil de riesgo",
                 ['🔒 Super Seguro', '🛡️ Conservador', '⚖️ Medio', '🚀 Agresivo'],
                 index=0, key=f"mp_perfil_{key}", horizontal=True,
-                help="🔒 Super Seguro (v37): prioriza mercados de ALTA "
+                help="🔒 Súper Seguro: prioriza mercados de ALTA "
                      "probabilidad (doble oportunidad, hándicap +0.5, BTTS) para "
                      "maximizar el PFP — la probabilidad real de acertar TODO el "
                      "parlay. 🛡️ Conservador: mínimo 60 % conjunto. ⚖️ Medio: "
@@ -1368,15 +1368,15 @@ def render_liga_club(clave: str, nombre_liga: str):
     _fam = motor.metadata.get('familia_modelo')
     if _fam and _fam not in ('ensemble', None):
         st.caption(
-            f"🧩 Modelo de esta competición: **{_FAMILIAS_UI.get(_fam, _fam)}** "
-            f"(v70). En ligas con poca señal el ensemble XGB+RF+LGBM sobreajusta; "
-            f"la familia se eligió por walk-forward con selección secuencial.")
+            f"🧩 Modelo de esta competición: **{_FAMILIAS_UI.get(_fam, _fam)}**. "
+            f"En ligas con pocos datos, un modelo grande aprende ruido en vez "
+            f"de señal; aquí se eligió el que mejor acertó en las pruebas.")
     try:
         import distributions as _d
         _s = _d.factor_shrink(clave)
         if _s < 1.0:
             st.caption(
-                f"📉 Goles esperados con encogimiento **s={_s:.2f}** (v70): los "
+                f"📉 Goles esperados con encogimiento **s={_s:.2f}**: los "
                 f"regresores separaban demasiado las dos λ. Afecta al marcador "
                 f"exacto y a los mercados de goles, no al 1X2.")
     except Exception:
@@ -1676,7 +1676,7 @@ BANKROLL = st.sidebar.number_input(
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     st.header("💎 Apuestas del Día")
-    st.caption("SOLO los partidos de **HOY** (v91): todas las ligas con "
+    st.caption("SOLO los partidos de **HOY**: todas las ligas con "
                "jornada este día (ESPN + Pinnacle + Bovada + Playdoit) + "
                "⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA, con cuota y EV automáticos. "
                "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza "
@@ -1988,11 +1988,21 @@ def render_alpha_finder():
                 st.dataframe(df, hide_index=True, width='stretch')
 
     def _etiqueta_dia(fecha):
-        hoy = pd.Timestamp.today().normalize()
+        """
+        v95 — ÚLTIMA GUARDIA contra una fecha imposible.
+
+        El origen ya está arreglado (`cuotas_multi.fecha_normalizada`), pero
+        esto es lo que el usuario ve: si por cualquier vía futura llegara una
+        fecha absurda, aquí se dice «fecha no disponible» en vez de imprimir
+        «Hoy · 1970-01-01», que es lo que salió en las tarjetas de MLB.
+        """
+        hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
         try:
             f = pd.Timestamp(fecha).normalize()
         except (ValueError, TypeError):
-            return str(fecha or 'Sin fecha')
+            return '📅 Fecha no disponible'
+        if not (2000 <= f.year <= 2100):
+            return '📅 Fecha no disponible'
         if f <= hoy:
             return f"📅 Hoy · {fecha}"
         if f == hoy + pd.Timedelta(days=1):
@@ -2077,7 +2087,7 @@ def render_alpha_finder():
                                   if s['stake_pct'] > 0 else '—')
             expo = sum(s['stake_pct'] for s in con_stake)
             st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
-                       f"bankroll (¼ Kelly simultáneo, cap 20 % — v81)."  # v82: el texto
+                       f"bankroll. Nunca se arriesga más del 20 % en un mismo día."  # v82: el texto
                        # decía ⅛ y la v81 subió la fracción a ¼ tras
                        # medirla; un pie que miente sobre cuánto se
                        # arriesga es peor que no tenerlo.
@@ -2117,12 +2127,11 @@ def render_alpha_finder():
             # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
             # cuota son los que ninguna casa ha abierto todavía.
             _con = sum(1 for t in capa2 if t.get('cuota'))
-            st.warning(
-                f"Alta confianza que **no** entra en Capa 1. De estos, **{_con} "
-                f"llevan cuota real** y se indica por qué se quedan fuera "
-                f"(normalmente la cuota es menor que el mínimo de 1.50, que es el "
-                f"guardarraíl contra la sobreconfianza documentada en v71); el "
-                f"resto aún no tiene precio en ninguna casa. No se calcula stake.")
+            st.info(
+                f"Partidos donde el modelo está muy seguro pero que **no "
+                f"recomendamos jugar sueltos**: {_con} tienen una cuota tan "
+                f"baja que apenas compensa el riesgo, y el resto todavía no "
+                f"tiene precio. Sirven para combinar.")
             _tarjetas(capa2, "")
 
         # v37 (§6): sección destacada de Ambos Marcan (BTTS)
@@ -2140,12 +2149,10 @@ def render_alpha_finder():
             st.caption("Picks con confianza > 60 %"
                        + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
                           for p in btts) else ". ")
-                       + "⚠️ Medido en la v75 sobre 15.950 partidos fuera de muestra: "
-                         "la probabilidad de BTTS del modelo **no bate a la tasa base "
-                         "de la liga** (Brier 0.2488 vs 0.2489) ni a lo que el cierre "
-                         "de 1X2 + Over/Under ya implica (0.2456). Por eso BTTS no "
-                         "entra en la Capa 1 ni tiene listón rebajado en los parlays: "
-                         "lo único que puede sostener un pick aquí es el PRECIO, no la "
+                       + "⚠️ Comprobado sobre 15.950 partidos: acertar «ambos "
+                         "marcan» con el modelo **no es mejor que mirar la "
+                         "media de la liga**. Aquí lo único que puede hacer "
+                         "buena una apuesta es que la cuota esté alta, no la "
                          "probabilidad.")
             _tarjetas(btts, "")
 
@@ -2200,12 +2207,11 @@ def render_alpha_finder():
                                         f"({(p.get('prob') or 0)*100:.0f}%)",
                 })
             st.dataframe(_pd.DataFrame(filas_p), hide_index=True, width='stretch')
-            st.caption("**Techo liga** = cuánto acierta el CIERRE DEL MERCADO en "
-                       "esa competición sobre el histórico (v90, 26.666 partidos "
-                       "con Pinnacle). Es el mejor resultado que consigue nadie "
-                       "ahí: va del 42 % en la Serie B italiana al 59 % en "
-                       "Turquía. Un pronóstico que promete bastante más que el "
-                       "techo de su liga hay que mirarlo con lupa.")
+            st.caption("**Techo liga** = cuánto acierta ahí la mejor casa de "
+                       "apuestas del mundo; es el máximo que logra nadie. Va "
+                       "del 42 % en la Serie B italiana al 59 % en Turquía. Si "
+                       "un pronóstico promete mucho más que ese techo, "
+                       "desconfía.")
             st.caption("1/X/2 = victoria local / empate / visitante · +2.5/−2.5 = "
                        "más/menos de 2.5 goles · BTTS = ambos marcan. Todas con la "
                        "probabilidad del modelo (cuota justa = 1/prob).")
@@ -2261,7 +2267,7 @@ def render_alpha_finder():
 
         # v38: MOTOR DE RENTABILIDAD — CLV (métrica rey) + banda validada + mapa
         st.divider()
-        with st.expander("📉 Rentabilidad y CLV (motor v38)"):
+        with st.expander("📉 Rentabilidad y calidad del precio"):
             st.caption("El **CLV** (Closing Line Value) mide si apostamos a MEJOR "
                        "precio que el cierre del mercado — el único predictor "
                        "robusto del beneficio a largo plazo.")
@@ -2280,7 +2286,7 @@ def render_alpha_finder():
                                f"{clv.get('roi_cuando_no','?')} %")
                     st.caption(clv['interpretacion'])
                 lo, hi = edge_engine.banda_rentable()
-                st.markdown(f"**🎯 Selección rentable validada (v40):** EV "
+                st.markdown(f"**🎯 Franja en la que el sistema gana dinero:** EV "
                             f"{lo*100:.0f}–{hi*100:.0f} % · prob ≥ "
                             f"{edge_engine.piso_prob()*100:.0f} % · convicción "
                             f"prob×EV ≥ {edge_engine.conviccion_min():.3f}.")
@@ -2466,8 +2472,9 @@ def render_alpha_finder():
                 st.info(rv['aviso'])
             if rv.get('filas'):
                 st.caption(f"{rv.get('n_partidos', 0)} partidos con snapshots · "
-                           "⚠️ recuerda: los EV por encima de +15 % son la zona "
-                           "que el backtest v32 marcó como poco fiable.")
+                           "⚠️ ojo: un valor esperado por encima de +15 % suele "
+                           "significar que la probabilidad está mal calculada, "
+                           "no que haya una ganga.")
                 st.dataframe(pd.DataFrame(rv['filas'])[
                     ['partido', 'liga', 'mercado', 'cuota_inicial', 'cuota_actual',
                      'ev_pct', 'tendencia', 'snapshots']],
@@ -3382,7 +3389,7 @@ with tab_rapida:
         if _p_btts is not None:
             st.caption(f"⏱️ **Ambos marcan (modelo de supervivencia): "
                        f"{_p_btts*100:.0f} %** — estima el minuto del primer "
-                       f"gol de cada lado. Desde la v27 este modelo ES el "
+                       f"gol de cada lado. Este modelo ES el "
                        "BTTS oficial de la plantilla (transición validada).")
     except Exception:
         pass

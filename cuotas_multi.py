@@ -148,6 +148,49 @@ RUIDO_CLUB = {
 from functools import lru_cache
 
 
+def fecha_normalizada(cruda) -> Optional[str]:
+    """
+    v95 — LA FECHA SE NORMALIZA AQUÍ, en el único sitio donde entra al sistema.
+
+    Cada casa la publica en un formato distinto y hasta ahora cada consumidor
+    la parseaba por su cuenta:
+
+        Pinnacle  '2026-08-03T21:30:00Z'   ISO con zona
+        Bovada     1785781800000            milisegundos epoch
+        Playdoit  '2026-08-03T21:30:00'    ISO sin zona
+
+    `pd.to_datetime` interpreta un entero como NANOsegundos, así que el epoch
+    de Bovada se leía como 1970-01-01. El bug apareció en la vista de tenis
+    (v94) y se corrigió allí… y volvió a salir en las tarjetas de MLB, porque
+    el arreglo estaba en el consumidor y no en el origen. Con tres casas y
+    media docena de consumidores, parchear caso por caso es garantizar que
+    reaparezca en el siguiente.
+
+    Devuelve ISO 'YYYY-MM-DDTHH:MM:SS' o None. Una fecha implausible (fuera de
+    [2000, 2100]) se trata como ausente: es preferible no mostrar fecha a
+    mostrar 1970.
+    """
+    if cruda is None or cruda == '':
+        return None
+    try:
+        if isinstance(cruda, bool):
+            return None
+        if isinstance(cruda, (int, float)):
+            # milisegundos si es del orden de 1e12; segundos si de 1e9
+            unidad = 'ms' if abs(cruda) > 1e11 else 's'
+            f = pd.to_datetime(int(cruda), unit=unidad, utc=True)
+        else:
+            f = pd.to_datetime(str(cruda), utc=True, errors='coerce')
+        if f is None or pd.isna(f):
+            return None
+        f = f.tz_convert(None) if f.tzinfo else f
+        if not (2000 <= f.year <= 2100):
+            return None
+        return f.strftime('%Y-%m-%dT%H:%M:%S')
+    except Exception:
+        return None
+
+
 @lru_cache(maxsize=100_000)
 def normalizar(nombre: str) -> str:
     """Clave de comparación: sin acentos, sin puntuación, sin sufijos de club."""
@@ -465,7 +508,8 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
         indice[clave] = {
             'home': home, 'away': away,
             'liga': (m.get('league') or {}).get('name'),
-            'fecha': m.get('startTime') or m.get('cutoffAt'),
+            'fecha': fecha_normalizada(m.get('startTime')
+                                       or m.get('cutoffAt')),
             'casa': 'Pinnacle', 'cuotas': cuotas,
             'totales': {k: {kk: american_a_decimal(vv) for kk, vv in (v or {}).items()}
                         for k, v in tot.items()},
@@ -562,7 +606,8 @@ def _indice_bovada(deporte: str) -> Dict[str, dict]:
             indice[f'{normalizar(home)}|{normalizar(away)}'] = {
                 'home': home, 'away': away,
                 'liga': f'{pais} — {liga}' if pais else liga,
-                'fecha': ev.get('startTime'), 'casa': 'Bovada',
+                'fecha': fecha_normalizada(ev.get('startTime')),
+                'casa': 'Bovada',
                 'cuotas': cuotas}
     _escribir_cache(f'bovada_{deporte}.json', indice)
     logger.info(f"[bovada] {deporte}: {len(indice)} partidos con cuotas")
@@ -805,7 +850,7 @@ def _indice_playdoit(deporte: str) -> Dict[str, dict]:
             'home': home, 'away': away,
             'liga': champs.get(ev.get('champId')),
             'pais': cats.get(ev.get('catId')),
-            'fecha': ev.get('startDate'),
+            'fecha': fecha_normalizada(ev.get('startDate')),
             'casa': 'Playdoit', 'cuotas': cuotas,
         }
     _escribir_cache(f'playdoit_{deporte}.json', indice)

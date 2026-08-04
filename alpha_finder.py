@@ -51,6 +51,11 @@ except Exception:
     MIN_EV = 0.03
     MIN_CONVICCION = 0.025
 MIN_CUOTA = 1.50
+# v95 — por debajo de esto no hay apuesta que valorar: una cuota de 1.00
+# devuelve el importe y nada más. El tablón las publica en favoritos extremos
+# de ITF y llegaban a la interfaz como «prob 96 %, EV +0,0 %», que parece una
+# oportunidad y no lo es.
+CUOTA_MINIMA_REAL = 1.05
 
 # v80 — filtros del «valor de mercado» (line shopping contra Pinnacle), que es
 # lo que hoy llena la Capa 1. Elegidos en el 70 % más antiguo del ledger y
@@ -989,6 +994,29 @@ def _cuotas_tenis_multi() -> List[Dict]:
             # jugador suelto y salían picks absurdos: «Sara Errani / Nicole
             # Melichar → Gana Katie Boulter» con EV +210 %.
             if '/' in v['home'] or '/' in v['away']:
+                continue
+            # v95 — FUERA LAS CUOTAS QUE NO SON APUESTAS.
+            #
+            # El tablón trae precios de 1.00 y 1.01 en favoritos extremos de
+            # ITF. Una cuota de 1.00 devuelve el importe y nada más: no es una
+            # apuesta, es ruido que además salía en la interfaz como «prob
+            # 96 %, EV +0,0 %», que parece una oportunidad y no lo es.
+            if min(float(oh), float(oa)) <= CUOTA_MINIMA_REAL:
+                continue
+            # v95 — ITF FUERA DEL BARRIDO, y con motivo.
+            #
+            # Los 182 partidos que salían como «con cuota, sin modelo propio»
+            # eran casi todos ITF. No es un descuido del catálogo: **no existe
+            # fuente gratuita de resultados de ITF**. Comprobado sobre el
+            # scoreboard de ESPN, que es el que alimenta el histórico de tenis:
+            # 785 partidos en 15 días, 13 torneos, **0 de ITF** (sí cubre
+            # challengers: Iasi, Praga, Memphis, VanOpen).
+            #
+            # Sin resultados no hay entrenamiento posible, y sin modelo lo
+            # único que se podía enseñar era la probabilidad implícita del
+            # precio — o sea, repetirle al usuario lo que ya dice la casa.
+            # Mejor no ofrecer el circuito que ofrecerlo sin nada detrás.
+            if 'ITF' in (v.get('liga') or '').upper():
                 continue
             clave = _clave_par(v['home'], v['away'])
             if clave in vistos:
