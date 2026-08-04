@@ -1,5 +1,5 @@
 {
- "generado": "2026-08-03T09:17:31Z",
+ "generado": "2026-08-04T08:49:35Z",
  "nota": "v75. Peso del modelo frente al cierre devigado (Pinnacle, método potencia). Elegido por log-loss fuera de muestra con encogimiento jerárquico hacia el w global y validado en un pliegue que no participó en la selección. Liga ausente = w=1 = sin corrección. Sustituye a los w de la v71, que salían de 4-11 partidos por liga.",
  "w_global": 0.25,
  "global": {
