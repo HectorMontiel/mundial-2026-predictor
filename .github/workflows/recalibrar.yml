@@ -55,6 +55,13 @@ jobs:
       # falla de forma independiente — un artefacto viejo es peor que uno
       # nuevo, pero mucho mejor que ninguno, así que lo que no se regenere
       # conserva el anterior en vez de quedarse a medias.
+      # v96 — El histórico de ITF y challenger viene de un espejo de archivo
+      # (los repos originales de Sackmann están borrados). Se refresca aquí,
+      # semanalmente, y el resultado se commitea: una vez ingerido el dato ya
+      # no depende de que ese espejo siga existiendo.
+      - name: Refrescar el histórico de ITF y challenger
+        run: python ingesta_itf.py --desde 2015 || echo "::warning::ingesta ITF con avisos"
+
       - name: Recalibrar la cadena completa
         run: python recalibrar_todo.py || echo "::warning::recalibración con avisos"
 
@@ -78,7 +85,8 @@ jobs:
         run: |
           git config user.name  "recalibrar-bot"
           git config user.email "actions@github.com"
-          git add -A pick_ledger_total.csv calibracion_confianza.json \
+          git add -A historico_itf.csv.gz modelos/tennis modelos/tennis_wta \
+                     pick_ledger_total.csv calibracion_confianza.json \
                      precision_ligas.json edge_map.json deportes_capa1.json \
                      calibracion_mercado.json umbrales_capa1.json \
                      recalibracion_estado.json 2>/dev/null || true

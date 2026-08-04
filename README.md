@@ -1,5 +1,36 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v96 — El circuito ITF: la fuente existía, y casi la estropeo (ver [VALIDACION_v96.md](VALIDACION_v96.md))
+
+- **🔎 Encontrada la fuente de datos del ITF.** La v95 excluyó el circuito
+  porque no había resultados, y era cierto: los repos de Jeff Sackmann están
+  **borrados de verdad** (404 de la API; de su perfil sólo sobrevive el
+  MatchChartingProject), la web de la ITF responde con una página anti-bot de
+  848 bytes y ESPN da **0 partidos** de ITF. Pero existe un **espejo de
+  archivo** que sí los conserva. Ingerido: **566.860 partidos y 23.393
+  jugadores**. El histórico ATP pasa de 75.004 a **365.017** partidos y el
+  catálogo de **2.138 a 12.897** jugadores (WTA, 14.634). De los 336 partidos
+  ITF con cuota de hoy, **323 (96 %)** ya tienen sus dos jugadores cubiertos.
+  El fichero se guarda **en nuestro repo**: el original desapareció una vez.
+- **⚠️ Y por poco lo estropeo: una fuga que parecía un triunfo.** La
+  traducción obvia del esquema de Sackmann (`winner_name` → `Player_1`) dejaba
+  al ganador **siempre** en la misma columna. El reentrenamiento saltó de
+  62,77 % a **93,54 %** de precisión — imposible en tenis. Comprobado: el
+  resto del histórico reparte al ganador al 50 %, mi ingesta lo ponía primero
+  el **100 %** de las veces. El modelo había aprendido «gana el primero», y
+  con el 78 % del histórico viniendo de ahí habría contaminado también el
+  circuito principal. Arreglado repartiendo de forma pseudoaleatoria pero
+  determinista (50,2 % / 49,8 %), **y con guardia**: la ingesta se niega a
+  escribir si el reparto se sale de [45 %, 55 %].
+- **📊 Qué mejoró de verdad.** El 75,72 % que marca la WTA tampoco es
+  comparable con el 64 % anterior: sube porque **la población cambió** (el
+  48,5 % de los partidos ITF femeninos tienen a un jugador sin ranking, y ahí
+  el que sí lo tiene gana el 76,1 %). Medido por separado: **ATP mejora de
+  verdad en el circuito principal, 62,98 % → 67,0 %** (+4 pp, cinco veces más
+  datos afinan el ELO); **WTA se queda igual** (64,0 % → 64,5 %); y los dos
+  cubren ahora ITF y challenger con **70,8 %** y **72,8 %**, donde antes no
+  había nada.
+
 ## Novedades v95 — La fecha de 1970, y hablar como el que lee (ver [VALIDACION_v95.md](VALIDACION_v95.md))
 
 - **📅 La fecha de 1970, arreglada donde debía estarlo.** Salían tarjetas de

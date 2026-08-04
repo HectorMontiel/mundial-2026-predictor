@@ -1418,6 +1418,79 @@ def test_memoizacion_no_cambia_el_emparejamiento():
           'normalizar está memoizada')
 
 
+def test_itf_tiene_datos_y_modelo():
+    """
+    v96 — el circuito ITF ya no es un agujero.
+
+    La v95 lo excluyó del barrido con un motivo medido: no había fuente de
+    resultados. La v96 la encontró — un espejo de archivo de los datos de Jeff
+    Sackmann, cuyos repos originales están **borrados de verdad** (404 de la
+    API de GitHub; de todo su perfil sólo sobrevive el MatchChartingProject).
+
+    Ingerido: 566.130 partidos y 23.393 jugadores de ITF y challenger. El
+    histórico de ATP pasa de 75.004 partidos a 365.017, y de 1.380 jugadores
+    a 12.897.
+    """
+    import os
+
+    import ingesta_itf
+
+    check(os.path.exists(ingesta_itf.SALIDA),
+          f"el histórico de ITF está ingerido ({ingesta_itf.SALIDA})")
+    if not os.path.exists(ingesta_itf.SALIDA):
+        return
+
+    total = 0
+    for circ in ('atp', 'wta'):
+        d = ingesta_itf.cargar(circ)
+        total += len(d)
+        check(not d.empty, f"hay partidos de ITF/challenger para {circ.upper()}")
+        if not d.empty:
+            faltan = [c for c in ('Date', 'Player_1', 'Player_2', 'Winner',
+                                  'Categoria') if c not in d.columns]
+            check(not faltan,
+                  f"{circ.upper()} respeta el esquema del proyecto "
+                  f"(faltan {faltan})")
+            check(d['Winner'].notna().all(),
+                  f"{circ.upper()}: todos los partidos tienen ganador")
+    check(total > 100_000,
+          f"el volumen ingerido es el esperado ({total} partidos)")
+
+    # el dato vive en NUESTRO repositorio: el original ya desapareció una vez
+    check(os.path.getsize(ingesta_itf.SALIDA) > 1_000_000,
+          "y pesa lo que debe (se guarda en el repo, no se re-descarga)")
+
+    # ------------------------------------------------------------------
+    # FUGA DE POSICIÓN — el fallo que casi se cuela en esta misma versión.
+    #
+    # Sackmann publica `winner_name`/`loser_name`. La traducción ingenua deja
+    # al ganador siempre en `Player_1`, y entonces el modelo aprende a leer la
+    # columna en vez de a predecir. Se probó y el síntoma parecía un triunfo:
+    # el ATP saltó de 62,77 % a **93,54 %** de precisión de validación, que en
+    # tenis es imposible. Con el 78 % del histórico viniendo de aquí, la fuga
+    # habría contaminado también el circuito principal.
+    # ------------------------------------------------------------------
+    for circ in ('atp', 'wta'):
+        d = ingesta_itf.cargar(circ)
+        if d.empty:
+            continue
+        eq = float((d['Winner'] == d['Player_1']).mean())
+        check(0.45 <= eq <= 0.55,
+              f"{circ.upper()}: el ganador está repartido entre las dos "
+              f"columnas ({eq:.1%}, se espera ~50 %) — sin fuga de posición")
+
+    src = open('ingesta_itf.py', encoding='utf-8').read()
+    check('fuga de posición' in src.lower() and 'raise ValueError' in src,
+          "la ingesta se niega a escribir si el reparto se desequilibra")
+
+    # y el filtro que excluía el circuito tiene que haberse retirado
+    af = open('alpha_finder.py', encoding='utf-8').read()
+    vivas = [l for l in af.splitlines()
+             if "'ITF' in" in l and not l.lstrip().startswith('#')]
+    check(not vivas,
+          f"el barrido ya no excluye el ITF ({vivas[:1]})")
+
+
 def test_fecha_normalizada_en_el_origen():
     """
     v95 — la fecha se normaliza EN EL ORIGEN, no en cada consumidor.
@@ -1852,6 +1925,8 @@ if __name__ == '__main__':
     test_sin_the_odds_api()
     test_ventana_24h()
     test_telegram_no_rehace_el_barrido()
+    print('\n=== v96: el circuito ITF tiene datos y modelo ===')
+    test_itf_tiene_datos_y_modelo()
     print('\n=== v95: fecha en el origen y mensajes sin jerga ===')
     test_fecha_normalizada_en_el_origen()
     test_mensajes_sin_jerga_interna()

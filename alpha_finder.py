@@ -1003,21 +1003,18 @@ def _cuotas_tenis_multi() -> List[Dict]:
             # 96 %, EV +0,0 %», que parece una oportunidad y no lo es.
             if min(float(oh), float(oa)) <= CUOTA_MINIMA_REAL:
                 continue
-            # v95 — ITF FUERA DEL BARRIDO, y con motivo.
+            # v96 — EL ITF VUELVE, y esta vez con modelo detrás.
             #
-            # Los 182 partidos que salían como «con cuota, sin modelo propio»
-            # eran casi todos ITF. No es un descuido del catálogo: **no existe
-            # fuente gratuita de resultados de ITF**. Comprobado sobre el
-            # scoreboard de ESPN, que es el que alimenta el histórico de tenis:
-            # 785 partidos en 15 días, 13 torneos, **0 de ITF** (sí cubre
-            # challengers: Iasi, Praga, Memphis, VanOpen).
+            # La v95 lo excluyó con un motivo correcto en su momento: no había
+            # fuente de resultados (ESPN devuelve 0 partidos de ITF y la web
+            # oficial está bloqueada), así que lo único mostrable era la
+            # probabilidad implícita del precio.
             #
-            # Sin resultados no hay entrenamiento posible, y sin modelo lo
-            # único que se podía enseñar era la probabilidad implícita del
-            # precio — o sea, repetirle al usuario lo que ya dice la casa.
-            # Mejor no ofrecer el circuito que ofrecerlo sin nada detrás.
-            if 'ITF' in (v.get('liga') or '').upper():
-                continue
+            # La v96 encontró la fuente —un espejo de archivo de los datos de
+            # Jeff Sackmann, cuyos repositorios originales están borrados— y el
+            # histórico pasó de 0 partidos de ITF a **566.130, con 23.393
+            # jugadores** (ver `ingesta_itf`). Con eso el modelo cubre el
+            # circuito y el filtro deja de tener sentido.
             clave = _clave_par(v['home'], v['away'])
             if clave in vistos:
                 continue

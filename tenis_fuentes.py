@@ -647,6 +647,44 @@ def historico_unificado(circuito: str, con_espn: bool = True,
         except Exception as e:
             logger.warning(f"[tenis/{circuito}] ESPN omitido: {type(e).__name__}: {e}")
 
+    # -----------------------------------------------------------------------
+    # v96 — EL CIRCUITO ITF Y LOS CHALLENGERS.
+    #
+    # Es lo que faltaba para que TODO partido con cuota tuviera modelo. Hasta
+    # la v95 el histórico traía 58.941 partidos del circuito principal y sólo
+    # 1.225 de challenger, cero de ITF, así que 182 partidos al día salían
+    # como «con cuota, sin modelo propio» y el circuito se excluyó del barrido.
+    #
+    # `ingesta_itf` aporta **566.130 partidos y 23.393 jugadores** (ITF
+    # masculino y femenino + challenger, desde 2015). Ver ahí de dónde salen y
+    # por qué el dato llega con unas semanas de retraso.
+    #
+    # Se añaden como los de ESPN: sólo lo que no está ya, comparando por
+    # pareja canónica y fecha ±1 día.
+    # -----------------------------------------------------------------------
+    try:
+        import ingesta_itf
+        itf = ingesta_itf.cargar(circuito)
+        if not itf.empty:
+            claves = set()
+            for m in marcos:
+                for delta in (-1, 0, 1):
+                    claves |= set(_clave_partido(
+                        m['Date'] + pd.Timedelta(days=delta),
+                        m['Player_1'], m['Player_2']))
+            ki = _clave_partido(itf['Date'], itf['Player_1'], itf['Player_2'])
+            nuevos_itf = itf[~ki.isin(claves)].copy()
+            nuevos_itf['Retirado'] = (
+                nuevos_itf.get('Comment', pd.Series(dtype=object))
+                .astype(str).eq('Retired'))
+            logger.info(f"[tenis/{circuito}] ITF/challenger aporta "
+                        f"{len(nuevos_itf)} partidos nuevos "
+                        f"({len(itf) - len(nuevos_itf)} ya estaban).")
+            if not nuevos_itf.empty:
+                marcos.append(nuevos_itf)
+    except Exception as e:
+        logger.warning(f"[tenis/{circuito}] ITF omitido: {type(e).__name__}: {e}")
+
     df = pd.concat(marcos, ignore_index=True, sort=False)
     # Catálogo de torneos del circuito principal (para reconocer los de ESPN).
     # SOLO los de los últimos años: con el catálogo histórico completo (200+
