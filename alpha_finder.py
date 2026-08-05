@@ -947,7 +947,11 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         # material de «Máxima Confianza»; antes se descartaban dentro del
         # motor y la MLB no aparecía nunca en esa pestaña.
         _conf = [{**p, 'deporte': 'MLB'} for p in (r.get('confianza') or [])]
-        return {'capa1': capa1, 'capa2': _conf, 'incidencias': inc}
+        # v98: el contador de «partidos evaluados» de la cabecera sumaba
+        # SOLO el pase de fútbol; cada deporte informa ahora del suyo.
+        return {'capa1': capa1, 'capa2': _conf, 'incidencias': inc,
+                'evaluados': int(r.get('evaluados') or 0),
+                'cobertura': {'MLB': int(r.get('evaluados') or 0)}}
     except Exception as e:
         # v88 — se registra la TRAZA. «MLB omitido por error: OSError» sin más
         # obliga a adivinar dónde falló, y este proyecto ya ha perdido tiempo
@@ -1040,7 +1044,8 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
       2. Betexplorer — página /next/tennis/ (ATP y WTA).
     Cada circuito usa SU modelo (modelos/tennis y modelos/tennis_wta).
     """
-    salida = {'capa1': [], 'capa2': [], 'no_enlazados': [], 'parlay_legs': []}
+    salida = {'capa1': [], 'capa2': [], 'no_enlazados': [], 'parlay_legs': [],
+              'evaluados': 0, 'cobertura': {}}
     try:
         import betexplorer_scraper as bx
         import source_resilience as sr
@@ -1121,6 +1126,11 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
             pred = eng.predecir(j1, j2)
             if 'error' in pred:
                 continue
+            # v98: se cuenta aquí, que es donde de verdad se evalúa un partido
+            # con el modelo (después de resolver los dos jugadores).
+            salida['evaluados'] += 1
+            _cir = eng.circuito.upper()
+            salida['cobertura'][_cir] = salida['cobertura'].get(_cir, 0) + 1
             # v47: la plantilla ya calcula 19 mercados derivados (ganador,
             # totales de juegos, hándicaps, sets 2-0/2-1, "ambos ganan un
             # set"...). El usuario los pidió expresamente para armar parlays y
@@ -1284,6 +1294,75 @@ def _picks_kbo() -> Dict[str, List[Dict]]:
                                  'validado contra cuota de cierre')})
         salida['capa2'] += r.get('confianza', [])
         salida['incidencias'] = list(r.get('incidencias') or [])
+        salida['evaluados'] = int(r.get('evaluados') or 0)
+        salida['cobertura'] = {'KBO': int(r.get('evaluados') or 0)}
+
+        # v98 — VALOR DE MERCADO EN KBO, que NO usa el modelo.
+        #
+        # Con las 201 cuotas de cierre que BetExplorer permite descargar quedó
+        # medido que **el modelo de KBO no bate al mercado**: ROI −9,1 % a
+        # −13,5 % según el umbral de EV, con p5 entre −23 % y −35 %, Brier
+        # 0,2492 contra 0,2411 del mercado y precisión 51,3 % contra 57,5 %.
+        # O sea que por la vía del modelo la KBO no puede entrar en Capa 1, y
+        # ya no es por falta de datos: es que se midió y no está.
+        #
+        # Esta vía es otra cosa. No pregunta si el modelo acierta, sino si dos
+        # casas discrepan: toma la probabilidad justa de Pinnacle (quitado el
+        # margen) y busca quién paga por encima. Es el mismo mecanismo que la
+        # v71 introdujo y la v83 midió en MLB sobre 27.977 juegos, y no depende
+        # de la liga — depende de que haya dos precios. Se usan los MISMOS
+        # umbrales que la MLB, sin reajustar nada a la KBO.
+        #
+        # SE DICE LO QUE ES: el mecanismo está validado en fútbol, MLB y WTA;
+        # en la KBO todavía NO tiene ROI medido propio, así que estos picks se
+        # marcan `edge_extrapolado` y se acumulan en el ledger para poder
+        # medirlos con su propia muestra.
+        try:
+            import cuotas_multi as cm
+            from engines.kbo_engine import equipo_kbo, es_partido_kbo
+            _vistos_kbo = set()
+            for _idx in (cm._indice('mlb'), cm._indice_bov('mlb'),
+                         cm._indice_pdt('mlb')):
+                for _v0 in (_idx or {}).values():
+                    if not (_v0.get('home') and _v0.get('away')):
+                        continue
+                    if not es_partido_kbo(_v0['home'], _v0['away']):
+                        continue
+                    _cl = (equipo_kbo(_v0['home']), equipo_kbo(_v0['away']))
+                    if _cl in _vistos_kbo:
+                        continue
+                    _vistos_kbo.add(_cl)
+                    _vm = cm.valor_vs_sharp('mlb', _v0['home'], _v0['away'])
+                    for _v in (_vm.get('valor') or [])[:1]:
+                        if not (_v.get('prob_justa', 0) >= VS_MLB_PROB_MIN
+                                and _v.get('ev', 0) >= VS_MLB_EV_MIN
+                                and _v.get('cuota', 0) > MIN_CUOTA):
+                            continue
+                        _lado = _v.get('lado')
+                        _nom = _cl[0] if _lado == 'home' else _cl[1]
+                        salida['capa1'].append({
+                            'deporte': 'KBO', 'liga': 'KBO', 'clave_liga': 'kbo',
+                            'partido': f'{_cl[1]} @ {_cl[0]}',
+                            'fecha': str(hoy_utc().date()),
+                            'mercado': 'Moneyline', 'apuesta': f'Gana {_nom}',
+                            'prob': round(_v['prob_justa'], 3),
+                            'cuota': _v['cuota'],
+                            'cuota_justa': _v.get('cuota_justa'),
+                            'ev': _v['ev'], 'casa': _v.get('casa'),
+                            'valor': '🟢', 'evc': True, 'valor_mercado': True,
+                            'edge_extrapolado': True,
+                            'pinnacle': _v.get('pinnacle'),
+                            'origen': 'line shopping vs Pinnacle'})
+            _n_vs = sum(1 for p in salida['capa1'] if p.get('valor_mercado'))
+            salida['incidencias'].append(
+                f'ℹ️ KBO: {len(_vistos_kbo)} partidos comparados contra Pinnacle '
+                f'→ {_n_vs} con una casa por encima del precio justo. El modelo '
+                f'de KBO no bate al mercado (medido sobre 201 cierres reales), '
+                f'así que sus picks vienen de la diferencia entre casas, no del '
+                f'modelo.')
+        except Exception as e:
+            logger.warning(f'[alpha/kbo] valor de mercado: '
+                           f'{type(e).__name__}: {e}')
     except Exception as e:
         logger.warning(f"[alpha] KBO omitida: {type(e).__name__}: {e}")
         salida['incidencias'].append(f'KBO omitida: {type(e).__name__}: {e}')
@@ -1293,7 +1372,7 @@ def _picks_kbo() -> Dict[str, List[Dict]]:
 def _picks_nba() -> Dict[str, List[Dict]]:
     """NBA (v34 §4): cuotas reales EN CUANTO arranque la temporada. Fuera de
     temporada (julio) ninguna fuente devuelve partidos y no se consulta nada."""
-    salida = {'capa1': [], 'capa2': []}
+    salida = {'capa1': [], 'capa2': [], 'evaluados': 0, 'cobertura': {}}
     try:
         import betexplorer_scraper as bx
         import source_resilience as sr
@@ -1331,6 +1410,9 @@ def _picks_nba() -> Dict[str, List[Dict]]:
             return salida
         for m in partidos:
             pred = eng.predecir(m['home'], m['away'])
+            if 'error' not in pred:                       # v98: contador
+                salida['evaluados'] += 1
+                salida['cobertura']['NBA'] = salida['cobertura'].get('NBA', 0) + 1
             if 'error' in pred:
                 continue
             for nombre, prob, cuota in ((m['home'], pred['prob_home'], m['odd_home']),
@@ -1791,6 +1873,16 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                     f'histórico no muestra edge. Trátalos con más cautela.')
     except Exception as e:
         logger.debug(f'[alpha] aviso de cobertura de calibración: {e}')
+    # v98 — EL CONTADOR DE LA CABECERA CONTABA SOLO EL FÚTBOL.
+    #
+    # «partidos evaluados: 7 · ligas: argentina:1, arg_primera_nacional:2…»
+    # salía de `apuestas_del_dia`, que es el pase de FÚTBOL, y se pasaba tal
+    # cual al resultado universal. En la misma pantalla había picks de MLB y de
+    # tenis que ese número no incluía, así que la cabecera contradecía a la
+    # lista que tenía justo debajo. Ahora cada rama informa de lo suyo
+    # (`evaluados` + `cobertura`) y aquí se suman.
+    evaluados_dep = int(r.get('partidos_evaluados') or 0)
+    cobertura_dep = dict(r.get('cobertura_ligas') or {})
     for nombre in ('mlb', 'tenis', 'nba', 'kbo'):        # v97: + KBO
         sub = _res.get(nombre) or {}
         capa1 += sub.get('capa1', [])
@@ -1799,6 +1891,9 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         sin_modelo += sub.get('sin_modelo', [])          # v91
         parlay_legs += sub.get('parlay_legs', [])
         incidencias += sub.get('incidencias', [])      # v77
+        evaluados_dep += int(sub.get('evaluados') or 0)
+        for _lg, _n in (sub.get('cobertura') or {}).items():
+            cobertura_dep[_lg] = cobertura_dep.get(_lg, 0) + int(_n or 0)
     # --- v32: fiabilidad, pretemporada y segregación de EV extremo -------
     # v52: mapa nombre→clave DERIVADO de la config (cubre TODAS las ligas, no
     # solo un puñado) + circuitos de tenis. Antes faltaban Veikkausliiga,
@@ -2135,6 +2230,11 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                                        'profesional: apuesta con stake prudente.')
                 seleccion_dia.append(q)
     r.update({'capa1': capa1, 'capa2': capa2, 'ev_extremo': ev_extremo,
+              # v98: el contador de la cabecera, ya con TODOS los deportes
+              # (ver la nota del bucle de fusión). `r` trae el del fútbol y
+              # aquí se sustituye por el total.
+              'partidos_evaluados': evaluados_dep,
+              'cobertura_ligas': cobertura_dep,
               'no_enlazados': no_enlazados, 'deportes_cubiertos': deportes,
               # v91: los partidos con cuota que el modelo no cubre salen como
               # tarjeta con precio real, no como lista de texto.

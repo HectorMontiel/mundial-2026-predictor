@@ -245,6 +245,80 @@ def partidos_del_dia(fecha: Optional[str] = None) -> List[dict]:
     return fuera
 
 
+def proximos(dias: int = 7) -> List[dict]:
+    """
+    v98 — Próximos partidos de MLB desde la API OFICIAL, no desde ESPN.
+
+    La vista de MLB decía «Sin partidos programados en las próximas 48 h» con
+    picks de MLB en la misma pantalla. La causa está en el log de producción y
+    no era la ventana de fechas:
+
+        [fixtures/mlb] ESPN falló: HTTPError: 403 Client Error: Forbidden
+        for url: .../baseball/mlb/scoreboard?dates=20260805-20260812&limit=300
+
+    ESPN devuelve **403 desde Streamlit Cloud** (IP de centro de datos) con la
+    misma cabecera que aquí responde 200 — o sea que no es algo que se arregle
+    cambiando el rango ni el User-Agent. Y no hace falta pelearse con ello: la
+    MLB publica su propio calendario, gratis, sin clave y con el abridor
+    probable, y este módulo ya lo usa para entrenar. Se usa también para los
+    fixtures y ESPN deja de ser un punto único de fallo.
+
+    Devuelve el mismo esquema que `fixtures_espn.fixtures_deporte` para que la
+    interfaz no note el cambio: incluye `inicio` (UTC) además de `fecha`, que
+    es lo que permite acotar «próximas 48 h» de verdad y no «hoy en UTC».
+    """
+    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
+    fin = hoy + pd.Timedelta(days=dias)
+    try:
+        d = _pedir({'sportId': 1, 'startDate': hoy.strftime('%Y-%m-%d'),
+                    'endDate': fin.strftime('%Y-%m-%d'),
+                    'hydrate': 'probablePitcher,team'})
+    except Exception as e:
+        logger.warning(f'[mlb/statsapi] próximos: {e}')
+        return []
+    fuera = []
+    for dia in d.get('dates') or []:
+        for g in dia.get('games') or []:
+            estado = (g.get('status') or {}).get('codedGameState')
+            if estado in FINALES:
+                continue                       # ya jugado: no es fixture
+            fila = _fila(g, solo_finalizados=False)
+            if not fila:
+                continue
+            # `gameDate` es el inicio real en UTC; `officialDate` es el día de
+            # calendario en hora local del estadio. Se conservan los dos: sin
+            # el instante no se puede decir «en las próximas 48 h».
+            inicio = pd.to_datetime(g.get('gameDate'), errors='coerce', utc=True)
+            fuera.append({
+                'fecha': str(fila['date'].date()),
+                'inicio': (inicio.tz_localize(None).strftime('%Y-%m-%d %H:%M:%S')
+                           if inicio is not None and not pd.isna(inicio) else None),
+                'home': CODIGO_A_NOMBRE_ESPN.get(fila['home_team'], fila['home_team']),
+                'away': CODIGO_A_NOMBRE_ESPN.get(fila['away_team'], fila['away_team']),
+                'home_pitcher': fila['home_pitcher'],
+                'away_pitcher': fila['away_pitcher'],
+                'estado': estado, 'game_pk': g.get('gamePk')})
+    fuera.sort(key=lambda x: x.get('inicio') or x['fecha'])
+    logger.info(f'[mlb/statsapi] {len(fuera)} próximos partidos en {dias} días.')
+    return fuera
+
+
+# Código canónico -> nombre que la interfaz espera. Se resuelve tarde (el mapa
+# vive en `engines.mlb_engine`) para no crear una importación circular.
+class _MapaNombres(dict):
+    def get(self, clave, defecto=None):
+        if not self:
+            try:
+                from engines.mlb_engine import CODIGO_A_NOMBRE
+                self.update(CODIGO_A_NOMBRE)
+            except Exception:
+                return defecto
+        return dict.get(self, clave, defecto)
+
+
+CODIGO_A_NOMBRE_ESPN = _MapaNombres()
+
+
 # ---------------------------------------------------------------------------
 # v80 — CALIDAD DEL LANZADOR: lo que faltaba, y no era caro
 # ---------------------------------------------------------------------------

@@ -398,6 +398,13 @@ guardarla desde hoy, que es exactamente lo que la v90 dejó en marcha para las
   sin cambios. Primera ejecución real: **10 filas, 5 partidos, 2 casas cada
   uno**.
 
+> ⚠️ **RECTIFICADO EN LA v98.** La tabla de abajo presenta la diferencia BRUTA
+> entre dos casas como si fuera edge, y **no lo es**. Quitado el margen de
+> Pinnacle, la cuota justa del Doosan Bears es 2,439, así que Playdoit a 2,40
+> paga de MENOS: el EV real de ese ejemplo es **−1,6 %**, no +4,8 %. El edge del
+> line shopping es pagar por encima de la probabilidad justa, no que dos casas
+> discrepen. Ver VALIDACION_v98.md §2.3.
+
 Y ya en esa primera foto se ve el material del canal que **sí** está validado
 (line shopping, v90: n=643, ROI +8,57 %, p5 +1,07 %):
 

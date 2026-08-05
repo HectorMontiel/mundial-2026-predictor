@@ -1,0 +1,82 @@
+{
+ "eleccion": {
+  "F0 sin filtro (hoy)": {
+   "filtro": "F0 sin filtro (hoy)",
+   "n": 3531,
+   "roi": 7.886151231945626,
+   "p5": 4.6697677711696395,
+   "acierto": 49.41942792410082
+  },
+  "F1 modelo ≥ mercado": {
+   "filtro": "F1 modelo ≥ mercado",
+   "n": 790,
+   "roi": 4.910126582278481,
+   "p5": -2.3774050632911394,
+   "acierto": 45.56962025316456
+  },
+  "F2 argmax del modelo": {
+   "filtro": "F2 argmax del modelo",
+   "n": 2158,
+   "roi": 5.230305838739574,
+   "p5": 1.6503012048192767,
+   "acierto": 56.53382761816496
+  },
+  "F3 modelo ≥ mkt−5pp": {
+   "filtro": "F3 modelo ≥ mkt−5pp",
+   "n": 1730,
+   "roi": 11.646242774566474,
+   "p5": 6.679393063583815,
+   "acierto": 47.74566473988439
+  },
+  "F4 modelo ≥ mkt+3pp": {
+   "filtro": "F4 modelo ≥ mkt+3pp",
+   "n": 441,
+   "roi": 0.2721088435374156,
+   "p5": -9.44002267573696,
+   "acierto": 45.3514739229025
+  }
+ },
+ "juicio": {
+  "F0 sin filtro (hoy)": {
+   "filtro": "F0 sin filtro (hoy)",
+   "n": 643,
+   "roi": 8.573872472783824,
+   "p5": 1.073872472783825,
+   "acierto": 49.30015552099534
+  },
+  "F1 modelo ≥ mercado": {
+   "filtro": "F1 modelo ≥ mercado",
+   "n": 167,
+   "roi": 21.065868263473053,
+   "p5": 5.239520958083832,
+   "acierto": 52.69461077844312
+  },
+  "F2 argmax del modelo": {
+   "filtro": "F2 argmax del modelo",
+   "n": 413,
+   "roi": 9.09443099273608,
+   "p5": 0.622154963680387,
+   "acierto": 55.690072639225185
+  },
+  "F3 modelo ≥ mkt−5pp": {
+   "filtro": "F3 modelo ≥ mkt−5pp",
+   "n": 340,
+   "roi": 11.002941176470587,
+   "p5": -0.21514705882352989,
+   "acierto": 47.647058823529406
+  },
+  "F4 modelo ≥ mkt+3pp": {
+   "filtro": "F4 modelo ≥ mkt+3pp",
+   "n": 89,
+   "roi": 21.95505617977528,
+   "p5": 0.853932584269664,
+   "acierto": 55.0561797752809
+  }
+ },
+ "umbrales_robustos": [
+  -0.15,
+  -0.13,
+  -0.11000000000000001,
+  -0.010000000000000064
+ ]
+}

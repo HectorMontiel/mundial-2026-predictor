@@ -1943,15 +1943,14 @@ def test_itf_fuente_viva():
     #    técnica del test de jerga de la v95: las cadenas VIVAS son las que
     #    importan, los comentarios y docstrings pueden decir lo que haga falta.
     #
-    # ALCANCE: los módulos que la v97 escribe o toca. `tenis_saque.py` (v69)
-    # pide `/jsplayers/curr_rank_{circuito}.js`, que ESTÁ en el Disallow — es
-    # un hallazgo real de este test, anterior a la v97 y ajeno a ella, y queda
-    # anotado en VALIDACION_v97.md como pendiente en vez de arreglarse aquí:
-    # ese fichero alimenta el ranking del motor de tenis, que funciona, y esta
-    # versión no toca los modelos que ya funcionan.
+    # v98: `tenis_saque.py` VUELVE a la lista. En la v97 quedó fuera con el
+    # hallazgo anotado (pedía `/jsplayers/curr_rank_*.js`, que está en el
+    # Disallow); ahora su ranking sale del histórico unificado del propio
+    # proyecto y la petición prohibida ya no existe. Las páginas de jugador
+    # (`/cgi-bin/player-classic.cgi`) sí están permitidas y se siguen usando.
     import ast
     PROHIBIDAS = ('/jsmatches/', '/jsplayers/', '/jsfrags/')
-    for mod in ('acumular_itf.py', 'tenis_fuentes.py'):
+    for mod in ('acumular_itf.py', 'tenis_fuentes.py', 'tenis_saque.py'):
         if not os.path.exists(mod):
             continue
         arbol = ast.parse(open(mod, encoding='utf-8').read())

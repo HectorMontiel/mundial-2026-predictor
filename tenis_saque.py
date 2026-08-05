@@ -75,28 +75,101 @@ def _ruta(nombre: str) -> str:
     return os.path.join(CACHE, f'{seguro}.json')
 
 
-def ranking_actual(circuito: str = 'atp') -> Dict[str, int]:
-    """Nombre completo -> ranking. Es también la lista de jugadores disponibles."""
-    clave = f'_ranking_{circuito}'
-    ruta = _ruta(clave)
-    if os.path.exists(ruta) and time.time() - os.path.getmtime(ruta) < TTL_JUGADOR:
-        try:
-            with open(ruta, encoding='utf-8') as f:
-                return json.load(f)
-        except Exception:
-            pass
-    url = f'{BASE}/jsplayers/curr_rank_{circuito}.js'
+def _canonico(completo: str) -> str:
+    """'Carlos Alcaraz' -> 'Alcaraz C.' (la grafía del histórico del proyecto)."""
+    partes = str(completo).split()
+    if len(partes) < 2:
+        return str(completo)
+    return f"{' '.join(partes[1:])} {partes[0][0]}."
+
+
+def _nombres_completos_conocidos(circuito: str = 'atp') -> Dict[str, str]:
+    """
+    {nombre canónico -> nombre completo}, sin gastar una sola petición.
+
+    Las páginas de jugador se direccionan por nombre completo sin espacios
+    ('CarlosAlcaraz'), y el histórico del proyecto los guarda como 'Alcaraz C.'.
+    Hace falta un puente, y hay dos en casa:
+
+      1. **El archivo de la v96** (`ingesta_itf`), que viene del esquema de
+         Sackmann y trae el nombre COMPLETO — 23.393 jugadores. Es la fuente
+         ancha y la que permite descubrir jugadores nuevos.
+      2. **La caché de jugadores ya descargados**, como respaldo si el archivo
+         no estuviera.
+
+    Sin esto la migración habría reducido el universo a los 357 jugadores que
+    ya estaban en caché, que es peor que lo que había.
+    """
+    fuera: Dict[str, str] = {}
     try:
-        r = requests.get(url, headers=UA, timeout=TIMEOUT)
-        r.raise_for_status()
-        m = re.search(r'var\s+currRank\s*=\s*(\{.*?\});', r.text, re.S)
-        datos = {k: int(v) for k, v in json.loads(m.group(1)).items()} if m else {}
+        import ingesta_itf
+        df = ingesta_itf.cargar(circuito)
+        for col in ('Player_1', 'Player_2'):
+            for completo in df[col].dropna().unique():
+                if ' ' in str(completo):
+                    fuera.setdefault(_canonico(completo), str(completo))
     except Exception as e:
-        logger.warning(f"[saque/{circuito}] ranking no disponible: {type(e).__name__}: {e}")
+        logger.debug(f'[saque/{circuito}] archivo ITF no disponible: {e}')
+
+    if os.path.isdir(CACHE):
+        for fichero in os.listdir(CACHE):
+            if not fichero.endswith('.json') or fichero.startswith('_'):
+                continue
+            completo = fichero[:-5].replace('_', ' ')
+            if ' ' in completo:
+                fuera.setdefault(_canonico(completo), completo)
+    return fuera
+
+
+def ranking_actual(circuito: str = 'atp') -> Dict[str, int]:
+    """
+    Nombre completo -> ranking. Es también la lista de jugadores a descargar.
+
+    v98 — SE DEJA DE PEDIR `/jsplayers/`, QUE `robots.txt` PROHÍBE.
+    -------------------------------------------------------------
+    Esto leía `tennisabstract.com/jsplayers/curr_rank_{circuito}.js`, y el
+    `robots.txt` de ese sitio dice `Disallow: /jsplayers/`. Lo encontró el test
+    de robots que se escribió en la v97 para otra cosa; funcionaba desde la
+    v69, que es justo lo que hace que estos fallos duren tanto.
+
+    El ranking ya lo tenemos en casa: el histórico unificado trae `Rank_1` y
+    `Rank_2` en cada partido (columna que la v96 incorporó con el archivo de
+    Sackmann), así que basta con quedarse con el más reciente de cada jugador.
+    Y no se pierde frescura: ese histórico se refresca con cada reentrenamiento.
+
+    Las páginas de jugador (`/cgi-bin/player-classic.cgi`) NO están en el
+    Disallow y se siguen usando: lo que se retira es sólo la ruta prohibida.
+    """
+    try:
+        import pandas as pd
+
+        import tenis_fuentes
+        df = tenis_fuentes.historico_unificado(circuito)
+    except Exception as e:
+        logger.warning(f"[saque/{circuito}] histórico no disponible: "
+                       f"{type(e).__name__}: {e}")
         return {}
-    with open(ruta, 'w', encoding='utf-8') as f:
-        json.dump(datos, f, ensure_ascii=False)
-    logger.info(f"[saque/{circuito}] {len(datos)} jugadores en el ranking.")
+    if df is None or df.empty:
+        return {}
+
+    a = df[['Date', 'Player_1', 'Rank_1']].rename(
+        columns={'Player_1': 'j', 'Rank_1': 'r'})
+    b = df[['Date', 'Player_2', 'Rank_2']].rename(
+        columns={'Player_2': 'j', 'Rank_2': 'r'})
+    t = pd.concat([a, b]).dropna(subset=['j', 'r'])
+    # -1 es el centinela de «sin ranking» del archivo; no es el número 1.
+    t = t[pd.to_numeric(t['r'], errors='coerce') > 0].sort_values('Date')
+    ultimo = t.groupby('j').tail(1)
+
+    completos = _nombres_completos_conocidos(circuito)
+    datos: Dict[str, int] = {}
+    for canonico, rango in zip(ultimo['j'], ultimo['r']):
+        nombre = completos.get(canonico)
+        if nombre:                       # sólo los que se saben direccionar
+            datos[nombre] = int(rango)
+    logger.info(f"[saque/{circuito}] {len(datos)} jugadores con ranking "
+                f"(del histórico unificado; {len(ultimo)} tenían ranking y "
+                f"{len(completos)} nombres completos en caché).")
     return datos
 
 

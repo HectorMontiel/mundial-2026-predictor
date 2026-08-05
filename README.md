@@ -1,5 +1,59 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v98 — El crash, el edge medido y la deuda ética cerrada (ver [VALIDACION_v98.md](VALIDACION_v98.md))
+
+- **🚨 LA APP SE QUEDÓ EN BLANCO AL DESPLEGAR LA v97, y ya está arreglada.**
+  `KeyError: 'leagues_cup'` — **con la competición SÍ presente** en el
+  `config.py` publicado (comprobado en los dos remotos). Es el patrón que la
+  v79 documentó en `calibracion_segura`: Streamlit Cloud conserva módulos
+  viejos en `sys.modules` entre despliegues, así que durante la recarga convive
+  un `dashboard_ui` NUEVO —que ya ofrece la liga en el menú— con un `config`
+  VIEJO que aún no la tiene. Ahora **se cae la entrada del menú, no la
+  aplicación**: el selector se coteja contra el catálogo al construirse y
+  `render_liga_club` degrada a un aviso. Desplegado aparte y antes que nada.
+- **⚾ EL EDGE DE LA KBO: MEDIDO, Y NO ESTÁ.** La v97 la dejó en Capa 2 «porque
+  no hay cuotas de cierre». **Sí las hay**: BetExplorer publica la KBO por
+  temporadas **2012-2025** en rutas planas que su `robots.txt` permite, con las
+  dos cuotas de cierre en `data-odd`. Cotejadas contra el histórico de Naver
+  (196 de 201 cruzan en el mismo orden, 195 con marcador idéntico) y cruzadas
+  con predicciones fuera de muestra: **ROI −9,1 % apostando al lado favorito,
+  −13,5 % filtrando por EV > +2 %**, con p5 hasta −34,7 %; Brier 0,2492 contra
+  0,2411 del mercado y precisión 51,3 % contra 57,5 %. **Batir al ELO no es
+  batir al mercado.** La KBO sigue en Capa 2, y ahora por evidencia y no por
+  falta de ella. *(Límite dicho: esas 201 son playoffs — la temporada regular
+  está tras `?stage=`, que robots prohíbe.)*
+- **✏️ SE RECTIFICA UN NÚMERO DE LA v97.** Aquel documento presentó como
+  material de line shopping «Doosan Bears 2,29 en Pinnacle y 2,40 en Playdoit =
+  **4,8 %**». Es la diferencia BRUTA entre precios, no el edge: quitado el
+  margen de Pinnacle la cuota justa es **2,439**, así que Playdoit a 2,40 paga
+  de MENOS y el EV real es **−1,6 %**. Un spread entre casas no es una
+  oportunidad; pagar por encima de la probabilidad justa sí.
+- **🏆 LEAGUES CUP: el sesgo es real y grande, pero la corrección no se
+  adopta.** Ajustando con 2023-24: el modelo predice 52,1 % de victoria local y
+  se observa 40,9 %, y **cuando el «local» es de la Liga MX predice 53,0 % y
+  gana el 27,5 %**. Tiene explicación física — el torneo se juega casi entero
+  en Estados Unidos, así que ese equipo no está en casa. Pero en la edición
+  2025 (62 partidos, no mirada para ajustar) el modelo de dos etapas **empata
+  con el ELO (0,4516) y empeora la precisión** del modelo sin corregir
+  (0,4839), aunque mejore el log-loss. Con ±11 pp de intervalo, no basta. El
+  caso vivo ya está cubierto: la ficha se ancla al mercado desde la v87 y la
+  Leagues Cup tiene cuatro casas.
+- **⚾ La MLB deja de depender de ESPN.** «Sin partidos programados en las
+  próximas 48 h» no era la ventana de fechas: **ESPN devuelve 403 desde
+  Streamlit Cloud** (IP de centro de datos) a la misma petición que en local da
+  200. Los fixtures salen ahora de la API oficial de la MLB, que además trae la
+  hora de inicio y el abridor: **111 partidos en 7 días, 24 con cuota**.
+- **🔢 El contador de «Apuestas del Día» contaba sólo el fútbol.** Decía
+  «partidos evaluados: 7» con picks de MLB y tenis en la misma pantalla. Cada
+  deporte informa ahora del suyo y se suman.
+- **⚖️ Cerrada la infracción de `robots.txt` que la v97 dejó anotada.**
+  `tenis_saque.py` pedía `/jsplayers/`, prohibido desde la v69. El ranking sale
+  ahora del histórico del propio proyecto. **Se dice lo que no se cumplió**: el
+  objetivo era correlación >0,95 y sale 0,77-0,80, porque el histórico da «el
+  ranking cuando jugó por última vez» y no «el de hoy». Para lo que esa función
+  decide —a quién descargar— el top-10 es casi idéntico y el top-100 coincide
+  en un 84 %.
+
 ## Novedades v97 — El ITF ya llega vivo, y dos competiciones nuevas (ver [VALIDACION_v97.md](VALIDACION_v97.md))
 
 - **📡 EL ITF DEJA DE LLEGAR CON DOS MESES DE RETRASO.** La v96 le dio histórico

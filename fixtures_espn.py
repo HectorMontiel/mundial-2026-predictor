@@ -512,6 +512,35 @@ def fixtures_deporte(deporte: str, dias: int = DIAS_SEMANA) -> List[Dict]:
     ahora = time.time()
     if ck in _CACHE and ahora - _CACHE[ck][0] < _TTL:
         return _CACHE[ck][1]
+    # v98 — LA MLB YA NO DEPENDE DE ESPN.
+    #
+    # La vista decía «Sin partidos programados en las próximas 48 h» teniendo
+    # picks de MLB en la misma pantalla. El log de producción lo explica:
+    #
+    #     [fixtures/mlb] ESPN falló: HTTPError: 403 Client Error: Forbidden
+    #     for url: .../baseball/mlb/scoreboard?dates=20260805-20260812
+    #
+    # ESPN responde **403 desde Streamlit Cloud** (IP de centro de datos) a la
+    # misma petición que aquí devuelve 200. No es la ventana de fechas ni el
+    # User-Agent: es de dónde sale la petición, y eso no se arregla desde el
+    # código. La MLB publica su propio calendario —gratis, sin clave, con el
+    # abridor probable y con la hora de inicio—, y este proyecto ya lo usa
+    # para entrenar. Se antepone: ESPN queda como respaldo.
+    if deporte == 'mlb':
+        try:
+            import mlb_statsapi
+            oficial = mlb_statsapi.proximos(dias)
+            if oficial:
+                _completar_cuotas(oficial, deporte, *path.split('/'))
+                logger.info(f"[fixtures/mlb] {len(oficial)} próximos partidos "
+                            f"(MLB StatsAPI), "
+                            f"{sum(1 for f in oficial if f.get('odd_home'))} con cuota.")
+                _CACHE[ck] = (ahora, oficial)
+                return oficial
+        except Exception as e:
+            logger.warning(f"[fixtures/mlb] StatsAPI falló ({type(e).__name__}: "
+                           f"{e}); se intenta con ESPN.")
+
     hoy = pd.Timestamp.today().normalize()
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
