@@ -99,7 +99,21 @@ CIRCUITOS = {
 #
 # OJO: cambiar esto OBLIGA a reentrenar la WTA. El modelo guardado espera 10
 # columnas y pasaría a recibir 13 — es exactamente el aviso que dejó la v67.
-FEATURES_POR_DEFECTO = {'atp': 'FEATURES_V30', 'wta': 'FEATURES_V67'}
+# v99.2 — el vector de producción incorpora el IDF en los DOS circuitos.
+#
+# Medido con el `_dataset` del propio motor, o sea exactamente lo que se
+# despliega, y ENCIMA del vector que ya llevaba `DIFF_FORMA10`:
+#
+#   ATP (352.679 partidos)  log-loss 0,60296 -> 0,60199 · acc 0,6680 -> 0,6690
+#                           n=105.804 · p5 +0,00072 · P(mejora>0) 100,0 %
+#   WTA (315.657 partidos)  log-loss 0,50653 -> 0,50624 · acc 0,7475 -> 0,7476
+#                           n=94.698  · p5 +0,00015 · P(mejora>0) 100,0 %
+#
+# Bootstrap PAREADO sobre la diferencia partido a partido. Las ganancias son
+# pequeñas pero el p5 es POSITIVO en los dos circuitos por separado, y la
+# precisión no baja en ninguno — que son las dos condiciones que el proyecto
+# exige desde la v26 para adoptar una feature.
+FEATURES_POR_DEFECTO = {'atp': 'FEATURES_V992_ATP', 'wta': 'FEATURES_V992_WTA'}
 CARPETA = CIRCUITOS['atp']['carpeta']          # compatibilidad v30-v34
 DATASET = CIRCUITOS['atp']['dataset']
 FEATURES = ['DIFF_ELO_SUP', 'DIFF_ELO_GLOBAL', 'DIFF_RANK_LOG',
@@ -120,15 +134,34 @@ FEATURES = ['DIFF_ELO_SUP', 'DIFF_ELO_GLOBAL', 'DIFF_RANK_LOG',
             # TennisAbstract. Son las tres señales clásicas del tenis:
             'DIFF_ELO_SAQUE',      # ELO calculado sobre % de puntos ganados al saque
             'DIFF_SPW',            # % de puntos ganados con su saque (rolling)
-            'DIFF_RPW']            # % de puntos ganados al resto (rolling)
+            'DIFF_RPW',            # % de puntos ganados al resto (rolling)
+            # --- v99.2: INDICE DE DISPERSION DE FORMA -------------------
+            # `DIFF_FORMA10` ya dice cuantos gano de los ultimos 10. Lo que
+            # NO decia es contra QUIEN: ganar 6 de 10 a rivales flojos no es
+            # estar en forma. El IDF descuenta la dificultad del calendario —
+            # es la media de (resultado - lo que el ELO esperaba). Validado en
+            # la v99.1 sobre 108.657 partidos con cuota de cierre: p5 +0,00064
+            # (ATP) y +0,00091 (WTA) de mejora de log-loss, P(>0)=100 % en los
+            # dos, y la ganancia se TRIPLICA en el decil de forma extrema.
+            # VA AL FINAL A PROPOSITO: los `FEATURES[:n]` de arriba son slices
+            # y anadir en medio desplazaria los indices de todos los modelos
+            # ya guardados (el aviso que dejo la v67).
+            'DIFF_IDF']
 FEATURES_V30 = FEATURES[:6]                    # para el A/B de la v35
 FEATURES_V35 = FEATURES[:10]                   # producción hasta v66
 FEATURES_V67 = FEATURES[:13]                   # candidato v67 (descartado)
-FEATURES_SAQUE = FEATURES[13:]                 # las tres de v69
+FEATURES_SAQUE = FEATURES[13:16]               # las tres de v69
+FEATURES_IDF = ['DIFF_IDF']                    # v99.2
+# Ventana elegida en walk-forward en la v99.1 (5, 10 y 15 medidas; gana 5
+# en los DOS circuitos por separado, que es lo que da confianza).
+VENTANA_IDF = 5
 # Candidato v69: el vector de producción de cada circuito + saque/resto. NO
 # incluye las de nivel (v67), que se midieron y degradaban.
 FEATURES_V69_ATP = FEATURES_V30 + FEATURES_SAQUE
 FEATURES_V69_WTA = FEATURES_V35 + FEATURES_SAQUE
+# v99.2: lo desplegado hasta ahora + el IDF (ver FEATURES_POR_DEFECTO).
+FEATURES_V992_ATP = FEATURES_V30 + FEATURES_IDF
+FEATURES_V992_WTA = FEATURES_V67 + FEATURES_IDF
 
 # Nivel numérico de competición (0 = más bajo). Se usa como contexto y para el
 # ELO por nivel. Las claves son las de `Series`/`Tier` de la fuente y las
@@ -355,6 +388,8 @@ class TennisEngine(BaseSportsEngine):
         spw: Dict[str, list] = {}
         rpw: Dict[str, list] = {}
         elo_sv: Dict[str, float] = {}
+        # v99.2: desviaciones (resultado - esperado por ELO) por jugador
+        idf_h: Dict[str, list] = {}
         saque = _indice_saque(df)
         features = features or FEATURES
         idx = [FEATURES.index(f) for f in features]
@@ -416,6 +451,10 @@ class TennisEngine(BaseSportsEngine):
             rt2 = float(np.mean(rpw.get(p2, [])[-20:])) if rpw.get(p2) else 0.38
             ev1, ev2 = elo_sv.get(p1, 1500.0), elo_sv.get(p2, 1500.0)
 
+            # --- v99.2: IDF (estado PREVIO; se actualiza mas abajo) ---
+            i1 = float(np.mean(idf_h.get(p1, [])[-VENTANA_IDF:])) if idf_h.get(p1) else 0.0
+            i2 = float(np.mean(idf_h.get(p2, [])[-VENTANA_IDF:])) if idf_h.get(p2) else 0.0
+
             if p1 in elo_g and p2 in elo_g:   # ambos con historial
                 completo = [(es1 - es2) / 100.0, (eg1 - eg2) / 100.0,
                             (np.log(r2) - np.log(r1)) / 3.0, f1 - f2,
@@ -424,7 +463,9 @@ class TennisEngine(BaseSportsEngine):
                             (d1 - d2) / 21.0, (n1 - n2) / 8.0, (h1 - h2_) / 10.0,
                             (en1 - en2) / 100.0, niv / 6.0,
                             (np.log1p(ex1) - np.log1p(ex2)) / 5.0,
-                            (ev1 - ev2) / 100.0, (sv1 - sv2) * 5.0, (rt1 - rt2) * 5.0]
+                            (ev1 - ev2) / 100.0, (sv1 - sv2) * 5.0, (rt1 - rt2) * 5.0,
+                            # v99.2: DIFF_IDF, escalado como el resto
+                            (i1 - i2) * 2.0]
                 X.append([completo[i] for i in idx])
                 y.append(gano1)
                 fechas.append(r.Date)
@@ -434,6 +475,13 @@ class TennisEngine(BaseSportsEngine):
                                    getattr(r, 'Fase', 'cuadro_principal'), niv))
             # actualizar (sin fuga)
             exp1 = 1 / (1 + 10 ** ((eg2 - eg1) / 400))
+            # v99.2: la desviacion de ESTE partido respecto a lo esperado.
+            # Se registra DESPUES de haber emitido la fila: sin fuga.
+            idf_h.setdefault(p1, []).append(gano1 - exp1)
+            idf_h.setdefault(p2, []).append((1 - gano1) - (1 - exp1))
+            for _p in (p1, p2):
+                if len(idf_h[_p]) > VENTANA_IDF * 3:
+                    idf_h[_p] = idf_h[_p][-VENTANA_IDF * 3:]
             elo_g[p1] = eg1 + 32 * (gano1 - exp1)
             elo_g[p2] = eg2 + 32 * ((1 - gano1) - (1 - exp1))
             exps = 1 / (1 + 10 ** ((es2 - es1) / 400))
@@ -494,6 +542,9 @@ class TennisEngine(BaseSportsEngine):
                 'rpw': round(float(np.mean(rpw.get(p, [])[-20:])), 4) if rpw.get(p) else None,
                 'n_saque': len(spw.get(p, [])),
                 'forma': [int(x) for x in forma.get(p, [])[-10:]],
+                # v99.2: IDF a la fecha de corte (para la inferencia)
+                'idf': round(float(np.mean(idf_h.get(p, [])[-VENTANA_IDF:])), 5)
+                        if idf_h.get(p) else 0.0,
                 'rank': None, 'pts': None,
                 # v35: estado de fatiga a la fecha de corte del dataset
                 'ultimo_partido': hist[-1][0].strftime('%Y-%m-%d') if hist else None,
@@ -684,6 +735,10 @@ class TennisEngine(BaseSportsEngine):
                                - (p2.get('elo_saque') or 1500.0)) / 100.0,
             'DIFF_SPW': ((p1.get('spw') or 0.62) - (p2.get('spw') or 0.62)) * 5.0,
             'DIFF_RPW': ((p1.get('rpw') or 0.38) - (p2.get('rpw') or 0.38)) * 5.0,
+            # v99.2 — IDF. 0.0 es el valor NEUTRO y significa exactamente
+            # «rinde como su ELO predice», que es lo correcto cuando no hay
+            # historial: no se inventa ni crisis ni pico de forma.
+            'DIFF_IDF': ((p1.get('idf') or 0.0) - (p2.get('idf') or 0.0)) * 2.0,
         }
         return [completo[c] for c in cols]
 

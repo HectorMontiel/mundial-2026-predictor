@@ -1,5 +1,35 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v99.2 — El IDF entra en producción (tenis), y dónde NO entra (ver [VALIDACION_v99_2.md](VALIDACION_v99_2.md))
+
+- **✅ EL IDF YA ESTÁ EN EL MOTOR DE TENIS, EN LOS DOS CIRCUITOS.** La v99.1 lo
+  midió contra una base de dos features; el motor real usa 6 en ATP y 13 en WTA
+  **y una de ellas ya era `DIFF_FORMA10`**. La pregunta dura era si aporta
+  ENCIMA de la forma en bruto. Repetido el A/B con el `_dataset` del propio
+  motor: **ATP log-loss 0,60296 → 0,60199** (352.679 partidos) y **WTA 0,50653
+  → 0,50624** (315.657), con la precisión subiendo en los dos. Bootstrap
+  pareado: **p5 +0,00072 (ATP) y +0,00015 (WTA), P(mejora>0) = 100 % en ambos**.
+  Reentrenados y verificados: ATP 0,6745 · WTA 0,7593.
+- **🔒 Y SE INTEGRÓ SIN ROMPER NADA.** `DIFF_IDF` va **al final** de `FEATURES`,
+  y no es estilo: `FEATURES_V30 = FEATURES[:6]` y `FEATURES_V67 = FEATURES[:13]`
+  son *slices*, así que meterla en medio habría desplazado los índices de todos
+  los modelos guardados — el aviso que dejó escrito la v67.
+- **❌ EN LA MLB NO ENTRA, y se aplica la misma vara.** Mismo protocolo, 26.396
+  juegos: log-loss 0,68559 → 0,68510 y precisión 0,5464 → 0,5492, pero **p5
+  −0,00050** — con 5.280 juegos de juicio no se distingue de cero. **RECHAZADO.**
+  Tiene lectura: en tenis un jugador en crisis arrastra su forma partido a
+  partido; un equipo de béisbol rota nueve bateadores y un abridor distinto cada
+  día, y el modelo ya tiene el abridor por separado.
+- **🏟️ Factor de parque: capturando lo que faltaba.** No ayuda al moneyline
+  (v99.1) porque describe **carreras**, no quién gana. Donde debería servir es
+  en totales, y no se podía medir porque no se guardaba ni una línea.
+  `capturar_kbo()` ya los recoge — aunque comprobado hoy, **Pinnacle publica
+  KBO sólo con moneyline**. La captura queda puesta para el día que aparezcan.
+  **El factor de parque sigue sin adoptarse mientras no se pueda medir.**
+- **Lo que el IDF NO hace, otra vez:** mejora la probabilidad que se publica,
+  no crea un edge. El ROI del tenis sigue negativo y el mercado sigue mejor
+  calibrado. Ninguna competición cambia de capa.
+
 ## Novedades v99.1 — El Índice de Dispersión de Forma, y el parque de la KBO (ver [VALIDACION_v99_1.md](VALIDACION_v99_1.md))
 
 - **📈 EL IDF FUNCIONA, Y FUNCIONA DONDE TENÍA QUE FUNCIONAR.** El modelo de

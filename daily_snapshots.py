@@ -272,17 +272,40 @@ def capturar_kbo() -> dict:
                 continue
             mid = f"{fecha.replace('-', '')}_{hc}_{ac}".replace(' ', '-')
             base = _fila_base('kbo', mid, fecha, hc, ac, dias)
+            # v99.2 — TAMBIÉN LOS TOTALES, que es lo que falta para poder
+            # validar el factor de parque.
+            #
+            # La v99.1 midió que el factor de parque (Daegu 1,093 contra
+            # Mudeung 0,903) NO ayuda al moneyline, y con razón: describe
+            # cuántas CARRERAS se anotan, no quién gana. Donde debería servir es
+            # en el mercado de totales — y ahí no se podía medir nada porque no
+            # se estaba guardando ni una línea.
+            #
+            # Comprobado el 2026-08-05: los partidos de KBO de Pinnacle traen
+            # sólo `home`/`away`, sin totales. Puede ser la hora (las casas
+            # publican el total más tarde) o que ese feed no los dé nunca. Se
+            # captura de forma defensiva: el día que aparezcan quedan
+            # guardados, y mientras tanto no cuesta nada.
+            tot_casa = c.get('totales_por_casa') or {}
+            tot_fusion = c.get('totales') or {}
             for casa, precios in (c.get('casas') or {}).items():
                 if not isinstance(precios, dict) or not precios.get('home'):
                     continue
                 # `snapshot_key` lleva la casa, igual que en el fútbol: la
                 # tabla es UNIQUE(match_id, bookmaker, snapshot_key) y sin ella
                 # dos casas del mismo día colisionarían.
-                filas.append({**base, 'bookmaker': casa,
-                              'snapshot_key': f"{_clave_dia()}|{casa}",
-                              'odds_home': precios.get('home'),
-                              'odds_away': precios.get('away'),
-                              'source_file': 'daily_snapshots/kbo'})
+                fila = {**base, 'bookmaker': casa,
+                        'snapshot_key': f"{_clave_dia()}|{casa}",
+                        'odds_home': precios.get('home'),
+                        'odds_away': precios.get('away'),
+                        'source_file': 'daily_snapshots/kbo'}
+                tot = tot_casa.get(casa) or (tot_fusion if casa == 'Pinnacle' else {})
+                if isinstance(tot, dict) and tot:
+                    # se guarda la línea principal en las mismas columnas que
+                    # usa el fútbol para over/under: el almacén ya las tiene.
+                    fila['odds_over25'] = tot.get('over') or tot.get('over25')
+                    fila['odds_under25'] = tot.get('under') or tot.get('under25')
+                filas.append(fila)
 
     if not filas:
         logger.info('[kbo] sin partidos con cuota que fotografiar.')

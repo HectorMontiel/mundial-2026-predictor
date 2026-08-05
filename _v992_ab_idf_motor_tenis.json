@@ -1,0 +1,63 @@
+{
+ "atp": {
+  "features_base": [
+   "DIFF_ELO_SUP",
+   "DIFF_ELO_GLOBAL",
+   "DIFF_RANK_LOG",
+   "DIFF_FORMA10",
+   "DIFF_WIN_SUP_12M",
+   "H2H"
+  ],
+  "n": 105804,
+  "mejora_ll": 0.0009716346625683752,
+  "p5": 0.0007197473154605341,
+  "prob_positiva": 1.0,
+  "metricas": {
+   "A \u00b7 desplegado": {
+    "ll": 0.6029576285346289,
+    "acc": 0.6680371252504631,
+    "brier": 0.20824414875565395
+   },
+   "B \u00b7 + IDF": {
+    "ll": 0.6019859938720605,
+    "acc": 0.669010623416884,
+    "brier": 0.20780605750452075
+   }
+  },
+  "veredicto": "ADOPTAR"
+ },
+ "wta": {
+  "features_base": [
+   "DIFF_ELO_SUP",
+   "DIFF_ELO_GLOBAL",
+   "DIFF_RANK_LOG",
+   "DIFF_FORMA10",
+   "DIFF_WIN_SUP_12M",
+   "H2H",
+   "DIFF_PTS_LOG",
+   "DIFF_DIAS_DESCANSO",
+   "DIFF_PARTIDOS_14D",
+   "DIFF_HORAS_7D",
+   "DIFF_ELO_NIVEL",
+   "NIVEL_PARTIDO",
+   "DIFF_EXP_NIVEL"
+  ],
+  "n": 94698,
+  "mejora_ll": 0.0002962186463201884,
+  "p5": 0.00015387904837214732,
+  "prob_positiva": 1.0,
+  "metricas": {
+   "A \u00b7 desplegado": {
+    "ll": 0.5065336979890454,
+    "acc": 0.7475237069420685,
+    "brier": 0.16890017673964014
+   },
+   "B \u00b7 + IDF": {
+    "ll": 0.5062374793427251,
+    "acc": 0.7476081860229361,
+    "brier": 0.1687919885696383
+   }
+  },
+  "veredicto": "ADOPTAR"
+ }
+}

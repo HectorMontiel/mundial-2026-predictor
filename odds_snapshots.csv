@@ -12584,3 +12584,13 @@ match_id,league_key,match_date,home_team,away_team,bookmaker,fase,snapshot_key,d
 20260807_Club-America_San-Diego-FC,leagues_cup,2026-08-07,Club America,San Diego FC,Playdoit,snapshot,2026-08-04T23|Playdoit,3.0,1.5834,4.3334,5.3334,,,,,,,,daily_snapshots,2026-08-04T23:52:49Z
 20260807_Cruz-Azul_Philadelphia-Union,leagues_cup,2026-08-07,Cruz Azul,Philadelphia Union,Playdoit,snapshot,2026-08-04T23|Playdoit,3.0,2.5455,3.3334,2.8,,,,,,,,daily_snapshots,2026-08-04T23:52:49Z
 20260807_Portland-Timbers_Puebla,leagues_cup,2026-08-07,Portland Timbers,Puebla,Playdoit,snapshot,2026-08-04T23|Playdoit,3.0,1.7334,4.0,4.5,,,,,,,,daily_snapshots,2026-08-04T23:52:49Z
+20260805_Doosan-Bears_NC-Dinos,kbo,2026-08-05,Doosan Bears,NC Dinos,Pinnacle,snapshot,2026-08-05T06|Pinnacle,0.0,2.31,,1.625,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_Kia-Tigers_KT-Wiz,kbo,2026-08-05,Kia Tigers,KT Wiz,Pinnacle,snapshot,2026-08-05T06|Pinnacle,0.0,1.9434,,1.8772,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_Lotte-Giants_Kiwoom-Heroes,kbo,2026-08-05,Lotte Giants,Kiwoom Heroes,Pinnacle,snapshot,2026-08-05T06|Pinnacle,0.0,1.9434,,1.8772,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_SSG-Landers_LG-Twins,kbo,2026-08-05,SSG Landers,LG Twins,Pinnacle,snapshot,2026-08-05T06|Pinnacle,0.0,2.31,,1.6211,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_Samsung-Lions_Hanwha-Eagles,kbo,2026-08-05,Samsung Lions,Hanwha Eagles,Pinnacle,snapshot,2026-08-05T06|Pinnacle,0.0,1.5747,,2.42,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_Doosan-Bears_NC-Dinos,kbo,2026-08-05,Doosan Bears,NC Dinos,Playdoit,snapshot,2026-08-05T06|Playdoit,0.0,2.3,,1.6061,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_Kia-Tigers_KT-Wiz,kbo,2026-08-05,Kia Tigers,KT Wiz,Playdoit,snapshot,2026-08-05T06|Playdoit,0.0,1.8696,,1.9091,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_Lotte-Giants_Kiwoom-Heroes,kbo,2026-08-05,Lotte Giants,Kiwoom Heroes,Playdoit,snapshot,2026-08-05T06|Playdoit,0.0,1.9091,,1.8696,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_SSG-Landers_LG-Twins,kbo,2026-08-05,SSG Landers,LG Twins,Playdoit,snapshot,2026-08-05T06|Playdoit,0.0,2.25,,1.625,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
+20260805_Samsung-Lions_Hanwha-Eagles,kbo,2026-08-05,Samsung Lions,Hanwha Eagles,Playdoit,snapshot,2026-08-05T06|Playdoit,0.0,1.5556,,2.4,,,,,,,,daily_snapshots/kbo,2026-08-05T06:02:52Z
