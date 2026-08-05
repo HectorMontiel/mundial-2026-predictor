@@ -2840,14 +2840,24 @@ def render_kbo():
         f"{md.get('precision_validacion', 0)*100:.1f} % "
         f"(ELO {md.get('precision_linea_base_elo', 0)*100:.1f} %) · {_frescura}")
     if _wf:
+        # v99 — el texto decía «no existe histórico de cuotas de cierre». Ya no
+        # es cierto: se encontró (BetExplorer, 2012-2025) y se midió. El
+        # resultado es peor que no tener dato, pero es el que hay y se dice.
         st.info(
-            f"**Modo informativo.** En validación cronológica el modelo acierta "
-            f"el **{_wf.get('precision', 0)*100:.1f} %** frente al "
-            f"**{_wf.get('precision_elo', 0)*100:.1f} %** de la línea base, así que "
-            f"aporta — pero de la KBO no existe histórico gratuito de cuotas de "
-            f"cierre, y sin él no se puede demostrar que ganar dinero con esto "
-            f"sea posible. Por eso sus partidos se muestran y **no se proponen "
-            f"como apuesta de élite**.")
+            f"**Modo informativo, y ahora por una razón medida.** El modelo "
+            f"acierta el **{_wf.get('precision', 0)*100:.1f} %** frente al "
+            f"**{_wf.get('precision_elo', 0)*100:.1f} %** de la línea base, así "
+            f"que sí aporta sobre el ELO. Pero contra el **precio de cierre "
+            f"real** —204 partidos de KBO reunidos de BetExplorer— pierde "
+            f"dinero: **ROI −9,1 %** apostando a su lado favorito y **−13,5 %** "
+            f"filtrando por EV, y su probabilidad está peor calibrada que la de "
+            f"la casa (Brier 0,249 contra 0,241). Batir al ELO no es batir al "
+            f"mercado. Por eso sus partidos se muestran y **no se proponen como "
+            f"apuesta**.")
+        st.caption(
+            'Lo que sí puede dar picks aquí es la diferencia entre casas (line '
+            'shopping), que no depende de que el modelo acierte. Se comprueba '
+            'en cada barrido.')
     st.caption(
         "En la KBO se corta a las 12 entradas: alrededor del 4 % de los juegos "
         "acaba en empate. Las probabilidades de abajo son de ganar **a condición "
@@ -2855,6 +2865,48 @@ def render_kbo():
 
     tab1, tab2 = st.tabs(["🎯 Predecir partido", "📅 Partidos de hoy"])
     with tab1:
+        # v99 — PRÓXIMOS PARTIDOS, que faltaban.
+        #
+        # La vista obligaba a elegir los dos equipos a mano. La KBO publica su
+        # calendario en la misma fuente de la que salen los resultados (Naver),
+        # con el abridor anunciado, así que no hay razón para no ofrecerlos ya
+        # rellenados — es lo que hacen MLB, NBA y las ligas de fútbol.
+        try:
+            import kbo_naver
+            import pandas as _pd
+
+            @st.cache_data(ttl=1800, show_spinner='Buscando partidos de KBO…')
+            def _proximos_kbo():
+                hoy = _pd.Timestamp.utcnow().tz_localize(None).normalize()
+                fuera = []
+                for k in range(0, 4):           # hoy y los 3 días siguientes
+                    f = (hoy + _pd.Timedelta(days=k)).strftime('%Y-%m-%d')
+                    for p in kbo_naver.partidos_del_dia(f):
+                        if p.get('estado') != 'RESULT':
+                            fuera.append(p)
+                return fuera
+
+            px = _proximos_kbo()
+            if px:
+                etiquetas = [
+                    f"{p['fecha']} · {p['away']} @ {p['home']}"
+                    + (f" (abren {p['away_pitcher']} / {p['home_pitcher']})"
+                       if p['home_pitcher'] and p['away_pitcher'] else ' · abridor sin anunciar')
+                    for p in px]
+                st.caption(f"📅 {len(px)} partidos por jugar en los próximos 4 días.")
+                elegido = st.selectbox('Próximos partidos', range(len(px)),
+                                       format_func=lambda i: etiquetas[i],
+                                       key='kbo_px')
+                if st.button('Cargar este partido', key='kbo_cargar'):
+                    st.session_state['kbo_h'] = px[elegido]['home']
+                    st.session_state['kbo_a'] = px[elegido]['away']
+                    st.rerun()
+            else:
+                st.caption('📅 No hay partidos de KBO en los próximos 4 días '
+                           '(la temporada va de marzo a octubre).')
+        except Exception as e:
+            st.caption(f'📅 No se pudo consultar el calendario de KBO ({type(e).__name__}).')
+
         if 'kbo_a' not in st.session_state and len(eng.equipos) > 1:
             st.session_state['kbo_a'] = eng.equipos[1]
         c1, c2 = st.columns(2)

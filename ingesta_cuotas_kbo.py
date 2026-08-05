@@ -39,6 +39,7 @@ porque es cuota de cierre REAL y es lo único que existe.
 
 import io
 import logging
+import os
 import re
 import time
 from typing import Dict, List
@@ -63,13 +64,19 @@ ALIAS_BE = {
     'woori heroes': 'Kiwoom Heroes', 'heroes': 'Kiwoom Heroes',
 }
 
+# La fila del ARCHIVO por temporadas y la de la temporada EN CURSO no son
+# iguales: la primera trae marcador `7:5` y fecha `28.10.2024`; la segunda
+# puede traer un estado («POSTP.») en lugar del marcador y una fecha RELATIVA
+# («Yesterday»). Se acepta cualquiera de las dos y se descarta después lo que
+# no tenga marcador numérico.
 RE_FILA = re.compile(
     r'<tr>\s*<td class="h-text-left">\s*<a[^>]*href="(/baseball/south-korea/'
     r'[^"]*?/[A-Za-z0-9]{8}/)"[^>]*>(.*?)</a>\s*</td>\s*'
-    r'<td class="h-text-center">\s*<a[^>]*>\s*([\d]+):([\d]+)\s*</a>\s*</td>'
-    r'(.*?)</tr>', re.S)
+    r'<td class="h-text-center">(.*?)</td>(.*?)</tr>', re.S)
+RE_MARCADOR = re.compile(r'>\s*(\d+):(\d+)\s*<')
 RE_ODD = re.compile(r'data-odd="([\d.]+)"')
 RE_FECHA = re.compile(r'>(\d{2}\.\d{2}\.\d{4})<')
+RE_RELATIVA = re.compile(r'>(Today|Yesterday)<')
 RE_TAG = re.compile(r'<[^>]+>')
 
 
@@ -99,8 +106,11 @@ def temporada(anio: int) -> List[dict]:
     html = _get(f'{BASE}/baseball/south-korea/{slug}/results/')
     filas = []
     for m in RE_FILA.finditer(html):
-        equipos_html, s1, s2, cola = m.group(2), m.group(3), m.group(4), m.group(5)
-        gana_1 = '<strong>' in equipos_html.split('</span>')[0]
+        equipos_html, marc_html, cola = m.group(2), m.group(3), m.group(4)
+        marc = RE_MARCADOR.search(marc_html)
+        if not marc:
+            continue                       # aplazado, suspendido o sin jugar
+        s1, s2 = marc.group(1), marc.group(2)
         nombres = [RE_TAG.sub('', x).strip()
                    for x in re.findall(r'<span>.*?</span>', equipos_html, re.S)]
         if len(nombres) < 2:
@@ -112,11 +122,18 @@ def temporada(anio: int) -> List[dict]:
         if len(odds) < 2:
             continue
         f = RE_FECHA.search(cola)
-        if not f:
-            continue
-        d, mes, y = f.group(1).split('.')
+        if f:
+            d, mes, y = f.group(1).split('.')
+            fecha = f'{y}-{mes}-{d}'
+        else:
+            rel = RE_RELATIVA.search(cola)
+            if not rel:
+                continue
+            delta = 0 if rel.group(1) == 'Today' else 1
+            fecha = (pd.Timestamp.today().normalize()
+                     - pd.Timedelta(days=delta)).strftime('%Y-%m-%d')
         filas.append({
-            'fecha': f'{y}-{mes}-{d}', 'temporada': anio,
+            'fecha': fecha, 'temporada': anio,
             # En BetExplorer el PRIMERO es el local en béisbol coreano; se
             # comprueba después contra `historico_kbo.csv`, que es la verdad.
             'home': h, 'away': a,
@@ -128,7 +145,26 @@ def temporada(anio: int) -> List[dict]:
     return filas
 
 
-def ingerir(salida: str = SALIDA) -> pd.DataFrame:
+def ingerir(salida: str = SALIDA, incremental: bool = True) -> pd.DataFrame:
+    """
+    Reúne las cuotas de cierre disponibles y **acumula**.
+
+    v99 — POR QUÉ ES ACUMULATIVO Y NO UNA FOTO.
+    -------------------------------------------
+    El archivo por temporadas sólo sirve los playoffs (~16 por año): la
+    temporada regular está detrás de `?stage=`, que el `robots.txt` prohíbe, y
+    se buscó sin éxito en sportsbookreviewsonline (0 ficheros de KBO),
+    OddsPortal (SPA que no sirve nada sin JS), Flashscore/Covers (404), Kaggle
+    y GitHub (hay crawlers de ESTADÍSTICAS coreanas —Statiz, Naver— pero
+    ninguno de CUOTAS) y los portales coreanos, que publican marcador y no
+    precio.
+
+    Lo que sí es alcanzable: la página de la temporada EN CURSO publica los
+    últimos ~15 partidos ya jugados **con su cierre**, y ésos son de temporada
+    regular. Pasando a diario, eso construye justo el histórico que falta —
+    unos 700 partidos por temporada— en vez de esperar a que lo publique
+    alguien. Por eso no se sobreescribe: se funde con lo ya guardado.
+    """
     todo = []
     for a in TEMPORADAS:
         try:
@@ -136,10 +172,27 @@ def ingerir(salida: str = SALIDA) -> pd.DataFrame:
         except Exception as e:
             logger.warning(f'[kbo/cuotas] {a}: {e}')
         time.sleep(0.6)                    # educado: ~1 petición cada 0,6 s
+    # temporada en curso: trae REGULAR, que es lo que el archivo no da
+    try:
+        actuales = temporada(pd.Timestamp.today().year)
+        for f in actuales:
+            f['fase'] = 'regular'
+        todo += actuales
+        logger.info(f'[kbo/cuotas] temporada en curso: {len(actuales)} '
+                    f'partidos de regular con cierre')
+    except Exception as e:
+        logger.warning(f'[kbo/cuotas] temporada en curso: {e}')
+
     if not todo:
         return pd.DataFrame()
-    df = pd.DataFrame(todo).drop_duplicates(
-        subset=['fecha', 'home', 'away']).sort_values('fecha')
+    df = pd.DataFrame(todo)
+    if incremental and os.path.exists(salida):
+        try:
+            df = pd.concat([pd.read_csv(salida), df], ignore_index=True)
+        except Exception as e:
+            logger.warning(f'[kbo/cuotas] no se pudo leer lo previo: {e}')
+    df = df.drop_duplicates(
+        subset=['fecha', 'home', 'away'], keep='last').sort_values('fecha')
     df.to_csv(salida, index=False)
     logger.info(f"[kbo/cuotas] {salida}: {len(df)} partidos "
                 f"({df.fecha.min()} → {df.fecha.max()})")

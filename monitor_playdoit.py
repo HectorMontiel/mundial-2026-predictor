@@ -32,6 +32,7 @@ import json
 import logging
 import os
 import sys
+import time
 from typing import Dict, List
 
 try:
@@ -42,6 +43,8 @@ except Exception:
 logger = logging.getLogger(__name__)
 
 ARCHIVO = 'playdoit_cobertura.json'
+# A partir de aquí, la foto ya no se puede llamar «hoy» (v99).
+MAX_HORAS_FRESCO = 36
 DEPORTES = ('futbol', 'tenis', 'mlb', 'nba')
 
 
@@ -164,11 +167,35 @@ def incidencias() -> List[str]:
         if v:
             out.append(f'ℹ️ Playdoit ({dep}): {len(v)} competiciones ya no '
                        f'cotizan — {", ".join(v[:5])}{"…" if len(v) > 5 else ""}')
+    # v99 — NO SE DICE «HOY» CON UN FICHERO DE LA SEMANA PASADA.
+    #
+    # Esto llevaba días informando de «bol_division: 5 partidos hoy, 0 con
+    # precio en Playdoit». Comprobado: Playdoit SÍ cotizaba los cinco partidos
+    # bolivianos, y `cuotas_partido` los encontraba (tres de ellos con las tres
+    # casas). Lo que fallaba es que `playdoit_cobertura.json` tenía **164
+    # horas** — casi siete días — y nadie lo regeneraba: `incidencias()` servía
+    # la foto de la semana pasada con la palabra «hoy» delante. Al recalcular,
+    # Bolivia ni aparecía.
+    #
+    # Es el patrón de la v93 (el modelo se reentrenaba a diario y sus
+    # calibraciones nunca): lo que no está en un workflow, no se actualiza.
+    # Ahora `monitor_playdoit.py` corre a diario Y, por si acaso, un dato
+    # viejo se etiqueta con su fecha en vez de disfrazarse de actual.
     sin = d.get('ligas_sin_precio') or []
     if sin:
-        out.append(f'ℹ️ Playdoit no cotiza hoy {len(sin)} ligas activas '
-                   f'({"; ".join(sin[:4])}{"…" if len(sin) > 4 else ""}); sus '
-                   f'picks llevan precio de Pinnacle/Bovada — cubierto.')
+        horas = None
+        try:
+            horas = (time.time() - os.path.getmtime(ARCHIVO)) / 3600.0
+        except Exception:
+            pass
+        if horas is not None and horas > MAX_HORAS_FRESCO:
+            out.append(f'ℹ️ Cobertura de Playdoit medida hace {horas / 24:.0f} '
+                       f'días (no hoy): {len(sin)} ligas sin precio entonces. '
+                       f'Se refresca en el barrido diario.')
+        else:
+            out.append(f'ℹ️ Playdoit no cotiza hoy {len(sin)} ligas activas '
+                       f'({"; ".join(sin[:4])}{"…" if len(sin) > 4 else ""}); sus '
+                       f'picks llevan precio de Pinnacle/Bovada — cubierto.')
     return out
 
 

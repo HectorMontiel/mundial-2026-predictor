@@ -1,0 +1,30 @@
+{
+ "atp": {
+  "n_con_cuota": 63821,
+  "brier_modelo": 0.212404640181741,
+  "brier_mercado": 0.1979210355653918,
+  "regla": [
+   0.02,
+   0.45,
+   true
+  ],
+  "n_juicio": 6924,
+  "roi_juicio": -0.09664458164837281,
+  "p5_juicio": -0.11635925765453495,
+  "veredicto": "sin edge"
+ },
+ "wta": {
+  "n_con_cuota": 44836,
+  "brier_modelo": 0.21836475705216518,
+  "brier_mercado": 0.20315643129138594,
+  "regla": [
+   0.02,
+   0.65,
+   true
+  ],
+  "n_juicio": 2029,
+  "roi_juicio": -0.06812167241662559,
+  "p5_juicio": -0.0967188270083785,
+  "veredicto": "sin edge"
+ }
+}

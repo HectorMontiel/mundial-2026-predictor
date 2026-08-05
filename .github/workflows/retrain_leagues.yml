@@ -190,6 +190,25 @@ jobs:
       - name: Acumular resultados de ITF (fuente viva)
         run: python acumular_itf.py || echo "::warning::acumulación de ITF con avisos"
 
+      # v99 — EL MONITOR DE PLAYDOIT NO CORRIA EN NINGUN SITIO.
+      #
+      # Su docstring decia "se ejecuta en el workflow diario" y era falso: no
+      # estaba en ningun workflow. Consecuencia medida: playdoit_cobertura.json
+      # tenia 164 HORAS y la interfaz mostraba "Playdoit no cotiza HOY
+      # bol_division" con la foto de la semana pasada — cuando Playdoit si
+      # cotizaba los cinco partidos bolivianos. Mismo patron que la v93.
+      - name: Refrescar la cobertura de Playdoit
+        run: python monitor_playdoit.py || echo "::warning::monitor de Playdoit con avisos"
+
+      # v99 — CUOTAS DE CIERRE DE KBO, que solo se pueden reunir dia a dia.
+      # El archivo por temporadas de BetExplorer solo sirve playoffs (la
+      # temporada regular esta tras ?stage=, prohibido por robots.txt), pero
+      # la pagina de la temporada en curso publica los ultimos resultados CON
+      # su cierre. Acumulandolos se construye el historico de regular que hoy
+      # no existe en ninguna fuente gratuita.
+      - name: Acumular cuotas de cierre de KBO
+        run: python ingesta_cuotas_kbo.py || echo "::warning::cuotas KBO con avisos"
+
       # v92 — CIERRA EL CIRCUITO. El proyecto registraba los picks de cada día
       # desde la v32 y nunca los resolvía (`liquidar()` no tenía llamador):
       # 315 registrados, 0 liquidados. Sin esto no hay forma de saber si el
@@ -232,7 +251,7 @@ jobs:
           # se commitea es `odds_snapshots.csv`, que contiene lo único que no
           # se puede reconstruir (la línea antes del partido).
           git add -A odds_snapshots.csv calibracion_mercado.json umbrales_capa1.json \
-                     _v75_import_odds.json _v75_snapshots.json 2>/dev/null || true
+                     _v75_import_odds.json _v75_snapshots.json playdoit_cobertura.json cuotas_kbo_cierre.csv 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Sin cambios en los modelos (ligas en receso). Nada que commitear."
           else

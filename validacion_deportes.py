@@ -98,6 +98,24 @@ def motivo(deporte: Optional[str]) -> Optional[str]:
     info = (_tabla().get('deportes') or {}).get(deporte or '')
     if not info or info.get('edge_validado', True):
         return None
+    # v99 — para el tenis ya no se cita el ledger de producción.
+    #
+    # Ese mensaje decía «el mejor ROI fue +1,85 % sobre **112 apuestas**», que
+    # es la muestra que el propio sistema había acumulado. Con 112 apuestas el
+    # intervalo se come cualquier conclusión, así que la frase no informaba de
+    # nada. El proyecto tenía el dato bueno sin usar: el histórico unificado
+    # trae **63.821 partidos de ATP y 44.836 de WTA con cuota de cierre**
+    # (2001-2026). Medido ahí, con elección en pliegues tempranos y juicio en
+    # los tardíos (`_v99_edge_tenis.py`), el veredicto es mucho más firme —y
+    # peor—: ninguna regla del barrido sale positiva.
+    if (deporte or '').lower() in ('tenis', 'atp', 'wta'):
+        return ("Tenis: sin edge de modelo, y medido a lo grande. Sobre "
+                "108.657 partidos con cuota de cierre real (2001-2026), la "
+                "probabilidad del modelo está PEOR calibrada que la de la casa "
+                "(Brier 0,212 frente a 0,198 en ATP), y la mejor regla del "
+                "barrido pierde −9,7 % de ROI fuera de muestra (p5 −11,6 %). "
+                "No es falta de muestra: es que el precio ya sabe más. Se "
+                "muestran como candidatos, nunca como apuestas de élite.")
     return (f"{deporte}: sin edge validado. Con los umbrales actuales, el mejor "
             f"ROI fuera de muestra fue {info['mejor_roi']:+.2%} sobre "
             f"{info['n_mejor']} apuestas (bootstrap p5 {info['p5_mejor']:+.2%}). "

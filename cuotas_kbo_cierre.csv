@@ -200,3 +200,6 @@ fecha,temporada,home,away,runs_home,runs_away,gana_home,odd_home,odd_away,fase
 2025-10-29,2025,Hanwha Eagles,LG Twins,7,3,True,1.62,2.27,playoff
 2025-10-30,2025,Hanwha Eagles,LG Twins,4,7,False,1.84,1.92,playoff
 2025-10-31,2025,Hanwha Eagles,LG Twins,1,4,False,2.06,1.74,playoff
+2026-08-03,2026,Lotte Giants,Kiwoom Heroes,3,2,True,1.55,2.46,regular
+2026-08-03,2026,Samsung Lions,Hanwha Eagles,1,4,False,1.75,2.07,regular
+2026-08-03,2026,SSG Landers,LG Twins,10,8,True,3.01,1.39,regular
