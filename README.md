@@ -1,5 +1,37 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v100 — La localía de la Leagues Cup, medida contra el mercado (ver [VALIDACION_v100.md](VALIDACION_v100.md))
+
+- **⚽ SE PROBARON LAS CUATRO FORMAS DE MATAR LA LOCALÍA, y ninguna basta.** El
+  diagnóstico era correcto —el modelo predice 52,1 % de victoria local y ocurre
+  el 40,9 %, un 27,5 % cuando el «local» es de Liga MX— pero la propuesta de
+  «forzar `is_home = 0`» no era aplicable tal cual: **el modelo no tiene esa
+  feature**, la ventaja de campo está implícita en 11.000 partidos de liga
+  doméstica. Quitarla es darle a la LC su propio intercepto, y se hizo de cuatro
+  maneras (indicador de cancha neutral, + cruce de ligas, + qué liga hospeda, y
+  promediar con el partido espejo).
+- **📉 Y AL MEDIRLO CONTRA EL MERCADO, EL MERCADO GANA EN TODO.** Validar por
+  precisión contra el ELO sobre 62 partidos no decide nada (±10 pp), así que se
+  reunieron las **cuotas de cierre reales** de la competición (90 partidos 1X2,
+  BetExplorer). Resultado sobre 86: Brier **0,3970 el mercado** contra 0,4121 el
+  mejor modelo; log-loss 1,0184 contra 1,0599; precisión 0,4884 contra 0,4651. Y
+  las correcciones de localía, que mejoraban el log-loss frente al ELO, lo
+  **empeoran** frente al mercado. **La Leagues Cup no entra en Capa 1.**
+- **⚠️ EL GUARDIA PARÓ EL BACKTEST, Y TENÍA RAZÓN.** Al cruzar fuentes, ESPN y
+  BetExplorer sólo coincidían en 60 de 86 resultados. El motivo: **BetExplorer
+  registra 0 % de empates y ESPN el 29,5 %** — la Leagues Cup decide todos sus
+  partidos por penaltis, así que uno guarda al ganador del desempate y otro el
+  marcador reglamentario. Pero las cuotas son de 90 minutos (el empate se paga
+  con probabilidad implícita del 25,3 %, coherente con el 30,2 % observado).
+  Liquidar con el resultado de BetExplorer habría resuelto apuestas de 90
+  minutos con el ganador tras penaltis: **un ROI inventado, sin un solo error en
+  pantalla.**
+- **⚾ KBO**: las cuatro salidas ya estaban medidas en la v99 y el `w = 0,00` de
+  la mezcla con el mercado es el que cierra la vía del modelo. Las mejoras
+  propuestas (Statiz, bullpen, parque, clima) son la dirección correcta —son
+  información que el precio tiene y el modelo no— pero son **ingesta nueva**, no
+  un ajuste de modelado, y **no se han implementado en esta versión**.
+
 ## Novedades v99 — Lo que quedaba a medias, y las cuatro salidas de la KBO (ver [VALIDACION_v99.md](VALIDACION_v99.md))
 
 - **🎯 REMATES POR JUGADOR: el dato estaba, y la cuenta estaba mal.** No salían
