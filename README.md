@@ -1,5 +1,36 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v99 — Lo que quedaba a medias, y las cuatro salidas de la KBO (ver [VALIDACION_v99.md](VALIDACION_v99.md))
+
+- **🎯 REMATES POR JUGADOR: el dato estaba, y la cuenta estaba mal.** No salían
+  en tres competiciones (`leagues_cup`, `rus_premier`, `gre_super_league`)
+  porque `_props_rematadores` busca el slug de ESPN en una tabla distinta de la
+  que usa `fixtures_espn` — dos listas del mismo dato mantenidas por separado.
+  Ahora una hereda de la otra: **3 → 0** ligas sin props. **Y al mirar el
+  resultado no se sostenía**: «Diego González — 3+ remates: **75,6 %**». La
+  cuota de cada jugador se repartía sobre la suma del TOP-4 y encima se
+  multiplicaba por 0,85, así que **el top-4 se llevaba el 85 % de los remates
+  del equipo cuando su cuota real observada es el 42,9 %** (7,83 de 18,25 en
+  Atlas). Cada jugador salía con el DOBLE. Viene de la v71 y estaba en todas
+  las ligas. Corregido: 75,6 % → **29,6 %**.
+- **🏆 LEAGUES CUP: el histórico se dobla, el veredicto no cambia.** El
+  agrupado pasaba por `descargar_liga`, que recorta MLS y Liga MX a 8 años;
+  los CSV de football-data llegan a **2012**. Leyéndolos enteros (sin tocar
+  nada de lo que consumen esas dos ligas): **6.609 → 11.000 partidos**. El
+  modelo pasa de ir −0,93 pp por detrás del ELO a **empatarlo (+0,00 pp)**.
+  Más dato lo acerca, no le da edge. Sigue en Capa 2, y se dice.
+- **⚾ KBO: cuatro salidas probadas, las cuatro medidas, ninguna funciona.**
+  (A) Mezclando modelo y mercado, **el peso óptimo del modelo es CERO** —
+  Brier 0,2411 el mercado solo, 0,2411 la mejor mezcla: no aporta nada que el
+  precio no tenga. (B) No hay banda de discrepancia donde acierte: el único
+  tramo en que «gana» es aquel en el que casi no discrepa (ahí copia, no
+  aporta). (C) Filtrando por favoritos claros, ROI −10,4 %. (D) **Apostando al
+  revés que el modelo también se pierde** (−2,96 %), que es lo que descarta la
+  última esperanza: no está invertido, es que no sabe nada. Queda vivo el line
+  shopping (no depende del modelo) y, como única palanca real, meter
+  información que hoy no está (bullpen, alineación, parque) desde Statiz o los
+  box scores de Naver — trabajo de ingesta nueva, no de reentrenar.
+
 ## Novedades v98 — El crash, el edge medido y la deuda ética cerrada (ver [VALIDACION_v98.md](VALIDACION_v98.md))
 
 - **🚨 LA APP SE QUEDÓ EN BLANCO AL DESPLEGAR LA v97, y ya está arreglada.**

@@ -46,6 +46,27 @@ logger = logging.getLogger(__name__)
 
 ESPN_LIGA = 'concacaf.leagues.cup'
 DESDE = '2019-01-01'
+_FD = 'https://www.football-data.co.uk'
+
+
+def _desde_csv(url: str):
+    """MLS o Liga MX completas desde football-data, con el esquema del motor."""
+    import io as _io
+
+    import pandas as pd
+    import requests
+    r = requests.get(url, timeout=40)
+    r.raise_for_status()
+    crudo = pd.read_csv(_io.StringIO(r.text), on_bad_lines='skip',
+                        encoding_errors='ignore')
+    d = pd.DataFrame({
+        'date': pd.to_datetime(crudo['Date'], dayfirst=True, errors='coerce'),
+        'home_team': crudo['Home'], 'away_team': crudo['Away'],
+        'home_goals': pd.to_numeric(crudo['HG'], errors='coerce'),
+        'away_goals': pd.to_numeric(crudo['AG'], errors='coerce'),
+    })
+    return d.dropna(subset=['date', 'home_team', 'away_team',
+                            'home_goals', 'away_goals']).reset_index(drop=True)
 
 # Nombre en ESPN -> nombre en el histórico de football-data de su liga.
 ALIAS = {
@@ -153,18 +174,40 @@ def historico(con_ligas: bool = True) -> pd.DataFrame:
     if not con_ligas:
         return lc.sort_values('date').reset_index(drop=True)
 
-    import league_engine as le
+    # v99 — SE TIRA DEL CSV COMPLETO, NO DE LA VENTANA DE 8 AÑOS.
+    #
+    # `descargar_liga` recorta MLS y Liga MX a `anios_ventana: 8`, que es una
+    # elección VALIDADA para los modelos de esas dos ligas y no se toca. Pero
+    # para la Leagues Cup el problema es el contrario: le sobra recorte. Los
+    # CSV de football-data llegan a **2012** (USA 6.084 partidos, MEX 4.682) y
+    # el agrupado sólo usaba desde 2018-08 — 6.379 de los 10.766 que hay.
+    #
+    # Aquí lo que se busca es el nivel de cada club y la escala entre las dos
+    # ligas, y para eso más pasado es mejor: el ELO llega mejor anclado al
+    # primer cruce. Se leen los CSV directamente para no alterar en nada lo
+    # que consumen `mls` y `liga_mx`.
     marcos = []
-    for clave in ('mls', 'liga_mx'):
+    for clave, url in (('mls', f'{_FD}/new/USA.csv'),
+                       ('liga_mx', f'{_FD}/new/MEX.csv')):
         try:
-            d = le.descargar_liga(clave)
-            d = d.dropna(subset=['date', 'home_team', 'away_team',
-                                 'home_goals', 'away_goals']).copy()
+            d = _desde_csv(url)
             d['competicion'] = clave
             marcos.append(d)
+            logger.info(f'[leagues_cup] {clave}: {len(d)} partidos desde '
+                        f'{d["date"].min().date()}')
         except Exception as e:
-            logger.warning(f'[leagues_cup] {clave} no disponible: '
-                           f'{type(e).__name__}: {e}')
+            logger.warning(f'[leagues_cup] {clave} desde CSV falló '
+                           f'({type(e).__name__}: {e}); se cae a descargar_liga.')
+            try:
+                import league_engine as le
+                d = le.descargar_liga(clave).dropna(
+                    subset=['date', 'home_team', 'away_team',
+                            'home_goals', 'away_goals']).copy()
+                d['competicion'] = clave
+                marcos.append(d)
+            except Exception as e2:
+                logger.warning(f'[leagues_cup] {clave} no disponible: '
+                               f'{type(e2).__name__}: {e2}')
     marcos.append(lc)
     df = pd.concat(marcos, ignore_index=True, sort=False)
     df = df.dropna(subset=['date', 'home_goals', 'away_goals'])

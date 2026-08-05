@@ -2855,8 +2855,14 @@ def render_kbo():
             f"mercado. Por eso sus partidos se muestran y **no se proponen como "
             f"apuesta**.")
         st.caption(
+            'Se probaron cuatro salidas y ninguna funciona: mezclar modelo y '
+            'mercado da un peso óptimo del modelo de **cero**; no hay banda de '
+            'discrepancia donde acierte más que la casa; filtrar por favoritos '
+            'claros deja ROI −10,4 %; y apostar **al revés** que el modelo '
+            'también pierde (−3,0 %), que es la señal de que no hay '
+            'información explotable en ningún sentido, no de que esté al revés. '
             'Lo que sí puede dar picks aquí es la diferencia entre casas (line '
-            'shopping), que no depende de que el modelo acierte. Se comprueba '
+            'shopping), que no depende de que el modelo acierte, y se comprueba '
             'en cada barrido.')
     st.caption(
         "En la KBO se corta a las 12 entradas: alrededor del 4 % de los juegos "

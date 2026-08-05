@@ -1474,13 +1474,29 @@ def _props_rematadores(home: str, away: str, sh_h: float, sh_a: float,
         t = tabla[(tabla.get('partidos', 0) >= 2) & (tabla.get('remates', 0) > 0)]
         if t.empty:
             continue
-        t = t.head(max_jug)
+        # v99 — EL DENOMINADOR ERAN SÓLO LOS CUATRO PUBLICADOS, Y ESO DUPLICABA
+        # LOS REMATES DE CADA UNO.
+        #
+        # La cuota de cada jugador se repartía sobre la suma del TOP-4
+        # (`t.head(max_jug)`) y luego se multiplicaba por 0,85 «para dejar
+        # margen al resto de la plantilla». Pero si el denominador ya son sólo
+        # cuatro, esas cuatro cuotas suman 1 por construcción y el 0,85 no deja
+        # margen a nadie: le da al top-4 el 85 % de los remates del equipo.
+        #
+        # Medido en Atlas (Leagues Cup, 39 jugadores con datos): el top-4 suma
+        # **7,83 remates/partido de los 18,25** observados del equipo, o sea el
+        # **42,9 %** — y el reparto les asignaba el **85 %**. Consecuencia
+        # visible: «Diego González, 3+ remates: 75,6 %», que para un jugador
+        # real no se sostiene.
+        #
+        # El denominador correcto es la suma de TODOS los que tienen datos.
+        # Se conserva un 0,95 por los minutos que reparten suplentes sin
+        # historial, y el reparto pasa a ser el observado.
         peso_total = float(t['remates_pp'].sum()) or 1.0
+        t = t.head(max_jug)
         for i, r in enumerate(t.itertuples(index=False), start=1):
             cuota = float(r.remates_pp) / peso_total
-            # el 11 titular no acapara todo el volumen del equipo: se deja un
-            # margen para el resto de la plantilla (mismo criterio que v57)
-            lam_sh = float(min(6.0, shots_eq * cuota * 0.85))
+            lam_sh = float(min(6.0, shots_eq * cuota * 0.95))
             punteria = float(r.punteria) if pd.notna(getattr(r, 'punteria', None)) else 0.35
             lam_sot = float(min(3.5, lam_sh * max(0.15, min(punteria, 0.75))))
             if lam_sh < 0.2:
@@ -1511,6 +1527,18 @@ def campo_prop(id_, etiqueta, valor, tipo='pct'):
 #
 # v74: completado. Faltaban 18 competiciones desplegadas, y sin este mapeo no
 # se podía ni medir su retraso ni refrescarlas a diario desde ESPN.
+# v99 — ESTE MAPA SE COMPLETA SOLO CON `fixtures_espn`.
+#
+# `_props_rematadores` necesita el slug de ESPN para leer los remates POR
+# JUGADOR del bloque `rosters`; si falta, devuelve lista vacía y la ficha se
+# queda sólo con las medias de EQUIPO — sin decir por qué. Pasaba en tres
+# competiciones disponibles (`rus_premier`, `gre_super_league` y la
+# `leagues_cup` recién añadida), y las tres SÍ tenían su código en
+# `fixtures_espn.ESPN_CODIGOS`: eran dos listas del mismo dato mantenidas por
+# separado, que es lo que garantiza que se desincronicen.
+#
+# Ahora esta tabla es la excepción (nombres que difieren) y el resto se hereda,
+# así que añadir una liga al catálogo le da props de jugador sin tocar nada.
 _ESPN_POR_LIGA = {
     'liga_mx': 'mex.1', 'brasil': 'bra.1', 'mls': 'usa.1', 'premier': 'eng.1',
     'laliga': 'esp.1', 'serie_a': 'ita.1', 'bundesliga': 'ger.1',
@@ -1526,6 +1554,16 @@ _ESPN_POR_LIGA = {
     'eng_national': 'eng.5', 'sco_premiership': 'sco.1',
     'sco_championship': 'sco.2', 'bel_pro_league': 'bel.1', 'jpn_j1': 'jpn.1',
 }
+
+# Se hereda de `fixtures_espn` todo lo que no esté escrito arriba (ver la
+# nota de la v99). `setdefault` para que un nombre explícito mande sobre el
+# heredado, y en try/except porque un fallo aquí no puede tumbar el módulo.
+try:
+    import fixtures_espn as _fe_props
+    for _k, _v in _fe_props.ESPN_CODIGOS.items():
+        _ESPN_POR_LIGA.setdefault(_k, _v)
+except Exception:
+    pass
 
 
 # ---------------------------------------------------------------------------
