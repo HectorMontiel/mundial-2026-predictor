@@ -1,12 +1,12 @@
 {
- "generado": "2026-08-04T08:49:30Z",
- "dia": "2026-08-04T08",
- "filas_nuevas": 795,
- "filas_generadas": 795,
- "partidos": 271,
- "ligas": 34,
+ "generado": "2026-08-05T08:52:27Z",
+ "dia": "2026-08-05T08",
+ "filas_nuevas": 944,
+ "filas_generadas": 944,
+ "partidos": 326,
+ "ligas": 35,
  "sin_nombre_resuelto": 17,
- "snapshots_acumulados": 5132,
+ "snapshots_acumulados": 6124,
  "por_liga": {
   "mls": 1,
   "brasil": 10,
@@ -18,6 +18,7 @@
   "rus_premier": 8,
   "eredivisie": 8,
   "primeira": 7,
+  "leagues_cup": 43,
   "eng_national": 8,
   "sco_premiership": 6,
   "sco_championship": 4,
@@ -26,25 +27,29 @@
   "bel_pro_league": 6,
   "jpn_j1": 7,
   "arg_primera_nacional": 20,
-  "col_primera_a": 15,
+  "col_primera_a": 12,
   "usl_championship": 15,
   "ned_eerste": 10,
   "bra_serie_b": 10,
   "per_liga1": 9,
-  "uru_primera": 1,
+  "uru_primera": 9,
   "ecu_liga_pro": 8,
   "slv_primera": 6,
-  "bol_division": 16,
+  "bol_division": 13,
   "par_division": 6,
   "crc_fpd": 5,
   "mex_expansion": 8,
   "chi_primera": 8,
-  "rsa_premier": 4,
-  "libertadores": 3,
-  "sudamericana": 2
+  "rsa_premier": 8,
+  "libertadores": 6,
+  "sudamericana": 5
+ },
+ "kbo": {
+  "filas_nuevas": 0,
+  "partidos": 0
  },
  "reconciliacion": {
-  "reasignadas": 0,
-  "sin_cierre": 464
+  "reasignadas": 10,
+  "sin_cierre": 454
  }
 }

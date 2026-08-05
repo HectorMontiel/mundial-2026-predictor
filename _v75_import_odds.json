@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-04T08:48:57Z",
- "filas_insertadas": 137150,
+ "generado": "2026-08-05T08:51:56Z",
+ "filas_insertadas": 137078,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -20,6 +20,7 @@
   "esp_copa_rey",
   "europa_league",
   "ind_isl",
+  "leagues_cup",
   "libertadores",
   "mex_expansion",
   "ned_eerste",
@@ -34,8 +35,8 @@
  ],
  "por_liga": {
   "argentina": {
-   "filas": 7205,
-   "partidos": 3770
+   "filas": 7220,
+   "partidos": 3785
   },
   "aut_bundesliga": {
    "filas": 3009,
@@ -54,12 +55,12 @@
    "partidos": 1530
   },
   "china": {
-   "filas": 3612,
-   "partidos": 1895
+   "filas": 3592,
+   "partidos": 1889
   },
   "dinamarca": {
-   "filas": 3162,
-   "partidos": 1642
+   "filas": 3154,
+   "partidos": 1641
   },
   "eng_championship": {
    "filas": 5238,
@@ -86,7 +87,7 @@
    "partidos": 2310
   },
   "finlandia": {
-   "filas": 2555,
+   "filas": 2549,
    "partidos": 1334
   },
   "fra_ligue2": {
@@ -102,7 +103,7 @@
    "partidos": 1189
   },
   "irlanda": {
-   "filas": 2598,
+   "filas": 2593,
    "partidos": 1369
   },
   "ita_serie_b": {
@@ -118,7 +119,7 @@
    "partidos": 1900
   },
   "liga_mx": {
-   "filas": 5086,
+   "filas": 5077,
    "partidos": 2660
   },
   "ligue_1": {
@@ -126,15 +127,15 @@
    "partidos": 1678
   },
   "mls": {
-   "filas": 7169,
+   "filas": 7154,
    "partidos": 3719
   },
   "noruega": {
-   "filas": 3684,
-   "partidos": 1916
+   "filas": 3692,
+   "partidos": 1924
   },
   "polonia": {
-   "filas": 4523,
+   "filas": 4515,
    "partidos": 2363
   },
   "premier": {
@@ -146,11 +147,11 @@
    "partidos": 3060
   },
   "rumania": {
-   "filas": 4681,
-   "partidos": 2460
+   "filas": 4675,
+   "partidos": 2461
   },
   "rus_premier": {
-   "filas": 3719,
+   "filas": 3711,
    "partidos": 1942
   },
   "sco_championship": {
@@ -166,8 +167,8 @@
    "partidos": 1140
   },
   "suecia": {
-   "filas": 3733,
-   "partidos": 1931
+   "filas": 3723,
+   "partidos": 1929
   },
   "suiza": {
    "filas": 3026,

@@ -1,12 +1,12 @@
 {
   "liga": "Leagues Cup",
-  "n_train": 5207,
-  "n_validacion": 1305,
-  "fecha_corte": "2025-02-27",
-  "precision_validacion": 0.508,
-  "precision_linea_base_elo": 0.4682,
-  "precision_mercado_cuotas": 0.5141,
-  "log_loss_validacion": 1.0241,
+  "n_train": 5210,
+  "n_validacion": 1308,
+  "fecha_corte": "2025-03-01",
+  "precision_validacion": 0.5069,
+  "precision_linea_base_elo": 0.4671,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0257,
   "n_equipos": 52,
   "familia_modelo": "elo_logit",
   "features_extra_cols": [
@@ -18,20 +18,7 @@
     "DIFF_POSICION"
   ],
   "medias_cuotas": {},
-  "roi_sim": {
-    "n_apuestas": 439,
-    "roi_pct": -2.54,
-    "aciertos": 184,
-    "roi_pct_pinnacle": -0.9,
-    "n_con_pinnacle": 271
-  },
-  "mesm": {
-    "n_val_con_cuotas": 1243,
-    "acc_prod": 0.5101,
-    "acc_mesm": 0.5036,
-    "ll_prod": 1.0232,
-    "ll_mesm": 1.0141,
-    "adoptado": false
-  },
+  "roi_sim": null,
+  "mesm": null,
   "imt": null
 }
