@@ -106,6 +106,11 @@ def _fila(g: dict, solo_finalizados: bool) -> Optional[dict]:
     return {
         'date': pd.to_datetime(g.get('gameDate'), errors='coerce'),
         'home_team': hc, 'away_team': ac,
+        # v99.1 — el estadio venía en la respuesta y se tiraba. Es lo que
+        # permite calcular el factor de parque: en la KBO el Jamsil de Seúl y
+        # el de Daegu no producen las mismas carreras, y el mercado lo
+        # descuenta en la línea de totales. Sin este campo no había forma.
+        'estadio': (g.get('stadium') or '').strip(),
         'home_runs': int(hr) if hr is not None else None,
         'away_runs': int(ar) if ar is not None else None,
         # El abridor viene por NOMBRE (Naver no da id). Es su espacio de

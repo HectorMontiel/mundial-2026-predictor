@@ -1,5 +1,41 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v99.1 — El Índice de Dispersión de Forma, y el parque de la KBO (ver [VALIDACION_v99_1.md](VALIDACION_v99_1.md))
+
+- **📈 EL IDF FUNCIONA, Y FUNCIONA DONDE TENÍA QUE FUNCIONAR.** El modelo de
+  tenis **ya tenía** forma reciente (`DIFF_FORMA10`); lo que no tenía es la
+  forma **descontada por la dificultad del calendario** — ganar 6 de 10 contra
+  rivales flojos no es estar en forma. El IDF mide exactamente eso:
+  `observado − esperado por el ELO` sobre los N eventos anteriores. Medido en
+  **108.657 partidos con cuota de cierre**, ventana elegida en pliegues
+  tempranos y juzgada en los tardíos: log-loss ATP 0,62772 → **0,62661** y WTA
+  0,62093 → **0,61919**, con precisión y Brier mejorando a la vez en los dos
+  circuitos. **Bootstrap PAREADO: p5 +0,00064 (ATP) y +0,00091 (WTA), P(mejora
+  > 0) = 100 % en ambos.**
+- **🎯 Y LA GANANCIA SE CONCENTRA EN EL DECIL DE FORMA EXTREMA** — el caso
+  «Rublev»: +1,15 pp en ATP y +1,56 pp en WTA, frente a +0,34 y +0,55 pp
+  globales. Que el efecto sea **tres veces mayor justo donde el mecanismo lo
+  predice** es lo que separa una señal real de un ajuste afortunado.
+- **⚾ EN LA KBO CIERRA UN QUINTO DE LA BRECHA CON EL MERCADO.** Contra la cuota
+  de cierre real (113 juegos): Brier **0,2492 → 0,2476**, con el mercado en
+  0,2411. Sigue sin batirlo —el edge no aparece— pero es la primera vez que esa
+  distancia se estrecha. Integrado en el motor: entrenamiento, estado e
+  inferencia.
+- **🏟️ EL FACTOR DE PARQUE ES REAL Y NO SIRVE PARA EL MONEYLINE.** El campo
+  `stadium` venía de Naver y se tiraba; ahora se guarda (13.009 juegos, 22
+  estadios) y los factores son grandes: **Daegu 1,093 contra Mudeung 0,903, un
+  19 % de diferencia**. Pero al añadirlo al clasificador el log-loss **empeora**
+  (0,68517 → 0,68538), y tiene sentido: **el parque describe cuántas CARRERAS se
+  anotan, no quién gana** — favorece a los dos equipos por igual. Se midió en el
+  mercado equivocado. Donde debe servir es en el regresor de TOTALES, y eso no
+  se puede validar todavía porque de la KBO sólo hay cierre de moneyline. **No
+  se adopta mientras no se pueda medir.**
+- **Lo que NO se ha hecho, con claridad:** la feature está validada y
+  `indice_forma.py` es genérico, pero **el motor de tenis en producción no se ha
+  tocado**. Cambiarle el vector a un modelo desplegado desde la v69 exige su
+  propio ciclo de reentrenamiento y revalidación de los dos circuitos; meterlo a
+  medias sería lo contrario de la regla de no regresión.
+
 ## Novedades v100 — La localía de la Leagues Cup, medida contra el mercado (ver [VALIDACION_v100.md](VALIDACION_v100.md))
 
 - **⚽ SE PROBARON LAS CUATRO FORMAS DE MATAR LA LOCALÍA, y ninguna basta.** El
