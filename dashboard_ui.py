@@ -1336,8 +1336,28 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
 
 def render_liga_club(clave: str, nombre_liga: str):
     from config import LEAGUES
-    if not LEAGUES[clave].get('disponible'):
-        st.info(f"🔧 **{nombre_liga} (beta):** {LEAGUES[clave].get('nota', 'no disponible')}")
+    # v98 — UNA LIGA QUE FALTA NO PUEDE TUMBAR LA APP ENTERA.
+    #
+    # Esto era `LEAGUES[clave]`, y en producción tiró un `KeyError:
+    # 'leagues_cup'` que dejó la aplicación en blanco justo después de
+    # desplegar la v97 — con la competición SÍ presente en el `config.py`
+    # publicado (comprobado en los dos remotos). Es el patrón que la v79 ya
+    # documentó en `calibracion_segura`: Streamlit Cloud conserva módulos
+    # viejos en `sys.modules` entre despliegues, así que durante la ventana de
+    # recarga convive un `dashboard_ui` NUEVO —que ya ofrece la liga en el
+    # selector— con un `config` VIEJO que todavía no la tiene.
+    #
+    # El selector y el catálogo pueden desincronizarse por un momento; lo que
+    # no puede es costar la app. Se degrada a un aviso.
+    cfg = LEAGUES.get(clave)
+    if cfg is None:
+        st.warning(
+            f"🔄 **{nombre_liga}** todavía no está en el catálogo de esta "
+            f"sesión. Suele pasar durante unos segundos justo después de una "
+            f"actualización: recarga la página y aparecerá.")
+        st.stop()
+    if not cfg.get('disponible'):
+        st.info(f"🔧 **{nombre_liga} (beta):** {cfg.get('nota', 'no disponible')}")
         st.stop()
     motor = cargar_motor_liga(clave)
     if not motor.listo:
@@ -1642,6 +1662,39 @@ try:
             COMPETENCIAS[_et] = _k
         NOMBRES_LIGAS.setdefault(_k, _c.get('nombre', _k))
 except Exception:
+    pass
+
+# v98 — EL SELECTOR NO PUEDE OFRECER UNA LIGA QUE EL CATÁLOGO NO TIENE.
+#
+# Las competiciones de fútbol de arriba están escritas a mano, así que pueden
+# desincronizarse del `config.LEAGUES` que esté cargado. Y eso no da un aviso:
+# da un `KeyError` en `render_liga_club` que deja la app EN BLANCO. Pasó en
+# producción con `leagues_cup` al desplegar la v97, con la liga presente en el
+# `config.py` publicado — Streamlit Cloud conserva módulos viejos en
+# `sys.modules` entre despliegues (misma causa que la v79 documentó en
+# `calibracion_segura`), así que durante la recarga convive un `dashboard_ui`
+# nuevo con un `config` viejo.
+#
+# Aquí se cae la entrada del menú en vez de la aplicación. `_NO_SON_LIGAS` son
+# las vistas que no salen del catálogo y por eso no se comprueban.
+_NO_SON_LIGAS = {'mundial', 'alpha', 'mlb_deporte', 'kbo_deporte',
+                 'nba_deporte', 'tennis_deporte'}
+try:
+    import logging as _log_menu
+
+    import config as _cfg_menu
+    _huerfanas = [_et for _et, _k in COMPETENCIAS.items()
+                  if _k not in _NO_SON_LIGAS and _k not in _cfg_menu.LEAGUES]
+    for _et in _huerfanas:
+        COMPETENCIAS.pop(_et, None)
+    if _huerfanas:
+        _log_menu.getLogger(__name__).warning(
+            f"[ui] {len(_huerfanas)} competiciones fuera del menú porque no "
+            f"están en el catálogo cargado: {_huerfanas}")
+except Exception:
+    # Este bloque es una RED, no una función: si falla, el menú se queda como
+    # estaba y manda la guardia de `render_liga_club`. Lo que no puede hacer
+    # es lanzar — sería el mismo fallo que viene a evitar.
     pass
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
 # en el teléfono la barra lateral llega colapsada y el usuario no encontraba
@@ -2746,7 +2799,17 @@ def render_kbo():
     un edge de apuesta) y en la KBO existe el empate.
     """
     st.header("⚾ KBO — Béisbol coreano")
-    from engines.kbo_engine import KBOEngine
+    # v98 — misma red que en `render_liga_club`: durante la ventana de recarga
+    # de Streamlit Cloud puede haber un `dashboard_ui` nuevo con el motor de
+    # KBO todavía sin desplegar. Un ImportError aquí dejaría la app en blanco.
+    try:
+        from engines.kbo_engine import KBOEngine
+    except Exception as e:
+        st.warning(
+            f"🔄 El motor de KBO todavía no está disponible en esta sesión "
+            f"(`{type(e).__name__}`). Suele durar unos segundos tras una "
+            f"actualización: recarga la página.")
+        st.stop()
 
     @st.cache_resource(show_spinner="Cargando modelo KBO…")
     def _motor():
