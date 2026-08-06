@@ -1,0 +1,90 @@
+{
+ "w_elegido": 0.0,
+ "n_sin_w": 11617,
+ "competiciones": 30,
+ "hoy": {
+  "ll": 1.0286502594160682,
+  "acierto": 0.48846960167714887,
+  "roi_pct": -2.562416619020393
+ },
+ "candidato": {
+  "ll": 1.0113844009295923,
+  "acierto": 0.494568324757004,
+  "roi_pct": -6.331618067467125
+ },
+ "mejora": 0.01726585848647592,
+ "p5": 0.01243961994500045,
+ "veredicto": "ADOPTAR",
+ "por_competicion": {
+  "argentina": {
+   "n": 773,
+   "ll_hoy": 1.0693597959456163,
+   "ll_candidato": 1.0593906773516932,
+   "acierto_hoy": 0.4269081500646831,
+   "acierto_candidato": 0.4178525226390686
+  },
+  "esp_hypermotion": {
+   "n": 689,
+   "ll_hoy": 1.0319685920509631,
+   "ll_candidato": 1.0160102280414087,
+   "acierto_hoy": 0.47750362844702465,
+   "acierto_candidato": 0.5007256894049347
+  },
+  "premier": {
+   "n": 547,
+   "ll_hoy": 1.0265294488796943,
+   "ll_candidato": 0.9973925012100145,
+   "acierto_hoy": 0.48628884826325414,
+   "acierto_candidato": 0.5173674588665448
+  },
+  "liga_mx": {
+   "n": 522,
+   "ll_hoy": 0.997701522625905,
+   "ll_candidato": 0.9714413416551628,
+   "acierto_hoy": 0.5172413793103449,
+   "acierto_candidato": 0.5383141762452107
+  },
+  "polonia": {
+   "n": 458,
+   "ll_hoy": 1.0589607930071645,
+   "ll_candidato": 1.054737482433551,
+   "acierto_hoy": 0.47161572052401746,
+   "acierto_candidato": 0.4432314410480349
+  },
+  "fra_ligue2": {
+   "n": 456,
+   "ll_hoy": 1.0590664350008072,
+   "ll_candidato": 1.0531783014020175,
+   "acierto_hoy": 0.4342105263157895,
+   "acierto_candidato": 0.4451754385964912
+  },
+  "ger_bundesliga2": {
+   "n": 456,
+   "ll_hoy": 1.0638437341862546,
+   "ll_candidato": 1.0373311669994179,
+   "acierto_hoy": 0.4780701754385965,
+   "acierto_candidato": 0.4868421052631579
+  },
+  "china": {
+   "n": 385,
+   "ll_hoy": 0.9863086726339343,
+   "ll_candidato": 0.9642541996092671,
+   "acierto_hoy": 0.5584415584415584,
+   "acierto_candidato": 0.5272727272727272
+  },
+  "suecia": {
+   "n": 349,
+   "ll_hoy": 1.0179599334089209,
+   "ll_candidato": 0.9901809645956285,
+   "acierto_hoy": 0.498567335243553,
+   "acierto_candidato": 0.5214899713467048
+  },
+  "ned_eerste": {
+   "n": 347,
+   "ll_hoy": 0.9763033055384277,
+   "ll_candidato": 0.9534471492037527,
+   "acierto_hoy": 0.5619596541786743,
+   "acierto_candidato": 0.5821325648414986
+  }
+ }
+}

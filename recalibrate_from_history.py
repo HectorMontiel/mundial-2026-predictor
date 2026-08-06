@@ -287,12 +287,27 @@ def escribir(diag: dict, archivo: str = ARCHIVO) -> dict:
              for k, v in diag['por_liga'].items() if v['adoptada']}
     salida = {
         'generado': diag['generado'],
-        'nota': 'v75. Peso del modelo frente al cierre devigado (Pinnacle, '
-                'método potencia). Elegido por log-loss fuera de muestra con '
-                'encogimiento jerárquico hacia el w global y validado en un '
-                'pliegue que no participó en la selección. Liga ausente = w=1 '
-                '= sin corrección. Sustituye a los w de la v71, que salían de '
-                '4-11 partidos por liga.',
+        # v104 — LA NOTA DECÍA «Liga ausente = w=1 = sin corrección» Y ES FALSO
+        # DESDE LA v80. `calibracion_mercado.peso_modelo` cae al w GLOBAL, no a
+        # 1,0, precisamente porque la caída a 1,0 no era abstenerse sino elegir
+        # la opción que la evidencia descarta.
+        #
+        # No es una errata inocente: al investigar por qué un pick de la
+        # Conference mostraba un 18 % de probabilidad, esta nota llevó a
+        # concluir que la competición no tenía corrección de mercado. Era
+        # mentira — sí la tiene, y ese 18 % era justamente la probabilidad ya
+        # corregida (0,25·46 % + 0,75·10,5 % = 19,4 %). Una nota obsoleta en un
+        # artefacto que se publica cuesta tiempo de diagnóstico y puede llevar
+        # a «arreglar» algo que funciona.
+        'nota': 'v75/v104. Peso del modelo frente al cierre devigado '
+                '(Pinnacle, método potencia). Elegido por log-loss fuera de '
+                'muestra con encogimiento jerárquico hacia el w global y '
+                'validado en un pliegue que no participó en la selección. '
+                'Liga ausente = cae al w GLOBAL (v80), NO a w=1: medido sobre '
+                'las 30 competiciones sin peso propio, w=0,25 mejora el '
+                'log-loss frente a w=1 en +0,0173 (p5 +0,0136) y el acierto '
+                'del 48,85 % al 49,23 %. Sustituye a los w de la v71, que '
+                'salían de 4-11 partidos por liga.',
         'w_global': diag['w_global'],
         'global': diag['validacion'],
         'ligas': ligas,

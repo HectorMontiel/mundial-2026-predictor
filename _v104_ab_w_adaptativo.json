@@ -1,0 +1,63 @@
+{
+ "elegido": {
+  "w_max": 0.15,
+  "K": 100
+ },
+ "mejor_w_fijo": 0.0,
+ "A · modelo solo": {
+  "etiqueta": "A · modelo solo",
+  "ll": 1.0239527265260822,
+  "acierto": 0.49369549519524525,
+  "roi_pct": -5.1139254568683,
+  "brier": 0.6097746900921597
+ },
+ "B · w fijo 0.0": {
+  "etiqueta": "B · w fijo 0.0",
+  "ll": 0.9997058938109827,
+  "acierto": 0.5078042548464144,
+  "roi_pct": -5.46075654057657,
+  "brier": 0.5973133521933747
+ },
+ "C · w adaptativo": {
+  "etiqueta": "C · w adaptativo",
+  "ll": 0.9997752422938392,
+  "acierto": 0.5059712270177192,
+  "roi_pct": -5.9319557851469185,
+  "brier": 0.597352613928577
+ },
+ "mercado solo": {
+  "etiqueta": "mercado solo",
+  "ll": 0.9997058938109827,
+  "acierto": 0.5078042548464144,
+  "roi_pct": -5.46075654057657,
+  "brier": 0.5973133521933747
+ },
+ "C_vs_B · w fijo": {
+  "mejora": -6.934848285640117e-05,
+  "p5": -0.0002532818263653127,
+  "veredicto": "RECHAZAR"
+ },
+ "C_vs_A · modelo solo": {
+  "mejora": 0.02417748423224305,
+  "p5": 0.02001465150577041,
+  "veredicto": "ADOPTAR"
+ },
+ "poco_conocimiento|A · modelo solo": {
+  "n": 489,
+  "ll": 1.0483983805493697,
+  "acierto": 0.50920245398773,
+  "roi_pct": 3.70756646216769
+ },
+ "poco_conocimiento|B · w fijo 0.0": {
+  "n": 489,
+  "ll": 0.9894458468414329,
+  "acierto": 0.5255623721881391,
+  "roi_pct": -2.9754601226993866
+ },
+ "poco_conocimiento|C · w adaptativo": {
+  "n": 489,
+  "ll": 0.989348078445037,
+  "acierto": 0.5276073619631901,
+  "roi_pct": -2.4335378323108388
+ }
+}
