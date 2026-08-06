@@ -853,24 +853,56 @@ def _completar_desde_espn(df: pd.DataFrame, clave: str,
     liga_espn = LEAGUES.get(clave, {}).get('espn_liga') or _ESPN_POR_LIGA.get(clave)
     if not liga_espn or df.empty:
         return df
+    # v103 — TAMBIÉN LA FASE PREVIA. Mismo hallazgo que en `fixtures_espn`
+    # (v102), aquí del lado del HISTÓRICO: la Europa League ingiere de
+    # `uefa.europa` y la Conference de `uefa.europa.conf`, que son los códigos
+    # de la liguilla. En agosto lo que se juega es la previa, publicada bajo
+    # `uefa.europa_qual` y `uefa.europa.conf_qual`.
+    #
+    # El efecto era visible en la interfaz: «sin datos nuevos desde hace 78
+    # días» sobre una competición que estaba jugando ESE MISMO DÍA. Y no era
+    # sólo un cartel — con el estado congelado, el modelo predice esos partidos
+    # con la forma y el ELO de mayo, y la cuarentena de pretemporada baja los
+    # picks a Capa 2.
+    codigos = [liga_espn]
+    try:
+        import fixtures_espn as _fe
+        codigos += [c for c in _fe.ESPN_COMPANEROS.get(clave, [])
+                    if c not in codigos]
+    except Exception:
+        pass
     try:
         ultima = pd.Timestamp(df['date'].max()).normalize()
     except Exception:
         return df
-    hoy = pd.Timestamp.today().normalize()
+    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
     if (hoy - ultima).days <= 1:
         return df                      # ya está al día
     desde = max(ultima + pd.Timedelta(days=1), hoy - pd.Timedelta(days=margen_dias))
     if desde > hoy:
         return df
 
-    try:
-        import uefa_scraper
-        nuevos = uefa_scraper.descargar_espn(liga_espn, desde.strftime('%Y-%m-%d'))
-    except Exception as e:
-        logger.warning(f"[{clave}] cola ESPN no disponible: {type(e).__name__}: {e}")
+    partes = []
+    for _code in codigos:
+        try:
+            import uefa_scraper
+            _n = uefa_scraper.descargar_espn(_code, desde.strftime('%Y-%m-%d'))
+        except Exception as e:
+            logger.warning(f"[{clave}] cola ESPN {_code} no disponible: "
+                           f"{type(e).__name__}: {e}")
+            continue
+        if _n is not None and not _n.empty:
+            partes.append(_n)
+            if _code != liga_espn:
+                logger.info(f'[{clave}] {len(_n)} partidos de la fase previa '
+                            f'({_code})')
+    if not partes:
         return df
-    if nuevos is None or nuevos.empty:
+    nuevos = pd.concat(partes, ignore_index=True)
+    # un partido no puede estar en la liguilla y en la previa a la vez, pero se
+    # deduplica igual: duplicarlo contaría dos veces en la forma y el ELO
+    nuevos = nuevos.drop_duplicates(subset=['date', 'home_team', 'away_team'])
+    if nuevos.empty:
         return df
     nuevos = nuevos[pd.to_datetime(nuevos['date']).dt.normalize() > ultima].copy()
     if nuevos.empty:

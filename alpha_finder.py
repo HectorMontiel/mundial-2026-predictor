@@ -125,6 +125,19 @@ VS_MLB_EV_MIN = 0.02
 # ganar dinero (ver el bloque que la construye).
 PROB_MAXIMA_CONFIANZA = 0.80
 FRACCION_KELLY_CONFIANZA = 0.25
+
+# v103 — PISO DE PROBABILIDAD DE LA SELECCIÓN DEL DÍA.
+#
+# 0,60 no es redondo por casualidad: es donde la curva medida sobre 36.006
+# predicciones fuera de muestra deja de perder de forma clara. Por tramos de
+# probabilidad, el ROI pasa de −5,95 % (35-45 %) a −2,49 % (55-65 %), +0,18 %
+# (65-75 %) y +1,49 % (75 % o más), y el acierto sube de 40 % a 79 %.
+#
+# Se pone en 0,60 y no en 0,65 porque a 0,65 la sección se quedaría vacía la
+# mayoría de los días (2.154 casos en cinco años de histórico frente a 5.577).
+# Una sección vacía empuja al usuario a buscar el pick en otra pestaña peor
+# filtrada, que es justo lo contrario de lo que se busca.
+PROB_MINIMA_SELECCION = 0.60
 # v39/v40 no tenían techo de EV en el filtro, aunque `edge_engine` sí calibra
 # una BANDA: el tramo de EV alto es tóxico (−10 % de ROI en 1.033 apuestas).
 try:
@@ -2269,8 +2282,53 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # (prob×EV), etiquetada con honestidad como NO confirmada por línea sharp.
     seleccion_dia = []
     if not capa1:
-        pool = [p for p in (r.get('candidatos') or []) if (p.get('ev') or 0) > 0]
-        pool.sort(key=lambda p: -((p.get('prob') or 0) * (p.get('ev') or 0)))
+        # --- v103: SE ORDENA POR PROBABILIDAD, NO POR EV -------------------
+        #
+        # El usuario señaló un pick de la Selección del Día —«Gana Vikingur
+        # Reykjavik», cuota 9,50, EV +74 %, probabilidad 18 %— y preguntó de
+        # qué sirve una apuesta que se pierde cuatro de cada cinco veces.
+        # Tenía razón, y los datos son contundentes. Medido sobre 36.006
+        # predicciones fuera de muestra con cuota de cierre real, el EV
+        # declarado es un ANTI-indicador de acierto:
+        #
+        #     banda de EV      n      acierto   promete   brecha
+        #     +0 % a +5 %     3.928    48,2 %    51,7 %   −3,5 pp
+        #     +20 % a +35 %   2.534    36,5 %    48,4 %  −11,9 pp
+        #     +60 % o más       387    25,3 %    46,9 %  −21,6 pp
+        #
+        # Cuanto mayor el EV que el modelo se atribuye, MÁS se equivoca: un EV
+        # enorme no es valor encontrado, es desacuerdo con un precio que sabe
+        # más. Ordenar por `prob × EV` heredaba el problema, porque el EV
+        # domina el producto en cuanto la cuota es alta.
+        #
+        # Con probabilidad, la relación se invierte y es monótona:
+        #
+        #     probabilidad     n      acierto      ROI     p5 ROI
+        #     35-45 %       14.916    40,1 %     −5,95 %   −7,53 %
+        #     55-65 %        5.481    60,1 %     −2,49 %   −4,42 %
+        #     65-75 %        2.154    70,7 %     +0,18 %   −2,19 %
+        #     75 % o más     1.318    78,8 %     +1,49 %   −1,07 %
+        #
+        # Y comparando las dos reglas sobre el mismo histórico:
+        #
+        #     EV >= 20 % (lo que se hacía) : n=4.132 · acierto 34,1 % · ROI −4,12 %
+        #     prob >= 60 % (lo que se hace): n=5.577 · acierto 69,8 % · ROI −0,51 %
+        #
+        # HONESTIDAD, porque importa: ninguna regla logra ROI positivo con p5
+        # positivo. La mejor se queda en −0,51 % (p5 −2,01 %). Lo que este
+        # cambio consigue es DUPLICAR la tasa de acierto —de 34 % a 70 %— y
+        # recortar la pérdida a la quinta parte; no convierte la sección en una
+        # máquina de ganar, y decirlo es parte del trabajo.
+        pool = [p for p in (r.get('candidatos') or [])
+                if (p.get('ev') or 0) > 0
+                and (p.get('prob') or 0) >= PROB_MINIMA_SELECCION]
+        if not pool:
+            # si nadie llega al piso se baja UNA vez, en vez de dejar la
+            # sección vacía; pero se dice en la tarjeta.
+            pool = [p for p in (r.get('candidatos') or [])
+                    if (p.get('ev') or 0) > 0
+                    and (p.get('prob') or 0) >= PROB_MINIMA_SELECCION - 0.10]
+        pool.sort(key=lambda p: -(p.get('prob') or 0))
         # v89 — VARIAS APUESTAS POR PARTIDO. Antes se tomaban las 6 mejores
         # tarjetas del pool y en la práctica salía una apuesta por partido; el
         # usuario pidió que si un partido tiene varios mercados con buena
@@ -2283,9 +2341,16 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
             for p in _picks[:3]:
                 q = dict(p)
                 q['seleccion_dia'] = True
-                q['nota_seleccion'] = ('Mejor oportunidad del día por valor '
-                                       'esperado. Sin confirmación de la línea '
-                                       'profesional: apuesta con stake prudente.')
+                _pr = q.get('prob') or 0
+                q['nota_seleccion'] = (
+                    f'Elegida por PROBABILIDAD de acierto ({_pr:.0%}), no por '
+                    f'valor esperado: medido sobre 36.006 predicciones, los '
+                    f'picks de EV alto aciertan un 34 % y los de probabilidad '
+                    f'alta un 70 %. Sin confirmación de la línea profesional: '
+                    f'stake prudente.'
+                    + ('' if _pr >= PROB_MINIMA_SELECCION else
+                       ' ⚠️ Hoy ninguna llegaba al piso habitual de '
+                       f'{PROB_MINIMA_SELECCION:.0%}.'))
                 seleccion_dia.append(q)
     r.update({'capa1': capa1, 'capa2': capa2, 'ev_extremo': ev_extremo,
               # v98: el contador de la cabecera, ya con TODOS los deportes

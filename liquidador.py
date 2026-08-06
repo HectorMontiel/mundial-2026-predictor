@@ -131,17 +131,35 @@ def resolver(mercado: str, apuesta: str, home: str, away: str,
 # ---------------------------------------------------------------------------
 # Búsqueda del resultado
 # ---------------------------------------------------------------------------
-def _resultados(claves: List[str], desde: str, hasta: str) -> Dict[Tuple, dict]:
-    """{(fecha, home_norm, away_norm): resultado} de las ligas pedidas."""
+def _resultados(claves: List[str], desde: str, hasta: str) -> Dict[Tuple, list]:
+    """
+    {(home_norm, away_norm): [(fecha, resultado), …]} de las ligas pedidas.
+
+    v103 — INDEXADO POR PAREJA, NO POR FECHA EXACTA. La v93 le dio tolerancia
+    de fecha al tenis y a la MLB porque sus picks se sellan con el día de
+    publicación, y dejó el fútbol emparejando por fecha exacta. Resultado
+    medido el 2026-08-06: **254 picks sin resultado**, los más antiguos del 23
+    de julio, la mayoría de Goles y BTTS — mercados que el liquidador sí sabe
+    resolver. No fallaba la resolución: fallaba encontrar el partido.
+
+    Un partido publicado hoy puede jugarse hoy o mañana (y ESPN lo fecha en
+    UTC, que ya desplaza a media Europa). Dos equipos concretos no se
+    enfrentan dos veces en la misma semana, así que la pareja identifica el
+    partido y la fecha sólo tiene que caer dentro de `TOLERANCIA_DIAS`.
+
+    Importa más de lo que parece: un pick sin liquidar no entra en la autopsia
+    ni en la calibración adaptativa. Cada uno que se queda colgado es una
+    lección que el sistema no aprende.
+    """
     import fixtures_espn
     import name_mapper
-    out: Dict[Tuple, dict] = {}
+    out: Dict[Tuple, list] = {}
     for clave in claves:
         try:
             for r in fixtures_espn.resultados_liga(clave, desde, hasta):
-                k = (r['fecha'], name_mapper.normalizar(r['home']),
+                k = (name_mapper.normalizar(r['home']),
                      name_mapper.normalizar(r['away']))
-                out[k] = r
+                out.setdefault(k, []).append((r['fecha'], r))
         except Exception as e:
             logger.debug(f'[liquidador] {clave}: {e}')
     return out
@@ -216,6 +234,35 @@ def _resultados_tenis(desde: str, hasta: str) -> Dict[Tuple, list]:
         # poder liquidar también los mercados derivados
         out.setdefault(par, []).append((p['fecha'], {**p, '_ganador': kg}))
     return out
+
+
+def _par_mapeado(home: str, away: str, res: dict) -> Optional[Tuple]:
+    """
+    La pareja del pick traducida a los nombres con los que ESPN la publica.
+
+    Se exige que **los dos** lados mapeen y que la pareja resultante exista en
+    el índice. Esa doble condición es la que hace seguro el mapeo difuso: un
+    «Nacional» suelto podría casar con el club equivocado de otro país, pero
+    que ADEMÁS su rival mapee al otro lado del mismo partido ya no es
+    casualidad. Si no se cumple, se devuelve None y el pick sigue pendiente —
+    liquidar el partido equivocado contamina el ROI en silencio y no deja
+    rastro, que es peor que no liquidar.
+    """
+    import name_mapper
+    if not res:
+        return None
+    catalogo = sorted({n for par in res for n in par})
+    try:
+        h = name_mapper.mapear(name_mapper.normalizar(home), catalogo,
+                               contexto='liquidador')
+        a = name_mapper.mapear(name_mapper.normalizar(away), catalogo,
+                               contexto='liquidador')
+    except Exception:
+        return None
+    if not h or not a or h == a:
+        return None
+    par = (h, a)
+    return par if par in res else None
 
 
 def _buscar_con_tolerancia(indice: dict, clave, fecha: str,
@@ -393,8 +440,18 @@ def liquidar_pendientes(dias: int = 10) -> Dict:
                 n_sin_mercado += 1
                 continue
         else:
-            r = res.get((str(p['fecha']), name_mapper.normalizar(home),
-                         name_mapper.normalizar(away)))
+            # v103: con tolerancia de fecha, igual que tenis y MLB desde la v93
+            r = _buscar_con_tolerancia(
+                res, (name_mapper.normalizar(home),
+                      name_mapper.normalizar(away)), str(p['fecha']))
+            if r is None:
+                # …y si no, reconciliando los NOMBRES. Los picks llevan el
+                # nombre de la casa de apuestas («Atlanta Utd», «Racing Club»)
+                # y ESPN publica el suyo («Atlanta United FC»); `normalizar`
+                # sólo baja a minúsculas, así que la pareja no casaba nunca.
+                # Medido: 254 picks colgados, los más viejos del 23 de julio.
+                r = _buscar_con_tolerancia(
+                    res, _par_mapeado(home, away, res), str(p['fecha']))
             if r is None:
                 n_sin_partido += 1
                 continue
