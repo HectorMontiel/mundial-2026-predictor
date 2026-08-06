@@ -3,10 +3,10 @@
   "n_train": 777,
   "n_validacion": 195,
   "fecha_corte": "2025-03-06",
-  "precision_validacion": 0.5179,
+  "precision_validacion": 0.5128,
   "precision_linea_base_elo": 0.5333,
   "precision_mercado_cuotas": null,
-  "log_loss_validacion": 0.9992,
+  "log_loss_validacion": 0.9977,
   "n_equipos": 214,
   "familia_modelo": "ensemble",
   "features_extra_cols": [

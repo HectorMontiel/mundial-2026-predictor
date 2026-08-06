@@ -1,12 +1,12 @@
 {
   "liga": "Primera División",
-  "n_train": 2970,
+  "n_train": 2971,
   "n_validacion": 743,
-  "fecha_corte": "2025-02-09",
-  "precision_validacion": 0.4307,
+  "fecha_corte": "2025-02-10",
+  "precision_validacion": 0.4293,
   "precision_linea_base_elo": 0.389,
-  "precision_mercado_cuotas": 0.4137,
-  "log_loss_validacion": 1.07,
+  "precision_mercado_cuotas": 0.4143,
+  "log_loss_validacion": 1.0692,
   "n_equipos": 37,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
@@ -22,18 +22,18 @@
     "OVERROUND": 0.0671
   },
   "roi_sim": {
-    "n_apuestas": 307,
-    "roi_pct": 8.39,
-    "aciertos": 124,
-    "roi_pct_pinnacle": 4.92,
-    "n_con_pinnacle": 182
+    "n_apuestas": 306,
+    "roi_pct": 8.38,
+    "aciertos": 122,
+    "roi_pct_pinnacle": 9.51,
+    "n_con_pinnacle": 187
   },
   "mesm": {
-    "n_val_con_cuotas": 742,
-    "acc_prod": 0.4299,
-    "acc_mesm": 0.4111,
-    "ll_prod": 1.0703,
-    "ll_mesm": 1.0687,
+    "n_val_con_cuotas": 741,
+    "acc_prod": 0.4291,
+    "acc_mesm": 0.417,
+    "ll_prod": 1.0693,
+    "ll_mesm": 1.0681,
     "adoptado": false
   },
   "imt": null

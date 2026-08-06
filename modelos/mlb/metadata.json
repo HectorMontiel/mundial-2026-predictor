@@ -1,9 +1,9 @@
 {
   "deporte": "MLB",
-  "n_juegos": 26418,
-  "precision_validacion": 0.5491,
-  "precision_linea_base_elo": 0.5433,
-  "log_loss_validacion": 0.685,
+  "n_juegos": 26426,
+  "precision_validacion": 0.5442,
+  "precision_linea_base_elo": 0.5432,
+  "log_loss_validacion": 0.6852,
   "linea_total_tipica": 8.0,
   "fecha_entrenamiento": "2026-08-06",
   "sigma_margen": 4.483,
