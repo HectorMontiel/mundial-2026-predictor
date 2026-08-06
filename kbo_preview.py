@@ -180,6 +180,30 @@ def ingerir(desde: str, hasta: str, limite: Optional[int] = None) -> pd.DataFram
     return df
 
 
+def reconstruir() -> pd.DataFrame:
+    """
+    Rehace la tabla a partir de la caché en disco, sin pedir nada a la red.
+
+    Hace falta cada vez que cambia `fila`: los JSON cacheados ya tienen toda la
+    información, así que añadir una columna no debe costar otra pasada de miles
+    de peticiones a una fuente ajena.
+    """
+    import glob
+    filas = []
+    for ruta in sorted(glob.glob(os.path.join(CACHE, '*.json'))):
+        gid = os.path.basename(ruta)[:-5]
+        try:
+            with open(ruta, encoding='utf-8') as f:
+                filas.append(fila(gid, json.load(f)))
+        except Exception:
+            continue
+    df = pd.DataFrame(filas).drop_duplicates('game_id').sort_values('fecha')
+    from io_atomico import escribir_texto
+    escribir_texto(SALIDA, df.to_csv(index=False))
+    logger.info(f'[kbo_preview] {len(df)} partidos reconstruidos desde la caché')
+    return df
+
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
     try:
@@ -190,8 +214,10 @@ if __name__ == '__main__':
     ap.add_argument('--desde', default='2025-03-01')
     ap.add_argument('--hasta', default='2026-08-06')
     ap.add_argument('--limite', type=int, default=None)
+    ap.add_argument('--reconstruir', action='store_true',
+                    help='rehace la tabla desde la caché, sin red')
     a = ap.parse_args()
-    d = ingerir(a.desde, a.hasta, a.limite)
+    d = reconstruir() if a.reconstruir else ingerir(a.desde, a.hasta, a.limite)
     if not d.empty:
         print(d[['fecha', 'home_sp_era', 'home_sp_whip', 'away_sp_era',
                  'home_bullpen_n']].tail(5).to_string(index=False))
