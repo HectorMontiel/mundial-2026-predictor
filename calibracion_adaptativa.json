@@ -1,54 +1,100 @@
 {
  "mapa": {
   "global": {
-   "a": 0.5952421955104206,
-   "b": -0.00269942203572221,
+   "a": 0.6462805440859286,
+   "b": -0.1395667937291444,
    "n": 144,
    "peso_propio": 0.419
   },
   "deporte|Fútbol": {
-   "a": 0.5124044572017413,
-   "b": -0.06747817091726982,
+   "a": 0.549122693586999,
+   "b": -0.1659439059485088,
    "n": 78,
    "peso_propio": 0.281
   },
   "mercado|BTTS": {
-   "a": 0.30076807981655485,
-   "b": 0.09564735758657934,
+   "a": 0.30113440993884116,
+   "b": 0.04927973980639638,
    "n": 47794,
    "peso_propio": 0.996
   },
-  "mercado|Goles over 1.5": {
-   "a": 0.30076807981655485,
-   "b": 0.7275026672939625,
-   "n": 47794,
-   "peso_propio": 0.996
-  },
-  "mercado|Goles over 2.5": {
-   "a": 0.30076807981655485,
-   "b": 0.008653152924373724,
-   "n": 47794,
-   "peso_propio": 0.996
+  "mercado|Goles": {
+   "a": 0.6143944412540484,
+   "b": 0.0300931214098234,
+   "n": 95588,
+   "peso_propio": 0.998
   },
   "deporte|Tenis": {
-   "a": 0.8040324580849388,
-   "b": -0.24273680551610763,
+   "a": 0.843292726219945,
+   "b": -0.34801939912643237,
    "n": 60,
    "peso_propio": 0.231
   },
   "mercado|Ganador": {
-   "a": 0.9646403523730298,
-   "b": -0.4273809466548656,
-   "n": 60,
-   "peso_propio": 0.231
+   "a": 0.9614061191919036,
+   "b": -0.4301829303129679,
+   "n": 66,
+   "peso_propio": 0.248
   }
  },
  "fuentes": {
-  "ledger_goles": 5,
+  "ledger_goles": 4,
   "produccion": 4
  },
  "n_total": 144,
  "tope_ajuste": 0.15,
  "n0": 200,
- "generado": "2026-08-06T00:59:35Z"
+ "validacion": {
+  "Fútbol|1X2": {
+   "n": 47971,
+   "n_juzgados": 23027,
+   "mejora_logloss": 2.4055932284010752e-05,
+   "p5": -0.00010850714852669008,
+   "brecha_cruda": 0.003211901680635787,
+   "brecha_ajustada": 0.0018098409365048806,
+   "veredicto": "RECHAZAR"
+  },
+  "Fútbol|BTTS": {
+   "n": 47816,
+   "n_juzgados": 22952,
+   "mejora_logloss": 0.02646850401936829,
+   "p5": 0.024424005592314772,
+   "brecha_cruda": 0.08337213706866509,
+   "brecha_ajustada": 0.021562189622675865,
+   "veredicto": "ADOPTAR"
+  },
+  "Fútbol|Goles": {
+   "n": 95617,
+   "n_juzgados": 45897,
+   "mejora_logloss": 0.010666722147660956,
+   "p5": 0.009408413871496515,
+   "brecha_cruda": 0.05020756193215237,
+   "brecha_ajustada": 0.005362161448253411,
+   "veredicto": "ADOPTAR"
+  },
+  "MLB|Ganador": {
+   "n": 7547,
+   "n_juzgados": 3623,
+   "mejora_logloss": 0.0003388392176837529,
+   "p5": 5.37068220992173e-05,
+   "brecha_cruda": 0.01700725089704669,
+   "brecha_ajustada": 0.012682761472794124,
+   "veredicto": "ADOPTAR"
+  },
+  "Tenis|Ganador": {
+   "n": 64577,
+   "n_juzgados": 30997,
+   "mejora_logloss": -0.0006086403357154387,
+   "p5": -0.000813238527242793,
+   "brecha_cruda": 0.005260961383359741,
+   "brecha_ajustada": 0.015068779514320285,
+   "veredicto": "RECHAZAR"
+  }
+ },
+ "autorizados": [
+  "Fútbol|BTTS",
+  "Fútbol|Goles",
+  "MLB|Ganador"
+ ],
+ "generado": "2026-08-06T03:13:06Z"
 }

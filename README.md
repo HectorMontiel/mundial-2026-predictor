@@ -1,5 +1,79 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v102 — Los próximos partidos aparecen, la Capa 2 deja de prometer de más y el lazo se autoriza solo (ver [VALIDACION_v102.md](VALIDACION_v102.md))
+
+- **✅ LA CHAMPIONS (Y LAS DEMÁS) YA TRAEN SUS PRÓXIMOS PARTIDOS.** No era un
+  fallo de red: en agosto la Champions está en **fase previa**, y ESPN la publica
+  bajo un código distinto del de la liguilla. Medido: `uefa.champions` devolvía 0
+  eventos y `uefa.champions_qual` **10**; Europa 0 contra **23**; Conference 0
+  contra **57**; AFC 0 contra **4**. Son **94 partidos reales** que la app no veía.
+  Y encima la ventana era de 7 días fijos, así que las ligas entre temporadas
+  salían vacías (Premier 0, Bundesliga 0, Serie A 0 — a 30 días tenían 28, 16 y
+  24). Ahora se consultan los **códigos compañeros** y el horizonte se amplía por
+  escalones (7 → 30 → 90) sólo en la vista de próximos partidos: el barrido
+  diario sigue pidiendo el día, para no pedir 90 días a cada liga en receso.
+  Resultado: Champions **10**, Europa **23**, Conference **57**, Premier **28**,
+  LaLiga **35**, Liga MX **34**. De regalo, el barrido diario también gana:
+  Europa League pasa de 0 a 10 partidos evaluables hoy. (Polonia sigue sin
+  fuente: ESPN da 400 en `pol.1`, `pol.2` y `pol.ekstraklasa`, y se dice.)
+
+- **🐛 Y UN BUG DE LA V91 QUE LLEVABA ONCE VERSIONES A MEDIO ARREGLAR.** Al mover
+  el anclaje UTC hubo que tocar el test que lo vigilaba, y se endureció: ahora
+  exige que **el módulo entero** no use el reloj local. Saltó al momento con
+  **tres `.today()` en `fixtures_espn.py`**. La v91 arregló este mismo fallo
+  —rango de fechas construido en hora local, que en husos por detrás de UTC
+  empieza un día tarde— pero sólo en `fixtures_liga`; seguían con reloj local la
+  ruta de **MLB**, la de **selecciones** y el cálculo de «vuelve tal día».
+  Invisible en Streamlit Cloud (que va en UTC), real en cualquier máquina de
+  América. Corregidas las tres.
+
+- **✅ LA BRECHA DE LA CAPA 2, CERRADA — Y NO DONDE SE CREÍA.** La hipótesis era
+  extender la corrección por banda. Medida sobre 120.077 predicciones de 1X2 y
+  moneyline: **RECHAZAR en los cuatro umbrales** — ahí el modelo ya está
+  calibrado (brechas de +0,001 a −0,012). El −16,2 pp venía de otro sitio:
+  abriendo los 108 picks, la Capa 2 de fútbol **no es 1X2**, son **29 de Goles y
+  22 de BTTS**. Repetido el A/B sobre esos mercados (143.382 predicciones) y
+  simulando **las dos selecciones** —no sólo la etiqueta, porque la Capa 2 se
+  selecciona por probabilidad—: **ADOPTAR en los cuatro umbrales**. A prob≥0,70
+  la selección pasa de 18.436 picks que prometen 78,8 % y entregan 69,3 %, a
+  7.225 que prometen 74,9 % y entregan **75,1 %**. La brecha cae de −9,5 pp a
+  +0,3 pp **y el acierto real sube**, porque la corrección deja fuera justo los
+  sobreconfiados. Se aplica **antes** del filtro, no al enseñar.
+
+- **✅ EL LAZO SE AUTORIZA SOLO, EN TODOS LOS DEPORTES.** Congelar a mano la lista
+  de mercados corregibles no escala. `validar_segmentos()` rehace el A/B completo
+  para **cada par (deporte, mercado) con muestra**, en cada recalibración, con el
+  mismo listón (p5 > 0 y ≥1.000 casos). Veredicto actual: **ADOPTAR** en Fútbol ·
+  Goles (p5 +0,0094), Fútbol · BTTS (+0,0244) y **MLB · Ganador (+0,00005) — que
+  entró sola, sin que nadie la añadiera**; **RECHAZAR** en Tenis · Ganador y
+  Fútbol · 1X2, donde ya están calibrados. NBA y KBO se incorporarán el día que
+  tengan historial, sin tocar código.
+
+- **📊 «QUE UN EQUIPO SEA INFERIOR NO SIGNIFICA QUE PIERDA» — MEDIDO, Y SALE AL
+  REVÉS.** Sobre 36.006 partidos con cuota real, el modelo **no infravalora al
+  desfavorecido: lo sobrevalora**. En los 19 segmentos con brecha firme, las 19
+  son negativas — jugando en casa consigue 25,9 % cuando el modelo le da 30,1 %;
+  los desfavorecidos extremos (cuota >8) consiguen 6,4 % contra 10,8 %. Apostar
+  más por ellos perdería dinero de forma sistemática.
+
+- **❌ EL IDF, RECHAZADO EN FÚTBOL Y EN NBA.** Fútbol: **27 de 27 combinaciones**
+  (tres formas de puntuar el empate × tres ventanas × tres mercados), p5 siempre
+  negativo. NBA: contra el ELO salía positivo (p5 +0,00058), pero contra el
+  **vector desplegado** —que ya lleva `DIFF_STREAK`, `DIFF_REST` y `DIFF_B2B`—
+  queda en **p5 −0,00098**. La ganancia era información que el modelo ya tenía.
+  Es la lección de la v99.2 repetida: medir contra una base de juguete habría
+  desplegado ruido.
+
+- **⛔ KBO: un techo de datos y una puerta cerrada.** El factor de parque en
+  totales sigue **bloqueado** — no existe la cuota: `cuotas_kbo_cierre.csv` no
+  tiene columnas de over/under y la ruta plana de BetExplorer da 404. Y
+  **Statiz queda descartado**: el dominio vivo (`statiz.co.kr`) publica un
+  `robots.txt` que prohíbe la recolección automatizada y nombra explícitamente a
+  `ClaudeBot`, `anthropic-ai` y `Claude-Web`. La vía que sigue abierta es el
+  bullpen desde la API de Naver que el proyecto ya usa, pero falta un paso
+  previo: `historico_kbo.csv` **no guarda el id de partido**, y sin él no se
+  puede pedir el box score.
+
 ## Novedades v101 — El sistema aprende de sus resultados, y una fuga que llevaba cinco versiones (ver [VALIDACION_v101.md](VALIDACION_v101.md))
 
 - **❌ LA HIPÓTESIS DEL PARTIDO ANTERIOR SE MIDIÓ Y NO SE SOSTIENE.** La petición

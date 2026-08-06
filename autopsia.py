@@ -207,6 +207,92 @@ def autopsia_historico() -> Dict:
 
 
 # ---------------------------------------------------------------------------
+# v102 — EL EQUIPO INFERIOR NO SIEMPRE PIERDE: ¿dónde se equivoca el modelo?
+# ---------------------------------------------------------------------------
+def autopsia_underdogs() -> Dict:
+    """
+    ¿Infravalora el modelo al que va de menos, y en qué circunstancias?
+
+    La intuición —«que un equipo sea estadísticamente inferior no significa que
+    vaya a perder»— es correcta como principio y vacía como instrucción: para
+    que sirva hay que decir EN QUÉ CASOS pasa más de lo que el modelo cree. Eso
+    es medible, y esto lo mide.
+
+    Se toma el lado NO favorito de cada partido (el que el mercado paga más
+    caro) y se compara lo que el modelo le da con lo que consigue de verdad,
+    partido por segmentos: si juega en casa, cuánto descanso trae, de qué liga
+    es, y cómo de grande es la diferencia de nivel.
+
+    Una brecha POSITIVA aquí significa que el desfavorecido gana más de lo que
+    el modelo dice — que es exactamente la hipótesis. Una brecha ~0 significa
+    que el modelo ya lo tiene descontado, y entonces la intuición, aunque suene
+    bien, no da instrucciones accionables. Se reporta lo que salga.
+    """
+    import contexto_previo as cp
+    from _v101_ab_contexto_futbol import cargar_contexto
+
+    if not os.path.exists('pick_ledger.csv'):
+        return {'aviso': 'sin pick_ledger.csv'}
+    d = pd.read_csv('pick_ledger.csv')
+    d = d.dropna(subset=['p_home', 'p_away', 'resultado',
+                         'cuota_home', 'cuota_away'])
+    if d.empty:
+        return {'aviso': 'el ledger no trae cuotas'}
+    try:
+        d = d.join(cargar_contexto(), on='match_id', how='left')
+    except Exception as e:
+        logger.warning(f'[autopsia] sin contexto: {e}')
+
+    # el desfavorecido según el MERCADO (cuota más alta entre local y visitante)
+    local_es_underdog = d['cuota_home'].to_numpy(dtype=float) > \
+        d['cuota_away'].to_numpy(dtype=float)
+    d['prob_underdog'] = np.where(local_es_underdog, d['p_home'], d['p_away'])
+    # codificación del ledger: 0 local, 1 empate, 2 visitante
+    d['gano_underdog'] = np.where(
+        local_es_underdog, (d['resultado'] == 0), (d['resultado'] == 2)
+    ).astype(float)
+    d['underdog_en_casa'] = np.where(local_es_underdog, 'sí', 'no')
+    cuota_und = np.where(local_es_underdog, d['cuota_home'], d['cuota_away'])
+    d['precio_underdog'] = pd.cut(
+        pd.to_numeric(cuota_und, errors='coerce'),
+        [0, 2.5, 3.5, 5, 8, 100],
+        labels=['ligero (≤2,5)', 'claro (2,5-3,5)', 'fuerte (3,5-5)',
+                'muy fuerte (5-8)', 'extremo (>8)'])
+
+    print(f'\n=== el que va de menos: {len(d)} partidos con cuota real')
+    segs = {
+        'juega en casa': d['underdog_en_casa'],
+        'cuánto lo dan de menos': d['precio_underdog'].astype(str),
+        'liga': d['liga'].astype(str),
+        'año': pd.to_datetime(d['fecha']).dt.year.astype(str),
+    }
+    if 'DIFF_DESCANSO' in d.columns:
+        # las DIFF_ del contexto van orientadas local−visitante; se voltean
+        # cuando el desfavorecido es el visitante, para que todas las
+        # magnitudes queden SIEMPRE desde su punto de vista
+        def _desde_el_underdog(col):
+            return pd.Series(np.where(local_es_underdog, d[col], -d[col]),
+                             index=d.index)
+
+        segs['descanso frente al rival'] = _tercios(
+            _desde_el_underdog('DIFF_DESCANSO'),
+            ['menos descanso', 'igual', 'más descanso'])
+        segs['viene de'] = _tercios(
+            _desde_el_underdog('DIFF_MARGEN_PREV'),
+            ['una derrota', 'algo igualado', 'una goleada'])
+    res = analizar(d, 'gano_underdog', 'prob_underdog', segs)
+    _imprimir(res, tope=8)
+    lecciones = [f for f in res['filas'] if f['leccion'] and f['brecha'] > 0]
+    res['resumen'] = (
+        f'{len(lecciones)} segmento(s) donde el desfavorecido gana MÁS de lo '
+        f'que el modelo dice' if lecciones else
+        'El modelo no infravalora sistemáticamente al desfavorecido en ningún '
+        'segmento medido: lo que le da es lo que consigue.')
+    print(f'  → {res["resumen"]}')
+    return res
+
+
+# ---------------------------------------------------------------------------
 # Fuente 2 — lo que se publicó de verdad
 # ---------------------------------------------------------------------------
 def autopsia_produccion(ruta: str = 'picks_historico.csv') -> Dict:
@@ -277,13 +363,22 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--historico', action='store_true')
     ap.add_argument('--produccion', action='store_true')
+    ap.add_argument('--underdogs', action='store_true')
     a = ap.parse_args()
+    if a.underdogs and not (a.historico or a.produccion):
+        json.dump({'underdogs': autopsia_underdogs()},
+                  open(SALIDA_JSON, 'w'), indent=1, ensure_ascii=False)
+        return
     if not (a.historico or a.produccion):
         a.historico = a.produccion = True
 
     salida = {}
     if a.historico:
         salida['historico'] = autopsia_historico()
+        try:
+            salida['underdogs'] = autopsia_underdogs()
+        except Exception as e:
+            logger.warning(f'[autopsia] underdogs: {type(e).__name__}: {e}')
     if a.produccion:
         salida['produccion'] = autopsia_produccion()
 

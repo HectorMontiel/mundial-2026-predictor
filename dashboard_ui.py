@@ -1423,10 +1423,30 @@ def render_liga_club(clave: str, nombre_liga: str):
         _con = {id(f) for f in (_sel['apostables'] or [])}
         _fx_mostrar = sorted(_fx, key=lambda f: (str(f.get('fecha', '')),
                                                  str(f.get('inicio', ''))))
+        # v102 — el texto dice el horizonte REAL, no «la semana».
+        #
+        # `fixtures_liga` ya no se limita a 7 días: si la competición no juega
+        # esta semana amplía hasta encontrar sus próximos partidos (Champions en
+        # fase previa, ligas europeas entre temporadas…). Seguir diciendo «de la
+        # semana» sobre una lista que empieza dentro de tres semanas sería
+        # mentir en la etiqueta.
+        _f0 = str(_fx_mostrar[0].get('fecha', '')) if _fx_mostrar else ''
+        _dias_al_primero = None
+        try:
+            import pandas as _pd
+            _dias_al_primero = (_pd.Timestamp(_f0)
+                                - _pd.Timestamp.utcnow().tz_localize(None)
+                                .normalize()).days
+        except Exception:
+            pass
+        if _dias_al_primero is not None and _dias_al_primero > 7:
+            st.caption(f"ℹ️ Esta competición no juega esta semana. Se muestran "
+                       f"sus próximos {len(_fx_mostrar)} partidos, a partir del "
+                       f"{_f0} (dentro de {_dias_al_primero} días).")
         if _sel['sin_cuota']:
             st.caption(f"ℹ️ {len(_sel['apostables'])} partidos con cuota "
-                       f"abierta · {len(_sel['sin_cuota'])} de la semana aún "
-                       f"sin precio (las casas publican 2-4 días antes).")
+                       f"abierta · {len(_sel['sin_cuota'])} aún sin precio "
+                       f"(las casas publican 2-4 días antes).")
         _cat = list(motor.equipos)
         _ops = {}
         for f in _fx_mostrar:
@@ -2637,6 +2657,34 @@ def render_alpha_finder():
                         st.caption("Cada fila: lo que el modelo dice (columnas) "
                                    "y lo que el sistema publica tras corregirse "
                                    "con lo que de verdad ocurrió.")
+                    # v102 — en QUÉ deportes y mercados se autoriza, y en
+                    # cuáles no. Lo decide el propio sistema reevaluando su A/B
+                    # en cada recalibración, así que aquí se enseña tal cual:
+                    # un mercado rechazado no es un fallo, es el listón haciendo
+                    # su trabajo.
+                    _val = _ad.get('validacion') or {}
+                    if _val:
+                        st.markdown("**Dónde se autoriza a corregir "
+                                    "(lo decide su propio A/B)**")
+                        _rows = []
+                        for _k, _v in sorted(
+                                _val.items(),
+                                key=lambda kv: -(kv[1].get('n') or 0)):
+                            _rows.append({
+                                'deporte y mercado': _k.replace('|', ' · '),
+                                'n': _v.get('n'),
+                                'brecha antes': (f"{_v['brecha_cruda']:.3f}"
+                                                 if 'brecha_cruda' in _v else '—'),
+                                'brecha después': (f"{_v['brecha_ajustada']:.3f}"
+                                                   if 'brecha_ajustada' in _v
+                                                   else '—'),
+                                'veredicto': _v.get('veredicto')})
+                        st.dataframe(_rows, hide_index=True,
+                                     use_container_width=True)
+                        st.caption("RECHAZAR significa que ahí el modelo ya "
+                                   "está bien calibrado y corregirlo sólo "
+                                   "añadiría ruido. Un deporte entra solo el "
+                                   "día que sus datos pasen el listón.")
                 # y el diagnóstico que lo motiva
                 if _os.path.exists('autopsia.json'):
                     _au = (_json.load(open('autopsia.json', encoding='utf-8'))

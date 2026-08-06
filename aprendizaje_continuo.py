@@ -200,6 +200,222 @@ def aplicar(prob: float, mapa: Dict, contexto: Optional[Dict] = None) -> float:
     return float(np.clip(p2, prob - TOPE_AJUSTE, prob + TOPE_AJUSTE))
 
 
+# ---------------------------------------------------------------------------
+# v102 — DÓNDE SE AUTORIZA LA CORRECCIÓN, Y DÓNDE NO
+#
+# El A/B de la v102 (`_v102_ab_capa2.py`) simuló las DOS selecciones —filtrar
+# por probabilidad cruda contra filtrar por probabilidad corregida— sobre las
+# predicciones fuera de muestra, y el veredicto es distinto por mercado:
+#
+#   GOLES y BTTS (143.382 predicciones) — ADOPTAR en los cuatro umbrales.
+#     A prob>=0,70: la selección cruda promete 78,8 % y entrega 69,3 %
+#     (−9,5 pp); la corregida promete 74,9 % y entrega 75,1 % (+0,3 pp).
+#     Además el acierto REAL de lo seleccionado sube del 69,3 % al 75,1 %,
+#     porque la corrección deja fuera justo los picks sobreconfiados.
+#     p5 de la mejora: +0,0780 / +0,0820 / +0,0831 / +0,0484.
+#
+#   1X2 y GANADOR (120.077 predicciones) — RECHAZAR en los cuatro umbrales.
+#     Ahí el modelo ya está calibrado (brechas de +0,001 a −0,012) y corregir
+#     sólo añade ruido: p5 entre −0,0081 y −0,0149.
+#
+# Por eso la corrección NO se aplica en bloque. Un mercado entra en esta lista
+# cuando su A/B lo respalda, y no antes — que es la diferencia entre aprender y
+# tocar por si acaso.
+MERCADOS_VALIDADOS = frozenset({'Goles', 'BTTS'})
+
+# ---------------------------------------------------------------------------
+# v102 — AUTOVALIDACIÓN POR SEGMENTO: el sistema decide solo dónde corregir.
+#
+# `MERCADOS_VALIDADOS` es la semilla, fijada a mano con el A/B de la v102. Pero
+# congelar la lista a mano no escala a «todos los deportes»: la NBA y la KBO
+# todavía no tienen ledger, y el día que lo tengan alguien tendría que acordarse
+# de volver aquí. En vez de eso, `validar_segmentos` vuelve a hacer el mismo A/B
+# —walk-forward, aprender sólo con el pasado, bootstrap pareado— para CADA par
+# (deporte, mercado) que tenga muestra, y guarda el veredicto.
+#
+# Lo que hace segura la automatización es que el listón no se relaja: un
+# segmento entra si su p5 es positivo con al menos `MIN_VALIDACION` casos, y
+# sale en cuanto deje de serlo. Nada se corrige «por si acaso», y un deporte
+# nuevo se incorpora solo el día que sus datos lo justifiquen — ni antes.
+MIN_VALIDACION = 1000
+PLIEGUES_VALIDACION = 5
+BOOT_VALIDACION = 2000
+
+# El mismo mercado se llama distinto según de dónde venga: el ledger de MLB dice
+# «Ganador» y los picks publicados dicen «Moneyline». Sin unificarlo, la
+# validación autoriza `MLB|Ganador` y luego `aplicar_a_pick` busca
+# `MLB|Moneyline`, no lo encuentra y no corrige nada — el mismo fallo silencioso
+# que ya se coló con «Goles over 1.5» contra «Goles».
+#
+# NO se unifican 1X2 y Ganador: un mercado a tres vías y uno a dos tienen
+# calibraciones distintas, y mezclarlos sería fabricar un promedio que no
+# describe a ninguno.
+ALIAS_MERCADO = {'Moneyline': 'Ganador', 'Ganador del partido': 'Ganador',
+                 'Goles over 1.5': 'Goles', 'Goles over 2.5': 'Goles',
+                 'Over/Under': 'Goles', 'Total': 'Goles'}
+
+
+def _normalizar_mercado(mercado: Optional[str]) -> str:
+    m = (mercado or '').strip()
+    return ALIAS_MERCADO.get(m, m)
+
+
+def _universo() -> 'pd.DataFrame':
+    """
+    Todo lo medible, en formato largo: deporte, mercado, fecha, prob, acierto.
+
+    Junta los ledgers fuera de muestra de los tres deportes con historial y los
+    picks realmente publicados. Es la materia prima de la autovalidación, y es
+    de donde salen los deportes: no hay una lista de deportes en ninguna parte,
+    se leen de los datos.
+    """
+    trozos = []
+
+    if os.path.exists('pick_ledger_totales.csv'):
+        t = pd.read_csv('pick_ledger_totales.csv')
+        for mercado, cp_, cy in (('Goles', 'p_over_1.5', 'over_1.5_real'),
+                                 ('Goles', 'p_over_2.5', 'over_2.5_real'),
+                                 ('BTTS', 'p_btts', 'btts_real')):
+            s = t.dropna(subset=[cp_, cy])[['fecha', cp_, cy]].copy()
+            s.columns = ['fecha', 'p', 'y']
+            s['prob'] = np.where(s['p'] >= 0.5, s['p'], 1 - s['p'])
+            s['acierto'] = np.where(s['p'] >= 0.5, s['y'], 1 - s['y'])
+            s['deporte'], s['mercado'] = 'Fútbol', mercado
+            trozos.append(s[['fecha', 'deporte', 'mercado', 'prob', 'acierto']])
+
+    if os.path.exists('pick_ledger_total.csv'):
+        d = pd.read_csv('pick_ledger_total.csv').dropna(
+            subset=['p_home', 'p_away', 'resultado'])
+        p = d[['p_home', 'p_draw', 'p_away']].fillna(0.0).to_numpy(dtype=float)
+        lado = p.argmax(axis=1)
+        s = pd.DataFrame({
+            'fecha': d['fecha'].to_numpy(),
+            'deporte': d['deporte'].to_numpy(),
+            'prob': p[np.arange(len(p)), lado],
+            'acierto': (d['resultado'].to_numpy() == lado).astype(float)})
+        s['mercado'] = np.where(s['deporte'] == 'Fútbol', '1X2', 'Ganador')
+        trozos.append(s)
+
+    if os.path.exists('picks_historico.csv'):
+        d = pd.read_csv('picks_historico.csv')
+        d = d[d['resultado'].notna()]
+        if len(d):
+            s = d[['fecha', 'deporte', 'mercado', 'prob', 'resultado']].copy()
+            s.columns = ['fecha', 'deporte', 'mercado', 'prob', 'acierto']
+            s['mercado'] = s['mercado'].map(_normalizar_mercado)
+            trozos.append(s)
+
+    if not trozos:
+        return pd.DataFrame(columns=['fecha', 'deporte', 'mercado', 'prob',
+                                     'acierto'])
+    u = pd.concat(trozos, ignore_index=True).dropna(
+        subset=['prob', 'acierto', 'fecha'])
+    u = u[(u['prob'] > 0) & (u['prob'] < 1)]
+    return u.sort_values('fecha', kind='stable').reset_index(drop=True)
+
+
+def validar_segmentos(u: Optional['pd.DataFrame'] = None) -> Dict:
+    """
+    ¿En qué (deporte, mercado) corregir mejora DE VERDAD, fuera de muestra?
+
+    Mismo protocolo que el resto del proyecto: la calibración se aprende sólo
+    con el pasado, se aplica al futuro, y el veredicto lo da el percentil 5 del
+    bootstrap pareado de la diferencia de log-loss. Nunca la media.
+    """
+    u = _universo() if u is None else u
+    salida: Dict[str, Dict] = {}
+    for (dep, merc), g in u.groupby(['deporte', 'mercado']):
+        g = g.reset_index(drop=True)
+        n = len(g)
+        if n < MIN_VALIDACION:
+            salida[f'{dep}|{merc}'] = {'n': int(n), 'veredicto': 'SIN MUESTRA',
+                                       'minimo': MIN_VALIDACION}
+            continue
+        bordes = [int(n * (0.4 + 0.12 * i))
+                  for i in range(PLIEGUES_VALIDACION + 1)]
+        p_cru = g['prob'].to_numpy(dtype=float)
+        y = g['acierto'].to_numpy(dtype=float)
+        p_aju = p_cru.copy()
+        for i in range(PLIEGUES_VALIDACION):
+            ini, fin = bordes[i], min(bordes[i + 1], n)
+            if ini < 200 or ini >= n:
+                continue
+            a, b = ajustar_platt(p_cru[:ini], y[:ini])
+            for j in range(ini, fin):
+                p2 = float(_sigmoide(a * _logit(p_cru[j]) + b))
+                p_aju[j] = float(np.clip(p2, p_cru[j] - TOPE_AJUSTE,
+                                         p_cru[j] + TOPE_AJUSTE))
+        msk = np.arange(n) >= bordes[1]
+        yy = y[msk]
+        if msk.sum() < 300 or len(np.unique(yy)) < 2:
+            salida[f'{dep}|{merc}'] = {'n': int(n), 'veredicto': 'SIN MUESTRA'}
+            continue
+
+        def _ll(p):
+            q = np.clip(p[msk], 1e-9, 1 - 1e-9)
+            return -(yy * np.log(q) + (1 - yy) * np.log(1 - q))
+
+        d = _ll(p_cru) - _ll(p_aju)
+        rng = np.random.default_rng(101)
+        bt = np.array([d[rng.integers(0, len(d), len(d))].mean()
+                       for _ in range(BOOT_VALIDACION)])
+        p5 = float(np.percentile(bt, 5))
+        salida[f'{dep}|{merc}'] = {
+            'n': int(n), 'n_juzgados': int(msk.sum()),
+            'mejora_logloss': float(d.mean()), 'p5': p5,
+            'brecha_cruda': float(abs(yy.mean() - p_cru[msk].mean())),
+            'brecha_ajustada': float(abs(yy.mean() - p_aju[msk].mean())),
+            'veredicto': 'ADOPTAR' if p5 > 0 else 'RECHAZAR'}
+    return salida
+
+
+def segmentos_autorizados(doc: Optional[Dict] = None) -> set:
+    """Pares 'Deporte|Mercado' que su propio A/B respalda."""
+    doc = doc if doc is not None else _documento()
+    val = (doc or {}).get('validacion') or {}
+    return {k for k, v in val.items() if v.get('veredicto') == 'ADOPTAR'}
+
+
+def _documento(ruta: str = ARCHIVO) -> Dict:
+    if not os.path.exists(ruta):
+        return {}
+    try:
+        return json.load(open(ruta, encoding='utf-8'))
+    except Exception:
+        return {}
+
+
+def aplicar_a_pick(pick: Dict, mapa: Optional[Dict] = None) -> Optional[float]:
+    """
+    Probabilidad corregida de un pick, o None si su mercado no está validado.
+
+    Devolver None —en vez de la probabilidad sin tocar— obliga al llamador a
+    distinguir «no hay corrección para esto» de «la corrección no movió nada»,
+    que son cosas distintas a la hora de explicárselo al usuario.
+    """
+    mercado = _normalizar_mercado(pick.get('mercado'))
+    deporte = (pick.get('deporte') or 'Fútbol').strip()
+    # v102 — el permiso lo da el A/B GUARDADO, no una lista fija en el código.
+    # Así un deporte nuevo (NBA, KBO) entra solo el día que su historial pase el
+    # listón, sin que nadie tenga que acordarse de venir a editar esto. La
+    # semilla `MERCADOS_VALIDADOS` cubre el arranque, cuando todavía no se ha
+    # corrido ninguna validación.
+    autorizados = segmentos_autorizados()
+    if autorizados:
+        if f'{deporte}|{mercado}' not in autorizados:
+            return None
+    elif mercado not in MERCADOS_VALIDADOS:
+        return None
+    mapa = mapa if mapa is not None else cargar()
+    if not mapa:
+        return None
+    p = pick.get('prob')
+    if p is None or not (0 < float(p) < 1):
+        return None
+    return aplicar(float(p), mapa, {'deporte': pick.get('deporte'),
+                                    'mercado': mercado})
+
+
 def cargar(ruta: str = ARCHIVO) -> Dict:
     if not os.path.exists(ruta):
         return {}
@@ -223,11 +439,23 @@ def reaprender(ruta: str = ARCHIVO) -> Dict:
     if os.path.exists('pick_ledger_totales.csv'):
         t = pd.read_csv('pick_ledger_totales.csv')
         largo = []
-        for mercado, cp_, cy in (('Goles over 1.5', 'p_over_1.5', 'over_1.5_real'),
-                                 ('Goles over 2.5', 'p_over_2.5', 'over_2.5_real'),
+        # v102 — LAS ETIQUETAS SON LAS QUE EMITE PRODUCCIÓN, no las del ledger.
+        #
+        # Antes los nodos se llamaban «Goles over 1.5» y «Goles over 2.5», y los
+        # picks publicados llevan `mercado='Goles'` a secas (la línea va dentro
+        # de `apuesta`). Con nombres distintos, `aplicar` no encontraba el nodo
+        # y se caía al global: el mapa se aprendía y no se usaba. Se agrupan las
+        # dos líneas bajo «Goles», que es exactamente la agrupación con la que
+        # se midió el A/B de la v102.
+        for mercado, cp_, cy in (('Goles', 'p_over_1.5', 'over_1.5_real'),
+                                 ('Goles', 'p_over_2.5', 'over_2.5_real'),
                                  ('BTTS', 'p_btts', 'btts_real')):
             s = t.dropna(subset=[cp_, cy])[[cp_, cy, 'liga']].copy()
             s.columns = ['p', 'y', 'liga']
+            # el pick es el lado más probable: bajo 0,5 se apuesta al contrario,
+            # que es como sale a producción
+            s['y'] = np.where(s['p'] >= 0.5, s['y'], 1 - s['y'])
+            s['p'] = np.where(s['p'] >= 0.5, s['p'], 1 - s['p'])
             s['mercado'] = mercado
             s['deporte'] = 'Fútbol'
             largo.append(s)
@@ -238,7 +466,8 @@ def reaprender(ruta: str = ARCHIVO) -> Dict:
     # --- producción: lo que se publicó y ya se liquidó ---
     if os.path.exists('picks_historico.csv'):
         d = pd.read_csv('picks_historico.csv')
-        d = d[d['resultado'].notna()]
+        d = d[d['resultado'].notna()].copy()
+        d['mercado'] = d['mercado'].map(_normalizar_mercado)
         if len(d) >= MIN_N:
             # la raíz del ledger es el prior de producción: 47.794 predicciones
             # contra 144 picks, y el peso lo decide la muestra, no el optimismo
@@ -256,9 +485,22 @@ def reaprender(ruta: str = ARCHIVO) -> Dict:
     mapa = dict(fuentes.get('ledger_goles', {}))
     mapa.update(fuentes.get('produccion', {}))
 
+    # v102 — y el A/B que decide DÓNDE se puede usar, para todos los deportes
+    # que tengan historial. Es lo que hace que el lazo sea autónomo de verdad:
+    # se reevalúa en cada recalibración, y un segmento entra o sale por sus
+    # propios números.
+    try:
+        validacion = validar_segmentos()
+    except Exception as e:
+        logger.warning(f'[aprendizaje] validación por segmento falló: {e}')
+        validacion = {}
+
     salida = {'mapa': mapa, 'fuentes': {k: len(v) for k, v in fuentes.items()},
               'n_total': mapa.get('global', {}).get('n', 0),
               'tope_ajuste': TOPE_AJUSTE, 'n0': N0,
+              'validacion': validacion,
+              'autorizados': sorted(k for k, v in validacion.items()
+                                    if v.get('veredicto') == 'ADOPTAR'),
               'generado': pd.Timestamp.now('UTC').strftime('%Y-%m-%dT%H:%M:%SZ')}
     from io_atomico import escribir_texto
     escribir_texto(ruta, json.dumps(salida, indent=1, ensure_ascii=False))

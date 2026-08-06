@@ -1940,6 +1940,50 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
             p['nota'] = (f'⚠️ El modelo de esta liga no ve partidos desde hace '
                          f'{dias} días (pretemporada o estado sin refrescar) — '
                          'alta varianza')
+    # --- v102: LA CORRECCIÓN ENTRA ANTES DE FILTRAR, NO AL ENSEÑAR ----------
+    #
+    # Hasta la v101 la corrección de calibración sólo tocaba la pestaña de
+    # Máxima Confianza. Lo que se registraba en `rendimiento_real` —capa1 y
+    # capa2— llevaba la probabilidad cruda, y de ahí salía la brecha medida:
+    # Capa 2, 108 picks, 58,3 % real contra 74,5 % prometido (−16,2 pp).
+    #
+    # Va AQUÍ, y no más abajo, a propósito: la Capa 2 se SELECCIONA por
+    # probabilidad y el EV y el Kelly se calculan con ella. Corregir sólo la
+    # etiqueta dejaría entrando a los mismos picks sobreconfiados con un número
+    # más bonito. Corrigiendo antes, los que ya no llegan al umbral se caen
+    # solos — que es la mitad del beneficio medido en el A/B de la v102:
+    # a prob>=0,70 la selección pasa de 18.436 picks que prometen 78,8 % y
+    # entregan 69,3 %, a 7.225 que prometen 74,9 % y entregan 75,1 %.
+    #
+    # Sólo se tocan los mercados con A/B a favor (`MERCADOS_VALIDADOS`): Goles
+    # y BTTS. En 1X2 y Ganador el modelo ya está calibrado y el A/B rechazó
+    # corregir, así que no se toca.
+    try:
+        import aprendizaje_continuo as _ac
+        _mapa_ad = _ac.cargar()
+        _n_cal = 0
+        if _mapa_ad:
+            for p in capa1 + capa2 + list(r.get('candidatos') or []):
+                _p1 = _ac.aplicar_a_pick(p, _mapa_ad)
+                if _p1 is None:
+                    continue
+                _p0 = float(p.get('prob'))
+                if abs(_p1 - _p0) < 1e-6:
+                    continue
+                p['prob_modelo'] = _p0
+                p['prob'] = round(float(_p1), 3)
+                p['calibrado_por'] = 'aprendizaje_continuo'
+                p['cuota_justa'] = round(1 / max(float(_p1), 1e-6), 2)
+                if p.get('cuota'):
+                    p['ev'] = round(p['cuota'] * float(_p1) - 1, 4)
+                    p['ev_negativo'] = bool(p['ev'] <= 0)
+                _n_cal += 1
+        if _n_cal:
+            logger.info(f'[alpha] {_n_cal} picks recalibrados con lo aprendido '
+                        f'de los resultados (Goles/BTTS)')
+    except Exception as _e:
+        logger.warning(f'[alpha] calibración adaptativa no aplicada: {_e}')
+
     # §4: los partidos de pretemporada salen de la Capa 1 (van a Capa 2)
     pretemporada = [p for p in capa1 if p.get('pretemporada')]
     capa1 = [p for p in capa1 if not p.get('pretemporada')]
@@ -2081,7 +2125,14 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         # sospechaba, y ahora el usuario ve el 53 % en vez del 80 %.
         #
         # El hándicap asiático sigue sin medición y sigue diciéndolo.
-        if _cc is not None:
+        # v102 — UNA SOLA CORRECCIÓN POR PICK.
+        #
+        # Los picks de Goles y BTTS ya vienen recalibrados con lo aprendido de
+        # los resultados (ver el bloque `aprendizaje_continuo` de más arriba).
+        # Pasarlos otra vez por la tabla por banda aplicaría el mismo descuento
+        # dos veces y hundiría la probabilidad muy por debajo de lo medido: un
+        # 80 % corregido a 74 % volvería a bajar a ~62 %.
+        if _cc is not None and not q.get('calibrado_por'):
             _merc = p.get('mercado')
             _real = _cc.probabilidad_real(prob, _merc)
             q['prob_modelo'] = prob              # se conserva para auditoría
@@ -2094,36 +2145,13 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                     q['ev'] = round(q['cuota'] * _real - 1, 4)
                     q['ev_negativo'] = bool(q['ev'] <= 0)
             q['aviso_calibracion'] = _cc.aviso_calibracion(prob, _merc)
-        # v101 — SEGUNDA ETAPA: lo que se aprendió de los picks YA LIQUIDADOS.
-        #
-        # `calibracion_confianza` (v84/v86) corrige con el ledger, que mide el
-        # MODELO. Pero lo que se publica no es el modelo: pasa por filtros, por
-        # la Capa 2 y por el line shopping, y esa combinación sólo se puede
-        # medir en los picks reales. La autopsia de la v101 la midió, y hay
-        # brecha: 144 picks liquidados, acierto 57,6 % contra 68,4 % prometido
-        # (−10,8 pp), con la Capa 2 en −16,2 pp.
-        #
-        # La corrección es monótona (Platt sobre la propia salida), está topada
-        # a ±0,15 y se encoge hacia el prior del ledger según la muestra, así
-        # que con pocos picks apenas mueve nada. Si no hay nodo aprendido para
-        # este pick, `aplicar` devuelve la probabilidad intacta.
-        try:
-            import aprendizaje_continuo as _ac
-            _mapa = _ac.cargar()
-            if _mapa:
-                _p0 = q.get('prob')
-                _p1 = _ac.aplicar(_p0, _mapa,
-                                  {'deporte': q.get('deporte'),
-                                   'mercado': q.get('mercado')})
-                if _p1 is not None and _p0 and abs(_p1 - _p0) > 1e-6:
-                    q['prob_antes_aprendizaje'] = _p0
-                    q['prob'] = round(float(_p1), 3)
-                    q['cuota_justa'] = round(1 / max(float(_p1), 1e-6), 2)
-                    if q.get('cuota'):
-                        q['ev'] = round(q['cuota'] * float(_p1) - 1, 4)
-                        q['ev_negativo'] = bool(q['ev'] <= 0)
-        except Exception as _e:
-            logger.debug(f'[alpha] calibración adaptativa no aplicada: {_e}')
+        elif q.get('calibrado_por'):
+            # ya corregido con lo aprendido de los resultados, aguas arriba
+            q['medido'] = True
+            q['acierto_real'] = q.get('prob')
+            q['aviso_calibracion'] = (
+                'Probabilidad ajustada con el acierto real de este mercado '
+                'en los partidos ya liquidados.')
         capa1_prob.append(q)
     if not capa1_prob:
         pct = None

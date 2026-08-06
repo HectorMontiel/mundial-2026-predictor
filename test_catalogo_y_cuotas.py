@@ -854,6 +854,46 @@ def test_prior_elo_solo_en_la_ficha():
           "alpha_finder desactiva el prior en el barrido de fútbol")
 
 
+def test_proximos_partidos_todas_las_competiciones():
+    """
+    v102: «la Champions no trae los próximos partidos». No era un fallo de red:
+    en agosto la Champions está en fase previa, y ESPN publica esa fase bajo un
+    código DISTINTO. Además la ventana era de 7 días fijos, así que toda liga
+    entre temporadas salía vacía.
+    """
+    import fixtures_espn as fe
+
+    # 1. las competiciones con fase previa tienen su código compañero
+    for clave, esperado in (('champions', 'uefa.champions_qual'),
+                            ('europa_league', 'uefa.europa_qual'),
+                            ('conference_league', 'uefa.europa.conf_qual'),
+                            ('afc_champions', 'afc.champions_qual')):
+        check(esperado in fe.ESPN_COMPANEROS.get(clave, []),
+              f'{clave} consulta también su fase previa ({esperado})')
+
+    # 2. la ampliación es OPT-IN: el barrido pide `dias=2` para quedarse con
+    #    hoy, y ampliarle el horizonte le haría pedir 90 días a cada liga fuera
+    #    de temporada en cada pase, para tirarlo todo después.
+    import inspect
+    firma = inspect.signature(fe.fixtures_liga)
+    check('ampliar' in firma.parameters,
+          'fixtures_liga permite decidir si amplía el horizonte')
+    check(firma.parameters['ampliar'].default is None,
+          'por defecto amplía sólo en la vista de próximos partidos')
+    check(len(fe.HORIZONTES) >= 2 and fe.HORIZONTES[0] == fe.DIAS_SEMANA,
+          f'los escalones empiezan en la semana ({fe.HORIZONTES})')
+
+    # 3. toda liga disponible tiene por dónde traer sus partidos
+    from config import LEAGUES
+    sin_via = [c for c, cfg in LEAGUES.items()
+               if cfg.get('disponible') and c not in fe.ESPN_CODIGOS]
+    # Polonia es la excepción CONOCIDA: ESPN devuelve 400 en pol.1, pol.2 y
+    # pol.ekstraklasa (comprobado 2026-08-06). Se declara en vez de fingir.
+    check(set(sin_via) <= {'polonia'},
+          f'todas las ligas disponibles tienen código ESPN salvo Polonia '
+          f'(sin vía: {sin_via})')
+
+
 def test_aprendizaje_continuo():
     """
     v101: el lazo que aprende de sus propios resultados es autónomo, así que
@@ -1883,9 +1923,21 @@ def test_un_solo_reloj():
           f"alpha_finder no llama al reloj local en ningún sitio "
           f"({len(llamadas)} llamadas a .today())")
 
+    # v102 — el rango lo construye ahora `_fixtures_de_codigo`, porque
+    # `fixtures_liga` pasó a orquestar varios códigos de ESPN y varios
+    # horizontes. El invariante es el mismo y aquí se comprueba donde vive,
+    # en vez de fiarlo a que dos funciones sigan pegadas en el fichero.
     fsrc = open('fixtures_espn.py', encoding='utf-8').read()
-    check('utcnow' in fsrc.split('def fixtures_liga')[1][:1500],
-          "fixtures_liga ancla su rango de fechas en UTC (el reloj de ESPN)")
+    cuerpo = fsrc.split('def _fixtures_de_codigo')[1][:1500]
+    check('utcnow' in cuerpo,
+          "el rango de fechas se ancla en UTC (el reloj de ESPN)")
+    # y que nadie haya vuelto a colar el reloj local en el módulo
+    import ast as _ast
+    locales = [n for n in _ast.walk(_ast.parse(fsrc))
+               if isinstance(n, _ast.Call) and isinstance(n.func, _ast.Attribute)
+               and n.func.attr == 'today']
+    check(not locales,
+          f"fixtures_espn no usa el reloj local ({len(locales)} .today())")
 
 
 def test_totales_conservan_su_casa():
@@ -2186,6 +2238,7 @@ if __name__ == '__main__':
     test_calibracion_confianza()
     test_combinadas_multideporte()
     print('\n=== v101: aprendizaje autónomo y fuga de features ===')
+    test_proximos_partidos_todas_las_competiciones()
     test_aprendizaje_continuo()
     test_features_del_modelo_coinciden()
     print('\n=== v78: multideporte ===')

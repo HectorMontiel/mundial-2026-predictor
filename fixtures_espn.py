@@ -76,6 +76,48 @@ try:
 except Exception:                       # degradación limpia al catálogo previo
     pass
 
+# ---------------------------------------------------------------------------
+# v102 — CÓDIGOS COMPAÑEROS: las fases previas son otra competición para ESPN.
+#
+# El usuario reportó que la Champions «no trae los próximos partidos». No era un
+# fallo de la app: en agosto la Champions está en fase previa, y ESPN la publica
+# bajo un código DISTINTO del de la liguilla. Medido el 2026-08-06 pidiendo
+# agosto-noviembre:
+#
+#     uefa.champions        →  0 eventos      uefa.champions_qual   → 10
+#     uefa.europa           →  0 eventos      uefa.europa_qual      → 23
+#     uefa.europa.conf      →  0 eventos      uefa.europa.conf_qual → 57
+#     afc.champions         →  0 eventos      afc.champions_qual    →  4
+#
+# Es decir: 94 partidos reales que la app no veía porque preguntaba por el
+# código de una fase que todavía no ha empezado. Se consultan los dos y se
+# fusionan — un equipo eliminado en la previa no aparece luego en la liguilla,
+# así que no hay riesgo de duplicar el mismo partido.
+ESPN_COMPANEROS: Dict[str, List[str]] = {
+    'champions': ['uefa.champions_qual'],
+    'europa_league': ['uefa.europa_qual'],
+    'conference_league': ['uefa.europa.conf_qual'],
+    'afc_champions': ['afc.champions_qual'],
+}
+
+# v102 — HORIZONTE PROGRESIVO.
+#
+# La ventana era de 7 días fijos, y eso deja en blanco a toda competición que
+# no juegue esta semana. Medido el 2026-08-06, con las ligas europeas a dos
+# semanas de arrancar:
+#
+#     liga         7 d    30 d
+#     premier        0      28
+#     bundesliga     0      16
+#     serie_a        0      24
+#
+# «Próximos partidos» significa los siguientes, no los de esta semana. Si la
+# ventana corta viene vacía se amplía por escalones hasta encontrar algo. No se
+# empieza por la ventana larga: cuando la liga SÍ juega esta semana, pedir 90
+# días traería la temporada entera y la interfaz enseñaría partidos de octubre
+# mezclados con los de mañana.
+HORIZONTES = (7, 30, 90)
+
 # memoización en proceso (clave, dias) -> (timestamp, fixtures). El barrido de
 # la UI ya está cacheado a nivel de Streamlit; esto evita repetir la llamada a
 # ESPN dentro de una misma corrida del bot/pipeline.
@@ -151,16 +193,73 @@ def _odds_de_evento(comp: dict) -> dict:
 DIAS_SEMANA = 7
 
 
-def fixtures_liga(clave: str, dias: int = DIAS_SEMANA) -> List[Dict]:
-    """Próximos partidos (no finalizados) de una liga en [hoy, hoy+dias].
-    Devuelve [{'fecha': 'YYYY-MM-DD', 'home': str, 'away': str}]."""
-    code = ESPN_CODIGOS.get(clave)
-    if not code:
+def fixtures_liga(clave: str, dias: int = DIAS_SEMANA,
+                  ampliar: Optional[bool] = None) -> List[Dict]:
+    """
+    Próximos partidos (no finalizados) de una competición.
+
+    v102 — busca en TODOS los códigos ESPN de la competición (el de la fase
+    actual y el de la previa, ver `ESPN_COMPANEROS`) y, si `ampliar`, extiende
+    el horizonte por escalones cuando la ventana viene vacía (`HORIZONTES`).
+    Así «próximos partidos» quiere decir los siguientes que haya, no sólo los
+    de esta semana.
+
+    `ampliar=None` (por defecto) significa: ampliar SÓLO en la vista de próximos
+    partidos, es decir cuando nadie ha pedido una ventana concreta. Importa,
+    porque `alpha_finder._barrido_fixtures` pide `dias=2` justamente para
+    quedarse con los de hoy: ampliarle el horizonte le haría pedir 90 días a
+    cada liga fuera de temporada en cada barrido, para tirar después todo lo
+    que no fuera de hoy.
+
+    Devuelve [{'fecha': 'YYYY-MM-DD', 'home': str, 'away': str, ...}].
+    """
+    codigos = [c for c in ([ESPN_CODIGOS.get(clave)] +
+                           ESPN_COMPANEROS.get(clave, [])) if c]
+    if not codigos:
         return []
-    ck = f'{clave}:{dias}'
+    if ampliar is None:
+        ampliar = (dias == DIAS_SEMANA)
+    ck = f'{clave}:{dias}:{int(ampliar)}'
     ahora = time.time()
     if ck in _CACHE and ahora - _CACHE[ck][0] < _TTL:
         return _CACHE[ck][1]
+
+    # escalones: el pedido primero y luego los más largos. Si `dias` ya es
+    # generoso no se amplía por debajo de él.
+    escalones = [dias] + ([h for h in HORIZONTES if h > dias] if ampliar else [])
+    fixtures: List[Dict] = []
+    for horizonte in escalones:
+        fixtures = []
+        vistos = set()
+        for code in codigos:
+            for fx in _fixtures_de_codigo(clave, code, horizonte):
+                # dos códigos de la misma competición no publican el mismo
+                # partido, pero se deduplica por si acaso: repetir un partido
+                # en la interfaz es peor que perderlo, porque se apostaría dos
+                # veces sobre lo mismo creyendo que son eventos distintos.
+                k = (fx.get('fecha'), fx.get('home'), fx.get('away'))
+                if k in vistos:
+                    continue
+                vistos.add(k)
+                fixtures.append(fx)
+        if fixtures:
+            if horizonte != dias:
+                logger.info(f'[fixtures/{clave}] sin partidos en {dias} d; '
+                            f'ampliado a {horizonte} d → {len(fixtures)}')
+            break
+
+    fixtures.sort(key=lambda f: (f.get('inicio') or f.get('fecha') or ''))
+    for code in codigos:
+        _completar_cuotas(fixtures, 'futbol', 'soccer', code)
+    logger.info(f"[fixtures/{clave}] {len(fixtures)} próximos partidos "
+                f"(ESPN {'+'.join(codigos)}), "
+                f"{sum(1 for f in fixtures if f.get('odd_home'))} con cuota.")
+    _CACHE[ck] = (ahora, fixtures)
+    return fixtures
+
+
+def _fixtures_de_codigo(clave: str, code: str, dias: int) -> List[Dict]:
+    """Los fixtures de UN código de ESPN. Sin caché: la pone `fixtures_liga`."""
     # v91 — EL RANGO SE ANCLA EN UTC, que es el reloj de ESPN.
     #
     # Estaba en hora local, y las fechas que ESPN devuelve (`ev['date']`) son
@@ -181,8 +280,8 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA) -> List[Dict]:
         r.raise_for_status()
         eventos = r.json().get('events', []) or []
     except Exception as e:
-        logger.warning(f"[fixtures/{clave}] ESPN falló: {type(e).__name__}: {e}")
-        _CACHE[ck] = (ahora, [])
+        logger.warning(f"[fixtures/{clave}] ESPN {code} falló: "
+                       f"{type(e).__name__}: {e}")
         return []
     for ev in eventos:
         try:
@@ -213,12 +312,6 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA) -> List[Dict]:
             fixtures.append(fx)
         except Exception:
             continue
-    # v71: completar con Pinnacle y con el core de ESPN. Automático — el
-    # usuario no tiene que pulsar nada.
-    _completar_cuotas(fixtures, 'futbol', 'soccer', code)
-    logger.info(f"[fixtures/{clave}] {len(fixtures)} próximos partidos (ESPN {code}), "
-                f"{sum(1 for f in fixtures if f.get('odd_home'))} con cuota.")
-    _CACHE[ck] = (ahora, fixtures)
     return fixtures
 
 
@@ -397,7 +490,10 @@ def con_cuota(fixtures: List[Dict]) -> Dict:
     prox = fechas[0]
     # las casas suelen abrir 3 días antes; se recomienda volver ese día, y
     # nunca antes de mañana
-    hoy = pd.Timestamp.today().normalize()
+    # v102 — UTC: `prox` sale de las fechas de los fixtures, que son UTC.
+    # Restarle un `hoy` local mezcla dos relojes y desplaza la
+    # recomendacion un dia en medio mundo.
+    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
     volver = max(prox - pd.Timedelta(days=3), hoy + pd.Timedelta(days=1))
     volver = min(volver, prox)
     info['proximo'] = prox.strftime('%Y-%m-%d')
@@ -541,7 +637,12 @@ def fixtures_deporte(deporte: str, dias: int = DIAS_SEMANA) -> List[Dict]:
             logger.warning(f"[fixtures/mlb] StatsAPI falló ({type(e).__name__}: "
                            f"{e}); se intenta con ESPN.")
 
-    hoy = pd.Timestamp.today().normalize()
+    # v102 — UTC, igual que `_fixtures_de_codigo`. La v91 anclo el reloj en
+    # `fixtures_liga` y dejo fuera esta ruta: seguia pidiendo el rango con la
+    # hora local, asi que en cualquier huso por detras de UTC empezaba un dia
+    # tarde y se descartaban partidos que si existian. En Streamlit Cloud el
+    # servidor va en UTC y por eso nunca se vio alli.
+    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     salida: List[Dict] = []
@@ -608,7 +709,12 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
     ahora = time.time()
     if ck in _CACHE and ahora - _CACHE[ck][0] < _TTL:
         return _CACHE[ck][1]
-    hoy = pd.Timestamp.today().normalize()
+    # v102 — UTC, igual que `_fixtures_de_codigo`. La v91 anclo el reloj en
+    # `fixtures_liga` y dejo fuera esta ruta: seguia pidiendo el rango con la
+    # hora local, asi que en cualquier huso por detras de UTC empezaba un dia
+    # tarde y se descartaban partidos que si existian. En Streamlit Cloud el
+    # servidor va en UTC y por eso nunca se vio alli.
+    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     salida: List[Dict] = []
