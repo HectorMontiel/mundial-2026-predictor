@@ -4,7 +4,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-22,Fútbol,MLS,New England Revolution vs Toronto FC,Goles,Menos de 2.5,0.775,2.08,0.613,capa2,,1,2026-08-03T04:04:39Z
 2026-07-22,Tenis,ATP,Rublev A. vs Skatov T.,Ganador,Gana Rublev A.,0.862,,,capa2,,1,2026-08-03T18:11:05Z
 2026-07-23,Tenis,ATP,Bublik A. vs Molcan A.,Ganador,Gana Bublik A.,0.691,1.51,0.043,capa1,,1,2026-08-03T18:08:14Z
-2026-07-23,Fútbol,MLS,Charlotte vs Atlanta Utd,Goles,Menos de 2.5,0.739,2.15,0.588,capa2,,,
+2026-07-23,Fútbol,MLS,Charlotte vs Atlanta Utd,Goles,Menos de 2.5,0.739,2.15,0.588,capa2,,0,2026-08-06T05:01:38Z
 2026-07-23,Fútbol,Primeira Liga,Estrela vs Nacional,1X2,Gana Nacional,0.589,1.82,0.072,capa2,,,
 2026-07-23,Tenis,ATP,Martinez P. vs Darderi L.,Ganador,Gana Darderi L.,0.764,,,capa2,,1,2026-08-03T18:08:14Z
 2026-07-23,MLB,MLB,Minnesota Twins @ Cleveland Guardians,Moneyline,Gana Cleveland Guardians,0.594,1.77,0.0521,capa1,,0,2026-08-03T18:08:14Z
@@ -34,8 +34,8 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-26,Fútbol,Superliga,Horsens vs Nordsjaelland,Goles,Más de 2.5,0.667,,,capa2,,0,2026-08-06T04:26:36Z
 2026-07-26,Fútbol,Veikkausliiga,Inter Turku vs Gnistan,1X2,Gana Inter Turku,0.65,1.68,0.092,capa1,,,
 2026-07-26,Fútbol,MLS,St. Louis City vs Colorado Rapids,1X2,Gana St. Louis City,0.551,1.95,0.076,capa1,,1,2026-08-03T04:04:39Z
-2026-07-26,Fútbol,Liga MX,Tigres UANL vs Atl. San Luis,BTTS,Ambos marcan: No,0.641,,,capa2,,,
-2026-07-26,Fútbol,Liga MX,Tigres UANL vs Atl. San Luis,Goles,Menos de 2.5,0.752,,,capa2,,,
+2026-07-26,Fútbol,Liga MX,Tigres UANL vs Atl. San Luis,BTTS,Ambos marcan: No,0.641,,,capa2,,0,2026-08-06T05:05:34Z
+2026-07-26,Fútbol,Liga MX,Tigres UANL vs Atl. San Luis,Goles,Menos de 2.5,0.752,,,capa2,,0,2026-08-06T05:05:34Z
 2026-07-26,Fútbol,Chinese Super League,Zhejiang Professional vs Dalian Yingbo,BTTS,Ambos marcan: Sí,0.694,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-26,Fútbol,Chinese Super League,Zhejiang Professional vs Dalian Yingbo,Goles,Más de 2.5,0.701,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-27,Tenis,ATP,Damm M. vs Shelton B.,Ganador,Gana Shelton B.,0.791,,,capa2,,1,2026-08-03T18:11:05Z
@@ -91,7 +91,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-28,Tenis,ATP,Tomic B. vs Khachanov K.,Ganador,Gana Khachanov K.,0.753,,,capa2,,0,2026-08-03T18:11:05Z
 2026-07-28,Tenis,ATP,Trevor Svajda vs Jakub Mensik,Ganador,Gana Jakub Mensik,0.856,,,capa2,,1,2026-08-03T18:08:14Z
 2026-07-28,Tenis,ATP,Vukic A. vs Musetti L.,Ganador,Gana Musetti L.,0.828,,,capa2,,1,2026-08-03T18:11:05Z
-2026-07-28,Tenis,WTA,Yexin Ma vs Kimberly Birrell,Ganador,Gana Kimberly Birrell,0.763,,,capa2,,,
+2026-07-28,Tenis,WTA,Yexin Ma vs Kimberly Birrell,Ganador,Gana Kimberly Birrell,0.763,,,capa2,,0,2026-08-06T05:07:05Z
 2026-07-29,Tenis,WTA,Anna Siskova vs Meritxell Teixido Garcia,Ganador,Gana Anna Siskova,0.865,1.0,-0.1345,capa2,,,
 2026-07-29,Fútbol,Primera División,Barracas Central vs Aldosivi,1X2,Empate,0.349,2.97,0.0376,capa1,,0,2026-08-03T04:04:39Z
 2026-07-29,Tenis,ATP,Bernard Tomic vs Karen Khachanov,Ganador,Gana Karen Khachanov,0.754,1.27,-0.0445,capa2,,0,2026-08-03T18:11:05Z
@@ -142,8 +142,8 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-29,Tenis,WTA,Tatiana Prozorova vs Peyton Stearns,Ganador,Gana Tatiana Prozorova,0.398,2.6,0.0356,capa1,,0,2026-08-03T18:11:05Z
 2026-07-29,Tenis,ATP,Taylor Fritz vs Kamil Majchrzak,Ganador,Gana Taylor Fritz,0.751,1.29,-0.035,capa2,,1,2026-08-03T18:08:14Z
 2026-07-29,MLB,MLB,Texas Rangers @ Tampa Bay Rays,Moneyline,Gana Tampa Bay Rays,0.575,1.7812,0.0241,capa1,,1,2026-08-03T18:08:14Z
-2026-07-29,Tenis,WTA,Yexin Ma vs Catherine McNally,Ganador,Gana Catherine McNally,0.832,1.12,-0.0639,capa2,,,
-2026-07-29,Tenis,WTA,Yexin Ma vs Caty Mcnally,Ganador,Gana Caty Mcnally,0.848,1.11,-0.061,capa2,,,
+2026-07-29,Tenis,WTA,Yexin Ma vs Catherine McNally,Ganador,Gana Catherine McNally,0.832,1.12,-0.0639,capa2,,1,2026-08-06T05:07:06Z
+2026-07-29,Tenis,WTA,Yexin Ma vs Caty Mcnally,Ganador,Gana Caty Mcnally,0.848,1.11,-0.061,capa2,,1,2026-08-06T05:07:06Z
 2026-07-29,Tenis,ATP,Ziga Sesko vs Aaron Gil Garcia,Ganador,Gana Ziga Sesko,0.81,1.05,-0.1489,capa2,,,
 2026-07-30,Fútbol,Brasileirão Serie A,Fluminense vs Bahia,1X2,Gana Fluminense,0.564,1.84,0.0384,capa1,,0,2026-08-03T04:04:39Z
 2026-07-30,Fútbol,Primera División,Independiente vs Huracan,1X2,Gana Independiente,0.43,2.4,0.0312,capa1,,,
@@ -186,7 +186,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-07-31,Fútbol,División Profesional,The Strongest vs Aurora,Goles,Menos de 2.5,0.676,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-31,Fútbol,División Profesional,Universitario de Vinto vs Guabirá,Goles,Menos de 2.5,0.634,,,capa2,,1,2026-08-03T04:04:39Z
 2026-07-31,Tenis,WTA,Victoria Bosio vs Camila Romero,Ganador,Gana Victoria Bosio,0.793,1.07,-0.1491,capa2,,,
-2026-08-01,Fútbol,Liga MX,Atl. San Luis vs Club Tijuana,1X2,Empate,0.292,3.7,0.08,capa1,,,
+2026-08-01,Fútbol,Liga MX,Atl. San Luis vs Club Tijuana,1X2,Empate,0.292,3.7,0.08,capa1,,1,2026-08-06T05:05:34Z
 2026-08-01,Fútbol,Primera División,CD Municipal Limeño vs C.D. Platense,BTTS,Ambos marcan: No,0.694,,,capa2,,0,2026-08-03T04:04:39Z
 2026-08-01,Fútbol,Primera División,CD Municipal Limeño vs C.D. Platense,Goles,Menos de 2.5,0.674,,,capa2,,1,2026-08-03T04:04:39Z
 2026-08-01,Fútbol,División Profesional,Cerro Porteño vs Sportivo Luqueño,BTTS,Ambos marcan: No,0.631,,,capa2,,1,2026-08-03T04:04:39Z
@@ -203,7 +203,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-01,Fútbol,División Profesional,Real Oruro vs Independiente Petrolero,Goles,Menos de 2.5,0.684,,,capa2,,0,2026-08-03T04:04:39Z
 2026-08-01,Fútbol,División Profesional,San Antonio Bulo Bulo vs Blooming,Goles,Menos de 2.5,0.632,,,capa2,,1,2026-08-03T04:04:39Z
 2026-08-01,Fútbol,División Profesional,Sportivo Ameliano vs 2 de Mayo,Goles,Menos de 2.5,0.667,,,capa2,,1,2026-08-03T04:04:39Z
-2026-08-02,Tenis,WTA,Alana Smith vs Yue Yuan,Ganador,Gana Yue Yuan,0.815,1.15,-0.0653,capa2,,,
+2026-08-02,Tenis,WTA,Alana Smith vs Yue Yuan,Ganador,Gana Yue Yuan,0.815,1.15,-0.0653,capa2,,1,2026-08-06T05:07:06Z
 2026-08-02,Tenis,WTA,Aliona Falei vs Urszula Radwanska,Ganador,Gana Aliona Falei,0.794,1.06,-0.1577,capa2,,1,2026-08-03T18:11:05Z
 2026-08-02,Fútbol,Liga MX,Atlas vs Monterrey,1X2,Gana Monterrey,0.388,2.67,0.0371,capa1,,1,2026-08-03T04:04:39Z
 2026-08-02,Fútbol,Primera División,Atletico Balboa vs Isidro Metapán,BTTS,Ambos marcan: No,0.675,,,capa2,,1,2026-08-03T04:04:39Z
@@ -217,10 +217,10 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-02,Tenis,WTA,Elina Svitolina vs Jessica Bouzas Maneiro,Ganador,Gana Elina Svitolina,0.793,1.24,-0.0205,capa2,,1,2026-08-06T04:23:34Z
 2026-08-02,Fútbol,Primera División,Inca Aruba vs CD FAS,Goles,Menos de 2.5,0.627,,,capa2,,0,2026-08-03T04:04:39Z
 2026-08-02,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,0,2026-08-03T18:11:05Z
-2026-08-02,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,,
+2026-08-02,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,0,2026-08-06T05:07:06Z
 2026-08-02,Tenis,WTA,Magdalena Frech vs Leolia Jeanjean,Ganador,Gana Magdalena Frech,0.629,1.6667,0.0479,capa1,,1,2026-08-06T04:23:34Z
 2026-08-02,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.825,1.15,-0.05,capa2,,1,2026-08-03T18:46:44Z
-2026-08-03,Tenis,WTA,Alana Smith vs Yue Yuan,Ganador,Gana Yue Yuan,0.813,1.15,-0.0651,capa2,,,
+2026-08-03,Tenis,WTA,Alana Smith vs Yue Yuan,Ganador,Gana Yue Yuan,0.813,1.15,-0.0651,capa2,,1,2026-08-06T05:07:06Z
 2026-08-03,Tenis,ATP,Alex Michelsen vs Jan-Lennard Struff,Ganador,Gana Alex Michelsen,0.755,1.32,-0.0051,capa2,modelo,1,2026-08-06T04:23:34Z
 2026-08-03,Tenis,ATP,Alex Molcan vs Chun Hsin Tseng,Ganador,Gana Alex Molcan,0.773,1.29,-0.0035,capa2,modelo,,
 2026-08-03,Tenis,WTA,Aliona Falei vs Urszula Radwanska,Ganador,Gana Aliona Falei,0.794,1.06,-0.1577,capa2,,1,2026-08-03T18:08:14Z
@@ -229,7 +229,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-03,Tenis,WTA,Elina Svitolina vs Jessica Bouzas Maneiro,Ganador,Gana Elina Svitolina,0.793,1.24,-0.0205,capa2,,1,2026-08-06T04:23:34Z
 2026-08-03,Fútbol,Primera Nacional,Güemes vs Tristán Suárez,1X2,Empate,0.4,2.5715,0.0279,capa1,line_shopping,,
 2026-08-03,Tenis,WTA,Jessica Pegula vs Alexandra Eala,Ganador,Gana Jessica Pegula,0.778,1.2,-0.0669,capa2,,0,2026-08-03T18:08:14Z
-2026-08-03,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,,
+2026-08-03,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.782,1.22,-0.0446,capa2,,0,2026-08-06T05:07:06Z
 2026-08-03,Tenis,WTA,Magdalena Frech vs Leolia Jeanjean,Ganador,Gana Magdalena Frech,0.629,1.6667,0.0479,capa1,,1,2026-08-06T04:23:34Z
 2026-08-03,Tenis,WTA,Marta Kostyuk vs Katherine Sebov,Ganador,Gana Marta Kostyuk,0.927,1.03,-0.0469,capa2,modelo,1,2026-08-06T04:23:34Z
 2026-08-03,Tenis,WTA,McCartney Kessler vs Cadence Brace,Ganador,Gana McCartney Kessler,0.824,1.15,-0.0539,capa2,,1,2026-08-03T18:46:44Z
@@ -237,30 +237,30 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-03,MLB,MLB,St. Louis Cardinals @ New York Yankees,Moneyline,Gana New York Yankees,0.628,1.52,-0.0457,capa2,,0,2026-08-06T04:23:35Z
 2026-08-04,Tenis,ATP,Alejandro Moro Canas vs Robin Bertrand,Ganador,Gana Alejandro Moro Canas,0.779,1.3,0.0142,capa2,modelo,,
 2026-08-04,Tenis,ATP,Alex Molcan vs Chun Hsin Tseng,Ganador,Gana Alex Molcan,0.786,1.27,-0.005,capa2,modelo,,
-2026-08-04,Tenis,ATP,Alex Rybakov vs Matthew Summers,Ganador,Gana Alex Rybakov,0.802,1.2,-0.0395,capa2,modelo,,
+2026-08-04,Tenis,ATP,Alex Rybakov vs Matthew Summers,Ganador,Gana Alex Rybakov,0.802,1.2,-0.0395,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Alexander Klichnikov vs Arnav Vijay Paparkar,Ganador,Gana Arnav Vijay Paparkar,0.752,1.09,-0.18,capa2,modelo,,
 2026-08-04,Tenis,WTA,Alycia Parks vs Alexandra Eala,Ganador,Gana Alexandra Eala,0.819,1.17,-0.044,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,WTA,Amelie Justine Hejtmanek vs Milana Maslenkova,Ganador,Gana Amelie Justine Hejtmanek,0.821,1.08,-0.1172,capa2,modelo,,
+2026-08-04,Tenis,WTA,Amelie Justine Hejtmanek vs Milana Maslenkova,Ganador,Gana Amelie Justine Hejtmanek,0.821,1.08,-0.1172,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,ATP,Amit Vales vs Daniil Glinka,Ganador,Gana Daniil Glinka,0.752,1.33,0.0005,capa2,modelo,,
-2026-08-04,Tenis,WTA,Anastasia Bertacchi vs Ustiniya Lekomtseva,Ganador,Gana Anastasia Bertacchi,0.787,1.15,-0.0983,capa2,modelo,,
-2026-08-04,Tenis,ATP,Andrea Colombo vs Yago Castellanos,Ganador,Gana Andrea Colombo,0.802,1.07,-0.1439,capa2,modelo,,
+2026-08-04,Tenis,WTA,Anastasia Bertacchi vs Ustiniya Lekomtseva,Ganador,Gana Anastasia Bertacchi,0.787,1.15,-0.0983,capa2,modelo,0,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Andrea Colombo vs Yago Castellanos,Ganador,Gana Andrea Colombo,0.802,1.07,-0.1439,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,WTA,Ann Li vs Kayla Cross,Ganador,Gana Ann Li,0.754,1.29,-0.0309,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Antonia Ruzic vs Madison Keys,Ganador,Gana Madison Keys,0.773,1.24,-0.0457,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,ATP,Anuj Watane vs Billy Blaydes,Ganador,Gana Billy Blaydes,0.784,1.06,-0.1721,capa2,modelo,,
-2026-08-04,Tenis,ATP,Aryan Shah vs Louis Larue,Ganador,Gana Aryan Shah,0.762,1.23,-0.0632,capa2,modelo,,
-2026-08-04,Tenis,WTA,Astra Sharma vs Carmen Andreea Herea,Ganador,Gana Carmen Andreea Herea,0.417,2.5,0.0435,capa1,line_shopping,,
-2026-08-04,Tenis,WTA,Aurora Zantedeschi vs Sapfo Sakellaridi,Ganador,Gana Aurora Zantedeschi,0.808,1.19,-0.0343,capa2,modelo,,
+2026-08-04,Tenis,ATP,Anuj Watane vs Billy Blaydes,Ganador,Gana Billy Blaydes,0.784,1.06,-0.1721,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Aryan Shah vs Louis Larue,Ganador,Gana Aryan Shah,0.762,1.23,-0.0632,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,WTA,Astra Sharma vs Carmen Andreea Herea,Ganador,Gana Carmen Andreea Herea,0.417,2.5,0.0435,capa1,line_shopping,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,WTA,Aurora Zantedeschi vs Sapfo Sakellaridi,Ganador,Gana Aurora Zantedeschi,0.808,1.19,-0.0343,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,ATP,Axel Nefve vs Cruz Hewitt,Ganador,Gana Cruz Hewitt,0.771,1.19,-0.0812,capa2,modelo,,
 2026-08-04,Tenis,ATP,Aziz Dougaz vs Mirza Basic,Ganador,Gana Aziz Dougaz,0.78,1.18,-0.0776,capa2,modelo,,
 2026-08-04,Tenis,ATP,Benjamin Gusic Wan vs Tiago Cacao,Ganador,Gana Tiago Cacao,0.843,1.07,-0.0974,capa2,modelo,,
-2026-08-04,Tenis,WTA,Berta Bonardi vs Victoria Bosio,Ganador,Gana Victoria Bosio,0.753,1.06,-0.1994,capa2,modelo,,
+2026-08-04,Tenis,WTA,Berta Bonardi vs Victoria Bosio,Ganador,Gana Victoria Bosio,0.753,1.06,-0.1994,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,ATP,Brandon Nakashima vs Daniel Altmaier,Ganador,Gana Brandon Nakashima,0.771,1.31,0.0072,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,WTA,Cara Korhonen vs Rachel Gailis,Ganador,Gana Rachel Gailis,0.855,1.07,-0.0853,capa2,modelo,,
-2026-08-04,Tenis,ATP,Carlos Giraldi vs Kirill Kivattsev,Ganador,Gana Kirill Kivattsev,0.812,1.17,-0.0529,capa2,modelo,,
-2026-08-04,Tenis,ATP,Charles Broom vs Nicholas Godsick,Ganador,Gana Charles Broom,0.823,1.06,-0.1281,capa2,modelo,,
-2026-08-04,Tenis,WTA,Chengyiyi Yuan vs Xiran Lan,Ganador,Gana Chengyiyi Yuan,0.871,1.05,-0.0831,capa2,modelo,,
-2026-08-04,Tenis,ATP,Clement Chidekh vs Naoki Nakagawa,Ganador,Gana Clement Chidekh,0.777,1.12,-0.1255,capa2,modelo,,
-2026-08-04,Tenis,ATP,Conor Gannon vs Anton Matusevich,Ganador,Gana Anton Matusevich,0.809,1.19,-0.034,capa2,modelo,,
+2026-08-04,Tenis,WTA,Cara Korhonen vs Rachel Gailis,Ganador,Gana Rachel Gailis,0.855,1.07,-0.0853,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-04,Tenis,ATP,Carlos Giraldi vs Kirill Kivattsev,Ganador,Gana Kirill Kivattsev,0.812,1.17,-0.0529,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Charles Broom vs Nicholas Godsick,Ganador,Gana Charles Broom,0.823,1.06,-0.1281,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,WTA,Chengyiyi Yuan vs Xiran Lan,Ganador,Gana Chengyiyi Yuan,0.871,1.05,-0.0831,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Clement Chidekh vs Naoki Nakagawa,Ganador,Gana Clement Chidekh,0.777,1.12,-0.1255,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-04,Tenis,ATP,Conor Gannon vs Anton Matusevich,Ganador,Gana Anton Matusevich,0.809,1.19,-0.034,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,ATP,Damir Dzumhur vs Geoffrey Blancaneaux,Ganador,Gana Damir Dzumhur,0.76,1.32,0.0069,capa2,modelo,,
 2026-08-04,Tenis,ATP,Damir Dzumhur vs Mathys Erhard,Ganador,Gana Damir Dzumhur,0.83,1.2,-0.0066,capa2,modelo,,
 2026-08-04,Tenis,WTA,Dana Charintceva vs Lya Fernandez,Ganador,Gana Lya Fernandez,0.798,1.22,-0.0232,capa2,modelo,,
@@ -274,24 +274,24 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-04,Tenis,ATP,Duncan Chan vs Thiago Agustin Tirante,Ganador,Gana Thiago Agustin Tirante,0.772,1.33,0.026,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Ekaterina Tupitsyna vs Asylzhan Arystanbekova,Ganador,Gana Ekaterina Tupitsyna,0.787,1.15,-0.0923,capa2,modelo,,
 2026-08-04,Tenis,WTA,Elina Svitolina vs Jessica Bouzas Maneiro,Ganador,Gana Elina Svitolina,0.83,1.16,-0.0337,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,WTA,Elyse Tse vs Daria Khomutsianskaya,Ganador,Gana Daria Khomutsianskaya,0.891,1.08,-0.0385,capa2,modelo,,
-2026-08-04,Tenis,ATP,Emile Hudd vs Alexis Canter,Ganador,Gana Emile Hudd,0.853,1.13,-0.036,capa2,modelo,,
+2026-08-04,Tenis,WTA,Elyse Tse vs Daria Khomutsianskaya,Ganador,Gana Daria Khomutsianskaya,0.891,1.08,-0.0385,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Emile Hudd vs Alexis Canter,Ganador,Gana Emile Hudd,0.853,1.13,-0.036,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,ATP,Enzo Lima vs Vitor Costa Goncalves,Ganador,Gana Enzo Lima,0.775,1.08,-0.1642,capa2,modelo,,
 2026-08-04,Tenis,ATP,Ergi Kirkin vs Ilya Ivashka,Ganador,Gana Ilya Ivashka,0.78,1.16,-0.0929,capa2,modelo,,
 2026-08-04,Tenis,WTA,Erika Sema vs Maria Fernanda Navarro Oliva,Ganador,Gana Erika Sema,0.785,1.19,-0.0645,capa2,modelo,,
-2026-08-04,Tenis,ATP,Evan Zhu vs Joshua Peck,Ganador,Gana Evan Zhu,0.867,1.1,-0.0477,capa2,modelo,,
-2026-08-04,Tenis,ATP,Federico Arnaboldi vs Niccolo Ciavarella,Ganador,Gana Federico Arnaboldi,0.784,1.11,-0.1313,capa2,modelo,,
+2026-08-04,Tenis,ATP,Evan Zhu vs Joshua Peck,Ganador,Gana Evan Zhu,0.867,1.1,-0.0477,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Federico Arnaboldi vs Niccolo Ciavarella,Ganador,Gana Federico Arnaboldi,0.784,1.11,-0.1313,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Filip Pieczonka vs Harold Mayot,Ganador,Gana Harold Mayot,0.856,1.12,-0.0435,capa2,modelo,,
-2026-08-04,Tenis,WTA,Francisca Jorge vs Zongyu Li,Ganador,Gana Francisca Jorge,0.652,1.5834,0.0319,capa1,line_shopping,,
+2026-08-04,Tenis,WTA,Francisca Jorge vs Zongyu Li,Ganador,Gana Francisca Jorge,0.652,1.5834,0.0319,capa1,line_shopping,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,WTA,Giorgia Pedone vs Francesca Mattioli,Ganador,Gana Giorgia Pedone,0.81,1.14,-0.0754,capa2,modelo,,
-2026-08-04,Tenis,ATP,Giorgio Tabacco vs Edoardo Betti,Ganador,Gana Giorgio Tabacco,0.803,1.12,-0.0997,capa2,modelo,,
-2026-08-04,Tenis,ATP,Giulio Perego vs George Loffhagen,Ganador,Gana George Loffhagen,0.862,1.09,-0.0594,capa2,modelo,,
+2026-08-04,Tenis,ATP,Giorgio Tabacco vs Edoardo Betti,Ganador,Gana Giorgio Tabacco,0.803,1.12,-0.0997,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Giulio Perego vs George Loffhagen,Ganador,Gana George Loffhagen,0.862,1.09,-0.0594,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,ATP,Goncalo Marques vs Alejo Sanchez Quilez,Ganador,Gana Alejo Sanchez Quilez,0.835,1.15,-0.0435,capa2,modelo,,
-2026-08-04,Tenis,ATP,Goncalo Marques vs Sai Karteek Reddy Ganta,Ganador,Gana Goncalo Marques,0.868,1.05,-0.086,capa2,modelo,,
-2026-08-04,Tenis,WTA,Greet Minnen vs Sahaja Yamalapalli,Ganador,Gana Greet Minnen,0.851,1.09,-0.0739,capa2,modelo,,
+2026-08-04,Tenis,ATP,Goncalo Marques vs Sai Karteek Reddy Ganta,Ganador,Gana Goncalo Marques,0.868,1.05,-0.086,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,WTA,Greet Minnen vs Sahaja Yamalapalli,Ganador,Gana Greet Minnen,0.851,1.09,-0.0739,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,WTA,Irene Burillo Escorihuela vs Tina Manescu,Ganador,Gana Irene Burillo Escorihuela,0.883,1.06,-0.067,capa2,modelo,,
 2026-08-04,Tenis,WTA,Iva Jovic vs Magda Linette,Ganador,Gana Iva Jovic,0.763,1.24,-0.0579,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,ATP,Ivan Dreycopp vs Maximo Zeitune,Ganador,Gana Maximo Zeitune,0.789,1.21,-0.0469,capa2,modelo,,
+2026-08-04,Tenis,ATP,Ivan Dreycopp vs Maximo Zeitune,Ganador,Gana Maximo Zeitune,0.789,1.21,-0.0469,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Jacob Fearnley vs Jakub Mensik,Ganador,Gana Jakub Mensik,0.768,1.33,0.0246,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,ATP,James Duckworth vs Alex De Minaur,Ganador,Gana Alex De Minaur,0.884,1.09,-0.0369,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,ATP,James Duckworth vs Alex de Minaur,Ganador,Gana Alex de Minaur,0.85,1.11,-0.055,capa2,modelo,1,2026-08-06T04:23:35Z
@@ -300,28 +300,28 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-04,Tenis,ATP,Jiri Lehecka vs Vit Kopriva,Ganador,Gana Jiri Lehecka,0.817,1.15,-0.0573,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,ATP,Joel Josef Schwaerzler vs Jiri Cizek,Ganador,Gana Joel Josef Schwaerzler,0.874,1.09,-0.0482,capa2,modelo,,
 2026-08-04,Tenis,ATP,Joel Josef Schwarzler vs Jiri Cizek,Ganador,Gana Joel Josef Schwarzler,0.863,1.1,-0.0504,capa2,modelo,,
-2026-08-04,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.757,1.28,-0.0283,capa2,modelo,,
-2026-08-04,Tenis,ATP,Kasidit Samrej vs Egor Pleshivtsev,Ganador,Gana Kasidit Samrej,0.774,1.25,-0.0286,capa2,modelo,,
+2026-08-04,Tenis,ATP,Juncheng Shang vs Andrey Rublev,Ganador,Gana Andrey Rublev,0.757,1.28,-0.0283,capa2,modelo,0,2026-08-06T05:07:06Z
+2026-08-04,Tenis,ATP,Kasidit Samrej vs Egor Pleshivtsev,Ganador,Gana Kasidit Samrej,0.774,1.25,-0.0286,capa2,modelo,0,2026-08-06T05:07:06Z
 2026-08-04,Tenis,WTA,Kayla Day vs Coco Gauff,Ganador,Gana Coco Gauff,0.87,1.1,-0.043,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Kira Pavlova vs Eva Alvarez Sande,Ganador,Gana Kira Pavlova,0.823,1.18,-0.0262,capa2,modelo,,
 2026-08-04,Tenis,WTA,Laura Hietaranta vs Klara Blazkova,Ganador,Gana Laura Hietaranta,0.78,1.07,-0.168,capa2,modelo,,
 2026-08-04,Tenis,ATP,Learner Tien vs Gael Monfils,Ganador,Gana Learner Tien,0.758,1.34,0.0188,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,ATP,Liam Delicata vs Bor Artnak,Ganador,Gana Bor Artnak,0.877,1.08,-0.0516,capa2,modelo,,
-2026-08-04,Tenis,WTA,Lina Glushko vs Vaidehee Chaudhari,Ganador,Gana Lina Glushko,0.563,1.8182,0.0235,capa1,line_shopping,,
+2026-08-04,Tenis,ATP,Liam Delicata vs Bor Artnak,Ganador,Gana Bor Artnak,0.877,1.08,-0.0516,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-04,Tenis,WTA,Lina Glushko vs Vaidehee Chaudhari,Ganador,Gana Lina Glushko,0.563,1.8182,0.0235,capa1,line_shopping,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,WTA,Linda Klimovicova vs Elizara Yaneva,Ganador,Gana Elizara Yaneva,0.505,2.05,0.0345,capa1,line_shopping,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,ATP,Linus Lagerbohm vs Mikolaj Migdalski,Ganador,Gana Linus Lagerbohm,0.788,1.08,-0.1462,capa2,modelo,,
+2026-08-04,Tenis,ATP,Linus Lagerbohm vs Mikolaj Migdalski,Ganador,Gana Linus Lagerbohm,0.788,1.08,-0.1462,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,WTA,Lorena Schaedel vs Justina Gonzalez Daniele,Ganador,Gana Justina Gonzalez Daniele,0.814,1.15,-0.0621,capa2,modelo,,
 2026-08-04,Tenis,ATP,Lorenzo Joaquin Rodriguez vs Felipe Meligeni Rodrigues Alves,Ganador,Gana Felipe Meligeni Rodrigues Alves,0.791,1.21,-0.0423,capa2,modelo,,
 2026-08-04,Tenis,ATP,Mac Visser vs Louis Mouffe,Ganador,Gana Mac Visser,0.781,1.22,-0.0479,capa2,modelo,,
 2026-08-04,Tenis,WTA,Marcelina Podlinska vs Vendula Valdmannova,Ganador,Gana Vendula Valdmannova,0.769,1.17,-0.0976,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Maria Camila Torres Murcia vs Petja Drame,Ganador,Gana Maria Camila Torres Murcia,0.42,2.5,0.0512,capa1,line_shopping,,
-2026-08-04,Tenis,WTA,Maria Herazo vs Elena Korokozidi,Ganador,Gana Elena Korokozidi,0.816,1.15,-0.0587,capa2,modelo,,
-2026-08-04,Tenis,WTA,Martha Matoula vs Yasmine Mansouri,Ganador,Gana Martha Matoula,0.81,1.16,-0.0586,capa2,modelo,,
-2026-08-04,Tenis,WTA,Martina Trevisan vs Elena Ruxandra Bertea,Ganador,Gana Martina Trevisan,0.79,1.26,-0.0071,capa2,modelo,,
+2026-08-04,Tenis,WTA,Maria Herazo vs Elena Korokozidi,Ganador,Gana Elena Korokozidi,0.816,1.15,-0.0587,capa2,modelo,0,2026-08-06T05:07:47Z
+2026-08-04,Tenis,WTA,Martha Matoula vs Yasmine Mansouri,Ganador,Gana Martha Matoula,0.81,1.16,-0.0586,capa2,modelo,1,2026-08-06T05:07:06Z
+2026-08-04,Tenis,WTA,Martina Trevisan vs Elena Ruxandra Bertea,Ganador,Gana Martina Trevisan,0.79,1.26,-0.0071,capa2,modelo,0,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Matas Vasiliauskas vs Ferdinand Livet Novkirichka,Ganador,Gana Ferdinand Livet Novkirichka,0.8,1.16,-0.0721,capa2,modelo,,
-2026-08-04,Tenis,ATP,Maxwell Exsted vs Quinn Vandecasteele,Ganador,Gana Quinn Vandecasteele,0.758,1.25,-0.0514,capa2,modelo,,
+2026-08-04,Tenis,ATP,Maxwell Exsted vs Quinn Vandecasteele,Ganador,Gana Quinn Vandecasteele,0.758,1.25,-0.0514,capa2,modelo,0,2026-08-06T05:07:06Z
 2026-08-04,Tenis,WTA,Mia Horvit vs Felitsata Dorofeeva-Rybas,Ganador,Gana Felitsata Dorofeeva-Rybas,0.804,1.17,-0.0558,capa2,modelo,,
-2026-08-04,Tenis,ATP,Michele Mecarelli vs Daniele Minighini,Ganador,Gana Michele Mecarelli,0.802,1.17,-0.0585,capa2,modelo,,
+2026-08-04,Tenis,ATP,Michele Mecarelli vs Daniele Minighini,Ganador,Gana Michele Mecarelli,0.802,1.17,-0.0585,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Millen Hurrion vs Jack Pinnington Jones,Ganador,Gana Jack Pinnington Jones,0.795,1.2,-0.0441,capa2,modelo,,
 2026-08-04,MLB,MLB,Minnesota Twins @ Kansas City Royals,Moneyline,Gana Minnesota Twins,0.579,1.9434,0.1261,capa1,line_shopping,0,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Mirjana Jovanovic vs Denislava Glushkova,Ganador,Gana Denislava Glushkova,0.826,1.07,-0.1136,capa2,modelo,,
@@ -333,99 +333,99 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-04,Tenis,WTA,Rebecca Sramkova vs Diana Shnaider,Ganador,Gana Diana Shnaider,0.779,1.22,-0.0474,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Sandugash Kenzhibayeva vs Liel Marlies Rothensteiner,Ganador,Gana Sandugash Kenzhibayeva,0.568,1.8182,0.0323,capa1,line_shopping,,
 2026-08-04,Tenis,WTA,Sara Bejlek vs Iga Swiatek,Ganador,Gana Iga Swiatek,0.825,1.12,-0.0784,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,WTA,Sayaka Ishii vs Amelia Rajecki,Ganador,Gana Sayaka Ishii,0.583,1.8182,0.0593,capa1,line_shopping,,
-2026-08-04,Tenis,WTA,Sera Nishimoto vs Meiqi Guo,Ganador,Gana Meiqi Guo,0.791,1.2,-0.0534,capa2,modelo,,
+2026-08-04,Tenis,WTA,Sayaka Ishii vs Amelia Rajecki,Ganador,Gana Sayaka Ishii,0.583,1.8182,0.0593,capa1,line_shopping,0,2026-08-06T05:07:47Z
+2026-08-04,Tenis,WTA,Sera Nishimoto vs Meiqi Guo,Ganador,Gana Meiqi Guo,0.791,1.2,-0.0534,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Sergio Callejon Hernando vs Jaume Casas Blasi,Ganador,Gana Sergio Callejon Hernando,0.889,1.07,-0.0497,capa2,modelo,,
 2026-08-04,Tenis,ATP,Sergio Callejon Hernando vs Luka Talan Lopatic,Ganador,Gana Sergio Callejon Hernando,0.8,1.19,-0.048,capa2,modelo,,
 2026-08-04,Tenis,WTA,Sloane Stephens vs Belinda Bencic,Ganador,Gana Belinda Bencic,0.846,1.14,-0.0331,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Sofia Camila Rojas vs Britt Du Pree,Ganador,Gana Britt Du Pree,0.756,1.24,-0.0632,capa2,modelo,,
-2026-08-04,Tenis,WTA,Sonal Patil vs Kisa Yoshioka,Ganador,Gana Kisa Yoshioka,0.836,1.08,-0.0944,capa2,modelo,,
+2026-08-04,Tenis,WTA,Sonal Patil vs Kisa Yoshioka,Ganador,Gana Kisa Yoshioka,0.836,1.08,-0.0944,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,MLB,MLB,St. Louis Cardinals @ New York Yankees,Moneyline,Gana New York Yankees,0.609,1.56,-0.0473,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,ATP,Thiago Agustin Tirante vs Taylor Fritz,Ganador,Gana Taylor Fritz,0.783,1.14,-0.1055,capa2,modelo,0,2026-08-06T04:23:35Z
-2026-08-04,Tenis,ATP,Timeo Trufelli vs Massimo Giunta,Ganador,Gana Massimo Giunta,0.889,1.07,-0.0487,capa2,modelo,,
+2026-08-04,Tenis,ATP,Timeo Trufelli vs Massimo Giunta,Ganador,Gana Massimo Giunta,0.889,1.07,-0.0487,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Titouan Droguet vs Felix Auger-Aliassime,Ganador,Gana Felix Auger-Aliassime,0.802,1.23,-0.0105,capa2,modelo,,
 2026-08-04,MLB,MLB,Toronto Blue Jays @ Houston Astros,Moneyline,Gana Toronto Blue Jays,0.433,2.4,0.0403,capa1,line_shopping,0,2026-08-06T04:23:35Z
 2026-08-04,Tenis,ATP,Valentin Royer vs Tommy Paul,Ganador,Gana Tommy Paul,0.811,1.22,-0.0092,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,ATP,Vardan Manukyan vs Dusan Obradovic,Ganador,Gana Dusan Obradovic,0.838,1.06,-0.1116,capa2,modelo,,
+2026-08-04,Tenis,ATP,Vardan Manukyan vs Dusan Obradovic,Ganador,Gana Dusan Obradovic,0.838,1.06,-0.1116,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,WTA,Vendula Valdmannova vs Zuzanna Pawlikowska,Ganador,Gana Vendula Valdmannova,0.778,1.13,-0.1202,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-04,Tenis,WTA,Victoria Milovanova vs Alexandra Malova,Ganador,Gana Victoria Milovanova,0.826,1.16,-0.043,capa2,modelo,,
 2026-08-04,Tenis,ATP,Viktor Durasovic vs Andrea Guerrieri,Ganador,Gana Andrea Guerrieri,0.775,1.33,0.0294,capa2,modelo,,
 2026-08-04,Tenis,WTA,Viktorija Golubic vs Iga Swiatek,Ganador,Gana Iga Swiatek,0.846,1.07,-0.0932,capa2,modelo,,
-2026-08-04,Tenis,ATP,Vincent Dullinger vs Ammar Elamin,Ganador,Gana Vincent Dullinger,0.767,1.14,-0.1235,capa2,modelo,,
+2026-08-04,Tenis,ATP,Vincent Dullinger vs Ammar Elamin,Ganador,Gana Vincent Dullinger,0.767,1.14,-0.1235,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-04,Tenis,ATP,Vito Antonio Darderi vs Stefano D'agostino,Ganador,Gana Stefano D'agostino,0.826,1.13,-0.0706,capa2,modelo,,
 2026-08-04,Tenis,ATP,Vladimir Osminkin vs Vlado Jankanj,Ganador,Gana Vlado Jankanj,0.811,1.05,-0.1445,capa2,modelo,,
 2026-08-04,MLB,MLB,Washington Nationals @ Philadelphia Phillies,Moneyline,Gana Philadelphia Phillies,0.668,1.4,-0.0645,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-04,Tenis,WTA,Xi Luo vs Meng-Yi Chen,Ganador,Gana Xi Luo,0.763,1.21,-0.078,capa2,modelo,,
+2026-08-04,Tenis,WTA,Xi Luo vs Meng-Yi Chen,Ganador,Gana Xi Luo,0.763,1.21,-0.078,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Yannick Theodor Alexandrescou vs Petr Brunclik,Ganador,Gana Petr Brunclik,0.752,1.31,-0.0126,capa2,modelo,,
 2026-08-04,Tenis,WTA,Yashaswini Panwar vs Irem Kurt,Ganador,Gana Irem Kurt,0.816,1.15,-0.0576,capa2,modelo,,
-2026-08-04,Tenis,WTA,Yuhan Wang vs Florentine Dekkers,Ganador,Gana Yuhan Wang,0.855,1.12,-0.0391,capa2,modelo,,
+2026-08-04,Tenis,WTA,Yuhan Wang vs Florentine Dekkers,Ganador,Gana Yuhan Wang,0.855,1.12,-0.0391,capa2,modelo,1,2026-08-06T05:07:06Z
 2026-08-04,Tenis,ATP,Zachary Svajda vs Arthur Fils,Ganador,Gana Arthur Fils,0.782,1.29,0.0059,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,ATP,Aaron Funk vs Sebastian Heinrich,Ganador,Gana Aaron Funk,0.776,1.15,-0.1084,capa2,modelo,,
+2026-08-05,Tenis,ATP,Aaron Funk vs Sebastian Heinrich,Ganador,Gana Aaron Funk,0.776,1.15,-0.1084,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-05,Tenis,ATP,Aaron Gil Garcia vs John Hallquist Lithen,Ganador,Gana John Hallquist Lithen,0.762,1.21,-0.08,capa2,modelo,,
 2026-08-05,Tenis,ATP,Alejandro Moro Canas vs Alexander Donski,Ganador,Gana Alejandro Moro Canas,0.759,1.25,-0.0474,capa2,modelo,,
 2026-08-05,Tenis,ATP,Alexander Klichnikov vs Arnav Vijay Paparkar,Ganador,Gana Arnav Vijay Paparkar,0.756,1.1,-0.1687,capa2,modelo,,
 2026-08-05,Tenis,ATP,Alexander Zverev vs Tallon Griekspoor,Ganador,Gana Alexander Zverev,0.796,1.1,-0.124,capa2,modelo,0,2026-08-06T04:23:35Z
 2026-08-05,Tenis,WTA,Allegra Korpanec Davies vs Stephanie Judith Visscher,Ganador,Gana Stephanie Judith Visscher,0.782,1.19,-0.0676,capa2,modelo,,
 2026-08-05,Tenis,WTA,Alycia Parks vs Alexandra Eala,Ganador,Gana Alexandra Eala,0.753,1.17,-0.122,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,WTA,Alyssa Ahn vs Anita Sahdiieva,Ganador,Gana Alyssa Ahn,0.627,1.6364,0.0256,capa1,line_shopping,,
-2026-08-05,Tenis,WTA,Amelie Justine Hejtmanek vs Milana Maslenkova,Ganador,Gana Amelie Justine Hejtmanek,0.82,1.08,-0.1117,capa2,modelo,,
+2026-08-05,Tenis,WTA,Alyssa Ahn vs Anita Sahdiieva,Ganador,Gana Alyssa Ahn,0.627,1.6364,0.0256,capa1,line_shopping,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,WTA,Amelie Justine Hejtmanek vs Milana Maslenkova,Ganador,Gana Amelie Justine Hejtmanek,0.82,1.08,-0.1117,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-05,Tenis,WTA,Ana Victoria Gobbi Monllau vs Marina Bulbarella,Ganador,Gana Ana Victoria Gobbi Monllau,0.761,1.15,-0.1249,capa2,modelo,,
-2026-08-05,Tenis,ATP,Andrea Colombo vs Yago Castellanos,Ganador,Gana Andrea Colombo,0.806,1.08,-0.1322,capa2,modelo,,
-2026-08-05,Tenis,WTA,Angelina Voloshchuk vs Katherine Hui,Ganador,Gana Angelina Voloshchuk,0.85,1.11,-0.0592,capa2,modelo,,
+2026-08-05,Tenis,ATP,Andrea Colombo vs Yago Castellanos,Ganador,Gana Andrea Colombo,0.806,1.08,-0.1322,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,WTA,Angelina Voloshchuk vs Katherine Hui,Ganador,Gana Angelina Voloshchuk,0.85,1.11,-0.0592,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-05,Tenis,WTA,Ann Li vs Kayla Cross,Ganador,Gana Ann Li,0.762,1.31,-0.004,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-05,Tenis,WTA,Anna Sedysheva vs Mahin Qureshi,Ganador,Gana Anna Sedysheva,0.855,1.05,-0.0982,capa2,modelo,,
-2026-08-05,Tenis,WTA,Aurora Zantedeschi vs Sapfo Sakellaridi,Ganador,Gana Aurora Zantedeschi,0.814,1.18,-0.0362,capa2,modelo,,
+2026-08-05,Tenis,WTA,Aurora Zantedeschi vs Sapfo Sakellaridi,Ganador,Gana Aurora Zantedeschi,0.814,1.18,-0.0362,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-05,Tenis,ATP,Axel Nefve vs Cruz Hewitt,Ganador,Gana Cruz Hewitt,0.77,1.19,-0.0829,capa2,modelo,,
 2026-08-05,Tenis,WTA,Aya El Aouni vs Darya Velikova,Ganador,Gana Aya El Aouni,0.879,1.06,-0.0684,capa2,modelo,,
 2026-08-05,Tenis,ATP,Benjamin Gusic Wan vs Tiago Cacao,Ganador,Gana Tiago Cacao,0.818,1.11,-0.0886,capa2,modelo,,
-2026-08-05,Tenis,WTA,Berta Bonardi vs Victoria Bosio,Ganador,Gana Victoria Bosio,0.765,1.05,-0.1957,capa2,modelo,,
-2026-08-05,Tenis,WTA,Caijsa Hennemann vs Sophie Greiner,Ganador,Gana Caijsa Hennemann,0.882,1.07,-0.0554,capa2,modelo,,
-2026-08-05,Tenis,WTA,Cara Korhonen vs Rachel Gailis,Ganador,Gana Rachel Gailis,0.829,1.08,-0.1063,capa2,modelo,,
-2026-08-05,Tenis,ATP,Carl Emil Overbeck vs Gabriele Maria Noce,Ganador,Gana Carl Emil Overbeck,0.859,1.1,-0.0565,capa2,modelo,,
-2026-08-05,Tenis,ATP,Clement Chidekh vs Naoki Nakagawa,Ganador,Gana Clement Chidekh,0.777,1.12,-0.1256,capa2,modelo,,
-2026-08-05,Tenis,ATP,Conor Gannon vs Anton Matusevich,Ganador,Gana Anton Matusevich,0.807,1.2,-0.0315,capa2,modelo,,
+2026-08-05,Tenis,WTA,Berta Bonardi vs Victoria Bosio,Ganador,Gana Victoria Bosio,0.765,1.05,-0.1957,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,WTA,Caijsa Hennemann vs Sophie Greiner,Ganador,Gana Caijsa Hennemann,0.882,1.07,-0.0554,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,WTA,Cara Korhonen vs Rachel Gailis,Ganador,Gana Rachel Gailis,0.829,1.08,-0.1063,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,ATP,Carl Emil Overbeck vs Gabriele Maria Noce,Ganador,Gana Carl Emil Overbeck,0.859,1.1,-0.0565,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,ATP,Clement Chidekh vs Naoki Nakagawa,Ganador,Gana Clement Chidekh,0.777,1.12,-0.1256,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,ATP,Conor Gannon vs Anton Matusevich,Ganador,Gana Anton Matusevich,0.807,1.2,-0.0315,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-05,Tenis,ATP,Damir Dzumhur vs Mathys Erhard,Ganador,Gana Damir Dzumhur,0.83,1.2,-0.0076,capa2,modelo,,
 2026-08-05,Tenis,WTA,Dana Charintceva vs Lya Fernandez,Ganador,Gana Lya Fernandez,0.784,1.29,0.0087,capa2,modelo,,
 2026-08-05,Tenis,WTA,Dana Charintceva vs Lya Isabel Fernandez Olivares,Ganador,Gana Lya Isabel Fernandez Olivares,0.78,1.26,-0.0202,capa2,modelo,,
-2026-08-05,Tenis,ATP,Daniel Verbeek vs Abel Forger,Ganador,Gana Abel Forger,0.813,1.19,-0.0351,capa2,modelo,,
+2026-08-05,Tenis,ATP,Daniel Verbeek vs Abel Forger,Ganador,Gana Abel Forger,0.813,1.19,-0.0351,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-05,Tenis,WTA,Daria Kasatkina vs Elena Rybakina,Ganador,Gana Elena Rybakina,0.755,1.13,-0.1462,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,WTA,Dasha Ivanova vs Aspen Schuman,Ganador,Gana Dasha Ivanova,0.479,2.2223,0.0637,capa1,line_shopping,,
-2026-08-05,Tenis,ATP,Denis Klok vs Caheer Warik,Ganador,Gana Denis Klok,0.86,1.07,-0.082,capa2,modelo,,
+2026-08-05,Tenis,WTA,Dasha Ivanova vs Aspen Schuman,Ganador,Gana Dasha Ivanova,0.479,2.2223,0.0637,capa1,line_shopping,0,2026-08-06T05:07:47Z
+2026-08-05,Tenis,ATP,Denis Klok vs Caheer Warik,Ganador,Gana Denis Klok,0.86,1.07,-0.082,capa2,modelo,0,2026-08-06T05:07:47Z
 2026-08-05,Tenis,WTA,Diletta Cherubini vs Tilwith Di Girolami,Ganador,Gana Tilwith Di Girolami,0.572,1.8334,0.0489,capa1,line_shopping,,
-2026-08-05,Tenis,WTA,Ekaterina Ovcharenko vs Stephanie Yakoff,Ganador,Gana Ekaterina Ovcharenko,0.815,1.15,-0.0667,capa2,modelo,,
+2026-08-05,Tenis,WTA,Ekaterina Ovcharenko vs Stephanie Yakoff,Ganador,Gana Ekaterina Ovcharenko,0.815,1.15,-0.0667,capa2,modelo,1,2026-08-06T05:07:47Z
 2026-08-05,Tenis,WTA,Ekaterina Tupitsyna vs Asylzhan Arystanbekova,Ganador,Gana Ekaterina Tupitsyna,0.788,1.17,-0.0766,capa2,modelo,,
-2026-08-05,Tenis,ATP,Emile Hudd vs Alexis Canter,Ganador,Gana Emile Hudd,0.856,1.14,-0.0236,capa2,modelo,,
-2026-08-05,Tenis,ATP,Federico Arnaboldi vs Leonardo Primucci,Ganador,Gana Federico Arnaboldi,0.847,1.06,-0.1064,capa2,modelo,,
+2026-08-05,Tenis,ATP,Emile Hudd vs Alexis Canter,Ganador,Gana Emile Hudd,0.856,1.14,-0.0236,capa2,modelo,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,ATP,Federico Arnaboldi vs Leonardo Primucci,Ganador,Gana Federico Arnaboldi,0.847,1.06,-0.1064,capa2,modelo,0,2026-08-06T05:07:47Z
 2026-08-05,Tenis,ATP,Felipe Meligeni Rodrigues Alves vs Enzo Kohlmann,Ganador,Gana Felipe Meligeni Rodrigues Alves,0.805,1.12,-0.1001,capa2,modelo,,
 2026-08-05,Tenis,ATP,Felipe Meligeni Rodrigues Alves vs Enzo Kohlmann de Freitas,Ganador,Gana Felipe Meligeni Rodrigues Alves,0.824,1.11,-0.0847,capa2,modelo,,
-2026-08-05,Tenis,WTA,Francisca Jorge vs Zongyu Li,Ganador,Gana Francisca Jorge,0.647,1.6,0.0355,capa1,line_shopping,,
-2026-08-05,Tenis,ATP,Gabriel Ghetu vs Filippo Francesco Garbero,Ganador,Gana Gabriel Ghetu,0.908,1.06,-0.0406,capa2,modelo,,
-2026-08-05,Tenis,ATP,Giorgio Tabacco vs Maximillian Figl,Ganador,Gana Giorgio Tabacco,0.792,1.17,-0.0743,capa2,modelo,,
-2026-08-05,Tenis,ATP,Giulio Perego vs George Loffhagen,Ganador,Gana George Loffhagen,0.859,1.1,-0.0546,capa2,modelo,,
+2026-08-05,Tenis,WTA,Francisca Jorge vs Zongyu Li,Ganador,Gana Francisca Jorge,0.647,1.6,0.0355,capa1,line_shopping,1,2026-08-06T05:07:47Z
+2026-08-05,Tenis,ATP,Gabriel Ghetu vs Filippo Francesco Garbero,Ganador,Gana Gabriel Ghetu,0.908,1.06,-0.0406,capa2,modelo,1,2026-08-06T05:07:48Z
+2026-08-05,Tenis,ATP,Giorgio Tabacco vs Maximillian Figl,Ganador,Gana Giorgio Tabacco,0.792,1.17,-0.0743,capa2,modelo,1,2026-08-06T05:07:48Z
+2026-08-05,Tenis,ATP,Giulio Perego vs George Loffhagen,Ganador,Gana George Loffhagen,0.859,1.1,-0.0546,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,Tenis,ATP,Goncalo Marques vs Alejo Sanchez Quilez,Ganador,Gana Alejo Sanchez Quilez,0.835,1.15,-0.0435,capa2,modelo,,
-2026-08-05,Tenis,WTA,Greet Minnen vs Sahaja Yamalapalli,Ganador,Gana Greet Minnen,0.863,1.09,-0.0634,capa2,modelo,,
+2026-08-05,Tenis,WTA,Greet Minnen vs Sahaja Yamalapalli,Ganador,Gana Greet Minnen,0.863,1.09,-0.0634,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,Tenis,WTA,Irene Burillo Escorihuela vs Tina Manescu,Ganador,Gana Irene Burillo Escorihuela,0.886,1.06,-0.0641,capa2,modelo,,
 2026-08-05,Tenis,WTA,Iva Jovic vs Magda Linette,Ganador,Gana Iva Jovic,0.762,1.27,-0.0282,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-05,Tenis,ATP,Jack Anthrop vs Roberto Ferrer Guimaraes,Ganador,Gana Jack Anthrop,0.801,1.12,-0.1004,capa2,modelo,,
 2026-08-05,Tenis,ATP,Jacob Fearnley vs Jakub Mensik,Ganador,Gana Jakub Mensik,0.757,1.35,0.0228,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,ATP,Jan Sebesta vs Pierre Delage,Ganador,Gana Pierre Delage,0.85,1.1,-0.0611,capa2,modelo,,
+2026-08-05,Tenis,ATP,Jan Sebesta vs Pierre Delage,Ganador,Gana Pierre Delage,0.85,1.1,-0.0611,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,Tenis,ATP,Jan Wygona vs Nico Hipfl,Ganador,Gana Nico Hipfl,0.799,1.09,-0.1331,capa2,modelo,,
 2026-08-05,Tenis,ATP,Jenson Brooksby vs Ben Shelton,Ganador,Gana Ben Shelton,0.77,1.31,0.0072,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-05,Tenis,WTA,Jessica Pegula vs Magdalena Frech,Ganador,Gana Jessica Pegula,0.813,1.12,-0.0856,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,ATP,Juliusz Bienkiewicz vs Wojciech Marek,Ganador,Gana Wojciech Marek,0.754,1.21,-0.0914,capa2,modelo,,
-2026-08-05,Tenis,WTA,Justine Bretnacher vs Klara Veldman,Ganador,Gana Klara Veldman,0.784,1.16,-0.09,capa2,modelo,,
+2026-08-05,Tenis,ATP,Juliusz Bienkiewicz vs Wojciech Marek,Ganador,Gana Wojciech Marek,0.754,1.21,-0.0914,capa2,modelo,1,2026-08-06T05:07:48Z
+2026-08-05,Tenis,WTA,Justine Bretnacher vs Klara Veldman,Ganador,Gana Klara Veldman,0.784,1.16,-0.09,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,KBO,KBO,KT Wiz @ Kia Tigers,Moneyline,Gana KT Wiz,0.514,2.0,0.0278,capa1,line_shopping,,
 2026-08-05,Tenis,WTA,Kayla Day vs Coco Gauff,Ganador,Gana Coco Gauff,0.826,1.1,-0.0909,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-05,KBO,KBO,Kiwoom Heroes @ Lotte Giants,Moneyline,Gana Lotte Giants,0.513,1.95,0.0018,capa2,modelo,,
 2026-08-05,KBO,KBO,LG Twins @ SSG Landers,Moneyline,Gana SSG Landers,0.451,2.26,0.0194,capa2,modelo,,
 2026-08-05,Tenis,WTA,Laura Hietaranta vs Klara Blazkova,Ganador,Gana Laura Hietaranta,0.78,1.07,-0.1676,capa2,modelo,,
 2026-08-05,Tenis,ATP,Learner Tien vs Gael Monfils,Ganador,Gana Learner Tien,0.758,1.35,0.0257,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,ATP,Leo Vithoontien vs Jon Gamble,Ganador,Gana Leo Vithoontien,0.765,1.23,-0.062,capa2,modelo,,
-2026-08-05,Tenis,ATP,Liam Delicata vs Bor Artnak,Ganador,Gana Bor Artnak,0.877,1.09,-0.0435,capa2,modelo,,
+2026-08-05,Tenis,ATP,Leo Vithoontien vs Jon Gamble,Ganador,Gana Leo Vithoontien,0.765,1.23,-0.062,capa2,modelo,1,2026-08-06T05:07:48Z
+2026-08-05,Tenis,ATP,Liam Delicata vs Bor Artnak,Ganador,Gana Bor Artnak,0.877,1.09,-0.0435,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,MLB,MLB,Los Angeles Dodgers @ Chicago Cubs,Moneyline,Gana Los Angeles Dodgers,0.614,1.49,-0.0875,capa2,modelo,0,2026-08-06T04:23:35Z
-2026-08-05,Tenis,WTA,Maria Herazo vs Elena Korokozidi,Ganador,Gana Elena Korokozidi,0.82,1.17,-0.044,capa2,modelo,,
-2026-08-05,Tenis,WTA,Matilde Paoletti vs Mariia Masiianskaia,Ganador,Gana Matilde Paoletti,0.904,1.06,-0.0449,capa2,modelo,,
-2026-08-05,Tenis,ATP,Maxime Chazal vs Tim Hammes,Ganador,Gana Maxime Chazal,0.759,1.13,-0.1388,capa2,modelo,,
+2026-08-05,Tenis,WTA,Maria Herazo vs Elena Korokozidi,Ganador,Gana Elena Korokozidi,0.82,1.17,-0.044,capa2,modelo,0,2026-08-06T05:07:48Z
+2026-08-05,Tenis,WTA,Matilde Paoletti vs Mariia Masiianskaia,Ganador,Gana Matilde Paoletti,0.904,1.06,-0.0449,capa2,modelo,0,2026-08-06T05:07:48Z
+2026-08-05,Tenis,ATP,Maxime Chazal vs Tim Hammes,Ganador,Gana Maxime Chazal,0.759,1.13,-0.1388,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,Tenis,WTA,Mia Horvit vs Felitsata Dorofeeva-Rybas,Ganador,Gana Felitsata Dorofeeva-Rybas,0.804,1.17,-0.0559,capa2,modelo,,
 2026-08-05,Tenis,WTA,Mirjana Jovanovic vs Denislava Glushkova,Ganador,Gana Denislava Glushkova,0.83,1.07,-0.109,capa2,modelo,,
 2026-08-05,Tenis,WTA,Mirra Andreeva vs Karolina Pliskova,Ganador,Gana Mirra Andreeva,0.795,1.28,0.0141,capa2,modelo,1,2026-08-06T04:23:35Z
@@ -435,11 +435,11 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-05,Tenis,ATP,Niklas Waldner vs Martin Van Der Meerschen,Ganador,Gana Martin Van Der Meerschen,0.815,1.17,-0.0479,capa2,modelo,,
 2026-08-05,Tenis,WTA,Nina Sozaonova vs Hee Rae Im,Ganador,Gana Nina Sozaonova,0.488,2.1429,0.0466,capa1,line_shopping,,
 2026-08-05,Tenis,WTA,Panna Udvardy vs Naomi Osaka,Ganador,Gana Naomi Osaka,0.751,1.07,-0.1949,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,ATP,Patrick Maloney vs Tygen Goldammer,Ganador,Gana Patrick Maloney,0.831,1.06,-0.1191,capa2,modelo,,
-2026-08-05,Tenis,ATP,Peter Makk vs Radovan Michalik,Ganador,Gana Peter Makk,0.883,1.09,-0.0359,capa2,modelo,,
-2026-08-05,Tenis,ATP,Pietro Romeo Scomparin vs Massimo Giunta,Ganador,Gana Massimo Giunta,0.824,1.16,-0.046,capa2,modelo,,
+2026-08-05,Tenis,ATP,Patrick Maloney vs Tygen Goldammer,Ganador,Gana Patrick Maloney,0.831,1.06,-0.1191,capa2,modelo,1,2026-08-06T05:07:48Z
+2026-08-05,Tenis,ATP,Peter Makk vs Radovan Michalik,Ganador,Gana Peter Makk,0.883,1.09,-0.0359,capa2,modelo,1,2026-08-06T05:07:48Z
+2026-08-05,Tenis,ATP,Pietro Romeo Scomparin vs Massimo Giunta,Ganador,Gana Massimo Giunta,0.824,1.16,-0.046,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,Tenis,WTA,Rebecca Munk Mortensen vs Helena Stevic,Ganador,Gana Rebecca Munk Mortensen,0.821,1.16,-0.0476,capa2,modelo,,
-2026-08-05,Tenis,WTA,Romina Ccuno vs Sofia Meabe,Ganador,Gana Sofia Meabe,0.483,2.1667,0.0468,capa1,line_shopping,,
+2026-08-05,Tenis,WTA,Romina Ccuno vs Sofia Meabe,Ganador,Gana Sofia Meabe,0.483,2.1667,0.0468,capa1,line_shopping,1,2026-08-06T05:07:48Z
 2026-08-05,MLB,MLB,San Francisco Giants @ Texas Rangers,Moneyline,Gana Texas Rangers,0.619,1.5,-0.0715,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-05,Tenis,ATP,Sebastian Gorzny vs Borna Gojo,Ganador,Gana Borna Gojo,0.76,1.36,0.0321,capa2,modelo,,
 2026-08-05,Tenis,WTA,Selina Atay vs Anna Pushkareva,Ganador,Gana Anna Pushkareva,0.855,1.05,-0.1002,capa2,modelo,,
@@ -448,7 +448,7 @@ fecha,deporte,liga,partido,mercado,apuesta,prob,cuota,ev,capa,canal,resultado,li
 2026-08-05,Tenis,ATP,Thiago Agustin Tirante vs Taylor Fritz,Ganador,Gana Taylor Fritz,0.79,1.14,-0.0973,capa2,modelo,0,2026-08-06T04:23:35Z
 2026-08-05,Tenis,ATP,Titouan Droguet vs Felix Auger-Aliassime,Ganador,Gana Felix Auger-Aliassime,0.806,1.23,-0.0047,capa2,modelo,,
 2026-08-05,Tenis,ATP,Valentin Royer vs Tommy Paul,Ganador,Gana Tommy Paul,0.798,1.22,-0.0249,capa2,modelo,1,2026-08-06T04:23:35Z
-2026-08-05,Tenis,ATP,Vardan Manukyan vs Dusan Obradovic,Ganador,Gana Dusan Obradovic,0.839,1.07,-0.1042,capa2,modelo,,
+2026-08-05,Tenis,ATP,Vardan Manukyan vs Dusan Obradovic,Ganador,Gana Dusan Obradovic,0.839,1.07,-0.1042,capa2,modelo,1,2026-08-06T05:07:48Z
 2026-08-05,Tenis,WTA,Vendula Valdmannova vs Zuzanna Pawlikowska,Ganador,Gana Vendula Valdmannova,0.759,1.16,-0.1225,capa2,modelo,1,2026-08-06T04:23:35Z
 2026-08-05,Tenis,WTA,Victoria Milovanova vs Alexandra Malova,Ganador,Gana Victoria Milovanova,0.832,1.17,-0.0257,capa2,modelo,,
 2026-08-05,Tenis,ATP,Viktor Durasovic vs Andrea Guerrieri,Ganador,Gana Andrea Guerrieri,0.783,1.3,0.0166,capa2,modelo,,

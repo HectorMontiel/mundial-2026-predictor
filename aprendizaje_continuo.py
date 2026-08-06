@@ -271,17 +271,23 @@ def _universo() -> 'pd.DataFrame':
     """
     trozos = []
 
+    # v104 — la COMPETICIÓN viaja con cada fila. El lazo aprendía sólo por
+    # deporte y mercado, y los ledgers traen decenas de miles de predicciones
+    # etiquetadas por liga que se estaban tirando. Con el encogimiento
+    # jerárquico, una liga con pocos casos se queda pegada a su mercado y una
+    # con miles puede separarse: es información gratis que estaba en el disco.
     if os.path.exists('pick_ledger_totales.csv'):
         t = pd.read_csv('pick_ledger_totales.csv')
         for mercado, cp_, cy in (('Goles', 'p_over_1.5', 'over_1.5_real'),
                                  ('Goles', 'p_over_2.5', 'over_2.5_real'),
                                  ('BTTS', 'p_btts', 'btts_real')):
-            s = t.dropna(subset=[cp_, cy])[['fecha', cp_, cy]].copy()
-            s.columns = ['fecha', 'p', 'y']
+            s = t.dropna(subset=[cp_, cy])[['fecha', 'liga', cp_, cy]].copy()
+            s.columns = ['fecha', 'liga', 'p', 'y']
             s['prob'] = np.where(s['p'] >= 0.5, s['p'], 1 - s['p'])
             s['acierto'] = np.where(s['p'] >= 0.5, s['y'], 1 - s['y'])
             s['deporte'], s['mercado'] = 'Fútbol', mercado
-            trozos.append(s[['fecha', 'deporte', 'mercado', 'prob', 'acierto']])
+            trozos.append(s[['fecha', 'deporte', 'mercado', 'liga', 'prob',
+                             'acierto']])
 
     if os.path.exists('pick_ledger_total.csv'):
         d = pd.read_csv('pick_ledger_total.csv').dropna(
@@ -291,6 +297,7 @@ def _universo() -> 'pd.DataFrame':
         s = pd.DataFrame({
             'fecha': d['fecha'].to_numpy(),
             'deporte': d['deporte'].to_numpy(),
+            'liga': d['liga'].astype(str).to_numpy(),
             'prob': p[np.arange(len(p)), lado],
             'acierto': (d['resultado'].to_numpy() == lado).astype(float)})
         s['mercado'] = np.where(s['deporte'] == 'Fútbol', '1X2', 'Ganador')
@@ -300,14 +307,16 @@ def _universo() -> 'pd.DataFrame':
         d = pd.read_csv('picks_historico.csv')
         d = d[d['resultado'].notna()]
         if len(d):
-            s = d[['fecha', 'deporte', 'mercado', 'prob', 'resultado']].copy()
-            s.columns = ['fecha', 'deporte', 'mercado', 'prob', 'acierto']
+            s = d[['fecha', 'deporte', 'mercado', 'liga', 'prob',
+                   'resultado']].copy()
+            s.columns = ['fecha', 'deporte', 'mercado', 'liga', 'prob',
+                         'acierto']
             s['mercado'] = s['mercado'].map(_normalizar_mercado)
             trozos.append(s)
 
     if not trozos:
-        return pd.DataFrame(columns=['fecha', 'deporte', 'mercado', 'prob',
-                                     'acierto'])
+        return pd.DataFrame(columns=['fecha', 'deporte', 'mercado', 'liga',
+                                     'prob', 'acierto'])
     u = pd.concat(trozos, ignore_index=True).dropna(
         subset=['prob', 'acierto', 'fecha'])
     u = u[(u['prob'] > 0) & (u['prob'] < 1)]

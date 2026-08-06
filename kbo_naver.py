@@ -106,6 +106,17 @@ def _fila(g: dict, solo_finalizados: bool) -> Optional[dict]:
     return {
         'date': pd.to_datetime(g.get('gameDate'), errors='coerce'),
         'home_team': hc, 'away_team': ac,
+        # v104 — EL ID DEL PARTIDO, que venía en la respuesta y se tiraba.
+        #
+        # Sin él no se puede pedir el box score, y sin box score no hay datos
+        # de bullpen: cuántos relevistas usó cada equipo, cuánto trabajaron y
+        # con qué efectividad. Ésa es la vía que queda abierta para acercarse
+        # al mercado en la KBO, después de que Statiz quedara descartado por su
+        # robots.txt (prohíbe explícitamente la recolección automatizada).
+        #
+        # Es un campo de texto estable (`20260805LGOB02026`) y cuesta cero:
+        # ya estaba viajando en el mismo JSON.
+        'game_id': (g.get('gameId') or '').strip(),
         # v99.1 — el estadio venía en la respuesta y se tiraba. Es lo que
         # permite calcular el factor de parque: en la KBO el Jamsil de Seúl y
         # el de Daegu no producen las mismas carreras, y el mercado lo

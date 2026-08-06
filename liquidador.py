@@ -160,9 +160,42 @@ def _resultados(claves: List[str], desde: str, hasta: str) -> Dict[Tuple, list]:
                 k = (name_mapper.normalizar(r['home']),
                      name_mapper.normalizar(r['away']))
                 out.setdefault(k, []).append((r['fecha'], r))
+                # v104: además, indexado POR LIGA. El mapeo difuso sobre el
+                # catálogo global cruza competiciones y produce falsos
+                # positivos: «Atlanta Utd» (MLS) casaba con «Atlanta», el club
+                # argentino de Primera Nacional. Medido: 93 de los 103 picks de
+                # fútbol colgados caían en ese modo de fallo.
+                out.setdefault(('__liga__', clave), []).append((r['fecha'], k))
         except Exception as e:
             logger.debug(f'[liquidador] {clave}: {e}')
     return out
+
+
+def _clave_de_liga(nombre_liga: str) -> Optional[str]:
+    """Clave interna a partir del nombre visible que llevan los picks."""
+    if not nombre_liga:
+        return None
+    from config import LEAGUES
+    objetivo = str(nombre_liga).strip().lower()
+    for clave, cfg in LEAGUES.items():
+        if str(cfg.get('nombre', '')).strip().lower() == objetivo:
+            return clave
+        if clave.lower() == objetivo:
+            return clave
+    return None
+
+
+def _catalogo_de_liga(res: dict, clave: Optional[str]) -> Optional[list]:
+    """Nombres normalizados que ESPN publicó en ESA competición."""
+    if not clave:
+        return None
+    pares = res.get(('__liga__', clave))
+    if not pares:
+        return None
+    nombres = set()
+    for _f, k in pares:
+        nombres.update(k)
+    return sorted(nombres)
 
 
 def _resultados_mlb(desde: str, hasta: str) -> Dict[Tuple, dict]:
@@ -233,10 +266,82 @@ def _resultados_tenis(desde: str, hasta: str) -> Dict[Tuple, list]:
         # v94: se guarda el partido ENTERO (ganador + sets + juegos) para
         # poder liquidar también los mercados derivados
         out.setdefault(par, []).append((p['fecha'], {**p, '_ganador': kg}))
+
+    # v104 — LOS RESULTADOS QUE EL PROPIO PROYECTO YA ACUMULA.
+    #
+    # El scoreboard de ESPN sólo cubre el circuito principal, y el feed de
+    # cuotas publica también challengers e ITF. Resultado medido: **206 picks
+    # de tenis sin liquidar**, TODOS con el diagnóstico «la pareja no está» —
+    # Bicknell, Quevedo, Poljicak y compañía no salen en ESPN. Eran el 89 % de
+    # todo lo que quedaba pendiente en la plataforma.
+    #
+    # Pero el proyecto ya los tiene: `acumular_tenis.py` alimenta
+    # `historico_tenis_espn.csv` e `ingesta_itf.py` alimenta
+    # `historico_itf_vivo.csv`. Faltaba mirarlos.
+    _sumar_csv_tenis(out, desde, hasta)
     return out
 
 
-def _par_mapeado(home: str, away: str, res: dict) -> Optional[Tuple]:
+def _sumar_csv_tenis(out: Dict[Tuple, list], desde: str, hasta: str) -> None:
+    """Añade al índice los resultados de los CSV que acumula el proyecto."""
+    import os
+    import pandas as pd
+    for ruta, invertido in (('historico_tenis_espn.csv', False),
+                            ('historico_itf_vivo.csv', True)):
+        if not os.path.exists(ruta):
+            continue
+        try:
+            d = pd.read_csv(ruta)
+        except Exception as e:
+            logger.warning(f'[liquidador/tenis] {ruta}: {type(e).__name__}: {e}')
+            continue
+        if not {'fecha', 'jugador_1', 'jugador_2', 'ganador'}.issubset(d.columns):
+            continue
+        f = pd.to_datetime(d['fecha'], errors='coerce')
+        d = d[(f >= pd.Timestamp(desde)) & (f <= pd.Timestamp(hasta) +
+                                            pd.Timedelta(days=1))]
+        n = 0
+        for r in d.itertuples(index=False):
+            j1, j2, g = str(r.jugador_1), str(r.jugador_2), str(r.ganador)
+            # El fichero del ITF escribe «Apellido Nombre» y el de ESPN
+            # «Nombre Apellido». En vez de adivinar el orden se indexa bajo
+            # las DOS lecturas posibles; que además el rival caiga en el otro
+            # lado del mismo partido es lo que descarta el falso positivo.
+            claves1 = _claves_posibles(j1, invertido)
+            claves2 = _claves_posibles(j2, invertido)
+            kg = _claves_posibles(g, invertido)
+            info = {'fecha': str(r.fecha)[:10],
+                    'sets': [getattr(r, 'sets_1', None), getattr(r, 'sets_2', None)],
+                    'juegos_totales': getattr(r, 'juegos_totales', None)}
+            for k1 in claves1:
+                for k2 in claves2:
+                    if not k1 or not k2 or k1 == k2:
+                        continue
+                    par = tuple(sorted((k1, k2)))
+                    ganador = k1 if k1 in kg else (k2 if k2 in kg else None)
+                    if ganador is None:
+                        continue
+                    out.setdefault(par, []).append(
+                        (info['fecha'], {**info, '_ganador': ganador}))
+                    n += 1
+        if n:
+            logger.info(f'[liquidador/tenis] {n} resultados desde {ruta}')
+
+
+def _claves_posibles(nombre: str, invertido: bool) -> set:
+    """Claves de apellido plausibles: la última palabra y la primera."""
+    import name_mapper
+    partes = name_mapper.normalizar(nombre).split()
+    if not partes:
+        return set()
+    caps = {partes[-1], partes[0]}
+    if invertido and len(partes) >= 2:
+        caps.add(' '.join(partes[:-1]))     # «bar biryukov» de «Bar Biryukov Petr»
+    return {c for c in caps if c}
+
+
+def _par_mapeado(home: str, away: str, res: dict,
+                 catalogo: Optional[list] = None) -> Optional[Tuple]:
     """
     La pareja del pick traducida a los nombres con los que ESPN la publica.
 
@@ -251,7 +356,12 @@ def _par_mapeado(home: str, away: str, res: dict) -> Optional[Tuple]:
     import name_mapper
     if not res:
         return None
-    catalogo = sorted({n for par in res for n in par})
+    # v104: se prefiere el catálogo de LA COMPETICIÓN del pick. El global sólo
+    # entra si no se conoce la liga, y entonces con el riesgo asumido de cruzar
+    # nombres entre países.
+    if catalogo is None:
+        catalogo = sorted({n for par in res for n in par
+                           if not str(par[0]).startswith('__liga__')})
     try:
         h = name_mapper.mapear(name_mapper.normalizar(home), catalogo,
                                contexto='liquidador')
@@ -450,8 +560,13 @@ def liquidar_pendientes(dias: int = 10) -> Dict:
                 # y ESPN publica el suyo («Atlanta United FC»); `normalizar`
                 # sólo baja a minúsculas, así que la pareja no casaba nunca.
                 # Medido: 254 picks colgados, los más viejos del 23 de julio.
+                _cat = _catalogo_de_liga(res, _clave_de_liga(p.get('liga')))
                 r = _buscar_con_tolerancia(
-                    res, _par_mapeado(home, away, res), str(p['fecha']))
+                    res, _par_mapeado(home, away, res, _cat), str(p['fecha']))
+                if r is None and _cat:
+                    # y sólo si con su liga no aparece, se prueba el global
+                    r = _buscar_con_tolerancia(
+                        res, _par_mapeado(home, away, res), str(p['fecha']))
             if r is None:
                 n_sin_partido += 1
                 continue

@@ -67,6 +67,37 @@ def normalizar(nombre: str) -> str:
     return n
 
 
+# v104 — ABREVIATURAS QUE LAS CASAS USAN Y LAS FUENTES NO.
+#
+# Las casas de apuestas escriben «Atl. San Luis», «Dep. Cali», «Atlanta Utd»;
+# ESPN publica «Atlético de San Luis», «Deportivo Cali», «Atlanta United FC».
+# Tras normalizar quedan «atl san luis» contra «atletico de san luis», que ni
+# son iguales, ni uno contiene al otro, ni llegan al umbral de similitud de
+# 0,78 — así que el mapeo devolvía None.
+#
+# Medido en el liquidador: era el modo de fallo de la mayoría de los picks de
+# fútbol que se quedaban sin resultado, y cada uno es una lección que el
+# aprendizaje continuo no llega a ver. Se resuelve con una tabla de expansión
+# en vez de un alias por club, porque el patrón se repite en decenas de
+# equipos de media docena de ligas.
+#
+# NO se incluye nada ambiguo: «Independiente» no se expande, porque
+# «Independiente» (Avellaneda) e «Independiente Rivadavia» son clubes
+# distintos y adivinar ahí liquidaría el partido equivocado.
+_ABREVIATURAS = {
+    'atl': 'atletico', 'atlet': 'atletico', 'dep': 'deportivo',
+    'depor': 'deportivo', 'utd': 'united', 'univ': 'universidad',
+    'nac': 'nacional', 'rac': 'racing', 'spt': 'sporting',
+    'st': 'saint', 'gto': 'guanajuato', 'sd': 'sociedad',
+}
+
+
+def _expandir(n: str) -> str:
+    """Versión del nombre normalizado con las abreviaturas desplegadas."""
+    palabras = [_ABREVIATURAS.get(p, p) for p in n.split()]
+    return ' '.join(palabras)
+
+
 def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
            contexto: str = '') -> Optional[str]:
     """Devuelve el nombre del catálogo que corresponde, o None (y lo
@@ -84,6 +115,21 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
     for c, n in normalizados.items():            # coincidencia exacta tras normalizar
         if n == objetivo:
             return c
+    # v104: y otra vez con las abreviaturas desplegadas por los dos lados
+    # («atl san luis» → «atletico san luis» contra «atletico de san luis»).
+    # Va DESPUÉS de la coincidencia exacta para no cambiar ningún resultado
+    # que ya funcionaba: sólo se activa donde antes se devolvía None.
+    obj_exp = _expandir(objetivo)
+    if obj_exp != objetivo:
+        for c, n in normalizados.items():
+            if _expandir(n) == obj_exp:
+                return c
+        # y con el conector suelto que suele sobrar («de», «del»)
+        sin_conector = ' '.join(w for w in obj_exp.split() if w not in ('de', 'del', 'la', 'el'))
+        for c, n in normalizados.items():
+            if ' '.join(w for w in _expandir(n).split()
+                        if w not in ('de', 'del', 'la', 'el')) == sin_conector:
+                return c
     # Contención (subcadena). v66: antes devolvía el PRIMER candidato que
     # contuviera al objetivo, lo que con catálogos grandes es una lotería —
     # "Congo" entra en "DR Congo", "Guinea" en "Equatorial Guinea" y

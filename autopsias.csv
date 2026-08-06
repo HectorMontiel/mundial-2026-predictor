@@ -1,13 +1,14 @@
 fuente,mercado,corte,segmento,n,acierto_real,prob_prometida,brecha,ic_bajo,ic_alto,leccion,sentido
-produccion,—,canal,modelo,52,0.9231,0.7887,0.1344,0.0242,0.218,True,promete de menos
-produccion,—,mercado,Goles,35,0.5429,0.6882,-0.1453,-0.3921,0.0868,False,—
-produccion,—,banda de probabilidad,65-70%,41,0.5366,0.673,-0.1365,-0.355,0.0822,False,—
-produccion,—,deporte,Fútbol,100,0.47,0.5941,-0.1241,-0.2699,0.0114,False,—
-produccion,—,canal,sin clasificar,173,0.5723,0.6627,-0.0904,-0.1982,0.0077,False,—
-produccion,—,capa,capa2,174,0.6897,0.7553,-0.0656,-0.158,0.0227,False,—
-produccion,—,mercado,1X2,39,0.3846,0.4438,-0.0592,-0.2982,0.1936,False,—
-produccion,—,banda de probabilidad,70-80%,84,0.7143,0.7647,-0.0504,-0.1976,0.0763,False,—
-produccion,—,capa,capa1,54,0.5185,0.477,0.0415,-0.1442,0.2075,False,—
-produccion,—,deporte,Tenis,115,0.8261,0.7831,0.043,-0.0578,0.1299,False,—
-produccion,—,mercado,Ganador,115,0.8261,0.7831,0.043,-0.0578,0.1299,False,—
-produccion,—,banda de probabilidad,>80%,42,0.9048,0.8481,0.0566,-0.0833,0.1532,False,—
+produccion,—,canal,sin clasificar,184,0.5652,0.6669,-0.1017,-0.1997,-0.0008,True,promete de más
+produccion,—,mercado,Goles,37,0.5135,0.6913,-0.1778,-0.4111,0.0412,False,—
+produccion,—,deporte,Fútbol,104,0.4615,0.5945,-0.133,-0.277,0.0119,False,—
+produccion,—,banda de probabilidad,65-70%,42,0.5476,0.6725,-0.1249,-0.341,0.0895,False,—
+produccion,—,banda de probabilidad,70-80%,112,0.6964,0.7665,-0.0701,-0.1946,0.0531,False,—
+produccion,—,capa,capa2,255,0.7255,0.7742,-0.0487,-0.1258,0.0235,False,—
+produccion,—,mercado,1X2,40,0.4,0.44,-0.04,-0.2769,0.1876,False,—
+produccion,—,deporte,Tenis,201,0.8259,0.7879,0.0379,-0.0432,0.109,False,—
+produccion,—,mercado,Ganador,201,0.8259,0.7879,0.0379,-0.0432,0.109,False,—
+produccion,—,banda de probabilidad,>80%,94,0.9043,0.8443,0.0599,-0.0322,0.1348,False,—
+produccion,—,capa,capa1,63,0.5556,0.4842,0.0714,-0.0975,0.2433,False,—
+produccion,—,canal,modelo,123,0.8862,0.8069,0.0793,-0.0082,0.1534,False,—
+produccion,—,banda de probabilidad,<50%,31,0.4516,0.3539,0.0977,-0.1404,0.3126,False,—
