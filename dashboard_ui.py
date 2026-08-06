@@ -2601,6 +2601,56 @@ def render_alpha_finder():
             except Exception as e:
                 st.caption(f"Monitor no disponible ({type(e).__name__}).")
 
+            # --- v101: qué ha aprendido el sistema de sus propios fallos ----
+            try:
+                import json as _json
+                import os as _os
+                st.markdown("**🧠 Lo que el sistema ha aprendido de sus "
+                            "resultados**")
+                if not _os.path.exists('calibracion_adaptativa.json'):
+                    st.caption("Todavía no hay calibración adaptativa: se "
+                               "genera con la recalibración semanal.")
+                else:
+                    _ad = _json.load(open('calibracion_adaptativa.json',
+                                          encoding='utf-8'))
+                    _mapa = _ad.get('mapa') or {}
+                    _g = _mapa.get('global') or {}
+                    st.caption(
+                        f"Aprendido de {_g.get('n', 0)} picks liquidados · "
+                        f"peso propio {_g.get('peso_propio', 0):.0%} (el resto "
+                        f"lo pone el histórico) · corrección topada a "
+                        f"±{_ad.get('tope_ajuste', 0):.0%}. "
+                        "No cambia QUÉ se apuesta: sólo con cuánta seguridad "
+                        "se dice.")
+                    import aprendizaje_continuo as _ac
+                    _filas = []
+                    for _k, _n in sorted(_mapa.items(),
+                                         key=lambda kv: -kv[1].get('n', 0))[:6]:
+                        _filas.append({
+                            'segmento': _k, 'n': _n.get('n'),
+                            **{f'{int(_p*100)} %':
+                               f"{_ac.aplicar(_p, {'global': _n}):.0%}"
+                               for _p in (0.55, 0.65, 0.75)}})
+                    if _filas:
+                        st.dataframe(_filas, hide_index=True,
+                                     use_container_width=True)
+                        st.caption("Cada fila: lo que el modelo dice (columnas) "
+                                   "y lo que el sistema publica tras corregirse "
+                                   "con lo que de verdad ocurrió.")
+                # y el diagnóstico que lo motiva
+                if _os.path.exists('autopsia.json'):
+                    _au = (_json.load(open('autopsia.json', encoding='utf-8'))
+                           .get('produccion') or {})
+                    _lec = [f for f in (_au.get('filas') or []) if f['leccion']]
+                    if _lec:
+                        st.caption("Segmentos donde la brecha es "
+                                   "estadísticamente firme: " +
+                                   " · ".join(f"{f['corte']}={f['segmento']} "
+                                              f"({f['brecha']:+.0%}, n={f['n']})"
+                                              for f in _lec[:3]))
+            except Exception as e:
+                st.caption(f"Aprendizaje no disponible ({type(e).__name__}).")
+
         _tarjetas(r.get('candidatos'), "Candidatos con EV positivo"
                   if ES_PRO else "Otras oportunidades con Ventaja Matemática 📈")
         if r.get('deportes_cubiertos'):

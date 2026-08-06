@@ -41,6 +41,28 @@ class BaseSportsEngine(ABC):
                 self.modelo_totales = joblib.load(ruta_tot)
             with open(os.path.join(self.carpeta, 'metadata.json'), encoding='utf-8') as f:
                 self.metadata = json.load(f)
+            # v101 — EL MODELO GUARDADO Y EL VECTOR ACTUAL DEBEN COINCIDIR.
+            #
+            # Cuando la v101 sacó las tres features de fatiga del vector de WTA,
+            # el modelo en disco seguía esperando 14 columnas y el motor pasaba a
+            # construir 11. Sin esta comprobación eso sale como un error de forma
+            # de sklearn en mitad de una predicción —difícil de leer y fácil de
+            # confundir con un fallo de datos— en vez de decir lo único que hay
+            # que decir: que ese modelo es de otra versión y toca reentrenar.
+            #
+            # Se compara por NOMBRE y no por número: dos vectores del mismo largo
+            # con distinta composición son igual de incompatibles, y ése es
+            # justo el caso que un contador de columnas dejaría pasar.
+            guardadas = self.metadata.get('features')
+            actuales = getattr(self, 'features', None)
+            if guardadas and actuales and list(guardadas) != list(actuales):
+                faltan = [f for f in actuales if f not in guardadas]
+                sobran = [f for f in guardadas if f not in actuales]
+                raise ValueError(
+                    f'modelo entrenado con {len(guardadas)} features y el motor '
+                    f'usa {len(actuales)}; hay que reentrenar '
+                    f'(faltan en el modelo: {faltan or "—"} · '
+                    f'sobran: {sobran or "—"})')
             # v79 — ver `inferencia_rapida`: el paralelismo de joblib que se
             # guardó al entrenar es puro coste cuando se predice de uno en uno.
             try:

@@ -854,6 +854,85 @@ def test_prior_elo_solo_en_la_ficha():
           "alpha_finder desactiva el prior en el barrido de fútbol")
 
 
+def test_aprendizaje_continuo():
+    """
+    v101: el lazo que aprende de sus propios resultados es autónomo, así que
+    sus guardarraíles son lo único que impide que se sobreajuste solo. Se
+    comprueban las cuatro propiedades de las que depende su seguridad.
+    """
+    import aprendizaje_continuo as ac
+
+    # 1. sin mapa aprendido NO toca nada — degradar a la identidad, no a un
+    #    número inventado, es lo que permite desplegarlo antes de tener datos
+    check(ac.aplicar(0.72, {}) == 0.72,
+          'sin mapa aprendido, la probabilidad sale intacta')
+    check(ac.aplicar(None, {'global': {'a': 0.5, 'b': 0.0}}) is None,
+          'una probabilidad ausente no se inventa')
+
+    # 2. MONOTONÍA: la corrección no puede reordenar los picks. Es la propiedad
+    #    que garantiza que recalibrar no convierta un buen pick en malo.
+    nodo = {'global': {'a': 0.6, 'b': -0.3, 'n': 500}}
+    ps = [0.05, 0.2, 0.35, 0.5, 0.65, 0.8, 0.95]
+    corregidas = [ac.aplicar(p, nodo) for p in ps]
+    check(all(x < y for x, y in zip(corregidas, corregidas[1:])),
+          f'la corrección es monótona (no reordena): '
+          f'{[round(c, 3) for c in corregidas]}')
+
+    # 3. TOPE DURO: nunca desplaza una probabilidad más de TOPE_AJUSTE, por
+    #    extremo que sea el mapa. Sin esto, un nodo mal ajustado con poca
+    #    muestra podría reescribir el pronóstico en vez de matizarlo.
+    brutal = {'global': {'a': 1.5, 'b': -5.0, 'n': 60}}
+    peor = max(abs(ac.aplicar(p, brutal) - p) for p in ps)
+    check(peor <= ac.TOPE_AJUSTE + 1e-9,
+          f'ningún ajuste supera el tope de ±{ac.TOPE_AJUSTE} '
+          f'(máximo observado {peor:.4f})')
+
+    # 4. ENCOGIMIENTO: con poca muestra el nodo se queda cerca de su prior. Es
+    #    lo que impide que 30 picks de una racha manden sobre 47.794
+    #    predicciones del ledger.
+    prior = (0.30, 0.70)
+    poco = ac._encoger((1.5, -5.0), prior, n=10)
+    mucho = ac._encoger((1.5, -5.0), prior, n=20000)
+    check(abs(poco[0] - prior[0]) < abs(mucho[0] - prior[0]),
+          f'con n=10 se queda pegado al prior y con n=20.000 se separa '
+          f'(a: {poco[0]:.3f} vs {mucho[0]:.3f})')
+
+    # y el artefacto publicado, si existe, tiene que declarar su tope
+    if os.path.exists('calibracion_adaptativa.json'):
+        with open('calibracion_adaptativa.json', encoding='utf-8') as f:
+            d = json.load(f)
+        check(d.get('tope_ajuste') is not None and d.get('n0'),
+              'el mapa publicado declara su tope y su fuerza de prior')
+        g = (d.get('mapa') or {}).get('global') or {}
+        check(ac.PENDIENTE_MIN <= g.get('a', 1.0) <= ac.PENDIENTE_MAX,
+              f"la pendiente global está en rango ({g.get('a')})")
+
+
+def test_features_del_modelo_coinciden():
+    """
+    v101: un modelo guardado con otro vector de features no puede usarse. La
+    fuga de fatiga de WTA obligó a cambiar el vector, y sin esta guarda el
+    desajuste salía como un error de forma de sklearn en mitad de una
+    predicción — ilegible y fácil de confundir con un fallo de datos.
+    """
+    import inspect
+
+    from engines.base_engine import BaseSportsEngine
+    src = inspect.getsource(BaseSportsEngine.cargar_modelo)
+    check('features' in src and 'reentrenar' in src,
+          'cargar_modelo compara las features guardadas con las del motor')
+
+    import engines.tennis_engine as te
+    wta = te.TennisEngine('wta').features
+    fuera = [f for f in te.FEATURES_FATIGA if f in wta]
+    check(not fuera,
+          f'el vector de WTA ya no lleva features de fatiga (sobran: {fuera})')
+    check(len(wta) == 11, f'WTA usa 11 features tras la v101 ({len(wta)})')
+    atp = te.TennisEngine('atp').features
+    check(not [f for f in te.FEATURES_FATIGA if f in atp],
+          'ATP nunca las llevó y sigue sin llevarlas')
+
+
 def test_calibracion_confianza():
     """
     v77: la pestaña «Máxima Confianza» no puede prometer lo que no cumple.
@@ -2106,6 +2185,9 @@ if __name__ == '__main__':
     test_claves_de_tenista()
     test_calibracion_confianza()
     test_combinadas_multideporte()
+    print('\n=== v101: aprendizaje autónomo y fuga de features ===')
+    test_aprendizaje_continuo()
+    test_features_del_modelo_coinciden()
     print('\n=== v78: multideporte ===')
     test_calibracion_multideporte()
     test_ledger_multideporte_alineado()

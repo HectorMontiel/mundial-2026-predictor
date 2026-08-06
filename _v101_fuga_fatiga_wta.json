@@ -1,0 +1,63 @@
+{
+ "wta": {
+  "features": [
+   "DIFF_ELO_SUP",
+   "DIFF_ELO_GLOBAL",
+   "DIFF_RANK_LOG",
+   "DIFF_FORMA10",
+   "DIFF_WIN_SUP_12M",
+   "H2H",
+   "DIFF_PTS_LOG",
+   "DIFF_DIAS_DESCANSO",
+   "DIFF_PARTIDOS_14D",
+   "DIFF_HORAS_7D",
+   "DIFF_ELO_NIVEL",
+   "NIVEL_PARTIDO",
+   "DIFF_EXP_NIVEL",
+   "DIFF_IDF"
+  ],
+  "afectado": true,
+  "todo": {
+   "n": 94704,
+   "ll_con": 0.5060808397400786,
+   "ll_sin": 0.5807012781168382,
+   "acc_con": 0.7493981246832235,
+   "acc_sin": 0.6906255279608042,
+   "p5_diferencia": 0.07251522575631955,
+   "p95_diferencia": 0.07663355078346926,
+   "quitarlas_mejora": false
+  },
+  "itf_contaminado": {
+   "n": 76788,
+   "ll_con": 0.4666349934016062,
+   "ll_sin": 0.5685873882836414,
+   "acc_con": 0.7791712246705215,
+   "acc_sin": 0.7018284106891702,
+   "p5_diferencia": 0.09963283821930302,
+   "p95_diferencia": 0.10426028940114453,
+   "quitarlas_mejora": false
+  },
+  "limpio": {
+   "n": 17916,
+   "ll_con": 0.6751457899878248,
+   "ll_sin": 0.6326214261695016,
+   "acc_con": 0.6217905782540746,
+   "acc_sin": 0.6426099575798169,
+   "p5_diferencia": -0.04726333980570385,
+   "p95_diferencia": -0.03778048513939334,
+   "quitarlas_mejora": true
+  }
+ },
+ "atp": {
+  "afectado": false,
+  "features": [
+   "DIFF_ELO_SUP",
+   "DIFF_ELO_GLOBAL",
+   "DIFF_RANK_LOG",
+   "DIFF_FORMA10",
+   "DIFF_WIN_SUP_12M",
+   "H2H",
+   "DIFF_IDF"
+  ]
+ }
+}

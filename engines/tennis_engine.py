@@ -113,7 +113,10 @@ CIRCUITOS = {
 # pequeñas pero el p5 es POSITIVO en los dos circuitos por separado, y la
 # precisión no baja en ninguno — que son las dos condiciones que el proyecto
 # exige desde la v26 para adoptar una feature.
-FEATURES_POR_DEFECTO = {'atp': 'FEATURES_V992_ATP', 'wta': 'FEATURES_V992_WTA'}
+# v101: WTA pasa a `FEATURES_V101_WTA` — el mismo vector sin las tres features
+# de fatiga, que con el archivo ITF (fecha única por torneo) filtraban el avance
+# en el propio torneo. El porqué y los números, junto a su definición más abajo.
+FEATURES_POR_DEFECTO = {'atp': 'FEATURES_V992_ATP', 'wta': 'FEATURES_V101_WTA'}
 CARPETA = CIRCUITOS['atp']['carpeta']          # compatibilidad v30-v34
 DATASET = CIRCUITOS['atp']['dataset']
 FEATURES = ['DIFF_ELO_SUP', 'DIFF_ELO_GLOBAL', 'DIFF_RANK_LOG',
@@ -162,6 +165,37 @@ FEATURES_V69_WTA = FEATURES_V35 + FEATURES_SAQUE
 # v99.2: lo desplegado hasta ahora + el IDF (ver FEATURES_POR_DEFECTO).
 FEATURES_V992_ATP = FEATURES_V30 + FEATURES_IDF
 FEATURES_V992_WTA = FEATURES_V67 + FEATURES_IDF
+
+# --- v101: LAS FEATURES DE FATIGA SALEN DEL VECTOR DE WTA -------------------
+#
+# `DIFF_DIAS_DESCANSO`, `DIFF_PARTIDOS_14D` y `DIFF_HORAS_7D` se calculan a
+# partir de las FECHAS de los partidos anteriores. Desde la v96/v97 el histórico
+# incorpora el archivo ITF, que hoy es el 82 % de las filas — y ese archivo
+# guarda todos los partidos de un torneo con UNA SOLA FECHA (mediana: 1,0
+# fechas distintas por torneo; el 35,9 % de los pares jugadora-fecha tienen dos
+# o más partidos ese día).
+#
+# Con fecha única, «partidos en los últimos 14 días» deja de medir calendario y
+# pasa a medir cuánto avanzó en ESE MISMO torneo, que es el resultado que se
+# está prediciendo. Medido con las tres features SOLAS, sin modelo:
+#
+#     filas kaggle (fechas reales) → log-loss 0,6936 · acierto 53,7 %
+#     filas ITF   (fecha única)    → log-loss 0,5412 · acierto 73,6 %
+#
+# Mismo código, misma feature: la diferencia es la granularidad de la fecha.
+#
+# El coste no era sólo un backtest inflado. Evaluando el vector desplegado sólo
+# sobre filas con fecha real —lo que se parece a producción— QUITARLAS mejora:
+#
+#     log-loss 0,67515 → 0,63262   (IC90 [−0,0473, −0,0378], entero negativo)
+#     acierto  62,18 % → 64,26 %
+#
+# Es decir: inflaban el backtest en +7,7 pp de acierto y restaban 2,1 pp de
+# acierto real. ATP no está afectado — su vector es FEATURES[:6] + IDF y nunca
+# las llevó. Medido en `_v101_fuga_fatiga_wta.py`.
+FEATURES_FATIGA = ('DIFF_DIAS_DESCANSO', 'DIFF_PARTIDOS_14D', 'DIFF_HORAS_7D')
+FEATURES_V101_WTA = [f for f in FEATURES_V67
+                     if f not in FEATURES_FATIGA] + FEATURES_IDF
 
 # Nivel numérico de competición (0 = más bajo). Se usa como contexto y para el
 # ELO por nivel. Las claves son las de `Series`/`Tier` de la fuente y las

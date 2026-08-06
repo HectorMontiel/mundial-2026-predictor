@@ -1,5 +1,65 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v101 — El sistema aprende de sus resultados, y una fuga que llevaba cinco versiones (ver [VALIDACION_v101.md](VALIDACION_v101.md))
+
+- **❌ LA HIPÓTESIS DEL PARTIDO ANTERIOR SE MIDIÓ Y NO SE SOSTIENE.** La petición
+  era que, al fallar un «más de 1.5 goles», el sistema aprendiera qué cambió —
+  por ejemplo si el equipo venía de vencer a uno más fuerte. `contexto_previo.py`
+  convierte esa idea en cinco features sin fuga (descanso, escalón del rival,
+  sorpresa previa, margen previo, carga). Medidas sobre **47.948 predicciones
+  fuera de muestra** con la probabilidad del modelo desplegado en la base:
+  **rechazadas en los seis mercados** (over 1.5, over 2.5, BTTS, 1, X y 2), con
+  p5 entre −0,00010 y −0,00035. Por el camino produjo dos falsos hallazgos que
+  se documentan enteros: un **bug de etiquetado propio** (el ledger codifica
+  `0=local, 1=empate, 2=visitante`, no lo que se supuso) y una **atribución
+  falsa** — `DIFF_ESCALON` llevaba dentro la diferencia de ELO de hoy, y aislado
+  el rival anterior aporta **−0,00001**. El módulo se conserva; no se despliega.
+
+- **🚨 FUGA DE DATOS ENCONTRADA EN EL MODELO DESPLEGADO DE WTA.** Buscando lo
+  anterior en tenis salió una mejora de **+0,0916** de log-loss sólo con
+  descanso y carga — 160 veces el IDF. Era fuga: el descanso **solo, sin
+  modelo**, predecía el **71,05 %** de los partidos. La causa es que el archivo
+  ITF (**290.027 de 365.185 filas**) guarda todos los partidos de un torneo con
+  **una sola fecha** (mediana 1,0 fechas por torneo), así que «partidos en 14
+  días» medía cuánto avanzó en ese mismo torneo. Y `DIFF_DIAS_DESCANSO`,
+  `DIFF_PARTIDOS_14D` y `DIFF_HORAS_7D` **estaban en el vector de producción de
+  WTA** desde la v35, limpias entonces y contaminadas desde la v96. Medido sobre
+  filas con fecha real, **quitarlas mejora**: log-loss 0,67515 → 0,63262 y
+  acierto **62,18 % → 64,26 %** (IC90 [−0,0473, −0,0378], entero negativo).
+  Inflaban el backtest en +7,7 pp y restaban 2,1 pp de acierto real. ATP no
+  estaba afectado. **WTA pasa de 14 a 11 features**, y `cargar_modelo` ahora
+  falla con un mensaje explícito si el modelo guardado no coincide con el vector.
+
+- **🧠 AUTOPSIA: dónde falla el sistema de forma sistemática.** `autopsia.py`
+  parte las predicciones en segmentos y mide la brecha (acierto real − prometido)
+  con corrección de Šidák por comparaciones múltiples. Sobre los picks
+  publicados: **144 liquidados, acierto 57,6 % contra 68,4 % prometido (−10,8
+  pp)**, con la **Capa 2 en −16,2 pp** (108 picks). La causa está identificada:
+  la corrección por banda de la v84/v86 sólo se aplicaba a la pestaña de Máxima
+  Confianza, no a lo que se registra. Sobre el ledger histórico la sobreconfianza
+  de la cola alta es masiva: over 2.5 en banda >80 % promete 83,4 % y entrega
+  **62,0 %**; BTTS >80 % promete 81,8 % y entrega **59,8 %**.
+
+- **✅ EL LAZO DE APRENDIZAJE, DESPLEGADO DONDE SE VALIDA.**
+  `aprendizaje_continuo.py` recalibra la confianza del sistema con sus propios
+  resultados: Platt jerárquico (global → deporte → mercado), encogido hacia el
+  padre por muestra y **con la raíz encogida hacia el prior del ledger** — sin
+  eso, 144 picks decidían solos la corrección global. Topes duros: ±0,15 de
+  desplazamiento, pendiente en [0,3 ; 1,5], y sin nodo aprendido no toca nada.
+  Es **monótono**: no reordena partidos, sólo cambia con cuánta seguridad se
+  habla. Validado walk-forward (el mapa se aprende sólo con el pasado): **over
+  1.5 log-loss 0,59086 → 0,57005 (p5 +0,01862) y acierto 71,89 % → 73,70 %**,
+  over 2.5 p5 +0,02500, BTTS p5 +0,02643, con la brecha de calibración partida
+  por la mitad en los tres. **El 1X2 lo RECHAZA** — ya estaba bien calibrado —
+  y ésa es la prueba de que el listón funciona. Entra como pasos 7 y 8 de
+  `recalibrar_todo.py` y se ve en el panel «Lo que el sistema ha aprendido».
+
+- **Lo que el lazo NO hace, a propósito:** no inventa features, no reentrena
+  modelos y no cambia qué se apuesta. Un lazo autónomo con esas atribuciones se
+  sobreajusta a su propio historial en semanas. Las features nuevas siguen
+  pasando por A/B con walk-forward y bootstrap — que es como murió, bien
+  documentada, la hipótesis que originó esta versión.
+
 ## Novedades v99.2 — El IDF entra en producción (tenis), y dónde NO entra (ver [VALIDACION_v99_2.md](VALIDACION_v99_2.md))
 
 - **✅ EL IDF YA ESTÁ EN EL MOTOR DE TENIS, EN LOS DOS CIRCUITOS.** La v99.1 lo

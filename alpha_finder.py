@@ -2094,6 +2094,36 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                     q['ev'] = round(q['cuota'] * _real - 1, 4)
                     q['ev_negativo'] = bool(q['ev'] <= 0)
             q['aviso_calibracion'] = _cc.aviso_calibracion(prob, _merc)
+        # v101 — SEGUNDA ETAPA: lo que se aprendió de los picks YA LIQUIDADOS.
+        #
+        # `calibracion_confianza` (v84/v86) corrige con el ledger, que mide el
+        # MODELO. Pero lo que se publica no es el modelo: pasa por filtros, por
+        # la Capa 2 y por el line shopping, y esa combinación sólo se puede
+        # medir en los picks reales. La autopsia de la v101 la midió, y hay
+        # brecha: 144 picks liquidados, acierto 57,6 % contra 68,4 % prometido
+        # (−10,8 pp), con la Capa 2 en −16,2 pp.
+        #
+        # La corrección es monótona (Platt sobre la propia salida), está topada
+        # a ±0,15 y se encoge hacia el prior del ledger según la muestra, así
+        # que con pocos picks apenas mueve nada. Si no hay nodo aprendido para
+        # este pick, `aplicar` devuelve la probabilidad intacta.
+        try:
+            import aprendizaje_continuo as _ac
+            _mapa = _ac.cargar()
+            if _mapa:
+                _p0 = q.get('prob')
+                _p1 = _ac.aplicar(_p0, _mapa,
+                                  {'deporte': q.get('deporte'),
+                                   'mercado': q.get('mercado')})
+                if _p1 is not None and _p0 and abs(_p1 - _p0) > 1e-6:
+                    q['prob_antes_aprendizaje'] = _p0
+                    q['prob'] = round(float(_p1), 3)
+                    q['cuota_justa'] = round(1 / max(float(_p1), 1e-6), 2)
+                    if q.get('cuota'):
+                        q['ev'] = round(q['cuota'] * float(_p1) - 1, 4)
+                        q['ev_negativo'] = bool(q['ev'] <= 0)
+        except Exception as _e:
+            logger.debug(f'[alpha] calibración adaptativa no aplicada: {_e}')
         capa1_prob.append(q)
     if not capa1_prob:
         pct = None

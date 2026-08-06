@@ -129,6 +129,26 @@ def _peso_mercado() -> str:
             f"adoptadas · log-loss {v.get('delta_logloss')}")
 
 
+def _autopsia() -> str:
+    """v101 — dónde falla el sistema de forma sistemática."""
+    import autopsia
+    r = autopsia.autopsia_produccion()
+    g = r.get('global') or {}
+    if not g:
+        return r.get('aviso', 'sin picks liquidados')
+    return (f"{g['n']} picks liquidados · acierto {g['acierto_real']:.1%} vs "
+            f"prometido {g['prob_prometida']:.1%} · brecha {g['brecha']:+.1%} · "
+            f"{r.get('lecciones', 0)} segmento(s) con brecha significativa")
+
+
+def _aprender() -> str:
+    """v101 — reaprende el mapa de calibración adaptativa."""
+    import aprendizaje_continuo as ac
+    s = ac.reaprender()
+    return (f"{len(s['mapa'])} nodos · fuentes {s['fuentes']} · "
+            f"n global {s['n_total']}")
+
+
 PASOS = [
     ('1. ledger (re-predice el histórico con los modelos de hoy)', _ledger),
     ('2. calibración de confianza (acierto real por banda)', _confianza),
@@ -136,6 +156,14 @@ PASOS = [
     ('4. banda de EV rentable', _edge),
     ('5. qué deportes tienen edge validado', _deportes),
     ('6. peso del encogimiento al mercado', _peso_mercado),
+    # --- v101: el lazo que aprende de sus propios resultados ---------------
+    # Va AL FINAL a propósito. Los pasos 1-6 miden el modelo contra el
+    # histórico; éstos dos lo miden contra lo que de verdad se publicó y ya se
+    # liquidó, que es la única fuente que incluye los filtros, la Capa 2 y el
+    # line shopping. La autopsia diagnostica y el aprendizaje corrige, en ese
+    # orden: sin el diagnóstico, la corrección no sabría dónde hace falta.
+    ('7. autopsia de los picks publicados', _autopsia),
+    ('8. calibración adaptativa (aprende de lo liquidado)', _aprender),
 ]
 
 

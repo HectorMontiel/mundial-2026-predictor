@@ -1,0 +1,90 @@
+{
+ "Goles over 1.5": {
+  "n": 19118,
+  "ll_crudo": 0.5908578437615202,
+  "ll_ajustado": 0.570049221356181,
+  "mejora": 0.020808622405339157,
+  "p5": 0.01861786186421712,
+  "brier_crudo": 0.19952910094946122,
+  "brier_ajustado": 0.19135648966501922,
+  "acierto_crudo": 0.7188513442828748,
+  "acierto_ajustado": 0.737001778428706,
+  "brecha_cruda": 0.024689672559891296,
+  "brecha_ajustada": 0.013141571006097919,
+  "veredicto": "ADOPTAR"
+ },
+ "Goles over 2.5": {
+  "n": 19118,
+  "ll_crudo": 0.7166748260047665,
+  "ll_ajustado": 0.6890387333999658,
+  "mejora": 0.027636092604800697,
+  "p5": 0.02499697936957811,
+  "brier_crudo": 0.2589947683712156,
+  "brier_ajustado": 0.24788496717211606,
+  "acierto_crudo": 0.5413223140495868,
+  "acierto_ajustado": 0.5395438853436552,
+  "brecha_cruda": 0.0213492274296474,
+  "brecha_ajustada": 0.012712836408981909,
+  "veredicto": "ADOPTAR"
+ },
+ "BTTS": {
+  "n": 19118,
+  "ll_crudo": 0.7220385346685251,
+  "ll_ajustado": 0.6933472191100195,
+  "mejora": 0.02869131555850549,
+  "p5": 0.026434782204514742,
+  "brier_crudo": 0.2622076832043886,
+  "brier_ajustado": 0.24999638157679366,
+  "acierto_crudo": 0.5233288000836908,
+  "acierto_ajustado": 0.5300763678209017,
+  "brecha_cruda": 0.046463274924155196,
+  "brecha_ajustada": 0.021558998777479133,
+  "veredicto": "ADOPTAR"
+ },
+ "1x2 gana local": {
+  "n": 19180,
+  "ll_crudo": 0.6489808942136508,
+  "ll_ajustado": 0.6489865510544407,
+  "mejora": -5.656840789867363e-06,
+  "p5": -0.0001851020374848036,
+  "brier_crudo": 0.22807842419716892,
+  "brier_ajustado": 0.22815094808109543,
+  "acierto_crudo": 0.6188216892596454,
+  "acierto_ajustado": 0.618873826903024,
+  "brecha_cruda": 0.0029859880083419332,
+  "brecha_ajustada": 0.0015625608320835038,
+  "veredicto": "RECHAZAR"
+ },
+ "1x2 empate": {
+  "n": 19180,
+  "ll_crudo": 0.5764521537478071,
+  "ll_ajustado": 0.5745657729942534,
+  "mejora": 0.0018863807535538083,
+  "p5": 0.0010722004394792168,
+  "brier_crudo": 0.1934451085679614,
+  "brier_ajustado": 0.19286698132635746,
+  "acierto_crudo": 0.7367570385818561,
+  "acierto_ajustado": 0.7368613138686131,
+  "brecha_cruda": 0.0004635000000000056,
+  "brecha_ajustada": 0.0004016012897886112,
+  "veredicto": "ADOPTAR"
+ },
+ "1x2 gana visita": {
+  "n": 19180,
+  "ll_crudo": 0.576388781837435,
+  "ll_ajustado": 0.5761328020510498,
+  "mejora": 0.00025597978638528614,
+  "p5": -6.073105507616139e-05,
+  "brier_crudo": 0.19342418931249217,
+  "brier_ajustado": 0.19340488870398445,
+  "acierto_crudo": 0.716266944734098,
+  "acierto_ajustado": 0.716162669447341,
+  "brecha_cruda": 0.0034494421272158182,
+  "brecha_ajustada": 0.0022292462618024866,
+  "veredicto": "RECHAZAR"
+ },
+ "produccion": {
+  "veredicto": "SIN MUESTRA",
+  "n": 144
+ }
+}
