@@ -1,12 +1,12 @@
 {
   "deporte": "Tenis (ATP)",
   "n_partidos": 347888,
-  "precision_validacion": 0.6779,
-  "precision_linea_base_elo": 0.6615,
+  "precision_validacion": 0.678,
+  "precision_linea_base_elo": 0.6617,
   "precision_mercado": 0.6881,
   "log_loss_validacion": 0.5955,
   "modo": "analitico (sin cuotas en vivo gratis)",
-  "fecha_entrenamiento": "2026-08-05",
+  "fecha_entrenamiento": "2026-08-06",
   "coef_juegos": [
     23.9169,
     -0.6676,
@@ -34,12 +34,12 @@
   "validacion_por_universo": {
     "circuito_principal": {
       "n": 5951,
-      "precision": 0.6498,
-      "log_loss": 0.6236
+      "precision": 0.65,
+      "log_loss": 0.6233
     },
     "categorias_nuevas": {
       "n": 63745,
-      "precision": 0.6805,
+      "precision": 0.6806,
       "log_loss": 0.5929
     }
   },
