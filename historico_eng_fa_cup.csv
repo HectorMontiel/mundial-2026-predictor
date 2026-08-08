@@ -76,7 +76,7 @@ date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre
 2022-01-08 12:15:00,Mansfield Town,Middlesbrough,2.0,3.0,Mansfield,England,One Call Stadium,,,,FA Cup,,20220108_Mansfield-Town_Middlesbrough,24.0,1.57,1.54,4,5,10,10,47.1,52.9,2,3,0,0,9,6
 2022-01-08 12:30:00,Bristol City,Fulham,0.0,1.0,Bristol,England,Ashton Gate,,,,FA Cup,,20220108_Bristol-City_Fulham,0.0,0.37,0.42,1,2,3,3,48.0,52.0,2,1,0,0,3,2
 2022-01-08 12:30:00,Burnley,Huddersfield Town,1.0,2.0,Burnley,England,Turf Moor,,,,FA Cup,,20220108_Burnley_Huddersfield-Town,0.0,0.14,1.9,1,7,1,16,50.6,49.4,2,1,0,0,1,8
-2022-01-08 12:30:00,Coventry City,Derby County,1.0,0.0,Coventry,England,The Coventry Building Society Arena,,,,FA Cup,,20220108_Coventry-City_Derby-County,0.0,0.14,0.07,1,0,4,0,51.9,48.1,0,0,0,0,4,3
+2022-01-08 12:30:00,Coventry City,Derby County,1.0,0.0,Coventry,England,Coventry Building Society Arena,,,,FA Cup,,20220108_Coventry-City_Derby-County,0.0,0.14,0.07,1,0,4,0,51.9,48.1,0,0,0,0,4,3
 2022-01-08 12:30:00,Hartlepool United,Blackpool,2.0,1.0,Hartlepool,England,The Prestige Group Stadium,,,,FA Cup,,20220108_Hartlepool-United_Blackpool,24.0,0.05,0.05,2,1,4,5,46.7,53.3,2,3,0,0,0,4
 2022-01-08 12:45:00,Millwall,Crystal Palace,1.0,2.0,London,England,The Den,,,,FA Cup,,20220108_Millwall_Crystal-Palace,0.0,0.87,1.65,2,6,5,11,52.1,47.9,1,1,0,0,5,6
 2022-01-08 15:00:00,Barnsley,Barrow,5.0,4.0,Barnsley,England,Oakwell,,,,FA Cup,,20220108_Barnsley_Barrow,-24.0,2.1,1.1,5,4,9,10,44.1,55.9,2,3,0,1,3,5
@@ -221,7 +221,7 @@ date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre
 2023-01-07 15:00:00,Millwall,Sheffield United,0.0,2.0,London,England,The Den,,,,FA Cup,,20230107_Millwall_Sheffield-United,0.0,1.58,0.55,5,4,9,8,52.6,47.4,3,5,0,1,4,6
 2023-01-07 15:00:00,Shrewsbury Town,Sunderland,1.0,2.0,Shrewsbury,England,The Croud Meadow,,,,FA Cup,,20230107_Shrewsbury-Town_Sunderland,46.415533121844874,0.75,0.76,3,2,7,4,52.0,48.0,1,1,0,0,2,2
 2023-01-07 17:30:00,Brentford,West Ham United,0.0,1.0,London,England,Gtech Community Stadium,,,,FA Cup,,20230107_Brentford_West-Ham-United,-11.97252928882267,1.97,0.86,6,4,13,7,48.3,51.7,2,5,0,0,8,4
-2023-01-07 17:30:00,Coventry City,Wrexham,3.0,4.0,Coventry,England,The Coventry Building Society Arena,,,,FA Cup,,20230107_Coventry-City_Wrexham,-12.414300586377067,1.16,1.8,3,6,6,13,52.7,47.3,1,3,0,0,4,9
+2023-01-07 17:30:00,Coventry City,Wrexham,3.0,4.0,Coventry,England,Coventry Building Society Arena,,,,FA Cup,,20230107_Coventry-City_Wrexham,-12.414300586377067,1.16,1.8,3,6,6,13,52.7,47.3,1,3,0,0,4,9
 2023-01-07 17:30:00,Grimsby Town,Burton Albion,1.0,0.0,Grimsby,England,Blundell Park,,,,FA Cup,,20230107_Grimsby-Town_Burton-Albion,-10.13512195798603,1.08,0.55,3,2,8,4,43.3,56.7,2,3,0,0,3,2
 2023-01-07 17:30:00,Luton Town,Wigan Athletic,1.0,1.0,Luton,England,Kenilworth Road,,,,FA Cup,,20230107_Luton-Town_Wigan-Athletic,-8.803373177242065,1.17,0.52,3,3,6,7,54.0,46.0,1,2,0,1,1,4
 2023-01-07 18:00:00,Sheffield Wednesday,Newcastle United,2.0,1.0,Sheffield,England,Hillsborough,,,,FA Cup,,20230107_Sheffield-Wednesday_Newcastle-United,24.743223973321165,0.45,0.57,2,4,3,8,53.4,46.6,0,2,0,0,8,4
@@ -357,7 +357,7 @@ date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre
 2024-01-05 19:30:00,Fulham,Rotherham United,1.0,0.0,London,England,Craven Cottage,,,,FA Cup,,20240105_Fulham_Rotherham-United,11.876185890307625,1.64,0.3,5,2,12,5,61.5,38.5,1,2,0,0,8,2
 2024-01-05 20:00:00,Tottenham Hotspur,Burnley,1.0,0.0,London,England,Tottenham Hotspur Stadium,,,,FA Cup,,20240105_Tottenham-Hotspur_Burnley,6.156584034310754,0.05,1.22,1,3,3,4,44.1,55.9,2,2,1,0,3,7
 2024-01-06 12:30:00,AFC Wimbledon,Ipswich Town,1.0,3.0,London,England,The Cherry Red Records Stadium,,,,FA Cup,,20240106_AFC-Wimbledon_Ipswich-Town,12.388190689107887,0.57,0.62,2,3,3,5,53.0,47.0,1,3,0,0,4,4
-2024-01-06 12:30:00,Coventry City,Oxford United,6.0,2.0,Coventry,England,The Coventry Building Society Arena,,,,FA Cup,,20240106_Coventry-City_Oxford-United,-35.97050481585529,3.33,1.83,10,5,20,9,49.3,50.7,1,3,0,0,5,1
+2024-01-06 12:30:00,Coventry City,Oxford United,6.0,2.0,Coventry,England,Coventry Building Society Arena,,,,FA Cup,,20240106_Coventry-City_Oxford-United,-35.97050481585529,3.33,1.83,10,5,20,9,49.3,50.7,1,3,0,0,5,1
 2024-01-06 12:30:00,Maidstone United,Stevenage,1.0,0.0,Maidstone,England,Gallagher Stadium,,,,FA Cup,,20240106_Maidstone-United_Stevenage,-7.557044265900231,0.57,0.05,2,0,5,1,47.7,52.3,3,2,0,0,0,3
 2024-01-06 12:30:00,Millwall,Leicester City,2.0,3.0,London,England,The Den,,,,FA Cup,,20240106_Millwall_Leicester-City,-36.84051990529542,0.71,1.68,2,5,2,11,48.8,51.2,2,3,1,0,3,8
 2024-01-06 12:45:00,Sunderland,Newcastle United,0.0,3.0,Sunderland,England,Stadium of Light,,,,FA Cup,,20240106_Sunderland_Newcastle-United,12.580952117294373,1.13,1.27,5,3,11,6,53.4,46.6,2,1,0,0,5,6
@@ -408,12 +408,12 @@ date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre
 2024-01-28 14:30:00,Liverpool,Norwich City,5.0,2.0,Liverpool,England,Anfield,,,,FA Cup,,20240128_Liverpool_Norwich-City,50.381625745843394,1.49,1.42,5,4,12,8,54.1,45.9,3,2,0,0,8,6
 2024-01-28 16:30:00,Newport County,Manchester United,2.0,4.0,Newport,Wales,Rodney Parade,,,,FA Cup,,20240128_Newport-County_Manchester-United,-35.33116747830945,1.78,0.72,6,4,13,10,50.4,49.6,0,0,0,0,5,3
 2024-01-29 19:30:00,Blackburn Rovers,Wrexham,4.0,1.0,Blackburn,England,Ewood Park,,,,FA Cup,,20240129_Blackburn-Rovers_Wrexham,-19.984617072756464,0.82,1.63,4,6,10,13,52.8,47.2,2,3,0,0,4,7
-2024-02-06 19:45:00,Coventry City,Sheffield Wednesday,4.0,1.0,Coventry,England,The Coventry Building Society Arena,,,,FA Cup,,20240206_Coventry-City_Sheffield-Wednesday,-20.576628201114318,1.67,1.3,4,5,9,11,43.5,56.5,1,2,0,0,8,5
+2024-02-06 19:45:00,Coventry City,Sheffield Wednesday,4.0,1.0,Coventry,England,Coventry Building Society Arena,,,,FA Cup,,20240206_Coventry-City_Sheffield-Wednesday,-20.576628201114318,1.67,1.3,4,5,9,11,43.5,56.5,1,2,0,0,8,5
 2024-02-06 19:45:00,Plymouth Argyle,Leeds United,1.0,4.0,Plymouth,England,Home Park,,,,FA Cup,,20240206_Plymouth-Argyle_Leeds-United,6.11754826982974,2.09,1.24,6,4,14,11,51.9,48.1,2,2,0,0,6,7
 2024-02-06 19:45:00,Southampton,Watford,3.0,0.0,Southampton,England,St. Mary's Stadium,,,,FA Cup,,20240206_Southampton_Watford,53.130241153141924,1.03,0.88,3,3,7,7,51.5,48.5,0,1,0,0,3,2
 2024-02-07 19:45:00,Nottingham Forest,Bristol City,1.0,1.0,Nottingham,England,The City Ground,,,,FA Cup,,20240207_Nottingham-Forest_Bristol-City,7.350382984905536,0.87,1.0,3,4,8,8,47.3,52.7,3,1,0,0,6,7
 2024-02-07 20:00:00,Aston Villa,Chelsea,1.0,3.0,Birmingham,England,Villa Park,,,,FA Cup,,20240207_Aston-Villa_Chelsea,-63.59224958297341,0.7,1.59,1,5,3,12,46.1,53.9,0,1,0,0,3,6
-2024-02-26 19:45:00,Coventry City,Maidstone United,5.0,0.0,Coventry,England,The Coventry Building Society Arena,,,,FA Cup,,20240226_Coventry-City_Maidstone-United,-32.992158603127336,1.61,0.79,5,2,11,2,52.3,47.7,4,5,0,0,4,1
+2024-02-26 19:45:00,Coventry City,Maidstone United,5.0,0.0,Coventry,England,Coventry Building Society Arena,,,,FA Cup,,20240226_Coventry-City_Maidstone-United,-32.992158603127336,1.61,0.79,5,2,11,2,52.3,47.7,4,5,0,0,4,1
 2024-02-27 19:30:00,AFC Bournemouth,Leicester City,0.0,1.0,Bournemouth,England,Vitality Stadium,,,,FA Cup,,20240227_AFC-Bournemouth_Leicester-City,-22.40118874590712,1.3,1.02,6,2,14,2,44.1,55.9,2,1,0,0,5,4
 2024-02-27 20:00:00,Blackburn Rovers,Newcastle United,1.0,1.0,Blackburn,England,Ewood Park,,,,FA Cup,,20240227_Blackburn-Rovers_Newcastle-United,35.73020375772353,0.85,0.88,5,4,11,9,46.3,53.7,0,1,0,0,7,7
 2024-02-27 20:00:00,Luton Town,Manchester City,2.0,6.0,Luton,England,Kenilworth Road,,,,FA Cup,,20240227_Luton-Town_Manchester-City,-82.83470544261513,1.64,2.05,5,6,13,13,42.7,57.3,1,3,0,0,6,6
@@ -508,7 +508,7 @@ date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre
 2025-01-11 15:00:00,Sunderland,Stoke City,1.0,2.0,Sunderland,England,Stadium of Light,,,,FA Cup,,20250111_Sunderland_Stoke-City,-37.12739013575424,0.82,0.4,1,2,5,3,42.5,57.5,2,2,0,0,7,4
 2025-01-11 17:45:00,Leeds United,Harrogate Town,1.0,0.0,Leeds,England,Elland Road,,,,FA Cup,,20250111_Leeds-United_Harrogate-Town,-16.440571330983857,0.05,0.79,1,2,2,4,51.1,48.9,2,1,1,0,1,4
 2025-01-11 17:45:00,Manchester City,Salford City,8.0,0.0,Manchester,England,Etihad Stadium,,,,FA Cup,,20250111_Manchester-City_Salford-City,118.40035932296496,2.52,0.81,8,2,15,4,58.1,41.9,2,2,0,0,5,3
-2025-01-11 18:00:00,Coventry City,Sheffield Wednesday,1.0,1.0,Coventry,England,The Coventry Building Society Arena,,,,FA Cup,,20250111_Coventry-City_Sheffield-Wednesday,31.834480360274938,0.11,1.8,2,6,4,11,51.2,48.8,2,3,0,0,6,6
+2025-01-11 18:00:00,Coventry City,Sheffield Wednesday,1.0,1.0,Coventry,England,Coventry Building Society Arena,,,,FA Cup,,20250111_Coventry-City_Sheffield-Wednesday,31.834480360274938,0.11,1.8,2,6,4,11,51.2,48.8,2,3,0,0,6,6
 2025-01-12 12:00:00,Hull City,Doncaster Rovers,1.0,1.0,Hull,England,The MKM Stadium,,,,FA Cup,,20250112_Hull-City_Doncaster-Rovers,-48.98086330581873,0.36,1.36,1,3,1,7,51.2,48.8,4,2,0,0,3,6
 2025-01-12 12:30:00,Tamworth,Tottenham Hotspur,0.0,3.0,Tamworth,England,The Lamb Ground,,,,FA Cup,,20250112_Tamworth_Tottenham-Hotspur,-13.92016403267371,0.96,1.0,4,3,9,8,54.2,45.8,3,0,0,0,3,5
 2025-01-12 15:00:00,Arsenal,Manchester United,1.0,1.0,London,England,Emirates Stadium,,,,FA Cup,,20250112_Arsenal_Manchester-United,-124.27633270549109,0.69,0.75,1,5,3,11,49.4,50.6,0,1,0,0,3,5
@@ -523,7 +523,7 @@ date,home_team,away_team,home_goals,away_goals,sede_ciudad,sede_pais,sede_nombre
 2025-02-07 20:00:00,Manchester United,Leicester City,2.0,1.0,Manchester,England,Old Trafford,,,,FA Cup,,20250207_Manchester-United_Leicester-City,56.16040064314734,1.23,0.05,6,1,13,2,53.7,46.3,2,0,0,0,9,3
 2025-02-08 12:15:00,Leeds United,Millwall,0.0,2.0,Leeds,England,Elland Road,,,,FA Cup,,20250208_Leeds-United_Millwall,50.134183951890236,0.67,1.3,0,4,0,8,43.8,56.2,1,0,0,0,1,9
 2025-02-08 12:15:00,Leyton Orient,Manchester City,1.0,2.0,London,England,BetWright Stadium,,,,FA Cup,,20250208_Leyton-Orient_Manchester-City,-130.7975450174497,0.41,0.61,1,3,1,7,39.7,60.3,2,2,0,0,1,1
-2025-02-08 15:00:00,Coventry City,Ipswich Town,1.0,4.0,Coventry,England,The Coventry Building Society Arena,,,,FA Cup,,20250208_Coventry-City_Ipswich-Town,6.594628355097484,1.33,1.31,4,4,8,9,44.7,55.3,2,2,0,0,9,4
+2025-02-08 15:00:00,Coventry City,Ipswich Town,1.0,4.0,Coventry,England,Coventry Building Society Arena,,,,FA Cup,,20250208_Coventry-City_Ipswich-Town,6.594628355097484,1.33,1.31,4,4,8,9,44.7,55.3,2,2,0,0,9,4
 2025-02-08 15:00:00,Everton,AFC Bournemouth,0.0,2.0,Liverpool,England,Goodison Park,,,,FA Cup,,20250208_Everton_AFC-Bournemouth,13.014029695449835,0.78,0.76,1,2,0,3,55.2,44.8,5,3,0,0,1,3
 2025-02-08 15:00:00,Preston North End,Wycombe Wanderers,0.0,0.0,Preston,England,Deepdale,,,,FA Cup,,20250208_Preston-North-End_Wycombe-Wanderers,-20.49234620411221,1.24,0.12,6,0,14,0,49.0,51.0,1,2,0,0,5,3
 2025-02-08 15:00:00,Southampton,Burnley,0.0,1.0,Southampton,England,St. Mary's Stadium,,,,FA Cup,,20250208_Southampton_Burnley,36.40013958929194,0.18,0.59,0,2,0,4,52.5,47.5,2,3,0,0,3,4

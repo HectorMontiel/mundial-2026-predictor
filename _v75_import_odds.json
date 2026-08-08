@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-07T07:39:06Z",
- "filas_insertadas": 137078,
+ "generado": "2026-08-08T06:56:58Z",
+ "filas_insertadas": 137081,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -35,8 +35,8 @@
  ],
  "por_liga": {
   "argentina": {
-   "filas": 7220,
-   "partidos": 3785
+   "filas": 7223,
+   "partidos": 3788
   },
   "aut_bundesliga": {
    "filas": 3009,

@@ -1,12 +1,12 @@
 {
   "liga": "Superliga",
   "n_train": 1284,
-  "n_validacion": 321,
-  "fecha_corte": "2024-10-21",
-  "precision_validacion": 0.5202,
-  "precision_linea_base_elo": 0.486,
+  "n_validacion": 322,
+  "fecha_corte": "2024-10-25",
+  "precision_validacion": 0.5186,
+  "precision_linea_base_elo": 0.4845,
   "precision_mercado_cuotas": 0.514,
-  "log_loss_validacion": 1.0367,
+  "log_loss_validacion": 1.0373,
   "n_equipos": 19,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
