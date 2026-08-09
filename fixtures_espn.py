@@ -849,6 +849,49 @@ def es_competicion_de_selecciones(liga: str) -> bool:
     return bool(_SEL_JUVENIL.search(t) and _SEL_CONFEDERACION.search(t))
 
 
+# Marca de «ESPN nos tiene bloqueados». Caduca sola: si algún día deja de
+# bloquear (otra IP, otra política), la fuente vuelve sin tocar nada.
+_ESPN_BLOQUEADO_HASTA = [0.0]
+TTL_BLOQUEO_ESPN = 3600 * 6
+
+
+def _espn_bloqueado() -> bool:
+    return time.time() < _ESPN_BLOQUEADO_HASTA[0]
+
+
+def _marcar_espn_bloqueado() -> None:
+    _ESPN_BLOQUEADO_HASTA[0] = time.time() + TTL_BLOQUEO_ESPN
+
+
+def _con_tablon(salida: List[Dict], ck: str, ahora: float,
+                limite: int) -> List[Dict]:
+    """Completa (o sustituye) el calendario con lo que cotizan las casas."""
+    try:
+        del_tablon = selecciones_del_tablon()
+    except Exception as e:
+        logger.info(f'[selecciones] tablón no disponible: {type(e).__name__}: {e}')
+        del_tablon = []
+    try:
+        import cuotas_multi as _cm_sel
+        _norm = _cm_sel.normalizar
+    except Exception:
+        def _norm(x):
+            return str(x or '').lower()
+    vistos = {(_norm(f['home']), _norm(f['away']), str(f['fecha'])[:10])
+              for f in salida}
+    for f in del_tablon:
+        k = (_norm(f['home']), _norm(f['away']), str(f['fecha'])[:10])
+        if k not in vistos:
+            vistos.add(k)
+            salida.append(f)
+    salida.sort(key=lambda x: str(x.get('fecha') or ''))
+    salida = salida[:limite]
+    logger.info(f"[selecciones] {len(salida)} próximos partidos de selecciones "
+                f"({len(del_tablon)} del tablón de cuotas).")
+    _CACHE[ck] = (ahora, salida)
+    return salida
+
+
 def selecciones_del_tablon() -> List[Dict]:
     """
     Partidos de selecciones que las casas ya están cotizando.
@@ -906,12 +949,41 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     salida: List[Dict] = []
+    # v115 — CORTACIRCUITOS: SI ESPN NOS TIENE BLOQUEADOS, NO SE INSISTE 22 VECES.
+    #
+    # ESPN devuelve 403 a las IPs de centro de datos, así que en Streamlit
+    # Cloud fallan TODAS las competiciones, siempre. El aviso «una vez por
+    # liga» seguía siendo 22 peticiones inútiles y 22 líneas de registro en
+    # cada arranque de proceso — el usuario mandó ese muro de 403 dos veces.
+    #
+    # Un 403 no es un fallo de esa competición: es un veto a la fuente entera.
+    # Con dos seguidos se da por bloqueada y se salta el resto, que además
+    # ahorra 20 peticiones y su tiempo de espera. El estado se guarda para no
+    # reintentar en cada refresco, pero caduca — si el bloqueo se levanta (otra
+    # IP, otra política), la fuente vuelve sola en la siguiente ventana.
+    _bloqueos = 0
+    if _espn_bloqueado():
+        logger.info('[selecciones] ESPN marcado como bloqueado (403); se usa '
+                    'sólo el tablón de cuotas hasta que caduque la marca')
+        return _con_tablon([], ck, ahora, limite)
     for liga, torneo in LIGAS_SELECCIONES:
+        if _bloqueos >= 2:
+            logger.info(f'[selecciones] ESPN responde 403; se dejan de pedir '
+                        f'las competiciones restantes en esta corrida')
+            _marcar_espn_bloqueado()
+            break
         try:
             r = requests.get(ESPN_BASE.format(liga=liga),
                              params={'dates': f'{ini}-{fin}', 'limit': 400},
                              timeout=TIMEOUT,
                              headers={'User-Agent': 'Mozilla/5.0'})
+            if r.status_code == 403:
+                _bloqueos += 1
+                _avisar_una_vez('selecciones:403',
+                                '[selecciones] ESPN devuelve 403 (bloquea las '
+                                'IPs de centro de datos). El calendario sale '
+                                'del tablón de cuotas.')
+                continue
             r.raise_for_status()
             eventos = r.json().get('events', []) or []
         except Exception as e:
@@ -952,39 +1024,11 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
                                'liga_espn': liga})
             except Exception:
                 continue
-    # v114 — EL TABLÓN SE FUSIONA CON ESPN, Y NO AL REVÉS.
-    #
-    # En Streamlit Cloud las 22 competiciones de arriba devuelven 403 (ESPN
-    # bloquea las IPs de centro de datos) y `salida` llega vacía. El tablón de
-    # cuotas no se bloquea, así que es lo que salva la vista en producción; en
-    # local suman los dos. Un partido que esté en las dos fuentes se cuenta
-    # una vez, y manda el de ESPN porque trae el nombre de la competición
-    # normalizado.
-    try:
-        del_tablon = selecciones_del_tablon()
-    except Exception as e:
-        logger.info(f'[selecciones] tablón no disponible: {type(e).__name__}: {e}')
-        del_tablon = []
-    if del_tablon:
-        try:
-            import cuotas_multi as _cm_sel
-            _norm = _cm_sel.normalizar
-        except Exception:
-            def _norm(x):
-                return str(x or '').lower()
-        vistos = {(_norm(f['home']), _norm(f['away']), str(f['fecha'])[:10])
-                  for f in salida}
-        for f in del_tablon:
-            k = (_norm(f['home']), _norm(f['away']), str(f['fecha'])[:10])
-            if k not in vistos:
-                vistos.add(k)
-                salida.append(f)
-    salida.sort(key=lambda x: str(x.get('fecha') or ''))
-    salida = salida[:limite]
-    logger.info(f"[selecciones] {len(salida)} próximos partidos de selecciones "
-                f"({len(del_tablon)} del tablón de cuotas).")
-    _CACHE[ck] = (ahora, salida)
-    return salida
+    # v114/v115 — el tablón completa (o sustituye) lo que ESPN no ha dado.
+    # En Streamlit Cloud ESPN da 403 siempre y `salida` llega vacía; el tablón
+    # de cuotas no se bloquea y es lo que salva la vista allí.
+    return _con_tablon(salida, ck, ahora, limite)
+
 
 
 def fixtures_multi(claves: List[str], dias: int = 3) -> Dict[str, List[Dict]]:

@@ -1670,6 +1670,52 @@ def render_beisbol_pitchers() -> None:
     st.markdown(f"**{len(dentro)} de {len(analisis)} partidos entrarían** "
                 f"en la parlay según la regla.")
 
+    # v115 — SE REGISTRA LO QUE SE RECOMIENDA, Y SE ENSEÑA CÓMO SALIÓ.
+    #
+    # Era el agujero más grande del proyecto: la app emitía líneas de ponches y
+    # nadie comprobaba si acertaban. Cuando el usuario dijo «de cinco sólo se
+    # cumplió una», hubo que auditar el modelo a mano durante horas para
+    # descubrir que `bf_apertura` inflaba el λ medio ponche. Con el círculo
+    # cerrado, eso se ve en esta misma pantalla.
+    #
+    # Se registran sólo las recomendaciones de PONCHES, y con canal propio: la
+    # regla es del usuario, no una estrategia validada del proyecto, y mezclar
+    # su tasa de acierto con la del resto confundiría dos cosas distintas.
+    try:
+        import liquidador_ponches as _lp
+        _regs = []
+        for _a in dentro:
+            _v = dict(_a['veredicto'])
+            _v['partido'] = f"{_a['away']} @ {_a['home']}"
+            _regs.append(_v)
+        _lp.registrar_ponches(_regs)
+        _rend = _lp.resumen_ponches(dias=60)
+        if _rend.get('n'):
+            with st.container(border=True):
+                st.markdown("**📊 Cómo va esta regla, de verdad**")
+                r1, r2, r3 = st.columns(3)
+                r1.metric("Recomendaciones cerradas", _rend['n'])
+                r2.metric("Acertadas", f"{_rend['tasa']*100:.0f} %"
+                          if _rend.get('tasa') is not None else '—')
+                r3.metric("ROI", f"{_rend['roi']*100:+.1f} %"
+                          if _rend.get('roi') is not None else '—',
+                          help="Con stake plano de 1 unidad por recomendación.")
+                if _rend.get('pendientes'):
+                    st.caption(f"{_rend['pendientes']} pendientes de liquidar "
+                               f"(se resuelven solas cuando el lanzador "
+                               f"aparece en el registro oficial).")
+                if _rend['n'] < 30:
+                    st.caption("⚠️ Con menos de 30 apuestas cerradas esta tasa "
+                               "no distingue una buena regla de una mala "
+                               "racha. Es un recuento, no una conclusión.")
+        else:
+            st.caption("📊 Las recomendaciones de ponches quedan registradas "
+                       "desde ahora y se liquidan contra el registro oficial "
+                       "de MLB. En unos días esta pantalla dirá cuántas "
+                       "acertaron.")
+    except Exception as _e:
+        st.caption(f"Registro de rendimiento no disponible ({type(_e).__name__}).")
+
     for a in analisis:
         v = a['veredicto']
         cab = f"{a['away']} @ {a['home']}"
@@ -1805,6 +1851,27 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                     # sin combinada de EV real la pantalla sigue entera: las
                     # combinadas normales de arriba no dependen de ésta
                     _ops_ev, _mk_ev = [], []
+        # v115 — LAS COMBINADAS PROPUESTAS SE REGISTRAN.
+        #
+        # Sin esto no hay forma de saber si las que la app propone entran o no,
+        # que es exactamente el agujero que la auditoría puso como prioridad
+        # nº 1. Cada pata se guarda como un pick normal con canal
+        # `combinada:<perfil>`, así la resuelve el liquidador de siempre y la
+        # combinada se da por acertada sólo si aciertan todas.
+        #
+        # Se registran las de CUOTA REAL, no las de cuota justa: una combinada
+        # con precio inventado no se puede juzgar contra nada.
+        try:
+            import liquidador_ponches as _lp_reg
+            _liga_reg = NOMBRES_LIGAS.get(getattr(motor, 'clave', ''), key)
+            for _op in (_ops_ev or []):
+                _lp_reg.registrar_combinada(
+                    f'{home} vs {away}', _op, liga=_liga_reg,
+                    deporte=('Tenis' if str(key).startswith('tenis')
+                             else 'MLB' if key in ('mlb', 'kbo')
+                             else 'NBA' if key == 'nba' else 'Fútbol'))
+        except Exception:
+            pass
         # v62: se guardan en sesión para que el botón de Telegram (que provoca
         # un rerun) siga teniéndolas disponibles.
         st.session_state[f'parlays_{key}'] = {
@@ -4687,31 +4754,47 @@ if not MOTOR.listo:
 # de las caídas con varios usuarios (borra también los cerrojos internos).
 # La actualización de datos vive en la tarea diaria (actualizacion_diaria.bat
 # en local, retrain_leagues.yml en CI), donde siempre debió estar.
+# v115 — LOS AVISOS DE CABECERA, EN UNA LÍNEA Y PLEGADOS.
+#
+# Eran tres bloques de colores que ocupaban media pantalla antes de que
+# apareciera nada útil, y dos de ellos hablaban del Mundial 2026 («incluyen
+# partidos de octavos», la calibración con StatsBomb). Toda esa información
+# sigue disponible —es honesta y hay que poder consultarla— pero como una
+# línea con la frescura de los datos y un desplegable con el detalle.
 col_banner = st.container()
 with col_banner:
-    if MOTOR.fuente == 'real_hybrid':
-        st.info(
-            f"✅ **Resultados reales** actualizados al **{MOTOR.fecha_estado}** — "
-            f"{MOTOR.fuente_detalle}. Las métricas avanzadas (remates, posesión) se "
-            f"estiman con un modelo calibrado con datos reales de StatsBomb."
-        )
-    # Indicador de frescura: verde si incluye la fase actual del torneo
     try:
-        antiguedad = (pd.Timestamp.today().normalize() -
-                      pd.Timestamp(MOTOR.generado)).days
-        if antiguedad >= 1:
-            st.warning(
-                f"⏰ **Datos del {MOTOR.generado}. Pueden no reflejar los partidos "
-                f"de ayer.** La tarea diaria los refresca automáticamente."
-            )
-        else:
-            from live_worldcup import fase_del_torneo
-            fase_actual = fase_del_torneo(MOTOR.fecha_estado)
-            st.markdown(f"🟢 **Datos actualizados al {MOTOR.fecha_estado}**"
-                        + (f" — incluyen partidos de **{fase_actual}**." if fase_actual
-                           else " — incluyen los partidos disputados de la fase actual."))
+        antiguedad = (pd.Timestamp.today().normalize()
+                      - pd.Timestamp(MOTOR.generado)).days
     except Exception:
-        pass
+        antiguedad = None
+    _sem = ('🟢' if antiguedad is not None and antiguedad < 1
+            else '🟡' if antiguedad is not None and antiguedad <= 7 else '⏰')
+    st.caption(
+        f"{_sem} Datos al **{MOTOR.fecha_estado}**"
+        + (f" · generados hace {antiguedad} día(s)" if antiguedad else '')
+        + f" · {len(MOTOR.equipos)} selecciones cubiertas"
+        + " · la tarea diaria los refresca sola")
+    with st.expander("ℹ️ De dónde salen estos datos y qué precisión tienen"):
+        if MOTOR.fuente == 'real_hybrid':
+            st.markdown(
+                f"- **Resultados reales** hasta el {MOTOR.fecha_estado} — "
+                f"{MOTOR.fuente_detalle}.")
+            st.markdown(
+                "- Las métricas avanzadas (remates, posesión) se **estiman** "
+                "con un modelo calibrado con datos reales de StatsBomb: no son "
+                "observaciones, son estimaciones, y por eso se dicen aparte.")
+        _obj = MOTOR.metadata.get('objetivo_estricto', {}) or {}
+        if MOTOR.metadata.get('deploy_ready') and not _obj.get('cumplido', False):
+            st.markdown(
+                f"- **Transparencia**: el objetivo estricto (precisión ≥ "
+                f"{_obj.get('precision', 0.62)*100:.0f} % y log-loss ≤ "
+                f"{_obj.get('log_loss', 0.85)}) todavía no se alcanza sobre "
+                f"partidos reales — va por "
+                f"{MOTOR.metadata.get('precision_validacion', 0)*100:.1f} % / "
+                f"{MOTOR.metadata.get('log_loss_validacion', 0):.3f}. El techo "
+                f"teórico del 1X2 internacional ronda el 60-65 %, así que el "
+                f"objetivo es exigente a propósito.")
 
 if MOTOR.fuente == 'synthetic':
     st.warning(
@@ -4725,25 +4808,30 @@ if not MOTOR.metadata.get('deploy_ready', False):
         f"({MOTOR.metadata.get('precision_validacion', 0)*100:.1f} %) no alcanzó "
         f"el umbral de despliegue del 55 %. Tómalo solo como orientación."
     )
-objetivo = MOTOR.metadata.get('objetivo_estricto', {})
-if MOTOR.metadata.get('deploy_ready') and not objetivo.get('cumplido', False):
-    st.caption(
-        f"ℹ️ Transparencia: el objetivo estricto (precisión ≥ {objetivo.get('precision', 0.62)*100:.0f} % "
-        f"y log-loss ≤ {objetivo.get('log_loss', 0.85)}) aún no se alcanza sobre partidos reales "
-        f"(actual: {MOTOR.metadata.get('precision_validacion', 0)*100:.1f} % / "
-        f"{MOTOR.metadata.get('log_loss_validacion', 0):.3f}). El techo teórico del 1X2 "
-        f"internacional ronda el 60-65 %."
-    )
+# (la nota de transparencia se ha movido al desplegable de cabecera, v115)
 
 # ===========================================================================
 # SELECCIÓN DEL PARTIDO
 # ===========================================================================
-st.title("🏆 ¿Quién gana? — Predictor deportivo")
+# v115 — ESTA VISTA YA NO ES «EL MUNDIAL».
+#
+# El torneo terminó y la vista quedó con su ropa puesta: se titulaba «¿Quién
+# gana? — Predictor deportivo», hablaba de la calibración con StatsBomb del
+# Mundial y ofrecía «Fase de grupos» y «Estadio (MetLife por defecto)» para un
+# amistoso en Tokio. El usuario lo pidió dos veces seguidas.
+#
+# Lo que es de verdad: un predictor de SELECCIONES —200 de ellas— que cubre
+# amistosos, Nations League, clasificatorias y torneos continentales de los dos
+# sexos. Los controles del Mundial siguen existiendo porque el modelo los usa
+# (el árbitro ajusta tarjetas, la altitud ajusta el xG), pero pasan a un
+# desplegable de ajustes finos en vez de presidir la pantalla.
+st.title("🌍 Partidos Internacionales — Predictor de selecciones")
 st.caption(
-    f"Motor topológico-predictivo · Ensemble XGBoost+RF+LightGBM calibrado · "
-    f"Enfrenta a **cualquiera de las {len(MOTOR.equipos)} selecciones nacionales** "
-    f"cubiertas por el histórico · "
-    f"Precisión backtesting: **{MOTOR.metadata.get('precision_validacion', 0)*100:.1f} %**"
+    f"Enfrenta a **cualquiera de las {len(MOTOR.equipos)} selecciones "
+    f"nacionales** del histórico: amistosos, Nations League, clasificatorias y "
+    f"torneos continentales, masculinos y femeninos · "
+    f"Precisión backtesting **{MOTOR.metadata.get('precision_validacion', 0)*100:.1f} %** "
+    f"(el techo del 1X2 internacional ronda el 60-65 %)"
 )
 
 col_sel1, col_sel2, col_sel3 = st.columns([2, 1, 1])
@@ -4848,30 +4936,46 @@ else:
                             index=visitantes.index('ECU') if 'ECU' in visitantes else 0,
                             format_func=lambda c: NOMBRES_PAIS.get(c, c))
 
-# ---- Árbitro designado y fase del torneo -----------------------------------
-col_arb, col_fase = st.columns([3, 1])
-with col_arb:
-    opciones_arbitro = ["(promedio FIFA, sin asignar)"] + sorted(ARBITROS.keys())
-    arbitro_sel = st.selectbox(
-        "👨‍⚖️ Árbitro designado (opcional — ajusta tarjetas, rojas y penaltis)",
-        opciones_arbitro,
-        format_func=lambda n: n if n.startswith("(") else
-        f"{n} ({ARBITROS[n]['pais']}, {ARBITROS[n]['criterio'].lower()}, {ARBITROS[n]['ama_p90']:.1f} am/90)",
+# ---- v115: AJUSTES FINOS, PLEGADOS -----------------------------------------
+#
+# Árbitro, fase y estadio se quedan porque el modelo los usa de verdad: el
+# árbitro mueve tarjetas y penaltis, la fase cambia cómo se juega y la altitud
+# ajusta el xG por aclimatación. Lo que no tiene sentido es que presidan la
+# pantalla de un amistoso en Tokio con «Fase de grupos» y «MetLife» por
+# defecto, como si el Mundial siguiera en marcha.
+#
+# Van a un desplegable cerrado, con los valores neutros por defecto. Quien
+# quiera afinar los tiene; quien sólo quiera el pronóstico ya no los ve.
+with st.expander("⚙️ Ajustes finos del partido (árbitro, fase, estadio)",
+                 expanded=False):
+    st.caption("Opcionales. El modelo funciona sin ellos: si no los tocas usa "
+               "el promedio FIFA, fase regular y altitud neutra. Los estadios "
+               "de la lista son los del Mundial 2026 y sólo aportan su "
+               "**altitud** — útil si el partido se juega en uno de ellos o a "
+               "una altura parecida.")
+    _ca1, _ca2 = st.columns([3, 1])
+    with _ca1:
+        opciones_arbitro = ["(promedio FIFA, sin asignar)"] + sorted(ARBITROS.keys())
+        arbitro_sel = st.selectbox(
+            "👨‍⚖️ Árbitro designado — ajusta tarjetas, rojas y penaltis",
+            opciones_arbitro,
+            format_func=lambda n: n if n.startswith("(") else
+            f"{n} ({ARBITROS[n]['pais']}, {ARBITROS[n]['criterio'].lower()}, {ARBITROS[n]['ama_p90']:.1f} am/90)",
+        )
+    with _ca2:
+        fase_sel = st.selectbox("🏆 Tipo de partido",
+                                ["Fase regular / amistoso", "Eliminatoria"],
+                                help="En eliminatoria se juega distinto: menos "
+                                     "goles y más cautela.")
+    opciones_estadio = ["(altitud neutra)"] + list(ESTADIOS_MUNDIAL.keys())
+    estadio_sel = st.selectbox(
+        "🏟️ Estadio — la altitud ajusta el xG por aclimatación",
+        opciones_estadio,
+        format_func=lambda k: k if k.startswith("(") else
+        f"{ESTADIOS_MUNDIAL[k]['nombre']} — {ESTADIOS_MUNDIAL[k]['ciudad']} · {ESTADIOS_MUNDIAL[k]['altitud']} msnm",
     )
 arbitro = None if arbitro_sel.startswith("(") else arbitro_sel
-with col_fase:
-    fase_sel = st.selectbox("🏆 Fase", ["Fase de grupos", "Dieciseisavos", "Octavos",
-                                        "Cuartos de final", "Semifinal", "Final"])
-fase = 'grupos' if fase_sel == "Fase de grupos" else 'eliminatoria'
-
-# ---- Estadio oficial (la altitud activa la capa de aclimatación) ------------
-opciones_estadio = ["(del fixture / MetLife por defecto)"] + list(ESTADIOS_MUNDIAL.keys())
-estadio_sel = st.selectbox(
-    "🏟️ Estadio del partido (la altitud ajusta el xG por aclimatación)",
-    opciones_estadio,
-    format_func=lambda k: k if k.startswith("(") else
-    f"{ESTADIOS_MUNDIAL[k]['nombre']} — {ESTADIOS_MUNDIAL[k]['ciudad']} · {ESTADIOS_MUNDIAL[k]['altitud']} msnm",
-)
+fase = 'grupos' if fase_sel.startswith("Fase regular") else 'eliminatoria'
 estadio = None if estadio_sel.startswith("(") else estadio_sel
 
 pred = prediccion_cacheada(id(MOTOR), home, away, arbitro, fase, estadio)

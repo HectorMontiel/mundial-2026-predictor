@@ -639,3 +639,15 @@ if __name__ == '__main__':
     ap.add_argument('--dias', type=int, default=10)
     a = ap.parse_args()
     print(json.dumps(liquidar_pendientes(a.dias), ensure_ascii=False, indent=1))
+    # v115 — los PONCHES se resuelven con otra fuente (el registro por juego
+    # del lanzador en MLB StatsAPI), así que van en su propio módulo. Se
+    # llaman aquí para que la tarea diaria siga teniendo UN solo punto de
+    # entrada y no haya que acordarse de dos.
+    try:
+        import liquidador_ponches
+        print(json.dumps(liquidador_ponches.liquidar_ponches(max(a.dias, 21)),
+                         ensure_ascii=False, indent=1))
+        print(json.dumps(liquidador_ponches.resumen_combinadas(),
+                         ensure_ascii=False, indent=1))
+    except Exception as e:
+        print(f'{{"ponches": "no disponible: {type(e).__name__}: {e}"}}')

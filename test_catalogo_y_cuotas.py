@@ -1799,9 +1799,22 @@ def test_selecciones_completas():
     check(not fe.es_competicion_de_selecciones('Myanmar — Championship U20'),
           'ni una liga juvenil nacional de clubes')
     import inspect
-    check('selecciones_del_tablon' in
-          inspect.getsource(fe.fixtures_selecciones),
+    check('_con_tablon' in inspect.getsource(fe.fixtures_selecciones)
+          and 'selecciones_del_tablon' in inspect.getsource(fe._con_tablon),
           'y el calendario de selecciones se fusiona con el del tablón')
+    # v115 — cortacircuitos: un 403 es un veto a la fuente entera, no un fallo
+    # de esa competición. Sin esto eran 22 peticiones y 22 líneas de registro
+    # en cada arranque, que es el muro de errores que reportó el usuario.
+    _src_sel = inspect.getsource(fe.fixtures_selecciones)
+    check('403' in _src_sel and '_marcar_espn_bloqueado' in _src_sel,
+          'con 403 se deja de pedir el resto de competiciones')
+    fe._ESPN_BLOQUEADO_HASTA[0] = 0
+    check(not fe._espn_bloqueado(), 'la marca de bloqueo arranca limpia')
+    fe._marcar_espn_bloqueado()
+    check(fe._espn_bloqueado(), 'y se puede marcar cuando ESPN veta')
+    check(fe.TTL_BLOQUEO_ESPN > 0,
+          'la marca CADUCA: si el bloqueo se levanta, la fuente vuelve sola')
+    fe._ESPN_BLOQUEADO_HASTA[0] = 0
 
 
 def test_bf_por_apertura():
