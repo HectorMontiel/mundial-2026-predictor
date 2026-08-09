@@ -1,12 +1,12 @@
 {
   "liga": "Ligue 2",
-  "n_train": 1335,
-  "n_validacion": 339,
-  "fecha_corte": "2025-04-11",
-  "precision_validacion": 0.4248,
-  "precision_linea_base_elo": 0.4189,
-  "precision_mercado_cuotas": 0.4218,
-  "log_loss_validacion": 1.0614,
+  "n_train": 1344,
+  "n_validacion": 338,
+  "fecha_corte": "2025-04-18",
+  "precision_validacion": 0.432,
+  "precision_linea_base_elo": 0.4172,
+  "precision_mercado_cuotas": 0.4212,
+  "log_loss_validacion": 1.0657,
   "n_equipos": 36,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
@@ -22,24 +22,24 @@
     "OVERROUND"
   ],
   "medias_cuotas": {
-    "PROB_IMP_H": 0.4165,
-    "PROB_IMP_D": 0.284,
-    "PROB_IMP_A": 0.2995,
+    "PROB_IMP_H": 0.4162,
+    "PROB_IMP_D": 0.2839,
+    "PROB_IMP_A": 0.2999,
     "OVERROUND": 0.0766
   },
   "roi_sim": {
-    "n_apuestas": 157,
-    "roi_pct": -1.5,
+    "n_apuestas": 153,
+    "roi_pct": 0.33,
     "aciertos": 68,
-    "roi_pct_pinnacle": -10.13,
-    "n_con_pinnacle": 61
+    "roi_pct_pinnacle": -10.25,
+    "n_con_pinnacle": 57
   },
   "mesm": {
-    "n_val_con_cuotas": 339,
-    "acc_prod": 0.4248,
-    "acc_mesm": 0.4189,
-    "ll_prod": 1.0614,
-    "ll_mesm": 1.0922,
+    "n_val_con_cuotas": 330,
+    "acc_prod": 0.4333,
+    "acc_mesm": 0.4212,
+    "ll_prod": 1.0646,
+    "ll_mesm": 1.0955,
     "adoptado": false
   },
   "imt": null

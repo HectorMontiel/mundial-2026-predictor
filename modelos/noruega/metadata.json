@@ -1,12 +1,12 @@
 {
   "liga": "Eliteserien",
   "n_train": 1494,
-  "n_validacion": 376,
+  "n_validacion": 379,
   "fecha_corte": "2024-11-23",
-  "precision_validacion": 0.5638,
-  "precision_linea_base_elo": 0.5372,
+  "precision_validacion": 0.5673,
+  "precision_linea_base_elo": 0.5409,
   "precision_mercado_cuotas": 0.592,
-  "log_loss_validacion": 0.9561,
+  "log_loss_validacion": 0.9562,
   "n_equipos": 27,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
@@ -22,18 +22,18 @@
     "OVERROUND": 0.0616
   },
   "roi_sim": {
-    "n_apuestas": 99,
-    "roi_pct": 1.57,
-    "aciertos": 46,
-    "roi_pct_pinnacle": -22.41,
-    "n_con_pinnacle": 63
+    "n_apuestas": 96,
+    "roi_pct": -6.62,
+    "aciertos": 44,
+    "roi_pct_pinnacle": -20.53,
+    "n_con_pinnacle": 64
   },
   "mesm": {
     "n_val_con_cuotas": 375,
-    "acc_prod": 0.5653,
+    "acc_prod": 0.568,
     "acc_mesm": 0.584,
-    "ll_prod": 0.9555,
-    "ll_mesm": 0.921,
+    "ll_prod": 0.956,
+    "ll_mesm": 0.9222,
     "adoptado": true
   },
   "imt": null
