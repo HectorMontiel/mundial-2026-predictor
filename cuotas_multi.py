@@ -696,6 +696,126 @@ def _indice_bov(deporte: str) -> Dict[str, dict]:
 
 
 # ---------------------------------------------------------------------------
+# 3-bis. UNIBET (Kambi) — la quinta casa (v111)
+#
+# Por qué esta y no otra
+# ----------------------
+# El line shopping es la única vía del proyecto con ROI positivo Y robusto
+# (+11,49 % en el tramo de juicio, p5 +1,73 %), y vive de la dispersión entre
+# casas: cada precio nuevo multiplica las oportunidades sin tocar el modelo.
+#
+# Se sondearon quince candidatas (`_v111_casas_candidatas.json`). Casi todas
+# están cerradas a peticiones automáticas: FanDuel, BetMGM y Betfair devuelven
+# 403; DraftKings no resuelve; Caliente, Codere, OddsPortal y Flashscore sirven
+# HTML montado por JavaScript; Cloudbet exige clave. Las que la v71 ya descartó
+# (Smarkets, Betano, 1xBet, Betsson, Marathonbet) no se volvieron a probar.
+#
+# Kambi es la única con JSON abierto y catálogo real: 380 partidos de fútbol
+# con cuota en 126 competiciones, más tenis (90), béisbol (15) y baloncesto
+# (16). La v71 la había descartado mirando otro endpoint que devolvía 185
+# eventos casi todos de esports; `listView/{deporte}.json` es el bueno.
+#
+# UNA SOLA MARCA, Y ESTO NO ES NEGOCIABLE
+# ---------------------------------------
+# Kambi es una plataforma compartida: Unibet, 888sport, LeoVegas, Rizk, Casumo,
+# ATG y una docena más cuelgan del MISMO motor de precios. Comprobado sobre los
+# 272 partidos que `ub` y `atg` publican a la vez: **248 idénticos, 24
+# distintos (9 %)**, y esos 24 difieren en céntimos (2,90 contra 2,95) — ruido
+# de captura entre dos peticiones separadas por segundos, no dos opiniones.
+#
+# Añadir varias marcas fabricaría dispersión FALSA: el sistema vería «una casa
+# paga más que otra» donde hay un único precio, y emitiría picks de line
+# shopping inexistentes. Es exactamente la trampa del EV+ ilusorio que la v25
+# documentó. Si alguien quiere «añadir más casas», que no sean marcas de Kambi.
+# ---------------------------------------------------------------------------
+KAMBI = ('https://eu-offering-api.kambicdn.com/offering/v2018/ub/listView/'
+         '{path}.json?lang=en_GB&market=GB')
+KAMBI_PATH = {'futbol': 'football', 'tenis': 'tennis',
+              'mlb': 'baseball', 'nba': 'basketball'}
+_MEM_UNI: Dict[str, tuple] = {}
+
+
+def _indice_unibet(deporte: str) -> Dict[str, dict]:
+    """{clave_partido: {...,'cuotas':{home,draw,away}}} desde Unibet (Kambi)."""
+    path = KAMBI_PATH.get(deporte)
+    if not path:
+        return {}
+    cacheado = _leer_cache(f'unibet_{deporte}.json')
+    if cacheado is not None:
+        return cacheado
+    j = _get(KAMBI.format(path=path), headers=UA_WEB, timeout=30)
+    if not j:
+        logger.warning(f"[unibet] {deporte}: sin respuesta")
+        return {}
+    indice: Dict[str, dict] = {}
+    for bloque in (j.get('events') or []):
+        ev = bloque.get('event') or {}
+        # sólo PREPARTIDO: una cuota en vivo no es comparable con el resto del
+        # tablón, que es de línea previa.
+        if ev.get('state') not in (None, 'NOT_STARTED'):
+            continue
+        home, away = ev.get('homeName'), ev.get('awayName')
+        if not home or not away:
+            continue
+        # v111 — FUERA LOS ESPORTS, QUE AQUÍ VIENEN MEZCLADOS CON EL FÚTBOL.
+        #
+        # El feed de «football» incluye «Esports Battle (2x4min)» y «Cyber Live
+        # Arena»: partidas de FIFA entre jugadores, no partidos. Llegan con
+        # nombres como «Barcelona (dm1trena)» y son 22+19+18 de los 380
+        # eventos. Si entran al tablón, el emparejado difuso los casa con el
+        # Barcelona de verdad y el line shopping compara el precio de un
+        # partido real contra el de una partida de consola de cuatro minutos.
+        # Ese es el tipo de error que no da excepción y envenena una apuesta.
+        _ruta = ' '.join(str(p.get('name') or '') for p in (ev.get('path') or []))
+        _texto = f'{_ruta} {ev.get("group") or ""}'.lower()
+        if any(t in _texto for t in ('esport', 'e-sport', 'cyber',
+                                     'live arena', 'simulated')):
+            continue
+        cuotas: Dict[str, float] = {}
+        for oferta in (bloque.get('betOffers') or []):
+            crit = ((oferta.get('criterion') or {}).get('label') or '').lower()
+            # el mercado del ganador se llama distinto en cada deporte
+            if not any(k in crit for k in ('match odds', 'moneyline', '1x2',
+                                           'full time')):
+                continue
+            for oc in (oferta.get('outcomes') or []):
+                try:
+                    # Kambi publica la cuota en MILÉSIMAS (2700 = 2.70)
+                    dec = float(oc.get('odds') or 0) / 1000.0
+                except (TypeError, ValueError):
+                    continue
+                if dec <= 1:
+                    continue
+                lado = {'OT_ONE': 'home', 'OT_CROSS': 'draw',
+                        'OT_TWO': 'away'}.get(oc.get('type'))
+                if lado:
+                    cuotas[lado] = round(dec, 4)
+            if cuotas.get('home') and cuotas.get('away'):
+                break
+        if not (cuotas.get('home') and cuotas.get('away')):
+            continue
+        ruta = [p.get('name') for p in (ev.get('path') or [])]
+        indice[f'{normalizar(home)}|{normalizar(away)}'] = {
+            'home': home, 'away': away,
+            'liga': ' — '.join(x for x in ruta[1:] if x) or ev.get('group'),
+            'fecha': fecha_normalizada(ev.get('start')),
+            'casa': 'Unibet',
+            'cuotas': cuotas}
+    _escribir_cache(f'unibet_{deporte}.json', indice)
+    logger.info(f"[unibet] {deporte}: {len(indice)} partidos con cuotas")
+    return indice
+
+
+def _indice_uni(deporte: str) -> Dict[str, dict]:
+    ts, idx = _MEM_UNI.get(deporte, (0, None))
+    if idx is None or time.time() - ts > TTL:
+        with _LOCK:
+            idx = _indice_unibet(deporte)
+            _MEM_UNI[deporte] = (time.time(), idx)
+    return idx
+
+
+# ---------------------------------------------------------------------------
 # 4. PLAYDOIT — la casa del usuario (v76)
 #
 # Es la cuarta casa y la más importante en la práctica: de nada sirve detectar
@@ -1067,6 +1187,18 @@ def cuotas_partido(deporte: str, home: str, away: str,
             casas['Bovada'] = {k: v for k, v in c.items()
                                if k in ('home', 'draw', 'away')}
             fuentes.append('bovada')
+
+    # v111: Unibet (Kambi) — la quinta casa. Ver `_indice_unibet` para por qué
+    # es ésta y por qué SOLO ésta de todas las marcas de Kambi.
+    uni = _buscar(_indice_uni(deporte), home, away, deporte)
+    if uni and uni.get('cuotas'):
+        c = dict(uni['cuotas'])
+        if uni.get('invertido'):
+            c['home'], c['away'] = c.get('away'), c.get('home')
+        if c.get('home') and c.get('away'):
+            casas['Unibet'] = {k: v for k, v in c.items()
+                               if k in ('home', 'draw', 'away')}
+            fuentes.append('unibet')
 
     # v76: Playdoit — la casa donde el usuario apuesta de verdad. Va la última
     # a propósito: si algo falla en su API, las tres anteriores ya han dado

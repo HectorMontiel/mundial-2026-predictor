@@ -2487,6 +2487,72 @@ def test_ev_automatico_en_todos_los_deportes():
               f"hashea y los cuatro deportes compartirían caché ({args})")
 
 
+def test_unibet_quinta_casa():
+    """
+    v111 — Unibet (Kambi) entra al tablón, y sólo Unibet.
+
+    El line shopping es la única vía del proyecto con ROI positivo y robusto
+    (+11,49 % en juicio, p5 +1,73 %) y vive de la dispersión entre casas. De
+    quince candidatas sondeadas, Kambi fue la única con JSON abierto y catálogo
+    real: 270 partidos de fútbol (ya sin esports), 73 de tenis, 15 de MLB y 16
+    de NBA.
+
+    Medido al integrarla: sobre 33 partidos con dos o más casas, **Unibet da el
+    mejor precio en 17** con una ventaja media del **+3,64 %** sobre la segunda
+    mejor (mediana +1,69 %, máximo +11,43 %).
+
+    LO QUE ESTE TEST PROTEGE DE VERDAD
+    ----------------------------------
+    Kambi es una plataforma compartida: Unibet, 888sport, LeoVegas, Rizk,
+    Casumo y ATG cuelgan del MISMO motor. Comprobado sobre los 272 partidos que
+    `ub` y `atg` publican a la vez: **248 idénticos** y 24 con diferencias de
+    céntimos (ruido de captura). Añadir una segunda marca de Kambi fabricaría
+    dispersión falsa — picks de line shopping sobre un precio que es el mismo.
+    Es la trampa del EV+ ilusorio de la v25, y sería invisible.
+    """
+    import cuotas_multi as cm
+
+    check(hasattr(cm, '_indice_unibet'), "existe el índice de Unibet")
+    check('Unibet' in open('cuotas_multi.py', encoding='utf-8').read(),
+          "y se registra como casa en `cuotas_partido`")
+
+    src = open('cuotas_multi.py', encoding='utf-8').read()
+    # UNA sola marca de Kambi en la URL
+    import re
+    marcas = set(re.findall(r"offering/v2018/(\w+)/", src))
+    check(marcas == {'ub'},
+          f"se consulta UNA sola marca de Kambi ({marcas}) — varias fabricarían "
+          f"dispersión falsa: 248 de 272 partidos tienen precio idéntico entre "
+          f"marcas")
+    check('mismo motor' in src.lower() or 'MISMO motor' in src,
+          "y queda escrito por qué, para que nadie lo 'mejore' añadiendo marcas")
+
+    # los esports NO pueden entrar al fútbol
+    check('esport' in src.lower(),
+          "el feed de fútbol de Kambi trae esports y se filtran")
+    idx = cm._indice_unibet('futbol')
+    if idx:
+        sucios = [v for v in idx.values()
+                  if any(t in str(v.get('liga', '')).lower()
+                         for t in ('esport', 'cyber', 'live arena'))]
+        check(not sucios,
+              f"ningún esports se cuela como fútbol ({len(sucios)} de "
+              f"{len(idx)}) — el emparejado difuso casaría «Barcelona "
+              f"(dm1trena)» con el Barcelona de verdad")
+        check(len(idx) >= 50,
+              f"y el catálogo real es amplio ({len(idx)} partidos)")
+
+    # las cuotas tienen que venir en decimal creíble (Kambi las da en milésimas)
+    if idx:
+        malas = []
+        for v in list(idx.values())[:60]:
+            for lado, c in (v.get('cuotas') or {}).items():
+                if not (1.0 < float(c) < 200):
+                    malas.append((v['home'], lado, c))
+        check(not malas,
+              f"las cuotas se convierten bien de milésimas a decimal ({malas[:3]})")
+
+
 def test_sin_bom_en_el_codigo():
     """
     v110 — ningún .py puede empezar con BOM UTF-8.
@@ -3161,6 +3227,7 @@ if __name__ == '__main__':
     test_roi_negativo_se_avisa_de_frente()
     test_cobertura_remates_medida()
     print('\n=== v110: ruido de producción y codificación ===')
+    test_unibet_quinta_casa()
     test_sin_bom_en_el_codigo()
     test_ruido_de_produccion()
     test_ninguna_liga_activa_sin_modelo()
