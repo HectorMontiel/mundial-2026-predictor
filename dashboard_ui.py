@@ -880,13 +880,35 @@ def render_panel_equipos(clave: str, home: str, away: str, key: str,
                     partes.append(f"{donde}: {d['g']}-{d['e']}-{d['p']} en "
                                   f"{d['pj']} PJ ({d['pts_por_partido']} pts/p)")
                 st.caption('En el torneo actual · ' + ' · '.join(partes))
-            st.dataframe(pd.DataFrame([{
-                'Fecha': p['fecha'],
-                'Dónde': 'Casa' if p['casa'] else 'Fuera',
-                'Rival': p['rival'],
-                'Marcador': f"{p['goles']} - {p['encajados']}",
-                'Resultado': {'G': 'Ganó', 'E': 'Empató', 'P': 'Perdió'}[p['resultado']],
-            } for p in f['partidos']]), hide_index=True, width='stretch')
+            # v114 — LOS ÚLTIMOS PARTIDOS, CON SUS ESTADÍSTICAS.
+            #
+            # Pedido del usuario: «que haya otra sección que me muestre los
+            # partidos más recientes de cada equipo con sus estadísticas,
+            # marcador, etc., para evaluar qué conviene elegir». El histórico
+            # ya traía tiros, córners, tarjetas y posesión, y la tabla sólo
+            # enseñaba el marcador. Cada estadística sale como «propio-rival»
+            # para poder leer de un vistazo si el equipo dominó o resistió.
+            _filas_f = []
+            for p in f['partidos']:
+                _fila = {
+                    'Fecha': p['fecha'],
+                    'Dónde': 'Casa' if p['casa'] else 'Fuera',
+                    'Rival': p['rival'],
+                    'Marcador': f"{p['goles']} - {p['encajados']}",
+                    'Resultado': {'G': 'Ganó', 'E': 'Empató',
+                                  'P': 'Perdió'}[p['resultado']],
+                }
+                for _et, _v in (p.get('stats') or {}).items():
+                    _fila[_et] = (f"{_v['propio']:g} - {_v['rival']:g}"
+                                  if _v.get('rival') is not None
+                                  else f"{_v['propio']:g}")
+                _filas_f.append(_fila)
+            st.dataframe(pd.DataFrame(_filas_f), hide_index=True,
+                         width='stretch')
+            if _filas_f and len(_filas_f[0]) <= 5:
+                st.caption("Esta competición sólo publica el marcador en su "
+                           "histórico; las de football-data con estadística "
+                           "completa añaden tiros, córners y tarjetas.")
 
     st.caption("ℹ️ Esto es información para juzgar, no una señal de apuesta: "
                "el historial y la forma **ya están dentro del modelo** (el ELO "
@@ -1378,20 +1400,51 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
     if plantilla:
         try:
             import cuotas_tablon as _ct
-            _mk = _ct.mercados_con_ev(res, plantilla, home, away)
+            _mk = _ct.marcar_ev_sospechoso(
+                _ct.mercados_con_ev(res, plantilla, home, away))
             if _mk:
                 _pos = [r for r in _mk if r['ev'] > 0]
                 st.success(f"**{len(_mk)} mercados** con cuota real de "
                            f"**{len({r['casa'] for r in _mk if r.get('casa')})} "
                            f"casas** · **{len(_pos)} con EV positivo**.")
+                # v115 — SE ORDENA POR PRECIO, NO POR EV.
+                #
+                # Ordenar por EV es ordenar por el error del modelo. Está
+                # medido en este proyecto: el modelo no bate al mercado (4 de
+                # 37 ligas) y su EV declarado es ANTI-indicador del cierre
+                # (corr −0,054 con el CLV). Lo que sí mide positivo es comprar
+                # al mejor precio, así que arriba va lo que más se gana por
+                # comprar bien, y el EV se queda como columna informativa.
+                _orden = st.radio(
+                    "Ordenar por", ['🛒 Ventaja de precio', '📊 EV del modelo'],
+                    horizontal=True, key=f'ord_mk_{clave_liga}_{home}_{away}',
+                    help="«Ventaja de precio» = cuánto más paga la mejor casa "
+                         "que la peor en ese mismo mercado. Es lo único que "
+                         "este proyecto ha medido con ROI positivo. El EV "
+                         "compara contra el modelo, que se sabe que pierde.")
+                if _orden.startswith('🛒'):
+                    _mk = sorted(_mk, key=lambda r: (
+                        -(r.get('ventaja_line_shopping') or 0),
+                        -(r.get('n_casas') or 0)))
                 st.dataframe(_pd.DataFrame([{
                     'Mercado': r['apuesta'],
                     'Cuota casa': r['cuota_casa'],
                     'Casa': r.get('casa') or '—',
+                    'Casas': r.get('n_casas') or 1,
+                    'Ventaja precio': (
+                        f"+{(r.get('ventaja_line_shopping') or 0)*100:.1f}%"
+                        if (r.get('n_casas') or 1) >= 2 else '—'),
                     'Cuota justa': r['cuota_justa'],
                     'Prob. modelo': f"{r['prob']*100:.0f}%",
-                    'EV': f"{r['ev']*100:+.1f}%",
+                    'EV': (f"⚠️ {r['ev']*100:+.0f}%" if r.get('ev_sospechoso')
+                           else f"{r['ev']*100:+.1f}%"),
                 } for r in _mk]), hide_index=True, width='stretch')
+                if any(r.get('ev_sospechoso') for r in _mk):
+                    st.caption(
+                        "⚠️ Los EV marcados vienen de **una sola casa** y son "
+                        "demasiado altos para ser reales. Un mercado líquido "
+                        "no se equivoca un 40 %: el que se equivoca es el "
+                        "modelo. No los tomes como oportunidades.")
                 _sh = _ct.resumen_line_shopping(res)
                 if _sh:
                     st.caption("🛒 " + _sh + " Comprar al mejor precio es lo "
@@ -1727,22 +1780,37 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             # precio de casa. Una combinada que mezcla cuota real y cuota
             # justa anuncia una «cuota combinada» que ninguna casa va a pagar:
             # sirve para ordenar, no para cobrar. Esta otra sí es la de verdad.
-            _ops_ev = []
+            _ops_ev, _mk_ev = [], []
             if _n_reales >= 2 and not _solo_reales:
                 try:
+                    # v114 — VARIAS opciones, no una. Antes se pedían 3 pero
+                    # con sólo cinco mercados cotizados el motor no podía
+                    # construir más de una: el material lo daban las líneas
+                    # alternativas de Pinnacle, que hasta esta versión se
+                    # tiraban. Ahora hay veinte mercados con precio y se piden
+                    # los cuatro perfiles para que el usuario elija.
                     _ops_ev = proponer_parlays(
-                        _m_parlay, home, away, max_opciones=3,
+                        _m_parlay, home, away, max_opciones=6,
                         solo_cuotas_reales=True,
                         bankroll=float(st.session_state.get('bankroll', 0) or 0))
+                    import cuotas_multi as _cm_ev
+                    import cuotas_tablon as _ct_ev
+                    _pl_ev = (motor.plantilla_club(home, away)
+                              if hasattr(motor, 'plantilla_club')
+                              else motor.plantilla(home, away))
+                    _res_ev = _cm_ev.cuotas_partido(_dep_tab, home, away)
+                    _mk_ev = _ct_ev.marcar_ev_sospechoso(
+                        _ct_ev.mercados_con_ev(_res_ev, _pl_ev, home, away))
                 except Exception:
                     # sin combinada de EV real la pantalla sigue entera: las
                     # combinadas normales de arriba no dependen de ésta
-                    _ops_ev = []
+                    _ops_ev, _mk_ev = [], []
         # v62: se guardan en sesión para que el botón de Telegram (que provoca
         # un rerun) siga teniéndolas disponibles.
         st.session_state[f'parlays_{key}'] = {
             'partido': f'{home} vs {away}', 'opciones': opciones,
-            'n_reales': _n_reales, 'opciones_ev': _ops_ev}
+            'n_reales': _n_reales, 'opciones_ev': _ops_ev,
+            'mercados_ev': _mk_ev}
 
     # v62: el RENDER se hace desde la sesión (no dentro del bloque del botón),
     # así las combinadas siguen en pantalla tras pulsar «Enviar a Telegram»
@@ -1779,22 +1847,65 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             # es la que va a cobrar, y su EV es EV de verdad y no el artefacto
             # que sale de multiplicar por una cuota justa.
             _ops_ev = _guardado.get('opciones_ev') or []
+            _mk_ev = _guardado.get('mercados_ev') or []
             if _ops_ev:
-                st.markdown("##### 💰 Combinada por EV real de las casas")
+                st.markdown("##### 💰 Combinadas con CUOTA REAL de las casas")
                 st.caption(
-                    "Sólo mercados con precio publicado, al mejor de las seis "
-                    "casas. **Aviso medido**: el proyecto tiene comprobado que "
-                    "apostar por la probabilidad del modelo pierde entre "
+                    "Todas las patas tienen precio publicado, al mejor de las "
+                    "seis casas, así que la cuota combinada es la que vas a "
+                    "cobrar. **Aviso medido**: el proyecto tiene comprobado "
+                    "que apostar por la probabilidad del modelo pierde entre "
                     "−4,66 % y −6,52 % (37.158 apuestas), y que el EV que "
                     "declara es *anti*-indicador del cierre. Lo que sí mide "
-                    "positivo es comprar al mejor precio. Trata el EV de abajo "
-                    "como «esta casa paga más que las otras», no como «esto "
-                    "gana dinero».")
+                    "positivo es comprar al mejor precio. Trata el EV como "
+                    "«esta casa paga más que las otras», no como «esto gana "
+                    "dinero».")
+                # v114 — LA RECOMENDACIÓN, RAZONADA Y CON DATOS.
+                #
+                # El usuario pidió que se le marque cuál conviene y por qué. El
+                # criterio NO es el EV más alto: eso pondría arriba los peores
+                # errores del modelo (ver `cuotas_tablon.EV_SOSPECHOSO`). Se
+                # puntúa por cuántas patas tienen el precio comparado entre
+                # varias casas, que es lo único con ROI medido positivo.
+                _rec = None
+                try:
+                    import cuotas_tablon as _ct_r
+                    _rec = _ct_r.recomendar_combinada(_ops_ev, _mk_ev)
+                except Exception:
+                    _rec = None
+                _firma_rec = (tuple(sorted(s['apuesta']
+                                           for s in _rec['selecciones']))
+                              if _rec else None)
+                if _rec:
+                    with st.container(border=True):
+                        st.markdown(f"### ⭐ Recomendada — {_rec['etiqueta_opcion']}")
+                        r1, r2 = st.columns(2)
+                        r1.metric("Prob. de acertar todo",
+                                  f"{_rec['prob_conjunta']*100:.0f}%")
+                        r2.metric("Cuota combinada",
+                                  f"{_rec['cuota_combinada']:.2f}",
+                                  help=f"100 u → "
+                                       f"{_rec['cuota_combinada']*100:.0f} u")
+                        for s in _rec['selecciones']:
+                            _ev_s = (s['cuota'] * s['prob'] - 1) * 100
+                            st.write(f"• **{s['apuesta']}** @ {s['cuota']} · "
+                                     f"{s['prob']*100:.0f}% · EV {_ev_s:+.1f} %")
+                        st.markdown("**Por qué ésta:**")
+                        for _m in _rec.get('motivo_recomendacion', []):
+                            st.markdown(f"- {_m}")
+
+                st.markdown("**Todas las opciones** — elige la que prefieras:")
                 for op in _ops_ev:
+                    _firma = tuple(sorted(s['apuesta']
+                                          for s in op['selecciones']))
                     with st.container(border=True):
                         e1, e2, e3 = st.columns([2, 1, 1])
-                        e1.markdown(f"**{op['etiqueta_opcion']}** · "
-                                    f"{op['n_selecciones']} patas")
+                        e1.markdown(
+                            ("⭐ " if _firma == _firma_rec else "")
+                            + f"**{op['etiqueta_opcion']}** · "
+                            f"{op['n_selecciones']} patas"
+                            + (f"  \n{op['descripcion_opcion']}"
+                               if op.get('descripcion_opcion') else ''))
                         e2.metric("Prob. de acertar todo",
                                   f"{op['prob_conjunta']*100:.0f}%")
                         e3.metric("Cuota combinada",
@@ -1802,8 +1913,24 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                                   help=f"100 u → {op['cuota_combinada']*100:.0f} u")
                         for s in op['selecciones']:
                             _ev_s = (s['cuota'] * s['prob'] - 1) * 100
-                            st.write(f"• **{s['apuesta']}** @ {s['cuota']} · "
-                                     f"{s['prob']*100:.0f}% · EV {_ev_s:+.1f} %")
+                            _m = next((m for m in _mk_ev
+                                       if m.get('id') == s.get('id')), {})
+                            _n_c = _m.get('n_casas') or 1
+                            st.write(
+                                f"• **{s['apuesta']}** @ {s['cuota']} · "
+                                f"{s['prob']*100:.0f}% · EV {_ev_s:+.1f} %"
+                                + (f" · {_n_c} casas comparadas" if _n_c >= 2
+                                   else " · una sola casa")
+                                + (" · ⚠️ EV demasiado alto para ser real"
+                                   if _m.get('ev_sospechoso') else ''))
+                        _txt_ev = "\n".join(
+                            f"{j}. {s['apuesta']} @ {s['cuota']}"
+                            for j, s in enumerate(op['selecciones'], 1))
+                        _txt_ev += (f"\nCuota combinada: "
+                                    f"{op['cuota_combinada']:.2f} · "
+                                    f"Prob: {op['prob_conjunta']*100:.0f}%")
+                        with st.expander("📋 Copiar esta combinada"):
+                            st.code(_txt_ev, language=None)
 
             # v114 — el CONTEXTO que el usuario pidió tener a la vista al
             # decidir la combinada: historial del cruce, forma y clasificación.
@@ -2054,7 +2181,26 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                       'conservador' if 'Conservador' in perfil_sel else
                       'agresivo' if 'Agresivo' in perfil_sel else 'medio')
             with st.spinner("🧮 Combinando los mercados del partido..."):
-                r = construir_parlay_partido(motor, home, away,
+                # v114 — ESTA SECCIÓN TAMBIÉN NECESITA EL TABLÓN.
+                #
+                # Marcar «Solo mercados con cuota REAL vigente» respondía «no
+                # hay suficientes mercados vigentes para este partido» aunque
+                # la combinada por EV real de más arriba SÍ los encontraba: el
+                # motor que se le pasaba aquí era el pelado, así que las únicas
+                # cuotas reales que veía eran las cuatro de
+                # `odds_actuales.json`. Con el tablón enganchado ve las mismas
+                # que la otra sección.
+                _m_cfg = motor
+                try:
+                    import cuotas_tablon as _ct
+                    _dep_cfg = ('tenis' if str(key).startswith('tenis')
+                                else 'mlb' if key in ('mlb', 'kbo')
+                                else 'nba' if key == 'nba' else 'futbol')
+                    _m_cfg, _ = _ct.motor_con_tablon(motor, home, away,
+                                                     deporte=_dep_cfg)
+                except Exception:
+                    pass
+                r = construir_parlay_partido(_m_cfg, home, away,
                                              num_selecciones=n_sel, perfil=perfil,
                                              excluir_alto_riesgo=excluir,
                                              solo_cuotas_reales=solo_reales,
@@ -2770,6 +2916,34 @@ def render_alpha_finder():
                 st.code(txt, language=None)
         except Exception as e:
             st.caption(f"⚠️ Exportación no disponible ahora ({type(e).__name__}).")
+
+    # v115 — LA FRANJA QUE RESPONDE «¿QUÉ HAGO HOY?».
+    #
+    # Hasta ahora había que leer media pantalla para saber si merecía la pena
+    # abrir la app. Cuatro cifras arriba del todo, y la más importante NO es el
+    # número de picks: es la dispersión de precios, porque es lo único que este
+    # proyecto ha medido con ROI positivo (+11,49 % en juicio, p5 +1,73 %).
+    try:
+        _n_capa1 = len(r.get('capa1') or [])
+        _n_prons = len(r.get('pronosticos') or [])
+        _hoy_ct = sum(1 for p in (r.get('pronosticos') or []) if p.get('es_hoy'))
+        _casas_vistas = set()
+        for _p in (r.get('capa1') or []):
+            if _p.get('casa'):
+                _casas_vistas.add(_p['casa'])
+        f1, f2, f3, f4 = st.columns(4)
+        f1.metric("Partidos evaluados", r.get('partidos_evaluados', 0),
+                  help="Todos los que el barrido ha podido predecir hoy.")
+        f2.metric("Hoy con cuota", _hoy_ct,
+                  help="De hoy y con precio abierto en alguna casa.")
+        f3.metric("Pasan el filtro", _n_capa1,
+                  help="Cumplen probabilidad, EV y fiabilidad mínimas. Que "
+                       "sean pocos —o ninguno— es lo normal y es correcto.")
+        f4.metric("Casas comparadas", len(_casas_vistas) or '—',
+                  help="Cuantas más casas, más veces aparece un precio mejor "
+                       "que el resto. Es la ventaja medida del proyecto.")
+    except Exception:
+        pass
 
     # v32 (§5.3): PICK DEL DÍA único
     pdd = r.get('pick_del_dia')
@@ -4602,6 +4776,25 @@ with col_sel1:
         for _al in _ALIAS.get(_c, []):
             _cat_int.setdefault(_al, _c)
         _cat_int.setdefault(NOMBRES_PAIS.get(_c, _c), _c)
+    # v114 — SELECTOR DE COMPETICIÓN, como en las ligas de clubes.
+    #
+    # El usuario lo pidió: «en partidos internacionales deberá haber la parte
+    # de seleccionar copa y que se extraigan automáticamente los próximos
+    # partidos según la copa, como en las demás ligas».
+    #
+    # Las competiciones se sacan de los propios partidos encontrados, no de una
+    # lista fija: así el desplegable enseña siempre lo que HAY, y no promete
+    # una Copa Oro que no se juega hasta dentro de un año.
+    _comps = sorted({str(f.get('torneo') or '—') for f in _sel_fx})
+    if len(_comps) > 1:
+        _comp_sel = st.selectbox(
+            f"🏆 Competición de selecciones ({len(_comps)})",
+            ['Todas las competiciones'] + _comps, key='sel_comp_int',
+            help="Amistosos, Nations League, clasificatorias, torneos "
+                 "continentales y las competiciones femeninas. Sale de ESPN y "
+                 "del tablón de cuotas, y se actualiza solo.")
+        if _comp_sel != 'Todas las competiciones':
+            _sel_fx = [f for f in _sel_fx if str(f.get('torneo')) == _comp_sel]
     _n_int = 0
     _sin_enlazar = []
     for f in _sel_fx:
@@ -4610,7 +4803,9 @@ with col_sel1:
         if not (_h and _a) or _h == _a:
             _sin_enlazar.append(f"{f['home']} vs {f['away']}")
             continue
-        etiqueta = (f"{f['fecha']} · {f['home']} vs {f['away']} — {f['torneo']}")
+        etiqueta = (f"{f['fecha']} · {f['home']} vs {f['away']} — {f['torneo']}"
+                    + ("  · con cuota abierta" if f.get('origen') == 'tablon'
+                       else ""))
         opciones_fixture.append(etiqueta)
         fixture_map[etiqueta] = (_cat_int[_h], _cat_int[_a])
         _n_int += 1

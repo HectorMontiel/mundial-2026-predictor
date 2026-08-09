@@ -109,6 +109,49 @@ def filas_del_tablon(res: Dict, home: str, away: str) -> List[Dict]:
         _add('Ambos equipos marcan: No', (t or {}).get('btts_no'), casa,
              'Ambos marcan')
 
+    # --- v114: TODAS las líneas de goles del ancla sharp -------------------
+    #
+    # `totales_por_casa` sólo trae la línea de 2.5. Pinnacle publica el abanico
+    # entero (0.5, 1.5, 2.5, 3.5, 4.5…) y hasta la v114 se descartaba. Sin
+    # esto, un partido tenía cinco mercados con precio real y no había con qué
+    # armar más de una combinada.
+    #
+    # Sólo se emiten las líneas que la plantilla del modelo TIENE: las de .5
+    # hasta 5.5. Las asiáticas de cuarto (2.25, 2.75) no existen ahí, y
+    # dejarlas pasar sería peor que perderlas — el cruce es por similitud de
+    # texto y «Más de 2.25 goles» se parece demasiado a «Más de 2.5 goles»,
+    # así que acabaría poniéndole a un mercado el precio de otro.
+    for linea, precios in (res.get('lineas_totales') or {}).items():
+        try:
+            L = float(linea)
+        except (TypeError, ValueError):
+            continue
+        if abs(L * 2 - round(L * 2)) > 1e-9 or L % 1 == 0 or not (0 < L <= 5.5):
+            continue                      # sólo X.5, y dentro de la plantilla
+        _add(f'Más de {_linea_txt(L)} goles', (precios or {}).get('over'),
+             'Pinnacle', 'Total de goles')
+        _add(f'Menos de {_linea_txt(L)} goles', (precios or {}).get('under'),
+             'Pinnacle', 'Total de goles')
+
+    # --- v114: TODAS las líneas de hándicap del ancla sharp ----------------
+    # Misma criba: la plantilla nombra «Monterrey -1.5» y «Juarez +1.5», así
+    # que sólo entran las líneas de .5. La del visitante va con el signo
+    # cambiado, que es como la escribe la plantilla.
+    for linea, precios in (res.get('lineas_handicap') or {}).items():
+        try:
+            L = float(linea)
+        except (TypeError, ValueError):
+            continue
+        if abs(L * 2 - round(L * 2)) > 1e-9 or L % 1 == 0 or abs(L) > 4:
+            continue
+        v = _linea_txt(abs(L))
+        signo_h = '-' if L < 0 else '+'
+        signo_a = '+' if L < 0 else '-'
+        _add(f'{home} {signo_h}{v}', (precios or {}).get('home'),
+             'Pinnacle', 'Hándicap asiático')
+        _add(f'{away} {signo_a}{v}', (precios or {}).get('away'),
+             'Pinnacle', 'Hándicap asiático')
+
     # --- hándicap asiático -------------------------------------------------
     # `handicap_por_casa` trae la línea REFERIDA AL LOCAL (negativa = local
     # favorito), que es el convenio del proyecto. La plantilla nombra cada
@@ -300,6 +343,138 @@ def motor_con_tablon(motor, home: str, away: str, deporte: str = 'futbol',
         logger.info(f'[tablon] sin cuotas en vivo para el parlay: '
                     f'{type(e).__name__}: {e}')
         return motor, 0
+
+
+# Por encima de este EV, la explicación más probable NO es que haya valor.
+#
+# El proyecto lo tiene medido: el modelo no bate al mercado (4 de 37 ligas) y
+# el EV que declara es ANTI-indicador del cierre (correlación −0,054 con el
+# CLV). Un mercado líquido como el de Pinnacle no se equivoca un 40 %; el que
+# se equivoca es el modelo. Ordenar por EV, sin más, pone arriba justo sus
+# peores errores — que es lo contrario de lo que hace falta.
+#
+# Ejemplo real del 2026-08-09, Bodo/Glimt vs Union Saint-Gilloise:
+#     «Menos de 1.5 goles» @ 5,40 · el modelo dice justa 2,47 → EV +118,7 %
+# Pinnacle da un 18,5 % implícito y el modelo un 40 %. La diferencia no es una
+# oportunidad de +118 %: es el modelo equivocándose en un mercado sharp.
+EV_SOSPECHOSO = 0.30
+
+
+def marcar_ev_sospechoso(filas: List[Dict]) -> List[Dict]:
+    """Marca las filas cuyo EV es demasiado bueno para ser cierto."""
+    for r in filas:
+        r['ev_sospechoso'] = bool(
+            (r.get('ev') or 0) > EV_SOSPECHOSO and (r.get('n_casas') or 1) <= 1)
+    return filas
+
+
+def recomendar_combinada(opciones: List[Dict],
+                         mercados: Optional[List[Dict]] = None) -> Optional[Dict]:
+    """
+    Cuál de las combinadas propuestas merece la pena, y POR QUÉ.
+
+    El criterio NO es el EV. Lo que este proyecto ha medido positivo es
+    comprar al mejor precio (+1,37 % de ROI sin modelo ninguno), y lo que ha
+    medido negativo es apostar por la probabilidad del modelo (−4,66 % a
+    −6,52 % en 37.158 apuestas). Así que se puntúa, por este orden:
+
+      1. que las patas tengan precio comparado entre VARIAS casas — es la
+         única ventaja medida, y sin dos precios no hay comparación;
+      2. la probabilidad conjunta real (PFP), que es lo que decide si la
+         combinada entra;
+      3. la cuota, pero con peso bajo: subirla es fácil y siempre a costa de
+         la probabilidad.
+
+    Se penaliza el EV sospechoso (ver `EV_SOSPECHOSO`) en vez de premiarlo.
+
+    Devuelve la opción elegida con un campo `motivo_recomendacion` en texto
+    llano, o None si ninguna reúne lo mínimo.
+    """
+    if not opciones:
+        return None
+    por_id = {m.get('id'): m for m in (mercados or []) if m.get('id')}
+    mejor, mejor_score = None, -1e9
+    for op in opciones:
+        sels = op.get('selecciones') or []
+        if not sels:
+            continue
+        pfp = float(op.get('prob_conjunta') or 0)
+        cuota = float(op.get('cuota_combinada') or 1)
+        n_reales = sum(1 for s in sels if s.get('cuota_fuente') == 'real')
+        # cuántas patas tienen su precio comparado entre dos o más casas
+        comparadas, ventaja = 0, 0.0
+        sospechosas = 0
+        for s in sels:
+            m = por_id.get(s.get('id'))
+            if not m:
+                continue
+            if (m.get('n_casas') or 1) >= 2:
+                comparadas += 1
+                ventaja += float(m.get('ventaja_line_shopping') or 0)
+            if (m.get('ev') or 0) > EV_SOSPECHOSO and (m.get('n_casas') or 1) <= 1:
+                sospechosas += 1
+        frac_reales = n_reales / len(sels)
+        frac_comp = comparadas / len(sels)
+        score = (2.0 * frac_comp + 1.5 * frac_reales + 1.2 * pfp
+                 + 0.25 * min(cuota, 6.0) / 6.0 - 0.8 * (sospechosas / len(sels)))
+        if score > mejor_score:
+            mejor, mejor_score = op, score
+            mejor_meta = {'n_reales': n_reales, 'n_patas': len(sels),
+                          'comparadas': comparadas, 'ventaja': ventaja,
+                          'sospechosas': sospechosas, 'pfp': pfp,
+                          'cuota': cuota}
+    if mejor is None:
+        return None
+    m = mejor_meta
+    partes = []
+    if m['n_reales'] == m['n_patas']:
+        partes.append(
+            f"Las **{m['n_patas']} patas** tienen precio publicado por una "
+            f"casa, así que la cuota combinada es la que vas a cobrar.")
+    else:
+        partes.append(
+            f"**{m['n_reales']} de {m['n_patas']} patas** con precio "
+            f"publicado; el resto va con cuota justa, que no es un precio que "
+            f"puedas tomar.")
+    if m['comparadas']:
+        partes.append(
+            f"**{m['comparadas']} de {m['n_patas']}** están comparadas entre "
+            f"dos o más casas — la única ventaja que este proyecto tiene "
+            f"medida con ROI positivo.")
+    else:
+        partes.append(
+            "Ninguna pata tiene un segundo precio con el que compararse: las "
+            "líneas alternativas hoy sólo las publica Pinnacle. Sin dos "
+            "precios no hay line shopping, que es lo único que este proyecto "
+            "mide en positivo — tómala como la más sólida de las disponibles, "
+            "no como una ventaja demostrada.")
+    partes.append(
+        f"Probabilidad real de acertar todo: **{m['pfp']*100:.0f} %** a cuota "
+        f"**{m['cuota']:.2f}**.")
+    if m['ventaja'] > 0:
+        partes.append(
+            f"Comprando al mejor precio en vez de al peor se gana un "
+            f"**{m['ventaja']*100:.1f} %** acumulado sobre estas patas.")
+    # El aviso que más importa: si el EV conjunto sale disparado, lo que hay
+    # es un modelo optimista, no una oportunidad. Se dice aquí y con el
+    # número delante, no en letra pequeña.
+    _ev_conj = m['pfp'] * m['cuota'] - 1
+    if _ev_conj > 0.25:
+        partes.append(
+            f"⚠️ Ojo: {m['pfp']*100:.0f} % a cuota {m['cuota']:.2f} implica un "
+            f"EV conjunto de **{_ev_conj*100:+.0f} %**. Ninguna combinada real "
+            f"paga eso. Significa que el modelo da probabilidades bastante más "
+            f"altas que las del mercado en estas patas, y el histórico del "
+            f"proyecto dice que en esa discrepancia suele equivocarse él.")
+    if m['sospechosas']:
+        partes.append(
+            f"⚠️ {m['sospechosas']} pata(s) con un EV superior al "
+            f"{EV_SOSPECHOSO*100:.0f} % y una sola casa: eso casi siempre es "
+            f"el modelo equivocándose, no valor. No es el motivo por el que "
+            f"esta combinada se recomienda.")
+    mejor = dict(mejor)
+    mejor['motivo_recomendacion'] = partes
+    return mejor
 
 
 def resumen_line_shopping(res: Dict) -> Optional[str]:

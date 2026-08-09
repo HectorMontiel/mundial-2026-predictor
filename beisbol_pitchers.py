@@ -216,6 +216,65 @@ def _fip(fila) -> Optional[float]:
     return (13.0 * hr + 3.0 * bb - 2.0 * so) / ip + FIP_C
 
 
+# v115 — BATEADORES POR APERTURA: EL SESGO QUE INFLABA LOS PONCHES.
+#
+# El usuario apostó cinco líneas de ponches y acertó una. Al auditarlo salió
+# esto, medido contra los registros por juego de MLB StatsAPI:
+#
+#   · la Poisson de `prob_over_ponches` está BIEN calibrada — promete 54,4 % y
+#     se cumple el 54,8 % sobre 5.118 evaluaciones fuera de muestra;
+#   · pero el λ que se le entrega sobreestimaba **+0,50 ponches** de media;
+#   · y la causa no era el `k_bf`: encoger el k_bf hacia la liga mejoraba un
+#     0,9 %, o sea nada. Era `bf_apertura`, que sobreestimaba **+2,43
+#     bateadores** (n=40). Con un k/BF de liga de 0,2213, esos 2,43 bateadores
+#     son 0,54 ponches — exactamente el sesgo observado.
+#
+# El motivo es que la tabla de pitcheo agrega la temporada entera: `bf` cuenta
+# TODOS los bateadores enfrentados, también los de relevo, y `gs` sólo las
+# aperturas. Dividir uno por otro da un disparate en cuanto el lanzador alterna
+# los dos papeles:
+#
+#     Andrew Álvarez   bf/gs = 30,0 (topado)   real 18,6   gs=7
+#     Javier Assad     bf/gs = 30,0 (topado)   real 19,3   gs=8
+#     Zach Agnos       por defecto 24,0        real 14,2   gs=2
+#
+# Dos cambios, los dos con la medición delante:
+#   1. el tope baja de 30 a 28,5. La media real más alta de la muestra es la
+#      de Sandy Alcántara (27,0), así que 30 no acotaba nada y 27 habría
+#      descartado a los abridores que de verdad duran.
+#   2. si `bf/gs` sale por encima de lo posible para una apertura, el dato está
+#      contaminado por relevos y no se usa: manda la media de la liga.
+# Y con pocas aperturas se encoge hacia esa media, porque tres salidas no
+# definen cuánto dura un abridor.
+BF_APERTURA_LIGA = 23.5      # media medida de bateadores por apertura
+BF_APERTURA_MAX = 28.5       # por encima ya no es una apertura, son relevos
+BF_APERTURA_MIN = 14.0
+GS_PREVIAS = 6.0             # aperturas «previas» para el encogimiento
+
+
+def _bf_por_apertura(bf: float, gs: float) -> float:
+    """
+    Bateadores que este abridor enfrenta en una salida.
+
+    Devuelve la media de la liga cuando el dato propio no es creíble, que es
+    preferible a un número específico y falso: un λ inflado se convierte en una
+    probabilidad inflada y en una apuesta emitida que no debía emitirse.
+    """
+    try:
+        bf, gs = float(bf or 0), float(gs or 0)
+    except (TypeError, ValueError):
+        return BF_APERTURA_LIGA
+    if gs < 1 or bf <= 0:
+        return BF_APERTURA_LIGA
+    bruto = bf / gs
+    if bruto > BF_APERTURA_MAX:
+        # imposible como media de aperturas: son relevos contando de más
+        return BF_APERTURA_LIGA
+    # encogimiento hacia la liga según cuántas aperturas respaldan el dato
+    ajustado = ((bruto * gs) + (BF_APERTURA_LIGA * GS_PREVIAS)) / (gs + GS_PREVIAS)
+    return float(min(max(ajustado, BF_APERTURA_MIN), BF_APERTURA_MAX))
+
+
 def perfil_pitcher(pid, anio: Optional[int] = None) -> Optional[Dict]:
     """
     Retrato del abridor con lo que de verdad decide un partido de béisbol:
@@ -260,10 +319,7 @@ def perfil_pitcher(pid, anio: Optional[int] = None) -> Optional[Dict]:
     bf = agg.get('bf') or 0.0
     gs = agg.get('gs') or 0.0
     k_bf = (agg.get('so', 0.0) / bf) if bf > 0 else None
-    # bateadores por apertura: los suyos si es abridor con muestra; si no, el
-    # valor típico de un abridor (24), que es el que usa `props_model`.
-    bf_ap = (bf / gs) if gs >= 3 and bf > 0 else 24.0
-    bf_ap = float(min(max(bf_ap, 14.0), 30.0))
+    bf_ap = _bf_por_apertura(bf, gs)
 
     percentil, bueno = None, None
     corte = _corte_fip(anio)

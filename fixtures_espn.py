@@ -18,6 +18,7 @@ endpoint), se devuelve [] y el barrido sigue con las demás fuentes.
 """
 
 import logging
+import re
 import time
 from typing import Dict, List, Optional
 
@@ -799,6 +800,94 @@ LIGAS_SELECCIONES = [
 ]
 
 
+# v114 — RECONOCER UNA COMPETICIÓN DE SELECCIONES POR EL NOMBRE DE SU LIGA.
+#
+# Hace falta porque ESPN devuelve **403 a las IPs de centro de datos**, o sea
+# SIEMPRE en Streamlit Cloud (la v110 ya lo documentó para otras rutas). En
+# producción las 22 competiciones fallaban las 22, y la vista de selecciones se
+# quedaba sin calendario — que es justo lo que el usuario reportó.
+#
+# El tablón de cuotas no tiene ese problema: ya se descarga entero para el
+# resto de la app, no lo bloquea nadie y, por construcción, todo lo que hay
+# ahí TIENE precio. Así que se usa como fuente propia y ESPN pasa a refuerzo.
+#
+# Los negativos son tan importantes como los positivos: «Club Friendlies»,
+# «International Club — …», la Libertadores y las previas de UEFA son torneos
+# de CLUBES y llevan palabras que, sueltas, parecen de selecciones.
+_SEL_POSITIVO = re.compile(
+    r'world cup|nations league|friendl|amistoso|eurocopa|\beuro\b|'
+    r'copa am[eé]rica|gold cup|copa oro|africa cup|women cup of nations|'
+    r'asian cup|copa asia|olympic|ol[ií]mpic|confederations|'
+    r'world cup qualif|clasificat|eliminat', re.I)
+_SEL_NEGATIVO = re.compile(
+    r'\bclub|clubes|libertadores|sudamericana|champions league|'
+    r'europa league|conference league|premier|liga mx|serie a|bundesliga|'
+    r'ligue 1|eredivisie|primeira', re.I)
+
+# Las categorías inferiores son el caso difícil: «Campeonato Sub-20 CONCACAF»
+# es de selecciones y «Paulista Sub-20» o «Myanmar — Championship U20» son
+# ligas de filiales de club, con el mismo «Sub-20» en el nombre. Medido sobre
+# el tablón del 2026-08-09, esas tres se colaban.
+#
+# Lo que las separa no es la edad: es que un torneo de selecciones inferiores
+# SIEMPRE nombra a su confederación o se declara internacional.
+_SEL_JUVENIL = re.compile(r'sub-?\s?\d\d|u-?\d\d', re.I)
+_SEL_CONFEDERACION = re.compile(
+    r'concacaf|conmebol|uefa|\bafc\b|\bcaf\b|\bofc\b|fifa|international|'
+    r'internacional|selecc', re.I)
+
+
+def es_competicion_de_selecciones(liga: str) -> bool:
+    """¿El nombre de esta competición es de selecciones y no de clubes?"""
+    t = str(liga or '')
+    if not t or _SEL_NEGATIVO.search(t):
+        return False
+    if _SEL_POSITIVO.search(t):
+        return True
+    # categoría inferior: sólo si además nombra confederación o se declara
+    # internacional (ver el comentario de arriba)
+    return bool(_SEL_JUVENIL.search(t) and _SEL_CONFEDERACION.search(t))
+
+
+def selecciones_del_tablon() -> List[Dict]:
+    """
+    Partidos de selecciones que las casas ya están cotizando.
+
+    Cero peticiones nuevas —el tablón se descarga igualmente para todo lo
+    demás— y sin 403, que es lo que rompe la vía de ESPN en producción. A
+    cambio sólo ve lo que hay abierto: fuera de las ventanas FIFA, poco o
+    nada. Es un resultado correcto, no un fallo.
+    """
+    try:
+        import cuotas_multi as cm
+    except Exception as e:
+        logger.debug(f'[selecciones/tablon] cuotas_multi no disponible: {e}')
+        return []
+    salida, vistos = [], set()
+    for obtener in (cm._indice, cm._indice_pdt, cm._indice_bov, cm._indice_uni):
+        try:
+            idx = obtener('futbol')
+        except Exception:
+            continue
+        for v in (idx or {}).values():
+            liga = v.get('liga') or ''
+            if not es_competicion_de_selecciones(liga):
+                continue
+            home, away = v.get('home'), v.get('away')
+            fecha = str(v.get('fecha') or '')[:10]
+            k = (cm.normalizar(home), cm.normalizar(away), fecha)
+            if not home or not away or k in vistos:
+                continue
+            vistos.add(k)
+            salida.append({'fecha': fecha, 'home': home, 'away': away,
+                           'torneo': liga, 'inicio': v.get('fecha'),
+                           'origen': 'tablon',
+                           'casas': [v.get('casa')] if v.get('casa') else []})
+    salida.sort(key=lambda x: str(x.get('fecha') or ''))
+    logger.info(f'[selecciones/tablon] {len(salida)} partidos con cuota abierta')
+    return salida
+
+
 def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
     """Próximos partidos de SELECCIONES NACIONALES (amistosos, Nations League y
     clasificatorias) desde ESPN. Devuelve [{'fecha','home','away','torneo'}]
@@ -863,9 +952,37 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
                                'liga_espn': liga})
             except Exception:
                 continue
-    salida.sort(key=lambda x: x['fecha'])
+    # v114 — EL TABLÓN SE FUSIONA CON ESPN, Y NO AL REVÉS.
+    #
+    # En Streamlit Cloud las 22 competiciones de arriba devuelven 403 (ESPN
+    # bloquea las IPs de centro de datos) y `salida` llega vacía. El tablón de
+    # cuotas no se bloquea, así que es lo que salva la vista en producción; en
+    # local suman los dos. Un partido que esté en las dos fuentes se cuenta
+    # una vez, y manda el de ESPN porque trae el nombre de la competición
+    # normalizado.
+    try:
+        del_tablon = selecciones_del_tablon()
+    except Exception as e:
+        logger.info(f'[selecciones] tablón no disponible: {type(e).__name__}: {e}')
+        del_tablon = []
+    if del_tablon:
+        try:
+            import cuotas_multi as _cm_sel
+            _norm = _cm_sel.normalizar
+        except Exception:
+            def _norm(x):
+                return str(x or '').lower()
+        vistos = {(_norm(f['home']), _norm(f['away']), str(f['fecha'])[:10])
+                  for f in salida}
+        for f in del_tablon:
+            k = (_norm(f['home']), _norm(f['away']), str(f['fecha'])[:10])
+            if k not in vistos:
+                vistos.add(k)
+                salida.append(f)
+    salida.sort(key=lambda x: str(x.get('fecha') or ''))
     salida = salida[:limite]
-    logger.info(f"[selecciones] {len(salida)} próximos partidos de selecciones.")
+    logger.info(f"[selecciones] {len(salida)} próximos partidos de selecciones "
+                f"({len(del_tablon)} del tablón de cuotas).")
     _CACHE[ck] = (ahora, salida)
     return salida
 

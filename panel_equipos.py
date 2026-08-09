@@ -258,6 +258,51 @@ def posicion(clave: str, equipo: str) -> Optional[Dict]:
 # ---------------------------------------------------------------------------
 # 3. Forma reciente
 # ---------------------------------------------------------------------------
+# Estadísticas que los históricos publican, con el nombre que se enseña. La
+# clave es el sufijo: la columna real es `home_<sufijo>` o `away_<sufijo>`
+# según de qué lado jugara el equipo.
+STATS_PARTIDO = (
+    ('shots_on', 'Tiros a puerta'),
+    ('shots_off', 'Tiros fuera'),
+    ('corners', 'Córners'),
+    ('yellow', 'Amarillas'),
+    ('red', 'Rojas'),
+    ('possession', 'Posesión %'),
+    ('xg', 'xG'),
+)
+
+
+def _stats_partido(fila, en_casa: bool) -> Dict:
+    """
+    Las estadísticas de ESE partido, ya orientadas al equipo que se consulta:
+    `propio` es lo que hizo él y `rival` lo que le hicieron.
+
+    Devuelve sólo las que la competición publica de verdad. Un histórico de
+    formato «new» sólo tiene goles, y entonces esto viene vacío — que es la
+    respuesta correcta, no un cero.
+    """
+    yo, otro = ('home', 'away') if en_casa else ('away', 'home')
+    salida: Dict[str, Dict] = {}
+    for sufijo, etiqueta in STATS_PARTIDO:
+        c_yo, c_otro = f'{yo}_{sufijo}', f'{otro}_{sufijo}'
+        try:
+            v_yo = fila[c_yo] if c_yo in fila.index else None
+            v_otro = fila[c_otro] if c_otro in fila.index else None
+        except Exception:
+            continue
+        if v_yo is None or pd.isna(v_yo):
+            continue
+        try:
+            salida[etiqueta] = {
+                'propio': round(float(v_yo), 2),
+                'rival': (round(float(v_otro), 2)
+                          if v_otro is not None and not pd.isna(v_otro)
+                          else None)}
+        except (TypeError, ValueError):
+            continue
+    return salida
+
+
 def forma(clave: str, equipo: str, n: int = 6) -> Dict:
     """
     Cómo llega el equipo: sus últimos `n` partidos, con marcador y rival.
@@ -288,6 +333,18 @@ def forma(clave: str, equipo: str, n: int = 6) -> Dict:
             'rival': r['away_team'] if en_casa else r['home_team'],
             'casa': bool(en_casa), 'goles': propio, 'encajados': ajeno,
             'resultado': res,
+            # v114 — las ESTADÍSTICAS de cada partido, no sólo el marcador.
+            #
+            # El usuario lo pidió: «que haya otra sección que me muestre los
+            # partidos más recientes de América con sus estadísticas, marcador,
+            # etc., para evaluar qué conviene elegir». El histórico ya las
+            # traía (tiros, córners, tarjetas, posesión) y aquí se tiraban.
+            #
+            # Se devuelve lo que EXISTA en esa competición: los históricos de
+            # football-data «main» traen tiros y tarjetas, los de formato
+            # «new» sólo goles, y Liga MX añade xG y posesión. Un partido sin
+            # una estadística no la inventa: sale ausente.
+            'stats': _stats_partido(r, en_casa),
         })
     pj = len(partidos)
     return {

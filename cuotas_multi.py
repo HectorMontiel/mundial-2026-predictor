@@ -598,8 +598,27 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
     # precios por matchupId (solo periodo 0 = partido completo)
     por_id: Dict[int, dict] = {}
     for mk in mercados:
-        if mk.get('period') != 0 or mk.get('isAlternate'):
+        if mk.get('period') != 0:
             continue
+        # v114 — LAS LÍNEAS ALTERNATIVAS SE GUARDAN, YA NO SE TIRAN.
+        #
+        # Esto descartaba todo lo marcado `isAlternate`, así que de cada
+        # partido quedaba UNA sola línea de goles y el hándicap principal:
+        # medido, 1,0 líneas de totales y 2,0 de spread por partido. Pinnacle
+        # las manda todas en la misma respuesta (`primaryOnly: false` ya
+        # estaba puesto); simplemente se estaban ignorando.
+        #
+        # Importa porque es lo que deja sin material a las combinadas con
+        # precio real: con cinco mercados cotizados no hay de dónde sacar
+        # varias opciones distintas, y la casilla «solo mercados con cuota
+        # REAL» respondía «no hay suficientes mercados vigentes» aun teniendo
+        # el tablón entero descargado.
+        #
+        # Las alternativas van a un cajón APARTE (`totales_alt`,
+        # `spreads_alt`): `cuotas`, `totales` y `spreads` siguen conteniendo
+        # exactamente lo de siempre —la línea principal— para no cambiarle el
+        # significado a ningún consumidor que ya los lea.
+        _alt = bool(mk.get('isAlternate'))
         mid = mk.get('matchupId')
         tipo = mk.get('type')
         precios = {p.get('designation'): p.get('price')
@@ -607,9 +626,11 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
         d = por_id.setdefault(mid, {})
         # v75: precios en crudo (con su participantId) — los specials como BTTS
         # no usan `designation` sino participantes nombrados 'Yes'/'No'.
-        d.setdefault('_precios', []).extend(mk.get('prices') or [])
+        if not _alt:
+            d.setdefault('_precios', []).extend(mk.get('prices') or [])
         if tipo == 'moneyline':
-            d['moneyline'] = precios
+            if not _alt:
+                d['moneyline'] = precios
         elif tipo == 'total':
             linea = None
             for p in (mk.get('prices') or []):
@@ -617,12 +638,20 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
                     linea = p['points']
                     break
             if linea is not None:
-                d.setdefault('totales', {})[str(linea)] = precios
+                # la principal en `totales` (comportamiento de siempre) y
+                # TODAS —principal incluida— en `totales_alt`
+                if not _alt:
+                    d.setdefault('totales', {})[str(linea)] = precios
+                d.setdefault('totales_alt', {})[str(linea)] = precios
         elif tipo == 'spread':
             for p in (mk.get('prices') or []):
-                if p.get('points') is not None:
+                if p.get('points') is None:
+                    continue
+                if not _alt:
                     d.setdefault('spreads', {}).setdefault(
                         str(p['points']), {})[p.get('designation')] = p.get('price')
+                d.setdefault('spreads_alt', {}).setdefault(
+                    str(p['points']), {})[p.get('designation')] = p.get('price')
 
     # v75: BTTS de partido completo, indexado por el id del partido PADRE.
     # `Both Teams To Score?` a secas es el mercado del partido entero; hay una
@@ -700,6 +729,15 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
                             for kk, vv in (v or {}).items()}
                         for k, v in (por_id.get(m.get('id'), {})
                                      .get('spreads') or {}).items()},
+            # v114 — TODAS las líneas, principal y alternativas. `totales` y
+            # `spreads` de arriba siguen siendo sólo la principal; estas dos
+            # son las que dan material a las combinadas con precio real.
+            'totales_alt': {k: {kk: american_a_decimal(vv)
+                                for kk, vv in (v or {}).items()}
+                            for k, v in (precios.get('totales_alt') or {}).items()},
+            'spreads_alt': {k: {kk: american_a_decimal(vv)
+                                for kk, vv in (v or {}).items()}
+                            for k, v in (precios.get('spreads_alt') or {}).items()},
         }
     _escribir_cache(f'pinnacle_{deporte}.json', indice)
     logger.info(f"[pinnacle] {deporte}: {len(indice)} partidos con cuotas")
@@ -1498,6 +1536,27 @@ def _spread_principal(spreads: Optional[Dict],
     return salida if (salida['home'] or salida['away']) else None
 
 
+# v115 — MEMORIA DE PARTIDO YA RESUELTO.
+#
+# `cuotas_partido` no toca la red (los índices de cada casa ya están cacheados
+# 30 min), pero sí recorre el tablón entero UNA VEZ POR CASA para emparejar:
+# seis casas × ~800 partidos. Y la interfaz lo llama varias veces por pantalla
+# —la tabla de cuotas, el motor de combinadas, la lista de mercados con EV—,
+# así que ese trabajo se repetía tal cual tres o cuatro veces por render.
+#
+# Se memoiza el resultado por (deporte, home, away, fecha, liga) con el mismo
+# TTL que los índices: si el tablón no se ha refrescado, la respuesta no puede
+# haber cambiado. Sólo se cachean las llamadas SIN `odds_espn` ni `espn_ref`,
+# que son las que dependen únicamente de esos cinco argumentos.
+_MEM_PARTIDO: Dict[tuple, tuple] = {}
+_MAX_MEM_PARTIDO = 4000
+
+
+def limpiar_memoria_partidos() -> None:
+    """Olvida los partidos resueltos (para tests y para forzar recálculo)."""
+    _MEM_PARTIDO.clear()
+
+
 def cuotas_partido(deporte: str, home: str, away: str,
                    odds_espn: Optional[dict] = None,
                    espn_ref: Optional[tuple] = None,
@@ -1521,8 +1580,21 @@ def cuotas_partido(deporte: str, home: str, away: str,
        'pinnacle': {...} | None,                       ← ancla sharp
        'n_casas': int, 'fuentes': [...]}
     """
+    # v115 — lectura del caché (ver `_MEM_PARTIDO`). Sólo cuando la respuesta
+    # depende exclusivamente de estos cinco argumentos.
+    _cacheable = odds_espn is None and espn_ref is None
+    _clave_mem = (deporte, normalizar(home), normalizar(away),
+                  str(fecha or '')[:10], str(liga or ''))
+    if _cacheable:
+        _hit = _MEM_PARTIDO.get(_clave_mem)
+        if _hit and (time.time() - _hit[0]) < TTL:
+            return _hit[1]
+
     casas: Dict[str, dict] = {}
     fuentes = []
+    # v114: todas las líneas de goles y hándicap de Pinnacle (ver más abajo)
+    lineas_totales: Dict[str, dict] = {}
+    lineas_spread: Dict[str, dict] = {}
     # v90 — LOS TOTALES SE GUARDAN TAMBIÉN POR CASA.
     #
     # `_totales` es un dict PLANO: el over25 de ESPN y el de Pinnacle se
@@ -1581,6 +1653,23 @@ def cuotas_partido(deporte: str, home: str, away: str,
         _ah = _spread_principal(pin.get('spreads'), pin.get('invertido'))
         if _ah:
             ah_casa['Pinnacle'] = _ah
+        # v114 — todas las líneas de goles y de hándicap, no sólo la principal.
+        # Es lo que convierte «cinco mercados con precio» en «veinte», y con
+        # ello hace posible armar VARIAS combinadas con cuota real en vez de
+        # una. Se entregan en crudo (línea -> precios) y ya orientadas al
+        # local si la casa listó los equipos al revés.
+        lineas_totales = dict(pin.get('totales_alt') or {})
+        lineas_spread = {}
+        for _k, _v in (pin.get('spreads_alt') or {}).items():
+            try:
+                _L = float(_k)
+            except (TypeError, ValueError):
+                continue
+            if pin.get('invertido'):
+                lineas_spread[str(-_L)] = {'home': (_v or {}).get('away'),
+                                           'away': (_v or {}).get('home')}
+            else:
+                lineas_spread[str(_L)] = dict(_v or {})
         casas['Pinnacle'] = {k: v for k, v in c.items()
                              if k in ('home', 'draw', 'away')}
         if c.get('over25'):
@@ -1694,7 +1783,7 @@ def cuotas_partido(deporte: str, home: str, away: str,
                     'mejor_alternativa': (mejor.get(lado) or {}).get('casa'),
                     'ventaja_alternativa': (round((mj - v) / v, 4)
                                             if mj and mj > v else 0.0)}
-    return {'casas': reales, 'mejor': mejor, 'preferida': preferida,
+    salida = {'casas': reales, 'mejor': mejor, 'preferida': preferida,
             'casa_prioritaria': CASA_PRIORITARIA,
             'totales': totales,
             # v90: los mismos totales SIN fusionar, con la casa que puso cada
@@ -1707,9 +1796,20 @@ def cuotas_partido(deporte: str, home: str, away: str,
             # (negativa = local favorito), que es el convenio del resto del
             # proyecto (`fixtures_espn.odds_evento`, `league_engine`).
             'handicap_por_casa': ah_casa or None,
+            # v114 — TODAS las líneas de goles y de hándicap que publica el
+            # ancla sharp, no sólo la principal. Es lo que da material para
+            # armar varias combinadas con precio real; `cuotas_tablon` las
+            # traduce al vocabulario de la plantilla.
+            'lineas_totales': lineas_totales or None,
+            'lineas_handicap': lineas_spread or None,
             'pinnacle': reales.get('Pinnacle'), 'n_casas': len(reales),
             'fuentes': fuentes,
             'emparejado_difuso': (pin or {}).get('emparejado_difuso')}
+    if _cacheable:
+        if len(_MEM_PARTIDO) > _MAX_MEM_PARTIDO:
+            _MEM_PARTIDO.clear()      # tope simple: el TTL hace el resto
+        _MEM_PARTIDO[_clave_mem] = (time.time(), salida)
+    return salida
 
 
 def precio_accionable(c: Dict, lado: str) -> Optional[dict]:

@@ -38,6 +38,11 @@ _RUIDO = (' fc', ' cf', ' sc', ' ac', ' afc', ' cd', ' ud', ' if', ' bk',
 _alias: Optional[Dict[str, str]] = None
 _fallos: Dict[str, str] = {}
 
+# v115 — pares (nombre, contexto) de los que ya se ha avisado una vez. Ver el
+# comentario de `mapear`: el fallo se registra siempre, pero sólo se grita la
+# primera vez.
+_AVISADOS_MAPEO: set = set()
+
 
 def _cargar_alias() -> Dict[str, str]:
     global _alias
@@ -151,8 +156,27 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
     if ratio >= umbral:
         return mejor
     _fallos[nombre] = contexto or '?'
-    logger.info(f"[name_mapper] sin mapear: '{nombre}' ({contexto}) — "
-                f"mejor candidato '{mejor}' con {ratio:.2f}")
+    # v115 — UN FALLO QUE SE REPITE CIEN VECES DEJA DE SER INFORMACIÓN.
+    #
+    # Esto emitía una línea POR INTENTO, y `buscar_event_id` compara cada
+    # fixture contra el catálogo entero de su liga: en el registro de
+    # producción que mandó el usuario salían más de doscientas líneas
+    # seguidas de «sin mapear», todas del mismo puñado de nombres, tapando los
+    # errores de verdad que había debajo.
+    #
+    # El fallo se sigue registrando entero —en `_fallos`, que es lo que se
+    # vuelca a `nombres_sin_mapear.json` para poder añadir el alias— y se
+    # avisa la PRIMERA vez que aparece cada par (nombre, contexto). Las
+    # repeticiones bajan a debug. Es el mismo criterio que la v110 aplicó a
+    # los 403 de ESPN.
+    _k_aviso = (nombre, contexto or '?')
+    if _k_aviso in _AVISADOS_MAPEO:
+        logger.debug(f"[name_mapper] sin mapear: '{nombre}' ({contexto}) "
+                     f"(repetido)")
+    else:
+        _AVISADOS_MAPEO.add(_k_aviso)
+        logger.info(f"[name_mapper] sin mapear: '{nombre}' ({contexto}) — "
+                    f"mejor candidato '{mejor}' con {ratio:.2f}")
     return None
 
 

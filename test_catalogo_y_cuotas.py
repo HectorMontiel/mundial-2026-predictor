@@ -1779,6 +1779,111 @@ def test_selecciones_completas():
               f'«{torneo}» se reconoce como femenino en el emparejador')
     check('fem' not in cm.categoria_partido('Spain', 'England', 'Amistoso'),
           'y un amistoso masculino no')
+
+    # v115 — el calendario también sale del TABLÓN, porque ESPN da 403 en
+    # Streamlit Cloud y allí las 22 competiciones fallan las 22.
+    check(fe.es_competicion_de_selecciones('FIFA World Cup Qualifying - UEFA'),
+          'una clasificatoria se reconoce como competición de selecciones')
+    check(fe.es_competicion_de_selecciones('UEFA Nations League'),
+          'y la Nations League')
+    check(not fe.es_competicion_de_selecciones('Club Friendlies'),
+          'pero «Club Friendlies» es de clubes, no de selecciones')
+    check(not fe.es_competicion_de_selecciones('CONMEBOL - Copa Libertadores'),
+          'ni la Libertadores, que lleva «CONMEBOL» en el nombre')
+    check(not fe.es_competicion_de_selecciones('UEFA - Champions League Qualifiers'),
+          'ni una previa de Champions, que lleva «Qualifiers»')
+    check(fe.es_competicion_de_selecciones('Campeonato Sub-20 CONCACAF'),
+          'un sub-20 CON confederación sí es de selecciones')
+    check(not fe.es_competicion_de_selecciones('Paulista Sub-20'),
+          'pero un sub-20 de clubes no (fue un falso positivo real del tablón)')
+    check(not fe.es_competicion_de_selecciones('Myanmar — Championship U20'),
+          'ni una liga juvenil nacional de clubes')
+    import inspect
+    check('selecciones_del_tablon' in
+          inspect.getsource(fe.fixtures_selecciones),
+          'y el calendario de selecciones se fusiona con el del tablón')
+
+
+def test_bf_por_apertura():
+    """
+    v115 — el sesgo que inflaba las líneas de ponches.
+
+    Medido contra los registros por juego de MLB StatsAPI: la Poisson estaba
+    bien calibrada (promete 54,4 %, cumple 54,8 % en 5.118 evaluaciones), pero
+    `bf_apertura` sobreestimaba +2,43 bateadores porque `bf/gs` mezcla los
+    bateadores enfrentados como RELEVISTA con las aperturas. Con un k/BF de
+    liga de 0,2213 eso son +0,54 ponches — justo el sesgo del λ observado.
+    """
+    try:
+        import beisbol_pitchers as bp
+    except Exception as e:
+        print(f'AVISO beisbol_pitchers no disponible ({e}); se omite')
+        return
+    f = bp._bf_por_apertura
+    check(f(0, 0) == bp.BF_APERTURA_LIGA,
+          'sin datos se usa la media de la liga, no un número inventado')
+    check(f(500, 0) == bp.BF_APERTURA_LIGA,
+          'sin aperturas tampoco se divide por cero')
+    # el caso real: Andrew Álvarez, 7 aperturas y 210 bateadores porque casi
+    # todos fueron de relevo → 30,0 con el código viejo, 18,6 de verdad
+    check(f(210, 7) == bp.BF_APERTURA_LIGA,
+          'un bf/gs imposible (30) se descarta: son relevos contando de más')
+    # un abridor puro no se toca apenas
+    check(23.0 <= f(23.1 * 22, 22) <= 23.5,
+          'un abridor con 22 aperturas conserva su media (23,1)')
+    check(f(27.0 * 25, 25) > 25.0,
+          'y un abridor largo de verdad (27,0 en 25 aperturas) no se aplana')
+    # con muestra corta se encoge hacia la liga
+    _corto = f(20.0 * 2, 2)
+    check(20.0 < _corto < bp.BF_APERTURA_LIGA,
+          f'con 2 aperturas el dato se encoge hacia la liga ({_corto:.1f})')
+    check(bp.BF_APERTURA_MIN <= f(10 * 5, 5) <= bp.BF_APERTURA_MAX,
+          'el resultado siempre cae dentro del rango posible')
+
+
+def test_lineas_alternativas():
+    """
+    v115 — las líneas alternativas de Pinnacle ya no se tiran.
+
+    Se descartaba todo lo marcado `isAlternate`, así que cada partido tenía
+    UNA línea de goles y el hándicap principal: medido, 1,0 y 2,0 por partido.
+    Sin material, la casilla «solo mercados con cuota REAL» no podía armar
+    ninguna combinada y respondía que no había mercados.
+    """
+    try:
+        import cuotas_multi as cm
+        import cuotas_tablon as ct
+    except Exception as e:
+        print(f'AVISO módulos de cuotas no disponibles ({e}); se omite')
+        return
+    import inspect
+    _src = inspect.getsource(cm._indice_pinnacle)
+    check('totales_alt' in _src and 'spreads_alt' in _src,
+          'el índice de Pinnacle guarda las líneas alternativas')
+    check("d.setdefault('totales', {})" in _src,
+          'y `totales` sigue siendo sólo la principal (nadie cambia de significado)')
+
+    res = {'casas': {'Pinnacle': {'home': 2.0, 'draw': 3.4, 'away': 3.8}},
+           'lineas_totales': {'1.5': {'over': 1.2, 'under': 4.5},
+                              '2.5': {'over': 1.9, 'under': 1.95},
+                              '3.5': {'over': 3.1, 'under': 1.35},
+                              '2.25': {'over': 1.8, 'under': 2.0},
+                              '3.0': {'over': 2.2, 'under': 1.7}},
+           'lineas_handicap': {'-0.5': {'home': 1.95, 'away': 1.9},
+                               '-1.5': {'home': 3.2, 'away': 1.35},
+                               '-0.25': {'home': 1.8, 'away': 2.0}}}
+    filas = ct.filas_del_tablon(res, 'Monterrey', 'Juarez')
+    etiquetas = {f['etiqueta'] for f in filas}
+    for e in ('Más de 1.5 goles', 'Menos de 3.5 goles', 'Monterrey -1.5',
+              'Juarez +1.5'):
+        check(e in etiquetas, f'se publica «{e}»')
+    check(not any('2.25' in e or '0.25' in e for e in etiquetas),
+          'las líneas asiáticas de cuarto NO se publican: la plantilla no las '
+          'tiene y el cruce difuso las casaría con la de al lado')
+    check(not any('Más de 3 goles' == e for e in etiquetas),
+          'ni las líneas enteras, que se liquidan con devolución')
+    check(len(filas) >= 10,
+          f'un partido pasa de 5 mercados a {len(filas)} filas cotizadas')
     # la caché tiene que estar activa
     check(hasattr(cm.normalizar, 'cache_info'),
           'normalizar está memoizada')
@@ -3412,6 +3517,8 @@ if __name__ == '__main__':
     test_exchange_matchbook()                            # v114
     test_tablon_a_mercados()                             # v114
     test_selecciones_completas()                         # v114
+    test_bf_por_apertura()                               # v115
+    test_lineas_alternativas()                           # v115
     test_ledger_total_reproducible()
     print('\n=== v75: ledger de predicciones ===')
     test_ledger_sin_fuga()
