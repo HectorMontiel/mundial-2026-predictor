@@ -479,6 +479,9 @@ class KBOEngine(BaseSportsEngine):
                             'deporte': 'KBO', 'liga': 'KBO', 'clave_liga': 'kbo',
                             'partido': f'{ac} @ {hc}',
                             'fecha': _fecha_dia(v.get('fecha')),
+                            # v106: el ISO entero, con hora, en UTC. La
+                            # conversión a CDMX es de presentación.
+                            'inicio': v.get('fecha'),
                             'mercado': 'Moneyline',
                             'apuesta': f'Gana {nombre}',
                             'prob': round(prob, 3), 'cuota': round(cuota, 2),
@@ -500,6 +503,7 @@ class KBOEngine(BaseSportsEngine):
                     'deporte': 'KBO', 'liga': 'KBO', 'clave_liga': 'kbo',
                     'partido': f'{ac} @ {hc}',
                     'fecha': _fecha_dia(v.get('fecha')),
+                    'inicio': v.get('fecha'),          # v106: ISO con hora, UTC
                     'apuesta': f'Gana {nombre}', 'prob': round(prob, 3),
                     'cuota': round(cuota, 2),
                     'cuota_justa': round(1 / max(prob, 1e-6), 2),

@@ -33,12 +33,44 @@ class BaseSportsEngine(ABC):
     # ----- concreto (común a todos los deportes) -------------------------
     def cargar_modelo(self):
         import joblib
+
+        # v106 — LOS MOTORES DE DEPORTE TAMBIÉN CARGAN POR LA RUTA PORTABLE.
+        #
+        # La v87 encontró que un `modelo.joblib` entrenado en el runner de
+        # Linux da «XGBoostError: input stream corrupted» en Windows con la
+        # MISMA versión de XGBoost: el pickle guarda el formato de
+        # SERIALIZACIÓN, que la documentación declara dependiente del entorno.
+        # Escribió `modelos_portables.cargar` para repararlo… y lo cableó sólo
+        # en `ClubEngine` (fútbol).
+        #
+        # Los motores de MLB, tenis, NBA y KBO se quedaron con `joblib.load` a
+        # secas, así que en Windows fallan los tres primeros:
+        #
+        #     MLB   listo=False  XGBoostError: input stream corrupted
+        #     ATP   listo=False  XGBoostError: input stream corrupted
+        #     WTA   listo=False  XGBoostError: input stream corrupted
+        #
+        # En Streamlit Cloud (Linux, mismo entorno que el runner) no se nota,
+        # y por eso llevaba versiones sin verse. Pero significa que el smoke de
+        # botones no puede probar esas vistas en local —cargan, ven el motor
+        # caído y salen por el `st.error`— y que el proyecto no se puede
+        # desarrollar ni depurar en Windows. Es exactamente el problema para el
+        # que se escribió el módulo; sólo faltaba llamarlo aquí.
+        #
+        # `cargar()` intenta primero `joblib.load` y sólo repara si el error es
+        # de plataforma, así que donde ya funcionaba no cambia nada (lo
+        # comprueba `test_modelos_portables`).
         try:
-            self.modelo_ml = joblib.load(os.path.join(self.carpeta, 'moneyline.joblib'))
+            import modelos_portables as _mp
+            _cargar = _mp.cargar
+        except Exception:
+            _cargar = joblib.load          # degradación limpia
+        try:
+            self.modelo_ml = _cargar(os.path.join(self.carpeta, 'moneyline.joblib'))
             self.scaler = joblib.load(os.path.join(self.carpeta, 'scaler.joblib'))
             ruta_tot = os.path.join(self.carpeta, 'totales.joblib')
             if os.path.exists(ruta_tot):
-                self.modelo_totales = joblib.load(ruta_tot)
+                self.modelo_totales = _cargar(ruta_tot)
             with open(os.path.join(self.carpeta, 'metadata.json'), encoding='utf-8') as f:
                 self.metadata = json.load(f)
             # v101 — EL MODELO GUARDADO Y EL VECTOR ACTUAL DEBEN COINCIDIR.

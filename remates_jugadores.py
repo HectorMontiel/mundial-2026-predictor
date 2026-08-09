@@ -62,6 +62,59 @@ CAMPOS = {'SHOT': 'remates', 'SOG': 'al_arco', 'G': 'goles',
           'A': 'asistencias', 'APP': 'apariciones'}
 
 
+COBERTURA = '_v107_cobertura_remates.json'
+_COB: Optional[dict] = None
+
+
+def cobertura() -> dict:
+    """
+    v107 — QUÉ COMPETICIONES PUBLICA ESPN CON ESTADÍSTICA POR JUGADOR.
+
+    El módulo funciona igual en todas: pide el `summary` del partido y lee el
+    bloque `rosters`. Pero ESPN no lo publica para todas las competiciones, y
+    hasta ahora eso salía como una tabla vacía con un «no disponible» al lado
+    de cada equipo — indistinguible de un fallo de red o de un equipo mal
+    mapeado.
+
+    Medido el 2026-08-08 sobre las 49 competiciones activas con código de ESPN,
+    pidiendo un equipo real de cada una:
+
+        CON remates: 41      SIN remates: 8
+        sin: brasil, finlandia, rumania, irlanda, eredivisie, eng_national,
+             uru_primera, mex_expansion
+
+    Con esto la interfaz puede decir «esta competición no la cubre ESPN» una
+    sola vez y con seguridad, en vez de dejar al usuario adivinando si el fallo
+    es suyo. Se regenera con el script de cobertura cuando ESPN cambie.
+    """
+    global _COB
+    if _COB is None:
+        try:
+            with open(COBERTURA, encoding='utf-8') as f:
+                _COB = json.load(f) or {}
+        except Exception:
+            _COB = {}
+    return _COB
+
+
+def hay_remates(clave_liga: str) -> Optional[bool]:
+    """
+    True/False si está medido, None si no se sabe.
+
+    `None` es distinto de `False` a propósito: una competición que no se ha
+    medido puede tener datos perfectamente, y decir «no hay» sin haberlo
+    comprobado sería inventar.
+    """
+    c = cobertura()
+    if not c:
+        return None
+    if clave_liga in (c.get('con_remates') or []):
+        return True
+    if clave_liga in (c.get('sin_remates') or {}):
+        return False
+    return None
+
+
 def _cache(nombre: str) -> str:
     os.makedirs(CACHE_DIR, exist_ok=True)
     return os.path.join(CACHE_DIR, nombre)

@@ -1,0 +1,98 @@
+{
+ "bel_pro_league": {
+  "n_partidos": null,
+  "precision": 0.4719,
+  "elo": 0.4719,
+  "mercado": null,
+  "bate_elo": false,
+  "mb": 0.5
+ },
+ "bra_serie_b": {
+  "n_partidos": null,
+  "precision": 0.44,
+  "elo": 0.4213,
+  "mercado": null,
+  "bate_elo": true,
+  "mb": 13.9
+ },
+ "crc_fpd": {
+  "n_partidos": null,
+  "precision": 0.4741,
+  "elo": 0.4781,
+  "mercado": null,
+  "bate_elo": false,
+  "mb": 10.5
+ },
+ "eng_championship": {
+  "n_partidos": null,
+  "precision": 0.4422,
+  "elo": 0.4496,
+  "mercado": null,
+  "bate_elo": false,
+  "mb": 0.6
+ },
+ "eng_fa_cup": {
+  "n_partidos": null,
+  "precision": 0.4177,
+  "elo": 0.5823,
+  "mercado": null,
+  "bate_elo": false,
+  "mb": 3.9
+ },
+ "eng_league_two": {
+  "n_partidos": null,
+  "precision": 0.5056,
+  "elo": 0.4738,
+  "mercado": null,
+  "bate_elo": true,
+  "mb": 0.6
+ },
+ "esp_hypermotion": {
+  "n_partidos": null,
+  "precision": 0.4621,
+  "elo": 0.4464,
+  "mercado": null,
+  "bate_elo": true,
+  "mb": 0.5
+ },
+ "gre_super_league": {
+  "n_partidos": null,
+  "precision": 0.5365,
+  "elo": 0.5064,
+  "mercado": null,
+  "bate_elo": true,
+  "mb": 9.6
+ },
+ "ned_eerste": {
+  "n_partidos": null,
+  "precision": 0.4744,
+  "elo": 0.4744,
+  "mercado": null,
+  "bate_elo": false,
+  "mb": 0.5
+ },
+ "par_division": {
+  "n_partidos": null,
+  "precision": 0.4722,
+  "elo": 0.4722,
+  "mercado": null,
+  "bate_elo": false,
+  "mb": 0.4
+ },
+ "slv_primera": {
+  "n_partidos": null,
+  "precision": 0.4713,
+  "elo": 0.4828,
+  "mercado": null,
+  "bate_elo": false,
+  "mb": 0.4
+ },
+ "sudamericana": {
+  "n_partidos": null,
+  "precision": 0.4536,
+  "elo": 0.4124,
+  "mercado": null,
+  "bate_elo": true,
+  "mb": 0.3
+ }
+}

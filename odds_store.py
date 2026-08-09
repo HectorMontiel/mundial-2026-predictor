@@ -119,6 +119,28 @@ def _limpiar(fila: dict) -> dict:
             v = None
         out[c] = v if (v is not None and 1.01 < v < 1000) else None
 
+    # v106 — LA CADENA VACÍA NO ES UN NÚMERO, Y AQUÍ SÍ IMPORTA.
+    #
+    # `importar_snapshots` recarga el CSV con `csv.DictReader`, que devuelve
+    # '' para toda celda vacía. Los mercados ya se saneaban arriba, pero las
+    # columnas numéricas que NO son cuotas no: `ah_linea` y `dias_al_partido`
+    # entraban como '' en una columna REAL. Medido al empezar a guardar el
+    # hándicap: **17.202 filas con `ah_linea = ''`**, todas de fotos
+    # anteriores, que un `WHERE ah_linea IS NOT NULL` cuenta como si tuvieran
+    # línea. Sin esto, el primer backtest de hándicap sobre las fotos habría
+    # arrancado con 17.000 filas fantasma — el tipo de contaminación que no
+    # deja rastro y que este módulo existe para evitar.
+    for c in ('ah_linea', 'dias_al_partido'):
+        v = out.get(c)
+        if v == '' or v is None:
+            out[c] = None
+            continue
+        try:
+            v = float(v)
+            out[c] = v if v == v else None          # descarta NaN
+        except (TypeError, ValueError):
+            out[c] = None
+
     h, d, a = out.get('odds_home'), out.get('odds_draw'), out.get('odds_away')
     if h and d and a:
         margen = 1.0 / h + 1.0 / d + 1.0 / a

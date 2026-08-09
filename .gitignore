@@ -61,20 +61,43 @@ resultados_bivariante_v68.json
 # son 170 MB de peso muerto en el clon que hace Streamlit Cloud en cada
 # despliegue. Se regeneran con `entrenar_ligas_v68.py` cuando toque
 # re-evaluarlas con otra temporada.
+#
+# v106 — ESTA LISTA SE HABÍA QUEDADO MINTIENDO, Y COSTABA 12 COMPETICIONES.
+#
+# El argumento de arriba —«la app nunca las carga porque el selector sólo
+# muestra las `disponible`»— dejó de ser cierto en algún punto entre la v68 y
+# hoy: **12 de estas 15 estaban marcadas `disponible: True`**. O sea que el
+# runner las entrenaba cada día, el `git add modelos/` las descartaba por esta
+# lista, y Streamlit Cloud clonaba sin ellas. `ClubEngine` moría con
+# FileNotFoundError y `_barrido_fixtures` las saltaba **en silencio**: sus
+# partidos no aparecían en las apuestas del día, ni en los pronósticos, ni en
+# la tabla de confianza. Nadie podía notarlo porque no había ni un aviso.
+#
+# Se reentrenaron las 12 y se midió cada una contra su línea base de ELO, que
+# es la regla del proyecto (`_v106_ligas_faltantes.json`):
+#
+#     BATEN al ELO -> se publican (25 MB en total)
+#       bra_serie_b       0.4400 vs 0.4213   (+1,9 pp)
+#       eng_league_two    0.5056 vs 0.4738   (+3,2 pp)
+#       esp_hypermotion   0.4621 vs 0.4464   (+1,6 pp)
+#       gre_super_league  0.5365 vs 0.5064   (+3,0 pp)
+#       sudamericana      0.4536 vs 0.4124   (+4,1 pp)
+#
+#     NO baten -> `disponible: False` en config.py, con su cifra anotada
+#       bel_pro_league, crc_fpd, eng_championship, eng_fa_cup, ned_eerste,
+#       par_division, slv_primera
+#
+# Las tres que nunca estuvieron activas (aus_aleague, ind_isl, ven_primera)
+# siguen igual.
 modelos/aus_aleague/
 modelos/bel_pro_league/
-modelos/bra_serie_b/
 modelos/crc_fpd/
 modelos/eng_championship/
 modelos/eng_fa_cup/
-modelos/eng_league_two/
-modelos/esp_hypermotion/
-modelos/gre_super_league/
 modelos/ind_isl/
 modelos/ned_eerste/
 modelos/par_division/
 modelos/slv_primera/
-modelos/sudamericana/
 modelos/ven_primera/
 
 # v69: caché por jugador de TennisAbstract (700+ JSON por circuito). Los datos

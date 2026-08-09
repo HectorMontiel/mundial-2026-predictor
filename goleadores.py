@@ -66,6 +66,46 @@ def _fresco(entrada: dict) -> bool:
     return (time.time() - entrada.get('ts', 0)) < TTL_DIAS * 86400
 
 
+# ---------------------------------------------------------------------------
+# v110 — CACHÉ NEGATIVA: un fallo también se recuerda
+# ---------------------------------------------------------------------------
+# El log de producción venía así, decenas de veces por carga de página:
+#
+#   [goleadores/suecia] equipos: HTTPError: 403 Client Error: Forbidden
+#   [goleadores/suecia] roster 2495: HTTPError: 403 ...
+#   [goleadores/suecia] equipos: HTTPError: 403 ...      <- otra vez
+#   [goleadores/suecia] roster 2495: HTTPError: 403 ...  <- y otra
+#
+# La causa no es el 403 —ESPN bloquea `/teams` y `/roster` desde IPs de centro
+# de datos, igual que documentó la v98 con el scoreboard de MLB— sino que el
+# `except` devolvía la caché vacía **sin anotar que había fallado**. Así que la
+# siguiente llamada volvía a intentarlo, y la siguiente, y la siguiente: cada
+# rerun de Streamlit repetía todas las peticiones fallidas, gastando segundos y
+# llenando el log de ruido que tapa los errores de verdad.
+#
+# Con esto, un fallo se guarda como tal durante media hora. Se reintenta —el
+# bloqueo puede ser temporal— pero una vez cada TTL, no en cada rerun. Y se
+# avisa UNA vez por clave: las repeticiones bajan a debug.
+TTL_FALLO_S = 1800
+_AVISADO: set = set()
+
+
+def _fallo_reciente(cache: dict, ck: str) -> bool:
+    e = cache.get(f'fallo:{ck}')
+    return bool(e) and (time.time() - e.get('ts', 0)) < TTL_FALLO_S
+
+
+def _anotar_fallo(cache: dict, ck: str, clave: str, e: Exception) -> None:
+    cache[f'fallo:{ck}'] = {'ts': time.time(), 'error': f'{type(e).__name__}'}
+    if ck in _AVISADO:
+        logger.debug(f"[goleadores/{clave}] {ck}: {type(e).__name__} (repetido)")
+    else:
+        _AVISADO.add(ck)
+        logger.warning(
+            f"[goleadores/{clave}] {ck}: {type(e).__name__}: {e} — no se "
+            f"reintenta en {TTL_FALLO_S // 60} min")
+
+
 def equipos_liga(clave: str) -> List[Dict]:
     """[{id, nombre}] de la liga (ESPN). Cacheado."""
     import fixtures_espn
@@ -76,6 +116,9 @@ def equipos_liga(clave: str) -> List[Dict]:
     ck = f'teams:{clave}'
     if ck in cache and _fresco(cache[ck]):
         return cache[ck]['data']
+    # v110: si acaba de fallar, no se vuelve a intentar en cada rerun
+    if _fallo_reciente(cache, ck):
+        return cache.get(ck, {}).get('data', [])
     try:
         r = requests.get(ESPN_TEAMS.format(liga=code), timeout=TIMEOUT,
                          headers={'User-Agent': 'Mozilla/5.0'})
@@ -85,7 +128,7 @@ def equipos_liga(clave: str) -> List[Dict]:
         datos = [{'id': b['team']['id'], 'nombre': b['team']['displayName']}
                  for b in bloques]
     except Exception as e:
-        logger.warning(f"[goleadores/{clave}] equipos: {type(e).__name__}: {e}")
+        _anotar_fallo(cache, ck, clave, e)
         return cache.get(ck, {}).get('data', [])
     cache[ck] = {'ts': time.time(), 'data': datos}
     _cache_guardar()
@@ -147,6 +190,10 @@ def plantilla_equipo(clave: str, team_id: str) -> List[Dict]:
     ck = f'roster:{clave}:{team_id}'
     if ck in cache and _fresco(cache[ck]):
         return cache[ck]['data']
+    # v110: mismo blindaje que en `equipos_liga` — un 403 no puede reintentarse
+    # en cada rerun de Streamlit (era lo que inundaba el log de producción).
+    if _fallo_reciente(cache, ck):
+        return cache.get(ck, {}).get('data', [])
     jugadores: List[Dict] = []
     try:
         jugadores = _roster_crudo(code, team_id, None)
@@ -157,8 +204,7 @@ def plantilla_equipo(clave: str, team_id: str) -> List[Dict]:
             if sum(j['goles'] for j in previa) > sum(j['goles'] for j in jugadores):
                 jugadores = previa
     except Exception as e:
-        logger.warning(f"[goleadores/{clave}] roster {team_id}: "
-                       f"{type(e).__name__}: {e}")
+        _anotar_fallo(cache, ck, clave, e)
         return cache.get(ck, {}).get('data', [])
     cache[ck] = {'ts': time.time(), 'data': jugadores}
     _cache_guardar()

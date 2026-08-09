@@ -1929,7 +1929,14 @@ def test_un_solo_reloj():
     # en vez de fiarlo a que dos funciones sigan pegadas en el fichero.
     fsrc = open('fixtures_espn.py', encoding='utf-8').read()
     cuerpo = fsrc.split('def _fixtures_de_codigo')[1][:1500]
-    check('utcnow' in cuerpo,
+    # v110 — se aceptan las DOS formas de pedir la hora UTC.
+    #
+    # `Timestamp.utcnow()` quedó deprecado en pandas 4 («use Timestamp.now('UTC')
+    # instead») y el aviso salía en el log de producción, así que se sustituyó.
+    # Lo que este test vigila es el INVARIANTE —que el rango se ancle en UTC y
+    # no en el reloj local—, no cómo se escribe la llamada; buscar sólo el
+    # literal viejo convertía una limpieza de deprecación en un fallo rojo.
+    check("utcnow" in cuerpo or "now('UTC')" in cuerpo,
           "el rango de fechas se ancla en UTC (el reloj de ESPN)")
     # y que nadie haya vuelto a colar el reloj local en el módulo
     import ast as _ast
@@ -2216,6 +2223,853 @@ def test_leagues_cup_integrada():
               f"({malos[:3]})")
 
 
+# ===========================================================================
+# v106
+# ===========================================================================
+def test_handicap_con_push():
+    """
+    v106 — el hándicap deja de regalarle el push al lado contrario.
+
+    El fallo: `alpha_finder` aceptaba cualquier línea múltiplo de 0,5 (la
+    condición dejaba pasar también las ENTERAS, pese al comentario «líneas .5
+    → sin push») y calculaba el lado visitante como `1 − P(el local cubre)`.
+    Con línea entera ese complemento incluye `margen == −L`, que es DEVOLUCIÓN,
+    no victoria. Medido sobre la matriz de un favorito típico: el visitante
+    salía al 71,2 % cuando su probabilidad real de cobrar es 61,7 %, porque el
+    25 % de push se le contaba como acierto. Con esa cifra el EV salía positivo
+    casi siempre — es «el hándicap me falla constantemente».
+
+    No se veía en la medición porque `build_ledger_handicap.py` sólo medía
+    líneas .5, que son justo las que no tienen push.
+    """
+    import numpy as np
+    import handicap as h
+
+    # distribución de margen sencilla y exacta, para que el test no dependa
+    # de ningún modelo entrenado
+    dist = {2: 0.20, 1: 0.25, 0: 0.25, -1: 0.20, -2: 0.10}
+
+    # --- línea ENTERA: el push existe y no es de nadie ---------------------
+    d = h.desglose(dist, -1.0)          # el local da 1
+    check(abs(d['gana'] - 0.20) < 1e-9, "local −1 gana sólo si gana por 2+")
+    check(abs(d['push'] - 0.25) < 1e-9, "gana por 1 exacto es PUSH, no derrota")
+    check(abs(d['gana'] + d['pierde'] + d['push'] - 1) < 1e-9,
+          "gana + pierde + push suma 1")
+    p = h.probabilidad(dist, -1.0)
+    check(abs(p - 0.20 / 0.75) < 1e-9,
+          f"la probabilidad es CONDICIONAL a que se resuelva ({p:.4f})")
+
+    # el lado contrario no puede llevarse el push
+    lados = {f['lado']: f for f in
+             _evaluar_desde_dist(h, dist, -1.0, 1.90, 1.95)}
+    check(abs(lados['away']['prob'] - 0.55 / 0.75) < 1e-9,
+          "el visitante +1 NO cobra el push")
+    # así lo calculaba la v65: `1 − P(el local cubre)`, que se traga el push
+    viejo = 1 - sum(p for m, p in dist.items() if m > 1)
+    check(lados['away']['prob'] < viejo - 0.05,
+          f"el método viejo daba {viejo:.4f} y el real es "
+          f"{lados['away']['prob']:.4f}: {(viejo - lados['away']['prob'])*100:.1f} "
+          f"puntos de inflación, justo la masa del push")
+    check(abs(lados['home']['gana'] - lados['away']['pierde']) < 1e-9,
+          "lo que gana un lado es exactamente lo que pierde el otro")
+    check(abs(lados['home']['push'] - lados['away']['push']) < 1e-9,
+          "el push es el mismo para los dos lados")
+
+    # --- líneas de CUARTO: antes se descartaban enteras ---------------------
+    check(set(h.partes_de_linea(-0.75)) == {(-0.5, 0.5), (-1.0, 0.5)},
+          "−0,75 se juega mitad en −0,5 y mitad en −1,0")
+    check(h.desglose(dist, -0.75) is not None,
+          "una línea de cuarto ya produce mercado (Pinnacle publica muchas)")
+    check(h.partes_de_linea(-0.3) is None,
+          "una línea fuera de la rejilla de 0,25 no se inventa")
+
+    # --- EV: con push, `cuota·prob − 1` exagera ----------------------------
+    ev = h.ev(dist, -1.0, 2.0)
+    check(abs(ev - (0.20 * 1.0 - 0.55)) < 1e-9,
+          f"EV = gana·(cuota−1) − pierde ({ev:+.4f})")
+    ingenuo = 2.0 * p - 1
+    check(abs(ev - 0.75 * ingenuo) < 1e-9,
+          "el EV ingenuo sobreestima exactamente en 1/(gana+pierde)")
+
+    # --- anclaje al mercado: el hándicap hereda el encogimiento del 1X2 ----
+    d2 = h.reponderar_a_1x2(dist, {'home': 0.30, 'draw': 0.25, 'away': 0.45})
+    check(abs(sum(p_ for k, p_ in d2.items() if k > 0) - 0.30) < 1e-9,
+          "la masa de «gana el local» queda en la probabilidad ya corregida")
+    check(abs(sum(d2.values()) - 1) < 1e-9, "y la distribución sigue sumando 1")
+    p_ancl = h.probabilidad(d2, -0.5)
+    check(p_ancl < h.probabilidad(dist, -0.5),
+          "anclar a un 1X2 menor baja el hándicap del local (era el sesgo "
+          "de selección que el 1X2 sí corregía desde la v71)")
+
+    # --- y producción usa este módulo, no su propia cuenta ------------------
+    fuente = open('alpha_finder.py', encoding='utf-8').read()
+    check('import handicap' in fuente,
+          "alpha_finder evalúa el hándicap con el módulo medido")
+    check('1 - p_home_cubre' not in fuente,
+          "el complemento que regalaba el push ya no existe en el barrido")
+
+    # --- el ledger mide lo que producción publica --------------------------
+    import build_ledger_handicap as blh
+    check(-1.0 in blh.LINEAS and -0.75 in blh.LINEAS,
+          "el ledger mide también líneas enteras y de cuarto (antes sólo .5)")
+    import pandas as _pd
+    if os.path.exists('pick_ledger_handicap.csv'):
+        led = _pd.read_csv('pick_ledger_handicap.csv', nrows=5)
+        check(any(c.startswith('res_ah_') for c in led.columns),
+              "el ledger guarda la fracción de importe resuelta (sin ella, "
+              "una línea de cuarto no es comparable con su probabilidad)")
+
+    # --- y el LIQUIDADOR resuelve lo que el barrido publica -----------------
+    #
+    # Con la v106 el barrido emite líneas enteras y de cuarto de verdad. Si el
+    # liquidador no supiera resolverlas, sus picks se acumularían pendientes
+    # para siempre y el ROI del hándicap no se mediría nunca — que es el mismo
+    # agujero que la v92 encontró con los picks sin liquidar.
+    from liquidador import resolver
+    H, A = 'Toluca', 'Atlante'
+    casos = [
+        (f'{H} −1.5', 3, 1, True,  'la .5 de siempre no cambia'),
+        (f'{H} −1',   3, 1, True,  'entera: gana por 2, cubre'),
+        (f'{H} −1',   2, 1, None,  'entera: gana por 1 EXACTO es PUSH y NO se '
+                                   'liquida (contarlo de cualquier lado '
+                                   'contamina el ROI para siempre)'),
+        (f'{A} +1',   2, 1, None,  'y el push tampoco se liquida por el otro '
+                                   'lado'),
+        (f'{H} 0',    2, 1, True,  'línea 0 («empate no cuenta»): se etiqueta '
+                                   'SIN signo y aun así se parsea'),
+        (f'{H} 0',    1, 1, None,  'y su empate es devolución'),
+        (f'{H} −0.75', 2, 1, True, 'cuarto: media gana y media empata → cobra'),
+        (f'{H} −1.25', 2, 1, False, 'cuarto: media empata y media pierde'),
+    ]
+    for apuesta, gl, gv, esperado, porque in casos:
+        r = resolver('Hándicap', apuesta, H, A, gl, gv)
+        check(r is esperado if esperado is None else r == esperado,
+              f"liquidación de «{apuesta}» {gl}-{gv} = {r} — {porque}")
+
+    # --- la calibración no puede volver a contar un push como acierto ------
+    src_cal = open('calibracion_confianza.py', encoding='utf-8').read()
+    i = src_cal.find('LEDGER_HANDICAP)')
+    bloque = src_cal[i:i + 1400] if i > 0 else ''
+    check('notna()' in bloque,
+          "la calibración descarta los push (np.nan como bool es True: sin "
+          "esto los 10.966 push de la línea −1 entrarían como aciertos)")
+
+
+def _evaluar_desde_dist(h, dist, linea, ch, ca):
+    """Aplica `handicap.evaluar` a una distribución de margen ya dada, sin
+    pasar por una matriz de marcadores (el test no necesita un modelo)."""
+    dist_v = {-d: p for d, p in dist.items()}
+    fuera = []
+    for lado, dl, L, c in (('home', dist, linea, ch),
+                           ('away', dist_v, -linea, ca)):
+        des = h.desglose(dl, L)
+        fuera.append({'lado': lado, 'prob': h.probabilidad(dl, L),
+                      'gana': des['gana'], 'pierde': des['pierde'],
+                      'push': des['push'], 'ev': h.ev(dl, L, c)})
+    return fuera
+
+
+def test_hora_cdmx():
+    """
+    v106 — la hora del partido, en hora de Ciudad de México.
+
+    El usuario la pidió para decidir «casi en vivo, antes de que empiece». El
+    dato ya se guardaba (`inicio`, en UTC) y no llegaba a la pantalla.
+
+    Lo que este test fija es sobre todo lo que NO puede pasar: que la
+    conversión se cuele en la lógica. El proyecto razona en UTC de punta a
+    punta (`test_un_solo_reloj`) porque mezclar relojes ya costó un día entero
+    de partidos descartados en la v91.
+    """
+    import horario
+
+    check(horario.partes('2026-08-08 23:30:00') == ('2026-08-08', '17:30'),
+          "23:30 UTC son las 17:30 en CDMX")
+    check(horario.partes('2026-08-09 01:00:00') == ('2026-08-08', '19:00'),
+          "la FECHA local puede no ser la UTC: 01:00 del sábado en UTC es "
+          "viernes por la noche en México")
+    check(horario.partes('2026-08-08T19:00:00Z') == ('2026-08-08', '13:00'),
+          "lee el ISO con zona")
+    for malo in (None, '', 'basura', '1970-01-01 00:00:00'):
+        check(horario.partes(malo) is None,
+              f"no inventa hora con {malo!r} (mejor sin hora que una falsa)")
+    check(horario.etiqueta(None) == '',
+          "sin hora devuelve cadena vacía, para poder concatenar sin comprobar")
+
+    # `anotar` NO puede tocar los campos con los que se compara internamente
+    p = {'fecha': '2026-08-09', 'inicio': '2026-08-09 01:00:00'}
+    horario.anotar(p)
+    check(p['fecha'] == '2026-08-09',
+          "anotar() deja intacta la fecha UTC que usa la lógica")
+    check(p['fecha_cdmx'] == '2026-08-08' and p['hora_cdmx'] == '19:00',
+          "y añade la fecha y hora locales aparte")
+
+    # el reloj sigue siendo uno solo: nadie razona en hora local
+    import ast
+    src = open('alpha_finder.py', encoding='utf-8').read()
+    llamadas = [n for n in ast.walk(ast.parse(src))
+                if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+                and n.func.attr == 'today']
+    check(not llamadas,
+          "añadir la hora de CDMX no metió el reloj local en el barrido")
+    check('horario.anotar' in src or 'horario' in src,
+          "el barrido anota la hora local en el borde de salida")
+
+    # y la zona sale de la base de datos de zonas, no de un −6 escrito a mano
+    check('America/Mexico_City' in open('horario.py', encoding='utf-8').read(),
+          "la zona es America/Mexico_City (no un desfase fijo)")
+    req = open('requirements.txt', encoding='utf-8').read()
+    check('tzdata' in req,
+          "`tzdata` está declarada: en Windows `zoneinfo` no tiene base propia")
+
+    # la interfaz y el mensaje de Telegram la enseñan
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    check('_horario' in dash, "la interfaz usa el módulo de horario")
+    tg = open('bot_telegram.py', encoding='utf-8').read()
+    check('hora_cdmx' in tg, "el mensaje de Telegram lleva la hora")
+
+
+def test_ev_automatico_en_todos_los_deportes():
+    """
+    v106 — el EV+ automático deja de ser exclusivo de la MLB.
+
+    El usuario: «en deportes que no son fútbol no tienes la opción de EV+
+    automático, y ese me ayuda mucho». Era cierto a medias y por eso costaba
+    verlo: `alpha_finder` YA calculaba picks con cuota y EV de MLB, NBA, KBO y
+    tenis, pero sólo la vista de MLB los enseñaba; para los otros tres había
+    que salir a la pantalla general y buscar entre todos los deportes.
+    """
+    import alpha_finder as af
+
+    for f in ('_picks_mlb', '_picks_nba', '_picks_kbo', '_picks_tenis'):
+        check(hasattr(af, f), f"existe el barrido de {f}")
+
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    check('def render_ev_automatico' in dash,
+          "hay UN panel de EV+ común a todos los deportes")
+    for dep, fn in (('NBA', '_picks_nba'), ('KBO', '_picks_kbo'),
+                    ('Tenis', '_picks_tenis')):
+        check(f"'{dep}', _af.{fn}" in dash,
+              f"{dep} tiene su EV+ automático conectado a su barrido")
+    check("'MLB', eng.apuestas_dia" in dash,
+          "la MLB usa el mismo panel (y así gana la Capa 2 que antes tiraba)")
+
+    # el panel tiene que enseñar la hora, que es para lo que sirve «casi en vivo»
+    i = dash.find('def render_ev_automatico')
+    cuerpo = dash[i:i + 6000]
+    check('_horario' in cuerpo, "el panel enseña la hora del partido en CDMX")
+    check('falta_para' in cuerpo, "y cuánto falta para que empiece")
+
+    # -----------------------------------------------------------------------
+    # LA CACHÉ TIENE QUE DISTINGUIR DEPORTES, Y ES UN FALLO SILENCIOSO.
+    #
+    # El panel es UNA función usada por los cuatro deportes, así que su función
+    # cacheada tiene el mismo nombre en las cuatro llamadas y sólo el argumento
+    # las separa. Streamlit **excluye del hash todo parámetro que empiece por
+    # guion bajo** (su convención para colar objetos no hasheables), de modo
+    # que llamarlo `_dep` haría que las cuatro compartieran una única entrada:
+    # la vista de NBA enseñaría los picks de la MLB, sin error ni aviso.
+    # -----------------------------------------------------------------------
+    import ast
+    fn = next(n for n in ast.walk(ast.parse(dash))
+              if isinstance(n, ast.FunctionDef) and n.name == 'render_ev_automatico')
+    interna = next((n for n in ast.walk(fn) if isinstance(n, ast.FunctionDef)
+                    and n.name != 'render_ev_automatico'
+                    and any('cache_data' in ast.dump(d) for d in n.decorator_list)),
+                   None)
+    check(interna is not None, "el panel cachea el barrido de cada deporte")
+    if interna is not None:
+        args = [a.arg for a in interna.args.args]
+        check(len(args) >= 1,
+              f"la función cacheada recibe el deporte como argumento ({args})")
+        check(all(not a.startswith('_') for a in args),
+              f"y NINGÚN argumento empieza por guion bajo — Streamlit no los "
+              f"hashea y los cuatro deportes compartirían caché ({args})")
+
+
+def test_sin_bom_en_el_codigo():
+    """
+    v110 — ningún .py puede empezar con BOM UTF-8.
+
+    Se coló reescribiendo ficheros con `Set-Content -Encoding UTF8` de
+    PowerShell 5.1, que añade BOM sin avisar. Lo traicionero es que
+    `py_compile` lo acepta —Python trata el BOM como marca de codificación— así
+    que la comprobación habitual pasaba en verde mientras seis ficheros
+    quedaban con tres bytes de basura al principio.
+
+    Dónde SÍ rompe: en cualquier herramienta que lea el fichero como texto y lo
+    parsee por su cuenta. Aquí lo destapó el propio suite, que hace
+    `ast.parse(open(...).read())` sobre varios módulos:
+
+        SyntaxError: invalid non-printable character U+FEFF
+
+    Y habría roto igual en producción a la primera que alguien leyera el
+    fichero sin `encoding='utf-8-sig'`.
+    """
+    import glob
+    malos = []
+    for f in sorted(glob.glob('*.py') + glob.glob('engines/*.py')):
+        with open(f, 'rb') as fh:
+            if fh.read(3) == b'\xef\xbb\xbf':
+                malos.append(f)
+    check(not malos, f"ningún fichero .py empieza con BOM UTF-8 ({malos})")
+
+    # y que de verdad se puedan parsear como texto plano, que es lo que
+    # `py_compile` NO comprueba
+    import ast
+    rotos = []
+    for f in sorted(glob.glob('*.py') + glob.glob('engines/*.py')):
+        try:
+            ast.parse(open(f, encoding='utf-8').read())
+        except SyntaxError as e:
+            rotos.append(f'{f}: {e.msg}')
+    check(not rotos, f"todos se parsean leyéndolos como UTF-8 ({rotos[:3]})")
+
+
+def test_ruido_de_produccion():
+    """
+    v110 — tres cosas que ensuciaban el log de producción, y una costaba tiempo.
+
+    1. **`goleadores` reintentaba cada 403 en CADA rerun.** ESPN bloquea
+       `/teams` y `/roster` desde IPs de centro de datos (mismo caso que la v98
+       con el scoreboard de MLB), pero el `except` devolvía la caché vacía sin
+       anotar el fallo, así que la siguiente llamada volvía a intentarlo. El log
+       traía decenas de líneas idénticas por carga de página y cada una era una
+       petición HTTP real esperando su timeout.
+
+    2. **`use_container_width`** queda retirado el 2025-12-31.
+
+    3. **El aviso de ripser** («more columns than rows») salía en cada
+       predicción. Es esperado —la nube de un partido tiene más dimensiones que
+       puntos— y un aviso que sale siempre y nunca significa nada acaba tapando
+       los que sí importan. De hecho es lo que pasaba: los 403 se perdían entre
+       ellos.
+    """
+    import goleadores as g
+
+    check(hasattr(g, 'TTL_FALLO_S') and g.TTL_FALLO_S > 0,
+          "goleadores recuerda los fallos durante un rato")
+    check(hasattr(g, '_fallo_reciente') and hasattr(g, '_anotar_fallo'),
+          "y tiene las dos piezas de la caché negativa")
+
+    src = open('goleadores.py', encoding='utf-8').read()
+    check(src.count('_fallo_reciente(cache') >= 2,
+          "las DOS rutas que pegan a ESPN la consultan (equipos y roster)")
+    check(src.count('_anotar_fallo(cache') >= 2, "y las dos la escriben")
+    check('repetido' in src,
+          "el aviso se emite una vez por clave; las repeticiones van a debug")
+
+    # el TTL tiene que ser corto: un bloqueo puede ser temporal y no queremos
+    # quedarnos sin goleadores un día entero por un 403 de hace un minuto.
+    check(60 <= g.TTL_FALLO_S <= 6 * 3600,
+          f"el fallo se reintenta en un plazo razonable ({g.TTL_FALLO_S} s)")
+
+    # --- 2. la llamada obsoleta de Streamlit -------------------------------
+    #
+    # Se excluye ESTE fichero: contiene el literal por necesidad —es lo que
+    # busca— y sin la exclusión el test se detecta a sí mismo y falla siempre.
+    import glob
+    _yo = os.path.basename(__file__)
+    malos = [f for f in glob.glob('*.py') + glob.glob('engines/*.py')
+             if os.path.basename(f) != _yo
+             and 'use_container' + '_width' in open(f, encoding='utf-8').read()]
+    check(not malos,
+          f"nadie usa `use_container_width`, que Streamlit retira el "
+          f"2025-12-31 ({malos})")
+
+    # --- 3. el aviso de ripser ---------------------------------------------
+    pa = open('prediction_api.py', encoding='utf-8').read()
+    i = pa.find('def _entropias')
+    cuerpo = pa[i:i + 1800]
+    check('filterwarnings' in cuerpo, "el aviso de ripser se silencia")
+    check('more columns than rows' in cuerpo,
+          "y SÓLO ese aviso, por su mensaje — no se apaga la categoría entera")
+    check('catch_warnings' in cuerpo,
+          "y sólo dentro de esa llamada, no globalmente")
+
+
+def test_panel_equipos():
+    """
+    v107 — H2H, clasificación y forma del cruce, sin API y sin pulsar nada.
+
+    Lo pidió el usuario para decidir la apuesta con todo delante, al estilo de
+    SofaScore. La sección que había (`render_h2h_club`) dependía de
+    API-Football: clave obligatoria, presupuesto de peticiones, un botón, y su
+    plan gratuito **se queda en 2024-25**. Quien no configuraba la clave no
+    veía nada.
+
+    Todo esto sale del `historico_<clave>.csv` con el que ya se entrena el
+    modelo: cubre las 50 competiciones activas, llega más atrás que el plan
+    gratuito y no puede fallar por red.
+    """
+    import config
+    import panel_equipos as pe
+
+    # --- cara a cara --------------------------------------------------------
+    h = pe.h2h('liga_mx', 'Club America', 'Cruz Azul')
+    check(h['n'] >= 20,
+          f"el H2H sale del histórico local ({h['n']} cruces de "
+          f"América-Cruz Azul, desde {h.get('desde')})")
+    check(h['gana_a'] + h['empates'] + h['gana_b'] == h['n'],
+          "el balance cuadra con el número de cruces")
+    check(all(p['fecha'] and p['local'] and p['visitante']
+              for p in h['partidos']),
+          "cada cruce trae fecha y los dos equipos")
+    check(h['partidos'] == sorted(h['partidos'], key=lambda p: p['fecha'],
+                                  reverse=True),
+          "y salen del más reciente al más antiguo")
+
+    # --- clasificación en TODAS las competiciones activas --------------------
+    activas = [k for k, v in config.LEAGUES.items() if v.get('disponible')]
+    sin_tabla = []
+    for k in activas:
+        try:
+            if not pe.clasificacion(k):
+                sin_tabla.append(k)
+        except Exception as e:
+            sin_tabla.append(f'{k}({type(e).__name__})')
+    check(not sin_tabla,
+          f"las {len(activas)} competiciones activas tienen clasificación "
+          f"calculable ({sin_tabla[:5]})")
+
+    cl = pe.clasificacion('liga_mx')
+    check(cl[0]['pos'] == 1 and cl[0]['pts'] >= cl[-1]['pts'],
+          "la tabla va ordenada por puntos")
+    for f in cl:
+        check(f['g'] + f['e'] + f['p'] == f['pj'],
+              f"{f['equipo']}: G+E+P cuadra con PJ") if f is cl[0] else None
+        check(f['pts'] == f['g'] * 3 + f['e'],
+              f"{f['equipo']}: los puntos cuadran (3 por victoria)") \
+            if f is cl[0] else None
+
+    # --- degradación limpia: nunca lanza, nunca inventa ---------------------
+    check(pe.h2h('__no_existe__', 'A', 'B')['n'] == 0,
+          "una competición inexistente devuelve 0 cruces, no una excepción")
+    check(pe.forma('liga_mx', '__equipo_inventado__')['n'] == 0,
+          "un equipo que no está devuelve forma vacía")
+    check(pe.posicion('liga_mx', '__equipo_inventado__') is None,
+          "y no aparece en la clasificación")
+    check(pe.clasificacion('__no_existe__') == [],
+          "y una liga sin histórico no tiene tabla")
+
+    # --- LA LECTURA NO PUEDE CONTRADECIRSE ---------------------------------
+    #
+    # Primera versión: la frase de arriba exigía el doble de victorias para
+    # decir «domina» y la de abajo se conformaba con `ga > gb`. Con un 9-10-7
+    # el panel decía «historial parejo» y dos líneas después «América domina el
+    # historial». Un panel que se contradice es peor que uno escueto: el
+    # usuario no sabe cuál creerse.
+    frases = pe.lectura('liga_mx', 'Club America', 'Cruz Azul')
+    texto = ' '.join(frases)
+    check(not ('parejo' in texto and 'domina el historial' in texto),
+          f"la lectura no dice «parejo» y «domina» a la vez")
+    check(len(frases) >= 2, f"la lectura dice algo útil ({len(frases)} frases)")
+
+    src = open('panel_equipos.py', encoding='utf-8').read()
+    check('HUECO_TEMPORADA_DIAS' in src,
+          "la temporada en curso se detecta por el parón del calendario, no "
+          "con una regla por país (hay ligas de año natural, de agosto a mayo "
+          "y de dos torneos por año)")
+    check("format='mixed'" in src,
+          "las fechas se parsean con formato mixto: los históricos de ESPN "
+          "traen hora y los de football-data no, y inferir uno solo convierte "
+          "en NaT medio fichero (el fallo que la v105 encontró en el ELO)")
+
+    # --- y la interfaz lo usa ----------------------------------------------
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    check('def render_panel_equipos' in dash, "la interfaz tiene el panel")
+    check('render_panel_equipos(clave, home, away' in dash,
+          "y lo llama en la vista de liga, para todas las competiciones")
+    i_panel = dash.find('render_panel_equipos(clave, home, away')
+    i_parlay = dash.find('render_parlay_partido(motor, home, away, key=clave)')
+    check(0 < i_panel < i_parlay,
+          "el panel va ANTES del combinador: se usa para decidir la apuesta, "
+          "no para repasarla después")
+
+
+def test_roi_negativo_se_avisa_de_frente():
+    """
+    v108 — el ROI negativo va DELANTE, no escondido en un desplegable.
+
+    El usuario dijo «no quiero perder dinero y quiero que sean seguras», y usa
+    la pestaña de Máxima Confianza para decidir («los que tienen de 67 % si
+    aciertan»). La medición dice justo lo contrario, y estaba dentro de un
+    expander que había que abrir:
+
+        banda        n        ROI       p5
+        0,50-0,55  13.792   -5,03 %   -6,31 %
+        0,55-0,60  13.106   -4,66 %   -5,94 %
+        0,60-0,65   8.821   -4,88 %   -6,17 %
+        0,65-0,70   1.439   -6,52 %   -9,77 %   <- justo la que él usa
+        0,70-0,75      33  +27,76 %   +8,75 %   <- 33 apuestas: ruido
+
+    Las CUATRO bandas con muestra real (37.158 apuestas en total) pierden
+    dinero. Enseñar el acierto («61,5 %») sin el ROI («−6,52 %») al lado es la
+    media verdad que hace perder dinero: se acierta seis de cada diez y aun
+    así se pierde, porque la cuota de un favorito no paga lo que arriesga.
+
+    Un aviso que hay que desplegar para verlo no es un aviso.
+    """
+    if not os.path.exists('calibracion_confianza.json'):
+        check(False, 'calibracion_confianza.json existe')
+        return
+    with open('calibracion_confianza.json', encoding='utf-8') as f:
+        cal = json.load(f)
+
+    bandas = [b for b in cal.get('bandas', [])
+              if b.get('roi') is not None and b.get('n', 0) >= 500]
+    check(len(bandas) >= 3,
+          f"hay bandas con muestra suficiente para juzgar ({len(bandas)})")
+    perdedoras = [b for b in bandas if b['roi'] < 0]
+    # Esto NO es un test de que el modelo sea malo: es un test de que, mientras
+    # lo sea, la interfaz lo diga. Si algún día el ROI se vuelve positivo, el
+    # aviso desaparece solo y este test sigue pasando.
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    i_fn = dash.find('def _render_maxima_confianza')
+    cuerpo = dash[i_fn:i_fn + 6000]
+
+    check('st.error' in cuerpo,
+          "el aviso de ROI negativo usa `st.error` (rojo), no un caption")
+    check('PERDIDO dinero' in cuerpo or 'perdido dinero' in cuerpo.lower(),
+          "y dice literalmente que se ha perdido dinero")
+    i_error = cuerpo.find('st.error')
+    i_expander = cuerpo.find('st.expander')
+    check(0 < i_error < i_expander,
+          "el aviso va ANTES del desplegable: uno que hay que abrir para verlo "
+          "no es un aviso")
+    check('no para apostar sueltas' in cuerpo or 'patas de combinada' in cuerpo,
+          "se dice para qué SÍ sirven estos picks (patas de combinada)")
+    check('line shopping' in cuerpo,
+          "y se apunta al único canal con ROI positivo y robusto del histórico")
+
+    # la tabla tiene que traer el p5 y el tamaño de muestra, o el ROI engaña
+    check("'ROI en el peor 5 %'" in cuerpo or 'p5' in cuerpo,
+          "la tabla enseña el p5 del bootstrap junto al ROI")
+    check('muestra corta' in cuerpo,
+          "y marca las bandas con muestra insuficiente (la de +27,8 % tiene 33 "
+          "apuestas)")
+
+    if perdedoras:
+        peor = min(perdedoras, key=lambda b: b['roi'])
+        print(f'      · dato actual: la peor banda es '
+              f'{peor["desde"]:.2f}-{peor["hasta"]:.2f} con ROI '
+              f'{peor["roi"]:+.2%} sobre {peor["n"]} apuestas')
+
+
+def test_cobertura_remates_medida():
+    """
+    v107 — dónde hay remates por jugador y dónde no, medido en vez de supuesto.
+
+    `remates_jugadores` funciona igual en todas las competiciones —pide el
+    `summary` del partido y lee `rosters`— pero ESPN no lo publica para todas.
+    Hasta aquí eso salía como una tabla vacía con un «no disponible» junto a
+    cada equipo, indistinguible de un fallo de red o de un equipo mal mapeado.
+
+    Medido el 2026-08-08 pidiendo un equipo real de cada una de las 49 activas
+    con código de ESPN: **41 con datos, 8 sin ellos**. Con la medición, la
+    interfaz lo dice una sola vez y con seguridad.
+    """
+    import remates_jugadores as rj
+
+    c = rj.cobertura()
+    check(bool(c), "existe el fichero de cobertura de remates")
+    con = c.get('con_remates') or []
+    sin = c.get('sin_remates') or {}
+    check(len(con) >= 35,
+          f"la mayoría de competiciones tienen remates por jugador "
+          f"({len(con)} con, {len(sin)} sin)")
+    check(not (set(con) & set(sin)),
+          "ninguna competición está a la vez con y sin datos")
+
+    check(rj.hay_remates('liga_mx') is True, "Liga MX sí tiene remates")
+    check(rj.hay_remates('brasil') is False,
+          "y el Brasileirão está medido como que NO")
+    # `None` tiene que ser distinto de `False`: una liga sin medir puede tener
+    # datos, y decir «no hay» sin comprobarlo sería inventar.
+    check(rj.hay_remates('__no_medida__') is None,
+          "una competición sin medir devuelve None, no False")
+
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    check('hay_remates' in dash,
+          "la interfaz consulta la cobertura antes de enseñar la sección")
+
+
+def test_ninguna_liga_activa_sin_modelo():
+    """
+    v106 — una competición ACTIVA no puede tener su modelo fuera del repo.
+
+    El fallo: `.gitignore` excluía 15 carpetas de `modelos/` con el argumento
+    «la app nunca las carga porque el selector sólo muestra las `disponible`».
+    Entre la v68 y hoy, **12 de esas 15 pasaron a `disponible: True`** y nadie
+    tocó el .gitignore. Resultado: el runner las entrenaba cada día, el commit
+    las descartaba, Streamlit Cloud clonaba sin ellas, `ClubEngine` moría con
+    FileNotFoundError y `_barrido_fixtures` las saltaba **sin decir nada**.
+    Doce competiciones desaparecidas de las apuestas del día, los pronósticos
+    y la tabla de confianza, sin un solo aviso.
+
+    Es un fallo de CONSISTENCIA entre dos ficheros, del tipo que no produce
+    excepción y no se nota hasta que alguien va a buscar una liga y no está.
+    Por eso se comprueba aquí y no se confía en recordarlo.
+    """
+    import config
+
+    ignoradas = set()
+    with open('.gitignore', encoding='utf-8') as f:
+        for linea in f:
+            linea = linea.strip()
+            if linea.startswith('modelos/') and not linea.startswith('#'):
+                ignoradas.add(linea.rstrip('/').split('/')[-1])
+
+    activas = {k for k, v in config.LEAGUES.items() if v.get('disponible')}
+    conflicto = sorted(activas & ignoradas)
+    check(not conflicto,
+          f"ninguna competición activa tiene su modelo excluido del repo "
+          f"({conflicto})")
+
+    # y las activas tienen que tener el artefacto de verdad
+    sin_artefacto = sorted(
+        k for k in activas
+        if k in _CLAVES_CON_MODELO_PROPIO()
+        and not os.path.exists(os.path.join('modelos', k, 'modelo.joblib')))
+    check(not sin_artefacto,
+          f"y todas las activas con motor propio traen su modelo.joblib "
+          f"({sin_artefacto})")
+
+    # las que se apartaron dicen POR QUÉ, con la cifra medida
+    for k in ('eng_championship', 'eng_fa_cup', 'ned_eerste'):
+        cfg = config.LEAGUES.get(k) or {}
+        check(not cfg.get('disponible'), f"{k} está apartada")
+        check('ELO' in str(cfg.get('nota', '')),
+              f"y su nota dice contra qué se midió ({str(cfg.get('nota'))[:60]})")
+
+
+def _CLAVES_CON_MODELO_PROPIO():
+    """Competiciones que entrena `league_engine` (las de fútbol de club).
+
+    Se excluyen las que tienen motor aparte o histórico compuesto, que no
+    escriben `modelos/<clave>/modelo.joblib`.
+    """
+    import config
+    return {k for k, v in config.LEAGUES.items()
+            if v.get('formato') not in ('api_football',)}
+
+
+def test_motores_de_deporte_cargan():
+    """
+    v106 — los CUATRO motores de deporte cargan, y dos fallos que lo impedían.
+
+    Se descubrió al cablear el EV+ automático de cada deporte: los paneles
+    decían «motor no disponible» y el motivo llevaba versiones escondido.
+
+    1. **MLB, ATP y WTA: `XGBoostError: input stream corrupted`.** Es el fallo
+       que la v87 diagnosticó y resolvió con `modelos_portables` — el pickle
+       guarda el formato de SERIALIZACIÓN de XGBoost, que depende del entorno,
+       así que un modelo entrenado en el runner de Linux no abre en Windows.
+       La v87 cableó la reparación SÓLO en `ClubEngine` (fútbol);
+       `BaseSportsEngine` se quedó con `joblib.load` a secas. En Streamlit
+       Cloud (Linux, igual que el runner) no se nota, y por eso no se veía.
+
+    2. **NBA: `AttributeError: Can't get attribute '_BlendEloNBA' on
+       <module '__main__'>`.** Éste NO es de plataforma y rompía también en
+       producción: el entrenamiento se lanza con `python -m
+       engines.nba_engine`, donde ese fichero es `__main__`, así que pickle
+       guardó la clase como `__main__._BlendEloNBA`. Al cargar desde la app,
+       `__main__` es Streamlit y allí no existe. El modelo publicado no se
+       podía abrir desde ningún sitio.
+    """
+    from engines.kbo_engine import KBOEngine
+    from engines.mlb_engine import MLBEngine
+    from engines.nba_engine import NBAEngine
+    from engines.tennis_engine import TennisEngine
+
+    for etq, motor in (('MLB', MLBEngine()), ('ATP', TennisEngine('atp')),
+                       ('WTA', TennisEngine('wta')), ('KBO', KBOEngine()),
+                       ('NBA', NBAEngine())):
+        eng = motor.cargar_modelo()
+        check(getattr(eng, 'listo', False),
+              f"el motor de {etq} carga "
+              f"({str(getattr(eng, 'error', '')) [:70] or 'sin error'})")
+
+    # la reparación portable tiene que estar cableada donde falta, no sólo en
+    # el fútbol
+    base = open(os.path.join('engines', 'base_engine.py'), encoding='utf-8').read()
+    check('modelos_portables' in base,
+          "BaseSportsEngine carga por la ruta con reparación de plataforma")
+
+    # y la NBA tiene que poder PREDECIR, no sólo abrir el fichero
+    nba = NBAEngine().cargar_modelo()
+    if getattr(nba, 'listo', False) and len(nba.equipos) > 1:
+        p = nba.predecir(nba.equipos[0], nba.equipos[1])
+        check('error' not in p and 0 < (p.get('prob_home') or 0) < 1,
+              f"y predice de verdad (prob local {p.get('prob_home')})")
+
+    # el entrenamiento no puede volver a serializar la clase como `__main__`
+    src = open(os.path.join('engines', 'nba_engine.py'), encoding='utf-8').read()
+    i = src.find("if __name__ == '__main__':")
+    check(i > 0 and 'from engines.nba_engine import' in src[i:],
+          "el entrenamiento de NBA reimporta la clase del paquete, para que el "
+          "próximo modelo no vuelva a apuntar a `__main__`")
+
+
+def test_beisbol_pitchers():
+    """
+    v106 — abridor, estadio y ponches, con la regla de parlay del usuario.
+
+    Se comprueban las tres cosas que pueden estar mal sin que se note:
+      · que el factor de parque salga de MEDIR y no de una tabla a mano,
+      · que el SIGNO de la run line sea el correcto (aquí hubo un error real:
+        Pinnacle indexa cada precio por SU línea, no por la del local, y darle
+        la vuelta convertía un +1.5 en un −1.5),
+      · que la cascada de decisión sea la que el usuario describió.
+    """
+    import beisbol_pitchers as bp
+
+    # --- factores de parque: medidos, y con el resultado que se sabe --------
+    f = bp.factores_parque()
+    check(len(f) >= 25, f"hay factor de parque para {len(f)} equipos")
+    if f:
+        peor = max(f.items(), key=lambda x: x[1])
+        check(peor[0] == 'COL',
+              f"Coors Field sale como el parque más de bateadores ({peor})")
+        check(f.get('COL', 0) > 1.10,
+              f"y con un margen claro (×{f.get('COL'):.3f})")
+        check(min(f.values()) < 0.95,
+              "y hay parques de lanzadores en el otro extremo")
+    check(bp.factor_parque('__equipo_que_no_existe__') == 1.0,
+          "un equipo sin medición sale neutro, no inventado")
+
+    # --- el signo de la run line -------------------------------------------
+    # Pinnacle: {'-1.5': {'home': …}, '1.5': {'away': …}} → la clave YA es la
+    # línea de ese lado.
+    sp = {'-1.5': {'home': 2.51}, '1.5': {'away': 1.60}}
+    check(bp._run_line(sp, 'home') == {'linea': -1.5, 'cuota': 2.51},
+          "el local que da 1,5 sale como −1.5")
+    check(bp._run_line(sp, 'away') == {'linea': 1.5, 'cuota': 1.6},
+          "y el visitante que RECIBE 1,5 sale como +1.5, no como −1.5")
+    check(bp._run_line(None, 'home') is None, "sin spreads no se inventa línea")
+
+    # --- el favorito lo decide el CASINO, no el modelo ----------------------
+    check(bp._lado_favorito(1.60, 2.40) == 'home', "cuota menor = favorito")
+    check(bp._lado_favorito(2.40, 1.60) == 'away', "y por el otro lado igual")
+    check(bp._lado_favorito(None, 1.60) is None, "sin las dos cuotas, no hay "
+                                                 "favorito que declarar")
+
+    # --- la cascada de decisión --------------------------------------------
+    check(bp.K_LINEA_ALTA == 6.0,
+          "el corte de «muchos ponches» es 6, como lo pidió el usuario")
+    check(bp.CUOTA_GANADOR_MIN == 1.50,
+          "y «cuota de ganador buena» es el mismo mínimo que el resto del "
+          "proyecto")
+    src = open('beisbol_pitchers.py', encoding='utf-8').read()
+    i_ml = src.find('conviene meterlo de GANADOR')
+    i_k = src.find('no conviene tomar esa cuota')
+    check(0 < i_ml < i_k,
+          "el caso del favorito con buen abridor se evalúa ANTES que la línea "
+          "de ponches (el usuario lo puso como el «pero» que manda)")
+    check('regla_del_usuario' in src,
+          "cada veredicto se marca como regla del usuario, no como edge medido")
+
+    # sin abridor no se opina: es la variable que más pesa en béisbol
+    v = bp.veredicto('NYA', 'BOS', None, None, 1.80, 2.10)
+    check(not v['entra'], "sin abridor anunciado el partido no entra")
+    check(any('abridor' in m for m in v['motivos']),
+          "y se dice que el motivo es la falta de abridor")
+
+    # --- la fuente de los props es la que ya se usa, sin claves nuevas ------
+    check('withSpecials' in src,
+          "la línea de ponches sale del mismo endpoint de Pinnacle que ya se "
+          "consulta para los moneyline: cero peticiones nuevas")
+    check('total strikeouts' in src.lower(),
+          "y se reconoce el mercado por su nombre en la fuente")
+
+
+def test_handicap_en_todas_las_ligas():
+    """
+    v106 — el hándicap deja de existir sólo donde football-data lo publica.
+
+    Medido antes del cambio: de las 57 competiciones activas, sólo **20**
+    tenían backtest de hándicap (`roi_bets_ah_*.json`), y son exactamente las
+    20 cuyo CSV de football-data trae columnas asiáticas (`AHCh`, `AvgCAHH`,
+    `AvgCAHA`). Liga MX —la liga del usuario— no estaba entre ellas, ni las 21
+    que sólo cubre ESPN, ni las 14 de formato `new`.
+
+    No era falta de tiempo: el dato no se guardaba en ningún sitio.
+    `daily_snapshots` fotografiaba 1X2, totales y BTTS pero nunca el hándicap,
+    aunque `odds_store` tiene sus tres columnas desde la v75. Y el scoreboard
+    de ESPN —que ya se descarga— lo traía en `pointSpread` sin que nadie lo
+    leyera: 33 de 33 partidos con cuota lo publicaban.
+    """
+    import fixtures_espn as fe
+
+    src = open('fixtures_espn.py', encoding='utf-8').read()
+    check('pointSpread' in src,
+          "el scoreboard de ESPN se lee también el hándicap (viene gratis en "
+          "el mismo JSON que ya se descarga)")
+
+    # el barrido cae al scoreboard cuando el core API no responde
+    af = open('alpha_finder.py', encoding='utf-8').read()
+    check("fx.get('ah_linea')" in af,
+          "el barrido usa el hándicap del scoreboard si el core API no lo trajo")
+
+    # la foto diaria acumula el hándicap: es la única vía para que las ligas
+    # sin CSV asiático puedan medirlo algún día
+    ds = open('daily_snapshots.py', encoding='utf-8').read()
+    check("'ah_linea'" in ds,
+          "la foto diaria guarda la línea de hándicap")
+    check("odds_ah_home" in ds and "odds_ah_away" in ds,
+          "y las dos cuotas")
+    import odds_store
+    esquema = odds_store.ESQUEMA if hasattr(odds_store, 'ESQUEMA') else \
+        open('odds_store.py', encoding='utf-8').read()
+    check('ah_linea' in str(esquema),
+          "el almacén tiene dónde guardarlo (lo tenía desde la v75, vacío)")
+
+    # y las cuotas multi-casa exponen el hándicap por casa, que es lo que
+    # permite hacer line shopping también en este mercado
+    cm_src = open('cuotas_multi.py', encoding='utf-8').read()
+    check('handicap_por_casa' in cm_src,
+          "cuotas_partido devuelve el hándicap por casa")
+    check('_spread_principal' in cm_src,
+          "con la línea normalizada al LOCAL (Pinnacle la indexa por lado)")
+
+    # el normalizador tiene que respetar el signo y la inversión de equipos
+    import cuotas_multi as cm
+    sp = {'-0.5': {'home': 1.95}, '0.5': {'away': 1.90}}
+    r = cm._spread_principal(sp)
+    check(r and abs(r['linea'] + 0.5) < 1e-9,
+          f"la línea del local es −0,5 ({r})")
+    ri = cm._spread_principal(sp, invertido=True)
+    check(ri and abs(ri['linea'] - 0.5) < 1e-9,
+          "si la casa listó los equipos al revés, la línea cambia de signo")
+
+    # -----------------------------------------------------------------------
+    # LA CADENA VACÍA NO PUEDE COLARSE COMO LÍNEA.
+    #
+    # `importar_snapshots` recarga el CSV con `csv.DictReader`, que devuelve ''
+    # para toda celda vacía. Las cuotas ya se saneaban; `ah_linea` no, y entraba
+    # como '' en una columna REAL. Medido al empezar a guardar el hándicap:
+    # **17.202 filas con `ah_linea = ''`**, que un `WHERE ah_linea IS NOT NULL`
+    # cuenta como si tuvieran línea. Sin este saneo, el primer backtest de
+    # hándicap sobre las fotos arrancaría con 17.000 filas fantasma.
+    # -----------------------------------------------------------------------
+    import odds_store as _os
+    for crudo, esperado in (('', None), (None, None), ('x', None),
+                            ('-0.5', -0.5), (-1.0, -1.0), (0, 0.0)):
+        v = _os._limpiar({'ah_linea': crudo}).get('ah_linea')
+        check(v is None if esperado is None else v == esperado,
+              f"ah_linea {crudo!r} se normaliza a {v!r}")
+    if os.path.exists('odds_historico.db'):
+        import sqlite3
+        _c = sqlite3.connect('odds_historico.db')
+        try:
+            vacias = _c.execute("SELECT COUNT(*) FROM historical_odds "
+                                "WHERE ah_linea = ''").fetchone()[0]
+            check(vacias == 0,
+                  f"ninguna fila guarda '' como línea de hándicap ({vacias})")
+        finally:
+            _c.close()
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -2299,6 +3153,20 @@ if __name__ == '__main__':
     print('\n=== v90: totales por casa y techo por liga ===')
     test_totales_conservan_su_casa()
     test_techo_por_liga_estable()
+    print('\n=== v106: hándicap con push, hora de CDMX y EV+ multideporte ===')
+    test_handicap_con_push()
+    test_hora_cdmx()
+    test_ev_automatico_en_todos_los_deportes()
+    test_panel_equipos()
+    test_roi_negativo_se_avisa_de_frente()
+    test_cobertura_remates_medida()
+    print('\n=== v110: ruido de producción y codificación ===')
+    test_sin_bom_en_el_codigo()
+    test_ruido_de_produccion()
+    test_ninguna_liga_activa_sin_modelo()
+    test_motores_de_deporte_cargan()
+    test_beisbol_pitchers()
+    test_handicap_en_todas_las_ligas()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

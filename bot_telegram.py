@@ -52,7 +52,13 @@ def _fmt_pick(p: dict) -> str:
         cola += "\n   🎾 " + " · ".join(f"{c['etiqueta']} {c['valor']:.0f}%" for c in top)
     if p.get('nota_seleccion'):
         cola += f"\n   ℹ️ {p['nota_seleccion']}"
-    return (f"{marca} [{p.get('deporte','Fútbol')}] {p.get('partido','?')}\n"
+    # v106 — LA HORA, EN HORA DE CDMX. El mensaje decía qué apostar pero no
+    # cuándo se juega, que es lo primero que hace falta al leerlo en el móvil.
+    # `hora_cdmx` lo anota `alpha_finder` al cerrar el barrido; si la fuente no
+    # publicó hora, no se escribe nada (nunca una hora inventada).
+    _cuando = (f" · 🕒 {p.get('hora_cdmx')} CDMX" if p.get('hora_cdmx') else '')
+    return (f"{marca} [{p.get('deporte','Fútbol')}] {p.get('partido','?')}"
+            f"{_cuando}\n"
             f"   {p.get('apuesta','?')} {precio} · prob "
             f"{(p.get('prob') or 0)*100:.0f}% {p.get('fiabilidad','')}{cola}")
 

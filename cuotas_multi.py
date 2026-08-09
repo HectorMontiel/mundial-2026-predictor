@@ -513,6 +513,18 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
             'casa': 'Pinnacle', 'cuotas': cuotas,
             'totales': {k: {kk: american_a_decimal(vv) for kk, vv in (v or {}).items()}
                         for k, v in tot.items()},
+            # v106 — LOS HÁNDICAPS TAMBIÉN SALEN DEL ÍNDICE.
+            #
+            # `por_id` ya los recogía (`spreads`, con su línea y el precio por
+            # lado) desde la v75, pero se quedaban dentro de la función: aquí
+            # sólo salían el moneyline y los totales. Hacen falta fuera para la
+            # run line del béisbol (±1.5, el mercado al que apunta la regla de
+            # «mejor pitcher») y para el hándicap asiático de fútbol, que hasta
+            # ahora dependía sólo de la línea que publicase ESPN.
+            'spreads': {k: {kk: american_a_decimal(vv)
+                            for kk, vv in (v or {}).items()}
+                        for k, v in (por_id.get(m.get('id'), {})
+                                     .get('spreads') or {}).items()},
         }
     _escribir_cache(f'pinnacle_{deporte}.json', indice)
     logger.info(f"[pinnacle] {deporte}: {len(indice)} partidos con cuotas")
@@ -904,6 +916,54 @@ def _buscar(indice: Dict[str, dict], home: str, away: str,
     return None
 
 
+def _spread_principal(spreads: Optional[Dict],
+                      invertido: bool = False) -> Optional[Dict]:
+    """
+    v106 — el hándicap principal de Pinnacle, normalizado a la LÍNEA DEL LOCAL.
+
+    Pinnacle indexa cada precio por SU propia línea, así que un partido llega
+    como {'-0.5': {'home': 1.95}, '0.5': {'away': 1.90}}: la clave ya es la
+    línea de ese lado, no la del local. Aquí se pasa al convenio del proyecto
+    —una sola línea, la del local, negativa si es favorito— que es el que usan
+    `fixtures_espn.odds_evento`, `league_engine` y `odds_store`.
+
+    `invertido` indica que Pinnacle listó los equipos al revés que el
+    proyecto; en ese caso se intercambian los lados Y se cambia el signo de la
+    línea, porque «local −1» visto del otro lado es «local +1».
+
+    Se elige la línea principal como la de menor valor absoluto, que es la que
+    la casa cotiza más cerca del 50/50 y la que publica por defecto.
+    """
+    if not spreads:
+        return None
+    por_linea: Dict[float, dict] = {}
+    for k, precios in spreads.items():
+        try:
+            linea = float(k)
+        except (TypeError, ValueError):
+            continue
+        for lado, cuota in (precios or {}).items():
+            if lado not in ('home', 'away') or not cuota:
+                continue
+            # la línea del LOCAL: la propia si es el lado local, la opuesta si
+            # es la del visitante
+            linea_local = linea if lado == 'home' else -linea
+            por_linea.setdefault(linea_local, {})[lado] = float(cuota)
+    if not por_linea:
+        return None
+    # se prefiere la línea con los DOS precios; entre ellas, la más central
+    def _orden(item):
+        L, precios = item
+        return (0 if len(precios) == 2 else 1, abs(L))
+    linea, precios = sorted(por_linea.items(), key=_orden)[0]
+    salida = {'linea': linea, 'home': precios.get('home'),
+              'away': precios.get('away')}
+    if invertido:
+        salida = {'linea': -linea, 'home': precios.get('away'),
+                  'away': precios.get('home')}
+    return salida if (salida['home'] or salida['away']) else None
+
+
 def cuotas_partido(deporte: str, home: str, away: str,
                    odds_espn: Optional[dict] = None,
                    espn_ref: Optional[tuple] = None) -> Dict:
@@ -954,11 +1014,33 @@ def cuotas_partido(deporte: str, home: str, away: str,
                 casas.setdefault('_totales', {})[k_dst] = odds_espn[k_src]
                 tot_casa.setdefault(_casa_espn, {})[k_dst] = odds_espn[k_src]
 
+    # v106 — hándicaps por casa, para que se puedan FOTOGRAFIAR.
+    #
+    # `daily_snapshots` guardaba 1X2, totales y BTTS pero nunca el hándicap
+    # asiático, aunque `odds_store` tiene sus tres columnas desde la v75. El
+    # efecto medido: sólo 20 de las 57 competiciones activas tienen backtest de
+    # hándicap (`roi_bets_ah_*.json`), y son exactamente las 20 cuyo CSV de
+    # football-data trae columnas asiáticas. Liga MX, las 21 ligas que sólo
+    # cubre ESPN y todas las de formato `new` no podían medirlo NUNCA — no por
+    # falta de tiempo, sino porque el dato no se guardaba.
+    #
+    # Con Pinnacle publicando `spreads` en su índice (misma versión) y ESPN el
+    # `ah_linea` del fixture, la foto diaria ya puede acumularlo.
+    ah_casa: Dict[str, dict] = {}
+    if odds_espn and odds_espn.get('ah_linea') is not None:
+        _c_espn = odds_espn.get('casa') or 'ESPN'
+        ah_casa[_c_espn] = {'linea': odds_espn.get('ah_linea'),
+                            'home': odds_espn.get('odd_ah_home'),
+                            'away': odds_espn.get('odd_ah_away')}
+
     pin = _buscar(_indice(deporte), home, away, deporte)
     if pin and pin.get('cuotas'):
         c = dict(pin['cuotas'])
         if pin.get('invertido'):          # Pinnacle listó al revés: se voltea
             c['home'], c['away'] = c.get('away'), c.get('home')
+        _ah = _spread_principal(pin.get('spreads'), pin.get('invertido'))
+        if _ah:
+            ah_casa['Pinnacle'] = _ah
         casas['Pinnacle'] = {k: v for k, v in c.items()
                              if k in ('home', 'draw', 'away')}
         if c.get('over25'):
@@ -1055,6 +1137,10 @@ def cuotas_partido(deporte: str, home: str, away: str,
             # histórico de dos casas que hoy no existe (ver el comentario de
             # `tot_casa` arriba).
             'totales_por_casa': tot_casa or None,
+            # v106: hándicap asiático por casa, con la línea REFERIDA AL LOCAL
+            # (negativa = local favorito), que es el convenio del resto del
+            # proyecto (`fixtures_espn.odds_evento`, `league_engine`).
+            'handicap_por_casa': ah_casa or None,
             'pinnacle': reales.get('Pinnacle'), 'n_casas': len(reales),
             'fuentes': fuentes,
             'emparejado_difuso': (pin or {}).get('emparejado_difuso')}

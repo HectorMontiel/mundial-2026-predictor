@@ -21,6 +21,7 @@ import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 
+import horario as _horario          # v106: hora de los partidos en CDMX
 from prediction_api import PredictionEngine, NOMBRES_PAIS, plantilla_a_markdown
 from arbitros import ARBITROS
 from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
@@ -222,6 +223,54 @@ def _render_maxima_confianza(r) -> None:
     try:
         with open('calibracion_confianza.json', encoding='utf-8') as f:
             cal = json.load(f)
+        # -------------------------------------------------------------------
+        # v108 — EL ROI VA DELANTE, NO ESCONDIDO EN UN DESPLEGABLE.
+        #
+        # El usuario dijo «no quiero perder dinero y quiero que sean seguras», y
+        # usa esta pestaña para decidir («los que tienen de 67 % si aciertan»).
+        # La medición dice lo contrario y estaba dentro de un expander que hay
+        # que abrir:
+        #
+        #     banda        n        ROI
+        #     0,50-0,55  13.792   -5,03 %
+        #     0,55-0,60  13.106   -4,66 %
+        #     0,60-0,65   8.821   -4,88 %
+        #     0,65-0,70   1.439   -6,52 %   <- justo la que él usa
+        #     0,70-0,75      33  +27,76 %   <- 33 apuestas: ruido, no señal
+        #
+        # Apostar por la probabilidad del modelo pierde dinero en TODAS las
+        # bandas con muestra real. Enseñar el acierto («61,5 %») sin el ROI
+        # («-6,52 %») al lado es la media verdad que hace perder dinero: se
+        # acierta seis de cada diez y aun así se pierde, porque la cuota de un
+        # favorito no paga lo que arriesga.
+        #
+        # Un aviso que hay que desplegar para verlo no es un aviso.
+        # -------------------------------------------------------------------
+        _bandas = [b for b in cal.get('bandas', [])
+                   if b.get('roi') is not None and b.get('n', 0) >= 500]
+        _perdedoras = [b for b in _bandas if b['roi'] < 0]
+        if _perdedoras:
+            _peor = min(_perdedoras, key=lambda b: b['roi'])
+            _n = sum(b['n'] for b in _perdedoras)
+            st.error(
+                f"🚨 **Estos picks, apostados sueltos, han PERDIDO dinero.** "
+                f"Medido sobre {_n:,} apuestas fuera de muestra: las "
+                f"{len(_perdedoras)} bandas con muestra real dan ROI negativo, "
+                f"y la peor es la de "
+                f"{_peor['desde']:.2f}–{_peor['hasta']:.2f} con "
+                f"**{_peor['roi']:+.2%}** ({_peor['n']:,} apuestas, acierto "
+                f"{_peor['acierto']:.1%}).  \n\n"
+                f"Acertar y ganar no son lo mismo: se acierta seis de cada "
+                f"diez y aun así se pierde, porque la cuota de un favorito no "
+                f"paga lo que arriesga. **Esta pestaña sirve para elegir patas "
+                f"de combinada, no para apostar sueltas.**  \n\n"
+                f"Lo único con ROI positivo y robusto en el histórico del "
+                f"proyecto es el **line shopping** (una casa pagando por "
+                f"encima del precio justo de Pinnacle): +11,5 % en el tramo de "
+                f"juicio con p5 +1,7 %. Está en «⚡ Máximo Valor», marcado "
+                f"como «line shopping vs Pinnacle»."
+                .replace(',', '.')
+            )
         st.warning(
             f"**Cómo leer esta pestaña.** Sobre {cal['n_total']:,} predicciones "
             f"fuera de muestra, el acierto **no crece** con la probabilidad: se "
@@ -231,16 +280,31 @@ def _render_maxima_confianza(r) -> None:
             f"rindió, y por eso cada pick muestra el acierto real de su banda."
             .replace(',', '.')
         )
-        with st.expander("📊 Acierto real por banda de probabilidad"):
+        with st.expander("📊 Acierto real y ROI por banda de probabilidad",
+                         expanded=True):
             dfb = pd.DataFrame([
                 {'Banda': f"{b['desde']:.2f}–{b['hasta']:.2f}", 'n': b['n'],
                  'Dice el modelo': (f"{b['prob_media_modelo']:.1%}"
                                     if b.get('prob_media_modelo') else '—'),
                  'Acierta de verdad': (f"{b['acierto']:.1%}"
                                        if b.get('acierto') else 'muestra corta'),
-                 'ROI': (f"{b['roi']:+.2%}" if b.get('roi') is not None else '—')}
+                 'ROI': (f"{b['roi']:+.2%}" if b.get('roi') is not None else '—'),
+                 # v108: el ROI sin su p5 engaña. La banda 0,70-0,75 luce
+                 # +27,76 % con 33 apuestas: eso no es una oportunidad, es el
+                 # tamaño de muestra. El percentil 5 del bootstrap dice cuánto
+                 # de eso aguanta.
+                 'ROI en el peor 5 %': (f"{b['p5']:+.2%}"
+                                        if b.get('p5') is not None else '—'),
+                 'Fiable': ('✅' if (b.get('n', 0) >= 500) else
+                            '⚠️ muestra corta')}
                 for b in cal.get('bandas', [])])
             st.dataframe(dfb, hide_index=True, width='stretch')
+            st.caption(
+                "**n** es cuántas apuestas se midieron. Una banda con menos de "
+                "500 no dice nada: la de 0,70–0,75 luce +27,8 % con **33 "
+                "apuestas**, que es ruido, no una oportunidad. La columna del "
+                "peor 5 % es el bootstrap: cuánto queda del ROI si repites el "
+                "histórico mil veces y te toca una racha mala.")
     except Exception:
         pass
 
@@ -256,13 +320,43 @@ def _render_maxima_confianza(r) -> None:
                  f"acierta mucho y aun así se pierde dinero a la larga, porque "
                  f"la cuota no paga el riesgo. Úsalos como patas de combinada, "
                  f"no como apuesta simple.")
+    # -----------------------------------------------------------------------
+    # v106 — HORA DEL PARTIDO Y FRANJA HORARIA.
+    #
+    # El usuario usa esta tabla para decidir («los que tienen de 67 % si
+    # aciertan») y pidió dos cosas más: ver la hora, y poder agrupar por
+    # franjas «para saber qué parlay puedo armar por secciones de hora». Una
+    # combinada sólo tiene sentido si sus patas se juegan en una ventana que
+    # se pueda seguir; con la tabla ordenada por fecha eso había que deducirlo
+    # partido a partido.
+    #
+    # Se ordena por HORA dentro del día, no por liga: es el orden en que hay
+    # que apostarlos.
+    # -----------------------------------------------------------------------
+    def _franja(p):
+        """Bloque de 3 horas en hora de CDMX, o '' si la fuente no dio hora."""
+        h = p.get('hora_cdmx')
+        if not h:
+            return ''
+        try:
+            hh = int(str(h).split(':')[0])
+        except (ValueError, IndexError):
+            return ''
+        ini = (hh // 3) * 3
+        return f'{ini:02d}:00–{(ini + 3) % 24:02d}:00'
+
     filas = []
     # v89: la semana entera entra al barrido — HOY primero y el resto por fecha
+    # v106: y dentro del día, por hora de inicio
     for p in sorted(picks, key=lambda p: (not p.get('es_hoy'),
-                                          str(p.get('fecha', '')))):
+                                          str(p.get('fecha_cdmx')
+                                              or p.get('fecha', '')),
+                                          str(p.get('hora_cdmx') or '99:99'))):
         ar = p.get('acierto_real')
         filas.append({
-            'Fecha': p.get('fecha', ''),
+            'Fecha': p.get('fecha_cdmx') or p.get('fecha', ''),
+            'Hora (CDMX)': p.get('hora_cdmx') or '—',
+            'Franja': _franja(p) or '—',
             'Deporte': p.get('deporte'), 'Liga': p.get('liga'),
             'Partido': p.get('partido'), 'Apuesta': p.get('apuesta'),
             'Dice el modelo': f"{(p.get('prob') or 0):.0%}",
@@ -271,6 +365,50 @@ def _render_maxima_confianza(r) -> None:
             'EV': f"{(p.get('ev') or 0):+.1%}",
         })
     st.dataframe(pd.DataFrame(filas), hide_index=True, width='stretch')
+    st.caption("Las horas son de **Ciudad de México**. «Franja» agrupa en "
+               "bloques de 3 h para armar la combinada con partidos que se "
+               "juegan seguidos; «—» es que la casa aún no publicó la hora.")
+
+    # --- combinada por franja horaria --------------------------------------
+    porh: dict = {}
+    for p in picks:
+        f = _franja(p)
+        if f:
+            porh.setdefault((p.get('fecha_cdmx') or p.get('fecha', ''), f),
+                            []).append(p)
+    if porh:
+        with st.expander(f"🕒 Por franja horaria ({len(porh)} bloques) — "
+                         f"para armar la parlay por secciones", expanded=False):
+            st.caption("Sólo se listan las franjas con **2 o más** picks: con "
+                       "una sola pata no hay combinada que armar. La "
+                       "probabilidad conjunta supone independencia, así que es "
+                       "un TECHO — dos partidos de la misma liga y hora "
+                       "correlacionan y el número real es algo menor.")
+            for (fecha, franja), ps in sorted(porh.items()):
+                if len(ps) < 2:
+                    continue
+                # se usa el acierto MEDIDO cuando existe; si no, el del modelo
+                probs = [(p.get('acierto_real') or p.get('prob') or 0)
+                         for p in ps]
+                conjunta = 1.0
+                for x in probs:
+                    conjunta *= x
+                cuota = 1.0
+                for p in ps:
+                    cuota *= float(p.get('cuota') or 1.0)
+                st.markdown(
+                    f"**{fecha} · {franja}** — {len(ps)} picks · "
+                    f"prob. conjunta ≈ **{conjunta*100:.0f} %** · "
+                    f"cuota combinada **{cuota:.2f}**")
+                for p in ps:
+                    _ar = p.get('acierto_real')
+                    st.caption(
+                        f"  {p.get('hora_cdmx')} · [{p.get('deporte')}] "
+                        f"{p.get('partido')} → **{p.get('apuesta')}** "
+                        f"@ {p.get('cuota')} · "
+                        + (f"acierta de verdad {_ar:.0%}" if _ar
+                           else f"modelo {(p.get('prob') or 0):.0%}"))
+
     for p in picks:
         if p.get('aviso_calibracion'):
             st.caption(f"· {p.get('partido')} — {p['aviso_calibracion']}")
@@ -652,6 +790,116 @@ def render_comentario(pred: dict, home: str, away: str, riesgo: str = 'bajo'):
 # HISTORIAL RECIENTE H2H (v21): API-Football para clubes, histórico local
 # para el Mundial. Solo consume requests al pulsar el botón (caché 24 h).
 # ===========================================================================
+def render_panel_equipos(clave: str, home: str, away: str, key: str,
+                         prob_modelo: dict = None) -> None:
+    """
+    v107 — H2H, clasificación y forma del cruce, sin pulsar nada.
+
+    Sustituye en la práctica a `render_h2h_club`, que dependía de API-Football:
+    hacía falta una clave, gastaba presupuesto de peticiones, exigía un botón y
+    su plan gratuito **se queda en la temporada 2024-25**. Quien no configuraba
+    la clave no veía absolutamente nada.
+
+    Esto sale del `historico_<clave>.csv` que el proyecto ya usa para entrenar:
+    cubre las 50 competiciones activas, llega más atrás que el plan gratuito de
+    la API, es instantáneo y no puede fallar por red. Medido en Liga MX: 26
+    cruces de América-Cruz Azul entre 2018 y 2026.
+    """
+    import panel_equipos as _pe
+
+    st.subheader(f"📊 {home} vs {visitante_txt(away)}")
+
+    @st.cache_data(ttl=3600, show_spinner=False)
+    def _resumen(cl, h, a):
+        return _pe.resumen(cl, h, a)
+
+    try:
+        r = _resumen(clave, home, away)
+    except Exception as e:
+        st.caption(f"Panel no disponible ahora ({type(e).__name__}).")
+        return
+
+    # --- la lectura, primero: es lo que se usa para decidir ------------------
+    for frase in _pe.lectura(clave, home, away, prob_modelo):
+        st.markdown(f"- {frase}")
+
+    h = r['h2h']
+    t1, t2, t3 = st.tabs(['🤝 Cara a cara', '🏆 Clasificación', '📈 Forma'])
+
+    with t1:
+        if not h.get('n'):
+            st.info(h.get('motivo') or 'Sin cruces en el histórico.')
+        else:
+            c1, c2, c3 = st.columns(3)
+            c1.metric(home, h['gana_a'], help='victorias en el historial')
+            c2.metric('Empates', h['empates'])
+            c3.metric(away, h['gana_b'], help='victorias en el historial')
+            st.caption(
+                f"{h['n']} cruces entre {h['desde']} y {h['hasta']} · "
+                f"goles totales {h['goles_a']}-{h['goles_b']} · "
+                f"media {h['media_goles']} por partido · ambos marcan el "
+                f"{h['pct_ambos_marcan']*100:.0f} %")
+            st.dataframe(pd.DataFrame([{
+                'Fecha': p['fecha'],
+                'Local': p['local'], 'Resultado': f"{p['goles_local']} - {p['goles_visit']}",
+                'Visitante': p['visitante'],
+                'Ganó': p['ganador'] or 'Empate',
+            } for p in h['partidos']]), hide_index=True, width='stretch')
+
+    with t2:
+        cl = r['clasificacion']
+        if not cl:
+            st.info('Sin partidos suficientes del torneo en curso.')
+        else:
+            df = pd.DataFrame([{
+                '#': f['pos'], 'Equipo': f['equipo'], 'PJ': f['pj'],
+                'G': f['g'], 'E': f['e'], 'P': f['p'],
+                'GF': f['gf'], 'GC': f['gc'], 'DG': f['dg'], 'Pts': f['pts'],
+            } for f in cl])
+            st.dataframe(df, hide_index=True, width='stretch',
+                         height=min(38 * (len(df) + 1) + 3, 620))
+            st.caption("Calculada del histórico del propio proyecto (3 puntos "
+                       "por victoria) sobre el torneo en curso, que se detecta "
+                       "por el último parón largo del calendario. No se lee de "
+                       "ninguna fuente externa, así que no puede contradecir "
+                       "al modelo ni quedarse sin actualizar por su cuenta.")
+
+    with t3:
+        for lado, eq, f, cf in (('🏠', home, r['forma_local'], r['casa_fuera_local']),
+                                ('✈️', away, r['forma_visitante'],
+                                 r['casa_fuera_visitante'])):
+            if not f.get('n'):
+                continue
+            st.markdown(
+                f"**{lado} {eq}** — últimos {f['n']}: `{f['racha']}` · "
+                f"{f['pts_por_partido']} pts/partido · "
+                f"{f['gf_media']} goles a favor y {f['gc_media']} en contra")
+            if cf:
+                partes = []
+                for donde, d in cf.items():
+                    partes.append(f"{donde}: {d['g']}-{d['e']}-{d['p']} en "
+                                  f"{d['pj']} PJ ({d['pts_por_partido']} pts/p)")
+                st.caption('En el torneo actual · ' + ' · '.join(partes))
+            st.dataframe(pd.DataFrame([{
+                'Fecha': p['fecha'],
+                'Dónde': 'Casa' if p['casa'] else 'Fuera',
+                'Rival': p['rival'],
+                'Marcador': f"{p['goles']} - {p['encajados']}",
+                'Resultado': {'G': 'Ganó', 'E': 'Empató', 'P': 'Perdió'}[p['resultado']],
+            } for p in f['partidos']]), hide_index=True, width='stretch')
+
+    st.caption("ℹ️ Esto es información para juzgar, no una señal de apuesta: "
+               "el historial y la forma **ya están dentro del modelo** (el ELO "
+               "los absorbe partido a partido), así que ver aquí que un equipo "
+               "domina no significa que haya valor — lo normal es que la cuota "
+               "ya lo refleje.")
+
+
+def visitante_txt(x: str) -> str:
+    """Pequeña ayuda para el encabezado (evita romper si llega vacío)."""
+    return str(x or '?')
+
+
 def render_h2h_club(clave: str, home: str, away: str, key: str):
     with st.expander(f"📜 Historial reciente — {home} vs {away}"):
         import api_football_manager as afm
@@ -726,6 +974,24 @@ def render_remates_reales(lados: list, key: str):
     """
     st.divider()
     st.subheader("🎯 Remates por jugador (datos reales)")
+    # v107 — SI ESTA COMPETICIÓN NO LA CUBRE ESPN, SE DICE UNA VEZ Y CLARO.
+    #
+    # Antes salía una tabla vacía con un «no disponible» junto a cada equipo,
+    # que es indistinguible de un fallo de red o de un equipo mal mapeado.
+    # Medido sobre las 49 activas: 41 tienen estadística por jugador y 8 no
+    # (ver `remates_jugadores.cobertura`).
+    try:
+        import remates_jugadores as _rjc
+        _hay = _rjc.hay_remates(key)
+        if _hay is False:
+            st.info(
+                "ESPN **no publica estadística por jugador** de esta "
+                "competición — no es un fallo ni le falta nada a tu conexión. "
+                "Está medido: de las 49 competiciones activas la cubre en 41. "
+                "Los remates por EQUIPO sí están en el análisis del partido.")
+            return
+    except Exception:
+        pass
     cols = st.columns(len(lados))
     hubo = False
     for col, (etiqueta, obtener) in zip(cols, lados):
@@ -854,7 +1120,14 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
         except Exception:
             continue
         if h in cat and a in cat and h != a:
-            _etq = f"{f['fecha']} · {f['away']} @ {f['home']}"
+            # v106 — el selector dice la HORA de CDMX, no sólo el día. Con
+            # varios partidos el mismo día, «2026-08-08 · A @ B» no permitía
+            # distinguir cuál empieza antes, que es lo que decide si te da
+            # tiempo a apostarlo. La fecha que se enseña es la LOCAL: un
+            # partido de las 01:00 UTC del sábado es del viernes en México.
+            _p = _horario.partes(f.get('inicio'))
+            _cuando = f"{_p[0]} {_p[1]}" if _p else str(f.get('fecha', ''))
+            _etq = f"{_cuando} · {f['away']} @ {f['home']}"
             if _con and id(f) not in _con:
                 _etq += "  · sin cuota aún"
             ops[_etq] = (h, a)
@@ -926,6 +1199,265 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
         st.caption(f"ℹ️ Partido emparejado por similitud de nombres "
                    f"({res['emparejado_difuso']}). Verifica que sea el correcto.")
     return True
+
+
+def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
+                         nota: str = '') -> None:
+    """
+    v106 — EV+ AUTOMÁTICO, IGUAL EN TODOS LOS DEPORTES.
+
+    El usuario lo dijo claro: «en deportes que no son fútbol no tienes la
+    opción de EV+ automático, y ese me ayuda mucho a ver qué apostar casi en
+    vivo antes de iniciar».
+
+    Y era exacto. El barrido universal (`alpha_finder`) YA calculaba picks con
+    cuota y EV de MLB, NBA, KBO y tenis — están en «Apuestas del Día» — pero
+    la vista propia de cada deporte no los enseñaba: sólo la MLB tenía su
+    pestaña, y las otras tres obligaban a salir a la pantalla general y buscar
+    entre todos los deportes. Aquí eso se acaba: el mismo panel, con la misma
+    lógica y los mismos filtros, en las cuatro vistas.
+
+    `obtener` es una función sin argumentos que devuelve el dict de picks de
+    ese deporte (las que ya existen en `alpha_finder`). Se cachea 15 minutos
+    por deporte, que es la frescura del tablón de cuotas: pedirlo más a menudo
+    no trae precios nuevos y sí gasta peticiones.
+    """
+    st.caption(
+        "Cuotas en vivo de **Pinnacle, Bovada y Playdoit** (sin límite de "
+        "peticiones) contra la probabilidad del modelo, ya encogida hacia el "
+        "mercado. **Capa 1** = pasa todos los filtros de élite; "
+        "**alta confianza** = probable pero fuera de esos filtros, y se dice "
+        "por qué. Horas en hora de Ciudad de México."
+        + (f" {ayuda}" if ayuda else ''))
+
+    @st.cache_data(ttl=900, show_spinner=f"Buscando valor en {deporte}…",
+                   max_entries=8)
+    def _picks_deporte(dep: str):
+        # `dep` existe SOLO para que la clave de caché distinga deportes:
+        # `obtener` viaja por cierre porque una función no es cacheable, así
+        # que sin este argumento las cuatro llamadas —MLB, NBA, KBO y tenis—
+        # compartirían la MISMA entrada y la vista de NBA enseñaría los picks
+        # de la MLB.
+        #
+        # Y NO puede llamarse `_dep`: Streamlit excluye del hash cualquier
+        # parámetro que empiece por guion bajo (es su convención para pasar
+        # objetos no hasheables), así que el guion bajo habría reintroducido
+        # exactamente el fallo que este argumento existe para evitar.
+        return obtener()
+
+    # el botón va DESPUÉS de la definición: Streamlit ejecuta el cuerpo de la
+    # función de arriba abajo y `_picks_deporte.clear()` antes del `def` sería
+    # un NameError en cuanto alguien lo pulsara.
+    c1, _ = st.columns([1, 3])
+    if c1.button("🔄 Actualizar", key=f'ev_ref_{deporte}', width='stretch',
+                 help="Vuelve a bajar las cuotas de este deporte."):
+        _picks_deporte.clear()
+        st.rerun()
+
+    try:
+        r = _picks_deporte(deporte)
+    except Exception as e:
+        st.error(f"No se pudieron obtener las cuotas de {deporte} "
+                 f"({type(e).__name__}: {e}).")
+        return
+    r = r or {}
+
+    for inc in (r.get('incidencias') or []):
+        st.info(inc)
+    if nota:
+        st.caption(nota)
+
+    capa1 = r.get('capa1') or r.get('picks') or []
+    capa2 = r.get('capa2') or r.get('confianza') or []
+
+    def _tarjeta(pk, con_ev: bool):
+        with st.container(border=True):
+            cc1, cc2 = st.columns([3, 2])
+            # la hora, en CDMX (v106). Si la casa no la publicó, no se inventa.
+            _h = _horario.etiqueta(pk.get('inicio'))
+            _falta = _horario.falta_para(pk.get('inicio')) or ''
+            cc1.markdown(
+                f"**{pk.get('partido','?')}**  \n{pk.get('fecha','')}"
+                + (f"  \n{_h}" + (f" · {_falta}" if _falta else '') if _h else '')
+                + (f"  \n🏠 {pk['casa']}" if pk.get('casa') else ''))
+            cuota = pk.get('cuota')
+            ev = pk.get('ev')
+            txt = f"{pk.get('valor','')} **{pk.get('apuesta','?')}**"
+            if cuota:
+                txt += (f"  \nCuota **{cuota}** "
+                        f"(justa {pk.get('cuota_justa','?')})")
+            if con_ev and ev is not None:
+                txt += f"  \nEV **{ev*100:+.1f} %**"
+            txt += f"  \nprob {(pk.get('prob') or 0)*100:.0f} %"
+            if pk.get('motivo_capa2'):
+                txt += f"  \nℹ️ Fuera de élite: {pk['motivo_capa2']}"
+            if pk.get('origen'):
+                txt += f"  \n🔎 {pk['origen']}"
+            cc2.markdown(txt)
+
+    if capa1:
+        st.subheader(f"⚡ Con valor ({len(capa1)})")
+        for pk in capa1:
+            _tarjeta(pk, con_ev=True)
+    else:
+        st.info(
+            f"Hoy **ninguna apuesta de {deporte} pasa los filtros de valor**. "
+            "Cero picks no es un fallo: significa que las casas y el modelo "
+            "coinciden, y forzar una apuesta ahí es exactamente cómo se "
+            "pierde dinero.")
+
+    if capa2:
+        with st.expander(f"🎯 Alta confianza, sin valor suficiente "
+                         f"({len(capa2)})", expanded=not capa1):
+            st.caption("Probables según el modelo, pero el precio no paga lo "
+                       "que arriesgan. Sirven de pata en una combinada, no "
+                       "como apuesta simple.")
+            for pk in capa2:
+                _tarjeta(pk, con_ev=True)
+
+    from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+    st.caption(AVISO_JUEGO_RESPONSABLE)
+
+
+def render_beisbol_pitchers() -> None:
+    """
+    v106 — ABRIDORES, ESTADIO Y PONCHES: el veredicto de parlay del usuario.
+
+    Implementa en pantalla la regla que él describió (ver el docstring de
+    `beisbol_pitchers.py`): mirar quién abre y dónde se juega, y de ahí decidir
+    si el partido va a la parlay como ganador, como run line o si se queda
+    fuera. Todo automático — abridores de la API oficial, estadísticas de la
+    misma, factor del parque medido del histórico del proyecto, y línea de
+    ponches con su cuota desde Pinnacle.
+    """
+    import beisbol_pitchers as bp
+
+    st.caption(
+        "Regla de decisión: **1)** si el favorito del casino abre con buen "
+        "lanzador y su cuota de ganador llega a 1.50 → va de **ganador**; "
+        "**2)** si no, se mira la línea de ponches del mejor abridor —aunque "
+        "sea el del equipo que va en positivo— y si pide **más de 6** no se "
+        "toca: se propone el **hándicap (run line)** al equipo de ese "
+        "lanzador; **3)** si la línea es de 6 o menos y el precio paga, van "
+        "los **ponches**; **4)** si no se cumple nada, el partido **no entra**."
+    )
+    st.caption(
+        "⚠️ Esta regla es **tuya**, no una estrategia medida contra el "
+        "histórico del proyecto. Se aplica tal cual la pediste y junto a cada "
+        "veredicto va el EV que calcula el modelo por su cuenta, para que "
+        "veas las dos lecturas sin que una se disfrace de la otra.")
+
+    @st.cache_data(ttl=900, show_spinner="Bajando abridores, cuotas y ponches…")
+    def _analisis_beisbol():
+        import beisbol_pitchers as _bp
+        import cuotas_multi as _cm
+        import mlb_statsapi as _msa
+        from engines.mlb_engine import codigo_mlb as _cod
+
+        juegos = _msa.partidos_del_dia()
+        props = _bp.props_ponches()
+        idx = _cm._indice('mlb')
+        # índice por par de códigos, para cruzar la API oficial con el tablón
+        por_par = {}
+        for v in (idx or {}).values():
+            if v.get('home') and v.get('away'):
+                por_par[(_cod(v['home']), _cod(v['away']))] = v
+        salida = []
+        for j in juegos:
+            fila = por_par.get((j['home'], j['away'])) or {}
+            c = fila.get('cuotas') or {}
+            salida.append({
+                'home': j['home'], 'away': j['away'],
+                'inicio': fila.get('fecha') or j.get('fecha'),
+                'veredicto': _bp.veredicto(
+                    j['home'], j['away'],
+                    j.get('home_pitcher'), j.get('away_pitcher'),
+                    cuota_home=c.get('home'), cuota_away=c.get('away'),
+                    spreads=fila.get('spreads'), props=props),
+            })
+        return salida
+
+    # el botón va DESPUÉS del `def`: pulsarlo antes sería un NameError.
+    c1, _ = st.columns([1, 3])
+    if c1.button("🔄 Actualizar datos", key='bp_ref', width='stretch',
+                 help="Vuelve a bajar abridores, cuotas y líneas de ponches."):
+        bp.limpiar_cache()
+        _analisis_beisbol.clear()
+        st.rerun()
+
+    try:
+        analisis = _analisis_beisbol()
+    except Exception as e:
+        st.error(f"No se pudo analizar la jornada ({type(e).__name__}: {e}).")
+        return
+
+    if not analisis:
+        st.info("No hay partidos de MLB programados hoy.")
+        return
+
+    dentro = [a for a in analisis if a['veredicto'].get('entra')]
+    st.markdown(f"**{len(dentro)} de {len(analisis)} partidos entrarían** "
+                f"en la parlay según la regla.")
+
+    for a in analisis:
+        v = a['veredicto']
+        cab = f"{a['away']} @ {a['home']}"
+        _h = _horario.etiqueta(a.get('inicio'))
+        with st.container(border=True):
+            k1, k2 = st.columns([3, 2])
+            k1.markdown(f"**{cab}**" + (f"  \n{_h}" if _h else ''))
+            if v.get('entra'):
+                k2.success(f"✅ **{v['apuesta']}**  \n{v['mercado']}"
+                           + (f" @ {v['cuota']}" if v.get('cuota') else '')
+                           + (f"  \nEV del modelo {v['ev_modelo']*100:+.1f} %"
+                              if v.get('ev_modelo') is not None else ''))
+            else:
+                k2.warning("⛔ Fuera de la parlay")
+            for m in v.get('motivos', []):
+                st.caption(m)
+            # el detalle de cada abridor, para poder discutir el veredicto
+            abr = (v.get('datos') or {}).get('abridores') or {}
+            filas = []
+            for lado in ('away', 'home'):
+                p = abr.get(lado)
+                if not p:
+                    continue
+                prop = p.get('prop') or {}
+                filas.append({
+                    'Lado': 'Visitante' if lado == 'away' else 'Local',
+                    'Abridor': p.get('nombre') or '?',
+                    'FIP': p.get('fip'),
+                    'K/bateador': p.get('k_bf'),
+                    'K esperados': (round(p['k_esperados'], 1)
+                                    if p.get('k_esperados') else None),
+                    'Línea K': prop.get('linea'),
+                    'Cuota over': prop.get('odd_over'),
+                    'P(over)': (f"{p['prob_over']*100:.0f} %"
+                                if p.get('prob_over') else None),
+                    'Top liga': '✅' if p.get('bueno') else '—',
+                })
+            if filas:
+                st.dataframe(pd.DataFrame(filas), hide_index=True,
+                             width='stretch')
+
+    with st.expander("🏟️ Factores de parque (medidos del histórico)"):
+        st.caption(
+            "Carreras por juego en casa frente a las de ese mismo equipo como "
+            "visitante, últimas 5 temporadas. Compararlo contra sí mismo "
+            "cancela lo bueno o malo que sea el equipo; lo que queda es el "
+            "estadio. Por encima de 1 se anota más de lo normal.")
+        f = bp.factores_parque()
+        if f:
+            st.dataframe(
+                pd.DataFrame(
+                    [{'Equipo': k, 'Factor': v}
+                     for k, v in sorted(f.items(), key=lambda x: -x[1])]),
+                hide_index=True, width='stretch')
+        else:
+            st.caption("Sin histórico suficiente para medirlos.")
+
+    from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+    st.caption(AVISO_JUEGO_RESPONSABLE)
 
 
 def render_parlay_partido(motor, home: str, away: str, key: str):
@@ -1435,7 +1967,7 @@ def render_liga_club(clave: str, nombre_liga: str):
         try:
             import pandas as _pd
             _dias_al_primero = (_pd.Timestamp(_f0)
-                                - _pd.Timestamp.utcnow().tz_localize(None)
+                                - _pd.Timestamp.now('UTC').tz_localize(None)
                                 .normalize()).days
         except Exception:
             pass
@@ -1453,7 +1985,10 @@ def render_liga_club(clave: str, nombre_liga: str):
             h = _nm.mapear(f['home'], _cat, contexto=f'ui→{clave}')
             a = _nm.mapear(f['away'], _cat, contexto=f'ui→{clave}')
             if h and a and h != a:
-                _etq = f"{f['fecha']} · {h} vs {a}"
+                # v106: día y HORA de CDMX (ver `selector_proximos`)
+                _pf = _horario.partes(f.get('inicio'))
+                _cuando = f"{_pf[0]} {_pf[1]}" if _pf else str(f.get('fecha', ''))
+                _etq = f"{_cuando} · {h} vs {a}"
                 if id(f) not in _con:
                     _etq += "  · sin cuota aún"
                 _ops[_etq] = (h, a)
@@ -1608,9 +2143,27 @@ def render_liga_club(clave: str, nombre_liga: str):
          (f"✈️ {away}", lambda: _remates_club(clave, away))],
         key=clave)
 
+    # v107 — EL PANEL DE EQUIPOS, ANTES DEL PARLAY.
+    #
+    # Va aquí y no al final a propósito: el usuario lo pidió para DECIDIR la
+    # apuesta («si los equipos en todos los partidos los ha ganado el equipo A
+    # pues obvio hay más probabilidad, pero si en el torneo actual el equipo B
+    # tiene mejor rendimiento baja su probabilidad»), así que tiene que estar
+    # antes del combinador, no después.
+    st.divider()
+    try:
+        render_panel_equipos(clave, home, away, key=clave,
+                             prob_modelo=(p.get('probabilities')
+                                          if isinstance(p, dict) else None))
+    except Exception as e:
+        st.caption(f"Panel de equipos no disponible ahora ({type(e).__name__}).")
+
     # v15: parlay del partido en pantalla
     st.divider()
     render_parlay_partido(motor, home, away, key=clave)
+    # el H2H de API-Football se conserva como extra opcional: aporta cruces en
+    # OTRAS competiciones (copas, europeas) que el histórico de esta liga no
+    # tiene. Ya no es la única vía, así que no pasa nada si falta la clave.
     render_h2h_club(clave, home, away, key=clave)
     render_comparador(motor, motor.equipos, key=clave)      # v25 (§2.4)
     render_rendimiento(key=clave)
@@ -1755,6 +2308,7 @@ def render_alpha_finder():
     st.caption("SOLO los partidos de **HOY**: todas las ligas con "
                "jornada este día (ESPN + Pinnacle + Bovada + Playdoit) + "
                "⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA, con cuota y EV automáticos. "
+               "**Todas las horas están en hora de Ciudad de México.** "
                "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza "
                "sin cuota en vivo; **Pronósticos** = todos los partidos de "
                "hoy. La semana completa vive en la vista de cada liga "
@@ -2072,7 +2626,7 @@ def render_alpha_finder():
         fecha absurda, aquí se dice «fecha no disponible» en vez de imprimir
         «Hoy · 1970-01-01», que es lo que salió en las tarjetas de MLB.
         """
-        hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
+        hoy = pd.Timestamp.now('UTC').tz_localize(None).normalize()
         try:
             f = pd.Timestamp(fecha).normalize()
         except (ValueError, TypeError):
@@ -2117,11 +2671,35 @@ def render_alpha_finder():
                     _techo = _pl.etiqueta(t0.get('clave_liga'))
                 except Exception:
                     pass
+                # v106 — LA HORA, EN HORA DE CDMX.
+                #
+                # Las fuentes publican el inicio y el barrido ya lo guardaba
+                # (`inicio`, UTC), pero la tarjeta sólo enseñaba el día. Sin
+                # la hora no se puede decidir «antes de que empiece», que es
+                # justo para lo que se usa esta pantalla. `hora_txt` lo pone
+                # `alpha_finder` al cerrar el barrido; si la fuente no trajo
+                # hora, queda vacío y la tarjeta se ve como siempre.
+                #
+                # Se enseña también la FECHA de CDMX cuando difiere de la
+                # fecha UTC con la que está agrupada la tarjeta: un partido de
+                # las 01:00 UTC del sábado se juega el viernes por la noche en
+                # México, y enseñar «sábado 19:00» sería mentir.
+                _hora = t0.get('hora_txt') or ''
+                if _hora and t0.get('fecha_cdmx') \
+                        and t0.get('fecha_cdmx') != str(t0.get('fecha', '')):
+                    _hora = _horario.etiqueta(t0.get('inicio'), con_fecha=True)
+                _falta = ''
+                try:
+                    _falta = _horario.falta_para(t0.get('inicio')) or ''
+                except Exception:
+                    _falta = ''
                 with st.container(border=True):
                     st.markdown(
                         f"**{t0.get('partido','?')}**  \n"
                         f"{t0.get('deporte','Fútbol')} · {t0.get('liga','')} · "
                         f"{t0.get('fecha','')}"
+                        + (f"  \n{_hora}" + (f" · {_falta}" if _falta else '')
+                           if _hora else '')
                         + (f"  \n{t0['antiguedad']}" if t0.get('antiguedad')
                            else '')
                         + (f"  \n{_techo}" if _techo else ''),
@@ -2653,7 +3231,7 @@ def render_alpha_finder():
                                for _p in (0.55, 0.65, 0.75)}})
                     if _filas:
                         st.dataframe(_filas, hide_index=True,
-                                     use_container_width=True)
+                                     width='stretch')
                         st.caption("Cada fila: lo que el modelo dice (columnas) "
                                    "y lo que el sistema publica tras corregirse "
                                    "con lo que de verdad ocurrió.")
@@ -2680,7 +3258,7 @@ def render_alpha_finder():
                                                    else '—'),
                                 'veredicto': _v.get('veredicto')})
                         st.dataframe(_rows, hide_index=True,
-                                     use_container_width=True)
+                                     width='stretch')
                         st.caption("RECHAZAR significa que ahí el modelo ya "
                                    "está bien calibrado y corregirlo sólo "
                                    "añadiría ruido. Un deporte entra solo el "
@@ -2819,7 +3397,10 @@ def render_mlb():
         f"(ELO {md.get('precision_linea_base_elo')*100:.1f} %) · {_frescura}")
 
     nombres = {c: CODIGO_A_NOMBRE.get(c, c) for c in eng.equipos}
-    tab1, tab2 = st.tabs(["🎯 Predecir partido", "💰 Apuestas del Día MLB"])
+    # v106: tercera pestaña — abridores, estadio y ponches con la regla de
+    # decisión de parlay que pidió el usuario (ver `beisbol_pitchers.py`).
+    tab1, tab2, tab3 = st.tabs(["🎯 Predecir partido", "💰 EV+ automático MLB",
+                                "⚾ Abridores, estadio y ponches"])
     with tab1:
         # v59: próximos partidos MLB (ESPN) con autorrelleno
         from engines.mlb_engine import codigo_mlb as _cod_mlb
@@ -2861,30 +3442,17 @@ def render_mlb():
             # v56: combinador de mercados (manual + automático) para MLB
             render_parlay_partido(eng, home, away, key='mlb')
     with tab2:
-        # v89 — automático y con la fuente REAL. El texto decía «The Odds API
-        # (usa 1 crédito)» pero esa API se retiró en la v88: las cuotas salen
-        # de Pinnacle/Bovada (cuotas_multi, sin límite) desde la v77. Y el
-        # botón manual sobraba: el usuario pidió que el EV y la cuota lleguen
-        # solos. Cacheado 30 min, igual que el tablón de cuotas.
-        st.caption("Cuotas en vivo de Pinnacle y Bovada (sin límite de "
-                   "peticiones). Filtros: prob >58 %, EV >+3 %, cuota >1.50.")
+        # v106 — pasa al panel común de EV+ (`render_ev_automatico`), el mismo
+        # de NBA, KBO y tenis. Gana lo que le faltaba y los otros ya tenían:
+        # la Capa 2 («alta confianza», que el motor calculaba desde la v91 y
+        # esta pestaña tiraba), la hora del partido en CDMX y el botón de
+        # refresco. Los filtros y la fuente no cambian.
+        render_ev_automatico(
+            'MLB', eng.apuestas_dia,
+            ayuda="Filtros de élite: prob >58 %, EV >+3 %, cuota >1.50.")
 
-        @st.cache_data(ttl=1800, show_spinner="Consultando cuotas MLB…")
-        def _picks_mlb_hoy():
-            return eng.apuestas_dia()
-
-        r = _picks_mlb_hoy()
-        if r.get('aviso'):
-            st.info(r['aviso'])
-        for pk in r.get('picks') or []:
-            with st.container(border=True):
-                cc1, cc2 = st.columns([3, 2])
-                cc1.markdown(f"**{pk['partido']}**  \n{pk['fecha']}")
-                cc2.markdown(f"{pk['valor']} {pk['apuesta']}  \n"
-                             f"Cuota **{pk['cuota']}** (justa {pk['cuota_justa']}) · "
-                             f"EV **{pk['ev']*100:+.1f} %**")
-        from bankroll_manager import AVISO_JUEGO_RESPONSABLE
-        st.caption(AVISO_JUEGO_RESPONSABLE)
+    with tab3:
+        render_beisbol_pitchers()
 
 
 def render_kbo():
@@ -2967,7 +3535,9 @@ def render_kbo():
         "acaba en empate. Las probabilidades de abajo son de ganar **a condición "
         "de que haya ganador**.")
 
-    tab1, tab2 = st.tabs(["🎯 Predecir partido", "📅 Partidos de hoy"])
+    # v106: la KBO también tiene su EV+ automático (ver `render_ev_automatico`)
+    tab1, tab2, tab3 = st.tabs(["🎯 Predecir partido", "📅 Partidos de hoy",
+                                "💰 EV+ automático KBO"])
     with tab1:
         # v99 — PRÓXIMOS PARTIDOS, que faltaban.
         #
@@ -2981,7 +3551,7 @@ def render_kbo():
 
             @st.cache_data(ttl=1800, show_spinner='Buscando partidos de KBO…')
             def _proximos_kbo():
-                hoy = _pd.Timestamp.utcnow().tz_localize(None).normalize()
+                hoy = _pd.Timestamp.now('UTC').tz_localize(None).normalize()
                 fuera = []
                 for k in range(0, 4):           # hoy y los 3 días siguientes
                     f = (hoy + _pd.Timedelta(days=k)).strftime('%Y-%m-%d')
@@ -3069,9 +3639,27 @@ def render_kbo():
         from bankroll_manager import AVISO_JUEGO_RESPONSABLE
         st.caption(AVISO_JUEGO_RESPONSABLE)
 
+    with tab3:
+        import alpha_finder as _af
+        render_ev_automatico(
+            'KBO', _af._picks_kbo,
+            nota="Recuerda lo de arriba: el modelo de KBO bate al ELO pero "
+                 "**no al mercado** (medido sobre 204 cierres reales), así que "
+                 "sus picks con valor salen de la diferencia entre casas "
+                 "—Pinnacle contra el resto—, no de que el modelo acierte "
+                 "más. Por eso van marcados y no entran en la Capa 1.")
+
 
 def render_nba():
-    """v30 (§4): vista NBA — modo analítico (sin cuotas en vivo hasta oct 2026)."""
+    """
+    v30 (§4): vista NBA. v106: con EV+ automático, como el resto de deportes.
+
+    El docstring decía «modo analítico (sin cuotas en vivo hasta oct 2026)» y
+    llevaba desfasado desde la v88: The Odds API se retiró entonces y las
+    cuotas de NBA salen desde la v77 de Pinnacle y Bovada vía `cuotas_multi`.
+    Fuera de temporada no hay partidos y el panel sale vacío — que es correcto
+    y distinto de «no hay EV».
+    """
     st.header("🏀 NBA — Baloncesto")
     from engines.nba_engine import NBAEngine
 
@@ -3095,15 +3683,32 @@ def render_nba():
     c1, c2 = st.columns(2)
     home = c1.selectbox("🏠 Local", eng.equipos, key='nba_h')
     away = c2.selectbox("✈️ Visitante", eng.equipos, key='nba_a')
-    if home != away:
-        pl = eng.plantilla(home, away)
-        pr = pl['prediccion']
-        m1, m2, m3 = st.columns(3)
-        m1.metric(f"Gana {home}", f"{pr['prob_home']*100:.0f} %")
-        m2.metric(f"Gana {away}", f"{pr['prob_away']*100:.0f} %")
-        m3.metric("Puntos totales (est.)", f"{pr['total_estimado']:.0f}")
-        st.caption("🎾/🏀 Modo analítico: cuota justa = 1/probabilidad; sin EV "
-                   "real hasta que The Odds API reactive la NBA en octubre.")
+    # v106 — la NBA gana su pestaña de EV+ automático, igual que los demás.
+    #
+    # El pie de página decía «sin EV real hasta que The Odds API reactive la
+    # NBA en octubre», y eso quedó desfasado dos veces: The Odds API se retiró
+    # en la v88, y desde entonces las cuotas de NBA salen de Pinnacle y Bovada
+    # vía `cuotas_multi` — que es de donde ya las saca `alpha_finder._picks_nba`
+    # para la pantalla general. O sea que el EV existía; lo que faltaba era
+    # enseñarlo aquí.
+    tab1, tab2 = st.tabs(["🎯 Predecir partido", "💰 EV+ automático NBA"])
+    with tab1:
+        if home != away:
+            pl = eng.plantilla(home, away)
+            pr = pl['prediccion']
+            m1, m2, m3 = st.columns(3)
+            m1.metric(f"Gana {home}", f"{pr['prob_home']*100:.0f} %")
+            m2.metric(f"Gana {away}", f"{pr['prob_away']*100:.0f} %")
+            m3.metric("Puntos totales (est.)", f"{pr['total_estimado']:.0f}")
+            st.caption("Cuota justa = 1/probabilidad. El EV contra cuota real "
+                       "está en la pestaña de al lado.")
+    with tab2:
+        import alpha_finder as _af
+        render_ev_automatico(
+            'NBA', _af._picks_nba,
+            nota="Fuera de temporada (julio-septiembre) ninguna casa publica "
+                 "partidos de NBA y aquí no aparece nada: es correcto, no un "
+                 "fallo.")
 
 
 def _prob_set_local(p_partido: float, best_of: int = 3) -> float:
@@ -3205,6 +3810,26 @@ def render_tennis():
         + f" · ranking {_pct(md.get('precision_linea_base_elo'))}, "
         f"mercado {_pct(md.get('precision_mercado'))}. "
         f"{len(eng.jugadores)} jugadores cubiertos.")
+
+    # v106 — EV+ AUTOMÁTICO TAMBIÉN EN TENIS.
+    #
+    # Va en un desplegable y no en una pestaña a propósito: esta vista es un
+    # flujo largo (calendario → jugadores → 19 mercados → parlays) y partirlo
+    # en pestañas obligaría a reindentar doscientas líneas por un cambio de
+    # colocación. El panel es EL MISMO que el de MLB, NBA y KBO.
+    #
+    # Cubre los dos circuitos a la vez —el barrido de tenis no separa ATP de
+    # WTA— así que no depende del selector de arriba.
+    with st.expander("💰 EV+ automático — ATP y WTA con cuota real",
+                     expanded=False):
+        import alpha_finder as _af
+        render_ev_automatico(
+            'Tenis', _af._picks_tenis,
+            nota="Cubre ATP y WTA a la vez, incluidos challengers e ITF. "
+                 "El canal de «valor de mercado» (una casa pagando por encima "
+                 "del precio justo de Pinnacle) está validado en WTA y **no** "
+                 "en ATP: los de ATP salen sólo por modelo.")
+
     # ---- v67: próximos partidos desde ESPN, por COMPETICIÓN ----------------
     # Antes: solo los partidos de hoy que apareciesen en la fuente de cuotas de
     # Betexplorer, y hacía falta pulsar «Cargar». Ahora: el calendario completo
@@ -3248,13 +3873,20 @@ def render_tennis():
         if _lista:
             def _etq(f):
                 _fase = ' · previa' if f['fase'] == 'clasificacion' else ''
-                return (f"{f['fecha']} {f['hora']} · {f['p1']} vs {f['p2']} "
+                # v106 — la hora que trae `tenis_fuentes` es UTC (sale de la
+                # fecha de ESPN, ya sin zona). Se enseñaba tal cual, así que
+                # un partido a las 18:00 de México aparecía como «00:00» del
+                # día siguiente. Se convierte a CDMX, con su fecha local.
+                _p = _horario.partes(f"{f['fecha']} {f['hora']}:00")
+                _cuando = f"{_p[0]} {_p[1]}" if _p else f"{f['fecha']} {f['hora']}"
+                return (f"{_cuando} · {f['p1']} vs {f['p2']} "
                         f"— {f['torneo']}{_fase}")
             _etiquetas = ['(elegir jugadores manualmente)'] + [_etq(f) for f in _lista]
             _elegido = cf2.selectbox(
                 f"📅 Próximos partidos ({len(_lista)})", _etiquetas, key='ten_fx_sel',
-                help="Se actualiza solo cada 20 minutos desde ESPN. Al elegir un "
-                     "partido, las estadísticas aparecen abajo — sin botones.")
+                help="Hora de Ciudad de México. Se actualiza solo cada 20 "
+                     "minutos desde ESPN. Al elegir un partido, las "
+                     "estadísticas aparecen abajo — sin botones.")
             if _elegido != '(elegir jugadores manualmente)':
                 _sel_fx = _lista[_etiquetas.index(_elegido) - 1]
         else:

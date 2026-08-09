@@ -138,13 +138,19 @@ def capturar(dias: int = DIAS_VISTA, solo: Optional[str] = None) -> dict:
 
             # 1) lo que ya vino con el fixture (coste cero)
             if fx.get('odd_home') and fx.get('odd_away'):
-                filas.append({**base, 'bookmaker': (fx.get('casa') or 'ESPN'),
-                              'snapshot_key': f"{_clave_dia()}|{fx.get('casa') or 'ESPN'}",
-                              'odds_home': fx.get('odd_home'),
-                              'odds_draw': fx.get('odd_draw'),
-                              'odds_away': fx.get('odd_away'),
-                              'odds_over25': fx.get('odd_over25'),
-                              'odds_under25': fx.get('odd_under25')})
+                _f = {**base, 'bookmaker': (fx.get('casa') or 'ESPN'),
+                      'snapshot_key': f"{_clave_dia()}|{fx.get('casa') or 'ESPN'}",
+                      'odds_home': fx.get('odd_home'),
+                      'odds_draw': fx.get('odd_draw'),
+                      'odds_away': fx.get('odd_away'),
+                      'odds_over25': fx.get('odd_over25'),
+                      'odds_under25': fx.get('odd_under25')}
+                # v106: el hándicap, si el fixture lo trajo (ver más abajo)
+                if fx.get('ah_linea') is not None:
+                    _f['ah_linea'] = fx.get('ah_linea')
+                    _f['odds_ah_home'] = fx.get('odd_ah_home')
+                    _f['odds_ah_away'] = fx.get('odd_ah_away')
+                filas.append(_f)
 
             # 2) Pinnacle / Bovada / resto vía la capa multi-casa
             try:
@@ -171,6 +177,22 @@ def capturar(dias: int = DIAS_VISTA, solo: Optional[str] = None) -> dict:
                 # dict fusionado para Pinnacle si la fuente no lo trae, así que
                 # el histórico que ya existe no cambia de forma.
                 por_casa = c.get('totales_por_casa') or {}
+                # v106 — Y EL HÁNDICAP ASIÁTICO, QUE NUNCA SE FOTOGRAFIABA.
+                #
+                # `odds_store` tiene `ah_linea`, `odds_ah_home` y
+                # `odds_ah_away` desde la v75, pero nadie las escribía aquí.
+                # Consecuencia medida: de las 57 competiciones activas, sólo 20
+                # tienen backtest de hándicap, y son EXACTAMENTE las 20 cuyo
+                # CSV de football-data trae columnas asiáticas (`AHCh`,
+                # `AvgCAHH`, `AvgCAHA`). Liga MX, las 21 que sólo cubre ESPN y
+                # las 14 de formato `new` no podían medirlo jamás: el dato no
+                # existía en ningún sitio.
+                #
+                # Es el mismo razonamiento de la v75 con el BTTS: si no se
+                # empieza a guardar hoy, dentro de un año seguirá sin haber
+                # histórico. Y es justo el mercado que el usuario reporta como
+                # el que más le falla.
+                ah_por_casa = c.get('handicap_por_casa') or {}
                 for casa, precios in (c.get('casas') or {}).items():
                     if not precios.get('home'):
                         continue
@@ -192,6 +214,11 @@ def capturar(dias: int = DIAS_VISTA, solo: Optional[str] = None) -> dict:
                         # podría validarse contra precios reales.
                         fila['odds_btts_yes'] = tot.get('btts_yes')
                         fila['odds_btts_no'] = tot.get('btts_no')
+                    ah = ah_por_casa.get(casa)
+                    if ah and ah.get('linea') is not None:
+                        fila['ah_linea'] = ah['linea']
+                        fila['odds_ah_home'] = ah.get('home')
+                        fila['odds_ah_away'] = ah.get('away')
                     filas.append(fila)
             por_liga[clave] = por_liga.get(clave, 0) + 1
 

@@ -106,24 +106,59 @@ def resolver(mercado: str, apuesta: str, home: str, away: str,
         return None
 
     if m in ('hándicap', 'handicap'):
-        # formato «Equipo +1.5» / «Equipo −1.5» (el signo puede ser − o -)
-        mm = re.search(r'^(.*?)\s*([+\-−])\s*(\d+(?:[.,]\d+)?)\s*$', a)
+        # Formato «Equipo +1.5» / «Equipo −1.5» (el signo puede ser − o -).
+        #
+        # v106 — EL SIGNO ES OPCIONAL. La línea 0 (el «empate no cuenta») se
+        # etiqueta «Equipo 0», sin signo, porque «Equipo +0» no significa nada
+        # para quien lo lee. Con el signo obligatorio esa apuesta no se
+        # parseaba y quedaba pendiente para siempre.
+        mm = re.search(r'^(.*?)\s*([+\-−]?)\s*(\d+(?:[.,]\d+)?)\s*$', a)
         if not mm:
             return None
         eq, signo, val = mm.group(1).strip().lower(), mm.group(2), \
             float(mm.group(3).replace(',', '.'))
-        linea = val if signo == '+' else -val
+        linea = -val if signo in ('-', '−') else val
         if eq == str(home).strip().lower():
             margen = gl - gv
         elif eq == str(away).strip().lower():
             margen = gv - gl
         else:
             return None
-        # líneas .5 → nunca hay empate (push); las enteras se dejan pendientes
-        if abs(linea * 2 - round(linea * 2)) > 1e-9 or float(linea).is_integer():
-            if float(linea).is_integer():
-                return None            # push posible: no se liquida a ciegas
-        return (margen + linea) > 0
+        # -------------------------------------------------------------------
+        # v106 — SE LIQUIDA CON LA MISMA DESCOMPOSICIÓN QUE PUBLICA EL PICK.
+        #
+        # Antes: las líneas ENTERAS se devolvían como `None` («push posible: no
+        # se liquida a ciegas») y las de CUARTO caían al `(margen + linea) > 0`
+        # del final, que para ellas es incorrecto — en −0,75 el margen +1 gana
+        # media apuesta y empata la otra, no es un «gana» ni un «pierde» sin
+        # más. Con la v106 el barrido publica las dos familias de verdad, así
+        # que dejarlas sin resolver significaría que sus picks se acumulan
+        # eternamente pendientes y el ROI del hándicap nunca se mide.
+        #
+        # `handicap.desglose` aplicado al margen ya conocido da exactamente la
+        # fracción que se cobra y la que se pierde:
+        #   · push completo            -> None (no es acierto ni fallo, y
+        #                                 contarlo de cualquier lado
+        #                                 contaminaría el ROI para siempre)
+        #   · cualquier otro caso      -> bool
+        # En una línea de cuarto las dos mitades están a 0,5 de distancia, así
+        # que jamás una gana y la otra pierde: o se cobra todo lo resuelto o se
+        # pierde todo lo resuelto. Por eso el bool es exacto y no un redondeo.
+        # (Se pierde el matiz de que en el medio punto sólo se arriesgó la
+        # mitad del importe; el ledger de rendimiento es binario y ese matiz
+        # no cabe en él. La dirección es la correcta.)
+        # -------------------------------------------------------------------
+        try:
+            import handicap as _hcp
+            d = _hcp.desglose({int(margen): 1.0}, linea)
+        except Exception:
+            d = None
+        if not d:
+            return None
+        resuelve = d['gana'] + d['pierde']
+        if resuelve <= 1e-12:
+            return None                    # push completo: se devuelve, no se juega
+        return (d['gana'] / resuelve) > 0.5
 
     return None
 

@@ -52,3 +52,11 @@ matplotlib>=3.8
 openpyxl>=3.1
 # v67: caché en disco de las descargas anuales de tennis-data
 pyarrow>=14.0
+# v106: base de datos de zonas horarias para `zoneinfo`. Hace falta para dar la
+# hora de los partidos en hora de Ciudad de México (`horario.py`). En Linux
+# suele existir a nivel de sistema, pero en Windows NO y `ZoneInfo` lanza
+# `ZoneInfoNotFoundError`; declararla evita depender de que otra librería la
+# arrastre por casualidad. Sin ella el módulo cae a UTC−6 fijo, que es
+# correcto hoy pero dejaría de serlo si México reinstaurara el horario de
+# verano.
+tzdata>=2024.1

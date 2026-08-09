@@ -122,6 +122,27 @@ HORIZONTES = (7, 30, 90)
 # la UI ya está cacheado a nivel de Streamlit; esto evita repetir la llamada a
 # ESPN dentro de una misma corrida del bot/pipeline.
 _CACHE: Dict[str, tuple] = {}
+
+# v110 — un fallo que se repite sesenta veces deja de ser información.
+#
+# ESPN responde 403 a las IPs de centro de datos, así que en Streamlit Cloud
+# hay rutas que fallan SIEMPRE (las competiciones de selecciones, los rosters).
+# Con el aviso a nivel WARNING en cada intento, el log de producción se llenaba
+# de líneas idénticas que tapaban los errores de verdad — el usuario mandó una
+# captura con el mismo 403 repetido dieciséis veces seguidas.
+#
+# Se avisa la PRIMERA vez con todo el detalle y las siguientes van a debug.
+_AVISADOS: set = set()
+
+
+def _avisar_una_vez(clave: str, mensaje: str) -> None:
+    if clave in _AVISADOS:
+        logger.debug(mensaje + ' (repetido)')
+    else:
+        _AVISADOS.add(clave)
+        logger.warning(mensaje)
+
+
 _TTL = 1800  # 30 min
 
 
@@ -180,6 +201,42 @@ def _odds_de_evento(comp: dict) -> dict:
             salida['odd_over25'] = oo
         if ou:
             salida['odd_under25'] = ou
+
+    # -----------------------------------------------------------------------
+    # v106 — EL HÁNDICAP, QUE ESTABA EN EL MISMO JSON Y NO SE LEÍA.
+    #
+    # El scoreboard trae `pointSpread` con la línea y el precio de cada lado.
+    # Sólo se leía el hándicap del CORE API (`odds_evento`), que es una
+    # petición POR PARTIDO y que el barrido diario no hace para todas las
+    # ligas. Resultado medido: de las 57 competiciones activas, sólo 20 tenían
+    # backtest de hándicap — las 20 cuyo CSV de football-data trae columnas
+    # asiáticas. Aquí sale gratis y para TODAS: 33 de 33 partidos con cuotas
+    # en Liga MX, MLS, Brasileirão, Argentina y Premier lo traían (comprobado
+    # el 2026-08-08).
+    #
+    # La línea que se guarda es la del LOCAL —negativa si es favorito—, que es
+    # el convenio del resto del proyecto.
+    ps = o.get('pointSpread') or {}
+
+    def _linea(d):
+        d = d or {}
+        for k in ('close', 'open'):
+            sub = d.get(k) or {}
+            if sub.get('line') is not None:
+                try:
+                    return float(str(sub['line']).replace('+', ''))
+                except ValueError:
+                    return None
+        return None
+
+    linea_h = _linea(ps.get('home'))
+    if linea_h is not None:
+        salida['ah_linea'] = linea_h
+        oah, oaa = _lado(ps.get('home')), _lado(ps.get('away'))
+        if oah:
+            salida['odd_ah_home'] = oah
+        if oaa:
+            salida['odd_ah_away'] = oaa
     return salida
 
 
@@ -269,7 +326,7 @@ def _fixtures_de_codigo(clave: str, code: str, dias: int) -> List[Dict]:
     # barrido del día pedía fixtures y luego descartaba los 12 que había,
     # dejando «partidos evaluados: 0». En Streamlit Cloud el servidor va en
     # UTC y por eso allí nunca se vio.
-    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
+    hoy = pd.Timestamp.now('UTC').tz_localize(None).normalize()
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     fixtures: List[Dict] = []
@@ -493,7 +550,7 @@ def con_cuota(fixtures: List[Dict]) -> Dict:
     # v102 — UTC: `prox` sale de las fechas de los fixtures, que son UTC.
     # Restarle un `hoy` local mezcla dos relojes y desplaza la
     # recomendacion un dia en medio mundo.
-    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
+    hoy = pd.Timestamp.now('UTC').tz_localize(None).normalize()
     volver = max(prox - pd.Timedelta(days=3), hoy + pd.Timedelta(days=1))
     volver = min(volver, prox)
     info['proximo'] = prox.strftime('%Y-%m-%d')
@@ -642,7 +699,7 @@ def fixtures_deporte(deporte: str, dias: int = DIAS_SEMANA) -> List[Dict]:
     # hora local, asi que en cualquier huso por detras de UTC empezaba un dia
     # tarde y se descartaban partidos que si existian. En Streamlit Cloud el
     # servidor va en UTC y por eso nunca se vio alli.
-    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
+    hoy = pd.Timestamp.now('UTC').tz_localize(None).normalize()
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     salida: List[Dict] = []
@@ -714,7 +771,7 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
     # hora local, asi que en cualquier huso por detras de UTC empezaba un dia
     # tarde y se descartaban partidos que si existian. En Streamlit Cloud el
     # servidor va en UTC y por eso nunca se vio alli.
-    hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
+    hoy = pd.Timestamp.now('UTC').tz_localize(None).normalize()
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     salida: List[Dict] = []
@@ -727,7 +784,20 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
             r.raise_for_status()
             eventos = r.json().get('events', []) or []
         except Exception as e:
-            logger.warning(f"[selecciones/{liga}] {type(e).__name__}: {e}")
+            # v110 — SE AVISA UNA VEZ POR LIGA, NO EN CADA CARGA.
+            #
+            # ESPN devuelve 403 a las IPs de centro de datos (lo mismo que la
+            # v98 documentó con el scoreboard de MLB), así que en Streamlit
+            # Cloud estas ocho competiciones fallan SIEMPRE. El resultado vacío
+            # sí se cachea, pero con el aviso a nivel WARNING el log de
+            # producción se llenaba de dieciséis líneas idénticas cada vez que
+            # el caché caducaba — y ese ruido tapaba los errores reales.
+            #
+            # El fallo se sigue registrando: la primera vez en WARNING y las
+            # siguientes en debug. Perder la señal no es una opción; repetirla
+            # sesenta veces tampoco.
+            _avisar_una_vez(f'selecciones:{liga}',
+                            f"[selecciones/{liga}] {type(e).__name__}: {e}")
             continue
         for ev in eventos:
             try:

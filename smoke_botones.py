@@ -36,6 +36,43 @@ VISTAS = {
     '🏆 Leagues Cup': ['Proponer parlays'],
 }
 
+def botones(at):
+    """
+    v106 — TODOS los botones, incluidos los que viven en pestañas y
+    desplegables.
+
+    `at.button` sólo devuelve los del nivel superior. Medido: la vista de MLB
+    daba **0 botones** aunque tiene el de «Proponer parlays» dentro de su
+    primera pestaña — o sea que el smoke llevaba versiones dando por buenos
+    unos botones que jamás pulsaba, y decía «no encontrado (¿condicional?)»
+    como si fuera normal.
+
+    Importa justo por lo que este fichero existe: el UnboundLocalError de la
+    v58.1 llegó a producción porque el fallo vivía dentro de un
+    `if st.button(...)` que nadie ejecutaba. Un botón escondido en una pestaña
+    tiene exactamente el mismo problema.
+    """
+    fuera, vistos = [], set()
+
+    def _recoger(nodo):
+        try:
+            for b in nodo.button:
+                if id(b) not in vistos:
+                    vistos.add(id(b))
+                    fuera.append(b)
+        except Exception:
+            pass
+        for atributo in ('tabs', 'expander'):
+            try:
+                for hijo in getattr(nodo, atributo):
+                    _recoger(hijo)
+            except Exception:
+                pass
+
+    _recoger(at)
+    return fuera
+
+
 fallos = []
 for vista, textos in VISTAS.items():
     at = AppTest.from_file('dashboard_ui.py', default_timeout=420).run()
@@ -48,9 +85,22 @@ for vista, textos in VISTAS.items():
         fallos.append(f'{vista} [carga]: {at.exception[0].message}')
         print(f'FALLO {vista} [carga]: {at.exception[0].message}')
         continue
-    print(f'OK   {vista} [carga]')
+    todos = botones(at)
+    print(f'OK   {vista} [carga] · {len(todos)} botones '
+          f'({len(list(at.button))} en el nivel superior)')
+    # v106 — se añade UN botón de refresco por vista, no todos.
+    #
+    # Los «Actualizar» de los paneles de EV+ vacían la caché y relanzan el
+    # barrido entero del deporte, así que pulsar los tres de una vista
+    # multiplica por tres el coste del smoke (medido: pasa de minutos a más de
+    # veinte). Con uno se cubre el camino que de verdad se rompe —el
+    # `.clear()` de una función cacheada definida DESPUÉS del botón, que es un
+    # NameError— sin volver el smoke inservible.
+    _refrescos = [b.label for b in todos
+                  if 'actualizar' in (b.label or '').lower()]
+    textos = list(textos) + _refrescos[:1]
     for texto in textos:
-        objetivo = [b for b in at.button if texto.lower() in (b.label or '').lower()]
+        objetivo = [b for b in todos if texto.lower() in (b.label or '').lower()]
         if not objetivo:
             print(f'  ·  botón «{texto}» no encontrado (¿condicional?)')
             continue

@@ -105,6 +105,36 @@ class _BlendEloNBA:
         return (self.predict_proba(X)[:, 1] >= 0.5).astype(int)
 
 
+def _registrar_en_main() -> None:
+    """
+    v106 — EL MODELO DE NBA NO CARGABA EN NINGÚN SITIO, NI EN PRODUCCIÓN.
+
+        AttributeError: Can't get attribute '_BlendEloNBA'
+                        on <module '__main__'>
+
+    La causa es de `pickle`, no del modelo: el entrenamiento se lanza con
+    `python -m engines.nba_engine` (así lo hace el workflow diario), y en esa
+    ejecución este fichero ES `__main__`. Pickle guarda la clase por su
+    módulo, así que el artefacto quedó apuntando a `__main__._BlendEloNBA`.
+    Al cargarlo desde la app, `__main__` es Streamlit y allí esa clase no
+    existe — falla igual en Windows, en Linux y en el runner.
+
+    Se descubrió al cablear el EV+ automático de la NBA (v106): la vista decía
+    «Motor NBA no disponible» y el motivo llevaba versiones escondido detrás
+    de que la NBA está fuera de temporada de junio a octubre.
+
+    Esto registra la clase en `__main__` ANTES de deserializar, que repara el
+    artefacto que ya está publicado sin tener que reentrenar (el
+    reentrenamiento depende de `nba_api`, que fuera de temporada no aporta
+    datos nuevos). El bloque `__main__` de abajo, además, evita que el
+    problema se reproduzca en el próximo entrenamiento.
+    """
+    import sys
+    principal = sys.modules.get('__main__')
+    if principal is not None and not hasattr(principal, '_BlendEloNBA'):
+        setattr(principal, '_BlendEloNBA', _BlendEloNBA)
+
+
 class NBAEngine(BaseSportsEngine):
     def __init__(self):
         super().__init__('NBA', CARPETA)
@@ -114,6 +144,12 @@ class NBAEngine(BaseSportsEngine):
             with open(ruta, encoding='utf-8') as f:
                 self.estado = json.load(f)
         self.equipos = sorted((self.estado.get('equipos') or {}).keys())
+
+    def cargar_modelo(self):
+        # v106: repara la referencia a `__main__._BlendEloNBA` del artefacto ya
+        # publicado antes de deserializar. Ver `_registrar_en_main`.
+        _registrar_en_main()
+        return super().cargar_modelo()
 
     def cargar_datos_historicos(self) -> pd.DataFrame:
         import nba_scraper
@@ -252,4 +288,16 @@ class NBAEngine(BaseSportsEngine):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
-    print(json.dumps(NBAEngine().entrenar(), indent=2))
+    # v106 — SE ENTRENA CON LA CLASE DEL PAQUETE, NO CON LA DE `__main__`.
+    #
+    # `python -m engines.nba_engine` ejecuta este fichero como `__main__`, así
+    # que `_BlendEloNBA` se pickleaba como `__main__._BlendEloNBA` y el
+    # artefacto no se podía cargar desde la app (ver `_registrar_en_main`).
+    # Reimportando el módulo por su nombre real, la clase que se serializa es
+    # `engines.nba_engine._BlendEloNBA` y el modelo carga desde cualquier sitio.
+    #
+    # No basta con arreglar la carga: si el próximo reentrenamiento vuelve a
+    # escribirlo mal, el parche de compatibilidad seguiría tapándolo para
+    # siempre en vez de resolverlo.
+    from engines.nba_engine import NBAEngine as _NBAEngine
+    print(json.dumps(_NBAEngine().entrenar(), indent=2))

@@ -293,7 +293,26 @@ class PredictionEngine:
         }
 
     def _entropias(self, nube: np.ndarray) -> np.ndarray:
-        result = ripser.ripser(nube, maxdim=1)
+        # v110 — se silencia el aviso de ripser, que es ESPERADO aquí.
+        #
+        #   UserWarning: The input point cloud has more columns than rows;
+        #                did you mean to transpose?
+        #
+        # ripser lo lanza cuando la nube tiene más dimensiones que puntos, y
+        # eso es exactamente lo que pasa en una predicción de un solo partido:
+        # la nube es el vector de features de ese encuentro. No hay nada que
+        # transponer — la advertencia asume un caso de uso (muchos puntos en
+        # pocas dimensiones) que no es el nuestro.
+        #
+        # Se silencia SÓLO esta advertencia y SÓLO en esta llamada: el log de
+        # producción la repetía en cada predicción, y un aviso que sale siempre
+        # y nunca significa nada acaba tapando los que sí importan (era lo que
+        # pasaba con los 403 de `goleadores`, que se perdían entre estas).
+        import warnings
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', message='.*more columns than rows.*',
+                                    category=UserWarning)
+            result = ripser.ripser(nube, maxdim=1)
         entropias = []
         for dgm in result['dgms']:
             finite = dgm[np.isfinite(dgm[:, 1])]

@@ -1,0 +1,17 @@
+{
+  "liga": "Brasileirão Série B",
+  "n_train": 1500,
+  "n_validacion": 375,
+  "fecha_corte": "2025-08-09",
+  "precision_validacion": 0.44,
+  "precision_linea_base_elo": 0.4213,
+  "precision_mercado_cuotas": null,
+  "log_loss_validacion": 1.0629,
+  "n_equipos": 45,
+  "familia_modelo": "blend_elo",
+  "features_extra_cols": [],
+  "medias_cuotas": {},
+  "roi_sim": null,
+  "mesm": null,
+  "imt": null
+}

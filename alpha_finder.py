@@ -249,7 +249,7 @@ def hoy_utc() -> pd.Timestamp:
     que la mezcla no se notaba; en cualquier máquina de América el barrido
     filtraba con un día de desfase y se quedaba a cero partidos.
     """
-    return pd.Timestamp.utcnow().tz_localize(None).normalize()
+    return pd.Timestamp.now('UTC').tz_localize(None).normalize()
 
 
 def _es_del_dia(fx: dict) -> bool:
@@ -328,14 +328,23 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
 
     candidatos = []
 
-    def _add(mercado, etiqueta, prob, cuota, sharp_gap=None, casa=None):
+    def _add(mercado, etiqueta, prob, cuota, sharp_gap=None, casa=None,
+             ev_real=None, extra=None):
+        # v106 — `ev_real` permite que un mercado traiga su EV ya calculado.
+        # Lo necesita el hándicap asiático: con push (líneas enteras y de
+        # cuarto) el EV NO es `cuota·prob − 1`, porque parte del importe se
+        # devuelve. Ver `handicap.ev`. Los demás mercados no lo pasan y siguen
+        # con la fórmula de siempre.
         if not cuota or pd.isna(cuota) or cuota <= 1:
             return
         c = {'mercado': mercado, 'apuesta': etiqueta,
              'prob': round(float(prob), 3),
              'cuota': round(float(cuota), 2),
              'cuota_justa': round(1 / max(float(prob), 1e-6), 2),
-             'ev': round(float(cuota) * float(prob) - 1, 3)}
+             'ev': round(float(cuota) * float(prob) - 1, 3)
+             if ev_real is None else round(float(ev_real), 3)}
+        if extra:
+            c.update(extra)
         if sharp_gap is not None:
             c['sharp_gap'] = round(float(sharp_gap), 4)
             c['sharp_confirmado'] = bool(sharp_gap >= SHARP_GAP_MIN)   # v42
@@ -415,23 +424,52 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
         _add('Goles', 'Más de 2.5', over25, o.get('odd_over'))
         _add('Goles', 'Menos de 2.5', 1 - over25, o.get('odd_under'))
 
-    # v65: HÁNDICAP con línea ARBITRARIA. Antes solo se evaluaba ±0.5 y las
-    # casas publican −1.5, −2.5... La probabilidad sale de la misma matriz de
-    # marcadores: el local cubre −L si su margen supera L (líneas .5 → sin push).
-    linea = o.get('ah_linea')
+    # -----------------------------------------------------------------------
+    # v106 — HÁNDICAP ASIÁTICO BIEN CALCULADO (el diagnóstico completo está en
+    # `handicap.py`). Lo que cambia respecto a la v65:
+    #
+    #   · El PUSH deja de contarse como acierto del lado contrario. La
+    #     condición `abs(linea*2 - round(linea*2)) < 1e-6` dejaba pasar las
+    #     líneas ENTERAS (0, ±1, ±2) pese al comentario «líneas .5 → sin
+    #     push», y ahí `1 − P(local cubre)` incluye `margen == −L`, que es
+    #     DEVOLUCIÓN, no victoria del visitante. En fútbol P(el favorito gana
+    #     justo por 1) ronda el 20-25 %: el lado contrario salía inflado en
+    #     esos 20-25 puntos y con esa cifra el EV era positivo casi siempre.
+    #     Es la causa de «el hándicap me falla constantemente», y no se veía
+    #     en la medición porque `build_ledger_handicap.py` sólo mide .5.
+    #   · Las líneas de CUARTO (−0,25, −0,75...) dejan de descartarse: son las
+    #     que más publica Pinnacle, que es justo el ancla del sistema.
+    #   · El EV usa `gana·(cuota−1) − pierde`, la única fórmula correcta con
+    #     push; `cuota·prob − 1` supone que la apuesta siempre se resuelve.
+    #   · La distribución de margen se re-pondera a las probabilidades 1X2 YA
+    #     encogidas hacia el mercado (arriba), así que el hándicap deja de
+    #     arrastrar la maldición del ganador que el 1X2 corrige desde la v71.
+    #     Es la misma operación con la que nace la matriz de marcadores.
+    # -----------------------------------------------------------------------
     try:
-        linea = float(linea)
-    except (TypeError, ValueError):
-        linea = None
-    if linea is not None and not np.isfinite(linea):
-        linea = None                       # NaN de capturas antiguas
-    if linea is not None and abs(linea * 2 - round(linea * 2)) < 1e-6:
-        # margen del local necesario para cubrir: diff > -linea
-        p_home_cubre = float(M[diff > -linea].sum())
-        etq_h = f'{home} {"−" if linea < 0 else "+"}{abs(linea)}'
-        etq_a = f'{away} {"+" if linea < 0 else "−"}{abs(linea)}'
-        _add('Hándicap', etq_h, p_home_cubre, o.get('odd_ah_home'))
-        _add('Hándicap', etq_a, 1 - p_home_cubre, o.get('odd_ah_away'))
+        import handicap as _hcp
+        _filas_ah = _hcp.evaluar(M, o.get('ah_linea'),
+                                 o.get('odd_ah_home'), o.get('odd_ah_away'),
+                                 probs_1x2={'home': pr['home'],
+                                            'draw': pr['draw'],
+                                            'away': pr['away']})
+    except Exception as e:                     # nunca tumbar el partido entero
+        logger.warning(f"[alpha] hándicap omitido: {type(e).__name__}: {e}")
+        _filas_ah = []
+    for _f in _filas_ah:
+        if not _f.get('cuota'):
+            continue
+        _equipo = home if _f['lado'] == 'home' else away
+        _extra = {'ah_linea': round(_f['linea'], 2),
+                  'ah_push': round(_f['push'], 4)}
+        if _f['push'] > 1e-6:
+            # el usuario tiene que ver que parte del importe puede volver: es
+            # la diferencia entre «gano o pierdo» y «gano, pierdo o me lo
+            # devuelven», y cambia cómo se combina en una parlay.
+            _extra['nota'] = (f"↩️ {_f['push']*100:.0f} % del importe se "
+                              f"devuelve si el partido acaba justo en la línea.")
+        _add('Hándicap', _hcp.etiqueta(_equipo, _f['linea']), _f['prob'],
+             _f['cuota'], ev_real=_f.get('ev'), extra=_extra)
     return candidatos
 
 
@@ -528,8 +566,8 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
     # v49: PASE DE FIXTURES (ESPN) — evalúa TODO partido con jornada aunque no
     # haya cuota en vivo. Los partidos sin cuota generan Capa 2 (cuota justa)
     # y pronósticos. Desde la v91 es EL camino (ver el docstring).
-    elite_fix, candidatos_fix, capa2_futbol, pronosticos, cob_fix, n_fix = \
-        _barrido_fixtures(motores, evaluados_pares)
+    elite_fix, candidatos_fix, capa2_futbol, pronosticos, cob_fix, n_fix, \
+        sin_motor_fix = _barrido_fixtures(motores, evaluados_pares)
     # v52: los fixtures con cuota REAL de ESPN entran a la Capa 1 / candidatos
     elite.extend(elite_fix)
     candidatos.extend(candidatos_fix)
@@ -555,6 +593,7 @@ def apuestas_del_dia(max_partidos: int = 40) -> Dict:
             # v89: 15 → 40 para no tirar apuestas con EV positivo.
             'candidatos': sorted(candidatos, key=orden)[:40],
             'capa2_futbol': capa2_futbol,        # v49
+            'ligas_sin_motor': sin_motor_fix,     # v106: activas cuyo modelo no carga
             'pronosticos': pronosticos,          # v49: TODOS los partidos
             'aviso': None if elite else
             ('Hoy ningún mercado cumple los filtros de élite (prob, EV y '
@@ -580,6 +619,9 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
     hoy = hoy_utc()
     elite_fix, candidatos_fix, capa2_futbol, pronosticos = [], [], [], []
     cobertura: Dict[str, int] = {}
+    # v106: competiciones activas cuyo motor no se pudo cargar. Ver el bloque
+    # que lo rellena, más abajo.
+    sin_motor: Dict[str, str] = {}
     n_eval = 0
     # v50.1: prefetch CONCURRENTE de los fixtures de todas las ligas (evita que
     # ~14 llamadas secuenciales a ESPN cuelguen el barrido en Streamlit Cloud).
@@ -635,9 +677,28 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                 eng = ClubEngine(clave)
             except Exception as e:
                 logger.warning(f"[alpha/fix] motor {clave}: {e}")
+                sin_motor[clave] = f'{type(e).__name__}: {e}'
                 continue
             motores[clave] = eng
         if not getattr(eng, 'listo', False):
+            # v106 — UNA LIGA SIN MODELO YA NO DESAPARECE EN SILENCIO.
+            #
+            # Este `continue` llevaba versiones descartando competiciones
+            # ACTIVAS sin decir nada. Y no era un caso teórico: 12 de las 57
+            # disponibles —Championship, Hypermotion, Bélgica, Grecia, Serie B
+            # brasileña, Sudamericana, FA Cup…— tienen su carpeta de modelo en
+            # `.gitignore` desde la v68, con el argumento de que «la app nunca
+            # las carga porque el selector sólo muestra las `disponible`».
+            # Después se marcaron `disponible: True` y nadie tocó el
+            # .gitignore, así que el runner las entrena cada día, el commit las
+            # tira y Streamlit Cloud clona sin ellas: `ClubEngine` falla con
+            # FileNotFoundError y sus partidos no llegan NUNCA a las apuestas
+            # del día.
+            #
+            # Un fallo que se ve es un fallo que se arregla. Se recoge el
+            # motivo y sube a las incidencias de la interfaz.
+            if getattr(eng, 'error', None):
+                sin_motor[clave] = str(eng.error)[:120]
             continue
         catalogo = list(eng.stats.keys())
         for fx in fixtures:
@@ -712,9 +773,21 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                           'ou_linea': _ricas.get('ou_linea'),
                           'odd_over': _ricas.get('odd_over'),
                           'odd_under': _ricas.get('odd_under'),
-                          'ah_linea': _ricas.get('ah_linea'),
-                          'odd_ah_home': _ricas.get('odd_ah_home'),
-                          'odd_ah_away': _ricas.get('odd_ah_away'),
+                          # v106 — el hándicap cae al SCOREBOARD si el core
+                          # API no lo trajo. `_ricas` es una petición por
+                          # partido que no siempre se hace ni siempre
+                          # responde; el scoreboard ya venía descargado y
+                          # publica `pointSpread` en prácticamente todos los
+                          # partidos con cuota (33 de 33 medidos el
+                          # 2026-08-08 en cinco ligas). Sin esta caída, el
+                          # hándicap sólo existía donde el core API contestaba.
+                          'ah_linea': (_ricas.get('ah_linea')
+                                       if _ricas.get('ah_linea') is not None
+                                       else fx.get('ah_linea')),
+                          'odd_ah_home': (_ricas.get('odd_ah_home')
+                                          or fx.get('odd_ah_home')),
+                          'odd_ah_away': (_ricas.get('odd_ah_away')
+                                          or fx.get('odd_ah_away')),
                           'casa_home': casa, 'casa_draw': casa, 'casa_away': casa,
                           # v71: ancla sharp para la calibración de mercado
                           'pin_home': fx.get('odd_home_pin'),
@@ -822,8 +895,11 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
     logger.info(f"[alpha/fix] fixtures evaluados={n_eval} · elite={len(elite_fix)} "
                 f"· candidatos={len(candidatos_fix)} · capa2={len(capa2_futbol)} "
                 f"· pronósticos={len(pronosticos)}")
+    if sin_motor:
+        logger.warning(f"[alpha/fix] {len(sin_motor)} competiciones ACTIVAS "
+                       f"sin motor cargable: {sorted(sin_motor)}")
     return (elite_fix, candidatos_fix, capa2_futbol, pronosticos,
-            cobertura, n_eval)
+            cobertura, n_eval, sin_motor)
 
 
 # ---------------------------------------------------------------------------
@@ -1042,6 +1118,13 @@ def _cuotas_tenis_multi() -> List[Dict]:
             salida.append({'home': v['home'], 'away': v['away'],
                            'odd_home': oh, 'odd_away': oa,
                            'circuito': circuito, 'torneo': liga,
+                           # v106 — HORA DE INICIO. `cuotas_multi.
+                           # fecha_normalizada` ya devuelve el ISO completo en
+                           # UTC ('2026-08-08T21:30:00'); hasta aquí se tiraba
+                           # la parte de la hora y las tarjetas de tenis sólo
+                           # podían enseñar el día. Se conserva cruda y en UTC;
+                           # la conversión a CDMX es de presentación.
+                           'inicio': v.get('fecha'),
                            'casa': v.get('casa')})
     logger.info(f"[alpha/tenis] {len(salida)} partidos con cuota "
                 f"(Pinnacle + Bovada)")
@@ -1123,6 +1206,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                                  m.get('circuito', 'tenis').upper()),
                         'partido': f"{m['home']} vs {m['away']}",
                         'fecha': str(hoy_utc().date()),
+                        'inicio': m.get('inicio'),          # v106
                         'mercado': 'Ganador',
                         'apuesta': ('Gana ' + (m['home'] if fav_home
                                                else m['away'])),
@@ -1215,6 +1299,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                                 'clave_liga': eng.circuito.lower(),
                                 'partido': f"{m['home']} vs {m['away']}",
                                 'fecha': str(hoy_utc().date()),
+                                'inicio': m.get('inicio'),      # v106
                                 'mercado': 'Ganador',
                                 'apuesta': f'Gana {_nom}',
                                 'prob': round(_v['prob_justa'], 3),
@@ -1236,6 +1321,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 base = {'deporte': 'Tenis', 'liga': eng.circuito.upper(),
                         'partido': f"{m['home']} vs {m['away']}",
                         'fecha': str(hoy_utc().date()),
+                        'inicio': m.get('inicio'),          # v106: hora real
                         'mercado': 'Ganador', 'apuesta': f'Gana {nombre}',
                         'prob': round(prob, 3),
                         'superficie': superficie,
@@ -1409,7 +1495,9 @@ def _picks_nba() -> Dict[str, List[Dict]]:
                     if v.get('home') and v.get('away') and \
                             c.get('home') and c.get('away'):
                         out.append({'home': v['home'], 'away': v['away'],
-                                    'odd_home': c['home'], 'odd_away': c['away']})
+                                    'odd_home': c['home'], 'odd_away': c['away'],
+                                    # v106: hora de inicio (ISO UTC completo)
+                                    'inicio': v.get('fecha')})
             return out
 
         cadena = sr.Cadena('cuotas NBA', [('Pinnacle/Bovada', _de_cuotas_multi),
@@ -1432,8 +1520,10 @@ def _picks_nba() -> Dict[str, List[Dict]]:
                                         (m['away'], pred['prob_away'], m['odd_away'])):
                 ev = round(cuota * prob - 1, 4)
                 base = {'deporte': 'NBA', 'liga': 'NBA',
+                        'clave_liga': 'nba',
                         'partido': f"{m['home']} vs {m['away']}",
                         'fecha': str(hoy_utc().date()),
+                        'inicio': m.get('inicio'),          # v106
                         'mercado': 'Moneyline', 'apuesta': f'Gana {nombre}',
                         'prob': round(prob, 3),
                         'cuota_justa': round(1 / max(prob, 1e-6), 2)}
@@ -2137,7 +2227,12 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         # lo que diga el modelo. Es la confirmación medida de lo que la v75
         # sospechaba, y ahora el usuario ve el 53 % en vez del 80 %.
         #
-        # El hándicap asiático sigue sin medición y sigue diciéndolo.
+        # v106 — el hándicap asiático YA TIENE MEDICIÓN, y este comentario
+        # decía lo contrario desde la v86. La v87 la construyó (líneas .5) y la
+        # v106 la extendió a las 19 líneas que producción evalúa de verdad,
+        # descartando los push: 6 bandas con muestra y peor sesgo 0,018. Así
+        # que estos picks también se corrigen por su acierto real, como Goles y
+        # BTTS, en vez de salir con la probabilidad cruda del modelo.
         # v102 — UNA SOLA CORRECCIÓN POR PICK.
         #
         # Los picks de Goles y BTTS ya vienen recalibrados con lo aprendido de
@@ -2180,6 +2275,23 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
             f'{umbral_conf:.0%} con cuota real.'
             + (f' Históricamente solo lo consigue el {pct:.2%} de los partidos, '
                f'así que es normal que algunos días esté vacía.' if pct else ''))
+
+    # v106 — LAS COMPETICIONES QUE SE CAYERON DEL BARRIDO, A LA VISTA.
+    #
+    # Si una liga ACTIVA no puede cargar su modelo, sus partidos no existen
+    # para el usuario: no salen en las apuestas del día, ni en los pronósticos,
+    # ni en la tabla de confianza. Hasta aquí eso pasaba en silencio (ver el
+    # `continue` de `_barrido_fixtures`), así que una competición podía llevar
+    # versiones desaparecida sin que nadie lo notara — y es exactamente lo que
+    # pasaba con 12 de las 57.
+    _sm = (r.get('ligas_sin_motor') or {}) if isinstance(r, dict) else {}
+    if _sm:
+        _n = ', '.join(sorted(_sm)[:6]) + ('…' if len(_sm) > 6 else '')
+        incidencias.append(
+            f'🚨 {len(_sm)} competiciones activas se quedaron fuera porque su '
+            f'modelo no carga ({_n}). Sus partidos NO aparecen hoy en ninguna '
+            f'lista. Motivo del primero: '
+            f'{list(_sm.values())[0] if _sm else "?"}')
 
     # v38: etiqueta de rentabilidad esperada (edge_engine) por pick de capa1 —
     # en qué tramo de EV real cae y si su liga es históricamente deficitaria.
@@ -2375,6 +2487,40 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               'combinadas': combinadas,
               'incidencias': incidencias,
               })
+    # -----------------------------------------------------------------------
+    # v106 — LA HORA DE CDMX SE ANOTA AQUÍ, EN EL BORDE DE SALIDA.
+    #
+    # El usuario pidió ver a qué hora se juega cada partido, en hora de Ciudad
+    # de México, para poder decidir «casi en vivo, antes de empezar». Los
+    # fixtures y las casas ya publicaban la hora y el proyecto la guardaba
+    # (`inicio`, en UTC), pero no salía a pantalla en ningún sitio.
+    #
+    # Se anota en UN solo punto, después de que todas las listas estén
+    # construidas, en vez de en cada uno de los ocho sitios donde se fabrica un
+    # pick: así ningún deporte se queda fuera por olvido y —lo importante— el
+    # campo `fecha` que usa la lógica interna NO se toca. El proyecto razona en
+    # UTC de punta a punta (`test_un_solo_reloj`) y eso sigue igual: `hora_cdmx`
+    # y `fecha_cdmx` son campos de presentación.
+    # -----------------------------------------------------------------------
+    try:
+        import horario
+        _vistas = ('capa1', 'capa2', 'elite', 'candidatos', 'capa1_prob',
+                   'pronosticos', 'seleccion_dia', 'sin_modelo',
+                   'mejores_patas')
+        for _k in _vistas:
+            for _p in (r.get(_k) or []):
+                if isinstance(_p, dict):
+                    horario.anotar(_p)
+        for _lst in (r.get('oleadas') or {}).values():
+            for _p in (_lst or []):
+                if isinstance(_p, dict):
+                    horario.anotar(_p)
+        if isinstance(r.get('pick_del_dia'), dict):
+            horario.anotar(r['pick_del_dia'])
+    except Exception as e:                 # la hora nunca puede tumbar el día
+        logger.warning(f"[alpha] hora de CDMX no anotada: "
+                       f"{type(e).__name__}: {e}")
+
     try:                      # v32 §6: registro para el rendimiento REAL
         import rendimiento_real
         rendimiento_real.registrar(capa1, 'capa1')
@@ -2419,9 +2565,14 @@ def exportar_txt(r: Optional[Dict] = None) -> str:
                 cola += '\n     ' + _tq.sello_sharp(t.get('sharp_gap'))
             if t.get('casa'):
                 cola += f"\n     🏠 mejor cuota en {t['casa']}"
+            # v106: día y hora en CDMX (`fecha_cdmx`/`hora_cdmx` los pone el
+            # barrido). Si la fuente no trajo hora, se cae a la fecha UTC de
+            # siempre en vez de inventarse una.
+            _cuando = (f"{t.get('fecha_cdmx')} {t.get('hora_cdmx')} CDMX"
+                       if t.get('hora_cdmx') else t.get('fecha', ''))
             lineas.append(
                 f"{estrella} [{t.get('deporte','Fútbol')}] {t.get('partido','?')} "
-                f"({t.get('liga','?')}, {t.get('fecha','')}) — "
+                f"({t.get('liga','?')}, {_cuando}) — "
                 f"{t.get('apuesta','?')} {precio} · prob {prob*100:.0f}%"
                 + (f" · stake {t['stake_txt']}" if t.get('stake_txt') else '')
                 + cola)
@@ -2451,9 +2602,11 @@ def exportar_csv(r: Optional[Dict] = None) -> str:
     r = r if r is not None else _ULTIMO_RESULTADO
     buf = io.StringIO()
     w = csv.writer(buf)
+    # v106: se añaden `fecha_cdmx` y `hora_cdmx` al final para no romper a
+    # quien ya lea este CSV por posición de columna.
     w.writerow(['capa', 'deporte', 'partido', 'liga', 'fecha', 'mercado',
                 'apuesta', 'cuota', 'cuota_justa', 'ev_pct', 'prob_pct',
-                'stake', 'evc', 'platino'])
+                'stake', 'evc', 'platino', 'fecha_cdmx', 'hora_cdmx'])
     for grupo, capa in (('elite', 'capa1_evc'), ('capa2', 'capa2_confianza'),
                         ('candidatos', 'candidatos')):
         for t in r.get(grupo) or []:
@@ -2462,7 +2615,8 @@ def exportar_csv(r: Optional[Dict] = None) -> str:
                         t.get('apuesta', ''), t.get('cuota', ''),
                         t.get('cuota_justa', ''), round((t.get('ev') or 0)*100, 1),
                         round((t.get('prob', 0) or 0)*100, 0), t.get('stake_txt', ''),
-                        t.get('evc', False), t.get('platino', False)])
+                        t.get('evc', False), t.get('platino', False),
+                        t.get('fecha_cdmx', ''), t.get('hora_cdmx', '')])
     return buf.getvalue()
 
 

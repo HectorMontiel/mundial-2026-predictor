@@ -1,0 +1,46 @@
+{
+  "liga": "LaLiga Hypermotion",
+  "n_train": 1788,
+  "n_validacion": 448,
+  "fecha_corte": "2025-08-24",
+  "precision_validacion": 0.4621,
+  "precision_linea_base_elo": 0.4464,
+  "precision_mercado_cuotas": 0.4932,
+  "log_loss_validacion": 1.0493,
+  "n_equipos": 39,
+  "familia_modelo": "logistica",
+  "features_extra_cols": [
+    "H2H_GD3",
+    "DIFF_DESCANSO",
+    "DIFF_RACHA_V",
+    "DIFF_SIN_PERDER",
+    "DIFF_PPG",
+    "DIFF_POSICION",
+    "PROB_IMP_H",
+    "PROB_IMP_D",
+    "PROB_IMP_A",
+    "OVERROUND"
+  ],
+  "medias_cuotas": {
+    "PROB_IMP_H": 0.4349,
+    "PROB_IMP_D": 0.2913,
+    "PROB_IMP_A": 0.2738,
+    "OVERROUND": 0.0586
+  },
+  "roi_sim": {
+    "n_apuestas": 175,
+    "roi_pct": -12.49,
+    "aciertos": 72,
+    "roi_pct_pinnacle": -24.98,
+    "n_con_pinnacle": 80
+  },
+  "mesm": {
+    "n_val_con_cuotas": 442,
+    "acc_prod": 0.4661,
+    "acc_mesm": 0.4955,
+    "ll_prod": 1.0464,
+    "ll_mesm": 1.0383,
+    "adoptado": true
+  },
+  "imt": null
+}

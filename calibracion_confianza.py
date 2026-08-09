@@ -274,16 +274,38 @@ def bandas_de_totales(ledger: str = LEDGER_TOTALES) -> dict:
     # probabilidades 1X2 fuera de muestra que ya estaban en los ledgers. No hizo
     # falta histórico de líneas asiáticas: para calibrar hace falta la
     # probabilidad y si se cubrió, no la cuota.
+    #
+    # v106 — SE EXCLUYEN LOS PUSH, QUE ANTES CONTABAN COMO ACIERTO.
+    #
+    # La v87 sólo medía líneas .5, donde no hay push, y `astype(bool)` bastaba.
+    # Ahora el ledger cubre también las enteras y las de cuarto (que son las
+    # que producción evalúa de verdad, ver `handicap.py`) y en ellas el
+    # resultado es NaN cuando el partido acaba justo en la línea. `np.nan`
+    # convertido a bool es **True**: sin este filtro, los 10.966 push de la
+    # línea −1,0 entrarían en la tabla como aciertos y la calibración quedaría
+    # optimista justo en el mercado que se está arreglando.
+    #
+    # Se exige además `res_ah_* == 1`: sólo entran las observaciones en las que
+    # se arriesgó el importe ENTERO. En una línea de cuarto que cae en el medio
+    # punto sólo se resuelve la mitad, y mezclar esas con las de importe
+    # completo desequilibra la banda. Son pocas y su probabilidad sale de la
+    # misma distribución de margen que las .5, así que no se pierde cobertura.
     if os.path.exists(LEDGER_HANDICAP):
         h = pd.read_csv(LEDGER_HANDICAP)
         probs, ganos = [], []
         for col in h.columns:
             if col.startswith('p_ah_'):
                 L = col[len('p_ah_'):]
-                real = f'ah_{L}_real'
-                if real in h.columns:
-                    probs.append(h[col].values)
-                    ganos.append(h[real].values.astype(bool))
+                real, res = f'ah_{L}_real', f'res_ah_{L}'
+                if real not in h.columns:
+                    continue
+                ok = h[col].notna() & h[real].notna()
+                if res in h.columns:
+                    ok &= (h[res] - 1.0).abs() < 1e-9
+                if not ok.any():
+                    continue
+                probs.append(h.loc[ok, col].values)
+                ganos.append(h.loc[ok, real].values.astype(float) > 0.5)
         if probs:
             calibrar(np.concatenate(probs), np.concatenate(ganos), 'Hándicap')
     return out

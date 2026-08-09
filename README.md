@@ -1,5 +1,195 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+## Novedades v108 — Dónde se gana dinero y dónde se pierde, dicho de frente
+
+- **🚨 APOSTAR POR LA PROBABILIDAD DEL MODELO PIERDE DINERO, Y AHORA SE DICE EN
+  ROJO Y ARRIBA.** El usuario pidió «no quiero perder dinero y quiero que sean
+  seguras», y usaba la pestaña de Máxima Confianza para decidir («los que tienen
+  de 67 % si aciertan»). La medición dice lo contrario, y estaba escondida
+  dentro de un desplegable que había que abrir:
+
+  | banda | n | ROI | peor 5 % |
+  |---|---|---|---|
+  | 0,50–0,55 | 13.792 | **−5,03 %** | −6,31 % |
+  | 0,55–0,60 | 13.106 | **−4,66 %** | −5,94 % |
+  | 0,60–0,65 | 8.821 | **−4,88 %** | −6,17 % |
+  | **0,65–0,70** | **1.439** | **−6,52 %** | −9,77 % |
+  | 0,70–0,75 | 33 | +27,76 % | +8,75 % |
+
+  Las **cuatro** bandas con muestra real —37.158 apuestas— pierden dinero, y la
+  peor es justo la que el usuario usaba. La de +27,8 % tiene **33 apuestas**:
+  eso no es una oportunidad, es el tamaño de muestra.
+
+  Enseñar el acierto («61,5 %») sin el ROI («−6,52 %») al lado es la media
+  verdad que hace perder dinero: **se acierta seis de cada diez y aun así se
+  pierde**, porque la cuota de un favorito no paga lo que arriesga. Un aviso que
+  hay que desplegar para verlo no es un aviso.
+
+- **✅ Y SE APUNTA AL ÚNICO CANAL QUE SÍ GANA.** El histórico del proyecto tiene
+  una vía con ROI positivo y **robusto**: el line shopping al lado local (una
+  casa pagando por encima del precio justo de Pinnacle) — **+5,09 % en el tramo
+  de elección y +11,49 % en el de juicio, con p5 +1,73 %**. Los otros dos lados
+  (empate y visitante) NO son robustos y se dice. Esos picks ya existían,
+  marcados «line shopping vs Pinnacle» en «⚡ Máximo Valor»; lo que faltaba era
+  decir que son los únicos con edge medido.
+
+- **📊 LA TABLA DE BANDAS TRAE AHORA EL p5 Y EL TAMAÑO DE MUESTRA.** El ROI
+  solo engaña: sin el percentil 5 del bootstrap y sin la n, un +27,8 % de 33
+  apuestas parece lo mejor de la pantalla.
+
+## Novedades v107 — El panel de equipos: H2H, clasificación y forma, sin API y sin botones
+
+- **📊 TODO EL CONTEXTO DEL CRUCE EN UN SOLO SITIO.** El usuario lo pidió al
+  estilo de SofaScore: abrir «América vs Cruz Azul» y ver el historial de
+  cruces con marcadores y fechas, la clasificación del torneo en curso y cómo
+  llega cada equipo, sin pulsar nada. Ahora está, y **en las 50 competiciones
+  activas**.
+
+- **✅ Y NO NECESITA NINGUNA API.** La sección que había dependía de
+  API-Football: clave obligatoria, presupuesto diario de peticiones, un botón
+  que había que pulsar y un plan gratuito que **se queda en la temporada
+  2024-25**. Quien no configuraba la clave no veía absolutamente nada. Todo
+  esto sale del `historico_<clave>.csv` con el que ya se entrena el modelo:
+  llega más atrás que el plan gratuito, es instantáneo, no gasta cuota y no
+  puede fallar por red. Medido: **26 cruces de América-Cruz Azul entre 2018 y
+  2026**, con su balance 9-10-7.
+
+- **🏆 LA CLASIFICACIÓN SE CALCULA, NO SE LEE.** Sale de los mismos partidos
+  con los que se entrena el modelo, así que no puede contradecirlo ni quedarse
+  desactualizada por su cuenta. El torneo en curso se detecta por **el último
+  parón largo del calendario** en vez de codificar la temporada de cada país:
+  hay ligas de año natural (Brasil, MLS), de agosto a mayo (Europa) y de dos
+  torneos por año (México, Argentina), y una regla por liga se rompe en cuanto
+  una cambia de formato. Verificado en las 50.
+
+- **🧠 Y LA LECTURA QUE PIDIÓ, EXPLÍCITA.** «Si los equipos en todos los
+  partidos los ha ganado el equipo A hay más probabilidad, pero si en el torneo
+  actual el equipo B tiene mejor rendimiento baja su probabilidad» — eso está
+  ahora escrito en pantalla: cuando historial y forma **coinciden** se dice, y
+  cuando **se contradicen** también, que es justo el caso en el que conviene no
+  forzar la apuesta. Con dos guardarraíles: no se declara «mejor ahora» sin una
+  diferencia real (0,3 pts/partido) y se avisa cuando la tabla lleva menos de 6
+  jornadas, porque ser «1º con 3 partidos» es azar, no nivel.
+
+- **🐛 UN PANEL QUE SE CONTRADECÍA A SÍ MISMO.** La primera versión usaba dos
+  criterios distintos de «domina»: la frase de arriba exigía el doble de
+  victorias y la de abajo se conformaba con ganar una más. Con un 9-10-7 decía
+  «historial parejo» y dos líneas después «América domina el historial». Un
+  panel que se contradice es peor que uno escueto — el usuario no sabe cuál de
+  las dos creerse. Unificado a un solo criterio y fijado con un test.
+
+- **⚠️ Y SE DICE LO QUE ESTO NO ES.** El historial y la forma **ya están dentro
+  del modelo** (el ELO los absorbe partido a partido), así que ver aquí que un
+  equipo domina **no significa que haya valor**: lo normal es que la cuota ya lo
+  refleje. Esto sirve para juzgar por qué el modelo dice lo que dice y para
+  detectar el contexto que los números no ven, no como señal de apuesta.
+
+## Novedades v106 — El hándicap deja de regalar el push, la hora sale en CDMX y el EV+ llega a todos los deportes (ver [VALIDACION_v106.md](VALIDACION_v106.md))
+
+- **🐛 EL HÁNDICAP FALLABA, Y AHORA SE SABE POR QUÉ.** El usuario reportó que le
+  falla «constantemente». No era una impresión. `alpha_finder` aceptaba
+  cualquier línea múltiplo de 0,5 —incluidas las **enteras**, pese al comentario
+  «líneas .5 → sin push»— y calculaba el lado contrario como `1 − P(el local
+  cubre)`. Con línea entera ese complemento **incluye el push**, que es
+  devolución, no victoria. Medido sobre el ledger: en la línea −1,0 hay
+  **10.966 push de 47.794 partidos (23 %)**, y todos se contaban como acierto
+  del visitante. Un pick al 61,7 % real se publicaba al 71,2 %, y con esa cifra
+  el EV salía positivo casi siempre. No se veía en la medición porque
+  `build_ledger_handicap.py` **sólo medía líneas .5**, que son justo las que no
+  tienen push. Corregido en `handicap.py`: descomposición en (gana, pierde,
+  push), probabilidad **condicional** a que la apuesta se resuelva, y
+  `EV = gana·(cuota−1) − pierde`, la única fórmula correcta cuando parte del
+  importe vuelve. Reconstruido el ledger con las **19 líneas** que producción
+  evalúa de verdad: sesgo de **±0,004 en todas**, sobre 47.794 partidos.
+
+- **✅ Y EL HÁNDICAP YA SE ANCLA AL MERCADO, COMO EL 1X2.** Desde la v71 la
+  probabilidad 1X2 se encoge hacia el mercado para corregir la maldición del
+  ganador (el modelo infla entre +4 y +13 pp la selección que elige). El
+  hándicap se calculaba sobre la matriz **cruda** y seguía cargando el sesgo
+  entero. Ahora la distribución de margen se re-pondera a las probabilidades ya
+  corregidas — la misma operación con la que nace la matriz de marcadores, no un
+  método nuevo. Y las **líneas de cuarto** (−0,25, −0,75…), que se descartaban
+  enteras siendo las que más publica Pinnacle, se tratan como lo que son: media
+  apuesta en cada línea de 0,5 adyacente.
+
+- **✅ EL HÁNDICAP EXISTE YA EN TODAS LAS LIGAS, NO EN 20.** De las 57
+  competiciones activas sólo 20 tenían backtest de hándicap, y son exactamente
+  las 20 cuyo CSV de football-data trae columnas asiáticas. **Liga MX no estaba
+  entre ellas**, ni las 21 que sólo cubre ESPN, ni las 14 de formato `new`. No
+  era falta de tiempo: el dato no se guardaba en ninguna parte. El scoreboard de
+  ESPN lo traía en `pointSpread` sin que nadie lo leyera (**33 de 33** partidos
+  con cuota lo publicaban) y `daily_snapshots` nunca lo fotografiaba, aunque
+  `odds_store` tiene sus tres columnas desde la v75. Ahora se lee, se fotografía
+  y se guarda por casa: medido el 2026-08-08, **325 partidos con hándicap en 43
+  ligas**, con line shopping incluido (Atlante: DraftKings +1.5 frente a
+  Pinnacle +1.25). La primera foto diaria ya persiste **328 filas en 29
+  competiciones** donde antes había cero.
+
+- **🐛 Y UNA TRAMPA QUE APARECIÓ AL EMPEZAR A USAR LA COLUMNA.** La primera
+  cuenta dio 10.158 filas con hándicap, que era demasiado bueno. Lo era:
+  `importar_snapshots` recarga el CSV con `csv.DictReader`, que devuelve `''`
+  para toda celda vacía, y `ah_linea` no se saneaba — **17.202 filas guardaban
+  la cadena vacía en una columna numérica**, que cualquier `IS NOT NULL` cuenta
+  como línea. Mientras nadie usaba la columna daba igual; desde ahora no, así
+  que el primer backtest de hándicap habría arrancado con 17.000 filas
+  fantasma. Saneado en `odds_store._limpiar` y fijado con un test que exige
+  cero.
+
+- **🕒 LA HORA DE LOS PARTIDOS, EN HORA DE CIUDAD DE MÉXICO.** El dato ya se
+  capturaba (`inicio`, en UTC) y no llegaba a pantalla: la interfaz enseñaba
+  sólo el día. Ahora sale en las tarjetas, en los selectores de próximos
+  partidos de todos los deportes, en el mensaje de Telegram y en las
+  exportaciones, con el «empieza en 2 h 15 min» al lado. Ojo con la fecha, que
+  no es un detalle: un partido de las 01:00 UTC del sábado se juega el **viernes
+  a las 19:00** en México, así que se enseña también la fecha local. El reloj
+  interno **no se toca**: todo el barrido sigue razonando en UTC, donde estaba
+  validado (`test_un_solo_reloj`); `horario.py` es exclusivamente de
+  presentación.
+
+- **✅ EV+ AUTOMÁTICO EN LOS CUATRO DEPORTES.** El usuario: «en deportes que no
+  son fútbol no tienes la opción de EV+ automático». Era cierto a medias, y por
+  eso costaba verlo: `alpha_finder` **ya** calculaba picks con cuota y EV de
+  MLB, NBA, KBO y tenis, pero sólo la vista de MLB los enseñaba. Ahora hay un
+  único panel (`render_ev_automatico`) en las cuatro vistas, con la misma
+  lógica, los mismos filtros, la hora del partido y el botón de refresco. La MLB
+  gana de paso la Capa 2 que su pestaña calculaba y tiraba.
+
+- **🐛 Y AL CABLEARLO, DOS MOTORES QUE NO CARGABAN.** Los paneles decían «motor
+  no disponible» y el motivo llevaba versiones escondido. **MLB, ATP y WTA**
+  daban `XGBoostError: input stream corrupted` — el fallo de plataforma que la
+  v87 ya había resuelto con `modelos_portables`… y cableado **sólo en el
+  fútbol**; en Streamlit Cloud no se nota (Linux, igual que el runner), pero en
+  Windows el proyecto no se puede depurar y el smoke pasa en verde sin probar
+  esas vistas. **La NBA** era peor: `Can't get attribute '_BlendEloNBA' on
+  <module '__main__'>`, que **también rompía en producción** — el entrenamiento
+  corre con `python -m engines.nba_engine`, así que la clase se pickleó como
+  `__main__._BlendEloNBA` y el modelo publicado no se podía abrir desde ningún
+  sitio. Arreglados los dos, y el de NBA por partida doble: se repara el
+  artefacto ya publicado (sin reentrenar) y se corrige el entrenamiento para que
+  no vuelva a escribirlo mal. Los cinco motores cargan y la NBA vuelve a
+  predecir.
+
+- **⚾ BÉISBOL: ABRIDOR, ESTADIO Y PONCHES, TODO AUTOMÁTICO.** La regla de
+  decisión que pidió el usuario, implementada tal cual y marcada como suya (no
+  como edge medido), con los números al lado para poder discutirla:
+  **1)** favorito del casino con buen abridor y cuota ≥1.50 → **ganador**;
+  **2)** si no, la línea de ponches del mejor abridor —aunque sea el del equipo
+  en positivo— y si pide **más de 6** no se toca: **run line** al equipo de ese
+  lanzador; **3)** línea de 6 o menos y precio que pague → **ponches**;
+  **4)** si no, el partido **no entra**. Los datos se bajan solos: abridores de
+  la API oficial de la MLB, calidad por **FIP** con corte relativo a su
+  temporada, **factor de parque medido del histórico** (no una tabla a mano:
+  Coors sale ×1,28 y Seattle ×0,85, que es exactamente lo que debe salir), y la
+  **línea de ponches con su cuota desde Pinnacle**, del mismo endpoint que ya se
+  consulta para los moneyline — cero peticiones nuevas y cero claves.
+
+- **🐛 UN ERROR DE SIGNO CAZADO ANTES DE PUBLICARLO.** Pinnacle indexa cada
+  precio de hándicap por **su propia línea**, no por la del local, así que
+  «darle la vuelta para el visitante» —que parecía lo natural— convertía un
+  **+1.5 en un −1.5** y proponía dar ventaja al equipo que había que recibirla.
+  Verificado contra 27 partidos del tablón y fijado con un test que compara el
+  signo contra quién es el favorito.
+
 ## Novedades v102 — Los próximos partidos aparecen, la Capa 2 deja de prometer de más y el lazo se autoriza solo (ver [VALIDACION_v102.md](VALIDACION_v102.md))
 
 - **✅ LA CHAMPIONS (Y LAS DEMÁS) YA TRAEN SUS PRÓXIMOS PARTIDOS.** No era un

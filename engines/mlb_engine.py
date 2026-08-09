@@ -81,7 +81,7 @@ def _fecha_dia(cruda) -> str:
             return iso[:10]
     except Exception:
         pass
-    return str(pd.Timestamp.utcnow().date())
+    return str(pd.Timestamp.now('UTC').date())
 
 
 def _json_seguro(o):
@@ -632,6 +632,11 @@ class MLBEngine(BaseSportsEngine):
                             # deja en ISO desde el origen; esto sólo la recorta
                             # a día y cae a hoy si la casa no la trajo.
                             'fecha': _fecha_dia(v.get('fecha')),
+                            # v106 — y aquí va el ISO ENTERO, con la hora. Se
+                            # estaba tirando en `_fecha_dia` aunque el origen
+                            # ya la traía. Queda en UTC; pasarla a hora de
+                            # CDMX es cosa de la presentación (`horario.py`).
+                            'inicio': v.get('fecha'),
                             'mercado': 'Moneyline',
                             'apuesta': f"Gana {v['home'] if lado == 'home' else v['away']}",
                             'prob': round(prob, 3), 'cuota': round(cuota, 2),
@@ -657,6 +662,7 @@ class MLBEngine(BaseSportsEngine):
                     'partido': f"{CODIGO_A_NOMBRE.get(ac, v['away'])} @ "
                                f"{CODIGO_A_NOMBRE.get(hc, v['home'])}",
                     'fecha': _fecha_dia(v.get('fecha')),
+                    'inicio': v.get('fecha'),          # v106: ISO con hora, UTC
                     'apuesta': f"Gana {nombre}", 'prob': round(prob, 3),
                     'cuota': round(cuota, 2),
                     'cuota_justa': round(1 / max(prob, 1e-6), 2),

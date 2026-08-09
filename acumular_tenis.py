@@ -76,7 +76,7 @@ def acumular(dias: int = 7, ruta: str = ARCHIVO) -> Dict:
 
     import fixtures_espn
 
-    hasta = pd.Timestamp.utcnow().tz_localize(None).normalize()
+    hasta = pd.Timestamp.now('UTC').tz_localize(None).normalize()
     desde = hasta - pd.Timedelta(days=dias)
     try:
         crudos = fixtures_espn.resultados_tenis(desde.strftime('%Y-%m-%d'),
@@ -87,7 +87,7 @@ def acumular(dias: int = 7, ruta: str = ARCHIVO) -> Dict:
 
     previos = _leer(ruta)
     vistos = {_clave(f) for f in previos if f.get('jugador_1')}
-    ahora = pd.Timestamp.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    ahora = pd.Timestamp.now('UTC').strftime('%Y-%m-%dT%H:%M:%SZ')
     nuevos: List[dict] = []
     for r in crudos:
         j1, j2 = r['jugadores']

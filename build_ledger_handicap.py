@@ -40,6 +40,8 @@ import sys
 import numpy as np
 import pandas as pd
 
+import handicap as hcp
+
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
@@ -48,9 +50,59 @@ except Exception:
 
 SALIDA = 'pick_ledger_handicap.csv'
 MAX_GOLES = 6
-# Líneas asiáticas .5 (sin push) desde el punto de vista del LOCAL, que son las
-# que evalúa `alpha_finder` («líneas .5 -> sin push»).
-LINEAS = (-2.5, -1.5, -0.5, 0.5, 1.5, 2.5)
+# v106 — LA MEDICIÓN AHORA CUBRE LAS LÍNEAS QUE PRODUCCIÓN EVALÚA DE VERDAD.
+#
+# Hasta aquí sólo se medían las .5, con el argumento de que eran «las que
+# evalúa alpha_finder». Era falso: la condición de allí
+# (`abs(linea*2 - round(linea*2)) < 1e-6`) dejaba pasar también las ENTERAS, y
+# en las enteras hay push. Al no medirlas, el hándicap figuraba como el
+# mercado mejor calibrado del proyecto mientras en producción publicaba el
+# lado contrario inflado 20-25 puntos (ver `handicap.py`).
+#
+# Ahora se miden las tres familias con la MISMA función que usa producción
+# (`handicap.desglose`), y el acierto se registra de forma tri-estado para no
+# volver a contar un push como derrota:
+#     ah_{L}_real = 1 (se cobra) · 0 (se pierde) · vacío (push, se devuelve)
+# Las de cuarto se resuelven a medias, así que su «acierto» es 0.0/0.5/1.0.
+LINEAS = (-2.5, -2.0, -1.75, -1.5, -1.25, -1.0, -0.75, -0.5, -0.25, 0.0,
+          0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5)
+
+
+def _clave(L: float) -> str:
+    """Nombre de columna estable para una línea (evita '−0.0' y los signos)."""
+    return f'{L:+.2f}'.replace('.', 'p')
+
+
+def _resultado(margen: int, L: float):
+    """
+    (acierto, fracción_resuelta) con margen real `margen` y línea `L`:
+
+      · acierto = 1.0 si se cobra, 0.0 si se pierde, None si es push completo.
+        Nunca vale 0,5: en una línea de cuarto las dos mitades están a 0,5 de
+        distancia, así que jamás una gana y la otra pierde — como mucho una
+        gana y la otra empata (se cobra todo lo resuelto) o una pierde y la
+        otra empata (se pierde todo lo resuelto).
+      · fracción_resuelta = parte del importe que NO se devuelve. Vale 1 en
+        las líneas .0/.5 que se resuelven y 0,5 en las de cuarto que caen
+        justo en el medio punto.
+
+    Hace falta guardar las dos. Con sólo el acierto, el promedio de una línea
+    de cuarto mezcla observaciones que arriesgaron todo el importe con otras
+    que arriesgaron la mitad, y el «real» deja de ser comparable con la
+    probabilidad condicional que se publica. Así salía −1,75 con un sesgo
+    aparente de −0,051 que no existe.
+
+    Se calcula con la MISMA descomposición que usa producción, aplicada a una
+    distribución degenerada en el margen observado: medición y publicación no
+    pueden divergir.
+    """
+    d = hcp.desglose({int(margen): 1.0}, L)
+    if d is None:
+        return None, None
+    resuelve = d['gana'] + d['pierde']
+    if resuelve <= 1e-12:
+        return None, 0.0                # push completo: no hay apuesta
+    return d['gana'] / resuelve, resuelve
 
 
 def matriz_marcadores(lam_h: float, lam_a: float,
@@ -131,9 +183,17 @@ def construir() -> pd.DataFrame:
         fila = {'liga': d['liga'].iat[i], 'match_id': d['match_id'].iat[i],
                 'fecha': d['fecha'].iat[i], 'pliegue': int(d['pliegue'].iat[i]),
                 'margen': margen}
+        dist = hcp.distribucion_margen(M)
         for L in LINEAS:
-            fila[f'p_ah_{L}'] = round(float(M[diff > -L].sum()), 5)
-            fila[f'ah_{L}_real'] = int(margen > -L)
+            # probabilidad CONDICIONAL de cobrar (el push no cuenta): es la
+            # misma cifra que se publica en la tarjeta y contra la que se
+            # compara la cuota.
+            p = hcp.probabilidad(dist, L)
+            acierto, resuelto = _resultado(margen, L)
+            k = _clave(L)
+            fila[f'p_ah_{k}'] = None if p is None else round(p, 5)
+            fila[f'ah_{k}_real'] = acierto
+            fila[f'res_ah_{k}'] = resuelto
         filas.append(fila)
         if (i + 1) % 5000 == 0:
             print(f'    {i + 1}/{len(d)}')
@@ -148,8 +208,22 @@ if __name__ == '__main__':
     d = construir()
     print(f'\n{len(d)} partidos -> {SALIDA}')
     print('\ncordura (predicho medio frente a cobertura real):')
+    print('  los push quedan FUERA de ambas columnas — no son ni acierto ni '
+          'fallo, y contarlos era justo el error de la v65.')
     for L in LINEAS:
-        pred = d[f'p_ah_{L}'].mean()
-        real = d[f'ah_{L}_real'].mean()
-        print(f'  local {L:+.1f}: predicho {pred:.3f} · real {real:.3f} · '
-              f'sesgo {pred - real:+.3f}')
+        k = _clave(L)
+        col_p, col_r, col_s = f'p_ah_{k}', f'ah_{k}_real', f'res_ah_{k}'
+        sub = d[[col_p, col_r, col_s]].dropna()
+        if sub.empty:
+            print(f'  local {L:+.2f}: sin muestra resuelta')
+            continue
+        # medias PONDERADAS por el importe que realmente se arriesga. Sin el
+        # peso, una línea de cuarto mezcla apuestas de importe entero con
+        # apuestas a medias y el sesgo que sale no es real.
+        w = sub[col_s].values
+        pred = float((sub[col_p].values * w).sum() / w.sum())
+        real = float((sub[col_r].values * w).sum() / w.sum())
+        n_push = int(d[col_r].isna().sum())
+        print(f'  local {L:+.2f}: predicho {pred:.3f} · real {real:.3f} · '
+              f'sesgo {pred - real:+.3f} · n {len(sub)} '
+              f'(push {n_push})')

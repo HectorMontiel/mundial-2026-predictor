@@ -23,8 +23,9 @@ LIGAS_V68 = {
     'eng_championship': {
         'nombre': 'EFL Championship', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/2122/E1.csv', f'{FD_BASE}/mmz4281/2223/E1.csv', f'{FD_BASE}/mmz4281/2324/E1.csv', f'{FD_BASE}/mmz4281/2425/E1.csv', f'{FD_BASE}/mmz4281/2526/E1.csv'],
-        'disponible': True, 'features_extra': ['cuotas', 'extras'],
+        'disponible': False, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
+        'nota': 'no bate ELO (0.4422 vs 0.4496) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'eng_league_one': {
         'nombre': 'EFL League One', 'pais': 'Inglaterra', 'formato': 'main',
@@ -83,8 +84,9 @@ LIGAS_V68 = {
     'bel_pro_league': {
         'nombre': 'Jupiler Pro League', 'pais': 'Bélgica', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/2122/B1.csv', f'{FD_BASE}/mmz4281/2223/B1.csv', f'{FD_BASE}/mmz4281/2324/B1.csv', f'{FD_BASE}/mmz4281/2425/B1.csv', f'{FD_BASE}/mmz4281/2526/B1.csv'],
-        'disponible': True, 'features_extra': ['cuotas', 'extras'],
+        'disponible': False, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
+        'nota': 'no bate ELO (0.4719 vs 0.4719) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'jpn_j1': {
         'nombre': 'J1 League', 'pais': 'Japón', 'formato': 'new',
@@ -113,8 +115,9 @@ LIGAS_V68 = {
     'ned_eerste': {
         'nombre': 'Eerste Divisie', 'pais': 'Países Bajos', 'formato': 'espn',
         'espn_liga': 'ned.2', 'desde': '2021-07-01', 'urls': [],
-        'disponible': True, 'features_extra': [],
+        'disponible': False, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 1140,
+        'nota': 'no bate ELO (0.4744 vs 0.4744) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'bra_serie_b': {
         'nombre': 'Brasileirão Série B', 'pais': 'Brasil', 'formato': 'espn',
@@ -143,8 +146,9 @@ LIGAS_V68 = {
     'slv_primera': {
         'nombre': 'Primera División', 'pais': 'El Salvador', 'formato': 'espn',
         'espn_liga': 'slv.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': True, 'features_extra': [],
+        'disponible': False, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 832,
+        'nota': 'no bate ELO (0.4713 vs 0.4828) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'bol_division': {
         'nombre': 'División Profesional', 'pais': 'Bolivia', 'formato': 'espn',
@@ -155,14 +159,16 @@ LIGAS_V68 = {
     'par_division': {
         'nombre': 'División Profesional', 'pais': 'Paraguay', 'formato': 'espn',
         'espn_liga': 'par.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': True, 'features_extra': [],
+        'disponible': False, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 774,
+        'nota': 'no bate ELO (0.4722 vs 0.4722) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'crc_fpd': {
         'nombre': 'Liga FPD', 'pais': 'Costa Rica', 'formato': 'espn',
         'espn_liga': 'crc.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': True, 'features_extra': [],
+        'disponible': False, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 741,
+        'nota': 'no bate ELO (0.4741 vs 0.4781) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'mex_expansion': {
         'nombre': 'Liga de Expansión MX', 'pais': 'México', 'formato': 'espn',
@@ -227,8 +233,9 @@ LIGAS_V68 = {
     'eng_fa_cup': {
         'nombre': 'FA Cup', 'pais': 'Inglaterra', 'formato': 'espn',
         'espn_liga': 'eng.fa', 'desde': '2021-07-01', 'urls': [],
-        'disponible': True, 'features_extra': [],
+        'disponible': False, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 395,
+        'nota': 'no bate ELO (0.4177 vs 0.5823) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'ind_isl': {
         'nombre': 'Indian Super League', 'pais': 'India', 'formato': 'espn',
