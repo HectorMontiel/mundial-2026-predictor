@@ -83,6 +83,61 @@ VENTANA_IDF = 10
 IDX_IDF = 9
 COLS_MODELO_IDF = COLS_MODELO + [IDX_IDF]
 
+# ---------------------------------------------------------------------------
+# v116 — LAS FEATURES DEL ABRIDOR, POR FIN INTEGRADAS.
+#
+# La v105 las adoptó y dejó la integración especificada pero SIN hacer, con un
+# motivo que sigue siendo bueno: entrenar con columnas que en producción no
+# existen deja el motor sin predicciones, y eso es peor que no tenerlas.
+#
+# Revalidado antes de tocar nada (`_v104_ab_abridor_kbo_limpio.py`, 2.640
+# partidos cruzados, elección en pliegues 0-2 y juicio en 3-5, que no
+# participan en la decisión):
+#
+#     base (ELO)                       log-loss 0,68811 · acierto 54,67 %
+#     base + sp_k9, sp_bb9, bullpen_n  log-loss 0,68261 · acierto 56,19 %
+#     mejora +0,005500 · p5 +0,000923 · ADOPTAR
+#
+# Reproduce exactamente la medición de la v105. La auditoría de entonces ya
+# descartó el artefacto: con las features PERMUTADAS el p5 es −0,001313, y
+# ninguna señal aguanta sola (sólo K9 da p5 −0,000400). Es el bloque el que
+# aporta, y por eso entran las tres o ninguna.
+#
+# Son DIFERENCIALES (local − visitante), así que su valor neutro es 0,0: no
+# significa «no sé nada», significa «los dos abridores están igual». Por eso
+# rellenar con cero es correcto aquí, y no contradice la nota de la v105 sobre
+# no degradar a ceros — esa nota vale para features absolutas.
+SENALES_ABRIDOR = ('sp_k9', 'sp_bb9', 'bullpen_n')
+# En BB9 menos es mejor, así que se invierte para que «más alto» signifique
+# siempre «mejor el local», igual que en el experimento que las validó.
+INVERTIR_ABRIDOR = {'sp_bb9'}
+IDX_ABRIDOR = [10, 11, 12]
+COLS_MODELO_ABR = COLS_MODELO_IDF + IDX_ABRIDOR
+CSV_PREVIEW = 'kbo_preview.csv'
+
+
+def _dif_abridor(fila: Dict) -> List[float]:
+    """
+    Las tres features del abridor a partir de una fila de preview.
+
+    `fila` puede venir del CSV histórico o del preview en vivo: los dos usan
+    los mismos nombres (`home_sp_k9`, `away_bullpen_n`…). Lo que falte sale 0,0
+    — el diferencial neutro.
+    """
+    fuera = []
+    for s in SENALES_ABRIDOR:
+        try:
+            h = float(fila.get(f'home_{s}'))
+            a = float(fila.get(f'away_{s}'))
+        except (TypeError, ValueError):
+            fuera.append(0.0)
+            continue
+        if h != h or a != a:                     # NaN
+            fuera.append(0.0)
+            continue
+        fuera.append((a - h) if s in INVERTIR_ABRIDOR else (h - a))
+    return fuera
+
 
 class ModeloSubconjunto:
     """
@@ -185,6 +240,52 @@ class KBOEngine(BaseSportsEngine):
         return np.column_stack([X, tabla['DIFF_IDF'].to_numpy()]),             tabla.attrs.get('estado', {})
 
     @staticmethod
+    def _con_abridor(X, estado):
+        """
+        v116 — añade las tres columnas del abridor, alineadas con las filas.
+
+        Mismo patrón que `_con_idf`: se cruza `estado['filas']` (fecha, local,
+        visitante) con `kbo_preview.csv`. Un partido sin preview queda en 0,0,
+        que en un diferencial es «los dos abridores igual» — y eso es lo que
+        pasa de verdad cuando la fuente no publicó el previo.
+
+        Si el CSV no existe se devuelven ceros y se avisa: el modelo se
+        entrenaría con tres columnas constantes, que es inofensivo, pero hay
+        que saberlo en vez de descubrirlo por una precisión que no sube.
+        """
+        ceros = np.zeros((len(X), len(SENALES_ABRIDOR)))
+        if not os.path.exists(CSV_PREVIEW):
+            logger.warning(f'[kbo] {CSV_PREVIEW} no existe: las features del '
+                           f'abridor entran a cero (sin efecto)')
+            return np.column_stack([X, ceros]), 0
+        try:
+            pv = pd.read_csv(CSV_PREVIEW)
+        except Exception as e:
+            logger.warning(f'[kbo] {CSV_PREVIEW}: {type(e).__name__}: {e}')
+            return np.column_stack([X, ceros]), 0
+        idx = {}
+        for r in pv.to_dict('records'):
+            idx[(str(r.get('fecha'))[:10], str(r.get('home_team')),
+                 str(r.get('away_team')))] = r
+        filas = estado.get('filas') or []
+        cols, encontrados = [], 0
+        for f in filas:
+            clave = (str(pd.Timestamp(f[0]).date()), str(f[1]), str(f[2]))
+            r = idx.get(clave)
+            if r is None:
+                cols.append([0.0] * len(SENALES_ABRIDOR))
+                continue
+            encontrados += 1
+            cols.append(_dif_abridor(r))
+        if len(cols) != len(X):
+            logger.warning(f'[kbo] abridor: {len(cols)} filas contra {len(X)} '
+                           f'del vector; se omite para no desalinear')
+            return np.column_stack([X, ceros]), 0
+        logger.info(f'[kbo] features de abridor: {encontrados}/{len(X)} '
+                    f'partidos con preview')
+        return np.column_stack([X, np.asarray(cols, dtype=float)]), encontrados
+
+    @staticmethod
     def _dataset(df: pd.DataFrame):
         """
         Mismo constructor de features que la MLB, con los empates fuera.
@@ -263,6 +364,9 @@ class KBOEngine(BaseSportsEngine):
         # v99.1: el vector crece con el IDF (ver `_con_idf`), y el estado por
         # equipo se guarda para poder reproducirlo en inferencia.
         X, estado_idf = self._con_idf(X, estado, y)
+        # v116: y las tres del abridor (ver `_con_abridor` para la validación)
+        X, n_prev = self._con_abridor(X, estado)
+        estado['abridor_previews'] = int(n_prev)
         estado['idf'] = estado_idf
 
         corte = fechas.quantile(0.80)
@@ -271,7 +375,7 @@ class KBOEngine(BaseSportsEngine):
         Xtr, Xva = sc.transform(X[m_tr]), sc.transform(X[~m_tr])
 
         modelo = ModeloSubconjunto(LogisticRegression(max_iter=2000),
-                                   COLS_MODELO_IDF).fit(Xtr, y[m_tr])
+                                   COLS_MODELO_ABR).fit(Xtr, y[m_tr])
         proba = modelo.predict_proba(Xva)[:, list(modelo.classes_).index(1)]
         acc = accuracy_score(y[~m_tr], (proba >= 0.5).astype(int))
         ll = log_loss(y[~m_tr], np.column_stack([1 - proba, proba]))
@@ -311,7 +415,7 @@ class KBOEngine(BaseSportsEngine):
         meta.update({'deporte': 'KBO', 'n_juegos': int(len(X)),
                      'sigma_margen': round(sigma_margen, 3),
                      'familia': 'elo_pitcher_logit',
-                     'columnas_modelo': COLS_MODELO_IDF,
+                     'columnas_modelo': COLS_MODELO_ABR,
                      'ventana_idf': VENTANA_IDF,
                      'precision_validacion': round(float(acc), 4),
                      'precision_linea_base_elo': round(float(base), 4),
@@ -319,13 +423,41 @@ class KBOEngine(BaseSportsEngine):
                      'log_loss_validacion': round(float(ll), 4),
                      'linea_total_tipica': float(np.median(tot)),
                      'validacion_desde': str(pd.Timestamp(corte).date()),
-                     # Lo que de verdad autoriza a desplegar: walk-forward de 5
-                     # pliegues, elección en 1-3 y juicio en 4-5.
+                     # v116 — ESTOS NÚMEROS SON DE LA v97, NO DE ESTE MODELO.
+                     #
+                     # Están escritos a mano desde entonces y el entrenamiento
+                     # NO los recalcula, así que el metadata venía diciendo
+                     # «lo que de verdad autoriza a desplegar» sobre una
+                     # medición de otra versión del modelo. Se detectó al
+                     # integrar las features del abridor: el bloque salió
+                     # idéntico al del modelo anterior, cifra por cifra, con
+                     # las columnas ya cambiadas.
+                     #
+                     # No se borra —la medición existió y es la del ELO contra
+                     # el clasificador base— pero se etiqueta con su origen
+                     # para que nadie la lea como si fuera de hoy.
                      'walk_forward': {
                          'precision': 0.5469, 'precision_elo': 0.5366,
                          'ventaja': 0.0102, 'bootstrap_p5': -0.0028,
                          'prob_ventaja_positiva': 0.891,
-                         'pliegues_juicio': [4, 5]},
+                         'pliegues_juicio': [4, 5],
+                         'medido_en': 'v97 (_v97_wf_kbo.py)',
+                         'corresponde_a': 'el clasificador SIN IDF ni abridor',
+                         'aviso': ('valor histórico fijo: el entrenamiento no '
+                                   'lo recalcula. No describe al modelo '
+                                   'actual.')},
+                     # v116 — la validación que SÍ corresponde a las features
+                     # del abridor, con protocolo de elegir/juzgar separados
+                     # (`_v104_ab_abridor_kbo_limpio.py`, 2.640 partidos, 792
+                     # en juicio). Permutando las features el p5 cae a
+                     # −0,001313, así que no es un artefacto.
+                     'validacion_abridor': {
+                         'features': list(SENALES_ABRIDOR),
+                         'log_loss_base': 0.68811, 'log_loss_con': 0.68261,
+                         'acierto_base': 0.5467, 'acierto_con': 0.5619,
+                         'mejora': 0.005500, 'bootstrap_p5': 0.000923,
+                         'juzgados': 792,
+                         'partidos_con_preview': int(n_prev)},
                      'capa': 2,
                      'motivo_capa2': ('bate al ELO pero no hay cuota de cierre '
                                       'histórica de KBO con la que validar ROI'),
@@ -362,7 +494,55 @@ class KBOEngine(BaseSportsEngine):
         ia = idf.get(away) or []
         v_h = float(np.mean(ih[-VENTANA_IDF:])) if ih else 0.0
         v_a = float(np.mean(ia[-VENTANA_IDF:])) if ia else 0.0
-        return list(base) + [v_h - v_a]
+        # v116 — LAS TRES DEL ABRIDOR, RESUELTAS EN INFERENCIA.
+        #
+        # Éste es el paso que la v105 identificó como imprescindible y por el
+        # que no integró: si el modelo se entrena con estas columnas y aquí no
+        # se devuelven, el vector tiene 10 posiciones y el clasificador pide la
+        # 12 — `IndexError`, y la KBO se queda sin predicciones enteras.
+        #
+        # Se piden al preview del partido, que `kbo_preview` ya cachea en
+        # disco. Si la fuente no responde, o el partido aún no tiene abridores
+        # anunciados (lo normal hasta unas horas antes), quedan en 0,0: en un
+        # diferencial eso es «los dos abridores igual», que es exactamente lo
+        # que significa no saber quién abre. Nunca lanza: una fuente caída deja
+        # el motor prediciendo como antes de la v116, no lo tumba.
+        return list(base) + [v_h - v_a] + self._abridor_en_vivo(
+            home, away, fecha, ctx.get('game_id'))
+
+    def _abridor_en_vivo(self, home: str, away: str, fecha=None,
+                         game_id: Optional[str] = None) -> List[float]:
+        """Features del abridor para un partido que aún no se ha jugado."""
+        neutro = [0.0] * len(SENALES_ABRIDOR)
+        try:
+            import kbo_preview
+        except Exception:
+            return neutro
+        try:
+            gid = game_id
+            if not gid:
+                import kbo_naver
+                dia = (pd.Timestamp(fecha).strftime('%Y-%m-%d') if fecha
+                       else pd.Timestamp.today().strftime('%Y-%m-%d'))
+                for p in (kbo_naver.partidos_del_dia(dia) or []):
+                    if (equipo_kbo(p.get('home')) == home
+                            and equipo_kbo(p.get('away')) == away):
+                        gid = p.get('game_id')
+                        break
+            if not gid:
+                return neutro
+            pv = kbo_preview.preview(str(gid))
+            if not pv:
+                return neutro
+            # `preview` devuelve el JSON crudo de la fuente; `fila` es la que
+            # lo aplana a las mismas columnas que tiene el CSV histórico, que
+            # es lo que `_dif_abridor` sabe leer. Usar el crudo daría 0,0
+            # siempre y la integración no serviría de nada — en silencio.
+            return _dif_abridor(kbo_preview.fila(str(gid), pv))
+        except Exception as e:
+            logger.debug(f'[kbo] abridor en vivo no disponible: '
+                         f'{type(e).__name__}: {e}')
+            return neutro
 
     def refrescar_estado(self, df: Optional[pd.DataFrame] = None) -> Dict:
         """Recalcula `estado.json` sin reentrenar (mismo motivo que en v79)."""
@@ -377,6 +557,8 @@ class KBOEngine(BaseSportsEngine):
         # se nota.
         try:
             _X, estado['idf'] = self._con_idf(_X, estado, _y)
+            _X, _np = self._con_abridor(_X, estado)
+            estado['abridor_previews'] = int(_np)
         except Exception as e:
             logger.warning(f'[kbo] IDF no recalculado: {type(e).__name__}: {e}')
         os.makedirs(CARPETA, exist_ok=True)

@@ -1,10 +1,10 @@
 {
   "deporte": "KBO",
   "n_juegos": 12687,
-  "precision_validacion": 0.5451,
+  "precision_validacion": 0.5577,
   "precision_linea_base_elo": 0.5368,
   "precision_linea_base_local": 0.5187,
-  "log_loss_validacion": 0.6868,
+  "log_loss_validacion": 0.6848,
   "linea_total_tipica": 9.0,
   "validacion_desde": "2023-05-30",
   "fecha_entrenamiento": "2026-08-09",
@@ -12,7 +12,10 @@
   "columnas_modelo": [
     0,
     5,
-    9
+    9,
+    10,
+    11,
+    12
   ],
   "walk_forward": {
     "precision": 0.5469,
@@ -23,10 +26,28 @@
     "pliegues_juicio": [
       4,
       5
-    ]
+    ],
+    "medido_en": "v97 (_v97_wf_kbo.py)",
+    "corresponde_a": "el clasificador SIN IDF ni abridor",
+    "aviso": "valor histórico fijo: el entrenamiento no lo recalcula. No describe al modelo actual."
   },
   "capa": 2,
   "motivo_capa2": "bate al ELO pero no hay cuota de cierre histórica de KBO con la que validar ROI",
   "sigma_margen": 4.889,
-  "ventana_idf": 10
+  "ventana_idf": 10,
+  "validacion_abridor": {
+    "features": [
+      "sp_k9",
+      "sp_bb9",
+      "bullpen_n"
+    ],
+    "log_loss_base": 0.68811,
+    "log_loss_con": 0.68261,
+    "acierto_base": 0.5467,
+    "acierto_con": 0.5619,
+    "mejora": 0.0055,
+    "bootstrap_p5": 0.000923,
+    "juzgados": 792,
+    "partidos_con_preview": 2611
+  }
 }
