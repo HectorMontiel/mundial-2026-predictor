@@ -1541,14 +1541,244 @@ def test_memoizacion_no_cambia_el_emparejamiento():
     except Exception as e:
         print(f'AVISO cuotas_multi no disponible ({e}); se omite')
         return
-    check(cm._sim_club('Gremio', 'Gremio FBPA') >= 0.99,
+    # v114 — la contención sigue casando, pero YA NO empata con la igualdad.
+    #
+    # Este check exigía >= 0,99, es decir, que «Gremio» y «Gremio FBPA»
+    # puntuaran igual que dos nombres idénticos. Eso es lo que hacía que
+    # «Independiente» casara perfecto con «Independiente Rivadavia» —dos clubes
+    # distintos de la misma liga argentina— y el sistema tomara las cuotas del
+    # partido equivocado. Lo que hay que exigir es que la contención SIGA
+    # emparejando (para eso se escribió) y que pierda contra el exacto.
+    check(cm._sim_club('Gremio', 'Gremio FBPA') >= 0.80,
           'un nombre contenido en otro sigue casando («Gremio» / «Gremio FBPA»)')
+    check(cm._sim_club('Independiente', 'Independiente Rivadavia')
+          < cm._sim_club('Belgrano', 'Belgrano'),
+          'pero la contención puntúa por debajo de la igualdad exacta')
     check(cm._sim_club('Dinamo Moscow', 'Dynamo Moscow') > 0.5,
           'las variantes de transliteración siguen casando')
     check(cm._sim_club('Palmeiras', 'Boca Juniors') < 0.80,
           'dos equipos distintos no casan')
     check(isinstance(cm._tokens_club('Real Madrid'), frozenset),
           '_tokens_club devuelve frozenset (la caché no se puede corromper)')
+
+
+def test_guardias_del_emparejador():
+    """
+    v114 — el emparejador no puede tomar las cuotas de OTRO partido.
+
+    Caso real medido el 2026-08-09 en el tablón de producción: «Independiente
+    vs Belgrano» de la Primera División FEMENINA argentina (10-ago) se emparejó
+    con «Belgrano vs Independiente Rivadavia» de la Liga Profesional masculina
+    (15-ago), y encima con los bandos invertidos. No dio ningún error: dio un
+    arbitraje falso del 0,7737 y un EV inventado sobre un partido inexistente.
+    """
+    try:
+        import cuotas_multi as cm
+    except Exception as e:
+        print(f'AVISO cuotas_multi no disponible ({e}); se omite')
+        return
+
+    # --- categoría --------------------------------------------------------
+    check('fem' in cm.categoria_partido('CA Independiente (W)', 'Belgrano (W)'),
+          'la marca «(W)» identifica un partido femenino')
+    check('fem' in cm.categoria_partido('Independiente', 'Belgrano',
+                                        'Argentina - Primera Division Women'),
+          'y también se lee del nombre de la competición, no sólo del equipo')
+    check(not cm.categoria_partido('Independiente', 'Belgrano'),
+          'un partido sin marcas es el absoluto masculino')
+    check(not cm.categoria_partido('Boca Juniors', 'River Plate'),
+          'un club con «Juniors» en el nombre NO es una categoría inferior')
+    check('filial' in cm.categoria_partido('Brasil U20', 'Chile U20'),
+          'las selecciones sub-20 se marcan como categoría inferior')
+    check(cm.categoria_efectiva('Benfica II', 'Leixoes')
+          == cm.categoria_efectiva('Benfica Sub-21', 'Leixoes'),
+          '«Benfica II» y «Benfica Sub-21» son el mismo filial')
+    check(cm.categoria_efectiva('Benfica II', 'Leixoes')
+          != cm.categoria_efectiva('Benfica', 'Leixoes'),
+          'pero el filial no es el primer equipo')
+    check(not cm.categoria_efectiva('Laferrere', 'Arsenal de Sarandi',
+                                    'Argentina - Primera B Metropolitana'),
+          'una liga llamada «Primera B» no convierte el partido en filial')
+
+    # --- fecha ------------------------------------------------------------
+    idx = {'belgrano|independiente rivadavia': {
+        'home': 'Belgrano', 'away': 'Independiente Rivadavia',
+        'fecha': '2026-08-15T22:00:00', 'cuotas': {'home': 1.95, 'away': 4.3}}}
+    check(cm._buscar(idx, 'Independiente', 'Belgrano', 'futbol',
+                     fecha='2026-08-10T18:00:00') is None,
+          'cinco días de diferencia descartan el emparejamiento')
+    check(cm._buscar(idx, 'Belgrano', 'Independiente Rivadavia', 'futbol',
+                     fecha='2026-08-15T20:00:00') is not None,
+          'el mismo partido en su fecha sí empareja')
+
+    # --- ambigüedad -------------------------------------------------------
+    idx2 = {'independiente|belgrano': {'home': 'Independiente',
+                                       'away': 'Belgrano',
+                                       'cuotas': {'home': 2.0, 'away': 3.0}},
+            'independiente rivadavia|belgrano': {
+                'home': 'Independiente Rivadavia', 'away': 'Belgrano',
+                'cuotas': {'home': 2.5, 'away': 2.6}}}
+    _r = cm._buscar(idx2, 'Independiente', 'Belgrano', 'futbol')
+    check(_r is not None and _r['home'] == 'Independiente',
+          'con el club exacto y uno que lo contiene en el tablón, gana el exacto')
+
+    # --- el barrido pasa la fecha ----------------------------------------
+    import inspect
+    check('fecha' in inspect.signature(cm.cuotas_partido).parameters,
+          'cuotas_partido acepta la fecha del fixture para desambiguar')
+    _src = inspect.getsource(__import__('fixtures_espn')._completar_cuotas)
+    check('fecha=' in _src,
+          'y el barrido de fixtures se la pasa (si no, la guardia no actúa)')
+
+
+def test_exchange_matchbook():
+    """
+    v114 — el exchange entra al tablón con dos condiciones innegociables.
+
+    Matchbook sustituye a Betfair, que está cerrado desde México por
+    geolocalización. Medido sobre el tablón del 2026-08-09: da el mejor precio
+    el 36,5 % de las veces (más que Pinnacle) y baja el margen del mejor precio
+    de 1,0395 a 1,0314. Pero un exchange no es una casa y hay dos cosas que no
+    se pueden olvidar sin envenenar el line shopping.
+    """
+    try:
+        import cuotas_multi as cm
+    except Exception as e:
+        print(f'AVISO cuotas_multi no disponible ({e}); se omite')
+        return
+
+    # --- 1. la comisión se descuenta SIEMPRE ------------------------------
+    # Un exchange no cobra margen en la cuota: cobra sobre la ganancia neta.
+    # Comparar su back bruto contra el precio de una casa lo inflaría, y la
+    # mejora media que aporta es del orden de la propia comisión.
+    check(cm.cuota_neta_exchange(3.0, 0.02) == 2.96,
+          'una back de 3,00 con 2 % de comisión paga 2,96, no 3,00')
+    check(cm.cuota_neta_exchange(2.0, 0.0) == 2.0,
+          'sin comisión la cuota no cambia')
+    check(cm.cuota_neta_exchange(1.0) is None,
+          'una cuota de 1,00 no es una cuota')
+    check(cm.cuota_neta_exchange('x') is None,
+          'una cuota ilegible no se inventa')
+    check(cm.cuota_neta_exchange(3.0) < 3.0,
+          'la comisión por defecto es mayor que cero')
+
+    # --- 2. un precio sin dinero detrás no es un precio -------------------
+    # Medido en el primer volcado real: «Los Andes vs Ferro Carril Oeste» con
+    # el local a 98,02 porque el libro estaba vacío. Sin estas guardias el
+    # line shopping habría elegido 98,02 como mejor precio.
+    check(cm.IMPORTE_MINIMO_EXCHANGE > 0,
+          'se exige un importe mínimo disponible para aceptar un precio')
+    check(0.5 < cm.MARGEN_MINIMO_EXCHANGE < 1.0,
+          'y que el libro esté cotizado entero (margen mínimo)')
+    import inspect
+    _src = inspect.getsource(cm._indice_matchbook)
+    check('available-amount' in _src,
+          'la liquidez se lee del propio precio, no se supone')
+    check('cuota_neta_exchange' in _src,
+          'y la cuota se guarda ya neta de comisión, no bruta')
+
+    # --- 3. está enchufado al tablón --------------------------------------
+    _src2 = inspect.getsource(cm.cuotas_partido)
+    check("casas['Matchbook']" in _src2,
+          'Matchbook entra en cuotas_partido como una casa más')
+    check('_indice_mb' in _src2,
+          'y usa su propio índice cacheado')
+
+
+def test_tablon_a_mercados():
+    """
+    v114 — todas las ligas enseñan los mismos mercados, no sólo las que ESPN
+    identifica.
+
+    La Champions, la Conference y la Eredivisie sólo veían el 1X2 porque
+    `buscar_event_id` no localiza a sus equipos de fase previa. `cuotas_tablon`
+    traduce lo que el tablón multi-casa ya devolvía —totales, ambos marcan,
+    hándicap— al vocabulario de la plantilla y lo cruza con el modelo.
+    """
+    try:
+        import cuotas_tablon as ct
+    except Exception as e:
+        print(f'AVISO cuotas_tablon no disponible ({e}); se omite')
+        return
+
+    res = {
+        'casas': {'Pinnacle': {'home': 2.0, 'draw': 3.4, 'away': 3.8},
+                  'Bovada': {'home': 2.1, 'draw': 3.3, 'away': 3.6},
+                  '_totales': {'over25': 1.9}},
+        'totales_por_casa': {'Pinnacle': {'over25': 1.9, 'under25': 1.95,
+                                          'btts_yes': 1.8, 'btts_no': 2.0}},
+        'handicap_por_casa': {'Pinnacle': {'linea': -0.5, 'home': 1.95,
+                                           'away': 1.9}},
+    }
+    filas = ct.filas_del_tablon(res, 'Monterrey', 'Juarez')
+    etiquetas = {f['etiqueta'] for f in filas}
+    check('Gana Monterrey' in etiquetas, 'el 1X2 sale con el nombre del local')
+    check('Más de 2.5 goles' in etiquetas,
+          'los totales salen con el vocabulario de la plantilla')
+    check('Ambos equipos marcan: Sí' in etiquetas, 'y el «ambos marcan»')
+    check('Monterrey -0.5' in etiquetas and 'Juarez +0.5' in etiquetas,
+          'el hándicap sale con la línea de CADA lado, no la del local en los dos')
+    check(not any(f['casa'].startswith('_') for f in filas),
+          'el cajón interno «_totales» no se cuela como si fuera una casa')
+
+    # line shopping: entre dos casas manda el precio más alto
+    pl = {'secciones': [{'titulo': '1X2', 'campos': [
+        {'id': 'home_win_prob', 'etiqueta': 'Gana Monterrey', 'valor': 50.0,
+         'tipo': 'pct'}]}]}
+    mk = ct.mercados_con_ev(res, pl, 'Monterrey', 'Juarez')
+    fila = next((r for r in mk if r['id'] == 'home_win_prob'), None)
+    check(fila is not None, 'el mercado se cruza con la plantilla del modelo')
+    if fila:
+        check(fila['cuota_casa'] == 2.1 and fila['casa'] == 'Bovada',
+              'y se queda con el MEJOR precio (2,1 de Bovada, no 2,0 de Pinnacle)')
+        check(fila['n_casas'] == 2, 'diciendo cuántas casas se compararon')
+        check(abs(fila['ev'] - 0.05) < 1e-6,
+              'el EV usa la cuota real: 2,1 × 0,50 − 1 = +5 %')
+
+    # el motor envuelto es transparente para todo lo demás
+    class _Falso:
+        clave = 'liga_mx'
+        def plantilla_club(self, h, a):
+            return {'secciones': []}
+        def otra_cosa(self):
+            return 'intacto'
+    m = ct.MotorConTablon(_Falso(), {'over25': 1.95}, {'over25': 'Pinnacle'})
+    check(m.otra_cosa() == 'intacto',
+          'el motor envuelto delega todo lo que no sea la plantilla')
+    check(m.clave == 'liga_mx', 'incluidos los atributos')
+    check(m.plantilla_club('a', 'b').get('cuotas_tablon') == {'over25': 1.95},
+          'y engancha las cuotas reales a la plantilla que devuelve')
+
+
+def test_selecciones_completas():
+    """
+    v114 — «todos los partidos de selecciones, varonil, femenil, amistosos».
+
+    La lista tenía siete competiciones, todas masculinas absolutas: ni un
+    torneo continental, ni una femenina, ni una olímpica.
+    """
+    try:
+        import fixtures_espn as fe
+    except Exception as e:
+        print(f'AVISO fixtures_espn no disponible ({e}); se omite')
+        return
+    ligas = dict(fe.LIGAS_SELECCIONES)
+    check(len(ligas) >= 20,
+          f'el catálogo de selecciones cubre {len(ligas)} competiciones (eran 7)')
+    for clave in ('fifa.world', 'concacaf.gold', 'conmebol.america',
+                  'caf.nations', 'afc.asian.cup', 'uefa.euro',
+                  'concacaf.nations.league'):
+        check(clave in ligas, f'incluye {clave}')
+    femeninas = [t for t in ligas.values() if 'femenin' in t.lower()]
+    check(len(femeninas) >= 3,
+          f'y {len(femeninas)} competiciones femeninas (no había ninguna)')
+    # el nombre del torneo es lo que le dice al emparejador que es femenino
+    import cuotas_multi as cm
+    for torneo in femeninas:
+        check('fem' in cm.categoria_partido('Spain', 'England', torneo),
+              f'«{torneo}» se reconoce como femenino en el emparejador')
+    check('fem' not in cm.categoria_partido('Spain', 'England', 'Amistoso'),
+          'y un amistoso masculino no')
     # la caché tiene que estar activa
     check(hasattr(cm.normalizar, 'cache_info'),
           'normalizar está memoizada')
@@ -3178,6 +3408,10 @@ if __name__ == '__main__':
     test_peso_modelo_insensible_a_mayusculas()
     test_inferencia_rapida_no_cambia_nada()
     test_memoizacion_no_cambia_el_emparejamiento()
+    test_guardias_del_emparejador()                      # v114
+    test_exchange_matchbook()                            # v114
+    test_tablon_a_mercados()                             # v114
+    test_selecciones_completas()                         # v114
     test_ledger_total_reproducible()
     print('\n=== v75: ledger de predicciones ===')
     test_ledger_sin_fuga()

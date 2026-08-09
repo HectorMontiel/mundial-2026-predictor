@@ -900,6 +900,176 @@ def visitante_txt(x: str) -> str:
     return str(x or '?')
 
 
+def render_panel_beisbol(clave: str, home: str, away: str, key: str,
+                         nombres: dict = None) -> None:
+    """
+    v114 — el mismo panel que el fútbol, en MLB y KBO.
+
+    Lo pidió el usuario: «en MLB y tenis también falta la sección de H2H que
+    tenga lo mismo que muestra el fútbol pero acomodado a su respectivo
+    deporte». Sale del histórico local (26.544 partidos de MLB, 13.009 de KBO),
+    así que es instantáneo y no depende de ninguna red ni clave.
+    """
+    import panel_deportes as _pd
+    nombres = nombres or {}
+
+    def _n(x):
+        return nombres.get(x, x)
+
+    st.subheader(f"📊 {_n(away)} @ {_n(home)}")
+
+    @st.cache_data(ttl=3600, show_spinner=False)
+    def _res(cl, h, a):
+        return _pd.resumen_beisbol(cl, h, a)
+
+    try:
+        r = _res(clave, home, away)
+        for frase in _pd.lectura_beisbol(clave, home, away, nombres):
+            st.markdown(f"- {frase}")
+    except Exception as e:
+        st.caption(f"Panel no disponible ahora ({type(e).__name__}).")
+        return
+
+    t1, t2, t3 = st.tabs(['🤝 Serie histórica', '🏆 Clasificación', '📈 Forma'])
+    h = r['h2h']
+    with t1:
+        if not h.get('n'):
+            st.info(h.get('motivo') or 'Sin cruces en el histórico.')
+        else:
+            c1, c2 = st.columns(2)
+            c1.metric(_n(home), h['gana_a'], help='victorias en la serie')
+            c2.metric(_n(away), h['gana_b'])
+            st.caption(f"{h['n']} partidos entre {h['desde']} y {h['hasta']} · "
+                       f"carreras totales {h['goles_a']}-{h['goles_b']} · "
+                       f"media {h['media_goles']} por partido")
+            st.dataframe(pd.DataFrame([{
+                'Fecha': p['fecha'], 'Local': _n(p['local']),
+                'Marcador': f"{p['goles_local']} - {p['goles_visit']}",
+                'Visitante': _n(p['visitante']),
+                'Ganó': _n(p['ganador'] or '—'),
+            } for p in h['partidos']]), hide_index=True, width='stretch')
+    with t2:
+        cl = r['clasificacion']
+        if not cl:
+            st.info('Sin partidos suficientes de la temporada en curso.')
+        else:
+            st.dataframe(pd.DataFrame([{
+                '#': f['pos'], 'Equipo': _n(f['equipo']), 'PJ': f['pj'],
+                'G': f['g'], 'P': f['p'], '%': f"{f['pct']*100:.1f}",
+                'CF': f['cf'], 'CC': f['cc'], 'Dif': f['dif'],
+            } for f in cl]), hide_index=True, width='stretch',
+                height=min(38 * (len(cl) + 1) + 3, 620))
+            st.caption("Ordenada por porcentaje de victorias, que es como se "
+                       "clasifica el béisbol (no por puntos: los equipos no "
+                       "juegan el mismo número de partidos). Calculada del "
+                       "histórico del propio proyecto.")
+    with t3:
+        for lado, eq, f, cf in (('🏠', home, r['forma_local'], r['casa_fuera_local']),
+                                ('✈️', away, r['forma_visitante'],
+                                 r['casa_fuera_visitante'])):
+            if not f.get('n'):
+                continue
+            st.markdown(f"**{lado} {_n(eq)}** — últimos {f['n']}: "
+                        f"`{f['racha']}` · {f['gf_media']} carreras a favor y "
+                        f"{f['gc_media']} en contra")
+            if cf:
+                st.caption('En la temporada · ' + ' · '.join(
+                    f"{donde}: {d['g']}-{d['p']} en {d['pj']} PJ"
+                    for donde, d in cf.items()))
+            st.dataframe(pd.DataFrame([{
+                'Fecha': p['fecha'],
+                'Dónde': 'Casa' if p['casa'] else 'Fuera',
+                'Rival': _n(p['rival']),
+                'Marcador': f"{p['goles']} - {p['encajados']}",
+                'Resultado': {'G': 'Ganó', 'E': '—', 'P': 'Perdió'}[p['resultado']],
+            } for p in f['partidos']]), hide_index=True, width='stretch')
+
+    st.caption("ℹ️ Información para juzgar, no una señal de apuesta: el "
+               "historial y la forma **ya están dentro del modelo**, así que "
+               "ver aquí que un equipo domina no significa que haya valor.")
+
+
+def render_panel_tenis(engine, p1: str, p2: str, superficie: str,
+                       key: str) -> None:
+    """
+    v114 — el equivalente del panel de equipos para tenis.
+
+    En tenis no hay local, ni tabla, ni temporada regular, así que cada bloque
+    se traduce a lo que sí significa algo: el balance del cara a cara, el
+    ranking y el **ELO por superficie** (que es lo que de verdad ordena a dos
+    tenistas en un partido concreto) y la forma con la carga reciente.
+    """
+    import panel_deportes as _pd
+
+    st.subheader(f"📊 {p1} vs {p2}")
+    try:
+        for frase in _pd.lectura_tenis(engine, p1, p2, superficie):
+            st.markdown(f"- {frase}")
+    except Exception as e:
+        st.caption(f"Panel no disponible ahora ({type(e).__name__}).")
+        return
+
+    t1, t2, t3 = st.tabs(['🤝 Cara a cara', '🏆 Ranking y ELO', '📈 Forma'])
+    with t1:
+        h = _pd.h2h_tenis(engine, p1, p2)
+        if h.get('balance') is not None:
+            b = int(h['balance'])
+            st.metric("Balance histórico",
+                      f"{p1 if b >= 0 else p2} +{abs(b)}" if b else "Igualado",
+                      help="Diferencia de victorias en todo el histórico del "
+                           "motor, que cubre 259.443 parejas de jugadores.")
+        if h.get('partidos'):
+            st.dataframe(pd.DataFrame([{
+                'Fecha': p['fecha'], 'Torneo': p['torneo'],
+                'Ganó': p['ganador'], 'Sets': p['sets'],
+                'Juegos': p['juegos'],
+            } for p in h['partidos']]), hide_index=True, width='stretch')
+            st.caption(f"{h['n']} cruces con detalle. El balance de arriba "
+                       f"puede cubrir más partidos que esta tabla: sale del "
+                       f"histórico completo del motor y aquí sólo se listan "
+                       f"los que además tienen marcador registrado.")
+        elif h.get('balance') is None:
+            st.info(h.get('motivo') or 'Sin cruces previos.')
+    with t2:
+        filas = []
+        for j in (p1, p2):
+            p = _pd.perfil_tenista(engine, j)
+            fila = {'Jugador': j,
+                    'Ranking': (f"{p['rank']:.0f}" if p.get('rank') else '—'),
+                    'Puntos': p.get('puntos') or '—',
+                    'ELO': (f"{p['elo']:.0f}" if p.get('elo') else '—')}
+            for sup in ('hard', 'clay', 'grass'):
+                v = (p.get('elo_superficie') or {}).get(sup)
+                fila[f'ELO {sup}'] = f"{v:.0f}" if v else '—'
+            filas.append(fila)
+        st.dataframe(pd.DataFrame(filas), hide_index=True, width='stretch')
+        st.caption("El ELO por superficie es el que manda en un partido "
+                   "concreto: el general mezcla resultados de tierra y de "
+                   "pista rápida, que no se transfieren.")
+    with t3:
+        for j in (p1, p2):
+            p = _pd.perfil_tenista(engine, j)
+            st.markdown(
+                f"**{j}** — racha `{p['racha'] or '—'}` · "
+                f"{p['ganados_recientes']}/{p['jugados_recientes']} recientes · "
+                f"{p.get('partidos_14d') or 0} partidos en 14 días · "
+                f"{p.get('horas_7d') or 0:.1f} h en pista en 7 días")
+            det = _pd.forma_tenis(j)
+            if det:
+                st.dataframe(pd.DataFrame([{
+                    'Fecha': d['fecha'], 'Torneo': d['torneo'],
+                    'Rival': d['rival'], 'Resultado': d['resultado'],
+                    'Sets': d['sets'],
+                } for d in det]), hide_index=True, width='stretch')
+            elif p.get('ultimo_partido'):
+                st.caption(f"Último partido registrado: {p['ultimo_partido']}. "
+                           f"El detalle partido a partido sólo existe para los "
+                           f"cruces recientes de ESPN.")
+
+    st.caption("ℹ️ Información para juzgar, no una señal de apuesta: el ELO ya "
+               "absorbe historial, forma y fatiga.")
+
+
 def render_h2h_club(clave: str, home: str, away: str, key: str):
     with st.expander(f"📜 Historial reciente — {home} vs {away}"):
         import api_football_manager as afm
@@ -1153,7 +1323,8 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
 
 
 def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
-                          deporte: str = 'futbol') -> bool:
+                          deporte: str = 'futbol',
+                          plantilla: dict = None, fecha=None) -> bool:
     """
     v71 — cuotas del partido desde TODAS las fuentes sin cuota de API
     (Pinnacle + ESPN), con line shopping.
@@ -1161,13 +1332,17 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
     Es el respaldo de `cuotas_auto` (que depende del core de ESPN y solo cubre
     algunas ligas). Si tampoco hay nada, lo dice con el motivo real en vez de
     dejar un «sin cuota» sin explicación.
+
+    v114 — con `plantilla` deja de ser un respaldo pobre: cruza TODO el tablón
+    con el modelo y enseña los mismos mercados que la vía de ESPN, al mejor
+    precio de las seis casas. `fecha` desambigua el emparejamiento.
     """
     try:
         import cuotas_multi as _cm
     except Exception:
         return False
     try:
-        res = _cm.cuotas_partido(deporte, home, away)
+        res = _cm.cuotas_partido(deporte, home, away, fecha=fecha)
     except Exception:
         return False
     if not res.get('n_casas'):
@@ -1180,10 +1355,52 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
     import pandas as _pd
     filas = []
     for casa, c in res['casas'].items():
+        if casa.startswith('_'):        # '_totales' es un cajón interno
+            continue
         filas.append({'Casa': casa,
                       f'{home}': c.get('home'), 'Empate': c.get('draw'),
                       f'{away}': c.get('away')})
     st.dataframe(_pd.DataFrame(filas), hide_index=True, width='stretch')
+
+    # v114 — LA TABLA RICA, TAMBIÉN AQUÍ.
+    #
+    # Esto enseñaba el 1X2 y se acababa. Las competiciones cuyo `event_id` de
+    # ESPN no se localiza —Champions, Conference, Eredivisie— caían siempre por
+    # esta rama, así que veían tres cuotas mientras Liga MX veía treinta
+    # mercados con su EV. El usuario lo pidió explícito: «todas las ligas al
+    # mismo nivel».
+    #
+    # No hacía falta ninguna fuente nueva: `cuotas_partido` ya devolvía
+    # totales, ambos-marcan y hándicap de las seis casas, y esta función los
+    # tiraba. `cuotas_tablon` los traduce al vocabulario de la plantilla y los
+    # cruza con el modelo — y de paso elige el MEJOR precio de cada mercado,
+    # que es lo que la rama de ESPN no puede hacer porque lee una casa sola.
+    if plantilla:
+        try:
+            import cuotas_tablon as _ct
+            _mk = _ct.mercados_con_ev(res, plantilla, home, away)
+            if _mk:
+                _pos = [r for r in _mk if r['ev'] > 0]
+                st.success(f"**{len(_mk)} mercados** con cuota real de "
+                           f"**{len({r['casa'] for r in _mk if r.get('casa')})} "
+                           f"casas** · **{len(_pos)} con EV positivo**.")
+                st.dataframe(_pd.DataFrame([{
+                    'Mercado': r['apuesta'],
+                    'Cuota casa': r['cuota_casa'],
+                    'Casa': r.get('casa') or '—',
+                    'Cuota justa': r['cuota_justa'],
+                    'Prob. modelo': f"{r['prob']*100:.0f}%",
+                    'EV': f"{r['ev']*100:+.1f}%",
+                } for r in _mk]), hide_index=True, width='stretch')
+                _sh = _ct.resumen_line_shopping(res)
+                if _sh:
+                    st.caption("🛒 " + _sh + " Comprar al mejor precio es lo "
+                               "único que este proyecto ha medido con ROI "
+                               "positivo y robusto; el EV del modelo, no.")
+        except Exception as e:
+            st.caption(f"Mercados cruzados no disponibles "
+                       f"({type(e).__name__}).")
+
     mejor = res.get('mejor') or {}
     partes = []
     for lado, etiq in (('home', home), ('draw', 'Empate'), ('away', away)):
@@ -1223,7 +1440,8 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
     no trae precios nuevos y sí gasta peticiones.
     """
     st.caption(
-        "Cuotas en vivo de **Pinnacle, Bovada y Playdoit** (sin límite de "
+        "Cuotas en vivo de **Pinnacle, Bovada, Playdoit, Unibet y Matchbook** "
+        "(sin límite de "
         "peticiones) contra la probabilidad del modelo, ya encogida hacia el "
         "mercado. **Capa 1** = pasa todos los filtros de élite; "
         "**alta confianza** = probable pero fuera de esos filtros, y se dice "
@@ -1482,14 +1700,49 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                    type="primary", width='stretch'):
         from match_parlay import proponer_parlays
         with st.spinner("Buscando las mejores combinadas del partido…"):
+            # v114 — LAS COMBINADAS SE ARMAN CON EL PRECIO REAL DE LAS CASAS.
+            #
+            # Antes el motor puntuaba casi todas las patas con cuota justa
+            # (1/prob), y con cuota justa el EV de toda pata vale 0 por
+            # construcción: el constructor sólo podía ordenar por
+            # probabilidad. Ahora recibe el MEJOR precio de las seis casas
+            # para cada mercado, así que puede ver cuál paga de más, que es lo
+            # que el usuario pidió. Si el tablón no cubre el partido, esto
+            # devuelve el motor tal cual y todo sigue como antes.
+            _m_parlay, _n_reales = motor, 0
+            try:
+                import cuotas_tablon as _ct
+                _dep_tab = ('tenis' if str(key).startswith('tenis')
+                            else 'mlb' if key in ('mlb', 'kbo')
+                            else 'nba' if key == 'nba' else 'futbol')
+                _m_parlay, _n_reales = _ct.motor_con_tablon(
+                    motor, home, away, deporte=_dep_tab)
+            except Exception:
+                pass
             opciones = proponer_parlays(
-                motor, home, away, max_opciones=5,
+                _m_parlay, home, away, max_opciones=5,
                 solo_cuotas_reales=_solo_reales,
                 bankroll=float(st.session_state.get('bankroll', 0) or 0))
+            # v114 — y aparte, la combinada SÓLO con mercados que tienen
+            # precio de casa. Una combinada que mezcla cuota real y cuota
+            # justa anuncia una «cuota combinada» que ninguna casa va a pagar:
+            # sirve para ordenar, no para cobrar. Esta otra sí es la de verdad.
+            _ops_ev = []
+            if _n_reales >= 2 and not _solo_reales:
+                try:
+                    _ops_ev = proponer_parlays(
+                        _m_parlay, home, away, max_opciones=3,
+                        solo_cuotas_reales=True,
+                        bankroll=float(st.session_state.get('bankroll', 0) or 0))
+                except Exception:
+                    # sin combinada de EV real la pantalla sigue entera: las
+                    # combinadas normales de arriba no dependen de ésta
+                    _ops_ev = []
         # v62: se guardan en sesión para que el botón de Telegram (que provoca
         # un rerun) siga teniéndolas disponibles.
         st.session_state[f'parlays_{key}'] = {
-            'partido': f'{home} vs {away}', 'opciones': opciones}
+            'partido': f'{home} vs {away}', 'opciones': opciones,
+            'n_reales': _n_reales, 'opciones_ev': _ops_ev}
 
     # v62: el RENDER se hace desde la sesión (no dentro del bloque del botón),
     # así las combinadas siguen en pantalla tras pulsar «Enviar a Telegram»
@@ -1505,6 +1758,76 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
         else:
             st.success(f"{len(opciones)} combinadas propuestas, ordenadas por "
                        "calidad (probabilidad × cuota).")
+            # v114: de dónde salen los precios con los que se han armado
+            _nr = _guardado.get('n_reales') or 0
+            if _nr:
+                st.caption(f"💰 Armadas con **cuota real de casa** en {_nr} "
+                           f"mercados (mejor precio del tablón). El resto usa "
+                           f"cuota justa (1/probabilidad), que no es un precio "
+                           f"que puedas tomar: sirve para ordenar, no para "
+                           f"calcular ganancia.")
+            else:
+                st.caption("ℹ️ Ninguna casa cotiza todavía este partido, así "
+                           "que las patas van con **cuota justa** "
+                           "(1/probabilidad). La cuota combinada es "
+                           "orientativa, no la que te van a pagar.")
+            # v114 — LA COMBINADA POR EV REAL, en su propia sección.
+            #
+            # Ésta es la que responde a lo que el usuario pidió: «propón un
+            # parlay en base a las cuotas reales automáticas». Todas sus patas
+            # tienen precio publicado por una casa, así que su cuota combinada
+            # es la que va a cobrar, y su EV es EV de verdad y no el artefacto
+            # que sale de multiplicar por una cuota justa.
+            _ops_ev = _guardado.get('opciones_ev') or []
+            if _ops_ev:
+                st.markdown("##### 💰 Combinada por EV real de las casas")
+                st.caption(
+                    "Sólo mercados con precio publicado, al mejor de las seis "
+                    "casas. **Aviso medido**: el proyecto tiene comprobado que "
+                    "apostar por la probabilidad del modelo pierde entre "
+                    "−4,66 % y −6,52 % (37.158 apuestas), y que el EV que "
+                    "declara es *anti*-indicador del cierre. Lo que sí mide "
+                    "positivo es comprar al mejor precio. Trata el EV de abajo "
+                    "como «esta casa paga más que las otras», no como «esto "
+                    "gana dinero».")
+                for op in _ops_ev:
+                    with st.container(border=True):
+                        e1, e2, e3 = st.columns([2, 1, 1])
+                        e1.markdown(f"**{op['etiqueta_opcion']}** · "
+                                    f"{op['n_selecciones']} patas")
+                        e2.metric("Prob. de acertar todo",
+                                  f"{op['prob_conjunta']*100:.0f}%")
+                        e3.metric("Cuota combinada",
+                                  f"{op['cuota_combinada']:.2f}",
+                                  help=f"100 u → {op['cuota_combinada']*100:.0f} u")
+                        for s in op['selecciones']:
+                            _ev_s = (s['cuota'] * s['prob'] - 1) * 100
+                            st.write(f"• **{s['apuesta']}** @ {s['cuota']} · "
+                                     f"{s['prob']*100:.0f}% · EV {_ev_s:+.1f} %")
+
+            # v114 — el CONTEXTO que el usuario pidió tener a la vista al
+            # decidir la combinada: historial del cruce, forma y clasificación.
+            # Es el mismo texto del panel de equipos, aquí resumido, para no
+            # tener que subir a buscarlo.
+            try:
+                _cl_ctx = getattr(motor, 'clave', None)
+                if _cl_ctx:
+                    import panel_equipos as _pe
+                    _frases = _pe.lectura(_cl_ctx, home, away, None)
+                    if _frases:
+                        with st.expander("📊 Contexto del cruce (historial, "
+                                         "forma y clasificación)",
+                                         expanded=True):
+                            for _fr in _frases:
+                                st.markdown(f"- {_fr}")
+                            st.caption(
+                                "Esto es para JUZGAR la combinada, no una "
+                                "señal aparte: el historial y la forma ya "
+                                "están dentro del modelo (el ELO los absorbe "
+                                "partido a partido), así que ver aquí que un "
+                                "equipo domina no significa que haya valor.")
+            except Exception:
+                pass
             for i, op in enumerate(opciones, 1):
                 with st.container(border=True):
                     oc1, oc2, oc3 = st.columns([2, 1, 1])
@@ -1564,22 +1887,38 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             # v71: sin botón. Las cuotas se descargan solas al abrir el
             # desplegable; el resultado se cachea 30 min en `cuotas_multi`, así
             # que abrirlo no cuesta una petición nueva cada vez.
+            # v114 — LAS DOS VÍAS, NO UNA U OTRA.
+            #
+            # Esto era un `if/else`: con `event_id` de ESPN se enseñaba la
+            # tabla rica y SIN él sólo el 1X2 multi-casa. Como el `event_id`
+            # falla justo en las competiciones europeas (los equipos de fase
+            # previa no están en el catálogo del motor, ver los registros de
+            # `name_mapper` con contexto «evid»), la Champions, la Conference
+            # y la Eredivisie se quedaban con tres cuotas.
+            #
+            # Ahora el tablón multi-casa se enseña SIEMPRE —es el que trae las
+            # seis casas y, con ellas, el mejor precio— y la vía de ESPN se
+            # suma cuando existe, porque aporta lo único que la otra no tiene:
+            # los props de jugador.
             if True:
                 try:
                     import cuotas_auto as _ca
                     with st.spinner("Descargando cuotas reales…"):
+                        _plc = (motor.plantilla_club(home, away)
+                                if hasattr(motor, 'plantilla_club')
+                                else motor.plantilla(home, away))
+                        _mostrar_cuotas_multi(_clave_liga_auto, home, away,
+                                              plantilla=_plc)
                         _eid = _ca.buscar_event_id(_clave_liga_auto, home, away)
-                        if not _eid:
-                            _mostrar_cuotas_multi(_clave_liga_auto, home, away)
-                        else:
-                            _plc = (motor.plantilla_club(home, away)
-                                    if hasattr(motor, 'plantilla_club')
-                                    else motor.plantilla(home, away))
+                        if _eid:
                             _res = _ca.evaluar(_clave_liga_auto, home, away,
                                                _eid, _plc)
-                            if not _res:
-                                _mostrar_cuotas_multi(_clave_liga_auto, home, away)
-                            else:
+                            if _res:
+                                st.markdown("---")
+                                st.markdown(
+                                    "**➕ Mercados adicionales de ESPN** "
+                                    "(incluye props de jugador, que el tablón "
+                                    "multi-casa no publica)")
                                 _pos = [r for r in _res if r['ev'] > 0]
                                 st.success(f"**{len(_res)} mercados** con cuota "
                                            f"real de *{_res[0]['casa']}* · "
@@ -2269,6 +2608,28 @@ except Exception:
     # estaba y manda la guardia de `render_liga_club`. Lo que no puede hacer
     # es lanzar — sería el mismo fallo que viene a evitar.
     pass
+# v114 — AQUÍ SE CONSUME EL DESTINO DE UNA TARJETA PULSADA.
+#
+# Tiene que ser exactamente aquí: después de construir `COMPETENCIAS` (hace
+# falta el mapa etiqueta→clave) y ANTES del `st.selectbox` de abajo, porque
+# Streamlit prohíbe escribir la clave de un widget ya instanciado. Ver
+# `navegacion.py` para el porqué del rodeo en dos pasos.
+try:
+    import navegacion as _nav
+
+    def _equipos_de(clave_liga):
+        """Catálogo de la competición de destino, para escribir el nombre tal
+        y como lo espera su selector."""
+        if clave_liga in _nav.SELECTORES_DEPORTE:
+            return None                 # cada deporte tiene el suyo; no se toca
+        return getattr(cargar_motor_liga(clave_liga), 'equipos', None)
+
+    _nav.aplicar_pendiente(st, COMPETENCIAS, equipos_de_liga=_equipos_de)
+except Exception:
+    # una navegación fallida NUNCA puede costar la página: si algo va mal, el
+    # usuario se queda en la vista en la que estaba.
+    pass
+
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
 # en el teléfono la barra lateral llega colapsada y el usuario no encontraba
 # las ligas. El estado se comparte con st.session_state.
@@ -2306,7 +2667,8 @@ def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     st.header("💎 Apuestas del Día")
     st.caption("SOLO los partidos de **HOY**: todas las ligas con "
-               "jornada este día (ESPN + Pinnacle + Bovada + Playdoit) + "
+               "jornada este día (ESPN + Pinnacle + Bovada + Playdoit + "
+               "Unibet + Matchbook) + "
                "⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA, con cuota y EV automáticos. "
                "**Todas las horas están en hora de Ciudad de México.** "
                "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza "
@@ -2639,6 +3001,19 @@ def render_alpha_finder():
             return f"📅 Mañana · {fecha}"
         return f"📅 {fecha}"
 
+    # v114 — contador para las claves de los botones «Ver el partido».
+    #
+    # El mismo partido aparece en varias listas de esta página (Máximo Valor,
+    # Máxima Confianza, pronósticos, oleadas), y `_tarjetas` se llama una vez
+    # por lista. Una clave construida con partido+fecha se repetía y Streamlit
+    # lanzaba `There are multiple elements with the same key` — lo cazó
+    # `smoke_botones.py`, que es justo para lo que está.
+    #
+    # El contador es determinista: el orden de render no cambia entre
+    # ejecuciones, así que la clave de cada botón es estable de un rerun al
+    # siguiente, que es lo que Streamlit necesita para no perder el estado.
+    _n_boton = {'i': 0}
+
     def _tarjetas(lista, titulo, agrupar_dia=True):
         """v89 — agrupación en dos niveles, pedida por el usuario:
           · por DÍA (hoy primero, luego el resto de la semana), y
@@ -2707,6 +3082,36 @@ def render_alpha_finder():
                               "esta liga: el modelo no ve partidos nuevos "
                               "desde hace ese número de días.")
                         if t0.get('antiguedad') else None)
+                    # v114 — LA TARJETA LLEVA A SU PARTIDO.
+                    #
+                    # Pedido del usuario: «si hago click me llevas a Liga MX al
+                    # partido seleccionado para ver sus estadísticas y evaluar
+                    # qué parlay meter». El botón sólo APUNTA el destino; la
+                    # navegación la ejecuta `navegacion.aplicar_pendiente` al
+                    # principio del script siguiente, porque tocar aquí la
+                    # clave del selector de competición —ya instanciado más
+                    # arriba— es un error de Streamlit, no una opción de
+                    # diseño.
+                    _dest = None
+                    try:
+                        import navegacion as _nav
+                        _dest = _nav.destino_del_pick(t0)
+                    except Exception:
+                        _dest = None
+                    if _dest:
+                        _n_boton['i'] += 1
+                        _kb = f"ir_partido_{_n_boton['i']}"
+                        if st.button(
+                                f"📊 Ver {t0.get('partido','el partido')} en "
+                                f"{t0.get('liga') or _dep} →",
+                                key=_kb, width='stretch',
+                                help="Abre la vista de esa competición con "
+                                     "este partido cargado: historial, "
+                                     "clasificación, forma, todos los "
+                                     "mercados y el constructor de "
+                                     "combinadas."):
+                            _nav.marcar(st, _dest)
+                            st.rerun()
                     for i, t in enumerate(ts):
                         if i:
                             st.divider()
@@ -3439,7 +3844,16 @@ def render_mlb():
                         width='stretch', hide_index=True)
             for obs in pl.get('observaciones', []):
                 st.caption(obs)
+            # v114: serie histórica, clasificación y forma (lo que el fútbol
+            # ya tenía y la MLB no)
+            st.divider()
+            try:
+                render_panel_beisbol('mlb', home, away, key='mlb',
+                                     nombres=nombres)
+            except Exception as e:
+                st.caption(f"Panel de equipos no disponible ({type(e).__name__}).")
             # v56: combinador de mercados (manual + automático) para MLB
+            st.divider()
             render_parlay_partido(eng, home, away, key='mlb')
     with tab2:
         # v106 — pasa al panel común de EV+ (`render_ev_automatico`), el mismo
@@ -3611,6 +4025,14 @@ def render_kbo():
                     st.caption(obs)
                 if pl.get('nota_empate'):
                     st.caption(pl['nota_empate'])
+                # v114: serie histórica, clasificación y forma (13.009
+                # partidos de KBO en el histórico local)
+                st.divider()
+                try:
+                    render_panel_beisbol('kbo', home, away, key='kbo')
+                except Exception as e:
+                    st.caption(f"Panel de equipos no disponible "
+                               f"({type(e).__name__}).")
 
     with tab2:
         @st.cache_data(ttl=1800, show_spinner="Consultando cuotas KBO…")
@@ -3820,15 +4242,35 @@ def render_tennis():
     #
     # Cubre los dos circuitos a la vez —el barrido de tenis no separa ATP de
     # WTA— así que no depende del selector de arriba.
-    with st.expander("💰 EV+ automático — ATP y WTA con cuota real",
-                     expanded=False):
-        import alpha_finder as _af
-        render_ev_automatico(
-            'Tenis', _af._picks_tenis,
-            nota="Cubre ATP y WTA a la vez, incluidos challengers e ITF. "
-                 "El canal de «valor de mercado» (una casa pagando por encima "
-                 "del precio justo de Pinnacle) está validado en WTA y **no** "
-                 "en ATP: los de ATP salen sólo por modelo.")
+    #
+    # v114 — PERO SE PINTA AL FINAL, NO AQUÍ.
+    #
+    # Un expander CERRADO no ahorra trabajo: Streamlit ejecuta su cuerpo
+    # siempre, y sólo decide si lo enseña. Con el panel en esta posición, el
+    # barrido de cuotas de tenis (ATP + WTA + challengers + ITF, la lista más
+    # larga de los cuatro deportes) corría ANTES del calendario, de los
+    # selectores de jugador y de los 19 mercados — así que la vista entera
+    # esperaba a la red para pintar su primera línea útil.
+    #
+    # El usuario lo describió exacto: «cuando selecciono tenis no me carga
+    # todo el contenido hasta que hago click en cuota automática». El click no
+    # arreglaba nada: disparaba un rerun que ya encontraba el caché de 15
+    # minutos caliente. Es la MISMA causa que la v91 documentó y corrigió en
+    # Apuestas del Día con las combinadas.
+    #
+    # Aquí se define y se llama al final de la función (ver el pie). El trabajo
+    # total es el mismo; lo que cambia es que el calendario y las estadísticas
+    # —que es a lo que se viene— salen sin esperar a las cuotas.
+    def _panel_ev_tenis():
+        with st.expander("💰 EV+ automático — ATP y WTA con cuota real",
+                         expanded=False):
+            import alpha_finder as _af
+            render_ev_automatico(
+                'Tenis', _af._picks_tenis,
+                nota="Cubre ATP y WTA a la vez, incluidos challengers e ITF. "
+                     "El canal de «valor de mercado» (una casa pagando por "
+                     "encima del precio justo de Pinnacle) está validado en "
+                     "WTA y **no** en ATP: los de ATP salen sólo por modelo.")
 
     # ---- v67: próximos partidos desde ESPN, por COMPETICIÓN ----------------
     # Antes: solo los partidos de hoy que apareciesen en la fuente de cuotas de
@@ -4013,8 +4455,25 @@ def render_tennis():
                 surface=sup, best_of=best_of, indoor=indoor,
                 categoria=(_sel_fx or {}).get('categoria'),
                 fase=(_sel_fx or {}).get('fase'))
+            # v114: cara a cara, ranking/ELO por superficie y forma — el
+            # equivalente en tenis del panel de equipos del fútbol.
+            try:
+                render_panel_tenis(eng, p1, p2, sup,
+                                   key=f'tenis_{eng.circuito}')
+            except Exception as e:
+                st.caption(f"Panel de jugadores no disponible "
+                           f"({type(e).__name__}).")
+            st.divider()
             render_parlay_partido(_eng_ctx, p1, p2, key=f'tenis_{eng.circuito}')
             render_rendimiento(key=f'tenis_{eng.circuito}')
+
+    # v114 — el EV+ automático, al final: es lo único de esta vista que
+    # depende de la red, y arriba retrasaba todo lo demás (ver su definición).
+    # Va fuera del `if p1 != p2` a propósito: cubre los dos circuitos enteros,
+    # no el partido en pantalla, así que tiene que salir aunque no haya un
+    # cruce válido elegido.
+    st.divider()
+    _panel_ev_tenis()
 
 
 _clave_comp = COMPETENCIAS[competencia_sel]
@@ -4445,6 +4904,32 @@ with tab_rapida:
                     f"visitante {pred['prediction']['expected_goals']['away']*fac[1]:.2f}.")
     except Exception:
         pass
+
+    # ---- v114: CUOTAS REALES + EV, igual que en las ligas de clubes ----------
+    #
+    # El usuario pidió que las selecciones tuvieran «extracción automática, EV
+    # automático y todas las features que tenemos en las ligas de fútbol, como
+    # en la Liga MX». Le faltaba justo esto: el calendario ya salía de ESPN
+    # (ahora con 22 competiciones, no 7) pero no había ni una cuota.
+    #
+    # El tablón se consulta con el nombre en INGLÉS de cada selección, que es
+    # como las publican las casas; el motor trabaja con códigos FIFA («MEX»).
+    st.divider()
+    with st.expander("💰 Cuotas reales AUTOMÁTICAS + EV", expanded=False):
+        try:
+            from config import TEAM_NAMES_EN as _EN_ODDS
+            _h_odds = _EN_ODDS.get(home, NOMBRES_PAIS.get(home, home))
+            _a_odds = _EN_ODDS.get(away, NOMBRES_PAIS.get(away, away))
+            st.caption(f"Buscando **{_h_odds} vs {_a_odds}** en Pinnacle, "
+                       f"Bovada, Playdoit y Unibet. Las casas abren línea de "
+                       f"selecciones cuando hay fecha FIFA; fuera de esas "
+                       f"ventanas es normal que no haya precio.")
+            _pl_int = MOTOR.plantilla(home, away)
+            _mostrar_cuotas_multi('mundial', _h_odds, _a_odds,
+                                  plantilla=_pl_int)
+        except Exception as e:
+            st.caption(f"No se pudieron obtener las cuotas "
+                       f"({type(e).__name__}: {e}).")
 
     # ---- 🎯 Parlay del partido en pantalla (v15) ------------------------------
     st.divider()

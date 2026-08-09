@@ -1,0 +1,209 @@
+[
+  {
+    "liga": "fifa.world",
+    "nombre": "Mundial masculino",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2026,
+    "ejemplo": "Argentina at Spain"
+  },
+  {
+    "liga": "fifa.worldq.conmebol",
+    "nombre": "Elim. CONMEBOL",
+    "estado": "ok",
+    "eventos": 5,
+    "con_cuota": 0,
+    "temporada": 2023,
+    "ejemplo": "Argentina at Ecuador"
+  },
+  {
+    "liga": "fifa.worldq.concacaf",
+    "nombre": "Elim. CONCACAF",
+    "estado": "ok",
+    "eventos": 6,
+    "con_cuota": 0,
+    "temporada": 2024,
+    "ejemplo": "Honduras at Costa Rica"
+  },
+  {
+    "liga": "fifa.worldq.uefa",
+    "nombre": "Elim. UEFA",
+    "estado": "ok",
+    "eventos": 4,
+    "con_cuota": 0,
+    "temporada": 2025,
+    "ejemplo": "Italy at Bosnia-Herzegovina"
+  },
+  {
+    "liga": "fifa.worldq.afc",
+    "nombre": "Elim. AFC",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2023,
+    "ejemplo": "United Arab Emirates at Iraq"
+  },
+  {
+    "liga": "fifa.worldq.caf",
+    "nombre": "Elim. CAF",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2023,
+    "ejemplo": "Congo DR at Nigeria"
+  },
+  {
+    "liga": "fifa.worldq.ofc",
+    "nombre": "Elim. OFC",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2024,
+    "ejemplo": "New Zealand at New Caledonia"
+  },
+  {
+    "liga": "fifa.friendly",
+    "nombre": "Amistosos masculinos",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2026,
+    "ejemplo": "Tajikistan at Azerbaijan"
+  },
+  {
+    "liga": "fifa.friendly.w",
+    "nombre": "Amistosos femeninos",
+    "estado": "ok",
+    "eventos": 2,
+    "con_cuota": 0,
+    "temporada": 2026,
+    "ejemplo": "Australia at Germany"
+  },
+  {
+    "liga": "fifa.wwc",
+    "nombre": "Mundial femenino",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2023,
+    "ejemplo": "England at Spain"
+  },
+  {
+    "liga": "fifa.olympics",
+    "nombre": "Olímpico masculino",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2024,
+    "ejemplo": "Morocco U23 at Egypt U23"
+  },
+  {
+    "liga": "fifa.confederations",
+    "nombre": "Copa Confederaciones",
+    "estado": "ok",
+    "eventos": 2,
+    "con_cuota": 0,
+    "temporada": 2017,
+    "ejemplo": "Mexico at Portugal"
+  },
+  {
+    "liga": "fifa.cwc",
+    "nombre": "Mundial de Clubes",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2025,
+    "ejemplo": "Paris Saint-Germain at Chelsea"
+  },
+  {
+    "liga": "uefa.euro",
+    "nombre": "Eurocopa",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2024,
+    "ejemplo": "England at Spain"
+  },
+  {
+    "liga": "uefa.euroq",
+    "nombre": "Clasificación Eurocopa",
+    "estado": "ok",
+    "eventos": 3,
+    "con_cuota": 0,
+    "temporada": 2023,
+    "ejemplo": "Greece at Georgia"
+  },
+  {
+    "liga": "uefa.nations",
+    "nombre": "UEFA Nations League",
+    "estado": "ok",
+    "eventos": 8,
+    "con_cuota": 0,
+    "temporada": 2026,
+    "ejemplo": "Malta at Andorra"
+  },
+  {
+    "liga": "uefa.weuro",
+    "nombre": "Eurocopa femenina",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2025,
+    "ejemplo": "Spain at England"
+  },
+  {
+    "liga": "conmebol.america",
+    "nombre": "Copa América",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2024,
+    "ejemplo": "Colombia at Argentina"
+  },
+  {
+    "liga": "concacaf.gold",
+    "nombre": "Copa Oro",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2025,
+    "ejemplo": "Mexico at United States"
+  },
+  {
+    "liga": "concacaf.nations.league",
+    "nombre": "CONCACAF Nations League",
+    "estado": "ok",
+    "eventos": 3,
+    "con_cuota": 0,
+    "temporada": 2026,
+    "ejemplo": "Antigua and Barbuda at Aruba"
+  },
+  {
+    "liga": "caf.nations",
+    "nombre": "Copa África",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2025,
+    "ejemplo": "Morocco at Senegal"
+  },
+  {
+    "liga": "afc.asian.cup",
+    "nombre": "Copa Asia",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2027,
+    "ejemplo": "Palestine at Saudi Arabia"
+  },
+  {
+    "liga": "fifa.w.olympics",
+    "nombre": "variante olímpico fem",
+    "estado": "ok",
+    "eventos": 1,
+    "con_cuota": 0,
+    "temporada": 2024,
+    "ejemplo": "United States at Brazil"
+  }
+]

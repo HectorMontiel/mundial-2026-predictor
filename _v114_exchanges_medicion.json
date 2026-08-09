@@ -1,0 +1,23 @@
+{
+  "cobertura": {
+    "Pinnacle": 653,
+    "Bovada": 474,
+    "Playdoit": 525,
+    "Unibet": 134,
+    "Matchbook": 125,
+    "Polymarket": 0
+  },
+  "mejor_precio": {
+    "Pinnacle": 966,
+    "Bovada": 311,
+    "Playdoit": 238,
+    "Unibet": 74,
+    "Matchbook": 262,
+    "Polymarket": 0
+  },
+  "n_comunes": 589,
+  "arbitrajes": 11,
+  "margen_4casas": 1.0546363327674024,
+  "margen_con_exchanges": 1.0495410865874364,
+  "ev_playdoit_vs_ancla": 8
+}

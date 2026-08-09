@@ -608,8 +608,14 @@ def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
         tenia_precio = bool(fx.get('odd_home'))
         try:
             ref = (dep_espn, liga_espn, fx.get('event_id'), fx.get('_comp_id'))
+            # v114 — la FECHA del fixture viaja a la búsqueda. Es lo que
+            # impide que el emparejador tome las cuotas de otro partido del
+            # mismo cruce jugado otro día (ida y vuelta, o la categoría
+            # femenina del mismo club). Ver `cuotas_multi._buscar`.
             res = cm.cuotas_partido(deporte, fx['home'], fx['away'],
-                                    espn_ref=ref if fx.get('event_id') else None)
+                                    espn_ref=ref if fx.get('event_id') else None,
+                                    fecha=fx.get('inicio') or fx.get('fecha'),
+                                    liga=liga_espn)
         except Exception:
             continue
         # El ANCLA SHARP se toma siempre que exista, traiga o no precio ESPN:
@@ -746,6 +752,25 @@ def fixtures_deporte(deporte: str, dias: int = DIAS_SEMANA) -> List[Dict]:
 # «Partidos Internacionales» debe mostrar lo que viene de verdad: amistosos,
 # Nations League y clasificatorias. Verificado 2026-07-24: 165 partidos
 # programados a 200 días (amistosos desde el 23-sep, Nations League 24-sep).
+# v114 — TODAS las competiciones de selecciones, no sólo siete masculinas.
+#
+# El usuario lo pidió explícito: «quiero que se encuentren todos los partidos a
+# nivel de selecciones nacionales, ya sea varonil, femenil, amistosos, etc».
+# Esta lista tenía amistosos, la Nations League de UEFA y cinco clasificatorias
+# — o sea, ningún torneo continental, ninguna competición femenina y ninguna
+# olímpica.
+#
+# Las quince añadidas están COMPROBADAS una a una contra el endpoint el
+# 2026-08-09 (`_v114_espn_selecciones.py`): las 22 de aquí abajo responden 200.
+# Cuatro que se probaron NO existen con ese nombre y devuelven 400, así que no
+# se incluyen y quedan anotadas para no volver a intentarlas a ciegas:
+# `uefa.euro.u21`, `conmebol.america.fem`, `concacaf.gold.w` y `ofc.nations`.
+#
+# El nombre del torneo IMPORTA, no es decorativo: viaja al emparejador de
+# cuotas como nombre de competición, y de ahí sale la marca de categoría que
+# impide que un amistoso femenino tome el precio del masculino entre los
+# mismos dos países (ver `cuotas_multi.categoria_partido`). Por eso los
+# femeninos llevan «(femenino)» en el nombre.
 LIGAS_SELECCIONES = [
     ('fifa.friendly', 'Amistoso'),
     ('uefa.nations', 'UEFA Nations League'),
@@ -754,6 +779,23 @@ LIGAS_SELECCIONES = [
     ('fifa.worldq.conmebol', 'Clasif. CONMEBOL'),
     ('fifa.worldq.afc', 'Clasif. AFC'),
     ('fifa.worldq.caf', 'Clasif. CAF'),
+    # --- v114: el resto del calendario internacional masculino -------------
+    ('fifa.world', 'Copa del Mundo'),
+    ('fifa.worldq.ofc', 'Clasif. OFC'),
+    ('uefa.euro', 'Eurocopa'),
+    ('uefa.euroq', 'Clasif. Eurocopa'),
+    ('conmebol.america', 'Copa América'),
+    ('concacaf.gold', 'Copa Oro'),
+    ('concacaf.nations.league', 'CONCACAF Nations League'),
+    ('caf.nations', 'Copa África'),
+    ('afc.asian.cup', 'Copa Asia'),
+    ('fifa.confederations', 'Copa Confederaciones'),
+    ('fifa.olympics', 'Juegos Olímpicos'),
+    # --- v114: competiciones FEMENINAS -------------------------------------
+    ('fifa.friendly.w', 'Amistoso femenino'),
+    ('fifa.wwc', 'Mundial femenino'),
+    ('uefa.weuro', 'Eurocopa femenina'),
+    ('fifa.w.olympics', 'Juegos Olímpicos femenino'),
 ]
 
 
@@ -812,7 +854,13 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
                 salida.append({'fecha': fecha.strftime('%Y-%m-%d'),
                                'home': loc['team']['displayName'],
                                'away': vis['team']['displayName'],
-                               'torneo': torneo})
+                               'torneo': torneo,
+                               # v114: la hora exacta y el evento, para poder
+                               # pedir cuotas del partido correcto y enseñar la
+                               # hora de CDMX como en el resto de la app
+                               'inicio': ev.get('date'),
+                               'event_id': ev.get('id'),
+                               'liga_espn': liga})
             except Exception:
                 continue
     salida.sort(key=lambda x: x['fecha'])

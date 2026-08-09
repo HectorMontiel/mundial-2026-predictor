@@ -85,9 +85,30 @@ def _historico(clave: str) -> pd.DataFrame:
     # NaT la mitad del fichero (el mismo fallo que la v105 encontró en el ELO
     # global, donde se perdían 37 de 66 competiciones enteras).
     d['date'] = pd.to_datetime(d['date'], errors='coerce', format='mixed')
+    # v114 — EL BÉISBOL ANOTA CARRERAS, NO GOLES.
+    #
+    # `historico_mlb.csv` y `historico_kbo.csv` tienen exactamente la misma
+    # forma que los de fútbol (date, home_team, away_team, marcador) pero
+    # llaman `home_runs`/`away_runs` a las dos columnas del marcador. Con
+    # renombrarlas aquí, todo el panel —cara a cara, forma, racha, local y
+    # visitante— funciona en MLB y KBO sin duplicar una línea de lógica.
+    #
+    # Se hace en el ÚNICO sitio donde el fichero entra al módulo, que es lo
+    # que evita tener que acordarse en cada función.
+    if 'home_goals' not in d.columns:
+        for origen, destino in (('home_runs', 'home_goals'),
+                                ('away_runs', 'away_goals'),
+                                ('home_score', 'home_goals'),
+                                ('away_score', 'away_goals')):
+            if origen in d.columns and destino not in d.columns:
+                d[destino] = d[origen]
     for c in ('home_goals', 'away_goals'):
         if c in d.columns:
             d[c] = pd.to_numeric(d[c], errors='coerce')
+    if 'home_goals' not in d.columns or 'away_goals' not in d.columns:
+        logger.info(f'[panel] {ruta} sin columnas de marcador reconocibles')
+        _CACHE[clave] = pd.DataFrame()
+        return _CACHE[clave]
     d = d.dropna(subset=['date', 'home_team', 'away_team',
                          'home_goals', 'away_goals'])
     d = d.sort_values('date').reset_index(drop=True)

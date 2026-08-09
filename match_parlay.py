@@ -369,13 +369,30 @@ def _cuotas_reales_del_partido(pl: Dict) -> Dict[str, float]:
     de nombres de equipo. Cubre 1X2 y over/under 2.5 (lo que publican las
     fuentes gratuitas).
     """
+    # v114 — EL TABLÓN EN VIVO MANDA SOBRE EL FICHERO DEL PIPELINE.
+    #
+    # `odds_actuales.json` lo escribe la tarea diaria y sólo cubre 1X2,
+    # over/under 2.5, BTTS y el hándicap de ±0,5. Si la interfaz ya ha
+    # consultado el tablón de las cinco casas (`cuotas_tablon`), sus precios
+    # son más frescos, cubren más mercados y son el MEJOR de las casas, no el
+    # de una. Se ponen encima de los del fichero, no en su lugar: cada uno
+    # rellena lo que el otro no tiene.
+    del_tablon = {}
+    if isinstance(pl, dict) and isinstance(pl.get('cuotas_tablon'), dict):
+        for k, v in pl['cuotas_tablon'].items():
+            try:
+                f = float(v)
+            except (TypeError, ValueError):
+                continue
+            if f > 1.0:
+                del_tablon[k] = f
     if not os.path.exists('odds_actuales.json'):
-        return {}
+        return del_tablon
     try:
         with open('odds_actuales.json', encoding='utf-8') as f:
             cuotas = json.load(f).get('cuotas', {})
     except Exception:
-        return {}
+        return del_tablon
     cod = pl.get('codigos', {})
     h = str(cod.get('home', '')).replace(' ', '-')
     a = str(cod.get('away', '')).replace(' ', '-')
@@ -414,8 +431,9 @@ def _cuotas_reales_del_partido(pl: Dict) -> Dict[str, float]:
                     reales['home_plus05_prob'] = float(o['odd_ah_home'])
                     reales['ah_home_mas05'] = float(o['odd_ah_home'])
                     reales['away_minus05_prob'] = float(o['odd_ah_away'])
+            reales.update(del_tablon)      # el precio en vivo, el último
             return reales
-    return {}
+    return del_tablon
 
 
 def obtener_selecciones(pl: Dict) -> List[Seleccion]:

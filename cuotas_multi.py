@@ -57,6 +57,7 @@ Uso:
 import json
 import logging
 import os
+import re
 import threading
 import time
 import unicodedata
@@ -113,6 +114,26 @@ EQUIVALENCIAS = {
     'gremio': 'gremio', 'gremio fbpa': 'gremio',
     'sao': 'sao', 'saopaulo': 'sao paulo',
     'wanderers': 'wanderers', 'nacional': 'nacional',
+    # v114 — variantes MEDIDAS sobre los fixtures que se quedaban sin precio.
+    #
+    # De 473 fixtures de las 50 competiciones activas, 169 no encontraban
+    # cuota. Casi todos porque ninguna casa los cotiza todavía (partidos a más
+    # de tres días, ligas menores), que es correcto — pero nueve SÍ estaban en
+    # el tablón y se perdían por cómo escribe el nombre cada fuente. Cada
+    # entrada de aquí abajo corresponde a uno de esos nueve casos reales, no a
+    # una suposición:
+    #
+    #   Union St.-Gilloise   ↔ Union Saint-Gilloise      (champions)
+    #   Red Bull New York    ↔ New York Red Bulls        (mls)
+    #   Asteras Tripoli      ↔ Asteras Tripolis          (gre_super_league)
+    #   Queen's Park         ↔ FC Queens Park            (sco_championship)
+    #   Hamburg SV           ↔ Hamburger SV              (bundesliga)
+    #   CSKA Moscow          ↔ CSKA Moscú                (rus_premier)
+    #   Lokomotiv Moscow     ↔ FK Lokomotiv Moscú        (rus_premier)
+    'st': 'saint', 'bulls': 'bull', 'tripolis': 'tripoli',
+    'queens': 'queen', 'hamburger': 'hamburg',
+    'moscu': 'moscow', 'moskva': 'moscow',
+    'munchen': 'munich', 'muenchen': 'munich',
 }
 
 # Palabras que no distinguen a un club y solo meten ruido en la comparación
@@ -122,6 +143,9 @@ RUIDO_CLUB = {
     'sporting', 'united', 'city', 'de', 'do', 'da', 'del', 'the', 'if', 'ff',
     'bk', 'ik', 'cr', 'ca', 'aa', 'se', 'esporte', 'futebol', 'futbol', 'rj',
     'sp', 'mg', 'rs', 'pr', 'sc2', 'u20', 'ii', 'b',
+    # v114: siglas de sociedad que unas fuentes ponen y otras no. «Volos NFC»
+    # y «Volos NPS» son el mismo club griego escrito con dos abreviaturas.
+    'nfc', 'nps', 'npc',
 }
 
 
@@ -232,7 +256,24 @@ def _sim_club(a: str, b: str) -> float:
         return 0.0
     inter = ta & tb
     if inter and (inter == ta or inter == tb):
-        return 1.0                      # uno contiene al otro: mismo club
+        # v114 — CONTENCIÓN NO ES IGUALDAD, Y CONFUNDIRLAS COSTÓ UN PICK FALSO.
+        #
+        # Esto devolvía 1.0 en los dos casos, y por eso «Independiente» casaba
+        # perfecto con «Independiente Rivadavia»: dos clubes DISTINTOS de la
+        # misma liga argentina. Medido el 2026-08-09 sobre el tablón real: el
+        # sistema emparejó «Independiente vs Belgrano» (Primera División
+        # FEMENINA, 10-ago) con «Belgrano vs Independiente Rivadavia» (Liga
+        # Profesional masculina, 15-ago) y encima con los bandos al revés, lo
+        # que fabricaba un arbitraje del 0,7737 y un EV enorme sobre un partido
+        # que no existe. No daba excepción: daba una apuesta.
+        #
+        # La contención SIGUE valiendo —«Gremio» y «Gremio FBPA» son el mismo
+        # club, que es para lo que se escribió— pero ahora puntúa por debajo de
+        # la igualdad exacta. 0,93 está muy por encima del umbral 0,80 que
+        # exige `_buscar`, así que ningún emparejamiento que hoy funciona deja
+        # de funcionar; lo único que cambia es que si en el mismo tablón están
+        # el club exacto Y uno que lo contiene, gana el exacto.
+        return 1.0 if ta == tb else 0.93
     jac = len(inter) / len(ta | tb)
     if not inter:
         # v79 — atajo DEMOSTRABLEMENTE inocuo, no una heurística.
@@ -247,6 +288,140 @@ def _sim_club(a: str, b: str) -> float:
         return 0.0
     cad = SequenceMatcher(None, ' '.join(sorted(ta)), ' '.join(sorted(tb))).ratio()
     return max(jac, 0.5 * jac + 0.5 * cad)
+
+
+# ---------------------------------------------------------------------------
+# v114 — CATEGORÍA DEL PARTIDO (femenino, juvenil, reservas).
+#
+# `normalizar` convierte «(W)» y «(F)» en espacios y luego `_tokens_club` tira
+# las palabras de una letra, así que el marcador de categoría DESAPARECE antes
+# de comparar: «CA Independiente (W)» y «Independiente» quedan idénticos. Con
+# eso, un partido femenino y uno masculino del mismo club son indistinguibles
+# para el emparejador — y sus cuotas no tienen nada que ver.
+#
+# Se extrae del texto ORIGINAL, antes de normalizar. La marca puede venir en
+# el nombre del equipo («Belgrano de Córdoba (W)») o en el de la competición
+# («Argentina - Primera Division Women»), así que se acepta cualquiera de los
+# dos como fuente.
+#
+# Sólo se reconocen marcas INEQUÍVOCAS. Las letras sueltas «w» y «f» se
+# aceptan únicamente entre paréntesis, que es como las escriben las casas; una
+# «B» o un «II» de equipo filial no se tratan aquí porque «B» aparece en
+# nombres legítimos y el falso positivo sería peor que el problema.
+# ---------------------------------------------------------------------------
+_MARCAS_CATEGORIA = (
+    # el género se escribe con la terminación del idioma («femenino» pero
+    # «Eurocopa femenina»), así que la marca acepta las dos y el plural
+    ('fem', re.compile(
+        r'\((?:w|f)\)|\b(?:women|womens|woman|femenin[ao]s?|femenil(?:es)?|'
+        r'feminin[ao]s?|femminile|frauen|dames|ladies|kvinner|damen)\b',
+        re.I)),
+    # v114 — FILIAL, JUVENIL Y RESERVAS SON LA MISMA MARCA A PROPÓSITO.
+    #
+    # «Benfica II», «Benfica B» y «Benfica Sub-21» son el MISMO equipo escrito
+    # de tres formas: el filial. Si cada variante fuese una marca distinta, el
+    # emparejador dejaría de casarlas entre sí y perdería cobertura real —
+    # medido: el arreglo costaba «Benfica II vs Leixoes» de Playdoit.
+    #
+    # Lo que sí tienen que separar es el filial del PRIMER equipo, y eso lo
+    # hacen todas por igual. `RUIDO_CLUB` ya tira «ii», «b» y «u20» de los
+    # tokens para que el nombre base identifique al club; la marca es lo que
+    # distingue después qué equipo de ese club juega.
+    #
+    # También cubre las selecciones inferiores («Brasil U20 vs Chile U20»),
+    # que casan entre sí y nunca con la absoluta.
+    ('filial', re.compile(
+        r'\bu-?(?:15|16|17|18|19|20|21|23)\b|'
+        r'\bsub-?\s?(?:15|16|17|18|19|20|21|23)\b|'
+        r'\((?:r|b|ii)\)|'
+        r'\b(?:youth|juvenil|junioren|jugend|reserves?|reservas?|filial)\b',
+        re.I)),
+)
+
+# Marca DÉBIL de filial: «Benfica II», «Real Madrid B». Significa lo mismo que
+# «Reserves», pero con dos caracteres que también aparecen donde no significan
+# nada: «Primera B Metropolitana», «Liga II», «Juan Pablo II». Medido sobre el
+# tablón real, usarla para FILTRAR costaba seis emparejamientos correctos y no
+# arreglaba ninguno que las marcas fuertes no cubrieran ya.
+#
+# Así que no filtra: DESEMPATA. Cuando dos candidatos encajan igual de bien,
+# gana el que coincida con el buscado en llevarla o no. Una preferencia no
+# puede perder cobertura; un filtro sí.
+_MARCA_FILIAL_DEBIL = re.compile(r'\b(?:ii|b)\s*$', re.I)
+
+
+@lru_cache(maxsize=50_000)
+def categoria_partido(home: str, away: str, liga: str = '') -> frozenset:
+    """
+    Marcas de categoría de un partido: `{'fem'}`, `{'filial'}`, las dos o
+    ninguna. Sin marcas es el caso por defecto: el absoluto masculino.
+
+    Sólo marcas INEQUÍVOCAS, porque esto sí filtra. Valen vengan del equipo o
+    de la competición: «Argentina - Primera Division Women» es la única pista
+    de que ese partido es femenino, ya que sus equipos no la llevan.
+    """
+    marcas = set()
+    for t in (home, away, liga):
+        t = str(t or '').strip()
+        if not t:
+            continue
+        for nombre, patron in _MARCAS_CATEGORIA:
+            if patron.search(t):
+                marcas.add(nombre)
+    return frozenset(marcas)
+
+
+@lru_cache(maxsize=50_000)
+def _filial_debil(home: str, away: str) -> bool:
+    """¿Algún equipo lleva el sufijo «II»/«B»?"""
+    return any(_MARCA_FILIAL_DEBIL.search(str(t or '').strip())
+               for t in (home, away))
+
+
+@lru_cache(maxsize=50_000)
+def categoria_efectiva(home: str, away: str, liga: str = '') -> frozenset:
+    """
+    La categoría con la que se compara: las marcas inequívocas MÁS el sufijo
+    «II»/«B» de los nombres de equipo.
+
+    Existe porque cada fuente escribe el filial a su manera y todas quieren
+    decir lo mismo. Medido en el tablón del 2026-08-09:
+
+        Pinnacle «Benfica II»                Playdoit «Benfica Sub-21»
+        Pinnacle «Monagas II»                Playdoit «Monagas SC Reserves»
+        Pinnacle «New England Revolution II» Bovada   «New England Revolution (R)»
+
+    Sin esto, la marca fuerte de un lado y la débil del otro daban categorías
+    distintas y siete partidos correctos se quedaban sin precio. Con esto, «X
+    II» y «X Reserves» son el mismo equipo, y ninguno de los dos casa con «X»
+    a secas — que es justo lo que se busca.
+    """
+    marcas = set(categoria_partido(home, away, liga))
+    if _filial_debil(home, away):
+        marcas.add('filial')
+    return frozenset(marcas)
+
+
+def _dias_entre(f1, f2) -> Optional[float]:
+    """Días entre dos fechas ISO, o None si alguna falta o no se entiende."""
+    if not f1 or not f2:
+        return None
+    try:
+        a, b = pd.Timestamp(f1), pd.Timestamp(f2)
+        if pd.isna(a) or pd.isna(b):
+            return None
+        a = a.tz_convert(None) if a.tzinfo else a
+        b = b.tz_convert(None) if b.tzinfo else b
+        return abs((a - b).total_seconds()) / 86400.0
+    except Exception:
+        return None
+
+
+# Tolerancia de fecha al emparejar. Dos días cubre de sobra las diferencias de
+# huso y los aplazamientos de unas horas que publican distinto cada casa, y
+# corta en seco el caso que motivó la guardia: dos partidos del mismo cruce
+# separados cinco días (ida y vuelta, o dos categorías distintas).
+TOLERANCIA_DIAS = 2.0
 
 
 # Sufijos que no forman parte del apellido y que unas casas ponen y otras no.
@@ -999,8 +1174,189 @@ def _indice_pdt(deporte: str) -> Dict[str, dict]:
     return idx
 
 
+# ---------------------------------------------------------------------------
+# 6. MATCHBOOK — el EXCHANGE (v114)
+#
+# Por qué se buscaba una casa como ésta
+# --------------------------------------
+# La v113 dejó la prioridad medida: el edge del proyecto está en el PRECIO, y
+# con las cinco casas anteriores el margen conjunto es 1,0574 y hay CERO
+# arbitrajes. Betfair Exchange era la pieza que faltaba —da el mejor precio el
+# 35,4 % de las veces en el histórico de football-data— pero está CERRADO desde
+# México: bloquea por geolocalización de red, no por scraping. Eso no se
+# arregla con cabeceras y la API oficial exige una cuenta que exige residencia
+# admitida.
+#
+# Se sondearon 41 alternativas (`_v114_sondeo_casas.py`). Sólo tres respondían
+# con datos: Matchbook, Polymarket y Kalshi. Y al medirlas contra el tablón
+# real (`_v114_medir_exchanges.py`, 2026-08-09):
+#
+#   Matchbook   152 partidos de fútbol · margen medio 1,0337
+#               cubre 125 de los 642 partidos de Pinnacle (19 %)
+#               da el MEJOR precio el 14,2 % de las veces
+#               y donde está, mejora al mejor de las casas en 244 de 373
+#               selecciones (65,4 %), con +1,80 % de media
+#               baja el margen del mejor precio de 1,0546 a 1,0495
+#   Polymarket  margen 1,0000 (no cobra), pero 21 partidos y CERO coincidencias
+#               con nuestro tablón: sus nombres son de otro registro
+#               («Cruzeiro EC», «AFC Ajax») y su catálogo de fútbol es mínimo.
+#               No se integra: un precio que nunca casa no aporta nada.
+#   Kalshi      su primera página no trae deporte y operar exige residencia en
+#               EE. UU. Descartada por cobertura.
+#
+# LA COMISIÓN NO ES UN DETALLE
+# ----------------------------
+# Un exchange no cobra margen en la cuota: cobra COMISIÓN sobre la ganancia
+# neta. Comparar su back «a pelo» contra el precio de una casa sería inflarlo,
+# y con una mejora media de +1,80 % la comisión se come casi todo. Así que aquí
+# la cuota se guarda YA NETA: una back de 3,00 con 2 % de comisión paga
+# 1 + 2,00 × 0,98 = 2,96. Es el precio que el usuario cobraría de verdad.
+#
+# PARA QUÉ SIRVE AUNQUE NO SE APUESTE ALLÍ
+# ----------------------------------------
+# Aunque nunca se abra cuenta, un libro de órdenes sin margen es la MEJOR
+# estimación disponible de la probabilidad real, mejor que Pinnacle. Eso lo
+# convierte en el ancla de `devig` — y un ancla mejor mueve el EV de todo el
+# tablón, no sólo el de este operador.
+# ---------------------------------------------------------------------------
+MATCHBOOK = 'https://www.matchbook.com/edge/rest/events'
+MATCHBOOK_SPORT = {'futbol': 15, 'tenis': 9, 'mlb': 3, 'nba': 4}
+# Comisión sobre la ganancia neta. 2 % es la tarifa estándar del operador; se
+# deja configurable porque baja con el volumen y quien apueste allí de verdad
+# querrá poner la suya.
+COMISION_EXCHANGE = float(os.environ.get('COMISION_EXCHANGE', '0.02'))
+
+# UN PRECIO SIN DINERO DETRÁS NO ES UN PRECIO.
+#
+# Ésta es la diferencia esencial entre un exchange y una casa: la casa cotiza
+# lo que está dispuesta a aceptar, el exchange enseña lo que alguien ha dejado
+# puesto. En un libro poco líquido, «el mejor back disponible» puede ser una
+# orden residual de dos euros a una cuota absurda. Medido en el primer volcado
+# real (2026-08-09):
+#
+#     Los Andes vs Ferro Carril Oeste   home 98,02   away 1,1274
+#     Maringá vs Amazonas               home  2,6464 (Pinnacle 1,3891,
+#                                                     Bovada 1,5181)
+#
+# Si eso entra al tablón, el line shopping elige 98,02 como «mejor precio» y
+# fabrica un EV gigantesco sobre una apuesta que no se puede colocar más que
+# por dos euros. Es el mismo tipo de fallo silencioso que el emparejador de
+# esta misma versión: no da excepción, da una apuesta.
+#
+# Dos guardias, las dos objetivas:
+#   · IMPORTE — se exige que haya al menos este dinero disponible a ese precio.
+#   · LIBRO COMPLETO — si la suma de probabilidades implícitas de los backs
+#     baja de este umbral, el libro no está cotizado entero (falta dinero en
+#     algún lado) y el partido no entra. Un exchange sano ronda 1,00-1,04; por
+#     debajo de 0,95 lo que hay es un hueco, no una oportunidad.
+IMPORTE_MINIMO_EXCHANGE = float(os.environ.get('IMPORTE_MINIMO_EXCHANGE', '25'))
+MARGEN_MINIMO_EXCHANGE = 0.95
+
+_MEM_MB: Dict[str, tuple] = {}
+
+
+def cuota_neta_exchange(cuota: float,
+                        comision: Optional[float] = None) -> Optional[float]:
+    """Cuota de back descontada la comisión sobre la ganancia neta."""
+    try:
+        c = float(cuota)
+    except (TypeError, ValueError):
+        return None
+    if c <= 1:
+        return None
+    com = COMISION_EXCHANGE if comision is None else comision
+    return round(1.0 + (c - 1.0) * (1.0 - com), 4)
+
+
+def _indice_matchbook(deporte: str) -> Dict[str, dict]:
+    """{clave_partido: {...,'cuotas':{home,draw,away}}} desde Matchbook."""
+    sid = MATCHBOOK_SPORT.get(deporte)
+    if not sid:
+        return {}
+    cacheado = _leer_cache(f'matchbook_{deporte}.json')
+    if cacheado is not None:
+        return cacheado
+    indice: Dict[str, dict] = {}
+    # el catálogo se pagina de 50 en 50; se recorre hasta que deje de haber
+    # eventos o se llegue al tope, que evita un bucle infinito si la API
+    # devolviera siempre la misma página
+    for offset in range(0, 500, 50):
+        j = _get(MATCHBOOK, params={
+            'sport-ids': sid, 'states': 'open', 'include-prices': 'true',
+            'price-depth': 3, 'odds-type': 'DECIMAL',
+            'exchange-type': 'back-lay', 'currency': 'EUR',
+            'per-page': 50, 'offset': offset}, headers=UA_WEB, timeout=30)
+        eventos = (j or {}).get('events') or []
+        if not eventos:
+            break
+        for e in eventos:
+            nombre = str(e.get('name') or '')
+            if ' vs ' not in nombre:
+                continue
+            home, away = [x.strip() for x in nombre.split(' vs ', 1)]
+            if not home or not away:
+                continue
+            for m in (e.get('markets') or []):
+                if str(m.get('market-type')) not in ('one_x_two', 'two_way'):
+                    continue
+                cuotas: Dict[str, float] = {}
+                for run in (m.get('runners') or []):
+                    nom = str(run.get('name') or '').strip()
+                    if nom.lower() in ('draw', 'the draw', 'empate'):
+                        lado = 'draw'
+                    elif normalizar(nom) == normalizar(home):
+                        lado = 'home'
+                    elif normalizar(nom) == normalizar(away):
+                        lado = 'away'
+                    else:
+                        continue
+                    # sólo precios CON DINERO DETRÁS (ver el comentario de
+                    # `IMPORTE_MINIMO_EXCHANGE`)
+                    backs = [p.get('odds') for p in (run.get('prices') or [])
+                             if p.get('side') == 'back' and p.get('odds')
+                             and float(p.get('available-amount') or 0)
+                             >= IMPORTE_MINIMO_EXCHANGE]
+                    if not backs:
+                        continue
+                    # el mejor precio DISPONIBLE para respaldar esa selección,
+                    # ya neto de comisión (ver el comentario de arriba)
+                    neta = cuota_neta_exchange(max(backs))
+                    if neta:
+                        cuotas[lado] = neta
+                # el libro tiene que estar cotizado ENTERO: si falta dinero en
+                # una de las salidas, las otras no son precios comparables
+                _suma = sum(1.0 / v for v in cuotas.values() if v)
+                if _suma < MARGEN_MINIMO_EXCHANGE:
+                    logger.debug(
+                        f'[matchbook] {home} vs {away}: libro incompleto '
+                        f'(suma {_suma:.4f} < {MARGEN_MINIMO_EXCHANGE}), fuera')
+                    continue
+                if cuotas.get('home') and cuotas.get('away'):
+                    indice[f'{normalizar(home)}|{normalizar(away)}'] = {
+                        'home': home, 'away': away,
+                        'liga': ((e.get('meta-tags') or [{}])[0] or {}).get('name'),
+                        'fecha': fecha_normalizada(e.get('start')),
+                        'casa': 'Matchbook', 'exchange': True,
+                        'cuotas': cuotas}
+                    break
+    _escribir_cache(f'matchbook_{deporte}.json', indice)
+    logger.info(f"[matchbook] {deporte}: {len(indice)} partidos con cuotas "
+                f"(netas de {COMISION_EXCHANGE*100:.1f} % de comisión)")
+    return indice
+
+
+def _indice_mb(deporte: str) -> Dict[str, dict]:
+    ts, idx = _MEM_MB.get(deporte, (0, None))
+    if idx is None or time.time() - ts > TTL:
+        with _LOCK:
+            idx = _indice_matchbook(deporte)
+            _MEM_MB[deporte] = (time.time(), idx)
+    return idx
+
+
 def _buscar(indice: Dict[str, dict], home: str, away: str,
-            deporte: str = 'futbol') -> Optional[dict]:
+            deporte: str = 'futbol', fecha=None,
+            liga: Optional[str] = None) -> Optional[dict]:
     """
     Empareja el partido contra el tablón, tolerando cómo escribe cada fuente.
 
@@ -1010,30 +1366,88 @@ def _buscar(indice: Dict[str, dict], home: str, away: str,
     tenistas por apellido + inicial (para que «Mensik J.» case con «Jakub
     Mensik»). Se exige que AMBOS participantes casen, así que un apellido
     común no basta para colar un partido equivocado.
+
+    v114 — DOS GUARDIAS Y UNA DESAMBIGUACIÓN, porque el nombre no basta.
+
+    El emparejador miraba SÓLO los nombres, y con eso casó un partido de la
+    Primera División femenina argentina con uno de la Liga Profesional
+    masculina jugado cinco días después, bandos invertidos incluidos. Las
+    cuotas resultantes eran de otro partido, así que el EV era ficción.
+
+      · CATEGORÍA — un partido femenino y uno masculino del mismo club no son
+        el mismo partido. `fecha` y `liga` son opcionales para no obligar a
+        tocar a los siete llamadores; sin ellos la guardia sigue funcionando
+        con los nombres, que es donde la marca suele venir.
+      · FECHA — si el llamador sabe cuándo se juega y el candidato trae fecha,
+        más de `TOLERANCIA_DIAS` de diferencia descarta el candidato.
+      · AMBIGÜEDAD — si al final quedan dos candidatos DISTINTOS empatados en
+        el mejor score, no se elige uno a dedo: se devuelve None y se registra.
+        Antes ganaba el primero del diccionario, que es un orden arbitrario.
+
+    Devolver None es un resultado correcto: el partido aparecerá «sin cuota»,
+    que es honesto. Devolver la cuota de otro partido, no.
     """
+    cat_ref = categoria_efectiva(home, away, liga or '')
+    sim = _sim_tenista if deporte == 'tenis' else _sim_club
+    umbral = 0.86 if deporte == 'tenis' else 0.80
+
+    def _compatible(v: dict) -> bool:
+        """¿Este candidato puede ser el mismo partido que el buscado?"""
+        if categoria_efectiva(v.get('home') or '', v.get('away') or '',
+                              v.get('liga') or '') != cat_ref:
+            return False
+        d = _dias_entre(fecha, v.get('fecha'))
+        return d is None or d <= TOLERANCIA_DIAS
+
     h, a = normalizar(home), normalizar(away)
     for clave in (f'{h}|{a}', f'{a}|{h}'):
-        if clave in indice:
-            r = dict(indice[clave])
+        v = indice.get(clave)
+        # la clave exacta también se comprueba: dos partidos del mismo cruce
+        # (ida y vuelta) comparten clave, y la categoría puede venir en la liga
+        if v is not None and _compatible(v):
+            r = dict(v)
             r['invertido'] = clave == f'{a}|{h}' and h != a
             return r
 
-    sim = _sim_tenista if deporte == 'tenis' else _sim_club
-    umbral = 0.86 if deporte == 'tenis' else 0.80
-    mejor, score = None, 0.0
-    for v in indice.values():
+    candidatos: List[tuple] = []          # (score, invertido, clave, valor)
+    for clave, v in indice.items():
+        if not _compatible(v):
+            continue
         ph, pa = v['home'], v['away']
         s1 = min(sim(home, ph), sim(away, pa))       # el peor de los dos manda
         s2 = min(sim(home, pa), sim(away, ph))
         s, inv = (s1, False) if s1 >= s2 else (s2, True)
-        if s > score:
-            mejor, score = (v, inv), s
-    if mejor and score >= umbral:
-        r = dict(mejor[0])
-        r['invertido'] = mejor[1]
-        r['emparejado_difuso'] = round(score, 3)
-        return r
-    return None
+        if s >= umbral:
+            candidatos.append((s, inv, clave, v))
+    if not candidatos:
+        return None
+
+    mejor_score = max(c[0] for c in candidatos)
+    finalistas = [c for c in candidatos if c[0] >= mejor_score - 1e-9]
+    # desempate por el sufijo «II»/«B» (ver `_MARCA_FILIAL_DEBIL`): entre dos
+    # candidatos igual de buenos, el filial va con el filial y el primer
+    # equipo con el primer equipo. Si ninguno coincide, se dejan los dos y
+    # decide la guardia de ambigüedad de abajo.
+    if len(finalistas) > 1:
+        _ref = _filial_debil(home, away)
+        _iguales = [c for c in finalistas
+                    if _filial_debil(c[3]['home'], c[3]['away']) == _ref]
+        if _iguales:
+            finalistas = _iguales
+    if len({c[2] for c in finalistas}) > 1:
+        _cuales = ', '.join('{} vs {}'.format(c[3]['home'], c[3]['away'])
+                            for c in finalistas[:4])
+        logger.warning(
+            f"[emparejado] «{home} vs {away}» empata a {mejor_score:.3f} con "
+            f"{len(finalistas)} partidos distintos ({_cuales}) — se descarta "
+            f"por ambiguo en vez de elegir uno al azar")
+        return None
+
+    s, inv, _clave, v = finalistas[0]
+    r = dict(v)
+    r['invertido'] = inv
+    r['emparejado_difuso'] = round(s, 3)
+    return r
 
 
 def _spread_principal(spreads: Optional[Dict],
@@ -1086,9 +1500,15 @@ def _spread_principal(spreads: Optional[Dict],
 
 def cuotas_partido(deporte: str, home: str, away: str,
                    odds_espn: Optional[dict] = None,
-                   espn_ref: Optional[tuple] = None) -> Dict:
+                   espn_ref: Optional[tuple] = None,
+                   fecha=None, liga: Optional[str] = None) -> Dict:
     """
     Todas las cuotas disponibles de un partido, de todas las fuentes.
+
+    v114 — `fecha` y `liga` son OPCIONALES y sirven para desambiguar (ver
+    `_buscar`). Quien las sepa —el barrido las tiene en el fixture— evita que
+    el emparejador confunda este partido con otro del mismo cruce en otra
+    fecha o en otra categoría. Quien no las pase se comporta como siempre.
 
     `odds_espn` son las que ya vinieron con el fixture (dict de
     `fixtures_espn._odds_de_evento`), que no cuestan ninguna petición.
@@ -1153,7 +1573,7 @@ def cuotas_partido(deporte: str, home: str, away: str,
                             'home': odds_espn.get('odd_ah_home'),
                             'away': odds_espn.get('odd_ah_away')}
 
-    pin = _buscar(_indice(deporte), home, away, deporte)
+    pin = _buscar(_indice(deporte), home, away, deporte, fecha, liga)
     if pin and pin.get('cuotas'):
         c = dict(pin['cuotas'])
         if pin.get('invertido'):          # Pinnacle listó al revés: se voltea
@@ -1178,7 +1598,7 @@ def cuotas_partido(deporte: str, home: str, away: str,
 
     # Bovada: tercera casa. Aporta las ligas que Pinnacle no cubre y la
     # segunda pata del line shopping.
-    bov = _buscar(_indice_bov(deporte), home, away, deporte)
+    bov = _buscar(_indice_bov(deporte), home, away, deporte, fecha, liga)
     if bov and bov.get('cuotas'):
         c = dict(bov['cuotas'])
         if bov.get('invertido'):
@@ -1190,7 +1610,7 @@ def cuotas_partido(deporte: str, home: str, away: str,
 
     # v111: Unibet (Kambi) — la quinta casa. Ver `_indice_unibet` para por qué
     # es ésta y por qué SOLO ésta de todas las marcas de Kambi.
-    uni = _buscar(_indice_uni(deporte), home, away, deporte)
+    uni = _buscar(_indice_uni(deporte), home, away, deporte, fecha, liga)
     if uni and uni.get('cuotas'):
         c = dict(uni['cuotas'])
         if uni.get('invertido'):
@@ -1200,10 +1620,24 @@ def cuotas_partido(deporte: str, home: str, away: str,
                                if k in ('home', 'draw', 'away')}
             fuentes.append('unibet')
 
+    # v114: Matchbook — el EXCHANGE. Su precio va NETO de comisión (ver
+    # `_indice_matchbook`), así que es comparable con el de una casa sin
+    # inflarlo. Aporta el mejor precio el 14,2 % de las veces y baja el margen
+    # del mejor precio de 1,0546 a 1,0495 sobre el tablón medido.
+    mb = _buscar(_indice_mb(deporte), home, away, deporte, fecha, liga)
+    if mb and mb.get('cuotas'):
+        c = dict(mb['cuotas'])
+        if mb.get('invertido'):
+            c['home'], c['away'] = c.get('away'), c.get('home')
+        if c.get('home') and c.get('away'):
+            casas['Matchbook'] = {k: v for k, v in c.items()
+                                  if k in ('home', 'draw', 'away')}
+            fuentes.append('matchbook')
+
     # v76: Playdoit — la casa donde el usuario apuesta de verdad. Va la última
     # a propósito: si algo falla en su API, las tres anteriores ya han dado
     # precio y el barrido no se resiente.
-    pdt = _buscar(_indice_pdt(deporte), home, away, deporte)
+    pdt = _buscar(_indice_pdt(deporte), home, away, deporte, fecha, liga)
     if pdt and pdt.get('cuotas'):
         c = dict(pdt['cuotas'])
         if pdt.get('invertido'):

@@ -5,15 +5,15 @@
   },
   "América": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Santos": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Toluca": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Necaxa": {
     "contexto": "evid",
@@ -25,51 +25,51 @@
   },
   "National Bank Open presented by Rogers": {
     "contexto": "tenis/atp",
-    "visto": "2026-08-05"
+    "visto": "2026-08-09"
   },
   "Atlante": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Monterrey": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "FC Juarez": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Atlas": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Tigres UANL": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Pumas UNAM": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Querétaro": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Atlético de San Luis": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Guadalajara": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Tijuana": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "Cruz Azul": {
     "contexto": "evid",
-    "visto": "2026-08-06"
+    "visto": "2026-08-09"
   },
   "León": {
     "contexto": "evid",
@@ -82,5 +82,41 @@
   "Puebla": {
     "contexto": "evid",
     "visto": "2026-08-06"
+  },
+  "Académico de Viseu": {
+    "contexto": "fixture→primeira",
+    "visto": "2026-08-09"
+  },
+  "Aruba": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
+  },
+  "Bahamas": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
+  },
+  "St. Martin": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
+  },
+  "Turks and Caicos Islands": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
+  },
+  "Montserrat": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
+  },
+  "Bonaire": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
+  },
+  "Anguilla": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
+  },
+  "Sint Maarten": {
+    "contexto": "selecciones",
+    "visto": "2026-08-09"
   }
 }
