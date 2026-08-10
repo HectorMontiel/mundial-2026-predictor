@@ -1039,6 +1039,8 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         # v98: el contador de «partidos evaluados» de la cabecera sumaba
         # SOLO el pase de fútbol; cada deporte informa ahora del suyo.
         return {'capa1': capa1, 'capa2': _conf, 'incidencias': inc,
+                # v119: cobertura completa para «todos los pronósticos del día»
+                'pronosticos': list(r.get('todos') or []),
                 'evaluados': int(r.get('evaluados') or 0),
                 'cobertura': {'MLB': int(r.get('evaluados') or 0)}}
     except Exception as e:
@@ -1855,6 +1857,54 @@ def _construir_parlay_tenis(legs: List[Dict], objetivo_cuota: float = 2.0,
                      'apuesta solo si tu casa paga MÁS que la combinada.')}
 
 
+def _pronosticos_multideporte(res: Dict[str, Dict]) -> List[Dict]:
+    """
+    v119 — la cobertura completa del día, de TODOS los deportes.
+
+    Junta lo que cada rama publica como `pronosticos` (fútbol ya lo hacía; MLB,
+    NBA, KBO y tenis se añadieron en esta versión) y, para los deportes que aún
+    no lo publiquen, cae a sus picks y su capa 2 para no dejarlos fuera del
+    todo. Deduplica por (deporte, partido, fecha): un mismo encuentro puede
+    llegar por dos vías y contarlo dos veces sería mentir sobre la cobertura.
+
+    Se ordena por hora de inicio, que es el orden en que sirve una lista del
+    día — los que no traen hora van al final.
+    """
+    fuera: List[Dict] = []
+    vistos = set()
+
+    def _añadir(lista, respaldo=False):
+        for p in (lista or []):
+            if not isinstance(p, dict) or not p.get('partido'):
+                continue
+            k = (str(p.get('deporte') or 'Fútbol'), str(p['partido']),
+                 str(p.get('fecha') or ''))
+            if k in vistos:
+                continue
+            vistos.add(k)
+            q = dict(p)
+            q.setdefault('deporte', 'Fútbol')
+            if respaldo:
+                # marca de dónde salió: sin cobertura completa, esta entrada
+                # viene de un pick y no de «todos los partidos evaluados»
+                q['cobertura_parcial'] = True
+            fuera.append(q)
+
+    for nombre, r in (res or {}).items():
+        r = r or {}
+        propios = r.get('pronosticos')
+        if propios:
+            _añadir(propios)
+        else:
+            _añadir(r.get('capa1') or r.get('picks'), respaldo=True)
+            _añadir(r.get('capa2') or r.get('confianza'), respaldo=True)
+    fuera.sort(key=lambda p: (str(p.get('fecha') or ''),
+                              str(p.get('inicio') or '') == '',
+                              str(p.get('inicio') or ''),
+                              -(p.get('prob') or 0)))
+    return fuera
+
+
 def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     """Barrido de TODAS las competiciones activas (11 de fútbol + MLB, NBA,
     tenis) con clasificación en dos capas (§1.2, §5.1)."""
@@ -2480,7 +2530,19 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               'mejores_patas': mejores_patas,
               'tenis_parlay': tenis_parlay,
               'seleccion_dia': seleccion_dia,
-              'pronosticos': r.get('pronosticos') or [],   # v49: todos los partidos
+              # v119 — LOS PRONÓSTICOS SON DE TODOS LOS DEPORTES, NO SÓLO FÚTBOL.
+              #
+              # Esto era `r.get('pronosticos')` con `r` = la rama de FÚTBOL, así
+              # que la lista «Todos los pronósticos del día» enseñaba catorce
+              # partidos de fútbol y ninguno de MLB, NBA, KBO o tenis. El
+              # usuario lo vio de frente: diez partidos de MLB en su pestaña y
+              # uno solo en la lista general.
+              #
+              # Cada rama aporta ahora su cobertura completa —todos los
+              # partidos que evaluó, con probabilidad, pasen o no los filtros—
+              # y aquí se juntan. Un deporte que no la publique simplemente no
+              # suma, sin romper nada.
+              'pronosticos': _pronosticos_multideporte(_res),
               'elite': capa1,          # compatibilidad con UI/exportación
               # --- v77: las tres pestañas ---
               'capa1_prob': capa1_prob,

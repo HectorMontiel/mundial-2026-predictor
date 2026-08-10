@@ -317,16 +317,42 @@ def forma_global(clave: str, equipo: str, n: int = 8) -> Dict:
     # La identidad de un partido es (fecha, local, visitante, marcador): si
     # coincide todo eso, es el mismo aunque venga de dos ficheros. Se conserva
     # la primera aparición y se anotan las competiciones donde salió.
-    vistos, unicas = {}, []
+    # v119 — Y HAY QUE ELEGIR BIEN DE QUÉ COMPETICIÓN ES CADA UNO.
+    #
+    # Algunos históricos son AGREGADOS: `historico_leagues_cup.csv` tiene 6.637
+    # partidos repartidos por los doce meses del año, y entre ellos están los
+    # **2.660 de Liga MX enteros**. Se hizo así a propósito para entrenar un
+    # torneo nuevo con los partidos de las ligas que lo juegan, y para eso está
+    # bien; pero como fuente de ETIQUETAS es falso, y al recorrer los ficheros
+    # por orden alfabético «leagues_cup» ganaba a «liga_mx» y la pantalla decía
+    # que un Monterrey-Pachuca de abril era de la Leagues Cup — un torneo que
+    # se juega en verano. El usuario lo cazó: «¿cómo es posible que Monterrey y
+    # Juárez sólo jugaran en Leagues Cup?».
+    #
+    # La regla, sin listas escritas a mano: entre los históricos que contienen
+    # el partido gana el MÁS ESPECÍFICO, es decir el más pequeño — el agregado
+    # siempre es mayor que la liga que engloba. Y si uno de ellos es la
+    # competición que se está viendo, ésa manda.
+    _tam = {}
+    for _r, _cl in filas:
+        if _cl not in _tam:
+            _tam[_cl] = len(_historico(_cl))
+
+    def _prioridad(cl):
+        return (0 if cl == clave else 1, _tam.get(cl, 10 ** 9), cl)
+
+    vistos, orden = {}, []
     for r, cl in sorted(filas, key=lambda x: x[0]['date'], reverse=True):
         k = (str(r['date'])[:10], str(r['home_team']), str(r['away_team']),
              int(r['home_goals']), int(r['away_goals']))
         if k in vistos:
-            vistos[k].add(cl)
+            vistos[k]['comps'].add(cl)
+            if _prioridad(cl) < _prioridad(vistos[k]['cl']):
+                vistos[k]['cl'] = cl
             continue
-        vistos[k] = {cl}
-        unicas.append((r, cl, k))
-    filas = [(r, cl) for r, cl, _k in unicas[:n]]
+        vistos[k] = {'r': r, 'cl': cl, 'comps': {cl}}
+        orden.append(k)
+    filas = [(vistos[k]['r'], vistos[k]['cl']) for k in orden[:n]]
 
     partidos, racha, gf, gc = [], [], 0, 0
     comps = set()

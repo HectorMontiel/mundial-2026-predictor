@@ -574,6 +574,10 @@ class MLBEngine(BaseSportsEngine):
                                f'se predice sin ellos.')
 
         picks, evaluados, sin_modelo, con_abridor = [], 0, 0, 0
+        # v119: cobertura completa — TODOS los partidos evaluados, con su
+        # probabilidad, pasen o no los filtros de élite. Es lo que alimenta
+        # «todos los pronósticos del día» de la pantalla general.
+        todos = []
         for v in universo.values():
             hc = codigo_mlb(v['home'])
             ac = codigo_mlb(v['away'])
@@ -589,6 +593,31 @@ class MLBEngine(BaseSportsEngine):
             c = cm.cuotas_partido('mlb', v['home'], v['away'])
             mejor = c.get('mejor') or {}
             pin = c.get('pinnacle') or {}
+            # v119 — TODOS los partidos evaluados, pasen o no los filtros.
+            #
+            # `picks` y `confianza` sólo llevan los que superan un umbral, así
+            # que la lista de «todos los pronósticos del día» de la pantalla
+            # general se quedaba en fútbol y el usuario veía 10 partidos de MLB
+            # en una pestaña y uno solo en la otra. Esto es la cobertura
+            # completa: un partido evaluado siempre tiene probabilidad, tenga o
+            # no cuota que merezca la pena.
+            _nh = CODIGO_A_NOMBRE.get(hc, v['home'])
+            _na = CODIGO_A_NOMBRE.get(ac, v['away'])
+            _lado_fav = 'home' if pred['prob_home'] >= 0.5 else 'away'
+            todos.append({
+                'deporte': 'MLB', 'liga': 'MLB', 'clave_liga': 'mlb',
+                'partido': f'{_na} @ {_nh}',
+                'fecha': _fecha_dia(v.get('fecha')),
+                'inicio': v.get('fecha'),
+                'mercado': 'Moneyline',
+                'apuesta': f'Gana {_nh if _lado_fav == "home" else _na}',
+                'prob': round(max(pred['prob_home'], 1 - pred['prob_home']), 3),
+                'board': {f'Gana {_nh}': round(pred['prob_home'], 3),
+                          f'Gana {_na}': round(1 - pred['prob_home'], 3)},
+                'cuota': ((mejor.get(_lado_fav) or {}).get('cuota')
+                          if mejor else None),
+                'sin_cuota': not bool(mejor),
+            })
             if not mejor:
                 continue
             # v78 — ENCOGIMIENTO HACIA EL MERCADO. La corrección del sesgo de
@@ -720,8 +749,11 @@ class MLBEngine(BaseSportsEngine):
 
         picks.sort(key=lambda p: (-int(p.get('sharp_confirmado', False)), -p['ev']))
         confianza.sort(key=lambda p: -p['prob'])
+        todos.sort(key=lambda p: str(p.get('inicio') or ''))
         return {'picks': picks, 'eventos': len(universo),
                 'confianza': confianza,          # v91
+                # v119: cobertura COMPLETA, para «todos los pronósticos del día»
+                'todos': todos,
                 'evaluados': evaluados, 'con_abridor': con_abridor,
                 'incidencias': incidencias,
                 'aviso': None if picks else

@@ -47,6 +47,17 @@ try:
 except Exception:
     _estilo = None
 
+# v119 — AYUDA EN CASTELLANO LLANO, EN CADA SECCIÓN.
+#
+# El usuario lo pidió así: «quizá no sabe qué es EV, tradúcelo a su idioma,
+# quizá no sabe qué es line shopping». `ayuda.py` traduce la jerga y explica
+# cómo leer cada pantalla — y dice también lo que NO conviene creerse, que es
+# la parte que una ayuda comercial se saltaría.
+try:
+    import ayuda as _ayuda
+except Exception:
+    _ayuda = None
+
 # v14: login con contraseña RETIRADO a petición del usuario — la app es pública.
 
 # CSS para ocultar el branding/pie de Streamlit (aporte del repo de despliegue)
@@ -1918,6 +1929,8 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
     # v58: VARIAS combinadas propuestas automáticamente + copiar estadísticas.
     # Universal: funciona con cualquier motor (fútbol, MLB, ...).
     st.markdown("#### 🎲 Parlays propuestos con cuotas")
+    if _ayuda is not None:
+        _ayuda.render(st, 'combinadas')
     st.caption("La app arma varias combinadas de ESTE partido con distintos "
                "perfiles (de la más segura a la de más cuota), con su "
                "probabilidad real de acertar todo y la cuota combinada.")
@@ -2581,6 +2594,8 @@ def render_liga_club(clave: str, nombre_liga: str):
         st.stop()
 
     st.title(f"⚽ {nombre_liga} — Predictor de clubes")
+    if _ayuda is not None:
+        _ayuda.render(st, 'liga')
     fuente_liga = ('API-Football' if LEAGUES[clave].get('formato') == 'api_football'
                    else 'football-data.co.uk')
     st.caption(
@@ -3000,6 +3015,11 @@ st.sidebar.caption(
     "la cuota paga de más. **Cuota justa** = 1/probabilidad, sin margen de casa.")
 
 # v19: gestión de banca (¼ Kelly sobre mercados con EV > 0 y cuota real)
+# v119: el diccionario completo, siempre a mano en la barra lateral
+if _ayuda is not None:
+    with st.sidebar:
+        _ayuda.glosario_completo(st)
+
 BANKROLL = st.sidebar.number_input(
     "💵 Mi bankroll (unidades)", min_value=0.0, max_value=1_000_000.0,
     value=1000.0, step=100.0, key='bankroll',
@@ -3010,6 +3030,8 @@ BANKROLL = st.sidebar.number_input(
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     st.header("💎 Apuestas del Día")
+    if _ayuda is not None:
+        _ayuda.render(st, 'apuestas_dia')
     st.caption("SOLO los partidos de **HOY**: todas las ligas con "
                "jornada este día (ESPN + Pinnacle + Bovada + Playdoit + "
                "Unibet + Matchbook) + "
@@ -3611,10 +3633,13 @@ def render_alpha_finder():
         if pronos:
             st.divider()
             st.subheader(f"📋 Todos los pronósticos del día ({len(pronos)})")
-            st.caption("Cobertura completa de HOY: el 1X2 del modelo para "
-                       "cada partido programado, con cuota justa "
-                       "(1/probabilidad). Informativo — solo la Capa 1 lleva "
-                       "EV validado.")
+            st.caption("Cobertura completa de HOY en **todos los deportes** "
+                       "—fútbol, MLB, NBA, KBO y tenis—: el pronóstico del "
+                       "modelo para cada partido evaluado, con su cuota "
+                       "justa (1/probabilidad). Las columnas de goles y "
+                       "ambos-marcan sólo aplican al fútbol; en el resto "
+                       "salen vacías. Informativo: sólo la Capa 1 lleva EV "
+                       "validado.")
             import pandas as _pd
             def _pct(v):
                 return f"{v*100:.0f}%" if isinstance(v, (int, float)) else '—'
@@ -3653,6 +3678,22 @@ def render_alpha_finder():
                         -(x.get('prob') or 0))
 
             _pronos_ord = sorted(pronos, key=_clave_orden)
+            # v119 — LA LISTA YA NO ES SÓLO DE FÚTBOL, ASÍ QUE SE PUEDE FILTRAR.
+            #
+            # Antes sólo había fútbol y un filtro no tenía sentido. Ahora entran
+            # MLB, tenis, NBA y KBO, y con treinta y pico de partidos mezclados
+            # el usuario necesita poder quedarse con lo suyo.
+            _deps = sorted({str(p.get('deporte') or 'Fútbol')
+                            for p in _pronos_ord})
+            if len(_deps) > 1:
+                _sel_dep = st.multiselect(
+                    "Deportes", _deps, default=_deps, key='prono_deps',
+                    help="La lista cubre todos los deportes que el barrido ha "
+                         "podido evaluar hoy.")
+                if _sel_dep:
+                    _pronos_ord = [p for p in _pronos_ord
+                                   if str(p.get('deporte') or 'Fútbol')
+                                   in _sel_dep]
             filas_p = []
             for p in _pronos_ord:
                 board = p.get('board') or {}
@@ -3667,7 +3708,11 @@ def render_alpha_finder():
                     _hora_txt = '—'
                 filas_p.append({
                     'Hora (CDMX)': _hora_txt,
-                    'Fecha': p.get('fecha', ''), 'Liga': p.get('liga', ''),
+                    'Fecha': p.get('fecha', ''),
+                    # v119: con varios deportes en la misma lista hay que decir
+                    # cuál es cada uno
+                    'Deporte': p.get('deporte', 'Fútbol'),
+                    'Liga': p.get('liga', ''),
                     'Techo liga': f"{_t['mercado']*100:.0f}%" if _t else '—',
                     'Partido': p.get('partido', ''),
                     '1 (local)': _pct(board.get(f'Gana {home}')),
@@ -4247,6 +4292,8 @@ def render_alpha_finder():
 def render_mlb():
     """v29 (§3-§6): vista del motor MLB (béisbol), aislada del fútbol."""
     st.header("⚾ MLB — Béisbol")
+    if _ayuda is not None:
+        _ayuda.render(st, 'mlb')
     from engines.mlb_engine import MLBEngine, CODIGO_A_NOMBRE
 
     @st.cache_resource(show_spinner="Cargando modelo MLB…")
@@ -4683,6 +4730,8 @@ def render_tennis():
     """v30 (§5) + v35 (§1): vista de Tenis con los DOS circuitos, ELO por
     superficie (incluida pista cubierta) y features de fatiga."""
     st.header("🎾 Tenis — ATP / WTA")
+    if _ayuda is not None:
+        _ayuda.render(st, 'tenis')
     from engines.tennis_engine import TennisEngine
 
     @st.cache_resource(show_spinner="Cargando modelo de tenis…")
@@ -5067,6 +5116,8 @@ if not MOTOR.metadata.get('deploy_ready', False):
 # (el árbitro ajusta tarjetas, la altitud ajusta el xG), pero pasan a un
 # desplegable de ajustes finos en vez de presidir la pantalla.
 st.title("🌍 Partidos Internacionales — Predictor de selecciones")
+if _ayuda is not None:
+    _ayuda.render(st, 'selecciones')
 st.caption(
     f"Enfrenta a **cualquiera de las {len(MOTOR.equipos)} selecciones "
     f"nacionales** del histórico: amistosos, Nations League, clasificatorias y "
@@ -5228,8 +5279,42 @@ p = pred['prediction']
 nombre_local = NOMBRES_PAIS.get(home, home)
 nombre_visit = NOMBRES_PAIS.get(away, away)
 
+# v119 — AVISO DE CATEGORÍA: EL MODELO ES DE SELECCIONES ABSOLUTAS.
+#
+# El usuario lo señaló y tiene razón: «hay partidos sub-20 donde no están las
+# mismas plantillas que en la alta». El histórico con el que se entrenó este
+# motor es de selecciones ABSOLUTAS; un Brasil sub-20 o un España femenino
+# comparten bandera pero no comparten jugadoras, ni nivel, ni resultados. Usar
+# el ELO de la absoluta para predecirlos no es una aproximación: es otro
+# equipo.
+#
+# No se bloquea la predicción —puede servir de orientación— pero se dice con
+# claridad y arriba del todo, no en letra pequeña.
+try:
+    import cuotas_multi as _cm_cat
+    _torneo_sel = ''
+    if partido_fixture != "(elegir equipos manualmente)":
+        _torneo_sel = str(partido_fixture)
+    _cat_sel = _cm_cat.categoria_partido(nombre_local, nombre_visit,
+                                         _torneo_sel)
+    if _cat_sel:
+        _que = []
+        if 'fem' in _cat_sel:
+            _que.append('**femenino**')
+        if 'filial' in _cat_sel:
+            _que.append('de **categoría inferior** (sub-20, sub-17, olímpico…)')
+        st.warning(
+            "⚠️ Este partido parece " + " y ".join(_que) + ", y el modelo está "
+            "entrenado con el histórico de las selecciones **absolutas "
+            "masculinas**. Comparten bandera pero no comparten plantilla, "
+            "nivel ni resultados: toma el pronóstico como una orientación muy "
+            "floja, no como una probabilidad medida. El historial y las cuotas "
+            "de abajo sí son de este partido.")
+except Exception:
+    pass
+
 tab_rapida, tab_plantilla = st.tabs(
-    ["⚡ Vista Rápida", "📋 Plantilla de Análisis (editable)"]
+    ["⚡ Resumen del partido", "📋 Análisis completo (editable)"]
 )
 
 # ===========================================================================
