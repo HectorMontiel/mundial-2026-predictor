@@ -685,7 +685,14 @@ def veredicto(home: str, away: str,
         except (TypeError, ValueError):
             c = None
         if c and c >= CUOTA_GANADOR_MIN:
+            # v117 — la PROBABILIDAD se publica, no sólo el EV.
+            #
+            # El usuario la pidió: «quiero también ver la probabilidad de
+            # acierto/ganar esa apuesta». Estaba calculada aquí mismo para
+            # obtener el EV y se tiraba, de modo que en pantalla salía un EV
+            # sin la cifra de la que sale — que es la que se entiende.
             ev = None
+            p_lado = None
             if prob_home is not None:
                 p_lado = (float(prob_home) if fav == 'home'
                           else 1.0 - float(prob_home))
@@ -698,6 +705,7 @@ def veredicto(home: str, away: str,
             return {'entra': True, 'mercado': 'Moneyline',
                     'apuesta': f'Gana {nombre_eq[fav]}', 'lado': fav,
                     'cuota': round(c, 2), 'ev_modelo': ev,
+                    'prob': round(p_lado, 3) if p_lado is not None else None,
                     'motivos': motivos, 'datos': datos,
                     'regla_del_usuario': True}
         motivos.append(
@@ -759,6 +767,10 @@ def veredicto(home: str, away: str,
                         'apuesta': f"{nombre_eq[objetivo]} {rl['linea']:+.1f}",
                         'lado': objetivo, 'cuota': rl['cuota'],
                         'linea': rl['linea'], 'ev_modelo': None,
+                        # el modelo no estima la probabilidad de cubrir un
+                        # hándicap de carreras, así que aquí no hay cifra que
+                        # dar. Inventar una sería peor que dejar el hueco.
+                        'prob': None, 'prob_no_disponible': True,
                         'motivos': motivos, 'datos': datos,
                         'regla_del_usuario': True}
             motivos.append(

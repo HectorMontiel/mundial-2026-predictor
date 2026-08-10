@@ -28,11 +28,24 @@ from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
 
 # 1. PRIMER COMANDO DE STREAMLIT (OBLIGATORIO)
 st.set_page_config(
-    page_title="¿Quién gana? — Predictor deportivo",
-    page_icon="🏆",
+    page_title="Predictor deportivo — cuotas, valor y combinadas",
+    page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# v117 — LA CAPA VISUAL.
+#
+# La aplicación tenía cinco años de funciones amontonadas y ninguna gramática
+# visual: todo del mismo tamaño, del mismo color, y la jerarquía la marcaba el
+# orden en que estaban escritas las cosas. `estilo_ui` sólo inyecta CSS y
+# ofrece componentes; no toca ningún número. Si falla, la app se ve como antes
+# y sigue funcionando igual — por eso va en try.
+try:
+    import estilo_ui as _estilo
+    _estilo.aplicar(st)
+except Exception:
+    _estilo = None
 
 # v14: login con contraseña RETIRADO a petición del usuario — la app es pública.
 
@@ -824,7 +837,8 @@ def render_panel_equipos(clave: str, home: str, away: str, key: str,
         st.markdown(f"- {frase}")
 
     h = r['h2h']
-    t1, t2, t3 = st.tabs(['🤝 Cara a cara', '🏆 Clasificación', '📈 Forma'])
+    t1, t2, t3 = st.tabs(['🤝 Cara a cara', '🏆 Clasificación',
+                          '📈 Últimos partidos y estadísticas'])
 
     with t1:
         if not h.get('n'):
@@ -952,7 +966,8 @@ def render_panel_beisbol(clave: str, home: str, away: str, key: str,
         st.caption(f"Panel no disponible ahora ({type(e).__name__}).")
         return
 
-    t1, t2, t3 = st.tabs(['🤝 Serie histórica', '🏆 Clasificación', '📈 Forma'])
+    t1, t2, t3 = st.tabs(['🤝 Serie histórica', '🏆 Clasificación',
+                          '📈 Últimos partidos y estadísticas'])
     h = r['h2h']
     with t1:
         if not h.get('n'):
@@ -1031,7 +1046,8 @@ def render_panel_tenis(engine, p1: str, p2: str, superficie: str,
         st.caption(f"Panel no disponible ahora ({type(e).__name__}).")
         return
 
-    t1, t2, t3 = st.tabs(['🤝 Cara a cara', '🏆 Ranking y ELO', '📈 Forma'])
+    t1, t2, t3 = st.tabs(['🤝 Cara a cara', '🏆 Ranking y ELO',
+                          '📈 Últimos partidos'])
     with t1:
         h = _pd.h2h_tenis(engine, p1, p2)
         if h.get('balance') is not None:
@@ -1724,8 +1740,22 @@ def render_beisbol_pitchers() -> None:
             k1, k2 = st.columns([3, 2])
             k1.markdown(f"**{cab}**" + (f"  \n{_h}" if _h else ''))
             if v.get('entra'):
+                # v117 — la PROBABILIDAD, delante del EV.
+                #
+                # El usuario la pidió y es la cifra que se entiende: un EV de
+                # +2 % no dice nada sin saber que sale de un 55 % a cuota 1,85.
+                # Cuando el modelo no la tiene —el hándicap de carreras no se
+                # modela— se dice, en vez de dejar el hueco sin explicar.
+                _pv = v.get('prob')
+                _txt_p = (f"  \n🎯 **{_pv*100:.0f} % de ganarla** (según el "
+                          f"modelo)" if _pv is not None
+                          else ("  \nℹ️ El modelo no estima la probabilidad de "
+                                "cubrir un hándicap de carreras: esta pata "
+                                "sale de la regla, no de una probabilidad."
+                                if v.get('prob_no_disponible') else ''))
                 k2.success(f"✅ **{v['apuesta']}**  \n{v['mercado']}"
                            + (f" @ {v['cuota']}" if v.get('cuota') else '')
+                           + _txt_p
                            + (f"  \nEV del modelo {v['ev_modelo']*100:+.1f} %"
                               if v.get('ev_modelo') is not None else ''))
             else:
@@ -3193,7 +3223,24 @@ def render_alpha_finder():
                       f"Cuota mínima sugerida **{t.get('cuota_justa','?')}** · "
                       f"prob {(t.get('prob') or 0)*100:.0f} %")
         c2, c3 = st.columns([2, 3])
-        c2.markdown(f"**{pref}{t.get('apuesta','?')}**  \n{t.get('mercado','')}")
+        # v117 — la probabilidad, además de en número, en barra.
+        #
+        # Un «69 %» y un «51 %» se leen igual de rápido y no se distinguen de
+        # un vistazo; una barra sí. El color sigue el criterio medido del
+        # proyecto (ver `estilo_ui.tono_por_ev`): verde sólo cuando hay varias
+        # casas comparadas, que es la única ventaja con ROI positivo.
+        _extra_vis = ''
+        if _estilo is not None:
+            try:
+                _p_vis = t.get('prob_calibrada')
+                _p_vis = _p_vis if _p_vis is not None else t.get('prob')
+                if _p_vis is not None:
+                    _extra_vis = _estilo.barra(_p_vis)
+            except Exception:
+                _extra_vis = ''
+        c2.markdown(f"**{pref}{t.get('apuesta','?')}**  \n{t.get('mercado','')}"
+                    + (f"\n\n{_extra_vis}" if _extra_vis else ''),
+                    unsafe_allow_html=bool(_extra_vis))
         rent = t.get('rentabilidad') or {}
         _gap = t.get('sharp_gap')
         import traductor_quant as _tq
@@ -3485,15 +3532,40 @@ def render_alpha_finder():
                 import precision_ligas as _pl
             except Exception:
                 _pl = None
+            # v117 — LA HORA, EL ORDEN Y EL BOTÓN.
+            #
+            # Pedido del usuario: «no me estás poniendo a qué hora juegan esos
+            # partidos, ordena esa sección de la hora más temprana a la más
+            # tarde, y que tenga el botón para ir a la sección de ese partido».
+            #
+            # El orden era por fecha y luego por probabilidad descendente, que
+            # para una lista del día es el orden equivocado: lo que decide si
+            # llegas a tiempo a apostar es la hora de inicio. `inicio` ya viaja
+            # en cada pronóstico desde la v89; sólo había que usarlo.
+            #
+            # Los partidos sin hora publicada van al final, no al principio:
+            # una cadena vacía ordena antes que cualquier hora y los habría
+            # puesto arriba, que es justo donde no sirven.
+            def _clave_orden(x):
+                _ini = str(x.get('inicio') or '')
+                return (str(x.get('fecha', '')), _ini == '', _ini,
+                        -(x.get('prob') or 0))
+
+            _pronos_ord = sorted(pronos, key=_clave_orden)
             filas_p = []
-            for p in sorted(pronos, key=lambda x: (x.get('fecha', ''),
-                                                   -(x.get('prob') or 0))):
+            for p in _pronos_ord:
                 board = p.get('board') or {}
                 partes = p.get('partido', ' vs ').split(' vs ')
                 home = partes[0] if partes else ''
                 away = partes[-1] if len(partes) > 1 else ''
                 _t = _pl.techo(p.get('clave_liga')) if _pl else None
+                try:
+                    _hp = _horario.partes(p.get('inicio'))
+                    _hora_txt = _hp[1] if _hp else '—'
+                except Exception:
+                    _hora_txt = '—'
                 filas_p.append({
+                    'Hora (CDMX)': _hora_txt,
                     'Fecha': p.get('fecha', ''), 'Liga': p.get('liga', ''),
                     'Techo liga': f"{_t['mercado']*100:.0f}%" if _t else '—',
                     'Partido': p.get('partido', ''),
@@ -3507,6 +3579,40 @@ def render_alpha_finder():
                                         f"({(p.get('prob') or 0)*100:.0f}%)",
                 })
             st.dataframe(_pd.DataFrame(filas_p), hide_index=True, width='stretch')
+            # el botón por partido va DEBAJO de la tabla: Streamlit no permite
+            # meter un widget dentro de una celda, y una fila de botones sueltos
+            # se pierde. Un desplegable con el mismo orden cronológico y un
+            # solo botón hace el mismo trabajo sin ensuciar la pantalla.
+            _dest_p = {}
+            for p in _pronos_ord:
+                try:
+                    import navegacion as _nav_p
+                    _d = _nav_p.destino_del_pick(p)
+                except Exception:
+                    _d = None
+                if not _d:
+                    continue
+                _hp = None
+                try:
+                    _hp = _horario.partes(p.get('inicio'))
+                except Exception:
+                    pass
+                _et = (f"{_hp[1]} · " if _hp else '') + \
+                      f"{p.get('partido','?')} — {p.get('liga','')}"
+                _dest_p[_et] = _d
+            if _dest_p:
+                cbp1, cbp2 = st.columns([3, 1])
+                _sel_p = cbp1.selectbox(
+                    "📊 Ver las estadísticas de un partido de la lista",
+                    list(_dest_p.keys()), key='prono_ir_sel',
+                    help="Abre la vista de su competición con el partido "
+                         "cargado: historial, forma, todos los mercados y el "
+                         "constructor de combinadas.")
+                if cbp2.button("Ir al partido →", key='prono_ir_btn',
+                               width='stretch', type='primary'):
+                    import navegacion as _nav_p2
+                    _nav_p2.marcar(st, _dest_p[_sel_p])
+                    st.rerun()
             st.caption("**Techo liga** = cuánto acierta ahí la mejor casa de "
                        "apuestas del mundo; es el máximo que logra nadie. Va "
                        "del 42 % en la Serie B italiana al 59 % en Turquía. Si "

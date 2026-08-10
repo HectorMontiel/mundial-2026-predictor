@@ -1817,6 +1817,58 @@ def test_selecciones_completas():
     fe._ESPN_BLOQUEADO_HASTA[0] = 0
 
 
+def test_metricas_con_procedencia():
+    """
+    v117 — una métrica de validación en el metadata tiene que decir de dónde sale.
+
+    El caso que lo motivó: el bloque `walk_forward` de la KBO estaba escrito a
+    mano desde la v97, el entrenamiento NO lo recalculaba, y el metadata lo
+    presentaba como «lo que de verdad autoriza a desplegar». Se descubrió al
+    integrar las features del abridor: salió idéntico cifra por cifra con las
+    columnas del modelo ya cambiadas.
+
+    Se revisaron todos los motores y era el único caso. `monitor_canales`
+    también lleva cifras fijas, pero declara su `fuente` en cada una, que es
+    justo lo que aquí se exige.
+    """
+    import json
+    import os
+
+    # 1. el bloque de la KBO ya no puede leerse como si fuera de hoy
+    ruta = os.path.join('modelos', 'kbo', 'metadata.json')
+    if os.path.exists(ruta):
+        try:
+            meta = json.load(open(ruta, encoding='utf-8'))
+        except Exception as e:
+            print(f'AVISO metadata de KBO ilegible ({e}); se omite')
+            meta = {}
+        wf = meta.get('walk_forward') or {}
+        if wf:
+            check('medido_en' in wf or 'aviso' in wf,
+                  'el walk-forward de la KBO declara que es un valor histórico')
+            check('corresponde_a' in wf,
+                  'y a qué modelo corresponde (no al desplegado)')
+        va = meta.get('validacion_abridor') or {}
+        if va:
+            check(va.get('bootstrap_p5', 0) > 0,
+                  f"las features del abridor se integraron con p5 positivo "
+                  f"({va.get('bootstrap_p5')})")
+            check(va.get('juzgados', 0) >= 500,
+                  f"y con muestra de juicio suficiente ({va.get('juzgados')})")
+        check(list(meta.get('columnas_modelo') or []) ==
+              [0, 5, 9, 10, 11, 12],
+              'el clasificador de KBO mira ELO, abridor, IDF y las tres nuevas')
+
+    # 2. las referencias fijas de monitor_canales declaran su procedencia
+    try:
+        import monitor_canales
+        for clave, ref in (monitor_canales.REFERENCIAS or {}).items():
+            check(bool(ref.get('fuente')),
+                  f'la referencia «{clave}» dice de qué versión y muestra sale')
+    except Exception as e:
+        print(f'AVISO monitor_canales no disponible ({e}); se omite')
+
+
 def test_bf_por_apertura():
     """
     v115 — el sesgo que inflaba las líneas de ponches.
