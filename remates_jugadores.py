@@ -224,8 +224,37 @@ def _stats_partido(liga: str, evento_id: str, equipo: str) -> List[dict]:
     return filas
 
 
+def codigo_espn(liga: str) -> str:
+    """
+    v118 — LA CLAVE DEL PROYECTO NO ES EL CÓDIGO DE ESPN, Y AQUÍ SE CONFUNDÍAN.
+
+    Éste era el fallo de «ESPN no publica estadística por jugador»: no es que
+    no la publique, es que se le pedía con el nombre equivocado.
+
+        .../soccer/liga_mx/scoreboard   →  400 Bad Request
+        .../soccer/mex.1/scoreboard     →  200, 23 KB, 13 partidos
+
+    `equipos_de_liga` recibía la clave interna («liga_mx», «premier») y la
+    metía tal cual en la URL, así que el catálogo de equipos salía vacío,
+    `resolver_equipo` devolvía None y la tabla quedaba en cero — en TODAS las
+    competiciones cuya clave no coincide por casualidad con su código de ESPN,
+    que son casi todas. `_partidos_del_equipo` sí recibía el código correcto
+    desde su llamador, y por eso encontraba partidos: la pista de que el
+    problema estaba en la traducción y no en la fuente.
+
+    Se traduce con el mismo mapa que usa el resto del proyecto. Si la clave ya
+    es un código de ESPN (o no está en el mapa) se devuelve tal cual.
+    """
+    try:
+        from fixtures_espn import ESPN_CODIGOS
+        return ESPN_CODIGOS.get(liga, liga)
+    except Exception:
+        return liga
+
+
 def equipos_de_liga(liga: str, dias: int = 120) -> List[str]:
     """Nombres de equipo tal y como los escribe ESPN en esa liga."""
+    liga = codigo_espn(liga)
     clave = f'equipos_{liga}.json'
     cacheado = _leer_cache(clave)
     if cacheado is not None:
@@ -280,6 +309,10 @@ def remates_equipo(liga: str, equipo: str, n_partidos: int = MAX_PARTIDOS,
     remates_pp, al_arco_pp, punteria, titularidades. Vacío si ESPN no publica
     estadística de esos partidos (degradación limpia: la UI cae al estimado).
     """
+    # v118 — se traduce la clave del proyecto al código de ESPN (ver
+    # `codigo_espn`). Sin esto la URL era `/soccer/liga_mx/...` y ESPN
+    # respondía 400: la causa real del «no publica estadística por jugador».
+    liga = codigo_espn(liga)
     clave = f'rem_{liga}_{str(equipo).lower().replace(" ", "_")}_{n_partidos}.json'
     cacheado = _leer_cache(clave)
     if cacheado is not None:

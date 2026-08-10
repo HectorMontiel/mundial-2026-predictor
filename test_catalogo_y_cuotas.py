@@ -3231,9 +3231,23 @@ def test_cobertura_remates_medida():
     Hasta aquí eso salía como una tabla vacía con un «no disponible» junto a
     cada equipo, indistinguible de un fallo de red o de un equipo mal mapeado.
 
-    Medido el 2026-08-08 pidiendo un equipo real de cada una de las 49 activas
-    con código de ESPN: **41 con datos, 8 sin ellos**. Con la medición, la
-    interfaz lo dice una sola vez y con seguridad.
+    v118 — LA MEDICIÓN ANTERIOR ESTABA MAL, Y EL FALLO ERA EL MISMO QUE OCULTABA.
+
+    `remates_jugadores` metía la CLAVE DEL PROYECTO en la URL de ESPN en vez de
+    su CÓDIGO:
+
+        .../soccer/liga_mx/scoreboard   →  400 Bad Request
+        .../soccer/mex.1/scoreboard     →  200, 13 partidos
+
+    Con la clave equivocada el catálogo de equipos salía vacío y la competición
+    se anotaba como «sin remates» aunque ESPN los publicara. Liga MX devolvía
+    CERO jugadores y la interfaz decía «ESPN no publica esto» — sobre una liga
+    que devuelve 36.
+
+    Rehecha en la v118 con el código correcto y probando TRES equipos por
+    competición (con uno solo, Brasil salía «sin datos» porque el primero del
+    catálogo no jugó en la ventana, mientras Palmeiras devuelve 38 jugadores):
+    **44 con datos, 5 sin ellos** de las 49 activas.
     """
     import remates_jugadores as rj
 
@@ -3241,15 +3255,22 @@ def test_cobertura_remates_medida():
     check(bool(c), "existe el fichero de cobertura de remates")
     con = c.get('con_remates') or []
     sin = c.get('sin_remates') or {}
-    check(len(con) >= 35,
+    check(len(con) >= 40,
           f"la mayoría de competiciones tienen remates por jugador "
           f"({len(con)} con, {len(sin)} sin)")
     check(not (set(con) & set(sin)),
           "ninguna competición está a la vez con y sin datos")
 
+    # la traducción de clave a código de ESPN es lo que arregló todo
+    check(rj.codigo_espn('liga_mx') == 'mex.1',
+          "la clave del proyecto se traduce al código de ESPN")
+    check(rj.codigo_espn('premier') == 'eng.1', "y para el resto igual")
+    check(rj.codigo_espn('__inventada__') == '__inventada__',
+          "una clave desconocida se deja tal cual, no se rompe")
+
     check(rj.hay_remates('liga_mx') is True, "Liga MX sí tiene remates")
-    check(rj.hay_remates('brasil') is False,
-          "y el Brasileirão está medido como que NO")
+    check(rj.hay_remates('brasil') is True,
+          "y el Brasileirão TAMBIÉN — la medición vieja se equivocaba")
     # `None` tiene que ser distinto de `False`: una liga sin medir puede tener
     # datos, y decir «no hay» sin comprobarlo sería inventar.
     check(rj.hay_remates('__no_medida__') is None,

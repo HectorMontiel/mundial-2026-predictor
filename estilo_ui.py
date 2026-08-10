@@ -150,6 +150,42 @@ div[data-testid="stAlert"] { border-radius: var(--radio); border-width: 0 0 0 4p
              animation: crece .5s ease-out; }
 @keyframes crece { from { width: 0 } }
 
+/* ---- barra 1X2 proporcional ----------------------------------------- */
+.b1x2 { display: flex; height: 26px; border-radius: 999px; overflow: hidden;
+        margin: .4rem 0; font-size: .74rem; font-weight: 700;
+        border: 1px solid var(--borde); }
+.b1x2 > span { display: flex; align-items: center; justify-content: center;
+               color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35);
+               transition: filter .15s ease; animation: ancho .45s ease-out; }
+.b1x2 > span:hover { filter: brightness(1.12); }
+@keyframes ancho { from { width: 0 !important } }
+
+/* ---- anillo de probabilidad ----------------------------------------- */
+.anillo { width: 92px; height: 92px; border-radius: 50%; display: grid;
+          place-items: center; margin: .2rem auto;
+          background: conic-gradient(var(--c) var(--p), var(--sutil) 0);
+          animation: gira .5s ease-out; }
+.anillo-in { width: 70px; height: 70px; border-radius: 50%;
+             background: var(--background-color, #fff);
+             display: grid; place-items: center; text-align: center; }
+:root[data-theme="dark"] .anillo-in, .stApp[data-theme="dark"] .anillo-in {
+  background: #0e1117; }
+.anillo-in b { font-size: 1.28rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.anillo-in small { display: block; opacity: .7; font-size: .62rem; margin-top: 2px; }
+@keyframes gira { from { --p: 0deg } }
+
+/* ---- chips de cuota -------------------------------------------------- */
+.cuota { display: inline-flex; align-items: baseline; gap: .3rem;
+         padding: .18rem .55rem; border-radius: 8px; font-weight: 700;
+         font-variant-numeric: tabular-nums; border: 1px solid var(--borde);
+         background: var(--panel); margin-right: .3rem;
+         transition: transform .12s ease, border-color .15s ease; }
+.cuota:hover { transform: translateY(-1px); }
+.cuota i { font-style: normal; font-weight: 500; font-size: .68rem; opacity: .7; }
+.cuota.mejor { border-color: color-mix(in srgb, var(--ok) 55%, transparent);
+               background: color-mix(in srgb, var(--ok) 10%, transparent);
+               color: var(--ok); }
+
 /* ---- entrada suave de las secciones --------------------------------- */
 .block-container > div { animation: aparece .28s ease-out both; }
 @keyframes aparece { from { opacity: 0; transform: translateY(4px) } }
@@ -196,6 +232,65 @@ def barra(prob: float) -> str:
     except (TypeError, ValueError):
         return ''
     return f'<div class="barra"><i style="width:{p*100:.0f}%"></i></div>'
+
+
+def barra_1x2(p_local: float, p_empate: float, p_visita: float,
+              local: str = '1', visita: str = '2') -> str:
+    """
+    Las tres probabilidades del 1X2 en una sola barra proporcional.
+
+    Tres porcentajes en fila obligan a comparar mentalmente; una barra donde
+    cada tramo ocupa lo que vale se entiende sin leer. Los tramos llevan su
+    cifra dentro cuando caben, y el `title` da el detalle al pasar por encima.
+    """
+    try:
+        a, b, c = float(p_local), float(p_empate), float(p_visita)
+    except (TypeError, ValueError):
+        return ''
+    s = a + b + c
+    if s <= 0:
+        return ''
+    a, b, c = a / s, b / s, c / s
+    def _tramo(p, color, etq, titulo):
+        txt = f'{p*100:.0f}%' if p >= 0.14 else ''
+        return (f'<span style="width:{p*100:.2f}%;background:{color}" '
+                f'title="{titulo}">{txt}</span>')
+    return (
+        '<div class="b1x2">'
+        + _tramo(a, 'var(--ok)', local, f'{local}: {a*100:.0f}%')
+        + _tramo(b, 'color-mix(in srgb, currentColor 30%, transparent)', 'X',
+                 f'Empate: {b*100:.0f}%')
+        + _tramo(c, 'var(--mira)', visita, f'{visita}: {c*100:.0f}%')
+        + '</div>')
+
+
+def anillo(prob: float, etiqueta: str = '', tono: str = 'ok') -> str:
+    """
+    Anillo de progreso para una probabilidad. Ocupa poco y se lee de lejos:
+    sirve para la cifra principal de una tarjeta, donde una barra se pierde.
+    """
+    try:
+        p = max(0.0, min(1.0, float(prob)))
+    except (TypeError, ValueError):
+        return ''
+    col = {'ok': 'var(--ok)', 'mira': 'var(--mira)',
+           'no': 'var(--no)'}.get(tono, 'var(--ok)')
+    return (
+        f'<div class="anillo" style="--p:{p*360:.0f}deg;--c:{col}">'
+        f'<div class="anillo-in"><b>{p*100:.0f}%</b>'
+        + (f'<small>{etiqueta}</small>' if etiqueta else '')
+        + '</div></div>')
+
+
+def chip_cuota(cuota, casa: str = '', mejor: bool = False) -> str:
+    """Una cuota con su casa, destacada si es la mejor del tablón."""
+    try:
+        c = float(cuota)
+    except (TypeError, ValueError):
+        return ''
+    clase = 'cuota mejor' if mejor else 'cuota'
+    return (f'<span class="{clase}" title="{casa}">{c:.2f}'
+            + (f'<i>{casa}</i>' if casa else '') + '</span>')
 
 
 def tono_por_ev(ev, n_casas: int = 1, sospechoso: bool = False) -> str:

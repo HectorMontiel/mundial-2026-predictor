@@ -625,6 +625,18 @@ def veredicto(home: str, away: str,
     de ponches y ponches esperados) para que todo sea auditable desde fuera.
     """
     datos: Dict = {}
+    # v118 — LA PROBABILIDAD DEL MODELO, SIEMPRE, ENTRE O NO EL PARTIDO.
+    #
+    # Antes sólo se publicaba dentro de las ramas que devuelven `entra: True`,
+    # así que en los partidos descartados —que son la mayoría— no había forma
+    # de ver qué probabilidad les daba el modelo, ni de contrastar la regla
+    # con él. Va en `datos` porque es un dato del partido, no del veredicto.
+    if prob_home is not None:
+        try:
+            datos['prob_modelo'] = {'home': round(float(prob_home), 3),
+                                    'away': round(1.0 - float(prob_home), 3)}
+        except (TypeError, ValueError):
+            pass
     motivos: List[str] = []
     props = props if props is not None else props_ponches()
 

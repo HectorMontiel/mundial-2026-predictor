@@ -879,15 +879,44 @@ def render_panel_equipos(clave: str, home: str, away: str, key: str,
                        "al modelo ni quedarse sin actualizar por su cuenta.")
 
     with t3:
+        # v118 — TODAS LAS COMPETICIONES, NO SÓLO ESTA LIGA.
+        #
+        # El usuario lo señaló con el caso exacto: «la MLS y la Liga MX juegan
+        # el Mundial de Clubes, la Leagues Cup… deben aparecer los partidos de
+        # todas las competiciones para determinar desgaste». Y era cierto:
+        # Monterrey tiene 316 partidos en el histórico de Liga MX y 330 en el
+        # de la Leagues Cup, y aquí sólo se veían los primeros.
+        #
+        # `forma_global` los junta, quita los duplicados —el mismo partido está
+        # en los dos ficheros— y cuenta la carga de 14 y 30 días, que es lo que
+        # de verdad dice si un equipo llega fundido.
+        import panel_equipos as _pe_g
         for lado, eq, f, cf in (('🏠', home, r['forma_local'], r['casa_fuera_local']),
                                 ('✈️', away, r['forma_visitante'],
                                  r['casa_fuera_visitante'])):
+            try:
+                _fg = _pe_g.forma_global(clave, eq, n=8)
+                if _fg.get('n'):
+                    f = _fg
+            except Exception:
+                pass
             if not f.get('n'):
                 continue
+            _comps = f.get('competiciones') or []
+            _carga = ''
+            if f.get('partidos_14d') is not None:
+                _n14 = f['partidos_14d']
+                _sem = '🔴' if _n14 >= 5 else ('🟡' if _n14 >= 4 else '🟢')
+                _carga = (f"  \n{_sem} **Desgaste**: {_n14} partidos en 14 días "
+                          f"· {f.get('partidos_30d', 0)} en 30")
             st.markdown(
                 f"**{lado} {eq}** — últimos {f['n']}: `{f['racha']}` · "
                 f"{f['pts_por_partido']} pts/partido · "
-                f"{f['gf_media']} goles a favor y {f['gc_media']} en contra")
+                f"{f['gf_media']} goles a favor y {f['gc_media']} en contra"
+                + (f"  \n🏆 Cuenta **{len(_comps)} competiciones**: "
+                   f"{', '.join(NOMBRES_LIGAS.get(c, c) for c in _comps)}"
+                   if len(_comps) > 1 else '')
+                + _carga)
             if cf:
                 partes = []
                 for donde, d in cf.items():
@@ -906,6 +935,11 @@ def render_panel_equipos(clave: str, home: str, away: str, key: str,
             for p in f['partidos']:
                 _fila = {
                     'Fecha': p['fecha'],
+                    # v118: de qué competición es cada partido. Sin esto, ver
+                    # «Monterrey 2-1 Inter Miami» en la forma de Liga MX
+                    # despista: es de la Leagues Cup.
+                    'Competición': NOMBRES_LIGAS.get(p.get('competicion'),
+                                                     p.get('competicion') or '—'),
                     'Dónde': 'Casa' if p['casa'] else 'Fuera',
                     'Rival': p['rival'],
                     'Marcador': f"{p['goles']} - {p['encajados']}",
@@ -1194,9 +1228,11 @@ def render_remates_reales(lados: list, key: str):
         if _hay is False:
             st.info(
                 "ESPN **no publica estadística por jugador** de esta "
-                "competición — no es un fallo ni le falta nada a tu conexión. "
-                "Está medido: de las 49 competiciones activas la cubre en 41. "
-                "Los remates por EQUIPO sí están en el análisis del partido.")
+                "competición — no es un fallo ni le falta nada a tu "
+                "conexión. Está medido pidiendo tres "
+                "equipos de cada una: de las 49 competiciones activas la "
+                "cubre en **44**. Los remates por EQUIPO sí están en el "
+                "análisis del partido.")
             return
     except Exception:
         pass
@@ -1606,6 +1642,20 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
     st.caption(AVISO_JUEGO_RESPONSABLE)
 
 
+@st.cache_resource(show_spinner="Cargando modelo MLB…")
+def cargar_motor_mlb():
+    """
+    v118 — el motor de MLB, compartido por las tres pestañas.
+
+    `render_mlb` lo cargaba en un cierre propio, así que la pestaña de
+    abridores no tenía forma de pedirle una probabilidad — y por eso el
+    veredicto se quedaba sin ella. A nivel de módulo y cacheado, las tres
+    pestañas usan la misma instancia y el modelo se carga una sola vez.
+    """
+    from engines.mlb_engine import MLBEngine
+    return MLBEngine().cargar_modelo()
+
+
 def render_beisbol_pitchers() -> None:
     """
     v106 — ABRIDORES, ESTADIO Y PONCHES: el veredicto de parlay del usuario.
@@ -1641,6 +1691,25 @@ def render_beisbol_pitchers() -> None:
         import mlb_statsapi as _msa
         from engines.mlb_engine import codigo_mlb as _cod
 
+        # v118: el motor, para poder dar la probabilidad de cada partido.
+        # Cacheado a nivel de proceso por `cargar_motor_mlb`, así que esto no
+        # vuelve a cargar el modelo en cada refresco.
+        try:
+            _eng_p = cargar_motor_mlb()
+        except Exception:
+            _eng_p = None
+
+        def _prob_mlb(h, a):
+            """Probabilidad de que gane el local, o None si no se sabe."""
+            if _eng_p is None or not getattr(_eng_p, 'listo', False):
+                return None
+            try:
+                pr = _eng_p.predecir(h, a)
+                v = (pr or {}).get('prob_home')
+                return float(v) if v is not None else None
+            except Exception:
+                return None
+
         juegos = _msa.partidos_del_dia()
         props = _bp.props_ponches()
         idx = _cm._indice('mlb')
@@ -1656,11 +1725,25 @@ def render_beisbol_pitchers() -> None:
             salida.append({
                 'home': j['home'], 'away': j['away'],
                 'inicio': fila.get('fecha') or j.get('fecha'),
+                # v118 — LA PROBABILIDAD DEL MODELO, QUE NUNCA SE PASABA.
+                #
+                # `veredicto()` acepta `prob_home` desde la v106 y calcula con
+                # ella la probabilidad del lado y el EV. Esta llamada nunca se
+                # la daba, así que `prob_home` llegaba None y los dos campos
+                # salían vacíos: por eso la pantalla enseñaba «Gana BOS @ 1.64»
+                # a secas, sin el «X % de ganarla» ni el EV. El usuario lo
+                # reportó dos veces y las dos veces el arreglo estaba en la UI,
+                # no en la regla.
+                #
+                # Si el motor no puede predecir ese cruce (equipo desconocido,
+                # modelo sin cargar) se pasa None y el veredicto se comporta
+                # como antes — la regla no depende de la probabilidad.
                 'veredicto': _bp.veredicto(
                     j['home'], j['away'],
                     j.get('home_pitcher'), j.get('away_pitcher'),
                     cuota_home=c.get('home'), cuota_away=c.get('away'),
-                    spreads=fila.get('spreads'), props=props),
+                    spreads=fila.get('spreads'), props=props,
+                    prob_home=_prob_mlb(j['home'], j['away'])),
             })
         return salida
 
@@ -1760,6 +1843,24 @@ def render_beisbol_pitchers() -> None:
                               if v.get('ev_modelo') is not None else ''))
             else:
                 k2.warning("⛔ Fuera de la parlay")
+            # v118 — la probabilidad del modelo para ESTE partido, entre o no.
+            #
+            # Es la cifra que permite contrastar la regla con el modelo: un
+            # partido descartado por la regla puede tener un 60 % del local, y
+            # sin verlo no hay forma de juzgar si la regla se está dejando algo.
+            _pm = (v.get('datos') or {}).get('prob_modelo') or {}
+            if _pm.get('home') is not None:
+                _bar = ''
+                if _estilo is not None:
+                    try:
+                        _bar = _estilo.barra(_pm['home'])
+                    except Exception:
+                        _bar = ''
+                st.markdown(
+                    f"📊 Probabilidad del modelo — **{a['home']} "
+                    f"{_pm['home']*100:.0f} %** · {a['away']} "
+                    f"{_pm['away']*100:.0f} %" + _bar,
+                    unsafe_allow_html=bool(_bar))
             for m in v.get('motivos', []):
                 st.caption(m)
             # el detalle de cada abridor, para poder discutir el veredicto
@@ -3600,6 +3701,40 @@ def render_alpha_finder():
                 _et = (f"{_hp[1]} · " if _hp else '') + \
                       f"{p.get('partido','?')} — {p.get('liga','')}"
                 _dest_p[_et] = _d
+            # v118 — LOS PRÓXIMOS, EN VISUAL Y NO EN TABLA.
+            #
+            # La tabla de arriba es la referencia completa, pero doce columnas
+            # de porcentajes no se leen: hay que comparar mentalmente 1, X y 2
+            # fila por fila. Los seis primeros —que son los que están a punto
+            # de empezar— salen además como barra proporcional, donde cada
+            # tramo ocupa lo que vale y el favorito se ve sin leer un número.
+            if _estilo is not None and _pronos_ord:
+                st.markdown("**⏱️ Los seis más próximos, de un vistazo**")
+                for p in _pronos_ord[:6]:
+                    _b = p.get('board') or {}
+                    _pt = p.get('partido', ' vs ').split(' vs ')
+                    _h = _pt[0] if _pt else ''
+                    _a = _pt[-1] if len(_pt) > 1 else ''
+                    _pl = _b.get(f'Gana {_h}')
+                    _px = _b.get('Empate')
+                    _pv = _b.get(f'Gana {_a}')
+                    if None in (_pl, _px, _pv):
+                        continue
+                    try:
+                        _hp2 = _horario.partes(p.get('inicio'))
+                        _hh = _hp2[1] if _hp2 else '—'
+                    except Exception:
+                        _hh = '—'
+                    with st.container(border=True):
+                        st.markdown(
+                            f"**{_hh}** · {p.get('partido','?')}  \n"
+                            f"<small>{p.get('liga','')}</small>"
+                            + _estilo.barra_1x2(_pl, _px, _pv, _h, _a),
+                            unsafe_allow_html=True)
+                st.caption("Verde = gana el local · gris = empate · ámbar = "
+                           "gana el visitante. El ancho es la probabilidad del "
+                           "modelo; pasa por encima para ver la cifra exacta.")
+
             if _dest_p:
                 cbp1, cbp2 = st.columns([3, 1])
                 _sel_p = cbp1.selectbox(

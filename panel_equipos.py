@@ -77,7 +77,11 @@ def _historico(clave: str) -> pd.DataFrame:
         logger.warning(f'[panel] {ruta}: {type(e).__name__}: {e}')
         _CACHE[clave] = pd.DataFrame()
         return _CACHE[clave]
-    if 'date' not in d.columns:
+    # v118 — no todos los `historico_*.csv` son de equipos. El de tenis usa
+    # `jugador_1`/`jugador_2` y no tiene `home_team`, así que al recorrerlos
+    # todos (ver `forma_global`) reventaba con un KeyError. Se descarta aquí,
+    # que es donde se sabe, en vez de en cada consumidor.
+    if not {'date', 'home_team', 'away_team'} <= set(d.columns):
         _CACHE[clave] = pd.DataFrame()
         return _CACHE[clave]
     # `format='mixed'`: los históricos de ESPN traen '2024-03-06 19:00:00' y
@@ -245,6 +249,124 @@ def clasificacion(clave: str) -> List[Dict]:
         f['dg'] = f['gf'] - f['gc']
         f['pts_por_partido'] = round(f['pts'] / f['pj'], 2) if f['pj'] else 0.0
     return salida
+
+
+def competiciones_del_equipo(equipo: str, excluir: Optional[str] = None,
+                             desde_dias: int = 400) -> List[str]:
+    """
+    En qué otras competiciones ha jugado este equipo recientemente.
+
+    v118 — el usuario lo señaló con un ejemplo exacto: «la MLS y la Liga MX
+    juegan el Mundial de Clubes, la Leagues Cup… deben aparecer los partidos de
+    todas las competiciones, no sólo de la liga actual, para determinar
+    desgaste». Y es verdad: Monterrey tiene 316 partidos en el histórico de
+    Liga MX y **330 en el de la Leagues Cup**, y la forma sólo miraba el
+    primero. Un equipo que viene de jugar entre semana llega distinto, y eso no
+    se veía.
+
+    Se recorren los `historico_*.csv` del proyecto. No es caro: cada uno se lee
+    una vez y queda en la caché del módulo.
+    """
+    import glob
+    fuera = []
+    corte = pd.Timestamp.today() - pd.Timedelta(days=desde_dias)
+    for ruta in sorted(glob.glob('historico_*.csv')):
+        clave = os.path.basename(ruta)[len('historico_'):-len('.csv')]
+        if excluir and clave == excluir:
+            continue
+        d = _historico(clave)
+        if d.empty:
+            continue
+        suyos = d[((d['home_team'] == equipo) | (d['away_team'] == equipo))
+                  & (d['date'] >= corte)]
+        if not suyos.empty:
+            fuera.append(clave)
+    return fuera
+
+
+def forma_global(clave: str, equipo: str, n: int = 8) -> Dict:
+    """
+    La forma del equipo en TODAS sus competiciones, no sólo en ésta.
+
+    Devuelve lo mismo que `forma` más `competicion` en cada partido, para que
+    se vea de dónde viene cada resultado. Si el equipo sólo juega una
+    competición, el resultado es idéntico al de `forma` — así que sustituirla
+    no cambia nada donde no había nada que añadir.
+    """
+    import glob
+    filas = []
+    for ruta in sorted(glob.glob('historico_*.csv')):
+        cl = os.path.basename(ruta)[len('historico_'):-len('.csv')]
+        d = _historico(cl)
+        if d.empty:
+            continue
+        suyos = d[(d['home_team'] == equipo) | (d['away_team'] == equipo)]
+        for _, r in suyos.iterrows():
+            filas.append((r, cl))
+    if not filas:
+        return {'n': 0, 'partidos': [], 'competiciones': []}
+    # v118 — EL MISMO PARTIDO NO PUEDE CONTAR DOS VECES.
+    #
+    # Los históricos se solapan: «Monterrey 2-0 Atlas» del 2 de agosto está en
+    # `historico_liga_mx.csv` y en `historico_leagues_cup.csv`, porque el
+    # ingestor de cada competición recoge lo que ESPN publica bajo su código y
+    # algunos partidos aparecen en los dos. Sin deduplicar, la racha sale con
+    # ocho entradas y sólo seis partidos, y el contador de desgaste —que es
+    # justo para lo que se pidió esto— exagera la carga.
+    #
+    # La identidad de un partido es (fecha, local, visitante, marcador): si
+    # coincide todo eso, es el mismo aunque venga de dos ficheros. Se conserva
+    # la primera aparición y se anotan las competiciones donde salió.
+    vistos, unicas = {}, []
+    for r, cl in sorted(filas, key=lambda x: x[0]['date'], reverse=True):
+        k = (str(r['date'])[:10], str(r['home_team']), str(r['away_team']),
+             int(r['home_goals']), int(r['away_goals']))
+        if k in vistos:
+            vistos[k].add(cl)
+            continue
+        vistos[k] = {cl}
+        unicas.append((r, cl, k))
+    filas = [(r, cl) for r, cl, _k in unicas[:n]]
+
+    partidos, racha, gf, gc = [], [], 0, 0
+    comps = set()
+    for r, cl in filas:
+        en_casa = r['home_team'] == equipo
+        propio = int(r['home_goals'] if en_casa else r['away_goals'])
+        ajeno = int(r['away_goals'] if en_casa else r['home_goals'])
+        res = 'G' if propio > ajeno else ('E' if propio == ajeno else 'P')
+        racha.append(res)
+        gf += propio
+        gc += ajeno
+        comps.add(cl)
+        partidos.append({
+            'fecha': r['date'].date().isoformat(),
+            'rival': r['away_team'] if en_casa else r['home_team'],
+            'casa': bool(en_casa), 'goles': propio, 'encajados': ajeno,
+            'resultado': res, 'competicion': cl,
+            'es_de_esta_liga': cl == clave,
+            'stats': _stats_partido(r, en_casa),
+        })
+    pj = len(partidos)
+    # v118 — DESGASTE: partidos en los últimos 14 y 30 días, contando TODAS
+    # las competiciones. Es el dato que el usuario pedía y que con una sola
+    # liga no se puede calcular: un equipo con cuatro partidos en dos semanas
+    # llega fundido, juegue donde juegue.
+    hoy = pd.Timestamp.today().normalize()
+    def _en(dias):
+        lim = hoy - pd.Timedelta(days=dias)
+        return sum(1 for p in partidos if pd.Timestamp(p['fecha']) >= lim)
+    return {
+        'n': pj, 'racha': ''.join(racha),
+        'ganados': racha.count('G'), 'empatados': racha.count('E'),
+        'perdidos': racha.count('P'),
+        'gf': gf, 'gc': gc,
+        'gf_media': round(gf / pj, 2), 'gc_media': round(gc / pj, 2),
+        'pts_por_partido': round((racha.count('G') * 3 + racha.count('E')) / pj, 2),
+        'partidos': partidos,
+        'competiciones': sorted(comps),
+        'partidos_14d': _en(14), 'partidos_30d': _en(30),
+    }
 
 
 def posicion(clave: str, equipo: str) -> Optional[Dict]:
