@@ -1258,8 +1258,31 @@ def render_remates_reales(lados: list, key: str):
                 st.caption(f"No disponible: {type(e).__name__}")
                 continue
             if df is None or df.empty:
-                st.caption("ESPN no publica estadística por jugador de sus "
-                           "últimos partidos.")
+                # v121 — DECIR POR QUÉ FALTA, Y QUE SEA VERDAD.
+                #
+                # Este mensaje decía «ESPN no publica estadística por jugador».
+                # Es falso: la publica —en local salen 36 jugadores de
+                # Monterrey, 32 de Chivas, 34 de Santos— pero devuelve **403 a
+                # las IPs de centro de datos**, que es donde corre la app. El
+                # usuario lo reportó tres veces buscando un dato que sí existe.
+                _bloqueo = False
+                try:
+                    import remates_jugadores as _rj_b
+                    _bloqueo = _rj_b.espn_nos_bloquea()
+                except Exception:
+                    pass
+                if _bloqueo:
+                    st.caption(
+                        "🚫 ESPN **sí publica** esta estadística, pero está "
+                        "bloqueando las peticiones desde el servidor donde "
+                        "corre la app (responde 403 a las IPs de centro de "
+                        "datos). No falta el dato: falta el acceso. En una "
+                        "ejecución local sí aparece.")
+                else:
+                    st.caption(
+                        "Sin estadística por jugador para los últimos "
+                        "partidos de este equipo. Puede ser que no haya "
+                        "jugado en la ventana consultada.")
                 continue
             hubo = True
             muestra = int(df['n_partidos_muestra'].iloc[0]) if 'n_partidos_muestra' in df else None
@@ -5189,13 +5212,26 @@ with col_sel1:
         opciones_fixture.append(etiqueta)
         fixture_map[etiqueta] = (_cat_int[_h], _cat_int[_a])
         _n_int += 1
-    if _n_int == 0:      # respaldo: calendario oficial del Mundial
-        for _, f in MOTOR.calendario.iterrows():
-            etiqueta = (f"{NOMBRES_PAIS.get(f['home'], f['home'])} vs "
-                        f"{NOMBRES_PAIS.get(f['away'], f['away'])} — "
-                        f"{pd.to_datetime(f['date']).strftime('%d %b')} · {f['stadium']}")
-            opciones_fixture.append(etiqueta)
-            fixture_map[etiqueta] = (f['home'], f['away'])
+    # v121 — SE ACABÓ EL RESPALDO AL CALENDARIO DEL MUNDIAL.
+    #
+    # Aquí estaba el motivo de que el usuario siguiera viendo «la plantilla del
+    # Mundial» después de pedir tres veces que desapareciera: cuando no había
+    # partidos de selecciones —que es lo normal fuera de las fechas FIFA, y
+    # SIEMPRE en producción, porque ESPN devuelve 403 a las IPs de centro de
+    # datos— esta rama rellenaba el desplegable con el fixture del Mundial
+    # 2026, un torneo terminado. El resto de la vista funcionaba, así que
+    # parecía que no se había cambiado nada.
+    #
+    # Una lista vacía es la respuesta correcta y se dice con todas las letras.
+    # Los dos selectores de equipo siguen ahí: se puede analizar cualquier
+    # cruce de las 200 selecciones aunque hoy no haya calendario.
+    if _n_int == 0:
+        st.info(
+            "📅 **No hay partidos de selecciones programados ahora mismo.** "
+            "Las selecciones juegan en ventanas concretas (las «fechas FIFA»), "
+            "y entre ellas el calendario está vacío — no es un fallo. "
+            "Mientras tanto puedes analizar cualquier cruce eligiendo los dos "
+            "equipos abajo.")
     partido_fixture = st.selectbox(
         f"📅 Próximos partidos de selecciones ({_n_int})" if _n_int
         else "📅 Partido del fixture oficial (opcional)", opciones_fixture,

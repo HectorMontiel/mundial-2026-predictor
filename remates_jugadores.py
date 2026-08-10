@@ -142,6 +142,13 @@ def _escribir_cache(clave: str, datos) -> None:
 def _get(url: str, params: dict) -> Optional[dict]:
     try:
         r = requests.get(url, params=params, headers=UA, timeout=TIMEOUT)
+        # v121: un 403 no es «no hay datos», es «no nos dejan pedirlos». Se
+        # anota para que la interfaz pueda decir la verdad (ver el bloque de
+        # `espn_nos_bloquea`).
+        if r.status_code == 403:
+            marcar_bloqueo()
+            logger.debug(f"[remates] 403 de ESPN en {url}")
+            return None
         r.raise_for_status()
         return r.json()
     except Exception as e:
@@ -222,6 +229,34 @@ def _stats_partido(liga: str, evento_id: str, equipo: str) -> List[dict]:
                     fila[col] = 0
             filas.append(fila)
     return filas
+
+
+# v121 — ESPN NOS BLOQUEA EN PRODUCCIÓN, Y EL MENSAJE MENTÍA.
+#
+# En local todo funciona: Liga MX devuelve 36 jugadores, Chivas 32, Santos 34.
+# En Streamlit Cloud, cero — y la pantalla decía «ESPN no publica estadística
+# por jugador de sus últimos partidos», que es falso. ESPN la publica; lo que
+# hace es devolver **403 a las IPs de centro de datos**, igual que con las
+# competiciones de selecciones (está en los registros del propio usuario).
+#
+# Decir «la fuente no lo tiene» cuando lo que pasa es «la fuente nos bloquea»
+# manda a buscar el problema donde no está — el usuario lo reportó tres veces
+# creyendo que era un dato inexistente.
+#
+# Se distingue una cosa de la otra: si la petición falla con 403 se marca el
+# bloqueo, y la interfaz puede decir la verdad. Un fichero precalculado por la
+# tarea diaria (que corre fuera de Cloud) es el camino para tener el dato allí;
+# mientras no exista, al menos no se miente sobre por qué falta.
+_BLOQUEO_ESPN = {'detectado': False}
+
+
+def espn_nos_bloquea() -> bool:
+    """¿ESPN ha devuelto 403 en esta ejecución?"""
+    return bool(_BLOQUEO_ESPN['detectado'])
+
+
+def marcar_bloqueo() -> None:
+    _BLOQUEO_ESPN['detectado'] = True
 
 
 def codigo_espn(liga: str) -> str:
