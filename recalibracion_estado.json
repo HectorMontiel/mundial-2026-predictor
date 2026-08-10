@@ -1,38 +1,56 @@
 {
- "generado": "2026-08-03T18:04:54Z",
+ "generado": "2026-08-10T06:08:44Z",
  "pasos": [
+  {
+   "paso": "1. ledger (re-predice el histórico con los modelos de hoy)",
+   "ok": true,
+   "segundos": 0.9,
+   "detalle": "120077 filas"
+  },
   {
    "paso": "2. calibración de confianza (acierto real por banda)",
    "ok": true,
-   "segundos": 7.8,
+   "segundos": 10.8,
    "detalle": "89748 predicciones medidas · umbral 0.70"
   },
   {
    "paso": "3. techo de acierto por liga",
    "ok": true,
-   "segundos": 4.6,
-   "detalle": "34 ligas · correlación 0.7184 · publicado"
+   "segundos": 4.2,
+   "detalle": "37 ligas · correlación 0.7184 · publicado"
   },
   {
    "paso": "4. banda de EV rentable",
    "ok": true,
    "segundos": 0.4,
-   "detalle": "banda EV [0.030, 0.130] · piso de probabilidad 0.55"
+   "detalle": "banda EV [0.020, 0.100] · piso de probabilidad 0.55"
   },
   {
    "paso": "5. qué deportes tienen edge validado",
    "ok": true,
-   "segundos": 1.1,
-   "detalle": "con edge validado: ['Fútbol']"
+   "segundos": 0.8,
+   "detalle": "con edge validado: ninguno"
   },
   {
    "paso": "6. peso del encogimiento al mercado",
    "ok": true,
-   "segundos": 2.0,
+   "segundos": 1.6,
    "detalle": "w global 0.25 · 29 ligas adoptadas · log-loss 0.0201"
+  },
+  {
+   "paso": "7. autopsia de los picks publicados",
+   "ok": true,
+   "segundos": 0.6,
+   "detalle": "318 picks liquidados · acierto 69.2% vs prometido 71.7% · brecha -2.5% · 1 segmento(s) con brecha significativa"
+  },
+  {
+   "paso": "8. calibración adaptativa (aprende de lo liquidado)",
+   "ok": true,
+   "segundos": 7.4,
+   "detalle": "6 nodos · fuentes {'ledger_goles': 4, 'produccion': 4} · n global 318"
   }
  ],
- "ok": 5,
+ "ok": 8,
  "fallos": [],
- "segundos_total": 15.9
+ "segundos_total": 26.7
 }
