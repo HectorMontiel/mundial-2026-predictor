@@ -1,12 +1,12 @@
 {
   "liga": "Chinese Super League",
-  "n_train": 1446,
+  "n_train": 1438,
   "n_validacion": 364,
   "fecha_corte": "2025-04-12",
-  "precision_validacion": 0.5495,
+  "precision_validacion": 0.5467,
   "precision_linea_base_elo": 0.4918,
-  "precision_mercado_cuotas": 0.5266,
-  "log_loss_validacion": 0.9854,
+  "precision_mercado_cuotas": 0.5302,
+  "log_loss_validacion": 0.9822,
   "n_equipos": 40,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
@@ -16,24 +16,24 @@
     "OVERROUND"
   ],
   "medias_cuotas": {
-    "PROB_IMP_H": 0.4304,
-    "PROB_IMP_D": 0.2341,
-    "PROB_IMP_A": 0.3356,
+    "PROB_IMP_H": 0.4307,
+    "PROB_IMP_D": 0.2343,
+    "PROB_IMP_A": 0.3351,
     "OVERROUND": 0.0746
   },
   "roi_sim": {
-    "n_apuestas": 167,
-    "roi_pct": 4.8,
-    "aciertos": 95,
-    "roi_pct_pinnacle": 7.01,
-    "n_con_pinnacle": 88
+    "n_apuestas": 179,
+    "roi_pct": -0.48,
+    "aciertos": 97,
+    "roi_pct_pinnacle": 5.96,
+    "n_con_pinnacle": 94
   },
   "mesm": {
-    "n_val_con_cuotas": 357,
-    "acc_prod": 0.549,
-    "acc_mesm": 0.5182,
-    "ll_prod": 0.9864,
-    "ll_mesm": 1.0058,
+    "n_val_con_cuotas": 364,
+    "acc_prod": 0.5467,
+    "acc_mesm": 0.5192,
+    "ll_prod": 0.9822,
+    "ll_mesm": 1.0073,
     "adoptado": false
   },
   "imt": null

@@ -1,12 +1,12 @@
 {
   "liga": "Allsvenskan",
-  "n_train": 1494,
+  "n_train": 1489,
   "n_validacion": 376,
   "fecha_corte": "2024-11-03",
-  "precision_validacion": 0.4654,
+  "precision_validacion": 0.4681,
   "precision_linea_base_elo": 0.5053,
-  "precision_mercado_cuotas": 0.5217,
-  "log_loss_validacion": 1.032,
+  "precision_mercado_cuotas": 0.5239,
+  "log_loss_validacion": 1.0323,
   "n_equipos": 31,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
@@ -16,24 +16,24 @@
     "OVERROUND"
   ],
   "medias_cuotas": {
-    "PROB_IMP_H": 0.4351,
-    "PROB_IMP_D": 0.2513,
-    "PROB_IMP_A": 0.3136,
+    "PROB_IMP_H": 0.4348,
+    "PROB_IMP_D": 0.2514,
+    "PROB_IMP_A": 0.3138,
     "OVERROUND": 0.0593
   },
   "roi_sim": {
-    "n_apuestas": 100,
-    "roi_pct": -33.24,
-    "aciertos": 33,
-    "roi_pct_pinnacle": -35.66,
-    "n_con_pinnacle": 67
+    "n_apuestas": 122,
+    "roi_pct": -26.2,
+    "aciertos": 43,
+    "roi_pct_pinnacle": -19.83,
+    "n_con_pinnacle": 84
   },
   "mesm": {
-    "n_val_con_cuotas": 368,
-    "acc_prod": 0.4701,
-    "acc_mesm": 0.519,
-    "ll_prod": 1.03,
-    "ll_mesm": 1.0179,
+    "n_val_con_cuotas": 376,
+    "acc_prod": 0.4681,
+    "acc_mesm": 0.5239,
+    "ll_prod": 1.0323,
+    "ll_mesm": 1.0126,
     "adoptado": true
   },
   "imt": null

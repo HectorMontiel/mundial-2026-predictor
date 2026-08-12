@@ -1,11 +1,11 @@
 {
   "deporte": "MLB",
-  "n_juegos": 26492,
-  "precision_validacion": 0.5493,
-  "precision_linea_base_elo": 0.5402,
-  "log_loss_validacion": 0.6854,
+  "n_juegos": 26507,
+  "precision_validacion": 0.5455,
+  "precision_linea_base_elo": 0.5406,
+  "log_loss_validacion": 0.6857,
   "linea_total_tipica": 8.0,
-  "fecha_entrenamiento": "2026-08-11",
+  "fecha_entrenamiento": "2026-08-12",
   "sigma_margen": 4.483,
   "mercados_excluidos": [
     "Primeras 5 entradas (requiere event files)"
