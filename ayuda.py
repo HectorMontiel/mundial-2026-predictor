@@ -187,15 +187,22 @@ GUIAS = {
     'combinadas': {
         'titulo': 'Cómo elegir una combinada',
         'pasos': [
-            '**Fíjate primero en la probabilidad de acertar todo**, no en la '
-            'cuota. Una cuota de 8,00 con un 12 % de probabilidad es peor '
-            'negocio que una de 2,00 al 55 %.',
+            '**Empieza por «En TU casa».** Ahí todas las patas tienen precio '
+            'publicado por Playdoit, así que es un boleto que puedes poner tal '
+            'cual. La sección «Al mejor precio del mercado» reparte las patas '
+            'entre varias casas: paga más, pero son apuestas separadas y hace '
+            'falta cuenta en cada una.',
+            '**Fíjate en la probabilidad de acertar todo**, no en la cuota. '
+            'Una cuota de 8,00 con un 12 % de probabilidad es peor negocio que '
+            'una de 2,00 al 55 %.',
+            '**Debajo de cada pata verás cuánto paga tu casa** frente al mejor '
+            'precio del mercado. En verde, tu casa iguala o mejora; en rojo, '
+            'ahí se te va dinero. Es el único dato de la pantalla que no '
+            'depende de que el modelo acierte: son dos precios del mismo '
+            'suceso.',
             '**Prefiere las que tienen todas las patas con precio real.** Si '
             'alguna va con cuota justa, la cuota combinada que ves no es la '
             'que te van a pagar.',
-            '**Mira cuántas casas se han comparado en cada pata.** Con dos o '
-            'más, el precio está contrastado; con una sola, no hay con qué '
-            'compararlo.',
             '**Cuantas más patas, menos probable.** El sistema no propone '
             'combinadas de siete patas por una razón.',
         ],

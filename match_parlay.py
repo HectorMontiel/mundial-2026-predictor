@@ -864,6 +864,17 @@ def construir_parlay_partido(motor, home: str, away: str,
         'pfp': pfp, 'cumple_pfp': cumple_pfp, 'pfp_minimo': PFP_MINIMO,
         'riesgo_partido': riesgo,
         'selecciones': [{
+            # v122 — EL `id` DEL CAMPO, QUE FALTABA.
+            #
+            # Sin él, todo lo que la v114 construyó para razonar sobre las
+            # patas fallaba EN SILENCIO: la interfaz busca el mercado con
+            # `m.get('id') == s.get('id')` y `cuotas_tablon.recomendar_combinada`
+            # hace lo mismo, así que ninguna pata encontraba nunca su mercado.
+            # El efecto visible era una recomendación que siempre decía
+            # «ninguna pata tiene un segundo precio con el que compararse»,
+            # incluso con seis casas cotizando esa pata, y la anotación
+            # «N casas comparadas» que no salía jamás.
+            'id': s.id,
             'mercado': s.mercado, 'apuesta': s.apuesta,
             'prob': round(s.prob, 3), 'cuota': s.cuota,
             'cuota_fuente': s.cuota_fuente, 'ev': s.ev,
@@ -1107,7 +1118,7 @@ def combinar_manual(pl: Dict, ids: List[str]) -> Dict:
         'ev': ev,
         'hay_cuotas_reales': hay_reales,
         'correlacion_aplicada': bool(factores),
-        'patas': [{'mercado': s.mercado, 'apuesta': s.apuesta,
+        'patas': [{'id': s.id, 'mercado': s.mercado, 'apuesta': s.apuesta,
                    'prob': round(s.prob, 3), 'cuota': s.cuota,
                    'cuota_fuente': s.cuota_fuente} for s in elegidas],
         'incompatibles': incompatibles,
@@ -1341,7 +1352,7 @@ def construir_parlay_con_resultado(motor, home: str, away: str,
         'cuotas_reales': hay_reales,
         'riesgo_partido': _riesgo_partido(pl),
         'avisos': [],
-        'selecciones': [{'mercado': s.mercado, 'apuesta': s.apuesta,
+        'selecciones': [{'id': s.id, 'mercado': s.mercado, 'apuesta': s.apuesta,
                          'prob': round(s.prob, 3), 'cuota': s.cuota,
                          'cuota_fuente': s.cuota_fuente,
                          'categoria': categoria_ui(s.id) or s.familia}

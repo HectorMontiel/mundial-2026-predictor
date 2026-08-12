@@ -127,6 +127,21 @@ jobs:
           # estado del modelo puede ir al dia igual que el de la MLB.
           python -m engines.kbo_engine    || echo "::warning::KBO con avisos"
 
+      # v123 — El perfil de JUEGOS por partido del tenis.
+      #
+      # Sale del mismo histórico unificado que acaba de usar el reentrenamiento
+      # (la columna `Score`, con cobertura del 100 % sobre 354.250 partidos del
+      # ATP), así que va justo detrás y aprovecha la descarga ya hecha. Deja
+      # `tenis_juegos_atp.json` y `tenis_juegos_wta.json`, que es lo que lee la
+      # ficha del partido para enseñar cuántos juegos duran los partidos de
+      # cada tenista y de la pareja.
+      #
+      # Recorrer 365.000 marcadores es inaceptable dentro de la interfaz, y por
+      # eso se precalcula aquí. Si falla, la app se queda con el fichero
+      # anterior y la sección desaparece sola: no puede tumbar el workflow.
+      - name: Perfil de juegos del tenis
+        run: python tenis_juegos.py || echo "::warning::juegos de tenis con avisos"
+
       # Mismo blindaje que el fútbol (v68): NUNCA se commitea un modelo que no
       # se pueda volver a cargar. Si uno no abre, se restaura su versión
       # anterior desde git y el resto sigue.
@@ -252,6 +267,9 @@ jobs:
           # se puede reconstruir (la línea antes del partido).
           git add -A odds_snapshots.csv calibracion_mercado.json umbrales_capa1.json \
                      _v75_import_odds.json _v75_snapshots.json playdoit_cobertura.json cuotas_kbo_cierre.csv 2>/dev/null || true
+          # v123 — el perfil de juegos del tenis, que la ficha del partido lee
+          # al vuelo y no puede recalcular (365.000 marcadores).
+          git add -A tenis_juegos_atp.json tenis_juegos_wta.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Sin cambios en los modelos (ligas en receso). Nada que commitear."
           else

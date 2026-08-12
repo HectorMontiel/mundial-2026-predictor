@@ -58,6 +58,82 @@ try:
 except Exception:
     _ayuda = None
 
+
+# ===========================================================================
+# v122 — LOS ATAJOS DE PRESENTACIÓN
+#
+# `estilo_ui` puede no cargar (va en `try` a propósito: la capa visual jamás
+# puede costar la aplicación), así que cada uso suyo necesitaría un `if
+# _estilo is not None`. Con más de cien usos repartidos por catorce pantallas
+# eso es ruido puro y, sobre todo, es la clase de comprobación que alguien se
+# salta un día y deja la app en blanco.
+#
+# Estos tres atajos lo resuelven de una vez: si no hay capa visual, no pintan
+# nada y la pantalla sigue entera con el texto de siempre.
+# ===========================================================================
+def _html_esc(t) -> str:
+    """
+    Texto del modelo que va a entrar en un componente HTML.
+
+    Los nombres de equipo y las descripciones vienen de catálogos y de
+    plantillas propias, no de nadie de fuera, pero un `&` o un `<` sin escapar
+    rompe el componente entero y deja media tarjeta en blanco. Sale más barato
+    escapar siempre que ir caso por caso decidiendo si hace falta.
+    """
+    import html as _h
+    return _h.escape(str(t if t is not None else ''), quote=True)
+
+
+def _pinta(html) -> None:
+    """Escribe un componente de `estilo_ui`; no hace nada si no hay capa."""
+    if _estilo is not None and html:
+        _estilo.pinta(st, html)
+
+
+def _olvidar_seleccion_muerta(clave: str, opciones) -> None:
+    """
+    Borra de la sesión una selección que ya no existe entre las opciones.
+
+    v123 — un `st.selectbox` con `key` lee su valor de la sesión, y si ese
+    valor NO está en la lista de opciones Streamlit lanza `ValueError: ... is
+    not in list` y se lleva la vista entera por delante. Pasa siempre que las
+    opciones salen de una fuente viva: un partido que termina desaparece del
+    calendario, y el que el usuario tenía elegido deja de existir.
+
+    Lo cazó `smoke_botones.py` pulsando «🔄 Actualizar» en MLB:
+
+        ValueError: '2026-08-12 11:40 · Baltimore Orioles @ Minnesota Twins'
+        is not in list
+
+    Con las claves estables (ver `selector_proximos`) el caso raro se vuelve
+    poco frecuente, pero no imposible — por eso esta guardia va aparte y cubre
+    lo que las claves estables no pueden cubrir: que la opción sencillamente ya
+    no esté.
+    """
+    try:
+        if clave in st.session_state and st.session_state[clave] not in opciones:
+            del st.session_state[clave]
+    except Exception:
+        pass
+
+
+def _seccion(titulo: str, sub: str = '', tono: str = 'ok') -> None:
+    """Cabecera de sección. Sin capa visual, cae al `####` de siempre."""
+    if _estilo is not None:
+        _estilo.pinta(st, _estilo.seccion(titulo, sub, tono))
+    else:
+        st.markdown(f"#### {titulo}" + (f" — {sub}" if sub else ''))
+
+
+def _cabecera(titulo: str, subtitulo: str = '', chips=(), icono: str = '') -> None:
+    """Cabecera de pantalla. Sin capa visual, cae al `st.title` de siempre."""
+    if _estilo is not None:
+        _estilo.pinta(st, _estilo.cabecera(titulo, subtitulo, chips, icono))
+    else:
+        st.title(f"{icono} {titulo}".strip())
+        if subtitulo:
+            st.caption(subtitulo)
+
 # v14: login con contraseña RETIRADO a petición del usuario — la app es pública.
 
 # CSS para ocultar el branding/pie de Streamlit (aporte del repo de despliegue)
@@ -295,15 +371,45 @@ def _render_maxima_confianza(r) -> None:
                 f"como «line shopping vs Pinnacle»."
                 .replace(',', '.')
             )
-        st.warning(
-            f"**Cómo leer esta pestaña.** Sobre {cal['n_total']:,} predicciones "
-            f"fuera de muestra, el acierto **no crece** con la probabilidad: se "
-            f"estanca en torno al 63 % y por encima de 0,75 empeora (el modelo "
-            f"dice 79,6 % y acierta 57,8 %). Por eso el umbral está en "
-            f"{cal.get('umbral_recomendado', 0.70):.0%}, que es el que mejor "
-            f"rindió, y por eso cada pick muestra el acierto real de su banda."
-            .replace(',', '.')
-        )
+        # v122 — LOS DOS NÚMEROS QUE DAN SENTIDO A ESTA PESTAÑA, EN GRANDE.
+        #
+        # «El modelo dice 79,6 % y acierta 57,8 %» es la frase más importante
+        # de la pantalla y estaba enterrada en mitad de un párrafo de aviso.
+        # Dos anillos enfrentados se leen antes de leer: la distancia entre los
+        # dos arcos ES el mensaje.
+        _alta = [b for b in cal.get('bandas', [])
+                 if b.get('acierto') and b.get('prob_media_modelo')
+                 and b.get('n', 0) >= 30 and b.get('desde', 0) >= 0.75]
+        if _alta and _estilo is not None:
+            _b = max(_alta, key=lambda b: b.get('n', 0))
+            _c1, _c2, _c3 = st.columns([1, 1, 3])
+            with _c1:
+                _pinta(_estilo.anillo(_b['prob_media_modelo'],
+                                      'dice el modelo', 'mira'))
+            with _c2:
+                _pinta(_estilo.anillo(_b['acierto'], 'acierta', 'no'))
+            _c3.markdown(
+                f"**En la banda de {_b['desde']:.2f} para arriba, el modelo "
+                f"promete un {_b['prob_media_modelo']:.1%} y acierta un "
+                f"{_b['acierto']:.1%}** ({_b['n']:,} predicciones fuera de "
+                f"muestra). El acierto **no crece** con la probabilidad: se "
+                f"estanca en torno al 63 % y por encima de 0,75 empeora. Por "
+                f"eso el umbral está en "
+                f"{cal.get('umbral_recomendado', 0.70):.0%} y por eso cada pick "
+                f"muestra el acierto real de su banda, no sólo lo que promete."
+                .replace(',', '.'))
+        else:
+            st.warning(
+                f"**Cómo leer esta pestaña.** Sobre {cal['n_total']:,} "
+                f"predicciones fuera de muestra, el acierto **no crece** con la "
+                f"probabilidad: se estanca en torno al 63 % y por encima de "
+                f"0,75 empeora (el modelo dice 79,6 % y acierta 57,8 %). Por "
+                f"eso el umbral está en "
+                f"{cal.get('umbral_recomendado', 0.70):.0%}, que es el que "
+                f"mejor rindió, y por eso cada pick muestra el acierto real de "
+                f"su banda."
+                .replace(',', '.')
+            )
         with st.expander("📊 Acierto real y ROI por banda de probabilidad",
                          expanded=True):
             dfb = pd.DataFrame([
@@ -333,9 +439,16 @@ def _render_maxima_confianza(r) -> None:
         pass
 
     if not picks:
-        st.info("Hoy ningún pick alcanza el umbral de confianza. Es lo normal "
-                "algunos días: históricamente solo un 0,31 % de los partidos lo "
-                "consigue. Mejor una pestaña vacía que un pick forzado.")
+        if _estilo is not None:
+            _pinta(_estilo.vacio(
+                "Hoy ningún pick llega al umbral",
+                "Es lo normal algunos días: históricamente sólo un 0,31 % de "
+                "los partidos lo consigue. Mejor una pestaña vacía que un pick "
+                "forzado.", '🎯'))
+        else:
+            st.info("Hoy ningún pick alcanza el umbral de confianza. Es lo "
+                    "normal algunos días: históricamente solo un 0,31 % de los "
+                    "partidos lo consigue.")
         return
 
     neg = [p for p in picks if p.get('ev_negativo')]
@@ -449,30 +562,61 @@ def _render_combinadas(r) -> None:
         "modelo que los generó. Cruzar deportes rompe esa correlación."
     )
     if not combis:
-        st.info("Hoy no hay material para cruzar deportes: hacen falta picks "
-                "de al menos dos deportes distintos que superen el mínimo por "
-                "pata. Revisa el registro de incidencias.")
+        if _estilo is not None:
+            _pinta(_estilo.vacio(
+                "Hoy no se puede cruzar deportes",
+                "Hacen falta picks de al menos dos deportes distintos que "
+                "superen el mínimo por pata, y hoy no los hay. Mira el estado "
+                "del sistema, arriba, para ver qué fuente no ha traído nada.",
+                '🧩'))
+        else:
+            st.info("Hoy no hay material para cruzar deportes: hacen falta "
+                    "picks de al menos dos deportes distintos que superen el "
+                    "mínimo por pata. Revisa el registro de incidencias.")
         return
-    st.warning("Una combinada paga más, pero **basta con fallar una pata para "
-               "perderlo todo**: gana menos veces de las que parece. Por eso "
-               "no se añaden solas — abajo tienes cuánto arriesgar y la "
-               "decisión es tuya.")
+    _pinta(_estilo.nota(
+        "Una combinada paga más, pero <b>basta con fallar una pata para "
+        "perderlo todo</b>: gana menos veces de las que parece. Por eso no se "
+        "añaden solas — abajo tienes cuánto arriesgar y la decisión es tuya.",
+        'mira', 'Antes de seguir:') if _estilo else None)
+    if _estilo is None:
+        st.warning("Una combinada paga más, pero **basta con fallar una pata "
+                   "para perderlo todo**: gana menos veces de las que parece.")
     for c in combis:
         with st.container(border=True):
-            st.markdown(
-                f"### {c['perfil'].capitalize()} · cuota **{c['cuota_total']}** · "
-                f"probabilidad **{c['prob_conjunta']:.1%}**")
-            st.caption(c['descripcion'])
-            m1, m2, m3 = st.columns(3)
-            m1.metric("EV", f"{c['ev']:+.1%}")
-            m2.metric("Stake sugerido", f"{c['stake_sugerido_pct']:.2f} %",
-                      help="Fracción prudente del bankroll sobre la combinada entera.")
-            m3.metric("Deportes", " + ".join(c['deportes']))
-            st.dataframe(pd.DataFrame([
-                {'Deporte': p['deporte'], 'Partido': p['partido'],
-                 'Apuesta': p['apuesta'], 'Prob': f"{p['prob']:.0%}",
-                 'Cuota': p['cuota'], 'Casa': p.get('casa')}
-                for p in c['patas']]), hide_index=True, width='stretch')
+            _seccion(f"{c['perfil'].capitalize()}",
+                     " + ".join(c['deportes']), 'azul')
+            _pinta(_estilo.ticket(c['cuota_total'], c['prob_conjunta'],
+                                  _html_esc(c['descripcion']))
+                   if _estilo else None)
+            if _estilo is None:
+                st.markdown(f"### {c['perfil'].capitalize()} · cuota "
+                            f"**{c['cuota_total']}** · probabilidad "
+                            f"**{c['prob_conjunta']:.1%}**")
+                st.caption(c['descripcion'])
+            _pinta(_estilo.kpis([
+                {'valor': f"{c['ev']:+.1%}", 'etiqueta': 'EV',
+                 'tono': 'ok' if c['ev'] > 0 else 'no'},
+                {'valor': f"{c['stake_sugerido_pct']:.2f} %",
+                 'etiqueta': 'Stake sugerido', 'tono': 'azul',
+                 'sub': 'fracción prudente del bankroll'},
+                {'valor': len(c['patas']), 'etiqueta': 'Patas',
+                 'tono': 'info', 'sub': " + ".join(c['deportes'])},
+            ]) if _estilo else None)
+            if _estilo is not None:
+                _pinta(_estilo.patas([
+                    _estilo.pata(
+                        p['apuesta'], p['cuota'], p['prob'],
+                        f"{p['deporte']} · {p['partido']}",
+                        [(str(p['casa']), 'azul')] if p.get('casa') else [],
+                        'azul')
+                    for p in c['patas']]))
+            else:
+                st.dataframe(pd.DataFrame([
+                    {'Deporte': p['deporte'], 'Partido': p['partido'],
+                     'Apuesta': p['apuesta'], 'Prob': f"{p['prob']:.0%}",
+                     'Cuota': p['cuota'], 'Casa': p.get('casa')}
+                    for p in c['patas']]), hide_index=True, width='stretch')
             st.caption(f"ℹ️ {c['supuesto']}")
 
 
@@ -853,23 +997,105 @@ def render_panel_equipos(clave: str, home: str, away: str, key: str,
 
     with t1:
         if not h.get('n'):
-            st.info(h.get('motivo') or 'Sin cruces en el histórico.')
+            if _estilo is not None:
+                _pinta(_estilo.vacio(
+                    'Sin cruces en el histórico',
+                    h.get('motivo') or '', '🤝'))
+            else:
+                st.info(h.get('motivo') or 'Sin cruces en el histórico.')
         else:
-            c1, c2, c3 = st.columns(3)
-            c1.metric(home, h['gana_a'], help='victorias en el historial')
-            c2.metric('Empates', h['empates'])
-            c3.metric(away, h['gana_b'], help='victorias en el historial')
-            st.caption(
-                f"{h['n']} cruces entre {h['desde']} y {h['hasta']} · "
-                f"goles totales {h['goles_a']}-{h['goles_b']} · "
-                f"media {h['media_goles']} por partido · ambos marcan el "
-                f"{h['pct_ambos_marcan']*100:.0f} %")
+            _pinta(_estilo.kpis([
+                {'valor': h['gana_a'], 'etiqueta': home, 'tono': 'ok',
+                 'sub': 'victorias'},
+                {'valor': h['empates'], 'etiqueta': 'Empates', 'tono': 'info'},
+                {'valor': h['gana_b'], 'etiqueta': away, 'tono': 'azul',
+                 'sub': 'victorias'},
+                {'valor': h['media_goles'], 'etiqueta': 'Goles por partido',
+                 'tono': 'info', 'sub': f"{h['goles_a']}-{h['goles_b']} en total"},
+                {'valor': f"{h['pct_ambos_marcan']*100:.0f} %",
+                 'etiqueta': 'Ambos marcan', 'tono': 'info'},
+            ]) if _estilo else None)
+            if _estilo is None:
+                c1, c2, c3 = st.columns(3)
+                c1.metric(home, h['gana_a'], help='victorias en el historial')
+                c2.metric('Empates', h['empates'])
+                c3.metric(away, h['gana_b'], help='victorias en el historial')
+            st.caption(f"{h['n']} cruces entre {h['desde']} y {h['hasta']}.")
+
+            # v123 — CÓRNERS, TARJETAS Y REMATES DE ESTOS CRUCES.
+            #
+            # Pedido del usuario mirando esta misma pantalla: «algo que no veo
+            # en los cara a cara son estadísticas como tarjetas, córners, etc.»
+            # Estaban en el histórico desde siempre —67 de los 74 ficheros las
+            # traen, con cobertura del 100 % donde existen— y nadie las leía.
+            _ex = h.get('extra') or {}
+            if _ex:
+                _seccion('Córners, tarjetas y remates de estos cruces',
+                         f"{_ex.get('_n_cruces', h['n'])} partidos", 'azul')
+                _tar = []
+                for _k, _tono in (('corners', 'azul'), ('tarjetas', 'mira'),
+                                  ('remates_puerta', 'info'),
+                                  ('posesion', 'info'), ('xg', 'info')):
+                    _d = _ex.get(_k)
+                    if not _d:
+                        continue
+                    if _k == 'posesion':
+                        _tar.append({
+                            'valor': f"{_d['media_a']:.0f}-{_d['media_b']:.0f}",
+                            'etiqueta': 'Posesión media', 'tono': _tono,
+                            'sub': f"{home} · {away}"})
+                        continue
+                    _tar.append({
+                        'valor': _d['media_total'],
+                        'etiqueta': _d['etiqueta'].capitalize(), 'tono': _tono,
+                        'sub': (f"{_d['media_a']:.1f} · {_d['media_b']:.1f} por "
+                                f"equipo" if _d.get('media_a') is not None
+                                else f"de {_d['minimo']:.0f} a {_d['maximo']:.0f}")})
+                _pinta(_estilo.kpis(_tar) if _estilo else None)
+
+                # el porcentaje histórico por encima de cada línea de mercado,
+                # que es lo que se compara con una cuota
+                _filas_l = []
+                for _k in ('corners', 'tarjetas'):
+                    _d = _ex.get(_k)
+                    for _L, _p in (_d or {}).get('lineas', {}).items():
+                        _filas_l.append([
+                            f"Más de {_L} {_d['etiqueta']}",
+                            f"{_p*100:.0f} %",
+                            f"{round(1/_p, 2) if _p > 0 else '—'}",
+                            str(_d['n'])])
+                if _filas_l and _estilo is not None:
+                    _pinta(_estilo.tabla(
+                        ['Línea', 'Se cumplió', 'Cuota mínima que la pagaría',
+                         'Partidos'], _filas_l, alineadas=[1, 2, 3]))
+                st.caption(
+                    f"⚠️ Son **{_ex.get('_n_cruces', h['n'])} partidos**, no una "
+                    f"muestra grande: un porcentaje sobre esa cantidad se mueve "
+                    f"mucho. Úsalo como contexto del cruce, no como una señal. "
+                    f"Y **ninguna de las seis casas del tablón publica precio "
+                    f"de córners ni de tarjetas**, así que esto no se puede "
+                    f"convertir en una apuesta con cuota real desde aquí.")
+
+            _cols = ['Fecha', 'Local', 'Resultado', 'Visitante', 'Ganó']
+            _hay_extra = any(p.get('corners_local') is not None
+                             for p in h['partidos'])
+            if _hay_extra:
+                _cols += ['Córners', 'Tarjetas', 'Remates a puerta']
             st.dataframe(pd.DataFrame([{
                 'Fecha': p['fecha'],
-                'Local': p['local'], 'Resultado': f"{p['goles_local']} - {p['goles_visit']}",
+                'Local': p['local'],
+                'Resultado': f"{p['goles_local']} - {p['goles_visit']}",
                 'Visitante': p['visitante'],
                 'Ganó': p['ganador'] or 'Empate',
-            } for p in h['partidos']]), hide_index=True, width='stretch')
+                **({'Córners': (f"{p['corners_local']:.0f}-{p['corners_visit']:.0f}"
+                                if p.get('corners_local') is not None else '—'),
+                    'Tarjetas': (f"{(p.get('amarillas_local') or 0) + (p.get('rojas_local') or 0):.0f}"
+                                 f"-{(p.get('amarillas_visit') or 0) + (p.get('rojas_visit') or 0):.0f}"
+                                 if p.get('amarillas_local') is not None else '—'),
+                    'Remates a puerta': (f"{p['remates_local']:.0f}-{p['remates_visit']:.0f}"
+                                         if p.get('remates_local') is not None else '—')}
+                   if _hay_extra else {}),
+            } for p in h['partidos']])[_cols], hide_index=True, width='stretch')
 
     with t2:
         cl = r['clasificacion']
@@ -1101,6 +1327,71 @@ def render_panel_tenis(engine, p1: str, p2: str, superficie: str,
                       f"{p1 if b >= 0 else p2} +{abs(b)}" if b else "Igualado",
                       help="Diferencia de victorias en todo el histórico del "
                            "motor, que cubre 259.443 parejas de jugadores.")
+
+        # v123 — CUÁNTOS JUEGOS DURAN SUS PARTIDOS.
+        #
+        # Pedido del usuario: «en tenis ver en los h2h o en las demás stats
+        # históricas ver cuántos juegos se jugaron para irte por ahí en la
+        # apuesta». El dato estaba en el histórico unificado (la columna
+        # `Score`, con cobertura del 100 % sobre 354.250 partidos del ATP) y
+        # nadie lo leía. `tenis_juegos` lo precalcula fuera de la interfaz.
+        try:
+            import tenis_juegos as _tj
+            _circ = 'wta' if 'wta' in str(getattr(engine, 'circuito', '')).lower() \
+                else 'atp'
+            # El formato importa mucho: al mejor de 5 la línea de juegos vive
+            # unos diez juegos más arriba, así que mezclarlos daría una media
+            # que no corresponde a ningún partido. Esta vista no sabe de qué
+            # torneo es el partido, así que se ofrece el interruptor en vez de
+            # adivinar — y por defecto va el mejor de 3, que es el 95 % del
+            # circuito.
+            _bo = 5 if st.toggle(
+                "Grand Slam masculino (al mejor de 5 sets)", value=False,
+                key=f'tj_bo5_{key}',
+                help="Cámbialo si este partido es de cuadro masculino de "
+                     "Grand Slam: ahí se juega al mejor de 5 y las líneas de "
+                     "juegos son otras.") else 3
+            _jg = _tj.linea_sugerida(_circ, p1, p2, _bo)
+        except Exception:
+            _jg = None
+        if _jg:
+            _seccion('Juegos por partido',
+                     f"al mejor de {_jg['best_of']} sets", 'azul')
+            _tar_j = [
+                {'valor': _jg['media_estimada'], 'etiqueta': 'Media esperada',
+                 'tono': 'azul',
+                 'sub': 'promedio de los dos jugadores'},
+            ]
+            for _n_j, _p_j in ((p1, _jg.get('perfil_1')),
+                               (p2, _jg.get('perfil_2'))):
+                if _p_j:
+                    _tar_j.append({
+                        'valor': _p_j['media'], 'etiqueta': _n_j, 'tono': 'info',
+                        'sub': f"{_p_j['n']} partidos · ±{_p_j['sd']:.1f}"})
+            if _jg.get('h2h'):
+                _tar_j.append({
+                    'valor': _jg['h2h']['media'], 'etiqueta': 'Entre ellos',
+                    'tono': 'ok',
+                    'sub': f"{_jg['h2h']['n']} cruces al mejor de {_bo}"})
+            _pinta(_estilo.kpis(_tar_j) if _estilo else None)
+            if _jg.get('over') and _estilo is not None:
+                _pinta(_estilo.tabla(
+                    ['Línea de juegos', 'Se pasó', 'Cuota mínima que la pagaría'],
+                    [[f"Más de {_L}", f"{_p*100:.0f} %",
+                      f"{round(1/_p, 2) if _p > 0 else '—'}"]
+                     for _L, _p in sorted(_jg['over'].items(),
+                                          key=lambda x: float(x[0]))],
+                    alineadas=[1, 2]))
+            st.caption(
+                ("⚠️ **Muestra corta** en al menos uno de los dos: la media se "
+                 "mueve mucho. " if _jg.get('muestra_corta') else "")
+                + "La media esperada es el promedio de las dos medias "
+                  "individuales, **no una predicción del modelo**: es "
+                  "histórico, y se enseña para compararlo con la línea que "
+                  "publique tu casa. Los cruces entre ellos van aparte y sólo "
+                  "aparecen si se han visto dos o más veces en este formato — "
+                  "con un solo precedente no hay media que dar.")
+
         if h.get('partidos'):
             st.dataframe(pd.DataFrame([{
                 'Fecha': p['fecha'], 'Torneo': p['torneo'],
@@ -1117,9 +1408,25 @@ def render_panel_tenis(engine, p1: str, p2: str, superficie: str,
         filas = []
         for j in (p1, p2):
             p = _pd.perfil_tenista(engine, j)
+            # v123 — «Puntos» va como TEXTO, igual que sus vecinas.
+            #
+            # Era la única columna que salía sin formatear, así que cuando un
+            # jugador tenía puntos (un número) y el otro no («—»), la columna
+            # mezclaba tipos y Arrow no la podía convertir:
+            #
+            #   ArrowInvalid: Could not convert '—' with type str:
+            #   tried to convert to double  ·  columna «Puntos»
+            #
+            # `st.dataframe` lanzaba, el `try` del llamador lo recogía y la
+            # pestaña de ranking y ELO **desaparecía entera** con un
+            # «Panel de jugadores no disponible (ArrowInvalid)». Lo cazó
+            # `smoke_botones.py`, que es exactamente para lo que está.
             fila = {'Jugador': j,
                     'Ranking': (f"{p['rank']:.0f}" if p.get('rank') else '—'),
-                    'Puntos': p.get('puntos') or '—',
+                    'Puntos': (f"{p['puntos']:.0f}"
+                               if isinstance(p.get('puntos'), (int, float))
+                               else (str(p['puntos']) if p.get('puntos')
+                                     else '—')),
                     'ELO': (f"{p['elo']:.0f}" if p.get('elo') else '—')}
             for sup in ('hard', 'clay', 'grass'):
                 v = (p.get('elo_superficie') or {}).get(sup)
@@ -1387,6 +1694,7 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
                                    str(f.get('inicio', ''))))
     cat = list(catalogo)
     ops = {}
+    etiquetas = {}          # clave estable → texto que se pinta (v123)
     for f in fx:
         try:
             if mapear:
@@ -1405,10 +1713,27 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
             # partido de las 01:00 UTC del sábado es del viernes en México.
             _p = _horario.partes(f.get('inicio'))
             _cuando = f"{_p[0]} {_p[1]}" if _p else str(f.get('fecha', ''))
+            # v123 — LA ETIQUETA NO PUEDE SER LA IDENTIDAD DE LA OPCIÓN.
+            #
+            # «· sin cuota aún» depende de si las casas han abierto línea, o
+            # sea que cambia entre una recarga y la siguiente. Como la etiqueta
+            # era además la CLAVE de la opción, al pulsar «🔄 Actualizar» el
+            # valor guardado en la sesión dejaba de existir en la lista nueva y
+            # Streamlit reventaba la vista entera:
+            #
+            #   ValueError: '2026-08-12 11:40 · Baltimore Orioles @ Minnesota
+            #   Twins' is not in list
+            #
+            # Lo cazó `smoke_botones.py` pulsando ese botón en MLB. Ahora la
+            # clave es estable —la pareja de equipos y la hora— y lo volátil
+            # vive sólo en el texto que se pinta (`format_func`), que puede
+            # cambiar todo lo que quiera sin invalidar la selección.
+            _clave = f"{_cuando}|{f['away']}|{f['home']}"
             _etq = f"{_cuando} · {f['away']} @ {f['home']}"
             if _con and id(f) not in _con:
                 _etq += "  · sin cuota aún"
-            ops[_etq] = (h, a)
+            ops[_clave] = (h, a)
+            etiquetas[_clave] = _etq
     if not ops:
         st.caption(f"📅 {len(fx)} partidos de {etiqueta} encontrados, pero sus "
                    "equipos no coinciden con los del modelo.")
@@ -1421,8 +1746,10 @@ def selector_proximos(deporte: str, catalogo, key_home: str, key_away: str,
         if par:
             st.session_state[key_home], st.session_state[key_away] = par
 
+    _olvidar_seleccion_muerta(f"fxd_sel_{deporte}", ops)
     sel = st.selectbox(f"📅 Próximos partidos de {etiqueta} ({len(ops)})",
                        list(ops.keys()), key=f"fxd_sel_{deporte}",
+                       format_func=lambda k: etiquetas.get(k, k),
                        on_change=_cargar_dep,
                        help="Al elegir un partido se cargan sus datos solos.")
     # primera carga: dejar el estado coherente con lo que muestra el selector
@@ -1454,21 +1781,63 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
     except Exception:
         return False
     if not res.get('n_casas'):
-        st.info(
-            "Ninguna casa ha abierto línea todavía para este partido. "
-            "Suele pasar a más de 3 días vista (las casas publican 2-4 días "
-            "antes) o en ligas que ningún operador grande cubre. "
-            "Mientras tanto se muestra la **cuota justa** del modelo.")
+        if _estilo is not None:
+            _pinta(_estilo.vacio(
+                "Ninguna casa ha abierto línea todavía",
+                "Suele pasar a más de 3 días vista —las casas publican 2-4 "
+                "días antes— o en ligas que ningún operador grande cubre. "
+                "Mientras tanto se muestra la cuota justa del modelo, que no "
+                "es un precio que puedas tomar.", '💤'))
+        else:
+            st.info(
+                "Ninguna casa ha abierto línea todavía para este partido. "
+                "Suele pasar a más de 3 días vista (las casas publican 2-4 días "
+                "antes) o en ligas que ningún operador grande cubre. "
+                "Mientras tanto se muestra la **cuota justa** del modelo.")
         return False
     import pandas as _pd
-    filas = []
-    for casa, c in res['casas'].items():
-        if casa.startswith('_'):        # '_totales' es un cajón interno
-            continue
-        filas.append({'Casa': casa,
-                      f'{home}': c.get('home'), 'Empate': c.get('draw'),
-                      f'{away}': c.get('away')})
-    st.dataframe(_pd.DataFrame(filas), hide_index=True, width='stretch')
+    # v122 — EL TABLÓN, COMO UN TABLÓN.
+    #
+    # Esto era un `st.dataframe` de tres columnas de números: para saber quién
+    # pagaba más había que leer las seis filas y comparar a ojo, que es
+    # justamente el trabajo que la pantalla debería ahorrar. Ahora el mejor
+    # precio de cada lado va marcado, y la casa del usuario va señalada
+    # aparte, porque un precio que no puede tomar no le sirve para decidir.
+    _casas_1x2 = {k: v for k, v in res['casas'].items()
+                  if not k.startswith('_')}
+    _mejor_lado = {}
+    for _lado in ('home', 'draw', 'away'):
+        _cands = [(c[_lado], k) for k, c in _casas_1x2.items()
+                  if (c or {}).get(_lado)]
+        if _cands:
+            _mejor_lado[_lado] = max(_cands)[1]
+    _mia = None
+    try:
+        _mia = _cm.CASA_PRIORITARIA
+    except Exception:
+        _mia = 'Playdoit'
+    if _estilo is not None:
+        _filas_html = []
+        for casa, c in _casas_1x2.items():
+            _et = _estilo.pildora(casa, 'ok' if casa == _mia else 'info')
+            if casa == _mia:
+                _et += ' ' + _estilo.pildora('tu casa', 'ok')
+            _filas_html.append([_et] + [
+                _estilo.chip_cuota((c or {}).get(l), '',
+                                   _mejor_lado.get(l) == casa) or '—'
+                for l in ('home', 'draw', 'away')])
+        _pinta(_estilo.tabla(['Casa', home, 'Empate', away], _filas_html,
+                             alineadas=[1, 2, 3]))
+        st.caption("El precio **marcado en verde** es el mejor de las seis "
+                   "casas en ese resultado. Si tu casa no lo tiene, ésa es la "
+                   "diferencia que te cuesta tener una sola cuenta.")
+    else:
+        filas = []
+        for casa, c in _casas_1x2.items():
+            filas.append({'Casa': casa,
+                          f'{home}': c.get('home'), 'Empate': c.get('draw'),
+                          f'{away}': c.get('away')})
+        st.dataframe(_pd.DataFrame(filas), hide_index=True, width='stretch')
 
     # v114 — LA TABLA RICA, TAMBIÉN AQUÍ.
     #
@@ -1512,19 +1881,79 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
                     _mk = sorted(_mk, key=lambda r: (
                         -(r.get('ventaja_line_shopping') or 0),
                         -(r.get('n_casas') or 0)))
-                st.dataframe(_pd.DataFrame([{
-                    'Mercado': r['apuesta'],
-                    'Cuota casa': r['cuota_casa'],
-                    'Casa': r.get('casa') or '—',
-                    'Casas': r.get('n_casas') or 1,
-                    'Ventaja precio': (
-                        f"+{(r.get('ventaja_line_shopping') or 0)*100:.1f}%"
-                        if (r.get('n_casas') or 1) >= 2 else '—'),
-                    'Cuota justa': r['cuota_justa'],
-                    'Prob. modelo': f"{r['prob']*100:.0f}%",
-                    'EV': (f"⚠️ {r['ev']*100:+.0f}%" if r.get('ev_sospechoso')
-                           else f"{r['ev']*100:+.1f}%"),
-                } for r in _mk]), hide_index=True, width='stretch')
+                # v122 — LA COLUMNA DE TU CASA.
+                #
+                # La tabla decía cuál es el mejor precio del mercado, pero no
+                # lo que el usuario preguntó: «de esa forma sabré cuál me da
+                # una buena cuota a mí». Playdoit publica el tablero entero del
+                # partido (ver `cuotas_multi.mercados_playdoit`), así que aquí
+                # se pega su precio al lado del mejor y la diferencia entre los
+                # dos. Cuesta una petición por partido y se cachea 30 min.
+                _pdt_por_id = {}
+                try:
+                    _det_t = _cm.mercados_playdoit(deporte, home, away,
+                                                   fecha=fecha)
+                    if _det_t:
+                        for _r in _ct.mercados_playdoit_con_ev(
+                                _det_t, plantilla, home, away):
+                            if _r.get('id'):
+                                _pdt_por_id[_r['id']] = _r
+                except Exception:
+                    _pdt_por_id = {}
+                if _estilo is not None:
+                    _fh = []
+                    for r in _mk:
+                        _p = _pdt_por_id.get(r.get('id'))
+                        _cp = _p.get('cuota_casa') if _p else None
+                        _dif = ((_cp / r['cuota_casa'] - 1)
+                                if _cp and r.get('cuota_casa') else None)
+                        _fh.append([
+                            _html_esc(r['apuesta']),
+                            _estilo.chip_cuota(r['cuota_casa'],
+                                               r.get('casa') or '', True),
+                            (_estilo.chip_cuota(_cp, _mia,
+                                                _dif is not None and _dif >= 0)
+                             if _cp else '<span style="opacity:.45">no cotiza'
+                                         '</span>'),
+                            (_estilo.pildora(f"{_dif*100:+.1f} %",
+                                             _estilo.tono_por_diferencia(_dif))
+                             if _dif is not None else '—'),
+                            str(r.get('n_casas') or 1),
+                            (f"+{(r.get('ventaja_line_shopping') or 0)*100:.1f} %"
+                             if (r.get('n_casas') or 1) >= 2 else '—'),
+                            f"{r['prob']*100:.0f} %",
+                            (_estilo.pildora(f"{r['ev']*100:+.0f} %", 'mira')
+                             if r.get('ev_sospechoso')
+                             else f"{r['ev']*100:+.1f} %"),
+                        ])
+                    _pinta(_estilo.tabla(
+                        ['Mercado', 'Mejor del mercado', f'Tu casa ({_mia})',
+                         'Diferencia', 'Casas', 'Ventaja precio',
+                         'Prob. modelo', 'EV'],
+                        _fh, alineadas=[1, 2, 3, 4, 5, 6, 7]))
+                    if _pdt_por_id:
+                        st.caption(
+                            f"**Diferencia** = cuánto paga {_mia} frente al "
+                            f"mejor precio del mercado en ESE mismo mercado. "
+                            f"En verde, tu casa iguala o mejora; en rojo, ahí "
+                            f"se te va dinero por tener una sola cuenta. Es la "
+                            f"única columna de esta tabla que **no depende de "
+                            f"que el modelo acierte**.")
+                else:
+                    st.dataframe(_pd.DataFrame([{
+                        'Mercado': r['apuesta'],
+                        'Cuota casa': r['cuota_casa'],
+                        'Casa': r.get('casa') or '—',
+                        'Casas': r.get('n_casas') or 1,
+                        'Ventaja precio': (
+                            f"+{(r.get('ventaja_line_shopping') or 0)*100:.1f}%"
+                            if (r.get('n_casas') or 1) >= 2 else '—'),
+                        'Cuota justa': r['cuota_justa'],
+                        'Prob. modelo': f"{r['prob']*100:.0f}%",
+                        'EV': (f"⚠️ {r['ev']*100:+.0f}%"
+                               if r.get('ev_sospechoso')
+                               else f"{r['ev']*100:+.1f}%"),
+                    } for r in _mk]), hide_index=True, width='stretch')
                 if any(r.get('ev_sospechoso') for r in _mk):
                     st.caption(
                         "⚠️ Los EV marcados vienen de **una sola casa** y son "
@@ -1540,14 +1969,48 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
             st.caption(f"Mercados cruzados no disponibles "
                        f"({type(e).__name__}).")
 
+    # v122 — TU CASA CONTRA EL MERCADO, EN LA MISMA LÍNEA.
+    #
+    # Antes esto era «🛒 Mejor precio disponible — Monterrey 1.55 (Pinnacle)…»,
+    # que informa del techo pero no de lo que el usuario preguntó: si SU casa
+    # le sirve. `cuotas_partido` ya calcula `preferida` desde la v77 con el
+    # diferencial contra la mejor alternativa, y nadie lo estaba enseñando.
     mejor = res.get('mejor') or {}
-    partes = []
-    for lado, etiq in (('home', home), ('draw', 'Empate'), ('away', away)):
-        if lado in mejor:
-            partes.append(f"**{etiq}** {mejor[lado]['cuota']} "
-                          f"({mejor[lado]['casa']})")
-    if partes:
-        st.success("🛒 Mejor precio disponible — " + " · ".join(partes))
+    pref = res.get('preferida') or {}
+    if _estilo is not None and (mejor or pref):
+        _tarj = []
+        for lado, etiq in (('home', home), ('draw', 'Empate'), ('away', away)):
+            if lado not in mejor:
+                continue
+            _mj = mejor[lado]
+            _pf = pref.get(lado)
+            if _pf and _pf['casa'] != _mj['casa']:
+                _d = -(float(_pf.get('ventaja_alternativa') or 0))
+                _tarj.append({'valor': f"{_pf['cuota']:.2f}", 'etiqueta': etiq,
+                              'tono': _estilo.tono_por_diferencia(_d),
+                              'sub': (f"en {_pf['casa']} · el mercado paga "
+                                      f"{_mj['cuota']:.2f} ({_mj['casa']})")})
+            elif _pf:
+                _tarj.append({'valor': f"{_pf['cuota']:.2f}", 'etiqueta': etiq,
+                              'tono': 'ok',
+                              'sub': f"en {_pf['casa']} · nadie paga más"})
+            else:
+                _tarj.append({'valor': f"{_mj['cuota']:.2f}", 'etiqueta': etiq,
+                              'tono': 'info',
+                              'sub': (f"mejor: {_mj['casa']} · tu casa no "
+                                      f"cotiza este lado")})
+        _pinta(_estilo.kpis(_tarj))
+        if pref:
+            st.caption(f"Las cifras son las de **{_mia}**, tu casa, con el "
+                       f"mejor precio del mercado debajo para comparar.")
+    else:
+        partes = []
+        for lado, etiq in (('home', home), ('draw', 'Empate'), ('away', away)):
+            if lado in mejor:
+                partes.append(f"**{etiq}** {mejor[lado]['cuota']} "
+                              f"({mejor[lado]['casa']})")
+        if partes:
+            st.success("🛒 Mejor precio disponible — " + " · ".join(partes))
     if res.get('pinnacle'):
         st.caption("📌 Pinnacle es la referencia *sharp*: si tu casa te paga "
                    "más que ella, ahí está el valor.")
@@ -1628,34 +2091,78 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
     capa2 = r.get('capa2') or r.get('confianza') or []
 
     def _tarjeta(pk, con_ev: bool):
+        """
+        Un pick de EV+ automático. v122 — con la misma gramática visual que las
+        tarjetas de «Apuestas del Día», que hasta ahora eran otra cosa aunque
+        enseñaran lo mismo: dos pantallas con el mismo dato y dos maquetas
+        distintas obligan a reaprender a leerlas.
+        """
         with st.container(border=True):
-            cc1, cc2 = st.columns([3, 2])
             # la hora, en CDMX (v106). Si la casa no la publicó, no se inventa.
             _h = _horario.etiqueta(pk.get('inicio'))
             _falta = _horario.falta_para(pk.get('inicio')) or ''
-            cc1.markdown(
-                f"**{pk.get('partido','?')}**  \n{pk.get('fecha','')}"
-                + (f"  \n{_h}" + (f" · {_falta}" if _falta else '') if _h else '')
-                + (f"  \n🏠 {pk['casa']}" if pk.get('casa') else ''))
             cuota = pk.get('cuota')
             ev = pk.get('ev')
-            txt = f"{pk.get('valor','')} **{pk.get('apuesta','?')}**"
-            if cuota:
-                txt += (f"  \nCuota **{cuota}** "
-                        f"(justa {pk.get('cuota_justa','?')})")
-            if con_ev and ev is not None:
-                txt += f"  \nEV **{ev*100:+.1f} %**"
-            txt += f"  \nprob {(pk.get('prob') or 0)*100:.0f} %"
-            if pk.get('motivo_capa2'):
-                txt += f"  \nℹ️ Fuera de élite: {pk['motivo_capa2']}"
-            if pk.get('origen'):
-                txt += f"  \n🔎 {pk['origen']}"
-            cc2.markdown(txt)
+            if _estilo is not None:
+                _nom = str(pk.get('partido', '?'))
+                _sp = next((x for x in (' vs ', ' vs. ', ' @ ', ' - ')
+                            if x in _nom), None)
+                _meta = [t for t in (pk.get('fecha', ''), _h, _falta) if t]
+                if _sp:
+                    _hh, _aa = _nom.split(_sp, 1)
+                    _pinta(_estilo.cabecera_partido(_hh, _aa, _meta))
+                else:
+                    st.markdown(f"**{_nom}**")
+                    if _meta:
+                        st.caption(' · '.join(_meta))
+                _tono = (_estilo.tono_por_ev(ev, int(pk.get('n_casas') or 1))
+                         if (con_ev and ev is not None) else 'info')
+                _etqs = []
+                if con_ev and ev is not None:
+                    _etqs.append((f"EV {ev*100:+.1f} %", _tono))
+                if pk.get('casa'):
+                    _etqs.append((f"🏠 {pk['casa']}", 'azul'))
+                if pk.get('origen'):
+                    _etqs.append((f"🔎 {pk['origen']}", 'info'))
+                _pinta(_estilo.pata(
+                    f"{pk.get('valor','')} {pk.get('apuesta','?')}".strip(),
+                    cuota or pk.get('cuota_justa'), pk.get('prob'), '',
+                    _etqs, _tono))
+                _pie = [f"Cuota justa del modelo: {pk.get('cuota_justa','?')}"]
+                if pk.get('motivo_capa2'):
+                    _pie.append(f"Fuera de élite: {pk['motivo_capa2']}")
+                st.caption(' · '.join(_pie))
+            else:
+                cc1, cc2 = st.columns([3, 2])
+                cc1.markdown(
+                    f"**{pk.get('partido','?')}**  \n{pk.get('fecha','')}"
+                    + (f"  \n{_h}" + (f" · {_falta}" if _falta else '')
+                       if _h else '')
+                    + (f"  \n🏠 {pk['casa']}" if pk.get('casa') else ''))
+                txt = f"{pk.get('valor','')} **{pk.get('apuesta','?')}**"
+                if cuota:
+                    txt += (f"  \nCuota **{cuota}** "
+                            f"(justa {pk.get('cuota_justa','?')})")
+                if con_ev and ev is not None:
+                    txt += f"  \nEV **{ev*100:+.1f} %**"
+                txt += f"  \nprob {(pk.get('prob') or 0)*100:.0f} %"
+                if pk.get('motivo_capa2'):
+                    txt += f"  \nℹ️ Fuera de élite: {pk['motivo_capa2']}"
+                if pk.get('origen'):
+                    txt += f"  \n🔎 {pk['origen']}"
+                cc2.markdown(txt)
 
     if capa1:
-        st.subheader(f"⚡ Con valor ({len(capa1)})")
+        _seccion(f"⚡ Con valor ({len(capa1)})",
+                 'la cuota paga más de lo que el modelo cree que vale', 'ok')
         for pk in capa1:
             _tarjeta(pk, con_ev=True)
+    elif _estilo is not None:
+        _pinta(_estilo.vacio(
+            f"Hoy ninguna apuesta de {deporte} pasa los filtros",
+            "Cero picks no es un fallo: significa que las casas y el modelo "
+            "coinciden, y forzar una apuesta ahí es exactamente cómo se pierde "
+            "dinero.", '⚖️'))
     else:
         st.info(
             f"Hoy **ninguna apuesta de {deporte} pasa los filtros de valor**. "
@@ -1942,6 +2449,126 @@ def render_beisbol_pitchers() -> None:
     st.caption(AVISO_JUEGO_RESPONSABLE)
 
 
+def _render_grupo_combinadas(opciones: list, mercados: list,
+                             criterio: str = 'mercado') -> None:
+    """
+    Un grupo de combinadas: la recomendada arriba y todas las demás debajo.
+
+    v122 — se extrae de `render_parlay_partido` porque ahora hay DOS grupos que
+    se pintan igual y se juzgan distinto: el de la casa del usuario (una sola
+    casa, un solo boleto) y el del mejor precio del mercado (varias casas,
+    varios boletos). Tenerlo dos veces copiado era garantizar que uno de los
+    dos se quedara atrás en el siguiente cambio.
+
+    `criterio` viaja hasta `cuotas_tablon.recomendar_combinada` y decide con
+    qué se puntúa: con cuántas patas están comparadas entre casas (mercado) o
+    con cuánto paga tu casa frente al resto (casa_unica). Ver allí el porqué.
+    """
+    if not opciones:
+        return
+    _una_casa = (criterio == 'casa_unica')
+    por_id = {m.get('id'): m for m in (mercados or []) if m.get('id')}
+
+    _rec = None
+    try:
+        import cuotas_tablon as _ct_r
+        _rec = _ct_r.recomendar_combinada(opciones, mercados, criterio=criterio)
+    except Exception:
+        _rec = None
+    _firma_rec = (tuple(sorted(s['apuesta'] for s in _rec['selecciones']))
+                  if _rec else None)
+
+    def _patas_html(op) -> str:
+        """Las patas de una opción, con lo que matiza cada una."""
+        if _estilo is None:
+            return ''
+        trozos = []
+        for s in op.get('selecciones') or []:
+            m = por_id.get(s.get('id')) or {}
+            etqs, extra = [], ''
+            if _una_casa:
+                # Lo que importa aquí no es el EV: es si tu casa paga bien esa
+                # pata comparada con el resto del mercado. Es la única cifra
+                # que no depende de que el modelo acierte.
+                d = m.get('dif_vs_mercado')
+                if d is not None:
+                    etqs.append((f'{d*100:+.1f} % vs {m.get("casa_mercado")}',
+                                 _estilo.tono_por_diferencia(d)))
+                    extra = _estilo.medidor_precio(
+                        d, 'Playdoit', m.get('casa_mercado') or 'el mercado')
+                else:
+                    etqs.append(('sin precio con el que comparar', 'info'))
+                tono = (_estilo.tono_por_diferencia(d) if d is not None
+                        else 'info')
+            else:
+                n_c = m.get('n_casas') or 1
+                etqs.append((f'{n_c} casas comparadas', 'ok') if n_c >= 2
+                            else ('una sola casa', 'info'))
+                if m.get('casa'):
+                    etqs.append((str(m['casa']), 'azul'))
+                tono = _estilo.tono_por_ev(m.get('ev'), n_c,
+                                           bool(m.get('ev_sospechoso')))
+            if m.get('ev_sospechoso'):
+                etqs.append(('⚠️ EV demasiado alto para ser real', 'mira'))
+            trozos.append(_estilo.pata(
+                s.get('apuesta', '?'), s.get('cuota'), s.get('prob'),
+                s.get('mercado', ''), etqs, tono) + extra)
+        return _estilo.patas(trozos)
+
+    def _texto_copiable(op) -> str:
+        t = "\n".join(f"{j}. {s['apuesta']} @ {s['cuota']}"
+                      for j, s in enumerate(op['selecciones'], 1))
+        return (t + f"\nCuota combinada: {op['cuota_combinada']:.2f} · "
+                f"Prob: {op['prob_conjunta']*100:.0f}%"
+                + ("\nCasa: Playdoit (todas las patas)" if _una_casa else ''))
+
+    if _rec:
+        with st.container(border=True):
+            _pinta(_estilo.seccion(f"⭐ Recomendada — {_rec['etiqueta_opcion']}",
+                                   '', 'ok') if _estilo else None)
+            if _estilo is None:
+                st.markdown(f"### ⭐ Recomendada — {_rec['etiqueta_opcion']}")
+            _pinta(_estilo.ticket(_rec['cuota_combinada'],
+                                  _rec['prob_conjunta']) if _estilo else None)
+            _pinta(_patas_html(_rec))
+            if _estilo is None:
+                for s in _rec['selecciones']:
+                    st.write(f"• **{s['apuesta']}** @ {s['cuota']} · "
+                             f"{s['prob']*100:.0f}%")
+            st.markdown("**Por qué ésta:**")
+            for _m in _rec.get('motivo_recomendacion', []):
+                st.markdown(f"- {_m}")
+            with st.expander("📋 Copiar esta combinada"):
+                st.code(_texto_copiable(_rec), language=None)
+
+    _seccion("Todas las opciones", "elige la que prefieras", 'info')
+    for i, op in enumerate(opciones):
+        _firma = tuple(sorted(s['apuesta'] for s in op['selecciones']))
+        with st.container(border=True):
+            st.markdown(
+                ("⭐ " if _firma == _firma_rec else "")
+                + f"**{op['etiqueta_opcion']}** · {op['n_selecciones']} patas"
+                + (f"  \n{op['descripcion_opcion']}"
+                   if op.get('descripcion_opcion') else ''))
+            _pinta(_estilo.ticket(op['cuota_combinada'],
+                                  op['prob_conjunta']) if _estilo else None)
+            if _estilo is None:
+                c1, c2 = st.columns(2)
+                c1.metric("Prob. de acertar todo",
+                          f"{op['prob_conjunta']*100:.0f}%")
+                c2.metric("Cuota combinada", f"{op['cuota_combinada']:.2f}")
+            _pinta(_patas_html(op))
+            if _estilo is None:
+                for s in op['selecciones']:
+                    st.write(f"• **{s['apuesta']}** @ {s['cuota']} · "
+                             f"{s['prob']*100:.0f}%")
+            if op.get('avisos'):
+                for av in op['avisos']:
+                    st.caption(av)
+            with st.expander("📋 Copiar esta combinada"):
+                st.code(_texto_copiable(op), language=None)
+
+
 def render_parlay_partido(motor, home: str, away: str, key: str):
     """Sección interactiva de parlay para EL partido en pantalla."""
     # v58.1 FIX: este símbolo se importa MÁS ABAJO dentro de esta misma función
@@ -2018,6 +2645,40 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                     # sin combinada de EV real la pantalla sigue entera: las
                     # combinadas normales de arriba no dependen de ésta
                     _ops_ev, _mk_ev = [], []
+            # v122 — Y LA QUE DE VERDAD SE PUEDE PONER: SÓLO EN TU CASA.
+            #
+            # El usuario lo dijo así: «en el mundo real no es posible hacer
+            # cuotas con diferentes casas. Quiero que me des cuotas también
+            # pero solo con la casa de Playdoit que es la mía».
+            #
+            # Y es correcto: la combinada de arriba coge el mejor precio de
+            # cada mercado venga de donde venga, así que sus tres patas pueden
+            # estar en tres casas distintas. Eso no es un ticket, son tres
+            # apuestas — y la «cuota combinada» que anuncia no la paga nadie.
+            # Ésta sí: todas las patas con precio publicado por Playdoit, y
+            # además con cuánto se deja frente al mejor precio del mercado en
+            # cada una, que es la cifra que no depende de que el modelo
+            # acierte.
+            _ops_pdt, _mk_pdt, _n_pdt = [], [], 0
+            try:
+                import cuotas_tablon as _ct_p
+                _m_pdt, _n_pdt, _det_pdt = _ct_p.motor_solo_playdoit(
+                    motor, home, away, deporte=_dep_tab)
+                if _n_pdt >= 2:
+                    _ops_pdt = proponer_parlays(
+                        _m_pdt, home, away, max_opciones=6,
+                        solo_cuotas_reales=True,
+                        bankroll=float(st.session_state.get('bankroll', 0) or 0))
+                    _pl_p = (motor.plantilla_club(home, away)
+                             if hasattr(motor, 'plantilla_club')
+                             else motor.plantilla(home, away))
+                    _mk_pdt = _ct_p.marcar_ev_sospechoso(
+                        _ct_p.comparar_con_el_mercado(
+                            _ct_p.mercados_playdoit_con_ev(
+                                _det_pdt, _pl_p, home, away),
+                            _mk_ev))
+            except Exception:
+                _ops_pdt, _mk_pdt, _n_pdt = [], [], 0
         # v115 — LAS COMBINADAS PROPUESTAS SE REGISTRAN.
         #
         # Sin esto no hay forma de saber si las que la app propone entran o no,
@@ -2031,12 +2692,24 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
         try:
             import liquidador_ponches as _lp_reg
             _liga_reg = NOMBRES_LIGAS.get(getattr(motor, 'clave', ''), key)
+            _dep_reg = ('Tenis' if str(key).startswith('tenis')
+                        else 'MLB' if key in ('mlb', 'kbo')
+                        else 'NBA' if key == 'nba' else 'Fútbol')
             for _op in (_ops_ev or []):
                 _lp_reg.registrar_combinada(
-                    f'{home} vs {away}', _op, liga=_liga_reg,
-                    deporte=('Tenis' if str(key).startswith('tenis')
-                             else 'MLB' if key in ('mlb', 'kbo')
-                             else 'NBA' if key == 'nba' else 'Fútbol'))
+                    f'{home} vs {away}', _op, liga=_liga_reg, deporte=_dep_reg)
+            # v122 — las de una sola casa se registran IGUAL, y con su propio
+            # canal. Son las que el usuario va a poner de verdad, así que son
+            # las que más falta hace juzgar contra el resultado; mezclarlas con
+            # las de mejor precio en el mismo canal impediría comparar las dos
+            # políticas dentro de unas semanas, que es justo lo interesante.
+            for _op in (_ops_pdt or []):
+                _op_reg = dict(_op)
+                _op_reg['etiqueta_opcion'] = (
+                    f"playdoit · {_op.get('etiqueta_opcion', '')}")
+                _lp_reg.registrar_combinada(
+                    f'{home} vs {away}', _op_reg, liga=_liga_reg,
+                    deporte=_dep_reg)
         except Exception:
             pass
         # v62: se guardan en sesión para que el botón de Telegram (que provoca
@@ -2044,7 +2717,8 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
         st.session_state[f'parlays_{key}'] = {
             'partido': f'{home} vs {away}', 'opciones': opciones,
             'n_reales': _n_reales, 'opciones_ev': _ops_ev,
-            'mercados_ev': _mk_ev}
+            'mercados_ev': _mk_ev, 'opciones_pdt': _ops_pdt,
+            'mercados_pdt': _mk_pdt, 'n_pdt': _n_pdt}
 
     # v62: el RENDER se hace desde la sesión (no dentro del bloque del botón),
     # así las combinadas siguen en pantalla tras pulsar «Enviar a Telegram»
@@ -2058,113 +2732,178 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                        "probabilidad para este partido (no se fuerzan parlays "
                        "soñadores).")
         else:
-            st.success(f"{len(opciones)} combinadas propuestas, ordenadas por "
-                       "calidad (probabilidad × cuota).")
             # v114: de dónde salen los precios con los que se han armado
             _nr = _guardado.get('n_reales') or 0
-            if _nr:
-                st.caption(f"💰 Armadas con **cuota real de casa** en {_nr} "
-                           f"mercados (mejor precio del tablón). El resto usa "
-                           f"cuota justa (1/probabilidad), que no es un precio "
-                           f"que puedas tomar: sirve para ordenar, no para "
-                           f"calcular ganancia.")
-            else:
+            _np = _guardado.get('n_pdt') or 0
+            _pinta(_estilo.kpis([
+                {'valor': len(opciones), 'etiqueta': 'Combinadas',
+                 'tono': 'azul', 'sub': 'de este partido'},
+                {'valor': _np or '—', 'etiqueta': 'En tu casa',
+                 'tono': 'ok' if _np else 'info',
+                 'sub': 'mercados con precio en Playdoit'},
+                {'valor': _nr or '—', 'etiqueta': 'En el mercado',
+                 'tono': 'azul' if _nr else 'info',
+                 'sub': 'mercados al mejor precio de 6 casas'},
+            ]) if _estilo else None)
+            if not _nr:
                 st.caption("ℹ️ Ninguna casa cotiza todavía este partido, así "
                            "que las patas van con **cuota justa** "
                            "(1/probabilidad). La cuota combinada es "
                            "orientativa, no la que te van a pagar.")
-            # v114 — LA COMBINADA POR EV REAL, en su propia sección.
+
+            # v123 — ¿ESTÁ EL PARTIDO PAREJO? ENTONCES EL 1X2 NO ES LA ÚNICA
+            # FORMA DE JUGARLO.
             #
-            # Ésta es la que responde a lo que el usuario pidió: «propón un
-            # parlay en base a las cuotas reales automáticas». Todas sus patas
-            # tienen precio publicado por una casa, así que su cuota combinada
-            # es la que va a cobrar, y su EV es EV de verdad y no el artefacto
-            # que sale de multiplicar por una cuota justa.
+            # Pedido del usuario: «en partidos que sean parejos deberías
+            # también evaluar en el modelo no irte tanto por un ganador, si no
+            # ver si es mejor irte por doble oportunidad».
+            #
+            # Va ANTES de las combinadas a propósito: es una decisión sobre qué
+            # mercado jugar, y se toma antes de decidir con qué combinarlo.
+            # Los cuatro se leen de la SESIÓN y aquí arriba, antes del primer
+            # uso. Dentro del bloque del botón existen como locales, pero en un
+            # rerun sin pulsarlo no estarían definidas y el primero que las
+            # tocara reventaría con UnboundLocalError — que es literalmente el
+            # fallo que llegó a producción en la v58.1 y por el que existe
+            # `smoke_botones.py`.
+            _ops_pdt = _guardado.get('opciones_pdt') or []
+            _mk_pdt = _guardado.get('mercados_pdt') or []
             _ops_ev = _guardado.get('opciones_ev') or []
             _mk_ev = _guardado.get('mercados_ev') or []
-            if _ops_ev:
-                st.markdown("##### 💰 Combinadas con CUOTA REAL de las casas")
-                st.caption(
-                    "Todas las patas tienen precio publicado, al mejor de las "
-                    "seis casas, así que la cuota combinada es la que vas a "
-                    "cobrar. **Aviso medido**: el proyecto tiene comprobado "
-                    "que apostar por la probabilidad del modelo pierde entre "
-                    "−4,66 % y −6,52 % (37.158 apuestas), y que el EV que "
-                    "declara es *anti*-indicador del cierre. Lo que sí mide "
-                    "positivo es comprar al mejor precio. Trata el EV como "
-                    "«esta casa paga más que las otras», no como «esto gana "
-                    "dinero».")
-                # v114 — LA RECOMENDACIÓN, RAZONADA Y CON DATOS.
-                #
-                # El usuario pidió que se le marque cuál conviene y por qué. El
-                # criterio NO es el EV más alto: eso pondría arriba los peores
-                # errores del modelo (ver `cuotas_tablon.EV_SOSPECHOSO`). Se
-                # puntúa por cuántas patas tienen el precio comparado entre
-                # varias casas, que es lo único con ROI medido positivo.
-                _rec = None
-                try:
-                    import cuotas_tablon as _ct_r
-                    _rec = _ct_r.recomendar_combinada(_ops_ev, _mk_ev)
-                except Exception:
-                    _rec = None
-                _firma_rec = (tuple(sorted(s['apuesta']
-                                           for s in _rec['selecciones']))
-                              if _rec else None)
-                if _rec:
-                    with st.container(border=True):
-                        st.markdown(f"### ⭐ Recomendada — {_rec['etiqueta_opcion']}")
-                        r1, r2 = st.columns(2)
-                        r1.metric("Prob. de acertar todo",
-                                  f"{_rec['prob_conjunta']*100:.0f}%")
-                        r2.metric("Cuota combinada",
-                                  f"{_rec['cuota_combinada']:.2f}",
-                                  help=f"100 u → "
-                                       f"{_rec['cuota_combinada']*100:.0f} u")
-                        for s in _rec['selecciones']:
-                            _ev_s = (s['cuota'] * s['prob'] - 1) * 100
-                            st.write(f"• **{s['apuesta']}** @ {s['cuota']} · "
-                                     f"{s['prob']*100:.0f}% · EV {_ev_s:+.1f} %")
-                        st.markdown("**Por qué ésta:**")
-                        for _m in _rec.get('motivo_recomendacion', []):
-                            st.markdown(f"- {_m}")
+            try:
+                import partido_parejo as _pp
+                _pl_pj = (motor.plantilla_club(home, away)
+                          if hasattr(motor, 'plantilla_club')
+                          else motor.plantilla(home, away))
+                # se prefiere el tablero de la casa del usuario: los dos
+                # márgenes que compara tienen que ser del MISMO libro
+                _an_pj = _pp.comparar(_pl_pj, _mk_pdt or _mk_ev, home, away)
+            except Exception:
+                _an_pj = None
+            if _an_pj:
+                _seccion(
+                    ("⚖️ Este partido está parejo — mira la doble oportunidad"
+                     if _an_pj.get('parejo')
+                     else "⚖️ Ganador o doble oportunidad"),
+                    _an_pj.get('motivo', ''),
+                    'mira' if _an_pj.get('parejo') else 'info')
+                _pinta(_estilo.barra_1x2(
+                    _an_pj['p_home'], _an_pj['p_draw'], _an_pj['p_away'],
+                    home, away) if _estilo else None)
+                _filas_pj = []
+                for _f in _an_pj.get('lados', []):
+                    if not (_f.get('cuota_gana') and _f.get('cuota_doble')):
+                        continue
+                    _filas_pj.append([
+                        _html_esc(_f['etiqueta_gana']),
+                        f"{_f['prob_gana']*100:.0f} %",
+                        f"{_f['cuota_gana']:.2f}",
+                        _html_esc(_f['etiqueta_doble']),
+                        f"{_f['prob_doble']*100:.0f} %",
+                        f"{_f['cuota_doble']:.2f}",
+                        (_estilo.pildora(f"{_f['prob_extra']*100:+.0f} pts / "
+                                         f"{_f['cuota_menos']*100:.0f} %",
+                                         'mira') if _estilo else ''),
+                    ])
+                if _filas_pj and _estilo is not None:
+                    _pinta(_estilo.tabla(
+                        ['Ganador', 'Acierta', 'Paga', 'Doble oportunidad',
+                         'Acierta', 'Paga', 'Cubres más / pagas menos'],
+                        _filas_pj, alineadas=[1, 2, 4, 5, 6]))
+                for _fr in _pp.frases(_an_pj):
+                    st.markdown(f"- {_fr}")
 
-                st.markdown("**Todas las opciones** — elige la que prefieras:")
-                for op in _ops_ev:
-                    _firma = tuple(sorted(s['apuesta']
-                                          for s in op['selecciones']))
-                    with st.container(border=True):
-                        e1, e2, e3 = st.columns([2, 1, 1])
-                        e1.markdown(
-                            ("⭐ " if _firma == _firma_rec else "")
-                            + f"**{op['etiqueta_opcion']}** · "
-                            f"{op['n_selecciones']} patas"
-                            + (f"  \n{op['descripcion_opcion']}"
-                               if op.get('descripcion_opcion') else ''))
-                        e2.metric("Prob. de acertar todo",
-                                  f"{op['prob_conjunta']*100:.0f}%")
-                        e3.metric("Cuota combinada",
-                                  f"{op['cuota_combinada']:.2f}",
-                                  help=f"100 u → {op['cuota_combinada']*100:.0f} u")
-                        for s in op['selecciones']:
-                            _ev_s = (s['cuota'] * s['prob'] - 1) * 100
-                            _m = next((m for m in _mk_ev
-                                       if m.get('id') == s.get('id')), {})
-                            _n_c = _m.get('n_casas') or 1
-                            st.write(
-                                f"• **{s['apuesta']}** @ {s['cuota']} · "
-                                f"{s['prob']*100:.0f}% · EV {_ev_s:+.1f} %"
-                                + (f" · {_n_c} casas comparadas" if _n_c >= 2
-                                   else " · una sola casa")
-                                + (" · ⚠️ EV demasiado alto para ser real"
-                                   if _m.get('ev_sospechoso') else ''))
-                        _txt_ev = "\n".join(
-                            f"{j}. {s['apuesta']} @ {s['cuota']}"
-                            for j, s in enumerate(op['selecciones'], 1))
-                        _txt_ev += (f"\nCuota combinada: "
-                                    f"{op['cuota_combinada']:.2f} · "
-                                    f"Prob: {op['prob_conjunta']*100:.0f}%")
-                        with st.expander("📋 Copiar esta combinada"):
-                            st.code(_txt_ev, language=None)
+            if _ops_pdt:
+                _seccion("💚 En TU casa — Playdoit", "un solo ticket, "
+                         "colocable tal cual", 'ok')
+                _pinta(_estilo.nota(
+                    "Todas las patas tienen precio publicado <b>por Playdoit</b>, "
+                    "así que esta cuota combinada la puedes poner en un solo "
+                    "boleto. Debajo de cada pata verás cuánto paga tu casa "
+                    "frente al mejor precio del mercado: es la única cifra de "
+                    "esta pantalla que <b>no depende de que el modelo "
+                    "acierte</b>, porque son dos precios del mismo suceso.",
+                    'ok', 'Lo que de verdad puedes jugar.') if _estilo else None)
+                st.caption(
+                    "⚠️ Si tu casa no admite combinar dos mercados del MISMO "
+                    "partido en un boleto (lo que se suele llamar «crea tu "
+                    "apuesta»), tendrás que jugarlas por separado. El precio de "
+                    "cada pata es real en cualquier caso.")
+                # v123 — QUÉ FAMILIAS DE MERCADO HAY PARA COMBINAR, Y CUÁLES NO.
+                #
+                # El usuario pidió «combinadas de córners, tarjetas, tiempos».
+                # De las tres sólo una tiene precio, y medido: en Monterrey vs
+                # Juárez, Playdoit publica 148 mercados y **cero** de córners o
+                # tarjetas. Decirlo aquí es lo único honesto — armar esas
+                # combinadas con cuota justa sería inventar el precio.
+                _fams = {}
+                for _m_f in _mk_pdt:
+                    _fams[_m_f.get('familia') or '—'] = \
+                        _fams.get(_m_f.get('familia') or '—', 0) + 1
+                if _fams:
+                    _pinta(_estilo.kpis([
+                        {'valor': _v, 'etiqueta': _k, 'tono': 'info'}
+                        for _k, _v in sorted(_fams.items(),
+                                             key=lambda x: -x[1])]
+                    ) if _estilo else None)
+                if any(_m_f.get('ev_no_fiable') for _m_f in _mk_pdt):
+                    _pinta(_estilo.nota(
+                        "Los mercados de <b>1ª y 2ª mitad</b> sí tienen precio "
+                        "real y se pueden combinar, pero su EV va marcado como "
+                        "no fiable: el modelo reparte los goles a partes "
+                        "iguales entre las dos mitades —da la misma "
+                        "probabilidad a las dos— y en el fútbol real se marca "
+                        "alrededor del 55 % de los goles en la segunda. Ese EV "
+                        "mide lo que al modelo le falta, no valor.",
+                        'mira', 'Tiempos: precio sí, EV no.') if _estilo else None)
+                _pinta(_estilo.nota(
+                    "<b>Córners y tarjetas no se pueden combinar aquí</b>: "
+                    "ninguna de las seis casas del tablón publica precio para "
+                    "ellos, y una combinada con cuota justa es una cuota "
+                    "inventada. Lo que sí tienes es el histórico del cruce "
+                    "—medias y porcentajes por línea— en «Cara a cara», para "
+                    "compararlo a mano con lo que te ofrezca tu casa.",
+                    'info') if _estilo else None)
+                _render_grupo_combinadas(_ops_pdt, _mk_pdt,
+                                         criterio='casa_unica')
+            elif _estilo is not None:
+                # Que la sección no aparezca sería peor que decir por qué: el
+                # usuario la pidió expresamente y un hueco se lee como avería.
+                _seccion("💚 En TU casa — Playdoit", 'sin tablero hoy', 'info')
+                _pinta(_estilo.vacio(
+                    "Playdoit no cotiza este partido todavía",
+                    "Para armar una combinada de un solo boleto hacen falta al "
+                    "menos dos mercados con precio publicado por tu casa, y hoy "
+                    "no los tiene. Puede ser una liga que no cubre o que aún no "
+                    "ha abierto línea: suele hacerlo 2-4 días antes.", '💚'))
+
+            # v114 — LA COMBINADA POR EV REAL, en su propia sección.
+            #
+            # Ésta es la que responde a lo que el usuario pidió en la v114:
+            # «propón un parlay en base a las cuotas reales automáticas». Todas
+            # sus patas tienen precio publicado por una casa, pero NO por la
+            # misma casa — por eso desde la v122 va después de la de Playdoit y
+            # dice con todas las letras que son varios tickets.
+            # (`_ops_ev` y `_mk_ev` se leen de la sesión más arriba, junto con
+            # los de Playdoit, porque la sección de partido parejo ya los usa.)
+            if _ops_ev:
+                _seccion("💰 Al mejor precio del mercado",
+                         "reparte patas entre varias casas", 'azul')
+                _pinta(_estilo.nota(
+                    "Cada pata va a la casa que mejor la paga, así que esta "
+                    "cuota es la mejor posible <b>pero requiere cuenta en "
+                    "varias casas</b> y son apuestas separadas, no un boleto. "
+                    "Sirve para dos cosas: ver el techo de precio que existe, "
+                    "y decidir si compensa abrir una segunda cuenta.",
+                    'azul', 'Ojo: esto son varios tickets.') if _estilo else None)
+                st.caption(
+                    "**Aviso medido**: el proyecto tiene comprobado que apostar "
+                    "por la probabilidad del modelo pierde entre −4,66 % y "
+                    "−6,52 % (37.158 apuestas), y que el EV que declara es "
+                    "*anti*-indicador del cierre. Lo que sí mide positivo es "
+                    "comprar al mejor precio. Trata el EV como «esta casa paga "
+                    "más que las otras», no como «esto gana dinero».")
+                _render_grupo_combinadas(_ops_ev, _mk_ev)
 
             # v114 — el CONTEXTO que el usuario pidió tener a la vista al
             # decidir la combinada: historial del cruce, forma y clasificación.
@@ -2189,33 +2928,65 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                                 "equipo domina no significa que haya valor.")
             except Exception:
                 pass
-            for i, op in enumerate(opciones, 1):
-                with st.container(border=True):
-                    oc1, oc2, oc3 = st.columns([2, 1, 1])
-                    oc1.markdown(f"**{op['etiqueta_opcion']}** · "
-                                 f"{op['n_selecciones']} patas  \n"
-                                 f"{op['descripcion_opcion']}")
-                    oc2.metric("Prob. de acertar todo",
-                               f"{op['prob_conjunta']*100:.0f}%")
-                    oc3.metric("Cuota combinada", f"{op['cuota_combinada']:.2f}",
-                               help=f"100 u → {op['cuota_combinada']*100:.0f} u "
-                                    "si entra.")
-                    for s in op['selecciones']:
-                        st.write(f"• [{s['mercado']}] **{s['apuesta']}** "
-                                 f"@ {s['cuota']} · {s['prob']*100:.0f}%"
-                                 + ("  ·  cuota real" if s.get('cuota_fuente') == 'real'
-                                    else ""))
-                    if op.get('avisos'):
-                        for av in op['avisos']:
-                            st.caption(av)
-                    _txt = "\n".join(
-                        f"{j}. [{s['mercado']}] {s['apuesta']} @ {s['cuota']} "
-                        f"(p={s['prob']*100:.0f}%)"
-                        for j, s in enumerate(op['selecciones'], 1))
-                    _txt += (f"\nCuota combinada: {op['cuota_combinada']:.2f} · "
-                             f"Prob: {op['prob_conjunta']*100:.1f}%")
-                    with st.expander("📋 Copiar esta combinada"):
-                        st.code(_txt, language=None)
+            # Las de SIEMPRE, que mezclan precio real y cuota justa. Van las
+            # últimas y en un desplegable desde la v122: sirven para ordenar
+            # ideas, no para cobrar, y tenerlas al mismo nivel que las dos de
+            # arriba invita a confundir una cuota inventada con un precio.
+            with st.expander(f"🧮 Todas las combinadas posibles "
+                             f"({len(opciones)}) — incluidas las que van con "
+                             f"cuota justa", expanded=not (_ops_pdt or _ops_ev)):
+                _pinta(_estilo.nota(
+                    "Aquí entran también los mercados que <b>ninguna casa ha "
+                    "cotizado</b>: esas patas van con cuota justa "
+                    "(1 ÷ probabilidad), que no es un precio que puedas tomar. "
+                    "La cuota combinada de esas opciones es orientativa.",
+                    'mira') if _estilo else None)
+                for i, op in enumerate(opciones, 1):
+                    with st.container(border=True):
+                        st.markdown(f"**{op['etiqueta_opcion']}** · "
+                                    f"{op['n_selecciones']} patas  \n"
+                                    f"{op['descripcion_opcion']}")
+                        _pinta(_estilo.ticket(op['cuota_combinada'],
+                                              op['prob_conjunta'])
+                               if _estilo else None)
+                        if _estilo is None:
+                            oc2, oc3 = st.columns(2)
+                            oc2.metric("Prob. de acertar todo",
+                                       f"{op['prob_conjunta']*100:.0f}%")
+                            oc3.metric("Cuota combinada",
+                                       f"{op['cuota_combinada']:.2f}")
+                        if _estilo is not None:
+                            _pinta(_estilo.patas([
+                                _estilo.pata(
+                                    s['apuesta'], s['cuota'], s['prob'],
+                                    s['mercado'],
+                                    [('cuota real de casa', 'ok')]
+                                    if s.get('cuota_fuente') == 'real'
+                                    else [('cuota justa, no es un precio',
+                                           'mira')],
+                                    'ok' if s.get('cuota_fuente') == 'real'
+                                    else 'mira')
+                                for s in op['selecciones']]))
+                        else:
+                            for s in op['selecciones']:
+                                st.write(
+                                    f"• [{s['mercado']}] **{s['apuesta']}** "
+                                    f"@ {s['cuota']} · {s['prob']*100:.0f}%"
+                                    + ("  ·  cuota real"
+                                       if s.get('cuota_fuente') == 'real'
+                                       else ""))
+                        if op.get('avisos'):
+                            for av in op['avisos']:
+                                st.caption(av)
+                        _txt = "\n".join(
+                            f"{j}. [{s['mercado']}] {s['apuesta']} @ {s['cuota']} "
+                            f"(p={s['prob']*100:.0f}%)"
+                            for j, s in enumerate(op['selecciones'], 1))
+                        _txt += (f"\nCuota combinada: "
+                                 f"{op['cuota_combinada']:.2f} · "
+                                 f"Prob: {op['prob_conjunta']*100:.1f}%")
+                        with st.expander("📋 Copiar esta combinada"):
+                            st.code(_txt, language=None)
             st.caption("⚠️ Con cuotas justas del modelo el EV es teórico: "
                        "compara contra tu casa. " + AVISO_JUEGO_RESPONSABLE)
 
@@ -2616,11 +3387,18 @@ def render_liga_club(clave: str, nombre_liga: str):
                  f"Ejecuta `python league_engine.py --build {clave}`.")
         st.stop()
 
-    st.title(f"⚽ {nombre_liga} — Predictor de clubes")
-    if _ayuda is not None:
-        _ayuda.render(st, 'liga')
     fuente_liga = ('API-Football' if LEAGUES[clave].get('formato') == 'api_football'
                    else 'football-data.co.uk')
+    _cabecera(
+        nombre_liga, 'Predicción, cuotas de seis casas y constructor de '
+        'combinadas para cualquier partido de la competición.',
+        chips=[(f"{len(motor.equipos)} equipos", 'info'),
+               (f"acierta {motor.metadata['precision_validacion']*100:.0f} % en 1X2",
+                'ok'),
+               (f"datos al {motor.fecha_estado}", 'azul')],
+        icono='⚽')
+    if _ayuda is not None:
+        _ayuda.render(st, 'liga')
     st.caption(
         f"Datos reales ({fuente_liga}) al **{motor.fecha_estado}** · "
         f"Precisión backtesting 1X2: **{motor.metadata['precision_validacion']*100:.1f} %** "
@@ -2702,6 +3480,7 @@ def render_liga_club(clave: str, nombre_liga: str):
                        f"(las casas publican 2-4 días antes).")
         _cat = list(motor.equipos)
         _ops = {}
+        _etqs = {}          # v123: clave estable → texto que se pinta
         for f in _fx_mostrar:
             h = _nm.mapear(f['home'], _cat, contexto=f'ui→{clave}')
             a = _nm.mapear(f['away'], _cat, contexto=f'ui→{clave}')
@@ -2709,10 +3488,16 @@ def render_liga_club(clave: str, nombre_liga: str):
                 # v106: día y HORA de CDMX (ver `selector_proximos`)
                 _pf = _horario.partes(f.get('inicio'))
                 _cuando = f"{_pf[0]} {_pf[1]}" if _pf else str(f.get('fecha', ''))
+                # v123 — misma corrección que en `selector_proximos`: «· sin
+                # cuota aún» cambia entre recargas y no puede formar parte de
+                # la CLAVE de la opción, o la selección guardada deja de
+                # existir y Streamlit tumba la vista.
+                _clv = f"{_cuando}|{h}|{a}"
                 _etq = f"{_cuando} · {h} vs {a}"
                 if id(f) not in _con:
                     _etq += "  · sin cuota aún"
-                _ops[_etq] = (h, a)
+                _ops[_clv] = (h, a)
+                _etqs[_clv] = _etq
         if _ops:
             # v71: sin botón. Elegir el partido rellena los equipos y dispara
             # el análisis; el paso manual sobraba.
@@ -2722,9 +3507,11 @@ def render_liga_club(clave: str, nombre_liga: str):
                     (st.session_state[f"club_home_{clave}"],
                      st.session_state[f"club_away_{clave}"]) = par
 
+            _olvidar_seleccion_muerta(f"fx_sel_{clave}", _ops)
             st.selectbox(
                 f"📅 Próximos partidos de {nombre_liga} ({len(_ops)})",
-                list(_ops.keys()), key=f"fx_sel_{clave}", on_change=_cargar_fx,
+                list(_ops.keys()), key=f"fx_sel_{clave}",
+                format_func=lambda k: _etqs.get(k, k), on_change=_cargar_fx,
                 help="Al elegir un partido se cargan sus equipos y sus datos.")
 
     c1, c2 = st.columns(2)
@@ -3012,6 +3799,23 @@ except Exception:
     # usuario se queda en la vista en la que estaba.
     pass
 
+# v122 — LA BARRA DE MARCA, ARRIBA DEL TODO.
+#
+# La aplicación empezaba directamente con un desplegable etiquetado
+# «🏆 Competición» sobre fondo blanco. Sin un encabezado, ninguna pantalla
+# decía QUÉ es esto ni de dónde salen los números, y la primera impresión era
+# la de un formulario. Esta barra no ocupa apenas y fija las dos cosas que
+# gobiernan todo lo demás: que el edge está en el precio y que hay seis casas
+# detrás de cada cuota.
+_pinta(_estilo.cabecera(
+    'Predictor deportivo',
+    'Predicción, cuotas de seis casas y combinadas — con lo que el proyecto '
+    'tiene medido delante, no en letra pequeña.',
+    chips=[('⚽ fútbol', 'info'), ('⚾ MLB · KBO', 'info'),
+           ('🏀 NBA', 'info'), ('🎾 tenis', 'info'),
+           ('el edge está en el precio', 'ok')],
+    icono='🎯') if _estilo else None)
+
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
 # en el teléfono la barra lateral llega colapsada y el usuario no encontraba
 # las ligas. El estado se comparte con st.session_state.
@@ -3024,6 +3828,16 @@ st.sidebar.checkbox(
     help="Opcional y solo en ejecución local: si tienes Ollama corriendo "
          "(OLLAMA_MODEL, por defecto phi3), el comentario del analista se "
          "reescribe con el modelo. Sin Ollama, se usa el comentario base.")
+
+# v122 — LA BARRA LATERAL, ORDENADA.
+#
+# Tenía cuatro controles de tres tipos distintos, sin agrupar y sin decir a qué
+# afecta cada uno: la casilla de Ollama (que sólo sirve en local) salía primera
+# y el bankroll —el único que cambia números en pantalla— el último.
+if _estilo is not None:
+    with st.sidebar:
+        _estilo.pinta(st, _estilo.seccion('Tus ajustes',
+                                          'afectan a toda la app', 'ok'))
 
 # v14/M11: modo de uso — Principiante muestra solo lo esencial para apostar
 MODO_USO = st.sidebar.radio(
@@ -3052,7 +3866,13 @@ BANKROLL = st.sidebar.number_input(
 
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
-    st.header("💎 Apuestas del Día")
+    _cabecera(
+        'Apuestas del Día',
+        'Todos los partidos de HOY con cuota y valor calculados solos, '
+        'ordenados para que lo accionable esté arriba.',
+        chips=[('6 casas', 'azul'), ('hora de CDMX', 'info'),
+               ('⚽ ⚾ 🏀 🎾', 'info')],
+        icono='💎')
     if _ayuda is not None:
         _ayuda.render(st, 'apuestas_dia')
     st.caption("SOLO los partidos de **HOY**: todas las ligas con "
@@ -3347,59 +4167,99 @@ def render_alpha_finder():
                        help=_mejor(oleadas.get('resto', [])))
 
     def _fila_apuesta(t):
-        """Una apuesta (mercado) de un partido, como fila de columnas."""
+        """
+        Una apuesta (mercado) de un partido.
+
+        v122 — se rehace entera. Antes eran dos columnas de `st.markdown` con
+        ocho datos del MISMO tamaño y el MISMO color separados por saltos de
+        línea: la cuota, el EV, la probabilidad, la casa, la fiabilidad, el
+        stake y dos notas. Con eso no se puede decidir de un vistazo cuál de
+        seis tarjetas mirar, que es exactamente para lo que sirve esta
+        pantalla.
+        Ahora hay jerarquía: la apuesta manda, la cuota va en grande y con la
+        casa debajo, y lo que matiza va en píldoras de color con significado
+        (ver `estilo_ui.tono_por_ev`: verde SÓLO si hay varias casas
+        comparadas, porque es lo único con ROI medido positivo).
+        """
         pref = ('💠 ' if t.get('sharp_confirmado') else '') \
             + ('⭐ ' if t.get('platino') else '') \
             + ('⚡ ' if t.get('shadow') else '')
-        # v31: las tarjetas sirven a las DOS capas — con cuota real
-        # (EV) o sin ella (cuota mínima sugerida). Todo defensivo.
         cuota = t.get('cuota')
-        if cuota:
-            precio = (f"{t.get('valor','')} Cuota **{cuota}** "
-                      f"(justa {t.get('cuota_justa','?')})  \n"
-                      f"EV **{(t.get('ev') or 0)*100:+.1f} %** · "
-                      f"prob {(t.get('prob') or 0)*100:.0f} %")
-            if t.get('casa'):
-                precio += f"  \n🏠 {t['casa']}"
-            # v73: por qué no está en Capa 1 aunque tenga cuota real
-            if t.get('motivo_capa2'):
-                precio += f"  \nℹ️ Fuera de élite: {t['motivo_capa2']}"
-        else:
-            precio = (f"🎯 Sin cuota abierta todavía  \n"
-                      f"Cuota mínima sugerida **{t.get('cuota_justa','?')}** · "
-                      f"prob {(t.get('prob') or 0)*100:.0f} %")
-        c2, c3 = st.columns([2, 3])
-        # v117 — la probabilidad, además de en número, en barra.
-        #
-        # Un «69 %» y un «51 %» se leen igual de rápido y no se distinguen de
-        # un vistazo; una barra sí. El color sigue el criterio medido del
-        # proyecto (ver `estilo_ui.tono_por_ev`): verde sólo cuando hay varias
-        # casas comparadas, que es la única ventaja con ROI positivo.
-        _extra_vis = ''
-        if _estilo is not None:
-            try:
-                _p_vis = t.get('prob_calibrada')
-                _p_vis = _p_vis if _p_vis is not None else t.get('prob')
-                if _p_vis is not None:
-                    _extra_vis = _estilo.barra(_p_vis)
-            except Exception:
-                _extra_vis = ''
-        c2.markdown(f"**{pref}{t.get('apuesta','?')}**  \n{t.get('mercado','')}"
-                    + (f"\n\n{_extra_vis}" if _extra_vis else ''),
-                    unsafe_allow_html=bool(_extra_vis))
+        _p_vis = t.get('prob_calibrada')
+        _p_vis = _p_vis if _p_vis is not None else t.get('prob')
         rent = t.get('rentabilidad') or {}
         _gap = t.get('sharp_gap')
         import traductor_quant as _tq
-        c3.markdown(precio
-                    + (f"  \n**{_tq.frase_sharp(_gap, ES_PRO)}**"
-                       if t.get('sharp_confirmado') else '')
-                    + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
-                    + (f"  \n{rent['etiqueta']}" if rent.get('etiqueta')
-                       and rent.get('tier') != 'sin_ev' else '')
-                    + (f"  \n💼 Stake: **{t['stake_txt']}**"
-                       if t.get('stake_txt') else '')
-                    + (f"  \nℹ️ {t['nota_seleccion']}" if t.get('nota_seleccion') else '')
-                    + (f"  \n{t['nota']}" if t.get('nota') else ''))
+
+        if _estilo is not None:
+            _n_casas = int(t.get('n_casas') or 1)
+            _tono = (_estilo.tono_por_ev(t.get('ev'), _n_casas)
+                     if cuota else 'info')
+            etqs = []
+            if cuota:
+                etqs.append((f"EV {(t.get('ev') or 0)*100:+.1f} %", _tono))
+            else:
+                etqs.append(('sin cuota abierta todavía', 'info'))
+            if t.get('casa'):
+                etqs.append((f"🏠 {t['casa']}", 'azul'))
+            if t.get('sharp_confirmado'):
+                etqs.append(('💠 confirmado por el sharp', 'ok'))
+            if t.get('stake_txt'):
+                etqs.append((f"💼 {t['stake_txt']}", 'azul'))
+            if rent.get('etiqueta') and rent.get('tier') != 'sin_ev':
+                etqs.append((str(rent['etiqueta']), 'info'))
+            _pinta(_estilo.pata(
+                f"{pref}{t.get('apuesta','?')}",
+                cuota or t.get('cuota_justa'),
+                _p_vis, t.get('mercado', ''), etqs, _tono))
+            # la probabilidad también en barra: un «69 %» y un «51 %» se leen
+            # igual de rápido y no se distinguen; una barra sí
+            if _p_vis is not None:
+                _pinta(_estilo.barra(_p_vis, _tono))
+            _pie = []
+            if not cuota:
+                _pie.append(f"Cuota mínima que merecería la pena: "
+                            f"**{t.get('cuota_justa','?')}**")
+            else:
+                _pie.append(f"Cuota justa del modelo: {t.get('cuota_justa','?')}")
+            if t.get('sharp_confirmado'):
+                _pie.append(_tq.frase_sharp(_gap, ES_PRO))
+            for _k in ('fiabilidad', 'nota_seleccion', 'nota'):
+                if t.get(_k):
+                    _pie.append(str(t[_k]))
+            if t.get('motivo_capa2'):
+                _pie.append(f"Fuera de élite: {t['motivo_capa2']}")
+            if _pie:
+                st.caption(' · '.join(_pie))
+        else:
+            # sin capa visual, la fila de siempre
+            if cuota:
+                precio = (f"{t.get('valor','')} Cuota **{cuota}** "
+                          f"(justa {t.get('cuota_justa','?')})  \n"
+                          f"EV **{(t.get('ev') or 0)*100:+.1f} %** · "
+                          f"prob {(t.get('prob') or 0)*100:.0f} %")
+                if t.get('casa'):
+                    precio += f"  \n🏠 {t['casa']}"
+                if t.get('motivo_capa2'):
+                    precio += f"  \nℹ️ Fuera de élite: {t['motivo_capa2']}"
+            else:
+                precio = (f"🎯 Sin cuota abierta todavía  \n"
+                          f"Cuota mínima sugerida **{t.get('cuota_justa','?')}** · "
+                          f"prob {(t.get('prob') or 0)*100:.0f} %")
+            c2, c3 = st.columns([2, 3])
+            c2.markdown(f"**{pref}{t.get('apuesta','?')}**  \n"
+                        f"{t.get('mercado','')}")
+            c3.markdown(precio
+                        + (f"  \n**{_tq.frase_sharp(_gap, ES_PRO)}**"
+                           if t.get('sharp_confirmado') else '')
+                        + (f"  \n{t['fiabilidad']}" if t.get('fiabilidad') else '')
+                        + (f"  \n{rent['etiqueta']}" if rent.get('etiqueta')
+                           and rent.get('tier') != 'sin_ev' else '')
+                        + (f"  \n💼 Stake: **{t['stake_txt']}**"
+                           if t.get('stake_txt') else '')
+                        + (f"  \nℹ️ {t['nota_seleccion']}"
+                           if t.get('nota_seleccion') else '')
+                        + (f"  \n{t['nota']}" if t.get('nota') else ''))
         # v47: tenis — 19 mercados derivados para armar parlays
         mts = t.get('mercados_tenis') or []
         if mts:
@@ -3503,19 +4363,42 @@ def render_alpha_finder():
                 except Exception:
                     _falta = ''
                 with st.container(border=True):
-                    st.markdown(
-                        f"**{t0.get('partido','?')}**  \n"
-                        f"{t0.get('deporte','Fútbol')} · {t0.get('liga','')} · "
-                        f"{t0.get('fecha','')}"
-                        + (f"  \n{_hora}" + (f" · {_falta}" if _falta else '')
-                           if _hora else '')
-                        + (f"  \n{t0['antiguedad']}" if t0.get('antiguedad')
-                           else '')
-                        + (f"  \n{_techo}" if _techo else ''),
-                        help=("Frescura de los datos con los que se entrenó "
-                              "esta liga: el modelo no ve partidos nuevos "
-                              "desde hace ese número de días.")
-                        if t0.get('antiguedad') else None)
+                    # v122 — la cabecera del partido, con los dos equipos
+                    # enfrentados y su contexto en UNA línea de metadatos, en
+                    # vez de cuatro saltos de línea con todo del mismo peso.
+                    _pintado = False
+                    if _estilo is not None:
+                        _nom = str(t0.get('partido', '?'))
+                        _sep = next((x for x in (' vs ', ' vs. ', ' @ ', ' - ')
+                                     if x in _nom), None)
+                        if _sep:
+                            _h_c, _a_c = _nom.split(_sep, 1)
+                            _meta = [t0.get('deporte', 'Fútbol'),
+                                     t0.get('liga', ''), t0.get('fecha', '')]
+                            if _hora:
+                                _meta.append(_hora)
+                            if _falta:
+                                _meta.append(_falta)
+                            if t0.get('antiguedad'):
+                                _meta.append(t0['antiguedad'])
+                            if _techo:
+                                _meta.append(_techo)
+                            _pinta(_estilo.cabecera_partido(_h_c, _a_c, _meta))
+                            _pintado = True
+                    if not _pintado:
+                        st.markdown(
+                            f"**{t0.get('partido','?')}**  \n"
+                            f"{t0.get('deporte','Fútbol')} · {t0.get('liga','')} · "
+                            f"{t0.get('fecha','')}"
+                            + (f"  \n{_hora}" + (f" · {_falta}" if _falta else '')
+                               if _hora else '')
+                            + (f"  \n{t0['antiguedad']}" if t0.get('antiguedad')
+                               else '')
+                            + (f"  \n{_techo}" if _techo else ''),
+                            help=("Frescura de los datos con los que se entrenó "
+                                  "esta liga: el modelo no ve partidos nuevos "
+                                  "desde hace ese número de días.")
+                            if t0.get('antiguedad') else None)
                     # v114 — LA TARJETA LLEVA A SU PARTIDO.
                     #
                     # Pedido del usuario: «si hago click me llevas a Liga MX al
@@ -3799,7 +4682,7 @@ def render_alpha_finder():
                             f"<small>{p.get('liga','')}</small>"
                             + _estilo.barra_1x2(_pl, _px, _pv, _h, _a),
                             unsafe_allow_html=True)
-                st.caption("Verde = gana el local · gris = empate · ámbar = "
+                st.caption("Verde = gana el local · gris = empate · azul = "
                            "gana el visitante. El ancho es la probabilidad del "
                            "modelo; pasa por encima para ver la cifra exacta.")
 
@@ -4314,7 +5197,12 @@ def render_alpha_finder():
 # Y cuotas. Por eso quitarlo no deja hueco de cobertura.
 def render_mlb():
     """v29 (§3-§6): vista del motor MLB (béisbol), aislada del fútbol."""
-    st.header("⚾ MLB — Béisbol")
+    _cabecera(
+        'MLB — Béisbol',
+        'Modelo calibrado sobre 23.466 predicciones fuera de muestra: '
+        'cuando dice 62 %, es un 62 %.',
+        chips=[('probabilidad calibrada', 'ok'), ('abridores', 'info')],
+        icono='⚾')
     if _ayuda is not None:
         _ayuda.render(st, 'mlb')
     from engines.mlb_engine import MLBEngine, CODIGO_A_NOMBRE
@@ -4430,7 +5318,11 @@ def render_kbo():
     en modo informativo (no hay cuota de cierre histórica con la que validar
     un edge de apuesta) y en la KBO existe el empate.
     """
-    st.header("⚾ KBO — Béisbol coreano")
+    _cabecera(
+        'KBO — Béisbol coreano',
+        'Con las estadísticas del abridor y del bullpen dentro del '
+        'modelo, no como comentario aparte.',
+        chips=[('abridor y bullpen', 'ok')], icono='⚾')
     # v98 — misma red que en `render_liga_club`: durante la ventana de recarga
     # de Streamlit Cloud puede haber un `dashboard_ui` nuevo con el motor de
     # KBO todavía sin desplegar. Un ImportError aquí dejaría la app en blanco.
@@ -4634,7 +5526,10 @@ def render_nba():
     Fuera de temporada no hay partidos y el panel sale vacío — que es correcto
     y distinto de «no hay EV».
     """
-    st.header("🏀 NBA — Baloncesto")
+    _cabecera(
+        'NBA — Baloncesto',
+        'Ganador, hándicap y total del partido, con la cuota real de las '
+        'casas cuando la hay.', icono='🏀')
     from engines.nba_engine import NBAEngine
 
     @st.cache_resource(show_spinner="Cargando modelo NBA…")
@@ -4752,7 +5647,11 @@ def _mercados_sets_tenis(home: str, away: str, p: float, best_of: int = 3):
 def render_tennis():
     """v30 (§5) + v35 (§1): vista de Tenis con los DOS circuitos, ELO por
     superficie (incluida pista cubierta) y features de fatiga."""
-    st.header("🎾 Tenis — ATP / WTA")
+    _cabecera(
+        'Tenis — ATP / WTA',
+        'Partido, sets y juegos, con la superficie y el desgaste '
+        'dentro del cálculo.',
+        chips=[('ATP', 'info'), ('WTA', 'info')], icono='🎾')
     if _ayuda is not None:
         _ayuda.render(st, 'tenis')
     from engines.tennis_engine import TennisEngine
@@ -5138,7 +6037,15 @@ if not MOTOR.metadata.get('deploy_ready', False):
 # sexos. Los controles del Mundial siguen existiendo porque el modelo los usa
 # (el árbitro ajusta tarjetas, la altitud ajusta el xG), pero pasan a un
 # desplegable de ajustes finos en vez de presidir la pantalla.
-st.title("🌍 Partidos Internacionales — Predictor de selecciones")
+_cabecera(
+    'Partidos Internacionales',
+    f'Enfrenta a cualquiera de las {len(MOTOR.equipos)} selecciones del '
+    f'histórico: amistosos, Nations League, clasificatorias y torneos '
+    f'continentales, masculinos y femeninos.',
+    chips=[(f"{len(MOTOR.equipos)} selecciones", 'info'),
+           (f"acierta {MOTOR.metadata.get('precision_validacion', 0)*100:.0f} %",
+            'ok')],
+    icono='🌍')
 if _ayuda is not None:
     _ayuda.render(st, 'selecciones')
 st.caption(
@@ -5357,13 +6264,43 @@ tab_rapida, tab_plantilla = st.tabs(
 # PESTAÑA 1: VISTA RÁPIDA
 # ===========================================================================
 with tab_rapida:
-    st.markdown(f"### 🏆 Ganador más probable: **{p['winner']}** "
-                f"(con un {p['confidence']*100:.0f} % de confianza)")
-    st.markdown(f"### ⚽ Marcador más probable: **{p['most_likely_score']}** "
-                f"({p['score_probability']*100:.0f} % de probabilidad)")
-    st.markdown(f"### 📊 Probabilidades: {nombre_local} **{p['probabilities']['home']*100:.0f} %** · "
-                f"Empate **{p['probabilities']['draw']*100:.0f} %** · "
-                f"{nombre_visit} **{p['probabilities']['away']*100:.0f} %**")
+    # v122 — LA RESPUESTA, EN FORMA DE RESPUESTA.
+    #
+    # Esto eran cuatro `### ` seguidos: ganador, marcador, probabilidades y
+    # factor decisivo, los cuatro del mismo tamaño y sin nada que distinguiera
+    # el dato de la etiqueta. Con una barra proporcional del 1X2 no hace falta
+    # comparar tres porcentajes mentalmente, y las tres cifras que deciden
+    # (ganador, marcador, confianza) van donde se ven.
+    if _estilo is not None:
+        _pinta(_estilo.cabecera_partido(
+            nombre_local, nombre_visit,
+            [f"Ganador más probable: {p['winner']}",
+             f"Marcador: {p['most_likely_score']}"]))
+        _pinta(_estilo.barra_1x2(
+            p['probabilities']['home'], p['probabilities']['draw'],
+            p['probabilities']['away'], nombre_local, nombre_visit))
+        _pinta(_estilo.kpis([
+            {'valor': p['winner'], 'etiqueta': 'Ganador más probable',
+             'tono': 'ok', 'sub': f"confianza {p['confidence']*100:.0f} %"},
+            {'valor': p['most_likely_score'], 'etiqueta': 'Marcador',
+             'tono': 'azul',
+             'sub': f"{p['score_probability']*100:.0f} % de probabilidad"},
+            {'valor': f"{p['probabilities']['home']*100:.0f} %",
+             'etiqueta': nombre_local, 'tono': 'info'},
+            {'valor': f"{p['probabilities']['draw']*100:.0f} %",
+             'etiqueta': 'Empate', 'tono': 'info'},
+            {'valor': f"{p['probabilities']['away']*100:.0f} %",
+             'etiqueta': nombre_visit, 'tono': 'info'},
+        ]))
+    else:
+        st.markdown(f"### 🏆 Ganador más probable: **{p['winner']}** "
+                    f"(con un {p['confidence']*100:.0f} % de confianza)")
+        st.markdown(f"### ⚽ Marcador más probable: **{p['most_likely_score']}** "
+                    f"({p['score_probability']*100:.0f} % de probabilidad)")
+        st.markdown(f"### 📊 Probabilidades: {nombre_local} "
+                    f"**{p['probabilities']['home']*100:.0f} %** · "
+                    f"Empate **{p['probabilities']['draw']*100:.0f} %** · "
+                    f"{nombre_visit} **{p['probabilities']['away']*100:.0f} %**")
     render_comentario(pred, nombre_local, nombre_visit)
     st.markdown(f"### 🔥 Factor decisivo: *{pred['decisive_factor']}*")
 

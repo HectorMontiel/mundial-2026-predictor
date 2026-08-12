@@ -1,2 +1,27 @@
 [client]
 toolbarMode = "minimal"
+
+# v122 — EL TEMA, QUE HASTA AHORA NO EXISTÍA.
+#
+# Este fichero sólo tenía `toolbarMode`, así que la aplicación se pintaba con
+# el tema de fábrica de Streamlit: fondo blanco, azul corporativo y gris. Es la
+# razón por la que el usuario decía «la veo plana» aunque `estilo_ui` inyectara
+# CSS: el CSS afinaba bordes y sombras sobre una paleta que no era de nadie.
+#
+# Se elige OSCURO por dos motivos que no son de gusto:
+#   · esta pantalla se mira de noche y antes de un partido, y una superficie
+#     clara a pantalla completa con veinte cifras encima cansa;
+#   · el código de color del proyecto (verde = accionable, ámbar = míralo,
+#     rojo = descartado) tiene mucho más contraste sobre fondo oscuro, y ese
+#     código es lo que distingue una decisión de otra.
+#
+# `primaryColor` es el verde de «puedes actuar», el mismo `--ok` de estilo_ui:
+# los dos tienen que ser el mismo color o el botón principal diría una cosa y
+# la píldora de al lado otra.
+[theme]
+base = "dark"
+primaryColor = "#10b981"
+backgroundColor = "#0d1117"
+secondaryBackgroundColor = "#161b26"
+textColor = "#e6edf3"
+font = "sans serif"

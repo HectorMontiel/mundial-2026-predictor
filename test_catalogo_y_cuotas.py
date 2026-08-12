@@ -289,6 +289,522 @@ def test_playdoit_integrada():
           f"si las hubiera, el parseo estaría mal")
 
 
+def test_tablero_playdoit():
+    """
+    v122: la casa del usuario tiene que publicar bastante más que el 1X2, o no
+    hay con qué armar una combinada que se pueda poner en un solo boleto.
+
+    El catálogo (`GetEvents`) trae CINCO mercados por partido y tres de ellos
+    son el mismo suceso (1X2, doble oportunidad y empate-no-acción), así que
+    con eso no se puede construir nada. El detalle (`GetEventDetails`) trae el
+    tablero entero. Si esta llamada se cae o cambia de forma, la sección «En TU
+    casa» se queda vacía sin dar un solo error — que es el modo de fallo que
+    este proyecto ya ha pagado dos veces.
+    """
+    import cuotas_multi as cm
+    check(hasattr(cm, 'mercados_playdoit'),
+          "cuotas_multi expone mercados_playdoit")
+    try:
+        idx = cm._indice_pdt('futbol')
+    except Exception as e:
+        check(False, f"el índice de Playdoit carga ({type(e).__name__}: {e})")
+        return
+    con_id = sum(1 for v in idx.values() if v.get('event_id'))
+    check(con_id > 0,
+          f"el índice de Playdoit guarda el event_id ({con_id}/{len(idx)}) — "
+          f"sin él no se puede pedir el detalle del partido")
+    if not con_id:
+        return
+    # QUÉ SE AFIRMA AQUÍ, Y POR QUÉ NO SE AFIRMA UN NÚMERO GRANDE.
+    #
+    # Dos versiones anteriores de este test fallaron sin que nada estuviera
+    # roto. La primera cogía «el primer partido del catálogo, el que sea» y le
+    # tocó Alcorcón vs Rayo Majadahonda; la segunda probaba cinco y le
+    # tocaron cinco partidos de división menor seguidos. En segunda B la casa
+    # publica media docena de mercados, y eso no es un fallo del código: es el
+    # partido.
+    #
+    # Lo que de verdad hay que comprobar es la afirmación que sostiene toda la
+    # función: **el detalle trae MÁS que el catálogo**. El catálogo devuelve
+    # como mucho cinco mercados por partido (1X2, doble oportunidad, empate no
+    # acción, Total de 2.5 y ambos marcan), así que con que UN partido de la
+    # muestra pase de cinco, el endpoint del detalle está funcionando. Si
+    # estuviera roto daría 0 o None en todos, que es lo que este test caza.
+    MERCADOS_DEL_CATALOGO = 5
+    candidatos = [v for v in idx.values() if v.get('event_id')][:10]
+    tableros = []
+    for ent in candidatos:
+        try:
+            det = cm.mercados_playdoit('futbol', ent['home'], ent['away'])
+        except Exception as e:
+            check(False, f"mercados_playdoit lanza con {ent['home']} vs "
+                         f"{ent['away']} ({type(e).__name__}: {e})")
+            return
+        if det:
+            tableros.append((len(det.get('mercados') or []), ent, det))
+    check(tableros,
+          f"mercados_playdoit devuelve tablero de alguno de los "
+          f"{len(candidatos)} partidos probados")
+    if not tableros:
+        return
+    n, ent, det = max(tableros, key=lambda t: t[0])
+    check(n > MERCADOS_DEL_CATALOGO,
+          f"el detalle trae más mercados que el catálogo (el mejor de "
+          f"{len(tableros)} partidos da {n} con precio, frente a los "
+          f"{MERCADOS_DEL_CATALOGO} del catálogo: {ent['home']} vs "
+          f"{ent['away']})")
+    check(det.get('casa') == cm.CASA_PRIORITARIA,
+          f"el tablero viene marcado con la casa del usuario ({det.get('casa')})")
+
+
+def test_playdoit_no_inventa_mercados():
+    """
+    v122: el veto de la seña, que es lo que impide que un mercado sin
+    equivalente en la plantilla cobre la probabilidad del más parecido.
+
+    Caso REAL medido el 2026-08-10 en Monterrey vs Juárez: «Monterrey 3-4
+    Juarez» @ 251,00 se cruzaba con «Monterrey o Juarez» (p 0,785) por
+    similitud de cadena 0,89, y la app declaraba un EV de **+19.603 %**. No da
+    excepción: da una apuesta. Es el mismo modo de fallo que la v114 corrigió
+    en el emparejador, por otra puerta.
+    """
+    import cuotas_tablon as ct
+    # un tablero de mentira con un marcador que la plantilla NO tiene
+    det = {'casa': 'Playdoit', 'casa_home': 'Monterrey', 'casa_away': 'Juarez',
+           'mercados': [
+               {'tipo': 45, 'nombre': 'Marcador exacto', 'sv': None,
+                'selecciones': [{'nombre': '3:4', 'cuota': 251.0,
+                                 'tipo': 1, 'competidor': None}]},
+               {'tipo': 18, 'nombre': 'Total', 'sv': '2.5',
+                'selecciones': [{'nombre': 'Más de 2.5', 'cuota': 1.9,
+                                 'tipo': 12, 'competidor': None},
+                                # línea asiática de cuarto: NO existe en la
+                                # plantilla y se parece demasiado a la de 2.5
+                                {'nombre': 'Más de 2.25', 'cuota': 1.7,
+                                 'tipo': 12, 'competidor': None}]},
+           ]}
+    filas = ct.filas_playdoit(det, 'Monterrey', 'Juarez')
+    etqs = {f['etiqueta'] for f in filas}
+    check('Más de 2.5 goles' in etqs,
+          "la línea de 2.5 sí se traduce")
+    check(not any('2.25' in e for e in etqs),
+          f"las líneas asiáticas de cuarto se descartan ({etqs})")
+
+    plantilla = {'secciones': [
+        {'titulo': '2. Doble oportunidad', 'campos': [
+            {'id': 'dc_12', 'etiqueta': 'Monterrey o Juarez',
+             'tipo': 'pct', 'valor': 78.5}]},
+        {'titulo': '3. Total de goles', 'campos': [
+            {'id': 'over25', 'etiqueta': 'Más de 2.5 goles',
+             'tipo': 'pct', 'valor': 53.6}]},
+    ]}
+    mk = ct.mercados_de_filas(filas, plantilla)
+    ids = {r['id'] for r in mk}
+    check('over25' in ids, "el mercado que SÍ existe se cruza")
+    check('dc_12' not in ids,
+          f"«Monterrey 3-4 Juarez» NO se cruza con «Monterrey o Juarez» "
+          f"({[(r['apuesta'], r['ev']) for r in mk]})")
+    check(all(r['ev'] < 1.0 for r in mk),
+          f"ningún EV descabellado sobrevive ({[r['ev'] for r in mk]})")
+
+
+def test_patas_llevan_su_id():
+    """
+    v122: cada pata de una combinada tiene que llevar el `id` de su mercado.
+
+    Sin él, todo lo que la v114 construyó para razonar sobre las patas fallaba
+    EN SILENCIO: tanto la interfaz (`m.get('id') == s.get('id')`) como
+    `cuotas_tablon.recomendar_combinada` buscan el mercado por ahí, así que
+    ninguna pata encontraba nunca el suyo. El síntoma visible era una
+    recomendación que SIEMPRE decía «ninguna pata tiene un segundo precio con
+    el que compararse», tuviera seis casas cotizándola o ninguna.
+    """
+    import inspect
+
+    import match_parlay as mp
+    fuente = inspect.getsource(mp)
+    # los tres constructores que devuelven patas al exterior
+    n = fuente.count("'id': s.id")
+    check(n >= 3,
+          f"los constructores de combinadas emiten el id del mercado ({n}/3)")
+
+
+def test_combinada_de_una_sola_casa():
+    """
+    v122: la combinada de UNA casa se juzga por lo que paga esa casa frente al
+    mercado, no por cuántas casas se han comparado (que es cero por
+    construcción). Si se puntuara con el criterio normal, la recomendación se
+    decidiría sola por probabilidad — justo el criterio que este proyecto tiene
+    medido en NEGATIVO (−4,66 % a −6,52 % en 37.158 apuestas).
+    """
+    import cuotas_tablon as ct
+    check(hasattr(ct, 'motor_solo_playdoit'),
+          "cuotas_tablon expone motor_solo_playdoit")
+    check(hasattr(ct, 'comparar_con_el_mercado'),
+          "cuotas_tablon expone comparar_con_el_mercado")
+
+    # dos opciones: la barata paga PEOR que el mercado, la otra lo iguala
+    mercados = [
+        {'id': 'a', 'apuesta': 'A', 'cuota_casa': 1.50, 'casa': 'Playdoit',
+         'dif_vs_mercado': -0.20, 'casa_mercado': 'Pinnacle', 'ev': 0.0},
+        {'id': 'b', 'apuesta': 'B', 'cuota_casa': 2.00, 'casa': 'Playdoit',
+         'dif_vs_mercado': 0.01, 'casa_mercado': 'Pinnacle', 'ev': 0.0},
+    ]
+    peor = {'etiqueta_opcion': 'mal comprada', 'prob_conjunta': 0.55,
+            'cuota_combinada': 1.9,
+            'selecciones': [{'id': 'a', 'apuesta': 'A', 'cuota': 1.5,
+                             'prob': 0.55, 'cuota_fuente': 'real'}]}
+    mejor = {'etiqueta_opcion': 'bien comprada', 'prob_conjunta': 0.50,
+             'cuota_combinada': 2.0,
+             'selecciones': [{'id': 'b', 'apuesta': 'B', 'cuota': 2.0,
+                              'prob': 0.50, 'cuota_fuente': 'real'}]}
+    r = ct.recomendar_combinada([peor, mejor], mercados, criterio='casa_unica')
+    check(r is not None and r['etiqueta_opcion'] == 'bien comprada',
+          f"con una sola casa gana la que mejor se compra, no la más probable "
+          f"({(r or {}).get('etiqueta_opcion')})")
+    txt = ' '.join((r or {}).get('motivo_recomendacion', []))
+    check('misma casa' in txt,
+          f"la explicación dice que es un solo ticket ({txt[:120]})")
+    # y el criterio de siempre no se toca
+    r2 = ct.recomendar_combinada([peor, mejor], mercados)
+    check(r2 is not None, "el criterio de mercado sigue funcionando")
+
+
+def test_capa_visual_no_rompe():
+    """
+    v122: `estilo_ui` es SÓLO presentación y no puede lanzar nunca.
+
+    Si un componente revienta con un dato raro, se lleva por delante la
+    pantalla entera de Streamlit — y esta capa se llama desde catorce vistas.
+    Todos tienen que devolver cadena (vacía si no entienden el dato), jamás
+    una excepción.
+    """
+    import estilo_ui as e
+    basura = [None, '', 'x', float('nan'), -1, 99, {}, []]
+    fallos = []
+    for v in basura:
+        for f, args in ((e.barra, (v,)), (e.anillo, (v,)),
+                        (e.chip_cuota, (v,)), (e.pildora, (v,)),
+                        (e.medidor_precio, (v,)), (e.kpis, ([(v, 'x')],)),
+                        (e.ticket, (v, v)), (e.pata, ('A', v, v)),
+                        (e.barra_1x2, (v, v, v)), (e.nota, (v,)),
+                        (e.vacio, ('t', v)), (e.cabecera, ('t', v)),
+                        (e.seccion, ('t', v)), (e.tabla, (['a'], [[v]]))):
+            try:
+                out = f(*args)
+                if not isinstance(out, str):
+                    fallos.append(f'{f.__name__}({v!r}) no devuelve str')
+            except Exception as ex:
+                fallos.append(f'{f.__name__}({v!r}) lanza {type(ex).__name__}')
+    check(not fallos, f"ningún componente visual lanza con datos raros "
+                      f"({fallos[:4]})")
+    # y el HTML que produce va escapado: un nombre con `<` no puede inyectar
+    check('&lt;b&gt;' in e.pildora('<b>x</b>'),
+          "los componentes escapan el texto que reciben")
+
+
+def test_empate_recibe_su_precio():
+    """
+    v123: el precio del EMPATE tiene que llegar a `draw_prob`, no a `mv_x`.
+
+    Fallo de producción desde la v114, y en el mercado más jugado que existe.
+    `cruzar_con_plantilla` comparaba «Empate» contra los ~85 campos del modelo
+    a la vez y ganaba el que más se le pareciera:
+
+        «Empate» @ 4,63  →  «Empate» (mv_x, margen de victoria)  similitud 1,00
+                     y NO →  «Empate (+365)» (draw_prob, 1X2)    similitud 0,75
+
+    Los dos campos describen el mismo suceso, así que la probabilidad y el EV
+    salían bien y nada fallaba a la vista. Pero `draw_prob` se quedaba SIN
+    precio real, y el constructor de combinadas armaba cualquier pata con
+    empate a cuota justa —un precio inventado— teniendo el real delante.
+
+    Dos arreglos, y este test cubre los dos: la cuota americana que la
+    plantilla pega a la etiqueta ya no cuenta para el cotejo, y cada familia de
+    mercado sólo puede casar con su sección.
+    """
+    import cuotas_manual
+    import cuotas_tablon as ct
+
+    # 1) la decoración «(+365)» no puede impedir el cruce
+    check(cuotas_manual._normalizar('Empate (+365)') == 'empate',
+          f"la cuota americana sale de la etiqueta al normalizar "
+          f"({cuotas_manual._normalizar('Empate (+365)')!r})")
+    check(cuotas_manual._normalizar('Juarez +0.5 (no pierde)')
+          == 'juarez +0 5 no pierde',
+          "pero un paréntesis con texto SÍ se conserva "
+          f"({cuotas_manual._normalizar('Juarez +0.5 (no pierde)')!r})")
+
+    # 2) una fila de familia 1X2 sólo puede casar con la sección del 1X2
+    plantilla = {'secciones': [
+        {'titulo': '1. Resultado (1X2) con cuota justa', 'campos': [
+            {'id': 'home_win_prob', 'etiqueta': 'Gana Monterrey (-163)',
+             'tipo': 'pct', 'valor': 62.0},
+            {'id': 'draw_prob', 'etiqueta': 'Empate (+365)',
+             'tipo': 'pct', 'valor': 21.5},
+            {'id': 'away_win_prob', 'etiqueta': 'Gana Juarez (+508)',
+             'tipo': 'pct', 'valor': 16.5}]},
+        {'titulo': '8. Margen de victoria', 'campos': [
+            {'id': 'mv_x', 'etiqueta': 'Empate', 'tipo': 'pct',
+             'valor': 21.5}]},
+    ]}
+    filas = [{'etiqueta': 'Empate', 'cuota': 4.25, 'casa': 'Playdoit',
+              'familia': '1X2', 'sena': 'empate'}]
+    ids = {r['id'] for r in ct.mercados_de_filas(filas, plantilla)}
+    check('draw_prob' in ids,
+          f"el precio del empate llega al 1X2 y no al margen de victoria "
+          f"({ids})")
+
+
+def test_tiempos_con_precio_pero_sin_ev():
+    """
+    v123: los mercados de mitad entran con precio REAL y con el EV marcado
+    como no fiable.
+
+    El usuario pidió «combinadas de córners, tarjetas, tiempos». Medido sobre
+    Monterrey vs Juárez el 2026-08-10, de los 148 mercados con precio que
+    publica Playdoit hay **cero** de córners o tarjetas y doce de mitades, así
+    que de los tres sólo los tiempos se pueden jugar con cuota real.
+
+    Pero el modelo reparte los goles a partes iguales entre las dos mitades
+    —da la MISMA probabilidad a la 1ª y a la 2ª, medido en 4 de 4 partidos de
+    Liga MX— y en el fútbol real se marca alrededor del 55 % en la segunda. El
+    EV que sale de esa simetría mide lo que al modelo le falta, no valor, y por
+    eso las filas van marcadas.
+    """
+    import cuotas_tablon as ct
+    det = {'casa': 'Playdoit', 'casa_home': 'Monterrey',
+           'casa_away': 'Juarez', 'mercados': [
+               {'tipo': 68, 'nombre': '1ª Mitad - total', 'sv': '1.5',
+                'selecciones': [{'nombre': 'Más de 0.5', 'cuota': 1.25,
+                                 'tipo': 12, 'competidor': None},
+                                {'nombre': 'Menos de 1.5', 'cuota': 1.6451,
+                                 'tipo': 13, 'competidor': None}]},
+               # total por equipo de una mitad: la plantilla NO lo tiene
+               {'tipo': 69, 'nombre': '1ª Mitad - Monterrey total', 'sv': '0.5',
+                'selecciones': [{'nombre': 'Más de 0.5', 'cuota': 1.52,
+                                 'tipo': 12, 'competidor': None}]},
+           ]}
+    filas = ct.filas_playdoit(det, 'Monterrey', 'Juarez')
+    etqs = {f['etiqueta'] for f in filas}
+    check('1ª mitad: más de 0.5 goles' in etqs,
+          f"el total de la 1ª mitad se traduce ({etqs})")
+    check(not any('Monterrey' in e and 'mitad' in e for e in etqs),
+          f"el total POR EQUIPO de una mitad se descarta ({etqs})")
+
+    plantilla = {'secciones': [
+        {'titulo': '13. 1ª y 2ª mitad', 'campos': [
+            {'id': '1h_over05', 'etiqueta': '1ª mitad: más de 0.5 goles',
+             'tipo': 'pct', 'valor': 77.1},
+            {'id': '1h_under15', 'etiqueta': '1ª mitad: menos de 1.5 goles',
+             'tipo': 'pct', 'valor': 56.6},
+            {'id': '2h_over05', 'etiqueta': '2ª mitad: más de 0.5 goles',
+             'tipo': 'pct', 'valor': 77.1},
+            {'id': '2h_under15', 'etiqueta': '2ª mitad: menos de 1.5 goles',
+             'tipo': 'pct', 'valor': 56.6}]},
+    ]}
+    check(ct._mitades_degeneradas(plantilla),
+          "se detecta que el modelo da la misma probabilidad a las dos mitades")
+    mk = ct.mercados_de_filas(filas, plantilla)
+    check(mk, "los mercados de mitad se cruzan con el modelo")
+    check(all(r.get('ev_no_fiable') for r in mk),
+          f"y todos van marcados como EV no fiable "
+          f"({[(r['apuesta'], r.get('ev_no_fiable')) for r in mk]})")
+
+
+def test_h2h_trae_corners_y_tarjetas():
+    """
+    v123: el cara a cara tiene que enseñar córners, tarjetas y remates.
+
+    Los históricos los traen desde siempre —67 de los 74 ficheros tienen
+    `home_corners` y donde la columna existe la cobertura es del 100 % sobre
+    147.811 partidos— y el panel no los leía. Fue exactamente lo que reportó el
+    usuario mirando la pantalla.
+    """
+    import panel_equipos as pe
+    r = pe.h2h('liga_mx', 'UNAM Pumas', 'Queretaro')
+    if not r.get('n'):
+        check(False, 'hay cruces de Pumas-Querétaro en el histórico')
+        return
+    ex = r.get('extra') or {}
+    check('corners' in ex and ex['corners'].get('media_total'),
+          f"el cara a cara trae córners ({ex.get('corners')})")
+    check('tarjetas' in ex and ex['tarjetas'].get('lineas'),
+          f"y tarjetas con su porcentaje por línea ({ex.get('tarjetas')})")
+    # la posesión no puede dar un «total» de 100, que no informa de nada
+    check('media_total' not in (ex.get('posesion') or {}),
+          f"la posesión no publica un total (siempre sería 100) "
+          f"({ex.get('posesion')})")
+    p0 = r['partidos'][0]
+    check(p0.get('corners_local') is not None,
+          f"y cada partido lleva sus cifras ({p0})")
+
+
+def test_juegos_de_tenis():
+    """
+    v123: los juegos totales del tenis, que el usuario pidió para apostar la
+    línea.
+
+    Salen del histórico unificado, que trae `Score` con cobertura del 100 %
+    sobre 354.250 partidos del ATP. Lo que este test protege sobre todo es la
+    separación por FORMATO: mezclar partidos al mejor de 3 con finales de Grand
+    Slam al mejor de 5 daba un número que no corresponde a ningún partido
+    —Alcaraz–Sinner salía a 32,8 juegos de media de cruce frente a 22,5 de
+    media individual— y puesto al lado de una línea de casa habría hecho
+    parecer baratísimo cualquier «más de 22.5».
+    """
+    import tenis_juegos as tj
+    casos = [('6-3 6-7 4-6', 32), ('6-4 7-5', 22), ('6-0 6-0', 12),
+             ('6-3 2-1 RET', None), ('', None), (None, None)]
+    malos = [(s, tj.juegos_del_marcador(s), e) for s, e in casos
+             if tj.juegos_del_marcador(s) != e]
+    check(not malos, f"el marcador se lee bien y el retiro se descarta ({malos})")
+
+    import os
+    if not os.path.exists('tenis_juegos_atp.json'):
+        print('AVISO tenis_juegos_atp.json no existe todavía; se omite el resto')
+        return
+    p = tj.perfil_jugador('atp', 'Djokovic N.', 3)
+    check(p and p.get('n', 0) > 100,
+          f"hay perfil de juegos de un jugador del circuito ({p})")
+    r3 = tj.linea_sugerida('atp', 'Djokovic N.', 'Nadal R.', 3)
+    r5 = tj.linea_sugerida('atp', 'Djokovic N.', 'Nadal R.', 5)
+    check(r3 and r5, "hay línea sugerida en los dos formatos")
+    if r3 and r5:
+        check(r5['media_estimada'] > r3['media_estimada'] + 5,
+              f"el mejor de 5 dura bastante más que el mejor de 3 "
+              f"({r3['media_estimada']} vs {r5['media_estimada']})")
+        if r3.get('h2h') and r5.get('h2h'):
+            check(r3['h2h']['media'] < r5['h2h']['media'],
+                  f"y el cara a cara también va separado por formato "
+                  f"({r3['h2h']} vs {r5['h2h']})")
+
+
+def test_partido_parejo():
+    """
+    v123: comparar «Gana X» con «X o Empate» y, sobre todo, medir el MARGEN.
+
+    Lo que se puede comprobar sin depender de que el modelo acierte es cuánto
+    cobra la casa en cada uno de los dos mercados. El margen de la doble
+    oportunidad NO se calcula como el del 1X2: cada opción cubre dos de los
+    tres resultados, así que las probabilidades implícitas de un libro sin
+    margen suman 2 y hay que dividir entre 2. Sin esa corrección parecería que
+    la doble oportunidad cobra el doble de lo que cobra, y la pantalla estaría
+    empujando al usuario al mercado equivocado.
+    """
+    import partido_parejo as pp
+    # libro sin margen: 1X2 con probabilidades 0,5 / 0,25 / 0,25
+    m = pp.margen_1x2({'home': 2.0, 'draw': 4.0, 'away': 4.0})
+    check(abs(m) < 1e-9, f"un 1X2 sin margen da 0 ({m})")
+    # el mismo libro en doble oportunidad: 1X=0,75 12=0,75 X2=0,50
+    d = pp.margen_doble({'1x': 1 / 0.75, '12': 1 / 0.75, 'x2': 1 / 0.50})
+    check(abs(d) < 1e-9,
+          f"y la doble oportunidad del mismo libro también da 0, no 100 % ({d})")
+    # Playdoit en Monterrey vs Juárez, medido el 2026-08-10
+    m_real = pp.margen_1x2({'home': 1.5455, 'draw': 4.25, 'away': 5.3334})
+    d_real = pp.margen_doble({'1x': 1.1667, '12': 1.2, 'x2': 2.2223})
+    check(0.02 < m_real < 0.15 and 0.02 < d_real < 0.15,
+          f"los dos márgenes reales son plausibles ({m_real:.4f}, {d_real:.4f})")
+
+    par = pp.es_parejo(0.34, 0.30, 0.36)
+    check(par['parejo'], f"un 34/30/36 se detecta como parejo ({par['motivo']})")
+    claro = pp.es_parejo(0.62, 0.22, 0.16)
+    check(not claro['parejo'],
+          f"y un 62/22/16 NO ({claro['motivo']})")
+
+
+def test_selectores_de_partido_con_clave_estable():
+    """
+    v123: la etiqueta de un selector de partidos no puede ser su CLAVE.
+
+    Los dos selectores de próximos partidos —el de deportes y el de ligas de
+    fútbol— añadían «· sin cuota aún» al texto de la opción, y ese texto era
+    además la clave. Como depende de si las casas han abierto línea, cambia
+    entre una recarga y la siguiente: al pulsar «🔄 Actualizar» el valor
+    guardado en la sesión dejaba de existir en la lista nueva y Streamlit
+    tumbaba la vista entera.
+
+        ValueError: '2026-08-12 11:40 · Baltimore Orioles @ Minnesota Twins'
+        is not in list
+
+    Lo cazó `smoke_botones.py` en la vista de MLB. La corrección es separar la
+    clave (estable) del texto (`format_func`), más una guardia que olvida una
+    selección que ya no exista — porque un partido que termina desaparece del
+    calendario y eso las claves estables no lo pueden evitar.
+    """
+    import re
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+
+    # ningún diccionario de opciones puede indexarse por la etiqueta volátil
+    malos = [l.strip() for l in src.splitlines()
+             if re.search(r'_?ops?\[_etq\]|_ops\[_etq\]', l)]
+    check(not malos,
+          f"las opciones no se indexan por la etiqueta con “sin cuota aún” "
+          f"({malos[:2]})")
+
+    # los dos selectores usan format_func y la guardia
+    for clave_sel in ('fxd_sel_', 'fx_sel_'):
+        i = src.find(f'key=f"{clave_sel}')
+        check(i > 0, f"se encuentra el selector {clave_sel}")
+        if i <= 0:
+            continue
+        ventana = src[max(0, i - 400):i + 300]
+        check('format_func' in ventana,
+              f"el selector {clave_sel} pinta la etiqueta con format_func")
+        check('_olvidar_seleccion_muerta' in ventana,
+              f"y olvida una selección que ya no exista ({clave_sel})")
+
+    check('def _olvidar_seleccion_muerta' in src,
+          "existe la guardia contra la selección muerta")
+
+
+def test_la_interfaz_usa_la_capa_visual():
+    """
+    v122: que `estilo_ui` no vuelva a ser un módulo que nadie llama.
+
+    Éste es el fallo exacto de la v117, y no es una hipótesis: creó seis
+    componentes y la aplicación usaba TRES, en CUATRO sitios, sobre 5.884
+    líneas de interfaz. El resto seguía siendo `st.markdown` con asteriscos.
+    Por eso el usuario pidió el rediseño cuatro veces seguidas — desde fuera no
+    había cambiado nada, porque desde fuera efectivamente no había cambiado
+    casi nada.
+
+    Un módulo de presentación sin llamadores no da error, no rompe ningún test
+    y no se nota en ninguna métrica. Sólo se nota mirando la pantalla, que es
+    justo lo que un test no hace. De ahí esta guardia.
+    """
+    import ast
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    usos = src.count('_pinta(') + src.count('_seccion(') + src.count('_cabecera(')
+    check(usos >= 40,
+          f"la interfaz usa la capa visual de verdad ({usos} llamadas; la "
+          f"v117 tenía 4 y por eso no se notaba)")
+
+    # y que cada componente público de estilo_ui tenga al menos un llamador
+    import estilo_ui
+    arbol = ast.parse(open('estilo_ui.py', encoding='utf-8').read())
+    publicos = [n.name for n in arbol.body
+                if isinstance(n, ast.FunctionDef) and not n.name.startswith('_')]
+    huerfanos = [f for f in publicos
+                 if f not in ('aplicar', 'pinta') and f'.{f}(' not in src]
+    check(not huerfanos,
+          f"ningún componente visual se queda sin usar ({huerfanos})")
+
+    # el tema tiene que existir: sin él, el CSS afina bordes sobre la paleta de
+    # fábrica de Streamlit, que es lo que hacía que el rediseño no se viera
+    cfg = open('.streamlit/config.toml', encoding='utf-8').read()
+    check('[theme]' in cfg and 'primaryColor' in cfg,
+          "la app define su propio tema, no el de fábrica de Streamlit")
+    # y el color primario del tema tiene que ser el mismo «puedes actuar» del
+    # sistema de componentes, o el botón y la píldora de al lado dirían cosas
+    # distintas con el mismo color
+    import re
+    m = re.search(r'primaryColor\s*=\s*"(#[0-9a-fA-F]{6})"', cfg)
+    check(bool(m) and m.group(1).lower() in estilo_ui.CSS.lower(),
+          f"el color primario del tema es el mismo --ok de estilo_ui "
+          f"({m.group(1) if m else 'sin definir'})")
+
+
 def test_claves_de_tenista():
     """
     v77: los nombres de tenista tienen que colapsar a la misma clave se
@@ -3192,7 +3708,17 @@ def test_roi_negativo_se_avisa_de_frente():
     # aviso desaparece solo y este test sigue pasando.
     dash = open('dashboard_ui.py', encoding='utf-8').read()
     i_fn = dash.find('def _render_maxima_confianza')
-    cuerpo = dash[i_fn:i_fn + 6000]
+    # v122 — la función ENTERA, no los primeros 6.000 caracteres.
+    #
+    # El corte fijo era un número mágico que ataba el test a la LONGITUD de la
+    # función en vez de a su contenido: al añadirle unas líneas en esta
+    # versión, «muestra corta» se salió de la ventana y el test falló sin que
+    # nada hubiera dejado de mostrarse. Un test que se rompe al crecer la
+    # función avisa de lo que no es. Se corta en el siguiente `def` a nivel de
+    # módulo, que es el final de verdad.
+    _resto = dash[i_fn:]
+    _fin = _resto.find('\ndef ', 1)
+    cuerpo = _resto[:_fin] if _fin > 0 else _resto
 
     check('st.error' in cuerpo,
           "el aviso de ROI negativo usa `st.error` (rojo), no un caption")
@@ -3661,6 +4187,20 @@ if __name__ == '__main__':
     test_motores_de_deporte_cargan()
     test_beisbol_pitchers()
     test_handicap_en_todas_las_ligas()
+    print('\n=== v122: la casa del usuario y la capa visual ===')
+    test_tablero_playdoit()
+    test_playdoit_no_inventa_mercados()
+    test_patas_llevan_su_id()
+    test_combinada_de_una_sola_casa()
+    test_capa_visual_no_rompe()
+    test_la_interfaz_usa_la_capa_visual()
+    print('\n=== v123: estadísticas del cruce, tiempos y juegos ===')
+    test_empate_recibe_su_precio()
+    test_tiempos_con_precio_pero_sin_ev()
+    test_h2h_trae_corners_y_tarjetas()
+    test_juegos_de_tenis()
+    test_partido_parejo()
+    test_selectores_de_partido_con_clave_estable()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

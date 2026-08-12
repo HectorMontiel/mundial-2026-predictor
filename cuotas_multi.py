@@ -1196,6 +1196,12 @@ def _indice_playdoit(deporte: str) -> Dict[str, dict]:
             'liga': champs.get(ev.get('champId')),
             'pais': cats.get(ev.get('catId')),
             'fecha': fecha_normalizada(ev.get('startDate')),
+            # v122: el identificador del evento en Altenar. El listado sólo
+            # trae cinco mercados por partido; el detalle trae ciento y pico
+            # (ver `mercados_playdoit`), y sin este número no hay forma de
+            # pedirlo. Guardarlo aquí cuesta cero peticiones porque el listado
+            # ya se estaba descargando entero.
+            'event_id': ev.get('id'),
             'casa': 'Playdoit', 'cuotas': cuotas,
         }
     _escribir_cache(f'playdoit_{deporte}.json', indice)
@@ -1210,6 +1216,212 @@ def _indice_pdt(deporte: str) -> Dict[str, dict]:
             idx = _indice_playdoit(deporte)
             _MEM_PDT[deporte] = (time.time(), idx)
     return idx
+
+
+# ---------------------------------------------------------------------------
+# 4b. PLAYDOIT, EL TABLERO ENTERO DE UN PARTIDO (v122)
+#
+# Por qué hacía falta
+# -------------------
+# El usuario lo dijo sin rodeos: «en el mundo real no es posible hacer cuotas
+# con diferentes casas. Quiero que me des cuotas también pero solo con la casa
+# de Playdoit que es la mía». Y tenía razón: una combinada cuyas patas están
+# cada una en una casa distinta NO se puede colocar en ningún sitio. La cuota
+# combinada que la app enseñaba era la suma de tres tickets, no un ticket.
+#
+# El obstáculo era de datos, no de criterio: `GetEvents` —la llamada del
+# catálogo, una sola para los 800 partidos— devuelve CINCO mercados por
+# evento (1X2, doble oportunidad, empate no acción, Total de 2.5 y ambos
+# marcan). Con dos de esos cinco no comparables entre sí (el 1X2 y sus
+# derivados son el mismo suceso), no hay material para armar una combinada de
+# tres patas en una sola casa.
+#
+# `GetEventDetails` sí lo tiene. Medido sobre Monterrey vs Juárez el
+# 2026-08-10: **182 mercados y 1.239 precios en una sola petición**, con el
+# abanico entero de líneas —Total de 1.5 a 3.5 incluidas las asiáticas de
+# cuarto, hándicap de +0 a -1.25, totales por equipo, par/impar, marcador
+# exacto, mitades y goleador—. Ahí sí hay con qué.
+#
+# El coste y por qué se paga
+# --------------------------
+# Es UNA petición POR PARTIDO, frente a una por catálogo entero. Por eso no
+# entra en el barrido de `alpha_finder` (que mira cientos de partidos) sino
+# sólo en la vista de UN partido, que es donde el usuario decide la combinada.
+# Se cachea con el mismo TTL que el resto (30 min).
+#
+# Lo que este módulo NO decide
+# ----------------------------
+# Aquí sólo se leen y se normalizan precios. Traducirlos al vocabulario del
+# modelo («Más de 2.5 goles», «Monterrey -1.5») es trabajo de `cuotas_tablon`,
+# igual que con el resto del tablón: mezclar las dos cosas es lo que hacía
+# imposible añadir una casa sin tocar la interfaz.
+# ---------------------------------------------------------------------------
+ALTENAR_DETALLE = ('https://sb2frontend-altenar2.biahosted.com/api/widget/'
+                   'GetEventDetails')
+
+
+def _selecciones_altenar(m: dict, precios: Dict[int, dict]) -> List[dict]:
+    """
+    Las selecciones de un mercado del detalle, con su precio.
+
+    El detalle no usa `oddIds` como el listado: usa `desktopOddIds`, que es una
+    **matriz** (filas × columnas de la rejilla que pinta su web). Se aplana
+    conservando el orden de lectura, que es el que empareja «Más de 2.5» con su
+    precio.
+    """
+    filas = m.get('desktopOddIds') or m.get('mobileOddIds') or m.get('oddIds') or []
+    ids: List[int] = []
+    for f in filas:
+        if isinstance(f, list):
+            ids.extend(f)
+        else:
+            ids.append(f)
+    out = []
+    for i in ids:
+        o = precios.get(i)
+        if not o:
+            continue
+        try:
+            p = float(o.get('price'))
+        except (TypeError, ValueError):
+            continue
+        if p <= 1.0:
+            continue
+        out.append({'nombre': ' '.join(str(o.get('name') or '').split()),
+                    'cuota': round(p, 4), 'tipo': o.get('typeId'),
+                    'competidor': o.get('competitorId')})
+    return out
+
+
+def mercados_playdoit(deporte: str, home: str, away: str, fecha=None,
+                      liga: Optional[str] = None) -> Optional[Dict]:
+    """
+    TODOS los mercados que Playdoit publica de un partido, normalizados.
+
+    Devuelve `None` cuando el partido no está en su catálogo, que es un
+    resultado legítimo y frecuente: Playdoit no cotiza todas las ligas que
+    cotiza Pinnacle. Nunca lanza — sin red, la vista sigue entera y la sección
+    de la casa del usuario dice que hoy no hay precio.
+
+        {'casa': 'Playdoit', 'event_id': 17147596,
+         'home': 'Monterrey', 'away': 'Juarez', 'liga': 'Liga MX', ...
+         'mercados': [{'tipo': 18, 'nombre': 'Total', 'sv': '3.5',
+                       'selecciones': [{'nombre': 'Más de 2.5', 'cuota': 1.5264,
+                                        'tipo': 12, 'competidor': None}, ...]}]}
+
+    `home`/`away` son los del LLAMADOR, no los de Altenar: si el emparejador
+    detecta que la casa publica el partido con los bandos al revés, aquí ya
+    sale enderezado (`invertido`), que es la misma disciplina que sigue
+    `cuotas_partido` con el 1X2 desde la v77.
+    """
+    try:
+        ent = _buscar(_indice_pdt(deporte), home, away, deporte, fecha, liga)
+    except Exception as e:
+        logger.info(f'[playdoit] sin catálogo para el detalle: '
+                    f'{type(e).__name__}: {e}')
+        return None
+    if not ent or not ent.get('event_id'):
+        return None
+    eid = ent['event_id']
+    # Los nombres de equipo que usa la casa, para que quien traduzca sepa a
+    # cuál de los dos se refiere «Monterrey (-0.5)». El orden de `competitors`
+    # NO es fiable (misma lección que la v77 con « @ »): se toma el del
+    # emparejador, que ya resolvió la orientación.
+    invertido = bool(ent.get('invertido'))
+    casa_home = ent.get('away') if invertido else ent.get('home')
+    casa_away = ent.get('home') if invertido else ent.get('away')
+
+    # SE CACHEA LO NORMALIZADO, NO LA RESPUESTA CRUDA.
+    #
+    # El detalle en bruto pesa 250-320 KB por partido (1.239 precios y 182
+    # mercados, la mayoría de goleador). Guardarlo tal cual sería dejar 30 MB
+    # en disco por cada cien partidos que alguien mire, y el contenedor de
+    # Streamlit Cloud es efímero y pequeño. Normalizado se queda en una décima
+    # parte y no se pierde nada: lo que se tira son los identificadores de
+    # rejilla y los mercados sin precio.
+    #
+    # Y se cachea sólo la parte que NO depende de quién pregunta: `home` y
+    # `away` los pone el llamador y pueden venir escritos de otra forma en la
+    # siguiente llamada, así que meterlos en el fichero sería servirle a uno
+    # los nombres de otro.
+    mercados = _leer_cache(f'playdoit_ev_{eid}.json')
+    if mercados is None:
+        try:
+            j = _get(ALTENAR_DETALLE,
+                     params={**ALTENAR_BASE, 'eventId': eid},
+                     headers=UA_PDT, timeout=40)
+        except Exception as e:
+            logger.info(f'[playdoit] detalle {eid} falló: '
+                        f'{type(e).__name__}: {e}')
+            return None
+        if not isinstance(j, dict) or not j.get('markets'):
+            return None
+        precios = {o['id']: o for o in (j.get('odds') or []) if o.get('id')}
+        mercados = []
+        vistos = set()
+        for m in (j.get('markets') or []):
+            sels = _selecciones_altenar(m, precios)
+            if not sels:
+                continue
+            nombre = ' '.join(str(m.get('name') or '').split())
+            clave = (m.get('typeId'), str(m.get('sv')), nombre)
+            if clave in vistos:
+                # el detalle repite los mercados destacados en su cabecera; el
+                # segundo ejemplar trae los mismos precios y sólo duplicaría
+                # filas
+                continue
+            vistos.add(clave)
+            mercados.append({'tipo': m.get('typeId'), 'nombre': nombre,
+                             'sv': m.get('sv'), 'selecciones': sels})
+        if not mercados:
+            return None
+        _escribir_cache(f'playdoit_ev_{eid}.json', mercados)
+        _purgar_detalles_playdoit()
+    if not mercados:
+        return None
+    return {'casa': CASA_PRIORITARIA, 'event_id': eid,
+            'home': home, 'away': away,
+            'casa_home': casa_home, 'casa_away': casa_away,
+            'liga': ent.get('liga'),
+            # La fecha del índice ya viene normalizada, pero se vuelve a pasar
+            # por el normalizador y no se copia tal cual: el índice puede
+            # llegar de un fichero de caché escrito por una versión anterior, y
+            # entonces lo que hay dentro es lo que hubiera entonces. La función
+            # es idempotente sobre un ISO, así que esto no cuesta nada y cierra
+            # la única vía por la que un 1970-01-01 podría volver a colarse.
+            'fecha': fecha_normalizada(ent.get('fecha')),
+            'invertido': invertido, 'mercados': mercados}
+
+
+def _purgar_detalles_playdoit(max_edad: int = 6 * 3600) -> int:
+    """
+    Borra los tableros de partido ya caducados.
+
+    A diferencia del resto del caché, que son unos pocos ficheros con nombre
+    fijo (uno por casa y deporte) y se sobrescriben, éstos son UNO POR PARTIDO:
+    sin limpieza se acumulan para siempre, porque `_leer_cache` los ignora
+    cuando caducan pero no los borra. En el contenedor de Streamlit Cloud eso
+    acaba llenando el disco, y un disco lleno no da un aviso: mata el proceso.
+
+    Se conservan seis horas, muy por encima del TTL de 30 min, para que un
+    despliegue o un reinicio no obligue a redescargar lo que ya estaba.
+    """
+    n = 0
+    try:
+        d = _cache_path('')
+        for nombre in os.listdir(d):
+            if not nombre.startswith('playdoit_ev_'):
+                continue
+            p = os.path.join(d, nombre)
+            try:
+                if time.time() - os.path.getmtime(p) > max_edad:
+                    os.remove(p)
+                    n += 1
+            except OSError:
+                pass
+    except Exception as e:
+        logger.debug(f'[playdoit] purga del caché: {type(e).__name__}: {e}')
+    return n
 
 
 # ---------------------------------------------------------------------------

@@ -119,10 +119,26 @@ def parsear(bruto: str) -> List[Dict]:
 
 
 def _normalizar(s: str) -> str:
+    import re
     import unicodedata
     n = unicodedata.normalize('NFKD', str(s))
     n = ''.join(c for c in n if not unicodedata.combining(c)).lower()
-    n = n.replace('mas de', 'mas de').replace('menos de', 'menos de')
+    # v123 — FUERA LA CUOTA AMERICANA QUE LA PLANTILLA PEGA A LA ETIQUETA.
+    #
+    # El modelo escribe «Empate (+269)», «Gana Monterrey (-121)» o «Monterrey
+    # 1-1 Juarez (+707)»: el paréntesis es una cortesía para el lector, no
+    # parte del nombre del mercado. Para el comparador de cadenas sí lo era, y
+    # eso costaba el mercado más jugado que hay:
+    #
+    #     «Empate» contra «Empate (+269)»  →  «empate» vs «empate 269»
+    #     similitud 0,75, por debajo del listón de 0,80  →  SIN CRUCE
+    #
+    # Resultado en producción desde la v114: el empate no recibía nunca su
+    # precio real y toda combinada que lo incluyera iba con cuota justa, que es
+    # un precio inventado. Se quitan SÓLO los paréntesis cuyo contenido es un
+    # número con signo, así que «(no pierde)», «(BTTS)» o «(top 8)» siguen
+    # contando para el cotejo.
+    n = re.sub(r'\(\s*[+-]?\d+(?:[.,]\d+)?\s*\)', ' ', n)
     for ch in '.:|-–—()':
         n = n.replace(ch, ' ')
     return ' '.join(n.split())

@@ -129,6 +129,105 @@ def _resultado(gl: float, gv: float) -> str:
 
 
 # ---------------------------------------------------------------------------
+# v123 — LAS ESTADÍSTICAS QUE EL CARA A CARA NO ENSEÑABA
+#
+# El usuario lo dijo mirando la pantalla: «algo que no veo en los cara a cara
+# son estadísticas como tarjetas, córners, etc.».
+#
+# Y estaban en el fichero desde siempre. Medido sobre los 74 históricos del
+# repositorio: 67 traen `home_corners` y 66 `home_yellow`/`home_red`, y donde
+# la columna existe la cobertura es del **100 %** (147.811 partidos). Lo que
+# faltaba no era el dato: era leerlo.
+#
+# Se calculan como MEDIA POR PARTIDO y como porcentaje sobre líneas de mercado
+# reales (8.5, 9.5, 10.5 córners; 3.5 y 4.5 tarjetas), no como total acumulado.
+# Un «47 córners» en diez cruces no le dice nada a nadie; un «4,7 de media y el
+# 60 % de las veces por encima de 8.5» se compara directamente con una cuota.
+#
+# AVISO QUE VIAJA CON EL DATO: diez cruces son diez datos. La franja de
+# confianza de un porcentaje sobre n=10 es enorme, así que `n` va siempre al
+# lado y la interfaz no debe presentar esto como una señal.
+# ---------------------------------------------------------------------------
+PARES_EXTRA = (
+    ('corners', 'home_corners', 'away_corners', 'córners'),
+    ('amarillas', 'home_yellow', 'away_yellow', 'tarjetas amarillas'),
+    ('rojas', 'home_red', 'away_red', 'tarjetas rojas'),
+    ('remates_puerta', 'home_shots_on', 'away_shots_on', 'remates a puerta'),
+    ('posesion', 'home_possession', 'away_possession', 'posesión'),
+    ('xg', 'home_xg', 'away_xg', 'goles esperados'),
+)
+
+# Líneas sobre las que se calcula el porcentaje histórico. Son las que las
+# casas cuelgan de verdad, no números redondos elegidos aquí.
+LINEAS_EXTRA = {'corners': (8.5, 9.5, 10.5), 'amarillas': (3.5, 4.5),
+                'tarjetas': (3.5, 4.5, 5.5)}
+
+
+def _estadisticas_extra(par: pd.DataFrame, a: str, b: str) -> Dict:
+    """
+    Córners, tarjetas, remates y posesión de un conjunto de cruces.
+
+    Devuelve `{}` cuando la competición no publica esas columnas, que es un
+    resultado legítimo: 7 de los 74 históricos no las traen y la pantalla tiene
+    que decirlo en vez de enseñar ceros.
+    """
+    fuera: Dict = {}
+    if par is None or par.empty:
+        return fuera
+    n = len(par)
+    for clave, col_h, col_a, etiqueta in PARES_EXTRA:
+        if col_h not in par.columns or col_a not in par.columns:
+            continue
+        h = pd.to_numeric(par[col_h], errors='coerce')
+        v = pd.to_numeric(par[col_a], errors='coerce')
+        val = h.notna() & v.notna()
+        if not val.any():
+            continue
+        h, v, sub = h[val], v[val], par[val]
+        # lo de cada equipo, sin importar dónde jugó
+        de_a = pd.concat([h[sub['home_team'] == a], v[sub['away_team'] == a]])
+        de_b = pd.concat([h[sub['home_team'] == b], v[sub['away_team'] == b]])
+        d = {'etiqueta': etiqueta, 'n': int(val.sum()),
+             'media_a': round(float(de_a.mean()), 2) if len(de_a) else None,
+             'media_b': round(float(de_b.mean()), 2) if len(de_b) else None}
+        # La POSESIÓN suma 100 por definición, así que su total, su máximo y su
+        # mínimo son siempre 100 y no informan de nada. Sólo tiene sentido el
+        # reparto entre los dos equipos.
+        if clave != 'posesion':
+            d.update({'media_total': round(float((h + v).mean()), 2),
+                      'maximo': round(float((h + v).max()), 2),
+                      'minimo': round(float((h + v).min()), 2)})
+        if clave in LINEAS_EXTRA:
+            d['lineas'] = {str(L): round(float(((h + v) > L).mean()), 3)
+                           for L in LINEAS_EXTRA[clave]}
+        fuera[clave] = d
+
+    # Tarjetas TOTALES (amarillas + rojas), que es lo que cotizan las casas —
+    # nadie publica una línea de «amarillas» a secas.
+    if {'home_yellow', 'away_yellow'} <= set(par.columns):
+        am = (pd.to_numeric(par['home_yellow'], errors='coerce').fillna(0)
+              + pd.to_numeric(par['away_yellow'], errors='coerce').fillna(0))
+        ro = (pd.to_numeric(par.get('home_red'), errors='coerce').fillna(0)
+              + pd.to_numeric(par.get('away_red'), errors='coerce').fillna(0)
+              if 'home_red' in par.columns else 0)
+        tot = am + ro
+        val = pd.to_numeric(par['home_yellow'], errors='coerce').notna()
+        if val.any():
+            tot = tot[val]
+            fuera['tarjetas'] = {
+                'etiqueta': 'tarjetas (amarillas + rojas)',
+                'n': int(val.sum()),
+                'media_total': round(float(tot.mean()), 2),
+                'maximo': round(float(tot.max()), 2),
+                'minimo': round(float(tot.min()), 2),
+                'lineas': {str(L): round(float((tot > L).mean()), 3)
+                           for L in LINEAS_EXTRA['tarjetas']},
+            }
+    fuera['_n_cruces'] = int(n)
+    return fuera
+
+
+# ---------------------------------------------------------------------------
 # 1. Cara a cara
 # ---------------------------------------------------------------------------
 def h2h(clave: str, a: str, b: str, maximo: int = 10) -> Dict:
@@ -157,6 +256,15 @@ def h2h(clave: str, a: str, b: str, maximo: int = 10) -> Dict:
     empates = int((par['home_goals'] == par['away_goals']).sum())
     gana_b = int(len(par) - gana_a - empates)
 
+    def _n(r, col):
+        """Un entero del histórico, o None si esa liga no publica la columna."""
+        v = r.get(col)
+        try:
+            f = float(v)
+        except (TypeError, ValueError):
+            return None
+        return None if pd.isna(f) else round(f, 1)
+
     partidos = [{
         'fecha': r['date'].date().isoformat(),
         'local': r['home_team'], 'visitante': r['away_team'],
@@ -164,6 +272,17 @@ def h2h(clave: str, a: str, b: str, maximo: int = 10) -> Dict:
         'ganador': (r['home_team'] if r['home_goals'] > r['away_goals']
                     else (r['away_team'] if r['away_goals'] > r['home_goals']
                           else None)),
+        # v123 — cada cruce con SUS estadísticas, no sólo el marcador. Es lo
+        # que permite ver que un 1-1 fue un partido de 12 córners y 7 tarjetas
+        # y otro de 3 y 1: el resultado es el mismo y el partido no.
+        'corners_local': _n(r, 'home_corners'),
+        'corners_visit': _n(r, 'away_corners'),
+        'amarillas_local': _n(r, 'home_yellow'),
+        'amarillas_visit': _n(r, 'away_yellow'),
+        'rojas_local': _n(r, 'home_red'),
+        'rojas_visit': _n(r, 'away_red'),
+        'remates_local': _n(r, 'home_shots_on'),
+        'remates_visit': _n(r, 'away_shots_on'),
     } for _, r in par.head(maximo).iterrows()]
 
     goles_a = int(par.loc[par['home_team'] == a, 'home_goals'].sum()
@@ -179,6 +298,9 @@ def h2h(clave: str, a: str, b: str, maximo: int = 10) -> Dict:
         'media_goles': round(float((par['home_goals'] + par['away_goals']).mean()), 2),
         'pct_ambos_marcan': round(float(((par['home_goals'] >= 1) &
                                          (par['away_goals'] >= 1)).mean()), 3),
+        # v123 — córners, tarjetas, remates y posesión de estos cruces. `{}` si
+        # la competición no publica esas columnas (7 de los 74 históricos).
+        'extra': _estadisticas_extra(par, a, b),
         'partidos': partidos,
     }
 
