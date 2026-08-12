@@ -1,0 +1,189 @@
+{
+ "catalogo": 175,
+ "futbol": 67,
+ "cubiertas": {
+  "bra_serie_b": [
+   {
+    "key": "soccer_brazil_serie_b",
+    "title": "Brazil Série B",
+    "activo": true
+   }
+  ],
+  "champions": [
+   {
+    "key": "soccer_uefa_champs_league",
+    "title": "UEFA Champions League",
+    "activo": false
+   },
+   {
+    "key": "soccer_uefa_champs_league_qualification",
+    "title": "UEFA Champions League Qualification",
+    "activo": true
+   },
+   {
+    "key": "soccer_uefa_champs_league_women",
+    "title": "UEFA Champions League Women",
+    "activo": false
+   }
+  ],
+  "chi_primera": [
+   {
+    "key": "soccer_chile_campeonato",
+    "title": "Primera División - Chile",
+    "activo": true
+   }
+  ],
+  "conference_league": [
+   {
+    "key": "soccer_uefa_europa_conference_league",
+    "title": "UEFA Europa Conference League",
+    "activo": false
+   }
+  ],
+  "europa_league": [
+   {
+    "key": "soccer_uefa_europa_conference_league",
+    "title": "UEFA Europa Conference League",
+    "activo": false
+   },
+   {
+    "key": "soccer_uefa_europa_league",
+    "title": "UEFA Europa League",
+    "activo": false
+   }
+  ],
+  "leagues_cup": [
+   {
+    "key": "soccer_concacaf_leagues_cup",
+    "title": "Leagues Cup",
+    "activo": true
+   }
+  ],
+  "libertadores": [
+   {
+    "key": "soccer_conmebol_copa_libertadores",
+    "title": "Copa Libertadores",
+    "activo": true
+   }
+  ],
+  "mex_expansion": [
+   {
+    "key": "soccer_mexico_ligamx",
+    "title": "Liga MX",
+    "activo": true
+   }
+  ],
+  "rsa_premier": [
+   {
+    "key": "soccer_africa_cup_of_nations",
+    "title": "Africa Cup of Nations",
+    "activo": false
+   }
+  ],
+  "sudamericana": [
+   {
+    "key": "soccer_conmebol_copa_sudamericana",
+    "title": "Copa Sudamericana",
+    "activo": true
+   }
+  ],
+  "usl_championship": [
+   {
+    "key": "soccer_finland_veikkausliiga",
+    "title": "Veikkausliiga - Finland",
+    "activo": true
+   }
+  ],
+  "kbo": [
+   {
+    "key": "baseball_kbo",
+    "title": "KBO",
+    "activo": true
+   }
+  ],
+  "nba": [
+   {
+    "key": "basketball_nba",
+    "title": "NBA",
+    "activo": true
+   },
+   {
+    "key": "basketball_nba_all_stars",
+    "title": "NBA All Star",
+    "activo": false
+   },
+   {
+    "key": "basketball_nba_championship_winner",
+    "title": "NBA Championship Winner",
+    "activo": true
+   },
+   {
+    "key": "basketball_nba_preseason",
+    "title": "NBA Preseason",
+    "activo": false
+   },
+   {
+    "key": "basketball_nba_summer_league",
+    "title": "NBA Summer League",
+    "activo": false
+   }
+  ]
+ },
+ "ausentes": [
+  {
+   "liga": "afc_champions",
+   "nombre": "AFC Champions League",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "arg_primera_nacional",
+   "nombre": "Argentina Primera Nacional",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "bol_division",
+   "nombre": "Bolivia Division Profesional",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "bra_copa",
+   "nombre": "Copa do Brasil",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "col_primera_a",
+   "nombre": "Colombia Primera A",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "ecu_liga_pro",
+   "nombre": "Ecuador Liga Pro",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "per_liga1",
+   "nombre": "Peru Liga 1",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "uru_primera",
+   "nombre": "Uruguay Primera",
+   "motivo": "no está en el catálogo"
+  },
+  {
+   "liga": "bol_division_2",
+   "nombre": "Bolivia (otra)",
+   "motivo": "sin pista definida"
+  },
+  {
+   "liga": "chi_primera_2",
+   "nombre": "Chile (otra)",
+   "motivo": "sin pista definida"
+  },
+  {
+   "liga": "bra_copa_2",
+   "nombre": "Brasil copa (otra)",
+   "motivo": "sin pista definida"
+  }
+ ]
+}

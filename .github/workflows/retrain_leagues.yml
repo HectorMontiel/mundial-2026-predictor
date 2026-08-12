@@ -142,6 +142,25 @@ jobs:
       - name: Perfil de juegos del tenis
         run: python tenis_juegos.py || echo "::warning::juegos de tenis con avisos"
 
+      # v126 — EL BARRIDO DE PRIORIDAD, AUTOMÁTICO.
+      #
+      # Decide qué ligas merecen un reentrenamiento y cuáles se dejan en paz,
+      # con tres filtros: margen contra el techo del mercado, volumen de
+      # partidos y p5 del ROI simulado. Lee el metadata que el paso anterior
+      # acaba de reescribir, así que va DESPUÉS del reentrenamiento y refleja
+      # siempre el estado real.
+      #
+      # Por qué a diario y no «al final de temporada»: no existe una fecha de
+      # fin de temporada única —hay ligas de año natural, de agosto a mayo y de
+      # dos torneos por año— y cualquier calendario codificado se rompe en
+      # cuanto una liga cambia de formato (misma lección que
+      # `panel_equipos.temporada_actual`). El barrido cuesta segundos porque
+      # sólo cruza metadatos, así que ejecutarlo siempre es más barato que
+      # acertar cuándo hay que ejecutarlo, y el fichero sólo cambia cuando
+      # cambian los datos.
+      - name: Barrido de prioridad por liga
+        run: python barrido_ligas.py --json || echo "::warning::barrido con avisos"
+
       # Mismo blindaje que el fútbol (v68): NUNCA se commitea un modelo que no
       # se pueda volver a cargar. Si uno no abre, se restaura su versión
       # anterior desde git y el resto sigue.
@@ -270,6 +289,9 @@ jobs:
           # v123 — el perfil de juegos del tenis, que la ficha del partido lee
           # al vuelo y no puede recalcular (365.000 marcadores).
           git add -A tenis_juegos_atp.json tenis_juegos_wta.json 2>/dev/null || true
+          # v126 — el ranking de prioridad por liga, que la app lee para saber
+          # qué competiciones están en cola de reentrenamiento y cuáles no.
+          git add -A barrido_ligas.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Sin cambios en los modelos (ligas en receso). Nada que commitear."
           else

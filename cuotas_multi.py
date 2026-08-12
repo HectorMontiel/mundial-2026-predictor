@@ -349,6 +349,43 @@ _MARCAS_CATEGORIA = (
 # puede perder cobertura; un filtro sí.
 _MARCA_FILIAL_DEBIL = re.compile(r'\b(?:ii|b)\s*$', re.I)
 
+# v125 — EL SUFIJO DE ESTADO BRASILEÑO ES LA IDENTIDAD DEL CLUB, NO ADORNO.
+#
+# `normalizar` machaca los guiones y los paréntesis, así que «Athletico-PR» y
+# «Atlético-MG» acaban compartiendo el único token significativo («atletico») y
+# `_sim_club` los da por el MISMO equipo con similitud **1,0**. No es un
+# empate que la guardia de ambigüedad pueda cazar: es una coincidencia
+# perfecta con el club equivocado.
+#
+# Medido el 2026-08-11 pidiendo «Athletico-PR vs Bragantino»:
+#
+#     devuelve  «Bragantino vs Atlético-MG»  ·  score 1,0
+#     y encima de otra competición (Copa Sudamericana) y otra fecha
+#
+# El daño no es cosmético. Con el tablero de esa ficha, la Sección 1 declaraba
+# «Empate @ 16,00 · +392 % sobre el mercado», que es un precio de otro partido.
+# Un usuario podría apostarlo.
+#
+# En Brasil el sufijo de dos letras ES el club: PR = Paranaense, MG = Mineiro,
+# GO = Goianiense, RJ, SP, RS, SC, CE, BA, MT, MS, PE, PB, AL, RN. Se trata
+# como el sufijo de filial: si dos candidatos llevan sufijos DISTINTOS, son
+# equipos distintos y no se pueden emparejar.
+_ESTADOS_BR = ('pr', 'mg', 'go', 'rj', 'sp', 'rs', 'sc', 'ce', 'ba', 'mt',
+               'ms', 'pe', 'pb', 'al', 'rn', 'pa', 'ma', 'pi', 'to', 'ro',
+               'ac', 'am', 'ap', 'rr', 'se', 'df', 'es')
+_MARCA_ESTADO = re.compile(
+    r'[-(\s](' + '|'.join(_ESTADOS_BR) + r')\s*\)?\s*$', re.I)
+
+
+def marca_estado(nombre: str) -> str:
+    """
+    El sufijo de estado brasileño de un nombre de club, o '' si no lo lleva.
+
+    «Athletico-PR» → 'pr' · «Atlético-MG» → 'mg' · «Bragantino» → ''.
+    """
+    m = _MARCA_ESTADO.search(str(nombre or '').strip())
+    return m.group(1).lower() if m else ''
+
 
 @lru_cache(maxsize=50_000)
 def categoria_partido(home: str, away: str, liga: str = '') -> frozenset:
@@ -1659,6 +1696,14 @@ def _buscar(indice: Dict[str, dict], home: str, away: str,
             r['invertido'] = clave == f'{a}|{h}' and h != a
             return r
 
+    # v125 — el sufijo de estado brasileño manda sobre la similitud. Ver
+    # `marca_estado`: «Athletico-PR» y «Atlético-MG» puntúan 1,0 entre sí
+    # porque el normalizador se come el sufijo, y ése es justo el único trozo
+    # del nombre que los distingue.
+    def _mismo_estado(pedido: str, candidato: str) -> bool:
+        a_, b_ = marca_estado(pedido), marca_estado(candidato)
+        return not (a_ and b_ and a_ != b_)
+
     candidatos: List[tuple] = []          # (score, invertido, clave, valor)
     for clave, v in indice.items():
         if not _compatible(v):
@@ -1666,6 +1711,10 @@ def _buscar(indice: Dict[str, dict], home: str, away: str,
         ph, pa = v['home'], v['away']
         s1 = min(sim(home, ph), sim(away, pa))       # el peor de los dos manda
         s2 = min(sim(home, pa), sim(away, ph))
+        if not (_mismo_estado(home, ph) and _mismo_estado(away, pa)):
+            s1 = 0.0
+        if not (_mismo_estado(home, pa) and _mismo_estado(away, ph)):
+            s2 = 0.0
         s, inv = (s1, False) if s1 >= s2 else (s2, True)
         if s >= umbral:
             candidatos.append((s, inv, clave, v))
@@ -1948,11 +1997,55 @@ def cuotas_partido(deporte: str, home: str, away: str,
                                  if k in ('home', 'draw', 'away')}
             fuentes.append('playdoit')
 
-    if not casas and espn_ref:
+    # v126 — EL CORE DE ESPN ENTRA SIEMPRE, NO SÓLO CUANDO NO HAY NADIE.
+    #
+    # Estaba puesto como último recurso (`if not casas`), o sea que en cuanto
+    # una sola casa cotizaba el partido, la casa que sirve ESPN —DraftKings—
+    # se descartaba. Era un miembro del consenso tirado a la basura, y el
+    # consenso es justo lo que le falta a este sistema: medido el 2026-08-11,
+    # de 50 mercados de un partido sólo 13 tenían una segunda casa con la que
+    # compararse, y por eso la Sección 1 salía vacía.
+    #
+    # Añadir una casa al consenso no mejora el modelo, pero sí mejora la
+    # ÚNICA señal con ROI positivo del proyecto: saber si el precio de la casa
+    # del usuario está por encima o por debajo del resto del mercado.
+    #
+    # No pisa a nadie: `setdefault` deja intacto lo que ya haya, así que si
+    # DraftKings ya vino por otra vía se conserva la primera lectura.
+    if espn_ref:
         extra = cuotas_core_espn(*espn_ref)
         if extra:
-            casas.update(extra)
-            fuentes.append('espn_core')
+            nuevas = [k for k in extra if k not in casas]
+            for k, v in extra.items():
+                casas.setdefault(k, v)
+            if nuevas:
+                fuentes.append('espn_core')
+
+    # v127 — EL CONSENSO AMPLIADO, DENTRO DEL PLAN GRATUITO.
+    #
+    # Medido: este proveedor devuelve 18-23 casas en el mismo partido donde
+    # nosotros teníamos cinco, con una dispersión real de hasta el 14,6 % en el
+    # mismo resultado. Esa dispersión es la única señal con ROI positivo del
+    # proyecto, y con cinco casas no se ve.
+    #
+    # El coste está acotado por `consenso_api`: lista blanca de ligas, una llamada
+    # por LIGA (no por partido) cacheada 30 min, y un corte duro a los 450
+    # créditos del mes. Si no hay clave, si la liga no está en la lista o si el
+    # presupuesto se agotó, esto devuelve {} y el tablón sigue con sus cinco
+    # casas de siempre — que es el comportamiento anterior, intacto.
+    if liga:
+        try:
+            import consenso_api as _oa
+            if _oa.disponible():
+                extra2 = _oa.casas_del_partido(liga, home, away)
+                nuevas2 = [k for k in extra2 if k not in casas]
+                for k, v in extra2.items():
+                    casas.setdefault(k, v)
+                if nuevas2:
+                    fuentes.append('consenso_api')
+        except Exception as e:
+            logger.info(f'[consenso] no aportó al consenso: '
+                        f'{type(e).__name__}: {e}')
 
     totales = casas.pop('_totales', None)
     reales = {k: v for k, v in casas.items() if v.get('home')}

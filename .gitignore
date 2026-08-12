@@ -120,3 +120,8 @@ betexplorer_cache/
 
 # v78: caché de los .xlsx de sportsbookreviewsonline (regenerable)
 mlb_odds_cache/
+
+# v127 — contador de créditos de The Odds API. Es estado local que cambia en
+# cada llamada y el número que manda es el del proveedor (`x-requests-used`),
+# así que commitearlo sería ruido puro en cada diff.
+consenso_api_uso.json

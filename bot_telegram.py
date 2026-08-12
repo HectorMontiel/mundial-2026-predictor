@@ -275,3 +275,123 @@ def enviar_parlays(partido: str, opciones: list, competicion: str = '') -> bool:
     """Formatea y envía las combinadas del partido. Devuelve False (sin
     excepción) si faltan credenciales, para que la UI muestre la vista previa."""
     return enviar(formatear_parlays(partido, opciones, competicion))
+
+
+# ---------------------------------------------------------------------------
+# v124 — MEJORA 7: los picks de EV+ automático, a Telegram.
+#
+# El botón de envío existía sólo para las combinadas de un partido. Pero la
+# pantalla que el usuario mira antes de un partido de MLB o de tenis es la de
+# EV+ automático, y de ahí no había forma de sacar nada al teléfono: había que
+# copiarlo a mano.
+#
+# El mensaje lleva la MISMA advertencia que la pantalla, y no por prudencia
+# formal: un pick con EV positivo del modelo y una sola casa es, con lo que
+# este proyecto tiene medido, el modelo equivocándose (ver
+# BITACORA_ARQUITECTURA.md §0). Un mensaje de Telegram se lee fuera de
+# contexto, así que el aviso tiene que viajar con él.
+# ---------------------------------------------------------------------------
+def formatear_picks(titulo: str, picks: list, nota: str = '') -> str:
+    """
+    Mensaje Markdown con una lista de picks (capa 1 o capa 2 de cualquier
+    deporte).
+
+    Cada línea lleva el precio y la casa, que es lo accionable, y la
+    probabilidad al lado. El EV va detrás a propósito: es el dato menos fiable
+    de los tres.
+    """
+    lineas = [f"💰 *{titulo}*", ""]
+    if not picks:
+        lineas.append("_Hoy no hay ningún pick que pase los filtros. "
+                      "Cero picks no es un fallo: es que las casas y el modelo "
+                      "coinciden._")
+        return '\n'.join(lineas)[:MAX_LEN]
+    for p in picks:
+        cuota = p.get('cuota')
+        precio = (f"@ *{cuota}*" if cuota
+                  else f"sin cuota abierta (mínima {p.get('cuota_justa', '?')})")
+        linea = (f"• {p.get('partido', '?')}\n"
+                 f"   {p.get('apuesta', '?')} {precio}")
+        if p.get('casa'):
+            linea += f" · {p['casa']}"
+        _pr = p.get('prob_calibrada')
+        _pr = _pr if _pr is not None else p.get('prob')
+        if _pr is not None:
+            linea += f"\n   acierta {float(_pr)*100:.0f}%"
+        if p.get('ev') is not None:
+            linea += f" · EV {float(p['ev'])*100:+.1f}%"
+        if p.get('hora_txt'):
+            linea += f" · {p['hora_txt']}"
+        lineas.append(linea)
+    if nota:
+        lineas += ["", f"_{nota}_"]
+    lineas += ["", "_El EV sale de la probabilidad del modelo, y este proyecto "
+                   "tiene medido que apostar por ella pierde entre 4,7 % y "
+                   "6,5 %. Lo que sí mide positivo es comprar al mejor precio. "
+                   "Juego responsable._"]
+    return '\n'.join(lineas)[:MAX_LEN]
+
+
+def enviar_picks(titulo: str, picks: list, nota: str = '') -> bool:
+    """Formatea y envía una lista de picks. False si faltan credenciales."""
+    return enviar(formatear_picks(titulo, picks, nota))
+
+
+# ---------------------------------------------------------------------------
+# v124 — MEJORA 8: la sección de ponches, entera.
+#
+# «Entera» es la palabra que importa: el usuario pidió poder mandarla completa,
+# no un resumen. Así que van todos los lanzadores con su línea, su precio y su
+# probabilidad, y se corta sólo si Telegram no admite más (4.096 caracteres),
+# diciéndolo.
+# ---------------------------------------------------------------------------
+def formatear_ponches(filas: list, titulo: str = 'PONCHES DEL DÍA',
+                      nota: str = '') -> str:
+    """Mensaje Markdown con la tabla de ponches de MLB al completo."""
+    lineas = [f"⚾ *{titulo}*", ""]
+    if not filas:
+        lineas.append("_Hoy no hay props de ponches abiertos. Las casas los "
+                      "publican el mismo día del partido y en tandas._")
+        return '\n'.join(lineas)[:MAX_LEN]
+    for f in filas:
+        cab = f"• *{f.get('lanzador', '?')}*"
+        if f.get('equipo'):
+            cab += f" ({f['equipo']})"
+        if f.get('partido'):
+            cab += f"\n   {f['partido']}"
+        det = []
+        if f.get('linea') is not None:
+            det.append(f"línea {f['linea']}")
+        if f.get('cuota'):
+            det.append(f"@ {f['cuota']}")
+        if f.get('casa'):
+            det.append(str(f['casa']))
+        if det:
+            cab += "\n   " + ' · '.join(det)
+        sub = []
+        if f.get('prob') is not None:
+            sub.append(f"P(más) {float(f['prob'])*100:.0f}%")
+        if f.get('ev') is not None:
+            sub.append(f"EV {float(f['ev'])*100:+.1f}%")
+        if f.get('recomendacion'):
+            sub.append(str(f['recomendacion']))
+        if sub:
+            cab += "\n   " + ' · '.join(sub)
+        lineas.append(cab)
+    if nota:
+        lineas += ["", f"_{nota}_"]
+    lineas += ["", "_La probabilidad de ponches está calibrada sobre el "
+                   "histórico de cada abridor; el EV depende además de que la "
+                   "línea de la casa sea la que se ve. Juego responsable._"]
+    txt = '\n'.join(lineas)
+    if len(txt) > MAX_LEN:
+        txt = txt[:MAX_LEN - 80].rsplit('\n', 1)[0]
+        txt += f"\n\n_… recortado: no cabían los {len(filas)} lanzadores en un "
+        txt += "solo mensaje de Telegram._"
+    return txt
+
+
+def enviar_ponches(filas: list, titulo: str = 'PONCHES DEL DÍA',
+                   nota: str = '') -> bool:
+    """Formatea y envía la sección de ponches entera."""
+    return enviar(formatear_ponches(filas, titulo, nota))

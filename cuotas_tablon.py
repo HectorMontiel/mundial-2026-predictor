@@ -291,12 +291,23 @@ def mercados_de_filas(filas: List[Dict], plantilla: Dict) -> List[Dict]:
         prev = mejor_por_etq.get(f['etiqueta'])
         if prev is None:
             mejor_por_etq[f['etiqueta']] = {**f, 'n_casas': 1,
-                                            'cuota_peor': f['cuota']}
+                                            'cuota_peor': f['cuota'],
+                                            '_suma': f['cuota']}
             continue
         prev['n_casas'] += 1
         prev['cuota_peor'] = min(prev['cuota_peor'], f['cuota'])
+        # v125 — la MEDIA de las casas, no sólo el mejor y el peor.
+        #
+        # Hace falta porque la medición que fija el umbral de la Sección 1
+        # compara contra el CONSENSO (la media del resto de casas), no contra
+        # el mejor precio. Usar el mejor como referencia mide otra cosa —una
+        # mucho más exigente— y aplicarle un umbral calibrado sobre la media
+        # sería comparar peras con manzanas.
+        prev['_suma'] += f['cuota']
         if f['cuota'] > prev['cuota']:
             prev.update({'cuota': f['cuota'], 'casa': f['casa']})
+    for v in mejor_por_etq.values():
+        v['cuota_media'] = round(v.pop('_suma') / max(v['n_casas'], 1), 4)
 
     # v123 — CADA MERCADO SE CRUZA CONTRA SU SECCIÓN, NO CONTRA TODA LA
     # PLANTILLA.
@@ -371,6 +382,7 @@ def mercados_de_filas(filas: List[Dict], plantilla: Dict) -> List[Dict]:
         r['casa'] = origen.get('casa')
         r['n_casas'] = origen.get('n_casas', 1)
         r['cuota_peor'] = origen.get('cuota_peor')
+        r['cuota_media'] = origen.get('cuota_media')
         r['familia'] = origen.get('familia', '')
         # cuánto se gana por comprar bien en vez de mal, en el mismo mercado
         if r.get('cuota_peor') and r['cuota_peor'] > 0:
@@ -822,10 +834,23 @@ def comparar_con_el_mercado(mk_pdt: List[Dict],
             r['casa_mercado'] = alt.get('casa')
             r['dif_vs_mercado'] = round(
                 r['cuota_casa'] / alt['cuota_casa'] - 1, 4)
+            # v125 — y contra el CONSENSO, que es la referencia con la que se
+            # midió el umbral de la Sección 1. `dif_vs_mercado` compara contra
+            # el MEJOR precio del resto (más exigente, buena para enseñar
+            # cuánto se deja el usuario); `dif_vs_consenso` compara contra la
+            # media de las casas, que es lo que decide si hay ventaja.
+            r['cuota_consenso'] = alt.get('cuota_media')
+            r['n_casas_mercado'] = alt.get('n_casas')
+            r['dif_vs_consenso'] = (
+                round(r['cuota_casa'] / alt['cuota_media'] - 1, 4)
+                if alt.get('cuota_media') else None)
         else:
             r['cuota_mercado'] = None
             r['casa_mercado'] = None
             r['dif_vs_mercado'] = None
+            r['cuota_consenso'] = None
+            r['n_casas_mercado'] = None
+            r['dif_vs_consenso'] = None
         salida.append(r)
     return salida
 

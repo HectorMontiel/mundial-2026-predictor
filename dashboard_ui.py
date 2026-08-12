@@ -1777,7 +1777,16 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
     except Exception:
         return False
     try:
-        res = _cm.cuotas_partido(deporte, home, away, fecha=fecha)
+        # v127 — `liga` NO es opcional aquí, aunque lo parezca.
+        #
+        # `cuotas_partido` la usa para dos cosas: la guardia de categoría del
+        # emparejador (femenino/filial) y, desde esta versión, para saber si la
+        # competición está en la lista blanca de The Odds API. Sin ella el
+        # consenso se queda en las cinco casas de siempre y la ficha decía
+        # «Consenso: 4 casas · modo de respaldo» teniendo veinte disponibles.
+        # Lo cazó el propio indicador de consenso el día que se añadió.
+        res = _cm.cuotas_partido(deporte, home, away, fecha=fecha,
+                                 liga=clave_liga)
     except Exception:
         return False
     if not res.get('n_casas'):
@@ -1828,9 +1837,29 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
                 for l in ('home', 'draw', 'away')])
         _pinta(_estilo.tabla(['Casa', home, 'Empate', away], _filas_html,
                              alineadas=[1, 2, 3]))
-        st.caption("El precio **marcado en verde** es el mejor de las seis "
-                   "casas en ese resultado. Si tu casa no lo tiene, ésa es la "
-                   "diferencia que te cuesta tener una sola cuenta.")
+        # v127 — CUÁNTAS CASAS RESPALDAN ESTE PARTIDO.
+        #
+        # Con 5 casas una desviación del 5 % es ruido; con 20 es una señal. Y
+        # el número cambia partido a partido —según la liga esté o no en la
+        # lista blanca y según quede presupuesto—, así que tiene que verse
+        # AQUÍ y no sólo en la barra lateral.
+        _n_casas_c = len(_casas_1x2)
+        _ampliado = _n_casas_c > 6
+        _pinta(_estilo.pildora(
+            f"Consenso: {_n_casas_c} casas"
+            + ('' if _ampliado else ' · modo de respaldo'),
+            'ok' if _ampliado else 'mira') if _estilo else None)
+        if _estilo is None:
+            st.caption(f"Consenso: {_n_casas_c} casas")
+        st.caption(
+            "El precio **marcado en verde** es el mejor de todas las casas en "
+            "ese resultado. Si tu casa no lo tiene, ésa es la diferencia que te "
+            "cuesta tener una sola cuenta."
+            + ("" if _ampliado else
+               "  \n🟡 **Modo de respaldo**: este partido sólo tiene el tablón "
+               "básico. O su liga no está en la lista blanca de la API, o se "
+               "agotaron los créditos del mes. Con pocas casas, una ventaja "
+               "del 5 % no se puede distinguir del ruido."))
     else:
         filas = []
         for casa, c in _casas_1x2.items():
@@ -2174,10 +2203,39 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
         with st.expander(f"🎯 Alta confianza, sin valor suficiente "
                          f"({len(capa2)})", expanded=not capa1):
             st.caption("Probables según el modelo, pero el precio no paga lo "
-                       "que arriesgan. Sirven de pata en una combinada, no "
-                       "como apuesta simple.")
+                       "que arriesgan. **Combinarlos no arregla eso: multiplica "
+                       "el margen de la casa.** Con patas de EV −4,8 %, una "
+                       "combinada de tres sale a −13,6 %. Ver la bitácora de "
+                       "arquitectura.")
             for pk in capa2:
                 _tarjeta(pk, con_ev=True)
+
+    # v124 — MEJORA 7: estos picks se pueden mandar al teléfono.
+    #
+    # Hasta ahora el botón de Telegram existía sólo para las combinadas de un
+    # partido, así que la pantalla que se mira antes de un partido de MLB o de
+    # tenis no tenía salida: había que copiar a mano.
+    if capa1 or capa2:
+        if st.button(f"📲 Enviar estos picks de {deporte} a Telegram",
+                     key=f'tg_ev_{deporte}', width='stretch',
+                     help="Manda la lista con su precio, su casa y su "
+                          "probabilidad. El aviso sobre el EV viaja con el "
+                          "mensaje: se lee fuera de contexto."):
+            try:
+                import bot_telegram as _bt
+                _msg = _bt.formatear_picks(
+                    f"EV+ AUTOMÁTICO — {deporte.upper()}",
+                    list(capa1) + list(capa2),
+                    nota=(f"{len(capa1)} con valor · {len(capa2)} de alta "
+                          f"confianza sin valor suficiente"))
+                if _bt.enviar(_msg):
+                    st.success("✅ Enviado a Telegram.")
+                else:
+                    st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en "
+                               "los Secrets. Vista previa del mensaje:")
+                    st.code(_msg, language=None)
+            except Exception as e:
+                st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
 
     from bankroll_manager import AVISO_JUEGO_RESPONSABLE
     st.caption(AVISO_JUEGO_RESPONSABLE)
@@ -2356,6 +2414,50 @@ def render_beisbol_pitchers() -> None:
     except Exception as _e:
         st.caption(f"Registro de rendimiento no disponible ({type(_e).__name__}).")
 
+    # v124 — MEJORA 8: la sección ENTERA a Telegram.
+    #
+    # «Entera» es la palabra que el usuario usó, así que van los partidos que
+    # entran Y los que no, con el motivo por el que se caen: saber qué se
+    # descartó y por qué es la mitad de la utilidad de esta pantalla.
+    if st.button("📲 Enviar la sección de ponches completa a Telegram",
+                 key='tg_ponches', width='stretch',
+                 help="Manda los partidos que entran en la regla y los que no, "
+                      "con su línea, su precio y el motivo del descarte."):
+        try:
+            import bot_telegram as _bt_p
+            _filas_tg = []
+            for _a in analisis:
+                _v = _a.get('veredicto') or {}
+                _d = _v.get('datos') or {}
+                _abr = (_d.get('abridor') or _d.get('nombre')
+                        or _v.get('lanzador') or '')
+                _filas_tg.append({
+                    'lanzador': _abr or _v.get('apuesta') or '—',
+                    'partido': f"{_a.get('away','?')} @ {_a.get('home','?')}",
+                    'linea': _v.get('linea'),
+                    'cuota': _v.get('cuota'),
+                    'prob': _v.get('prob'),
+                    'ev': _v.get('ev_modelo'),
+                    'recomendacion': (
+                        f"✅ {_v.get('apuesta')} · {_v.get('mercado')}"
+                        if _v.get('entra')
+                        else "❌ no entra: " + '; '.join(
+                            str(m) for m in (_v.get('motivos') or [])[:2])),
+                })
+            _msg_p = _bt_p.formatear_ponches(
+                _filas_tg, titulo='PONCHES Y ABRIDORES DE HOY',
+                nota=(f"{len(dentro)} de {len(analisis)} partidos entran en la "
+                      f"regla. Es una regla del usuario, no una estrategia "
+                      f"validada del proyecto."))
+            if _bt_p.enviar(_msg_p):
+                st.success("✅ Sección de ponches enviada a Telegram.")
+            else:
+                st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en los "
+                           "Secrets. Vista previa del mensaje:")
+                st.code(_msg_p, language=None)
+        except Exception as e:
+            st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+
     for a in analisis:
         v = a['veredicto']
         cab = f"{a['away']} @ {a['home']}"
@@ -2447,6 +2549,144 @@ def render_beisbol_pitchers() -> None:
 
     from bankroll_manager import AVISO_JUEGO_RESPONSABLE
     st.caption(AVISO_JUEGO_RESPONSABLE)
+
+
+def _renderizar_secciones(clas: dict, opciones_s3: list) -> None:
+    """
+    Las tres secciones del clasificador, en el orden en que se decide.
+
+    v125 — sustituye al «aquí van todos los mercados ordenados por EV» que
+    había. El cambio de fondo no es visual: es que el criterio deja de ser el
+    EV del modelo —medido en −4,66 % a −6,52 %— y pasa a ser la ventaja de
+    precio contra el consenso, que es lo único con señal positiva. Ver
+    `clasificador.py` para las mediciones que fijan el umbral en el 5 %.
+    """
+    s1 = clas.get('seccion1') or []
+    s2 = clas.get('seccion2') or []
+    rojo = clas.get('descartados') or []
+    conf = clas.get('confianza') or {}
+
+    # el indicador de confianza de la liga: se ENSEÑA, no filtra (medido: con
+    # 213 apuestas su p5 es −13,06 %, así que no da para puerta)
+    _chips = []
+    if conf.get('estrellas'):
+        _chips.append(('★' * conf['estrellas'] + '☆' * (5 - conf['estrellas'])
+                       + '  confianza en la liga',
+                       'ok' if conf['estrellas'] >= 4
+                       else 'mira' if conf['estrellas'] >= 3 else 'no'))
+    _pinta(_estilo.cabecera(
+        'Qué se puede jugar en este partido',
+        'El criterio es el PRECIO: si tu casa paga por encima del consenso del '
+        'mercado, y por cuánto. No es el valor esperado del modelo — ése está '
+        'medido en negativo.',
+        chips=_chips, icono='🚦') if _estilo else None)
+    if conf.get('texto'):
+        st.caption(f"Confianza en la liga: **{conf.get('estrellas', 0)}/5** — "
+                   f"{conf['texto']}. Es un indicador, **no un filtro**: no hay "
+                   f"muestra suficiente para descartar picks por él.")
+
+    _pinta(_estilo.kpis([
+        {'valor': len(s1), 'etiqueta': '🟢 Máximo valor',
+         'tono': 'ok' if s1 else 'info', 'sub': 'jugables en solitario'},
+        {'valor': len(s2), 'etiqueta': '🟡 Sólo como pata',
+         'tono': 'mira' if s2 else 'info', 'sub': 'no en solitario'},
+        {'valor': len(opciones_s3), 'etiqueta': '🧩 Combinadas',
+         'tono': 'azul' if opciones_s3 else 'info',
+         'sub': 'armadas desde la sección verde'},
+        {'valor': len(rojo), 'etiqueta': '🔴 Descartados',
+         'tono': 'no' if rojo else 'info', 'sub': 'tu casa paga peor'},
+    ]) if _estilo else None)
+
+    # --- SECCIÓN 1 ---------------------------------------------------------
+    _seccion('🟢 Sección 1 · Máximo valor',
+             'para jugar en solitario', 'ok')
+    if not s1:
+        _comparables = sum(1 for m in (s1 + s2)
+                           if (m.get('n_casas_mercado') or 0) >= 2)
+        _pinta(_estilo.vacio(
+            'Hoy ningún mercado de este partido llega al listón',
+            f'Hace falta que tu casa pague al menos un 5 % por encima del '
+            f'consenso del mercado, y con al menos dos casas respaldando ese '
+            f'consenso. De {len(s1) + len(s2) + len(rojo)} mercados, sólo '
+            f'{_comparables} tienen ese respaldo: las líneas alternativas las '
+            f'publica casi siempre Pinnacle y nadie más. No encontrar nada es '
+            f'el resultado correcto, no un fallo — por debajo de ese 5 % el ROI '
+            f'medido es −11,5 %.', '🟢') if _estilo else None)
+    else:
+        _pinta(_estilo.nota(
+            "Tu casa paga por encima del consenso del mercado en estos "
+            "mercados. Es lo único que este proyecto mide con señal positiva "
+            "(+8,22 % de ROI sobre 791 selecciones con ventaja ≥ 5 %). "
+            "<b>No es una garantía</b>: el percentil 5 del bootstrap sigue en "
+            "−3,12 %, o sea que es la mejor apuesta disponible, no una apuesta "
+            "ganadora segura.", 'ok') if _estilo else None)
+        _pinta(_estilo.patas([
+            _estilo.pata(
+                m.get('apuesta', '?'), m.get('cuota_casa'), m.get('prob'),
+                m.get('mercado', ''),
+                [(f"+{(m.get('ventaja') or 0)*100:.1f} % sobre el mercado", 'ok'),
+                 (f"{m.get('n_casas', 1)} casas", 'azul')]
+                + ([(str(m['casa']), 'info')] if m.get('casa') else []),
+                'ok')
+            for m in s1]) if _estilo else None)
+        if _estilo is None:
+            for m in s1:
+                st.write(f"• **{m.get('apuesta')}** @ {m.get('cuota_casa')} "
+                         f"· +{(m.get('ventaja') or 0)*100:.1f} % sobre el mercado")
+
+    # --- SECCIÓN 2 ---------------------------------------------------------
+    with st.expander(f"🟡 Sección 2 · Alta probabilidad, precio insuficiente "
+                     f"({len(s2)})", expanded=not s1):
+        _pinta(_estilo.nota(
+            "Estos <b>no se juegan en solitario</b>: su precio no paga lo que "
+            "arriesgan. Y combinarlos entre sí <b>tampoco lo arregla</b> — "
+            "multiplica el margen de la casa: tres patas de −4,76 % dan "
+            "−13,62 %. Sirven como relleno puntual de una combinada que ya "
+            "parta de la Sección 1.", 'mira') if _estilo else None)
+        for m in s2[:25]:
+            _pinta(_estilo.pata(
+                m.get('apuesta', '?'), m.get('cuota_casa'), m.get('prob'),
+                m.get('mercado', ''),
+                [(str(m.get('motivo', ''))[:80], 'mira')], 'mira')
+                if _estilo else None)
+            if _estilo is None:
+                st.write(f"• {m.get('apuesta')} @ {m.get('cuota_casa')} "
+                         f"— {m.get('motivo')}")
+        if len(s2) > 25:
+            st.caption(f"… y {len(s2) - 25} más.")
+
+    # --- SECCIÓN 3 ---------------------------------------------------------
+    _seccion('🧩 Sección 3 · Combinadas desde la sección verde',
+             'sólo con patas que tienen ventaja de precio', 'azul')
+    if opciones_s3:
+        _pinta(_estilo.nota(
+            "Armadas <b>únicamente</b> con patas de la Sección 1. Es la única "
+            "forma de que el efecto multiplicador juegue a favor: "
+            "<code>EV_parlay = Π(1+EV_i) − 1</code>, así que tres patas de "
+            "+4,50 % dan +14,12 % y tres de −4,76 % dan −13,62 %.",
+            'azul') if _estilo else None)
+        _render_grupo_combinadas(opciones_s3, s1 + s2, criterio='casa_unica')
+    else:
+        _pinta(_estilo.vacio(
+            'No hay material para combinar',
+            'Hacen falta al menos dos mercados en la Sección 1. Forzar una '
+            'combinada con patas amarillas multiplicaría el margen de la casa '
+            'en vez de reducirlo.', '🧩') if _estilo else None)
+
+    # --- LO DESCARTADO, accesible pero fuera ------------------------------
+    if rojo:
+        with st.expander(f"🔴 Descartados ({len(rojo)}) — por qué no aparecen"):
+            st.caption("Tu casa paga por debajo del precio justo del mercado "
+                       "en estos mercados. Se retiran de las vistas "
+                       "principales, pero no se ocultan: tienes derecho a ver "
+                       "qué se descartó y por qué.")
+            _pinta(_estilo.tabla(
+                ['Mercado', 'Tu casa', 'Justo del mercado', 'Diferencia'],
+                [[_html_esc(m.get('apuesta', '?')),
+                  f"{m.get('cuota_casa')}",
+                  f"{m.get('cuota_mercado') or '—'}",
+                  f"{(m.get('ventaja') or 0)*100:+.1f} %"] for m in rojo],
+                alineadas=[1, 2, 3]) if _estilo else None)
 
 
 def _render_grupo_combinadas(opciones: list, mercados: list,
@@ -2638,7 +2878,14 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                     _pl_ev = (motor.plantilla_club(home, away)
                               if hasattr(motor, 'plantilla_club')
                               else motor.plantilla(home, away))
-                    _res_ev = _cm_ev.cuotas_partido(_dep_tab, home, away)
+                    # v127: con `liga`, para que el consenso ampliado de The
+                    # Odds API entre también en las combinadas. Sin ella, la
+                    # Sección 1 se compararía contra cinco casas mientras la
+                    # ficha de cuotas usa veinte, y los dos números no
+                    # cuadrarían.
+                    _res_ev = _cm_ev.cuotas_partido(
+                        _dep_tab, home, away,
+                        liga=(getattr(motor, 'clave', None) or key))
                     _mk_ev = _ct_ev.marcar_ev_sospechoso(
                         _ct_ev.mercados_con_ev(_res_ev, _pl_ev, home, away))
                 except Exception:
@@ -2679,6 +2926,46 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                             _mk_ev))
             except Exception:
                 _ops_pdt, _mk_pdt, _n_pdt = [], [], 0
+
+            # v125 — EL CLASIFICADOR: TRES SECCIONES Y COMBINADAS DESDE LA 1.
+            #
+            # El semáforo no mira el EV del modelo: mira si tu casa paga por
+            # encima del consenso del mercado, y por cuánto. El umbral es 5 % y
+            # no 0 % porque está medido: entre 0 % y 5 % el ROI es −11,48 %
+            # (n=623) y por encima de 5 % es +8,22 % (n=791). Ver
+            # `clasificador.py` y BITACORA_ARQUITECTURA.md.
+            #
+            # Y la Sección 3 se arma SÓLO con patas de la Sección 1. La
+            # aritmética no deja otra: juntar patas de EV negativo multiplica
+            # la pérdida (tres de −4,76 % dan −13,62 %).
+            _clas, _ops_s3 = None, []
+            try:
+                import clasificador as _cla
+                _bt_liga = (getattr(motor, 'metadata', {}) or {}).get(
+                    'precision_validacion')
+                _techo_liga = (getattr(motor, 'metadata', {}) or {}).get(
+                    'precision_mercado_cuotas')
+                _clas = _cla.clasificar(_mk_pdt, _bt_liga, _techo_liga)
+                _ids_ok = set(_cla.ids_para_parlay(_clas))
+                if len(_ids_ok) >= 2:
+                    # el motor se envuelve SÓLO con los precios de la Sección 1
+                    # (más el relleno permitido), así que `solo_cuotas_reales`
+                    # deja fuera todo lo demás sin tocar el constructor
+                    _cu_s3 = {m['id']: float(m['cuota_casa'])
+                              for m in (_clas['seccion1'] + _clas['seccion2'])
+                              if m.get('id') in _ids_ok and m.get('cuota_casa')}
+                    _ca_s3 = {m['id']: m.get('casa')
+                              for m in (_clas['seccion1'] + _clas['seccion2'])
+                              if m.get('id') in _ids_ok}
+                    if len(_cu_s3) >= 2:
+                        _ops_s3 = proponer_parlays(
+                            _ct_p.MotorConTablon(motor, _cu_s3, _ca_s3),
+                            home, away, max_opciones=6,
+                            solo_cuotas_reales=True,
+                            bankroll=float(
+                                st.session_state.get('bankroll', 0) or 0))
+            except Exception:
+                _clas, _ops_s3 = None, []
         # v115 — LAS COMBINADAS PROPUESTAS SE REGISTRAN.
         #
         # Sin esto no hay forma de saber si las que la app propone entran o no,
@@ -2718,7 +3005,8 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             'partido': f'{home} vs {away}', 'opciones': opciones,
             'n_reales': _n_reales, 'opciones_ev': _ops_ev,
             'mercados_ev': _mk_ev, 'opciones_pdt': _ops_pdt,
-            'mercados_pdt': _mk_pdt, 'n_pdt': _n_pdt}
+            'mercados_pdt': _mk_pdt, 'n_pdt': _n_pdt,
+            'clasificacion': _clas, 'opciones_s3': _ops_s3}
 
     # v62: el RENDER se hace desde la sesión (no dentro del bloque del botón),
     # así las combinadas siguen en pantalla tras pulsar «Enviar a Telegram»
@@ -2770,6 +3058,17 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             _mk_pdt = _guardado.get('mercados_pdt') or []
             _ops_ev = _guardado.get('opciones_ev') or []
             _mk_ev = _guardado.get('mercados_ev') or []
+            _clas = _guardado.get('clasificacion') or None
+            _ops_s3 = _guardado.get('opciones_s3') or []
+
+            # v125 — LAS TRES SECCIONES, ANTES QUE NADA.
+            #
+            # Es el orden de decisión: primero qué se puede jugar solo, luego
+            # qué sólo sirve de pata, y al final con qué se combina. Todo lo
+            # demás de esta pantalla es material de apoyo.
+            if _clas:
+                _renderizar_secciones(_clas, _ops_s3)
+
             try:
                 import partido_parejo as _pp
                 _pl_pj = (motor.plantilla_club(home, away)
@@ -3856,6 +4155,63 @@ st.sidebar.caption(
 if _ayuda is not None:
     with st.sidebar:
         _ayuda.glosario_completo(st)
+
+# v127 — EL CONTADOR DE CRÉDITOS, A LA VISTA.
+#
+# El consenso ampliado (20 casas en vez de 5) sale del plan GRATUITO de The
+# Odds API: 500 créditos al mes que se renuevan. Sin este contador no hay forma
+# de saber si la app está usando el consenso ampliado o ya cayó al de cinco
+# casas, y esa diferencia decide si la Sección 1 puede detectar algo.
+#
+# Se lee del contador que devuelve el propio proveedor en cada respuesta
+# (`x-requests-used`), que es el único número que no se descuadra si la app
+# corre desde dos sitios a la vez.
+def _panel_creditos_api() -> None:
+    """Créditos de la API en la barra lateral, con su aviso si quedan pocos."""
+    try:
+        import consenso_api as _oa
+    except Exception:
+        return
+    with st.sidebar:
+        if not _oa.disponible():
+            _pinta(_estilo.seccion('Consenso del mercado', '5 casas', 'info')
+                   if _estilo else None)
+            st.caption(
+                "Sin `ODDS_API_KEY` en los Secrets. El tablón funciona con sus "
+                "**5 casas** de siempre; con la clave pasa a ~20 y la Sección 1 "
+                "puede detectar ventajas que ahora no se ven.")
+            return
+        p = _oa.presupuesto()
+        usados, cuota = p['usados'], p['cuota']
+        quedan = max(cuota - usados, 0)
+        tono = ('no' if p['agotado'] else
+                'mira' if quedan < 100 else 'ok')
+        _pinta(_estilo.seccion('Créditos API', p['mes'], tono)
+               if _estilo else None)
+        _pinta(_estilo.kpis([
+            {'valor': f"{usados} / {cuota}", 'etiqueta': 'Consumidos',
+             'tono': tono, 'sub': f"{quedan} restantes este mes"},
+        ]) if _estilo else None)
+        if _estilo is None:
+            st.metric("Créditos API", f"{usados} / {cuota}")
+        if p['agotado']:
+            st.warning(
+                f"⚠️ Límite alcanzado ({usados} de {cuota}). La app ha vuelto "
+                f"al **consenso de 5 casas** hasta que el mes se renueve. No "
+                f"se pierde nada más que la amplitud del consenso.")
+        elif quedan < 100:
+            st.warning(
+                f"🟡 **Créditos bajos: {quedan} restantes.** Al llegar a "
+                f"{cuota - p['limite']} de margen la app pasará al modo de "
+                f"5 casas.")
+        else:
+            st.caption(
+                f"Consenso ampliado **activo**. Cada consulta de una liga "
+                f"cuesta 1 crédito y sirve para todos sus partidos durante "
+                f"30 min. Corte automático a los {p['limite']}.")
+
+
+_panel_creditos_api()
 
 BANKROLL = st.sidebar.number_input(
     "💵 Mi bankroll (unidades)", min_value=0.0, max_value=1_000_000.0,

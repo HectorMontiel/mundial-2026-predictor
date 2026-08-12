@@ -758,6 +758,444 @@ def test_selectores_de_partido_con_clave_estable():
           "existe la guardia contra la selección muerta")
 
 
+def test_telegram_envia_picks_y_ponches():
+    """
+    v124 (mejoras 7 y 8): el EV+ de cada deporte y la sección de ponches se
+    pueden mandar al teléfono.
+
+    Y con el aviso DENTRO del mensaje, no sólo en la pantalla. Un mensaje de
+    Telegram se lee fuera de contexto: si dice «EV +23 %» sin decir que este
+    proyecto tiene medido que apostar por la probabilidad del modelo pierde
+    entre 4,7 % y 6,5 %, está engañando a quien lo lee en el autobús.
+    """
+    import bot_telegram as bt
+    check(hasattr(bt, 'formatear_picks') and hasattr(bt, 'enviar_picks'),
+          "bot_telegram sabe formatear y enviar picks")
+    check(hasattr(bt, 'formatear_ponches') and hasattr(bt, 'enviar_ponches'),
+          "y la sección de ponches")
+
+    msg = bt.formatear_picks('EV+ MLB', [
+        {'partido': 'BAL @ MIN', 'apuesta': 'Gana Minnesota', 'cuota': 1.85,
+         'casa': 'Playdoit', 'prob': 0.58, 'ev': 0.073}])
+    for trozo in ('BAL @ MIN', 'Gana Minnesota', '1.85', 'Playdoit', '58%'):
+        check(trozo in msg, f"el mensaje de picks lleva «{trozo}»")
+    check('pierde entre' in msg,
+          "y el aviso medido viaja DENTRO del mensaje")
+
+    pon = bt.formatear_ponches([
+        {'lanzador': 'Cristian Javier', 'partido': 'HOU @ SDN', 'linea': 3.5,
+         'cuota': 1.87, 'prob': 0.66, 'recomendacion': '✅ Más de 3.5'}])
+    for trozo in ('Cristian Javier', 'HOU @ SDN', '3.5', '1.87', '66%'):
+        check(trozo in pon, f"el mensaje de ponches lleva «{trozo}»")
+
+    # ninguno puede pasarse del límite de Telegram, ni con la sección entera
+    largo = bt.formatear_ponches([
+        {'lanzador': f'Lanzador {i}', 'partido': f'Equipo A{i} @ Equipo B{i}',
+         'linea': 4.5, 'cuota': 1.9, 'prob': 0.6, 'ev': 0.14,
+         'recomendacion': '✅ Más de 4.5 ponches'} for i in range(200)])
+    check(len(largo) <= bt.MAX_LEN,
+          f"la sección entera se recorta al límite de Telegram ({len(largo)})")
+    check('recortado' in largo,
+          "y cuando se recorta, lo dice en vez de callarlo")
+
+    # con la lista vacía tienen que decir por qué, no salir en blanco
+    for f, etq in ((bt.formatear_picks('X', []), 'picks'),
+                   (bt.formatear_ponches([]), 'ponches')):
+        check(len(f) > 60 and 'no' in f.lower(),
+              f"sin datos, el mensaje de {etq} explica por qué está vacío")
+
+    # y el botón existe en las dos pantallas
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    check('tg_ev_' in dash, "la vista de EV+ tiene su botón de Telegram")
+    check("key='tg_ponches'" in dash,
+          "y la de ponches el suyo")
+
+
+def test_bitacora_de_arquitectura():
+    """
+    v124: la bitácora existe y conserva las cifras que gobiernan el sistema.
+
+    No es un test de estilo. Este documento es la regla de oro del proyecto y
+    su valor está en los números medidos: si alguien los borra o los cambia sin
+    medir de nuevo, las decisiones que se apoyan en ellos dejan de tener
+    respaldo y nadie se entera.
+    """
+    import os
+    if not os.path.exists('BITACORA_ARQUITECTURA.md'):
+        check(False, 'existe BITACORA_ARQUITECTURA.md')
+        return
+    doc = open('BITACORA_ARQUITECTURA.md', encoding='utf-8').read()
+    for cifra, que in (
+            ('89.748', 'el tamaño de la muestra de calibración'),
+            ('37.158', 'las apuestas que miden el ROI negativo'),
+            ('−0,054', 'la correlación del EV con el CLV'),
+            ('54,9', 'la mejor precisión por liga, que no llega a 58 %'),
+            ('−13,62', 'el EV de una combinada de tres patas negativas'),
+    ):
+        check(cifra in doc, f"la bitácora conserva {que} ({cifra})")
+    for seccion in ('2 niveles', '3 secciones', 'Semáforo',
+                    'generador de parlays', 'Playdoit', 'stack'):
+        check(seccion.lower() in doc.lower(),
+              f"la bitácora cubre «{seccion}»")
+
+
+def test_clasificador_tres_secciones():
+    """
+    v125: el semáforo que reparte los mercados en las tres secciones.
+
+    El criterio NO es el EV del modelo —medido en −4,66 % a −6,52 %— sino la
+    ventaja de precio contra el consenso del mercado. Y el umbral no es cero:
+    medido sobre 1.414 selecciones de `odds_snapshots.csv`, entre 0 % y 5 % el
+    ROI es −11,48 % y por encima de 5 % es +8,22 %.
+    """
+    import clasificador as cla
+
+    # el devig tiene que devolver un libro cuyas probabilidades sumen 1
+    j = cla.consenso_sin_margen({'home': 1.9048, 'draw': 3.8095,
+                                 'away': 3.8095})
+    check(j is not None and abs(sum(1 / v for v in j.values()) - 1.0) < 1e-4,
+          f"el devig deja las probabilidades sumando 1 ({j})")
+    check(abs(j['home'] - 2.0) < 0.01,
+          f"y devuelve la cuota justa correcta ({j['home']:.3f}, esperado 2,00)")
+
+    # el semáforo, caso a caso
+    casos = [
+        (0.08, 3, 'verde',    'ventaja clara con consenso de varias casas'),
+        (0.02, 3, 'amarillo', 'ventaja por debajo del 5 % medido'),
+        (0.08, 1, 'amarillo', 'una sola casa de referencia no es consenso'),
+        (-0.05, 3, 'rojo',    'la casa paga peor que el mercado'),
+        (None, 3, 'amarillo', 'sin nada con lo que comparar'),
+        (3.92, 3, 'rojo',     'ventaja imposible: son partidos distintos'),
+    ]
+    for v, n, esperada, que in casos:
+        r = cla.semaforo(v, n)
+        check(r['luz'] == esperada,
+              f"{que}: {r['luz']} (esperado {esperada})")
+
+    # la ventaja imposible se marca como error de datos, no como oportunidad
+    check(cla.semaforo(3.92, 3).get('error_datos'),
+          "una ventaja de +392 % se marca como error de datos")
+
+    # el reparto y el material de parlay
+    mercados = [
+        {'id': 'a', 'apuesta': 'A', 'cuota_casa': 2.2, 'prob': 0.5,
+         'dif_vs_consenso': 0.09, 'n_casas_mercado': 4},
+        {'id': 'b', 'apuesta': 'B', 'cuota_casa': 1.1, 'prob': 0.90,
+         'dif_vs_consenso': -0.01, 'n_casas_mercado': 4},
+        {'id': 'c', 'apuesta': 'C', 'cuota_casa': 1.5, 'prob': 0.6,
+         'dif_vs_consenso': -0.09, 'n_casas_mercado': 4},
+    ]
+    c = cla.clasificar(mercados, 0.52, 0.538)
+    check([m['id'] for m in c['seccion1']] == ['a'],
+          f"a la Sección 1 sólo va la que tiene ventaja ({c['seccion1']})")
+    check([m['id'] for m in c['seccion2']] == ['b'],
+          f"a la Sección 2 la de alta probabilidad sin ventaja")
+    check([m['id'] for m in c['descartados']] == ['c'],
+          "y la que paga peor se descarta")
+
+    # LA REGLA QUE MÁS IMPORTA: el parlay parte de la Sección 1
+    ids = cla.ids_para_parlay(c)
+    check(ids and ids[0] == 'a',
+          f"el parlay empieza por la Sección 1 ({ids})")
+    check('c' not in ids, "y nunca incluye un descartado")
+    check(len([i for i in ids if i == 'b']) <= 1,
+          "el relleno de la Sección 2 está limitado a una pata")
+    solo_s2 = cla.clasificar([mercados[1]], 0.52, 0.538)
+    check(len(cla.ids_para_parlay(solo_s2)) <= 1,
+          "sin patas verdes no se puede armar una combinada de la Sección 2 "
+          "sola: multiplicaría la pérdida")
+
+
+def test_regla_tenis_90():
+    """
+    v126: el tenis con probabilidad ≥ 90 % va a la Sección 1.
+
+    Es la ÚNICA regla del proyecto que entra en la Sección 1 sin ventaja de
+    precio, y entra porque está medida sobre 46.151 partidos del ledger:
+
+        prob >= 90 %   n=1.793   acierto 91,69 %   ROI +5,76 %   p5 +0,18 %
+        tenis global   n=46.151  acierto 65,88 %   ROI −4,92 %   p5 −5,53 %
+
+    Lo que este test protege, además de la regla: que NO se extienda sola. El
+    tenis global pierde casi lo mismo que el fútbol, así que la banda de 80-90 %
+    (ROI −1,96 %) no puede colarse, y ningún otro deporte hereda la excepción.
+    """
+    import clasificador as cla
+    check(abs(cla.REGLA_TENIS_PROB - 0.90) < 1e-9,
+          f"el umbral de la regla es el 90 % medido ({cla.REGLA_TENIS_PROB})")
+    check(cla.REGLA_TENIS_MEDICION.get('p5', -1) > 0,
+          "la regla sólo existe porque su p5 es positivo")
+
+    r = cla.semaforo(None, 1, None, deporte='tenis', prob=0.93)
+    check(r['luz'] == 'verde' and r['seccion'] == 1,
+          f"tenis al 93 % va a la Sección 1 ({r['luz']})")
+    check('p5' in r['motivo'] and '1.793' in r['motivo'],
+          f"y el motivo lleva la medición que lo respalda ({r['motivo'][:70]})")
+
+    # sin precio no hay apuesta, por muy alta que sea la probabilidad
+    r = cla.semaforo(None, 1, None, deporte='tenis', prob=0.93,
+                     hay_precio=False)
+    check(r['seccion'] == 2,
+          f"sin cuota publicada no puede ir a la Sección 1 ({r['seccion']})")
+
+    # la banda de 80-90 % NO hereda la regla: su ROI medido es −1,96 %
+    r = cla.semaforo(None, 1, None, deporte='tenis', prob=0.85)
+    check(r['seccion'] == 2,
+          f"el 85 % NO entra en la Sección 1 ({r['seccion']})")
+
+    # ningún otro deporte hereda la excepción
+    for dep in ('futbol', 'mlb', 'nba'):
+        r = cla.semaforo(None, 1, None, deporte=dep, prob=0.95)
+        check(r['seccion'] != 1,
+              f"{dep} al 95 % no entra en la Sección 1 por probabilidad")
+
+    # y el guardia de datos manda sobre la regla
+    r = cla.semaforo(3.92, 3, None, deporte='tenis', prob=0.95)
+    check(r['luz'] == 'rojo',
+          f"una ventaja imposible descarta incluso un pick de tenis al 95 % "
+          f"({r['luz']})")
+
+
+def test_consenso_api_respeta_el_presupuesto():
+    """
+    v127: el consenso ampliado no puede comerse los 500 créditos del mes.
+
+    NOTA SOBRE EL NOMBRE. La v88 retiró un módulo llamado `odds_api` porque
+    «la clave devolvía 401 en TODAS las ligas y sólo llenaba el arranque de
+    errores, uno por competición», y dejó `test_sin_the_odds_api` para que no
+    volviera. Ese guardián sigue vigente y se respeta: este módulo se llama
+    `consenso_api` y hace otra cosa —ensanchar el consenso, no ser la fuente
+    de cuotas—, con clave gratuita, tope de gasto y degradación en silencio.
+    El modo de fallo de la v88 está cubierto por
+    `test_consenso_api_degrada_en_silencio`.
+
+    El plan gratuito da 500 créditos mensuales y el coste es
+    `mercados × regiones` por LIGA (el histórico, ×10, está prohibido aquí).
+    Las cuentas que fijan el diseño:
+
+        5 ligas × 2 mercados × 4 veces/día = 1.200/mes  ✗
+        5 ligas × 1 mercado  × 3 veces/día =   450/mes  ✓ justo
+        bajo demanda, 10 partidos/día      =   300/mes  ✓
+
+    Lo que este test protege es el corte duro: si alguien sube los mercados por
+    defecto o mete las 24 huérfanas en la lista blanca, el presupuesto se
+    dispara y la app se queda sin cuotas a mitad de mes. Aquí se detecta.
+    """
+    import consenso_api as oa
+
+    check(oa.LIMITE_DURO < oa.CUOTA_MENSUAL,
+          f"el corte ({oa.LIMITE_DURO}) deja margen bajo la cuota "
+          f"({oa.CUOTA_MENSUAL})")
+    check(len(oa.MERCADOS_POR_DEFECTO) == 1,
+          f"por defecto se pide UN mercado: cada uno más duplica el gasto "
+          f"({oa.MERCADOS_POR_DEFECTO})")
+    check(',' not in oa.REGION_POR_DEFECTO,
+          f"y UNA región, por lo mismo ({oa.REGION_POR_DEFECTO})")
+
+    # el coste mensual del peor caso razonable tiene que caber
+    n = len(oa.LIGAS_BLANCAS)
+    coste_mes = n * len(oa.MERCADOS_POR_DEFECTO) * 1 * 30
+    check(coste_mes <= oa.LIMITE_DURO,
+          f"refrescar la lista blanca entera una vez al día cabe en el mes "
+          f"({n} ligas → {coste_mes} créditos de {oa.LIMITE_DURO})")
+
+    # las huérfanas NO pueden estar en la lista blanca: su histórico es lo que
+    # necesitarían y está fuera del plan gratuito
+    for huerfana in ('bol_division', 'col_primera_a', 'per_liga1',
+                     'uru_primera', 'arg_primera_nacional'):
+        check(huerfana not in oa.LIGAS_BLANCAS,
+              f"«{huerfana}» se queda congelada, como se acordó")
+
+    # y una liga fuera de la lista no gasta NADA, ni siquiera con clave
+    check(oa.cuotas_liga('no_existe_esta_liga') is None,
+          "una liga fuera de la lista blanca no llega a llamar")
+
+    # el presupuesto se lee sin lanzar aunque no haya fichero ni clave
+    p = oa.presupuesto()
+    for k in ('mes', 'usados', 'limite', 'queda', 'agotado'):
+        check(k in p, f"el presupuesto informa de «{k}»")
+    check(not oa.hay_presupuesto(10 ** 6),
+          "una llamada absurdamente cara se rechaza siempre")
+
+
+def test_consenso_api_degrada_en_silencio():
+    """
+    v127: sin clave, el consenso ampliado NO puede hacer ruido.
+
+    Éste es el modo de fallo exacto por el que la v88 retiró su predecesor:
+    «la clave devolvía 401 en TODAS las ligas y sólo llenaba el arranque de
+    errores, uno por competición». Un módulo opcional que grita cuando no está
+    configurado es peor que no tenerlo.
+
+    Medido con la clave quitada: el tablón sigue dando sus casas de siempre y
+    se emiten CERO avisos.
+    """
+    import logging
+    import os
+
+    guardada = os.environ.pop('ODDS_API_KEY', None)
+    registrados = []
+
+    class _Cazador(logging.Handler):
+        def emit(self, r):
+            if r.levelno >= logging.WARNING:
+                registrados.append(r.getMessage())
+
+    h = _Cazador()
+    raiz = logging.getLogger()
+    raiz.addHandler(h)
+    try:
+        import consenso_api as ca
+        check(not ca.disponible(),
+              "sin variable de entorno, el módulo se declara no disponible")
+        check(ca.cuotas_liga('liga_mx') is None,
+              "y no devuelve datos en vez de lanzar")
+        check(ca.casas_del_partido('liga_mx', 'A', 'B') == {},
+              "las casas salen vacías, no None ni excepción")
+        p = ca.presupuesto()
+        check(isinstance(p, dict) and 'usados' in p,
+              "el presupuesto se lee igualmente")
+    finally:
+        raiz.removeHandler(h)
+        if guardada is not None:
+            os.environ['ODDS_API_KEY'] = guardada
+
+    ruidosos = [m for m in registrados
+                if 'consenso' in m.lower() or 'odds' in m.lower()]
+    check(not ruidosos,
+          f"sin clave no se emite ni un aviso ({ruidosos[:2]})")
+
+
+def test_la_ficha_pide_las_cuotas_con_liga():
+    """
+    v127: la vista de cuotas tiene que pasar `liga` a `cuotas_partido`.
+
+    `liga` decide dos cosas: la guardia de categoría del emparejador
+    (femenino/filial) y si la competición está en la lista blanca de The Odds
+    API. Sin ella el consenso se queda en las cinco casas de siempre.
+
+    Medido el día que se añadió el indicador de consenso, que es quien lo
+    delató: `Monterrey vs Juarez` daba **4 casas** sin `liga` y **20** con
+    ella. La ficha anunciaba «Consenso: 4 casas · modo de respaldo» teniendo
+    veinte disponibles, y sin el indicador nadie se habría enterado.
+
+    Es un test de código y no de red: lo que se comprueba es que la llamada
+    lleve el argumento, porque el síntoma es silencioso.
+    """
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    import re
+    llamadas = re.findall(r'cuotas_partido\((.{0,220}?)\)', src, re.S)
+    check(llamadas, 'la interfaz llama a cuotas_partido')
+    sin_liga = [c.replace('\n', ' ')[:80] for c in llamadas
+                if 'liga=' not in c]
+    check(not sin_liga,
+          f"todas las llamadas pasan la liga ({len(sin_liga)} sin ella: "
+          f"{sin_liga[:2]})")
+
+    # y el indicador de consenso tiene que estar en la ficha
+    check('Consenso:' in src,
+          'la ficha del partido enseña cuántas casas respaldan el consenso')
+    check('modo de respaldo' in src,
+          'y avisa cuando ha caído al tablón básico')
+
+
+def test_sondeo_de_casas():
+    """
+    v126: el barrido de casas existe, es reproducible y no se cierra en tres.
+
+    El usuario pidió explícitamente que no me quedara en las alternativas ya
+    sondeadas. Este test no comprueba el RESULTADO del barrido —que depende de
+    lo que respondan hoy los servidores— sino que la herramienta cubre las vías
+    de acceso conocidas y sigue estando.
+    """
+    import sondeo_casas as sc
+    check(len(sc.CANDIDATAS) >= 25,
+          f"el barrido cubre un número serio de fuentes "
+          f"({len(sc.CANDIDATAS)})")
+    plataformas = {c['plataforma'] for c in sc.CANDIDATAS}
+    for p in ('Altenar', 'Kambi', 'exchange', 'propia'):
+        check(p in plataformas, f"se prueba la vía «{p}»")
+    # las cinco integradas tienen que seguir en la lista, o el barrido dejaría
+    # de detectar si una se cae
+    casas = ' '.join(c['casa'] for c in sc.CANDIDATAS)
+    for c in ('Playdoit', 'Pinnacle', 'Bovada', 'Unibet', 'Matchbook'):
+        check(c in casas, f"«{c}» sigue vigilada por el barrido")
+
+
+def test_sufijo_de_estado_no_confunde_clubes():
+    """
+    v125: «Athletico-PR» y «Atlético-MG» son clubes distintos.
+
+    El normalizador machaca guiones y paréntesis, así que los dos acababan
+    compartiendo su único token significativo («atletico») y el emparejador los
+    daba por el MISMO equipo con similitud **1,0** — no un empate que la
+    guardia de ambigüedad pudiera cazar, sino una coincidencia perfecta con el
+    club equivocado.
+
+    Medido el 2026-08-11: pidiendo «Athletico-PR vs Bragantino» devolvía el
+    tablero de «Atlético-MG vs Bragantino», de otra competición y otra fecha, y
+    con él la Sección 1 anunciaba «Empate @ 16,00 · +392 % sobre el mercado».
+    Un precio de otro partido que alguien podría haber apostado.
+    """
+    import cuotas_multi as cm
+    check(cm.marca_estado('Athletico-PR') == 'pr'
+          and cm.marca_estado('Atlético-MG') == 'mg',
+          "se detecta el sufijo de estado brasileño")
+    check(cm.marca_estado('Bragantino') == ''
+          and cm.marca_estado('Vasco da Gama') == '',
+          "y no se inventa donde no lo hay")
+
+    # el emparejador no puede cruzar dos clubes con sufijo distinto
+    idx = {
+        'atletico mg|bragantino': {'home': 'Atlético-MG',
+                                   'away': 'Bragantino',
+                                   'cuotas': {'home': 2.0, 'away': 3.0}},
+        'athletico pr|bragantino': {'home': 'Athletico-PR',
+                                    'away': 'Bragantino',
+                                    'cuotas': {'home': 2.5, 'away': 2.6}},
+    }
+    r = cm._buscar(idx, 'Athletico-PR', 'Bragantino', 'futbol')
+    check(r is not None and r['home'] == 'Athletico-PR',
+          f"«Athletico-PR» empareja con su club, no con el otro Atlético "
+          f"({(r or {}).get('home')})")
+    r2 = cm._buscar(idx, 'Atletico-MG', 'Bragantino', 'futbol')
+    check(r2 is not None and r2['home'] == 'Atlético-MG',
+          f"y «Atlético-MG» con el suyo ({(r2 or {}).get('home')})")
+
+
+def test_consenso_de_varias_casas():
+    """
+    v125: la ventaja se mide contra el CONSENSO, no contra el mejor precio.
+
+    El umbral del 5 % se calibró comparando contra la media del resto de casas.
+    Compararlo contra el MEJOR del resto sería aplicar ese umbral a una
+    magnitud distinta y mucho más exigente, y la Sección 1 quedaría vacía por
+    construcción sin que nadie se diera cuenta.
+    """
+    import cuotas_tablon as ct
+    plantilla = {'secciones': [
+        {'titulo': '1. Resultado (1X2) con cuota justa', 'campos': [
+            {'id': 'home_win_prob', 'etiqueta': 'Gana A', 'tipo': 'pct',
+             'valor': 50.0}]}]}
+    filas = [
+        {'etiqueta': 'Gana A', 'cuota': 2.00, 'casa': 'Pinnacle',
+         'familia': '1X2'},
+        {'etiqueta': 'Gana A', 'cuota': 2.10, 'casa': 'Bovada',
+         'familia': '1X2'},
+        {'etiqueta': 'Gana A', 'cuota': 2.20, 'casa': 'Unibet',
+         'familia': '1X2'},
+    ]
+    mk = ct.mercados_de_filas(filas, plantilla)
+    check(mk, "se cruzan las filas")
+    if not mk:
+        return
+    r = mk[0]
+    check(r.get('n_casas') == 3, f"cuenta las tres casas ({r.get('n_casas')})")
+    check(abs((r.get('cuota_media') or 0) - 2.10) < 0.001,
+          f"y publica la media del tablón ({r.get('cuota_media')}, "
+          f"esperado 2,10)")
+
+
 def test_la_interfaz_usa_la_capa_visual():
     """
     v122: que `estilo_ui` no vuelva a ser un módulo que nadie llama.
@@ -4201,6 +4639,19 @@ if __name__ == '__main__':
     test_juegos_de_tenis()
     test_partido_parejo()
     test_selectores_de_partido_con_clave_estable()
+    print('\n=== v124: Telegram y bitácora de arquitectura ===')
+    test_telegram_envia_picks_y_ponches()
+    test_bitacora_de_arquitectura()
+    print('\n=== v125: clasificador de tres secciones ===')
+    test_clasificador_tres_secciones()
+    test_sufijo_de_estado_no_confunde_clubes()
+    test_consenso_de_varias_casas()
+    print('\n=== v126: regla del tenis y barrido de casas ===')
+    test_regla_tenis_90()
+    test_sondeo_de_casas()
+    test_consenso_api_respeta_el_presupuesto()
+    test_consenso_api_degrada_en_silencio()
+    test_la_ficha_pide_las_cuotas_con_liga()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
