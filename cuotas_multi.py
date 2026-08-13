@@ -221,6 +221,37 @@ def fecha_normalizada(cruda) -> Optional[str]:
         return None
 
 
+# v132 — LAS ABREVIATURAS DE MLB, QUE ROMPÍAN EL CRUCE ENTERO.
+#
+# Playdoit publica «DET Tigers» y Pinnacle «Detroit Tigers». Normalizados dan
+# `det tigers` y `detroit tigers`, con similitud 0,583: por debajo del listón
+# del emparejador, así que NO casaban. Efecto medido: la escalera de ponches de
+# Playdoit no se encontraba nunca partiendo del prop de Pinnacle, y con ella se
+# caía la Tarea 3 completa aunque todo lo demás estuviera bien.
+#
+# No se arregla bajando el listón —eso emparejaría cosas que no son— sino
+# expandiendo la abreviatura, que es un conjunto CERRADO de 30 y estable. Sale
+# de `/api/v1/teams` de MLB StatsAPI, la misma fuente que usa el resto del
+# módulo de béisbol.
+ABREV_MLB = {
+    'ATH': 'Athletics', 'ATL': 'Atlanta Braves', 'AZ': 'Arizona Diamondbacks',
+    'BAL': 'Baltimore Orioles', 'BOS': 'Boston Red Sox', 'CHC': 'Chicago Cubs',
+    'CIN': 'Cincinnati Reds', 'CLE': 'Cleveland Guardians',
+    'COL': 'Colorado Rockies', 'CWS': 'Chicago White Sox',
+    'DET': 'Detroit Tigers', 'HOU': 'Houston Astros', 'KC': 'Kansas City Royals',
+    'LAA': 'Los Angeles Angels', 'LAD': 'Los Angeles Dodgers',
+    'MIA': 'Miami Marlins', 'MIL': 'Milwaukee Brewers', 'MIN': 'Minnesota Twins',
+    'NYM': 'New York Mets', 'NYY': 'New York Yankees',
+    'PHI': 'Philadelphia Phillies', 'PIT': 'Pittsburgh Pirates',
+    'SD': 'San Diego Padres', 'SEA': 'Seattle Mariners',
+    'SF': 'San Francisco Giants', 'STL': 'St. Louis Cardinals',
+    'TB': 'Tampa Bay Rays', 'TEX': 'Texas Rangers', 'TOR': 'Toronto Blue Jays',
+    'WSH': 'Washington Nationals',
+}
+# `{'det': 'detroit tigers', …}` para expandir sobre el texto ya normalizado.
+_ABREV_MLB_NORM = {k.lower(): v.lower().replace('.', '') for k, v in ABREV_MLB.items()}
+
+
 @lru_cache(maxsize=100_000)
 def normalizar(nombre: str) -> str:
     """Clave de comparación: sin acentos, sin puntuación, sin sufijos de club."""
@@ -231,6 +262,15 @@ def normalizar(nombre: str) -> str:
     for ch in ".,-'()/&":
         s = s.replace(ch, ' ')
     partes = [EQUIVALENCIAS.get(p, p) for p in s.split()]
+    # La abreviatura sólo se expande cuando ENCABEZA el nombre y hay algo
+    # detrás («det tigers»), que es como la escriben las casas. Suelta no se
+    # toca: «sd» puede ser muchas cosas fuera del béisbol, y este normalizador
+    # lo usan también el fútbol y el tenis.
+    if len(partes) >= 2 and partes[0] in _ABREV_MLB_NORM:
+        resto = ' '.join(partes[1:])
+        completo = _ABREV_MLB_NORM[partes[0]]
+        if resto and resto in completo:
+            return completo
     return ' '.join(partes)
 
 

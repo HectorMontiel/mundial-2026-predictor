@@ -4924,177 +4924,62 @@ def render_alpha_finder():
     # selección, no la predicción.
     # -----------------------------------------------------------------------
     _render_incidencias(r)          # v77: visible antes de las pestañas
-    _tab_ev, _tab_prob, _tab_combi = st.tabs([
-        # v128 — la pestaña cuenta la SECCIÓN 1, no la capa entera. El número
-        # que se lee de reojo tiene que ser el de lo jugable; el de la capa
-        # sigue visible en la franja de arriba («Pasan el filtro»).
-        f"⚡ Máximo Valor ({len(r.get('seccion1') or [])})",
-        f"🎯 Máxima Confianza ({len(r.get('capa1_prob') or [])})",
-        f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
-    ])
-    with _tab_prob:
-        _render_maxima_confianza(r)
-    with _tab_combi:
-        _render_combinadas(r)
 
-    with _tab_ev:
-        # -------------------------------------------------------------------
-        # v128 — LAS DOS SECCIONES, ARRIBA DEL TODO.
-        #
-        # Es la respuesta a «quiero ver apuestas en la capa 1 que sí pueda
-        # ganar». La lista que había debajo se ordenaba por el EV del modelo,
-        # que es el criterio medido en −4,66 % a −6,52 % sobre 37.158 apuestas.
-        # No se borra —sigue justo debajo, entera— pero deja de ser lo primero
-        # que se ve, porque lo primero que se ve es lo que se juega.
-        #
-        # Arriba sólo suben los canales con p5 de bootstrap positivo en el
-        # tramo que no se usó para elegirlos. Hoy son dos, y los dos aprueban
-        # raspando: ver `clasificador.secciones_del_dia`.
-        # -------------------------------------------------------------------
-        _s1 = r.get('seccion1') or []
-        _s2 = r.get('seccion2') or []
-        _CANALES = {
-            'precio_local': ('💰 Ventaja de precio al local',
-                             'Una casa blanda paga por encima del precio justo '
-                             'de Pinnacle. No depende de que el modelo acierte: '
-                             'son dos precios del mismo suceso.'),
-            'tenis_90': ('🎾 Tenis con probabilidad ≥ 90 %',
-                         'La única banda del proyecto con p5 positivo. Cuotas '
-                         'cortas (~1,15 de media): se gana por volumen y un '
-                         'solo precio malo se come varias apuestas buenas.'),
-        }
-        _seccion(f"✅ Sección 1 — para jugar en solitario ({len(_s1)})",
-                 'los únicos canales con percentil 5 positivo medido',
-                 'ok' if _s1 else 'mira')
-        if _s1:
-            for _canal, (_tit, _sub) in _CANALES.items():
-                _grupo = [p for p in _s1 if p.get('canal') == _canal]
-                if not _grupo:
-                    continue
-                st.markdown(f"**{_tit}** — {_sub}")
-                st.caption('Por qué está aquí: ' + (_grupo[0].get('motivo') or ''))
-                _tarjetas(_grupo, "")
-            st.caption(
-                "⚠️ **La mejor apuesta disponible no es una apuesta ganadora "
-                "garantizada.** Los dos canales de arriba aprueban el listón "
-                "del proyecto por poco: p5 +1,73 % el de precio y +0,18 % el "
-                "del tenis. Con una racha mala se ponen en negativo. Aquí no "
-                "se promete ROI: se promete que es lo único que la medición "
-                "sostiene.")
-        else:
-            st.info(
-                "**Hoy no hay nada en la Sección 1, y eso es un resultado, no "
-                "un fallo.** Sólo suben aquí dos cosas: fútbol donde una casa "
-                "paga por encima del precio justo de Pinnacle **al lado "
-                "local**, y tenis con probabilidad ≥ 90 % y precio publicado. "
-                "El resto de picks del día están abajo, con su motivo. "
-                "Forzar una apuesta porque la pantalla se ve vacía es "
-                "exactamente lo que este sistema existe para evitar.")
-        if _s2:
-            _n2 = r.get('n_seccion2') or len(_s2)
-            with st.expander(f"🟡 Sección 2 — alta probabilidad, precio "
-                             f"insuficiente ({_n2})", expanded=False):
-                st.caption(
-                    "No son apuestas sueltas: **combinarlas no arregla el "
-                    "problema, lo multiplica** (EV combinado = Π(1+EVᵢ)−1, así "
-                    "que tres patas al −4,76 % dan −13,62 %). Están aquí "
-                    "porque saber por qué algo NO se juega vale tanto como la "
-                    "lista de lo que sí.")
-                if _n2 > len(_s2):
-                    st.caption(f"Se muestran {len(_s2)} de {_n2}, las de mayor "
-                               f"probabilidad.")
-                for _p in _s2[:12]:
-                    st.markdown(
-                        f"- **{_p.get('apuesta','?')}** · {_p.get('partido','?')} "
-                        f"({_p.get('liga','')}) · "
-                        + (f"@ {_p['cuota']} · " if _p.get('cuota') else '')
-                        + f"{(_p.get('prob') or 0)*100:.0f} % — "
-                        f"{_p.get('motivo','')}")
-                if len(_s2) > 12:
-                    st.caption(f"…y {len(_s2)-12} más, en la lista completa de "
-                               f"abajo.")
-        st.divider()
+    # v131 — EL FILTRO DE DEPORTE, Y POR QUÉ NO TOCA LOS DATOS.
+    #
+    # Filtra en el PUNTO DE PINTADO, no el barrido. Si recortara `r`, el botón
+    # de Telegram enviaría sólo el deporte seleccionado y la exportación saldría
+    # coja — y el envío diario es un canal que no puede depender de dónde tenga
+    # puesto el usuario un selector. Así que `r` se queda entero y lo único que
+    # se filtra son las listas justo antes de dibujarlas.
+    _DEPORTES_FILTRO = [('Todo', 'Todo'), ('⚽', 'Fútbol'), ('⚾', 'MLB'),
+                        ('🏀', 'NBA'), ('🎾', 'Tenis')]
+    _presentes = {p.get('deporte') for p in (r.get('pronosticos') or [])
+                  if p.get('deporte')}
+    _opciones = [e for e, d in _DEPORTES_FILTRO
+                 if d == 'Todo' or d in _presentes]
+    _mapa_dep = {e: d for e, d in _DEPORTES_FILTRO}
+    if len(_opciones) > 2:
+        _sel = st.radio('Deporte', _opciones, horizontal=True,
+                        key='_filtro_deporte', label_visibility='collapsed',
+                        help='Reordena lo que se ve. No cambia lo que se '
+                             'envía a Telegram ni lo que se exporta.')
+    else:
+        _sel = 'Todo'
+    _dep_sel = _mapa_dep.get(_sel, 'Todo')
 
-        # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
-        elite = r.get('elite') or []
-        if elite:
-            import kelly_simultaneo as ks
-            bank = float(st.session_state.get('bankroll', 0) or 1000)
-            con_stake = ks.stakes_jornada(elite, bank)
-            for t, s in zip(elite, con_stake):
-                t['stake_txt'] = (f"{s['stake']:.0f} u ({s['stake_pct']*100:.1f} %)"
-                                  if s['stake_pct'] > 0 else '—')
-            expo = sum(s['stake_pct'] for s in con_stake)
-            st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
-                       f"bankroll. Nunca se arriesga más del 20 % en un mismo día."  # v82: el texto
-                       # decía ⅛ y la v81 subió la fracción a ¼ tras
-                       # medirla; un pie que miente sobre cuánto se
-                       # arriesga es peor que no tenerlo.
-                       )
-        # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
-        import traductor_quant as tq
-        platino = [t for t in elite if t.get('platino')]
-        if platino:
-            st.subheader(tq.t('evc_platino', ES_PRO))
-            st.caption(tq.tooltip('evc_platino'))
-            _tarjetas(platino, "")
-        _tarjetas([t for t in elite if t.get('evc') and not t.get('platino')],
-                  tq.t('evc', ES_PRO))
-        if not ES_PRO:
-            st.caption(tq.tooltip('evc'))
-        _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
+    def _filtra(lista):
+        """La lista tal cual, o sólo el deporte elegido. Nunca muta el barrido."""
+        if _dep_sel == 'Todo' or not lista:
+            return list(lista or [])
+        return [p for p in lista
+                if isinstance(p, dict) and p.get('deporte') == _dep_sel]
 
-        # v47: SELECCIÓN DEL DÍA — la Capa 1 nunca queda vacía. Si hoy no hubo
-        # ningún 1X2 con cuota real y confirmación, se promueven las mejores
-        # oportunidades por valor esperado (con aviso honesto).
-        seleccion = r.get('seleccion_dia') or []
-        if not elite and seleccion:
-            st.subheader("⭐ Selección del Día — mejor valor disponible")
-            st.info("Hoy ninguna apuesta reunió cuota real + confirmación profesional. "
-                    "Estas son las de mayor valor esperado del día. Úsalas con stake "
-                    "prudente: no llevan el sello de la línea sharp.")
-            _tarjetas(seleccion, "")
+    _s1_f = _filtra(r.get('seccion1'))
+    _s2_f = _filtra(r.get('seccion2'))
+    if _dep_sel != 'Todo':
+        st.caption(f"Filtrando por **{_dep_sel}**. El envío a Telegram y la "
+                   f"exportación siguen llevando todos los deportes.")
 
-        # v31 (§5): CAPA 2 — alta confianza SIN cuota real (modo analítico)
-        capa2 = r.get('capa2') or []
-        if capa2:
-            st.divider()
-            st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
-                         if ES_PRO else "🎯 Apuestas sugeridas (sin cuota confirmada)")
-            # v73: la Capa 2 ya NO es «sin cuota». Muchos de estos partidos tienen
-            # precio real y lo que no alcanzan es un filtro de élite (casi siempre
-            # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
-            # cuota son los que ninguna casa ha abierto todavía.
-            _con = sum(1 for t in capa2 if t.get('cuota'))
-            st.info(
-                f"Partidos donde el modelo está muy seguro pero que **no "
-                f"recomendamos jugar sueltos**: {_con} tienen una cuota tan "
-                f"baja que apenas compensa el riesgo, y el resto todavía no "
-                f"tiene precio. Sirven para combinar.")
-            _tarjetas(capa2, "")
-
-        # v37 (§6): sección destacada de Ambos Marcan (BTTS)
-        btts = r.get('btts_destacado') or []
-        if btts:
-            st.divider()
-            st.subheader("⚽ Ambos Marcan (BTTS)")
-            # v75: el texto anterior decía "uno de los mercados mejor calibrados del
-            # sistema". La medición lo desmiente y no se puede seguir afirmando:
-            # sobre 15.950 partidos fuera de muestra de 20 ligas, el Weibull de BTTS
-            # da Brier 0.24880 frente a 0.24891 de contestar siempre la tasa base de
-            # la liga — no discrimina — y el cierre de 1X2 + O/U 2.5 ya lo hace
-            # mejor (0.24559). Se mantiene la sección (la pidió el usuario en v43)
-            # con la etiqueta honesta.
-            st.caption("Picks con confianza > 60 %"
-                       + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
-                          for p in btts) else ". ")
-                       + "⚠️ Comprobado sobre 15.950 partidos: acertar «ambos "
-                         "marcan» con el modelo **no es mejor que mirar la "
-                         "media de la liga**. Aquí lo único que puede hacer "
-                         "buena una apuesta es que la cuota esté alta, no la "
-                         "probabilidad.")
-            _tarjetas(btts, "")
-
+    # v131 — CINCO PESTAÑAS, Y EL DEPORTE COMO FILTRO.
+    #
+    # La pantalla era un bloque lineal de mil cuatrocientas líneas. Se corta
+    # por lo que el usuario viene a decidir —qué juega— y NO por deporte: el
+    # deporte no decide nada en este proyecto (ver el §0 de la bitácora), y
+    # cortar por él mezclaría el tenis con probabilidad ≥ 90 %, que es el único
+    # canal con p5 positivo, con los favoritos de ITF medidos en −4,9 %.
+    #
+    # El filtro de deporte va ARRIBA y afecta a todas las pestañas a la vez,
+    # así que reordena sin esconder: la Sección 1 sigue existiendo se filtre lo
+    # que se filtre.
+    # v131 — LAS DOS FUNCIONES SE DEFINEN ANTES DE LAS PESTAÑAS.
+    #
+    # Nacieron dentro de `with _tab_ev:` porque ahí vivía su código, y
+    # allí se definían DESPUÉS de la pestaña que las llama:
+    # UnboundLocalError en cuanto se abría la página. Lo cazó la
+    # validación de render, que es exactamente para esto.
+    def _render_todos_los_partidos():
+        """La tabla completa del día, en su propia pestaña."""
         # v49: TODOS LOS PRONÓSTICOS DEL DÍA — cada partido con jornada, aunque no
         # haya cuota en vivo (el modelo da su 1X2 con cuota justa). Máxima cobertura
         # de opciones sin relajar los filtros de la Capa 1.
@@ -5271,6 +5156,8 @@ def render_alpha_finder():
                        "más/menos de 2.5 goles · BTTS = ambos marcan. Todas con la "
                        "probabilidad del modelo (cuota justa = 1/prob).")
 
+    def _render_estado_sistema():
+        """Diagnóstico, auditoría y simuladores. Contexto, no decisión."""
         # v47: PARLAY DEL DÍA DE TENIS — combinación contundente de los mercados
         # derivados más seguros (uno por partido). El usuario pidió una apuesta de
         # tenis "contundente" para parlay a partir de la plantilla de mercados.
@@ -5734,10 +5621,191 @@ def render_alpha_finder():
                        "usa ¼ Kelly con tope del 5 % y nunca all-in. "
                        + AVISO_JUEGO_RESPONSABLE)
 
-    # v91 — LAS COMBINADAS, AL FINAL. Cargan motores de liga y corren Monte
-    # Carlo; cuando vivían antes de las pestañas, todo lo importante (Máximo
-    # Valor, Máxima Confianza) esperaba a que terminaran. Aquí abajo cuestan
-    # lo mismo pero ya no retrasan nada.
+
+    _tab_jugar, _tab_pata, _tab_combi, _tab_todos, _tab_estado = st.tabs([
+        f"✅ Para jugar ({len(_s1_f)})",
+        f"🟡 Sólo como pata ({len(_s2_f)})",
+        f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
+        f"📋 Todos los partidos ({len(_filtra(r.get('pronosticos')))})",
+        "⚙️ Estado del sistema",
+    ])
+    _tab_ev, _tab_prob = _tab_jugar, _tab_pata
+    with _tab_todos:
+        _render_todos_los_partidos()
+    with _tab_estado:
+        _render_estado_sistema()
+    with _tab_prob:
+        _render_maxima_confianza(r)
+    with _tab_combi:
+        _render_combinadas(r)
+
+    with _tab_ev:
+        # -------------------------------------------------------------------
+        # v128 — LAS DOS SECCIONES, ARRIBA DEL TODO.
+        #
+        # Es la respuesta a «quiero ver apuestas en la capa 1 que sí pueda
+        # ganar». La lista que había debajo se ordenaba por el EV del modelo,
+        # que es el criterio medido en −4,66 % a −6,52 % sobre 37.158 apuestas.
+        # No se borra —sigue justo debajo, entera— pero deja de ser lo primero
+        # que se ve, porque lo primero que se ve es lo que se juega.
+        #
+        # Arriba sólo suben los canales con p5 de bootstrap positivo en el
+        # tramo que no se usó para elegirlos. Hoy son dos, y los dos aprueban
+        # raspando: ver `clasificador.secciones_del_dia`.
+        # -------------------------------------------------------------------
+        # v131: ya filtradas por el selector de deporte de arriba. `r` sigue
+        # intacto para Telegram y la exportación.
+        _s1 = _s1_f
+        _s2 = _s2_f
+        _CANALES = {
+            'precio_local': ('💰 Ventaja de precio al local',
+                             'Una casa blanda paga por encima del precio justo '
+                             'de Pinnacle. No depende de que el modelo acierte: '
+                             'son dos precios del mismo suceso.'),
+            'tenis_90': ('🎾 Tenis con probabilidad ≥ 90 %',
+                         'La única banda del proyecto con p5 positivo. Cuotas '
+                         'cortas (~1,15 de media): se gana por volumen y un '
+                         'solo precio malo se come varias apuestas buenas.'),
+        }
+        _seccion(f"✅ Sección 1 — para jugar en solitario ({len(_s1)})",
+                 'los únicos canales con percentil 5 positivo medido',
+                 'ok' if _s1 else 'mira')
+        if _s1:
+            for _canal, (_tit, _sub) in _CANALES.items():
+                _grupo = [p for p in _s1 if p.get('canal') == _canal]
+                if not _grupo:
+                    continue
+                st.markdown(f"**{_tit}** — {_sub}")
+                st.caption('Por qué está aquí: ' + (_grupo[0].get('motivo') or ''))
+                _tarjetas(_grupo, "")
+            st.caption(
+                "⚠️ **La mejor apuesta disponible no es una apuesta ganadora "
+                "garantizada.** Los dos canales de arriba aprueban el listón "
+                "del proyecto por poco: p5 +1,73 % el de precio y +0,18 % el "
+                "del tenis. Con una racha mala se ponen en negativo. Aquí no "
+                "se promete ROI: se promete que es lo único que la medición "
+                "sostiene.")
+        else:
+            st.info(
+                "**Hoy no hay nada en la Sección 1, y eso es un resultado, no "
+                "un fallo.** Sólo suben aquí dos cosas: fútbol donde una casa "
+                "paga por encima del precio justo de Pinnacle **al lado "
+                "local**, y tenis con probabilidad ≥ 90 % y precio publicado. "
+                "El resto de picks del día están abajo, con su motivo. "
+                "Forzar una apuesta porque la pantalla se ve vacía es "
+                "exactamente lo que este sistema existe para evitar.")
+        if _s2:
+            # v131: con filtro puesto, el total del día ya no describe lo que
+            # se está viendo; manda lo que hay delante.
+            _n2 = len(_s2) if _dep_sel != 'Todo' else (r.get('n_seccion2')
+                                                       or len(_s2))
+            with st.expander(f"🟡 Sección 2 — alta probabilidad, precio "
+                             f"insuficiente ({_n2})", expanded=False):
+                st.caption(
+                    "No son apuestas sueltas: **combinarlas no arregla el "
+                    "problema, lo multiplica** (EV combinado = Π(1+EVᵢ)−1, así "
+                    "que tres patas al −4,76 % dan −13,62 %). Están aquí "
+                    "porque saber por qué algo NO se juega vale tanto como la "
+                    "lista de lo que sí.")
+                if _n2 > len(_s2):
+                    st.caption(f"Se muestran {len(_s2)} de {_n2}, las de mayor "
+                               f"probabilidad.")
+                for _p in _s2[:12]:
+                    st.markdown(
+                        f"- **{_p.get('apuesta','?')}** · {_p.get('partido','?')} "
+                        f"({_p.get('liga','')}) · "
+                        + (f"@ {_p['cuota']} · " if _p.get('cuota') else '')
+                        + f"{(_p.get('prob') or 0)*100:.0f} % — "
+                        f"{_p.get('motivo','')}")
+                if len(_s2) > 12:
+                    st.caption(f"…y {len(_s2)-12} más, en la lista completa de "
+                               f"abajo.")
+        st.divider()
+
+        # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
+        elite = r.get('elite') or []
+        if elite:
+            import kelly_simultaneo as ks
+            bank = float(st.session_state.get('bankroll', 0) or 1000)
+            con_stake = ks.stakes_jornada(elite, bank)
+            for t, s in zip(elite, con_stake):
+                t['stake_txt'] = (f"{s['stake']:.0f} u ({s['stake_pct']*100:.1f} %)"
+                                  if s['stake_pct'] > 0 else '—')
+            expo = sum(s['stake_pct'] for s in con_stake)
+            st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
+                       f"bankroll. Nunca se arriesga más del 20 % en un mismo día."  # v82: el texto
+                       # decía ⅛ y la v81 subió la fracción a ¼ tras
+                       # medirla; un pie que miente sobre cuánto se
+                       # arriesga es peor que no tenerlo.
+                       )
+        # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
+        import traductor_quant as tq
+        platino = [t for t in elite if t.get('platino')]
+        if platino:
+            st.subheader(tq.t('evc_platino', ES_PRO))
+            st.caption(tq.tooltip('evc_platino'))
+            _tarjetas(platino, "")
+        _tarjetas([t for t in elite if t.get('evc') and not t.get('platino')],
+                  tq.t('evc', ES_PRO))
+        if not ES_PRO:
+            st.caption(tq.tooltip('evc'))
+        _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
+
+        # v47: SELECCIÓN DEL DÍA — la Capa 1 nunca queda vacía. Si hoy no hubo
+        # ningún 1X2 con cuota real y confirmación, se promueven las mejores
+        # oportunidades por valor esperado (con aviso honesto).
+        seleccion = r.get('seleccion_dia') or []
+        if not elite and seleccion:
+            st.subheader("⭐ Selección del Día — mejor valor disponible")
+            st.info("Hoy ninguna apuesta reunió cuota real + confirmación profesional. "
+                    "Estas son las de mayor valor esperado del día. Úsalas con stake "
+                    "prudente: no llevan el sello de la línea sharp.")
+            _tarjetas(seleccion, "")
+
+        # v31 (§5): CAPA 2 — alta confianza SIN cuota real (modo analítico)
+        capa2 = r.get('capa2') or []
+        if capa2:
+            st.divider()
+            st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
+                         if ES_PRO else "🎯 Apuestas sugeridas (sin cuota confirmada)")
+            # v73: la Capa 2 ya NO es «sin cuota». Muchos de estos partidos tienen
+            # precio real y lo que no alcanzan es un filtro de élite (casi siempre
+            # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
+            # cuota son los que ninguna casa ha abierto todavía.
+            _con = sum(1 for t in capa2 if t.get('cuota'))
+            st.info(
+                f"Partidos donde el modelo está muy seguro pero que **no "
+                f"recomendamos jugar sueltos**: {_con} tienen una cuota tan "
+                f"baja que apenas compensa el riesgo, y el resto todavía no "
+                f"tiene precio. Sirven para combinar.")
+            _tarjetas(capa2, "")
+
+        # v37 (§6): sección destacada de Ambos Marcan (BTTS)
+        btts = r.get('btts_destacado') or []
+        if btts:
+            st.divider()
+            st.subheader("⚽ Ambos Marcan (BTTS)")
+            # v75: el texto anterior decía "uno de los mercados mejor calibrados del
+            # sistema". La medición lo desmiente y no se puede seguir afirmando:
+            # sobre 15.950 partidos fuera de muestra de 20 ligas, el Weibull de BTTS
+            # da Brier 0.24880 frente a 0.24891 de contestar siempre la tasa base de
+            # la liga — no discrimina — y el cierre de 1X2 + O/U 2.5 ya lo hace
+            # mejor (0.24559). Se mantiene la sección (la pidió el usuario en v43)
+            # con la etiqueta honesta.
+            st.caption("Picks con confianza > 60 %"
+                       + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
+                          for p in btts) else ". ")
+                       + "⚠️ Comprobado sobre 15.950 partidos: acertar «ambos "
+                         "marcan» con el modelo **no es mejor que mirar la "
+                         "media de la liga**. Aquí lo único que puede hacer "
+                         "buena una apuesta es que la cuota esté alta, no la "
+                         "probabilidad.")
+            _tarjetas(btts, "")
+
+        # v91 — LAS COMBINADAS, AL FINAL. Cargan motores de liga y corren Monte
+        # Carlo; cuando vivían antes de las pestañas, todo lo importante (Máximo
+        # Valor, Máxima Confianza) esperaba a que terminaran. Aquí abajo cuestan
+        # lo mismo pero ya no retrasan nada.
     st.divider()
     _render_combinada_segura(pdd)
     _render_combinadas_dia()
