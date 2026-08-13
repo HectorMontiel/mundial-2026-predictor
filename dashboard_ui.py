@@ -5037,17 +5037,42 @@ def render_alpha_finder():
             # Antes sólo había fútbol y un filtro no tenía sentido. Ahora entran
             # MLB, tenis, NBA y KBO, y con treinta y pico de partidos mezclados
             # el usuario necesita poder quedarse con lo suyo.
-            _deps = sorted({str(p.get('deporte') or 'Fútbol')
-                            for p in _pronos_ord})
-            if len(_deps) > 1:
-                _sel_dep = st.multiselect(
-                    "Deportes", _deps, default=_deps, key='prono_deps',
-                    help="La lista cubre todos los deportes que el barrido ha "
-                         "podido evaluar hoy.")
-                if _sel_dep:
-                    _pronos_ord = [p for p in _pronos_ord
-                                   if str(p.get('deporte') or 'Fútbol')
-                                   in _sel_dep]
+            # v133: el multiselect de deportes que vivía aquí se retira. El
+            # filtro de arriba hace lo mismo para TODAS las pestañas, y tener
+            # dos sitios donde filtrar lo mismo es cómo se acaba viendo una
+            # lista recortada sin saber por qué.
+            _pronos_ord = _filtra(_pronos_ord)
+
+            # v133 — EL SEMÁFORO PRESCRIPTIVO.
+            #
+            # La tabla decía «verde = gana el local», que describe quién juega
+            # en casa y no ayuda a decidir nada. Ahora la marca dice QUÉ HACER,
+            # que es la única pregunta que trae al usuario aquí:
+            #
+            #     ✅  hay pick en la Sección 1: es lo que se juega
+            #     🟡  sólo como pata de una combinada
+            #     ❌  sin precio con el que comparar, o EV negativo
+            #
+            # El icono nunca va solo: lleva texto al lado. Un daltónico no
+            # distingue el verde del ámbar, y en el móvil a pleno sol tampoco
+            # lo distingue nadie.
+            def _clave_partido(p):
+                return (str(p.get('deporte') or ''), str(p.get('partido') or ''))
+
+            _en_s1 = {_clave_partido(p) for p in (r.get('seccion1') or [])}
+            _en_s2 = {_clave_partido(p) for p in (r.get('seccion2') or [])}
+            _apuesta_s1 = {_clave_partido(p): p for p in (r.get('seccion1') or [])}
+
+            def _marca(p):
+                k = _clave_partido(p)
+                if k in _en_s1:
+                    return '✅ Para jugar'
+                if k in _en_s2:
+                    return '🟡 Sólo pata'
+                if not p.get('cuota'):
+                    return '❌ Sin precio'
+                return '· informativo'
+
             filas_p = []
             for p in _pronos_ord:
                 board = p.get('board') or {}
@@ -5061,6 +5086,7 @@ def render_alpha_finder():
                 except Exception:
                     _hora_txt = '—'
                 filas_p.append({
+                    'Qué hacer': _marca(p),
                     'Hora (CDMX)': _hora_txt,
                     'Fecha': p.get('fecha', ''),
                     # v119: con varios deportes en la misma lista hay que decir
@@ -5078,7 +5104,67 @@ def render_alpha_finder():
                     'Mejor pronóstico': f"{p.get('apuesta','')} "
                                         f"({(p.get('prob') or 0)*100:.0f}%)",
                 })
-            st.dataframe(_pd.DataFrame(filas_p), hide_index=True, width='stretch')
+            # v133 — LA FILA SE PULSA, Y SIN DEPENDENCIAS NUEVAS.
+            #
+            # `st.dataframe` de Streamlit 1.61 trae `on_select` y
+            # `selection_mode`, comprobado en la versión instalada. Por eso NO
+            # entra `st-aggrid`: es un componente de terceros de ~1 MB de JS
+            # que se rompe entre versiones de Streamlit, y en Cloud eso es un
+            # riesgo de despliegue a cambio de nada.
+            #
+            # La barra de probabilidad va con `ProgressColumn`, que es nativa y
+            # se lee de un vistazo — que era el problema de doce columnas de
+            # porcentajes.
+            _df_p = _pd.DataFrame(filas_p)
+            _sel_tabla = st.dataframe(
+                _df_p, hide_index=True, width='stretch',
+                key='tabla_pronosticos',
+                on_select='rerun', selection_mode='single-row',
+                column_config={
+                    'Qué hacer': st.column_config.TextColumn(
+                        'Qué hacer', width='small',
+                        help='✅ hay pick en la Sección 1 · 🟡 sólo como pata '
+                             'de una combinada · ❌ sin precio con el que '
+                             'comparar'),
+                })
+            try:
+                _filas_sel = list(_sel_tabla.selection.rows)
+            except Exception:
+                _filas_sel = []
+            if _filas_sel and _filas_sel[0] < len(_pronos_ord):
+                _pick = _pronos_ord[_filas_sel[0]]
+                _k = _clave_partido(_pick)
+                with st.container(border=True):
+                    st.markdown(f"**{_pick.get('partido','?')}** · "
+                                f"{_pick.get('liga','')} · "
+                                f"{_pick.get('deporte','')}")
+                    _s1p = _apuesta_s1.get(_k)
+                    if _s1p:
+                        st.success(
+                            f"✅ **{_s1p.get('apuesta','')}**"
+                            + (f" @ {_s1p['cuota']}" if _s1p.get('cuota') else '')
+                            + f" · {(_s1p.get('prob') or 0)*100:.0f} % — "
+                            + str(_s1p.get('motivo', ''))[:180])
+                    elif _k in _en_s2:
+                        st.warning(
+                            "🟡 Alta probabilidad, precio insuficiente. **No "
+                            "lo juegues solo**: sirve como pata de una "
+                            "combinada que parta de la Sección 1.")
+                    else:
+                        st.caption(
+                            "Sin pick accionable: el modelo lo pronostica, "
+                            "pero no hay ventaja de precio con la que "
+                            "sostener una apuesta.")
+                    try:
+                        import navegacion as _nav_s
+                        _dest_s = _nav_s.destino_del_pick(_pick)
+                    except Exception:
+                        _dest_s = None
+                    if _dest_s and st.button(
+                            "Ver el análisis completo de este partido →",
+                            key='tabla_ir', type='primary', width='stretch'):
+                        _nav_s.marcar(st, _dest_s)
+                        st.rerun()
             # el botón por partido va DEBAJO de la tabla: Streamlit no permite
             # meter un widget dentro de una celda, y una fila de botones sueltos
             # se pierde. Un desplegable con el mismo orden cronológico y un
@@ -5130,9 +5216,14 @@ def render_alpha_finder():
                             f"<small>{p.get('liga','')}</small>"
                             + _estilo.barra_1x2(_pl, _px, _pv, _h, _a),
                             unsafe_allow_html=True)
-                st.caption("Verde = gana el local · gris = empate · azul = "
-                           "gana el visitante. El ancho es la probabilidad del "
-                           "modelo; pasa por encima para ver la cifra exacta.")
+                # v133: la barra sigue siendo descriptiva —es un reparto de
+                # probabilidad, no una recomendación— pero se dice que NO es
+                # la señal de qué jugar, para que no compita con el semáforo
+                # de la columna «Qué hacer».
+                st.caption("El ancho de cada tramo es la probabilidad del "
+                           "modelo (local · empate · visitante). **Esto no es "
+                           "la recomendación**: para saber qué jugar, mira la "
+                           "columna «Qué hacer» de la tabla.")
 
             if _dest_p:
                 cbp1, cbp2 = st.columns([3, 1])
@@ -5622,11 +5713,18 @@ def render_alpha_finder():
                        + AVISO_JUEGO_RESPONSABLE)
 
 
-    _tab_jugar, _tab_pata, _tab_combi, _tab_todos, _tab_estado = st.tabs([
+    # v133 — «Todos los partidos» sube a segunda posición.
+    #
+    # «Para jugar» estará en cero muchos días, y está bien que lo esté: es el
+    # sistema no forzando apuestas. Pero una primera pantalla vacía sin nada
+    # útil al lado invita a buscar valor donde no lo hay, que es exactamente
+    # lo que este proyecto existe para evitar. Con la vista general a un clic,
+    # el día sin picks sigue teniendo dónde mirar.
+    _tab_jugar, _tab_todos, _tab_pata, _tab_combi, _tab_estado = st.tabs([
         f"✅ Para jugar ({len(_s1_f)})",
+        f"📋 Todos los partidos ({len(_filtra(r.get('pronosticos')))})",
         f"🟡 Sólo como pata ({len(_s2_f)})",
         f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
-        f"📋 Todos los partidos ({len(_filtra(r.get('pronosticos')))})",
         "⚙️ Estado del sistema",
     ])
     _tab_ev, _tab_prob = _tab_jugar, _tab_pata
