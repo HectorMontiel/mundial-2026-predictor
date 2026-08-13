@@ -85,6 +85,12 @@ CASA_PRIORITARIA = 'Playdoit'
 
 CACHE_DIR = 'cuotas_cache'
 TTL = 1800                     # 30 min: las líneas se mueven, pero no tanto
+
+# v130 — tope del caché de tableros de Playdoit. Un tablero de fútbol ocupa
+# ~395 KB desde que se bajan los mercados de jugador, así que 60 MB son unos
+# 150 partidos vivos a la vez: mucho más de lo que nadie mira en seis horas, y
+# lejos del disco del contenedor. Ver `_purgar_detalles_playdoit`.
+MAX_CACHE_PLAYDOIT = 60 * 1024 * 1024
 _LOCK = threading.Lock()
 _MEM: Dict[str, tuple] = {}      # deporte -> (timestamp, índice Pinnacle)
 _MEM_BOV: Dict[str, tuple] = {}  # deporte -> (timestamp, índice Bovada)
@@ -1396,7 +1402,27 @@ def mercados_playdoit(deporte: str, home: str, away: str, fecha=None,
         precios = {o['id']: o for o in (j.get('odds') or []) if o.get('id')}
         mercados = []
         vistos = set()
-        for m in (j.get('markets') or []):
+        # v130 — LOS MERCADOS DE JUGADOR VIVEN EN `childMarkets`, Y SE CAÍAN.
+        #
+        # `markets` trae el mercado PADRE de cada familia de jugador, sin
+        # precios propios: sus selecciones cuelgan de `childMarketIds` y el
+        # detalle las sirve aparte, en `childMarkets`. Como `_selecciones_altenar`
+        # sólo mira los ids del propio mercado, esos padres salían vacíos y se
+        # descartaban — con ellos, TODA la oferta por jugador.
+        #
+        # Medido en DET vs CLE (evento 16238906): 149 mercados en `markets`, de
+        # los que 32 son padres sin precio; en el crudo hay 262 apariciones de
+        # `sa:player`. Entre lo que se estaba tirando estaba esto:
+        #
+        #     Strikeouts del jugador al menos (Keider Montero (DET))
+        #         2+ 1,18 · 3+ 1,57 · 4+ 2,15 · 5+ 3,20 · 6+ 5,00 · 7+ 9,00
+        #
+        # o sea la ESCALERA COMPLETA de ponches del abridor, que es justo lo que
+        # hacía falta para proponer una línea alternativa cuando la principal no
+        # da valor. El diagnóstico anterior —«Playdoit no cotiza ponches por
+        # jugador»— era un error de lectura de este bucle, no un hecho de la
+        # casa; lo corrigió el usuario, que sí los veía en su pantalla.
+        for m in list(j.get('markets') or []) + list(j.get('childMarkets') or []):
             sels = _selecciones_altenar(m, precios)
             if not sels:
                 continue
@@ -1442,20 +1468,51 @@ def _purgar_detalles_playdoit(max_edad: int = 6 * 3600) -> int:
 
     Se conservan seis horas, muy por encima del TTL de 30 min, para que un
     despliegue o un reinicio no obligue a redescargar lo que ya estaba.
+
+    v130 — Y ADEMÁS UN TOPE DE TAMAÑO, PORQUE LOS TABLEROS HAN CRECIDO.
+    ------------------------------------------------------------------
+    Al bajar a `childMarkets` un tablero pasa de 170 a 794 mercados en fútbol
+    (395 KB por partido en vez de 40), porque aparecen los ~480 mercados de
+    goleador que antes se caían. La edad sola ya no basta: seis horas de
+    navegación por fichas caben de sobra en el disco de Streamlit Cloud, y ahí
+    un disco lleno no avisa, mata el proceso.
     """
     n = 0
     try:
         d = _cache_path('')
+        ficheros = []
         for nombre in os.listdir(d):
             if not nombre.startswith('playdoit_ev_'):
                 continue
             p = os.path.join(d, nombre)
             try:
-                if time.time() - os.path.getmtime(p) > max_edad:
-                    os.remove(p)
-                    n += 1
+                ficheros.append((os.path.getmtime(p), os.path.getsize(p), p))
             except OSError:
                 pass
+        # 1) por edad
+        vivos = []
+        for mt, tam, p in ficheros:
+            if time.time() - mt > max_edad:
+                try:
+                    os.remove(p)
+                    n += 1
+                except OSError:
+                    pass
+            else:
+                vivos.append((mt, tam, p))
+        # 2) por tamaño total: se borran los más antiguos hasta bajar del tope.
+        #    Se conserva SIEMPRE el más reciente, que es el que se acaba de
+        #    escribir y el que la pantalla está usando ahora mismo.
+        vivos.sort(key=lambda x: x[0])          # el más viejo primero
+        total = sum(t for _, t, _ in vivos)
+        while total > MAX_CACHE_PLAYDOIT and len(vivos) > 1:
+            mt, tam, p = vivos.pop(0)
+            try:
+                os.remove(p)
+                total -= tam
+                n += 1
+            except OSError:
+                total -= tam
     except Exception as e:
         logger.debug(f'[playdoit] purga del caché: {type(e).__name__}: {e}')
     return n
