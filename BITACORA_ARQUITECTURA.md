@@ -169,6 +169,48 @@ estructura de boleto concreta y sabiendo lo que cuesta.»
 **Se mantiene**, con el generador de §4, que sólo combina patas con ventaja de
 precio.
 
+### Sección 1 en el NIVEL 1 (el día entero) — qué sube y con qué medición
+
+El criterio de arriba (`VENTAJA` contra el consenso) necesita el tablero de
+Playdoit, y el barrido del día no puede pagarlo: mira cientos de partidos y
+sólo se permite una petición por catálogo (§1). Así que en el Nivel 1 la
+Sección 1 no se decide fila a fila, sino **por canal entero ya medido**. Y sólo
+dos canales tienen p5 de bootstrap positivo en el tramo que no se usó para
+elegirlos, que es el listón del §0:
+
+| canal | qué es | tramo de elección | tramo de juicio |
+|---|---|---|---|
+| **Precio al lado LOCAL** (fútbol) | `valor_vs_sharp`: una casa blanda paga por encima del devig de Pinnacle, con `p ≥ 0,30` y `EV ≥ 1 %` | n=1817 · +5,09 % · **p5 +1,09 %** | n=353 · +11,49 % · **p5 +1,73 %** |
+| **Tenis con `prob ≥ 90 %`** y precio publicado | §0 | — | n=1.793 · +5,76 % · **p5 +0,18 %** |
+
+**El mismo canal al empate y al visitante NO sube**, y ésa es la parte que
+importa: sale de partir `_v90_line_shopping_por_lado` por lado.
+
+| lado | tramo de elección | tramo de juicio | robusto |
+|---|---|---|---|
+| local | +5,09 % · p5 +1,09 % | +11,49 % · p5 **+1,73 %** | **SÍ** |
+| empate | +12,21 % · p5 +1,08 % | −7,09 % · p5 **−38,91 %** | no |
+| visitante | +10,21 % · p5 +4,28 % | +7,92 % · p5 **−5,10 %** | no |
+
+El empate y el visitante lucen bien en la mitad con la que se eligió y se
+hunden en la otra. Es el retrato exacto de un hallazgo que no era real, y el
+motivo de que el lado viaje ahora con cada pick en vez de deducirse del texto.
+
+**Dos cosas que esto destapó:**
+
+1. **El mínimo de cuota de 1,50 del barrido estaba tirando la única regla
+   rentable del proyecto.** La banda de tenis `≥ 90 %` tiene cuota media ~1,15,
+   así que todos sus picks caían a la Capa 2 con el motivo «cuota por debajo
+   del mínimo» y no llegaban a la pantalla del día. El reparto en secciones
+   mira también la Capa 2 justo por esto.
+2. **La MLB, la NBA y el tenis por debajo del 90 % usan el mismo método de
+   precio pero no tienen su propio desglose por lado.** Sin p5 propio no
+   suben: bajan a la Sección 2 con «mismo método, sin medir».
+
+Lo que no sube **no se oculta**: baja a la Sección 2 con el motivo medido
+escrito al lado. La diferencia entre «no te lo enseño» y «te lo enseño diciendo
+lo que rinde» es toda la tesis de este documento.
+
 ---
 
 ## 3. Tabla de reglas — fórmulas exactas

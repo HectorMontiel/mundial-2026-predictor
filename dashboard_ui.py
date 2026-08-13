@@ -137,6 +137,38 @@ def _cabecera(titulo: str, subtitulo: str = '', chips=(), icono: str = '') -> No
 # v14: login con contraseña RETIRADO a petición del usuario — la app es pública.
 
 # CSS para ocultar el branding/pie de Streamlit (aporte del repo de despliegue)
+#
+# v128 — «LA BARRA LATERAL NO ME SALE EN MÓVILES». NO ERA LA BARRA LATERAL.
+#
+# Era la regla 4 de este bloque, que hasta ahora decía
+#
+#     footer, [data-testid="stHeader"] { display: none !important }
+#
+# Streamlit 1.61 mete el botón de ABRIR la barra lateral DENTRO de la cabecera.
+# Medido en el navegador, a 375 px, con el CSS de la v127:
+#
+#     header[stHeader]                         -> display:none / hidden
+#       └ div[stToolbar]
+#           └ button[stExpandSidebarButton]    -> visibility:hidden · 0x0
+#
+# En escritorio no se nota porque la barra arranca desplegada y nadie la cierra.
+# En el teléfono la barra se abre ENCIMA del contenido, así que lo primero que
+# hace cualquiera es cerrarla para poder leer — y a partir de ahí no queda
+# ningún control en pantalla que la devuelva: los únicos botones visibles
+# pertenecen a la propia barra, que está fuera de la pantalla. Se pierden el
+# modo Principiante/Pro, el bankroll, el panel de créditos y la navegación
+# entera hasta recargar la página.
+#
+# La cabecera se HUNDE, no se borra: fondo transparente, sin sombra y sin
+# capturar toques, de modo que el contenido sigue empezando arriba del todo
+# exactamente igual que antes — está en `position: absolute`, así que no empuja
+# nada (comprobado: el `top` del h1 no se mueve de 112 px). Lo único que vuelve
+# a existir es el botón de abrir la barra, que sí recibe el toque. La marca de
+# Streamlit (menú, «Deploy», widget de estado) se oculta una por una, que es lo
+# que esta regla quería hacer desde el principio.
+#
+# El texto de dentro NO puede citar versiones: `test_mensajes_sin_jerga_interna`
+# analiza las cadenas de este fichero y esta constante es una de ellas.
 limpiar_interfaz_v2 = """
     <style>
         /* 1. Apuntar al identificador oficial moderno de Streamlit */
@@ -160,10 +192,48 @@ limpiar_interfaz_v2 = """
             display: none !important;
         }
 
-        /* 4. Mantener oculta la barra superior y el pie de página */
-        footer, [data-testid="stHeader"] {
+        /* 4. El pie, fuera. La barra superior NO: dentro vive el botón que
+         * abre la barra lateral, y sin él no hay forma de recuperarla en un
+         * teléfono. Se hunde la cabecera y se oculta la marca una por una.
+         * El porqué completo, medido, está en el comentario de Python de
+         * arriba. */
+        footer {
             display: none !important;
             visibility: hidden !important;
+        }
+        header[data-testid="stHeader"] {
+            display: block !important;
+            visibility: visible !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            pointer-events: none !important;
+        }
+        header[data-testid="stHeader"] [data-testid="stToolbar"] {
+            visibility: visible !important;
+            pointer-events: none !important;
+        }
+        [data-testid="stMainMenu"],
+        [data-testid="stAppDeployButton"],
+        [data-testid="stStatusWidget"],
+        [data-testid="stToolbarActions"] {
+            display: none !important;
+        }
+        /* el único superviviente de la cabecera: abrir la barra lateral */
+        [data-testid="stExpandSidebarButton"] {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        /* En el teléfono ese botón queda flotando sobre el contenido, así que
+         * se le da cuerpo para que se lea como un control y no como un icono
+         * suelto encima del texto. */
+        @media (max-width: 768px) {
+            [data-testid="stExpandSidebarButton"] {
+                background: rgba(22, 27, 38, .92) !important;
+                border: 1px solid rgba(255, 255, 255, .14) !important;
+                border-radius: 10px !important;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, .45) !important;
+            }
         }
     </style>
 """
@@ -4222,13 +4292,49 @@ BANKROLL = st.sidebar.number_input(
 
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
+    # v128 — EL CHIP DE CASAS DEJA DE SER UN LITERAL.
+    #
+    # Decía «6 casas» escrito a mano, así que seguía diciendo 6 tanto si el
+    # consenso ampliado estaba activo (hasta 20 casas) como si no. El usuario
+    # lo leyó como un tope del sistema —«sólo 6 casas»— cuando en realidad es
+    # el tablón base, y lo que decide si se amplía es un secreto que hoy falta.
+    #
+    # El número que importa no es cuántas casas EXISTEN, sino cuántas
+    # respaldan la comparación: con 6 una desviación del 5 % es ruido; con 20
+    # es una señal. Por eso el chip dice también si el consenso está ampliado
+    # o en modo de respaldo, igual que la ficha de partido desde la v127.
+    _chip_casas, _tono_casas = '6 casas', 'azul'
+    try:
+        import consenso_api as _oa_chip
+        if _oa_chip.disponible() and _oa_chip.hay_presupuesto():
+            _chip_casas, _tono_casas = '6 casas + consenso (~20)', 'ok'
+        elif _oa_chip.disponible():
+            _chip_casas, _tono_casas = '6 casas · créditos agotados', 'mira'
+        else:
+            _chip_casas, _tono_casas = '6 casas · sin ODDS_API_KEY', 'mira'
+    except Exception:
+        pass
     _cabecera(
         'Apuestas del Día',
         'Todos los partidos de HOY con cuota y valor calculados solos, '
         'ordenados para que lo accionable esté arriba.',
-        chips=[('6 casas', 'azul'), ('hora de CDMX', 'info'),
+        chips=[(_chip_casas, _tono_casas), ('hora de CDMX', 'info'),
                ('⚽ ⚾ 🏀 🎾', 'info')],
         icono='💎')
+    if _tono_casas == 'mira':
+        # El número de la barra lateral («cinco casas») y el de este chip
+        # («6») no se contradicen, pero puestos uno al lado del otro lo
+        # parecen: el consenso lo forman cinco casas y la sexta fuente es
+        # DraftKings a través de ESPN. Se dice entero para que no haya que
+        # adivinarlo.
+        st.caption(
+            "🟡 **El tablón va con sus 6 fuentes de precio base**: cinco casas "
+            "—Pinnacle, Bovada, Unibet, Matchbook y Playdoit— más DraftKings "
+            "a través de ESPN. El consenso ampliado a ~20 casas necesita "
+            "`ODDS_API_KEY` en los Secrets de Streamlit Cloud. No es un tope "
+            "del sistema: es una clave que falta, y con más casas la Sección 1 "
+            "detecta ventajas de precio que con seis no se distinguen del "
+            "ruido.")
     if _ayuda is not None:
         _ayuda.render(st, 'apuestas_dia')
     st.caption("SOLO los partidos de **HOY**: todas las ligas con "
@@ -4798,7 +4904,10 @@ def render_alpha_finder():
     # -----------------------------------------------------------------------
     _render_incidencias(r)          # v77: visible antes de las pestañas
     _tab_ev, _tab_prob, _tab_combi = st.tabs([
-        f"⚡ Máximo Valor ({len(r.get('capa1') or [])})",
+        # v128 — la pestaña cuenta la SECCIÓN 1, no la capa entera. El número
+        # que se lee de reojo tiene que ser el de lo jugable; el de la capa
+        # sigue visible en la franja de arriba («Pasan el filtro»).
+        f"⚡ Máximo Valor ({len(r.get('seccion1') or [])})",
         f"🎯 Máxima Confianza ({len(r.get('capa1_prob') or [])})",
         f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
     ])
@@ -4808,6 +4917,83 @@ def render_alpha_finder():
         _render_combinadas(r)
 
     with _tab_ev:
+        # -------------------------------------------------------------------
+        # v128 — LAS DOS SECCIONES, ARRIBA DEL TODO.
+        #
+        # Es la respuesta a «quiero ver apuestas en la capa 1 que sí pueda
+        # ganar». La lista que había debajo se ordenaba por el EV del modelo,
+        # que es el criterio medido en −4,66 % a −6,52 % sobre 37.158 apuestas.
+        # No se borra —sigue justo debajo, entera— pero deja de ser lo primero
+        # que se ve, porque lo primero que se ve es lo que se juega.
+        #
+        # Arriba sólo suben los canales con p5 de bootstrap positivo en el
+        # tramo que no se usó para elegirlos. Hoy son dos, y los dos aprueban
+        # raspando: ver `clasificador.secciones_del_dia`.
+        # -------------------------------------------------------------------
+        _s1 = r.get('seccion1') or []
+        _s2 = r.get('seccion2') or []
+        _CANALES = {
+            'precio_local': ('💰 Ventaja de precio al local',
+                             'Una casa blanda paga por encima del precio justo '
+                             'de Pinnacle. No depende de que el modelo acierte: '
+                             'son dos precios del mismo suceso.'),
+            'tenis_90': ('🎾 Tenis con probabilidad ≥ 90 %',
+                         'La única banda del proyecto con p5 positivo. Cuotas '
+                         'cortas (~1,15 de media): se gana por volumen y un '
+                         'solo precio malo se come varias apuestas buenas.'),
+        }
+        _seccion(f"✅ Sección 1 — para jugar en solitario ({len(_s1)})",
+                 'los únicos canales con percentil 5 positivo medido',
+                 'ok' if _s1 else 'mira')
+        if _s1:
+            for _canal, (_tit, _sub) in _CANALES.items():
+                _grupo = [p for p in _s1 if p.get('canal') == _canal]
+                if not _grupo:
+                    continue
+                st.markdown(f"**{_tit}** — {_sub}")
+                st.caption('Por qué está aquí: ' + (_grupo[0].get('motivo') or ''))
+                _tarjetas(_grupo, "")
+            st.caption(
+                "⚠️ **La mejor apuesta disponible no es una apuesta ganadora "
+                "garantizada.** Los dos canales de arriba aprueban el listón "
+                "del proyecto por poco: p5 +1,73 % el de precio y +0,18 % el "
+                "del tenis. Con una racha mala se ponen en negativo. Aquí no "
+                "se promete ROI: se promete que es lo único que la medición "
+                "sostiene.")
+        else:
+            st.info(
+                "**Hoy no hay nada en la Sección 1, y eso es un resultado, no "
+                "un fallo.** Sólo suben aquí dos cosas: fútbol donde una casa "
+                "paga por encima del precio justo de Pinnacle **al lado "
+                "local**, y tenis con probabilidad ≥ 90 % y precio publicado. "
+                "El resto de picks del día están abajo, con su motivo. "
+                "Forzar una apuesta porque la pantalla se ve vacía es "
+                "exactamente lo que este sistema existe para evitar.")
+        if _s2:
+            _n2 = r.get('n_seccion2') or len(_s2)
+            with st.expander(f"🟡 Sección 2 — alta probabilidad, precio "
+                             f"insuficiente ({_n2})", expanded=False):
+                st.caption(
+                    "No son apuestas sueltas: **combinarlas no arregla el "
+                    "problema, lo multiplica** (EV combinado = Π(1+EVᵢ)−1, así "
+                    "que tres patas al −4,76 % dan −13,62 %). Están aquí "
+                    "porque saber por qué algo NO se juega vale tanto como la "
+                    "lista de lo que sí.")
+                if _n2 > len(_s2):
+                    st.caption(f"Se muestran {len(_s2)} de {_n2}, las de mayor "
+                               f"probabilidad.")
+                for _p in _s2[:12]:
+                    st.markdown(
+                        f"- **{_p.get('apuesta','?')}** · {_p.get('partido','?')} "
+                        f"({_p.get('liga','')}) · "
+                        + (f"@ {_p['cuota']} · " if _p.get('cuota') else '')
+                        + f"{(_p.get('prob') or 0)*100:.0f} % — "
+                        f"{_p.get('motivo','')}")
+                if len(_s2) > 12:
+                    st.caption(f"…y {len(_s2)-12} más, en la lista completa de "
+                               f"abajo.")
+        st.divider()
+
         # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
         elite = r.get('elite') or []
         if elite:

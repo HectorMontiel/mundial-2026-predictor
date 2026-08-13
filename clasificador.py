@@ -371,6 +371,172 @@ def clasificar(mercados: List[Dict], backtest=None, techo_mercado=None,
             'confianza': conf}
 
 
+# ===========================================================================
+# v128 — LAS TRES SECCIONES, APLICADAS AL DÍA ENTERO
+#
+# Hasta aquí el clasificador sólo vivía en el Nivel 2 (un partido concreto),
+# porque es allí donde hay tablero de Playdoit y por tanto `dif_vs_consenso`
+# fila a fila. El Nivel 1 —«Apuestas del Día»— seguía repartiendo sus picks por
+# el EV del modelo, que es exactamente el criterio que el §0 de la bitácora mide
+# en −4,66 % a −6,52 %. O sea que las dos pantallas decían cosas distintas del
+# mismo partido, que es justo lo que el diseño de dos niveles prohíbe.
+#
+# El barrido del día no puede pagar un tablero por partido (mira cientos), así
+# que no tiene `dif_vs_consenso`. Lo que SÍ tiene son canales enteros ya
+# medidos, y sólo dos de ellos cruzan el listón del proyecto —p5 del bootstrap
+# positivo en el tramo que no se usó para elegir—:
+#
+#   1. `valor_vs_sharp` AL LADO LOCAL, en fútbol. Comprar al mejor precio del
+#      tablón cuando el devig de Pinnacle da ≥ 30 % y el EV contra ese precio
+#      justo pasa del 1 %.
+#   2. Tenis con probabilidad ≥ 90 % y precio publicado.
+#
+# El resto de lo que hoy sale en «Máximo Valor» —los picks por EV del modelo,
+# la MLB, la NBA, el tenis por debajo del 90 %— no está descartado ni oculto:
+# baja a la Sección 2 con el motivo medido escrito al lado. La diferencia entre
+# «no te lo enseño» y «te lo enseño diciendo lo que rinde» es toda la tesis de
+# este proyecto.
+# ===========================================================================
+
+# Canal de line shopping al lado LOCAL (`_v90_line_shopping_por_lado.json`,
+# reproducido el 2026-08-12 sobre `pick_ledger_total.csv`). Es la única
+# configuración del canal que da p5 > 0 en LAS DOS mitades del ledger:
+#
+#     lado        pliegues 0-2 (elige)      pliegues 3-4 (juzga)
+#     local       n=1817  +5,09 %  p5 +1,09 %   n=353  +11,49 %  p5 +1,73 %
+#     empate      n= 546 +12,21 %  p5 +1,08 %   n= 56   −7,09 %  p5 −38,91 %
+#     visitante   n=1168 +10,21 %  p5 +4,28 %   n=234   +7,92 %  p5  −5,10 %
+#
+# El empate y el visitante lucen bien en la mitad con la que se eligió y se
+# hunden en la otra: es el retrato exacto de un hallazgo que no era real. Por
+# eso van a la Sección 2 aunque salgan del mismo canal.
+CANAL_LOCAL_MEDICION = {
+    'n_elige': 1817, 'roi_elige': 0.0509, 'p5_elige': 0.0109,
+    'n_juicio': 353, 'roi_juicio': 0.1149, 'p5_juicio': 0.0173,
+}
+CANAL_NO_LOCAL_MEDICION = {
+    'empate': {'n_juicio': 56, 'roi_juicio': -0.0709, 'p5_juicio': -0.3891},
+    'visitante': {'n_juicio': 234, 'roi_juicio': 0.0792, 'p5_juicio': -0.0510},
+}
+
+
+def _prob(x) -> Optional[float]:
+    """Probabilidad utilizable. `_f` no sirve: exige > 1 y una prob nunca lo es."""
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return None
+    return v if 0.0 < v <= 1.0 else None
+
+
+def canal_del_pick(p: Dict) -> Dict:
+    """
+    A qué sección va un pick del barrido del día, y por qué.
+
+    Devuelve `{'seccion': 1|2, 'canal': str, 'motivo': str, 'medicion': dict}`.
+    El `motivo` está escrito para salir tal cual en pantalla: es la respuesta a
+    «¿por qué esto sí y aquello no?», y sin ella la separación en dos listas
+    sería una opinión más.
+    """
+    dep = str(p.get('deporte') or 'Fútbol')
+    prob = _prob(p.get('prob'))
+    cuota = _f(p.get('cuota'))
+
+    # --- 1. LA EXCEPCIÓN DEL TENIS ----------------------------------------
+    #
+    # Va la primera por el mismo motivo que en `semaforo`: es la única regla
+    # con p5 positivo que no necesita consenso. Y aquí importa una cosa más
+    # que en el Nivel 2: la cuota media de esta banda es ~1,15, o sea que el
+    # mínimo de 1,50 del barrido la tira entera a la Capa 2. Ésta es la
+    # puerta por la que la única regla rentable del proyecto vuelve a
+    # aparecer en la pantalla del día.
+    if dep.lower().startswith('tenis') and prob is not None \
+            and prob >= REGLA_TENIS_PROB:
+        m = REGLA_TENIS_MEDICION
+        if not cuota:
+            return {'seccion': 2, 'canal': 'tenis_90_sin_precio',
+                    'motivo': 'supera el 90 % de probabilidad, pero ninguna '
+                              'casa lo cotiza todavía: sin precio no hay '
+                              'apuesta que medir'}
+        return {'seccion': 1, 'canal': 'tenis_90', 'medicion': m,
+                'motivo': f"tenis con {prob*100:.0f} % de probabilidad: la "
+                          f"banda ≥ 90 % rinde {m['roi']*100:+.2f} % con p5 "
+                          f"{m['p5']*100:+.2f} % sobre {m['n']:,} partidos"
+                          .replace(',', '.')
+                          + f". Cuota media de la banda ~{m['cuota_media']:.2f}: "
+                            f"se gana por volumen, no por golpe."}
+
+    # --- 2. EL CANAL DE PRECIO --------------------------------------------
+    if p.get('valor_mercado'):
+        lado = str(p.get('lado') or '')
+        if dep == 'Fútbol' and lado == 'home':
+            c = CANAL_LOCAL_MEDICION
+            return {'seccion': 1, 'canal': 'precio_local', 'medicion': c,
+                    'motivo': f"una casa blanda paga por encima del precio "
+                              f"justo de Pinnacle, y es el LADO LOCAL: el "
+                              f"único del canal con p5 positivo en las dos "
+                              f"mitades del ledger "
+                              f"({c['roi_juicio']*100:+.2f} % con p5 "
+                              f"{c['p5_juicio']*100:+.2f} % sobre "
+                              f"{c['n_juicio']} apuestas de juicio)"}
+        if dep == 'Fútbol':
+            nom = 'empate' if lado == 'draw' else 'visitante'
+            d = CANAL_NO_LOCAL_MEDICION.get(nom) or {}
+            return {'seccion': 2, 'canal': 'precio_no_local',
+                    'motivo': f"mismo canal de precio, pero al {nom}: en el "
+                              f"tramo de juicio da p5 "
+                              f"{(d.get('p5_juicio') or 0)*100:+.1f} % con "
+                              f"{d.get('n_juicio', 0)} apuestas. Luce bien en "
+                              f"la mitad con la que se eligió y se hunde en la "
+                              f"otra, que es el retrato de un hallazgo que no "
+                              f"era real"}
+        return {'seccion': 2, 'canal': 'precio_sin_medir',
+                'motivo': f"canal de precio en {dep}, que es el mismo método "
+                          f"pero SIN medir: el desglose por lado se hizo sólo "
+                          f"sobre fútbol. Sin su propio p5 no puede subir"}
+
+    # --- 3. TODO LO DEMÁS: EL EV DEL MODELO --------------------------------
+    return {'seccion': 2, 'canal': 'ev_del_modelo',
+            'motivo': 'seleccionado por el valor esperado del modelo, que está '
+                      'medido en −4,66 % a −6,52 % de ROI sobre 37.158 '
+                      'apuestas y es anti-indicador del cierre. Como pata o '
+                      'como lectura, no como apuesta suelta'}
+
+
+def secciones_del_dia(capa1: List[Dict], capa2: Optional[List[Dict]] = None,
+                      max_seccion2: int = 40) -> Dict:
+    """
+    Reparte los picks del barrido del día en Sección 1 y Sección 2.
+
+    `capa2` entra porque ahí es donde acaban los picks de tenis de la banda
+    ≥ 90 %: su cuota media (~1,15) está por debajo del mínimo de 1,50 del
+    barrido, así que el filtro de élite los aparta antes de que nadie los mire.
+
+    El orden de la Sección 1 no es por EV ni por probabilidad: es por la
+    FUERZA DE LA MEDICIÓN que respalda cada canal. El precio al lado local
+    tiene p5 +1,73 % en juicio; el tenis, +0,18 %. Poner primero lo mejor
+    medido es la única prioridad que este proyecto puede defender.
+    """
+    orden_canal = {'precio_local': 0, 'tenis_90': 1}
+    s1, s2, vistos = [], [], set()
+    for p in list(capa1 or []) + list(capa2 or []):
+        if not isinstance(p, dict):
+            continue
+        clave = (p.get('deporte'), p.get('partido'), p.get('mercado'),
+                 p.get('apuesta'))
+        if clave in vistos:
+            continue
+        vistos.add(clave)
+        c = canal_del_pick(p)
+        fila = {**p, **c}
+        (s1 if c['seccion'] == 1 else s2).append(fila)
+    s1.sort(key=lambda r: (orden_canal.get(r.get('canal'), 9),
+                           -(r.get('prob') or 0), -(r.get('ev') or 0)))
+    s2.sort(key=lambda r: -(r.get('prob') or 0))
+    return {'seccion1': s1, 'seccion2': s2[:max(0, int(max_seccion2))],
+            'n_seccion2': len(s2)}
+
+
 def ids_para_parlay(clasificacion: Dict, prob_minima_relleno: float = 0.85,
                     max_relleno: int = 1) -> List[str]:
     """

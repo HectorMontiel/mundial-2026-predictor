@@ -813,6 +813,19 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                         'cuota': _v['cuota'], 'cuota_justa': _v['cuota_justa'],
                         'ev': _v['ev'], 'casa': _v['casa'],
                         'valor': '🟢', 'evc': True, 'valor_mercado': True,
+                        # v128 — EL LADO VIAJA CON EL PICK.
+                        #
+                        # Sin este campo no se puede saber desde fuera si un
+                        # pick de este canal es local, empate o visitante, y
+                        # eso es precisamente lo que decide su sección: el
+                        # desglose de `_v90_line_shopping_por_lado` mide p5
+                        # +1,73 % al local y −38,91 % al empate en el mismo
+                        # tramo de juicio. Se podía deducir comparando la
+                        # etiqueta con el nombre del equipo, pero deducirlo a
+                        # partir de un texto que ya ha pasado por el mapeador
+                        # de nombres es exactamente el tipo de atajo que en
+                        # este proyecto ha acabado emparejando otro partido.
+                        'lado': _v.get('lado'),
                         'pinnacle': _v.get('pinnacle'),
                         'origen': 'line shopping vs Pinnacle'}
                     # -------------------------------------------------------
@@ -1008,6 +1021,7 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
                             'cuota_justa': _v.get('cuota_justa'),
                             'ev': _v['ev'], 'casa': _v.get('casa'),
                             'valor': '🟢', 'evc': True, 'valor_mercado': True,
+                            'lado': _lado,            # v128, ver el fútbol
                             'pinnacle': _v.get('pinnacle'),
                             'origen': 'line shopping vs Pinnacle'})
             # v91 — UNA sola línea de estado en vez de tres solapadas. Que el
@@ -1310,6 +1324,7 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                                 'ev': _v['ev'], 'casa': _v.get('casa'),
                                 'valor': '🟢', 'evc': True,
                                 'valor_mercado': True,
+                                'lado': _lado,        # v128, ver el fútbol
                                 'pinnacle': _v.get('pinnacle'),
                                 'superficie': superficie,
                                 'origen': 'line shopping vs Pinnacle'})
@@ -2550,6 +2565,34 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               'incidencias': incidencias,
               })
     # -----------------------------------------------------------------------
+    # v128 — LAS TRES SECCIONES TAMBIÉN AQUÍ, QUE ES DONDE SE MIRA PRIMERO.
+    #
+    # El Nivel 1 repartía por EV del modelo y el Nivel 2 por ventaja de precio,
+    # así que el mismo partido podía salir «de élite» en una pantalla y
+    # «amarillo» en la otra. Ver `clasificador.secciones_del_dia` para qué
+    # canales suben y con qué medición.
+    #
+    # Se AÑADE, no se sustituye: `capa1`, `elite` y compañía siguen igual, y
+    # con ellas Telegram, la exportación y el registro de rendimiento. Lo que
+    # cambia es qué se enseña primero y con qué etiqueta.
+    #
+    # `capa2` entra en el reparto porque ahí es donde el mínimo de cuota de
+    # 1,50 deja el tenis de la banda ≥ 90 % —cuota media ~1,15—, que es la
+    # única regla con p5 positivo de todo el proyecto.
+    try:
+        import clasificador as _cla
+        _sec = _cla.secciones_del_dia(capa1, capa2)
+        r['seccion1'] = _sec['seccion1']
+        r['seccion2'] = _sec['seccion2']
+        r['n_seccion2'] = _sec['n_seccion2']
+        logger.info(f"[alpha] secciones: 1={len(_sec['seccion1'])} "
+                    f"2={_sec['n_seccion2']} · canales="
+                    f"{sorted({p.get('canal') for p in _sec['seccion1']})}")
+    except Exception as e:      # nunca puede tumbar el barrido del día
+        r['seccion1'], r['seccion2'], r['n_seccion2'] = [], [], 0
+        logger.warning(f"[alpha] secciones no calculadas: "
+                       f"{type(e).__name__}: {e}")
+    # -----------------------------------------------------------------------
     # v106 — LA HORA DE CDMX SE ANOTA AQUÍ, EN EL BORDE DE SALIDA.
     #
     # El usuario pidió ver a qué hora se juega cada partido, en hora de Ciudad
@@ -2568,7 +2611,10 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         import horario
         _vistas = ('capa1', 'capa2', 'elite', 'candidatos', 'capa1_prob',
                    'pronosticos', 'seleccion_dia', 'sin_modelo',
-                   'mejores_patas')
+                   # v128: las secciones son COPIAS de los picks, así que
+                   # necesitan su propia anotación de hora — si no, las
+                   # tarjetas de la Sección 1 salían sin hora de CDMX.
+                   'mejores_patas', 'seccion1', 'seccion2')
         for _k in _vistas:
             for _p in (r.get(_k) or []):
                 if isinstance(_p, dict):
