@@ -1821,7 +1821,8 @@ def limpiar_memoria_partidos() -> None:
 def cuotas_partido(deporte: str, home: str, away: str,
                    odds_espn: Optional[dict] = None,
                    espn_ref: Optional[tuple] = None,
-                   fecha=None, liga: Optional[str] = None) -> Dict:
+                   fecha=None, liga: Optional[str] = None,
+                   clave_consenso: Optional[str] = None) -> Dict:
     """
     Todas las cuotas disponibles de un partido, de todas las fuentes.
 
@@ -1829,6 +1830,27 @@ def cuotas_partido(deporte: str, home: str, away: str,
     `_buscar`). Quien las sepa —el barrido las tiene en el fixture— evita que
     el emparejador confunda este partido con otro del mismo cruce en otra
     fecha o en otra categoría. Quien no las pase se comporta como siempre.
+
+    v129 — `clave_consenso` SEPARA DOS COSAS QUE ESTABAN PEGADAS.
+    ------------------------------------------------------------
+    `liga` se usa como TEXTO para detectar categoría (femenino, filial): ver
+    `categoria_efectiva`. La v127 la reutilizó además como clave de la lista
+    blanca del consenso ampliado, y ahí se rompió, porque quien más llama a
+    esta función pasa el CÓDIGO DE ESPN, no la clave del proyecto:
+
+        fixtures_espn._completar_cuotas → liga='mex.1', 'esp.1', 'ita.1'…
+        lista blanca de consenso_api    → 'liga_mx', 'laliga', 'serie_a'…
+
+    Intersección: NINGUNA. O sea que el barrido del día —que es el que ve casi
+    todos los partidos— nunca llegaba a pedir el consenso ampliado, y el
+    contador de créditos se quedaba en cero con la clave puesta y funcionando.
+    Sólo la vista de partido, que sí pasa la clave del proyecto, lo activaba.
+
+    No se puede arreglar cambiando lo que se pasa en `liga`: ese texto es lo
+    que ve el guardia de categoría, y sustituirlo por la clave del proyecto
+    cambiaría a quién empareja. Así que la clave del consenso viaja aparte y
+    cae a `liga` cuando no se pasa, que es como se comportaba la vista de
+    partido y por eso allí seguía funcionando.
 
     `odds_espn` son las que ya vinieron con el fixture (dict de
     `fixtures_espn._odds_de_evento`), que no cuestan ninguna petición.
@@ -1844,8 +1866,12 @@ def cuotas_partido(deporte: str, home: str, away: str,
     # v115 — lectura del caché (ver `_MEM_PARTIDO`). Sólo cuando la respuesta
     # depende exclusivamente de estos cinco argumentos.
     _cacheable = odds_espn is None and espn_ref is None
+    # v129: `clave_consenso` entra en la clave del caché. Si no entrara, la
+    # primera llamada sin consenso dejaría cacheada una respuesta de 6 casas y
+    # la siguiente —ya con la clave de la lista blanca— se la comería.
     _clave_mem = (deporte, normalizar(home), normalizar(away),
-                  str(fecha or '')[:10], str(liga or ''))
+                  str(fecha or '')[:10], str(liga or ''),
+                  str(clave_consenso or ''))
     if _cacheable:
         _hit = _MEM_PARTIDO.get(_clave_mem)
         if _hit and (time.time() - _hit[0]) < TTL:
@@ -2033,11 +2059,12 @@ def cuotas_partido(deporte: str, home: str, away: str,
     # créditos del mes. Si no hay clave, si la liga no está en la lista o si el
     # presupuesto se agotó, esto devuelve {} y el tablón sigue con sus cinco
     # casas de siempre — que es el comportamiento anterior, intacto.
-    if liga:
+    _clave_oa = clave_consenso or liga
+    if _clave_oa:
         try:
             import consenso_api as _oa
             if _oa.disponible():
-                extra2 = _oa.casas_del_partido(liga, home, away)
+                extra2 = _oa.casas_del_partido(_clave_oa, home, away)
                 nuevas2 = [k for k in extra2 if k not in casas]
                 for k, v in extra2.items():
                     casas.setdefault(k, v)

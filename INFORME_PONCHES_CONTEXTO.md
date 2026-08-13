@@ -1,5 +1,14 @@
 # Filtro contextual de ponches — diagnóstico, simulación y diseño
 
+> **CORRECCIÓN TRAS EL TRAMO DE JUICIO (2025).** Este informe recomendaba en su
+> primera versión el estimador **C** (BF de las aperturas reales **+ ancla por
+> papel de 17,0**). Medido después sobre 2025 —4.045 aperturas que no se usaron
+> para elegir nada— **el ancla por papel no aguanta**: su aportación propia
+> sobre B tiene p5 **−0,0523**. Funcionaba en 2026 porque es la temporada con la
+> que se eligió. La recomendación pasa a ser **B**, sin ancla y sin corte de
+> «alternante». El detalle está en el §9, que manda sobre el §4 y el §5 en todo
+> lo que los contradiga.
+
 Encargo: evitar falsos positivos como el de Detroit del 11/08/2026 añadiendo una
 capa de contexto pre-partido a la regla 3 (ponches) sin tocar las cuatro reglas
 de decisión.
@@ -336,3 +345,206 @@ Por la regla del §0 de la bitácora, esto va escrito igual de grande que lo dem
   clara y el bootstrap aguanta, pero es un subgrupo, no una temporada.
 - **La línea alternativa no es un salvavidas.** En las dos aperturas de Anderson
   del backtest, el 3.5+ gana una y pierde otra.
+
+---
+
+## 9. El tramo de juicio (2025) — y la recomendación cambia
+
+2026 es la temporada con la que se eligieron el ancla de 17,0 y el corte de
+«alternante» en 0,50. Eso los convertía en una estimación. Aquí está el tramo
+que **no** se usó para elegir nada: **2025, 4.045 aperturas fuera de muestra**.
+
+### Los barridos: es una superficie, no un pico
+
+| ancla | 2025 mejora / p5 | 2026 mejora / p5 | robusto |
+|---|---|---|---|
+| 14,0 | +0,0129 / **+0,0061** | +0,0383 / +0,0255 | sí |
+| 16,0 | +0,0142 / **+0,0081** | +0,0377 / +0,0260 | sí |
+| **17,0** | +0,0146 / **+0,0084** | +0,0367 / +0,0260 | sí |
+| 20,0 | +0,0149 / **+0,0098** | +0,0325 / +0,0236 | sí |
+| 23,5 | +0,0127 / **+0,0084** | +0,0246 / +0,0179 | sí |
+
+**7 de 7 anclas y 5 de 5 cortes salen robustos en las dos temporadas.** No hay
+pico: no depende de haber acertado con el número.
+
+Pero eso mismo es la pista. Que **23,5 también funcione** —o sea, sin ancla
+ninguna— significa que lo que mejora no es el ancla: es **usar los BF de las
+aperturas reales**.
+
+### El desglose que lo decide
+
+Separando las dos mitades del arreglo:
+
+- **B** — BF de sus aperturas reales, encogido hacia la liga (23,5), como hoy.
+- **C** — lo mismo **+ ancla por papel** (17,0 si alterna).
+
+| temporada | grupo | mejora de B sobre el desplegado | **aportación propia del ancla (C−B)** |
+|---|---|---|---|
+| **2025** (juicio) | alternantes (n=115) | +0,1480 · p5 **+0,0855** | +0,0661 · p5 **−0,0523** |
+| 2026 (elección) | alternantes (n=160) | +0,3445 · p5 +0,2527 | +0,2255 · p5 +0,1253 |
+| 2025 | abridores puros (n=3.930) | +0,0088 · p5 +0,0047 | 0,0000 |
+| 2026 | abridores puros (n=2.812) | +0,0064 · p5 +0,0023 | 0,0000 |
+
+**El ancla por papel aporta en la temporada con la que se eligió y no aporta en
+la otra.** Es el patrón exacto que este proyecto ya pagó caro. Además en 2025
+*sobrecorrige*: el sesgo de C se va a −0,304 mientras B se queda en +0,471.
+
+### Recomendación revisada
+
+**Implementar B. No implementar el ancla por papel ni el corte de «alternante».**
+
+B aguanta el bootstrap en las dos temporadas y en los dos subgrupos, y no tiene
+ninguna perilla que ajustar — que es justo lo que la hace difícil de
+sobreajustar. El ancla se queda fuera hasta que haya una tercera temporada que
+la respalde.
+
+### Lo que B bloquea, en las dos temporadas
+
+| temporada | línea | emite hoy | acierta | emite B | acierta | bloqueadas | acertaban |
+|---|---|---|---|---|---|---|---|
+| 2025 | 5.5 | 1.277 | 56,1 % | 1.201 | **57,6 %** | 76 | **32,9 %** (p5 25,0 %) |
+| 2026 | 5.5 | 1.010 | 54,5 % | 955 | **56,3 %** | 55 | **21,8 %** (p5 12,7 %) |
+| 2025 | 4.5 | 2.404 | 64,1 % | 2.306 | 64,7 % | 98 | 50,0 % |
+| 2026 | 4.5 | 1.899 | 62,2 % | 1.823 | **63,3 %** | 77 | **36,4 %** |
+
+Consistente en las dos: lo que quita acertaba entre el 22 % y el 33 % en la
+línea de 5.5, contra el 55 % del conjunto.
+
+### El precio de la honestidad: B no salva las dos aperturas de Detroit
+
+| salida | K real | desplegado P(>5.5) | **B** P(>5.5) | decisión de B |
+|---|---|---|---|---|
+| 11/08/2026 | 4 | 60,0 % | **46,7 %** | **bloquea** (por los pelos) |
+| 05/08/2026 | **0** | 68,4 % | **59,5 %** | **NO bloquea** |
+
+El estimador que atrapaba las dos era C, y C es el que no valida. **B salva el
+boleto del 11/08 por 3,3 puntos y habría dejado pasar el del 05/08, que acabó
+en cero ponches.** Es menos bonito y es lo que sostiene la medición.
+
+### El umbral del 50 % fijo tampoco se sostiene
+
+En la línea de 6.5, exigir `P ≥ 50 %` emite apuestas que aciertan el **47,0 %
+en 2025 y el 47,2 % en 2026**. Son perdedoras a cualquier precio cercano al
+par, y pasan el umbral. Confirma el §5: el corte tiene que ser **contra la
+cuota ofrecida**, no contra un 50 % fijo.
+
+### Estado
+
+| pieza | veredicto |
+|---|---|
+| BF desde las aperturas reales (**B**) | **validado en las dos temporadas · listo para implementar** |
+| ancla por papel (17,0) | **rechazado** — no aguanta el tramo de juicio |
+| corte de «alternante» | **innecesario** — sin ancla no hace falta clasificar |
+| umbral del 50 % | **rechazado** — sustituir por umbral contra precio |
+| ROI de la capa | **desconocido** — sigue faltando histórico de precios de props |
+
+---
+
+## 10. El corte por cuota — medido, no fijado
+
+### Primero, una corrección: la regla ya era contra precio
+
+En el §5 escribí que había que sustituir un «umbral del 50 % fijo». **Ese
+umbral no existía en la app.** La regla 3 de `veredicto()` emite cuando
+
+```
+EV = cuota_ofrecida × P − 1 > 0        ⟺        P > 1 / cuota
+```
+
+que es exactamente un corte contra el precio. El 50 % era una simplificación
+de *mi* backtest para poder contar apuestas sin histórico de cuotas, y lo
+confundí con la regla del sistema. Lo que sí queda en pie es la pregunta de
+fondo: **¿se puede fiar uno del `P` que entra en esa fórmula, justo en el
+borde?**
+
+### El borde es donde se pierde el dinero
+
+Con el λ ya corregido por `contexto_ponches`, se mira la banda pegada al punto
+muerto —el modelo dice entre 50 % y 52 %— en las dos temporadas:
+
+| temporada | n | acierto | p5 bootstrap |
+|---|---|---|---|
+| 2025 | 416 | **49,0 %** | 45,0 % |
+| 2026 | 290 | **44,1 %** | 39,3 % |
+
+Desglosado por línea, el patrón es el mismo y empeora cuanto más alta la línea:
+
+| línea | 2025 | 2026 |
+|---|---|---|
+| 3.5 | 61,1 % (n=90) | 47,2 % (n=53) |
+| 4.5 | 51,1 % (n=141) | 45,1 % (n=102) |
+| 5.5 | **44,0 %** (n=125) | **40,7 %** (n=91) |
+| 6.5 | **36,7 %** (n=60) | 45,5 % (n=44) |
+
+Donde el modelo promete un 51 % se cumple entre el 44 % y el 49 %, con el p5
+por debajo del 50 % en las dos temporadas. **Son perdedoras que salen por
+asomar un pelo por encima del punto muerto.**
+
+### La corrección, y por qué 2 puntos
+
+Se descuentan 2 puntos a la probabilidad **antes** de compararla con el precio.
+Efecto sobre el acierto de lo que se emite:
+
+| temporada | 3.5 | 4.5 | 5.5 | 6.5 |
+|---|---|---|---|---|
+| 2025 | +0,3 pp | +0,9 pp | **+1,6 pp** | **+1,6 pp** |
+| 2026 | +0,5 pp | +1,1 pp | **+1,7 pp** | +0,4 pp |
+
+**Mejora en las 8 celdas de 8.** No es un pico: es toda la superficie, que es
+el criterio que este proyecto exige desde que aprendió la lección.
+
+**No se sube a 4 puntos** aunque en 2025 siga mejorando en las cuatro líneas:
+en 2026 se da la vuelta en 5.5 (58,0 % → 57,8 %) y en 6.5 (48,4 % → 48,3 %).
+Una mejora que sólo aparece en una temporada es exactamente lo que descartó el
+ancla por papel en el §9.
+
+### Lo que se descartó: corregir la brecha entera
+
+La tentación era descontar la brecha de calibración medida en vez de una
+constante. No se sostiene, porque **la brecha no es estable entre temporadas**:
+
+| línea | 2025 | 2026 | diferencia |
+|---|---|---|---|
+| 3.5 | −0,3 pp | +1,4 pp | 1,7 pp |
+| 4.5 | −0,4 pp | +1,8 pp | 2,3 pp |
+| 5.5 | +0,7 pp | +2,4 pp | 1,7 pp |
+| 6.5 | +1,8 pp | +2,4 pp | 0,6 pp |
+
+En 2025 dos de las cuatro líneas están **sobre**corregidas (brecha negativa).
+Calibrar el descuento por línea con estos datos sería ajustar ruido. Los 2
+puntos planos son menos finos y aguantan en las ocho celdas.
+
+### La decisión la toma la app
+
+Cuando el descuento tumba la apuesta, la pantalla no enseña dos cifras para que
+el usuario elija: dice qué hacer y qué haría falta para cambiar de opinión.
+
+```
+📊 Línea de ponches en 5.5 · se le esperan 5.6 ponches ·
+   P(más de 5.5) = 49 %, ajustada al contexto 47 % · cuota 1.90 → EV −10,0 %.
+🔍 Se le cuentan 20.1 bateadores por salida a partir de sus 4 aperturas
+   reales (15.0 de media, 3.4 entradas), no del promedio de la liga.
+⛔ No la juegues. Con la probabilidad ajustada al contexto (47 %) y esa cuota,
+   la apuesta pierde dinero a la larga (EV −10,0 %). Haría falta una cuota de
+   2.11 o mejor para que compensara.
+```
+
+### Sobre la línea alternativa
+
+El encargo pedía sugerir «la línea segura es 3.5+ con X %». **No se implementa
+todavía, y el motivo es que no hay precio.** `props_ponches()` trae de Pinnacle
+UNA línea por lanzador —la que la casa abre—, no el abanico. Publicar la
+probabilidad de un 3.5+ que nadie cotiza sería enseñar una apuesta que no se
+puede colocar, y este proyecto ya tiene la regla de no pintar cuotas justas
+como si fueran precios. Cuando haya fuente con líneas alternativas, la pieza
+que falta es sólo la de leerlas: el cálculo ya está.
+
+### Sobre llevarlo al tenis
+
+Escalable **en la forma, no en el número**. Lo que se generaliza es el método:
+contar la variable de volumen (bateadores, juegos, saques) de las salidas del
+propio jugador en vez de un agregado, y descontar el optimismo del borde. Los
+2 puntos son de MLB y de estas dos temporadas; aplicarlos al tenis sin medirlo
+sería el mismo error que el ancla de 17,0. El módulo está escrito para que el
+ancla y el descuento entren por parámetro, precisamente para poder medirlos
+aparte en cada deporte.

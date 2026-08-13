@@ -308,7 +308,10 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA,
 
     fixtures.sort(key=lambda f: (f.get('inicio') or f.get('fecha') or ''))
     for code in codigos:
-        _completar_cuotas(fixtures, 'futbol', 'soccer', code)
+        # v129: `clave` es la del proyecto («liga_mx»); `code` es la de ESPN
+        # («mex.1»). La lista blanca del consenso usa la primera.
+        _completar_cuotas(fixtures, 'futbol', 'soccer', code,
+                          clave_proyecto=clave)
     logger.info(f"[fixtures/{clave}] {len(fixtures)} próximos partidos "
                 f"(ESPN {'+'.join(codigos)}), "
                 f"{sum(1 for f in fixtures if f.get('odd_home'))} con cuota.")
@@ -561,9 +564,16 @@ def con_cuota(fixtures: List[Dict]) -> Dict:
 
 
 def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
-                      liga_espn: str) -> int:
+                      liga_espn: str, clave_proyecto: Optional[str] = None) -> int:
     """
     v71 — rellena las cuotas que ESPN no trajo, sin coste de cuota de API.
+
+    v129 — `clave_proyecto` es la clave interna de la competición («liga_mx»,
+    «laliga»…), que NO es lo mismo que `liga_espn` («mex.1», «esp.1»). Hace
+    falta porque la lista blanca del consenso ampliado está indexada por la
+    primera, y esta función pasaba la segunda: por eso el barrido del día
+    nunca pedía el consenso y el contador de créditos se quedaba a cero.
+    Ver `cuotas_multi.cuotas_partido`.
 
     El scoreboard de ESPN cubre ~32 % de los fixtures. El resto se completa con
     el tablón público de Pinnacle (sin clave ni límite) y, si aún falta, con el
@@ -616,7 +626,8 @@ def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
             res = cm.cuotas_partido(deporte, fx['home'], fx['away'],
                                     espn_ref=ref if fx.get('event_id') else None,
                                     fecha=fx.get('inicio') or fx.get('fecha'),
-                                    liga=liga_espn)
+                                    liga=liga_espn,
+                                    clave_consenso=clave_proyecto)
         except Exception:
             continue
         # El ANCLA SHARP se toma siempre que exista, traiga o no precio ESPN:

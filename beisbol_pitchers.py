@@ -81,6 +81,34 @@ K_LINEA_ALTA = 6.0
 # no paga el riesgo aunque se acierte.
 CUOTA_GANADOR_MIN = 1.50
 
+# v129 — EL DESCUENTO DE CALIBRACIÓN DE LOS PONCHES, MEDIDO.
+#
+# La regla de ponches emite cuando `cuota × P − 1 > 0`, que es lo correcto:
+# es un umbral contra el precio, no un porcentaje fijo. El problema es el
+# borde. Medido sobre las aperturas de 2025 y 2026 fuera de muestra, con el λ
+# ya corregido por `contexto_ponches`, la banda pegada al punto muerto —el
+# modelo dice entre el 50 % y el 52 %— rinde así:
+#
+#     temporada    n     acierto    p5 del bootstrap
+#     2025        416     49,0 %        45,0 %
+#     2026        290     44,1 %        39,3 %
+#
+# O sea: donde el modelo promete un 51 % se cumple entre el 44 % y el 49 %, y
+# el p5 está por debajo del 50 % en las dos temporadas. Son apuestas
+# perdedoras que hoy salen por asomar un pelo por encima del punto muerto.
+#
+# Descontar 2 puntos a la probabilidad antes de calcular el EV mejora el
+# acierto de lo emitido en LAS 8 CELDAS probadas (dos temporadas × cuatro
+# líneas), de +0,3 a +1,7 puntos. No es un pico: es toda la superficie.
+#
+#     2025:  3.5 +0,3   4.5 +0,9   5.5 +1,6   6.5 +1,6
+#     2026:  3.5 +0,5   4.5 +1,1   5.5 +1,7   6.5 +0,4
+#
+# NO se sube a 4 puntos aunque en 2025 siga mejorando: en 2026 se da la vuelta
+# en las líneas de 5.5 y 6.5, y una mejora que sólo aparece en una temporada es
+# justo lo que este proyecto ha aprendido a no desplegar.
+MARGEN_CALIBRACION_K = 0.02
+
 # Un abridor es «bueno» si su FIP está en el mejor tercio de los abridores de
 # su temporada. Es un corte relativo, no un número absoluto: el nivel de
 # pitcheo de la liga cambia año a año y un FIP de 3,80 no significa lo mismo
@@ -329,7 +357,7 @@ def perfil_pitcher(pid, anio: Optional[int] = None) -> Optional[Dict]:
             (fip - corte['fip_min']) / max(corte['fip_max'] - corte['fip_min'],
                                            1e-6), 0.0, 1.0))
     nombre = str(act['nombre'].iloc[0]) if 'nombre' in act.columns else ''
-    return {'pitcher': pid, 'nombre': nombre,
+    perfil = {'pitcher': pid, 'nombre': nombre,
             'fip': round(fip, 2),
             'era': round(float(act['era'].mean()), 2)
             if 'era' in act.columns and act['era'].notna().any() else None,
@@ -342,6 +370,31 @@ def perfil_pitcher(pid, anio: Optional[int] = None) -> Optional[Dict]:
             'bueno': bueno, 'percentil': round(percentil, 3)
             if percentil is not None else None,
             'temporadas': usadas}
+
+    # v129 — LOS BATEADORES POR SALIDA, CONTADOS DE SUS APERTURAS.
+    #
+    # `bf_ap` sale de `BF_temporada / GS`, y ese cociente miente en cuanto el
+    # lanzador alterna abrir y relevar: el `bf` cuenta también los bateadores
+    # que enfrentó de relevo y el `gs` sólo las aperturas. La guarda de la
+    # v115 lo detecta y cae a la media de la LIGA, que para un alternante
+    # sigue siendo el número equivocado — 23,5 bateadores cuando enfrenta 14.
+    #
+    # `contexto_ponches` los cuenta del `gameLog`, que marca `gamesStarted`
+    # partido a partido. Medido fuera de muestra en 2025 y 2026: p5 del
+    # bootstrap +0,0085 y +0,0260 sobre 4.045 y 2.972 aperturas. En el
+    # subgrupo de alternantes el sesgo baja de +0,87 a +0,47 (2025) y de
+    # +1,38 a +0,76 (2026).
+    #
+    # Si la API no responde, `anotar_perfil` devuelve el perfil tal cual y
+    # aquí no cambia nada: el módulo no puede tumbar el béisbol.
+    try:
+        import contexto_ponches as _ctx
+        perfil = _ctx.anotar_perfil(perfil, anio, BF_APERTURA_LIGA,
+                                    GS_PREVIAS)
+    except Exception as e:
+        logger.debug(f'[beisbol] contexto de ponches omitido: '
+                     f'{type(e).__name__}: {e}')
+    return perfil
 
 
 def _corte_fip(anio: int) -> Optional[Dict]:
@@ -794,23 +847,56 @@ def veredicto(home: str, away: str,
         # línea baja: los ponches sí son tomables si el modelo ve valor
         pov, over = p.get('prob_over'), prop.get('odd_over')
         if pov and over:
-            ev = round(float(over) * float(pov) - 1.0, 4)
+            # v129 — LA DECISIÓN LA TOMA LA APP, Y CON LA PROBABILIDAD
+            # DESCONTADA.
+            #
+            # `pov` sale de la Poisson, que está bien calibrada de media pero
+            # deja un optimismo residual en el borde: la banda 50-52 % se
+            # cumple entre el 44 % y el 49 % (ver `MARGEN_CALIBRACION_K`). Se
+            # descuentan esos dos puntos ANTES de comparar contra el precio, y
+            # el EV que decide es el descontado. El bruto se sigue enseñando
+            # porque es de donde sale, no para que el usuario elija entre los
+            # dos: la app ya ha elegido.
+            pov = float(pov)
+            pov_aj = max(0.0, pov - MARGEN_CALIBRACION_K)
+            ev = round(float(over) * pov - 1.0, 4)
+            ev_aj = round(float(over) * pov_aj - 1.0, 4)
+            _ctx = (perf[cand] or {}).get('contexto_bf') or {}
             motivos.append(
                 f"📊 Línea de ponches en {linea:.1f} (por debajo de "
                 f"{K_LINEA_ALTA:.0f}) · se le esperan "
                 f"{p['k_esperados']:.1f} ponches · P(más de {linea:.1f}) = "
-                f"{pov*100:.0f} % a cuota {float(over):.2f} → EV {ev*100:+.1f} %.")
-            if ev > 0:
+                f"{pov*100:.0f} %, ajustada al contexto "
+                f"{pov_aj*100:.0f} % · cuota {float(over):.2f} → EV "
+                f"{ev_aj*100:+.1f} %.")
+            if _ctx:
+                motivos.append(
+                    f"🔍 Se le cuentan {_ctx.get('bf')} bateadores por salida "
+                    f"a partir de sus {_ctx.get('n_aperturas')} aperturas "
+                    f"reales ({_ctx.get('bf_propio')} de media, "
+                    f"{_ctx.get('ip_media')} entradas), no del promedio de la "
+                    f"liga. Es lo que distingue a un abridor de quien alterna "
+                    f"con el bullpen.")
+            if ev_aj > 0:
                 return {'entra': True, 'mercado': 'Ponches del abridor',
                         'apuesta': (f"{p.get('nombre') or nombre_eq[cand]}: "
                                     f"más de {linea:.1f} ponches"),
                         'lado': cand, 'cuota': round(float(over), 2),
-                        'linea': linea, 'prob': round(float(pov), 3),
-                        'ev_modelo': ev, 'motivos': motivos, 'datos': datos,
+                        'linea': linea, 'prob': round(pov_aj, 3),
+                        'prob_bruta': round(pov, 3),
+                        'ev_modelo': ev_aj, 'ev_sin_ajustar': ev,
+                        'contexto_bf': _ctx or None,
+                        'motivos': motivos, 'datos': datos,
                         'regla_del_usuario': True}
             motivos.append(
-                "⛔ Con ese precio los ponches no dan valor: la casa pide más "
-                "de lo que el lanzador suele hacer.")
+                f"⛔ **No la juegues.** Con la probabilidad ajustada al "
+                f"contexto ({pov_aj*100:.0f} %) y esa cuota, la apuesta pierde "
+                f"dinero a la larga (EV {ev_aj*100:+.1f} %). Haría falta una "
+                f"cuota de {1/max(pov_aj, 1e-6):.2f} o mejor para que "
+                f"compensara."
+                + ("" if ev <= 0 else
+                   " Sin el ajuste habría salido positiva, y es justo la banda "
+                   "donde el modelo promete un 51 % y se cumple un 44-49 %."))
     else:
         motivos.append(
             "ℹ️ Ninguna casa ha abierto la línea de ponches de estos "

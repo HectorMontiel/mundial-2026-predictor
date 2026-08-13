@@ -4258,10 +4258,31 @@ def _panel_creditos_api() -> None:
                 'mira' if quedan < 100 else 'ok')
         _pinta(_estilo.seccion('Créditos API', p['mes'], tono)
                if _estilo else None)
+        # v129 — EL REPARTO DEL DÍA, NO SÓLO EL TOTAL DEL MES.
+        #
+        # Desde que el barrido del día pide consenso, el gasto puede
+        # dispararse: 15 ligas cada media hora son 720 créditos diarios si
+        # nadie lo reparte. `consenso_api` lo corta por días restantes, y ese
+        # número tiene que verse, porque explica por qué a media tarde un
+        # partido puede salir con el tablón básico teniendo créditos de sobra
+        # en el mes. Sin esto parecería una avería.
+        _pd = _oa.presupuesto_dia()
+        _tono_dia = ('mira' if _pd['agotado_dia'] else 'ok')
         _pinta(_estilo.kpis([
             {'valor': f"{usados} / {cuota}", 'etiqueta': 'Consumidos',
              'tono': tono, 'sub': f"{quedan} restantes este mes"},
+            {'valor': f"{_pd['usados_dia']} / {_pd['limite_dia']}",
+             'etiqueta': 'Hoy', 'tono': _tono_dia,
+             'sub': ('cupo del día agotado' if _pd['agotado_dia']
+                     else f"{_pd['queda_dia']} disponibles hoy")},
         ]) if _estilo else None)
+        if _pd['agotado_dia'] and not p['agotado']:
+            st.caption(
+                f"🟡 **Hoy ya se usó el cupo de {_pd['limite_dia']} créditos.** "
+                f"No es una avería: el mes se reparte por días para que no se "
+                f"agote en una tarde. Quedan {quedan} para el resto del mes y "
+                f"mañana vuelve a haber cupo. Mientras tanto el tablón sigue "
+                f"con sus casas de siempre.")
         if _estilo is None:
             st.metric("Créditos API", f"{usados} / {cuota}")
         if p['agotado']:

@@ -1,5 +1,85 @@
 # 🏆 Motor Predictivo TDA — Mundial 2026 (v4, plantilla de análisis completa)
 
+> **Este README es un registro de versiones, con lo más nuevo arriba. Si sólo
+> quieres saber qué hace el proyecto hoy y qué está medido, léete la sección
+> siguiente y para.**
+
+---
+
+## 📍 Estado actual — qué hay, qué está medido y qué no
+
+**Qué es.** Una aplicación de Streamlit que busca apuestas con valor en fútbol
+(57 competiciones), MLB, NBA, KBO y tenis ATP/WTA/ITF. Predice con modelos
+propios por liga, baja cuotas de seis fuentes de precio y decide con un
+clasificador común a las dos pantallas.
+
+### La tesis, y por qué es ésta
+
+Está en [BITACORA_ARQUITECTURA.md](BITACORA_ARQUITECTURA.md), que es el
+documento que manda. Resumida en una línea: **el trabajo no es predecir mejor,
+es comprar mejor.**
+
+| hallazgo | medición |
+|---|---|
+| Apostar la probabilidad del modelo **pierde dinero** | −4,66 % a −6,52 % · 37.158 apuestas |
+| El modelo **ya está calibrado**: dice 57,5 % y acierta 57,5 % | n=13.106 |
+| El EV que declara el modelo es **anti**-indicador del cierre | correlación −0,054 |
+| Comprar al **mejor precio** sí gana | +11,49 % en juicio · p5 **+1,73 %** |
+| El modelo **no bate al mercado** | gana en 8 de 33 ligas con referencia |
+
+### Lo único con percentil 5 positivo en todo el proyecto
+
+Sólo dos canales cruzan el listón —p5 del bootstrap positivo en el tramo que no
+se usó para elegir— y **son los únicos que la app propone para jugar en
+solitario**:
+
+| canal | n | ROI | p5 |
+|---|---|---|---|
+| Precio al **lado local** en fútbol | 353 | +11,49 % | **+1,73 %** |
+| **Tenis** con probabilidad ≥ 90 % y precio | 1.793 | +5,76 % | **+0,18 %** |
+
+Los dos aprueban raspando. La aplicación lo dice con esas palabras: **es la
+mejor apuesta disponible, no una apuesta ganadora garantizada.**
+
+### Las dos pantallas
+
+- **Nivel 1 · Apuestas del Día** — todos los partidos de hoy, todos los
+  deportes. Arriba la **Sección 1** (los dos canales de arriba, con su
+  medición); debajo la **Sección 2**, con lo que no sube y **el motivo medido
+  al lado**.
+- **Nivel 2 · Vista de competición** — un partido, con el tablero completo de
+  Playdoit (148 mercados) cruzado contra el consenso. Mismo clasificador: un
+  pick que sale de élite en una pantalla sale igual en la otra.
+
+### Piezas principales
+
+| módulo | qué hace |
+|---|---|
+| `clasificador.py` | Las tres secciones. Semáforo por **ventaja de precio contra el consenso**, no por EV del modelo |
+| `cuotas_multi.py` | Seis fuentes de precio + consenso ampliado. Devig, line shopping y emparejador con guardia de categoría |
+| `consenso_api.py` | The Odds API en plan gratuito: lista blanca de 15 ligas, caché de 30 min, corte mensual **y reparto diario** |
+| `cuotas_tablon.py` | Traduce los tableros de las casas al vocabulario del modelo, con veto por seña |
+| `alpha_finder.py` | El barrido del día, multideporte |
+| `beisbol_pitchers.py` | La regla de MLB en cuatro pasos: ganador, run line, ponches o fuera |
+| `contexto_ponches.py` | Los bateadores por salida contados de las **aperturas reales**, no del agregado |
+| `estilo_ui.py` | 20 componentes visuales y el tema oscuro |
+
+### Lo que NO hace, y no va a hacer
+
+- **No promete ROI positivo.** Ningún canal tiene p5 holgado.
+- **No filtra la Sección 1 por el EV del modelo**, que es el criterio medido en
+  negativo.
+- **No usa el histórico de The Odds API** (10 créditos por llamada y de pago).
+- **No reentrena ligas sin p5 positivo.**
+
+### Requisitos
+
+Python 3.12. `ODDS_API_KEY` en los Secrets para el consenso ampliado; sin ella
+el tablón funciona con sus seis fuentes base. Despliegue en Streamlit Cloud
+desde `main`.
+
+---
+
 ## Novedades v108 — Dónde se gana dinero y dónde se pierde, dicho de frente
 
 - **🚨 APOSTAR POR LA PROBABILIDAD DEL MODELO PIERDE DINERO, Y AHORA SE DICE EN

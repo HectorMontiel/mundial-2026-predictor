@@ -155,6 +155,11 @@ def _anotar(coste: int, cab) -> None:
     d = uso()
     d['usados'] = int(d.get('usados', 0)) + max(int(coste or 0), 0)
     d['llamadas'] = int(d.get('llamadas', 0)) + 1
+    # v129: contador del DÍA, para el reparto diario (ver `limite_de_hoy`).
+    hoy = time.strftime('%Y-%m-%d')
+    if d.get('dia') != hoy:
+        d['dia'], d['usados_dia'] = hoy, 0
+    d['usados_dia'] = int(d.get('usados_dia', 0)) + max(int(coste or 0), 0)
     for clave, cab_nombre in (('usados_proveedor', 'x-requests-used'),
                               ('restantes_proveedor', 'x-requests-remaining')):
         v = (cab or {}).get(cab_nombre)
@@ -187,10 +192,73 @@ def presupuesto() -> Dict:
             'agotado': int(usados) >= LIMITE_DURO}
 
 
-def hay_presupuesto(coste: int = 1) -> bool:
-    """¿Cabe una llamada de este coste sin pasar del límite duro?"""
+def usado_hoy() -> int:
+    """Créditos gastados HOY. Cero si el contador es de otro día."""
+    d = uso()
+    return int(d.get('usados_dia', 0)) if d.get('dia') == time.strftime('%Y-%m-%d') else 0
+
+
+def limite_de_hoy() -> int:
+    """
+    Cuántos créditos puede gastar HOY sin comerse el mes.
+
+    v129 — HACÍA FALTA, Y LA VERSIÓN ANTERIOR NO PODÍA SABERLO.
+    ----------------------------------------------------------
+    Hasta la v128 el consenso ampliado sólo se pedía al abrir la ficha de un
+    partido: unas pocas llamadas al día, y el corte mensual de 450 sobraba.
+    Con el barrido del día pidiéndolo también (ver `cuotas_multi.cuotas_partido`,
+    `clave_consenso`), la aritmética cambia de golpe:
+
+        barrido del día      -> se refresca cada 15 min
+        caché del consenso   -> 30 min por liga
+        lista blanca         -> 15 ligas
+
+    o sea hasta **15 créditos por media hora, 720 al día** si la aplicación se
+    consulta a menudo. El corte duro salvaría la cuenta, pero quemaría los 450
+    del mes en unas horas y el resto del mes se quedaría sin consenso — que es
+    justo la situación que el consenso venía a arreglar.
+
+    El reparto es por días RESTANTES, no un doceavo fijo: si un día se gasta
+    poco, lo que sobra queda para los siguientes en vez de perderse. Con el mes
+    entero por delante salen ~15 créditos al día, que es exactamente un
+    refresco completo de la lista blanca.
+    """
     p = presupuesto()
-    return (p['usados'] + max(int(coste), 1)) <= LIMITE_DURO
+    queda = max(LIMITE_DURO - p['usados'], 0)
+    if queda <= 0:
+        return 0
+    try:
+        import calendar
+        hoy = time.localtime()
+        dias_mes = calendar.monthrange(hoy.tm_year, hoy.tm_mon)[1]
+        restantes = max(dias_mes - hoy.tm_mday + 1, 1)
+    except Exception:
+        restantes = 30
+    return max(1, -(-queda // restantes))       # techo de la división
+
+
+def presupuesto_dia() -> Dict:
+    """El estado del reparto diario, para enseñarlo en la barra lateral."""
+    lim = limite_de_hoy()
+    usados = usado_hoy()
+    return {'limite_dia': lim, 'usados_dia': usados,
+            'queda_dia': max(lim - usados, 0),
+            'agotado_dia': usados >= lim}
+
+
+def hay_presupuesto(coste: int = 1) -> bool:
+    """
+    ¿Cabe una llamada de este coste sin pasar del límite duro NI del diario?
+
+    Las dos puertas son necesarias: la mensual protege la cuenta y la diaria
+    protege el resto del mes. Sin la segunda, un solo día de uso intenso deja
+    las tres semanas siguientes en el tablón de seis casas.
+    """
+    coste = max(int(coste), 1)
+    p = presupuesto()
+    if (p['usados'] + coste) > LIMITE_DURO:
+        return False
+    return (usado_hoy() + coste) <= limite_de_hoy()
 
 
 # ---------------------------------------------------------------------------
@@ -233,11 +301,20 @@ def cuotas_liga(clave_liga: str, mercados=MERCADOS_POR_DEFECTO,
         return None
     coste = max(len(mercados), 1) * max(len(region.split(',')), 1)
     if not hay_presupuesto(coste):
-        p = presupuesto()
-        logger.warning(
-            f"[consenso] presupuesto agotado ({p['usados']}/{LIMITE_DURO} "
-            f"créditos en {p['mes']}): se sigue con el consenso de cinco casas "
-            f"hasta que el mes se renueve")
+        p, pd_ = presupuesto(), presupuesto_dia()
+        if p['usados'] + coste > LIMITE_DURO:
+            logger.warning(
+                f"[consenso] presupuesto MENSUAL agotado "
+                f"({p['usados']}/{LIMITE_DURO} en {p['mes']}): se sigue con el "
+                f"consenso de cinco casas hasta que el mes se renueve")
+        else:
+            # v129: esto NO es un fallo, es el reparto funcionando. Sin él, un
+            # día de uso intenso deja el resto del mes sin consenso.
+            logger.info(
+                f"[consenso] cupo del DÍA agotado "
+                f"({pd_['usados_dia']}/{pd_['limite_dia']}); quedan "
+                f"{p['queda']} créditos para el resto del mes. Se sigue con "
+                f"las casas del tablón y mañana vuelve a haber cupo")
         return None
 
     try:
