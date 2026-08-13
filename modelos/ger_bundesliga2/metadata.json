@@ -28,16 +28,16 @@
     "OVERROUND": 0.0574
   },
   "roi_sim": {
-    "n_apuestas": 100,
-    "roi_pct": -16.37,
-    "aciertos": 35
+    "n_apuestas": 93,
+    "roi_pct": -17.41,
+    "aciertos": 33
   },
   "mesm": {
     "n_val_con_cuotas": 289,
     "acc_prod": 0.4464,
-    "acc_mesm": 0.4879,
-    "ll_prod": 1.0586,
-    "ll_mesm": 1.0468,
+    "acc_mesm": 0.481,
+    "ll_prod": 1.059,
+    "ll_mesm": 1.0472,
     "adoptado": true
   },
   "imt": null

@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-12T07:34:52Z",
- "filas_insertadas": 136988,
+ "generado": "2026-08-13T07:48:01Z",
+ "filas_insertadas": 136990,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -35,8 +35,8 @@
  ],
  "por_liga": {
   "argentina": {
-   "filas": 7227,
-   "partidos": 3797
+   "filas": 7228,
+   "partidos": 3798
   },
   "aut_bundesliga": {
    "filas": 3009,
@@ -135,8 +135,8 @@
    "partidos": 1923
   },
   "polonia": {
-   "filas": 4505,
-   "partidos": 2361
+   "filas": 4506,
+   "partidos": 2362
   },
   "premier": {
    "filas": 2110,
