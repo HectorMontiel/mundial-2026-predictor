@@ -1216,13 +1216,35 @@ def render_panel_equipos(clave: str, home: str, away: str, key: str,
                 _sem = '🔴' if _n14 >= 5 else ('🟡' if _n14 >= 4 else '🟢')
                 _carga = (f"  \n{_sem} **Desgaste**: {_n14} partidos en 14 días "
                           f"· {f.get('partidos_30d', 0)} en 30")
+            # v135 — LA RACHA, EN IMAGEN.
+            #
+            # Esto decía «últimos 8: `PPEGGEGE`». Para saber si el equipo
+            # llega bien había que leer ocho letras y acordarse de cuál era la
+            # más reciente; nadie hace eso. `h2h_visual` pinta los cinco
+            # últimos como cuadros de color con su letra dentro y el marcador
+            # en el tooltip — SVG en línea, sin ninguna librería.
+            #
+            # El texto NO desaparece: va debajo en una línea, porque un lector
+            # de pantalla no ve los cuadros y porque una frase se copia y se
+            # pega en un mensaje. Si el módulo falla, se cae al texto de
+            # siempre y la ficha sigue entera.
+            _pintado_h2h = False
+            try:
+                import h2h_visual as _hv
+                _pinta(_hv.tarjeta_equipo(f"{lado} {eq}", f, '', n=5))
+                st.caption(_hv.resumen_texto(eq, f, n=5))
+                _pintado_h2h = True
+            except Exception as _e_hv:
+                logger.debug(f'[h2h] visual omitido: {type(_e_hv).__name__}')
+            if not _pintado_h2h:
+                st.markdown(
+                    f"**{lado} {eq}** — últimos {f['n']}: `{f['racha']}` · "
+                    f"{f['pts_por_partido']} pts/partido · "
+                    f"{f['gf_media']} goles a favor y {f['gc_media']} en contra")
             st.markdown(
-                f"**{lado} {eq}** — últimos {f['n']}: `{f['racha']}` · "
-                f"{f['pts_por_partido']} pts/partido · "
-                f"{f['gf_media']} goles a favor y {f['gc_media']} en contra"
-                + (f"  \n🏆 Cuenta **{len(_comps)} competiciones**: "
-                   f"{', '.join(NOMBRES_LIGAS.get(c, c) for c in _comps)}"
-                   if len(_comps) > 1 else '')
+                (f"🏆 Cuenta **{len(_comps)} competiciones**: "
+                 f"{', '.join(NOMBRES_LIGAS.get(c, c) for c in _comps)}"
+                 if len(_comps) > 1 else '')
                 + _carga)
             if cf:
                 partes = []
@@ -5063,6 +5085,27 @@ def render_alpha_finder():
             _en_s2 = {_clave_partido(p) for p in (r.get('seccion2') or [])}
             _apuesta_s1 = {_clave_partido(p): p for p in (r.get('seccion1') or [])}
 
+            # v134 — LA MARCA SE LEE DEL PARTIDO, NO DE UNA LISTA INCOMPLETA.
+            #
+            # La primera versión decidía sólo por pertenencia a `seccion1` /
+            # `seccion2`, y esas listas contienen únicamente lo que llegó a ser
+            # PICK — 21 de 71 pronósticos. Medido el 2026-08-13:
+            #
+            #     MLB     11 pronósticos · en Sección 2: 1 · sin cuota: 0
+            #     Tenis   26 pronósticos · en Sección 2: 19
+            #     Fútbol  33 pronósticos · en Sección 2: 0 · sin cuota: 33
+            #
+            # O sea que diez partidos de MLB con precio real caían a
+            # «informativo» por descarte, que es lo que el usuario vio. No
+            # hacía falta un caso especial para MLB: hacía falta dejar de
+            # preguntar dónde no estaba la respuesta.
+            #
+            # El orden importa. Primero mandan las secciones, que son el
+            # veredicto del clasificador; sólo cuando el partido no llegó a
+            # pick se mira lo que tiene delante. Así la marca nunca contradice
+            # a la Sección 1.
+            PROB_PATA = 0.70
+
             def _marca(p):
                 k = _clave_partido(p)
                 if k in _en_s1:
@@ -5071,6 +5114,10 @@ def render_alpha_finder():
                     return '🟡 Sólo pata'
                 if not p.get('cuota'):
                     return '❌ Sin precio'
+                if (p.get('prob') or 0) >= PROB_PATA:
+                    # alta probabilidad y precio que no compensa: es material
+                    # de pata, que es exactamente lo que define la Sección 2
+                    return '🟡 Sólo pata'
                 return '· informativo'
 
             filas_p = []
@@ -5797,14 +5844,20 @@ def render_alpha_finder():
             # se está viendo; manda lo que hay delante.
             _n2 = len(_s2) if _dep_sel != 'Todo' else (r.get('n_seccion2')
                                                        or len(_s2))
-            with st.expander(f"🟡 Sección 2 — alta probabilidad, precio "
-                             f"insuficiente ({_n2})", expanded=False):
+            with st.expander(f"🟡 NO JUGAR EN SOLITARIO — sólo como pata de "
+                             f"una combinada ({_n2})", expanded=False):
+                st.warning(
+                    "⚠️ **Estos picks NO se juegan solos.** Tienen "
+                    "probabilidad alta y cuota que no compensa: sueltos "
+                    "pierden dinero. Sirven para **inflar la cuota** de una "
+                    "combinada que parta de la Sección 1, y aun así cada uno "
+                    "empeora el valor del boleto.")
                 st.caption(
-                    "No son apuestas sueltas: **combinarlas no arregla el "
-                    "problema, lo multiplica** (EV combinado = Π(1+EVᵢ)−1, así "
-                    "que tres patas al −4,76 % dan −13,62 %). Están aquí "
-                    "porque saber por qué algo NO se juega vale tanto como la "
-                    "lista de lo que sí.")
+                    "Combinarlos entre sí no arregla el problema, lo "
+                    "multiplica: EV combinado = Π(1+EVᵢ)−1, así que tres "
+                    "patas al −4,76 % dan −13,62 %. Están aquí porque saber "
+                    "por qué algo NO se juega vale tanto como la lista de lo "
+                    "que sí.")
                 if _n2 > len(_s2):
                     st.caption(f"Se muestran {len(_s2)} de {_n2}, las de mayor "
                                f"probabilidad.")
@@ -5818,10 +5871,80 @@ def render_alpha_finder():
                 if len(_s2) > 12:
                     st.caption(f"…y {len(_s2)-12} más, en la lista completa de "
                                f"abajo.")
+
+        # v136 — LA CALCULADORA DE COMBINADAS.
+        #
+        # El encargo pedía «sugerir un parlay con EV positivo» combinando
+        # picks de la Sección 2. No se puede: todos tienen EV negativo —es lo
+        # que los puso ahí— y `Π(1+EVᵢ)−1` sobre números menores que 1 sigue
+        # siendo menor que 1. Lo que sí se puede, y es lo que hay aquí, es
+        # calcular el EV de VERDAD y enseñarlo antes de confirmar nada.
+        #
+        # Se parte siempre de la Sección 1 y se admite UNA pata de relleno.
+        # Ver `parlay_ev` para la aritmética y las reglas.
+        if _s1:
+            with st.expander("🧮 Arma tu combinada — con el EV calculado antes "
+                             "de jugarla", expanded=False):
+                try:
+                    import parlay_ev as _pev
+                    _op_base = {
+                        f"{p.get('apuesta','?')} · {p.get('partido','?')}"
+                        f" @ {p.get('cuota','—')}": p for p in _s1}
+                    _sel_base = st.selectbox(
+                        "Pata base — de la Sección 1, la única con ventaja de "
+                        "precio medida", list(_op_base.keys()),
+                        key='parlay_base')
+                    _aptos = [p for p in _s2
+                              if (p.get('prob') or 0) >= _pev.PROB_MINIMA_RELLENO
+                              and p.get('cuota')]
+                    _op_rell = {'(ninguna — juega la pata sola)': None}
+                    for p in _aptos[:15]:
+                        _op_rell[f"{p.get('apuesta','?')} · "
+                                 f"{p.get('partido','?')} @ {p.get('cuota')} · "
+                                 f"{(p.get('prob') or 0)*100:.0f} %"] = p
+                    if len(_op_rell) == 1:
+                        st.caption(
+                            f"Hoy ninguna pata de la Sección 2 llega al "
+                            f"{_pev.PROB_MINIMA_RELLENO*100:.0f} % de "
+                            f"probabilidad que exige el relleno, así que sólo "
+                            f"cabe la pata sola.")
+                    _sel_rell = st.selectbox(
+                        "Pata de relleno — como mucho UNA, y cada una empeora "
+                        "el boleto", list(_op_rell.keys()), key='parlay_rell')
+                    _base_p = _op_base.get(_sel_base)
+                    _rell_p = _op_rell.get(_sel_rell)
+                    _res = _pev.evaluar(_base_p,
+                                        [_rell_p] if _rell_p else [])
+                    _c1, _c2, _c3 = st.columns(3)
+                    _c1.metric("EV del boleto",
+                               f"{(_res['ev'] or 0)*100:+.2f} %"
+                               if _res['ev'] is not None else '—')
+                    _c2.metric("Cuota combinada",
+                               f"{_res['cuota']:.2f}" if _res.get('cuota')
+                               else '—')
+                    _c3.metric("Prob. conjunta",
+                               f"{(_res['prob'] or 0)*100:.0f} %"
+                               if _res.get('prob') is not None else '—')
+                    if _res['ok']:
+                        st.success(_res['motivo'])
+                    else:
+                        st.error(_res['motivo'])
+                    for _a in _res.get('avisos') or []:
+                        st.warning(_a)
+                    _patas = [_base_p] + ([_rell_p] if _rell_p else [])
+                    st.caption("La cuenta, para que no haya que creérsela:  \n"
+                               f"`EV = {_pev.texto_formula(_patas)}`")
+                except Exception as _e_pev:
+                    st.caption(f"Calculadora no disponible ahora "
+                               f"({type(_e_pev).__name__}).")
         st.divider()
 
         # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
-        elite = r.get('elite') or []
+        # v134: el filtro de deporte NO llegaba aquí. Al filtrar por MLB,
+        # la Selección del Día seguía enseñando fútbol — el usuario vio
+        # «Cusco FC vs Juan Pablo II» con el filtro puesto en béisbol.
+        # `r` sigue intacto: se filtra la copia que se pinta.
+        elite = _filtra(r.get('elite'))
         if elite:
             import kelly_simultaneo as ks
             bank = float(st.session_state.get('bankroll', 0) or 1000)
@@ -5852,7 +5975,7 @@ def render_alpha_finder():
         # v47: SELECCIÓN DEL DÍA — la Capa 1 nunca queda vacía. Si hoy no hubo
         # ningún 1X2 con cuota real y confirmación, se promueven las mejores
         # oportunidades por valor esperado (con aviso honesto).
-        seleccion = r.get('seleccion_dia') or []
+        seleccion = _filtra(r.get('seleccion_dia'))
         if not elite and seleccion:
             st.subheader("⭐ Selección del Día — mejor valor disponible")
             st.info("Hoy ninguna apuesta reunió cuota real + confirmación profesional. "
@@ -5861,7 +5984,7 @@ def render_alpha_finder():
             _tarjetas(seleccion, "")
 
         # v31 (§5): CAPA 2 — alta confianza SIN cuota real (modo analítico)
-        capa2 = r.get('capa2') or []
+        capa2 = _filtra(r.get('capa2'))
         if capa2:
             st.divider()
             st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
@@ -5879,7 +6002,7 @@ def render_alpha_finder():
             _tarjetas(capa2, "")
 
         # v37 (§6): sección destacada de Ambos Marcan (BTTS)
-        btts = r.get('btts_destacado') or []
+        btts = _filtra(r.get('btts_destacado'))
         if btts:
             st.divider()
             st.subheader("⚽ Ambos Marcan (BTTS)")
