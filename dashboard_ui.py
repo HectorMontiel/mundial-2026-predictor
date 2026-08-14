@@ -5162,8 +5162,40 @@ def render_alpha_finder():
             # La barra de probabilidad va con `ProgressColumn`, que es nativa y
             # se lee de un vistazo — que era el problema de doce columnas de
             # porcentajes.
+            # v137 — LA LISTA VISUAL, ANTES DE LA TABLA.
+            #
+            # Catorce columnas y setenta filas no se escanean: para saber quién
+            # es favorito había que comparar tres cifras por fila. La barra
+            # proporcional ya resolvía eso en «los seis más próximos»; aquí se
+            # aplica a la lista entera, ordenada estrictamente por hora.
+            #
+            # Se pinta en UNA llamada, no una fila de widgets por partido: con
+            # 71 partidos, un `st.button` por fila serían 71 widgets nuevos
+            # —la vista entera tiene 69— y cada uno es estado que Streamlit
+            # mantiene y que el smoke pulsa. Así el coste de render es plano.
+            #
+            # La tabla NO se borra: baja a un desplegable. Ordena, filtra y
+            # busca, y tiene la fila cliqueable; eso sigue siendo útil para
+            # quien quiere comparar cifras exactas.
+            try:
+                import render_todos_partidos as _rtp
+                _pinta(_rtp.lista(_pronos_ord, _marca, _horario))
+                st.caption(
+                    "Ordenados por hora de inicio, lo más próximo arriba. "
+                    "El ancho de cada tramo es la probabilidad del modelo "
+                    "(verde local · gris empate · azul visitante); pasa por "
+                    "encima para la cifra exacta. **La etiqueta de la derecha "
+                    "es la que dice qué hacer.**")
+            except Exception as _e_rtp:
+                st.caption(f"Lista visual no disponible ahora "
+                           f"({type(_e_rtp).__name__}).")
+
             _df_p = _pd.DataFrame(filas_p)
-            _sel_tabla = st.dataframe(
+            _exp_tabla = st.expander(
+                "🔢 Ver la tabla con todas las cifras (ordenable y "
+                "cliqueable)", expanded=False)
+            with _exp_tabla:
+              _sel_tabla = st.dataframe(
                 _df_p, hide_index=True, width='stretch',
                 key='tabla_pronosticos',
                 on_select='rerun', selection_mode='single-row',
