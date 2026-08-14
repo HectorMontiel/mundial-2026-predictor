@@ -73,6 +73,41 @@ def botones(at):
     return fuera
 
 
+# ---------------------------------------------------------------------------
+# v138 — MODO RÁPIDO, PORQUE 110 MINUTOS POR CADA REENTRENAMIENTO NO SALEN.
+#
+# Medido el 2026-08-14 sobre esta misma máquina:
+#
+#     barrido del día en frío ........   2,6 min
+#     cargar una vista con AppTest ...   1,2 min
+#     estimación de 7 vistas .........  11,3 min
+#     SMOKE COMPLETO REAL ............ 110    min
+#
+# Los 100 minutos de diferencia NO están en cargar pantallas: están en pulsar
+# tres botones que cargan motores de liga y corren Monte Carlo. Son justo los
+# que hay que pulsar cuando cambia el código —el fallo que dio origen a este
+# fichero vivía dentro de un `if st.button(...)`— pero no aportan nada cuando
+# lo único que ha cambiado son los JSON de estadísticas que sube el bot diario.
+#
+# `--rapido` carga LAS 7 VISTAS igual (que es donde se detecta un dato que
+# rompe el arranque) y pulsa todo MENOS esos tres. Baja a ~15 min.
+#
+# CUÁNDO SE USA CADA UNO, y esto no es opinable:
+#   · --rapido  -> cambió el DATO y no el código (rebase del bot, iteración).
+#   · completo  -> cambió el CÓDIGO. Obligatorio antes de cualquier push.
+# ---------------------------------------------------------------------------
+RAPIDO = '--rapido' in sys.argv
+
+# Los que cargan motores y corren Monte Carlo. Se comparan en minúsculas
+# contra la etiqueta del botón, igual que el resto del fichero.
+BOTONES_CAROS = ('proponer parlays', 'enviar estos parlays',
+                 'traer cuotas reales ahora')
+
+if RAPIDO:
+    print('MODO RÁPIDO: se cargan las 7 vistas y se pulsa todo menos los '
+          'botones que cargan motores.')
+    print('             NO sustituye al completo antes de un push.\n')
+
 fallos = []
 for vista, textos in VISTAS.items():
     at = AppTest.from_file('dashboard_ui.py', default_timeout=420).run()
@@ -99,6 +134,15 @@ for vista, textos in VISTAS.items():
     _refrescos = [b.label for b in todos
                   if 'actualizar' in (b.label or '').lower()]
     textos = list(textos) + _refrescos[:1]
+    if RAPIDO:
+        _fuera = [t for t in textos
+                  if any(c in t.lower() for c in BOTONES_CAROS)]
+        textos = [t for t in textos if t not in _fuera]
+        # Se dice EN VOZ ALTA lo que no se ha probado. Un smoke que calla lo
+        # que se salta es el que hace creer que algo está validado cuando no
+        # lo está — que es el fallo del que nació este fichero.
+        for t in _fuera:
+            print(f'  ⏭️  botón «{t}» OMITIDO por --rapido (no validado)')
     for texto in textos:
         objetivo = [b for b in todos if texto.lower() in (b.label or '').lower()]
         if not objetivo:
@@ -120,4 +164,11 @@ print('\n' + '=' * 40)
 print('TODO OK' if not fallos else f'{len(fallos)} FALLOS')
 for f in fallos:
     print(' -', f)
+if RAPIDO:
+    # El veredicto tiene que decir de qué está hablando. «TODO OK» a secas,
+    # saliendo del modo rápido, se leería como una validación completa.
+    print('\n⚠️  MODO RÁPIDO: no se han pulsado los botones que cargan '
+          'motores.')
+    print('    Antes de subir código, ejecuta `python smoke_botones.py` sin '
+          'el flag.')
 sys.exit(1 if fallos else 0)
