@@ -1,0 +1,85 @@
+{
+ "ancla": "ESPN BET",
+ "cobertura": [
+  {
+   "casa": "ESPN BET",
+   "partidos": 805,
+   "margen": 0.04167937194211962
+  },
+  {
+   "casa": "DraftKings",
+   "partidos": 300,
+   "margen": 0.043235316982687705
+  },
+  {
+   "casa": "Titanbets",
+   "partidos": 207,
+   "margen": 0.03555776918918252
+  },
+  {
+   "casa": "Caesars Sportsbook (Colorado)",
+   "partidos": 207,
+   "margen": 0.04253983389206115
+  },
+  {
+   "casa": "Caesars Sportsbook (New Jersey)",
+   "partidos": 207,
+   "margen": 0.04255498558576578
+  },
+  {
+   "casa": "MGM",
+   "partidos": 207,
+   "margen": 0.044391204409031645
+  },
+  {
+   "casa": "SugarHouse",
+   "partidos": 207,
+   "margen": 0.0468583630629772
+  },
+  {
+   "casa": "Caesars Sportsbook (Tennessee)",
+   "partidos": 207,
+   "margen": 0.07786170704418555
+  },
+  {
+   "casa": "Unibet",
+   "partidos": 205,
+   "margen": 0.05372465233577019
+  },
+  {
+   "casa": "accuscore",
+   "partidos": 196,
+   "margen": 0.038777391854125605
+  },
+  {
+   "casa": "PointsBet",
+   "partidos": 145,
+   "margen": 0.04252602827361242
+  },
+  {
+   "casa": "Caesars Sportsbook",
+   "partidos": 13,
+   "margen": 0.04220950144511293
+  }
+ ],
+ "n_partidos": 897,
+ "comparables_por_temporada": {
+  "2023": 207,
+  "2025": 2
+ },
+ "temporadas_eleccion": [
+  2022,
+  2023,
+  2024
+ ],
+ "temporadas_juicio": [
+  2025
+ ],
+ "barrido": [],
+ "por_lado": {},
+ "medible": false,
+ "edge_validado": false,
+ "margen_elegido": null,
+ "lados_robustos": [],
+ "motivo": "NO MEDIBLE con esta fuente, que no es lo mismo que medido y negativo. ESPN conserva el cierre de varias casas sólo en la temporada 2023 (207 partidos con ≥2 casas); desde 2024 guarda casi únicamente la suya, así que el tramo de juicio se queda en 2 partidos comparables. Sin dos precios no hay line shopping que medir. La NFL se queda en la Sección 2 —que es el camino por defecto— y el canal volverá a evaluarse cuando `odds_snapshots` acumule fotos propias de Pinnacle, Bovada y Playdoit."
+}

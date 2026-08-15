@@ -1652,6 +1652,184 @@ def _picks_nba() -> Dict[str, List[Dict]]:
     return salida
 
 
+# v131 — NFL. Ver `VALIDACION_v131.md` para la medición completa.
+#
+# Dos vías, y sólo una llega a la Capa 1:
+#
+#   · VALOR DE MERCADO (`valor_vs_sharp`) — no usa el modelo. Toma el precio
+#     justo de Pinnacle sin margen y busca qué casa paga por encima. Es el
+#     mismo mecanismo validado en fútbol (p5 +1,73 % en el tramo de juicio),
+#     MLB y WTA, y el único con ROI robusto en todo el proyecto. **Sí** entra
+#     en Capa 1, marcado `edge_extrapolado` porque en la NFL todavía no tiene
+#     muestra propia con la que medirse.
+#
+#   · MODELO (`modelo_nfl`) — a Capa 2. No porque sea malo, sino porque su ROI
+#     al precio de cierre real está medido y no cruza el listón del proyecto
+#     (regla de oro: p5 de bootstrap positivo en el tramo de juicio). Se
+#     publica como pronóstico, con barras y probabilidad calibrada, y no como
+#     apuesta de élite.
+#
+# Es exactamente el reparto que ya tienen la KBO y el tenis, y la razón de que
+# se escriba otra vez aquí es que la tentación de saltárselo con un deporte
+# nuevo y de moda es justo la que la bitácora §9 prohíbe.
+UMBRAL_NFL_CAPA2 = 0.62
+
+
+def _picks_nfl() -> Dict[str, List[Dict]]:
+    """NFL: valor de mercado a Capa 1, modelo a Capa 2."""
+    salida: Dict[str, List] = {'capa1': [], 'capa2': [], 'incidencias': [],
+                               'pronosticos': [], 'evaluados': 0, 'cobertura': {}}
+    try:
+        import nfl_datos as nd
+        fixtures = nd.fixtures_nfl(dias=2)
+        if not fixtures:
+            logger.info('[alpha] NFL: sin partidos en la ventana.')
+            return salida
+
+        # -- modelo (opcional: si no está el artefacto, la rama de precio sigue)
+        modelo = None
+        try:
+            import modelo_nfl as mnfl
+            modelo = mnfl.NFLModelo.cargar(historico=nd.cargar_historico())
+        except Exception as e:
+            logger.info(f'[alpha/nfl] modelo no disponible: {type(e).__name__}: {e}')
+
+        import cuotas_multi as cm
+        vistos = set()
+        n_comparados = 0
+        for fx in fixtures:
+            h, a = fx['home'], fx['away']
+            clave = (fx.get('abrev_home'), fx.get('abrev_away'), fx.get('fecha'))
+            if clave in vistos:
+                continue
+            vistos.add(clave)
+            salida['evaluados'] += 1
+            salida['cobertura']['NFL'] = salida['cobertura'].get('NFL', 0) + 1
+            es_pre = fx.get('tipo') == 'pretemporada'
+
+            base = {'deporte': 'NFL', 'liga': 'NFL', 'clave_liga': 'nfl',
+                    'partido': f'{h} vs {a}',
+                    'fecha': fx.get('fecha') or str(hoy_utc().date()),
+                    'inicio': fx.get('inicio'),
+                    'mercado': 'Moneyline'}
+            if es_pre:
+                # LA PRETEMPORADA NO SE ESCONDE, SE ETIQUETA. Los titulares
+                # juegan un cuarto y el resultado no describe al equipo, así
+                # que el modelo no entrenó con ella y su probabilidad aquí vale
+                # menos. Decirlo es más útil que ocultar el partido cuando la
+                # casa sí lo cotiza.
+                base['nota'] = ('⚠️ Pretemporada: los titulares juegan poco y '
+                                'el resultado no describe al equipo. El modelo '
+                                'no se entrena con estos partidos.')
+                base['pretemporada'] = True
+
+            # ---- vía 1: valor de mercado (sin modelo) ----------------------
+            try:
+                vm = cm.valor_vs_sharp('nfl', h, a)
+                n_comparados += 1 if (vm.get('n_casas') or 0) >= 2 else 0
+                for v in (vm.get('valor') or [])[:1]:
+                    if not (v.get('prob_justa', 0) >= VS_MLB_PROB_MIN
+                            and v.get('ev', 0) >= VS_MLB_EV_MIN
+                            and v.get('cuota', 0) > MIN_CUOTA):
+                        continue
+                    nombre = h if v.get('lado') == 'home' else a
+                    salida['capa1'].append({
+                        **base, 'apuesta': f'Gana {nombre}',
+                        'lado': v.get('lado'),
+                        'prob': round(v['prob_justa'], 3),
+                        'cuota': v['cuota'], 'cuota_justa': v.get('cuota_justa'),
+                        'ev': v['ev'], 'casa': v.get('casa'),
+                        'valor': '🟢', 'evc': True, 'valor_mercado': True,
+                        'edge_extrapolado': True,
+                        'pinnacle': v.get('pinnacle'),
+                        'origen': 'line shopping vs Pinnacle'})
+            except Exception as e:
+                logger.debug(f'[alpha/nfl] valor de mercado {h}-{a}: '
+                             f'{type(e).__name__}: {e}')
+
+            # ---- vía 2: el modelo, a Capa 2 --------------------------------
+            if modelo is None:
+                continue
+            pred = modelo.predecir_partido(fx['abrev_home'], fx['abrev_away'],
+                                           fecha=fx.get('fecha'),
+                                           neutral=bool(fx.get('neutral')),
+                                           tipo=fx.get('tipo') or 'regular')
+            if 'error' in pred:
+                salida.setdefault('sin_modelo', []).append(
+                    {**base, 'motivo': pred['error']})
+                continue
+            try:
+                r = cm.cuotas_partido('nfl', h, a)
+                mejor = r.get('mejor') or {}
+            except Exception:
+                mejor = {}
+
+            # TODOS los partidos del día van a `pronosticos`, pasen o no el
+            # umbral. Es lo que llena las pestañas «Partidos de hoy» y «de
+            # mañana» con su barra visual, y sin ello la NFL sólo aparecería
+            # cuando el modelo estuviera muy seguro — o sea, casi nunca, y el
+            # usuario no distinguiría «no hay partidos» de «no hay pick».
+            # `_pronosticos_multideporte` prefiere esta clave y sólo cae a los
+            # picks cuando falta, marcando `cobertura_parcial`.
+            ph = pred.get('prob_home_sin_empate')
+            pa = pred.get('prob_away_sin_empate')
+            fila = {**base,
+                    'margen_esperado': pred.get('margen_esperado'),
+                    'total_esperado': pred.get('total_esperado'),
+                    'marcador_esperado': (f"{pred.get('pts_home_esperado')}"
+                                          f"–{pred.get('pts_away_esperado')}")}
+            if ph is None:
+                # pretemporada: el partido aparece con su precio, SIN
+                # probabilidad. `barra_dos_vias` pinta «sin pronóstico del
+                # modelo» cuando `prob` es None, que es exactamente lo que hay.
+                fila.update({'apuesta': f'{h} vs {a}', 'prob': None,
+                             'nota_modelo': pred.get('motivo_sin_probabilidad')})
+                salida['pronosticos'].append(fila)
+                continue
+            fila.update({
+                'apuesta': f'Gana {h}' if ph >= 0.5 else f'Gana {a}',
+                'prob': round(max(ph, pa), 3),
+                'board': {f'Gana {h}': ph, f'Gana {a}': pa},
+                'cuota': (mejor.get('home' if ph >= 0.5 else 'away')
+                          or {}).get('cuota')})
+            salida['pronosticos'].append(fila)
+
+            for lado, nombre in (('home', h), ('away', a)):
+                prob = pred.get(f'prob_{lado}_sin_empate')
+                if not prob or prob < UMBRAL_NFL_CAPA2:
+                    continue
+                precio = (mejor.get(lado) or {}).get('cuota')
+                pick = {**base, 'apuesta': f'Gana {nombre}', 'lado': lado,
+                        'prob': round(float(prob), 3),
+                        'cuota_justa': round(1 / max(float(prob), 1e-6), 2),
+                        'cuota': round(float(precio), 2) if precio else None,
+                        'casa': (mejor.get(lado) or {}).get('casa'),
+                        'valor': '🎯',
+                        'margen_esperado': pred.get('margen_esperado'),
+                        'total_esperado': pred.get('total_esperado'),
+                        'motivo_capa2': (
+                            'NFL en modo informativo: el ROI del modelo al '
+                            'precio de cierre real no cruza el listón del '
+                            'proyecto (p5 de bootstrap positivo). Ver '
+                            'nfl_calibracion.json.')}
+                if precio:
+                    pick['ev'] = round(float(precio) * float(prob) - 1, 4)
+                    pick['ev_negativo'] = bool(pick['ev'] <= 0)
+                salida['capa2'].append(pick)
+
+        n_vs = sum(1 for p in salida['capa1'] if p.get('valor_mercado'))
+        salida['incidencias'].append(
+            f'ℹ️ NFL: {salida["evaluados"]} partidos, {n_comparados} con al '
+            f'menos dos casas para comparar → {n_vs} con una casa pagando por '
+            f'encima del precio justo de Pinnacle. Los picks de NFL en la '
+            f'Sección 1 salen de esa diferencia entre casas, NO del modelo: '
+            f'el modelo va a «Sólo como pata» con su medición al lado.')
+    except Exception as e:
+        logger.warning(f'[alpha] NFL omitida: {type(e).__name__}: {e}')
+        salida['incidencias'].append(f'NFL omitida: {type(e).__name__}: {e}')
+    return salida
+
+
 # ---------------------------------------------------------------------------
 # v32: fiabilidad histórica (Brier real de los picks publicados por liga),
 # cuarentena de pretemporada y segregación de EV extremo.
@@ -2050,10 +2228,11 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
 
     _ramas = {'futbol': lambda: apuestas_del_dia(max_partidos=max_partidos),
               'mlb': _picks_mlb, 'tenis': _picks_tenis, 'nba': _picks_nba,
-              'kbo': _picks_kbo}                       # v97
+              'kbo': _picks_kbo,                       # v97
+              'nfl': _picks_nfl}                       # v131
     _res: Dict[str, Dict] = {}
     _fallos: Dict[str, str] = {}
-    with ThreadPoolExecutor(max_workers=5,
+    with ThreadPoolExecutor(max_workers=len(_ramas),
                             thread_name_prefix='alpha') as _ex:
         _fut = {_ex.submit(fn): nombre for nombre, fn in _ramas.items()}
         for f, nombre in _fut.items():
@@ -2148,7 +2327,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # (`evaluados` + `cobertura`) y aquí se suman.
     evaluados_dep = int(r.get('partidos_evaluados') or 0)
     cobertura_dep = dict(r.get('cobertura_ligas') or {})
-    for nombre in ('mlb', 'tenis', 'nba', 'kbo'):        # v97: + KBO
+    for nombre in ('mlb', 'tenis', 'nba', 'kbo', 'nfl'):   # v97: +KBO · v131: +NFL
         sub = _res.get(nombre) or {}
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])
@@ -2188,6 +2367,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     from config import LEAGUES as _LGN
     LIGA_A_CLAVE = {cfg.get('nombre', c): c for c, cfg in _LGN.items()}
     LIGA_A_CLAVE.update({'ATP': 'atp', 'WTA': 'wta', 'MLB': 'mlb', 'NBA': 'nba',
+                         'NFL': 'nfl',                        # v131
                          'Brasileirão Serie A': 'brasil',
                          'Primera División': 'argentina'})
     for p in capa1 + capa2 + list(r.get('candidatos') or []):

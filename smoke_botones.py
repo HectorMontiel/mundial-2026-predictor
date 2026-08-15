@@ -34,6 +34,12 @@ VISTAS = {
     # se rompe, es aquí donde tiene que verse y no en producción.
     '⚾ KBO (béisbol coreano)': [],
     '🏆 Leagues Cup': ['Proponer parlays'],
+    # v131 — la NFL. Entra en el smoke desde el primer día y no «cuando se
+    # estabilice»: su vista pulsa «Cargar» (que reescribe `session_state` y
+    # hace `st.rerun()`) y su pestaña de EV+ lanza el barrido del deporte.
+    # Los dos son exactamente el tipo de camino que sólo se recorre pulsando,
+    # que es la razón por la que este fichero existe.
+    '🏈 NFL (fútbol americano)': ['Cargar'],
 }
 
 def botones(at):
@@ -80,7 +86,7 @@ def botones(at):
 #
 #     barrido del día en frío ........   2,6 min
 #     cargar una vista con AppTest ...   1,2 min
-#     estimación de 7 vistas .........  11,3 min
+#     estimación de 8 vistas .........  11,3 min
 #     SMOKE COMPLETO REAL ............ 110    min
 #
 # Los 100 minutos de diferencia NO están en cargar pantallas: están en pulsar
@@ -89,7 +95,7 @@ def botones(at):
 # fichero vivía dentro de un `if st.button(...)`— pero no aportan nada cuando
 # lo único que ha cambiado son los JSON de estadísticas que sube el bot diario.
 #
-# `--rapido` carga LAS 7 VISTAS igual (que es donde se detecta un dato que
+# `--rapido` carga LAS 8 VISTAS igual (que es donde se detecta un dato que
 # rompe el arranque) y pulsa todo MENOS esos tres. Baja a ~15 min.
 #
 # CUÁNDO SE USA CADA UNO, y esto no es opinable:
@@ -104,7 +110,7 @@ BOTONES_CAROS = ('proponer parlays', 'enviar estos parlays',
                  'traer cuotas reales ahora')
 
 if RAPIDO:
-    print('MODO RÁPIDO: se cargan las 7 vistas y se pulsa todo menos los '
+    print('MODO RÁPIDO: se cargan las 8 vistas y se pulsa todo menos los '
           'botones que cargan motores.')
     print('             NO sustituye al completo antes de un push.\n')
 

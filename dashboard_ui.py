@@ -4080,6 +4080,7 @@ COMPETENCIAS = {'🌍 Partidos Internacionales': 'mundial',
                 '⚾ KBO (béisbol coreano)': 'kbo_deporte',       # v97
                 '🏀 NBA (baloncesto)': 'nba_deporte',
                 '🎾 Tenis (ATP/WTA)': 'tennis_deporte',
+                '🏈 NFL (fútbol americano)': 'nfl_deporte',   # v131
                 '🏆 Leagues Cup': 'leagues_cup',                 # v97
                 '🇲🇽 Liga MX': 'liga_mx',
                 '🇧🇷 Brasileirão': 'brasil',
@@ -4150,7 +4151,7 @@ except Exception:
 # Aquí se cae la entrada del menú en vez de la aplicación. `_NO_SON_LIGAS` son
 # las vistas que no salen del catálogo y por eso no se comprueban.
 _NO_SON_LIGAS = {'mundial', 'alpha', 'mlb_deporte', 'kbo_deporte',
-                 'nba_deporte', 'tennis_deporte'}
+                 'nba_deporte', 'tennis_deporte', 'nfl_deporte'}   # v131
 try:
     import logging as _log_menu
 
@@ -4210,7 +4211,7 @@ _pinta(_estilo.cabecera(
     'Predicción, cuotas de seis casas y combinadas — con lo que el proyecto '
     'tiene medido delante, no en letra pequeña.',
     chips=[('⚽ fútbol', 'info'), ('⚾ MLB · KBO', 'info'),
-           ('🏀 NBA', 'info'), ('🎾 tenis', 'info'),
+           ('🏀 NBA', 'info'), ('🎾 tenis', 'info'), ('🏈 NFL', 'info'),
            ('el edge está en el precio', 'ok')],
     icono='🎯') if _estilo else None)
 
@@ -4369,7 +4370,7 @@ def render_alpha_finder():
         'Todos los partidos de HOY con cuota y valor calculados solos, '
         'ordenados para que lo accionable esté arriba.',
         chips=[(_chip_casas, _tono_casas), ('hora de CDMX', 'info'),
-               ('⚽ ⚾ 🏀 🎾', 'info')],
+               ('⚽ ⚾ 🏀 🎾 🏈', 'info')],
         icono='💎')
     if _tono_casas == 'mira':
         # El número de la barra lateral («cinco casas») y el de este chip
@@ -4390,7 +4391,7 @@ def render_alpha_finder():
     st.caption("SOLO los partidos de **HOY**: todas las ligas con "
                "jornada este día (ESPN + Pinnacle + Bovada + Playdoit + "
                "Unibet + Matchbook) + "
-               "⚾ MLB, 🏀 NBA y 🎾 tenis ATP/WTA, con cuota y EV automáticos. "
+               "⚾ MLB, 🏀 NBA, 🎾 tenis ATP/WTA y 🏈 NFL, con cuota y EV automáticos. "
                "**Todas las horas están en hora de Ciudad de México.** "
                "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza "
                "sin cuota en vivo; **Pronósticos** = todos los partidos de "
@@ -4988,7 +4989,7 @@ def render_alpha_finder():
     # puesto el usuario un selector. Así que `r` se queda entero y lo único que
     # se filtra son las listas justo antes de dibujarlas.
     _DEPORTES_FILTRO = [('Todo', 'Todo'), ('⚽', 'Fútbol'), ('⚾', 'MLB'),
-                        ('🏀', 'NBA'), ('🎾', 'Tenis')]
+                        ('🏀', 'NBA'), ('🎾', 'Tenis'), ('🏈', 'NFL')]
     _presentes = {p.get('deporte') for p in (r.get('pronosticos') or [])
                   if p.get('deporte')}
     _opciones = [e for e, d in _DEPORTES_FILTRO
@@ -6585,6 +6586,251 @@ def render_nba():
                  "fallo.")
 
 
+def render_nfl():
+    """
+    v131 — vista de la NFL: predicción, forma reciente y el tablero de la casa.
+
+    Se dice lo que es desde la primera línea, porque es lo que la bitácora §0
+    obliga a decir: el modelo sirve para ORDENAR, y quien decide si algo tiene
+    valor es la ventaja de precio contra el consenso. La cifra que lo respalda
+    se lee de `nfl_calibracion.json`, o sea de la medición real, no de un texto
+    escrito a mano que se quedaría viejo.
+    """
+    _cabecera(
+        'NFL — Fútbol americano',
+        'Ganador, hándicap, total del partido y totales de equipo, con el '
+        'tablero completo de tu casa y el consenso de las demás al lado.',
+        chips=[('32 equipos', 'info'), ('ESPN + 3 casas', 'info'),
+               ('el edge está en el precio', 'ok')],
+        icono='🏈')
+    try:
+        import nfl_datos as nd
+        import modelo_nfl as mnfl
+    except Exception as e:
+        st.error(f"Módulos de NFL no disponibles: {type(e).__name__}: {e}")
+        return
+
+    @st.cache_data(ttl=3600, show_spinner="Cargando histórico de la NFL…")
+    def _hist():
+        return nd.cargar_historico()
+
+    @st.cache_resource(show_spinner="Cargando modelo NFL…")
+    def _modelo():
+        return mnfl.NFLModelo.cargar(historico=nd.cargar_historico())
+
+    hist = _hist()
+    if not len(hist):
+        st.warning(
+            "No hay histórico de la NFL en el repositorio. Se construye con "
+            "`python nfl_datos.py`, que descarga de ESPN el marcador, las 25 "
+            "estadísticas de equipo y las cuotas de cierre de cada partido.")
+        return
+    modelo = _modelo()
+
+    # --- lo que está medido, dicho antes que nada -------------------------
+    cal = {}
+    try:
+        with open(mnfl.CALIBRACION, encoding='utf-8') as _f:
+            cal = json.load(_f)
+    except Exception:
+        pass
+    _cm = cal.get('contra_mercado') or {}
+    _n = len(hist[hist['tipo'].isin(('regular', 'playoffs'))]) if 'tipo' in hist else len(hist)
+    st.caption(
+        f"Entrenado con {_n} partidos de la NFL "
+        f"({str(hist['fecha'].min())[:10]} → {str(hist['fecha'].max())[:10]}) — "
+        f"marcador y estadística de equipo de ESPN."
+        + (f" Fuera de muestra acierta el ganador el "
+           f"{_cm['acierto_modelo']*100:.1f} % frente al {_cm['acierto_mercado']*100:.1f} % "
+           f"del mercado (n={_cm['n']})." if _cm else ''))
+    if _cm and _cm.get('brier_modelo', 9) > _cm.get('brier_mercado', 0):
+        st.info(
+            "ℹ️ **El modelo NO bate al mercado en la NFL**, y se dice antes de "
+            f"enseñar un solo número: su Brier fuera de muestra es "
+            f"{_cm['brier_modelo']:.4f} contra {_cm['brier_mercado']:.4f} del "
+            "precio de cierre. Por eso sus picks van a «Sólo como pata» y "
+            "nunca a la Sección 1 — ahí sólo entra la NFL por **ventaja de "
+            "precio** contra el consenso, que no depende del modelo.")
+
+    equipos = sorted(nd.EQUIPOS, key=lambda k: nd.EQUIPOS[k]['nombre'])
+    nombres = [nd.EQUIPOS[k]['nombre'] for k in equipos]
+    por_nombre = {nd.EQUIPOS[k]['nombre']: k for k in equipos}
+
+    # --- selector de próximos partidos -------------------------------------
+    try:
+        prox = nd.fixtures_nfl(dias=8)
+    except Exception:
+        prox = []
+    # EL TIPO DE PARTIDO VIAJA CON EL PARTIDO, no se supone.
+    #
+    # El selector de abajo es por EQUIPOS, así que sin esto la ficha de un
+    # partido de agosto se predeciría como si fuera liga regular — y el modelo
+    # no tiene ahí ninguna información (correlación −0,013 con el margen real).
+    # Se guarda el tipo del fixture cargado y se le pasa al modelo.
+    if prox:
+        _ops = {f"{p['away']} @ {p['home']} · {p['fecha']}"
+                + (' · pretemporada' if p.get('tipo') == 'pretemporada' else ''):
+                (p['abrev_home'], p['abrev_away'], p.get('tipo') or 'regular')
+                for p in prox}
+        c0, c1 = st.columns([3, 1])
+        _elegido = c0.selectbox('📅 Próximos partidos', list(_ops),
+                                key='nfl_prox')
+        if c1.button('Cargar', key='nfl_cargar', width='stretch'):
+            h_, a_, t_ = _ops[_elegido]
+            st.session_state['nfl_h'] = nd.nombre_largo(h_)
+            st.session_state['nfl_a'] = nd.nombre_largo(a_)
+            st.session_state['nfl_tipo'] = t_
+            st.rerun()
+    else:
+        st.caption('📅 Sin partidos de NFL en los próximos 8 días.')
+
+    if 'nfl_a' not in st.session_state:
+        st.session_state['nfl_a'] = nombres[1]
+    c1, c2 = st.columns(2)
+    home_n = c1.selectbox('🏠 Local', nombres, key='nfl_h')
+    away_n = c2.selectbox('✈️ Visitante', nombres, key='nfl_a')
+    if home_n == away_n:
+        st.warning('Elige dos equipos distintos.')
+        return
+    home, away = por_nombre[home_n], por_nombre[away_n]
+
+    tab1, tab2, tab3 = st.tabs(['🎯 Predecir partido', '📊 Forma y H2H',
+                                '💰 EV+ automático NFL'])
+
+    with tab1:
+        if modelo is None:
+            st.warning(
+                'El modelo no está entrenado. Se genera con '
+                '`python modelo_nfl.py --entrenar`, que además escribe la '
+                'medición en `nfl_calibracion.json`.')
+        else:
+            # las líneas que publica la casa, para no inventar ninguna
+            det, lineas = None, {}
+            try:
+                import cuotas_multi as _cm2
+                import nfl_mercados as _nm2
+                det = _cm2.mercados_playdoit('nfl', home_n, away_n)
+                if det:
+                    lineas = _nm2.lineas_del_tablero(det, home_n, away_n)
+            except Exception as e:
+                logger.debug(f'[nfl-ui] tablero: {e}')
+            pred = modelo.predecir_partido(
+                home, away,
+                tipo=st.session_state.get('nfl_tipo', 'regular'),
+                linea_hcp=(lineas.get('handicap') or [None])[0],
+                linea_total=(lineas.get('total') or [None])[0],
+                lineas_equipo=((lineas.get('total_home') or [None])[0],
+                               (lineas.get('total_away') or [None])[0]))
+            if 'error' in pred:
+                st.warning(f"Sin predicción: {pred['error']}")
+            else:
+                if not pred.get('probabilidades_publicables', True):
+                    st.info('ℹ️ ' + pred.get('motivo_sin_probabilidad', ''))
+                m1, m2, m3 = st.columns(3)
+                _ph = pred.get('prob_home_sin_empate')
+                _pa = pred.get('prob_away_sin_empate')
+                m1.metric(f'Gana {home_n}',
+                          f"{_ph*100:.0f} %" if _ph is not None else '—')
+                m2.metric(f'Gana {away_n}',
+                          f"{_pa*100:.0f} %" if _pa is not None else '—')
+                m3.metric('Puntos totales (est.)',
+                          f"{pred['total_esperado']:.0f}")
+                try:
+                    import render_todos_partidos as _rtp
+                    _pinta(_rtp.CSS + _rtp.barra_dos_vias(
+                        _ph, f"{home_n} · {away_n}"))
+                except Exception:
+                    pass
+                st.caption(
+                    f"Marcador esperado **{home_n} {pred['pts_home_esperado']:.0f} – "
+                    f"{pred['pts_away_esperado']:.0f} {away_n}** · margen "
+                    f"{pred['margen_esperado']:+.1f} (σ {pred['sigma_margen']}) · "
+                    f"total {pred['total_esperado']:.1f} (σ {pred['sigma_total']}). "
+                    f"La σ es la dispersión MEDIDA de los residuos, no un "
+                    f"supuesto: es lo que convierte un marcador esperado en "
+                    f"una probabilidad honesta.")
+                if pred.get('n_home', 99) < 4 or pred.get('n_away', 99) < 4:
+                    st.warning(
+                        f"⚠️ Muestra corta: {home_n} lleva {pred.get('n_home')} "
+                        f"partidos en la memoria del modelo y {away_n}, "
+                        f"{pred.get('n_away')}. Al principio de temporada las "
+                        f"medias son casi las de la liga y la predicción vale "
+                        f"poco más que la localía.")
+
+                # --- el tablero de la casa cruzado con el modelo ------------
+                if det:
+                    try:
+                        import nfl_mercados as _nm3
+                        filas = _nm3.mercados_con_ev_nfl(det, pred, home_n, away_n)
+                    except Exception as e:
+                        filas, _ = [], logger.warning(f'[nfl-ui] cruce: {e}')
+                    if filas:
+                        st.markdown(f'#### 💵 Tablero de {det.get("casa")} '
+                                    f'— {len(filas)} mercados')
+                        _df = pd.DataFrame([{
+                            'Mercado': r.get('familia') or r.get('mercado'),
+                            'Apuesta': r.get('apuesta'),
+                            'Cuota': r.get('cuota_casa'),
+                            'Prob. modelo': (f"{r['prob']*100:.1f} %"
+                                             if r.get('prob') is not None else '—'),
+                            'EV': ('—' if r.get('ev') is None
+                                   or r.get('ev_no_fiable') or r.get('sin_modelo')
+                                   else f"{r['ev']*100:+.1f} %"),
+                            'Aviso': ('el modelo no cubre este mercado'
+                                      if r.get('sin_modelo') or r.get('ev_no_fiable')
+                                      else ''),
+                        } for r in filas])
+                        st.dataframe(_df, width='stretch', hide_index=True)
+                        # Sin número de versión en el texto: es jerga interna y
+                        # el test `test_mensajes_sin_jerga_interna` lo vigila.
+                        # La referencia al precedente del fútbol vive en el
+                        # comentario, que es donde le sirve a quien mantiene
+                        # esto, no al usuario que quiere apostar.
+                        st.caption(
+                            "Los mercados de mitades, cuartos y «primer equipo "
+                            "en marcar» salen **con precio y sin EV**: el modelo "
+                            "predice el partido completo y no tiene medido el "
+                            "reparto por periodo. Se dice en vez de rellenarlo "
+                            "con una proporción inventada.")
+                else:
+                    st.caption('Este partido no está hoy en el catálogo de '
+                               'Playdoit, así que no hay tablero que cruzar.')
+
+    with tab2:
+        try:
+            import h2h_visual as _h2h
+            f_h = nd.forma_reciente(hist, home, n=5)
+            f_a = nd.forma_reciente(hist, away, n=5)
+            _pinta(_h2h.bloque(home_n, away_n, f_h, f_a, n=5, deporte='nfl'))
+            st.caption(_h2h.resumen_texto(home_n, f_h, 5) + '  \n'
+                       + _h2h.resumen_texto(away_n, f_a, 5))
+        except Exception as e:
+            st.info(f'Forma reciente no disponible: {type(e).__name__}: {e}')
+        try:
+            _dir = nd.h2h(hist, home, away, n=6)
+        except Exception:
+            _dir = []
+        st.markdown('#### 🤝 Enfrentamientos directos')
+        if _dir:
+            st.dataframe(pd.DataFrame([{
+                'Fecha': d['fecha'], 'Temporada': d['temporada'],
+                'Partido': f"{d['away']} @ {d['home']}",
+                'Marcador': f"{d['pts_away']} – {d['pts_home']}",
+                'Tipo': d['tipo']} for d in _dir]),
+                width='stretch', hide_index=True)
+        else:
+            st.caption('Sin enfrentamientos directos en el histórico '
+                       'descargado. En la NFL es lo normal: sólo se cruzan '
+                       'una vez cada varios años fuera de la división.')
+
+    with tab3:
+        import alpha_finder as _af
+        render_ev_automatico(
+            'NFL', _af._picks_nfl,
+            nota='Los picks de NFL en la Sección 1 salen de la ventaja de '
+                 'precio contra Pinnacle, no del modelo.')
+
+
 def _prob_set_local(p_partido: float, best_of: int = 3) -> float:
     """v51.2: invierte P(partido)→P(set) bajo sets i.i.d. Réplica local (en el
     script principal, siempre fresco) para no depender de que Streamlit Cloud
@@ -6967,6 +7213,9 @@ if _clave_comp == 'nba_deporte':
     st.stop()
 if _clave_comp == 'tennis_deporte':
     render_tennis()
+    st.stop()
+if _clave_comp == 'nfl_deporte':                          # v131
+    render_nfl()
     st.stop()
 if _clave_comp == 'alpha':
     render_alpha_finder()

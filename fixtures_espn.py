@@ -669,6 +669,14 @@ def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
 ESPN_DEPORTES = {
     'mlb': 'baseball/mlb',
     'nba': 'basketball/nba',
+    # v131 — NFL. Verificado 2026-08-15: la pretemporada devuelve 16 partidos
+    # y el scoreboard trae la temporada y su tipo dentro de cada evento, así
+    # que `nfl_datos` puede distinguir pretemporada de liga regular sin una
+    # petición más. El calendario propio de la NFL vive en
+    # `nfl_datos.fixtures_nfl`, que además traduce a abreviatura y degrada al
+    # catálogo de Playdoit; esta entrada es la que hace funcionar el selector
+    # genérico de próximos partidos de la interfaz.
+    'nfl': 'football/nfl',
 }
 ESPN_BASE_DEP = 'https://site.api.espn.com/apis/site/v2/sports/{path}/scoreboard'
 

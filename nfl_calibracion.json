@@ -1,0 +1,144 @@
+{
+ "ventana": 12,
+ "arrastre": 0.5,
+ "alpha": 15.0,
+ "temporadas": {
+  "2025": {
+   "n_entrena": 613,
+   "n_juicio": 285,
+   "mae_margen": 10.148,
+   "mae_total": 10.659,
+   "sigma_margen": 13.61,
+   "sigma_total": 13.14
+  }
+ },
+ "metodo": {
+  "normal": {
+   "log_loss": 0.63863,
+   "brier": 0.22457
+  },
+  "empirico": {
+   "log_loss": 0.63514,
+   "brier": 0.22315
+  }
+ },
+ "n_juicio_total": 285,
+ "metodo_elegido": "empirico",
+ "contra_mercado": {
+  "n": 284,
+  "brier_modelo": 0.22315,
+  "brier_mercado": 0.21193,
+  "acierto_modelo": 0.6303,
+  "acierto_mercado": 0.6655,
+  "corr_margen_vs_linea": 0.7683
+ },
+ "roi": {
+  "moneyline_lado_del_modelo": {
+   "n": 285,
+   "acierto": 0.6281,
+   "roi": -0.0432,
+   "p5": -0.1216
+  },
+  "moneyline_ev_positivo": {
+   "n": 86,
+   "acierto": 0.4884,
+   "roi": -0.0162,
+   "p5": -0.2052
+  },
+  "moneyline_ev_mayor_5pct": {
+   "n": 66,
+   "acierto": 0.4545,
+   "roi": -0.0207,
+   "p5": -0.2498
+  },
+  "moneyline_prob_mayor_65pct": {
+   "n": 91,
+   "acierto": 0.7473,
+   "roi": -0.0246,
+   "p5": -0.1293
+  },
+  "moneyline_favorito_del_mercado": {
+   "n": 285,
+   "acierto": 0.6632,
+   "roi": -0.0481,
+   "p5": -0.1201
+  },
+  "handicap_lado_del_modelo": {
+   "n": 285,
+   "acierto": 0.5544,
+   "roi": 0.0596,
+   "p5": -0.0336
+  },
+  "handicap_discrepancia_mayor_3": {
+   "n": 118,
+   "acierto": 0.5508,
+   "roi": 0.0501,
+   "p5": -0.0981
+  },
+  "handicap_discrepancia_mayor_6": {
+   "n": 35,
+   "acierto": 0.5714,
+   "roi": 0.0853,
+   "p5": -0.1861
+  },
+  "_linea_media": 5.32,
+  "total_lado_del_modelo": {
+   "n": 285,
+   "acierto": 0.5123,
+   "roi": -0.0221,
+   "p5": -0.1158
+  },
+  "total_discrepancia_mayor_3": {
+   "n": 98,
+   "acierto": 0.5,
+   "roi": -0.0455,
+   "p5": -0.2013
+  },
+  "total_discrepancia_mayor_6": {
+   "n": 26,
+   "acierto": 0.5,
+   "roi": -0.0455,
+   "p5": -0.3392
+  },
+  "_cuota_total_supuesta": 1.909
+ },
+ "calibracion": [
+  {
+   "banda": "0.50-0.55",
+   "n": 87,
+   "dice": 0.5227,
+   "acierta": 0.5402
+  },
+  {
+   "banda": "0.55-0.60",
+   "n": 58,
+   "dice": 0.5728,
+   "acierta": 0.5862
+  },
+  {
+   "banda": "0.60-0.65",
+   "n": 48,
+   "dice": 0.6197,
+   "acierta": 0.625
+  },
+  {
+   "banda": "0.65-0.70",
+   "n": 39,
+   "dice": 0.676,
+   "acierta": 0.6923
+  },
+  {
+   "banda": "0.70-0.80",
+   "n": 40,
+   "dice": 0.7362,
+   "acierta": 0.725
+  },
+  {
+   "banda": "0.80-1.00",
+   "n": 12,
+   "dice": 0.8378,
+   "acierta": 1.0
+  }
+ ],
+ "corr_margen_total": -0.015
+}

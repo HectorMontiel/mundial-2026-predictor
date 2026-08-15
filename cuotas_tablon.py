@@ -117,6 +117,15 @@ FAMILIA_SECCION = {
     'Par/Impar':          (('parimpar',),),
     'Primer/último gol':  (('primerultimogol',),),
     'Mitades':            (('1a', 'mitad'), ('mitades',)),
+    # v131 — familias de la NFL. Van aquí y no en `nfl_mercados` porque este
+    # mapa es lo que ACOTA el cruce por similitud, y sin acotar volvería el
+    # fallo que la v123 arregló: «Más de 44.5 puntos» (total del partido)
+    # casando por parecido con «Más de 4.5 puntos» del total de un equipo, que
+    # es otra sección y otra probabilidad. Con la familia declarada, cada fila
+    # sólo puede cruzarse contra su propia sección.
+    'Hándicap NFL':       (('handicap', 'nfl'),),
+    'Total de puntos':    (('totaldepuntos',),),
+    'Puntos por equipo':  (('puntosporequipo',),),
 }
 
 

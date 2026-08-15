@@ -146,8 +146,35 @@ def _media_stat(partidos: List[Dict], clave: str, n: int = 5) -> Optional[float]
     return round(sum(vals) / len(vals), 2) if vals else None
 
 
+# Las barras que se dibujan bajo la racha, por deporte. Iban incrustadas en
+# `tarjeta_equipo` con los nombres del fútbol («Córners», «Amarillas», «Tiros a
+# puerta»), lo que servía mientras todos los deportes de la ficha fueran fútbol.
+#
+# v131 — con la NFL dentro ya no lo son, y una tarjeta de fútbol americano
+# titulada «Goles a favor» no es un detalle cosmético: es una etiqueta que
+# miente sobre lo que hay debajo. Se declara por deporte; el fútbol conserva
+# exactamente las suyas, así que su ficha no cambia ni un píxel.
+PERFILES = {
+    'futbol': {
+        'favor': 'Goles a favor', 'contra': 'Goles en contra',
+        'stats': (('Córners', 'Córners', 'var(--info)'),
+                  ('Amarillas', 'Tarjetas', 'var(--mira)'),
+                  ('Tiros a puerta', 'Tiros a puerta', 'var(--tenue)')),
+    },
+    'nfl': {
+        'favor': 'Puntos a favor', 'contra': 'Puntos en contra',
+        # Yardas y yardas por jugada son las dos magnitudes que mejor separan
+        # a un ataque de otro, y las pérdidas de balón lo que más pesa en el
+        # resultado — las tres salen del boxscore de ESPN sin fuente nueva.
+        'stats': (('Yardas', 'Yardas', 'var(--info)'),
+                  ('Yardas por jugada', 'Yardas/jugada', 'var(--tenue)'),
+                  ('Pérdidas', 'Pérdidas', 'var(--mira)')),
+    },
+}
+
+
 def tarjeta_equipo(nombre: str, forma: Dict, icono: str = '',
-                   n: int = 5) -> str:
+                   n: int = 5, deporte: str = 'futbol') -> str:
     """
     La ficha de un equipo: racha, desglose y las medias que de verdad hay.
 
@@ -156,6 +183,7 @@ def tarjeta_equipo(nombre: str, forma: Dict, icono: str = '',
     dato — que es una cosa muy distinta y es justo el tipo de mentira visual
     que este proyecto evita en el resto de la interfaz.
     """
+    perfil = PERFILES.get(deporte, PERFILES['futbol'])
     if not forma or not forma.get('n'):
         return (f'<div class="h2hcard"><b>{_esc(icono)} {_esc(nombre)}</b>'
                 f'<div style="color:var(--tenue);font-size:.8rem;'
@@ -178,15 +206,21 @@ def tarjeta_equipo(nombre: str, forma: Dict, icono: str = '',
     filas = []
     if gf is not None and gc is not None:
         tope = max(float(gf), float(gc), 1.0)
-        filas.append(_barra(float(gf), tope, 'var(--ok)', 'Goles a favor'))
-        filas.append(_barra(float(gc), tope, 'var(--no)', 'Goles en contra'))
-    for clave, etq, color in (('Córners', 'Córners', 'var(--info)'),
-                              ('Amarillas', 'Tarjetas', 'var(--mira)'),
-                              ('Tiros a puerta', 'Tiros a puerta',
-                               'var(--tenue)')):
+        filas.append(_barra(float(gf), tope, 'var(--ok)', perfil['favor']))
+        filas.append(_barra(float(gc), tope, 'var(--no)', perfil['contra']))
+    for clave, etq, color in perfil['stats']:
         v = _media_stat(partidos, clave, n)
         if v is not None:
-            filas.append(_barra(v, max(v, 6.0), color, etq))
+            # EL TOPE DE LA BARRA SALE DEL PROPIO VALOR, NO DE UNA CONSTANTE.
+            #
+            # El 6.0 fijo venía de los córners y sirve mientras las magnitudes
+            # sean de un dígito. Con yardas de NFL (350-450 por partido) la
+            # barra saldría siempre llena y no distinguiría nada. Se redondea
+            # hacia arriba al orden de magnitud del valor.
+            import math as _m
+            escala = 10 ** max(0, int(_m.floor(_m.log10(max(abs(v), 1e-9)))))
+            filas.append(_barra(v, max(v, min(6.0, escala) if escala <= 10
+                                       else escala * 1.5), color, etq))
     return (
         f'<div class="h2hcard">'
         f'<div style="display:flex;justify-content:space-between;'
@@ -215,11 +249,11 @@ CSS = """
 
 
 def bloque(home: str, away: str, forma_home: Dict, forma_away: Dict,
-           n: int = 5) -> str:
+           n: int = 5, deporte: str = 'futbol') -> str:
     """Las dos fichas enfrentadas. En móvil se apilan (ver el CSS)."""
     return (CSS + '<div class="h2hwrap">'
-            + tarjeta_equipo(home, forma_home, '🏠', n)
-            + tarjeta_equipo(away, forma_away, '✈️', n)
+            + tarjeta_equipo(home, forma_home, '🏠', n, deporte)
+            + tarjeta_equipo(away, forma_away, '✈️', n, deporte)
             + '</div>')
 
 

@@ -4,7 +4,7 @@
 > función, se comprueba aquí si contradice algo ya medido. Si lo contradice, o
 > se aporta una medición que lo desmienta, o no se añade.
 >
-> Última revisión: 2026-08-11 · a partir de la v124.
+> Última revisión: 2026-08-15 · a partir de la v131 (NFL).
 
 ---
 
@@ -58,6 +58,39 @@ Tres cosas que hay que decir con ello:
   proponía no medir el p5 del tenis y la MLB «porque ya sabemos que son
   rentables». Medirlo es lo que encontró la única bolsa rentable del proyecto —
   y de paso desmintió la premisa.
+
+### La NFL, medida desde cero en la v131 — y sale igual
+
+Se integró un deporte nuevo con datos nuevos (1.055 partidos de ESPN, 2023-2026,
+con estadística de equipo al 100 % y cuotas de cierre reales al 99,8 %) y su
+propio modelo. El resultado **reproduce el §0 sin tocar nada de lo anterior**,
+que es la confirmación independiente más fuerte que este documento tiene:
+
+| medición (NFL, juicio = temporada 2025, n=285) | resultado |
+|---|---|
+| acierto del modelo vs acierto del mercado | **63,0 % contra 66,5 %** |
+| Brier del modelo vs Brier del mercado | **0,2231 contra 0,2119** |
+| calibración del modelo | correcta: dice 57,3 % y acierta 58,6 %; dice 62,0 % y acierta 62,5 % |
+| ROI apostando el lado del modelo | **−4,32 %** (p5 −12,16 %) |
+| ROI filtrando por **EV del modelo > 0** | **−1,62 %**, y el acierto **cae del 62,8 % al 48,8 %** |
+| ROI filtrando por **EV del modelo > 5 %** | **−2,07 %**, acierto **45,5 %** |
+| correlación margen esperado ↔ línea de cierre | +0,77 (aprende señal real, sólo que menos que el precio) |
+
+**El EV del modelo vuelve a ser anti-indicador, y aquí se ve más claro que en
+fútbol:** cuanto más valor declara, peor acierta — del 62,8 % al 45,5 %. En
+fútbol esto se veía como una correlación de −0,054 con el CLV; en la NFL se ve
+como una caída de 17 puntos de acierto. Es el mismo fenómeno con otra cara.
+
+**El hándicap tentó y no pasó.** +5,96 % en 2025 (n=285), que es el canal más
+cerca de la regla en todo el proyecto después del precio. Se quedó fuera
+porque su otra temporada da −4,88 % y su p5 es negativo en las dos. Cara o
+cruz, no ventaja.
+
+**La pretemporada no admite modelo, y está medido.** Sobre 103 partidos de
+pretemporada (2024-2025), la correlación entre el margen predicho y el real es
+**−0,013** y el Brier **0,2727 — peor que decir 50 %**. Lo destapó un pick real
+de 82,3 % con EV +38 %. Regla añadida: en pretemporada no se publica
+probabilidad de ningún deporte cuyo modelo no se haya entrenado con ella.
 
 ### La consecuencia incómoda
 
@@ -182,6 +215,17 @@ elegirlos, que es el listón del §0:
 |---|---|---|---|
 | **Precio al lado LOCAL** (fútbol) | `valor_vs_sharp`: una casa blanda paga por encima del devig de Pinnacle, con `p ≥ 0,30` y `EV ≥ 1 %` | n=1817 · +5,09 % · **p5 +1,09 %** | n=353 · +11,49 % · **p5 +1,73 %** |
 | **Tenis con `prob ≥ 90 %`** y precio publicado | §0 | — | n=1.793 · +5,76 % · **p5 +0,18 %** |
+
+**La NFL NO añade un tercer canal, y el motivo importa (v131).** Se intentó
+medir el mismo canal de precio en fútbol americano descargando el cierre de
+todas las casas que publica ESPN: 2.906 cierres de 12 casas sobre 897 partidos.
+Pero el reparto lo impide — **207 partidos con ≥2 casas en 2023, 2 en 2025 y
+ninguno en 2024**: ESPN conserva el histórico multi-casa sólo de una temporada.
+Sin dos precios no hay line shopping que medir, así que el veredicto es **«no
+medible»**, no «medido y negativo», y queda escrito así en
+`nfl_canal_precio.json`. La NFL se queda en la Sección 2 —el camino por
+defecto— hasta que `odds_snapshots` acumule fotos propias de Pinnacle, Bovada
+y Playdoit, que es la vía del §6.
 
 **El mismo canal al empate y al visitante NO sube**, y ésa es la parte que
 importa: sale de partir `_v90_line_shopping_por_lado` por lado.

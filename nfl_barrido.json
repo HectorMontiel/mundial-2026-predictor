@@ -1,0 +1,448 @@
+{
+ "eleccion_en": [
+  2024
+ ],
+ "tabla": [
+  {
+   "ventana": 12,
+   "arrastre": 0.5,
+   "alpha": 15.0,
+   "log_loss": 0.64355,
+   "brier": 0.22619,
+   "metodo": "empirico",
+   "mae_margen": 10.484
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.5,
+   "alpha": 15.0,
+   "log_loss": 0.64359,
+   "brier": 0.22616,
+   "metodo": "empirico",
+   "mae_margen": 10.538
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.35,
+   "alpha": 15.0,
+   "log_loss": 0.64379,
+   "brier": 0.22625,
+   "metodo": "empirico",
+   "mae_margen": 10.501
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.5,
+   "alpha": 15.0,
+   "log_loss": 0.64408,
+   "brier": 0.22606,
+   "metodo": "empirico",
+   "mae_margen": 10.492
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.35,
+   "alpha": 15.0,
+   "log_loss": 0.64428,
+   "brier": 0.22619,
+   "metodo": "empirico",
+   "mae_margen": 10.517
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.5,
+   "alpha": 5.0,
+   "log_loss": 0.64432,
+   "brier": 0.22616,
+   "metodo": "empirico",
+   "mae_margen": 10.496
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.35,
+   "alpha": 2.0,
+   "log_loss": 0.64446,
+   "brier": 0.22665,
+   "metodo": "empirico",
+   "mae_margen": 10.555
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.25,
+   "alpha": 15.0,
+   "log_loss": 0.64452,
+   "brier": 0.22671,
+   "metodo": "empirico",
+   "mae_margen": 10.558
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.25,
+   "alpha": 5.0,
+   "log_loss": 0.6447,
+   "brier": 0.22678,
+   "metodo": "empirico",
+   "mae_margen": 10.565
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.35,
+   "alpha": 15.0,
+   "log_loss": 0.6447,
+   "brier": 0.22672,
+   "metodo": "empirico",
+   "mae_margen": 10.547
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.5,
+   "alpha": 5.0,
+   "log_loss": 0.64479,
+   "brier": 0.22673,
+   "metodo": "empirico",
+   "mae_margen": 10.541
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.5,
+   "alpha": 2.0,
+   "log_loss": 0.6449,
+   "brier": 0.22642,
+   "metodo": "empirico",
+   "mae_margen": 10.5
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.25,
+   "alpha": 15.0,
+   "log_loss": 0.64493,
+   "brier": 0.22676,
+   "metodo": "empirico",
+   "mae_margen": 10.518
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.5,
+   "alpha": 5.0,
+   "log_loss": 0.64497,
+   "brier": 0.22682,
+   "metodo": "empirico",
+   "mae_margen": 10.491
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.5,
+   "alpha": 2.0,
+   "log_loss": 0.64498,
+   "brier": 0.22683,
+   "metodo": "empirico",
+   "mae_margen": 10.543
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.25,
+   "alpha": 15.0,
+   "log_loss": 0.64505,
+   "brier": 0.22657,
+   "metodo": "empirico",
+   "mae_margen": 10.539
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.35,
+   "alpha": 5.0,
+   "log_loss": 0.64516,
+   "brier": 0.22698,
+   "metodo": "empirico",
+   "mae_margen": 10.552
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.5,
+   "alpha": 2.0,
+   "log_loss": 0.64522,
+   "brier": 0.22694,
+   "metodo": "empirico",
+   "mae_margen": 10.495
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.35,
+   "alpha": 2.0,
+   "log_loss": 0.64527,
+   "brier": 0.22662,
+   "metodo": "empirico",
+   "mae_margen": 10.53
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.35,
+   "alpha": 5.0,
+   "log_loss": 0.64532,
+   "brier": 0.22666,
+   "metodo": "empirico",
+   "mae_margen": 10.525
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.25,
+   "alpha": 2.0,
+   "log_loss": 0.64535,
+   "brier": 0.22709,
+   "metodo": "empirico",
+   "mae_margen": 10.568
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.35,
+   "alpha": 5.0,
+   "log_loss": 0.64626,
+   "brier": 0.22738,
+   "metodo": "empirico",
+   "mae_margen": 10.511
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.0,
+   "alpha": 15.0,
+   "log_loss": 0.64655,
+   "brier": 0.22775,
+   "metodo": "empirico",
+   "mae_margen": 10.601
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.35,
+   "alpha": 2.0,
+   "log_loss": 0.64667,
+   "brier": 0.22756,
+   "metodo": "empirico",
+   "mae_margen": 10.515
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.25,
+   "alpha": 5.0,
+   "log_loss": 0.64677,
+   "brier": 0.22732,
+   "metodo": "empirico",
+   "mae_margen": 10.55
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.25,
+   "alpha": 2.0,
+   "log_loss": 0.64686,
+   "brier": 0.22734,
+   "metodo": "empirico",
+   "mae_margen": 10.555
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.25,
+   "alpha": 5.0,
+   "log_loss": 0.6472,
+   "brier": 0.22778,
+   "metodo": "empirico",
+   "mae_margen": 10.531
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.25,
+   "alpha": 2.0,
+   "log_loss": 0.64762,
+   "brier": 0.228,
+   "metodo": "empirico",
+   "mae_margen": 10.537
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.0,
+   "alpha": 5.0,
+   "log_loss": 0.64776,
+   "brier": 0.22831,
+   "metodo": "empirico",
+   "mae_margen": 10.613
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.0,
+   "alpha": 15.0,
+   "log_loss": 0.64849,
+   "brier": 0.22846,
+   "metodo": "empirico",
+   "mae_margen": 10.584
+  },
+  {
+   "ventana": 8,
+   "arrastre": 0.0,
+   "alpha": 2.0,
+   "log_loss": 0.64866,
+   "brier": 0.22876,
+   "metodo": "empirico",
+   "mae_margen": 10.619
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.0,
+   "alpha": 5.0,
+   "log_loss": 0.65026,
+   "brier": 0.22932,
+   "metodo": "empirico",
+   "mae_margen": 10.61
+  },
+  {
+   "ventana": 12,
+   "arrastre": 0.0,
+   "alpha": 2.0,
+   "log_loss": 0.65105,
+   "brier": 0.22968,
+   "metodo": "empirico",
+   "mae_margen": 10.621
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.0,
+   "alpha": 15.0,
+   "log_loss": 0.65141,
+   "brier": 0.22961,
+   "metodo": "empirico",
+   "mae_margen": 10.605
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.5,
+   "alpha": 15.0,
+   "log_loss": 0.65191,
+   "brier": 0.23029,
+   "metodo": "empirico",
+   "mae_margen": 10.636
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.5,
+   "alpha": 5.0,
+   "log_loss": 0.65232,
+   "brier": 0.23055,
+   "metodo": "empirico",
+   "mae_margen": 10.652
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.0,
+   "alpha": 5.0,
+   "log_loss": 0.65238,
+   "brier": 0.23,
+   "metodo": "empirico",
+   "mae_margen": 10.624
+  },
+  {
+   "ventana": 10,
+   "arrastre": 0.0,
+   "alpha": 2.0,
+   "log_loss": 0.65258,
+   "brier": 0.23006,
+   "metodo": "empirico",
+   "mae_margen": 10.632
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.35,
+   "alpha": 15.0,
+   "log_loss": 0.65264,
+   "brier": 0.23068,
+   "metodo": "empirico",
+   "mae_margen": 10.651
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.25,
+   "alpha": 15.0,
+   "log_loss": 0.65271,
+   "brier": 0.23073,
+   "metodo": "empirico",
+   "mae_margen": 10.663
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.35,
+   "alpha": 5.0,
+   "log_loss": 0.65351,
+   "brier": 0.23113,
+   "metodo": "empirico",
+   "mae_margen": 10.67
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.5,
+   "alpha": 2.0,
+   "log_loss": 0.65351,
+   "brier": 0.23115,
+   "metodo": "empirico",
+   "mae_margen": 10.668
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.25,
+   "alpha": 5.0,
+   "log_loss": 0.65402,
+   "brier": 0.23139,
+   "metodo": "empirico",
+   "mae_margen": 10.683
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.0,
+   "alpha": 15.0,
+   "log_loss": 0.65435,
+   "brier": 0.23158,
+   "metodo": "empirico",
+   "mae_margen": 10.704
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.25,
+   "alpha": 2.0,
+   "log_loss": 0.65452,
+   "brier": 0.23164,
+   "metodo": "empirico",
+   "mae_margen": 10.698
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.0,
+   "alpha": 5.0,
+   "log_loss": 0.65501,
+   "brier": 0.23192,
+   "metodo": "empirico",
+   "mae_margen": 10.727
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.35,
+   "alpha": 2.0,
+   "log_loss": 0.65533,
+   "brier": 0.23199,
+   "metodo": "empirico",
+   "mae_margen": 10.685
+  },
+  {
+   "ventana": 6,
+   "arrastre": 0.0,
+   "alpha": 2.0,
+   "log_loss": 0.65597,
+   "brier": 0.2324,
+   "metodo": "empirico",
+   "mae_margen": 10.741
+  }
+ ],
+ "elegido": {
+  "ventana": 12,
+  "arrastre": 0.5,
+  "alpha": 15.0,
+  "log_loss": 0.64355,
+  "brier": 0.22619,
+  "metodo": "empirico",
+  "mae_margen": 10.484
+ }
+}

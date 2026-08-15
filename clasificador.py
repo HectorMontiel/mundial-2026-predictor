@@ -429,6 +429,20 @@ def _prob(x) -> Optional[float]:
     return v if 0.0 < v <= 1.0 else None
 
 
+_MED_NFL: Dict[str, Optional[Dict]] = {}
+
+
+def _medicion_nfl() -> Optional[Dict]:
+    """El veredicto del canal de precio en NFL, cacheado. `None` si no lo hay."""
+    if 'v' not in _MED_NFL:
+        try:
+            import nfl_lineshop
+            _MED_NFL['v'] = nfl_lineshop.medicion_para_clasificador()
+        except Exception:
+            _MED_NFL['v'] = None
+    return _MED_NFL['v']
+
+
 def canal_del_pick(p: Dict) -> Dict:
     """
     A qué sección va un pick del barrido del día, y por qué.
@@ -490,6 +504,38 @@ def canal_del_pick(p: Dict) -> Dict:
                               f"la mitad con la que se eligió y se hunde en la "
                               f"otra, que es el retrato de un hallazgo que no "
                               f"era real"}
+        # v131 — LA NFL PUEDE SUBIR, PERO SÓLO SI SE HA MEDIDO.
+        #
+        # «Sin medir» no es un estado permanente: es una tarea. En la NFL se
+        # pudo hacer porque ESPN publica el cierre histórico de varias casas
+        # por partido, así que el canal se mide igual que en fútbol —elección
+        # en las temporadas antiguas, juicio en la reciente, p5 de bootstrap
+        # positivo en LAS DOS— y el veredicto vive en `nfl_canal_precio.json`.
+        #
+        # `medicion_para_clasificador` devuelve `None` cuando no hay veredicto
+        # o cuando el veredicto es que NO, y entonces el pick cae al mismo
+        # sitio de siempre. O sea: el camino por defecto es no subir, y subir
+        # exige una medición concreta con su lado y su n al lado. Es la misma
+        # disciplina que separó el lado local del empate en fútbol.
+        if dep == 'NFL':
+            med = _medicion_nfl()
+            if med and lado in (med.get('lados') or []):
+                d = (med.get('por_lado') or {}).get(lado) or {}
+                nom = 'LOCAL' if lado == 'home' else 'VISITANTE'
+                return {'seccion': 1, 'canal': 'precio_nfl', 'medicion': d,
+                        'motivo': f"una casa paga por encima del precio justo "
+                                  f"del ancla, y es el lado {nom}: medido "
+                                  f"sobre el cierre histórico de la NFL da "
+                                  f"{(d.get('roi_juicio') or 0)*100:+.2f} % con "
+                                  f"p5 {(d.get('p5_juicio') or 0)*100:+.2f} % "
+                                  f"sobre {d.get('n_juicio', 0)} apuestas en el "
+                                  f"tramo de juicio"}
+            if med:
+                return {'seccion': 2, 'canal': 'precio_nfl_lado_no_robusto',
+                        'motivo': f"mismo canal de precio, pero el lado "
+                                  f"{'local' if lado == 'home' else 'visitante'} "
+                                  f"de la NFL no aguanta el tramo de juicio. "
+                                  f"Sólo sube {', '.join(med.get('lados') or [])}"}
         return {'seccion': 2, 'canal': 'precio_sin_medir',
                 'motivo': f"canal de precio en {dep}, que es el mismo método "
                           f"pero SIN medir: el desglose por lado se hizo sólo "
@@ -517,7 +563,7 @@ def secciones_del_dia(capa1: List[Dict], capa2: Optional[List[Dict]] = None,
     tiene p5 +1,73 % en juicio; el tenis, +0,18 %. Poner primero lo mejor
     medido es la única prioridad que este proyecto puede defender.
     """
-    orden_canal = {'precio_local': 0, 'tenis_90': 1}
+    orden_canal = {'precio_local': 0, 'precio_nfl': 1, 'tenis_90': 2}
     s1, s2, vistos = [], [], set()
     for p in list(capa1 or []) + list(capa2 or []):
         if not isinstance(p, dict):

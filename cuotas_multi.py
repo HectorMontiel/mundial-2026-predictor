@@ -76,7 +76,14 @@ PIN_HEADERS = {'User-Agent': 'Mozilla/5.0', 'X-API-Key': PIN_KEY,
                'Accept': 'application/json'}
 
 # deporte del proyecto -> id de Pinnacle
-DEPORTES = {'futbol': 29, 'tenis': 33, 'mlb': 3, 'nba': 4}
+#
+# v131 — la NFL entra por el id 15 («Football»), que NO es sólo la NFL: ese
+# tablón mezcla 197 partidos de NCAA con 174 de NFL y 7 de pretemporada
+# (medido 2026-08-15). El emparejador filtra por nombre de equipo, y los 32 de
+# la NFL están en `nfl_datos.EQUIPOS`, así que un partido universitario no
+# puede casar por accidente: su nombre no está en la tabla y `abreviatura`
+# devuelve `None` en vez de adivinar.
+DEPORTES = {'futbol': 29, 'tenis': 33, 'mlb': 3, 'nba': 4, 'nfl': 15}
 
 # v77: casa de referencia del usuario. Es donde apuesta de verdad, así que su
 # precio es el que convierte un EV teórico en un EV cobrable. Ver
@@ -248,8 +255,53 @@ ABREV_MLB = {
     'TB': 'Tampa Bay Rays', 'TEX': 'Texas Rangers', 'TOR': 'Toronto Blue Jays',
     'WSH': 'Washington Nationals',
 }
-# `{'det': 'detroit tigers', …}` para expandir sobre el texto ya normalizado.
+# v131 — LO MISMO EN LA NFL, Y AQUÍ LAS ABREVIATURAS CHOCAN CON LAS DE LA MLB.
+#
+# Playdoit escribe «KC Chiefs», «SF 49ers», «NE Patriots», «ARZ Cardinals»;
+# Pinnacle y Bovada escriben el nombre completo. Sin expandir, la similitud
+# queda por debajo del listón y el partido sale «sin cuota» — o sea, la NFL
+# entera sin consenso y sin Sección 1.
+#
+# La diferencia con la MLB es que **la NFL comparte ciudad con ella en catorce
+# casos**: KC es Royals y Chiefs, SF es Giants y 49ers, TB es Rays y
+# Buccaneers, y así con SEA, PIT, PHI, MIN, MIA, DET, CLE, CIN, BAL, ATL, HOU
+# y WSH. Un diccionario plano tendría que elegir uno de los dos y se
+# equivocaría en el otro deporte, en silencio y con los bandos ya cruzados.
+#
+# Se resuelve por APODO, que es lo que de verdad distingue: la abreviatura
+# propone varios candidatos y gana aquel cuyo nombre completo CONTIENE el resto
+# del texto. «kc royals» → sólo «kansas city royals» contiene «royals»;
+# «kc chiefs» → sólo «kansas city chiefs» contiene «chiefs». Si ninguno o más
+# de uno encaja, no se expande nada y el nombre se deja como estaba, que es la
+# degradación segura de siempre.
+_ABREV_EQUIPOS: Dict[str, List[str]] = {}
+for _k, _v in ABREV_MLB.items():
+    _ABREV_EQUIPOS.setdefault(_k.lower(), []).append(_v.lower().replace('.', ''))
+try:
+    from nfl_datos import EQUIPOS as _EQ_NFL
+    # Las abreviaturas que usa Playdoit para la NFL no siempre son las
+    # canónicas (escribe ARZ donde ESPN escribe ARI, y WAS donde ESPN escribe
+    # WSH), así que se registran las dos.
+    _ALIAS_NFL_EXTRA = {'ARI': ('arz',), 'WSH': ('was',), 'LAR': ('la',),
+                        'LAC': ('la',), 'NYG': ('ny',), 'NYJ': ('ny',),
+                        'JAX': ('jac',), 'LV': ('lvr', 'oak')}
+    for _k, _cfg in _EQ_NFL.items():
+        _nom = _cfg['nombre'].lower()
+        for _ab in (_k.lower(),) + _ALIAS_NFL_EXTRA.get(_k, ()):
+            _lista = _ABREV_EQUIPOS.setdefault(_ab, [])
+            if _nom not in _lista:
+                _lista.append(_nom)
+except Exception as _e:                                   # pragma: no cover
+    logger.debug(f'[cuotas] abreviaturas de NFL no cargadas: {_e}')
+
+# Se conserva el nombre antiguo porque hay tests y módulos que lo importan.
 _ABREV_MLB_NORM = {k.lower(): v.lower().replace('.', '') for k, v in ABREV_MLB.items()}
+
+
+def _expandir_abreviatura(prefijo: str, resto: str) -> Optional[str]:
+    """«kc» + «chiefs» → «kansas city chiefs». `None` si es ambiguo o no encaja."""
+    candidatos = [c for c in _ABREV_EQUIPOS.get(prefijo, []) if resto and resto in c]
+    return candidatos[0] if len(candidatos) == 1 else None
 
 
 @lru_cache(maxsize=100_000)
@@ -266,10 +318,9 @@ def normalizar(nombre: str) -> str:
     # detrás («det tigers»), que es como la escriben las casas. Suelta no se
     # toca: «sd» puede ser muchas cosas fuera del béisbol, y este normalizador
     # lo usan también el fútbol y el tenis.
-    if len(partes) >= 2 and partes[0] in _ABREV_MLB_NORM:
-        resto = ' '.join(partes[1:])
-        completo = _ABREV_MLB_NORM[partes[0]]
-        if resto and resto in completo:
+    if len(partes) >= 2 and partes[0] in _ABREV_EQUIPOS:
+        completo = _expandir_abreviatura(partes[0], ' '.join(partes[1:]))
+        if completo:
             return completo
     return ' '.join(partes)
 
@@ -855,7 +906,13 @@ def _indice_pinnacle(deporte: str) -> Dict[str, dict]:
 BOVADA = ('https://www.bovada.lv/services/sports/event/coupon/events/A/'
           'description/{path}?marketFilterId=def&preMatchOnly=true&lang=en')
 BOVADA_PATH = {'futbol': 'soccer', 'tenis': 'tennis',
-               'mlb': 'baseball/mlb', 'nba': 'basketball/nba'}
+               'mlb': 'baseball/mlb', 'nba': 'basketball/nba',
+               # v131 — `football/nfl` y no `football`: el segundo devuelve 77
+               # eventos mezclando CFL, NCAAF y NFL, el primero da los 16 de la
+               # NFL limpios (medido 2026-08-15). En pretemporada la NFL cae
+               # bajo `football` con otro `competitionId`, y por eso el barrido
+               # no depende sólo de Bovada.
+               'nfl': 'football/nfl'}
 UA_WEB = {'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                          'AppleWebKit/537.36 (KHTML, like Gecko) '
                          'Chrome/126.0 Safari/537.36'),
@@ -1141,7 +1198,24 @@ def _indice_uni(deporte: str) -> Dict[str, dict]:
 #   · ESPN core API → expone un único proveedor (DraftKings), no varios.
 # ---------------------------------------------------------------------------
 ALTENAR = 'https://sb2frontend-altenar2.biahosted.com/api/widget/GetEvents'
-ALTENAR_SPORT = {'futbol': 66, 'tenis': 68, 'mlb': 76, 'nba': 67}
+ALTENAR_SPORT = {'futbol': 66, 'tenis': 68, 'mlb': 76, 'nba': 67, 'nfl': 75}
+
+# v131 — EL DEPORTE DE ALTENAR NO ES LA LIGA, Y EN LA NFL ESO IMPORTA.
+#
+# El `sportid=75` es «fútbol americano» entero: medido el 2026-08-15 devuelve
+# 78 eventos repartidos en NCAAF (49), NFL (17), NFL Pretemporada (4), CFL (4),
+# AFLE (2), IFL (1) y EFA (1). Sin filtro, el índice de la NFL contendría
+# partidos universitarios y de la liga canadiense, y el emparejador iría a
+# buscarles modelo, cuotas y consenso — todo lo cual existe sólo para los 32
+# equipos de la NFL.
+#
+# Se filtra por nombre de campeonato y no por id porque el id cambia cada
+# temporada; el nombre («NFL», «NFL, Pretemporada») es el mismo texto que el
+# usuario lee en la web de la casa. Los deportes que no están aquí no se
+# filtran: es una excepción declarada, no una regla nueva para todos.
+ALTENAR_CAMPEONATOS = {
+    'nfl': ('nfl', 'nfl, pretemporada', 'nfl pretemporada'),
+}
 ALTENAR_BASE = {'culture': 'es-ES', 'timezoneOffset': '360',
                 'integration': 'playdoit2', 'deviceType': '1',
                 'numFormat': 'en-GB', 'countryCode': 'MX'}
@@ -1241,8 +1315,13 @@ def _indice_playdoit(deporte: str) -> Dict[str, dict]:
     cats = {c['id']: c.get('name') for c in (j.get('categories') or [])}
     champs = {c['id']: c.get('name') for c in (j.get('champs') or [])}
 
+    permitidos = ALTENAR_CAMPEONATOS.get(deporte)
     indice: Dict[str, dict] = {}
     for ev in j['events']:
+        if permitidos is not None:
+            _lg = ' '.join(str(champs.get(ev.get('champId')) or '').split()).lower()
+            if _lg not in permitidos:
+                continue
         ids = ev.get('competitorIds') or []
         if len(ids) < 2:
             continue
@@ -1484,6 +1563,16 @@ def mercados_playdoit(deporte: str, home: str, away: str, fecha=None,
         return None
     return {'casa': CASA_PRIORITARIA, 'event_id': eid,
             'home': home, 'away': away,
+            # v131 — EL DEPORTE VIAJA CON EL TABLERO.
+            #
+            # `cuotas_tablon.filas_playdoit` traduce el vocabulario de la casa
+            # al de la plantilla, y ese vocabulario es de FÚTBOL: habla de
+            # goles, de empate y de «ambos equipos marcan». Aplicárselo a un
+            # partido de NFL no daría un error: daría cero filas, o peor, una
+            # fila de «Más de 2.5 goles» tomada de un total de 35.5 puntos.
+            # Con el deporte dentro, el traductor elige el vocabulario correcto
+            # en vez de deducirlo del texto.
+            'deporte': deporte,
             'casa_home': casa_home, 'casa_away': casa_away,
             'liga': ent.get('liga'),
             # La fecha del índice ya viene normalizada, pero se vuelve a pasar
@@ -1604,7 +1693,8 @@ def _purgar_detalles_playdoit(max_edad: int = 6 * 3600) -> int:
 # tablón, no sólo el de este operador.
 # ---------------------------------------------------------------------------
 MATCHBOOK = 'https://www.matchbook.com/edge/rest/events'
-MATCHBOOK_SPORT = {'futbol': 15, 'tenis': 9, 'mlb': 3, 'nba': 4}
+MATCHBOOK_SPORT = {'futbol': 15, 'tenis': 9, 'mlb': 3, 'nba': 4,
+                   'nfl': 1}      # v131: «American Football» en su catálogo
 # Comisión sobre la ganancia neta. 2 % es la tarifa estándar del operador; se
 # deja configurable porque baja con el volumen y quien apueste allí de verdad
 # querrá poner la suya.

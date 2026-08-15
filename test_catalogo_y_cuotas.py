@@ -4521,6 +4521,247 @@ def test_handicap_en_todas_las_ligas():
             _c.close()
 
 
+# ---------------------------------------------------------------------------
+# v131 - NFL. Cada comprobacion corresponde a un fallo REAL encontrado al
+# integrarla, no a una hipotesis.
+# ---------------------------------------------------------------------------
+def test_nfl_mapeo_de_nombres():
+    """
+    Los 32 equipos, con las abreviaturas que usa Playdoit de verdad.
+
+    El fallo que cubre: Playdoit escribe «ARZ Cardinals» (ESPN escribe ARI),
+    «LA Rams» y «LA Chargers» (mismo prefijo de ciudad), «NY Jets» y
+    «NY Giants» (idem) y mete tabulaciones dentro del nombre. Un emparejador
+    por parecido los confunde entre si, y confundirlos no da un error: da una
+    apuesta al equipo contrario.
+    """
+    import nfl_datos as nd
+    check(len(nd.EQUIPOS) == 32,
+          f"los 32 equipos de la NFL estan en la tabla ({len(nd.EQUIPOS)})")
+    casos = {'NE  Patriots': 'NE', 'SF 49ers\t\t': 'SF', 'ARZ Cardinals': 'ARI',
+             'LA Rams': 'LAR', 'LA Chargers': 'LAC', 'NY Jets': 'NYJ',
+             'NY Giants': 'NYG', 'WAS Commanders\t\t': 'WSH',
+             'Kansas City Chiefs': 'KC', 'GB Packers\t': 'GB'}
+    for texto, esperado in casos.items():
+        obtenido = nd.abreviatura(texto)
+        check(obtenido == esperado,
+              f"«{texto.strip()}» -> {esperado} (obtenido {obtenido})")
+    check(nd.abreviatura('Wroclaw Panthers') is None,
+          "un equipo que no es de la NFL devuelve None en vez de adivinar")
+    check(nd.abreviatura('') is None, "el nombre vacio devuelve None")
+    faltan = sorted(set(nd.EQUIPOS) - set(nd.ESTADIOS))
+    check(not faltan, f"los 32 equipos tienen estadio con coordenadas ({faltan})")
+
+
+def test_nfl_abreviaturas_no_chocan_con_mlb():
+    """
+    Catorce ciudades tienen equipo de MLB y de NFL: KC, SF, TB, SEA, PIT, PHI,
+    MIN, MIA, DET, CLE, CIN, BAL, ATL, HOU y WSH.
+
+    El fallo que cubre: `normalizar` expandia abreviaturas con un diccionario
+    plano de MLB. Al anadir la NFL, «KC Chiefs» habria salido como «kansas city
+    royals» - un equipo de otro deporte, sin dar el menor error.
+    """
+    import cuotas_multi as cm
+    pares = [('KC Chiefs', 'kansas city chiefs'),
+             ('KC Royals', 'kansas city royals'),
+             ('SF 49ers', 'san francisco 49ers'),
+             ('SF Giants', 'san francisco giants'),
+             ('TB Buccaneers', 'tampa bay buccaneers'),
+             ('TB Rays', 'tampa bay rays'),
+             ('DET Lions', 'detroit lions'),
+             ('DET Tigers', 'detroit tigers')]
+    for texto, esperado in pares:
+        obtenido = cm.normalizar(texto)
+        check(obtenido == esperado,
+              f"normalizar('{texto}') = '{esperado}' (obtenido '{obtenido}')")
+
+
+def test_nfl_mercados_no_se_inventan():
+    """
+    El tablero de la NFL se traduce a PUNTOS, nunca a goles, y lo que el modelo
+    no cubre sale con precio y sin EV.
+
+    El fallo que cubre: aplicar el traductor de futbol a un partido de NFL
+    haria que «Totales 35.5 puntos» casara por parecido con «Mas de 2.5 goles»
+    y saliera un EV inventado - el mismo modo de fallo que la v122 midio en
+    +19.603 %.
+    """
+    import nfl_mercados as nm
+    det = {'casa': 'Playdoit', 'deporte': 'nfl',
+           'casa_home': 'KC Chiefs', 'casa_away': 'LA Rams',
+           'mercados': [
+               {'nombre': 'Ganador (incl. prorroga)', 'sv': None, 'selecciones': [
+                   {'nombre': 'KC Chiefs', 'cuota': 1.71},
+                   {'nombre': 'LA Rams', 'cuota': 2.05}]},
+               {'nombre': 'Handicap (incl. prorroga)', 'sv': '-2.5', 'selecciones': [
+                   {'nombre': 'KC Chiefs (-2.5)', 'cuota': 1.91},
+                   {'nombre': 'LA Rams (+2.5)', 'cuota': 1.83}]},
+               {'nombre': 'Totales (incl. prorroga)', 'sv': '35.5', 'selecciones': [
+                   {'nombre': 'Mas de 35.5', 'cuota': 1.80},
+                   {'nombre': 'Menos de 35.5', 'cuota': 1.95}]},
+               {'nombre': 'KC Chiefs total (incl. prorroga)', 'sv': '18.5',
+                'selecciones': [{'nombre': 'Mas de 18.5', 'cuota': 1.80},
+                                {'nombre': 'Menos de 18.5', 'cuota': 1.87}]},
+               {'nombre': '1a Mitad - total', 'sv': '19.5', 'selecciones': [
+                   {'nombre': 'Mas de 19.5', 'cuota': 1.80},
+                   {'nombre': 'Menos de 19.5', 'cuota': 1.87}]},
+               {'nombre': 'Primer equipo en marcar', 'sv': None, 'selecciones': [
+                   {'nombre': 'KC Chiefs', 'cuota': 1.71},
+                   {'nombre': 'LA Rams', 'cuota': 2.05}]},
+           ]}
+    filas = nm.filas_playdoit_nfl(det, 'Kansas City Chiefs', 'Los Angeles Rams')
+    etiquetas = {f['etiqueta'] for f in filas}
+    check(not any('gol' in e.lower() for e in etiquetas),
+          "ninguna etiqueta de NFL habla de goles")
+    check('Más de 35.5 puntos' in etiquetas,
+          f"el total del partido se traduce a puntos ({sorted(etiquetas)[:3]})")
+    check('Kansas City Chiefs: más de 18.5 puntos' in etiquetas,
+          "el total por equipo lleva el nombre del equipo delante")
+    check('Kansas City Chiefs -2.5' in etiquetas and
+          'Los Angeles Rams +2.5' in etiquetas,
+          "el handicap conserva el signo de cada lado")
+    periodos = [f for f in filas if f['familia'] == nm.FAMILIA_TIEMPOS]
+    check(bool(periodos) and all(f['ev_no_fiable'] for f in periodos),
+          f"los {len(periodos)} mercados de mitad salen con el EV marcado")
+    otros = [f for f in filas if f['familia'] == nm.FAMILIA_OTROS]
+    check(bool(otros) and all(f['ev_no_fiable'] for f in otros),
+          f"«primer equipo en marcar» sale con precio y sin EV ({len(otros)})")
+    lin = nm.lineas_del_tablero(det, 'Kansas City Chiefs', 'Los Angeles Rams')
+    check(lin['handicap'] == [-2.5],
+          f"linea de handicap detectada ({lin['handicap']})")
+    check(lin['total'] == [35.5], f"linea de total detectada ({lin['total']})")
+    check(lin['total_home'] == [18.5],
+          f"linea de total del local detectada ({lin['total_home']})")
+
+
+def test_nfl_probabilidades_coherentes():
+    """
+    Las probabilidades del modelo suman lo que tienen que sumar y el empuje se
+    reparte donde toca.
+
+    El fallo que cubre: `sigma_equipo` se calculaba SOLO cuando se pedian
+    lineas de equipo, asi que la plantilla recibia `None` y los cuatro mercados
+    de total por equipo se caian del cruce - aparecian con precio y sin
+    probabilidad sin que nada diera error.
+    """
+    import modelo_nfl as mn
+    m = mn.NFLModelo()
+    p = m.probabilidades(margen_esp=3.0, total_esp=44.0,
+                         linea_hcp=-3.5, linea_total=44.5)
+    check(abs(p['prob_home'] + p['prob_away'] + p['prob_empate'] - 1.0) < 1e-3,
+          "1X2: local + visitante + empate suman 1")
+    check(abs(p['prob_home_sin_empate'] + p['prob_away_sin_empate'] - 1.0) < 1e-6,
+          "el mercado a dos vias suma 1 exactamente")
+    check(abs(p['prob_hcp_home'] + p['prob_hcp_away'] - 1.0) < 1e-6,
+          "handicap de media linea: sin empuje, las dos patas suman 1")
+    check(abs(p['prob_over'] + p['prob_under'] - 1.0) < 1e-6,
+          "total de media linea: over + under suman 1")
+    check(p.get('sigma_equipo') is not None,
+          "sigma del total de equipo se calcula SIEMPRE, no solo al pedir lineas")
+    pe = m.probabilidades(3.0, 44.0, linea_hcp=-3.0)
+    check(pe['prob_hcp_push'] > 0,
+          f"handicap de linea entera declara el empuje ({pe['prob_hcp_push']})")
+    check(abs(pe['prob_hcp_home'] + pe['prob_hcp_away']
+              + pe['prob_hcp_push'] - 1.0) < 1e-3,
+          "con empuje, las tres salidas suman 1")
+    check(p['prob_home'] > p['prob_away'],
+          "con margen esperado positivo, el local es el favorito")
+    p2 = m.probabilidades(-7.0, 44.0)
+    check(p2['prob_away'] > p2['prob_home'],
+          "con margen esperado negativo, el visitante es el favorito")
+
+
+def test_nfl_sin_fuga_temporal():
+    """
+    Las features de un partido no pueden contener informacion de ese partido.
+
+    Es la comprobacion mas importante del modelo: un backtest con fuga da un
+    numero bonito y una apuesta perdedora. Se verifica construyendo el dataset
+    dos veces -con el historico entero y truncado justo tras ese partido- y
+    exigiendo que las features de ese partido sean IDENTICAS.
+    """
+    import nfl_datos as nd
+    import modelo_nfl as mn
+    d = nd.cargar_historico()
+    if not len(d):
+        check(True, "sin historico de NFL descargado: comprobacion de fuga omitida")
+        return
+    d = d[d['tipo'].isin(mn.TIPOS_ENTRENAMIENTO)].sort_values(['fecha', 'event_id'])
+    if len(d) < 200:
+        check(True, f"historico de NFL corto ({len(d)}): fuga no comprobable")
+        return
+    corte = len(d) - 30
+    completo = mn.construir_dataset(d)
+    truncado = mn.construir_dataset(d.iloc[:corte + 1])
+    eid = str(d.iloc[corte]['event_id'])
+    fa = completo[completo['event_id'].astype(str) == eid]
+    fb = truncado[truncado['event_id'].astype(str) == eid]
+    if not len(fa) or not len(fb):
+        check(False, "el partido de control no aparece en los dos datasets")
+        return
+    iguales = all(
+        abs(float(fa.iloc[0][c]) - float(fb.iloc[0][c])) < 1e-9
+        for c in mn.COLS_MARGEN + mn.COLS_TOTAL)
+    check(iguales,
+          "las features de un partido no cambian al anadir partidos "
+          "posteriores (sin fuga temporal)")
+
+
+def test_nfl_no_sube_a_seccion1_sin_medicion():
+    """
+    La NFL solo entra en la Seccion 1 con una medicion propia detras.
+
+    Es la regla de oro del proyecto aplicada a un deporte nuevo y de moda, que
+    es justo donde mas tienta saltarsela.
+    """
+    import os as _os
+
+    import clasificador as cl
+    pick = {'deporte': 'NFL', 'lado': 'home', 'valor_mercado': True,
+            'prob': 0.55, 'cuota': 1.95, 'partido': 'A vs B'}
+    c = cl.canal_del_pick(pick)
+    if not _os.path.exists('nfl_canal_precio.json'):
+        check(c['seccion'] == 2,
+              "sin veredicto medido, un pick de NFL va a la Seccion 2")
+        return
+    import nfl_lineshop as ls
+    med = ls.medicion_para_clasificador()
+    if med and 'home' in (med.get('lados') or []):
+        check(c['seccion'] == 1 and c['canal'] == 'precio_nfl',
+              f"con el lado local validado, sube a Seccion 1 ({c['canal']})")
+        check('p5' in c.get('motivo', ''),
+              "el motivo de la Seccion 1 cita el p5 medido")
+    else:
+        check(c['seccion'] == 2,
+              f"sin lado validado, la NFL se queda en Seccion 2 ({c['canal']})")
+
+
+def test_nfl_en_el_barrido_y_la_interfaz():
+    """La NFL esta enchufada donde tiene que estarlo, no solo escrita."""
+    import alpha_finder as af
+    import config
+    import cuotas_multi as cm
+    import fixtures_espn as fe
+    check(hasattr(af, '_picks_nfl'), "alpha_finder expone la rama de NFL")
+    check('NFL' in config.UMBRALES_DEPORTE,
+          "la NFL tiene umbrales declarados en config")
+    for mapa, nombre in ((cm.DEPORTES, 'Pinnacle'),
+                         (cm.BOVADA_PATH, 'Bovada'),
+                         (cm.ALTENAR_SPORT, 'Playdoit/Altenar'),
+                         (cm.MATCHBOOK_SPORT, 'Matchbook')):
+        check('nfl' in mapa, f"la NFL esta registrada en {nombre}")
+    check('nfl' in fe.ESPN_DEPORTES,
+          "la NFL esta registrada en el scoreboard de ESPN")
+    check('nfl' in cm.ALTENAR_CAMPEONATOS,
+          "el catalogo de Altenar filtra la NFL (si no, entrarian NCAAF y CFL)")
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    check("('\U0001F3C8', 'NFL')" in src, "el filtro de deporte incluye NFL")
+    check('nfl_deporte' in src, "la vista de NFL esta enrutada en la interfaz")
+    check('def render_nfl' in src, "la vista de NFL existe")
+
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -4652,6 +4893,14 @@ if __name__ == '__main__':
     test_consenso_api_respeta_el_presupuesto()
     test_consenso_api_degrada_en_silencio()
     test_la_ficha_pide_las_cuotas_con_liga()
+    print('\n=== v131: NFL ===')
+    test_nfl_mapeo_de_nombres()
+    test_nfl_abreviaturas_no_chocan_con_mlb()
+    test_nfl_mercados_no_se_inventan()
+    test_nfl_probabilidades_coherentes()
+    test_nfl_sin_fuga_temporal()
+    test_nfl_no_sube_a_seccion1_sin_medicion()
+    test_nfl_en_el_barrido_y_la_interfaz()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

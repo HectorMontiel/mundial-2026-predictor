@@ -528,6 +528,18 @@ UMBRALES_DEPORTE = {
     # `alpha_finder._picks_kbo`), pero se declara para que el umbral no dependa
     # de un valor por defecto escondido.
     'KBO':    {'capa1': 0.58, 'capa2': 0.62},
+    # v131 — NFL. Un partido de la NFL es de dos salidas con localía fuerte,
+    # así que su techo se parece más al de la NBA que al del fútbol. El 0,62 no
+    # es redondo por gusto: sobre las temporadas 2023-2025 el favorito del
+    # MERCADO gana el 66 % de las veces, así que pedir menos llenaría la
+    # pestaña de favoritos obvios sin información, y pedir más (0,70) deja
+    # fuera nueve de cada diez partidos.
+    #
+    # Igual que en la KBO, `capa1` no llega a usarse: la NFL entra en Capa 1
+    # sólo por ventaja de precio (`alpha_finder._picks_nfl`), nunca por
+    # probabilidad del modelo. Se declara para que el umbral no dependa de un
+    # valor por defecto escondido.
+    'NFL':    {'capa1': 0.62, 'capa2': 0.62},
 }
 
 POSITIONS = ['POR', 'DFC', 'DFC', 'DFC', 'LI', 'LD', 'MCD', 'MC', 'MC', 'ED', 'DC']
