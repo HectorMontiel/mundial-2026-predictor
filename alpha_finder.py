@@ -261,6 +261,34 @@ def _es_del_dia(fx: dict) -> bool:
     return d == hoy_utc()
 
 
+# v143 — LA VENTANA SE ABRE A MAÑANA, PERO SÓLO PARA ANALIZAR.
+#
+# La v91 recortó el barrido a HOY y lo dejó escrito: «la semana completa vive
+# en las vistas por liga». Era una decisión de coste, no de criterio.
+#
+# El usuario pide ver también mañana «para ir analizando previamente los
+# partidos», y tiene razón en el fondo: se apuesta ANTES de que empiece, así
+# que una lista que sólo enseña lo que empieza hoy llega tarde para la mitad
+# del trabajo. ESPN ya descarga los dos días —`fixtures_multi(dias=2)`— y el
+# filtro los tiraba sin predecirlos.
+#
+# LO QUE **NO** CAMBIA, Y ES DELIBERADO: los picks (`capa1`, `elite`, y con
+# ellos Telegram y la exportación) siguen siendo SÓLO DE HOY. Mañana entra
+# como pronóstico —para mirarlo— y no como apuesta emitida. Las líneas de
+# mañana se mueven durante la noche, así que una ventaja de precio calculada
+# hoy sobre un partido de mañana no es la que habrá cuando se pueda jugar; y
+# el envío diario de Telegram no puede empezar a proponer cosas de otro día
+# sin que nadie lo haya pedido.
+def _en_ventana(fx: dict) -> bool:
+    """¿Se juega hoy o mañana (día calendario UTC)?"""
+    try:
+        d = pd.Timestamp(fx.get('fecha')).normalize()
+    except (ValueError, TypeError):
+        return False
+    h = hoy_utc()
+    return d in (h, h + pd.Timedelta(days=1))
+
+
 # v91 — `_mapa_equipo_liga` y `_liga_fuzzy` se retiraron con el camino de
 # `odds_actuales.json` (ver el docstring de `apuestas_del_dia`): resolvían la
 # liga desde el match_id de The Odds API, y los fixtures de ESPN ya llegan con
@@ -636,7 +664,7 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
     fixtures_por_liga = fixtures_espn.fixtures_multi(claves_disp, dias=2)
     for _cl in list(fixtures_por_liga):
         fixtures_por_liga[_cl] = [f for f in (fixtures_por_liga[_cl] or [])
-                                  if _es_del_dia(f)]
+                                  if _en_ventana(f)]   # v143: hoy Y mañana
     # v89 — los motores que cargue ESTE pase se liberan al terminar su liga
     # (patrón de memoria de la v86); los precargados por el llamador se
     # respetan.
@@ -709,9 +737,11 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             tiene_cuota = bool(fx.get('odd_home') and fx.get('odd_away'))
             # v91 — los fixtures ya vienen filtrados al DÍA calendario (ver
             # `_es_del_dia`); este segundo chequeo es cinturón y tirantes.
-            if fecha.normalize() != hoy:
+            if fecha.normalize() not in (hoy, hoy + pd.Timedelta(days=1)):
                 continue
-            es_hoy = True
+            # v143: `es_hoy` deja de ser una constante. Es lo que decide si
+            # el partido puede producir PICKS o sólo pronóstico.
+            es_hoy = (fecha.normalize() == hoy)
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
             away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
             if not (home and away) or home == away:
@@ -798,6 +828,23 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             # de que el modelo acierte más que el mercado, solo de que dos
             # casas discrepen. Requiere 2+ casas: con solo Pinnacle+DraftKings
             # no salía ninguna; con Bovada aparecen.
+            # v143 — MAÑANA SE ANALIZA, NO SE APUESTA.
+            #
+            # A partir de aquí todo produce PICKS: valor de mercado, élite,
+            # candidatos y capa 2. Y los picks salen por Telegram y por la
+            # exportación, así que un partido de mañana colado aquí acabaría
+            # propuesto como apuesta del día sin que nadie lo pidiera.
+            #
+            # Hay además un motivo de fondo: la ventaja de precio de un
+            # partido de mañana calculada HOY no es la que habrá cuando se
+            # pueda jugar — las líneas se mueven durante la noche, y ese
+            # movimiento es justo el canal que este proyecto mide.
+            #
+            # El pronóstico ya se ha guardado arriba, así que mañana SÍ se ve
+            # en la lista; lo que no hace es generar apuestas.
+            if not es_hoy:
+                continue
+
             try:
                 import cuotas_multi as _cmv
                 _vm = _cmv.valor_vs_sharp('futbol', fx['home'], fx['away'],
@@ -1157,7 +1204,20 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
     Cada circuito usa SU modelo (modelos/tennis y modelos/tennis_wta).
     """
     salida = {'capa1': [], 'capa2': [], 'no_enlazados': [], 'parlay_legs': [],
-              'evaluados': 0, 'cobertura': {}}
+              'evaluados': 0, 'cobertura': {},
+              # v140 — EL TENIS EVALUABA 97 PARTIDOS Y PUBLICABA 20.
+              #
+              # `_pronosticos_multideporte` pide a cada rama su lista completa
+              # y, si no la encuentra, CAE A LOS PICKS. El fútbol y la MLB la
+              # publican; el tenis nunca la publicó, así que de 97 partidos
+              # evaluados —ATP 54 + WTA 43— sólo llegaban a pantalla los 20
+              # que pasaban algún filtro. Los otros 77 se predecían, se les
+              # calculaba probabilidad, y se tiraban al final.
+              #
+              # Es el mismo arreglo que la v119 hizo para la MLB y que aquí se
+              # quedó a medias. No cuesta ningún cálculo nuevo: el trabajo caro
+              # ya estaba hecho.
+              'pronosticos': []}
     try:
         import betexplorer_scraper as bx
         import source_resilience as sr
@@ -1331,13 +1391,50 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 except Exception as e:
                     logger.debug(f'[alpha/tenis] valor de mercado omitido: {e}')
 
+            # v140 — LA FECHA SALE DEL INICIO REAL, NO DE «HOY» A PALO SECO.
+            #
+            # Esto ponía `hoy_utc().date()` en TODOS los partidos aunque
+            # `inicio` trajera la fecha de verdad. Con eso, un partido de
+            # mañana se etiquetaba como de hoy y cualquier separación por día
+            # era imposible: la pestaña «Todos los partidos» mezclaba 144 de
+            # un día con 2 de otro y decía que todos eran de hoy.
+            _fecha_t = str(hoy_utc().date())
+            try:
+                _ini_t = str(m.get('inicio') or '')[:10]
+                if len(_ini_t) == 10 and _ini_t[4] == '-':
+                    _fecha_t = _ini_t
+            except Exception:
+                pass
+
+            # LA COBERTURA COMPLETA: un pronóstico por partido, del lado que
+            # el modelo ve favorito. No es un pick —no ha pasado ningún
+            # filtro— y por eso va aquí y no en `capa1`.
+            _fav = 'home' if _probs['home'] >= _probs['away'] else 'away'
+            _nom_fav = m['home'] if _fav == 'home' else m['away']
+            salida['pronosticos'].append({
+                'deporte': 'Tenis', 'liga': eng.circuito.upper(),
+                'clave_liga': eng.circuito.lower(),
+                'partido': f"{m['home']} vs {m['away']}",
+                'fecha': _fecha_t, 'inicio': m.get('inicio'),
+                'mercado': 'Ganador', 'apuesta': f'Gana {_nom_fav}',
+                'prob': round(_probs[_fav], 3),
+                'cuota': (m.get('odd_home') if _fav == 'home'
+                          else m.get('odd_away')),
+                'superficie': superficie,
+                'cuota_justa': round(1 / max(_probs[_fav], 1e-6), 2),
+                # el board deja dibujar la barra de dos vías en la lista
+                'board': {f"Gana {m['home']}": round(_probs['home'], 3),
+                          f"Gana {m['away']}": round(_probs['away'], 3)},
+                'sin_cuota': not bool(m.get('odd_home')),
+            })
+
             for lado, nombre, prob, cuota in (
                     ('home', m['home'], _probs['home'], m['odd_home']),
                     ('away', m['away'], _probs['away'], m['odd_away'])):
                 ev = round(cuota * prob - 1, 4)
                 base = {'deporte': 'Tenis', 'liga': eng.circuito.upper(),
                         'partido': f"{m['home']} vs {m['away']}",
-                        'fecha': str(hoy_utc().date()),
+                        'fecha': _fecha_t,
                         'inicio': m.get('inicio'),          # v106: hora real
                         'mercado': 'Ganador', 'apuesta': f'Gana {nombre}',
                         'prob': round(prob, 3),
@@ -2529,6 +2626,37 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                        ' ⚠️ Hoy ninguna llegaba al piso habitual de '
                        f'{PROB_MINIMA_SELECCION:.0%}.'))
                 seleccion_dia.append(q)
+    # v143 — LA PUERTA DE LOS PICKS, EN UN SOLO SITIO.
+    #
+    # Con la ventana abierta a mañana, cada rama deportiva podría colar
+    # partidos de otro día en sus picks. Medido antes de poner esto: la capa 2
+    # traía 5 de mañana y los candidatos 2, porque el guardia de `es_hoy` sólo
+    # vive en la rama de fútbol y el tenis y la MLB tienen la suya.
+    #
+    # No se parchea rama por rama —eso deja la próxima sin proteger— sino
+    # aquí, por donde pasan todos. Los PRONÓSTICOS conservan los dos días
+    # (para eso se abrió la ventana); lo que se emite como apuesta es de HOY.
+    #
+    # Nota: esta fuga ya existía antes de abrir la ventana. El tenis siempre
+    # publicó partidos de mañana en su capa 2; simplemente no se veía.
+    def _solo_hoy(lista):
+        h = str(hoy_utc().date())
+        return [p for p in (lista or [])
+                if not isinstance(p, dict) or str(p.get('fecha') or '')[:10] in ('', h)]
+
+    _antes = {k: len(v or []) for k, v in
+              (('capa1', capa1), ('capa2', capa2), ('candidatos', r.get('candidatos')))}
+    capa1 = _solo_hoy(capa1)
+    capa2 = _solo_hoy(capa2)
+    capa1_prob = _solo_hoy(capa1_prob)
+    r['candidatos'] = _solo_hoy(r.get('candidatos'))
+    _despues = {k: len(v or []) for k, v in
+                (('capa1', capa1), ('capa2', capa2), ('candidatos', r.get('candidatos')))}
+    _quitados = {k: _antes[k] - _despues[k] for k in _antes if _antes[k] != _despues[k]}
+    if _quitados:
+        logger.info(f'[alpha] picks de otros días apartados de la emisión: '
+                    f'{_quitados} (siguen visibles en los pronósticos)')
+
     r.update({'capa1': capa1, 'capa2': capa2, 'ev_extremo': ev_extremo,
               # v98: el contador de la cabecera, ya con TODOS los deportes
               # (ver la nota del bucle de fusión). `r` trae el del fútbol y

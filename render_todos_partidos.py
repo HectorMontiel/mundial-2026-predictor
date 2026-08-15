@@ -119,11 +119,57 @@ def clave_orden(p: Dict) -> tuple:
     return (0, ini, str(p.get('partido') or ''))
 
 
+def lados(partido: str):
+    """
+    `(local, visitante)` del nombre del partido, sea cual sea el separador.
+
+    v139 — ESTO ESTABA MAL Y SE VEÍA EN PANTALLA.
+    ---------------------------------------------
+    El fútbol escribe «Local vs Visitante» y la MLB y la KBO escriben
+    «Visitante @ Local»: no sólo cambia el separador, cambia el ORDEN. Partir
+    siempre por « vs » dejaba `home` con la cadena entera, así que se buscaba
+    `Gana Chicago White Sox @ Detroit Tigers` en un board que tenía
+    `Gana Detroit Tigers`. Resultado: los 11 partidos de MLB salían con «sin
+    pronóstico del modelo» teniendo el pronóstico delante.
+    """
+    t = str(partido or '')
+    if ' @ ' in t:
+        visita, local = t.split(' @ ', 1)
+        return local.strip(), visita.strip()
+    partes = t.split(' vs ')
+    return partes[0].strip(), (partes[-1].strip() if len(partes) > 1 else '')
+
+
+def barra_dos_vias(prob, etiqueta: str) -> str:
+    """
+    Barra de dos tramos para los deportes SIN empate y sin board.
+
+    El tenis y la KBO no publican `board`, pero sí traen la probabilidad del
+    lado elegido. Con dos resultados posibles, eso basta para pintar la
+    proporción — y es mejor que un hueco, porque el hueco aquí no significa
+    «no se sabe» sino «no lo guardamos con ese formato».
+    """
+    v = _pct(prob)
+    if v is None:
+        return ('<div class="tp-barra tp-sinmodelo">'
+                '<span>sin pronóstico del modelo</span></div>')
+    resto = 1.0 - v
+    # El número sólo se escribe si el tramo da de sí; por debajo del 12 % se
+    # sale y se lee peor que sin él. El título lo conserva siempre.
+    txt_v = f'{v*100:.0f}' if v >= 0.12 else ''
+    txt_r = f'{resto*100:.0f}' if resto >= 0.12 else ''
+    return (
+        f'<div class="tp-barra">'
+        f'<span class="tp-seg" style="width:{v*100:.2f}%;background:{_COL_LOCAL}"'
+        f' title="{_esc(etiqueta)} {v*100:.0f} %">{txt_v}</span>'
+        f'<span class="tp-seg" style="width:{resto*100:.2f}%;'
+        f'background:{_COL_VISITA}" title="el otro lado {resto*100:.0f} %">'
+        f'{txt_r}</span></div>')
+
+
 def fila(p: Dict, marca: str, horario=None) -> str:
     """Una fila: hora, liga, partido, barra y semáforo."""
-    partes = str(p.get('partido') or ' vs ').split(' vs ')
-    home = partes[0] if partes else ''
-    away = partes[-1] if len(partes) > 1 else ''
+    home, away = lados(p.get('partido'))
     board = p.get('board') or {}
     icono = str(marca or '·').strip().split()[0] if marca else '·'
     color_marca, _ = _TONO_MARCA.get(icono, ('var(--tenue)', ''))
@@ -135,8 +181,16 @@ def fila(p: Dict, marca: str, horario=None) -> str:
         f'<div class="tp-liga">{_esc(p.get("deporte", ""))} · '
         f'{_esc(p.get("liga", ""))}</div></div>'
         f'<div class="tp-graf">'
-        + barra_1x2(board.get(f'Gana {home}'), board.get('Empate'),
-                    board.get(f'Gana {away}'), home, away)
+        + (barra_1x2(board.get(f'Gana {home}'), board.get('Empate'),
+                     board.get(f'Gana {away}'), home, away)
+           if board.get('Empate') is not None
+           # sin empate en el board —MLB con dos vías, o tenis y KBO sin board
+           # ninguno— se pinta con la probabilidad del lado elegido, que sí
+           # viene siempre. Ver `barra_dos_vias`.
+           else barra_dos_vias(
+               board.get(f'Gana {home}') if board.get(f'Gana {home}') is not None
+               else p.get('prob'),
+               p.get('apuesta') or home))
         + f'</div>'
         f'<div class="tp-marca" style="color:{color_marca};'
         f'border-color:{color_marca}">{_esc(marca or "·")}</div>'
@@ -174,8 +228,51 @@ CSS = """
 """
 
 
+def pintar_con_boton(st, partidos: List[Dict], marca_de, horario=None,
+                     navegar=None, clave: str = 'lista',
+                     maximo: int = 250) -> None:
+    """
+    La lista con un botón «Ver» por tarjeta.
+
+    v142 — SE MIDIÓ ANTES DE DECIDIR, Y LA MEDIDA CORRIGIÓ LA SUPOSICIÓN.
+    --------------------------------------------------------------------
+    La versión anterior pintaba las filas en un solo bloque de HTML para
+    evitar «setenta widgets», dando por hecho que serían caros. Medido en
+    AppTest, con calentamiento y mejor de tres:
+
+        201 filas en un bloque HTML .... 0,404 s
+        201 tarjetas con st.button ..... 0,616 s   (1,53x)
+
+    Doscientos botones cuestan **dos décimas de segundo**. Eso no justifica
+    negar la navegación directa que se pedía, ni la complejidad de paginar.
+    La suposición era mía y el dato la desmintió.
+
+    `navegar(pick)` se llama al pulsar; si no se pasa, el botón no se dibuja y
+    la lista se comporta como antes.
+    """
+    if not partidos:
+        return
+    st.markdown(CSS, unsafe_allow_html=True)
+    for i, p in enumerate(sorted(partidos, key=clave_orden)[:maximo]):
+        try:
+            m = marca_de(p)
+        except Exception:
+            m = '·'
+        if navegar is None:
+            st.markdown(fila(p, m, horario), unsafe_allow_html=True)
+            continue
+        c1, c2 = st.columns([11, 1.6])
+        c1.markdown(fila(p, m, horario), unsafe_allow_html=True)
+        # La clave lleva el índice y el partido: dos encuentros del mismo
+        # cruce en días distintos comparten nombre, y Streamlit exige claves
+        # únicas o lanza «multiple elements with the same key».
+        if c2.button('Ver', key=f'{clave}_ver_{i}',
+                     help='Abre la ficha completa de este partido'):
+            navegar(p)
+
+
 def lista(partidos: List[Dict], marca_de, horario=None,
-          maximo: int = 200) -> str:
+          maximo: int = 250) -> str:
     """
     Las filas de todos los partidos, ordenadas por hora, en un solo bloque.
 

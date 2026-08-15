@@ -4185,6 +4185,13 @@ try:
         return getattr(cargar_motor_liga(clave_liga), 'equipos', None)
 
     _nav.aplicar_pendiente(st, COMPETENCIAS, equipos_de_liga=_equipos_de)
+    # v141: la vuelta a Apuestas del Día, consumida antes de que exista el
+    # selector — que es el único momento en que se puede escribir su clave.
+    if st.session_state.pop('_volver_a_alpha', False):
+        for _et, _cl in COMPETENCIAS.items():
+            if _cl == 'alpha':
+                st.session_state['competencia'] = _et
+                break
 except Exception:
     # una navegación fallida NUNCA puede costar la página: si algo va mal, el
     # usuario se queda en la vista en la que estaba.
@@ -4507,9 +4514,35 @@ def render_alpha_finder():
         f3.metric("Pasan el filtro", _n_capa1,
                   help="Cumplen probabilidad, EV y fiabilidad mínimas. Que "
                        "sean pocos —o ninguno— es lo normal y es correcto.")
-        f4.metric("Casas comparadas", len(_casas_vistas) or '—',
-                  help="Cuantas más casas, más veces aparece un precio mejor "
-                       "que el resto. Es la ventaja medida del proyecto.")
+        # v141 — CONTABA EN EL SITIO EQUIVOCADO.
+        #
+        # `_casas_vistas` sale sólo de `capa1`, y `capa1` está vacía la mayoría
+        # de los días —hoy tenía 0 picks—, así que el indicador enseñaba «—»
+        # aunque el barrido hubiera comparado tres casas. Medido: Pinnacle 28
+        # precios, Bovada 14, Playdoit 2, y el contador decía que ninguna.
+        #
+        # Se cuentan las casas de TODAS las listas del barrido, que es lo que
+        # de verdad respalda el consenso. Y si no hay ninguna se dice con
+        # palabras, porque un guion no distingue «cero» de «no lo sé».
+        _casas_todas = set()
+        for _lst in ('capa1', 'capa2', 'candidatos', 'pronosticos',
+                     'capa1_prob', 'seleccion_dia'):
+            for _p in (r.get(_lst) or []):
+                if isinstance(_p, dict) and _p.get('casa'):
+                    _casas_todas.add(str(_p['casa']))
+        f4.metric("Casas comparadas",
+                  len(_casas_todas) if _casas_todas else '0',
+                  help=("Casas que han puesto precio hoy: "
+                        + (', '.join(sorted(_casas_todas)) if _casas_todas
+                           else 'ninguna ha respondido todavía, así que no hay '
+                                'consenso con el que comparar')
+                        + ". Cuantas más, más veces aparece un precio mejor "
+                          "que el resto — es la ventaja medida del proyecto."))
+        if not _casas_todas:
+            st.caption("⚠️ **Consenso no disponible**: ninguna casa ha dado "
+                       "precio en este barrido. Sin dos precios del mismo "
+                       "suceso no se puede medir ventaja, así que hoy no hay "
+                       "Sección 1 posible.")
     except Exception:
         pass
 
@@ -4977,6 +5010,72 @@ def render_alpha_finder():
         return [p for p in lista
                 if isinstance(p, dict) and p.get('deporte') == _dep_sel]
 
+    # v141 — LA SEPARACIÓN POR DÍA, QUE HASTA AHORA NO EXISTÍA.
+    #
+    # La pestaña decía «Todos los partidos» y la cabecera prometía «SOLO los
+    # de HOY»: una de las dos mentía. Medido el 2026-08-15, la lista traía 201
+    # partidos de un día y 22 de otro, todos mezclados.
+    #
+    # Ahora se parte por la fecha REAL del partido. Antes no se podía: el
+    # tenis escribía `hoy` en todos sus registros aunque su `inicio` dijera
+    # otra cosa (arreglado en `alpha_finder`), así que cualquier filtro por
+    # día habría dado el mismo resultado que no filtrar.
+    try:
+        _HOY = pd.Timestamp.now('UTC').tz_localize(None).normalize()
+    except Exception:
+        _HOY = pd.Timestamp.utcnow().normalize()
+    _HOY_S = str(_HOY.date())
+    _MANANA_S = str((_HOY + pd.Timedelta(days=1)).date())
+
+    def _del_dia(lista, dia: str):
+        """Los del día pedido. Sin fecha legible, fuera: no se adivina."""
+        return [p for p in (lista or [])
+                if isinstance(p, dict) and str(p.get('fecha') or '')[:10] == dia]
+
+    # v141 — EL SEMÁFORO, EN UN SOLO SITIO.
+    #
+    # Vivía dentro de la pestaña de hoy. Con la pestaña de mañana harían falta
+    # dos copias, y dos copias de una regla de decisión acaban divergiendo:
+    # el mismo partido saldría verde en una pantalla y ámbar en la otra, que
+    # es justo lo que el clasificador único existe para impedir.
+    #
+    # `❌ Sin precio` SE RETIRA. Medido: de 114 pronósticos de fútbol sin
+    # cuota propia, 40 SÍ tenían precio en otra lista del mismo barrido, y de
+    # los 74 restantes no se puede afirmar que no exista — sólo que este
+    # registro no lo trae. Afirmar la ausencia era un fallo de búsqueda
+    # disfrazado de veredicto. Quedan tres estados y los tres son
+    # demostrables.
+    PROB_PATA = 0.70
+    _en_s1_g = {(str(p.get('deporte') or ''), str(p.get('partido') or ''))
+                for p in (r.get('seccion1') or [])}
+    _en_s2_g = {(str(p.get('deporte') or ''), str(p.get('partido') or ''))
+                for p in (r.get('seccion2') or [])}
+
+    def _ir_al_partido(p):
+        """Abre la ficha del partido pulsado. Reutiliza el camino ya probado."""
+        try:
+            import navegacion as _nav_b
+            d = _nav_b.destino_del_pick(p)
+            if d:
+                _nav_b.marcar(st, d)
+                st.rerun()
+            else:
+                st.warning(f"No hay vista de competición para "
+                           f"«{p.get('liga', '?')}», así que no se puede abrir "
+                           f"su ficha desde aquí.")
+        except Exception as e:
+            st.caption(f"No se pudo abrir el partido ({type(e).__name__}).")
+
+    def _marca_global(p):
+        k = (str(p.get('deporte') or ''), str(p.get('partido') or ''))
+        if k in _en_s1_g:
+            return '✅ Para jugar'
+        if k in _en_s2_g:
+            return '🟡 Sólo pata'
+        if p.get('cuota') and (p.get('prob') or 0) >= PROB_PATA:
+            return '🟡 Sólo pata'
+        return '· informativo'
+
     _s1_f = _filtra(r.get('seccion1'))
     _s2_f = _filtra(r.get('seccion2'))
     if _dep_sel != 'Todo':
@@ -5104,21 +5203,11 @@ def render_alpha_finder():
             # veredicto del clasificador; sólo cuando el partido no llegó a
             # pick se mira lo que tiene delante. Así la marca nunca contradice
             # a la Sección 1.
-            PROB_PATA = 0.70
-
-            def _marca(p):
-                k = _clave_partido(p)
-                if k in _en_s1:
-                    return '✅ Para jugar'
-                if k in _en_s2:
-                    return '🟡 Sólo pata'
-                if not p.get('cuota'):
-                    return '❌ Sin precio'
-                if (p.get('prob') or 0) >= PROB_PATA:
-                    # alta probabilidad y precio que no compensa: es material
-                    # de pata, que es exactamente lo que define la Sección 2
-                    return '🟡 Sólo pata'
-                return '· informativo'
+            # v141: delega en `_marca_global`, definida antes de las
+            # pestañas. Dos copias de una regla de decisión acaban
+            # divergiendo, y entonces el mismo partido sale verde en
+            # una pantalla y ámbar en la otra.
+            _marca = _marca_global
 
             filas_p = []
             for p in _pronos_ord:
@@ -5179,7 +5268,11 @@ def render_alpha_finder():
             # quien quiere comparar cifras exactas.
             try:
                 import render_todos_partidos as _rtp
-                _pinta(_rtp.lista(_pronos_ord, _marca, _horario))
+                # v141: SÓLO los de hoy. La cabecera lo prometía y la
+                # lista no lo cumplía.
+                _rtp.pintar_con_boton(
+                    st, _del_dia(_pronos_ord, _HOY_S), _marca, _horario,
+                    navegar=_ir_al_partido, clave='hoy')
                 st.caption(
                     "Ordenados por hora de inicio, lo más próximo arriba. "
                     "El ancho de cada tramo es la probabilidad del modelo "
@@ -5799,13 +5892,41 @@ def render_alpha_finder():
     # útil al lado invita a buscar valor donde no lo hay, que es exactamente
     # lo que este proyecto existe para evitar. Con la vista general a un clic,
     # el día sin picks sigue teniendo dónde mirar.
-    _tab_jugar, _tab_todos, _tab_pata, _tab_combi, _tab_estado = st.tabs([
-        f"✅ Para jugar ({len(_s1_f)})",
-        f"📋 Todos los partidos ({len(_filtra(r.get('pronosticos')))})",
-        f"🟡 Sólo como pata ({len(_s2_f)})",
+    # v141: los contadores cuentan HOY. Un rótulo que suma los dos días y una
+    # lista que enseña uno solo es lo que hacía que 227 y 148 no cuadraran.
+    _pron_f = _filtra(r.get('pronosticos'))
+    _pron_hoy = _del_dia(_pron_f, _HOY_S)
+    _pron_man = _del_dia(_pron_f, _MANANA_S)
+    _s1_hoy = _del_dia(_s1_f, _HOY_S) or _s1_f
+    _s2_hoy = _del_dia(_s2_f, _HOY_S) or _s2_f
+    (_tab_jugar, _tab_todos, _tab_manana, _tab_pata, _tab_combi,
+     _tab_estado) = st.tabs([
+        f"✅ Para jugar ({len(_s1_hoy)})",
+        f"📋 Partidos de hoy ({len(_pron_hoy)})",
+        f"🗓️ Partidos de mañana ({len(_pron_man)})",
+        f"🟡 Sólo como pata ({len(_s2_hoy)})",
         f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
         "⚙️ Estado del sistema",
     ])
+    with _tab_manana:
+        st.subheader(f"🗓️ Partidos de MAÑANA · {_MANANA_S}")
+        if not _pron_man:
+            st.info("Todavía no hay partidos de mañana en el barrido. Las "
+                    "casas suelen abrir línea 2-4 días antes, así que esto se "
+                    "llena solo a lo largo del día.")
+        else:
+            st.caption(
+                f"{len(_pron_man)} partidos, ordenados por hora. Mismo "
+                f"semáforo que hoy: la etiqueta de la derecha dice qué hacer. "
+                f"Aún faltan horas para que las líneas se muevan, así que una "
+                f"ventaja de hoy puede no estar mañana.")
+            try:
+                import render_todos_partidos as _rtp_m
+                _rtp_m.pintar_con_boton(
+                    st, _pron_man, _marca_global, _horario,
+                    navegar=_ir_al_partido, clave='man')
+            except Exception as _e_m:
+                st.caption(f"Lista no disponible ({type(_e_m).__name__}).")
     _tab_ev, _tab_prob = _tab_jugar, _tab_pata
     with _tab_todos:
         _render_todos_los_partidos()
@@ -6814,6 +6935,27 @@ def render_tennis():
 
 
 _clave_comp = COMPETENCIAS[competencia_sel]
+# v141 — VOLVER A APUESTAS DEL DÍA, SIN EL BOTÓN DEL NAVEGADOR.
+#
+# Se llega a una ficha desde la lista del día —ahora con un botón «Ver» por
+# tarjeta— y no había forma de deshacer ese paso dentro de la aplicación: el
+# retroceso del navegador en Streamlit no restaura el estado, así que el
+# usuario acababa recargando y perdiendo el barrido.
+#
+# Va ARRIBA de todo, antes de pintar la vista, para que no haya que bajar
+# hasta el final para volver. Sólo aparece fuera de la propia pantalla del
+# día, donde no tendría sentido.
+if _clave_comp != 'alpha':
+    if st.button('⬅ Volver a Apuestas del Día', key='volver_alpha'):
+        # SÓLO se apunta la intención. Escribir aquí `competencia` lanza
+        # «cannot be modified after the widget is instantiated», porque el
+        # selector ya existe cuando se pulsa este botón. Es la misma razón por
+        # la que `navegacion.marcar` no toca claves de widget: la bandera se
+        # consume al principio del script siguiente, antes de crear el
+        # desplegable. Lo cazó la validación de render.
+        st.session_state['_volver_a_alpha'] = True
+        st.rerun()
+
 if _clave_comp == 'mlb_deporte':
     render_mlb()
     st.stop()
