@@ -1,12 +1,12 @@
 {
   "liga": "Liga MX",
   "n_train": 2095,
-  "n_validacion": 526,
+  "n_validacion": 527,
   "fecha_corte": "2025-01-12",
-  "precision_validacion": 0.5228,
-  "precision_linea_base_elo": 0.5038,
+  "precision_validacion": 0.5218,
+  "precision_linea_base_elo": 0.5028,
   "precision_mercado_cuotas": 0.538,
-  "log_loss_validacion": 0.9955,
+  "log_loss_validacion": 0.9957,
   "n_equipos": 22,
   "familia_modelo": "beta",
   "features_extra_cols": [

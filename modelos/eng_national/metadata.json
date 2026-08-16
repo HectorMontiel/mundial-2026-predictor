@@ -1,12 +1,12 @@
 {
   "liga": "National League",
-  "n_train": 2102,
-  "n_validacion": 528,
-  "fecha_corte": "2025-08-20",
-  "precision_validacion": 0.5208,
+  "n_train": 2107,
+  "n_validacion": 532,
+  "fecha_corte": "2025-08-23",
+  "precision_validacion": 0.515,
   "precision_linea_base_elo": 0.5038,
-  "precision_mercado_cuotas": 0.5344,
-  "log_loss_validacion": 1.0572,
+  "precision_mercado_cuotas": 0.5337,
+  "log_loss_validacion": 1.0601,
   "n_equipos": 44,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
@@ -22,24 +22,24 @@
     "OVERROUND"
   ],
   "medias_cuotas": {
-    "PROB_IMP_H": 0.4257,
-    "PROB_IMP_D": 0.2556,
-    "PROB_IMP_A": 0.3187,
+    "PROB_IMP_H": 0.4258,
+    "PROB_IMP_D": 0.2555,
+    "PROB_IMP_A": 0.3186,
     "OVERROUND": 0.0855
   },
   "roi_sim": {
-    "n_apuestas": 183,
-    "roi_pct": 3.99,
-    "aciertos": 102,
-    "roi_pct_pinnacle": -6.86,
-    "n_con_pinnacle": 51
+    "n_apuestas": 184,
+    "roi_pct": 3.14,
+    "aciertos": 103,
+    "roi_pct_pinnacle": -6.44,
+    "n_con_pinnacle": 48
   },
   "mesm": {
-    "n_val_con_cuotas": 509,
-    "acc_prod": 0.5246,
-    "acc_mesm": 0.5167,
-    "ll_prod": 1.0547,
-    "ll_mesm": 1.0103,
+    "n_val_con_cuotas": 504,
+    "acc_prod": 0.5238,
+    "acc_mesm": 0.506,
+    "ll_prod": 1.0557,
+    "ll_mesm": 1.0057,
     "adoptado": false
   },
   "imt": null
