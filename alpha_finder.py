@@ -261,6 +261,20 @@ def hoy_utc() -> pd.Timestamp:
     return pd.Timestamp.now('UTC').tz_localize(None).normalize()
 
 
+def _hoy_cdmx() -> str:
+    """
+    El día de HOY para el usuario, en hora de Ciudad de México.
+
+    Existe aparte de `hoy_utc()` porque son dos preguntas distintas y
+    confundirlas costó tres versiones: `hoy_utc()` responde «con qué fecha
+    comparo los datos de las fuentes» (todas publican en UTC) y ésta responde
+    «qué día es para quien mira la pantalla». El barrido usa la primera; lo
+    que se le enseña o se le manda al usuario, la segunda.
+    """
+    return (_horario_af.fecha(pd.Timestamp.now('UTC'))
+            or str(hoy_utc().date()))
+
+
 def _es_del_dia(fx: dict) -> bool:
     """¿Este fixture se juega HOY (día calendario UTC)?"""
     try:
@@ -778,16 +792,67 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             except (ValueError, TypeError):
                 continue
             tiene_cuota = bool(fx.get('odd_home') and fx.get('odd_away'))
-            # v91 — los fixtures ya vienen filtrados al DÍA calendario (ver
-            # `_es_del_dia`); este segundo chequeo es cinturón y tirantes.
-            if fecha.normalize() not in (hoy, hoy + pd.Timedelta(days=1)):
+            # v145 — UNA SOLA DEFINICIÓN DE LA VENTANA, Y ESTA ERA LA SEGUNDA.
+            #
+            # Aquí vivía una copia del filtro escrita a mano —«hoy o
+            # hoy+1 en UTC»— puesta como «cinturón y tirantes» del de
+            # `_en_ventana`. Cuando la v144 ensanchó `_en_ventana` a tres días
+            # UTC (para que la ventana cubriera el día de MAÑANA EN CDMX
+            # entero), esta copia se quedó en dos y siguió tirando lo que la
+            # otra dejaba pasar.
+            #
+            # Medido: **5 partidos**, y precisamente los del prime time
+            # latinoamericano de mañana —
+            #
+            #     Necaxa vs León            01:00 UTC = 19:00 CDMX de mañana
+            #     Pachuca vs Puebla         03:00 UTC = 21:00 CDMX de mañana
+            #     Gimnasia vs Talleres · Macará vs U. Católica · Palestino vs Huachipato
+            #
+            # Dos guardias que dicen lo mismo acaban divergiendo; la lección no
+            # es «actualizar las dos», es que sobra una. Se llama a la función
+            # que define la ventana en vez de repetir su regla.
+            if not _en_ventana(fx):
                 continue
-            # v143: `es_hoy` deja de ser una constante. Es lo que decide si
-            # el partido puede producir PICKS o sólo pronóstico.
-            es_hoy = (fecha.normalize() == hoy)
+            # v145 — `es_hoy` SE MIDE EN EL DÍA DE CDMX, no en el UTC.
+            #
+            # Decide si el partido puede producir PICKS o sólo pronóstico. Con
+            # el día UTC, un Necaxa-León de las 19:00 de México caía en «UTC
+            # mañana» y se quedaba sin picks **el mismo día en que se juega**,
+            # que es justo cuando el usuario los quiere. Es el mismo desfase
+            # que la v144 corrigió en la pantalla y en la puerta de Telegram;
+            # aquí faltaba el tercer sitio.
+            _dia_cdmx = _horario_af.fecha(fx.get('inicio')) or str(fecha.date())
+            es_hoy = (_dia_cdmx == _hoy_cdmx())
+            # v145 — UN PARTIDO SIN PRONÓSTICO SIGUE SIENDO UN PARTIDO.
+            #
+            # El usuario pidió «visibilidad total»: que la lista del día
+            # enseñe todo lo que se juega, tenga o no cuota y tenga o no
+            # modelo. Hasta aquí, un fixture cuyo nombre no casaba con el
+            # catálogo del motor, o cuyo `predecir` devolvía error,
+            # desaparecía con un `continue` — sin cuota, sin fila y sin
+            # motivo. Medido hoy: 3 partidos de fútbol.
+            #
+            # Ahora se emite igual, con `sin_modelo` puesto y sin `board`.
+            # `render_todos_partidos.barra_dos_vias` ya sabe pintar eso como
+            # «sin pronóstico del modelo», que es la verdad, y el semáforo lo
+            # marca `·` informativo. Lo que NO se hace es inventarle una
+            # probabilidad para rellenar el hueco.
+            def _fila_sin_modelo(motivo: str) -> dict:
+                _f = pd.Timestamp(fx['fecha'])
+                return {'deporte': 'Fútbol', 'liga': cfg.get('nombre', clave),
+                        'clave_liga': clave,
+                        'partido': f"{fx.get('home')} vs {fx.get('away')}",
+                        'fecha': str(_f.date()), 'inicio': fx.get('inicio'),
+                        'es_hoy': es_hoy, 'sin_cuota': not tiene_cuota,
+                        'sin_modelo': True, 'prob': None, 'cuota': None,
+                        'motivo_sin_modelo': motivo}
+
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
             away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
             if not (home and away) or home == away:
+                pronosticos.append(_fila_sin_modelo(
+                    'el nombre del equipo no casa con el catálogo del modelo '
+                    'de esta liga'))
                 continue
             if (clave, home, away) in evaluados_pares:
                 continue                        # ya evaluado con cuota real
@@ -796,6 +861,8 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             # ficha, no del pick. Ver el comentario en `_barrido_cuotas`.
             pred = eng.predecir(home, away, prior_elo=False)
             if 'error' in pred:
+                pronosticos.append(_fila_sin_modelo(
+                    f"el modelo no pudo predecirlo: {pred['error']}"))
                 continue
             n_eval += 1
             cobertura[clave] = cobertura.get(clave, 0) + 1
@@ -2878,7 +2945,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # de hoy» para el usuario, que es una decisión de producto, no de datos.
     # La conversión la hace `horario`, el mismo módulo que ya pinta las horas.
     def _solo_hoy(lista):
-        h = _horario_af.fecha(pd.Timestamp.now('UTC')) or str(hoy_utc().date())
+        h = _hoy_cdmx()
 
         def _dia_local(p):
             return (_horario_af.fecha(p.get('inicio'))

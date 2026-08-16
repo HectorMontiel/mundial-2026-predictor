@@ -4645,16 +4645,44 @@ def render_alpha_finder():
     try:
         _n_capa1 = len(r.get('capa1') or [])
         _n_prons = len(r.get('pronosticos') or [])
-        _hoy_ct = sum(1 for p in (r.get('pronosticos') or []) if p.get('es_hoy'))
+        # v145 — EL CONTADOR TIENE QUE CUADRAR CON LAS PESTAÑAS.
+        #
+        # Decía 148 mientras las dos pestañas sumaban 141, y el usuario lo
+        # notó. Los 7 de diferencia son reales y correctos: la ventana del
+        # barrido se ensanchó a tres días UTC a propósito, para que el día de
+        # MAÑANA EN CDMX entre entero (ver `alpha_finder._en_ventana`). O sea
+        # que el barrido evalúa un día más de lo que se enseña.
+        #
+        # Un número de cabecera que no cuadra con la lista de debajo hace
+        # dudar de los dos. Se cuenta lo mismo que se pinta: hoy y mañana en
+        # hora de CDMX. Lo que sobra de la ventana no se tira —sirve para que
+        # mañana esté completo— simplemente no se cuenta aquí.
+        def _dia_cdmx_de(p):
+            return (_horario.fecha(p.get('inicio'))
+                    or str(p.get('fecha') or '')[:10])
+
+        _hoy_kpi = _horario.fecha(pd.Timestamp.now('UTC')) or ''
+        _man_kpi = (str(pd.Timestamp(_hoy_kpi).date() + pd.Timedelta(days=1))
+                    if _hoy_kpi else '')
+        _prons = [p for p in (r.get('pronosticos') or []) if isinstance(p, dict)]
+        _de_hoy = [p for p in _prons if _dia_cdmx_de(p) == _hoy_kpi]
+        _de_man = [p for p in _prons if _dia_cdmx_de(p) == _man_kpi]
+        _hoy_ct = sum(1 for p in _de_hoy if p.get('cuota') or p.get('n_casas'))
         _casas_vistas = set()
         for _p in (r.get('capa1') or []):
             if _p.get('casa'):
                 _casas_vistas.add(_p['casa'])
         f1, f2, f3, f4 = st.columns(4)
-        f1.metric("Partidos evaluados", r.get('partidos_evaluados', 0),
-                  help="Todos los que el barrido ha podido predecir hoy.")
+        f1.metric("Partidos evaluados", len(_de_hoy) + len(_de_man),
+                  help=f"Los de hoy ({len(_de_hoy)}) más los de mañana "
+                       f"({len(_de_man)}), en hora de CDMX — exactamente los "
+                       f"que salen en las dos pestañas. El barrido mira un día "
+                       f"más para que mañana esté completo, y ese sobrante no "
+                       f"se cuenta aquí.")
         f2.metric("Hoy con cuota", _hoy_ct,
-                  help="De hoy y con precio abierto en alguna casa.")
+                  help=f"De los {len(_de_hoy)} de hoy, los que tienen precio "
+                       f"abierto en alguna casa. El resto se muestran igual, "
+                       f"marcados «sin cuota».")
         f3.metric("Pasan el filtro", _n_capa1,
                   help="Cumplen probabilidad, EV y fiabilidad mínimas. Que "
                        "sean pocos —o ninguno— es lo normal y es correcto.")
@@ -5448,11 +5476,14 @@ def render_alpha_finder():
                 import render_todos_partidos as _rtp
                 # v141: SÓLO los de hoy. La cabecera lo prometía y la
                 # lista no lo cumplía.
+                _lista_hoy = _del_dia(_pronos_ord, _HOY_S)
+                _orden_hoy = _rtp.selector_orden(st, 'hoy')
                 _rtp.pintar_con_boton(
-                    st, _del_dia(_pronos_ord, _HOY_S), _marca, _horario,
-                    navegar=_ir_al_partido, clave='hoy')
+                    st, _lista_hoy, _marca, _horario,
+                    navegar=_ir_al_partido, clave='hoy', orden=_orden_hoy)
                 st.caption(
-                    "Ordenados por hora de inicio, lo más próximo arriba. "
+                    f"{len(_lista_hoy)} partidos de hoy — **todos**, tengan o "
+                    "no cuota y tengan o no pronóstico. "
                     "El ancho de cada tramo es la probabilidad del modelo "
                     "(verde local · gris empate · azul visitante); pasa por "
                     "encima para la cifra exacta. **La etiqueta de la derecha "
@@ -6097,15 +6128,17 @@ def render_alpha_finder():
                     "llena solo a lo largo del día.")
         else:
             st.caption(
-                f"{len(_pron_man)} partidos, ordenados por hora. Mismo "
-                f"semáforo que hoy: la etiqueta de la derecha dice qué hacer. "
-                f"Aún faltan horas para que las líneas se muevan, así que una "
-                f"ventaja de hoy puede no estar mañana.")
+                f"{len(_pron_man)} partidos de mañana — **todos**, tengan o "
+                f"no cuota y tengan o no pronóstico. Mismo semáforo que hoy: "
+                f"la etiqueta de la derecha dice qué hacer. Aún faltan horas "
+                f"para que las líneas se muevan, así que una ventaja de hoy "
+                f"puede no estar mañana.")
             try:
                 import render_todos_partidos as _rtp_m
+                _orden_man = _rtp_m.selector_orden(st, 'man')
                 _rtp_m.pintar_con_boton(
                     st, _pron_man, _marca_global, _horario,
-                    navegar=_ir_al_partido, clave='man')
+                    navegar=_ir_al_partido, clave='man', orden=_orden_man)
             except Exception as _e_m:
                 st.caption(f"Lista no disponible ({type(_e_m).__name__}).")
     _tab_ev, _tab_prob = _tab_jugar, _tab_pata

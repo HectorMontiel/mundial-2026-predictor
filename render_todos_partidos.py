@@ -155,32 +155,55 @@ def _prob_lados(p: Dict):
 
 def clave_orden_por_favorito(p: Dict) -> tuple:
     """
-    El orden que pidió el usuario: **primero los locales, de más a menos
-    probable; debajo los visitantes, también de más a menos probable.**
+    Orden por PROBABILIDAD, con la especificación exacta que dio el usuario:
 
-    Textualmente: «ordena la visualización de mayor probabilidad local a la
-    menor y abajo los de mayor visitante a menor».
+      1. todos los partidos por probabilidad del LOCAL, de mayor a menor;
+      2. a igualdad de local, por probabilidad del VISITANTE de mayor a menor;
+      3. los que no tienen probabilidad, al final — y entre ellos por hora,
+         para que ese bloque tampoco quede en orden arbitrario.
 
-    Ojo con lo que NO es: no es un único orden descendente por probabilidad
-    local. Eso dejaría al visitante más claro del día en mitad de la lista,
-    entre partidos parejos. Son DOS bloques, cada uno descendente por SU lado:
+    Un descendente simple por el local deja, sin pedirlo, los partidos de
+    visitante claro en la cola de la lista: cuanto más abajo, más favorito es
+    el visitante. Así los dos extremos de convicción quedan en los dos
+    extremos y lo parejo —que es lo que menos decide— en el centro.
 
-        bloque 1  local favorito     p_local 78 %, 71 %, 63 %, 55 %…
-        bloque 2  visitante favorito p_visita 74 %, 66 %, 58 %…
-        bloque 3  sin pronóstico del modelo
-
-    Así los dos extremos de convicción quedan en los dos extremos de la lista,
-    que es donde se buscan, y lo parejo —que es lo que menos decide— queda en
-    el centro. El empate no abre bloque propio: en el 1X2 casi nunca es el
-    resultado más probable, y cuando lo fuera seguiría clasificándose por cuál
-    de los dos equipos va por delante.
+    Los sin pronóstico NO se colocan entre los demás con un 0 implícito: eso
+    los mandaría al fondo como si fueran partidos de local malísimo, que es
+    afirmar algo que no se sabe. Van a su propio bloque.
     """
     pl, pv = _prob_lados(p)
-    if pl is None or pv is None:
-        return (2, 0.0, str(p.get('inicio') or ''))
-    if pl >= pv:
-        return (0, -pl, str(p.get('inicio') or ''))
-    return (1, -pv, str(p.get('inicio') or ''))
+    if pl is None:
+        return (1, 0.0, 0.0, str(p.get('inicio') or ''))
+    return (0, -pl, -(pv if pv is not None else 0.0),
+            str(p.get('inicio') or ''))
+
+
+# Los dos órdenes que ofrece la interfaz, en un solo sitio para que la pestaña
+# de hoy y la de mañana no puedan divergir.
+ORDENES = {
+    '🕒 Ordenar por hora': clave_orden,
+    '📊 Ordenar por probabilidad': clave_orden_por_favorito,
+}
+ORDEN_POR_DEFECTO = '🕒 Ordenar por hora'
+
+
+def selector_orden(st, clave: str) -> 'callable':
+    """
+    Pinta el selector de orden y devuelve la función de ordenación elegida.
+
+    Vive aquí y no en `dashboard_ui` para que las dos pestañas compartan
+    exactamente las mismas opciones: dos copias de una lista de opciones
+    acaban divergiendo, y entonces «ordenar por probabilidad» significa cosas
+    distintas según la pestaña.
+
+    `clave` distingue el estado de sesión de cada pestaña, así que el usuario
+    puede tener hoy por hora y mañana por probabilidad si quiere.
+    """
+    etq = st.radio('Orden', list(ORDENES), horizontal=True,
+                   key=f'_orden_{clave}', label_visibility='collapsed',
+                   help='Cambia sólo cómo se pinta la lista. No toca el '
+                        'barrido ni lo que se envía a Telegram.')
+    return ORDENES.get(etq, clave_orden)
 
 
 def lados(partido: str):
@@ -317,12 +340,12 @@ def pintar_con_boton(st, partidos: List[Dict], marca_de, horario=None,
     if not partidos:
         return
     st.markdown(CSS, unsafe_allow_html=True)
-    # v144 — por defecto se ordena por FAVORITO, no por hora. Ver
-    # `clave_orden_por_favorito`: el usuario pidió los locales de mayor a menor
-    # probabilidad y debajo los visitantes igual. Pasar `orden=clave_orden`
-    # recupera el orden temporal para quien lo prefiera.
+    # v145 — el orden por defecto vuelve a ser la HORA, que es lo que el
+    # usuario fijó al pedir el selector: «Ordenar por hora debe ser la
+    # predeterminada». Quien quiera el de probabilidad lo elige arriba y
+    # `orden` llega con `clave_orden_por_favorito`.
     for i, p in enumerate(
-            sorted(partidos, key=orden or clave_orden_por_favorito)[:maximo]):
+            sorted(partidos, key=orden or clave_orden)[:maximo]):
         try:
             m = marca_de(p)
         except Exception:
@@ -351,7 +374,7 @@ def lista(partidos: List[Dict], marca_de, horario=None,
     """
     if not partidos:
         return ''
-    ordenados = sorted(partidos, key=orden or clave_orden_por_favorito)[:maximo]
+    ordenados = sorted(partidos, key=orden or clave_orden)[:maximo]
     filas = []
     for p in ordenados:
         try:

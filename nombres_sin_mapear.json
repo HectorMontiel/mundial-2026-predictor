@@ -29,19 +29,19 @@
   },
   "Amed SFK": {
     "contexto": "fixture→turquia",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "América": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Anguilla": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Aruba": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Atl. San Luis": {
     "contexto": "goleadores→liga_mx",
@@ -53,15 +53,15 @@
   },
   "Atlas": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Atlético de San Luis": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Bahamas": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Barrow": {
     "contexto": "fixture→eng_national",
@@ -69,19 +69,27 @@
   },
   "Bonaire": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Bromley": {
     "contexto": "fixture→eng_league_one",
     "visto": "2026-08-14"
   },
+  "CD Sabadell": {
+    "contexto": "fixture→esp_hypermotion",
+    "visto": "2026-08-16"
+  },
   "Cincinnati Open": {
     "contexto": "tenis/atp",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Cruz Azul": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
+  },
+  "Deportivo": {
+    "contexto": "fixture→laliga",
+    "visto": "2026-08-16"
   },
   "Energie Cottbus": {
     "contexto": "fixture→ger_bundesliga2",
@@ -89,11 +97,11 @@
   },
   "Erzurum BB": {
     "contexto": "fixture→turquia",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "FC Juarez": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Group A 2nd Place": {
     "contexto": "selecciones",
@@ -145,7 +153,7 @@
   },
   "Guadalajara": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Harrogate Town": {
     "contexto": "fixture→eng_national",
@@ -153,7 +161,7 @@
   },
   "Istanbul Basaksehir": {
     "contexto": "fixture→turquia",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "JEF United Ichihara-Chiba": {
     "contexto": "fixture→jpn_j1",
@@ -169,7 +177,7 @@
   },
   "León": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "London Warriors": {
     "contexto": "nfl",
@@ -185,11 +193,11 @@
   },
   "Monterrey": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Montserrat": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Mubadala DC Open": {
     "contexto": "tenis/atp",
@@ -205,7 +213,7 @@
   },
   "Necaxa": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Notts County": {
     "contexto": "fixture→eng_league_one",
@@ -213,15 +221,15 @@
   },
   "Pachuca": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Puebla": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Pumas UNAM": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Quarterfinal 1 Winner": {
     "contexto": "selecciones",
@@ -241,7 +249,7 @@
   },
   "Querétaro": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "RC Celta Fortuna": {
     "contexto": "fixture→esp_hypermotion",
@@ -293,7 +301,7 @@
   },
   "Santos": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Semifinal 1 Winner": {
     "contexto": "selecciones",
@@ -305,31 +313,35 @@
   },
   "Sint Maarten": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Sporting CP": {
     "contexto": "fixture→primeira",
     "visto": "2026-08-14"
   },
+  "Sporting Gijón": {
+    "contexto": "fixture→esp_hypermotion",
+    "visto": "2026-08-16"
+  },
   "St. Martin": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Tigres UANL": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Tijuana": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Toluca": {
     "contexto": "evid",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Turks and Caicos Islands": {
     "contexto": "selecciones",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "Urawa Red Diamonds": {
     "contexto": "fixture→jpn_j1",
@@ -345,7 +357,7 @@
   },
   "Wroclaw Panthers": {
     "contexto": "nfl",
-    "visto": "2026-08-15"
+    "visto": "2026-08-16"
   },
   "York City": {
     "contexto": "fixture→eng_league_two",
@@ -354,17 +366,5 @@
   "Çorum FK": {
     "contexto": "fixture→turquia",
     "visto": "2026-08-14"
-  },
-  "Deportivo": {
-    "contexto": "fixture→laliga",
-    "visto": "2026-08-15"
-  },
-  "Sporting Gijón": {
-    "contexto": "fixture→esp_hypermotion",
-    "visto": "2026-08-15"
-  },
-  "CD Sabadell": {
-    "contexto": "fixture→esp_hypermotion",
-    "visto": "2026-08-15"
   }
 }
