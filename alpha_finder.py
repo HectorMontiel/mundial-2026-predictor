@@ -28,6 +28,15 @@ from typing import Dict, List, Optional
 import numpy as np
 import pandas as pd
 
+# v144 — el conversor a hora de CDMX. Se importa aquí y no dentro de la función
+# porque `_solo_hoy` corre en el camino caliente del barrido, y porque el
+# módulo no tiene dependencias pesadas: es `datetime` y `zoneinfo`.
+#
+# Esto NO mueve el reloj del barrido, que sigue en UTC de punta a punta
+# (`hoy_utc`, `_en_ventana`, `_es_del_dia`). Se usa sólo para decidir a qué DÍA
+# DEL USUARIO pertenece un partido, que es otra pregunta.
+import horario as _horario_af
+
 logger = logging.getLogger(__name__)
 
 # v30: último barrido almacenado a nivel de módulo (respaldo para la
@@ -279,14 +288,45 @@ def _es_del_dia(fx: dict) -> bool:
 # hoy sobre un partido de mañana no es la que habrá cuando se pueda jugar; y
 # el envío diario de Telegram no puede empezar a proponer cosas de otro día
 # sin que nadie lo haya pedido.
+# v144 — LA VENTANA ABARCA UN DÍA UTC MÁS, PORQUE LA PANTALLA ES DE CDMX.
+#
+# El barrido razona en UTC (invariante del proyecto, `test_un_solo_reloj`) y
+# la interfaz reparte hoy/mañana en hora de **CDMX**, que va 6 horas por
+# detrás. Eso hace que la ventana UTC [hoy, mañana] equivalga, en México, a
+# [ayer 18:00, mañana 17:59]:
+#
+#     CDMX               UTC
+#     mañana 17:59  →    mañana 23:59   ← último instante cubierto
+#     mañana 18:00  →    pasado 00:00   ← FUERA de la ventana
+#
+# O sea que **la franja de 18:00 a 23:59 de mañana en México quedaba fuera
+# del barrido**, y es justo donde juegan la Liga MX y la MLS. No se veía
+# porque el efecto depende de la hora a la que se abra la aplicación: por la
+# tarde-noche mexicana los dos días UTC ya cubren todo mañana, y por la mañana
+# no. Un fallo que aparece y desaparece según la hora es el peor de encontrar.
+#
+# Se añade un tercer día UTC. La ventana pasa a ser un SUPERCONJUNTO de lo que
+# la pantalla necesita, y el recorte fino lo hace la presentación con la fecha
+# de CDMX — que es donde debe hacerse. Lo que sobra no se enseña; lo que falta
+# no se puede inventar.
+#
+# Coste: ESPN ya sirve el rango en una sola petición por liga (`dias` es el
+# ancho del rango, no el número de peticiones), así que son los mismos
+# llamados con un rango un día más largo.
 def _en_ventana(fx: dict) -> bool:
-    """¿Se juega hoy o mañana (día calendario UTC)?"""
+    """
+    ¿Entra en la ventana de análisis (hoy, mañana o pasado, en día UTC)?
+
+    Deliberadamente MÁS ANCHA que lo que se muestra: la interfaz recorta
+    después por fecha de CDMX. Los picks emitidos siguen siendo sólo de hoy
+    (`_solo_hoy`), así que ensanchar esto no manda nada nuevo a Telegram.
+    """
     try:
         d = pd.Timestamp(fx.get('fecha')).normalize()
     except (ValueError, TypeError):
         return False
     h = hoy_utc()
-    return d in (h, h + pd.Timedelta(days=1))
+    return d in (h, h + pd.Timedelta(days=1), h + pd.Timedelta(days=2))
 
 
 # v91 — `_mapa_equipo_liga` y `_liga_fuzzy` se retiraron con el camino de
@@ -661,7 +701,10 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
     # la pidió. Ver el comentario junto a `_es_del_dia`.
     # dias=2: el rango de ESPN es UTC y así cubre el día completo aunque la
     # consulta caiga justo en el cambio de fecha; `_es_del_dia` recorta.
-    fixtures_por_liga = fixtures_espn.fixtures_multi(claves_disp, dias=2)
+    # v144 — dias=3, para que la ventana cubra el día de MAÑANA EN CDMX entero.
+    # Ver el bloque de `_en_ventana`: con dos días UTC, la franja de 18:00 a
+    # 23:59 de mañana en México se quedaba fuera según la hora de consulta.
+    fixtures_por_liga = fixtures_espn.fixtures_multi(claves_disp, dias=3)
     for _cl in list(fixtures_por_liga):
         fixtures_por_liga[_cl] = [f for f in (fixtures_por_liga[_cl] or [])
                                   if _en_ventana(f)]   # v143: hoy Y mañana
@@ -2819,10 +2862,30 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     #
     # Nota: esta fuga ya existía antes de abrir la ventana. El tenis siempre
     # publicó partidos de mañana en su capa 2; simplemente no se veía.
+    # v144 — «HOY» AQUÍ ES EL DÍA DE CDMX, NO EL DÍA UTC.
+    #
+    # El usuario lo pidió con estas palabras: «si son los de hoy y estamos a 15
+    # de agosto, sin importar la hora, solo mandas los del 15 de agosto». Y
+    # tenía razón, porque esta puerta es la que decide qué sale por Telegram.
+    #
+    # Con el día UTC, a las 22:00 de México (04:00 UTC del día siguiente) esta
+    # función dejaba pasar todo lo etiquetado con la fecha UTC de mañana — que
+    # en México es desde las 18:00 de HOY hasta las 17:59 de MAÑANA. O sea que
+    # el envío diario mezclaba dos días mexicanos y llamaba «hoy» a los dos.
+    #
+    # No rompe el invariante de un solo reloj: el barrido sigue COMPARANDO en
+    # UTC y `hoy_utc()` no se toca. Lo que cambia es qué día se considera «el
+    # de hoy» para el usuario, que es una decisión de producto, no de datos.
+    # La conversión la hace `horario`, el mismo módulo que ya pinta las horas.
     def _solo_hoy(lista):
-        h = str(hoy_utc().date())
+        h = _horario_af.fecha(pd.Timestamp.now('UTC')) or str(hoy_utc().date())
+
+        def _dia_local(p):
+            return (_horario_af.fecha(p.get('inicio'))
+                    or str(p.get('fecha') or '')[:10])
+
         return [p for p in (lista or [])
-                if not isinstance(p, dict) or str(p.get('fecha') or '')[:10] in ('', h)]
+                if not isinstance(p, dict) or _dia_local(p) in ('', h)]
 
     _antes = {k: len(v or []) for k, v in
               (('capa1', capa1), ('capa2', capa2), ('candidatos', r.get('candidatos')))}

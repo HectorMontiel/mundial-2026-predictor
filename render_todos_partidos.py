@@ -119,6 +119,70 @@ def clave_orden(p: Dict) -> tuple:
     return (0, ini, str(p.get('partido') or ''))
 
 
+def _prob_lados(p: Dict):
+    """
+    `(p_local, p_visitante)` de un partido, mire donde mire el dato.
+
+    Hay tres formas de guardarlo en el proyecto y las tres tienen que servir,
+    porque conviven en la misma lista:
+
+      · `board` con las tres salidas del 1X2 (fútbol);
+      · `board` de dos vías (NFL, MLB);
+      · sólo `prob` + `apuesta`, sin board (tenis, KBO), donde hay que mirar
+        de qué lado habla la apuesta para saber a quién pertenece esa cifra.
+
+    Devuelve `(None, None)` cuando no hay pronóstico. Ese caso NO se inventa:
+    va a su propio bloque al final, porque colocarlo entre los locales o entre
+    los visitantes sería afirmar algo que no se sabe.
+    """
+    home, away = lados(p.get('partido'))
+    board = p.get('board') or {}
+    pl = _pct(board.get(f'Gana {home}'))
+    pv = _pct(board.get(f'Gana {away}'))
+    if pl is not None and pv is not None:
+        return pl, pv
+    # sin board: la probabilidad viaja suelta y la apuesta dice de quién es
+    pr = _pct(p.get('prob'))
+    if pr is None:
+        return None, None
+    apuesta = str(p.get('apuesta') or '')
+    if home and home in apuesta:
+        return pr, 1.0 - pr
+    if away and away in apuesta:
+        return 1.0 - pr, pr
+    return None, None
+
+
+def clave_orden_por_favorito(p: Dict) -> tuple:
+    """
+    El orden que pidió el usuario: **primero los locales, de más a menos
+    probable; debajo los visitantes, también de más a menos probable.**
+
+    Textualmente: «ordena la visualización de mayor probabilidad local a la
+    menor y abajo los de mayor visitante a menor».
+
+    Ojo con lo que NO es: no es un único orden descendente por probabilidad
+    local. Eso dejaría al visitante más claro del día en mitad de la lista,
+    entre partidos parejos. Son DOS bloques, cada uno descendente por SU lado:
+
+        bloque 1  local favorito     p_local 78 %, 71 %, 63 %, 55 %…
+        bloque 2  visitante favorito p_visita 74 %, 66 %, 58 %…
+        bloque 3  sin pronóstico del modelo
+
+    Así los dos extremos de convicción quedan en los dos extremos de la lista,
+    que es donde se buscan, y lo parejo —que es lo que menos decide— queda en
+    el centro. El empate no abre bloque propio: en el 1X2 casi nunca es el
+    resultado más probable, y cuando lo fuera seguiría clasificándose por cuál
+    de los dos equipos va por delante.
+    """
+    pl, pv = _prob_lados(p)
+    if pl is None or pv is None:
+        return (2, 0.0, str(p.get('inicio') or ''))
+    if pl >= pv:
+        return (0, -pl, str(p.get('inicio') or ''))
+    return (1, -pv, str(p.get('inicio') or ''))
+
+
 def lados(partido: str):
     """
     `(local, visitante)` del nombre del partido, sea cual sea el separador.
@@ -230,7 +294,7 @@ CSS = """
 
 def pintar_con_boton(st, partidos: List[Dict], marca_de, horario=None,
                      navegar=None, clave: str = 'lista',
-                     maximo: int = 250) -> None:
+                     maximo: int = 250, orden=None) -> None:
     """
     La lista con un botón «Ver» por tarjeta.
 
@@ -253,7 +317,12 @@ def pintar_con_boton(st, partidos: List[Dict], marca_de, horario=None,
     if not partidos:
         return
     st.markdown(CSS, unsafe_allow_html=True)
-    for i, p in enumerate(sorted(partidos, key=clave_orden)[:maximo]):
+    # v144 — por defecto se ordena por FAVORITO, no por hora. Ver
+    # `clave_orden_por_favorito`: el usuario pidió los locales de mayor a menor
+    # probabilidad y debajo los visitantes igual. Pasar `orden=clave_orden`
+    # recupera el orden temporal para quien lo prefiera.
+    for i, p in enumerate(
+            sorted(partidos, key=orden or clave_orden_por_favorito)[:maximo]):
         try:
             m = marca_de(p)
         except Exception:
@@ -272,7 +341,7 @@ def pintar_con_boton(st, partidos: List[Dict], marca_de, horario=None,
 
 
 def lista(partidos: List[Dict], marca_de, horario=None,
-          maximo: int = 250) -> str:
+          maximo: int = 250, orden=None) -> str:
     """
     Las filas de todos los partidos, ordenadas por hora, en un solo bloque.
 
@@ -282,9 +351,9 @@ def lista(partidos: List[Dict], marca_de, horario=None,
     """
     if not partidos:
         return ''
-    orden = sorted(partidos, key=clave_orden)[:maximo]
+    ordenados = sorted(partidos, key=orden or clave_orden_por_favorito)[:maximo]
     filas = []
-    for p in orden:
+    for p in ordenados:
         try:
             m = marca_de(p)
         except Exception:

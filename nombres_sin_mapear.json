@@ -354,5 +354,17 @@
   "Çorum FK": {
     "contexto": "fixture→turquia",
     "visto": "2026-08-14"
+  },
+  "Deportivo": {
+    "contexto": "fixture→laliga",
+    "visto": "2026-08-15"
+  },
+  "Sporting Gijón": {
+    "contexto": "fixture→esp_hypermotion",
+    "visto": "2026-08-15"
+  },
+  "CD Sabadell": {
+    "contexto": "fixture→esp_hypermotion",
+    "visto": "2026-08-15"
   }
 }

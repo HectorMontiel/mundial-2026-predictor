@@ -4122,20 +4122,131 @@ _BANDERAS = {
     'Australia': '🇦🇺', 'Austria': '🇦🇹', 'Grecia': '🇬🇷', 'Rusia': '🇷🇺',
     'Sudáfrica': '🇿🇦', 'India': '🇮🇳', 'Países Bajos': '🇳🇱',
     'Américas': '🏆', 'Asia': '🏆', 'África': '🏆', 'Europa': '🇪🇺', 'Mundo': '🌍',
+    # v144 — los que faltaban y salían con el balón genérico. No es cosmético:
+    # con 37 países en el selector, la bandera es lo que se busca antes de
+    # leer el nombre.
+    'Portugal': '🇵🇹', 'Dinamarca': '🇩🇰', 'Turquía': '🇹🇷', 'Suecia': '🇸🇪',
+    'Noruega': '🇳🇴', 'Finlandia': '🇫🇮', 'Polonia': '🇵🇱', 'Rumanía': '🇷🇴',
+    'Irlanda': '🇮🇪', 'China': '🇨🇳', 'Croacia': '🇭🇷', 'Suiza': '🇨🇭',
+    'Corea del Sur': '🇰🇷', 'Arabia Saudita': '🇸🇦',
+    'Estados Unidos/Canadá': '🇺🇸', 'Norteamérica': '🏆',
 }
+# v144 — EL MENÚ SE CONSTRUYE DESDE EL CATÁLOGO ENTERO, NO DESDE UNA SUBLISTA.
+#
+# El bucle de la v68 recorría sólo `LIGAS_V68_ANADIDAS`, que son las ligas que
+# entraron por `config_ligas_espn`. Las del catálogo base nunca pasaban por
+# aquí, así que el menú se quedaba con las 17 escritas a mano de arriba.
+#
+# Medido el 2026-08-16: **50 ligas disponibles, las 50 con modelo entrenado, y
+# sólo 17 en el selector.** O sea 33 competiciones que el sistema predice cada
+# día, cuyos picks entran en el barrido y salen en «Apuestas del Día»… y a las
+# que no se podía llegar desde el menú para ver su ficha. Entre ellas:
+#
+#     Rusia (Premier), Escocia (Premiership y Championship), Inglaterra
+#     (League One, League Two, National), España (Hypermotion), Italia
+#     (Serie B), Alemania (2. Bundesliga), Francia (Ligue 2), Japón (J1),
+#     Grecia, Polonia, Rumanía, Noruega, Suecia, Finlandia, Irlanda…
+#
+# Por eso «añadir la liga de Rusia» no era dar de alta nada: era enseñarla.
+# El catálogo la tenía desde hacía versiones, con histórico y con modelo.
+#
+# Se recorre `LEAGUES` entero y se respeta el mismo filtro de siempre: sólo
+# `disponible`, que es la marca que pone el entrenamiento cuando la liga bate a
+# la línea base ELO. Una liga que no supera esa prueba sigue sin aparecer.
+# LA DEDUPLICACIÓN ES POR CLAVE, NO POR ETIQUETA — y esto se midió.
+#
+# Las 17 entradas escritas a mano usan nombres cortos («🇧🇷 Brasileirão»,
+# «🇦🇷 Primera (ARG)») y el catálogo usa el largo («Brasileirão Serie A»,
+# «Primera División»). Comparando etiquetas, las dos versiones de la MISMA liga
+# entraban al menú: la primera pasada dejó **10 competiciones duplicadas**
+# —Brasil, Argentina, MLS, Turquía, Dinamarca, Portugal, las tres de UEFA y la
+# Leagues Cup— cada una con dos entradas que abren exactamente la misma vista.
+#
+# Peor que feo: partía países. `mls` tiene `pais = 'Estados Unidos/Canadá'` y la
+# entrada a mano decía «Estados Unidos», así que el selector ofrecía los dos
+# países con una MLS en cada uno.
 try:
     import config as _cfg68
-    for _k in getattr(_cfg68, 'LIGAS_V68_ANADIDAS', []):
-        _c = _cfg68.LEAGUES.get(_k, {})
+    _ya_en_menu = set(COMPETENCIAS.values())
+    for _k, _c in _cfg68.LEAGUES.items():
         if not _c.get('disponible'):
             continue                    # entrenada pero no supera al ELO
+        if _k in _ya_en_menu:
+            continue                    # ya está, con su etiqueta de siempre
         _pais = _c.get('pais', '')
         _et = f"{_BANDERAS.get(_pais, '⚽')} {_c.get('nombre', _k)}"
-        if _et not in COMPETENCIAS:
-            COMPETENCIAS[_et] = _k
+        # dos ligas DISTINTAS pueden llamarse igual en países distintos
+        # («Primera División» es Argentina y Uruguay); se desambigua con el
+        # país detrás, que es lo que las separa de verdad.
+        if _et in COMPETENCIAS:
+            _et = f"{_et} ({_pais})"
+        COMPETENCIAS[_et] = _k
+        _ya_en_menu.add(_k)
         NOMBRES_LIGAS.setdefault(_k, _c.get('nombre', _k))
-except Exception:
-    pass
+except Exception as _e_menu:
+    import logging as _lg_menu
+    _lg_menu.getLogger(__name__).warning(
+        f'[ui] el menú no pudo crecer con el catálogo: {_e_menu}')
+
+
+# v144 — AGRUPACIÓN POR PAÍS.
+#
+# Con 50 competiciones, la lista plana deja de ser navegable: hay que
+# desplazarse por medio menú para encontrar la Championship, y las cuatro
+# divisiones inglesas quedan repartidas por toda la lista según cómo se llamen.
+#
+# El mapa NO se escribe a mano. Sale de `config.LEAGUES['pais']`, que es el
+# mismo campo que ya alimenta las banderas: si mañana entra una liga nueva,
+# aparece en su país sola. Mantener a mano una segunda lista de 50 entradas es
+# exactamente lo que produjo el desfase que esta versión arregla.
+GRUPO_DESTACADOS = '⭐ Deportes y destacados'
+PAIS_TODOS = '🌐 Todas las competiciones'
+
+# Los países más jugados primero y el resto alfabético. No es capricho: el
+# 80 % de las aperturas van a media docena de ligas, y obligar a buscar
+# «Inglaterra» entre veinte países ordenados por alfabeto es peor experiencia
+# que un orden que reconoce para qué se abre la aplicación.
+_PAISES_PRIMERO = ('Inglaterra', 'España', 'Italia', 'Alemania', 'Francia',
+                   'México', 'Estados Unidos', 'Brasil', 'Argentina', 'Europa')
+
+
+# Las entradas del menú que NO salen del catálogo de ligas. Se declara ANTES
+# de la función que la usa, y no después: en este fichero un nombre definido
+# más abajo del punto donde se usa ya dejó la aplicación sin arrancar una vez
+# (UnboundLocalError que ni `py_compile` ni el AST detectan). Aquí serían
+# globales de módulo y funcionaría igual, pero el orden se mantiene por
+# disciplina, no porque el intérprete lo exija.
+_NO_SON_LIGAS_PREVIO = {'mundial', 'alpha', 'mlb_deporte', 'kbo_deporte',
+                        'nba_deporte', 'tennis_deporte', 'nfl_deporte'}
+
+
+def _pais_de(clave: str) -> str:
+    """El país de una competición, con las vistas de deporte en su grupo."""
+    if clave in _NO_SON_LIGAS_PREVIO:
+        return GRUPO_DESTACADOS
+    try:
+        import config as _c
+        p = (_c.LEAGUES.get(clave) or {}).get('pais')
+        return p or GRUPO_DESTACADOS
+    except Exception:
+        return GRUPO_DESTACADOS
+
+
+def _mapa_paises(competencias: dict) -> dict:
+    """`{país: [(etiqueta, clave), …]}`, con los destacados siempre primero."""
+    mapa: dict = {}
+    for _et, _k in competencias.items():
+        mapa.setdefault(_pais_de(_k), []).append((_et, _k))
+    for _p in mapa:
+        mapa[_p].sort(key=lambda t: t[0])
+    orden = ([GRUPO_DESTACADOS]
+             + [p for p in _PAISES_PRIMERO if p in mapa]
+             + sorted(p for p in mapa
+                      if p != GRUPO_DESTACADOS and p not in _PAISES_PRIMERO))
+    return {p: mapa[p] for p in orden if p in mapa}
+
+
+PAIS_COMPETICIONES = _mapa_paises(COMPETENCIAS)
 
 # v98 — EL SELECTOR NO PUEDE OFRECER UNA LIGA QUE EL CATÁLOGO NO TIENE.
 #
@@ -4218,10 +4329,42 @@ _pinta(_estilo.cabecera(
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
 # en el teléfono la barra lateral llega colapsada y el usuario no encontraba
 # las ligas. El estado se comparte con st.session_state.
-competencia_sel = st.selectbox(
-    "🏆 Competición", list(COMPETENCIAS.keys()), index=0, key='competencia',
+# v144 — SELECTOR JERÁRQUICO: PAÍS → COMPETICIÓN.
+#
+# El país FILTRA, no obliga. La primera opción es «Todas las competiciones», y
+# con ella el desplegable de abajo se comporta exactamente como antes: la
+# lista entera, en un solo clic. Elegir un país la recorta.
+#
+# Se hace así y no como dos pasos obligatorios por dos razones concretas:
+#
+#   1. **No rompe nada de lo que ya funcionaba.** El desplegable de competición
+#      conserva su clave (`competencia`) y sus etiquetas, así que los enlaces
+#      internos (`navegacion.marcar`), el estado de sesión y el smoke de
+#      botones —que selecciona por etiqueta— siguen valiendo sin tocarlos.
+#   2. **Un paso obligatorio de más se paga cada vez.** Quien entra a mirar la
+#      Premier tendría que elegir «Inglaterra» primero, siempre. Filtrar es
+#      opcional para quien lo necesita y gratis para quien no.
+_paises = list(PAIS_COMPETICIONES.keys())
+_col_pais, _col_comp = st.columns([1, 2])
+_pais_sel = _col_pais.selectbox(
+    "🌍 País", [PAIS_TODOS] + _paises, index=0, key='pais_competicion',
+    help="Filtra el desplegable de al lado. Con «Todas» se ven las "
+         f"{len(COMPETENCIAS)} competiciones juntas.")
+if _pais_sel == PAIS_TODOS:
+    _opciones_comp = list(COMPETENCIAS.keys())
+else:
+    _opciones_comp = [_et for _et, _ in PAIS_COMPETICIONES.get(_pais_sel, [])]
+    # Al cambiar de país, lo que hubiera elegido antes puede no estar en la
+    # lista nueva. Streamlit conserva el valor de `session_state` y entonces
+    # lanza una excepción por un default que ya no es una opción, que es una
+    # pantalla en blanco. Se limpia aquí, que es donde se sabe.
+    if st.session_state.get('competencia') not in _opciones_comp:
+        st.session_state.pop('competencia', None)
+competencia_sel = _col_comp.selectbox(
+    "🏆 Competición", _opciones_comp, index=0, key='competencia',
     help="En móvil: elige aquí la liga; los controles finos (modo, bankroll) "
-         "siguen en la barra lateral (botón » arriba a la izquierda).")
+         "siguen en la barra lateral (botón » arriba a la izquierda). "
+         "Escribe para buscar.")
 st.sidebar.checkbox(
     "🤖 Reescribir comentarios con SLM local (Ollama)", value=False, key='usar_slm',
     help="Opcional y solo en ejecución local: si tienes Ollama corriendo "
@@ -5021,17 +5164,51 @@ def render_alpha_finder():
     # tenis escribía `hoy` en todos sus registros aunque su `inicio` dijera
     # otra cosa (arreglado en `alpha_finder`), así que cualquier filtro por
     # día habría dado el mismo resultado que no filtrar.
-    try:
-        _HOY = pd.Timestamp.now('UTC').tz_localize(None).normalize()
-    except Exception:
-        _HOY = pd.Timestamp.utcnow().normalize()
-    _HOY_S = str(_HOY.date())
-    _MANANA_S = str((_HOY + pd.Timedelta(days=1)).date())
+    # v144 — EL DÍA SE PARTE EN HORA DE CDMX, NO EN UTC.
+    #
+    # El reparto comparaba la fecha UTC del partido, y la pantalla enseña la
+    # hora de CDMX. México va 6 horas por detrás, así que **todo lo que se
+    # juega entre las 18:00 y las 23:59 de México cae ya en el día siguiente
+    # en UTC** y se iba a la pestaña de mañana. Es la franja de máxima
+    # audiencia, o sea justo la que peor se podía equivocar.
+    #
+    # Medido sobre el barrido real del 2026-08-15: **9 de 196 partidos en el
+    # día equivocado**, y no cualquiera —
+    #
+    #     Santos Laguna vs Guadalajara Chivas   19:10 CDMX de HOY → salía en MAÑANA
+    #     Club Tijuana vs Cruz Azul             21:00 CDMX de HOY → salía en MAÑANA
+    #     Seattle Sounders vs Vancouver         20:30 CDMX de HOY → salía en MAÑANA
+    #
+    # `horario.py` ya advertía de esto en su cabecera («un partido de las 01:00
+    # UTC del sábado se juega el VIERNES a las 19:00 en México») y aun así
+    # dejaba el reparto en UTC «donde estaba validado». Lo que estaba validado
+    # era el BARRIDO, no la pestaña.
+    #
+    # Y esa distinción es la que se conserva: el barrido sigue razonando en UTC
+    # de punta a punta (`test_un_solo_reloj` lo vigila y no se toca). Lo único
+    # que pasa a CDMX es el borde de PRESENTACIÓN, que es donde vive el
+    # usuario. Los campos internos `fecha` e `inicio` siguen en UTC.
+    _HOY_S = _horario.fecha(pd.Timestamp.now('UTC'))
+    if not _HOY_S:                      # sin base de zonas: se degrada a UTC
+        _HOY_S = str(pd.Timestamp.now('UTC').tz_localize(None).date())
+    _MANANA_S = str(pd.Timestamp(_HOY_S).date() + pd.Timedelta(days=1))
+
+    def _fecha_local(p: dict) -> str:
+        """
+        La fecha del partido EN CDMX.
+
+        Se calcula desde `inicio`, que es la marca de tiempo completa. `fecha`
+        es sólo el día en UTC y no permite saber de qué lado de la medianoche
+        mexicana cae; cuando `inicio` falta —alguna rama todavía no lo
+        publica— se usa `fecha` tal cual, que es lo mejor disponible y nunca
+        peor que antes.
+        """
+        return _horario.fecha(p.get('inicio')) or str(p.get('fecha') or '')[:10]
 
     def _del_dia(lista, dia: str):
-        """Los del día pedido. Sin fecha legible, fuera: no se adivina."""
+        """Los del día pedido, en hora de CDMX. Sin fecha legible, fuera."""
         return [p for p in (lista or [])
-                if isinstance(p, dict) and str(p.get('fecha') or '')[:10] == dia]
+                if isinstance(p, dict) and _fecha_local(p) == dia]
 
     # v141 — EL SEMÁFORO, EN UN SOLO SITIO.
     #
@@ -5910,7 +6087,10 @@ def render_alpha_finder():
         "⚙️ Estado del sistema",
     ])
     with _tab_manana:
-        st.subheader(f"🗓️ Partidos de MAÑANA · {_MANANA_S}")
+        # La fecha lleva «CDMX» pegada a propósito: es la única forma de que un
+        # partido a las 19:00 del 15 no parezca un error de la aplicación
+        # cuando el reloj del servidor ya marca 16.
+        st.subheader(f"🗓️ Partidos de MAÑANA · {_MANANA_S} (hora de CDMX)")
         if not _pron_man:
             st.info("Todavía no hay partidos de mañana en el barrido. Las "
                     "casas suelen abrir línea 2-4 días antes, así que esto se "

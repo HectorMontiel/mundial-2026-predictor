@@ -267,6 +267,94 @@ LIGAS_V68 = {
         'disponible': False, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 279,
     },
+    # v144 — SAUDI PRO LEAGUE, con la validación estricta que se pidió.
+    #
+    # El encargo la pedía «sólo si el backtest supera el 52 % y el p5 del ROI
+    # es positivo». Se da de alta con la FUENTE configurada y
+    # `disponible: False`, que es exactamente lo que implementa esa condición
+    # en este proyecto: el flujo de reentrenamiento (`entrenar_ligas_v68.py`,
+    # que corre a diario en `retrain_leagues.yml`) la entrena, la mide contra
+    # la línea base ELO y **sólo entonces** le pone `disponible: True`. Si no
+    # bate, se queda informativa y con el motivo escrito, como las quince que
+    # ya están así.
+    #
+    # Volumen verificado contra ESPN el 2026-08-16: **865 partidos en 2023,
+    # 2024 y 2025**, muy por encima del mínimo de volumen del catálogo. Es la
+    # única de las seis ligas nuevas del encargo con cobertura suficiente
+    # (ver `SIN_FUENTE` abajo).
+    'ksa_pro': {
+        'nombre': 'Saudi Pro League', 'pais': 'Arabia Saudita',
+        'formato': 'espn', 'espn_liga': 'ksa.1', 'desde': '2022-07-01',
+        'urls': [], 'disponible': False, 'features_extra': [],
+        'fuente_v68': 'espn', 'partidos_espn': 865,
+        'nota': 'alta en v144 con validación estricta: se activa sola si el '
+                'reentrenamiento la mide por encima de la línea base ELO.',
+    },
+}
+
+# v144 — BÚSQUEDA DE FUENTE PARA LAS LIGAS PEDIDAS QUE NO TENÍAMOS.
+#
+# ESPN se verificó contra su CATÁLOGO REAL, no contra códigos adivinados:
+# `site.api.espn.com/apis/site/v2/leagues/dropdown?sport=soccer` devuelve las
+# **216 competiciones** que publica. Ninguna de las cinco de abajo está en esa
+# lista; sí están `ksa.1`, `aut.1`, `ger.2` y `jpn.1`, que son otras.
+#
+# Después se sondearon, una por una, las fuentes gratuitas del proyecto y
+# varias externas. El resultado, medido el 2026-08-16:
+#
+# | fuente                | qué aporta                                        |
+# |-----------------------|---------------------------------------------------|
+# | ESPN (216 ligas)      | Saudi `ksa.1` ✔ · ninguna de las otras cinco       |
+# | football-data.co.uk   | **NINGUNA**. Ver la trampa de abajo               |
+# | FBref                 | HTTP 403 (Cloudflare), sigue bloqueado            |
+# | OpenLigaDB            | **3. Liga alemana ✔** 380 partidos/temporada      |
+# | OpenFootball (GitHub) | **2. Liga austriaca ✔** 240/temporada, 2 años     |
+# | TheSportsDB (clave 3) | tiene Croacia y J2 en catálogo, pero la clave     |
+# |                       | gratuita devuelve **5 partidos por temporada**:   |
+# |                       | es una muestra comercial, no un histórico         |
+#
+# LA TRAMPA DE football-data, QUE CASI CUESTA UN ERROR CARO
+# ---------------------------------------------------------
+# `new/JPN2.csv` responde 200 con 4.523 filas y parece la J2. **No lo es**: su
+# columna `League` dice «J1 League» en las 4.523. El `2` del nombre es
+# numeración de fichero, no división — igual que `AUT2.csv` y `SWZ2.csv`, que
+# devuelven exactamente las mismas filas que `AUT.csv` y `SWZ.csv`.
+#
+# Registrar ese CSV como «Japón J2» habría metido partidos de PRIMERA división
+# en una liga de segunda, con nombres de equipo que casan y sin dar un solo
+# error. Es el mismo modo de fallo que «Wroclaw Panthers → Carolina Panthers»
+# de la v131: no revienta, miente. Se comprobó la columna antes de usarlo.
+SIN_FUENTE = {
+    'cro_hnl': ('Croatian HNL',
+                'ESPN no la tiene (216 ligas revisadas) · football-data no · '
+                'FBref 403 · OpenFootball no · TheSportsDB sólo 5 por temporada',
+                'sin fuente gratuita con histórico completo'),
+    'jpn_j2': ('J2 League',
+               'ESPN no · football-data `JPN2.csv` es J1, no J2 · FBref 403 · '
+               'TheSportsDB sólo 5 por temporada',
+               'sin fuente gratuita con histórico completo'),
+    'esp_primera_fed': ('Primera Federación',
+                        'ESPN no · football-data llega a 2.ª (`SP2`) · '
+                        'OpenFootball llega a `es.2` · FBref 403',
+                        'sin fuente gratuita con histórico completo'),
+}
+
+# v144 — PEDIDA, CON FUENTE ENCONTRADA Y PENDIENTE DE INGESTA.
+#
+# SÍ tiene de dónde salir. No se da de alta en `LIGAS_V68` todavía porque su
+# fuente no es ninguna de las dos que el pipeline sabe leer (football-data y
+# ESPN): hace falta un ingestor, como en su día lo hubo para la KBO o la
+# Leagues Cup. Queda escrito con el endpoint exacto y el volumen verificado
+# para que sea trabajo de implementar, no de investigar.
+CON_FUENTE_PENDIENTE = {
+    'ger_3liga': {
+        'nombre': '3. Liga', 'pais': 'Alemania',
+        'fuente': 'OpenLigaDB', 'sin_clave': True,
+        'endpoint': 'https://api.openligadb.de/getmatchdata/bl3/{temporada}',
+        'volumen': '380 partidos por temporada, temporadas 2022-2026 '
+                   'disponibles (~1.900 en total) y SIN huecos',
+        'verificado': '2026-08-16',
+    },
 }
 
 # Pedidas pero descartadas por falta de volumen. Se documentan para no
@@ -320,6 +408,22 @@ SIN_VOLUMEN = {
     'esp_primera_rfef': ('Primera RFEF', 'esp.3', 'sin cobertura en ESPN'),
     'ita_serie_c': ('Serie C', 'ita.3', 'sin cobertura en ESPN'),
     'mex_liga_premier': ('Liga Premier', 'mex.3', 'sin cobertura en ESPN'),
+    # v144 — Austria 2. Liga. SÍ tiene fuente gratuita (OpenFootball
+    # `at.2.json`) y aun así se descarta, que es la diferencia con las de
+    # arriba: no falta de dónde bajarla, falta QUÉ bajar.
+    #
+    # Medido el 2026-08-16: 240 partidos en 2024-25 y 240 en 2025-26, y
+    # **2023-24 no existe en la fuente**. O sea 480 de los ~720 de tres
+    # temporadas, con un año entero en blanco justo al principio de la ventana
+    # — que es el tramo con el que se entrena.
+    #
+    # Un hueco así no es «menos muestra»: descoloca el estado rodante y el ELO
+    # arrancaría de cero a mitad del histórico. El criterio del usuario fue
+    # explícito —«solo mantén las que tengan buen histórico»— y ésta no lo
+    # tiene. Se deja escrita para no volver a investigarla.
+    'aut_2liga': ('2. Liga (Austria)', 'OpenFootball at.2.json',
+                  'sólo 480 de ~720 partidos: falta la temporada 2023-24 '
+                  'entera. Histórico con hueco, descartada en v144'),
 }
 
 # Slug de ESPN por competición. Es lo que hace que la liga aparezca en
