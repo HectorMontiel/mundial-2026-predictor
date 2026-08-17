@@ -2191,6 +2191,45 @@ class ClubEngine:
         # 11. Córners y tarjetas (bases MA5 reales en formato 'main')
         spx = float(self.calibracion.get('shots_on_por_xg', 3.1))
         tpo = float(self.calibracion.get('shots_total_por_on', 2.6))
+        # v146 — LA BASE SE QUEDA EN 4,0, Y ESTO ES UNA CORRECCIÓN DE MI PROPIO
+        # ERROR DE MEDICIÓN. Se deja escrito para que nadie repita el atajo.
+        #
+        # Sobre 94.045 partidos con córners reales salió que esta fórmula
+        # predice **1,3 córners de menos**, con 13,5 puntos de error de
+        # calibración, y se subió la base a 5,3. El número era correcto para lo
+        # que se midió — y lo que se midió no era esto.
+        #
+        # El experimento alimentaba la fórmula con el xG **OBSERVADO** que
+        # guarda el histórico (`home_xg`/`away_xg`). Producción la alimenta con
+        # `lam_h`/`lam_a`, que son el xG **PREDICHO** por el modelo. No son la
+        # misma magnitud ni tienen la misma escala, así que el sesgo de una no
+        # se traslada a la otra.
+        #
+        # Comprobado contra el mercado, que es el mejor estimador disponible
+        # del total real (n=4 partidos con línea de córner publicada, correlación
+        # modelo/línea +0,81):
+        #
+        #     línea pivote de la casa .............  9,00
+        #     modelo con la base 4,0 ..............  10,07   (+1,07)
+        #     modelo con la base 5,3 ..............  11,38   (+2,38)
+        #
+        # O sea que la «corrección» alejaba el modelo del mercado en vez de
+        # acercarlo. Con esa base, el cruce con el tablero de Playdoit producía
+        # EV de **+136 %** en «Más de 12 córners» — la firma exacta de
+        # `EV_SOSPECHOSO`, y justo lo que la bitácora §2 dice que hay que leer
+        # como «el modelo se equivoca», no como «la casa regala».
+        #
+        # Qué queda pendiente y cómo se mide bien: replicar el experimento
+        # alimentando la fórmula con los lambdas que produce el propio motor
+        # (no con el xG observado), o comparar contra la línea de la casa sobre
+        # una muestra grande. Con n=4 tampoco se puede afirmar lo contrario.
+        # Hasta entonces la base no se toca.
+        #
+        # Un hallazgo del experimento que SÍ se sostiene, porque no depende de
+        # la entrada: el comentario de abajo dice que la fórmula usa xG «porque
+        # las ligas nuevas no traen córners en football-data». **Sí los traen**:
+        # las 50 ligas disponibles tienen `home_corners`/`away_corners` al
+        # 100 % en 2023-2026. Queda como material para el modelo bueno.
         ck = 4.0 + 0.25 * (lam_h + lam_a) * spx * tpo
         cards = (s_l['AMAR_MA5'] + s_v['AMAR_MA5'] +
                  s_l['ROJAS_MA5'] + s_v['ROJAS_MA5'])
@@ -2238,11 +2277,40 @@ class ClubEngine:
                 campo('cards_away_o15', f'{away} más de 1.5 tarjetas', pct(prob_over(ca, 1.5))),
                 campo('cards_away_o25', f'{away} más de 2.5 tarjetas', pct(prob_over(ca, 2.5))),
             ]
+        # v146 — LAS LÍNEAS ENTERAS, PORQUE SON LAS QUE COTIZA LA CASA.
+        #
+        # El modelo publicaba 8.5, 9.5 y 10.5, y Playdoit cotiza el total de
+        # córners en líneas ENTERAS: «Más de 6 … Más de 11» (mercado «Total de
+        # tiros de esquina 3 opciones», verificado sobre 14 tableros). Ninguna
+        # de las tres del modelo existe en la casa, así que su mercado
+        # principal de córners no tenía con qué cruzarse.
+        #
+        # Una línea entera no es media línea con otro nombre: **tiene EMPUJE**.
+        # Con 9 córners exactos, «Más de 9» devuelve la apuesta. La
+        # probabilidad que hay que comparar contra la cuota no es P(>9), sino
+        # la condicionada a que la apuesta se resuelva:
+        #
+        #     P_justa = P(total > L) / (1 − P(total = L))
+        #
+        # Cruzar «Más de 9» contra el P(>9.5) del modelo sería comparar dos
+        # sucesos distintos y fabricar un EV — el mismo modo de fallo que el
+        # veto por seña existe para atrapar.
+        def _ck_over_entero(L: int) -> float:
+            p_igual = float(_tot[L]) if 0 <= L < len(_tot) else 0.0
+            p_mayor = float(_tot[L + 1:].sum()) if L + 1 < len(_tot) else 0.0
+            vivo = 1.0 - p_igual
+            return p_mayor / vivo if vivo > 1e-9 else 0.0
+
+        _campos_ck_enteros = [
+            campo(f'ck_o{L}', f'Más de {L} córners', pct(_ck_over_entero(L)))
+            for L in range(6, 13)
+        ]
         secciones.append({'titulo': '11. Córners y tarjetas', 'campos': [
             campo('corners_media', 'Córners totales (media)', round(ck, 1), 'media'),
             campo('ck_o85', 'Más de 8.5 córners', pct(prob_over(ck, 8.5))),
             campo('ck_o95', 'Más de 9.5 córners', pct(prob_over(ck, 9.5))),
             campo('ck_o105', 'Más de 10.5 córners', pct(prob_over(ck, 10.5))),
+        ] + _campos_ck_enteros + [
             # córners por EQUIPO (v54)
             campo('ck_home_media', f'{home} córners (media)', round(ck_h, 1), 'media'),
             campo('ck_home_o35', f'{home} más de 3.5 córners', pct(prob_over(ck_h, 3.5))),

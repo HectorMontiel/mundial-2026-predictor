@@ -366,5 +366,29 @@
   "Çorum FK": {
     "contexto": "fixture→turquia",
     "visto": "2026-08-14"
+  },
+  "Atlético Madrid": {
+    "contexto": "fixture→laliga",
+    "visto": "2026-08-16"
+  },
+  "Málaga": {
+    "contexto": "fixture→laliga",
+    "visto": "2026-08-16"
+  },
+  "LASK Linz": {
+    "contexto": "fixture→champions",
+    "visto": "2026-08-16"
+  },
+  "Hapoel Be'er": {
+    "contexto": "fixture→champions",
+    "visto": "2026-08-16"
+  },
+  "NEC Nijmegen": {
+    "contexto": "fixture→champions",
+    "visto": "2026-08-16"
+  },
+  "Sonderjyske": {
+    "contexto": "goleadores→dinamarca",
+    "visto": "2026-08-16"
   }
 }

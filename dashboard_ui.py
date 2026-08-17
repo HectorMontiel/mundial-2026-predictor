@@ -4057,6 +4057,23 @@ def render_liga_club(clave: str, nombre_liga: str):
     except Exception as e:
         st.caption(f"Panel de equipos no disponible ahora ({type(e).__name__}).")
 
+    # v146 — CÓRNERS. Va aquí, en la ficha del partido, que es donde el
+    # usuario los pidió: «eso deberá estar cuando analizas el partido
+    # individualmente». El tablero de Playdoit se reutiliza si ya está en
+    # caché; si no está, la sección sigue enseñando el pronóstico y el H2H.
+    st.divider()
+    try:
+        import corners_ui as _cku
+        _det_ck = None
+        try:
+            import cuotas_multi as _cm_ck
+            _det_ck = _cm_ck.mercados_playdoit('futbol', home, away)
+        except Exception as _e_ck:
+            logger.debug(f'[corners] tablero no disponible: {_e_ck}')
+        _cku.render(st, pl, clave, home, away, _det_ck)
+    except Exception as _e_cku:
+        st.caption(f'Sección de córners no disponible ({type(_e_cku).__name__}).')
+
     # v15: parlay del partido en pantalla
     st.divider()
     render_parlay_partido(motor, home, away, key=clave)

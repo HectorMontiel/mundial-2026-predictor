@@ -125,6 +125,13 @@ FAMILIA_SECCION = {
     # sólo puede cruzarse contra su propia sección.
     'Hándicap NFL':       (('handicap', 'nfl'),),
     'Total de puntos':    (('totaldepuntos',),),
+    # v146 — córners. Las dos familias apuntan a la MISMA sección del modelo
+    # («11. Córners y tarjetas»), que es donde viven todos sus campos, pero se
+    # declaran por separado porque la seña las distingue: sin ella, «Más de 4.5
+    # córners» del total por equipo podría casar con «Más de 4.5 tarjetas», que
+    # está en la misma sección y se parece un 0,93.
+    'Córners':            (('corners', 'tarjetas'),),
+    'Córners por equipo': (('corners', 'tarjetas'),),
     'Puntos por equipo':  (('puntosporequipo',),),
 }
 
@@ -419,6 +426,32 @@ def mercados_de_filas(filas: List[Dict], plantilla: Dict) -> List[Dict]:
                     'el modelo da la misma probabilidad a las dos mitades, así '
                     'que su EV aquí no mide valor')
 
+    # v146 — LOS CÓRNERS SALEN CON PRECIO Y SIN EV, Y ESTÁ MEDIDO POR QUÉ.
+    #
+    # El tablero de córners ya se traduce entero (total en líneas enteras, por
+    # equipo, 1X2, hándicap y par/impar), así que el usuario ve los precios de
+    # su casa. Lo que no se puede creer todavía es el EV: el total de córners
+    # que predice el modelo sale **+1,07 por encima de la línea de la casa**
+    # (n=4, correlación +0,81), y con esa diferencia el cruce produce EV de
+    # +50 % a +136 % en cada «Más de N». Eso no es valor: es la firma de un
+    # modelo desplazado, que es exactamente lo que `EV_SOSPECHOSO` vigila.
+    #
+    # La discriminación sí parece buena (correlación +0,81 con la línea), así
+    # que el modelo ordena bien los partidos aunque su nivel esté alto. Por eso
+    # el precio se publica y el EV se marca, en vez de esconder el mercado
+    # entero: es la misma política que las mitades del fútbol y los periodos de
+    # la NFL.
+    #
+    # Se quita la marca en cuanto el nivel esté validado contra los lambdas de
+    # producción sobre una muestra grande (ver el bloque de `league_engine`).
+    for r in cruzadas:
+        if str(r.get('familia', '')).startswith('Córners'):
+            r['ev_no_fiable'] = True
+            r['motivo_no_fiable'] = (
+                'el total de córners del modelo va ~1 por encima de la línea '
+                'de la casa, así que su EV aquí mide ese desfase, no valor. '
+                'El precio sí es real')
+
     # un mismo mercado del modelo puede recibir dos etiquetas nuestras; se
     # conserva la de mejor EV (mismo criterio que `cuotas_auto.evaluar`)
     mejor: Dict[str, Dict] = {}
@@ -492,6 +525,11 @@ _PERIODO = re.compile(r'mitad|descanso|cuarto|per[ií]odo|periodo|\bset\b|'
 # 2.25 goles» se parece un 0,93 a «Más de 2.5 goles» con el comparador de
 # cadenas, así que colarlas es garantizar el cruce equivocado.
 _LINEA = re.compile(r'^(m[áa]s|menos)\s+de\s+([0-9]+(?:[.,][0-9]+)?)$', re.I)
+# v146 — la misma forma pero exigiendo línea ENTERA («Más de 9»), que es como
+# Playdoit cotiza el total de córners. Se separa de `_LINEA` a propósito: una
+# línea entera lleva empuje y no describe el mismo suceso que la media, así
+# que dejarlas caer por el mismo sitio invitaría a cruzarlas entre sí.
+_LINEA_ENTERA = re.compile(r'^(m[áa]s|menos)\s+de\s+([0-9]{1,2})$', re.I)
 _LINEA_AH = re.compile(r'^(.+?)\s*\(([+-]?[0-9]+(?:[.,][0-9]+)?)\)$')
 _MARCADOR = re.compile(r'^([0-9]{1,2})\s*[:\-]\s*([0-9]{1,2})$')
 
@@ -781,6 +819,94 @@ def filas_playdoit(det: Dict, home: str, away: str) -> List[Dict]:
                 _add(f'{home} {mt.group(1)}-{mt.group(2)} {away}', s['cuota'],
                      'Marcador exacto', f'{mt.group(1)}-{mt.group(2)}')
             continue
+
+        # --- v146: CÓRNERS ------------------------------------------------
+        #
+        # Playdoit publica ~25 mercados de córner por partido. Aquí se traducen
+        # SÓLO los cinco que el modelo cubre con la misma definición; el resto
+        # —carreras a N córners, escalas por tramos, primer/último córner,
+        # «ambos equipos 3+»— se dejan fuera a propósito: el modelo no los
+        # tiene y forzarlos por parecido de texto es cómo se inventa un EV.
+        #
+        # La comprobación clave es la LÍNEA. La casa cotiza el total en líneas
+        # ENTERAS («Más de 9») y por equipo en MEDIAS («Más de 4.5»); el modelo
+        # publica ambas desde la v146, la entera con su empuje descontado. Si
+        # alguna vez la casa saca una línea que el modelo no tenga, la seña la
+        # tira en vez de casarla con la vecina.
+        if 'esquina' in nombre and 'mitad' not in nombre and 'tiempo' not in nombre:
+            # total del partido, líneas enteras («Total de tiros de esquina 3 opciones»)
+            if nombre.startswith('total de tiros de esquina') or \
+                    nombre == 'total tiros de esquina':
+                for s in sels:
+                    mt = _LINEA_ENTERA.match(str(s.get('nombre') or '').strip())
+                    if not mt:
+                        continue
+                    L = _num(mt.group(2))
+                    if L is None or not (3 <= L <= 15):
+                        continue
+                    if not _norm(mt.group(1)).startswith('mas'):
+                        continue          # el modelo sólo publica el «más de»
+                    _add(f'Más de {L:g} córners', s['cuota'], 'Córners',
+                         f'mas de {L:g} corners')
+                continue
+            # total POR EQUIPO («Pachuca Total de Tiros de Esquina»), medias
+            if nombre.endswith('total de tiros de esquina') and \
+                    (n_ch in nombre or n_ca in nombre):
+                equipo = home if n_ch in nombre else away
+                for s in sels:
+                    mt = _LINEA.match(str(s.get('nombre') or '').strip())
+                    if not mt or not _norm(mt.group(1)).startswith('mas'):
+                        continue
+                    L = _num(mt.group(2))
+                    if L is None or not _es_media(L) or not (2.5 <= L <= 6.5):
+                        continue
+                    _add(f'{equipo} más de {L:g} córners', s['cuota'],
+                         'Córners por equipo', f'{equipo} mas de {L:g} corners')
+                continue
+            # 1X2 de córners: quién saca más
+            if nombre == 'tiros de esquina 1x2':
+                for s in sels:
+                    l = _lado(s)
+                    if l == 'home':
+                        _add(f'{home} saca más córners', s['cuota'], 'Córners',
+                             f'{home} saca mas corners')
+                    elif l == 'away':
+                        _add(f'{away} saca más córners', s['cuota'], 'Córners',
+                             f'{away} saca mas corners')
+                    elif _norm(s.get('nombre')) == 'empate':
+                        _add('Empate en córners', s['cuota'], 'Córners',
+                             'empate en corners')
+                continue
+            # hándicap de córners. El modelo lo publica con el signo MENOS
+            # tipográfico (U+2212), no con el guion ASCII: se escribe igual
+            # aquí o la seña no casaría nunca.
+            if nombre == 'handicap en tiros de esquina':
+                for s in sels:
+                    mt = _LINEA_AH.match(str(s.get('nombre') or '').strip())
+                    if not mt:
+                        continue
+                    eq, L = _norm(mt.group(1)), _num(mt.group(2))
+                    if L is None or abs(L) not in (1.5, 2.5):
+                        continue
+                    equipo = home if eq == n_ch else away if eq == n_ca else None
+                    if equipo is None:
+                        continue
+                    signo = '−' if L < 0 else '+'
+                    _add(f'{equipo} {signo}{abs(L):g} córners', s['cuota'],
+                         'Córners', f'{equipo} {signo}{abs(L):g} corners')
+                continue
+            # par / impar del total
+            if nombre in ('tiros de esquina par/impar', 'tiros de esquina par impar'):
+                for s in sels:
+                    n = _norm(s.get('nombre'))
+                    if n == 'par':
+                        _add('Córners totales PAR', s['cuota'], 'Córners',
+                             'corners totales par')
+                    elif n == 'impar':
+                        _add('Córners totales IMPAR', s['cuota'], 'Córners',
+                             'corners totales impar')
+                continue
+            continue          # el resto de mercados de córner: sin modelo
 
         # --- margen de victoria. El «Empate» de este mercado se descarta: la
         #     plantilla lo tiene con la misma etiqueta que el del 1X2 y el
