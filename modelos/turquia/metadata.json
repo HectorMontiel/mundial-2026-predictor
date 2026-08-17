@@ -1,12 +1,12 @@
 {
   "liga": "Süper Lig",
   "n_train": 786,
-  "n_validacion": 199,
+  "n_validacion": 200,
   "fecha_corte": "2025-11-23",
-  "precision_validacion": 0.5377,
-  "precision_linea_base_elo": 0.4874,
+  "precision_validacion": 0.54,
+  "precision_linea_base_elo": 0.49,
   "precision_mercado_cuotas": 0.5385,
-  "log_loss_validacion": 0.9693,
+  "log_loss_validacion": 0.9679,
   "n_equipos": 25,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
