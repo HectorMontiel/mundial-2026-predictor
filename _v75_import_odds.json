@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-17T06:51:50Z",
- "filas_insertadas": 136990,
+ "generado": "2026-08-18T06:44:26Z",
+ "filas_insertadas": 136646,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -111,8 +111,8 @@
    "partidos": 1900
   },
   "jpn_j1": {
-   "filas": 5350,
-   "partidos": 2681
+   "filas": 5006,
+   "partidos": 2514
   },
   "laliga": {
    "filas": 3609,

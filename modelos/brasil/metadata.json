@@ -1,12 +1,12 @@
 {
   "liga": "Brasileirão Serie A",
   "n_train": 2421,
-  "n_validacion": 608,
+  "n_validacion": 609,
   "fecha_corte": "2024-12-08",
-  "precision_validacion": 0.5214,
-  "precision_linea_base_elo": 0.4572,
+  "precision_validacion": 0.5205,
+  "precision_linea_base_elo": 0.4565,
   "precision_mercado_cuotas": 0.5159,
-  "log_loss_validacion": 1.0044,
+  "log_loss_validacion": 1.0048,
   "n_equipos": 32,
   "familia_modelo": "ensemble",
   "features_extra_cols": [
