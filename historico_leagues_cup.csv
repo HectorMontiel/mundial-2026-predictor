@@ -6663,3 +6663,27 @@ date,home_team,away_team,home_goals,away_goals,competicion,sede_ciudad,sede_pais
 2026-08-14 00:30:00,Club America,Austin FC,1.0,1.0,leagues_cup,"Austin, Texas",USA,Q2 Stadium,,,,Leagues Cup,,20260814_Club-America_Austin-FC,159.85153646938465,0.45,0.59,1,3,2,6,59.9,40.1,1,0,1,0,5,4
 2026-08-14 01:00:00,Cruz Azul,Chicago Fire,1.0,2.0,leagues_cup,"Bridgeview, Illinois",USA,SeatGeek Stadium,,,,Leagues Cup,,20260814_Cruz-Azul_Chicago-Fire,131.7198399946608,2.17,1.43,6,6,15,12,60.0,40.0,0,1,0,0,13,5
 2026-08-14 02:30:00,Portland Timbers,Club Tijuana,3.0,1.0,leagues_cup,"Portland, Oregon",USA,Providence Park,,,,Leagues Cup,,20260814_Portland-Timbers_Club-Tijuana,-3.476315463063429,1.98,1.02,5,4,10,10,49.2,50.8,1,3,0,0,5,7
+2026-08-16 00:00:00,Atlanta Utd,New York Red Bulls,2.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Atlanta-Utd_New-York-Red-Bulls,-121.05376748723825,0.65,1.33,2,4,3,9,46.2,53.8,0,0,0,1,4,3
+2026-08-16 00:00:00,Atlante,Toluca,0.0,0.0,liga_mx,,,,,,,Leagues Cup,,20260816_Atlante_Toluca,-124.14039109220084,0.05,1.01,3,2,9,5,45.5,54.5,1,0,0,0,7,4
+2026-08-16,Atlas,Tigres UANL,2.0,1.0,liga_mx,,,,,,,Leagues Cup,,20260816_Atlas_Tigres-UANL,-82.41924858108746,2.03,1.43,5,5,9,11,45.5,54.5,2,0,0,0,4,5
+2026-08-16,CF Montreal,DC United,1.0,1.0,mls,,,,,,,Leagues Cup,,20260816_CF-Montreal_DC-United,-37.50842407036066,1.46,0.36,5,1,10,3,48.3,51.7,3,1,0,1,4,4
+2026-08-16,Charlotte,Columbus Crew,3.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Charlotte_Columbus-Crew,-6.684306252746865,2.25,0.05,8,2,17,6,42.8,57.2,1,1,0,0,8,5
+2026-08-16,Chicago Fire,Portland Timbers,2.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Chicago-Fire_Portland-Timbers,44.11529376803014,1.22,1.05,3,3,7,7,50.7,49.3,3,4,0,0,4,2
+2026-08-16,Colorado Rapids,Sporting Kansas City,2.0,0.0,mls,,,,,,,Leagues Cup,,20260816_Colorado-Rapids_Sporting-Kansas-City,82.09097596654465,1.15,0.05,4,2,6,4,49.7,50.3,1,1,0,0,6,4
+2026-08-16,Houston Dynamo,Los Angeles Galaxy,1.0,0.0,mls,,,,,,,Leagues Cup,,20260816_Houston-Dynamo_Los-Angeles-Galaxy,25.66707919275109,1.38,0.69,5,2,13,4,51.6,48.4,0,3,0,0,10,3
+2026-08-16,Los Angeles FC,San Diego FC,0.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Los-Angeles-FC_San-Diego-FC,81.88247365686834,0.72,0.58,1,1,2,2,50.7,49.3,0,5,0,1,4,4
+2026-08-16,Monterrey,Juarez,6.0,1.0,liga_mx,,,,,,,Leagues Cup,,20260816_Monterrey_Juarez,78.45490652883473,2.45,1.7,7,6,15,11,51.5,48.5,0,3,0,1,9,0
+2026-08-16,Nashville SC,Inter Miami,4.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Nashville-SC_Inter-Miami,-92.04859776329681,2.32,0.82,9,4,19,10,49.1,50.9,1,1,0,0,9,3
+2026-08-16,New York City,Philadelphia Union,2.0,3.0,mls,,,,,,,Leagues Cup,,20260816_New-York-City_Philadelphia-Union,50.408350289415466,0.51,0.62,3,3,6,6,46.8,53.2,4,1,0,0,1,6
+2026-08-16,Orlando City,FC Cincinnati,1.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Orlando-City_FC-Cincinnati,-88.21245964494392,0.84,1.19,3,4,7,9,52.5,47.5,2,2,0,1,6,7
+2026-08-16,Real Salt Lake,Minnesota United,1.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Real-Salt-Lake_Minnesota-United,9.992967851499088,1.59,1.19,6,4,13,8,53.6,46.4,0,1,0,0,5,5
+2026-08-16,San Jose Earthquakes,St. Louis City,1.0,3.0,mls,,,,,,,Leagues Cup,,20260816_San-Jose-Earthquakes_St.-Louis-City,14.153900876156058,1.73,1.3,6,3,12,6,44.6,55.4,0,0,0,0,10,5
+2026-08-16,Toronto FC,New England Revolution,2.0,1.0,mls,,,,,,,Leagues Cup,,20260816_Toronto-FC_New-England-Revolution,-49.8244762868494,1.49,0.35,5,1,9,0,46.4,53.6,0,2,0,0,8,0
+2026-08-16,UNAM Pumas,Queretaro,0.0,0.0,liga_mx,,,,,,,Leagues Cup,,20260816_UNAM-Pumas_Queretaro,92.83239726555917,0.94,1.24,3,4,9,8,54.9,45.1,2,3,0,0,3,7
+2026-08-17,Austin FC,FC Dallas,1.0,2.0,mls,,,,,,,Leagues Cup,,20260817_Austin-FC_FC-Dallas,-72.05986855098331,1.35,1.63,4,5,11,11,47.0,53.0,1,1,0,0,5,5
+2026-08-17,Club America,Atl. San Luis,3.0,0.0,liga_mx,,,,,,,Leagues Cup,,20260817_Club-America_Atl.-San-Luis,189.90400011209158,0.52,0.55,3,1,6,2,57.6,42.4,0,5,1,0,5,5
+2026-08-17,Club Tijuana,Cruz Azul,2.0,1.0,liga_mx,,,,,,,Leagues Cup,,20260817_Club-Tijuana_Cruz-Azul,-163.91231015282324,1.38,0.56,5,3,14,6,46.6,53.4,1,3,0,0,5,5
+2026-08-17,Santos Laguna,Guadalajara Chivas,0.0,1.0,liga_mx,,,,,,,Leagues Cup,,20260817_Santos-Laguna_Guadalajara-Chivas,-234.60436415079175,0.05,2.1,2,6,4,12,45.1,54.9,1,1,0,0,3,5
+2026-08-17,Seattle Sounders,Vancouver Whitecaps,0.0,2.0,mls,,,,,,,Leagues Cup,,20260817_Seattle-Sounders_Vancouver-Whitecaps,-38.992774872703876,1.53,0.79,6,2,13,6,51.1,48.9,4,2,0,0,8,2
+2026-08-18,Necaxa,Club Leon,1.0,2.0,liga_mx,,,,,,,Leagues Cup,,20260818_Necaxa_Club-Leon,-18.845570104316266,0.49,1.38,1,5,2,12,50.8,49.2,0,1,0,0,1,6
+2026-08-18,Pachuca,Puebla,2.0,3.0,liga_mx,,,,,,,Leagues Cup,,20260818_Pachuca_Puebla,204.7614004291836,1.26,0.61,2,3,5,5,53.3,46.7,0,2,0,0,1,2

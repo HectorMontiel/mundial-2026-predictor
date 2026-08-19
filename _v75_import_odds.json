@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-18T06:44:26Z",
- "filas_insertadas": 136646,
+ "generado": "2026-08-19T06:46:42Z",
+ "filas_insertadas": 136537,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -35,8 +35,8 @@
  ],
  "por_liga": {
   "argentina": {
-   "filas": 7228,
-   "partidos": 3798
+   "filas": 7227,
+   "partidos": 3805
   },
   "aut_bundesliga": {
    "filas": 3009,
@@ -47,7 +47,7 @@
    "partidos": 1547
   },
   "brasil": {
-   "filas": 5915,
+   "filas": 5905,
    "partidos": 3087
   },
   "bundesliga": {
@@ -55,12 +55,12 @@
    "partidos": 1530
   },
   "china": {
-   "filas": 3579,
-   "partidos": 1886
+   "filas": 3569,
+   "partidos": 1885
   },
   "dinamarca": {
-   "filas": 3144,
-   "partidos": 1638
+   "filas": 3136,
+   "partidos": 1637
   },
   "eng_championship": {
    "filas": 5238,
@@ -111,32 +111,32 @@
    "partidos": 1900
   },
   "jpn_j1": {
-   "filas": 5006,
-   "partidos": 2514
+   "filas": 4998,
+   "partidos": 2515
   },
   "laliga": {
    "filas": 3609,
    "partidos": 1900
   },
   "liga_mx": {
-   "filas": 5077,
-   "partidos": 2660
+   "filas": 5050,
+   "partidos": 2651
   },
   "ligue_1": {
    "filas": 3203,
    "partidos": 1678
   },
   "mls": {
-   "filas": 7133,
-   "partidos": 3709
+   "filas": 7120,
+   "partidos": 3710
   },
   "noruega": {
-   "filas": 3683,
-   "partidos": 1923
+   "filas": 3674,
+   "partidos": 1922
   },
   "polonia": {
-   "filas": 4506,
-   "partidos": 2362
+   "filas": 4497,
+   "partidos": 2361
   },
   "premier": {
    "filas": 2110,
@@ -147,8 +147,8 @@
    "partidos": 3060
   },
   "rumania": {
-   "filas": 4668,
-   "partidos": 2461
+   "filas": 4662,
+   "partidos": 2462
   },
   "rus_premier": {
    "filas": 3711,
@@ -167,7 +167,7 @@
    "partidos": 1140
   },
   "suecia": {
-   "filas": 3719,
+   "filas": 3711,
    "partidos": 1931
   },
   "suiza": {
