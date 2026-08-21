@@ -251,6 +251,39 @@ repartirlo): guardar los `.joblib` sin comprimir dentro del asset del Release
 (que ya va gzipado, así que no cuesta tamaño) y cargar
 `reg_local`/`reg_visit`/`mesm` sólo cuando se usen. Es su propia versión.
 
+## 4f. v150 — EL FALLBACK DE MERCADO SE DELATA
+
+**AVISO PARA QUIEN LEA ESTO:** si alguien reporta que «las ligas principales
+dejaron de dar pronósticos», MEDIRLO ANTES de reentrenar. Se comprobó el
+2026-08-21 y era falso:
+
+```
+321 fixtures · 314 con pronóstico del modelo (97,8 %) · SIN MOTOR: ninguna
+   LaLiga 9/9 · Serie A 10/10 · Ligue 2 9/9 · Primeira 7/7 · Premier 8/10
+```
+
+Los 7 sin modelo son **partidos sueltos**, no ligas: 6 ascendidos que no han
+jugado ni un partido en su competición (Coventry y Hull, Iraklis y Kalamata,
+Arezzo y Hellas Verona, Le Mans). No hay dato que entrenar; un reentrenamiento
+forzado no cambia nada. Se resuelven solos cuando football-data publique E0,
+F1, I2 y G1 de 2026-27.
+
+**LO QUE SÍ ERA UN RIESGO REAL, y de ahí esta versión:** desde la v149 el
+partido sin modelo sale con el precio del mercado en vez de con un hueco. **Un
+hueco se ve; un relleno no.** Si una liga entera dejara de cargar su modelo, la
+pantalla se vería perfectamente normal —barras llenas, números plausibles— con
+el corazón de la app apagado. Es el modo de fallo de la v106 (doce
+competiciones en silencio) con mejor disfraz.
+
+`alpha_finder.avisos_sin_modelo()` avisa cuando el mercado tapa **un tercio o
+más** de una competición (mínimo 3 partidos de muestra). No avisa por debajo, y
+eso es deliberado: dos ascendidos de diez es lo normal en agosto, y una alarma
+que salta todos los días deja de leerse. Cada relleno deja además su línea de
+log con liga, partido y motivo.
+
+Cubierto por `test_el_fallback_de_mercado_se_delata` (5 casos, incluidos los
+dos en que debe CALLAR).
+
 ## 5. PENDIENTE
 
 1. **El workflow tardó 59m51s con tope de 60.** Va al filo. Ahora sube ~57 assets

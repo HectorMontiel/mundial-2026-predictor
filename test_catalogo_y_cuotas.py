@@ -4274,6 +4274,82 @@ def _ASSETS_DEL_RELEASE():
     return salida
 
 
+def test_ningun_test_se_queda_sin_ejecutar():
+    """
+    v150 — un test que no se llama pasa siempre, y eso es peor que no tenerlo.
+
+    Este fichero no descubre los tests: los llama a mano al final. Añadir una
+    función `test_*` y olvidarse de la línea de llamada produce un test que
+    parece existir, sale en el fichero, y **nunca se ejecuta**. La suite
+    termina en «TODO OK» y nadie se entera.
+
+    Lo destapó la v150: al enganchar el aviso del fallback de mercado apareció
+    que `test_metricas_con_procedencia` llevaba DEFINIDO y sin llamar. Es la
+    misma familia de trampa que ya está escrita en la bitácora —«un test que no
+    encuentra su fichero devuelve exit 0, comprobar que CORRIÓ»— sólo que aquí
+    el que no corre es el test mismo.
+
+    Se comprueba con AST y no con `dir()` para no depender de importarse a sí
+    mismo ni del orden de definición.
+    """
+    import ast as _ast
+
+    src = open('test_catalogo_y_cuotas.py', encoding='utf-8').read()
+    arbol = _ast.parse(src)
+    definidos = {n.name for n in _ast.walk(arbol)
+                 if isinstance(n, _ast.FunctionDef) and n.name.startswith('test_')}
+    # el bloque de arranque es el único sitio donde se llaman
+    principal = src[src.index("if __name__"):]
+    llamados = {n for n in definidos if f'{n}()' in principal}
+    huerfanos = sorted(definidos - llamados)
+    check(not huerfanos,
+          f"todos los tests definidos se ejecutan de verdad ({huerfanos})")
+
+
+def test_el_fallback_de_mercado_se_delata():
+    """
+    v150 — un relleno que tapa una liga entera tiene que avisar.
+
+    Desde la v149 un partido sin modelo sale con la probabilidad implícita del
+    mercado en vez de con un hueco. Eso es correcto —el precio sabe más que el
+    modelo— pero cambia el modo de fallo: **un hueco se ve, un relleno no.** Si
+    una liga dejara de cargar su modelo, la pantalla se vería normal y el
+    corazón de la aplicación estaría apagado, que es exactamente lo que pasó en
+    la v106 con doce competiciones, sólo que con mejor disfraz.
+
+    Se comprueban los dos lados, porque una alarma sólo sirve si además CALLA
+    cuando debe: si saltara con los dos ascendidos de la Premier en agosto,
+    saltaría todos los días de agosto y nadie volvería a leerla.
+    """
+    import alpha_finder
+
+    def _fixtures(clave, total, sin_modelo):
+        return [{'deporte': 'Fútbol', 'clave_liga': clave,
+                 'sin_modelo': i < sin_modelo} for i in range(total)]
+
+    # CALLA: dos ascendidos de diez es lo normal en agosto (Coventry y Hull,
+    # medido el 2026-08-21). Avisar aquí sería ruido.
+    check(not alpha_finder.avisos_sin_modelo(_fixtures('premier', 10, 2)),
+          "el fallback de mercado NO avisa por un par de ascendidos")
+
+    # CALLA: con dos partidos, uno sin modelo ya es el 50 % y no significa nada.
+    check(not alpha_finder.avisos_sin_modelo(_fixtures('mini', 2, 1)),
+          "y tampoco avisa con una muestra de dos partidos")
+
+    # AVISA: un tercio o más ya no son ascensos.
+    avisos = alpha_finder.avisos_sin_modelo(_fixtures('premier', 10, 4))
+    check(len(avisos) == 1 and 'premier' in avisos[0],
+          "pero SÍ avisa cuando el mercado tapa un tercio de la liga")
+
+    # AVISA: la liga entera caída es el caso que motivó todo esto.
+    caida = alpha_finder.avisos_sin_modelo(_fixtures('laliga', 9, 9))
+    check(len(caida) == 1 and 'laliga' in caida[0],
+          "y con la liga entera tapada, con su nombre y su cifra")
+
+    check(not alpha_finder.avisos_sin_modelo([]),
+          "sin partidos no inventa avisos")
+
+
 def test_ninguna_liga_activa_sin_modelo():
     """
     v106 — una competición ACTIVA no puede tener su modelo fuera del repo.
@@ -4957,6 +5033,13 @@ if __name__ == '__main__':
     test_nfl_sin_fuga_temporal()
     test_nfl_no_sube_a_seccion1_sin_medicion()
     test_nfl_en_el_barrido_y_la_interfaz()
+    print('\n=== v150: el fallback de mercado se delata ===')
+    test_el_fallback_de_mercado_se_delata()
+    test_ningun_test_se_queda_sin_ejecutar()
+    # v150 — estaba DEFINIDO y no se llamaba desde ninguna parte, así que
+    # llevaba pasando sin ejecutarse. Lo destapó la auditoría de huérfanos que
+    # se añade justo debajo.
+    test_metricas_con_procedencia()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

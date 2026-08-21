@@ -929,6 +929,15 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                         _fila['n_casas'] = fx.get('n_casas')
                 except (TypeError, ValueError, ZeroDivisionError):
                     pass
+                # v150 — cada relleno deja rastro, con su motivo y si pudo o no
+                # taparse con precio. Sin esto, la única forma de saber por qué
+                # un partido no lleva modelo es abrir la ficha y mirar.
+                logger.info(
+                    f"[alpha/fix] sin modelo · {clave} · "
+                    f"{fx.get('home')} vs {fx.get('away')} · {motivo} · "
+                    + ('se enseña el precio del mercado'
+                       if _fila.get('board_mercado')
+                       else 'y tampoco hay precio: queda en blanco'))
                 return _fila
 
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
@@ -2428,6 +2437,73 @@ def _pronosticos_multideporte(res: Dict[str, Dict]) -> List[Dict]:
     return fuera
 
 
+# ---------------------------------------------------------------------------
+# v150 — EL FALLBACK DE MERCADO TIENE QUE DELATARSE
+# ---------------------------------------------------------------------------
+UMBRAL_SIN_MODELO = 1 / 3
+
+
+def avisos_sin_modelo(pronosticos: List[Dict]) -> List[str]:
+    """
+    Avisa de las competiciones donde el precio del mercado está TAPANDO al
+    modelo, no sólo rellenando un hueco suelto.
+
+    POR QUÉ EXISTE
+    --------------
+    Desde la v149, un partido que el modelo no puede predecir sale con la
+    probabilidad implícita del mercado en vez de con un hueco. Es lo correcto
+    —el precio sabe más que el modelo, §0 de la bitácora— pero abre un riesgo
+    nuevo: **si una liga entera dejara de cargar su modelo, la pantalla se
+    vería perfectamente normal.** Barras llenas, números plausibles, y el
+    corazón de la aplicación apagado sin que nadie lo note.
+
+    Es el modo de fallo de la v106 —doce competiciones desaparecidas en
+    silencio— con mejor disfraz: **un hueco se ve, un relleno no.** Así que el
+    relleno avisa.
+
+    EL UMBRAL, Y POR QUÉ NO ES CERO
+    -------------------------------
+    Que falten dos partidos de diez en la Premier es NORMAL en agosto: son los
+    ascendidos, que aún no han jugado en la competición y de los que no hay
+    nada que aprender (medido el 2026-08-21: Coventry y Hull; 7 partidos de
+    321 en total, repartidos por cuatro ligas que funcionan). Avisar de eso
+    sería ruido, y una alarma que salta siempre deja de leerse.
+
+    Lo que NO es normal es que una liga caiga entera. Con un tercio o más de
+    sus partidos sin modelo ya no se trata de un par de ascensos: o el motor no
+    cargó, o el catálogo de nombres se rompió.
+
+    Se pide un mínimo de tres partidos porque en una competición con dos, uno
+    sin modelo ya es el 50 % y no significa nada.
+    """
+    por_liga: Dict[str, List[int]] = {}
+    for p in (pronosticos or []):
+        if p.get('deporte') != 'Fútbol':
+            continue
+        k = p.get('clave_liga') or p.get('liga') or '?'
+        tot, sin_m = por_liga.get(k, [0, 0])
+        por_liga[k] = [tot + 1, sin_m + (1 if p.get('sin_modelo') else 0)]
+
+    n_sin = sum(sn for _t, sn in por_liga.values())
+    if n_sin:
+        logger.info(f"[alpha] {n_sin} partidos de fútbol sin pronóstico del "
+                    f"modelo (se enseña el precio del mercado)")
+
+    salida: List[str] = []
+    for k in sorted((k for k, (t, sn) in por_liga.items()
+                     if t >= 3 and sn / t >= UMBRAL_SIN_MODELO),
+                    key=lambda k: -por_liga[k][1]):
+        t, sn = por_liga[k]
+        salida.append(
+            f'⚠️ **{k}**: {sn} de {t} partidos salen con el precio del mercado '
+            f'porque el modelo no los cubre. Con esa proporción no son '
+            f'ascensos: revisa que su modelo cargue y que su catálogo de '
+            f'nombres esté al día.')
+        logger.warning(f"[alpha] {k}: {sn}/{t} partidos sin modelo — "
+                       f"proporción anómala, no es un ascenso")
+    return salida
+
+
 def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     """Barrido de TODAS las competiciones activas (11 de fútbol + MLB, NBA,
     tenis) con clasificación en dos capas (§1.2, §5.1)."""
@@ -2499,6 +2575,12 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         logger.debug(f"[alpha] monitor de Playdoit no disponible: {e}")
     for nombre, motivo in _fallos.items():
         incidencias.append(f'⚠️ La rama de {nombre} falló y se omitió: {motivo}')
+
+    # v150 — el fallback de mercado se delata. Ver `avisos_sin_modelo`.
+    try:
+        incidencias += avisos_sin_modelo(r.get('pronosticos') or [])
+    except Exception as e:
+        logger.debug(f'[alpha] resumen de fallback de mercado: {e}')
 
     # -----------------------------------------------------------------------
     # v79 — AVISO: ¿a cuántos picks de fútbol les llega el encogimiento?
