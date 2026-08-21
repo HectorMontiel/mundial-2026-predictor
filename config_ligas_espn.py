@@ -19,10 +19,16 @@ para las que baten a la línea base ELO (regla de oro del proyecto).
 
 FD_BASE = 'https://www.football-data.co.uk'
 
+# v148 — la temporada vigente se deriva de la fecha, no se escribe a mano.
+# Ver `temporadas_fd.py`: las listas literales terminaban en '2526' y el
+# curso 2026-27 nunca se descargaba.
+from temporadas_fd import temporadas_fd
+
 LIGAS_V68 = {
     'eng_championship': {
         'nombre': 'EFL Championship', 'pais': 'Inglaterra', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/E1.csv', f'{FD_BASE}/mmz4281/2223/E1.csv', f'{FD_BASE}/mmz4281/2324/E1.csv', f'{FD_BASE}/mmz4281/2425/E1.csv', f'{FD_BASE}/mmz4281/2526/E1.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/E1.csv'
+                 for s in temporadas_fd('2122')],
         'disponible': False, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
         'nota': 'no bate ELO (0.4422 vs 0.4496) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
@@ -32,7 +38,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'EFL League One', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/E2.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -41,7 +47,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'EFL League Two', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/E3.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -50,7 +56,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'National League', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/EC.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -59,7 +65,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'Scottish Premiership', 'pais': 'Escocia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/SC0.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -68,7 +74,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'Scottish Championship', 'pais': 'Escocia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/SC1.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -77,7 +83,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'LaLiga Hypermotion', 'pais': 'España', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/SP2.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -86,7 +92,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'Serie B', 'pais': 'Italia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/I2.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -95,7 +101,7 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': 'Ligue 2', 'pais': 'Francia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/F2.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -104,13 +110,14 @@ LIGAS_V68 = {
         'temporadas_modelo': 5,
         'nombre': '2. Bundesliga', 'pais': 'Alemania', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/D2.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'bel_pro_league': {
         'nombre': 'Jupiler Pro League', 'pais': 'Bélgica', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/B1.csv', f'{FD_BASE}/mmz4281/2223/B1.csv', f'{FD_BASE}/mmz4281/2324/B1.csv', f'{FD_BASE}/mmz4281/2425/B1.csv', f'{FD_BASE}/mmz4281/2526/B1.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/B1.csv'
+                 for s in temporadas_fd('2122')],
         'disponible': False, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
         'nota': 'no bate ELO (0.4719 vs 0.4719) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',

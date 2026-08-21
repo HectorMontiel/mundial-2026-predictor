@@ -49,7 +49,16 @@ def _cargar_alias() -> Dict[str, str]:
     if _alias is None:
         try:
             with open(ARCHIVO_ALIAS, encoding='utf-8') as f:
-                _alias = {normalizar(k): v for k, v in json.load(f).items()}
+                # v148 — un alias puede tener VARIOS destinos, y se queda el
+                # primero que exista en el catálogo de esta liga.
+                #
+                # Lo obliga football-data, que escribe el mismo club distinto
+                # según la división: el Deportivo es «Dep. A Coruna» en SP1 y
+                # «La Coruna» en SP2. Con un solo destino, arreglar LaLiga
+                # rompía la Hypermotion. Se guarda siempre como lista para que
+                # el resto del código no tenga que distinguir los dos casos.
+                _alias = {normalizar(k): ([v] if isinstance(v, str) else list(v))
+                          for k, v in json.load(f).items()}
         except Exception:
             _alias = {}
     return _alias
@@ -94,6 +103,15 @@ _ABREVIATURAS = {
     'depor': 'deportivo', 'utd': 'united', 'univ': 'universidad',
     'nac': 'nacional', 'rac': 'racing', 'spt': 'sporting',
     'st': 'saint', 'gto': 'guanajuato', 'sd': 'sociedad',
+    # v148 — 'ind'. Lo destapó un Independiente vs Independiente Rivadavia del
+    # 2026-08-21: los DOS nombres acababan en `Independiente` (Avellaneda) y el
+    # partido se descartaba por resolverse al mismo equipo. Ese descarte era
+    # suerte — en un Independiente Rivadavia contra un tercero, la regla de
+    # contención habría devuelto Avellaneda y el modelo habría publicado una
+    # probabilidad segura del club EQUIVOCADO, que es peor que no publicar
+    # ninguna. Con la expansión, «Ind. Rivadavia» del catálogo se despliega a
+    # «independiente rivadavia» y casa exacto ANTES de que la contención opine.
+    'ind': 'independiente',
 }
 
 
@@ -114,8 +132,9 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
         return nombre
     objetivo = normalizar(nombre)
     alias = _cargar_alias()
-    if objetivo in alias and alias[objetivo] in catalogo:
-        return alias[objetivo]
+    for _destino in alias.get(objetivo, ()):
+        if _destino in catalogo:
+            return _destino
     normalizados = {c: normalizar(c) for c in catalogo}
     for c, n in normalizados.items():            # coincidencia exacta tras normalizar
         if n == objetivo:
@@ -124,17 +143,30 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
     # («atl san luis» → «atletico san luis» contra «atletico de san luis»).
     # Va DESPUÉS de la coincidencia exacta para no cambiar ningún resultado
     # que ya funcionaba: sólo se activa donde antes se devolvía None.
+    # v148 — la expansión se prueba SIEMPRE, no sólo cuando el objetivo cambia.
+    #
+    # La condición era `if obj_exp != objetivo`, o sea que sólo entraba aquí si
+    # las abreviaturas estaban en el nombre que llega. Cuando están en el
+    # CATÁLOGO —«Ind. Rivadavia» contra el «Independiente Rivadavia» de ESPN—
+    # el objetivo no cambia, el bloque se saltaba entero y la comparación caía
+    # en la regla de contención, que devolvía «Independiente» (Avellaneda).
+    #
+    # Correr el bucle igualmente no cambia nada donde ya funcionaba: si no hay
+    # abreviaturas por ningún lado, `_expandir` es la identidad y esta
+    # comparación repite la de igualdad exacta que ya falló dos líneas arriba.
+    # Lo que sí hace es que una igualdad EXACTA tras expandir gane a una
+    # coincidencia por subcadena, que es el orden correcto: la primera es
+    # prueba, la segunda es indicio.
     obj_exp = _expandir(objetivo)
-    if obj_exp != objetivo:
-        for c, n in normalizados.items():
-            if _expandir(n) == obj_exp:
-                return c
-        # y con el conector suelto que suele sobrar («de», «del»)
-        sin_conector = ' '.join(w for w in obj_exp.split() if w not in ('de', 'del', 'la', 'el'))
-        for c, n in normalizados.items():
-            if ' '.join(w for w in _expandir(n).split()
-                        if w not in ('de', 'del', 'la', 'el')) == sin_conector:
-                return c
+    for c, n in normalizados.items():
+        if _expandir(n) == obj_exp:
+            return c
+    # y con el conector suelto que suele sobrar («de», «del»)
+    sin_conector = ' '.join(w for w in obj_exp.split() if w not in ('de', 'del', 'la', 'el'))
+    for c, n in normalizados.items():
+        if ' '.join(w for w in _expandir(n).split()
+                    if w not in ('de', 'del', 'la', 'el')) == sin_conector:
+            return c
     # Contención (subcadena). v66: antes devolvía el PRIMER candidato que
     # contuviera al objetivo, lo que con catálogos grandes es una lotería —
     # "Congo" entra en "DR Congo", "Guinea" en "Equatorial Guinea" y
@@ -180,6 +212,37 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
     return None
 
 
+def mejor_candidato(nombre: str, catalogo: Iterable[str]):
+    """
+    El candidato más parecido del catálogo y su ratio, SIN decidir nada.
+
+    v148 — lo pide `league_engine._completar_desde_espn`, que necesita
+    distinguir dos cosas que `mapear` mete en el mismo None:
+
+      · «Sporting Gijón» contra un catálogo que dice «Sp Gijon» — es el MISMO
+        club escrito de otra forma, y darlo de alta partiría su historial en
+        dos. Ratio alto.
+      · «Coventry City» contra el catálogo de la Premier — es un club que
+        ACABA de ascender y de verdad no está. Ratio bajo.
+
+    Hasta la v148 las dos se descartaban igual, y por eso la cola de ESPN era
+    estructuralmente incapaz de incorporar a un ascendido: el catálogo con el
+    que compara sale del propio histórico, así que un equipo nuevo nunca
+    estaba en él por definición. Cada agosto, hasta que football-data
+    publicaba el curso, los recién ascendidos salían «sin pronóstico».
+    """
+    catalogo = list(catalogo)
+    if not catalogo:
+        return None, 0.0
+    objetivo = normalizar(nombre)
+    mejor, ratio = None, 0.0
+    for c in catalogo:
+        s = SequenceMatcher(None, objetivo, normalizar(c)).ratio()
+        if s > ratio:
+            mejor, ratio = c, s
+    return mejor, ratio
+
+
 def volcar_fallos() -> int:
     """Persiste los nombres no mapeados (para crear alias y llegar a 0).
 
@@ -219,7 +282,14 @@ def añadir_alias(origen: str, destino: str):
     if os.path.exists(ARCHIVO_ALIAS):
         with open(ARCHIVO_ALIAS, encoding='utf-8') as f:
             alias = json.load(f)
-    alias[origen] = destino
+    previo = alias.get(origen)
+    if previo is None:
+        alias[origen] = destino
+    else:
+        lista = [previo] if isinstance(previo, str) else list(previo)
+        if destino not in lista:
+            lista.append(destino)
+        alias[origen] = lista if len(lista) > 1 else lista[0]
     with open(ARCHIVO_ALIAS, 'w', encoding='utf-8') as f:
         json.dump(alias, f, ensure_ascii=False, indent=2)
     global _alias

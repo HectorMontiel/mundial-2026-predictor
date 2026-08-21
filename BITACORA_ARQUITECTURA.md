@@ -4,7 +4,8 @@
 > función, se comprueba aquí si contradice algo ya medido. Si lo contradice, o
 > se aporta una medición que lo desmienta, o no se añade.
 >
-> Última revisión: 2026-08-15 · a partir de la v131 (NFL).
+> Última revisión: 2026-08-21 · a partir de la v148 (temporada vigente,
+> caché del barrido y pesos fuera de git).
 
 ---
 
@@ -581,6 +582,74 @@ costaría meses sin ganar precisión.
 
 **Lo único que merecería inversión:** un `polars` o `duckdb` para el histórico de
 cuotas cuando el snapshot diario pase de unos millones de filas. Hoy no lo es.
+
+---
+
+## 8b. Dónde vive cada cosa (v148)
+
+Tres decisiones que se toman una vez y luego mandan.
+
+### La temporada vigente NO se escribe a mano
+
+Las veinte competiciones de football-data declaraban su lista de temporadas
+como tuplas literales. El 2026-08-21 todas terminaban en `'2526'` mientras el
+curso 2026-27 llevaba una semana jugándose, y el efecto visible eran **35 de
+326 partidos (10,7 %) sin pronóstico**: sin descarga del curso en marcha no hay
+ascendidos en el catálogo, y sin catálogo no hay mapeo ni predicción.
+
+La lista se deriva de la fecha (`temporadas_fd.py`). Y la descarga TOLERA que
+la temporada vigente no esté publicada todavía: football-data devuelve **300
+Multiple Choices con HTML**, no 404, así que hay que validar el contenido —
+`raise_for_status()` no ve nada raro en un 300.
+
+Corolario que se aplica a todo el proyecto: **una lista de periodos escrita a
+mano es una bomba de relojería con fecha conocida.** Si algo depende del
+calendario, se deriva del calendario.
+
+### Un equipo nuevo no es un nombre mal escrito
+
+`_completar_desde_espn` mapea contra el catálogo del propio histórico, así que
+un ascendido nunca está en él por definición: la cola de ESPN era
+estructuralmente incapaz de incorporarlo. Se separan con
+`name_mapper.mejor_candidato`, que da el parecido sin decidir: ratio ≥ 0,62 es
+el mismo club escrito de otra forma (se descarta, falta un alias); por debajo
+es un club que de verdad no estaba (se da de alta). **Ante la duda no se da de
+alta**, porque partir el historial de un club en dos es peor que perder un
+partido.
+
+Y cuando no hay historia que aprender —un ascendido que aún no ha jugado su
+primer partido— **el hueco sigue siendo la respuesta correcta**. Lo que cambia
+es que se explica: «no ha jugado todavía en esta competición» en vez de «el
+nombre no casa con el catálogo», que sonaba a bug y no lo era.
+
+### El pronóstico se puede servir de caché; el precio, no
+
+El guardia del barrido persiste en disco y sirve resultados de hasta una hora
+para que la pantalla aparezca al instante, revalidando por detrás. Eso es
+correcto para el 1X2 del modelo, que sale de un entrenamiento de madrugada, y
+sería **deshonesto en la dirección peligrosa** para una cuota. Por eso el
+resultado viaja siempre con su edad (`_frescura`) y la interfaz avisa **encima
+de las pestañas**, antes de que nadie mire un precio.
+
+### El peso de un modelo es un artefacto, no historia
+
+`.git` = 15 GB; 23 commits del bot; 712 MB de `.joblib` reescritos cada
+madrugada = ~650 MB por commit, porque git no delta-comprime un binario ya
+comprimido. Se midió lo obvio y no servía: comprimir mejor ahorra un 27 %
+(xz-6: 5,16 MB frente a 7,07) multiplicando por catorce el tiempo de guardado,
+y entrenar al arrancar son ~20 minutos de pantalla en blanco en cada despertar
+del contenedor.
+
+Los pesos pasan a ser **assets de un Release de etiqueta fija**, que no viven
+en la historia del repositorio, **uno por competición** (mediana 12 MB) para
+que la aplicación baje sólo lo que va a usar. La transición la hace el propio
+workflow y sólo tras un viaje de ida y vuelta verificado — misma disciplina que
+la v68: nunca se publica un artefacto que no se haya vuelto a abrir.
+
+Esto **detiene el crecimiento; no encoge los 15 GB que ya están**. Reescribir la
+historia es destructivo, rompe todos los clones y ni siquiera libera espacio en
+GitHub sin pasar por su soporte: queda como operación aparte y deliberada. Para
+un clon ligero hoy basta `git clone --depth 1 --single-branch`.
 
 ---
 

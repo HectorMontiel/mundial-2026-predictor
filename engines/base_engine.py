@@ -65,6 +65,19 @@ class BaseSportsEngine(ABC):
             _cargar = _mp.cargar
         except Exception:
             _cargar = joblib.load          # degradación limpia
+        # v148 — si la carpeta no está en disco, se baja del Release.
+        #
+        # Mismo enganche que `ClubEngine`: los pesos entrenados salen de la
+        # historia de git y viajan como assets (ver `modelos_remotos.py`). La
+        # clave es el nombre de la carpeta —`mlb`, `nba`, `tennis`,
+        # `tennis_wta`, `kbo`—, que es exactamente el nombre del asset.
+        # En un clon con los ficheros presentes esto no toca la red.
+        try:
+            import modelos_remotos
+            modelos_remotos.asegurar(os.path.basename(
+                self.carpeta.replace('\\', '/').rstrip('/')))
+        except Exception:
+            pass
         try:
             self.modelo_ml = _cargar(os.path.join(self.carpeta, 'moneyline.joblib'))
             self.scaler = joblib.load(os.path.join(self.carpeta, 'scaler.joblib'))

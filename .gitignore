@@ -125,3 +125,7 @@ mlb_odds_cache/
 # cada llamada y el número que manda es el del proveedor (`x-requests-used`),
 # así que commitearlo sería ruido puro en cada diff.
 consenso_api_uso.json
+
+# v148 — barrido cacheado en disco (regenerable, por sesion de contenedor)
+.cache_barrido.pkl
+.cache_barrido.pkl.tmp

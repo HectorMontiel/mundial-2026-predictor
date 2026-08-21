@@ -744,6 +744,38 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             _fut_odds[_cl] = _pool_odds.submit(
                 fixtures_espn.odds_multi, _cl, _ids)
 
+    # v148 — LOS PESOS QUE FALTEN EN DISCO SE PIDEN A LA VEZ, NO DE UNO EN UNO.
+    #
+    # Desde que los `.joblib` viajan como assets de un Release en vez de en la
+    # historia de git (ver `modelos_remotos.py`), un contenedor recién clonado
+    # no los tiene. El bucle de abajo es SECUENCIAL —tiene que serlo, porque
+    # libera el motor de cada liga al terminarla para no apilar 1,3 GB—, así
+    # que sin esto la primera pasada bajaría veinte ficheros de doce megas uno
+    # detrás de otro.
+    #
+    # Aquí sólo se descarga: no se instancia ningún motor, así que no hay coste
+    # de memoria y el bucle de abajo se encuentra los ficheros ya en disco. Y
+    # sólo para las ligas que HOY tienen partidos, que son las únicas que se
+    # van a cargar. Donde el clon ya trae los modelos —desarrollo, o un
+    # contenedor que ya los bajó— `asegurar` mira el disco y no toca la red.
+    _con_fixtures = [c for c in claves_disp if fixtures_por_liga.get(c)]
+    if _con_fixtures:
+        try:
+            import modelos_remotos as _mr
+            _faltan = [c for c in _con_fixtures if not _mr.local_completo(c)]
+            if _faltan:
+                logger.info(f"[alpha/fix] {len(_faltan)} modelos no están en "
+                            f"disco: se bajan del Release en paralelo")
+                with ThreadPoolExecutor(max_workers=6,
+                                        thread_name_prefix='mdl148') as _pm:
+                    list(_pm.map(_mr.asegurar, _faltan))
+        except Exception as e:
+            # Que esto falle no puede tumbar el barrido: cada `ClubEngine`
+            # vuelve a intentarlo por su cuenta y, si tampoco puede, la liga
+            # sale en `ligas_sin_motor` con su motivo, como siempre.
+            logger.warning(f"[alpha/fix] prefetch de modelos: "
+                           f"{type(e).__name__}: {e}")
+
     for clave, cfg in _LG.items():
         if not cfg.get('disponible') or clave not in fixtures_espn.ESPN_CODIGOS:
             continue
@@ -850,9 +882,48 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
             away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
             if not (home and away) or home == away:
-                pronosticos.append(_fila_sin_modelo(
-                    'el nombre del equipo no casa con el catálogo del modelo '
-                    'de esta liga'))
+                # v148 — EL MOTIVO, EN VEZ DE UNA SOSPECHA DE BUG.
+                #
+                # Aquí siempre se decía «el nombre del equipo no casa con el
+                # catálogo», que suena a fallo de mapeo y casi nunca lo es. Al
+                # medir el barrido del 2026-08-21 (35 de 326 partidos sin
+                # pronóstico) resultó que la inmensa mayoría eran equipos que
+                # ACABAN DE ASCENDER y todavía no han jugado un solo partido
+                # en esta competición: Coventry en la Premier, Académico de
+                # Viseu en la Primeira, Iraklis en Grecia. No hay historia que
+                # aprender, ni en football-data ni en ESPN, porque no existe.
+                #
+                # Las dos causas piden cosas distintas y por eso se separan:
+                # un nombre parecido al catálogo es un alias que falta (se
+                # arregla en `alias_manuales.json` y el partido se recupera);
+                # un nombre que no se parece a nada es un equipo nuevo, y ahí
+                # el hueco es la respuesta correcta — inventarle una
+                # probabilidad sería peor que no darla.
+                _falla = [n for n, m in ((fx['home'], home), (fx['away'], away))
+                          if not m]
+                _parecido = False
+                for _n in _falla:
+                    try:
+                        _c, _r = name_mapper.mejor_candidato(_n, catalogo)
+                        if _r >= 0.62:
+                            _parecido = True
+                    except Exception:
+                        pass
+                if not _falla:
+                    # Los dos nombres mapearon, pero al MISMO equipo: el
+                    # catálogo tiene una entrada que se come a las dos. No es
+                    # un ascenso ni un alias que falte, es una ambigüedad.
+                    _motivo = (f"«{fx['home']}» y «{fx['away']}» se resuelven "
+                               f"al mismo equipo del catálogo, así que no se "
+                               f"puede saber cuál es cuál")
+                elif _parecido:
+                    _motivo = (f"el nombre «{', '.join(_falla)}» no casa con el "
+                               f"catálogo del modelo de esta liga")
+                else:
+                    _motivo = (f"{' y '.join(_falla)} no ha jugado todavía en "
+                               f"esta competición (recién ascendido), así que "
+                               f"el modelo no tiene historia suya")
+                pronosticos.append(_fila_sin_modelo(_motivo))
                 continue
             if (clave, home, away) in evaluados_pares:
                 continue                        # ya evaluado con cuota real

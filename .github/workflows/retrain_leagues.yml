@@ -197,6 +197,63 @@ jobs:
                       print(f'restaurado {c} (el reentrenamiento de {etq} no sirve)')
           PY
 
+      # v148 — LOS PESOS SALEN DE LA HISTORIA DE GIT.
+      #
+      # Medido: `.git` pesa 15 GB y hay 23 commits de este bot. Son ~650 MB por
+      # ejecución, porque los 246 `.joblib` (712 MB) se reescriben enteros cada
+      # madrugada y git no puede delta-comprimir un binario ya comprimido. A ese
+      # ritmo el repositorio crece ~19 GB al mes y el `fetch` pasa de diez
+      # minutos.
+      #
+      # Los assets de un Release NO viven en la historia: reemplazarlos no añade
+      # un byte al `.git`. Uno por competición (mediana 12 MB) para que la
+      # aplicación baje sólo lo que va a usar. Ver `publicar_modelos.py` y
+      # `modelos_remotos.py`.
+      #
+      # `--verificar` se baja del Release una muestra y la vuelve a cargar. Es
+      # la misma disciplina de la v68 con el commit de modelos: nunca se publica
+      # un artefacto que no se haya abierto después.
+      # `continue-on-error` a propósito: un hipo de la API de GitHub no puede
+      # llevarse por delante el commit de datos del día, que es el valor
+      # principal del job. Si la publicación falla, los assets del día anterior
+      # siguen ahí y la aplicación sigue sirviendo con ellos; lo único que NO
+      # se hace es la transición, que va condicionada al resultado.
+      - name: Publicar los modelos como assets del Release
+        id: publicar
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python publicar_modelos.py --verificar
+
+      # LA TRANSICIÓN, UNA SOLA VEZ Y SÓLO SI LA PUBLICACIÓN SE VERIFICÓ.
+      #
+      # Dejar de versionar `modelos/` en el mismo commit que introduce la
+      # descarga sería apostar la aplicación a que el primer `publicar` sale
+      # bien: si fallara, Streamlit Cloud desplegaría un clon SIN modelos y sin
+      # assets de los que bajarlos. Por eso el paso anterior tiene que haber
+      # terminado en verde para que éste se ejecute (`success()` es la condición
+      # por defecto, y `--verificar` ya ha hecho el viaje de ida y vuelta).
+      #
+      # Es idempotente: en cuanto `modelos/` deja de estar versionado, el
+      # `git ls-files` sale vacío y no vuelve a hacer nada.
+      - name: Dejar de versionar los pesos (transición, idempotente)
+        if: steps.publicar.outcome == 'success'
+        run: |
+          if [ -n "$(git ls-files modelos/ | head -1)" ]; then
+            echo "modelos/ sigue versionado: se retira del índice."
+            git rm -r --cached --quiet modelos/
+            if ! grep -qx 'modelos/' .gitignore; then
+              {
+                echo ""
+                echo "# v148 - los pesos entrenados viajan como assets del Release"
+                echo "# modelos-latest, no en la historia de git. Ver modelos_remotos.py."
+                echo "modelos/"
+              } >> .gitignore
+            fi
+          else
+            echo "modelos/ ya no está versionado. Nada que hacer."
+          fi
+
       - name: Importar cuotas de cierre al histórico
         run: python import_historical_odds.py || echo "::warning::importación de cuotas con avisos"
 
@@ -280,7 +337,12 @@ jobs:
         run: |
           git config user.name  "retrain-bot"
           git config user.email "actions@github.com"
-          git add -A team_stats_*.json modelos/ historico_*.csv roi_bets_*.json 2>/dev/null || true
+          # v148 — `modelos/` ya no entra: sus pesos viajan como assets del
+          # Release. El `git add` se conserva por si el paso de transición
+          # aún no ha corrido; con la carpeta ignorada es un no-op.
+          git add -A team_stats_*.json historico_*.csv roi_bets_*.json 2>/dev/null || true
+          git add -A modelos/ 2>/dev/null || true
+          git add -A .gitignore 2>/dev/null || true
           # odds_historico.db NO: está en .gitignore y es regenerable. Lo que
           # se commitea es `odds_snapshots.csv`, que contiene lo único que no
           # se puede reconstruir (la línea antes del partido).
@@ -297,6 +359,45 @@ jobs:
           else
             fecha=$(date -u +%Y-%m-%d)
             git commit -m "chore(datos): reentrenamiento automático de ligas ($fecha)"
-            git push
-            echo "Modelos actualizados y publicados."
+
+            # v148 — UN PUSH HUMANO A MITAD DEL JOB YA NO TIRA EL DÍA ENTERO.
+            #
+            # Pasó el 2026-08-21: el job clonó a las 05:58, la v147 se empujó a
+            # `main` a las 06:26, y a las 06:50 el push del bot salió
+            # «! [rejected] main -> main (fetch first)». Todos los pasos
+            # anteriores en verde y **52 minutos de reentrenamiento a la
+            # basura**, porque el commit se queda en el runner y el runner se
+            # destruye. La ventana de colisión son los ~55 minutos que dura el
+            # job, todos los días.
+            #
+            # Se reintenta con rebase. En un conflicto la versión BUENA es la
+            # del bot: acaba de regenerar esos ficheros desde los datos de hoy,
+            # así que lo que hubiera en `main` es más viejo por construcción.
+            # Pero eso vale para los ARTEFACTOS y no para el código: si lo que
+            # choca es un `.py` o algo de `.github/`, aquí no hay criterio para
+            # decidir y se aborta con un aviso en vez de pisar el trabajo de
+            # alguien.
+            for intento in 1 2 3; do
+              if git push; then
+                echo "Modelos actualizados y publicados."
+                exit 0
+              fi
+              echo "push rechazado (intento $intento): alguien empujó mientras corría el job."
+              git fetch origin main
+              if git rebase origin/main; then
+                continue
+              fi
+              conflictos=$(git diff --name-only --diff-filter=U)
+              codigo=$(echo "$conflictos" | grep -E '\.py$|^\.github/' || true)
+              if [ -n "$codigo" ]; then
+                echo "::warning::conflicto en CÓDIGO durante el rebase ($codigo); no se pisa. Se aborta y se publicará en la próxima ejecución."
+                git rebase --abort
+                exit 0
+              fi
+              echo "conflicto sólo en artefactos: se toma la versión recién generada."
+              for f in $conflictos; do git checkout --theirs -- "$f" || git rm -f -- "$f"; done
+              git add -A
+              GIT_EDITOR=true git rebase --continue || { git rebase --abort; exit 0; }
+            done
+            echo "::warning::no se pudo publicar tras tres intentos; los artefactos se regeneran mañana."
           fi

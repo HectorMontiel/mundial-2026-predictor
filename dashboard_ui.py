@@ -4650,6 +4650,25 @@ def render_alpha_finder():
     with st.spinner("🔍 Buscando valor en todos los deportes…"):
         r = barrido_universal(forzar=st.session_state.pop('_forzar_barrido', False))
 
+    # v148 — LA EDAD DE LO QUE SE ESTÁ MIRANDO, ANTES DE MIRARLO.
+    #
+    # Desde que el guardia puede servir un barrido de hace un rato para que la
+    # pantalla no tarde dos minutos en aparecer, hay una pregunta nueva que la
+    # interfaz TIENE que responder sin que nadie la haga: ¿de cuándo es este
+    # precio? El pronóstico del modelo aguanta perfectamente media hora —sale
+    # de un modelo entrenado de madrugada—, pero una cuota de hace media hora
+    # enseñada como la de ahora es justo lo que este proyecto no hace.
+    #
+    # Va aquí arriba, encima de las pestañas, porque debajo ya hay cuotas.
+    _fr = (r or {}).get('_frescura') or {}
+    if _fr and not _fr.get('fresco', True):
+        _min = int(_fr.get('edad_s', 0) // 60)
+        st.warning(
+            f"⏱️ Estas cuotas se bajaron hace **{_min} min**. Se están "
+            f"actualizando en segundo plano: los pronósticos del modelo son "
+            f"válidos, pero **confirma el precio en la casa antes de apostar**. "
+            f"Pulsa «Actualizar ahora» cuando quieras rehacer el barrido.")
+
     if st.session_state.pop('_enviar_telegram', False):
         try:
             import bot_telegram

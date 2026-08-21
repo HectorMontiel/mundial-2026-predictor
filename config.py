@@ -133,6 +133,45 @@ KAGGLE_DATASET = 'martj42/international-football-results-from-1872-to-2017'
 # Champions no tiene fuente CSV gratuita -> beta, requiere RAPIDAPI_KEY.
 # ---------------------------------------------------------------------------
 FD_BASE = 'https://www.football-data.co.uk'
+
+
+# ---------------------------------------------------------------------------
+# v148 — LA TEMPORADA VIGENTE DEJA DE ESCRIBIRSE A MANO.
+#
+# El bug que lo destapó: el 2026-08-21 la app enseñaba «sin pronóstico del
+# modelo» en Premier, LaLiga, Ligue 1, Ligue 2 y Primeira. No era el modelo:
+# era que las listas de temporadas de estas veinte ligas eran tuplas
+# literales que terminaban en '2526'. La temporada 2026-27 llevaba una semana
+# jugándose y NO ESTABA EN LA CONFIGURACIÓN, así que:
+#
+#   · football-data nunca se descargaba para el curso en marcha,
+#   · los ascendidos no existían en el catálogo del modelo
+#     (Coventry y Hull en la Premier, Málaga, Deportivo y Racing Santander en
+#      LaLiga, Le Mans en la Ligue 1, Nantes en la Ligue 2, Académico de
+#      Viseu en la Primeira),
+#   · `name_mapper` no podía casarlos contra nada y el partido salía sin
+#     pronóstico.
+#
+# Medido antes del arreglo: 35 de 326 fixtures (10,7 %) sin pronóstico, y la
+# mayoría por esta causa exacta.
+#
+# El arreglo NO es añadir '2627' a nueve tuplas: eso vuelve a romperse en
+# julio de 2027. La lista se DERIVA de la fecha. Una temporada de
+# football-data se nombra 'AABB' (2627 = 2026-27) y arranca en julio, así que
+# a partir del 1 de julio la vigente es la del año en curso.
+#
+# El sondeo del 2026-08-21 sobre los veinte códigos confirma que hace falta
+# tolerancia: catorce ficheros de 2627 ya estaban publicados (SP1, F2, P1,
+# N1, T1, SP2, D2, B1, E1, E2, E3, EC, SC0, SC1) y seis todavía no (E0, I1,
+# I2, D1, F1, G1), porque su liga arrancaba días después. Un fichero que aún
+# no existe devuelve **300 Multiple Choices con una página HTML**, no un 404:
+# `raise_for_status()` no levanta nada y `read_csv` se traga el HTML. De eso
+# se encarga `league_engine.descargar_liga`, que ahora valida lo que baja.
+# ---------------------------------------------------------------------------
+# El generador vive en `temporadas_fd.py`: lo necesitan los dos lados del
+# catálogo (este fichero y `config_ligas_espn`, que este fichero importa),
+# y tenerlo aquí habría creado un ciclo de imports.
+from temporadas_fd import temporada_fd_vigente, temporadas_fd  # noqa: E402,F401
 LEAGUES = {
     # v13: histórico ampliado (5 temporadas / 8 años MX) — validado en
     # VALIDACION_v13.md contra los modelos v12 de 3 temporadas.
@@ -222,7 +261,7 @@ LEAGUES = {
         'temporadas_modelo': 3,
         'nombre': 'Süper Lig', 'pais': 'Turquía', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/T1.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True, 'features_extra': ['cuotas'],
     },
     'dinamarca': {
@@ -313,7 +352,7 @@ LEAGUES = {
         'temporadas_modelo': 5,
         'nombre': 'Super League Greece', 'pais': 'Grecia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/G1.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True, 'features_extra': ['cuotas'],
     },
     'suiza': {
@@ -340,7 +379,7 @@ LEAGUES = {
         # bajó la precisión (49.5%→48.9%) — regla de adopción no superada.
         'nombre': 'Premier League', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/E0.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True,
         # v17 (walk-forward +1.2pp / -0.011): extras + cuotas de cierre
         'features_extra': ['extras', 'cuotas'],
@@ -350,7 +389,7 @@ LEAGUES = {
         'temporadas_modelo': 5,
         'nombre': 'LaLiga', 'pais': 'España', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/SP1.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True,
         # v17 (walk-forward +1.5pp / -0.055): cuotas de cierre como features
         # v24 (walk-forward 53.09→53.33, ll 1.0328→0.9908): + componentes IMT
@@ -370,7 +409,7 @@ LEAGUES = {
         'nombre': 'Serie A', 'pais': 'Italia', 'formato': 'main',
         # 3 temporadas: margen sobre ELO +0.9pp vs +0.0pp con 5 (v14)
         'urls': [f'{FD_BASE}/mmz4281/{s}/I1.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True,
         # v18/M1 (walk-forward +3.2pp / -0.049): cuotas de cierre + beta
         # calibration (la isotónica degradaba el log-loss con cuotas)
@@ -383,7 +422,7 @@ LEAGUES = {
         'temporadas_modelo': 5,
         'nombre': 'Bundesliga', 'pais': 'Alemania', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/D1.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True,
         # v17 (walk-forward +0.5pp / +0.003): H2H + descanso + rachas + tabla
         # v24 (walk-forward 49.55→49.81, ll 1.0247→1.0213): + índice IMT
@@ -395,7 +434,7 @@ LEAGUES = {
         'temporadas_modelo': 5,
         'nombre': 'Ligue 1', 'pais': 'Francia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/F1.csv'
-                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1011')],
         'disponible': True,
         # v17 (walk-forward +0.1pp / -0.057, regla 2): cuotas de cierre
         'features_extra': ['cuotas'],
@@ -407,7 +446,7 @@ LEAGUES = {
         'temporadas_modelo': 5,
         'nombre': 'Eredivisie', 'pais': 'Países Bajos', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/N1.csv'
-                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1718')],
         'disponible': True,
         # v17 (walk-forward +0.4pp / -0.023): cuotas de cierre como features
         # v24 (walk-forward 52.21→52.82, +0.61pp): + índice compuesto IMT
@@ -418,8 +457,7 @@ LEAGUES = {
         'nombre': 'Primeira Liga', 'pais': 'Portugal', 'formato': 'main',
         # v17 (walk-forward +0.4pp / -0.043): histórico ampliado a 10 temporadas
         'urls': [f'{FD_BASE}/mmz4281/{s}/P1.csv'
-                 for s in ('1617', '1718', '1819', '1920', '2021',
-                           '2122', '2223', '2324', '2425', '2526')],
+                 for s in temporadas_fd('1617')],
         'disponible': True,
         # v24 (walk-forward 56.52→57.16, +0.64pp): componentes IMT
         # v59: +'ck' (territorial) 54.23→54.73 (+0.50 pp) y ll 0.9604→0.9519.

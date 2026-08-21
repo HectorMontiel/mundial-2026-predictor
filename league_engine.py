@@ -23,6 +23,7 @@ import json
 import logging
 import os
 import sys
+import threading
 from typing import Dict, List, Optional, Tuple
 
 import joblib
@@ -674,6 +675,51 @@ def _fusionar_fbref_champions(df_api: pd.DataFrame) -> pd.DataFrame:
 # Descargas crudas ya hechas en ESTE proceso, por tupla de URLs. Ver el bloque
 # que lo usa dentro de `descargar_liga`.
 _MEMO_CRUDO: Dict[tuple, 'pd.DataFrame'] = {}
+# v148 — la cola de ESPN, por el mismo motivo (ver `_completar_desde_espn`).
+_MEMO_COLA_ESPN: Dict = {}
+
+
+# v148 — UNA TEMPORADA QUE AÚN NO EXISTE NO PUEDE TUMBAR EL ENTRENAMIENTO.
+#
+# Desde que la lista de temporadas se deriva de la fecha (`temporadas_fd`), en
+# la lista viaja SIEMPRE el curso en marcha. Y en agosto la mitad de las ligas
+# todavía no lo tienen publicado: el sondeo del 2026-08-21 encontró catorce
+# ficheros de 2627 vivos y seis que no (E0, I1, I2, D1, F1, G1), porque esas
+# ligas arrancaban días después.
+#
+# El detalle que obliga a validar el CONTENIDO y no sólo el código: cuando el
+# fichero no existe, football-data no devuelve 404 — devuelve **300 Multiple
+# Choices con una página HTML** que ofrece nombres parecidos. `raise_for_status`
+# no levanta nada ante un 300 y `read_csv(..., on_bad_lines='skip')` se traga
+# el HTML tan campante, produciendo un marco con columnas inventadas. La
+# siguiente línea (`crudo['Date']`) revienta con KeyError y la liga se queda
+# sin reentrenar sin que nadie sepa por qué.
+#
+# La distinción importa: «no publicada todavía» se salta con un aviso, pero un
+# fallo de red (timeout, 5xx) SÍ levanta. Entrenar en silencio con menos
+# historia de la debida por un corte de red pasajero es peor que no entrenar.
+_COLUMNAS_CLAVE = ('HomeTeam', 'Home')
+
+
+def _csv_temporada(url: str, clave: str):
+    """Una temporada de football-data, o None si aún no está publicada."""
+    r = requests.get(url, timeout=30)
+    if r.status_code in (300, 301, 302, 303, 307, 308, 404, 410):
+        return None
+    r.raise_for_status()               # 5xx, timeouts → que se note
+    texto = r.text
+    if texto.lstrip()[:400].lower().lstrip('﻿').startswith(('<!doctype', '<html')):
+        return None                    # la página de «Multiple Choices»
+    try:
+        hoja = pd.read_csv(io.StringIO(texto), on_bad_lines='skip',
+                           encoding_errors='ignore')
+    except Exception as e:
+        logger.warning(f"[{clave}] {url.rsplit('/', 2)[-2]} ilegible: "
+                       f"{type(e).__name__}: {e}")
+        return None
+    if hoja.empty or not any(c in hoja.columns for c in _COLUMNAS_CLAVE):
+        return None                    # no es un CSV de partidos
+    return hoja
 
 
 def descargar_liga(clave: str, temporadas: int = None) -> pd.DataFrame:
@@ -726,12 +772,21 @@ def descargar_liga(clave: str, temporadas: int = None) -> pd.DataFrame:
         _clave_memo = tuple(cfg['urls'])
         crudo = _MEMO_CRUDO.get(_clave_memo)
         if crudo is None:
-            frames = []
+            frames, ausentes = [], []
             for url in cfg['urls']:
-                r = requests.get(url, timeout=30)
-                r.raise_for_status()
-                frames.append(pd.read_csv(io.StringIO(r.text), on_bad_lines='skip',
-                                          encoding_errors='ignore'))
+                hoja = _csv_temporada(url, clave)
+                if hoja is None:
+                    ausentes.append(url.rsplit('/', 2)[-2])
+                    continue
+                frames.append(hoja)
+            if not frames:
+                raise RuntimeError(
+                    f"{clave}: ninguna de las {len(cfg['urls'])} temporadas "
+                    f"de football-data se pudo descargar.")
+            if ausentes:
+                logger.info(f"[{clave}] temporadas aún no publicadas por "
+                            f"football-data: {', '.join(ausentes)} "
+                            f"(se entrena con las {len(frames)} que sí están)")
             crudo = pd.concat(frames, ignore_index=True)
             _MEMO_CRUDO[_clave_memo] = crudo
         crudo = crudo.copy()          # cada llamada trabaja sobre lo suyo
@@ -937,8 +992,28 @@ def _completar_desde_espn(df: pd.DataFrame, clave: str,
     if desde > hoy:
         return df
 
-    partes = []
-    for _code in codigos:
+    # v148 — LA COLA SE PIDE UNA VEZ POR LIGA, NO DOS.
+    #
+    # Desde que `entrenar_liga` pide DOS marcos por competición —el completo
+    # para el CSV y el de la ventana para el modelo (v147)—, `descargar_liga`
+    # corre entera dos veces seguidas. La v147 memorizó la descarga cruda de
+    # football-data, pero no ésta: la cola de ESPN se pedía dos veces por liga,
+    # con las mismas fechas y el mismo resultado. Sobre 57 competiciones son
+    # ~57 peticiones de más en cada pase del bot, que ya roza su límite de 60
+    # minutos.
+    #
+    # La clave lleva la última fecha del histórico porque es lo único de lo que
+    # depende el resultado: mismo `desde`, misma respuesta.
+    _memo_k = (clave, tuple(codigos), str(ultima.date()))
+    if _memo_k in _MEMO_COLA_ESPN:
+        nuevos = _MEMO_COLA_ESPN[_memo_k]
+        if nuevos is None:
+            return df
+        nuevos = nuevos.copy()
+        partes = None
+    else:
+        partes = []
+    for _code in (codigos if partes is not None else []):
         try:
             import uefa_scraper
             _n = uefa_scraper.descargar_espn(_code, desde.strftime('%Y-%m-%d'))
@@ -951,25 +1026,62 @@ def _completar_desde_espn(df: pd.DataFrame, clave: str,
             if _code != liga_espn:
                 logger.info(f'[{clave}] {len(_n)} partidos de la fase previa '
                             f'({_code})')
-    if not partes:
-        return df
-    nuevos = pd.concat(partes, ignore_index=True)
-    # un partido no puede estar en la liguilla y en la previa a la vez, pero se
-    # deduplica igual: duplicarlo contaría dos veces en la forma y el ELO
-    nuevos = nuevos.drop_duplicates(subset=['date', 'home_team', 'away_team'])
-    if nuevos.empty:
-        return df
-    nuevos = nuevos[pd.to_datetime(nuevos['date']).dt.normalize() > ultima].copy()
-    if nuevos.empty:
+    if partes is not None:
+        if not partes:
+            _MEMO_COLA_ESPN[_memo_k] = None
+            return df
+        nuevos = pd.concat(partes, ignore_index=True)
+        # un partido no puede estar en la liguilla y en la previa a la vez, pero
+        # se deduplica igual: duplicarlo contaría dos veces en la forma y el ELO
+        nuevos = nuevos.drop_duplicates(subset=['date', 'home_team', 'away_team'])
+        nuevos = nuevos[
+            pd.to_datetime(nuevos['date']).dt.normalize() > ultima].copy()
+        _MEMO_COLA_ESPN[_memo_k] = None if nuevos.empty else nuevos.copy()
+    if nuevos is None or nuevos.empty:
         return df
 
     catalogo = sorted(set(df['home_team']) | set(df['away_team']))
+    # v148 — LA COLA DE ESPN PUEDE DAR DE ALTA A UN ASCENDIDO.
+    #
+    # Hasta aquí no podía, y no por descuido sino por construcción: el catálogo
+    # contra el que compara SALE DEL PROPIO HISTÓRICO, así que un equipo recién
+    # ascendido nunca estaba en él, `_map` devolvía None y la fila se tiraba.
+    # Cada agosto, hasta que football-data publicaba el curso nuevo, los
+    # ascendidos salían «sin pronóstico del modelo».
+    #
+    # Y no siempre llega ese rescate: el 2026-08-21, seis de las veinte ligas
+    # (E0, I1, I2, D1, F1, G1) todavía no tenían fichero de 2627. Para la
+    # Premier, la única vía de que Coventry existiera era ésta.
+    #
+    # El motivo original del descarte sigue siendo válido y no se toca: dar de
+    # alta «Sporting Gijón» donde el catálogo dice «Sp Gijon» PARTE EL HISTORIAL
+    # de un club en dos, que es peor que perder un partido. Lo que cambia es que
+    # las dos situaciones dejan de confundirse. `mejor_candidato` devuelve el
+    # parecido sin decidir:
+    #
+    #   · ratio alto  → es el mismo club mal escrito. Se descarta, como siempre,
+    #                   y se registra para que se le ponga un alias.
+    #   · ratio bajo  → es un club que de verdad no estaba. Se admite.
+    #
+    # El corte en 0,62 no es redondo por gusto: el umbral de `mapear` es 0,78 y
+    # entre 0,62 y 0,78 vive justo lo dudoso («Sporting Gijón» contra «Sp Gijon»
+    # da 0,71; «Atlético Madrid» contra «Ath Madrid», 0,72). Debajo de 0,62 no
+    # hay pareja plausible en el catálogo. Ante la duda, NO se da de alta.
+    UMBRAL_ALTA = 0.62
+    altas = set()
     try:
         import name_mapper
         def _map(n):
             if n in catalogo:
                 return n
-            return name_mapper.mapear(n, catalogo, contexto=f'espn→{clave}')
+            m = name_mapper.mapear(n, catalogo, contexto=f'espn→{clave}')
+            if m:
+                return m
+            _cand, _ratio = name_mapper.mejor_candidato(n, catalogo)
+            if _ratio < UMBRAL_ALTA:
+                altas.add(n)
+                return n
+            return None
     except Exception:
         def _map(n):
             return n if n in catalogo else None
@@ -1002,6 +1114,11 @@ def _completar_desde_espn(df: pd.DataFrame, clave: str,
     logger.info(f"[{clave}] cola ESPN: +{len(cola)} partidos "
                 f"({ultima.date()} → {cola['date'].max().date()})"
                 + (f", {descartados} descartados por nombre" if descartados else ""))
+    if altas:
+        # Un alta es una decisión, no un detalle: si el nombre estaba mal, aquí
+        # es donde se ve antes de que el catálogo se parta en dos.
+        logger.info(f"[{clave}] equipos NUEVOS en el catálogo desde ESPN: "
+                    f"{', '.join(sorted(altas))}")
     return salida
 
 
@@ -1154,6 +1271,8 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     # que sus derivadas (ELO, xG) se calculen sobre ella y no sobre los 16 años.
     # Ver el bloque de `descargar_liga`.
     _n_temp = (LEAGUES.get(clave) or {}).get('temporadas_modelo')
+    # Sin ventana declarada, el marco del modelo ES el completo: el desacople
+    # sólo existe en las ligas que midieron una ventana más corta.
     df_modelo = descargar_liga(clave, temporadas=_n_temp) if _n_temp else df
     ds = fe.construir_dataset_supervisado(df_modelo)
     X_df, y, fechas = ds['X_df'], ds['y'], ds['fechas']
@@ -1180,7 +1299,20 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
 
     # v75: mismo constructor de features que usa el backtest — ver
     # `preparar_features_extra`, para que ambos no puedan divergir.
-    X_df, cols_extra, _estados = preparar_features_extra(clave, df, ds, X_df,
+    # v148 — LAS FEATURES EXTRA TAMBIÉN SON DEL MODELO, ASÍ QUE VAN CON SU MARCO.
+    #
+    # La v147 separó el CSV del entrenamiento y dejó escrito que «el modelo
+    # recibe exactamente lo que recibía». No era así: aquí se seguía pasando
+    # `df` —las dieciséis temporadas— y `features_extra_liga`, `features_imt`,
+    # `features_v26`, `features_ck` y el CDI son todas ACUMULATIVAS. Calculadas
+    # sobre 16 años en vez de sobre la ventana, salen con trece años de arrastre
+    # y no valen lo mismo, exactamente el mecanismo que la propia v147 midió y
+    # quiso impedir para `elo_diff` y `home_xg`.
+    #
+    # No llegó a desplegarse: el bot de reentrenamiento no ha corrido desde que
+    # la v147 entró, así que los modelos del repo son todos anteriores. Se
+    # corrige antes de que el primer pase lo fije.
+    X_df, cols_extra, _estados = preparar_features_extra(clave, df_modelo, ds, X_df,
                                                        fechas.quantile(0.80))
     estado_extra = _estados['extra']
     estado_imt = _estados['imt']
@@ -1481,7 +1613,18 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
 
     # Estado por equipo (mismas claves que el Mundial => paridad de features)
     estado = ds['estado']
-    equipos_liga = sorted(set(df['home_team']) | set(df['away_team']))
+    # v148 — EL CATÁLOGO SALE DEL MARCO QUE EL ESTADO CONOCE, NO DEL CSV.
+    #
+    # Esto leía `df` (las dieciséis temporadas) mientras `estado` venía de
+    # `df_modelo` (la ventana). Todo equipo que jugó en 2011 y no en la ventana
+    # entraba en el catálogo con lo que devuelve un `defaultdict`: ELO 1500,
+    # ventanas vacías, PERF10 vacío. En la Premier son 16 clubes fantasma de 41.
+    #
+    # Y no se quedaban quietos: `name_mapper` los ve, así que un Arsenal-Blackburn
+    # de copa habría salido con una probabilidad calculada sobre un equipo del que
+    # el modelo no sabe nada. Inventar un número es peor que dejar el hueco, que
+    # es la regla de la casa desde la v145.
+    equipos_liga = sorted(set(df_modelo['home_team']) | set(df_modelo['away_team']))
     equipos = {}
     for t in equipos_liga:
         s = estado.stats_equipo(t)
@@ -1688,6 +1831,41 @@ except Exception:
 # ---------------------------------------------------------------------------
 # Motor de inferencia por liga
 # ---------------------------------------------------------------------------
+# v148 — `odds_actuales.json` SE LEE UNA VEZ, NO UNA POR PREDICCIÓN.
+#
+# `ClubEngine._cuotas_partido` abría el fichero y lo parseaba ENTERO en cada
+# llamada, y `predecir` la llama hasta dos veces (MESM y blend de mercado). En
+# un barrido con 326 fixtures eso son ~650 aperturas del mismo fichero para
+# obtener siempre lo mismo. Cuando el fichero no existe —que es el caso en
+# local y en cualquier clon nuevo— son 650 FileNotFoundError construidas y
+# tragadas por un `except`, que no es gratis.
+#
+# El memo mira la fecha de modificación, así que si el fichero cambia a mitad
+# de la sesión (lo reescribe el barrido de cuotas) la siguiente lectura lo ve.
+# Es un memo, no una foto.
+_CUOTAS_ACT = {'mtime': None, 'datos': {}}
+_CUOTAS_ACT_LOCK = threading.Lock()
+
+
+def _cuotas_actuales() -> Dict:
+    """El bloque `cuotas` de odds_actuales.json, releído sólo si cambió."""
+    try:
+        mtime = os.path.getmtime('odds_actuales.json')
+    except OSError:
+        return {}
+    with _CUOTAS_ACT_LOCK:
+        if _CUOTAS_ACT['mtime'] == mtime:
+            return _CUOTAS_ACT['datos']
+        try:
+            with open('odds_actuales.json', encoding='utf-8') as f:
+                datos = json.load(f).get('cuotas', {}) or {}
+        except Exception:
+            datos = {}
+        _CUOTAS_ACT['mtime'] = mtime
+        _CUOTAS_ACT['datos'] = datos
+        return datos
+
+
 class ClubEngine:
     """Predicción y plantilla extendida para una liga de clubes."""
 
@@ -1698,6 +1876,19 @@ class ClubEngine:
         self.listo, self.error = False, None
         try:
             carpeta = os.path.join('modelos', clave)
+            # v148 — si la carpeta no está en disco, se baja del Release.
+            #
+            # Los pesos entrenados dejan de viajar en la historia de git (650 MB
+            # por commit del bot, 15 GB de `.git`) y pasan a ser assets de un
+            # Release. Ver `modelos_remotos.py`: en un clon de desarrollo, o en
+            # un contenedor que ya la bajó, la carpeta está y esto no toca la
+            # red. Si no hay nada publicado todavía, devuelve False sin ruido y
+            # el `except` de abajo informa del error de siempre.
+            try:
+                import modelos_remotos
+                modelos_remotos.asegurar(clave)
+            except Exception as _e:
+                logger.debug(f"[{clave}] modelos remotos no disponibles: {_e}")
             # v87 — se carga por `modelos_portables`, que repara los boosters
             # serializados en otra plataforma. El workflow entrena en el runner
             # de Linux y esos `modelo.joblib` no abrían en Windows («input
@@ -1764,10 +1955,8 @@ class ClubEngine:
 
     def _cuotas_partido(self, home: str, away: str) -> Dict:
         """Probabilidades implícitas del partido desde odds_actuales.json."""
-        try:
-            with open('odds_actuales.json', encoding='utf-8') as f:
-                cuotas = json.load(f).get('cuotas', {})
-        except Exception:
+        cuotas = _cuotas_actuales()
+        if not cuotas:
             return {}
         sufijo = f"_{home.replace(' ', '-')}_{away.replace(' ', '-')}"
         for mid, o in cuotas.items():

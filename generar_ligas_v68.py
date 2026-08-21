@@ -272,7 +272,12 @@ def medir_todo(max_workers: int = 6) -> List[Dict]:
     return filas
 
 
-TEMPORADAS_FD = ('2122', '2223', '2324', '2425', '2526')
+# v148 — el generador ya no congela la lista de temporadas en el fichero que
+# emite. Emitía tuplas literales que terminaban en la temporada del día en que
+# se ejecutó, y así fue como el catálogo se quedó atascado en '2526' mientras
+# 2026-27 ya se jugaba (ver `temporadas_fd.py`). Ahora emite la LLAMADA, que se
+# resuelve cada vez que arranca la aplicación.
+TEMPORADA_FD_DESDE = '2122'
 
 
 def escribir_config(filas: List[Dict], salida: str = SALIDA) -> None:
@@ -318,10 +323,14 @@ def escribir_config(filas: List[Dict], salida: str = SALIDA) -> None:
         'para las que baten a la línea base ELO (regla de oro del proyecto).',
         '"""', '',
         "FD_BASE = 'https://www.football-data.co.uk'", '',
+        '# v148 — la temporada vigente se deriva de la fecha, no se escribe a mano.',
+        'from temporadas_fd import temporadas_fd', '',
         'LIGAS_V68 = {']
 
     for f in FD_MAIN:
-        urls = ', '.join(f"f'{{FD_BASE}}/mmz4281/{s}/{f['fd']}.csv'" for s in TEMPORADAS_FD)
+        urls = ("f'{FD_BASE}/mmz4281/{s}/%s.csv'\n"
+                "                 for s in temporadas_fd(%r)"
+                % (f['fd'], TEMPORADA_FD_DESDE))
         partes += [
             f"    {f['clave']!r}: {{",
             f"        'nombre': {f['nombre']!r}, 'pais': {f['pais']!r}, 'formato': 'main',",
