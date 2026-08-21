@@ -591,8 +591,69 @@ def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
     except Exception as e:
         logger.debug(f"[fixtures] cuotas_multi no disponible: {e}")
         return 0
+    # v149 — LAS 354 PETICIONES DEJAN DE IR EN FILA INDIA.
+    #
+    # Medido con `_v149_perfil_barrido.py` y afinado con un contador por
+    # función sobre el barrido real de fútbol:
+    #
+    #     rama de fútbol                140,5 s
+    #     cuotas_partido   354 llamadas 262,7 s  (0,74 s cada una)
+    #       _buscar       1770 llamadas  17,2 s
+    #       _indice × 5    354 c/u        1,5 s
+    #       ────────────────────────────────────
+    #       sin explicar                ~244 s   ← el 90 % de su coste
+    #
+    # Los 244 s son `cuotas_core_espn`: **una petición HTTP por partido** al
+    # core API de ESPN, y este bucle las hacía una detrás de otra. No es
+    # cálculo, es el proceso parado esperando la red — que es exactamente lo
+    # que la v79 ya había aprendido con las ramas de deporte y lo que la v147
+    # aprendió con la ficha («el coste era RED, no cálculo»). Aquí quedaba el
+    # último sitio donde no se había aplicado.
+    #
+    # Dos fases a propósito:
+    #   1. la RED en paralelo, que es donde está el tiempo;
+    #   2. las escrituras sobre `fx` en el hilo principal, en el mismo orden de
+    #      siempre. Cada fixture sólo toca su propio diccionario, así que
+    #      hacerlo en las hebras también sería correcto, pero secuencial es
+    #      DETERMINISTA y este bucle decide qué precio ve el usuario.
+    #
+    # CUATRO hebras, no ocho ni treinta. `fixtures_multi` ya abre una hebra por
+    # liga, así que el multiplicador real es 49 × N: con ocho serían casi
+    # cuatrocientas peticiones simultáneas contra ESPN, que ya bloquea por IP a
+    # los centros de datos (v147). Medido, el salto de secuencial a paralelo
+    # aquí vale poco —`fixtures_multi` pasa de 41,3 s a 29,8 s— porque estas
+    # llamadas ya iban solapadas entre ligas; cuatro se queda con esa ganancia
+    # sin parecer un raspador.
+    from concurrent.futures import ThreadPoolExecutor
+
+    # Los índices de las casas se calientan ANTES de abrir el pool: los cachea
+    # el proceso, pero si ocho hebras llegan a la vez con el caché frío, las
+    # ocho se bajan el mismo tablón.
+    try:
+        cm.precargar(deporte)
+    except Exception as e:
+        logger.debug(f"[fixtures] precarga de tablones: {e}")
+
+    def _pedir(fx):
+        if not fx.get('event_id'):
+            return fx, None
+        try:
+            ref = (dep_espn, liga_espn, fx.get('event_id'), fx.get('_comp_id'))
+            return fx, cm.cuotas_partido(
+                deporte, fx['home'], fx['away'], espn_ref=ref,
+                fecha=fx.get('inicio') or fx.get('fecha'),
+                liga=liga_espn, clave_consenso=clave_proyecto)
+        except Exception:
+            return fx, None
+
+    with ThreadPoolExecutor(max_workers=4,
+                            thread_name_prefix='cuotas149') as _pool:
+        _resultados = list(_pool.map(_pedir, fixtures))
+
     n = 0
-    for fx in fixtures:
+    for fx, res in _resultados:
+        if res is None:
+            continue
         # v80 — AQUÍ ESTABA EL «0 PICKS CALIBRADOS».
         #
         # Esto era `if fx.get('odd_home'): continue`. Tenía sentido en la v71,
@@ -616,20 +677,11 @@ def _completar_cuotas(fixtures: List[Dict], deporte: str, dep_espn: str,
         #
         # Ahora se consulta SIEMPRE para obtener el ancla, y el precio de ESPN
         # se respeta: solo se escribe `odd_home` si no venía ya.
+        # v114 — la FECHA del fixture viaja a la búsqueda (ver `_pedir`). Es lo
+        # que impide que el emparejador tome las cuotas de otro partido del
+        # mismo cruce jugado otro día (ida y vuelta, o la categoría femenina
+        # del mismo club). Ver `cuotas_multi._buscar`.
         tenia_precio = bool(fx.get('odd_home'))
-        try:
-            ref = (dep_espn, liga_espn, fx.get('event_id'), fx.get('_comp_id'))
-            # v114 — la FECHA del fixture viaja a la búsqueda. Es lo que
-            # impide que el emparejador tome las cuotas de otro partido del
-            # mismo cruce jugado otro día (ida y vuelta, o la categoría
-            # femenina del mismo club). Ver `cuotas_multi._buscar`.
-            res = cm.cuotas_partido(deporte, fx['home'], fx['away'],
-                                    espn_ref=ref if fx.get('event_id') else None,
-                                    fecha=fx.get('inicio') or fx.get('fecha'),
-                                    liga=liga_espn,
-                                    clave_consenso=clave_proyecto)
-        except Exception:
-            continue
         # El ANCLA SHARP se toma siempre que exista, traiga o no precio ESPN:
         # es lo que activa el encogimiento hacia el mercado.
         pin = res.get('pinnacle')

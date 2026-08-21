@@ -776,6 +776,28 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             logger.warning(f"[alpha/fix] prefetch de modelos: "
                            f"{type(e).__name__}: {e}")
 
+    # v149 — CARGAR EL MODELO EN OTRA HEBRA NO SIRVE, Y ESTÁ MEDIDO.
+    #
+    # Se probó adelantar la carga del modelo de las tres ligas siguientes
+    # mientras se predice la actual, con el adelanto acotado para no repetir el
+    # problema de memoria de la v86 (medido ahora: ~46 MB por motor residente,
+    # así que cuatro vivos en vez de uno son +140 MB sobre los 1.297 MB, un
+    # 11 % — asumible).
+    #
+    # El resultado fue PEOR:
+    #
+    #     bucle secuencial (referencia)   128,8 s
+    #     con adelanto de 3 motores       160,1 s   · pico 902 MB
+    #
+    # La razón es que descomprimir y deserializar un `.joblib` es trabajo con
+    # el GIL TOMADO: `zlib` lo suelta, pero el *unpickle* que reconstruye el
+    # ensemble no. Así que la hebra que carga no se solapa con la que predice
+    # —la bloquea— y encima se pagan los cambios de contexto.
+    #
+    # Se deja escrito para no volver a intentarlo: en este bucle, hilos no.
+    # Lo que sí queda por probar, si algún día hace falta, es reducir el TRABAJO
+    # (no versionar los `.joblib` comprimidos, ya que el asset del Release va
+    # gzipado igualmente, o cargar `reg_local`/`reg_visit` sólo cuando se usen).
     for clave, cfg in _LG.items():
         if not cfg.get('disponible') or clave not in fixtures_espn.ESPN_CODIGOS:
             continue
@@ -871,13 +893,43 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             # probabilidad para rellenar el hueco.
             def _fila_sin_modelo(motivo: str) -> dict:
                 _f = pd.Timestamp(fx['fecha'])
-                return {'deporte': 'Fútbol', 'liga': cfg.get('nombre', clave),
-                        'clave_liga': clave,
-                        'partido': f"{fx.get('home')} vs {fx.get('away')}",
-                        'fecha': str(_f.date()), 'inicio': fx.get('inicio'),
-                        'es_hoy': es_hoy, 'sin_cuota': not tiene_cuota,
-                        'sin_modelo': True, 'prob': None, 'cuota': None,
-                        'motivo_sin_modelo': motivo}
+                _fila = {'deporte': 'Fútbol', 'liga': cfg.get('nombre', clave),
+                         'clave_liga': clave,
+                         'partido': f"{fx.get('home')} vs {fx.get('away')}",
+                         'fecha': str(_f.date()), 'inicio': fx.get('inicio'),
+                         'es_hoy': es_hoy, 'sin_cuota': not tiene_cuota,
+                         'sin_modelo': True, 'prob': None, 'cuota': None,
+                         'motivo_sin_modelo': motivo}
+                # v149 — SIN MODELO NO ES SIN INFORMACIÓN.
+                #
+                # Un ascendido que aún no ha jugado deja al modelo sin nada que
+                # decir, y eso no va a cambiar hasta que juegue. Pero el partido
+                # SÍ tiene precio, y este proyecto tiene medido que el precio
+                # sabe más que el modelo: apostar la probabilidad del modelo
+                # pierde entre −4,66 % y −6,52 % sobre 37.158 apuestas, y el
+                # mercado le gana la precisión en 25 de las 33 ligas donde hay
+                # con qué comparar (§0 de la bitácora).
+                #
+                # Así que en vez de un hueco se enseña la probabilidad
+                # IMPLÍCITA del mercado, quitado el margen. No es una
+                # invención —es un número observable, el que cotiza la casa— y
+                # va etiquetado como lo que es para que nadie lo confunda con
+                # una salida del modelo.
+                _oh, _od, _oa = (fx.get('odd_home'), fx.get('odd_draw'),
+                                 fx.get('odd_away'))
+                try:
+                    _inv = [1.0 / float(_oh), 1.0 / float(_od), 1.0 / float(_oa)]
+                    _tot = sum(_inv)
+                    if _tot > 0 and all(x > 0 for x in _inv):
+                        _h, _a = fx.get('home'), fx.get('away')
+                        _fila['board_mercado'] = {
+                            f'Gana {_h}': round(_inv[0] / _tot, 3),
+                            'Empate': round(_inv[1] / _tot, 3),
+                            f'Gana {_a}': round(_inv[2] / _tot, 3)}
+                        _fila['n_casas'] = fx.get('n_casas')
+                except (TypeError, ValueError, ZeroDivisionError):
+                    pass
+                return _fila
 
             home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
             away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')

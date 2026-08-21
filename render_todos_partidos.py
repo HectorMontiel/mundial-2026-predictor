@@ -65,7 +65,7 @@ def _pct(v) -> Optional[float]:
     return f if 0.0 <= f <= 1.0 else None
 
 
-def barra_1x2(pl, px, pv, home: str, away: str) -> str:
+def barra_1x2(pl, px, pv, home: str, away: str, mercado: bool = False) -> str:
     """
     La barra proporcional de un partido, o un hueco honesto si no hay modelo.
 
@@ -79,8 +79,18 @@ def barra_1x2(pl, px, pv, home: str, away: str) -> str:
                 '<span>sin pronóstico del modelo</span></div>')
     total = sum(vals)
     anchos = [v / total * 100.0 for v in vals]
-    etiquetas = (f'{home} {vals[0]*100:.0f} %', f'Empate {vals[1]*100:.0f} %',
-                 f'{away} {vals[2]*100:.0f} %')
+    # v149 — la misma barra, pero diciendo de dónde sale.
+    #
+    # Cuando el modelo no puede opinar —un ascendido que todavía no ha jugado—
+    # la pinta el MERCADO, con su margen quitado. El dibujo es el mismo porque
+    # la magnitud es la misma (una probabilidad de 1X2), pero el origen no lo
+    # es y no puede quedar escondido: lleva su sello y el origen en el título
+    # de cada tramo.
+    etiquetas = ((f'{home} {vals[0]*100:.0f} % (mercado)',
+                  f'Empate {vals[1]*100:.0f} % (mercado)',
+                  f'{away} {vals[2]*100:.0f} % (mercado)') if mercado else
+                 (f'{home} {vals[0]*100:.0f} %', f'Empate {vals[1]*100:.0f} %',
+                  f'{away} {vals[2]*100:.0f} %'))
     colores = (_COL_LOCAL, _COL_EMPATE, _COL_VISITA)
     trozos = []
     for ancho, color, etq, v in zip(anchos, colores, etiquetas, vals):
@@ -91,6 +101,12 @@ def barra_1x2(pl, px, pv, home: str, away: str) -> str:
         trozos.append(
             f'<span class="tp-seg" style="width:{ancho:.2f}%;background:{color}"'
             f' title="{_esc(etq)}">{dentro}</span>')
+    if mercado:
+        return (f'<div class="tp-barra tp-mercado" '
+                f'title="probabilidad implícita del mercado, sin el margen de '
+                f'la casa — el modelo no puede predecir este partido">'
+                f'{"".join(trozos)}'
+                f'<span class="tp-sello">mercado</span></div>')
     return f'<div class="tp-barra">{"".join(trozos)}</div>'
 
 
@@ -136,7 +152,12 @@ def _prob_lados(p: Dict):
     los visitantes sería afirmar algo que no se sabe.
     """
     home, away = lados(p.get('partido'))
-    board = p.get('board') or {}
+    # v149 — un partido con probabilidad de MERCADO ordena como los demás.
+    #
+    # Si aquí no se mirara `board_mercado`, esos partidos seguirían cayendo en
+    # el bloque de «sin pronóstico» del final aunque la lista ya les pinte su
+    # barra: la pantalla diría una cosa y el orden, otra.
+    board = p.get('board') or p.get('board_mercado') or {}
     pl = _pct(board.get(f'Gana {home}'))
     pv = _pct(board.get(f'Gana {away}'))
     if pl is not None and pv is not None:
@@ -258,6 +279,14 @@ def fila(p: Dict, marca: str, horario=None) -> str:
     """Una fila: hora, liga, partido, barra y semáforo."""
     home, away = lados(p.get('partido'))
     board = p.get('board') or {}
+    # v149 — si el modelo no tiene nada que decir, habla el precio.
+    #
+    # Va DESPUÉS del board del modelo y nunca en su lugar: donde hay modelo
+    # manda el modelo, y esto sólo rellena donde no lo hay.
+    _es_mercado = False
+    if not board and p.get('board_mercado'):
+        board = p['board_mercado']
+        _es_mercado = True
     icono = str(marca or '·').strip().split()[0] if marca else '·'
     color_marca, _ = _TONO_MARCA.get(icono, ('var(--tenue)', ''))
     return (
@@ -266,10 +295,14 @@ def fila(p: Dict, marca: str, horario=None) -> str:
         f'<div class="tp-meta">'
         f'<div class="tp-eq">{_esc(home)} <i>vs</i> {_esc(away)}</div>'
         f'<div class="tp-liga">{_esc(p.get("deporte", ""))} · '
-        f'{_esc(p.get("liga", ""))}</div></div>'
+        f'{_esc(p.get("liga", ""))}'
+        + ('<br><span class="tp-nota">precio del mercado · el modelo no '
+           'puede predecirlo</span>' if _es_mercado else '')
+        + '</div></div>'
         f'<div class="tp-graf">'
         + (barra_1x2(board.get(f'Gana {home}'), board.get('Empate'),
-                     board.get(f'Gana {away}'), home, away)
+                     board.get(f'Gana {away}'), home, away,
+                     mercado=_es_mercado)
            if board.get('Empate') is not None
            # sin empate en el board —MLB con dos vías, o tenis y KBO sin board
            # ninguno— se pinta con la probabilidad del lado elegido, que sí
@@ -301,6 +334,16 @@ CSS = """
            font-size: .64rem; font-weight: 700; color: #0d1117; }
 .tp-sinmodelo { align-items: center; justify-content: center;
                 font-size: .7rem; color: var(--tenue); }
+/* v149 — la barra del MERCADO se distingue de la del modelo a simple vista.
+   Misma geometría (es la misma magnitud) pero atenuada y con su sello, para
+   que nadie la lea como una salida del modelo. */
+.tp-mercado { position: relative; opacity: .72;
+              outline: 1px dashed var(--tenue); outline-offset: -1px; }
+.tp-sello { position: absolute; right: .25rem; top: 50%;
+            transform: translateY(-50%); font-size: .58rem; font-weight: 700;
+            letter-spacing: .02em; color: var(--texto); background: var(--panel2);
+            border-radius: 999px; padding: 0 .28rem; opacity: .95; }
+.tp-nota { font-size: .64rem; color: var(--tenue); font-style: italic; }
 .tp-marca { font-size: .74rem; font-weight: 600; text-align: center;
             border: 1px solid; border-radius: 999px; padding: .12rem .3rem;
             white-space: nowrap; }

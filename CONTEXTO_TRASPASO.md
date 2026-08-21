@@ -216,6 +216,41 @@ Son 64 MB estáticos, no los 712 MB diarios: **se quedan versionados**.
 dentro. `modelos/` mezclaba dos ciclos de vida —pesos diarios por competición y
 artefactos globales quietos desde hace meses— y el patrón no los distinguía.
 
+## 4e. v149 — LA BARRA DE MERCADO Y EL AGUJERO DE RENDIMIENTO
+
+Ver `VALIDACION_v149.md`.
+
+**Partidos sin modelo → ahora con precio.** Un ascendido que no ha jugado deja
+al modelo sin nada que decir, pero el partido SÍ tiene precio, y el §0 de la
+bitácora tiene medido que el precio sabe más que el modelo. Se pinta la
+probabilidad implícita del mercado (margen quitado), atenuada, con sello
+«mercado» y nota bajo la liga. Ordena junto a los demás (`prob_lados` mira
+`board_mercado`). Donde hay modelo, manda el modelo.
+Medido: sin_modelo = 7 · con barra de mercado = 7.
+
+**Rendimiento: 169,9 → 129,6 s en la rama de fútbol (−24 %).** De memorizar
+cinco funciones puras del emparejador y paralelizar `_completar_cuotas` a 4
+hebras. Pico de memoria 654 MB (v86 midió 1.297).
+
+**TRES DIAGNÓSTICOS EQUIVOCADOS, y la razón es la misma:**
+sumar tiempo de hebras CONCURRENTES no es tiempo de reloj. `_completar_cuotas`
+se llama desde `fixtures_multi`, que ya abre una hebra por liga, así que 240 s
+«acumulados» cabían en 30 de reloj. **Para buscar un cuello de botella hay que
+cronometrar FASES, no acumular por función.**
+
+**EL RELOJ DICE:** `_barrido_fixtures` es el 100 % de la rama (128,8 s), y
+dentro, en serie: 50 s de cargar 35 modelos + 51 s de 286 predicciones.
+
+**NO INTENTAR OTRA VEZ:** adelantar la carga del modelo siguiente en otra hebra.
+Medido: 128,8 → **160,1 s** (peor). El *unpickle* de un `.joblib` retiene el
+GIL; la hebra que carga bloquea a la que predice. Está escrito en el propio
+`alpha_finder`. ~46 MB por motor residente, por si hace falta el dato.
+
+**LO QUE SÍ QUEDA POR PROBAR** para bajar de 129 s (reducir el trabajo, no
+repartirlo): guardar los `.joblib` sin comprimir dentro del asset del Release
+(que ya va gzipado, así que no cuesta tamaño) y cargar
+`reg_local`/`reg_visit`/`mesm` sólo cuando se usen. Es su propia versión.
+
 ## 5. PENDIENTE
 
 1. **El workflow tardó 59m51s con tope de 60.** Va al filo. Ahora sube ~57 assets

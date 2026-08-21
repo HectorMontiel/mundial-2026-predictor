@@ -305,6 +305,18 @@ def _expandir_abreviatura(prefijo: str, resto: str) -> Optional[str]:
 
 
 @lru_cache(maxsize=100_000)
+# v149 — MEMORIZADA. Es una función PURA de una cadena y el emparejador la
+# llama millones de veces sobre un puñado de nombres distintos: `_buscar`
+# recorre el índice entero de cada una de las seis fuentes por CADA partido, y
+# el barrido evalúa ~290. Medido con `_v149_perfil_barrido.py`, el conjunto
+# `cuotas_multi` se llevaba **293,8 s de los 211 s de reloj** del barrido (la
+# suma pasa del reloj porque corre en varias hebras) — más que los modelos
+# (45,5 s), las predicciones (34,6 s) y los fixtures (42,9 s) juntos.
+#
+# El caché no cambia ni un resultado: misma entrada, misma salida, sólo que no
+# se vuelve a calcular. El tope existe para que un tablón enorme no haga crecer
+# la memoria sin límite.
+@lru_cache(maxsize=200_000)
 def normalizar(nombre: str) -> str:
     """Clave de comparación: sin acentos, sin puntuación, sin sufijos de club."""
     if not nombre:
@@ -340,6 +352,7 @@ def _tokens_club(nombre: str) -> frozenset:
 
 
 @lru_cache(maxsize=200_000)
+@lru_cache(maxsize=200_000)          # v149: pura; ver la nota de `normalizar`
 def _sim_club(a: str, b: str) -> float:
     """
     Similitud entre dos nombres de club: Jaccard de palabras significativas,
@@ -474,6 +487,7 @@ _MARCA_ESTADO = re.compile(
     r'[-(\s](' + '|'.join(_ESTADOS_BR) + r')\s*\)?\s*$', re.I)
 
 
+@lru_cache(maxsize=100_000)          # v149: pura; ver la nota de `normalizar`
 def marca_estado(nombre: str) -> str:
     """
     El sufijo de estado brasileño de un nombre de club, o '' si no lo lleva.
@@ -513,6 +527,14 @@ def _filial_debil(home: str, away: str) -> bool:
 
 
 @lru_cache(maxsize=50_000)
+# v149 — MEMORIZADA, y ésta es la que más pesaba.
+#
+# `_buscar` la llama para CADA entrada del índice en CADA consulta, a través de
+# `_compatible`. Con seis fuentes, un índice de miles de eventos y ~290
+# partidos, la misma terna (home, away, liga) se recalculaba cientos de veces.
+# Devuelve un `frozenset`, que es inmutable, así que compartir el resultado
+# entre llamantes es seguro.
+@lru_cache(maxsize=200_000)
 def categoria_efectiva(home: str, away: str, liga: str = '') -> frozenset:
     """
     La categoría con la que se compara: las marcas inequívocas MÁS el sufijo
@@ -633,6 +655,7 @@ def _clave_tenista(nombre: str) -> tuple:
 
 
 @lru_cache(maxsize=200_000)
+@lru_cache(maxsize=200_000)          # v149: pura; ver la nota de `normalizar`
 def _sim_tenista(a: str, b: str) -> float:
     # v79 — memoizada por el mismo motivo que `_sim_club`: `_buscar` la llama
     # cuatro veces por candidato del tablón (unos 421 partidos de tenis) y
