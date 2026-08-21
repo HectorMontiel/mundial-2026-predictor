@@ -239,19 +239,32 @@ jobs:
       - name: Dejar de versionar los pesos (transición, idempotente)
         if: steps.publicar.outcome == 'success'
         run: |
-          if [ -n "$(git ls-files modelos/ | head -1)" ]; then
-            echo "modelos/ sigue versionado: se retira del índice."
-            git rm -r --cached --quiet modelos/
-            if ! grep -qx 'modelos/' .gitignore; then
+          # SÓLO LOS SUBDIRECTORIOS. La raíz de `modelos/` se queda.
+          #
+          # La primera versión de este paso hacía `git rm -r --cached modelos/`
+          # y escribía `modelos/` en .gitignore. Se llevó por delante los once
+          # artefactos que viven en la RAÍZ y que no son de ninguna liga —el
+          # modelo del Mundial, el MAT, la NFL, la supervivencia de BTTS— y la
+          # aplicación se cayó con
+          # `FileNotFoundError: './modelos/modelo_tda.joblib'`.
+          #
+          # Esos ficheros no los regenera este workflow y sólo cambian cuando
+          # alguien reentrena el Mundial a mano: son 64 MB estáticos, no los
+          # 712 MB diarios que la v148 vino a sacar de la historia.
+          _subdirs=$(git ls-files 'modelos/*/*' | head -1)
+          if [ -n "$_subdirs" ]; then
+            echo "los modelos por competición siguen versionados: se retiran del índice."
+            git rm -r --cached --quiet 'modelos/*/'
+            if ! grep -qx 'modelos/\*/' .gitignore; then
               {
                 echo ""
-                echo "# v148 - los pesos entrenados viajan como assets del Release"
-                echo "# modelos-latest, no en la historia de git. Ver modelos_remotos.py."
-                echo "modelos/"
+                echo "# v148 - los pesos POR COMPETICION viajan como assets del Release"
+                echo "# modelos-latest. La RAIZ de modelos/ se queda versionada."
+                echo "modelos/*/"
               } >> .gitignore
             fi
           else
-            echo "modelos/ ya no está versionado. Nada que hacer."
+            echo "los modelos por competición ya no están versionados. Nada que hacer."
           fi
 
       - name: Importar cuotas de cierre al histórico

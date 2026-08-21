@@ -130,6 +130,26 @@ consenso_api_uso.json
 .cache_barrido.pkl
 .cache_barrido.pkl.tmp
 
-# v148 - los pesos entrenados viajan como assets del Release
-# modelos-latest, no en la historia de git. Ver modelos_remotos.py.
-modelos/
+# v148 — los pesos POR COMPETICIÓN viajan como assets del Release
+# «modelos-latest», no en la historia de git. Ver modelos_remotos.py.
+#
+# El patrón es `modelos/*/` y NO `modelos/`, y la diferencia costó una caída.
+# En la raíz de `modelos/` viven artefactos que NO son de ninguna liga y que el
+# bot diario NO regenera: el modelo del Mundial (`modelo_tda.joblib`,
+# `escalador.joblib`, `reg_goles_*.joblib`, `metadata.json`, `validacion.npz`),
+# el MAT (`mat_*`), la NFL (`nfl_v131.json`) y la supervivencia de BTTS.
+#
+# La primera versión de esta regla decía `modelos/` a secas, así que la
+# transición se los llevó con `git rm -r --cached modelos/` y `prediction_api`
+# se quedó sin motor:
+#
+#     FileNotFoundError: './modelos/modelo_tda.joblib'
+#
+# Esos ficheros se quedan versionados y es correcto: son 64 MB que sólo cambian
+# cuando alguien reentrena el Mundial a mano, no 712 MB reescritos cada
+# madrugada, que era el problema que la v148 vino a resolver.
+#
+# git no permite re-incluir un fichero si su directorio padre está excluido, así
+# que aquí no vale «`modelos/` y luego `!modelos/*.joblib`»: hay que excluir
+# sólo los subdirectorios desde el principio.
+modelos/*/

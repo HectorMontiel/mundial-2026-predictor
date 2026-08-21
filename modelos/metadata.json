@@ -1,0 +1,131 @@
+{
+  "version": 12,
+  "universo_selecciones": {
+    "criterio": "v66:>=100 partidos",
+    "n_selecciones": 200,
+    "n_mundial_2026": 49
+  },
+  "walk_forward": {
+    "ventanas": [
+      {
+        "ventana": "2024-01-01 → 2024-07-01",
+        "n": 588,
+        "precision": 0.5901,
+        "log_loss": 0.8933,
+        "mundial2026": {
+          "n": 90,
+          "precision": 0.4778,
+          "log_loss": 1.0133
+        }
+      },
+      {
+        "ventana": "2024-07-01 → 2025-01-01",
+        "n": 643,
+        "precision": 0.5754,
+        "log_loss": 0.9307,
+        "mundial2026": {
+          "n": 88,
+          "precision": 0.4773,
+          "log_loss": 0.9864
+        }
+      },
+      {
+        "ventana": "2025-01-01 → 2025-07-01",
+        "n": 407,
+        "precision": 0.5971,
+        "log_loss": 0.8382,
+        "mundial2026": {
+          "n": 58,
+          "precision": 0.3621,
+          "log_loss": 1.1101
+        }
+      },
+      {
+        "ventana": "2025-07-01 → 2026-01-01",
+        "n": 592,
+        "precision": 0.6334,
+        "log_loss": 0.8057,
+        "mundial2026": {
+          "n": 62,
+          "precision": 0.4839,
+          "log_loss": 1.0202
+        }
+      },
+      {
+        "ventana": "2026-01-01 → 2026-07-01",
+        "n": 395,
+        "precision": 0.5873,
+        "log_loss": 0.8736,
+        "mundial2026": {
+          "n": 125,
+          "precision": 0.584,
+          "log_loss": 0.911
+        }
+      }
+    ],
+    "precision_media": 0.5967,
+    "log_loss_medio": 0.8683,
+    "mundial2026": {
+      "precision_media": 0.477,
+      "log_loss_medio": 1.0082,
+      "ventanas_con_datos": 5
+    }
+  },
+  "odds_features": {
+    "activas": false,
+    "cobertura": 0.0,
+    "medias_train": null
+  },
+  "entrenado_en": "2026-07-25T01:51:20",
+  "fuente_datos": "real_hybrid",
+  "arquitectura": "VotingClassifier(XGBoost+RandomForest+LightGBM) + CalibratedClassifierCV(isotonic)",
+  "n_partidos_train_real": 29000,
+  "n_partidos_train_aumento": 611,
+  "n_partidos_validacion": 2648,
+  "fecha_corte_validacion": "2024-01-01",
+  "precision_validacion": 0.6008,
+  "precision_linea_base": 0.5989,
+  "log_loss_validacion": 0.8697,
+  "validacion_mundial_2026": {
+    "n": 444,
+    "precision": 0.5023,
+    "log_loss": 0.9824
+  },
+  "validacion_resto_universo": {
+    "n": 2204,
+    "precision": 0.6207,
+    "log_loss": 0.847
+  },
+  "mae_goles_local": 1.0459,
+  "mae_goles_visitante": 0.8647,
+  "deploy_ready": true,
+  "umbral_despliegue": 0.55,
+  "objetivo_estricto": {
+    "precision": 0.62,
+    "log_loss": 0.85,
+    "cumplido": false
+  },
+  "features": [
+    "DIFF_ELO",
+    "DIFF_GF_MA5",
+    "DIFF_GA_MA5",
+    "DIFF_XGF_MA5",
+    "DIFF_XGC_MA5",
+    "DIFF_SOTF_MA5",
+    "DIFF_SOTC_MA5",
+    "DIFF_AMAR_MA5",
+    "DIFF_ROJAS_MA5",
+    "DIFF_FORMA_MA5",
+    "CHOQUE_ESTILOS",
+    "ALTURA_NORM",
+    "VENTAJA_LOCALIA",
+    "CLIMA_TEMP_NORM",
+    "H2H_BALANCE",
+    "ENT_PAR_H0",
+    "ENT_PAR_H1",
+    "ENT_LOCAL_H0",
+    "ENT_LOCAL_H1",
+    "ENT_VISIT_H0",
+    "ENT_VISIT_H1"
+  ]
+}

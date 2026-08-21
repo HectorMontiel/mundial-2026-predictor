@@ -192,6 +192,30 @@ había corrido desde la v147, así que nunca llegaron a producción):
 `modelos/`. Se rellena solo la primera vez que se carga cada liga (unos
 segundos por competición). No hay que restaurarlo ni commitearlo.
 
+## 4d. v148.1 — CAÍDA Y ARREGLO (mismo día)
+
+`FileNotFoundError: './modelos/modelo_tda.joblib'` en producción.
+
+El patrón de exclusión decía `modelos/` cuando lo que sobraba eran
+`modelos/*/`. En la RAÍZ de `modelos/` hay **11 artefactos que no son de
+ninguna liga y que el bot NO regenera**: el modelo del Mundial
+(`modelo_tda.joblib`, `escalador.joblib`, `reg_goles_*.joblib`,
+`metadata.json`, `validacion.npz`, `curvas_calibracion.png`), el MAT
+(`mat_*`), la NFL (`nfl_v131.json`) y `supervivencia_btts.json`.
+`git rm -r --cached modelos/` se los llevó.
+
+Son 64 MB estáticos, no los 712 MB diarios: **se quedan versionados**.
+
+- `.gitignore` y el paso del workflow pasan a `modelos/*/`.
+- **No vale** `modelos/` + `!modelos/*.joblib`: git no re-incluye un fichero si
+  su directorio padre está excluido. Hay que excluir sólo los subdirectorios.
+- Verificado con `modelos/` sin subcarpetas (estado de producción):
+  `PredictionEngine OK en 2,9 s` y predice.
+
+**REGLA:** antes de escribir un `git rm -r --cached <dir>`, enumerar lo que hay
+dentro. `modelos/` mezclaba dos ciclos de vida —pesos diarios por competición y
+artefactos globales quietos desde hace meses— y el patrón no los distinguía.
+
 ## 5. PENDIENTE
 
 1. **El workflow tardó 59m51s con tope de 60.** Va al filo. Ahora sube ~57 assets

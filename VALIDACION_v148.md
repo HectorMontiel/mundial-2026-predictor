@@ -547,6 +547,62 @@ que el camino de desarrollo. Que es lo que había que demostrar.
 
 ---
 
+## v148.1 — la transición se llevó once ficheros que no debía
+
+**Producción cayó** poco después del despliegue:
+
+```
+El motor de predicción no pudo inicializarse.
+FileNotFoundError: './modelos/modelo_tda.joblib'
+```
+
+Causa mía, y del tipo más evitable: escribí el patrón `modelos/` cuando lo que
+sobraba eran `modelos/*/`. En la RAÍZ de `modelos/` viven once artefactos que
+**no pertenecen a ninguna liga** y que el bot diario **no regenera**:
+
+```
+modelo_tda.joblib · escalador.joblib · reg_goles_local.joblib
+reg_goles_visit.joblib · metadata.json · validacion.npz
+curvas_calibracion.png            (el modelo del Mundial)
+mat_mundial.joblib · mat_metadata.json          (MAT)
+nfl_v131.json                                   (NFL)
+supervivencia_btts.json
+```
+
+`git rm -r --cached modelos/` se los llevó con las subcarpetas y `prediction_api`
+se quedó sin motor. Verificado que fueron **exactamente esos once y ninguno
+más**: `git diff --name-status ecc7514 5592f41 | grep '^D'` da 314 borrados,
+303 de subcarpetas y 11 de la raíz.
+
+Son **64 MB que sólo cambian cuando alguien reentrena el Mundial a mano**, no
+los 712 MB reescritos cada madrugada. Nunca fueron el problema, así que se
+quedan versionados.
+
+El patrón pasa a `modelos/*/`, en el `.gitignore` y en el paso del workflow. Y
+hay una razón por la que no vale el arreglo perezoso —`modelos/` más
+`!modelos/*.joblib`—: **git no permite re-incluir un fichero si su directorio
+padre está excluido.** Hay que excluir sólo los subdirectorios desde el
+principio.
+
+Comprobado tras el arreglo, con `modelos/` sin una sola subcarpeta —que es
+exactamente el estado de producción—:
+
+```
+subcarpetas en modelos/: []
+PredictionEngine OK en 2,9 s
+predice MEX vs USA: OK
+```
+
+**La lección**, para que no vuelva a pasar: un `git rm -r --cached` sobre un
+directorio borra TODO lo que hay dentro, y «lo que hay dentro» hay que
+enumerarlo antes de escribir el patrón, no deducirlo del nombre. Aquí el
+directorio se llamaba `modelos/` y contenía dos cosas con ciclos de vida
+distintos: pesos por competición que se reescriben a diario y artefactos
+globales que llevan meses quietos. El patrón tenía que distinguirlas y no lo
+hacía.
+
+---
+
 ## Extra no pedido: el bot perdió hoy 52 minutos de trabajo, y volvería a pasar
 
 Al ir a lanzar el reentrenamiento se miró el estado del bot y la ejecución de
