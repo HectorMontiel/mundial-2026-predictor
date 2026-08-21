@@ -4245,6 +4245,35 @@ def test_cobertura_remates_medida():
           "la interfaz consulta la cobertura antes de enseñar la sección")
 
 
+_ASSETS_CACHE = {}
+
+
+def _ASSETS_DEL_RELEASE():
+    """Nombres de los assets de `modelos-latest`, o None si no hay red.
+
+    v148 — se consulta la API pública de GitHub, que no pide credenciales para
+    un repositorio público. Devolver None y no una lista vacía es deliberado:
+    «no lo sé» y «no hay ninguno» llevan a conclusiones opuestas, y confundirlos
+    haría que este test cantara un fallo inventado cada vez que se ejecuta sin
+    conexión.
+    """
+    if 'assets' in _ASSETS_CACHE:
+        return _ASSETS_CACHE['assets']
+    salida = None
+    try:
+        import json as _json
+        import urllib.request as _u
+        import modelos_remotos as _mr
+        url = (f'https://api.github.com/repos/{_mr.REPO}/releases/tags/'
+               f'{_mr.ETIQUETA}')
+        with _u.urlopen(url, timeout=20) as r:
+            salida = {a['name'] for a in _json.load(r).get('assets', [])}
+    except Exception:
+        salida = None
+    _ASSETS_CACHE['assets'] = salida
+    return salida
+
+
 def test_ninguna_liga_activa_sin_modelo():
     """
     v106 — una competición ACTIVA no puede tener su modelo fuera del repo.
@@ -4277,14 +4306,41 @@ def test_ninguna_liga_activa_sin_modelo():
           f"ninguna competición activa tiene su modelo excluido del repo "
           f"({conflicto})")
 
-    # y las activas tienen que tener el artefacto de verdad
-    sin_artefacto = sorted(
-        k for k in activas
-        if k in _CLAVES_CON_MODELO_PROPIO()
-        and not os.path.exists(os.path.join('modelos', k, 'modelo.joblib')))
-    check(not sin_artefacto,
-          f"y todas las activas con motor propio traen su modelo.joblib "
-          f"({sin_artefacto})")
+    # y las activas tienen que tener el artefacto DISPONIBLE de verdad
+    #
+    # v148 — «disponible» ya no significa «está en el repo».
+    #
+    # Los pesos por competición salieron de la historia de git y viven como
+    # assets del Release `modelos-latest`, que la aplicación baja bajo demanda
+    # (ver `modelos_remotos.py`). Un clon limpio NO trae `modelos/<liga>/`, así
+    # que exigir el fichero en disco convertía este test en un falso negativo
+    # permanente.
+    #
+    # Lo que se comprueba sigue siendo LO MISMO —que ninguna competición activa
+    # se quede sin modelo y desaparezca en silencio, que es el fallo de la
+    # v106— sólo que ahora hay dos sitios válidos donde puede estar: el disco o
+    # el Release. Si no está en ninguno, es el mismo agujero de siempre.
+    #
+    # El Release se consulta UNA vez y con red opcional: sin conexión no se
+    # puede afirmar nada, así que el test lo dice y no inventa un veredicto.
+    _en_disco = {k for k in activas
+                 if os.path.exists(os.path.join('modelos', k, 'modelo.joblib'))}
+    _faltan_local = sorted(k for k in activas
+                           if k in _CLAVES_CON_MODELO_PROPIO()
+                           and k not in _en_disco)
+    if not _faltan_local:
+        check(True, "todas las activas con motor propio traen su modelo.joblib")
+    else:
+        _publicados = _ASSETS_DEL_RELEASE()
+        if _publicados is None:
+            print(f"AVISO {len(_faltan_local)} modelos no están en disco y no se "
+                  f"pudo consultar el Release (sin red): no se afirma nada.")
+        else:
+            _sin_ningun_sitio = sorted(k for k in _faltan_local
+                                       if f'modelos-{k}.tar.gz' not in _publicados)
+            check(not _sin_ningun_sitio,
+                  f"todas las activas con motor propio tienen su modelo, en "
+                  f"disco o publicado en el Release ({_sin_ningun_sitio})")
 
     # las que se apartaron dicen POR QUÉ, con la cifra medida
     for k in ('eng_championship', 'eng_fa_cup', 'ned_eerste'):
