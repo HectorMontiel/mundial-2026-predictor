@@ -175,27 +175,46 @@ había corrido desde la v147, así que nunca llegaron a producción):
   commit NO borra nada.
 - Esto DETIENE el crecimiento; no encoge los 15 GB que ya están.
 
+## 4c. ESTADO REAL TRAS EL DESPLIEGUE (2026-08-21)
+
+- `main` = `5592f41` (commit del bot) sobre `ecc7514` (v148).
+- **`modelos/` YA NO ESTÁ VERSIONADO.** La transición la hizo el bot en la
+  ejecución `32472153115` (59m51s, todo en verde). Release `modelos-latest`
+  con **57 assets**.
+- Clon nuevo: **9,3 s · 194 MB** (antes 12,89 GiB y >10 min).
+- Verificado en ese clon SIN `modelos/`: laliga/premier/liga_mx/NBA cargan
+  bajando del Release, con reparación de plataforma, y predicen.
+- Commit diario del bot medido en objetos reales: **5,6 MB / 128 objetos**
+  (antes ~650 MB). 116× menos.
+- LaLiga pasa de 26 a 31 equipos: los ascendidos están dentro.
+
+**OJO para la próxima sesión:** el clon local de trabajo TAMPOCO tiene ya
+`modelos/`. Se rellena solo la primera vez que se carga cada liga (unos
+segundos por competición). No hay que restaurarlo ni commitearlo.
+
 ## 5. PENDIENTE
 
-1. **Vigilar el PRIMER pase del bot con la v148.** Es el que publica los ~57 assets
-   del Release y, si eso verifica, retira `modelos/` del índice. Comprobar en Actions:
-   paso «Publicar los modelos como assets del Release» en verde y paso «Dejar de
-   versionar los pesos» ejecutado. Si la publicación falla, la transición NO corre
-   y todo sigue como antes (es el diseño).
+1. **El workflow tardó 59m51s con tope de 60.** Va al filo. Ahora sube ~57 assets
+   (~880 MB) y a cambio se ahorró ~57 peticiones a ESPN. Si empieza a caerse por
+   timeout, la optimización obvia es no re-subir el asset de una competición cuyos
+   ficheros no han cambiado (hash del contenido, no del tar: gzip mete el mtime).
+   La otra palanca: subir `timeout-minutes` a 90.
 2. **Los 15 GB de `.git` YA ESCRITOS siguen ahí.** La v148 detiene el crecimiento
-   (~650 MB/día → los KB de `team_stats_*.json` e `historico_*.csv`). Encogerlos exige
-   reescribir historia: destructivo, rompe todos los clones y **ni siquiera libera
-   espacio en GitHub sin abrir ticket con su soporte**. Riesgo alto, beneficio incierto.
-   Para un clon ligero HOY: `git clone --depth 1 --single-branch`.
-3. **Vigilar el tiempo del workflow.** Añade ~57 subidas de asset (~880 MB) y quita
-   ~57 peticiones a ESPN. Si se acerca a los 60 min, la optimización obvia es no
-   re-subir el asset de una liga cuyos ficheros no han cambiado.
-2. **Vigilar bot de esta noche**: 226 ficheros en vez de 89, CSVs 3-5× más grandes, timeout 60 min.
-3. **Primera ejecución del workflow de rosters** (04:30 UTC).
-4. **No probado end-to-end**: liga `main` de 9 temporadas (probé Premier 16 y liga_mx `new`).
-5. **Córners**: validar el nivel del modelo con lambdas de producción → entonces semáforo y recomendaciones.
-6. **Ingestor OpenLigaDB** para 3.Liga alemana (endpoint verificado, ~1.900 partidos sin huecos).
-7. Mapeo de nombres: ~39 sin mapear. Medir cuántos se descartan vs cuántos casan MAL.
+   —medido: 5,6 MB en el primer commit del bot bajo el régimen nuevo, frente a
+   ~650 MB— pero no encoge lo pasado. Reescribir historia es destructivo, rompe
+   todos los clones y **ni siquiera libera espacio en GitHub sin abrir ticket con
+   su soporte**. Riesgo alto, beneficio incierto. Decisión pendiente de HMREY.
+   Para un clon ligero HOY: `git clone --depth 1 --single-branch` (9,3 s, 194 MB).
+3. **Los 7 partidos sin pronóstico se resuelven solos** cuando football-data publique
+   E0, F1, I2 y G1 de 2627. No hay que tocar nada: la lista de temporadas ya los pide.
+   Vale la pena volver a correr `_v148_medir_pronosticos.py` dentro de unos días.
+4. **Primera ejecución del workflow de rosters** (04:30 UTC).
+5. **Córners**: validar el nivel del modelo con lambdas de producción → entonces
+   semáforo y recomendaciones.
+6. **Ingestor OpenLigaDB** para 3.Liga alemana (endpoint verificado, ~1.900 partidos).
+7. Mapeo de nombres: quedan ~100 en `nombres_sin_mapear.json`. La v148 cerró los
+   que costaban partidos hoy; medir cuántos de los demás casan MAL (que es el daño
+   caro, como enseñó Independiente Rivadavia) en vez de simplemente descartarse.
 8. Bovada falla en MLB a veces. Medir frecuencia.
 
 ## 6. NO HACER

@@ -482,6 +482,71 @@ git clone --depth 1 --single-branch https://github.com/HectorMontiel/mundial-202
 
 ---
 
+## Verificación DESPUÉS del despliegue (2026-08-21, sobre producción)
+
+Todo lo anterior se midió antes de empujar. Esto es lo que pasó de verdad.
+
+**El bot corrió con la v148 y la transición se hizo sola.** Ejecución
+`32472153115`, 59m51s, todos los pasos en verde, incluidos «Publicar los
+modelos como assets del Release» y «Dejar de versionar los pesos». El Release
+`modelos-latest` quedó con **57 assets** y `modelos/` desapareció de `main`.
+
+**Un clon nuevo, que es lo que hace Streamlit Cloud en cada despliegue:**
+
+```
+git clone --depth 1 --single-branch …
+    9,3 s · 194 MB          (antes: 12,89 GiB y más de diez minutos)
+```
+
+**Y funciona sin la carpeta de modelos**, que era el único riesgo real de todo
+esto. En ese clon, con `modelos/` inexistente:
+
+```
+laliga     listo=True en 5,4 s · 31 equipos · predice OK
+premier    listo=True en 3,2 s · 25 equipos · predice OK
+liga_mx    listo=True en 2,4 s · 22 equipos · predice OK
+NBA        listo=True en 2,0 s
+   [modelos] laliga: descargado del Release (6 ficheros)
+   modelo.joblib: booster de otra plataforma, se repara por la ruta portable
+```
+
+La última línea importa: el modelo venía del runner de Linux y se abrió en
+Windows por la ruta portable de la v87. Descarga bajo demanda, extracción,
+reparación de plataforma y predicción, en cadena y sin intervención.
+
+LaLiga pasa de 26 a **31 equipos**: los ascendidos ya están dentro.
+
+**El commit diario del bot, medido en objetos reales:**
+
+```
+git rev-list --objects <commit del bot> --not <v148> | cat-file --batch-check
+    5,6 MB  ·  128 objetos
+```
+
+Frente a los ~650 MB por commit de antes. **116 veces menos**, y no es una
+proyección: es el primer commit del bot ya bajo el régimen nuevo.
+
+**Y el bug de pronósticos, remedido en ese mismo clon**, con los modelos que
+sirve producción y bajados del Release:
+
+```
+FIXTURES TOTALES: 326
+CON pronóstico  : 319
+SIN pronóstico  :   7   (2,1 %)
+SIN MOTOR       : ninguna
+
+   premier           Coventry City · Hull City      E0 2627 sin publicar
+   ita_serie_b       Arezzo · Hellas Verona         I2 2627 sin publicar
+   gre_super_league  Iraklis · Kalamata             G1 2627 sin publicar
+   ligue_1           Le Mans                        F1 2627 sin publicar
+```
+
+Idéntico a la medición local: el camino de producción —modelo bajado del
+Release, reparado de plataforma y cargado— da exactamente el mismo resultado
+que el camino de desarrollo. Que es lo que había que demostrar.
+
+---
+
 ## Extra no pedido: el bot perdió hoy 52 minutos de trabajo, y volvería a pasar
 
 Al ir a lanzar el reentrenamiento se miró el estado del bot y la ejecución de
