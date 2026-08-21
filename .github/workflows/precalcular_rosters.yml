@@ -1,0 +1,99 @@
+name: Precalcular goleadores (rosters de ESPN)
+
+# v147 — POR QUÉ ESTE WORKFLOW EXISTE
+#
+# En producción, el log de Streamlit Cloud repite:
+#
+#     [goleadores/liga_mx] roster 232: HTTPError: 403 Client Error: Forbidden
+#
+# No es un cambio de la API de ESPN. Verificado el 2026-08-17 desde una máquina
+# normal sobre 14 ligas: 0 de 14 fallan en `/teams` y 0 de 14 en `/roster`.
+# **El 403 depende de quién pregunta**: ESPN bloquea esos dos endpoints desde
+# IPs de centro de datos, que es donde corre Streamlit Cloud.
+#
+# El runner de GitHub sí puede, y hay prueba en el propio repositorio: el
+# commit diario de `retrain_leagues` añade partidos a los históricos de
+# `arg_primera_nacional`, `bol_division`, `chi_primera` y `per_liga1`, cuatro
+# ligas de formato `espn` cuyos datos salen EXCLUSIVAMENTE de ESPN. Si el
+# runner estuviera bloqueado, esos ficheros no crecerían.
+#
+# Así que la petición se hace aquí y el resultado viaja en el repositorio.
+# `goleadores_cache.json` es LA MISMA caché que la aplicación ya lee: no hay
+# formato nuevo ni consumidor nuevo, sólo se adelanta el trabajo a un sitio
+# donde no lo rechazan.
+
+on:
+  schedule:
+    # A las 04:30 UTC, una hora ANTES del reentrenamiento de ligas (05:30).
+    # El orden importa: así el commit de los rosters no compite con el suyo
+    # por el mismo push, que es como se generan los conflictos que luego hay
+    # que rebasar a mano.
+    - cron: '30 4 * * *'
+  workflow_dispatch:
+    inputs:
+      ligas:
+        description: 'Ligas concretas (separadas por espacios). Vacío = todas.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: precalcular-rosters
+  cancel-in-progress: false
+
+jobs:
+  precalcular:
+    runs-on: ubuntu-latest
+    # El TTL de la caché son 3 días y hay ~50 ligas a ~20 s cada una, así que
+    # con 45 minutos sobra incluso si ESPN va lento. Sin tope, un cuelgue de
+    # red dejaría el runner corriendo una hora larga sin producir nada.
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Instalar dependencias mínimas
+        # No hace falta el requirements entero: este script sólo usa requests
+        # y lee `config`/`fixtures_espn`, que no traen nada pesado. Instalar
+        # scikit-learn y compañía aquí serían tres minutos por nada.
+        run: pip install requests pandas
+
+      - name: Precalcular la caché de goleadores
+        run: |
+          python precalcular_goleadores.py --ligas ${{ github.event.inputs.ligas }}
+
+      - name: Comprobar que la caché creció
+        # Si el fichero no cambió, no se commitea: un commit vacío por día
+        # ensucia el histórico y hace ruido en los rebases del otro workflow.
+        id: cambios
+        run: |
+          if git diff --quiet -- goleadores_cache.json; then
+            echo "hay_cambios=no" >> "$GITHUB_OUTPUT"
+            echo "La caché no cambió; no se commitea."
+          else
+            echo "hay_cambios=si" >> "$GITHUB_OUTPUT"
+            git diff --stat -- goleadores_cache.json
+          fi
+
+      - name: Commitear la caché
+        if: steps.cambios.outputs.hay_cambios == 'si'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add goleadores_cache.json
+          git commit -m "chore(datos): caché de goleadores precalculada ($(date -u +%Y-%m-%d))
+
+          Se precalcula en el runner porque ESPN devuelve 403 a /teams y
+          /roster desde las IPs de Streamlit Cloud. Ver el encabezado de
+          precalcular_goleadores.py."
+          # Rebase antes de empujar: el workflow de reentrenamiento puede haber
+          # empujado entre medias y sólo toca datos, nunca .py.
+          git pull --rebase origin main
+          git push origin HEAD:main

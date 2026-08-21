@@ -218,8 +218,11 @@ LEAGUES = {
     #   Turquía 55.1 % (ELO 49.5, mercado 53.5) — bate mercado, ROI +14.2 %.
     #   Dinamarca 50.6 % (ELO 47.5) — bate ELO, iguala mercado.
     'turquia': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 3.
+        'temporadas_modelo': 3,
         'nombre': 'Süper Lig', 'pais': 'Turquía', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/{s}/T1.csv' for s in ('2324', '2425', '2526')],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/T1.csv'
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas'],
     },
     'dinamarca': {
@@ -306,9 +309,11 @@ LEAGUES = {
     # +3,0 pp sobre ELO y bate también al mercado. El rechazo de la v40
     # (42.6<44.1) era de una muestra un 40 % más corta.
     'gre_super_league': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Super League Greece', 'pais': 'Grecia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/G1.csv'
-                 for s in ('2122', '2223', '2324', '2425', '2526')],
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas'],
     },
     'suiza': {
@@ -329,18 +334,23 @@ LEAGUES = {
     # reentrenamiento de la v75 con la regla de oro. `validar_catalogo()`
     # impide que vuelva a haber dos claves para una competición.
     'premier': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 3.
+        'temporadas_modelo': 3,
         # Premier se mantiene en 3 temporadas: el experimento de 5 temporadas
         # bajó la precisión (49.5%→48.9%) — regla de adopción no superada.
         'nombre': 'Premier League', 'pais': 'Inglaterra', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/{s}/E0.csv' for s in ('2324', '2425', '2526')],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/E0.csv'
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
         # v17 (walk-forward +1.2pp / -0.011): extras + cuotas de cierre
         'features_extra': ['extras', 'cuotas'],
     },
     'laliga': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'LaLiga', 'pais': 'España', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/SP1.csv'
-                 for s in ('2122', '2223', '2324', '2425', '2526')],
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
         # v17 (walk-forward +1.5pp / -0.055): cuotas de cierre como features
         # v24 (walk-forward 53.09→53.33, ll 1.0328→0.9908): + componentes IMT
@@ -355,9 +365,12 @@ LEAGUES = {
     },
     # v14: grandes ligas europeas (mismo formato 'main' con stats + cuotas B365)
     'serie_a': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 3.
+        'temporadas_modelo': 3,
         'nombre': 'Serie A', 'pais': 'Italia', 'formato': 'main',
         # 3 temporadas: margen sobre ELO +0.9pp vs +0.0pp con 5 (v14)
-        'urls': [f'{FD_BASE}/mmz4281/{s}/I1.csv' for s in ('2324', '2425', '2526')],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/I1.csv'
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
         # v18/M1 (walk-forward +3.2pp / -0.049): cuotas de cierre + beta
         # calibration (la isotónica degradaba el log-loss con cuotas)
@@ -366,9 +379,11 @@ LEAGUES = {
         'calibracion': 'beta',
     },
     'bundesliga': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Bundesliga', 'pais': 'Alemania', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/D1.csv'
-                 for s in ('2122', '2223', '2324', '2425', '2526')],
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
         # v17 (walk-forward +0.5pp / +0.003): H2H + descanso + rachas + tabla
         # v24 (walk-forward 49.55→49.81, ll 1.0247→1.0213): + índice IMT
@@ -376,9 +391,11 @@ LEAGUES = {
         'features_extra': ['extras', 'imt_c', 'elo_d'],
     },
     'ligue_1': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Ligue 1', 'pais': 'Francia', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/F1.csv'
-                 for s in ('2122', '2223', '2324', '2425', '2526')],
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
         # v17 (walk-forward +0.1pp / -0.057, regla 2): cuotas de cierre
         'features_extra': ['cuotas'],
@@ -386,9 +403,11 @@ LEAGUES = {
         'blend_mercado': 0.70,
     },
     'eredivisie': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Eredivisie', 'pais': 'Países Bajos', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/N1.csv'
-                 for s in ('2122', '2223', '2324', '2425', '2526')],
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True,
         # v17 (walk-forward +0.4pp / -0.023): cuotas de cierre como features
         # v24 (walk-forward 52.21→52.82, +0.61pp): + índice compuesto IMT

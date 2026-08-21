@@ -2908,6 +2908,48 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
     # este import al principio, usarlo antes lanzaba UnboundLocalError en
     # producción al pulsar «Proponer parlays». Se importa aquí una sola vez.
     from bankroll_manager import AVISO_JUEGO_RESPONSABLE
+
+    # v147 — LA PLANTILLA SE CALCULA UNA VEZ, NO OCHO.
+    #
+    # Esta función pedía `motor.plantilla_club(home, away)` en OCHO sitios
+    # distintos, cada uno recalculándola entera. Medido sobre `liga_mx`:
+    #
+    #     plantilla_club, 1.ª llamada .... 12,3 s
+    #     plantilla_club, 2.ª llamada ....  0,4 s
+    #
+    # O sea que el trabajo ya era cacheable —la segunda llamada es 30 veces más
+    # rápida— y lo que faltaba era usar la caché. Los 12 s que el usuario nota
+    # al pulsar «Ver» no son renderizado pesado: son el mismo cálculo repetido.
+    #
+    # `_pl()` lo resuelve en dos niveles:
+    #   1. memo local, para que dentro de UN render se calcule una sola vez;
+    #   2. `plantilla_club_cacheada`, para que entre reruns de Streamlit
+    #      tampoco se repita.
+    #
+    # El nivel 2 sólo se puede usar cuando `key` es de verdad una clave de liga:
+    # esta función la llaman también MLB (`key='mlb'`), el tenis
+    # (`key='tenis_atp'`) y la vista de selecciones (`key='mundial'`), donde el
+    # motor no es un `ClubEngine`. Ahí se cae al nivel 1, que ya elimina siete
+    # de los ocho cálculos.
+    _memo_pl = {}
+
+    def _pl():
+        """La plantilla de este partido, calculada una sola vez."""
+        if 'v' in _memo_pl:
+            return _memo_pl['v']
+        try:
+            import config as _cfg_pl
+            if hasattr(motor, 'plantilla_club') and key in _cfg_pl.LEAGUES:
+                _memo_pl['v'] = plantilla_club_cacheada(key, home, away)
+            elif hasattr(motor, 'plantilla_club'):
+                _memo_pl['v'] = motor.plantilla_club(home, away)
+            else:
+                _memo_pl['v'] = motor.plantilla(home, away)
+        except Exception as _e_pl:
+            logger.warning(f'[parlay] plantilla no disponible: {_e_pl}')
+            _memo_pl['v'] = {}
+        return _memo_pl['v']
+
     # v58: VARIAS combinadas propuestas automáticamente + copiar estadísticas.
     # Universal: funciona con cualquier motor (fútbol, MLB, ...).
     st.markdown("#### 🎲 Parlays propuestos con cuotas")
@@ -2967,9 +3009,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                         bankroll=float(st.session_state.get('bankroll', 0) or 0))
                     import cuotas_multi as _cm_ev
                     import cuotas_tablon as _ct_ev
-                    _pl_ev = (motor.plantilla_club(home, away)
-                              if hasattr(motor, 'plantilla_club')
-                              else motor.plantilla(home, away))
+                    _pl_ev = _pl()
                     # v127: con `liga`, para que el consenso ampliado de The
                     # Odds API entre también en las combinadas. Sin ella, la
                     # Sección 1 se compararía contra cinco casas mientras la
@@ -3008,9 +3048,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                         _m_pdt, home, away, max_opciones=6,
                         solo_cuotas_reales=True,
                         bankroll=float(st.session_state.get('bankroll', 0) or 0))
-                    _pl_p = (motor.plantilla_club(home, away)
-                             if hasattr(motor, 'plantilla_club')
-                             else motor.plantilla(home, away))
+                    _pl_p = _pl()
                     _mk_pdt = _ct_p.marcar_ev_sospechoso(
                         _ct_p.comparar_con_el_mercado(
                             _ct_p.mercados_playdoit_con_ev(
@@ -3163,9 +3201,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
 
             try:
                 import partido_parejo as _pp
-                _pl_pj = (motor.plantilla_club(home, away)
-                          if hasattr(motor, 'plantilla_club')
-                          else motor.plantilla(home, away))
+                _pl_pj = _pl()
                 # se prefiere el tablero de la casa del usuario: los dos
                 # márgenes que compara tienen que ser del MISMO libro
                 _an_pj = _pp.comparar(_pl_pj, _mk_pdt or _mk_ev, home, away)
@@ -3427,9 +3463,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                 try:
                     import cuotas_auto as _ca
                     with st.spinner("Descargando cuotas reales…"):
-                        _plc = (motor.plantilla_club(home, away)
-                                if hasattr(motor, 'plantilla_club')
-                                else motor.plantilla(home, away))
+                        _plc = _pl()
                         _mostrar_cuotas_multi(_clave_liga_auto, home, away,
                                               plantilla=_plc)
                         _eid = _ca.buscar_event_id(_clave_liga_auto, home, away)
@@ -3479,9 +3513,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             else:
                 try:
                     import cuotas_manual as _cm
-                    _pl_cm = (motor.plantilla_club(home, away)
-                              if hasattr(motor, 'plantilla_club')
-                              else motor.plantilla(home, away))
+                    _pl_cm = _pl()
                     _filas = _cm.parsear(_pegado)
                     _res = _cm.cruzar_con_plantilla(_filas, _pl_cm)
                     if not _res:
@@ -3512,9 +3544,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
     with st.expander("📋 Copiar todas las estadísticas de este partido"):
         try:
             from match_parlay import plantilla_a_texto
-            _pl_txt = (motor.plantilla_club(home, away)
-                       if hasattr(motor, 'plantilla_club')
-                       else motor.plantilla(home, away))
+            _pl_txt = _pl()
             _texto = plantilla_a_texto(_pl_txt)
             st.code(_texto, language=None)
             st.download_button("⬇️ Descargar (.txt)", data=_texto.encode('utf-8'),
@@ -3558,9 +3588,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
             # en fútbol las de fútbol. Antes era una lista fija de fútbol.
             from match_parlay import categorias_disponibles
             try:
-                _pl_cats = (motor.plantilla_club(home, away)
-                            if hasattr(motor, 'plantilla_club')
-                            else motor.plantilla(home, away))
+                _pl_cats = _pl()
                 _cats_disp = categorias_disponibles(_pl_cats)
             except Exception:
                 _cats_disp = []
@@ -3669,9 +3697,7 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                    "entre mercados del mismo partido) y la cuota combinada. Ideal "
                    "para juntar mercados seguros y subir la ganancia en un solo "
                    "partido.")
-        pl_manual = (motor.plantilla_club(home, away)
-                     if hasattr(motor, 'plantilla_club')
-                     else motor.plantilla(home, away))
+        pl_manual = _pl()
         if isinstance(pl_manual, dict) and 'error' not in pl_manual:
             from match_parlay import obtener_selecciones, combinar_manual
             sels_manual = obtener_selecciones(pl_manual)
@@ -3919,170 +3945,200 @@ def render_liga_club(clave: str, nombre_liga: str):
     pred = pl['prediccion_base']
     p = pred['prediction']
 
-    st.markdown(f"### 🏆 Ganador más probable: **{p['winner']}** "
-                f"({p['confidence']*100:.0f} % de confianza)")
-    st.markdown(f"### ⚽ Marcador más probable: **{p['most_likely_score']}** "
-                f"({p['score_probability']*100:.0f} %) · "
-                f"{p['total_goals_expected']:.1f} goles esperados")
-    st.markdown(f"### 📊 {home} **{p['probabilities']['home']*100:.0f} %** · "
-                f"Empate **{p['probabilities']['draw']*100:.0f} %** · "
-                f"{away} **{p['probabilities']['away']*100:.0f} %**")
-    render_comentario(pred, home, away)
-
-    col_g1, col_g2 = st.columns(2)
-    with col_g1:
-        fig_b = go.Figure(go.Bar(
-            x=[f"Gana {home}", "Empate", f"Gana {away}"],
-            y=[p['probabilities']['home'] * 100, p['probabilities']['draw'] * 100,
-               p['probabilities']['away'] * 100],
-            marker_color=['#2ecc71', '#95a5a6', '#3498db'],
-            text=[f"{p['probabilities'][k]*100:.0f} %" for k in ('home', 'draw', 'away')],
-            textposition='outside'))
-        fig_b.update_layout(yaxis_range=[0, 100], height=320, margin=dict(l=0, r=0, t=10, b=0))
-        st.plotly_chart(fig_b, width='stretch')
-    with col_g2:
-        matriz = np.array(pred['score_matrix'])
-        fig_h = go.Figure(go.Heatmap(
-            z=matriz * 100, x=[str(i) for i in range(matriz.shape[1])],
-            y=[str(i) for i in range(matriz.shape[0])], colorscale='YlOrRd',
-            colorbar=dict(title='%')))
-        fig_h.update_layout(xaxis_title=f"Goles {away}", yaxis_title=f"Goles {home}",
-                            height=320, margin=dict(l=0, r=0, t=10, b=0))
-        st.plotly_chart(fig_h, width='stretch')
-
-    # ---- Plantilla extendida de clubes (editable, mismo formato) ----------
-    st.markdown(f"## 📋 Plantilla de análisis — {pl['partido']}")
-    st.caption("Todos los mercados con probabilidades del modelo; las cuotas entre "
-               "paréntesis son cuotas JUSTAS en formato americano (sin margen).")
-    prefijo = f"club_{clave}_{home}_{away}_".replace(' ', '-')
-    with st.form(key=f"form_{prefijo}"):
-        for seccion in pl['secciones']:
-            st.markdown(f"#### {seccion['titulo']}")
-            editables = [c for c in seccion['campos'] if c['tipo'] != 'texto']
-            columnas = st.columns(3)
-            for i, c in enumerate(editables):
-                with columnas[i % 3]:
-                    if c['tipo'] == 'pct':
-                        st.number_input(f"{c['etiqueta']} (%)", 0.0, 100.0,
-                                        float(c['valor']), 0.5, key=prefijo + c['id'])
-                    else:
-                        st.number_input(c['etiqueta'], 0.0, 60.0,
-                                        float(c['valor']), 0.1, key=prefijo + c['id'])
-        validar = st.form_submit_button("✅ Validar mis estimaciones", type="primary")
-    if validar:
-        hallazgos = []
-        for s in pl['secciones']:
-            for c in s['campos']:
-                if c['tipo'] == 'texto':
-                    continue
-                vu = float(st.session_state.get(prefijo + c['id'], c['valor']))
-                if abs(vu - float(c['valor'])) >= 0.05:
-                    hallazgos.append({'Campo': c['etiqueta'], 'Tu valor': round(vu, 1),
-                                      'Modelo': round(float(c['valor']), 1),
-                                      'Diferencia': round(vu - float(c['valor']), 1)})
-        if hallazgos:
-            st.dataframe(pd.DataFrame(hallazgos), width='stretch', hide_index=True)
-        else:
-            st.success("Tus valores coinciden con el modelo.")
-
-    for obs in pl['observaciones']:
-        st.markdown(f"- {obs}")
-
-    # v18/M3: cuotas reales vigentes + EV por mercado
-    render_cuotas_reales(pl)
-
-    # v25: ajuste por alineación VORP — EXPERIMENTAL con fallback estricto
-    with st.expander("🧪 Ajuste por alineación (VORP) — experimental"):
-        st.caption("Compara el once CONFIRMADO (ESPN, ~1 h antes) contra el "
-                   "once esperado del equipo y ajusta las tasas de goles (λ) "
-                   "— el 1X2 calibrado no se toca. Si la alineación no está "
-                   "publicada o no se parsea con confianza, NO se aplica nada.")
-        if st.checkbox("Consultar alineaciones de hoy", key=f'vorp_{clave}'):
-            import alineacion_vorp
-            with st.spinner("Consultando alineaciones en ESPN…"):
-                aj = alineacion_vorp.ajuste_partido(clave, home, away)
-            if not aj.get('aplicado'):
-                st.info(f"⚠️ Ajuste por alineación no disponible — {aj.get('motivo')}")
-            else:
-                lam_h0 = pl['prediccion_base']['prediction']['expected_goals']['home']
-                lam_a0 = pl['prediccion_base']['prediction']['expected_goals']['away']
-                lam_h = lam_h0 * aj['factor_home']
-                lam_a = lam_a0 * aj['factor_away']
-                c1, c2 = st.columns(2)
-                c1.metric(f"λ {home}", f"{lam_h:.2f}",
-                          f"{(aj['factor_home']-1)*100:+.1f} % por alineación")
-                c2.metric(f"λ {away}", f"{lam_a:.2f}",
-                          f"{(aj['factor_away']-1)*100:+.1f} % por alineación")
-                for lado, aus in (('local', aj['ausentes_home']),
-                                  ('visitante', aj['ausentes_away'])):
-                    if aus:
-                        st.caption(f"Titulares habituales ausentes ({lado}): "
-                                   + ", ".join(aus))
-                st.caption("🧪 Experimental: cada aplicación se registra en "
-                           "vorp_log.json; la adopción permanente se decidirá "
-                           "con la evaluación de la temporada 2026-27 "
-                           "(mejora ≥1 pp en los partidos ajustados).")
-
-    # v67: remates REALES por jugador (antes solo existía en la vista
-    # internacional, y ahí eran estimados a partir de los goles)
-    @st.cache_data(ttl=6 * 3600, show_spinner="Buscando remates por jugador…")
-    def _remates_club(liga_clave: str, equipo: str):
-        import remates_jugadores as _rj
-        import fixtures_espn as _fx
-        code = _fx.ESPN_CODIGOS.get(liga_clave)
-        if not code:
-            return None
-        nombre_espn = _rj.resolver_equipo(code, equipo)
-        if not nombre_espn:
-            return None
-        return _rj.remates_equipo(code, nombre_espn)
-
-    render_remates_reales(
-        [(f"🏠 {home}", lambda: _remates_club(clave, home)),
-         (f"✈️ {away}", lambda: _remates_club(clave, away))],
-        key=clave)
-
-    # v107 — EL PANEL DE EQUIPOS, ANTES DEL PARLAY.
+    # v147 — LA FICHA SE PARTE EN SECCIONES, Y SÓLO SE EJECUTA LA ABIERTA.
     #
-    # Va aquí y no al final a propósito: el usuario lo pidió para DECIDIR la
-    # apuesta («si los equipos en todos los partidos los ha ganado el equipo A
-    # pues obvio hay más probabilidad, pero si en el torneo actual el equipo B
-    # tiene mejor rendimiento baja su probabilidad»), así que tiene que estar
-    # antes del combinador, no después.
-    st.divider()
-    try:
-        render_panel_equipos(clave, home, away, key=clave,
-                             prob_modelo=(p.get('probabilities')
-                                          if isinstance(p, dict) else None))
-    except Exception as e:
-        st.caption(f"Panel de equipos no disponible ahora ({type(e).__name__}).")
+    # Medido el 2026-08-17 abriendo una ficha con el motor frío: 15,9 s, de los
+    # cuales **41 peticiones a ESPN**. Con las cachés de disco calientes seguían
+    # siendo 7 peticiones y 7,2 s. El coste es de RED, no de cálculo: la
+    # predicción y el H2H salen del CSV local en centésimas.
+    #
+    # Por eso NO se usa `st.tabs`: Streamlit renderiza el contenido de todas
+    # las pestañas se mire la que se mire, así que habría reorganizado el
+    # scroll sin ahorrar una sola petición. `partido_ui` usa
+    # `st.segmented_control`, que dice CUÁL está abierta, y sólo se llama a esa.
+    #
+    # El «Resumen» —que es el que se abre por defecto— no toca la red.
+    import partido_ui as _pui
 
-    # v146 — CÓRNERS. Va aquí, en la ficha del partido, que es donde el
-    # usuario los pidió: «eso deberá estar cuando analizas el partido
-    # individualmente». El tablero de Playdoit se reutiliza si ya está en
-    # caché; si no está, la sección sigue enseñando el pronóstico y el H2H.
-    st.divider()
-    try:
-        import corners_ui as _cku
-        _det_ck = None
+
+    def _sec_resumen():
+        st.markdown(f"### 🏆 Ganador más probable: **{p['winner']}** "
+                    f"({p['confidence']*100:.0f} % de confianza)")
+        st.markdown(f"### ⚽ Marcador más probable: **{p['most_likely_score']}** "
+                    f"({p['score_probability']*100:.0f} %) · "
+                    f"{p['total_goals_expected']:.1f} goles esperados")
+        st.markdown(f"### 📊 {home} **{p['probabilities']['home']*100:.0f} %** · "
+                    f"Empate **{p['probabilities']['draw']*100:.0f} %** · "
+                    f"{away} **{p['probabilities']['away']*100:.0f} %**")
+        render_comentario(pred, home, away)
+
+        col_g1, col_g2 = st.columns(2)
+        with col_g1:
+            fig_b = go.Figure(go.Bar(
+                x=[f"Gana {home}", "Empate", f"Gana {away}"],
+                y=[p['probabilities']['home'] * 100, p['probabilities']['draw'] * 100,
+                   p['probabilities']['away'] * 100],
+                marker_color=['#2ecc71', '#95a5a6', '#3498db'],
+                text=[f"{p['probabilities'][k]*100:.0f} %" for k in ('home', 'draw', 'away')],
+                textposition='outside'))
+            fig_b.update_layout(yaxis_range=[0, 100], height=320, margin=dict(l=0, r=0, t=10, b=0))
+            st.plotly_chart(fig_b, width='stretch')
+        with col_g2:
+            matriz = np.array(pred['score_matrix'])
+            fig_h = go.Figure(go.Heatmap(
+                z=matriz * 100, x=[str(i) for i in range(matriz.shape[1])],
+                y=[str(i) for i in range(matriz.shape[0])], colorscale='YlOrRd',
+                colorbar=dict(title='%')))
+            fig_h.update_layout(xaxis_title=f"Goles {away}", yaxis_title=f"Goles {home}",
+                                height=320, margin=dict(l=0, r=0, t=10, b=0))
+            st.plotly_chart(fig_h, width='stretch')
+
+        # ---- Plantilla extendida de clubes (editable, mismo formato) ----------
+
+    def _sec_mercados():
+        st.markdown(f"## 📋 Plantilla de análisis — {pl['partido']}")
+        st.caption("Todos los mercados con probabilidades del modelo; las cuotas entre "
+                   "paréntesis son cuotas JUSTAS en formato americano (sin margen).")
+        prefijo = f"club_{clave}_{home}_{away}_".replace(' ', '-')
+        with st.form(key=f"form_{prefijo}"):
+            for seccion in pl['secciones']:
+                st.markdown(f"#### {seccion['titulo']}")
+                editables = [c for c in seccion['campos'] if c['tipo'] != 'texto']
+                columnas = st.columns(3)
+                for i, c in enumerate(editables):
+                    with columnas[i % 3]:
+                        if c['tipo'] == 'pct':
+                            st.number_input(f"{c['etiqueta']} (%)", 0.0, 100.0,
+                                            float(c['valor']), 0.5, key=prefijo + c['id'])
+                        else:
+                            st.number_input(c['etiqueta'], 0.0, 60.0,
+                                            float(c['valor']), 0.1, key=prefijo + c['id'])
+            validar = st.form_submit_button("✅ Validar mis estimaciones", type="primary")
+        if validar:
+            hallazgos = []
+            for s in pl['secciones']:
+                for c in s['campos']:
+                    if c['tipo'] == 'texto':
+                        continue
+                    vu = float(st.session_state.get(prefijo + c['id'], c['valor']))
+                    if abs(vu - float(c['valor'])) >= 0.05:
+                        hallazgos.append({'Campo': c['etiqueta'], 'Tu valor': round(vu, 1),
+                                          'Modelo': round(float(c['valor']), 1),
+                                          'Diferencia': round(vu - float(c['valor']), 1)})
+            if hallazgos:
+                st.dataframe(pd.DataFrame(hallazgos), width='stretch', hide_index=True)
+            else:
+                st.success("Tus valores coinciden con el modelo.")
+
+        for obs in pl['observaciones']:
+            st.markdown(f"- {obs}")
+
+        # v18/M3: cuotas reales vigentes + EV por mercado
+        render_cuotas_reales(pl)
+
+        # v25: ajuste por alineación VORP — EXPERIMENTAL con fallback estricto
+        with st.expander("🧪 Ajuste por alineación (VORP) — experimental"):
+            st.caption("Compara el once CONFIRMADO (ESPN, ~1 h antes) contra el "
+                       "once esperado del equipo y ajusta las tasas de goles (λ) "
+                       "— el 1X2 calibrado no se toca. Si la alineación no está "
+                       "publicada o no se parsea con confianza, NO se aplica nada.")
+            if st.checkbox("Consultar alineaciones de hoy", key=f'vorp_{clave}'):
+                import alineacion_vorp
+                with st.spinner("Consultando alineaciones en ESPN…"):
+                    aj = alineacion_vorp.ajuste_partido(clave, home, away)
+                if not aj.get('aplicado'):
+                    st.info(f"⚠️ Ajuste por alineación no disponible — {aj.get('motivo')}")
+                else:
+                    lam_h0 = pl['prediccion_base']['prediction']['expected_goals']['home']
+                    lam_a0 = pl['prediccion_base']['prediction']['expected_goals']['away']
+                    lam_h = lam_h0 * aj['factor_home']
+                    lam_a = lam_a0 * aj['factor_away']
+                    c1, c2 = st.columns(2)
+                    c1.metric(f"λ {home}", f"{lam_h:.2f}",
+                              f"{(aj['factor_home']-1)*100:+.1f} % por alineación")
+                    c2.metric(f"λ {away}", f"{lam_a:.2f}",
+                              f"{(aj['factor_away']-1)*100:+.1f} % por alineación")
+                    for lado, aus in (('local', aj['ausentes_home']),
+                                      ('visitante', aj['ausentes_away'])):
+                        if aus:
+                            st.caption(f"Titulares habituales ausentes ({lado}): "
+                                       + ", ".join(aus))
+                    st.caption("🧪 Experimental: cada aplicación se registra en "
+                               "vorp_log.json; la adopción permanente se decidirá "
+                               "con la evaluación de la temporada 2026-27 "
+                               "(mejora ≥1 pp en los partidos ajustados).")
+
+        # v67: remates REALES por jugador (antes solo existía en la vista
+        # internacional, y ahí eran estimados a partir de los goles)
+        @st.cache_data(ttl=6 * 3600, show_spinner="Buscando remates por jugador…")
+        def _remates_club(liga_clave: str, equipo: str):
+            import remates_jugadores as _rj
+            import fixtures_espn as _fx
+            code = _fx.ESPN_CODIGOS.get(liga_clave)
+            if not code:
+                return None
+            nombre_espn = _rj.resolver_equipo(code, equipo)
+            if not nombre_espn:
+                return None
+            return _rj.remates_equipo(code, nombre_espn)
+
+        render_remates_reales(
+            [(f"🏠 {home}", lambda: _remates_club(clave, home)),
+             (f"✈️ {away}", lambda: _remates_club(clave, away))],
+            key=clave)
+
+    def _sec_h2h():
+        # v107 — EL PANEL DE EQUIPOS, ANTES DEL PARLAY.
+        #
+        # Va aquí y no al final a propósito: el usuario lo pidió para DECIDIR la
+        # apuesta («si los equipos en todos los partidos los ha ganado el equipo A
+        # pues obvio hay más probabilidad, pero si en el torneo actual el equipo B
+        # tiene mejor rendimiento baja su probabilidad»), así que tiene que estar
+        # antes del combinador, no después.
+        st.divider()
         try:
-            import cuotas_multi as _cm_ck
-            _det_ck = _cm_ck.mercados_playdoit('futbol', home, away)
-        except Exception as _e_ck:
-            logger.debug(f'[corners] tablero no disponible: {_e_ck}')
-        _cku.render(st, pl, clave, home, away, _det_ck)
-    except Exception as _e_cku:
-        st.caption(f'Sección de córners no disponible ({type(_e_cku).__name__}).')
+            render_panel_equipos(clave, home, away, key=clave,
+                                 prob_modelo=(p.get('probabilities')
+                                              if isinstance(p, dict) else None))
+        except Exception as e:
+            st.caption(f"Panel de equipos no disponible ahora ({type(e).__name__}).")
+        # el H2H de API-Football se conserva como extra opcional: aporta cruces en
+        # OTRAS competiciones (copas, europeas) que el histórico de esta liga no
+        # tiene. Ya no es la única vía, así que no pasa nada si falta la clave.
+        render_h2h_club(clave, home, away, key=clave)
+        render_comparador(motor, motor.equipos, key=clave)      # v25 (§2.4)
+        render_rendimiento(key=clave)
 
-    # v15: parlay del partido en pantalla
-    st.divider()
-    render_parlay_partido(motor, home, away, key=clave)
-    # el H2H de API-Football se conserva como extra opcional: aporta cruces en
-    # OTRAS competiciones (copas, europeas) que el histórico de esta liga no
-    # tiene. Ya no es la única vía, así que no pasa nada si falta la clave.
-    render_h2h_club(clave, home, away, key=clave)
-    render_comparador(motor, motor.equipos, key=clave)      # v25 (§2.4)
-    render_rendimiento(key=clave)
+    def _sec_especificos():
+        # v146 — CÓRNERS. Va aquí, en la ficha del partido, que es donde el
+        # usuario los pidió: «eso deberá estar cuando analizas el partido
+        # individualmente». El tablero de Playdoit se reutiliza si ya está en
+        # caché; si no está, la sección sigue enseñando el pronóstico y el H2H.
+        st.divider()
+        try:
+            import corners_ui as _cku
+            _det_ck = None
+            try:
+                import cuotas_multi as _cm_ck
+                _det_ck = _cm_ck.mercados_playdoit('futbol', home, away)
+            except Exception as _e_ck:
+                logger.debug(f'[corners] tablero no disponible: {_e_ck}')
+            _cku.render(st, pl, clave, home, away, _det_ck)
+        except Exception as _e_cku:
+            st.caption(f'Sección de córners no disponible ({type(_e_cku).__name__}).')
+
+    def _sec_combinadas():
+        # v15: parlay del partido en pantalla
+        st.divider()
+        render_parlay_partido(motor, home, away, key=clave)
+
+    _pui.render(st, f'{clave}_{home}_{away}', {
+        _pui.RESUMEN: _sec_resumen,
+        _pui.MERCADOS: _sec_mercados,
+        _pui.H2H: _sec_h2h,
+        _pui.ESPECIFICOS: _sec_especificos,
+        _pui.COMBINADAS: _sec_combinadas,
+    })
 
     from prediction_api import plantilla_a_markdown
     st.download_button("⬇️ Descargar plantilla (Markdown)",

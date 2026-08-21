@@ -149,6 +149,63 @@ for vista, textos in VISTAS.items():
         # lo está — que es el fallo del que nació este fichero.
         for t in _fuera:
             print(f'  ⏭️  botón «{t}» OMITIDO por --rapido (no validado)')
+    # v147 — recorrer las secciones de la ficha, si la vista las tiene.
+    #
+    # `partido_ui` ejecuta SÓLO la sección abierta, así que cargar la vista
+    # valida una de cinco. Aquí se pulsan todas: es barato (ninguna vuelve a
+    # tocar la red, medido) y es la única forma de que un fallo dentro de
+    # «Mercados» o «Combinadas» salga aquí y no en la pantalla del usuario.
+    _secs = [r for r in at.radio if r.key and r.key.startswith('_sec_')]
+    if _secs:
+        _opts = list(_secs[0].options)
+        print(f'  ·  ficha con {len(_opts)} secciones: se recorren todas')
+        for _o in _opts:
+            _r = [x for x in at.radio if x.key and x.key.startswith('_sec_')]
+            if not _r:
+                break
+            try:
+                _r[0].set_value(_o).run()
+            except Exception as e:
+                fallos.append(f'{vista} [sección {_o}]: {type(e).__name__}: {e}')
+                print(f'  FALLO sección «{_o}»: {type(e).__name__}: {e}')
+                continue
+            if at.exception:
+                fallos.append(f'{vista} [sección {_o}]: {at.exception[0].message}')
+                print(f'  FALLO sección «{_o}»: {at.exception[0].message}')
+                continue
+            print(f'  OK   sección «{_o}»')
+            # v147 — Y SE PULSAN LOS BOTONES QUE VIVEN DENTRO DE LA SECCIÓN.
+            #
+            # Al partir la ficha en secciones, «Proponer parlays» dejó de estar
+            # en el nivel superior: ahora vive dentro de «Combinadas», que no se
+            # renderiza hasta que se abre. El smoke lo daba por «no encontrado
+            # (¿condicional?)» y seguía en verde — o sea que había dejado de
+            # probar EL BOTÓN QUE ORIGINÓ ESTE FICHERO, sin decirlo.
+            #
+            # Aquí se recogen los botones de la sección abierta y se pulsan los
+            # que la vista pidiera. Es la misma cobertura de antes, buscada
+            # donde ahora están.
+            _en_sec = botones(at)
+            for _t in list(textos):
+                if RAPIDO and any(c in _t.lower() for c in BOTONES_CAROS):
+                    continue
+                _obj = [b for b in _en_sec
+                        if _t.lower() in (b.label or '').lower()]
+                if not _obj:
+                    continue
+                try:
+                    _obj[0].click().run()
+                except Exception as e:
+                    fallos.append(f'{vista} [{_o}/{_t}]: {type(e).__name__}: {e}')
+                    print(f'  FALLO botón «{_t}» en «{_o}»: {type(e).__name__}: {e}')
+                    continue
+                if at.exception:
+                    fallos.append(f'{vista} [{_o}/{_t}]: {at.exception[0].message}')
+                    print(f'  FALLO botón «{_t}» en «{_o}»: {at.exception[0].message}')
+                else:
+                    print(f'  OK   botón «{_t}» dentro de «{_o}»')
+                    textos = [x for x in textos if x != _t]
+
     for texto in textos:
         objetivo = [b for b in todos if texto.lower() in (b.label or '').lower()]
         if not objetivo:

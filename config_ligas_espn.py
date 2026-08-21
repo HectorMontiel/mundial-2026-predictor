@@ -28,56 +28,83 @@ LIGAS_V68 = {
         'nota': 'no bate ELO (0.4422 vs 0.4496) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
     },
     'eng_league_one': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'EFL League One', 'pais': 'Inglaterra', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/E2.csv', f'{FD_BASE}/mmz4281/2223/E2.csv', f'{FD_BASE}/mmz4281/2324/E2.csv', f'{FD_BASE}/mmz4281/2425/E2.csv', f'{FD_BASE}/mmz4281/2526/E2.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/E2.csv'
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'eng_league_two': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'EFL League Two', 'pais': 'Inglaterra', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/E3.csv', f'{FD_BASE}/mmz4281/2223/E3.csv', f'{FD_BASE}/mmz4281/2324/E3.csv', f'{FD_BASE}/mmz4281/2425/E3.csv', f'{FD_BASE}/mmz4281/2526/E3.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/E3.csv'
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'eng_national': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'National League', 'pais': 'Inglaterra', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/EC.csv', f'{FD_BASE}/mmz4281/2223/EC.csv', f'{FD_BASE}/mmz4281/2324/EC.csv', f'{FD_BASE}/mmz4281/2425/EC.csv', f'{FD_BASE}/mmz4281/2526/EC.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/EC.csv'
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'sco_premiership': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Scottish Premiership', 'pais': 'Escocia', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/SC0.csv', f'{FD_BASE}/mmz4281/2223/SC0.csv', f'{FD_BASE}/mmz4281/2324/SC0.csv', f'{FD_BASE}/mmz4281/2425/SC0.csv', f'{FD_BASE}/mmz4281/2526/SC0.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/SC0.csv'
+                 for s in ('1011', '1112', '1213', '1314', '1415', '1516', '1617', '1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'sco_championship': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Scottish Championship', 'pais': 'Escocia', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/SC1.csv', f'{FD_BASE}/mmz4281/2223/SC1.csv', f'{FD_BASE}/mmz4281/2324/SC1.csv', f'{FD_BASE}/mmz4281/2425/SC1.csv', f'{FD_BASE}/mmz4281/2526/SC1.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/SC1.csv'
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'esp_hypermotion': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'LaLiga Hypermotion', 'pais': 'España', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/SP2.csv', f'{FD_BASE}/mmz4281/2223/SP2.csv', f'{FD_BASE}/mmz4281/2324/SP2.csv', f'{FD_BASE}/mmz4281/2425/SP2.csv', f'{FD_BASE}/mmz4281/2526/SP2.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/SP2.csv'
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'ita_serie_b': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Serie B', 'pais': 'Italia', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/I2.csv', f'{FD_BASE}/mmz4281/2223/I2.csv', f'{FD_BASE}/mmz4281/2324/I2.csv', f'{FD_BASE}/mmz4281/2425/I2.csv', f'{FD_BASE}/mmz4281/2526/I2.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/I2.csv'
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'fra_ligue2': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Ligue 2', 'pais': 'Francia', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/F2.csv', f'{FD_BASE}/mmz4281/2223/F2.csv', f'{FD_BASE}/mmz4281/2324/F2.csv', f'{FD_BASE}/mmz4281/2425/F2.csv', f'{FD_BASE}/mmz4281/2526/F2.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/F2.csv'
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
     'ger_bundesliga2': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': '2. Bundesliga', 'pais': 'Alemania', 'formato': 'main',
-        'urls': [f'{FD_BASE}/mmz4281/2122/D2.csv', f'{FD_BASE}/mmz4281/2223/D2.csv', f'{FD_BASE}/mmz4281/2324/D2.csv', f'{FD_BASE}/mmz4281/2425/D2.csv', f'{FD_BASE}/mmz4281/2526/D2.csv'],
+        'urls': [f'{FD_BASE}/mmz4281/{s}/D2.csv'
+                 for s in ('1718', '1819', '1920', '2021', '2122', '2223', '2324', '2425', '2526')],
         'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
     },
@@ -177,6 +204,8 @@ LIGAS_V68 = {
         'fuente_v68': 'espn', 'partidos_espn': 720,
     },
     'gre_super_league': {
+        # v147: ventana MEDIDA del modelo. El CSV guarda 9 temporadas para el H2H; el modelo sigue entrenando con 5.
+        'temporadas_modelo': 5,
         'nombre': 'Super League Greece', 'pais': 'Grecia', 'formato': 'espn',
         'espn_liga': 'gre.1', 'desde': '2021-07-01', 'urls': [],
         'disponible': True, 'features_extra': [],

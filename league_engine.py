@@ -671,7 +671,12 @@ def _fusionar_fbref_champions(df_api: pd.DataFrame) -> pd.DataFrame:
     return fusion
 
 
-def descargar_liga(clave: str) -> pd.DataFrame:
+# Descargas crudas ya hechas en ESTE proceso, por tupla de URLs. Ver el bloque
+# que lo usa dentro de `descargar_liga`.
+_MEMO_CRUDO: Dict[tuple, 'pd.DataFrame'] = {}
+
+
+def descargar_liga(clave: str, temporadas: int = None) -> pd.DataFrame:
     cfg = LEAGUES[clave]
     if cfg['formato'] == 'api_football':
         df = _descargar_api_football(clave, cfg)
@@ -705,13 +710,31 @@ def descargar_liga(clave: str) -> pd.DataFrame:
                 df[c] = np.nan
         crudo = None
     else:
-        frames = []
-        for url in cfg['urls']:
-            r = requests.get(url, timeout=30)
-            r.raise_for_status()
-            frames.append(pd.read_csv(io.StringIO(r.text), on_bad_lines='skip',
-                                      encoding_errors='ignore'))
-        crudo = pd.concat(frames, ignore_index=True)
+        # v147 — LA DESCARGA CRUDA SE MEMORIZA EN EL PROCESO.
+        #
+        # Desde que `entrenar_liga` pide DOS marcos por liga —el completo para
+        # el CSV y el de la ventana para entrenar— esta función se llama dos
+        # veces seguidas con las mismas URLs. Sin memo, eso duplicaba las
+        # descargas: con las listas ampliadas son 226 ficheros por pasada, o
+        # sea 452 en vez de 226, unos tres minutos de más en el runner
+        # bajando exactamente los mismos bytes.
+        #
+        # El memo vive en el proceso y no en disco a propósito: el runner
+        # arranca limpio cada día, así que no hay riesgo de servir una
+        # temporada rancia. Dentro de una ejecución, el contenido de un CSV de
+        # football-data no cambia.
+        _clave_memo = tuple(cfg['urls'])
+        crudo = _MEMO_CRUDO.get(_clave_memo)
+        if crudo is None:
+            frames = []
+            for url in cfg['urls']:
+                r = requests.get(url, timeout=30)
+                r.raise_for_status()
+                frames.append(pd.read_csv(io.StringIO(r.text), on_bad_lines='skip',
+                                          encoding_errors='ignore'))
+            crudo = pd.concat(frames, ignore_index=True)
+            _MEMO_CRUDO[_clave_memo] = crudo
+        crudo = crudo.copy()          # cada llamada trabaja sobre lo suyo
 
     if cfg['formato'] in ('api_football', 'espn', 'leagues_cup'):
         pass                                   # df ya construido arriba
@@ -799,6 +822,38 @@ def descargar_liga(clave: str) -> pd.DataFrame:
         _match_id(f, h, a) for f, h, a in zip(df['date'], df['home_team'], df['away_team'])]
     df = df.drop_duplicates(subset='MATCH_ID', keep='last')
     df = df.sort_values(['date', 'MATCH_ID'], kind='mergesort').reset_index(drop=True)
+
+    # v147 — EL RECORTE VA AQUÍ, ANTES DE DERIVAR, Y NO DESPUÉS.
+    #
+    # Es el detalle que hace que el desacople sea exacto en vez de aproximado.
+    # Las dos columnas que se calculan debajo dependen de TODO el dataframe:
+    #
+    #   · `elo_diff` acumula desde el primer partido del fichero. Con 16
+    #     temporadas, el ELO de agosto de 2023 llega con 13 años de historia
+    #     detrás en vez de arrancar frío.
+    #   · `home_xg`/`away_xg` los rellena `CorrelatedSyntheticGenerator`, cuya
+    #     secuencia depende del tamaño del marco.
+    #
+    # Medido al ampliar la Premier recortando DESPUÉS: las 1.140 filas de
+    # entrenamiento coincidían en goles, remates, córners y cuotas... y
+    # `elo_diff` difería en las 1.140 y `home_xg` en 697. El modelo cambiaba
+    # (precisión 0,4545 → 0,4727 pero log-loss 1,0455 → 1,2006) aunque la
+    # ventana fuera la misma. O sea: ampliar el CSV movía el modelo por la
+    # puerta de atrás, que es justo lo que el desacople venía a impedir.
+    #
+    # Recortando ANTES, `entrenar_liga` pide dos marcos: el completo para el
+    # CSV (que alimenta el H2H) y el de la ventana para entrenar, cada uno con
+    # sus derivadas calculadas sobre lo que le corresponde. El modelo recibe
+    # exactamente lo que recibía.
+    if temporadas:
+        _f = pd.to_datetime(df['date'], errors='coerce')
+        # temporada europea: arranca en julio. Por año natural, agosto y mayo
+        # de la misma campaña caerían en cubos distintos.
+        _temp = _f.dt.year - (_f.dt.month < 7).astype(int)
+        _ultimas = sorted(_temp.dropna().unique())[-int(temporadas):]
+        _rec = df[_temp.isin(_ultimas)]
+        if len(_rec) >= 300:
+            df = _rec.reset_index(drop=True)
 
     # ELO por liga + relleno determinista de lo que falte (xG siempre; en
     # formato 'new' también remates/córners/tarjetas) — mismo método auditado
@@ -1052,6 +1107,7 @@ def preparar_features_extra(clave, df, ds, X_df, corte_imt):
     return X_df, cols_extra, estados
 
 
+
 def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     """Entrena el modelo de una liga.
 
@@ -1065,10 +1121,41 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     from sklearn.metrics import accuracy_score, log_loss
 
     df = descargar_liga(clave)
+    # v147 — EL CSV Y EL ENTRENAMIENTO DEJAN DE COMPARTIR VENTANA.
+    #
+    # Hasta aquí, el mismo dataframe se escribía en disco y se usaba para
+    # entrenar, así que la ventana del modelo decidía también cuánta historia
+    # veía el H2H. Y eso empujaba en direcciones opuestas:
+    #
+    #   · el MODELO quiere ventana corta, y está MEDIDO liga por liga. La
+    #     Premier se mantiene en 3 temporadas porque con 5 la precisión bajó
+    #     de 49,5 % a 48,9 %; la Serie A igual (+0,9 pp sobre ELO con 3 contra
+    #     +0,0 pp con 5). Esas decisiones no se tocan.
+    #
+    #   · el H2H quiere ventana LARGA, y aquí la muestra manda. Medido sobre
+    #     las parejas de equipos vigentes:
+    #
+    #         Premier   ventana actual : 5,0 cruces de media · 0 % de parejas
+    #                                    con 10 o más
+    #                   16 temporadas  : 17,6 de media · 76 % con 10 o más
+    #         Serie A   actual 4,7 y 0 % · 16 temporadas 18,8 y 71 %
+    #
+    #     Con la ventana de hoy, en la Premier NINGUNA pareja llega a diez
+    #     enfrentamientos: el gráfico de cara a cara se dibuja sobre cuatro o
+    #     seis partidos, que es ruido.
+    #
+    # Se separan: al disco va TODO lo descargado, y a entrenar sólo la ventana.
+    # `temporadas_modelo` la fija cada liga y por defecto es el número de
+    # temporadas que ya entrenaba, así que el modelo no cambia ni un dígito.
     if not con_ratings:
         df.to_csv(f'historico_{clave}.csv', index=False)
 
-    ds = fe.construir_dataset_supervisado(df)
+    # El marco del MODELO se pide aparte, con la ventana medida de la liga, para
+    # que sus derivadas (ELO, xG) se calculen sobre ella y no sobre los 16 años.
+    # Ver el bloque de `descargar_liga`.
+    _n_temp = (LEAGUES.get(clave) or {}).get('temporadas_modelo')
+    df_modelo = descargar_liga(clave, temporadas=_n_temp) if _n_temp else df
+    ds = fe.construir_dataset_supervisado(df_modelo)
     X_df, y, fechas = ds['X_df'], ds['y'], ds['fechas']
     if len(X_df) < 300:
         raise RuntimeError(f"{clave}: solo {len(X_df)} partidos utilizables.")

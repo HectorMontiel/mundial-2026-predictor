@@ -209,14 +209,38 @@ def _render(st, pl, clave, home, away, det):
                     if str(c.get('etiqueta', '')).strip().lower() == \
                             f['etiqueta'].strip().lower() and c.get('tipo', 'pct') == 'pct':
                         prob = c.get('valor')
+            # v147 — UNA COLUMNA, UN TIPO. NO SE MEZCLA float CON '—'.
+            #
+            # Esta tabla rompía el render con
+            #     Could not convert '—' with type str: tried to convert to double
+            # porque «Cuota justa» ponía un `round(...)` cuando había
+            # probabilidad y la raya tipográfica cuando no. Arrow —que es
+            # quien serializa el dataframe para el navegador— infiere el tipo
+            # de la columna por sus primeros valores: si empieza numérica y
+            # luego encuentra texto, revienta. Y revienta AL PINTAR, no al
+            # calcular, así que ni los tests ni el smoke lo veían: sólo se ve
+            # con un partido que tenga alguna línea sin probabilidad.
+            #
+            # El hueco se representa con `None`, que pandas convierte en NaN y
+            # Streamlit pinta vacío. Lo mismo para «Prob. modelo»: se guarda el
+            # número y el formato se declara aparte en `column_config`, en vez
+            # de meter el «%» dentro del dato.
             tabla.append({
                 'Mercado': f['familia'], 'Apuesta': f['etiqueta'],
-                'Cuota': f['cuota'],
-                'Prob. modelo': f'{prob:.1f} %' if isinstance(prob, (int, float)) else '—',
+                'Cuota': float(f['cuota']),
+                'Prob. modelo': (float(prob)
+                                 if isinstance(prob, (int, float)) else None),
                 'Cuota justa': (round(100.0 / prob, 2)
-                                if isinstance(prob, (int, float)) and prob > 0 else '—'),
+                                if isinstance(prob, (int, float)) and prob > 0
+                                else None),
             })
-        st.dataframe(pd.DataFrame(tabla), width='stretch', hide_index=True)
+        st.dataframe(
+            pd.DataFrame(tabla), width='stretch', hide_index=True,
+            column_config={
+                'Cuota': st.column_config.NumberColumn(format='%.2f'),
+                'Prob. modelo': st.column_config.NumberColumn(format='%.1f %%'),
+                'Cuota justa': st.column_config.NumberColumn(format='%.2f'),
+            })
         st.caption(
             'La **cuota justa** es 1/probabilidad del modelo, sin margen. '
             'Se enseña para comparar a ojo con la cuota de la casa; **no** es '
