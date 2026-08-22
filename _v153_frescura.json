@@ -3,11 +3,11 @@
   "liga": "liga_mx",
   "nombre": "Liga MX",
   "formato": "new",
-  "n_csv": 2651,
-  "csv_hasta": "2026-08-18",
+  "n_csv": 2655,
+  "csv_hasta": "2026-08-22",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 13,
-  "partidos_que_faltan": 4
+  "partidos_que_faltan": 0
  },
  {
   "liga": "mls",
@@ -33,11 +33,11 @@
   "liga": "argentina",
   "nombre": "Primera División",
   "formato": "new",
-  "n_csv": 3805,
-  "csv_hasta": "2026-08-18",
+  "n_csv": 3807,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 30,
-  "partidos_que_faltan": 2
+  "partidos_que_faltan": 0
  },
  {
   "liga": "noruega",
@@ -53,11 +53,11 @@
   "liga": "suecia",
   "nombre": "Allsvenskan",
   "formato": "new",
-  "n_csv": 1931,
-  "csv_hasta": "2026-08-17",
+  "n_csv": 1932,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 17,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "finlandia",
@@ -93,11 +93,11 @@
   "liga": "turquia",
   "nombre": "Süper Lig",
   "formato": "main",
-  "n_csv": 3097,
-  "csv_hasta": "2026-08-17",
+  "n_csv": 3098,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 10,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "dinamarca",
@@ -115,9 +115,9 @@
   "formato": "new",
   "n_csv": 1880,
   "csv_hasta": "2026-08-19",
-  "espn_jugado_hasta": "2026-08-19",
-  "jugados_en_ventana": 16,
-  "partidos_que_faltan": 0
+  "espn_jugado_hasta": "2026-08-22",
+  "jugados_en_ventana": 21,
+  "partidos_que_faltan": 5
  },
  {
   "liga": "rus_premier",
@@ -143,21 +143,21 @@
   "liga": "premier",
   "nombre": "Premier League",
   "formato": "main",
-  "n_csv": 6080,
-  "csv_hasta": "2026-05-24",
-  "espn_jugado_hasta": "2026-08-21",
-  "jugados_en_ventana": 1,
+  "n_csv": 6081,
+  "csv_hasta": "2026-08-21",
+  "espn_jugado_hasta": "2026-08-22",
+  "jugados_en_ventana": 2,
   "partidos_que_faltan": 1
  },
  {
   "liga": "laliga",
   "nombre": "LaLiga",
   "formato": "main",
-  "n_csv": 6087,
-  "csv_hasta": "2026-08-20",
+  "n_csv": 6088,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 8,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "serie_a",
@@ -183,11 +183,11 @@
   "liga": "ligue_1",
   "nombre": "Ligue 1",
   "formato": "main",
-  "n_csv": 5757,
-  "csv_hasta": "2026-05-17",
+  "n_csv": 5758,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 1,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "eredivisie",
@@ -255,9 +255,9 @@
   "formato": "main",
   "n_csv": 8693,
   "csv_hasta": "2026-08-20",
-  "espn_jugado_hasta": "2026-08-20",
-  "jugados_en_ventana": 13,
-  "partidos_que_faltan": 0
+  "espn_jugado_hasta": "2026-08-22",
+  "jugados_en_ventana": 15,
+  "partidos_que_faltan": 2
  },
  {
   "liga": "eng_league_two",
@@ -265,9 +265,9 @@
   "formato": "main",
   "n_csv": 8732,
   "csv_hasta": "2026-08-15",
-  "espn_jugado_hasta": "2026-08-15",
-  "jugados_en_ventana": 12,
-  "partidos_que_faltan": 0
+  "espn_jugado_hasta": "2026-08-22",
+  "jugados_en_ventana": 15,
+  "partidos_que_faltan": 3
  },
  {
   "liga": "eng_national",
@@ -275,9 +275,9 @@
   "formato": "main",
   "n_csv": 8634,
   "csv_hasta": "2026-08-15",
-  "espn_jugado_hasta": "2026-08-15",
-  "jugados_en_ventana": 24,
-  "partidos_que_faltan": 0
+  "espn_jugado_hasta": "2026-08-22",
+  "jugados_en_ventana": 36,
+  "partidos_que_faltan": 12
  },
  {
   "liga": "sco_premiership",
@@ -293,41 +293,41 @@
   "liga": "sco_championship",
   "nombre": "Scottish Championship",
   "formato": "main",
-  "n_csv": 1542,
-  "csv_hasta": "2026-08-08",
+  "n_csv": 1543,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 5,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "esp_hypermotion",
   "nombre": "LaLiga Hypermotion",
   "formato": "main",
-  "n_csv": 4169,
-  "csv_hasta": "2026-08-17",
+  "n_csv": 4170,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 12,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "ita_serie_b",
   "nombre": "Serie B",
   "formato": "main",
-  "n_csv": 3464,
-  "csv_hasta": "2026-05-08",
+  "n_csv": 3465,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 1,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "fra_ligue2",
   "nombre": "Ligue 2",
   "formato": "main",
-  "n_csv": 3188,
-  "csv_hasta": "2026-08-14",
-  "espn_jugado_hasta": "2026-08-21",
-  "jugados_en_ventana": 23,
-  "partidos_que_faltan": 5
+  "n_csv": 3193,
+  "csv_hasta": "2026-08-21",
+  "espn_jugado_hasta": "2026-08-22",
+  "jugados_en_ventana": 25,
+  "partidos_que_faltan": 2
  },
  {
   "liga": "ger_bundesliga2",
@@ -343,31 +343,31 @@
   "liga": "jpn_j1",
   "nombre": "J1 League",
   "formato": "new",
-  "n_csv": 2515,
-  "csv_hasta": "2026-08-15",
-  "espn_jugado_hasta": "2026-08-21",
-  "jugados_en_ventana": 20,
-  "partidos_que_faltan": 2
+  "n_csv": 2517,
+  "csv_hasta": "2026-08-21",
+  "espn_jugado_hasta": "2026-08-22",
+  "jugados_en_ventana": 27,
+  "partidos_que_faltan": 7
  },
  {
   "liga": "arg_primera_nacional",
   "nombre": "Primera Nacional",
   "formato": "espn",
-  "n_csv": 3518,
-  "csv_hasta": "2026-08-19",
+  "n_csv": 3521,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 39,
-  "partidos_que_faltan": 3
+  "partidos_que_faltan": 0
  },
  {
   "liga": "col_primera_a",
   "nombre": "Categoría Primera A",
   "formato": "espn",
-  "n_csv": 2250,
-  "csv_hasta": "2026-08-19",
+  "n_csv": 2252,
+  "csv_hasta": "2026-08-22",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 11,
-  "partidos_que_faltan": 2
+  "partidos_que_faltan": 0
  },
  {
   "liga": "usl_championship",
@@ -393,48 +393,48 @@
   "liga": "per_liga1",
   "nombre": "Liga 1",
   "formato": "espn",
-  "n_csv": 1681,
-  "csv_hasta": "2026-08-16",
+  "n_csv": 1683,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 16,
-  "partidos_que_faltan": 2
+  "partidos_que_faltan": 0
  },
  {
   "liga": "uru_primera",
   "nombre": "Primera División",
   "formato": "espn",
-  "n_csv": 1564,
-  "csv_hasta": "2026-08-16",
+  "n_csv": 1566,
+  "csv_hasta": "2026-08-21",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 16,
-  "partidos_que_faltan": 2
+  "partidos_que_faltan": 0
  },
  {
   "liga": "ecu_liga_pro",
   "nombre": "LigaPro Serie A",
   "formato": "espn",
-  "n_csv": 1370,
-  "csv_hasta": "2026-08-18",
+  "n_csv": 1372,
+  "csv_hasta": "2026-08-22",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 17,
-  "partidos_que_faltan": 2
+  "partidos_que_faltan": 0
  },
  {
   "liga": "bol_division",
   "nombre": "División Profesional",
   "formato": "espn",
-  "n_csv": 1558,
-  "csv_hasta": "2026-08-17",
+  "n_csv": 1560,
+  "csv_hasta": "2026-08-22",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 16,
-  "partidos_que_faltan": 2
+  "partidos_que_faltan": 0
  },
  {
   "liga": "mex_expansion",
   "nombre": "Liga de Expansión MX",
   "formato": "espn",
-  "n_csv": 1414,
-  "csv_hasta": "2026-08-21",
+  "n_csv": 1415,
+  "csv_hasta": "2026-08-22",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 15,
   "partidos_que_faltan": 0
@@ -443,11 +443,11 @@
   "liga": "chi_primera",
   "nombre": "Campeonato Nacional",
   "formato": "espn",
-  "n_csv": 1302,
-  "csv_hasta": "2026-08-18",
+  "n_csv": 1303,
+  "csv_hasta": "2026-08-22",
   "espn_jugado_hasta": "2026-08-21",
   "jugados_en_ventana": 15,
-  "partidos_que_faltan": 1
+  "partidos_que_faltan": 0
  },
  {
   "liga": "rsa_premier",

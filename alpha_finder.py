@@ -555,6 +555,43 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
     return candidatos
 
 
+# v153 — EL CAMINO RÁPIDO: LEER LO QUE EL BOT YA CALCULÓ.
+#
+# Los 101 s de «cargar modelos + predecir» del arranque en frío producen el
+# mismo resultado durante todo el día. `predicciones_dia` los deja hechos.
+#
+# Estas dos funciones son la única puerta por la que entra ese fichero, y las
+# dos degradan solas: si no hay precálculo, `_precalculo` devuelve None y el
+# barrido sigue por el camino de siempre. Un despliegue sin fichero funciona
+# exactamente como antes, sólo que lento.
+_PRECALC_AVISADO = {'v': False}
+
+
+def _precalculo(clave_liga, home_crudo, away_crudo):
+    """
+    La predicción que dejó el bot para este partido, o None.
+
+    Devuelve el registro crudo (con los nombres ya mapeados dentro) y, aparte,
+    el objeto con la forma de `predecir`. El barrido necesita las dos cosas: los
+    nombres antes de tener catálogo, y el `pred` para las funciones de mercados.
+    """
+    try:
+        import predicciones_dia
+        reg = predicciones_dia.prediccion(clave_liga, home_crudo, away_crudo)
+        if not reg:
+            return None
+        pred = predicciones_dia.como_prediccion(reg)
+        if not pred:
+            return None
+        return {'home': reg.get('home'), 'away': reg.get('away'), 'pred': pred}
+    except Exception as e:
+        if not _PRECALC_AVISADO['v']:
+            logger.info(f'[alpha] sin precálculo del día ({e}); se predice '
+                        f'en vivo')
+            _PRECALC_AVISADO['v'] = True
+        return None
+
+
 def _mercados_modelo(pred: Dict, home: str, away: str) -> List[Dict]:
     """v49: mercados derivados SOLO del modelo (sin cuota real) — para los
     fixtures sin cuota en vivo. Devuelve 1X2, O/U 2.5 y BTTS con la CUOTA JUSTA
@@ -759,6 +796,38 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
     # van a cargar. Donde el clon ya trae los modelos —desarrollo, o un
     # contenedor que ya los bajó— `asegurar` mira el disco y no toca la red.
     _con_fixtures = [c for c in claves_disp if fixtures_por_liga.get(c)]
+
+    # v153 — QUÉ COMPETICIONES NO NECESITAN SU MOTOR HOY.
+    #
+    # Sólo las que el bot dejó COMPLETAS en `predicciones_dia.json`. El criterio
+    # es estricto: si a una liga le falta un partido hay que cargar su motor
+    # igual para ese, y entonces no se ahorra nada — así que «casi todos» no
+    # vale.
+    #
+    # Se resuelve una vez, aquí, y no dentro del bucle: la lista no cambia a
+    # mitad del barrido y consultarla por liga sería releer el estado del
+    # fichero cincuenta veces.
+    try:
+        import predicciones_dia as _pd_pre
+        _estado_pre = _pd_pre.estado()
+        _ligas_precalc = (set(_pd_pre.ligas_cubiertas())
+                          if _estado_pre.get('usable') else set())
+        if _ligas_precalc:
+            logger.info(f"[alpha/fix] {len(_ligas_precalc)} competiciones con "
+                        f"predicciones del bot: no se cargan sus modelos "
+                        f"({_estado_pre.get('n')} partidos precalculados)")
+        else:
+            logger.info(f"[alpha/fix] sin precálculo utilizable "
+                        f"({_estado_pre.get('motivo')}): se predice en vivo")
+    except Exception as e:
+        logger.info(f"[alpha/fix] precálculo no disponible ({e}): se predice "
+                    f"en vivo")
+        _ligas_precalc = set()
+
+    # El prefetch de pesos se salta las competiciones precalculadas: bajar del
+    # Release un modelo que no se va a abrir es justo el gasto que este camino
+    # viene a evitar.
+    _con_fixtures = [c for c in _con_fixtures if c not in _ligas_precalc]
     if _con_fixtures:
         try:
             import modelos_remotos as _mr
@@ -810,8 +879,24 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
         except Exception as e:
             logger.warning(f"[alpha/fix] odds_multi {clave}: {e}")
             odds_ricas = {}
+        # v153 — SI EL BOT YA PREDIJO ESTA COMPETICIÓN, NO SE CARGA SU MOTOR.
+        #
+        # Aquí está el grueso del arranque en frío: cargar los pesos son ~50 s
+        # de los 119, y predecir otros ~51. Las dos fases dan el mismo resultado
+        # durante todo el día, porque el 1X2 sólo cambia cuando corre el bot.
+        #
+        # `predicciones_dia` lo indexa por el nombre CRUDO del fixture, y no por
+        # el mapeado, justamente para que se pueda consultar sin el catálogo —
+        # que es lo que obliga a cargar el motor. Si la competición está
+        # completa en el fichero, esta liga no toca el disco ni descomprime un
+        # solo `.joblib`.
+        #
+        # Lo que NO se precalcula son las CUOTAS: ésas cambian durante el día y
+        # se siguen pidiendo en vivo. Congelarlas sería el error que este camino
+        # tuvo que descartar antes de existir.
+        _precalc_liga = clave in _ligas_precalc
         eng = motores.get(clave)
-        if eng is None:
+        if eng is None and not _precalc_liga:
             try:
                 eng = ClubEngine(clave)
             except Exception as e:
@@ -819,7 +904,11 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                 sin_motor[clave] = f'{type(e).__name__}: {e}'
                 continue
             motores[clave] = eng
-        if not getattr(eng, 'listo', False):
+        if eng is None and _precalc_liga:
+            # Camino rápido: sin motor. El catálogo sale de las propias
+            # predicciones, que ya llevan dentro el nombre mapeado.
+            catalogo = None
+        elif not getattr(eng, 'listo', False):
             # v106 — UNA LIGA SIN MODELO YA NO DESAPARECE EN SILENCIO.
             #
             # Este `continue` llevaba versiones descartando competiciones
@@ -839,7 +928,8 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             if getattr(eng, 'error', None):
                 sin_motor[clave] = str(eng.error)[:120]
             continue
-        catalogo = list(eng.stats.keys())
+        else:
+            catalogo = list(eng.stats.keys())
         for fx in fixtures:
             try:
                 fecha = pd.Timestamp(fx['fecha'])
@@ -940,8 +1030,17 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                        else 'y tampoco hay precio: queda en blanco'))
                 return _fila
 
-            home = name_mapper.mapear(fx['home'], catalogo, contexto=f'fixture→{clave}')
-            away = name_mapper.mapear(fx['away'], catalogo, contexto=f'fixture→{clave}')
+            # v153 — con el precálculo, los nombres YA vienen mapeados dentro.
+            # El mapeo es lo único que necesitaba el catálogo del motor, así que
+            # resolverlo aquí es lo que permite no cargarlo.
+            _pre = _precalculo(clave, fx.get('home'), fx.get('away'))
+            if _pre:
+                home, away = _pre.get('home'), _pre.get('away')
+            else:
+                home = name_mapper.mapear(fx['home'], catalogo,
+                                          contexto=f'fixture→{clave}')
+                away = name_mapper.mapear(fx['away'], catalogo,
+                                          contexto=f'fixture→{clave}')
             if not (home and away) or home == away:
                 # v148 — EL MOTIVO, EN VEZ DE UNA SOSPECHA DE BUG.
                 #
@@ -991,14 +1090,47 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             evaluados_pares.add((clave, home, away))
             # v86: igual que en el barrido de cuotas — el prior de ELO es de la
             # ficha, no del pick. Ver el comentario en `_barrido_cuotas`.
-            pred = eng.predecir(home, away, prior_elo=False)
-            if 'error' in pred:
-                pronosticos.append(_fila_sin_modelo(
-                    f"el modelo no pudo predecirlo: {pred['error']}"))
-                continue
+            #
+            # v153 — si el bot ya lo predijo, se usa su resultado. Es
+            # EXACTAMENTE el mismo número: el precálculo llama a esta misma
+            # función con `prior_elo=False`, que está comprobado que no toca la
+            # red y es determinista. Si divergieran, la aplicación enseñaría una
+            # cosa distinta según hubiera fichero o no.
+            if _pre:
+                pred = _pre['pred']
+                mercados = _mercados_modelo(pred, home, away)
+            else:
+                if eng is None:
+                    # La liga estaba marcada como completa en el fichero y este
+                    # partido no está: es un fixture que apareció después de que
+                    # corriera el bot. Se carga el motor para no perderlo.
+                    try:
+                        eng = ClubEngine(clave)
+                        motores[clave] = eng
+                        catalogo = list(eng.stats.keys())
+                        home = name_mapper.mapear(fx['home'], catalogo,
+                                                  contexto=f'fixture→{clave}')
+                        away = name_mapper.mapear(fx['away'], catalogo,
+                                                  contexto=f'fixture→{clave}')
+                    except Exception as e:
+                        sin_motor[clave] = f'{type(e).__name__}: {e}'
+                        pronosticos.append(_fila_sin_modelo(
+                            'partido nuevo desde el último precálculo y el '
+                            'modelo de esta competición no se pudo cargar'))
+                        continue
+                    if not (home and away) or home == away:
+                        pronosticos.append(_fila_sin_modelo(
+                            'partido nuevo desde el último precálculo y su '
+                            'nombre no casa con el catálogo del modelo'))
+                        continue
+                pred = eng.predecir(home, away, prior_elo=False)
+                if 'error' in pred:
+                    pronosticos.append(_fila_sin_modelo(
+                        f"el modelo no pudo predecirlo: {pred['error']}"))
+                    continue
+                mercados = _mercados_modelo(pred, home, away)
             n_eval += 1
             cobertura[clave] = cobertura.get(clave, 0) + 1
-            mercados = _mercados_modelo(pred, home, away)
             partido = f'{home} vs {away}'
             base = {'deporte': 'Fútbol', 'liga': cfg.get('nombre', clave),
                     # v82: la CLAVE de la liga viaja con el pick. El nombre

@@ -43,6 +43,42 @@ from correlated_synthetic_generator import CorrelatedSyntheticGenerator
 
 logger = logging.getLogger(__name__)
 
+# v153 — Súbela cuando cambie el CÓDIGO del entrenamiento (features, modelo,
+# calibración). Invalida todas las firmas de datos a la vez, y esa madrugada se
+# reentrena el catálogo entero. Sin esto, tocar las features no tendría ningún
+# efecto sobre las ligas que no hayan jugado, y el modelo viejo seguiría
+# sirviéndose en silencio.
+VERSION_ENTRENAMIENTO = 1
+
+# Interruptor de emergencia: `--forzar` en la línea de órdenes, o la variable
+# de entorno, reentrenan aunque no haya datos nuevos.
+FORZAR_REENTRENO = bool(os.environ.get('FORZAR_REENTRENO'))
+
+
+def _firma_datos(df) -> str:
+    """
+    Firma del histórico que alimenta a una liga.
+
+    Se calcula sobre las columnas que DECIDEN el modelo —fecha, equipos y
+    marcador— y no sobre el dataframe entero: las derivadas (`elo_diff`, el xG
+    del generador) se recalculan en cada descarga y arrastran su propio ruido,
+    así que incluirlas haría que la firma cambiara siempre y el salto no se
+    activara nunca. Que es exactamente lo que le pasa al `.tar.gz` con la marca
+    de tiempo de gzip.
+    """
+    import hashlib
+
+    cols = [c for c in ('date', 'home_team', 'away_team',
+                        'home_goals', 'away_goals') if c in df.columns]
+    if not cols:
+        return ''
+    sub = df[cols].sort_values(cols).astype(str)
+    h = hashlib.sha256()
+    h.update(str(VERSION_ENTRENAMIENTO).encode('utf-8'))
+    h.update(('|'.join(cols)).encode('utf-8'))
+    h.update(sub.to_csv(index=False).encode('utf-8'))
+    return h.hexdigest()
+
 
 def _entropias_ripser(nube) -> np.ndarray:
     """Entropías de persistencia H0/H1 con ripser (mismo cálculo que
@@ -1267,6 +1303,47 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     if not con_ratings:
         df.to_csv(f'historico_{clave}.csv', index=False)
 
+    # v153 — UNA LIGA SIN PARTIDOS NUEVOS NO SE REENTRENA.
+    #
+    # `--build` reentrenaba las 54 competiciones todos los días, jugaran o no.
+    # Y reentrenar con los MISMOS datos no produce el mismo fichero: medido
+    # sobre `gre_super_league`, dos entrenamientos seguidos con idéntico
+    # histórico dan `.joblib` con bytes distintos. O sea que cada madrugada se
+    # regeneraban 54 modelos, la mitad de ellos idénticos en todo salvo en los
+    # bytes, y luego había que subirlos todos al Release.
+    #
+    # Eso es lo que reventaba el workflow: 26 minutos de reentrenamiento y 34
+    # de subida, tope de 60, y el commit de los CSV al final. Dos días seguidos
+    # el job murió antes de guardar los datos (ver el §4i del traspaso).
+    #
+    # El salto se decide por el CONTENIDO del histórico, que es lo único que
+    # puede cambiar la respuesta del modelo. La firma se guarda en el
+    # `metadata.json` de la propia liga, así que viaja con sus pesos y no hace
+    # falta un fichero de control aparte.
+    #
+    # `VERSION_ENTRENAMIENTO` es la salida para cuando lo que cambia es el
+    # CÓDIGO y no los datos: subirla invalida todas las firmas de golpe y la
+    # noche siguiente se reentrena el catálogo entero. Sin ella, tocar las
+    # features no tendría efecto sobre las ligas en receso, que es un modo de
+    # fallo silencioso y muy caro de encontrar.
+    if not con_ratings and not FORZAR_REENTRENO:
+        firma = _firma_datos(df)
+        carpeta_prev = os.path.join('modelos', clave)
+        try:
+            with open(os.path.join(carpeta_prev, 'metadata.json'),
+                      encoding='utf-8') as _f:
+                _meta_prev = json.load(_f)
+        except Exception:
+            _meta_prev = {}
+        completa = all(
+            os.path.exists(os.path.join(carpeta_prev, n))
+            for n in ('modelo.joblib', 'escalador.joblib',
+                      'reg_local.joblib', 'reg_visit.joblib'))
+        if completa and _meta_prev.get('firma_datos') == firma:
+            logger.info(f"[{clave}] sin partidos nuevos desde el último "
+                        f"entrenamiento: se conserva el modelo y no se re-sube")
+            return {**_meta_prev, 'reentrenado': False}
+
     # El marco del MODELO se pide aparte, con la ventana medida de la liga, para
     # que sus derivadas (ELO, xG) se calculen sobre ella y no sobre los 16 años.
     # Ver el bloque de `descargar_liga`.
@@ -1678,6 +1755,13 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
 
     metadata = {
         'liga': LEAGUES[clave]['nombre'],
+        # v153 — la firma del histórico con el que se entrenó ESTE modelo. Es
+        # lo que permite saltarse el reentrenamiento la próxima madrugada si la
+        # liga no ha jugado. Viaja dentro de los pesos, así que no hace falta un
+        # fichero de control aparte que pudiera desincronizarse.
+        'firma_datos': _firma_datos(df),
+        'version_entrenamiento': VERSION_ENTRENAMIENTO,
+        'reentrenado': True,
         'n_train': int(m_tr.sum()), 'n_validacion': int(m_va.sum()),
         'fecha_corte': str(pd.Timestamp(corte).date()),
         'precision_validacion': round(float(acc), 4),
@@ -2795,7 +2879,13 @@ if __name__ == '__main__':
     con_ratings = '--ratings' in sys.argv
     argumentos = [a for a in sys.argv[1:] if not a.startswith('--')]
     objetivo = argumentos[0] if argumentos else None
+    if '--forzar' in sys.argv:
+        # v153 — reentrena aunque no haya datos nuevos. Para cuando lo que
+        # cambia es el código y no se subió `VERSION_ENTRENAMIENTO`.
+        FORZAR_REENTRENO = True
+        globals()['FORZAR_REENTRENO'] = True
     if '--build' in sys.argv:
+        _saltadas, _hechas = [], []
         for clave, cfg in LEAGUES.items():
             if not cfg.get('disponible'):
                 logger.info(f"[{clave}] omitida: {cfg.get('nota', 'no disponible')}")
@@ -2803,6 +2893,12 @@ if __name__ == '__main__':
             if objetivo and clave != objetivo:
                 continue
             try:
-                entrenar_liga(clave, con_ratings=con_ratings)
+                _r = entrenar_liga(clave, con_ratings=con_ratings)
+                if isinstance(_r, dict) and _r.get('reentrenado') is False:
+                    _saltadas.append(clave)
+                else:
+                    _hechas.append(clave)
             except Exception as e:
                 logger.error(f"[{clave}] falló: {type(e).__name__}: {e}")
+        logger.info(f"reentrenadas {len(_hechas)}, sin datos nuevos "
+                    f"{len(_saltadas)} ({', '.join(_saltadas) or 'ninguna'})")

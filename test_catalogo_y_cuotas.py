@@ -5196,6 +5196,139 @@ def test_solo_se_republica_lo_que_cambio():
           'queda una salida para re-subirlo todo si el Release se descuadra')
 
 
+def test_no_se_reentrena_una_liga_sin_partidos_nuevos():
+    """
+    v153 — el arreglo de los assets era inerte sin esto, y se midio.
+
+    Saltarse la subida de un asset sólo sirve si sus bytes NO cambian. Medido
+    sobre `gre_super_league`: dos entrenamientos seguidos con el MISMO
+    histórico producen `.joblib` con bytes distintos. O sea que mientras
+    `--build` reentrenara las 54 competiciones cada madrugada, el salto de
+    subida no se activaria nunca y el arreglo seria decorativo.
+
+    Por eso se corta antes: si el histórico no ha cambiado, no se reentrena.
+    Medido tras el cambio: 43,3 s → 0,2 s, y los bytes quedan identicos, con lo
+    que el asset tampoco se re-sube. Las dos optimizaciones se encadenan.
+
+    La firma es de fecha, equipos y marcador, NO del dataframe entero: las
+    derivadas (`elo_diff`, el xG del generador) se recalculan en cada descarga
+    y arrastran ruido propio, asi que incluirlas haria que la firma cambiara
+    siempre — el mismo error que tendria comparar el `.tar.gz`.
+    """
+    import pandas as pd
+
+    import league_engine as le
+
+    check(hasattr(le, '_firma_datos'), 'existe la firma del histórico')
+    check(getattr(le, 'VERSION_ENTRENAMIENTO', None) is not None,
+          'existe la version de entrenamiento que invalida las firmas de golpe')
+
+    base = pd.DataFrame({
+        'date': pd.to_datetime(['2026-01-01', '2026-01-08']),
+        'home_team': ['A', 'B'], 'away_team': ['B', 'A'],
+        'home_goals': [1.0, 2.0], 'away_goals': [0.0, 2.0],
+    })
+    f1 = le._firma_datos(base)
+    check(f1 == le._firma_datos(base.copy()),
+          'la firma es estable con los mismos partidos')
+    check(f1 == le._firma_datos(base.iloc[::-1].copy()),
+          'y no depende del orden de las filas')
+
+    # Una columna derivada NO puede cambiarla: es lo que impide que el salto se
+    # desactive solo en cuanto el generador sintetico mueva un decimal.
+    con_ruido = base.copy()
+    con_ruido['elo_diff'] = [12.5, -3.25]
+    con_ruido['home_xg'] = [1.11, 2.22]
+    check(f1 == le._firma_datos(con_ruido),
+          'las columnas derivadas no alteran la firma')
+
+    # Un partido nuevo SI la cambia, que es la mitad que hace util al salto.
+    nuevo = pd.concat([base, pd.DataFrame({
+        'date': pd.to_datetime(['2026-01-15']), 'home_team': ['A'],
+        'away_team': ['B'], 'home_goals': [3.0], 'away_goals': [1.0]})])
+    check(f1 != le._firma_datos(nuevo),
+          'un partido nuevo cambia la firma')
+    # Y un marcador corregido tambien: football-data los rectifica a veces.
+    corregido = base.copy()
+    corregido.loc[corregido.index[0], 'home_goals'] = 5.0
+    check(f1 != le._firma_datos(corregido),
+          'un marcador corregido cambia la firma')
+
+    src = open('league_engine.py', encoding='utf-8').read()
+    check("'--forzar' in sys.argv" in src,
+          'queda una salida para reentrenar a la fuerza')
+
+
+
+def test_el_precalculo_no_cambia_ni_un_numero():
+    """
+    v153 — el camino rapido tiene que dar EXACTAMENTE lo mismo que el lento.
+
+    El bot precalcula el 1X2 del dia en `predicciones_dia.json` y el barrido lo
+    lee en vez de cargar los modelos (50 s) y predecir (51 s). Medido sobre el
+    barrido completo: 119,4 s -> 74,3 s, con 319 pronosticos y 303 con modelo
+    en los dos casos.
+
+    Si el precalculo y la prediccion en vivo divergieran, la aplicacion
+    enseñaria una cosa distinta segun hubiera fichero o no, que es peor que no
+    tener fichero. Por eso el registro guarda la MATRIZ de marcadores y el
+    barrido reconstruye con ella un objeto con la forma de `predecir`: asi las
+    dos rutas llaman a las mismas funciones de mercados y la equivalencia es por
+    construccion, no algo que haya que mantener a mano.
+
+    La primera version guardaba solo un resumen (probabilidades y dos
+    agregados). Se quedo corta en cuanto un partido tuvo cuotas:
+    `_mercados_del_partido` necesita la matriz entera y el barrido reventaba con
+    `NoneType is not subscriptable`.
+    """
+    import predicciones_dia as pdia
+
+    e = pdia.estado()
+    check(isinstance(e, dict) and 'usable' in e,
+          'el estado del precalculo se puede consultar siempre')
+    if not e.get('usable'):
+        check(True, 'sin fichero de predicciones: el barrido predice en vivo '
+                    '(%s)' % e.get('motivo'))
+        return
+
+    import json
+
+    import alpha_finder as af
+
+    with open(pdia.FICHERO, encoding='utf-8') as f:
+        doc = json.load(f)
+    registros = doc.get('predicciones') or {}
+    check(bool(registros), 'el fichero trae predicciones')
+
+    # Todo registro tiene que poder reconstruirse: si a uno le falta la matriz,
+    # el barrido caeria al llegar a el y no al leerlo.
+    sin_matriz = [k for k, v in registros.items() if 'score_matrix' not in v]
+    check(not sin_matriz,
+          'todos los registros llevan su matriz de marcadores (%d sin ella)'
+          % len(sin_matriz))
+
+    clave = next(iter(registros))
+    reg = registros[clave]
+    pred = pdia.como_prediccion(reg)
+    check(pred is not None and 'score_matrix' in pred,
+          'un registro se reconstruye con la forma de `predecir`')
+
+    # Y los mercados que sale de ahi son los del modelo, no una copia aparte.
+    mercados = af._mercados_modelo(pred, reg['home'], reg['away'])
+    check(len(mercados) == 7,
+          'del precalculo salen los 7 mercados del modelo (%d)' % len(mercados))
+    suma_1x2 = sum(m['prob'] for m in mercados if m['mercado'] == '1X2')
+    check(abs(suma_1x2 - 1.0) <= 0.01,
+          'y su 1X2 suma 1 (%.3f)' % suma_1x2)
+
+    # La clave se indexa por el nombre CRUDO del fixture: es lo que permite
+    # consultarlo SIN cargar el motor, que es de donde sale todo el ahorro.
+    liga, crudo_h, crudo_a = clave.split('|', 2)
+    check(pdia.prediccion(liga, crudo_h, crudo_a) is not None,
+          'se consulta con el nombre crudo del fixture, sin catalogo')
+    check(reg.get('home') is not None and reg.get('away') is not None,
+          'y el registro trae dentro el nombre ya mapeado')
+
 def test_los_except_pueden_registrar_su_error():
     """
     v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
@@ -5493,6 +5626,8 @@ if __name__ == '__main__':
     test_modo_modelo_separa_ligas_secundarias()
     test_el_bot_guarda_los_datos_antes_de_lo_lento()
     test_solo_se_republica_lo_que_cambio()
+    test_no_se_reentrena_una_liga_sin_partidos_nuevos()
+    test_el_precalculo_no_cambia_ni_un_numero()
     test_los_except_pueden_registrar_su_error()
     test_modo_modelo_esta_enrutado_en_la_interfaz()
     test_corners_no_suben_a_seccion1_sin_medicion()

@@ -243,11 +243,32 @@ jobs:
       # recogiendo todo lo que se genere después (snapshots, liquidación,
       # calibración). Lo que cambia es que un fallo posterior ya no se lleva
       # por delante los datos del día.
+      # v153 — LAS PREDICCIONES DEL DÍA, CALCULADAS AQUÍ Y NO EN CADA ARRANQUE.
+      #
+      # El arranque en frío de la aplicación son ~119 s, de los cuales 50 son
+      # cargar los modelos y 51 predecir. Ese trabajo da el MISMO resultado
+      # durante todo el día —el 1X2 sólo cambia cuando corre este workflow— así
+      # que pagarlo en cada arranque de cada usuario es repetirlo de balde.
+      #
+      # Va DESPUÉS del reentrenamiento (usa los modelos recién hechos) y ANTES
+      # del guardado, para que el JSON viaje en el mismo commit que los CSV: si
+      # se guardaran por separado, habría un rato con predicciones de unos pesos
+      # e históricos de otros.
+      #
+      # `continue-on-error` a propósito: si esto falla, la aplicación cae al
+      # camino de siempre (cargar y predecir en vivo). Es más lento, no está
+      # roto, y no puede tumbar el reentrenamiento.
+      - name: Precalcular las predicciones del día
+        continue-on-error: true
+        run: |
+          python predicciones_dia.py --dias 3 || echo "::warning::precálculo con avisos"
+
       - name: Guardar históricos y estado (antes de lo lento)
         run: |
           git config user.name  "retrain-bot"
           git config user.email "actions@github.com"
           git add -A historico_*.csv team_stats_*.json barrido_ligas.json 2>/dev/null || true
+          git add -A predicciones_dia.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Sin cambios en históricos (ligas en receso). Nada que guardar."
           else
