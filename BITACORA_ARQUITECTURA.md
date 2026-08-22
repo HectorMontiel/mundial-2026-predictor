@@ -764,3 +764,64 @@ Por eso **no se entrena ningún modelo sobre el xG de estos ficheros** (sería
 entrenar sobre los goles con ruido añadido) y **no se enseña xG ni posesión en
 ninguna pantalla**. Sólo salen goles, córners, remates y tarjetas, que sí son
 observados — y sólo en las competiciones donde lo son.
+
+### 10.6 El intento serio de predecir córners, y el suelo que lo cierra
+
+Se pidió bajar el MAE de ~2,70 a menos de 2,00 usando remates y remates a
+puerta en vez del xG, y probando XGBoost o un Poisson compuesto. Se hizo, con
+32 features y cuatro modelos, sobre las 20 competiciones con córners
+observados: **7.890 partidos en el tramo de juicio**, split temporal, sin fuga.
+
+Features: córners a favor y en contra en ventanas de 5 y 10, córners del bando
+que toca jugar, remates totales y **remates a puerta por separado**, precisión
+de remate (a puerta / totales) como proxy de presión, faltas, córners del H2H y
+`elo_diff`.
+
+| modelo | MAE |
+|---|---|
+| constante de la competición | **2,7067** |
+| ridge, 32 features | 2,6977 |
+| Poisson | 2,7085 |
+| XGBoost (`count:poisson`) | 2,7293 |
+| LightGBM (`poisson`) | 2,7365 |
+| **oráculo que conociera la media exacta** | **2,4835** |
+
+**Ni XGBoost, ni LightGBM, ni el Poisson baten a decir siempre la media.** Los
+tres salen PEOR. El ridge mejora 0,009 córners, con percentil 5 positivo en 3
+de 20 ligas — lo que produce el azar al hacer veinte pruebas.
+
+#### El suelo, que es lo que cierra la línea
+
+Antes de perseguir un número hay que saber si existe. El total de córners es un
+conteo con razón varianza/media **1,17**: un proceso Poisson casi puro,
+ligeramente sobredispersado. Con esa distribución, **un oráculo que conociera la
+media exacta de cada partido cometería 2,4835 de error medio**. No por
+ignorancia: por la dispersión del propio fenómeno.
+
+    margen teórico total .....  2,7067 − 2,4835 = 0,223 córners
+    lo que captura el mejor ..  0,009  (un 4 % de ese margen)
+
+**Un MAE de 2,0 no es un modelo mejor: es un modelo imposible.** Está medio
+córner por debajo de lo que puede conseguir quien lo sepa todo.
+
+#### Los otros dos caminos, y por qué tampoco
+
+- **Cuotas de córners de la casa como variable.** Es el mejor estimador
+  disponible, pero no hay histórico de líneas de córners con el que entrenar ni
+  validar (§10.4). Y aunque lo hubiera: un modelo que copia la línea de la casa
+  baja su MAE porque mide al mercado, no porque lo bata. Para tener ventaja hay
+  que separarse de la línea y acertar más, que es justo lo que estos números
+  dicen que no se puede.
+- **FotMob para posesión y ataques por banda.** La fuente existe y publica xG
+  real, posesión y ocasiones claras. Hoy hay **28 partidos cacheados**. Con esa
+  cobertura no se valida nada; haría falta un backfill de miles antes de poder
+  siquiera plantear el experimento.
+
+#### Qué queda en pie
+
+El total de córners que enseña la app sigue siendo **la media observada de la
+competición**, que es el mejor estimador medido. Las medias por equipo —lo que
+saca y recibe cada uno— sí son suyas y se enseñan como datos. El EV de córners
+sigue bloqueado, y ahora con un motivo más fuerte que antes: no es que falte
+afinar el modelo, es que el margen entre la constante y la perfección son
+0,22 córners y nadie ha capturado más del 4 %.

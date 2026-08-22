@@ -1,0 +1,983 @@
+{
+ "ligas": [
+  {
+   "liga": "premier",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1476,
+   "n_juicio": 491,
+   "n_features": 32,
+   "mae_constante": 2.6707,
+   "suelo": {
+    "lambda": 9.982,
+    "mae_oraculo_poisson": 2.4837,
+    "var_media_real": 1.076,
+    "sd_real": 3.277
+   },
+   "importancia": {
+    "st_f_h10": 0.0379,
+    "ck_c_a10": 0.0373,
+    "ck_c_h10": 0.0363,
+    "st_c_h10": 0.0357,
+    "st_f_a10": 0.0357,
+    "ck_bando_h": 0.0345
+   },
+   "ridge": {
+    "mae": 2.6481,
+    "mejora": 0.0226,
+    "p5": -0.0056,
+    "corr": 0.0419
+   },
+   "poisson": {
+    "mae": 2.6475,
+    "mejora": 0.0232,
+    "p5": -0.0143,
+    "corr": 0.0474
+   },
+   "xgboost": {
+    "mae": 2.6473,
+    "mejora": 0.0235,
+    "p5": -0.0204,
+    "corr": 0.0729
+   },
+   "lightgbm": {
+    "mae": 2.6789,
+    "mejora": -0.0082,
+    "p5": -0.053,
+    "corr": 0.0123
+   },
+   "segundos": 26.4
+  },
+  {
+   "liga": "laliga",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1469,
+   "n_juicio": 490,
+   "n_features": 32,
+   "mae_constante": 2.7358,
+   "suelo": {
+    "lambda": 9.686,
+    "mae_oraculo_poisson": 2.4835,
+    "var_media_real": 1.241,
+    "sd_real": 3.467
+   },
+   "importancia": {
+    "ck_bando_h": 0.0427,
+    "ck_f_h10": 0.0388,
+    "ck_f_a10": 0.0387,
+    "sh_f_a5": 0.0355,
+    "st_f_h10": 0.0354,
+    "sh_c_a10": 0.0349
+   },
+   "ridge": {
+    "mae": 2.7059,
+    "mejora": 0.0299,
+    "p5": -0.0088,
+    "corr": 0.1418
+   },
+   "poisson": {
+    "mae": 2.7187,
+    "mejora": 0.0171,
+    "p5": -0.0348,
+    "corr": 0.1308
+   },
+   "xgboost": {
+    "mae": 2.7885,
+    "mejora": -0.0527,
+    "p5": -0.1164,
+    "corr": 0.0549
+   },
+   "lightgbm": {
+    "mae": 2.7742,
+    "mejora": -0.0384,
+    "p5": -0.0967,
+    "corr": 0.0428
+   },
+   "segundos": 23.4
+  },
+  {
+   "liga": "serie_a",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1390,
+   "n_juicio": 458,
+   "n_features": 32,
+   "mae_constante": 2.6801,
+   "suelo": {
+    "lambda": 9.022,
+    "mae_oraculo_poisson": 2.3378,
+    "var_media_real": 1.177,
+    "sd_real": 3.258
+   },
+   "importancia": {
+    "sh_c_a10": 0.0426,
+    "st_c_a10": 0.0413,
+    "sh_c_a5": 0.0408,
+    "prec_h": 0.0361,
+    "h2h_ck": 0.0347,
+    "ck_c_a10": 0.0344
+   },
+   "ridge": {
+    "mae": 2.648,
+    "mejora": 0.0321,
+    "p5": 0.0013,
+    "corr": 0.0712
+   },
+   "poisson": {
+    "mae": 2.6535,
+    "mejora": 0.0265,
+    "p5": -0.0147,
+    "corr": 0.0589
+   },
+   "xgboost": {
+    "mae": 2.6659,
+    "mejora": 0.0142,
+    "p5": -0.035,
+    "corr": 0.0586
+   },
+   "lightgbm": {
+    "mae": 2.6628,
+    "mejora": 0.0173,
+    "p5": -0.0267,
+    "corr": 0.0793
+   },
+   "segundos": 24.0
+  },
+  {
+   "liga": "bundesliga",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1327,
+   "n_juicio": 443,
+   "n_features": 32,
+   "mae_constante": 2.806,
+   "suelo": {
+    "lambda": 9.727,
+    "mae_oraculo_poisson": 2.4908,
+    "var_media_real": 1.234,
+    "sd_real": 3.465
+   },
+   "importancia": {
+    "ck_f_h10": 0.0379,
+    "ck_bando_h": 0.0366,
+    "sh_f_h10": 0.0358,
+    "sh_c_a10": 0.0356,
+    "sh_c_a5": 0.0351,
+    "st_f_h10": 0.0343
+   },
+   "ridge": {
+    "mae": 2.7943,
+    "mejora": 0.0116,
+    "p5": -0.0134,
+    "corr": 0.0535
+   },
+   "poisson": {
+    "mae": 2.8088,
+    "mejora": -0.0029,
+    "p5": -0.0376,
+    "corr": 0.0262
+   },
+   "xgboost": {
+    "mae": 2.8247,
+    "mejora": -0.0187,
+    "p5": -0.0624,
+    "corr": 0.0352
+   },
+   "lightgbm": {
+    "mae": 2.8357,
+    "mejora": -0.0297,
+    "p5": -0.0739,
+    "corr": 0.023
+   },
+   "segundos": 23.2
+  },
+  {
+   "liga": "ligue_1",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1247,
+   "n_juicio": 416,
+   "n_features": 32,
+   "mae_constante": 2.6327,
+   "suelo": {
+    "lambda": 9.601,
+    "mae_oraculo_poisson": 2.4614,
+    "var_media_real": 1.178,
+    "sd_real": 3.363
+   },
+   "importancia": {
+    "st_f_a10": 0.0379,
+    "sh_c_a10": 0.037,
+    "sh_f_a10": 0.0369,
+    "st_c_a5": 0.0356,
+    "sh_c_h10": 0.035,
+    "ck_bando_a": 0.0348
+   },
+   "ridge": {
+    "mae": 2.6264,
+    "mejora": 0.0062,
+    "p5": -0.0168,
+    "corr": 0.0059
+   },
+   "poisson": {
+    "mae": 2.6389,
+    "mejora": -0.0063,
+    "p5": -0.0395,
+    "corr": -0.0062
+   },
+   "xgboost": {
+    "mae": 2.645,
+    "mejora": -0.0123,
+    "p5": -0.0592,
+    "corr": 0.0374
+   },
+   "lightgbm": {
+    "mae": 2.6714,
+    "mejora": -0.0387,
+    "p5": -0.0832,
+    "corr": -0.0257
+   },
+   "segundos": 23.8
+  },
+  {
+   "liga": "eredivisie",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1121,
+   "n_juicio": 374,
+   "n_features": 32,
+   "mae_constante": 2.7289,
+   "suelo": {
+    "lambda": 10.19,
+    "mae_oraculo_poisson": 2.5859,
+    "var_media_real": 1.111,
+    "sd_real": 3.364
+   },
+   "importancia": {
+    "sh_c_a10": 0.038,
+    "ck_c_a10": 0.0366,
+    "sh_f_a10": 0.0353,
+    "st_c_a10": 0.035,
+    "st_c_h10": 0.0346,
+    "ck_f_h10": 0.0342
+   },
+   "ridge": {
+    "mae": 2.7484,
+    "mejora": -0.0195,
+    "p5": -0.0507,
+    "corr": 0.0924
+   },
+   "poisson": {
+    "mae": 2.765,
+    "mejora": -0.0361,
+    "p5": -0.0869,
+    "corr": 0.0834
+   },
+   "xgboost": {
+    "mae": 2.7549,
+    "mejora": -0.026,
+    "p5": -0.0855,
+    "corr": 0.0931
+   },
+   "lightgbm": {
+    "mae": 2.7695,
+    "mejora": -0.0406,
+    "p5": -0.0993,
+    "corr": 0.0482
+   },
+   "segundos": 14.0
+  },
+  {
+   "liga": "primeira",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1115,
+   "n_juicio": 370,
+   "n_features": 32,
+   "mae_constante": 2.7834,
+   "suelo": {
+    "lambda": 9.381,
+    "mae_oraculo_poisson": 2.4228,
+    "var_media_real": 1.198,
+    "sd_real": 3.353
+   },
+   "importancia": {
+    "ck_f_h10": 0.0388,
+    "sh_c_h5": 0.0371,
+    "st_c_a5": 0.0368,
+    "ck_c_h10": 0.0346,
+    "st_c_a10": 0.0345,
+    "sh_c_a10": 0.0342
+   },
+   "ridge": {
+    "mae": 2.7592,
+    "mejora": 0.0242,
+    "p5": -0.0043,
+    "corr": 0.0554
+   },
+   "poisson": {
+    "mae": 2.7535,
+    "mejora": 0.0299,
+    "p5": -0.0156,
+    "corr": 0.0669
+   },
+   "xgboost": {
+    "mae": 2.7518,
+    "mejora": 0.0316,
+    "p5": -0.0259,
+    "corr": 0.1146
+   },
+   "lightgbm": {
+    "mae": 2.7597,
+    "mejora": 0.0237,
+    "p5": -0.0387,
+    "corr": 0.0965
+   },
+   "segundos": 15.1
+  },
+  {
+   "liga": "turquia",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1272,
+   "n_juicio": 423,
+   "n_features": 32,
+   "mae_constante": 2.6799,
+   "suelo": {
+    "lambda": 9.574,
+    "mae_oraculo_poisson": 2.4642,
+    "var_media_real": 1.168,
+    "sd_real": 3.344
+   },
+   "importancia": {
+    "sh_f_h5": 0.0401,
+    "sh_f_a5": 0.0392,
+    "ck_f_h10": 0.0387,
+    "sh_f_h10": 0.0383,
+    "sh_f_a10": 0.0361,
+    "st_f_a10": 0.036
+   },
+   "ridge": {
+    "mae": 2.6874,
+    "mejora": -0.0074,
+    "p5": -0.0383,
+    "corr": 0.052
+   },
+   "poisson": {
+    "mae": 2.6967,
+    "mejora": -0.0167,
+    "p5": -0.0599,
+    "corr": 0.0621
+   },
+   "xgboost": {
+    "mae": 2.7463,
+    "mejora": -0.0664,
+    "p5": -0.1289,
+    "corr": 0.0209
+   },
+   "lightgbm": {
+    "mae": 2.761,
+    "mejora": -0.081,
+    "p5": -0.1422,
+    "corr": 0.0036
+   },
+   "segundos": 14.8
+  },
+  {
+   "liga": "sco_premiership",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 1021,
+   "n_juicio": 337,
+   "n_features": 32,
+   "mae_constante": 2.6067,
+   "suelo": {
+    "lambda": 10.496,
+    "mae_oraculo_poisson": 2.6332,
+    "var_media_real": 1.004,
+    "sd_real": 3.247
+   },
+   "importancia": {
+    "ck_f_a5": 0.0415,
+    "ck_bando_h": 0.039,
+    "st_f_h10": 0.0387,
+    "st_c_a10": 0.0351,
+    "sh_c_a10": 0.035,
+    "sh_f_a10": 0.0344
+   },
+   "ridge": {
+    "mae": 2.6024,
+    "mejora": 0.0043,
+    "p5": -0.0344,
+    "corr": 0.0543
+   },
+   "poisson": {
+    "mae": 2.6292,
+    "mejora": -0.0225,
+    "p5": -0.0814,
+    "corr": 0.0447
+   },
+   "xgboost": {
+    "mae": 2.5978,
+    "mejora": 0.0089,
+    "p5": -0.058,
+    "corr": 0.1113
+   },
+   "lightgbm": {
+    "mae": 2.5801,
+    "mejora": 0.0266,
+    "p5": -0.0462,
+    "corr": 0.1093
+   },
+   "segundos": 21.4
+  },
+  {
+   "liga": "bel_pro_league",
+   "excluida": false,
+   "tipo": "principal",
+   "n_train": 848,
+   "n_juicio": 281,
+   "n_features": 32,
+   "mae_constante": 2.6802,
+   "suelo": {
+    "lambda": 10.345,
+    "mae_oraculo_poisson": 2.6105,
+    "var_media_real": 1.07,
+    "sd_real": 3.328
+   },
+   "importancia": {
+    "st_c_a10": 0.0391,
+    "st_f_a10": 0.0377,
+    "ck_bando_a": 0.0368,
+    "ck_c_a10": 0.0363,
+    "ck_c_h10": 0.0355,
+    "ck_f_a10": 0.0346
+   },
+   "ridge": {
+    "mae": 2.7157,
+    "mejora": -0.0356,
+    "p5": -0.0643,
+    "corr": 0.011
+   },
+   "poisson": {
+    "mae": 2.7382,
+    "mejora": -0.058,
+    "p5": -0.1171,
+    "corr": 0.0416
+   },
+   "xgboost": {
+    "mae": 2.6901,
+    "mejora": -0.0099,
+    "p5": -0.0827,
+    "corr": 0.1521
+   },
+   "lightgbm": {
+    "mae": 2.7346,
+    "mejora": -0.0545,
+    "p5": -0.1317,
+    "corr": 0.1282
+   },
+   "segundos": 9.2
+  },
+  {
+   "liga": "eng_championship",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 1122,
+   "n_juicio": 368,
+   "n_features": 32,
+   "mae_constante": 2.7452,
+   "suelo": {
+    "lambda": 10.522,
+    "mae_oraculo_poisson": 2.6455,
+    "var_media_real": 1.096,
+    "sd_real": 3.396
+   },
+   "importancia": {
+    "sh_c_a5": 0.0372,
+    "sh_c_a10": 0.0372,
+    "ck_f_a5": 0.036,
+    "fal_h": 0.0347,
+    "st_f_h10": 0.0343,
+    "sh_c_h10": 0.0339
+   },
+   "ridge": {
+    "mae": 2.7629,
+    "mejora": -0.0177,
+    "p5": -0.039,
+    "corr": -0.0327
+   },
+   "poisson": {
+    "mae": 2.7679,
+    "mejora": -0.0227,
+    "p5": -0.0593,
+    "corr": -0.0043
+   },
+   "xgboost": {
+    "mae": 2.7748,
+    "mejora": -0.0296,
+    "p5": -0.0766,
+    "corr": 0.0019
+   },
+   "lightgbm": {
+    "mae": 2.8005,
+    "mejora": -0.0553,
+    "p5": -0.1057,
+    "corr": -0.0316
+   },
+   "segundos": 10.3
+  },
+  {
+   "liga": "eng_league_one",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 1421,
+   "n_juicio": 474,
+   "n_features": 32,
+   "mae_constante": 2.7279,
+   "suelo": {
+    "lambda": 9.992,
+    "mae_oraculo_poisson": 2.4884,
+    "var_media_real": 1.207,
+    "sd_real": 3.473
+   },
+   "importancia": {
+    "h2h_ck": 0.0382,
+    "st_f_a10": 0.0381,
+    "ck_bando_a": 0.0373,
+    "ck_f_h10": 0.0364,
+    "ck_f_a10": 0.0362,
+    "sh_c_h10": 0.0358
+   },
+   "ridge": {
+    "mae": 2.7371,
+    "mejora": -0.0092,
+    "p5": -0.0415,
+    "corr": 0.0258
+   },
+   "poisson": {
+    "mae": 2.7649,
+    "mejora": -0.037,
+    "p5": -0.0819,
+    "corr": 0.0001
+   },
+   "xgboost": {
+    "mae": 2.8029,
+    "mejora": -0.075,
+    "p5": -0.123,
+    "corr": -0.0034
+   },
+   "lightgbm": {
+    "mae": 2.779,
+    "mejora": -0.0511,
+    "p5": -0.0977,
+    "corr": 0.0175
+   },
+   "segundos": 26.0
+  },
+  {
+   "liga": "eng_league_two",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 1618,
+   "n_juicio": 539,
+   "n_features": 32,
+   "mae_constante": 2.6209,
+   "suelo": {
+    "lambda": 9.82,
+    "mae_oraculo_poisson": 2.5175,
+    "var_media_real": 1.125,
+    "sd_real": 3.324
+   },
+   "importancia": {
+    "sh_f_h10": 0.0441,
+    "ck_c_a10": 0.0371,
+    "sh_c_h10": 0.0369,
+    "st_c_h10": 0.036,
+    "sh_f_h5": 0.0351,
+    "st_c_a5": 0.0348
+   },
+   "ridge": {
+    "mae": 2.5752,
+    "mejora": 0.0458,
+    "p5": 0.0191,
+    "corr": 0.2068
+   },
+   "poisson": {
+    "mae": 2.5627,
+    "mejora": 0.0583,
+    "p5": 0.0247,
+    "corr": 0.2097
+   },
+   "xgboost": {
+    "mae": 2.6288,
+    "mejora": -0.0079,
+    "p5": -0.0481,
+    "corr": 0.1046
+   },
+   "lightgbm": {
+    "mae": 2.6465,
+    "mejora": -0.0256,
+    "p5": -0.0713,
+    "corr": 0.0985
+   },
+   "segundos": 26.3
+  },
+  {
+   "liga": "eng_national",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 1580,
+   "n_juicio": 520,
+   "n_features": 32,
+   "mae_constante": 2.838,
+   "suelo": {
+    "lambda": 9.604,
+    "mae_oraculo_poisson": 2.4664,
+    "var_media_real": 1.324,
+    "sd_real": 3.567
+   },
+   "importancia": {
+    "sh_f_a5": 0.04,
+    "sh_c_a5": 0.0385,
+    "sh_c_a10": 0.0371,
+    "sh_c_h5": 0.0355,
+    "ck_bando_h": 0.0354,
+    "ck_c_h10": 0.0353
+   },
+   "ridge": {
+    "mae": 2.852,
+    "mejora": -0.0139,
+    "p5": -0.0364,
+    "corr": -0.0119
+   },
+   "poisson": {
+    "mae": 2.8633,
+    "mejora": -0.0253,
+    "p5": -0.0596,
+    "corr": 0.0054
+   },
+   "xgboost": {
+    "mae": 2.8464,
+    "mejora": -0.0083,
+    "p5": -0.0518,
+    "corr": 0.0557
+   },
+   "lightgbm": {
+    "mae": 2.8763,
+    "mejora": -0.0382,
+    "p5": -0.0833,
+    "corr": 0.0339
+   },
+   "segundos": 25.8
+  },
+  {
+   "liga": "esp_hypermotion",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 1288,
+   "n_juicio": 428,
+   "n_features": 32,
+   "mae_constante": 2.7437,
+   "suelo": {
+    "lambda": 9.575,
+    "mae_oraculo_poisson": 2.4678,
+    "var_media_real": 1.239,
+    "sd_real": 3.445
+   },
+   "importancia": {
+    "ck_bando_h": 0.041,
+    "st_c_h10": 0.0403,
+    "sh_f_a10": 0.0388,
+    "ck_c_a10": 0.0371,
+    "sh_c_a5": 0.0368,
+    "prec_a": 0.0364
+   },
+   "ridge": {
+    "mae": 2.7221,
+    "mejora": 0.0216,
+    "p5": -0.0087,
+    "corr": 0.1049
+   },
+   "poisson": {
+    "mae": 2.7295,
+    "mejora": 0.0142,
+    "p5": -0.028,
+    "corr": 0.0793
+   },
+   "xgboost": {
+    "mae": 2.7561,
+    "mejora": -0.0124,
+    "p5": -0.0625,
+    "corr": 0.0122
+   },
+   "lightgbm": {
+    "mae": 2.7615,
+    "mejora": -0.0178,
+    "p5": -0.0649,
+    "corr": 0.0215
+   },
+   "segundos": 15.8
+  },
+  {
+   "liga": "ita_serie_b",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 878,
+   "n_juicio": 290,
+   "n_features": 32,
+   "mae_constante": 2.8281,
+   "suelo": {
+    "lambda": 9.455,
+    "mae_oraculo_poisson": 2.4316,
+    "var_media_real": 1.268,
+    "sd_real": 3.462
+   },
+   "importancia": {
+    "sh_c_h5": 0.037,
+    "sh_f_a10": 0.0369,
+    "ck_c_a5": 0.0368,
+    "st_c_a5": 0.0365,
+    "ck_f_a10": 0.0365,
+    "ck_f_a5": 0.0362
+   },
+   "ridge": {
+    "mae": 2.8268,
+    "mejora": 0.0012,
+    "p5": -0.0288,
+    "corr": 0.1238
+   },
+   "poisson": {
+    "mae": 2.8338,
+    "mejora": -0.0057,
+    "p5": -0.0581,
+    "corr": 0.1134
+   },
+   "xgboost": {
+    "mae": 2.9747,
+    "mejora": -0.1467,
+    "p5": -0.2351,
+    "corr": -0.0425
+   },
+   "lightgbm": {
+    "mae": 2.9256,
+    "mejora": -0.0975,
+    "p5": -0.1674,
+    "corr": -0.031
+   },
+   "segundos": 15.9
+  },
+  {
+   "liga": "fra_ligue2",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 976,
+   "n_juicio": 325,
+   "n_features": 32,
+   "mae_constante": 2.5283,
+   "suelo": {
+    "lambda": 9.397,
+    "mae_oraculo_poisson": 2.4267,
+    "var_media_real": 1.086,
+    "sd_real": 3.194
+   },
+   "importancia": {
+    "sh_f_h10": 0.0374,
+    "sh_c_h10": 0.0374,
+    "prec_a": 0.0368,
+    "sh_f_a5": 0.0367,
+    "fal_h": 0.0365,
+    "sh_f_a10": 0.0359
+   },
+   "ridge": {
+    "mae": 2.537,
+    "mejora": -0.0087,
+    "p5": -0.0424,
+    "corr": 0.0888
+   },
+   "poisson": {
+    "mae": 2.5548,
+    "mejora": -0.0265,
+    "p5": -0.0761,
+    "corr": 0.0796
+   },
+   "xgboost": {
+    "mae": 2.5966,
+    "mejora": -0.0683,
+    "p5": -0.1334,
+    "corr": 0.0479
+   },
+   "lightgbm": {
+    "mae": 2.5988,
+    "mejora": -0.0705,
+    "p5": -0.1393,
+    "corr": 0.0565
+   },
+   "segundos": 14.6
+  },
+  {
+   "liga": "ger_bundesliga2",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 964,
+   "n_juicio": 321,
+   "n_features": 32,
+   "mae_constante": 2.7399,
+   "suelo": {
+    "lambda": 9.956,
+    "mae_oraculo_poisson": 2.4822,
+    "var_media_real": 1.172,
+    "sd_real": 3.416
+   },
+   "importancia": {
+    "sh_c_a5": 0.0371,
+    "st_c_a10": 0.0369,
+    "sh_f_a10": 0.0363,
+    "fal_h": 0.0362,
+    "sh_c_h10": 0.0358,
+    "sh_c_a10": 0.0351
+   },
+   "ridge": {
+    "mae": 2.7365,
+    "mejora": 0.0034,
+    "p5": -0.0225,
+    "corr": -0.0347
+   },
+   "poisson": {
+    "mae": 2.7598,
+    "mejora": -0.0199,
+    "p5": -0.0662,
+    "corr": -0.0354
+   },
+   "xgboost": {
+    "mae": 2.7294,
+    "mejora": 0.0104,
+    "p5": -0.0551,
+    "corr": 0.0308
+   },
+   "lightgbm": {
+    "mae": 2.7599,
+    "mejora": -0.02,
+    "p5": -0.084,
+    "corr": 0.028
+   },
+   "segundos": 14.2
+  },
+  {
+   "liga": "sco_championship",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 674,
+   "n_juicio": 220,
+   "n_features": 32,
+   "mae_constante": 2.8879,
+   "suelo": {
+    "lambda": 9.668,
+    "mae_oraculo_poisson": 2.4742,
+    "var_media_real": 1.337,
+    "sd_real": 3.595
+   },
+   "importancia": {
+    "sh_c_a5": 0.0386,
+    "sh_c_h10": 0.0384,
+    "sh_c_a10": 0.0374,
+    "sh_f_h10": 0.0369,
+    "ck_c_a10": 0.0368,
+    "fal_a": 0.0355
+   },
+   "ridge": {
+    "mae": 2.8103,
+    "mejora": 0.0775,
+    "p5": 0.0379,
+    "corr": 0.0509
+   },
+   "poisson": {
+    "mae": 2.8311,
+    "mejora": 0.0568,
+    "p5": -0.0202,
+    "corr": 0.0032
+   },
+   "xgboost": {
+    "mae": 2.9384,
+    "mejora": -0.0506,
+    "p5": -0.1424,
+    "corr": -0.0286
+   },
+   "lightgbm": {
+    "mae": 2.9323,
+    "mejora": -0.0444,
+    "p5": -0.1335,
+    "corr": -0.0363
+   },
+   "segundos": 12.5
+  },
+  {
+   "liga": "gre_super_league",
+   "excluida": false,
+   "tipo": "secundaria",
+   "n_train": 977,
+   "n_juicio": 322,
+   "n_features": 32,
+   "mae_constante": 2.4852,
+   "suelo": {
+    "lambda": 8.674,
+    "mae_oraculo_poisson": 2.3297,
+    "var_media_real": 1.088,
+    "sd_real": 3.072
+   },
+   "importancia": {
+    "st_f_h10": 0.0392,
+    "sh_f_h10": 0.038,
+    "st_c_a10": 0.0353,
+    "fal_h": 0.0347,
+    "sh_c_h10": 0.0345,
+    "h2h_ck": 0.0345
+   },
+   "ridge": {
+    "mae": 2.4798,
+    "mejora": 0.0054,
+    "p5": -0.0175,
+    "corr": 0.0558
+   },
+   "poisson": {
+    "mae": 2.4944,
+    "mejora": -0.0092,
+    "p5": -0.0454,
+    "corr": 0.0534
+   },
+   "xgboost": {
+    "mae": 2.4791,
+    "mejora": 0.0061,
+    "p5": -0.0537,
+    "corr": 0.0914
+   },
+   "lightgbm": {
+    "mae": 2.4544,
+    "mejora": 0.0308,
+    "p5": -0.0279,
+    "corr": 0.1181
+   },
+   "segundos": 13.8
+  }
+ ],
+ "resumen": {
+  "ligas": 20,
+  "n_juicio": 7890,
+  "mae_constante": 2.7067,
+  "suelo_poisson": 2.4835,
+  "var_media": 1.1719,
+  "mae_ridge": 2.6977,
+  "corr_ridge": 0.0609,
+  "ligas_p5_pos_ridge": 3,
+  "mae_poisson": 2.7085,
+  "corr_poisson": 0.0565,
+  "ligas_p5_pos_poisson": 1,
+  "mae_xgboost": 2.7293,
+  "corr_xgboost": 0.0523,
+  "ligas_p5_pos_xgboost": 0,
+  "mae_lightgbm": 2.7365,
+  "corr_lightgbm": 0.04,
+  "ligas_p5_pos_lightgbm": 0
+ }
+}

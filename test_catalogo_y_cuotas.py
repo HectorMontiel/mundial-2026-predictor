@@ -5346,6 +5346,67 @@ def test_el_precalculo_no_cambia_ni_un_numero():
     check(reg.get('home') is not None and reg.get('away') is not None,
           'y el registro trae dentro el nombre ya mapeado')
 
+
+def test_el_suelo_del_error_en_corners():
+    """
+    v156 — un MAE de 2,0 en córners no es dificil: es imposible, y aqui esta.
+
+    Se pidio bajar el error de ~2,70 a menos de 2,00 con remates, remates a
+    puerta, XGBoost y Poisson. Se probo en serio: 32 features y cuatro modelos
+    sobre 20 competiciones y 7.890 partidos de juicio. Ninguno de los tres
+    modelos avanzados bate a decir siempre la media de la liga; XGBoost sale
+    PEOR (2,7293 contra 2,7067).
+
+    EL MOTIVO NO ES QUE FALTEN FEATURES. El total de córners es un conteo con
+    razon varianza/media 1,17 —un Poisson casi puro—, y con esa distribucion un
+    ORACULO que conociera la media exacta de cada partido cometeria 2,4835 de
+    error medio. Eso no es ignorancia: es la dispersion del propio fenomeno.
+
+        margen teorico    2,7067 − 2,4835 = 0,223 córners
+        mejor capturado   0,009 (un 4 %)
+
+    Este test no ejecuta el experimento —tarda media hora— sino que fija sus
+    conclusiones donde no se puedan perder: el suelo en la bitacora y el
+    comportamiento en el codigo. Si alguien vuelve a pedir MAE < 2,0, esto es lo
+    que hay que enseñarle antes de gastar otra tarde.
+    """
+    doc = open('BITACORA_ARQUITECTURA.md', encoding='utf-8').read()
+    for cifra, que in (
+            ('2,4835', 'el suelo del oraculo Poisson'),
+            ('2,7067', 'el MAE de la constante de liga'),
+            ('7.890', 'los partidos de juicio del experimento'),
+            ('1,17', 'la razon varianza/media que hace Poisson al fenomeno'),
+    ):
+        check(cifra in doc, f"la bitacora conserva {que} ({cifra})")
+    check('imposible' in doc.lower(),
+          "y deja escrito que el objetivo pedido no era alcanzable")
+
+    # El comportamiento: el total sigue siendo la media OBSERVADA de la liga,
+    # que es el mejor estimador medido, y el EV sigue bloqueado.
+    import rendimiento_equipos as rq
+
+    src = open('league_engine.py', encoding='utf-8').read()
+    check('media_corners_liga' in src,
+          "el total de córners sigue saliendo de la media observada")
+    m = rq.media_corners_liga('premier')
+    check(m is not None and 7.0 < m < 13.0,
+          f"y esa media es un numero plausible ({m})")
+
+    tab = open('cuotas_tablon.py', encoding='utf-8').read()
+    check("ev_no_fiable'] = True" in tab and 'Córners' in tab,
+          "el EV de córners sigue marcado como no fiable")
+
+    # Y la interfaz no publica un porcentaje de córners por partido.
+    import modo_modelo as mm
+    lleno = mm._bloque_fisico(
+        {'forma_home': {'equipo': 'A', 'ck_favor': 5.4, 'ck_contra': 4.1,
+                        'amarillas': 2.1},
+         'forma_away': {'equipo': 'B', 'ck_favor': 4.8, 'ck_contra': 5.0,
+                        'amarillas': 1.8}},
+        {'corners': True, 'tarjetas': True})
+    check('%' not in lleno,
+          "la tarjeta enseña medias de córners, nunca una probabilidad")
+
 def test_los_except_pueden_registrar_su_error():
     """
     v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
@@ -5843,6 +5904,7 @@ if __name__ == '__main__':
     test_los_ordenes_de_la_lista()
     test_modo_modelo_esta_enrutado_en_la_interfaz()
     test_corners_no_suben_a_seccion1_sin_medicion()
+    test_el_suelo_del_error_en_corners()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
