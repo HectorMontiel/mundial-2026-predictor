@@ -617,3 +617,120 @@ def prob_mas_de(media: float, linea: float,
     except Exception as e:
         logger.debug('[rendimiento] prob_mas_de: %s', e)
         return None
+
+
+_CACHE_DISP_EQ: Dict[str, Optional[float]] = {}
+
+
+def dispersion_corners_equipo(clave: str) -> Optional[float]:
+    """
+    Razón varianza/media de los córners DE UN EQUIPO en esta competición.
+
+    No es la del total, y la diferencia importa: medido sobre 6 competiciones,
+    el total va a 1,16 y un equipo suelto a **1,58**. Tiene sentido — el racimo
+    (un córner que genera otro) ocurre dentro del ataque del MISMO equipo, así
+    que se nota más cuando se mira equipo a equipo que cuando se suman los dos y
+    las rachas de uno rellenan los huecos del otro.
+
+    Usar la dispersión del total para las líneas por equipo sería quedarse corto
+    justo en las colas, que es donde están las líneas que cotiza la casa.
+    """
+    if clave in _CACHE_DISP_EQ:
+        return _CACHE_DISP_EQ[clave]
+    valor = None
+    try:
+        if stats_disponibles(clave).get('corners'):
+            d = _historico(clave)
+            serie = pd.concat([
+                pd.to_numeric(d['home_corners'], errors='coerce'),
+                pd.to_numeric(d['away_corners'], errors='coerce')]).dropna()
+            if len(serie) >= 800:
+                m, v = float(serie.mean()), float(serie.var())
+                if m > 0:
+                    valor = round(max(v / m, 1.0), 4)
+    except Exception as e:
+        logger.debug('[rendimiento] dispersión por equipo de %s: %s', clave, e)
+    _CACHE_DISP_EQ[clave] = valor
+    return valor
+
+
+def lambda_corners_equipo(clave: str, equipo: str, rival: str,
+                          en_casa: bool, n: int = 10) -> Optional[float]:
+    """
+    Córners esperados de `equipo` contra `rival`, jugando en su bando.
+
+    ES EL ESTIMADOR QUE GANÓ, y por bastante. Medido sobre 30.454
+    equipos-partido en 6 competiciones, comparando el error de calibración
+    contra la frecuencia real en las líneas 3,5 / 4,5 / 5,5 / 6,5:
+
+        ataque + defensa del rival, binomial negativa ....  0,0056
+        media móvil de 5, Poisson ........................  0,0093
+        media de la competición, binomial negativa .......  0,0101
+        media del equipo, Poisson ........................  0,0296
+        media de la competición, Poisson .................  0,0369
+
+    O sea: seis veces mejor que la referencia. Dos cosas lo explican, y las dos
+    hacen falta —cambiar sólo una de ellas se queda a mitad de camino:
+
+      · **quién enfrente también cuenta.** Los córners que saca un equipo
+        dependen de a quién ataca tanto como de cómo ataca, y `B_equipo` y
+        `C_movil5` sólo miran a uno de los dos.
+      · **cada bando por separado.** Lo que un equipo saca en casa y lo que saca
+        fuera son dos cosas distintas, y el partido que se predice tiene bandos
+        asignados.
+
+    La ventana es de 10 y no de 5 a propósito: la media móvil de 5 salió PEOR
+    (0,0093 con Poisson, 0,0149 con binomial negativa). Cinco partidos de un
+    equipo son una muestra de cinco, y su propio ruido de Poisson es mayor que
+    la señal que se busca.
+    """
+    d = _historico(clave)
+    if d is None or getattr(d, 'empty', True):
+        return None
+    try:
+        # LAS DOS COLUMNAS SON LA MISMA, Y NO ES UNA ERRATA.
+        #
+        # «Lo que saca el equipo en su bando» y «lo que el rival recibe en el
+        # bando contrario» son córners del MISMO lado del marcador: si el equipo
+        # juega en casa, los suyos son `home_corners`, y los que el rival encaja
+        # jugando fuera también son `home_corners` (los del local de aquel
+        # partido). Lo que cambia entre los dos es por QUIÉN se filtra, no qué
+        # columna se lee.
+        #
+        # La primera versión puso aquí la columna contraria y las dos lambdas
+        # del partido salían IDÉNTICAS —6,10 y 6,10 en Man City-Arsenal, 5,50 y
+        # 5,50 en Liverpool-Everton—, que es lo que delató el fallo antes de
+        # integrarlo. Con las columnas bien, ese partido da 6,10 y 4,40.
+        col_eq = 'home_team' if en_casa else 'away_team'
+        col_riv = 'away_team' if en_casa else 'home_team'
+        col_saca = 'home_corners' if en_casa else 'away_corners'
+        col_rec = col_saca
+
+        saca = pd.to_numeric(
+            d.loc[d[col_eq] == equipo, col_saca], errors='coerce').dropna()
+        recibe = pd.to_numeric(
+            d.loc[d[col_riv] == rival, col_rec], errors='coerce').dropna()
+        if len(saca) < MIN_PARTIDOS or len(recibe) < MIN_PARTIDOS:
+            return None
+        return round((float(saca.tail(n).mean())
+                      + float(recibe.tail(n).mean())) / 2.0, 3)
+    except Exception as e:
+        logger.debug('[rendimiento] lambda de córners %s: %s', clave, e)
+        return None
+
+
+def corners_equipo(clave: str, home: str, away: str,
+                   n: int = 10) -> Optional[Dict]:
+    """
+    Los córners esperados de los dos equipos y la dispersión con la que
+    convertirlos en probabilidades. `None` si la competición no los publica.
+    """
+    disp = dispersion_corners_equipo(clave)
+    if disp is None:
+        return None
+    lh = lambda_corners_equipo(clave, home, away, True, n)
+    la = lambda_corners_equipo(clave, away, home, False, n)
+    if lh is None or la is None:
+        return None
+    return {'lambda_home': lh, 'lambda_away': la, 'dispersion': disp,
+            'clave_liga': clave}

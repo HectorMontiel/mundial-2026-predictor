@@ -464,10 +464,10 @@ def mercados_de_filas(filas: List[Dict], plantilla: Dict) -> List[Dict]:
         if str(r.get('familia', '')).startswith('Córners'):
             r['ev_no_fiable'] = True
             r['motivo_no_fiable'] = (
-                'el modelo predice para los córners la media de la '
-                'competición, la misma en todos sus partidos: su EV aquí mide '
-                'que la casa mueve su línea y el modelo no, no valor. El '
-                'precio sí es real')
+                'la probabilidad de córners está bien calibrada (error medido '
+                '0,4-0,6 puntos contra la frecuencia real), pero NO hay '
+                'histórico de líneas de córners con el que comprobar si este '
+                'EV gana dinero. Úsalo como señal, no como apuesta validada')
 
     # un mismo mercado del modelo puede recibir dos etiquetas nuestras; se
     # conserva la de mejor EV (mismo criterio que `cuotas_auto.evaluar`)

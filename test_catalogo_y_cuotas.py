@@ -5461,6 +5461,70 @@ def test_las_probabilidades_de_corners_usan_la_sobredispersion():
     check('0,0043' in doc,
           "la bitacora conserva el error de calibracion de la binomial negativa")
 
+
+def test_los_corners_por_equipo_salen_de_sus_datos():
+    """
+    v158 — los córners de cada equipo, de sus córners y no de su xG.
+
+    El reparto anterior partia el TOTAL por la cuota de xG, asi que los córners
+    de un equipo salian de su ataque esperado. Ahora, donde la competicion los
+    publica, se usa el estimador que gano la comparacion sobre 30.454
+    equipos-partido en 6 ligas, midiendo el error de calibracion contra la
+    frecuencia real en las lineas 3,5 / 4,5 / 5,5 / 6,5:
+
+        ataque + defensa del rival, binomial negativa ....  0,0056
+        media movil de 5, Poisson ........................  0,0093
+        media de la competicion, binomial negativa .......  0,0101
+        media de la competicion, Poisson .................  0,0369
+
+    DOS DETALLES QUE COSTARON, Y QUE ESTE TEST FIJA:
+
+    1. La dispersion de UN EQUIPO es 1,58, no la del total (1,16). El racimo
+       —un córner que genera otro— ocurre dentro del ataque del mismo equipo, y
+       al sumar los dos las rachas de uno rellenan los huecos del otro.
+
+    2. «Lo que saca el equipo en su bando» y «lo que el rival recibe en el bando
+       contrario» son la MISMA columna del histórico; lo que cambia es por quien
+       se filtra. La primera version puso la columna contraria y las dos lambdas
+       del partido salian IDENTICAS —6,10 y 6,10 en Man City-Arsenal—, que es lo
+       que delato el fallo antes de integrarlo.
+    """
+    import rendimiento_equipos as rq
+
+    d_eq = rq.dispersion_corners_equipo('premier')
+    d_tot = rq.dispersion_corners_liga('premier')
+    check(d_eq is not None and d_tot is not None,
+          "se miden las dos dispersiones")
+    check(d_eq > d_tot,
+          f"la dispersion por equipo es mayor que la del total "
+          f"({d_eq} > {d_tot})")
+    check(rq.dispersion_corners_equipo('liga_mx') is None,
+          "y una competicion sin córners observados no inventa ninguna")
+
+    c = rq.corners_equipo('premier', 'Man City', 'Arsenal')
+    check(c is not None, "hay córners esperados para un partido de la Premier")
+    if c:
+        # EL FALLO QUE HUBO: las dos lambdas identicas.
+        check(abs(c['lambda_home'] - c['lambda_away']) > 0.01,
+              f"las dos lambdas del partido son distintas "
+              f"({c['lambda_home']} vs {c['lambda_away']})")
+        check(2.0 < c['lambda_home'] < 9.0 and 2.0 < c['lambda_away'] < 9.0,
+              "y las dos son plausibles para un equipo")
+        # y no son simetricas: al invertir el partido cambian
+        inv = rq.corners_equipo('premier', 'Arsenal', 'Man City')
+        if inv:
+            check(abs(inv['lambda_home'] - c['lambda_home']) > 0.01,
+                  "invertir local y visitante cambia el resultado")
+
+    check(rq.corners_equipo('liga_mx', 'Pachuca', 'Toluca') is None,
+          "sin córners observados no se calcula: se conserva el reparto por xG")
+
+    src = open('league_engine.py', encoding='utf-8').read()
+    check('corners_equipo' in src and '_p_ck_eq(' in src,
+          "el motor usa el estimador por equipo para sus lineas")
+    check('corners_por_equipo_de_datos' in src,
+          "y declara si esas lineas salen de datos o del reparto por xG")
+
 def test_los_except_pueden_registrar_su_error():
     """
     v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
@@ -5776,11 +5840,17 @@ def test_corners_no_suben_a_seccion1_sin_medicion():
     cadenas = [n.value for n in _ast.walk(_ast.parse(tab))
                if isinstance(n, _ast.Constant) and isinstance(n.value, str)]
     motivos = [c for c in cadenas if 'córners' in c and 'EV' in c]
-    check(any('media de la competición' in c for c in motivos),
-          "el motivo que se enseña dice que el modelo predice la media de la "
-          "competicion")
-    check(any('no valor' in c for c in motivos),
-          "y deja claro que ese EV no mide valor")
+    # v158 — el motivo cambió porque la probabilidad MEJORÓ. Desde que las
+    # lineas de córners se calculan con binomial negativa, el error de
+    # calibracion contra la frecuencia real es de 0,4-0,6 puntos, asi que ya no
+    # es cierto que «el modelo predice la media de la competicion» para todo.
+    # Lo que sigue sin haber es histórico de LINEAS con el que saber si ese EV
+    # gana dinero, y eso es lo que el aviso tiene que decir.
+    check(any('no hay' in c.lower() and 'histórico' in c.lower()
+              for c in motivos),
+          "el motivo que se enseña dice que falta el histórico de lineas")
+    check(any('señal' in c for c in motivos),
+          "y que sirve como señal, no como apuesta validada")
 
     import clasificador
     canales_s1 = {'precio_local', 'precio_nfl', 'tenis_90'}
@@ -5960,6 +6030,7 @@ if __name__ == '__main__':
     test_corners_no_suben_a_seccion1_sin_medicion()
     test_el_suelo_del_error_en_corners()
     test_las_probabilidades_de_corners_usan_la_sobredispersion()
+    test_los_corners_por_equipo_salen_de_sus_datos()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

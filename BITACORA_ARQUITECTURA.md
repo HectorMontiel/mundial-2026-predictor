@@ -946,3 +946,62 @@ intrínseco —y el ajuste de la binomial negativa dice que la hay—, entonces 
 0,386 es un límite SUPERIOR y el techo real es más bajo. Eso explicaría por qué
 seis enfoques distintos, incluyendo datos avanzados reales, se quedan todos
 en 0,06.
+
+### 10.9 Córners por equipo: el estimador que ganó
+
+Para el TOTAL, la mejor media es la de la competición (§10.8). Para cada
+EQUIPO no, y la diferencia es grande. Medido sobre **30.454 equipos-partido** en
+6 competiciones, con el error de calibración contra la frecuencia real en las
+líneas que cotiza la casa (3,5 / 4,5 / 5,5 / 6,5):
+
+| estimador de la media | distribución | error |
+|---|---|---|
+| **ataque + defensa del rival** | **binomial negativa** | **0,0056** |
+| media móvil de 5 | Poisson | 0,0093 |
+| media de la competición | binomial negativa | 0,0101 |
+| media del equipo | binomial negativa | 0,0121 |
+| media móvil de 5 | binomial negativa | 0,0149 |
+| ataque + defensa | Poisson | 0,0237 |
+| media de la competición | Poisson | 0,0369 |
+
+**Seis veces mejor que la referencia**, y hacen falta las dos mitades: cambiar
+sólo la media o sólo la distribución se queda a medio camino.
+
+Dos cosas que no se veían de antemano:
+
+- **La dispersión de UN EQUIPO es 1,58, no la del total (1,16).** El racimo —un
+  córner que genera otro— ocurre dentro del ataque del mismo equipo; al sumar
+  los dos, las rachas de uno rellenan los huecos del otro y la sobredispersión
+  se diluye. Usar la del total para las líneas por equipo se quedaría corto
+  justo en las colas.
+- **La media móvil de 5 es PEOR que la ventana larga**, y con binomial negativa
+  peor todavía (0,0149). Cinco partidos son una muestra de cinco: su propio
+  ruido de Poisson supera a la señal que se busca, y la binomial negativa lo
+  amplifica al tratar ese ruido como dispersión real.
+
+#### El bug que delató la simetría
+
+La primera implementación daba **las dos lambdas idénticas** en todos los
+partidos (6,10 y 6,10 en Man City-Arsenal, 5,50 y 5,50 en Liverpool-Everton).
+La causa: «lo que saca el equipo en su bando» y «lo que el rival recibe en el
+bando contrario» son la MISMA columna del histórico —lo que cambia es por quién
+se filtra— y estaban puestas al revés. Con las columnas bien, ese partido da
+5,60 y 4,40.
+
+Que dos números que deberían diferir salgan iguales es la clase de señal que
+conviene mirar antes de integrar nada.
+
+#### El total y la suma por equipo no cuadran, y se dice
+
+Son dos estimadores distintos y cada uno es el mejor medido para su mercado
+(0,0043 el total, 0,0056 por equipo). Forzar que sumaran exacto obligaría a
+empeorar uno para que cuadrase con el otro. La ficha lo declara en
+`corners_nota` en vez de disimularlo.
+
+#### El EV de córners
+
+Se calcula y se muestra, marcado. El motivo cambió: ya no es que el modelo
+prediga la media de la competición —ahora la probabilidad está calibrada a
+0,4-0,6 puntos de la frecuencia real— sino que **sigue sin haber histórico de
+LÍNEAS de córners** con el que comprobar si ese EV gana dinero. Es una señal
+inmediata, no una apuesta validada, y así se etiqueta.

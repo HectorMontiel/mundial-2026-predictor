@@ -1,0 +1,53 @@
+{
+ "filas": [
+  {
+   "estimador": "A_liga",
+   "dist": "binneg",
+   "error": 0.01008526748705047,
+   "n": 30454
+  },
+  {
+   "estimador": "A_liga",
+   "dist": "poisson",
+   "error": 0.03689851362135737,
+   "n": 30454
+  },
+  {
+   "estimador": "B_equipo",
+   "dist": "binneg",
+   "error": 0.0121167555863806,
+   "n": 30454
+  },
+  {
+   "estimador": "B_equipo",
+   "dist": "poisson",
+   "error": 0.029612767076062228,
+   "n": 30454
+  },
+  {
+   "estimador": "C_movil5",
+   "dist": "binneg",
+   "error": 0.014905489949087799,
+   "n": 30454
+  },
+  {
+   "estimador": "C_movil5",
+   "dist": "poisson",
+   "error": 0.00929348834424369,
+   "n": 30454
+  },
+  {
+   "estimador": "D_ataque_defensa",
+   "dist": "binneg",
+   "error": 0.005591125057752681,
+   "n": 30454
+  },
+  {
+   "estimador": "D_ataque_defensa",
+   "dist": "poisson",
+   "error": 0.023695966890926814,
+   "n": 30454
+  }
+ ],
+ "dispersion_por_equipo": 1.5812
+}

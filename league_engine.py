@@ -2692,10 +2692,56 @@ class ClubEngine:
         # modelo (declarada), coherente con que el total = ck.
         from scipy.stats import poisson as _po
         import numpy as _np
+        # v158 — LOS CÓRNERS DE CADA EQUIPO, DE SUS PROPIOS DATOS.
+        #
+        # El reparto de arriba parte el total por la cuota de xG, así que los
+        # córners de un equipo salían de su ataque ESPERADO y no de sus córners
+        # observados. Donde la competición los publica se usa el estimador que
+        # ganó la comparación, medido sobre 30.454 equipos-partido en 6 ligas
+        # con el error de calibración contra la frecuencia real en las líneas
+        # 3,5 / 4,5 / 5,5 / 6,5:
+        #
+        #     ataque + defensa del rival, binomial negativa ....  0,0056
+        #     media móvil de 5, Poisson ........................  0,0093
+        #     media de la competición, binomial negativa .......  0,0101
+        #     media de la competición, Poisson .................  0,0369
+        #
+        # Seis veces mejor que la referencia. Y la dispersión que se usa es la
+        # de UN EQUIPO (1,58 medida), no la del total (1,16): el racimo ocurre
+        # dentro del ataque del mismo equipo, así que se nota más equipo a
+        # equipo que cuando se suman los dos.
+        #
+        # Donde no hay córners observados —55 de 75 competiciones— se conserva
+        # el reparto por xG de siempre, declarado como lo que es.
+        _ck_eq = None
+        try:
+            import rendimiento_equipos as _rq_e
+            _ck_eq = _rq_e.corners_equipo(self.clave, home, away)
+        except Exception as _e_e:
+            logger.debug(f"[{self.clave}] córners por equipo: {_e_e}")
+
         _sh = lam_h / (lam_h + lam_a) if (lam_h + lam_a) > 0 else 0.5
         ck_var = max(ck - 4.0, 0.0)
-        ck_h = max(2.0 + ck_var * _sh, 0.3)
-        ck_a = max(2.0 + ck_var * (1 - _sh), 0.3)
+        if _ck_eq:
+            ck_h = max(float(_ck_eq['lambda_home']), 0.3)
+            ck_a = max(float(_ck_eq['lambda_away']), 0.3)
+            _disp_ck_eq = float(_ck_eq['dispersion'])
+        else:
+            ck_h = max(2.0 + ck_var * _sh, 0.3)
+            ck_a = max(2.0 + ck_var * (1 - _sh), 0.3)
+            _disp_ck_eq = None
+
+        def _p_ck_eq(media: float, linea: float) -> float:
+            """P(córners del equipo > línea), con su sobredispersión."""
+            if _disp_ck_eq:
+                try:
+                    import rendimiento_equipos as _rq_pe
+                    v = _rq_pe.prob_mas_de(media, linea, _disp_ck_eq)
+                    if v is not None:
+                        return float(v)
+                except Exception:
+                    pass
+            return float(prob_over(media, linea))
         _kk = _np.arange(0, 31)
         _ph, _pa = _po.pmf(_kk, ck_h), _po.pmf(_kk, ck_a)
         # córners 1X2 (quién saca más) y hándicap por convolución de la diferencia
@@ -2812,9 +2858,29 @@ class ClubEngine:
             'con la que calibrar: se usa la media de las 20 competiciones que '
             'sí los publican (9,6 por partido, rango 8,8-10,5). Es una '
             'suposición declarada, no una medición de esta liga')
+        # v158 — POR QUÉ EL TOTAL Y LA SUMA POR EQUIPO NO CUADRAN AL DECIMAL.
+        #
+        # Son DOS estimadores distintos, y cada uno es el mejor medido para su
+        # mercado: el total sale de la media observada de la competición (error
+        # de calibración 0,0043 con binomial negativa) y los de cada equipo del
+        # cruce ataque/defensa (0,0056). Forzar que sumaran exacto obligaría a
+        # empeorar uno de los dos para que cuadrase con el otro, y lo que se
+        # apuesta son las líneas, no la suma.
+        #
+        # Se declara en vez de disimularlo: quien sume 5,6 y 4,4 y vea 10,4
+        # arriba tiene derecho a saber que no es un error de redondeo.
+        _nota_ck = ''
+        if ck_de_datos and _ck_eq:
+            _nota_ck = (
+                'El total y los córners por equipo salen de dos cálculos '
+                'distintos —la media de la competición y el cruce '
+                'ataque/defensa— así que pueden no sumar exacto. Cada uno es '
+                'el más ajustado para su mercado.')
         secciones.append({'titulo': '11. Córners y tarjetas',
                           'corners_de_datos': bool(ck_de_datos),
                           'corners_procedencia': _proc_ck,
+                          'corners_nota': _nota_ck,
+                          'corners_por_equipo_de_datos': bool(_ck_eq),
                           'campos': [
             campo('corners_media', 'Córners totales (media)', round(ck, 1), 'media'),
             campo('ck_o85', 'Más de 8.5 córners', pct(_p_ck(8.5))),
@@ -2823,13 +2889,13 @@ class ClubEngine:
         ] + _campos_ck_enteros + [
             # córners por EQUIPO (v54)
             campo('ck_home_media', f'{home} córners (media)', round(ck_h, 1), 'media'),
-            campo('ck_home_o35', f'{home} más de 3.5 córners', pct(prob_over(ck_h, 3.5))),
-            campo('ck_home_o45', f'{home} más de 4.5 córners', pct(prob_over(ck_h, 4.5))),
-            campo('ck_home_o55', f'{home} más de 5.5 córners', pct(prob_over(ck_h, 5.5))),
+            campo('ck_home_o35', f'{home} más de 3.5 córners', pct(_p_ck_eq(ck_h, 3.5))),
+            campo('ck_home_o45', f'{home} más de 4.5 córners', pct(_p_ck_eq(ck_h, 4.5))),
+            campo('ck_home_o55', f'{home} más de 5.5 córners', pct(_p_ck_eq(ck_h, 5.5))),
             campo('ck_away_media', f'{away} córners (media)', round(ck_a, 1), 'media'),
-            campo('ck_away_o35', f'{away} más de 3.5 córners', pct(prob_over(ck_a, 3.5))),
-            campo('ck_away_o45', f'{away} más de 4.5 córners', pct(prob_over(ck_a, 4.5))),
-            campo('ck_away_o55', f'{away} más de 5.5 córners', pct(prob_over(ck_a, 5.5))),
+            campo('ck_away_o35', f'{away} más de 3.5 córners', pct(_p_ck_eq(ck_a, 3.5))),
+            campo('ck_away_o45', f'{away} más de 4.5 córners', pct(_p_ck_eq(ck_a, 4.5))),
+            campo('ck_away_o55', f'{away} más de 5.5 córners', pct(_p_ck_eq(ck_a, 5.5))),
             # córners 1X2 y hándicap (v54)
             campo('ck1x2_home', f'{home} saca más córners', pct(p_ck_home)),
             campo('ck1x2_empate', 'Empate en córners', pct(p_ck_eq)),
