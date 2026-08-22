@@ -35,6 +35,8 @@ limpiar y la URL que usa la aplicación no cambia nunca.
 
 import argparse
 import glob
+import hashlib
+import json
 import logging
 import os
 import subprocess
@@ -97,31 +99,131 @@ def asegurar_release() -> None:
         '--latest=false')
 
 
-def publicar(claves=None, verificar=False) -> int:
+# v153 — SÓLO SE SUBE LO QUE CAMBIÓ, Y ESTO NO ES UNA OPTIMIZACIÓN: ES LO QUE
+# IMPEDÍA QUE LOS DATOS LLEGARAN A LA APLICACIÓN.
+#
+# Medido sobre la ejecución del 2026-08-22 (run 32555539614): el job arrancó a
+# las 05:54, terminó de reentrenar hacia las 06:20 y se pasó **34 minutos**
+# subiendo assets. Lo cancelaron por tiempo en el asset 40 de 54, y como el paso
+# que commitea los CSV va DESPUÉS, el día entero se perdió — el runner ya tenía
+# la J1 con sus partidos del 21 a las 06:11 y nunca llegaron a `main`. El día
+# anterior el mismo workflow terminó en failure.
+#
+# Reentrenar una competición con diez partidos nuevos sobre seis mil produce un
+# modelo casi idéntico, pero sus bytes cambian enteros. Lo que no cambia nada es
+# una competición EN RECESO: sus ficheros son idénticos y se re-subían igual.
+#
+# EL HASH ES DEL CONTENIDO, NO DEL .tar.gz. gzip escribe la marca de tiempo en
+# la cabecera, así que dos tar del mismo contenido nunca son iguales byte a
+# byte y comparar el paquete no serviría de nada.
+MANIFIESTO = 'modelos_publicados.json'
+
+
+def _hash_carpeta(clave: str) -> str:
+    """sha256 del CONTENIDO de `modelos/<clave>`, estable entre ejecuciones."""
+    h = hashlib.sha256()
+    origen = os.path.join(RAIZ, clave)
+    for nombre in sorted(os.listdir(origen)):
+        ruta = os.path.join(origen, nombre)
+        if not os.path.isfile(ruta):
+            continue
+        h.update(nombre.encode('utf-8'))
+        with open(ruta, 'rb') as f:
+            for bloque in iter(lambda: f.read(1 << 20), b''):
+                h.update(bloque)
+    return h.hexdigest()
+
+
+def _assets_publicados() -> set:
+    """
+    Qué assets existen HOY en el Release.
+
+    Se consulta de verdad y no se confía sólo en el manifiesto: si alguien borra
+    un asset a mano, su hash seguiría en el manifiesto y esa competición se
+    quedaría sin pesos para siempre. Con las dos comprobaciones, para saltarse
+    una subida tienen que coincidir las dos cosas.
+    """
+    r = _gh('release', 'view', ETIQUETA, '--repo', REPO,
+            '--json', 'assets', comprobar=False)
+    if r.returncode != 0:
+        return set()
+    try:
+        datos = json.loads(r.stdout or '{}')
+        return {a.get('name') for a in (datos.get('assets') or [])}
+    except Exception:
+        return set()
+
+
+def _manifiesto_previo(tmp: str) -> dict:
+    """El manifiesto de la última publicación, bajado del propio Release."""
+    destino = os.path.join(tmp, MANIFIESTO)
+    r = _gh('release', 'download', ETIQUETA, '--repo', REPO,
+            '--pattern', MANIFIESTO, '--dir', tmp, comprobar=False)
+    if r.returncode != 0 or not os.path.exists(destino):
+        return {}
+    try:
+        with open(destino, 'r', encoding='utf-8') as f:
+            return json.load(f) or {}
+    except Exception:
+        return {}
+
+
+def publicar(claves=None, verificar=False, forzar=False) -> int:
     claves = claves or competiciones()
     if not claves:
         logger.error('no hay nada en modelos/ que publicar')
         return 1
     asegurar_release()
-    fallos = []
+    fallos, subidas, saltadas = [], [], []
     with tempfile.TemporaryDirectory(prefix='pub_modelos_') as tmp:
+        previo = {} if forzar else _manifiesto_previo(tmp)
+        existentes = set() if forzar else _assets_publicados()
+        nuevo = dict(previo)
         for i, clave in enumerate(claves, 1):
             try:
+                firma = _hash_carpeta(clave)
+                nombre_asset = f'modelos-{clave}.tar.gz'
+                if (not forzar and previo.get(clave) == firma
+                        and nombre_asset in existentes):
+                    saltadas.append(clave)
+                    logger.info(f'[{i}/{len(claves)}] {clave}: sin cambios, '
+                                f'no se re-sube')
+                    continue
                 paquete = empaquetar(clave, tmp)
                 mb = os.path.getsize(paquete) / 1e6
                 _gh('release', 'upload', ETIQUETA, paquete,
                     '--repo', REPO, '--clobber')
                 logger.info(f'[{i}/{len(claves)}] {clave}: {mb:.1f} MB subidos')
                 os.remove(paquete)
+                nuevo[clave] = firma
+                subidas.append(clave)
             except Exception as e:
                 logger.error(f'{clave}: {type(e).__name__}: {e}')
                 fallos.append(clave)
+                nuevo.pop(clave, None)   # que el próximo intento lo reintente
+        # El manifiesto se sube SIEMPRE que algo haya cambiado, y al final: si
+        # el job muere a mitad, el manifiesto viejo sigue describiendo lo que de
+        # verdad hay publicado, y la próxima ejecución vuelve a subir lo que
+        # falte. Nunca deja constancia de una subida que no ocurrió.
+        if subidas or fallos:
+            try:
+                ruta_m = os.path.join(tmp, MANIFIESTO)
+                with open(ruta_m, 'w', encoding='utf-8') as f:
+                    json.dump(nuevo, f, indent=1, sort_keys=True)
+                _gh('release', 'upload', ETIQUETA, ruta_m,
+                    '--repo', REPO, '--clobber')
+            except Exception as e:
+                logger.warning(f'no se pudo actualizar el manifiesto: {e}')
     if fallos:
         logger.error(f'{len(fallos)} competiciones sin publicar: {fallos}')
         return 1
-    logger.info(f'{len(claves)} competiciones publicadas en «{ETIQUETA}»')
+    logger.info(f'{len(subidas)} subidas, {len(saltadas)} sin cambios, '
+                f'de {len(claves)} competiciones en «{ETIQUETA}»')
     if verificar:
-        return verificacion_ida_y_vuelta(claves)
+        # Se verifica lo que se SUBIÓ. Verificar las saltadas sería bajarse 50
+        # tar.gz para comprobar que siguen igual que ayer, y ese viaje de ida y
+        # vuelta es justo el tiempo que este cambio venía a recuperar.
+        return verificacion_ida_y_vuelta(subidas) if subidas else 0
     return 0
 
 
@@ -186,5 +288,10 @@ if __name__ == '__main__':
     ap.add_argument('claves', nargs='*', help='competiciones (por defecto, todas)')
     ap.add_argument('--verificar', action='store_true',
                     help='baja del Release una muestra y comprueba que carga')
+    ap.add_argument('--forzar', action='store_true',
+                    help='re-sube TODO, ignorando el manifiesto de la última '
+                         'publicación. Para cuando se sospeche que el Release '
+                         'quedó descuadrado.')
     a = ap.parse_args()
-    sys.exit(publicar(a.claves or None, verificar=a.verificar))
+    sys.exit(publicar(a.claves or None, verificar=a.verificar,
+                      forzar=a.forzar))

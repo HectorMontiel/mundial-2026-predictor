@@ -5101,6 +5101,101 @@ def test_modo_modelo_separa_ligas_secundarias():
           "y NO esta duplicado dentro del Modo Modelo")
 
 
+def test_el_bot_guarda_los_datos_antes_de_lo_lento():
+    """
+    v153 — el orden de los pasos del bot decide si los datos llegan o no.
+
+    CAUSA RAIZ MEDIDA. El commit de artefactos era el ULTIMO paso del job,
+    detras de la publicacion de assets al Release. En el run 32555539614
+    (2026-08-22) el reentrenamiento acabo hacia las 06:20, la subida de assets
+    se comio 34 minutos y el job murio cancelado por tiempo en el asset 40 de
+    54. El runner tenia la J1 con sus partidos del 21 desde las 06:11 y **no
+    llegaron nunca a main**. El dia anterior, failure.
+
+    O sea: dos dias seguidos se tiro una hora de reentrenamiento porque lo
+    barato y valioso (los CSV que lee la aplicacion) estaba detras de lo caro y
+    prescindible (re-subir pesos que en su mayoria no cambiaron).
+
+    Este test fija el orden. Si alguien vuelve a poner el guardado de
+    historicos detras de la publicacion, el fallo vuelve entero y en silencio:
+    la app simplemente se queda con los datos de ayer.
+    """
+    ruta = os.path.join('.github', 'workflows', 'retrain_leagues.yml')
+    if not os.path.exists(ruta):
+        check(False, 'existe el workflow de reentrenamiento')
+        return
+    src = open(ruta, encoding='utf-8').read()
+
+    i_guardar = src.find('Guardar históricos y estado')
+    i_publicar = src.find('Publicar los modelos como assets')
+    check(i_guardar > 0, 'el bot guarda los historicos en su propio paso')
+    check(i_publicar > 0, 'el bot publica los assets del Release')
+    check(0 < i_guardar < i_publicar,
+          'los historicos se guardan ANTES de subir los assets')
+
+    # El tope de tiempo no puede volver a 60: es el que mataba el job.
+    import re
+    m = re.search(r'timeout-minutes:\s*(\d+)', src)
+    check(m is not None and int(m.group(1)) >= 90,
+          'el job tiene al menos 90 minutos de tope (%s)'
+          % (m.group(1) if m else 'sin tope'))
+
+
+def test_solo_se_republica_lo_que_cambio():
+    """
+    v153 — re-subir 54 assets intactos costaba 34 minutos y el dia entero.
+
+    La firma que decide si algo cambio es del CONTENIDO de la carpeta y NO del
+    `.tar.gz`, y eso no es un detalle de estilo: gzip escribe la marca de
+    tiempo en su cabecera, asi que dos paquetes del mismo contenido nunca son
+    iguales byte a byte. Comparando el paquete, el salto no se activaria nunca
+    y el arreglo seria decorativo.
+
+    Comprobado aqui empaquetando dos veces lo mismo.
+    """
+    import hashlib
+    import tempfile
+    import time
+
+    import publicar_modelos as pm
+
+    claves = pm.competiciones()
+    if not claves:
+        check(True, 'sin modelos en disco: nada que comprobar')
+        return
+    clave = min(claves, key=lambda c: sum(
+        os.path.getsize(os.path.join('modelos', c, f))
+        for f in os.listdir(os.path.join('modelos', c))
+        if os.path.isfile(os.path.join('modelos', c, f))))
+
+    h1 = pm._hash_carpeta(clave)
+    check(h1 == pm._hash_carpeta(clave),
+          'la firma del contenido es estable entre llamadas')
+    otras = [c for c in claves if c != clave]
+    if otras:
+        check(h1 != pm._hash_carpeta(otras[0]),
+              'y distingue una competicion de otra')
+
+    def _sha(p):
+        h = hashlib.sha256()
+        with open(p, 'rb') as f:
+            for b in iter(lambda: f.read(1 << 20), b''):
+                h.update(b)
+        return h.hexdigest()
+
+    with tempfile.TemporaryDirectory() as t1, tempfile.TemporaryDirectory() as t2:
+        a = pm.empaquetar(clave, t1)
+        time.sleep(1.1)          # que cambie el segundo que gzip escribe
+        b = pm.empaquetar(clave, t2)
+        check(_sha(a) != _sha(b),
+              'el .tar.gz del MISMO contenido cambia entre ejecuciones: por eso '
+              'la firma no puede ser del paquete')
+
+    src = open('publicar_modelos.py', encoding='utf-8').read()
+    check('--forzar' in src,
+          'queda una salida para re-subirlo todo si el Release se descuadra')
+
+
 def test_los_except_pueden_registrar_su_error():
     """
     v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
@@ -5396,6 +5491,8 @@ if __name__ == '__main__':
     test_rendimiento_no_rellena_lo_que_falta()
     test_modo_modelo_no_tapa_los_huecos_con_el_mercado()
     test_modo_modelo_separa_ligas_secundarias()
+    test_el_bot_guarda_los_datos_antes_de_lo_lento()
+    test_solo_se_republica_lo_que_cambio()
     test_los_except_pueden_registrar_su_error()
     test_modo_modelo_esta_enrutado_en_la_interfaz()
     test_corners_no_suben_a_seccion1_sin_medicion()

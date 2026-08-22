@@ -37,7 +37,14 @@ concurrency:
 jobs:
   retrain:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # v153 — 60 → 90. El tope de 60 no era holgado: era el que estaba matando
+    # el job. Dos ejecuciones seguidas se perdieron por él (2026-08-21 failure,
+    # 2026-08-22 cancelada a los 60m21s). La causa de fondo se ataca en
+    # `publicar_modelos.py` (sólo se re-suben los assets que cambiaron), y esto
+    # es la red por debajo: con la subida ya recortada debería sobrar tiempo,
+    # pero un día con muchas competiciones reentrenadas no puede volver a
+    # costar el día entero.
+    timeout-minutes: 90
     steps:
       - name: Clonar repositorio
         uses: actions/checkout@v4
@@ -218,6 +225,44 @@ jobs:
       # principal del job. Si la publicación falla, los assets del día anterior
       # siguen ahí y la aplicación sigue sirviendo con ellos; lo único que NO
       # se hace es la transición, que va condicionada al resultado.
+      # v153 — LOS DATOS SE GUARDAN ANTES DE LO LENTO, Y NO DESPUÉS.
+      #
+      # El commit de artefactos era el ÚLTIMO paso del job, detrás de la
+      # publicación de assets. Medido en el run 32555539614 (2026-08-22): el
+      # reentrenamiento acabó hacia las 06:20, la subida de assets se comió 34
+      # minutos y el job murió cancelado por tiempo en el asset 40 de 54. El
+      # runner tenía la J1 con sus partidos del 21 de agosto desde las 06:11 y
+      # **no llegaron nunca a `main`**. El día anterior, lo mismo con failure.
+      #
+      # O sea que dos días seguidos se tiró una hora de reentrenamiento porque
+      # lo barato y valioso (los CSV que lee la aplicación) estaba detrás de lo
+      # caro y prescindible (re-subir pesos que en su mayoría no cambiaron).
+      #
+      # Este paso guarda los históricos y el estado de los equipos EN CUANTO
+      # existen. Es idempotente y no sustituye al commit final: aquel sigue
+      # recogiendo todo lo que se genere después (snapshots, liquidación,
+      # calibración). Lo que cambia es que un fallo posterior ya no se lleva
+      # por delante los datos del día.
+      - name: Guardar históricos y estado (antes de lo lento)
+        run: |
+          git config user.name  "retrain-bot"
+          git config user.email "actions@github.com"
+          git add -A historico_*.csv team_stats_*.json barrido_ligas.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Sin cambios en históricos (ligas en receso). Nada que guardar."
+          else
+            fecha=$(date -u +%Y-%m-%d)
+            git commit -m "chore(datos): históricos y estado de equipos ($fecha)"
+            for intento in 1 2 3; do
+              if git push; then
+                echo "Históricos guardados en main."
+                break
+              fi
+              echo "push rechazado (intento $intento), se rebasa y se reintenta"
+              git pull --rebase --autostash || true
+            done
+          fi
+
       - name: Publicar los modelos como assets del Release
         id: publicar
         continue-on-error: true

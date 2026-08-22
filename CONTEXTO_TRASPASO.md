@@ -526,3 +526,81 @@ cambio, minutos) y no el MÉTODO (AppTest, siempre).
 - **Que un mercado esté mal cotizado y que tengamos con qué explotarlo son dos
   afirmaciones distintas.** La primera sobre los córners sigue en pie; la
   segunda está medida y es que no.
+
+---
+
+## 4i. v153 — POR QUÉ LA J1 NO ENSEÑABA LOS PARTIDOS DE LA SEMANA
+
+La queja: «la J1 no muestra los partidos de la semana pasada». Cuatro hipótesis
+sobre la mesa (descarga incompleta, filtro de ventana, ESPN sin resultados, bot
+que no actualiza). Ninguna era la causa, y la de verdad era peor.
+
+### Lo que NO era, medido
+
+1. **La J1 no jugó del 16 al 20 de agosto.** ESPN da 0 partidos esos cinco días
+   y 2 el día 21. La mayor parte del «hueco» no era un hueco.
+2. **La descarga funciona.** `descargar_liga('jpn_j1')` devuelve 2.517 partidos
+   hasta el 2026-08-21, incluidos los 2 del día 21 que football-data aún no
+   publica: `_completar_desde_espn` hace exactamente su trabajo.
+3. **El filtro de ventana no recorta nada reciente**, y la fuente
+   (football-data `/new/JPN.csv`) también termina el 15-08, o sea que el CSV
+   estaba sincronizado con ella.
+
+### La causa raíz: el bot lleva dos días sin poder commitear
+
+    2026-08-22  schedule  CANCELLED  1h00m21s   ← tope de 60 min
+    2026-08-21  schedule  FAILURE      52m12s
+    2026-08-21  dispatch  success      59m56s   (manual)
+
+En el run cancelado (32555539614): arranca 05:54, termina de reentrenar hacia
+las 06:20, y **se pasa 34 minutos subiendo assets al Release**. Lo matan en el
+asset 40 de 54. El paso que commitea los CSV es el ÚLTIMO del job, detrás de
+todo eso, así que **nunca se ejecuta**.
+
+Lo demoledor: el runner tenía la J1 con sus partidos del 21 **a las 06:11**, y
+no llegaron a `main`. Dos días seguidos se tiró una hora de reentrenamiento
+porque lo barato y valioso —los CSV que lee la aplicación— estaba detrás de lo
+caro y prescindible: re-subir 54 paquetes de pesos que en su mayoría no habían
+cambiado.
+
+Esto ya estaba anotado como pendiente («el workflow tardó 59m51s con tope de
+60, va al filo»). **Ya no va al filo: se cae.**
+
+### Alcance real, en las 49 competiciones
+
+`_v153_auditar_frescura.py` compara, por competición, cuántos partidos da ESPN
+por jugados que el CSV del repositorio no tiene:
+
+    competiciones auditadas ..............  49
+    con partidos que faltan ..............  19  (35 partidos en total)
+    sin partidos jugados (parón) .........  10
+    peor caso ............................  Ligue 2, 5 partidos
+
+Todos los CSV terminan entre el 14 y el 20 de agosto y ESPN llega al 21: **el
+desfase es de 1 a 3 días en todas, ninguna tiene un agujero estructural.**
+
+### Lo corregido
+
+1. **Un commit temprano de históricos y estado**, justo después del
+   reentrenamiento y ANTES de publicar los assets. Idempotente, y no sustituye
+   al commit final: lo que cambia es que un fallo posterior ya no se lleva por
+   delante los datos del día.
+2. **Sólo se re-suben los assets que cambiaron** (`publicar_modelos.py`). La
+   firma es del CONTENIDO de la carpeta y no del `.tar.gz`, porque gzip escribe
+   su marca de tiempo en la cabecera y dos paquetes del mismo contenido nunca
+   son iguales byte a byte — comparando el paquete, el salto no se activaría
+   nunca. El manifiesto vive como un asset más del Release y se contrasta
+   ADEMÁS con los assets que existen de verdad, para que borrar uno a mano no
+   deje una competición sin pesos para siempre. Queda `--forzar` como salida.
+3. **`timeout-minutes` de 60 a 90.** El tope no era holgado: era el que mataba
+   el job.
+
+### La lección
+
+**Una métrica en días miente cuando hay parones.** La primera versión de la
+auditoría midió el desfase en días y sacó que la Premier llevaba 89 días de
+retraso. Suena a avería y no lo es: su CSV termina el 24 de mayo porque ahí
+acabó la temporada, y el 21 de agosto se jugó la primera jornada de la
+siguiente. Su desfase real era **un partido**. La métrica cometía exactamente
+el mismo error que la queja que venía a investigar: contar el calendario en vez
+de contar los partidos.

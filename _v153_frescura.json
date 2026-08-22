@@ -1,0 +1,492 @@
+[
+ {
+  "liga": "liga_mx",
+  "nombre": "Liga MX",
+  "formato": "new",
+  "n_csv": 2651,
+  "csv_hasta": "2026-08-18",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 13,
+  "partidos_que_faltan": 4
+ },
+ {
+  "liga": "mls",
+  "nombre": "MLS",
+  "formato": "new",
+  "n_csv": 3716,
+  "csv_hasta": "2026-08-20",
+  "espn_jugado_hasta": "2026-08-19",
+  "jugados_en_ventana": 31,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "brasil",
+  "nombre": "Brasileirão Serie A",
+  "formato": "new",
+  "n_csv": 3087,
+  "csv_hasta": "2026-08-18",
+  "espn_jugado_hasta": "2026-08-17",
+  "jugados_en_ventana": 20,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "argentina",
+  "nombre": "Primera División",
+  "formato": "new",
+  "n_csv": 3805,
+  "csv_hasta": "2026-08-18",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 30,
+  "partidos_que_faltan": 2
+ },
+ {
+  "liga": "noruega",
+  "nombre": "Eliteserien",
+  "formato": "new",
+  "n_csv": 1922,
+  "csv_hasta": "2026-08-16",
+  "espn_jugado_hasta": "2026-08-16",
+  "jugados_en_ventana": 13,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "suecia",
+  "nombre": "Allsvenskan",
+  "formato": "new",
+  "n_csv": 1931,
+  "csv_hasta": "2026-08-17",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 17,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "finlandia",
+  "nombre": "Veikkausliiga",
+  "formato": "new",
+  "n_csv": 1334,
+  "csv_hasta": "2026-08-09",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "rumania",
+  "nombre": "Liga I",
+  "formato": "new",
+  "n_csv": 2462,
+  "csv_hasta": "2026-08-17",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "irlanda",
+  "nombre": "Premier Division",
+  "formato": "new",
+  "n_csv": 1370,
+  "csv_hasta": "2026-08-09",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "turquia",
+  "nombre": "Süper Lig",
+  "formato": "main",
+  "n_csv": 3097,
+  "csv_hasta": "2026-08-17",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 10,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "dinamarca",
+  "nombre": "Superliga",
+  "formato": "new",
+  "n_csv": 1637,
+  "csv_hasta": "2026-08-17",
+  "espn_jugado_hasta": "2026-08-17",
+  "jugados_en_ventana": 9,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "china",
+  "nombre": "Chinese Super League",
+  "formato": "new",
+  "n_csv": 1880,
+  "csv_hasta": "2026-08-19",
+  "espn_jugado_hasta": "2026-08-19",
+  "jugados_en_ventana": 16,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "rus_premier",
+  "nombre": "Russian Premier League",
+  "formato": "new",
+  "n_csv": 1960,
+  "csv_hasta": "2026-08-16",
+  "espn_jugado_hasta": "2026-08-16",
+  "jugados_en_ventana": 16,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "gre_super_league",
+  "nombre": "Super League Greece",
+  "formato": "main",
+  "n_csv": 2148,
+  "csv_hasta": "2026-05-21",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "premier",
+  "nombre": "Premier League",
+  "formato": "main",
+  "n_csv": 6080,
+  "csv_hasta": "2026-05-24",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 1,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "laliga",
+  "nombre": "LaLiga",
+  "formato": "main",
+  "n_csv": 6087,
+  "csv_hasta": "2026-08-20",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 8,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "serie_a",
+  "nombre": "Serie A",
+  "formato": "main",
+  "n_csv": 6080,
+  "csv_hasta": "2026-05-24",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "bundesliga",
+  "nombre": "Bundesliga",
+  "formato": "main",
+  "n_csv": 4896,
+  "csv_hasta": "2026-05-16",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "ligue_1",
+  "nombre": "Ligue 1",
+  "formato": "main",
+  "n_csv": 5757,
+  "csv_hasta": "2026-05-17",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 1,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "eredivisie",
+  "nombre": "Eredivisie",
+  "formato": "main",
+  "n_csv": 2698,
+  "csv_hasta": "2026-08-16",
+  "espn_jugado_hasta": "2026-08-16",
+  "jugados_en_ventana": 17,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "primeira",
+  "nombre": "Primeira Liga",
+  "formato": "main",
+  "n_csv": 3077,
+  "csv_hasta": "2026-08-17",
+  "espn_jugado_hasta": "2026-08-17",
+  "jugados_en_ventana": 16,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "champions",
+  "nombre": "UEFA Champions League",
+  "formato": "api_football",
+  "n_csv": 1174,
+  "csv_hasta": "2026-07-14",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "europa_league",
+  "nombre": "UEFA Europa League",
+  "formato": "espn",
+  "n_csv": 1356,
+  "csv_hasta": "2026-05-20",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "conference_league",
+  "nombre": "UEFA Conference League",
+  "formato": "espn",
+  "n_csv": 729,
+  "csv_hasta": "2026-05-27",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "leagues_cup",
+  "nombre": "Leagues Cup",
+  "formato": "leagues_cup",
+  "n_csv": 6703,
+  "csv_hasta": "2026-08-20",
+  "espn_jugado_hasta": "2026-08-13",
+  "jugados_en_ventana": 31,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "eng_league_one",
+  "nombre": "EFL League One",
+  "formato": "main",
+  "n_csv": 8693,
+  "csv_hasta": "2026-08-20",
+  "espn_jugado_hasta": "2026-08-20",
+  "jugados_en_ventana": 13,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "eng_league_two",
+  "nombre": "EFL League Two",
+  "formato": "main",
+  "n_csv": 8732,
+  "csv_hasta": "2026-08-15",
+  "espn_jugado_hasta": "2026-08-15",
+  "jugados_en_ventana": 12,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "eng_national",
+  "nombre": "National League",
+  "formato": "main",
+  "n_csv": 8634,
+  "csv_hasta": "2026-08-15",
+  "espn_jugado_hasta": "2026-08-15",
+  "jugados_en_ventana": 24,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "sco_premiership",
+  "nombre": "Scottish Premiership",
+  "formato": "main",
+  "n_csv": 3611,
+  "csv_hasta": "2026-08-09",
+  "espn_jugado_hasta": "2026-08-09",
+  "jugados_en_ventana": 6,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "sco_championship",
+  "nombre": "Scottish Championship",
+  "formato": "main",
+  "n_csv": 1542,
+  "csv_hasta": "2026-08-08",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 5,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "esp_hypermotion",
+  "nombre": "LaLiga Hypermotion",
+  "formato": "main",
+  "n_csv": 4169,
+  "csv_hasta": "2026-08-17",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 12,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "ita_serie_b",
+  "nombre": "Serie B",
+  "formato": "main",
+  "n_csv": 3464,
+  "csv_hasta": "2026-05-08",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 1,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "fra_ligue2",
+  "nombre": "Ligue 2",
+  "formato": "main",
+  "n_csv": 3188,
+  "csv_hasta": "2026-08-14",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 23,
+  "partidos_que_faltan": 5
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "nombre": "2. Bundesliga",
+  "formato": "main",
+  "n_csv": 2772,
+  "csv_hasta": "2026-08-16",
+  "espn_jugado_hasta": "2026-08-16",
+  "jugados_en_ventana": 17,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "jpn_j1",
+  "nombre": "J1 League",
+  "formato": "new",
+  "n_csv": 2515,
+  "csv_hasta": "2026-08-15",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 20,
+  "partidos_que_faltan": 2
+ },
+ {
+  "liga": "arg_primera_nacional",
+  "nombre": "Primera Nacional",
+  "formato": "espn",
+  "n_csv": 3518,
+  "csv_hasta": "2026-08-19",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 39,
+  "partidos_que_faltan": 3
+ },
+ {
+  "liga": "col_primera_a",
+  "nombre": "Categoría Primera A",
+  "formato": "espn",
+  "n_csv": 2250,
+  "csv_hasta": "2026-08-19",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 11,
+  "partidos_que_faltan": 2
+ },
+ {
+  "liga": "usl_championship",
+  "nombre": "USL Championship",
+  "formato": "espn",
+  "n_csv": 2302,
+  "csv_hasta": "2026-08-20",
+  "espn_jugado_hasta": "2026-08-19",
+  "jugados_en_ventana": 24,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "bra_serie_b",
+  "nombre": "Brasileirão Série B",
+  "formato": "espn",
+  "n_csv": 2053,
+  "csv_hasta": "2026-08-20",
+  "espn_jugado_hasta": "2026-08-20",
+  "jugados_en_ventana": 28,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "per_liga1",
+  "nombre": "Liga 1",
+  "formato": "espn",
+  "n_csv": 1681,
+  "csv_hasta": "2026-08-16",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 16,
+  "partidos_que_faltan": 2
+ },
+ {
+  "liga": "uru_primera",
+  "nombre": "Primera División",
+  "formato": "espn",
+  "n_csv": 1564,
+  "csv_hasta": "2026-08-16",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 16,
+  "partidos_que_faltan": 2
+ },
+ {
+  "liga": "ecu_liga_pro",
+  "nombre": "LigaPro Serie A",
+  "formato": "espn",
+  "n_csv": 1370,
+  "csv_hasta": "2026-08-18",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 17,
+  "partidos_que_faltan": 2
+ },
+ {
+  "liga": "bol_division",
+  "nombre": "División Profesional",
+  "formato": "espn",
+  "n_csv": 1558,
+  "csv_hasta": "2026-08-17",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 16,
+  "partidos_que_faltan": 2
+ },
+ {
+  "liga": "mex_expansion",
+  "nombre": "Liga de Expansión MX",
+  "formato": "espn",
+  "n_csv": 1414,
+  "csv_hasta": "2026-08-21",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 15,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "chi_primera",
+  "nombre": "Campeonato Nacional",
+  "formato": "espn",
+  "n_csv": 1302,
+  "csv_hasta": "2026-08-18",
+  "espn_jugado_hasta": "2026-08-21",
+  "jugados_en_ventana": 15,
+  "partidos_que_faltan": 1
+ },
+ {
+  "liga": "rsa_premier",
+  "nombre": "South African Premier Division",
+  "formato": "espn",
+  "n_csv": 1199,
+  "csv_hasta": "2026-08-19",
+  "espn_jugado_hasta": "2026-08-19",
+  "jugados_en_ventana": 17,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "libertadores",
+  "nombre": "Copa Libertadores",
+  "formato": "espn",
+  "n_csv": 789,
+  "csv_hasta": "2026-08-21",
+  "espn_jugado_hasta": "2026-08-20",
+  "jugados_en_ventana": 15,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "sudamericana",
+  "nombre": "Copa Sudamericana",
+  "formato": "espn",
+  "n_csv": 799,
+  "csv_hasta": "2026-08-21",
+  "espn_jugado_hasta": "2026-08-20",
+  "jugados_en_ventana": 15,
+  "partidos_que_faltan": 0
+ },
+ {
+  "liga": "afc_champions",
+  "nombre": "AFC Champions League",
+  "formato": "espn",
+  "n_csv": 558,
+  "csv_hasta": "2026-04-25",
+  "espn_jugado_hasta": null,
+  "jugados_en_ventana": 0,
+  "partidos_que_faltan": 0
+ }
+]
