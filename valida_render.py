@@ -43,23 +43,33 @@ from streamlit.testing.v1 import AppTest
 
 APP = 'dashboard_ui.py'
 
-# vista -> textos que TIENEN que salir en pantalla tras cargarla.
+# vista -> {textos que TIENEN que salir, controles que TIENEN que existir}
 #
-# Se comprueban por CONTENIDO y no por la etiqueta de la pestaña: que una
-# pestaña exista en el árbol no demuestra que su contenido se haya pintado, y
-# es justo el contenido lo que puede reventar.
+# Los controles van POR VISTA y no en una lista global: la primera versión los
+# exigía en todas y marcaba como rotas la Premier y la Liga MX, que no tienen
+# —ni deben tener— el filtro de competiciones de «Apuestas del Día». Un
+# validador que pide lo mismo a pantallas distintas produce fallos que no lo
+# son, y a los tres días nadie lo mira.
 VISTAS = {
-    '💎 Apuestas del Día': [
-        # La pantalla de partidos, por el rótulo que sólo pinta ella.
-        'Partidos de hoy',
-        # Y la advertencia medida, que vive plegada al pie: los textos técnicos
-        # salieron de las tarjetas, pero el porcentaje sigue siendo el del
-        # modelo y en algún sitio de la pantalla tiene que poder leerse lo que
-        # rinde. Si este check empieza a fallar, es que se perdió del todo.
-        'probabilidad del modelo',
-    ],
-    '🏴 Premier League': [],      # rama de córners OBSERVADOS
-    '🇲🇽 Liga MX': [],            # rama de córners SIN observar
+    '💎 Apuestas del Día': {
+        'textos': [
+            # La pantalla de partidos, por el rótulo que sólo pinta ella.
+            'Partidos de hoy',
+            # Y la advertencia medida, que vive plegada al pie: los textos
+            # técnicos salieron de las tarjetas, pero el porcentaje sigue
+            # siendo el del modelo y en algún sitio tiene que poder leerse lo
+            # que rinde. Si este check falla, es que se perdió del todo.
+            'probabilidad del modelo',
+        ],
+        'controles': [
+            ('_filtro_grupo_liga', 'filtro de competiciones'),
+            ('mm_solo_altas', 'filtro de alta probabilidad'),
+            ('mm_orden', 'selector de orden de hoy'),
+            ('man_orden', 'selector de orden de mañana'),
+        ],
+    },
+    '🏴 Premier League': {},      # rama de córners OBSERVADOS
+    '🇲🇽 Liga MX': {},            # rama de córners SIN observar
 }
 
 FALLOS = []
@@ -83,7 +93,7 @@ def textos(at):
     return ' \n '.join(trozos)
 
 
-def valida(vista, exigidos, timeout=900):
+def valida(vista, pedido, timeout=900):
     t0 = time.time()
     at = AppTest.from_file(APP, default_timeout=timeout).run()
     if at.exception:
@@ -101,17 +111,20 @@ def valida(vista, exigidos, timeout=900):
         return
     check(True, f'{vista} carga sin excepciones')
     t = textos(at)
-    for exigido in exigidos:
+    for exigido in (pedido.get('textos') or []):
         check(exigido in t,
               f'{vista}: «{exigido}» aparece en pantalla')
     # Los CONTROLES, que no salen en los textos y son los que el usuario toca.
     # Un render que pinta la lista pero se deja el filtro fuera pasa todos los
     # checks de arriba y aun así está roto para quien lo usa.
-    for clave_widget, que in (('_filtro_grupo_liga', 'filtro de competiciones'),
-                              ('mm_solo_altas', 'filtro de alta probabilidad'),
-                              ('mm_orden', 'selector de orden')):
+    for clave_widget, que in (pedido.get('controles') or []):
+        # Se miran TODOS los tipos de control, no sólo los que usa hoy la
+        # pantalla: el selector de orden pasó de `radio` a `selectbox` y este
+        # check falló por eso, no porque faltara. Un validador que sólo conoce
+        # dos widgets convierte cada cambio de control en un falso negativo.
         if not any(clave_widget in str(getattr(w, 'key', '') or '')
-                   for col in ('radio', 'checkbox')
+                   for col in ('radio', 'checkbox', 'selectbox',
+                               'multiselect', 'toggle')
                    for w in getattr(at, col, [])):
             check(False, f'{vista}: falta el {que} ({clave_widget})')
         else:
@@ -129,8 +142,8 @@ def main():
             return 2
     else:
         objetivo = VISTAS
-    for vista, exigidos in objetivo.items():
-        valida(vista, exigidos)
+    for vista, pedido in objetivo.items():
+        valida(vista, pedido)
     print()
     print(f'{len(FALLOS)} FALLOS' if FALLOS else 'TODO OK')
     for f in FALLOS:

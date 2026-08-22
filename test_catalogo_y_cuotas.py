@@ -5453,6 +5453,120 @@ def test_la_apuesta_destacada_de_cada_partido():
         check(('>%s<' % letra) in html, "la racha conserva la letra %s" % letra)
     check(mm.racha_html('') == '', "sin racha no se pinta nada")
 
+
+def test_la_tarjeta_es_la_misma_para_hoy_y_manana():
+    """
+    v155 — un solo componente para las dos vistas, y una sola diferencia.
+
+    «Mañana» enseñaba una tabla con la barra de 1X2 y la etiqueta
+    «· informativo», mientras «hoy» tenía la apuesta destacada, los mercados y
+    las rachas. Eran dos diseños para el mismo partido, y la diferencia no
+    venia de los datos —que son los mismos— sino de que cada vista se habia
+    construido en un momento distinto.
+
+    La UNICA diferencia que queda es `con_apuesta`, y es de fondo: los partidos
+    de mañana no producen picks porque las lineas se mueven durante la noche, y
+    ese movimiento es justo el canal que este proyecto mide.
+    """
+    import modo_modelo as mm
+
+    ui = open('dashboard_ui.py', encoding='utf-8').read()
+    check('_mm_man.render(' in ui, "la vista de mañana usa el mismo render")
+    check('con_apuesta=False' in ui,
+          "y lo hace en modo analisis, sin proponer apuesta")
+    check('_rtp_m.pintar_con_boton' not in ui,
+          "ya no queda la tabla vieja de mañana")
+
+    import inspect
+    firma = inspect.signature(mm.render).parameters
+    check('con_apuesta' in firma, "`render` acepta el modo sin apuesta")
+    check('titulo' in firma, "y un titulo propio por vista")
+    check('con_apuesta' in inspect.signature(mm.tarjeta).parameters,
+          "y la tarjeta tambien")
+
+
+def test_los_bloques_de_la_tarjeta():
+    """
+    v155 — 1X2, goles, ambos marcan, córners y tarjetas, cada uno con su regla.
+
+    LOS CÓRNERS NO LLEVAN PORCENTAJE, Y ES UNA DECISION MEDIDA. El modelo de
+    córners predice la media de la competicion —la misma cifra para todos sus
+    partidos— porque su parte variable tiene correlacion −0,0012 con el total
+    real sobre 11.856 partidos. Un «Más de 9.5: 52 %» diria mas de la liga que
+    del partido. Lo que si es de cada equipo son sus medias observadas.
+    """
+    import modo_modelo as mm
+
+    p = {'partido': 'A vs B', 'clave_liga': 'premier', 'deporte': 'Fútbol',
+         'mercados': [
+             {'mercado': '1X2', 'apuesta': 'Gana A', 'prob': 0.55},
+             {'mercado': '1X2', 'apuesta': 'Empate', 'prob': 0.23},
+             {'mercado': '1X2', 'apuesta': 'Gana B', 'prob': 0.22},
+             {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.65},
+             {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.35},
+             {'mercado': 'BTTS', 'apuesta': 'Ambos marcan: Sí', 'prob': 0.54},
+             {'mercado': 'BTTS', 'apuesta': 'Ambos marcan: No', 'prob': 0.46}]}
+
+    tri = mm.probabilidades_1x2(p)
+    check(tri is not None and abs(sum(tri) - 1.0) < 0.02,
+          "el 1X2 se localiza por el nombre de los equipos y suma 1")
+    check(mm.probabilidades_1x2({'partido': 'A vs B'}) is None,
+          "sin las tres probabilidades no se dibuja una barra a medias")
+
+    # media barra es peor que ninguna: se lee como un valor, no como un hueco
+    check(mm._fila_mercado('⚽', 'Goles', 0.65, None, 'a', 'b') == '',
+          "un mercado con un solo lado no se pinta")
+    fila = mm._fila_mercado('⚽', 'Goles', 0.65, 0.35, 'Más 2.5', 'Menos 2.5')
+    check('65' in fila and '35' in fila, "y con los dos, salen los dos numeros")
+
+    # LOS CÓRNERS, SIN PORCENTAJE. Se comprueba sobre la SALIDA y no sobre el
+    # codigo: la primera version buscaba «%» en el cuerpo de la funcion y
+    # chocaba con el operador de formato («%.1f»), que no tiene nada que ver.
+    lleno = mm._bloque_fisico(
+        {'forma_home': {'equipo': 'A', 'ck_favor': 5.4, 'ck_contra': 4.1,
+                        'amarillas': 2.1},
+         'forma_away': {'equipo': 'B', 'ck_favor': 4.8, 'ck_contra': 5.0,
+                        'amarillas': 1.8}},
+        {'corners': True, 'tarjetas': True})
+    check('5.4' in lleno and '2.1' in lleno,
+          "el bloque enseña las medias observadas de cada equipo")
+    check('%' not in lleno,
+          "y NO publica probabilidades de córners: el modelo predice para "
+          "ellos la media de la competicion, igual en todos sus partidos")
+
+    # y donde la competicion no los trae, se DICE
+    vacio = mm._bloque_fisico({'forma_home': {}, 'forma_away': {}}, {})
+    check('no disponibles' in vacio,
+          "sin datos de córners se dice, en vez de dejar el hueco")
+
+
+def test_los_ordenes_de_la_lista():
+    """
+    v155 — cinco criterios, y ninguno se inventa un valor cuando no lo hay.
+
+    Un partido sin el dato del criterio elegido tiene que irse ABAJO, no
+    colarse arriba. Ordenar por «probabilidad de ambos marcan» y que encabece
+    la lista un partido que no publica ese mercado seria peor que no ordenar.
+    """
+    import modo_modelo as mm
+
+    check(len(mm.ORDENES) == 5, "hay cinco criterios de orden (%d)"
+          % len(mm.ORDENES))
+    for etq in ('Hora', 'Probabilidad del local',
+                'Probabilidad de más de 2.5',
+                'Probabilidad de ambos marcan', 'Apuesta destacada'):
+        check(etq in mm.ORDENES, f"el criterio «{etq}» existe")
+
+    lleno = {'partido': 'A vs B',
+             'mercados': [{'mercado': 'Goles', 'apuesta': 'Más de 2.5',
+                           'prob': 0.70}]}
+    vacio = {'partido': 'C vs D'}
+    for nombre in ('Probabilidad del local', 'Probabilidad de más de 2.5',
+                   'Probabilidad de ambos marcan', 'Apuesta destacada'):
+        fn = mm.ORDENES[nombre]
+        check(fn(vacio) > fn(lleno) or fn(vacio) >= 0,
+              f"«{nombre}» manda abajo lo que no tiene el dato")
+
 def test_modo_modelo_esta_enrutado_en_la_interfaz():
     """
     v154 — la vista de apuestas es la primera, y la ventaja de precio SIGUE.
@@ -5724,6 +5838,9 @@ if __name__ == '__main__':
     test_el_precalculo_no_cambia_ni_un_numero()
     test_los_except_pueden_registrar_su_error()
     test_la_apuesta_destacada_de_cada_partido()
+    test_la_tarjeta_es_la_misma_para_hoy_y_manana()
+    test_los_bloques_de_la_tarjeta()
+    test_los_ordenes_de_la_lista()
     test_modo_modelo_esta_enrutado_en_la_interfaz()
     test_corners_no_suben_a_seccion1_sin_medicion()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")

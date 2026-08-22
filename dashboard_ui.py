@@ -6318,25 +6318,33 @@ def render_alpha_finder():
         # La fecha lleva «CDMX» pegada a propósito: es la única forma de que un
         # partido a las 19:00 del 15 no parezca un error de la aplicación
         # cuando el reloj del servidor ya marca 16.
-        st.subheader(f"🗓️ Partidos de MAÑANA · {_MANANA_S} (hora de CDMX)")
+        # v155 — MAÑANA USA LA MISMA TARJETA QUE HOY.
+        #
+        # Enseñaba una tabla con la barra de 1X2 y la etiqueta «· informativo»,
+        # mientras hoy tenía la apuesta destacada, las rachas y los mercados.
+        # Eran dos diseños para el mismo partido, y la diferencia no venía de
+        # los datos —que son los mismos— sino de que cada vista se había
+        # construido en un momento distinto.
+        #
+        # `con_apuesta=False` es la ÚNICA diferencia, y es de fondo: los
+        # partidos de mañana no producen picks porque las líneas se mueven
+        # durante la noche, y ese movimiento es justo el canal que este
+        # proyecto mide. Se enseña el análisis entero y se dice por qué todavía
+        # no hay apuesta, en vez de proponer una que mañana no valdrá.
         if not _pron_man:
+            st.subheader(f"🗓️ Partidos de MAÑANA · {_MANANA_S} (hora de CDMX)")
             st.info("Todavía no hay partidos de mañana en el barrido. Las "
                     "casas suelen abrir línea 2-4 días antes, así que esto se "
                     "llena solo a lo largo del día.")
         else:
-            st.caption(
-                f"{len(_pron_man)} partidos de mañana — **todos**, tengan o "
-                f"no cuota y tengan o no pronóstico. Mismo semáforo que hoy: "
-                f"la etiqueta de la derecha dice qué hacer. Aún faltan horas "
-                f"para que las líneas se muevan, así que una ventaja de hoy "
-                f"puede no estar mañana.")
             try:
-                import render_todos_partidos as _rtp_m
-                _orden_man = _rtp_m.selector_orden(st, 'man')
-                _rtp_m.pintar_con_boton(
-                    st, _pron_man, _marca_global, _horario,
-                    navegar=_ir_al_partido, clave='man', orden=_orden_man)
+                import modo_modelo as _mm_man
+                _mm_man.render(
+                    st, _pron_man, navegar=_ir_al_partido, clave='man',
+                    con_apuesta=False,
+                    titulo=f"🗓️ Partidos de mañana · {_MANANA_S} (CDMX)")
             except Exception as _e_m:
+                logger.exception('[modo_modelo/manana] fallo al pintar')
                 st.caption(f"Lista no disponible ({type(_e_m).__name__}).")
     _tab_ev, _tab_prob = _tab_jugar, _tab_pata
     with _tab_estado:
