@@ -339,6 +339,23 @@ jobs:
       - name: Fotografiar la línea de hoy (snapshots + CLV)
         run: python daily_snapshots.py || echo "::warning::snapshots con avisos"
 
+      # v159 — LAS LÍNEAS DE CÓRNERS, QUE NADIE PUBLICA HACIA ATRÁS.
+      #
+      # La probabilidad de córners ya está calibrada (0,0043 el total, 0,0056
+      # por equipo), así que se puede calcular un EV frente a la cuota de la
+      # casa. Lo que NO se puede es saber si ese EV gana dinero: no existe
+      # histórico de líneas de córners, football-data no las publica y el de
+      # The Odds API es de pago. Sin líneas pasadas no hay apuestas que
+      # liquidar, y la regla de oro del proyecto no se puede ni aplicar.
+      #
+      # Esto empieza a construirlo. Una foto al día por partido y mercado; en
+      # unos meses habrá con qué medir. Medido hoy: 4.200 filas de 48 partidos
+      # en 29 s, así que no compite por el tiempo del job.
+      - name: Fotografiar las líneas de córners
+        continue-on-error: true
+        run: |
+          python snapshots_corners.py --dias 2 || echo "::warning::córners con avisos"
+
       # v95 — EL CATÁLOGO DE TENIS CRECE SOLO.
       #
       # 182 partidos salían como «con cuota, sin modelo propio» porque el
@@ -425,6 +442,7 @@ jobs:
           # odds_historico.db NO: está en .gitignore y es regenerable. Lo que
           # se commitea es `odds_snapshots.csv`, que contiene lo único que no
           # se puede reconstruir (la línea antes del partido).
+          git add -A corners_snapshots.csv 2>/dev/null || true
           git add -A odds_snapshots.csv calibracion_mercado.json umbrales_capa1.json \
                      _v75_import_odds.json _v75_snapshots.json playdoit_cobertura.json cuotas_kbo_cierre.csv 2>/dev/null || true
           # v123 — el perfil de juegos del tenis, que la ficha del partido lee

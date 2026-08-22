@@ -56,6 +56,8 @@ número del mercado disfrazado de fila del modelo rompería justo eso. Los
 partidos sin pronóstico salen agrupados aparte, con `Sin datos de modelo`.
 """
 import logging
+
+import numpy as np
 from typing import Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -365,7 +367,117 @@ def _fila_mercado(icono: str, titulo: str, izq, der, etq_izq: str,
                     etq_der, d * 100))
 
 
-def _bloque_fisico(rend: Dict, disp: Dict) -> str:
+# ---------------------------------------------------------------------------
+# v159 — LOS CÓRNERS, CON SU PROBABILIDAD, EN LA TARJETA
+# ---------------------------------------------------------------------------
+# Hasta aquí la tarjeta enseñaba las medias observadas de cada equipo y ninguna
+# probabilidad, porque el modelo del TOTAL predecía la media de la competición y
+# publicar «Más de 9.5: 52 %» habría dicho más de la liga que del partido.
+#
+# Eso cambió al medirlo bien (v157-v158). Ahora hay dos estimadores calibrados
+# contra la frecuencia REAL, cada uno el mejor para su mercado:
+#
+#     total del partido ....  media de la competición + binomial negativa
+#                             error de calibración 0,0043
+#     por equipo ...........  ataque + defensa del rival + binomial negativa
+#                             error de calibración 0,0056
+#
+# Así que la probabilidad ya se puede enseñar. Lo que NO se puede es marcarla en
+# verde: verde en esta aplicación significa «canal con percentil 5 positivo
+# medido», y el EV de córners sigue sin histórico de líneas con el que
+# comprobarlo. Va en ámbar, que es lo que el usuario pidió y lo que corresponde.
+
+# La línea que se usa en la tarjeta es la más cercana a la media, no la de la
+# casa. Pedirle el tablero a Playdoit cuesta 0,64 s por partido, y con cuarenta
+# tarjetas serían 25 s de red en la vista más usada de la aplicación — la misma
+# que se acaba de bajar de 119 s a 52. La línea de la casa sí se cruza en la
+# FICHA del partido, que se abre de una en una.
+def _linea_cercana(media: float) -> float:
+    """La línea de medio punto más cercana a la media."""
+    return float(np.floor(float(media))) + 0.5
+
+
+def _mejor_lado(media: float, linea: float, disp) -> Optional[Dict]:
+    """
+    El lado más probable de una línea, con su probabilidad.
+
+    Devuelve siempre el que supera el 50 %: es el que se enseña, y enseñar el
+    otro obligaría al usuario a restar de cabeza.
+    """
+    try:
+        import rendimiento_equipos as rq
+        p_mas = rq.prob_mas_de(media, linea, disp)
+    except Exception as e:
+        logger.debug('[modo_modelo] prob de córners: %s', e)
+        return None
+    if p_mas is None:
+        return None
+    if p_mas >= 0.5:
+        return {'texto': 'Más de %.1f' % linea, 'prob': float(p_mas),
+                'linea': linea}
+    return {'texto': 'Menos de %.1f' % linea, 'prob': float(1.0 - p_mas),
+            'linea': linea}
+
+
+def corners_tarjeta(pick: Dict) -> Optional[Dict]:
+    """
+    Total y por equipo, cada uno con su media y su apuesta más probable.
+
+    `None` cuando la competición no publica córners observados — 55 de las 75.
+    Ahí no hay media que calibrar y la tarjeta no enseña la sección, en vez de
+    rellenarla con la estimación derivada del xG sintético.
+    """
+    clave = str(pick.get('clave_liga') or '')
+    if not clave or str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+        return None
+    h, a = _equipos(pick)
+    if not h or not a:
+        return None
+    try:
+        import rendimiento_equipos as rq
+        media_tot = rq.media_corners_liga(clave)
+        disp_tot = rq.dispersion_corners_liga(clave)
+        eq = rq.corners_equipo(clave, h, a)
+    except Exception as e:
+        logger.debug('[modo_modelo] córners de %s: %s', clave, e)
+        return None
+    if media_tot is None or eq is None:
+        return None
+
+    filas = []
+    lado = _mejor_lado(media_tot, _linea_cercana(media_tot), disp_tot)
+    if lado:
+        filas.append({'etiqueta': 'Total', 'media': float(media_tot), **lado})
+    for nombre, media in (('Local', eq['lambda_home']),
+                          ('Visita', eq['lambda_away'])):
+        lado = _mejor_lado(media, _linea_cercana(media), eq['dispersion'])
+        if lado:
+            filas.append({'etiqueta': nombre, 'media': float(media), **lado})
+    if not filas:
+        return None
+    mejor = max(filas, key=lambda f: f['prob'])
+    return {'filas': filas, 'mejor': mejor}
+
+
+def _bloque_corners_html(ck: Dict) -> str:
+    """La sección compacta, con la más probable resaltada en ámbar."""
+    if not ck:
+        return ''
+    mejor = ck['mejor']
+    trozos = ['<div class="mm-ck-tit">⛳ <b>Córners</b> '
+              '<span class="mm-ck-badge">🟡 destacado: %s %s &nbsp;%.0f %%'
+              '</span></div>'
+              % (mejor['etiqueta'], mejor['texto'], mejor['prob'] * 100)]
+    for f in ck['filas']:
+        resalta = ' mm-ck-mejor' if f is mejor else ''
+        trozos.append(
+            '<div class="mm-ck-fila%s">%s <b>%.1f</b> · %s '
+            '<span class="mm-ck-pct">%.0f %%</span></div>'
+            % (resalta, f['etiqueta'], f['media'], f['texto'],
+               f['prob'] * 100))
+    return ''.join(trozos)
+
+def _bloque_fisico(rend: Dict, disp: Dict, con_corners: bool = True) -> str:
     """
     Córners y tarjetas: lo que los dos equipos hacen DE VERDAD.
 
@@ -385,7 +497,11 @@ def _bloque_fisico(rend: Dict, disp: Dict) -> str:
     fa = rend.get('forma_away') or {}
     filas = []
 
-    if disp.get('corners') and fh.get('ck_favor') is not None \
+    if not con_corners:
+        # La sección de arriba ya los pintó CON su probabilidad. Repetir aquí
+        # las mismas medias sin probabilidad alarga la tarjeta y no añade nada.
+        pass
+    elif disp.get('corners') and fh.get('ck_favor') is not None \
             and fa.get('ck_favor') is not None:
         filas.append(
             '<div class="mm-fis">⛳ <b>Córners</b> · %s saca %.1f y recibe '
@@ -424,6 +540,13 @@ CSS = """
 .mm-fis { font-size:.78rem; margin:.15rem 0; }
 .mm-nd { opacity:.55; font-style:italic; }
 .mm-forma { font-size:.86rem; line-height:1.8; margin-top:.25rem; }
+.mm-ck-tit { font-size:.8rem; margin:.35rem 0 .1rem; }
+.mm-ck-badge { background:#9a6700; color:#fff; border-radius:4px;
+               padding:.05rem .35rem; font-size:.7rem; font-weight:700;
+               margin-left:.25rem; }
+.mm-ck-fila { font-size:.79rem; line-height:1.65; padding-left:.5rem; }
+.mm-ck-mejor { font-weight:700; }
+.mm-ck-pct { opacity:.85; }
 </style>
 """
 
@@ -494,13 +617,19 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                                     b.get(_ETQ_UNDER), 'Más 2.5', 'Menos 2.5'))
         piezas.append(_fila_mercado('🤝', 'Ambos marcan', b.get(_ETQ_BTTS_SI),
                                     b.get(_ETQ_BTTS_NO), 'Sí', 'No'))
+        # Los córners van DEBAJO de goles y ambos marcan, y sólo en las 20
+        # competiciones que los publican: donde no hay datos, la sección
+        # desaparece en vez de rellenarse con la estimación del xG sintético.
+        _ck_tarjeta = corners_tarjeta(pick)
+        piezas.append(_bloque_corners_html(_ck_tarjeta))
 
         rend = None
         if str(pick.get('deporte') or '') != 'Tenis':
             rend = _rendimiento(pick)
         if rend:
             disp = rend.get('disponible') or {}
-            piezas.append(_bloque_fisico(rend, disp))
+            piezas.append(_bloque_fisico(rend, disp,
+                                        con_corners=not _ck_tarjeta))
             lineas = [x for x in (_mini_forma(rend.get('forma_home'), disp),
                                   _mini_forma(rend.get('forma_away'), disp))
                       if x]

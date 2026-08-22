@@ -5525,6 +5525,123 @@ def test_los_corners_por_equipo_salen_de_sus_datos():
     check('corners_por_equipo_de_datos' in src,
           "y declara si esas lineas salen de datos o del reparto por xG")
 
+
+def test_los_corners_en_la_tarjeta():
+    """
+    v159 — total y por equipo, cada uno con su apuesta más probable, en ámbar.
+
+    Ahora se PUEDE enseñar la probabilidad: los dos estimadores están calibrados
+    contra la frecuencia real (0,0043 el total, 0,0056 por equipo). Lo que no se
+    puede es marcarla en verde — verde en esta aplicacion significa «canal con
+    percentil 5 positivo medido», y el EV de córners sigue sin histórico de
+    lineas con el que comprobarlo.
+    """
+    import modo_modelo as mm
+
+    ck = mm.corners_tarjeta({'partido': 'Man City vs Arsenal',
+                             'clave_liga': 'premier', 'deporte': 'Fútbol'})
+    check(ck is not None, "una liga con córners observados produce la seccion")
+    if ck:
+        check(len(ck['filas']) == 3,
+              "salen las tres filas: total, local y visita (%d)"
+              % len(ck['filas']))
+        etiquetas = [f['etiqueta'] for f in ck['filas']]
+        check(etiquetas == ['Total', 'Local', 'Visita'],
+              f"y en ese orden ({etiquetas})")
+        for f in ck['filas']:
+            # Siempre se enseña el lado que supera el 50 %: enseñar el otro
+            # obligaria al usuario a restar de cabeza.
+            check(f['prob'] >= 0.5,
+                  f"{f['etiqueta']}: se enseña el lado mas probable "
+                  f"({f['prob']:.2f})")
+            check(f['texto'].startswith(('Más de', 'Menos de')),
+                  f"{f['etiqueta']}: la apuesta dice de que lado es")
+        check(ck['mejor'] in ck['filas'],
+              "la destacada es una de las tres")
+        check(ck['mejor']['prob'] == max(f['prob'] for f in ck['filas']),
+              "y es la de mayor probabilidad")
+
+    # Donde no hay córners observados NO se inventa la seccion.
+    check(mm.corners_tarjeta({'partido': 'Pachuca vs Toluca',
+                              'clave_liga': 'liga_mx',
+                              'deporte': 'Fútbol'}) is None,
+          "una competicion sin córners observados no produce seccion")
+    check(mm.corners_tarjeta({'partido': 'HOU vs NYY', 'clave_liga': 'mlb',
+                              'deporte': 'MLB'}) is None,
+          "y el beisbol tampoco")
+
+    # ÁMBAR, NO VERDE.
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    i = src.index('def _bloque_corners_html')
+    cuerpo = src[i:i + 900]
+    check('🟡' in cuerpo, "la destacada de córners va en ambar")
+    check('✅' not in cuerpo,
+          "y NUNCA en verde: el EV de córners no esta validado con histórico")
+
+    # La linea que se usa es la mas cercana a la media, y esta dicho por que.
+    check(abs(mm._linea_cercana(10.4) - 10.5) < 1e-9,
+          "la linea de 10,4 es 10,5")
+    check(abs(mm._linea_cercana(5.0) - 5.5) < 1e-9,
+          "y la de 5,0 es 5,5, nunca un entero sin empuje")
+
+
+def test_se_guardan_las_lineas_de_corners():
+    """
+    v159 — la unica via que desbloquea el p5 de córners: acumular el histórico.
+
+    No existe historico de lineas de córners —football-data no las publica y el
+    de The Odds API es de pago— asi que la regla de oro del proyecto no se puede
+    ni aplicar a este mercado. Esto lo empieza a construir: una foto al dia por
+    partido y mercado.
+
+    Medido en la primera captura real: 4.200 filas de 48 partidos en 29 s, de 18
+    competiciones.
+    """
+    import os
+
+    import snapshots_corners as sc
+
+    check(hasattr(sc, 'capturar') and hasattr(sc, 'lineas_de_corners'),
+          "el modulo expone la captura")
+
+    # LA LINEA SALE DE LA ETIQUETA, NO DE `sv`. Medido sobre el tablero real:
+    # la familia «Total Tiros De Esquina» llega con sv=9.5 y su seleccion dice
+    # «Mas de 8.5». Guardar 9,5 cuando se apuesta 8,5 haria inservible todo el
+    # historico que esto existe para acumular.
+    src = open('snapshots_corners.py', encoding='utf-8').read()
+    check('linea_etq if linea_etq is not None else linea_fam' in src,
+          "la linea guardada es la de la etiqueta, con `sv` de respaldo")
+
+    check(sc._es_corner('Total Tiros De Esquina') is True,
+          "reconoce la familia de córners de la casa")
+    check(sc._es_corner('Total de goles') is False,
+          "y no se lleva por delante otros mercados")
+    check(abs(sc._linea_de('Más de 8.5') - 8.5) < 1e-9,
+          "extrae la linea de la etiqueta")
+
+    # El bot lo ejecuta y commitea el resultado: sin las dos cosas, el historico
+    # no crece y esto no sirve de nada.
+    wf = open(os.path.join('.github', 'workflows', 'retrain_leagues.yml'),
+              encoding='utf-8').read()
+    check('snapshots_corners.py' in wf, "el bot lo ejecuta a diario")
+    check('corners_snapshots.csv' in wf, "y commitea lo capturado")
+
+    if os.path.exists(sc.FICHERO):
+        import pandas as pd
+        d = pd.read_csv(sc.FICHERO)
+        check(len(d) > 0, f"hay lineas capturadas ({len(d)})")
+        # Coherencia: la linea tiene que coincidir con el numero de la etiqueta
+        con_linea = d[d['linea'].notna() & d['mercado'].str.contains(
+            'de ', case=False, na=False)]
+        if len(con_linea):
+            malas = 0
+            for _, r in con_linea.head(200).iterrows():
+                n = sc._linea_de(r['mercado'])
+                if n is not None and abs(float(n) - float(r['linea'])) > 1e-6:
+                    malas += 1
+            check(malas == 0,
+                  f"la linea guardada coincide con su etiqueta ({malas} malas)")
+
 def test_los_except_pueden_registrar_su_error():
     """
     v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
@@ -6031,6 +6148,8 @@ if __name__ == '__main__':
     test_el_suelo_del_error_en_corners()
     test_las_probabilidades_de_corners_usan_la_sobredispersion()
     test_los_corners_por_equipo_salen_de_sus_datos()
+    test_los_corners_en_la_tarjeta()
+    test_se_guardan_las_lineas_de_corners()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
