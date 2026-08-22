@@ -696,6 +696,7 @@ CSS = """
 .mm-ck-mejor { font-weight:700; }
 .mm-ck-pct { opacity:.85; }
 .mm-arb { opacity:.85; font-style:italic; }
+.mm-jug { font-size:.79rem; line-height:1.6; padding-left:.6rem; opacity:.9; }
 </style>
 """
 
@@ -846,6 +847,83 @@ def _tiene_fisicos(p: Dict) -> bool:
         return False
 
 
+# ---------------------------------------------------------------------------
+# v161 — LOS PARTIDOS QUE YA SE JUGARON
+# ---------------------------------------------------------------------------
+# La lista enseña los partidos que se pueden apostar, o sea los que no han
+# empezado. Es lo correcto —un partido acabado no es un pick— pero tiene un
+# efecto que parece un fallo: un sábado por la tarde la lista se queda casi
+# vacía. Medido el 2026-08-22, ESPN tenía 224 partidos de fútbol ese día y la
+# aplicación enseñaba 55. La mayor parte de la diferencia eran partidos ya
+# jugados, y desde fuera eso se lee como «faltan partidos».
+#
+# Aquí salen, con su marcador, separados de los apostables y SIN apuesta. Tres
+# decisiones que van juntas:
+#
+#   · **bajo demanda, con un botón.** Son 61 peticiones a ESPN. El barrido
+#     tardó de la v148 a la v154 en bajar de 119 s a 52 y no puede pagarlas en
+#     cada carga. Pulsando, cuestan ~5 s y quedan en la caché de 5 minutos.
+#   · **fuera de `pronosticos`.** No pasan por `tarjeta()` ni por la Sección 1:
+#     un partido con resultado no puede convertirse en un pick ni salir por
+#     Telegram por accidente.
+#   · **sin probabilidad.** Enseñar lo que el modelo «habría dicho» de un
+#     partido ya jugado es la clase de cifra que sólo sirve para engañarse.
+def _dia_de(pronosticos: List[Dict]) -> str:
+    """El día que está enseñando esta lista, sacado de sus propios partidos."""
+    for p in (pronosticos or []):
+        f = str((p or {}).get('fecha') or '')[:10]
+        if len(f) == 10:
+            return f
+    try:
+        import horario
+        import pandas as _pd
+        return horario.fecha(_pd.Timestamp.now('UTC')) or ''
+    except Exception:
+        return ''
+
+
+def _bloque_jugados(st, clave: str, dia: str) -> None:
+    """El desplegable de los ya jugados, que sólo pide datos si se pulsa."""
+    if not dia:
+        return
+    bandera = '%s_ver_jugados' % clave
+    if not st.session_state.get(bandera):
+        if st.button('🏁 Ver los partidos que ya se jugaron',
+                     key='%s_btn_jugados' % clave,
+                     help='No se pueden apostar, así que no están en la lista '
+                          'de arriba. Se piden a ESPN al pulsar (~5 s).'):
+            st.session_state[bandera] = True
+        else:
+            return
+
+    try:
+        import fixtures_espn
+        jugados = fixtures_espn.jugados_del_dia(
+            fixtures_espn.claves_de_futbol(), dia)
+    except Exception as e:
+        logger.debug('[modo_modelo] jugados de %s: %s', dia, e)
+        st.caption('No se pudieron pedir los resultados de hoy.')
+        return
+
+    if not jugados:
+        st.caption('No hay partidos terminados en las competiciones del '
+                   'catálogo para ese día.')
+        return
+
+    with st.expander('🏁 Ya jugados (%d) — no se pueden apostar' % len(jugados),
+                     expanded=True):
+        liga_actual = None
+        for r in jugados:
+            if r.get('liga') != liga_actual:
+                liga_actual = r.get('liga')
+                st.markdown('**%s**' % liga_actual)
+            st.markdown(
+                '<div class="mm-jug">%s <b>%d – %d</b> %s</div>'
+                % (r.get('home', ''), int(r.get('goles_home') or 0),
+                   int(r.get('goles_away') or 0), r.get('away', '')),
+                unsafe_allow_html=True)
+
+
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 40, con_apuesta: bool = True,
            titulo: str = '⚽ Partidos de hoy') -> None:
@@ -914,6 +992,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
             for p in sin[:maximo]:
                 st.markdown('· **%s** — %s' % (p.get('partido', '?'),
                                                p.get('liga', '')))
+
+    # v161 — y los que ya se jugaron, aparte y bajo demanda. Ver el comentario
+    # de `_bloque_jugados`: no entran en `pronosticos` a propósito.
+    _bloque_jugados(st, clave, _dia_de(pronosticos))
 
     # LA ADVERTENCIA NO DESAPARECE: SE PLIEGA.
     #

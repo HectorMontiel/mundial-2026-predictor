@@ -29,9 +29,9 @@ LIGAS_V68 = {
         'nombre': 'EFL Championship', 'pais': 'Inglaterra', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/E1.csv'
                  for s in temporadas_fd('2122')],
-        'disponible': False, 'features_extra': ['cuotas', 'extras'],
+        'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
-        'nota': 'no bate ELO (0.4422 vs 0.4496) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
+        'nota': 'no bate ELO (0.4422 vs 0.4496) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'eng_league_one': {
         # v147: ventana MEDIDA del modelo. El CSV guarda 16 temporadas para el H2H; el modelo sigue entrenando con 5.
@@ -118,9 +118,9 @@ LIGAS_V68 = {
         'nombre': 'Jupiler Pro League', 'pais': 'Bélgica', 'formato': 'main',
         'urls': [f'{FD_BASE}/mmz4281/{s}/B1.csv'
                  for s in temporadas_fd('2122')],
-        'disponible': False, 'features_extra': ['cuotas', 'extras'],
+        'disponible': True, 'features_extra': ['cuotas', 'extras'],
         'fuente_v68': 'football-data/mmz4281',
-        'nota': 'no bate ELO (0.4719 vs 0.4719) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
+        'nota': 'no bate ELO (0.4719 vs 0.4719) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'jpn_j1': {
         'nombre': 'J1 League', 'pais': 'Japón', 'formato': 'new',
@@ -149,9 +149,9 @@ LIGAS_V68 = {
     'ned_eerste': {
         'nombre': 'Eerste Divisie', 'pais': 'Países Bajos', 'formato': 'espn',
         'espn_liga': 'ned.2', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 1140,
-        'nota': 'no bate ELO (0.4744 vs 0.4744) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
+        'nota': 'no bate ELO (0.4744 vs 0.4744) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'bra_serie_b': {
         'nombre': 'Brasileirão Série B', 'pais': 'Brasil', 'formato': 'espn',
@@ -180,9 +180,9 @@ LIGAS_V68 = {
     'slv_primera': {
         'nombre': 'Primera División', 'pais': 'El Salvador', 'formato': 'espn',
         'espn_liga': 'slv.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 832,
-        'nota': 'no bate ELO (0.4713 vs 0.4828) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
+        'nota': 'no bate ELO (0.4713 vs 0.4828) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'bol_division': {
         'nombre': 'División Profesional', 'pais': 'Bolivia', 'formato': 'espn',
@@ -193,16 +193,16 @@ LIGAS_V68 = {
     'par_division': {
         'nombre': 'División Profesional', 'pais': 'Paraguay', 'formato': 'espn',
         'espn_liga': 'par.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 774,
-        'nota': 'no bate ELO (0.4722 vs 0.4722) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
+        'nota': 'no bate ELO (0.4722 vs 0.4722) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'crc_fpd': {
         'nombre': 'Liga FPD', 'pais': 'Costa Rica', 'formato': 'espn',
         'espn_liga': 'crc.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 741,
-        'nota': 'no bate ELO (0.4741 vs 0.4781) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
+        'nota': 'no bate ELO (0.4741 vs 0.4781) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'mex_expansion': {
         'nombre': 'Liga de Expansión MX', 'pais': 'México', 'formato': 'espn',
@@ -239,8 +239,9 @@ LIGAS_V68 = {
     'ven_primera': {
         'nombre': 'Liga FUTVE', 'pais': 'Venezuela', 'formato': 'espn',
         'espn_liga': 'ven.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 657,
+        'nota': 'v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'aut_bundesliga': {
         'nombre': 'Austrian Bundesliga', 'pais': 'Austria', 'formato': 'espn',
@@ -251,8 +252,9 @@ LIGAS_V68 = {
     'aus_aleague': {
         'nombre': 'A-League Men', 'pais': 'Australia', 'formato': 'espn',
         'espn_liga': 'aus.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 508,
+        'nota': 'v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'libertadores': {
         'nombre': 'Copa Libertadores', 'pais': 'Américas', 'formato': 'espn',
@@ -269,15 +271,16 @@ LIGAS_V68 = {
     'eng_fa_cup': {
         'nombre': 'FA Cup', 'pais': 'Inglaterra', 'formato': 'espn',
         'espn_liga': 'eng.fa', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 395,
-        'nota': 'no bate ELO (0.4177 vs 0.5823) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo.',
+        'nota': 'no bate ELO (0.4177 vs 0.5823) - medido en v106 al reentrenarla; estaba activa con el modelo fuera del repo. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'ind_isl': {
         'nombre': 'Indian Super League', 'pais': 'India', 'formato': 'espn',
         'espn_liga': 'ind.1', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 393,
+        'nota': 'v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'esp_copa_rey': {
         'nombre': 'Copa del Rey', 'pais': 'España', 'formato': 'espn',
@@ -294,8 +297,9 @@ LIGAS_V68 = {
     'bra_copa': {
         'nombre': 'Copa do Brasil', 'pais': 'Brasil', 'formato': 'espn',
         'espn_liga': 'bra.copa_do_brazil', 'desde': '2021-07-01', 'urls': [],
-        'disponible': False, 'features_extra': [],
+        'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 374,
+        'nota': 'v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     'eng_carabao': {
         'nombre': 'EFL Cup (Carabao)', 'pais': 'Inglaterra', 'formato': 'espn',

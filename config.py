@@ -313,8 +313,8 @@ LEAGUES = {
     'aut_bundesliga': {
         'nombre': 'Austrian Bundesliga', 'pais': 'Austria', 'formato': 'new',
         'urls': [f'{FD_BASE}/new/AUT.csv'], 'anios_ventana': 8,
-        'disponible': False, 'features_extra': ['cuotas'],
-        'nota': 'no bate ELO (37.3<42.5) — medido en v75 con cuotas reales.',
+        'disponible': True, 'features_extra': ['cuotas'],
+        'nota': 'no bate ELO (37.3<42.5) — medido en v75 con cuotas reales. v161: ENCENDIDA de todas formas — el acierto del 1X2 dejo de decidir que ligas salen (el modelo bate al mercado en 1 de 34 y el valor esta en el precio), asi que esto describe su modelo, no su derecho a aparecer.',
     },
     # RESULTADO v75: sigue adoptada y ahora medible — acc 0.530 vs 0.512 de
     # ELO (+1,8 pp), 1.944 partidos y cuota de cierre en el 100 % de las filas

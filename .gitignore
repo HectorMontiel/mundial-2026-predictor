@@ -89,16 +89,24 @@ resultados_bivariante_v68.json
 #
 # Las tres que nunca estuvieron activas (aus_aleague, ind_isl, ven_primera)
 # siguen igual.
-modelos/aus_aleague/
-modelos/bel_pro_league/
-modelos/crc_fpd/
-modelos/eng_championship/
-modelos/eng_fa_cup/
-modelos/ind_isl/
-modelos/ned_eerste/
-modelos/par_division/
-modelos/slv_primera/
-modelos/ven_primera/
+#
+# v161 — LAS DIEZ SALEN DE ESTA LISTA, PORQUE LA REGLA QUE LAS PUSO YA NO RIGE.
+#
+# El motivo para excluirlas era «no baten a su línea base de ELO». Medido
+# después (v90 y siguientes), el acierto del 1X2 de una liga no es de donde
+# sale el valor de esta aplicación: el modelo bate al mercado en 1 de 34 ligas,
+# apostar su probabilidad pierde entre −4,66 % y −6,52 % sobre 37.158 apuestas,
+# y lo que gana es comprar al mejor precio (+11,49 %, p5 +1,73 %). El semáforo
+# de la Sección 1 va por ventaja de precio, que no depende de eso.
+#
+# Y la exclusión tenía el coste que la propia v106 describe arriba: una liga
+# `disponible` con su modelo fuera del repo desaparece en silencio. Si se
+# encienden las ligas (v161) y se dejan sus modelos aquí, se repite el mismo
+# fallo exacto que costó 12 competiciones.
+#
+# Coste medido de volver a publicarlas: ~52 s de entrenamiento por liga y unos
+# 2,5 MB de modelo. Las que sigan sin encender —esp_copa_rey, eng_carabao,
+# ksa_pro— no aparecen aquí porque nunca se entrenaron.
 
 # v69: caché por jugador de TennisAbstract (700+ JSON por circuito). Los datos
 # consolidados y validados van en saque_*.csv.gz, que sí se versiona para no

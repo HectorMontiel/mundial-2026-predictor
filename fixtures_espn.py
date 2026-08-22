@@ -433,6 +433,74 @@ def resultados_liga(clave: str, desde: str, hasta: str) -> List[Dict]:
     return salida
 
 
+def jugados_del_dia(claves: List[str], dia: str,
+                    max_hilos: int = 8) -> List[Dict]:
+    """
+    v161 — los partidos de `dia` que YA SE JUGARON, con su marcador.
+
+    Por qué existe, y por qué NO va dentro del barrido
+    --------------------------------------------------
+    `fixtures_liga` descarta todo evento `completed`, y eso es correcto: no se
+    puede apostar un partido acabado, y dejarlos entrar convertiría en «pick»
+    algo que ya tiene resultado. Pero tiene un efecto que el usuario nota y que
+    parece un fallo: **un sábado por la tarde la lista se queda casi vacía**.
+    Medido el 2026-08-22, ESPN tenía 224 partidos de fútbol ese día y la
+    aplicación enseñaba 55 — la mayor parte de la diferencia eran partidos ya
+    jugados.
+
+    Esto los recupera, pero por una puerta aparte y **bajo demanda**: el
+    barrido tardó versiones en bajar de 119 s a 52 y no puede pagar 61
+    peticiones más en cada carga. La interfaz los pide sólo cuando el usuario
+    pulsa, y nunca entran en `pronosticos`, así que no pueden acabar en un pick
+    ni en Telegram.
+
+    Devuelve [{'clave_liga', 'liga', 'fecha', 'home', 'away', 'goles_home',
+    'goles_away'}] ordenado por competición.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+    try:
+        from config import LEAGUES as _LG
+    except Exception:
+        _LG = {}
+
+    dia = str(dia)[:10]
+
+    def _uno(clave):
+        try:
+            # La ventana se abre un día por cada lado porque la fecha que pide
+            # la interfaz es de CDMX y ESPN publica en UTC: un partido de las
+            # 19:00 en México es del día siguiente en UTC. Se recorta después.
+            desde = (pd.Timestamp(dia) - pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+            hasta = (pd.Timestamp(dia) + pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+            return [dict(r, clave_liga=clave,
+                         liga=(_LG.get(clave) or {}).get('nombre') or clave)
+                    for r in resultados_liga(clave, desde, hasta)]
+        except Exception as e:
+            logger.debug('[jugados/%s] %s: %s', clave, type(e).__name__, e)
+            return []
+
+    salida: List[Dict] = []
+    with ThreadPoolExecutor(max_workers=max_hilos) as ex:
+        for lote in ex.map(_uno, list(claves)):
+            salida.extend(lote or [])
+    # el recorte fino, con la fecha que se pidió
+    salida = [r for r in salida if str(r.get('fecha') or '')[:10] == dia]
+    salida.sort(key=lambda r: (str(r.get('liga') or ''), str(r.get('home') or '')))
+    logger.info('[jugados] %d partidos jugados el %s en %d competiciones',
+                len(salida), dia, len(list(claves)))
+    return salida
+
+
+def claves_de_futbol() -> List[str]:
+    """Las competiciones de fútbol que el barrido conoce y puede consultar."""
+    try:
+        from config import LEAGUES as _LG
+    except Exception:
+        return []
+    return [c for c, cfg in _LG.items()
+            if cfg.get('disponible') and c in ESPN_CODIGOS]
+
+
 def resultados_tenis(desde: str, hasta: str) -> List[Dict]:
     """
     v93 — partidos de tenis YA JUGADOS con su GANADOR, de ATP y WTA.

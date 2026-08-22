@@ -77,20 +77,157 @@ def test_catalogo_sin_duplicados():
 
 
 def test_ligas_migradas():
-    """Las tres migradas en la v75 tienen que estar como las dejó la regla de oro."""
+    """
+    Las tres migradas en la v75 siguen leyendo de football-data.
+
+    v161 — LO QUE ESTE TEST YA NO FIJA, Y POR QUÉ.
+
+    Fijaba también `disponible`, con `aut_bundesliga` en False porque su modelo
+    medía acc 0,373 contra 0,425 de su línea base de ELO. Esa era la regla de
+    la v75: si el 1X2 de una liga no bate a su ELO, la liga no sale.
+
+    La regla dejó de decidir nada, y está medido después (v90 y siguientes):
+    el modelo bate al mercado en 1 de 34 ligas, apostar su probabilidad pierde
+    entre −4,66 % y −6,52 % sobre 37.158 apuestas, y lo que gana es comprar al
+    mejor precio (+11,49 %, p5 +1,73 %). O sea que el acierto del 1X2 de una
+    liga no es de donde sale el valor, y filtrar competiciones por él quitaba
+    partidos sin proteger de nada — 28 en un sábado normal.
+
+    Lo que este test SIGUE fijando es el formato, que sí es una propiedad de la
+    fuente y no una decisión revisable: si alguien cambia `aut_bundesliga` a
+    formato 'espn', deja de leer football-data y pierde sus cuotas de cierre.
+    Qué ligas están encendidas lo comprueba ahora
+    `test_las_ligas_apagadas_por_elo_se_encendieron`.
+    """
     import config
     esperado = {
-        # clave: (formato, disponible)  — veredicto medido en la v75
-        'rus_premier': ('new', True),        # acc 0.530 > ELO 0.512
-        'gre_super_league': ('main', True),  # acc 0.536 > ELO 0.506
-        'aut_bundesliga': ('new', False),    # acc 0.373 < ELO 0.425
+        # clave: formato medido en la v75
+        'rus_premier': 'new',            # acc 0.530 > ELO 0.512
+        'gre_super_league': 'main',      # acc 0.536 > ELO 0.506
+        'aut_bundesliga': 'new',         # acc 0.373 < ELO 0.425 — ver docstring
     }
-    for clave, (formato, disp) in esperado.items():
+    for clave, formato in esperado.items():
         cfg = config.LEAGUES.get(clave, {})
         check(cfg.get('formato') == formato,
               f"{clave} usa football-data (formato '{formato}')")
-        check(bool(cfg.get('disponible')) == disp,
-              f"{clave} disponible={disp} (regla de oro de la v75)")
+
+
+def test_las_ligas_apagadas_por_elo_se_encendieron():
+    """
+    v161 — la regla que las apagaba dejo de ser la regla que decide.
+
+    Doce competiciones estaban con `disponible: False` y una nota del tipo «no
+    bate ELO (0,4422 vs 0,4496)», medida entre la v39 y la v106. La regla de
+    entonces: si el modelo 1X2 de una liga no supera a su propia linea base de
+    ELO, la liga no sale.
+
+    Esa regla ya no decide nada, y esta medido:
+      - el modelo bate al mercado en 1 de 34 ligas (v90), o sea que su acierto
+        no es de donde sale el valor;
+      - apostar su probabilidad PIERDE entre -4,66 % y -6,52 % sobre 37.158
+        apuestas, y su EV correlaciona -0,054 con el CLV;
+      - lo que gana es comprar al mejor precio: +11,49 %, p5 +1,73 %.
+
+    Asi que filtrar competiciones por el acierto de su 1X2 quitaba partidos sin
+    proteger de nada. Medido el 2026-08-22: son 28 partidos mas en un sabado.
+
+    Este test NO dice que esas ligas sean buenas. Dice que estan encendidas a
+    proposito y que su nota lo sigue contando, para que nadie las apague otra
+    vez creyendo que se coló un descuido.
+    """
+    import config
+
+    ENCENDIDAS = ('aut_bundesliga', 'eng_championship', 'bel_pro_league',
+                  'ned_eerste', 'slv_primera', 'par_division', 'crc_fpd',
+                  'ven_primera', 'aus_aleague', 'eng_fa_cup', 'ind_isl',
+                  'bra_copa')
+    for c in ENCENDIDAS:
+        cfg = config.LEAGUES.get(c) or {}
+        check(bool(cfg.get('disponible')), f"{c} esta disponible")
+        nota = str(cfg.get('nota') or '')
+        check('v161' in nota,
+              f"{c}: la nota dice que se encendio a proposito")
+
+    # Las tres que se quedan fuera, y por que. Si alguien las enciende sin
+    # darles lo que les falta, la liga sale rota en vez de no salir.
+    import os
+    for c in ('esp_copa_rey', 'eng_carabao'):
+        cfg = config.LEAGUES.get(c) or {}
+        check(not cfg.get('disponible'),
+              f"{c} sigue apagada: no tiene team_stats_{c}.json")
+        check(not os.path.exists('team_stats_%s.json' % c),
+              f"y efectivamente no lo tiene")
+    check(not (config.LEAGUES.get('ksa_pro') or {}).get('disponible'),
+          "ksa_pro sigue apagada: no tiene ni histórico ni team_stats")
+
+    # Toda liga encendida tiene que tener con que trabajar.
+    import fixtures_espn
+    disp = [c for c, v in config.LEAGUES.items() if v.get('disponible')]
+    check(len(disp) >= 62, f"hay {len(disp)} competiciones disponibles")
+    sin_hist = [c for c in ENCENDIDAS
+                if not os.path.exists('historico_%s.csv' % c)]
+    check(not sin_hist, f"todas las encendidas tienen histórico ({sin_hist})")
+    sin_stats = [c for c in ENCENDIDAS
+                 if not os.path.exists('team_stats_%s.json' % c)]
+    check(not sin_stats, f"y todas tienen team_stats ({sin_stats})")
+    sin_codigo = [c for c in ENCENDIDAS if c not in fixtures_espn.ESPN_CODIGOS]
+    check(not sin_codigo, f"y todas tienen código ESPN ({sin_codigo})")
+
+
+def test_los_partidos_ya_jugados_salen_aparte():
+    """
+    v161 — la lista parecia incompleta y no lo estaba: faltaban los acabados.
+
+    `fixtures_liga` descarta todo evento `completed`, y es correcto: un partido
+    acabado no se puede apostar. Pero medido el 2026-08-22, ESPN tenia 224
+    partidos de futbol ese dia y la aplicacion enseñaba 55 — la mayor parte de
+    la diferencia eran partidos ya jugados, y desde fuera eso se lee como que
+    faltan partidos.
+
+    Ahora salen, con su marcador, y con tres condiciones que van juntas:
+      - BAJO DEMANDA: son 61 peticiones a ESPN y el barrido tardo de la v148 a
+        la v154 en bajar de 119 s a 52. Medido: ~5 s al pulsar.
+      - FUERA de `pronosticos`: un partido con resultado no puede convertirse
+        en pick ni salir por Telegram por accidente.
+      - SIN probabilidad: enseñar lo que el modelo «habria dicho» de un partido
+        ya jugado sólo sirve para engañarse.
+    """
+    import inspect
+    import fixtures_espn
+    import modo_modelo as mm
+
+    check(hasattr(fixtures_espn, 'jugados_del_dia'),
+          "fixtures_espn sabe pedir los partidos jugados de un dia")
+    check(hasattr(fixtures_espn, 'claves_de_futbol'),
+          "y sabe que competiciones consultar")
+    check(hasattr(mm, '_bloque_jugados'), "la interfaz tiene su bloque")
+
+    # `fixtures_liga` SIGUE descartando los acabados: esto es aditivo, no un
+    # cambio del criterio. Si algun dia se toca, los acabados entrarian en el
+    # barrido y podrian acabar en un pick.
+    src = inspect.getsource(fixtures_espn._fixtures_de_codigo)
+    check("if estado.get('completed'):" in src and 'continue' in src,
+          "los acabados siguen fuera de los fixtures apostables")
+
+    # El bloque no puede pedir nada hasta que el usuario pulse.
+    cuerpo = inspect.getsource(mm._bloque_jugados)
+    check('st.button' in cuerpo, "hay un boton: no se pide nada al cargar")
+    i_boton = cuerpo.index('st.button')
+    i_pide = cuerpo.index('jugados_del_dia')
+    check(i_boton < i_pide, "y la peticion va DESPUES del boton")
+
+    # El dia sale de los propios partidos de la lista.
+    check(mm._dia_de([{'fecha': '2026-08-23'}]) == '2026-08-23',
+          "el dia se lee de los partidos que se estan enseñando")
+    check(len(mm._dia_de([])) == 10,
+          "y con la lista vacia cae a la fecha de hoy en CDMX")
+
+    # Los jugados NO entran en la lista de tarjetas.
+    render = inspect.getsource(mm.render)
+    check('_bloque_jugados(st, clave, _dia_de(pronosticos))' in render,
+          "el bloque se pinta aparte, despues de la lista")
+    check('_bloque_jugados' not in inspect.getsource(mm.tarjeta),
+          "y no toca la tarjeta de un partido apostable")
 
 
 def test_verificacion_de_fuente():
@@ -4455,16 +4592,63 @@ def test_ninguna_liga_activa_sin_modelo():
         else:
             _sin_ningun_sitio = sorted(k for k in _faltan_local
                                        if f'modelos-{k}.tar.gz' not in _publicados)
-            check(not _sin_ningun_sitio,
+            # v161 — LAS RECIÉN ENCENDIDAS, MIENTRAS ESPERAN SU PRIMER
+            # ENTRENAMIENTO.
+            #
+            # Estas doce se encendieron en la v161 y sus modelos no existen
+            # todavía: el workflow entrena «cada liga disponible», así que
+            # aparecerán en el próximo reentrenamiento (~52 s por liga medido
+            # con eng_championship). Hasta entonces salen en `ligas_sin_motor`
+            # de la pestaña Estado, que es el comportamiento correcto — se ven
+            # y se dice que les falta el modelo, en vez de desaparecer.
+            #
+            # La lista se DRENA SOLA: el bloque de abajo falla si una de ellas
+            # ya tiene su modelo publicado y sigue aquí, así que no se puede
+            # quedar de coartada permanente. Ése es justo el fallo de la v106,
+            # donde un argumento dejó de ser cierto y nadie se enteró.
+            # `aut_bundesliga` y `bra_copa` NO están aquí, y no es un olvido:
+            # ya tienen su modelo publicado en el Release de antes, así que
+            # encenderlas fue sólo cambiar el `disponible`. Ponerlas en esta
+            # lista fue el primer intento, y el bloque de drenaje de abajo lo
+            # rechazó — que es exactamente para lo que está.
+            _PENDIENTES_PRIMER_ENTRENAMIENTO = {
+                'aus_aleague', 'bel_pro_league', 'crc_fpd', 'eng_championship',
+                'eng_fa_cup', 'ind_isl', 'ned_eerste', 'par_division',
+                'slv_primera', 'ven_primera',
+            }
+            _esperadas = sorted(set(_sin_ningun_sitio)
+                                & _PENDIENTES_PRIMER_ENTRENAMIENTO)
+            _sin_excusa = sorted(set(_sin_ningun_sitio)
+                                 - _PENDIENTES_PRIMER_ENTRENAMIENTO)
+            if _esperadas:
+                print(f"AVISO {len(_esperadas)} competiciones encendidas en la "
+                      f"v161 esperan su primer entrenamiento: {_esperadas}")
+            check(not _sin_excusa,
                   f"todas las activas con motor propio tienen su modelo, en "
-                  f"disco o publicado en el Release ({_sin_ningun_sitio})")
+                  f"disco o publicado en el Release ({_sin_excusa})")
+            _ya_no_pendientes = sorted(
+                k for k in _PENDIENTES_PRIMER_ENTRENAMIENTO
+                if f'modelos-{k}.tar.gz' in (_publicados or set()))
+            check(not _ya_no_pendientes,
+                  f"la lista de pendientes se drena: éstas ya tienen modelo y "
+                  f"hay que quitarlas de _PENDIENTES_PRIMER_ENTRENAMIENTO "
+                  f"({_ya_no_pendientes})")
 
-    # las que se apartaron dicen POR QUÉ, con la cifra medida
+    # v161 — las que se midieron por debajo de su ELO conservan la cifra.
+    #
+    # Este bloque comprobaba que estuvieran APARTADAS. Ya no lo están: el
+    # acierto del 1X2 de una liga dejó de decidir si sale (ver
+    # `test_las_ligas_apagadas_por_elo_se_encendieron`). Lo que sigue
+    # comprobándose es que su nota conserve la medición, porque es información
+    # real sobre ese modelo y borrarla al encender la liga sería tapar el dato
+    # que justifica leer su probabilidad con desconfianza.
     for k in ('eng_championship', 'eng_fa_cup', 'ned_eerste'):
         cfg = config.LEAGUES.get(k) or {}
-        check(not cfg.get('disponible'), f"{k} está apartada")
-        check('ELO' in str(cfg.get('nota', '')),
-              f"y su nota dice contra qué se midió ({str(cfg.get('nota'))[:60]})")
+        nota = str(cfg.get('nota', ''))
+        check('ELO' in nota,
+              f"{k}: su nota conserva contra qué se midió ({nota[:60]})")
+        check('v161' in nota,
+              f"{k}: y dice que se encendió a pesar de eso")
 
 
 def _CLAVES_CON_MODELO_PROPIO():
@@ -6472,6 +6656,8 @@ if __name__ == '__main__':
     test_el_arbitro_designado_y_su_encogimiento()
     test_las_tarjetas_en_la_tarjeta()
     test_se_guardan_las_lineas_de_tarjetas()
+    test_las_ligas_apagadas_por_elo_se_encendieron()
+    test_los_partidos_ya_jugados_salen_aparte()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

@@ -734,3 +734,76 @@ modelo la liga se descarta igual en el bucle del barrido.
   día ya estaban jugados, no por un error.
 
 Scripts del diagnóstico: `_v160_cobertura_hoy.py`, `_v160_donde_se_caen.py`.
+
+## 4q. v161 — QUE SALGAN TODOS LOS PARTIDOS
+
+Respuesta al diagnóstico de la §4p. Se atacan las dos causas corregibles; la
+tercera queda pendiente y se dice por qué.
+
+### 1. Doce competiciones encendidas (50 → 62 disponibles)
+
+`aut_bundesliga`, `eng_championship`, `bel_pro_league`, `ned_eerste`,
+`slv_primera`, `par_division`, `crc_fpd`, `ven_primera`, `aus_aleague`,
+`eng_fa_cup`, `ind_isl`, `bra_copa`.
+
+Estaban apagadas con una nota del tipo «no bate ELO (0,4422 vs 0,4496)»,
+medida entre la v39 y la v106. **Esa regla ya no decide nada**, y está medido
+después: el modelo bate al mercado en 1 de 34 ligas (v90), apostar su
+probabilidad pierde entre −4,66 % y −6,52 % sobre 37.158 apuestas, y lo que
+gana es comprar al mejor precio (+11,49 %, p5 +1,73 %). El semáforo de la
+Sección 1 va por VENTAJA DE PRECIO, que no depende de lo bueno que sea el 1X2
+de la liga. Filtrar por el acierto del modelo quitaba partidos sin proteger de
+nada: **28 en un sábado normal**.
+
+**La nota de cada liga se conserva** y se le añade que está encendida a pesar
+de eso, para que nadie las apague dentro de un año creyendo que se coló un
+descuido.
+
+Dos de ellas son de formato `main` de football-data —`eng_championship` (11
+partidos ese sábado) y `bel_pro_league`— así que además traen **córners y
+tarjetas OBSERVADAS y árbitro en el histórico**, que es justo lo que la v160
+necesita.
+
+**Siguen apagadas 4, y por falta de datos, no de criterio:**
+
+| clave | qué le falta |
+|---|---|
+| `esp_copa_rey`, `eng_carabao` | sin `team_stats_*.json` |
+| `ksa_pro` | sin histórico y sin `team_stats` |
+| `suiza` | sin código ESPN en el proyecto |
+
+**Aviso que hay que tener presente**: sus modelos NO existen todavía en
+`modelos/`. El workflow entrena «cada liga disponible», así que aparecerán en
+el próximo reentrenamiento (~52 s por liga medido con `eng_championship`, unos
+**10 min más** de job). Hasta entonces salen en `ligas_sin_motor` de la pestaña
+Estado, que es el comportamiento correcto: se ven y se dice que les falta el
+modelo, en vez de desaparecer en silencio.
+
+### 2. Los partidos ya jugados, aparte y bajo demanda
+
+`fixtures_liga` descarta todo evento `completed`, y **eso no se ha tocado**: un
+partido acabado no es un pick, y dejarlo entrar en el barrido podría convertirlo
+en uno o mandarlo por Telegram. Lo que se añade es una puerta aparte:
+
+- `fixtures_espn.jugados_del_dia(claves, dia)` — 149 partidos del 22/8 en 5,2 s.
+- `modo_modelo._bloque_jugados` — un **botón** al pie de la lista. No pide nada
+  hasta que se pulsa, porque son 61 peticiones y el barrido tardó de la v148 a
+  la v154 en bajar de 119 s a 52.
+- Salen con su marcador y **sin probabilidad**: enseñar lo que el modelo
+  «habría dicho» de un partido ya jugado sólo sirve para engañarse.
+
+### 3. Lo que NO se hizo, y por qué
+
+Las competiciones sin código ESPN en el proyecto (Copa de Alemania 11 partidos,
+Supercopa de Alemania —donde jugó el Bayern—, Arabia, NWSL, USL League One)
+**siguen fuera**. Añadir el código no basta: sin histórico ni modelo, el bucle
+del barrido las descarta igual. Cada una necesita su pipeline de datos, que es
+una tanda propia.
+
+### VALIDACIÓN
+
+- `test_catalogo_y_cuotas.py`: TODO OK, con 2 tests nuevos.
+- `valida_render.py`: las 3 vistas, limpias.
+- `test_ligas_migradas` dejó de fijar `disponible` (fijaba `aut_bundesliga`
+  apagada por la regla de la v75). Sigue fijando el **formato**, que sí es una
+  propiedad de la fuente y no una decisión revisable.
