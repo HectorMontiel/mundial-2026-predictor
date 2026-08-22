@@ -5455,22 +5455,34 @@ def test_la_apuesta_destacada_de_cada_partido():
 
 def test_modo_modelo_esta_enrutado_en_la_interfaz():
     """
-    v152 — la pestaña existe, es la primera, y la de precio sigue estando.
+    v154 — la vista de apuestas es la primera, y la ventaja de precio SIGUE.
 
-    Cambiar el orden de las pestañas es una decision del usuario. Lo que no
-    puede pasar es que el cambio se lleve por delante la pantalla que SI tiene
-    percentil 5 positivo medido.
+    Las siete pestañas se consolidaron en cuatro: tres enseñaban la misma lista
+    del dia con otro orden. Lo que este test protege no es el numero de
+    pestañas —eso es decision de producto y puede volver a cambiar— sino que la
+    simplificacion no se lleve por delante **la ventaja de precio**, que es el
+    unico criterio con percentil 5 positivo medido en todo el proyecto.
+
+    Antes se comprobaba el ORDEN de dos rotulos concretos («Modo Modelo» antes
+    que «Modo Valor»). Esos rotulos ya no existen, y un test atado a una
+    redaccion se rompe con cada rediseño sin proteger nada: ahora se comprueba
+    que el destino siga enrutado y que su contenido siga siendo alcanzable.
     """
     src = open('dashboard_ui.py', encoding='utf-8').read()
-    check('import modo_modelo' in src, "el Modo Modelo esta importado")
-    check('Modo Modelo' in src, "la pestaña del Modo Modelo existe")
-    check('Modo Valor' in src, "la pestaña de Modo Valor existe")
-    i_modelo = src.index('\U0001F4CA Modo Modelo')
-    i_valor = src.index('\U0001F48E Modo Valor')
-    check(i_modelo < i_valor,
-          "el Modo Modelo se declara antes que el Modo Valor (es la primera)")
-    check('_tab_jugar' in src,
-          "la pestaña de la Seccion 1 sigue enrutada")
+    check('import modo_modelo' in src, "la vista de apuestas esta importada")
+    check('_mm.render(' in src, "y se pinta de verdad")
+    check('Apuestas de hoy' in src, "la pestaña de apuestas de hoy existe")
+
+    # La ventaja de precio: su pestaña puede haberse convertido en desplegable,
+    # pero el destino y su contenido tienen que seguir vivos.
+    check('_tab_ev' in src and '_tab_jugar' in src,
+          "el destino de la Seccion 1 sigue enrutado")
+    check('Ventaja de precio' in src,
+          "y sigue alcanzable con su nombre en pantalla")
+    i_hoy = src.index('⚽ Apuestas de hoy')
+    i_manana = src.index('\U0001F5D3️ Mañana')
+    check(i_hoy < i_manana,
+          "las apuestas de hoy se declaran antes que las de mañana")
 
 
 def test_corners_no_suben_a_seccion1_sin_medicion():

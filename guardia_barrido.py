@@ -66,7 +66,27 @@ import time
 logger = logging.getLogger(__name__)
 
 FRESCURA_S = 300          # v148: 5 min — por debajo, se sirve tal cual
-CADUCIDAD_S = 3600        # v148: 1 h — por encima, ni con aviso
+
+# v154 — DE 1 HORA A 3, Y ES UNA DECISIÓN DE PRODUCTO, NO UN AJUSTE.
+#
+# Por encima de esto no se sirve ni con aviso: se recalcula, y quien llega paga
+# los ~52 s completos. Con el tope en 1 h eso pasaba a menudo, porque Streamlit
+# Cloud reinicia por inactividad y la caché se pierde: la queja era «la primera
+# vez tarda mucho».
+#
+# Lo que se cambia y lo que no:
+#
+#   · Los PRONÓSTICOS del modelo no caducan dentro del día. El 1X2 de un partido
+#     de esta tarde es el mismo a las 10:00 que a las 13:00 — sólo cambia cuando
+#     el bot reentrena. Servirlos de hace tres horas no degrada nada.
+#   · Las CUOTAS sí se mueven. Por eso el tope no es «infinito con aviso»: es
+#     tres horas, y por encima de cinco minutos la interfaz ya dice la edad
+#     exacta y pide confirmar el precio en la casa antes de apostar.
+#
+# Elegido por HMREY sobre la alternativa de 6 h. El equilibrio es: dentro de la
+# ventana se sirve al instante y se revalida por detrás, así que la cuota vieja
+# sólo la ve el primero que llega y sólo hasta que termina la revalidación.
+CADUCIDAD_S = int(os.environ.get('CADUCIDAD_BARRIDO_S', 3 * 3600))
 ARCHIVO = os.environ.get('CACHE_BARRIDO', '.cache_barrido.pkl')
 
 _cerrojo = threading.Lock()

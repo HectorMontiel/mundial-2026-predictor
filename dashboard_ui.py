@@ -4679,14 +4679,25 @@ def render_alpha_finder():
     # enseñada como la de ahora es justo lo que este proyecto no hace.
     #
     # Va aquí arriba, encima de las pestañas, porque debajo ya hay cuotas.
+    # v154 — LA EDAD, EN HORAS CUANDO SON HORAS.
+    #
+    # La ventana de caché subió a 3 h para que la primera visita no pague los
+    # ~52 s del barrido. A cambio, el aviso tiene que ser legible en todo el
+    # rango: «hace 150 min» se lee mal y se subestima. Y el tono sube con la
+    # edad — a partir de una hora deja de ser un apunte y pasa a ser una
+    # advertencia, porque una cuota de hace dos horas puede no existir ya.
     _fr = (r or {}).get('_frescura') or {}
     if _fr and not _fr.get('fresco', True):
-        _min = int(_fr.get('edad_s', 0) // 60)
-        st.warning(
-            f"⏱️ Estas cuotas se bajaron hace **{_min} min**. Se están "
-            f"actualizando en segundo plano: los pronósticos del modelo son "
-            f"válidos, pero **confirma el precio en la casa antes de apostar**. "
-            f"Pulsa «Actualizar ahora» cuando quieras rehacer el barrido.")
+        _seg = int(_fr.get('edad_s', 0))
+        _h, _m = _seg // 3600, (_seg % 3600) // 60
+        _edad_txt = (f"{_h} h {_m:02d} min" if _h else f"{_m} min")
+        _texto = (
+            f"⏱️ Los precios que se ven se bajaron hace **{_edad_txt}** y se "
+            f"están actualizando en segundo plano. Los pronósticos del modelo "
+            f"siguen siendo válidos —sólo cambian cuando reentrena el bot—, "
+            f"pero **confirma el precio en la casa antes de apostar**. "
+            f"«Actualizar ahora» rehace el barrido.")
+        (st.error if _seg >= 3600 else st.warning)(_texto)
 
     if st.session_state.pop('_enviar_telegram', False):
         try:
@@ -6266,24 +6277,43 @@ def render_alpha_finder():
     # por probabilidad del modelo está medido en −4,66 % a −6,52 % de ROI.
     # Cambiar el orden de las pestañas es cambiar lo que se mira primero; no es
     # cambiar lo que la medición dice.
-    (_tab_modelo, _tab_jugar, _tab_todos, _tab_manana, _tab_pata, _tab_combi,
-     _tab_estado) = st.tabs([
-        f"📊 Modo Modelo ({len(_pron_hoy)})",
-        f"💎 Modo Valor · para jugar ({len(_s1_hoy)})",
-        f"📋 Partidos de hoy ({len(_pron_hoy)})",
-        f"🗓️ Partidos de mañana ({len(_pron_man)})",
-        f"🟡 Sólo como pata ({len(_s2_hoy)})",
+    # v154 — DE SIETE PESTAÑAS A CUATRO.
+    #
+    # Eran siete y tres enseñaban lo mismo con otro orden: «Modo Modelo»,
+    # «Partidos de hoy» y «Sólo como pata» recorrían la misma lista del día.
+    # El encargo fue «una sola vista de apuestas, sin pestañas complicadas», y
+    # eso es lo que queda:
+    #
+    #     ⚽ Apuestas de hoy   la vista de tarjetas, con TODO lo de hoy dentro
+    #     🗓️ Mañana            los que aún no se juegan
+    #     🧩 Combinadas
+    #     ⚙️ Estado
+    #
+    # LO QUE NO SE PIERDE, Y ES LA PARTE DELICADA: la ventaja de precio es el
+    # único criterio con percentil 5 positivo medido en todo el proyecto. No
+    # puede desaparecer porque la pantalla se simplifique, así que baja a un
+    # desplegable DENTRO de la vista principal, abierto cuando hay algo que
+    # enseñar. Cambia dónde está, no si está.
+    (_tab_hoy, _tab_manana, _tab_combi, _tab_estado) = st.tabs([
+        f"⚽ Apuestas de hoy ({len(_pron_hoy)})",
+        f"🗓️ Mañana ({len(_pron_man)})",
         f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
-        "⚙️ Estado del sistema",
+        "⚙️ Estado",
     ])
-    with _tab_modelo:
+    # Los nombres antiguos siguen apuntando a la vista de hoy: el resto de la
+    # función los usa en una docena de sitios y renombrarlos todos en el mismo
+    # cambio que reordena las pestañas sería mezclar dos cosas que conviene
+    # poder revisar por separado.
+    _tab_modelo = _tab_jugar = _tab_todos = _tab_pata = _tab_hoy
+    with _tab_hoy:
         try:
             import modo_modelo as _mm
             _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm')
         except Exception as _e_mm:
             logger.exception('[modo_modelo] fallo al pintar')
-            st.caption(f"Modo Modelo no disponible ({type(_e_mm).__name__}). "
-                       f"Las demás pestañas siguen funcionando.")
+            st.caption(f"La lista de apuestas no está disponible "
+                       f"({type(_e_mm).__name__}). Las demás pestañas siguen "
+                       f"funcionando.")
     with _tab_manana:
         # La fecha lleva «CDMX» pegada a propósito: es la única forma de que un
         # partido a las 19:00 del 15 no parezca un error de la aplicación
@@ -6309,16 +6339,42 @@ def render_alpha_finder():
             except Exception as _e_m:
                 st.caption(f"Lista no disponible ({type(_e_m).__name__}).")
     _tab_ev, _tab_prob = _tab_jugar, _tab_pata
-    with _tab_todos:
-        _render_todos_los_partidos()
     with _tab_estado:
         _render_estado_sistema()
-    with _tab_prob:
-        _render_maxima_confianza(r)
     with _tab_combi:
         _render_combinadas(r)
 
-    with _tab_ev:
+    # Lo que antes eran tres pestañas cae ahora DENTRO de la vista de hoy, cada
+    # cosa en su desplegable y cerrada, para que la primera pantalla siga siendo
+    # las tarjetas y nada más.
+    #
+    # Se anida el expander en el propio `with` en vez de sacar el cuerpo a una
+    # función nueva. Mover cien líneas a una función definida más abajo es
+    # exactamente el fallo que la v131 dejó escrito —se llamaba antes de
+    # definirse y la vista moría con UnboundLocalError—, y aquí no hace falta:
+    # `with A, B:` anida los dos contextos sin tocar una sola línea del cuerpo.
+    with _tab_hoy:
+        st.divider()
+    with _tab_todos, st.expander(f"📋 Tabla completa del día "
+                                 f"({len(_pron_hoy)})"):
+        _render_todos_los_partidos()
+    with _tab_prob, st.expander(f"🟡 Sólo como pata de combinada "
+                                f"({len(_s2_hoy)})"):
+        _render_maxima_confianza(r)
+
+    # LA VENTAJA DE PRECIO NO DESAPARECE AL SIMPLIFICAR: CAMBIA DE SITIO.
+    #
+    # Es el único criterio con percentil 5 positivo medido en todo el proyecto
+    # (+1,73 % en el tramo de juicio). Que la pantalla principal pase a ordenar
+    # por probabilidad del modelo es una decisión de producto; borrar lo único
+    # que tiene rentabilidad demostrada sería otra cosa muy distinta.
+    #
+    # Va en un desplegable dentro de la vista de hoy, y se abre solo cuando hay
+    # algo dentro: un día con Sección 1 vacía no roba sitio, y un día con picks
+    # los enseña sin que haya que buscarlos.
+    with _tab_ev, st.expander(
+            f"💎 Ventaja de precio — lo único con rentabilidad medida "
+            f"({len(_s1_hoy)})", expanded=bool(_s1_hoy)):
         # -------------------------------------------------------------------
         # v128 — LAS DOS SECCIONES, ARRIBA DEL TODO.
         #
