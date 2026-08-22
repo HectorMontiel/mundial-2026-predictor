@@ -8,7 +8,26 @@ llegó al usuario porque los smoke tests solo CARGABAN la página; el fallo viv�
 dentro del bloque `if st.button(...)`, que nunca se ejecutaba. Este test pulsa
 los botones de cada vista y verifica que ninguno lanza excepción.
 
+CUÁNDO SE USA ESTE, Y CUÁNDO NO (v152)
+--------------------------------------
+Dejó de ser la puerta de cada push, por decisión de HMREY y con un motivo
+medido: el 2026-08-22 no terminó en 55 minutos en dos intentos seguidos (EXIT
+124 las dos veces), y sólo la vista de «Apuestas del Día» tarda 254 s. La cifra
+real está en horas, no en los 110 minutos que decía la documentación. Una puerta
+que cuesta media jornada deja de usarse, y una puerta que no se usa no protege
+nada.
+
+    cualquier cambio ...........  test_catalogo_y_cuotas.py, siempre
+    cambio de INTERFAZ .........  valida_render.py <vistas tocadas>  (minutos)
+    cambio de MOTOR ............  ESTE, completo
+    una vez por semana .........  ESTE, completo
+
+Lo que NO se relaja es que el render se valide: `py_compile` y el AST no ven un
+`UnboundLocalError`, y ésa es la lección que hizo nacer este fichero.
+`valida_render.py` usa el mismo AppTest sobre las vistas que el cambio toca.
+
 Uso:  python smoke_botones.py
+      python smoke_botones.py --rapido
 """
 import io
 import sys

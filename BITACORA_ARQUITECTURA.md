@@ -670,3 +670,97 @@ Se deja escrito para no volver a discutirlo cada versión:
 Lo que sí se promete, porque está medido: **el sistema compara precios y dice
 cuándo tu casa paga bien**. Eso es lo único con ROI positivo y robusto en todo
 el histórico del proyecto.
+
+---
+
+## 10. Córners: por qué el mercado está abierto y el modelo no puede entrar
+
+Es la sección que faltaba, y se escribe con números porque la propuesta de
+explotar los córners vuelve cada pocas versiones.
+
+### 10.1 Qué se midió, y cómo
+
+La fórmula de producción era `ck = 4,0 + 0,25·(lam_h+lam_a)·spx·tpo`. La v146
+midió su sesgo alimentándola con el xG **observado** del histórico, concluyó que
+faltaban 1,3 córners, subió la base a 5,3 y tuvo que revertirlo. Producción la
+alimenta con `lam_h`/`lam_a`, que son el xG **predicho**: otra magnitud.
+
+Medido con los lambdas de producción, **11.856 partidos con córners 100 % reales
+en 15 competiciones**:
+
+| | valor |
+|---|---|
+| sesgo ponderado | **+0,435** (no −1,3) |
+| base que calibraría el nivel | 3,565 (no 5,3) |
+| **correlación con el total real** | **−0,0012** |
+| ligas con \|correlación\| > 0,1 | **0 de 15** |
+
+La correlación es además **optimista**: el motor predice cada partido pasado con
+el estado ACTUAL de los equipos, o sea con información del futuro. Un límite
+superior de 0,004 no deja margen.
+
+### 10.2 Se intentó el modelo bueno, con datos reales
+
+football-data publica córners y remates REALES. Se construyó el modelo con
+medias móviles de córners a favor y en contra de los últimos 5, separando la
+serie de local y la de visitante, más remates como medida de ritmo. Split
+temporal, sin fuga. **20 competiciones, 8.889 partidos de juicio:**
+
+| modelo | MAE |
+|---|---|
+| media de la competición | **2,6996** |
+| fórmula actual | 3,0749 |
+| fórmula recalibrando la base por liga | 3,0609 |
+| córners y remates reales (ridge) | 2,6942 |
+| gradient boosting | 2,7624 |
+
+Dos lecturas que cierran el asunto:
+
+- **La constante nunca fue el problema.** Recalibrar el nivel recupera 0,014 de
+  los 0,375 que la fórmula pierde. El 96 % del daño lo hace la parte variable.
+- **Con datos reales tampoco hay señal.** La mejora es de 0,005 córners sobre
+  una desviación típica de 3,3, y el p5 del bootstrap cruza cero en 2 de 20
+  ligas — lo que da el azar al hacer veinte pruebas.
+
+Y las ligas secundarias **no son más predecibles**: +0,0049 contra +0,0062 de
+las principales.
+
+### 10.3 Qué hace hoy el sistema
+
+El total de córners es **la media observada de la competición**, en las 20 que
+publican córners de verdad. En las otras 55, la media de las comparables (9,613;
+rango observado 8,81-10,54), declarada como suposición. Antes esas competiciones
+recibían la fórmula, que en Liga MX daba 13,4 córners y un «Más de 9.5: 85,9 %».
+
+### 10.4 Por qué el EV sigue bloqueado
+
+Dos motivos, y ninguno se arregla afinando la fórmula:
+
+1. **El modelo no discrimina.** Predice la media de la competición para todos
+   sus partidos. Contra una casa que mueve su línea, el EV que sale mide que el
+   modelo no distingue, no que haya valor.
+2. **No existe histórico de LÍNEAS de córners.** football-data no las publica y
+   el de The Odds API es de pago (§9). Sin líneas no hay apuesta que liquidar,
+   así que la regla de oro del §0 —p5 positivo en el tramo de juicio— **no se
+   puede ni aplicar** a este mercado.
+
+Que el mercado de córners esté peor cotizado que el 1X2 es plausible y este
+proyecto no lo ha refutado. Lo que ha medido es que **no tiene con qué
+explotarlo**, y ésas son dos afirmaciones distintas.
+
+### 10.5 Y el xG de este proyecto no es xG
+
+Relacionado, porque es de donde salía la fórmula de córners. Las columnas
+`home_xg`/`away_xg` las escribe `CorrelatedSyntheticGenerator`:
+
+    xG = 0,776 + 0,200 · goles_reales + ruido(0,529)
+
+Ajustando xG contra goles en los históricos guardados, los coeficientes salen
+0,785/0,201/0,519 en Bundesliga, 0,785/0,200/0,498 en Argentina, 0,776/0,203 en
+Liga MX y 0,775/0,208 en Brasileirão: **la calibración del generador con tres
+decimales**. La posesión igual: `50 + 12·tanh(elo_diff/300) + ruido(4)`.
+
+Por eso **no se entrena ningún modelo sobre el xG de estos ficheros** (sería
+entrenar sobre los goles con ruido añadido) y **no se enseña xG ni posesión en
+ninguna pantalla**. Sólo salen goles, córners, remates y tarjetas, que sí son
+observados — y sólo en las competiciones donde lo son.

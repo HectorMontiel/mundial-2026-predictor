@@ -153,3 +153,9 @@ consenso_api_uso.json
 # que aquí no vale «`modelos/` y luego `!modelos/*.joblib`»: hay que excluir
 # sólo los subdirectorios desde el principio.
 modelos/*/
+
+# v152 — la prueba de «¿esta columna la escribió el generador sintético?»
+# (`rendimiento_equipos._columnas_sinteticas`). Es caché puro: se deriva del
+# histórico y caduca sola cuando el bot lo actualiza, así que versionarlo sólo
+# produciría un diff diario que nadie lee.
+cache_columnas_sinteticas.json

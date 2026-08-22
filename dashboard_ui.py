@@ -14,6 +14,7 @@ Ejecutar:  streamlit run dashboard_ui.py
 """
 
 import json
+import logging
 import os
 
 import numpy as np
@@ -25,6 +26,24 @@ import horario as _horario          # v106: hora de los partidos en CDMX
 from prediction_api import PredictionEngine, NOMBRES_PAIS, plantilla_a_markdown
 from arbitros import ARBITROS
 from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
+
+# v152 — EL `logger` DE ESTE FICHERO NO EXISTÍA, Y SE USABA EN SEIS SITIOS.
+#
+# Los seis viven dentro de un `except` que intenta dejar constancia del fallo
+# antes de degradar la pantalla. Sin esta línea, ese `except` lanzaba
+# `NameError: name 'logger' is not defined` **encima** del error original: el
+# manejador se llevaba por delante la vista entera y además borraba la pista de
+# lo que había pasado de verdad.
+#
+# Cinco de los seis llevaban versiones ahí, latentes, porque son caminos de
+# excepción que casi nunca se recorren. Lo destapó la validación de render de
+# esta misma versión al cargar «Apuestas del Día»: la vista murió con el
+# NameError y el fallo real quedó tapado.
+#
+# Es exactamente para esto que el render se valida con AppTest y no con
+# `py_compile`: un nombre indefinido dentro de un `except` compila igual de bien
+# que uno definido.
+logger = logging.getLogger(__name__)
 
 # 1. PRIMER COMANDO DE STREAMLIT (OBLIGATORIO)
 st.set_page_config(
@@ -5267,12 +5286,46 @@ def render_alpha_finder():
         _sel = 'Todo'
     _dep_sel = _mapa_dep.get(_sel, 'Todo')
 
+    # v152 — EL FILTRO DE LIGAS SECUNDARIAS, EN EL MISMO SITIO QUE EL DE
+    # DEPORTE Y POR EL MISMO MOTIVO.
+    #
+    # Se pidió para poder mirar sólo las competiciones de menos volumen. Va
+    # aquí arriba, al lado del deporte, y no dentro de una pestaña: dos
+    # controles del mismo eje en dos sitios acaban divergiendo, y entonces el
+    # mismo partido aparece en una pantalla y no en la otra. Es la lección de
+    # la v141 aplicada antes de que ocurra.
+    #
+    # Lo que este filtro NO hace: prometer que las secundarias rinden más. Es
+    # una hipótesis razonable —menos volumen, líneas menos trabajadas— que en
+    # este proyecto todavía no tiene su propio percentil 5.
+    _grupo_liga = st.radio(
+        'Competiciones', ['Todas', 'Sólo secundarias', 'Sólo principales'],
+        horizontal=True, key='_filtro_grupo_liga', label_visibility='collapsed',
+        help='«Secundaria» es toda competición de FÚTBOL que no está en la '
+             'lista corta de ligas grandes. El resto de deportes no se reparte '
+             'por este eje —la MLB no es una liga de fútbol secundaria— así '
+             'que sólo aparecen en «Todas». Reordena lo que se ve: no cambia '
+             'el barrido, ni el envío a Telegram, ni la exportación.')
+
     def _filtra(lista):
-        """La lista tal cual, o sólo el deporte elegido. Nunca muta el barrido."""
-        if _dep_sel == 'Todo' or not lista:
-            return list(lista or [])
-        return [p for p in lista
-                if isinstance(p, dict) and p.get('deporte') == _dep_sel]
+        """La lista tal cual, o sólo lo elegido. Nunca muta el barrido."""
+        salida = list(lista or [])
+        if _dep_sel != 'Todo':
+            salida = [p for p in salida
+                      if isinstance(p, dict) and p.get('deporte') == _dep_sel]
+        if _grupo_liga != 'Todas':
+            try:
+                import modo_modelo as _mmf
+                quiere_sec = (_grupo_liga == 'Sólo secundarias')
+                # `es_secundaria` devuelve None cuando el eje no aplica (todo
+                # lo que no es fútbol). Se compara con `is` a propósito: un
+                # `None` no debe colarse en «Sólo principales» por ser distinto
+                # de True, que es lo que pasaría con una negación.
+                salida = [p for p in salida if isinstance(p, dict)
+                          and _mmf.es_secundaria(p) is quiere_sec]
+            except Exception:
+                pass
+        return salida
 
     # v141 — LA SEPARACIÓN POR DÍA, QUE HASTA AHORA NO EXISTÍA.
     #
@@ -6200,15 +6253,37 @@ def render_alpha_finder():
     _pron_man = _del_dia(_pron_f, _MANANA_S)
     _s1_hoy = _del_dia(_s1_f, _HOY_S) or _s1_f
     _s2_hoy = _del_dia(_s2_f, _HOY_S) or _s2_f
-    (_tab_jugar, _tab_todos, _tab_manana, _tab_pata, _tab_combi,
+    # v152 — MODO MODELO PRIMERO, MODO VALOR SEGUNDO.
+    #
+    # Es una decisión del usuario, pedida dos veces y con estas palabras: «no
+    # quiero ver EV alto en equipos débiles; quiero que la app me diga que este
+    # equipo está jugando mejor». La pantalla que ordena por probabilidad del
+    # modelo pasa a ser la primera.
+    #
+    # LO QUE NO CAMBIA: cuál es el criterio con percentil 5 positivo. Sigue
+    # siendo la ventaja de precio, sigue viviendo en la pestaña de al lado, y
+    # el Modo Modelo lleva esa advertencia DENTRO —no debajo— porque un orden
+    # por probabilidad del modelo está medido en −4,66 % a −6,52 % de ROI.
+    # Cambiar el orden de las pestañas es cambiar lo que se mira primero; no es
+    # cambiar lo que la medición dice.
+    (_tab_modelo, _tab_jugar, _tab_todos, _tab_manana, _tab_pata, _tab_combi,
      _tab_estado) = st.tabs([
-        f"✅ Para jugar ({len(_s1_hoy)})",
+        f"📊 Modo Modelo ({len(_pron_hoy)})",
+        f"💎 Modo Valor · para jugar ({len(_s1_hoy)})",
         f"📋 Partidos de hoy ({len(_pron_hoy)})",
         f"🗓️ Partidos de mañana ({len(_pron_man)})",
         f"🟡 Sólo como pata ({len(_s2_hoy)})",
         f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
         "⚙️ Estado del sistema",
     ])
+    with _tab_modelo:
+        try:
+            import modo_modelo as _mm
+            _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm')
+        except Exception as _e_mm:
+            logger.exception('[modo_modelo] fallo al pintar')
+            st.caption(f"Modo Modelo no disponible ({type(_e_mm).__name__}). "
+                       f"Las demás pestañas siguen funcionando.")
     with _tab_manana:
         # La fecha lleva «CDMX» pegada a propósito: es la única forma de que un
         # partido a las 19:00 del 15 no parezca un error de la aplicación

@@ -2535,7 +2535,70 @@ class ClubEngine:
         # las ligas nuevas no traen córners en football-data». **Sí los traen**:
         # las 50 ligas disponibles tienen `home_corners`/`away_corners` al
         # 100 % en 2023-2026. Queda como material para el modelo bueno.
-        ck = 4.0 + 0.25 * (lam_h + lam_a) * spx * tpo
+        # v152 — LA MEDICIÓN QUE FALTABA, Y LO QUE DECIDIÓ.
+        #
+        # El bloque de arriba dejó pendiente medir el sesgo alimentando la
+        # fórmula con los lambdas de PRODUCCIÓN. Hecho, sobre 11.856 partidos
+        # con córners 100 % reales en 15 competiciones:
+        #
+        #     sesgo ponderado ............  +0,435   (no −1,3)
+        #     base que calibra el nivel ..   3,565   (no 5,3)
+        #     correlación con el real ....  −0,0012  ← el número que importa
+        #
+        # La base 4,0 estaba bien y la corrección de la v146 iba en dirección
+        # contraria: bien revertida. Pero la correlación es CERO —0 de 15 ligas
+        # pasan de 0,1 en valor absoluto, y encima es una correlación optimista
+        # porque el motor predice cada partido pasado con el estado ACTUAL de
+        # los equipos. **La fórmula no distingue un partido de otro.**
+        #
+        # Validado después con split temporal y sin fuga, 20 competiciones y
+        # 8.889 partidos de juicio:
+        #
+        #     media de la competición ...........  MAE 2,6996
+        #     esta fórmula ......................  MAE 3,0749   peor en 19 de 20
+        #     esta fórmula recalibrando la base .  MAE 3,0609
+        #     córners y remates REALES (ridge) ..  MAE 2,6942   mejora 0,005
+        #
+        # Recalibrar la base recupera 0,014 de los 0,375 que la fórmula pierde:
+        # **el 96 % del daño lo hace la parte variable**, que es ruido. Sumar
+        # ruido a una media añade varianza sin añadir señal.
+        #
+        # Así que donde hay córners observados se usa la media de la
+        # competición, que es el mejor estimador medido. Y donde no los hay
+        # —55 de las 75 competiciones: la columna existe pero la escribió el
+        # generador sintético— se conserva la fórmula, porque no hay nada mejor
+        # con que sustituirla, y el mercado sale marcado como estimación.
+        #
+        # No se adopta el ridge: mejora 0,005 córners sobre una desviación
+        # típica de 3,3, y su percentil 5 sólo cruza cero en 2 de 20 ligas, que
+        # es lo que da el azar al hacer veinte pruebas.
+        # Y EN LAS COMPETICIONES SIN CÓRNERS OBSERVADOS, TAMPOCO LA FÓRMULA.
+        #
+        # Son 55 de 75, y ahí no hay media con la que calibrar. Se podría dejar
+        # la fórmula, pero lo que produce es peor que no saber: en Liga MX da
+        # 13,4 córners de total, cuando el rango observado en las 20
+        # competiciones que SÍ publican córners es [8,81 – 10,54] y su media
+        # ponderada 9,613 sobre 11.856 partidos. Un 13,4 contra una línea de
+        # casa en 9,5 produce «Más de 9.5: 86 %», y ese porcentaje es
+        # íntegramente el desfase del modelo.
+        #
+        # Así que se usa la media de las competiciones comparables. Es una
+        # SUPOSICIÓN —que una liga sin datos se parece a las que los tienen— y
+        # va declarada como tal; lo que la sostiene es que el rango observado
+        # entre 20 competiciones es estrecho, así que su error de nivel está
+        # acotado en ~1 córner, contra los ~3,8 que comete hoy la fórmula.
+        #
+        # Es peor que un dato y mejor que una estimación medida como sesgada.
+        # Deja de hacer falta en cuanto la competición publique córners.
+        CK_MEDIA_COMPARABLES = 9.613
+        ck_observado = None
+        try:
+            import rendimiento_equipos as _rq_ck
+            ck_observado = _rq_ck.media_corners_liga(self.clave)
+        except Exception as _e_ck:
+            logger.debug(f"[{self.clave}] media de córners: {_e_ck}")
+        ck_de_datos = ck_observado is not None
+        ck = float(ck_observado) if ck_de_datos else CK_MEDIA_COMPARABLES
         cards = (s_l['AMAR_MA5'] + s_v['AMAR_MA5'] +
                  s_l['ROJAS_MA5'] + s_v['ROJAS_MA5'])
         # v54: CÓRNERS POR EQUIPO — el total se reparte por la cuota de ataque
@@ -2610,7 +2673,26 @@ class ClubEngine:
             campo(f'ck_o{L}', f'Más de {L} córners', pct(_ck_over_entero(L)))
             for L in range(6, 13)
         ]
-        secciones.append({'titulo': '11. Córners y tarjetas', 'campos': [
+        # v152 — LA PROCEDENCIA DEL NÚMERO DE CÓRNERS VIAJA CON LA SECCIÓN.
+        #
+        # Las dos ramas producen un número con la misma pinta y no valen lo
+        # mismo: una es la media observada de la competición y la otra una
+        # estimación derivada del xG sintético, medida como peor que esa media
+        # en 19 de 20 ligas. Sin este campo, la interfaz no puede distinguirlas
+        # y las enseñaría igual — que es el modo de fallo que la v150 dejó
+        # escrito: un hueco se ve, un relleno no.
+        _proc_ck = (
+            'media observada de la competición en las 3 últimas temporadas '
+            '(los córners de esta liga son datos de la fuente, no estimados)'
+            if ck_de_datos else
+            'esta competición NO publica córners, así que no hay media suya '
+            'con la que calibrar: se usa la media de las 20 competiciones que '
+            'sí los publican (9,6 por partido, rango 8,8-10,5). Es una '
+            'suposición declarada, no una medición de esta liga')
+        secciones.append({'titulo': '11. Córners y tarjetas',
+                          'corners_de_datos': bool(ck_de_datos),
+                          'corners_procedencia': _proc_ck,
+                          'campos': [
             campo('corners_media', 'Córners totales (media)', round(ck, 1), 'media'),
             campo('ck_o85', 'Más de 8.5 córners', pct(prob_over(ck, 8.5))),
             campo('ck_o95', 'Más de 9.5 córners', pct(prob_over(ck, 9.5))),

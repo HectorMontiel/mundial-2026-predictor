@@ -426,31 +426,48 @@ def mercados_de_filas(filas: List[Dict], plantilla: Dict) -> List[Dict]:
                     'el modelo da la misma probabilidad a las dos mitades, así '
                     'que su EV aquí no mide valor')
 
-    # v146 — LOS CÓRNERS SALEN CON PRECIO Y SIN EV, Y ESTÁ MEDIDO POR QUÉ.
+    # LOS CÓRNERS SALEN CON PRECIO Y SIN EV, Y ESTÁ MEDIDO POR QUÉ.
     #
-    # El tablero de córners ya se traduce entero (total en líneas enteras, por
+    # El tablero de córners se traduce entero (total en líneas enteras, por
     # equipo, 1X2, hándicap y par/impar), así que el usuario ve los precios de
-    # su casa. Lo que no se puede creer todavía es el EV: el total de córners
-    # que predice el modelo sale **+1,07 por encima de la línea de la casa**
-    # (n=4, correlación +0,81), y con esa diferencia el cruce produce EV de
-    # +50 % a +136 % en cada «Más de N». Eso no es valor: es la firma de un
-    # modelo desplazado, que es exactamente lo que `EV_SOSPECHOSO` vigila.
+    # su casa. Lo que no se puede creer es el EV.
     #
-    # La discriminación sí parece buena (correlación +0,81 con la línea), así
-    # que el modelo ordena bien los partidos aunque su nivel esté alto. Por eso
-    # el precio se publica y el EV se marca, en vez de esconder el mercado
-    # entero: es la misma política que las mitades del fútbol y los periodos de
-    # la NFL.
+    # v152 — EL MOTIVO ERA OTRO, Y PEOR. La versión anterior de este comentario
+    # decía que el modelo estaba desplazado ~1 córner hacia arriba pero que «la
+    # discriminación sí parece buena, correlación +0,81». Las dos afirmaciones
+    # salían de **n=4 partidos**, y las dos eran falsas:
     #
-    # Se quita la marca en cuanto el nivel esté validado contra los lambdas de
-    # producción sobre una muestra grande (ver el bloque de `league_engine`).
+    #   · el desfase real, medido con los lambdas de producción sobre 11.856
+    #     partidos con córners reales, era +0,435 — y ya está corregido en
+    #     `league_engine`, que ahora usa la media observada de la competición;
+    #   · la correlación con el total REAL es −0,0012, con 0 de 15 ligas por
+    #     encima de 0,1 en valor absoluto. El +0,81 era contra la LÍNEA de la
+    #     casa, no contra el resultado: mide que las dos rondan la misma media,
+    #     no que el modelo ordene los partidos.
+    #
+    # O sea que el nivel ya no es el problema y la discriminación nunca existió.
+    # El modelo de córners de este proyecto predice, en la práctica, la media de
+    # la competición para todos sus partidos. Contra una casa que mueve su línea
+    # partido a partido, eso produce EV grandes cuya causa entera es que el
+    # modelo no distingue: la firma exacta de `EV_SOSPECHOSO`.
+    #
+    # QUÉ HARÍA FALTA PARA QUITAR LA MARCA, y no es afinar la fórmula:
+    #   1. un modelo de córners que discrimine (se probó con córners y remates
+    #      REALES en 20 competiciones: mejora 0,005 sobre la media, con el
+    #      percentil 5 cruzando cero en 2 de 20, que es lo que da el azar), y
+    #   2. histórico de LÍNEAS de córners con el que calcular un p5. Hoy no
+    #      existe: football-data no las publica y el de The Odds API es de pago.
+    #
+    # Sin lo segundo, la regla de oro del proyecto no se puede ni aplicar a este
+    # mercado. El precio se publica porque es real; el EV se marca.
     for r in cruzadas:
         if str(r.get('familia', '')).startswith('Córners'):
             r['ev_no_fiable'] = True
             r['motivo_no_fiable'] = (
-                'el total de córners del modelo va ~1 por encima de la línea '
-                'de la casa, así que su EV aquí mide ese desfase, no valor. '
-                'El precio sí es real')
+                'el modelo predice para los córners la media de la '
+                'competición, la misma en todos sus partidos: su EV aquí mide '
+                'que la casa mueve su línea y el modelo no, no valor. El '
+                'precio sí es real')
 
     # un mismo mercado del modelo puede recibir dos etiquetas nuestras; se
     # conserva la de mejor EV (mismo criterio que `cuotas_auto.evaluar`)

@@ -11,10 +11,35 @@
 ## 1. REGLAS NO NEGOCIABLES
 
 ```
-python test_catalogo_y_cuotas.py    # ~812 checks, ~3 min. SIEMPRE.
-python smoke_botones.py             # 8 vistas, ~110 min. Si cambió CÓDIGO.
-python smoke_botones.py --rapido    # ~15 min. Sólo si cambiaron DATOS (rebase del bot).
+python test_catalogo_y_cuotas.py    # ~869 checks, ~4 min. SIEMPRE, sin excepción.
+python smoke_botones.py --rapido    # 8 vistas sin botones caros. Si cambió la INTERFAZ.
+python smoke_botones.py             # completo. SEMANAL, o si cambió el MOTOR.
 ```
+
+**v152 — LA POLÍTICA DE VALIDACIÓN, DECIDIDA POR HMREY.**
+
+El smoke completo deja de ser puerta de cada push. El motivo es medido: en esta
+máquina no terminó en 55 minutos en dos intentos seguidos (EXIT 124 las dos
+veces) y la vista de «Apuestas del Día» sola tarda 254 s. Con ocho vistas y una
+pasada por cada botón caro, la cifra real está en horas, no en los 110 minutos
+que decía esta tabla. Una puerta que cuesta media jornada deja de usarse, y una
+puerta que no se usa no protege nada.
+
+El reparto queda así:
+
+| cambio | qué hay que pasar |
+|---|---|
+| cualquiera | `test_catalogo_y_cuotas.py`, siempre |
+| interfaz | + `smoke_botones.py --rapido`, o AppTest dirigido a las vistas tocadas |
+| **motor** (`league_engine`, `alpha_finder`, `clasificador`, motores de deporte) | + smoke completo |
+| ninguno en particular | smoke completo **una vez por semana** |
+
+Lo que NO cambia, y es la mitad que sostiene el reparto: **el render se sigue
+validando siempre**. `py_compile` y el AST no ven un `UnboundLocalError`; sólo
+AppTest. Lo que se sustituye es *correr las ocho vistas con todos sus botones*
+por *abrir con AppTest las vistas que el cambio toca* — que es minutos y cubre
+el mismo modo de fallo en el sitio donde el cambio puede provocarlo.
+
 - HMREY aprueba commit+push automático a main SI TODO valida.
 - **REGLA DE ORO**: nada se despliega sin p5 de bootstrap positivo en tramo de juicio.
 - **VALIDA EL RENDER**: py_compile/AST no detectan UnboundLocalError. Sólo AppTest.
@@ -345,8 +370,15 @@ suponía viva. Comprobarlo primero.
    E0, F1, I2 y G1 de 2627. No hay que tocar nada: la lista de temporadas ya los pide.
    Vale la pena volver a correr `_v148_medir_pronosticos.py` dentro de unos días.
 4. **Primera ejecución del workflow de rosters** (04:30 UTC).
-5. **Córners**: validar el nivel del modelo con lambdas de producción → entonces
-   semáforo y recomendaciones.
+5. ~~**Córners**: validar el nivel del modelo con lambdas de producción.~~ **HECHO
+   en la v152, y el resultado cierra la línea**: el sesgo era +0,435 (no −1,3) y la
+   base 4,0 estaba bien, pero la correlación con el total real es −0,0012 sobre
+   11.856 partidos, 0 de 15 ligas por encima de 0,1. Se probó el modelo bueno con
+   córners y remates REALES en 20 competiciones: mejora 0,005 sobre decir siempre
+   la media de la liga, con p5 positivo en 2 de 20 (lo que da el azar en veinte
+   pruebas). El total pasó a ser la media observada de la competición. **NO hay
+   semáforo ni recomendación de córners, y para poder haberla harían falta líneas
+   históricas de córners, que no existen gratis.** Ver §10 de la bitácora.
 6. **Ingestor OpenLigaDB** para 3.Liga alemana (endpoint verificado, ~1.900 partidos).
 7. Mapeo de nombres: quedan ~100 en `nombres_sin_mapear.json`. La v148 cerró los
    que costaban partidos hoy; medir cuántos de los demás casan MAL (que es el daño
@@ -384,3 +416,113 @@ suponía viva. Comprobarlo primero.
   `verificacion_ida_y_vuelta` movía la carpeta real de modelos y la devolvía en un
   `finally`; un timeout del workflow la habría dejado fuera de sitio y el `git add -A`
   la habría borrado del repositorio.
+
+---
+
+## 4h. v152 — MODO MODELO, Y LO QUE LOS DATOS DIJERON DE LOS CÓRNERS
+
+Dos planes pedían lo mismo desde dos ángulos: ordenar por rendimiento del equipo
+en vez de por error de precio, y explotar córners y ligas secundarias. Informe
+completo en `VALIDACION_v152.md`; la parte que gobierna, en el §10 de la
+bitácora.
+
+### Lo que se midió ANTES de tocar nada, y cambió los dos planes
+
+**1. El xG de este proyecto no es xG.** Lo escribe el generador sintético:
+`xG = 0,776 + 0,200·goles + ruido(0,529)`. Ajustando xG contra goles en cuatro
+históricos salen 0,785/0,201, 0,785/0,200, 0,776/0,203 y 0,775/0,208: la
+calibración con tres decimales. La posesión igual
+(`50 + 12·tanh(elo/300) + ruido(4)`, residual medido 3,97/3,95/4,00).
+→ **No se entrena sobre xG y no se enseña xG ni posesión en pantalla.**
+
+**2. La fórmula de córners no discrimina.** Con lambdas de producción y córners
+100 % reales, 11.856 partidos: sesgo +0,435 (no −1,3), correlación **−0,0012**,
+0 de 15 ligas por encima de 0,1 — y es una correlación *optimista*.
+
+**3. Con datos reales tampoco hay señal.** 20 competiciones, 8.889 partidos de
+juicio, split temporal: media de la liga MAE 2,6996; fórmula actual 3,0749
+(peor en 19 de 20); fórmula recalibrando la base 3,0609; ridge con córners y
+remates reales 2,6942. **Recalibrar el nivel recupera 0,014 de los 0,375: el
+96 % del daño lo hace la parte variable, que es ruido.**
+
+**4. Sólo 20 de las 75 competiciones tienen córners observados** — las de
+football-data 'main'. En las otras 55 la columna existe y la escribió el
+generador. La bitácora de la v146 decía «las 50 ligas los tienen al 100 %»:
+tienen la COLUMNA al 100 %. **La J2 japonesa, la 2. Liga austriaca y la 3. Liga
+alemana —los ejemplos del plan— no están.**
+
+**5. Las ligas secundarias no son más predecibles en córners**: +0,0049 contra
++0,0062 de las principales.
+
+**6. El tenis por superficie ya estaba hecho** (`DIFF_ELO_SUP` con indoor como
+superficie propia, `DIFF_WIN_SUP_12M`, fatiga). No se tocó nada.
+
+### Lo que se implementó
+
+- **Pestaña «📊 Modo Modelo», primera y por defecto.** Ordena por probabilidad
+  del modelo y enseña racha, goles, córners, remates, momentum y la racha del
+  bando que toca jugar. Etiqueta pedida: `📊 Modelo: [Equipo] con X %`. **La
+  advertencia medida (−4,66 % a −6,52 %) va DENTRO de la pantalla.** Los
+  partidos sin modelo NO se rellenan con la probabilidad del mercado.
+- **Filtro de ligas secundarias**, arriba junto al de deporte, afectando a todas
+  las pestañas. `es_secundaria` devuelve `None` fuera del fútbol: la MLB salía
+  como «MLB · MLB · secundaria», que era una afirmación que nadie hizo.
+- **`rendimiento_equipos.py`**: forma, momentum y `stats_disponibles`, que
+  decide qué es observado **reproduciendo el generador sintético** (determinista
+  por MATCH_ID) en vez de con una lista escrita a mano. Caché en disco
+  (`cache_columnas_sinteticas.json`, en .gitignore): 2,86 s → 0,20 s.
+- **El total de córners pasa a ser la media observada de la competición**, y en
+  las 55 sin datos la media de las comparables (9,613). Liga MX pasaba de 13,4
+  córners y «Más de 9.5: 85,9 %» a 9,6 y 49,3 %. La sección devuelve
+  `corners_de_datos` y `corners_procedencia`.
+- **Corregido el motivo escrito en `cuotas_tablon`**, que afirmaba «la
+  discriminación sí parece buena, correlación +0,81» a partir de **n=4**. Ese
+  +0,81 era contra la LÍNEA de la casa, no contra el resultado.
+- **7 tests nuevos** y `test_mensajes_sin_jerga_interna` ampliado a los módulos
+  de vista. Suite: **866 checks, TODO OK**.
+
+### Cobertura de ligas secundarias en el barrido
+
+**49 de 50 competiciones disponibles entran en el barrido, 35 de ellas
+secundarias.** La única fuera es **Polonia**: ESPN devuelve 400 para `pol.1`,
+`pol.ekstraklasa`, `pol.2`, `pol.polska.1` y `pol.pl.1`. No es configuración
+olvidada: no hay endpoint.
+
+### El fallo que cazó la validación de render, y que llevaba versiones ahí
+
+`dashboard_ui.py` usaba `logger.` en **seis sitios y no definía `logger` en
+ninguno**. Los seis están dentro de un `except` que intenta dejar constancia
+antes de degradar la pantalla, así que lo que hacían era lanzar
+`NameError: name 'logger' is not defined` **encima** del error original: el
+manejador se llevaba por delante la vista entera y además borraba la pista de
+lo que había pasado.
+
+Cinco llevaban versiones ahí, latentes, porque son caminos de excepción que casi
+nunca se recorren. El sexto lo añadió esta misma versión y fue el que se
+disparó. Lo cazó `valida_render.py` en la vista de «Apuestas del Día».
+
+`py_compile` no lo ve: un nombre indefinido dentro de un `except` compila igual
+de bien que uno definido. Ahora lo vigila `test_los_except_pueden_registrar_su_error`
+con AST, en los cuatro módulos que pintan pantalla.
+
+**Y es el argumento de por qué la validación de render no se relaja al quitar el
+smoke del flujo diario**: lo que se cambia es el ALCANCE (las vistas que toca el
+cambio, minutos) y no el MÉTODO (AppTest, siempre).
+
+### Lecciones de esta tanda
+
+- **Una medición optimista que sale a cero refuta de verdad.** La correlación de
+  la fórmula de córners se calculó con fuga a favor del modelo, y aun así dio
+  0,004. Cuando el límite superior es cero, no hace falta afinar el experimento.
+- **Comprobar que un dato es un dato, antes de construir sobre él.** Tres de las
+  cuatro mejoras propuestas se apoyaban en xG y posesión que no existen. El
+  método que lo resolvió no fue leer el código: fue REPRODUCIR el generador y
+  comparar valor a valor.
+- **Un test que busca prosa no distingue una afirmación de su desmentido.** El
+  check de «ya no se afirma que discrimine» falló porque el comentario nuevo
+  CITA la frase vieja para explicar por qué era falsa. Se arregló mirando el
+  texto EMITIDO, sacado del AST — donde además Python ya ha concatenado los
+  literales adyacentes, que era el otro motivo del falso negativo.
+- **Que un mercado esté mal cotizado y que tengamos con qué explotarlo son dos
+  afirmaciones distintas.** La primera sobre los córners sigue en pie; la
+  segunda está medida y es que no.

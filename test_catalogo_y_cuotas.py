@@ -3054,22 +3054,41 @@ def test_mensajes_sin_jerga_interna():
     """
     import ast
     import re
-    src = open('dashboard_ui.py', encoding='utf-8').read()
-    arbol = ast.parse(src)
-    docs = set()
-    for n in ast.walk(arbol):
-        if isinstance(n, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
-                          ast.ClassDef)):
-            d = ast.get_docstring(n, clean=False)
-            if d:
-                docs.add(d)
-    # cadenas vivas (ni comentarios ni docstrings) que citen «vNN»
+
+    # v152 — la regla vale para TODO lo que pinta pantalla, no sólo para el
+    # fichero grande. Las vistas viven cada vez más en módulos aparte
+    # (`modo_modelo`, `render_todos_partidos`), y hasta aquí quedaban fuera del
+    # guardia por el sitio donde estaban, no por lo que hacen.
     pat = re.compile(r'\bv\d{2,3}\b')
-    malas = [n.value[:70] for n in ast.walk(arbol)
-             if isinstance(n, ast.Constant) and isinstance(n.value, str)
-             and n.value not in docs and pat.search(n.value)]
-    check(not malas,
-          f"ningún texto visible cita una versión interna ({malas[:2]})")
+    for fichero in ('dashboard_ui.py', 'modo_modelo.py',
+                    'render_todos_partidos.py', 'rendimiento_equipos.py'):
+        if not os.path.exists(fichero):
+            continue
+        src = open(fichero, encoding='utf-8').read()
+        arbol = ast.parse(src)
+        docs = set()
+        for n in ast.walk(arbol):
+            if isinstance(n, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef,
+                              ast.ClassDef)):
+                d = ast.get_docstring(n, clean=False)
+                if d:
+                    docs.add(d)
+        # cadenas vivas (ni comentarios ni docstrings) que citen «vNN».
+        #
+        # Un comentario CSS `/* ... */` dentro de una hoja de estilos NO es
+        # texto visible: nadie lo lee en pantalla. Al ampliar el guardia a los
+        # módulos de vista, la primera cosa que encontró fue exactamente eso, y
+        # una alarma que salta en el caso normal deja de ser una alarma. Se
+        # limpian antes de buscar.
+        def _visible(t):
+            return re.sub(r'/\*.*?\*/', ' ', t, flags=re.S)
+
+        malas = [n.value[:70] for n in ast.walk(arbol)
+                 if isinstance(n, ast.Constant) and isinstance(n.value, str)
+                 and n.value not in docs and pat.search(_visible(n.value))]
+        check(not malas,
+              f"ningún texto visible de {fichero} cita una versión interna "
+              f"({malas[:2]})")
 
 
 def test_tenis_dos_fuentes_y_sets():
@@ -4916,6 +4935,316 @@ def test_nfl_en_el_barrido_y_la_interfaz():
 
 
 
+
+
+# ===========================================================================
+# v152 — MODO MODELO, RENDIMIENTO OBSERVADO Y LA PRUEBA DE SÍNTESIS
+# ===========================================================================
+def test_no_se_ensena_estadistica_sintetica():
+    """
+    v152 — la app no puede llamar «xG» a una función de los goles.
+
+    El plan pedía enseñar xG y posesión en las tarjetas del Modo Modelo. No se
+    puede: en este proyecto los dos los escribe `CorrelatedSyntheticGenerator`
+    a partir de los goles y del ELO. Medido sobre los históricos guardados:
+
+        xG        = 0,776 + 0,200·goles + ruido(0,529)   ← la calibración exacta
+        posesión  = 50 + 12·tanh(elo_diff/300) + ruido(4)
+
+    Enseñar eso etiquetado como xG le diría al usuario que ve calidad de
+    ocasiones cuando ve el marcador multiplicado por 0,2, y el ruido lo haría
+    parecer una medición independiente. Es el modo de fallo de la v150 —«un
+    hueco se ve, un relleno no»— llevado a la pantalla principal.
+
+    `rendimiento_equipos` lo comprueba REPRODUCIENDO el generador, que es
+    determinista por MATCH_ID. Este test verifica que esa prueba funciona en
+    los dos sentidos: dice «sintético» de lo que lo es y «observado» de lo que
+    no, en la misma competición.
+    """
+    import rendimiento_equipos as rq
+
+    disp = rq.stats_disponibles('premier')
+    check(disp.get('goles') is True,
+          "los goles de la Premier salen como observados")
+    check(disp.get('corners') is True,
+          "los córners de la Premier salen como observados (football-data "
+          "publica HC/AC)")
+    check(disp.get('xg') is False,
+          "el xG de la Premier NO sale como observado: lo escribe el generador")
+    check(disp.get('posesion') is False,
+          "la posesion de la Premier NO sale como observada")
+
+    # La otra mitad, y la que de verdad separa esta prueba de una lista escrita
+    # a mano: una liga que NO es de football-data tiene la columna de córners al
+    # 100 % y aun asi es relleno.
+    disp_mx = rq.stats_disponibles('liga_mx')
+    check(disp_mx.get('goles') is True,
+          "los goles de la Liga MX salen como observados")
+    check(disp_mx.get('corners') is False,
+          "los córners de la Liga MX NO salen como observados aunque la columna "
+          "este llena: los escribio el generador")
+
+
+def test_rendimiento_no_rellena_lo_que_falta():
+    """
+    v152 — un campo sin dato vuelve `None`, nunca un cero ni una media.
+
+    Es la regla del modulo escrita como test. Si un dia alguien pone un
+    `fillna(0)` por comodidad, la tarjeta empezaria a decir «córners a favor:
+    0,0» en las 55 competiciones que no los publican, que se lee como «este
+    equipo no saca córners nunca» en vez de como «no lo sabemos».
+    """
+    import rendimiento_equipos as rq
+
+    d = rq._historico('liga_mx')
+    if d is None or d.empty:
+        check(True, "sin historico de Liga MX: nada que comprobar")
+        return
+    equipo = str(d['home_team'].iloc[-1])
+    f = rq.forma('liga_mx', equipo)
+    check(f.get('n', 0) > 0, f"hay forma reciente de {equipo}")
+    # goles sí; córners tampoco aqui, porque la competicion no los publica de
+    # verdad — pero eso lo decide `stats_disponibles`, no `forma`: `forma` lee
+    # lo que hay en el fichero. Lo que se comprueba es que no INVENTA.
+    check(f.get('gf_media') is not None, "la media de goles existe")
+
+    # Un equipo que no existe no devuelve ceros: devuelve n=0.
+    vacio = rq.forma('liga_mx', 'Equipo Que No Existe FC')
+    check(vacio.get('n') == 0,
+          "un equipo desconocido devuelve n=0, no una fila de ceros")
+    check(vacio.get('gf_media') is None,
+          "y sus medias vienen vacias, no a cero")
+
+    # v152 — LO MISMO EN TENIS, que no pasa por `panel_equipos` porque su
+    # historico usa `jugador_1`/`jugador_2`. La cobertura es parcial (349 de
+    # 784 jugadores llegan a cinco partidos) y quien no llega tiene que salir
+    # con n=0, no con una racha inventada de los pocos que haya.
+    d_t = rq._historico_tenis()
+    if d_t is not None and not d_t.empty:
+        import pandas as _pd
+        frecuentes = _pd.concat([d_t['jugador_1'],
+                                 d_t['jugador_2']]).value_counts()
+        alguien = str(frecuentes.index[0])
+        f_t = rq.forma_tenis(alguien)
+        check(f_t.get('n', 0) >= 3, f"hay forma reciente de {alguien}")
+        check(f_t.get('pct_sets') is None or 0.0 <= f_t['pct_sets'] <= 1.0,
+              "el porcentaje de sets es una proporcion valida")
+        check(rq.forma_tenis('Jugador Que No Existe')['n'] == 0,
+              "un jugador desconocido devuelve n=0")
+
+
+def test_modo_modelo_no_tapa_los_huecos_con_el_mercado():
+    """
+    v152 — en el Modo Modelo, «sin modelo» es «sin modelo».
+
+    Desde la v149 un partido sin pronostico sale con la probabilidad implicita
+    del mercado, etiquetada. Es correcto en la lista general —el precio sabe
+    mas que el modelo— y es INCORRECTO en una pantalla cuyo unico proposito es
+    leer al modelo: un numero del mercado en una fila del modelo hace imposible
+    distinguir uno de otro, que es justo lo que la pantalla venia a arreglar.
+    """
+    import modo_modelo as mm
+
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('board_mercado' not in src,
+          "el Modo Modelo no lee el relleno de mercado de la v149")
+    check('Sin datos de modelo' in src,
+          "los partidos sin pronostico se etiquetan como tales")
+
+    # y la advertencia medida tiene que estar EN la pantalla, no en un anexo
+    check('4,66' in src and '6,52' in src,
+          "la pantalla dice lo que rinde ordenar por probabilidad del modelo")
+
+
+def test_modo_modelo_separa_ligas_secundarias():
+    """
+    v152 — el filtro de secundarias existe y reparte todo el catalogo.
+
+    La lista corta es de PRINCIPALES: todo lo que no este en ella cuenta como
+    secundaria. Se hace en ese sentido a proposito — asi una competicion nueva
+    entra por defecto en el grupo que el usuario quiere mirar en vez de
+    desaparecer de los dos.
+    """
+    import modo_modelo as mm
+
+    check(mm.es_secundaria({'clave_liga': 'eng_league_one'}) is True,
+          "la League One cuenta como secundaria")
+    check(mm.es_secundaria({'clave_liga': 'premier'}) is False,
+          "la Premier cuenta como principal")
+    check(mm.es_secundaria({'clave_liga': 'liga_inventada_2030'}) is True,
+          "una competicion desconocida cae del lado de las secundarias")
+
+    # v152 — Y EL EJE NO APLICA FUERA DEL FÚTBOL.
+    #
+    # Lo cazo el render: la MLB salia en pantalla como «MLB · MLB ·
+    # secundaria», porque no estaba en la lista corta. La MLB no es una liga de
+    # futbol secundaria, es otro deporte, y esa etiqueta era una afirmacion que
+    # nadie habia hecho. `None` es un tercer valor con significado propio:
+    # «este pick no se reparte por este eje».
+    for dep in ('MLB', 'NBA', 'Tenis', 'NFL', 'KBO'):
+        check(mm.es_secundaria({'deporte': dep, 'clave_liga': dep.lower()})
+              is None,
+              f"el eje principal/secundaria no aplica a {dep}")
+
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('no tiene su propio p5' in src or 'todavia no tiene' in src
+          or 'todavía no tiene' in src,
+          "la pantalla no promete que las secundarias sean mas rentables")
+
+    # El selector vive ARRIBA, junto al de deporte, y afecta a todas las
+    # pestañas. Un segundo selector del mismo eje dentro de una pestaña haria
+    # que el mismo partido saliera en una pantalla y no en la otra.
+    ui = open('dashboard_ui.py', encoding='utf-8').read()
+    check('_filtro_grupo_liga' in ui,
+          "el filtro de secundarias esta en la barra comun de la vista")
+    check("key='%s_grupo'" % 'mm' not in src and '_grupo\' % clave' not in src,
+          "y NO esta duplicado dentro del Modo Modelo")
+
+
+def test_los_except_pueden_registrar_su_error():
+    """
+    v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
+
+    `dashboard_ui.py` usaba `logger.` en SEIS sitios y no definia `logger` en
+    ninguna parte. Los seis viven dentro de un `except` que intenta dejar
+    constancia antes de degradar la pantalla, asi que lo que hacian era lanzar
+    `NameError: name 'logger' is not defined` **encima** del error original: el
+    manejador se llevaba por delante la vista entera y ademas borraba la pista
+    de lo que habia pasado de verdad.
+
+    Cinco llevaban versiones ahi, latentes, porque son caminos de excepcion que
+    casi nunca se recorren. Lo destapo la validacion de render al cargar
+    «Apuestas del Dia».
+
+    `py_compile` no lo ve: un nombre indefinido dentro de un `except` compila
+    igual de bien que uno definido. Este test lo mira con AST, en todos los
+    modulos que pintan pantalla.
+    """
+    import ast
+
+    for fichero in ('dashboard_ui.py', 'modo_modelo.py',
+                    'render_todos_partidos.py', 'rendimiento_equipos.py'):
+        if not os.path.exists(fichero):
+            continue
+        arbol = ast.parse(open(fichero, encoding='utf-8').read())
+        usa = any(isinstance(n, ast.Attribute)
+                  and isinstance(n.value, ast.Name) and n.value.id == 'logger'
+                  for n in ast.walk(arbol))
+        if not usa:
+            continue
+        # definido a nivel de MODULO: si estuviera dentro de una funcion, los
+        # `except` de las demas seguirian sin verlo.
+        definido = any(
+            isinstance(n, ast.Assign)
+            and any(isinstance(t, ast.Name) and t.id == 'logger'
+                    for t in n.targets)
+            for n in arbol.body)
+        check(definido,
+              f"{fichero} usa `logger` y lo define a nivel de modulo")
+
+
+def test_modo_modelo_esta_enrutado_en_la_interfaz():
+    """
+    v152 — la pestaña existe, es la primera, y la de precio sigue estando.
+
+    Cambiar el orden de las pestañas es una decision del usuario. Lo que no
+    puede pasar es que el cambio se lleve por delante la pantalla que SI tiene
+    percentil 5 positivo medido.
+    """
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    check('import modo_modelo' in src, "el Modo Modelo esta importado")
+    check('Modo Modelo' in src, "la pestaña del Modo Modelo existe")
+    check('Modo Valor' in src, "la pestaña de Modo Valor existe")
+    i_modelo = src.index('\U0001F4CA Modo Modelo')
+    i_valor = src.index('\U0001F48E Modo Valor')
+    check(i_modelo < i_valor,
+          "el Modo Modelo se declara antes que el Modo Valor (es la primera)")
+    check('_tab_jugar' in src,
+          "la pestaña de la Seccion 1 sigue enrutada")
+
+
+def test_corners_no_suben_a_seccion1_sin_medicion():
+    """
+    v152 — el EV de corners no puede entrar en la Seccion 1 hoy, y por que.
+
+    Medido con los lambdas de PRODUCCION (que es como habia que medirlo, y no
+    como lo midio la v146) sobre 15 competiciones con corners reales: la
+    formula `4,0 + 0,25·(lam_h+lam_a)·spx·tpo` tiene un sesgo de nivel pequeño
+    —la base 4,0 estaba bien— pero una correlacion con el resultado real de
+    ~0,00. Predice el mismo total siempre.
+
+    Un modelo que siempre dice ~10,1 produce EV enormes en cuanto la casa mueve
+    su linea a 8,5 u 11,5, y ese EV es integramente error del modelo: la firma
+    exacta de `EV_SOSPECHOSO`. Ademas no existe historico de LINEAS de corners
+    con el que calcular un p5, asi que la regla de oro del proyecto no se puede
+    ni aplicar.
+
+    Y la respuesta a «¿4,0 o 5,3?» resulto ser «ninguna de las dos importa»:
+    recalibrar el nivel por liga recupera 0,014 de los 0,375 que la formula
+    pierde contra decir siempre la media de la competicion. El 96 % del daño lo
+    hace la parte variable, que es ruido. Por eso la formula se sustituyo por la
+    media OBSERVADA de la competicion donde la hay.
+    """
+    import rendimiento_equipos as rq
+
+    src = open('league_engine.py', encoding='utf-8').read()
+    check('media_corners_liga' in src,
+          "el total de córners sale de la media observada de la competicion")
+    check('CK_MEDIA_COMPARABLES' in src,
+          "y donde no hay córners observados, de la media de las que si los "
+          "publican, no de la formula del xG")
+
+    # La media tiene que existir donde los córners son reales y NO existir
+    # donde los escribio el generador. Es la mitad que impide que esto acabe
+    # siendo un `mean()` sobre el relleno del propio generador.
+    m_premier = rq.media_corners_liga('premier')
+    check(m_premier is not None and 7.0 < m_premier < 13.0,
+          f"la Premier tiene media de córners observada y es plausible "
+          f"({m_premier})")
+    check(rq.media_corners_liga('liga_mx') is None,
+          "la Liga MX no tiene media observada: sus córners son del generador")
+
+    # El EV de córners sigue marcado como no fiable, y por el motivo medido.
+    tab = open('cuotas_tablon.py', encoding='utf-8').read()
+    check("ev_no_fiable'] = True" in tab and 'Córners' in tab,
+          "el EV de los córners sigue marcado como no fiable")
+    # QUE EL MOTIVO QUE VE EL USUARIO SEA EL MEDIDO, y se comprueba sobre el
+    # texto EMITIDO, no sobre el fuente.
+    #
+    # La primera version de este check buscaba en el fichero la frase vieja
+    # («la discriminacion si parece buena») y fallaba, porque el comentario
+    # nuevo la CITA justo para explicar por que era falsa. Un test que busca
+    # prosa no distingue una afirmacion de su desmentido; el que mira lo que
+    # sale por la salida, si.
+    # Se saca del AST, no del texto del fichero: el motivo esta escrito como
+    # varios literales adyacentes en lineas distintas, asi que «media de la
+    # competicion» NO aparece seguido en el fuente aunque si en la cadena. El
+    # parser ya los concatena, de modo que el AST tiene el texto que ve el
+    # usuario. Buscarlo en el fuente daba un falso negativo.
+    import ast as _ast
+    cadenas = [n.value for n in _ast.walk(_ast.parse(tab))
+               if isinstance(n, _ast.Constant) and isinstance(n.value, str)]
+    motivos = [c for c in cadenas if 'córners' in c and 'EV' in c]
+    check(any('media de la competición' in c for c in motivos),
+          "el motivo que se enseña dice que el modelo predice la media de la "
+          "competicion")
+    check(any('no valor' in c for c in motivos),
+          "y deja claro que ese EV no mide valor")
+
+    import clasificador
+    canales_s1 = {'precio_local', 'precio_nfl', 'tenis_90'}
+    # `canal_del_pick` es la puerta de la Seccion 1 del dia: ningun pick de
+    # córners puede salir de ella con seccion 1.
+    pick = {'deporte': 'Fútbol', 'mercado': 'Más de 9.5 córners',
+            'apuesta': 'Más de 9.5 córners', 'prob': 0.62, 'cuota': 1.9,
+            'valor_mercado': False}
+    r = clasificador.canal_del_pick(pick)
+    check(r.get('seccion') == 2,
+          "un pick de córners por EV del modelo se queda en la Seccion 2")
+    check(r.get('canal') not in canales_s1,
+          "y no usa ninguno de los canales medidos con p5 positivo")
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -5062,6 +5391,14 @@ if __name__ == '__main__':
     # llevaba pasando sin ejecutarse. Lo destapó la auditoría de huérfanos que
     # se añade justo debajo.
     test_metricas_con_procedencia()
+    print('\n=== v152: Modo Modelo, rendimiento observado y córners ===')
+    test_no_se_ensena_estadistica_sintetica()
+    test_rendimiento_no_rellena_lo_que_falta()
+    test_modo_modelo_no_tapa_los_huecos_con_el_mercado()
+    test_modo_modelo_separa_ligas_secundarias()
+    test_los_except_pueden_registrar_su_error()
+    test_modo_modelo_esta_enrutado_en_la_interfaz()
+    test_corners_no_suben_a_seccion1_sin_medicion()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
