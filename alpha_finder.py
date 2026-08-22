@@ -771,15 +771,55 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
     # vez al principio; la descarga corre en paralelo con las predicciones y
     # queda escondida detrás de ellas (304 s → 102 s medido con la semana; con
     # el día solo, el barrido entero baja a decenas de segundos).
+    # v154 — SÓLO SE PIDEN LAS CUOTAS RICAS DE LOS PARTIDOS DE HOY.
+    #
+    # Este prefetch pedía una petición por evento para los TRES días de la
+    # ventana, y el propio barrido descarta después todo lo que no es de hoy
+    # antes de tocarlas: «mañana se analiza, no se apuesta» (v143), así que
+    # `if not es_hoy: continue` va justo delante de todo lo que consume
+    # `odds_ricas`. Las cuotas de los otros dos días se descargaban para nada.
+    #
+    # Medido: de 241 fixtures en la ventana, los de hoy son una fracción, y este
+    # prefetch era ~32 s de los 61,5 que tarda la rama de fútbol —que es el
+    # techo del barrido entero, porque las seis ramas van en paralelo y ésta es
+    # la más lenta.
+    #
+    # Lo que NO se pierde: la lista de mañana sigue enseñando su precio. Esa
+    # barra sale de `odd_home`/`odd_draw`/`odd_away` del SCOREBOARD, que ya
+    # viene en el mismo JSON de los fixtures y no cuesta una petición aparte.
+    # Lo que aporta este endpoint —hándicap con su línea y el O/U real— sólo lo
+    # usan los picks, y los picks son de hoy.
+    #
+    # El paralelismo se queda en 4: medido subiendo `fixtures_multi` de 8 a 32
+    # hilos, el tiempo no baja (23,2 s con 8, 22,4 s con 32). El límite no es el
+    # cliente, es ESPN, así que apretar más sólo añade riesgo de 403.
     from concurrent.futures import ThreadPoolExecutor
     _pool_odds = ThreadPoolExecutor(max_workers=4, thread_name_prefix='odds89')
     _fut_odds = {}
+    # Salida de emergencia: si algún día se sospecha que falta una cuota por
+    # este recorte, `ALPHA_ODDS_TODOS=1` devuelve el comportamiento anterior sin
+    # tocar código. Sirvió además para medir el A/B en las mismas condiciones,
+    # que es la única forma de atribuirle la mejora al cambio y no al paso de
+    # las horas (los partidos ya jugados salen de la ventana y bajan el total).
+    _odds_todos = bool(os.environ.get('ALPHA_ODDS_TODOS'))
+    _hoy_pf = _hoy_cdmx()
+    _n_pedidos, _n_totales = 0, 0
     for _cl in claves_disp:
-        _ids = [f.get('event_id') for f in (fixtures_por_liga.get(_cl) or [])]
-        _ids = [i for i in _ids if i]
+        _ids = []
+        for _f in (fixtures_por_liga.get(_cl) or []):
+            _n_totales += 1
+            if not _f.get('event_id'):
+                continue
+            if not _odds_todos and \
+                    (_horario_af.fecha(_f.get('inicio')) or '') != _hoy_pf:
+                continue
+            _ids.append(_f['event_id'])
         if _ids:
+            _n_pedidos += len(_ids)
             _fut_odds[_cl] = _pool_odds.submit(
                 fixtures_espn.odds_multi, _cl, _ids)
+    logger.info(f"[alpha/fix] cuotas por evento: {_n_pedidos} de {_n_totales} "
+                f"fixtures (sólo los de hoy)")
 
     # v148 — LOS PESOS QUE FALTEN EN DISCO SE PIDEN A LA VEZ, NO DE UNO EN UNO.
     #
