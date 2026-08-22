@@ -1,0 +1,975 @@
+[
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Matt Donohue",
+  "fecha": "2026-08-16T12:30Z",
+  "partido": "Southampton at Watford"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Josh Smith",
+  "fecha": "2026-08-16T15:00Z",
+  "partido": "West Ham United at Burnley"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Andrew Kitchen",
+  "fecha": "2026-08-17T19:00Z",
+  "partido": "Wrexham at Cardiff City"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Will Finnie",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Bristol City at Birmingham City"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Tony Harrington",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Portsmouth at Lincoln City"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Samuel Allison",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Norwich City at Millwall"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Tom Reeves",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Middlesbrough at Blackburn Rovers"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Ruebyn Ricardo",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Cardiff City at Derby County"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Elliot Bell",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Wolverhampton Wanderers at Preston North End"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Edward Duckworth",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Bolton Wanderers at Queens Park Rangers"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Steve Martin",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Stoke City at Southampton"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Tom Nield",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Sheffield United at Swansea City"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "Andrew Kitchen",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Charlton Athletic at West Ham United"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "post",
+  "arbitro": "John Busby",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Watford at Wrexham"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T11:00Z",
+  "partido": "Burnley at West Bromwich Albion"
+ },
+ {
+  "clave": "eng_championship",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T19:00Z",
+  "partido": "Birmingham City at Wrexham"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Thomas Parsons",
+  "fecha": "2026-08-20T19:00Z",
+  "partido": "Bradford City at Sheffield Wednesday"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "David Webb",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Barnsley at Doncaster Rovers"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Ben Speedie",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Notts County at Luton Town"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Michael Barlow",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Reading at AFC Wimbledon"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Kirsty Dowle",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Cambridge United at Bromley"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Ben Toner",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Burton Albion at Leicester City"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Abigail Byrne",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Huddersfield Town at Milton Keynes Dons"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Martin Woods",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Mansfield Town at Peterborough United"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "James Oldham",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Oxford United at Stevenage"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Carl Brook",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Blackpool at Stockport County"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Ross Martin",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Leyton Orient at Wigan Athletic"
+ },
+ {
+  "clave": "eng_league_one",
+  "estado": "post",
+  "arbitro": "Neil Hair",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Plymouth Argyle at Wycombe Wanderers"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Simon Mather",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Newport County at Bristol Rovers"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Scott Oldham",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Chesterfield at Salford City"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Matthew Russell",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Grimsby Town at Walsall"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "James Durkin",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Oldham Athletic at Colchester United"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Lewis Sandoe",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Northampton Town at Crewe Alexandra"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Scott Jackson",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Accrington Stanley at Exeter City"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Dale Baines",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Gillingham at Fleetwood Town"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Declan Brown",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Tranmere Rovers at Port Vale"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Zac Kennard-Kettle",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Crawley Town at Rochdale"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Declan Bourne",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "York City at Rotherham United"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "William Davis",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Barnet at Shrewsbury Town"
+ },
+ {
+  "clave": "eng_league_two",
+  "estado": "post",
+  "arbitro": "Craig Hicks",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Cheltenham Town at Swindon Town"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Gareth Rhodes",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Altrincham at Boston United"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Gareth Thomas",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "AFC Hornchurch at Carlisle United"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Alan Young",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Scunthorpe United at Eastleigh"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Paul Marsden",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Tamworth at FC Halifax Town"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Sunny Sukhvir Gill",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Boreham Wood at Forest Green Rovers"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Alan Dale",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Barrow at Harrogate Town"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Stuart Morland",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Aldershot Town at Kidderminster Harriers"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Jamie Robinson",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Southend United at Solihull Moors"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Oliver Mackey",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Hartlepool United at Sutton United"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "AFC Fylde at Woking"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Wealdstone at Worthing"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "post",
+  "arbitro": "Richard Aspinall",
+  "fecha": "2026-08-22T11:30Z",
+  "partido": "Gateshead at Yeovil Town"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-27T18:45Z",
+  "partido": "Boston United at Boreham Wood"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Forest Green Rovers at AFC Fylde"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Woking at AFC Hornchurch"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Harrogate Town at Aldershot Town"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "FC Halifax Town at Altrincham"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Yeovil Town at Barrow"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Sutton United at Gateshead"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Eastleigh at Hartlepool United"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Solihull Moors at Scunthorpe United"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Kidderminster Harriers at Southend United"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Worthing at Tamworth"
+ },
+ {
+  "clave": "eng_national",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Carlisle United at Wealdstone"
+ },
+ {
+  "clave": "sco_premiership",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "St Mirren at Rangers"
+ },
+ {
+  "clave": "sco_premiership",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Celtic at St Johnstone"
+ },
+ {
+  "clave": "sco_premiership",
+  "estado": "post",
+  "arbitro": "David Dickinson",
+  "fecha": "2026-08-22T16:45Z",
+  "partido": "Dundee at Dundee United"
+ },
+ {
+  "clave": "sco_championship",
+  "estado": "post",
+  "arbitro": "Chris Graham",
+  "fecha": "2026-08-21T18:30Z",
+  "partido": "Partick Thistle at Inverness Caledonian Thistle"
+ },
+ {
+  "clave": "sco_championship",
+  "estado": "post",
+  "arbitro": "Ross Hardie",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Arbroath at Greenock Morton"
+ },
+ {
+  "clave": "sco_championship",
+  "estado": "post",
+  "arbitro": "Kevin Clancy",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Dunfermline Athletic at Livingston"
+ },
+ {
+  "clave": "sco_championship",
+  "estado": "post",
+  "arbitro": "Sean Murdoch",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Stenhousemuir at Queen's Park"
+ },
+ {
+  "clave": "sco_championship",
+  "estado": "post",
+  "arbitro": "Lloyd Wilson",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Ayr United at Raith Rovers"
+ },
+ {
+  "clave": "sco_championship",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:30Z",
+  "partido": "Raith Rovers at Dunfermline Athletic"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "José Luis Guzmán Mansilla",
+  "fecha": "2026-08-16T15:00Z",
+  "partido": "Tenerife at Eibar"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Daniel Miranda Bolaño",
+  "fecha": "2026-08-16T17:00Z",
+  "partido": "Córdoba at Burgos"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Iosu Galech Apezteguía",
+  "fecha": "2026-08-16T17:00Z",
+  "partido": "Leganés at Girona"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Olatz Rivera Olmedo",
+  "fecha": "2026-08-16T19:30Z",
+  "partido": "Albacete at Las Palmas"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Abraham Domínguez Cervantes",
+  "fecha": "2026-08-17T17:00Z",
+  "partido": "CD Sabadell at Sporting Gijón"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Alejandro Ojaos Valera",
+  "fecha": "2026-08-17T19:30Z",
+  "partido": "Eldense at Almería"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Germán Cid Camacho",
+  "fecha": "2026-08-21T19:00Z",
+  "partido": "Girona at Córdoba"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Gorka Etayo Herrera",
+  "fecha": "2026-08-22T15:00Z",
+  "partido": "Leganés at Real Oviedo"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-22T17:00Z",
+  "partido": "Real Sociedad II at Albacete"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Pablo Morales Moreno",
+  "fecha": "2026-08-22T17:00Z",
+  "partido": "Las Palmas at Ceuta"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "post",
+  "arbitro": "Daniel Palencia Caballero",
+  "fecha": "2026-08-22T19:30Z",
+  "partido": "Cádiz at Eldense"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T15:00Z",
+  "partido": "Real Valladolid at Eibar"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T17:00Z",
+  "partido": "CD Sabadell at Castellón"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T17:00Z",
+  "partido": "Burgos at Sporting Gijón"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T19:30Z",
+  "partido": "Almería at Tenerife"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-24T17:00Z",
+  "partido": "FC Andorra at RC Celta Fortuna"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-24T19:30Z",
+  "partido": "Mallorca at Granada"
+ },
+ {
+  "clave": "esp_hypermotion",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T19:00Z",
+  "partido": "Sporting Gijón at Tenerife"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "post",
+  "arbitro": "Federico La Penna",
+  "fecha": "2026-08-21T18:30Z",
+  "partido": "Catanzaro at Vicenza"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "post",
+  "arbitro": "Andrea Calzavara",
+  "fecha": "2026-08-22T17:00Z",
+  "partido": "Mantova at Carrarese"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "post",
+  "arbitro": "Maria Ferrieri Caputi",
+  "fecha": "2026-08-22T17:00Z",
+  "partido": "Virtus Entella at Sudtirol"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-22T19:00Z",
+  "partido": "Modena at Benevento"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "post",
+  "arbitro": "Paride Tremolada",
+  "fecha": "2026-08-22T19:00Z",
+  "partido": "Cremonese at Empoli"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-22T19:00Z",
+  "partido": "Arezzo at US Avellino"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T17:00Z",
+  "partido": "Ascoli at Hellas Verona"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T17:00Z",
+  "partido": "Padova at Pisa"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T19:00Z",
+  "partido": "Sampdoria at Cesena"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T19:00Z",
+  "partido": "Juve Stabia at Palermo"
+ },
+ {
+  "clave": "ita_serie_b",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:30Z",
+  "partido": "Modena at Cremonese"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-21T18:00Z",
+  "partido": "Red Star FC 93 at Boulogne"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-21T18:00Z",
+  "partido": "Dijon FCO at Clermont Foot"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": "Eddy Rosier",
+  "fecha": "2026-08-21T18:00Z",
+  "partido": "Montpellier at Dunkerque"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": "Tifenn Leprodhomme",
+  "fecha": "2026-08-21T18:00Z",
+  "partido": "AS Nancy Lorraine at Pau"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": "Brendan Roffet",
+  "fecha": "2026-08-21T18:00Z",
+  "partido": "Guingamp at Sochaux"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": "Gael Angoula",
+  "fecha": "2026-08-22T12:00Z",
+  "partido": "Stade Laval at Metz"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": "Ahmed Taleb",
+  "fecha": "2026-08-22T12:00Z",
+  "partido": "Rodez Aveyron at Nantes"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "post",
+  "arbitro": "Azzedine Souifi",
+  "fecha": "2026-08-22T18:00Z",
+  "partido": "Grenoble at Saint-Étienne"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-24T18:45Z",
+  "partido": "Annecy at Stade de Reims"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:00Z",
+  "partido": "Dunkerque at AS Nancy Lorraine"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:00Z",
+  "partido": "Sochaux at Clermont Foot"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:00Z",
+  "partido": "Boulogne at Montpellier"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:00Z",
+  "partido": "Pau at Rodez Aveyron"
+ },
+ {
+  "clave": "fra_ligue2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:00Z",
+  "partido": "Grenoble at Stade Laval"
+ },
+ {
+  "clave": "ger_bundesliga2",
+  "estado": "post",
+  "arbitro": "Florian Lechner",
+  "fecha": "2026-08-16T11:30Z",
+  "partido": "Energie Cottbus at Arminia Bielefeld"
+ },
+ {
+  "clave": "ger_bundesliga2",
+  "estado": "post",
+  "arbitro": "Konrad Oldhafer",
+  "fecha": "2026-08-16T11:30Z",
+  "partido": "SV Darmstadt 98 at Dynamo Dresden"
+ },
+ {
+  "clave": "ger_bundesliga2",
+  "estado": "post",
+  "arbitro": "Timo Gansloweit",
+  "fecha": "2026-08-16T11:30Z",
+  "partido": "VfL Wolfsburg at Hannover 96"
+ },
+ {
+  "clave": "ger_bundesliga2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T16:30Z",
+  "partido": "Hertha Berlin at TSV Eintracht Braunschweig"
+ },
+ {
+  "clave": "ger_bundesliga2",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T16:30Z",
+  "partido": "VfL Osnabruck at VfL Bochum"
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "post",
+  "arbitro": "Michael Matsoukas",
+  "fecha": "2026-08-22T17:00Z",
+  "partido": "Iraklis at AEK Athens"
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "post",
+  "arbitro": "Spyridon Zabalas",
+  "fecha": "2026-08-22T17:00Z",
+  "partido": "Aris at Kalamata"
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "post",
+  "arbitro": "Alexandros Tsakalidis",
+  "fecha": "2026-08-22T18:30Z",
+  "partido": "Atromitos at Olympiacos"
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T16:30Z",
+  "partido": "Volos NFC at OFI Crete"
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "post",
+  "arbitro": null,
+  "fecha": "2026-08-23T18:00Z",
+  "partido": "Kifisia at Panathinaikos"
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T18:00Z",
+  "partido": "Levadiakos at PAOK"
+ },
+ {
+  "clave": "gre_super_league",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T18:30Z",
+  "partido": "Asteras Tripoli at Panetolikos"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Nathan Verboomen",
+  "fecha": "2026-08-16T11:30Z",
+  "partido": "Anderlecht at Waasland-Beveren"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Bert Put",
+  "fecha": "2026-08-16T14:00Z",
+  "partido": "KAA Gent at RAAL La Louvière"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Bram van Driessche",
+  "fecha": "2026-08-16T16:30Z",
+  "partido": "Standard Liege at KV Mechelen"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Kevin van Damme",
+  "fecha": "2026-08-16T17:15Z",
+  "partido": "Royal Charleroi SC at Lommel SK"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Nathan Verboomen",
+  "fecha": "2026-08-21T18:45Z",
+  "partido": "RAAL La Louvière at Standard Liege"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Michiel Allaerts",
+  "fecha": "2026-08-22T14:00Z",
+  "partido": "Waasland-Beveren at Zulte-Waregem"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Jan Boterberg",
+  "fecha": "2026-08-22T16:15Z",
+  "partido": "KV Mechelen at Royal Charleroi SC"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "post",
+  "arbitro": "Jasper Vergoote",
+  "fecha": "2026-08-22T18:45Z",
+  "partido": "Racing Genk at Antwerp"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T14:00Z",
+  "partido": "KVC Westerlo at Lommel SK"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-23T16:30Z",
+  "partido": "Cercle Brugge KSV at Club Brugge"
+ },
+ {
+  "clave": "bel_pro_league",
+  "estado": "pre",
+  "arbitro": null,
+  "fecha": "2026-08-28T18:45Z",
+  "partido": "Waasland-Beveren at Racing Genk"
+ }
+]

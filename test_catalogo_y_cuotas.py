@@ -5642,6 +5642,323 @@ def test_se_guardan_las_lineas_de_corners():
             check(malas == 0,
                   f"la linea guardada coincide con su etiqueta ({malas} malas)")
 
+def test_las_tarjetas_cuentan_amarillas_y_rojas():
+    """
+    v160 — la magnitud del modelo tiene que ser la que liquida la casa.
+
+    La primera version conto solo amarillas y quedo 0,27 tarjetas por debajo
+    del centro de la linea real de la casa, con la diferencia CRECIENDO segun
+    subia la linea (-0,056 en 3,5 · -0,083 en 4,5 · -0,136 en 5,5) — la firma
+    de estar contando una magnitud mas pequena. Las rojas valen 0,25 por
+    partido y cerraron la brecha: el centro paso de 4,16 a 4,36 contra los 4,43
+    de la casa.
+
+    Y no es un apano para parecerse al mercado: contra el resultado REAL la
+    calibracion mejoro de 0,0141 a 0,0117 por equipo y la correlacion de 0,146
+    a 0,150. Si alguien vuelve a contar solo amarillas, esto lo para.
+    """
+    import pandas as pd
+    import rendimiento_equipos as rq
+
+    src = open('rendimiento_equipos.py', encoding='utf-8').read()
+    i = src.index('def _tarjetas_de')
+    check("'_yellow'" in src[i:i + 600] and "'_red'" in src[i:i + 600],
+          "el conteo de tarjetas suma amarillas y rojas")
+
+    # La comprobacion que no depende del texto: la media que sale del modulo
+    # tiene que ser la de amarillas+rojas, no la de amarillas.
+    clave = 'premier'
+    d = rq._historico(clave)
+    if d is not None and not getattr(d, 'empty', True) and 'home_red' in d.columns:
+        y = (pd.to_numeric(d['home_yellow'], errors='coerce')
+             + pd.to_numeric(d['away_yellow'], errors='coerce'))
+        r = (pd.to_numeric(d['home_red'], errors='coerce')
+             + pd.to_numeric(d['away_red'], errors='coerce'))
+        m = y.notna() & r.notna()
+        solo_amar = float(y[m].var() / y[m].mean())
+        con_rojas = float((y + r)[m].var() / (y + r)[m].mean())
+        disp = rq.dispersion_tarjetas_liga(clave)
+        check(disp is not None, "la Premier publica tarjetas observadas")
+        if disp is not None:
+            check(abs(disp - max(con_rojas, 1.0)) < 0.01,
+                  f"la dispersion es la de amarillas+rojas ({disp:.4f})")
+            check(abs(disp - max(solo_amar, 1.0)) > 0.005,
+                  "y NO la de solo amarillas, que es otra")
+
+    # Una roja ausente no puede contarse como cero: bajaria la media sin que se
+    # note. `_tarjetas_de` suma dos columnas, y NaN + n = NaN.
+    df = pd.DataFrame({'home_yellow': [2.0, 3.0], 'home_red': [1.0, None]})
+    t = rq._tarjetas_de(df, 'home')
+    check(float(t.iloc[0]) == 3.0, "amarillas mas rojas se suman")
+    check(pd.isna(t.iloc[1]),
+          "y una roja ausente deja la fila fuera, no la cuenta como cero")
+
+
+def test_las_tarjetas_por_equipo_salen_de_sus_datos():
+    """
+    v160 — el estimador ataque/defensa, y la trampa que ya cayo una vez.
+
+    Medido sobre 52.648 equipos-partido de juicio en 20 competiciones, error de
+    calibracion contra la frecuencia real en las lineas 0,5 / 1,5 / 2,5 / 3,5:
+
+        ataque + defensa del rival, ventana 10 ....  0,0117
+        solo lo que recibe el equipo, ventana 10 ..  0,0155
+        media movil de 5 del equipo ...............  0,0227
+        media de la competicion en ese bando ......  0,0312
+
+    LA TRAMPA: `lambda_corners_equipo` se escribio con la columna del bando
+    contrario en una de las dos lecturas, y las dos lambdas del partido salian
+    IDENTICAS. Eso es lo que delato el fallo, y es lo que se comprueba aqui —
+    no el valor, que cambia con cada jornada, sino que los dos lados difieren.
+    """
+    import rendimiento_equipos as rq
+
+    probados = 0
+    for clave, h, a in (('premier', 'Man City', 'Arsenal'),
+                        ('premier', 'Liverpool', 'Everton'),
+                        ('laliga', 'Real Madrid', 'Barcelona'),
+                        ('serie_a', 'Juventus', 'Inter')):
+        t = rq.tarjetas_equipo(clave, h, a)
+        if t is None:
+            continue
+        probados += 1
+        check(t['lambda_home'] != t['lambda_away'],
+              f"{h}-{a}: los dos lados dan lambdas distintas "
+              f"({t['lambda_home']} y {t['lambda_away']})")
+        check(abs(t['lambda_total'] - (t['lambda_home'] + t['lambda_away']))
+              < 0.01, f"{h}-{a}: el total es la suma de los dos")
+        check(0.3 < t['lambda_home'] < 6.0 and 0.3 < t['lambda_away'] < 6.0,
+              f"{h}-{a}: las lambdas estan en un rango fisico")
+        check(t['dispersion'] >= 1.0 and t['dispersion_total'] >= 1.0,
+              f"{h}-{a}: la dispersion nunca baja de 1")
+    check(probados >= 2, f"se probaron {probados} partidos con datos reales")
+
+    # Las dos lecturas usan la MISMA columna con distinto filtro. Si alguien
+    # vuelve a cruzarlas, el simetrico deja de serlo.
+    t1 = rq.tarjetas_equipo('premier', 'Man City', 'Arsenal')
+    t2 = rq.tarjetas_equipo('premier', 'Arsenal', 'Man City')
+    if t1 and t2:
+        check(t1['lambda_home'] != t2['lambda_home'],
+              "cambiar quien juega en casa cambia la lambda del local")
+
+    # Donde la competicion no publica tarjetas observadas, no hay estimador.
+    check(rq.tarjetas_equipo('liga_mx', 'Guadalajara', 'Tijuana') is None,
+          "una competicion con la columna sintetica no produce lambdas")
+
+
+def test_el_arbitro_designado_y_su_encogimiento():
+    """
+    v160 — el arbitro aporta, pero solo encogido, y esta medido.
+
+    ESPN NO SIRVE PARA ESTO, y se comprobo antes de buscar otra fuente: da el
+    arbitro en `summary` -> `gameInfo.officials`, pero medido sobre 139 eventos
+    de las 20 competiciones con tarjetas observadas, en +-6 dias:
+
+        partidos ya jugados ('post') ...  88 de 98 con arbitro   89,8 %
+        partidos por jugar  ('pre')  ...   0 de 41 con arbitro    0,0 %
+
+    Cero de cuarenta y uno no es cobertura floja: el campo no se rellena hasta
+    que el partido empieza, y para apostar hace falta antes. FotMob si lo da
+    antes, y ademas con sus amarillas por partido Y la media de su competicion.
+
+    CUANTO APORTA, sobre las 7 competiciones cuyo historico trae quien pito
+    (n = 11.375 partidos de juicio, total del partido, lineas 2,5 a 5,5):
+
+        sin arbitro .............  Brier 0,20500   correlacion 0,103
+        con arbitro (K=60) ......  Brier 0,20344   correlacion 0,133
+
+    y mejora en las SEIS competiciones, ninguna en contra. El encogimiento hace
+    falta: con K=0 la razon cruda EMPEORA la calibracion de 0,0153 a 0,0371.
+    """
+    import arbitro_partido as ap
+
+    check(ap.K_ENCOGIMIENTO == 60.0,
+          f"el encogimiento medido es 60 (esta en {ap.K_ENCOGIMIENTO})")
+
+    # Un arbitro sin datos no mueve nada. Es la regla que impide que un hueco
+    # se convierta en un supuesto invisible.
+    check(ap.factor(None) == 1.0, "sin arbitro, el factor es 1")
+    check(ap.factor({'nombre': 'X'}) == 1.0, "sin sus cifras, tambien es 1")
+    check(ap.factor({'nombre': 'X', 'amarillas_por_partido': 5.0,
+                     'media_competicion': 0, 'partidos': 30}) == 1.0,
+          "sin media de la competicion no hay razon que calcular")
+
+    # El encogimiento: un arbitro con n partidos aporta n/(n+60) de su
+    # desviacion. Con n=60 aporta la mitad exacta.
+    f = ap.factor({'nombre': 'X', 'amarillas_por_partido': 6.0,
+                   'media_competicion': 4.0, 'partidos': 60})
+    check(abs(f - 1.25) < 1e-6,
+          f"con n=60 y razon 1,5 el factor es 1,25, la mitad del camino ({f})")
+    f0 = ap.factor({'nombre': 'X', 'amarillas_por_partido': 6.0,
+                    'media_competicion': 4.0, 'partidos': 0})
+    check(f0 == 1.0, "con cero partidos arbitrados no aporta nada")
+
+    # Mas partidos, mas peso; nunca al reves.
+    fs = [ap.factor({'nombre': 'X', 'amarillas_por_partido': 5.0,
+                     'media_competicion': 4.0, 'partidos': n})
+          for n in (5, 20, 60, 200)]
+    check(fs == sorted(fs),
+          f"cuantos mas partidos, mas se acerca a su razon real ({fs})")
+
+    # Y un valor absurdo no se aplica: se ignora, no se recorta en silencio.
+    f = ap.factor({'nombre': 'X', 'amarillas_por_partido': 40.0,
+                   'media_competicion': 4.0, 'partidos': 500})
+    check(f == 1.0, "un factor fuera de banda se ignora, no se recorta")
+
+    # El emparejado con FotMob: los dos equipos, y con margen sobre el segundo.
+    idx = [{'home': 'Roma', 'away': 'Fiorentina'},
+           {'home': 'Torino', 'away': 'Milan'},
+           {'home': 'Palermo', 'away': 'Juve Stabia'}]
+    m = ap._empareja('AS Roma', 'Fiorentina', idx)
+    check(m is not None and m['home'] == 'Roma',
+          "«AS Roma» casa con «Roma» pese al prefijo societario")
+    m = ap._empareja('Torino', 'AC Milan', idx)
+    check(m is not None and m['away'] == 'Milan',
+          "«AC Milan» casa con «Milan»")
+    check(ap._empareja('PAOK', 'Levadiakos', idx) is None,
+          "y un partido que no esta no se empareja con el mas parecido")
+
+    # La regla que evita el fallo caro: un arbitro en el partido equivocado.
+    ambiguo = [{'home': 'Atletico', 'away': 'Racing'},
+               {'home': 'Atletico', 'away': 'Racing'}]
+    check(ap._empareja('Atletico', 'Racing', ambiguo) is None,
+          "dos candidatos igual de buenos se descartan, no se elige uno")
+
+
+def test_las_tarjetas_en_la_tarjeta():
+    """
+    v160 — la seccion de tarjetas de la tarjeta: total, por equipo y arbitro.
+
+    ÁMBAR, NO VERDE. Verde en esta aplicacion significa «canal con percentil 5
+    positivo medido», y para tarjetas no hay histórico de lineas con el que
+    medirlo todavia — `snapshots_tarjetas.py` lo esta acumulando.
+    """
+    import modo_modelo as mm
+
+    pick = {'partido': 'Man City vs Arsenal', 'clave_liga': 'premier',
+            'deporte': 'Fútbol', 'fecha': '2026-08-23'}
+    tj = mm.tarjetas_tarjeta(pick)
+    check(tj is not None, "la Premier produce seccion de tarjetas")
+    if tj:
+        etiquetas = [f['etiqueta'] for f in tj['filas']]
+        check(etiquetas == ['Total', 'Local', 'Visita'],
+              f"salen las tres filas en orden ({etiquetas})")
+        for f in tj['filas']:
+            check(0.5 <= f['prob'] <= 1.0,
+                  f"{f['etiqueta']}: se enseña el lado que supera el 50 % "
+                  f"({f['prob']:.2f})")
+            check(f['texto'].startswith(('Más de', 'Menos de')),
+                  f"{f['etiqueta']}: la apuesta dice su lado y su linea")
+        check(tj['mejor'] in tj['filas'], "la destacada es una de las tres")
+        check(tj['mejor']['prob'] == max(f['prob'] for f in tj['filas']),
+              "y es la de mayor probabilidad")
+        html = mm._bloque_tarjetas_html(tj)
+        check('🟡' in html, "la destacada de tarjetas va en ambar")
+        check('✅' not in html,
+              "y NUNCA en verde: el EV de tarjetas no esta validado con "
+              "histórico de lineas")
+        check('👤' in html,
+              "la linea del arbitro sale siempre: con su nombre o diciendo "
+              "que no esta designado")
+
+    # Donde no hay tarjetas observadas NO se inventa la seccion.
+    check(mm.tarjetas_tarjeta({'partido': 'Pachuca vs Toluca',
+                               'clave_liga': 'liga_mx',
+                               'deporte': 'Fútbol'}) is None,
+          "una competicion con la columna sintetica no produce seccion")
+    check(mm.tarjetas_tarjeta({'partido': 'HOU vs NYY', 'clave_liga': 'mlb',
+                               'deporte': 'MLB'}) is None,
+          "y el beisbol tampoco")
+
+    # Un partido sin arbitro designado NO se queda sin seccion: se queda sin
+    # ajuste, y lo dice. Es la diferencia entre un hueco y un relleno.
+    sin_arb = mm.tarjetas_tarjeta({'partido': 'Man City vs Arsenal',
+                                   'clave_liga': 'premier',
+                                   'deporte': 'Fútbol',
+                                   'fecha': '2030-01-01'})
+    check(sin_arb is not None, "sin arbitro la seccion sigue saliendo")
+    if sin_arb:
+        check(sin_arb['factor_arbitro'] == 1.0,
+              "y sale sin ajuste, no con uno inventado")
+        check('sin designar' in mm._bloque_tarjetas_html(sin_arb),
+              "y la tarjeta lo dice en vez de callarselo")
+
+    # La seccion de abajo no repite las medias cuando la de arriba ya salio.
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('con_tarjetas=not _tj_tarjeta' in src,
+          "si la seccion con probabilidad salio, la de medias no se repite")
+
+
+def test_se_guardan_las_lineas_de_tarjetas():
+    """
+    v160 — la unica via que desbloquea el p5 de tarjetas: acumular el histórico.
+
+    Mismo caso que los córners en la v159. Y un filtro que costo tres pasadas:
+    la casa cotiza 4.105 familias distintas en tres partidos, y las de JUGADOR
+    entran por el apellido. «Primer goleador y marcador exacto (Diego Alexander
+    Gomez Amarilla)» lleva «amarilla»; «Multigoleadores Sergi Cardona Bermadez»
+    lleva «card» dentro de «Cardona». Sin los cuatro filtros pasaban 358
+    familias donde debian pasar 40.
+    """
+    import os
+    import snapshots_tarjetas as st
+
+    check(hasattr(st, 'capturar') and hasattr(st, 'lineas_de_tarjetas'),
+          "el modulo expone la captura")
+
+    # Lo que tiene que entrar: mercados de equipo y de partido.
+    for n in ('Total de tarjetas', 'Total de tarjetas Eyupspor',
+              'Tarjetas 1x2', 'Tarjetas exactas', 'Tarjetas Hándicap',
+              '1ª Mitad - Total de tarjetas', 'Total tarjetas Impar/Par',
+              'Ambos equipos 2+ tarjetas cada uno', 'Total de tarjetas rojas'):
+        check(st._es_tarjeta(n) is True, f"entra el mercado «{n}»")
+
+    # Lo que NO puede entrar, con los casos reales que lo colaron.
+    for n, motivo in (
+            ('Jugador recibe una tarjeta (Abdelhamid Sabiri (EYU))',
+             'es por jugador y no hay con que liquidarla'),
+            ('Primer goleador y marcador exacto (Diego Alexander Gomez Amarilla)',
+             'el apellido del jugador lleva «amarilla»'),
+            ('Tackleadas - Diego Alexander Gomez Amarilla (BHA) (alineación inicial)',
+             'el apellido va fuera de los parentesis'),
+            ('Multigoleadores Sergi Cardona Bermadez',
+             '«card» esta dentro de «Cardona»'),
+            ('Goleador O el sustituto anotará - Diego Alexander Gomez Amarilla',
+             'goleador con apellido «Amarilla»'),
+            ('Total de goles', 'no es de tarjetas'),
+            ('Total Tiros De Esquina', 'son córners')):
+        check(st._es_tarjeta(n) is False, f"NO entra «{n[:52]}»: {motivo}")
+
+    # Los parentesis anidados existen en el tablero real.
+    check(st._sin_parentesis('Jugador recibe una tarjeta (X (EYU))').strip()
+          == 'Jugador recibe una tarjeta',
+          "los parentesis anidados se quitan enteros")
+
+    # La linea sale de la ETIQUETA, con `sv` de respaldo: «Total de tarjetas»
+    # llega con sv=5.5 y sus selecciones dicen 4.5, 5.5 y 6.5.
+    src = open('snapshots_tarjetas.py', encoding='utf-8').read()
+    check('linea_etq if linea_etq is not None else linea_fam' in src,
+          "la linea guardada es la de la etiqueta, con `sv` de respaldo")
+
+    # El bot lo ejecuta y commitea el resultado: sin las dos cosas, el histórico
+    # no crece y esto no sirve de nada.
+    wf = open(os.path.join('.github', 'workflows', 'retrain_leagues.yml'),
+              encoding='utf-8').read()
+    check('snapshots_tarjetas.py' in wf, "el bot lo ejecuta a diario")
+    check('tarjetas_snapshots.csv' in wf, "y commitea lo capturado")
+    check('arbitro_partido.py' in wf,
+          "y precalcula los arbitros del dia antes de capturar")
+
+    if os.path.exists(st.FICHERO):
+        import pandas as pd
+        d = pd.read_csv(st.FICHERO)
+        check(len(d) > 0, f"hay lineas capturadas ({len(d)})")
+        # Ninguna familia de jugador puede haberse colado al fichero.
+        coladas = [n for n in d['familia'].unique() if not st._es_tarjeta(n)]
+        check(not coladas,
+              f"ninguna familia del fichero incumple el filtro ({coladas[:3]})")
+
+
 def test_los_except_pueden_registrar_su_error():
     """
     v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
@@ -6150,6 +6467,11 @@ if __name__ == '__main__':
     test_los_corners_por_equipo_salen_de_sus_datos()
     test_los_corners_en_la_tarjeta()
     test_se_guardan_las_lineas_de_corners()
+    test_las_tarjetas_cuentan_amarillas_y_rojas()
+    test_las_tarjetas_por_equipo_salen_de_sus_datos()
+    test_el_arbitro_designado_y_su_encogimiento()
+    test_las_tarjetas_en_la_tarjeta()
+    test_se_guardan_las_lineas_de_tarjetas()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

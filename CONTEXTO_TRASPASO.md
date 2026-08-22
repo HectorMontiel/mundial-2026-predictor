@@ -604,3 +604,133 @@ acabó la temporada, y el 21 de agosto se jugó la primera jornada de la
 siguiente. Su desfase real era **un partido**. La métrica cometía exactamente
 el mismo error que la queja que venía a investigar: contar el calendario en vez
 de contar los partidos.
+
+## 4o. v160 — TARJETAS CALIBRADAS Y EL ÁRBITRO DESIGNADO
+
+Lo pedido: aplicar a tarjetas la metodología de córners (estimador
+ataque/defensa + binomial negativa), enseñarlas en la tarjeta con su apuesta
+más probable en ámbar, e integrar el perfil del árbitro. El detalle medido está
+en la **§11 de la bitácora**; aquí lo que hay que saber para seguir trabajando.
+
+### Lo que cambió de lo que se esperaba
+
+**1. Una «tarjeta» son amarillas MÁS rojas.** La primera versión contó sólo
+amarillas y quedó 0,27 por debajo del centro de la línea real de la casa, con
+la brecha creciendo según subía la línea — firma de contar una magnitud más
+pequeña, no de discrepar con el mercado. Las rojas valen 0,25/partido. Contarlas
+mejoró también la calibración contra el resultado REAL (0,0141 → 0,0117 por
+equipo), así que no es un apaño para parecerse al mercado.
+
+**2. En el total gana el estimador del partido, al revés que en córners.** La
+media de la competición tiene correlación 0,003 con el total de tarjetas (en
+córners era la mejor opción). El ataque/defensa llega a 0,110 y cuadruplica la
+calibración (0,0119 contra 0,0488).
+
+**3. La binomial negativa aporta, pero por las rojas.** Sólo con amarillas la
+dispersión sale ≤1,0 en 19 de 20 competiciones y binneg degenera en Poisson.
+Con rojas sube a 1,35 (Turquía), 1,37 (Portugal), y binneg gana a Poisson
+(0,0119 contra 0,0134).
+
+**4. ESPN NO da el árbitro antes del partido.** Medido: 89,8 % de los jugados,
+**0 de 41** de los que faltan por jugar. El campo no se rellena hasta el
+pitido. La fuente es **FotMob**, con dos endpoints sin clave:
+`/api/data/matches?date=YYYYMMDD` (índice del día) y
+`/api/data/matchDetails?matchId=N` (el árbitro y su perfil).
+
+**5. El árbitro SÍ es señal, medido, pero hay que encogerlo mucho.** Brier
+0,20500 → 0,20344 y correlación 0,103 → 0,133, mejorando en las 6 competiciones
+con muestra. Con K=0 la razón cruda EMPEORA la calibración (0,0153 → 0,0371).
+K=60 es donde el Brier toca fondo.
+
+### Módulos nuevos
+
+- `arbitro_partido.py` — el árbitro designado y su factor. Precálculo diario a
+  `arbitros_dia.json`, que el bot corre **antes** del guardado temprano (un
+  designado que no se guarda hoy no se recupera: FotMob lo sustituye por el que
+  pitó). Cobertura medida: 48/48 fixtures emparejados, 35 con árbitro.
+- `snapshots_tarjetas.py` — las líneas de la casa. 2.010 filas de 48 partidos
+  en la primera captura. Es la única vía que desbloquea el p5 de tarjetas.
+- `rendimiento_equipos.py` §v160 — `tarjetas_equipo`, `lambda_tarjetas_equipo`,
+  `dispersion_tarjetas_liga/_equipo`.
+- `modo_modelo.tarjetas_tarjeta` / `_bloque_tarjetas_html` — la sección de la
+  tarjeta, en ÁMBAR.
+
+### Lo que queda ABIERTO y hay que cerrar con datos
+
+**Si la casa cuenta la segunda amarilla como una tarjeta o como dos.**
+football-data suma la roja de la doble amarilla en `home_red` y las dos
+amarillas en `home_yellow`, así que aquí cuenta como tres. Queda un residuo de
+−0,10 en la línea 5,5 que puede ser eso o ruido de n=14. Lo cierra
+`tarjetas_snapshots.csv` cuando haya líneas liquidadas.
+
+### VALIDACIÓN
+
+- `test_catalogo_y_cuotas.py`: **1.067 checks, TODO OK** (eran 987; los 5 tests
+  nuevos añaden 80).
+- `valida_render.py`: las 3 vistas, limpias.
+
+---
+
+## 4p. v160 — POR QUÉ FALTAN PARTIDOS EN LA LISTA (diagnóstico medido)
+
+HMREY reportó 55 partidos un sábado y echó en falta al Real Madrid y al Bayern.
+Sondeadas las 64 competiciones que el proyecto codifica más 38 que no, el
+2026-08-22: **ESPN tenía 224 partidos de fútbol ese día.** Las causas de la
+diferencia son tres, y sólo dos son corregibles.
+
+### Causa 1 — los ya jugados se excluyen a propósito (la mayoría)
+
+`fixtures_espn._fixtures_de_codigo` descarta todo evento con
+`status.type.completed`. Es correcto: no se puede apostar un partido acabado.
+De los 224 de ese día, la mayoría estaban `post` cuando HMREY miró.
+
+**El Real Madrid entra por aquí**: jugó en Espanyol, en LaLiga, que SÍ se barre
+— pero el partido ya había terminado.
+
+### Causa 2 — 15 competiciones apagadas por no tener modelo (28 partidos ese día)
+
+Tienen histórico y `team_stats`, pero **no tienen carpeta en `modelos/`**, así
+que están con `disponible: False`. Y el workflow entrena «cada liga
+disponible», o sea que nunca se entrenan: es un círculo cerrado.
+
+| clave | partidos el 22/8 |
+|---|---|
+| `eng_championship` | 11 |
+| `ven_primera` | 5 |
+| `bel_pro_league` | 3 |
+| `slv_primera` | 3 |
+| `crc_fpd` | 2 |
+| `aut_bundesliga` | 2 |
+| `ned_eerste`, `par_division` | 1 cada una |
+
+Las otras (`suiza`, `aus_aleague`, `eng_fa_cup`, `ind_isl`, `esp_copa_rey`,
+`bra_copa`, `eng_carabao`, `ksa_pro`) no jugaban ese día.
+
+**Medido**: entrenar `eng_championship` funciona y tarda **52,4 s**. Su
+precisión de validación sale 43,89 % contra 44,81 % de la línea base de ELO — o
+sea que su modelo 1X2 NO bate ni a su propio ELO. Encender las 15 son ~13 min
+más en un job que ya se ha caído por timeout (v153, 60→90 min).
+
+### Causa 3 — competiciones sin código ESPN (27 partidos ese día)
+
+| competición | slug ESPN | partidos el 22/8 |
+|---|---|---|
+| Copa de Alemania (DFB Pokal) | `ger.dfb_pokal` | 11 |
+| USL League One | `usa.usl.l1` | 8 |
+| Liga de Arabia | `ksa.1` | 4 |
+| NWSL | `usa.nwsl` | 3 |
+| **Supercopa de Alemania** | `ger.super_cup` | 1 |
+
+**El Bayern entra por aquí**: jugó contra el Dortmund la Supercopa de Alemania,
+y el proyecto no tiene ese código. Añadir el código NO basta: sin histórico ni
+modelo la liga se descarta igual en el bucle del barrido.
+
+### Lo que NO es la causa
+
+- No es la ventana temporal (`_en_ventana` cubre 3 días UTC y la interfaz
+  recorta por CDMX; se comprobó).
+- No es que `fixtures_multi` falle: `eng_league_one`, `eng_league_two`,
+  `eng_national` y `sco_championship` devuelven 0 porque sus 39 partidos de ese
+  día ya estaban jugados, no por un error.
+
+Scripts del diagnóstico: `_v160_cobertura_hoy.py`, `_v160_donde_se_caen.py`.

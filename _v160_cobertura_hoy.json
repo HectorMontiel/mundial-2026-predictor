@@ -1,0 +1,1993 @@
+[
+ {
+  "clave": "liga_mx",
+  "slug": "mex.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Tijuana at Guadalajara",
+    "fecha": "2026-08-22T23:07Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Santos at Puebla",
+    "fecha": "2026-08-23T01:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Atlas at Cruz Azul",
+    "fecha": "2026-08-23T03:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "mls",
+  "slug": "usa.1",
+  "conocida": true,
+  "n": 13,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "LA Galaxy at CF Montréal",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "D.C. United at Charlotte FC",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Seattle Sounders FC at FC Cincinnati",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Toronto FC at Inter Miami CF",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Real Salt Lake at Orlando City SC",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Chicago Fire FC at Red Bull New York",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Philadelphia Union at Austin FC",
+    "fecha": "2026-08-23T00:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Columbus Crew at Nashville SC",
+    "fecha": "2026-08-23T00:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Houston Dynamo FC at St. Louis CITY SC",
+    "fecha": "2026-08-23T00:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "FC Dallas at Vancouver Whitecaps",
+    "fecha": "2026-08-23T01:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Portland Timbers at LAFC",
+    "fecha": "2026-08-23T02:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Colorado Rapids at San Diego FC",
+    "fecha": "2026-08-23T02:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Minnesota United FC at San Jose Earthquakes",
+    "fecha": "2026-08-23T02:30Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "brasil",
+  "slug": "bra.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Remo at Fluminense",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Atlético-MG at Internacional",
+    "fecha": "2026-08-22T21:30Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Flamengo at Cruzeiro",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "argentina",
+  "slug": "arg.1",
+  "conocida": true,
+  "n": 5,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Instituto (Córdoba) at Atlético Tucumán",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Gimnasia (Mendoza) at Gimnasia La Plata",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Independiente Rivadavia at Independiente",
+    "fecha": "2026-08-22T21:30Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Deportivo Riestra at Huracán",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Banfield at Newell's Old Boys",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "premier",
+  "slug": "eng.1",
+  "conocida": true,
+  "n": 5,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Manchester United at Hull City",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Crystal Palace at Everton",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Sunderland at Ipswich Town",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Leeds United at Nottingham Forest",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Tottenham Hotspur at Brentford",
+    "fecha": "2026-08-22T16:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "laliga",
+  "slug": "esp.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Sevilla at Athletic Club",
+    "fecha": "2026-08-22T15:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Celta Vigo at Valencia",
+    "fecha": "2026-08-22T17:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Real Madrid at Espanyol",
+    "fecha": "2026-08-22T19:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "serie_a",
+  "slug": "ita.1",
+  "conocida": true,
+  "n": 4,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Monza at Internazionale",
+    "fecha": "2026-08-22T16:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Como at Udinese",
+    "fecha": "2026-08-22T16:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Napoli at Genoa",
+    "fecha": "2026-08-22T18:45Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Cagliari at Parma",
+    "fecha": "2026-08-22T18:45Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "bundesliga",
+  "slug": "ger.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "ligue_1",
+  "slug": "fra.1",
+  "conocida": true,
+  "n": 5,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "AJ Auxerre at Lens",
+    "fecha": "2026-08-22T15:15Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Brest at Le Mans",
+    "fecha": "2026-08-22T18:45Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Lorient at Nice",
+    "fecha": "2026-08-22T18:45Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Lyon at Toulouse",
+    "fecha": "2026-08-22T18:45Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Paris FC at Troyes",
+    "fecha": "2026-08-22T18:45Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "eredivisie",
+  "slug": "ned.1",
+  "conocida": true,
+  "n": 4,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "AZ Alkmaar at Fortuna Sittard",
+    "fecha": "2026-08-22T14:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "FC Utrecht at Sparta Rotterdam",
+    "fecha": "2026-08-22T16:45Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Excelsior at NEC Nijmegen",
+    "fecha": "2026-08-22T18:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "PEC Zwolle at Heerenveen",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "primeira",
+  "slug": "por.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Académico de Viseu at Maritimo",
+    "fecha": "2026-08-22T14:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Rio Ave at Estoril",
+    "fecha": "2026-08-22T17:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Alverca at Sporting CP",
+    "fecha": "2026-08-22T19:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "noruega",
+  "slug": "nor.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "suecia",
+  "slug": "swe.1",
+  "conocida": true,
+  "n": 1,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Halmstads BK at Örgryte IS",
+    "fecha": "2026-08-22T13:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "finlandia",
+  "slug": "fin.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "rumania",
+  "slug": "rou.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "irlanda",
+  "slug": "irl.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "turquia",
+  "slug": "tur.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Samsunspor at Caykur Rizespor",
+    "fecha": "2026-08-22T16:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Kasimpasa at Çorum FK",
+    "fecha": "2026-08-22T16:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Konyaspor at Fenerbahce",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "dinamarca",
+  "slug": "den.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "china",
+  "slug": "chn.1",
+  "conocida": true,
+  "n": 5,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Tianjin Jinmen Tiger at Wuhan Three Towns",
+    "fecha": "2026-08-22T11:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Shanghai Shenhua at Chengdu Rongcheng",
+    "fecha": "2026-08-22T11:35Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Zhejiang Professional FC at Shenzhen Xinpengcheng",
+    "fecha": "2026-08-22T11:35Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Yunnan Yukun at Beijing Guoan",
+    "fecha": "2026-08-22T12:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Shandong Taishan at Qingdao West Coast",
+    "fecha": "2026-08-22T12:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "champions",
+  "slug": "uefa.champions",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "europa_league",
+  "slug": "uefa.europa",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "conference_league",
+  "slug": "uefa.europa.conf",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "mundial",
+  "slug": "fifa.world",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "leagues_cup",
+  "slug": "concacaf.leagues.cup",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "eng_championship",
+  "slug": "eng.2",
+  "conocida": true,
+  "n": 11,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Bristol City at Birmingham City",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Portsmouth at Lincoln City",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Norwich City at Millwall",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Middlesbrough at Blackburn Rovers",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Cardiff City at Derby County",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Wolverhampton Wanderers at Preston North End",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Bolton Wanderers at Queens Park Rangers",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Stoke City at Southampton",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Sheffield United at Swansea City",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Charlton Athletic at West Ham United",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Watford at Wrexham",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "eng_league_one",
+  "slug": "eng.3",
+  "conocida": true,
+  "n": 11,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Barnsley at Doncaster Rovers",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Notts County at Luton Town",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Reading at AFC Wimbledon",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Cambridge United at Bromley",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Burton Albion at Leicester City",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Huddersfield Town at Milton Keynes Dons",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Mansfield Town at Peterborough United",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Oxford United at Stevenage",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Blackpool at Stockport County",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Leyton Orient at Wigan Athletic",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Plymouth Argyle at Wycombe Wanderers",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "eng_league_two",
+  "slug": "eng.4",
+  "conocida": true,
+  "n": 12,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Newport County at Bristol Rovers",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Chesterfield at Salford City",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Grimsby Town at Walsall",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Oldham Athletic at Colchester United",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Northampton Town at Crewe Alexandra",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Accrington Stanley at Exeter City",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Gillingham at Fleetwood Town",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Tranmere Rovers at Port Vale",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Crawley Town at Rochdale",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "York City at Rotherham United",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Barnet at Shrewsbury Town",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Cheltenham Town at Swindon Town",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "eng_national",
+  "slug": "eng.5",
+  "conocida": true,
+  "n": 12,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Altrincham at Boston United",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "AFC Hornchurch at Carlisle United",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Scunthorpe United at Eastleigh",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Tamworth at FC Halifax Town",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Boreham Wood at Forest Green Rovers",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Barrow at Harrogate Town",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Aldershot Town at Kidderminster Harriers",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Southend United at Solihull Moors",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Hartlepool United at Sutton United",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "AFC Fylde at Woking",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Wealdstone at Worthing",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Gateshead at Yeovil Town",
+    "fecha": "2026-08-22T11:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "sco_premiership",
+  "slug": "sco.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "St Mirren at Rangers",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Celtic at St Johnstone",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Dundee at Dundee United",
+    "fecha": "2026-08-22T16:45Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "sco_championship",
+  "slug": "sco.2",
+  "conocida": true,
+  "n": 4,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Arbroath at Greenock Morton",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Dunfermline Athletic at Livingston",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Stenhousemuir at Queen's Park",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Ayr United at Raith Rovers",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "esp_hypermotion",
+  "slug": "esp.2",
+  "conocida": true,
+  "n": 4,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Leganés at Real Oviedo",
+    "fecha": "2026-08-22T15:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Real Sociedad II at Albacete",
+    "fecha": "2026-08-22T17:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Las Palmas at Ceuta",
+    "fecha": "2026-08-22T17:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Cádiz at Eldense",
+    "fecha": "2026-08-22T19:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "ita_serie_b",
+  "slug": "ita.2",
+  "conocida": true,
+  "n": 5,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Mantova at Carrarese",
+    "fecha": "2026-08-22T17:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Virtus Entella at Sudtirol",
+    "fecha": "2026-08-22T17:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Modena at Benevento",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Cremonese at Empoli",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Arezzo at US Avellino",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "fra_ligue2",
+  "slug": "fra.2",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Stade Laval at Metz",
+    "fecha": "2026-08-22T12:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Rodez Aveyron at Nantes",
+    "fecha": "2026-08-22T12:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Grenoble at Saint-Étienne",
+    "fecha": "2026-08-22T18:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "ger_bundesliga2",
+  "slug": "ger.2",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "bel_pro_league",
+  "slug": "bel.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Waasland-Beveren at Zulte-Waregem",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "KV Mechelen at Royal Charleroi SC",
+    "fecha": "2026-08-22T16:15Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Racing Genk at Antwerp",
+    "fecha": "2026-08-22T18:45Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "jpn_j1",
+  "slug": "jpn.1",
+  "conocida": true,
+  "n": 7,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Avispa Fukuoka at Kashima Antlers",
+    "fecha": "2026-08-22T09:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Tokyo Verdy 1969 at Fagiano Okayama",
+    "fecha": "2026-08-22T09:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Shimizu S-Pulse at Cerezo Osaka",
+    "fecha": "2026-08-22T10:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Mito Hollyhock at Kyoto Sanga",
+    "fecha": "2026-08-22T10:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Gamba Osaka at Nagoya Grampus",
+    "fecha": "2026-08-22T10:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Kawasaki Frontale at Sanfrecce Hiroshima",
+    "fecha": "2026-08-22T10:15Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Vissel Kobe at Yokohama F. Marinos",
+    "fecha": "2026-08-22T10:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "arg_primera_nacional",
+  "slug": "arg.2",
+  "conocida": true,
+  "n": 9,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Agropecuario at Tristán Suárez",
+    "fecha": "2026-08-22T18:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Colegiales at Almagro",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Almirante Brown at Defensores de Belgrano",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Atlanta at Nueva Chicago",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Gimnasia y Esgrima (Jujuy) at Patronato",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Gimnasia y Tiro (Salta) at San Martín (San Juan)",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Colón (Santa Fe) at San Miguel",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Los Andes at Chaco For Ever",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Estudiantes (Buenos Aires) at Central Norte",
+    "fecha": "2026-08-23T01:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "col_primera_a",
+  "slug": "col.1",
+  "conocida": true,
+  "n": 4,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Millonarios at Águilas Doradas",
+    "fecha": "2026-08-22T20:30Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Atlético Bucaramanga at Deportes Tolima",
+    "fecha": "2026-08-22T21:05Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "América de Cali at Independiente Santa Fe",
+    "fecha": "2026-08-22T23:10Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Cúcuta Deportivo at Independiente Medellín",
+    "fecha": "2026-08-23T01:15Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "usl_championship",
+  "slug": "usa.usl.1",
+  "conocida": true,
+  "n": 12,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "New Mexico United at Loudoun United FC",
+    "fecha": "2026-08-22T22:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Pittsburgh Riverhounds at Brooklyn FC",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Tampa Bay Rowdies at Detroit City FC",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Louisville City FC at Indy Eleven",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Las Vegas Lights FC at Lexington",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Miami FC at Charleston Battery",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Monterey Bay at Rhode Island FC",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Sporting JAX at Birmingham Legion FC",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "El Paso Locomotive FC at Colorado Springs Switchbacks FC",
+    "fecha": "2026-08-23T01:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Oakland Roots at San Antonio FC",
+    "fecha": "2026-08-23T01:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "FC Tulsa at Orange County SC",
+    "fecha": "2026-08-23T02:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Phoenix Rising FC at Sacramento Republic FC",
+    "fecha": "2026-08-23T03:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "ned_eerste",
+  "slug": "ned.2",
+  "conocida": true,
+  "n": 1,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Jong Ajax at NAC Breda",
+    "fecha": "2026-08-22T14:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "bra_serie_b",
+  "slug": "bra.2",
+  "conocida": true,
+  "n": 2,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Londrina at Ceará",
+    "fecha": "2026-08-22T21:00Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Goiás at Cuiabá",
+    "fecha": "2026-08-22T21:30Z",
+    "estado": "in"
+   }
+  ]
+ },
+ {
+  "clave": "per_liga1",
+  "slug": "per.1",
+  "conocida": true,
+  "n": 4,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Deportivo Moquegua at Sport Huancayo",
+    "fecha": "2026-08-22T16:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Comerciantes Unidos at UTC",
+    "fecha": "2026-08-22T18:15Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "ADT at Juan Pablo II",
+    "fecha": "2026-08-22T20:30Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Cusco FC at Deportivo Garcilaso",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "uru_primera",
+  "slug": "uru.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Juventud at Central Español Fútbol Club",
+    "fecha": "2026-08-22T14:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Defensor Sporting at Cerro Largo",
+    "fecha": "2026-08-22T18:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Peñarol at Deportivo Maldonado",
+    "fecha": "2026-08-22T21:30Z",
+    "estado": "in"
+   }
+  ]
+ },
+ {
+  "clave": "ecu_liga_pro",
+  "slug": "ecu.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Manta F.C. at Universidad Católica (Quito)",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Guayaquil City FC at Técnico Universitario",
+    "fecha": "2026-08-22T21:30Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Orense at Barcelona SC",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "slv_primera",
+  "slug": "slv.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "CD Municipal Limeño at Cacahuatique",
+    "fecha": "2026-08-22T21:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Alianza FC at Isidro Metapán",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Águila at CD FAS",
+    "fecha": "2026-08-23T02:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "bol_division",
+  "slug": "bol.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "GV San José at ABB",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Real Potosí at Aurora",
+    "fecha": "2026-08-22T21:15Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Independiente Petrolero at Nacional Potosí",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "par_division",
+  "slug": "par.1",
+  "conocida": true,
+  "n": 1,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Deportivo Recoleta at Sportivo Ameliano",
+    "fecha": "2026-08-22T19:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "crc_fpd",
+  "slug": "crc.1",
+  "conocida": true,
+  "n": 2,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Cartaginés at Escorpiones Belén",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Sporting San José at Herediano",
+    "fecha": "2026-08-23T02:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "mex_expansion",
+  "slug": "mex.2",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Alebrijes de Oaxaca at Club Jaiba Brava",
+    "fecha": "2026-08-23T01:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Leones Negros at Durango",
+    "fecha": "2026-08-23T01:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Cancún FC at Piratas",
+    "fecha": "2026-08-23T01:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "gre_super_league",
+  "slug": "gre.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Iraklis at AEK Athens",
+    "fecha": "2026-08-22T17:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Aris at Kalamata",
+    "fecha": "2026-08-22T17:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Atromitos at Olympiacos",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "rus_premier",
+  "slug": "rus.1",
+  "conocida": true,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Gazovik Orenburg at Fakel Voronezh",
+    "fecha": "2026-08-22T12:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Rostov at Akhmat Grozny",
+    "fecha": "2026-08-22T15:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Lokomotiv Moscow at CSKA Moscow",
+    "fecha": "2026-08-22T17:15Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "chi_primera",
+  "slug": "chi.1",
+  "conocida": true,
+  "n": 2,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Deportes Limache at Huachipato",
+    "fecha": "2026-08-22T21:30Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Ñublense at Universidad Católica",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "rsa_premier",
+  "slug": "rsa.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "ven_primera",
+  "slug": "ven.1",
+  "conocida": true,
+  "n": 5,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Deportivo La Guaira at Rayo Zuliano",
+    "fecha": "2026-08-22T19:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Academia Puerto Cabello at Estudiantes de Mérida",
+    "fecha": "2026-08-22T20:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "UCV FC at Zamora FC",
+    "fecha": "2026-08-22T20:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Deportivo Táchira at Metropolitanos",
+    "fecha": "2026-08-22T22:00Z",
+    "estado": "in"
+   },
+   {
+    "nombre": "Portuguesa at Monagas SC",
+    "fecha": "2026-08-22T22:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "aut_bundesliga",
+  "slug": "aut.1",
+  "conocida": true,
+  "n": 2,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "TSV Hartberg at SC Rheindorf Altach",
+    "fecha": "2026-08-22T15:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Austria Lustenau at SK Sturm Graz",
+    "fecha": "2026-08-22T17:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "aus_aleague",
+  "slug": "aus.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "libertadores",
+  "slug": "conmebol.libertadores",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "sudamericana",
+  "slug": "conmebol.sudamericana",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "eng_fa_cup",
+  "slug": "eng.fa",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "ind_isl",
+  "slug": "ind.1",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "esp_copa_rey",
+  "slug": "esp.copa_del_rey",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "afc_champions",
+  "slug": "afc.champions",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "bra_copa",
+  "slug": "bra.copa_do_brazil",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "eng_carabao",
+  "slug": "eng.league_cup",
+  "conocida": true,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(amistosos de club)",
+  "slug": "fifa.friendly.club",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(amistosos de seleccion)",
+  "slug": "fifa.friendly",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Supercopa de Europa)",
+  "slug": "uefa.super_cup",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Supercopa de Espana)",
+  "slug": "esp.super_cup",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Community Shield)",
+  "slug": "eng.charity",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Supercopa de Italia)",
+  "slug": "ita.super_cup",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Supercopa de Alemania)",
+  "slug": "ger.super_cup",
+  "conocida": false,
+  "n": 1,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Bayern Munich at Borussia Dortmund",
+    "fecha": "2026-08-22T18:30Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "(Trophee des Champions)",
+  "slug": "fra.super_cup",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Copa de Alemania)",
+  "slug": "ger.dfb_pokal",
+  "conocida": false,
+  "n": 11,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "FC Augsburg at Energie Cottbus",
+    "fecha": "2026-08-22T11:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Bayer Leverkusen at SV Wehen Wiesbaden",
+    "fecha": "2026-08-22T11:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "TSG Hoffenheim at FC Erzgebirge Aue",
+    "fecha": "2026-08-22T13:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Hannover 96 at Hemelingen",
+    "fecha": "2026-08-22T13:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Werder Bremen at Lüneburger SK Hansa",
+    "fecha": "2026-08-22T13:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "SV Elversberg at MSV Duisburg",
+    "fecha": "2026-08-22T13:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Hertha Berlin at Saarbrücken",
+    "fecha": "2026-08-22T13:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "1. FC Nürnberg at Viktoria Köln",
+    "fecha": "2026-08-22T13:30Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "RB Leipzig at Eintracht Trier",
+    "fecha": "2026-08-22T16:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Arminia Bielefeld at SG Sonnenhof Großaspach",
+    "fecha": "2026-08-22T16:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Holstein Kiel at TSV 1860 Munich",
+    "fecha": "2026-08-22T16:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "(Copa de Francia)",
+  "slug": "fra.coupe_de_france",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Copa de Italia)",
+  "slug": "ita.coppa_italia",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Copa de Portugal)",
+  "slug": "por.taca.de.portugal",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Copa de Holanda)",
+  "slug": "ned.knvb_beker",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Club World Cup)",
+  "slug": "fifa.cwc",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Suiza)",
+  "slug": "sui.1",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Polonia)",
+  "slug": "pol.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Chequia)",
+  "slug": "cze.1",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Croacia)",
+  "slug": "cro.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Serbia)",
+  "slug": "srb.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Ucrania)",
+  "slug": "ukr.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Israel)",
+  "slug": "isr.1",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Corea)",
+  "slug": "kor.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Arabia)",
+  "slug": "ksa.1",
+  "conocida": false,
+  "n": 4,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Al Ettifaq at Al Fateh",
+    "fecha": "2026-08-22T15:45Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Al Taawoun at Al Kholood",
+    "fecha": "2026-08-22T16:10Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Abha at Al Ahli",
+    "fecha": "2026-08-22T18:00Z",
+    "estado": "post"
+   },
+   {
+    "nombre": "Al Shabab at Al Khaleej",
+    "fecha": "2026-08-22T18:00Z",
+    "estado": "post"
+   }
+  ]
+ },
+ {
+  "clave": "(Catar)",
+  "slug": "qat.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(EAU)",
+  "slug": "uae.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Egipto)",
+  "slug": "egy.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Escocia League One)",
+  "slug": "sco.3",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Islandia)",
+  "slug": "isl.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Bulgaria)",
+  "slug": "bul.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Hungria)",
+  "slug": "hun.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Eslovaquia)",
+  "slug": "svk.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Eslovenia)",
+  "slug": "slo.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Chipre)",
+  "slug": "cyp.1",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Marruecos)",
+  "slug": "mar.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(Canada)",
+  "slug": "can.1",
+  "conocida": false,
+  "n": 0,
+  "error": "HTTP Error 400: Bad Request",
+  "eventos": []
+ },
+ {
+  "clave": "(USL League One)",
+  "slug": "usa.usl.l1",
+  "conocida": false,
+  "n": 8,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "New York Cosmos at Chattanooga Red Wolves",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Portland Hearts of Pine at Richmond Kickers",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Sarasota Paradise at Union Omaha",
+    "fecha": "2026-08-22T23:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Athletic Club Boise at One Knoxville",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Charlotte Independence at Forward Madison FC",
+    "fecha": "2026-08-23T00:00Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Westchester SC at Corpus Christi FC",
+    "fecha": "2026-08-23T00:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Greenville Triumph at Spokane Velocity FC",
+    "fecha": "2026-08-23T01:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "FC Naples at AV Alta FC",
+    "fecha": "2026-08-23T03:00Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "(NWSL)",
+  "slug": "usa.nwsl",
+  "conocida": false,
+  "n": 3,
+  "error": null,
+  "eventos": [
+   {
+    "nombre": "Seattle Reign FC at Kansas City Current",
+    "fecha": "2026-08-22T22:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Boston Legacy FC at North Carolina Courage",
+    "fecha": "2026-08-22T23:30Z",
+    "estado": "pre"
+   },
+   {
+    "nombre": "Denver Summit FC at Portland Thorns FC",
+    "fecha": "2026-08-23T00:45Z",
+    "estado": "pre"
+   }
+  ]
+ },
+ {
+  "clave": "(WSL)",
+  "slug": "eng.w.1",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ },
+ {
+  "clave": "(Concacaf CL)",
+  "slug": "concacaf.champions",
+  "conocida": false,
+  "n": 0,
+  "error": null,
+  "eventos": []
+ }
+]

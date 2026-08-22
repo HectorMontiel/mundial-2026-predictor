@@ -734,3 +734,257 @@ def corners_equipo(clave: str, home: str, away: str,
         return None
     return {'lambda_home': lh, 'lambda_away': la, 'dispersion': disp,
             'clave_liga': clave}
+
+
+# ---------------------------------------------------------------------------
+# v160 — TARJETAS
+#
+# La misma metodología con la que se cerraron los córners, aplicada al mercado
+# de tarjetas: estimador ataque/defensa del rival con ventana 10, y binomial
+# negativa con la razón varianza/media medida de la propia competición.
+#
+# QUÉ CUENTA UNA «TARJETA» AQUÍ: AMARILLAS **MÁS ROJAS**
+# ------------------------------------------------------
+# Esto no es un detalle de nomenclatura, es lo que decide si el EV que se
+# calcule después sirve para algo. La primera versión contaba sólo amarillas
+# —que es lo que football-data publica con más limpieza— y al cruzarla contra
+# las líneas reales de la casa apareció un sesgo sistemático:
+#
+#     línea de la casa   P(más) del modelo   P(más) del mercado   diferencia
+#         3,5                 0,565                0,622            −0,056
+#         4,5                 0,406                0,489            −0,083
+#         5,5                 0,232                0,368            −0,136
+#         6,5                 0,134                0,242            −0,108
+#
+#     centro de la casa 4,43 · lambda del modelo 4,16 · −0,27 tarjetas
+#
+# El modelo veía MENOS tarjetas que la casa, y cada vez más según subía la
+# línea — la firma exacta de estar contando una magnitud más pequeña. Y las
+# rojas valen 0,25 por partido de media (0,13 en la Premier, 0,27 en Portugal),
+# o sea casi exactamente los 0,27 que faltaban.
+#
+# Contarlas mejora TODO lo medible, no sólo el nivel:
+#
+#                              sólo amarillas   amarillas + rojas
+#     calibración por equipo       0,0141            0,0117
+#     correlación por equipo       0,146             0,150
+#     calibración del total        0,0121            0,0119
+#     correlación del total        0,107             0,110
+#
+# Queda una pregunta que estos datos no cierran y que `snapshots_tarjetas.py`
+# está acumulando para cerrarla: si la casa cuenta una segunda amarilla como
+# UNA tarjeta o como DOS. football-data suma la roja de la doble amarilla en
+# `home_red` y las dos amarillas en `home_yellow`, así que aquí cuenta como
+# tres. Cuando haya líneas liquidadas se sabrá; hasta entonces, esto es lo más
+# cerca del mercado que se puede estar con datos y no con supuestos.
+#
+# LO QUE SE MIDIÓ
+# ---------------
+# 20 competiciones con tarjetas OBSERVADAS (las de formato 'main' de
+# football-data; en las otras 55 la columna la escribió el generador sintético
+# y `stats_disponibles` ya lo distingue). Split temporal, último 30 % como
+# tramo de juicio, medias móviles desplazadas un partido — nada ve su propio
+# resultado. Error de calibración contra la frecuencia REAL en las líneas que
+# cotiza la casa:
+#
+#     POR EQUIPO (líneas 0,5 / 1,5 / 2,5 / 3,5, n = 52.648)
+#       ataque + defensa del rival, ventana 10 ....  0,0117   corr 0,150
+#       sólo lo que comete el equipo, ventana 10 ..  0,0155   corr 0,112
+#       media móvil de 5 del equipo ...............  0,0227   corr 0,098
+#       media de la competición en ese bando ......  0,0312   corr 0,101
+#
+#     TOTAL DEL PARTIDO (líneas 2,5 / 3,5 / 4,5 / 5,5, n = 26.324)
+#       ataque + defensa del rival, binneg ........  0,0119   corr 0,110
+#       ataque + defensa del rival, Poisson .......  0,0134   corr 0,110
+#       media de la competición ...................  0,0488   corr 0,003
+#
+# DOS DIFERENCIAS CON LOS CÓRNERS QUE HAY QUE TENER PRESENTES
+# -----------------------------------------------------------
+# 1) **En el TOTAL, aquí sí gana el estimador del partido.** En córners la
+#    media de la competición era imbatible (su parte variable tenía correlación
+#    −0,0012 con el total real) y por eso `corners_tarjeta` la usa para el
+#    total. En tarjetas la media de la liga tiene correlación 0,003 —o sea,
+#    ninguna— y el estimador ataque/defensa llega a 0,110 y cuadruplica su
+#    calibración. La indisciplina SÍ es un rasgo estable del equipo; sacar
+#    córners depende del rival tanto como de uno.
+#
+# 2) **La binomial negativa aporta, pero por las ROJAS.** Contando sólo
+#    amarillas la razón varianza/media salía 1,0 o por debajo en 19 de las 20
+#    competiciones —un conteo sin sobredispersión, donde la binomial negativa
+#    degenera en Poisson y no cambia nada—. Sumando las rojas sube a 1,35 en
+#    Turquía, 1,37 en Portugal, 1,28 en la Eredivisie: una roja es un suceso
+#    raro que arrastra más tarjetas detrás, y eso engorda la cola justo donde
+#    están las líneas altas. Con eso, binneg gana a Poisson en el total
+#    (0,0119 contra 0,0134). Los córners llegaban a 1,58 por equipo, así que
+#    esto sigue siendo un racimo más flojo que aquél, pero ya no es cero.
+#
+# El detalle está en `_v160_tarjetas_estimadores.py` (sólo amarillas),
+# `_v160_tarjetas_con_rojas.py` (lo adoptado) y `_v160_contra_mercado.py`.
+# ---------------------------------------------------------------------------
+
+_CACHE_DISP_TJ: Dict[str, Optional[float]] = {}
+_CACHE_DISP_TJ_EQ: Dict[str, Optional[float]] = {}
+
+
+def _tarjetas_de(d, bando: str):
+    """
+    Las tarjetas de un bando: amarillas MÁS rojas.
+
+    Una fila a la que le falte cualquiera de las dos columnas sale `NaN` y no
+    se cuenta, en vez de tratar la roja ausente como un cero. Un cero
+    inventado aquí bajaría la media de la competición sin que se notara.
+    """
+    return (pd.to_numeric(d[bando + '_yellow'], errors='coerce')
+            + pd.to_numeric(d[bando + '_red'], errors='coerce'))
+
+
+def _serie_tarjetas(clave: str):
+    """Las tarjetas de los dos bandos, si la competición las publica."""
+    if not stats_disponibles(clave).get('tarjetas'):
+        return None, None
+    d = _historico(clave)
+    if d is None or getattr(d, 'empty', True):
+        return None, None
+    if 'home_red' not in d.columns or 'away_red' not in d.columns:
+        return None, None
+    return d, (_tarjetas_de(d, 'home'), _tarjetas_de(d, 'away'))
+
+
+def dispersion_tarjetas_liga(clave: str) -> Optional[float]:
+    """
+    Razón varianza/media del TOTAL de tarjetas de la competición.
+
+    Medida contando amarillas + rojas: entre 1,00 y 1,37 según la liga, contra
+    el 1,16 de los córners. Se corta en 1,0 por abajo —por debajo la binomial
+    negativa no existe— y ahí `prob_mas_de` se comporta como Poisson, que es lo
+    correcto: el conteo no está sobredisperso y forzar una cola más gorda sería
+    inventarla.
+
+    `None` si la competición no publica tarjetas observadas.
+    """
+    if clave in _CACHE_DISP_TJ:
+        return _CACHE_DISP_TJ[clave]
+    valor = None
+    try:
+        d, cols = _serie_tarjetas(clave)
+        if cols is not None:
+            tot = (cols[0] + cols[1]).dropna()
+            if len(tot) >= 400:
+                m, v = float(tot.mean()), float(tot.var())
+                if m > 0:
+                    valor = round(max(v / m, 1.0), 4)
+    except Exception as e:
+        logger.debug('[rendimiento] dispersión de tarjetas de %s: %s', clave, e)
+    _CACHE_DISP_TJ[clave] = valor
+    return valor
+
+
+def dispersion_tarjetas_equipo(clave: str) -> Optional[float]:
+    """
+    Razón varianza/media de las tarjetas DE UN EQUIPO en la competición.
+
+    Más baja que la del total —1,12 en Turquía contra 1,35, por ejemplo—, que
+    es lo contrario de lo que pasaba en córners (1,58 por equipo contra 1,16 en
+    el total). Tiene una explicación y conviene tenerla presente al leer los
+    dos módulos: el racimo de córners ocurre DENTRO del ataque de un equipo, y
+    el de tarjetas ocurre ENTRE los dos —una entrada dura trae la represalia—,
+    así que sumar los dos bandos concentra el efecto en vez de diluirlo.
+    """
+    if clave in _CACHE_DISP_TJ_EQ:
+        return _CACHE_DISP_TJ_EQ[clave]
+    valor = None
+    try:
+        d, cols = _serie_tarjetas(clave)
+        if cols is not None:
+            serie = pd.concat([cols[0], cols[1]]).dropna()
+            if len(serie) >= 800:
+                m, v = float(serie.mean()), float(serie.var())
+                if m > 0:
+                    valor = round(max(v / m, 1.0), 4)
+    except Exception as e:
+        logger.debug('[rendimiento] dispersión de tarjetas por equipo de %s: %s',
+                     clave, e)
+    _CACHE_DISP_TJ_EQ[clave] = valor
+    return valor
+
+
+def lambda_tarjetas_equipo(clave: str, equipo: str, rival: str,
+                           en_casa: bool, n: int = 10) -> Optional[float]:
+    """
+    Tarjetas esperadas de `equipo` contra `rival`, jugando en su bando.
+
+    Mismo estimador que ganó en córners y por la misma razón: lo que el equipo
+    RECIBE en su bando promediado con lo que el rival PROVOCA en el bando
+    contrario. Las dos partes hacen falta —quitar cualquiera empeora la
+    calibración de 0,0117 a 0,0155, medido— porque una tarjeta la saca el
+    árbitro por algo que hacen los dos: uno que va a destiempo y otro que
+    provoca.
+
+    LAS DOS LECTURAS USAN LA MISMA COLUMNA, Y NO ES UNA ERRATA. Es el mismo
+    caso que en `lambda_corners_equipo`, escrito aquí otra vez porque la
+    primera versión de aquélla se equivocó justo en esto: si el equipo juega en
+    casa, las tarjetas que él ve son las del bando local, y las que el rival
+    provoca cuando visita también son las del bando local —las del local de
+    aquellos partidos—. Lo que cambia entre las dos no es la columna, es POR
+    QUIÉN se filtra. Poner la columna contraria devuelve las dos lambdas del
+    partido IGUALES, que es la señal que delató el fallo entonces y la que
+    comprueba `test_tarjetas_lambdas_distintas` ahora.
+
+    Ventana 10, como en córners: cinco partidos de un equipo son una muestra de
+    cinco y su propio ruido tapa la señal (la móvil de 5 midió 0,0227 contra
+    0,0117 de esto).
+    """
+    d, _ = _serie_tarjetas(clave)
+    if d is None:
+        return None
+    try:
+        col_eq = 'home_team' if en_casa else 'away_team'
+        col_riv = 'away_team' if en_casa else 'home_team'
+        bando = 'home' if en_casa else 'away'
+        serie = _tarjetas_de(d, bando)
+        recibe = serie[d[col_eq] == equipo].dropna()
+        provoca = serie[d[col_riv] == rival].dropna()
+        if len(recibe) < MIN_PARTIDOS or len(provoca) < MIN_PARTIDOS:
+            return None
+        return round((float(recibe.tail(n).mean())
+                      + float(provoca.tail(n).mean())) / 2.0, 3)
+    except Exception as e:
+        logger.debug('[rendimiento] lambda de tarjetas %s: %s', clave, e)
+        return None
+
+
+def tarjetas_equipo(clave: str, home: str, away: str, n: int = 10,
+                    factor_arbitro: Optional[float] = None) -> Optional[Dict]:
+    """
+    Las tarjetas esperadas de los dos equipos y del partido, con la dispersión
+    con la que convertirlas en probabilidades.
+
+    `factor_arbitro` es el ajuste por el árbitro designado, ya encogido, tal y
+    como lo devuelve `arbitro_partido.factor()`. Multiplica a los dos equipos
+    por igual: lo que el árbitro cambia es cuánto se pita en el partido, y
+    repartirlo asimétricamente exigiría un sesgo local medido que aquí no está
+    (el `sesgo_local` de `referees.json` es de la tabla mundialista, otra cosa).
+    Con `None` no se toca nada y sale el estimador desnudo.
+
+    `None` cuando la competición no publica tarjetas observadas — 55 de las 75.
+    """
+    disp_eq = dispersion_tarjetas_equipo(clave)
+    disp_tot = dispersion_tarjetas_liga(clave)
+    if disp_eq is None or disp_tot is None:
+        return None
+    lh = lambda_tarjetas_equipo(clave, home, away, True, n)
+    la = lambda_tarjetas_equipo(clave, away, home, False, n)
+    if lh is None or la is None:
+        return None
+    f = 1.0
+    if factor_arbitro is not None:
+        try:
+            f = float(factor_arbitro)
+        except (TypeError, ValueError):
+            f = 1.0
+        if not (0.5 <= f <= 1.6):    # fuera de rango no se aplica, se ignora
+            f = 1.0
+    return {'lambda_home': round(lh * f, 3), 'lambda_away': round(la * f, 3),
+            'lambda_total': round((lh + la) * f, 3),
+            'dispersion': disp_eq, 'dispersion_total': disp_tot,
+            'factor_arbitro': round(f, 4), 'clave_liga': clave}

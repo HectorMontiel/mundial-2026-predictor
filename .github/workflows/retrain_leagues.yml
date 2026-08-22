@@ -263,12 +263,32 @@ jobs:
         run: |
           python predicciones_dia.py --dias 3 || echo "::warning::precálculo con avisos"
 
+      # v160 — EL ÁRBITRO DEL DÍA, Y LAS LÍNEAS DE TARJETAS.
+      #
+      # Va ANTES de la captura de tarjetas y en este orden a propósito: la
+      # lección de la v153 fue que lo barato y valioso no puede ir detrás de lo
+      # caro y prescindible, porque el día que el job se pase de tiempo se
+      # pierde justo lo que no se puede recuperar. Un árbitro designado que no
+      # se guarda hoy ya no se puede recuperar mañana: FotMob lo sustituye por
+      # el que efectivamente pitó.
+      #
+      # ESPN no vale para esto y está medido: da el árbitro en 89,8 % de los
+      # partidos JUGADOS y en 0 de 41 de los que faltan por jugar. FotMob sí lo
+      # publica antes, con sus amarillas por partido y la media de su
+      # competición. Coste medido: 48 fixtures, 3 índices de día y 48 detalles
+      # en unos 20 s.
+      - name: Precalcular el árbitro designado de cada partido
+        continue-on-error: true
+        run: |
+          python arbitro_partido.py --dias 2 || echo "::warning::árbitros con avisos"
+
       - name: Guardar históricos y estado (antes de lo lento)
         run: |
           git config user.name  "retrain-bot"
           git config user.email "actions@github.com"
           git add -A historico_*.csv team_stats_*.json barrido_ligas.json 2>/dev/null || true
           git add -A predicciones_dia.json 2>/dev/null || true
+          git add -A arbitros_dia.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Sin cambios en históricos (ligas en receso). Nada que guardar."
           else
@@ -355,6 +375,16 @@ jobs:
         continue-on-error: true
         run: |
           python snapshots_corners.py --dias 2 || echo "::warning::córners con avisos"
+
+      # v160 — igual que los córners, y por lo mismo: la probabilidad de
+      # tarjetas está calibrada (0,0119 en el total, 0,0117 por equipo contra
+      # la frecuencia real) pero no hay histórico de líneas con el que saber si
+      # su EV gana. Esto lo empieza a construir. Medido: 2.010 filas de 48
+      # partidos en 25 s.
+      - name: Fotografiar las líneas de tarjetas
+        continue-on-error: true
+        run: |
+          python snapshots_tarjetas.py --dias 2 || echo "::warning::tarjetas con avisos"
 
       # v95 — EL CATÁLOGO DE TENIS CRECE SOLO.
       #
@@ -443,6 +473,11 @@ jobs:
           # se commitea es `odds_snapshots.csv`, que contiene lo único que no
           # se puede reconstruir (la línea antes del partido).
           git add -A corners_snapshots.csv 2>/dev/null || true
+          # v160 — lo mismo para tarjetas, y el árbitro designado del día.
+          # `arbitros_dia.json` NO es regenerable: FotMob sustituye al
+          # designado por el que efectivamente pitó en cuanto el partido
+          # acaba, así que la foto de hoy no se puede recuperar mañana.
+          git add -A tarjetas_snapshots.csv arbitros_dia.json 2>/dev/null || true
           git add -A odds_snapshots.csv calibracion_mercado.json umbrales_capa1.json \
                      _v75_import_odds.json _v75_snapshots.json playdoit_cobertura.json cuotas_kbo_cierre.csv 2>/dev/null || true
           # v123 — el perfil de juegos del tenis, que la ficha del partido lee

@@ -1005,3 +1005,207 @@ prediga la media de la competición —ahora la probabilidad está calibrada a
 0,4-0,6 puntos de la frecuencia real— sino que **sigue sin haber histórico de
 LÍNEAS de córners** con el que comprobar si ese EV gana dinero. Es una señal
 inmediata, no una apuesta validada, y así se etiqueta.
+
+## 11. Tarjetas: la misma metodología, y por qué aquí sí cambia el total
+
+Los córners cerraron en la v159 con dos estimadores calibrados y un techo
+medido. Esta sección aplica lo mismo a tarjetas, y el resultado NO es el mismo
+en tres puntos que conviene tener presentes antes de tocar nada.
+
+### 11.1 Qué cuenta una «tarjeta»: amarillas MÁS rojas
+
+La primera versión contó sólo amarillas, que es lo que football-data publica
+con más limpieza y lo que ya leía `forma()`. Al cruzarla contra las líneas
+REALES de la casa —36 partidos capturados por `snapshots_tarjetas.py`, 14 con
+nombres que casan con el histórico— apareció un sesgo sistemático:
+
+| línea de la casa | P(más) del modelo | P(más) del mercado | diferencia |
+|---|---|---|---|
+| 3,5 | 0,565 | 0,622 | −0,056 |
+| 4,5 | 0,406 | 0,489 | −0,083 |
+| 5,5 | 0,232 | 0,368 | −0,136 |
+| 6,5 | 0,134 | 0,242 | −0,108 |
+
+El modelo veía **menos** tarjetas que la casa, y **cada vez menos según subía
+la línea**. Eso no es desacuerdo con el mercado: es la firma de estar contando
+una magnitud más pequeña. Un desacuerdo real sería ruidoso y sin pendiente.
+
+Las rojas valen **0,25 tarjetas por partido** de media (0,13 en la Premier,
+0,27 en Portugal), o sea casi exactamente los 0,27 que separaban el centro del
+modelo (4,16) del centro de la casa (4,43). Sumándolas, el centro pasó a 4,36
+y el sesgo medio de −0,080 a −0,049.
+
+**Y no es un apaño para parecerse al mercado.** Contra el resultado REAL, que
+es contra lo que se calibra en este proyecto, contar rojas mejora todo:
+
+| | sólo amarillas | amarillas + rojas |
+|---|---|---|
+| calibración por equipo | 0,0141 | **0,0117** |
+| correlación por equipo | 0,146 | **0,150** |
+| calibración del total | 0,0121 | **0,0119** |
+| correlación del total | 0,107 | **0,110** |
+
+Queda una pregunta abierta que estos datos no cierran: **si la casa cuenta una
+segunda amarilla como una tarjeta o como dos**. football-data suma la roja de
+la doble amarilla en `home_red` y las dos amarillas en `home_yellow`, así que
+aquí cuenta como tres. El residuo de −0,10 que sigue habiendo en la línea 5,5
+puede ser eso, o puede ser ruido de n=14. `tarjetas_snapshots.csv` lo cerrará
+cuando haya líneas liquidadas contra resultados; hasta entonces se dice.
+
+### 11.2 El estimador: el mismo que ganó en córners
+
+Medido sobre **52.648 equipos-partido** y **26.324 partidos** de juicio en 20
+competiciones, split temporal y medias móviles desplazadas un partido:
+
+**Por equipo** (líneas 0,5 / 1,5 / 2,5 / 3,5)
+
+| estimador | error de calibración | correlación |
+|---|---|---|
+| **ataque + defensa del rival, ventana 10** | **0,0117** | **0,150** |
+| sólo lo que recibe el equipo, ventana 10 | 0,0155 | 0,112 |
+| media móvil de 5 del equipo | 0,0227 | 0,098 |
+| media de la competición en ese bando | 0,0312 | 0,101 |
+
+**Total del partido** (líneas 2,5 / 3,5 / 4,5 / 5,5)
+
+| estimador | distribución | error | correlación |
+|---|---|---|---|
+| **ataque + defensa del rival** | **binomial negativa** | **0,0119** | **0,110** |
+| ataque + defensa del rival | Poisson | 0,0134 | 0,110 |
+| media de la competición | binomial negativa | 0,0488 | 0,003 |
+
+### 11.3 Las dos diferencias con córners
+
+**1. En el TOTAL, aquí sí gana el estimador del partido.** En córners la media
+de la competición era imbatible: su parte variable tenía correlación −0,0012
+con el total real (§10.7), y por eso `corners_tarjeta` la usa para el total. En
+tarjetas la media de la liga tiene correlación **0,003** —o sea ninguna— y el
+estimador ataque/defensa llega a 0,110 y **cuadruplica su calibración**. La
+razón: la indisciplina es un rasgo estable del equipo; sacar córners depende
+del rival tanto como de uno mismo.
+
+**2. La binomial negativa aporta, pero por las ROJAS.** Contando sólo amarillas
+la razón varianza/media salía 1,0 o por debajo en **19 de las 20**
+competiciones: un conteo sin sobredispersión, donde la binomial negativa
+degenera en Poisson y no cambia nada. Sumando las rojas sube a 1,35 en Turquía,
+1,37 en Portugal, 1,28 en la Eredivisie — una roja es un suceso raro que
+arrastra más tarjetas detrás, y eso engorda la cola justo donde están las
+líneas altas. Con eso, binneg gana a Poisson en el total (0,0119 contra
+0,0134).
+
+Y al revés que en córners: **la dispersión por equipo es MENOR que la del
+total** (1,12 contra 1,35 en Turquía), cuando en córners era mayor (1,58
+contra 1,16). Tiene explicación: el racimo de córners ocurre dentro del ataque
+de un equipo, y el de tarjetas ocurre ENTRE los dos —una entrada dura trae la
+represalia—, así que sumar los bandos concentra el efecto en vez de diluirlo.
+
+### 11.4 El árbitro: sí es señal, pero sólo encogido
+
+#### ESPN no sirve, y se comprobó antes de buscar otra fuente
+
+ESPN publica el árbitro en `summary` → `gameInfo.officials`. Medido el
+2026-08-22 sobre 139 eventos de las 20 competiciones con tarjetas observadas,
+en una ventana de ±6 días:
+
+| estado | eventos | con árbitro | |
+|---|---|---|---|
+| ya jugados (`post`) | 98 | 88 | 89,8 % |
+| por jugar (`pre`) | 41 | **0** | **0,0 %** |
+
+Cero de cuarenta y uno no es cobertura floja: **el campo no se rellena hasta que
+el partido empieza**. Sirve para reconstruir el histórico de las 13
+competiciones cuya columna `referee` viene vacía; no sirve para apostar.
+
+#### FotMob sí, y con el perfil puesto
+
+    /api/data/matches?date=YYYYMMDD   → índice del día (405 partidos, 1 petición)
+    /api/data/matchDetails?matchId=N  → content.matchFacts.infoBox.Referee
+
+Verificado sobre partidos con `started: False`. El bloque `Referee` trae nombre,
+partidos arbitrados, amarillas por partido **y la media de su competición** —
+que es lo que hace esto sólido: el ajuste es una RAZÓN, adimensional, así que
+da igual que FotMob cuente con otro criterio o con otra ventana temporal.
+
+#### Cuánto aporta
+
+No se dio por supuesto. Se midió con las **7 competiciones cuyo histórico trae
+quién pitó** (las inglesas y escocesas de football-data; las otras 13 tienen la
+columna vacía). Walk-forward causal, n = 11.375 partidos de juicio:
+
+| | Brier | correlación |
+|---|---|---|
+| sin árbitro | 0,20500 | 0,103 |
+| **con árbitro, K = 60** | **0,20344** | **0,133** |
+
+Y mejora en **las seis** competiciones con muestra suficiente, ninguna en
+contra: premier +0,00011 · championship +0,00295 · league one +0,00141 ·
+league two +0,00165 · national +0,00194 · sco premiership +0,00146.
+
+La ganancia de Brier es pequeña —0,0016— y conviene decirlo así. La de
+correlación no lo es: 0,103 → 0,133 es casi un tercio más de señal, y el techo
+medido para tarjetas es 0,193 (§10.7), así que se come una parte apreciable de
+lo que quedaba.
+
+#### Por qué encoger, y por qué tanto
+
+La razón cruda del árbitro es ruido casi puro cuando lleva pocos partidos, y
+aplicarla entera **empeora** la calibración aunque mejore la correlación:
+
+| K | error de calibración | correlación |
+|---|---|---|
+| 0 | 0,0371 | 0,140 |
+| 10 | 0,0214 | 0,150 |
+| 20 | 0,0161 | 0,147 |
+| 40 | 0,0131 | 0,141 |
+| **60** | **0,0120** | **0,133** |
+| 200 | 0,0114 | 0,125 |
+
+Con K=60 un árbitro de 45 partidos aporta 45/(45+60) = 43 % de su desviación
+observada. Subir más el K sigue mejorando la calibración pero se lleva la
+correlación por delante; 60 es donde el Brier toca fondo.
+
+### 11.5 Qué hace hoy el sistema
+
+- `rendimiento_equipos.tarjetas_equipo` devuelve las dos lambdas y el total,
+  con las dos dispersiones medidas de la competición.
+- `arbitro_partido` precalcula el árbitro designado del día en
+  `arbitros_dia.json` (lo corre el bot, **antes** del guardado temprano: un
+  designado que no se guarda hoy no se recupera mañana, porque FotMob lo
+  sustituye por el que efectivamente pitó).
+- La tarjeta del Modo Modelo pinta total, local y visitante con su apuesta más
+  probable y su probabilidad, más la línea del árbitro. **En ámbar.**
+- `snapshots_tarjetas.py` acumula las líneas de la casa.
+
+Cobertura medida el 2026-08-22: 48 fixtures, **48 emparejados** con FotMob y
+**35 con árbitro publicado**. Los 13 restantes son partidos a dos días vista
+sin designar todavía; ésos salen sin ajuste y la tarjeta lo dice.
+
+### 11.6 Por qué sigue en ÁMBAR
+
+Verde en esta aplicación significa «canal con percentil 5 positivo medido». La
+probabilidad de tarjetas está calibrada contra la frecuencia real, pero **no
+hay histórico de líneas** con el que saber si su EV gana dinero — exactamente
+la misma situación que los córners en la v159. `tarjetas_snapshots.csv` lo
+empieza a acumular hoy: 2.010 filas de 48 partidos en la primera captura.
+Cuando haya volumen para liquidar, se mide el p5 y entonces —y sólo entonces—
+podrá dejar de estar marcado.
+
+### 11.7 El filtro de familias, y las tres pasadas que costó
+
+La casa cotiza **4.105 familias distintas** en tres partidos, y las de JUGADOR
+entran por el apellido. Sin filtros suficientes pasaban 358 donde debían pasar
+40:
+
+1. **Paréntesis fuera antes de buscar la palabra** — «Primer goleador y
+   marcador exacto (Diego Alexander Gomez **Amarilla**)».
+2. **Código de equipo entre paréntesis = jugador** — el apellido no siempre va
+   entre paréntesis: «Tackleadas - Diego Alexander Gomez Amarilla **(BHA)**».
+3. **Límite de palabra, y palabras débiles con forma de mercado** —
+   «Multigoleadores Sergi **Card**ona Bermadez» entraba porque «card» está
+   dentro de «Cardona».
+4. **Nada que diga «jugador»** — «Jugador recibe una tarjeta» sí es de
+   tarjetas, pero no hay histórico por jugador con el que liquidarla nunca.
+
+La lección es la de siempre en este proyecto: un filtro no se valida con los
+casos que a uno se le ocurren, se valida pidiendo el tablero entero y mirando
+qué pasa y qué no.

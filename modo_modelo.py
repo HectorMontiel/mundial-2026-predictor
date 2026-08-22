@@ -477,7 +477,151 @@ def _bloque_corners_html(ck: Dict) -> str:
                f['prob'] * 100))
     return ''.join(trozos)
 
-def _bloque_fisico(rend: Dict, disp: Dict, con_corners: bool = True) -> str:
+
+
+# ---------------------------------------------------------------------------
+# v160 — LAS TARJETAS, CON SU PROBABILIDAD Y CON EL ÁRBITRO
+# ---------------------------------------------------------------------------
+# Hasta aquí la tarjeta enseñaba «Rangers 1.6 · St Mirren 2.2 (amarillas por
+# partido)»: dos medias de los últimos cinco partidos, sin línea y sin
+# probabilidad. Ahora enseña lo mismo que los córners —total, local y visitante,
+# cada uno con su apuesta más probable y su probabilidad calibrada— más el
+# árbitro designado, que en tarjetas es la tercera pata del asunto.
+#
+# UNA DIFERENCIA CON LOS CÓRNERS QUE SE VE EN PANTALLA
+# ----------------------------------------------------
+# El total NO es la media de la competición, como sí lo es en córners. Aquí el
+# estimador del partido gana por cuatro veces (calibración 0,0119 contra 0,0488)
+# porque la indisciplina es un rasgo del equipo y sacar córners no lo es tanto.
+# Así que el «Total» de esta sección es la suma de las dos lambdas, y cambia de
+# partido en partido — que es justo lo que en córners no se podía prometer.
+#
+# LO QUE SE CUENTA ES AMARILLAS **MÁS ROJAS**, Y ESO SE MIDIÓ CONTRA LA CASA
+# --------------------------------------------------------------------------
+# La primera versión contaba sólo amarillas y quedaba 0,27 tarjetas por debajo
+# del centro de la línea real de la casa, con la diferencia creciendo según
+# subía la línea. Sumando las rojas —0,25 por partido de media— el centro pasó
+# de 4,16 a 4,36 contra los 4,43 de la casa, y la calibración contra el
+# resultado REAL mejoró de 0,0141 a 0,0117 por equipo. O sea que no es un
+# apaño para parecerse al mercado: acierta más contra lo que de verdad pasó.
+# El detalle está en `rendimiento_equipos`, sección v160.
+#
+# EL ÁRBITRO SE PINTA SIEMPRE QUE SE SEPA, Y CUANDO NO, SE DICE
+# -------------------------------------------------------------
+# El factor sale de `arbitro_partido`, que lo precalcula el bot en
+# `arbitros_dia.json`. Si el fichero no está —el bot no ha corrido— o FotMob no
+# ha publicado todavía la designación —pasa con los partidos a dos días vista,
+# 13 de 48 en la primera medición— el factor es 1,0 y la línea del árbitro dice
+# que no se sabe. No se rellena con la media: un hueco se ve, un relleno no.
+#
+# SIGUE EN ÁMBAR, Y NO ES UN DESCUIDO
+# -----------------------------------
+# Verde en esta aplicación significa «canal con percentil 5 positivo medido».
+# Para tarjetas todavía no hay histórico de líneas con el que medirlo:
+# `snapshots_tarjetas.py` lo empieza a acumular hoy, igual que
+# `snapshots_corners.py` hizo con los córners en la v159. Hasta que ese
+# histórico dé para liquidar, esto es una probabilidad mejor calibrada, no una
+# ventaja de precio demostrada.
+def tarjetas_tarjeta(pick: Dict) -> Optional[Dict]:
+    """
+    Total y por equipo de tarjetas —amarillas más rojas—, cada uno con su
+    apuesta más probable.
+
+    `None` cuando la competición no publica tarjetas observadas — 55 de las 75.
+    En ésas la columna existe pero la escribió el generador sintético, y
+    `stats_disponibles` lo distingue reproduciéndolo, no con una lista a mano.
+    """
+    clave = str(pick.get('clave_liga') or '')
+    if not clave or str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+        return None
+    h, a = _equipos(pick)
+    if not h or not a:
+        return None
+
+    perfil, f_arb = None, 1.0
+    try:
+        import arbitro_partido
+        fecha = str(pick.get('fecha') or '')[:10]
+        if fecha:
+            perfil = arbitro_partido.buscar(fecha, h, a)
+            f_arb = arbitro_partido.factor_de(fecha, h, a)
+    except Exception as e:
+        logger.debug('[modo_modelo] árbitro de %s: %s', clave, e)
+
+    try:
+        import rendimiento_equipos as rq
+        tj = rq.tarjetas_equipo(clave, h, a, factor_arbitro=f_arb)
+    except Exception as e:
+        logger.debug('[modo_modelo] tarjetas de %s: %s', clave, e)
+        return None
+    if tj is None:
+        return None
+
+    filas = []
+    lado = _mejor_lado(tj['lambda_total'], _linea_cercana(tj['lambda_total']),
+                       tj['dispersion_total'])
+    if lado:
+        filas.append({'etiqueta': 'Total', 'media': float(tj['lambda_total']),
+                      **lado})
+    for nombre, media in (('Local', tj['lambda_home']),
+                          ('Visita', tj['lambda_away'])):
+        lado = _mejor_lado(media, _linea_cercana(media), tj['dispersion'])
+        if lado:
+            filas.append({'etiqueta': nombre, 'media': float(media), **lado})
+    if not filas:
+        return None
+    mejor = max(filas, key=lambda f: f['prob'])
+    return {'filas': filas, 'mejor': mejor, 'arbitro': perfil,
+            'factor_arbitro': tj.get('factor_arbitro', 1.0)}
+
+
+def _bloque_tarjetas_html(tj: Optional[Dict]) -> str:
+    """La sección compacta, con la más probable resaltada en ámbar."""
+    if not tj:
+        return ''
+    mejor = tj['mejor']
+    trozos = ['<div class="mm-ck-tit">🟨 <b>Tarjetas</b> '
+              '<span class="mm-ck-badge">🟡 destacado: %s %s &nbsp;%.0f %%'
+              '</span></div>'
+              % (mejor['etiqueta'], mejor['texto'], mejor['prob'] * 100)]
+    for f in tj['filas']:
+        resalta = ' mm-ck-mejor' if f is mejor else ''
+        trozos.append(
+            '<div class="mm-ck-fila%s">%s <b>%.1f</b> · %s '
+            '<span class="mm-ck-pct">%.0f %%</span></div>'
+            % (resalta, f['etiqueta'], f['media'], f['texto'],
+               f['prob'] * 100))
+    arb = tj.get('arbitro') or {}
+    if arb.get('nombre'):
+        factor = float(tj.get('factor_arbitro') or 1.0)
+        # El signo se dice en palabras además de en número: «×1,04» obliga a
+        # recordar qué es 1 y en una lista de cuarenta tarjetas nadie lo hace.
+        if factor >= 1.015:
+            sentido = 'tira a más'
+        elif factor <= 0.985:
+            sentido = 'tira a menos'
+        else:
+            sentido = 'en la media'
+        # Las cifras del árbitro son AMARILLAS —es lo que publica FotMob— y las
+        # de arriba son amarillas más rojas. No se mezclan nunca porque lo que
+        # se usa del árbitro es una RAZÓN contra la media de su propia
+        # competición, que es adimensional: da igual con qué criterio se
+        # cuenten las dos mientras se cuenten igual. Se rotula «amarillas» para
+        # que nadie sume esta cifra con las de arriba.
+        trozos.append(
+            '<div class="mm-ck-fila mm-arb">👤 %s · %.2f amarillas por partido '
+            'contra %.2f de la competición en %s partidos · %s (×%.3f)</div>'
+            % (arb.get('nombre'), arb.get('amarillas_por_partido') or 0.0,
+               arb.get('media_competicion') or 0.0, arb.get('partidos'),
+               sentido, factor))
+    else:
+        trozos.append('<div class="mm-ck-fila mm-nd">👤 Árbitro sin designar '
+                      'todavía · las tarjetas salen sin ajuste arbitral</div>')
+    return ''.join(trozos)
+
+
+def _bloque_fisico(rend: Dict, disp: Dict, con_corners: bool = True,
+                   con_tarjetas: bool = True) -> str:
     """
     Córners y tarjetas: lo que los dos equipos hacen DE VERDAD.
 
@@ -512,7 +656,11 @@ def _bloque_fisico(rend: Dict, disp: Dict, con_corners: bool = True) -> str:
         filas.append('<div class="mm-fis mm-nd">⛳ Córners · '
                      'datos no disponibles en esta competición</div>')
 
-    if disp.get('tarjetas') and fh.get('amarillas') is not None \
+    if not con_tarjetas:
+        # v160: la sección de arriba ya las pintó con su probabilidad y con el
+        # árbitro. Repetir aquí las medias de los últimos cinco no añade nada.
+        pass
+    elif disp.get('tarjetas') and fh.get('amarillas') is not None \
             and fa.get('amarillas') is not None:
         filas.append(
             '<div class="mm-fis">🟨 <b>Tarjetas</b> · %s %.1f · %s %.1f '
@@ -547,6 +695,7 @@ CSS = """
 .mm-ck-fila { font-size:.79rem; line-height:1.65; padding-left:.5rem; }
 .mm-ck-mejor { font-weight:700; }
 .mm-ck-pct { opacity:.85; }
+.mm-arb { opacity:.85; font-style:italic; }
 </style>
 """
 
@@ -622,6 +771,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         # desaparece en vez de rellenarse con la estimación del xG sintético.
         _ck_tarjeta = corners_tarjeta(pick)
         piezas.append(_bloque_corners_html(_ck_tarjeta))
+        # v160 — y las tarjetas justo debajo, con la misma forma. Sólo en las 20
+        # competiciones que las publican observadas; en las otras 55 la sección
+        # desaparece, igual que la de córners.
+        _tj_tarjeta = tarjetas_tarjeta(pick)
+        piezas.append(_bloque_tarjetas_html(_tj_tarjeta))
 
         rend = None
         if str(pick.get('deporte') or '') != 'Tenis':
@@ -629,7 +783,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         if rend:
             disp = rend.get('disponible') or {}
             piezas.append(_bloque_fisico(rend, disp,
-                                        con_corners=not _ck_tarjeta))
+                                        con_corners=not _ck_tarjeta,
+                                        con_tarjetas=not _tj_tarjeta))
             lineas = [x for x in (_mini_forma(rend.get('forma_home'), disp),
                                   _mini_forma(rend.get('forma_away'), disp))
                       if x]
