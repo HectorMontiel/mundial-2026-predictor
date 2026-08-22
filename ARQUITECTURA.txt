@@ -1,0 +1,713 @@
+================================================================================
+ARQUITECTURA DEL SISTEMA — mundial-2026-predictor
+Documento técnico para alguien sin acceso al código
+Estado verificado el 2026-08-22, commit 3f45230 (v152)
+================================================================================
+
+QUÉ ES
+------
+Aplicación Streamlit de análisis de apuestas deportivas. Cubre ~50 competiciones
+de fútbol más MLB, NBA, KBO, tenis (ATP/WTA) y NFL. Descarga partidos y cuotas
+de varias fuentes, predice con modelos entrenados por competición, compara el
+precio de tu casa contra el consenso del mercado, y reparte lo que encuentra en
+secciones según lo que cada canal tenga MEDIDO.
+
+La tesis del sistema, y explica casi todas sus decisiones de diseño: el modelo
+NO bate al mercado (apostar su probabilidad pierde entre 4,66 % y 6,52 % sobre
+37.158 apuestas), pero comprar al mejor precio SÍ gana. Por eso la selección de
+apuestas se hace por ventaja de precio y no por valor esperado del modelo.
+
+
+================================================================================
+1. ESTRUCTURA DE CARPETAS Y MÓDULOS
+================================================================================
+
+Todo el código vive en la RAÍZ del repositorio (no hay paquete `src/`). Las
+únicas subcarpetas de código son `engines/` (motores de deportes que no son
+fútbol) y `.github/workflows/` (automatización).
+
+--------------------------------------------------------------------------------
+1.1 EL NÚCLEO — cinco módulos que sostienen el sistema
+--------------------------------------------------------------------------------
+
+alpha_finder.py  (~3.400 líneas)  — EL BARRIDO DEL DÍA
+    Recorre todas las competiciones disponibles y produce, en una sola pasada,
+    la lista de partidos del día con su pronóstico y sus picks. Tiene ramas
+    paralelas por deporte (fútbol, MLB, tenis, NBA, KBO, NFL).
+    Conceptos propios que hay que conocer para leer el resto:
+      · `_solo_hoy`   — puerta que decide qué partidos pueden producir PICKS.
+                        Razona en el día de Ciudad de México.
+      · `_en_ventana` — ventana de 3 días en UTC para el análisis.
+      · `avisos_sin_modelo()` — avisa si el relleno de mercado está tapando un
+                        tercio o más de una competición.
+    Salida: un diccionario con `pronosticos` (todo lo que se juega), `capa1` y
+    `capa2` (picks por filtro de élite), `seccion1`/`seccion2` (ya clasificados)
+    y `combinadas`.
+
+league_engine.py  (~2.770 líneas)  — EL MOTOR DE FÚTBOL
+    Descarga, entrenamiento y predicción de las competiciones de clubes.
+    Funciones principales:
+      · `descargar_liga(clave, temporadas=N)` — construye el histórico de una
+        competición. Recorta la ventana ANTES de derivar features (importante:
+        el ELO y otras columnas acumulan desde la primera fila).
+      · `entrenar_liga(clave)` — entrena y guarda los artefactos.
+      · `features_extra_liga(df)` — pase cronológico sin fuga que produce
+        rachas, puntos por partido, posición y descanso.
+      · clase `ClubEngine` — carga los artefactos de una competición y expone
+        `predecir(home, away)` y `plantilla_club(home, away)`, que devuelve la
+        ficha completa del partido repartida en 12 secciones de mercados.
+
+cuotas_multi.py  (~2.570 líneas)  — LA CAPA DE CUOTAS
+    Obtiene precios de seis fuentes y los normaliza a un vocabulario común.
+    Resuelve el problema de emparejar el mismo partido entre casas que escriben
+    los nombres de forma distinta. Cinco de sus funciones están memorizadas.
+    Expone `cuotas_partido()`, `mercados_playdoit()` y `valor_vs_sharp()`.
+
+clasificador.py  (~610 líneas)  — LA DECISIÓN
+    Decide, para cada mercado y para cada pick del día, si es jugable en
+    solitario, si sólo sirve como pata de combinada, o si no debe enseñarse.
+    Es el mismo motor para los dos niveles de la aplicación, para que el día y
+    la ficha del partido no puedan decir cosas distintas.
+    Funciones principales: `semaforo()`, `clasificar()` (nivel partido),
+    `canal_del_pick()` y `secciones_del_dia()` (nivel día), `ids_para_parlay()`.
+
+dashboard_ui.py  (~8.450 líneas)  — LA INTERFAZ
+    Es el script que ejecuta Streamlit. Contiene el menú, el enrutado de vistas
+    y la mayoría de los renderizadores. Detalle crítico de operación: el motor
+    (`cargar_motor()`) se carga a NIVEL DE MÓDULO, así que si falla, cae la
+    aplicación entera y no una vista.
+
+--------------------------------------------------------------------------------
+1.2 CUOTAS, PRECIO Y MERCADOS
+--------------------------------------------------------------------------------
+
+cuotas_tablon.py     Traduce el tablero de una casa al vocabulario del modelo y
+                     cruza ambos para calcular EV. Es donde se marca un mercado
+                     como `ev_no_fiable` (mitades del fútbol, córners).
+consenso_api.py      Cliente de The Odds API con presupuesto propio (ver §6).
+odds_store.py        Almacén canónico de cuotas históricas en `odds_historico.db`.
+                     Dos fases: `cierre` (partido ya jugado) y `snapshot` (foto
+                     de un partido futuro, materia prima del CLV).
+valor_en_vivo.py     Detección de valor con precios del momento.
+liquidador.py        Cierra apuestas contra el resultado real.
+nfl_lineshop.py      Medición del canal de precio específico de la NFL.
+
+--------------------------------------------------------------------------------
+1.3 DATOS Y FUENTES
+--------------------------------------------------------------------------------
+
+fixtures_espn.py     Partidos del día desde ESPN. Contiene `ESPN_CODIGOS`, el
+                     mapa competición → código de ESPN. Una competición que no
+                     esté aquí NO entra en el barrido.
+temporadas_fd.py     Deriva de la FECHA qué temporadas de football-data pedir.
+                     Antes era una lista escrita a mano y caducaba en silencio.
+config.py            `LEAGUES`: catálogo de competiciones con formato, URLs y
+                     bandera `disponible`.
+config_ligas_espn.py Las competiciones añadidas por lote, con su formato.
+config_selecciones.py Catálogo de selecciones nacionales (vista del Mundial).
+name_mapper.py       Empareja nombres de equipo entre fuentes y catálogo.
+tenis_fuentes.py     Fuentes de tenis.
+nfl_datos.py         Datos de NFL desde ESPN (incluye cuotas de cierre).
+fotmob_scraper.py    xG REAL, posesión, ocasiones claras y córners por partido.
+                     Fuente gratuita y verificada, hoy con cobertura mínima
+                     (28 partidos cacheados). Ver la advertencia del §5.3.
+fbref_scraper_v2/v3.py, fbref_league_scraper.py, understat_scraper.py
+                     Scrapers adicionales. `understat_scraper` está DESACTIVADO
+                     a propósito: su xG real empeoró el modelo al medirlo.
+
+--------------------------------------------------------------------------------
+1.4 MODELOS POR DEPORTE
+--------------------------------------------------------------------------------
+
+engines/base_engine.py     Clase base común.
+engines/mlb_engine.py      Béisbol MLB.
+engines/kbo_engine.py      Béisbol coreano.
+engines/nba_engine.py      Baloncesto.
+engines/tennis_engine.py   Tenis. Tiene ELO POR SUPERFICIE con la pista cubierta
+                           como superficie propia (`hard_indoor` != `hard`),
+                           porcentaje de victorias en superficie a 12 meses,
+                           fatiga (días desde el último partido, partidos en 14
+                           días, horas en pista en 7) y H2H.
+modelo_nfl.py              Modelo de NFL.
+prediction_api.py          Motor de selecciones (vista del Mundial) y utilidades
+                           de Monte Carlo reutilizadas por `ClubEngine`.
+beisbol_pitchers.py        Modelo de ponches de lanzador.
+supervivencia_btts.py      Modelo de «ambos marcan».
+meta_ensemble.py           Meta-modelo de superación de mercado (MESM). Sólo se
+                           usa en las competiciones donde fue ADOPTADO.
+correlated_synthetic_generator.py
+                           Generador de estadísticas avanzadas. IMPORTANTE: es
+                           quien escribe el xG y la posesión de los históricos.
+                           Ver la advertencia del §5.3.
+statsbomb_calibration.py   Constantes de calibración que usa el generador.
+
+--------------------------------------------------------------------------------
+1.5 INTERFAZ (módulos de vista, aparte de dashboard_ui.py)
+--------------------------------------------------------------------------------
+
+modo_modelo.py           La pestaña «Modo Modelo»: ordena por probabilidad del
+                         modelo y enseña el rendimiento reciente observado.
+                         Exporta `render()`, `tarjeta()`, `es_secundaria()`.
+rendimiento_equipos.py   Forma reciente, momentum y —clave— `stats_disponibles()`,
+                         que decide qué estadísticas son OBSERVADAS y cuáles las
+                         escribió el generador sintético.
+render_todos_partidos.py Lista del día con barra de modelo y barra de mercado.
+partido_ui.py            Ficha de partido en 5 secciones con carga diferida.
+corners_ui.py            Sección de córners.
+panel_equipos.py         Cara a cara, forma, clasificación y rendimiento
+                         casa/fuera. Es el lector canónico de `historico_*.csv`.
+estilo_ui.py             Capa visual (cabeceras, KPIs, secciones).
+navegacion.py            Navegación entre el pick y la ficha de su partido.
+match_parlay.py          Constructor de combinadas.
+cuotas_tablon.py         (también aporta las tablas que pinta la ficha)
+
+--------------------------------------------------------------------------------
+1.6 INFRAESTRUCTURA
+--------------------------------------------------------------------------------
+
+guardia_barrido.py    Caché en disco del barrido (`.cache_barrido.pkl`) con
+                      revalidación en segundo plano. Sin ella, cada vista
+                      recalcularía el barrido entero.
+modelos_remotos.py    Descarga bajo demanda los pesos entrenados desde un
+                      GitHub Release. `asegurar(clave)` garantiza que
+                      `modelos/<clave>/` existe; es barata y reentrante.
+publicar_modelos.py    El lado que SUBE los pesos al Release.
+modelos_portables.py  Repara los boosters serializados en otra plataforma. El
+                      workflow entrena en Linux y esos ficheros no abrían en
+                      Windows; esto recorta la sección portable y la recarga.
+inferencia_rapida.py  Prepara los modelos para predecir UNA fila (evita repartir
+                      200 árboles entre todos los núcleos, que costaba 0,12 s
+                      por predicción).
+horario.py            UTC → hora de Ciudad de México. SÓLO para presentación:
+                      los campos internos siguen en UTC.
+aprendizaje_continuo.py  Reentrenamiento incremental.
+telegram_bot.py       Envío diario de picks.
+
+
+================================================================================
+2. FLUJO DE DATOS (PIPELINE)
+================================================================================
+
+--------------------------------------------------------------------------------
+2.1 Vista general
+--------------------------------------------------------------------------------
+
+    FUENTES            BARRIDO                CLASIFICACIÓN          INTERFAZ
+    -------            -------                -------------          --------
+    ESPN        ─┐
+    Pinnacle    ─┤     alpha_finder.py   →    clasificador.py   →    dashboard_ui
+    Playdoit    ─┼──►  (por deporte,          (secciones por         + modo_modelo
+    Bovada      ─┤      en paralelo)           canal medido)         + render_*
+    Matchbook   ─┤            ▲
+    The Odds API─┘            │
+                        ClubEngine / engines/*
+                              ▲
+                        modelos/<liga>/*.joblib
+                              ▲
+                        historico_<liga>.csv
+
+--------------------------------------------------------------------------------
+2.2 Cómo se obtienen los partidos
+--------------------------------------------------------------------------------
+
+1. `fixtures_espn.py` pide el scoreboard de ESPN por competición, usando el
+   mapa `ESPN_CODIGOS`. Una competición sin código NO entra en el barrido.
+   (Estado medido: 49 de las 50 competiciones disponibles entran; la única
+   fuera es Polonia, porque ESPN devuelve HTTP 400 a todos sus códigos.)
+2. El mismo JSON del scoreboard trae CUOTAS en parte de los partidos, así que
+   son gratis en el sentido literal: cero peticiones extra.
+3. `alpha_finder` filtra por ventana (`_en_ventana`, 3 días UTC) y marca cuáles
+   son de HOY en hora de Ciudad de México (`es_hoy`), que es lo que decide si un
+   partido puede producir picks o sólo pronóstico.
+4. Los nombres de los equipos pasan por `name_mapper.mapear()` contra el
+   catálogo del motor de esa competición. Si un nombre no casa, el partido se
+   emite igual, marcado `sin_modelo` y con el motivo escrito.
+
+--------------------------------------------------------------------------------
+2.3 Cómo se extraen las cuotas
+--------------------------------------------------------------------------------
+
+`cuotas_multi.py` consulta por orden de preferencia:
+
+1. PINNACLE — endpoint público que usa su propia web. Sin clave y sin límite de
+   peticiones. Dos llamadas por deporte traen partidos y todos los precios. Es
+   además la casa de referencia del sistema: el «ancla sharp» contra la que se
+   mide si otra casa paga de más.
+2. ESPN SCOREBOARD — cuotas incluidas en el JSON de los fixtures.
+3. ESPN CORE API por evento — recupera casos donde el scoreboard viene vacío.
+4. PLAYDOIT (vía Altenar) — es la casa del usuario. De aquí sale el TABLERO
+   completo de un partido concreto (todos sus mercados).
+5. BOVADA y MATCHBOOK — casas adicionales para el line shopping.
+6. THE ODDS API — refuerzo con cuota mensual, sólo si quedan créditos. Amplía el
+   consenso de ~5 a ~20 casas, que es lo que permite detectar ventajas finas.
+
+El resultado por partido incluye: todas las casas que dieron precio, la mejor
+cuota por selección con su casa, y Pinnacle aparte.
+
+--------------------------------------------------------------------------------
+2.4 Cómo se calculan probabilidades y EV
+--------------------------------------------------------------------------------
+
+PROBABILIDAD (fútbol):
+  `ClubEngine.predecir()` produce un 1X2 con un ensemble, y dos regresores dan
+  los goles esperados de cada equipo (`lam_h`, `lam_a`). De la matriz de
+  marcadores derivada de esos lambdas salen todos los mercados de la ficha:
+  totales, ambos marcan, mitades, hándicaps, córners y tarjetas.
+
+CUOTA JUSTA:
+  1 / probabilidad. Es lo que el sistema muestra cuando no hay precio real.
+
+EV (valor esperado):
+  cuota_de_la_casa × probabilidad_del_modelo − 1.
+
+CONSENSO SIN MARGEN (devig):
+  Se toman las cuotas de las casas de referencia, se convierten a probabilidad
+  implícita (1/cuota) y se normalizan para que sumen 1. El resultado invertido
+  es el «precio justo del mercado».
+
+VENTAJA DE PRECIO — el número que de verdad decide:
+      ventaja = cuota_de_tu_casa / cuota_justa_del_consenso − 1
+  No depende de que el modelo acierte: son dos precios del mismo suceso.
+
+--------------------------------------------------------------------------------
+2.5 Cómo se clasifican los picks
+--------------------------------------------------------------------------------
+
+Hay DOS niveles y comparten el mismo clasificador a propósito.
+
+NIVEL PARTIDO — `clasificador.clasificar()` usa `semaforo()`, que comprueba en
+este orden (el orden importa: primero lo que descalifica):
+  1. Error de datos: ventaja > 30 %. Entre dos casas reales eso es imposible;
+     casi siempre significa que se emparejó otro partido. Va PRIMERO porque si
+     no, un mercado desemparejado saldría verde por cumplir de sobra el
+     criterio de precio.
+  2. Excepción del tenis: probabilidad >= 90 % y precio publicado → verde.
+  3. Rojo: la casa paga por debajo del −2 % contra el precio justo.
+  4. Amarillo: EV sospechoso, EV no fiable, sin comparación posible, una sola
+     casa, banda de calibración pequeña, o ventaja por debajo del 5 %.
+  5. Verde: sobrevive a todo lo anterior.
+
+  El umbral del 5 % NO es cero, y está medido: entre 0 % y 5 % de ventaja el
+  ROI es −11,48 %; entre 5 % y 100 % es +8,22 %.
+
+NIVEL DÍA — `clasificador.canal_del_pick()` reparte cada pick del barrido según
+el CANAL del que viene, y sólo suben a Sección 1 los canales con percentil 5 de
+bootstrap positivo en el tramo que NO se usó para elegirlos:
+  · `precio_local`  — line shopping contra Pinnacle, al lado LOCAL, en fútbol.
+  · `precio_nfl`    — el equivalente en NFL, y sólo en los lados medidos.
+  · `tenis_90`      — tenis con probabilidad >= 90 % y precio.
+Todo lo demás baja a Sección 2 CON SU MOTIVO ESCRITO. No se oculta: la
+diferencia entre «no te lo enseño» y «te lo enseño diciendo lo que rinde» es la
+tesis del proyecto.
+
+SECCIONES QUE VE EL USUARIO:
+  Sección 1  — jugables en solitario (los canales de arriba).
+  Sección 2  — sólo como pata de combinada, con el motivo.
+  Descartados — con su porqué, en un desplegable.
+
+
+================================================================================
+3. INTERFAZ DE USUARIO (STREAMLIT)
+================================================================================
+
+--------------------------------------------------------------------------------
+3.1 Enrutado principal
+--------------------------------------------------------------------------------
+
+Un `selectbox` en la barra lateral (clave `competencia`) elige la competición o
+el deporte. El diccionario `COMPETENCIAS` mapea la etiqueta visible a una clave
+interna, y al final del script se enruta:
+
+    clave 'alpha'           →  render_alpha_finder()     «Apuestas del Día»
+    clave 'mlb_deporte'     →  render_mlb()
+    clave 'kbo_deporte'     →  render_kbo()
+    clave 'nba_deporte'     →  render_nba()
+    clave 'tennis_deporte'  →  render_tennis()
+    clave 'nfl_deporte'     →  render_nfl()
+    clave 'mundial'         →  vista de selecciones
+    cualquier otra          →  render_liga_club(clave, nombre)
+
+Las competiciones nuevas se añaden solas al selector, agrupadas por país, y sólo
+las que el entrenamiento marcó `disponible`.
+
+--------------------------------------------------------------------------------
+3.2 «Apuestas del Día» — la vista principal
+--------------------------------------------------------------------------------
+
+`render_alpha_finder()` monta, de arriba abajo:
+  · avisos e incidencias del barrido;
+  · dos filtros que afectan a TODAS las pestañas a la vez:
+      – deporte (Todo / fútbol / MLB / NBA / tenis / NFL);
+      – competiciones (Todas / Sólo secundarias / Sólo principales);
+  · siete pestañas:
+      1. «Modo Modelo»          → modo_modelo.render()
+      2. «Modo Valor · para jugar» (Sección 1)
+      3. «Partidos de hoy»      → render_todos_partidos
+      4. «Partidos de mañana»
+      5. «Sólo como pata» (Sección 2)
+      6. «Combinadas»
+      7. «Estado del sistema»
+
+DOS COSAS QUE HAY QUE SABER DE ESTA PANTALLA:
+
+  · `st.tabs` RENDERIZA EL CONTENIDO DE TODAS LAS PESTAÑAS, se miren o no. Un
+    fallo dentro de cualquiera tumba la vista entera. Por eso el Modo Modelo va
+    envuelto en su propio try/except que degrada a un aviso.
+  · LOS FILTROS SON DE PRESENTACIÓN Y NO TOCAN LOS DATOS. Se filtra en el punto
+    de pintado, nunca la lista de origen: si recortaran el barrido, el envío
+    diario a Telegram y la exportación saldrían cojos según dónde tuviera el
+    usuario puesto un selector.
+
+--------------------------------------------------------------------------------
+3.3 Ficha de un partido
+--------------------------------------------------------------------------------
+
+`partido_ui.render()` divide la ficha en cinco secciones con carga diferida
+real: Resumen, Mercados, Cara a cara, Específicos y Combinadas. Se usa un radio
+horizontal y NO `st.tabs` (que renderizaría las cinco) ni `segmented_control`
+(que AppTest no expone, y entonces las pruebas no podrían pulsarlo).
+
+--------------------------------------------------------------------------------
+3.4 Estado de sesión y navegación
+--------------------------------------------------------------------------------
+
+`st.session_state` se usa en unos 50 puntos, casi todos como `key=` de widgets
+(el modo de uso, el nivel de riesgo, los filtros, el bankroll).
+
+La navegación de «llévame de este pick a la ficha de su partido» está en
+`navegacion.py` y funciona en DOS TIEMPOS a propósito:
+  · `destino_del_pick(pick)` deduce a qué competición y partido apunta;
+  · `marcar(st, destino)` APUNTA el destino en el estado de sesión;
+  · `aplicar_pendiente(...)` lo ejecuta al principio del script SIGUIENTE.
+Se hace así porque cambiar la clave del selector de competición cuando ese
+widget ya está instanciado es un error de Streamlit, no una opción de diseño.
+
+
+================================================================================
+4. SISTEMA DE VALIDACIÓN
+================================================================================
+
+--------------------------------------------------------------------------------
+4.1 test_catalogo_y_cuotas.py — la suite principal
+--------------------------------------------------------------------------------
+
+872 comprobaciones, unos 4 minutos. SE EJECUTA SIEMPRE, sin excepción.
+Cubre: catálogo de competiciones sin duplicados, esquema e idempotencia de la
+base de cuotas, integración con Playdoit, que no se inventen mercados, el
+clasificador y sus tres secciones, la regla del tenis, el presupuesto de The
+Odds API, el mapeo de nombres, la NFL, la interfaz, y la coherencia de la
+documentación.
+
+Dos guardias que conviene conocer porque son «meta»:
+  · `test_ningun_test_se_queda_sin_ejecutar` — el fichero no descubre los tests,
+    los llama a mano al final. Este test comprueba con AST que no haya ninguno
+    definido y sin llamar. Un test que no se llama pasa siempre, y eso es peor
+    que no tenerlo.
+  · `test_los_except_pueden_registrar_su_error` — comprueba que todo módulo que
+    use `logger.` lo defina a nivel de módulo. Nació de un fallo real: un
+    `except` que registraba el error lanzaba `NameError` encima del error
+    original y se llevaba la vista entera.
+
+--------------------------------------------------------------------------------
+4.2 smoke_botones.py — la red completa
+--------------------------------------------------------------------------------
+
+Abre las ocho vistas con AppTest y PULSA los botones caros de cada una. Nació de
+un fallo de producción: los smoke tests anteriores sólo CARGABAN la página, y el
+error vivía dentro de un bloque `if st.button(...)` que nunca se ejecutaba.
+
+Coste real, medido el 2026-08-22 en la máquina de desarrollo: NO terminó en 55
+minutos en dos intentos seguidos. La vista de «Apuestas del Día» sola tarda
+entre 58 y 254 segundos según lo caliente que esté la caché. La documentación
+antigua decía 110 minutos; la cifra real está en horas.
+
+--------------------------------------------------------------------------------
+4.3 El modo rápido y el reparto actual
+--------------------------------------------------------------------------------
+
+`smoke_botones.py --rapido` carga las ocho vistas pero NO pulsa los botones que
+cargan motores y corren Monte Carlo.
+
+POLÍTICA VIGENTE (decidida por el propietario en la v152):
+
+    cualquier cambio ..............  test_catalogo_y_cuotas.py, siempre
+    cambio de INTERFAZ ............  + valida_render.py sobre las vistas tocadas
+                                      (o smoke --rapido)
+    cambio de MOTOR ...............  + smoke_botones.py completo
+    mantenimiento .................  smoke completo UNA VEZ POR SEMANA
+
+El razonamiento: una puerta que cuesta media jornada deja de usarse, y una
+puerta que no se usa no protege nada.
+
+`valida_render.py` (nuevo en la v152) abre con AppTest sólo las vistas que el
+cambio toca y comprueba dos cosas: que no lanzan excepción Y que los textos
+esperados aparecen de verdad en pantalla. Un render que no lanza pero tampoco
+pinta es un fallo.
+
+LO QUE NO SE RELAJA: que el render se valide siempre. `py_compile` y el análisis
+sintáctico NO detectan un `UnboundLocalError` ni un nombre indefinido dentro de
+un `except`; sólo AppTest los ve. Lo que cambió es el ALCANCE, no el método.
+
+--------------------------------------------------------------------------------
+4.4 Una trampa documentada
+--------------------------------------------------------------------------------
+
+Un test que no encuentra su fichero devuelve código de salida 0. Hay que
+comprobar que CORRIÓ, no que salió bien. Ocurrió durante la propia v152: el
+smoke devolvió «exit 0» y en realidad lo había matado el timeout (EXIT 124).
+
+
+================================================================================
+5. MODELOS Y ARTEFACTOS
+================================================================================
+
+--------------------------------------------------------------------------------
+5.1 Modelos entrenados
+--------------------------------------------------------------------------------
+
+Ruta: `modelos/<clave_de_liga>/`, con estos ficheros por competición:
+    modelo.joblib        el ensemble de clasificación 1X2
+    reg_local.joblib     regresor de goles del local
+    reg_visit.joblib     regresor de goles del visitante
+    escalador.joblib     normalizador de features
+    metadata.json        precisión de validación, techo del mercado en esa
+                         competición, número de equipos, columnas de features,
+                         ROI simulado y veredicto del meta-ensemble
+    mesm.joblib          (opcional) meta-ensemble, sólo si fue adoptado
+
+En `modelos/` (raíz, sin subcarpeta) viven además 11 ficheros versionados: el
+modelo de selecciones del Mundial, el de ponches, el de NFL y el de «ambos
+marcan».
+
+--------------------------------------------------------------------------------
+5.2 Distribución de los modelos (no están en el repositorio)
+--------------------------------------------------------------------------------
+
+Las SUBCARPETAS `modelos/*/` están excluidas del repositorio. El motivo, medido:
+el bot reentrenaba cada madrugada y commiteaba 246 ficheros binarios; git no
+puede delta-comprimir un binario ya comprimido, así que guardaba copias enteras
+—unos 650 MB por commit— y el historial creció a 15 GB.
+
+Ahora los pesos viajan como ASSETS DE UN GITHUB RELEASE llamado
+`modelos-latest` (57 assets). `modelos_remotos.asegurar(clave)` los descarga
+bajo demanda la primera vez que se necesita una competición; si la carpeta ya
+está en disco, no toca la red. `publicar_modelos.py` es el lado que sube.
+
+Efecto medido: el clon pasó de 12,89 GB y más de 10 minutos a 194 MB y 9,3
+segundos. Los 15 GB YA ESCRITOS siguen en el historial: la medida detuvo el
+crecimiento, no lo revirtió.
+
+AVISO DE OPERACIÓN: el patrón de exclusión correcto es `modelos/*/` y NO
+`modelos/`. La segunda forma se lleva por delante los 11 ficheros de la raíz y
+la aplicación cae entera. Ocurrió una vez.
+
+--------------------------------------------------------------------------------
+5.3 Históricos de partidos
+--------------------------------------------------------------------------------
+
+Ruta: `historico_<clave>.csv`, uno por competición (75 ficheros).
+
+Columnas típicas de fútbol:
+    date, home_team, away_team, home_goals, away_goals,
+    home_shots_on, away_shots_on, home_shots_off, away_shots_off,
+    home_corners, away_corners, home_yellow, away_yellow, home_red, away_red,
+    odd_home, odd_draw, odd_away, odd_over25, odd_under25,
+    ah_linea, odd_ah_home, odd_ah_away,
+    odd_home_pin, odd_draw_pin, odd_away_pin,
+    referee, tournament, stadium, MATCH_ID, elo_diff,
+    home_xg, away_xg, home_possession, away_possession
+
+Otros deportes usan sus propias columnas de marcador: MLB y KBO `home_runs`,
+NBA `home_pts`, NFL `pts_home`. El tenis usa `jugador_1`/`jugador_2` y no pasa
+por el lector de equipos.
+
+ADVERTENCIA IMPORTANTE, Y ES LA QUE MÁS SE MALINTERPRETA:
+
+    LAS COLUMNAS `home_xg`, `away_xg`, `home_possession` Y `away_possession`
+    NO SON DATOS OBSERVADOS. Las escribe `correlated_synthetic_generator`:
+
+        xG       = 0,776 + 0,200 · goles_reales + ruido(0,529)
+        posesión = 50 + 12 · tanh(elo_diff / 300) + ruido(4)
+
+    Medido en cuatro competiciones distintas, los coeficientes ajustados
+    reproducen la calibración del generador con tres decimales.
+
+    El generador rellena por `fillna`, así que un dato de la fuente y uno
+    inventado llegan al mismo dataframe indistinguibles.
+
+    · Los CÓRNERS y los REMATES sí son observados, pero SÓLO en las 20
+      competiciones de football-data en formato 'main'. En las otras 55 la
+      columna existe y la escribió el generador.
+    · `rendimiento_equipos.stats_disponibles(clave)` distingue unos de otros
+      REPRODUCIENDO el generador (es determinista por `MATCH_ID`) y comparando
+      valor a valor. Es la función a la que hay que preguntar antes de usar o
+      mostrar cualquiera de estas columnas.
+    · El resultado se cachea en `cache_columnas_sinteticas.json`, que NO está
+      versionado (es derivado y caduca cuando el bot actualiza los históricos).
+
+--------------------------------------------------------------------------------
+5.4 odds_snapshots
+--------------------------------------------------------------------------------
+
+`odds_snapshots.csv` (32.618 filas) es el volcado en texto del almacén canónico
+de cuotas, cuya forma viva es la base SQLite `odds_historico.db` que gestiona
+`odds_store.py`.
+
+Columnas: match_id, league_key, match_date, home_team, away_team, bookmaker,
+fase, snapshot_key, dias_al_partido, odds_home/draw/away, odds_over25/under25,
+odds_btts_yes/no, ah_linea, odds_ah_home/away, source_file, ingested_at.
+
+Dos fases, y la distinción es lo que le da valor:
+  · `cierre`   — cuota de cierre de un partido YA jugado. Se importa de los
+                 históricos. Idempotente: reimportar no duplica.
+  · `snapshot` — foto de la cuota de un partido FUTURO, tomada un día concreto.
+                 Una fila por día y casa. Es la materia prima del CLV (closing
+                 line value) y la única forma de tener histórico de precios en
+                 las competiciones que football-data no publica.
+
+Se recolectan durante el barrido: cada vez que el sistema consulta precios de un
+partido futuro, guarda la foto. De aquí salen las mediciones que gobiernan el
+proyecto (los umbrales de ventaja, el ROI por canal, los percentiles 5).
+
+
+================================================================================
+6. DEPENDENCIAS EXTERNAS Y SERVICIOS
+================================================================================
+
+--------------------------------------------------------------------------------
+6.1 APIs y fuentes
+--------------------------------------------------------------------------------
+
+ESPN (site.api.espn.com y core API)
+    Partidos del día, resultados, estadísticas, rosters y parte de las cuotas.
+    Sin clave. Es la columna vertebral de los fixtures.
+    Detalle contraintuitivo verificado: ESPN BLOQUEA el User-Agent largo de
+    Chrome y acepta uno corto tipo `Mozilla/5.0`.
+
+PINNACLE (guest.api.arcadia.pinnacle.com)
+    El endpoint público que usa su propia web. SIN CLAVE Y SIN LÍMITE. Dos
+    llamadas por deporte traen partidos y todos los precios. Es el «ancla
+    sharp»: la referencia contra la que se mide si otra casa paga de más.
+
+PLAYDOIT (a través de la plataforma Altenar)
+    La casa del usuario. De aquí sale el tablero completo de un partido.
+    Medido: paga un 4,57 % menos que el mejor precio del mercado.
+
+BOVADA y MATCHBOOK
+    Casas adicionales para el line shopping. (Bovada falla a veces en MLB;
+    la frecuencia está PENDIENTE DE MEDIR.)
+
+FOOTBALL-DATA.CO.UK
+    Históricos de 20 competiciones europeas con estadísticas y cuotas de cierre.
+    Trampa documentada: una temporada aún no publicada devuelve HTTP 300
+    «Multiple Choices» con una página HTML, no un 404. `raise_for_status()` no
+    ve nada y el lector de CSV se traga la página. Hay que validar el CONTENIDO,
+    no sólo el código de estado.
+
+THE ODDS API
+    Refuerzo de pago con plan gratuito. Ver el apartado siguiente.
+
+FOTMOB
+    xG real, posesión, ocasiones claras, córners y estadísticas defensivas por
+    partido. Gratuita y verificada; la API interna está blindada pero las
+    páginas incrustan el JSON completo. Cobertura actual: 28 partidos cacheados.
+    Es la vía por la que el proyecto podría tener xG REAL algún día.
+
+--------------------------------------------------------------------------------
+6.2 Presupuesto de The Odds API
+--------------------------------------------------------------------------------
+
+Plan gratuito: 500 créditos al mes, que se renuevan.
+
+`consenso_api.py` impone un CORTE DURO en 450 créditos (variable de entorno
+`ODDS_API_LIMITE`): por encima de ese número el módulo deja de llamar, en vez de
+agotar el saldo. El consumo se lee del contador que devuelve el propio proveedor
+en cada respuesta (`x-requests-used`), que es el único número que no se
+descuadra si la aplicación corre desde dos sitios a la vez.
+
+Además hay un REPARTO DIARIO: el saldo del mes se divide entre los días que
+quedan. Sin él, quince competiciones consultadas cada media hora son 720
+créditos al día y el saldo se funde en una tarde. Por eso a media tarde un
+partido puede salir con el tablón básico aunque queden créditos en el mes: no es
+una avería, y la interfaz lo explica.
+
+La barra lateral muestra el consumo del mes y el del día. Sin clave, el sistema
+funciona con sus ~5 casas de siempre; con clave pasa a ~20, y esa diferencia
+decide si la Sección 1 puede detectar ventajas finas.
+
+--------------------------------------------------------------------------------
+6.3 Secrets de Streamlit Cloud
+--------------------------------------------------------------------------------
+
+El despliegue es Streamlit Cloud desde la rama `main`. Los Secrets se leen con
+`st.secrets` en dos módulos:
+    consenso_api.py           → ODDS_API_KEY
+    api_football_manager.py   → credenciales de API-Football
+
+Todo lo demás funciona SIN credenciales: Pinnacle, ESPN y football-data no las
+necesitan, y ése fue un objetivo de diseño explícito («la solución no es
+racionar mejor, es no depender de una fuente con cuota»).
+
+--------------------------------------------------------------------------------
+6.4 Automatización (GitHub Actions)
+--------------------------------------------------------------------------------
+
+    retrain_leagues.yml      diario 05:30 UTC, tope 60 min
+                             Reentrena los modelos con datos frescos y publica
+                             los pesos al Release. AVISO: la última ejecución
+                             medida tardó 59 min 51 s con un tope de 60. Va al
+                             filo. Palancas identificadas: no re-subir el asset
+                             de una competición cuyos ficheros no cambiaron, o
+                             subir el tope a 90 minutos.
+    recalibrar.yml           semanal, lunes 05:00 UTC, tope 120 min
+                             Recalibra la cadena completa después del
+                             reentrenamiento.
+    precalcular_rosters.yml  diario 04:30 UTC, tope 45 min
+                             Precalcula los goleadores desde los rosters de ESPN.
+    telegram_bot.yml         diario 10:00 UTC
+                             Envía los picks del día.
+
+
+================================================================================
+7. NOTAS DE OPERACIÓN Y RENDIMIENTO
+================================================================================
+
+ARRANQUE EN FRÍO: unos 119 segundos, con este desglose medido:
+    fixtures y cuotas ......  29,8 s
+    cargar los modelos .....  50,0 s
+    predicciones ...........  51,0 s
+El suelo alcanzable con precios frescos es ~30 s. «Menos de 15 s» NO es
+alcanzable, y está comprobado.
+
+NO ADELANTAR LA CARGA DE MODELOS A OTRA HEBRA: medido, empeora de 128,8 s a
+160,1 s. Deserializar un `.joblib` retiene el GIL, así que la hebra que carga
+bloquea a la que predice, y encima se pagan los cambios de contexto.
+
+CACHÉ DEL BARRIDO: `guardia_barrido.py` guarda el resultado en
+`.cache_barrido.pkl` y revalida en segundo plano. Sin ese fichero, cada vista
+recalcula el barrido entero — que es la causa de que las pruebas tarden tanto en
+una máquina limpia.
+
+CLON LIGERO: `git clone --depth 1 --single-branch` (194 MB, 9,3 s).
+
+
+================================================================================
+8. PENDIENTE DE REVISIÓN / NO DOCUMENTADO
+================================================================================
+
+Marcado explícitamente para no dar por sabido lo que no se verificó:
+
+· `aprendizaje_continuo.py` — existe y está enganchado, pero su ciclo exacto
+  (qué reentrena, con qué disparador) NO se verificó para este documento.
+· `valor_en_vivo.py` y `clv_tracker` — su integración con la interfaz no se
+  revisó en detalle.
+· `match_parlay.py` — se conoce la regla que aplica (partir siempre de la
+  Sección 1, admitir como mucho una pata de relleno con probabilidad alta), pero
+  no su implementación interna.
+· Frecuencia con la que Bovada falla en MLB: PENDIENTE DE MEDIR.
+· Cobertura de FotMob: 28 partidos. Insuficiente para validar ninguna feature.
+· Los mercados de córners POR EQUIPO, el 1X2 de córners y el hándicap de córners
+  se derivan del reparto del total por cuota de ataque. Ese reparto NO ha sido
+  medido; lo que sí se midió (y se corrigió) es el TOTAL.
+· NBA y NFL no tienen forma reciente en el lector canónico de históricos porque
+  sus CSV usan otras columnas de marcador. Es un hueco conocido, no un fallo.
