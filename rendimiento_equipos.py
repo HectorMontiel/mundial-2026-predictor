@@ -100,7 +100,23 @@ def forma(clave: str, equipo: str, n: int = VENTANA,
     Devuelve siempre las mismas claves. Las que la competición no publica valen
     `None`, y la interfaz las omite en vez de pintar un cero.
     """
-    vacio = {'n': 0, 'racha': '', 'equipo': equipo, 'clave_liga': clave}
+    # v153.1 — EL ESQUEMA COMPLETO, SIEMPRE. Este diccionario existe porque el
+    # docstring de arriba prometía «devuelve siempre las mismas claves» y no era
+    # verdad: los dos caminos de «pocos partidos» devolvían `n` con un valor
+    # mayor que cero y sin `pts_por_partido` detrás. La interfaz comprobaba `n`,
+    # lo veía positivo, accedía al resto y reventaba con KeyError — en
+    # producción, tumbando la pestaña entera del Modo Modelo.
+    #
+    # Un contrato a medias es peor que ninguno: el consumidor comprueba lo que
+    # el contrato le dice que compruebe y aun así falla. Ahora todas las claves
+    # existen desde el principio, con `None` donde no hay dato, que es
+    # exactamente lo que el resto del módulo promete.
+    vacio = {'equipo': equipo, 'clave_liga': clave, 'n': 0, 'bando': solo_bando,
+             'racha': '', 'ganados': 0, 'empatados': 0, 'perdidos': 0,
+             'pts_por_partido': None, 'gf_media': None, 'gc_media': None,
+             'ck_favor': None, 'ck_contra': None, 'ck_total': None,
+             'remates_favor': None, 'remates_contra': None, 'amarillas': None,
+             'partidos': []}
     d = _historico(clave)
     if d is None or getattr(d, 'empty', True):
         return vacio

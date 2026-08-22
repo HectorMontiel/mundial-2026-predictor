@@ -5086,18 +5086,35 @@ def test_modo_modelo_separa_ligas_secundarias():
               is None,
               f"el eje principal/secundaria no aplica a {dep}")
 
-    src = open('modo_modelo.py', encoding='utf-8').read()
-    check('no tiene su propio p5' in src or 'todavia no tiene' in src
-          or 'todavía no tiene' in src,
-          "la pantalla no promete que las secundarias sean mas rentables")
+    # v153.1 — SE COMPRUEBA LA PROMESA, NO UNA FRASE.
+    #
+    # La version anterior buscaba literalmente «no tiene su propio p5» en
+    # `modo_modelo.py`. Al simplificar la pantalla ese parrafo se fue —era
+    # justamente uno de los textos tecnicos que habia que quitar— y el test
+    # fallo, aunque la propiedad que protegia seguia intacta. Un test que exige
+    # una redaccion concreta se rompe con cada reescritura y no protege nada.
+    #
+    # Lo que NO puede pasar es que alguna pantalla AFIRME que las secundarias
+    # rinden mas, porque eso no esta medido en este proyecto.
+    afirmaciones = ('secundarias son mas rentables', 'secundarias rinden mas',
+                    'mejores cuotas en secundarias', 'mas valor en secundarias')
+    for fichero in ('modo_modelo.py', 'dashboard_ui.py'):
+        if not os.path.exists(fichero):
+            continue
+        txt = open(fichero, encoding='utf-8').read().lower()
+        malas = [a for a in afirmaciones if a in txt]
+        check(not malas,
+              f"{fichero} no promete que las secundarias rindan mas ({malas})")
 
     # El selector vive ARRIBA, junto al de deporte, y afecta a todas las
     # pestañas. Un segundo selector del mismo eje dentro de una pestaña haria
     # que el mismo partido saliera en una pantalla y no en la otra.
     ui = open('dashboard_ui.py', encoding='utf-8').read()
+    mm_src = open('modo_modelo.py', encoding='utf-8').read()
     check('_filtro_grupo_liga' in ui,
           "el filtro de secundarias esta en la barra comun de la vista")
-    check("key='%s_grupo'" % 'mm' not in src and '_grupo\' % clave' not in src,
+    check("key='%s_grupo'" % 'mm' not in mm_src
+          and "_grupo' % clave" not in mm_src,
           "y NO esta duplicado dentro del Modo Modelo")
 
 
@@ -5371,6 +5388,71 @@ def test_los_except_pueden_registrar_su_error():
               f"{fichero} usa `logger` y lo define a nivel de modulo")
 
 
+
+def test_la_apuesta_destacada_de_cada_partido():
+    """
+    v153.1 — la tarjeta dice una cosa: qué apostar y con cuánta probabilidad.
+
+    Gana el mercado con MÁS probabilidad del partido, sea cual sea — no sólo el
+    1X2. Se pidió ver «Menos de 2.5 goles (72 %)» cuando eso es lo que el modelo
+    cree con más fuerza.
+
+    EL UMBRAL DEL VERDE ES 60 % Y NO 50, Y NO ES DECORATIVO. El board trae
+    SIEMPRE los dos lados de cada mercado («mas de 2.5» y «menos de 2.5»), asi
+    que el maximo de la lista esta garantizado por encima del 50 %. Con el verde
+    en 50 no habria un solo partido sin apuesta destacada, y una etiqueta que
+    sale siempre no informa de nada: es la leccion de la v150 sobre los avisos
+    —el umbral se elige para que CALLE en el caso corriente— aplicada aqui.
+    """
+    import modo_modelo as mm
+
+    check(mm.UMBRAL_ALTA > 0.5,
+          "el verde exige mas que el 50 %% que el board garantiza (%.2f)"
+          % mm.UMBRAL_ALTA)
+
+    # 1. gana el mercado mas probable, aunque no sea el 1X2
+    p = {'mercados': [{'mercado': '1X2', 'apuesta': 'Gana A', 'prob': 0.40},
+                      {'mercado': 'Goles', 'apuesta': 'Menos de 2.5',
+                       'prob': 0.81}]}
+    d = mm.apuesta_destacada(p)
+    check(d and d['apuesta'] == 'Menos de 2.5' and d['alta'],
+          "gana el mercado mas probable del partido, no el 1X2 por defecto")
+
+    # 2. por debajo del verde, ambar; por debajo del ambar, nada
+    medio = mm.apuesta_destacada(
+        {'mercados': [{'mercado': 'Goles', 'apuesta': 'Mas de 2.5',
+                       'prob': 0.52}]})
+    check(medio is not None and not medio['alta'],
+          "una probabilidad entre 50 y 60 sale como «solo para combinar»")
+    check(mm.apuesta_destacada(
+        {'mercados': [{'mercado': '1X2', 'apuesta': 'Empate',
+                       'prob': 0.34}]}) is None,
+          "por debajo del 50 % no hay apuesta destacada")
+
+    # 3. LOS TRES ORIGENES. El tercero existe porque sin el la tarjeta decia
+    #    «Sin apuesta clara» en todo partido que llegara solo con `apuesta` y
+    #    `prob` —la mayoria fuera del futbol— y eso no es «no hay nada claro»,
+    #    es «no mire donde habia».
+    check(mm.apuesta_destacada({'board': {'Gana I': 0.66, 'Gana J': 0.34}}),
+          "se lee del board cuando no hay lista de mercados")
+    solo = mm.apuesta_destacada({'apuesta': 'Gana HOU', 'prob': 0.58,
+                                 'mercado': 'Moneyline'})
+    check(solo is not None and solo['apuesta'] == 'Gana HOU',
+          "y de la propia apuesta del pick cuando no hay ni board")
+
+    # 4. nada utilizable no se inventa
+    check(mm.apuesta_destacada({'partido': 'A vs B'}) is None,
+          "un pick sin nada que leer no produce una apuesta inventada")
+    check(mm.apuesta_destacada({'apuesta': 'X', 'prob': None}) is None,
+          "ni uno con la probabilidad vacia")
+
+    # 5. la racha se pinta en color y no se traga letras
+    html = mm.racha_html('GEP')
+    check(html.count('<span') == 3, "la racha pinta un recuadro por partido")
+    for letra in 'GEP':
+        check(('>%s<' % letra) in html, "la racha conserva la letra %s" % letra)
+    check(mm.racha_html('') == '', "sin racha no se pinta nada")
+
 def test_modo_modelo_esta_enrutado_en_la_interfaz():
     """
     v152 — la pestaña existe, es la primera, y la de precio sigue estando.
@@ -5629,6 +5711,7 @@ if __name__ == '__main__':
     test_no_se_reentrena_una_liga_sin_partidos_nuevos()
     test_el_precalculo_no_cambia_ni_un_numero()
     test_los_except_pueden_registrar_su_error()
+    test_la_apuesta_destacada_de_cada_partido()
     test_modo_modelo_esta_enrutado_en_la_interfaz()
     test_corners_no_suben_a_seccion1_sin_medicion()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")

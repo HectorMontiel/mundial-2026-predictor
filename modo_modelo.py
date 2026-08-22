@@ -14,18 +14,39 @@ modelo le da un 70 %». Eso es una pantalla distinta, no un orden distinto:
     Modo Modelo  ordena por PROBABILIDAD DEL MODELO y enseña el rendimiento
                  reciente observado de los dos equipos.
 
-LO QUE ESTA PANTALLA TIENE QUE DECIR, Y DICE
---------------------------------------------
-Ordenar por probabilidad del modelo NO es un criterio de apuesta rentable en
-este proyecto, y está medido: apostar la probabilidad del modelo pierde entre
-−4,66 % y −6,52 % sobre 37.158 apuestas, y su EV es anti-indicador del cierre
-(correlación −0,054). Ocultar eso para que la pantalla se vea mejor sería
-exactamente lo que la aplicación lleva veinte versiones desmontando.
+v153.1 — LA PANTALLA SE SIMPLIFICA: UNA TARJETA, UNA APUESTA
+------------------------------------------------------------
+El encargo fue «que se sienta como un producto, no como un laboratorio de
+datos»: una línea que diga qué apostar, la racha en colores debajo, y ningún
+tecnicismo. Eso es lo que hay.
 
-Así que la pantalla se entrega con la advertencia dentro, no debajo: es una
-LECTURA del rendimiento, y la decisión de jugar sigue viviendo en la Sección 1.
-El usuario pidió ver el rendimiento y lo ve; lo que no se hace es dejar de decir
-lo que ese orden rinde.
+    ✅ Menos de 2.5 goles — 72 %      (verde:   ≥ 60 %)
+    🟡 Gana el Barcelona — 55 %       (ámbar:   ≥ 50 %, sólo para combinar)
+    ⚠️ Sin apuesta clara              (nada llega al 50 %)
+
+La apuesta destacada NO es sólo el 1X2: gana el mercado con más probabilidad de
+todo el partido, que es lo que se pidió.
+
+EL UMBRAL DEL VERDE ES 60 % Y NO 50, Y ESO NO ES DECORATIVO
+------------------------------------------------------------
+El board trae SIEMPRE los dos lados de cada mercado («más de 2.5» y «menos de
+2.5»), así que el máximo de la lista está garantizado por encima del 50 %. Con
+el verde en 50 no habría un solo partido sin su apuesta destacada, y una
+etiqueta que sale siempre no informa de nada — es la lección de la v150 sobre
+los avisos: el umbral se elige para que CALLE en el caso corriente.
+
+LO QUE ESTA PANTALLA SIGUE DICIENDO, AUNQUE YA NO EN CADA TARJETA
+------------------------------------------------------------------
+El porcentaje es la probabilidad del MODELO, y este proyecto tiene medido que
+guiarse por ella pierde entre −4,66 % y −6,52 % sobre 37.158 apuestas (su EV es
+anti-indicador del cierre, correlación −0,054). Los textos técnicos salieron de
+las tarjetas, que era lo pedido; la advertencia no desapareció, se plegó: vive
+en un desplegable al pie, cerrado, una sola vez.
+
+Enseñar un porcentaje como recomendación sin que en NINGUNA parte de la pantalla
+se pueda leer lo que rinde convertiría la aplicación en lo contrario de lo que
+es. Donde hay ventaja medida es en comprar al mejor precio, y eso vive en la
+pestaña de al lado.
 
 SIN MODELO NO ES CON MERCADO
 ----------------------------
@@ -71,15 +92,6 @@ def es_secundaria(pick: Dict) -> Optional[bool]:
     return str(pick.get('clave_liga') or '') not in PRINCIPALES
 
 
-def _prob(pick: Dict) -> float:
-    """La probabilidad del pick como número, o 0 si no lo es."""
-    try:
-        v = float(pick.get('prob'))
-    except (TypeError, ValueError):
-        return 0.0
-    return 0.0 if v != v else v          # NaN ordena como el que menos
-
-
 def _equipos(pick: Dict):
     """Los dos nombres del partido, o (None, None) si el rótulo no se parte."""
     nom = str(pick.get('partido') or '')
@@ -88,31 +100,6 @@ def _equipos(pick: Dict):
             h, a = nom.split(sep, 1)
             return h.strip(), a.strip()
     return None, None
-
-
-def _recomendado(pick: Dict) -> Optional[str]:
-    """
-    A quién señala el modelo, deducido de la etiqueta de la apuesta.
-
-    Se compara por NOMBRE contra los dos equipos del partido, no por precio: la
-    v151 ya corrigió un test que deducía los bandos comparando cuotas y daba
-    falsos positivos. Si la apuesta no es un 1X2 de ganador, devuelve None y la
-    tarjeta lo dice en vez de inventarse un favorito.
-    """
-    ap = str(pick.get('apuesta') or '')
-    h, a = _equipos(pick)
-    if not h or not a:
-        return None
-    # La coincidencia MÁS LARGA, no la primera. Con `Boca` y `Boca Juniors` en
-    # el mismo partido, «Gana Boca Juniors» contiene a los dos y el primero que
-    # se pruebe gana: eso es el mismo tipo de atajo que en la v148 hizo que
-    # «Independiente Rivadavia» mapeara a «Independiente».
-    candidatos = [eq for eq in (h, a) if eq and eq in ap]
-    if candidatos:
-        return max(candidatos, key=len)
-    if 'mpate' in ap:
-        return 'Empate'
-    return None
 
 
 def _rendimiento(pick: Dict) -> Optional[Dict]:
@@ -130,86 +117,6 @@ def _rendimiento(pick: Dict) -> Optional[Dict]:
     except Exception as e:
         logger.debug('[modo_modelo] rendimiento %s: %s', clave, e)
         return None
-
-
-def _linea_forma(st, f: Dict, disp: Dict, etiqueta: str) -> None:
-    """
-    Una línea por equipo: racha, goles, córners y remates de sus últimos 5.
-
-    Cada estadística sale SÓLO si la competición la publica de verdad (`disp`
-    viene de `rendimiento_equipos.stats_disponibles`, que lo comprueba
-    reproduciendo el generador sintético). Una liga sin córners observados no
-    enseña una fila de córners con un número inventado dentro.
-    """
-    if not f or not f.get('n'):
-        st.caption('%s · sin partidos suficientes en el histórico' % etiqueta)
-        return
-    trozos = ['**%s** `%s`' % (f.get('equipo', etiqueta), f.get('racha', ''))]
-    trozos.append('%.2f pts/partido' % f['pts_por_partido'])
-    if disp.get('goles') and f.get('gf_media') is not None:
-        trozos.append('goles %.1f–%.1f' % (f['gf_media'], f['gc_media']))
-    if disp.get('corners') and f.get('ck_favor') is not None:
-        trozos.append('córners %.1f–%.1f' % (f['ck_favor'], f['ck_contra']))
-    if disp.get('remates') and f.get('remates_favor') is not None:
-        trozos.append('remates %.1f–%.1f' % (f['remates_favor'],
-                                             f['remates_contra']))
-    st.markdown(' · '.join(trozos))
-
-
-def _texto_momentum(m: Optional[Dict]) -> str:
-    if not m:
-        return ''
-    flecha = {'sube': '📈', 'baja': '📉', 'igual': '➡️'}.get(m['tendencia'], '')
-    return ('%s %.2f → %.2f pts/partido' % (flecha, m['anterior'], m['reciente']))
-
-
-def _bloque_corners(st, pick: Dict, rend: Dict, disp: Dict) -> None:
-    """
-    Los córners del partido, con el número y de dónde sale.
-
-    El plan los pedía «destacados, con su total esperado y la línea
-    recomendada». Salen el total y los córners observados de cada equipo. **La
-    línea recomendada no sale, y ésa es la parte medida**: el total que el
-    modelo predice para un partido es la media de su competición —la misma para
-    todos sus partidos— porque la parte del modelo que variaba entre partidos
-    tiene correlación −0,0012 con el resultado real sobre 11.856 partidos.
-
-    Recomendar «más de 9,5» a partir de un número que es igual en los diez
-    partidos de la jornada sería recomendar la media de la liga disfrazada de
-    lectura del partido. Lo que sí se puede enseñar, y se enseña, es lo que cada
-    equipo hace de verdad: eso son datos.
-    """
-    if not disp.get('corners'):
-        return
-    clave = str(pick.get('clave_liga') or '')
-    media = None
-    try:
-        import rendimiento_equipos as rq
-        media = rq.media_corners_liga(clave)
-    except Exception as e:
-        logger.debug('[modo_modelo] media de córners: %s', e)
-    fh, fa = rend.get('forma_home') or {}, rend.get('forma_away') or {}
-    partes = []
-    if media is not None:
-        partes.append('media de la competición **%.1f**' % media)
-    if fh.get('ck_favor') is not None:
-        partes.append('%s saca %.1f y recibe %.1f'
-                      % (fh.get('equipo', 'local'), fh['ck_favor'],
-                         fh['ck_contra']))
-    if fa.get('ck_favor') is not None:
-        partes.append('%s saca %.1f y recibe %.1f'
-                      % (fa.get('equipo', 'visitante'), fa['ck_favor'],
-                         fa['ck_contra']))
-    if not partes:
-        return
-    st.markdown('**⛳ Córners** — ' + ' · '.join(partes))
-    st.caption(
-        'Los córners de esta competición son datos de la fuente, no '
-        'estimaciones. **No hay línea recomendada**: el total que el modelo '
-        'predice es la media de la competición, igual para todos sus partidos, '
-        'porque su parte variable no distingue un partido de otro (correlación '
-        '−0,001 con el resultado real sobre 11.856 partidos). Las medias de '
-        'cada equipo sí son suyas.')
 
 
 def _bloque_tenis(st, pick: Dict) -> None:
@@ -259,146 +166,252 @@ def _bloque_tenis(st, pick: Dict) -> None:
                    'internamente, y la pista cubierta cuenta como una propia.')
 
 
+# ---------------------------------------------------------------------------
+# v153.1 — LA APUESTA DEL PARTIDO, Y EL SEMÁFORO POR PROBABILIDAD
+# ---------------------------------------------------------------------------
+UMBRAL_ALTA = 0.60          # verde: el modelo se moja
+UMBRAL_PATA = 0.50          # amarillo: sólo para combinar
+
+# Mercados que NO compiten por ser «la apuesta del partido».
+#
+# El board trae los dos lados de cada mercado, así que el máximo de la lista
+# está garantizado por encima del 50 % — coger el mayor sin pensar hace que casi
+# todo partido tenga su apuesta destacada. Por eso el verde exige 60 % y no 50:
+# el umbral se elige para que la etiqueta CALLE en el caso corriente. No se
+# excluye ningún mercado hoy, pero el sitio está hecho.
+_MERCADOS_FUERA: set = set()
+
+
+def apuesta_destacada(pick: Dict) -> Optional[Dict]:
+    """
+    El mercado con más probabilidad de este partido, sea cual sea.
+
+    No se limita al 1X2: se pidió ver «Menos de 2.5 goles (72 %)» si eso es lo
+    que el modelo cree con más fuerza. Se miran todos los mercados que el
+    barrido dejó en el pick y gana el de mayor probabilidad.
+
+    Devuelve `None` cuando ninguno llega al umbral, y ese None se PINTA: un
+    partido sin nada claro tiene que decirlo, porque si no el usuario lee la
+    ausencia de aviso como una recomendación.
+    """
+    filas = []
+    for m in (pick.get('mercados') or []):
+        if not isinstance(m, dict):
+            continue
+        if str(m.get('mercado') or '') in _MERCADOS_FUERA:
+            continue
+        try:
+            p = float(m.get('prob'))
+        except (TypeError, ValueError):
+            continue
+        filas.append((p, str(m.get('apuesta') or ''),
+                      str(m.get('mercado') or '')))
+    if not filas:
+        # Sin `mercados` (deportes que sólo publican el ganador) queda el board.
+        for etiqueta, p in (pick.get('board') or {}).items():
+            try:
+                filas.append((float(p), str(etiqueta), ''))
+            except (TypeError, ValueError):
+                continue
+    if not filas:
+        # Y en último recurso, la propia apuesta del pick. Este camino existe
+        # porque sin él la tarjeta decía «Sin apuesta clara» en todo partido
+        # que llegara sólo con `apuesta` y `prob` —que son la mayoría fuera del
+        # fútbol— y eso no es «no hay nada claro»: es «no miré donde había».
+        try:
+            p = float(pick.get('prob'))
+        except (TypeError, ValueError):
+            p = None
+        if p is not None and pick.get('apuesta'):
+            filas.append((p, str(pick['apuesta']), str(pick.get('mercado') or '')))
+    if not filas:
+        return None
+    p, apuesta, mercado = max(filas, key=lambda f: f[0])
+    if p < UMBRAL_PATA:
+        return None
+    return {'prob': p, 'apuesta': apuesta, 'mercado': mercado,
+            'alta': p >= UMBRAL_ALTA}
+
+
+_COLOR = {'G': '#1a7f37', 'E': '#9a6700', 'P': '#cf222e'}
+
+
+def racha_html(racha: str) -> str:
+    """
+    La racha en colores, que es como se lee de un vistazo.
+
+    Verde ganado, ámbar empatado, rojo perdido. Es la misma letra que ya había;
+    el color hace el trabajo que antes había que hacer leyendo letra a letra.
+    """
+    if not racha:
+        return ''
+    return ''.join(
+        '<span style="display:inline-block;width:1.15rem;height:1.15rem;'
+        'line-height:1.15rem;text-align:center;border-radius:3px;'
+        'margin-right:2px;font-size:.72rem;font-weight:700;color:#fff;'
+        'background:%s">%s</span>' % (_COLOR.get(c, '#57606a'), c)
+        for c in str(racha))
+
+
+def _mini_forma(f: Dict, disp: Dict) -> str:
+    """
+    Una línea compacta: racha en color y las dos cifras que caben.
+
+    Los córners salen aquí como dato (⛳ sacados–recibidos de los últimos 5) y
+    NO como línea recomendada, y eso está medido: el total que el modelo predice
+    para un partido es la media de su competición —la misma para todos sus
+    partidos— porque la parte que variaba tiene correlación −0,0012 con el
+    resultado real sobre 11.856 partidos. Recomendar «más de 9,5» a partir de un
+    número idéntico en los diez partidos de la jornada sería vender la media de
+    la liga como lectura del partido. Las medias de cada equipo sí son suyas.
+
+    Y sólo se pintan donde la competición los publica de verdad: `disp` viene de
+    `rendimiento_equipos.stats_disponibles`, que lo comprueba reproduciendo el
+    generador sintético.
+    """
+    if not f or not f.get('n'):
+        return ''
+    partes = ['<b>%s</b> %s' % (f.get('equipo', ''), racha_html(f.get('racha')))]
+    if disp.get('goles') and f.get('gf_media') is not None:
+        partes.append('⚽ %.1f–%.1f' % (f['gf_media'], f['gc_media']))
+    if disp.get('corners') and f.get('ck_favor') is not None:
+        partes.append('⛳ %.1f–%.1f' % (f['ck_favor'], f['ck_contra']))
+    return ' &nbsp;·&nbsp; '.join(partes)
+
+
 def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             n_boton: int = 0) -> None:
-    """Una tarjeta del Modo Modelo: probabilidad del modelo y rendimiento."""
-    prob = pick.get('prob')
-    eq = _recomendado(pick)
+    """
+    Una tarjeta: qué apostar, con cuánta probabilidad, y cómo llegan los dos.
+
+    Sin explicaciones dentro. Lo que hay que leer es una línea —la apuesta y su
+    porcentaje— y debajo dos rachas de colores. Todo lo demás (de dónde salen
+    los datos, qué rinde este orden, la cuota justa) vive en el desplegable del
+    pie, una vez, y no repetido en cada partido.
+    """
+    dest = pick.get('_destacada') if '_destacada' in pick \
+        else apuesta_destacada(pick)
     with st.container(border=True):
-        cab = '**%s**' % pick.get('partido', '?')
         meta = [str(pick.get('deporte') or 'Fútbol'), str(pick.get('liga') or '')]
         if pick.get('hora_txt'):
-            meta.append(str(pick['hora_txt']))
-        sec = es_secundaria(pick)
-        if sec is not None:
-            meta.append('secundaria' if sec else 'principal')
-        st.markdown(cab + '  \n' + ' · '.join([m for m in meta if m]))
+            meta.append('🕐 %s' % pick['hora_txt'])
+        st.markdown('**%s**  \n%s' % (pick.get('partido', '?'),
+                                      ' · '.join([m for m in meta if m])))
 
-        if prob is None:
-            st.markdown('**Sin datos de modelo.**')
-            st.caption(str(pick.get('motivo_sin_modelo') or
-                           'el modelo no tiene pronóstico para este partido'))
+        if pick.get('sin_modelo') or pick.get('prob') is None:
+            st.markdown('**· Sin datos de modelo**')
+        elif dest is None:
+            st.markdown('⚠️ **Sin apuesta clara**')
+        elif dest['alta']:
+            st.markdown('### ✅ %s — %.0f %%'
+                        % (dest['apuesta'], dest['prob'] * 100))
         else:
-            # LA ETIQUETA PRINCIPAL, tal y como se pidió. Dice «probabilidad»
-            # y no dice EV: son cosas distintas y confundirlas es el motivo de
-            # que esta pantalla exista.
-            quien = eq or str(pick.get('apuesta') or 'la selección del modelo')
-            st.markdown('### 📊 Modelo: %s con %.0f %% de probabilidad'
-                        % (quien, float(prob) * 100))
-            if pick.get('cuota'):
-                st.caption('Cuota justa según el modelo: %.2f. La casa paga '
-                           '%.2f. Esta pantalla NO ordena por esa diferencia '
-                           '— para eso está el Modo Valor.'
-                           % (1.0 / float(prob), float(pick['cuota'])))
+            st.markdown('🟡 **%s — %.0f %%** · sólo para combinar'
+                        % (dest['apuesta'], dest['prob'] * 100))
 
         if str(pick.get('deporte') or '') == 'Tenis':
             _bloque_tenis(st, pick)
-            if navegar is not None:
-                if st.button('📊 Abrir %s' % pick.get('partido', 'el partido'),
-                             key='mm_ir_%d' % n_boton, width='stretch'):
-                    navegar(pick)
-            return
-
-        rend = _rendimiento(pick)
-        if rend:
-            disp = rend.get('disponible') or {}
-            st.markdown('**Cómo llegan (últimos 5)**')
-            _linea_forma(st, rend['forma_home'], disp, 'Local')
-            _linea_forma(st, rend['forma_away'], disp, 'Visitante')
-            mh = _texto_momentum(rend.get('momentum_home'))
-            ma = _texto_momentum(rend.get('momentum_away'))
-            if mh or ma:
-                st.caption('Momentum (5 últimos vs 5 anteriores) — '
-                           + ' | '.join([x for x in (mh, ma) if x])
-                           + '. Son dos medias de cinco partidos: sirve para '
-                             'leer, no para decidir.')
-            # El bando que toca jugar, que es la lectura que más cambia y la
-            # que menos se mira.
-            ch, fa = rend.get('casa_home') or {}, rend.get('fuera_away') or {}
-            if ch.get('n') and fa.get('n'):
-                st.caption('En su bando: local `%s` (%.2f pts) · visitante '
-                           '`%s` (%.2f pts)'
-                           % (ch.get('racha', ''), ch['pts_por_partido'],
-                              fa.get('racha', ''), fa['pts_por_partido']))
-            _bloque_corners(st, pick, rend, disp)
-            if disp and not disp.get('corners'):
-                st.caption('Esta competición no publica córners ni remates: '
-                           'lo único observado son los goles.')
         else:
-            st.caption('Sin histórico de rendimiento para esta competición.')
+            rend = _rendimiento(pick)
+            if rend:
+                disp = rend.get('disponible') or {}
+                lineas = [x for x in (_mini_forma(rend.get('forma_home'), disp),
+                                      _mini_forma(rend.get('forma_away'), disp))
+                          if x]
+                if lineas:
+                    st.markdown(
+                        '<div style="font-size:.86rem;line-height:1.8">'
+                        + '<br>'.join(lineas) + '</div>',
+                        unsafe_allow_html=True)
 
         if navegar is not None:
-            if st.button('📊 Abrir %s' % pick.get('partido', 'el partido'),
-                         key='mm_ir_%d' % n_boton, width='stretch'):
+            if st.button('Ver partido', key='mm_ir_%d' % n_boton,
+                         width='stretch'):
                 navegar(pick)
 
 
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 40) -> None:
     """
-    La pestaña entera.
+    La pantalla entera: los partidos del día, cada uno con su apuesta.
 
-    `pronosticos` es la lista del barrido YA filtrada por día y por deporte:
-    esta función no vuelve a filtrar por esos ejes para que no haya dos reglas
-    de reparto que puedan divergir (la lección de la v141).
+    `pronosticos` llega YA filtrada por día, deporte y grupo de competición:
+    esos tres ejes viven en la barra de arriba y afectan a todas las pestañas a
+    la vez, para que no haya dos reglas de reparto que puedan divergir.
     """
-    st.caption(
-        '⚠️ **Esta pantalla ordena por probabilidad del modelo, y eso no es un '
-        'criterio de apuesta rentable en este proyecto.** Está medido: apostar '
-        'la probabilidad del modelo pierde entre −4,66 % y −6,52 % sobre '
-        '37.158 apuestas, y su EV es anti-indicador del cierre. Lo que sí '
-        'tiene percentil 5 positivo es comprar al mejor precio, y eso vive en '
-        '«✅ Para jugar». Aquí se lee el rendimiento; allí se decide.')
-
     con, sin = [], []
     for p in (pronosticos or []):
         if not isinstance(p, dict):
             continue
-        (sin if (p.get('sin_modelo') or p.get('prob') is None) else con).append(p)
+        (sin if (p.get('sin_modelo') or p.get('prob') is None)
+         else con).append(p)
 
-    # EL FILTRO DE LIGAS SECUNDARIAS NO VIVE AQUÍ.
-    #
-    # Está arriba, al lado del filtro de deporte, y afecta a todas las pestañas
-    # a la vez. Tener un segundo selector del mismo eje dentro de esta pantalla
-    # sería la receta para que el mismo partido salga aquí y no en «Para
-    # jugar», que es exactamente el fallo que la separación por día tuvo que
-    # arreglar en su momento. Esta función recibe la lista ya filtrada.
-    _n_sec = sum(1 for p in con if es_secundaria(p) is True)
-    if _n_sec:
-        st.caption('%d de los partidos con pronóstico son de ligas '
-                   'secundarias. **Que tengan menos volumen no es, por sí '
-                   'solo, una ventaja medida en este proyecto**: es una '
-                   'hipótesis razonable que todavía no tiene su propio p5.'
-                   % _n_sec)
+    # La apuesta se calcula UNA vez por partido y se guarda al lado: el filtro,
+    # el orden y la tarjeta necesitan lo mismo, y recalcularlo en cada sitio es
+    # como acaban divergiendo tres criterios que deberían ser uno.
+    for p in con:
+        p['_destacada'] = apuesta_destacada(p)
+    n_altas = sum(1 for p in con
+                  if p.get('_destacada') and p['_destacada']['alta'])
 
-    # El orden usa `_prob`, no `p['prob']` a pelo. La lista llega de siete
-    # ramas de deporte distintas y basta con que UNA traiga la probabilidad
-    # como texto para que `-(p.get('prob') or 0)` lance un TypeError y se lleve
-    # por delante la pestaña entera — y con `st.tabs`, la vista entera con ella.
-    con.sort(key=lambda p: -_prob(p))
-    if not con:
-        st.info('No hay partidos con pronóstico del modelo en esta selección.')
+    c1, c2 = st.columns([2, 1])
+    with c1:
+        orden = st.radio('Orden', ['Por hora', 'Por probabilidad'],
+                         horizontal=True, key='%s_orden' % clave,
+                         label_visibility='collapsed')
+    with c2:
+        solo_altas = st.checkbox('Sólo alta probabilidad (%d %%)'
+                                 % (UMBRAL_ALTA * 100),
+                                 key='%s_solo_altas' % clave)
+
+    if solo_altas:
+        con = [p for p in con
+               if p.get('_destacada') and p['_destacada']['alta']]
+
+    if orden == 'Por probabilidad':
+        con.sort(key=lambda p: -((p.get('_destacada') or {}).get('prob') or 0))
     else:
-        fuertes = [p for p in con if _prob(p) >= PROB_DESTACADA]
-        st.subheader('📊 Por probabilidad del modelo (%d)' % len(con))
-        if fuertes:
-            st.caption('%d superan el %.0f %%.' % (len(fuertes),
-                                                   PROB_DESTACADA * 100))
+        # Sin hora, al final: `~` ordena después de cualquier dígito, así que un
+        # partido sin `inicio` no se cuela arriba por comparar contra el vacío.
+        con.sort(key=lambda p: (str(p.get('inicio') or '~'),
+                                str(p.get('partido') or '')))
+
+    st.subheader('⚽ Partidos de hoy (%d)' % len(con))
+    if n_altas:
+        st.caption('%d con una apuesta por encima del %d %%.'
+                   % (n_altas, UMBRAL_ALTA * 100))
+
+    if not con:
+        st.info('No hay partidos que cumplan el filtro.')
+    else:
         for i, p in enumerate(con[:maximo]):
             tarjeta(st, p, navegar=navegar, n_boton=i)
         if len(con) > maximo:
-            st.caption('Se muestran los %d más probables de %d. El resto está '
-                       'en «📋 Partidos de hoy».' % (maximo, len(con)))
+            st.caption('Se muestran %d de %d.' % (maximo, len(con)))
 
     if sin:
         with st.expander('Sin datos de modelo (%d)' % len(sin)):
-            st.caption(
-                'Estos partidos no llevan pronóstico. **Aquí no se enseña la '
-                'probabilidad implícita del mercado** aunque exista: esta '
-                'pantalla es para leer al modelo, y un número del mercado en '
-                'una fila del modelo haría imposible distinguir uno de otro. '
-                'El precio de estos partidos sí sale en «📋 Partidos de hoy».')
             for p in sin[:maximo]:
-                st.markdown('· **%s** — %s · %s'
-                            % (p.get('partido', '?'), p.get('liga', ''),
-                               p.get('motivo_sin_modelo') or 'sin pronóstico'))
+                st.markdown('· **%s** — %s' % (p.get('partido', '?'),
+                                               p.get('liga', '')))
+
+    # LA ADVERTENCIA NO DESAPARECE: SE PLIEGA.
+    #
+    # El encargo era quitar los textos técnicos de las tarjetas, y de las
+    # tarjetas están quitados. Pero este porcentaje es la probabilidad del
+    # MODELO, y este proyecto tiene medido que apostar guiándose por ella pierde
+    # entre −4,66 % y −6,52 % sobre 37.158 apuestas. Enseñarla como recomendación
+    # sin que en NINGUNA parte de la pantalla se pueda leer lo que rinde
+    # convertiría la aplicación en lo contrario de lo que es. Va una vez, al pie
+    # y cerrada, en vez de encima de cada partido.
+    with st.expander('¿Qué significa este porcentaje?'):
+        st.markdown(
+            'Es lo que cree **el modelo**, no lo que paga la casa.\n\n'
+            '- Una probabilidad alta **no** significa que la apuesta sea '
+            'rentable: si la casa ya la tiene bien puesta, no hay nada que '
+            'ganar. Medido aquí, guiarse sólo por la probabilidad del modelo '
+            'pierde alrededor de un 5 %.\n'
+            '- Donde sí hay ventaja medida es en **comprar al mejor precio**, '
+            'y eso está en la pestaña de al lado.\n'
+            '- Las rachas de colores y los goles son datos observados de los '
+            'últimos 5 partidos.')

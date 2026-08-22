@@ -50,9 +50,13 @@ APP = 'dashboard_ui.py'
 # es justo el contenido lo que puede reventar.
 VISTAS = {
     '💎 Apuestas del Día': [
-        # el Modo Modelo, por la advertencia que sólo pinta él
+        # La pantalla de partidos, por el rótulo que sólo pinta ella.
+        'Partidos de hoy',
+        # Y la advertencia medida, que vive plegada al pie: los textos técnicos
+        # salieron de las tarjetas, pero el porcentaje sigue siendo el del
+        # modelo y en algún sitio de la pantalla tiene que poder leerse lo que
+        # rinde. Si este check empieza a fallar, es que se perdió del todo.
         'probabilidad del modelo',
-        '4,66',
     ],
     '🏴 Premier League': [],      # rama de córners OBSERVADOS
     '🇲🇽 Liga MX': [],            # rama de córners SIN observar
@@ -100,6 +104,18 @@ def valida(vista, exigidos, timeout=900):
     for exigido in exigidos:
         check(exigido in t,
               f'{vista}: «{exigido}» aparece en pantalla')
+    # Los CONTROLES, que no salen en los textos y son los que el usuario toca.
+    # Un render que pinta la lista pero se deja el filtro fuera pasa todos los
+    # checks de arriba y aun así está roto para quien lo usa.
+    for clave_widget, que in (('_filtro_grupo_liga', 'filtro de competiciones'),
+                              ('mm_solo_altas', 'filtro de alta probabilidad'),
+                              ('mm_orden', 'selector de orden')):
+        if not any(clave_widget in str(getattr(w, 'key', '') or '')
+                   for col in ('radio', 'checkbox')
+                   for w in getattr(at, col, [])):
+            check(False, f'{vista}: falta el {que} ({clave_widget})')
+        else:
+            check(True, f'{vista}: está el {que}')
 
 
 def main():
