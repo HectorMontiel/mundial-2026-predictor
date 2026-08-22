@@ -1606,7 +1606,36 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
 
     carpeta = os.path.join('modelos', clave)
     os.makedirs(carpeta, exist_ok=True)
-    joblib.dump(modelo, os.path.join(carpeta, 'modelo.joblib'), compress=3)
+    # v151 — EL MODELO SE GUARDA SIN COMPRIMIR, Y NO CUESTA DESCARGA.
+    #
+    # `modelo.joblib` es el **96 %** del coste de construir un `ClubEngine`
+    # (medido sobre premier, laliga y argentina: 7,52 s de 7,80). El escalador
+    # es 0,00 s y los dos regresores un 2 % cada uno — por eso NO se cargan de
+    # forma perezosa: ahorraría dos segundos de cincuenta y añadiría un camino
+    # de código que puede fallar.
+    #
+    # Comparación justa, reserializando el MISMO objeto en la misma máquina
+    # para que lo único distinto sea la compresión (4 modelos, 3 cargas cada
+    # uno, se queda la mejor):
+    #
+    #     zlib-3 (antes)   carga 2,68 s   12,0 MB en disco   11,9 MB en tar.gz
+    #     sin comprimir    carga 2,07 s   32,8 MB en disco   11,2 MB en tar.gz
+    #                      = 1,29x más rápido
+    #
+    # La clave está en la última columna: desde la v148 el modelo viaja al
+    # contenedor **dentro de un `.tar.gz`**, así que ya iba comprimido por
+    # fuera. Comprimirlo también por dentro no ahorraba descarga —de hecho el
+    # tar sale algo MÁS pequeño sin la doble compresión— y se pagaba `zlib` en
+    # cada arranque.
+    #
+    # El precio es disco en el contenedor: 2,7x. Con ~20 competiciones bajadas
+    # por barrido son ~680 MB en vez de ~250. Se acepta; lo que no se acepta es
+    # pagar CPU en cada arranque por una compresión que la capa de transporte
+    # ya estaba haciendo.
+    #
+    # `joblib.load` lee los dos formatos, así que los modelos comprimidos que
+    # ya están publicados siguen abriendo mientras el bot no los reemplace.
+    joblib.dump(modelo, os.path.join(carpeta, 'modelo.joblib'), compress=0)
     joblib.dump(escalador, os.path.join(carpeta, 'escalador.joblib'), compress=3)
     joblib.dump(reg_l, os.path.join(carpeta, 'reg_local.joblib'), compress=3)
     joblib.dump(reg_v, os.path.join(carpeta, 'reg_visit.joblib'), compress=3)

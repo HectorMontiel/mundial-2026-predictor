@@ -284,6 +284,50 @@ log con liga, partido y motivo.
 Cubierto por `test_el_fallback_de_mercado_se_delata` (5 casos, incluidos los
 dos en que debe CALLAR).
 
+## 4g. v151 — MODELO SIN COMPRIMIR, Y EL TECHO DE VELOCIDAD
+
+Ver `VALIDACION_v151.md`.
+
+**`modelo.joblib` se guarda con `compress=0`.** Es el 96 % del coste de
+construir un `ClubEngine` (7,52 s de 7,80 sobre tres ligas). Desde la v148
+viaja dentro de un `.tar.gz`, así que comprimirlo también por dentro era
+trabajo puro: el tar sale incluso algo MÁS pequeño sin la doble compresión
+(11,2 vs 11,9 MB) y se pagaba `zlib` en cada arranque. Medido sobre el mismo
+objeto: **1,29× más rápido**. Disco 712 MB → 1.239 MB (1,7×).
+
+**OJO CON EL NÚMERO:** en local la fase de carga bajó 50,0 → 25,7 s, pero eso
+está inflado por Windows —`modelos_portables.cargar` repara el booster de Linux
+y al reserializar en local ese trabajo desaparece—. En producción (Linux) la
+ganancia esperada es la de objetos idénticos: **~11 s de 130**.
+
+**CARGA PEREZOSA DE REGRESORES: DESCARTADA.** `reg_local` y `reg_visit` son un
+2 % cada uno. Ahorraría 2 s de 50 a cambio de un camino condicional que puede
+fallar.
+
+**«< 15 s» NO ES ALCANZABLE, y conviene no volver a prometerlo:**
+
+```
+fixtures + cuotas   29,8 s   (red, precios frescos de 320 partidos)
+cargar modelos      50,0 s
+predicciones        51,0 s
+                   -------
+                   130,8 s
+
+sin comprimir          119,6 s
+carga = 0 (techo)       80,8 s
+carga y predicción = 0  ~30 s   <- el SUELO con precios reales
+objetivo pedido        < 15 s
+```
+
+**LO QUE SÍ LLEVARÍA A ~30 s:** precalcular las predicciones en el bot. El 1X2
+es función de `team_stats` y del modelo, y los dos sólo cambian cuando corre el
+bot. Mismo principio que la v148, movido a donde es gratis.
+**ANTES HAY QUE COMPROBAR UNA COSA:** `ClubEngine.predecir` consulta
+`odds_actuales.json` para el MESM y el blend de mercado. Hoy ese fichero NO
+existe ni está versionado (verificado), así que ninguna rama se activa — pero
+si en producción existiera, precalcular congelaría una predicción que se
+suponía viva. Comprobarlo primero.
+
 ## 5. PENDIENTE
 
 1. **El workflow tardó 59m51s con tope de 60.** Va al filo. Ahora sube ~57 assets

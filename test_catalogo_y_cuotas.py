@@ -1289,23 +1289,45 @@ def test_orientacion_local_visitante():
     if not pin or not pdt:
         print('AVISO sin partidos de MLB ahora mismo; se omite la comprobación')
         return
+    # v151 — SE COMPARAN LOS BANDOS, NO LOS PRECIOS.
+    #
+    # Esto inferría la inversión del PRECIO: si el `home` de una casa se parecía
+    # más al `away` de la otra, lo contaba como invertido. Y esa heurística no
+    # sabe distinguir «los bandos están al revés» de «las dos casas discrepan
+    # sobre quién es favorito», que en la MLB pasa constantemente porque el
+    # moneyline se mueve fuerte con el abridor.
+    #
+    # Falló el 2026-08-21 con este caso, que NO estaba invertido:
+    #
+    #     baltimore orioles|tampa bay rays
+    #     pinnacle  home 2,16  away 1,78   (favorito: Tampa Bay)
+    #     playdoit  home 1,83  away 2,00   (favorito: Baltimore)
+    #     nombres:  Baltimore Orioles / BAL Orioles  →  el MISMO bando local
+    #
+    # El nombre es la verdad; el precio es un indicio, y encima uno que las
+    # casas tienen derecho a discrepar. Así que se comprueba lo que de verdad
+    # importaba: que el equipo que cada casa declara como local sea el mismo.
+    # Un fallo real —el de la v77, que invertía todo el béisbol— se vería aquí
+    # igual de claro, porque entonces el local de una SÍ sería el visitante de
+    # la otra por NOMBRE.
     coincidencias, invertidos = 0, 0
     for k, v in pdt.items():
         p = pin.get(k)
         if not p:
             continue
-        coincidencias += 1
-        cp, cv = p.get('cuotas') or {}, v.get('cuotas') or {}
-        if not (cp.get('home') and cv.get('home')):
+        h_pin, a_pin = cm.normalizar(p.get('home') or ''), cm.normalizar(p.get('away') or '')
+        h_pdt, a_pdt = cm.normalizar(v.get('home') or ''), cm.normalizar(v.get('away') or '')
+        if not (h_pin and a_pin and h_pdt and a_pdt):
             continue
-        # si estuviera invertido, el 'home' de uno se parecería al 'away' del otro
-        d_ok = abs(cp['home'] - cv['home'])
-        d_inv = abs(cp['home'] - (cv.get('away') or 0))
-        if d_inv < d_ok - 0.15:
+        coincidencias += 1
+        # invertido de verdad = el local de una es el visitante de la otra
+        if cm._sim_club(h_pin, a_pdt) > cm._sim_club(h_pin, h_pdt):
             invertidos += 1
+            print(f'AVISO bandos invertidos: pinnacle {p.get("home")}/{p.get("away")} '
+                  f'vs playdoit {v.get("home")}/{v.get("away")}')
     if coincidencias:
         check(invertidos == 0,
-              f"Playdoit y Pinnacle coinciden en el bando local en MLB "
+              f"Playdoit y Pinnacle declaran el MISMO local en MLB "
               f"({invertidos} invertidos de {coincidencias} comparables)")
     else:
         print('AVISO ningún partido de MLB en común entre casas; se omite')
