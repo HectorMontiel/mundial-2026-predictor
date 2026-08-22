@@ -1,0 +1,195 @@
+{
+ "ligas": [
+  {
+   "liga": "premier",
+   "n": 2666,
+   "media": 10.362,
+   "sd_total": 3.46,
+   "sd_lambda": 1.269,
+   "corr_maxima": 0.3666,
+   "varianza_explicable_pct": 13.44
+  },
+  {
+   "liga": "laliga",
+   "n": 2669,
+   "media": 9.354,
+   "sd_total": 3.278,
+   "sd_lambda": 1.178,
+   "corr_maxima": 0.3594,
+   "varianza_explicable_pct": 12.92
+  },
+  {
+   "liga": "serie_a",
+   "n": 2662,
+   "media": 9.58,
+   "sd_total": 3.45,
+   "sd_lambda": 1.524,
+   "corr_maxima": 0.4418,
+   "varianza_explicable_pct": 19.52
+  },
+  {
+   "liga": "bundesliga",
+   "n": 2448,
+   "media": 9.752,
+   "sd_total": 3.35,
+   "sd_lambda": 1.211,
+   "corr_maxima": 0.3617,
+   "varianza_explicable_pct": 13.08
+  },
+  {
+   "liga": "ligue_1",
+   "n": 2339,
+   "media": 9.512,
+   "sd_total": 3.318,
+   "sd_lambda": 1.224,
+   "corr_maxima": 0.3688,
+   "varianza_explicable_pct": 13.6
+  },
+  {
+   "liga": "eredivisie",
+   "n": 2088,
+   "media": 10.162,
+   "sd_total": 3.43,
+   "sd_lambda": 1.266,
+   "corr_maxima": 0.369,
+   "varianza_explicable_pct": 13.62
+  },
+  {
+   "liga": "primeira",
+   "n": 2161,
+   "media": 9.905,
+   "sd_total": 3.461,
+   "sd_lambda": 1.44,
+   "corr_maxima": 0.4161,
+   "varianza_explicable_pct": 17.32
+  },
+  {
+   "liga": "turquia",
+   "n": 2488,
+   "media": 9.617,
+   "sd_total": 3.295,
+   "sd_lambda": 1.113,
+   "corr_maxima": 0.3379,
+   "varianza_explicable_pct": 11.42
+  },
+  {
+   "liga": "sco_premiership",
+   "n": 1560,
+   "media": 10.508,
+   "sd_total": 3.511,
+   "sd_lambda": 1.349,
+   "corr_maxima": 0.3841,
+   "varianza_explicable_pct": 14.75
+  },
+  {
+   "liga": "bel_pro_league",
+   "n": 1568,
+   "media": 10.095,
+   "sd_total": 3.4,
+   "sd_lambda": 1.211,
+   "corr_maxima": 0.3563,
+   "varianza_explicable_pct": 12.69
+  },
+  {
+   "liga": "eng_championship",
+   "n": 2783,
+   "media": 10.186,
+   "sd_total": 3.401,
+   "sd_lambda": 1.176,
+   "corr_maxima": 0.3458,
+   "varianza_explicable_pct": 11.96
+  },
+  {
+   "liga": "eng_league_one",
+   "n": 3736,
+   "media": 10.107,
+   "sd_total": 3.456,
+   "sd_lambda": 1.354,
+   "corr_maxima": 0.3919,
+   "varianza_explicable_pct": 15.36
+  },
+  {
+   "liga": "eng_league_two",
+   "n": 3776,
+   "media": 9.866,
+   "sd_total": 3.333,
+   "sd_lambda": 1.114,
+   "corr_maxima": 0.3344,
+   "varianza_explicable_pct": 11.18
+  },
+  {
+   "liga": "eng_national",
+   "n": 3678,
+   "media": 9.597,
+   "sd_total": 3.726,
+   "sd_lambda": 2.071,
+   "corr_maxima": 0.5558,
+   "varianza_explicable_pct": 30.89
+  },
+  {
+   "liga": "esp_hypermotion",
+   "n": 3248,
+   "media": 9.161,
+   "sd_total": 3.178,
+   "sd_lambda": 0.97,
+   "corr_maxima": 0.3051,
+   "varianza_explicable_pct": 9.31
+  },
+  {
+   "liga": "ita_serie_b",
+   "n": 2663,
+   "media": 9.668,
+   "sd_total": 3.341,
+   "sd_lambda": 1.221,
+   "corr_maxima": 0.3656,
+   "varianza_explicable_pct": 13.37
+  },
+  {
+   "liga": "fra_ligue2",
+   "n": 2435,
+   "media": 9.026,
+   "sd_total": 3.248,
+   "sd_lambda": 1.234,
+   "corr_maxima": 0.3799,
+   "varianza_explicable_pct": 14.43
+  },
+  {
+   "liga": "ger_bundesliga2",
+   "n": 2160,
+   "media": 10.148,
+   "sd_total": 3.336,
+   "sd_lambda": 0.992,
+   "corr_maxima": 0.2972,
+   "varianza_explicable_pct": 8.83
+  },
+  {
+   "liga": "sco_championship",
+   "n": 1187,
+   "media": 10.322,
+   "sd_total": 3.636,
+   "sd_lambda": 1.702,
+   "corr_maxima": 0.4681,
+   "varianza_explicable_pct": 21.91
+  },
+  {
+   "liga": "gre_super_league",
+   "n": 1671,
+   "media": 8.724,
+   "sd_total": 3.124,
+   "sd_lambda": 1.018,
+   "corr_maxima": 0.3258,
+   "varianza_explicable_pct": 10.61
+  }
+ ],
+ "resumen": {
+  "ligas": 20,
+  "n": 49986,
+  "media": 9.7602,
+  "sd_total": 3.387,
+  "sd_lambda": 1.2877,
+  "corr_maxima": 0.378,
+  "varianza_explicable_pct": 14.6758,
+  "corr_lograda_v156": 0.0609,
+  "fraccion_capturada": 0.1611
+ }
+}

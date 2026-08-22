@@ -5407,6 +5407,60 @@ def test_el_suelo_del_error_en_corners():
     check('%' not in lleno,
           "la tarjeta enseña medias de córners, nunca una probabilidad")
 
+
+def test_las_probabilidades_de_corners_usan_la_sobredispersion():
+    """
+    v157 — los córners no son Poisson, y se nota justo donde estan las lineas.
+
+    Llegan en racimo: un ataque genera el córner, el saque se desvia o rebota en
+    la barrera, y sale otro. Eso infla la varianza sin mover la media. Medido
+    sobre 20 competiciones, la razon varianza/media es 1,16 y no 1.
+
+    Comparando la probabilidad calculada contra la frecuencia REAL en 24 lineas
+    de 6 competiciones:
+
+        Poisson ..............  error medio 0,0093
+        binomial negativa ....  error medio 0,0043    ← la mitad
+
+    Es la unica de las cuatro vias propuestas para mejorar los córners que dio
+    resultado, y conviene ser preciso sobre QUE mejora: no la prediccion de la
+    media —eso sigue igual de dificil, §10.7— sino la conversion de esa media en
+    probabilidades.
+    """
+    import rendimiento_equipos as rq
+
+    d = rq.dispersion_corners_liga('premier')
+    check(d is not None and 1.0 <= d <= 1.6,
+          f"la Premier tiene sobredispersion medida y plausible ({d})")
+    check(rq.dispersion_corners_liga('liga_mx') is None,
+          "una competicion sin córners observados no inventa una dispersion")
+
+    m = rq.media_corners_liga('premier')
+    p_poi = rq.prob_mas_de(m, 8.5, 1.0)
+    p_nb = rq.prob_mas_de(m, 8.5, d)
+    check(p_poi is not None and p_nb is not None,
+          "las dos probabilidades se calculan")
+    # La cola alta de la binomial negativa es MENOS optimista que la de Poisson
+    # cuando la linea esta por debajo de la media: es justo la correccion que se
+    # midio contra la frecuencia real.
+    check(p_nb < p_poi,
+          f"con sobredispersion, «mas de 8.5» sale por debajo de Poisson "
+          f"({p_nb:.3f} < {p_poi:.3f})")
+    # y con dispersion 1 tiene que dar EXACTAMENTE Poisson, para que una
+    # competicion sin datos se comporte como antes del cambio
+    check(abs(rq.prob_mas_de(m, 9.5, 1.0) - rq.prob_mas_de(m, 9.5, None)) < 1e-9,
+          "sin dispersion conocida, el calculo es el de siempre")
+
+    src = open('league_engine.py', encoding='utf-8').read()
+    check('dispersion_corners_liga' in src,
+          "el motor pide la sobredispersion de la competicion")
+    check('_p_ck(' in src,
+          "y calcula las lineas de córners con ella")
+
+    doc = open('BITACORA_ARQUITECTURA.md', encoding='utf-8').read()
+    check('0,0043' in doc,
+          "la bitacora conserva el error de calibracion de la binomial negativa")
+
 def test_los_except_pueden_registrar_su_error():
     """
     v152 — un `except` que usa un nombre indefinido es peor que no tenerlo.
@@ -5905,6 +5959,7 @@ if __name__ == '__main__':
     test_modo_modelo_esta_enrutado_en_la_interfaz()
     test_corners_no_suben_a_seccion1_sin_medicion()
     test_el_suelo_del_error_en_corners()
+    test_las_probabilidades_de_corners_usan_la_sobredispersion()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

@@ -825,3 +825,124 @@ saca y recibe cada uno— sí son suyas y se enseñan como datos. El EV de córn
 sigue bloqueado, y ahora con un motivo más fuerte que antes: no es que falte
 afinar el modelo, es que el margen entre la constante y la perfección son
 0,22 córners y nadie ha capturado más del 4 %.
+
+### 10.7 CORRECCIÓN a la §10.6: el MAE ocultaba la señal
+
+La §10.6 midió el suelo del MAE (2,4835) y cerró la línea. **El suelo es
+correcto y un MAE de 2,0 sigue siendo imposible, pero la conclusión de que no
+había nada que capturar estaba mal razonada.** Faltaba una descomposición.
+
+Si el total de córners de cada partido es Poisson con su propia media λᵢ, la ley
+de la varianza total dice:
+
+    Var(X) = E[λ] + Var(λ)
+             ruido   SEÑAL
+
+El ruido de Poisson fija el suelo del MAE y es irreducible. `Var(λ)` es lo que
+un modelo mejor podría explicar, y se mide gratis: `Var(λ) = Var(X) − E[X]`.
+
+Medido sobre **49.986 partidos** de las 20 competiciones:
+
+| | |
+|---|---|
+| media de córners | 9,76 |
+| desviación total | 3,387 |
+| **desviación de λ (señal real)** | **1,288** |
+| **correlación máxima alcanzable** | **0,378** |
+| varianza explicable en principio | 14,7 % |
+
+**La media condicional varía 1,29 córners entre partidos: hay señal.** Lo que
+pasa es que con un ruido de desviación 3,2 encima, capturarla mueve el MAE unas
+centésimas y queda sepultada. Por eso el MAE era la métrica equivocada — y para
+apostar tampoco es la que importa: importa distinguir los partidos que van por
+encima de la línea, y eso lo mide la correlación.
+
+#### Dónde estamos contra ese techo
+
+| modelo | correlación |
+|---|---|
+| **techo alcanzable** | **0,378** |
+| ridge, 32 features del histórico | 0,0609 |
+| XGBoost / LightGBM / Poisson | peores que la constante |
+| multiplicativo ataque/defensa con decaimiento | 0,0634 |
+
+El multiplicativo —la estructura de Dixon-Coles aplicada a córners, que nunca se
+había probado aquí— sale mejor que la regresión y, sobre todo, **más
+consistente: 16 de las 20 ligas dan correlación positiva** (con moneda justa
+eso ocurre el 0,6 % de las veces). La señal es real; el tamaño, pequeño.
+
+**Cinco estructuras distintas dan lo mismo, así que el cuello no es el modelo:
+son los datos.** Queda el 83 % del margen sin capturar.
+
+#### Lo que se sabe de las fuentes nuevas
+
+- **FBref**: devuelve **403** a un `requests` con User-Agent de navegador. Sin
+  una vía que sortee eso —y sortearla no es una decisión técnica— no hay
+  pases progresivos, SCA ni PPDA.
+- **FotMob**: accesible, y **con temporadas pasadas**: `allAvailableSeasons`
+  llega a 2012/13 y la URL admite `?season=2024/2025`. Publica lo que
+  football-data no tiene: posesión real, xG real, ocasiones claras y tiros
+  bloqueados. Coste medido: **1,69 s por partido**, o sea 11 minutos por
+  liga-temporada y ~18 horas para 20 ligas × 5 años.
+
+### 10.8 Lo que SÍ mejoró: las colas, no la media
+
+De las cuatro vías propuestas, tres se cerraron con medición y una funcionó.
+
+| vía | resultado |
+|---|---|
+| FBref (soccerdata) | **403** a un `requests` con User-Agent de navegador. Inaccesible. |
+| Backfill de FotMob | Probado con **1.520 partidos reales** (4 temporadas de Premier, xG real, posesión, ocasiones claras): ganancia de correlación **−0,005** sobre n=663. Con ese tamaño el error estándar es 0,039, así que hay potencia para decir que no aporta. |
+| Cross-market | Sigue sin haber histórico de líneas de córners con el que entrenar ni validar. |
+| **Poisson compuesto** | **Funcionó** — ver abajo. |
+
+#### La sobredispersión sí se podía aprovechar
+
+Los córners llegan en racimo: un ataque genera el córner, el saque se desvía o
+rebota en la barrera, y sale otro. Eso infla la varianza sin mover la media, y
+la binomial negativa lo modela; Poisson no.
+
+    ajuste de la distribución (Premier, n=2.666)
+        Poisson ............  error total 0,1021
+        binomial negativa ..  error total 0,0787
+
+Y donde de verdad importa —las líneas que cotiza la casa—, comparando la
+probabilidad calculada contra la **frecuencia real** en 24 líneas de 6
+competiciones:
+
+    Poisson ..............  error medio 0,0093
+    binomial negativa ....  error medio 0,0043     ← la mitad
+
+Implementado: `rendimiento_equipos.dispersion_corners_liga` mide la razón
+varianza/media de cada competición y `prob_mas_de` la usa. Donde no hay córners
+observados devuelve `None` y el cálculo es exactamente el de antes.
+
+**Qué mejora y qué no.** No mejora la predicción de la media —eso sigue tan
+difícil como dice el §10.7— sino la conversión de esa media en probabilidades.
+Es una mejora de calibración, no de acierto.
+
+#### El techo de otros mercados, para orientar el esfuerzo
+
+Aplicando `sd(λ)/sd(X)` a los demás conteos de las mismas competiciones:
+
+| mercado | media | sd(λ) | correlación máxima |
+|---|---|---|---|
+| córners | 9,84 | 1,31 | 0,386 |
+| remates a puerta | 8,44 | 1,12 | 0,357 |
+| tarjetas | 4,20 | 0,41 | 0,193 |
+| **goles** | 2,65 | **0,04** | **0,025** |
+
+**El total de goles es casi Poisson puro.** Su techo de correlación es 0,025:
+predecir si un partido tendrá más o menos de 2,5 goles es, en el límite, casi
+imposible — y eso encaja con lo que el proyecto ya sabía por otra vía (el modelo
+no bate al mercado en ninguna liga). Sirve además de control: si este método
+hubiera dicho que los goles son muy predecibles, habría que desconfiar de él.
+
+#### Una salvedad honesta sobre el techo
+
+`sd(λ) = Var(X) − E[X]` supone que la distribución condicional de cada partido
+es **exactamente** Poisson. Si parte de la sobredispersión es agrupamiento
+intrínseco —y el ajuste de la binomial negativa dice que la hay—, entonces ese
+0,386 es un límite SUPERIOR y el techo real es más bajo. Eso explicaría por qué
+seis enfoques distintos, incluyendo datos avanzados reales, se quedan todos
+en 0,06.

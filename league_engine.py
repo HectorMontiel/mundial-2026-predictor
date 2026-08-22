@@ -2747,6 +2747,45 @@ class ClubEngine:
         # Cruzar «Más de 9» contra el P(>9.5) del modelo sería comparar dos
         # sucesos distintos y fabricar un EV — el mismo modo de fallo que el
         # veto por seña existe para atrapar.
+        # v157 — LOS CÓRNERS NO SON POISSON, Y SE NOTA EN LAS COLAS.
+        #
+        # Llegan en racimo: un ataque genera el córner, el saque se desvía o
+        # rebota en la barrera, y sale otro. Eso infla la varianza sin mover la
+        # media. Medido sobre 20 competiciones, la razón varianza/media es 1,16
+        # y no 1, y la binomial negativa ajusta la distribución bastante mejor
+        # que Poisson (error total 0,079 contra 0,102).
+        #
+        # Importa donde están las líneas que cotiza la casa. Comparando la
+        # probabilidad calculada contra la frecuencia REAL en 24 líneas de 6
+        # competiciones:
+        #
+        #     Poisson ..............  error medio 0,0093
+        #     binomial negativa ....  error medio 0,0043    ← la mitad
+        #
+        # Es la única de las cuatro vías propuestas para mejorar los córners que
+        # dio resultado, y no mejora la PREDICCIÓN de la media —eso sigue igual
+        # de difícil, ver el §10.7 de la bitácora— sino la conversión de esa
+        # media en probabilidades. Con `dispersion=None` (competición sin
+        # córners observados) se comporta exactamente como antes.
+        _disp_ck = None
+        try:
+            import rendimiento_equipos as _rq_d
+            _disp_ck = _rq_d.dispersion_corners_liga(self.clave)
+        except Exception as _e_d:
+            logger.debug(f"[{self.clave}] dispersión de córners: {_e_d}")
+
+        def _p_ck(linea: float) -> float:
+            """P(total > línea), con la sobredispersión de esta competición."""
+            if _disp_ck:
+                try:
+                    import rendimiento_equipos as _rq_p
+                    v = _rq_p.prob_mas_de(ck, linea, _disp_ck)
+                    if v is not None:
+                        return float(v)
+                except Exception:
+                    pass
+            return float(prob_over(ck, linea))
+
         def _ck_over_entero(L: int) -> float:
             p_igual = float(_tot[L]) if 0 <= L < len(_tot) else 0.0
             p_mayor = float(_tot[L + 1:].sum()) if L + 1 < len(_tot) else 0.0
@@ -2778,9 +2817,9 @@ class ClubEngine:
                           'corners_procedencia': _proc_ck,
                           'campos': [
             campo('corners_media', 'Córners totales (media)', round(ck, 1), 'media'),
-            campo('ck_o85', 'Más de 8.5 córners', pct(prob_over(ck, 8.5))),
-            campo('ck_o95', 'Más de 9.5 córners', pct(prob_over(ck, 9.5))),
-            campo('ck_o105', 'Más de 10.5 córners', pct(prob_over(ck, 10.5))),
+            campo('ck_o85', 'Más de 8.5 córners', pct(_p_ck(8.5))),
+            campo('ck_o95', 'Más de 9.5 córners', pct(_p_ck(9.5))),
+            campo('ck_o105', 'Más de 10.5 córners', pct(_p_ck(10.5))),
         ] + _campos_ck_enteros + [
             # córners por EQUIPO (v54)
             campo('ck_home_media', f'{home} córners (media)', round(ck_h, 1), 'media'),

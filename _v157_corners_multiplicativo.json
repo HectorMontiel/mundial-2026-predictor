@@ -1,0 +1,497 @@
+{
+ "ligas": [
+  {
+   "liga": "premier",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 1800,
+   "n_juicio": 600,
+   "mae_constante": 2.7186,
+   "corr_techo": 0.3173,
+   "multiplicativo": {
+    "mae": 2.7658,
+    "mejora_mae": -0.0472,
+    "p5_mae": -0.1088,
+    "corr": 0.0786,
+    "sd_pred": 0.979
+   },
+   "recalibrado": {
+    "mae": 2.7081,
+    "mejora_mae": 0.0105,
+    "p5_mae": -0.0005,
+    "corr": 0.0786,
+    "sd_pred": 0.162
+   },
+   "segundos": 23.8
+  },
+  {
+   "liga": "laliga",
+   "excluida": false,
+   "vida_dias": 180,
+   "n_train": 1690,
+   "n_juicio": 564,
+   "mae_constante": 2.636,
+   "corr_techo": 0.345,
+   "multiplicativo": {
+    "mae": 2.6888,
+    "mejora_mae": -0.0528,
+    "p5_mae": -0.1298,
+    "corr": 0.1216,
+    "sd_pred": 1.207
+   },
+   "recalibrado": {
+    "mae": 2.5979,
+    "mejora_mae": 0.0381,
+    "p5_mae": 0.0077,
+    "corr": 0.1216,
+    "sd_pred": 0.431
+   },
+   "segundos": 23.4
+  },
+  {
+   "liga": "serie_a",
+   "excluida": false,
+   "vida_dias": 90,
+   "n_train": 983,
+   "n_juicio": 325,
+   "mae_constante": 2.7504,
+   "corr_techo": 0.3888,
+   "multiplicativo": {
+    "mae": 2.8322,
+    "mejora_mae": -0.0818,
+    "p5_mae": -0.2101,
+    "corr": 0.0404,
+    "sd_pred": 1.371
+   },
+   "recalibrado": {
+    "mae": 2.7218,
+    "mejora_mae": 0.0286,
+    "p5_mae": -0.0154,
+    "corr": 0.0404,
+    "sd_pred": 0.46
+   },
+   "segundos": 23.7
+  },
+  {
+   "liga": "bundesliga",
+   "excluida": false,
+   "vida_dias": 180,
+   "n_train": 1543,
+   "n_juicio": 514,
+   "mae_constante": 2.7411,
+   "corr_techo": 0.3898,
+   "multiplicativo": {
+    "mae": 2.866,
+    "mejora_mae": -0.1249,
+    "p5_mae": -0.1922,
+    "corr": -0.0019,
+    "sd_pred": 1.019
+   },
+   "recalibrado": {
+    "mae": 2.7483,
+    "mejora_mae": -0.0073,
+    "p5_mae": -0.0287,
+    "corr": -0.0019,
+    "sd_pred": 0.308
+   },
+   "segundos": 22.9
+  },
+  {
+   "liga": "ligue_1",
+   "excluida": false,
+   "vida_dias": 90,
+   "n_train": 676,
+   "n_juicio": 223,
+   "mae_constante": 2.4859,
+   "corr_techo": 0.3711,
+   "multiplicativo": {
+    "mae": 2.7792,
+    "mejora_mae": -0.2933,
+    "p5_mae": -0.4229,
+    "corr": -0.1018,
+    "sd_pred": 1.256
+   },
+   "recalibrado": {
+    "mae": 2.4922,
+    "mejora_mae": -0.0063,
+    "p5_mae": -0.0155,
+    "corr": -0.1018,
+    "sd_pred": 0.08
+   },
+   "segundos": 24.4
+  },
+  {
+   "liga": "eredivisie",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 1384,
+   "n_juicio": 457,
+   "mae_constante": 2.6723,
+   "corr_techo": 0.2356,
+   "multiplicativo": {
+    "mae": 2.7631,
+    "mejora_mae": -0.0908,
+    "p5_mae": -0.1616,
+    "corr": 0.0204,
+    "sd_pred": 0.927
+   },
+   "recalibrado": {
+    "mae": 2.6768,
+    "mejora_mae": -0.0045,
+    "p5_mae": -0.0198,
+    "corr": 0.0204,
+    "sd_pred": 0.195
+   },
+   "segundos": 13.7
+  },
+  {
+   "liga": "primeira",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 1380,
+   "n_juicio": 460,
+   "mae_constante": 2.7526,
+   "corr_techo": 0.3786,
+   "multiplicativo": {
+    "mae": 2.6873,
+    "mejora_mae": 0.0653,
+    "p5_mae": -0.0208,
+    "corr": 0.1389,
+    "sd_pred": 1.084
+   },
+   "recalibrado": {
+    "mae": 2.7083,
+    "mejora_mae": 0.0443,
+    "p5_mae": 0.0168,
+    "corr": 0.1389,
+    "sd_pred": 0.327
+   },
+   "segundos": 14.8
+  },
+  {
+   "liga": "turquia",
+   "excluida": false,
+   "vida_dias": 180,
+   "n_train": 1536,
+   "n_juicio": 509,
+   "mae_constante": 2.7837,
+   "corr_techo": 0.4456,
+   "multiplicativo": {
+    "mae": 2.8328,
+    "mejora_mae": -0.0491,
+    "p5_mae": -0.1258,
+    "corr": 0.093,
+    "sd_pred": 1.091
+   },
+   "recalibrado": {
+    "mae": 2.7735,
+    "mejora_mae": 0.0102,
+    "p5_mae": -0.0066,
+    "corr": 0.093,
+    "sd_pred": 0.233
+   },
+   "segundos": 14.2
+  },
+  {
+   "liga": "sco_premiership",
+   "excluida": false,
+   "vida_dias": 90,
+   "n_train": 566,
+   "n_juicio": 189,
+   "mae_constante": 2.5934,
+   "corr_techo": 0.1585,
+   "multiplicativo": {
+    "mae": 2.663,
+    "mejora_mae": -0.0696,
+    "p5_mae": -0.2446,
+    "corr": 0.1788,
+    "sd_pred": 1.577
+   },
+   "recalibrado": {
+    "mae": 2.5444,
+    "mejora_mae": 0.049,
+    "p5_mae": -0.0211,
+    "corr": 0.1788,
+    "sd_pred": 0.583
+   },
+   "segundos": 21.8
+  },
+  {
+   "liga": "bel_pro_league",
+   "excluida": false,
+   "vida_dias": 90,
+   "n_train": 519,
+   "n_juicio": 173,
+   "mae_constante": 2.6692,
+   "corr_techo": 0.0,
+   "multiplicativo": {
+    "mae": 2.737,
+    "mejora_mae": -0.0678,
+    "p5_mae": -0.2192,
+    "corr": 0.052,
+    "sd_pred": 1.2
+   },
+   "recalibrado": {
+    "mae": 2.6678,
+    "mejora_mae": 0.0014,
+    "p5_mae": -0.0187,
+    "corr": 0.052,
+    "sd_pred": 0.157
+   },
+   "segundos": 8.9
+  },
+  {
+   "liga": "eng_championship",
+   "excluida": false,
+   "vida_dias": 90,
+   "n_train": 1376,
+   "n_juicio": 457,
+   "mae_constante": 2.6995,
+   "corr_techo": 0.3101,
+   "multiplicativo": {
+    "mae": 2.806,
+    "mejora_mae": -0.1065,
+    "p5_mae": -0.1882,
+    "corr": 0.0515,
+    "sd_pred": 1.142
+   },
+   "recalibrado": {
+    "mae": 2.6991,
+    "mejora_mae": 0.0003,
+    "p5_mae": -0.0121,
+    "corr": 0.0515,
+    "sd_pred": 0.168
+   },
+   "segundos": 10.1
+  },
+  {
+   "liga": "eng_league_one",
+   "excluida": false,
+   "vida_dias": 180,
+   "n_train": 2225,
+   "n_juicio": 741,
+   "mae_constante": 2.7353,
+   "corr_techo": 0.4112,
+   "multiplicativo": {
+    "mae": 2.8181,
+    "mejora_mae": -0.0829,
+    "p5_mae": -0.1478,
+    "corr": 0.056,
+    "sd_pred": 1.093
+   },
+   "recalibrado": {
+    "mae": 2.7274,
+    "mejora_mae": 0.0078,
+    "p5_mae": -0.0146,
+    "corr": 0.056,
+    "sd_pred": 0.358
+   },
+   "segundos": 26.7
+  },
+  {
+   "liga": "eng_league_two",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 2449,
+   "n_juicio": 812,
+   "mae_constante": 2.6123,
+   "corr_techo": 0.355,
+   "multiplicativo": {
+    "mae": 2.6478,
+    "mejora_mae": -0.0356,
+    "p5_mae": -0.0859,
+    "corr": 0.1276,
+    "sd_pred": 0.961
+   },
+   "recalibrado": {
+    "mae": 2.5976,
+    "mejora_mae": 0.0146,
+    "p5_mae": -0.001,
+    "corr": 0.1276,
+    "sd_pred": 0.291
+   },
+   "segundos": 28.7
+  },
+  {
+   "liga": "eng_national",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 2381,
+   "n_juicio": 789,
+   "mae_constante": 2.9645,
+   "corr_techo": 0.5522,
+   "multiplicativo": {
+    "mae": 3.0636,
+    "mejora_mae": -0.0991,
+    "p5_mae": -0.1456,
+    "corr": -0.0008,
+    "sd_pred": 0.915
+   },
+   "recalibrado": {
+    "mae": 2.9677,
+    "mejora_mae": -0.0032,
+    "p5_mae": -0.0086,
+    "corr": -0.0008,
+    "sd_pred": 0.1
+   },
+   "segundos": 27.3
+  },
+  {
+   "liga": "esp_hypermotion",
+   "excluida": false,
+   "vida_dias": 90,
+   "n_train": 1346,
+   "n_juicio": 448,
+   "mae_constante": 2.6531,
+   "corr_techo": 0.3645,
+   "multiplicativo": {
+    "mae": 2.8028,
+    "mejora_mae": -0.1498,
+    "p5_mae": -0.242,
+    "corr": 0.0577,
+    "sd_pred": 1.275
+   },
+   "recalibrado": {
+    "mae": 2.6472,
+    "mejora_mae": 0.0058,
+    "p5_mae": -0.0107,
+    "corr": 0.0577,
+    "sd_pred": 0.196
+   },
+   "segundos": 15.4
+  },
+  {
+   "liga": "ita_serie_b",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 1587,
+   "n_juicio": 522,
+   "mae_constante": 2.7142,
+   "corr_techo": 0.3901,
+   "multiplicativo": {
+    "mae": 2.696,
+    "mejora_mae": 0.0182,
+    "p5_mae": -0.063,
+    "corr": 0.1085,
+    "sd_pred": 1.142
+   },
+   "recalibrado": {
+    "mae": 2.6751,
+    "mejora_mae": 0.0391,
+    "p5_mae": 0.02,
+    "corr": 0.1085,
+    "sd_pred": 0.241
+   },
+   "segundos": 16.2
+  },
+  {
+   "liga": "fra_ligue2",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 1485,
+   "n_juicio": 490,
+   "mae_constante": 2.549,
+   "corr_techo": 0.3162,
+   "multiplicativo": {
+    "mae": 2.6841,
+    "mejora_mae": -0.1352,
+    "p5_mae": -0.2166,
+    "corr": 0.041,
+    "sd_pred": 1.114
+   },
+   "recalibrado": {
+    "mae": 2.5441,
+    "mejora_mae": 0.0048,
+    "p5_mae": -0.0252,
+    "corr": 0.041,
+    "sd_pred": 0.363
+   },
+   "segundos": 15.1
+  },
+  {
+   "liga": "ger_bundesliga2",
+   "excluida": false,
+   "vida_dias": 180,
+   "n_train": 1184,
+   "n_juicio": 394,
+   "mae_constante": 2.6033,
+   "corr_techo": 0.2242,
+   "multiplicativo": {
+    "mae": 2.73,
+    "mejora_mae": -0.1267,
+    "p5_mae": -0.2033,
+    "corr": -0.0015,
+    "sd_pred": 1.015
+   },
+   "recalibrado": {
+    "mae": 2.6079,
+    "mejora_mae": -0.0046,
+    "p5_mae": -0.0203,
+    "corr": -0.0015,
+    "sd_pred": 0.203
+   },
+   "segundos": 14.8
+  },
+  {
+   "liga": "sco_championship",
+   "excluida": false,
+   "vida_dias": 365,
+   "n_train": 715,
+   "n_juicio": 237,
+   "mae_constante": 2.8752,
+   "corr_techo": 0.4793,
+   "multiplicativo": {
+    "mae": 2.8971,
+    "mejora_mae": -0.0219,
+    "p5_mae": -0.1322,
+    "corr": 0.0841,
+    "sd_pred": 1.096
+   },
+   "recalibrado": {
+    "mae": 2.8379,
+    "mejora_mae": 0.0373,
+    "p5_mae": 0.011,
+    "corr": 0.0841,
+    "sd_pred": 0.243
+   },
+   "segundos": 14.5
+  },
+  {
+   "liga": "gre_super_league",
+   "excluida": false,
+   "vida_dias": 180,
+   "n_train": 1049,
+   "n_juicio": 348,
+   "mae_constante": 2.5047,
+   "corr_techo": 0.3001,
+   "multiplicativo": {
+    "mae": 2.5765,
+    "mejora_mae": -0.0718,
+    "p5_mae": -0.1506,
+    "corr": 0.081,
+    "sd_pred": 1.023
+   },
+   "recalibrado": {
+    "mae": 2.4958,
+    "mejora_mae": 0.0089,
+    "p5_mae": -0.0144,
+    "corr": 0.081,
+    "sd_pred": 0.271
+   },
+   "segundos": 17.7
+  }
+ ],
+ "resumen": {
+  "ligas": 20,
+  "n_juicio": 9252,
+  "mae_constante": 2.7005,
+  "mae_recalibrado": 2.688,
+  "corr_multiplicativo": 0.0634,
+  "corr_recalibrado": 0.0634,
+  "corr_techo": 0.3601,
+  "corr_v156_ridge": 0.0609,
+  "ligas_p5_mae_positivo": 4,
+  "ligas_corr_positiva": 16,
+  "fraccion_del_techo": 0.1761
+ }
+}
