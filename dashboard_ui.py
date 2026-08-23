@@ -1675,7 +1675,7 @@ def render_remates_partido(clave: str, home: str, away: str, key: str):
         bloque = eq.get(nombre)
         if not bloque:
             continue
-        pintado = _mm._filas_de(bloque, '🎯')
+        pintado = _mm._filas_de(bloque, '🎯', nombre)
         if not pintado:
             continue
         for f in pintado['filas']:
@@ -1764,6 +1764,28 @@ def render_remates_partido(clave: str, home: str, away: str, key: str):
                 'Pos': j.get('posicion'),
                 'PJ': int(j.get('apariciones') or 0),
                 'Rem. esperados': j.get('lambda_tot'),
+                # v164 — LA LÍNEA DE LA CASA Y SU PROBABILIDAD.
+                #
+                # Playdoit cotiza «Remates - <Jugador> (<COD>)» y «Remates a
+                # Puerta - …» con tres líneas cada una; se enseña la principal
+                # y la probabilidad del modelo para ESA línea, que es la que el
+                # usuario va a ver en el boleto.
+                #
+                # Cuando la casa no cotiza a ese jugador se escribe «línea no
+                # disponible», NO un 0 %: son cosas distintas y confundirlas
+                # sería afirmar algo que nadie ha dicho. La casa ofrece unos 40
+                # jugadores por partido y ESPN devuelve ~55, así que pasa a
+                # menudo y no es un fallo.
+                'Línea casa': (f"+{j['linea_tot']:.1f}"
+                               if j.get('linea_tot') is not None
+                               else 'no disponible'),
+                'Prob. línea': (f"{j['p_linea_tot']*100:.0f} %"
+                                if j.get('p_linea_tot') is not None else '—'),
+                'Línea a puerta': (f"+{j['linea_on']:.1f}"
+                                   if j.get('linea_on') is not None
+                                   else 'no disponible'),
+                'Prob. a puerta': (f"{j['p_linea_on']*100:.0f} %"
+                                   if j.get('p_linea_on') is not None else '—'),
                 '≥1 remate': (f"{j['p_remata']*100:.0f} %"
                               if j.get('p_remata') is not None else '—'),
                 '≥1 a puerta': (f"{j['p_al_arco']*100:.0f} %"
@@ -1783,7 +1805,9 @@ def render_remates_partido(clave: str, home: str, away: str, key: str):
            "cuatro a diez partidos, su media suelta es un tercio de ruido. "
            "Medido sobre 6.688 titulares-partido, encoger baja el error de "
            "calibración por deciles de 0,056 a 0,029 y encima sube la "
-           "correlación.")
+           "correlación. **Prob. línea** es la probabilidad del modelo para la "
+           "línea que cotiza la casa; «no disponible» significa que la casa no "
+           "cotiza a ese jugador, que no es lo mismo que un 0 %.")
     if any(j.get('muestra_corta') for j in
            (qr.get('home_jugadores') or []) + (qr.get('away_jugadores') or [])):
         pie += (" El asterisco marca a quien lleva menos de cuatro partidos: "

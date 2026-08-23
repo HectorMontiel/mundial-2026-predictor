@@ -288,6 +288,122 @@ def p_al_menos_uno(lam: Optional[float]) -> Optional[float]:
     return float(1.0 - math.exp(-x))
 
 
+# v164 — LO QUE REMATA UN SUPLENTE FRENTE A UN TITULAR, MEDIDO.
+#
+# Sobre 24.059 apariciones de Premier, LaLiga y Liga MX
+# (`_v163_cache_jugadores/`):
+#
+#     remates totales   titular 0,9888 · suplente 0,4741   razón 0,4795
+#     a puerta          titular 0,3334 · suplente 0,1631   razón 0,4890
+#
+# Un suplente remata menos de la mitad que un titular, y no es una sorpresa:
+# entra a falta de veinte minutos.
+RATIO_SUPLENTE = {'tot': 0.4795, 'on': 0.4890}
+# Y el factor de rescate cuando no se sabe cuántas de sus apariciones fueron
+# titularidades: la media de titular dividida por la media de aparición.
+FACTOR_APARICION = {'tot': 1.1754, 'on': 1.1717}
+
+
+def media_por_titularidad(total: Optional[float], apariciones: Optional[float],
+                          titularidades: Optional[float] = None,
+                          objetivo: str = 'tot') -> Optional[float]:
+    """
+    Los remates que se le esperan CUANDO ES TITULAR, no cuando aparece.
+
+    EL DESAJUSTE QUE ARREGLA, Y QUE ESTUVO EN PRODUCCIÓN DESDE LA v163. El
+    modelo por jugador se validó sobre TITULARES y con su historia como
+    titulares (§13.7, ECE 0,029). Producción, en cambio, dividía los remates
+    entre las APARICIONES —que incluyen entrar diez minutos desde el
+    banquillo—, así que la lambda que se enseñaba era una magnitud distinta de
+    la que se había medido, y más baja.
+
+    No es un detalle: el 29 % de las apariciones son suplencias, y de suplente
+    se remata el 48 % de lo que se remata de titular.
+
+    Con las titularidades conocidas se despeja exacto. Si `total` son los
+    remates de T titularidades y S suplencias, y un suplente remata `r` veces
+    lo que un titular:
+
+        total = m_tit · T + m_tit · r · S      ->      m_tit = total / (T + r·S)
+
+    Sin ellas se aplica el factor global medido, que es peor pero honesto: la
+    media de titular partido por la media de aparición.
+    """
+    try:
+        tot = float(total)
+        ap = float(apariciones or 0)
+    except (TypeError, ValueError):
+        return None
+    if ap <= 0:
+        return None
+    r = RATIO_SUPLENTE.get(objetivo, RATIO_SUPLENTE['tot'])
+    if titularidades is None:
+        return (tot / ap) * FACTOR_APARICION.get(
+            objetivo, FACTOR_APARICION['tot'])
+    try:
+        t = float(titularidades)
+    except (TypeError, ValueError):
+        return (tot / ap) * FACTOR_APARICION.get(
+            objetivo, FACTOR_APARICION['tot'])
+    t = max(0.0, min(t, ap))
+    den = t + r * (ap - t)
+    if den <= 0:
+        # nunca fue titular: su media como titular no se puede despejar de aquí
+        # sin dividir por cero. Se devuelve la de aparición escalada, que es lo
+        # mejor disponible, y el encogimiento hacia su posición hará el resto.
+        return (tot / ap) * FACTOR_APARICION.get(
+            objetivo, FACTOR_APARICION['tot'])
+    return tot / den
+
+
+def buscar_linea(lineas: Optional[Dict], jugador: str) -> Optional[Dict]:
+    """La ficha de líneas de un jugador, o `None` si la casa no lo cotiza."""
+    if not lineas or not jugador:
+        return None
+    try:
+        import lineas_jugador
+        return lineas_jugador.buscar(lineas, jugador)
+    except Exception as e:
+        logger.debug('[remates_jugador] línea de %s: %s', jugador, e)
+        return None
+
+
+def p_mas_de(lam: Optional[float], linea: Optional[float]) -> Optional[float]:
+    """
+    P(X > linea) con Poisson, para la línea que cotiza la casa.
+
+    Las líneas de jugador son siempre de medio punto —«Más de 1,5 remates»— así
+    que esto es P(X >= 2) y no hay empate posible. Se calcula con la misma
+    Poisson que ganó la medición por jugador (§13.7): la binomial negativa
+    perdía porque la sobredispersión que se mide juntando jugadores es en buena
+    parte la diferencia ENTRE ellos, y ésa ya está dentro de cada lambda.
+
+    `None` si falta cualquiera de los dos. Eso NO es un cero, y quien llama
+    tiene que enseñarlo como «línea no disponible»: decir 0 % de un mercado que
+    la casa no cotiza sería inventarse una afirmación.
+    """
+    if lam is None or linea is None:
+        return None
+    try:
+        import math
+        x = float(lam)
+        L = float(linea)
+    except (TypeError, ValueError):
+        return None
+    if x <= 0:
+        return 0.0
+    # P(X > L) = 1 - P(X <= floor(L)); con L de medio punto, floor(L) = L - 0,5
+    k = int(math.floor(L))
+    if k < 0:
+        return 1.0
+    acum, termino = 0.0, math.exp(-x)
+    for i in range(0, k + 1):
+        if i:
+            termino *= x / i
+        acum += termino
+    return float(max(0.0, min(1.0, 1.0 - acum)))
+
+
 # ---------------------------------------------------------------------------
 # la alineación probable (FotMob)
 # ---------------------------------------------------------------------------
@@ -491,15 +607,26 @@ def _de_roster(clave_liga: str, equipo: str,
         apar = float(j.get('apariciones') or 0)
         if apar < MIN_APARICIONES:
             continue
+        # v164 — LA MEDIA ES POR TITULARIDAD, NO POR APARICIÓN.
+        #
+        # `subIns` dice cuántas de sus apariciones fueron desde el banquillo,
+        # así que las titularidades se despejan y con ellas la media que el
+        # modelo tiene medida. En los rosters cacheados antes de la v164 el
+        # campo no está: entonces se aplica el factor global, que es peor pero
+        # sigue siendo la magnitud correcta.
+        subs = j.get('suplencias')
+        tit = None if subs is None else max(0.0, apar - float(subs))
         fila = {'jugador': j.get('nombre'), 'posicion': j.get('posicion') or '',
                 'apariciones': apar, 'base': 'temporada',
-                'media_tot': (float(j.get('remates') or 0) / apar
-                              if apar > 0 else None)}
+                'titularidades': tit,
+                'media_tot': media_por_titularidad(j.get('remates'), apar,
+                                                   tit, 'tot')}
         # `al_arco` sólo está en los rosters refrescados desde la v163. En los
         # cacheados antes vale `None` y el mercado «a puerta» de este jugador
         # simplemente no se pinta, en vez de salir a cero.
         if j.get('al_arco') is not None:
-            fila['media_on'] = float(j['al_arco']) / apar if apar > 0 else None
+            fila['media_on'] = media_por_titularidad(j['al_arco'], apar, tit,
+                                                     'on')
         salida.append(fila)
     return salida
 
@@ -570,14 +697,19 @@ def _de_partidos(clave_liga: str, equipo: str) -> List[Dict]:
         if apar < MIN_APARICIONES:
             continue
         muestra = float(r.get('n_partidos_muestra') or 0)
+        # v164 — igual que en el roster: la media que el modelo tiene medida
+        # es la del TITULAR, y `remates_pp` viene dividido entre apariciones.
+        # Aquí las titularidades sí llegan siempre, así que se despeja exacto.
+        tit = float(r.get('titularidades') or 0)
         salida.append({
             'jugador': r.get('jugador'), 'posicion': r.get('posicion') or '',
             'apariciones': apar, 'base': 'últimos partidos',
-            'media_tot': float(r.get('remates_pp') or 0.0),
-            'media_on': float(r.get('al_arco_pp') or 0.0),
-            'titularidades': float(r.get('titularidades') or 0),
-            'p_titular': (float(r.get('titularidades') or 0) / muestra
-                          if muestra > 0 else None),
+            'media_tot': media_por_titularidad(r.get('remates'), apar, tit,
+                                               'tot'),
+            'media_on': media_por_titularidad(r.get('al_arco'), apar, tit,
+                                              'on'),
+            'titularidades': tit,
+            'p_titular': (tit / muestra if muestra > 0 else None),
         })
     return salida
 
@@ -586,7 +718,8 @@ def jugadores_equipo(clave_liga: str, equipo: str,
                      lambda_tot: Optional[float] = None,
                      lambda_on: Optional[float] = None,
                      once: Optional[List[str]] = None,
-                     en_vivo: bool = False) -> List[Dict]:
+                     en_vivo: bool = False,
+                     lineas: Optional[Dict] = None) -> List[Dict]:
     """
     Los jugadores de un equipo con su probabilidad de rematar.
 
@@ -666,6 +799,28 @@ def jugadores_equipo(clave_liga: str, equipo: str,
                      'on_del_previo': f.get('media_on') is None,
                      'muestra_corta': bool(float(f.get('apariciones') or 0)
                                            < MIN_APARICIONES_FIABLE)})
+        # v164 — LA LÍNEA DE LA CASA, SI LA COTIZA.
+        #
+        # Es la que el usuario va a ver en el boleto, así que la probabilidad
+        # que se enseña tiene que ser la de ESA línea y no la de una elegida
+        # por nosotros. Cuando la casa no cotiza a este jugador, los cuatro
+        # campos se quedan en `None` y la interfaz dice «línea no disponible»:
+        # un 0 % sería una afirmación que nadie ha hecho.
+        ficha = buscar_linea(lineas, f.get('jugador'))
+        for obj, lam, cl, cp in (('tot', lt, 'linea_tot', 'p_linea_tot'),
+                                 ('on', lo, 'linea_on', 'p_linea_on')):
+            bloque = (ficha or {}).get(obj) or {}
+            L = bloque.get('principal')
+            fila[cl] = L
+            fila[cp] = p_mas_de(lam, L)
+            # La cuota de esa línea. El precálculo del día guarda `cuota`
+            # directamente —se le quita la escalera entera para que el fichero
+            # no pese 968 KB— y el tablero en vivo la trae dentro de `lineas`.
+            # Se miran los dos: fiarlo sólo a la escalera dejaba la cuota en
+            # `None` en todo lo que viene del fichero, que es la tarjeta.
+            fila['cuota_' + obj] = bloque.get('cuota') or (
+                (bloque.get('lineas') or {}).get(
+                    ('%s' % L) if L is not None else ''))
         if titulares is not None:
             if f['jugador'] not in titulares:
                 continue
@@ -778,9 +933,17 @@ def partido(clave_liga: str, home: str, away: str, fecha: str = '',
     on = eq.get('a_puerta') or {}
 
     once = _once_del_partido(home, away, fecha, en_vivo)
+    # Las líneas de la casa, UNA vez por partido y repartidas a los dos lados:
+    # el tablero trae a los 22 jugadores juntos. Sin red en la tarjeta.
+    try:
+        import lineas_jugador
+        lineas = lineas_jugador.del_partido(home, away, permitir_red=en_vivo)
+    except Exception as e:
+        logger.debug('[remates_jugador] líneas de %s-%s: %s', home, away, e)
+        lineas = {}
 
     salida = {'clave_liga': clave_liga, 'home': home, 'away': away,
-              'alineacion': once,
+              'alineacion': once, 'con_lineas': bool(lineas),
               'origen_equipo': tot.get('origen') or 'observado'}
     algo = False
     for lado, equipo in (('home', home), ('away', away)):
@@ -789,7 +952,7 @@ def partido(clave_liga: str, home: str, away: str, fecha: str = '',
             lambda_tot=tot.get('lambda_' + lado),
             lambda_on=on.get('lambda_' + lado),
             once=(once or {}).get(lado) if once else None,
-            en_vivo=en_vivo)
+            en_vivo=en_vivo, lineas=lineas)
         if js:
             algo = True
             # cuántos del once se encontraron, para que la interfaz no rotule

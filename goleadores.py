@@ -185,6 +185,19 @@ def _roster_crudo(code: str, team_id: str, season: Optional[int]) -> List[Dict]:
             # sección funciona igual hasta que el workflow diario refresque el
             # fichero — no hace falta invalidar la caché a mano.
             'al_arco': _stat(cats, 'shotsOnTarget'),
+            # v164 — LAS SUPLENCIAS, QUE SON LO QUE SEPARA UNA MEDIA DE OTRA.
+            #
+            # `appearances` cuenta también los partidos en los que entró diez
+            # minutos desde el banquillo, y dividir los remates de la temporada
+            # entre ellas da la media de una APARICIÓN, no la de una
+            # TITULARIDAD. El modelo por jugador de la v163 se validó sobre
+            # titulares (§13.7), y la línea de la casa es para el que sale de
+            # inicio, así que las dos cosas tienen que ser la misma.
+            #
+            # Medido sobre 24.059 apariciones: de titular se rematan 0,9888
+            # veces y de suplente 0,4741 — el 48 %. Con `subIns` se despeja la
+            # media de titular exactamente, sin factores globales.
+            'suplencias': _stat(cats, 'subIns'),
         })
     return jugadores
 

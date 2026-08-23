@@ -202,6 +202,21 @@ def apuesta_destacada(pick: Dict) -> Optional[Dict]:
             continue
         if str(m.get('mercado') or '') in _MERCADOS_FUERA:
             continue
+        # v164 — UN MERCADO ESTIMADO NO PUEDE SER EL TITULAR.
+        #
+        # Hoy no puede llegar ninguno: `alpha_finder` sólo mete aquí 1X2,
+        # Goles, BTTS y hándicap, todos derivados de la matriz de marcador, que
+        # se entrena con goles REALES en las 62 competiciones. Auditado sobre
+        # el barrido del 2026-08-23: los 151 titulares salen de Goles (96),
+        # BTTS (45) y 1X2 (10), ninguno de córners, tarjetas ni remates.
+        #
+        # La guarda se pone igualmente porque el día que alguien meta un
+        # mercado físico en `mercados` —que es lo natural cuando se quiera
+        # ofrecer córners como pick— el titular se llenaría de estimaciones sin
+        # que nada lo denunciara. Es el modo de fallo de la v106 otra vez: un
+        # argumento que deja de ser cierto y nadie se entera.
+        if str(m.get('origen') or 'observado') == 'estimado':
+            continue
         try:
             p = float(m.get('prob'))
         except (TypeError, ValueError):
@@ -485,10 +500,10 @@ def corners_tarjeta(pick: Dict) -> Optional[Dict]:
         return None
     if not eq:
         return None
-    return _filas_de(eq, '⛳')
+    return _filas_de(eq, '⛳', 'corners')
 
 
-def _filas_de(eq: Dict, icono: str) -> Optional[Dict]:
+def _filas_de(eq: Dict, icono: str, mercado: str = '') -> Optional[Dict]:
     """
     Las tres filas de una seccion —total, local y visita— con su apuesta.
 
@@ -512,11 +527,30 @@ def _filas_de(eq: Dict, icono: str) -> Optional[Dict]:
             filas.append({'etiqueta': nombre, 'media': float(media), **lado})
     if not filas:
         return None
+    origen = eq.get('origen') or 'observado'
+    # v164 — QUIEN PUEDE LLEVAR INSIGNIA Y QUIEN NO.
+    #
+    # Medido sobre el barrido del 2026-08-23: de 624 bloques fisicos pintados,
+    # 232 eran ESTIMADOS y todos anunciaban su «destacado», hasta un 68 %. En
+    # 58 partidos lo eran TODOS. Un bloque estimado es el nivel de la
+    # competicion repartido por bando, IDENTICO en todos sus partidos: no sabe
+    # nada de ESE partido y no puede parecer una recomendacion.
+    #
+    # `confianza_mercado` decide, y el bloque sigue llevando sus filas y su
+    # etiqueta: lo que desaparece es la insignia, no la informacion.
+    conf = {'nivel': 2, 'insignia': True, 'error': None, 'motivo': ''}
+    try:
+        import confianza_mercado
+        conf = confianza_mercado.nivel(eq.get('clave_liga') or '',
+                                       mercado or '', origen)
+    except Exception as e:
+        logger.debug('[modo_modelo] confianza de %s: %s', mercado, e)
     return {'filas': filas, 'mejor': max(filas, key=lambda f: f['prob']),
-            'origen': eq.get('origen') or 'observado',
+            'origen': origen,
             'aceptable': eq.get('aceptable', True),
             'error_calibracion': eq.get('error_calibracion'),
-            'base': eq.get('base'), 'icono': icono}
+            'confianza': conf,
+            'base': eq.get('base'), 'icono': icono, 'mercado': mercado}
 
 
 def _etiqueta_origen(bloque: Dict) -> str:
@@ -551,18 +585,58 @@ def _bloque_corners_html(ck: Dict) -> str:
 
 def _bloque_seccion_html(bloque: Optional[Dict], icono: str,
                          titulo: str) -> str:
+    """
+    v164 — LA INSIGNIA SOLO SI EL MERCADO SE LA HA GANADO.
+
+    Antes salia siempre, tambien sobre un bloque estimado. Un bloque estimado
+    es el nivel de la competicion repartido por bando, identico en todos los
+    partidos de esa liga —lo dice su propia etiqueta—, asi que anunciarlo como
+    «destacado» le da forma de recomendacion a un numero que no distingue un
+    partido de otro. Medido: 232 de 624 bloques del dia, y 58 partidos donde lo
+    eran todos.
+
+    Ahora la insignia depende de `confianza_mercado`:
+
+        nivel 1  observado, error < 0,02          insignia limpia
+        nivel 2  observado, 0,02-0,05 o sin medir  insignia con el error al lado
+        nivel 3  estimado                          SIN insignia
+
+    Las filas y la etiqueta de origen NO se tocan: lo que desaparece es la
+    insignia, no la informacion. El bloque sigue enseñando sus tres medias y su
+    «📐 Estimado», que es lo que se pidio.
+
+    Y sigue siendo AMBAR en los tres niveles. El verde de esta aplicacion
+    significa «canal con percentil 5 de bootstrap positivo medido» (§0), y
+    cornrs, tarjetas y remates no lo tienen — estar bien calibrado y estar bien
+    pagado son dos cosas distintas.
+    """
     if not bloque:
         return ''
     mejor = bloque['mejor']
     estimado = (bloque.get('origen') or 'observado') == 'estimado'
-    trozos = ['<div class="mm-ck-tit">%s <b>%s</b>%s '
-              '<span class="mm-ck-badge">🟡 destacado: %s %s &nbsp;%.0f %%'
-              '</span></div>'
+    conf = bloque.get('confianza') or {}
+    con_insignia = bool(conf.get('insignia', not estimado))
+    if con_insignia:
+        try:
+            import confianza_mercado
+            matiz = confianza_mercado.etiqueta(conf)
+        except Exception:
+            matiz = ''
+        badge = ('<span class="mm-ck-badge">🟡 destacado: %s %s &nbsp;%.0f %%%s'
+                 '</span>'
+                 % (mejor['etiqueta'], mejor['texto'], mejor['prob'] * 100,
+                    (' <span class="mm-ck-est">%s</span>' % matiz)
+                    if matiz else ''))
+    else:
+        badge = ''
+    trozos = ['<div class="mm-ck-tit">%s <b>%s</b>%s %s</div>'
               % (icono, titulo,
                  ' <span class="mm-ck-est">estimado</span>' if estimado else '',
-                 mejor['etiqueta'], mejor['texto'], mejor['prob'] * 100)]
+                 badge)]
     for f in bloque['filas']:
-        resalta = ' mm-ck-mejor' if f is mejor else ''
+        # sin insignia no se resalta ninguna fila: destacar una en negrita es
+        # la misma afirmacion con otra tipografia
+        resalta = ' mm-ck-mejor' if (con_insignia and f is mejor) else ''
         trozos.append(
             '<div class="mm-ck-fila%s">%s <b>%.1f</b> · %s '
             '<span class="mm-ck-pct">%.0f %%</span></div>'
@@ -651,7 +725,7 @@ def tarjetas_tarjeta(pick: Dict) -> Optional[Dict]:
         return None
     if not tj:
         return None
-    bloque = _filas_de(tj, '🟨')
+    bloque = _filas_de(tj, '🟨', 'tarjetas')
     if not bloque:
         return None
     bloque['arbitro'] = perfil
@@ -736,7 +810,7 @@ def remates_tarjeta(pick: Dict) -> Optional[Dict]:
     salida = {}
     for nombre, icono in (('totales', '🎯'), ('a_puerta', '🥅')):
         if eq.get(nombre):
-            bloque = _filas_de(eq[nombre], icono)
+            bloque = _filas_de(eq[nombre], icono, nombre)
             if bloque:
                 salida[nombre] = bloque
     return salida or None
@@ -813,30 +887,50 @@ def _bloque_quien_remata_html(qr: Optional[Dict]) -> str:
             continue
         partes = []
         for j in js:
-            if j.get('p_remata') is None:
-                continue
             corto = '*' if j.get('muestra_corta') else ''
-            # LAS DOS PROBABILIDADES, QUE ES LO QUE SE PIDIÓ: rematar y rematar
-            # A PUERTA. Son dos mercados distintos y la casa los cotiza por
-            # separado, así que enseñar sólo el primero obliga a adivinar el
-            # segundo — y no se adivina: la puntería de un jugador es suya, no
-            # una fracción fija.
-            if j.get('p_al_arco') is not None:
-                partes.append('%s <b>%.0f %%</b> / %.0f %% a puerta%s'
-                              % (j.get('jugador'), j['p_remata'] * 100,
-                                 j['p_al_arco'] * 100, corto))
-            else:
-                partes.append('%s <b>%.0f %%</b>%s'
-                              % (j.get('jugador'), j['p_remata'] * 100, corto))
+            # v164 — LA LÍNEA DE LA CASA MANDA SOBRE LA NUESTRA.
+            #
+            # Si Playdoit cotiza a este jugador se enseña SU línea y la
+            # probabilidad de ESA línea, que es la que el usuario va a ver en
+            # el boleto. Sin línea se cae a «al menos uno», que es lo que había
+            # y sigue siendo información honesta — pero no se inventa un
+            # porcentaje sobre una línea que la casa no ofrece.
+            trozo = None
+            if j.get('p_linea_tot') is not None:
+                trozo = ('%s <b>%.0f %%</b> de +%.1f'
+                         % (j.get('jugador'), j['p_linea_tot'] * 100,
+                            j['linea_tot']))
+                if j.get('p_linea_on') is not None:
+                    trozo += (' · %.0f %% de +%.1f a puerta'
+                              % (j['p_linea_on'] * 100, j['linea_on']))
+            elif j.get('p_remata') is not None:
+                trozo = ('%s <b>%.0f %%</b> de rematar'
+                         % (j.get('jugador'), j['p_remata'] * 100))
+                if j.get('p_al_arco') is not None:
+                    trozo += ' · %.0f %% a puerta' % (j['p_al_arco'] * 100)
+            if trozo:
+                partes.append(trozo + corto)
         if partes:
             trozos.append('<div class="mm-ck-fila">%s · %s</div>'
                           % (equipo, ' &nbsp;·&nbsp; '.join(partes)))
     if len(trozos) == 1:
         return ''
     # el pie: qué son esas probabilidades y qué NO son
-    pie = ('probabilidad de tirar al menos un remate, y de que al menos uno '
-           'vaya a puerta. Son informativas: el mercado de jugador no tiene '
-           'aquí ventaja de precio medida.')
+    con_linea = sum(1 for j in filas if j.get('p_linea_tot') is not None)
+    if con_linea:
+        pie = ('«+1.5» es la línea que cotiza la casa y el porcentaje es la '
+               'probabilidad del modelo para ESA línea. Es informativa: el '
+               'mercado de jugador no tiene aquí ventaja de precio medida.')
+        if con_linea < len(filas):
+            pie += (' A %d de estos %d jugadores la casa no les cotiza línea, '
+                    'y para ésos se enseña la probabilidad de rematar al menos '
+                    'una vez — no un cero.'
+                    % (len(filas) - con_linea, len(filas)))
+    else:
+        pie = ('probabilidad de tirar al menos un remate, y de que al menos '
+               'uno vaya a puerta. La casa no cotiza líneas de jugador en este '
+               'partido. Son informativas: el mercado de jugador no tiene aquí '
+               'ventaja de precio medida.')
     if not al:
         pie = ('todavía no hay alineación publicada, así que no se sabe quién '
                'sale de inicio — ' + pie)

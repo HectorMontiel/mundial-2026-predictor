@@ -1,0 +1,86 @@
+{
+ "total": {
+  "jugadores": 422,
+  "actual": 224,
+  "apellidos": 243,
+  "sin_linea_real": 179
+ },
+ "ganados": [
+  {
+   "espn": "Diego Gómez",
+   "casa": "Diego Alexander Gomez Amarilla"
+  },
+  {
+   "espn": "George Hemmings",
+   "casa": "George Lawrence Hemmings"
+  },
+  {
+   "espn": "Ben Gannon-Doak",
+   "casa": "Ben Doak"
+  },
+  {
+   "espn": "Lee Kang-In",
+   "casa": "Kang-in Lee"
+  },
+  {
+   "espn": "Pape Gueye",
+   "casa": "Pape Alassane Gueye"
+  },
+  {
+   "espn": "Corrie Ndaba",
+   "casa": "Corrie Richard Ndaba"
+  },
+  {
+   "espn": "Danilo Veiga",
+   "casa": "Danilo Filipe Melo Veiga"
+  },
+  {
+   "espn": "Luis Nájera",
+   "casa": "Luis Ronaldo Najera Reyna"
+  },
+  {
+   "espn": "Luis Alberto Carrillo",
+   "casa": "Luis Carrillo"
+  },
+  {
+   "espn": "Javier Vallejo",
+   "casa": "Javier Nicolas Vallejo"
+  },
+  {
+   "espn": "Carlos Sánchez",
+   "casa": "Carlos Adrian Sanchez Nava"
+  },
+  {
+   "espn": "Cristóbal Hernández",
+   "casa": "Cristobal Basilio Hernandez Alcantara"
+  },
+  {
+   "espn": "Pedro Vite",
+   "casa": "Pedro Jeampierre Vite Uca"
+  },
+  {
+   "espn": "Ángel Rico",
+   "casa": "Angel Jesus Rico Reyes"
+  },
+  {
+   "espn": "Ricardo Monreal",
+   "casa": "Ricardo Saul Monreal Morales"
+  },
+  {
+   "espn": "Francisco Méndez",
+   "casa": "Francisco Javier Mendez Lara"
+  },
+  {
+   "espn": "Juan Valencia",
+   "casa": "Juan David Valencia Longa"
+  },
+  {
+   "espn": "Raúl Martínez",
+   "casa": "Raul Alejandro Martinez Ruiz"
+  },
+  {
+   "espn": "Kaiky Naves",
+   "casa": "Kaiky Marques Naves"
+  }
+ ]
+}

@@ -1,0 +1,8758 @@
+{
+ "n": 1094,
+ "mediana_ratio": 0.668,
+ "filas": [
+  {
+   "jugador": "Leonardo Flores",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.677,
+   "casa": 2.454,
+   "ratio": 0.683
+  },
+  {
+   "jugador": "Jesús Medina",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.637,
+   "casa": 1.984,
+   "ratio": 0.825
+  },
+  {
+   "jugador": "Sébastien Salles-Lamonge",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.455,
+   "casa": 2.084,
+   "ratio": 0.698
+  },
+  {
+   "jugador": "David Rodriguez",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.381,
+   "casa": 2.41,
+   "ratio": 0.573
+  },
+  {
+   "jugador": "Oscar Macías",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.091,
+   "casa": 1.472,
+   "ratio": 0.741
+  },
+  {
+   "jugador": "Santiago Muñoz",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.082,
+   "casa": 2.373,
+   "ratio": 0.456
+  },
+  {
+   "jugador": "Anderson Duarte",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.038,
+   "casa": 1.943,
+   "ratio": 0.534
+  },
+  {
+   "jugador": "Eduardo Águila",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.842,
+   "casa": 0.837,
+   "ratio": 1.006
+  },
+  {
+   "jugador": "Sebastián Pérez-Bouquet",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.805,
+   "casa": 1.773,
+   "ratio": 0.454
+  },
+  {
+   "jugador": "Román Torres",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.731,
+   "casa": 0.625,
+   "ratio": 1.17
+  },
+  {
+   "jugador": "Benjamín Galdames",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.706,
+   "casa": 2.084,
+   "ratio": 0.339
+  },
+  {
+   "jugador": "Miguel García",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.706,
+   "casa": 1.222,
+   "ratio": 0.578
+  },
+  {
+   "jugador": "Roberto Meraz",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.608,
+   "casa": 1.534,
+   "ratio": 0.396
+  },
+  {
+   "jugador": "Lucas Esteves",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.579,
+   "casa": 1.322,
+   "ratio": 0.438
+  },
+  {
+   "jugador": "Aldo Cruz",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.522,
+   "casa": 0.535,
+   "ratio": 0.976
+  },
+  {
+   "jugador": "Benjamín Galindo",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.396,
+   "casa": 0.742,
+   "ratio": 0.534
+  },
+  {
+   "jugador": "Salomón Rondón",
+   "clave": "liga_mx",
+   "linea": 3.5,
+   "nuestra": 2.49,
+   "casa": 3.743,
+   "ratio": 0.665
+  },
+  {
+   "jugador": "Kenedy",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.927,
+   "casa": 2.927,
+   "ratio": 0.658
+  },
+  {
+   "jugador": "Cristóbal Hernández",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.38,
+   "casa": 1.507,
+   "ratio": 0.916
+  },
+  {
+   "jugador": "Gael Álvarez",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.324,
+   "casa": 2.028,
+   "ratio": 0.653
+  },
+  {
+   "jugador": "Oussama Idrissi",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.314,
+   "casa": 2.772,
+   "ratio": 0.474
+  },
+  {
+   "jugador": "Elías Montiel",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.298,
+   "casa": 2.084,
+   "ratio": 0.623
+  },
+  {
+   "jugador": "Alan Bautista",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 0.87,
+   "casa": 2.679,
+   "ratio": 0.325
+  },
+  {
+   "jugador": "Sergio Barreto",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.616,
+   "casa": 0.753,
+   "ratio": 0.818
+  },
+  {
+   "jugador": "Sergio Rodríguez",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.59,
+   "casa": 1.116,
+   "ratio": 0.529
+  },
+  {
+   "jugador": "Carlos Sánchez",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.542,
+   "casa": 0.786,
+   "ratio": 0.69
+  },
+  {
+   "jugador": "Eduardo Bauermann",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.432,
+   "casa": 0.891,
+   "ratio": 0.485
+  },
+  {
+   "jugador": "Alan Mozo",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.311,
+   "casa": 1.322,
+   "ratio": 0.235
+  },
+  {
+   "jugador": "Jorge Berlanga",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.254,
+   "casa": 0.696,
+   "ratio": 0.365
+  },
+  {
+   "jugador": "Robert Morales",
+   "clave": "liga_mx",
+   "linea": 3.5,
+   "nuestra": 2.434,
+   "casa": 3.743,
+   "ratio": 0.65
+  },
+  {
+   "jugador": "Juninho",
+   "clave": "liga_mx",
+   "linea": 3.5,
+   "nuestra": 1.987,
+   "casa": 4.002,
+   "ratio": 0.497
+  },
+  {
+   "jugador": "Guillermo Martínez",
+   "clave": "liga_mx",
+   "linea": 3.5,
+   "nuestra": 1.768,
+   "casa": 4.002,
+   "ratio": 0.442
+  },
+  {
+   "jugador": "Alan Medina",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.342,
+   "casa": 2.49,
+   "ratio": 0.539
+  },
+  {
+   "jugador": "Adalberto Carrasquilla",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.301,
+   "casa": 2.124,
+   "ratio": 0.612
+  },
+  {
+   "jugador": "Uriel Antuna",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.285,
+   "casa": 2.627,
+   "ratio": 0.489
+  },
+  {
+   "jugador": "Ángel Rico",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.212,
+   "casa": 1.642,
+   "ratio": 0.738
+  },
+  {
+   "jugador": "Rodrigo López",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.781,
+   "casa": 2.028,
+   "ratio": 0.385
+  },
+  {
+   "jugador": "Pedro Vite",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 0.749,
+   "casa": 3.083,
+   "ratio": 0.243
+  },
+  {
+   "jugador": "Santiago Trigos",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.671,
+   "casa": 1.568,
+   "ratio": 0.428
+  },
+  {
+   "jugador": "Rubén Duarte",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.579,
+   "casa": 1.342,
+   "ratio": 0.431
+  },
+  {
+   "jugador": "Angel Azuaje",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.412,
+   "casa": 0.625,
+   "ratio": 0.66
+  },
+  {
+   "jugador": "Jesús Rivas",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.352,
+   "casa": 0.985,
+   "ratio": 0.357
+  },
+  {
+   "jugador": "Pablo Bennevendo",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.31,
+   "casa": 0.647,
+   "ratio": 0.479
+  },
+  {
+   "jugador": "Antonio Leone",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.242,
+   "casa": 1.164,
+   "ratio": 0.208
+  },
+  {
+   "jugador": "Ricardo Monreal",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 1.9,
+   "casa": 1.642,
+   "ratio": 1.157
+  },
+  {
+   "jugador": "Javier Ruiz",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 1.666,
+   "casa": 2.735,
+   "ratio": 0.609
+  },
+  {
+   "jugador": "Lorenzo Faravelli",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 1.023,
+   "casa": 1.222,
+   "ratio": 0.837
+  },
+  {
+   "jugador": "Cristian Calderón",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.857,
+   "casa": 1.642,
+   "ratio": 0.522
+  },
+  {
+   "jugador": "Daniel Leyva",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.726,
+   "casa": 0.92,
+   "ratio": 0.789
+  },
+  {
+   "jugador": "Israel Tello",
+   "clave": "liga_mx",
+   "linea": 2.5,
+   "nuestra": 0.714,
+   "casa": 2.454,
+   "ratio": 0.291
+  },
+  {
+   "jugador": "Rogelio Cortéz",
+   "clave": "liga_mx",
+   "linea": 1.5,
+   "nuestra": 0.602,
+   "casa": 1.824,
+   "ratio": 0.33
+  },
+  {
+   "jugador": "Raúl Martínez",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.437,
+   "casa": 0.723,
+   "ratio": 0.604
+  },
+  {
+   "jugador": "Alexis Peña",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.42,
+   "casa": 0.506,
+   "ratio": 0.831
+  },
+  {
+   "jugador": "Francisco Méndez",
+   "clave": "liga_mx",
+   "linea": 0.5,
+   "nuestra": 0.28,
+   "casa": 0.837,
+   "ratio": 0.335
+  },
+  {
+   "jugador": "Jack Harrison",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 2.384,
+   "casa": 1.726,
+   "ratio": 1.381
+  },
+  {
+   "jugador": "Luca Langoni",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.978,
+   "casa": 2.706,
+   "ratio": 0.731
+  },
+  {
+   "jugador": "Carles Gil",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.965,
+   "casa": 3.006,
+   "ratio": 0.654
+  },
+  {
+   "jugador": "Griffin Yow",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.596,
+   "casa": 3.057,
+   "ratio": 0.522
+  },
+  {
+   "jugador": "Wilson Harris",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.592,
+   "casa": 2.579,
+   "ratio": 0.617
+  },
+  {
+   "jugador": "Peyton Miller",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.575,
+   "casa": 2.679,
+   "ratio": 0.588
+  },
+  {
+   "jugador": "Marcos Zambrano-Delgado",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.281,
+   "casa": 2.679,
+   "ratio": 0.478
+  },
+  {
+   "jugador": "Alhassan Yusuf",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 1.084,
+   "casa": 1.902,
+   "ratio": 0.57
+  },
+  {
+   "jugador": "Matt Polster",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.937,
+   "casa": 0.904,
+   "ratio": 1.036
+  },
+  {
+   "jugador": "William Sands",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.669,
+   "casa": 0.709,
+   "ratio": 0.943
+  },
+  {
+   "jugador": "Mamadou Fofana",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.573,
+   "casa": 0.405,
+   "ratio": 1.413
+  },
+  {
+   "jugador": "Jackson Yueill",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.569,
+   "casa": 1.255,
+   "ratio": 0.453
+  },
+  {
+   "jugador": "Diego Fagundez",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 0.563,
+   "casa": 2.214,
+   "ratio": 0.254
+  },
+  {
+   "jugador": "Ethan Kohler",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.504,
+   "casa": 0.647,
+   "ratio": 0.779
+  },
+  {
+   "jugador": "Cody Baker",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.365,
+   "casa": 0.516,
+   "ratio": 0.708
+  },
+  {
+   "jugador": "Tanner Beason",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.332,
+   "casa": 0.353,
+   "ratio": 0.94
+  },
+  {
+   "jugador": "Nicolás Fernández",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 2.38,
+   "casa": 3.224,
+   "ratio": 0.738
+  },
+  {
+   "jugador": "Luighi Hanri",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 2.365,
+   "casa": 2.579,
+   "ratio": 0.917
+  },
+  {
+   "jugador": "Agustin Ojeda",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.807,
+   "casa": 2.373,
+   "ratio": 0.761
+  },
+  {
+   "jugador": "Talles Magno",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 1.614,
+   "casa": 3.197,
+   "ratio": 0.505
+  },
+  {
+   "jugador": "Malachi Jones",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 1.61,
+   "casa": 2.157,
+   "ratio": 0.746
+  },
+  {
+   "jugador": "Bénie Traoré",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 1.506,
+   "casa": 3.197,
+   "ratio": 0.471
+  },
+  {
+   "jugador": "James Sands",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 1.235,
+   "casa": 0.821,
+   "ratio": 1.503
+  },
+  {
+   "jugador": "Andrés Perea",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 1.217,
+   "casa": 1.726,
+   "ratio": 0.705
+  },
+  {
+   "jugador": "Keaton Parks",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.914,
+   "casa": 1.367,
+   "ratio": 0.668
+  },
+  {
+   "jugador": "Seymour Reid",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 0.864,
+   "casa": 3.006,
+   "ratio": 0.287
+  },
+  {
+   "jugador": "Kevin Pierre",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.817,
+   "casa": 1.303,
+   "ratio": 0.627
+  },
+  {
+   "jugador": "Aiden O'Neill",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.742,
+   "casa": 0.837,
+   "ratio": 0.887
+  },
+  {
+   "jugador": "Tayvon Gray",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.652,
+   "casa": 1.008,
+   "ratio": 0.647
+  },
+  {
+   "jugador": "Maxi Carrizo",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.643,
+   "casa": 1.116,
+   "ratio": 0.576
+  },
+  {
+   "jugador": "Jonathan Shore",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.604,
+   "casa": 1.507,
+   "ratio": 0.401
+  },
+  {
+   "jugador": "Kai Trewin",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.58,
+   "casa": 0.985,
+   "ratio": 0.589
+  },
+  {
+   "jugador": "Mitja Ilenic",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.523,
+   "casa": 1.063,
+   "ratio": 0.492
+  },
+  {
+   "jugador": "Raul Gustavo",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.509,
+   "casa": 0.837,
+   "ratio": 0.608
+  },
+  {
+   "jugador": "Kevin O'Toole",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.433,
+   "casa": 0.647,
+   "ratio": 0.67
+  },
+  {
+   "jugador": "Thiago Martins",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.274,
+   "casa": 0.506,
+   "ratio": 0.542
+  },
+  {
+   "jugador": "Nico Cavallo",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.188,
+   "casa": 0.709,
+   "ratio": 0.265
+  },
+  {
+   "jugador": "Miguel Almirón",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 2.894,
+   "casa": 3.56,
+   "ratio": 0.813
+  },
+  {
+   "jugador": "Alexey Miranchuk",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 1.81,
+   "casa": 3.968,
+   "ratio": 0.456
+  },
+  {
+   "jugador": "Sergio Santos",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 1.793,
+   "casa": 3.224,
+   "ratio": 0.556
+  },
+  {
+   "jugador": "Fafà Picault",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 1.409,
+   "casa": 3.224,
+   "ratio": 0.437
+  },
+  {
+   "jugador": "Cayman Togashi",
+   "clave": "mls",
+   "linea": 3.5,
+   "nuestra": 1.289,
+   "casa": 3.56,
+   "ratio": 0.362
+  },
+  {
+   "jugador": "Tristan Muyumba",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 1.157,
+   "casa": 1.682,
+   "ratio": 0.688
+  },
+  {
+   "jugador": "Elías Baez",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 1.044,
+   "casa": 1.795,
+   "ratio": 0.582
+  },
+  {
+   "jugador": "Adrian Gill",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.992,
+   "casa": 1.507,
+   "ratio": 0.658
+  },
+  {
+   "jugador": "Cooper Sanchez",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.986,
+   "casa": 1.534,
+   "ratio": 0.643
+  },
+  {
+   "jugador": "Luke Brennan",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 0.948,
+   "casa": 3.006,
+   "ratio": 0.315
+  },
+  {
+   "jugador": "Steven Alzate",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.764,
+   "casa": 1.943,
+   "ratio": 0.393
+  },
+  {
+   "jugador": "Júnior Alonso",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.545,
+   "casa": 0.863,
+   "ratio": 0.631
+  },
+  {
+   "jugador": "Tomás Jacob",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.487,
+   "casa": 0.985,
+   "ratio": 0.494
+  },
+  {
+   "jugador": "Enea Mihaj",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.473,
+   "casa": 0.891,
+   "ratio": 0.531
+  },
+  {
+   "jugador": "Stian Gregersen",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.438,
+   "casa": 0.958,
+   "ratio": 0.457
+  },
+  {
+   "jugador": "Ronald Hernández",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.304,
+   "casa": 0.904,
+   "ratio": 0.336
+  },
+  {
+   "jugador": "Matt Edwards",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.289,
+   "casa": 0.696,
+   "ratio": 0.415
+  },
+  {
+   "jugador": "Dejan Joveljic",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 2.174,
+   "casa": 3.083,
+   "ratio": 0.705
+  },
+  {
+   "jugador": "Calvin Harris",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 2.137,
+   "casa": 2.124,
+   "ratio": 1.006
+  },
+  {
+   "jugador": "Shapi Suleymanov",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.563,
+   "casa": 2.273,
+   "ratio": 0.688
+  },
+  {
+   "jugador": "Taylor Calheira",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.354,
+   "casa": 2.338,
+   "ratio": 0.579
+  },
+  {
+   "jugador": "Stephen Afrifa",
+   "clave": "mls",
+   "linea": 2.5,
+   "nuestra": 1.155,
+   "casa": 2.454,
+   "ratio": 0.471
+  },
+  {
+   "jugador": "Zorhan Bassong",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.856,
+   "casa": 0.723,
+   "ratio": 1.184
+  },
+  {
+   "jugador": "Lasse Berg Johnsen",
+   "clave": "mls",
+   "linea": 1.5,
+   "nuestra": 0.822,
+   "casa": 1.342,
+   "ratio": 0.612
+  },
+  {
+   "jugador": "Diego Borges",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.465,
+   "casa": 0.92,
+   "ratio": 0.505
+  },
+  {
+   "jugador": "Emir Karic",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.446,
+   "casa": 0.709,
+   "ratio": 0.629
+  },
+  {
+   "jugador": "Kwaku Agyabeng",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.409,
+   "casa": 1.222,
+   "ratio": 0.335
+  },
+  {
+   "jugador": "Justin Reynolds",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.383,
+   "casa": 0.709,
+   "ratio": 0.54
+  },
+  {
+   "jugador": "Ian James",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.372,
+   "casa": 0.55,
+   "ratio": 0.676
+  },
+  {
+   "jugador": "Or Blorian",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.348,
+   "casa": 0.516,
+   "ratio": 0.675
+  },
+  {
+   "jugador": "Jayden Reid",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.344,
+   "casa": 0.92,
+   "ratio": 0.374
+  },
+  {
+   "jugador": "Jansen Miller",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.335,
+   "casa": 0.535,
+   "ratio": 0.627
+  },
+  {
+   "jugador": "Moisés Mosquera",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.334,
+   "casa": 0.535,
+   "ratio": 0.625
+  },
+  {
+   "jugador": "Wyatt Meyer",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.234,
+   "casa": 0.588,
+   "ratio": 0.398
+  },
+  {
+   "jugador": "Jacob Bartlett",
+   "clave": "mls",
+   "linea": 0.5,
+   "nuestra": 0.234,
+   "casa": 0.786,
+   "ratio": 0.298
+  },
+  {
+   "jugador": "José Manuel López",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 2.187,
+   "casa": 3.71,
+   "ratio": 0.589
+  },
+  {
+   "jugador": "Allan Elias",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.04,
+   "casa": 2.822,
+   "ratio": 0.723
+  },
+  {
+   "jugador": "Jhon Arias",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.967,
+   "casa": 3.617,
+   "ratio": 0.544
+  },
+  {
+   "jugador": "Vitor Roque",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.957,
+   "casa": 3.743,
+   "ratio": 0.523
+  },
+  {
+   "jugador": "Maurício",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.665,
+   "casa": 3.36,
+   "ratio": 0.496
+  },
+  {
+   "jugador": "Heittor",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.509,
+   "casa": 3.413,
+   "ratio": 0.442
+  },
+  {
+   "jugador": "Riquelme",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.472,
+   "casa": 2.794,
+   "ratio": 0.527
+  },
+  {
+   "jugador": "Andreas Pereira",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.384,
+   "casa": 1.824,
+   "ratio": 0.759
+  },
+  {
+   "jugador": "Felipe Anderson",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.967,
+   "casa": 1.984,
+   "ratio": 0.487
+  },
+  {
+   "jugador": "Marlon Freitas",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.917,
+   "casa": 1.222,
+   "ratio": 0.75
+  },
+  {
+   "jugador": "Larson",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.9,
+   "casa": 2.124,
+   "ratio": 0.424
+  },
+  {
+   "jugador": "Gustavo Gómez",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.816,
+   "casa": 1.642,
+   "ratio": 0.497
+  },
+  {
+   "jugador": "Murilo",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.705,
+   "casa": 1.222,
+   "ratio": 0.577
+  },
+  {
+   "jugador": "Lucas Evangelista",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.686,
+   "casa": 1.281,
+   "ratio": 0.536
+  },
+  {
+   "jugador": "Emiliano Martínez",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.683,
+   "casa": 0.958,
+   "ratio": 0.713
+  },
+  {
+   "jugador": "Joaquín Piquerez",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.659,
+   "casa": 2.454,
+   "ratio": 0.268
+  },
+  {
+   "jugador": "Arthur Gabriel",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.583,
+   "casa": 1.031,
+   "ratio": 0.565
+  },
+  {
+   "jugador": "Alexander Barboza",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.47,
+   "casa": 1.342,
+   "ratio": 0.35
+  },
+  {
+   "jugador": "Agustín Giay",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.395,
+   "casa": 0.904,
+   "ratio": 0.437
+  },
+  {
+   "jugador": "Bruno Fuchs",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.235,
+   "casa": 0.709,
+   "ratio": 0.331
+  },
+  {
+   "jugador": "Andrés Gómez",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 3.193,
+   "casa": 2.454,
+   "ratio": 1.301
+  },
+  {
+   "jugador": "Claudio Spinelli",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.275,
+   "casa": 2.956,
+   "ratio": 0.77
+  },
+  {
+   "jugador": "Johan Rojas",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 2.091,
+   "casa": 1.879,
+   "ratio": 1.113
+  },
+  {
+   "jugador": "Adson",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.824,
+   "casa": 2.296,
+   "ratio": 0.794
+  },
+  {
+   "jugador": "David",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.241,
+   "casa": 1.726,
+   "ratio": 0.719
+  },
+  {
+   "jugador": "Nuno Moreira",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.159,
+   "casa": 2.005,
+   "ratio": 0.578
+  },
+  {
+   "jugador": "Tchê Tchê",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.077,
+   "casa": 0.863,
+   "ratio": 1.248
+  },
+  {
+   "jugador": "Cauan Barros",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.077,
+   "casa": 0.767,
+   "ratio": 1.404
+  },
+  {
+   "jugador": "Thiago Mendes",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.0,
+   "casa": 1.164,
+   "ratio": 0.859
+  },
+  {
+   "jugador": "Marino Hinestroza",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.956,
+   "casa": 2.41,
+   "ratio": 0.397
+  },
+  {
+   "jugador": "Ramon Rique",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.783,
+   "casa": 0.904,
+   "ratio": 0.866
+  },
+  {
+   "jugador": "Alan Saldivia",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.759,
+   "casa": 0.786,
+   "ratio": 0.966
+  },
+  {
+   "jugador": "Lucas Piton",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.5,
+   "casa": 0.742,
+   "ratio": 0.674
+  },
+  {
+   "jugador": "Robert",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.425,
+   "casa": 0.491,
+   "ratio": 0.866
+  },
+  {
+   "jugador": "Paulo Henrique",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.42,
+   "casa": 0.567,
+   "ratio": 0.74
+  },
+  {
+   "jugador": "Carlos Cuesta",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.402,
+   "casa": 0.48,
+   "ratio": 0.838
+  },
+  {
+   "jugador": "Lucas Freitas",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.315,
+   "casa": 0.469,
+   "ratio": 0.672
+  },
+  {
+   "jugador": "Isidro Pitta",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 2.297,
+   "casa": 3.743,
+   "ratio": 0.614
+  },
+  {
+   "jugador": "Henry Mosquera",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.267,
+   "casa": 2.772,
+   "ratio": 0.818
+  },
+  {
+   "jugador": "Lucas Barbosa",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 2.252,
+   "casa": 3.743,
+   "ratio": 0.602
+  },
+  {
+   "jugador": "José Herrera",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.749,
+   "casa": 3.112,
+   "ratio": 0.562
+  },
+  {
+   "jugador": "Eduardo Sasha",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.612,
+   "casa": 3.678,
+   "ratio": 0.438
+  },
+  {
+   "jugador": "Rodriguinho",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.334,
+   "casa": 2.956,
+   "ratio": 0.451
+  },
+  {
+   "jugador": "Gabriel",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.237,
+   "casa": 1.863,
+   "ratio": 0.664
+  },
+  {
+   "jugador": "Matheus Fernandes",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.098,
+   "casa": 1.642,
+   "ratio": 0.669
+  },
+  {
+   "jugador": "Juninho Capixaba",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.08,
+   "casa": 1.756,
+   "ratio": 0.615
+  },
+  {
+   "jugador": "José Hurtado",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.926,
+   "casa": 1.031,
+   "ratio": 0.898
+  },
+  {
+   "jugador": "Gustavinho",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.857,
+   "casa": 2.579,
+   "ratio": 0.332
+  },
+  {
+   "jugador": "Yuri",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 0.831,
+   "casa": 3.506,
+   "ratio": 0.237
+  },
+  {
+   "jugador": "Ryan Augusto",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.812,
+   "casa": 0.985,
+   "ratio": 0.824
+  },
+  {
+   "jugador": "Agustín Sant'Anna",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.752,
+   "casa": 1.322,
+   "ratio": 0.569
+  },
+  {
+   "jugador": "Gustavo Marques",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.694,
+   "casa": 0.958,
+   "ratio": 0.725
+  },
+  {
+   "jugador": "Ignacio Sosa",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.661,
+   "casa": 1.063,
+   "ratio": 0.622
+  },
+  {
+   "jugador": "Alix Vinicius",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.559,
+   "casa": 0.904,
+   "ratio": 0.618
+  },
+  {
+   "jugador": "Caue Nascimento Santos",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.541,
+   "casa": 0.891,
+   "ratio": 0.608
+  },
+  {
+   "jugador": "Pedro Henrique",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.485,
+   "casa": 0.767,
+   "ratio": 0.632
+  },
+  {
+   "jugador": "Eduardo Santos",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 0.47,
+   "casa": 3.678,
+   "ratio": 0.128
+  },
+  {
+   "jugador": "Breno de Moraes",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.382,
+   "casa": 0.837,
+   "ratio": 0.457
+  },
+  {
+   "jugador": "Carlos Vinícius",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.056,
+   "casa": 2.627,
+   "ratio": 0.783
+  },
+  {
+   "jugador": "Francis Amuzu",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.797,
+   "casa": 1.863,
+   "ratio": 0.965
+  },
+  {
+   "jugador": "Jovane Cabral",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.538,
+   "casa": 1.603,
+   "ratio": 0.959
+  },
+  {
+   "jugador": "Gabriel Mec",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.219,
+   "casa": 1.863,
+   "ratio": 0.654
+  },
+  {
+   "jugador": "José Enamorado",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.152,
+   "casa": 1.342,
+   "ratio": 0.858
+  },
+  {
+   "jugador": "Cristian Pavón",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.063,
+   "casa": 1.472,
+   "ratio": 0.722
+  },
+  {
+   "jugador": "Roger",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.832,
+   "casa": 1.472,
+   "ratio": 0.565
+  },
+  {
+   "jugador": "Martin Braithwaite",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.832,
+   "casa": 2.373,
+   "ratio": 0.351
+  },
+  {
+   "jugador": "Bernardo Zortea",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.74,
+   "casa": 0.647,
+   "ratio": 1.144
+  },
+  {
+   "jugador": "Erick Noriega",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.71,
+   "casa": 0.567,
+   "ratio": 1.252
+  },
+  {
+   "jugador": "Diego Caito",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.672,
+   "casa": 0.837,
+   "ratio": 0.803
+  },
+  {
+   "jugador": "Dodi",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.643,
+   "casa": 0.516,
+   "ratio": 1.247
+  },
+  {
+   "jugador": "Wallace",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.609,
+   "casa": 0.742,
+   "ratio": 0.821
+  },
+  {
+   "jugador": "Riquelme Freitas",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.609,
+   "casa": 0.696,
+   "ratio": 0.875
+  },
+  {
+   "jugador": "Miguel Monsalve",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.602,
+   "casa": 1.472,
+   "ratio": 0.409
+  },
+  {
+   "jugador": "Pedro Gabriel",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.525,
+   "casa": 0.67,
+   "ratio": 0.783
+  },
+  {
+   "jugador": "Caio Paulista",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.481,
+   "casa": 0.958,
+   "ratio": 0.502
+  },
+  {
+   "jugador": "Marcos Rocha",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.336,
+   "casa": 0.55,
+   "ratio": 0.61
+  },
+  {
+   "jugador": "Wagner Leonardo",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.325,
+   "casa": 1.063,
+   "ratio": 0.306
+  },
+  {
+   "jugador": "Luis Eduardo",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.315,
+   "casa": 0.516,
+   "ratio": 0.611
+  },
+  {
+   "jugador": "Renê",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 2.454,
+   "casa": 3.454,
+   "ratio": 0.71
+  },
+  {
+   "jugador": "Erick",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.664,
+   "casa": 2.627,
+   "ratio": 0.633
+  },
+  {
+   "jugador": "Osvaldo",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.656,
+   "casa": 2.273,
+   "ratio": 0.729
+  },
+  {
+   "jugador": "Renato Kayzer",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.627,
+   "casa": 2.822,
+   "ratio": 0.577
+  },
+  {
+   "jugador": "Matheus",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.43,
+   "casa": 3.617,
+   "ratio": 0.395
+  },
+  {
+   "jugador": "Marinho",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.342,
+   "casa": 3.506,
+   "ratio": 0.383
+  },
+  {
+   "jugador": "Gabriel Baralhas",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.314,
+   "casa": 1.642,
+   "ratio": 0.8
+  },
+  {
+   "jugador": "Lucas",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.208,
+   "casa": 1.756,
+   "ratio": 0.688
+  },
+  {
+   "jugador": "Diego Tarzia",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.089,
+   "casa": 2.124,
+   "ratio": 0.513
+  },
+  {
+   "jugador": "Tomás Pochettino",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.044,
+   "casa": 2.627,
+   "ratio": 0.397
+  },
+  {
+   "jugador": "Ramon",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.616,
+   "casa": 1.222,
+   "ratio": 0.504
+  },
+  {
+   "jugador": "Matheusinho",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 0.601,
+   "casa": 3.617,
+   "ratio": 0.166
+  },
+  {
+   "jugador": "Emanuel Britez",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.541,
+   "casa": 0.767,
+   "ratio": 0.705
+  },
+  {
+   "jugador": "Edenilson",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.522,
+   "casa": 0.958,
+   "ratio": 0.545
+  },
+  {
+   "jugador": "Jamerson",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.497,
+   "casa": 1.342,
+   "ratio": 0.37
+  },
+  {
+   "jugador": "Caique",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.493,
+   "casa": 0.535,
+   "ratio": 0.922
+  },
+  {
+   "jugador": "Fabiano",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.47,
+   "casa": 0.891,
+   "ratio": 0.528
+  },
+  {
+   "jugador": "Gabriel",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.001,
+   "casa": 1.642,
+   "ratio": 0.001
+  },
+  {
+   "jugador": "Alejo Veliz",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.288,
+   "casa": 3.057,
+   "ratio": 0.748
+  },
+  {
+   "jugador": "Rodrigo Nestor",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.72,
+   "casa": 2.157,
+   "ratio": 0.797
+  },
+  {
+   "jugador": "Cristian Olivera",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.632,
+   "casa": 2.273,
+   "ratio": 0.718
+  },
+  {
+   "jugador": "Mateo Sanabria",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.409,
+   "casa": 2.124,
+   "ratio": 0.663
+  },
+  {
+   "jugador": "Willian José",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.357,
+   "casa": 2.858,
+   "ratio": 0.475
+  },
+  {
+   "jugador": "Nicolás Acevedo",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.182,
+   "casa": 1.222,
+   "ratio": 0.967
+  },
+  {
+   "jugador": "Jean Lucas",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.151,
+   "casa": 1.756,
+   "ratio": 0.656
+  },
+  {
+   "jugador": "Román Gómez",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.108,
+   "casa": 0.767,
+   "ratio": 1.444
+  },
+  {
+   "jugador": "Erick",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.034,
+   "casa": 2.627,
+   "ratio": 0.394
+  },
+  {
+   "jugador": "David Duarte",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.892,
+   "casa": 0.767,
+   "ratio": 1.163
+  },
+  {
+   "jugador": "Michel Araújo",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.636,
+   "casa": 1.863,
+   "ratio": 0.341
+  },
+  {
+   "jugador": "David Martins",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.609,
+   "casa": 1.342,
+   "ratio": 0.454
+  },
+  {
+   "jugador": "Caio Alexandre",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.512,
+   "casa": 0.92,
+   "ratio": 0.557
+  },
+  {
+   "jugador": "Santiago Ramos",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.507,
+   "casa": 0.567,
+   "ratio": 0.894
+  },
+  {
+   "jugador": "Marcos Victor",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.252,
+   "casa": 0.767,
+   "ratio": 0.328
+  },
+  {
+   "jugador": "Kevin Ramírez",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.953,
+   "casa": 2.157,
+   "ratio": 0.905
+  },
+  {
+   "jugador": "Franco Rossi",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.95,
+   "casa": 2.533,
+   "ratio": 0.77
+  },
+  {
+   "jugador": "Túlio Eduardo Silva De Oliveira",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.95,
+   "casa": 2.627,
+   "ratio": 0.742
+  },
+  {
+   "jugador": "Neto",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.783,
+   "casa": 2.41,
+   "ratio": 0.74
+  },
+  {
+   "jugador": "Ênio",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.376,
+   "casa": 2.084,
+   "ratio": 0.66
+  },
+  {
+   "jugador": "Bruno Matias",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.246,
+   "casa": 0.985,
+   "ratio": 1.265
+  },
+  {
+   "jugador": "Camilo",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.034,
+   "casa": 0.985,
+   "ratio": 1.05
+  },
+  {
+   "jugador": "Max",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.831,
+   "casa": 1.984,
+   "ratio": 0.419
+  },
+  {
+   "jugador": "David",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.811,
+   "casa": 1.322,
+   "ratio": 0.613
+  },
+  {
+   "jugador": "Giovanni Augusto",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.808,
+   "casa": 1.682,
+   "ratio": 0.48
+  },
+  {
+   "jugador": "Rubens Tadeu Hartmann Ricoldi",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.71,
+   "casa": 1.943,
+   "ratio": 0.366
+  },
+  {
+   "jugador": "Eduardo Doma",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.632,
+   "casa": 0.625,
+   "ratio": 1.012
+  },
+  {
+   "jugador": "Everton",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.599,
+   "casa": 1.342,
+   "ratio": 0.446
+  },
+  {
+   "jugador": "Vinicius",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.554,
+   "casa": 0.442,
+   "ratio": 1.254
+  },
+  {
+   "jugador": "Fernando",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.47,
+   "casa": 0.786,
+   "ratio": 0.598
+  },
+  {
+   "jugador": "Rafael Thyere",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.423,
+   "casa": 0.567,
+   "ratio": 0.746
+  },
+  {
+   "jugador": "Kauan",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.382,
+   "casa": 0.786,
+   "ratio": 0.486
+  },
+  {
+   "jugador": "Vinicius Eduardo De Almeida Gomes Da Silva",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.382,
+   "casa": 0.442,
+   "ratio": 0.865
+  },
+  {
+   "jugador": "Bruno Pacheco",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.349,
+   "casa": 0.647,
+   "ratio": 0.54
+  },
+  {
+   "jugador": "Jonathan Calleri",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 2.275,
+   "casa": 3.197,
+   "ratio": 0.712
+  },
+  {
+   "jugador": "Luciano",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 2.214,
+   "casa": 3.678,
+   "ratio": 0.602
+  },
+  {
+   "jugador": "Artur",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.035,
+   "casa": 2.927,
+   "ratio": 0.695
+  },
+  {
+   "jugador": "Ferreira",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.702,
+   "casa": 2.858,
+   "ratio": 0.596
+  },
+  {
+   "jugador": "Pablo Maia",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.13,
+   "casa": 1.568,
+   "ratio": 0.721
+  },
+  {
+   "jugador": "Lucca Marques",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.113,
+   "casa": 2.084,
+   "ratio": 0.534
+  },
+  {
+   "jugador": "Marcos Antonio",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.031,
+   "casa": 1.222,
+   "ratio": 0.843
+  },
+  {
+   "jugador": "André Silva",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.904,
+   "casa": 3.057,
+   "ratio": 0.296
+  },
+  {
+   "jugador": "Pedro Ferreira",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.832,
+   "casa": 2.858,
+   "ratio": 0.291
+  },
+  {
+   "jugador": "Cauly",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.795,
+   "casa": 1.756,
+   "ratio": 0.453
+  },
+  {
+   "jugador": "Enzo Díaz",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.779,
+   "casa": 0.891,
+   "ratio": 0.875
+  },
+  {
+   "jugador": "Djhordney Ferreira",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.685,
+   "casa": 2.858,
+   "ratio": 0.24
+  },
+  {
+   "jugador": "Lucas Ramon",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.525,
+   "casa": 1.031,
+   "ratio": 0.509
+  },
+  {
+   "jugador": "Luan",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.512,
+   "casa": 1.385,
+   "ratio": 0.37
+  },
+  {
+   "jugador": "Sabino",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.479,
+   "casa": 1.164,
+   "ratio": 0.411
+  },
+  {
+   "jugador": "Wendell",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.433,
+   "casa": 0.767,
+   "ratio": 0.564
+  },
+  {
+   "jugador": "Cédric",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.348,
+   "casa": 0.811,
+   "ratio": 0.429
+  },
+  {
+   "jugador": "Luis Osorio",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.336,
+   "casa": 0.696,
+   "ratio": 0.483
+  },
+  {
+   "jugador": "Rafael",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.001,
+   "casa": 0.567,
+   "ratio": 0.002
+  },
+  {
+   "jugador": "Neymar",
+   "clave": "brasil",
+   "linea": 4.5,
+   "nuestra": 3.446,
+   "casa": 4.483,
+   "ratio": 0.769
+  },
+  {
+   "jugador": "Gabriel Barbosa",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 2.735,
+   "casa": 3.887,
+   "ratio": 0.704
+  },
+  {
+   "jugador": "Gustavo Caballero",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.222,
+   "casa": 2.735,
+   "ratio": 0.813
+  },
+  {
+   "jugador": "Álvaro Barreal",
+   "clave": "brasil",
+   "linea": 3.5,
+   "nuestra": 1.912,
+   "casa": 3.224,
+   "ratio": 0.593
+  },
+  {
+   "jugador": "Rony",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.65,
+   "casa": 2.706,
+   "ratio": 0.61
+  },
+  {
+   "jugador": "Benjamín Rollheiser",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.609,
+   "casa": 3.006,
+   "ratio": 0.535
+  },
+  {
+   "jugador": "Robinho Junior",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.517,
+   "casa": 2.24,
+   "ratio": 0.677
+  },
+  {
+   "jugador": "Miguel Terceros",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.376,
+   "casa": 2.927,
+   "ratio": 0.47
+  },
+  {
+   "jugador": "Thaciano",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.216,
+   "casa": 2.794,
+   "ratio": 0.435
+  },
+  {
+   "jugador": "João Schmidt",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.849,
+   "casa": 1.281,
+   "ratio": 0.663
+  },
+  {
+   "jugador": "Christian Oliva",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.803,
+   "casa": 0.985,
+   "ratio": 0.815
+  },
+  {
+   "jugador": "Gonzalo Escobar",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.635,
+   "casa": 0.811,
+   "ratio": 0.783
+  },
+  {
+   "jugador": "Gustavo Henrique",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.629,
+   "casa": 0.696,
+   "ratio": 0.904
+  },
+  {
+   "jugador": "Willian Arão",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.611,
+   "casa": 1.063,
+   "ratio": 0.575
+  },
+  {
+   "jugador": "Luan Peres",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.394,
+   "casa": 0.516,
+   "ratio": 0.764
+  },
+  {
+   "jugador": "João Ananias",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.393,
+   "casa": 0.516,
+   "ratio": 0.762
+  },
+  {
+   "jugador": "Bruno Santos",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.999,
+   "casa": 2.338,
+   "ratio": 0.855
+  },
+  {
+   "jugador": "Alesson",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.779,
+   "casa": 2.24,
+   "ratio": 0.794
+  },
+  {
+   "jugador": "Edson Carioca",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.448,
+   "casa": 2.214,
+   "ratio": 0.654
+  },
+  {
+   "jugador": "Carlos Eduardo",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.392,
+   "casa": 1.943,
+   "ratio": 0.717
+  },
+  {
+   "jugador": "Fernando",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.377,
+   "casa": 1.164,
+   "ratio": 1.183
+  },
+  {
+   "jugador": "João Wellington",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.352,
+   "casa": 1.303,
+   "ratio": 1.038
+  },
+  {
+   "jugador": "Carlos Eduardo",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.177,
+   "casa": 1.943,
+   "ratio": 0.606
+  },
+  {
+   "jugador": "Reinaldo",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.147,
+   "casa": 1.507,
+   "ratio": 0.761
+  },
+  {
+   "jugador": "André Luis",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 0.996,
+   "casa": 2.296,
+   "ratio": 0.434
+  },
+  {
+   "jugador": "Gustavo Cazonatti",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.96,
+   "casa": 1.281,
+   "ratio": 0.75
+  },
+  {
+   "jugador": "Gustavo Mosquito",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.96,
+   "casa": 1.726,
+   "ratio": 0.556
+  },
+  {
+   "jugador": "Shaylon",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.912,
+   "casa": 1.984,
+   "ratio": 0.46
+  },
+  {
+   "jugador": "Igor Marques",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.877,
+   "casa": 1.417,
+   "ratio": 0.619
+  },
+  {
+   "jugador": "Daniel Borges",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.797,
+   "casa": 0.742,
+   "ratio": 1.074
+  },
+  {
+   "jugador": "Willian Machado",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.613,
+   "casa": 1.008,
+   "ratio": 0.608
+  },
+  {
+   "jugador": "João Victor Carroll",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.548,
+   "casa": 0.604,
+   "ratio": 0.907
+  },
+  {
+   "jugador": "Lucas Oliveira",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.458,
+   "casa": 0.67,
+   "ratio": 0.683
+  },
+  {
+   "jugador": "Gabriel Knesowitsch",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.407,
+   "casa": 0.567,
+   "ratio": 0.718
+  },
+  {
+   "jugador": "Pedro Rocha",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 2.158,
+   "casa": 2.579,
+   "ratio": 0.837
+  },
+  {
+   "jugador": "Breno",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.561,
+   "casa": 1.385,
+   "ratio": 1.127
+  },
+  {
+   "jugador": "Joaquín Lavega",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.489,
+   "casa": 1.682,
+   "ratio": 0.885
+  },
+  {
+   "jugador": "Renato Marques",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.346,
+   "casa": 2.273,
+   "ratio": 0.592
+  },
+  {
+   "jugador": "Keno",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.243,
+   "casa": 1.863,
+   "ratio": 0.667
+  },
+  {
+   "jugador": "Fabinho",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.152,
+   "casa": 3.006,
+   "ratio": 0.383
+  },
+  {
+   "jugador": "Tissi",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.034,
+   "casa": 1.116,
+   "ratio": 0.927
+  },
+  {
+   "jugador": "Sebastián Gómez",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.976,
+   "casa": 0.904,
+   "ratio": 1.079
+  },
+  {
+   "jugador": "Gustavo",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.931,
+   "casa": 1.367,
+   "ratio": 0.681
+  },
+  {
+   "jugador": "Paulo Roberto",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.903,
+   "casa": 1.984,
+   "ratio": 0.455
+  },
+  {
+   "jugador": "Jacy Maranhão",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.714,
+   "casa": 0.604,
+   "ratio": 1.182
+  },
+  {
+   "jugador": "Thiago Santos",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.664,
+   "casa": 0.625,
+   "ratio": 1.063
+  },
+  {
+   "jugador": "Felipe Jonatan",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.592,
+   "casa": 0.837,
+   "ratio": 0.707
+  },
+  {
+   "jugador": "Bruno Melo",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.55,
+   "casa": 0.811,
+   "ratio": 0.678
+  },
+  {
+   "jugador": "Tinga",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.521,
+   "casa": 0.647,
+   "ratio": 0.806
+  },
+  {
+   "jugador": "Rodrigo Moledo",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.486,
+   "casa": 0.696,
+   "ratio": 0.699
+  },
+  {
+   "jugador": "Lucas Taverna",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.486,
+   "casa": 1.008,
+   "ratio": 0.482
+  },
+  {
+   "jugador": "Tiago",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.457,
+   "casa": 0.456,
+   "ratio": 1.002
+  },
+  {
+   "jugador": "Maicon",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.252,
+   "casa": 0.469,
+   "ratio": 0.538
+  },
+  {
+   "jugador": "Kaio",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.848,
+   "casa": 2.273,
+   "ratio": 0.813
+  },
+  {
+   "jugador": "Memphis Depay",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.471,
+   "casa": 2.772,
+   "ratio": 0.531
+  },
+  {
+   "jugador": "Pedro Raúl",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.36,
+   "casa": 2.627,
+   "ratio": 0.518
+  },
+  {
+   "jugador": "Gui Negão",
+   "clave": "brasil",
+   "linea": 2.5,
+   "nuestra": 1.324,
+   "casa": 2.273,
+   "ratio": 0.582
+  },
+  {
+   "jugador": "André",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 1.114,
+   "casa": 1.281,
+   "ratio": 0.87
+  },
+  {
+   "jugador": "Raniele",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 1.046,
+   "casa": 1.222,
+   "ratio": 0.856
+  },
+  {
+   "jugador": "Breno Bidon",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.991,
+   "casa": 1.385,
+   "ratio": 0.716
+  },
+  {
+   "jugador": "Gabriel Paulista",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.908,
+   "casa": 0.958,
+   "ratio": 0.948
+  },
+  {
+   "jugador": "Gustavo Henrique",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.872,
+   "casa": 1.568,
+   "ratio": 0.556
+  },
+  {
+   "jugador": "Jesse Lingard",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.862,
+   "casa": 1.773,
+   "ratio": 0.486
+  },
+  {
+   "jugador": "Matheus Pereira",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.858,
+   "casa": 1.164,
+   "ratio": 0.737
+  },
+  {
+   "jugador": "João Pedro",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.773,
+   "casa": 0.821,
+   "ratio": 0.941
+  },
+  {
+   "jugador": "Allan",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.752,
+   "casa": 0.863,
+   "ratio": 0.871
+  },
+  {
+   "jugador": "Charles",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.746,
+   "casa": 0.958,
+   "ratio": 0.779
+  },
+  {
+   "jugador": "André Carrillo",
+   "clave": "brasil",
+   "linea": 1.5,
+   "nuestra": 0.659,
+   "casa": 1.281,
+   "ratio": 0.515
+  },
+  {
+   "jugador": "André Ramalho",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.535,
+   "casa": 0.647,
+   "ratio": 0.827
+  },
+  {
+   "jugador": "Pedro Milans",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.419,
+   "casa": 0.647,
+   "ratio": 0.648
+  },
+  {
+   "jugador": "Fabrizio Angileri",
+   "clave": "brasil",
+   "linea": 0.5,
+   "nuestra": 0.413,
+   "casa": 0.647,
+   "ratio": 0.639
+  },
+  {
+   "jugador": "Jhonatan Candia",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 2.137,
+   "casa": 2.627,
+   "ratio": 0.813
+  },
+  {
+   "jugador": "Tomás Porra",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.716,
+   "casa": 1.726,
+   "ratio": 0.994
+  },
+  {
+   "jugador": "Gonzalo Maroni",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.502,
+   "casa": 2.533,
+   "ratio": 0.593
+  },
+  {
+   "jugador": "Juan Ignacio Barbieri",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.437,
+   "casa": 1.984,
+   "ratio": 0.724
+  },
+  {
+   "jugador": "Manuel Duarte",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.184,
+   "casa": 1.417,
+   "ratio": 0.835
+  },
+  {
+   "jugador": "Maximiliano Puig",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.89,
+   "casa": 1.322,
+   "ratio": 0.673
+  },
+  {
+   "jugador": "Dardo Miloc",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.647,
+   "casa": 1.14,
+   "ratio": 0.567
+  },
+  {
+   "jugador": "Rodrigo Insúa",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.511,
+   "casa": 1.682,
+   "ratio": 0.304
+  },
+  {
+   "jugador": "Kevin Jappert",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.511,
+   "casa": 0.535,
+   "ratio": 0.956
+  },
+  {
+   "jugador": "Damián Martínez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.499,
+   "casa": 0.811,
+   "ratio": 0.615
+  },
+  {
+   "jugador": "Nicolás De Martini",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.445,
+   "casa": 0.516,
+   "ratio": 0.863
+  },
+  {
+   "jugador": "Gastón Campi",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.409,
+   "casa": 0.647,
+   "ratio": 0.633
+  },
+  {
+   "jugador": "Elías Pereyra",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.409,
+   "casa": 0.588,
+   "ratio": 0.696
+  },
+  {
+   "jugador": "Nicolás Capraro",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.409,
+   "casa": 0.55,
+   "ratio": 0.743
+  },
+  {
+   "jugador": "Yonatthan Rak",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.328,
+   "casa": 0.767,
+   "ratio": 0.428
+  },
+  {
+   "jugador": "Rafael Barrios",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.298,
+   "casa": 1.367,
+   "ratio": 0.218
+  },
+  {
+   "jugador": "Nico López",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 2.255,
+   "casa": 3.197,
+   "ratio": 0.705
+  },
+  {
+   "jugador": "Franco Zapiola",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 2.045,
+   "casa": 2.679,
+   "ratio": 0.763
+  },
+  {
+   "jugador": "Guido Mainero",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.952,
+   "casa": 1.795,
+   "ratio": 1.087
+  },
+  {
+   "jugador": "Gonzalo Lencina",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.864,
+   "casa": 2.273,
+   "ratio": 0.82
+  },
+  {
+   "jugador": "Bautista Merlini",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.795,
+   "casa": 1.984,
+   "ratio": 0.905
+  },
+  {
+   "jugador": "Tomás Nasif",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.673,
+   "casa": 2.157,
+   "ratio": 0.775
+  },
+  {
+   "jugador": "Luciano Giménez",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.602,
+   "casa": 2.579,
+   "ratio": 0.621
+  },
+  {
+   "jugador": "Gastón Togni",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.509,
+   "casa": 1.534,
+   "ratio": 0.984
+  },
+  {
+   "jugador": "Juan Gauto",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.509,
+   "casa": 1.773,
+   "ratio": 0.851
+  },
+  {
+   "jugador": "Augusto Lotti",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.366,
+   "casa": 2.454,
+   "ratio": 0.557
+  },
+  {
+   "jugador": "Leonardo Heredia",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.261,
+   "casa": 2.679,
+   "ratio": 0.471
+  },
+  {
+   "jugador": "Martín Barrios",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.246,
+   "casa": 1.984,
+   "ratio": 0.628
+  },
+  {
+   "jugador": "Ignacio Vázquez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.919,
+   "casa": 1.164,
+   "ratio": 0.789
+  },
+  {
+   "jugador": "Maximiliano Amarfil",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.888,
+   "casa": 1.222,
+   "ratio": 0.726
+  },
+  {
+   "jugador": "Juan Ignacio Saborido",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.862,
+   "casa": 1.116,
+   "ratio": 0.773
+  },
+  {
+   "jugador": "Agustín Lagos",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.601,
+   "casa": 0.958,
+   "ratio": 0.628
+  },
+  {
+   "jugador": "Celías Ingenthron",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.47,
+   "casa": 0.647,
+   "ratio": 0.727
+  },
+  {
+   "jugador": "Tomas Silva",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.423,
+   "casa": 0.625,
+   "ratio": 0.677
+  },
+  {
+   "jugador": "Mateo Mendia",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.382,
+   "casa": 0.625,
+   "ratio": 0.611
+  },
+  {
+   "jugador": "Víctor Cuesta",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.34,
+   "casa": 0.837,
+   "ratio": 0.406
+  },
+  {
+   "jugador": "Nicolás Fernández",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 2.552,
+   "casa": 3.887,
+   "ratio": 0.656
+  },
+  {
+   "jugador": "Lucas Passerini",
+   "clave": "argentina",
+   "linea": 4.5,
+   "nuestra": 2.302,
+   "casa": 4.609,
+   "ratio": 0.499
+  },
+  {
+   "jugador": "Lucas Zelarayán",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 1.558,
+   "casa": 3.678,
+   "ratio": 0.424
+  },
+  {
+   "jugador": "Lautaro Gutierrez",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.549,
+   "casa": 2.706,
+   "ratio": 0.572
+  },
+  {
+   "jugador": "Emiliano Rigoni",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 1.416,
+   "casa": 3.197,
+   "ratio": 0.443
+  },
+  {
+   "jugador": "Juan Velazquez",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.376,
+   "casa": 2.679,
+   "ratio": 0.514
+  },
+  {
+   "jugador": "Francisco Gonzalez Metilli",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.205,
+   "casa": 2.927,
+   "ratio": 0.412
+  },
+  {
+   "jugador": "Ramiro Tulián",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.919,
+   "casa": 1.984,
+   "ratio": 0.463
+  },
+  {
+   "jugador": "Santiago Longo",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.853,
+   "casa": 0.811,
+   "ratio": 1.052
+  },
+  {
+   "jugador": "Ramiro Hernandes",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.775,
+   "casa": 1.642,
+   "ratio": 0.472
+  },
+  {
+   "jugador": "Adrián Sánchez",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.735,
+   "casa": 1.342,
+   "ratio": 0.548
+  },
+  {
+   "jugador": "Leonardo Morales",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.686,
+   "casa": 0.811,
+   "ratio": 0.846
+  },
+  {
+   "jugador": "Lisandro López",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.472,
+   "casa": 1.063,
+   "ratio": 0.444
+  },
+  {
+   "jugador": "Alexis Maldonado",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.258,
+   "casa": 0.958,
+   "ratio": 0.269
+  },
+  {
+   "jugador": "Juan Gutiérrez",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 2.443,
+   "casa": 2.157,
+   "ratio": 1.132
+  },
+  {
+   "jugador": "Leandro Miguel Fernandez",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 2.229,
+   "casa": 2.735,
+   "ratio": 0.815
+  },
+  {
+   "jugador": "Tiziano Perrota",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 2.099,
+   "casa": 2.41,
+   "ratio": 0.871
+  },
+  {
+   "jugador": "David Barbona",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.908,
+   "casa": 1.773,
+   "ratio": 1.076
+  },
+  {
+   "jugador": "Agustin Hausch",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.512,
+   "casa": 1.444,
+   "ratio": 1.047
+  },
+  {
+   "jugador": "Alan Coria",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.512,
+   "casa": 2.084,
+   "ratio": 0.726
+  },
+  {
+   "jugador": "Aaron Molinas",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.249,
+   "casa": 1.795,
+   "ratio": 0.696
+  },
+  {
+   "jugador": "Fernando Román",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.747,
+   "casa": 0.567,
+   "ratio": 1.317
+  },
+  {
+   "jugador": "Máximo Rodríguez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.696,
+   "casa": 0.696,
+   "ratio": 1.0
+  },
+  {
+   "jugador": "Domingo Blanco",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.676,
+   "casa": 1.879,
+   "ratio": 0.36
+  },
+  {
+   "jugador": "Maximiliano Porcel",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.636,
+   "casa": 0.958,
+   "ratio": 0.664
+  },
+  {
+   "jugador": "Éver Banega",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.538,
+   "casa": 1.568,
+   "ratio": 0.343
+  },
+  {
+   "jugador": "Santiago Sosa",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.439,
+   "casa": 0.837,
+   "ratio": 0.525
+  },
+  {
+   "jugador": "Lucas Souto",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.391,
+   "casa": 0.55,
+   "ratio": 0.71
+  },
+  {
+   "jugador": "Valentín Loza",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.391,
+   "casa": 0.696,
+   "ratio": 0.562
+  },
+  {
+   "jugador": "Esteban Lucero",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.293,
+   "casa": 0.432,
+   "ratio": 0.678
+  },
+  {
+   "jugador": "Nazareno Roselli",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.26,
+   "casa": 0.469,
+   "ratio": 0.555
+  },
+  {
+   "jugador": "Damián Fernández",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.213,
+   "casa": 0.432,
+   "ratio": 0.493
+  },
+  {
+   "jugador": "Ángel Correa",
+   "clave": "argentina",
+   "linea": 4.5,
+   "nuestra": 1.944,
+   "casa": 4.425,
+   "ratio": 0.439
+  },
+  {
+   "jugador": "Lautaro Pereyra",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.709,
+   "casa": 3.057,
+   "ratio": 0.559
+  },
+  {
+   "jugador": "Tobías Andrada",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.549,
+   "casa": 2.41,
+   "ratio": 0.643
+  },
+  {
+   "jugador": "Rafael Borré",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.447,
+   "casa": 3.083,
+   "ratio": 0.469
+  },
+  {
+   "jugador": "Tomás Galván",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 1.416,
+   "casa": 3.743,
+   "ratio": 0.378
+  },
+  {
+   "jugador": "Joaquin Freitas",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.233,
+   "casa": 3.057,
+   "ratio": 0.403
+  },
+  {
+   "jugador": "Lucas Beltrán",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.203,
+   "casa": 2.679,
+   "ratio": 0.449
+  },
+  {
+   "jugador": "Lucas Martínez Quarta",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.113,
+   "casa": 1.385,
+   "ratio": 0.804
+  },
+  {
+   "jugador": "Fausto Vera",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.088,
+   "casa": 2.772,
+   "ratio": 0.393
+  },
+  {
+   "jugador": "Aníbal Moreno",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.947,
+   "casa": 1.322,
+   "ratio": 0.716
+  },
+  {
+   "jugador": "Mauro Arambarri",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 0.919,
+   "casa": 2.772,
+   "ratio": 0.332
+  },
+  {
+   "jugador": "Lucas Silva",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.919,
+   "casa": 1.642,
+   "ratio": 0.56
+  },
+  {
+   "jugador": "Nicolás Otamendi",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.899,
+   "casa": 0.985,
+   "ratio": 0.913
+  },
+  {
+   "jugador": "Gonzalo Montiel",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.579,
+   "casa": 0.958,
+   "ratio": 0.605
+  },
+  {
+   "jugador": "Marcos Acuña",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.502,
+   "casa": 1.14,
+   "ratio": 0.44
+  },
+  {
+   "jugador": "Francisco Ortega",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.502,
+   "casa": 0.211,
+   "ratio": 2.376
+  },
+  {
+   "jugador": "Álex Verón",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.418,
+   "casa": 0.92,
+   "ratio": 1.541
+  },
+  {
+   "jugador": "Matías Pellegrini",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.374,
+   "casa": 1.14,
+   "ratio": 1.205
+  },
+  {
+   "jugador": "Dilan Godoy",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.374,
+   "casa": 1.417,
+   "ratio": 0.97
+  },
+  {
+   "jugador": "Diego Valdés",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.332,
+   "casa": 1.568,
+   "ratio": 0.85
+  },
+  {
+   "jugador": "Manuel Lanzini",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.317,
+   "casa": 1.642,
+   "ratio": 0.802
+  },
+  {
+   "jugador": "Rodrigo Aliendro",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.104,
+   "casa": 0.742,
+   "ratio": 1.488
+  },
+  {
+   "jugador": "Thiago Aguirre",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.041,
+   "casa": 1.063,
+   "ratio": 0.979
+  },
+  {
+   "jugador": "Lucas Robertone",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.89,
+   "casa": 0.786,
+   "ratio": 1.133
+  },
+  {
+   "jugador": "Luca Feler",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.676,
+   "casa": 0.985,
+   "ratio": 0.686
+  },
+  {
+   "jugador": "Thiago Silveor",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.64,
+   "casa": 0.55,
+   "ratio": 1.163
+  },
+  {
+   "jugador": "Jano Gordon",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.521,
+   "casa": 0.516,
+   "ratio": 1.01
+  },
+  {
+   "jugador": "Simon Escobar",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.521,
+   "casa": 0.48,
+   "ratio": 1.086
+  },
+  {
+   "jugador": "Claudio Baeza",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.463,
+   "casa": 0.625,
+   "ratio": 0.741
+  },
+  {
+   "jugador": "Elias Gomez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.32,
+   "casa": 0.535,
+   "ratio": 0.599
+  },
+  {
+   "jugador": "Emanuel Mammana",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.26,
+   "casa": 0.469,
+   "ratio": 0.555
+  },
+  {
+   "jugador": "Lisandro Magallán",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.234,
+   "casa": 0.416,
+   "ratio": 0.563
+  },
+  {
+   "jugador": "Joaquín García",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.213,
+   "casa": 0.535,
+   "ratio": 0.398
+  },
+  {
+   "jugador": "Leonel Flores",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 2.188,
+   "casa": 1.943,
+   "ratio": 1.126
+  },
+  {
+   "jugador": "Sebastián Villa",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 1.748,
+   "casa": 3.506,
+   "ratio": 0.499
+  },
+  {
+   "jugador": "Miguel Merentiel",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 1.601,
+   "casa": 3.617,
+   "ratio": 0.443
+  },
+  {
+   "jugador": "Tomás Aranda",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.308,
+   "casa": 2.679,
+   "ratio": 0.488
+  },
+  {
+   "jugador": "Alan Velasco",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.161,
+   "casa": 2.338,
+   "ratio": 0.497
+  },
+  {
+   "jugador": "Santiago Ascacibar",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.014,
+   "casa": 1.756,
+   "ratio": 0.578
+  },
+  {
+   "jugador": "Lautaro Blanco",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.478,
+   "casa": 0.958,
+   "ratio": 0.499
+  },
+  {
+   "jugador": "Lautaro Di Lollo",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.478,
+   "casa": 0.647,
+   "ratio": 0.739
+  },
+  {
+   "jugador": "Ignacio Russo",
+   "clave": "argentina",
+   "linea": 4.5,
+   "nuestra": 2.195,
+   "casa": 4.268,
+   "ratio": 0.514
+  },
+  {
+   "jugador": "Alfio Oviedo",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 1.899,
+   "casa": 3.743,
+   "ratio": 0.507
+  },
+  {
+   "jugador": "Santiago López",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.767,
+   "casa": 2.772,
+   "ratio": 0.637
+  },
+  {
+   "jugador": "Ignacio Peluffo",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.549,
+   "casa": 2.454,
+   "ratio": 0.631
+  },
+  {
+   "jugador": "Gonzalo Martínez",
+   "clave": "argentina",
+   "linea": 4.5,
+   "nuestra": 1.44,
+   "casa": 4.22,
+   "ratio": 0.341
+  },
+  {
+   "jugador": "Jabes Saralegui",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.088,
+   "casa": 1.534,
+   "ratio": 0.709
+  },
+  {
+   "jugador": "Tiago Serrago",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 0.817,
+   "casa": 3.887,
+   "ratio": 0.21
+  },
+  {
+   "jugador": "Bruno Leyes",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.778,
+   "casa": 1.222,
+   "ratio": 0.636
+  },
+  {
+   "jugador": "Jalil Elías",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.775,
+   "casa": 0.821,
+   "ratio": 0.943
+  },
+  {
+   "jugador": "Federico Álvarez",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.754,
+   "casa": 1.472,
+   "ratio": 0.512
+  },
+  {
+   "jugador": "Alan Barrionuevo",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.686,
+   "casa": 1.303,
+   "ratio": 0.527
+  },
+  {
+   "jugador": "Nahuel Banegas",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 0.577,
+   "casa": 2.822,
+   "ratio": 0.204
+  },
+  {
+   "jugador": "Valentin Moreno",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.577,
+   "casa": 0.767,
+   "ratio": 0.752
+  },
+  {
+   "jugador": "Santiago González",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.561,
+   "casa": 2.084,
+   "ratio": 0.269
+  },
+  {
+   "jugador": "Gonzalo Requena",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.355,
+   "casa": 0.958,
+   "ratio": 0.371
+  },
+  {
+   "jugador": "Juan Villalba",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.316,
+   "casa": 0.767,
+   "ratio": 0.412
+  },
+  {
+   "jugador": "Joaquín Laso",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.316,
+   "casa": 1.444,
+   "ratio": 0.219
+  },
+  {
+   "jugador": "Ramón Arias",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.309,
+   "casa": 0.811,
+   "ratio": 0.381
+  },
+  {
+   "jugador": "Michael Santos",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 2.334,
+   "casa": 1.943,
+   "ratio": 1.202
+  },
+  {
+   "jugador": "Leonardo Sequeira",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.596,
+   "casa": 1.116,
+   "ratio": 1.431
+  },
+  {
+   "jugador": "Ezequiel Naya",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.418,
+   "casa": 1.568,
+   "ratio": 0.905
+  },
+  {
+   "jugador": "Diego Barrera",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.374,
+   "casa": 1.116,
+   "ratio": 1.232
+  },
+  {
+   "jugador": "Lucas Varaldo",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.302,
+   "casa": 1.222,
+   "ratio": 1.065
+  },
+  {
+   "jugador": "Horacio Tijanovich",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.159,
+   "casa": 1.322,
+   "ratio": 0.877
+  },
+  {
+   "jugador": "Bautista Gerez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.155,
+   "casa": 1.222,
+   "ratio": 0.945
+  },
+  {
+   "jugador": "Marco Iacobellis",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.097,
+   "casa": 1.444,
+   "ratio": 0.76
+  },
+  {
+   "jugador": "Matías Vera",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.747,
+   "casa": 0.506,
+   "ratio": 1.478
+  },
+  {
+   "jugador": "Fernando Juárez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.509,
+   "casa": 0.48,
+   "ratio": 1.061
+  },
+  {
+   "jugador": "Thiago Cravero",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.509,
+   "casa": 0.48,
+   "ratio": 1.061
+  },
+  {
+   "jugador": "Dario Cáceres",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.439,
+   "casa": 0.382,
+   "ratio": 1.149
+  },
+  {
+   "jugador": "José Goméz",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.439,
+   "casa": 0.432,
+   "ratio": 1.016
+  },
+  {
+   "jugador": "Yuri Casermeiro",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.391,
+   "casa": 0.491,
+   "ratio": 0.796
+  },
+  {
+   "jugador": "Facundo Mansilla",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.352,
+   "casa": 0.48,
+   "ratio": 0.734
+  },
+  {
+   "jugador": "Fernando Martínez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.32,
+   "casa": 0.567,
+   "ratio": 0.564
+  },
+  {
+   "jugador": "Leonardo Marchi",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.293,
+   "casa": 0.625,
+   "ratio": 0.469
+  },
+  {
+   "jugador": "Alejandro Maciel",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.213,
+   "casa": 0.456,
+   "ratio": 0.467
+  },
+  {
+   "jugador": "Dylan Aquino",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.842,
+   "casa": 2.822,
+   "ratio": 0.653
+  },
+  {
+   "jugador": "Yoshan Valois",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.842,
+   "casa": 2.373,
+   "ratio": 0.776
+  },
+  {
+   "jugador": "Lucas Besozzi",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.695,
+   "casa": 1.342,
+   "ratio": 1.263
+  },
+  {
+   "jugador": "Allan Wlk",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 1.549,
+   "casa": 3.36,
+   "ratio": 0.461
+  },
+  {
+   "jugador": "Ramiro Carrera",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.507,
+   "casa": 2.579,
+   "ratio": 0.584
+  },
+  {
+   "jugador": "Franco Watson",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.36,
+   "casa": 2.772,
+   "ratio": 0.491
+  },
+  {
+   "jugador": "Felipe Peña",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.213,
+   "casa": 1.116,
+   "ratio": 1.087
+  },
+  {
+   "jugador": "Matías Sepúlveda",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.213,
+   "casa": 1.682,
+   "ratio": 0.721
+  },
+  {
+   "jugador": "Agustín Cardozo",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.066,
+   "casa": 0.416,
+   "ratio": 2.564
+  },
+  {
+   "jugador": "Sasha Marcich",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.943,
+   "casa": 0.863,
+   "ratio": 1.092
+  },
+  {
+   "jugador": "Agustín Medina",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.919,
+   "casa": 0.821,
+   "ratio": 1.119
+  },
+  {
+   "jugador": "José Canale",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.502,
+   "casa": 0.55,
+   "ratio": 0.912
+  },
+  {
+   "jugador": "Ronaldo de Jesus",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.502,
+   "casa": 1.063,
+   "ratio": 0.472
+  },
+  {
+   "jugador": "Rick",
+   "clave": "argentina",
+   "linea": 3.5,
+   "nuestra": 2.43,
+   "casa": 3.36,
+   "ratio": 0.723
+  },
+  {
+   "jugador": "Valentin Depietri",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.989,
+   "casa": 2.735,
+   "ratio": 0.727
+  },
+  {
+   "jugador": "Ronaldo Martínez",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.695,
+   "casa": 2.679,
+   "ratio": 0.633
+  },
+  {
+   "jugador": "Valentín Dávila",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.549,
+   "casa": 3.112,
+   "ratio": 0.498
+  },
+  {
+   "jugador": "Emiliano Chiavassa",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.549,
+   "casa": 1.984,
+   "ratio": 0.781
+  },
+  {
+   "jugador": "Franco Cristaldo",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.36,
+   "casa": 1.534,
+   "ratio": 0.887
+  },
+  {
+   "jugador": "Timoteo Chamorro",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 1.237,
+   "casa": 1.472,
+   "ratio": 0.84
+  },
+  {
+   "jugador": "Alejandro Galarza",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 1.213,
+   "casa": 0.811,
+   "ratio": 1.496
+  },
+  {
+   "jugador": "Valentín Fascendini",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.796,
+   "casa": 0.67,
+   "ratio": 1.188
+  },
+  {
+   "jugador": "Federico Fattori",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.772,
+   "casa": 0.382,
+   "ratio": 2.021
+  },
+  {
+   "jugador": "Matias Gomez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.772,
+   "casa": 0.786,
+   "ratio": 0.983
+  },
+  {
+   "jugador": "Gabriel Báez",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.649,
+   "casa": 0.709,
+   "ratio": 0.915
+  },
+  {
+   "jugador": "Augusto Schott",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.502,
+   "casa": 1.063,
+   "ratio": 0.472
+  },
+  {
+   "jugador": "Santiago Fernández",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.502,
+   "casa": 0.567,
+   "ratio": 0.885
+  },
+  {
+   "jugador": "Jáminton Campaz",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.665,
+   "casa": 3.112,
+   "ratio": 0.535
+  },
+  {
+   "jugador": "Tomas Badaloni",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.449,
+   "casa": 2.533,
+   "ratio": 0.572
+  },
+  {
+   "jugador": "Ángel Di María",
+   "clave": "argentina",
+   "linea": 2.5,
+   "nuestra": 1.371,
+   "casa": 2.735,
+   "ratio": 0.501
+  },
+  {
+   "jugador": "Gaspar Duarte",
+   "clave": "argentina",
+   "linea": 1.5,
+   "nuestra": 0.919,
+   "casa": 1.879,
+   "ratio": 0.489
+  },
+  {
+   "jugador": "Vicente Pizarro",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.783,
+   "casa": 1.116,
+   "ratio": 0.702
+  },
+  {
+   "jugador": "Franco Ibarra",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.783,
+   "casa": 0.67,
+   "ratio": 1.168
+  },
+  {
+   "jugador": "Federico Navarro",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.636,
+   "casa": 0.48,
+   "ratio": 1.326
+  },
+  {
+   "jugador": "Gastón Ávila",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.586,
+   "casa": 0.811,
+   "ratio": 0.723
+  },
+  {
+   "jugador": "Emanuel Coronel",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.439,
+   "casa": 0.767,
+   "ratio": 0.572
+  },
+  {
+   "jugador": "Facundo Mallo",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.293,
+   "casa": 0.625,
+   "ratio": 0.469
+  },
+  {
+   "jugador": "Agustín Sández",
+   "clave": "argentina",
+   "linea": 0.5,
+   "nuestra": 0.293,
+   "casa": 0.625,
+   "ratio": 0.469
+  },
+  {
+   "jugador": "Abdou Sy",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.536,
+   "casa": 3.182,
+   "ratio": 0.483
+  },
+  {
+   "jugador": "Lenny Pintor",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.415,
+   "casa": 2.214,
+   "ratio": 0.639
+  },
+  {
+   "jugador": "Charles-Andre Raux Yao",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.162,
+   "casa": 2.296,
+   "ratio": 0.506
+  },
+  {
+   "jugador": "Talha Ülvan",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.77,
+   "casa": 1.824,
+   "ratio": 0.422
+  },
+  {
+   "jugador": "Tashkin Ilter",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.71,
+   "casa": 1.116,
+   "ratio": 0.636
+  },
+  {
+   "jugador": "Calegari",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.586,
+   "casa": 0.723,
+   "ratio": 0.81
+  },
+  {
+   "jugador": "Arda Yavuz",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.438,
+   "casa": 0.811,
+   "ratio": 0.54
+  },
+  {
+   "jugador": "Anil Yasar",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.425,
+   "casa": 0.336,
+   "ratio": 1.263
+  },
+  {
+   "jugador": "Drissa Camara",
+   "clave": "turquia",
+   "linea": 3.5,
+   "nuestra": 2.229,
+   "casa": 3.197,
+   "ratio": 0.697
+  },
+  {
+   "jugador": "Kacper Kozlowski",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.411,
+   "casa": 1.756,
+   "ratio": 0.804
+  },
+  {
+   "jugador": "Ali Osman Kalin",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.397,
+   "casa": 2.24,
+   "ratio": 0.624
+  },
+  {
+   "jugador": "Alexandru Maxim",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.394,
+   "casa": 1.642,
+   "ratio": 0.849
+  },
+  {
+   "jugador": "Deian Sorescu",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.297,
+   "casa": 2.454,
+   "ratio": 0.528
+  },
+  {
+   "jugador": "Karamba Gassama",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.833,
+   "casa": 1.534,
+   "ratio": 0.543
+  },
+  {
+   "jugador": "Victor Gidado",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.659,
+   "casa": 1.472,
+   "ratio": 0.448
+  },
+  {
+   "jugador": "Arda Kizildag",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.562,
+   "casa": 0.821,
+   "ratio": 0.684
+  },
+  {
+   "jugador": "Ogün Özçiçek",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.497,
+   "casa": 0.985,
+   "ratio": 0.505
+  },
+  {
+   "jugador": "Myenty Abena",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.486,
+   "casa": 0.55,
+   "ratio": 0.883
+  },
+  {
+   "jugador": "Nazim Sangaré",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.376,
+   "casa": 0.604,
+   "ratio": 0.622
+  },
+  {
+   "jugador": "Luis Pérez",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.364,
+   "casa": 0.442,
+   "ratio": 0.824
+  },
+  {
+   "jugador": "Paul Onuachu",
+   "clave": "turquia",
+   "linea": 3.5,
+   "nuestra": 3.044,
+   "casa": 4.12,
+   "ratio": 0.739
+  },
+  {
+   "jugador": "Mehmet Umut Nayir",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.15,
+   "casa": 2.858,
+   "ratio": 0.752
+  },
+  {
+   "jugador": "Edin Visca",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.135,
+   "casa": 2.533,
+   "ratio": 0.448
+  },
+  {
+   "jugador": "Mustafa Eskihellac",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.131,
+   "casa": 1.943,
+   "ratio": 0.582
+  },
+  {
+   "jugador": "Chibuike Nwaiwu",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.862,
+   "casa": 1.116,
+   "ratio": 0.773
+  },
+  {
+   "jugador": "Ozan Tufan",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.829,
+   "casa": 1.303,
+   "ratio": 0.636
+  },
+  {
+   "jugador": "Benjamin Bouchouari",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.822,
+   "casa": 1.342,
+   "ratio": 0.612
+  },
+  {
+   "jugador": "Stefan Savic",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.676,
+   "casa": 0.456,
+   "ratio": 1.482
+  },
+  {
+   "jugador": "Wagner Pina",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.48,
+   "casa": 0.588,
+   "ratio": 0.817
+  },
+  {
+   "jugador": "Eldor Shomurodov",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.765,
+   "casa": 3.083,
+   "ratio": 0.897
+  },
+  {
+   "jugador": "Yusuf Sari",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.076,
+   "casa": 2.794,
+   "ratio": 0.743
+  },
+  {
+   "jugador": "Davie Selke",
+   "clave": "turquia",
+   "linea": 3.5,
+   "nuestra": 1.77,
+   "casa": 3.275,
+   "ratio": 0.54
+  },
+  {
+   "jugador": "Abbosbek Fayzullaev",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.457,
+   "casa": 2.49,
+   "ratio": 0.585
+  },
+  {
+   "jugador": "Bertug Yildirim",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.408,
+   "casa": 2.41,
+   "ratio": 0.584
+  },
+  {
+   "jugador": "Olivier Kemen",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.406,
+   "casa": 1.385,
+   "ratio": 1.015
+  },
+  {
+   "jugador": "Ivan Brnic",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.368,
+   "casa": 2.454,
+   "ratio": 0.557
+  },
+  {
+   "jugador": "Jakub Kaluzinski",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.788,
+   "casa": 1.417,
+   "ratio": 0.556
+  },
+  {
+   "jugador": "Omer Sahiner",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.703,
+   "casa": 0.506,
+   "ratio": 1.391
+  },
+  {
+   "jugador": "Onur Ergün",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.663,
+   "casa": 0.696,
+   "ratio": 0.953
+  },
+  {
+   "jugador": "Umut Günes",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.655,
+   "casa": 0.647,
+   "ratio": 1.013
+  },
+  {
+   "jugador": "Christopher Operi",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.614,
+   "casa": 0.904,
+   "ratio": 0.679
+  },
+  {
+   "jugador": "Jerome Opoku",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.548,
+   "casa": 0.432,
+   "ratio": 1.268
+  },
+  {
+   "jugador": "Ousseynou Ba",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.44,
+   "casa": 0.382,
+   "ratio": 1.152
+  },
+  {
+   "jugador": "Onur Bulut",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.425,
+   "casa": 0.55,
+   "ratio": 0.772
+  },
+  {
+   "jugador": "Hamza Güreler",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.241,
+   "casa": 0.48,
+   "ratio": 0.503
+  },
+  {
+   "jugador": "Ruan",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.971,
+   "casa": 2.084,
+   "ratio": 0.946
+  },
+  {
+   "jugador": "Hwang Ui-Jo",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.901,
+   "casa": 2.373,
+   "ratio": 0.801
+  },
+  {
+   "jugador": "Ibrahim Kaya",
+   "clave": "turquia",
+   "linea": 3.5,
+   "nuestra": 1.803,
+   "casa": 3.275,
+   "ratio": 0.551
+  },
+  {
+   "jugador": "Ianis Hagi",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.553,
+   "casa": 2.296,
+   "ratio": 0.676
+  },
+  {
+   "jugador": "Meschack Elia",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.389,
+   "casa": 1.726,
+   "ratio": 0.805
+  },
+  {
+   "jugador": "Maestro",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 1.242,
+   "casa": 1.164,
+   "ratio": 1.067
+  },
+  {
+   "jugador": "Gaïus Makouta",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 1.02,
+   "casa": 1.116,
+   "ratio": 0.914
+  },
+  {
+   "jugador": "Yusuf Ozdemir",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.975,
+   "casa": 0.92,
+   "ratio": 1.06
+  },
+  {
+   "jugador": "Enes Keskin",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.842,
+   "casa": 1.367,
+   "ratio": 0.616
+  },
+  {
+   "jugador": "Florent Hadergjonaj",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.791,
+   "casa": 1.063,
+   "ratio": 0.744
+  },
+  {
+   "jugador": "Umit Akdag",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.723,
+   "casa": 0.696,
+   "ratio": 1.039
+  },
+  {
+   "jugador": "Nuno Lima",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.647,
+   "casa": 0.696,
+   "ratio": 0.93
+  },
+  {
+   "jugador": "Izzet Celik",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.621,
+   "casa": 0.625,
+   "ratio": 0.994
+  },
+  {
+   "jugador": "Fidan Aliti",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.503,
+   "casa": 0.647,
+   "ratio": 0.778
+  },
+  {
+   "jugador": "Fatih Aksoy",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.478,
+   "casa": 0.742,
+   "ratio": 0.644
+  },
+  {
+   "jugador": "Orkun Kökçü",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.661,
+   "casa": 2.927,
+   "ratio": 0.909
+  },
+  {
+   "jugador": "Oh Hyeon-Gyu",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.513,
+   "casa": 2.858,
+   "ratio": 0.879
+  },
+  {
+   "jugador": "Václav Cerný",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.442,
+   "casa": 2.858,
+   "ratio": 0.854
+  },
+  {
+   "jugador": "Junior Olaitan",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.069,
+   "casa": 2.533,
+   "ratio": 0.817
+  },
+  {
+   "jugador": "Wilfred Ndidi",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.363,
+   "casa": 1.303,
+   "ratio": 1.046
+  },
+  {
+   "jugador": "Mustafa Hekimoglu",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.22,
+   "casa": 1.726,
+   "ratio": 0.707
+  },
+  {
+   "jugador": "Milot Rashica",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.132,
+   "casa": 2.028,
+   "ratio": 0.558
+  },
+  {
+   "jugador": "Kartal Kayra Yilmaz",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 0.877,
+   "casa": 1.322,
+   "ratio": 0.663
+  },
+  {
+   "jugador": "Emir Han Topcu",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.781,
+   "casa": 0.837,
+   "ratio": 0.933
+  },
+  {
+   "jugador": "Emmanuel Agbadou",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.73,
+   "casa": 0.863,
+   "ratio": 0.846
+  },
+  {
+   "jugador": "Salih Ucan",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.675,
+   "casa": 0.625,
+   "ratio": 1.081
+  },
+  {
+   "jugador": "Tiago Djaló",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.63,
+   "casa": 0.709,
+   "ratio": 0.888
+  },
+  {
+   "jugador": "Ridvan Yilmaz",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.515,
+   "casa": 0.588,
+   "ratio": 0.876
+  },
+  {
+   "jugador": "Yasin Ozcan",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.443,
+   "casa": 0.696,
+   "ratio": 0.637
+  },
+  {
+   "jugador": "Felix Uduokhai",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.417,
+   "casa": 0.353,
+   "ratio": 1.18
+  },
+  {
+   "jugador": "Taylan Bulut",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.363,
+   "casa": 1.222,
+   "ratio": 0.297
+  },
+  {
+   "jugador": "Janderson",
+   "clave": "turquia",
+   "linea": 3.5,
+   "nuestra": 2.494,
+   "casa": 3.413,
+   "ratio": 0.731
+  },
+  {
+   "jugador": "Juan",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 2.242,
+   "casa": 2.858,
+   "ratio": 0.785
+  },
+  {
+   "jugador": "Alexis Antunes",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.55,
+   "casa": 2.956,
+   "ratio": 0.524
+  },
+  {
+   "jugador": "Arda Okan Kurtulan",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 1.433,
+   "casa": 1.116,
+   "ratio": 1.285
+  },
+  {
+   "jugador": "Efkan Bekiroglu",
+   "clave": "turquia",
+   "linea": 3.5,
+   "nuestra": 1.269,
+   "casa": 3.617,
+   "ratio": 0.351
+  },
+  {
+   "jugador": "Guilherme Luiz",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.034,
+   "casa": 2.124,
+   "ratio": 0.487
+  },
+  {
+   "jugador": "Anthony Dennis",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.021,
+   "casa": 1.255,
+   "ratio": 0.814
+  },
+  {
+   "jugador": "Amine Cherni",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.759,
+   "casa": 1.164,
+   "ratio": 0.652
+  },
+  {
+   "jugador": "Malcom Bokele",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.66,
+   "casa": 0.904,
+   "ratio": 0.73
+  },
+  {
+   "jugador": "Taha Altikardes",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.586,
+   "casa": 0.904,
+   "ratio": 0.648
+  },
+  {
+   "jugador": "Santos",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 0.437,
+   "casa": 2.858,
+   "ratio": 0.153
+  },
+  {
+   "jugador": "Ogün Bayrak",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.403,
+   "casa": 0.92,
+   "ratio": 0.438
+  },
+  {
+   "jugador": "Furkan Bayir",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.312,
+   "casa": 0.753,
+   "ratio": 0.414
+  },
+  {
+   "jugador": "Sekou Koita",
+   "clave": "turquia",
+   "linea": 2.5,
+   "nuestra": 1.773,
+   "casa": 2.49,
+   "ratio": 0.712
+  },
+  {
+   "jugador": "Adama Traoré",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.676,
+   "casa": 1.879,
+   "ratio": 0.892
+  },
+  {
+   "jugador": "Furkan Ayaz",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 1.397,
+   "casa": 0.753,
+   "ratio": 1.855
+  },
+  {
+   "jugador": "Franco Tongya",
+   "clave": "turquia",
+   "linea": 1.5,
+   "nuestra": 1.363,
+   "casa": 1.642,
+   "ratio": 0.83
+  },
+  {
+   "jugador": "Ogulcan Ülgün",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 1.215,
+   "casa": 1.164,
+   "ratio": 1.044
+  },
+  {
+   "jugador": "Moussa Kyabou",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.785,
+   "casa": 0.398,
+   "ratio": 1.972
+  },
+  {
+   "jugador": "Ousmane Diabate",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.745,
+   "casa": 0.696,
+   "ratio": 1.071
+  },
+  {
+   "jugador": "Dimitrios Goutas",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.692,
+   "casa": 0.753,
+   "ratio": 0.919
+  },
+  {
+   "jugador": "Zan Zuzek",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.692,
+   "casa": 0.625,
+   "ratio": 1.108
+  },
+  {
+   "jugador": "Pedro Pereira",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.523,
+   "casa": 0.506,
+   "ratio": 1.035
+  },
+  {
+   "jugador": "Thalisson Kelven",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.459,
+   "casa": 0.48,
+   "ratio": 0.957
+  },
+  {
+   "jugador": "Abdurrahim Dursun",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.44,
+   "casa": 0.48,
+   "ratio": 0.917
+  },
+  {
+   "jugador": "Firatacan Uzum",
+   "clave": "turquia",
+   "linea": 0.5,
+   "nuestra": 0.374,
+   "casa": 0.985,
+   "ratio": 0.38
+  },
+  {
+   "jugador": "Stanley Iheanacho",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 2.332,
+   "casa": 2.858,
+   "ratio": 0.816
+  },
+  {
+   "jugador": "Franculino Djú",
+   "clave": "dinamarca",
+   "linea": 5.5,
+   "nuestra": 1.942,
+   "casa": 5.398,
+   "ratio": 0.36
+  },
+  {
+   "jugador": "Friday Etim",
+   "clave": "dinamarca",
+   "linea": 3.5,
+   "nuestra": 1.812,
+   "casa": 3.845,
+   "ratio": 0.471
+  },
+  {
+   "jugador": "Darío Osorio",
+   "clave": "dinamarca",
+   "linea": 3.5,
+   "nuestra": 1.768,
+   "casa": 4.06,
+   "ratio": 0.435
+  },
+  {
+   "jugador": "Valdemar Byskov",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.507,
+   "casa": 2.454,
+   "ratio": 0.614
+  },
+  {
+   "jugador": "Philip Billing",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.376,
+   "casa": 2.157,
+   "ratio": 0.638
+  },
+  {
+   "jugador": "Julius Emefile",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.246,
+   "casa": 3.006,
+   "ratio": 0.414
+  },
+  {
+   "jugador": "Denil Castillo",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.115,
+   "casa": 2.028,
+   "ratio": 0.55
+  },
+  {
+   "jugador": "Pedro Bravo",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.985,
+   "casa": 0.985,
+   "ratio": 1.0
+  },
+  {
+   "jugador": "Martin Erlic",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.654,
+   "casa": 0.92,
+   "ratio": 0.711
+  },
+  {
+   "jugador": "Rasmus Kristensen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.654,
+   "casa": 1.164,
+   "ratio": 0.562
+  },
+  {
+   "jugador": "Mads Bech Sørensen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.523,
+   "casa": 0.863,
+   "ratio": 0.606
+  },
+  {
+   "jugador": "Adam Gabriel",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 0.442,
+   "casa": 1.726,
+   "ratio": 0.256
+  },
+  {
+   "jugador": "Warren Caddy",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 2.31,
+   "casa": 2.028,
+   "ratio": 1.139
+  },
+  {
+   "jugador": "Musa Toure",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.821,
+   "casa": 1.943,
+   "ratio": 0.937
+  },
+  {
+   "jugador": "Cyril Edudzi",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.661,
+   "casa": 1.507,
+   "ratio": 1.102
+  },
+  {
+   "jugador": "Elies Mahmoud",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.51,
+   "casa": 1.756,
+   "ratio": 0.86
+  },
+  {
+   "jugador": "Mike Themsen",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.34,
+   "casa": 1.603,
+   "ratio": 0.836
+  },
+  {
+   "jugador": "Mathias Greve",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 1.262,
+   "casa": 1.063,
+   "ratio": 1.187
+  },
+  {
+   "jugador": "Amin Al Hamawi",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.152,
+   "casa": 1.642,
+   "ratio": 0.702
+  },
+  {
+   "jugador": "John Bjorkengren",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.763,
+   "casa": 0.723,
+   "ratio": 1.055
+  },
+  {
+   "jugador": "Ousseynou Seck",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 0.763,
+   "casa": 1.507,
+   "ratio": 0.506
+  },
+  {
+   "jugador": "Daniel Høegh",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.721,
+   "casa": 0.753,
+   "ratio": 0.957
+  },
+  {
+   "jugador": "Frederik Lauenborg",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.711,
+   "casa": 0.742,
+   "ratio": 0.958
+  },
+  {
+   "jugador": "Sabil Hansen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.69,
+   "casa": 0.604,
+   "ratio": 1.142
+  },
+  {
+   "jugador": "Wessel Dammers",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.609,
+   "casa": 0.904,
+   "ratio": 0.673
+  },
+  {
+   "jugador": "Laurits Pedersen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.527,
+   "casa": 0.723,
+   "ratio": 0.729
+  },
+  {
+   "jugador": "Nikolas Dyhr",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.476,
+   "casa": 0.405,
+   "ratio": 1.174
+  },
+  {
+   "jugador": "Lucas Lissens",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.444,
+   "casa": 0.811,
+   "ratio": 0.548
+  },
+  {
+   "jugador": "Benjamin Örn",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.265,
+   "casa": 0.48,
+   "ratio": 0.553
+  },
+  {
+   "jugador": "Kelvin Ehibhatiomhan",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 2.334,
+   "casa": 2.907,
+   "ratio": 0.803
+  },
+  {
+   "jugador": "Yamirou Ouorou",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.866,
+   "casa": 1.943,
+   "ratio": 0.961
+  },
+  {
+   "jugador": "Adrian Justinussen",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.748,
+   "casa": 2.735,
+   "ratio": 0.639
+  },
+  {
+   "jugador": "Julius Madsen",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.591,
+   "casa": 2.124,
+   "ratio": 0.749
+  },
+  {
+   "jugador": "Ivan Miličević",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 1.513,
+   "casa": 0.742,
+   "ratio": 2.039
+  },
+  {
+   "jugador": "Kristian Kirkegaard",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.121,
+   "casa": 2.338,
+   "ratio": 0.479
+  },
+  {
+   "jugador": "Jimi Tauriainen",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.004,
+   "casa": 1.507,
+   "ratio": 0.666
+  },
+  {
+   "jugador": "Adam Herdonsson",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.886,
+   "casa": 1.063,
+   "ratio": 0.833
+  },
+  {
+   "jugador": "Alagie Saine",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.824,
+   "casa": 0.837,
+   "ratio": 0.985
+  },
+  {
+   "jugador": "Karlo Lusavec",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.769,
+   "casa": 0.985,
+   "ratio": 0.781
+  },
+  {
+   "jugador": "Abdul Salam Moro",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.769,
+   "casa": 1.031,
+   "ratio": 0.746
+  },
+  {
+   "jugador": "Victor Palsson",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.706,
+   "casa": 0.821,
+   "ratio": 0.859
+  },
+  {
+   "jugador": "Ole Martin Kolskogen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.354,
+   "casa": 0.506,
+   "ratio": 0.7
+  },
+  {
+   "jugador": "Mikkel Kupijbida",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.354,
+   "casa": 0.92,
+   "ratio": 0.385
+  },
+  {
+   "jugador": "Isak Thorvaldsson",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 2.09,
+   "casa": 3.083,
+   "ratio": 0.678
+  },
+  {
+   "jugador": "Simon Colyn",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.926,
+   "casa": 2.735,
+   "ratio": 0.704
+  },
+  {
+   "jugador": "Casper Winther",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.691,
+   "casa": 3.006,
+   "ratio": 0.562
+  },
+  {
+   "jugador": "Gustav Fraulo",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.574,
+   "casa": 1.322,
+   "ratio": 1.191
+  },
+  {
+   "jugador": "Frederik Gytkjaer",
+   "clave": "dinamarca",
+   "linea": 3.5,
+   "nuestra": 1.385,
+   "casa": 3.506,
+   "ratio": 0.395
+  },
+  {
+   "jugador": "Lauge Sandgrav",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.339,
+   "casa": 1.417,
+   "ratio": 0.945
+  },
+  {
+   "jugador": "Oliver Højer",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.226,
+   "casa": 1.642,
+   "ratio": 0.747
+  },
+  {
+   "jugador": "Renzo Tytens",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.879,
+   "casa": 0.811,
+   "ratio": 1.084
+  },
+  {
+   "jugador": "Jens Jakob Thomasen",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 0.834,
+   "casa": 1.367,
+   "ratio": 0.61
+  },
+  {
+   "jugador": "Mathias Rasmussen",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 0.792,
+   "casa": 1.603,
+   "ratio": 0.494
+  },
+  {
+   "jugador": "Daníel Kristjánsson",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.454,
+   "casa": 0.985,
+   "ratio": 0.461
+  },
+  {
+   "jugador": "Cornelius Allen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.454,
+   "casa": 0.958,
+   "ratio": 0.474
+  },
+  {
+   "jugador": "Mikkel Fischer",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.409,
+   "casa": 0.723,
+   "ratio": 0.566
+  },
+  {
+   "jugador": "Davíd Aronsson",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.324,
+   "casa": 0.837,
+   "ratio": 0.387
+  },
+  {
+   "jugador": "Oskar Buur",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.291,
+   "casa": 0.742,
+   "ratio": 0.392
+  },
+  {
+   "jugador": "Olti Hyseni",
+   "clave": "dinamarca",
+   "linea": 4.5,
+   "nuestra": 2.595,
+   "casa": 4.678,
+   "ratio": 0.555
+  },
+  {
+   "jugador": "Filip Bundgaard",
+   "clave": "dinamarca",
+   "linea": 4.5,
+   "nuestra": 2.453,
+   "casa": 4.317,
+   "ratio": 0.568
+  },
+  {
+   "jugador": "Patrick Mortensen",
+   "clave": "dinamarca",
+   "linea": 4.5,
+   "nuestra": 2.203,
+   "casa": 4.714,
+   "ratio": 0.467
+  },
+  {
+   "jugador": "Marcus Younis",
+   "clave": "dinamarca",
+   "linea": 3.5,
+   "nuestra": 2.101,
+   "casa": 3.316,
+   "ratio": 0.634
+  },
+  {
+   "jugador": "Mads Frökjaer",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 2.062,
+   "casa": 2.735,
+   "ratio": 0.754
+  },
+  {
+   "jugador": "Sho Fukuda",
+   "clave": "dinamarca",
+   "linea": 4.5,
+   "nuestra": 1.744,
+   "casa": 5.004,
+   "ratio": 0.349
+  },
+  {
+   "jugador": "Oskar Fenger",
+   "clave": "dinamarca",
+   "linea": 3.5,
+   "nuestra": 1.631,
+   "casa": 3.813,
+   "ratio": 0.428
+  },
+  {
+   "jugador": "Bartosz Slisz",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.239,
+   "casa": 2.273,
+   "ratio": 0.545
+  },
+  {
+   "jugador": "Max Ejdum",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.239,
+   "casa": 2.338,
+   "ratio": 0.53
+  },
+  {
+   "jugador": "Daniel Wass",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.115,
+   "casa": 2.24,
+   "ratio": 0.498
+  },
+  {
+   "jugador": "Mathias Jensen",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 0.961,
+   "casa": 1.726,
+   "ratio": 0.557
+  },
+  {
+   "jugador": "Luis Binks",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.941,
+   "casa": 0.985,
+   "ratio": 0.955
+  },
+  {
+   "jugador": "Mats Köhlert",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.589,
+   "casa": 1.14,
+   "ratio": 0.517
+  },
+  {
+   "jugador": "Jordi Vanlerberghe",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.471,
+   "casa": 1.063,
+   "ratio": 0.443
+  },
+  {
+   "jugador": "Oliver Villadsen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.471,
+   "casa": 1.14,
+   "ratio": 0.413
+  },
+  {
+   "jugador": "Callum McCowatt",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 2.268,
+   "casa": 2.679,
+   "ratio": 0.847
+  },
+  {
+   "jugador": "Younes Bakiz",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.498,
+   "casa": 2.41,
+   "ratio": 0.622
+  },
+  {
+   "jugador": "Oliver Ross",
+   "clave": "dinamarca",
+   "linea": 2.5,
+   "nuestra": 1.392,
+   "casa": 2.679,
+   "ratio": 0.52
+  },
+  {
+   "jugador": "Jens Martin Gammelby",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 1.13,
+   "casa": 1.063,
+   "ratio": 1.063
+  },
+  {
+   "jugador": "Rami Al Hajj",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 1.026,
+   "casa": 1.756,
+   "ratio": 0.584
+  },
+  {
+   "jugador": "Sofus Berger Brix",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.937,
+   "casa": 1.031,
+   "ratio": 0.908
+  },
+  {
+   "jugador": "Alexander Simmelhack",
+   "clave": "dinamarca",
+   "linea": 1.5,
+   "nuestra": 0.915,
+   "casa": 2.124,
+   "ratio": 0.431
+  },
+  {
+   "jugador": "William Kirk",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.886,
+   "casa": 0.958,
+   "ratio": 0.925
+  },
+  {
+   "jugador": "Mads Larsen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.68,
+   "casa": 0.786,
+   "ratio": 0.865
+  },
+  {
+   "jugador": "Alexander Madsen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.658,
+   "casa": 0.48,
+   "ratio": 1.372
+  },
+  {
+   "jugador": "Villads Westh",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.606,
+   "casa": 0.837,
+   "ratio": 0.724
+  },
+  {
+   "jugador": "Julius Nielsen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.587,
+   "casa": 0.863,
+   "ratio": 0.68
+  },
+  {
+   "jugador": "Andreas Poulsen",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.549,
+   "casa": 0.67,
+   "ratio": 0.819
+  },
+  {
+   "jugador": "Mads Freundlich",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.536,
+   "casa": 0.904,
+   "ratio": 0.593
+  },
+  {
+   "jugador": "Alexander Busch",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.526,
+   "casa": 0.55,
+   "ratio": 0.956
+  },
+  {
+   "jugador": "Pedro Ganchas",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.497,
+   "casa": 0.48,
+   "ratio": 1.036
+  },
+  {
+   "jugador": "Melker Jonsson",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.364,
+   "casa": 0.491,
+   "ratio": 0.741
+  },
+  {
+   "jugador": "Robin Ostrom",
+   "clave": "dinamarca",
+   "linea": 0.5,
+   "nuestra": 0.182,
+   "casa": 0.442,
+   "ratio": 0.412
+  },
+  {
+   "jugador": "Taxiarchis Fountas",
+   "clave": "gre_super_league",
+   "linea": 3.5,
+   "nuestra": 2.509,
+   "casa": 3.506,
+   "ratio": 0.716
+  },
+  {
+   "jugador": "Thiago Thomas Nuss",
+   "clave": "gre_super_league",
+   "linea": 4.5,
+   "nuestra": 2.387,
+   "casa": 4.544,
+   "ratio": 0.525
+  },
+  {
+   "jugador": "Giannis Theodosoulakis",
+   "clave": "gre_super_league",
+   "linea": 2.5,
+   "nuestra": 1.667,
+   "casa": 2.858,
+   "ratio": 0.583
+  },
+  {
+   "jugador": "Thiago Romano",
+   "clave": "gre_super_league",
+   "linea": 2.5,
+   "nuestra": 1.568,
+   "casa": 2.907,
+   "ratio": 0.539
+  },
+  {
+   "jugador": "Zisis Karachalios",
+   "clave": "gre_super_league",
+   "linea": 1.5,
+   "nuestra": 1.25,
+   "casa": 1.303,
+   "ratio": 0.96
+  },
+  {
+   "jugador": "Aaron Leya Iseka",
+   "clave": "gre_super_league",
+   "linea": 3.5,
+   "nuestra": 1.212,
+   "casa": 3.944,
+   "ratio": 0.307
+  },
+  {
+   "jugador": "Konstantinos Kostoulas",
+   "clave": "gre_super_league",
+   "linea": 0.5,
+   "nuestra": 0.942,
+   "casa": 0.67,
+   "ratio": 1.406
+  },
+  {
+   "jugador": "Thanasis Androutsos",
+   "clave": "gre_super_league",
+   "linea": 1.5,
+   "nuestra": 0.929,
+   "casa": 1.367,
+   "ratio": 0.679
+  },
+  {
+   "jugador": "Giorgos Kanellopoulos",
+   "clave": "gre_super_league",
+   "linea": 1.5,
+   "nuestra": 0.929,
+   "casa": 1.255,
+   "ratio": 0.74
+  },
+  {
+   "jugador": "Nicolaos Athanasiou",
+   "clave": "gre_super_league",
+   "linea": 0.5,
+   "nuestra": 0.844,
+   "casa": 1.063,
+   "ratio": 0.794
+  },
+  {
+   "jugador": "Giannis Apostolakis",
+   "clave": "gre_super_league",
+   "linea": 1.5,
+   "nuestra": 0.823,
+   "casa": 2.124,
+   "ratio": 0.387
+  },
+  {
+   "jugador": "Kresimir Krizmanic",
+   "clave": "gre_super_league",
+   "linea": 0.5,
+   "nuestra": 0.494,
+   "casa": 0.506,
+   "ratio": 0.977
+  },
+  {
+   "jugador": "Achilleas Poungouras",
+   "clave": "gre_super_league",
+   "linea": 0.5,
+   "nuestra": 0.387,
+   "casa": 0.506,
+   "ratio": 0.766
+  },
+  {
+   "jugador": "Georginio Rutter",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.822,
+   "casa": 2.627,
+   "ratio": 0.693
+  },
+  {
+   "jugador": "Charalambos Kostoulas",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.592,
+   "casa": 2.858,
+   "ratio": 0.557
+  },
+  {
+   "jugador": "Yasin Ayari",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.511,
+   "casa": 2.084,
+   "ratio": 0.725
+  },
+  {
+   "jugador": "Jack Hinshelwood",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.479,
+   "casa": 2.157,
+   "ratio": 0.686
+  },
+  {
+   "jugador": "Diego Gómez",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.436,
+   "casa": 2.579,
+   "ratio": 0.557
+  },
+  {
+   "jugador": "Pascal Gross",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.168,
+   "casa": 1.281,
+   "ratio": 0.912
+  },
+  {
+   "jugador": "Matt O'Riley",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.021,
+   "casa": 1.984,
+   "ratio": 0.515
+  },
+  {
+   "jugador": "Mats Wieffer",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.981,
+   "casa": 0.985,
+   "ratio": 0.996
+  },
+  {
+   "jugador": "Ferdi Kadioglu",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.773,
+   "casa": 1.14,
+   "ratio": 0.678
+  },
+  {
+   "jugador": "Lewis Dunk",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.751,
+   "casa": 0.891,
+   "ratio": 0.843
+  },
+  {
+   "jugador": "Maxim De Cuyper",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 0.536,
+   "casa": 2.24,
+   "ratio": 0.239
+  },
+  {
+   "jugador": "Igor Julio",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.347,
+   "casa": 0.19,
+   "ratio": 1.825
+  },
+  {
+   "jugador": "Olivier Boscagli",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.278,
+   "casa": 0.625,
+   "ratio": 0.445
+  },
+  {
+   "jugador": "Ollie Watkins",
+   "clave": "premier",
+   "linea": 3.5,
+   "nuestra": 2.354,
+   "casa": 3.454,
+   "ratio": 0.681
+  },
+  {
+   "jugador": "Emiliano Buendía",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.389,
+   "casa": 2.41,
+   "ratio": 0.576
+  },
+  {
+   "jugador": "Alysson",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.386,
+   "casa": 2.005,
+   "ratio": 0.691
+  },
+  {
+   "jugador": "Tammy Abraham",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.257,
+   "casa": 3.006,
+   "ratio": 0.418
+  },
+  {
+   "jugador": "Leon Bailey",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.158,
+   "casa": 1.984,
+   "ratio": 0.584
+  },
+  {
+   "jugador": "John McGinn",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.075,
+   "casa": 1.756,
+   "ratio": 0.612
+  },
+  {
+   "jugador": "Ross Barkley",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.019,
+   "casa": 1.824,
+   "ratio": 0.559
+  },
+  {
+   "jugador": "George Hemmings",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.925,
+   "casa": 1.507,
+   "ratio": 0.614
+  },
+  {
+   "jugador": "Matty Cash",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.809,
+   "casa": 1.031,
+   "ratio": 0.784
+  },
+  {
+   "jugador": "Boubacar Kamara",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.675,
+   "casa": 0.647,
+   "ratio": 1.044
+  },
+  {
+   "jugador": "Ian Maatsen",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.669,
+   "casa": 1.063,
+   "ratio": 0.629
+  },
+  {
+   "jugador": "Tyrone Mings",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.568,
+   "casa": 0.604,
+   "ratio": 0.94
+  },
+  {
+   "jugador": "Pau Torres",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.494,
+   "casa": 0.567,
+   "ratio": 0.871
+  },
+  {
+   "jugador": "Lamare Bogarde",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.389,
+   "casa": 0.696,
+   "ratio": 0.559
+  },
+  {
+   "jugador": "Victor Lindelöf",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.309,
+   "casa": 0.67,
+   "ratio": 0.461
+  },
+  {
+   "jugador": "Erling Haaland",
+   "clave": "premier",
+   "linea": 4.5,
+   "nuestra": 3.502,
+   "casa": 4.544,
+   "ratio": 0.771
+  },
+  {
+   "jugador": "Antoine Semenyo",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 2.505,
+   "casa": 2.907,
+   "ratio": 0.862
+  },
+  {
+   "jugador": "Omar Marmoush",
+   "clave": "premier",
+   "linea": 3.5,
+   "nuestra": 1.907,
+   "casa": 3.56,
+   "ratio": 0.536
+  },
+  {
+   "jugador": "Phil Foden",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.697,
+   "casa": 2.907,
+   "ratio": 0.584
+  },
+  {
+   "jugador": "Rayan Cherki",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.697,
+   "casa": 3.057,
+   "ratio": 0.555
+  },
+  {
+   "jugador": "Savinho",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.469,
+   "casa": 2.794,
+   "ratio": 0.526
+  },
+  {
+   "jugador": "Nico O'Reilly",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.103,
+   "casa": 2.296,
+   "ratio": 0.48
+  },
+  {
+   "jugador": "Josko Gvardiol",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.911,
+   "casa": 1.367,
+   "ratio": 0.666
+  },
+  {
+   "jugador": "Marc Guéhi",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.889,
+   "casa": 1.222,
+   "ratio": 0.727
+  },
+  {
+   "jugador": "Mateo Kovacic",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.826,
+   "casa": 1.568,
+   "ratio": 0.527
+  },
+  {
+   "jugador": "Rayan Aït-Nouri",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.649,
+   "casa": 1.303,
+   "ratio": 0.498
+  },
+  {
+   "jugador": "Matheus Nunes",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.623,
+   "casa": 0.863,
+   "ratio": 0.722
+  },
+  {
+   "jugador": "Rúben Dias",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.5,
+   "casa": 0.786,
+   "ratio": 0.636
+  },
+  {
+   "jugador": "Abdukodir Khusanov",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.462,
+   "casa": 0.742,
+   "ratio": 0.623
+  },
+  {
+   "jugador": "Rico Lewis",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.418,
+   "casa": 0.837,
+   "ratio": 0.5
+  },
+  {
+   "jugador": "Evanilson",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 2.135,
+   "casa": 1.726,
+   "ratio": 1.237
+  },
+  {
+   "jugador": "Rayan",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 2.078,
+   "casa": 1.726,
+   "ratio": 1.204
+  },
+  {
+   "jugador": "Marcus Tavernier",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.902,
+   "casa": 1.603,
+   "ratio": 1.186
+  },
+  {
+   "jugador": "David Brooks",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.527,
+   "casa": 1.726,
+   "ratio": 0.885
+  },
+  {
+   "jugador": "Justin Kluivert",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.331,
+   "casa": 1.603,
+   "ratio": 0.83
+  },
+  {
+   "jugador": "Alex Scott",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 1.24,
+   "casa": 1.14,
+   "ratio": 1.087
+  },
+  {
+   "jugador": "Ben Gannon-Doak",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.059,
+   "casa": 1.322,
+   "ratio": 0.801
+  },
+  {
+   "jugador": "Tyler Adams",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.683,
+   "casa": 0.506,
+   "ratio": 1.351
+  },
+  {
+   "jugador": "Alex Tóth",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.572,
+   "casa": 0.958,
+   "ratio": 0.597
+  },
+  {
+   "jugador": "Lewis Cook",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.512,
+   "casa": 0.535,
+   "ratio": 0.958
+  },
+  {
+   "jugador": "Adrien Truffert",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.488,
+   "casa": 0.567,
+   "ratio": 0.86
+  },
+  {
+   "jugador": "James Hill",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.483,
+   "casa": 0.625,
+   "ratio": 0.773
+  },
+  {
+   "jugador": "Julio Soler",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.318,
+   "casa": 0.442,
+   "ratio": 0.72
+  },
+  {
+   "jugador": "Bafodé Diakité",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.22,
+   "casa": 0.588,
+   "ratio": 0.374
+  },
+  {
+   "jugador": "Adam Smith",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.179,
+   "casa": 0.353,
+   "ratio": 0.507
+  },
+  {
+   "jugador": "Harvey Barnes",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.624,
+   "casa": 2.214,
+   "ratio": 0.734
+  },
+  {
+   "jugador": "Nick Woltemade",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.57,
+   "casa": 2.794,
+   "ratio": 0.562
+  },
+  {
+   "jugador": "William Osula",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.561,
+   "casa": 2.084,
+   "ratio": 0.749
+  },
+  {
+   "jugador": "Jacob Murphy",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.407,
+   "casa": 1.726,
+   "ratio": 0.815
+  },
+  {
+   "jugador": "Yoane Wissa",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.36,
+   "casa": 1.863,
+   "ratio": 0.73
+  },
+  {
+   "jugador": "Anthony Elanga",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.248,
+   "casa": 1.863,
+   "ratio": 0.67
+  },
+  {
+   "jugador": "Fabian Schär",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.998,
+   "casa": 1.116,
+   "ratio": 0.895
+  },
+  {
+   "jugador": "Joe Willock",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.993,
+   "casa": 1.303,
+   "ratio": 0.762
+  },
+  {
+   "jugador": "Jacob Ramsey",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.892,
+   "casa": 1.063,
+   "ratio": 0.839
+  },
+  {
+   "jugador": "Lewis Miley",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.856,
+   "casa": 0.958,
+   "ratio": 0.894
+  },
+  {
+   "jugador": "Lewis Hall",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.829,
+   "casa": 0.958,
+   "ratio": 0.866
+  },
+  {
+   "jugador": "Malick Thiaw",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.805,
+   "casa": 0.863,
+   "ratio": 0.933
+  },
+  {
+   "jugador": "Sven Botman",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.658,
+   "casa": 0.837,
+   "ratio": 0.786
+  },
+  {
+   "jugador": "Dan Burn",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.47,
+   "casa": 0.767,
+   "ratio": 0.613
+  },
+  {
+   "jugador": "Tino Livramento",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.347,
+   "casa": 0.696,
+   "ratio": 0.499
+  },
+  {
+   "jugador": "Cody Gakpo",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 2.482,
+   "casa": 2.627,
+   "ratio": 0.945
+  },
+  {
+   "jugador": "Dominik Szoboszlai",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.838,
+   "casa": 2.005,
+   "ratio": 0.917
+  },
+  {
+   "jugador": "Alexander Isak",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.598,
+   "casa": 2.41,
+   "ratio": 0.663
+  },
+  {
+   "jugador": "Florian Wirtz",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.491,
+   "casa": 1.943,
+   "ratio": 0.768
+  },
+  {
+   "jugador": "Alexis Mac Allister",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.422,
+   "casa": 1.756,
+   "ratio": 0.81
+  },
+  {
+   "jugador": "Rio Ngumoha",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.325,
+   "casa": 2.157,
+   "ratio": 0.614
+  },
+  {
+   "jugador": "Federico Chiesa",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.187,
+   "casa": 3.057,
+   "ratio": 0.388
+  },
+  {
+   "jugador": "Ryan Gravenberch",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.165,
+   "casa": 1.417,
+   "ratio": 0.822
+  },
+  {
+   "jugador": "Virgil van Dijk",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.759,
+   "casa": 1.281,
+   "ratio": 0.593
+  },
+  {
+   "jugador": "Trey Nyoni",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.617,
+   "casa": 1.534,
+   "ratio": 0.402
+  },
+  {
+   "jugador": "Jeremie Frimpong",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.529,
+   "casa": 1.116,
+   "ratio": 0.474
+  },
+  {
+   "jugador": "Wataru Endo",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.529,
+   "casa": 0.891,
+   "ratio": 0.594
+  },
+  {
+   "jugador": "Milos Kerkez",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.373,
+   "casa": 0.891,
+   "ratio": 0.419
+  },
+  {
+   "jugador": "Rodrigo Muniz",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.997,
+   "casa": 3.006,
+   "ratio": 0.664
+  },
+  {
+   "jugador": "Alex Iwobi",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.866,
+   "casa": 1.863,
+   "ratio": 1.002
+  },
+  {
+   "jugador": "Kevin",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.584,
+   "casa": 2.124,
+   "ratio": 0.746
+  },
+  {
+   "jugador": "Emile Smith Rowe",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.198,
+   "casa": 1.902,
+   "ratio": 0.63
+  },
+  {
+   "jugador": "Josh King",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.08,
+   "casa": 1.863,
+   "ratio": 0.58
+  },
+  {
+   "jugador": "Jonah Kusi-Asare",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.08,
+   "casa": 2.627,
+   "ratio": 0.411
+  },
+  {
+   "jugador": "Ryan Sessegnon",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.919,
+   "casa": 1.342,
+   "ratio": 0.685
+  },
+  {
+   "jugador": "Oscar Bobb",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.867,
+   "casa": 1.281,
+   "ratio": 0.677
+  },
+  {
+   "jugador": "Sander Berge",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.798,
+   "casa": 0.272,
+   "ratio": 2.935
+  },
+  {
+   "jugador": "Harrison Reed",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.776,
+   "casa": 0.837,
+   "ratio": 0.927
+  },
+  {
+   "jugador": "Kenny Tete",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.757,
+   "casa": 0.67,
+   "ratio": 1.129
+  },
+  {
+   "jugador": "Timothy Castagne",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.565,
+   "casa": 0.904,
+   "ratio": 0.625
+  },
+  {
+   "jugador": "Antonee Robinson",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.423,
+   "casa": 0.647,
+   "ratio": 0.654
+  },
+  {
+   "jugador": "Jorge Cuenca",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.271,
+   "casa": 0.696,
+   "ratio": 0.39
+  },
+  {
+   "jugador": "João Pedro",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 2.208,
+   "casa": 2.579,
+   "ratio": 0.856
+  },
+  {
+   "jugador": "Cole Palmer",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 2.113,
+   "casa": 2.296,
+   "ratio": 0.92
+  },
+  {
+   "jugador": "Enzo Fernández",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.841,
+   "casa": 2.028,
+   "ratio": 0.908
+  },
+  {
+   "jugador": "Pedro Neto",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 1.669,
+   "casa": 1.603,
+   "ratio": 1.041
+  },
+  {
+   "jugador": "Marc Guiu",
+   "clave": "premier",
+   "linea": 3.5,
+   "nuestra": 1.631,
+   "casa": 3.197,
+   "ratio": 0.51
+  },
+  {
+   "jugador": "Liam Delap",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.62,
+   "casa": 3.112,
+   "ratio": 0.521
+  },
+  {
+   "jugador": "Estêvão",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.611,
+   "casa": 3.006,
+   "ratio": 0.536
+  },
+  {
+   "jugador": "Jamie Gittens",
+   "clave": "premier",
+   "linea": 2.5,
+   "nuestra": 1.135,
+   "casa": 2.24,
+   "ratio": 0.507
+  },
+  {
+   "jugador": "Moisés Caicedo",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.973,
+   "casa": 0.891,
+   "ratio": 1.093
+  },
+  {
+   "jugador": "Reece James",
+   "clave": "premier",
+   "linea": 1.5,
+   "nuestra": 0.728,
+   "casa": 1.281,
+   "ratio": 0.568
+  },
+  {
+   "jugador": "Dário Essugo",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.662,
+   "casa": 1.116,
+   "ratio": 0.593
+  },
+  {
+   "jugador": "Romeo Lavia",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.556,
+   "casa": 1.008,
+   "ratio": 0.552
+  },
+  {
+   "jugador": "Mamadou Sarr",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.435,
+   "casa": 0.696,
+   "ratio": 0.625
+  },
+  {
+   "jugador": "Malo Gusto",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.43,
+   "casa": 0.837,
+   "ratio": 0.514
+  },
+  {
+   "jugador": "Josh Acheampong",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.344,
+   "casa": 0.863,
+   "ratio": 0.398
+  },
+  {
+   "jugador": "Jorrel Hato",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.305,
+   "casa": 0.723,
+   "ratio": 0.422
+  },
+  {
+   "jugador": "Levi Colwill",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.304,
+   "casa": 0.696,
+   "ratio": 0.437
+  },
+  {
+   "jugador": "Tosin Adarabioyo",
+   "clave": "premier",
+   "linea": 0.5,
+   "nuestra": 0.263,
+   "casa": 0.742,
+   "ratio": 0.354
+  },
+  {
+   "jugador": "Alexander Sørloth",
+   "clave": "laliga",
+   "linea": 3.5,
+   "nuestra": 2.251,
+   "casa": 3.743,
+   "ratio": 0.601
+  },
+  {
+   "jugador": "Julián Álvarez",
+   "clave": "laliga",
+   "linea": 3.5,
+   "nuestra": 2.192,
+   "casa": 3.454,
+   "ratio": 0.635
+  },
+  {
+   "jugador": "Ademola Lookman",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 2.11,
+   "casa": 3.083,
+   "ratio": 0.684
+  },
+  {
+   "jugador": "Giuliano Simeone",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.677,
+   "casa": 1.773,
+   "ratio": 0.946
+  },
+  {
+   "jugador": "Pablo Barrios",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.189,
+   "casa": 1.342,
+   "ratio": 0.886
+  },
+  {
+   "jugador": "Rodrigo Mendoza",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 0.974,
+   "casa": 2.214,
+   "ratio": 0.44
+  },
+  {
+   "jugador": "Marcos Llorente",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.91,
+   "casa": 0.958,
+   "ratio": 0.95
+  },
+  {
+   "jugador": "José María Giménez",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.806,
+   "casa": 0.67,
+   "ratio": 1.203
+  },
+  {
+   "jugador": "Obed Vargas",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.76,
+   "casa": 1.756,
+   "ratio": 0.433
+  },
+  {
+   "jugador": "Koke",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.756,
+   "casa": 0.891,
+   "ratio": 0.849
+  },
+  {
+   "jugador": "Dávid Hancko",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.723,
+   "casa": 1.116,
+   "ratio": 0.648
+  },
+  {
+   "jugador": "Marc Pubill",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.613,
+   "casa": 0.92,
+   "ratio": 0.666
+  },
+  {
+   "jugador": "Johnny Cardoso",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.552,
+   "casa": 0.863,
+   "ratio": 0.639
+  },
+  {
+   "jugador": "Robin Le Normand",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.366,
+   "casa": 0.55,
+   "ratio": 0.665
+  },
+  {
+   "jugador": "Georges Mikautadze",
+   "clave": "laliga",
+   "linea": 3.5,
+   "nuestra": 2.171,
+   "casa": 3.56,
+   "ratio": 0.61
+  },
+  {
+   "jugador": "Nicolas Pépé",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.965,
+   "casa": 2.679,
+   "ratio": 0.733
+  },
+  {
+   "jugador": "Pape Gueye",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.525,
+   "casa": 1.281,
+   "ratio": 1.191
+  },
+  {
+   "jugador": "Ayoze Pérez",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.384,
+   "casa": 2.772,
+   "ratio": 0.499
+  },
+  {
+   "jugador": "Gerard Moreno",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.303,
+   "casa": 2.679,
+   "ratio": 0.486
+  },
+  {
+   "jugador": "Alberto Moleiro",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.287,
+   "casa": 2.794,
+   "ratio": 0.461
+  },
+  {
+   "jugador": "Tajon Buchanan",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.262,
+   "casa": 1.342,
+   "ratio": 0.94
+  },
+  {
+   "jugador": "Tani Oluwaseyi",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.114,
+   "casa": 2.579,
+   "ratio": 0.432
+  },
+  {
+   "jugador": "Santi Comesaña",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.957,
+   "casa": 0.891,
+   "ratio": 1.075
+  },
+  {
+   "jugador": "Carlos Macià",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.651,
+   "casa": 0.904,
+   "ratio": 0.72
+  },
+  {
+   "jugador": "Sergi Cardona",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.599,
+   "casa": 0.891,
+   "ratio": 0.673
+  },
+  {
+   "jugador": "Santiago Mouriño",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.566,
+   "casa": 0.723,
+   "ratio": 0.783
+  },
+  {
+   "jugador": "Renato Veiga",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.379,
+   "casa": 0.567,
+   "ratio": 0.668
+  },
+  {
+   "jugador": "Logan Costa",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.344,
+   "casa": 0.491,
+   "ratio": 0.701
+  },
+  {
+   "jugador": "Willy Kambwala",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.344,
+   "casa": 0.398,
+   "ratio": 0.864
+  },
+  {
+   "jugador": "Juan Foyth",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.285,
+   "casa": 0.432,
+   "ratio": 0.66
+  },
+  {
+   "jugador": "Alex Freeman",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.262,
+   "casa": 0.985,
+   "ratio": 0.266
+  },
+  {
+   "jugador": "Pau Navarro",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.236,
+   "casa": 0.469,
+   "ratio": 0.504
+  },
+  {
+   "jugador": "Martín Satriano",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 2.253,
+   "casa": 2.679,
+   "ratio": 0.841
+  },
+  {
+   "jugador": "Borja Mayoral",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.513,
+   "casa": 3.057,
+   "ratio": 0.495
+  },
+  {
+   "jugador": "Mario Martín",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.021,
+   "casa": 2.627,
+   "ratio": 0.389
+  },
+  {
+   "jugador": "Javi Muñoz",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.016,
+   "casa": 1.603,
+   "ratio": 0.634
+  },
+  {
+   "jugador": "Zaid Romero",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.699,
+   "casa": 0.696,
+   "ratio": 1.005
+  },
+  {
+   "jugador": "Sebastián Boselli",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.476,
+   "casa": 0.567,
+   "ratio": 0.839
+  },
+  {
+   "jugador": "Abdel Abqar",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.432,
+   "casa": 0.567,
+   "ratio": 0.762
+  },
+  {
+   "jugador": "Davinchi",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.419,
+   "casa": 0.811,
+   "ratio": 0.517
+  },
+  {
+   "jugador": "Djené",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.295,
+   "casa": 0.491,
+   "ratio": 0.601
+  },
+  {
+   "jugador": "Lucas Cepeda",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.681,
+   "casa": 2.533,
+   "ratio": 0.664
+  },
+  {
+   "jugador": "Grady Diangana",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.314,
+   "casa": 1.322,
+   "ratio": 0.994
+  },
+  {
+   "jugador": "Germán Valera",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.297,
+   "casa": 2.084,
+   "ratio": 0.622
+  },
+  {
+   "jugador": "Yago Alonso",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.931,
+   "casa": 1.726,
+   "ratio": 0.539
+  },
+  {
+   "jugador": "Héctor Fort",
+   "clave": "laliga",
+   "linea": 3.5,
+   "nuestra": 0.814,
+   "casa": 3.71,
+   "ratio": 0.219
+  },
+  {
+   "jugador": "Martim Neto",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.753,
+   "casa": 0.863,
+   "ratio": 0.872
+  },
+  {
+   "jugador": "Gonzalo Villar",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.645,
+   "casa": 0.985,
+   "ratio": 0.655
+  },
+  {
+   "jugador": "Josan",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.516,
+   "casa": 1.222,
+   "ratio": 0.422
+  },
+  {
+   "jugador": "David Affengruber",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.47,
+   "casa": 0.567,
+   "ratio": 0.829
+  },
+  {
+   "jugador": "Federico Redondo",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.467,
+   "casa": 0.786,
+   "ratio": 0.594
+  },
+  {
+   "jugador": "Marc Aguado",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.463,
+   "casa": 0.786,
+   "ratio": 0.589
+  },
+  {
+   "jugador": "Pedro Bigas",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.446,
+   "casa": 0.647,
+   "ratio": 0.69
+  },
+  {
+   "jugador": "Víctor Chust",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.397,
+   "casa": 0.442,
+   "ratio": 0.899
+  },
+  {
+   "jugador": "John Donald",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.394,
+   "casa": 0.647,
+   "ratio": 0.609
+  },
+  {
+   "jugador": "Buba Sangaré",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.245,
+   "casa": 0.506,
+   "ratio": 0.485
+  },
+  {
+   "jugador": "Lamine Yamal",
+   "clave": "laliga",
+   "linea": 4.5,
+   "nuestra": 4.042,
+   "casa": 4.544,
+   "ratio": 0.89
+  },
+  {
+   "jugador": "Raphinha",
+   "clave": "laliga",
+   "linea": 4.5,
+   "nuestra": 3.143,
+   "casa": 4.317,
+   "ratio": 0.728
+  },
+  {
+   "jugador": "Fermín López",
+   "clave": "laliga",
+   "linea": 3.5,
+   "nuestra": 2.201,
+   "casa": 3.197,
+   "ratio": 0.688
+  },
+  {
+   "jugador": "Dani Olmo",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 2.094,
+   "casa": 3.083,
+   "ratio": 0.679
+  },
+  {
+   "jugador": "Pedri",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.068,
+   "casa": 1.795,
+   "ratio": 0.595
+  },
+  {
+   "jugador": "Marc Casadó",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.872,
+   "casa": 0.985,
+   "ratio": 0.885
+  },
+  {
+   "jugador": "João Cancelo",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.843,
+   "casa": 1.682,
+   "ratio": 0.501
+  },
+  {
+   "jugador": "Eric García",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.786,
+   "casa": 0.958,
+   "ratio": 0.821
+  },
+  {
+   "jugador": "Marc Bernal",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.769,
+   "casa": 2.005,
+   "ratio": 0.384
+  },
+  {
+   "jugador": "Jules Koundé",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.589,
+   "casa": 1.222,
+   "ratio": 0.482
+  },
+  {
+   "jugador": "Gavi",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.536,
+   "casa": 1.417,
+   "ratio": 0.378
+  },
+  {
+   "jugador": "Alejandro Balde",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.509,
+   "casa": 0.863,
+   "ratio": 0.59
+  },
+  {
+   "jugador": "Pau Cubarsí",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.483,
+   "casa": 0.958,
+   "ratio": 0.504
+  },
+  {
+   "jugador": "Andreas Christensen",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.472,
+   "casa": 1.222,
+   "ratio": 0.386
+  },
+  {
+   "jugador": "Gerard Martín",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.407,
+   "casa": 0.863,
+   "ratio": 0.471
+  },
+  {
+   "jugador": "Ante Budimir",
+   "clave": "laliga",
+   "linea": 4.5,
+   "nuestra": 3.134,
+   "casa": 4.268,
+   "ratio": 0.734
+  },
+  {
+   "jugador": "Raúl García",
+   "clave": "laliga",
+   "linea": 3.5,
+   "nuestra": 1.885,
+   "casa": 3.678,
+   "ratio": 0.513
+  },
+  {
+   "jugador": "Raúl Moro",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.404,
+   "casa": 2.706,
+   "ratio": 0.519
+  },
+  {
+   "jugador": "Moi Gómez",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.4,
+   "casa": 1.367,
+   "ratio": 1.024
+  },
+  {
+   "jugador": "Enrique Barja",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.307,
+   "casa": 1.773,
+   "ratio": 0.737
+  },
+  {
+   "jugador": "Aimar Oroz",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.287,
+   "casa": 2.679,
+   "ratio": 0.48
+  },
+  {
+   "jugador": "Rubén García",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.251,
+   "casa": 2.296,
+   "ratio": 0.545
+  },
+  {
+   "jugador": "Lucas Torró",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.227,
+   "casa": 1.568,
+   "ratio": 0.783
+  },
+  {
+   "jugador": "Jon Moncayola",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.069,
+   "casa": 1.603,
+   "ratio": 0.667
+  },
+  {
+   "jugador": "Iker Muñoz",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.948,
+   "casa": 1.507,
+   "ratio": 0.629
+  },
+  {
+   "jugador": "Asier Osambela",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.859,
+   "casa": 1.773,
+   "ratio": 0.484
+  },
+  {
+   "jugador": "Valentin Rosier",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.726,
+   "casa": 0.904,
+   "ratio": 0.803
+  },
+  {
+   "jugador": "Alejandro Catena",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.675,
+   "casa": 1.063,
+   "ratio": 0.635
+  },
+  {
+   "jugador": "Abel Bretones",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.564,
+   "casa": 1.682,
+   "ratio": 0.335
+  },
+  {
+   "jugador": "Enzo Boyomo",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.545,
+   "casa": 0.709,
+   "ratio": 0.769
+  },
+  {
+   "jugador": "Iñigo Arguibide",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.368,
+   "casa": 0.985,
+   "ratio": 0.374
+  },
+  {
+   "jugador": "Jorge Herrando",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.355,
+   "casa": 0.811,
+   "ratio": 0.438
+  },
+  {
+   "jugador": "Iván Romero",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.907,
+   "casa": 2.028,
+   "ratio": 0.94
+  },
+  {
+   "jugador": "Etta Eyong",
+   "clave": "laliga",
+   "linea": 2.5,
+   "nuestra": 1.665,
+   "casa": 2.454,
+   "ratio": 0.678
+  },
+  {
+   "jugador": "Paco Cortés",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.287,
+   "casa": 1.756,
+   "ratio": 0.733
+  },
+  {
+   "jugador": "Kareem Tunde",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.287,
+   "casa": 1.795,
+   "ratio": 0.717
+  },
+  {
+   "jugador": "Carlos Álvarez",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 1.039,
+   "casa": 1.417,
+   "ratio": 0.733
+  },
+  {
+   "jugador": "Adrián de la Fuente",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 1.008,
+   "casa": 1.116,
+   "ratio": 0.904
+  },
+  {
+   "jugador": "Jon Ander Olasagasti",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.928,
+   "casa": 1.322,
+   "ratio": 0.702
+  },
+  {
+   "jugador": "Tai Abed",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.861,
+   "casa": 1.417,
+   "ratio": 0.608
+  },
+  {
+   "jugador": "Víctor García",
+   "clave": "laliga",
+   "linea": 1.5,
+   "nuestra": 0.805,
+   "casa": 1.879,
+   "ratio": 0.428
+  },
+  {
+   "jugador": "Manu Sánchez",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.429,
+   "casa": 0.535,
+   "ratio": 0.803
+  },
+  {
+   "jugador": "Jeremy Toljan",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.319,
+   "casa": 0.48,
+   "ratio": 0.665
+  },
+  {
+   "jugador": "Nacho Pérez",
+   "clave": "laliga",
+   "linea": 0.5,
+   "nuestra": 0.249,
+   "casa": 0.55,
+   "ratio": 0.452
+  },
+  {
+   "jugador": "Kenan Yildiz",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 2.86,
+   "casa": 3.36,
+   "ratio": 0.851
+  },
+  {
+   "jugador": "Francisco Conceição",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 2.611,
+   "casa": 3.083,
+   "ratio": 0.847
+  },
+  {
+   "jugador": "Jérémie Boga",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 2.056,
+   "casa": 3.968,
+   "ratio": 0.518
+  },
+  {
+   "jugador": "Arkadiusz Milik",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 2.055,
+   "casa": 3.56,
+   "ratio": 0.577
+  },
+  {
+   "jugador": "Jonathan David",
+   "clave": "serie_a",
+   "linea": 4.5,
+   "nuestra": 1.741,
+   "casa": 4.163,
+   "ratio": 0.418
+  },
+  {
+   "jugador": "Edon Zhegrova",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 1.615,
+   "casa": 3.845,
+   "ratio": 0.42
+  },
+  {
+   "jugador": "Khéphren Thuram",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.535,
+   "casa": 2.157,
+   "ratio": 0.712
+  },
+  {
+   "jugador": "Manuel Locatelli",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.424,
+   "casa": 1.795,
+   "ratio": 0.793
+  },
+  {
+   "jugador": "Weston McKennie",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.363,
+   "casa": 1.367,
+   "ratio": 0.997
+  },
+  {
+   "jugador": "Teun Koopmeiners",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.108,
+   "casa": 1.902,
+   "ratio": 0.582
+  },
+  {
+   "jugador": "Fabio Miretti",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.06,
+   "casa": 2.579,
+   "ratio": 0.411
+  },
+  {
+   "jugador": "Bremer",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.873,
+   "casa": 0.837,
+   "ratio": 1.043
+  },
+  {
+   "jugador": "Andrea Cambiaso",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.754,
+   "casa": 1.281,
+   "ratio": 0.589
+  },
+  {
+   "jugador": "Federico Gatti",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.713,
+   "casa": 1.507,
+   "ratio": 0.473
+  },
+  {
+   "jugador": "Lloyd Kelly",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.58,
+   "casa": 0.67,
+   "ratio": 0.865
+  },
+  {
+   "jugador": "Juan Cabal",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.529,
+   "casa": 1.116,
+   "ratio": 0.474
+  },
+  {
+   "jugador": "Pierre Kalulu",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.481,
+   "casa": 0.382,
+   "ratio": 1.259
+  },
+  {
+   "jugador": "Nikola Stulic",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.414,
+   "casa": 3.057,
+   "ratio": 0.462
+  },
+  {
+   "jugador": "Santiago Pierotti",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.356,
+   "casa": 1.322,
+   "ratio": 1.026
+  },
+  {
+   "jugador": "Lassana Coulibaly",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 1.009,
+   "casa": 0.863,
+   "ratio": 1.169
+  },
+  {
+   "jugador": "Sadik Fofana",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.775,
+   "casa": 0.405,
+   "ratio": 1.911
+  },
+  {
+   "jugador": "Omri Gandelman",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 0.773,
+   "casa": 2.41,
+   "ratio": 0.321
+  },
+  {
+   "jugador": "Olaf Gorter",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.772,
+   "casa": 1.008,
+   "ratio": 0.766
+  },
+  {
+   "jugador": "Thorir Johann Helgason",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.693,
+   "casa": 1.773,
+   "ratio": 0.391
+  },
+  {
+   "jugador": "Oumar Ngom",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.631,
+   "casa": 0.811,
+   "ratio": 0.778
+  },
+  {
+   "jugador": "Tiago Gabriel",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.575,
+   "casa": 0.567,
+   "ratio": 1.014
+  },
+  {
+   "jugador": "Kialonda Gaspar",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.465,
+   "casa": 0.456,
+   "ratio": 1.019
+  },
+  {
+   "jugador": "Jamil Siebert",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.387,
+   "casa": 0.353,
+   "ratio": 1.095
+  },
+  {
+   "jugador": "Danilo Veiga",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.3,
+   "casa": 0.353,
+   "ratio": 0.849
+  },
+  {
+   "jugador": "Antonino Gallo",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.297,
+   "casa": 0.224,
+   "ratio": 1.327
+  },
+  {
+   "jugador": "Corrie Ndaba",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.282,
+   "casa": 0.516,
+   "ratio": 0.547
+  },
+  {
+   "jugador": "Gaby Jean",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.218,
+   "casa": 0.19,
+   "ratio": 1.146
+  },
+  {
+   "jugador": "Nikola Krstovic",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 3.271,
+   "casa": 3.743,
+   "ratio": 0.874
+  },
+  {
+   "jugador": "Gianluca Scamacca",
+   "clave": "serie_a",
+   "linea": 4.5,
+   "nuestra": 2.812,
+   "casa": 4.8,
+   "ratio": 0.586
+  },
+  {
+   "jugador": "Giacomo Raspadori",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 2.649,
+   "casa": 3.56,
+   "ratio": 0.744
+  },
+  {
+   "jugador": "Kamaldeen Sulemana",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.802,
+   "casa": 2.084,
+   "ratio": 0.865
+  },
+  {
+   "jugador": "Éderson",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.445,
+   "casa": 1.824,
+   "ratio": 0.792
+  },
+  {
+   "jugador": "Nicola Zalewski",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.434,
+   "casa": 2.735,
+   "ratio": 0.524
+  },
+  {
+   "jugador": "Lazar Samardzic",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.294,
+   "casa": 2.679,
+   "ratio": 0.483
+  },
+  {
+   "jugador": "Mario Pasalic",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.122,
+   "casa": 2.533,
+   "ratio": 0.443
+  },
+  {
+   "jugador": "Davide Zappacosta",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.047,
+   "casa": 2.454,
+   "ratio": 0.427
+  },
+  {
+   "jugador": "Marten de Roon",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.933,
+   "casa": 0.67,
+   "ratio": 1.392
+  },
+  {
+   "jugador": "Raoul Bellanova",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.668,
+   "casa": 1.222,
+   "ratio": 0.546
+  },
+  {
+   "jugador": "Lorenzo Bernasconi",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.558,
+   "casa": 0.821,
+   "ratio": 0.679
+  },
+  {
+   "jugador": "Odilon Kossounou",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.464,
+   "casa": 0.432,
+   "ratio": 1.074
+  },
+  {
+   "jugador": "Sead Kolasinac",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.386,
+   "casa": 0.353,
+   "ratio": 1.093
+  },
+  {
+   "jugador": "Andrea Pinamonti",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 2.154,
+   "casa": 2.296,
+   "ratio": 0.938
+  },
+  {
+   "jugador": "Armand Laurienté",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 2.058,
+   "casa": 2.41,
+   "ratio": 0.854
+  },
+  {
+   "jugador": "Kristian Thorstvedt",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.364,
+   "casa": 1.534,
+   "ratio": 0.889
+  },
+  {
+   "jugador": "Cristian Volpato",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.02,
+   "casa": 1.603,
+   "ratio": 0.636
+  },
+  {
+   "jugador": "Darryl Bakola",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.797,
+   "casa": 1.568,
+   "ratio": 0.508
+  },
+  {
+   "jugador": "Luca Lipani",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.745,
+   "casa": 0.985,
+   "ratio": 0.756
+  },
+  {
+   "jugador": "Nemanja Matic",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.615,
+   "casa": 0.367,
+   "ratio": 1.676
+  },
+  {
+   "jugador": "Edoardo Iannoni",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.524,
+   "casa": 1.063,
+   "ratio": 0.493
+  },
+  {
+   "jugador": "Josh Doig",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.443,
+   "casa": 0.742,
+   "ratio": 0.597
+  },
+  {
+   "jugador": "Jay Idzes",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.278,
+   "casa": 0.19,
+   "ratio": 1.462
+  },
+  {
+   "jugador": "Giovanni Simeone",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 2.645,
+   "casa": 2.772,
+   "ratio": 0.954
+  },
+  {
+   "jugador": "Ché Adams",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 2.011,
+   "casa": 1.984,
+   "ratio": 1.014
+  },
+  {
+   "jugador": "Duván Zapata",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.723,
+   "casa": 2.794,
+   "ratio": 0.617
+  },
+  {
+   "jugador": "Nikola Vlasic",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.431,
+   "casa": 1.682,
+   "ratio": 0.851
+  },
+  {
+   "jugador": "Cesare Casadei",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.237,
+   "casa": 1.756,
+   "ratio": 0.705
+  },
+  {
+   "jugador": "Zakaria Aboukhlal",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.174,
+   "casa": 2.296,
+   "ratio": 0.511
+  },
+  {
+   "jugador": "Gvidas Gineitis",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.142,
+   "casa": 1.795,
+   "ratio": 0.636
+  },
+  {
+   "jugador": "Alieu Njie",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.125,
+   "casa": 2.296,
+   "ratio": 0.49
+  },
+  {
+   "jugador": "Sandro Kulenovic",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.114,
+   "casa": 2.005,
+   "ratio": 0.556
+  },
+  {
+   "jugador": "Emirhan Ilkhan",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.922,
+   "casa": 1.568,
+   "ratio": 0.588
+  },
+  {
+   "jugador": "Marcus Holmgren Pedersen",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.59,
+   "casa": 0.696,
+   "ratio": 0.848
+  },
+  {
+   "jugador": "Saúl Coco",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.525,
+   "casa": 0.535,
+   "ratio": 0.982
+  },
+  {
+   "jugador": "Ivan Ilic",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.523,
+   "casa": 1.008,
+   "ratio": 0.519
+  },
+  {
+   "jugador": "Adrian Ismajli",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.387,
+   "casa": 0.272,
+   "ratio": 1.423
+  },
+  {
+   "jugador": "Cristiano Biraghi",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.315,
+   "casa": 0.891,
+   "ratio": 0.354
+  },
+  {
+   "jugador": "Christian Pulisic",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 1.699,
+   "casa": 3.506,
+   "ratio": 0.485
+  },
+  {
+   "jugador": "Alexis Saelemaekers",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.587,
+   "casa": 2.124,
+   "ratio": 0.747
+  },
+  {
+   "jugador": "Adrien Rabiot",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 1.542,
+   "casa": 1.222,
+   "ratio": 1.261
+  },
+  {
+   "jugador": "Youssouf Fofana",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.379,
+   "casa": 1.603,
+   "ratio": 0.86
+  },
+  {
+   "jugador": "Christopher Nkunku",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.35,
+   "casa": 3.006,
+   "ratio": 0.449
+  },
+  {
+   "jugador": "Ruben Loftus-Cheek",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.138,
+   "casa": 1.281,
+   "ratio": 0.889
+  },
+  {
+   "jugador": "Luka Modric",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.809,
+   "casa": 2.124,
+   "ratio": 0.381
+  },
+  {
+   "jugador": "Samuele Ricci",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.804,
+   "casa": 1.14,
+   "ratio": 0.705
+  },
+  {
+   "jugador": "Ardon Jashari",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.744,
+   "casa": 1.116,
+   "ratio": 0.667
+  },
+  {
+   "jugador": "Strahinja Pavlovic",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.735,
+   "casa": 1.031,
+   "ratio": 0.713
+  },
+  {
+   "jugador": "Davide Bartesaghi",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.695,
+   "casa": 1.063,
+   "ratio": 0.654
+  },
+  {
+   "jugador": "Matteo Gabbia",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.639,
+   "casa": 0.604,
+   "ratio": 1.058
+  },
+  {
+   "jugador": "Pervis Estupiñán",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.521,
+   "casa": 0.985,
+   "ratio": 0.529
+  },
+  {
+   "jugador": "Fikayo Tomori",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.374,
+   "casa": 0.398,
+   "ratio": 0.939
+  },
+  {
+   "jugador": "Koni De Winter",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.371,
+   "casa": 0.336,
+   "ratio": 1.103
+  },
+  {
+   "jugador": "Riccardo Orsolini",
+   "clave": "serie_a",
+   "linea": 4.5,
+   "nuestra": 2.621,
+   "casa": 4.317,
+   "ratio": 0.607
+  },
+  {
+   "jugador": "Jon Rowe",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 2.159,
+   "casa": 2.627,
+   "ratio": 0.822
+  },
+  {
+   "jugador": "Jens Odgaard",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.889,
+   "casa": 2.794,
+   "ratio": 0.676
+  },
+  {
+   "jugador": "Federico Bernardeschi",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 1.888,
+   "casa": 3.224,
+   "ratio": 0.586
+  },
+  {
+   "jugador": "Nicolò Cambiaghi",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.529,
+   "casa": 1.902,
+   "ratio": 0.804
+  },
+  {
+   "jugador": "Tommaso Pobega",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.202,
+   "casa": 1.879,
+   "ratio": 0.64
+  },
+  {
+   "jugador": "Nikola Moro",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.034,
+   "casa": 1.507,
+   "ratio": 0.686
+  },
+  {
+   "jugador": "Lewis Ferguson",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.849,
+   "casa": 1.063,
+   "ratio": 0.798
+  },
+  {
+   "jugador": "Martin Vitík",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.537,
+   "casa": 0.742,
+   "ratio": 0.724
+  },
+  {
+   "jugador": "Nicolo Casale",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.534,
+   "casa": 0.516,
+   "ratio": 1.035
+  },
+  {
+   "jugador": "Juan Miranda",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.526,
+   "casa": 0.742,
+   "ratio": 0.709
+  },
+  {
+   "jugador": "Nadir Zortea",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.48,
+   "casa": 0.811,
+   "ratio": 0.592
+  },
+  {
+   "jugador": "Eivind Helland",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.402,
+   "casa": 0.416,
+   "ratio": 0.967
+  },
+  {
+   "jugador": "Lorenzo De Silvestri",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.228,
+   "casa": 0.709,
+   "ratio": 0.322
+  },
+  {
+   "jugador": "Matteo Cancellieri",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.604,
+   "casa": 1.943,
+   "ratio": 0.826
+  },
+  {
+   "jugador": "Tijjani Noslin",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.486,
+   "casa": 2.084,
+   "ratio": 0.713
+  },
+  {
+   "jugador": "Mattia Zaccagni",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.291,
+   "casa": 1.507,
+   "ratio": 0.857
+  },
+  {
+   "jugador": "Petar Ratkov",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.189,
+   "casa": 2.005,
+   "ratio": 0.593
+  },
+  {
+   "jugador": "Kenneth Taylor",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.022,
+   "casa": 1.281,
+   "ratio": 0.798
+  },
+  {
+   "jugador": "Boulaye Dia",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.926,
+   "casa": 1.682,
+   "ratio": 0.55
+  },
+  {
+   "jugador": "Nuno Tavares",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.663,
+   "casa": 1.116,
+   "ratio": 0.594
+  },
+  {
+   "jugador": "Fisayo Dele-Bashiru",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.606,
+   "casa": 1.008,
+   "ratio": 0.601
+  },
+  {
+   "jugador": "Adam Marusic",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.508,
+   "casa": 0.55,
+   "ratio": 0.923
+  },
+  {
+   "jugador": "Reda Belahyane",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.5,
+   "casa": 0.398,
+   "ratio": 1.256
+  },
+  {
+   "jugador": "Manuel Lazzari",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.458,
+   "casa": 0.382,
+   "ratio": 1.199
+  },
+  {
+   "jugador": "Patric",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.414,
+   "casa": 0.382,
+   "ratio": 1.084
+  },
+  {
+   "jugador": "Nicolò Rovella",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.397,
+   "casa": 0.55,
+   "ratio": 0.721
+  },
+  {
+   "jugador": "Luca Pellegrini",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.366,
+   "casa": 0.625,
+   "ratio": 0.586
+  },
+  {
+   "jugador": "Alessio Romagnoli",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.359,
+   "casa": 0.469,
+   "ratio": 0.766
+  },
+  {
+   "jugador": "Oliver Provstgaard",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.321,
+   "casa": 0.491,
+   "ratio": 0.654
+  },
+  {
+   "jugador": "Donyell Malen",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 3.688,
+   "casa": 3.316,
+   "ratio": 1.112
+  },
+  {
+   "jugador": "Paulo Dybala",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 2.267,
+   "casa": 3.36,
+   "ratio": 0.675
+  },
+  {
+   "jugador": "Matìas Soulè",
+   "clave": "serie_a",
+   "linea": 3.5,
+   "nuestra": 1.989,
+   "casa": 3.36,
+   "ratio": 0.592
+  },
+  {
+   "jugador": "Bryan Cristante",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.331,
+   "casa": 1.444,
+   "ratio": 0.922
+  },
+  {
+   "jugador": "Robinio Vaz",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.137,
+   "casa": 2.454,
+   "ratio": 0.463
+  },
+  {
+   "jugador": "Niccolò Pisilli",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 1.016,
+   "casa": 2.338,
+   "ratio": 0.435
+  },
+  {
+   "jugador": "Wesley",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.823,
+   "casa": 1.342,
+   "ratio": 0.613
+  },
+  {
+   "jugador": "Evan Ndicka",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.756,
+   "casa": 1.063,
+   "ratio": 0.711
+  },
+  {
+   "jugador": "Mario Hermoso",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 0.735,
+   "casa": 1.322,
+   "ratio": 0.556
+  },
+  {
+   "jugador": "Neil El Aynaoui",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 0.634,
+   "casa": 2.338,
+   "ratio": 0.271
+  },
+  {
+   "jugador": "Gianluca Mancini",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.619,
+   "casa": 0.837,
+   "ratio": 0.74
+  },
+  {
+   "jugador": "Devyne Rensch",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.394,
+   "casa": 1.063,
+   "ratio": 0.37
+  },
+  {
+   "jugador": "Daniele Ghilardi",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.306,
+   "casa": 0.604,
+   "ratio": 0.506
+  },
+  {
+   "jugador": "Jan Ziólkowski",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.292,
+   "casa": 0.723,
+   "ratio": 0.404
+  },
+  {
+   "jugador": "Moise Kean",
+   "clave": "serie_a",
+   "linea": 2.5,
+   "nuestra": 3.454,
+   "casa": 3.006,
+   "ratio": 1.149
+  },
+  {
+   "jugador": "Rolando Mandragora",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.76,
+   "casa": 1.726,
+   "ratio": 1.02
+  },
+  {
+   "jugador": "Albert Gudmundsson",
+   "clave": "serie_a",
+   "linea": 1.5,
+   "nuestra": 1.597,
+   "casa": 1.756,
+   "ratio": 0.91
+  },
+  {
+   "jugador": "Nicolò Fagioli",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 1.112,
+   "casa": 0.92,
+   "ratio": 1.209
+  },
+  {
+   "jugador": "Cher Ndour",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.911,
+   "casa": 1.14,
+   "ratio": 0.799
+  },
+  {
+   "jugador": "Giovanni Fabbian",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.909,
+   "casa": 1.222,
+   "ratio": 0.744
+  },
+  {
+   "jugador": "Marco Brescianini",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.744,
+   "casa": 0.904,
+   "ratio": 0.823
+  },
+  {
+   "jugador": "Dodô",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.684,
+   "casa": 0.647,
+   "ratio": 1.058
+  },
+  {
+   "jugador": "Luca Ranieri",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.562,
+   "casa": 0.506,
+   "ratio": 1.112
+  },
+  {
+   "jugador": "Marin Pongracic",
+   "clave": "serie_a",
+   "linea": 0.5,
+   "nuestra": 0.341,
+   "casa": 0.19,
+   "ratio": 1.793
+  }
+ ]
+}

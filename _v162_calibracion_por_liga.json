@@ -1,5 +1,5 @@
 {
- "generado": "2026-08-23T06:23:16Z",
+ "generado": "2026-08-23T10:33:00Z",
  "ligas": [
   {
    "clave": "liga_mx",
@@ -466,16 +466,20 @@
    "clave": "rumania",
    "partidos_espn": 328,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -698,16 +702,20 @@
    "clave": "aut_bundesliga",
    "partidos_espn": 351,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -781,88 +789,20 @@
    "clave": "gre_super_league",
    "partidos_espn": 224,
    "corners": {
-    "origen": "observado",
-    "n_filas": 2148,
-    "dispersion_equipo": 1.7127,
-    "dispersion_total": 1.1354,
-    "media_total": 8.698,
-    "por_equipo": {
-     "error_calib": 0.0062,
-     "corr": 0.4137,
-     "n": 1278,
-     "media_pred": 4.4,
-     "media_real": 4.426
-    },
-    "total": {
-     "error_calib": 0.0146,
-     "corr": -0.0823,
-     "n": 645,
-     "media_pred": 8.685,
-     "media_real": 8.847
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "observado",
-    "n_filas": 2148,
-    "dispersion_equipo": 1.0165,
-    "dispersion_total": 1.1795,
-    "media_total": 5.435,
-    "por_equipo": {
-     "error_calib": 0.0075,
-     "corr": 0.2057,
-     "n": 1278,
-     "media_pred": 2.834,
-     "media_real": 2.792
-    },
-    "total": {
-     "error_calib": 0.0069,
-     "corr": 0.1248,
-     "n": 639,
-     "media_pred": 5.668,
-     "media_real": 5.584
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "observado",
-    "n_filas": 2148,
-    "dispersion_equipo": 2.4984,
-    "dispersion_total": 1.8491,
-    "media_total": 19.223,
-    "por_equipo": {
-     "error_calib": 0.0135,
-     "corr": 0.5224,
-     "n": 1278,
-     "media_pred": 11.193,
-     "media_real": 11.313
-    },
-    "total": {
-     "error_calib": 0.0218,
-     "corr": 0.1562,
-     "n": 639,
-     "media_pred": 22.385,
-     "media_real": 22.626
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "observado",
-    "n_filas": 2148,
-    "dispersion_equipo": 1.6397,
-    "dispersion_total": 1.4055,
-    "media_total": 8.335,
-    "por_equipo": {
-     "error_calib": 0.0186,
-     "corr": 0.3819,
-     "n": 1278,
-     "media_pred": 4.401,
-     "media_real": 4.367
-    },
-    "total": {
-     "error_calib": 0.0179,
-     "corr": 0.1536,
-     "n": 639,
-     "media_pred": 8.801,
-     "media_real": 8.734
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -1674,16 +1614,20 @@
    "clave": "leagues_cup",
    "partidos_espn": 277,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -1964,25 +1908,8 @@
     "origen": "estimado"
    },
    "tarjetas": {
-    "origen": "observado",
-    "n_filas": 8634,
-    "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1488,
-    "media_total": 3.322,
-    "por_equipo": {
-     "error_calib": 0.0131,
-     "corr": 0.1393,
-     "n": 5050,
-     "media_pred": 1.877,
-     "media_real": 1.876
-    },
-    "total": {
-     "error_calib": 0.0157,
-     "corr": 0.1281,
-     "n": 2525,
-     "media_pred": 3.754,
-     "media_real": 3.752
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
     "origen": "estimado"
@@ -2038,88 +1965,20 @@
    "clave": "sco_championship",
    "partidos_espn": 371,
    "corners": {
-    "origen": "observado",
-    "n_filas": 1543,
-    "dispersion_equipo": 1.6018,
-    "dispersion_total": 1.2225,
-    "media_total": 10.367,
-    "por_equipo": {
-     "error_calib": 0.0169,
-     "corr": 0.2953,
-     "n": 902,
-     "media_pred": 5.103,
-     "media_real": 4.997
-    },
-    "total": {
-     "error_calib": 0.0649,
-     "corr": 0.0042,
-     "n": 459,
-     "media_pred": 10.449,
-     "media_real": 10.009
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "observado",
-    "n_filas": 1543,
-    "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0751,
-    "media_total": 3.695,
-    "por_equipo": {
-     "error_calib": 0.0218,
-     "corr": 0.0824,
-     "n": 902,
-     "media_pred": 2.082,
-     "media_real": 2.121
-    },
-    "total": {
-     "error_calib": 0.0258,
-     "corr": 0.0413,
-     "n": 451,
-     "media_pred": 4.165,
-     "media_real": 4.242
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "observado",
-    "n_filas": 1543,
-    "dispersion_equipo": 1.8485,
-    "dispersion_total": 1.4524,
-    "media_total": 19.163,
-    "por_equipo": {
-     "error_calib": 0.0158,
-     "corr": 0.4257,
-     "n": 902,
-     "media_pred": 9.214,
-     "media_real": 9.092
-    },
-    "total": {
-     "error_calib": 0.011,
-     "corr": 0.2219,
-     "n": 451,
-     "media_pred": 18.428,
-     "media_real": 18.184
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "observado",
-    "n_filas": 1543,
-    "dispersion_equipo": 1.2804,
-    "dispersion_total": 1.1202,
-    "media_total": 7.966,
-    "por_equipo": {
-     "error_calib": 0.007,
-     "corr": 0.3084,
-     "n": 902,
-     "media_pred": 3.84,
-     "media_real": 3.773
-    },
-    "total": {
-     "error_calib": 0.009,
-     "corr": 0.138,
-     "n": 451,
-     "media_pred": 7.68,
-     "media_real": 7.545
-    }
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -3055,16 +2914,20 @@
    "clave": "ecu_liga_pro",
    "partidos_espn": 262,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -3089,16 +2952,20 @@
    "clave": "bol_division",
    "partidos_espn": 66,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -3480,16 +3347,20 @@
    "clave": "eng_fa_cup",
    "partidos_espn": 206,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -3629,16 +3500,20 @@
    "clave": "bra_copa",
    "partidos_espn": 210,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   }

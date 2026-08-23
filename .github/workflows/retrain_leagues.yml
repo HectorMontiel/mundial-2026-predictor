@@ -318,6 +318,21 @@ jobs:
         run: |
           python remates_jugador.py --dias 2 || echo "::warning::alineaciones con avisos"
 
+      # v164 — LAS LÍNEAS DE REMATES POR JUGADOR QUE COTIZA LA CASA.
+      #
+      # Playdoit publica «Remates - <Jugador> (<COD>)» y «Remates a Puerta -
+      # …» con tres líneas cada una: unas 80 familias por partido. Sin esto, la
+      # tarjeta tendría que bajarse el tablero entero de cada partido (250-320
+      # KB) para leerlas, y son sesenta partidos por pantalla — la misma
+      # trampa que costó dos regresiones en la v163.
+      #
+      # Aquí es una petición por partido, una vez, y el fichero que queda es
+      # pequeño porque sólo guarda lo de remates.
+      - name: Precalcular las líneas de remates por jugador
+        continue-on-error: true
+        run: |
+          python lineas_jugador.py --dias 2 || echo "::warning::líneas de jugador con avisos"
+
       - name: Guardar históricos y estado (antes de lo lento)
         run: |
           git config user.name  "retrain-bot"
@@ -534,6 +549,10 @@ jobs:
           # partido empieza, el once probable pasa a ser el once real y el que
           # se publicó antes ya no existe en ninguna parte.
           git add -A remates_snapshots.csv alineaciones_dia.json 2>/dev/null || true
+          # v164 — y las líneas de jugador del día. Tampoco son regenerables:
+          # la casa las mueve durante el día y las de esta mañana ya no se
+          # pueden recuperar mañana.
+          git add -A lineas_jugador_dia.json 2>/dev/null || true
           # v162 — las estadísticas reales de ESPN. Son la fuente de que
           # córners y tarjetas dejen de ser sintéticos en 40 competiciones;
           # sin commitearlas, cada despliegue empezaría de cero.

@@ -5433,8 +5433,21 @@ def test_no_se_ensena_estadistica_sintetica():
           "publica HC/AC)")
     check(disp.get('xg') is False,
           "el xG de la Premier NO sale como observado: lo escribe el generador")
-    check(disp.get('posesion') is False,
-          "la posesion de la Premier NO sale como observada")
+    # v164 — LA POSESION DE LA PREMIER YA ES OBSERVADA, Y ESO ES UN AVANCE.
+    #
+    # Este check exigia `False` porque hasta la v162 la posesion la escribia el
+    # generador en TODAS las competiciones. El 2026-08-23 el `--build` nocturno
+    # reescribio los historicos con el boxscore de ESPN inyectado
+    # (commit `02b87a4`): `historico_premier.csv` tiene ahora 1.613 filas
+    # marcadas con `stats_origen='espn'` y su posesion es real.
+    #
+    # Es exactamente la transicion que el traspaso de la v163 anunciaba como
+    # pendiente numero 6. El detector no se ha roto: sigue diciendo «sintetico»
+    # del xG, que es la comprobacion en el otro sentido y la que de verdad
+    # protege — lo que ha cambiado es el dato, no la prueba.
+    check(disp.get('posesion') is True,
+          "la posesion de la Premier YA sale como observada: el --build "
+          "inyecto el boxscore de ESPN")
 
     # La otra mitad, y la que de verdad separa esta prueba de una lista escrita
     # a mano: una liga que NO es de football-data tiene la columna de córners al
@@ -6066,12 +6079,24 @@ def test_los_corners_en_la_tarjeta():
           "y el beisbol tampoco")
 
     # ÁMBAR, NO VERDE.
-    src = open('modo_modelo.py', encoding='utf-8').read()
-    i = src.index('def _bloque_corners_html')
-    cuerpo = src[i:i + 900]
-    check('🟡' in cuerpo, "la destacada de córners va en ambar")
-    check('✅' not in cuerpo,
-          "y NUNCA en verde: el EV de córners no esta validado con histórico")
+    #
+    # v164 — SE COMPRUEBA SOBRE EL HTML PINTADO, NO SOBRE 900 CARACTERES DEL
+    # FICHERO. La version anterior recortaba `src[i:i+900]` desde
+    # `def _bloque_corners_html` y buscaba el emoji ahi dentro; esa funcion es
+    # una linea que delega en `_bloque_seccion_html`, asi que el recorte
+    # dependia de cuanto ocupara el docstring de la de al lado. Al crecer ese
+    # docstring en la v164 el 🟡 se salio de la ventana y el check fallo sin
+    # que nada hubiera cambiado de comportamiento.
+    #
+    # Mirar lo que se PINTA no tiene ese problema y comprueba lo que importa.
+    _obs = mm.corners_tarjeta({'partido': 'Man City vs Arsenal',
+                               'clave_liga': 'premier', 'deporte': 'Fútbol'})
+    if _obs and _obs.get('origen') == 'observado':
+        _html = mm._bloque_corners_html(_obs)
+        check('🟡' in _html, "la destacada de córners va en ambar")
+        check('✅' not in _html,
+              "y NUNCA en verde: el EV de córners no esta validado con "
+              "histórico")
 
     # La linea que se usa es la mas cercana a la media, y esta dicho por que.
     check(abs(mm._linea_cercana(10.4) - 10.5) < 1e-9,
@@ -7368,6 +7393,251 @@ def test_la_tarjeta_no_pinta_remates_por_equipo():
                   f"probable que rematar")
 
 
+def test_la_insignia_solo_en_mercados_observados():
+    """
+    v164 — un bloque ESTIMADO no puede llevar «destacado».
+
+    LO QUE SE MIDIO ANTES DE TOCARLO (`_v164_auditar_destacada.py`), sobre el
+    barrido real del 2026-08-23: de 624 bloques fisicos pintados, **232 eran
+    estimados y todos anunciaban su insignia**, hasta un 68 %. Y en **58
+    partidos lo eran TODOS** — Danubio-Racing de Montevideo,
+    Sonderjyske-Nordsjaelland, Monagas-Portuguesa.
+
+    Un bloque estimado es el nivel de la competicion derivado de sus goles,
+    repartido por bando, IDENTICO en todos los partidos de esa liga: su propia
+    etiqueta lo dice. Anunciarlo como destacado le da forma de recomendacion a
+    un numero que no distingue un partido de otro.
+
+    Los tres niveles, y el reparto medido tras el cambio:
+
+        nivel 1  observado, error < 0,02     289 bloques  insignia
+        nivel 2  observado, 0,02-0,05        103 bloques  insignia con matiz
+        nivel 3  estimado                    232 bloques  SIN insignia
+
+    EL TITULAR DE LA TARJETA NO ESTABA AFECTADO, y se comprueba igual: los 151
+    titulares del dia salian de Goles (96), BTTS (45) y 1X2 (10), todos
+    derivados de la matriz de marcador, que se entrena con goles REALES. La
+    guarda se pone de todos modos para que el dia que alguien meta un mercado
+    fisico en `mercados` no se cuele sin que nadie se entere.
+    """
+    import confianza_mercado as cf
+    import modo_modelo as mm
+
+    # los tres niveles, directamente
+    n_est = cf.nivel('uru_primera', 'corners', 'estimado')
+    check(n_est['nivel'] == cf.NIVEL_SIN_INSIGNIA and not n_est['insignia'],
+          "un mercado estimado cae al nivel 3 y NO lleva insignia")
+    check(not cf.puede_destacar('uru_primera', 'corners', 'estimado'),
+          "y `puede_destacar` lo dice igual")
+
+    # el origen del bloque MANDA sobre el informe: una liga medida que hoy
+    # viene estimada, sale estimada
+    n_mix = cf.nivel('premier', 'corners', 'estimado')
+    check(n_mix['nivel'] == cf.NIVEL_SIN_INSIGNIA,
+          "si el bloque dice que es estimado, es estimado aunque el informe "
+          "tenga esa liga medida")
+
+    err = cf.error_medido('premier', 'corners')
+    if err is not None:
+        n_obs = cf.nivel('premier', 'corners', 'observado')
+        check(n_obs['insignia'], "un mercado observado si puede llevarla")
+        esperado = (cf.NIVEL_FINO if err < cf.UMBRAL_FINO
+                    else cf.NIVEL_GRUESO)
+        check(n_obs['nivel'] == esperado,
+              f"y su nivel sale del error medido ({err:.4f} -> {esperado})")
+
+    # una liga que no esta en el informe: nivel 2, NO nivel 3. Sus datos son
+    # reales, solo que no se sabe cuanto valen.
+    n_desc = cf.nivel('liga_que_no_existe', 'corners', 'observado')
+    check(n_desc['nivel'] == cf.NIVEL_GRUESO and n_desc['insignia'],
+          "observado sin error medido va al nivel 2, no al 3")
+
+    # y en el HTML de verdad
+    est = mm.corners_tarjeta({'partido': 'Danubio vs Racing (Montevideo)',
+                              'clave_liga': 'uru_primera',
+                              'deporte': 'Fútbol'})
+    if est:
+        check((est.get('confianza') or {}).get('insignia') is False,
+              "el bloque de una liga sin datos no lleva insignia")
+        html = mm._bloque_corners_html(est)
+        check('destacado:' not in html,
+              "y su HTML no dice «destacado» en ninguna parte")
+        check('Estimado' in html,
+              "pero SI conserva su etiqueta de estimado: lo que desaparece es "
+              "la insignia, no la informacion")
+        check('mm-ck-mejor' not in html,
+              "tampoco se resalta una fila en negrita, que es la misma "
+              "afirmacion con otra tipografia")
+
+    obs = mm.corners_tarjeta({'partido': 'Man City vs Arsenal',
+                              'clave_liga': 'premier', 'deporte': 'Fútbol'})
+    if obs and obs.get('origen') == 'observado':
+        check((obs.get('confianza') or {}).get('insignia') is True,
+              "el bloque de una liga con datos SI la lleva")
+        check('destacado:' in mm._bloque_corners_html(obs),
+              "y su HTML la pinta")
+
+    # el titular ignora un mercado marcado como estimado
+    pick = {'mercados': [
+        {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.62},
+        {'mercado': 'Córners', 'apuesta': 'Más de 9.5', 'prob': 0.91,
+         'origen': 'estimado'}]}
+    d = mm.apuesta_destacada(pick)
+    check(d and d['apuesta'] == 'Más de 2.5',
+          f"el titular ignora el mercado estimado del 91 % ({d})")
+
+    # y sigue siendo AMBAR: verde significa ventaja de precio medida, y estos
+    # mercados no la tienen
+    src = open('confianza_mercado.py', encoding='utf-8').read()
+    check('percentil' in src and 'verde' in src,
+          "queda escrito por que el nivel 1 no sube a verde")
+    if obs:
+        check('🟡' in mm._bloque_corners_html(obs),
+              "la insignia del nivel 1 sigue siendo ambar")
+
+
+def test_las_lineas_de_jugador_de_la_casa():
+    """
+    v164 — la probabilidad se calcula sobre la LINEA QUE COTIZA LA CASA.
+
+    El encargo daba libertad para buscar APIs de pago. No hizo falta: Playdoit
+    ya publica los mercados de remates por jugador y el proyecto los tiraba.
+    Medido sobre 8 partidos (`_v164_sondeo_mercados_jugador.py`), de 13.769
+    familias distintas:
+
+        Remates - <Jugador> (<COD>) ............  317
+        Remates a Puerta - <Jugador> (<COD>) ...  317
+
+    unas 80 familias por partido, con tres lineas cada una.
+
+    LO QUE NO SE HACE: inventar un porcentaje cuando la casa no cotiza a ese
+    jugador. «Linea no disponible» y un 0 % son cosas distintas, y la casa
+    ofrece unos 40 jugadores por partido mientras ESPN devuelve ~55.
+    """
+    import lineas_jugador as lj
+    import remates_jugador as rjg
+
+    # ---- la extraccion, sobre un tablero de mentira ----------------------
+    tablero = {'mercados': [
+        {'nombre': 'Remates - Erling Haaland (MCI)',
+         'sv': '2.5|ws:player:1',
+         'selecciones': [{'nombre': 'Más de 1.5', 'cuota': 1.4},
+                         {'nombre': 'Más de 2.5', 'cuota': 2.1},
+                         {'nombre': 'Menos de 2.5', 'cuota': 1.7}]},
+        {'nombre': 'Remates a Puerta - Erling Haaland (MCI)',
+         'sv': '0.5|ws:player:1',
+         'selecciones': [{'nombre': 'Más de 0.5', 'cuota': 1.3}]},
+        # ruido que NO debe entrar
+        {'nombre': 'Total Tiros De Esquina', 'sv': '9.5',
+         'selecciones': [{'nombre': 'Más de 9.5', 'cuota': 1.9}]},
+        {'nombre': 'Manchester City Remates Totales', 'sv': '14.5',
+         'selecciones': [{'nombre': 'Más de 14.5', 'cuota': 1.9}]},
+    ]}
+    lin = lj.del_tablero(tablero)
+    check(list(lin) == ['Erling Haaland'],
+          f"solo entra el mercado POR JUGADOR ({list(lin)})")
+    h = lin.get('Erling Haaland') or {}
+    check(h.get('equipo') == 'MCI',
+          "se guarda el codigo de equipo, que es lo que distingue a dos "
+          "homonimos de los dos lados")
+    check((h.get('tot') or {}).get('principal') == 2.5,
+          f"la linea principal sale de `sv` ({(h.get('tot') or {})})")
+    check((h.get('on') or {}).get('principal') == 0.5,
+          "y el mercado a puerta tiene la suya")
+    check('1.5' in ((h.get('tot') or {}).get('lineas') or {}),
+          "se guarda la escalera de lineas del lado «Más de»")
+    check(not any('Menos' in str(k)
+                  for k in ((h.get('tot') or {}).get('lineas') or {})),
+          "y NO el lado «Menos de», que es su complemento")
+
+    # ---- P(X > linea) con Poisson ----------------------------------------
+    check(rjg.p_mas_de(None, 1.5) is None and rjg.p_mas_de(2.0, None) is None,
+          "sin lambda o sin linea no hay probabilidad, y no es 0")
+    p05 = rjg.p_mas_de(2.0, 0.5)
+    p15 = rjg.p_mas_de(2.0, 1.5)
+    p25 = rjg.p_mas_de(2.0, 2.5)
+    check(p05 > p15 > p25 > 0.0,
+          f"cuanto mas alta la linea, menos probable ({p05:.3f} {p15:.3f} "
+          f"{p25:.3f})")
+    # P(X>0.5) con lambda 2 es 1 - e^-2 = 0,8647
+    check(abs(p05 - 0.864665) < 1e-4,
+          f"P(X>0,5) con lambda 2 es 1 - e^-2 ({p05:.6f})")
+    check(abs(rjg.p_mas_de(2.0, 0.5) - rjg.p_al_menos_uno(2.0)) < 1e-9,
+          "y coincide con `p_al_menos_uno`, que es el mismo suceso")
+
+    # ---- emparejar nombres de PERSONA ------------------------------------
+    catalogo = ['Diego Alexander Gomez Amarilla', 'Kang-in Lee',
+                'Ben Doak', 'Erling Haaland']
+    check(lj.por_apellidos('Diego Gómez', catalogo)
+          == 'Diego Alexander Gomez Amarilla',
+          "«Diego Gómez» casa con «Diego Alexander Gomez Amarilla»")
+    check(lj.por_apellidos('Lee Kang-In', catalogo) == 'Kang-in Lee',
+          "y aguanta el orden invertido de los nombres coreanos")
+    check(lj.por_apellidos('Diego Martínez', catalogo) is None,
+          "un apellido que no esta NO casa por el nombre de pila")
+    check(lj.buscar(lin, 'Nombre Que No Existe') is None,
+          "un nombre que no casa devuelve None, no la ficha de otro")
+
+    # ---- la interfaz dice «no disponible», no 0 % ------------------------
+    ui = open('dashboard_ui.py', encoding='utf-8').read()
+    check('no disponible' in ui,
+          "la ficha escribe «no disponible» cuando la casa no cotiza")
+    mm = open('modo_modelo.py', encoding='utf-8').read()
+    check('de rematar' in mm,
+          "y la tarjeta cae a «probabilidad de rematar» en vez de inventar "
+          "una linea")
+
+    # ---- la media es POR TITULARIDAD, no por aparicion --------------------
+    #
+    # EL DESAJUSTE QUE ESTUVO EN PRODUCCION DESDE LA v163: el modelo se valido
+    # sobre remates POR TITULARIDAD (ECE 0,029 sobre 6.688 titulares-partido) y
+    # produccion dividia entre APARICIONES, que incluyen entrar diez minutos
+    # desde el banquillo. Son dos magnitudes distintas y la segunda es menor.
+    #
+    # Medido sobre 24.059 apariciones: de titular se remata 0,9888 y de
+    # suplente 0,4741 (el 48 %), y el 29 % de las apariciones son suplencias.
+    check(abs(rjg.RATIO_SUPLENTE['tot'] - 0.4795) < 1e-4,
+          "la razon suplente/titular esta medida, no supuesta")
+    # 10 remates en 10 apariciones, todas de titular -> 1,0 por titularidad
+    check(abs(rjg.media_por_titularidad(10, 10, 10, 'tot') - 1.0) < 1e-9,
+          "sin suplencias, la media por titularidad es la de aparicion")
+    # 10 remates en 10 apariciones, 5 de ellas suplencias: los titulares
+    # cargan mas, asi que su media SUBE por encima de 1,0
+    m = rjg.media_por_titularidad(10, 10, 5, 'tot')
+    check(m > 1.0,
+          f"con suplencias de por medio, la media del titular sube ({m:.3f})")
+    check(abs(m - 10.0 / (5 + 0.4795 * 5)) < 1e-9,
+          "y sale de despejar la ecuacion, no de un factor a ojo")
+    # sin saber las titularidades se usa el factor global, y sigue subiendo
+    g = rjg.media_por_titularidad(10, 10, None, 'tot')
+    check(abs(g - 1.0 * rjg.FACTOR_APARICION['tot']) < 1e-9,
+          "sin titularidades se aplica el factor global medido")
+    check(rjg.media_por_titularidad(5, 0) is None,
+          "sin apariciones no hay media, y no es cero")
+    check(rjg.media_por_titularidad(None, 10) is None,
+          "y sin remates tampoco")
+
+    # el previo posicional esta bien escalado contra la REALIDAD: un once
+    # 4-4-2 suma 0,857 de los remates del equipo y la fraccion real que se
+    # llevan los titulares es 0,857 (mediana de 1.515 equipos-partido)
+    _g = (rjg.calibracion().get('cuotas_gruesas') or {}).get('tot') or {}
+    if _g:
+        _once = _g.get('G', 0) + 4 * _g.get('D', 0) + 4 * _g.get('M', 0)             + 2 * _g.get('F', 0)
+        check(0.80 <= _once <= 0.92,
+              f"la cuota posicional de un 4-4-2 suma {_once:.3f}, que es la "
+              f"fraccion real de remates de los titulares (0,857)")
+
+    # ---- el coste: la tarjeta NO pide a la red ---------------------------
+    src = open('lineas_jugador.py', encoding='utf-8').read()
+    check('permitir_red' in src,
+          "las lineas distinguen leer del precalculo de preguntar a la casa")
+    wf = open('.github/workflows/retrain_leagues.yml', encoding='utf-8').read()
+    check('lineas_jugador.py --dias' in wf,
+          "el bot las precalcula")
+    check('lineas_jugador_dia.json' in wf,
+          "y guarda el fichero, porque la casa mueve las lineas durante el dia")
+
+
 def test_se_guardan_las_lineas_de_remates():
     """
     v163 — la foto diaria de las lineas, y la trampa de «tiros de esquina».
@@ -7762,6 +8032,8 @@ if __name__ == '__main__':
     test_la_contencion_no_empareja_clubes_distintos()
     test_el_aviso_sin_modelo_dice_la_causa()
     test_la_tarjeta_no_pinta_remates_por_equipo()
+    test_la_insignia_solo_en_mercados_observados()
+    test_las_lineas_de_jugador_de_la_casa()
     test_se_guardan_las_lineas_de_remates()
     test_todas_las_ligas_tienen_remates()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")

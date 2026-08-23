@@ -1,0 +1,1475 @@
+{
+ "razon_equipo": [
+  1.4652442702050663,
+  1.9814255650105226,
+  1.5287997587454765,
+  1.590355933754232,
+  1.5784526899067126,
+  2.0306461224142334,
+  1.2757242056533633,
+  1.2823699668000341,
+  2.116111761753388,
+  2.4203045685279188,
+  2.269031286598628,
+  2.2720812182741117,
+  2.037811611176175,
+  2.2634517766497466,
+  2.0159779153421447,
+  2.3051776649746194,
+  2.08014440433213,
+  2.067079646017699,
+  1.8384,
+  1.9225373134328358,
+  1.2757812499999999,
+  2.5271129707112974,
+  1.45981981981982,
+  2.3177345287557403,
+  2.0213513513513517,
+  1.4065165099497048,
+  1.0105314009661837
+ ],
+ "pares": [
+  {
+   "jugador": "Juanpe",
+   "clave": "liga_mx",
+   "roster": 0.167,
+   "partidos": 0.17,
+   "razon": 0.98
+  },
+  {
+   "jugador": "Aldo Cruz",
+   "clave": "liga_mx",
+   "roster": 0.4,
+   "partidos": 0.25,
+   "razon": 1.6
+  },
+  {
+   "jugador": "Robson Bambu",
+   "clave": "liga_mx",
+   "roster": 0.375,
+   "partidos": 0.33,
+   "razon": 1.136
+  },
+  {
+   "jugador": "Lucas Esteves",
+   "clave": "liga_mx",
+   "roster": 0.5,
+   "partidos": 0.25,
+   "razon": 2.0
+  },
+  {
+   "jugador": "Eduardo Águila",
+   "clave": "liga_mx",
+   "roster": 0.857,
+   "partidos": 0.8,
+   "razon": 1.071
+  },
+  {
+   "jugador": "Román Torres",
+   "clave": "liga_mx",
+   "roster": 0.706,
+   "partidos": 0.9,
+   "razon": 0.784
+  },
+  {
+   "jugador": "David Rodriguez",
+   "clave": "liga_mx",
+   "roster": 1.286,
+   "partidos": 1.89,
+   "razon": 0.68
+  },
+  {
+   "jugador": "Jesús Medina",
+   "clave": "liga_mx",
+   "roster": 1.6,
+   "partidos": 2.0,
+   "razon": 0.8
+  },
+  {
+   "jugador": "Sébastien Salles-Lamonge",
+   "clave": "liga_mx",
+   "roster": 1.353,
+   "partidos": 1.8,
+   "razon": 0.752
+  },
+  {
+   "jugador": "Roberto Meraz",
+   "clave": "liga_mx",
+   "roster": 0.2,
+   "partidos": 0.5,
+   "razon": 0.4
+  },
+  {
+   "jugador": "Oscar Macías",
+   "clave": "liga_mx",
+   "roster": 0.857,
+   "partidos": 0.6,
+   "razon": 1.429
+  },
+  {
+   "jugador": "Benjamín Galdames",
+   "clave": "liga_mx",
+   "roster": 0.333,
+   "partidos": 0.33,
+   "razon": 1.01
+  },
+  {
+   "jugador": "Sebastián Pérez-Bouquet",
+   "clave": "liga_mx",
+   "roster": 0.444,
+   "partidos": 0.67,
+   "razon": 0.663
+  },
+  {
+   "jugador": "Miguel García",
+   "clave": "liga_mx",
+   "roster": 0.333,
+   "partidos": 0.25,
+   "razon": 1.333
+  },
+  {
+   "jugador": "João Pedro",
+   "clave": "liga_mx",
+   "roster": 3.0,
+   "partidos": 3.5,
+   "razon": 0.857
+  },
+  {
+   "jugador": "Leonardo Flores",
+   "clave": "liga_mx",
+   "roster": 1.143,
+   "partidos": 1.5,
+   "razon": 0.762
+  },
+  {
+   "jugador": "Santiago Muñoz",
+   "clave": "liga_mx",
+   "roster": 0.333,
+   "partidos": 0.38,
+   "razon": 0.877
+  },
+  {
+   "jugador": "Anderson Duarte",
+   "clave": "liga_mx",
+   "roster": 0.273,
+   "partidos": 0.14,
+   "razon": 1.948
+  },
+  {
+   "jugador": "Eduardo Bauermann",
+   "clave": "liga_mx",
+   "roster": 0.35,
+   "partidos": 0.44,
+   "razon": 0.795
+  },
+  {
+   "jugador": "Sergio Barreto",
+   "clave": "liga_mx",
+   "roster": 0.6,
+   "partidos": 0.56,
+   "razon": 1.071
+  },
+  {
+   "jugador": "Brian García",
+   "clave": "liga_mx",
+   "roster": 0.632,
+   "partidos": 0.6,
+   "razon": 1.053
+  },
+  {
+   "jugador": "Carlos Sánchez",
+   "clave": "liga_mx",
+   "roster": 0.5,
+   "partidos": 0.5,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Kenedy",
+   "clave": "liga_mx",
+   "roster": 2.105,
+   "partidos": 1.44,
+   "razon": 1.462
+  },
+  {
+   "jugador": "Víctor Guzmán",
+   "clave": "liga_mx",
+   "roster": 1.632,
+   "partidos": 2.33,
+   "razon": 0.7
+  },
+  {
+   "jugador": "Christian Rivera",
+   "clave": "liga_mx",
+   "roster": 0.4,
+   "partidos": 0.44,
+   "razon": 0.909
+  },
+  {
+   "jugador": "Alan Bautista",
+   "clave": "liga_mx",
+   "roster": 0.667,
+   "partidos": 0.38,
+   "razon": 1.754
+  },
+  {
+   "jugador": "Elías Montiel",
+   "clave": "liga_mx",
+   "roster": 1.25,
+   "partidos": 1.11,
+   "razon": 1.126
+  },
+  {
+   "jugador": "Sergio Rodríguez",
+   "clave": "liga_mx",
+   "roster": 0.286,
+   "partidos": 0.25,
+   "razon": 1.143
+  },
+  {
+   "jugador": "Salomón Rondón",
+   "clave": "liga_mx",
+   "roster": 2.45,
+   "partidos": 2.56,
+   "razon": 0.957
+  },
+  {
+   "jugador": "Enner Valencia",
+   "clave": "liga_mx",
+   "roster": 2.0,
+   "partidos": 2.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Luis Quiñones",
+   "clave": "liga_mx",
+   "roster": 0.722,
+   "partidos": 0.75,
+   "razon": 0.963
+  },
+  {
+   "jugador": "Oussama Idrissi",
+   "clave": "liga_mx",
+   "roster": 0.85,
+   "partidos": 1.44,
+   "razon": 0.59
+  },
+  {
+   "jugador": "Alexéi Domínguez",
+   "clave": "liga_mx",
+   "roster": 1.0,
+   "partidos": 0.67,
+   "razon": 1.493
+  },
+  {
+   "jugador": "Gael Álvarez",
+   "clave": "liga_mx",
+   "roster": 0.6,
+   "partidos": 1.0,
+   "razon": 0.6
+  },
+  {
+   "jugador": "Rubén Duarte",
+   "clave": "liga_mx",
+   "roster": 0.5,
+   "partidos": 0.3,
+   "razon": 1.667
+  },
+  {
+   "jugador": "Álvaro Angulo",
+   "clave": "liga_mx",
+   "roster": 1.0,
+   "partidos": 0.33,
+   "razon": 3.03
+  },
+  {
+   "jugador": "Nathan Silva",
+   "clave": "liga_mx",
+   "roster": 0.545,
+   "partidos": 0.1,
+   "razon": 5.455
+  },
+  {
+   "jugador": "Pablo Bennevendo",
+   "clave": "liga_mx",
+   "roster": 0.133,
+   "partidos": 0.29,
+   "razon": 0.46
+  },
+  {
+   "jugador": "Adalberto Carrasquilla",
+   "clave": "liga_mx",
+   "roster": 1.143,
+   "partidos": 1.75,
+   "razon": 0.653
+  },
+  {
+   "jugador": "Jordan Carillo",
+   "clave": "liga_mx",
+   "roster": 1.455,
+   "partidos": 1.33,
+   "razon": 1.094
+  },
+  {
+   "jugador": "Pedro Vite",
+   "clave": "liga_mx",
+   "roster": 0.391,
+   "partidos": 0.3,
+   "razon": 1.304
+  },
+  {
+   "jugador": "Rodrigo López",
+   "clave": "liga_mx",
+   "roster": 0.435,
+   "partidos": 0.6,
+   "razon": 0.725
+  },
+  {
+   "jugador": "Guillermo Martínez",
+   "clave": "liga_mx",
+   "roster": 1.267,
+   "partidos": 0.5,
+   "razon": 2.533
+  },
+  {
+   "jugador": "Juninho",
+   "clave": "liga_mx",
+   "roster": 1.565,
+   "partidos": 1.3,
+   "razon": 1.204
+  },
+  {
+   "jugador": "Uriel Antuna",
+   "clave": "liga_mx",
+   "roster": 0.609,
+   "partidos": 0.89,
+   "razon": 0.684
+  },
+  {
+   "jugador": "Robert Morales",
+   "clave": "liga_mx",
+   "roster": 2.174,
+   "partidos": 1.5,
+   "razon": 1.449
+  },
+  {
+   "jugador": "Alan Medina",
+   "clave": "liga_mx",
+   "roster": 0.688,
+   "partidos": 0.5,
+   "razon": 1.375
+  },
+  {
+   "jugador": "Alexis Peña",
+   "clave": "liga_mx",
+   "roster": 0.333,
+   "partidos": 0.5,
+   "razon": 0.667
+  },
+  {
+   "jugador": "Cristian Calderón",
+   "clave": "liga_mx",
+   "roster": 0.929,
+   "partidos": 1.2,
+   "razon": 0.774
+  },
+  {
+   "jugador": "Agustín Oliveros",
+   "clave": "liga_mx",
+   "roster": 0.75,
+   "partidos": 0.62,
+   "razon": 1.21
+  },
+  {
+   "jugador": "Raúl Martínez",
+   "clave": "liga_mx",
+   "roster": 0.357,
+   "partidos": 0.3,
+   "razon": 1.19
+  },
+  {
+   "jugador": "Franco Rossano",
+   "clave": "liga_mx",
+   "roster": 0.5,
+   "partidos": 0.2,
+   "razon": 2.5
+  },
+  {
+   "jugador": "Facundo Gutiérrez",
+   "clave": "liga_mx",
+   "roster": 0.667,
+   "partidos": 1.2,
+   "razon": 0.556
+  },
+  {
+   "jugador": "Lorenzo Faravelli",
+   "clave": "liga_mx",
+   "roster": 0.875,
+   "partidos": 1.11,
+   "razon": 0.788
+  },
+  {
+   "jugador": "Agustín Almendra",
+   "clave": "liga_mx",
+   "roster": 0.5,
+   "partidos": 0.67,
+   "razon": 0.746
+  },
+  {
+   "jugador": "Daniel Leyva",
+   "clave": "liga_mx",
+   "roster": 0.471,
+   "partidos": 1.1,
+   "razon": 0.428
+  },
+  {
+   "jugador": "Rogelio Cortéz",
+   "clave": "liga_mx",
+   "roster": 0.25,
+   "partidos": 0.12,
+   "razon": 2.083
+  },
+  {
+   "jugador": "Javier Ruiz",
+   "clave": "liga_mx",
+   "roster": 1.75,
+   "partidos": 1.7,
+   "razon": 1.029
+  },
+  {
+   "jugador": "Ricardo Monreal",
+   "clave": "liga_mx",
+   "roster": 1.647,
+   "partidos": 2.0,
+   "razon": 0.824
+  },
+  {
+   "jugador": "Julián Carranza",
+   "clave": "liga_mx",
+   "roster": 1.333,
+   "partidos": 3.0,
+   "razon": 0.444
+  },
+  {
+   "jugador": "Tomas Badaloni",
+   "clave": "liga_mx",
+   "roster": 2.438,
+   "partidos": 2.2,
+   "razon": 1.108
+  },
+  {
+   "jugador": "Israel Tello",
+   "clave": "liga_mx",
+   "roster": 0.455,
+   "partidos": 0.25,
+   "razon": 1.818
+  },
+  {
+   "jugador": "Mamadou Fofana",
+   "clave": "mls",
+   "roster": 0.105,
+   "partidos": 0.1,
+   "razon": 1.053
+  },
+  {
+   "jugador": "William Sands",
+   "clave": "mls",
+   "roster": 0.6,
+   "partidos": 0.6,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Ethan Kohler",
+   "clave": "mls",
+   "roster": 0.375,
+   "partidos": 0.5,
+   "razon": 0.75
+  },
+  {
+   "jugador": "Peyton Miller",
+   "clave": "mls",
+   "roster": 1.833,
+   "partidos": 2.3,
+   "razon": 0.797
+  },
+  {
+   "jugador": "Carles Gil",
+   "clave": "mls",
+   "roster": 2.0,
+   "partidos": 2.2,
+   "razon": 0.909
+  },
+  {
+   "jugador": "Diego Fagundez",
+   "clave": "mls",
+   "roster": 0.091,
+   "partidos": 0.2,
+   "razon": 0.455
+  },
+  {
+   "jugador": "Matt Polster",
+   "clave": "mls",
+   "roster": 0.6,
+   "partidos": 0.8,
+   "razon": 0.75
+  },
+  {
+   "jugador": "Jackson Yueill",
+   "clave": "mls",
+   "roster": 0.1,
+   "partidos": 0.25,
+   "razon": 0.4
+  },
+  {
+   "jugador": "Alhassan Yusuf",
+   "clave": "mls",
+   "roster": 0.8,
+   "partidos": 1.1,
+   "razon": 0.727
+  },
+  {
+   "jugador": "Brooklyn Raines",
+   "clave": "mls",
+   "roster": 0.474,
+   "partidos": 0.78,
+   "razon": 0.607
+  },
+  {
+   "jugador": "Jack Harrison",
+   "clave": "mls",
+   "roster": 2.0,
+   "partidos": 2.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Wilson Harris",
+   "clave": "mls",
+   "roster": 0.667,
+   "partidos": 0.67,
+   "razon": 0.995
+  },
+  {
+   "jugador": "Griffin Yow",
+   "clave": "mls",
+   "roster": 0.947,
+   "partidos": 0.7,
+   "razon": 1.353
+  },
+  {
+   "jugador": "Dor Turgeman",
+   "clave": "mls",
+   "roster": 2.15,
+   "partidos": 2.2,
+   "razon": 0.977
+  },
+  {
+   "jugador": "Luca Langoni",
+   "clave": "mls",
+   "roster": 1.467,
+   "partidos": 1.6,
+   "razon": 0.917
+  },
+  {
+   "jugador": "Marcos Zambrano-Delgado",
+   "clave": "mls",
+   "roster": 0.375,
+   "partidos": 0.38,
+   "razon": 0.987
+  },
+  {
+   "jugador": "Thiago Martins",
+   "clave": "mls",
+   "roster": 0.118,
+   "partidos": 0.12,
+   "razon": 0.98
+  },
+  {
+   "jugador": "Raul Gustavo",
+   "clave": "mls",
+   "roster": 0.438,
+   "partidos": 0.29,
+   "razon": 1.509
+  },
+  {
+   "jugador": "Kai Trewin",
+   "clave": "mls",
+   "roster": 0.533,
+   "partidos": 0.6,
+   "razon": 0.889
+  },
+  {
+   "jugador": "Tayvon Gray",
+   "clave": "mls",
+   "roster": 0.632,
+   "partidos": 0.33,
+   "razon": 1.914
+  },
+  {
+   "jugador": "Mitja Ilenic",
+   "clave": "mls",
+   "roster": 0.5,
+   "partidos": 0.5,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Maxi Morález",
+   "clave": "mls",
+   "roster": 0.929,
+   "partidos": 0.5,
+   "razon": 1.857
+  },
+  {
+   "jugador": "Nicolás Fernández",
+   "clave": "mls",
+   "roster": 2.684,
+   "partidos": 2.22,
+   "razon": 1.209
+  },
+  {
+   "jugador": "James Sands",
+   "clave": "mls",
+   "roster": 1.2,
+   "partidos": 1.2,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Andrés Perea",
+   "clave": "mls",
+   "roster": 1.1,
+   "partidos": 1.22,
+   "razon": 0.902
+  },
+  {
+   "jugador": "Keaton Parks",
+   "clave": "mls",
+   "roster": 0.688,
+   "partidos": 0.67,
+   "razon": 1.026
+  },
+  {
+   "jugador": "Jonathan Shore",
+   "clave": "mls",
+   "roster": 0.267,
+   "partidos": 0.44,
+   "razon": 0.606
+  },
+  {
+   "jugador": "Hannes Wolf",
+   "clave": "mls",
+   "roster": 1.412,
+   "partidos": 0.88,
+   "razon": 1.604
+  },
+  {
+   "jugador": "Talles Magno",
+   "clave": "mls",
+   "roster": 1.188,
+   "partidos": 1.8,
+   "razon": 0.66
+  },
+  {
+   "jugador": "Bénie Traoré",
+   "clave": "mls",
+   "roster": 0.8,
+   "partidos": 0.8,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Agustin Ojeda",
+   "clave": "mls",
+   "roster": 1.45,
+   "partidos": 1.3,
+   "razon": 1.115
+  },
+  {
+   "jugador": "Luighi Hanri",
+   "clave": "mls",
+   "roster": 3.0,
+   "partidos": 3.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Malachi Jones",
+   "clave": "mls",
+   "roster": 1.182,
+   "partidos": 1.2,
+   "razon": 0.985
+  },
+  {
+   "jugador": "Júnior Alonso",
+   "clave": "mls",
+   "roster": 0.4,
+   "partidos": 0.4,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Stian Gregersen",
+   "clave": "mls",
+   "roster": 0.286,
+   "partidos": 0.38,
+   "razon": 0.752
+  },
+  {
+   "jugador": "Enea Mihaj",
+   "clave": "mls",
+   "roster": 0.333,
+   "partidos": 0.44,
+   "razon": 0.758
+  },
+  {
+   "jugador": "Tomás Jacob",
+   "clave": "mls",
+   "roster": 0.353,
+   "partidos": 0.33,
+   "razon": 1.07
+  },
+  {
+   "jugador": "Elías Baez",
+   "clave": "mls",
+   "roster": 1.111,
+   "partidos": 1.22,
+   "razon": 0.911
+  },
+  {
+   "jugador": "Alexey Miranchuk",
+   "clave": "mls",
+   "roster": 1.789,
+   "partidos": 2.1,
+   "razon": 0.852
+  },
+  {
+   "jugador": "Tristan Muyumba",
+   "clave": "mls",
+   "roster": 0.9,
+   "partidos": 1.2,
+   "razon": 0.75
+  },
+  {
+   "jugador": "Will Reilly",
+   "clave": "mls",
+   "roster": 0.125,
+   "partidos": 0.2,
+   "razon": 0.625
+  },
+  {
+   "jugador": "Jay Fortune",
+   "clave": "mls",
+   "roster": 1.0,
+   "partidos": 1.2,
+   "razon": 0.833
+  },
+  {
+   "jugador": "Luke Brennan",
+   "clave": "mls",
+   "roster": 0.615,
+   "partidos": 0.67,
+   "razon": 0.918
+  },
+  {
+   "jugador": "Cooper Sanchez",
+   "clave": "mls",
+   "roster": 0.667,
+   "partidos": 0.62,
+   "razon": 1.075
+  },
+  {
+   "jugador": "Miguel Almirón",
+   "clave": "mls",
+   "roster": 2.714,
+   "partidos": 2.86,
+   "razon": 0.949
+  },
+  {
+   "jugador": "Fafà Picault",
+   "clave": "mls",
+   "roster": 0.692,
+   "partidos": 0.88,
+   "razon": 0.787
+  },
+  {
+   "jugador": "Sergio Santos",
+   "clave": "mls",
+   "roster": 0.75,
+   "partidos": 1.0,
+   "razon": 0.75
+  },
+  {
+   "jugador": "Cayman Togashi",
+   "clave": "mls",
+   "roster": 0.286,
+   "partidos": 0.33,
+   "razon": 0.866
+  },
+  {
+   "jugador": "Ian James",
+   "clave": "mls",
+   "roster": 0.25,
+   "partidos": 0.17,
+   "razon": 1.471
+  },
+  {
+   "jugador": "Emir Karic",
+   "clave": "mls",
+   "roster": 0.333,
+   "partidos": 0.33,
+   "razon": 1.01
+  },
+  {
+   "jugador": "Zorhan Bassong",
+   "clave": "mls",
+   "roster": 0.909,
+   "partidos": 1.0,
+   "razon": 0.909
+  },
+  {
+   "jugador": "Jansen Miller",
+   "clave": "mls",
+   "roster": 0.2,
+   "partidos": 0.5,
+   "razon": 0.4
+  },
+  {
+   "jugador": "Jayden Reid",
+   "clave": "mls",
+   "roster": 0.467,
+   "partidos": 0.56,
+   "razon": 0.833
+  },
+  {
+   "jugador": "Or Blorian",
+   "clave": "mls",
+   "roster": 0.167,
+   "partidos": 0.2,
+   "razon": 0.833
+  },
+  {
+   "jugador": "Wyatt Meyer",
+   "clave": "mls",
+   "roster": 0.062,
+   "partidos": 0.11,
+   "razon": 0.568
+  },
+  {
+   "jugador": "Lasse Berg Johnsen",
+   "clave": "mls",
+   "roster": 0.562,
+   "partidos": 0.56,
+   "razon": 1.004
+  },
+  {
+   "jugador": "Jacob Davis",
+   "clave": "mls",
+   "roster": 0.474,
+   "partidos": 0.7,
+   "razon": 0.677
+  },
+  {
+   "jugador": "Dejan Joveljic",
+   "clave": "mls",
+   "roster": 1.95,
+   "partidos": 2.4,
+   "razon": 0.812
+  },
+  {
+   "jugador": "Shapi Suleymanov",
+   "clave": "mls",
+   "roster": 1.118,
+   "partidos": 0.75,
+   "razon": 1.49
+  },
+  {
+   "jugador": "Calvin Harris",
+   "clave": "mls",
+   "roster": 1.9,
+   "partidos": 2.8,
+   "razon": 0.679
+  },
+  {
+   "jugador": "Capita",
+   "clave": "mls",
+   "roster": 1.143,
+   "partidos": 1.33,
+   "razon": 0.859
+  },
+  {
+   "jugador": "Stephen Afrifa",
+   "clave": "mls",
+   "roster": 0.562,
+   "partidos": 0.88,
+   "razon": 0.639
+  },
+  {
+   "jugador": "Taylor Calheira",
+   "clave": "mls",
+   "roster": 0.833,
+   "partidos": 1.17,
+   "razon": 0.712
+  },
+  {
+   "jugador": "Gustavo Gómez",
+   "clave": "brasil",
+   "roster": 0.85,
+   "partidos": 0.75,
+   "razon": 1.133
+  },
+  {
+   "jugador": "Alexander Barboza",
+   "clave": "brasil",
+   "roster": 0.333,
+   "partidos": 0.33,
+   "razon": 1.01
+  },
+  {
+   "jugador": "Murilo",
+   "clave": "brasil",
+   "roster": 0.7,
+   "partidos": 1.1,
+   "razon": 0.636
+  },
+  {
+   "jugador": "Joaquín Piquerez",
+   "clave": "brasil",
+   "roster": 0.636,
+   "partidos": 0.4,
+   "razon": 1.591
+  },
+  {
+   "jugador": "Khellven",
+   "clave": "brasil",
+   "roster": 0.267,
+   "partidos": 0.5,
+   "razon": 0.533
+  },
+  {
+   "jugador": "Agustín Giay",
+   "clave": "brasil",
+   "roster": 0.278,
+   "partidos": 0.67,
+   "razon": 0.415
+  },
+  {
+   "jugador": "Arthur Gabriel",
+   "clave": "brasil",
+   "roster": 0.533,
+   "partidos": 1.0,
+   "razon": 0.533
+  },
+  {
+   "jugador": "Emiliano Martínez",
+   "clave": "brasil",
+   "roster": 0.364,
+   "partidos": 0.43,
+   "razon": 0.846
+  },
+  {
+   "jugador": "Felipe Anderson",
+   "clave": "brasil",
+   "roster": 0.75,
+   "partidos": 1.17,
+   "razon": 0.641
+  },
+  {
+   "jugador": "Lucas Evangelista",
+   "clave": "brasil",
+   "roster": 0.368,
+   "partidos": 0.25,
+   "razon": 1.474
+  },
+  {
+   "jugador": "Andreas Pereira",
+   "clave": "brasil",
+   "roster": 1.318,
+   "partidos": 1.89,
+   "razon": 0.697
+  },
+  {
+   "jugador": "Marlon Freitas",
+   "clave": "brasil",
+   "roster": 0.682,
+   "partidos": 0.8,
+   "razon": 0.852
+  },
+  {
+   "jugador": "Jhon Arias",
+   "clave": "brasil",
+   "roster": 2.111,
+   "partidos": 2.67,
+   "razon": 0.791
+  },
+  {
+   "jugador": "Maurício",
+   "clave": "brasil",
+   "roster": 1.7,
+   "partidos": 1.89,
+   "razon": 0.899
+  },
+  {
+   "jugador": "Luis Felipe",
+   "clave": "brasil",
+   "roster": 0.333,
+   "partidos": 0.5,
+   "razon": 0.667
+  },
+  {
+   "jugador": "Paulinho",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 1.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Ramón Sosa",
+   "clave": "brasil",
+   "roster": 1.158,
+   "partidos": 1.71,
+   "razon": 0.677
+  },
+  {
+   "jugador": "José Manuel López",
+   "clave": "brasil",
+   "roster": 1.95,
+   "partidos": 1.86,
+   "razon": 1.048
+  },
+  {
+   "jugador": "Vitor Roque",
+   "clave": "brasil",
+   "roster": 1.636,
+   "partidos": 1.5,
+   "razon": 1.091
+  },
+  {
+   "jugador": "Riquelme",
+   "clave": "brasil",
+   "roster": 0.333,
+   "partidos": 0.5,
+   "razon": 0.667
+  },
+  {
+   "jugador": "Allan Elias",
+   "clave": "brasil",
+   "roster": 1.75,
+   "partidos": 2.43,
+   "razon": 0.72
+  },
+  {
+   "jugador": "José Luis Rodríguez",
+   "clave": "brasil",
+   "roster": 1.933,
+   "partidos": 2.0,
+   "razon": 0.967
+  },
+  {
+   "jugador": "Paulo Henrique",
+   "clave": "brasil",
+   "roster": 0.357,
+   "partidos": 0.6,
+   "razon": 0.595
+  },
+  {
+   "jugador": "Carlos Cuesta",
+   "clave": "brasil",
+   "roster": 0.333,
+   "partidos": 0.25,
+   "razon": 1.333
+  },
+  {
+   "jugador": "Lucas Piton",
+   "clave": "brasil",
+   "roster": 0.467,
+   "partidos": 0.43,
+   "razon": 1.085
+  },
+  {
+   "jugador": "Alan Saldivia",
+   "clave": "brasil",
+   "roster": 0.818,
+   "partidos": 0.67,
+   "razon": 1.221
+  },
+  {
+   "jugador": "Cuiabano",
+   "clave": "brasil",
+   "roster": 1.643,
+   "partidos": 1.33,
+   "razon": 1.235
+  },
+  {
+   "jugador": "Robert",
+   "clave": "brasil",
+   "roster": 0.364,
+   "partidos": 0.5,
+   "razon": 0.727
+  },
+  {
+   "jugador": "Jair",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 1.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Tchê Tchê",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 1.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Thiago Mendes",
+   "clave": "brasil",
+   "roster": 0.895,
+   "partidos": 1.0,
+   "razon": 0.895
+  },
+  {
+   "jugador": "Nuno Moreira",
+   "clave": "brasil",
+   "roster": 1.111,
+   "partidos": 0.88,
+   "razon": 1.263
+  },
+  {
+   "jugador": "Cauan Barros",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 0.88,
+   "razon": 1.136
+  },
+  {
+   "jugador": "Ramon Rique",
+   "clave": "brasil",
+   "roster": 0.5,
+   "partidos": 0.5,
+   "razon": 1.0
+  },
+  {
+   "jugador": "David",
+   "clave": "brasil",
+   "roster": 0.842,
+   "partidos": 0.89,
+   "razon": 0.946
+  },
+  {
+   "jugador": "Claudio Spinelli",
+   "clave": "brasil",
+   "roster": 2.25,
+   "partidos": 3.11,
+   "razon": 0.723
+  },
+  {
+   "jugador": "Brenner",
+   "clave": "brasil",
+   "roster": 1.133,
+   "partidos": 0.86,
+   "razon": 1.318
+  },
+  {
+   "jugador": "Adson",
+   "clave": "brasil",
+   "roster": 1.636,
+   "partidos": 1.62,
+   "razon": 1.01
+  },
+  {
+   "jugador": "Andrés Gómez",
+   "clave": "brasil",
+   "roster": 3.5,
+   "partidos": 3.0,
+   "razon": 1.167
+  },
+  {
+   "jugador": "Johan Rojas",
+   "clave": "brasil",
+   "roster": 2.0,
+   "partidos": 2.57,
+   "razon": 0.778
+  },
+  {
+   "jugador": "Tiago Volpi",
+   "clave": "brasil",
+   "roster": 0.133,
+   "partidos": 0.2,
+   "razon": 0.667
+  },
+  {
+   "jugador": "Pedro Henrique",
+   "clave": "brasil",
+   "roster": 0.4,
+   "partidos": 0.57,
+   "razon": 0.702
+  },
+  {
+   "jugador": "Juninho Capixaba",
+   "clave": "brasil",
+   "roster": 1.211,
+   "partidos": 0.88,
+   "razon": 1.376
+  },
+  {
+   "jugador": "Agustín Sant'Anna",
+   "clave": "brasil",
+   "roster": 0.778,
+   "partidos": 0.83,
+   "razon": 0.937
+  },
+  {
+   "jugador": "Alix Vinicius",
+   "clave": "brasil",
+   "roster": 0.5,
+   "partidos": 0.62,
+   "razon": 0.806
+  },
+  {
+   "jugador": "José Hurtado",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 0.6,
+   "razon": 1.667
+  },
+  {
+   "jugador": "Gustavo Marques",
+   "clave": "brasil",
+   "roster": 0.684,
+   "partidos": 0.78,
+   "razon": 0.877
+  },
+  {
+   "jugador": "Gabriel",
+   "clave": "brasil",
+   "roster": 1.118,
+   "partidos": 1.14,
+   "razon": 0.98
+  },
+  {
+   "jugador": "Matheus Fernandes",
+   "clave": "brasil",
+   "roster": 0.929,
+   "partidos": 0.25,
+   "razon": 3.714
+  },
+  {
+   "jugador": "Lucas Barbosa",
+   "clave": "brasil",
+   "roster": 2.5,
+   "partidos": 2.33,
+   "razon": 1.073
+  },
+  {
+   "jugador": "Ramires",
+   "clave": "brasil",
+   "roster": 0.133,
+   "partidos": 0.11,
+   "razon": 1.212
+  },
+  {
+   "jugador": "Ignacio Sosa",
+   "clave": "brasil",
+   "roster": 0.333,
+   "partidos": 0.17,
+   "razon": 1.961
+  },
+  {
+   "jugador": "Rodriguinho",
+   "clave": "brasil",
+   "roster": 1.25,
+   "partidos": 1.86,
+   "razon": 0.672
+  },
+  {
+   "jugador": "Gustavinho",
+   "clave": "brasil",
+   "roster": 0.6,
+   "partidos": 0.5,
+   "razon": 1.2
+  },
+  {
+   "jugador": "Marcelinho Braz",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 0.5,
+   "razon": 2.0
+  },
+  {
+   "jugador": "Eduardo Sasha",
+   "clave": "brasil",
+   "roster": 1.167,
+   "partidos": 1.0,
+   "razon": 1.167
+  },
+  {
+   "jugador": "Fernando",
+   "clave": "brasil",
+   "roster": 1.3,
+   "partidos": 1.71,
+   "razon": 0.76
+  },
+  {
+   "jugador": "Isidro Pitta",
+   "clave": "brasil",
+   "roster": 2.1,
+   "partidos": 2.11,
+   "razon": 0.995
+  },
+  {
+   "jugador": "Henry Mosquera",
+   "clave": "brasil",
+   "roster": 2.059,
+   "partidos": 1.43,
+   "razon": 1.44
+  },
+  {
+   "jugador": "José Herrera",
+   "clave": "brasil",
+   "roster": 1.353,
+   "partidos": 1.33,
+   "razon": 1.017
+  },
+  {
+   "jugador": "Vinicinho",
+   "clave": "brasil",
+   "roster": 0.636,
+   "partidos": 1.25,
+   "razon": 0.509
+  },
+  {
+   "jugador": "Caio Paulista",
+   "clave": "brasil",
+   "roster": 0.444,
+   "partidos": 0.25,
+   "razon": 1.778
+  },
+  {
+   "jugador": "Wálter Kannemann",
+   "clave": "brasil",
+   "roster": 0.5,
+   "partidos": 0.5,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Fabián Balbuena",
+   "clave": "brasil",
+   "roster": 0.143,
+   "partidos": 0.5,
+   "razon": 0.286
+  },
+  {
+   "jugador": "Wagner Leonardo",
+   "clave": "brasil",
+   "roster": 0.222,
+   "partidos": 0.2,
+   "razon": 1.111
+  },
+  {
+   "jugador": "Gustavo Martins",
+   "clave": "brasil",
+   "roster": 0.667,
+   "partidos": 0.17,
+   "razon": 3.922
+  },
+  {
+   "jugador": "Diego Caito",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 1.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Wallace",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 1.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Pedro Gabriel",
+   "clave": "brasil",
+   "roster": 0.5,
+   "partidos": 0.5,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Willian",
+   "clave": "brasil",
+   "roster": 0.778,
+   "partidos": 0.33,
+   "razon": 2.357
+  },
+  {
+   "jugador": "Mathías Villasanti",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 1.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Juan Nardoni",
+   "clave": "brasil",
+   "roster": 0.867,
+   "partidos": 0.83,
+   "razon": 1.044
+  },
+  {
+   "jugador": "Erick Noriega",
+   "clave": "brasil",
+   "roster": 0.5,
+   "partidos": 0.43,
+   "razon": 1.163
+  },
+  {
+   "jugador": "Cristian Pavón",
+   "clave": "brasil",
+   "roster": 0.6,
+   "partidos": 0.62,
+   "razon": 0.968
+  },
+  {
+   "jugador": "Martin Braithwaite",
+   "clave": "brasil",
+   "roster": 0.286,
+   "partidos": 0.22,
+   "razon": 1.299
+  },
+  {
+   "jugador": "Jovane Cabral",
+   "clave": "brasil",
+   "roster": 1.0,
+   "partidos": 1.0,
+   "razon": 1.0
+  },
+  {
+   "jugador": "Carlos Vinícius",
+   "clave": "brasil",
+   "roster": 1.952,
+   "partidos": 2.11,
+   "razon": 0.925
+  },
+  {
+   "jugador": "Francis Amuzu",
+   "clave": "brasil",
+   "roster": 1.6,
+   "partidos": 1.22,
+   "razon": 1.311
+  },
+  {
+   "jugador": "José Enamorado",
+   "clave": "brasil",
+   "roster": 0.722,
+   "partidos": 0.43,
+   "razon": 1.68
+  },
+  {
+   "jugador": "Mateus Tetê",
+   "clave": "brasil",
+   "roster": 1.588,
+   "partidos": 1.57,
+   "razon": 1.012
+  },
+  {
+   "jugador": "Gabriel Mec",
+   "clave": "brasil",
+   "roster": 0.812,
+   "partidos": 1.29,
+   "razon": 0.63
+  }
+ ]
+}

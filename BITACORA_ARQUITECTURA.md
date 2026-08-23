@@ -1752,3 +1752,138 @@ el catálogo de su motor y contra el de ESPN—: cambia **exactamente uno**, y e
 Viking. Ojo con `normalizar`, que borra « city»: por eso «Man City» queda en «man»
 y ahí no sobrevive ninguna palabra entera — es el caso que descartó la primera
 regla.
+
+---
+
+## 14. La insignia, la línea de la casa, y una lambda que no era la que se midió
+
+### 14.1 Un bloque estimado no puede llevar «destacado»
+
+Auditado sobre el barrido del 2026-08-23 (`_v164_auditar_destacada.py`), hay
+**dos cosas distintas** que se llamaban «destacado» y sólo una estaba mal:
+
+* **el titular de la tarjeta** (`apuesta_destacada`) — los 151 del día salían de
+  Goles (96), BTTS (45) y 1X2 (10), todos derivados de la matriz de marcador,
+  que se entrena con goles reales en las 62 competiciones. **No estaba
+  afectado.** Se le pone la guarda igualmente, porque el día que alguien meta un
+  mercado físico en `mercados` se llenaría de estimaciones sin que nada lo
+  denunciara — el modo de fallo de la v106 otra vez.
+* **la insignia de cada bloque físico** — de 624 bloques pintados, **232 eran
+  estimados y todos la llevaban**, anunciando hasta un 68 %. Y en **58 partidos
+  lo eran todos** (Danubio-Racing de Montevideo, Sonderjyske-Nordsjaelland).
+
+Un bloque estimado es el nivel de la competición repartido por bando, idéntico
+en todos los partidos de esa liga: su propia etiqueta lo dice. Anunciarlo como
+destacado le da forma de recomendación a un número que no distingue un partido
+de otro.
+
+`confianza_mercado.py` decide, con el error de calibración por liga que mide
+`informe_calibracion.py`:
+
+| nivel | condición | insignia | tras el cambio |
+|---|---|---|---|
+| 1 | observado, error < 0,02 | sí | 289 bloques |
+| 2 | observado, 0,02-0,05 o sin medir | sí, con el error al lado | 103 |
+| 3 | **estimado** | **no** | 232 |
+
+Ninguna competición observada pasa de 0,05, así que el nivel 3 es exactamente
+«lo estimado». Las filas y la etiqueta `📐 Estimado` **no se tocan**: desaparece
+la insignia, no la información. Tampoco se resalta ya una fila en negrita, que
+es la misma afirmación con otra tipografía.
+
+**Y sigue siendo ámbar en los tres niveles.** El verde de esta aplicación
+significa «canal con percentil 5 de bootstrap positivo medido» (§0), y córners,
+tarjetas y remates no lo tienen. Estar bien calibrado y estar bien pagado son
+ejes distintos; subir el nivel 1 a verde diría lo segundo enseñando lo primero.
+
+### 14.2 La línea de la casa estaba ahí y se estaba tirando
+
+El encargo daba libertad para buscar APIs de pago. No hizo falta. Sondeado el
+tablero real (`_v164_sondeo_mercados_jugador.py`), de 13.769 familias distintas
+en 8 partidos:
+
+    Remates - <Jugador> (<COD>) ............  317
+    Remates a Puerta - <Jugador> (<COD>) ...  317
+
+unas 80 por partido, con tres líneas cada una. Se sabía que Playdoit servía
+mercados de jugador —`snapshots_tarjetas` los descarta a propósito— pero nadie
+había mirado si entre ellos estaban los de remates.
+
+**`sv` NO es la línea principal, y eso se midió.** Parecía serlo: llega como
+`'2.5|ws:player:6312'`. Sobre 432 mercados, `sv` cae en cualquier punto de la
+escalera y la cuota de esa línea tiene **mediana 2,60**, con casos de 20,00. Con
+ella se enseñaban cosas como «José Manuel López 5 % de +4.5»: cierto y sin
+interés. Se elige la línea de cuota más cercana a 2,00 —donde la casa parte su
+opinión por la mitad— y la mediana pasa a **1,95** con máximo 4,00. Se elige
+**sin mirar nuestro modelo**: coger la línea más parecida a nuestra lambda sería
+enseñar el número que mejor nos deja.
+
+**El coste manda dónde vive cada cosa**, que es la lección que ya costó dos
+regresiones en la v163: la tarjeta lee de `lineas_jugador_dia.json` y no hace ni
+una petición (0,08-0,28 s por tarjeta); la ficha sí pide en vivo; el bot
+precalcula. El fichero se guarda sin sangrado y sólo con la línea principal y su
+cuota: de 968 KB a 425 KB, porque se commitea todos los días.
+
+**Emparejar nombres de PERSONA no es emparejar clubes.** «Diego Gómez» contra
+«Diego Alexander Gomez Amarilla» no es subcadena y su similitud es 0,50, por
+debajo del umbral de 0,78. La regla —todas las palabras del corto en el largo y
+el apellido coincidiendo, y si casan dos candidatos no se elige ninguno— sube el
+emparejado de 224 a 243 sobre 422 jugadores, y los 19 que gana son todos
+correctos (incluido «Lee Kang-In» contra «Kang-in Lee», que va invertido). Vive
+en `lineas_jugador`, no en `name_mapper`: aplicarla a clubes movería emparejados
+medidos y cerrados. El 42 % que sigue sin línea **no es un fallo**: la casa
+cotiza ~40 jugadores por partido y ESPN devuelve ~55.
+
+### 14.3 LA LAMBDA QUE SE ENSEÑABA NO ERA LA QUE SE MIDIÓ
+
+Con la línea de la casa delante apareció un patrón: varios delanteros salían con
+14-16 % sobre su línea. Comparando nuestra lambda con la que implica la casa
+(`_v164_lambda_contra_casa.py`, 1.094 jugadores), la razón salía **0,619**.
+
+Buscándolo se encontró un defecto real y de la v163:
+
+> El modelo por jugador se validó sobre remates **por titularidad** (§13.7).
+> Producción dividía entre **apariciones**, que incluyen entrar diez minutos
+> desde el banquillo. Son dos magnitudes distintas y la segunda es menor.
+
+Medido sobre 24.059 apariciones (`_v163_cache_jugadores/`):
+
+    remates totales   titular 0,9888 · suplente 0,4741   razón 0,4795
+    a puerta          titular 0,3334 · suplente 0,1631   razón 0,4890
+    y el 29 % de las apariciones son suplencias
+
+Con `subIns` —que ESPN ya publicaba en el roster y no se guardaba— se despejan
+las titularidades y la media sale exacta: `m = total / (T + 0,4795·S)`. La razón
+contra la casa sube a 0,668.
+
+**El resto del hueco no se persiguió, y está razonado.** Este patrón de medida no
+puede zanjarlo: Playdoit publica **sólo el lado «Más de»** de estos mercados
+—comprobado, 0 pares Más/Menos en cinco partidos— así que el margen no se puede
+quitar y la lambda implícita sale inflada; y la población no está emparejada,
+porque la casa cotiza a los que espera que jueguen y nuestra lista es la
+plantilla entera.
+
+En cambio hay dos comprobaciones **contra la realidad** que dicen que el nivel
+está bien:
+
+* el modelo por jugador dio ECE 0,029 contra el resultado real sobre 6.688
+  titulares-partido (§13.7);
+* la cuota posicional está exactamente escalada: un once 4-4-2 suma **0,857** de
+  los remates del equipo, y la fracción real que se llevan los titulares es
+  **0,857** de mediana sobre 1.515 equipos-partido.
+
+Lo que zanja esto es liquidar `remates_snapshots.csv` cuando haya volumen, que
+es lo único que mide dinero en vez de opiniones.
+
+### 14.4 Dos cosas que cambiaron solas mientras tanto
+
+**El `--build` llegó.** El bot reescribió los históricos con el boxscore de ESPN
+inyectado: las competiciones con remates observados pasan de **20 a 50 de 62**, y
+la posesión de la Premier deja de ser sintética (1.613 filas marcadas). Es el
+pendiente número 6 del traspaso de la v163, cumplido.
+
+**Un test se cayó por mirar texto en vez de comportamiento.** Comprobaba el ámbar
+recortando 900 caracteres del fichero desde `def _bloque_corners_html`, que es una
+línea que delega en la de al lado; al crecer el docstring vecino, el 🟡 se salió
+de la ventana y falló sin que nada hubiera cambiado. Ahora se comprueba sobre el
+HTML pintado.

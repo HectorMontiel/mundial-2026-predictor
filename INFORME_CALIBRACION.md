@@ -1,6 +1,6 @@
 # Informe de calibración — córners, tarjetas y remates
 
-Generado 2026-08-23T06:23:16Z
+Generado 2026-08-23T10:33:00Z
 
 ```
 competición              origen     partidos  ck err  ck corr  tj err  tj corr  rm err  rm corr  ra err  ra corr
@@ -19,7 +19,7 @@ dinamarca                observado       408       -       -       -       -    
 china                    observado      1379  0.0067  0.2579  0.0142  0.1115  0.0293  0.4434  0.0161  0.3447
 aut_bundesliga           estimado        351       -       -       -       -       -       -       -       -
 rus_premier              observado       514  0.0150  0.1720  0.0198  0.1108  0.0329  0.4262  0.0284  0.3223
-gre_super_league         observado       224  0.0062  0.4137  0.0075  0.2057  0.0135  0.5224  0.0186  0.3819
+gre_super_league         estimado        224       -       -       -       -       -       -       -       -
 premier                  observado      1992  0.0087  0.2594  0.0131  0.1937  0.0224  0.4692  0.0226  0.3084
 laliga                   observado      2093  0.0130  0.3170  0.0134  0.1407  0.0054  0.4862  0.0181  0.4254
 serie_a                  observado      2055  0.0018  0.2915  0.0186  0.2085  0.0138  0.4522  0.0077  0.3405
@@ -34,9 +34,9 @@ leagues_cup              estimado        277       -       -       -       -    
 eng_championship         observado      2539  0.0095  0.2594  0.0133  0.1155  0.0185  0.4008  0.0085  0.2251
 eng_league_one           observado      1134  0.0160  0.2372  0.0187  0.1265  0.0202  0.4037  0.0140  0.2854
 eng_league_two           observado      1136  0.0182  0.2381  0.0206  0.1360  0.0108  0.3058  0.0103  0.1830
-eng_national             mixto             1       -       -  0.0131  0.1393       -       -       -       -
+eng_national             estimado          1       -       -       -       -       -       -       -       -
 sco_premiership          observado       440       -       -       -       -       -       -       -       -
-sco_championship         observado       371  0.0169  0.2953  0.0218  0.0824  0.0158  0.4257  0.0070  0.3084
+sco_championship         estimado        371       -       -       -       -       -       -       -       -
 esp_hypermotion          observado      2355  0.0122  0.2184  0.0128  0.1268  0.0105  0.4110  0.0138  0.2966
 ita_serie_b              observado      1020  0.0167  0.2119  0.0186  0.1091  0.0027  0.4068  0.0145  0.3376
 fra_ligue2               observado       638  0.0128  0.2470  0.0447  0.0280  0.0092  0.3572  0.0212  0.2153
@@ -67,14 +67,14 @@ ind_isl                  observado       618  0.0245  0.2617  0.0262  0.1632  0.
 afc_champions            observado       639  0.0230  0.1825  0.0061  0.1739  0.0332  0.3090  0.0157  0.3655
 bra_copa                 estimado        210       -       -       -       -       -       -       -       -
 
-competiciones con córners           OBSERVADOS .. 44 de 61
-competiciones con tarjetas          OBSERVADOS .. 45 de 61
-competiciones con remates           OBSERVADOS .. 44 de 61
-competiciones con remates a puerta  OBSERVADOS .. 44 de 61
-competiciones sin ningún dato observado ......... 16
-error de calibración medio en córners observados: 0.0133 (37 competiciones)
-error de calibración medio en tarjetas observados: 0.0181 (38 competiciones)
-error de calibración medio en remates observados: 0.0164 (37 competiciones)
-error de calibración medio en remates a puerta observados: 0.0173 (37 competiciones)
+competiciones con córners           OBSERVADOS .. 42 de 61
+competiciones con tarjetas          OBSERVADOS .. 42 de 61
+competiciones con remates           OBSERVADOS .. 42 de 61
+competiciones con remates a puerta  OBSERVADOS .. 42 de 61
+competiciones sin ningún dato observado ......... 19
+error de calibración medio en córners observados: 0.0134 (35 competiciones)
+error de calibración medio en tarjetas observados: 0.0184 (35 competiciones)
+error de calibración medio en remates observados: 0.0165 (35 competiciones)
+error de calibración medio en remates a puerta observados: 0.0176 (35 competiciones)
 estimación (validación dejando una liga fuera): córners 0.0247 · tarjetas 0.0539 · remates 0.0281 · remates a puerta 0.0168
 ```
