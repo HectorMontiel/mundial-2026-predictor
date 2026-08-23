@@ -1,0 +1,194 @@
+{
+ "con_remates": [
+  "bel_pro_league",
+  "bundesliga",
+  "eng_championship",
+  "eng_league_one",
+  "eng_league_two",
+  "eredivisie",
+  "esp_hypermotion",
+  "fra_ligue2",
+  "ger_bundesliga2",
+  "gre_super_league",
+  "ita_serie_b",
+  "laliga",
+  "liga_mx",
+  "ligue_1",
+  "premier",
+  "primeira",
+  "sco_championship",
+  "sco_premiership",
+  "serie_a",
+  "turquia"
+ ],
+ "sin_remates": [
+  {
+   "clave": "afc_champions",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "arg_primera_nacional",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "argentina",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "aus_aleague",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "aut_bundesliga",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "bol_division",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "bra_copa",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "bra_serie_b",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "brasil",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "champions",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "chi_primera",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "china",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "col_primera_a",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "conference_league",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "crc_fpd",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "dinamarca",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "ecu_liga_pro",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "eng_fa_cup",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "eng_national",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "europa_league",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "finlandia",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "ind_isl",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "irlanda",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "jpn_j1",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "leagues_cup",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "libertadores",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "mex_expansion",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "mls",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "ned_eerste",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "noruega",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "par_division",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "per_liga1",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "polonia",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "rsa_premier",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "rumania",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "rus_premier",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "slv_primera",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "sudamericana",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "suecia",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "uru_primera",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "usl_championship",
+   "motivo": "sintéticos"
+  },
+  {
+   "clave": "ven_primera",
+   "motivo": "sintéticos"
+  }
+ ]
+}

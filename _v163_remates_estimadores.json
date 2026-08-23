@@ -1,0 +1,1696 @@
+{
+ "tot": {
+  "filas": [
+   {
+    "estimador": "D_ataque_defensa",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.013148735750298735,
+    "brier": 0.19501184803250668,
+    "ece": 0.03131506782108734
+   },
+   {
+    "estimador": "D_ataque_defensa",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.03322875999513034,
+    "brier": 0.19601837470180922,
+    "ece": 0.04389499040305399
+   },
+   {
+    "estimador": "B_equipo",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.02067241211120556,
+    "brier": 0.2044083359288564,
+    "ece": 0.03310222685879481
+   },
+   {
+    "estimador": "B_equipo",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.03131999113171314,
+    "brier": 0.20842792603096522,
+    "ece": 0.0654966006583192
+   },
+   {
+    "estimador": "A_liga",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.020768157987878712,
+    "brier": 0.21282315672584592,
+    "ece": 0.03200207328142755
+   },
+   {
+    "estimador": "C_movil5",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.021369624609440446,
+    "brier": 0.2147450880914992,
+    "ece": 0.07194611013683216
+   },
+   {
+    "estimador": "A_liga",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.0482036038884582,
+    "brier": 0.21574046529802443,
+    "ece": 0.05725056112079812
+   },
+   {
+    "estimador": "C_movil5",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.014756539644040875,
+    "brier": 0.22477227658045537,
+    "ece": 0.1141810435253275
+   }
+  ],
+  "mejor": {
+   "estimador": "D_ataque_defensa",
+   "dist": "binneg",
+   "n": 42000,
+   "marginal": 0.013148735750298735,
+   "brier": 0.19501184803250668,
+   "ece": 0.03131506782108734
+  },
+  "dispersion_media": 2.0934,
+  "por_liga": {
+   "bundesliga": {
+    "n": 2372,
+    "dispersion": 2.1423,
+    "media": 12.885,
+    "corr": 0.4652,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04723,
+      "brier": 0.21626,
+      "ece": 0.05721
+     },
+     "A_liga/binneg": {
+      "marginal": 0.0201,
+      "brier": 0.21404,
+      "ece": 0.03704
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.02503,
+      "brier": 0.20688,
+      "ece": 0.06203
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.02274,
+      "brier": 0.20333,
+      "ece": 0.03361
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01037,
+      "brier": 0.22325,
+      "ece": 0.10873
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02586,
+      "brier": 0.21387,
+      "ece": 0.07006
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.02989,
+      "brier": 0.19545,
+      "ece": 0.03953
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01653,
+      "brier": 0.19498,
+      "ece": 0.03306
+     }
+    }
+   },
+   "eng_championship": {
+    "n": 3532,
+    "dispersion": 1.9673,
+    "media": 12.089,
+    "corr": 0.4029,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04313,
+      "brier": 0.21155,
+      "ece": 0.04812
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02229,
+      "brier": 0.20952,
+      "ece": 0.02512
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.02395,
+      "brier": 0.20762,
+      "ece": 0.06584
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01519,
+      "brier": 0.2033,
+      "ece": 0.03163
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01264,
+      "brier": 0.22456,
+      "ece": 0.11653
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02255,
+      "brier": 0.2147,
+      "ece": 0.07429
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.02861,
+      "brier": 0.19945,
+      "ece": 0.04685
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01249,
+      "brier": 0.1972,
+      "ece": 0.01885
+     }
+    }
+   },
+   "eng_league_one": {
+    "n": 1696,
+    "dispersion": 1.9999,
+    "media": 11.612,
+    "corr": 0.3772,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04312,
+      "brier": 0.20655,
+      "ece": 0.04987
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02098,
+      "brier": 0.20479,
+      "ece": 0.03722
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.02603,
+      "brier": 0.20515,
+      "ece": 0.0674
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01832,
+      "brier": 0.20118,
+      "ece": 0.03702
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00992,
+      "brier": 0.22101,
+      "ece": 0.1146
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.0227,
+      "brier": 0.21142,
+      "ece": 0.07467
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.02851,
+      "brier": 0.19419,
+      "ece": 0.04215
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01424,
+      "brier": 0.19313,
+      "ece": 0.0265
+     }
+    }
+   },
+   "eng_league_two": {
+    "n": 1864,
+    "dispersion": 1.903,
+    "media": 11.831,
+    "corr": 0.3509,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04541,
+      "brier": 0.21537,
+      "ece": 0.06079
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02159,
+      "brier": 0.21209,
+      "ece": 0.03304
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03445,
+      "brier": 0.21962,
+      "ece": 0.0864
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01963,
+      "brier": 0.21381,
+      "ece": 0.05166
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01952,
+      "brier": 0.23617,
+      "ece": 0.13351
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01655,
+      "brier": 0.22575,
+      "ece": 0.09626
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03487,
+      "brier": 0.2029,
+      "ece": 0.04806
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01237,
+      "brier": 0.20062,
+      "ece": 0.02466
+     }
+    }
+   },
+   "eredivisie": {
+    "n": 3076,
+    "dispersion": 2.7052,
+    "media": 13.463,
+    "corr": 0.5634,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.06208,
+      "brier": 0.22519,
+      "ece": 0.07011
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02795,
+      "brier": 0.22027,
+      "ece": 0.03034
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03439,
+      "brier": 0.20724,
+      "ece": 0.07364
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.03335,
+      "brier": 0.20228,
+      "ece": 0.03553
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.02408,
+      "brier": 0.22501,
+      "ece": 0.12197
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02064,
+      "brier": 0.21107,
+      "ece": 0.06165
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.0455,
+      "brier": 0.18392,
+      "ece": 0.04912
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01233,
+      "brier": 0.18507,
+      "ece": 0.0571
+     }
+    }
+   },
+   "esp_hypermotion": {
+    "n": 4088,
+    "dispersion": 1.9189,
+    "media": 11.981,
+    "corr": 0.3932,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.03642,
+      "brier": 0.20572,
+      "ece": 0.04307
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01862,
+      "brier": 0.20416,
+      "ece": 0.02576
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.02562,
+      "brier": 0.20185,
+      "ece": 0.05085
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01296,
+      "brier": 0.19912,
+      "ece": 0.02436
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00942,
+      "brier": 0.21468,
+      "ece": 0.09874
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.0219,
+      "brier": 0.2071,
+      "ece": 0.06105
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.02559,
+      "brier": 0.19631,
+      "ece": 0.03867
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01278,
+      "brier": 0.19467,
+      "ece": 0.01829
+     }
+    }
+   },
+   "fra_ligue2": {
+    "n": 960,
+    "dispersion": 1.9684,
+    "media": 11.637,
+    "corr": 0.3963,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04993,
+      "brier": 0.2125,
+      "ece": 0.05788
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01256,
+      "brier": 0.20893,
+      "ece": 0.03246
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03186,
+      "brier": 0.21363,
+      "ece": 0.08181
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01203,
+      "brier": 0.20744,
+      "ece": 0.0473
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01695,
+      "brier": 0.23104,
+      "ece": 0.12978
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01579,
+      "brier": 0.2199,
+      "ece": 0.09362
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03562,
+      "brier": 0.19872,
+      "ece": 0.05647
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.00633,
+      "brier": 0.19642,
+      "ece": 0.03835
+     }
+    }
+   },
+   "ger_bundesliga2": {
+    "n": 2502,
+    "dispersion": 1.6776,
+    "media": 13.416,
+    "corr": 0.3126,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.03884,
+      "brier": 0.21216,
+      "ece": 0.04761
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02681,
+      "brier": 0.21093,
+      "ece": 0.03338
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.02828,
+      "brier": 0.21193,
+      "ece": 0.05692
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01863,
+      "brier": 0.20919,
+      "ece": 0.03243
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01125,
+      "brier": 0.22826,
+      "ece": 0.11362
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02116,
+      "brier": 0.22135,
+      "ece": 0.08709
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.0281,
+      "brier": 0.20601,
+      "ece": 0.05144
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01417,
+      "brier": 0.20404,
+      "ece": 0.02549
+     }
+    }
+   },
+   "ita_serie_b": {
+    "n": 1538,
+    "dispersion": 1.9826,
+    "media": 12.891,
+    "corr": 0.3458,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04912,
+      "brier": 0.21846,
+      "ece": 0.05444
+     },
+     "A_liga/binneg": {
+      "marginal": 0.00859,
+      "brier": 0.21548,
+      "ece": 0.03182
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03159,
+      "brier": 0.21736,
+      "ece": 0.07842
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01743,
+      "brier": 0.2126,
+      "ece": 0.0463
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01621,
+      "brier": 0.22985,
+      "ece": 0.12115
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01852,
+      "brier": 0.2202,
+      "ece": 0.08229
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03646,
+      "brier": 0.20811,
+      "ece": 0.05514
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.00662,
+      "brier": 0.2053,
+      "ece": 0.02963
+     }
+    }
+   },
+   "laliga": {
+    "n": 3440,
+    "dispersion": 2.1873,
+    "media": 11.909,
+    "corr": 0.4591,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.05085,
+      "brier": 0.212,
+      "ece": 0.06143
+     },
+     "A_liga/binneg": {
+      "marginal": 0.03142,
+      "brier": 0.20923,
+      "ece": 0.0383
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03846,
+      "brier": 0.20039,
+      "ece": 0.0594
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.03139,
+      "brier": 0.1976,
+      "ece": 0.03505
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01303,
+      "brier": 0.21826,
+      "ece": 0.11161
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02093,
+      "brier": 0.20802,
+      "ece": 0.06651
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03301,
+      "brier": 0.19271,
+      "ece": 0.04543
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01279,
+      "brier": 0.19145,
+      "ece": 0.02807
+     }
+    }
+   },
+   "liga_mx": {
+    "n": 3350,
+    "dispersion": 2.0595,
+    "media": 13.231,
+    "corr": 0.4179,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04649,
+      "brier": 0.21747,
+      "ece": 0.05797
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02897,
+      "brier": 0.21505,
+      "ece": 0.03685
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03357,
+      "brier": 0.21487,
+      "ece": 0.0693
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.02822,
+      "brier": 0.21092,
+      "ece": 0.03381
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01492,
+      "brier": 0.22873,
+      "ece": 0.11247
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02174,
+      "brier": 0.2189,
+      "ece": 0.07182
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03225,
+      "brier": 0.19872,
+      "ece": 0.03957
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01641,
+      "brier": 0.19759,
+      "ece": 0.02778
+     }
+    }
+   },
+   "ligue_1": {
+    "n": 2956,
+    "dispersion": 1.9657,
+    "media": 12.128,
+    "corr": 0.3627,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.04255,
+      "brier": 0.21521,
+      "ece": 0.05164
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02408,
+      "brier": 0.21277,
+      "ece": 0.0278
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03095,
+      "brier": 0.2105,
+      "ece": 0.05897
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01722,
+      "brier": 0.20718,
+      "ece": 0.02755
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01358,
+      "brier": 0.23284,
+      "ece": 0.12102
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02016,
+      "brier": 0.22253,
+      "ece": 0.08351
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03149,
+      "brier": 0.20241,
+      "ece": 0.04368
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01186,
+      "brier": 0.20059,
+      "ece": 0.02139
+     }
+    }
+   },
+   "premier": {
+    "n": 2862,
+    "dispersion": 2.4163,
+    "media": 12.801,
+    "corr": 0.5158,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.06222,
+      "brier": 0.22553,
+      "ece": 0.06919
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02479,
+      "brier": 0.22118,
+      "ece": 0.03755
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03661,
+      "brier": 0.212,
+      "ece": 0.07063
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.0267,
+      "brier": 0.20676,
+      "ece": 0.03409
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.02108,
+      "brier": 0.22985,
+      "ece": 0.11596
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02597,
+      "brier": 0.21776,
+      "ece": 0.06884
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.04075,
+      "brier": 0.19041,
+      "ece": 0.04223
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.0197,
+      "brier": 0.19131,
+      "ece": 0.05083
+     }
+    }
+   },
+   "primeira": {
+    "n": 2998,
+    "dispersion": 2.1983,
+    "media": 12.018,
+    "corr": 0.4979,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.05846,
+      "brier": 0.22183,
+      "ece": 0.06838
+     },
+     "A_liga/binneg": {
+      "marginal": 0.00999,
+      "brier": 0.21719,
+      "ece": 0.02901
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03681,
+      "brier": 0.20548,
+      "ece": 0.06045
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01401,
+      "brier": 0.20166,
+      "ece": 0.02733
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01889,
+      "brier": 0.22239,
+      "ece": 0.11582
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01691,
+      "brier": 0.21168,
+      "ece": 0.06869
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03982,
+      "brier": 0.18718,
+      "ece": 0.03982
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.00935,
+      "brier": 0.18786,
+      "ece": 0.04587
+     }
+    }
+   },
+   "serie_a": {
+    "n": 3716,
+    "dispersion": 2.1426,
+    "media": 12.474,
+    "corr": 0.4494,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.05121,
+      "brier": 0.21856,
+      "ece": 0.05775
+     },
+     "A_liga/binneg": {
+      "marginal": 0.00406,
+      "brier": 0.21501,
+      "ece": 0.02525
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.03516,
+      "brier": 0.20851,
+      "ece": 0.06874
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01427,
+      "brier": 0.20362,
+      "ece": 0.0268
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.01427,
+      "brier": 0.22509,
+      "ece": 0.1114
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02159,
+      "brier": 0.21475,
+      "ece": 0.06555
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.03348,
+      "brier": 0.19563,
+      "ece": 0.0387
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01157,
+      "brier": 0.19474,
+      "ece": 0.02949
+     }
+    }
+   },
+   "turquia": {
+    "n": 1050,
+    "dispersion": 2.2595,
+    "media": 12.716,
+    "corr": 0.4865,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.03979,
+      "brier": 0.21715,
+      "ece": 0.07149
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02213,
+      "brier": 0.21339,
+      "ece": 0.05229
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01954,
+      "brier": 0.20134,
+      "ece": 0.06688
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.02628,
+      "brier": 0.19768,
+      "ece": 0.0369
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00995,
+      "brier": 0.20971,
+      "ece": 0.09273
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02657,
+      "brier": 0.20216,
+      "ece": 0.04835
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.02861,
+      "brier": 0.19293,
+      "ece": 0.04227
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.0175,
+      "brier": 0.19252,
+      "ece": 0.03553
+     }
+    }
+   }
+  }
+ },
+ "on": {
+  "filas": [
+   {
+    "estimador": "D_ataque_defensa",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.012872658303981162,
+    "brier": 0.20153541850755058,
+    "ece": 0.027335172845953354
+   },
+   {
+    "estimador": "D_ataque_defensa",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.012808620273358965,
+    "brier": 0.20168818822430837,
+    "ece": 0.02907380982431849
+   },
+   {
+    "estimador": "B_equipo",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.022885769584131955,
+    "brier": 0.2067043970902333,
+    "ece": 0.039145126393781156
+   },
+   {
+    "estimador": "B_equipo",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.01705481926716826,
+    "brier": 0.2075891866606155,
+    "ece": 0.04640996980770362
+   },
+   {
+    "estimador": "A_liga",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.020929290682486446,
+    "brier": 0.21237608324878104,
+    "ece": 0.03200231758587374
+   },
+   {
+    "estimador": "A_liga",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.026135324059174448,
+    "brier": 0.2129674166319737,
+    "ece": 0.03627369327737451
+   },
+   {
+    "estimador": "C_movil5",
+    "dist": "binneg",
+    "n": 42000,
+    "marginal": 0.02331437406701482,
+    "brier": 0.21918792617033364,
+    "ece": 0.08417356351884643
+   },
+   {
+    "estimador": "C_movil5",
+    "dist": "poisson",
+    "n": 42000,
+    "marginal": 0.0070593065617357105,
+    "brier": 0.22217968878161296,
+    "ece": 0.09824216940032976
+   }
+  ],
+  "mejor": {
+   "estimador": "D_ataque_defensa",
+   "dist": "binneg",
+   "n": 42000,
+   "marginal": 0.012872658303981162,
+   "brier": 0.20153541850755058,
+   "ece": 0.027335172845953354
+  },
+  "dispersion_media": 1.3618,
+  "por_liga": {
+   "bundesliga": {
+    "n": 2372,
+    "dispersion": 1.4696,
+    "media": 4.725,
+    "corr": 0.3994,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.02883,
+      "brier": 0.21016,
+      "ece": 0.03495
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01192,
+      "brier": 0.20925,
+      "ece": 0.02054
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01133,
+      "brier": 0.20134,
+      "ece": 0.04593
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.02257,
+      "brier": 0.20058,
+      "ece": 0.0367
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.0096,
+      "brier": 0.21672,
+      "ece": 0.10326
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.03312,
+      "brier": 0.21372,
+      "ece": 0.08454
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01455,
+      "brier": 0.19651,
+      "ece": 0.02593
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01908,
+      "brier": 0.19666,
+      "ece": 0.02847
+     }
+    }
+   },
+   "eng_championship": {
+    "n": 3532,
+    "dispersion": 1.2763,
+    "media": 4.004,
+    "corr": 0.2749,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.0133,
+      "brier": 0.20996,
+      "ece": 0.01987
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01179,
+      "brier": 0.20991,
+      "ece": 0.01901
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.00593,
+      "brier": 0.20837,
+      "ece": 0.04558
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01302,
+      "brier": 0.20758,
+      "ece": 0.03832
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00935,
+      "brier": 0.22134,
+      "ece": 0.0994
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02296,
+      "brier": 0.21881,
+      "ece": 0.08888
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.0086,
+      "brier": 0.20396,
+      "ece": 0.02907
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01123,
+      "brier": 0.2036,
+      "ece": 0.02304
+     }
+    }
+   },
+   "eng_league_one": {
+    "n": 1696,
+    "dispersion": 1.3813,
+    "media": 3.899,
+    "corr": 0.2408,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.02228,
+      "brier": 0.21371,
+      "ece": 0.04047
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01205,
+      "brier": 0.21323,
+      "ece": 0.03488
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01305,
+      "brier": 0.21594,
+      "ece": 0.05642
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01495,
+      "brier": 0.21441,
+      "ece": 0.04235
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00801,
+      "brier": 0.22899,
+      "ece": 0.10431
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.0225,
+      "brier": 0.22532,
+      "ece": 0.08768
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01462,
+      "brier": 0.21036,
+      "ece": 0.0406
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01508,
+      "brier": 0.20956,
+      "ece": 0.03178
+     }
+    }
+   },
+   "eng_league_two": {
+    "n": 1864,
+    "dispersion": 1.2602,
+    "media": 3.889,
+    "corr": 0.2161,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.01183,
+      "brier": 0.21073,
+      "ece": 0.03721
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01182,
+      "brier": 0.21052,
+      "ece": 0.03397
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.00667,
+      "brier": 0.21253,
+      "ece": 0.06092
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01438,
+      "brier": 0.21162,
+      "ece": 0.05188
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00728,
+      "brier": 0.22953,
+      "ece": 0.10998
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02088,
+      "brier": 0.22666,
+      "ece": 0.09803
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.00597,
+      "brier": 0.20616,
+      "ece": 0.03345
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01076,
+      "brier": 0.20577,
+      "ece": 0.02976
+     }
+    }
+   },
+   "eredivisie": {
+    "n": 3076,
+    "dispersion": 1.6688,
+    "media": 4.835,
+    "corr": 0.458,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.03159,
+      "brier": 0.21593,
+      "ece": 0.04052
+     },
+     "A_liga/binneg": {
+      "marginal": 0.022,
+      "brier": 0.21501,
+      "ece": 0.0273
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01193,
+      "brier": 0.20024,
+      "ece": 0.04103
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.03287,
+      "brier": 0.19995,
+      "ece": 0.03663
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00514,
+      "brier": 0.21845,
+      "ece": 0.09536
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.0287,
+      "brier": 0.21395,
+      "ece": 0.07341
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.02431,
+      "brier": 0.19184,
+      "ece": 0.02839
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01589,
+      "brier": 0.19237,
+      "ece": 0.0381
+     }
+    }
+   },
+   "esp_hypermotion": {
+    "n": 4088,
+    "dispersion": 1.2899,
+    "media": 3.987,
+    "corr": 0.3034,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.0139,
+      "brier": 0.20676,
+      "ece": 0.02234
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01763,
+      "brier": 0.20679,
+      "ece": 0.02534
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.00653,
+      "brier": 0.20417,
+      "ece": 0.03157
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01255,
+      "brier": 0.20364,
+      "ece": 0.02605
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00653,
+      "brier": 0.21656,
+      "ece": 0.08946
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.0207,
+      "brier": 0.2142,
+      "ece": 0.07801
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.00689,
+      "brier": 0.20261,
+      "ece": 0.03656
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01209,
+      "brier": 0.20222,
+      "ece": 0.03156
+     }
+    }
+   },
+   "fra_ligue2": {
+    "n": 960,
+    "dispersion": 1.3134,
+    "media": 4.101,
+    "corr": 0.257,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.03263,
+      "brier": 0.21774,
+      "ece": 0.04821
+     },
+     "A_liga/binneg": {
+      "marginal": 0.0173,
+      "brier": 0.21623,
+      "ece": 0.03651
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01949,
+      "brier": 0.22175,
+      "ece": 0.08022
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.0077,
+      "brier": 0.21944,
+      "ece": 0.06652
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00583,
+      "brier": 0.23274,
+      "ece": 0.11331
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01895,
+      "brier": 0.22944,
+      "ece": 0.10032
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01452,
+      "brier": 0.2118,
+      "ece": 0.04953
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.00553,
+      "brier": 0.2109,
+      "ece": 0.03849
+     }
+    }
+   },
+   "ger_bundesliga2": {
+    "n": 2502,
+    "dispersion": 1.2317,
+    "media": 4.732,
+    "corr": 0.2367,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.01856,
+      "brier": 0.20762,
+      "ece": 0.03175
+     },
+     "A_liga/binneg": {
+      "marginal": 0.00092,
+      "brier": 0.20713,
+      "ece": 0.02628
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.0207,
+      "brier": 0.20827,
+      "ece": 0.04582
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.0072,
+      "brier": 0.20718,
+      "ece": 0.03551
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00615,
+      "brier": 0.22537,
+      "ece": 0.10362
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02059,
+      "brier": 0.22329,
+      "ece": 0.09396
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01067,
+      "brier": 0.20509,
+      "ece": 0.03267
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.00654,
+      "brier": 0.20457,
+      "ece": 0.02446
+     }
+    }
+   },
+   "ita_serie_b": {
+    "n": 1538,
+    "dispersion": 1.2425,
+    "media": 4.12,
+    "corr": 0.2792,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.01926,
+      "brier": 0.2108,
+      "ece": 0.03207
+     },
+     "A_liga/binneg": {
+      "marginal": 0.00711,
+      "brier": 0.21048,
+      "ece": 0.03133
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01037,
+      "brier": 0.21062,
+      "ece": 0.0479
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01013,
+      "brier": 0.20978,
+      "ece": 0.04035
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00863,
+      "brier": 0.22318,
+      "ece": 0.10022
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01497,
+      "brier": 0.22081,
+      "ece": 0.0897
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01377,
+      "brier": 0.20679,
+      "ece": 0.03466
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.00946,
+      "brier": 0.20622,
+      "ece": 0.02974
+     }
+    }
+   },
+   "laliga": {
+    "n": 3440,
+    "dispersion": 1.4,
+    "media": 4.122,
+    "corr": 0.3927,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.02057,
+      "brier": 0.21106,
+      "ece": 0.02493
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02482,
+      "brier": 0.21123,
+      "ece": 0.02723
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.014,
+      "brier": 0.1988,
+      "ece": 0.0312
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.02708,
+      "brier": 0.19895,
+      "ece": 0.03352
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00854,
+      "brier": 0.21676,
+      "ece": 0.09011
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02547,
+      "brier": 0.21358,
+      "ece": 0.07479
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01186,
+      "brier": 0.19746,
+      "ece": 0.02046
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01312,
+      "brier": 0.19753,
+      "ece": 0.02194
+     }
+    }
+   },
+   "liga_mx": {
+    "n": 3350,
+    "dispersion": 1.3093,
+    "media": 4.418,
+    "corr": 0.2988,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.02256,
+      "brier": 0.21295,
+      "ece": 0.03397
+     },
+     "A_liga/binneg": {
+      "marginal": 0.03382,
+      "brier": 0.21324,
+      "ece": 0.03956
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.019,
+      "brier": 0.21038,
+      "ece": 0.03844
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.03394,
+      "brier": 0.21035,
+      "ece": 0.03878
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00809,
+      "brier": 0.2234,
+      "ece": 0.0932
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02338,
+      "brier": 0.22105,
+      "ece": 0.08326
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01083,
+      "brier": 0.20513,
+      "ece": 0.02329
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01575,
+      "brier": 0.20494,
+      "ece": 0.01849
+     }
+    }
+   },
+   "ligue_1": {
+    "n": 2956,
+    "dispersion": 1.3153,
+    "media": 4.31,
+    "corr": 0.283,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.02254,
+      "brier": 0.21556,
+      "ece": 0.03444
+     },
+     "A_liga/binneg": {
+      "marginal": 0.02647,
+      "brier": 0.21555,
+      "ece": 0.03926
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01542,
+      "brier": 0.21237,
+      "ece": 0.03682
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.02402,
+      "brier": 0.21183,
+      "ece": 0.03063
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00203,
+      "brier": 0.22838,
+      "ece": 0.10429
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01941,
+      "brier": 0.22538,
+      "ece": 0.09037
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01374,
+      "brier": 0.20733,
+      "ece": 0.02948
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01265,
+      "brier": 0.20695,
+      "ece": 0.02537
+     }
+    }
+   },
+   "premier": {
+    "n": 2862,
+    "dispersion": 1.4111,
+    "media": 4.448,
+    "corr": 0.3869,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.01912,
+      "brier": 0.2143,
+      "ece": 0.02851
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01742,
+      "brier": 0.2142,
+      "ece": 0.02781
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.00703,
+      "brier": 0.20893,
+      "ece": 0.04697
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.0225,
+      "brier": 0.2081,
+      "ece": 0.03912
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00658,
+      "brier": 0.22424,
+      "ece": 0.10128
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02897,
+      "brier": 0.22089,
+      "ece": 0.08614
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.00915,
+      "brier": 0.19699,
+      "ece": 0.01923
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01878,
+      "brier": 0.19756,
+      "ece": 0.02851
+     }
+    }
+   },
+   "primeira": {
+    "n": 2998,
+    "dispersion": 1.377,
+    "media": 4.157,
+    "corr": 0.4221,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.01963,
+      "brier": 0.21616,
+      "ece": 0.0327
+     },
+     "A_liga/binneg": {
+      "marginal": 0.01598,
+      "brier": 0.21577,
+      "ece": 0.02839
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.01261,
+      "brier": 0.20231,
+      "ece": 0.03771
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.02524,
+      "brier": 0.20237,
+      "ece": 0.03646
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00698,
+      "brier": 0.21823,
+      "ece": 0.09587
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02569,
+      "brier": 0.21536,
+      "ece": 0.08101
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.00962,
+      "brier": 0.1945,
+      "ece": 0.02556
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01348,
+      "brier": 0.19513,
+      "ece": 0.03087
+     }
+    }
+   },
+   "serie_a": {
+    "n": 3716,
+    "dispersion": 1.3897,
+    "media": 4.298,
+    "corr": 0.3685,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.08289,
+      "brier": 0.22269,
+      "ece": 0.08289
+     },
+     "A_liga/binneg": {
+      "marginal": 0.05798,
+      "brier": 0.2187,
+      "ece": 0.05812
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.07013,
+      "brier": 0.21384,
+      "ece": 0.07664
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.04832,
+      "brier": 0.21004,
+      "ece": 0.05354
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.00749,
+      "brier": 0.22434,
+      "ece": 0.096
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.01737,
+      "brier": 0.22071,
+      "ece": 0.07943
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.02296,
+      "brier": 0.20304,
+      "ece": 0.02653
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.00831,
+      "brier": 0.2023,
+      "ece": 0.01864
+     }
+    }
+   },
+   "turquia": {
+    "n": 1050,
+    "dispersion": 1.4526,
+    "media": 4.395,
+    "corr": 0.3845,
+    "errores": {
+     "A_liga/poisson": {
+      "marginal": 0.02528,
+      "brier": 0.2111,
+      "ece": 0.04991
+     },
+     "A_liga/binneg": {
+      "marginal": 0.00654,
+      "brier": 0.21042,
+      "ece": 0.04407
+     },
+     "B_equipo/poisson": {
+      "marginal": 0.00773,
+      "brier": 0.20842,
+      "ece": 0.06882
+     },
+     "B_equipo/binneg": {
+      "marginal": 0.01778,
+      "brier": 0.20694,
+      "ece": 0.06019
+     },
+     "C_movil5/poisson": {
+      "marginal": 0.0064,
+      "brier": 0.22181,
+      "ece": 0.09768
+     },
+     "C_movil5/binneg": {
+      "marginal": 0.02771,
+      "brier": 0.21878,
+      "ece": 0.0833
+     },
+     "D_ataque_defensa/poisson": {
+      "marginal": 0.01365,
+      "brier": 0.19976,
+      "ece": 0.03861
+     },
+     "D_ataque_defensa/binneg": {
+      "marginal": 0.01448,
+      "brier": 0.20008,
+      "ece": 0.04177
+     }
+    }
+   }
+  }
+ }
+}

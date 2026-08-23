@@ -167,3 +167,16 @@ modelos/*/
 # histórico y caduca sola cuando el bot lo actualiza, así que versionarlo sólo
 # produciría un diff diario que nadie lee.
 cache_columnas_sinteticas.json
+
+# v163 — cachés regenerables que hasta ahora no estaban listadas.
+#
+# `fotmob_cache/` lo escribe `fotmob_scraper.py` desde hace tiempo y nunca se
+# ignoró: la primera sesión que tocó FotMob a fondo dejó 1.524 ficheros y 6,7
+# MB listos para entrar en un commit. Es un extracto por partido con TTL, o
+# sea regenerable, igual que `remates_cache/` y `cuotas_cache/`, que sí
+# estaban.
+fotmob_cache/
+# El corpus por jugador que bajan los scripts de medición de la v163 (7,4 MB
+# de tres competiciones). Se vuelve a bajar solo con
+# `python _v163_remates_jugador.py <code_espn>`.
+_v163_cache_jugadores/

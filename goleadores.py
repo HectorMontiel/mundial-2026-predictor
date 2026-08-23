@@ -173,6 +173,18 @@ def _roster_crudo(code: str, team_id: str, season: Optional[int]) -> List[Dict]:
             'goles': _stat(cats, 'totalGoals'), 'apariciones': apar,
             'asistencias': _stat(cats, 'goalAssists'),
             'remates': _stat(cats, 'totalShots'),
+            # v163 — los remates A PUERTA salen del MISMO JSON que ya se está
+            # leyendo: es un campo más del bloque de estadísticas, sin una
+            # petición extra ni un segundo endpoint. Estaba documentado en la
+            # cabecera de este módulo desde la v57 («por jugador devuelve
+            # totalGoals, goalAssists, appearances, totalShots,
+            # shotsOnTarget») y era el único de los cinco que no se guardaba.
+            #
+            # Los rosters ya cacheados no lo traen. `remates_jugador` lo trata
+            # como ausente y cae al objetivo de remates totales, así que la
+            # sección funciona igual hasta que el workflow diario refresque el
+            # fichero — no hace falta invalidar la caché a mano.
+            'al_arco': _stat(cats, 'shotsOnTarget'),
         })
     return jugadores
 

@@ -301,6 +301,23 @@ jobs:
         run: |
           python arbitro_partido.py --dias 2 || echo "::warning::árbitros con avisos"
 
+      # v163 — LA ALINEACIÓN PROBABLE, POR EL MISMO MOTIVO Y CON EL MISMO COSTE.
+      #
+      # Va aquí y no en la pantalla porque la tarjeta de «Apuestas del Día» se
+      # pinta una vez por partido y hay sesenta: a un `matchDetails` de FotMob
+      # por partido (1,7 s) serían dos minutos añadidos a una pantalla que ya
+      # tarda 85. Aquí es una petición al índice por día más una por partido
+      # NUESTRO, una sola vez.
+      #
+      # Y como con el árbitro, es un dato que caduca: medido el 2026-08-23,
+      # ESPN publica el once en 50 de 50 partidos JUGADOS y en 0 de 54 por
+      # jugar, así que después ya no sirve. FotMob sí lo da antes —27 de 50 por
+      # jugar, 21 de ellos como `predicted`— y es lo que se guarda.
+      - name: Precalcular la alineación probable de cada partido
+        continue-on-error: true
+        run: |
+          python remates_jugador.py --dias 2 || echo "::warning::alineaciones con avisos"
+
       - name: Guardar históricos y estado (antes de lo lento)
         run: |
           git config user.name  "retrain-bot"
@@ -308,6 +325,7 @@ jobs:
           git add -A historico_*.csv team_stats_*.json barrido_ligas.json 2>/dev/null || true
           git add -A predicciones_dia.json 2>/dev/null || true
           git add -A arbitros_dia.json 2>/dev/null || true
+          git add -A alineaciones_dia.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Sin cambios en históricos (ligas en receso). Nada que guardar."
           else
@@ -405,6 +423,20 @@ jobs:
         run: |
           python snapshots_tarjetas.py --dias 2 || echo "::warning::tarjetas con avisos"
 
+      # v163 — y los remates, tercer mercado con el mismo problema. Su
+      # probabilidad está calibrada (0,0131 por equipo en remates totales y
+      # 0,0129 a puerta contra la frecuencia real, sobre 41.000
+      # equipos-partido) y NO hay histórico de líneas con el que saber si su EV
+      # gana. Sin este paso, los remates no pueden salir de ámbar nunca.
+      #
+      # Guarda los dos mercados por separado —«Total de remates» y «Total de
+      # remates a puerta» tienen dispersiones y niveles distintos— con una
+      # columna `objetivo` que los distingue.
+      - name: Fotografiar las líneas de remates
+        continue-on-error: true
+        run: |
+          python snapshots_remates.py --dias 2 || echo "::warning::remates con avisos"
+
       # v95 — EL CATÁLOGO DE TENIS CRECE SOLO.
       #
       # 182 partidos salían como «con cuota, sin modelo propio» porque el
@@ -497,6 +529,11 @@ jobs:
           # designado por el que efectivamente pitó en cuanto el partido
           # acaba, así que la foto de hoy no se puede recuperar mañana.
           git add -A tarjetas_snapshots.csv arbitros_dia.json 2>/dev/null || true
+          # v163 — lo mismo para remates, y la alineación probable del día.
+          # `alineaciones_dia.json` tampoco es regenerable: en cuanto el
+          # partido empieza, el once probable pasa a ser el once real y el que
+          # se publicó antes ya no existe en ninguna parte.
+          git add -A remates_snapshots.csv alineaciones_dia.json 2>/dev/null || true
           # v162 — las estadísticas reales de ESPN. Son la fuente de que
           # córners y tarjetas dejen de ser sintéticos en 40 competiciones;
           # sin commitearlas, cada despliegue empezaría de cero.

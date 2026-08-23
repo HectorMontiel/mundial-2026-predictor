@@ -654,6 +654,157 @@ def _bloque_tarjetas_html(tj: Optional[Dict]) -> str:
     return ''.join(trozos)
 
 
+# ---------------------------------------------------------------------------
+# v163 — LOS REMATES, EN SUS DOS MERCADOS, Y QUIÉN LOS TIRA
+# ---------------------------------------------------------------------------
+# Tercera sección física, con la misma forma que córners y tarjetas para que se
+# lea igual: total, local y visita, cada uno con su línea y su probabilidad.
+#
+# DOS BLOQUES Y NO UNO, PORQUE SON DOS MERCADOS
+# ----------------------------------------------
+# «Más de 12,5 remates» y «más de 4,5 a puerta» se cotizan por separado y se
+# calibraron por separado (§13 de la bitácora). Juntarlos en una fila obligaría
+# a elegir uno, y el que se dejara fuera sería el que el usuario está mirando.
+#
+# LO QUE NO SE PUEDE PROMETER AQUÍ, Y ESTÁ MEDIDO
+# ------------------------------------------------
+# Esto es una probabilidad mejor calibrada, no una ventaja de precio. No hay
+# histórico de líneas de remates con el que medir un percentil 5, igual que
+# pasaba con las tarjetas en la v160. Sale en ámbar y ahí se queda hasta que
+# `snapshots_remates.py` acumule bastante para liquidar.
+def remates_tarjeta(pick: Dict) -> Optional[Dict]:
+    """
+    Los dos mercados de remates del partido, cada uno con su apuesta más
+    probable.
+
+    Devuelve `{'totales': bloque, 'a_puerta': bloque}` con la forma que pinta
+    `_bloque_seccion_html`, o `None` si no es fútbol o no hay ni goles con los
+    que situar el nivel de la competición.
+    """
+    clave = str(pick.get('clave_liga') or '')
+    if not clave or str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+        return None
+    h, a = _equipos(pick)
+    if not h or not a:
+        return None
+    try:
+        import rendimiento_equipos as rq
+        eq = rq.remates_equipo(clave, h, a)
+    except Exception as e:
+        logger.debug('[modo_modelo] remates de %s: %s', clave, e)
+        return None
+    if not eq:
+        return None
+    salida = {}
+    for nombre, icono in (('totales', '🎯'), ('a_puerta', '🥅')):
+        if eq.get(nombre):
+            bloque = _filas_de(eq[nombre], icono)
+            if bloque:
+                salida[nombre] = bloque
+    return salida or None
+
+
+def _bloque_remates_html(rem: Optional[Dict]) -> str:
+    """Las dos secciones, con la más probable de cada una resaltada."""
+    if not rem:
+        return ''
+    trozos = []
+    if rem.get('totales'):
+        trozos.append(_bloque_seccion_html(rem['totales'], '🎯', 'Remates'))
+    if rem.get('a_puerta'):
+        trozos.append(_bloque_seccion_html(rem['a_puerta'], '🥅',
+                                           'Remates a puerta'))
+    return ''.join(trozos)
+
+
+# ---------------------------------------------------------------------------
+# v163 — QUIÉN REMATA, EN LA TARJETA
+# ---------------------------------------------------------------------------
+# El top 3 de cada equipo. Se sirve del roster de temporada que YA está
+# precalculado en `goleadores_cache.json`, así que no cuesta ni una petición:
+# la tarjeta se pinta sesenta veces por pantalla y pedir once `summary` por
+# equipo (mil trescientas peticiones) no cabe. La tabla completa y con forma
+# reciente está en la ficha, que se abre de una en una.
+#
+# EL AVISO NO ES DECORACIÓN, ES EL RESULTADO DE UNA MEDICIÓN
+# -----------------------------------------------------------
+# Saber CUÁNTO remata un jugador calibra (ECE 0,029). Saber SI VA A JUGAR no:
+# la frecuencia de titularidad da ECE de 0,057 a 0,073, por encima del umbral
+# de 0,05 del proyecto. Así que cuando FotMob publica el once probable se dice
+# de dónde sale, y cuando no, se dice que no se sabe quién juega. Las dos
+# frases son distintas y la diferencia es justo lo que separa un dato de una
+# suposición.
+def quien_remata_tarjeta(pick: Dict, tope: int = 3) -> Optional[Dict]:
+    """El top `tope` de cada equipo, sin pedir nada a la red."""
+    clave = str(pick.get('clave_liga') or '')
+    if not clave or str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+        return None
+    h, a = _equipos(pick)
+    if not h or not a:
+        return None
+    try:
+        import remates_jugador as rjg
+        return rjg.partido(clave, h, a, str(pick.get('fecha') or '')[:10],
+                           en_vivo=False, tope=tope)
+    except Exception as e:
+        logger.debug('[modo_modelo] quién remata en %s: %s', clave, e)
+        return None
+
+
+def _bloque_quien_remata_html(qr: Optional[Dict]) -> str:
+    if not qr:
+        return ''
+    filas = (qr.get('home_jugadores') or []) + (qr.get('away_jugadores') or [])
+    if not filas:
+        return ''
+    al = qr.get('alineacion') or {}
+    if al.get('etiqueta') == 'probable':
+        cabecera = ('once probable'
+                    if al.get('tipo') == 'predicted' else 'alineación')
+    elif al.get('etiqueta') == 'último once':
+        cabecera = 'once del último partido'
+    elif al.get('etiqueta') == 'confirmada':
+        cabecera = 'once confirmado'
+    else:
+        cabecera = 'sin alineación'
+    trozos = ['<div class="mm-ck-tit">🎯 <b>Quién remata</b> '
+              '<span class="mm-ck-est">%s</span></div>' % cabecera]
+    for lado, equipo in (('home', qr.get('home')), ('away', qr.get('away'))):
+        js = qr.get(lado + '_jugadores') or []
+        if not js:
+            continue
+        partes = []
+        for j in js:
+            if j.get('p_remata') is None:
+                continue
+            corto = '*' if j.get('muestra_corta') else ''
+            partes.append('%s %.0f %%%s' % (j.get('jugador'),
+                                            j['p_remata'] * 100, corto))
+        if partes:
+            trozos.append('<div class="mm-ck-fila">%s · %s</div>'
+                          % (equipo, ' &nbsp;·&nbsp; '.join(partes)))
+    if len(trozos) == 1:
+        return ''
+    # el pie: qué es esa probabilidad y qué NO es
+    pie = ('probabilidad de tirar al menos un remate. Es informativa: el '
+           'mercado de jugador no tiene aquí ventaja de precio medida.')
+    if not al:
+        pie = ('todavía no hay alineación publicada, así que no se sabe quién '
+               'sale de inicio — ' + pie)
+    else:
+        # Si el once no se ha podido casar entero, se dice. Una lista de seis
+        # nombres rotulada «once probable» afirma que el once son esos seis.
+        faltan = [qr.get(l + '_casados_de') for l in ('home', 'away')]
+        faltan = [c for c in faltan if c and c[0] < c[1]]
+        if faltan:
+            pie = ('de la alineación se han encontrado %s con estadística — '
+                   % ' y '.join('%d de %d' % c for c in faltan)) + pie
+    if any(j.get('muestra_corta') for j in filas):
+        pie += ' El asterisco marca a quien lleva menos de 4 partidos.'
+    trozos.append('<div class="mm-ck-fila mm-est">📐 %s</div>' % pie)
+    return ''.join(trozos)
+
+
 def _bloque_fisico(rend: Dict, disp: Dict, con_corners: bool = True,
                    con_tarjetas: bool = True) -> str:
     """
@@ -835,6 +986,12 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         # desaparece, igual que la de córners.
         _tj_tarjeta = tarjetas_tarjeta(pick)
         piezas.append(_bloque_tarjetas_html(_tj_tarjeta))
+        # v163 - y los remates, en sus dos mercados, con el mismo criterio:
+        # donde hay datos observados salen observados y donde no, estimados y
+        # marcados. Debajo, quien los tira - que sale del roster ya
+        # precalculado y por eso no cuesta ni una peticion aqui.
+        piezas.append(_bloque_remates_html(remates_tarjeta(pick)))
+        piezas.append(_bloque_quien_remata_html(quien_remata_tarjeta(pick)))
 
         rend = None
         if str(pick.get('deporte') or '') != 'Tenis':

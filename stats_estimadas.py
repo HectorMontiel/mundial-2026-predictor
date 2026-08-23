@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-v162 — CÓRNERS Y TARJETAS DONDE NO HAY NI UN DATO, Y CUÁNTO VALEN.
+v162 — CÓRNERS, TARJETAS Y REMATES DONDE NO HAY NI UN DATO, Y CUÁNTO VALEN.
 
 Para qué
 --------
@@ -66,6 +66,33 @@ y el rango entre ligas es grande —córners de 8,70 a 10,59; tarjetas de 3,17 a
 sobre la media global en las dos (0,0247 contra 0,0264 y 0,0539 contra 0,0549):
 poco, pero en la dirección correcta y en las 20 ligas.
 
+v163 — REMATES, MEDIDOS IGUAL Y CON EL MISMO VEREDICTO
+-------------------------------------------------------
+El tercer mercado entró por la misma puerta, con validación dejando una liga
+fuera sobre 18 competiciones (`_v163_remates_estimados.py`):
+
+    REMATES TOTALES por equipo             marginal     ECE     corr
+      con datos reales (el techo) .......   0,0131   0,0321    0,431
+      media de liga predicha de sus goles   0,0281   0,0302    0,235  ← adoptado
+      media global de las otras ligas ...   0,0401   0,0405    0,235
+      predicha × ataque, normalizada ....   0,0481   0,1516    0,258
+
+    REMATES A PUERTA por equipo
+      con datos reales (el techo) .......   0,0128   0,0279    0,334
+      media de liga predicha de sus goles   0,0168   0,0211    0,171  ← adoptado
+      media global de las otras ligas ...   0,0376   0,0390    0,171
+      predicha × ataque, normalizada ....   0,0376   0,1101    0,239
+
+Los dos quedan por debajo del umbral de 0,05, así que la estimación de remates
+se enseña con el aviso suave —a diferencia de la de tarjetas, que va a 0,0539
+y lleva el fuerte. Y la modulación por ataque vuelve a perder, aquí por más
+distancia que en ningún otro mercado: multiplica el ECE por cinco.
+
+Los goles predicen el nivel de remates de una liga MEJOR que el de córners o
+tarjetas: correlación +0,666 en remates totales y **+0,878** a puerta, contra
++0,428 y −0,412. Tiene sentido — los remates son el paso inmediatamente
+anterior al gol, y córners y tarjetas están dos pasos más lejos.
+
 LO QUE ESTO NO PUEDE HACER, DICHO CLARO
 ----------------------------------------
 Sin un solo córner observado de una competición, **no hay forma de saber qué
@@ -114,7 +141,8 @@ def ajustar(claves: Optional[List[str]] = None) -> Dict:
             disp = rq.stats_disponibles(c)
         except Exception:
             continue
-        if not (disp.get('corners') or disp.get('tarjetas')):
+        if not (disp.get('corners') or disp.get('tarjetas')
+                or disp.get('remates')):
             continue
         d = rq._historico(c)
         if d is None or getattr(d, 'empty', True) or len(d) < 400:
@@ -130,6 +158,36 @@ def ajustar(claves: Optional[List[str]] = None) -> Dict:
             p['ck_prop_h'] = float(ch.mean() / (ch.mean() + ca.mean()))
             s = pd.concat([ch, ca]).dropna()
             p['ck_disp'] = float(max(s.var() / s.mean(), 1.0))
+        # v163 — remates, en sus dos mercados. La columna de totales es a
+        # puerta MÁS fuera, igual que la lee `rendimiento_equipos._remates_de`;
+        # si falta cualquiera de las dos, la fila no suma un total a medias.
+        #
+        # ESTE BLOQUE FILTRA POR `_solo_reales` Y LOS DE ARRIBA NO.
+        # No es un descuido: en una competición cubierta por ESPN desde 2021
+        # con histórico desde 2018, la columna está MEZCLADA, y promediar las
+        # dos mitades da un nivel que no es el de la liga. Medido: la razón
+        # varianza/media de los remates por equipo sale 3,4 mezclando y 2,0
+        # limpia. Los bloques de córners y tarjetas se dejan como estaban
+        # porque su calibración ya está medida y cerrada con ese
+        # comportamiento (§10-§11); cambiarlos aquí movería números validados
+        # sin volver a medirlos, que es justo lo que este proyecto no hace.
+        d_rem = rq._solo_reales(d, 'shots_on')
+        if disp.get('remates') and d_rem is not None and len(d_rem) >= 400:
+            for obj, cols in (('rem', ('shots_on', 'shots_off')),
+                              ('rem_on', ('shots_on',))):
+                if not all('home_%s' % c in d_rem.columns for c in cols):
+                    continue
+                rh = sum(pd.to_numeric(d_rem['home_%s' % c], errors='coerce')
+                         for c in cols)
+                ra = sum(pd.to_numeric(d_rem['away_%s' % c], errors='coerce')
+                         for c in cols)
+                if not rh.notna().any():
+                    continue
+                p[obj] = float((rh + ra).mean())
+                p['%s_prop_h' % obj] = float(rh.mean()
+                                             / (rh.mean() + ra.mean()))
+                s = pd.concat([rh, ra]).dropna()
+                p['%s_disp' % obj] = float(max(s.var() / s.mean(), 1.0))
         if disp.get('tarjetas') and 'home_red' in d.columns:
             th = (pd.to_numeric(d['home_yellow'], errors='coerce')
                   + pd.to_numeric(d['home_red'], errors='coerce'))
@@ -143,7 +201,7 @@ def ajustar(claves: Optional[List[str]] = None) -> Dict:
 
     doc = {'generado': pd.Timestamp.now('UTC').strftime('%Y-%m-%dT%H:%M:%SZ'),
            'ligas_ajuste': sorted(perfiles), 'rectas': {}, 'medianas': {}}
-    for obj in ('ck', 'tj'):
+    for obj in ('ck', 'tj', 'rem', 'rem_on'):
         con = {c: p for c, p in perfiles.items() if obj in p}
         if len(con) < 5:
             continue
@@ -165,8 +223,10 @@ def ajustar(claves: Optional[List[str]] = None) -> Dict:
         }
     # el error de calibración medido dejando una liga fuera (v162); no se
     # recalcula aquí, se anota para que la interfaz sepa qué está enseñando
-    doc['calibracion_estimada'] = {'ck': 0.0247, 'tj': 0.0539}
-    doc['calibracion_observada'] = {'ck': 0.0076, 'tj': 0.0123}
+    doc['calibracion_estimada'] = {'ck': 0.0247, 'tj': 0.0539,
+                                   'rem': 0.0281, 'rem_on': 0.0168}
+    doc['calibracion_observada'] = {'ck': 0.0076, 'tj': 0.0123,
+                                    'rem': 0.0131, 'rem_on': 0.0128}
     doc['perfiles'] = perfiles
     return doc
 
@@ -204,13 +264,16 @@ def _media_goles(clave: str) -> Optional[float]:
 
 def estimar(clave: str, objetivo: str) -> Optional[Dict]:
     """
-    Córners ('ck') o tarjetas ('tj') estimados para una competición sin datos.
+    Lo estimado para una competición sin datos observados.
+
+    `objetivo` es 'ck' (córners), 'tj' (tarjetas), 'rem' (remates totales) o
+    'rem_on' (remates a puerta).
 
     Devuelve las dos lambdas por bando, la dispersión y de dónde sale cada
     cosa. `None` si ni siquiera hay goles con los que situar el nivel — sin
     eso no queda nada honesto que enseñar.
     """
-    if objetivo not in ('ck', 'tj'):
+    if objetivo not in ('ck', 'tj', 'rem', 'rem_on'):
         return None
     doc = cargar()
     recta = (doc.get('rectas') or {}).get(objetivo)
@@ -273,7 +336,7 @@ def main() -> int:
         return 0
 
     if args.probar:
-        for obj in ('ck', 'tj'):
+        for obj in ('ck', 'tj', 'rem', 'rem_on'):
             print(obj, '->', json.dumps(estimar(args.probar, obj),
                                         ensure_ascii=False))
         return 0

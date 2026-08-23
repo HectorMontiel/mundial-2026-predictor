@@ -288,7 +288,31 @@ def codigo_espn(liga: str) -> str:
 
 
 def equipos_de_liga(liga: str, dias: int = 120) -> List[str]:
-    """Nombres de equipo tal y como los escribe ESPN en esa liga."""
+    """
+    Nombres de equipo tal y como los escribe ESPN en esa liga.
+
+    v163 — YA NO PARA A LOS 16 EQUIPOS, Y ESO ERA UN AGUJERO SILENCIOSO.
+    Antes cortaba el barrido en cuanto el conjunto llegaba a 16 nombres, con la
+    idea de que una liga tiene ~20 equipos y con un tramo basta. No basta: un
+    tramo son 55 días, y a principio de temporada —o después de un parón— ahí
+    dentro no ha jugado todavía media competición.
+
+    Medido el 2026-08-23, con el catálogo que había cacheado:
+
+        serie_a  16 equipos  (faltaban Roma, Lazio, Fiorentina, Bologna)
+        laliga   19 equipos  (faltaba Osasuna)
+
+    Y el efecto no se veía: `resolver_equipo` devuelve `None` para un equipo
+    que no está en el catálogo, así que la sección «¿Quién remata?» salía
+    VACÍA para la Roma, sin un aviso y sin un error — indistinguible de «ESPN
+    no publica esta competición», que es justo lo que la v118 arregló para las
+    ligas y volvía a pasar aquí para los equipos.
+
+    Ahora se recorre la ventana entera y sólo se corta antes si DOS tramos
+    seguidos no aportan un nombre nuevo, que es la señal de que el catálogo ya
+    está completo. Son 2-3 peticiones en vez de 1, una vez cada seis horas y
+    por competición.
+    """
     liga = codigo_espn(liga)
     clave = f'equipos_{liga}.json'
     cacheado = _leer_cache(clave)
@@ -296,20 +320,26 @@ def equipos_de_liga(liga: str, dias: int = 120) -> List[str]:
         return cacheado
     hoy = pd.Timestamp.today().normalize()
     nombres = set()
+    secos = 0
     for salto in range(0, max(dias, 1), TRAMO_DIAS):
         fin = hoy - pd.Timedelta(days=salto)
         ini = fin - pd.Timedelta(days=TRAMO_DIAS)
         j = _get(BASE.format(liga=liga) + '/scoreboard',
                  {'dates': f'{ini:%Y%m%d}-{fin:%Y%m%d}', 'limit': 400})
+        antes = len(nombres)
         for ev in (j or {}).get('events', []):
             for c in (ev.get('competitions') or [{}])[0].get('competitors', []):
                 n = (c.get('team') or {}).get('displayName')
                 if n:
                     nombres.add(n)
-        if len(nombres) >= 16:
+        secos = secos + 1 if len(nombres) == antes else 0
+        if secos >= 2 and nombres:
             break
     salida = sorted(nombres)
-    _escribir_cache(clave, salida)
+    # Un catálogo vacío no se cachea: seis horas de silencio por un fallo de
+    # red pasajero sería el mismo error que el de arriba con otra cara.
+    if salida:
+        _escribir_cache(clave, salida)
     return salida
 
 

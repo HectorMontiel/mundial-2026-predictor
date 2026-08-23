@@ -1,0 +1,85 @@
+{
+ "total": 285,
+ "fallan": [
+  {
+   "clave": "serie_a",
+   "proyecto": "Empoli",
+   "mejor_espn": "Napoli",
+   "ratio": 0.667
+  },
+  {
+   "clave": "bundesliga",
+   "proyecto": "Bochum",
+   "mejor_espn": "Borussia Dortmund",
+   "ratio": 0.348
+  },
+  {
+   "clave": "bundesliga",
+   "proyecto": "Holstein Kiel",
+   "mejor_espn": "RB Leipzig",
+   "ratio": 0.348
+  },
+  {
+   "clave": "gre_super_league",
+   "proyecto": "Athens Kallithea",
+   "mejor_espn": "AEK Athens",
+   "ratio": 0.462
+  },
+  {
+   "clave": "gre_super_league",
+   "proyecto": "Lamia",
+   "mejor_espn": "Larissa FC",
+   "ratio": 0.667
+  },
+  {
+   "clave": "eng_championship",
+   "proyecto": "Leeds",
+   "mejor_espn": "Leicester City",
+   "ratio": 0.571
+  },
+  {
+   "clave": "eng_championship",
+   "proyecto": "Luton",
+   "mejor_espn": "Lincoln City",
+   "ratio": 0.5
+  },
+  {
+   "clave": "eng_championship",
+   "proyecto": "Plymouth",
+   "mejor_espn": "Portsmouth",
+   "ratio": 0.667
+  },
+  {
+   "clave": "eng_championship",
+   "proyecto": "Sunderland",
+   "mejor_espn": "Derby County",
+   "ratio": 0.364
+  }
+ ],
+ "cerca": [
+  {
+   "clave": "serie_a",
+   "proyecto": "Empoli",
+   "mejor_espn": "Napoli",
+   "ratio": 0.667
+  },
+  {
+   "clave": "gre_super_league",
+   "proyecto": "Lamia",
+   "mejor_espn": "Larissa FC",
+   "ratio": 0.667
+  },
+  {
+   "clave": "eng_championship",
+   "proyecto": "Leeds",
+   "mejor_espn": "Leicester City",
+   "ratio": 0.571
+  },
+  {
+   "clave": "eng_championship",
+   "proyecto": "Plymouth",
+   "mejor_espn": "Portsmouth",
+   "ratio": 0.667
+  }
+ ]
+}

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-v162 — INFORME DE CALIBRACIÓN DE CÓRNERS Y TARJETAS, COMPETICIÓN A COMPETICIÓN.
+v162 — INFORME DE CALIBRACIÓN, COMPETICIÓN A COMPETICIÓN.
+
+v163 — y con REMATES, en sus dos mercados (totales y a puerta), medidos igual.
 
 Para qué
 --------
@@ -23,8 +25,9 @@ vea su propio resultado):
   · el número de observaciones, para saber de qué muestra sale cada cifra
 
 Y para las que NO tienen datos, se anota el error medido en la validación
-dejando una liga fuera (0,0247 en córners y 0,0539 en tarjetas), que es lo que
-la interfaz enseña marcado como estimación.
+dejando una liga fuera (0,0247 en córners, 0,0539 en tarjetas, 0,0281 en
+remates totales y 0,0168 a puerta), que es lo que la interfaz enseña marcado
+como estimación.
 
 Uso:
     python informe_calibracion.py                  # todas
@@ -48,6 +51,52 @@ LINEAS_CK_EQ = [3.5, 4.5, 5.5, 6.5]
 LINEAS_CK_TOT = [8.5, 9.5, 10.5, 11.5]
 LINEAS_TJ_EQ = [0.5, 1.5, 2.5, 3.5]
 LINEAS_TJ_TOT = [2.5, 3.5, 4.5, 5.5]
+# v163 — las líneas que de verdad cotiza la casa en remates. Son las mismas
+# con las que se eligió el estimador en `_v163_remates_estimadores.py`, para
+# que este informe y aquella medición hablen del mismo número.
+LINEAS_RM_EQ = [9.5, 11.5, 13.5, 15.5]
+LINEAS_RM_TOT = [20.5, 22.5, 24.5, 26.5]
+LINEAS_RMON_EQ = [2.5, 3.5, 4.5, 5.5]
+LINEAS_RMON_TOT = [6.5, 7.5, 8.5, 9.5]
+
+# etiqueta -> (columna en `_solo_reales`, líneas por equipo, líneas del total,
+#              clave de `stats_disponibles`)
+MERCADOS = {
+    'corners': ('corners', LINEAS_CK_EQ, LINEAS_CK_TOT, 'corners'),
+    'tarjetas': ('yellow', LINEAS_TJ_EQ, LINEAS_TJ_TOT, 'tarjetas'),
+    'remates': ('shots_on', LINEAS_RM_EQ, LINEAS_RM_TOT, 'remates'),
+    'remates_on': ('shots_on', LINEAS_RMON_EQ, LINEAS_RMON_TOT, 'remates'),
+}
+
+
+def _par_columnas(d, etq):
+    """
+    Los dos bandos de un mercado, con sus líneas.
+
+    Estaba escrito dos veces —una en `_de_cache` y otra en `_de_liga`— con un
+    if/else por mercado. Con cuatro mercados en vez de dos eso son ocho ramas
+    que hay que acordarse de tocar a la vez, así que se junta aquí: los dos
+    caminos leen columnas con los mismos nombres (`_de_cache` renombra los
+    suyos antes de llamar), que es lo que permite compartirlo.
+    """
+    if etq == 'corners':
+        ch = pd.to_numeric(d['home_corners'], errors='coerce')
+        ca = pd.to_numeric(d['away_corners'], errors='coerce')
+    elif etq == 'tarjetas':
+        ch = (pd.to_numeric(d['home_yellow'], errors='coerce')
+              + pd.to_numeric(d['home_red'], errors='coerce'))
+        ca = (pd.to_numeric(d['away_yellow'], errors='coerce')
+              + pd.to_numeric(d['away_red'], errors='coerce'))
+    elif etq == 'remates_on':
+        ch = pd.to_numeric(d['home_shots_on'], errors='coerce')
+        ca = pd.to_numeric(d['away_shots_on'], errors='coerce')
+    else:                                   # remates totales
+        ch = (pd.to_numeric(d['home_shots_on'], errors='coerce')
+              + pd.to_numeric(d['home_shots_off'], errors='coerce'))
+        ca = (pd.to_numeric(d['away_shots_on'], errors='coerce')
+              + pd.to_numeric(d['away_shots_off'], errors='coerce'))
+    _, lineas_eq, lineas_tot, _ = MERCADOS[etq]
+    return ch, ca, lineas_eq, lineas_tot
 MIN_JUICIO = 300
 
 
@@ -110,17 +159,12 @@ def _de_cache(clave: str) -> Optional[Dict]:
 
     salida = {'clave': clave, 'estado': 'ok', 'partidos_espn': int(len(d)),
               'fuente': 'cache'}
-    for etq in ('corners', 'tarjetas'):
-        if etq == 'corners':
-            ch = pd.to_numeric(d['home_corners'], errors='coerce')
-            ca = pd.to_numeric(d['away_corners'], errors='coerce')
-            lineas_eq, lineas_tot = LINEAS_CK_EQ, LINEAS_CK_TOT
-        else:
-            ch = (pd.to_numeric(d['home_yellow'], errors='coerce')
-                  + pd.to_numeric(d['home_red'], errors='coerce'))
-            ca = (pd.to_numeric(d['away_yellow'], errors='coerce')
-                  + pd.to_numeric(d['away_red'], errors='coerce'))
-            lineas_eq, lineas_tot = LINEAS_TJ_EQ, LINEAS_TJ_TOT
+    for etq in MERCADOS:
+        try:
+            ch, ca, lineas_eq, lineas_tot = _par_columnas(d, etq)
+        except KeyError:
+            salida[etq] = {'origen': 'estimado', 'motivo': 'sin columna'}
+            continue
         dd = d.assign(_h=ch, _a=ca).dropna(subset=['_h', '_a'])
         if len(dd) < 400:
             salida[etq] = {'origen': 'estimado', 'motivo': 'muestra corta'}
@@ -139,6 +183,9 @@ def _de_cache(clave: str) -> Optional[Dict]:
                          np.concatenate([dd['_h'].to_numpy()[J],
                                          dd['_a'].to_numpy()[J]]),
                          lineas_eq, disp_eq)
+        # el total: media de la competición SÓLO en córners; en tarjetas y en
+        # remates gana la suma de las dos lambdas, y está medido en cada uno
+        # (§10.8, §11.3 y §13.3)
         base = (tot.expanding().mean().shift().to_numpy()[J] if etq == 'corners'
                 else (lh + la).to_numpy()[J])
         m_tot = _metricas(base, tot.to_numpy()[J], lineas_tot, disp_tot)
@@ -170,27 +217,20 @@ def _de_liga(clave: str) -> Dict:
     except Exception:
         salida['partidos_espn'] = 0
 
-    for etq, cols_par, disponible in (
-            ('corners', ('home_corners', 'away_corners'), disp.get('corners')),
-            ('tarjetas', None, disp.get('tarjetas'))):
-        if not disponible:
+    for etq, (col_real, _le, _lt, clave_disp) in MERCADOS.items():
+        if not disp.get(clave_disp):
             salida[etq] = {'origen': 'estimado'}
             continue
-        dd = rq._solo_reales(d, 'corners' if etq == 'corners' else 'yellow')
+        dd = rq._solo_reales(d, col_real)
         if dd is None or getattr(dd, 'empty', True) or len(dd) < 400:
             salida[etq] = {'origen': 'estimado', 'motivo': 'muestra corta'}
             continue
         dd = dd.sort_values('date').reset_index(drop=True)
-        if etq == 'corners':
-            ch = pd.to_numeric(dd[cols_par[0]], errors='coerce')
-            ca = pd.to_numeric(dd[cols_par[1]], errors='coerce')
-            lineas_eq, lineas_tot = LINEAS_CK_EQ, LINEAS_CK_TOT
-        else:
-            ch = (pd.to_numeric(dd['home_yellow'], errors='coerce')
-                  + pd.to_numeric(dd['home_red'], errors='coerce'))
-            ca = (pd.to_numeric(dd['away_yellow'], errors='coerce')
-                  + pd.to_numeric(dd['away_red'], errors='coerce'))
-            lineas_eq, lineas_tot = LINEAS_TJ_EQ, LINEAS_TJ_TOT
+        try:
+            ch, ca, lineas_eq, lineas_tot = _par_columnas(dd, etq)
+        except KeyError:
+            salida[etq] = {'origen': 'estimado', 'motivo': 'sin columna'}
+            continue
         dd = dd.assign(_h=ch, _a=ca).dropna(subset=['_h', '_a'])
         if len(dd) < 400:
             salida[etq] = {'origen': 'estimado', 'motivo': 'muestra corta'}
@@ -250,54 +290,64 @@ def generar(claves: Optional[List[str]] = None) -> Dict:
             'ligas': filas}
 
 
+ROTULOS = {'corners': 'córners', 'tarjetas': 'tarjetas',
+           'remates': 'remates', 'remates_on': 'remates a puerta'}
+CORTOS = {'corners': 'ck', 'tarjetas': 'tj', 'remates': 'rm',
+          'remates_on': 'ra'}
+# el error medido dejando una liga fuera, para las que no tienen datos propios
+ESTIMADO = {'corners': 0.0247, 'tarjetas': 0.0539,
+            'remates': 0.0281, 'remates_on': 0.0168}
+
+
 def _tabla(doc: Dict) -> str:
     lineas = []
-    cab = ('%-24s %-10s %8s %8s %8s %8s %8s'
-           % ('competición', 'origen', 'partidos', 'ck err', 'ck corr',
-              'tj err', 'tj corr'))
+    cab = ('%-24s %-10s %8s' % ('competición', 'origen', 'partidos')
+           + ''.join('%8s %8s' % (CORTOS[e] + ' err', CORTOS[e] + ' corr')
+                     for e in MERCADOS))
     lineas.append(cab)
     lineas.append('-' * len(cab))
-    obs_ck, obs_tj, est = 0, 0, 0
+    obs = {e: 0 for e in MERCADOS}
+    est = 0
     for f in doc['ligas']:
-        ck = f.get('corners') or {}
-        tj = f.get('tarjetas') or {}
-        o_ck = ck.get('origen', '-')
-        o_tj = tj.get('origen', '-')
-        origen = ('observado' if o_ck == 'observado' and o_tj == 'observado'
-                  else ('mixto' if 'observado' in (o_ck, o_tj) else 'estimado'))
-        obs_ck += int(o_ck == 'observado')
-        obs_tj += int(o_tj == 'observado')
-        est += int(origen == 'estimado')
+        origenes = [(f.get(e) or {}).get('origen', '-') for e in MERCADOS]
+        for e, o in zip(MERCADOS, origenes):
+            obs[e] += int(o == 'observado')
+        if all(o == 'observado' for o in origenes):
+            origen = 'observado'
+        elif 'observado' in origenes:
+            origen = 'mixto'
+        else:
+            origen = 'estimado'
+            est += 1
 
-        def _c(bloque, campo):
-            m = (bloque or {}).get('por_equipo') or {}
+        def _c(etq, campo):
+            m = ((f.get(etq) or {}).get('por_equipo') or {})
             v = m.get(campo)
             return ('%8.4f' % v) if isinstance(v, (int, float)) else '       -'
 
-        lineas.append('%-24s %-10s %8s %s %s %s %s'
-                      % (f['clave'], origen,
-                         f.get('partidos_espn', 0),
-                         _c(ck, 'error_calib'), _c(ck, 'corr'),
-                         _c(tj, 'error_calib'), _c(tj, 'corr')))
+        lineas.append('%-24s %-10s %8s' % (f['clave'], origen,
+                                           f.get('partidos_espn', 0))
+                      + ''.join(_c(e, 'error_calib') + _c(e, 'corr')
+                                for e in MERCADOS))
     lineas.append('')
-    lineas.append('competiciones con córners OBSERVADOS ..... %d de %d'
-                  % (obs_ck, len(doc['ligas'])))
-    lineas.append('competiciones con tarjetas OBSERVADAS .... %d de %d'
-                  % (obs_tj, len(doc['ligas'])))
-    lineas.append('competiciones sólo con estimación ........ %d' % est)
-    # medias sobre las observadas
-    for etq in ('corners', 'tarjetas'):
+    for e in MERCADOS:
+        lineas.append('competiciones con %-17s OBSERVADOS .. %d de %d'
+                      % (ROTULOS[e], obs[e], len(doc['ligas'])))
+    lineas.append('competiciones sin ningún dato observado ......... %d' % est)
+    for etq in MERCADOS:
         errs = [((f.get(etq) or {}).get('por_equipo') or {}).get('error_calib')
                 for f in doc['ligas']
                 if (f.get(etq) or {}).get('origen') == 'observado']
         errs = [e for e in errs if isinstance(e, (int, float))]
         if errs:
             lineas.append('error de calibración medio en %s observados: %.4f '
-                          '(%d competiciones)' % (etq, float(np.mean(errs)),
+                          '(%d competiciones)' % (ROTULOS[etq],
+                                                  float(np.mean(errs)),
                                                   len(errs)))
     lineas.append('estimación (validación dejando una liga fuera): '
-                  'córners 0,0247 · tarjetas 0,0539')
-    return '\n'.join(lineas)
+                  + ' · '.join('%s %.4f' % (ROTULOS[e], ESTIMADO[e])
+                               for e in MERCADOS))
+    return chr(10).join(lineas)
 
 
 def main() -> int:
@@ -315,7 +365,7 @@ def main() -> int:
             json.dump(doc, f, ensure_ascii=False, indent=1, default=float)
     if args.md:
         with open(args.md, 'w', encoding='utf-8') as f:
-            f.write('# Informe de calibración — córners y tarjetas\n\n')
+            f.write('# Informe de calibración — córners, tarjetas y remates\n\n')
             f.write('Generado %s\n\n```\n%s\n```\n'
                     % (doc['generado'], _tabla(doc)))
     return 0

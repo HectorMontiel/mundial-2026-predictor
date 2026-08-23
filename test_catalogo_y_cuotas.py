@@ -6711,6 +6711,506 @@ def test_modo_modelo_esta_enrutado_en_la_interfaz():
           "las apuestas de hoy se declaran antes que las de mañana")
 
 
+
+def test_los_remates_por_equipo_salen_de_sus_datos():
+    """
+    v163 — el estimador ataque/defensa, y la trampa que ya cayo dos veces.
+
+    Medido sobre 41.000 equipos-partido de 17 competiciones con remates
+    observados (`_v163_remates_estimadores.py`), comparando cuatro estimadores
+    por dos distribuciones:
+
+        remates TOTALES por equipo            marginal    Brier      ECE
+          ataque/defensa v10, binneg .......   0,01315   0,19501   0,03132
+          media del equipo, binneg .........   0,02067   0,20441   0,03310
+          media de la competicion, binneg ..   0,02077   0,21282   0,03200
+          media movil de 5, Poisson ........   0,01476   0,22477   0,11418
+
+    OJO CON LA PRIMERA COLUMNA. Es la que se uso en corners y tarjetas, y aqui
+    la habria ganado la media movil de 5 con Poisson, que es el PEOR estimador
+    de la tabla por las otras dos. El error marginal no mide resolucion: dos
+    sesgos que se cancelan lo dejan bajo. Por eso la eleccion se hizo por ECE.
+
+    LA TRAMPA: `lambda_corners_equipo` se escribio con la columna del bando
+    contrario en una de las dos lecturas, y las dos lambdas del partido salian
+    IDENTICAS. Es lo que se comprueba aqui — no el valor, que cambia con cada
+    jornada, sino que los dos lados difieren.
+    """
+    import rendimiento_equipos as rq
+
+    probados = 0
+    for clave, h, a in (('premier', 'Man City', 'Arsenal'),
+                        ('premier', 'Liverpool', 'Everton'),
+                        ('laliga', 'Real Madrid', 'Barcelona'),
+                        ('serie_a', 'Juventus', 'Inter')):
+        r = rq.remates_equipo(clave, h, a)
+        if not r or (r.get('totales') or {}).get('origen') != 'observado':
+            continue
+        probados += 1
+        for mercado, lo, hi in (('totales', 3.0, 25.0), ('a_puerta', 0.8, 10.0)):
+            b = r.get(mercado)
+            check(b is not None, f"{h}-{a}: hay bloque de {mercado}")
+            if not b:
+                continue
+            check(b['lambda_home'] != b['lambda_away'],
+                  f"{h}-{a} {mercado}: los dos lados dan lambdas distintas "
+                  f"({b['lambda_home']} y {b['lambda_away']})")
+            check(abs(b['lambda_total']
+                      - (b['lambda_home'] + b['lambda_away'])) < 0.01,
+                  f"{h}-{a} {mercado}: el total es la suma de los dos")
+            check(lo < b['lambda_home'] < hi and lo < b['lambda_away'] < hi,
+                  f"{h}-{a} {mercado}: las lambdas estan en un rango fisico")
+            check(b['dispersion'] >= 1.0 and b['dispersion_total'] >= 1.0,
+                  f"{h}-{a} {mercado}: la dispersion nunca baja de 1")
+        t, o = r.get('totales') or {}, r.get('a_puerta') or {}
+        if t and o:
+            check(o['lambda_total'] < t['lambda_total'],
+                  f"{h}-{a}: a puerta siempre es menos que el total")
+
+    check(probados >= 2, f"se probaron {probados} partidos con datos reales")
+
+    # Las dos lecturas usan la MISMA columna con distinto filtro. Si alguien
+    # vuelve a cruzarlas, el simetrico deja de serlo.
+    r1 = rq.remates_equipo('premier', 'Man City', 'Arsenal')
+    r2 = rq.remates_equipo('premier', 'Arsenal', 'Man City')
+    if r1 and r2 and r1.get('totales') and r2.get('totales'):
+        check(r1['totales']['lambda_home'] != r2['totales']['lambda_home'],
+              "cambiar quien juega en casa cambia la lambda del local")
+
+    # La sobredispersion por equipo es MUCHO mayor que la del total, y eso es
+    # lo que justifica usar dos numeros distintos en vez de uno.
+    de, dt = (rq.dispersion_remates_equipo('premier', 'tot'),
+              rq.dispersion_remates_liga('premier', 'tot'))
+    if de and dt:
+        check(de > dt,
+              f"la dispersion por equipo ({de}) supera a la del total ({dt}), "
+              f"que es lo medido (2,09 contra 1,35)")
+
+    # v163 — sin remates observados sale la estimacion, marcada.
+    _sin = _liga_sin_observar('remates')
+    if _sin:
+        d = rq._historico(_sin)
+        e = rq.remates_equipo(_sin, str(d['home_team'].iloc[-1]),
+                              str(d['away_team'].iloc[-1]))
+        check(e is not None
+              and (e.get('totales') or {}).get('origen') == 'estimado',
+              f"sin remates observados ({_sin}) sale una estimacion MARCADA")
+
+
+def test_el_nivel_de_remates_no_se_mide_sobre_dos_epocas():
+    """
+    v163 — la dispersion se mide en las ULTIMAS temporadas, y hace falta.
+
+    El historico de la Premier arranca en 2010 y los remates a puerta por
+    partido de aquellos anos no son los de ahora:
+
+        2010  13,4      2014   8,6      2020   8,4      2024   9,9
+        2013  11,3      2018   8,7      2023   9,0      2026   8,5
+
+    Entre 2013 y 2014 la media se parte por la mitad: la fuente cambio que
+    cuenta. Promediando las dos epocas juntas, la razon varianza/media del
+    total sale 1,62 cuando dentro de cada ano va entre 0,90 y 1,22 — o sea que
+    la sobredispersion medida seria la distancia entre dos definiciones, y la
+    binomial negativa engordaria las colas por un motivo inventado.
+    """
+    import rendimiento_equipos as rq
+
+    check(hasattr(rq, '_recientes') and rq.TEMPORADAS_REMATES >= 3,
+          "las series de remates se recortan a las ultimas temporadas")
+
+    d = rq.dispersion_remates_liga('premier', 'on')
+    check(d is not None and 0.95 <= d <= 1.35,
+          f"la dispersion del total a puerta en la Premier es la de su epoca "
+          f"actual ({d}), no la de las dos mezcladas (1,62)")
+
+    # y la del equipo sigue por encima, que es lo que separa los dos numeros
+    de = rq.dispersion_remates_equipo('premier', 'tot')
+    check(de is not None and 1.5 <= de <= 3.0,
+          f"la dispersion por equipo en remates totales sigue alta ({de})")
+
+
+def test_los_remates_en_la_tarjeta():
+    """
+    v163 — la seccion sale, tiene sus dos mercados y dice de donde viene.
+
+    Dos bloques y no uno porque son dos mercados que la casa cotiza por
+    separado y que se calibraron por separado. Juntarlos obligaria a elegir
+    uno, y el que se dejara fuera seria el que el usuario esta mirando.
+    """
+    import modo_modelo as mm
+
+    pick = {'partido': 'Man City vs Arsenal', 'clave_liga': 'premier',
+            'deporte': 'Fútbol'}
+    r = mm.remates_tarjeta(pick)
+    check(r is not None, "la tarjeta de la Premier trae seccion de remates")
+    if r:
+        check('totales' in r and 'a_puerta' in r,
+              "trae los dos mercados: totales y a puerta")
+        for nombre, bloque in r.items():
+            check(len(bloque['filas']) >= 1,
+                  f"{nombre}: al menos una fila (total, local o visita)")
+            check(bloque['mejor'] in bloque['filas'],
+                  f"{nombre}: la destacada es una de las filas")
+            for f in bloque['filas']:
+                check(0.0 <= f['prob'] <= 1.0,
+                      f"{nombre}/{f['etiqueta']}: la probabilidad es una "
+                      f"probabilidad")
+                check(f['prob'] >= 0.5,
+                      f"{nombre}/{f['etiqueta']}: se ensena el lado que gana, "
+                      f"no obliga a restar de cabeza")
+        html = mm._bloque_remates_html(r)
+        check('Remates' in html and 'A puerta' in html.replace('a puerta',
+                                                               'A puerta'),
+              "el HTML nombra los dos mercados")
+
+    # No es futbol -> no hay seccion. Un bloque de remates en un partido de
+    # tenis seria un numero sin significado.
+    check(mm.remates_tarjeta({'partido': 'Alcaraz vs Sinner',
+                              'clave_liga': 'atp',
+                              'deporte': 'Tenis'}) is None,
+          "en tenis no se pinta seccion de remates")
+    # Y sin bloque, el HTML es cadena vacia y no un hueco con titulo.
+    check(mm._bloque_remates_html(None) == '',
+          "sin datos no se pinta un titulo vacio")
+
+
+def test_los_remates_por_jugador_no_se_inventan():
+    """
+    v163 — lo que se ensena por jugador y lo que NO se promete.
+
+    Tres cosas medidas que esta prueba fija:
+
+      1. la lambda del jugador se ENCOGE hacia la media de su posicion. Con
+         4-10 apariciones su media suelta es un tercio de ruido; encoger baja
+         el ECE de 0,056 a 0,029 y ademas sube la correlacion.
+      2. la distribucion es POISSON, no binomial negativa — al reves que en el
+         equipo. La sobredispersion que se mide juntando jugadores es en buena
+         parte la diferencia entre ellos, y esa ya esta dentro de cada lambda.
+      3. el previo posicional va en CUOTA del total del equipo, que es
+         adimensional y por eso vale en las 62 competiciones.
+    """
+    import remates_jugador as rjg
+
+    cal = rjg.calibracion()
+    check(bool(cal.get('cuotas')),
+          "existe el ajuste medido de cuotas por posicion")
+    for obj in ('tot', 'on'):
+        cuotas = (cal.get('cuotas') or {}).get(obj) or {}
+        check(len(cuotas) >= 8,
+              f"{obj}: hay cuota para las posiciones habituales "
+              f"({len(cuotas)})")
+        if cuotas:
+            check(all(0.0 <= v <= 0.5 for v in cuotas.values()),
+                  f"{obj}: ninguna posicion se lleva mas de la mitad de los "
+                  f"remates del equipo")
+            # el delantero remata mas que el central: si esto se invierte, la
+            # tabla se ha generado mal o se han cruzado las posiciones
+            f_, d_ = cuotas.get('F'), cuotas.get('CD-L') or cuotas.get('CD-R')
+            if f_ and d_:
+                check(f_ > d_ * 2,
+                      f"{obj}: un delantero remata bastante mas que un central "
+                      f"({f_} contra {d_})")
+        check(rjg._k(obj) > 0, f"{obj}: hay encogimiento (K > 0)")
+    check(rjg._k('on') > rjg._k('tot'),
+          "el evento mas raro (a puerta) se encoge MAS, que es lo medido "
+          "(K=12 contra K=6)")
+
+    # El encogimiento hace lo que dice: con poca muestra manda el previo.
+    previo = rjg.cuota_posicion('F', 'tot')
+    if previo:
+        lam_eq = 13.0
+        poca = rjg.lambda_jugador(5.0, 1, 'F', lam_eq, 'tot')
+        mucha = rjg.lambda_jugador(5.0, 10, 'F', lam_eq, 'tot')
+        base = previo * lam_eq
+        check(abs(poca - base) < abs(mucha - base),
+              f"con una aparicion la lambda ({poca}) queda mas cerca del "
+              f"previo ({base:.2f}) que con diez ({mucha})")
+        check(mucha > poca,
+              "y con mas muestra pesa mas lo que hace el jugador")
+
+    # Poisson: P(>=1) con lambda 0 es 0 y crece sin pasar de 1.
+    check(rjg.p_al_menos_uno(0.0) == 0.0, "lambda 0 -> probabilidad 0")
+    check(rjg.p_al_menos_uno(None) is None, "sin lambda no hay probabilidad")
+    p1, p2 = rjg.p_al_menos_uno(1.0), rjg.p_al_menos_uno(3.0)
+    check(0.0 < p1 < p2 < 1.0,
+          f"la probabilidad crece con la lambda y no llega a 1 ({p1}, {p2})")
+
+    # Una posicion desconocida NO recibe una cuota inventada.
+    check(rjg.cuota_posicion('XX', 'tot') is None,
+          "una posicion que no esta medida no se rellena con un numero")
+    check(rjg.lambda_jugador(2.0, 8, 'XX', 13.0, 'tot') is None,
+          "y sin cuota no sale lambda: la fila desaparece en vez de mentir")
+
+    # Sin lambda de equipo tampoco: el jugador va anclado al equipo.
+    check(rjg.lambda_jugador(2.0, 8, 'F', None, 'tot') is None,
+          "sin lo que se espera del equipo no hay lambda de jugador")
+
+
+def test_la_alineacion_no_cuesta_la_pantalla_ni_se_inventa():
+    """
+    v163 — de donde sale el once, cuanto cuesta y que pasa cuando no hay.
+
+    ESPN NO SIRVE, y se midio antes de buscar otra fuente: da el once inicial
+    en 50 de 50 partidos JUGADOS y en **0 de 54** por jugar, incluido uno a 4,4
+    horas del saque (`_v163_sondeo_alineacion.json`). Misma firma que el
+    arbitro en la v160.
+
+    FotMob si: 27 de 50 partidos por jugar, 21 de ellos como `predicted` y 6
+    como `lastStarting11` — que no valen lo mismo y por eso se distinguen en
+    pantalla.
+
+    Y NO SE PIDE EN LA TARJETA. Sesenta partidos por un `matchDetails` de 1,7
+    segundos son dos minutos anadidos a una pantalla que ya tarda 85. Se
+    precalcula en el bot, igual que el arbitro.
+    """
+    import remates_jugador as rjg
+
+    src = open('remates_jugador.py', encoding='utf-8').read()
+    check('permitir_red' in src,
+          "la alineacion distingue leer del disco de preguntar a la red")
+    check('lineupType' in src,
+          "se lee el tipo de alineacion, que es lo que separa un once probable "
+          "de uno confirmado")
+    check('starters' in src,
+          "y por la ruta comprobada de FotMob (homeTeam.starters)")
+
+    # Por defecto NO toca la red: con un fichero que no existe devuelve None
+    # sin llamar a nadie.
+    rjg._DISCO = {}
+    rjg._ALINEACIONES.clear()
+    check(rjg.alineacion('2026-01-01', 'Equipo Que No Existe',
+                         'Otro Que Tampoco') is None,
+          "sin precalculo y sin red, la alineacion es None y no un invento")
+
+    # Los tres tipos de FotMob tienen su rotulo, y son distintos entre si.
+    etiquetas = {v[0] for v in rjg.TIPOS.values()}
+    check('probable' in etiquetas and 'confirmada' in etiquetas,
+          "un once probable y uno confirmado no se llaman igual")
+    check(rjg.TIPOS['lastStarting11'][0] != rjg.TIPOS['predicted'][0],
+          "el once del ultimo partido no se presenta como alineacion probable")
+
+    # El emparejado de nombres no fuerza: un nombre que no casa se queda fuera.
+    filas = [{'jugador': 'Bukayo Saka'}, {'jugador': 'Martin Odegaard'}]
+    pares = rjg.casar_once_detalle(
+        ['Bukayo Saka', 'Nombre Que No Existe En Ninguna Parte'], filas)
+    check(pares.get('Bukayo Saka') == 'Bukayo Saka',
+          "el nombre que casa, casa")
+    check('Nombre Que No Existe En Ninguna Parte' not in pares,
+          "y el que no casa se queda fuera en vez de caer en otro jugador")
+
+    # Un jugador de ESPN no puede casar con dos del once.
+    pares2 = rjg.casar_once_detalle(['Bukayo Saka', 'B. Saka'],
+                                    [{'jugador': 'Bukayo Saka'}])
+    check(len(set(pares2.values())) == len(pares2.values()),
+          "un mismo jugador no se asigna a dos nombres del once")
+
+    # El precalculo esta enchufado al bot, que es lo que lo hace gratis en
+    # pantalla.
+    wf = open('.github/workflows/retrain_leagues.yml', encoding='utf-8').read()
+    check('remates_jugador.py --dias' in wf,
+          "el bot precalcula las alineaciones del dia")
+    check('alineaciones_dia.json' in wf,
+          "y las guarda, porque manana ya no se pueden recuperar")
+
+
+def test_el_catalogo_de_equipos_de_espn_no_se_corta():
+    """
+    v163 — el catalogo se completa, y antes se cortaba a los 16 equipos.
+
+    `equipos_de_liga` paraba el barrido en cuanto juntaba 16 nombres, con la
+    idea de que una liga tiene ~20 equipos y con un tramo de 55 dias basta. No
+    basta: a principio de temporada ahi dentro no ha jugado media competicion.
+
+    Medido el 2026-08-23 con el catalogo que habia cacheado: la Serie A tenia
+    16 equipos (faltaban Roma, Lazio, Fiorentina y Bologna) y LaLiga 19
+    (faltaba Osasuna). Y el efecto no se veia: `resolver_equipo` devuelve None
+    para un equipo que no esta, asi que la seccion de jugadores salia VACIA
+    para la Roma, sin aviso — indistinguible de «ESPN no cubre esta
+    competicion».
+    """
+    import remates_jugadores as rj
+
+    src = open('remates_jugadores.py', encoding='utf-8').read()
+    check('if len(nombres) >= 16:' not in src,
+          "el barrido del catalogo ya no para a los 16 equipos")
+    check('secos' in src,
+          "para cuando dos tramos seguidos no aportan un nombre nuevo, que es "
+          "la senal de que el catalogo esta completo")
+    check('if salida:' in src,
+          "y un catalogo vacio no se cachea: seis horas de silencio por un "
+          "fallo de red seria el mismo error con otra cara")
+
+    # Los alias que faltaban estan, y no pisan a los que ya habia.
+    import json
+    alias = json.load(open('alias_manuales.json', encoding='utf-8'))
+
+    def _destinos(k):
+        v = alias.get(k)
+        return [] if v is None else ([v] if isinstance(v, str) else list(v))
+
+    for clave, espn in (('Roma', 'AS Roma'), ('Man City', 'Manchester City'),
+                        ('Ajax', 'Ajax Amsterdam'), ('QPR',
+                                                     'Queens Park Rangers')):
+        check(espn in _destinos(clave),
+              f"'{clave}' sabe que en ESPN se llama '{espn}'")
+    check(_destinos('Man City')[0] == 'Man City',
+          "y el destino de siempre sigue el PRIMERO, asi que el emparejado "
+          "contra el catalogo del proyecto no cambia")
+
+
+def test_remates_no_suben_a_seccion1_sin_medicion():
+    """
+    v163 — los remates se ensenan, pero no como ventaja de precio.
+
+    Verde en esta aplicacion significa «canal con percentil 5 de bootstrap
+    positivo medido en tramo de juicio». En remates no hay ni eso ni historico
+    de LINEAS con el que empezar a medirlo, exactamente igual que pasaba con
+    corners en la v152 y con tarjetas en la v160.
+
+    Lo que si hay es una probabilidad calibrada — 0,0131 de error en remates
+    totales y 0,0129 a puerta donde los datos son observados — y eso es lo que
+    se ensena, dicho como lo que es.
+    """
+    import modo_modelo as mm
+
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    i = src.find('def remates_tarjeta')
+    check(i > 0, "existe la seccion de remates en la tarjeta")
+    cabecera = src[max(0, i - 2000):i]
+    check('ventaja de precio' in cabecera,
+          "la seccion dice por escrito que no es una ventaja de precio")
+
+    # Y la probabilidad del jugador no se presenta como apuesta recomendada.
+    j = src.find('def _bloque_quien_remata_html')
+    check(j > 0, "existe el bloque de quien remata")
+    cuerpo = src[j:j + 3000]
+    check('informativa' in cuerpo,
+          "el bloque de jugadores se presenta como informativo")
+
+    pick = {'partido': 'Man City vs Arsenal', 'clave_liga': 'premier',
+            'deporte': 'Fútbol'}
+    r = mm.remates_tarjeta(pick)
+    if r:
+        for bloque in r.values():
+            check('alta' not in bloque and 'ev' not in bloque,
+                  "el bloque de remates no lleva ni EV ni marca de apuesta "
+                  "alta: no compite con la Seccion 1")
+
+
+def test_se_guardan_las_lineas_de_remates():
+    """
+    v163 — la foto diaria de las lineas, y la trampa de «tiros de esquina».
+
+    Sin este fichero los remates NO PUEDEN SALIR DE AMBAR NUNCA: la
+    probabilidad esta calibrada (0,0131 por equipo en totales y 0,0129 a
+    puerta) pero la regla de oro del proyecto exige un percentil 5 medido, y
+    para eso hacen falta lineas pasadas que ninguna fuente gratuita publica.
+    Es el mismo paso que dieron corners en la v159 y tarjetas en la v160.
+
+    LA TRAMPA PROPIA DE ESTE MERCADO: «Tiros de esquina» ES el mercado de
+    CORNERS y lleva la palabra «tiros» dentro. Si entrara aqui, el fichero
+    acumularia corners rotulados como remates durante meses y el fallo saldria
+    a la luz cuando ya no tuviera arreglo — nadie liquida esto hasta que hay
+    volumen. Lo mismo con los tiros libres y los penaltis.
+
+    Y una leccion que ya costo una vez en tarjetas: los plurales. La primera
+    version escribia `libre` en singular y, con limite de palabra, «Total de
+    tiros libres» NO casaba con el filtro de exclusion y entraba como remate.
+    """
+    import snapshots_remates as sr
+
+    # lo que SI es un mercado de remates, con su objetivo
+    for texto, esperado in (
+            ('Total de remates', 'tot'),
+            ('Total de remates Arsenal', 'tot'),
+            ('Remates totales - 1a Mitad', 'tot'),
+            ('Total shots', 'tot'),
+            ('Total de remates a puerta', 'on'),
+            ('Total de disparos a porteria', 'on'),
+            ('Mas de/Menos de tiros al arco', 'on'),
+            ('Total shots on target', 'on')):
+        check(sr.objetivo_de(texto) == esperado,
+              f"«{texto}» se clasifica como {esperado}")
+
+    # lo que NO lo es, aunque lo parezca
+    for texto in ('Total de tiros de esquina', 'Tiros de esquina - Handicap',
+                  'Total de corners', 'Total de saques de esquina',
+                  'Total de tiros libres', 'Total de tiros libres directos',
+                  'Total de faltas', 'Total de penaltis', 'Total de penales',
+                  'Total de tarjetas', 'Total de goles',
+                  'Primer jugador en rematar',
+                  'Jugador remata a puerta (Bukayo Saka)',
+                  'Multigoleadores Sergi Cardona Bermadez'):
+        check(sr.objetivo_de(texto) is None,
+              f"«{texto}» NO entra como mercado de remates")
+
+    # las dos columnas que hacen util el fichero
+    check('objetivo' in sr.COLUMNAS,
+          "cada fila dice de que mercado es: los dos tienen dispersiones y "
+          "niveles distintos y revueltos serian inservibles")
+    check('linea' in sr.COLUMNAS and 'cuota' in sr.COLUMNAS,
+          "se guardan la linea y la cuota, que es lo que permite liquidar")
+    check('snapshot_key' in sr.COLUMNAS,
+          "y la clave que impide duplicar la foto del mismo dia")
+
+    # el paso esta en el bot y el fichero se commitea: si no, no se acumula
+    wf = open('.github/workflows/retrain_leagues.yml', encoding='utf-8').read()
+    check('snapshots_remates.py --dias' in wf,
+          "el bot fotografia las lineas de remates cada dia")
+    check('remates_snapshots.csv' in wf,
+          "y guarda el fichero, que es lo unico que no se puede reconstruir")
+
+
+def test_todas_las_ligas_tienen_remates():
+    """
+    v163 — ninguna competicion se queda sin la seccion, y la estimada lo dice.
+
+    Mismo compromiso que la v162 con corners y tarjetas. Donde hay datos
+    observados sale observado; donde no, sale el nivel de la competicion
+    derivado de sus goles, MARCADO. Los dos mercados de remates estimados
+    calibran por debajo del umbral de 0,05 —0,0281 en totales y 0,0168 a
+    puerta, medidos dejando una liga fuera—, asi que llevan el aviso suave y no
+    el fuerte de las tarjetas (0,0539).
+    """
+    import fixtures_espn
+    import rendimiento_equipos as rq
+    import stats_estimadas
+    from config import LEAGUES
+
+    doc = stats_estimadas.cargar()
+    for obj in ('rem', 'rem_on'):
+        recta = (doc.get('rectas') or {}).get(obj) or {}
+        check(bool(recta),
+              f"el ajuste de {obj} esta calculado y guardado")
+        if recta:
+            check(recta.get('corr_goles', 0) > 0.5,
+                  f"{obj}: el nivel de remates de una liga se predice bien "
+                  f"desde sus goles (corr {recta.get('corr_goles'):.3f})")
+        err = (doc.get('calibracion_estimada') or {}).get(obj)
+        check(err is not None and err <= stats_estimadas.UMBRAL_ACEPTABLE,
+              f"{obj}: la estimacion calibra por debajo del umbral ({err})")
+
+    sin, con = 0, 0
+    claves = [c for c, v in LEAGUES.items()
+              if v.get('disponible') and c in fixtures_espn.ESPN_CODIGOS]
+    for c in claves[:25]:
+        d = rq._historico(c)
+        if d is None or getattr(d, 'empty', True) or len(d) < 50:
+            continue
+        r = rq.remates_equipo(c, str(d['home_team'].iloc[-1]),
+                              str(d['away_team'].iloc[-1]))
+        if r and r.get('totales'):
+            con += 1
+            b = r['totales']
+            if b.get('origen') == 'estimado':
+                sin += 1
+                check(b.get('error_calibracion') is not None,
+                      f"{c}: la estimacion dice cuanto se equivoca")
+                check(b.get('aceptable') is True,
+                      f"{c}: y esta por debajo del umbral aceptable")
+    check(con >= 15,
+          f"{con} de las 25 primeras competiciones tienen seccion de remates")
+
 def test_corners_no_suben_a_seccion1_sin_medicion():
     """
     v152 — el EV de corners no puede entrar en la Seccion 1 hoy, y por que.
@@ -6979,6 +7479,15 @@ if __name__ == '__main__':
     test_solo_se_promedian_las_filas_reales()
     test_todas_las_ligas_tienen_cornrs_y_tarjetas()
     test_los_jugados_salen_en_la_lista_con_su_pronostico()
+    test_los_remates_por_equipo_salen_de_sus_datos()
+    test_el_nivel_de_remates_no_se_mide_sobre_dos_epocas()
+    test_los_remates_en_la_tarjeta()
+    test_los_remates_por_jugador_no_se_inventan()
+    test_la_alineacion_no_cuesta_la_pantalla_ni_se_inventa()
+    test_el_catalogo_de_equipos_de_espn_no_se_corta()
+    test_remates_no_suben_a_seccion1_sin_medicion()
+    test_se_guardan_las_lineas_de_remates()
+    test_todas_las_ligas_tienen_remates()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

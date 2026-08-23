@@ -1,0 +1,339 @@
+{
+ "fecha": "2026-08-24",
+ "total": {
+  "once": 132,
+  "casados": 88,
+  "ausente": 21,
+  "filtrado": 21,
+  "sin_casar": 2
+ },
+ "detalle": [
+  {
+   "partido": "Fulham-Chelsea",
+   "equipo": "Fulham",
+   "lado": "home",
+   "once": 11,
+   "casados": 9,
+   "problemas": [
+    {
+     "nombre": "Jorge Cuenca",
+     "causa": "filtrado",
+     "en_espn": "Jorge Cuenca"
+    },
+    {
+     "nombre": "Gonzalo García",
+     "causa": "ausente",
+     "en_espn": null
+    }
+   ]
+  },
+  {
+   "partido": "Fulham-Chelsea",
+   "equipo": "Chelsea",
+   "lado": "away",
+   "once": 11,
+   "casados": 8,
+   "problemas": [
+    {
+     "nombre": "Maxence Lacroix",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Marco Palestra",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Morgan Rogers",
+     "causa": "ausente",
+     "en_espn": null
+    }
+   ]
+  },
+  {
+   "partido": "Osasuna-Levante",
+   "equipo": "Osasuna",
+   "lado": "home",
+   "once": 11,
+   "casados": 9,
+   "problemas": [
+    {
+     "nombre": "Iñigo Arguibide",
+     "causa": "filtrado",
+     "en_espn": "Iñigo Arguibide"
+    },
+    {
+     "nombre": "Flavien Boyomo",
+     "causa": "sin_casar",
+     "en_espn": "Enzo Boyomo"
+    }
+   ]
+  },
+  {
+   "partido": "Osasuna-Levante",
+   "equipo": "Levante",
+   "lado": "away",
+   "once": 11,
+   "casados": 10,
+   "problemas": [
+    {
+     "nombre": "Aïssa Mandi",
+     "causa": "filtrado",
+     "en_espn": "Aïssa Mandi"
+    }
+   ]
+  },
+  {
+   "partido": "Malaga-Deportivo A Coruña",
+   "equipo": "Malaga",
+   "lado": "home",
+   "once": 11,
+   "casados": 0,
+   "problemas": [
+    {
+     "nombre": "Alfonso Herrero",
+     "causa": "filtrado",
+     "en_espn": "Alfonso Herrero"
+    },
+    {
+     "nombre": "Carlos Puga",
+     "causa": "filtrado",
+     "en_espn": "Carlos Puga"
+    },
+    {
+     "nombre": "Ángel Recio",
+     "causa": "filtrado",
+     "en_espn": "Ángel Recio"
+    },
+    {
+     "nombre": "Einar Galilea",
+     "causa": "filtrado",
+     "en_espn": "Einar Galilea"
+    },
+    {
+     "nombre": "Rafita",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "David Larrubia",
+     "causa": "filtrado",
+     "en_espn": "David Larrubia"
+    },
+    {
+     "nombre": "Eneko Jauregi",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Izan Merino",
+     "causa": "filtrado",
+     "en_espn": "Izan Merino"
+    },
+    {
+     "nombre": "Joaquín Muñoz",
+     "causa": "filtrado",
+     "en_espn": "Joaquín Muñoz"
+    },
+    {
+     "nombre": "Carlos Dotor",
+     "causa": "filtrado",
+     "en_espn": "Carlos Dotor"
+    },
+    {
+     "nombre": "Chupe",
+     "causa": "ausente",
+     "en_espn": null
+    }
+   ]
+  },
+  {
+   "partido": "Malaga-Deportivo A Coruña",
+   "equipo": "Deportivo A Coruña",
+   "lado": "away",
+   "once": 11,
+   "casados": 0,
+   "problemas": [
+    {
+     "nombre": "Leo Román",
+     "causa": "filtrado",
+     "en_espn": "Leo Román"
+    },
+    {
+     "nombre": "Ximo Navarro",
+     "causa": "filtrado",
+     "en_espn": "Ximo Navarro"
+    },
+    {
+     "nombre": "Lucas Noubi",
+     "causa": "filtrado",
+     "en_espn": "Lucas Noubi"
+    },
+    {
+     "nombre": "Bright Ede",
+     "causa": "filtrado",
+     "en_espn": "Bright Ede"
+    },
+    {
+     "nombre": "Giacomo Quagliata",
+     "causa": "filtrado",
+     "en_espn": "Giacomo Quagliata"
+    },
+    {
+     "nombre": "Lorenzo Amatucci",
+     "causa": "filtrado",
+     "en_espn": "Lorenzo Amatucci"
+    },
+    {
+     "nombre": "Mario Soriano",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Adrià Altimira",
+     "causa": "filtrado",
+     "en_espn": "Adrià Altimira"
+    },
+    {
+     "nombre": "Bil Nsongo",
+     "causa": "filtrado",
+     "en_espn": "Bil Nsongo"
+    },
+    {
+     "nombre": "Jonathan Asp",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Pierre-Emerick Aubameyang",
+     "causa": "filtrado",
+     "en_espn": "Pierre-Emerick Aubameyang"
+    }
+   ]
+  },
+  {
+   "partido": "Bologna-Lazio",
+   "equipo": "Bologna",
+   "lado": "home",
+   "once": 11,
+   "casados": 8,
+   "problemas": [
+    {
+     "nombre": "Oussama El Azzouzi",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Jonathan Rowe",
+     "causa": "sin_casar",
+     "en_espn": "Jon Rowe"
+    },
+    {
+     "nombre": "Roberto Piccoli",
+     "causa": "ausente",
+     "en_espn": null
+    }
+   ]
+  },
+  {
+   "partido": "Bologna-Lazio",
+   "equipo": "Lazio",
+   "lado": "away",
+   "once": 11,
+   "casados": 7,
+   "problemas": [
+    {
+     "nombre": "Christos Mandas",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Danilho Doekhi",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Alfonso Pedraza",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Davide Frattesi",
+     "causa": "ausente",
+     "en_espn": null
+    }
+   ]
+  },
+  {
+   "partido": "Roma-Fiorentina",
+   "equipo": "Roma",
+   "lado": "home",
+   "once": 11,
+   "casados": 10,
+   "problemas": [
+    {
+     "nombre": "Nahuel Molina",
+     "causa": "ausente",
+     "en_espn": null
+    }
+   ]
+  },
+  {
+   "partido": "Roma-Fiorentina",
+   "equipo": "Fiorentina",
+   "lado": "away",
+   "once": 11,
+   "casados": 6,
+   "problemas": [
+    {
+     "nombre": "Álex Jiménez",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Radu Dragusin",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Viery",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Christ Inao Oulaï",
+     "causa": "ausente",
+     "en_espn": null
+    },
+    {
+     "nombre": "Arthur Atta",
+     "causa": "ausente",
+     "en_espn": null
+    }
+   ]
+  },
+  {
+   "partido": "Pumas-Necaxa",
+   "equipo": "Pumas",
+   "lado": "home",
+   "once": 11,
+   "casados": 11,
+   "problemas": []
+  },
+  {
+   "partido": "Pumas-Necaxa",
+   "equipo": "Necaxa",
+   "lado": "away",
+   "once": 11,
+   "casados": 10,
+   "problemas": [
+    {
+     "nombre": "Kaiky Naves",
+     "causa": "filtrado",
+     "en_espn": "Kaiky Naves"
+    }
+   ]
+  }
+ ]
+}

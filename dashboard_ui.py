@@ -1630,6 +1630,168 @@ def render_h2h_mundial(home: str, away: str):
 # ===========================================================================
 # ASISTENTE DE PARLAY POR PARTIDO (v15): agnóstico de competición
 # ===========================================================================
+def render_remates_partido(clave: str, home: str, away: str, key: str):
+    """
+    v163 — LOS REMATES DEL PARTIDO: por equipo y por jugador.
+
+    Dos cosas distintas, una debajo de la otra:
+
+      · **por equipo** — remates totales y a puerta, del partido y de cada
+        lado, con su línea y su probabilidad. Sale de
+        `rendimiento_equipos.remates_equipo`, calibrado en la §13 de la
+        bitácora (error 0,0131 en totales y 0,0129 a puerta donde hay datos
+        observados; 0,0281 y 0,0168 donde va estimado).
+
+      · **por jugador** — quién tira, con el once probable de FotMob cuando lo
+        hay. Aquí SÍ se piden los últimos partidos a ESPN (`en_vivo=True`),
+        que es lo que no cabe en la tarjeta de «Apuestas del Día»: la ficha se
+        abre de una en una y el gasto es de una decena de peticiones, ya
+        cacheadas seis horas en disco por `remates_jugadores`.
+
+    LO QUE NO SE PROMETE, Y ESTÁ MEDIDO. Cuánto remata un jugador calibra
+    (ECE 0,029 en «al menos un remate»). Si va a jugar, no: la frecuencia de
+    titularidad da ECE de 0,057 a 0,073, por encima del umbral de 0,05 del
+    proyecto. Por eso el bloque dice siempre de dónde sale el once, y cuando no
+    hay, lo dice también en vez de ordenar la lista y callarse.
+    """
+    st.divider()
+    st.subheader("🎯 Remates del partido")
+
+    try:
+        import rendimiento_equipos as _rq
+        eq = _rq.remates_equipo(clave, home, away)
+    except Exception as e:
+        st.caption(f"No disponible: {type(e).__name__}")
+        return
+    if not eq:
+        st.info("Esta competición no tiene ni goles con los que situar su "
+                "nivel de remates, así que no hay nada honesto que enseñar "
+                "aquí.")
+        return
+
+    import modo_modelo as _mm
+    filas = []
+    for nombre, titulo in (('totales', 'Remates'), ('a_puerta', 'A puerta')):
+        bloque = eq.get(nombre)
+        if not bloque:
+            continue
+        pintado = _mm._filas_de(bloque, '🎯')
+        if not pintado:
+            continue
+        for f in pintado['filas']:
+            etq = {'Total': 'Partido', 'Local': home, 'Visita': away}.get(
+                f['etiqueta'], f['etiqueta'])
+            filas.append({'Mercado': titulo, 'Quién': etq,
+                          'Esperados': round(f['media'], 2),
+                          'Apuesta': f['texto'],
+                          'Probabilidad': f"{f['prob']*100:.0f} %"})
+    if filas:
+        st.dataframe(pd.DataFrame(filas), hide_index=True, width='stretch')
+        origen = (eq.get('totales') or {}).get('origen') or 'observado'
+        if origen == 'estimado':
+            err = (eq.get('totales') or {}).get('error_calibracion')
+            st.caption(
+                "📐 **Estimado** · esta competición no publica remates "
+                "observados: el nivel sale de sus goles y es igual para todos "
+                "sus partidos, así que no distingue a un equipo de otro. Su "
+                f"error de calibración medido dejando la liga fuera es "
+                f"{err:.4f}, por debajo del umbral de 0,05 que se fijó como "
+                "aceptable.".replace('.', ','))
+        else:
+            st.caption(
+                "Remates observados de esta competición. El error de "
+                "calibración medido es 0,0131 en remates totales y 0,0129 a "
+                "puerta. Es una probabilidad bien calibrada, **no** una "
+                "ventaja de precio: no hay histórico de líneas de remates con "
+                "el que medir un percentil 5.")
+
+    # ---- por jugador --------------------------------------------------------
+    @st.cache_data(ttl=3600, show_spinner="Buscando quién remata…")
+    def _por_jugador(c: str, h: str, a: str):
+        import remates_jugador as _rjg
+        return _rjg.partido(c, h, a, en_vivo=True)
+
+    try:
+        qr = _por_jugador(clave, home, away)
+    except Exception as e:
+        st.caption(f"Jugadores no disponibles: {type(e).__name__}")
+        return
+    if not qr:
+        return
+    al = qr.get('alineacion') or {}
+    if al.get('aviso'):
+        formaciones = ' · '.join(
+            x for x in (al.get('home_formacion'), al.get('away_formacion')) if x)
+        st.markdown(f"**{al['aviso']}**"
+                    + (f" ({formaciones})" if formaciones else ""))
+        # Si el once no se ha podido casar entero con la estadistica de ESPN,
+        # se dice. Una tabla de seis nombres bajo el rotulo «alineacion
+        # probable» afirma que el once son esos seis, y no lo es. Medido: casan
+        # 88 de 132 nombres (67 %), y solo el 2 % es un fallo del emparejador —
+        # el resto son fichajes que ESPN aun no tiene y jugadores con menos de
+        # dos partidos.
+        _falt = [qr.get(l + '_casados_de') for l in ('home', 'away')]
+        _falt = [c for c in _falt if c and c[0] < c[1]]
+        if _falt:
+            st.caption(
+                "De la alineación se han encontrado con estadística "
+                + " y ".join(f"**{a} de {b}**" for a, b in _falt)
+                + " jugadores. Los que faltan no están en los últimos "
+                "partidos que publica ESPN — suelen ser fichajes recientes o "
+                "jugadores con muy pocos minutos.")
+    else:
+        st.warning(
+            "**Todavía no hay alineación publicada.** Lo de abajo son los "
+            "jugadores del plantel ordenados por su probabilidad de rematar "
+            "SI JUEGAN, no una predicción de quién sale de inicio. Estimar "
+            "eso con la frecuencia de titularidad calibra a 0,057-0,073, por "
+            "encima del umbral aceptable del proyecto, así que no se hace.")
+
+    cols = st.columns(2)
+    for col, lado, nombre_eq in ((cols[0], 'home', home), (cols[1], 'away', away)):
+        with col:
+            st.markdown(f"**{nombre_eq}**")
+            js = qr.get(lado + '_jugadores') or []
+            if not js:
+                st.caption("Sin estadística por jugador de este equipo. Puede "
+                           "ser que ESPN no cubra la competición, que nos "
+                           "esté devolviendo 403, o que el equipo no haya "
+                           "jugado en la ventana consultada.")
+                continue
+            tabla = pd.DataFrame([{
+                'Jugador': (j.get('jugador') or '')
+                           + (' *' if j.get('muestra_corta') else ''),
+                'Pos': j.get('posicion'),
+                'PJ': int(j.get('apariciones') or 0),
+                'Rem. esperados': j.get('lambda_tot'),
+                '≥1 remate': (f"{j['p_remata']*100:.0f} %"
+                              if j.get('p_remata') is not None else '—'),
+                '≥1 a puerta': (f"{j['p_al_arco']*100:.0f} %"
+                                if j.get('p_al_arco') is not None else '—'),
+                # Titularidades OBSERVADAS, no una probabilidad de jugar.
+                # Se escribe «8/10» y no «80 %» a proposito: convertir esto en
+                # un porcentaje seria presentarlo como prediccion, y como
+                # prediccion calibra a 0,057-0,073 de ECE, por encima del
+                # umbral de 0,05. Como dato de cuantas veces salio de inicio
+                # es exacto y sirve para leer la tabla.
+                'Titular': (f"{int(j['titularidades'])}/{int(j['apariciones'])}"
+                            if j.get('titularidades') is not None else '—'),
+            } for j in js])
+            st.dataframe(tabla, hide_index=True, width='stretch')
+    pie = ("Los remates esperados de cada jugador se encogen hacia la media de "
+           "su posición según su muestra (K=6 en totales, K=12 a puerta): con "
+           "cuatro a diez partidos, su media suelta es un tercio de ruido. "
+           "Medido sobre 6.688 titulares-partido, encoger baja el error de "
+           "calibración por deciles de 0,056 a 0,029 y encima sube la "
+           "correlación.")
+    if any(j.get('muestra_corta') for j in
+           (qr.get('home_jugadores') or []) + (qr.get('away_jugadores') or [])):
+        pie += (" El asterisco marca a quien lleva menos de cuatro partidos: "
+                "por debajo de ahí no hay medición y su número es casi entero "
+                "la media de su puesto.")
+    st.caption(pie)
+
+
 def render_remates_reales(lados: list, key: str):
     """
     v67 — Remates y remates a puerta REALES **por jugador**.
@@ -4100,6 +4262,12 @@ def render_liga_club(clave: str, nombre_liga: str):
             if not nombre_espn:
                 return None
             return _rj.remates_equipo(code, nombre_espn)
+
+        # v163 - los remates del partido: por equipo con su linea y su
+        # probabilidad, y por jugador con el once probable de FotMob. Va antes
+        # de la tabla cruda de la v67, que sigue debajo con los totales
+        # observados sin modelo encima.
+        render_remates_partido(clave, home, away, key=clave)
 
         render_remates_reales(
             [(f"🏠 {home}", lambda: _remates_club(clave, home)),

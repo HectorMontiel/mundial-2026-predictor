@@ -1354,3 +1354,306 @@ más fuerte que los córners estimados.
 barato que FotMob (~1,7 s por partido), que era la otra vía. El bot lo corre a
 diario con ventana de 10 días, antes del reentrenamiento para que lo descargado
 entre en el `--build` del mismo día.
+
+---
+
+## 13. Remates: el tercer mercado físico, y el primero donde la métrica de siempre se equivocó
+
+### 13.0 Qué hay y qué no
+
+Dos mercados nuevos —**remates totales** y **remates a puerta**— por equipo y del
+partido, más un bloque **por jugador** con la alineación probable cuando la hay.
+
+Están en ámbar, como córners y tarjetas, y por lo mismo: son probabilidades bien
+calibradas, **no** una ventaja de precio demostrada. No hay histórico de líneas
+de remates con el que calcular un percentil 5, así que la regla de oro del §0 ni
+siquiera se puede aplicar todavía. `snapshots_remates.py` lo empieza a
+construir hoy, igual que hicieron `snapshots_corners.py` en la v159 y
+`snapshots_tarjetas.py` en la v160 para sus mercados.
+
+### 13.1 El estimador: el mismo que ganó en córners y en tarjetas
+
+Sobre **41.000 equipos-partido de 17 competiciones** con remates observados
+(`_v163_remates_estimadores.py`), cuatro estimadores por dos distribuciones:
+
+| remates TOTALES por equipo | marginal | Brier | ECE |
+|---|---|---|---|
+| ataque/defensa v10, binomial negativa | 0,01315 | **0,19501** | **0,03132** |
+| ataque/defensa v10, Poisson | 0,03323 | 0,19602 | 0,04389 |
+| media del equipo, binneg | 0,02067 | 0,20441 | 0,03310 |
+| media de la competición, binneg | 0,02077 | 0,21282 | 0,03200 |
+| media móvil de 5, Poisson | **0,01476** | 0,22477 | 0,11418 |
+
+| remates A PUERTA por equipo | marginal | Brier | ECE |
+|---|---|---|---|
+| ataque/defensa v10, binneg | 0,01287 | **0,20154** | **0,02734** |
+| ataque/defensa v10, Poisson | 0,01281 | 0,20169 | 0,02907 |
+| media móvil de 5, Poisson | **0,00706** | 0,22218 | 0,09824 |
+
+Gana lo mismo que en los otros dos mercados: **(lo que TIRA él en su bando + lo
+que CONCEDE el rival en el contrario) / 2, ventana 10, binomial negativa**. Tres
+mercados independientes y el mismo ganador: ya no es una casualidad de córners.
+
+### 13.2 EL HALLAZGO QUE HAY QUE LEER ANTES DE MEDIR NADA MÁS
+
+**El error marginal, que es la métrica con la que se cerraron córners (§10) y
+tarjetas (§11), aquí habría elegido el peor estimador de la tabla.**
+
+La media móvil de 5 con Poisson gana esa columna en los DOS objetivos —0,01476 y
+0,00706, los mejores números de todo el experimento— y es la última por Brier y
+por ECE, con la calibración por deciles **cuatro veces peor** que la del ganador.
+
+El motivo: `|media de la probabilidad dicha − frecuencia real|` mide que el nivel
+no esté sesgado y **no mide resolución**. La media de la competición dice lo
+mismo en todos los partidos y aun así puntúa 0,0208. Aquí además se juntan dos
+sesgos que se cancelan: la móvil de 5 es ruidosa, lo que engorda las colas, y
+Poisson las adelgaza justo lo bastante para que el promedio cuadre.
+
+Por eso desde la v163 se miran **tres** números y se elige por ECE:
+
+* `marginal` — que el nivel no esté sesgado (la de siempre);
+* `brier` — que la probabilidad se mueva partido a partido en la dirección buena;
+* `ece` — calibración por deciles, que caza los sesgos que se cancelan.
+
+**Consecuencia para quien vuelva a córners o tarjetas:** sus decisiones se
+tomaron con la primera columna sola. No están desmentidas —el estimador ganador
+es el mismo en los tres mercados— pero tampoco están confirmadas por las otras
+dos. Antes de mover algo allí, medir las tres.
+
+### 13.3 El total del partido: se suma, como en tarjetas y al revés que en córners
+
+Medido en `_v163_remates_total.py` sobre 20.000 partidos:
+
+| total del partido (remates) | marginal | Brier | ECE |
+|---|---|---|---|
+| suma de las dos lambdas | **0,01511** | **0,21155** | **0,03840** |
+| media de la competición | 0,03598 | 0,21724 | 0,04983 |
+
+La correlación de la suma con el total real va de 0,10 a 0,27 según la
+competición: señal de verdad. En córners era **−0,0012** y por eso allí se usa la
+media de la liga (§10.7). Tres mercados, tres respuestas distintas a la misma
+pregunta, cada una medida.
+
+### 13.4 La sobredispersión es mucho mayor aquí
+
+Razón varianza/media **por equipo**: 2,09 en remates totales y 1,36 a puerta,
+contra 1,58 de córners y 1,12-1,35 de tarjetas. Con 2,09, usar Poisson multiplica
+por 2,5 el error marginal. La del **total** del partido es bastante más baja
+(1,35 y 1,13): el racimo ocurre dentro del ataque de un equipo y sumar los dos
+bandos lo diluye, igual que en córners y al revés que en tarjetas.
+
+### 13.5 La trampa de las dos épocas
+
+El histórico de la Premier arranca en 2010 y **la media de remates a puerta se
+parte por la mitad entre 2013 y 2014** (13,4 y 11,3 antes; 8,6 y 8,7 después):
+la fuente cambió qué cuenta. Promediando las dos épocas juntas, la razón
+varianza/media del total sale **1,62** cuando dentro de cada año va entre 0,90 y
+1,22 — o sea que la «sobredispersión» medida sería la distancia entre dos
+definiciones, y la binomial negativa engordaría las colas por un motivo
+inventado.
+
+Por eso el nivel y la dispersión se miden sobre las **últimas 6 temporadas**
+(`rendimiento_equipos._recientes`). Seis y no cuatro porque con cuatro un equipo
+recién ascendido se queda sin muestra y el partido entero cae al estimador de
+liga; de las ocho competiciones comprobadas sólo la Premier tiene el salto, y a
+seis temporadas sigue dentro de su época actual.
+
+`media_corners_liga` ya recortaba a 3 temporadas por esta razón, pero
+`dispersion_corners_liga` y `dispersion_corners_equipo` **no lo hacen**. No se
+han tocado —su calibración está medida y cerrada con ese comportamiento— pero
+queda anotado por si alguien las revisa.
+
+### 13.6 Sin datos observados: la estimación, y cuánto vale
+
+Validación **dejando una liga fuera** sobre 18 competiciones
+(`_v163_remates_estimados.py`):
+
+| remates TOTALES por equipo | marginal | ECE | corr |
+|---|---|---|---|
+| con datos reales (el techo) | 0,0131 | 0,0321 | 0,431 |
+| nivel de liga predicho de sus goles | **0,0281** | 0,0302 | 0,235 |
+| media global de las otras ligas | 0,0401 | 0,0405 | 0,235 |
+| predicha × ataque, normalizada | 0,0481 | 0,1516 | 0,258 |
+
+| remates A PUERTA por equipo | marginal | ECE | corr |
+|---|---|---|---|
+| con datos reales (el techo) | 0,0128 | 0,0279 | 0,334 |
+| nivel de liga predicho de sus goles | **0,0168** | 0,0211 | 0,171 |
+| media global de las otras ligas | 0,0376 | 0,0390 | 0,171 |
+| predicha × ataque, normalizada | 0,0376 | 0,1101 | 0,239 |
+
+Los dos por debajo del umbral de 0,05, así que llevan el aviso suave —no el
+fuerte de las tarjetas estimadas (0,0539)—. Y la modulación por ataque vuelve a
+perder, aquí por más distancia que en ningún otro mercado: multiplica el ECE
+por cinco.
+
+**Los goles predicen el nivel de remates de una liga mejor que el de nada más:**
+correlación **+0,666** en totales y **+0,878** a puerta, contra +0,428 de córners
+y −0,412 de tarjetas. Tiene sentido: el remate es el paso inmediatamente anterior
+al gol y los otros dos están dos pasos más lejos.
+
+### 13.7 Por jugador: encoger o no enseñarlo
+
+Sobre **6.688 titulares-partido** de Premier, LaLiga y Liga MX bajados de ESPN
+(`_v163_remates_jugador.py`), prediciendo P(≥1 remate) con información previa:
+
+| estimador | marginal | Brier | ECE | corr |
+|---|---|---|---|---|
+| **encogido K=6** | 0,02030 | **0,18746** | **0,02870** | **0,537** |
+| su media de las últimas 10 | 0,00850 | 0,19268 | 0,05606 | 0,521 |
+| la media de su posición | 0,02760 | 0,19903 | 0,03571 | 0,471 |
+
+y en P(≥1 a puerta) gana **K=12** (Brier 0,13992, ECE 0,02449, corr 0,420).
+
+La media de un jugador sale de 4-10 apariciones: con λ≈0,78 eso son ±0,28 de
+desviación típica, un tercio de ruido puro. Encogerla hacia la media de su
+posición baja el ECE a la mitad **y encima sube la correlación**. El evento más
+raro necesita encoger más, que es lo que dice la teoría.
+
+**Poisson, no binomial negativa — al revés que en el equipo.** La dispersión que
+se mide juntando a todos los jugadores incluye la diferencia ENTRE ellos (un
+delantero no es un lateral), y ésa ya está dentro de la λ de cada uno. Volver a
+meterla en la distribución la cuenta dos veces.
+
+**El previo posicional va en CUOTA del total del equipo**, no en remates
+absolutos: así es adimensional y una sola tabla vale para las 62 competiciones,
+sin tener que descargar la estadística por jugador de cada una. La dispersión
+relativa de la cuota entre las tres ligas medidas es 0,077 en totales, y calibra
+igual que el techo (Brier 0,18798 contra 0,18746). Además engancha el jugador al
+modelo de equipo: si el rival concede mucho, sube el equipo y suben sus
+jugadores.
+
+### 13.8 LA FUGA QUE CAMBIÓ EL RESULTADO, Y CÓMO SE CAZÓ
+
+La primera medición dijo que **la media de la posición ganaba a todo**, incluido
+el historial del propio jugador. Era falso.
+
+ESPN no pone la posición real a quien sale del banquillo: le pone literalmente
+`SUB` (4.580 de 10.390 filas en la Premier). Así que «la media de su posición»,
+calculada con la posición de ESE partido, estaba diciendo en realidad **«este
+jugador fue suplente»** — que es justo lo que no se sabe antes del partido. Con
+esa información de contrabando, la referencia posicional ganaba.
+
+Se arregló tomando la posición de la MODA de sus titularidades anteriores y
+evaluando sólo a los titulares. Con eso, el orden se invirtió y el encogimiento
+pasó a ganar.
+
+### 13.9 La alineación: ESPN no sirve, FotMob sí
+
+Medido sobre 104 partidos de 12 competiciones (`_v163_sondeo_alineacion.py`):
+
+    partidos TERMINADOS con once inicial ....  50 de 50   (100 %)
+    partidos POR JUGAR  con once inicial ....   0 de 54   (  0 %)
+
+incluido uno a **4,4 horas** del saque. Misma firma exacta que el árbitro en la
+§11: el dato existe, pero aparece cuando ya no sirve.
+
+Y **`goleadores_cache.json` no contiene ninguna alineación**, aunque sea fácil
+creerlo: lo que guarda es el roster de temporada de ESPN —la plantilla entera con
+sus totales—, que no depende del partido.
+
+FotMob sí, y con antelación (`_v163_sondeo_fotmob_lineup.py`, 50 partidos por
+jugar):
+
+    con once publicado .........  27 de 50   (54 %)
+    tipo `predicted` ...........  21   <- once probable de verdad
+    tipo `lastStarting11` ......   6   <- el once del último partido
+    `unavailable` o sin bloque .  23
+
+Los tres casos se distinguen en pantalla: un once probable y el del partido
+anterior no valen lo mismo.
+
+> **Aviso para quien toque el lector.** La primera versión del sondeo devolvía
+> CERO SIEMPRE porque buscaba el bloque en la ruta equivocada, y parecía que
+> FotMob no publicaba nada. Lo cazó `_v163_verificar_lector_lineup.py` pasándole
+> el mismo lector a partidos ya jugados, donde el once tiene que estar. **Un
+> sondeo que no encuentra nada y un lector roto se parecen demasiado.** Si se
+> cambia la ruta, hay que volver a pasar ese control.
+
+La ruta buena es `content.lineup.homeTeam.starters`, con `content.lineup.
+lineupType` diciendo de qué tipo es.
+
+Se precalcula en el bot a `alineaciones_dia.json`, exactamente como el árbitro y
+por el mismo motivo: la tarjeta se pinta sesenta veces por pantalla y un
+`matchDetails` de FotMob tarda 1,7 s. En pantalla no se pide nada; en la ficha,
+que se abre de una en una, sí.
+
+### 13.10 Lo que NO calibra: saber quién juega
+
+Sin alineación hay que estimar la titularidad con la frecuencia con la que el
+jugador ha sido titular. Medido igual que todo lo demás:
+
+    eng.1  n=6.928  marginal 0,0027  Brier 0,16395  ECE 0,05689
+    esp.1  n=7.740  marginal 0,0056  Brier 0,17912  ECE 0,07272
+    mex.1  n=7.316  marginal 0,0035  Brier 0,17264  ECE 0,06123
+
+ECE de 0,057 a 0,073, **por encima** del umbral de 0,05 del proyecto. La parte
+floja de esta sección no es cuánto remata un jugador: es si va a jugar. Por eso,
+sin alineación publicada, la interfaz lo dice con todas las letras en vez de
+ordenar la lista y callarse.
+
+Y por tramos de muestra, dentro de los que sí juegan:
+
+    apariciones 4-6   n=  813  marginal 0,02235 / 0,04298  (totales / a puerta)
+    apariciones 7+    n=5.875  marginal 0,02009 / 0,00896
+
+Por debajo de cuatro apariciones no hay ni medición —el tramo no llega a la
+muestra mínima juntando tres competiciones—, así que esas filas salen marcadas
+con un asterisco.
+
+### 13.11 Dos agujeros que se encontraron por el camino
+
+**El catálogo de equipos de ESPN se cacheaba incompleto.**
+`remates_jugadores.equipos_de_liga` paraba el barrido en cuanto juntaba 16
+nombres. A finales de agosto un tramo de 55 días no cubre una jornada entera: la
+Serie A tenía 16 equipos (faltaban Roma, Lazio, Fiorentina y Bologna) y LaLiga 19
+(faltaba Osasuna). Y no se veía, porque `resolver_equipo` devuelve `None` para un
+equipo que no está y la sección salía VACÍA — indistinguible de «ESPN no cubre
+esta competición». Ahora recorre la ventana entera y sólo corta cuando dos tramos
+seguidos no aportan un nombre nuevo. Un catálogo vacío ya no se cachea.
+
+**El 10,5 % de los equipos no encontraba su nombre en ESPN.**
+`name_mapper.normalizar` quita los sufijos societarios pero no los prefijos, así
+que «Roma» contra «AS Roma» se queda en 0,73 y no llega al umbral de 0,78. Se
+resolvió con 21 alias verificados uno a uno contra el catálogo real de cada
+competición (de 30 fallos a 9), añadiendo el nombre de ESPN **detrás** del que ya
+hubiera: `mapear` se queda con el primero que exista en el catálogo que le pasan,
+así que el emparejado contra el catálogo del proyecto no cambia ni un caso. Los 9
+que quedan son equipos que han cambiado de división y no están en ESPN con esa
+competición: ahí no hay alias que valga.
+
+Arreglar el normalizador quitaría la familia entera de golpe, pero mueve TODOS
+los emparejados del proyecto —cuotas, liquidación, fixtures— y eso es una
+medición aparte que aquí no se ha hecho.
+
+### 13.12 Emparejar el once con las estadísticas
+
+Medido sobre 132 nombres de once en 12 partidos
+(`_v163_emparejado_jugadores.py`):
+
+    casados ......  88 de 132  (67 %)
+    ausente ......  21 (16 %)  el jugador no está en los últimos partidos de
+                              ESPN — fichaje nuevo, lesionado que vuelve
+    filtrado .....  21 (16 %)  menos de 2 apariciones (es agosto)
+    sin_casar ....   2 ( 2 %)  fallo real del emparejador
+
+El 2 % es lo único que es un fallo; el resto son huecos de la fuente y decisiones
+propias. Un nombre que no casa **no se fuerza**: se queda fuera, igual que hace
+`stats_espn.inyectar` con un partido que no encuentra. Y un jugador de ESPN no
+puede casar con dos del once, porque dos homónimos del mismo equipo colapsarían
+en la misma fila y el once se quedaría en diez sin que se notara.
+
+### 13.13 Cobertura
+
+Con la caché de `stats_espn` (`informe_calibracion.py`):
+
+    competiciones con remates OBSERVADOS ......  44 de 61
+    competiciones con remates a puerta ........  44 de 61
+    error de calibración medio, remates .......  0,0164
+    error de calibración medio, a puerta ......  0,0173
+
+Las 17 restantes salen con la estimación marcada. Ojo: eso es lo que dice la
+CACHÉ. Los históricos guardados de este clon sólo tienen remates observados en 20
+competiciones, porque `stats_espn.inyectar` **sólo rellena huecos** y no puede
+pisar unos remates que el generador sintético ya escribió. Se arregla solo en el
+próximo `--build`, que reconstruye el fichero desde cero.

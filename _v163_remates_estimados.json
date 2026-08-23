@@ -1,0 +1,326 @@
+{
+ "tot": {
+  "corr_nivel_goles": 0.6655,
+  "ligas": 18,
+  "tabla": {
+   "techo": {
+    "marginal": 0.01306,
+    "brier": 0.19499,
+    "ece": 0.03208,
+    "corr": 0.43148,
+    "n": 43480
+   },
+   "predicha": {
+    "marginal": 0.02807,
+    "brier": 0.21382,
+    "ece": 0.03024,
+    "corr": 0.23547,
+    "n": 43480
+   },
+   "global": {
+    "marginal": 0.04009,
+    "brier": 0.21465,
+    "ece": 0.04052,
+    "corr": 0.23547,
+    "n": 43480
+   },
+   "modulada": {
+    "marginal": 0.0481,
+    "brier": 0.24458,
+    "ece": 0.15157,
+    "corr": 0.25816,
+    "n": 43480
+   }
+  },
+  "perfiles": {
+   "bel_pro_league": {
+    "n": 485,
+    "goles": 2.7402,
+    "nivel": 26.4804,
+    "prop_h": 0.5492,
+    "disp": 2.1163
+   },
+   "bundesliga": {
+    "n": 1344,
+    "goles": 3.1689,
+    "nivel": 25.7708,
+    "prop_h": 0.5502,
+    "disp": 2.1423
+   },
+   "eng_championship": {
+    "n": 2028,
+    "goles": 2.5577,
+    "nivel": 24.177,
+    "prop_h": 0.5493,
+    "disp": 1.9673
+   },
+   "eng_league_one": {
+    "n": 1024,
+    "goles": 2.6221,
+    "nivel": 23.2236,
+    "prop_h": 0.5464,
+    "disp": 1.9999
+   },
+   "eng_league_two": {
+    "n": 1118,
+    "goles": 2.5349,
+    "nivel": 23.6628,
+    "prop_h": 0.5447,
+    "disp": 1.903
+   },
+   "eredivisie": {
+    "n": 1712,
+    "goles": 3.0426,
+    "nivel": 26.9258,
+    "prop_h": 0.5516,
+    "disp": 2.7052
+   },
+   "esp_hypermotion": {
+    "n": 2322,
+    "goles": 2.373,
+    "nivel": 23.963,
+    "prop_h": 0.5599,
+    "disp": 1.9189
+   },
+   "fra_ligue2": {
+    "n": 633,
+    "goles": 2.5324,
+    "nivel": 23.2749,
+    "prop_h": 0.544,
+    "disp": 1.9684
+   },
+   "ger_bundesliga2": {
+    "n": 1457,
+    "goles": 3.0014,
+    "nivel": 26.8325,
+    "prop_h": 0.5393,
+    "disp": 1.6776
+   },
+   "ita_serie_b": {
+    "n": 987,
+    "goles": 2.4762,
+    "nivel": 25.7812,
+    "prop_h": 0.5419,
+    "disp": 1.9826
+   },
+   "laliga": {
+    "n": 1900,
+    "goles": 2.6284,
+    "nivel": 23.8179,
+    "prop_h": 0.5581,
+    "disp": 2.1873
+   },
+   "liga_mx": {
+    "n": 1779,
+    "goles": 2.7167,
+    "nivel": 26.4626,
+    "prop_h": 0.547,
+    "disp": 2.0595
+   },
+   "ligue_1": {
+    "n": 1651,
+    "goles": 2.7383,
+    "nivel": 24.2568,
+    "prop_h": 0.5421,
+    "disp": 1.9657
+   },
+   "premier": {
+    "n": 1608,
+    "goles": 2.9167,
+    "nivel": 25.6026,
+    "prop_h": 0.5458,
+    "disp": 2.4163
+   },
+   "primeira": {
+    "n": 1675,
+    "goles": 2.6167,
+    "nivel": 24.0358,
+    "prop_h": 0.5395,
+    "disp": 2.1983
+   },
+   "sco_premiership": {
+    "n": 439,
+    "goles": 2.8542,
+    "nivel": 25.2301,
+    "prop_h": 0.5461,
+    "disp": 2.4113
+   },
+   "serie_a": {
+    "n": 2050,
+    "goles": 2.659,
+    "nivel": 24.9488,
+    "prop_h": 0.5443,
+    "disp": 2.1426
+   },
+   "turquia": {
+    "n": 659,
+    "goles": 2.8042,
+    "nivel": 25.4325,
+    "prop_h": 0.5595,
+    "disp": 2.2595
+   }
+  }
+ },
+ "on": {
+  "corr_nivel_goles": 0.8785,
+  "ligas": 18,
+  "tabla": {
+   "techo": {
+    "marginal": 0.01278,
+    "brier": 0.20151,
+    "ece": 0.02793,
+    "corr": 0.33367,
+    "n": 43480
+   },
+   "predicha": {
+    "marginal": 0.01683,
+    "brier": 0.21246,
+    "ece": 0.02114,
+    "corr": 0.17079,
+    "n": 43480
+   },
+   "global": {
+    "marginal": 0.03756,
+    "brier": 0.21392,
+    "ece": 0.03896,
+    "corr": 0.17079,
+    "n": 43480
+   },
+   "modulada": {
+    "marginal": 0.03758,
+    "brier": 0.22724,
+    "ece": 0.11013,
+    "corr": 0.23897,
+    "n": 43480
+   }
+  },
+  "perfiles": {
+   "bel_pro_league": {
+    "n": 485,
+    "goles": 2.7402,
+    "nivel": 9.2021,
+    "prop_h": 0.5443,
+    "disp": 1.379
+   },
+   "bundesliga": {
+    "n": 1344,
+    "goles": 3.1689,
+    "nivel": 9.4509,
+    "prop_h": 0.5546,
+    "disp": 1.4696
+   },
+   "eng_championship": {
+    "n": 2028,
+    "goles": 2.5577,
+    "nivel": 8.0089,
+    "prop_h": 0.5438,
+    "disp": 1.2763
+   },
+   "eng_league_one": {
+    "n": 1024,
+    "goles": 2.6221,
+    "nivel": 7.7988,
+    "prop_h": 0.5453,
+    "disp": 1.3813
+   },
+   "eng_league_two": {
+    "n": 1118,
+    "goles": 2.5349,
+    "nivel": 7.7773,
+    "prop_h": 0.5438,
+    "disp": 1.2602
+   },
+   "eredivisie": {
+    "n": 1712,
+    "goles": 3.0426,
+    "nivel": 9.67,
+    "prop_h": 0.5506,
+    "disp": 1.6688
+   },
+   "esp_hypermotion": {
+    "n": 2322,
+    "goles": 2.373,
+    "nivel": 7.9733,
+    "prop_h": 0.566,
+    "disp": 1.2899
+   },
+   "fra_ligue2": {
+    "n": 633,
+    "goles": 2.5324,
+    "nivel": 8.2022,
+    "prop_h": 0.5412,
+    "disp": 1.3134
+   },
+   "ger_bundesliga2": {
+    "n": 1457,
+    "goles": 3.0014,
+    "nivel": 9.4647,
+    "prop_h": 0.5462,
+    "disp": 1.2317
+   },
+   "ita_serie_b": {
+    "n": 987,
+    "goles": 2.4762,
+    "nivel": 8.2391,
+    "prop_h": 0.5516,
+    "disp": 1.2425
+   },
+   "laliga": {
+    "n": 1900,
+    "goles": 2.6284,
+    "nivel": 8.2442,
+    "prop_h": 0.5624,
+    "disp": 1.4
+   },
+   "liga_mx": {
+    "n": 1779,
+    "goles": 2.7167,
+    "nivel": 8.837,
+    "prop_h": 0.5488,
+    "disp": 1.3093
+   },
+   "ligue_1": {
+    "n": 1651,
+    "goles": 2.7383,
+    "nivel": 8.6196,
+    "prop_h": 0.5404,
+    "disp": 1.3153
+   },
+   "premier": {
+    "n": 1608,
+    "goles": 2.9167,
+    "nivel": 8.8968,
+    "prop_h": 0.5372,
+    "disp": 1.4111
+   },
+   "primeira": {
+    "n": 1675,
+    "goles": 2.6167,
+    "nivel": 8.314,
+    "prop_h": 0.5373,
+    "disp": 1.377
+   },
+   "sco_premiership": {
+    "n": 439,
+    "goles": 2.8542,
+    "nivel": 8.615,
+    "prop_h": 0.5513,
+    "disp": 1.4963
+   },
+   "serie_a": {
+    "n": 2050,
+    "goles": 2.659,
+    "nivel": 8.5951,
+    "prop_h": 0.5386,
+    "disp": 1.3897
+   },
+   "turquia": {
+    "n": 659,
+    "goles": 2.8042,
+    "nivel": 8.7906,
+    "prop_h": 0.5648,
+    "disp": 1.4526
+   }
+  }
+ }
+}

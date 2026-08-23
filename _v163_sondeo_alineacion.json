@@ -1,0 +1,1042 @@
+[
+ {
+  "code": "eng.1",
+  "id": "401879322",
+  "nombre": "MAN @ HUL",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -18.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "eng.1",
+  "id": "401879300",
+  "nombre": "CRY @ EVE",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -15.83,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "eng.1",
+  "id": "401879299",
+  "nombre": "SUN @ IPS",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -15.83,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "eng.1",
+  "id": "401879298",
+  "nombre": "LEE @ NFO",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -15.83,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "eng.1",
+  "id": "401879321",
+  "nombre": "TOT @ BRE",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -13.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "eng.1",
+  "id": "401879297",
+  "nombre": "AVL @ BHA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 7.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "eng.1",
+  "id": "401879320",
+  "nombre": "BOU @ MNC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 7.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "eng.1",
+  "id": "401879319",
+  "nombre": "LIV @ NEW",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 9.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "eng.1",
+  "id": "401879318",
+  "nombre": "CHE @ FUL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 37.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882916",
+  "nombre": "SEV @ ATH",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -14.83,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "esp.1",
+  "id": "401882907",
+  "nombre": "CEL @ VAL",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -12.33,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "esp.1",
+  "id": "401882912",
+  "nombre": "RMA @ ESP",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -10.33,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "esp.1",
+  "id": "401882915",
+  "nombre": "VIL @ ATM",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 9.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882911",
+  "nombre": "RAC @ GET",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 11.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882913",
+  "nombre": "BAR @ ELC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 13.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882909",
+  "nombre": "LEV @ OSA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 35.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882910",
+  "nombre": "DEP @ MCF",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 37.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882917",
+  "nombre": "BET @ VAL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 61.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882919",
+  "nombre": "RSO @ RMA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 85.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882924",
+  "nombre": "OSA @ CEL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 108.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "esp.1",
+  "id": "401882921",
+  "nombre": "ATH @ BAR",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 109.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ita.1",
+  "id": "401874931",
+  "nombre": "MON @ INT",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -13.33,
+  "titulares": 22,
+  "jugadores_con_stats": 43
+ },
+ {
+  "code": "ita.1",
+  "id": "401874745",
+  "nombre": "COMO @ UDI",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -13.33,
+  "titulares": 22,
+  "jugadores_con_stats": 51
+ },
+ {
+  "code": "ita.1",
+  "id": "401874929",
+  "nombre": "NAP @ GEN",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -11.08,
+  "titulares": 22,
+  "jugadores_con_stats": 48
+ },
+ {
+  "code": "ita.1",
+  "id": "401874747",
+  "nombre": "CAG @ PAR",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -11.08,
+  "titulares": 22,
+  "jugadores_con_stats": 51
+ },
+ {
+  "code": "ita.1",
+  "id": "401874930",
+  "nombre": "JUV @ FRO",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 10.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ita.1",
+  "id": "401874946",
+  "nombre": "LEC @ VEN",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 10.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ita.1",
+  "id": "401874748",
+  "nombre": "SAS @ ATA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 12.92,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ita.1",
+  "id": "401874932",
+  "nombre": "MIL @ TOR",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 12.92,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ita.1",
+  "id": "401874927",
+  "nombre": "LAZ @ BOL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 34.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ita.1",
+  "id": "401874928",
+  "nombre": "FIO @ ROMA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 36.92,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "fra.1",
+  "id": "401876490",
+  "nombre": "AUX @ RCL",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -14.58,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "fra.1",
+  "id": "401876491",
+  "nombre": "BRE @ MNS",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -11.08,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "fra.1",
+  "id": "401876488",
+  "nombre": "LOR @ NICE",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -11.08,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "fra.1",
+  "id": "401876486",
+  "nombre": "LYON @ TOU",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -11.08,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "fra.1",
+  "id": "401876485",
+  "nombre": "PAR @ TRY",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -11.08,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "fra.1",
+  "id": "401876493",
+  "nombre": "LILL @ ANG",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 7.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "fra.1",
+  "id": "401876492",
+  "nombre": "MON @ HAC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 9.42,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "fra.1",
+  "id": "401876487",
+  "nombre": "PSG @ REN",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 12.92,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "mex.1",
+  "id": "401877006",
+  "nombre": "TIJ @ GDL",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.71,
+  "titulares": 22,
+  "jugadores_con_stats": 42
+ },
+ {
+  "code": "mex.1",
+  "id": "401877009",
+  "nombre": "SAN @ PUE",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -4.83,
+  "titulares": 22,
+  "jugadores_con_stats": 42
+ },
+ {
+  "code": "mex.1",
+  "id": "401877003",
+  "nombre": "ATS @ CAZ",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -2.83,
+  "titulares": 22,
+  "jugadores_con_stats": 42
+ },
+ {
+  "code": "mex.1",
+  "id": "401877002",
+  "nombre": "PAC @ ASL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 17.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "mex.1",
+  "id": "401877001",
+  "nombre": "NCX @ UNAM",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 19.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "usa.1",
+  "id": "761745",
+  "nombre": "LA @ MTL",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761741",
+  "nombre": "DC @ CLT",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.33,
+  "titulares": 22,
+  "jugadores_con_stats": 38
+ },
+ {
+  "code": "usa.1",
+  "id": "761743",
+  "nombre": "SEA @ CIN",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761742",
+  "nombre": "TOR @ MIA",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761740",
+  "nombre": "RSL @ ORL",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761744",
+  "nombre": "CHI @ RBNY",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761746",
+  "nombre": "CLB @ NSH",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -5.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761747",
+  "nombre": "HOU @ STL",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -5.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761748",
+  "nombre": "PHI @ ATX",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -4.83,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761749",
+  "nombre": "DAL @ VAN",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -4.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761751",
+  "nombre": "POR @ LAFC",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -3.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761750",
+  "nombre": "COL @ SD",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -3.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761752",
+  "nombre": "MIN @ SJ",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -3.33,
+  "titulares": 22,
+  "jugadores_con_stats": 40
+ },
+ {
+  "code": "usa.1",
+  "id": "761753",
+  "nombre": "NYC @ NE",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 14.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "usa.1",
+  "id": "761754",
+  "nombre": "SKC @ ATL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 17.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "bra.1",
+  "id": "401841205",
+  "nombre": "REMO @ FLU",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -10.83,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "bra.1",
+  "id": "401841204",
+  "nombre": "CAM @ INT",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -8.33,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "bra.1",
+  "id": "401841206",
+  "nombre": "FLA @ CRU",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -6.33,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "bra.1",
+  "id": "401841203",
+  "nombre": "VAS @ PAL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 13.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "bra.1",
+  "id": "401841202",
+  "nombre": "GRE @ BRA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 13.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "bra.1",
+  "id": "401841200",
+  "nombre": "BAH @ VIT",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 13.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "bra.1",
+  "id": "401841199",
+  "nombre": "SAO @ CHA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 15.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "bra.1",
+  "id": "401841201",
+  "nombre": "MIR @ SAN",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 15.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "bra.1",
+  "id": "401841207",
+  "nombre": "COR @ CFC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 16.67,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "bra.1",
+  "id": "401841198",
+  "nombre": "CAP @ BOT",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 41.17,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841523",
+  "nombre": "IACC @ CAT",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -10.83,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "arg.1",
+  "id": "401841512",
+  "nombre": "GMZ @ GLP",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -10.83,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "arg.1",
+  "id": "401841514",
+  "nombre": "RIV @ IND",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -8.33,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "arg.1",
+  "id": "401841513",
+  "nombre": "RIE @ HUR",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -5.84,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "arg.1",
+  "id": "401841516",
+  "nombre": "BAN @ NOB",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -5.84,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "arg.1",
+  "id": "401841509",
+  "nombre": "PLA @ BAR",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 11.91,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841519",
+  "nombre": "EST @ SARM",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 11.91,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841510",
+  "nombre": "DYJ @ BEL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 14.16,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841518",
+  "nombre": "VEL @ RIV",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 16.41,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841517",
+  "nombre": "CABJ @ RAC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 18.66,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841521",
+  "nombre": "CTR @ TIG",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 40.16,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841515",
+  "nombre": "ARGJ @ LAN",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 42.41,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "arg.1",
+  "id": "401841520",
+  "nombre": "ROS @ TALL",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 42.41,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "por.1",
+  "id": "401885471",
+  "nombre": "ACV @ MAR",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -15.34,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "por.1",
+  "id": "401885473",
+  "nombre": "RAFC @ EPF",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -12.84,
+  "titulares": 22,
+  "jugadores_con_stats": 45
+ },
+ {
+  "code": "por.1",
+  "id": "401885467",
+  "nombre": "ALV @ SCP",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -10.34,
+  "titulares": 22,
+  "jugadores_con_stats": 46
+ },
+ {
+  "code": "por.1",
+  "id": "401885466",
+  "nombre": "CDN @ VSC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 8.66,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "por.1",
+  "id": "401885468",
+  "nombre": "FCF @ CDSC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 11.16,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "por.1",
+  "id": "401885469",
+  "nombre": "FCA @ FCP",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 13.66,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "por.1",
+  "id": "401885472",
+  "nombre": "CPAC @ GVFC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 37.41,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ned.1",
+  "id": "401875637",
+  "nombre": "AZ @ FOR",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -15.34,
+  "titulares": 22,
+  "jugadores_con_stats": 43
+ },
+ {
+  "code": "ned.1",
+  "id": "401875635",
+  "nombre": "UTR @ SPA",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -13.09,
+  "titulares": 22,
+  "jugadores_con_stats": 44
+ },
+ {
+  "code": "ned.1",
+  "id": "401875636",
+  "nombre": "EXC @ NEC",
+  "estado": "STATUS_POSTPONED",
+  "terminado": false,
+  "horas_para_el_saque": -11.84,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ned.1",
+  "id": "401875634",
+  "nombre": "PEC @ HEE",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -10.84,
+  "titulares": 22,
+  "jugadores_con_stats": 45
+ },
+ {
+  "code": "ned.1",
+  "id": "401875633",
+  "nombre": "ADO @ GAE",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 4.41,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ned.1",
+  "id": "401875632",
+  "nombre": "GRO @ PSV",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 6.66,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "ned.1",
+  "id": "401875631",
+  "nombre": "FEY @ CAM",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 8.91,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "tur.1",
+  "id": "401888316",
+  "nombre": "SAM @ CAY",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -13.84,
+  "titulares": 22,
+  "jugadores_con_stats": 41
+ },
+ {
+  "code": "tur.1",
+  "id": "401888390",
+  "nombre": "KAS @ COR",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -13.84,
+  "titulares": 22,
+  "jugadores_con_stats": 42
+ },
+ {
+  "code": "tur.1",
+  "id": "401888314",
+  "nombre": "KNY @ FEN",
+  "estado": "STATUS_FULL_TIME",
+  "terminado": true,
+  "horas_para_el_saque": -11.34,
+  "titulares": 22,
+  "jugadores_con_stats": 42
+ },
+ {
+  "code": "tur.1",
+  "id": "401888318",
+  "nombre": "GAZ @ EYU",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 10.16,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "tur.1",
+  "id": "401888319",
+  "nombre": "IBFK @ TRAB",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 10.16,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "tur.1",
+  "id": "401888317",
+  "nombre": "BES @ ALA",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 12.66,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "tur.1",
+  "id": "401888315",
+  "nombre": "GEN @ GOZ",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 12.66,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ },
+ {
+  "code": "tur.1",
+  "id": "401888389",
+  "nombre": "AMED @ KOC",
+  "estado": "STATUS_SCHEDULED",
+  "terminado": false,
+  "horas_para_el_saque": 36.66,
+  "titulares": 0,
+  "jugadores_con_stats": 0
+ }
+]
