@@ -6,62 +6,46 @@
  },
  "ligas": [
   {
-   "liga": "argentina",
-   "precision": 0.4332,
-   "techo_mercado": 0.4115,
-   "margen": -0.0217,
-   "partidos": 3807,
-   "roi_sim": 8.37,
-   "n_apuestas": 305,
-   "p5": -0.0407,
+   "liga": "rumania",
+   "precision": 0.5115,
+   "techo_mercado": 0.5052,
+   "margen": -0.0063,
+   "partidos": 2462,
+   "roi_sim": 13.41,
+   "n_apuestas": 247,
+   "p5": 0.0362,
    "pasa": false,
    "motivos": [
-    "margen -2.2 pts, por debajo de 1.5",
-    "p5 -4.1 %, no llega a positivo"
+    "margen -0.6 pts, por debajo de 1.5"
    ]
   },
   {
    "liga": "laliga",
-   "precision": 0.5318,
-   "techo_mercado": 0.5638,
-   "margen": 0.032,
-   "partidos": 6088,
-   "roi_sim": 6.33,
-   "n_apuestas": 171,
-   "p5": -0.0611,
+   "precision": 0.5541,
+   "techo_mercado": 0.5651,
+   "margen": 0.011,
+   "partidos": 6091,
+   "roi_sim": 15.46,
+   "n_apuestas": 168,
+   "p5": 0.0237,
    "pasa": false,
    "motivos": [
-    "p5 -6.1 %, no llega a positivo"
-   ]
-  },
-  {
-   "liga": "rumania",
-   "precision": 0.5031,
-   "techo_mercado": 0.5052,
-   "margen": 0.0021,
-   "partidos": 2462,
-   "roi_sim": 4.08,
-   "n_apuestas": 247,
-   "p5": -0.0641,
-   "pasa": false,
-   "motivos": [
-    "margen +0.2 pts, por debajo de 1.5",
-    "p5 -6.4 %, no llega a positivo"
+    "margen +1.1 pts, por debajo de 1.5"
    ]
   },
   {
    "liga": "brasil",
-   "precision": 0.5156,
+   "precision": 0.5147,
    "techo_mercado": 0.5123,
-   "margen": -0.0033,
-   "partidos": 3087,
-   "roi_sim": 4.29,
-   "n_apuestas": 285,
-   "p5": -0.0686,
+   "margen": -0.0024,
+   "partidos": 3090,
+   "roi_sim": 2.74,
+   "n_apuestas": 294,
+   "p5": -0.0807,
    "pasa": false,
    "motivos": [
-    "margen -0.3 pts, por debajo de 1.5",
-    "p5 -6.9 %, no llega a positivo"
+    "margen -0.2 pts, por debajo de 1.5",
+    "p5 -8.1 %, no llega a positivo"
    ]
   },
   {
@@ -80,207 +64,207 @@
    ]
   },
   {
-   "liga": "china",
-   "precision": 0.5556,
-   "techo_mercado": 0.5278,
-   "margen": -0.0278,
-   "partidos": 1880,
-   "roi_sim": 3.34,
-   "n_apuestas": 169,
-   "p5": -0.0875,
-   "pasa": false,
-   "motivos": [
-    "margen -2.8 pts, por debajo de 1.5",
-    "p5 -8.8 %, no llega a positivo"
-   ]
-  },
-  {
-   "liga": "bundesliga",
-   "precision": 0.5497,
-   "techo_mercado": 0.5497,
-   "margen": 0.0,
-   "partidos": 4896,
-   "roi_sim": 2.73,
-   "n_apuestas": 148,
-   "p5": -0.1115,
-   "pasa": false,
-   "motivos": [
-    "margen +0.0 pts, por debajo de 1.5",
-    "p5 -11.2 %, no llega a positivo"
-   ]
-  },
-  {
    "liga": "rus_premier",
-   "precision": 0.5263,
+   "precision": 0.5352,
    "techo_mercado": 0.5385,
-   "margen": 0.0122,
-   "partidos": 1960,
-   "roi_sim": -0.83,
-   "n_apuestas": 183,
-   "p5": -0.1295,
+   "margen": 0.0033,
+   "partidos": 1963,
+   "roi_sim": 1.45,
+   "n_apuestas": 168,
+   "p5": -0.12,
    "pasa": false,
    "motivos": [
-    "margen +1.2 pts, por debajo de 1.5",
-    "p5 -13.0 %, no llega a positivo"
+    "margen +0.3 pts, por debajo de 1.5",
+    "p5 -12.0 %, no llega a positivo"
    ]
   },
   {
-   "liga": "gre_super_league",
-   "precision": 0.5322,
-   "techo_mercado": 0.5067,
-   "margen": -0.0255,
-   "partidos": 2148,
-   "roi_sim": 3.02,
-   "n_apuestas": 87,
-   "p5": -0.149,
+   "liga": "china",
+   "precision": 0.5181,
+   "techo_mercado": 0.5226,
+   "margen": 0.0045,
+   "partidos": 1885,
+   "roi_sim": -3.41,
+   "n_apuestas": 153,
+   "p5": -0.1477,
    "pasa": false,
    "motivos": [
-    "margen -2.5 pts, por debajo de 1.5",
-    "p5 -14.9 %, no llega a positivo"
+    "margen +0.4 pts, por debajo de 1.5",
+    "p5 -14.8 %, no llega a positivo"
    ]
   },
   {
    "liga": "primeira",
-   "precision": 0.5397,
+   "precision": 0.5396,
    "techo_mercado": 0.5546,
-   "margen": 0.0149,
-   "partidos": 3077,
+   "margen": 0.015,
+   "partidos": 3080,
    "roi_sim": -8.38,
    "n_apuestas": 353,
    "p5": -0.1614,
    "pasa": false,
    "motivos": [
-    "margen +1.5 pts, por debajo de 1.5",
     "p5 -16.1 %, no llega a positivo"
    ]
   },
   {
+   "liga": "bundesliga",
+   "precision": 0.5364,
+   "techo_mercado": 0.5497,
+   "margen": 0.0133,
+   "partidos": 4896,
+   "roi_sim": -4.25,
+   "n_apuestas": 145,
+   "p5": -0.1674,
+   "pasa": false,
+   "motivos": [
+    "margen +1.3 pts, por debajo de 1.5",
+    "p5 -16.7 %, no llega a positivo"
+   ]
+  },
+  {
    "liga": "premier",
-   "precision": 0.4414,
+   "precision": 0.4497,
    "techo_mercado": 0.4552,
-   "margen": 0.0138,
-   "partidos": 6081,
+   "margen": 0.0055,
+   "partidos": 6086,
    "roi_sim": 5.11,
    "n_apuestas": 65,
    "p5": -0.1741,
    "pasa": false,
    "motivos": [
-    "margen +1.4 pts, por debajo de 1.5",
+    "margen +0.6 pts, por debajo de 1.5",
     "p5 -17.4 %, no llega a positivo"
    ]
   },
   {
-   "liga": "jpn_j1",
-   "precision": 0.4582,
-   "techo_mercado": 0.4633,
-   "margen": 0.0051,
-   "partidos": 2517,
-   "roi_sim": -5.04,
-   "n_apuestas": 225,
-   "p5": -0.1763,
-   "pasa": false,
-   "motivos": [
-    "margen +0.5 pts, por debajo de 1.5",
-    "p5 -17.6 %, no llega a positivo"
-   ]
-  },
-  {
    "liga": "liga_mx",
-   "precision": 0.5228,
-   "techo_mercado": 0.5383,
-   "margen": 0.0155,
-   "partidos": 2655,
-   "roi_sim": -5.83,
-   "n_apuestas": 234,
-   "p5": -0.1773,
+   "precision": 0.5248,
+   "techo_mercado": 0.5397,
+   "margen": 0.0149,
+   "partidos": 2658,
+   "roi_sim": -6.73,
+   "n_apuestas": 221,
+   "p5": -0.1827,
    "pasa": false,
    "motivos": [
-    "p5 -17.7 %, no llega a positivo"
+    "margen +1.5 pts, por debajo de 1.5",
+    "p5 -18.3 %, no llega a positivo"
    ]
   },
   {
    "liga": "dinamarca",
-   "precision": 0.5154,
+   "precision": 0.5062,
    "techo_mercado": 0.5185,
-   "margen": 0.0031,
+   "margen": 0.0123,
    "partidos": 1637,
-   "roi_sim": -2.02,
-   "n_apuestas": 107,
-   "p5": -0.187,
+   "roi_sim": -3.54,
+   "n_apuestas": 109,
+   "p5": -0.1929,
    "pasa": false,
    "motivos": [
-    "margen +0.3 pts, por debajo de 1.5",
-    "p5 -18.7 %, no llega a positivo"
+    "margen +1.2 pts, por debajo de 1.5",
+    "p5 -19.3 %, no llega a positivo"
    ]
   },
   {
-   "liga": "noruega",
-   "precision": 0.5564,
-   "techo_mercado": 0.5853,
-   "margen": 0.0289,
-   "partidos": 1922,
-   "roi_sim": -3.33,
-   "n_apuestas": 100,
-   "p5": -0.2014,
+   "liga": "argentina",
+   "precision": 0.4078,
+   "techo_mercado": 0.4116,
+   "margen": 0.0038,
+   "partidos": 3812,
+   "roi_sim": -7.63,
+   "n_apuestas": 318,
+   "p5": -0.1949,
    "pasa": false,
    "motivos": [
-    "p5 -20.1 %, no llega a positivo"
+    "margen +0.4 pts, por debajo de 1.5",
+    "p5 -19.5 %, no llega a positivo"
    ]
   },
   {
    "liga": "serie_a",
-   "precision": 0.5525,
-   "techo_mercado": 0.5708,
-   "margen": 0.0183,
-   "partidos": 6080,
-   "roi_sim": 1.37,
-   "n_apuestas": 70,
-   "p5": -0.2152,
+   "precision": 0.5306,
+   "techo_mercado": 0.5734,
+   "margen": 0.0428,
+   "partidos": 6084,
+   "roi_sim": -1.78,
+   "n_apuestas": 89,
+   "p5": -0.2193,
    "pasa": false,
    "motivos": [
-    "p5 -21.5 %, no llega a positivo"
+    "p5 -21.9 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "jpn_j1",
+   "precision": 0.417,
+   "techo_mercado": 0.462,
+   "margen": 0.045,
+   "partidos": 2524,
+   "roi_sim": -11.09,
+   "n_apuestas": 266,
+   "p5": -0.2326,
+   "pasa": false,
+   "motivos": [
+    "p5 -23.3 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "eng_championship",
+   "precision": 0.4389,
+   "techo_mercado": 0.4559,
+   "margen": 0.017,
+   "partidos": 2783,
+   "roi_sim": -12.37,
+   "n_apuestas": 223,
+   "p5": -0.2344,
+   "pasa": false,
+   "motivos": [
+    "p5 -23.4 %, no llega a positivo"
    ]
   },
   {
    "liga": "ligue_1",
-   "precision": 0.504,
-   "techo_mercado": 0.5378,
-   "margen": 0.0338,
-   "partidos": 5758,
-   "roi_sim": -9.03,
-   "n_apuestas": 115,
-   "p5": -0.2419,
+   "precision": 0.502,
+   "techo_mercado": 0.5363,
+   "margen": 0.0343,
+   "partidos": 5762,
+   "roi_sim": -9.07,
+   "n_apuestas": 118,
+   "p5": -0.2368,
    "pasa": false,
    "motivos": [
-    "p5 -24.2 %, no llega a positivo"
+    "p5 -23.7 %, no llega a positivo"
    ]
   },
   {
-   "liga": "turquia",
-   "precision": 0.4919,
-   "techo_mercado": 0.5565,
-   "margen": 0.0646,
-   "partidos": 3098,
-   "roi_sim": -7.67,
-   "n_apuestas": 82,
-   "p5": -0.2468,
+   "liga": "eng_league_one",
+   "precision": 0.4734,
+   "techo_mercado": 0.5082,
+   "margen": 0.0348,
+   "partidos": 8704,
+   "roi_sim": -12.18,
+   "n_apuestas": 158,
+   "p5": -0.259,
    "pasa": false,
    "motivos": [
-    "p5 -24.7 %, no llega a positivo"
+    "p5 -25.9 %, no llega a positivo"
    ]
   },
   {
-   "liga": "esp_hypermotion",
-   "precision": 0.4875,
-   "techo_mercado": 0.5265,
-   "margen": 0.039,
-   "partidos": 4170,
-   "roi_sim": -9.72,
-   "n_apuestas": 102,
-   "p5": -0.2778,
+   "liga": "gre_super_league",
+   "precision": 0.5161,
+   "techo_mercado": 0.5028,
+   "margen": -0.0133,
+   "partidos": 2151,
+   "roi_sim": -7.75,
+   "n_apuestas": 68,
+   "p5": -0.262,
    "pasa": false,
    "motivos": [
-    "p5 -27.8 %, no llega a positivo"
+    "margen -1.3 pts, por debajo de 1.5",
+    "p5 -26.2 %, no llega a positivo"
    ]
   },
   {
@@ -315,11 +299,82 @@
    ]
   },
   {
+   "liga": "bel_pro_league",
+   "precision": 0.4788,
+   "techo_mercado": 0.4684,
+   "margen": -0.0104,
+   "partidos": 1569,
+   "roi_sim": -15.16,
+   "n_apuestas": 100,
+   "p5": -0.2901,
+   "pasa": false,
+   "motivos": [
+    "margen -1.0 pts, por debajo de 1.5",
+    "p5 -29.0 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "turquia",
+   "precision": 0.4758,
+   "techo_mercado": 0.5574,
+   "margen": 0.0816,
+   "partidos": 3101,
+   "roi_sim": -11.79,
+   "n_apuestas": 78,
+   "p5": -0.2943,
+   "pasa": false,
+   "motivos": [
+    "p5 -29.4 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "esp_hypermotion",
+   "precision": 0.4846,
+   "techo_mercado": 0.5297,
+   "margen": 0.0451,
+   "partidos": 4174,
+   "roi_sim": -9.53,
+   "n_apuestas": 89,
+   "p5": -0.3021,
+   "pasa": false,
+   "motivos": [
+    "p5 -30.2 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "aut_bundesliga",
+   "precision": 0.4052,
+   "techo_mercado": 0.462,
+   "margen": 0.0568,
+   "partidos": 1559,
+   "roi_sim": -15.6,
+   "n_apuestas": 183,
+   "p5": -0.3041,
+   "pasa": false,
+   "motivos": [
+    "p5 -30.4 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "fra_ligue2",
+   "precision": 0.4,
+   "techo_mercado": 0.4341,
+   "margen": 0.0341,
+   "partidos": 3196,
+   "roi_sim": -15.4,
+   "n_apuestas": 139,
+   "p5": -0.3063,
+   "pasa": false,
+   "motivos": [
+    "p5 -30.6 %, no llega a positivo"
+   ]
+  },
+  {
    "liga": "ita_serie_b",
-   "precision": 0.4414,
+   "precision": 0.4388,
    "techo_mercado": 0.5172,
-   "margen": 0.0758,
-   "partidos": 3465,
+   "margen": 0.0784,
+   "partidos": 3470,
    "roi_sim": -13.06,
    "n_apuestas": 144,
    "p5": -0.3084,
@@ -344,112 +399,55 @@
    ]
   },
   {
-   "liga": "fra_ligue2",
-   "precision": 0.386,
-   "techo_mercado": 0.4382,
-   "margen": 0.0522,
-   "partidos": 3193,
-   "roi_sim": -17.69,
-   "n_apuestas": 146,
-   "p5": -0.3141,
-   "pasa": false,
-   "motivos": [
-    "p5 -31.4 %, no llega a positivo"
-   ]
-  },
-  {
-   "liga": "mls",
-   "precision": 0.4672,
-   "techo_mercado": 0.5041,
-   "margen": 0.0369,
-   "partidos": 3716,
-   "roi_sim": -20.45,
-   "n_apuestas": 251,
-   "p5": -0.3181,
-   "pasa": false,
-   "motivos": [
-    "p5 -31.8 %, no llega a positivo"
-   ]
-  },
-  {
    "liga": "sco_premiership",
-   "precision": 0.5389,
+   "precision": 0.5359,
    "techo_mercado": 0.5333,
-   "margen": -0.0056,
-   "partidos": 3611,
+   "margen": -0.0026,
+   "partidos": 3612,
    "roi_sim": -17.52,
    "n_apuestas": 84,
    "p5": -0.3232,
    "pasa": false,
    "motivos": [
-    "margen -0.6 pts, por debajo de 1.5",
+    "margen -0.3 pts, por debajo de 1.5",
     "p5 -32.3 %, no llega a positivo"
    ]
   },
   {
-   "liga": "eng_league_one",
-   "precision": 0.4695,
-   "techo_mercado": 0.507,
-   "margen": 0.0375,
-   "partidos": 8693,
-   "roi_sim": -19.01,
-   "n_apuestas": 158,
-   "p5": -0.3251,
+   "liga": "mls",
+   "precision": 0.4632,
+   "techo_mercado": 0.5049,
+   "margen": 0.0417,
+   "partidos": 3729,
+   "roi_sim": -22.59,
+   "n_apuestas": 278,
+   "p5": -0.3318,
    "pasa": false,
    "motivos": [
-    "p5 -32.5 %, no llega a positivo"
-   ]
-  },
-  {
-   "liga": "eng_national",
-   "precision": 0.5,
-   "techo_mercado": 0.5324,
-   "margen": 0.0324,
-   "partidos": 8634,
-   "roi_sim": -19.97,
-   "n_apuestas": 105,
-   "p5": -0.3521,
-   "pasa": false,
-   "motivos": [
-    "p5 -35.2 %, no llega a positivo"
-   ]
-  },
-  {
-   "liga": "eng_league_two",
-   "precision": 0.5047,
-   "techo_mercado": 0.507,
-   "margen": 0.0023,
-   "partidos": 8732,
-   "roi_sim": -6.07,
-   "n_apuestas": 42,
-   "p5": -0.3738,
-   "pasa": false,
-   "motivos": [
-    "margen +0.2 pts, por debajo de 1.5",
-    "p5 -37.4 %, no llega a positivo"
+    "p5 -33.2 %, no llega a positivo"
    ]
   },
   {
    "liga": "sco_championship",
-   "precision": 0.4571,
+   "precision": 0.4615,
    "techo_mercado": 0.4604,
-   "margen": 0.0033,
-   "partidos": 1543,
+   "margen": -0.0011,
+   "partidos": 1547,
    "roi_sim": 1.73,
    "n_apuestas": 37,
    "p5": -0.374,
    "pasa": false,
    "motivos": [
-    "margen +0.3 pts, por debajo de 1.5",
+    "margen -0.1 pts, por debajo de 1.5",
     "p5 -37.4 %, no llega a positivo"
    ]
   },
   {
    "liga": "eredivisie",
-   "precision": 0.475,
+   "precision": 0.4691,
    "techo_mercado": 0.525,
-   "margen": 0.05,
-   "partidos": 2698,
+   "margen": 0.0559,
+   "partidos": 2701,
    "roi_sim": -23.18,
    "n_apuestas": 119,
    "p5": -0.3758,
@@ -460,21 +458,64 @@
   },
   {
    "liga": "suecia",
-   "precision": 0.4789,
+   "precision": 0.4751,
    "techo_mercado": 0.5277,
-   "margen": 0.0488,
-   "partidos": 1932,
-   "roi_sim": -28.21,
-   "n_apuestas": 110,
-   "p5": -0.4294,
+   "margen": 0.0526,
+   "partidos": 1933,
+   "roi_sim": -23.99,
+   "n_apuestas": 112,
+   "p5": -0.4042,
    "pasa": false,
    "motivos": [
-    "p5 -42.9 %, no llega a positivo"
+    "p5 -40.4 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "noruega",
+   "precision": 0.5512,
+   "techo_mercado": 0.5853,
+   "margen": 0.0341,
+   "partidos": 1922,
+   "roi_sim": -21.24,
+   "n_apuestas": 94,
+   "p5": -0.4093,
+   "pasa": false,
+   "motivos": [
+    "p5 -40.9 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "eng_league_two",
+   "precision": 0.5058,
+   "techo_mercado": 0.5131,
+   "margen": 0.0073,
+   "partidos": 8744,
+   "roi_sim": -9.27,
+   "n_apuestas": 41,
+   "p5": -0.4167,
+   "pasa": false,
+   "motivos": [
+    "margen +0.7 pts, por debajo de 1.5",
+    "p5 -41.7 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "eng_national",
+   "precision": 0.5057,
+   "techo_mercado": 0.5399,
+   "margen": 0.0342,
+   "partidos": 8646,
+   "roi_sim": -26.63,
+   "n_apuestas": 101,
+   "p5": -0.4249,
+   "pasa": false,
+   "motivos": [
+    "p5 -42.5 %, no llega a positivo"
    ]
   },
   {
    "liga": "afc_champions",
-   "precision": 0.5802,
+   "precision": 0.5062,
    "techo_mercado": null,
    "margen": null,
    "partidos": 558,
@@ -490,25 +531,41 @@
   },
   {
    "liga": "arg_primera_nacional",
-   "precision": 0.4971,
+   "precision": 0.4985,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 3521,
+   "partidos": 3530,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
    "pasa": false,
    "motivos": [
     "sin referencia de mercado para medir el margen",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "aus_aleague",
+   "precision": 0.3742,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 834,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "834 partidos, por debajo de 1500",
     "sin ROI simulado con el que estimar el p5"
    ]
   },
   {
    "liga": "bol_division",
-   "precision": 0.5908,
+   "precision": 0.5724,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 1560,
+   "partidos": 1563,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -519,11 +576,27 @@
    ]
   },
   {
-   "liga": "bra_serie_b",
-   "precision": 0.4362,
+   "liga": "bra_copa",
+   "precision": 0.4857,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 2053,
+   "partidos": 659,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "659 partidos, por debajo de 1500",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "bra_serie_b",
+   "precision": 0.4337,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 2055,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -535,26 +608,26 @@
   },
   {
    "liga": "chi_primera",
-   "precision": 0.4781,
+   "precision": 0.498,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 1303,
+   "partidos": 1305,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
    "pasa": false,
    "motivos": [
     "sin referencia de mercado para medir el margen",
-    "1303 partidos, por debajo de 1500",
+    "1305 partidos, por debajo de 1500",
     "sin ROI simulado con el que estimar el p5"
    ]
   },
   {
    "liga": "col_primera_a",
-   "precision": 0.4898,
+   "precision": 0.4796,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 2252,
+   "partidos": 2256,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -566,7 +639,7 @@
   },
   {
    "liga": "conference_league",
-   "precision": 0.4646,
+   "precision": 0.4545,
    "techo_mercado": null,
    "margen": null,
    "partidos": 729,
@@ -581,43 +654,91 @@
    ]
   },
   {
-   "liga": "ecu_liga_pro",
-   "precision": 0.4586,
+   "liga": "crc_fpd",
+   "precision": 0.4941,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 1372,
+   "partidos": 1295,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
    "pasa": false,
    "motivos": [
     "sin referencia de mercado para medir el margen",
-    "1372 partidos, por debajo de 1500",
+    "1295 partidos, por debajo de 1500",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "ecu_liga_pro",
+   "precision": 0.4887,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 1375,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "1375 partidos, por debajo de 1500",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "eng_fa_cup",
+   "precision": 0.443,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 675,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "675 partidos, por debajo de 1500",
     "sin ROI simulado con el que estimar el p5"
    ]
   },
   {
    "liga": "europa_league",
-   "precision": 0.5179,
+   "precision": 0.5282,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 1356,
+   "partidos": 1350,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
    "pasa": false,
    "motivos": [
     "sin referencia de mercado para medir el margen",
-    "1356 partidos, por debajo de 1500",
+    "1350 partidos, por debajo de 1500",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "ind_isl",
+   "precision": 0.4706,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 625,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "625 partidos, por debajo de 1500",
     "sin ROI simulado con el que estimar el p5"
    ]
   },
   {
    "liga": "kbo",
-   "precision": 0.5551,
+   "precision": 0.5565,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 13057,
+   "partidos": 13059,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -644,7 +765,7 @@
   },
   {
    "liga": "libertadores",
-   "precision": 0.4375,
+   "precision": 0.4464,
    "techo_mercado": null,
    "margen": null,
    "partidos": 789,
@@ -660,26 +781,26 @@
   },
   {
    "liga": "mex_expansion",
-   "precision": 0.4764,
+   "precision": 0.4783,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 1415,
+   "partidos": 1418,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
    "pasa": false,
    "motivos": [
     "sin referencia de mercado para medir el margen",
-    "1415 partidos, por debajo de 1500",
+    "1418 partidos, por debajo de 1500",
     "sin ROI simulado con el que estimar el p5"
    ]
   },
   {
    "liga": "mlb",
-   "precision": 0.5471,
+   "precision": 0.5491,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 26716,
+   "partidos": 26731,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -691,7 +812,7 @@
   },
   {
    "liga": "nba",
-   "precision": 0.6697,
+   "precision": 0.677,
    "techo_mercado": null,
    "margen": null,
    "partidos": 6140,
@@ -705,11 +826,42 @@
    ]
   },
   {
-   "liga": "per_liga1",
-   "precision": 0.5337,
+   "liga": "ned_eerste",
+   "precision": 0.4763,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 1683,
+   "partidos": 1927,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "par_division",
+   "precision": 0.4528,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 1310,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "1310 partidos, por debajo de 1500",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "per_liga1",
+   "precision": 0.5138,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 1687,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -721,7 +873,7 @@
   },
   {
    "liga": "rsa_premier",
-   "precision": 0.4652,
+   "precision": 0.4478,
    "techo_mercado": null,
    "margen": null,
    "partidos": 1199,
@@ -732,6 +884,22 @@
    "motivos": [
     "sin referencia de mercado para medir el margen",
     "1199 partidos, por debajo de 1500",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "slv_primera",
+   "precision": 0.4621,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 1359,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "1359 partidos, por debajo de 1500",
     "sin ROI simulado con el que estimar el p5"
    ]
   },
@@ -753,7 +921,7 @@
   },
   {
    "liga": "tennis",
-   "precision": 0.6768,
+   "precision": 0.6765,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
@@ -769,7 +937,7 @@
   },
   {
    "liga": "tennis_wta",
-   "precision": 0.6965,
+   "precision": 0.6966,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
@@ -785,10 +953,10 @@
   },
   {
    "liga": "uru_primera",
-   "precision": 0.4422,
+   "precision": 0.4323,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 1566,
+   "partidos": 1569,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -800,16 +968,32 @@
   },
   {
    "liga": "usl_championship",
-   "precision": 0.4596,
+   "precision": 0.4576,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 2302,
+   "partidos": 2313,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
    "pasa": false,
    "motivos": [
     "sin referencia de mercado para medir el margen",
+    "sin ROI simulado con el que estimar el p5"
+   ]
+  },
+  {
+   "liga": "ven_primera",
+   "precision": 0.5,
+   "techo_mercado": null,
+   "margen": null,
+   "partidos": 1314,
+   "roi_sim": null,
+   "n_apuestas": null,
+   "p5": null,
+   "pasa": false,
+   "motivos": [
+    "sin referencia de mercado para medir el margen",
+    "1314 partidos, por debajo de 1500",
     "sin ROI simulado con el que estimar el p5"
    ]
   }
