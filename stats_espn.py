@@ -283,9 +283,35 @@ def backfill(clave: str, desde: str, hasta: str, hilos: int = HILOS,
     meses = pd.date_range(pd.Timestamp(desde), pd.Timestamp(hasta), freq='MS')
     if len(meses) == 0:
         meses = pd.DatetimeIndex([pd.Timestamp(desde)])
-    rangos = [(ini.strftime('%Y-%m-%d'),
-               (ini + pd.offsets.MonthEnd(1)).strftime('%Y-%m-%d'))
-              for ini in meses]
+    # LOS MESES QUE YA ESTÁN NO SE VUELVEN A PREGUNTAR.
+    #
+    # `backfill` saltaba los `event_id` conocidos, pero sólo DESPUÉS de pedir
+    # el scoreboard de los ~60 rangos mensuales. En una segunda pasada eso son
+    # 60 peticiones por competición para descubrir que no hay nada nuevo —
+    # medido: 96 a 140 s por liga sin bajar una sola fila, o sea más de dos
+    # horas para las 61. El paso semanal del bot habría costado eso cada lunes.
+    #
+    # Un mes con partidos ya guardados no puede traer más: las competiciones no
+    # añaden jornadas al pasado. Los DOS ÚLTIMOS meses sí se vuelven a pedir
+    # siempre, porque ahí es donde aparecen los partidos nuevos y donde ESPN
+    # rellena el boxscore de uno que acabó sin él.
+    ya_por_mes = set()
+    if len(previo) and not forzar:
+        _f = pd.to_datetime(previo['fecha'], errors='coerce')
+        ya_por_mes = set(_f.dt.strftime('%Y-%m').dropna())
+    frontera = (pd.Timestamp(hasta) - pd.offsets.MonthBegin(2)) \
+        if hasta else pd.Timestamp.min
+    rangos = []
+    saltados = 0
+    for ini in meses:
+        if (ini.strftime('%Y-%m') in ya_por_mes and ini < frontera):
+            saltados += 1
+            continue
+        rangos.append((ini.strftime('%Y-%m-%d'),
+                       (ini + pd.offsets.MonthEnd(1)).strftime('%Y-%m-%d')))
+    if saltados:
+        logger.info('[stats_espn] %s: %d meses ya cubiertos, se piden %d',
+                    clave, saltados, len(rangos))
     pendientes: List[Dict] = []
     with ThreadPoolExecutor(max_workers=hilos) as ex:
         for lote in ex.map(lambda r: _eventos(code, r[0], r[1]), rangos):
