@@ -592,6 +592,37 @@ def _precalculo(clave_liga, home_crudo, away_crudo):
         return None
 
 
+def lineas_de_goles(pred: Dict) -> Dict[str, float]:
+    """
+    v163.1 — P(más de N goles) en las tres líneas que cotiza la casa.
+
+    Se pidió ver 1,5 y 3,5 además de 2,5, y salen de la MISMA matriz de
+    marcador que ya calcula el 2,5: es una suma sobre la antidiagonal, sin un
+    modelo nuevo ni una calibración nueva que validar.
+
+    VA EN SU PROPIA CLAVE Y NO EN EL `board`, Y NO ES UN CAPRICHO. El `board`
+    lo recorren `apuesta_destacada` y el `prob` de los partidos ya jugados
+    buscando el MÁXIMO. «Más de 1,5» ronda el 75-85 % en casi cualquier
+    partido, así que metido ahí se convertiría en la apuesta destacada de la
+    lista entera y taparía justo lo que el modelo tiene que decir. Separada,
+    se enseña sin competir por el titular.
+    """
+    salida: Dict[str, float] = {}
+    try:
+        M = np.asarray(pred.get('score_matrix'), dtype=float)
+        if M.ndim != 2 or M.size == 0:
+            return salida
+        idx = np.arange(M.shape[0])
+        total = idx[:, None] + idx[None, :]
+        for linea in (1.5, 2.5, 3.5):
+            p = float(M[total > linea].sum())
+            if 0.0 <= p <= 1.0:
+                salida['%.1f' % linea] = round(p, 4)
+    except Exception as e:
+        logger.debug('[alpha] líneas de goles: %s', e)
+    return salida
+
+
 def _mercados_modelo(pred: Dict, home: str, away: str) -> List[Dict]:
     """v49: mercados derivados SOLO del modelo (sin cuota real) — para los
     fixtures sin cuota en vivo. Devuelve 1X2, O/U 2.5 y BTTS con la CUOTA JUSTA
@@ -1196,6 +1227,8 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             x2 = [m for m in mercados if m['mercado'] == '1X2']
             mejor = max(x2, key=lambda m: m['prob'])
             pron = {**base, **mejor, 'mercados': mercados, 'board': board,
+                    # v163.1 — las tres líneas de goles, para la tarjeta
+                    'goles_lineas': lineas_de_goles(pred),
                     'sin_cuota': True}
             pronosticos.append(pron)
             # v52: ¿ESPN trajo cuotas 1X2/O-U reales para este partido? Si sí,
@@ -2661,18 +2694,60 @@ def avisos_sin_modelo(pronosticos: List[Dict]) -> List[str]:
         logger.info(f"[alpha] {n_sin} partidos de fútbol sin pronóstico del "
                     f"modelo (se enseña el precio del mercado)")
 
+    # v163.1 — EL AVISO DICE QUÉ PASA, NO «REVISA A VER».
+    #
+    # Antes mandaba siempre el mismo recado: «revisa que su modelo cargue y que
+    # su catálogo de nombres esté al día». El usuario lo recibió el 2026-08-23
+    # sobre la Champions, donde las dos cosas estaban bien: en agosto la
+    # Champions son RONDAS PREVIAS, y su histórico —1.174 partidos, 174
+    # equipos— cubre la fase de grupos, así que el LASK, el Hapoel Be'er Sheva
+    # o el NEC Nijmegen no han jugado nunca en ella. No hay nada que arreglar y
+    # el aviso mandaba a buscar una avería inexistente.
+    #
+    # Cada fila ya trae `motivo_sin_modelo` con la causa concreta, así que el
+    # aviso las agrupa y dice la que manda. Son tres y piden cosas distintas:
+    # un motor que no carga es una avería, un nombre que no casa es un alias
+    # que falta, y un equipo sin historia en esa competición no es ninguna de
+    # las dos y no se arregla.
+    def _clase(motivo: str) -> str:
+        m = (motivo or '').lower()
+        if 'no se pudo cargar' in m or 'no pudo predecirlo' in m:
+            return 'motor'
+        if 'no casa con el catálogo' in m or 'mismo equipo del catálogo' in m:
+            return 'nombres'
+        return 'sin_historia'
+
+    motivos: Dict[str, Dict[str, int]] = {}
+    for p in (pronosticos or []):
+        if p.get('deporte') != 'Fútbol' or not p.get('sin_modelo'):
+            continue
+        k = p.get('clave_liga') or p.get('liga') or '?'
+        c = _clase(str(p.get('motivo_sin_modelo') or ''))
+        motivos.setdefault(k, {})[c] = motivos.setdefault(k, {}).get(c, 0) + 1
+
+    _CONSEJO = {
+        'motor': ('el motor de esta competición no cargó. Es una avería: '
+                  'mira `ligas_sin_motor` en la pestaña Estado.'),
+        'nombres': ('sus nombres no casan con el catálogo del modelo. Falta '
+                    'un alias en `alias_manuales.json`.'),
+        'sin_historia': ('esos equipos no han jugado nunca esta competición, '
+                         'así que el modelo no tiene historia suya. En rondas '
+                         'previas y a principio de temporada es lo normal y no '
+                         'hay nada que arreglar.'),
+    }
+
     salida: List[str] = []
     for k in sorted((k for k, (t, sn) in por_liga.items()
                      if t >= 3 and sn / t >= UMBRAL_SIN_MODELO),
                     key=lambda k: -por_liga[k][1]):
         t, sn = por_liga[k]
+        cuentas = motivos.get(k) or {}
+        clase = max(cuentas, key=cuentas.get) if cuentas else 'sin_historia'
+        icono = '⚠️' if clase in ('motor', 'nombres') else 'ℹ️'
         salida.append(
-            f'⚠️ **{k}**: {sn} de {t} partidos salen con el precio del mercado '
-            f'porque el modelo no los cubre. Con esa proporción no son '
-            f'ascensos: revisa que su modelo cargue y que su catálogo de '
-            f'nombres esté al día.')
-        logger.warning(f"[alpha] {k}: {sn}/{t} partidos sin modelo — "
-                       f"proporción anómala, no es un ascenso")
+            f'{icono} **{k}**: {sn} de {t} partidos salen con el precio del '
+            f'mercado porque el modelo no los cubre — {_CONSEJO[clase]}')
+        logger.warning(f"[alpha] {k}: {sn}/{t} partidos sin modelo ({clase})")
     return salida
 
 

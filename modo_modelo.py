@@ -339,6 +339,44 @@ def probabilidades_1x2(pick: Dict):
     return (pl, px, pv)
 
 
+def _bloque_goles_html(pick: Dict, board: Dict) -> str:
+    """
+    v163.1 — LOS GOLES EN SUS TRES LÍNEAS: 1,5 · 2,5 · 3,5.
+
+    Se pidió porque una sola línea no dice lo mismo en todos los partidos: un
+    64 % de «más de 2,5» puede venir de un partido que casi seguro pasa de 1,5
+    o de uno que se va a 4, y con una sola barra los dos se leen igual.
+
+    Salen de `goles_lineas`, que `alpha_finder` calcula sobre la misma matriz
+    de marcador. Si no está —picks viejos en caché, deportes sin matriz— se
+    cae a la línea de 2,5 de siempre, que es lo que había antes de esto.
+
+    La de 2,5 sigue en NEGRITA y con barra: es la que cotiza toda casa y la que
+    manda en el resto de la aplicación. Las otras dos van debajo, en una línea
+    compacta, para que añadir información no cueste el doble de tarjeta.
+    """
+    lineas = pick.get('goles_lineas') or {}
+    fila25 = _fila_mercado('⚽', 'Goles', board.get(_ETQ_OVER),
+                           board.get(_ETQ_UNDER), 'Más 2.5', 'Menos 2.5')
+    if not lineas:
+        return fila25
+    otras = []
+    for etq in ('1.5', '3.5'):
+        try:
+            p = float(lineas[etq])
+        except (KeyError, TypeError, ValueError):
+            continue
+        otras.append('Más %s <b>%.0f %%</b> · Menos %s %.0f %%'
+                     % (etq, p * 100, etq, (1.0 - p) * 100))
+    if not otras:
+        return fila25
+    if not fila25:
+        # sin la de 2,5 no hay barra, pero las otras dos siguen valiendo
+        fila25 = '<div class="mm-merc"><div class="mm-merc-tit">⚽ Goles</div></div>'
+    return fila25 + ('<div class="mm-ck-fila mm-goles-otras">%s</div>'
+                     % ' &nbsp;·&nbsp; '.join(otras))
+
+
 def _fila_mercado(icono: str, titulo: str, izq, der, etq_izq: str,
                   etq_der: str) -> str:
     """
@@ -778,16 +816,27 @@ def _bloque_quien_remata_html(qr: Optional[Dict]) -> str:
             if j.get('p_remata') is None:
                 continue
             corto = '*' if j.get('muestra_corta') else ''
-            partes.append('%s %.0f %%%s' % (j.get('jugador'),
-                                            j['p_remata'] * 100, corto))
+            # LAS DOS PROBABILIDADES, QUE ES LO QUE SE PIDIÓ: rematar y rematar
+            # A PUERTA. Son dos mercados distintos y la casa los cotiza por
+            # separado, así que enseñar sólo el primero obliga a adivinar el
+            # segundo — y no se adivina: la puntería de un jugador es suya, no
+            # una fracción fija.
+            if j.get('p_al_arco') is not None:
+                partes.append('%s <b>%.0f %%</b> / %.0f %% a puerta%s'
+                              % (j.get('jugador'), j['p_remata'] * 100,
+                                 j['p_al_arco'] * 100, corto))
+            else:
+                partes.append('%s <b>%.0f %%</b>%s'
+                              % (j.get('jugador'), j['p_remata'] * 100, corto))
         if partes:
             trozos.append('<div class="mm-ck-fila">%s · %s</div>'
                           % (equipo, ' &nbsp;·&nbsp; '.join(partes)))
     if len(trozos) == 1:
         return ''
-    # el pie: qué es esa probabilidad y qué NO es
-    pie = ('probabilidad de tirar al menos un remate. Es informativa: el '
-           'mercado de jugador no tiene aquí ventaja de precio medida.')
+    # el pie: qué son esas probabilidades y qué NO son
+    pie = ('probabilidad de tirar al menos un remate, y de que al menos uno '
+           'vaya a puerta. Son informativas: el mercado de jugador no tiene '
+           'aquí ventaja de precio medida.')
     if not al:
         pie = ('todavía no hay alineación publicada, así que no se sabe quién '
                'sale de inicio — ' + pie)
@@ -801,6 +850,10 @@ def _bloque_quien_remata_html(qr: Optional[Dict]) -> str:
                    % ' y '.join('%d de %d' % c for c in faltan)) + pie
     if any(j.get('muestra_corta') for j in filas):
         pie += ' El asterisco marca a quien lleva menos de 4 partidos.'
+    if any(j.get('on_del_previo') for j in filas):
+        pie += (' El «a puerta» de esta lista sale de la media de cada puesto, '
+                'no de la puntería propia del jugador: el roster que hay '
+                'guardado todavía no trae ese dato y se refresca solo.')
     trozos.append('<div class="mm-ck-fila mm-est">📐 %s</div>' % pie)
     return ''.join(trozos)
 
@@ -878,6 +931,9 @@ CSS = """
                padding:.05rem .35rem; font-size:.7rem; font-weight:700;
                margin-left:.25rem; }
 .mm-ck-fila { font-size:.79rem; line-height:1.65; padding-left:.5rem; }
+/* v163.1 — las lineas de 1,5 y 3,5 van pegadas a la barra de 2,5 y algo
+   mas apagadas: son contexto de la principal, no tres mercados iguales. */
+.mm-goles-otras { margin-top:-.15rem; opacity:.82; }
 .mm-ck-mejor { font-weight:700; }
 .mm-ck-pct { opacity:.85; }
 .mm-arb { opacity:.85; font-style:italic; }
@@ -972,8 +1028,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         if tri and h and a:
             piezas.append('<div class="mm-merc-tit">📊 Resultado</div>')
             piezas.append(_barra_1x2(tri[0], tri[1], tri[2], h, a))
-        piezas.append(_fila_mercado('⚽', 'Goles', b.get(_ETQ_OVER),
-                                    b.get(_ETQ_UNDER), 'Más 2.5', 'Menos 2.5'))
+        piezas.append(_bloque_goles_html(pick, b))
         piezas.append(_fila_mercado('🤝', 'Ambos marcan', b.get(_ETQ_BTTS_SI),
                                     b.get(_ETQ_BTTS_NO), 'Sí', 'No'))
         # Los córners van DEBAJO de goles y ambos marcan, y sólo en las 20
@@ -986,11 +1041,20 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         # desaparece, igual que la de córners.
         _tj_tarjeta = tarjetas_tarjeta(pick)
         piezas.append(_bloque_tarjetas_html(_tj_tarjeta))
-        # v163 - y los remates, en sus dos mercados, con el mismo criterio:
-        # donde hay datos observados salen observados y donde no, estimados y
-        # marcados. Debajo, quien los tira - que sale del roster ya
-        # precalculado y por eso no cuesta ni una peticion aqui.
-        piezas.append(_bloque_remates_html(remates_tarjeta(pick)))
+        # v163.1 - DE REMATES, EN LA TARJETA, SOLO QUIEN LOS TIRA.
+        #
+        # Los bloques por EQUIPO (total, local y visita) se retiraron de aqui a
+        # peticion del usuario: «lo unico que me interesa saber es quien
+        # remata». No se han borrado, siguen enteros en la ficha del partido
+        # (`dashboard_ui.render_remates_partido`), que es donde se va a mirar
+        # el detalle. `remates_tarjeta` y `_bloque_remates_html` se conservan
+        # por lo mismo: volver a ponerlos aqui es una linea.
+        #
+        # Y habia un motivo tecnico que apunta en la misma direccion: en las 17
+        # competiciones sin remates observados el bloque era IDENTICO en todos
+        # sus partidos —lo dice su propia etiqueta, «es igual para todos sus
+        # partidos»—, asi que ocupaba seis lineas de tarjeta sin distinguir un
+        # partido de otro.
         piezas.append(_bloque_quien_remata_html(quien_remata_tarjeta(pick)))
 
         rend = None
@@ -1101,9 +1165,28 @@ def _tiene_fisicos(p: Dict) -> bool:
 #   · **sin probabilidad.** Enseñar lo que el modelo «habría dicho» de un
 #     partido ya jugado es la clase de cifra que sólo sirve para engañarse.
 def _dia_de(pronosticos: List[Dict]) -> str:
-    """El día que está enseñando esta lista, sacado de sus propios partidos."""
+    """
+    El día que está enseñando esta lista, EN HORA DE CDMX.
+
+    v163.1 — ANTES DEVOLVÍA EL DÍA UTC Y ESO METÍA PARTIDOS DE AYER. Leía
+    `p['fecha']`, que es el día en UTC, y con él pedía los jugados. Como México
+    va seis horas por detrás, el día UTC de un partido de la tarde mexicana es
+    el SIGUIENTE, así que la lista de hoy se llenaba con los partidos de ayer
+    por la tarde — el usuario lo vio el 2026-08-23 a la 01:21, con un
+    Barcelona SC-Orense del día 22 rotulado como de hoy.
+
+    Ahora se calcula desde `inicio`, que es la marca completa, igual que hace
+    la pantalla para pintar la hora. Lo normal es que quien llama pase el día
+    explícito (`render(..., dia=...)`); esto es el respaldo.
+    """
     for p in (pronosticos or []):
-        f = str((p or {}).get('fecha') or '')[:10]
+        if not isinstance(p, dict):
+            continue
+        try:
+            import fixtures_espn
+            f = fixtures_espn.fecha_local(p.get('inicio'), p.get('fecha'))
+        except Exception:
+            f = str(p.get('fecha') or '')[:10]
         if len(f) == 10:
             return f
     try:
@@ -1116,7 +1199,8 @@ def _dia_de(pronosticos: List[Dict]) -> str:
 
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 200, con_apuesta: bool = True,
-           titulo: str = '⚽ Partidos de hoy') -> None:
+           titulo: str = '⚽ Partidos de hoy',
+           dia: Optional[str] = None) -> None:
     """
     La lista de partidos, con sus filtros y su orden.
 
@@ -1150,7 +1234,13 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     if con_apuesta:
         try:
             import partidos_jugados
-            jugados = partidos_jugados.de_dia(_dia_de(pronosticos))
+            # v163.1 — EL DÍA LO DICE QUIEN LLAMA, y no se adivina de la lista.
+            # `dashboard_ui` ya sabe qué día está enseñando (lo usa para
+            # repartir hoy/mañana en hora de CDMX), así que pasarlo es exacto.
+            # Deducirlo del primer partido funcionaba sólo mientras la lista no
+            # estuviera vacía y mientras su `fecha` fuera del mismo día que el
+            # rótulo, y ninguna de las dos cosas está garantizada.
+            jugados = partidos_jugados.de_dia(dia or _dia_de(pronosticos))
         except Exception as e:
             logger.debug('[modo_modelo] partidos jugados: %s', e)
 

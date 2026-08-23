@@ -170,6 +170,14 @@ def de_dia(dia: str, maximo: int = 200) -> List[Dict]:
             pick['partido'] = '%s vs %s' % (hm, am)
             pick['board'] = _board_de_matriz(pred.get('score_matrix'), hm, am,
                                              pred.get('probabilities'))
+            # v163.1 — las tres líneas de goles, igual que en los que aún no se
+            # han jugado. Van aparte del `board` a propósito: aquí `prob` sale
+            # de `max(board.values())` y «Más de 1,5» lo ganaría siempre.
+            try:
+                import alpha_finder as _af
+                pick['goles_lineas'] = _af.lineas_de_goles(pred)
+            except Exception as e:
+                logger.debug('[jugados] líneas de goles: %s', e)
             if pick['board']:
                 pick['prob'] = max(pick['board'].values())
         if not pick.get('board'):

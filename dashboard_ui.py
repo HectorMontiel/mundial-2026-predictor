@@ -6476,7 +6476,8 @@ def render_alpha_finder():
     with _tab_hoy:
         try:
             import modo_modelo as _mm
-            _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm')
+            _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
+                       dia=_HOY_S)
         except Exception as _e_mm:
             logger.exception('[modo_modelo] fallo al pintar')
             st.caption(f"La lista de apuestas no está disponible "

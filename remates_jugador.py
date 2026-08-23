@@ -640,9 +640,22 @@ def jugadores_equipo(clave_liga: str, equipo: str,
     for f in filas:
         lt = lambda_jugador(f.get('media_tot'), f.get('apariciones'),
                             f.get('posicion'), lambda_tot, 'tot')
-        lo = (lambda_jugador(f.get('media_on'), f.get('apariciones'),
-                             f.get('posicion'), lambda_on, 'on')
-              if f.get('media_on') is not None else None)
+        # v163.1 — «A PUERTA» SALE AUNQUE NO HAYA MEDIA PROPIA DEL JUGADOR.
+        #
+        # Antes se omitía cuando faltaba `media_on`, y falta en todos los
+        # rosters cacheados antes de la v163 —el campo `shotsOnTarget` se
+        # empezó a guardar entonces y la caché dura tres días—, así que en la
+        # tarjeta la columna salía vacía justo donde se pidió verla.
+        #
+        # Con `media_propia=None`, `lambda_jugador` devuelve el previo
+        # posicional puro: la cuota de su puesto por lo que se espera que tire
+        # su equipo a puerta. No es un invento — es el estimador `posicion_ref`
+        # de la medición, que en «al menos un remate a puerta» dio el MEJOR ECE
+        # de la tabla (0,02347) aunque con menos resolución que el encogido.
+        # Se marca con `on_del_previo` para que la interfaz no lo presente como
+        # si viniera de la forma del jugador.
+        lo = lambda_jugador(f.get('media_on'), f.get('apariciones'),
+                            f.get('posicion'), lambda_on, 'on')
         if lt is None and lo is None:
             continue
         fila = dict(f)
@@ -650,6 +663,7 @@ def jugadores_equipo(clave_liga: str, equipo: str,
                      'p_remata': p_al_menos_uno(lt),
                      'p_al_arco': p_al_menos_uno(lo),
                      'origen': origen,
+                     'on_del_previo': f.get('media_on') is None,
                      'muestra_corta': bool(float(f.get('apariciones') or 0)
                                            < MIN_APARICIONES_FIABLE)})
         if titulares is not None:

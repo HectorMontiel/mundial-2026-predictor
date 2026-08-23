@@ -121,6 +121,72 @@ def _expandir(n: str) -> str:
     return ' '.join(palabras)
 
 
+MIN_PREFIJO_CONTENCION = 3
+
+
+def _contencion_fiable(objetivo: str, candidato: str) -> bool:
+    """
+    v163.1 — LA CONTENCIÓN EMPAREJABA CLUBES DISTINTOS, Y SIN AVISAR.
+
+        mapear('Viking FK', catalogo_champions)  ->  'Vikingur Reykjavik'
+
+    El Viking FK es de Stavanger y el Víkingur Reykjavík de Islandia. El
+    emparejado no fallaba: acertaba con confianza, el modelo predecía el
+    partido con la fuerza del equipo equivocado y publicaba una probabilidad
+    de aspecto normal. Un hueco se ve; esto no.
+
+    Pasaba porque `normalizar` deja «Viking FK» en «viking», y la regla de
+    contención aceptaba cualquier candidato que lo contuviera como subcadena
+    —«**viking**ur reykjavik»— sin mirar el parecido (0,50, muy por debajo del
+    umbral de 0,78) porque se aplica antes.
+
+    La regla hace falta: es la que casa «Roma» con «AS Roma», «Betis» con
+    «Real Betis» y «Man City» con «Manchester City». Lo que se le añade es la
+    condición que separa esas tres del Viking, y no es la que parece:
+
+      · exigir PALABRA COMPLETA tumbaba «Man City» y «West Brom», donde la
+        abreviatura trunca una palabra («man» por «manchester»), y truncar es
+        legítimo;
+      · exigir PARECIDO tampoco vale: «Ajax» contra «Ajax Amsterdam» tiene
+        0,44 de similitud, MENOS que el 0,50 del Viking, y es correcto.
+
+    Lo que los separa es cuántas palabras le SOBRAN al nombre largo:
+
+        man     contra manchester           no sobra ninguna    -> truncado
+        viking  contra vikingur reykjavik   sobra «reykjavik»
+                                            y ninguna casa entera -> OTRO club
+        ajax    contra ajax amsterdam       sobra «amsterdam» pero
+                                            «ajax» casa entera  -> vale
+
+    Así que: cada palabra del corto tiene que casar con una del largo —entera o
+    como prefijo de tres letras o más— y, si al largo le sobran palabras, al
+    menos una tiene que casar ENTERA.
+
+    MEDIDO ANTES DE TOCARLO (`_v163_contencion_enganosa.py`): sobre 1.779
+    emparejados reales del proyecto —cada equipo de cada competición activa
+    contra el catálogo de su motor y contra el de ESPN— cambia **exactamente
+    uno**, y es el Viking. El resto no se mueve.
+    """
+    corto, largo = sorted((objetivo, candidato), key=len)
+    if corto not in largo:
+        return False
+    t_corto, restantes = corto.split(), list(largo.split())
+    if not t_corto or not restantes:
+        return False
+    exactas = 0
+    for p in t_corto:
+        if p in restantes:
+            restantes.remove(p)
+            exactas += 1
+            continue
+        cand = [q for q in restantes
+                if len(p) >= MIN_PREFIJO_CONTENCION and q.startswith(p)]
+        if not cand:
+            return False
+        restantes.remove(cand[0])
+    return exactas >= 1 or not restantes
+
+
 def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
            contexto: str = '') -> Optional[str]:
     """Devuelve el nombre del catálogo que corresponde, o None (y lo
@@ -175,7 +241,7 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
     # devuelve el más parecido (mayor ratio y, a igualdad, el de longitud más
     # próxima), que es siempre el correcto en esos pares.
     contenidos = [c for c, n in normalizados.items()
-                  if len(objetivo) >= 5 and (objetivo in n or n in objetivo)]
+                  if len(objetivo) >= 5 and _contencion_fiable(objetivo, n)]
     if contenidos:
         return max(contenidos,
                    key=lambda c: (SequenceMatcher(None, objetivo, normalizados[c]).ratio(),

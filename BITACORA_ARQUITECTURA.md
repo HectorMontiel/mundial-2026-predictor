@@ -1657,3 +1657,98 @@ CACHÉ. Los históricos guardados de este clon sólo tienen remates observados e
 competiciones, porque `stats_espn.inyectar` **sólo rellena huecos** y no puede
 pisar unos remates que el generador sintético ya escribió. Se arregla solo en el
 próximo `--build`, que reconstruye el fichero desde cero.
+
+### 13.14 v163.1 — cinco arreglos, y uno que no era del encargo
+
+**El día de la lista era el de UTC.** `jugados_del_dia` recortaba con
+`r['fecha']`, que es el día UTC, aunque el comentario de la propia función ya
+decía «la fecha que pide la interfaz es de CDMX y ESPN publica en UTC». Las dos
+mitades del razonamiento estaban escritas y no se tocaban. Efecto medido por el
+usuario el 2026-08-23 a la 01:21 de México: 27 partidos del día 22 por la tarde
+salían en «Partidos de hoy» con su ✅ Finalizado. Un Barcelona SC-Orense de las
+18:00 del 22 en México son las 00:00 UTC del 23.
+
+Y la otra mitad del mismo fallo, que no se veía: los partidos de la TARDE del 23
+en México (02:00 UTC del 24) no habrían entrado nunca en «hoy».
+
+Un día de CDMX abarca **dos días UTC** —de 06:00 del propio a 05:59 del
+siguiente— así que se miran los dos y se recorta con `fixtures_espn.fecha_local`.
+Verificado en vivo: a la 01:26, «hoy» pasa de 27 finalizados a **0**, y los 38
+del día 22 quedan en su día. El invariante de `test_un_solo_reloj` no se toca:
+el rango de descarga sigue anclado en UTC; lo que cambia es sólo el reparto de
+cara a la pantalla, que tiene que hablar el mismo idioma que la hora que enseña
+al lado.
+
+**La regresión que trajo ese arreglo, y cómo se cerró.** Mirar dos días UTC hizo
+que cualquier competición sin partidos acabados en uno de ellos cayera al camino
+de red: `_JUGADOS` sólo tiene entrada para los días CON partidos, así que «no
+está» y «no se jugó nada» eran indistinguibles. «Apuestas del Día» pasó de 194 s
+a **388 s**. Se arregla anotando en `_BARRIDOS` el RANGO que cada competición ya
+recorrió, para poder afirmar «no hay nada ese día» con la misma autoridad que
+«aquí están». Vuelta a 160 s, y `jugados_del_dia` baja a 0,03 s.
+
+**Los remates por equipo salen de la tarjeta.** A petición del usuario: «lo único
+que me interesa saber es quién remata». Siguen enteros en la ficha. Había además
+un motivo técnico que apunta igual: en las 17 competiciones sin datos observados
+el bloque era idéntico en todos sus partidos —lo decía su propia etiqueta— así
+que ocupaba seis líneas sin distinguir un partido de otro. El bloque de jugadores
+pasa a enseñar las **dos** probabilidades, rematar y rematar a puerta; cuando el
+roster cacheado todavía no trae `shotsOnTarget`, la de a puerta sale del previo
+posicional y se dice.
+
+**Goles en tres líneas.** 1,5 · 2,5 · 3,5, de la misma matriz de marcador. Van en
+`goles_lineas` y **no** en el `board`: `apuesta_destacada` y el `prob` de los
+partidos jugados buscan el máximo del board, y «más de 1,5» ronda el 75-85 % en
+casi cualquier partido, así que metido ahí sería la apuesta destacada de la lista
+entera.
+
+**El aviso de «sin modelo» decía qué hacer, y estaba mal.** Mandaba siempre
+«revisa que su modelo cargue y que su catálogo de nombres esté al día». Sobre la
+Champions las dos cosas estaban bien: en agosto son rondas previas y su histórico
+—1.174 partidos, 174 equipos— cubre la fase de grupos, así que el LASK o el
+Hapoel Be'er Sheva no han jugado nunca en ella. Ahora agrupa por
+`motivo_sin_modelo` y distingue tres causas: motor caído (avería), nombre sin
+alias (arreglable) y equipo sin historia en esa competición (normal, y lo dice).
+
+### 13.15 LA CONTENCIÓN EMPAREJABA CLUBES DISTINTOS
+
+Buscando lo anterior apareció algo peor que un hueco:
+
+    name_mapper.mapear('Viking FK', catalogo_champions)  ->  'Vikingur Reykjavik'
+
+El Viking FK es de Stavanger y el Víkingur Reykjavík de Islandia. **El emparejado
+no fallaba: acertaba con confianza**, el modelo predecía el partido con la fuerza
+del equipo equivocado y publicaba una probabilidad de aspecto normal. Un hueco se
+ve; esto no.
+
+`normalizar` deja «Viking FK» en «viking», y la regla de contención aceptaba
+cualquier candidato que lo contuviera como subcadena —«**viking**ur reykjavik»—
+sin mirar el parecido (0,50, muy por debajo del umbral de 0,78) porque se aplica
+antes.
+
+La regla hace falta: es la que casa «Roma» con «AS Roma» y «Man City» con
+«Manchester City». Dos reglas obvias fallaron antes de dar con la buena:
+
+* **palabra completa** tumbaba «Man City» y «West Brom», donde la abreviatura
+  trunca una palabra, y truncar es legítimo;
+* **exigir parecido** tampoco vale: «Ajax» contra «Ajax Amsterdam» tiene 0,44 de
+  similitud, **menos** que el 0,50 del Viking, y es correcto.
+
+Lo que los separa es cuántas palabras le **sobran** al nombre largo:
+
+    man     contra manchester           no sobra ninguna      -> truncado
+    viking  contra vikingur reykjavik   sobra «reykjavik» y
+                                        ninguna casa entera   -> OTRO club
+    ajax    contra ajax amsterdam       sobra «amsterdam» pero
+                                        «ajax» casa entera    -> vale
+
+Regla final: cada palabra del corto casa con una del largo —entera o como prefijo
+de tres letras o más— y, si al largo le sobran palabras, al menos una tiene que
+casar **entera**.
+
+Medido antes de tocarlo (`_v163_contencion_enganosa.py`) sobre **1.779
+emparejados reales** del proyecto —cada equipo de cada competición activa contra
+el catálogo de su motor y contra el de ESPN—: cambia **exactamente uno**, y es el
+Viking. Ojo con `normalizar`, que borra « city»: por eso «Man City» queda en «man»
+y ahí no sobrevive ninguna palabra entera — es el caso que descartó la primera
+regla.

@@ -4881,11 +4881,19 @@ def test_ninguna_liga_activa_sin_modelo():
             # encenderlas fue sólo cambiar el `disponible`. Ponerlas en esta
             # lista fue el primer intento, y el bloque de drenaje de abajo lo
             # rechazó — que es exactamente para lo que está.
-            _PENDIENTES_PRIMER_ENTRENAMIENTO = {
-                'aus_aleague', 'bel_pro_league', 'crc_fpd', 'eng_championship',
-                'eng_fa_cup', 'ind_isl', 'ned_eerste', 'par_division',
-                'slv_primera', 'ven_primera',
-            }
+            #
+            # v163.1 — LA LISTA SE VACIÓ, Y ASÍ ES COMO TENÍA QUE PASAR.
+            # Las diez que quedaban (aus_aleague, bel_pro_league, crc_fpd,
+            # eng_championship, eng_fa_cup, ind_isl, ned_eerste, par_division,
+            # slv_primera, ven_primera) ya tienen su `modelos-*.tar.gz` en el
+            # Release: el reentrenamiento nocturno corrió entre la v163 y la
+            # v163.1 y las entrenó, que es lo que la v161 dijo que pasaría.
+            # El bloque de drenaje de abajo falló en cuanto ocurrió y obligó a
+            # quitarlas — la coartada duró exactamente lo que tenía que durar.
+            #
+            # Se deja el conjunto VACÍO y no se borra el mecanismo: la próxima
+            # tanda de ligas encendidas volverá a necesitarlo.
+            _PENDIENTES_PRIMER_ENTRENAMIENTO = set()
             _esperadas = sorted(set(_sin_ningun_sitio)
                                 & _PENDIENTES_PRIMER_ENTRENAMIENTO)
             _sin_excusa = sorted(set(_sin_ningun_sitio)
@@ -7097,6 +7105,269 @@ def test_remates_no_suben_a_seccion1_sin_medicion():
                   "alta: no compite con la Seccion 1")
 
 
+def test_los_jugados_son_del_dia_de_cdmx():
+    """
+    v163.1 — «hoy» es el dia de CDMX, y antes era el de UTC.
+
+    LO QUE VEIA EL USUARIO. El 2026-08-23 a la 01:21 de Mexico, la lista de
+    «Partidos de hoy» traia 27 partidos con ✅ Finalizado, todos del dia 22 por
+    la tarde. Un Barcelona SC-Orense de las 18:00 del 22 en Mexico son las
+    00:00 UTC del 23, y el recorte comparaba contra el dia UTC.
+
+    Y la otra mitad del mismo fallo, que no se veia: los partidos de la TARDE
+    del 23 en Mexico (02:00 UTC del 24) no habrian entrado nunca en «hoy».
+
+    Un dia de CDMX abarca DOS dias UTC —de 06:00 del propio a 05:59 del
+    siguiente— asi que se miran los dos y se recorta con la fecha local.
+    """
+    import fixtures_espn as fx
+
+    # el caso exacto que lo destapo
+    check(fx.fecha_local('2026-08-23 00:00:00') == '2026-08-22',
+          "un partido de las 00:00 UTC del 23 es del 22 en CDMX "
+          "(el Barcelona SC-Orense de las 18:00)")
+    check(fx.fecha_local('2026-08-24 02:00:00') == '2026-08-23',
+          "y uno de las 02:00 UTC del 24 es del 23 en CDMX: tiene que salir "
+          "en «hoy», no en «manana»")
+    check(fx.fecha_local('2026-08-23 12:00:00') == '2026-08-23',
+          "el mediodia UTC cae en el mismo dia en CDMX")
+
+    # sin hora no se inventa: se usa el dia suelto que venga
+    check(fx.fecha_local(None, '2026-08-23') == '2026-08-23',
+          "sin marca de tiempo se usa el dia que venga, no se adivina")
+    check(fx.fecha_local(None, None) == '',
+          "y sin nada, cadena vacia")
+
+    # el recorte de `jugados_del_dia` mira los DOS dias UTC
+    src = open('fixtures_espn.py', encoding='utf-8').read()
+    cuerpo = src.split('def jugados_del_dia')[1].split(chr(10) + 'def ')[0]
+    check('dia_sig' in cuerpo,
+          "se consulta tambien el dia UTC siguiente, que es donde cae la "
+          "tarde mexicana")
+    check('fecha_local(' in cuerpo,
+          "y el recorte final usa la fecha LOCAL de cada partido")
+
+    # el invariante del reloj NO se toca: el rango de descarga sigue en UTC
+    rango = src.split('def _fixtures_de_codigo')[1][:1200]
+    check("Timestamp.now('UTC')" in rango or 'utcnow()' in rango,
+          "el rango de descarga sigue anclado en UTC (v91)")
+
+    # y la interfaz pasa el dia explicito en vez de adivinarlo
+    ui = open('dashboard_ui.py', encoding='utf-8').read()
+    check('dia=_HOY_S' in ui,
+          "la lista de hoy recibe el dia de CDMX de quien lo sabe, en vez de "
+          "deducirlo del primer partido de la lista")
+    mm = open('modo_modelo.py', encoding='utf-8').read()
+    check('dia or _dia_de(pronosticos)' in mm,
+          "y `render` lo usa cuando se lo pasan")
+
+
+def test_los_goles_traen_tres_lineas():
+    """
+    v163.1 — mas/menos 1,5 y 3,5 ademas de 2,5.
+
+    Una sola linea no dice lo mismo en todos los partidos: un 64 % de «mas de
+    2,5» puede venir de uno que casi seguro pasa de 1,5 o de uno que se va a 4,
+    y con una sola barra los dos se leen igual.
+
+    VAN EN SU PROPIA CLAVE Y NO EN EL `board`. El `board` lo recorren
+    `apuesta_destacada` y el `prob` de los partidos jugados buscando el MAXIMO,
+    y «mas de 1,5» ronda el 75-85 % en casi cualquier partido: metido ahi seria
+    la apuesta destacada de la lista entera.
+    """
+    import numpy as np
+    import alpha_finder as af
+    import modo_modelo as mm
+
+    # una matriz de marcador de juguete, con masa repartida
+    M = np.zeros((6, 6))
+    for i in range(6):
+        for j in range(6):
+            M[i, j] = 1.0 / ((i + 1) * (j + 1))
+    M = M / M.sum()
+    lineas = af.lineas_de_goles({'score_matrix': M.tolist()})
+    check(set(lineas) == {'1.5', '2.5', '3.5'},
+          f"salen las tres lineas ({sorted(lineas)})")
+    check(lineas['1.5'] > lineas['2.5'] > lineas['3.5'],
+          f"y son monotonas: cuanto mas alta la linea, menos probable "
+          f"({lineas})")
+    for v in lineas.values():
+        check(0.0 <= v <= 1.0, f"cada una es una probabilidad ({v})")
+
+    # matriz invalida -> diccionario vacio, no una excepcion ni un cero
+    check(af.lineas_de_goles({}) == {},
+          "sin matriz no hay lineas, y no revienta")
+
+    # el bloque se pinta, y sin `goles_lineas` se comporta como antes
+    b = {'Más de 2.5': 0.69, 'Menos de 2.5': 0.31}
+    html = mm._bloque_goles_html({'goles_lineas': {'1.5': 0.87, '2.5': 0.69,
+                                                   '3.5': 0.42}}, b)
+    for t in ('1.5', '2.5', '3.5', '87', '69', '42'):
+        check(t in html, f"el bloque de goles nombra {t}")
+    viejo = mm._bloque_goles_html({}, b)
+    check('1.5' not in viejo and '2.5' in viejo,
+          "sin las lineas nuevas se pinta lo de siempre y nada mas")
+
+    # y NO estan en el board, que es lo que mira la apuesta destacada
+    check('Más de 1.5' not in b, "el board no se toca")
+    d = mm.apuesta_destacada({'board': {'Gana A': 0.55, 'Gana B': 0.45},
+                              'goles_lineas': {'1.5': 0.92}})
+    check(d is None or 'Gana' in d.get('apuesta', ''),
+          "la apuesta destacada sigue saliendo del board, no de las lineas "
+          "nuevas")
+
+
+def test_la_contencion_no_empareja_clubes_distintos():
+    """
+    v163.1 — «Viking FK» ya no es el «Vikingur Reykjavik».
+
+    Lo encontro el diagnostico de la Champions:
+
+        mapear('Viking FK', catalogo_champions)  ->  'Vikingur Reykjavik'
+
+    El Viking FK es de Stavanger y el Vikingur Reykjavik de Islandia. El
+    emparejado no fallaba: acertaba con confianza, y el modelo publicaba una
+    probabilidad calculada con la fuerza del equipo equivocado. Un hueco se ve;
+    esto no.
+
+    LO QUE HABIA QUE CONSERVAR. La contencion es la que casa «Roma» con «AS
+    Roma» y «Man City» con «Manchester City», asi que no se podia quitar. Dos
+    reglas obvias fallaron antes de dar con la buena:
+
+      · exigir PALABRA COMPLETA tumbaba «Man City» y «West Brom», donde la
+        abreviatura trunca una palabra y truncar es legitimo;
+      · exigir PARECIDO tampoco vale: «Ajax» contra «Ajax Amsterdam» tiene 0,44
+        de similitud, MENOS que el 0,50 del Viking, y es correcto.
+
+    Lo que los separa es cuantas palabras le SOBRAN al nombre largo. Medido
+    sobre 1.779 emparejados reales del proyecto, cambia EXACTAMENTE UNO.
+    """
+    import name_mapper as nm
+
+    catalogo = ['Vikingur Reykjavik', 'Celtic', 'AS Roma', 'Real Betis',
+                'Manchester City', 'West Bromwich Albion', 'Ajax Amsterdam',
+                'Flora Tallinn']
+    check(nm.mapear('Viking FK', catalogo, contexto='t') is None,
+          "«Viking FK» no se resuelve al Vikingur Reykjavik: son dos clubes")
+    for corto, largo in (('Roma', 'AS Roma'), ('Betis', 'Real Betis'),
+                         ('Man City', 'Manchester City'),
+                         ('West Brom', 'West Bromwich Albion'),
+                         ('Ajax', 'Ajax Amsterdam')):
+        check(nm.mapear(corto, catalogo, contexto='t') == largo,
+              f"«{corto}» sigue casando con «{largo}»")
+
+    # la regla, directamente
+    check(not nm._contencion_fiable('viking', 'vikingur reykjavik'),
+          "una palabra truncada MAS otra sin explicar no basta")
+    check(nm._contencion_fiable('man', 'manchester'),
+          "una palabra truncada y nada que sobre si basta")
+    check(nm._contencion_fiable('ajax', 'ajax amsterdam'),
+          "una palabra ENTERA sostiene el emparejado aunque sobre otra")
+    check(nm._contencion_fiable('viking', 'vikingur'),
+          "«viking» contra «vikingur» a secas SI vale: no sobra nada, es la "
+          "misma palabra truncada")
+
+
+def test_el_aviso_sin_modelo_dice_la_causa():
+    """
+    v163.1 — el aviso distingue una averia de lo que es normal.
+
+    Mandaba siempre el mismo recado: «revisa que su modelo cargue y que su
+    catalogo de nombres este al dia». El usuario lo recibio el 2026-08-23 sobre
+    la Champions, donde las dos cosas estaban bien: en agosto la Champions son
+    RONDAS PREVIAS y su historico —1.174 partidos, 174 equipos— cubre la fase
+    de grupos, asi que el LASK o el Hapoel Be'er Sheva no han jugado nunca en
+    ella. No habia nada que arreglar y el aviso mandaba a buscarlo.
+
+    Cada fila ya trae `motivo_sin_modelo`, asi que el aviso agrupa por causa.
+    """
+    import alpha_finder as af
+
+    def _pron(motivo, n=3, liga='champions'):
+        return [{'deporte': 'Fútbol', 'clave_liga': liga, 'sin_modelo': True,
+                 'motivo_sin_modelo': motivo} for _ in range(n)]
+
+    a = af.avisos_sin_modelo(_pron('X no ha jugado todavía en esta '
+                                   'competición (recién ascendido)'))
+    check(len(a) == 1, "avisa cuando la proporcion es anomala")
+    if a:
+        check('ℹ️' in a[0],
+              "sin historia NO es una averia: el icono lo dice")
+        check('no hay nada que arreglar' in a[0],
+              f"y el texto tambien: {a[0][:90]}")
+        check('revisa que su modelo cargue' not in a[0],
+              "ya no manda a buscar una averia inexistente")
+
+    b = af.avisos_sin_modelo(_pron('partido nuevo desde el último precálculo '
+                                   'y el modelo de esta competición no se '
+                                   'pudo cargar'))
+    check(b and '⚠️' in b[0], "un motor que no carga SI es una averia")
+    check(b and 'ligas_sin_motor' in b[0],
+          f"y dice donde mirar: {b[0][-70:] if b else ''}")
+
+    c = af.avisos_sin_modelo(_pron('el nombre «X» no casa con el catálogo del '
+                                   'modelo de esta liga'))
+    check(c and 'alias_manuales.json' in c[0],
+          "un nombre que no casa manda al fichero de alias")
+
+    # y sigue callando cuando la proporcion es normal
+    normales = [{'deporte': 'Fútbol', 'clave_liga': 'premier'}
+                for _ in range(9)]
+    normales += _pron('recién ascendido', 1, 'premier')
+    check(not af.avisos_sin_modelo(normales),
+          "un ascendido de diez partidos no dispara nada")
+
+
+def test_la_tarjeta_no_pinta_remates_por_equipo():
+    """
+    v163.1 — en la tarjeta, de remates solo sale QUIEN los tira.
+
+    Los bloques por equipo (total, local y visita) se retiraron a peticion del
+    usuario: «lo unico que me interesa saber es quien remata». Siguen enteros
+    en la ficha del partido, que es donde se mira el detalle.
+
+    Habia ademas un motivo tecnico que apunta igual: en las 17 competiciones
+    sin remates observados el bloque era IDENTICO en todos sus partidos —lo
+    decia su propia etiqueta, «es igual para todos sus partidos»— asi que
+    ocupaba seis lineas sin distinguir un partido de otro.
+    """
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    cuerpo = src.split('def tarjeta')[-1]
+    check('_bloque_quien_remata_html(quien_remata_tarjeta(pick))' in cuerpo,
+          "la tarjeta sigue pintando quien remata")
+    check('_bloque_remates_html(remates_tarjeta(pick))' not in cuerpo,
+          "y ya no pinta los bloques de remates por equipo")
+
+    # las funciones NO se borran: la ficha las usa y volver a ponerlas es una
+    # linea
+    import modo_modelo as mm
+    check(hasattr(mm, 'remates_tarjeta') and hasattr(mm, '_bloque_remates_html'),
+          "las funciones se conservan para la ficha")
+    ui = open('dashboard_ui.py', encoding='utf-8').read()
+    check('render_remates_partido' in ui,
+          "y la ficha mantiene la seccion completa")
+
+    # el bloque de jugadores trae las DOS probabilidades
+    pick = {'partido': 'Man City vs Arsenal', 'clave_liga': 'premier',
+            'deporte': 'Fútbol'}
+    qr = mm.quien_remata_tarjeta(pick)
+    if qr:
+        html = mm._bloque_quien_remata_html(qr)
+        check('a puerta' in html,
+              "el bloque de jugadores enseña tambien la de rematar A PUERTA")
+        js = (qr.get('home_jugadores') or []) + (qr.get('away_jugadores') or [])
+        con_on = [j for j in js if j.get('p_al_arco') is not None]
+        check(len(con_on) == len(js) and js,
+              f"todos los jugadores traen la de a puerta ({len(con_on)} de "
+              f"{len(js)})")
+        for j in js:
+            if j.get('p_al_arco') is None or j.get('p_remata') is None:
+                continue
+            check(j['p_al_arco'] <= j['p_remata'] + 1e-9,
+                  f"{j.get('jugador')}: rematar a puerta nunca es mas "
+                  f"probable que rematar")
+
+
 def test_se_guardan_las_lineas_de_remates():
     """
     v163 — la foto diaria de las lineas, y la trampa de «tiros de esquina».
@@ -7486,6 +7757,11 @@ if __name__ == '__main__':
     test_la_alineacion_no_cuesta_la_pantalla_ni_se_inventa()
     test_el_catalogo_de_equipos_de_espn_no_se_corta()
     test_remates_no_suben_a_seccion1_sin_medicion()
+    test_los_jugados_son_del_dia_de_cdmx()
+    test_los_goles_traen_tres_lineas()
+    test_la_contencion_no_empareja_clubes_distintos()
+    test_el_aviso_sin_modelo_dice_la_causa()
+    test_la_tarjeta_no_pinta_remates_por_equipo()
     test_se_guardan_las_lineas_de_remates()
     test_todas_las_ligas_tienen_remates()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")

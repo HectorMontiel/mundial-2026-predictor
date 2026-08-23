@@ -337,6 +337,32 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA,
 # antes que la interfaz.
 _JUGADOS: Dict[str, tuple] = {}
 
+# v163.1 — QUÉ DÍAS HA BARRIDO YA CADA COMPETICIÓN.
+#
+# `_JUGADOS` sólo tiene entrada para los días CON partidos acabados, así que
+# «no está en la caché» y «ese día no se jugó nada» son indistinguibles. Daba
+# igual mientras se miraba un solo día; al mirar DOS —un día de CDMX abarca dos
+# días UTC— cualquier competición sin partidos en uno de ellos caía al camino
+# de red, y eso son ~60 peticiones que el barrido ya había hecho.
+#
+# Medido: la vista «Apuestas del Día» pasó de 194 s a 388 s por esto. Aquí se
+# anota el RANGO que cada competición ya recorrió, para poder decir «no hay
+# nada ese día» con la misma autoridad que «aquí están».
+_BARRIDOS: Dict[str, tuple] = {}
+
+
+def _marcar_barrido(clave: str, ini: str, fin: str) -> None:
+    """Deja constancia de que esta competición ya recorrió [ini, fin] en UTC."""
+    _BARRIDOS[clave] = (time.time(), ini, fin)
+
+
+def _ya_barrido(clave: str, dia_utc: str) -> bool:
+    """¿El barrido ya cubrió ese día UTC de esta competición, y sigue fresco?"""
+    marca = _BARRIDOS.get(clave)
+    if not marca or time.time() - marca[0] >= _TTL:
+        return False
+    return marca[1] <= str(dia_utc) <= marca[2]
+
 
 def _apuntar_jugado(clave: str, ev: dict, comp: dict) -> None:
     """Guarda un evento ya jugado del scoreboard que se está recorriendo."""
@@ -402,6 +428,10 @@ def _fixtures_de_codigo(clave: str, code: str, dias: int) -> List[Dict]:
         logger.warning(f"[fixtures/{clave}] ESPN {code} falló: "
                        f"{type(e).__name__}: {e}")
         return []
+    # v163.1 — se anota el rango recorrido ANTES de mirar los eventos, para
+    # que un día sin partidos cuente como barrido y no como desconocido.
+    _marcar_barrido(clave, '%s-%s-%s' % (ini[:4], ini[4:6], ini[6:]),
+                    '%s-%s-%s' % (fin[:4], fin[4:6], fin[6:]))
     for ev in eventos:
         try:
             comp = ev['competitions'][0]
@@ -510,6 +540,35 @@ def resultados_liga(clave: str, desde: str, hasta: str) -> List[Dict]:
     return salida
 
 
+def fecha_local(inicio, respaldo=None) -> str:
+    """
+    El día del partido EN CDMX, que es el que ve el usuario.
+
+    v163.1 — VIVE AQUÍ Y NO EN LA INTERFAZ. La misma función estaba dentro de
+    `dashboard_ui` (`_fecha_local`) y por eso `fixtures_espn` no podía usarla:
+    repartía los partidos por día UTC mientras la pantalla los rotulaba en hora
+    de CDMX, y las dos cosas no coinciden seis horas al día.
+
+    Esto NO rompe el invariante de `test_un_solo_reloj`. El barrido sigue
+    razonando en UTC: lo que ancla el rango de descarga, lo que compara
+    `alpha_finder` y lo que se guarda en los ficheros no cambia. Esto es
+    exclusivamente el REPARTO POR DÍA de cara a la pantalla, que tiene que
+    hablar el mismo idioma que la hora que enseña al lado.
+
+    `inicio` es la marca de tiempo completa (naive = UTC, que es lo que guarda
+    el proyecto). `respaldo` es el día suelto que se usa cuando no hay hora:
+    es lo mejor disponible y nunca peor que antes.
+    """
+    try:
+        import horario
+        f = horario.fecha(inicio)
+        if f:
+            return f
+    except Exception as e:
+        logger.debug('[fixtures] fecha local de %s: %s', inicio, e)
+    return str(respaldo or '')[:10]
+
+
 def jugados_del_dia(claves: List[str], dia: str,
                     max_hilos: int = 8) -> List[Dict]:
     """
@@ -542,15 +601,42 @@ def jugados_del_dia(claves: List[str], dia: str,
 
     dia = str(dia)[:10]
 
+    # v163.1 — `dia` ES UN DÍA DE CDMX, Y ANTES SE RECORTABA CONTRA EL DE UTC.
+    #
+    # El comentario de abajo ya decía «la fecha que pide la interfaz es de CDMX
+    # y ESPN publica en UTC», y aun así el recorte final comparaba contra
+    # `r['fecha']`, que es el día UTC. Las dos mitades del razonamiento estaban
+    # escritas y no se tocaban.
+    #
+    # Lo que provocaba, medido por el usuario el 2026-08-23 a la 01:21 de CDMX:
+    # un Barcelona SC-Orense de las 18:00 del día 22 en México son las 00:00
+    # UTC del 23, así que entraba en la lista de HOY con su ✅ Finalizado. El
+    # 22 por la noche en México aparecía como «hoy» durante toda la madrugada
+    # del 23. Y al revés: los partidos de la tarde del 23 en México (02:00 UTC
+    # del 24) no habrían salido nunca en «hoy».
+    #
+    # Un día de CDMX abarca DOS días UTC —de 06:00 del propio a 05:59 del
+    # siguiente, porque México va seis horas por detrás—, así que se miran los
+    # dos y se recorta con la fecha local de cada partido.
+    dia_sig = (pd.Timestamp(dia) + pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+
     def _uno(clave):
         # LO QUE EL BARRIDO YA TRAJO NO SE VUELVE A PEDIR. `_fixtures_de_codigo`
         # apunta cada evento acabado al recorrer el scoreboard, así que cuando
         # la interfaz llega aquí lo normal es que no haga falta la red.
-        guardado = _JUGADOS.get(f'{clave}:{dia}')
-        if guardado and time.time() - guardado[0] < _TTL:
+        cacheado, faltan = [], False
+        for d_utc in (dia, dia_sig):
+            guardado = _JUGADOS.get(f'{clave}:{d_utc}')
+            if guardado and time.time() - guardado[0] < _TTL:
+                cacheado.extend(guardado[1])
+            elif not _ya_barrido(clave, d_utc):
+                # sin entrada Y sin constancia de haber barrido ese día: es lo
+                # único que justifica ir a la red
+                faltan = True
+        if not faltan:
             return [dict(r, clave_liga=clave,
                          liga=(_LG.get(clave) or {}).get('nombre') or clave)
-                    for r in guardado[1]]
+                    for r in cacheado]
         try:
             # La ventana se abre un día por cada lado porque la fecha que pide
             # la interfaz es de CDMX y ESPN publica en UTC: un partido de las
@@ -568,10 +654,22 @@ def jugados_del_dia(claves: List[str], dia: str,
     with ThreadPoolExecutor(max_workers=max_hilos) as ex:
         for lote in ex.map(_uno, list(claves)):
             salida.extend(lote or [])
-    # el recorte fino, con la fecha que se pidió
-    salida = [r for r in salida if str(r.get('fecha') or '')[:10] == dia]
+    # el recorte fino, con la fecha LOCAL de cada partido
+    vistos, recortada = set(), []
+    for r in salida:
+        if fecha_local(r.get('inicio'), r.get('fecha')) != dia:
+            continue
+        # los dos días UTC pueden traer el mismo partido si el barrido y la red
+        # se solapan; la llave es competición + equipos + hora
+        k = (r.get('clave_liga'), r.get('home'), r.get('away'),
+             str(r.get('inicio') or ''))
+        if k in vistos:
+            continue
+        vistos.add(k)
+        recortada.append(r)
+    salida = recortada
     salida.sort(key=lambda r: (str(r.get('liga') or ''), str(r.get('home') or '')))
-    logger.info('[jugados] %d partidos jugados el %s en %d competiciones',
+    logger.info('[jugados] %d partidos jugados el %s (CDMX) en %d competiciones',
                 len(salida), dia, len(list(claves)))
     return salida
 
