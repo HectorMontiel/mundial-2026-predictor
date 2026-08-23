@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-22T09:26:19Z",
- "filas_insertadas": 234232,
+ "generado": "2026-08-23T07:03:21Z",
+ "filas_insertadas": 234220,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -39,12 +39,12 @@
    "partidos": 3805
   },
   "aut_bundesliga": {
-   "filas": 3009,
-   "partidos": 1568
+   "filas": 2967,
+   "partidos": 1556
   },
   "bel_pro_league": {
-   "filas": 2879,
-   "partidos": 1547
+   "filas": 2897,
+   "partidos": 1565
   },
   "brasil": {
    "filas": 5905,
@@ -63,8 +63,8 @@
    "partidos": 1637
   },
   "eng_championship": {
-   "filas": 5238,
-   "partidos": 2760
+   "filas": 5250,
+   "partidos": 2772
   },
   "eng_league_one": {
    "filas": 15880,
