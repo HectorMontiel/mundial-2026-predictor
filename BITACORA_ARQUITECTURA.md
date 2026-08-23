@@ -1209,3 +1209,148 @@ entran por el apellido. Sin filtros suficientes pasaban 358 donde debían pasar
 La lección es la de siempre en este proyecto: un filtro no se valida con los
 casos que a uno se le ocurren, se valida pidiendo el tablero entero y mirando
 qué pasa y qué no.
+
+## 12. El boxscore de ESPN: córners y tarjetas reales en todas las competiciones
+
+Las §10 y §11 cerraron córners y tarjetas **en 20 competiciones**, las de
+formato `main` de football-data. En las otras 55 esas columnas las escribía
+`CorrelatedSyntheticGenerator` y por eso no se enseñaban. Esta sección cuenta
+cómo dejaron de faltar, y la respuesta es incómoda: los datos llevaban años
+delante.
+
+### 12.1 Estaba en una clave del `summary` que nadie había abierto
+
+El proyecto usa ESPN desde la v35 para fixtures, resultados y cuotas. Su
+endpoint `summary` devuelve, entre otras cosas, una clave `boxscore` que
+ninguna versión había mirado. Dentro hay **28 estadísticas por equipo y
+partido**:
+
+    wonCorners · yellowCards · redCards · foulsCommitted · possessionPct
+    totalShots · shotsOnTarget · offsides · saves · totalPasses · passPct
+    accurateCrosses · accurateLongBalls · interceptions · totalTackles
+    effectiveClearance · blockedShots · penaltyKickGoals …
+
+Sondeadas 34 competiciones el 2026-08-22, **23 las traían** — entre ellas Liga
+MX, Argentina, Brasil, MLS, Colombia, Chile, Perú, Japón, China, Suecia,
+Noruega, Dinamarca, Rusia, Sudáfrica, USL y Austria. Las 11 restantes no tenían
+partidos jugados en la ventana de prueba o devolvieron el boxscore vacío.
+
+### 12.2 No es otro relleno, y se comprobó antes de construir nada
+
+La lección de la v152 —el xG del proyecto resultó ser una función afín de los
+goles— obliga a desconfiar de cualquier columna nueva. Así que antes de tocar
+producción se cruzaron **216 partidos de 6 competiciones grandes**, los mismos
+en ESPN y en football-data:
+
+| variable | n | idénticos | media ESPN | media FD | correlación |
+|---|---|---|---|---|---|
+| córners local | 216 | 93,1 % | 5,76 | 5,74 | **0,985** |
+| córners visitante | 216 | 96,3 % | 4,34 | 4,33 | **0,981** |
+| amarillas local | 216 | 95,4 % | 1,71 | 1,76 | 0,955 |
+| amarillas visitante | 216 | 94,4 % | 1,72 | 1,78 | 0,957 |
+| rojas local | 216 | 100,0 % | 0,07 | 0,07 | 1,000 |
+| remates local | 216 | 95,4 % | 14,80 | 14,73 | 0,988 |
+
+Los desacuerdos son de ±1 —criterio de conteo— y dos de ellos resultaron ser un
+emparejado mal hecho por el propio script de comprobación. Con correlaciones de
+0,98 y medias que coinciden en la segunda cifra, esto es **fuente observada**.
+
+### 12.3 Un boxscore a ceros no es un partido sin córners
+
+El fallo más caro de esta tanda, y el que más se parece a los de siempre.
+
+En el **7,0 %** de los partidos de la Liga MX, ESPN devolvía el boxscore con
+todo a cero a la vez: posesión 0-0, faltas 0, córners 0, remates 0. Eso no es un
+partido raro, es un partido sin datos publicado igual. Colados como buenos:
+
+| | con las filas vacías | sin ellas |
+|---|---|---|
+| razón varianza/media, córners por equipo | 2,04 | **1,63** |
+| media de córners del local | 5,01 | **5,38** |
+| error de calibración por equipo | 0,0288 | **0,0111** |
+
+La misma competición, el mismo día, sin tocar nada más. **El error de
+calibración se dividió por 2,6 sólo tirando el 7 % de las filas.**
+
+El detector es la posesión: la suma de las dos siempre ronda 100 en un partido
+de verdad —1.777 de 1.911 caen entre 95 y 105— y vale exactamente 0 cuando el
+boxscore viene vacío. Se descarta la fila entera y no sólo la posesión, porque
+lo que falta es el boxscore completo.
+
+### 12.4 Dónde viven, y por qué no en el histórico
+
+`descargar_liga` **reconstruye** el histórico entero desde su fuente en cada
+`--build`. Escribir los córners reales en `historico_liga_mx.csv` los habría
+borrado la noche siguiente.
+
+Así que viven en `stats_espn/<liga>.csv.gz` y se **inyectan** durante la
+descarga, justo antes del generador sintético. Ese orden es todo el mecanismo:
+el generador ya prometía —y cumplía— que «sólo rellena valores faltantes», así
+que lo real gana y lo sintético se queda para los huecos.
+
+El efecto secundario es el que se buscaba: `stats_disponibles` decide si una
+columna es sintética **reproduciéndola** con el generador, así que en cuanto
+llegan los valores de ESPN la reproducción falla y la columna pasa a contar como
+observada. No hubo que tocar esa función ni mantener ninguna lista.
+
+### 12.5 Dos arreglos que el cambio obligó a hacer
+
+**La muestra de síntesis sale ahora de la COLA.** `_columnas_sinteticas`
+probaba sobre `d.head(400)`, o sea los partidos más antiguos. La cobertura de
+ESPN arranca en 2021 y varios históricos empiezan en 2018, así que la cabecera
+seguiría siendo sintética para siempre y la competición nunca se declararía
+observada. La cola es además lo correcto por lo que se usa: los estimadores
+miran `.tail(10)` de cada equipo. Comprobado que el generador reproduce igual
+sobre un trozo (1,000 de coincidencia en la cola de la Liga MX), porque su ruido
+es un hash por `MATCH_ID` y no depende de qué filas se le pasen.
+
+**Una columna mezclada no se puede promediar entera.** Con ESPN desde 2021 y
+relleno sintético antes, media columna es de cada tipo. `inyectar` marca cada
+fila que rellena con `stats_origen`, y las medias y dispersiones filtran por esa
+marca (`_solo_reales`). En las 20 competiciones de football-data la columna no
+existe y se usa el histórico entero, que es lo correcto ahí.
+
+### 12.6 Lo que queda estimado, y cuánto vale
+
+Para las competiciones que ESPN no cubre, `stats_estimadas` da el nivel
+derivado de sus goles. Validado **dejando una liga fuera** —se ajusta con 19 y
+se predice la vigésima como si no tuviera datos, que es la situación real:
+
+| CÓRNERS por equipo | error | corr |
+|---|---|---|
+| con datos reales (techo) | 0,0076 | 0,257 |
+| **media de liga predicha de sus goles** | **0,0247** | **0,160** |
+| media global de las otras ligas | 0,0264 | 0,160 |
+| predicha × ataque, normalizada | 0,0326 | 0,234 |
+| predicha × ataque, sin normalizar | 0,0410 | 0,250 |
+
+| TARJETAS por equipo | error | corr |
+|---|---|---|
+| con datos reales (techo) | 0,0123 | 0,150 |
+| **media de liga predicha de sus goles** | **0,0539** | **0,100** |
+| media global de las otras ligas | 0,0549 | 0,100 |
+| predicha × ataque | 0,0556 | **−0,080** |
+
+**No se modula por el ataque aunque suba la correlación.** En córners la lleva
+de 0,160 a 0,234 —casi el techo de 0,257— pero empeora la calibración de 0,0247
+a 0,0326, y aquí manda la calibración (§10.7-10.8). En tarjetas la correlación
+sale **negativa**: un equipo que ataca más se lleva MENOS tarjetas, así que el
+modulador empuja al revés.
+
+Lo que sí aportan los goles es el NIVEL de la competición: correlación **+0,428**
+con la media de córners y **−0,412** con la de tarjetas, entre las 20 ligas con
+datos. Y el rango entre ligas es grande (córners de 8,70 a 10,59; tarjetas de
+3,17 a 5,44), así que acertar el nivel importa.
+
+**Sin un solo córner observado de una competición no hay forma de saber qué
+equipo saca más.** Lo que se enseña es el nivel de la liga repartido por bando,
+igual para todos sus partidos. Por eso va marcado, y por eso las tarjetas
+estimadas —0,0539, por encima del umbral de 0,05 que se fijó— llevan un aviso
+más fuerte que los córners estimados.
+
+### 12.7 Coste
+
+**0,05 s por partido con 8 hilos**, 0,18 s con uno. Dos órdenes de magnitud más
+barato que FotMob (~1,7 s por partido), que era la otra vía. El bot lo corre a
+diario con ventana de 10 días, antes del reentrenamiento para que lo descargado
+entre en el `--build` del mismo día.

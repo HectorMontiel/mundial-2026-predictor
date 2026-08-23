@@ -325,7 +325,24 @@ def _columnas_sinteticas(clave: str, d) -> Dict[str, bool]:
         from correlated_synthetic_generator import CorrelatedSyntheticGenerator
         cal = statsbomb_calibration.calibrar()
         gen = CorrelatedSyntheticGenerator()
-        base = d.head(_MUESTRA_SINT).copy()
+        # v162 — LA MUESTRA SALE DE LA COLA, NO DE LA CABECERA.
+        #
+        # Estaba en `head`, o sea en los partidos MÁS ANTIGUOS del fichero, y
+        # eso dejó de servir en cuanto `stats_espn` empezó a inyectar
+        # estadísticas reales: su cobertura arranca en 2021 y varios históricos
+        # empiezan en 2018, así que la cabecera seguiría siendo sintética para
+        # siempre y `stats_disponibles` diría «no hay datos» de una competición
+        # que ya los tiene.
+        #
+        # La cola es además lo correcto por lo que se usa: los estimadores
+        # miran `.tail(10)` de cada equipo, o sea partidos recientes. Lo que
+        # importa es si ESOS son reales, no si lo eran los de hace ocho años.
+        #
+        # Comprobado que el generador reproduce igual sobre un trozo: pedirle
+        # `home_corners` sobre la cola de 400 filas de la Liga MX devuelve
+        # 1,000 de coincidencia, igual que sobre la cabecera. El ruido es un
+        # hash por `MATCH_ID`, así que no depende de qué filas se le pasen.
+        base = d.tail(_MUESTRA_SINT).copy()
         if 'MATCH_ID' not in base.columns or len(base) < 50:
             _CACHE_SINT[clave] = {}
             return {}
@@ -405,6 +422,42 @@ def resumen_partido(clave: str, home: str, away: str,
     }
 
 
+def _solo_reales(d, col: str):
+    """
+    El histórico recortado a las filas cuya estadística es OBSERVADA.
+
+    v162 — HACE FALTA PORQUE UNA COLUMNA PUEDE ESTAR MEZCLADA. `stats_espn`
+    cubre desde 2021 y varios históricos arrancan en 2018, así que en medio
+    fichero los córners son de ESPN y en la otra mitad los escribió el
+    generador sintético. Promediar los dos juntos da un número que no es ni una
+    cosa ni la otra: medido en la Liga MX, la razón varianza/media de los
+    córners por equipo salía 1,92 mezclando, contra el 1,5-1,7 de las
+    competiciones con datos limpios.
+
+    `stats_espn.inyectar` marca cada fila que rellenó con `stats_origen`. Si la
+    columna existe y cubre lo suficiente, se usa ese filtro; si no —las 20
+    competiciones de football-data, donde TODO es observado— se devuelve el
+    histórico entero, que es lo correcto ahí.
+
+    El umbral de 200 filas es el mismo que usan las funciones que llaman a
+    ésta: por debajo, una media no es una media.
+    """
+    if d is None or getattr(d, 'empty', True):
+        return d
+    if 'stats_origen' not in d.columns:
+        return d
+    marcadas = d['stats_origen'].notna()
+    n = int(marcadas.sum())
+    if n == 0:
+        # Ninguna fila viene de ESPN: o es una competición de football-data
+        # —donde la columna entera es observada— o no hay datos y quien llama
+        # ya lo detectará con `stats_disponibles`.
+        return d
+    if n < 200:
+        return d.iloc[0:0]        # hay marcas, pero no dan para promediar
+    return d[marcadas]
+
+
 _CACHE_CK: Dict[str, Optional[float]] = {}
 
 
@@ -453,7 +506,7 @@ def media_corners_liga(clave: str, temporadas_recientes: int = 3) -> Optional[fl
     valor = None
     try:
         if stats_disponibles(clave).get('corners'):
-            d = _historico(clave)
+            d = _solo_reales(_historico(clave), 'corners')
             tot = (pd.to_numeric(d['home_corners'], errors='coerce')
                    + pd.to_numeric(d['away_corners'], errors='coerce')).dropna()
             if len(tot) >= 200:
@@ -576,7 +629,7 @@ def dispersion_corners_liga(clave: str) -> Optional[float]:
     valor = None
     try:
         if stats_disponibles(clave).get('corners'):
-            d = _historico(clave)
+            d = _solo_reales(_historico(clave), 'corners')
             tot = (pd.to_numeric(d['home_corners'], errors='coerce')
                    + pd.to_numeric(d['away_corners'], errors='coerce')).dropna()
             if len(tot) >= 400:
@@ -640,7 +693,7 @@ def dispersion_corners_equipo(clave: str) -> Optional[float]:
     valor = None
     try:
         if stats_disponibles(clave).get('corners'):
-            d = _historico(clave)
+            d = _solo_reales(_historico(clave), 'corners')
             serie = pd.concat([
                 pd.to_numeric(d['home_corners'], errors='coerce'),
                 pd.to_numeric(d['away_corners'], errors='coerce')]).dropna()
@@ -683,8 +736,13 @@ def lambda_corners_equipo(clave: str, equipo: str, rival: str,
     (0,0093 con Poisson, 0,0149 con binomial negativa). Cinco partidos de un
     equipo son una muestra de cinco, y su propio ruido de Poisson es mayor que
     la señal que se busca.
+
+    v162 — mira sólo las filas con córners OBSERVADOS (`_solo_reales`). Sin
+    ese filtro, en una competición cubierta por ESPN desde 2021 la media móvil
+    de los diez últimos podría arrastrar valores del generador sintético de
+    2020 y mezclar dos cosas distintas en el mismo número.
     """
-    d = _historico(clave)
+    d = _solo_reales(_historico(clave), 'corners')
     if d is None or getattr(d, 'empty', True):
         return None
     try:
@@ -719,21 +777,51 @@ def lambda_corners_equipo(clave: str, equipo: str, rival: str,
         return None
 
 
+def _estimado(clave: str, objetivo: str) -> Optional[Dict]:
+    """
+    v162 — el respaldo cuando la competición no publica la estadística.
+
+    Se pidió que NINGUNA liga se quede sin la sección. Lo que devuelve
+    `stats_estimadas` es el nivel de la competición derivado de sus goles,
+    repartido por bando, y viene marcado con `origen: 'estimado'` y su error de
+    calibración medido dejando una liga fuera. La interfaz lo pinta con su
+    etiqueta; nunca se mezcla con lo observado.
+    """
+    try:
+        import stats_estimadas
+        return stats_estimadas.estimar(clave, objetivo)
+    except Exception as e:
+        logger.debug('[rendimiento] estimación %s de %s: %s', objetivo, clave, e)
+        return None
+
+
 def corners_equipo(clave: str, home: str, away: str,
                    n: int = 10) -> Optional[Dict]:
     """
-    Los córners esperados de los dos equipos y la dispersión con la que
-    convertirlos en probabilidades. `None` si la competición no los publica.
+    Los córners esperados de los dos equipos y del partido, con la dispersión
+    con la que convertirlos en probabilidades.
+
+    v162 — YA NO DEVUELVE `None` POR FALTA DE DATOS. Si la competición no
+    publica córners observados, cae al estimador de respaldo y lo marca con
+    `origen: 'estimado'`. Sólo devuelve `None` cuando no hay ni goles con los
+    que situar el nivel, que es lo único que no se puede suplir.
+
+    El TOTAL de un partido con datos observados sigue siendo la media de la
+    competición y no la suma de las dos lambdas, y eso está medido: la parte
+    variable del total de córners tiene correlación −0,0012 con el total real
+    (§10.7 de la bitácora), así que sumar las lambdas añadiría varianza sin
+    señal. En tarjetas es al revés y por eso allí sí se suman.
     """
     disp = dispersion_corners_equipo(clave)
-    if disp is None:
-        return None
-    lh = lambda_corners_equipo(clave, home, away, True, n)
-    la = lambda_corners_equipo(clave, away, home, False, n)
-    if lh is None or la is None:
-        return None
+    lh = lambda_corners_equipo(clave, home, away, True, n) if disp else None
+    la = lambda_corners_equipo(clave, away, home, False, n) if disp else None
+    if disp is None or lh is None or la is None:
+        return _estimado(clave, 'ck')
+    media_tot = media_corners_liga(clave)
+    disp_tot = dispersion_corners_liga(clave)
     return {'lambda_home': lh, 'lambda_away': la, 'dispersion': disp,
-            'clave_liga': clave}
+            'lambda_total': media_tot, 'dispersion_total': disp_tot,
+            'origen': 'observado', 'clave_liga': clave}
 
 
 # ---------------------------------------------------------------------------
@@ -842,7 +930,7 @@ def _serie_tarjetas(clave: str):
     """Las tarjetas de los dos bandos, si la competición las publica."""
     if not stats_disponibles(clave).get('tarjetas'):
         return None, None
-    d = _historico(clave)
+    d = _solo_reales(_historico(clave), 'yellow')
     if d is None or getattr(d, 'empty', True):
         return None, None
     if 'home_red' not in d.columns or 'away_red' not in d.columns:
@@ -970,12 +1058,25 @@ def tarjetas_equipo(clave: str, home: str, away: str, n: int = 10,
     """
     disp_eq = dispersion_tarjetas_equipo(clave)
     disp_tot = dispersion_tarjetas_liga(clave)
-    if disp_eq is None or disp_tot is None:
-        return None
-    lh = lambda_tarjetas_equipo(clave, home, away, True, n)
-    la = lambda_tarjetas_equipo(clave, away, home, False, n)
-    if lh is None or la is None:
-        return None
+    lh = lambda_tarjetas_equipo(clave, home, away, True, n) if disp_eq else None
+    la = lambda_tarjetas_equipo(clave, away, home, False, n) if disp_eq else None
+    if disp_eq is None or disp_tot is None or lh is None or la is None:
+        # v162 — respaldo estimado en vez de `None`. Con el factor del árbitro
+        # aplicado igual: si se sabe quién pita, esa parte no es una
+        # estimación aunque el nivel de la liga sí lo sea.
+        est = _estimado(clave, 'tj')
+        if est and factor_arbitro:
+            try:
+                f = float(factor_arbitro)
+                if 0.5 <= f <= 1.6:
+                    for k in ('lambda_home', 'lambda_away', 'lambda_total'):
+                        est[k] = round(est[k] * f, 3)
+                    est['factor_arbitro'] = round(f, 4)
+            except (TypeError, ValueError):
+                pass
+        if est:
+            est.setdefault('factor_arbitro', 1.0)
+        return est
     f = 1.0
     if factor_arbitro is not None:
         try:
@@ -987,4 +1088,5 @@ def tarjetas_equipo(clave: str, home: str, away: str, n: int = 10,
     return {'lambda_home': round(lh * f, 3), 'lambda_away': round(la * f, 3),
             'lambda_total': round((lh + la) * f, 3),
             'dispersion': disp_eq, 'dispersion_total': disp_tot,
-            'factor_arbitro': round(f, 4), 'clave_liga': clave}
+            'factor_arbitro': round(f, 4), 'origen': 'observado',
+            'clave_liga': clave}

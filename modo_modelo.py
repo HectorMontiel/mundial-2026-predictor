@@ -421,11 +421,17 @@ def _mejor_lado(media: float, linea: float, disp) -> Optional[Dict]:
 
 def corners_tarjeta(pick: Dict) -> Optional[Dict]:
     """
-    Total y por equipo, cada uno con su media y su apuesta más probable.
+    Total y por equipo, cada uno con su media y su apuesta mas probable.
 
-    `None` cuando la competición no publica córners observados — 55 de las 75.
-    Ahí no hay media que calibrar y la tarjeta no enseña la sección, en vez de
-    rellenarla con la estimación derivada del xG sintético.
+    v162 — SALE EN TODAS LAS COMPETICIONES. Hasta aqui devolvia `None` en las
+    55 que no publican corners observados. Ahora `rendimiento_equipos` cae al
+    estimador de respaldo y esto lo pinta con su etiqueta: se pidio que ninguna
+    liga se quede sin la seccion, y un numero marcado como estimado es mas util
+    que un hueco — siempre que se diga que lo es, que es lo que hace
+    `_bloque_corners_html`.
+
+    Sigue devolviendo `None` cuando no es futbol o cuando no hay ni goles con
+    los que situar el nivel de la competicion.
     """
     clave = str(pick.get('clave_liga') or '')
     if not clave or str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
@@ -435,48 +441,97 @@ def corners_tarjeta(pick: Dict) -> Optional[Dict]:
         return None
     try:
         import rendimiento_equipos as rq
-        media_tot = rq.media_corners_liga(clave)
-        disp_tot = rq.dispersion_corners_liga(clave)
         eq = rq.corners_equipo(clave, h, a)
     except Exception as e:
         logger.debug('[modo_modelo] córners de %s: %s', clave, e)
         return None
-    if media_tot is None or eq is None:
+    if not eq:
         return None
+    return _filas_de(eq, '⛳')
 
+
+def _filas_de(eq: Dict, icono: str) -> Optional[Dict]:
+    """
+    Las tres filas de una seccion —total, local y visita— con su apuesta.
+
+    Es comun a cornrs y tarjetas porque las dos secciones tienen exactamente la
+    misma forma: la unica diferencia es de donde sale el total, y eso ya viene
+    resuelto en `lambda_total` (media de la competicion en corners, suma de las
+    dos lambdas en tarjetas — cada uno el mejor medido para su mercado).
+    """
     filas = []
-    lado = _mejor_lado(media_tot, _linea_cercana(media_tot), disp_tot)
-    if lado:
-        filas.append({'etiqueta': 'Total', 'media': float(media_tot), **lado})
-    for nombre, media in (('Local', eq['lambda_home']),
-                          ('Visita', eq['lambda_away'])):
-        lado = _mejor_lado(media, _linea_cercana(media), eq['dispersion'])
+    tot, disp_tot = eq.get('lambda_total'), eq.get('dispersion_total')
+    if tot:
+        lado = _mejor_lado(tot, _linea_cercana(tot), disp_tot)
+        if lado:
+            filas.append({'etiqueta': 'Total', 'media': float(tot), **lado})
+    for nombre, media in (('Local', eq.get('lambda_home')),
+                          ('Visita', eq.get('lambda_away'))):
+        if not media:
+            continue
+        lado = _mejor_lado(media, _linea_cercana(media), eq.get('dispersion'))
         if lado:
             filas.append({'etiqueta': nombre, 'media': float(media), **lado})
     if not filas:
         return None
-    mejor = max(filas, key=lambda f: f['prob'])
-    return {'filas': filas, 'mejor': mejor}
+    return {'filas': filas, 'mejor': max(filas, key=lambda f: f['prob']),
+            'origen': eq.get('origen') or 'observado',
+            'aceptable': eq.get('aceptable', True),
+            'error_calibracion': eq.get('error_calibracion'),
+            'base': eq.get('base'), 'icono': icono}
+
+
+def _etiqueta_origen(bloque: Dict) -> str:
+    """
+    El aviso de que un numero es estimado y no observado.
+
+    NO ES DECORACION. La regla de este proyecto desde la v149 es que un hueco
+    se ve y un relleno no; enseñar una estimacion sin decirlo la convierte en
+    un dato observado a ojos de quien la lee. Hay dos niveles porque los
+    errores medidos son distintos: los corners estimados calibran a 0,0247 y
+    las tarjetas a 0,0539, y el umbral que se fijo como aceptable era 0,05.
+    """
+    if (bloque.get('origen') or 'observado') != 'estimado':
+        return ''
+    if bloque.get('aceptable'):
+        return ('<div class="mm-ck-fila mm-est">📐 <b>Estimado</b> · esta '
+                'competición no publica esta estadística: el nivel sale de sus '
+                'goles, no de sus partidos. Es igual para todos sus partidos.'
+                '</div>')
+    return ('<div class="mm-ck-fila mm-est mm-est-flojo">📐 <b>Estimado, con '
+            'poca precisión</b> · esta competición no publica esta '
+            'estadística. Su error de calibración medido (%.3f) está por '
+            'encima del umbral aceptable (0,050): sirve para hacerse una idea '
+            'del nivel, no para apostar.</div>'
+            % float(bloque.get('error_calibracion') or 0.0))
 
 
 def _bloque_corners_html(ck: Dict) -> str:
-    """La sección compacta, con la más probable resaltada en ámbar."""
-    if not ck:
+    """La seccion compacta, con la mas probable resaltada en ambar."""
+    return _bloque_seccion_html(ck, '⛳', 'Córners')
+
+
+def _bloque_seccion_html(bloque: Optional[Dict], icono: str,
+                         titulo: str) -> str:
+    if not bloque:
         return ''
-    mejor = ck['mejor']
-    trozos = ['<div class="mm-ck-tit">⛳ <b>Córners</b> '
+    mejor = bloque['mejor']
+    estimado = (bloque.get('origen') or 'observado') == 'estimado'
+    trozos = ['<div class="mm-ck-tit">%s <b>%s</b>%s '
               '<span class="mm-ck-badge">🟡 destacado: %s %s &nbsp;%.0f %%'
               '</span></div>'
-              % (mejor['etiqueta'], mejor['texto'], mejor['prob'] * 100)]
-    for f in ck['filas']:
+              % (icono, titulo,
+                 ' <span class="mm-ck-est">estimado</span>' if estimado else '',
+                 mejor['etiqueta'], mejor['texto'], mejor['prob'] * 100)]
+    for f in bloque['filas']:
         resalta = ' mm-ck-mejor' if f is mejor else ''
         trozos.append(
             '<div class="mm-ck-fila%s">%s <b>%.1f</b> · %s '
             '<span class="mm-ck-pct">%.0f %%</span></div>'
             % (resalta, f['etiqueta'], f['media'], f['texto'],
                f['prob'] * 100))
+    trozos.append(_etiqueta_origen(bloque))
     return ''.join(trozos)
-
 
 
 # ---------------------------------------------------------------------------
@@ -524,12 +579,14 @@ def _bloque_corners_html(ck: Dict) -> str:
 # ventaja de precio demostrada.
 def tarjetas_tarjeta(pick: Dict) -> Optional[Dict]:
     """
-    Total y por equipo de tarjetas —amarillas más rojas—, cada uno con su
-    apuesta más probable.
+    Total y por equipo de tarjetas —amarillas mas rojas—, cada uno con su
+    apuesta mas probable, y el arbitro designado.
 
-    `None` cuando la competición no publica tarjetas observadas — 55 de las 75.
-    En ésas la columna existe pero la escribió el generador sintético, y
-    `stats_disponibles` lo distingue reproduciéndolo, no con una lista a mano.
+    v162 — SALE EN TODAS LAS COMPETICIONES, igual que corners: donde no hay
+    datos observados cae al estimador de respaldo y se marca. Ojo con la
+    diferencia entre las dos secciones: la estimacion de tarjetas calibra a
+    0,0539, por encima del umbral de 0,05 que se fijo como aceptable, asi que
+    ahi el aviso es el fuerte.
     """
     clave = str(pick.get('clave_liga') or '')
     if not clave or str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
@@ -554,60 +611,37 @@ def tarjetas_tarjeta(pick: Dict) -> Optional[Dict]:
     except Exception as e:
         logger.debug('[modo_modelo] tarjetas de %s: %s', clave, e)
         return None
-    if tj is None:
+    if not tj:
         return None
-
-    filas = []
-    lado = _mejor_lado(tj['lambda_total'], _linea_cercana(tj['lambda_total']),
-                       tj['dispersion_total'])
-    if lado:
-        filas.append({'etiqueta': 'Total', 'media': float(tj['lambda_total']),
-                      **lado})
-    for nombre, media in (('Local', tj['lambda_home']),
-                          ('Visita', tj['lambda_away'])):
-        lado = _mejor_lado(media, _linea_cercana(media), tj['dispersion'])
-        if lado:
-            filas.append({'etiqueta': nombre, 'media': float(media), **lado})
-    if not filas:
+    bloque = _filas_de(tj, '🟨')
+    if not bloque:
         return None
-    mejor = max(filas, key=lambda f: f['prob'])
-    return {'filas': filas, 'mejor': mejor, 'arbitro': perfil,
-            'factor_arbitro': tj.get('factor_arbitro', 1.0)}
+    bloque['arbitro'] = perfil
+    bloque['factor_arbitro'] = tj.get('factor_arbitro', 1.0)
+    return bloque
 
 
 def _bloque_tarjetas_html(tj: Optional[Dict]) -> str:
-    """La sección compacta, con la más probable resaltada en ámbar."""
+    """La seccion compacta, con la mas probable resaltada en ambar."""
     if not tj:
         return ''
-    mejor = tj['mejor']
-    trozos = ['<div class="mm-ck-tit">🟨 <b>Tarjetas</b> '
-              '<span class="mm-ck-badge">🟡 destacado: %s %s &nbsp;%.0f %%'
-              '</span></div>'
-              % (mejor['etiqueta'], mejor['texto'], mejor['prob'] * 100)]
-    for f in tj['filas']:
-        resalta = ' mm-ck-mejor' if f is mejor else ''
-        trozos.append(
-            '<div class="mm-ck-fila%s">%s <b>%.1f</b> · %s '
-            '<span class="mm-ck-pct">%.0f %%</span></div>'
-            % (resalta, f['etiqueta'], f['media'], f['texto'],
-               f['prob'] * 100))
+    trozos = [_bloque_seccion_html(tj, '🟨', 'Tarjetas')]
     arb = tj.get('arbitro') or {}
     if arb.get('nombre'):
         factor = float(tj.get('factor_arbitro') or 1.0)
-        # El signo se dice en palabras además de en número: «×1,04» obliga a
-        # recordar qué es 1 y en una lista de cuarenta tarjetas nadie lo hace.
+        # El signo se dice en palabras ademas de en numero: «x1,04» obliga a
+        # recordar que es 1 y en una lista de cuarenta tarjetas nadie lo hace.
         if factor >= 1.015:
             sentido = 'tira a más'
         elif factor <= 0.985:
             sentido = 'tira a menos'
         else:
             sentido = 'en la media'
-        # Las cifras del árbitro son AMARILLAS —es lo que publica FotMob— y las
-        # de arriba son amarillas más rojas. No se mezclan nunca porque lo que
-        # se usa del árbitro es una RAZÓN contra la media de su propia
-        # competición, que es adimensional: da igual con qué criterio se
-        # cuenten las dos mientras se cuenten igual. Se rotula «amarillas» para
-        # que nadie sume esta cifra con las de arriba.
+        # Las cifras del arbitro son AMARILLAS —es lo que publica FotMob— y las
+        # de arriba son amarillas mas rojas. No se mezclan nunca porque lo que
+        # se usa del arbitro es una RAZON contra la media de su propia
+        # competicion, que es adimensional. Se rotula «amarillas» para que
+        # nadie sume esta cifra con las de arriba.
         trozos.append(
             '<div class="mm-ck-fila mm-arb">👤 %s · %.2f amarillas por partido '
             'contra %.2f de la competición en %s partidos · %s (×%.3f)</div>'
@@ -696,6 +730,10 @@ CSS = """
 .mm-ck-mejor { font-weight:700; }
 .mm-ck-pct { opacity:.85; }
 .mm-arb { opacity:.85; font-style:italic; }
+.mm-ck-est { background:#4a5568; color:#fff; border-radius:3px; padding:0 .3rem;
+             font-size:.68rem; font-weight:600; vertical-align:middle; }
+.mm-est { opacity:.85; font-size:.74rem; line-height:1.5; }
+.mm-est-flojo { color:#b45309; }
 .mm-jug { font-size:.79rem; line-height:1.6; padding-left:.6rem; opacity:.9; }
 </style>
 """
@@ -743,7 +781,27 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                                       ' · '.join([m for m in meta if m])))
 
         sin_modelo = bool(pick.get('sin_modelo') or pick.get('prob') is None)
-        if sin_modelo:
+        # v162 — UN PARTIDO ACABADO NO PROPONE NADA, Y LO DICE ARRIBA.
+        #
+        # La línea de apuesta destacada se sustituye por el marcador. No es
+        # decoración: `apuesta_destacada` devolvería «Menos de 2.5 — 72 %» de
+        # un partido que ya terminó 3-1, y eso leído deprisa parece una
+        # recomendación. El resto de la tarjeta sí se pinta entera —barras,
+        # córners, tarjetas, rachas— porque es lo que se pidió: poder mirar qué
+        # decía el modelo ANTES, con el resultado al lado.
+        if pick.get('jugado'):
+            gh, ga = pick.get('goles_home'), pick.get('goles_away')
+            if gh is not None and ga is not None:
+                st.markdown('### ✅ Finalizado — %d &nbsp;–&nbsp; %d'
+                            % (int(gh), int(ga)))
+            else:
+                st.markdown('### ✅ Finalizado')
+            if sin_modelo:
+                st.caption('No hay pronóstico guardado de este partido.')
+            else:
+                st.caption('Lo de abajo es el pronóstico PREVIO al partido, '
+                           'para análisis. Ya no es jugable.')
+        elif sin_modelo:
             st.markdown('**· Sin datos de modelo**')
         elif not con_apuesta:
             st.caption('Se analiza, no se apuesta todavía: las líneas se mueven '
@@ -838,7 +896,15 @@ ORDENES = {
 
 
 def _tiene_fisicos(p: Dict) -> bool:
-    """Si esta competición publica córners y tarjetas de verdad."""
+    """
+    Si esta competición publica córners y tarjetas OBSERVADOS.
+
+    v162 — el filtro sigue existiendo y ahora quiere decir otra cosa. Antes
+    separaba «tiene sección» de «no la tiene»; desde que todas las
+    competiciones la tienen —con estimación donde no hay datos— lo que separa
+    es **observado de estimado**, que es la distinción que de verdad importa
+    para decidir si un número se puede usar.
+    """
     try:
         import rendimiento_equipos as rq
         d = rq.stats_disponibles(str(p.get('clave_liga') or ''))
@@ -848,8 +914,17 @@ def _tiene_fisicos(p: Dict) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# v161 — LOS PARTIDOS QUE YA SE JUGARON
+# v161 → v162 — LOS PARTIDOS QUE YA SE JUGARON
 # ---------------------------------------------------------------------------
+# La v161 los puso detrás de un BOTÓN, en una lista escueta con el marcador.
+# Duró una versión: lo que se quería era verlos EN la lista, con su tarjeta
+# entera y el pronóstico previo, y un desplegable aparte no es eso. El botón y
+# su función se han retirado — los construye `partidos_jugados.de_dia` y los
+# mezcla `render`. Lo único que sobrevive de aquel bloque es `_dia_de`, que
+# sigue diciendo qué día está enseñando la lista.
+#
+# Lo que NO cambió, y es lo importante: siguen fuera de `alpha_finder`. No
+# tienen EV, no se comparan con la cuota y no pueden llegar a Telegram.
 # La lista enseña los partidos que se pueden apostar, o sea los que no han
 # empezado. Es lo correcto —un partido acabado no es un pick— pero tiene un
 # efecto que parece un fallo: un sábado por la tarde la lista se queda casi
@@ -882,50 +957,8 @@ def _dia_de(pronosticos: List[Dict]) -> str:
         return ''
 
 
-def _bloque_jugados(st, clave: str, dia: str) -> None:
-    """El desplegable de los ya jugados, que sólo pide datos si se pulsa."""
-    if not dia:
-        return
-    bandera = '%s_ver_jugados' % clave
-    if not st.session_state.get(bandera):
-        if st.button('🏁 Ver los partidos que ya se jugaron',
-                     key='%s_btn_jugados' % clave,
-                     help='No se pueden apostar, así que no están en la lista '
-                          'de arriba. Se piden a ESPN al pulsar (~5 s).'):
-            st.session_state[bandera] = True
-        else:
-            return
-
-    try:
-        import fixtures_espn
-        jugados = fixtures_espn.jugados_del_dia(
-            fixtures_espn.claves_de_futbol(), dia)
-    except Exception as e:
-        logger.debug('[modo_modelo] jugados de %s: %s', dia, e)
-        st.caption('No se pudieron pedir los resultados de hoy.')
-        return
-
-    if not jugados:
-        st.caption('No hay partidos terminados en las competiciones del '
-                   'catálogo para ese día.')
-        return
-
-    with st.expander('🏁 Ya jugados (%d) — no se pueden apostar' % len(jugados),
-                     expanded=True):
-        liga_actual = None
-        for r in jugados:
-            if r.get('liga') != liga_actual:
-                liga_actual = r.get('liga')
-                st.markdown('**%s**' % liga_actual)
-            st.markdown(
-                '<div class="mm-jug">%s <b>%d – %d</b> %s</div>'
-                % (r.get('home', ''), int(r.get('goles_home') or 0),
-                   int(r.get('goles_away') or 0), r.get('away', '')),
-                unsafe_allow_html=True)
-
-
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
-           clave: str = 'mm', maximo: int = 40, con_apuesta: bool = True,
+           clave: str = 'mm', maximo: int = 200, con_apuesta: bool = True,
            titulo: str = '⚽ Partidos de hoy') -> None:
     """
     La lista de partidos, con sus filtros y su orden.
@@ -934,19 +967,60 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     pueden tener criterios distintos. Streamlit conserva la elección mientras
     dure la sesión; entre sesiones distintas no se guarda —eso necesitaría
     almacenamiento propio y no lo hay.
+
+    v162 — `maximo` sube de 40 a 200, y no es por gusto. Desde que los partidos
+    ya jugados entran en la misma lista ordenados por hora, son los PRIMEROS
+    (se jugaron antes), así que un tope de 40 los habría dejado ocupando la
+    lista entera y habría empujado fuera los partidos que todavía se pueden
+    apostar — exactamente lo contrario de lo que se pidió. El tope sigue
+    existiendo para que la página no se vaya de las manos un sábado, y cuando
+    corta lo dice.
     """
+    # v162 — LOS YA JUGADOS ENTRAN EN LA MISMA LISTA.
+    #
+    # La v161 los puso detrás de un botón, en una lista escueta con el
+    # marcador. Lo que se pidió después es verlos aquí, con su tarjeta entera y
+    # el pronóstico que había ANTES del pitido inicial, para poder analizar.
+    #
+    # Vienen de `partidos_jugados.de_dia`, que NO pasa por `alpha_finder`: no
+    # tienen EV, no se comparan con la cuota y no pueden llegar a Telegram. La
+    # única forma de que un partido acabado se convirtiera en un pick sería
+    # meterlo en el barrido, y eso sigue sin ocurrir.
+    #
+    # Sólo en la vista con apuesta —la de HOY—: mañana no hay nada jugado, y
+    # pedirlo igualmente serían 61 peticiones a ESPN para una lista vacía.
+    jugados: List[Dict] = []
+    if con_apuesta:
+        try:
+            import partidos_jugados
+            jugados = partidos_jugados.de_dia(_dia_de(pronosticos))
+        except Exception as e:
+            logger.debug('[modo_modelo] partidos jugados: %s', e)
+
     con, sin = [], []
-    for p in (pronosticos or []):
+    for p in (list(pronosticos or []) + jugados):
         if not isinstance(p, dict):
             continue
         p['_clave_vista'] = clave
-        (sin if (p.get('sin_modelo') or p.get('prob') is None)
-         else con).append(p)
+        # Un partido JUGADO va siempre a la lista principal, tenga pronóstico o
+        # no: se pidió verlos todos, y esconder en un desplegable el que no
+        # tiene modelo volvería a dejar la lista corta sin decir por qué.
+        if p.get('jugado'):
+            con.append(p)
+        elif p.get('sin_modelo') or p.get('prob') is None:
+            sin.append(p)
+        else:
+            con.append(p)
 
     for p in con:
-        p['_destacada'] = apuesta_destacada(p)
+        p['_destacada'] = None if p.get('jugado') else apuesta_destacada(p)
+    # Los jugados no cuentan para «N con una apuesta por encima del 60 %»: esa
+    # frase es un recuento de oportunidades, y una oportunidad que ya pasó no
+    # lo es.
     n_altas = sum(1 for p in con
-                  if p.get('_destacada') and p['_destacada']['alta'])
+                  if not p.get('jugado')
+                  and p.get('_destacada') and p['_destacada']['alta'])
+    n_jugados = sum(1 for p in con if p.get('jugado'))
 
     c1, c2 = st.columns([3, 2])
     with c1:
@@ -962,10 +1036,13 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         solo_fisicos = st.checkbox('Sólo con córners y tarjetas',
                                    key='%s_solo_fisicos' % clave,
                                    help='Deja sólo las competiciones que '
-                                        'publican esas estadísticas de verdad '
-                                        '(20 de 75).')
+                                        'publican esas estadísticas de verdad. '
+                                        'El resto también las enseña, pero '
+                                        'estimadas a partir de sus goles.')
 
     if solo_altas:
+        # Los jugados salen también de aquí: ese filtro sirve para buscar
+        # apuestas, y en un partido acabado no queda ninguna que hacer.
         con = [p for p in con
                if p.get('_destacada') and p['_destacada']['alta']]
     if solo_fisicos:
@@ -977,6 +1054,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     if n_altas and con_apuesta:
         st.caption('%d con una apuesta por encima del %d %%.'
                    % (n_altas, UMBRAL_ALTA * 100))
+    if n_jugados:
+        st.caption('Los partidos marcados como **✅ Finalizado** (%d) muestran '
+                   'el pronóstico previo para análisis, pero ya no son '
+                   'jugables.' % n_jugados)
 
     st.markdown(CSS, unsafe_allow_html=True)
     if not con:
@@ -992,10 +1073,6 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
             for p in sin[:maximo]:
                 st.markdown('· **%s** — %s' % (p.get('partido', '?'),
                                                p.get('liga', '')))
-
-    # v161 — y los que ya se jugaron, aparte y bajo demanda. Ver el comentario
-    # de `_bloque_jugados`: no entran en `pronosticos` a propósito.
-    _bloque_jugados(st, clave, _dia_de(pronosticos))
 
     # LA ADVERTENCIA NO DESAPARECE: SE PLIEGA.
     #

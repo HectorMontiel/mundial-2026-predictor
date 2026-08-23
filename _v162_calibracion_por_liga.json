@@ -1,0 +1,1617 @@
+{
+ "generado": "2026-08-23T01:45:21Z",
+ "ligas": [
+  {
+   "clave": "liga_mx",
+   "estado": "ok",
+   "partidos_espn": 1780,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 1780,
+    "dispersion_equipo": 1.7011,
+    "dispersion_total": 1.2623,
+    "media_total": 9.854,
+    "por_equipo": {
+     "error_calib": 0.0107,
+     "corr": 0.2091,
+     "n": 1054,
+     "media_pred": 4.855,
+     "media_real": 4.86
+    },
+    "total": {
+     "error_calib": 0.0197,
+     "corr": -0.0165,
+     "n": 532,
+     "media_pred": 9.881,
+     "media_real": 9.741
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 1780,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.103,
+    "media_total": 4.624,
+    "por_equipo": {
+     "error_calib": 0.018,
+     "corr": 0.0883,
+     "n": 1054,
+     "media_pred": 2.324,
+     "media_real": 2.363
+    },
+    "total": {
+     "error_calib": 0.02,
+     "corr": 0.0686,
+     "n": 527,
+     "media_pred": 4.648,
+     "media_real": 4.727
+    }
+   }
+  },
+  {
+   "clave": "mls",
+   "estado": "ok",
+   "partidos_espn": 2787,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 2787,
+    "dispersion_equipo": 1.5067,
+    "dispersion_total": 1.1344,
+    "media_total": 9.875,
+    "por_equipo": {
+     "error_calib": 0.0071,
+     "corr": 0.2142,
+     "n": 1660,
+     "media_pred": 4.893,
+     "media_real": 4.907
+    },
+    "total": {
+     "error_calib": 0.0115,
+     "corr": -0.0635,
+     "n": 836,
+     "media_pred": 9.868,
+     "media_real": 9.809
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 2787,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0,
+    "media_total": 4.221,
+    "por_equipo": {
+     "error_calib": 0.0174,
+     "corr": 0.1463,
+     "n": 1660,
+     "media_pred": 2.117,
+     "media_real": 2.126
+    },
+    "total": {
+     "error_calib": 0.0186,
+     "corr": 0.1917,
+     "n": 830,
+     "media_pred": 4.234,
+     "media_real": 4.252
+    }
+   }
+  },
+  {
+   "clave": "brasil",
+   "estado": "ok",
+   "partidos_espn": 2081,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 2081,
+    "dispersion_equipo": 1.6862,
+    "dispersion_total": 1.1911,
+    "media_total": 10.439,
+    "por_equipo": {
+     "error_calib": 0.01,
+     "corr": 0.207,
+     "n": 1224,
+     "media_pred": 5.024,
+     "media_real": 5.006
+    },
+    "total": {
+     "error_calib": 0.0603,
+     "corr": -0.0014,
+     "n": 624,
+     "media_pred": 10.526,
+     "media_real": 10.01
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 2081,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.108,
+    "media_total": 5.079,
+    "por_equipo": {
+     "error_calib": 0.0168,
+     "corr": 0.1523,
+     "n": 1224,
+     "media_pred": 2.533,
+     "media_real": 2.457
+    },
+    "total": {
+     "error_calib": 0.0047,
+     "corr": 0.111,
+     "n": 612,
+     "media_pred": 5.066,
+     "media_real": 4.913
+    }
+   }
+  },
+  {
+   "clave": "argentina",
+   "estado": "ok",
+   "partidos_espn": 2299,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 2299,
+    "dispersion_equipo": 1.5347,
+    "dispersion_total": 1.1546,
+    "media_total": 9.237,
+    "por_equipo": {
+     "error_calib": 0.0044,
+     "corr": 0.2821,
+     "n": 1352,
+     "media_pred": 4.453,
+     "media_real": 4.43
+    },
+    "total": {
+     "error_calib": 0.0379,
+     "corr": -0.0359,
+     "n": 688,
+     "media_pred": 9.302,
+     "media_real": 8.859
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 2299,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0,
+    "media_total": 5.086,
+    "por_equipo": {
+     "error_calib": 0.021,
+     "corr": 0.2113,
+     "n": 1352,
+     "media_pred": 2.698,
+     "media_real": 2.701
+    },
+    "total": {
+     "error_calib": 0.0146,
+     "corr": 0.1004,
+     "n": 676,
+     "media_pred": 5.396,
+     "media_real": 5.402
+    }
+   }
+  },
+  {
+   "clave": "noruega",
+   "estado": "ok",
+   "partidos_espn": 511,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 511,
+    "dispersion_equipo": 1.9766,
+    "dispersion_total": 1.4677,
+    "media_total": 10.628,
+    "por_equipo": null,
+    "total": null
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 511,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0909,
+    "media_total": 3.331,
+    "por_equipo": null,
+    "total": null
+   }
+  },
+  {
+   "clave": "suecia",
+   "estado": "ok",
+   "partidos_espn": 514,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 514,
+    "dispersion_equipo": 1.462,
+    "dispersion_total": 1.1535,
+    "media_total": 10.802,
+    "por_equipo": null,
+    "total": null
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 514,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0138,
+    "media_total": 3.642,
+    "por_equipo": null,
+    "total": null
+   }
+  },
+  {
+   "clave": "finlandia",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "rumania",
+   "partidos_espn": 328,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "irlanda",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "turquia",
+   "estado": "ok",
+   "partidos_espn": 663,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 663,
+    "dispersion_equipo": 1.643,
+    "dispersion_total": 1.1884,
+    "media_total": 9.576,
+    "por_equipo": {
+     "error_calib": 0.0219,
+     "corr": 0.2409,
+     "n": 386,
+     "media_pred": 4.772,
+     "media_real": 4.653
+    },
+    "total": null
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 663,
+    "dispersion_equipo": 1.0054,
+    "dispersion_total": 1.2682,
+    "media_total": 4.732,
+    "por_equipo": {
+     "error_calib": 0.0093,
+     "corr": 0.0954,
+     "n": 386,
+     "media_pred": 2.313,
+     "media_real": 2.298
+    },
+    "total": null
+   }
+  },
+  {
+   "clave": "dinamarca",
+   "estado": "ok",
+   "partidos_espn": 408,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 408,
+    "dispersion_equipo": 1.5621,
+    "dispersion_total": 1.1601,
+    "media_total": 10.051,
+    "por_equipo": null,
+    "total": null
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 408,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0693,
+    "media_total": 3.412,
+    "por_equipo": null,
+    "total": null
+   }
+  },
+  {
+   "clave": "china",
+   "estado": "ok",
+   "partidos_espn": 1379,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 1379,
+    "dispersion_equipo": 1.7506,
+    "dispersion_total": 1.2405,
+    "media_total": 9.677,
+    "por_equipo": {
+     "error_calib": 0.0067,
+     "corr": 0.2579,
+     "n": 786,
+     "media_pred": 5.155,
+     "media_real": 5.039
+    },
+    "total": {
+     "error_calib": 0.0482,
+     "corr": -0.0435,
+     "n": 412,
+     "media_pred": 9.603,
+     "media_real": 10.104
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 1379,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0748,
+    "media_total": 3.879,
+    "por_equipo": {
+     "error_calib": 0.0142,
+     "corr": 0.1115,
+     "n": 786,
+     "media_pred": 2.061,
+     "media_real": 2.046
+    },
+    "total": {
+     "error_calib": 0.0134,
+     "corr": 0.0454,
+     "n": 393,
+     "media_pred": 4.121,
+     "media_real": 4.092
+    }
+   }
+  },
+  {
+   "clave": "aut_bundesliga",
+   "partidos_espn": 351,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "rus_premier",
+   "estado": "ok",
+   "partidos_espn": 514,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 514,
+    "dispersion_equipo": 1.4768,
+    "dispersion_total": 1.1214,
+    "media_total": 9.574,
+    "por_equipo": {
+     "error_calib": 0.015,
+     "corr": 0.172,
+     "n": 300,
+     "media_pred": 4.643,
+     "media_real": 4.643
+    },
+    "total": null
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 514,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0493,
+    "media_total": 4.298,
+    "por_equipo": {
+     "error_calib": 0.0198,
+     "corr": 0.1108,
+     "n": 300,
+     "media_pred": 2.168,
+     "media_real": 2.033
+    },
+    "total": null
+   }
+  },
+  {
+   "clave": "gre_super_league",
+   "partidos_espn": 224,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 2148,
+    "dispersion_equipo": 1.7127,
+    "dispersion_total": 1.1354,
+    "media_total": 8.698,
+    "por_equipo": {
+     "error_calib": 0.0062,
+     "corr": 0.4137,
+     "n": 1278,
+     "media_pred": 4.4,
+     "media_real": 4.426
+    },
+    "total": {
+     "error_calib": 0.0146,
+     "corr": -0.0823,
+     "n": 645,
+     "media_pred": 8.685,
+     "media_real": 8.847
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 2148,
+    "dispersion_equipo": 1.0165,
+    "dispersion_total": 1.1795,
+    "media_total": 5.435,
+    "por_equipo": {
+     "error_calib": 0.0075,
+     "corr": 0.2057,
+     "n": 1278,
+     "media_pred": 2.834,
+     "media_real": 2.792
+    },
+    "total": {
+     "error_calib": 0.0069,
+     "corr": 0.1248,
+     "n": 639,
+     "media_pred": 5.668,
+     "media_real": 5.584
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "premier",
+   "estado": "ok",
+   "partidos_espn": 1992,
+   "fuente": "cache",
+   "corners": {
+    "origen": "observado",
+    "n_filas": 1992,
+    "dispersion_equipo": 1.73,
+    "dispersion_total": 1.1223,
+    "media_total": 10.298,
+    "por_equipo": {
+     "error_calib": 0.0087,
+     "corr": 0.2594,
+     "n": 1176,
+     "media_pred": 5.02,
+     "media_real": 4.94
+    },
+    "total": {
+     "error_calib": 0.0392,
+     "corr": -0.0668,
+     "n": 596,
+     "media_pred": 10.362,
+     "media_real": 9.869
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 1992,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1507,
+    "media_total": 3.826,
+    "por_equipo": {
+     "error_calib": 0.0131,
+     "corr": 0.1937,
+     "n": 1176,
+     "media_pred": 1.989,
+     "media_real": 1.912
+    },
+    "total": {
+     "error_calib": 0.0174,
+     "corr": 0.1093,
+     "n": 588,
+     "media_pred": 3.978,
+     "media_real": 3.823
+    }
+   }
+  },
+  {
+   "clave": "laliga",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 6088,
+    "dispersion_equipo": 1.6053,
+    "dispersion_total": 1.1822,
+    "media_total": 9.927,
+    "por_equipo": {
+     "error_calib": 0.0101,
+     "corr": 0.3012,
+     "n": 3630,
+     "media_pred": 4.742,
+     "media_real": 4.755
+    },
+    "total": {
+     "error_calib": 0.0524,
+     "corr": -0.0191,
+     "n": 1824,
+     "media_pred": 10.0,
+     "media_real": 9.514
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 6088,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1717,
+    "media_total": 5.272,
+    "por_equipo": {
+     "error_calib": 0.0072,
+     "corr": 0.1497,
+     "n": 3630,
+     "media_pred": 2.524,
+     "media_real": 2.502
+    },
+    "total": {
+     "error_calib": 0.0144,
+     "corr": 0.142,
+     "n": 1815,
+     "media_pred": 5.049,
+     "media_real": 5.003
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "serie_a",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 6080,
+    "dispersion_equipo": 1.6556,
+    "dispersion_total": 1.226,
+    "media_total": 10.108,
+    "por_equipo": {
+     "error_calib": 0.0039,
+     "corr": 0.304,
+     "n": 3592,
+     "media_pred": 4.689,
+     "media_real": 4.658
+    },
+    "total": {
+     "error_calib": 0.1043,
+     "corr": 0.0525,
+     "n": 1821,
+     "media_pred": 10.275,
+     "media_real": 9.323
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 6080,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0063,
+    "media_total": 4.683,
+    "por_equipo": {
+     "error_calib": 0.0191,
+     "corr": 0.2232,
+     "n": 3592,
+     "media_pred": 2.223,
+     "media_real": 2.187
+    },
+    "total": {
+     "error_calib": 0.0076,
+     "corr": 0.2071,
+     "n": 1796,
+     "media_pred": 4.446,
+     "media_real": 4.375
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "bundesliga",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 4896,
+    "dispersion_equipo": 1.5763,
+    "dispersion_total": 1.1787,
+    "media_total": 9.676,
+    "por_equipo": {
+     "error_calib": 0.0088,
+     "corr": 0.2922,
+     "n": 2910,
+     "media_pred": 4.853,
+     "media_real": 4.871
+    },
+    "total": {
+     "error_calib": 0.0133,
+     "corr": -0.0392,
+     "n": 1467,
+     "media_pred": 9.662,
+     "media_real": 9.755
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 4896,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1241,
+    "media_total": 3.858,
+    "por_equipo": {
+     "error_calib": 0.0066,
+     "corr": 0.1478,
+     "n": 2910,
+     "media_pred": 2.023,
+     "media_real": 2.02
+    },
+    "total": {
+     "error_calib": 0.0045,
+     "corr": 0.1413,
+     "n": 1455,
+     "media_pred": 4.047,
+     "media_real": 4.04
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "ligue_1",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 5758,
+    "dispersion_equipo": 1.562,
+    "dispersion_total": 1.1791,
+    "media_total": 9.597,
+    "por_equipo": {
+     "error_calib": 0.0067,
+     "corr": 0.2085,
+     "n": 3420,
+     "media_pred": 4.711,
+     "media_real": 4.735
+    },
+    "total": {
+     "error_calib": 0.0257,
+     "corr": -0.0068,
+     "n": 1728,
+     "media_pred": 9.624,
+     "media_real": 9.465
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 5758,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.036,
+    "media_total": 3.845,
+    "por_equipo": {
+     "error_calib": 0.0177,
+     "corr": 0.1281,
+     "n": 3420,
+     "media_pred": 1.992,
+     "media_real": 1.995
+    },
+    "total": {
+     "error_calib": 0.0139,
+     "corr": 0.1182,
+     "n": 1710,
+     "media_pred": 3.985,
+     "media_real": 3.99
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "eredivisie",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 2698,
+    "dispersion_equipo": 1.8358,
+    "dispersion_total": 1.1836,
+    "media_total": 10.273,
+    "por_equipo": {
+     "error_calib": 0.0114,
+     "corr": 0.3623,
+     "n": 1608,
+     "media_pred": 5.127,
+     "media_real": 5.148
+    },
+    "total": {
+     "error_calib": 0.0082,
+     "corr": -0.0435,
+     "n": 810,
+     "media_pred": 10.265,
+     "media_real": 10.304
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 2698,
+    "dispersion_equipo": 1.1077,
+    "dispersion_total": 1.2758,
+    "media_total": 3.169,
+    "por_equipo": {
+     "error_calib": 0.0108,
+     "corr": 0.1625,
+     "n": 1608,
+     "media_pred": 1.602,
+     "media_real": 1.588
+    },
+    "total": {
+     "error_calib": 0.0069,
+     "corr": 0.0646,
+     "n": 804,
+     "media_pred": 3.204,
+     "media_real": 3.177
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "primeira",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 3077,
+    "dispersion_equipo": 1.7019,
+    "dispersion_total": 1.2351,
+    "media_total": 9.944,
+    "por_equipo": {
+     "error_calib": 0.0041,
+     "corr": 0.3598,
+     "n": 1806,
+     "media_pred": 4.869,
+     "media_real": 4.838
+    },
+    "total": {
+     "error_calib": 0.0472,
+     "corr": 0.0604,
+     "n": 921,
+     "media_pred": 10.03,
+     "media_real": 9.672
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 3077,
+    "dispersion_equipo": 1.1042,
+    "dispersion_total": 1.3665,
+    "media_total": 5.197,
+    "por_equipo": {
+     "error_calib": 0.0089,
+     "corr": 0.12,
+     "n": 1806,
+     "media_pred": 2.651,
+     "media_real": 2.595
+    },
+    "total": {
+     "error_calib": 0.0082,
+     "corr": 0.102,
+     "n": 903,
+     "media_pred": 5.302,
+     "media_real": 5.189
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "champions",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "europa_league",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "conference_league",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "leagues_cup",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "eng_championship",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 2760,
+    "dispersion_equipo": 1.5693,
+    "dispersion_total": 1.1364,
+    "media_total": 10.191,
+    "por_equipo": {
+     "error_calib": 0.011,
+     "corr": 0.3017,
+     "n": 1616,
+     "media_pred": 5.07,
+     "media_real": 5.083
+    },
+    "total": {
+     "error_calib": 0.0087,
+     "corr": -0.0463,
+     "n": 820,
+     "media_pred": 10.165,
+     "media_real": 10.157
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 2760,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.04,
+    "media_total": 3.873,
+    "por_equipo": {
+     "error_calib": 0.0105,
+     "corr": 0.1254,
+     "n": 1616,
+     "media_pred": 1.862,
+     "media_real": 1.871
+    },
+    "total": {
+     "error_calib": 0.006,
+     "corr": 0.0097,
+     "n": 808,
+     "media_pred": 3.725,
+     "media_real": 3.743
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "eng_league_one",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 8693,
+    "dispersion_equipo": 1.5124,
+    "dispersion_total": 1.1905,
+    "media_total": 10.577,
+    "por_equipo": {
+     "error_calib": 0.0019,
+     "corr": 0.2263,
+     "n": 5112,
+     "media_pred": 5.058,
+     "media_real": 5.03
+    },
+    "total": {
+     "error_calib": 0.065,
+     "corr": 0.0266,
+     "n": 2605,
+     "media_pred": 10.684,
+     "media_real": 10.064
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 8693,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1648,
+    "media_total": 3.387,
+    "por_equipo": {
+     "error_calib": 0.0103,
+     "corr": 0.1437,
+     "n": 5112,
+     "media_pred": 1.903,
+     "media_real": 1.906
+    },
+    "total": {
+     "error_calib": 0.0172,
+     "corr": 0.1167,
+     "n": 2556,
+     "media_pred": 3.805,
+     "media_real": 3.813
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "eng_league_two",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 8732,
+    "dispersion_equipo": 1.4468,
+    "dispersion_total": 1.1674,
+    "media_total": 10.337,
+    "por_equipo": {
+     "error_calib": 0.004,
+     "corr": 0.1919,
+     "n": 5210,
+     "media_pred": 4.935,
+     "media_real": 4.913
+    },
+    "total": {
+     "error_calib": 0.0657,
+     "corr": -0.0189,
+     "n": 2617,
+     "media_pred": 10.427,
+     "media_real": 9.836
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 8732,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1419,
+    "media_total": 3.332,
+    "por_equipo": {
+     "error_calib": 0.0154,
+     "corr": 0.1726,
+     "n": 5210,
+     "media_pred": 1.898,
+     "media_real": 1.911
+    },
+    "total": {
+     "error_calib": 0.0161,
+     "corr": 0.167,
+     "n": 2605,
+     "media_pred": 3.796,
+     "media_real": 3.823
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "eng_national",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 8634,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1488,
+    "media_total": 3.322,
+    "por_equipo": {
+     "error_calib": 0.0131,
+     "corr": 0.1393,
+     "n": 5050,
+     "media_pred": 1.877,
+     "media_real": 1.876
+    },
+    "total": {
+     "error_calib": 0.0157,
+     "corr": 0.1281,
+     "n": 2525,
+     "media_pred": 3.754,
+     "media_real": 3.752
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "sco_premiership",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 3611,
+    "dispersion_equipo": 1.7191,
+    "dispersion_total": 1.2293,
+    "media_total": 10.519,
+    "por_equipo": {
+     "error_calib": 0.0057,
+     "corr": 0.4098,
+     "n": 2152,
+     "media_pred": 5.309,
+     "media_real": 5.304
+    },
+    "total": {
+     "error_calib": 0.0162,
+     "corr": -0.0348,
+     "n": 1082,
+     "media_pred": 10.513,
+     "media_real": 10.602
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 3611,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0343,
+    "media_total": 3.664,
+    "por_equipo": {
+     "error_calib": 0.0163,
+     "corr": 0.2064,
+     "n": 2152,
+     "media_pred": 1.976,
+     "media_real": 1.968
+    },
+    "total": {
+     "error_calib": 0.0113,
+     "corr": 0.1026,
+     "n": 1076,
+     "media_pred": 3.952,
+     "media_real": 3.937
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "sco_championship",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 1543,
+    "dispersion_equipo": 1.6018,
+    "dispersion_total": 1.2225,
+    "media_total": 10.367,
+    "por_equipo": {
+     "error_calib": 0.0169,
+     "corr": 0.2953,
+     "n": 902,
+     "media_pred": 5.103,
+     "media_real": 4.997
+    },
+    "total": {
+     "error_calib": 0.0649,
+     "corr": 0.0042,
+     "n": 459,
+     "media_pred": 10.449,
+     "media_real": 10.009
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 1543,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0751,
+    "media_total": 3.695,
+    "por_equipo": {
+     "error_calib": 0.0218,
+     "corr": 0.0824,
+     "n": 902,
+     "media_pred": 2.082,
+     "media_real": 2.121
+    },
+    "total": {
+     "error_calib": 0.0258,
+     "corr": 0.0413,
+     "n": 451,
+     "media_pred": 4.165,
+     "media_real": 4.242
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "esp_hypermotion",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 4170,
+    "dispersion_equipo": 1.5013,
+    "dispersion_total": 1.1334,
+    "media_total": 9.295,
+    "por_equipo": {
+     "error_calib": 0.0108,
+     "corr": 0.2139,
+     "n": 2474,
+     "media_pred": 4.678,
+     "media_real": 4.696
+    },
+    "total": {
+     "error_calib": 0.0151,
+     "corr": -0.0445,
+     "n": 1250,
+     "media_pred": 9.277,
+     "media_real": 9.392
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 4170,
+    "dispersion_equipo": 1.0278,
+    "dispersion_total": 1.1736,
+    "media_total": 5.259,
+    "por_equipo": {
+     "error_calib": 0.0079,
+     "corr": 0.1517,
+     "n": 2474,
+     "media_pred": 2.533,
+     "media_real": 2.545
+    },
+    "total": {
+     "error_calib": 0.0168,
+     "corr": 0.1284,
+     "n": 1237,
+     "media_pred": 5.065,
+     "media_real": 5.091
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "ita_serie_b",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 3465,
+    "dispersion_equipo": 1.4548,
+    "dispersion_total": 1.1387,
+    "media_total": 9.739,
+    "por_equipo": {
+     "error_calib": 0.0067,
+     "corr": 0.1914,
+     "n": 2044,
+     "media_pred": 4.696,
+     "media_real": 4.67
+    },
+    "total": {
+     "error_calib": 0.043,
+     "corr": -0.0323,
+     "n": 1039,
+     "media_pred": 9.807,
+     "media_real": 9.33
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 3465,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0,
+    "media_total": 5.119,
+    "por_equipo": {
+     "error_calib": 0.0172,
+     "corr": 0.1399,
+     "n": 2044,
+     "media_pred": 2.564,
+     "media_real": 2.519
+    },
+    "total": {
+     "error_calib": 0.007,
+     "corr": 0.1073,
+     "n": 1022,
+     "media_pred": 5.127,
+     "media_real": 5.037
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "fra_ligue2",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 3193,
+    "dispersion_equipo": 1.4816,
+    "dispersion_total": 1.1699,
+    "media_total": 9.133,
+    "por_equipo": {
+     "error_calib": 0.0069,
+     "corr": 0.181,
+     "n": 1868,
+     "media_pred": 4.696,
+     "media_real": 4.694
+    },
+    "total": {
+     "error_calib": 0.0333,
+     "corr": -0.0573,
+     "n": 954,
+     "media_pred": 9.101,
+     "media_real": 9.386
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 3193,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0922,
+    "media_total": 3.997,
+    "por_equipo": {
+     "error_calib": 0.0198,
+     "corr": 0.1247,
+     "n": 1868,
+     "media_pred": 1.952,
+     "media_real": 1.952
+    },
+    "total": {
+     "error_calib": 0.0102,
+     "corr": 0.1115,
+     "n": 934,
+     "media_pred": 3.904,
+     "media_real": 3.905
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "ger_bundesliga2",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 2772,
+    "dispersion_equipo": 1.4614,
+    "dispersion_total": 1.138,
+    "media_total": 10.116,
+    "por_equipo": {
+     "error_calib": 0.0076,
+     "corr": 0.1476,
+     "n": 1630,
+     "media_pred": 5.167,
+     "media_real": 5.107
+    },
+    "total": {
+     "error_calib": 0.0203,
+     "corr": -0.0655,
+     "n": 831,
+     "media_pred": 10.111,
+     "media_real": 10.243
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 2772,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0759,
+    "media_total": 4.469,
+    "por_equipo": {
+     "error_calib": 0.0096,
+     "corr": 0.0943,
+     "n": 1630,
+     "media_pred": 2.377,
+     "media_real": 2.343
+    },
+    "total": {
+     "error_calib": 0.0151,
+     "corr": 0.0746,
+     "n": 815,
+     "media_pred": 4.755,
+     "media_real": 4.686
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "bel_pro_league",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "observado",
+    "n_filas": 1548,
+    "dispersion_equipo": 1.5156,
+    "dispersion_total": 1.1418,
+    "media_total": 10.09,
+    "por_equipo": {
+     "error_calib": 0.0143,
+     "corr": 0.1617,
+     "n": 916,
+     "media_pred": 4.985,
+     "media_real": 4.993
+    },
+    "total": {
+     "error_calib": 0.0112,
+     "corr": -0.0961,
+     "n": 464,
+     "media_pred": 10.079,
+     "media_real": 9.957
+    }
+   },
+   "tarjetas": {
+    "origen": "observado",
+    "n_filas": 1548,
+    "dispersion_equipo": 1.0763,
+    "dispersion_total": 1.2136,
+    "media_total": 4.183,
+    "por_equipo": {
+     "error_calib": 0.007,
+     "corr": 0.1827,
+     "n": 916,
+     "media_pred": 2.031,
+     "media_real": 2.015
+    },
+    "total": {
+     "error_calib": 0.0114,
+     "corr": 0.1153,
+     "n": 458,
+     "media_pred": 4.062,
+     "media_real": 4.031
+    }
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "jpn_j1",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "arg_primera_nacional",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "col_primera_a",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "usl_championship",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "ned_eerste",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "bra_serie_b",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "per_liga1",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "uru_primera",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "ecu_liga_pro",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "slv_primera",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "bol_division",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "par_division",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "crc_fpd",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "mex_expansion",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "chi_primera",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "rsa_premier",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "ven_primera",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "aus_aleague",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "libertadores",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "sudamericana",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "eng_fa_cup",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "ind_isl",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "afc_champions",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  },
+  {
+   "clave": "bra_copa",
+   "partidos_espn": 0,
+   "corners": {
+    "origen": "estimado"
+   },
+   "tarjetas": {
+    "origen": "estimado"
+   },
+   "estado": "ok"
+  }
+ ]
+}

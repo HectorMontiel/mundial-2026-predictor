@@ -319,6 +319,51 @@ def fixtures_liga(clave: str, dias: int = DIAS_SEMANA,
     return fixtures
 
 
+# ---------------------------------------------------------------------------
+# v162 — LOS PARTIDOS ACABADOS SE GUARDAN AL PASAR, EN VEZ DE PEDIRLOS OTRA VEZ
+# ---------------------------------------------------------------------------
+# `_fixtures_de_codigo` descarga el scoreboard de cada competición y TIRA los
+# eventos `completed`, porque no son apostables. Desde la v162 la lista de hoy
+# los enseña con su marcador, así que hacían falta — y la primera versión los
+# pedía con 61 llamadas nuevas a `resultados_liga`.
+#
+# Medido: con esas 61 peticiones encima, la vista «Apuestas del Día» dejó de
+# terminar. Son exactamente los mismos partidos que el scoreboard ya trajo y
+# que se estaban descartando dos líneas más abajo.
+#
+# Así que se apuntan al pasar. La caché es por (competición, día) y vive lo
+# mismo que la de fixtures. `jugados_del_dia` la mira primero y sólo pide por
+# red lo que no esté — que en la práctica es nada, porque el barrido corre
+# antes que la interfaz.
+_JUGADOS: Dict[str, tuple] = {}
+
+
+def _apuntar_jugado(clave: str, ev: dict, comp: dict) -> None:
+    """Guarda un evento ya jugado del scoreboard que se está recorriendo."""
+    try:
+        loc = next(c for c in comp['competitors'] if c['homeAway'] == 'home')
+        vis = next(c for c in comp['competitors'] if c['homeAway'] == 'away')
+        gl, gv = int(loc.get('score')), int(vis.get('score'))
+        fecha = pd.to_datetime(ev['date'])
+        if fecha.tzinfo:
+            fecha = fecha.tz_convert(None)
+    except (KeyError, StopIteration, TypeError, ValueError):
+        return
+    dia = fecha.strftime('%Y-%m-%d')
+    ck = f'{clave}:{dia}'
+    ahora = time.time()
+    previo = _JUGADOS.get(ck)
+    lista = list(previo[1]) if (previo and ahora - previo[0] < _TTL) else []
+    fila = {'fecha': dia, 'inicio': fecha.strftime('%Y-%m-%d %H:%M:%S'),
+            'home': loc['team']['displayName'],
+            'away': vis['team']['displayName'],
+            'goles_home': gl, 'goles_away': gv}
+    if not any(f['home'] == fila['home'] and f['away'] == fila['away']
+               for f in lista):
+        lista.append(fila)
+    _JUGADOS[ck] = (ahora, lista)
+
+
 def _fixtures_de_codigo(clave: str, code: str, dias: int) -> List[Dict]:
     """Los fixtures de UN código de ESPN. Sin caché: la pone `fixtures_liga`."""
     # v91 — EL RANGO SE ANCLA EN UTC, que es el reloj de ESPN.
@@ -331,7 +376,20 @@ def _fixtures_de_codigo(clave: str, code: str, dias: int) -> List[Dict]:
     # dejando «partidos evaluados: 0». En Streamlit Cloud el servidor va en
     # UTC y por eso allí nunca se vio.
     hoy = pd.Timestamp.now('UTC').tz_localize(None).normalize()
-    ini = hoy.strftime('%Y%m%d')
+    # v162 — EL RANGO EMPIEZA UN DÍA ANTES, Y NO CUESTA UNA PETICIÓN MÁS.
+    #
+    # El scoreboard sirve el rango entero en una sola llamada, así que pedir
+    # desde ayer es el mismo coste de red con un JSON algo mayor. Lo que se
+    # gana: los partidos que ya se jugaron HOY EN CDMX caen en el día UTC
+    # anterior —México va seis horas por detrás— y sin este día de más no
+    # entraban en el barrido, así que `jugados_del_dia` tenía que volver a
+    # pedirlos con 61 llamadas propias. Medido: con esas 61 encima, la vista
+    # «Apuestas del Día» dejaba de terminar.
+    #
+    # NO añade ni un fixture apostable: todo lo de ayer está `completed` y el
+    # bucle de abajo lo descarta igual — sólo que ahora, antes de descartarlo,
+    # lo apunta en `_JUGADOS`.
+    ini = (hoy - pd.Timedelta(days=1)).strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     fixtures: List[Dict] = []
     try:
@@ -349,12 +407,25 @@ def _fixtures_de_codigo(clave: str, code: str, dias: int) -> List[Dict]:
             comp = ev['competitions'][0]
             estado = comp.get('status', ev.get('status', {})).get('type', {})
             if estado.get('completed'):
+                # v162: se apunta antes de descartarlo. La lista de hoy los
+                # enseña con su marcador y así no cuestan una petición aparte.
+                _apuntar_jugado(clave, ev, comp)
                 continue                       # ya jugado → no es fixture
             loc = next(c for c in comp['competitors'] if c['homeAway'] == 'home')
             vis = next(c for c in comp['competitors'] if c['homeAway'] == 'away')
             fecha = pd.to_datetime(ev['date'])
             if fecha.tzinfo:
                 fecha = fecha.tz_convert(None)
+            # v162 — EL DÍA DE MÁS ES SÓLO PARA APUNTAR ACABADOS.
+            #
+            # El rango empieza ayer para capturar los partidos ya jugados sin
+            # gastar una petición, pero lo que SALE de aquí tiene que ser
+            # exactamente lo de antes: partidos de hoy en adelante. Un partido
+            # de ayer que no esté `completed` —suspendido, en curso, aplazado—
+            # pasaría el filtro de arriba y entraría en la lista como
+            # apostable, que es justo lo que no puede ocurrir.
+            if fecha.normalize() < hoy:
+                continue
             fx = {
                 'fecha': fecha.strftime('%Y-%m-%d'),
                 # v88 — HORA DE INICIO (UTC). ESPN la publica y aquí se estaba
@@ -422,6 +493,12 @@ def resultados_liga(clave: str, desde: str, hasta: str) -> List[Dict]:
             if fecha.tzinfo:
                 fecha = fecha.tz_convert(None)
             salida.append({'fecha': fecha.strftime('%Y-%m-%d'),
+                           # v162 — la HORA, que antes se tiraba al formatear.
+                           # Sin ella los partidos jugados no se pueden ordenar
+                           # junto a los demás en la lista de hoy, que es donde
+                           # el usuario los pidió: `_k_hora` ordena por
+                           # `inicio` y sin el campo caían todos al final.
+                           'inicio': fecha.strftime('%Y-%m-%d %H:%M:%S'),
                            'home': loc['team']['displayName'],
                            'away': vis['team']['displayName'],
                            'goles_home': gl, 'goles_away': gv})
@@ -466,6 +543,14 @@ def jugados_del_dia(claves: List[str], dia: str,
     dia = str(dia)[:10]
 
     def _uno(clave):
+        # LO QUE EL BARRIDO YA TRAJO NO SE VUELVE A PEDIR. `_fixtures_de_codigo`
+        # apunta cada evento acabado al recorrer el scoreboard, así que cuando
+        # la interfaz llega aquí lo normal es que no haga falta la red.
+        guardado = _JUGADOS.get(f'{clave}:{dia}')
+        if guardado and time.time() - guardado[0] < _TTL:
+            return [dict(r, clave_liga=clave,
+                         liga=(_LG.get(clave) or {}).get('nombre') or clave)
+                    for r in guardado[1]]
         try:
             # La ventana se abre un día por cada lado porque la fecha que pide
             # la interfaz es de CDMX y ESPN publica en UTC: un partido de las

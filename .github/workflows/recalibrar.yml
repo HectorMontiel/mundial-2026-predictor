@@ -62,6 +62,29 @@ jobs:
       - name: Refrescar el histórico de ITF y challenger
         run: python ingesta_itf.py --desde 2015 || echo "::warning::ingesta ITF con avisos"
 
+      # v162 — EL FONDO DE HISTÓRICO DE ESTADÍSTICAS, UNA VEZ POR SEMANA.
+      #
+      # El paso diario de `retrain_leagues` sólo mira los últimos diez días,
+      # que es lo que hace falta para no quedarse atrás. Esto es lo otro: bajar
+      # las temporadas pasadas de las competiciones a las que aún les falten.
+      #
+      # Es caro la PRIMERA vez —unas 3-4 h para las 61, a ~0,05 s por partido—
+      # y casi gratis después: `backfill` salta los `event_id` que ya están
+      # guardados, así que en las semanas siguientes sólo baja lo que se haya
+      # añadido. Va aquí y no en el job diario justamente por eso.
+      #
+      # Sin este fondo, una competición con dos temporadas de datos calibra
+      # peor que con cinco, y las que ESPN no cubría en su día se quedarían
+      # estimadas para siempre aunque ESPN las haya incorporado después.
+      - name: Fondo histórico de estadísticas de ESPN
+        continue-on-error: true
+        timeout-minutes: 240
+        run: |
+          python stats_espn.py --desde 2021-01-01 || echo "::warning::fondo histórico con avisos"
+          python stats_espn.py --limpiar || echo "::warning::limpieza con avisos"
+          python stats_estimadas.py --ajustar || echo "::warning::ajuste con avisos"
+          python informe_calibracion.py --md INFORME_CALIBRACION.md || echo "::warning::informe con avisos"
+
       - name: Recalibrar la cadena completa
         run: python recalibrar_todo.py || echo "::warning::recalibración con avisos"
 
@@ -90,6 +113,10 @@ jobs:
                      precision_ligas.json edge_map.json deportes_capa1.json \
                      calibracion_mercado.json umbrales_capa1.json \
                      recalibracion_estado.json 2>/dev/null || true
+          # v162 — el fondo histórico de estadísticas de ESPN y lo que
+          # se deriva de él. Sin commitearlo, el trabajo de 3-4 h del paso
+          # de arriba se pierde con el runner.
+          git add -A stats_espn/ calibracion_stats_liga.json \n                     INFORME_CALIBRACION.md 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Las calibraciones no cambiaron esta semana."
           else

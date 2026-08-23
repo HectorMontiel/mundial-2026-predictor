@@ -807,3 +807,99 @@ una tanda propia.
 - `test_ligas_migradas` dejó de fijar `disponible` (fijaba `aut_bundesliga`
   apagada por la regla de la v75). Sigue fijando el **formato**, que sí es una
   propiedad de la fuente y no una decisión revisable.
+
+## 4r. v162 — CÓRNERS Y TARJETAS EN TODAS LAS LIGAS, Y LOS JUGADOS EN LA LISTA
+
+Dos encargos. El detalle medido está en la **§12 de la bitácora**; aquí lo que
+hace falta para seguir trabajando.
+
+### PARTE 1 — los partidos ya jugados, en la lista principal
+
+La v161 los puso detrás de un botón. Ahora van **en la misma lista**, ordenados
+por hora, con `✅ Finalizado` y su marcador, y con la tarjeta entera: barras
+1X2, goles, BTTS, córners, tarjetas y rachas.
+
+**El pronóstico NO se recalcula.** Se recupera de `predicciones_dia.json`, que
+el bot escribió por la mañana cuando el partido aún no se había jugado.
+Recalcularlo daría otro número —el ELO y las medias móviles ya se movieron con
+el resultado— y enseñarlo como «pronóstico previo» sería mentir con precisión
+decimal. Módulo: `partidos_jugados.de_dia`.
+
+**Siguen sin poder ser un pick**: no pasan por `alpha_finder`, no tienen EV, no
+se comparan con la cuota y no llegan a Telegram. `fixtures_liga` sigue
+descartando los `completed` — esto es aditivo.
+
+**Y no cuestan una petición.** La primera versión pedía 61 llamadas nuevas y
+medido: la vista «Apuestas del Día» dejaba de terminar. Ahora
+`_fixtures_de_codigo` **apunta al pasar** cada evento acabado del scoreboard que
+ya estaba descargando, y su rango empieza un día antes (mismo número de
+peticiones, JSON algo mayor) porque los partidos de hoy en CDMX caen en el día
+UTC anterior. Medido: 155 acabados apuntados gratis, `jugados_del_dia` en 3,9 s
+contra 10,2 s.
+
+Cuidado con una trampa que se cerró: el día de más es **sólo para apuntar**. Un
+partido de ayer que no esté `completed` —suspendido, en curso— pasaría el filtro
+y entraría como apostable. Hay una guarda explícita (`if fecha.normalize() <
+hoy: continue`) y un test que comprueba que salen 0 fixtures anteriores a hoy.
+
+### PARTE 2 — córners y tarjetas calibrados en TODAS las competiciones
+
+**El hallazgo: el `summary` de ESPN trae un `boxscore` con 28 estadísticas por
+equipo** —`wonCorners`, `yellowCards`, `redCards`, `foulsCommitted`,
+`possessionPct`, `totalShots`, `shotsOnTarget`…— y el proyecto lleva usando ese
+endpoint desde la v35 sin abrir esa clave. 23 de 34 competiciones sondeadas lo
+traen, incluidas Liga MX, Argentina, Brasil, MLS, Colombia, Chile, Perú, Japón.
+
+**Validado contra football-data antes de construir nada**: 216 partidos, los
+mismos en las dos fuentes. Córners 93-96 % idénticos con correlación 0,985;
+amarillas 0,955; rojas 100 %; remates 0,988. Es fuente observada, no estimación.
+
+**Arquitectura**:
+
+- `stats_espn.py` — descarga y caché en `stats_espn/<liga>.csv.gz`.
+- `league_engine.descargar_liga` la **inyecta ANTES** del generador sintético.
+  Ese orden es todo el mecanismo: el generador sólo rellena huecos, así que lo
+  real gana. NO se parchea el CSV, porque `descargar_liga` lo reconstruye cada
+  noche y el parche duraría un día.
+- `stats_disponibles` no se tocó: decide reproduciendo el generador, así que en
+  cuanto llegan valores reales la reproducción falla y la columna pasa a
+  observada sola.
+
+**Dos arreglos que el cambio obligó a hacer, y sin los cuales no funciona**:
+
+1. `_columnas_sinteticas` muestrea ahora `d.tail(400)` y no `d.head(400)`. La
+   cobertura de ESPN arranca en 2021 y varios históricos empiezan en 2018: con
+   la cabecera, la competición nunca se declararía observada.
+2. `inyectar` marca cada fila con `stats_origen`, y las medias y dispersiones
+   filtran por esa marca (`rendimiento_equipos._solo_reales`). Una columna
+   mezclada no se puede promediar entera.
+
+**El fallo más caro de la tanda**: ESPN devuelve el boxscore **a ceros** en el
+7,0 % de los partidos —posesión 0-0, faltas 0, córners 0— y eso no es un partido
+sin córners, es un partido sin datos. Colados como buenos, en la Liga MX la
+dispersión salía 2,04 y el error de calibración 0,0288; quitándolos, 1,63 y
+**0,0111**. El detector es la posesión, que siempre suma ~100 en un partido real.
+
+**Lo que queda estimado**: `stats_estimadas` da el nivel de la competición
+derivado de sus goles, validado dejando una liga fuera. Córners 0,0247 (por
+debajo del umbral de 0,05) y tarjetas **0,0539** (por encima, y la interfaz lo
+dice con un aviso más fuerte). NO se modula por el ataque del equipo: en córners
+sube la correlación (0,160 → 0,234) pero empeora la calibración (0,0247 →
+0,0326), y en tarjetas la correlación sale **negativa** (−0,080).
+
+**Informe**: `python informe_calibracion.py --md INFORME_CALIBRACION.md` da la
+tabla por competición. Mide sobre la caché de `stats_espn`, así que no hace
+falta reconstruir los 61 históricos para tenerla.
+
+### PENDIENTE de esta tanda
+
+1. **El backfill histórico completo** (`python stats_espn.py --desde 2021-01-01`)
+   tarda ~3-4 h para las 61 competiciones. Si se interrumpe, se relanza y sigue
+   donde estaba: salta los `event_id` ya guardados.
+2. **Las competiciones sin boxscore en ESPN** (Irlanda y Finlandia salieron con
+   0 en la primera pasada) se quedan con la estimación. Hay que listarlas en el
+   informe y decidir si merece la pena FotMob para ésas — a 1,7 s por partido
+   contra 0,05 s de ESPN.
+3. **El primer `--build` tras esto reescribe los 61 históricos** con las
+   estadísticas inyectadas. Es cuando el usuario empieza a ver «observado» en
+   vez de «estimado».

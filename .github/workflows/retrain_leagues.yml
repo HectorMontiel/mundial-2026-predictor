@@ -60,6 +60,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # v162 — LAS ESTADÍSTICAS REALES DE ESPN, AL DÍA.
+      #
+      # `stats_espn` guarda córners, tarjetas, faltas, remates y posesión de
+      # cada partido jugado, y `league_engine` las inyecta en el histórico
+      # antes del generador sintético. Sin esta captura diaria, la ventana se
+      # queda atrás y las competiciones que dependen de ella vuelven a la
+      # estimación.
+      #
+      # Va DELANTE del reentrenamiento a propósito: `league_engine --build`
+      # inyecta lo que haya en `stats_espn/`, así que descargarlo después
+      # costaría un día entero de desfase en cada competición. Son ~2 min: diez
+      # días de ventana, y los partidos ya conocidos se saltan, así que el
+      # coste real es sólo el de los nuevos (~0,05 s por partido con 8 hilos).
+      - name: Estadísticas reales de ESPN (córners, tarjetas, faltas)
+        continue-on-error: true
+        run: |
+          python stats_espn.py --dias 10 || echo "::warning::stats de ESPN con avisos"
+          python stats_espn.py --limpiar || echo "::warning::limpieza con avisos"
+
       - name: Reentrenar todas las ligas disponibles
         run: |
           # league_engine --build descarga los CSV frescos de football-data y
@@ -478,6 +497,10 @@ jobs:
           # designado por el que efectivamente pitó en cuanto el partido
           # acaba, así que la foto de hoy no se puede recuperar mañana.
           git add -A tarjetas_snapshots.csv arbitros_dia.json 2>/dev/null || true
+          # v162 — las estadísticas reales de ESPN. Son la fuente de que
+          # córners y tarjetas dejen de ser sintéticos en 40 competiciones;
+          # sin commitearlas, cada despliegue empezaría de cero.
+          git add -A stats_espn/ calibracion_stats_liga.json 2>/dev/null || true
           git add -A odds_snapshots.csv calibracion_mercado.json umbrales_capa1.json \
                      _v75_import_odds.json _v75_snapshots.json playdoit_cobertura.json cuotas_kbo_cierre.csv 2>/dev/null || true
           # v123 — el perfil de juegos del tenis, que la ficha del partido lee

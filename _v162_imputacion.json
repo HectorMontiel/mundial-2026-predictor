@@ -1,0 +1,1922 @@
+[
+ {
+  "liga": "premier",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.020701418714531614,
+  "corr": 0.16088041644684173,
+  "n": 3648
+ },
+ {
+  "liga": "premier",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.01257915423462809,
+  "corr": 0.1608804164468416,
+  "n": 3648
+ },
+ {
+  "liga": "premier",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.02249096030608075,
+  "corr": 0.3193043343600171,
+  "n": 3610
+ },
+ {
+  "liga": "premier",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.009467356670313148,
+  "corr": 0.3132804212893073,
+  "n": 3610
+ },
+ {
+  "liga": "premier",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.01285529831952549,
+  "corr": -0.17787644511093254,
+  "n": 3610
+ },
+ {
+  "liga": "premier",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.00338422750399113,
+  "corr": 0.3352191604169803,
+  "n": 3610
+ },
+ {
+  "liga": "premier",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.03026793320367508,
+  "corr": 0.10181362153749486,
+  "n": 3648
+ },
+ {
+  "liga": "premier",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.010863537230424693,
+  "corr": 0.10181362153749489,
+  "n": 3648
+ },
+ {
+  "liga": "premier",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.03172218079836315,
+  "corr": -0.08878773956458116,
+  "n": 3610
+ },
+ {
+  "liga": "premier",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.025824557430046136,
+  "corr": -0.04098942731273263,
+  "n": 3610
+ },
+ {
+  "liga": "premier",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.011329460953859817,
+  "corr": 0.09107574217054167,
+  "n": 3610
+ },
+ {
+  "liga": "premier",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.012690644151912407,
+  "corr": 0.19503375532295616,
+  "n": 3610
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.006761686011297938,
+  "corr": 0.22988896992306926,
+  "n": 1640
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.017653509565708103,
+  "corr": 0.22988896992306918,
+  "n": 1640
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.020377943927496825,
+  "corr": 0.24954555065490686,
+  "n": 1616
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.027153202753177397,
+  "corr": 0.2116738630055136,
+  "n": 1616
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.01578800379794236,
+  "corr": -0.051752912912897304,
+  "n": 1616
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.011011727984343286,
+  "corr": 0.30169592323671596,
+  "n": 1616
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.05050257328221541,
+  "corr": 0.16512711834081478,
+  "n": 1640
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.0748773510690186,
+  "corr": 0.16512711834081478,
+  "n": 1640
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.07038818039342559,
+  "corr": -0.044237627704410094,
+  "n": 1616
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.0641851876849841,
+  "corr": 0.03473988629186607,
+  "n": 1616
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.09118785756561776,
+  "corr": 0.07004453880485806,
+  "n": 1616
+ },
+ {
+  "liga": "eng_championship",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.010480821060264309,
+  "corr": 0.12541586677565889,
+  "n": 1616
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.013997955288942349,
+  "corr": 0.1488671643859071,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.018217520440088744,
+  "corr": 0.1488671643859073,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.02010780890444705,
+  "corr": 0.2141081155651003,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.019625204711156183,
+  "corr": 0.20482029211530844,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.007203550345964774,
+  "corr": -0.09508245523780251,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.001929671120998594,
+  "corr": 0.22632672532208162,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.04309767389081522,
+  "corr": 0.10750354517362283,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.05261995833052731,
+  "corr": 0.10750354517362272,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.04680792759849657,
+  "corr": -0.06786386638109804,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.049202976813786894,
+  "corr": -0.022548593809601423,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.0673281469078241,
+  "corr": 0.07780189985545435,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_one",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.01029120892889612,
+  "corr": 0.14365467634615994,
+  "n": 5112
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.005288994533797345,
+  "corr": 0.1441186832457796,
+  "n": 5234
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.011108741004365333,
+  "corr": 0.14411868324577964,
+  "n": 5234
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.018772495032037845,
+  "corr": 0.19636518804100686,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.014493845699988975,
+  "corr": 0.18294148220628437,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.014437406765158006,
+  "corr": -0.06986393352187242,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.004009832438663943,
+  "corr": 0.19187802768061674,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.04132450213333874,
+  "corr": 0.12056900532987645,
+  "n": 5234
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.06271805886748844,
+  "corr": 0.12056900532987656,
+  "n": 5234
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.06183903603268453,
+  "corr": -0.021411408209829726,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.06612239773440587,
+  "corr": 0.022348671215118156,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.06898162110174536,
+  "corr": 0.050827288633936436,
+  "n": 5210
+ },
+ {
+  "liga": "eng_league_two",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.01542744594087106,
+  "corr": 0.17258594620880308,
+  "n": 5210
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.024786782890726222,
+  "corr": 0.018492436849804603,
+  "n": 5174
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.029728639700580817,
+  "corr": 0.018492436849804627,
+  "n": 5174
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.048775253523089875,
+  "corr": 0.04570010506463535,
+  "n": 5050
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.04774109033413764,
+  "corr": 0.04804079442114329,
+  "n": 5050
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.03029714835183419,
+  "corr": -0.03507529603675752,
+  "n": 5050
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.005627861259902181,
+  "corr": 0.01064964380024146,
+  "n": 5050
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.04780372855314412,
+  "corr": 0.07858922362391188,
+  "n": 5174
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.03706059961241086,
+  "corr": 0.0785892236239118,
+  "n": 5174
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.04716907813758309,
+  "corr": -0.06800162077101954,
+  "n": 5050
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.049482372353717996,
+  "corr": -0.030799570995344305,
+  "n": 5050
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.03828915605004868,
+  "corr": 0.07271152784864225,
+  "n": 5050
+ },
+ {
+  "liga": "eng_national",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.013128133943673435,
+  "corr": 0.1392800075261173,
+  "n": 5050
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.036490158738986644,
+  "corr": 0.13227619764755644,
+  "n": 2164
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.03540191074379932,
+  "corr": 0.1322761976475566,
+  "n": 2164
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.01635173959751572,
+  "corr": 0.32776518322310894,
+  "n": 2152
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.02177061785402591,
+  "corr": 0.34697973715263053,
+  "n": 2152
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.02671798669691755,
+  "corr": -0.2747956483425417,
+  "n": 2152
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.005725470107513328,
+  "corr": 0.40975019357656617,
+  "n": 2152
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.02585883083082738,
+  "corr": 0.12013954264549365,
+  "n": 2164
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.023357757628993295,
+  "corr": 0.12013954264549385,
+  "n": 2164
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.03333630235415552,
+  "corr": -0.17921743021434577,
+  "n": 2152
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.029868862760462578,
+  "corr": -0.13725607218963068,
+  "n": 2152
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.03140721859185914,
+  "corr": 0.16837675503651092,
+  "n": 2152
+ },
+ {
+  "liga": "sco_premiership",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.016261180390860504,
+  "corr": 0.20638115506033944,
+  "n": 2152
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.004149860446511042,
+  "corr": 0.15503563049240748,
+  "n": 918
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.0054064768539062585,
+  "corr": 0.1550356304924075,
+  "n": 918
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.019899853845502427,
+  "corr": 0.2740959292060885,
+  "n": 902
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.02409692720491871,
+  "corr": 0.27563192920484014,
+  "n": 902
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.038105375305484884,
+  "corr": -0.17207915027668785,
+  "n": 902
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.01692990837042499,
+  "corr": 0.295304000510584,
+  "n": 902
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.013244669560800136,
+  "corr": 0.07955910976566173,
+  "n": 918
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.00929291130242691,
+  "corr": 0.0795591097656614,
+  "n": 918
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.02149538460708341,
+  "corr": -0.1074047509420313,
+  "n": 902
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.022200067948921154,
+  "corr": -0.08251159825040932,
+  "n": 902
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.03352666097534623,
+  "corr": 0.13353907595704875,
+  "n": 902
+ },
+ {
+  "liga": "sco_championship",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.021815967045898124,
+  "corr": 0.08237282954265383,
+  "n": 902
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.03222171501823933,
+  "corr": 0.23267404142018192,
+  "n": 3648
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.031733687143650165,
+  "corr": 0.23267404142018222,
+  "n": 3648
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.02512851273056805,
+  "corr": 0.265056150334998,
+  "n": 3630
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.01730356414948831,
+  "corr": 0.21117840754574504,
+  "n": 3630
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.06822420939420343,
+  "corr": -0.02408535867942586,
+  "n": 3630
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.010130677106743285,
+  "corr": 0.30116052417849,
+  "n": 3630
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.07711233852551197,
+  "corr": 0.06299441788994053,
+  "n": 3648
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.07599398209262151,
+  "corr": 0.06299441788994052,
+  "n": 3648
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.09072895895562863,
+  "corr": -0.10208227719740869,
+  "n": 3630
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.08821107469975578,
+  "corr": -0.06257243138521795,
+  "n": 3630
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.052767920144846846,
+  "corr": 0.09963955389673837,
+  "n": 3630
+ },
+ {
+  "liga": "laliga",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.007242035466627043,
+  "corr": 0.1497095314316034,
+  "n": 3630
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.037040257253858594,
+  "corr": 0.1887319499067301,
+  "n": 3642
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.038470583882068976,
+  "corr": 0.1887319499067302,
+  "n": 3642
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.019680208030242452,
+  "corr": 0.29167485952816774,
+  "n": 3592
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.010530633949015183,
+  "corr": 0.2635862269074454,
+  "n": 3592
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.1112670642493348,
+  "corr": -0.11061798516703444,
+  "n": 3592
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.0038700605264303245,
+  "corr": 0.3040424008289817,
+  "n": 3592
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.01994778506969265,
+  "corr": 0.11858520595842613,
+  "n": 3642
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.02328577647782222,
+  "corr": 0.1185852059584261,
+  "n": 3642
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.041794408391988544,
+  "corr": -0.07579784708196627,
+  "n": 3592
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.05834957212636913,
+  "corr": -0.02918123203134309,
+  "n": 3592
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.027112252395304452,
+  "corr": 0.09338443623764499,
+  "n": 3592
+ },
+ {
+  "liga": "serie_a",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.019137310122929567,
+  "corr": 0.22324909967197218,
+  "n": 3592
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.034086480535192684,
+  "corr": 0.15626856061973055,
+  "n": 3456
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.030829022954800722,
+  "corr": 0.15626856061973052,
+  "n": 3456
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.08335748092998213,
+  "corr": 0.24539539283362366,
+  "n": 3420
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.05008682983029579,
+  "corr": 0.21828919174065115,
+  "n": 3420
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.03071875287868675,
+  "corr": -0.08583527710651562,
+  "n": 3420
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.006724443531150308,
+  "corr": 0.2084949376338255,
+  "n": 3420
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.026076583044058098,
+  "corr": 0.1070271680977045,
+  "n": 3456
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.03376608649536233,
+  "corr": 0.10702716809770453,
+  "n": 3456
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.06569382691384751,
+  "corr": -0.021105614582188074,
+  "n": 3420
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.04579635882342478,
+  "corr": 0.03466365363068095,
+  "n": 3420
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.033251173598296276,
+  "corr": 0.015511486471935948,
+  "n": 3420
+ },
+ {
+  "liga": "ligue_1",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.017658254661275137,
+  "corr": 0.12805628572456446,
+  "n": 3420
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.011608981416818723,
+  "corr": 0.19428071438118105,
+  "n": 2934
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.04459921302933449,
+  "corr": 0.194280714381181,
+  "n": 2934
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.07787877419093062,
+  "corr": 0.2930505006617891,
+  "n": 2910
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.05781368670910385,
+  "corr": 0.27316231670930075,
+  "n": 2910
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.04873510745489233,
+  "corr": -0.11979234726775798,
+  "n": 2910
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.008819226090874308,
+  "corr": 0.2922155445876092,
+  "n": 2910
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.020505509398895116,
+  "corr": 0.08518117393996369,
+  "n": 2934
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.04299085545497804,
+  "corr": 0.08518117393996376,
+  "n": 2934
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.023541067184518878,
+  "corr": -0.07868664551119813,
+  "n": 2910
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.03380976523787176,
+  "corr": -0.03270557614952098,
+  "n": 2910
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.038666861927964494,
+  "corr": 0.07018952641354122,
+  "n": 2910
+ },
+ {
+  "liga": "bundesliga",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.006597931292072444,
+  "corr": 0.1478234034354832,
+  "n": 2910
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.03338676561738279,
+  "corr": 0.22386899625573037,
+  "n": 2500
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.010026597687816094,
+  "corr": 0.2238689962557307,
+  "n": 2500
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.07071664433456032,
+  "corr": 0.2064952363109117,
+  "n": 2474
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.05531768694120422,
+  "corr": 0.13902218788485365,
+  "n": 2474
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.019337432328910678,
+  "corr": 0.035485678837208885,
+  "n": 2474
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.010790231461139,
+  "corr": 0.21393957526280405,
+  "n": 2474
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.09150518587737569,
+  "corr": 0.07740511724933248,
+  "n": 2500
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.0421732896630911,
+  "corr": 0.07740511724933263,
+  "n": 2500
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.008668134697502619,
+  "corr": -0.015292038995617744,
+  "n": 2474
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.012932604896078101,
+  "corr": 0.03343192985161757,
+  "n": 2474
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.06445055867773766,
+  "corr": 0.007129107490128534,
+  "n": 2474
+ },
+ {
+  "liga": "esp_hypermotion",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.007888844368768619,
+  "corr": 0.15172978470716678,
+  "n": 2474
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.036286804915463634,
+  "corr": 0.16756294836535549,
+  "n": 2078
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.023192211777039222,
+  "corr": 0.16756294836535546,
+  "n": 2078
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.03140247395999091,
+  "corr": 0.2170465317907147,
+  "n": 2044
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.032027191409229806,
+  "corr": 0.19292568955000738,
+  "n": 2044
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.030541197092820653,
+  "corr": -0.05489838865338499,
+  "n": 2044
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.006730737869559307,
+  "corr": 0.19141283278035576,
+  "n": 2044
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.09837151397414544,
+  "corr": 0.1232199988665387,
+  "n": 2078
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.07169959409835738,
+  "corr": 0.12321999886653848,
+  "n": 2078
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.0728892317933396,
+  "corr": -0.09169508384554102,
+  "n": 2044
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.06818459458347859,
+  "corr": -0.025241129829310822,
+  "n": 2044
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.06912017610690248,
+  "corr": 0.10395809098688127,
+  "n": 2044
+ },
+ {
+  "liga": "ita_serie_b",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.017200175366207847,
+  "corr": 0.1398953267053244,
+  "n": 2044
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.04387685737907786,
+  "corr": 0.15231703596797158,
+  "n": 1908
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.028867377839812566,
+  "corr": 0.15231703596797178,
+  "n": 1908
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.05648977059473442,
+  "corr": 0.21333934168454113,
+  "n": 1868
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.06128352240290576,
+  "corr": 0.19594328488667437,
+  "n": 1868
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.0177339522311281,
+  "corr": -0.07134450808457533,
+  "n": 1868
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.006870473574903502,
+  "corr": 0.18104780193603467,
+  "n": 1868
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.03057122520085187,
+  "corr": 0.051614064214882516,
+  "n": 1908
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.07761648393137835,
+  "corr": 0.05161406421488239,
+  "n": 1908
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.09287071593039906,
+  "corr": 0.00518811796197402,
+  "n": 1868
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.09931418206819657,
+  "corr": 0.02737184786520495,
+  "n": 1868
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.0648024490819675,
+  "corr": 0.01261832891993273,
+  "n": 1868
+ },
+ {
+  "liga": "fra_ligue2",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.019768801179965288,
+  "corr": 0.12466708710503782,
+  "n": 1868
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.024341271547368558,
+  "corr": 0.13191997660508503,
+  "n": 1858
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.03600060357692116,
+  "corr": 0.13191997660508503,
+  "n": 1858
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.037343429293334895,
+  "corr": 0.23881350485452388,
+  "n": 1820
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.025977885887883898,
+  "corr": 0.23104420944227122,
+  "n": 1820
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.06595085075739655,
+  "corr": -0.11446216559292512,
+  "n": 1820
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.005095393849923531,
+  "corr": 0.24063201169821397,
+  "n": 1820
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.05343081401583025,
+  "corr": 0.06092284408308015,
+  "n": 1858
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.08125709116674912,
+  "corr": 0.06092284408308015,
+  "n": 1858
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.08514167985498822,
+  "corr": -0.06824400841195519,
+  "n": 1820
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.08842858922999292,
+  "corr": -0.03182551066938495,
+  "n": 1820
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.06247494824326435,
+  "corr": 0.06580463069827695,
+  "n": 1820
+ },
+ {
+  "liga": "turquia",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.007459212614617093,
+  "corr": 0.09848924803975237,
+  "n": 1820
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.02142303690530993,
+  "corr": 0.12737313266424677,
+  "n": 1842
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.015798473176800304,
+  "corr": 0.12737313266424688,
+  "n": 1842
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.041140090917292635,
+  "corr": 0.34623779204125404,
+  "n": 1806
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.022396364427332824,
+  "corr": 0.3580075669367307,
+  "n": 1806
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.03302631477378164,
+  "corr": -0.2652251390509428,
+  "n": 1806
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.0040742431135253054,
+  "corr": 0.3598416301092107,
+  "n": 1806
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.0980375473640666,
+  "corr": 0.04985759542643836,
+  "n": 1842
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.085589112749119,
+  "corr": 0.0498575954264385,
+  "n": 1842
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.0723795138590474,
+  "corr": -0.14198015409489498,
+  "n": 1806
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.08223398510441032,
+  "corr": -0.11261109273693527,
+  "n": 1806
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.07394156785264286,
+  "corr": 0.1315469048583222,
+  "n": 1806
+ },
+ {
+  "liga": "primeira",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.008869688226251005,
+  "corr": 0.11995403601725609,
+  "n": 1806
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.027124141868058782,
+  "corr": 0.14399782944740125,
+  "n": 1662
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.008673483201842455,
+  "corr": 0.14399782944740094,
+  "n": 1662
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.0237558188219799,
+  "corr": 0.19119228314183814,
+  "n": 1630
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.015687565514089258,
+  "corr": 0.17438407834440137,
+  "n": 1630
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.016285379904459024,
+  "corr": -0.04795130857201621,
+  "n": 1630
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.007569310120123407,
+  "corr": 0.14758496109432848,
+  "n": 1630
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.05283721092258458,
+  "corr": 0.08267183894228658,
+  "n": 1662
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.10538235720275871,
+  "corr": 0.08267183894228669,
+  "n": 1662
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.09456759536507883,
+  "corr": -0.03173771648877318,
+  "n": 1630
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.10369162878026306,
+  "corr": 0.006930814957956263,
+  "n": 1630
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.09704965098159439,
+  "corr": 0.05216861871407113,
+  "n": 1630
+ },
+ {
+  "liga": "ger_bundesliga2",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.009629081540217008,
+  "corr": 0.09429054867603845,
+  "n": 1630
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.019984762150355898,
+  "corr": 0.17687850922760573,
+  "n": 1620
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.01397079175359038,
+  "corr": 0.17687850922760584,
+  "n": 1620
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.018253964572443243,
+  "corr": 0.33367113543951354,
+  "n": 1608
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.015372976597275087,
+  "corr": 0.32988263082929964,
+  "n": 1608
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.03174379744376153,
+  "corr": -0.21154923694675812,
+  "n": 1608
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.011365573710008056,
+  "corr": 0.362255862488853,
+  "n": 1608
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.12066910767063592,
+  "corr": 0.15026803891022736,
+  "n": 1620
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.060060421717359494,
+  "corr": 0.15026803891022736,
+  "n": 1620
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.059746187078987795,
+  "corr": -0.12507382061821862,
+  "n": 1608
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.061215780334633554,
+  "corr": -0.0470866988519082,
+  "n": 1608
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.07256397282054543,
+  "corr": 0.12733615621210487,
+  "n": 1608
+ },
+ {
+  "liga": "eredivisie",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.010823433208481555,
+  "corr": 0.1625080143844845,
+  "n": 1608
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.07914645842251507,
+  "corr": 0.17608661142737178,
+  "n": 1290
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.0668898760077279,
+  "corr": 0.1760866114273717,
+  "n": 1290
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.12860657988316232,
+  "corr": 0.3542604420993371,
+  "n": 1278
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.09207062621403554,
+  "corr": 0.33990271844831943,
+  "n": 1278
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.062348815967868745,
+  "corr": -0.1793345833327877,
+  "n": 1278
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.006241398163908896,
+  "corr": 0.41365006858429915,
+  "n": 1278
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.13196462232785933,
+  "corr": 0.13722596636955506,
+  "n": 1290
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.09825059248950749,
+  "corr": 0.13722596636955503,
+  "n": 1290
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.05799781111350319,
+  "corr": -0.136143990079316,
+  "n": 1278
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.08101021536910494,
+  "corr": -0.05974883390200145,
+  "n": 1278
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.10340664268732219,
+  "corr": 0.12808732453108232,
+  "n": 1278
+ },
+ {
+  "liga": "gre_super_league",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.007454126658487659,
+  "corr": 0.20570780835430824,
+  "n": 1278
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "ck",
+  "estimador": "A_media_global",
+  "error_calib": 0.014527719555969876,
+  "corr": 0.1410052326319325,
+  "n": 928
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "ck",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.014232194583602933,
+  "corr": 0.14100523263193265,
+  "n": 928
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "ck",
+  "estimador": "C_modulada",
+  "error_calib": 0.03899203538538033,
+  "corr": 0.17411946685612587,
+  "n": 916
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "ck",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.031816731366344025,
+  "corr": 0.15921555529900483,
+  "n": 916
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "ck",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.0437305837094268,
+  "corr": -0.05455106622136913,
+  "n": 916
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "ck",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.014257164520467783,
+  "corr": 0.16168824326697806,
+  "n": 916
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "tj",
+  "estimador": "A_media_global",
+  "error_calib": 0.02455421444177247,
+  "corr": 0.12319422796813768,
+  "n": 928
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "tj",
+  "estimador": "B_media_predicha",
+  "error_calib": 0.008803739052042826,
+  "corr": 0.1231942279681376,
+  "n": 928
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "tj",
+  "estimador": "C_modulada",
+  "error_calib": 0.03368178626710828,
+  "corr": -0.13804699548268926,
+  "n": 916
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "tj",
+  "estimador": "C2_modulada_normalizada",
+  "error_calib": 0.024938551186490424,
+  "corr": -0.08228672692316556,
+  "n": 916
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "tj",
+  "estimador": "C3_modulada_invertida",
+  "error_calib": 0.02475812323728748,
+  "corr": 0.15357057489025622,
+  "n": 916
+ },
+ {
+  "liga": "bel_pro_league",
+  "objetivo": "tj",
+  "estimador": "D_TECHO_con_datos",
+  "error_calib": 0.006980756696909549,
+  "corr": 0.1827342383968945,
+  "n": 916
+ }
+]

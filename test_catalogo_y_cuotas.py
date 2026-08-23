@@ -40,6 +40,38 @@ def check(cond, msg):
 
 
 # ---------------------------------------------------------------------------
+def _liga_sin_observar(stat: str):
+    """
+    Una competicion que NO publica `stat` de verdad, o None si no queda ninguna.
+
+    v162 — ANTES ESTO ERA 'liga_mx' ESCRITO A MANO, EN OCHO TESTS. Servia para
+    comprobar lo que sigue importando —que una columna escrita por el generador
+    sintetico nunca se presenta como observada— pero se rompio entero el dia
+    que `stats_espn` trajo los corners reales de la Liga MX: ocho fallos de
+    golpe, todos por que el ejemplo habia dejado de serlo.
+
+    La cobertura va a seguir creciendo, asi que el ejemplo se busca en vez de
+    escribirse. Y si algun dia no queda ninguna competicion sin datos, estas
+    comprobaciones se saltan diciendolo, que es mejor que fallar por haber
+    tenido exito.
+    """
+    import fixtures_espn
+    import rendimiento_equipos as rq
+    from config import LEAGUES
+    for c, v in LEAGUES.items():
+        if not v.get('disponible') or c not in fixtures_espn.ESPN_CODIGOS:
+            continue
+        try:
+            d = rq._historico(c)
+            if d is None or getattr(d, 'empty', True) or len(d) < 300:
+                continue
+            if not rq.stats_disponibles(c).get(stat):
+                return c
+        except Exception:
+            continue
+    return None
+
+
 def test_catalogo_sin_duplicados():
     import config
     conflictos = config.validar_catalogo()
@@ -174,60 +206,298 @@ def test_las_ligas_apagadas_por_elo_se_encendieron():
     check(not sin_codigo, f"y todas tienen código ESPN ({sin_codigo})")
 
 
-def test_los_partidos_ya_jugados_salen_aparte():
+def test_las_estadisticas_reales_de_espn():
     """
-    v161 — la lista parecia incompleta y no lo estaba: faltaban los acabados.
+    v162 — el boxscore de ESPN, que estaba delante todo el tiempo.
 
-    `fixtures_liga` descarta todo evento `completed`, y es correcto: un partido
-    acabado no se puede apostar. Pero medido el 2026-08-22, ESPN tenia 224
-    partidos de futbol ese dia y la aplicacion enseñaba 55 — la mayor parte de
-    la diferencia eran partidos ya jugados, y desde fuera eso se lee como que
-    faltan partidos.
+    Cornrs y tarjetas eran observados en 20 de 75 competiciones. En las otras
+    55 los escribia el generador sintetico, asi que la Liga MX, Argentina,
+    Brasil, la MLS y treinta y tantas mas no podian enseñarlos. Y no era falta
+    de datos: el `summary` de ESPN trae un `boxscore` con 28 estadisticas por
+    equipo —wonCorners, yellowCards, redCards, foulsCommitted, possessionPct,
+    totalShots, shotsOnTarget…— que nadie de este proyecto habia mirado.
 
-    Ahora salen, con su marcador, y con tres condiciones que van juntas:
-      - BAJO DEMANDA: son 61 peticiones a ESPN y el barrido tardo de la v148 a
-        la v154 en bajar de 119 s a 52. Medido: ~5 s al pulsar.
-      - FUERA de `pronosticos`: un partido con resultado no puede convertirse
-        en pick ni salir por Telegram por accidente.
-      - SIN probabilidad: enseñar lo que el modelo «habria dicho» de un partido
-        ya jugado sólo sirve para engañarse.
+    NO ES OTRO RELLENO, Y SE COMPROBO ANTES DE CONSTRUIR NADA. Cruzados 216
+    partidos de 6 competiciones grandes contra football-data, que es la fuente
+    observada del proyecto:
+
+        cornrs local     93,1 % identicos   corr 0,985
+        cornrs visitante 96,3 % identicos   corr 0,981
+        amarillas local  95,4 % identicos   corr 0,955
+        rojas local     100,0 % identicos   corr 1,000
+        remates local    95,4 % identicos   corr 0,988
+
+    Efecto medido en la Liga MX, que no tenia ni un corner observado: error de
+    calibracion 0,0111 y correlacion 0,210 por equipo. La estimacion de
+    respaldo da 0,0247. O sea que traer el dato real vale mas del doble.
+    """
+    import os
+    import stats_espn as se
+
+    check(hasattr(se, 'backfill') and hasattr(se, 'inyectar'),
+          "el modulo descarga e inyecta")
+
+    # LA CABECERA. La cadena larga de Chrome devuelve Access Denied en
+    # site.api.espn.com; la corta, 200. No es un detalle de estilo.
+    check(se.UA.get('User-Agent') == 'Mozilla/5.0',
+          "usa la cabecera que ESPN acepta, la misma que fixtures_espn")
+
+    # UN BOXSCORE A CEROS NO ES UN PARTIDO SIN CORNERS.
+    #
+    # El 7,0 % de los partidos de la Liga MX volvian con posesion 0-0, faltas 0
+    # y cornrs 0 — todo a cero a la vez, que es imposible. Colados como datos
+    # buenos, la razon varianza/media de los cornrs por equipo salia 2,04 y el
+    # error de calibracion 0,0288. Quitando esas 131 filas: dispersion 1,63 y
+    # error 0,0111. La misma liga, el mismo dia, sin tocar nada mas.
+    src = open('stats_espn.py', encoding='utf-8').read()
+    check('_possession' in src and 'return None' in src,
+          "descarta el boxscore vacio en vez de guardarlo como ceros")
+    check(hasattr(se, 'limpiar'),
+          "y sabe limpiar lo que se descargo antes de ese filtro")
+
+    # EL ORDEN DE LA INYECCION ES TODO EL TRUCO. El generador sintetico solo
+    # rellena huecos, asi que inyectar ANTES hace que gane el dato real. Al
+    # reves, el relleno llegaria primero y ESPN no pintaria nada.
+    le = open('league_engine.py', encoding='utf-8').read()
+    i_iny = le.index('_se.inyectar(df, clave)')
+    i_gen = le.index('gen.generate_advanced_metrics(df, cal)')
+    check(i_iny < i_gen,
+          "las estadisticas de ESPN se inyectan ANTES del generador sintetico")
+
+    # Y NO SE PARCHEA EL CSV: `descargar_liga` lo reconstruye cada noche, asi
+    # que un parche directo duraria hasta el siguiente --build.
+    check(se.DIRECTORIO == 'stats_espn',
+          "la cache vive aparte del historico, que se reconstruye")
+
+    if os.path.isdir(se.DIRECTORIO):
+        import pandas as pd
+        ficheros = [f for f in os.listdir(se.DIRECTORIO) if f.endswith('.csv.gz')]
+        check(len(ficheros) > 0,
+              f"hay competiciones descargadas ({len(ficheros)})")
+        # Ninguna fila guardada puede tener el boxscore vacio.
+        malas = []
+        for f in ficheros[:20]:
+            c = se.leer(f[:-len('.csv.gz')])
+            if not len(c):
+                continue
+            ph = pd.to_numeric(c['home_possession'], errors='coerce').fillna(0)
+            pa = pd.to_numeric(c['away_possession'], errors='coerce').fillna(0)
+            n = int(((ph + pa) <= 1.0).sum())
+            if n:
+                malas.append((f, n))
+        check(not malas,
+              f"ninguna competicion guarda filas con el boxscore vacio ({malas[:3]})")
+
+
+def test_solo_se_promedian_las_filas_reales():
+    """
+    v162 — una columna MEZCLADA no se puede promediar entera.
+
+    `stats_espn` cubre desde 2021 y varios historicos arrancan en 2018, asi que
+    media columna es de ESPN y la otra media la escribio el generador. Medido
+    en la Liga MX antes de separar: la razon varianza/media de los cornrs por
+    equipo salia 2,04 mezclando, contra 1,63 usando solo las filas reales.
+
+    `inyectar` marca cada fila que rellena con `stats_origen`, y las funciones
+    que promedian filtran por esa marca. En las 20 competiciones de
+    football-data la columna no existe y se usa el historico entero, que es lo
+    correcto ahi: todo es observado.
+    """
+    import pandas as pd
+    import rendimiento_equipos as rq
+
+    check(hasattr(rq, '_solo_reales'), "existe el filtro de filas reales")
+
+    # Sin la columna, no se filtra nada (competiciones de football-data).
+    d = pd.DataFrame({'home_corners': [1.0, 2.0, 3.0]})
+    check(len(rq._solo_reales(d, 'corners')) == 3,
+          "sin marca de origen se usa el historico entero")
+
+    # Con la columna y pocas marcas, no se promedia: mejor nada que una media
+    # de veinte partidos presentada como la de la competicion.
+    d2 = pd.DataFrame({'home_corners': [1.0] * 500,
+                       'stats_origen': ['espn'] * 20 + [None] * 480})
+    check(len(rq._solo_reales(d2, 'corners')) == 0,
+          "con menos de 200 filas marcadas no se promedia")
+
+    d3 = pd.DataFrame({'home_corners': [1.0] * 500,
+                       'stats_origen': ['espn'] * 300 + [None] * 200})
+    check(len(rq._solo_reales(d3, 'corners')) == 300,
+          "con marcas suficientes se usan solo esas")
+
+    # LA DETECCION DE COLUMNAS SINTETICAS MIRA LA COLA, NO LA CABECERA.
+    # Con `head` seguiria viendo los partidos de 2018 —sinteticos para
+    # siempre— y diria que la competicion no tiene datos cuando si los tiene.
+    src = open('rendimiento_equipos.py', encoding='utf-8').read()
+    i = src.index('def _columnas_sinteticas')
+    j = src.index('def stats_disponibles')
+    check('d.tail(_MUESTRA_SINT)' in src[i:j],
+          "la muestra de sintesis sale de los partidos RECIENTES")
+
+
+def test_todas_las_ligas_tienen_cornrs_y_tarjetas():
+    """
+    v162 — ninguna competicion se queda sin la seccion, y lo estimado se dice.
+
+    Se pidio que TODAS las ligas enseñen cornrs y tarjetas. Donde hay datos,
+    salen observados; donde no, `stats_estimadas` da el nivel de la competicion
+    derivado de sus goles y la interfaz lo marca.
+
+    LO QUE VALE CADA COSA, medido con validacion dejando una liga fuera —se
+    ajusta con 19 competiciones y se predice la vigesima como si no tuviera
+    datos, que es la situacion real de produccion:
+
+        CORNERS por equipo                      error     corr
+          con datos reales .................   0,0076    0,257
+          media de liga predicha de goles ..   0,0247    0,160  <- lo adoptado
+          media global de las otras ligas ..   0,0264    0,160
+          predicha x ataque, normalizada ...   0,0326    0,234
+
+        TARJETAS por equipo                     error     corr
+          con datos reales .................   0,0123    0,150
+          media de liga predicha de goles ..   0,0539    0,100  <- lo adoptado
+          predicha x ataque ................   0,0556   -0,080
+
+    NO SE MODULA POR EL ATAQUE aunque suba la correlacion: en cornrs la lleva
+    de 0,160 a 0,234 pero empeora la calibracion de 0,0247 a 0,0326, y aqui
+    manda la calibracion. En tarjetas la correlacion sale NEGATIVA (-0,080):
+    un equipo que ataca mas se lleva menos tarjetas, asi que el modulador
+    empuja al reves.
+    """
+    import os
+    import modo_modelo as mm
+    import stats_estimadas as se
+
+    check(os.path.exists(se.ARCHIVO),
+          f"existe el ajuste entre ligas ({se.ARCHIVO})")
+    doc = se.cargar()
+    check(len((doc.get('ligas_ajuste') or [])) >= 15,
+          f"ajustado con suficientes competiciones "
+          f"({len(doc.get('ligas_ajuste') or [])})")
+    for obj in ('ck', 'tj'):
+        r = (doc.get('rectas') or {}).get(obj) or {}
+        check(bool(r), f"hay recta para {obj}")
+        if r:
+            check(abs(r.get('corr_goles', 0)) > 0.3,
+                  f"{obj}: los goles explican algo del nivel "
+                  f"(corr {r.get('corr_goles'):+.3f})")
+
+    # El umbral que se fijo: por encima de 0,05 la estimacion se enseña con
+    # aviso fuerte. Las tarjetas estimadas caen ahi, y eso NO se disimula.
+    check(se.UMBRAL_ACEPTABLE == 0.05, "el umbral aceptable es 0,05")
+    check(doc['calibracion_estimada']['tj'] > se.UMBRAL_ACEPTABLE,
+          "las tarjetas estimadas estan por encima del umbral y se marcan")
+    check(doc['calibracion_estimada']['ck'] < se.UMBRAL_ACEPTABLE,
+          "y los cornrs estimados por debajo")
+
+    # NINGUNA competicion de futbol puede quedarse sin seccion.
+    import fixtures_espn
+    from config import LEAGUES
+    claves = [c for c, v in LEAGUES.items()
+              if v.get('disponible') and c in fixtures_espn.ESPN_CODIGOS][:12]
+    import rendimiento_equipos as rq
+    sin_ck, sin_tj = [], []
+    for c in claves:
+        d = rq._historico(c)
+        if d is None or getattr(d, 'empty', True) or len(d) < 200:
+            continue
+        h = str(d['home_team'].iloc[-1])
+        a = str(d['away_team'].iloc[-1])
+        if rq.corners_equipo(c, h, a) is None:
+            sin_ck.append(c)
+        if rq.tarjetas_equipo(c, h, a) is None:
+            sin_tj.append(c)
+    check(not sin_ck, f"todas las competiciones dan cornrs ({sin_ck})")
+    check(not sin_tj, f"todas las competiciones dan tarjetas ({sin_tj})")
+
+    # Y lo estimado va etiquetado, en el titulo y en una linea propia.
+    est = {'filas': [{'etiqueta': 'Total', 'media': 9.4, 'texto': 'Más de 9.5',
+                      'prob': 0.55, 'linea': 9.5}],
+           'mejor': {'etiqueta': 'Total', 'media': 9.4, 'texto': 'Más de 9.5',
+                     'prob': 0.55, 'linea': 9.5},
+           'origen': 'estimado', 'aceptable': True, 'error_calibracion': 0.0247}
+    html = mm._bloque_seccion_html(est, '⛳', 'Córners')
+    check('estimado' in html, "el titulo dice que el numero es estimado")
+    check('📐' in html, "y hay una linea que lo explica")
+    flojo = dict(est, aceptable=False, error_calibracion=0.0539)
+    check('poca precisión' in mm._bloque_seccion_html(flojo, '🟨', 'Tarjetas'),
+          "y con error por encima del umbral el aviso es mas fuerte")
+
+    obs = dict(est, origen='observado')
+    check('estimado' not in mm._bloque_seccion_html(obs, '⛳', 'Córners'),
+          "lo observado NO lleva la etiqueta")
+
+
+def test_los_jugados_salen_en_la_lista_con_su_pronostico():
+    """
+    v162 — los partidos acabados, EN la lista y con el pronostico previo.
+
+    La v161 los puso detras de un boton, en una lista escueta con el marcador.
+    Duro una version: lo que se queria era verlos en la misma lista, con su
+    tarjeta entera, para poder analizar que decia el modelo antes del pitido.
+
+    EL PRONOSTICO NO SE RECALCULA, Y ESO ES LO IMPORTANTE. Se recupera de
+    `predicciones_dia.json`, que el bot escribio por la mañana cuando el
+    partido aun no se habia jugado. Recalcularlo ahora daria un numero
+    distinto —el ELO y las medias moviles ya se movieron con el resultado— y
+    enseñarlo como «pronostico previo» seria mentir con precision decimal.
+
+    Y SIGUEN SIN PODER SER UN PICK: no pasan por `alpha_finder`, no tienen EV,
+    no se comparan con la cuota y no llegan a Telegram.
     """
     import inspect
-    import fixtures_espn
+    import numpy as np
     import modo_modelo as mm
+    import partidos_jugados as pj
+    import fixtures_espn
 
-    check(hasattr(fixtures_espn, 'jugados_del_dia'),
-          "fixtures_espn sabe pedir los partidos jugados de un dia")
-    check(hasattr(fixtures_espn, 'claves_de_futbol'),
-          "y sabe que competiciones consultar")
-    check(hasattr(mm, '_bloque_jugados'), "la interfaz tiene su bloque")
+    check(hasattr(pj, 'de_dia'), "el modulo construye los partidos jugados")
+    check(not hasattr(mm, '_bloque_jugados'),
+          "el boton de la v161 se retiro: ahora van en la lista")
 
-    # `fixtures_liga` SIGUE descartando los acabados: esto es aditivo, no un
-    # cambio del criterio. Si algun dia se toca, los acabados entrarian en el
-    # barrido y podrian acabar en un pick.
-    src = inspect.getsource(fixtures_espn._fixtures_de_codigo)
-    check("if estado.get('completed'):" in src and 'continue' in src,
+    # El board sale de la matriz de marcador guardada.
+    M = np.zeros((7, 7))
+    M[0, 0] = 0.25   # 0-0
+    M[1, 0] = 0.25   # 1-0
+    M[2, 2] = 0.25   # 2-2
+    M[3, 1] = 0.25   # 3-1
+    b = pj._board_de_matriz(M, 'A', 'B')
+    check(abs(b['Gana A'] - 0.50) < 1e-6, f"1X2 local ({b.get('Gana A')})")
+    check(abs(b['Empate'] - 0.50) < 1e-6, f"1X2 empate ({b.get('Empate')})")
+    check(abs(b['Más de 2.5'] - 0.50) < 1e-6,
+          f"mas de 2.5 son los marcadores que suman 3+ ({b.get('Más de 2.5')})")
+    check(abs(b['Ambos marcan: Sí'] - 0.50) < 1e-6,
+          f"ambos marcan quita fila y columna cero ({b.get('Ambos marcan: Sí')})")
+    check(abs(b['Menos de 2.5'] + b['Más de 2.5'] - 1.0) < 1e-6,
+          "los dos lados de goles suman 1")
+
+    # La tarjeta de un jugado enseña el marcador y NO una apuesta.
+    src = inspect.getsource(mm.tarjeta)
+    check("pick.get('jugado')" in src and 'Finalizado' in src,
+          "la tarjeta marca los partidos acabados")
+    i_jug = src.index("if pick.get('jugado')")
+    i_dest = src.index("elif dest['alta']")
+    check(i_jug < i_dest,
+          "y el marcador sustituye a la apuesta destacada, no se añade debajo")
+
+    # La leyenda que se pidio, y el recuento aparte.
+    rnd = inspect.getsource(mm.render)
+    check('Finalizado' in rnd and 'no son' in rnd,
+          "la lista lleva la leyenda de que los finalizados no son jugables")
+    check("not p.get('jugado')" in rnd,
+          "los jugados no cuentan como apuestas por encima del umbral")
+
+    # `fixtures_liga` SIGUE descartando los acabados: esto es aditivo.
+    fx = inspect.getsource(fixtures_espn._fixtures_de_codigo)
+    check("if estado.get('completed'):" in fx,
           "los acabados siguen fuera de los fixtures apostables")
+    check('partidos_jugados' not in open('alpha_finder.py', encoding='utf-8').read(),
+          "el barrido no los conoce, asi que no pueden acabar en un pick")
 
-    # El bloque no puede pedir nada hasta que el usuario pulse.
-    cuerpo = inspect.getsource(mm._bloque_jugados)
-    check('st.button' in cuerpo, "hay un boton: no se pide nada al cargar")
-    i_boton = cuerpo.index('st.button')
-    i_pide = cuerpo.index('jugados_del_dia')
-    check(i_boton < i_pide, "y la peticion va DESPUES del boton")
-
-    # El dia sale de los propios partidos de la lista.
-    check(mm._dia_de([{'fecha': '2026-08-23'}]) == '2026-08-23',
-          "el dia se lee de los partidos que se estan enseñando")
-    check(len(mm._dia_de([])) == 10,
-          "y con la lista vacia cae a la fecha de hoy en CDMX")
-
-    # Los jugados NO entran en la lista de tarjetas.
-    render = inspect.getsource(mm.render)
-    check('_bloque_jugados(st, clave, _dia_de(pronosticos))' in render,
-          "el bloque se pinta aparte, despues de la lista")
-    check('_bloque_jugados' not in inspect.getsource(mm.tarjeta),
-          "y no toca la tarjeta de un partido apostable")
+    # La hora, para que se ordenen junto a los demas.
+    res = inspect.getsource(fixtures_espn.resultados_liga)
+    check("'inicio'" in res,
+          "los jugados traen hora de inicio y se ordenan con el resto")
 
 
 def test_verificacion_de_fuente():
@@ -5161,12 +5431,22 @@ def test_no_se_ensena_estadistica_sintetica():
     # La otra mitad, y la que de verdad separa esta prueba de una lista escrita
     # a mano: una liga que NO es de football-data tiene la columna de córners al
     # 100 % y aun asi es relleno.
+    # v162 — LA LIGA MX DEJO DE SER EL EJEMPLO, Y ESO ES BUENA NOTICIA.
+    # `stats_espn` le trajo los córners REALES de ESPN, asi que ya sale como
+    # observada. Lo que este test protege sigue siendo lo mismo —una columna
+    # del generador no puede presentarse como observada— pero el ejemplo se
+    # busca en vez de escribirse, porque la cobertura va a seguir creciendo.
     disp_mx = rq.stats_disponibles('liga_mx')
     check(disp_mx.get('goles') is True,
           "los goles de la Liga MX salen como observados")
-    check(disp_mx.get('corners') is False,
-          "los córners de la Liga MX NO salen como observados aunque la columna "
-          "este llena: los escribio el generador")
+    _sin = _liga_sin_observar('corners')
+    if _sin:
+        check(rq.stats_disponibles(_sin).get('corners') is False,
+              f"los córners de {_sin} NO salen como observados aunque la "
+              f"columna este llena: los escribio el generador")
+    else:
+        print('AVISO ya no queda ninguna competicion con córners sinteticos: '
+              'no hay contraejemplo que comprobar')
 
 
 def test_rendimiento_no_rellena_lo_que_falta():
@@ -5616,8 +5896,11 @@ def test_las_probabilidades_de_corners_usan_la_sobredispersion():
     d = rq.dispersion_corners_liga('premier')
     check(d is not None and 1.0 <= d <= 1.6,
           f"la Premier tiene sobredispersion medida y plausible ({d})")
-    check(rq.dispersion_corners_liga('liga_mx') is None,
-          "una competicion sin córners observados no inventa una dispersion")
+    _sin = _liga_sin_observar('corners')
+    if _sin:
+        check(rq.dispersion_corners_liga(_sin) is None,
+              f"una competicion sin córners observados ({_sin}) no inventa "
+              f"una dispersion")
 
     m = rq.media_corners_liga('premier')
     p_poi = rq.prob_mas_de(m, 8.5, 1.0)
@@ -5682,8 +5965,11 @@ def test_los_corners_por_equipo_salen_de_sus_datos():
     check(d_eq > d_tot,
           f"la dispersion por equipo es mayor que la del total "
           f"({d_eq} > {d_tot})")
-    check(rq.dispersion_corners_equipo('liga_mx') is None,
-          "y una competicion sin córners observados no inventa ninguna")
+    _sin = _liga_sin_observar('corners')
+    if _sin:
+        check(rq.dispersion_corners_equipo(_sin) is None,
+              f"y una competicion sin córners observados ({_sin}) no inventa "
+              f"ninguna")
 
     c = rq.corners_equipo('premier', 'Man City', 'Arsenal')
     check(c is not None, "hay córners esperados para un partido de la Premier")
@@ -5700,8 +5986,18 @@ def test_los_corners_por_equipo_salen_de_sus_datos():
             check(abs(inv['lambda_home'] - c['lambda_home']) > 0.01,
                   "invertir local y visitante cambia el resultado")
 
-    check(rq.corners_equipo('liga_mx', 'Pachuca', 'Toluca') is None,
-          "sin córners observados no se calcula: se conserva el reparto por xG")
+    # v162 — SIN DATOS YA NO ES `None`: ES UNA ESTIMACION MARCADA.
+    # Se pidio que ninguna competicion se quede sin la seccion. Lo que NO puede
+    # pasar es que salga sin decir que es estimada, y eso es lo que se comprueba.
+    _sin = _liga_sin_observar('corners')
+    if _sin:
+        d = rq._historico(_sin)
+        e = rq.corners_equipo(_sin, str(d['home_team'].iloc[-1]),
+                              str(d['away_team'].iloc[-1]))
+        check(e is not None and e.get('origen') == 'estimado',
+              f"sin córners observados ({_sin}) sale una estimacion MARCADA")
+        check(e is None or e.get('error_calibracion') is not None,
+              "y la estimacion lleva su error de calibracion medido")
 
     src = open('league_engine.py', encoding='utf-8').read()
     check('corners_equipo' in src and '_p_ck_eq(' in src,
@@ -5745,11 +6041,18 @@ def test_los_corners_en_la_tarjeta():
         check(ck['mejor']['prob'] == max(f['prob'] for f in ck['filas']),
               "y es la de mayor probabilidad")
 
-    # Donde no hay córners observados NO se inventa la seccion.
-    check(mm.corners_tarjeta({'partido': 'Pachuca vs Toluca',
-                              'clave_liga': 'liga_mx',
-                              'deporte': 'Fútbol'}) is None,
-          "una competicion sin córners observados no produce seccion")
+    # v162 — donde no hay córners observados la seccion SI sale, estimada.
+    _sin = _liga_sin_observar('corners')
+    if _sin:
+        import rendimiento_equipos as _rq2
+        d = _rq2._historico(_sin)
+        p = {'partido': '%s vs %s' % (d['home_team'].iloc[-1],
+                                      d['away_team'].iloc[-1]),
+             'clave_liga': _sin, 'deporte': 'Fútbol'}
+        b = mm.corners_tarjeta(p)
+        check(b is not None and b.get('origen') == 'estimado',
+              f"una competicion sin córners observados ({_sin}) produce "
+              f"seccion MARCADA como estimada")
     check(mm.corners_tarjeta({'partido': 'HOU vs NYY', 'clave_liga': 'mlb',
                               'deporte': 'MLB'}) is None,
           "y el beisbol tampoco")
@@ -5925,9 +6228,14 @@ def test_las_tarjetas_por_equipo_salen_de_sus_datos():
         check(t1['lambda_home'] != t2['lambda_home'],
               "cambiar quien juega en casa cambia la lambda del local")
 
-    # Donde la competicion no publica tarjetas observadas, no hay estimador.
-    check(rq.tarjetas_equipo('liga_mx', 'Guadalajara', 'Tijuana') is None,
-          "una competicion con la columna sintetica no produce lambdas")
+    # v162 — sin tarjetas observadas sale la estimacion, marcada.
+    _sin = _liga_sin_observar('tarjetas')
+    if _sin:
+        d = rq._historico(_sin)
+        e = rq.tarjetas_equipo(_sin, str(d['home_team'].iloc[-1]),
+                               str(d['away_team'].iloc[-1]))
+        check(e is not None and e.get('origen') == 'estimado',
+              f"sin tarjetas observadas ({_sin}) sale una estimacion MARCADA")
 
 
 def test_el_arbitro_designado_y_su_encogimiento():
@@ -6045,11 +6353,18 @@ def test_las_tarjetas_en_la_tarjeta():
               "la linea del arbitro sale siempre: con su nombre o diciendo "
               "que no esta designado")
 
-    # Donde no hay tarjetas observadas NO se inventa la seccion.
-    check(mm.tarjetas_tarjeta({'partido': 'Pachuca vs Toluca',
-                               'clave_liga': 'liga_mx',
-                               'deporte': 'Fútbol'}) is None,
-          "una competicion con la columna sintetica no produce seccion")
+    # v162 — donde no hay tarjetas observadas la seccion SI sale, estimada.
+    _sin = _liga_sin_observar('tarjetas')
+    if _sin:
+        import rendimiento_equipos as _rq3
+        d = _rq3._historico(_sin)
+        b = mm.tarjetas_tarjeta({'partido': '%s vs %s'
+                                 % (d['home_team'].iloc[-1],
+                                    d['away_team'].iloc[-1]),
+                                 'clave_liga': _sin, 'deporte': 'Fútbol'})
+        check(b is not None and b.get('origen') == 'estimado',
+              f"una competicion sin tarjetas observadas ({_sin}) produce "
+              f"seccion MARCADA como estimada")
     check(mm.tarjetas_tarjeta({'partido': 'HOU vs NYY', 'clave_liga': 'mlb',
                                'deporte': 'MLB'}) is None,
           "y el beisbol tampoco")
@@ -6434,8 +6749,11 @@ def test_corners_no_suben_a_seccion1_sin_medicion():
     check(m_premier is not None and 7.0 < m_premier < 13.0,
           f"la Premier tiene media de córners observada y es plausible "
           f"({m_premier})")
-    check(rq.media_corners_liga('liga_mx') is None,
-          "la Liga MX no tiene media observada: sus córners son del generador")
+    _sin = _liga_sin_observar('corners')
+    if _sin:
+        check(rq.media_corners_liga(_sin) is None,
+              f"una competicion sin córners observados ({_sin}) no tiene media: "
+              f"los suyos son del generador")
 
     # El EV de córners sigue marcado como no fiable, y por el motivo medido.
     tab = open('cuotas_tablon.py', encoding='utf-8').read()
@@ -6657,7 +6975,10 @@ if __name__ == '__main__':
     test_las_tarjetas_en_la_tarjeta()
     test_se_guardan_las_lineas_de_tarjetas()
     test_las_ligas_apagadas_por_elo_se_encendieron()
-    test_los_partidos_ya_jugados_salen_aparte()
+    test_las_estadisticas_reales_de_espn()
+    test_solo_se_promedian_las_filas_reales()
+    test_todas_las_ligas_tienen_cornrs_y_tarjetas()
+    test_los_jugados_salen_en_la_lista_con_su_pronostico()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

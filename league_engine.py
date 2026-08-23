@@ -955,6 +955,30 @@ def descargar_liga(clave: str, temporadas: int = None) -> pd.DataFrame:
     # el relleno sintético condicionado a goles reales lleva más señal.
     # understat_scraper.inyectar_xg queda disponible pero DESACTIVADO
     # (ver VALIDACION_v14.md).
+    # v162 — LAS ESTADÍSTICAS REALES DE ESPN, ANTES DEL GENERADOR.
+    #
+    # Este orden es todo el truco y por eso va comentado. El generador de abajo
+    # promete —y cumple— que «sólo rellena valores faltantes: si una columna ya
+    # trae datos reales, esos se respetan». Así que inyectar aquí significa que
+    # córners, tarjetas, remates, faltas y posesión de ESPN GANAN, y el relleno
+    # sintético se queda para los partidos que ESPN no cubre.
+    #
+    # Va aquí y no en un parche al CSV porque esta función RECONSTRUYE el
+    # histórico entero desde su fuente en cada `--build`: cualquier cosa
+    # escrita directamente en `historico_<liga>.csv` la borraría la noche
+    # siguiente. Las estadísticas viven en `stats_espn/<liga>.csv.gz`.
+    #
+    # Coste: es una lectura de disco y un emparejado en memoria. La descarga la
+    # hace `stats_espn.backfill`, que corre en el bot.
+    try:
+        import stats_espn as _se
+        df = _se.inyectar(df, clave)
+    except Exception as e:
+        # Que esto falle no puede tumbar un reentrenamiento: sin estadísticas
+        # reales la liga vuelve al relleno sintético, que es donde estaba.
+        logger.warning(f"[{clave}] estadísticas de ESPN no inyectadas: "
+                       f"{type(e).__name__}: {e}")
+
     cal = statsbomb_calibration.calibrar()
     gen = CorrelatedSyntheticGenerator()
     df = gen.generate_advanced_metrics(df, cal)
