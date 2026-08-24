@@ -1,0 +1,13 @@
+{
+ "generado_por": "_v166_umbral_cordura.py",
+ "n_goles": 17532,
+ "n_1x2": 36025,
+ "w_encogimiento": 0.25,
+ "w_optimo_por_ece": 0.15,
+ "umbrales": {
+  "Goles": 0.05,
+  "BTTS": 0.05,
+  "1X2": 0.05
+ },
+ "nota": "Umbral = borde inferior del primer tramo de desvío cuya brecha de calibración pasa de 0,05, medido sobre los ledgers walk-forward. BTTS hereda el de Goles: sale de la misma matriz de marcador y no hay cuota histórica de BTTS con la que medirlo por separado."
+}

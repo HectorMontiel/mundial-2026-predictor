@@ -243,13 +243,18 @@ def apuesta_destacada(pick: Dict) -> Optional[Dict]:
             p = float(m.get('prob'))
         except (TypeError, ValueError):
             continue
+        # v166 — SI `alpha_finder` YA ENCOGIO ESTE MERCADO HACIA EL PRECIO DE
+        # LA CASA, NO SE ENCOGE DOS VECES. El 1X2 lo lleva hecho desde la v71 y
+        # trae su `calibracion` dentro; goles y BTTS nunca lo tuvieron, y ahi
+        # es justo donde la medicion encontro brechas de hasta 22 puntos.
+        _ya = bool((m.get('calibracion') or {}).get('aplicado'))
         filas.append((p, str(m.get('apuesta') or ''),
-                      str(m.get('mercado') or '')))
+                      str(m.get('mercado') or ''), _ya))
     if not filas:
         # Sin `mercados` (deportes que sólo publican el ganador) queda el board.
         for etiqueta, p in (pick.get('board') or {}).items():
             try:
-                filas.append((float(p), str(etiqueta), ''))
+                filas.append((float(p), str(etiqueta), '', False))
             except (TypeError, ValueError):
                 continue
     if not filas:
@@ -262,7 +267,8 @@ def apuesta_destacada(pick: Dict) -> Optional[Dict]:
         except (TypeError, ValueError):
             p = None
         if p is not None and pick.get('apuesta'):
-            filas.append((p, str(pick['apuesta']), str(pick.get('mercado') or '')))
+            filas.append((p, str(pick['apuesta']),
+                          str(pick.get('mercado') or ''), False))
     if not filas:
         return None
     # v165 — EL CONTROL DE CORDURA, ANTES DE ELEGIR Y NO DESPUÉS.
@@ -272,8 +278,8 @@ def apuesta_destacada(pick: Dict) -> Optional[Dict]:
     # con un 64 % que nadie ha tenido que tocar. Se revisa cada fila y gana la
     # que más vale DESPUÉS del recorte, que es lo que se está enseñando.
     revisadas = []
-    for p, apuesta, mercado in filas:
-        info = _revisar(pick, apuesta, p)
+    for p, apuesta, mercado, ya in filas:
+        info = _revisar(pick, apuesta, p, mercado=mercado, ya_encogido=ya)
         revisadas.append((info.get('prob', p), apuesta, mercado, info))
     p, apuesta, mercado, info = max(revisadas, key=lambda f: f[0])
     if p < UMBRAL_PATA:
@@ -292,7 +298,8 @@ def apuesta_destacada(pick: Dict) -> Optional[Dict]:
             'aviso': _aviso_cordura(info)}
 
 
-def _revisar(pick: Dict, apuesta: str, prob: float) -> Dict:
+def _revisar(pick: Dict, apuesta: str, prob: float,
+             mercado: Optional[str] = None, ya_encogido: bool = False) -> Dict:
     """
     La probabilidad que se puede enseñar de esa apuesta en ESTE partido.
 
@@ -317,7 +324,8 @@ def _revisar(pick: Dict, apuesta: str, prob: float) -> Dict:
                            h or '', a or '')
     except Exception as e:
         logger.debug('[modo_modelo] implícita de %s: %s', apuesta, e)
-    return cp.revisar(prob, apuesta, pick.get('clave_liga'), implicita=imp)
+    return cp.revisar(prob, apuesta, pick.get('clave_liga'), implicita=imp,
+                      mercado=mercado, ya_encogido=ya_encogido)
 
 
 def _aviso_cordura(info: Dict) -> str:
@@ -603,10 +611,40 @@ def corners_tarjeta(pick: Dict) -> Optional[Dict]:
         return None
     if not eq:
         return None
-    return _filas_de(eq, '⛳', 'corners')
+    # v166 — con la línea REAL de la casa cuando el precálculo del día la trae.
+    return _filas_de(eq, '⛳', 'corners',
+                     lineas_casa=(pick.get('implicitas') or {}).get('corners'))
 
 
-def _filas_de(eq: Dict, icono: str, mercado: str = '') -> Optional[Dict]:
+def _linea_de_la_casa(lineas: Optional[Dict], media: float) -> Optional[float]:
+    """
+    v166 — LA LINEA QUE COTIZA LA CASA, NO LA MEDIA REDONDEADA.
+
+    La tarjeta situaba la apuesta en «la linea de medio punto mas cercana a la
+    media», que es una linea INVENTADA: podia anunciar «Mas de 9.5 57 %»
+    mientras la casa cotizaba 8,5, y entonces el porcentaje no correspondia a
+    ninguna apuesta que se pudiera hacer.
+
+    Se elige la linea REAL mas cercana a la media, para que la probabilidad que
+    se enseña sea la de algo que existe. Devuelve None cuando la casa no cotiza
+    corners de este partido, y entonces se cae a la de siempre — un hueco se
+    ve, y aqui ni siquiera hay hueco: hay la linea de antes.
+    """
+    if not lineas:
+        return None
+    candidatas = []
+    for k in lineas:
+        try:
+            candidatas.append(float(k))
+        except (TypeError, ValueError):
+            continue
+    if not candidatas:
+        return None
+    return min(candidatas, key=lambda x: (abs(x - float(media)), x))
+
+
+def _filas_de(eq: Dict, icono: str, mercado: str = '',
+              lineas_casa: Optional[Dict] = None) -> Optional[Dict]:
     """
     Las tres filas de una seccion —total, local y visita— con su apuesta.
 
@@ -618,9 +656,12 @@ def _filas_de(eq: Dict, icono: str, mercado: str = '') -> Optional[Dict]:
     filas = []
     tot, disp_tot = eq.get('lambda_total'), eq.get('dispersion_total')
     if tot:
-        lado = _mejor_lado(tot, _linea_cercana(tot), disp_tot)
+        _lc = _linea_de_la_casa(lineas_casa, tot)
+        lado = _mejor_lado(tot, _lc if _lc is not None else _linea_cercana(tot),
+                           disp_tot)
         if lado:
-            filas.append({'etiqueta': 'Total', 'media': float(tot), **lado})
+            filas.append({'etiqueta': 'Total', 'media': float(tot),
+                          'de_la_casa': _lc is not None, **lado})
     for nombre, media in (('Local', eq.get('lambda_home')),
                           ('Visita', eq.get('lambda_away'))):
         if not media:
@@ -749,11 +790,16 @@ def _bloque_seccion_html(bloque: Optional[Dict], icono: str,
         # sin insignia no se resalta ninguna fila: destacar una en negrita es
         # la misma afirmacion con otra tipografia
         resalta = ' mm-ck-mejor' if (con_insignia and f is mejor) else ''
+        # v166 — cuando la línea es la que cotiza la casa se dice, porque hasta
+        # ahora era una línea inventada («la media redondeada») y el usuario no
+        # tenía forma de distinguir una de otra.
+        sello = (' <span class="mm-ck-est">línea de la casa</span>'
+                 if f.get('de_la_casa') else '')
         trozos.append(
             '<div class="mm-ck-fila%s%s">%s <b>%.1f</b> · %s '
-            '<span class="mm-ck-pct">%.0f %%</span></div>'
+            '<span class="mm-ck-pct">%.0f %%</span>%s</div>'
             % (resalta, apagado, f['etiqueta'], f['media'], f['texto'],
-               f['prob'] * 100))
+               f['prob'] * 100, sello))
     trozos.append(_etiqueta_origen(bloque))
     return ''.join(trozos)
 
@@ -1280,6 +1326,17 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         # partidos»—, asi que ocupaba seis lineas de tarjeta sin distinguir un
         # partido de otro.
         piezas.append(_bloque_quien_remata_html(quien_remata_tarjeta(pick)))
+        # v166 — Y LOS REMATES POR EQUIPO VUELVEN, PORQUE SE PIDIERON.
+        #
+        # La v163.1 los quitó a petición del usuario («lo único que me interesa
+        # saber es quién remata»). Ahora se pide lo contrario y explícitamente:
+        # ver TODOS los mercados, con la app diciendo cuáles son reales y
+        # cuáles estimados. Las dos peticiones son compatibles: lo que hacía
+        # ruido no era el bloque, era que un bloque estimado —idéntico en todos
+        # los partidos de su liga— tuviera el mismo peso visual que uno medido.
+        # Eso ya está resuelto desde la v165: sin insignia, el bloque va en
+        # gris. Así que la información vuelve y la jerarquía se queda.
+        piezas.append(_bloque_remates_html(remates_tarjeta(pick)))
 
         rend = None
         if str(pick.get('deporte') or '') != 'Tenis':

@@ -2061,3 +2061,122 @@ mas de 15 puntos de la casa en dos de cada cinco titulares que se pueden
 comprobar. Lo que zanja quien tiene razon es liquidar esos casos cuando haya
 volumen, igual que con los snapshots de cornrs y tarjetas — y ahora
 `mercado_dia.json` se commitea a diario, asi que ese historico empieza hoy.
+
+## 16. El umbral medido con lo que ya había, y la causa raíz que destapó
+
+### 16.1 No hacía falta esperar seis semanas. Los datos estaban en el repo
+
+El umbral de 15 puntos de la v165 era una intuición y estaba escrito como tal.
+El proyecto ya tenía dos ledgers **walk-forward** con la probabilidad que el
+modelo dio de verdad, el resultado real y la cuota de CIERRE:
+
+    pick_ledger_totales.csv   17.532 partidos con cuota O/U 2,5 · 20 ligas
+    pick_ledger.csv           36.025 partidos con cierre 1X2   · 56 ligas
+                              (26.666 con Pinnacle de ancla)
+
+`_v166_umbral_cordura.py` los recorre y mide dos cosas que no son la misma: el
+**ROI** de respaldar el lado que el modelo prefiere a la cuota de cierre, con su
+percentil 5 de bootstrap, y la **brecha de calibración** — |media(p) − frecuencia
+real| — que es lo que el usuario ve.
+
+### 16.2 Lo primero que dijo la medición: el valor absoluto escondía el problema
+
+Con el desvío en valor absoluto, la brecha del 1X2 salía ≤ 0,008 en TODOS los
+tramos. Parecía que el 1X2 no mentía nunca. Separando por dirección:
+
+    1X2, modelo POR ENCIMA de la casa      1X2, en valor absoluto
+      0-3 pp   0,018                         0-3 pp   0,004
+      5-7 pp   0,050                         5-7 pp   ~0
+     15-20 pp  0,176                        15-20 pp  0,006
+
+Los dos sesgos se cancelaban. Es exactamente la trampa que el §2b del traspaso
+dejó escrita para remates —«el error marginal no mide resolución»— reapareciendo
+en otro sitio. **La regla de la v165 usaba el valor absoluto**, y eso sólo se
+sostiene si las dos direcciones mienten igual. No lo hacen.
+
+Cuando el modelo va por DEBAJO de la casa (4.207 partidos de goles) dice 55 % y
+pasa el 63-73 %: se queda corto, que es la dirección inofensiva. Marcar eso en
+rojo señalaba como sospechoso un número prudente. Desde la v166 el recorte es de
+un solo lado.
+
+### 16.3 Y lo segundo, que era lo importante: el recorte era el síntoma
+
+    GOLES, modelo por encima de la casa
+    desvío      n      brecha
+    0-3 pp    1661     0,002
+    3-5 pp    1295     0,044
+    5-7 pp    1317     0,065   ← cruza el 0,05 del proyecto
+   11-13 pp   1254     0,124
+   15-20 pp   2227     0,169   ← donde recortaba la v165
+    > 20 pp   2745     0,281   dice 73 %, pasa el 45 %
+
+El 15 dejaba pasar una banda entera en la que el número ya mentía por diez
+puntos. Pero la pregunta buena no era dónde cortar, sino **por qué el 1X2 y los
+goles se comportan tan distinto siendo el mismo modelo, los mismos partidos y el
+mismo día**. La respuesta: el 1X2 se encoge hacia el mercado desde la v71
+(`calibracion_mercado`, w con suelo 0,25) y **los goles nunca recibieron ese
+tratamiento**.
+
+    goles sin encoger (w=1,00)   ECE 0,0948 · brecha en >15 pp  0,2215
+    goles con w=0,25             ECE 0,0139 · brecha           0,0211
+    óptimo por ECE   (w=0,15)    ECE 0,0110 · brecha           0,0066
+
+Un orden de magnitud, con maquinaria que ya existía y estaba validada. Se adopta
+el suelo de 0,25 y no el óptimo de 0,15 porque bajar `W_MIN` sería re-litigar
+para goles una decisión medida para otro mercado (v75), y con 0,25 la mejora ya
+está hecha.
+
+**Y una honestidad incómoda:** por Brier y por log-loss el mejor peso es
+**w=0,00** — el mercado solo. El modelo no aporta nada medible a los goles por
+encima del precio de la casa. Se queda en 0,25 porque por ECE sí gana algo y
+porque publicar el mercado puro con la cara del modelo sería la mentira
+contraria. Es coherente con el hallazgo central del proyecto: el modelo no bate
+al mercado.
+
+### 16.4 El umbral resultante, y de dónde se lee
+
+Con el encogimiento puesto, el residuo se mide otra vez y el corte queda en
+**5 pp** para los tres mercados. Se escribe en `cordura_umbrales.json` y
+`cordura_probabilidad.umbral()` lo lee de ahí: si alguien repite la medición con
+más partidos y el corte se mueve, se mueve solo. Un número copiado a mano en el
+código es exactamente el que hubo que arreglar hoy.
+
+BTTS hereda el umbral de goles: sale de la misma matriz de marcador y no hay
+cuota histórica de BTTS con la que medirlo por separado. Queda anotado en el
+propio fichero.
+
+### 16.5 Córners: ya salían en las 62, pero contra una línea inventada
+
+Comprobado: `stats_disponibles` da córners observados en **50 de 62**
+competiciones, y en las otras 12 el bloque sale igual con el estimador de
+respaldo y su «📐 Estimado» (v162) — en gris desde la v165. O sea que «que se
+vean en todas» ya estaba.
+
+Lo que no estaba era la LÍNEA. La tarjeta usaba «la de medio punto más cercana a
+la media», que es una línea inventada: podía anunciar «Más de 9.5 57 %» mientras
+la casa cotizaba 8,5, y entonces ese porcentaje no era el de ninguna apuesta que
+se pudiera hacer. `mercado_implicito` saca ahora también el total de córners del
+tablero, línea a línea y devigado, y la tarjeta usa la real más cercana a la
+media, rotulada «línea de la casa». Cobertura el 2026-08-24: 32 de 53 partidos
+con precio.
+
+Dos trampas al leerlo, las dos evitadas: las familias por EQUIPO («Brighton
+Total de Tiros de Esquina») y las de media parte llevan la misma palabra. Y el
+filtro por nombre de equipo se hace por **palabras enteras**, no por subcadena:
+con `equipo in nombre` bastaba un club corto —«Ajax», «Roma»— para casar dentro
+de otra palabra y tirar el mercado del partido entero. Misma lección que la
+v163.1 con `name_mapper`.
+
+### 16.6 Y la tarjeta deja de esconder nada
+
+Los remates por equipo vuelven. La v163.1 los quitó a petición del usuario («lo
+único que me interesa saber es quién remata»); ahora se pide lo contrario y
+explícitamente. Las dos peticiones no se contradicen tanto como parece: lo que
+hacía ruido no era el bloque, era que un bloque estimado —idéntico en todos los
+partidos de su liga— tuviera el mismo peso visual que uno medido. Eso se
+arregló en la v165 con el gris, así que la información vuelve y la jerarquía se
+queda.
+
+El test `test_la_tarjeta_no_pinta_remates_por_equipo` se invierte pero
+**conserva su nombre**: renombrarlo borraría el rastro de que esto se decidió,
+se midió y se revirtió.

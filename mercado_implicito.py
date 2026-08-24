@@ -127,6 +127,66 @@ def _devig(cuotas: Dict[str, float]) -> Dict[str, float]:
         return {k: v / s for k, v in inv.items()} if s > 0 else {}
 
 
+def _es_corner(texto: str) -> bool:
+    """La misma prueba que `snapshots_corners`, y por el mismo motivo: la casa
+    renombra familias cada temporada y una lista fija deja de capturar en
+    silencio."""
+    t = str(texto or '')
+    return 'corner' in t or 'esquina' in t
+
+
+def _menciona(nombre: str, equipo: str) -> bool:
+    """
+    ¿El rótulo de esta familia nombra a ese equipo?
+
+    Por PALABRAS ENTERAS, no por subcadena. Con `equipo in nombre` bastaba un
+    club de nombre corto —«Ajax», «Roma», o una «A» en una prueba— para casar
+    dentro de otra palabra y tirar el mercado del partido entero creyéndolo el
+    de un equipo. Es la misma lección que la v163.1 con `name_mapper`: la
+    contención engaña.
+    """
+    eq = _norm(equipo)
+    if not eq:
+        return False
+    return re.search(r'(?<!\w)%s(?!\w)' % re.escape(eq), _norm(nombre)) \
+        is not None
+
+
+def _lineas_dos_lados(sels) -> Dict[str, float]:
+    """
+    `{linea: P(más de)}` de una familia con los dos lados, ya sin margen.
+
+    Una línea con un solo lado publicado se descarta: sin el contrario no se
+    puede quitar el margen, y una implícita CON margen no es una probabilidad
+    — compararla contra el modelo heredaría ese sesgo. Es la misma razón por
+    la que la v164 no persiguió la lambda de remates por jugador.
+    """
+    mas: Dict[str, float] = {}
+    menos: Dict[str, float] = {}
+    for s in sels:
+        if not isinstance(s, dict):
+            continue
+        c = _cuota(s)
+        if c is None:
+            continue
+        mm = _LINEA.match(_norm(s.get('nombre')))
+        if not mm:
+            continue
+        linea = clave_linea(mm.group(2))
+        if linea is None:
+            continue
+        (menos if mm.group(1) == 'menos' else mas)[linea] = c
+    salida = {}
+    for linea, c_mas in mas.items():
+        c_menos = menos.get(linea)
+        if not c_menos:
+            continue
+        justa = _devig({'mas': c_mas, 'menos': c_menos})
+        if len(justa) == 2:
+            salida[linea] = round(justa['mas'], 4)
+    return salida
+
+
 def _cuota(sel) -> Optional[float]:
     try:
         v = float(sel.get('cuota'))
@@ -199,29 +259,27 @@ def del_tablero(tablero: Optional[Dict]) -> Dict:
                     salida['1x2'] = {k: round(v, 4) for k, v in justa.items()}
         # --- goles: TODAS las líneas de medio punto, cada una devigada ---
         elif 'goles' not in salida and nom in _N_TOTAL:
-            mas: Dict[str, float] = {}
-            menos: Dict[str, float] = {}
-            for s in sels:
-                c = _cuota(s)
-                if c is None:
-                    continue
-                mm = _LINEA.match(_norm(s.get('nombre')))
-                if not mm:
-                    continue
-                linea = clave_linea(mm.group(2))
-                if linea is None:
-                    continue
-                (menos if mm.group(1) == 'menos' else mas)[linea] = c
-            goles = {}
-            for linea, c_mas in mas.items():
-                c_menos = menos.get(linea)
-                if not c_menos:
-                    continue
-                justa = _devig({'mas': c_mas, 'menos': c_menos})
-                if len(justa) == 2:
-                    goles[linea] = round(justa['mas'], 4)
+            goles = _lineas_dos_lados(sels)
             if goles:
                 salida['goles'] = goles
+        # --- córners: el TOTAL del partido, línea a línea ----------------
+        #
+        # Se pidió que la tarjeta enseñe la probabilidad de córners CONTRA LA
+        # LÍNEA DE LA CASA y no contra la media redondeada, que es lo que hacía
+        # («la línea de medio punto más cercana a la media»). Sin esto, un
+        # bloque podía decir «Más de 9.5 57 %» mientras la casa cotizaba 8,5.
+        #
+        # Se filtra por el NOMBRE de la familia, como hace `snapshots_corners`,
+        # y se descartan dos cosas que sí llevan la palabra: las familias por
+        # EQUIPO («Brighton Total de Tiros de Esquina») y las de media parte.
+        # Meter una de ésas como si fuera el total del partido sería comparar
+        # la media de dos equipos contra la línea de uno.
+        elif _es_corner(nom) and 'total' in nom and 'mitad' not in nom \
+                and not _menciona(nom, casa_home) \
+                and not _menciona(nom, casa_away):
+            ck = _lineas_dos_lados(sels)
+            if ck:
+                salida.setdefault('corners', {}).update(ck)
         # --- ambos marcan -----------------------------------------------
         elif 'btts' not in salida and nom in _N_BTTS and len(sels) == 2:
             cu = {}

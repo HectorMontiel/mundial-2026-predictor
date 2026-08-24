@@ -1136,3 +1136,55 @@ Todo esto vive en la capa de presentación.
 4. El techo por liga usa la media de goles de las últimas 3 temporadas. En las
    competiciones sin histórico suficiente (< 100 partidos) devuelve `None` y la
    regla no se aplica: ahí sólo protege el contraste contra la casa.
+
+## 4w. v166 — EL UMBRAL MEDIDO CON EL HISTÓRICO QUE YA HABÍA
+
+Detalle completo en **BITACORA_ARQUITECTURA.md §16**. Lo esencial:
+
+**No hubo que esperar.** `_v166_umbral_cordura.py` mide sobre
+`pick_ledger_totales.csv` (17.532 partidos con cuota O/U) y `pick_ledger.csv`
+(36.025 con cierre 1X2), los dos walk-forward y ya en el repo.
+
+**Tres hallazgos, en orden de importancia:**
+
+1. **El valor absoluto escondía el problema.** Separando por dirección, el 1X2
+   pasa de «brecha ≤0,008 en todos los tramos» a 0,176 cuando el modelo va por
+   encima de la casa. Los dos sesgos se cancelaban — la trampa del §2b otra vez.
+   El recorte es ahora de UN SOLO LADO: ir por debajo de la casa no se marca.
+2. **El recorte era el síntoma.** El 1X2 se encoge hacia el mercado desde la
+   v71; los goles nunca. Encogerlos con el mismo w=0,25 baja el ECE de 0,0948 a
+   0,0139 y la brecha en el tramo de >15 pp de 0,2215 a 0,0211.
+3. **El umbral medido es 5 pp**, no 15. Se escribe en `cordura_umbrales.json` y
+   `cordura_probabilidad.umbral()` lo lee de ahí — no hay número a mano.
+
+**Honestidad que hay que conservar:** por Brier y log-loss el peso óptimo de
+goles es w=0,00, o sea el mercado solo. El modelo no aporta nada medible ahí.
+Se usa 0,25 porque por ECE sí gana algo y porque publicar el mercado con la cara
+del modelo sería la mentira contraria.
+
+**Córners y la tarjeta:**
+
+* Ya salían en las 62 competiciones (50 observadas + 12 estimadas en gris). Lo
+  que no existía era la LÍNEA de la casa: se usaba «la media redondeada», una
+  línea inventada. Ahora `mercado_implicito` saca el total de córners del
+  tablero (32 de 53 partidos el 2026-08-24) y la tarjeta usa la real.
+* Los remates por equipo VUELVEN a la tarjeta. Se pidió ver todos los mercados.
+
+**Validación.** Suite 1.522 checks TODO OK · `valida_render.py` 3 vistas OK,
+174 s.
+
+**Pendiente que deja:**
+
+1. **12 competiciones sin córners observados** (uru_primera, ven_primera,
+   par_division, crc_fpd, slv_primera, finlandia, irlanda, polonia,
+   mex_expansion, arg_primera_nacional, eng_national, champions). Medido: 9 de
+   ellas **no tienen ni fichero `stats_espn/`** — nunca se barrieron. Y
+   `champions` SÍ tiene 774 filas con córners reales en `stats_espn/` que **no
+   están inyectadas** en su histórico (no tiene columna `stats_origen`): es
+   dato que ya se pagó y no se está usando. Eso es lo siguiente, y no requiere
+   FotMob.
+2. FotMob sólo tiene ID mapeado para 8 ligas (`FOTMOB_LEAGUE_IDS`), ninguna de
+   las 12. Un backfill por ahí cuesta 1,7 s por partido — unas 8 h para cinco
+   temporadas de las doce. Es trabajo de workflow nocturno, no de sesión.
+3. El umbral de BTTS es heredado, no medido: no hay cuota histórica de BTTS en
+   ningún ledger. Si algún día se acumula, medirlo aparte.

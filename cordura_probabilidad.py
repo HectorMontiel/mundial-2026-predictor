@@ -54,15 +54,78 @@ no se sube nunca hacia la casa, porque eso sería publicar la opinión de la cas
 con la cara del modelo — el error que la v149 ya evitó con las barras de
 mercado.
 """
+import json
 import logging
+import os
 import re
 from typing import Dict, Optional
 
 logger = logging.getLogger('cordura_probabilidad')
 
-# Los tres números de la regla, en un solo sitio.
-DESVIO_MAX = 0.15        # separación tolerada contra la implícita de la casa
+# ---------------------------------------------------------------------------
+# v166 — LOS UMBRALES YA NO SON UNA CORAZONADA
+# ---------------------------------------------------------------------------
+# La v165 recortaba a partir de 15 puntos de separación. Ese 15 estaba escrito
+# como lo que era: una intuición. Y no hacía falta esperar a acumular nada — el
+# proyecto ya tenía dos ledgers WALK-FORWARD con la probabilidad que el modelo
+# dio de verdad, el resultado real y la cuota de cierre:
+#
+#     pick_ledger_totales.csv   17.532 partidos con cuota O/U 2,5
+#     pick_ledger.csv           36.025 partidos con cierre 1X2
+#
+# Medido (`_v166_umbral_cordura.py`), con el modelo POR ENCIMA de la casa, que
+# es la única dirección peligrosa:
+#
+#     desvío     n      brecha de calibración
+#     0-3 pp    1661        0,002
+#     3-5 pp    1295        0,044
+#     5-7 pp    1317        0,065      ← cruza el 0,05 del proyecto
+#     11-13 pp  1254        0,124
+#     15-20 pp  2227        0,169      ← donde recortaba la v165
+#     > 20 pp   2745        0,281      dice 73 %, pasa el 45 %
+#
+# O sea que el 15 dejaba pasar una banda entera en la que el número ya mentía
+# por diez puntos. El corte medido está en 5.
+#
+# EL UMBRAL SE LEE DE UN FICHERO, no se escribe aquí. Si alguien vuelve a correr
+# la medición con más partidos y el corte se mueve, se mueve solo. Un número
+# copiado a mano en el código es exactamente el que hubo que arreglar hoy.
+FICHERO_UMBRALES = 'cordura_umbrales.json'
+
+# Respaldo si el fichero no está. Es el valor MEDIDO, no una intuición nueva:
+# si el fichero desaparece, el comportamiento no cambia.
+DESVIO_MAX = 0.05
 TECHO_DESVIADO = 0.60    # a lo que se recorta cuando se pasa de ahí
+
+# Mercados a los que se les encoge la probabilidad hacia el mercado antes de
+# juzgarla. Ver `_encoger`.
+MERCADOS_ENCOGIBLES = ('Goles', 'BTTS', '1X2')
+
+_UMBRALES: Optional[Dict] = None
+
+
+def umbral(mercado: Optional[str] = None) -> float:
+    """
+    El desvío tolerado para ese mercado, del fichero medido.
+
+    Hoy los tres salen en 5 pp, pero se guardan por separado a propósito: son
+    tres mediciones distintas y no hay razón para que converjan siempre.
+    """
+    global _UMBRALES
+    if _UMBRALES is None:
+        datos = {}
+        try:
+            if os.path.exists(FICHERO_UMBRALES):
+                with open(FICHERO_UMBRALES, encoding='utf-8') as f:
+                    datos = (json.load(f) or {}).get('umbrales') or {}
+        except Exception as e:
+            logger.debug('[cordura] no se pudo leer %s: %s',
+                         FICHERO_UMBRALES, e)
+        _UMBRALES = datos
+    try:
+        return float(_UMBRALES.get(str(mercado), DESVIO_MAX))
+    except (TypeError, ValueError):
+        return DESVIO_MAX
 TECHO_LIGA_SUAVE = 0.65  # línea por debajo de la media de la competición
 TECHO_LIGA_DURO = 0.50   # línea 0,5 goles o más por debajo de la media
 MARGEN_DURO = 0.50
@@ -123,8 +186,53 @@ def techo_por_liga(clave_liga, apuesta: str) -> Optional[float]:
     return TECHO_LIGA_DURO if d >= MARGEN_DURO else TECHO_LIGA_SUAVE
 
 
+def _encoger(p: float, imp: float, clave_liga) -> tuple:
+    """
+    La probabilidad encogida hacia el mercado, y el peso con el que se encogió.
+
+    POR QUÉ ESTO ES LA CAUSA RAÍZ Y EL RECORTE ERA EL SÍNTOMA
+    ---------------------------------------------------------
+    El 1X2 se encoge hacia el mercado desde la v71 (`calibracion_mercado`,
+    w por liga con suelo 0,25). Los goles NUNCA recibieron ese tratamiento. En
+    el ledger —mismo modelo, mismos partidos, mismo día— eso se ve entero:
+
+        goles sin encoger  (w=1,00)   ECE 0,0948 · brecha en >15 pp: 0,2215
+        goles encogidos    (w=0,25)   ECE 0,0139 · brecha en >15 pp: 0,0211
+        óptimo por ECE     (w=0,15)   ECE 0,0110 · brecha en >15 pp: 0,0066
+
+    Un orden de magnitud, con la maquinaria que ya existe y está validada. Se
+    usa el suelo de 0,25 y no el óptimo de 0,15 porque bajar `W_MIN` sería
+    re-litigar para goles una decisión que se midió para otro mercado (v75), y
+    con 0,25 la mejora ya está hecha.
+
+    HONESTIDAD SOBRE LO QUE ESTO SIGNIFICA: por Brier y por log-loss el mejor
+    peso es w=0,00 — o sea, el mercado solo. El modelo no aporta nada medible a
+    los goles por encima del precio de la casa. Se queda en 0,25 porque por ECE
+    sí gana algo y porque publicar el mercado puro con la cara del modelo sería
+    la mentira contraria.
+
+    Devuelve `(p_encogida, w)`. Con `w = 1.0` no se tocó nada.
+    """
+    try:
+        import calibracion_mercado as cm
+        # `peso_modelo('')` devuelve 1,0 —«sin liga no hay peso»— y aquí eso
+        # sería elegir la opción que la medición descarta. La curva de arriba
+        # está AGRUPADA sobre 20 competiciones y da 0,25, que es justo el suelo
+        # del módulo. Una liga sin clave hereda ese agregado, igual que una
+        # liga sin medición propia hereda el global desde la v80.
+        w = float(cm.peso_modelo(str(clave_liga or '')) if clave_liga
+                  else cm.W_MIN)
+    except Exception as e:
+        logger.debug('[cordura] peso de %s: %s', clave_liga, e)
+        return p, 1.0
+    if not (0.0 < w < 1.0):
+        return p, 1.0
+    return w * float(p) + (1.0 - w) * float(imp), w
+
+
 def revisar(prob, apuesta: str, clave_liga=None,
-            implicita: Optional[float] = None) -> Dict:
+            implicita: Optional[float] = None, mercado: Optional[str] = None,
+            ya_encogido: bool = False) -> Dict:
     """
     La probabilidad que se puede enseñar de esta apuesta, y por qué.
 
@@ -161,10 +269,33 @@ def revisar(prob, apuesta: str, clave_liga=None,
     p = p0
     motivos = []
     fiable = True
-    if imp is not None and abs(p0 - imp) > DESVIO_MAX:
+    w = 1.0
+
+    # 1) ENCOGER hacia el mercado. Va PRIMERO porque es la causa raíz: con el
+    #    encogimiento puesto, la brecha de calibración de goles baja de 0,2215
+    #    a 0,0211 en el tramo que la v165 recortaba, y el recorte pasa de ser
+    #    el mecanismo principal a ser un cortafuegos que casi nunca salta.
+    if imp is not None and not ya_encogido and (
+            mercado is None or str(mercado) in MERCADOS_ENCOGIBLES):
+        p, w = _encoger(p, imp, clave_liga)
+        if w < 1.0:
+            motivos.append('ajustada al precio de la casa')
+
+    # 2) RECORTAR si aun así se separa. Y SÓLO HACIA ARRIBA: medido, cuando el
+    #    modelo va por DEBAJO de la casa no miente al alza — dice 55 % y pasa
+    #    el 63-73 %. Recortar ahí no quita nada (ya está por debajo del techo)
+    #    y marcarlo en rojo señalaría como sospechoso un número prudente. La
+    #    v165 usaba el valor absoluto y trataba las dos direcciones igual; la
+    #    medición dice que no lo son.
+    lim = umbral(mercado)
+    if imp is not None and (p - imp) > lim:
         fiable = False
+        # el desvío se mide ANTES de recortar: contarlo después daría la
+        # distancia que queda tras el recorte, que puede ser negativa y no es
+        # lo que se quiere decir.
+        motivos.append('aun así queda %.0f puntos por encima de la casa'
+                       % ((p - imp) * 100))
         p = min(p, TECHO_DESVIADO)
-        motivos.append('la casa le da %.0f %% a esta misma apuesta' % (imp * 100))
 
     techo = techo_por_liga(clave_liga, apuesta)
     if techo is not None and p > techo:
@@ -175,7 +306,8 @@ def revisar(prob, apuesta: str, clave_liga=None,
                                                   or techo >= 0.60)
     return {'prob': round(p, 4), 'original': round(p0, 4), 'fiable': fiable,
             'contrastada': imp is not None, 'puede_verde': puede_verde,
-            'implicita': imp, 'techo': techo,
+            'implicita': imp, 'techo': techo, 'w': round(w, 3),
+            'encogida': w < 1.0, 'umbral': lim,
             'motivo': ' · '.join(motivos)}
 
 
@@ -194,6 +326,17 @@ def aviso(info: Dict) -> str:
                 'Se enseña recortada.'
                 % ((info.get('original') or 0.0) * 100,
                    info.get('motivo') or 'no cuadra con el precio de la casa'))
+    # v166 — el ajuste hacia el mercado también se dice, aunque no sea un
+    # recorte por desconfianza. Medido sobre 17.532 partidos: sin él la cifra
+    # que se enseñaba se separaba de la realidad hasta 22 puntos. Enseñar el
+    # número ajustado sin decir que se ajustó sería cambiar de mentira.
+    if info.get('encogida') and abs((info.get('original') or 0.0)
+                                    - (info.get('prob') or 0.0)) >= 0.02:
+        return ('📊 Ajustada al precio de la casa · el modelo decía %.0f %% y '
+                'la casa paga %.0f %%. Medido sobre 17.532 partidos, mezclarlas '
+                'acierta mucho mejor que el modelo solo.'
+                % ((info.get('original') or 0.0) * 100,
+                   (info.get('implicita') or 0.0) * 100))
     if info.get('techo') is not None and \
             (info.get('original') or 0) > info['techo'] + 1e-9:
         return ('📉 **Recortada al nivel de la competición** · el modelo decía '

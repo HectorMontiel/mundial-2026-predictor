@@ -6570,10 +6570,19 @@ def test_la_apuesta_destacada_de_cada_partido():
           "gana el mercado mas probable del partido, no el 1X2 por defecto")
     check(d and not d['alta'],
           "pero sin precio de la casa con el que contrastarlo, no va en verde")
+    # v166 — «de acuerdo» es ahora una distancia MEDIDA, no cualquier cosa: el
+    # 81 % de antes quedaba 7 puntos por encima de la casa y eso ya miente
+    # (brecha 0,065 sobre 1.317 partidos). Con la casa realmente de acuerdo,
+    # el verde sigue saliendo.
+    import cordura_probabilidad as _cp
     con_precio = mm.apuesta_destacada(
-        {**p, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.26}}})
+        {**p, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.19}}})
     check(con_precio and con_precio['alta'],
-          "y con la casa de acuerdo, si")
+          f"y con la casa de acuerdo, si ({con_precio})")
+    lejos = mm.apuesta_destacada(
+        {**p, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.40}}})
+    check(lejos and not lejos['alta'],
+          "y con la casa en contra, no")
 
     # 2. por debajo del verde, ambar; por debajo del ambar, nada
     medio = mm.apuesta_destacada(
@@ -7357,23 +7366,38 @@ def test_el_aviso_sin_modelo_dice_la_causa():
 
 def test_la_tarjeta_no_pinta_remates_por_equipo():
     """
-    v163.1 — en la tarjeta, de remates solo sale QUIEN los tira.
+    v166 — LOS REMATES POR EQUIPO VUELVEN A LA TARJETA. ESTE TEST SE INVIERTE.
 
-    Los bloques por equipo (total, local y visita) se retiraron a peticion del
-    usuario: «lo unico que me interesa saber es quien remata». Siguen enteros
-    en la ficha del partido, que es donde se mira el detalle.
+    La v163.1 los quito a peticion del usuario («lo unico que me interesa
+    saber es quien remata») y este test guardaba esa decision. En la v166 se
+    pide lo contrario y explicitamente: ver TODOS los mercados, con la app
+    diciendo cuales son reales y cuales estimados.
 
-    Habia ademas un motivo tecnico que apunta igual: en las 17 competiciones
-    sin remates observados el bloque era IDENTICO en todos sus partidos —lo
-    decia su propia etiqueta, «es igual para todos sus partidos»— asi que
-    ocupaba seis lineas sin distinguir un partido de otro.
+    Las dos peticiones no se contradicen tanto como parece. El motivo tecnico
+    que apoyaba la retirada era que en las competiciones sin remates
+    observados el bloque era IDENTICO en todos sus partidos y ocupaba seis
+    lineas sin distinguir uno de otro. Eso ya no pesa igual: desde la v165 un
+    bloque sin insignia va en GRIS, asi que se puede consultar sin competir
+    con lo que si esta medido.
+
+    El nombre de la funcion se conserva a proposito. Renombrarlo borraria el
+    rastro de que esto se decidio, se midio y se revirtio.
     """
     src = open('modo_modelo.py', encoding='utf-8').read()
     cuerpo = src.split('def tarjeta')[-1]
     check('_bloque_quien_remata_html(quien_remata_tarjeta(pick))' in cuerpo,
           "la tarjeta sigue pintando quien remata")
-    check('_bloque_remates_html(remates_tarjeta(pick))' not in cuerpo,
-          "y ya no pinta los bloques de remates por equipo")
+    check('_bloque_remates_html(remates_tarjeta(pick))' in cuerpo,
+          "y v166: vuelve a pintar tambien los remates por equipo")
+    import modo_modelo as mm
+    bloque = mm.remates_tarjeta({'partido': 'Danubio vs Racing (Montevideo)',
+                                 'clave_liga': 'uru_primera',
+                                 'deporte': 'Fútbol'})
+    if bloque:
+        html = mm._bloque_remates_html(bloque)
+        check('mm-sinsena' in html,
+              "y donde es estimado sigue yendo en gris, que es lo que hacia"
+              " tolerable volver a enseñarlo")
 
     # las funciones NO se borran: la ficha las usa y volver a ponerlas es una
     # linea
@@ -7740,16 +7764,24 @@ def test_el_control_de_cordura_recorta_lo_que_no_se_sostiene():
     # --- 1) el desvio contra la casa -----------------------------------
     r = cp.revisar(0.80, 'Menos de 2.5', None, implicita=0.45)
     check(not r['fiable'], "un 80 % contra un 45 % de la casa no es fiable")
-    check(abs(r['prob'] - cp.TECHO_DESVIADO) < 1e-9,
-          f"y se recorta al {cp.TECHO_DESVIADO*100:.0f} % ({r['prob']})")
+    check(r['prob'] <= cp.TECHO_DESVIADO + 1e-9,
+          f"y no se enseña por encima del techo ({r['prob']})")
+    check(r['prob'] < r['original'] - 0.15,
+          "la cifra baja de verdad, no cosmeticamente")
     check(r['original'] == 0.80,
           "la cifra original se conserva para poder decirla")
     check(not r['puede_verde'], "una cifra poco fiable no puede ir en verde")
     check('poco fiable' in cp.aviso(r), "y la pantalla lo dice")
 
-    justo = cp.revisar(0.60, 'Menos de 2.5', None, implicita=0.46)
-    check(justo['fiable'] and abs(justo['prob'] - 0.60) < 1e-9,
-          "14 puntos de separacion NO recortan: el umbral es 15")
+    # v166 — el umbral ya no es 15: es el MEDIDO sobre 17.532 partidos, y lo
+    # lee de `cordura_umbrales.json`. Se comprueba con el valor que haya en el
+    # fichero, no con una constante escrita aqui: si la medicion se repite con
+    # mas datos y el corte se mueve, este test se mueve con el.
+    lim = cp.umbral('Goles')
+    justo = cp.revisar(0.60, 'Menos de 2.5', None,
+                       implicita=0.60 - lim * 0.5, mercado='Goles')
+    check(justo['fiable'],
+          f"medio umbral de separacion ({lim*100:.0f} pp) no marca nada")
 
     # --- 2) el techo por media de goles de la competicion ---------------
     import rendimiento_equipos as rq
@@ -7801,10 +7833,26 @@ def test_el_control_de_cordura_recorta_lo_que_no_se_sostiene():
     check(cp.aviso(solo) != '',
           "y se dice que no hay con que contrastarla")
 
-    # --- 4) lo que NO hace: subir ---------------------------------------
-    timido = cp.revisar(0.55, 'Menos de 2.5', None, implicita=0.85)
-    check(timido['prob'] <= 0.55 + 1e-9,
-          "un modelo timido NUNCA se sube hacia la casa")
+    # --- 4) v166: EL MODELO TIMIDO SI SE SUBE, Y ESTA MEDIDO ------------
+    #
+    # La v165 prometia que el techo solo bajaba. La medicion sobre 4.207
+    # partidos en los que el modelo va POR DEBAJO de la casa dice lo
+    # contrario: el modelo dice 55 % y pasa el 63-73 %. Ahi el numero del
+    # modelo es una infravaloracion, no una prudencia, y mezclarlo con la casa
+    # lo acerca a lo que pasa. Lo que NO puede es hacerlo en silencio.
+    timido = cp.revisar(0.55, 'Menos de 2.5', 'premier', implicita=0.85,
+                        mercado='Goles')
+    check(timido['prob'] > 0.55,
+          f"un modelo por debajo de la casa se ajusta hacia ella ({timido['prob']})")
+    check(timido['encogida'] and timido['w'] < 1.0,
+          "y queda anotado con que peso se ajusto")
+    check(timido['fiable'],
+          "ir por DEBAJO de la casa no marca la cifra como poco fiable: esa"
+          " direccion no miente al alza")
+    sin_liga = cp.revisar(0.55, 'Menos de 2.5', None, implicita=0.85,
+                          mercado='Ganador')
+    check(abs(sin_liga['prob'] - 0.55) < 1e-9,
+          "y un mercado que no es de los encogibles no se toca")
 
 
 def test_el_titular_no_va_en_verde_sin_contraste():
@@ -7855,8 +7903,8 @@ def test_el_titular_no_va_en_verde_sin_contraste():
              {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.28}]})
     check(confirmado and confirmado['alta'],
           f"lo que la casa respalda SI sigue yendo en verde ({confirmado})")
-    check(not (confirmado.get('aviso') or ''),
-          "y no lleva aviso: lo que sale siempre no informa")
+    check('poco fiable' not in (confirmado.get('aviso') or ''),
+          "y no se marca en rojo lo que la casa respalda")
 
     # el ganador se elige DESPUES del recorte, no antes
     mezcla = mm.apuesta_destacada(
@@ -8036,6 +8084,226 @@ def test_los_bloques_sin_insignia_van_en_gris():
 
     css = open('modo_modelo.py', encoding='utf-8').read()
     check('.mm-sinsena' in css, "la clase existe en la hoja de estilo")
+
+
+
+def test_el_umbral_de_cordura_sale_del_historico():
+    """
+    v166 — EL UMBRAL YA NO ES UNA CORAZONADA, Y ESTE TEST LO EXIGE.
+
+    La v165 recortaba a partir de 15 puntos. Ese numero era una intuicion. No
+    hacia falta esperar a acumular nada: el proyecto ya tenia dos ledgers
+    WALK-FORWARD con la probabilidad que el modelo dio de verdad, el resultado
+    real y la cuota de cierre — 17.532 partidos con O/U 2,5 y 36.025 con 1X2.
+
+    Medido con el modelo POR ENCIMA de la casa, que es la unica direccion
+    peligrosa, la brecha de calibracion cruza el 0,05 del proyecto entre los
+    3-5 pp (0,044) y los 5-7 pp (0,065). El corte esta en 5, no en 15.
+
+    Lo que se comprueba aqui no es el valor —ese se mueve si la medicion se
+    repite con mas datos— sino que el valor VENGA DEL FICHERO MEDIDO y no de
+    una constante escrita a mano.
+    """
+    import json as _json
+    import os as _os
+    import cordura_probabilidad as cp
+
+    check(_os.path.exists(cp.FICHERO_UMBRALES),
+          "existe el fichero de umbrales medidos")
+    doc = _json.load(open(cp.FICHERO_UMBRALES, encoding='utf-8'))
+    check(doc.get('generado_por', '').startswith('_v166'),
+          "y dice que script lo genero, para poder repetirlo")
+    check((doc.get('n_goles') or 0) >= 10000,
+          f"medido sobre una muestra seria ({doc.get('n_goles')} partidos "
+          f"de goles)")
+    check((doc.get('n_1x2') or 0) >= 10000,
+          f"y {doc.get('n_1x2')} de 1X2")
+
+    for mercado in ('Goles', 'BTTS', '1X2'):
+        u = cp.umbral(mercado)
+        check(u == doc['umbrales'][mercado],
+              f"el umbral de {mercado} sale del fichero ({u})")
+        check(0.0 < u < 0.15,
+              f"y es mas estricto que los 15 pp de la v165 ({u})")
+
+    # el respaldo, si el fichero desapareciera, es el valor MEDIDO — no una
+    # intuicion nueva
+    check(cp.DESVIO_MAX <= 0.10,
+          f"el respaldo del codigo tambien es el medido ({cp.DESVIO_MAX})")
+
+    src = open('_v166_umbral_cordura.py', encoding='utf-8').read()
+    check('pick_ledger_totales.csv' in src and 'pick_ledger.csv' in src,
+          "la medicion usa los ledgers walk-forward que ya existian")
+    check('_boot_p5' in src,
+          "y no decide sobre una media: hay percentil 5 de bootstrap")
+
+
+def test_los_goles_se_encogen_hacia_el_mercado():
+    """
+    v166 — LA CAUSA RAIZ: A GOLES NUNCA SE LE APLICO LO QUE SI TIENE EL 1X2.
+
+    El 1X2 se encoge hacia el mercado desde la v71 (`calibracion_mercado`, w
+    por liga con suelo 0,25). Los goles nunca lo tuvieron. En el ledger —mismo
+    modelo, mismos partidos— eso se ve entero:
+
+        sin encoger (w=1,00)   ECE 0,0948 · brecha en el tramo de >15 pp 0,2215
+        encogido    (w=0,25)   ECE 0,0139 · brecha 0,0211
+
+    Un orden de magnitud, con maquinaria que ya existia y estaba validada. El
+    recorte de la v165 era el sintoma; esto es la causa.
+    """
+    import cordura_probabilidad as cp
+
+    r = cp.revisar(0.80, 'Menos de 2.5', 'premier', implicita=0.50,
+                   mercado='Goles')
+    check(r['encogida'] and r['w'] < 1.0,
+          f"un mercado de goles se encoge hacia la casa ({r['w']})")
+    check(0.50 < r['prob'] < 0.80,
+          f"la cifra que se enseña queda ENTRE las dos ({r['prob']})")
+    check(abs(r['prob'] - (r['w'] * 0.80 + (1 - r['w']) * 0.50)) < 0.02
+          or r['prob'] <= cp.TECHO_DESVIADO + 1e-9,
+          "y es la mezcla, o el techo si la mezcla lo pasaba")
+
+    # el 1X2 que YA viene encogido de `alpha_finder` no se encoge dos veces
+    dos = cp.revisar(0.60, 'Gana A', 'premier', implicita=0.40,
+                     mercado='1X2', ya_encogido=True)
+    check(not dos['encogida'],
+          "un mercado ya encogido en el barrido no se vuelve a encoger")
+
+    # y un mercado que no es de los tres tampoco
+    fuera = cp.revisar(0.70, 'Gana X', 'premier', implicita=0.40,
+                       mercado='Ganador')
+    check(not fuera['encogida'],
+          "un mercado fuera de la lista no se toca")
+
+    # el peso sale de `calibracion_mercado`, no de una constante local
+    src = open('cordura_probabilidad.py', encoding='utf-8').read()
+    check('calibracion_mercado' in src and 'peso_modelo' in src,
+          "el peso lo da el modulo que ya lo tenia medido, no uno nuevo")
+
+
+def test_los_corners_salen_en_todas_las_ligas_y_con_la_linea_de_la_casa():
+    """
+    v166 — CORNERS EN TODAS LAS TARJETAS, Y CONTRA UNA LINEA QUE EXISTE.
+
+    Dos cosas distintas:
+
+      · El bloque SALE en las 62 competiciones desde la v162 — en las 50 con
+        datos observados con sus cifras, y en las 12 sin ellos con el nivel de
+        la competicion y su etiqueta «Estimado». Lo que cambio en la v165 es
+        que el estimado va en gris. Aqui se comprueba que sigue SALIENDO, que
+        es lo que se pidio: verlo aunque sea estimado, no que desaparezca.
+      · La LINEA. Hasta ahora era «la de medio punto mas cercana a la media»:
+        una linea inventada. Podia anunciar «Mas de 9.5 57 %» mientras la casa
+        cotizaba 8,5, y entonces ese porcentaje no era el de ninguna apuesta
+        que se pudiera hacer. Ahora se usa la de la casa cuando el precalculo
+        del dia la trae, y se rotula.
+    """
+    import modo_modelo as mm
+    import mercado_implicito as mi
+
+    # --- sale en las dos clases de competicion --------------------------
+    for clave, partido, espera_estimado in (
+            ('premier', 'Man City vs Arsenal', False),
+            ('uru_primera', 'Danubio vs Racing (Montevideo)', True)):
+        pick = {'partido': partido, 'clave_liga': clave, 'deporte': 'Fútbol',
+                'fecha': '2026-08-24'}
+        ck = mm.corners_tarjeta(pick)
+        check(ck is not None,
+              f"{clave}: el bloque de corners existe")
+        if not ck:
+            continue
+        html = mm._bloque_corners_html(ck)
+        check('Córners' in html and 'Total' in html,
+              f"{clave}: y se pinta con su fila de total")
+        if espera_estimado:
+            check('Estimado' in html,
+                  f"{clave}: sin datos observados se enseña IGUAL, marcado")
+            check('mm-sinsena' in html,
+                  f"{clave}: en gris, para que no compita con lo medido")
+        else:
+            check('mm-sinsena' not in html,
+                  f"{clave}: con datos observados NO se apaga")
+
+    # --- la linea de la casa manda sobre la media redondeada ------------
+    base = {'partido': 'Man City vs Arsenal', 'clave_liga': 'premier',
+            'deporte': 'Fútbol', 'fecha': '2026-08-24'}
+    sin = mm.corners_tarjeta(base)
+    con = mm.corners_tarjeta({**base, 'implicitas': {
+        'casa': 'Playdoit', 'corners': {'7.5': 0.86, '8.5': 0.71}}})
+    if sin and con:
+        f_sin, f_con = sin['filas'][0], con['filas'][0]
+        check(not f_sin.get('de_la_casa'),
+              "sin precalculo, la linea es la de siempre")
+        check(f_con.get('de_la_casa'),
+              "con precalculo, la linea es la de la casa")
+        check('8.5' in f_con['texto'] or '7.5' in f_con['texto'],
+              f"y es una de las que la casa cotiza ({f_con['texto']})")
+        check('línea de la casa' in mm._bloque_corners_html(con),
+              "la tarjeta dice que esa linea es de la casa")
+
+    # la eleccion es la MAS CERCANA a la media, no la primera del diccionario
+    check(mm._linea_de_la_casa({'7.5': 1, '10.5': 1, '9.5': 1}, 9.6) == 9.5,
+          "se elige la linea real mas cercana a la media")
+    check(mm._linea_de_la_casa(None, 9.6) is None,
+          "y sin lineas de la casa, None")
+
+    # --- el lector saca los corners del tablero -------------------------
+    tablero = {'casa': 'Playdoit', 'home': 'A', 'away': 'B',
+               'casa_home': 'A', 'casa_away': 'B', 'mercados': [
+                   {'nombre': 'Total Tiros De Esquina', 'sv': '9.5',
+                    'selecciones': [{'nombre': 'Más de 9.5', 'cuota': 1.9},
+                                    {'nombre': 'Menos de 9.5', 'cuota': 1.9},
+                                    {'nombre': 'Más de 8.5', 'cuota': 1.5}]},
+                   {'nombre': 'A Total de Tiros de Esquina', 'sv': '4.5',
+                    'selecciones': [{'nombre': 'Más de 4.5', 'cuota': 1.9},
+                                    {'nombre': 'Menos de 4.5', 'cuota': 1.9}]},
+                   {'nombre': '1ª mitad - Total de Tiros de Esquina',
+                    'sv': '4.5',
+                    'selecciones': [{'nombre': 'Más de 4.5', 'cuota': 2.0},
+                                    {'nombre': 'Menos de 4.5', 'cuota': 1.8}]}]}
+    p = mi.del_tablero(tablero)
+    ck = p.get('corners') or {}
+    check(set(ck) == {'9.5'},
+          f"solo el total del PARTIDO, con sus dos lados ({sorted(ck)})")
+    check(abs(ck['9.5'] - 0.5) < 1e-6,
+          "y devigada: dos cuotas iguales dan 50 %")
+    check('4.5' not in ck,
+          "ni la familia por equipo ni la de media parte se cuelan")
+
+
+def test_la_tarjeta_enseña_todos_los_mercados():
+    """
+    v166 — NADA SE ESCONDE: 1X2, GOLES, AMBOS MARCAN, CORNERS, TARJETAS Y
+    REMATES, LOS SEIS, EN TODA TARJETA DE FUTBOL.
+
+    La v163.1 quito los remates por equipo a peticion del usuario. Ahora se
+    pide lo contrario y explicitamente: verlo todo, con la app diciendo que es
+    real y que es estimado. Las dos peticiones son compatibles — lo que hacia
+    ruido no era el bloque, era que un bloque estimado tuviera el mismo peso
+    visual que uno medido, y eso se arreglo en la v165 con el gris.
+    """
+    import modo_modelo as mm
+
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    cuerpo = src.split('def tarjeta(')[1]
+    for pieza in ('_bloque_goles_html', '_bloque_corners_html',
+                  '_bloque_tarjetas_html', '_bloque_remates_html',
+                  '_bloque_quien_remata_html', 'Ambos marcan'):
+        check(pieza in cuerpo,
+              f"la tarjeta pinta {pieza}")
+
+    for clave, partido in (('premier', 'Man City vs Arsenal'),
+                           ('uru_primera', 'Danubio vs Racing (Montevideo)')):
+        pick = {'partido': partido, 'clave_liga': clave, 'deporte': 'Fútbol',
+                'fecha': '2026-08-24'}
+        html = ''.join([
+            mm._bloque_corners_html(mm.corners_tarjeta(pick)),
+            mm._bloque_tarjetas_html(mm.tarjetas_tarjeta(pick)),
+            mm._bloque_remates_html(mm.remates_tarjeta(pick))])
+        for titulo in ('Córners', 'Tarjetas', 'Remates', 'Remates a puerta'):
+            check(titulo in html,
+                  f"{clave}: la tarjeta enseña «{titulo}»")
 
 
 def test_todas_las_ligas_tienen_remates():
@@ -8377,6 +8645,11 @@ if __name__ == '__main__':
     test_el_titular_no_va_en_verde_sin_contraste()
     test_el_precio_de_la_casa_llega_a_la_tarjeta_sin_pedir_red()
     test_los_bloques_sin_insignia_van_en_gris()
+    print('\n=== v166: umbral medido, encogimiento y corners ===')
+    test_el_umbral_de_cordura_sale_del_historico()
+    test_los_goles_se_encogen_hacia_el_mercado()
+    test_los_corners_salen_en_todas_las_ligas_y_con_la_linea_de_la_casa()
+    test_la_tarjeta_enseña_todos_los_mercados()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
