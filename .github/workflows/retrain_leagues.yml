@@ -333,6 +333,22 @@ jobs:
         run: |
           python lineas_jugador.py --dias 2 || echo "::warning::líneas de jugador con avisos"
 
+      # v165 — EL PRECIO DE LA CASA DE LOS TRES MERCADOS DE LA TARJETA.
+      #
+      # La tarjeta anunciaba «Menos de 2.5 — 80 %» sin nada con qué
+      # contrastarlo, y la casa pagaba ese mismo lado al 63 %. El pronóstico no
+      # llevaba el precio encima: medido sobre el barrido del 2026-08-23,
+      # ninguno de los 156 partidos de fútbol traía `cuota` en sus mercados.
+      #
+      # Va JUSTO DESPUÉS de las líneas de jugador y no es casual: las dos
+      # cosas salen del MISMO tablero por evento, que `cuotas_multi` acaba de
+      # dejar en la caché de disco con TTL de 30 min. Ejecutados seguidos, éste
+      # casi no descarga nada.
+      - name: Precalcular el precio de la casa (1X2, goles y ambos marcan)
+        continue-on-error: true
+        run: |
+          python mercado_implicito.py --dias 2 || echo "::warning::precio de la casa con avisos"
+
       - name: Guardar históricos y estado (antes de lo lento)
         run: |
           git config user.name  "retrain-bot"
@@ -553,6 +569,10 @@ jobs:
           # la casa las mueve durante el día y las de esta mañana ya no se
           # pueden recuperar mañana.
           git add -A lineas_jugador_dia.json 2>/dev/null || true
+          # v165 — y el precio de la casa del día, por el mismo motivo: es la
+          # única referencia con la que la tarjeta puede contrastar su propio
+          # porcentaje, y la casa mueve sus líneas durante el día.
+          git add -A mercado_dia.json 2>/dev/null || true
           # v162 — las estadísticas reales de ESPN. Son la fuente de que
           # córners y tarjetas dejen de ser sintéticos en 40 competiciones;
           # sin commitearlas, cada despliegue empezaría de cero.

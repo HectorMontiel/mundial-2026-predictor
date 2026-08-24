@@ -1,0 +1,380 @@
+[
+ {
+  "partido": "Botafogo vs Athletico-PR",
+  "casa_home": 0.241,
+  "espn_home": 0.396,
+  "dif": -0.154,
+  "favorito_cambia": true
+ },
+ {
+  "partido": "Independiente del Valle vs Deportes Tolima",
+  "casa_home": 0.637,
+  "espn_home": 0.613,
+  "dif": 0.024,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "River Plate vs Independiente Santa Fe",
+  "casa_home": 0.638,
+  "espn_home": 0.659,
+  "dif": -0.022,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Granada vs Mallorca",
+  "casa_home": 0.299,
+  "espn_home": 0.319,
+  "dif": -0.021,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Juventude vs CRB",
+  "casa_home": 0.502,
+  "espn_home": 0.488,
+  "dif": 0.015,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Real Madrid vs Real Sociedad",
+  "casa_home": 0.736,
+  "espn_home": 0.722,
+  "dif": 0.014,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Libertad vs Sportivo San Lorenzo",
+  "casa_home": 0.717,
+  "espn_home": 0.706,
+  "dif": 0.011,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Bodo/Glimt vs NEC Nijmegen",
+  "casa_home": 0.663,
+  "espn_home": 0.673,
+  "dif": -0.01,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Monterrey vs Chicago Fire FC",
+  "casa_home": 0.328,
+  "espn_home": 0.319,
+  "dif": 0.01,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Cúcuta Deportivo vs Alianza FC",
+  "casa_home": 0.431,
+  "espn_home": 0.421,
+  "dif": 0.01,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Everton CD vs Universidad de Concepción",
+  "casa_home": 0.517,
+  "espn_home": 0.507,
+  "dif": 0.01,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Lanús vs Argentinos Juniors",
+  "casa_home": 0.373,
+  "espn_home": 0.366,
+  "dif": 0.007,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "AEK Athens vs Levski Sofia",
+  "casa_home": 0.625,
+  "espn_home": 0.632,
+  "dif": -0.007,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Sport vs América Mineiro",
+  "casa_home": 0.579,
+  "espn_home": 0.572,
+  "dif": 0.007,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Siwelele vs Chippa United",
+  "casa_home": 0.526,
+  "espn_home": 0.519,
+  "dif": 0.007,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "León vs Real Salt Lake",
+  "casa_home": 0.316,
+  "espn_home": 0.31,
+  "dif": 0.006,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "GV San José vs Oriente Petrolero",
+  "casa_home": 0.509,
+  "espn_home": 0.503,
+  "dif": 0.006,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Coquimbo Unido vs Universidad Católica",
+  "casa_home": 0.432,
+  "espn_home": 0.438,
+  "dif": -0.006,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Polokwane City FC vs Milford FC",
+  "casa_home": 0.458,
+  "espn_home": 0.464,
+  "dif": -0.006,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Richards Bay FC vs Kaizer Chiefs",
+  "casa_home": 0.21,
+  "espn_home": 0.216,
+  "dif": -0.006,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "New Mexico United vs Lexington",
+  "casa_home": 0.345,
+  "espn_home": 0.349,
+  "dif": -0.005,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "2 de Mayo vs Guaraní",
+  "casa_home": 0.324,
+  "espn_home": 0.328,
+  "dif": -0.005,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Marumo Gallants vs TS Galaxy FC",
+  "casa_home": 0.37,
+  "espn_home": 0.375,
+  "dif": -0.005,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Mamelodi Sundowns vs AmaZulu",
+  "casa_home": 0.788,
+  "espn_home": 0.794,
+  "dif": -0.005,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Ferro Carril Oeste vs All Boys",
+  "casa_home": 0.577,
+  "espn_home": 0.573,
+  "dif": 0.004,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Chaco For Ever vs San Miguel",
+  "casa_home": 0.426,
+  "espn_home": 0.431,
+  "dif": -0.004,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Independiente Santa Fe vs Jaguares de Córdoba",
+  "casa_home": 0.721,
+  "espn_home": 0.725,
+  "dif": -0.004,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Orlando Pirates vs Sekhukhune United FC",
+  "casa_home": 0.724,
+  "espn_home": 0.727,
+  "dif": -0.004,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Cruzeiro vs Atlético-MG",
+  "casa_home": 0.479,
+  "espn_home": 0.476,
+  "dif": 0.004,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Vasco da Gama vs Vitória",
+  "casa_home": 0.579,
+  "espn_home": 0.575,
+  "dif": 0.004,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Toluca vs Austin FC",
+  "casa_home": 0.632,
+  "espn_home": 0.634,
+  "dif": -0.003,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Deportivo Madryn vs Godoy Cruz Antonio Tomba",
+  "casa_home": 0.393,
+  "espn_home": 0.39,
+  "dif": 0.003,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Atlético Goianiense vs Botafogo-SP",
+  "casa_home": 0.448,
+  "espn_home": 0.451,
+  "dif": -0.003,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Kruger United vs Durban City",
+  "casa_home": 0.292,
+  "espn_home": 0.295,
+  "dif": -0.003,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Talleres (Córdoba) vs Rosario Central",
+  "casa_home": 0.349,
+  "espn_home": 0.35,
+  "dif": -0.002,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "NK Celje vs Slovan Bratislava",
+  "casa_home": 0.4,
+  "espn_home": 0.398,
+  "dif": 0.002,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Acassuso vs San Telmo",
+  "casa_home": 0.43,
+  "espn_home": 0.433,
+  "dif": -0.002,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Patronato vs Atlanta",
+  "casa_home": 0.414,
+  "espn_home": 0.412,
+  "dif": 0.002,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Atlético Nacional vs Deportivo Cali",
+  "casa_home": 0.6,
+  "espn_home": 0.598,
+  "dif": 0.002,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Golden Arrows vs Stellenbosch",
+  "casa_home": 0.333,
+  "espn_home": 0.335,
+  "dif": -0.002,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Tigre vs Central Córdoba (Santiago del Estero)",
+  "casa_home": 0.596,
+  "espn_home": 0.595,
+  "dif": 0.001,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "LASK Linz vs Celtic",
+  "casa_home": 0.489,
+  "espn_home": 0.49,
+  "dif": -0.001,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Central Norte vs Deportivo Morón",
+  "casa_home": 0.341,
+  "espn_home": 0.342,
+  "dif": -0.001,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Boyacá Chicó FC vs Fortaleza CEIF",
+  "casa_home": 0.355,
+  "espn_home": 0.354,
+  "dif": 0.001,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Charleston Battery vs Miami FC",
+  "casa_home": 0.715,
+  "espn_home": 0.714,
+  "dif": 0.001,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "El Paso Locomotive FC vs Pittsburgh Riverhounds",
+  "casa_home": 0.42,
+  "espn_home": 0.421,
+  "dif": -0.001,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Palmeiras vs Santos",
+  "casa_home": 0.647,
+  "espn_home": 0.649,
+  "dif": -0.001,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Valencia vs Real Betis",
+  "casa_home": 0.341,
+  "espn_home": 0.341,
+  "dif": -0.0,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "América vs Columbus Crew",
+  "casa_home": 0.556,
+  "espn_home": 0.556,
+  "dif": 0.0,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "América de Cali vs Atlético Junior",
+  "casa_home": 0.503,
+  "espn_home": 0.503,
+  "dif": -0.0,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Universitario de Vinto vs Nacional Potosí",
+  "casa_home": 0.359,
+  "espn_home": 0.359,
+  "dif": 0.0,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "San Antonio Bulo Bulo vs The Strongest",
+  "casa_home": 0.3,
+  "espn_home": 0.3,
+  "dif": 0.0,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Real Potosí vs Real Tomayapo",
+  "casa_home": 0.705,
+  "espn_home": 0.705,
+  "dif": -0.0,
+  "favorito_cambia": false
+ },
+ {
+  "partido": "Blooming vs Real Oruro",
+  "casa_home": 0.693,
+  "espn_home": 0.693,
+  "dif": -0.0,
+  "favorito_cambia": false
+ }
+]

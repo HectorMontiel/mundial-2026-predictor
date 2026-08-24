@@ -1,0 +1,39 @@
+{
+ "cuenta": {
+  "con titular": 61,
+  "sin precio de la casa": 61,
+  "titular VERDE (>=60 %)": 11
+ },
+ "techo": {
+  "sin techo aplicable": 55,
+  "con techo aplicable": 6
+ },
+ "detalle": [],
+ "medias_goles": {
+  "arg_primera_nacional": 1.857,
+  "argentina": 2.024,
+  "bol_division": 3.147,
+  "bra_copa": 2.231,
+  "bra_serie_b": 2.211,
+  "brasil": 2.516,
+  "champions": 3.177,
+  "chi_primera": 2.77,
+  "col_primera_a": 2.307,
+  "conference_league": 2.777,
+  "ecu_liga_pro": 2.464,
+  "esp_hypermotion": 2.47,
+  "fra_ligue2": 2.529,
+  "laliga": 2.658,
+  "leagues_cup": 2.984,
+  "libertadores": 2.298,
+  "ned_eerste": 3.105,
+  "par_division": 2.405,
+  "premier": 2.986,
+  "primeira": 2.699,
+  "rsa_premier": 2.029,
+  "serie_a": 2.532,
+  "slv_primera": 2.506,
+  "turquia": 2.813,
+  "usl_championship": 2.676
+ }
+}

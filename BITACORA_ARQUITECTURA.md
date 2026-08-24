@@ -1887,3 +1887,177 @@ recortando 900 caracteres del fichero desde `def _bloque_corners_html`, que es u
 línea que delega en la de al lado; al crecer el docstring vecino, el 🟡 se salió
 de la ventana y falló sin que nada hubiera cambiado. Ahora se comprueba sobre el
 HTML pintado.
+
+
+## 15. El control de cordura: ningún porcentaje sin algo contra lo que medirlo
+
+### 15.1 El caso, con nombre y resultado
+
+Parlay del 2026-08-23, tres patas y las tres de esta pantalla:
+
+| partido | lo que decía la tarjeta | lo que pasó |
+|---|---|---|
+| Celta B – Andorra (`esp_hypermotion`) | ✅ Menos de 2.5 — 80 % | 4-2 |
+| Bologna – Lazio (`serie_a`) | 🟡 destacado: Local Menos de 5.5 60 % (córners) | pasó la línea |
+| Brøndby – Silkeborg (`dinamarca`) | Menos de 2.5 53 % · tarjetas Menos de 4.5 51 % | ninguna |
+
+El fallo **no es acertar o no acertar un partido**: eso pasa y no se arregla. El
+fallo es que la pantalla publicó una convicción que nada sostenía, y la publicó
+en verde. Un 80 % de «menos de 2,5» sale de una λ de partido de 1,35 goles.
+
+### 15.2 Lo que estaba roto: el pronóstico no llevaba el precio encima
+
+Medido sobre el barrido cacheado del 2026-08-23 (`_v165_medir_cordura.py`):
+
+    156 pronósticos de fútbol
+      0  llevaban `cuota` en NINGÚN mercado
+
+No era un fallo del barrido. `pronosticos` se construye por el camino del
+MODELO (`alpha_finder._mercados_modelo`), que emite cuota justa y `cuota: None`
+a propósito. Los precios reales existían, pero vivían en `candidatos`/`capa1`,
+que son otra lista y sólo cubren lo que pasó los filtros de élite. O sea que la
+tarjeta **nunca tuvo con qué contrastarse**, y el verde salía sólo de que el
+número fuera grande. Resultado: **103 de 151 tarjetas en verde**.
+
+De las 11 que se pudieron contrastar a posteriori contra el tablero cacheado de
+la casa, **4 se separaban más de 15 puntos y 3 de esas 4 estaban en verde**:
+
+    Sport – América Mineiro       Más de 2.5     modelo 70 %  casa 46 %   ← verde
+    Deportivo Madryn – Godoy Cruz Menos de 2.5   modelo 87 %  casa 67 %   ← verde
+    2 de Mayo – Guaraní           Menos de 2.5   modelo 81 %  casa 63 %   ← verde
+    Tigre – Central Córdoba       Ambos marcan   modelo 59 %  casa 34 %
+
+### 15.3 Los tres frenos, y por qué son tres y no uno
+
+`cordura_probabilidad.py`. Son distintos y sus consecuencias también:
+
+1. **Contra el precio de la casa.** Más de 15 puntos de separación contra la
+   implícita SIN MARGEN → la cifra se recorta al 60 % y se rotula «🔴
+   Probabilidad poco fiable». No es que la casa tenga razón por serlo: es que
+   este proyecto tiene MEDIDO que guiarse por su probabilidad rinde −4,66 % a
+   −6,52 % sobre 37.158 apuestas, y que su EV correlaciona −0,054 con el cierre.
+2. **Contra el nivel de la competición.** Techo del 65 % cuando la línea cae por
+   debajo de la media de goles de la liga, y del 50 % cuando cae 0,5 goles o más
+   por debajo. Con la línea de 2,5 eso es exactamente lo que se pidió: «λ > 2,5
+   → 65 %» y «λ > 3,0 → 50 %».
+3. **Sin precio, sin verde.** Cuando no hay con qué contrastar, la cifra se
+   enseña entera —no se recorta— pero se queda en ámbar y la tarjeta dice por
+   qué. El ✅ es la única marca de esta pantalla que se lee como «juega esto».
+
+**El techo sólo BAJA.** Un modelo tímido no se sube nunca hacia la casa: eso
+sería publicar la opinión de la casa con la cara del modelo, que es el error que
+la v149 ya evitó con las barras de mercado.
+
+**El generalizado importa.** La regla 2 no se aplica a cualquier «menos de»:
+sólo cuando la línea está en el lado equivocado de la media. «Menos de 3,5» en
+una liga de 2,7 goles es un favorito legítimo al 75 % y recortarlo sería el
+error contrario. Medido: 55 de 151 titulares caen bajo la regla, 31 se recortan,
+6 pierden el verde por ella.
+
+### 15.4 De dónde sale la implícita, y por qué se adjunta en el barrido
+
+`mercado_implicito.py` saca del tablero de la casa 1X2, goles (todas sus líneas)
+y ambos marcan, devigados con `potencia` (el método que la v80 midió mejor por
+log-loss en las tres familias). El bot lo precalcula en `mercado_dia.json`, en el
+MISMO paso del workflow que las líneas de jugador y a continuación: las dos
+cosas salen del mismo tablero por evento, que `cuotas_multi` acaba de dejar en la
+caché de disco con TTL de 30 min, así que el segundo precálculo casi no descarga.
+
+El precio se adjunta al pronóstico **en `alpha_finder`**, no se busca desde la
+tarjeta, y por dos motivos:
+
+* **Por los nombres.** El precálculo se indexa con los del FIXTURE y el
+  pronóstico lleva los del catálogo del modelo, ya pasados por `name_mapper`.
+  Buscando desde la tarjeta con los segundos, sólo **22 de 151** partidos
+  encontraban su entrada. En `alpha_finder` todavía está `fx` con el nombre
+  crudo y la llave es exacta.
+* **Porque la tarjeta no pide red.** Esa regla ya costó tres regresiones al
+  proyecto (383 s y 388 s de barrido).
+
+Como respaldo, `implicitas_de_la_casa` completa con las cuotas que el barrido ya
+tenía descargadas de ESPN y Pinnacle. Ninguna petición nueva.
+
+### 15.5 Lo que esto NO toca
+
+La Sección 1 y el EV. La ventaja de precio es el único canal con percentil 5
+positivo medido del proyecto (+11,49 %, p5 +1,73 %), y se calcula sobre la
+probabilidad cruda en `alpha_finder`. Meter un techo ahí cambiaría el canal
+validado por uno sin validar. **Todo esto vive en la capa de presentación.**
+
+### 15.6 Y los bloques físicos: quitar la insignia no bastaba
+
+La v164 dejó de pintar «destacado» en los bloques estimados (§14.1). Pero el
+bloque seguía teniendo el mismo peso visual que uno medido: tres filas en negro
+con sus porcentajes. Eso es lo que se leyó como recomendación en la pata de
+córners de Bologna–Lazio. Desde la v165, sin insignia el bloque entero va en
+gris (`mm-sinsena`): se ve, se puede consultar, y no compite con lo que sí está
+medido. Es la misma disciplina que la barra de mercado de la v149 — otro origen,
+otro tono.
+
+### 15.7 Lo que cambia en pantalla, sin adornarlo
+
+De las 151 tarjetas del día, **103 iban en verde**. Con las tres reglas y la
+cobertura de precio que hay hoy, el verde cae a un puñado. **No es un efecto
+secundario: es el cambio.** Una pantalla donde dos de cada tres tarjetas gritan
+«✅» no está informando, está decorando. La cobertura de la casa (Playdoit cotiza
+unos 76 de los fixtures del día, ~49 %) es el techo de cuántas tarjetas pueden
+llevar verde, y subirla es trabajo de emparejamiento, no de umbral.
+
+### 15.8 Y una cosa que apareció al construirlo: emparejamientos rotos
+
+Al generar el primer `mercado_dia.json` (54 partidos de 75 fixtures, 72 % de
+cobertura), un partido salía con el favorito del revés: **Botafogo – Athletico-PR**
+del Brasileirão, con el local a 3,80 cuando ESPN lo pagaba a 2,40.
+`cuotas_multi._buscar` lo había casado con el **«Botafogo SP – Atlético»** que la
+casa cotizaba **ese mismo día**. Pasar `fecha` y `liga` —las dos guardias de la
+v114— **no lo arregla**: los dos partidos comparten día y categoría.
+
+Un precio de otro partido no produce un hueco, que sería honesto: produce un
+**contraste falso**, que es lo contrario de para lo que existe todo esto.
+
+La solución no es tocar el emparejador —eso mueve todos los emparejados del
+proyecto y es una medición aparte (pendiente 10)— sino usar la segunda opinión
+que ya está ahí: el 1X2 que ESPN publica del mismo fixture. Medido sobre los 54
+partidos con las dos fuentes (`_v165_emparejado_casa.py`):
+
+    |dif| > 0,10    1 partido    ← el emparejamiento roto, y sólo él
+    |dif| > 0,20    0 partidos
+    los otros 53 discrepan 0,02 o menos
+
+La separación entre lo correcto y lo roto es de un orden de magnitud, así que el
+umbral (0,10) no es una elección fina. `alpha_finder._mismo_partido` sólo
+DESCARTA: nunca inventa un precio ni corrige uno, y su modo de fallo es un
+hueco.
+
+Dos correcciones más del mismo día de construcción:
+
+* **El 1X2 salía en 22 de 54.** `mercados_playdoit` devuelve `home`/`away` con
+  los nombres del LLAMADOR y `casa_home`/`casa_away` con los de la casa; se
+  comparaban las selecciones contra los primeros («Athletico-PR» contra
+  «Athletico Paranaense»). Ahora manda el `tipo` de la selección (1/2/3), con el
+  nombre de respaldo — y con el cambio de lado cuando el emparejador marcó
+  `invertido`, porque el tipo 1 de la casa es nuestro visitante en ese caso.
+* **Los cuartos se rotulaban mal.** `'%.1f'` convertía «Más de 1.25» en la clave
+  `1.2` y «Más de 1.75» en `1.8`. Emparejaban bien entre sí, pero el rótulo
+  mentía. `mercado_implicito.clave_linea` es ahora el único sitio donde se
+  fabrica esa etiqueta, y por ahí pasan tanto quien escribe como quien lee —
+  incluido el respaldo de `alpha_finder`, que si no habría escrito `2.5` donde
+  el otro esperaba `2.50`.
+
+### 15.9 El estado tras el cambio, medido
+
+Barrido del 2026-08-24, 61 partidos de futbol con modelo y el fichero
+`mercado_dia.json` generado:
+
+    con precio de la casa adjunto        59 de 61
+    con la linea 2.5 de la casa          53
+    titulares contrastables              47  (77 %)
+    marcados poco fiable                 18  (38 % de los contrastables)
+    recortados por alguna regla          12
+    en VERDE                             22
+
+Los 18 sobre 47 son el hallazgo y no un efecto secundario: el modelo se separa
+mas de 15 puntos de la casa en dos de cada cinco titulares que se pueden
+comprobar. Lo que zanja quien tiene razon es liquidar esos casos cuando haya
+volumen, igual que con los snapshots de cornrs y tarjetas — y ahora
+`mercado_dia.json` se commitea a diario, asi que ese historico empieza hoy.

@@ -20,9 +20,31 @@ El encargo fue «que se sienta como un producto, no como un laboratorio de
 datos»: una línea que diga qué apostar, la racha en colores debajo, y ningún
 tecnicismo. Eso es lo que hay.
 
-    ✅ Menos de 2.5 goles — 72 %      (verde:   ≥ 60 %)
+    ✅ Menos de 2.5 goles — 72 %      (verde:   ≥ 60 % Y contrastado)
     🟡 Gana el Barcelona — 55 %       (ámbar:   ≥ 50 %, sólo para combinar)
     ⚠️ Sin apuesta clara              (nada llega al 50 %)
+
+v165 — EL VERDE YA NO SE GANA SÓLO CON UN NÚMERO ALTO
+------------------------------------------------------
+El 2026-08-23 esta pantalla anunció «✅ Menos de 2.5 — 80 %» en Celta Vigo B –
+Andorra. Acabó 4-2. El fallo no fue acertar o no acertar un partido: fue
+publicar en verde una convicción que nada sostenía. Desde la v165 el ✅ exige
+tres cosas a la vez, y `cordura_probabilidad` las comprueba:
+
+    · llegar al 60 %, como siempre;
+    · no separarse más de 15 puntos de lo que la casa paga por ESA misma
+      apuesta, sin margen (`mercado_implicito`);
+    · que HAYA precio de la casa con el que compararse. Sin él la cifra se
+      enseña, pero en ámbar y diciendo por qué.
+
+Y por encima de las tres, un techo: en una competición que mete 3,0 goles por
+partido, «menos de 2,5» no puede anunciarse por encima del 50 % aunque el
+modelo lo crea, porque la aritmética de la liga no lo sostiene.
+
+Medido sobre el barrido del 2026-08-23: de 151 tarjetas, 103 iban en verde. De
+las 11 que se pudieron contrastar contra la casa, 4 se separaban más de 15
+puntos y 3 de esas 4 estaban en verde — 87 % contra 67 %, 81 % contra 63 % y
+70 % contra 46 %.
 
 La apuesta destacada NO es sólo el 1X2: gana el mercado con más probabilidad de
 todo el partido, que es lo que se pidió.
@@ -243,11 +265,67 @@ def apuesta_destacada(pick: Dict) -> Optional[Dict]:
             filas.append((p, str(pick['apuesta']), str(pick.get('mercado') or '')))
     if not filas:
         return None
-    p, apuesta, mercado = max(filas, key=lambda f: f[0])
+    # v165 — EL CONTROL DE CORDURA, ANTES DE ELEGIR Y NO DESPUÉS.
+    #
+    # Si se eligiera el máximo crudo y luego se recortara, la tarjeta podría
+    # anunciar un 60 % recortado desde el 87 % teniendo al lado otro mercado
+    # con un 64 % que nadie ha tenido que tocar. Se revisa cada fila y gana la
+    # que más vale DESPUÉS del recorte, que es lo que se está enseñando.
+    revisadas = []
+    for p, apuesta, mercado in filas:
+        info = _revisar(pick, apuesta, p)
+        revisadas.append((info.get('prob', p), apuesta, mercado, info))
+    p, apuesta, mercado, info = max(revisadas, key=lambda f: f[0])
     if p < UMBRAL_PATA:
         return None
+    # El verde exige las tres cosas: llegar al 60 %, no separarse de la casa
+    # más de 15 puntos y que HAYA casa con la que compararse. Sin precio no hay
+    # verde, y eso no es un tecnicismo: el ✅ es la única marca de esta pantalla
+    # que se lee como «juega esto».
     return {'prob': p, 'apuesta': apuesta, 'mercado': mercado,
-            'alta': p >= UMBRAL_ALTA}
+            'alta': p >= UMBRAL_ALTA and bool(info.get('puede_verde')),
+            'original': info.get('original', p),
+            'fiable': bool(info.get('fiable', True)),
+            'contrastada': bool(info.get('contrastada')),
+            'implicita': info.get('implicita'),
+            'techo': info.get('techo'),
+            'aviso': _aviso_cordura(info)}
+
+
+def _revisar(pick: Dict, apuesta: str, prob: float) -> Dict:
+    """
+    La probabilidad que se puede enseñar de esa apuesta en ESTE partido.
+
+    Junta las dos piezas: el precio de la casa que `alpha_finder` dejó en el
+    pick (`implicitas`, sin margen y sin una sola petición de red) y las reglas
+    de `cordura_probabilidad`. Si cualquiera de los dos módulos falla, devuelve
+    la cifra intacta y sin verde: degradar a «no se puede contrastar» es el
+    fallo seguro; degradar a «adelante, es verde» sería el peligroso.
+    """
+    try:
+        import cordura_probabilidad as cp
+    except Exception as e:
+        logger.debug('[modo_modelo] cordura no disponible: %s', e)
+        return {'prob': prob, 'original': prob, 'fiable': True,
+                'contrastada': False, 'puede_verde': False,
+                'implicita': None, 'techo': None, 'motivo': ''}
+    imp = None
+    try:
+        import mercado_implicito as mi
+        h, a = _equipos(pick)
+        imp = mi.implicita(pick.get('implicitas') or {}, apuesta,
+                           h or '', a or '')
+    except Exception as e:
+        logger.debug('[modo_modelo] implícita de %s: %s', apuesta, e)
+    return cp.revisar(prob, apuesta, pick.get('clave_liga'), implicita=imp)
+
+
+def _aviso_cordura(info: Dict) -> str:
+    try:
+        import cordura_probabilidad as cp
+        return cp.aviso(info)
+    except Exception:
+        return ''
 
 
 _COLOR = {'G': '#1a7f37', 'E': '#9a6700', 'P': '#cf222e'}
@@ -373,8 +451,9 @@ def _bloque_goles_html(pick: Dict, board: Dict) -> str:
     lineas = pick.get('goles_lineas') or {}
     fila25 = _fila_mercado('⚽', 'Goles', board.get(_ETQ_OVER),
                            board.get(_ETQ_UNDER), 'Más 2.5', 'Menos 2.5')
+    casa = _fila_casa(pick, '2.5')
     if not lineas:
-        return fila25
+        return fila25 + casa
     otras = []
     for etq in ('1.5', '3.5'):
         try:
@@ -384,12 +463,36 @@ def _bloque_goles_html(pick: Dict, board: Dict) -> str:
         otras.append('Más %s <b>%.0f %%</b> · Menos %s %.0f %%'
                      % (etq, p * 100, etq, (1.0 - p) * 100))
     if not otras:
-        return fila25
+        return fila25 + casa
     if not fila25:
         # sin la de 2,5 no hay barra, pero las otras dos siguen valiendo
         fila25 = '<div class="mm-merc"><div class="mm-merc-tit">⚽ Goles</div></div>'
     return fila25 + ('<div class="mm-ck-fila mm-goles-otras">%s</div>'
-                     % ' &nbsp;·&nbsp; '.join(otras))
+                     % ' &nbsp;·&nbsp; '.join(otras)) + casa
+
+
+def _fila_casa(pick: Dict, linea: str = '2.5') -> str:
+    """
+    v165 — LO QUE LA CASA CREE DE LA MISMA LÍNEA, DEBAJO DE LO QUE CREE EL MODELO.
+
+    Es la comparación que faltaba y la que el usuario no podía hacer: la
+    tarjeta anunciaba «Menos de 2.5 — 80 %» sin nada al lado, y la casa pagaba
+    ese mismo lado al 63 %. Las dos cifras juntas dicen más que cualquiera de
+    las dos sola, y ninguna de las dos se disfraza de la otra.
+
+    Sale del precio que `alpha_finder` adjuntó al pronóstico, ya sin margen. Si
+    no hay, no se pinta nada — un hueco se ve y un relleno no.
+    """
+    p = (((pick.get('implicitas') or {}).get('goles')) or {}).get(linea)
+    try:
+        p = float(p)
+    except (TypeError, ValueError):
+        return ''
+    casa = (pick.get('implicitas') or {}).get('casa') or 'la casa'
+    return ('<div class="mm-ck-fila mm-casa">🏠 %s · Más %s <b>%.0f %%</b> · '
+            'Menos %s %.0f %% <span class="mm-ck-est">precio de la casa, sin '
+            'su margen</span></div>'
+            % (casa, linea, p * 100, linea, (1.0 - p) * 100))
 
 
 def _fila_mercado(icono: str, titulo: str, izq, der, etq_izq: str,
@@ -629,8 +732,17 @@ def _bloque_seccion_html(bloque: Optional[Dict], icono: str,
                     if matiz else ''))
     else:
         badge = ''
-    trozos = ['<div class="mm-ck-tit">%s <b>%s</b>%s %s</div>'
-              % (icono, titulo,
+    # v165 — Y ADEMAS SE APAGA EL BLOQUE ENTERO.
+    #
+    # Quitar la insignia dejaba el bloque con el mismo peso visual que uno
+    # medido: tres filas en negro con sus porcentajes, que es lo que el usuario
+    # leyo como recomendacion en el parlay del 2026-08-23. Sin insignia el
+    # bloque va en gris — se ve, se puede consultar, y no compite con lo que si
+    # esta medido. Es la misma disciplina que la barra de mercado de la v149:
+    # otro origen, otro tono.
+    apagado = '' if con_insignia else ' mm-sinsena'
+    trozos = ['<div class="mm-ck-tit%s">%s <b>%s</b>%s %s</div>'
+              % (apagado, icono, titulo,
                  ' <span class="mm-ck-est">estimado</span>' if estimado else '',
                  badge)]
     for f in bloque['filas']:
@@ -638,9 +750,9 @@ def _bloque_seccion_html(bloque: Optional[Dict], icono: str,
         # la misma afirmacion con otra tipografia
         resalta = ' mm-ck-mejor' if (con_insignia and f is mejor) else ''
         trozos.append(
-            '<div class="mm-ck-fila%s">%s <b>%.1f</b> · %s '
+            '<div class="mm-ck-fila%s%s">%s <b>%.1f</b> · %s '
             '<span class="mm-ck-pct">%.0f %%</span></div>'
-            % (resalta, f['etiqueta'], f['media'], f['texto'],
+            % (resalta, apagado, f['etiqueta'], f['media'], f['texto'],
                f['prob'] * 100))
     trozos.append(_etiqueta_origen(bloque))
     return ''.join(trozos)
@@ -1036,6 +1148,14 @@ CSS = """
 .mm-est { opacity:.85; font-size:.74rem; line-height:1.5; }
 .mm-est-flojo { color:#b45309; }
 .mm-jug { font-size:.79rem; line-height:1.6; padding-left:.6rem; opacity:.9; }
+/* v165 — el precio de la casa y los bloques sin insignia.
+   `mm-casa` es una cifra de OTRO origen que la del modelo, asi que se
+   distingue como la barra de mercado de la v149: misma forma, tono aparte.
+   `mm-sinsena` apaga el bloque entero de un mercado que no ha ganado su
+   insignia — el usuario lo ve, la aplicacion no lo recomienda. */
+.mm-casa { font-size:.75rem; opacity:.85; margin-top:-.1rem;
+           border-left:2px solid var(--tenue); }
+.mm-sinsena { opacity:.62; }
 </style>
 """
 
@@ -1115,6 +1235,16 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         else:
             st.markdown('🟡 **%s — %.0f %%** · sólo para combinar'
                         % (dest['apuesta'], dest['prob'] * 100))
+        # v165 — POR QUÉ ESA CIFRA Y NO LA QUE DIJO EL MODELO.
+        #
+        # Cuando el control de cordura recorta —o cuando no hay precio de la
+        # casa con el que contrastar— la tarjeta lo dice ahí mismo. Recortar en
+        # silencio cambiaría una mentira grande por una pequeña; lo que hace
+        # honesta a la pantalla no es el número menor, es que se pueda ver de
+        # dónde sale.
+        if dest and not pick.get('jugado') and con_apuesta \
+                and not sin_modelo and dest.get('aviso'):
+            st.caption(dest['aviso'])
 
         h, a = _equipos(pick)
         piezas = []
@@ -1371,7 +1501,14 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         if con_apuesta:
             solo_altas = st.checkbox('Sólo alta probabilidad (%d %%)'
                                      % (UMBRAL_ALTA * 100),
-                                     key='%s_solo_altas' % clave)
+                                     key='%s_solo_altas' % clave,
+                                     help='Deja sólo las apuestas que llegan '
+                                          'al %d %% Y se pueden contrastar con '
+                                          'el precio de la casa sin separarse '
+                                          'más de %d puntos. Una cifra alta que '
+                                          'nadie ha podido contradecir no entra '
+                                          'aquí.'
+                                          % (UMBRAL_ALTA * 100, 15))
         else:
             solo_altas = False
         solo_fisicos = st.checkbox('Sólo con córners y tarjetas',

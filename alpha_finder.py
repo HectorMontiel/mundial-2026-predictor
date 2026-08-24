@@ -623,6 +623,130 @@ def lineas_de_goles(pred: Dict) -> Dict[str, float]:
     return salida
 
 
+# v165 — LA SEGUNDA OPINIÓN QUE DELATA UN EMPAREJAMIENTO ROTO.
+#
+# `cuotas_multi._buscar` empareja por nombre, y casó «Botafogo vs Athletico-PR»
+# (Brasileirão) con el «Botafogo SP vs Atlético» que la casa cotizaba el MISMO
+# día. Pasar `fecha` y `liga` no lo arregla: los dos son del mismo día y de la
+# misma categoría, así que las dos guardias de la v114 los dejan pasar.
+#
+# Un precio de otro partido no produce un hueco —que sería honesto— sino un
+# CONTRASTE FALSO, que es lo contrario de para lo que existe todo esto. Pero
+# hay una segunda opinión independiente y gratis: el 1X2 que ESPN publica del
+# mismo fixture. Medido sobre los 54 partidos del 2026-08-24 con las dos
+# fuentes (`_v165_emparejado_casa.py`):
+#
+#     |dif| > 0,10   1 partido    ← el emparejamiento roto, y sólo él
+#     |dif| > 0,20   0 partidos
+#     los otros 53 discrepan 0,02 o menos
+#
+# La separación entre lo correcto y lo roto es de un orden de magnitud, así que
+# el umbral no es una elección fina. Sólo DESCARTA: nunca inventa un precio ni
+# corrige uno, y su modo de fallo es un hueco.
+DESVIO_EMPAREJADO = 0.10
+
+
+def _mismo_partido(precio: Dict, fx: Dict) -> bool:
+    """¿El precio que trae el precálculo es de ESTE partido? Ver arriba."""
+    x2 = (precio or {}).get('1x2') or {}
+    if not x2 or not (fx.get('odd_home') and fx.get('odd_draw')
+                      and fx.get('odd_away')):
+        return True                      # sin segunda opinión, no se juzga
+    try:
+        import cuotas_multi as _cm
+        espn = _cm.devig({'home': fx['odd_home'], 'draw': fx['odd_draw'],
+                          'away': fx['odd_away']}, metodo='potencia')
+        if len(espn) != 3:
+            return True
+        dif = abs(float(x2.get('home', 0.0)) - float(espn['home']))
+    except Exception as e:
+        logger.debug(f'[alpha] control de emparejado: {e}')
+        return True
+    if dif > DESVIO_EMPAREJADO:
+        logger.info(f"[alpha] precio descartado por emparejamiento dudoso: "
+                    f"{fx.get('home')} vs {fx.get('away')} "
+                    f"(casa {x2.get('home'):.2f} contra ESPN "
+                    f"{espn['home']:.2f})")
+        return False
+    return True
+
+
+def implicitas_de_la_casa(fx: Dict, o_espn: Dict) -> Dict:
+    """
+    v165 — EL PRECIO DE LA CASA VIAJA CON EL PRONÓSTICO.
+
+    Sin esto la tarjeta no tenía con qué contrastar su propio porcentaje, y
+    anunciaba «✅ Menos de 2.5 — 80 %» en un partido que la casa pagaba al
+    63 %. Medido sobre el barrido cacheado del 2026-08-23: de los 156
+    pronósticos de fútbol, **ninguno** llevaba `cuota` en sus mercados — los
+    construye `_mercados_modelo`, que emite cuota justa y `cuota: None` a
+    propósito, así que el precio real no llegaba nunca a la pantalla.
+
+    POR QUÉ SE ADJUNTA AQUÍ Y NO SE BUSCA EN LA TARJETA
+    ---------------------------------------------------
+    Por los nombres. El precálculo del día (`mercado_dia.json`) se indexa con
+    los nombres del FIXTURE, y el pronóstico lleva los del catálogo del modelo,
+    que han pasado por `name_mapper`. Buscando desde la tarjeta con los
+    segundos, sólo 22 de 151 partidos encontraban su entrada; buscando aquí
+    —donde todavía está `fx` con el nombre crudo— la llave es exacta.
+
+    Y porque la tarjeta NO PIDE RED. Esa regla ya costó tres regresiones al
+    proyecto. Aquí se lee un fichero que dejó el bot y, si no está, se usan las
+    cuotas que el barrido ya tenía descargadas de ESPN. Ninguna petición nueva.
+
+    Devuelve `{}` cuando no hay precio de ninguna de las dos fuentes, y `{}` no
+    es «la casa está de acuerdo»: quien llama lo distingue.
+    """
+    salida: Dict = {}
+    try:
+        import mercado_implicito as mi
+        salida = dict(mi.del_partido(fx.get('home') or '',
+                                     fx.get('away') or '') or {})
+        if salida and not _mismo_partido(salida, fx):
+            salida = {}
+    except Exception as e:
+        logger.debug(f'[alpha] precio del día: {e}')
+    # Respaldo con lo que el propio barrido ya bajó. Rellena huecos, no
+    # sustituye: el tablero de la casa del usuario manda sobre el de ESPN.
+    try:
+        import cuotas_multi as _cm
+        import mercado_implicito as mi          # también si falló el bloque de arriba
+        if '1x2' not in salida:
+            # Pinnacle primero por ser la casa más eficiente, y el mismo orden
+            # que el ancla del encogimiento (v80).
+            for _h, _d, _a in ((o_espn.get('pin_home'), o_espn.get('pin_draw'),
+                                o_espn.get('pin_away')),
+                               (o_espn.get('odd_home'), o_espn.get('odd_draw'),
+                                o_espn.get('odd_away'))):
+                if _h and _d and _a:
+                    justa = _cm.devig({'home': _h, 'draw': _d, 'away': _a},
+                                      metodo='potencia')
+                    if len(justa) == 3:
+                        salida['1x2'] = {k: round(v, 4)
+                                         for k, v in justa.items()}
+                        break
+        goles = dict(salida.get('goles') or {})
+        for _linea, _o, _u in ((2.5, o_espn.get('odd_over25'),
+                                o_espn.get('odd_under25')),
+                               (o_espn.get('ou_linea'), o_espn.get('odd_over'),
+                                o_espn.get('odd_under'))):
+            # La etiqueta la fabrica `mercado_implicito` y no un `%` local: si
+            # las dos fuentes escribieran la misma línea de dos maneras, la
+            # tarjeta buscaría «2.5» donde el respaldo dejó «2.50» y no
+            # encontraría nada, sin un solo error por medio.
+            etq = mi.clave_linea(_linea) if _linea is not None else None
+            if etq is None or etq in goles or not (_o and _u):
+                continue
+            justa = _cm.devig({'mas': _o, 'menos': _u}, metodo='potencia')
+            if len(justa) == 2:
+                goles[etq] = round(justa['mas'], 4)
+        if goles:
+            salida['goles'] = goles
+    except Exception as e:
+        logger.debug(f'[alpha] implícitas de respaldo: {e}')
+    return salida
+
+
 def _mercados_modelo(pred: Dict, home: str, away: str) -> List[Dict]:
     """v49: mercados derivados SOLO del modelo (sin cuota real) — para los
     fixtures sin cuota en vivo. Devuelve 1X2, O/U 2.5 y BTTS con la CUOTA JUSTA
@@ -1270,6 +1394,13 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                           'pin_home': fx.get('odd_home_pin'),
                           'pin_draw': fx.get('odd_draw_pin'),
                           'pin_away': fx.get('odd_away_pin')}
+            # v165 — el precio de la casa, sin margen, encima del pronóstico.
+            # Va DESPUÉS de montar `o_espn` para poder usar sus cuotas de
+            # respaldo, y muta el dict que ya está en la lista. Ver
+            # `implicitas_de_la_casa`.
+            _imp = implicitas_de_la_casa(fx, o_espn)
+            if _imp:
+                pron['implicitas'] = _imp
             # v71 — VALOR DE MERCADO: una casa blanda pagando por encima del
             # precio justo de Pinnacle. Es edge de baja varianza y no depende
             # de que el modelo acierte más que el mercado, solo de que dos

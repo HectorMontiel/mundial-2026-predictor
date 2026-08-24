@@ -458,6 +458,54 @@ def _solo_reales(d, col: str):
     return d[marcadas]
 
 
+_CACHE_GOLES: Dict[str, Optional[float]] = {}
+
+
+def media_goles_liga(clave: str,
+                     temporadas_recientes: int = 3) -> Optional[float]:
+    """
+    v165 — Goles totales por partido de esta competición, OBSERVADOS.
+
+    A diferencia de los córners, aquí no hay duda de origen: los goles son la
+    única estadística que las 62 competiciones publican de verdad y con la que
+    se entrenan todos los modelos del proyecto. El generador sintético no toca
+    esta columna, así que no hace falta el filtro de `_solo_reales`.
+
+    Para qué sirve, y para qué NO. La usa `cordura_probabilidad` como techo de
+    lo que se puede anunciar en una línea de goles: en una liga de 3,0 goles
+    por partido, «menos de 2,5» al 80 % no lo sostiene la aritmética. NO es un
+    predictor del partido —la media de la liga es idéntica en los diez partidos
+    de la jornada, que es justo por lo que los córners no se recomiendan (§10)—
+    sino un límite superior de la convicción que cabe publicar.
+
+    La ventana son las últimas temporadas por el mismo motivo que en córners:
+    el nivel de goles de una competición se mueve con los años, y es la misma
+    ventana con la que se entrenan los modelos de liga.
+    """
+    if clave in _CACHE_GOLES:
+        return _CACHE_GOLES[clave]
+    valor = None
+    try:
+        d = _historico(clave)
+        if d is not None and not getattr(d, 'empty', True):
+            tot = (pd.to_numeric(d.get('home_goals'), errors='coerce')
+                   + pd.to_numeric(d.get('away_goals'), errors='coerce')).dropna()
+            if len(tot) >= 100:
+                corte = d['date'].max() - pd.Timedelta(
+                    days=365 * int(temporadas_recientes))
+                recientes = tot[d['date'] >= corte]
+                usar = recientes if len(recientes) >= 100 else tot
+                v = float(usar.mean())
+                # el mismo cerco de cordura que `stats_estimadas._media_goles`:
+                # fuera de esta horquilla lo que hay es un fichero roto, no una
+                # competición rara, y devolverlo pondría techos absurdos.
+                valor = round(v, 3) if 0.5 < v < 7.0 else None
+    except Exception as e:
+        logger.debug('[rendimiento] media de goles de %s: %s', clave, e)
+    _CACHE_GOLES[clave] = valor
+    return valor
+
+
 _CACHE_CK: Dict[str, Optional[float]] = {}
 
 

@@ -6556,12 +6556,24 @@ def test_la_apuesta_destacada_de_cada_partido():
           % mm.UMBRAL_ALTA)
 
     # 1. gana el mercado mas probable, aunque no sea el 1X2
+    #
+    # v165 — Y EL VERDE YA NO SALE SOLO POR SER ALTO. Este caso pedia antes
+    # `d['alta']` con un 81 % y sin nada con que contrastarlo, que es
+    # exactamente lo que fallo el 2026-08-23. La ELECCION del mercado no
+    # cambia; lo que cambia es que el ✅ exige precio de la casa que lo
+    # respalde. El detalle esta en `test_el_titular_no_va_en_verde_sin_contraste`.
     p = {'mercados': [{'mercado': '1X2', 'apuesta': 'Gana A', 'prob': 0.40},
                       {'mercado': 'Goles', 'apuesta': 'Menos de 2.5',
                        'prob': 0.81}]}
     d = mm.apuesta_destacada(p)
-    check(d and d['apuesta'] == 'Menos de 2.5' and d['alta'],
+    check(d and d['apuesta'] == 'Menos de 2.5',
           "gana el mercado mas probable del partido, no el 1X2 por defecto")
+    check(d and not d['alta'],
+          "pero sin precio de la casa con el que contrastarlo, no va en verde")
+    con_precio = mm.apuesta_destacada(
+        {**p, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.26}}})
+    check(con_precio and con_precio['alta'],
+          "y con la casa de acuerdo, si")
 
     # 2. por debajo del verde, ambar; por debajo del ambar, nada
     medio = mm.apuesta_destacada(
@@ -7702,6 +7714,330 @@ def test_se_guardan_las_lineas_de_remates():
           "y guarda el fichero, que es lo unico que no se puede reconstruir")
 
 
+
+def test_el_control_de_cordura_recorta_lo_que_no_se_sostiene():
+    """
+    v165 — NINGUN PORCENTAJE SIN ALGO CONTRA LO QUE MEDIRLO.
+
+    El caso que lo provoca tiene nombre y resultado: Celta Vigo B - Andorra del
+    2026-08-23, tarjeta con «Menos de 2.5 — 80 %» en verde, partido 4-2. Un
+    80 % en ese lado sale de una lambda de partido de 1,35 goles, y la media de
+    esa competicion esta por encima de 2,5.
+
+    Se comprueban los tres frenos por separado, porque son distintos y sus
+    consecuencias tambien:
+
+        1. desvio contra el precio de la casa > 15 pp  -> recorte al 60 %
+        2. linea en el lado equivocado de la media de la liga -> techo
+        3. sin precio de la casa -> se enseña, pero NUNCA en verde
+
+    Y se comprueba lo que NO hace: subir una cifra hacia la casa. El techo solo
+    baja; publicar la opinion de la casa con la cara del modelo es el error que
+    la v149 ya evito con las barras de mercado.
+    """
+    import cordura_probabilidad as cp
+
+    # --- 1) el desvio contra la casa -----------------------------------
+    r = cp.revisar(0.80, 'Menos de 2.5', None, implicita=0.45)
+    check(not r['fiable'], "un 80 % contra un 45 % de la casa no es fiable")
+    check(abs(r['prob'] - cp.TECHO_DESVIADO) < 1e-9,
+          f"y se recorta al {cp.TECHO_DESVIADO*100:.0f} % ({r['prob']})")
+    check(r['original'] == 0.80,
+          "la cifra original se conserva para poder decirla")
+    check(not r['puede_verde'], "una cifra poco fiable no puede ir en verde")
+    check('poco fiable' in cp.aviso(r), "y la pantalla lo dice")
+
+    justo = cp.revisar(0.60, 'Menos de 2.5', None, implicita=0.46)
+    check(justo['fiable'] and abs(justo['prob'] - 0.60) < 1e-9,
+          "14 puntos de separacion NO recortan: el umbral es 15")
+
+    # --- 2) el techo por media de goles de la competicion ---------------
+    import rendimiento_equipos as rq
+    alta = baja = None
+    for clave in ('dinamarca', 'eredivisie', 'bundesliga', 'noruega', 'suiza',
+                  'premier', 'laliga', 'serie_a', 'ligue_1', 'esp_hypermotion',
+                  'argentina', 'brasil', 'china', 'irlanda'):
+        m = rq.media_goles_liga(clave)
+        if m is None:
+            continue
+        if m > 2.5 and alta is None:
+            alta = (clave, m)
+        if m <= 2.5 and baja is None:
+            baja = (clave, m)
+    check(alta is not None,
+          "hay competiciones con media de goles por encima de 2,5 medida")
+    if alta:
+        clave, m = alta
+        t = cp.techo_por_liga(clave, 'Menos de 2.5')
+        esperado = (cp.TECHO_LIGA_DURO if m - 2.5 >= cp.MARGEN_DURO
+                    else cp.TECHO_LIGA_SUAVE)
+        check(t == esperado,
+              f"{clave} mete {m:.2f} goles: «menos de 2.5» topa en "
+              f"{esperado*100:.0f} % (dio {t})")
+        r2 = cp.revisar(0.80, 'Menos de 2.5', clave)
+        check(r2['prob'] <= esperado + 1e-9,
+              f"y un 80 % del modelo se recorta a {r2['prob']}")
+        check(cp.aviso(r2) != '', "diciendo por que baja")
+        # el caso espejo NO se toca: «menos de 4.5» en esa misma liga esta en
+        # el lado correcto de la media y es un favorito legitimo
+        check(cp.techo_por_liga(clave, 'Menos de 4.5') is None,
+              "una linea por encima de la media de la liga no lleva techo")
+    if baja:
+        clave, m = baja
+        check(cp.techo_por_liga(clave, 'Menos de 2.5') is None,
+              f"{clave} mete {m:.2f}: ahi «menos de 2.5» no necesita techo")
+
+    check(cp.techo_por_liga('premier', 'Gana Man City') is None,
+          "el techo es de GOLES: al 1X2 no se le aplica")
+
+    # --- 3) sin precio de la casa no hay verde --------------------------
+    solo = cp.revisar(0.72, 'Menos de 2.5', None)
+    check(not solo['contrastada'],
+          "sin implicita, la revision se marca como no contrastada")
+    check(not solo['puede_verde'],
+          "y sin nada con que contrastar no se puede pintar el verde")
+    check(abs(solo['prob'] - 0.72) < 1e-9,
+          "pero la cifra NO se recorta por no haber precio: se enseña entera")
+    check(cp.aviso(solo) != '',
+          "y se dice que no hay con que contrastarla")
+
+    # --- 4) lo que NO hace: subir ---------------------------------------
+    timido = cp.revisar(0.55, 'Menos de 2.5', None, implicita=0.85)
+    check(timido['prob'] <= 0.55 + 1e-9,
+          "un modelo timido NUNCA se sube hacia la casa")
+
+
+def test_el_titular_no_va_en_verde_sin_contraste():
+    """
+    v165 — LOS TRES FRENOS, DONDE EL USUARIO LOS VE: EL TITULAR DE LA TARJETA.
+
+    Medido sobre el barrido del 2026-08-23: de 151 tarjetas, 103 iban en verde
+    y de las 11 que se pudieron contrastar contra la casa, 4 se separaban mas
+    de 15 puntos — 3 de ellas en verde (87 % contra 67 %, 81 % contra 63 % y
+    70 % contra 46 %). Eso es lo que este test impide que vuelva.
+    """
+    import modo_modelo as mm
+
+    base = {'partido': 'Celta Vigo B vs Andorra', 'clave_liga': None,
+            'deporte': 'Fútbol'}
+
+    # sin precio de la casa: ambar, aunque el numero sea altisimo
+    sin = mm.apuesta_destacada(
+        {**base, 'mercados': [
+            {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.80},
+            {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.20}]})
+    check(sin is not None, "sigue habiendo titular")
+    check(sin['apuesta'] == 'Menos de 2.5', "y es el lado que dice el modelo")
+    check(not sin['alta'],
+          f"pero NO va en verde sin precio con el que contrastar ({sin})")
+    check(not sin['contrastada'], "y la tarjeta sabe por que")
+
+    # con precio de la casa que lo desmiente: recortado y sin verde
+    desmentido = mm.apuesta_destacada(
+        {**base,
+         'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.55}},
+         'mercados': [
+             {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.80},
+             {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.20}]})
+    check(desmentido and not desmentido['alta'],
+          "un 80 % contra el 45 % de la casa no va en verde")
+    check(desmentido['prob'] <= 0.60 + 1e-9,
+          f"y se recorta a {desmentido['prob']} desde {desmentido['original']}")
+    check('poco fiable' in (desmentido.get('aviso') or ''),
+          "con su aviso de probabilidad poco fiable")
+
+    # con precio de la casa que lo confirma: verde, como siempre
+    confirmado = mm.apuesta_destacada(
+        {**base,
+         'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.32}},
+         'mercados': [
+             {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.72},
+             {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.28}]})
+    check(confirmado and confirmado['alta'],
+          f"lo que la casa respalda SI sigue yendo en verde ({confirmado})")
+    check(not (confirmado.get('aviso') or ''),
+          "y no lleva aviso: lo que sale siempre no informa")
+
+    # el ganador se elige DESPUES del recorte, no antes
+    mezcla = mm.apuesta_destacada(
+        {**base,
+         'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.55},
+                        'btts': 0.60},
+         'mercados': [
+             {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.87},
+             {'mercado': 'BTTS', 'apuesta': 'Ambos marcan: Sí', 'prob': 0.64}]})
+    check(mezcla and mezcla['apuesta'] == 'Ambos marcan: Sí',
+          f"gana el mercado que mas vale DESPUES del recorte ({mezcla})")
+
+    # y el HTML enseña el precio de la casa al lado del del modelo
+    html = mm._bloque_goles_html(
+        {**base, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.55}}},
+        {'Más de 2.5': 0.20, 'Menos de 2.5': 0.80})
+    check('mm-casa' in html and 'Playdoit' in html,
+          "la tarjeta pinta lo que cree la casa debajo de lo que cree el "
+          "modelo")
+    check('margen' in html,
+          "y dice que es sin margen, que es lo que la hace comparable")
+    check('mm-casa' not in mm._bloque_goles_html(
+        base, {'Más de 2.5': 0.20, 'Menos de 2.5': 0.80}),
+        "sin precio no se pinta la fila: un hueco se ve y un relleno no")
+
+
+def test_el_precio_de_la_casa_llega_a_la_tarjeta_sin_pedir_red():
+    """
+    v165 — DE DONDE SALE LA IMPLICITA, Y LO QUE NO PUEDE COSTAR.
+
+    Medido: de los 156 pronosticos de futbol del barrido cacheado del
+    2026-08-23, NINGUNO llevaba `cuota` en sus mercados — los construye
+    `_mercados_modelo`, que emite cuota justa y `cuota: None` a proposito. Por
+    eso el precio se adjunta en `alpha_finder` (donde todavia esta el nombre
+    crudo del fixture, que es la llave del precalculo) y no se busca desde la
+    tarjeta: buscando con los nombres ya mapeados solo 22 de 151 partidos
+    encontraban su entrada.
+
+    Y la tarjeta NO PIDE RED. Esa regla ya costo tres regresiones al proyecto.
+    """
+    import mercado_implicito as mi
+
+    tablero = {'casa': 'Playdoit', 'home': 'Brighton', 'away': 'Aston Villa',
+               'mercados': [
+                   {'nombre': 'Resultado Final (Tiempo Regular)', 'sv': None,
+                    'selecciones': [{'nombre': 'Brighton', 'cuota': 2.2},
+                                    {'nombre': 'Empate', 'cuota': 3.6667},
+                                    {'nombre': 'Aston Villa', 'cuota': 3.1}]},
+                   {'nombre': 'Total', 'sv': '2.5',
+                    'selecciones': [{'nombre': 'Más de 2.5', 'cuota': 1.8},
+                                    {'nombre': 'Menos de 2.5', 'cuota': 2.05},
+                                    {'nombre': 'Más de 3.5', 'cuota': 2.9},
+                                    {'nombre': 'Menos de 3.5', 'cuota': 1.4}]},
+                   {'nombre': 'Ambos equipos marcan', 'sv': None,
+                    'selecciones': [{'nombre': 'Sí', 'cuota': 1.6667},
+                                    {'nombre': 'No', 'cuota': 2.15}]}]}
+    precio = mi.del_tablero(tablero)
+    check(set(precio) >= {'1x2', 'goles', 'btts'},
+          f"del tablero salen los tres mercados ({sorted(precio)})")
+    check(abs(sum(precio['1x2'].values()) - 1.0) < 1e-6,
+          "el 1X2 sale SIN margen: los tres lados suman 1")
+    for linea in ('2.5', '3.5'):
+        p = precio['goles'][linea]
+        check(0.0 < p < 1.0, f"la linea {linea} sale como probabilidad ({p})")
+    check(precio['goles']['3.5'] < precio['goles']['2.5'],
+          "y las lineas van en orden: mas de 3,5 es menos probable que mas "
+          "de 2,5")
+    crudo_mas = 1 / 1.8
+    check(precio['goles']['2.5'] < crudo_mas,
+          f"quitar el margen BAJA la implicita cruda "
+          f"({precio['goles']['2.5']:.4f} < {crudo_mas:.4f})")
+
+    # la traduccion de la etiqueta del proyecto a este diccionario
+    check(abs(mi.implicita(precio, 'Más de 2.5') +
+              mi.implicita(precio, 'Menos de 2.5') - 1.0) < 1e-6,
+          "«Mas de» y «Menos de» de la misma linea suman 1")
+    check(mi.implicita(precio, 'Gana Brighton', 'Brighton', 'Aston Villa')
+          == precio['1x2']['home'],
+          "«Gana <local>» se resuelve por el nombre, no por posicion")
+    check(mi.implicita(precio, 'Gana Aston Villa', 'Brighton', 'Aston Villa')
+          == precio['1x2']['away'], "y el visitante igual")
+    check(mi.implicita(precio, 'Ambos marcan: No') is not None
+          and abs(mi.implicita(precio, 'Ambos marcan: Sí')
+                  + mi.implicita(precio, 'Ambos marcan: No') - 1.0) < 1e-6,
+          "los dos lados de ambos marcan tambien")
+    check(mi.implicita(precio, 'Menos de 9.5') is None,
+          "una linea que la casa no cotiza devuelve None, NO 0,5")
+    check(mi.implicita({}, 'Menos de 2.5') is None,
+          "y sin precio, None")
+    check(mi.implicita(precio, 'Gana Man City', 'Brighton', 'Aston Villa')
+          is None,
+          "un equipo que no es ninguno de los dos no se resuelve por parecido")
+
+    # la tarjeta no pide red: el contrato es el mismo que en lineas_jugador
+    src = open('mercado_implicito.py', encoding='utf-8').read()
+    check('permitir_red: bool = False' in src,
+          "`del_partido` no pide red por defecto")
+    mm_src = open('modo_modelo.py', encoding='utf-8').read()
+    check('permitir_red' not in mm_src.split('def _revisar')[1][:1200],
+          "y la tarjeta nunca la autoriza")
+    af_src = open('alpha_finder.py', encoding='utf-8').read()
+    check('implicitas_de_la_casa' in af_src
+          and "pron['implicitas']" in af_src,
+          "el barrido adjunta el precio al pronostico")
+
+    # la clave de la linea la fabrica UN solo sitio, o las dos fuentes
+    # escribirian «2.5» y «2.50» y la tarjeta no encontraria nada
+    check(mi.clave_linea(2.5) == '2.5' and mi.clave_linea('2,50') == '2.5',
+          "la clave de linea es la misma se escriba como se escriba")
+    check(mi.clave_linea(1.25) == '1.25',
+          "y los cuartos NO se redondean a un decimal: 1.25 no es 1.2")
+    check('clave_linea' in af_src,
+          "el respaldo del barrido usa la misma funcion, no un formato propio")
+
+    # --- el emparejamiento roto se descarta -----------------------------
+    #
+    # `_buscar` caso «Botafogo vs Athletico-PR» con el «Botafogo SP vs
+    # Atletico» del mismo dia, y pasar fecha y liga NO lo arregla: son del
+    # mismo dia y de la misma categoria. Un precio de OTRO partido no da un
+    # hueco, da un contraste falso.
+    import alpha_finder as af
+    fx_ok = {'home': 'A', 'away': 'B', 'odd_home': 2.0, 'odd_draw': 3.4,
+             'odd_away': 3.8}
+    espn = mi._devig({'home': 2.0, 'draw': 3.4, 'away': 3.8})
+    coherente = {'1x2': {k: round(v, 4) for k, v in espn.items()},
+                 'goles': {'2.5': 0.5}}
+    check(af._mismo_partido(coherente, fx_ok),
+          "un precio que coincide con el 1X2 de ESPN se acepta")
+    espejado = {'1x2': {'home': espn['away'], 'draw': espn['draw'],
+                        'away': espn['home']}, 'goles': {'2.5': 0.5}}
+    check(not af._mismo_partido(espejado, fx_ok),
+          "y uno que pone al favorito del otro lado se descarta")
+    check(af._mismo_partido({'goles': {'2.5': 0.5}}, fx_ok),
+          "sin 1X2 con el que comparar no se juzga: no se descarta a ciegas")
+    check(af._mismo_partido(coherente, {'home': 'A', 'away': 'B'}),
+          "y sin cuotas de ESPN, tampoco")
+    check(af.DESVIO_EMPAREJADO <= 0.10,
+          f"el umbral separa lo roto (0,15) de lo sano (0,02) "
+          f"({af.DESVIO_EMPAREJADO})")
+
+    # el modulo esta enchufado al precalculo diario del bot
+    yml = open('.github/workflows/retrain_leagues.yml', encoding='utf-8').read()
+    check('mercado_implicito.py' in yml,
+          "el bot lo precalcula, como hace con las lineas de jugador")
+    check('mercado_dia.json' in yml,
+          "y el fichero del dia se commitea, o la app no lo veria nunca")
+
+
+def test_los_bloques_sin_insignia_van_en_gris():
+    """
+    v165 — QUITAR LA INSIGNIA NO BASTABA.
+
+    La v164 dejo de pintar «destacado» en los bloques estimados, pero el bloque
+    seguia teniendo el mismo peso visual que uno medido: tres filas en negro
+    con sus porcentajes. Eso es lo que se leyo como recomendacion en el parlay
+    del 2026-08-23 (Bologna-Lazio, «Local Menos de 5.5 60 %»). Sin insignia, el
+    bloque entero va apagado.
+    """
+    import modo_modelo as mm
+
+    est = mm.corners_tarjeta({'partido': 'Danubio vs Racing (Montevideo)',
+                              'clave_liga': 'uru_primera',
+                              'deporte': 'Fútbol'})
+    if est:
+        html = mm._bloque_corners_html(est)
+        check('mm-sinsena' in html, "un bloque sin insignia sale apagado")
+        check(html.count('mm-sinsena') >= 2,
+              "y no solo el titulo: tambien sus filas")
+        check('Estimado' in html,
+              "sigue enseñando su etiqueta y sus cifras: se apaga, no se borra")
+
+    obs = mm.corners_tarjeta({'partido': 'Man City vs Arsenal',
+                              'clave_liga': 'premier', 'deporte': 'Fútbol'})
+    if obs and obs.get('origen') == 'observado':
+        check('mm-sinsena' not in mm._bloque_corners_html(obs),
+              "y un bloque medido NO se apaga")
+
+    css = open('modo_modelo.py', encoding='utf-8').read()
+    check('.mm-sinsena' in css, "la clase existe en la hoja de estilo")
+
+
 def test_todas_las_ligas_tienen_remates():
     """
     v163 — ninguna competicion se queda sin la seccion, y la estimada lo dice.
@@ -8036,6 +8372,11 @@ if __name__ == '__main__':
     test_las_lineas_de_jugador_de_la_casa()
     test_se_guardan_las_lineas_de_remates()
     test_todas_las_ligas_tienen_remates()
+    print('\n=== v165: control de cordura de las probabilidades ===')
+    test_el_control_de_cordura_recorta_lo_que_no_se_sostiene()
+    test_el_titular_no_va_en_verde_sin_contraste()
+    test_el_precio_de_la_casa_llega_a_la_tarjeta_sin_pedir_red()
+    test_los_bloques_sin_insignia_van_en_gris()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

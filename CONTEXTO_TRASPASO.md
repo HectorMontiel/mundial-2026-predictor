@@ -1065,3 +1065,74 @@ reales del emparejador (2 %)**. Un nombre que no casa no se fuerza.
 5. **La ventana de remates es de 6 temporadas**, así que un equipo recién
    ascendido cae al estimador de liga hasta que acumule partidos. Es correcto y
    está marcado, pero se nota en agosto.
+
+## 4v. v165 — EL CONTROL DE CORDURA: NINGÚN PORCENTAJE SIN CONTRASTE
+
+El detalle completo está en **BITACORA_ARQUITECTURA.md §15**. Lo esencial:
+
+**El caso.** Parlay perdido del 2026-08-23: Celta B–Andorra con `✅ Menos de 2.5
+— 80 %` (acabó 4-2), la pata de córners de Bologna–Lazio y las dos de
+Brøndby–Silkeborg. El fallo no es acertar o no un partido: es que la pantalla
+publicó en verde una convicción que nada sostenía.
+
+**La causa medida.** De los 156 pronósticos de fútbol del barrido cacheado,
+**ninguno** llevaba `cuota` en sus mercados: `pronosticos` lo construye
+`_mercados_modelo`, que emite cuota justa a propósito. La tarjeta nunca tuvo con
+qué contrastarse, y así **103 de 151 tarjetas iban en verde**.
+
+**Lo hecho.**
+
+* `mercado_implicito.py` — 1X2, goles (todas sus líneas) y BTTS del tablero de
+  la casa, devigados con `potencia`. Precálculo diario en `mercado_dia.json`,
+  en el mismo paso del workflow que las líneas de jugador (mismo tablero, caché
+  de disco de 30 min: casi no descarga de más).
+* `alpha_finder.implicitas_de_la_casa` — el precio viaja CON el pronóstico. Se
+  adjunta ahí y no se busca desde la tarjeta por dos motivos: los nombres (desde
+  la tarjeta sólo 22 de 151 encontraban su entrada, porque la llave del
+  precálculo es el nombre del FIXTURE) y porque la tarjeta no pide red.
+* `cordura_probabilidad.py` — los tres frenos: desvío > 15 pp contra la casa →
+  recorte al 60 % y «🔴 poco fiable»; techo por media de goles de la liga (65 %
+  si la línea cae por debajo de la media, 50 % si cae 0,5 o más); y **sin precio
+  no hay verde**.
+* `modo_modelo` — el titular se elige DESPUÉS del recorte, la tarjeta dice por
+  qué bajó la cifra, pinta el precio de la casa bajo el de goles, y los bloques
+  físicos sin insignia van en gris (`mm-sinsena`).
+* `alpha_finder._mismo_partido` — descarta el precio cuando el 1X2 de la casa y
+  el de ESPN discrepan más de 0,10. Destapó un emparejamiento roto de `_buscar`
+  (Botafogo–Athletico-PR casado con Botafogo SP–Atlético del mismo día).
+
+**Estado medido tras el cambio** (barrido del 2026-08-24, 61 partidos de fútbol
+con modelo, con `mercado_dia.json` generado):
+
+    con precio de la casa adjunto        59 de 61
+    con la línea 2.5 de la casa          53
+    titulares contrastables              47  (77 %)
+    marcados «poco fiable»               18  (38 % de los contrastables)
+    recortados por alguna regla          12
+    en VERDE                             22  (antes: casi todo lo que pasaba de 60 %)
+
+Los 18 «poco fiable» sobre 47 contrastables son el hallazgo, no un efecto
+secundario: **el modelo se separa más de 15 puntos de la casa en dos de cada
+cinco titulares que se pueden comprobar.**
+
+**Lo que NO toca.** La Sección 1, el EV y `pasa_capa1`. La ventaja de precio es
+el único canal con p5 positivo medido y se calcula sobre la probabilidad cruda.
+Todo esto vive en la capa de presentación.
+
+**Validación.** Suite 1.459 checks TODO OK · `valida_render.py` 3 vistas OK ·
+`_v164_valida_tarjeta.py` OK · `_v163_valida_ficha_remates.py` OK.
+
+**Pendientes que deja.**
+
+1. La cobertura del precio es el techo del verde. Playdoit cotiza 54 de 75
+   fixtures (72 %); lo que no cotiza no puede ir en verde nunca. Subirlo es
+   trabajo de emparejamiento (pendiente 10), no de umbral.
+2. Los 18 «poco fiable» merecen liquidarse: ¿acierta más el modelo o la casa
+   cuando discrepan 15 puntos? Con `mercado_dia.json` acumulándose a diario, en
+   unas semanas se puede medir y el umbral dejaría de ser una elección.
+3. `_buscar` empareja partidos distintos del mismo día y la misma categoría. El
+   control de `_mismo_partido` lo tapa AQUÍ, pero el resto del proyecto
+   —line shopping, snapshots, líneas de jugador— sigue expuesto.
+4. El techo por liga usa la media de goles de las últimas 3 temporadas. En las
+   competiciones sin histórico suficiente (< 100 partidos) devuelve `None` y la
+   regla no se aplica: ahí sólo protege el contraste contra la casa.
