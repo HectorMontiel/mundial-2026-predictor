@@ -1202,8 +1202,232 @@ CSS = """
 .mm-casa { font-size:.75rem; opacity:.85; margin-top:-.1rem;
            border-left:2px solid var(--tenue); }
 .mm-sinsena { opacity:.62; }
+/* v167 — LA TARJETA ACCIONABLE.
+   `mm-rec` es el bloque de arriba: una apuesta, su precio y nada mas.
+   `mm-fc` es una fila de mercado en rejilla — nombre, linea, dos lados y una
+   insignia CORTA. Lo que antes era un parrafo aqui es una etiqueta de dos
+   palabras, y el parrafo vive en el desplegable. */
+.mm-rec { display:flex; flex-direction:column; gap:.15rem; margin:.5rem 0 .35rem;
+          padding:.55rem .7rem; border-radius:10px; border:1px solid var(--borde); }
+.mm-rec-tit { font-size:.64rem; font-weight:800; letter-spacing:.06em;
+              opacity:.75; }
+.mm-rec-ap { font-size:1.05rem; font-weight:800; line-height:1.25; }
+.mm-rec-cu { font-size:.76rem; opacity:.85; }
+.mm-rec-si { background:rgba(26,127,55,.14); border-color:var(--ok); }
+.mm-rec-ambar { background:rgba(154,103,0,.14); border-color:var(--mira); }
+.mm-rec-no { background:var(--panel2); opacity:.8; }
+.mm-rec-no span { font-size:.76rem; opacity:.8; }
+.mm-otros { font-size:.64rem; font-weight:800; letter-spacing:.06em;
+            opacity:.7; margin:.5rem 0 .2rem; }
+.mm-fc { display:grid; grid-template-columns:7.5rem 2.4rem 1fr 1fr auto;
+         gap:.4rem; align-items:center; font-size:.78rem; line-height:1.9;
+         border-top:1px solid var(--borde); }
+.mm-fc-n { font-weight:600; }
+.mm-fc-l { opacity:.75; text-align:right; }
+.mm-fc-e { text-align:right; }
+.mm-fc-barra { grid-column:2 / -1; }
+.mm-fc-jug { grid-column:2 / -1; font-size:.75rem; }
+@media (max-width:768px) {
+  .mm-fc { grid-template-columns:6.2rem 2.2rem 1fr 1fr; row-gap:.1rem; }
+  .mm-fc-e { grid-column:3 / -1; text-align:left; }
+}
 </style>
 """
+
+
+
+# ---------------------------------------------------------------------------
+# v167 — LA APUESTA RECOMENDADA: UNA, Y LA QUE HAY QUE METER
+# ---------------------------------------------------------------------------
+# El encargo, con sus palabras: «no quiero leer, quiero apostar». La tarjeta
+# enseñaba seis bloques, cuatro párrafos técnicos y ninguna instrucción. Esto
+# elige UNA apuesta de todo el partido y la pone arriba, con su cuota y con el
+# botón para jugarla; el resto de la tarjeta pasa a ser contexto compacto y el
+# texto técnico se pliega en un desplegable.
+#
+# EL ORDEN DE PRIORIDAD, Y LA PARTE QUE NO SE PUDO SEGUIR AL PIE DE LA LETRA
+# --------------------------------------------------------------------------
+# Lo pedido fue: (1) mejor EV, (2) si ninguno es positivo, la de mayor
+# probabilidad calibrada por encima del 60 % que esté en verde o ámbar, (3) si
+# no hay nada, decirlo.
+#
+# El paso (1) tal cual estaba escrito —EV sobre la probabilidad CRUDA del
+# modelo— es exactamente el canal que este proyecto tiene medido como
+# ANTI-INDICADOR: guiarse por el EV del modelo rinde −4,66 % a −6,52 % sobre
+# 37.158 apuestas, y su EV correlaciona −0,054 con el cierre (§2 del traspaso).
+# Peor todavía: el EV es máximo justo donde el modelo más se separa de la casa,
+# y la v166 midió que ahí es donde su número más miente — brecha de calibración
+# 0,28 por encima de los 20 puntos de desvío.
+#
+# Así que el orden se respeta, pero el EV se calcula sobre la probabilidad YA
+# AJUSTADA por `cordura_probabilidad` (encogida hacia el mercado y recortada si
+# hace falta). Con esa probabilidad, un EV positivo ya no significa «el modelo
+# discrepa mucho» sino «esta casa paga por encima de lo que vale», que es la
+# ventaja de PRECIO — el único canal con percentil 5 positivo medido del
+# proyecto (+11,49 %, p5 +1,73 %). Es la misma apuesta que pedía el encargo,
+# calculada sobre el número que la v166 dejó honesto.
+#
+# QUÉ PUEDE SER RECOMENDADO Y QUÉ NO
+# ----------------------------------
+#   · un mercado ESTIMADO, nunca (v164): es el nivel de la competición
+#     repartido por bando, idéntico en todos sus partidos;
+#   · un mercado físico observado, sí, pero SIEMPRE en ámbar: verde en esta
+#     aplicación significa «canal con p5 de bootstrap positivo medido» y
+#     córners, tarjetas y remates no lo tienen;
+#   · el verde exige además precio de la casa con el que contrastar (v165).
+MIN_EV_RECOMENDADA = 0.03      # el mismo suelo que `alpha_finder.MIN_EV`
+URL_PLAYDOIT = 'https://www.playdoit.mx/deportes'
+
+
+def _candidata(apuesta, mercado, prob, info, cuota=None, fisico=False):
+    """Una fila candidata a ser la apuesta del partido, ya juzgada."""
+    p = float(prob)
+    ev = None
+    if cuota:
+        try:
+            ev = float(cuota) * p - 1.0
+        except (TypeError, ValueError):
+            ev = None
+    # El verde sólo para lo que no es físico y ha pasado el contraste.
+    verde = (not fisico and p >= UMBRAL_ALTA
+             and bool(info.get('puede_verde', False)))
+    return {'apuesta': apuesta, 'mercado': mercado, 'prob': p,
+            'cuota': float(cuota) if cuota else None,
+            'cuota_justa': round(1.0 / max(p, 1e-6), 2), 'ev': ev,
+            'verde': verde, 'fisico': fisico,
+            'original': info.get('original', p),
+            'fiable': bool(info.get('fiable', True)),
+            'contrastada': bool(info.get('contrastada', False)),
+            'aviso': _aviso_cordura(info)}
+
+
+def _candidatas_fisicas(pick: Dict, bloques: Dict) -> List[Dict]:
+    """
+    Córners, tarjetas y remates como candidatos — sólo los que se lo han ganado.
+
+    `confianza_mercado` ya decide quién puede llevar insignia: un bloque
+    estimado cae al nivel 3 y no la lleva. Aquí se usa exactamente esa misma
+    puerta, para que no puedan decir cosas distintas la insignia del bloque y
+    la apuesta recomendada de arriba.
+    """
+    salida = []
+    for titulo, bloque in bloques.items():
+        if not bloque:
+            continue
+        conf = bloque.get('confianza') or {}
+        if not conf.get('insignia'):
+            continue                      # estimado o mal calibrado: no opina
+        mejor = bloque.get('mejor')
+        if not mejor:
+            continue
+        etq = '%s %s' % (titulo, mejor['texto'])
+        if mejor.get('etiqueta') in ('Local', 'Visita'):
+            h, a = _equipos(pick)
+            quien = h if mejor['etiqueta'] == 'Local' else a
+            etq = '%s de %s: %s' % (titulo, quien or mejor['etiqueta'],
+                                    mejor['texto'])
+        salida.append(_candidata(
+            etq, titulo, mejor['prob'],
+            {'puede_verde': False, 'original': mejor['prob'],
+             'fiable': True, 'contrastada': False},
+            fisico=True))
+    return salida
+
+
+def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
+                        ) -> Optional[Dict]:
+    """
+    La apuesta que hay que meter en este partido, o `None` si no hay ninguna.
+
+    `None` NO es un fallo y se PINTA: un partido sin nada jugable tiene que
+    decirlo, porque si no la ausencia de aviso se lee como permiso.
+    """
+    if pick.get('jugado') or pick.get('sin_modelo'):
+        return None
+    candidatas = []
+    for m in (pick.get('mercados') or []):
+        if not isinstance(m, dict) or m.get('apuesta') is None:
+            continue
+        if str(m.get('origen') or 'observado') == 'estimado':
+            continue
+        try:
+            p0 = float(m.get('prob'))
+        except (TypeError, ValueError):
+            continue
+        mercado = str(m.get('mercado') or '')
+        info = _revisar(pick, str(m['apuesta']), p0, mercado=mercado,
+                        ya_encogido=bool((m.get('calibracion') or {})
+                                         .get('aplicado')))
+        candidatas.append(_candidata(str(m['apuesta']), mercado,
+                                     info.get('prob', p0), info,
+                                     cuota=m.get('cuota')))
+    if not candidatas:
+        # Deportes que sólo publican el ganador: queda el board y, tras él, la
+        # propia apuesta del pick. Es el mismo camino de `apuesta_destacada` y
+        # existe por lo mismo — sin él la tarjeta decía «sin apuesta» en todo
+        # partido que no fuera de fútbol.
+        d = apuesta_destacada(pick)
+        if d:
+            candidatas.append(_candidata(
+                d['apuesta'], d.get('mercado') or '', d['prob'],
+                {'puede_verde': d.get('alta', False),
+                 'original': d.get('original', d['prob']),
+                 'fiable': d.get('fiable', True),
+                 'contrastada': d.get('contrastada', False)},
+                cuota=pick.get('cuota')))
+    candidatas += _candidatas_fisicas(pick, bloques or {})
+
+    # Sólo lo jugable. Una cifra marcada como poco fiable no se recomienda
+    # aunque llegue alta — eso es lo que la v165 vino a arreglar.
+    #
+    # EL SUELO DEL 50 % ES DE LA VÍA DE PROBABILIDAD, NO DE LA DE PRECIO. Una
+    # apuesta con ventaja de precio real casi nunca es favorita: el canal
+    # medido con p5 positivo del proyecto (+11,49 %) vive precisamente en
+    # comprar barato, no en comprar seguro. Filtrarlas por debajo del 50 %
+    # habría tirado justo las que sí tienen respaldo medido.
+    jugables = [c for c in candidatas
+                if c['fiable'] and (
+                    c['prob'] >= UMBRAL_PATA
+                    or (c['ev'] is not None
+                        and c['ev'] >= MIN_EV_RECOMENDADA))]
+    if not jugables:
+        return None
+
+    # 1) VENTAJA DE PRECIO: la casa paga por encima de lo que vale la apuesta,
+    #    con la probabilidad ya ajustada. Es el único canal medido con p5
+    #    positivo, así que manda sobre la probabilidad a secas.
+    con_ev = [c for c in jugables
+              if c['ev'] is not None and c['ev'] >= MIN_EV_RECOMENDADA]
+    if con_ev:
+        elegida = max(con_ev, key=lambda c: c['ev'])
+        elegida['motivo'] = 'precio'
+        return elegida
+
+    # 2) si no hay precio que aproveche, la de mayor probabilidad ajustada que
+    #    llegue al umbral del verde y pueda llevar color.
+    altas = [c for c in jugables if c['prob'] >= UMBRAL_ALTA]
+    if altas:
+        # EL VERDE GANA AL PORCENTAJE, y no es un detalle de orden. «Jugable en
+        # solitario» es una afirmación más fuerte que «un número más alto»: un
+        # bloque de córners al 78 % es ámbar porque su ventaja de precio no
+        # está medida, y proponerlo por delante de un 64 % que sí ha pasado el
+        # contraste sería premiar la cifra grande sobre la comprobada. Además
+        # así la tarjeta y el filtro de la lista no pueden divergir.
+        elegida = max(altas, key=lambda c: (c['verde'], c['prob']))
+        elegida['motivo'] = 'probabilidad'
+        return elegida
+
+    # 3) y si nada llega al 60 %, lo mejor que hay para COMBINAR, en ámbar.
+    #    Aquí sí manda el suelo del 50 %: sin precio que aproveche, proponer
+    #    algo que ni siquiera es más probable que su contrario no es una
+    #    recomendación, es rellenar el hueco.
+    jugables = [c for c in jugables if c['prob'] >= UMBRAL_PATA]
+    if not jugables:
+        return None
+    elegida = max(jugables, key=lambda c: c['prob'])
+    elegida['motivo'] = 'combinar'
+    elegida['verde'] = False
+    return elegida
 
 
 def _barra_1x2(pl, px, pv, home: str, away: str) -> str:
@@ -1226,36 +1450,196 @@ def _barra_1x2(pl, px, pv, home: str, away: str) -> str:
     return '<div class="mm-1x2">%s</div>' % ''.join(trozos)
 
 
+def _fila_compacta(icono: str, nombre: str, linea: str, izq: str, der: str,
+                   etiqueta: str = '', apagado: bool = False) -> str:
+    """
+    Una fila de mercado: nombre, línea, los dos lados y una etiqueta CORTA.
+
+    v167 — sin párrafos. Lo que antes eran tres filas y un párrafo de aviso
+    («Estimado · esta competición no publica esta estadística: el nivel sale de
+    sus goles…») es ahora una línea y una insignia de dos palabras. El párrafo
+    no se ha borrado: vive en «📊 Análisis completo», que es donde lo lee quien
+    lo quiere leer.
+    """
+    return (
+        '<div class="mm-fc%s">'
+        '<span class="mm-fc-n">%s %s</span>'
+        '<span class="mm-fc-l">%s</span>'
+        '<span class="mm-fc-v">%s</span>'
+        '<span class="mm-fc-v">%s</span>'
+        '<span class="mm-fc-e">%s</span>'
+        '</div>' % (' mm-sinsena' if apagado else '', icono, nombre,
+                    linea, izq, der, etiqueta))
+
+
+def _etiqueta_corta(bloque: Optional[Dict]) -> str:
+    """`📐 Estimado`, `🟡 Ámbar` o vacío. Nunca un párrafo."""
+    if not bloque:
+        return ''
+    if (bloque.get('origen') or 'observado') == 'estimado':
+        return '<span class="mm-ck-est">📐 Estimado</span>'
+    if (bloque.get('confianza') or {}).get('insignia'):
+        return '<span class="mm-ck-est">🟡 Ámbar</span>'
+    return ''
+
+
+def _fila_de_bloque(bloque: Optional[Dict], icono: str, nombre: str) -> str:
+    """La fila compacta de un bloque físico: su TOTAL y nada más."""
+    if not bloque:
+        return ''
+    total = None
+    for f in bloque.get('filas') or []:
+        if f.get('etiqueta') == 'Total':
+            total = f
+            break
+    if total is None:
+        return ''
+    otro = 1.0 - float(total['prob'])
+    contrario = ('Menos de %.1f' % total['linea']
+                 if total['texto'].startswith('Más')
+                 else 'Más de %.1f' % total['linea'])
+    apagado = not (bloque.get('confianza') or {}).get('insignia')
+    return _fila_compacta(
+        icono, nombre, '%.1f' % total['linea'],
+        '<b>%s: %.0f %%</b>' % (total['texto'].split(' de ')[0], total['prob'] * 100),
+        '%s: %.0f %%' % (contrario.split(' de ')[0], otro * 100),
+        _etiqueta_corta(bloque), apagado=apagado)
+
+
+def _fila_dos_lados(icono: str, nombre: str, linea: str, izq, der,
+                    etq_izq: str, etq_der: str) -> str:
+    """La fila compacta de un mercado de dos vías del board."""
+    if izq is None or der is None:
+        return ''
+    return _fila_compacta(
+        icono, nombre, linea,
+        '<b>%s: %.0f %%</b>' % (etq_izq, float(izq) * 100),
+        '%s: %.0f %%' % (etq_der, float(der) * 100))
+
+
+def _quien_remata_compacto(qr: Optional[Dict]) -> str:
+    """
+    v167 — una fila, no seis líneas de texto.
+
+    Antes: «Sergio Rodelas 32 % de +1.5 · 42 % de +0.5 a puerta» por jugador,
+    más el aviso de alineación. Ahora los nombres con su probabilidad y ya; el
+    detalle —de qué línea es cada cifra, de dónde sale el once— está en el
+    desplegable.
+    """
+    if not qr:
+        return ''
+    nombres = []
+    for j in ((qr.get('home_jugadores') or [])
+              + (qr.get('away_jugadores') or []))[:6]:
+        # La línea de la casa manda sobre la nuestra (v164): si Playdoit cotiza
+        # a este jugador, su cifra es la de ESA línea. Sin ella, la de rematar.
+        p = j.get('p_linea_tot')
+        if p is None:
+            p = j.get('p_remata')
+        try:
+            p = float(p)
+        except (TypeError, ValueError):
+            continue
+        color = ('var(--ok)' if p >= 0.60
+                 else 'var(--mira)' if p >= 0.45 else 'var(--tenue)')
+        nombres.append('<span style="color:%s">%s <b>%.0f %%</b></span>'
+                       % (color, _esc_mm(j.get('jugador') or ''), p * 100))
+    if not nombres:
+        return ''
+    return ('<div class="mm-fc"><span class="mm-fc-n">🎯 Remata</span>'
+            '<span class="mm-fc-jug">%s</span></div>'
+            % ' &nbsp;·&nbsp; '.join(nombres))
+
+
+def _esc_mm(t) -> str:
+    import html as _html
+    return _html.escape(str(t if t is not None else ''), quote=True)
+
+
+def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
+                        n: int = 0) -> None:
+    """
+    El corazón de la tarjeta: qué meter, a qué precio, y el botón para jugarlo.
+
+    Cuando no hay nada jugable se DICE. Un partido sin recomendación tiene que
+    verse tan claro como uno con ella: si el bloque simplemente desapareciera,
+    la ausencia se leería como que la app no ha mirado.
+    """
+    if rec is None:
+        st.markdown('<div class="mm-rec mm-rec-no">🚫 <b>Sin apuestas '
+                    'jugables</b><span>Ningún mercado de este partido llega al '
+                    'umbral.</span></div>', unsafe_allow_html=True)
+        return
+    icono = '✅' if rec['verde'] else '🟡'
+    tono = 'mm-rec-si' if rec['verde'] else 'mm-rec-ambar'
+    # La coletilla dice POR QUÉ está propuesta, y no siempre es lo mismo. Una
+    # apuesta elegida por PRECIO casi nunca es favorita —el canal medido vive
+    # en comprar barato, no en comprar seguro— y llamarla «sólo para combinar»
+    # la describiría mal.
+    if rec.get('motivo') == 'precio':
+        coleta = ' · la casa la paga por encima de su valor'
+    elif rec['verde']:
+        coleta = ''
+    else:
+        coleta = ' · sólo para combinar'
+    precio = ('Cuota %.2f · justa %.2f' % (rec['cuota'], rec['cuota_justa'])
+              if rec.get('cuota') else 'Cuota justa: %.2f' % rec['cuota_justa'])
+    if rec.get('ev') is not None:
+        precio += ' · EV %+.1f %%' % (rec['ev'] * 100)
+    st.markdown(
+        '<div class="mm-rec %s">'
+        '<span class="mm-rec-tit">🏆 APUESTA RECOMENDADA</span>'
+        '<span class="mm-rec-ap">%s %s — %.0f %%%s</span>'
+        '<span class="mm-rec-cu">%s</span>'
+        '</div>' % (tono, icono, _esc_mm(rec['apuesta']).upper(),
+                    rec['prob'] * 100, coleta, precio),
+        unsafe_allow_html=True)
+    st.link_button('🎲 Jugar en Playdoit', URL_PLAYDOIT, width='stretch')
+
+
 def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             n_boton: int = 0, con_apuesta: bool = True) -> None:
     """
-    La tarjeta de un partido. La MISMA para hoy y para mañana.
+    v167 — LA TARJETA DEJA DE INFORMAR Y PASA A RECOMENDAR.
+
+    El encargo, con sus palabras: «no quiero leer, quiero apostar». La tarjeta
+    enseñaba seis bloques, cuatro párrafos técnicos y ninguna instrucción. Lo
+    que hay ahora, de arriba abajo:
+
+        partido · liga · hora
+        🏆 APUESTA RECOMENDADA        una, con su cuota y su botón
+        📊 OTROS MERCADOS             una fila por mercado, sin párrafos
+        📊 Análisis completo          desplegable, cerrado
+
+    NADA SE HA BORRADO. Todo el texto técnico —el párrafo de «Estimado», el
+    perfil del árbitro, las rachas, el detalle de quién remata, el aviso de
+    cordura— vive dentro del desplegable. Esa es la diferencia entre esconder y
+    ordenar: quien quiera el detalle lo tiene a un clic, y quien quiera la
+    apuesta la ve sin leer nada.
 
     `con_apuesta=False` en la vista de mañana: esos partidos no producen picks
     todavía —las líneas se mueven durante la noche y ese movimiento es
-    precisamente el canal que este proyecto mide—, así que se enseña el análisis
-    entero y se dice por qué no hay apuesta, en vez de proponer una que mañana
-    no valdrá.
+    precisamente el canal que este proyecto mide—, así que se enseña el
+    análisis y se dice por qué no hay apuesta.
     """
-    dest = pick.get('_destacada') if '_destacada' in pick \
-        else apuesta_destacada(pick)
     b = _board(pick)
+    h, a = _equipos(pick)
+    clave_vista = str(pick.get('_clave_vista', 'x'))
     with st.container(border=True):
-        meta = [str(pick.get('deporte') or 'Fútbol'), str(pick.get('liga') or '')]
+        meta = [str(pick.get('deporte') or 'Fútbol'),
+                str(pick.get('liga') or '')]
         if pick.get('hora_txt'):
             meta.append('🕐 %s' % pick['hora_txt'])
         st.markdown('**%s**  \n%s' % (pick.get('partido', '?'),
                                       ' · '.join([m for m in meta if m])))
 
         sin_modelo = bool(pick.get('sin_modelo') or pick.get('prob') is None)
-        # v162 — UN PARTIDO ACABADO NO PROPONE NADA, Y LO DICE ARRIBA.
-        #
-        # La línea de apuesta destacada se sustituye por el marcador. No es
-        # decoración: `apuesta_destacada` devolvería «Menos de 2.5 — 72 %» de
-        # un partido que ya terminó 3-1, y eso leído deprisa parece una
-        # recomendación. El resto de la tarjeta sí se pinta entera —barras,
-        # córners, tarjetas, rachas— porque es lo que se pidió: poder mirar qué
-        # decía el modelo ANTES, con el resultado al lado.
+        _ck = corners_tarjeta(pick)
+        _tj = tarjetas_tarjeta(pick)
+        _rm = remates_tarjeta(pick)
+        _qr = quien_remata_tarjeta(pick)
+
+        # ---- 1) la apuesta recomendada, o por qué no la hay --------------
         if pick.get('jugado'):
             gh, ga = pick.get('goles_home'), pick.get('goles_away')
             if gh is not None and ga is not None:
@@ -1263,106 +1647,95 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                             % (int(gh), int(ga)))
             else:
                 st.markdown('### ✅ Finalizado')
-            if sin_modelo:
-                st.caption('No hay pronóstico guardado de este partido.')
-            else:
-                st.caption('Lo de abajo es el pronóstico PREVIO al partido, '
-                           'para análisis. Ya no es jugable.')
+            st.caption('No hay pronóstico guardado de este partido.'
+                       if sin_modelo else
+                       'Lo de abajo es el pronóstico PREVIO. Ya no es jugable.')
+            rec = None
         elif sin_modelo:
             st.markdown('**· Sin datos de modelo**')
+            rec = None
         elif not con_apuesta:
-            st.caption('Se analiza, no se apuesta todavía: las líneas se mueven '
-                       'durante la noche.')
-        elif dest is None:
-            st.markdown('⚠️ **Sin apuesta clara**')
-        elif dest['alta']:
-            st.markdown('### ✅ %s — %.0f %%'
-                        % (dest['apuesta'], dest['prob'] * 100))
+            st.caption('Se analiza, no se apuesta todavía: las líneas se '
+                       'mueven durante la noche.')
+            rec = None
         else:
-            st.markdown('🟡 **%s — %.0f %%** · sólo para combinar'
-                        % (dest['apuesta'], dest['prob'] * 100))
-        # v165 — POR QUÉ ESA CIFRA Y NO LA QUE DIJO EL MODELO.
-        #
-        # Cuando el control de cordura recorta —o cuando no hay precio de la
-        # casa con el que contrastar— la tarjeta lo dice ahí mismo. Recortar en
-        # silencio cambiaría una mentira grande por una pequeña; lo que hace
-        # honesta a la pantalla no es el número menor, es que se pueda ver de
-        # dónde sale.
-        if dest and not pick.get('jugado') and con_apuesta \
-                and not sin_modelo and dest.get('aviso'):
-            st.caption(dest['aviso'])
+            rec = apuesta_recomendada(
+                pick, {'Córners': _ck, 'Tarjetas': _tj,
+                       'Remates': (_rm or {}).get('totales')})
+            _bloque_recomendada(st, rec, clave_vista, n_boton)
 
-        h, a = _equipos(pick)
-        piezas = []
+        # ---- 2) otros mercados, en filas compactas ----------------------
+        filas = []
         tri = probabilidades_1x2(pick)
         if tri and h and a:
-            piezas.append('<div class="mm-merc-tit">📊 Resultado</div>')
-            piezas.append(_barra_1x2(tri[0], tri[1], tri[2], h, a))
-        piezas.append(_bloque_goles_html(pick, b))
-        piezas.append(_fila_mercado('🤝', 'Ambos marcan', b.get(_ETQ_BTTS_SI),
-                                    b.get(_ETQ_BTTS_NO), 'Sí', 'No'))
-        # Los córners van DEBAJO de goles y ambos marcan, y sólo en las 20
-        # competiciones que los publican: donde no hay datos, la sección
-        # desaparece en vez de rellenarse con la estimación del xG sintético.
-        _ck_tarjeta = corners_tarjeta(pick)
-        piezas.append(_bloque_corners_html(_ck_tarjeta))
-        # v160 — y las tarjetas justo debajo, con la misma forma. Sólo en las 20
-        # competiciones que las publican observadas; en las otras 55 la sección
-        # desaparece, igual que la de córners.
-        _tj_tarjeta = tarjetas_tarjeta(pick)
-        piezas.append(_bloque_tarjetas_html(_tj_tarjeta))
-        # v163.1 - DE REMATES, EN LA TARJETA, SOLO QUIEN LOS TIRA.
-        #
-        # Los bloques por EQUIPO (total, local y visita) se retiraron de aqui a
-        # peticion del usuario: «lo unico que me interesa saber es quien
-        # remata». No se han borrado, siguen enteros en la ficha del partido
-        # (`dashboard_ui.render_remates_partido`), que es donde se va a mirar
-        # el detalle. `remates_tarjeta` y `_bloque_remates_html` se conservan
-        # por lo mismo: volver a ponerlos aqui es una linea.
-        #
-        # Y habia un motivo tecnico que apunta en la misma direccion: en las 17
-        # competiciones sin remates observados el bloque era IDENTICO en todos
-        # sus partidos —lo dice su propia etiqueta, «es igual para todos sus
-        # partidos»—, asi que ocupaba seis lineas de tarjeta sin distinguir un
-        # partido de otro.
-        piezas.append(_bloque_quien_remata_html(quien_remata_tarjeta(pick)))
-        # v166 — Y LOS REMATES POR EQUIPO VUELVEN, PORQUE SE PIDIERON.
-        #
-        # La v163.1 los quitó a petición del usuario («lo único que me interesa
-        # saber es quién remata»). Ahora se pide lo contrario y explícitamente:
-        # ver TODOS los mercados, con la app diciendo cuáles son reales y
-        # cuáles estimados. Las dos peticiones son compatibles: lo que hacía
-        # ruido no era el bloque, era que un bloque estimado —idéntico en todos
-        # los partidos de su liga— tuviera el mismo peso visual que uno medido.
-        # Eso ya está resuelto desde la v165: sin insignia, el bloque va en
-        # gris. Así que la información vuelve y la jerarquía se queda.
-        piezas.append(_bloque_remates_html(remates_tarjeta(pick)))
+            filas.append(
+                '<div class="mm-fc"><span class="mm-fc-n">📊 Resultado</span>'
+                '<span class="mm-fc-barra">%s</span></div>'
+                % _barra_1x2(tri[0], tri[1], tri[2], h, a))
+        filas.append(_fila_dos_lados('⚽', 'Goles', '2.5', b.get(_ETQ_OVER),
+                                     b.get(_ETQ_UNDER), 'Más', 'Menos'))
+        filas.append(_fila_dos_lados('🤝', 'Ambos marcan', '',
+                                     b.get(_ETQ_BTTS_SI), b.get(_ETQ_BTTS_NO),
+                                     'Sí', 'No'))
+        filas.append(_fila_de_bloque(_ck, '⛳', 'Córners'))
+        filas.append(_fila_de_bloque(_tj, '🟨', 'Tarjetas'))
+        filas.append(_fila_de_bloque((_rm or {}).get('totales'), '🎯',
+                                     'Remates'))
+        filas.append(_quien_remata_compacto(_qr))
+        filas = [f for f in filas if f]
+        if filas:
+            st.markdown('<div class="mm-otros">📊 OTROS MERCADOS</div>'
+                        + ''.join(filas), unsafe_allow_html=True)
 
-        rend = None
-        if str(pick.get('deporte') or '') != 'Tenis':
-            rend = _rendimiento(pick)
-        if rend:
-            disp = rend.get('disponible') or {}
-            piezas.append(_bloque_fisico(rend, disp,
-                                        con_corners=not _ck_tarjeta,
-                                        con_tarjetas=not _tj_tarjeta))
-            lineas = [x for x in (_mini_forma(rend.get('forma_home'), disp),
-                                  _mini_forma(rend.get('forma_away'), disp))
-                      if x]
-            if lineas:
-                piezas.append('<div class="mm-forma">%s</div>'
-                              % '<br>'.join(lineas))
-        piezas = [p for p in piezas if p]
-        if piezas:
-            st.markdown(''.join(piezas), unsafe_allow_html=True)
         if str(pick.get('deporte') or '') == 'Tenis':
             _bloque_tenis(st, pick)
 
-        if navegar is not None:
-            if st.button('Ver partido', key='mm_ir_%s_%d'
-                         % (pick.get('_clave_vista', 'x'), n_boton),
-                         width='stretch'):
-                navegar(pick)
+        # ---- 3) y todo el detalle, plegado ------------------------------
+        with st.expander('📊 Análisis completo'):
+            _analisis_completo(st, pick, b, rec, _ck, _tj, _rm, _qr)
+            if navegar is not None:
+                if st.button('Ver ficha del partido',
+                             key='mm_ir_%s_%d' % (clave_vista, n_boton),
+                             width='stretch'):
+                    navegar(pick)
+
+
+def _analisis_completo(st, pick: Dict, b: Dict, rec, _ck, _tj, _rm, _qr
+                       ) -> None:
+    """
+    Lo que antes ocupaba la tarjeta entera, ahora a un clic.
+
+    Se conserva ENTERO y sin resumir: los bloques con sus tres filas, el
+    párrafo de «Estimado», el árbitro, las rachas y el aviso de cordura. La
+    v167 no borró nada de esto — lo movió, que es distinto.
+    """
+    if rec is not None and rec.get('aviso'):
+        st.caption(rec['aviso'])
+    piezas = [
+        _bloque_goles_html(pick, b),
+        _bloque_corners_html(_ck),
+        _bloque_tarjetas_html(_tj),
+        _bloque_remates_html(_rm),
+        _bloque_quien_remata_html(_qr),
+    ]
+    rend = None
+    if str(pick.get('deporte') or '') != 'Tenis':
+        rend = _rendimiento(pick)
+    if rend:
+        disp = rend.get('disponible') or {}
+        piezas.append(_bloque_fisico(rend, disp, con_corners=not _ck,
+                                     con_tarjetas=not _tj))
+        lineas = [x for x in (_mini_forma(rend.get('forma_home'), disp),
+                              _mini_forma(rend.get('forma_away'), disp))
+                  if x]
+        if lineas:
+            piezas.append('<div class="mm-forma">%s</div>'
+                          % '<br>'.join(lineas))
+    piezas = [p for p in piezas if p]
+    if piezas:
+        st.markdown(''.join(piezas), unsafe_allow_html=True)
+    else:
+        st.caption('No hay más detalle de este partido.')
 
 
 # Criterios de orden. El valor es la función que da la CLAVE de ordenación;
@@ -1542,12 +1915,25 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
 
     for p in con:
         p['_destacada'] = None if p.get('jugado') else apuesta_destacada(p)
+        # v167 — EL FILTRO Y LA TARJETA TIENEN QUE DECIR LO MISMO.
+        #
+        # El recuento y la casilla de «solo alta probabilidad» miraban
+        # `_destacada`, y la tarjeta enseña ahora la recomendada. Dos
+        # criterios para la misma pregunta acaban divergiendo — la lista diria
+        # que hay veinte oportunidades y las tarjetas enseñarian otra cosa.
+        #
+        # Se calcula SIN los bloques fisicos a proposito: cornrs, tarjetas y
+        # remates nunca pueden ir en verde (no tienen p5 medido), asi que no
+        # cambian la respuesta a «cuantas hay jugables en solitario» y pedirlos
+        # aqui costaria tres consultas por partido en una pantalla que ya tarda.
+        p['_recomendada'] = (None if p.get('jugado')
+                             else apuesta_recomendada(p))
     # Los jugados no cuentan para «N con una apuesta por encima del 60 %»: esa
     # frase es un recuento de oportunidades, y una oportunidad que ya pasó no
     # lo es.
     n_altas = sum(1 for p in con
                   if not p.get('jugado')
-                  and p.get('_destacada') and p['_destacada']['alta'])
+                  and (p.get('_recomendada') or {}).get('verde'))
     n_jugados = sum(1 for p in con if p.get('jugado'))
 
     c1, c2 = st.columns([3, 2])
@@ -1579,7 +1965,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         # Los jugados salen también de aquí: ese filtro sirve para buscar
         # apuestas, y en un partido acabado no queda ninguna que hacer.
         con = [p for p in con
-               if p.get('_destacada') and p['_destacada']['alta']]
+               if (p.get('_recomendada') or {}).get('verde')]
     if solo_fisicos:
         con = [p for p in con if _tiene_fisicos(p)]
 

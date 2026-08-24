@@ -2180,3 +2180,92 @@ queda.
 El test `test_la_tarjeta_no_pinta_remates_por_equipo` se invierte pero
 **conserva su nombre**: renombrarlo borraría el rastro de que esto se decidió,
 se midió y se revirtió.
+
+## 17. La tarjeta deja de informar y pasa a recomendar
+
+### 17.1 El encargo, con sus palabras
+
+«No quiero leer, quiero apostar.» La tarjeta enseñaba seis bloques, cuatro
+párrafos técnicos y ninguna instrucción: *«Estimado · esta competición no
+publica esta estadística: el nivel sale de sus goles…»*, el perfil del árbitro,
+*«Sergio Rodelas 32 % de +1.5 · 42 % de +0.5 a puerta»*, el aviso de cordura. Lo
+que no había en ninguna parte era **qué meter en el boleto**.
+
+Lo que hay ahora, de arriba abajo:
+
+    partido · liga · hora
+    🏆 APUESTA RECOMENDADA        una, con su cuota y su botón
+    📊 OTROS MERCADOS             una fila por mercado, sin párrafos
+    📊 Análisis completo          desplegable, cerrado
+
+**Nada se ha borrado.** Todo el texto técnico vive dentro del desplegable. Es la
+diferencia entre esconder y ordenar: lo segundo se puede abrir.
+
+### 17.2 El orden de prioridad, y la parte que no se pudo seguir al pie de la letra
+
+Lo pedido: (1) mejor EV, (2) si ninguno es positivo, la de mayor probabilidad
+calibrada por encima del 60 % en verde o ámbar, (3) si no hay nada, decirlo.
+
+El paso (1) **tal cual estaba escrito** —EV sobre la probabilidad CRUDA del
+modelo— es exactamente el canal que este proyecto tiene medido como
+ANTI-INDICADOR: −4,66 % a −6,52 % sobre 37.158 apuestas, correlación −0,054 con
+el cierre (§2 del traspaso). Y peor: el EV crudo es máximo justo donde el modelo
+más se separa de la casa, que es donde la v166 midió que su número más miente
+(brecha 0,281 por encima de los 20 puntos de desvío). Ordenar por ahí habría
+reconstruido, con otro nombre, el fallo que la v165 y la v166 acaban de cerrar.
+
+Así que **el orden se respeta y el EV se calcula sobre la probabilidad ya
+ajustada** por `cordura_probabilidad` (encogida hacia el mercado, recortada si
+hace falta). Con esa probabilidad, un EV positivo ya no significa «el modelo
+discrepa mucho» sino «esta casa paga por encima de lo que vale» — que es la
+ventaja de PRECIO, el único canal con percentil 5 positivo medido del proyecto
+(+11,49 %, p5 +1,73 %). Es la misma apuesta que pedía el encargo, calculada
+sobre el número que la v166 dejó honesto.
+
+### 17.3 Tres reglas que la recomendación no puede saltarse
+
+* **Un mercado ESTIMADO no se recomienda nunca**, ni al 93 %. Es el nivel de la
+  competición repartido por bando, idéntico en todos sus partidos (v164).
+* **Un mercado físico observado sí puede ser la apuesta, pero siempre en
+  ÁMBAR.** Verde significa «canal con p5 de bootstrap positivo medido», y
+  córners, tarjetas y remates no lo tienen. La puerta de entrada es la MISMA
+  que la de la insignia del bloque (`confianza_mercado`), para que no puedan
+  decir cosas distintas la insignia de abajo y la recomendación de arriba.
+* **El verde exige precio de la casa con el que contrastar** (v165).
+
+### 17.4 Dos decisiones de diseño que se tomaron con la medición delante
+
+**El suelo del 50 % es de la vía de probabilidad, no de la de precio.** La
+primera versión filtraba TODO por debajo del 50 % y con eso tiraba justo las
+apuestas de valor: una ventaja de precio real casi nunca es favorita — el canal
+medido vive en comprar barato, no en comprar seguro. Ahora una apuesta con EV
+positivo entra aunque esté al 41 %, y su coletilla lo dice: «la casa la paga por
+encima de su valor», no «sólo para combinar», que la describiría mal.
+
+**El verde gana al porcentaje.** Un bloque de córners al 78 % es ámbar porque su
+ventaja de precio no está medida; proponerlo por delante de un 64 % que sí pasó
+el contraste sería premiar la cifra grande sobre la comprobada. Medido sobre 40
+partidos del barrido: con esta regla, la tarjeta y el filtro «sólo alta
+probabilidad» de la lista **discrepan en 0**. Sin ella discrepaban, y eso es una
+aplicación diciendo dos cosas de la misma pregunta.
+
+### 17.5 El filtro de la lista habla ahora el mismo idioma
+
+El recuento y la casilla de «sólo alta probabilidad» miraban `_destacada` y la
+tarjeta enseña la recomendada. Dos criterios para la misma pregunta acaban
+divergiendo. Ahora los dos salen de `apuesta_recomendada`.
+
+Se calcula sin los bloques físicos a propósito: como nunca pueden ir en verde,
+no cambian la respuesta a «cuántas hay jugables en solitario», y pedirlos ahí
+serían tres consultas por partido en una pantalla que ya tarda.
+
+### 17.6 Lo que se midió del resultado
+
+Sobre 40 partidos del barrido del 2026-08-24: **21 en verde · 18 en ámbar · 1
+sin apuesta jugable**. Ninguna recomendación salió por la vía del precio, y eso
+tiene explicación: los `pronosticos` se construyen por el camino del modelo, que
+emite `cuota: None` a propósito, así que hoy sólo hay EV cuando el pick trae
+precio real. La vía existe y está probada; se activará sola según crezca la
+cobertura de cuotas.
+
+Render: 3 vistas OK, la de Apuestas del Día en 115 s (antes 174 s).

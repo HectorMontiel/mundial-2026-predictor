@@ -1188,3 +1188,59 @@ del modelo sería la mentira contraria.
    temporadas de las doce. Es trabajo de workflow nocturno, no de sesión.
 3. El umbral de BTTS es heredado, no medido: no hay cuota histórica de BTTS en
    ningún ledger. Si algún día se acumula, medirlo aparte.
+
+## 4x. v167 — LA TARJETA ACCIONABLE
+
+Detalle completo en **BITACORA_ARQUITECTURA.md §17**.
+
+**Qué cambia en pantalla.** La tarjeta pasa de informar a recomendar:
+
+    partido · liga · hora
+    🏆 APUESTA RECOMENDADA   una, con cuota justa y botón «Jugar en Playdoit»
+    📊 OTROS MERCADOS        una fila compacta por mercado, etiquetas cortas
+    📊 Análisis completo     desplegable con TODO el texto técnico de antes
+
+**`modo_modelo.apuesta_recomendada(pick, bloques)`** elige una apuesta de todo
+el partido:
+
+    1) ventaja de PRECIO: EV ≥ 3 % sobre la probabilidad YA AJUSTADA
+    2) si no la hay, mayor probabilidad ajustada ≥ 60 % (el verde gana al %)
+    3) si nada llega, lo mejor para combinar, en ámbar
+    4) si no hay nada jugable, None — y la tarjeta lo PINTA
+
+**El EV NO se calcula sobre la probabilidad cruda del modelo, y es deliberado.**
+Ese canal está medido como anti-indicador (−4,66 % a −6,52 %) y además es máximo
+justo donde la v166 midió que el número más miente. Sobre la probabilidad
+ajustada, un EV positivo significa «la casa paga de más», que es el canal con p5
+positivo. Si alguien lo cambia a EV crudo, reconstruye el fallo de la v165.
+
+**Reglas que la recomendación no puede saltarse:** un mercado estimado nunca se
+recomienda (v164); uno físico observado sí, pero siempre en ámbar (no tienen p5
+medido); el verde exige contraste con la casa (v165).
+
+**Dos ajustes hechos con medición delante:**
+
+* El suelo del 50 % es sólo de la vía de probabilidad. Filtrarlo también en la
+  de precio tiraba justo las apuestas de valor, que casi nunca son favoritas.
+* El verde gana al porcentaje. Con esa regla, la tarjeta y el filtro «sólo alta
+  probabilidad» discrepan en **0** de 40 partidos; sin ella, discrepaban.
+
+**Medido:** 21 verdes · 18 ámbar · 1 sin apuesta, sobre 40 partidos. Ninguna por
+la vía del precio todavía, porque los `pronosticos` llevan `cuota: None` por
+construcción; la vía está probada y se activará al crecer la cobertura.
+
+**Validación.** Suite 1.564 checks TODO OK · `valida_render.py` 3 vistas OK
+(Apuestas del Día 115 s, antes 174) · `_v164_valida_tarjeta.py` OK ·
+`_v163_valida_ficha_remates.py` OK.
+
+**Pendiente que deja:**
+
+1. El botón «Jugar en Playdoit» lleva a la portada de deportes, no al partido:
+   `cuotas_multi` conoce el `event_id`, pero no está comprobado el formato de
+   URL profunda de la casa. Medirlo y enlazar al evento exacto.
+2. `apuesta_destacada` sigue existiendo y se usa para el orden de la lista
+   (`_k_destacada`). Convendría unificarla con `apuesta_recomendada` cuando se
+   toque el orden, para no dejar dos criterios vivos.
+3. La vía del precio no se ha podido ejercitar con datos reales de producción
+   (ver arriba). Cuando haya picks con cuota en `pronosticos`, medir cuántas
+   recomendaciones salen por ahí y con qué ROI.

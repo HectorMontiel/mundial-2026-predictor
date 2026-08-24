@@ -475,10 +475,17 @@ def test_los_jugados_salen_en_la_lista_con_su_pronostico():
     src = inspect.getsource(mm.tarjeta)
     check("pick.get('jugado')" in src and 'Finalizado' in src,
           "la tarjeta marca los partidos acabados")
+    # v167 — la comprobacion es la misma, sobre la estructura nueva: el
+    # marcador de un partido acabado SUSTITUYE a la recomendacion, no se le
+    # añade debajo. `apuesta_recomendada` devuelve None en un partido jugado,
+    # asi que hay dos guardas y se comprueban las dos.
     i_jug = src.index("if pick.get('jugado')")
-    i_dest = src.index("elif dest['alta']")
-    check(i_jug < i_dest,
-          "y el marcador sustituye a la apuesta destacada, no se añade debajo")
+    i_rec = src.index('_bloque_recomendada(st, rec')
+    check(i_jug < i_rec,
+          "el marcador va antes que la apuesta recomendada, no debajo")
+    rec_src = inspect.getsource(mm.apuesta_recomendada)
+    check("pick.get('jugado')" in rec_src and 'return None' in rec_src,
+          "y un partido acabado no produce recomendacion ninguna")
 
     # La leyenda que se pidio, y el recuento aparte.
     rnd = inspect.getsource(mm.render)
@@ -6417,7 +6424,7 @@ def test_las_tarjetas_en_la_tarjeta():
 
     # La seccion de abajo no repite las medias cuando la de arriba ya salio.
     src = open('modo_modelo.py', encoding='utf-8').read()
-    check('con_tarjetas=not _tj_tarjeta' in src,
+    check('con_tarjetas=not _tj' in src,
           "si la seccion con probabilidad salio, la de medias no se repite")
 
 
@@ -7383,12 +7390,21 @@ def test_la_tarjeta_no_pinta_remates_por_equipo():
     El nombre de la funcion se conserva a proposito. Renombrarlo borraria el
     rastro de que esto se decidio, se midio y se revirtio.
     """
+    # v167 — los dos siguen enseñandose, pero ya no como parrafo en el cuerpo
+    # de la tarjeta: arriba van en fila compacta y el detalle entero esta en el
+    # desplegable «Analisis completo». Lo que este test protege es que se
+    # ENSEÑEN, no donde; asi que se comprueban los dos sitios.
     src = open('modo_modelo.py', encoding='utf-8').read()
-    cuerpo = src.split('def tarjeta')[-1]
-    check('_bloque_quien_remata_html(quien_remata_tarjeta(pick))' in cuerpo,
-          "la tarjeta sigue pintando quien remata")
-    check('_bloque_remates_html(remates_tarjeta(pick))' in cuerpo,
-          "y v166: vuelve a pintar tambien los remates por equipo")
+    cuerpo = src.split('def tarjeta(st, pick')[-1]
+    check('quien_remata_tarjeta(pick)' in cuerpo
+          and '_quien_remata_compacto' in cuerpo,
+          "la tarjeta sigue enseñando quien remata, en fila compacta")
+    check('remates_tarjeta(pick)' in cuerpo,
+          "y v166: los remates por equipo se calculan para la tarjeta")
+    detalle = src.split('def _analisis_completo')[-1]
+    check('_bloque_quien_remata_html' in detalle
+          and '_bloque_remates_html' in detalle,
+          "y su detalle completo vive en el desplegable")
     import modo_modelo as mm
     bloque = mm.remates_tarjeta({'partido': 'Danubio vs Racing (Montevideo)',
                                  'clave_liga': 'uru_primera',
@@ -8306,6 +8322,210 @@ def test_la_tarjeta_enseña_todos_los_mercados():
                   f"{clave}: la tarjeta enseña «{titulo}»")
 
 
+
+def test_la_apuesta_recomendada_es_una_y_es_jugable():
+    """
+    v167 — LA TARJETA DEJA DE INFORMAR Y PASA A RECOMENDAR.
+
+    El encargo: «no quiero leer, quiero apostar». Una apuesta arriba, con su
+    cuota, y el resto plegado. Se comprueba la logica de seleccion, que es lo
+    unico que puede equivocarse en silencio:
+
+        1) ventaja de PRECIO (EV sobre la probabilidad ya ajustada)
+        2) si no la hay, la de mayor probabilidad ajustada que llegue al 60 %
+        3) si nada llega, lo mejor para combinar, en ambar
+        4) si no hay nada jugable, None — y eso se PINTA
+
+    EL PASO 1 NO USA EL EV CRUDO DEL MODELO, Y NO ES UN DESCUIDO. Ese canal
+    esta medido como ANTI-indicador (−4,66 % a −6,52 % sobre 37.158 apuestas) y
+    ademas es maximo justo donde la v166 midio que el numero mas miente. El EV
+    se calcula sobre la probabilidad que devuelve `cordura_probabilidad`, y
+    entonces un EV positivo significa «esta casa paga de mas», que es la
+    ventaja de precio — el unico canal con p5 positivo del proyecto.
+    """
+    import modo_modelo as mm
+
+    base = {'partido': 'Granada vs Mallorca', 'clave_liga': 'esp_hypermotion',
+            'deporte': 'Fútbol', 'fecha': '2026-08-24'}
+
+    # --- 2) por probabilidad, cuando no hay cuota real ------------------
+    r = mm.apuesta_recomendada({
+        **base, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.36}},
+        'mercados': [
+            {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.66},
+            {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.34},
+            {'mercado': '1X2', 'apuesta': 'Gana Granada', 'prob': 0.41}]})
+    check(r is not None, "hay apuesta recomendada")
+    check(r['apuesta'] == 'Menos de 2.5',
+          f"gana la de mayor probabilidad ajustada ({r})")
+    check(r['motivo'] == 'probabilidad', f"y lo dice ({r['motivo']})")
+    check(r['cuota_justa'] > 1.0, "trae su cuota justa para el boleto")
+
+    # --- 1) el PRECIO manda sobre la probabilidad -----------------------
+    con_precio = mm.apuesta_recomendada({
+        **base, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.36}},
+        'mercados': [
+            {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.66},
+            # misma probabilidad ajustada, pero con una cuota que la paga de mas
+            {'mercado': '1X2', 'apuesta': 'Gana Granada', 'prob': 0.41,
+             'cuota': 3.20}]})
+    check(con_precio and con_precio['apuesta'] == 'Gana Granada',
+          f"con cuota que paga de mas, gana el precio ({con_precio})")
+    check(con_precio['motivo'] == 'precio', "y se dice que fue por precio")
+    check(con_precio['ev'] is not None and con_precio['ev'] > 0,
+          "con su EV calculado sobre la probabilidad AJUSTADA")
+
+    # una cuota que NO paga de mas no secuestra nada
+    sin_valor = mm.apuesta_recomendada({
+        **base, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.36}},
+        'mercados': [
+            {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.66},
+            {'mercado': '1X2', 'apuesta': 'Gana Granada', 'prob': 0.41,
+             'cuota': 1.60}]})
+    check(sin_valor and sin_valor['apuesta'] == 'Menos de 2.5',
+          f"una cuota corta no gana por tener cuota ({sin_valor})")
+
+    # --- 4) sin nada jugable, None, y se pinta --------------------------
+    nada = mm.apuesta_recomendada({
+        **base, 'mercados': [
+            {'mercado': '1X2', 'apuesta': 'Gana Granada', 'prob': 0.34},
+            {'mercado': '1X2', 'apuesta': 'Empate', 'prob': 0.33}]})
+    check(nada is None, f"por debajo del 50 % no hay apuesta que meter ({nada})")
+
+    # un partido ya jugado no recomienda nada
+    check(mm.apuesta_recomendada({**base, 'jugado': True, 'mercados': [
+        {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.9}]}) is None,
+        "y un partido acabado tampoco")
+
+    # --- lo que NUNCA puede recomendarse --------------------------------
+    estimado = mm.apuesta_recomendada({
+        **base, 'mercados': [
+            {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.55},
+            {'mercado': 'Córners', 'apuesta': 'Más de 9.5', 'prob': 0.93,
+             'origen': 'estimado'}]})
+    check(estimado and estimado['apuesta'] == 'Menos de 2.5',
+          f"un mercado estimado no se recomienda ni al 93 % ({estimado})")
+
+
+def test_los_mercados_fisicos_se_recomiendan_pero_nunca_en_verde():
+    """
+    v167 — CORNERS, TARJETAS Y REMATES PUEDEN SER LA APUESTA. EN AMBAR.
+
+    Se pidio evaluarlos todos para elegir la mejor apuesta jugable, y se hace.
+    Pero el verde de esta aplicacion significa una cosa concreta y medida
+    —«canal con percentil 5 de bootstrap positivo en tramo de juicio»— y estos
+    tres mercados no lo tienen: no hay historico de lineas con el que
+    calcularlo, que es lo que `snapshots_*.py` esta acumulando.
+
+    Y la puerta de entrada es la MISMA que la de la insignia del bloque
+    (`confianza_mercado`), para que no puedan decir cosas distintas la insignia
+    de abajo y la recomendacion de arriba.
+    """
+    import modo_modelo as mm
+
+    base = {'partido': 'Roma vs Fiorentina', 'clave_liga': 'serie_a',
+            'deporte': 'Fútbol', 'fecha': '2026-08-24',
+            'mercados': [{'mercado': 'Goles', 'apuesta': 'Menos de 2.5',
+                          'prob': 0.52}]}
+    observado = {'filas': [{'etiqueta': 'Total', 'media': 10.2,
+                            'texto': 'Más de 9.5', 'linea': 9.5,
+                            'prob': 0.78}],
+                 'mejor': {'etiqueta': 'Total', 'media': 10.2,
+                           'texto': 'Más de 9.5', 'linea': 9.5, 'prob': 0.78},
+                 'origen': 'observado',
+                 'confianza': {'nivel': 1, 'insignia': True}}
+    r = mm.apuesta_recomendada(base, {'Córners': observado})
+    check(r and r['apuesta'].startswith('Córners'),
+          f"un bloque fisico observado SI puede ser la apuesta ({r})")
+    check(r['fisico'] and not r['verde'],
+          "pero nunca en verde, por alto que sea el porcentaje")
+
+    estimado = dict(observado, origen='estimado',
+                    confianza={'nivel': 3, 'insignia': False})
+    r2 = mm.apuesta_recomendada(base, {'Córners': estimado})
+    check(r2 and not r2['fisico'],
+          f"y uno estimado no entra siquiera ({r2})")
+    check((r2 or {}).get('apuesta') == 'Menos de 2.5',
+          "gana entonces el mercado de goles, que si esta medido")
+
+
+def test_la_tarjeta_es_accionable_y_no_un_parrafo():
+    """
+    v167 — NADA SE BORRO, TODO SE ORDENO.
+
+    La tarjeta enseñaba cuatro parrafos tecnicos («Estimado · esta competicion
+    no publica esta estadistica…», el perfil del arbitro, el detalle por
+    jugador). Ahora arriba hay UNA apuesta y filas compactas, y el texto entero
+    vive en «📊 Analisis completo». La diferencia entre esconder y ordenar es
+    que lo segundo se puede abrir.
+    """
+    import modo_modelo as mm
+
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    cuerpo = src.split('def tarjeta(st, pick')[1].split(
+        'def _analisis_completo')[0]
+
+    check('_bloque_recomendada' in cuerpo,
+          "la tarjeta pinta el bloque de apuesta recomendada")
+    check('APUESTA RECOMENDADA' in src, "con su rotulo")
+    check("st.expander('📊 Análisis completo')" in cuerpo,
+          "y el detalle va en un desplegable")
+    for parrafo in ('_bloque_corners_html', '_bloque_tarjetas_html',
+                    '_bloque_remates_html', '_bloque_quien_remata_html',
+                    '_bloque_fisico', '_mini_forma'):
+        check(parrafo not in cuerpo,
+              f"{parrafo} ya no se pinta en el cuerpo de la tarjeta")
+    detalle = src.split('def _analisis_completo')[1]
+    for parrafo in ('_bloque_corners_html', '_bloque_tarjetas_html',
+                    '_bloque_remates_html', '_bloque_quien_remata_html',
+                    '_bloque_fisico', '_mini_forma'):
+        check(parrafo in detalle,
+              f"pero {parrafo} SI vive en el analisis completo")
+
+    # el boton de Playdoit existe y apunta a la casa del usuario
+    check('link_button' in src and 'Playdoit' in src,
+          "hay boton para ir a jugarla")
+    check(mm.URL_PLAYDOIT.startswith('https://'),
+          "con una URL de verdad")
+
+    # las filas compactas no llevan parrafos: una etiqueta de dos palabras
+    fila = mm._fila_compacta('⛳', 'Córners', '9.5', 'Más: 53 %', 'Menos: 47 %',
+                             '<span class="mm-ck-est">📐 Estimado</span>',
+                             apagado=True)
+    check('📐 Estimado' in fila and len(fila) < 400,
+          "la fila compacta lleva la etiqueta corta y nada mas")
+    check('mm-sinsena' in fila,
+          "y un mercado estimado sale apagado, como desde la v165")
+    check('esta competición no publica' not in fila,
+          "el parrafo largo NO esta en la fila")
+
+    # el bloque de «sin apuestas jugables» existe y se ve
+    class _Falso:
+        def __init__(self):
+            self.txt = []
+
+        def markdown(self, t, **k):
+            self.txt.append(t)
+
+        def link_button(self, *a, **k):
+            self.txt.append('BOTON')
+    f = _Falso()
+    mm._bloque_recomendada(f, None, 'x', 0)
+    check(any('Sin apuestas jugables' in t for t in f.txt),
+          "cuando no hay nada jugable, la tarjeta lo dice")
+    check(not any('BOTON' in t for t in f.txt),
+          "y no ofrece boton para jugar nada")
+    f2 = _Falso()
+    mm._bloque_recomendada(f2, {'apuesta': 'Ambos marcan: No', 'prob': 0.60,
+                                'cuota': None, 'cuota_justa': 1.67,
+                                'ev': None, 'verde': True, 'fisico': False,
+                                'aviso': ''}, 'x', 0)
+    check(any('AMBOS MARCAN: NO' in t for t in f2.txt),
+          "y cuando la hay, la enseña en mayusculas y con su porcentaje")
+    check(any('1.67' in t for t in f2.txt), "con la cuota justa al lado")
+    check(any('BOTON' in t for t in f2.txt), "y el boton para jugarla")
+
+
 def test_todas_las_ligas_tienen_remates():
     """
     v163 — ninguna competicion se queda sin la seccion, y la estimada lo dice.
@@ -8650,6 +8870,10 @@ if __name__ == '__main__':
     test_los_goles_se_encogen_hacia_el_mercado()
     test_los_corners_salen_en_todas_las_ligas_y_con_la_linea_de_la_casa()
     test_la_tarjeta_enseña_todos_los_mercados()
+    print('\n=== v167: la tarjeta accionable ===')
+    test_la_apuesta_recomendada_es_una_y_es_jugable()
+    test_los_mercados_fisicos_se_recomiendan_pero_nunca_en_verde()
+    test_la_tarjeta_es_accionable_y_no_un_parrafo()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
