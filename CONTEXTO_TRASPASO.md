@@ -1244,3 +1244,63 @@ construcción; la vía está probada y se activará al crecer la cobertura.
 3. La vía del precio no se ha podido ejercitar con datos reales de producción
    (ver arriba). Cuando haya picks con cuota en `pronosticos`, medir cuántas
    recomendaciones salen por ahí y con qué ROI.
+
+## 4y. v168 — MERCADO REY Y MODO SEGURIDAD
+
+Detalle completo en **BITACORA_ARQUITECTURA.md §18**.
+
+**`mercado_estabilidad.py` + `mercado_estable_por_liga.json`** miden con ECE
+todo el catálogo en las 62 competiciones, sobre los tres ledgers walk-forward y
+el informe físico que ya estaban en el repo.
+
+**El hallazgo:** el mercado más fiable cambia por completo de liga a liga
+—hándicap en 14, córners por equipo en 12, remates a puerta en 7, doble
+oportunidad en 6, tarjetas en 8, 1X2 en 1— y **los goles salen 🔴 inestables en
+todas**, con ECE de 0,086 a 0,129. Era el mercado del que salía el 64 % de los
+titulares. BTTS tampoco corona ninguna: calibra 🔴 en todas.
+
+**Dos calibraciones por fila y manda la que aplica:** `ece` (modelo crudo) y
+`ece_ajustada` (encogida hacia la casa, que es lo que se enseña desde la v166).
+Premier goles 2,5 pasa de 0,129 a 0,046 con el ajuste; el Brasileirão B no tiene
+cuota en el ledger y se queda en 0,118 → cuarentena.
+
+**Tres familias sin medir, marcadas y fuera del ranking:** goles por equipo,
+resultado exacto y remates de jugador (este último medido pero AGREGADO, no por
+liga). No se les inventa número.
+
+**Modo seguridad — tres puertas que se apilan:**
+
+    recorte     5 pp sobre la casa            medido v166   baja y marca 🔴
+    bloqueo    10 pp sobre la casa            del encargo   no proponible
+    cuarentena ECE > 0,05 o var/media > 2,0   medido v168   bloque no proponible
+
+Un bloque en cuarentena SIGUE VIÉNDOSE con sus probabilidades y lleva
+🔒 No recomendado. Mirar sí, proponer no.
+
+**Orden de la recomendación:** precio → ranking de estabilidad (suelo 55 %) →
+probabilidad → combinar. El precio va delante del ranking a propósito: el
+ranking dice dónde es fiable el MODELO, el precio dónde se equivocó la CASA, y
+sólo lo segundo tiene p5 positivo medido.
+
+**Medido sobre 40 partidos:** la recomendación se reparte entre tarjetas (17),
+resultado (4), goles (2), remates (2) y córners (1). Y 14 de 40 se quedan **sin
+apuesta jugable**, frente a 1 de 40 antes.
+
+**Interfaz:** tira de estabilidad de seis iconos sin leyenda, candados en los
+bloques en cuarentena, desplegable `🔍 Análisis`, y ningún texto visible por
+encima de 50 caracteres (hay test con regex).
+
+**Validación.** Suite 2.268 checks TODO OK · `valida_render.py` 3 vistas OK ·
+`_v164_valida_tarjeta.py` OK · `_v163_valida_ficha_remates.py` OK.
+Coste medido del código nuevo: 0,27 s por 40 tarjetas.
+
+**Pendiente que deja:**
+
+1. `mercado_estable_por_liga.json` se genera a mano. Debería regenerarse en el
+   workflow nocturno junto a `informe_calibracion.py`, o envejecerá.
+2. Los seis «(ninguno)» son competiciones sin ningún mercado que pase el filtro.
+   Merece mirar si es falta de muestra o de verdad no hay nada fiable.
+3. El bloqueo de 10 pp lo fijó el encargo, no una medición. La v166 midió el
+   corte de 5 pp; el de 10 se puede medir igual sobre los mismos ledgers.
+4. La tira de estabilidad enseña seis bloques, pero el ranking tiene hasta
+   catorce familias. La ficha del partido podría enseñar la tabla entera.

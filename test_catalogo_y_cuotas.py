@@ -8358,7 +8358,11 @@ def test_la_apuesta_recomendada_es_una_y_es_jugable():
     check(r is not None, "hay apuesta recomendada")
     check(r['apuesta'] == 'Menos de 2.5',
           f"gana la de mayor probabilidad ajustada ({r})")
-    check(r['motivo'] == 'probabilidad', f"y lo dice ({r['motivo']})")
+    # v168 — el motivo puede ser «probabilidad» o «estabilidad»/«rey» segun si
+    # ese mercado tiene puesto en el ranking de su liga. Lo que se comprueba es
+    # que la tarjeta DIGA por que la propone, no cual de las dos vias gano.
+    check(r['motivo'] in ('probabilidad', 'estabilidad', 'rey'),
+          f"y dice por que la propone ({r['motivo']})")
     check(r['cuota_justa'] > 1.0, "trae su cuota justa para el boleto")
 
     # --- 1) el PRECIO manda sobre la probabilidad -----------------------
@@ -8468,8 +8472,8 @@ def test_la_tarjeta_es_accionable_y_no_un_parrafo():
     check('_bloque_recomendada' in cuerpo,
           "la tarjeta pinta el bloque de apuesta recomendada")
     check('APUESTA RECOMENDADA' in src, "con su rotulo")
-    check("st.expander('📊 Análisis completo')" in cuerpo,
-          "y el detalle va en un desplegable")
+    check("st.expander('🔍 Análisis')" in cuerpo,
+          "y el detalle va en un desplegable (v168: se llama 🔍 Análisis)")
     for parrafo in ('_bloque_corners_html', '_bloque_tarjetas_html',
                     '_bloque_remates_html', '_bloque_quien_remata_html',
                     '_bloque_fisico', '_mini_forma'):
@@ -8524,6 +8528,223 @@ def test_la_tarjeta_es_accionable_y_no_un_parrafo():
           "y cuando la hay, la enseña en mayusculas y con su porcentaje")
     check(any('1.67' in t for t in f2.txt), "con la cuota justa al lado")
     check(any('BOTON' in t for t in f2.txt), "y el boton para jugarla")
+
+
+
+def test_el_mercado_rey_recorre_todo_el_catalogo():
+    """
+    v168 — CADA COMPETICION TIENE SU MERCADO MAS FIABLE, Y NO ES SIEMPRE EL
+    MISMO.
+
+    Medido sobre los tres ledgers walk-forward que ya estaban en el repo
+    (`pick_ledger.csv`, `pick_ledger_totales.csv`, `pick_ledger_handicap.csv`)
+    mas el informe de calibracion fisico. Reparto del rey sobre 62
+    competiciones:
+
+        Handicap 14 · Cornrs por equipo 12 · Remates a puerta 7
+        Doble oportunidad 6 · Tarjetas por equipo 5 · Remates por equipo 5
+        Tarjetas 3 · Remates 2 · 1X2 1 · Cornrs 1 · ninguno 6
+
+    O sea que el rey sale de las tres familias del catalogo —resultado, goles y
+    estadisticos—, que es justo lo que se pidio comprobar. BTTS no corona
+    ninguna, y eso NO es un hueco del catalogo: calibra 🔴 en todas las ligas
+    medidas. Un catalogo completo tambien sirve para descartar.
+    """
+    import mercado_estabilidad as me
+
+    doc = me.cargar(recargar=True)
+    ligas = doc.get('ligas') or {}
+    check(len(ligas) >= 55,
+          f"se midieron casi todas las competiciones ({len(ligas)})")
+
+    reyes = {v.get('rey') for v in ligas.values() if v.get('rey')}
+    check(len(reyes) >= 5,
+          f"el rey cambia de mercado segun la liga ({len(reyes)} distintos)")
+    familias = {me.BLOQUE.get(r, 'otros') for r in reyes}
+    check(len(familias & {'resultado', 'handicap'}) > 0,
+          f"algun rey sale de los mercados de RESULTADO ({sorted(familias)})")
+    check(len(familias & {'corners', 'tarjetas', 'remates', 'remates_on'}) > 0,
+          "y alguno de los ESTADISTICOS")
+
+    # el catalogo entero esta representado, incluido lo que no se pudo medir
+    nombres = set()
+    for v in ligas.values():
+        for f in v.get('mercados') or []:
+            nombres.add(f['mercado'])
+    for esperado in ('1X2', 'Doble oportunidad', 'Hándicap', 'Goles 2.5',
+                     'BTTS', 'Córners', 'Tarjetas', 'Remates',
+                     'Remates a puerta', 'Córners por equipo',
+                     'Tarjetas por equipo', 'Remates por equipo'):
+        check(esperado in nombres, f"el catalogo incluye «{esperado}»")
+    # y lo que NO se puede medir se dice, en vez de colarse con un numero
+    for sin_medir in ('Goles por equipo', 'Resultado exacto',
+                      'Remates de jugador'):
+        check(sin_medir in nombres,
+              f"«{sin_medir}» aparece marcado, no escondido")
+        fila = [f for v in ligas.values() for f in (v.get('mercados') or [])
+                if f['mercado'] == sin_medir][0]
+        check(fila['origen'] == 'sin medir' and fila['ece'] is None,
+              f"«{sin_medir}» no lleva un numero inventado")
+        check(fila.get('puesto') is None,
+              f"y no puede ser rey de nada ({sin_medir})")
+
+    # un mercado sin medicion nunca entra al ranking
+    for v in ligas.values():
+        for f in v.get('mercados') or []:
+            if f.get('puesto') is not None:
+                check(f['ece_efectiva'] is not None,
+                      "todo lo que tiene puesto tiene medicion")
+                check(f['estado'] != me.INESTABLE,
+                      "y ningun inestable tiene puesto")
+
+    # la cuarentena por varianza funciona de verdad
+    en_cuarentena = [f for v in ligas.values() for f in (v.get('mercados') or [])
+                     if f.get('dispersion') and f['dispersion'] > me.DISPERSION_MAX]
+    check(all(f['estado'] == me.INESTABLE for f in en_cuarentena),
+          f"varianza/media > {me.DISPERSION_MAX} manda a cuarentena "
+          f"({len(en_cuarentena)} casos)")
+
+
+def test_los_goles_del_brasileirao_b_nunca_salen_en_verde():
+    """
+    v168 — EL CASO QUE LO PROVOCA: «Menos de 2.5 — 82 %», termino 1-4.
+
+    Medido: en el Brasileirao B los goles calibran a **0,118** en crudo —mas
+    del doble del 0,05 que este proyecto llama aceptable— y su liga no tiene
+    cuota en el ledger con la que encogerlos, asi que lo que se veria en
+    pantalla es ese crudo. El bloque entero queda en cuarentena.
+
+    Y no esta solo: los goles salen 🔴 en TODAS las ligas medidas sin cuota. Es
+    el mercado del que salia el 64 % de los titulares de la aplicacion.
+    """
+    import mercado_estabilidad as me
+    import modo_modelo as mm
+
+    check(me.estado_bloque('bra_serie_b', 'goles') == me.INESTABLE,
+          "los goles del Brasileirao B estan marcados inestables")
+    check(me.en_cuarentena('bra_serie_b', 'goles'),
+          "y por tanto en cuarentena")
+
+    pick = {'partido': 'Athletic vs Novorizontino', 'clave_liga': 'bra_serie_b',
+            'deporte': 'Fútbol', 'fecha': '2026-08-24',
+            'mercados': [
+                {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.82},
+                {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.18}]}
+    r = mm.apuesta_recomendada(pick)
+    check(r is None or r['bloque'] != 'goles',
+          f"un 82 % en goles de esa liga NO se recomienda ({r})")
+
+    # y en la tarjeta el bloque sale con candado
+    fila = mm._fila_dos_lados('⚽', 'Goles', '2.5', 0.18, 0.82, 'Más', 'Menos',
+                              mm._candado('bra_serie_b', 'goles'))
+    check('🔒' in fila, "y su fila lleva candado")
+    check('mm-sinsena' in fila, "y sale apagada")
+    check('No recomendado' in fila, "con tres palabras, no un parrafo")
+
+    # la tira lo enseña de un vistazo
+    tira = mm._tira_estabilidad('bra_serie_b')
+    check('🔴' in tira and 'Goles' in tira,
+          "la tira de estabilidad lo pinta en rojo")
+
+
+def test_el_modo_seguridad_bloquea_lo_que_discrepa_de_la_casa():
+    """
+    v168 — MAS DE 10 PUNTOS POR ENCIMA DE LA CASA Y NO ES JUGABLE.
+
+    Es mas duro que el recorte de la v166 (5 pp, que marca y recorta pero deja
+    mirar) y se aplica ENCIMA, no en su lugar: uno decide como se ENSEÑA la
+    cifra y el otro si se puede PROPONER. Los dos numeros vienen de sitios
+    distintos — el 5 esta medido sobre 17.532 partidos y el 10 lo fijo el
+    encargo como suelo de seguridad.
+    """
+    import cordura_probabilidad as cp
+    import modo_modelo as mm
+
+    # el 82 % contra un 60 % de la casa: se recorta y se marca
+    r = cp.revisar(0.82, 'Menos de 2.5', 'laliga', implicita=0.60,
+                   mercado='Goles')
+    check(r['prob'] < 0.82, f"la cifra baja ({r['prob']})")
+    check(not r['fiable'] or r['prob'] <= cp.TECHO_DESVIADO + 1e-9,
+          "y queda marcada o por debajo del techo")
+
+    # y no se puede proponer
+    pick = {'partido': 'A vs B', 'clave_liga': 'laliga', 'deporte': 'Fútbol',
+            'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.40}},
+            'mercados': [
+                {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.82},
+                {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.18}]}
+    rec = mm.apuesta_recomendada(pick)
+    check(rec is None or rec['apuesta'] != 'Menos de 2.5',
+          f"un 82 % contra un 60 % de la casa no se recomienda ({rec})")
+
+    check(mm.DESVIO_BLOQUEO == 0.10,
+          f"el bloqueo duro esta en 10 pp ({mm.DESVIO_BLOQUEO})")
+    check(mm.PROB_MINIMA_REY == 0.55,
+          f"y el suelo del rey en 55 % ({mm.PROB_MINIMA_REY})")
+
+
+def test_la_tarjeta_no_tiene_parrafos_visibles():
+    """
+    v168 — TEXTO MINIMO FUERA DEL DESPLEGABLE.
+
+    Se comprueba con regex, como pedia el encargo: ningun texto visible de la
+    tarjeta pasa de 50 caracteres. Los parrafos explicativos siguen existiendo
+    —no se ha borrado ninguno— pero dentro de «🔍 Analisis».
+    """
+    import re as _re
+    import modo_modelo as mm
+
+    def _textos(html):
+        """Los trozos de texto que el usuario ve, sin etiquetas."""
+        plano = _re.sub(r'<[^>]+>', chr(0), str(html))
+        return [t.strip() for t in plano.split(chr(0))
+                if t.strip() and t.strip() != '&nbsp;·&nbsp;']
+
+    piezas = [
+        mm._tira_estabilidad('premier'),
+        mm._fila_compacta('⛳', 'Córners', '9.5', 'Más: 53 %', 'Menos: 47 %',
+                          '<span>📐 Estimado</span>'),
+        mm._fila_dos_lados('⚽', 'Goles', '2.5', 0.42, 0.58, 'Más', 'Menos',
+                           mm._candado('bra_serie_b', 'goles')),
+    ]
+    for html in piezas:
+        for t in _textos(html):
+            check(len(t) <= 50,
+                  f"texto visible corto: «{t[:60]}» ({len(t)})")
+
+    # el bloque de recomendacion, en sus dos formas
+    class _Falso:
+        def __init__(self):
+            self.txt = []
+
+        def markdown(self, t, **k):
+            self.txt.append(t)
+
+        def link_button(self, *a, **k):
+            pass
+    for rec in (None,
+                {'apuesta': 'Tarjetas: Menos de 3.5', 'prob': 0.58,
+                 'cuota': None, 'cuota_justa': 1.72, 'ev': None,
+                 'verde': False, 'fisico': True, 'aviso': '',
+                 'motivo': 'rey', 'estabilidad': {'icono': '🟢'}}):
+        f = _Falso()
+        mm._bloque_recomendada(f, rec, 'x', 0)
+        for html in f.txt:
+            for t in _textos(html):
+                check(len(t) <= 50,
+                      f"la recomendacion no lleva parrafos: «{t[:60]}»")
+
+    # y los parrafos largos SIGUEN existiendo, dentro del desplegable
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('esta competición no publica esta' in src,
+          "el parrafo de «Estimado» no se ha borrado del proyecto")
+    detalle = src.split('def _analisis_completo')[1]
+    check('_etiqueta_origen' in src and '_bloque_corners_html' in detalle,
+          "y se pinta en el analisis completo")
+    cuerpo = src.split('def tarjeta(st, pick')[1].split(
+        'def _analisis_completo')[0]
+    check("st.expander('🔍 Análisis')" in cuerpo,
+          "el desplegable se llama 🔍 Analisis, como se pidio")
 
 
 def test_todas_las_ligas_tienen_remates():
@@ -8874,6 +9095,11 @@ if __name__ == '__main__':
     test_la_apuesta_recomendada_es_una_y_es_jugable()
     test_los_mercados_fisicos_se_recomiendan_pero_nunca_en_verde()
     test_la_tarjeta_es_accionable_y_no_un_parrafo()
+    print('\n=== v168: mercado rey y modo seguridad ===')
+    test_el_mercado_rey_recorre_todo_el_catalogo()
+    test_los_goles_del_brasileirao_b_nunca_salen_en_verde()
+    test_el_modo_seguridad_bloquea_lo_que_discrepa_de_la_casa()
+    test_la_tarjeta_no_tiene_parrafos_visibles()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

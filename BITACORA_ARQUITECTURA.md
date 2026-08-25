@@ -2269,3 +2269,132 @@ precio real. La vía existe y está probada; se activará sola según crezca la
 cobertura de cuotas.
 
 Render: 3 vistas OK, la de Apuestas del Día en 115 s (antes 174 s).
+
+## 18. El Mercado Rey: cada competición tiene el suyo, y casi nunca son los goles
+
+### 18.1 El caso, y la pregunta que abrió
+
+«Menos de 2.5 — 82 %» en el Brasileirão B. Terminó **1-4**. La pregunta que se
+hizo el usuario no fue «¿por qué falló?» sino la buena: **¿por qué la aplicación
+recomienda siempre desde el mismo sitio?** La respuesta era que nadie había
+medido si ese sitio es el mejor de esa liga. Y no lo es.
+
+### 18.2 Lo medido: todo el catálogo, en las 62 competiciones
+
+`mercado_estabilidad.py` mide con **ECE** —error de calibración por deciles,
+la métrica con la que este proyecto decide desde la v163— sobre las cuatro
+fuentes que ya estaban en el repo:
+
+    1X2, doble oportunidad ....  pick_ledger.csv          47.948 · 56 ligas
+    goles 1,5/2,5/3,5 y BTTS ..  pick_ledger_totales.csv  47.794 · 55 ligas
+    hándicap asiático .........  pick_ledger_handicap.csv 47.794 · 55 ligas
+    córners/tarjetas/remates ..  _v162_calibracion_por_liga.json    61 ligas
+
+Los tres ledgers son WALK-FORWARD. Sin eso, todo esto sería una medición de
+memoria.
+
+**Se mide con ECE y no con la razón varianza/media** porque hay que ordenar
+juntos un mercado binario (1X2) y uno de conteo (córners), y una razón
+varianza/media no se puede comparar con la de un mercado de dos vías. La razón
+varianza/media sí se usa, para lo que sirve: la **cuarentena** de los conteos.
+
+### 18.3 El resultado: el rey cambia por completo de liga a liga
+
+    Hándicap             14 competiciones
+    Córners por equipo   12
+    Remates a puerta      7
+    Doble oportunidad     6
+    Tarjetas por equipo   5
+    Remates por equipo    5
+    Tarjetas              3
+    Remates               2
+    1X2                   1
+    Córners               1
+    (ninguno)             6
+
+O sea que el rey sale de las tres familias del catálogo —resultado, goles y
+estadísticos—, que era justo lo que había que comprobar.
+
+**Y los goles salen 🔴 INESTABLES en todas las ligas medidas** — ECE de 0,086 a
+0,129 en crudo. Era el mercado del que salía el **64 % de los titulares** de la
+aplicación (96 de 151, auditado en la v164). Estábamos recomendando desde el
+peor sitio del catálogo.
+
+**BTTS no corona ninguna liga**, y eso no es un hueco: calibra 🔴 en todas.
+Un catálogo completo también sirve para descartar.
+
+### 18.4 Dos calibraciones por mercado, y la diferencia decide
+
+`ece` es la del modelo crudo; `ece_ajustada` es la de la probabilidad que la
+aplicación **enseña de verdad**, encogida hacia el precio de la casa como hace
+`cordura_probabilidad` desde la v166. La diferencia no es académica:
+
+    Premier, goles 2,5   crudo 0,129  ->  ajustado 0,046   🔴 pasa a 🟡
+    bra_serie_b, goles   crudo 0,118  ->  sin cuota        🔴 se queda 🔴
+
+Clasificar sólo por el crudo pondría en cuarentena un mercado que en pantalla
+calibra bien. Clasificar sólo por el ajustado mentiría en los partidos que la
+casa no cotiza, donde no hay hacia dónde encoger y lo que se ve es el crudo.
+Manda la ajustada **cuando existe**, que es la regla de «qué está viendo el
+usuario».
+
+### 18.5 Lo que no se puede medir no se inventa
+
+Tres familias del catálogo pedido salen con `origen: 'sin medir'`, fuera del
+ranking y sin poder coronar nada:
+
+* **goles por equipo** — ningún ledger guarda la probabilidad del modelo por
+  bando, sólo el total y el BTTS;
+* **resultado exacto** — el propio encargo lo marcó de baja prioridad y no hay
+  columna que lo recoja;
+* **remates de jugador** — `calibracion_remates_jugador.json` mide ECE 0,029 y
+  0,024, pero AGREGADO sobre todas las competiciones. Un número global no puede
+  coronar a una liga concreta.
+
+Aparecen en el fichero, marcadas. Decir «no medido» es más útil que colarlas con
+un número prestado: el Mercado Rey existe justo para no recomendar a ciegas.
+
+### 18.6 Modo seguridad: tres puertas, y las tres son distintas
+
+| puerta | umbral | de dónde sale | qué hace |
+|---|---|---|---|
+| recorte | 5 pp sobre la casa | medido, v166 | baja la cifra y la marca 🔴 |
+| bloqueo | 10 pp sobre la casa | lo fijó el encargo | no se puede proponer |
+| cuarentena | ECE > 0,05 o var/media > 2,0 | medido, v168 | el bloque no se propone |
+
+Se aplican **encima** unas de otras, no en lugar de. Una decide cómo se ENSEÑA
+la cifra y las otras si se puede PROPONER. Y un bloque en cuarentena **sigue
+viéndose** con sus probabilidades: es la misma línea que la v165 trazó con el
+gris — mirar sí, proponer no.
+
+Un detalle que apareció midiendo: seis competiciones tenían «Remates por equipo»
+con la varianza doblando a la media pero sin muestra para calibrarlo, y salían
+`sin medir`. La cuarentena por varianza va ahora **primero y también sin ECE**:
+son dos preguntas distintas, y etiquetarlo «no sabemos nada» cuando sabemos lo
+peor es el error contrario.
+
+### 18.7 El precio sigue mandando sobre el ranking, y no es un descuido
+
+El ranking dice DÓNDE es fiable el modelo. La ventaja de precio dice dónde la
+CASA se ha equivocado. Son cosas distintas, y la segunda es la única con
+percentil 5 positivo medido en este proyecto (+11,49 %, p5 +1,73 %). Así que el
+orden es: precio → ranking de estabilidad (con suelo del 55 %) → probabilidad →
+combinar. Si el rey no llega al 55 % o no pasa el control de cordura, se busca
+el siguiente, que es lo que se pidió.
+
+### 18.8 Lo que cambia en pantalla, medido
+
+Sobre 40 partidos del barrido: la recomendación pasa a repartirse entre
+**tarjetas (17), resultado (4), goles (2), remates (2) y córners (1)** en vez de
+salir casi siempre de goles. Y **14 de 40 se quedan sin apuesta jugable**, frente
+a 1 de 40 antes. No es un efecto secundario: es el modo seguridad haciendo su
+trabajo. Una aplicación que recomienda algo en el 97 % de los partidos no está
+seleccionando.
+
+La tarjeta suma una **tira de estabilidad** de seis iconos —🟢🟡🔴⚪, sin
+leyenda— y los bloques en cuarentena llevan **🔒 No recomendado**, tres palabras.
+El desplegable pasa a llamarse **🔍 Análisis**. Ningún texto visible de la
+tarjeta pasa de 50 caracteres, y hay un test con regex que lo comprueba.
+
+Coste medido: `apuesta_recomendada` 0,27 s por 40 tarjetas y la tira 0,000 s.
+Los 296 s del render fueron barrido en frío, no esto.
