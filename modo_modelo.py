@@ -1740,9 +1740,10 @@ def _bloque_contexto(pick: Dict) -> str:
             '<span style="width:%.1f%%;background:var(--tenue)"></span>'
             '<span style="width:%.1f%%;background:var(--info)"></span>'
             '</span></span>'
-            '<span class="mm-fc-e">%dV · %dE · %dD</span></div>'
+            '<span class="mm-fc-e">%dV · %dE · %dD%s</span></div>'
             % (cr['n'], anchos[0], anchos[1], anchos[2],
-               cr['v_home'], cr['empates'], cr['v_away']))
+               cr['v_home'], cr['empates'], cr['v_away'],
+               (' · %.1f goles' % cr['goles']) if cr.get('goles') else ''))
     for etq, equipo, f in (('Forma L', h, ctx.get('forma_home') or {}),
                            ('Forma V', a, ctx.get('forma_away') or {})):
         if not f.get('racha'):

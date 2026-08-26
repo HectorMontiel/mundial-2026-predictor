@@ -2953,3 +2953,69 @@ acepción en cinco versiones:
 
 El Score se sigue calculando y enseñando —dice si la apuesta está bien pagada—
 pero ya no decide el color. **Conviene no volver a moverlo.**
+
+## 24. El histórico es el motor, el tablero es el filtro
+
+### 24.1 Un defecto que introdujo la versión anterior
+
+La v173 prometía que siempre hubiera recomendación, y para cumplirlo hizo algo
+que no debía: recorrer las líneas **del modelo** en vez de las de la casa. El
+resultado, medido sobre los partidos del día:
+
+    218 de 773 candidatas de goles eran líneas FANTASMA — el 28 %
+
+El caso claro fue **Rapid Vienna – Hearts**: Playdoit cotiza sólo el 2,5 y la
+aplicación ofrecía 0,5, 1,5, 3,5, 4,5, 5,5 y 6,5. Una probabilidad sobre una
+línea que no existe no es una apuesta: es un número.
+
+Desde la v174 la regla queda escrita en el módulo y en un test:
+
+> El histórico es el **MOTOR** —dice cuántos goles esperar—. El tablero de
+> Playdoit es el **FILTRO** —dice qué se puede jugar—.
+
+Toda candidata tiene ahora precio real. Fantasmas: **0**.
+
+### 24.2 Lo que cuesta, y por qué se acepta
+
+Con el filtro estricto, tres partidos de 113 se quedan sin recomendación desde
+`valor_apuesta` (los que no tienen tablero ninguno). Los otros 110 la
+conservan: 86 con cuota real de la casa y 24 por el camino heredado de
+`modo_modelo`, que usa los mercados estándar que el barrido ya publica.
+
+Es un retroceso pequeño frente a la promesa de la v173 (113 de 113) y es el
+precio correcto: antes de la v174, 28 de cada 100 líneas de goles no se podían
+jugar.
+
+### 24.3 El H2H entra en la λ, con la mitad de peso que la forma
+
+`factor_lambda` ya seguía la forma reciente (v173). Ahora también los cruces
+directos, y con el ejemplo del encargo cumplido sobre datos reales:
+
+    Mamelodi, sólo forma reciente ......  1,200  (en el techo)
+    Mamelodi, con el H2H ...............  1,069
+    media de goles en sus 10 cruces ....  1,7
+
+Viene con la forma disparada, pero cuando juega contra AmaZulu se marca poco, y
+la λ lo recoge. Es literalmente lo que se pidió: «los últimos cruces terminaron
+con pocos goles, luego la λ baja».
+
+**El H2H pesa la mitad que la forma reciente**, y sólo con muestra suficiente:
+tres cruces repartidos en tres años dicen menos sobre el partido de hoy que los
+cinco últimos de cada equipo. Y todo sigue recortado a [0,80 · 1,20].
+
+### 24.4 Lo que se enseña
+
+El bloque de contexto añade la media de goles del cruce:
+
+    🤝 H2H (10)   [barra]   8V · 1E · 1D · 1.7 goles
+    Forma L       G P G E G  2.0 pts · 3.0 goles
+    Forma V       P G G E G  2.0 pts · 1.0 goles
+
+### 24.5 Una nota sobre las dos últimas versiones
+
+La v173 y la v174 tiran en direcciones opuestas —«siempre hay apuesta» contra
+«nunca inventes una línea»— y las dos son razonables. El punto de equilibrio
+que queda es: **se propone siempre que haya algo real que proponer**, y cuando
+la casa no cotiza el partido, la aplicación usa los mercados estándar del
+barrido en vez de fabricar una escalera. Si en el futuro alguien vuelve a
+ampliar las líneas del modelo, este §24.1 explica qué pasa.

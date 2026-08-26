@@ -9758,6 +9758,125 @@ def test_la_regla_anti_trampa_se_retiro():
           f"({m and m['apuesta']})")
 
 
+
+def test_no_se_inventan_lineas_que_playdoit_no_publica():
+    """
+    v174 — EL TABLERO DE PLAYDOIT ES EL FILTRO. NO SE INVENTAN LINEAS.
+
+    LA v173 LO ROMPIO, Y ESTE TEST EXISTE POR ESO. Para que ningun partido se
+    quedara sin recomendacion, la v173 recorria las lineas DEL MODELO en vez de
+    las de la casa. Medido sobre los partidos del dia: **218 de 773 candidatas
+    de goles (el 28 %) eran lineas fantasma**. El caso claro fue Rapid Vienna -
+    Hearts, donde la casa cotiza SOLO el 2,5 y la aplicacion ofrecia 0,5, 1,5,
+    3,5, 4,5, 5,5 y 6,5.
+
+    El historico es el MOTOR —dice cuantos goles esperar— y el tablero es el
+    FILTRO —dice que se puede jugar—. Una probabilidad sobre una linea que no
+    existe no es una apuesta: es un numero.
+    """
+    import valor_apuesta as va
+
+    # la casa cotiza SOLO el 2,5; el modelo calcula siete lineas
+    pick = {'partido': 'A vs B', 'clave_liga': 'premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-26',
+            'goles_lineas': {'0.5': 0.97, '1.5': 0.82, '2.5': 0.60,
+                             '3.5': 0.35, '4.5': 0.18, '5.5': 0.08,
+                             '6.5': 0.03},
+            'implicitas': {'casa': 'Playdoit', 'goles': {
+                '2.5': {'p': 0.58, 'mas': 1.65, 'menos': 2.30}}}}
+    filas = va._de_goles(pick)
+    lineas = {f['linea'] for f in filas}
+    check(lineas == {2.5},
+          f"solo sale la linea que la casa publica ({sorted(lineas)})")
+    check(len(filas) == 2, f"con sus dos lados y nada mas ({len(filas)})")
+
+    # y ninguna candidata puede salir sin precio
+    for f in va.candidatos(pick, {}):
+        check(f.get('cuota'),
+              f"toda candidata tiene cuota real ({f['apuesta']})")
+
+    # el 1X2 y la doble tampoco se emiten sin precio
+    sin_precio = {k: v for k, v in pick.items() if k != 'implicitas'}
+    sin_precio['board'] = {'Gana A': 0.55, 'Empate': 0.25, 'Gana B': 0.20}
+    check(not va._de_resultado(sin_precio),
+          "sin tablero no se proponen 1X2 ni dobles")
+
+    src = open('valor_apuesta.py', encoding='utf-8').read()
+    check('EL TABLERO ES EL FILTRO' in src,
+          "y queda escrito cual es la regla")
+
+
+def test_la_recomendacion_sale_de_la_linea_que_la_casa_ofrece():
+    """
+    v174 — SI LA CASA SOLO TIENE 2,5, SE RECOMIENDA SOBRE 2,5.
+
+    Es la comprobacion 3 del encargo, literal.
+    """
+    import valor_apuesta as va
+
+    pick = {'partido': 'A vs B', 'clave_liga': 'premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-26',
+            'goles_lineas': {'1.5': 0.85, '2.5': 0.62, '4.5': 0.20},
+            'implicitas': {'casa': 'Playdoit', 'goles': {
+                '2.5': {'p': 0.60, 'mas': 1.60, 'menos': 2.35}}}}
+    m = va.mejor(pick, {})
+    check(m is not None, "hay recomendacion")
+    if m:
+        check(abs((m.get('linea') or 0) - 2.5) < 1e-9,
+              f"y es sobre la linea de 2,5 ({m.get('linea')})")
+        check(m['cuota'] and m['cuota'] > 1,
+              f"con la cuota real de la casa ({m['cuota']})")
+
+
+def test_el_historico_alimenta_la_lambda():
+    """
+    v174 — EL H2H Y LA FORMA RECIENTE MUEVEN LA MEDIA ESPERADA.
+
+    Medido sobre datos reales: Mamelodi viene con la forma disparada y su
+    factor de forma sale en el techo (1,20). Pero sus cruces con AmaZulu
+    promedian **1,7 goles**, muy por debajo de lo normal, y al meter el H2H el
+    factor baja a **1,069**. Es exactamente lo que se pidio: «los ultimos
+    cruces terminaron con pocos goles, luego la lambda baja».
+
+    El H2H pesa la MITAD que la forma reciente y solo con muestra suficiente:
+    tres cruces repartidos en tres años dicen menos sobre el partido de hoy que
+    los cinco ultimos de cada equipo.
+    """
+    import contexto_partido as cx
+
+    solo_forma = cx.factor_lambda('rsa_premier', 'Mamelodi Sundowns', 'goles')
+    con_h2h = cx.factor_lambda('rsa_premier', 'Mamelodi Sundowns', 'goles',
+                               rival='AmaZulu')
+    check(solo_forma != con_h2h,
+          f"el H2H mueve el factor ({solo_forma} -> {con_h2h})")
+    cr = cx.h2h('rsa_premier', 'Mamelodi Sundowns', 'AmaZulu')
+    check(cr.get('goles') is not None,
+          f"porque el H2H trae su media de goles ({cr.get('goles')})")
+    if cr.get('goles') and cr['goles'] < 2.5:
+        check(con_h2h < solo_forma,
+              "y si en los cruces se marca poco, la lambda baja")
+    check(cx.LAMBDA_MIN <= con_h2h <= cx.LAMBDA_MAX,
+          f"siempre dentro de la horquilla ({con_h2h})")
+
+    # la forma reciente se lee de verdad, no se inventa
+    f = cx.forma('rsa_premier', 'Mamelodi Sundowns')
+    check(f['racha'] and f['ppp'] is not None,
+          f"la forma reciente se lee ({f})")
+    check(len(f['racha']) <= 10, "de los ultimos partidos, no del historico")
+
+    # y el factor llega a la lambda de los conteos
+    src = open('valor_apuesta.py', encoding='utf-8').read()
+    check('rival=rival' in src,
+          "el rival viaja para que el H2H pese en la lambda")
+
+    # el contexto se enseña con la media de goles del cruce
+    import modo_modelo as mm
+    html = mm._bloque_contexto({'partido': 'Mamelodi Sundowns vs AmaZulu',
+                                'clave_liga': 'rsa_premier',
+                                'deporte': 'Fútbol'})
+    check('goles' in html, "y la tarjeta enseña los goles del H2H")
+
+
 def test_todas_las_ligas_tienen_remates():
     """
     v163 — ninguna competicion se queda sin la seccion, y la estimada lo dice.
@@ -10137,6 +10256,10 @@ if __name__ == '__main__':
     test_la_cuota_decente_evita_las_lineas_absurdas()
     test_el_factor_de_lambda_sigue_la_forma_reciente()
     test_la_regla_anti_trampa_se_retiro()
+    print(chr(10) + "=== v174: el tablero es el filtro ===")
+    test_no_se_inventan_lineas_que_playdoit_no_publica()
+    test_la_recomendacion_sale_de_la_linea_que_la_casa_ofrece()
+    test_el_historico_alimenta_la_lambda()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

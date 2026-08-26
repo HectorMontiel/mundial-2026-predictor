@@ -209,7 +209,7 @@ LAMBDA_MIN, LAMBDA_MAX = 0.80, 1.20
 
 
 def factor_lambda(clave_liga: str, equipo: str, mercado: str = 'goles',
-                  n: int = N_FORMA) -> float:
+                  n: int = N_FORMA, rival: str = '') -> float:
     """
     v173 — CUANTO SE DESVIA ESTE EQUIPO DE SI MISMO EN LOS ULTIMOS `n`.
 
@@ -258,7 +258,22 @@ def factor_lambda(clave_liga: str, equipo: str, mercado: str = 'goles',
         m_c = sum(corto) / len(corto)
         if m_l <= 0:
             return 1.0
-        return round(max(LAMBDA_MIN, min(LAMBDA_MAX, m_c / m_l)), 3)
+        f = m_c / m_l
+        # v174 — Y EL H2H PESA, PERO LA MITAD QUE LA FORMA.
+        #
+        # Se pidio que los cruces directos entren en la lambda: «los ultimos
+        # tres terminaron con 1, 0 y 2 goles, luego la lambda baja». Entran,
+        # con la mitad de peso que la forma reciente y solo con muestra
+        # suficiente — tres cruces repartidos en tres años dicen menos sobre
+        # el partido de hoy que los cinco ultimos de cada equipo.
+        if rival and mercado == 'goles':
+            cr = h2h(clave_liga, equipo, rival)
+            if cr.get('n', 0) >= MIN_H2H and cr.get('goles'):
+                # la media de goles del cruce contra la media larga de los dos
+                base = m_l * 2.0            # el H2H es del PARTIDO, no de uno
+                if base > 0:
+                    f = f * (1.0 + (cr['goles'] / base - 1.0) * 0.5)
+        return round(max(LAMBDA_MIN, min(LAMBDA_MAX, f)), 3)
     except Exception as e:
         logger.debug('[contexto] factor lambda %s/%s: %s', equipo, mercado, e)
         return 1.0

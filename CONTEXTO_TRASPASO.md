@@ -1603,3 +1603,47 @@ v171 Score > 1,10 → **v173 probabilidad ≥ 60 %**. No moverlo más sin motivo
    córners y tarjetas. Se puede medir con `informe_calibracion`.
 3. El smoke quedó sin veredicto otra vez (se colgó 3 h en la fase de red y se
    paró a mano). El de la v169 sí terminó con exit 0.
+
+## 5e. v174 — EL HISTÓRICO ES EL MOTOR, EL TABLERO ES EL FILTRO
+
+Detalle en **BITACORA_ARQUITECTURA.md §24**.
+
+**El defecto que arregla, y lo introdujo la v173.** Para cumplir «siempre hay
+apuesta», la v173 recorría las líneas DEL MODELO en vez de las de la casa:
+**218 de 773 candidatas de goles eran fantasma (28 %)**. Rapid Vienna–Hearts
+tenía sólo 2,5 en Playdoit y la app ofrecía 0,5 · 1,5 · 3,5 · 4,5 · 5,5 · 6,5.
+
+**La regla, ahora escrita en el módulo y en un test:** el histórico dice cuántos
+goles esperar; el tablero dice qué se puede jugar. **Toda candidata tiene precio
+real.** Fantasmas: 0.
+
+**Lo que cuesta:** 3 partidos de 113 se quedan sin recomendación desde
+`valor_apuesta` (los que no tienen tablero). Los otros 110 la conservan — 86 con
+cuota real y 24 por el camino heredado de `modo_modelo`, que usa los mercados
+estándar del barrido. Retroceso pequeño frente al 113/113 de la v173, y el
+precio correcto.
+
+**El H2H entra en la λ** (`factor_lambda(..., rival=...)`), con **la mitad de
+peso que la forma reciente** y sólo con `MIN_H2H` cruces. Medido:
+
+    Mamelodi, sólo forma ....  1,200 (techo)
+    Mamelodi, con H2H .......  1,069
+    goles medios del cruce ..  1,7
+
+**El bloque de contexto** enseña ahora la media de goles del H2H además del
+recuento y las dos rachas con puntos y goles por partido.
+
+**Validación.** Suite 2.446 checks TODO OK · `valida_render.py` 3 vistas OK ·
+`_v164_valida_tarjeta.py` OK · `_v163_valida_ficha_remates.py` OK.
+
+**Pendiente que deja:**
+
+1. Ni la política de la v173 ni la de la v174 se han liquidado contra el
+   marcador. Las cifras de eficacia que hay son de la v170/v171. Añadir
+   `_politica_v174` a `_v169_goles_y_eficacia.py` antes de citar números.
+2. El factor de λ (forma + H2H) no está medido contra el ECE: no se sabe si
+   mejora o empeora la calibración de córners y tarjetas. Es medible con
+   `informe_calibracion`.
+3. Los 24 partidos que se recomiendan por el camino heredado llevan mercados
+   sin cuota. No son líneas fantasma —son las estándar del barrido— pero
+   convendría marcarlos en la tarjeta como «sin precio de la casa».

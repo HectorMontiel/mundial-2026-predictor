@@ -215,9 +215,12 @@ def _factor_lambda_de(pick: Dict, etiqueta: str, mercado: str) -> float:
         import modo_modelo as mm
         h, a = mm._equipos(pick)
         equipo = h if etiqueta == 'Local' else a
+        rival = a if etiqueta == 'Local' else h
         if not (equipo and pick.get('clave_liga')):
             return 1.0
-        return cx.factor_lambda(pick['clave_liga'], equipo, mercado)
+        # el rival viaja para que el H2H pueda pesar en la lambda (v174)
+        return cx.factor_lambda(pick['clave_liga'], equipo, mercado,
+                                rival=rival or '')
     except Exception as e:
         logger.debug('[valor] factor lambda: %s', e)
         return 1.0
@@ -314,13 +317,23 @@ def _de_goles(pick: Dict) -> List[Dict]:
     lineas_modelo = pick.get('goles_lineas') or {}
     imp = (pick.get('implicitas') or {}).get('goles') or {}
     salida = []
-    # v173 — se recorren las lineas DEL MODELO, no las de la casa. Asi salen
-    # tambien las de los partidos que la casa no cotiza, que es donde antes la
-    # tarjeta se quedaba sin nada que proponer. Si la casa cotiza esa linea,
-    # su precio se pega; si no, la fila va sin cuota y sin Score.
-    for clave in lineas_modelo:
-        dato = imp.get(clave)
+    # v174 — SOLO LAS LINEAS QUE LA CASA PUBLICA. EL TABLERO ES EL FILTRO.
+    #
+    # La v173 recorria las lineas DEL MODELO para que los partidos sin precio
+    # tuvieran algo que proponer, y con eso invento lineas que no existen:
+    # medido, **218 de 773 candidatas de goles (el 28 %)** eran fantasma. El
+    # caso claro fue Rapid Vienna - Hearts, donde la casa solo cotiza 2,5 y la
+    # aplicacion ofrecia 0,5, 1,5, 3,5, 4,5, 5,5 y 6,5.
+    #
+    # El historico es el MOTOR —dice cuantos goles esperar— y el tablero de
+    # Playdoit es el FILTRO —dice que se puede jugar—. Una probabilidad sobre
+    # una linea que no existe no es una apuesta: es un numero.
+    for clave, dato in imp.items():
         p_mas = lineas_modelo.get(clave)
+        if p_mas is None:
+            # la casa cotiza esa linea y el modelo no la calcula: tampoco se
+            # inventa. `alpha_finder.lineas_de_goles` decide cuales hay.
+            continue
         try:
             p_mas = float(p_mas)
         except (TypeError, ValueError):
@@ -365,14 +378,16 @@ def _de_resultado(pick: Dict) -> List[Dict]:
         for lado, p, etq in (('home', pl, 'Gana %s' % h),
                              ('draw', px, 'Empate'),
                              ('away', pv, 'Gana %s' % a)):
-            # v173 — SE EMITE AUNQUE NO HAYA CUOTA.
+            # v174 — SIN CUOTA NO HAY APUESTA QUE PROPONER.
             #
-            # Hasta aqui una linea sin precio se descartaba, porque sin cuota
-            # no hay Score. Desde la v173 la recomendacion se elige por
-            # probabilidad y tiene que existir SIEMPRE: en los partidos que la
-            # casa no cotiza, el modelo va solo y eso sigue siendo una apuesta
-            # — lo que no tiene es Score, y la tarjeta lo dice.
+            # La v173 emitia estas filas sin precio para que ningun partido se
+            # quedara vacio. Pero una seleccion que la casa no cotiza no se
+            # puede jugar, y ofrecerla es el mismo defecto que las lineas
+            # fantasma. Los partidos sin tablero los cubre el camino heredado
+            # de `modo_modelo`, que usa los mercados que el barrido ya publica.
             cuota = cu.get(lado)
+            if not cuota:
+                continue
             info = _ajusta(pick, etq, p, '1X2', x2.get(lado),
                            ya_encogido=ya)
             if not info.get('fiable'):
@@ -392,10 +407,10 @@ def _de_resultado(pick: Dict) -> List[Dict]:
                 ('12', pl + pv, '%s o %s' % (h, a), ('home', 'away')),
                 ('X2', px + pv, '%s o empate' % a, ('draw', 'away'))):
             cuota = dob.get(clave)
-            # el suelo de 1,30 sigue valiendo CUANDO hay precio: a menos de eso
-            # la doble es la trampa que llenaba la pantalla en la v170. Sin
-            # precio no hay suelo que aplicar, y entra como una mas.
-            if cuota and cuota < CUOTA_MINIMA_DOBLE:
+            # v174 — sin precio no hay doble que jugar; y con precio, el suelo
+            # de 1,30 sigue valiendo: por debajo de eso la doble es la trampa
+            # que llenaba la pantalla en la v170.
+            if not cuota or cuota < CUOTA_MINIMA_DOBLE:
                 continue
             # v172 — LA IMPLICITA SALE DE SUMAR DOS LADOS DEL 1X2 DEVIGADO.
             #
@@ -428,6 +443,8 @@ def _de_resultado(pick: Dict) -> List[Dict]:
                 ('no', 1.0 - float(p_si), 'Ambos marcan: No',
                  None if imp_si is None else 1.0 - float(imp_si))):
             cuota = cb.get(clave)
+            if not cuota:
+                continue
             info = _ajusta(pick, etq, float(p), 'BTTS', i)
             if not info.get('fiable'):
                 continue
@@ -479,13 +496,10 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
                 f['sin_medir'] = True
     except Exception as e:
         logger.debug('[valor] estabilidad: %s', e)
-    # v173 — SE DEVUELVEN TAMBIEN LAS LINEAS SIN CUOTA.
-    #
-    # Hasta aqui una linea sin precio de la casa se descartaba, porque sin
-    # cuota no hay Score. Desde la v173 la recomendacion se elige por
-    # PROBABILIDAD y tiene que existir siempre, asi que una linea sin precio
-    # sigue siendo una apuesta: lo que no tiene es Score, y eso se dice.
-    return filas
+    # v174 — TODA CANDIDATA TIENE PRECIO, PORQUE TODA CANDIDATA SE PUEDE
+    # JUGAR. Sin cuota no hay Score y, mas importante, no hay apuesta: es una
+    # probabilidad sobre algo que la casa no ofrece.
+    return [f for f in filas if f.get('cuota')]
 
 
 def mejor(pick: Dict, bloques: Optional[Dict] = None) -> Optional[Dict]:
