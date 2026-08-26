@@ -9419,6 +9419,178 @@ def test_se_exploran_todas_las_lineas_de_cada_mercado():
     check('Score' in src, "con el Score a la vista")
 
 
+
+def test_el_caso_amazulu_no_se_recomienda():
+    """
+    v172 — EL CASO QUE LO PROVOCA, CERRADO.
+
+    La aplicacion recomendo «AmaZulu o empate» con Score 1,35 en un Mamelodi
+    Sundowns - AmaZulu. Historico real: Mamelodi ha ganado **8 de los ultimos
+    10** cruces (1 empate, 1 derrota).
+
+    LA CAUSA NO ERA EL H2H: era que la doble oportunidad entraba con
+    `implicita=None`, sin encogimiento y sin control de cordura. La casa ya
+    sabia todo —daba Mamelodi 78,85 %, empate 14,72 %, AmaZulu 6,43 %—, o sea
+    que «AmaZulu o empate» vale 21,15 % y a cuota 3,00 su Score real es 0,63.
+
+    Ahora la doble se contrasta contra la suma de dos lados del 1X2 devigado.
+    """
+    import valor_apuesta as va
+
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.7885, 'draw': 0.1472, 'away': 0.0643},
+           '1x2_cuotas': {'home': 1.231, 'draw': 5.333, 'away': 11.0},
+           'doble_cuotas': {'1X': 1.056, '12': 1.111, 'X2': 3.0}}
+    pick = {'partido': 'Mamelodi Sundowns vs AmaZulu',
+            'clave_liga': 'rsa_premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-26', 'implicitas': imp,
+            'board': {'Gana Mamelodi Sundowns': 0.55, 'Empate': 0.25,
+                      'Gana AmaZulu': 0.20}}
+
+    filas = va._de_resultado(pick)
+    dobles = [f for f in filas if f['mercado'] == 'Doble oportunidad']
+    for f in dobles:
+        check('AmaZulu o empate' != f['apuesta'],
+              f"«AmaZulu o empate» ya no sale como candidata ({f})")
+
+    m = va.mejor(pick)
+    check(m is None or 'AmaZulu' not in m['apuesta'],
+          f"y no se recomienda nada que nombre al debil ({m})")
+
+    # la implicita de la doble sale de SUMAR el 1X2, no de devigar las dobles
+    src = open('valor_apuesta.py', encoding='utf-8').read()
+    check('imp_do' in src and "x2[lados[0]]" in src,
+          "la implicita de la doble suma dos lados del 1X2")
+    check('suman 2' in src,
+          "y queda escrito por que no se deviga la familia de dobles")
+
+
+def test_el_contexto_h2h_y_forma_se_calcula_y_se_ve():
+    """
+    v172 — H2H, FORMA Y NIVEL: EL RAZONAMIENTO, A LA VISTA.
+
+    Sobre el historico real de la Premier sudafricana: Mamelodi 8V-1E-1D en los
+    ultimos 10 cruces con AmaZulu. El H2H se cuenta SIEMPRE desde el punto de
+    vista del local de HOY —si el cruce se jugo al reves, el resultado se da la
+    vuelta—, porque sin esa vuelta un 3-0 del visitante en su casa contaria
+    como victoria del local.
+    """
+    import contexto_partido as cx
+    import modo_modelo as mm
+
+    c = cx.de_partido('rsa_premier', 'Mamelodi Sundowns', 'AmaZulu')
+    cr = c['h2h']
+    check(cr['n'] >= 8, f"se encuentran los cruces ({cr['n']})")
+    check(cr['v_home'] > cr['v_away'] * 3,
+          f"y dicen que el local domina ({cr['v_home']}V-{cr['empates']}E-"
+          f"{cr['v_away']}D)")
+    check(c['dominio_home'] >= 0.65,
+          f"el dominio se mide ({c['dominio_home']})")
+    check(c['factor_home'] > 1.0 > c['factor_away'],
+          f"y los factores lo reflejan (L {c['factor_home']} · "
+          f"V {c['factor_away']})")
+    check(c['factor_away'] >= cx.FACTOR_MINIMO,
+          f"con el suelo pedido ({cx.FACTOR_MINIMO})")
+    check(c['factor_home'] <= cx.FACTOR_MAXIMO, "y su techo")
+
+    # la vuelta del marco: el mismo par al reves da el espejo
+    inv = cx.de_partido('rsa_premier', 'AmaZulu', 'Mamelodi Sundowns')
+    check(inv['h2h']['v_away'] == cr['v_home'],
+          "el H2H se cuenta desde el local de HOY, no desde el del historico")
+
+    # el veto: nombra al debil sin nombrar al fuerte
+    for ap in ('AmaZulu o empate', 'Gana AmaZulu'):
+        check(cx.veta(c, ap, 'Mamelodi Sundowns', 'AmaZulu'),
+              f"se veta «{ap}»")
+    check(not cx.veta(c, 'Gana Mamelodi Sundowns', 'Mamelodi Sundowns',
+                      'AmaZulu'),
+          "y NO se veta al fuerte")
+    check(not cx.veta(c, 'Mamelodi Sundowns o AmaZulu', 'Mamelodi Sundowns',
+                      'AmaZulu'),
+          "ni una doble que los nombra a los dos")
+
+    # y se pinta
+    pick = {'partido': 'Mamelodi Sundowns vs AmaZulu',
+            'clave_liga': 'rsa_premier', 'deporte': 'Fútbol'}
+    html = mm._bloque_contexto(pick)
+    check('CONTEXTO' in html and 'H2H' in html,
+          "la tarjeta enseña el bloque de contexto")
+    check('8V' in html, f"con el recuento real de cruces")
+    check('Forma' in html, "y la forma reciente de los dos")
+
+
+def test_el_factor_no_se_aplica_donde_ya_hay_precio():
+    """
+    v172 — EL FACTOR MODULA DONDE EL MODELO VA SOLO, NO DONDE HAY PRECIO.
+
+    Multiplicar por un factor de H2H cuando la casa ya puso precio es contar la
+    misma informacion dos veces: la casa le da a AmaZulu un 6,43 % PRECISAMENTE
+    porque pierde siempre. Y rompe la calibracion — dos probabilidades
+    multiplicadas por factores distintos dejan de sumar 1, y esta aplicacion
+    lleva seis versiones arreglando justo eso.
+
+    Asi que el factor se aplica solo cuando NO hay implicita, y el historial
+    actua como VETO —un filtro, que no cambia ningun numero— cuando si la hay.
+    """
+    import valor_apuesta as va
+
+    pick = {'partido': 'Mamelodi Sundowns vs AmaZulu',
+            'clave_liga': 'rsa_premier', 'deporte': 'Fútbol'}
+    con_precio = va._factor_sin_precio(pick, 'Gana AmaZulu', 0.0643)
+    sin_precio = va._factor_sin_precio(pick, 'Gana AmaZulu', None)
+    check(con_precio == 1.0,
+          f"con precio de la casa el factor NO se aplica ({con_precio})")
+    check(sin_precio < 1.0,
+          f"sin precio si, y penaliza al debil ({sin_precio})")
+
+    src = open('valor_apuesta.py', encoding='utf-8').read()
+    check('contar la misma informacion dos veces' in src
+          or 'dos veces' in src,
+          "y queda escrito por que")
+
+
+def test_las_reglas_anti_trampa():
+    """
+    v172 — LA CUOTA INFLADA ES UN CEBO, NO UNA OPORTUNIDAD.
+
+    Probabilidad ajustada < 20 % con cuota > 2,50 no se recomienda nunca. En el
+    caso real, «Gana AmaZulu» quedaba en 9,8 % con cuota 11,00 y un Score de
+    1,08 — el Score mas alto del partido y la peor apuesta posible.
+    """
+    import valor_apuesta as va
+
+    check(abs(va.PROB_TRAMPA - 0.20) < 1e-9,
+          f"el corte de probabilidad es 20 % ({va.PROB_TRAMPA})")
+    check(abs(va.CUOTA_TRAMPA - 2.50) < 1e-9,
+          f"y el de cuota 2,50 ({va.CUOTA_TRAMPA})")
+
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.7885, 'draw': 0.1472, 'away': 0.0643},
+           '1x2_cuotas': {'home': 1.231, 'draw': 5.333, 'away': 11.0}}
+    pick = {'partido': 'Mamelodi Sundowns vs AmaZulu',
+            'clave_liga': 'rsa_premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-26', 'implicitas': imp,
+            'board': {'Gana Mamelodi Sundowns': 0.55, 'Empate': 0.25,
+                      'Gana AmaZulu': 0.20}}
+    filas = va._de_resultado(pick)
+    trampa = [f for f in filas if 'AmaZulu' in f['apuesta']]
+    if trampa:
+        t = trampa[0]
+        check(t['score'] > 1.0,
+              f"la trampa tiene Score alto ({t['score']}) — por eso hacia "
+              f"falta la regla")
+    m = va.mejor(pick)
+    check(m is None or m['prob'] >= va.PROB_TRAMPA
+          or (m['cuota'] or 0) <= va.CUOTA_TRAMPA,
+          f"pero no se recomienda ({m})")
+
+    # y la tarjeta dice POR QUE no hay nada
+    import modo_modelo as mm
+    motivo = mm._motivo_sin_apuesta(pick)
+    check(bool(motivo), "la tarjeta explica por que no recomienda nada")
+    check(len(motivo) <= 60, f"en una linea corta ({len(motivo)})")
+
+
 def test_todas_las_ligas_tienen_remates():
     """
     v163 — ninguna competicion se queda sin la seccion, y la estimada lo dice.
@@ -9788,6 +9960,11 @@ if __name__ == '__main__':
     test_el_score_no_recomienda_volados_ni_rojos()
     test_la_casa_guarda_sus_cuotas_y_el_lector_es_compatible()
     test_se_exploran_todas_las_lineas_de_cada_mercado()
+    print('\n=== v172: contexto H2H y reglas anti-trampa ===')
+    test_el_caso_amazulu_no_se_recomienda()
+    test_el_contexto_h2h_y_forma_se_calcula_y_se_ve()
+    test_el_factor_no_se_aplica_donde_ya_hay_precio()
+    test_las_reglas_anti_trampa()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

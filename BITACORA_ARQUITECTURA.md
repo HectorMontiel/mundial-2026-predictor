@@ -2770,3 +2770,89 @@ se vio eran mensajes de cierre de un proceso MATADO por tiempo de espera —
 
 Queda escrito porque la conclusión equivocada llegó a anotarse como pendiente, y
 un pendiente falso cuesta tiempo al siguiente que lo lea.
+
+## 22. El contexto del partido, y la trampa que no era de H2H
+
+### 22.1 El caso, con los números delante
+
+La aplicación recomendó **«AmaZulu o empate», Score 1,35** en un Mamelodi
+Sundowns – AmaZulu. Histórico real de `rsa_premier`: **Mamelodi 8V-1E-1D en los
+últimos 10 cruces**. La recomendación era una trampa y el usuario la vio.
+
+### 22.2 Pero la causa no era el H2H, y eso cambia el arreglo
+
+La casa **ya sabía todo**. Su propio precio daba:
+
+    Mamelodi 78,85 %  ·  empate 14,72 %  ·  AmaZulu 6,43 %
+
+O sea que «AmaZulu o empate» vale **21,15 %**, y a cuota 3,00 su Score real es
+**0,63** — de los peores del partido. La aplicación le calculó 1,35 porque la
+doble oportunidad era **el único mercado que entraba sin contraste**
+(`implicita=None`): sin encogimiento hacia el mercado y sin control de cordura,
+el Score se calculaba sobre la probabilidad cruda del modelo.
+
+Así que el arreglo de raíz es que la doble se contraste como todo lo demás. Y su
+implícita **se suma del 1X2 devigado**, no se deviga la familia de dobles: sus
+tres selecciones suman 2 y no 1, y devigarlas a tres vías daba 0,468 / 0,434 /
+0,098 — un número que no es una probabilidad de nada.
+
+Con el contraste puesto: modelo 0,45 contra implícita 0,2115, desvío 24 puntos,
+**bloqueada** por la regla de los 10 pp de la v168. La trampa desaparece sola.
+
+### 22.3 Y un fallo hermano, encontrado por el camino
+
+`valor_apuesta` daba el 1X2 por **ya encogido** siempre. Pero `alpha_finder` sólo
+lo encoge cuando hubo ancla (Pinnacle o el cierre de ESPN), así que en los
+partidos sin ancla la probabilidad cruda del modelo entraba al Score sin
+corregir — el mismo fallo que acababa de costarnos la doble oportunidad. Ahora se
+lee la marca `calibracion.aplicado` que el propio barrido deja en el pick.
+
+En el caso real eso mueve a Mamelodi de 0,550 a **0,729** (encogido hacia el
+78,85 % de la casa) y su Score de 0,677 a 0,897.
+
+### 22.4 El contexto: se calcula, se enseña, y veta
+
+`contexto_partido.py` da H2H (10 cruces), forma reciente (5 partidos con puntos
+por partido) y diferencia de ELO. El H2H se cuenta **siempre desde el local de
+HOY**: si el cruce se jugó al revés, el resultado se da la vuelta — sin esa
+vuelta, un 3-0 del visitante en su casa contaría como victoria del local.
+
+**Cómo se usa el factor, y por qué no multiplica siempre.** Multiplicar la
+probabilidad por un factor de H2H **cuando ya hay precio** es contar la misma
+información dos veces: la casa le da a AmaZulu un 6,43 % precisamente porque
+pierde siempre. Y rompe la calibración, que es lo que esta aplicación lleva seis
+versiones arreglando — dos probabilidades multiplicadas por factores distintos
+dejan de sumar 1. Así que:
+
+* **modula** sólo donde NO hay implícita, que es donde el modelo va solo;
+* **veta** lo que contradice un H2H dominante tenga el precio que tenga — y un
+  veto es un FILTRO: no cambia ningún número, así que no puede descalibrar nada;
+* **se enseña siempre**, que era la otra mitad del encargo.
+
+Medido en el caso real: factor local 1,30 · factor visita 0,55 · dominio 0,80.
+El veto dispara en «AmaZulu o empate» y «Gana AmaZulu», y **no** en «Gana
+Mamelodi» ni en «Mamelodi o AmaZulu», que los nombra a los dos.
+
+### 22.5 Las reglas anti-trampa
+
+* **Cuota inflada:** probabilidad ajustada < 20 % con cuota > 2,50 no se
+  recomienda nunca. En el caso real «Gana AmaZulu» quedaba en 9,8 % con cuota
+  11,00 y **Score 1,08 — el más alto del partido y la peor apuesta posible**.
+  Sin esta regla, arreglar la doble habría dejado la trampa un escalón más
+  abajo.
+* **La doble del débil** cae por el veto, que es lo mismo que se pidió.
+
+### 22.6 Lo que la tarjeta enseña ahora, y lo que dice cuando no hay nada
+
+Un bloque **📊 CONTEXTO** con la barra de H2H (8V · 1E · 1D), las dos rachas en
+color con sus puntos por partido, y la diferencia de ELO cuando se conoce.
+
+Y cuando no hay ninguna apuesta recomendable, **se dice por qué**: «Mamelodi
+Sundowns ha ganado 8 de los últimos 10 cruces». Un hueco sin explicación se lee
+como que la aplicación no ha mirado.
+
+**En este partido concreto la respuesta honesta es que no hay apuesta**: con el
+1X2 encogido, Mamelodi queda en Score 0,897 y el mínimo es 0,95. La casa lo ha
+precisado bien y no hay valor que sacar. El encargo esperaba recomendarlo en
+ámbar, pero eso exigiría bajar el umbral de valor — y sería cambiar la regla para
+que dé la respuesta que se quiere oír.

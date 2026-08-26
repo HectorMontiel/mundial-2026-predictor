@@ -59,6 +59,10 @@ PROB_SUELO_DURO = 0.50
 SCORE_VERDE = 1.10          # 🟢 valor
 SCORE_AMBAR = 0.95          # 🟡 aceptable
 CUOTA_MINIMA_DOBLE = 1.30   # la doble oportunidad no entra por debajo de esto
+# v172 — la trampa de la cuota inflada, tal y como se describio:
+# probabilidad baja + cuota alta = cebo, no oportunidad.
+PROB_TRAMPA = 0.20
+CUOTA_TRAMPA = 2.50
 
 _RE_MAS = re.compile(r'^m[aá]s de ', re.I)
 
@@ -94,14 +98,66 @@ def _fila(mercado: str, etiqueta: str, apuesta: str, prob: float,
     return fila
 
 
+def contexto_de(pick: Dict) -> Dict:
+    """El contexto del partido, cacheado en el propio pick."""
+    if '_contexto' in pick:
+        return pick['_contexto'] or {}
+    ctx = {}
+    try:
+        import contexto_partido as cx
+        import modo_modelo as mm
+        h, a = mm._equipos(pick)
+        if h and a and pick.get('clave_liga'):
+            ctx = cx.de_partido(pick['clave_liga'], h, a)
+    except Exception as e:
+        logger.debug('[valor] contexto: %s', e)
+    pick['_contexto'] = ctx
+    return ctx
+
+
+def _factor_sin_precio(pick: Dict, apuesta: str,
+                       implicita: Optional[float]) -> float:
+    """
+    El multiplicador del H2H, y SOLO donde no hay precio con el que contrastar.
+
+    Donde la casa pone precio, ella ya sabe el H2H —a AmaZulu le da un 6,43 %
+    precisamente porque pierde siempre— y multiplicar encima seria contar la
+    misma informacion dos veces y romper la calibracion que esta aplicacion
+    lleva seis versiones arreglando.
+
+    Donde NO hay precio, el modelo va solo y el historial si aporta.
+    """
+    if implicita is not None:
+        return 1.0
+    ctx = contexto_de(pick)
+    if not ctx:
+        return 1.0
+    try:
+        import modo_modelo as mm
+        h, a = mm._equipos(pick)
+    except Exception:
+        return 1.0
+    etq = str(apuesta or '')
+    if h and h in etq and (not a or a not in etq):
+        return float(ctx.get('factor_home') or 1.0)
+    if a and a in etq and (not h or h not in etq):
+        return float(ctx.get('factor_away') or 1.0)
+    return 1.0
+
+
 def _ajusta(pick: Dict, apuesta: str, prob: float, mercado: str,
             implicita: Optional[float], ya_encogido: bool = False) -> Dict:
-    """La probabilidad que se puede enseñar de esa línea (v166)."""
+    """La probabilidad que se puede enseñar de esa línea (v166 + v172)."""
+    f = _factor_sin_precio(pick, apuesta, implicita)
+    if f != 1.0:
+        prob = max(0.0, min(1.0, float(prob) * f))
     try:
         import cordura_probabilidad as cp
-        return cp.revisar(prob, apuesta, pick.get('clave_liga'),
+        info = cp.revisar(prob, apuesta, pick.get('clave_liga'),
                           implicita=implicita, mercado=mercado,
                           ya_encogido=ya_encogido)
+        info['factor_contexto'] = f
+        return info
     except Exception as e:
         logger.debug('[valor] cordura de %s: %s', apuesta, e)
         return {'prob': prob, 'original': prob, 'fiable': True,
@@ -236,6 +292,16 @@ def _de_resultado(pick: Dict) -> List[Dict]:
     imp = pick.get('implicitas') or {}
     salida = []
     h, a = mm._equipos(pick)
+    # v172 — ¿VIENE EL 1X2 YA ENCOGIDO, O SOLO LO SUPONEMOS?
+    #
+    # `alpha_finder` encoge el 1X2 hacia el mercado desde la v71, pero SOLO
+    # cuando hubo ancla (Pinnacle o el cierre de ESPN). Darlo por hecho
+    # siempre dejaba pasar la probabilidad cruda del modelo justo en los
+    # partidos sin ancla — el mismo fallo que acababa de costarnos la doble
+    # oportunidad. Se lee la marca que el propio barrido deja en el pick.
+    ya = any(bool((m.get('calibracion') or {}).get('aplicado'))
+             for m in (pick.get('mercados') or [])
+             if isinstance(m, dict) and str(m.get('mercado')) == '1X2')
     tri = mm.probabilidades_1x2(pick)
     cu = imp.get('1x2_cuotas') or {}
     x2 = imp.get('1x2') or {}
@@ -248,7 +314,7 @@ def _de_resultado(pick: Dict) -> List[Dict]:
             if not cuota:
                 continue
             info = _ajusta(pick, etq, p, '1X2', x2.get(lado),
-                           ya_encogido=True)
+                           ya_encogido=ya)
             if not info.get('fiable'):
                 continue
             salida.append(_fila('1X2', 'Resultado', etq,
@@ -261,16 +327,33 @@ def _de_resultado(pick: Dict) -> List[Dict]:
         # el Score no puede competir aunque la probabilidad sea del 80 %, y era
         # justo lo que llenaba la pantalla en la v170.
         dob = imp.get('doble_cuotas') or {}
-        for clave, p, etq in (('1X', pl + px, '%s o empate' % h),
-                              ('12', pl + pv, '%s o %s' % (h, a)),
-                              ('X2', px + pv, '%s o empate' % a)):
+        for clave, p, etq, lados in (
+                ('1X', pl + px, '%s o empate' % h, ('home', 'draw')),
+                ('12', pl + pv, '%s o %s' % (h, a), ('home', 'away')),
+                ('X2', px + pv, '%s o empate' % a, ('draw', 'away'))):
             cuota = dob.get(clave)
             if not cuota or cuota < CUOTA_MINIMA_DOBLE:
                 continue
-            info = _ajusta(pick, etq, p, 'Doble oportunidad', None,
-                           ya_encogido=True)
+            # v172 — LA IMPLICITA SALE DE SUMAR DOS LADOS DEL 1X2 DEVIGADO.
+            #
+            # Era el UNICO mercado que entraba sin contraste (`implicita=None`)
+            # y por eso la aplicacion recomendo «AmaZulu o empate» con Score
+            # 1,35 en un partido donde la casa le daba 21,15 %: sin implicita
+            # no hay encogimiento ni control de cordura, y el Score se
+            # calculaba sobre la probabilidad cruda del modelo.
+            #
+            # Y se suma el 1X2, no se deviga la familia de dobles: sus tres
+            # selecciones suman 2 y no 1, asi que devigarlas a tres vias da un
+            # numero que no es una probabilidad (se probo: 0,468/0,434/0,098).
+            imp_do = None
+            if x2 and all(k in x2 for k in lados):
+                imp_do = float(x2[lados[0]]) + float(x2[lados[1]])
+            info = _ajusta(pick, etq, p, 'Doble oportunidad', imp_do,
+                           ya_encogido=ya)
+            if not info.get('fiable'):
+                continue
             salida.append(_fila('Doble oportunidad', 'Doble', etq,
-                                info.get('prob', p), cuota, None,
+                                info.get('prob', p), cuota, imp_do,
                                 'resultado'))
     b = mm._board(pick)
     cb = imp.get('btts_cuotas') or {}
@@ -338,11 +421,32 @@ def mejor(pick: Dict, bloques: Optional[Dict] = None) -> Optional[Dict]:
     # recomendado» (Score < 0,95): devolver el maximo de una lista donde todo
     # es rojo seria recomendar lo menos malo, que no es lo mismo. Medido sobre
     # los picks del dia, sin esta guarda salian recomendaciones con Score 0,872.
-    vivos = [f for f in filas
-             if f['score'] >= SCORE_AMBAR
-             and f['prob'] >= PROB_SUELO_DURO
-             and (f['prob'] >= PROB_MINIMA
-                  or (f['score'] > SCORE_EXCEPCION and f.get('contrastada')))]
+    # v172 — LAS DOS REGLAS ANTI-TRAMPA, Y EL VETO DEL HISTORIAL.
+    #
+    #   · CUOTA INFLADA: probabilidad ajustada < 20 % con cuota > 2,50 no se
+    #     recomienda nunca. Es el cebo clasico de la casa para el equipo debil.
+    #   · VETO POR H2H: una apuesta que nombra al bando que pierde 8 de 10
+    #     cruces no se propone, tenga el Score que tenga. Es un FILTRO: no
+    #     cambia ninguna probabilidad, asi que no puede romper la calibracion.
+    ctx = contexto_de(pick)
+    try:
+        import contexto_partido as cx
+        import modo_modelo as mm
+        h_, a_ = mm._equipos(pick)
+    except Exception:
+        cx, h_, a_ = None, None, None
+    vivos = []
+    for f in filas:
+        if f['prob'] < PROB_TRAMPA and (f['cuota'] or 0) > CUOTA_TRAMPA:
+            continue
+        if cx is not None and h_ and a_ and cx.veta(ctx, f['apuesta'], h_, a_):
+            continue
+        if f['score'] < SCORE_AMBAR or f['prob'] < PROB_SUELO_DURO:
+            continue
+        if f['prob'] < PROB_MINIMA and not (f['score'] > SCORE_EXCEPCION
+                                            and f.get('contrastada')):
+            continue
+        vivos.append(f)
     if not vivos:
         return None
     elegida = max(vivos, key=lambda f: (f['score'], f['prob']))

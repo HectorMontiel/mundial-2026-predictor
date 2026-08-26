@@ -1668,6 +1668,85 @@ _TIRA = (('resultado', '1X2'), ('goles', 'Goles'), ('btts', 'BTTS'),
          ('corners', 'Córners'), ('tarjetas', 'Tarj.'), ('remates', 'Rem.'))
 
 
+def _motivo_sin_apuesta(pick: Dict) -> str:
+    """La razon corta de que no haya recomendacion, en menos de 50 caracteres."""
+    try:
+        import contexto_partido as cx
+        import valor_apuesta as va
+    except Exception:
+        return ''
+    h, a = _equipos(pick)
+    if not (h and a):
+        return ''
+    ctx = va.contexto_de(pick)
+    for f in va.candidatos(pick, {}):
+        v = cx.veta(ctx, f['apuesta'], h, a)
+        if v:
+            return v[:60]
+    return 'Ninguna apuesta llega al valor mínimo.'
+
+
+def _bloque_contexto(pick: Dict) -> str:
+    """
+    v172 — H2H, FORMA Y NIVEL, EN CUATRO LINEAS Y SIN PARRAFOS.
+
+    Es la mitad del encargo que no cambia ningun numero: que el usuario vea POR
+    QUE la aplicacion dice lo que dice. El caso que lo provoco fue una
+    recomendacion de «AmaZulu o empate» en un partido donde Mamelodi habia
+    ganado 8 de los ultimos 10 cruces — con el H2H delante, esa recomendacion
+    se habria visto mal a simple vista.
+    """
+    try:
+        import contexto_partido as cx
+    except Exception:
+        return ''
+    h, a = _equipos(pick)
+    clave = pick.get('clave_liga')
+    if not (h and a and clave):
+        return ''
+    try:
+        ctx = cx.de_partido(clave, h, a)
+    except Exception as e:
+        logger.debug('[modo_modelo] contexto: %s', e)
+        return ''
+    cr = ctx.get('h2h') or {}
+    if not cr.get('n') and not (ctx.get('forma_home') or {}).get('racha'):
+        return ''
+    trozos = ['<div class="mm-otros">📊 CONTEXTO</div>']
+    if cr.get('n'):
+        # barra de dominio: verde lo del local, gris el empate, azul la visita
+        tot = max(cr['n'], 1)
+        anchos = (cr['v_home'] / tot * 100, cr['empates'] / tot * 100,
+                  cr['v_away'] / tot * 100)
+        trozos.append(
+            '<div class="mm-fc"><span class="mm-fc-n">🤝 H2H (%d)</span>'
+            '<span class="mm-fc-barra"><span class="mm-1x2">'
+            '<span style="width:%.1f%%;background:var(--ok)"></span>'
+            '<span style="width:%.1f%%;background:var(--tenue)"></span>'
+            '<span style="width:%.1f%%;background:var(--info)"></span>'
+            '</span></span>'
+            '<span class="mm-fc-e">%dV · %dE · %dD</span></div>'
+            % (cr['n'], anchos[0], anchos[1], anchos[2],
+               cr['v_home'], cr['empates'], cr['v_away']))
+    for etq, equipo, f in (('Forma L', h, ctx.get('forma_home') or {}),
+                           ('Forma V', a, ctx.get('forma_away') or {})):
+        if not f.get('racha'):
+            continue
+        trozos.append(
+            '<div class="mm-fc"><span class="mm-fc-n">%s</span>'
+            '<span class="mm-fc-barra">%s <span class="mm-ck-pct">%s pts/'
+            'partido</span></span></div>'
+            % (etq, racha_html(f['racha']),
+               ('%.1f' % f['ppp']) if f.get('ppp') is not None else '—'))
+    if ctx.get('elo') is not None:
+        quien = h if ctx['elo'] > 0 else a
+        trozos.append(
+            '<div class="mm-fc"><span class="mm-fc-n">📈 ELO</span>'
+            '<span class="mm-fc-barra">%+.0f · %s superior</span></div>'
+            % (ctx['elo'], _esc_mm(quien)[:24]))
+    return ''.join(trozos)
+
+
 def _tabla_valor(pick: Dict, bloques: Dict, tope: int = 4) -> str:
     """
     v171 — LAS MEJORES LINEAS DEL PARTIDO, CON SU CUOTA Y SU SCORE.
@@ -1857,7 +1936,7 @@ def _esc_mm(t) -> str:
 
 
 def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
-                        n: int = 0) -> None:
+                        n: int = 0, motivo: str = '') -> None:
     """
     El corazón de la tarjeta: qué meter, a qué precio, y el botón para jugarlo.
 
@@ -1866,8 +1945,13 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     la ausencia se leería como que la app no ha mirado.
     """
     if rec is None:
+        # v172 — SE DICE POR QUE NO. Un hueco sin explicacion se lee como que
+        # la aplicacion no ha mirado; con el motivo delante se lee como lo que
+        # es: que este partido no tiene ninguna apuesta que merezca la pena.
         st.markdown('<div class="mm-rec mm-rec-no">🚫 <b>Sin apuestas '
-                    'jugables</b></div>', unsafe_allow_html=True)
+                    'jugables</b>%s</div>' % (('<span>%s</span>' % motivo)
+                                              if motivo else ''),
+                    unsafe_allow_html=True)
         return
     icono = '✅' if rec['verde'] else '🟡'
     tono = 'mm-rec-si' if rec['verde'] else 'mm-rec-ambar'
@@ -1976,7 +2060,9 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 pick, {'Córners': _ck, 'Tarjetas': _tj,
                        'Remates': (_rm or {}).get('totales'),
                        'Remates a puerta': (_rm or {}).get('a_puerta')})
-            _bloque_recomendada(st, rec, clave_vista, n_boton)
+            st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
+            _bloque_recomendada(st, rec, clave_vista, n_boton,
+                                motivo=_motivo_sin_apuesta(pick))
 
         # ---- 2) otros mercados, en filas compactas ----------------------
         filas = []

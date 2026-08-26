@@ -1487,3 +1487,62 @@ Conviene no volver a moverlo sin motivo.
 4. ~~El smoke sigue sin veredicto~~ — descartado: ver 5a, pendiente 2. El
    smoke termina con exit 0; lo que se vio era ruido de cierre de un proceso
    matado por tiempo de espera.
+
+## 5c. v172 — CONTEXTO H2H Y REGLAS ANTI-TRAMPA
+
+Detalle en **BITACORA_ARQUITECTURA.md §22**.
+
+**El caso.** «AmaZulu o empate» con Score 1,35, contra un Mamelodi que ganó 8 de
+los últimos 10 cruces.
+
+**La causa NO era el H2H.** La casa daba Mamelodi 78,85 % · empate 14,72 % ·
+AmaZulu 6,43 %, o sea «AmaZulu o empate» = 21,15 % y Score real 0,63. La doble
+oportunidad era **el único mercado que entraba sin contraste**
+(`implicita=None`). Arreglado: su implícita se **suma del 1X2 devigado** —no se
+deviga la familia de dobles, cuyas tres selecciones suman 2 y no 1—. Con
+contraste, el desvío es de 24 pp y la bloquea la regla de los 10 pp.
+
+**Un fallo hermano encontrado por el camino:** `valor_apuesta` daba el 1X2 por
+ya encogido siempre, pero `alpha_finder` sólo lo encoge cuando hubo ancla. Ahora
+lee `calibracion.aplicado` del pick. En el caso real, Mamelodi pasa de 0,550 a
+0,729.
+
+**Módulo nuevo: `contexto_partido.py`** — H2H (10 cruces, contados desde el
+local de HOY), forma (5 partidos con puntos/partido) y diferencia de ELO.
+Constantes: `N_H2H` 10 · `MIN_H2H` 4 · `DOMINIO_CLARO` 0,65 · `FACTOR_MINIMO`
+0,40 · `FACTOR_MAXIMO` 1,30.
+
+**Cómo se usa el factor** (importante, no cambiarlo sin leer §22.4):
+
+* **modula** la probabilidad sólo donde NO hay implícita — donde hay precio, la
+  casa ya conoce el H2H y multiplicar sería contarlo dos veces y descalibrar;
+* **veta** lo que contradice un H2H dominante, con precio o sin él. Un veto es
+  un filtro: no cambia ningún número;
+* **se enseña siempre** en el bloque 📊 CONTEXTO.
+
+**Reglas anti-trampa** (`valor_apuesta`): `PROB_TRAMPA` 0,20 y `CUOTA_TRAMPA`
+2,50 — probabilidad baja con cuota alta no se recomienda nunca. En el caso real
+«Gana AmaZulu» quedaba en 9,8 % con cuota 11,00 y **Score 1,08, el más alto del
+partido**.
+
+**La tarjeta** enseña el bloque de contexto antes de la recomendación, y cuando
+no hay nada recomendable dice por qué («Mamelodi ha ganado 8 de los últimos 10
+cruces»).
+
+**En ese partido la respuesta honesta es que no hay apuesta:** Mamelodi encogido
+queda en Score 0,897 y el mínimo es 0,95. El encargo esperaba ámbar, pero eso
+exigiría bajar el umbral de valor para que dé la respuesta que se quiere oír.
+
+**Validación.** Suite 2.409 checks TODO OK · `valida_render.py` 3 vistas OK ·
+`_v164_valida_tarjeta.py` OK · `_v163_valida_ficha_remates.py` OK.
+
+**Pendiente que deja:**
+
+1. El factor de contexto NO está medido contra el histórico: no se sabe si
+   modular sin precio mejora o empeora el ECE. Se puede medir con el ledger,
+   restringiendo a partidos sin cuota.
+2. El ELO sale de `elo_actual.csv` y en la prueba real dio `None` para esos dos
+   equipos — el emparejamiento de nombres con ese fichero no está comprobado.
+3. El veto usa contención de cadena para saber si la apuesta nombra a un
+   equipo. Con nombres cortos puede fallar, igual que pasó en la v169 con las
+   familias de Playdoit. Convendría la misma regla de palabras enteras.
