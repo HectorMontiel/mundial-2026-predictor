@@ -9261,15 +9261,18 @@ def test_la_recomendacion_se_elige_por_score_y_no_por_probabilidad():
     check(abs(va.SCORE_AMBAR - 0.95) < 1e-9,
           f"y el ambar baja hasta 0,95 ({va.SCORE_AMBAR})")
 
-    # el semaforo es por SCORE, que es lo que ahora significa el color
-    check(va.semaforo(1.21) == '🟢', "Score 1,21 es verde")
-    check(va.semaforo(1.00) == '🟡', "Score 1,00 es ambar")
-    check(va.semaforo(0.90) == '🔴', "Score 0,90 es rojo")
-    check(va.semaforo(None) == '⚪', "sin cuota no hay color")
-    check(va.semaforo(1.20, prob=0.30) == '🟢',
-          "un Score alto con probabilidad baja sigue siendo valor...")
-    check(va.semaforo(1.05, prob=0.30) == '🔴',
-          "...pero uno mediano con probabilidad baja, no")
+    # v173 — EL COLOR VUELVE A SER LA PROBABILIDAD, no el Score.
+    #
+    # Es la CUARTA acepcion del verde en cinco versiones: v168 ventaja de
+    # precio, v170 estable y >=60 %, v171 Score > 1,10, v173 probabilidad
+    # >= 60 %. El Score se sigue calculando y enseñando —dice si la apuesta
+    # esta bien pagada— pero ya no decide el color.
+    check(va.semaforo(prob=0.72) == '🟢', "72 % es verde")
+    check(va.semaforo(prob=0.55) == '🟡', "55 % es ambar")
+    check(va.semaforo(prob=0.30) == '⚪', "30 % no lleva color de apuesta")
+    check(va.semaforo(None) == '⚪', "sin probabilidad no hay color")
+    check(va.semaforo(1.20, prob=0.30) == '⚪',
+          "y un Score alto ya NO pinta de verde una probabilidad baja")
 
     # y el ejemplo del encargo, con las dos lineas del mismo mercado
     a = va._fila('Goles', 'Total', 'Goles: Más de 2.5', 0.80, 1.40, 0.72,
@@ -9306,16 +9309,20 @@ def test_el_score_no_recomienda_volados_ni_rojos():
 
     src = open('valor_apuesta.py', encoding='utf-8').read()
     cuerpo = src.split('def mejor(')[1]
-    check('SCORE_AMBAR' in cuerpo,
-          "`mejor` no devuelve nada por debajo del ambar")
-    check('PROB_SUELO_DURO' in cuerpo, "ni por debajo del suelo duro")
-    check("f.get('contrastada')" in cuerpo,
-          "y la excepcion del Score alto exige contraste con la casa")
+    # v173 — `mejor` YA NO FILTRA POR SCORE. La recomendacion tiene que
+    # existir siempre, asi que los suelos de Score y de probabilidad se
+    # retiraron. Lo que queda es la regla de «cuota decente» del encargo.
+    check('CUOTA_DECENTE' in cuerpo,
+          "`mejor` aparta lo que no es una apuesta de verdad")
+    check('PROB_MAXIMA_RECO' in cuerpo,
+          "y tampoco propone un 98 % a cuota 1,01")
+    check('SCORE_AMBAR' not in cuerpo,
+          "pero ya no hay suelo de Score que pueda dejar el partido sin nada")
 
-    # la doble oportunidad no entra a precio de saldo
+    # la doble oportunidad no entra a precio de saldo CUANDO hay precio
     check(abs(va.CUOTA_MINIMA_DOBLE - 1.30) < 1e-9,
           f"la doble oportunidad exige cuota >= 1,30 ({va.CUOTA_MINIMA_DOBLE})")
-    src_do = src.split('LA DOBLE OPORTUNIDAD ENTRA')[1][:900]
+    src_do = src.split('LA DOBLE OPORTUNIDAD ENTRA')[1][:1200]
     check('CUOTA_MINIMA_DOBLE' in src_do,
           "y el filtro esta en el sitio donde se construye")
 
@@ -9589,6 +9596,166 @@ def test_las_reglas_anti_trampa():
     motivo = mm._motivo_sin_apuesta(pick)
     check(bool(motivo), "la tarjeta explica por que no recomienda nada")
     check(len(motivo) <= 60, f"en una linea corta ({len(motivo)})")
+
+
+
+def test_siempre_hay_apuesta_recomendada():
+    """
+    v173 — NUNCA MAS «SIN APUESTAS JUGABLES».
+
+    El usuario lo rechazo: quiere una propuesta en todos los partidos. La
+    recomendacion pasa a elegirse por PROBABILIDAD AJUSTADA y a igualdad de
+    probabilidad gana la de mejor cuota.
+
+    Medido sobre los 113 pronosticos de futbol del dia: **113 con
+    recomendacion, 0 sin ella** (antes 22 salian vacios). 96 en verde.
+
+    LO QUE CUESTA, Y ESTA MEDIDO SOBRE 47.794 PARTIDOS:
+        elegir por Score        2.947 apuestas · acierto 66,0 % · ROI -0,67 %
+        elegir por probabilidad 44.557 apuestas · acierto 76,0 % · ROI -6,17 %
+    Se acierta mas y se gana menos: cinco puntos y medio de ROI. Es el
+    intercambio que se pidio.
+    """
+    import valor_apuesta as va
+    import modo_modelo as mm
+
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.7885, 'draw': 0.1472, 'away': 0.0643},
+           '1x2_cuotas': {'home': 1.231, 'draw': 5.333, 'away': 11.0},
+           'doble_cuotas': {'1X': 1.056, '12': 1.111, 'X2': 3.0}}
+    pick = {'partido': 'Mamelodi Sundowns vs AmaZulu',
+            'clave_liga': 'rsa_premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-26', 'implicitas': imp,
+            'board': {'Gana Mamelodi Sundowns': 0.55, 'Empate': 0.25,
+                      'Gana AmaZulu': 0.20}}
+
+    r = mm.apuesta_recomendada(pick)
+    check(r is not None,
+          "el partido de Mamelodi ya NO sale «sin apuestas jugables»")
+    check(r and 'Mamelodi' in r['apuesta'],
+          f"y lo que propone es el favorito ({r and r['apuesta']})")
+    check(r and r['prob'] > 0.65,
+          f"con la probabilidad ya encogida hacia la casa ({r and r['prob']})")
+    check(r and r['verde'],
+          "y en verde, porque pasa del 60 %")
+
+    # un partido SIN precio de la casa tambien tiene recomendacion
+    sin_precio = {k: v for k, v in pick.items() if k != 'implicitas'}
+    sin_precio['goles_lineas'] = {'1.5': 0.78, '2.5': 0.55, '3.5': 0.30}
+    r2 = mm.apuesta_recomendada(sin_precio)
+    check(r2 is not None,
+          "un partido que la casa no cotiza tambien propone algo")
+    if r2:
+        check(r2.get('cuota') is None or r2['cuota'] >= va.CUOTA_DECENTE,
+              "y si no hay cuota se dice, en vez de callar el partido")
+
+    # el orden importa: el motor va ANTES del camino heredado
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    cuerpo = src.split('def apuesta_recomendada(')[1]
+    i_valor = cuerpo.index('import valor_apuesta')
+    i_legacy = cuerpo.index('if not jugables:')
+    check(i_valor < i_legacy,
+          "el motor de valor se consulta antes del `return None` heredado")
+
+
+def test_la_cuota_decente_evita_las_lineas_absurdas():
+    """
+    v173 — «LA DE MAYOR PROBABILIDAD QUE TENGA UNA CUOTA DECENTE».
+
+    Elegir por probabilidad a secas, con la escalera entera de goles delante,
+    sacaba «Menos de 6,5 al 100 %» con cuota 1,01. Es lo mas probable del
+    partido y no es una apuesta. Medido: sin estos dos cortes, 53 de las 113
+    recomendaciones eran lineas de goles absurdas.
+    """
+    import valor_apuesta as va
+
+    check(va.CUOTA_DECENTE >= 1.10,
+          f"hay un suelo de cuota ({va.CUOTA_DECENTE})")
+    check(va.PROB_MAXIMA_RECO <= 0.95,
+          f"y un techo de probabilidad ({va.PROB_MAXIMA_RECO})")
+
+    pick = {'partido': 'A vs B', 'clave_liga': 'premier', 'deporte': 'Fútbol',
+            'goles_lineas': {'1.5': 0.78, '2.5': 0.55, '6.5': 0.99},
+            'implicitas': {'casa': 'Playdoit', 'goles': {
+                '1.5': {'p': 0.76, 'mas': 1.28, 'menos': 3.60},
+                '2.5': {'p': 0.53, 'mas': 1.80, 'menos': 2.00},
+                '6.5': {'p': 0.98, 'mas': 1.01, 'menos': 15.0}}}}
+    m = va.mejor(pick)
+    check(m is not None, "sigue habiendo recomendacion")
+    if m:
+        check('6.5' not in m['apuesta'],
+              f"pero no es la linea absurda de 6,5 ({m['apuesta']})")
+        check(m['cuota'] is None or m['cuota'] >= va.CUOTA_DECENTE,
+              f"y su cuota es jugable ({m['cuota']})")
+
+
+def test_el_factor_de_lambda_sigue_la_forma_reciente():
+    """
+    v173 — SI EL EQUIPO NO ANOTA, SU «MAS DE» BAJA.
+
+    El factor compara la media RECIENTE del equipo con la SUYA LARGA —no con
+    la de la liga—, porque lo que se quiere capturar es un cambio de estado,
+    no lo bueno que es en absoluto: eso ya esta en la lambda base.
+
+    Recortado a [0,80 · 1,20]: cinco partidos son pocos y sin recorte la
+    lambda saltaria un 60 % cada semana.
+    """
+    import contexto_partido as cx
+
+    f = cx.factor_lambda('rsa_premier', 'Mamelodi Sundowns', 'goles')
+    check(cx.LAMBDA_MIN <= f <= cx.LAMBDA_MAX,
+          f"el factor va recortado ({f} en [{cx.LAMBDA_MIN}, "
+          f"{cx.LAMBDA_MAX}])")
+    check(cx.factor_lambda('no_existe', 'X', 'goles') == 1.0,
+          "sin histórico el factor es 1,0, no un numero inventado")
+    check(cx.factor_lambda('premier', 'Equipo Que No Existe', 'goles') == 1.0,
+          "y con un equipo desconocido, tambien")
+
+    # se aplica a la lambda de los conteos
+    src = open('valor_apuesta.py', encoding='utf-8').read()
+    check('_factor_lambda_de' in src,
+          "la lambda de los conteos pasa por el factor de forma reciente")
+    check('factor compara su' in src or 'media reciente' in src,
+          "y queda escrito contra que se compara")
+
+
+def test_la_regla_anti_trampa_se_retiro():
+    """
+    v173 — LA REGLA ANTI-TRAMPA SE QUITA, A PETICION.
+
+    La v172 prohibia recomendar probabilidad < 20 % con cuota > 2,50. El
+    usuario quiere poder ver esas apuestas de loteria si el H2H o la racha las
+    respaldan.
+
+    Hoy no hace falta para lo mismo: la recomendacion se elige por
+    PROBABILIDAD, y una apuesta del 15 % no puede ganar esa comparacion. La
+    regla protegia contra la seleccion por Score, que ya no es la que manda.
+    """
+    import valor_apuesta as va
+
+    src = open('valor_apuesta.py', encoding='utf-8').read()
+    cuerpo = src.split('def mejor(')[1]
+    check('PROB_TRAMPA' not in cuerpo,
+          "`mejor` ya no aplica la regla anti-trampa")
+    check('LA REGLA ANTI-TRAMPA SE RETIRA' in src,
+          "y queda escrito por que se retiro")
+
+    # una loteria con buen H2H sigue apareciendo en la lista de candidatas
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.7885, 'draw': 0.1472, 'away': 0.0643},
+           '1x2_cuotas': {'home': 1.231, 'draw': 5.333, 'away': 11.0}}
+    pick = {'partido': 'Mamelodi Sundowns vs AmaZulu',
+            'clave_liga': 'rsa_premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-26', 'implicitas': imp,
+            'board': {'Gana Mamelodi Sundowns': 0.55, 'Empate': 0.25,
+                      'Gana AmaZulu': 0.20}}
+    etiquetas = {f['apuesta'] for f in va.candidatos(pick, {})}
+    check('Gana AmaZulu' in etiquetas,
+          f"la apuesta de loteria se puede VER ({sorted(etiquetas)})")
+    m = va.mejor(pick, {})
+    check(m and 'AmaZulu' not in m['apuesta'],
+          f"pero no gana la recomendacion, porque se elige por probabilidad "
+          f"({m and m['apuesta']})")
 
 
 def test_todas_las_ligas_tienen_remates():
@@ -9965,6 +10132,11 @@ if __name__ == '__main__':
     test_el_contexto_h2h_y_forma_se_calcula_y_se_ve()
     test_el_factor_no_se_aplica_donde_ya_hay_precio()
     test_las_reglas_anti_trampa()
+    print(chr(10) + '=== v173: siempre hay apuesta ===')
+    test_siempre_hay_apuesta_recomendada()
+    test_la_cuota_decente_evita_las_lineas_absurdas()
+    test_el_factor_de_lambda_sigue_la_forma_reciente()
+    test_la_regla_anti_trampa_se_retiro()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

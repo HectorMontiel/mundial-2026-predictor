@@ -1546,3 +1546,60 @@ exigiría bajar el umbral de valor para que dé la respuesta que se quiere oír.
 3. El veto usa contención de cadena para saber si la apuesta nombra a un
    equipo. Con nombres cortos puede fallar, igual que pasó en la v169 con las
    familias de Playdoit. Convendría la misma regla de palabras enteras.
+
+## 5d. v173 — SIEMPRE HAY APUESTA
+
+Detalle en **BITACORA_ARQUITECTURA.md §23**.
+
+**El cambio.** La recomendación se elige por **probabilidad ajustada** (a
+igualdad, mejor cuota) y existe SIEMPRE. Se retiran el suelo de Score, el de
+probabilidad y la regla anti-trampa.
+
+**Lo que cuesta, medido sobre 47.794 partidos:**
+
+    por Score          2.947 apuestas · acierto 66,0 % · ROI −0,67 %
+    por probabilidad  44.557 apuestas · acierto 76,0 % · ROI −6,17 %
+
+Cinco puntos y medio de ROI a cambio de jugar todos los días. Está escrito en
+el docstring de `valor_apuesta.mejor` para que no se pierda.
+
+**Lo que NO se quitó:** el ajuste de la probabilidad. Una línea que se separa
+más de 10 pp del precio sigue viniendo encogida y recortada — se quita el
+BLOQUEO, no la corrección. Por eso «AmaZulu o empate» puede volver a la lista y
+no gana: entra con 0,27, no con 0,45. **La v172 es lo que hace segura a la
+v173.**
+
+**Tres arreglos para que «siempre» fuera cierto** (medidos, no supuestos):
+
+1. Las líneas sin cuota se descartaban (`score is not None`). Ahora entran.
+2. La cuarentena vaciaba ligas enteras sin medir — 26 partidos de 117. Ahora
+   aparta si queda algo y se hace a un lado si no queda nada.
+3. Un `return None` heredado de la v167 cortaba ANTES del motor de valor — 22
+   partidos de 113. El motor va primero.
+
+Resultado: **113 de 113 con recomendación**, 96 en verde.
+
+**«Cuota decente»** (`CUOTA_DECENTE` 1,20 · `PROB_MAXIMA_RECO` 0,90): sin estos
+cortes, 53 de 113 recomendaciones eran «Menos de 6,5 al 100 %» con cuota 1,01.
+Si no queda ninguna digna, se propone la mejor que haya.
+
+**`contexto_partido.factor_lambda`**: compara la media reciente del equipo con
+la SUYA larga (no con la de la liga), recortado a [0,80 · 1,20]. Se aplica a la
+λ de córners, tarjetas y remates.
+
+**El verde, por cuarta vez**: v168 ventaja de precio → v170 estable y ≥60 % →
+v171 Score > 1,10 → **v173 probabilidad ≥ 60 %**. No moverlo más sin motivo.
+
+**Validación.** Suite 2.429 checks TODO OK · `valida_render.py` 3 vistas OK ·
+`_v164_valida_tarjeta.py` OK · `_v163_valida_ficha_remates.py` OK.
+
+**Pendiente que deja:**
+
+1. La política de la v173 NO se ha vuelto a liquidar contra el marcador. Las
+   cifras de arriba son las de la v170, que es la misma regla de selección pero
+   sin la escalera de líneas ni el factor de λ. Añadir `_politica_v173` a
+   `_v169_goles_y_eficacia.py` antes de citar eficacia.
+2. El factor de λ no está medido: no se sabe si mejora o empeora el ECE de
+   córners y tarjetas. Se puede medir con `informe_calibracion`.
+3. El smoke quedó sin veredicto otra vez (se colgó 3 h en la fase de red y se
+   paró a mano). El de la v169 sí terminó con exit 0.

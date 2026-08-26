@@ -2856,3 +2856,100 @@ como que la aplicación no ha mirado.
 precisado bien y no hay valor que sacar. El encargo esperaba recomendarlo en
 ámbar, pero eso exigiría bajar el umbral de valor — y sería cambiar la regla para
 que dé la respuesta que se quiere oír.
+
+## 23. Siempre hay apuesta
+
+### 23.1 El cambio, y lo que cuesta
+
+«NUNCA debe haber Sin apuestas jugables.» La recomendación pasa a elegirse por
+**probabilidad ajustada**, y a igualdad de probabilidad gana la de mejor cuota.
+Se retiran el suelo de Score (0,95), el suelo de probabilidad (0,50) y la regla
+anti-trampa.
+
+**Lo que cuesta, medido sobre 47.794 partidos:**
+
+    elegir por Score         2.947 apuestas · acierto 66,0 % · ROI −0,67 %
+    elegir por probabilidad 44.557 apuestas · acierto 76,0 % · ROI −6,17 %
+
+Se acierta más y se gana menos: **cinco puntos y medio de ROI**. Es un
+intercambio legítimo —el usuario quiere jugar todos los días, no esperar a que
+la casa se equivoque— pero no es gratis, y por eso queda escrito aquí y en el
+docstring de `valor_apuesta.mejor`.
+
+### 23.2 Lo que NO se quitó, y es lo que evita volver al principio
+
+El **ajuste** de la probabilidad. Una línea que se separa más de 10 puntos del
+precio de la casa sigue viniendo encogida y recortada por
+`cordura_probabilidad`: lo que se quita es el BLOQUEO, no la corrección.
+
+Por eso «AmaZulu o empate» puede volver a la lista y aun así no gana: entra con
+su probabilidad corregida (0,27), no con la cruda (0,45), y pierde contra el
+0,73 de Mamelodi. **La v172 es lo que hace segura a la v173.**
+
+### 23.3 Tres cosas que hubo que arreglar para que «siempre» fuera cierto
+
+Al medir, la promesa no se cumplía. Tres causas distintas, las tres reales:
+
+1. **Las líneas sin cuota se descartaban.** Sin precio no hay Score, y el
+   filtro `score is not None` tiraba la fila. Pero desde la v173 se elige por
+   probabilidad, así que una línea sin precio sigue siendo una apuesta — lo que
+   no tiene es Score, y la tarjeta lo dice.
+2. **La cuarentena vaciaba ligas enteras.** En `leagues_cup`,
+   `conference_league`, `chi_primera`… todos los bloques salen «sin medir» y la
+   lista se quedaba vacía: 26 partidos de 117. Ahora la cuarentena **aparta**
+   lo inestable cuando queda algo y **se hace a un lado** cuando no queda nada,
+   marcando esas filas como no medidas.
+3. **Un `return None` heredado cortaba antes de llegar al motor.** El camino
+   de la v167 tenía `if not jugables: return None` ANTES del bloque de
+   `valor_apuesta`: 22 de 113 partidos salían vacíos aunque el motor tuviera
+   candidatas para todos. El motor va ahora primero.
+
+Resultado medido: **113 de 113 partidos con recomendación**, 96 en verde.
+
+### 23.4 «La de mayor probabilidad QUE TENGA UNA CUOTA DECENTE»
+
+Elegir por probabilidad a secas, con la escalera de goles entera delante,
+sacaba **«Menos de 6,5 al 100 %» con cuota 1,01**. Es lo más probable del
+partido y no es una apuesta: nadie juega un 1,01. Medido: sin cortes, **53 de
+las 113 recomendaciones eran líneas de goles absurdas**.
+
+El propio encargo pone el límite en esa frase, y estos son los dos cortes que la
+hacen operativa: `CUOTA_DECENTE` 1,20 y `PROB_MAXIMA_RECO` 0,90. Si de todo el
+partido no queda ninguna «digna», se propone la mejor que haya — la promesa de
+que siempre hay recomendación manda sobre el filtro.
+
+### 23.5 La λ sigue a la forma reciente
+
+`contexto_partido.factor_lambda` compara la media reciente del equipo con **la
+suya larga**, no con la de la liga: lo que se quiere capturar es un cambio de
+estado, no lo bueno que es en absoluto — eso ya está en la λ base. Recortado a
+**[0,80 · 1,20]**, porque cinco partidos son pocos y sin recorte la λ saltaría
+un 60 % cada semana.
+
+Se aplica a la λ de córners, tarjetas y remates antes de calcular las
+probabilidades de cada línea.
+
+### 23.6 La regla anti-trampa se retira, y por qué se puede
+
+La v172 prohibía recomendar probabilidad < 20 % con cuota > 2,50. Se quita a
+petición: el usuario quiere poder ver esas apuestas de lotería si el H2H o la
+racha las respaldan.
+
+Se puede quitar sin peligro porque **protegía contra la selección por Score**,
+que ya no es la que manda: con selección por probabilidad, una apuesta del 15 %
+no puede ganar esa comparación. Sigue apareciendo en la lista de candidatas —
+visible, como se pidió— y no gana la recomendación. Las constantes se conservan
+por si vuelve.
+
+### 23.7 El color, por cuarta vez
+
+El verde pasa a ser **probabilidad ≥ 60 %**; ámbar entre 50 y 60. Es la cuarta
+acepción en cinco versiones:
+
+    v168  ventaja de precio medida
+    v170  mercado estable y ≥ 60 %
+    v171  Score > 1,10
+    v173  probabilidad ≥ 60 %
+
+El Score se sigue calculando y enseñando —dice si la apuesta está bien pagada—
+pero ya no decide el color. **Conviene no volver a moverlo.**

@@ -1489,6 +1489,58 @@ def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
     """
     if pick.get('jugado') or pick.get('sin_modelo'):
         return None
+    # v171 — LA DE MEJOR RELACIÓN PROBABILIDAD/CUOTA.
+    #
+    # La v170 elegía por probabilidad absoluta y acabó recomendando doble
+    # oportunidad al 79 % con cuota 1,10 en el 93 % de los partidos. El usuario
+    # lo rechazó: quiere valor, no seguridad a cualquier precio.
+    #
+    #     Score = probabilidad ajustada × cuota de Playdoit
+    #
+    # `valor_apuesta` recorre TODAS las líneas que la casa publica de cada
+    # mercado —no sólo la más cercana a la media— y devuelve la de mejor Score.
+    # Si no hay cuotas de la casa no hay Score que calcular, y entonces se cae
+    # a la vía de abajo, que sigue eligiendo por probabilidad entre lo estable.
+    try:
+        import valor_apuesta as va
+        _mej = va.mejor(pick, bloques or {})
+    except Exception as e:
+        logger.debug('[modo_modelo] valor: %s', e)
+        _mej = None
+    if _mej:
+        est = _estabilidad_de(pick.get('clave_liga'), _mej['mercado'],
+                              _mej['apuesta'])
+        return {'apuesta': _mej['apuesta'], 'mercado': _mej['mercado'],
+                'prob': _mej['prob'], 'cuota': _mej['cuota'],
+                'cuota_justa': round(1.0 / max(_mej['prob'], 1e-6), 2),
+                # v173 — sin cuota no hay Score ni EV, y eso no es un fallo:
+                # es un partido que la casa no cotiza. La tarjeta lo enseña
+                # con su probabilidad y sin precio, en vez de callarse.
+                'ev': (None if _mej.get('score') is None
+                       else _mej['score'] - 1.0),
+                'score': _mej.get('score'),
+                # EL VERDE PASA A SIGNIFICAR VALOR, y la tarjeta lo dice.
+                # v173 — verde por PROBABILIDAD (>=60 %), no por Score.
+                'verde': _mej['prob'] >= va.PROB_MINIMA,
+                'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
+                                             'remates_on'),
+                'original': _mej['prob'], 'fiable': True,
+                'contrastada': True, 'implicita': _mej.get('implicita'),
+                'bloqueada': False, 'estabilidad': est,
+                'bloque': _mej['bloque'], 'puesto': est.get('puesto'),
+                'es_rey': False, 'linea': _mej.get('linea'),
+                'semaforo': _mej.get('semaforo'), 'motivo': 'valor',
+                'aviso': ''}
+
+
+    # v173 — LO DE ABAJO ES EL CAMINO DE RESPALDO, Y VA DESPUES A PROPOSITO.
+    #
+    # Estaba ANTES y tenia un `if not jugables: return None` que cortaba la
+    # funcion sin llegar nunca al motor de valor: 22 de 113 partidos salian
+    # «Sin apuestas jugables» aunque `valor_apuesta` tuviera candidatas para
+    # todos. Ahora el motor va primero y esto solo actua si aquel no encuentra
+    # nada — que hoy no pasa nunca, pero se conserva porque cubre los deportes
+    # sin `implicitas` (tenis, MLB) que no pasan por `valor_apuesta`.
     candidatas = []
     for m in (pick.get('mercados') or []):
         if not isinstance(m, dict) or m.get('apuesta') is None:
@@ -1557,43 +1609,6 @@ def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
                          and c['ev'] >= MIN_EV_RECOMENDADA))]
     if not jugables:
         return None
-
-    # v171 — LA DE MEJOR RELACIÓN PROBABILIDAD/CUOTA.
-    #
-    # La v170 elegía por probabilidad absoluta y acabó recomendando doble
-    # oportunidad al 79 % con cuota 1,10 en el 93 % de los partidos. El usuario
-    # lo rechazó: quiere valor, no seguridad a cualquier precio.
-    #
-    #     Score = probabilidad ajustada × cuota de Playdoit
-    #
-    # `valor_apuesta` recorre TODAS las líneas que la casa publica de cada
-    # mercado —no sólo la más cercana a la media— y devuelve la de mejor Score.
-    # Si no hay cuotas de la casa no hay Score que calcular, y entonces se cae
-    # a la vía de abajo, que sigue eligiendo por probabilidad entre lo estable.
-    try:
-        import valor_apuesta as va
-        _mej = va.mejor(pick, bloques or {})
-    except Exception as e:
-        logger.debug('[modo_modelo] valor: %s', e)
-        _mej = None
-    if _mej:
-        est = _estabilidad_de(pick.get('clave_liga'), _mej['mercado'],
-                              _mej['apuesta'])
-        return {'apuesta': _mej['apuesta'], 'mercado': _mej['mercado'],
-                'prob': _mej['prob'], 'cuota': _mej['cuota'],
-                'cuota_justa': round(1.0 / max(_mej['prob'], 1e-6), 2),
-                'ev': _mej['score'] - 1.0, 'score': _mej['score'],
-                # EL VERDE PASA A SIGNIFICAR VALOR, y la tarjeta lo dice.
-                'verde': _mej['score'] > va.SCORE_VERDE,
-                'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
-                                             'remates_on'),
-                'original': _mej['prob'], 'fiable': True,
-                'contrastada': True, 'implicita': _mej.get('implicita'),
-                'bloqueada': False, 'estabilidad': est,
-                'bloque': _mej['bloque'], 'puesto': est.get('puesto'),
-                'es_rey': False, 'linea': _mej.get('linea'),
-                'semaforo': _mej.get('semaforo'), 'motivo': 'valor',
-                'aviso': ''}
 
     # v170 — SIN CUOTAS DE LA CASA, LA MÁS SEGURA ENTRE LAS ESTABLES.
     #
@@ -1734,10 +1749,11 @@ def _bloque_contexto(pick: Dict) -> str:
             continue
         trozos.append(
             '<div class="mm-fc"><span class="mm-fc-n">%s</span>'
-            '<span class="mm-fc-barra">%s <span class="mm-ck-pct">%s pts/'
-            'partido</span></span></div>'
+            '<span class="mm-fc-barra">%s <span class="mm-ck-pct">%s pts · '
+            '%s goles</span></span></div>'
             % (etq, racha_html(f['racha']),
-               ('%.1f' % f['ppp']) if f.get('ppp') is not None else '—'))
+               ('%.1f' % f['ppp']) if f.get('ppp') is not None else '—',
+               ('%.1f' % f['gf']) if f.get('gf') is not None else '—'))
     if ctx.get('elo') is not None:
         quien = h if ctx['elo'] > 0 else a
         trozos.append(
@@ -1963,10 +1979,11 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     # Pegada a la apuesta hacia una frase de 53 caracteres, que es justo
     # el parrafo que este rediseño vino a quitar.
     if rec.get('motivo') == 'valor':
-        # El verde de esta pantalla significa VALOR desde la v171, no
-        # seguridad. Decirlo en cuatro palabras evita que se lea como antes.
-        coleta = ('Mejor valor del partido' if rec['verde']
-                  else 'Valor justo, para combinar')
+        # v173 — la recomendacion se elige por probabilidad y el color sale de
+        # ella. La coletilla dice en cuatro palabras en que tramo cae.
+        coleta = ('' if rec['verde']
+                  else ('Sólo para combinar' if rec['prob'] >= 0.50
+                        else 'Lo mejor que hay'))
     elif rec['verde']:
         coleta = ''
     else:

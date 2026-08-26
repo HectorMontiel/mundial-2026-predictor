@@ -201,6 +201,69 @@ def _factor(dominio, fh, fa, d_elo, es_home: bool) -> float:
     return round(max(FACTOR_MINIMO, min(FACTOR_MAXIMO, f)), 3)
 
 
+# El recorte del factor de lambda. Cinco partidos son POCOS: un equipo que
+# metio 2 goles en cinco no es un equipo de 0,4 goles, es un equipo con una
+# mala racha de cinco partidos. Sin recorte, la media movil de cinco haria
+# saltar la lambda un 60 % arriba y abajo cada semana.
+LAMBDA_MIN, LAMBDA_MAX = 0.80, 1.20
+
+
+def factor_lambda(clave_liga: str, equipo: str, mercado: str = 'goles',
+                  n: int = N_FORMA) -> float:
+    """
+    v173 — CUANTO SE DESVIA ESTE EQUIPO DE SI MISMO EN LOS ULTIMOS `n`.
+
+    Se pidio que la lambda esperada baje cuando un equipo no anota y suba
+    cuando esta en racha. Se hace comparando su media RECIENTE contra su media
+    LARGA —no contra la de la liga—, porque lo que se quiere capturar es un
+    cambio de estado del equipo, no lo bueno que es en absoluto: eso ya esta en
+    la lambda base.
+
+    Recortado a [0,80 · 1,20]. Cinco partidos son pocos y sin recorte la lambda
+    saltaria un 60 % cada semana.
+
+    Devuelve 1,0 —sin efecto— cuando no hay muestra para comparar.
+    """
+    try:
+        import pandas as pd
+        import rendimiento_equipos as rq
+        d = rq._historico(clave_liga)
+        if d is None or getattr(d, 'empty', True):
+            return 1.0
+        col_h, col_a = {'goles': ('home_goals', 'away_goals'),
+                        'corners': ('home_corners', 'away_corners'),
+                        'tarjetas': ('home_yellow', 'away_yellow'),
+                        }.get(mercado, ('home_goals', 'away_goals'))
+        if col_h not in d.columns:
+            return 1.0
+        suyos = d[(d['home_team'] == equipo) | (d['away_team'] == equipo)]
+        suyos = suyos.sort_values('date')
+        if len(suyos) < 12:
+            return 1.0
+
+        def _serie(df):
+            v = []
+            for _, row in df.iterrows():
+                x = (row.get(col_h) if row['home_team'] == equipo
+                     else row.get(col_a))
+                x = pd.to_numeric(x, errors='coerce')
+                if not pd.isna(x):
+                    v.append(float(x))
+            return v
+        largo = _serie(suyos.tail(40))
+        corto = _serie(suyos.tail(n))
+        if len(corto) < 3 or len(largo) < 10:
+            return 1.0
+        m_l = sum(largo) / len(largo)
+        m_c = sum(corto) / len(corto)
+        if m_l <= 0:
+            return 1.0
+        return round(max(LAMBDA_MIN, min(LAMBDA_MAX, m_c / m_l)), 3)
+    except Exception as e:
+        logger.debug('[contexto] factor lambda %s/%s: %s', equipo, mercado, e)
+        return 1.0
+
+
 def veta(ctx: Dict, apuesta: str, home: str, away: str) -> Optional[str]:
     """
     ¿Contradice esta apuesta al histórico? Devuelve el motivo, o `None`.

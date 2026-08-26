@@ -59,25 +59,53 @@ PROB_SUELO_DURO = 0.50
 SCORE_VERDE = 1.10          # 🟢 valor
 SCORE_AMBAR = 0.95          # 🟡 aceptable
 CUOTA_MINIMA_DOBLE = 1.30   # la doble oportunidad no entra por debajo de esto
-# v172 — la trampa de la cuota inflada, tal y como se describio:
-# probabilidad baja + cuota alta = cebo, no oportunidad.
+# v173 — «LA DE MAYOR PROBABILIDAD QUE TENGA UNA CUOTA DECENTE».
+#
+# Elegir por probabilidad a secas, con la escalera entera de goles delante,
+# saca «Menos de 6,5 al 100 %» con cuota 1,01. Es lo mas probable del partido y
+# no es una apuesta: nadie juega un 1,01. El propio encargo pone el limite —
+# «la de mayor probabilidad QUE TENGA UNA CUOTA DECENTE»— y estos son los dos
+# cortes que lo hacen operativo. Medido sobre los 113 partidos del dia, sin
+# ellos 53 recomendaciones eran lineas de goles absurdas.
+CUOTA_DECENTE = 1.20        # por debajo de esto no es una apuesta, es un tramite
+PROB_MAXIMA_RECO = 0.90     # y por encima de esto tampoco, aunque no haya cuota
+# v172/v173 — LA REGLA ANTI-TRAMPA SE RETIRA, Y SE DEJA EL RASTRO.
+#
+# La v172 prohibia recomendar una probabilidad < 20 % con cuota > 2,50
+# («la trampa de la cuota inflada»). La v173 la quita a peticion del
+# usuario: quiere poder ver esas apuestas de loteria si el H2H o la
+# racha las respaldan.
+#
+# Hoy no hace falta para lo mismo que antes: desde la v173 la
+# recomendacion se elige por PROBABILIDAD, y una apuesta del 15 % no
+# puede ganar esa comparacion. La regla protegia contra la seleccion
+# por Score, que ya no es la que manda.
 PROB_TRAMPA = 0.20
 CUOTA_TRAMPA = 2.50
 
 _RE_MAS = re.compile(r'^m[aá]s de ', re.I)
 
 
-def semaforo(score: Optional[float], prob: Optional[float] = None) -> str:
-    """🟢 / 🟡 / 🔴 por SCORE, que es lo que ahora significa el color."""
-    if score is None:
-        return '⚪'
-    if prob is not None and prob < PROB_MINIMA and score < SCORE_EXCEPCION:
-        return '🔴'
-    if score > SCORE_VERDE:
-        return '🟢'
-    if score >= SCORE_AMBAR:
-        return '🟡'
-    return '🔴'
+def semaforo(score=None, prob=None) -> str:
+    """
+    v173 — EL COLOR VUELVE A SER LA PROBABILIDAD.
+
+    Se pidio: verde por encima del 60 %, ambar entre 50 y 60, gris por
+    debajo aunque sea lo mejor que hay. El Score se sigue calculando y
+    enseñando —es lo que dice si la apuesta esta bien pagada— pero ya no
+    decide el color.
+
+    Es la CUARTA acepcion del verde en cinco versiones: v168 ventaja de
+    precio, v170 estable y >=60 %, v171 Score > 1,10, v173 probabilidad
+    >= 60 %. Conviene no volver a moverlo.
+    """
+    if prob is None:
+        return '\u26aa'
+    if prob >= PROB_MINIMA:
+        return '\U0001f7e2'
+    if prob >= PROB_SUELO_DURO:
+        return '\U0001f7e1'
+    return '\u26aa'
 
 
 def _fila(mercado: str, etiqueta: str, apuesta: str, prob: float,
@@ -175,6 +203,26 @@ _BLOQUES_CONTEO = (
 )
 
 
+def _factor_lambda_de(pick: Dict, etiqueta: str, mercado: str) -> float:
+    """El factor de forma reciente del bando que toca, o 1,0."""
+    if etiqueta == 'Total':
+        # el total es de los dos: se promedian sus factores
+        fs = [_factor_lambda_de(pick, e, mercado)
+              for e in ('Local', 'Visita')]
+        return round(sum(fs) / 2.0, 3)
+    try:
+        import contexto_partido as cx
+        import modo_modelo as mm
+        h, a = mm._equipos(pick)
+        equipo = h if etiqueta == 'Local' else a
+        if not (equipo and pick.get('clave_liga')):
+            return 1.0
+        return cx.factor_lambda(pick['clave_liga'], equipo, mercado)
+    except Exception as e:
+        logger.debug('[valor] factor lambda: %s', e)
+        return 1.0
+
+
 def _de_conteo(pick: Dict, bloques: Dict) -> List[Dict]:
     """
     Todas las líneas que la casa publica de cada conteo, contra el modelo.
@@ -205,6 +253,14 @@ def _de_conteo(pick: Dict, bloques: Dict) -> List[Dict]:
                 ('Visita', bloque.get('lambda_away'), disp_eq, '_away')):
             if not media:
                 continue
+            # v173 — LA LAMBDA SE AJUSTA A LOS ULTIMOS CINCO PARTIDOS.
+            #
+            # Se pidio que un equipo que no anota vea bajar su «Mas de
+            # 2,5» y que uno en racha lo vea subir. El factor compara su
+            # media reciente con la suya larga —no con la de la liga— y
+            # va recortado a [0,80 · 1,20]: cinco partidos son pocos.
+            media = float(media) * _factor_lambda_de(pick, etq,
+                                                     clave_bloque)
             lineas = imp.get(fam + sufijo) or {}
             for clave, dato in lineas.items():
                 try:
@@ -258,12 +314,13 @@ def _de_goles(pick: Dict) -> List[Dict]:
     lineas_modelo = pick.get('goles_lineas') or {}
     imp = (pick.get('implicitas') or {}).get('goles') or {}
     salida = []
-    for clave, dato in imp.items():
+    # v173 — se recorren las lineas DEL MODELO, no las de la casa. Asi salen
+    # tambien las de los partidos que la casa no cotiza, que es donde antes la
+    # tarjeta se quedaba sin nada que proponer. Si la casa cotiza esa linea,
+    # su precio se pega; si no, la fila va sin cuota y sin Score.
+    for clave in lineas_modelo:
+        dato = imp.get(clave)
         p_mas = lineas_modelo.get(clave)
-        if p_mas is None:
-            # la casa cotiza esa línea pero el modelo no la calculó: no se
-            # inventa. `alpha_finder.lineas_de_goles` decide cuáles hay.
-            continue
         try:
             p_mas = float(p_mas)
         except (TypeError, ValueError):
@@ -273,8 +330,6 @@ def _de_goles(pick: Dict) -> List[Dict]:
                 (True, p_mas, mi.cuota_de(dato, 'mas'), imp_mas),
                 (False, 1.0 - p_mas, mi.cuota_de(dato, 'menos'),
                  None if imp_mas is None else 1.0 - imp_mas)):
-            if not cuota:
-                continue
             texto = '%s de %s' % ('Más' if es_mas else 'Menos', clave)
             info = _ajusta(pick, texto, p, 'Goles', i)
             if not info.get('fiable'):
@@ -310,9 +365,14 @@ def _de_resultado(pick: Dict) -> List[Dict]:
         for lado, p, etq in (('home', pl, 'Gana %s' % h),
                              ('draw', px, 'Empate'),
                              ('away', pv, 'Gana %s' % a)):
+            # v173 — SE EMITE AUNQUE NO HAYA CUOTA.
+            #
+            # Hasta aqui una linea sin precio se descartaba, porque sin cuota
+            # no hay Score. Desde la v173 la recomendacion se elige por
+            # probabilidad y tiene que existir SIEMPRE: en los partidos que la
+            # casa no cotiza, el modelo va solo y eso sigue siendo una apuesta
+            # — lo que no tiene es Score, y la tarjeta lo dice.
             cuota = cu.get(lado)
-            if not cuota:
-                continue
             info = _ajusta(pick, etq, p, '1X2', x2.get(lado),
                            ya_encogido=ya)
             if not info.get('fiable'):
@@ -332,7 +392,10 @@ def _de_resultado(pick: Dict) -> List[Dict]:
                 ('12', pl + pv, '%s o %s' % (h, a), ('home', 'away')),
                 ('X2', px + pv, '%s o empate' % a, ('draw', 'away'))):
             cuota = dob.get(clave)
-            if not cuota or cuota < CUOTA_MINIMA_DOBLE:
+            # el suelo de 1,30 sigue valiendo CUANDO hay precio: a menos de eso
+            # la doble es la trampa que llenaba la pantalla en la v170. Sin
+            # precio no hay suelo que aplicar, y entra como una mas.
+            if cuota and cuota < CUOTA_MINIMA_DOBLE:
                 continue
             # v172 — LA IMPLICITA SALE DE SUMAR DOS LADOS DEL 1X2 DEVIGADO.
             #
@@ -365,8 +428,6 @@ def _de_resultado(pick: Dict) -> List[Dict]:
                 ('no', 1.0 - float(p_si), 'Ambos marcan: No',
                  None if imp_si is None else 1.0 - float(imp_si))):
             cuota = cb.get(clave)
-            if not cuota:
-                continue
             info = _ajusta(pick, etq, float(p), 'BTTS', i)
             if not info.get('fiable'):
                 continue
@@ -399,55 +460,77 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
     # liga no se propone por mucho Score que tenga.
     try:
         import mercado_estabilidad as me
-        filas = [f for f in filas
-                 if not me.en_cuarentena(pick.get('clave_liga'), f['bloque'])]
+        limpias = [f for f in filas
+                   if not me.en_cuarentena(pick.get('clave_liga'),
+                                           f['bloque'])]
+        # v173 — LA CUARENTENA ES UNA PREFERENCIA, NO UN MURO.
+        #
+        # Filtrar a secas dejaba 26 partidos de 117 sin ninguna candidata: en
+        # las competiciones sin medir (leagues_cup, conference_league,
+        # chi_primera...) TODOS los bloques salen «sin medir» y la lista se
+        # vaciaba entera. Como desde la v173 tiene que haber recomendacion
+        # siempre, la cuarentena aparta lo inestable cuando queda algo, y se
+        # hace a un lado cuando no queda nada — marcando esas filas para que la
+        # tarjeta pueda decir que ese mercado no esta medido en esa liga.
+        if limpias:
+            filas = limpias
+        else:
+            for f in filas:
+                f['sin_medir'] = True
     except Exception as e:
         logger.debug('[valor] estabilidad: %s', e)
-    return [f for f in filas if f.get('score') is not None]
+    # v173 — SE DEVUELVEN TAMBIEN LAS LINEAS SIN CUOTA.
+    #
+    # Hasta aqui una linea sin precio de la casa se descartaba, porque sin
+    # cuota no hay Score. Desde la v173 la recomendacion se elige por
+    # PROBABILIDAD y tiene que existir siempre, asi que una linea sin precio
+    # sigue siendo una apuesta: lo que no tiene es Score, y eso se dice.
+    return filas
 
 
 def mejor(pick: Dict, bloques: Optional[Dict] = None) -> Optional[Dict]:
     """
-    La apuesta de mejor valor del partido, o `None`.
+    v173 — LA MEJOR APUESTA DEL PARTIDO. SIEMPRE HAY UNA.
 
-    La regla que se pidió, en orden: máximo Score; nunca por debajo del 60 % de
-    probabilidad salvo que el Score pase de 1,15; y a igualdad de Score, la más
-    probable.
+    EL CAMBIO, Y LO QUE CUESTA. Hasta la v172 la recomendacion se elegia por
+    `Score = probabilidad x cuota` y podia no haber ninguna: si nada llegaba a
+    0,95 de Score, la tarjeta decia «Sin apuestas jugables». El usuario lo
+    rechaza — quiere una propuesta en todos los partidos.
+
+    Asi que se elige por PROBABILIDAD AJUSTADA, y a igualdad de probabilidad
+    gana la de mejor cuota. Y no hay suelo: si lo mejor del partido es un 52 %,
+    ese es el que sale.
+
+    LO QUE ESTO CUESTA, MEDIDO SOBRE 47.794 PARTIDOS
+    ------------------------------------------------
+        elegir por Score        2.947 apuestas · acierto 66,0 % · ROI −0,67 %
+        elegir por probabilidad 44.557 apuestas · acierto 76,0 % · ROI −6,17 %
+
+    Se acierta mas y se gana menos: cinco puntos y medio de ROI. Es un
+    intercambio legitimo —el usuario quiere jugar todos los dias, no esperar a
+    que la casa se equivoque— pero no es gratis y queda escrito aqui.
+
+    LO QUE **NO** SE QUITA
+    ----------------------
+    El ajuste de la probabilidad. Una linea que se separa mas de 10 puntos del
+    precio de la casa sigue viniendo encogida y recortada por
+    `cordura_probabilidad`: lo que se quita es el BLOQUEO, no la correccion.
+    Por eso «AmaZulu o empate» ya no puede ganar aunque vuelva a la lista —
+    entra con su probabilidad corregida (0,27), no con la cruda (0,45), y
+    pierde contra el 0,73 de Mamelodi.
     """
     filas = candidatos(pick, bloques)
     if not filas:
         return None
-    # Y NUNCA SE PROPONE UN 🔴. El propio encargo define el rojo como «no
-    # recomendado» (Score < 0,95): devolver el maximo de una lista donde todo
-    # es rojo seria recomendar lo menos malo, que no es lo mismo. Medido sobre
-    # los picks del dia, sin esta guarda salian recomendaciones con Score 0,872.
-    # v172 — LAS DOS REGLAS ANTI-TRAMPA, Y EL VETO DEL HISTORIAL.
-    #
-    #   · CUOTA INFLADA: probabilidad ajustada < 20 % con cuota > 2,50 no se
-    #     recomienda nunca. Es el cebo clasico de la casa para el equipo debil.
-    #   · VETO POR H2H: una apuesta que nombra al bando que pierde 8 de 10
-    #     cruces no se propone, tenga el Score que tenga. Es un FILTRO: no
-    #     cambia ninguna probabilidad, asi que no puede romper la calibracion.
-    ctx = contexto_de(pick)
-    try:
-        import contexto_partido as cx
-        import modo_modelo as mm
-        h_, a_ = mm._equipos(pick)
-    except Exception:
-        cx, h_, a_ = None, None, None
-    vivos = []
-    for f in filas:
-        if f['prob'] < PROB_TRAMPA and (f['cuota'] or 0) > CUOTA_TRAMPA:
-            continue
-        if cx is not None and h_ and a_ and cx.veta(ctx, f['apuesta'], h_, a_):
-            continue
-        if f['score'] < SCORE_AMBAR or f['prob'] < PROB_SUELO_DURO:
-            continue
-        if f['prob'] < PROB_MINIMA and not (f['score'] > SCORE_EXCEPCION
-                                            and f.get('contrastada')):
-            continue
-        vivos.append(f)
-    if not vivos:
-        return None
-    elegida = max(vivos, key=lambda f: (f['score'], f['prob']))
+    # «cuota decente»: se aparta lo que no es jugable de verdad
+    dignas = [f for f in filas
+              if f['prob'] <= PROB_MAXIMA_RECO
+              and (f.get('cuota') is None or f['cuota'] >= CUOTA_DECENTE)]
+    # y si de todo el partido no queda ninguna, se propone lo mejor que haya:
+    # la promesa de la v173 es que SIEMPRE hay recomendacion.
+    if dignas:
+        filas = dignas
+    # mayor probabilidad; a igualdad, la que mejor pague
+    elegida = max(filas, key=lambda f: (round(f['prob'], 4),
+                                        f.get('cuota') or 0.0))
     return dict(elegida, mejor_del_partido=True)
