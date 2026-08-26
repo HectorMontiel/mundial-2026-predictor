@@ -1304,3 +1304,125 @@ Coste medido del código nuevo: 0,27 s por 40 tarjetas.
    corte de 5 pp; el de 10 se puede medir igual sobre los mismos ledgers.
 4. La tira de estabilidad enseña seis bloques, pero el ranking tiene hasta
    catorce familias. La ficha del partido podría enseñar la tabla entera.
+
+## 4z. v169 — LÍNEAS REALES DE LA CASA, GOLES MEDIDOS Y LA APUESTA LIQUIDADA
+
+Detalle completo en **BITACORA_ARQUITECTURA.md §19**.
+
+**1. El ranking deja de envejecer.** `mercado_estabilidad.py` corre ahora en
+`recalibrar.yml`, justo DESPUÉS de `informe_calibracion.py` (de donde lee la
+calibración física) y `mercado_estable_por_liga.json` se commitea.
+
+**2. Las líneas de conteo se LEEN, no se suponen.**
+`mercado_implicito._conteos_del_tablero` captura córners, tarjetas y remates —
+del partido y de cada bando— con lo que traiga cada tablero. Cobertura medida
+sobre 80 partidos: córners total 59 · tarjetas total 41 · remates 12 · a puerta
+10 · **por equipo sólo 9-10**.
+
+Se descartan, cada uno por su motivo: media parte, familias que no son
+Más/Menos (exacto, escala, impar/par, 1x2, hándicap, carrera, ambos,
+primer/último), **tarjetas rojas** (nuestro modelo es amarillas+rojas) y
+**mercados de jugador** (se detectan por el paréntesis; excepción para clubes
+con paréntesis en el nombre).
+
+La tarjeta usa esas líneas en las tres filas —Total, Local y Visita— y las
+rotula «línea de la casa».
+
+**3. Goles: la medición dijo que NO al 0,6 del encargo.** Ajustado sobre 17.532
+partidos:
+
+    1,00 crudo      ECE 0,0948 · 20 de 20 ligas por encima de 0,05
+    0,60 pedido     ECE 0,0472 · 16 de 20
+    0,25 desplegado ECE 0,0139 ·  5 de 20   ← el que menos ligas deja mal
+    0,09 óptimo     ECE 0,0109 ·  6 de 20
+
+**No se cambia nada**: lo desplegado desde la v166 ya era la respuesta. Y **no
+se construyó el modelo de goles enriquecido**, por tres razones medidas: el
+xG/posesión de football-data son sintéticos (§NO HACER), el peso óptimo del
+modelo es 0,09 —aporta el 9 % de la mezcla— y el propio encargo decía que si no
+mejora se use sólo el encogimiento.
+
+**Quedan 5 ligas por encima de 0,05**: sco_premiership 0,078, sco_championship
+0,063, turquía 0,062, bundesliga 0,052, eredivisie 0,051. Sin encoger no bajaba
+ninguna de las 20.
+
+**4. La eficacia, liquidada contra el marcador** (`_v169_goles_y_eficacia.py`,
+47.794 partidos):
+
+    política  apuestas    de      acierto   anunciado    ROI      p5
+    v164        47.794  47.794     56,0 %     65,2 %   −4,96 %  −6,16 %
+    v169        14.665  47.794     62,3 %     61,7 %   −4,21 %  −5,35 %
+
+La política vieja prometía 65,2 % y acertaba 56,0 % — nueve puntos de mentira
+sobre 47.794 apuestas. La de hoy promete 61,7 % y acierta 62,3 %. **El ROI sigue
+negativo**: esto calibra, no promete dinero.
+
+Limitación del backtest: sólo 1X2, goles y BTTS, que son los que los ledgers
+guardan con probabilidad del modelo. Córners, tarjetas y remates no se pueden
+reconstruir hacia atrás.
+
+**Validación.** Suite 2.307 checks TODO OK · `valida_render.py` 3 vistas OK ·
+smoke completo (se pidió por tocar interfaz y extracción).
+
+**Pendiente que deja:**
+
+1. Las 5 ligas con ECE > 0,05 en goles tras encoger. La vía no es un modelo
+   nuevo: es más cobertura de cuota en esas ligas, o un peso por liga en vez
+   del global.
+2. Las líneas por equipo sólo aparecen en 1 de cada 9 partidos. Merece medir si
+   es la casa o el emparejador.
+3. El backtest de eficacia no cubre córners/tarjetas/remates. Para cubrirlos
+   habría que generar un ledger walk-forward de esos mercados, que hoy no
+   existe.
+4. `_v169_goles_y_eficacia.py` se corre a mano. Si la política de recomendación
+   cambia, hay que volver a correrlo o sus cifras mienten.
+
+## 5a. v170 — LA MÁS SEGURA, NO LA MEJOR PAGADA
+
+Detalle en **BITACORA_ARQUITECTURA.md §20**. Va en el mismo commit que la v169.
+
+**El cambio de filosofía (decisión del usuario).** La recomendación ya no la
+elige la ventaja de precio: la elige la mayor probabilidad ajustada entre los
+mercados ESTABLES de esa liga. El precio pasa a insignia «💰 Valor» (>10 %).
+
+**El verde cambia de significado**: ya no dice «ventaja de precio medida» sino
+«mercado estable y ≥60 %». La tarjeta no promete ventaja de precio en ninguna
+parte. Es un cambio del contrato de §0 y está anotado.
+
+**El intercambio, medido sobre 47.794 partidos, mismo catálogo:**
+
+    política  apuestas    de      acierto   anunciado    ROI      p5
+    v164        47.794  47.794     74,5 %     78,9 %   −8,42 %  −12,25 %
+    v169        44.421  47.794     75,2 %     77,0 %   −5,00 %   −7,47 %
+    v170        44.557  47.794     76,0 %     78,0 %   −6,17 %  −12,61 %
+
+La v170 acierta más que ninguna y anuncia con holgura; paga con ROI peor que
+mirar el precio. **Ninguna gana dinero.**
+
+**La doble oportunidad entra al catálogo** (`modo_modelo.doble_oportunidad`).
+Sale del 1X2 ya encogido, así que viaja con `ya_encogido=True`. Consecuencia
+medida: 33 de 40 recomendaciones salen de ella y la app propone algo en el 93 %
+de los partidos (17 de 40 antes de añadirla). Si molesta la monotonía, el mando
+es subir el umbral del verde o sacar la doble del catálogo.
+
+**La α por liga se probó y NO se adopta.** Fuera de muestra mejora en 13 de 20
+(p≈0,13, no significativo) y las α ajustadas son inestables (0,00 a 0,60 sobre
+400-1.500 partidos). Misma trampa que la v80. Se mantiene el 0,25 global y
+`alfa_goles_por_liga.json` no se genera.
+
+**Validación.** Suite 2.329 checks TODO OK · `valida_render.py` 3 vistas OK ·
+`_v164_valida_tarjeta.py` OK · `_v163_valida_ficha_remates.py` OK.
+
+**Pendiente que deja:**
+
+1. La monotonía de la doble oportunidad (93 % de los partidos). Decidir si se
+   quiere y con qué umbral.
+2. El smoke completo quedó sin veredicto: `smoke_botones.py` muere con
+   `RecursionError` dentro de `streamlit.testing.element_tree` al recorrer el
+   árbol. Sospecha razonable: los ~60 `st.expander` que la v167 añadió (uno por
+   tarjeta) anidados en `st.container`. `valida_render.py` sí pasa. Medir si es
+   el expander y, si lo es, plegar el análisis de otra forma.
+3. El backtest de eficacia sólo cubre 1X2, doble oportunidad, goles y BTTS —los
+   que los ledgers guardan—. Córners, tarjetas y remates no se pueden
+   reconstruir hacia atrás sin un ledger walk-forward propio.
+4. Las cinco ligas con ECE de goles > 0,05 siguen ahí (§19.4).

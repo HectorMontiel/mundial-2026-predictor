@@ -187,6 +187,122 @@ def _lineas_dos_lados(sels) -> Dict[str, float]:
     return salida
 
 
+# ---------------------------------------------------------------------------
+# v169 — LO QUE LA CASA PUBLICA DE VERDAD, FAMILIA A FAMILIA
+# ---------------------------------------------------------------------------
+# La v166 sacaba sólo el TOTAL de córners y descartaba a propósito las familias
+# por equipo. Con la recomendación moviéndose a córners, tarjetas y remates
+# (v168), eso dejaba a los mercados más estables sin su línea real.
+#
+# LO QUE SE ENCONTRÓ AL MIRAR EL TABLERO, Y NO ERA LO QUE SE SUPONÍA
+# -------------------------------------------------------------------
+# El encargo decía que Playdoit publica sólo el total de tarjetas y no las de
+# equipo. Medido sobre ocho partidos del día, es al revés de lo que se creía y
+# además es MUY desigual:
+#
+#     Botafogo-Athletico-PR   16 familias de tarjetas · «Total de tarjetas»
+#                             (4,5/5,5/6,5) Y «Total de tarjetas Atlético» (2,5)
+#     Valencia-Betis          22 familias
+#     Real Madrid-Real Soc.    0 familias de tarjetas
+#
+# O sea que no se puede codificar «la casa publica esto»: hay que LEER cada
+# tablero y enseñar lo que traiga. Es la misma disciplina que `snapshots_corners`
+# ya seguía —filtrar por el nombre de la familia y no por una lista fija— porque
+# la casa renombra y añade familias cada temporada.
+#
+# LO QUE SE DESCARTA, Y POR QUÉ CADA COSA
+# ----------------------------------------
+#   · media parte: es otro partido;
+#   · exacto / escala / impar-par / 1x2 / hándicap / carrera / ambos / primer /
+#     último: no son Más-Menos sobre una línea, así que no se pueden comparar
+#     con una binomial negativa;
+#   · tarjetas ROJAS: nuestro modelo cuenta amarillas MÁS rojas (v160), y la
+#     familia de rojas sola es otro mercado. Mezclarlos sería comparar dos cosas
+#     distintas y no se vería.
+_RE_MITAD = re.compile(r'mitad|1er tiempo|primer tiempo|1a mitad')
+_RE_NO_LINEA = re.compile(
+    r'exact|escala|impar|par/|/par|1x2|handicap|hándicap|carrera|ambos'
+    r'|primer|ultimo|último|anota|marca')
+
+_FAMILIAS = (
+    ('corners', re.compile(r'esquina|corner')),
+    ('tarjetas', re.compile(r'tarjeta|amarilla')),
+    ('remates_on', re.compile(r'a puerta|al arco')),
+    ('remates', re.compile(r'remate|tiro(?!s de esquina)')),
+)
+
+
+def _familia_de(nom: str) -> Optional[str]:
+    """A qué mercado de conteo pertenece esta familia, o `None`."""
+    if _RE_MITAD.search(nom) or _RE_NO_LINEA.search(nom):
+        return None
+    if 'roja' in nom:
+        return None                      # otro mercado, ver arriba
+    for clave, rx in _FAMILIAS:
+        if rx.search(nom):
+            return clave
+    return None
+
+
+def _lado_de(nom: str, casa_home: str, casa_away: str,
+             invertido: bool) -> str:
+    """
+    `''` si la familia es del partido, `'_home'`/`'_away'` si es de un equipo.
+
+    Por PALABRAS ENTERAS, con la misma regla que `_menciona`: con subcadena, un
+    club corto casa dentro de otra palabra y una familia del partido se
+    archivaría como la de un equipo.
+
+    `casa_home` ya viene orientado por `mercados_playdoit` —es el nombre con el
+    que la casa llama a NUESTRO local, invertido incluido—, así que aquí no hay
+    que volver a darle la vuelta.
+    """
+    if _menciona(nom, casa_home):
+        return '_home'
+    if _menciona(nom, casa_away):
+        return '_away'
+    return ''
+
+
+def _conteos_del_tablero(tablero: Dict, casa_home: str, casa_away: str,
+                         invertido: bool) -> Dict[str, Dict[str, float]]:
+    """
+    Todas las líneas Más/Menos de conteo que trae el tablero, devigadas.
+
+    Devuelve `{'corners': {...}, 'corners_home': {...}, 'tarjetas': {...}}` y
+    sólo con lo que exista. Una familia con un solo lado publicado se descarta
+    entera: sin el contrario no se puede quitar el margen, y una implícita CON
+    margen no es una probabilidad.
+    """
+    salida: Dict[str, Dict[str, float]] = {}
+    for m in (tablero.get('mercados') or []):
+        if not isinstance(m, dict):
+            continue
+        nom = _norm(m.get('nombre'))
+        fam = _familia_de(nom)
+        if not fam:
+            continue
+        lineas = _lineas_dos_lados(m.get('selecciones') or [])
+        if not lineas:
+            continue
+        lado = _lado_de(nom, casa_home, casa_away, invertido)
+        # NINGÚN MERCADO DE JUGADOR PUEDE COLARSE AQUÍ.
+        #
+        # Playdoit rotula los de jugador «Remates a Puerta - Vinicius Jr.
+        # (RMA)» y «Remates del jugador - dentro del área (…)»: llevan un
+        # paréntesis con el código del equipo o la palabra «jugador». Sin esta
+        # guarda, la línea de 1,5 remates de un extremo se archivaría junto a
+        # la de 24,5 del partido y se compararía contra la lambda del equipo.
+        #
+        # La excepción es un equipo que lleve paréntesis en su propio nombre
+        # —«Racing (Montevideo)»—: si el rótulo casa con uno de los dos
+        # equipos, es suyo y entra. Preferir el hueco al número equivocado.
+        if not lado and ('(' in nom or 'jugador' in nom):
+            continue
+        salida.setdefault(fam + lado, {}).update(lineas)
+    return salida
+
+
 def _cuota(sel) -> Optional[float]:
     try:
         v = float(sel.get('cuota'))
@@ -262,24 +378,6 @@ def del_tablero(tablero: Optional[Dict]) -> Dict:
             goles = _lineas_dos_lados(sels)
             if goles:
                 salida['goles'] = goles
-        # --- córners: el TOTAL del partido, línea a línea ----------------
-        #
-        # Se pidió que la tarjeta enseñe la probabilidad de córners CONTRA LA
-        # LÍNEA DE LA CASA y no contra la media redondeada, que es lo que hacía
-        # («la línea de medio punto más cercana a la media»). Sin esto, un
-        # bloque podía decir «Más de 9.5 57 %» mientras la casa cotizaba 8,5.
-        #
-        # Se filtra por el NOMBRE de la familia, como hace `snapshots_corners`,
-        # y se descartan dos cosas que sí llevan la palabra: las familias por
-        # EQUIPO («Brighton Total de Tiros de Esquina») y las de media parte.
-        # Meter una de ésas como si fuera el total del partido sería comparar
-        # la media de dos equipos contra la línea de uno.
-        elif _es_corner(nom) and 'total' in nom and 'mitad' not in nom \
-                and not _menciona(nom, casa_home) \
-                and not _menciona(nom, casa_away):
-            ck = _lineas_dos_lados(sels)
-            if ck:
-                salida.setdefault('corners', {}).update(ck)
         # --- ambos marcan -----------------------------------------------
         elif 'btts' not in salida and nom in _N_BTTS and len(sels) == 2:
             cu = {}
@@ -296,6 +394,11 @@ def del_tablero(tablero: Optional[Dict]) -> Dict:
                 justa = _devig(cu)
                 if len(justa) == 2:
                     salida['btts'] = round(justa['si'], 4)
+    # v169 — y TODAS las familias de conteo que la casa traiga: córners y
+    # tarjetas, del partido y de cada equipo, y remates si las publica. No se
+    # codifica qué publica: se lee.
+    salida.update(_conteos_del_tablero(tablero, casa_home, casa_away,
+                                       invertido))
     if salida:
         salida['casa'] = tablero.get('casa') or 'Playdoit'
     return salida

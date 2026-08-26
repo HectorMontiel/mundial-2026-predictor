@@ -84,6 +84,15 @@ jobs:
           python stats_espn.py --limpiar || echo "::warning::limpieza con avisos"
           python stats_estimadas.py --ajustar || echo "::warning::ajuste con avisos"
           python informe_calibracion.py --md INFORME_CALIBRACION.md || echo "::warning::informe con avisos"
+          # v169 — EL RANKING DE ESTABILIDAD, REGENERADO AQUI Y NO A MANO.
+          #
+          # `mercado_estable_por_liga.json` decide de que mercado sale la
+          # recomendacion de cada liga. Se construyo a mano en la v168 y eso
+          # tiene fecha de caducidad: lee `_v162_calibracion_por_liga.json`
+          # (que acaba de reescribir la linea de arriba) y los tres ledgers
+          # walk-forward, asi que va JUSTO DESPUES del informe — al reves
+          # coronaria a los mercados con la foto de ayer.
+          python mercado_estabilidad.py || echo "::warning::ranking de estabilidad con avisos"
 
       - name: Recalibrar la cadena completa
         run: python recalibrar_todo.py || echo "::warning::recalibración con avisos"
@@ -117,6 +126,9 @@ jobs:
           # se deriva de él. Sin commitearlo, el trabajo de 3-4 h del paso
           # de arriba se pierde con el runner.
           git add -A stats_espn/ calibracion_stats_liga.json \n                     INFORME_CALIBRACION.md 2>/dev/null || true
+          # v169 — y el ranking de estabilidad, que sale del informe de arriba.
+          git add -A mercado_estable_por_liga.json 2>/dev/null || true
+          git add -A _v162_calibracion_por_liga.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Las calibraciones no cambiaron esta semana."
           else

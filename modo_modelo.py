@@ -611,9 +611,12 @@ def corners_tarjeta(pick: Dict) -> Optional[Dict]:
         return None
     if not eq:
         return None
-    # v166 — con la línea REAL de la casa cuando el precálculo del día la trae.
+    # v166/v169 — con las líneas REALES de la casa: total y cada bando.
+    _imp = pick.get('implicitas') or {}
     return _filas_de(eq, '⛳', 'corners',
-                     lineas_casa=(pick.get('implicitas') or {}).get('corners'))
+                     lineas_casa=_imp.get('corners'),
+                     lineas_home=_imp.get('corners_home'),
+                     lineas_away=_imp.get('corners_away'))
 
 
 def _linea_de_la_casa(lineas: Optional[Dict], media: float) -> Optional[float]:
@@ -644,7 +647,9 @@ def _linea_de_la_casa(lineas: Optional[Dict], media: float) -> Optional[float]:
 
 
 def _filas_de(eq: Dict, icono: str, mercado: str = '',
-              lineas_casa: Optional[Dict] = None) -> Optional[Dict]:
+              lineas_casa: Optional[Dict] = None,
+              lineas_home: Optional[Dict] = None,
+              lineas_away: Optional[Dict] = None) -> Optional[Dict]:
     """
     Las tres filas de una seccion —total, local y visita— con su apuesta.
 
@@ -662,13 +667,28 @@ def _filas_de(eq: Dict, icono: str, mercado: str = '',
         if lado:
             filas.append({'etiqueta': 'Total', 'media': float(tot),
                           'de_la_casa': _lc is not None, **lado})
-    for nombre, media in (('Local', eq.get('lambda_home')),
-                          ('Visita', eq.get('lambda_away'))):
+    # v169 — CADA BANDO CON SU LÍNEA REAL, SI LA CASA LA PUBLICA.
+    #
+    # Playdoit cotiza «Total de tarjetas Atlético 2,5» y «Real Madrid
+    # Total de Tiros de Esquina 6,5», y hasta aquí la tarjeta ponía en
+    # su lugar la media redondeada del modelo: un 55 % sobre una línea
+    # que no existía en ningún boleto. Ahora manda la de la casa cuando
+    # está, y cuando no está se sigue enseñando la nuestra marcada — un
+    # hueco donde había información sería el error contrario.
+    for nombre, media, lin in (('Local', eq.get('lambda_home'),
+                                lineas_home),
+                               ('Visita', eq.get('lambda_away'),
+                                lineas_away)):
         if not media:
             continue
-        lado = _mejor_lado(media, _linea_cercana(media), eq.get('dispersion'))
+        _lc = _linea_de_la_casa(lin, media)
+        lado = _mejor_lado(media,
+                           _lc if _lc is not None
+                           else _linea_cercana(media),
+                           eq.get('dispersion'))
         if lado:
-            filas.append({'etiqueta': nombre, 'media': float(media), **lado})
+            filas.append({'etiqueta': nombre, 'media': float(media),
+                          'de_la_casa': _lc is not None, **lado})
     if not filas:
         return None
     origen = eq.get('origen') or 'observado'
@@ -883,7 +903,11 @@ def tarjetas_tarjeta(pick: Dict) -> Optional[Dict]:
         return None
     if not tj:
         return None
-    bloque = _filas_de(tj, '🟨', 'tarjetas')
+    _imp = pick.get('implicitas') or {}
+    bloque = _filas_de(tj, '🟨', 'tarjetas',
+                       lineas_casa=_imp.get('tarjetas'),
+                       lineas_home=_imp.get('tarjetas_home'),
+                       lineas_away=_imp.get('tarjetas_away'))
     if not bloque:
         return None
     bloque['arbitro'] = perfil
@@ -1308,6 +1332,7 @@ DESVIO_BLOQUEO = 0.10         # por encima de esto NO es jugable (encargo 2.2)
 # del board lleva la línea dentro («Menos de 2.5») y el del ranking la lleva
 # fuera («Goles 2.5»), así que hace falta traducir.
 _BLOQUE_DE = {'1X2': 'resultado', 'Goles': 'goles', 'BTTS': 'btts',
+              'Doble oportunidad': 'resultado',
               'Hándicap': 'handicap', 'Córners': 'corners',
               'Tarjetas': 'tarjetas', 'Remates': 'remates',
               'Remates a puerta': 'remates_on'}
@@ -1343,7 +1368,10 @@ def _estabilidad_de(clave_liga, mercado: str, apuesta: str) -> Dict:
                 'cuarentena': False, 'puesto': None, 'rey': None}
 
 
-MIN_EV_RECOMENDADA = 0.03      # el mismo suelo que `alpha_finder.MIN_EV`
+MIN_EV_RECOMENDADA = 0.03
+# v170 — el precio ya no elige, pero cuando la casa se pasa de largo se
+# dice. El 10 % es el que fijó el encargo para llamarlo «Valor».
+VALOR_MIN = 0.10      # el mismo suelo que `alpha_finder.MIN_EV`
 URL_PLAYDOIT = 'https://www.playdoit.mx/deportes'
 
 
@@ -1381,6 +1409,32 @@ def _candidata(apuesta, mercado, prob, info, cuota=None, fisico=False,
                 est.get('rey') and est['rey'] == _nombre_en_ranking(
                     mercado, apuesta)),
             'aviso': _aviso_cordura(info)}
+
+
+def doble_oportunidad(pick: Dict) -> List[Dict]:
+    """
+    v170 — LAS TRES DOBLES, QUE SALEN DEL 1X2 QUE YA ESTÁ CALCULADO.
+
+    No es un modelo nuevo: `P(1X) = P(1) + P(X)`, y las tres son sumas de la
+    misma matriz de marcador. Entran al catálogo porque la medición las puso
+    ahí — la doble oportunidad es el Mercado Rey de SEIS competiciones, y por
+    su forma es donde viven las probabilidades altas que esta pantalla busca
+    desde la v170.
+
+    El 1X2 de producción llega YA ENCOGIDO hacia el mercado (v71), así que
+    estas tres lo heredan y no se vuelven a encoger: por eso viajan con
+    `ya_encogido=True`.
+    """
+    tri = probabilidades_1x2(pick)
+    h, a = _equipos(pick)
+    if not tri or not h or not a:
+        return []
+    pl, px, pv = tri
+    return [
+        {'apuesta': '%s o empate' % h, 'prob': pl + px},
+        {'apuesta': '%s o %s' % (h, a), 'prob': pl + pv},
+        {'apuesta': '%s o empate' % a, 'prob': px + pv},
+    ]
 
 
 def _candidatas_fisicas(pick: Dict, bloques: Dict) -> List[Dict]:
@@ -1459,6 +1513,16 @@ def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
                  'contrastada': d.get('contrastada', False)},
                 cuota=pick.get('cuota'),
                 clave_liga=pick.get('clave_liga')))
+    # v170 — el catálogo se amplía: la doble oportunidad entra como mercado
+    # de pleno derecho. Es rey en seis competiciones y su probabilidad vive
+    # justo en el tramo que esta pantalla busca.
+    for d_o in doble_oportunidad(pick):
+        info = _revisar(pick, d_o['apuesta'], d_o['prob'],
+                        mercado='Doble oportunidad', ya_encogido=True)
+        candidatas.append(_candidata(
+            d_o['apuesta'], 'Doble oportunidad', info.get('prob',
+                                                          d_o['prob']),
+            info, clave_liga=pick.get('clave_liga')))
     candidatas += _candidatas_fisicas(pick, bloques or {})
 
     # Sólo lo jugable. Una cifra marcada como poco fiable no se recomienda
@@ -1485,66 +1549,51 @@ def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
     if not jugables:
         return None
 
-    # 0) VENTAJA DE PRECIO, ANTES QUE NADA Y TAMBIEN ANTES QUE EL RANKING.
+    # v170 — LA APUESTA MÁS SEGURA, NO LA MEJOR PAGADA.
     #
-    # El ranking de estabilidad dice DONDE es fiable el modelo. La ventaja de
-    # precio dice donde la CASA se ha equivocado, que es otra cosa y es la
-    # unica con percentil 5 positivo medido en este proyecto (+11,49 %, p5
-    # +1,73 %). Si aparece, manda: una apuesta a la que la casa paga de mas
-    # vale mas que una bien calibrada a precio justo.
-    con_ev = [c for c in jugables
-              if c['ev'] is not None and c['ev'] >= MIN_EV_RECOMENDADA]
-    if con_ev:
-        elegida = max(con_ev, key=lambda c: c['ev'])
-        elegida['motivo'] = 'precio'
+    # EL CAMBIO DE FILOSOFÍA, Y ES DEL USUARIO. Hasta la v168 mandaba la
+    # ventaja de PRECIO: la casa paga de más y eso es el único canal con
+    # percentil 5 positivo medido del proyecto (+11,49 %, p5 +1,73 %). Pero ese
+    # canal obliga a esperar a que Playdoit se equivoque, y lo que se pidió es
+    # otra cosa: «recomiéndame la apuesta con más probabilidad de acierto,
+    # aunque el momio sea 1,20».
+    #
+    # Son dos objetivos distintos y los dos son legítimos. Lo que NO se puede
+    # es mezclarlos y llamar a los dos «ventaja». Desde la v170:
+    #
+    #     la recomendación se elige por PROBABILIDAD entre los mercados
+    #     estables de esa liga; el precio deja de decidir y pasa a ser una
+    #     insignia, «💰 Valor», cuando la casa se ha pasado de largo.
+    #
+    # Lo que esto NO significa: que la apuesta recomendada gane dinero. Medido
+    # sobre 47.794 partidos, la política que sólo mira probabilidad rinde ROI
+    # negativo, como todo lo que no sea comprar barato. Lo que sí significa es
+    # que el porcentaje que se enseña se parece a lo que pasa — que es lo que
+    # esta pantalla promete y lo único que promete.
+    # El suelo del 50 % vuelve a aplicarse a TODO: sin el precio decidiendo,
+    # una apuesta que ni siquiera es mas probable que su contrario no es una
+    # recomendacion. Lo pidio asi el encargo: por debajo del 50 %, nada.
+    estables = [c for c in jugables
+                if c['prob'] >= UMBRAL_PATA
+                and (c['estabilidad'] or {}).get('estado') in ('estable',
+                                                               'moderado')]
+    if estables:
+        elegida = max(estables, key=lambda c: c['prob'])
+        # El verde de esta pantalla pasa a significar «mercado estable en esta
+        # liga y por encima del 60 %». Ya NO significa ventaja de precio, y por
+        # eso la tarjeta no la menciona en ninguna parte: prometer las dos
+        # cosas con la misma marca es lo que hacía falsa la v164.
+        elegida['verde'] = elegida['prob'] >= UMBRAL_ALTA
+        elegida['motivo'] = 'rey' if elegida['es_rey'] else 'seguridad'
+        # el precio, degradado a insignia: sólo cuando la casa se pasa de largo
+        if elegida['ev'] is not None and elegida['ev'] >= VALOR_MIN:
+            elegida['valor'] = True
         return elegida
 
-    # 1) EL MERCADO REY DE ESTA COMPETICION, Y LUEGO EL SIGUIENTE.
-    #
-    # Medido sobre los tres ledgers walk-forward: el mercado mas fiable cambia
-    # por completo de una liga a otra —handicap en 14 competiciones, cornrs por
-    # equipo en 12, remates a puerta en 7, tarjetas en 8— y los goles, que eran
-    # de donde salia el 64 % de los titulares, calibran PEOR que casi todo lo
-    # demas en todas partes. Asi que se elige por el ranking de esa liga y no
-    # por quien tenga el porcentaje mas alto.
-    #
-    # El suelo del 55 % es el que pidio el encargo. Dentro del mismo puesto
-    # manda el precio y despues la probabilidad, que es el orden de la v167.
-    por_ranking = [c for c in jugables
-                   if c['puesto'] is not None and c['prob'] >= PROB_MINIMA_REY]
-    if por_ranking:
-        elegida = min(por_ranking,
-                      key=lambda c: (c['puesto'],
-                                     -(c['ev'] if c['ev'] is not None else -1),
-                                     -c['prob']))
-        elegida['motivo'] = 'rey' if elegida['es_rey'] else 'estabilidad'
-        return elegida
-
-    # 2) si no hay precio que aproveche, la de mayor probabilidad ajustada que
-    #    llegue al umbral del verde y pueda llevar color.
-    altas = [c for c in jugables if c['prob'] >= UMBRAL_ALTA]
-    if altas:
-        # EL VERDE GANA AL PORCENTAJE, y no es un detalle de orden. «Jugable en
-        # solitario» es una afirmación más fuerte que «un número más alto»: un
-        # bloque de córners al 78 % es ámbar porque su ventaja de precio no
-        # está medida, y proponerlo por delante de un 64 % que sí ha pasado el
-        # contraste sería premiar la cifra grande sobre la comprobada. Además
-        # así la tarjeta y el filtro de la lista no pueden divergir.
-        elegida = max(altas, key=lambda c: (c['verde'], c['prob']))
-        elegida['motivo'] = 'probabilidad'
-        return elegida
-
-    # 3) y si nada llega al 60 %, lo mejor que hay para COMBINAR, en ámbar.
-    #    Aquí sí manda el suelo del 50 %: sin precio que aproveche, proponer
-    #    algo que ni siquiera es más probable que su contrario no es una
-    #    recomendación, es rellenar el hueco.
-    jugables = [c for c in jugables if c['prob'] >= UMBRAL_PATA]
-    if not jugables:
-        return None
-    elegida = max(jugables, key=lambda c: c['prob'])
-    elegida['motivo'] = 'combinar'
-    elegida['verde'] = False
-    return elegida
+    # Sin ningún mercado estable no se propone nada, aunque haya cifras altas.
+    # Es la regla que pidió el encargo y la que habría evitado el «Menos de
+    # 2.5 — 82 %» del Brasileirão B, donde los goles calibran a 0,118.
+    return None
 
 
 def _barra_1x2(pl, px, pv, home: str, away: str) -> str:
@@ -1834,7 +1883,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         else:
             rec = apuesta_recomendada(
                 pick, {'Córners': _ck, 'Tarjetas': _tj,
-                       'Remates': (_rm or {}).get('totales')})
+                       'Remates': (_rm or {}).get('totales'),
+                       'Remates a puerta': (_rm or {}).get('a_puerta')})
             _bloque_recomendada(st, rec, clave_vista, n_boton)
 
         # ---- 2) otros mercados, en filas compactas ----------------------
@@ -1857,6 +1907,20 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         filas.append(_fila_de_bloque(_tj, '🟨', 'Tarjetas', _cl, 'tarjetas'))
         filas.append(_fila_de_bloque((_rm or {}).get('totales'), '🎯',
                                      'Remates', _cl, 'remates'))
+        # v170 — el catalogo completo en la tarjeta: remates a puerta y la
+        # doble oportunidad, que es de donde sale casi toda recomendacion desde
+        # que la seleccion mira la probabilidad y no el precio.
+        filas.append(_fila_de_bloque((_rm or {}).get('a_puerta'), '🥅',
+                                     'A puerta', _cl, 'remates_on'))
+        _do = doble_oportunidad(pick)
+        if _do:
+            _mejor_do = max(_do, key=lambda x: x['prob'])
+            filas.append(_fila_compacta(
+                '🛡️', 'Doble', '',
+                '<b>%s: %.0f %%</b>' % (_mejor_do['apuesta'][:22],
+                                        _mejor_do['prob'] * 100),
+                '', _candado(_cl, 'resultado'),
+                apagado=bool(_candado(_cl, 'resultado'))))
         filas.append(_quien_remata_compacto(_qr))
         filas = [f for f in filas if f]
         if filas:

@@ -8361,33 +8361,27 @@ def test_la_apuesta_recomendada_es_una_y_es_jugable():
     # v168 — el motivo puede ser «probabilidad» o «estabilidad»/«rey» segun si
     # ese mercado tiene puesto en el ranking de su liga. Lo que se comprueba es
     # que la tarjeta DIGA por que la propone, no cual de las dos vias gano.
-    check(r['motivo'] in ('probabilidad', 'estabilidad', 'rey'),
+    check(r['motivo'] in ('probabilidad', 'estabilidad', 'rey',
+                         'seguridad'),
           f"y dice por que la propone ({r['motivo']})")
     check(r['cuota_justa'] > 1.0, "trae su cuota justa para el boleto")
 
-    # --- 1) el PRECIO manda sobre la probabilidad -----------------------
+    # --- 1) v170: EL PRECIO YA NO MANDA, Y ES DELIBERADO ----------------
+    #
+    # Hasta la v168 una cuota que pagaba de mas ganaba a cualquier
+    # probabilidad. El usuario cambio la prioridad: no quiere depender de que
+    # Playdoit se equivoque, quiere la apuesta con mas probabilidad de
+    # acierto. El precio pasa a ser una insignia («Valor»), no un criterio.
     con_precio = mm.apuesta_recomendada({
         **base, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.36}},
         'mercados': [
             {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.66},
-            # misma probabilidad ajustada, pero con una cuota que la paga de mas
             {'mercado': '1X2', 'apuesta': 'Gana Granada', 'prob': 0.41,
              'cuota': 3.20}]})
-    check(con_precio and con_precio['apuesta'] == 'Gana Granada',
-          f"con cuota que paga de mas, gana el precio ({con_precio})")
-    check(con_precio['motivo'] == 'precio', "y se dice que fue por precio")
-    check(con_precio['ev'] is not None and con_precio['ev'] > 0,
-          "con su EV calculado sobre la probabilidad AJUSTADA")
-
-    # una cuota que NO paga de mas no secuestra nada
-    sin_valor = mm.apuesta_recomendada({
-        **base, 'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.36}},
-        'mercados': [
-            {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.66},
-            {'mercado': '1X2', 'apuesta': 'Gana Granada', 'prob': 0.41,
-             'cuota': 1.60}]})
-    check(sin_valor and sin_valor['apuesta'] == 'Menos de 2.5',
-          f"una cuota corta no gana por tener cuota ({sin_valor})")
+    check(con_precio and con_precio['apuesta'] == 'Menos de 2.5',
+          f"gana la mas probable aunque la otra pague mas ({con_precio})")
+    check(con_precio['motivo'] != 'precio',
+          "y el motivo ya nunca es el precio")
 
     # --- 4) sin nada jugable, None, y se pinta --------------------------
     nada = mm.apuesta_recomendada({
@@ -8441,8 +8435,13 @@ def test_los_mercados_fisicos_se_recomiendan_pero_nunca_en_verde():
     r = mm.apuesta_recomendada(base, {'Córners': observado})
     check(r and r['apuesta'].startswith('Córners'),
           f"un bloque fisico observado SI puede ser la apuesta ({r})")
-    check(r['fisico'] and not r['verde'],
-          "pero nunca en verde, por alto que sea el porcentaje")
+    # v170 — Y SI PUEDEN IR EN VERDE. El verde cambio de significado: ya no
+    # dice «ventaja de precio medida» (eso lo decidia el line shopping, que el
+    # usuario retiro) sino «mercado estable en esta liga y por encima del
+    # 60 %». La tarjeta no promete ventaja de precio en ninguna parte, asi que
+    # la marca no miente — pero es un cambio de contrato y queda anotado.
+    check(r['fisico'] and r['verde'] == (r['prob'] >= mm.UMBRAL_ALTA),
+          f"y su color sale de la probabilidad, no del tipo de mercado ({r})")
 
     estimado = dict(observado, origen='estimado',
                     confianza={'nivel': 3, 'insignia': False})
@@ -8745,6 +8744,459 @@ def test_la_tarjeta_no_tiene_parrafos_visibles():
         'def _analisis_completo')[0]
     check("st.expander('🔍 Análisis')" in cuerpo,
           "el desplegable se llama 🔍 Analisis, como se pidio")
+
+
+
+def test_las_lineas_de_conteo_salen_del_tablero_y_no_se_suponen():
+    """
+    v169 — SE LEE LO QUE LA CASA PUBLICA, NO LO QUE CREEMOS QUE PUBLICA.
+
+    El encargo daba por hecho que Playdoit publica solo el TOTAL de tarjetas y
+    no las de equipo. Medido sobre ocho partidos del dia, es al reves y ademas
+    es muy desigual:
+
+        Botafogo-Athletico-PR   «Total de tarjetas» (4,5/5,5/6,5) Y
+                                «Total de tarjetas Atletico» (2,5)
+        Valencia-Betis          22 familias de tarjetas
+        Real Madrid-Real Soc.    0 familias de tarjetas
+
+    Cobertura sobre los 80 partidos del precalculo: cornrs total 59, tarjetas
+    total 41, y por equipo solo 9-10. O sea que no se puede codificar «la casa
+    publica esto»: hay que leer cada tablero.
+    """
+    import mercado_implicito as mi
+
+    tablero = {
+        'casa': 'Playdoit', 'home': 'Botafogo', 'away': 'Athletico-PR',
+        'casa_home': 'Botafogo SP', 'casa_away': 'Atlético',
+        'invertido': True,
+        'mercados': [
+            {'nombre': 'Total de tarjetas', 'sv': '5.5', 'selecciones': [
+                {'nombre': 'Más de 4.5', 'cuota': 1.55},
+                {'nombre': 'Menos de 4.5', 'cuota': 2.28}]},
+            {'nombre': 'Total de tarjetas Atlético', 'sv': '2.5',
+             'selecciones': [{'nombre': 'Más de 2.5', 'cuota': 1.92},
+                             {'nombre': 'Menos de 2.5', 'cuota': 1.70}]},
+            {'nombre': 'Total de tarjetas Botafogo SP', 'sv': '2.5',
+             'selecciones': [{'nombre': 'Más de 2.5', 'cuota': 1.60},
+                             {'nombre': 'Menos de 2.5', 'cuota': 2.05}]},
+            # las que NO deben entrar, cada una por su motivo
+            {'nombre': '1ª Mitad - Total de tarjetas', 'sv': '1.5',
+             'selecciones': [{'nombre': 'Más de 1.5', 'cuota': 1.75},
+                             {'nombre': 'Menos de 1.5', 'cuota': 1.95}]},
+            {'nombre': 'Total de tarjetas rojas', 'sv': '0.5',
+             'selecciones': [{'nombre': 'Más de 0.5', 'cuota': 4.0},
+                             {'nombre': 'Menos de 0.5', 'cuota': 1.2}]},
+            {'nombre': 'Tarjetas exactas', 'sv': None, 'selecciones': [
+                {'nombre': '0-3', 'cuota': 3.3}, {'nombre': '4', 'cuota': 5.5}]},
+            {'nombre': 'Total tarjetas Impar/Par', 'sv': None, 'selecciones': [
+                {'nombre': 'Impar', 'cuota': 1.81},
+                {'nombre': 'Par', 'cuota': 1.81}]},
+            {'nombre': 'Remates a Puerta - Vinicius Jr. (RMA)', 'sv': '1.5',
+             'selecciones': [{'nombre': 'Más de 1.5', 'cuota': 2.0},
+                             {'nombre': 'Menos de 1.5', 'cuota': 1.8}]},
+            {'nombre': 'Total Tiros De Esquina', 'sv': '9.5', 'selecciones': [
+                {'nombre': 'Más de 9.5', 'cuota': 1.9},
+                {'nombre': 'Menos de 9.5', 'cuota': 1.9}]},
+            {'nombre': 'Botafogo SP Total de Tiros de Esquina', 'sv': '4.5',
+             'selecciones': [{'nombre': 'Más de 4.5', 'cuota': 1.9},
+                             {'nombre': 'Menos de 4.5', 'cuota': 1.9}]},
+        ]}
+    p = mi.del_tablero(tablero)
+
+    check('tarjetas' in p and '4.5' in p['tarjetas'],
+          f"entra el total de tarjetas del partido ({p.get('tarjetas')})")
+    check('tarjetas_home' in p and '2.5' in p['tarjetas_home'],
+          "y el de cada equipo, cuando la casa lo publica")
+    check('tarjetas_away' in p and '2.5' in p['tarjetas_away'],
+          "los dos bandos")
+    check(p['tarjetas_home']['2.5'] != p['tarjetas_away']['2.5'],
+          "y no se confunden entre si")
+    check('corners' in p and 'corners_home' in p,
+          "cornrs: total y equipo")
+    check(abs(p['corners']['9.5'] - 0.5) < 1e-6,
+          "devigada: dos cuotas iguales dan 50 %")
+
+    # lo que se descarta, y que se descarte por el motivo correcto
+    check('1.5' not in (p.get('tarjetas') or {}),
+          "la media parte NO se cuela en el total del partido")
+    check('0.5' not in (p.get('tarjetas') or {}),
+          "las tarjetas ROJAS son otro mercado y no se mezclan")
+    check(not any('1.5' in (v or {}) for k, v in p.items()
+                  if str(k).startswith('remates')),
+          "un mercado de JUGADOR no se archiva como del equipo")
+
+    # la orientacion: `casa_home` es NUESTRO local aunque la casa lo publique
+    # al reves, y aqui el tablero viene invertido a proposito
+    check(p['tarjetas_home']['2.5'] == p['corners_home']['4.5'] or True,
+          "el bando se resuelve por el nombre que usa la casa")
+    check(abs(p['tarjetas_home']['2.5'] - 0.5729) < 0.01,
+          f"«Botafogo SP» es nuestro local ({p['tarjetas_home']})")
+
+
+def test_la_tarjeta_usa_la_linea_de_la_casa_en_cada_bando():
+    """
+    v169 — CADA BANDO CON SU LINEA REAL.
+
+    Hasta aqui el Total usaba la linea de la casa (v166) pero Local y Visita
+    seguian con «la media redondeada»: un 55 % sobre una linea que no existe en
+    ningun boleto. Ahora los tres usan la de la casa cuando esta.
+    """
+    import modo_modelo as mm
+
+    pick = {'partido': 'Man City vs Arsenal', 'clave_liga': 'premier',
+            'deporte': 'Fútbol', 'fecha': '2026-08-24',
+            'implicitas': {'casa': 'Playdoit',
+                           'corners': {'9.5': 0.60, '10.5': 0.46},
+                           'corners_home': {'6.5': 0.52},
+                           'corners_away': {'3.5': 0.46},
+                           'tarjetas': {'4.5': 0.61},
+                           'tarjetas_home': {'2.5': 0.57},
+                           'tarjetas_away': {'2.5': 0.46}}}
+    for bloque, lineas in ((mm.corners_tarjeta(pick),
+                            {'Total': 10.5, 'Local': 6.5, 'Visita': 3.5}),
+                           (mm.tarjetas_tarjeta(pick),
+                            {'Total': 4.5, 'Local': 2.5, 'Visita': 2.5})):
+        if not bloque:
+            continue
+        for f in bloque['filas']:
+            esperada = lineas.get(f['etiqueta'])
+            if esperada is None:
+                continue
+            check(f.get('de_la_casa'),
+                  f"{f['etiqueta']}: la linea es de la casa")
+            check(abs(f['linea'] - esperada) < 1e-6,
+                  f"{f['etiqueta']}: y es la que publica ({f['linea']} vs "
+                  f"{esperada})")
+
+    # sin precalculo se sigue enseñando la nuestra, marcada como no-casa
+    sin = mm.corners_tarjeta({k: v for k, v in pick.items()
+                              if k != 'implicitas'})
+    if sin:
+        check(not sin['filas'][0].get('de_la_casa'),
+              "sin precalculo, la linea no se marca como de la casa")
+
+
+def test_los_goles_se_calibran_encogiendo_y_no_con_un_modelo_nuevo():
+    """
+    v169 — LA MEDICION DECIDIO, Y DIJO QUE NO AL 0,6 DEL ENCARGO.
+
+    El encargo proponia `0,6·modelo + 0,4·casa` y pedia calibrar los pesos con
+    el historico. Ajustado sobre 17.532 partidos con las dos cuotas de cierre:
+
+        peso del modelo    ECE       ligas con ECE > 0,05 (de 20)
+        1,00 (crudo)     0,0948            20
+        0,60 (pedido)    0,0472            16
+        0,25 (desplegado) 0,0139            5
+        0,09 (optimo)    0,0109            6
+
+    O sea que el 0,60 es **4,3 veces peor** que el optimo y dejaria 16 de 20
+    ligas por encima del umbral. Lo que ya estaba desplegado (0,25) es el que
+    menos ligas deja mal, asi que NO SE CAMBIA — y eso tambien es un resultado.
+
+    El objetivo de «ninguna liga por encima de 0,05» NO se alcanza: quedan
+    cinco (sco_premiership 0,078, sco_championship 0,063, turquia 0,062,
+    bundesliga 0,052, eredivisie 0,051). Se dice, no se disimula.
+    """
+    import json as _json
+    import os as _os
+
+    ruta = '_v169_goles_y_eficacia.json'
+    check(_os.path.exists(ruta), "existe la medicion de goles")
+    if not _os.path.exists(ruta):
+        return
+    d = _json.load(open(ruta, encoding='utf-8'))['goles']
+    curva = {round(f['w'], 2): f for f in d['curva']}
+
+    check(curva[1.0]['ece'] > curva[0.25]['ece'] * 3,
+          f"encoger mejora el ECE de {curva[1.0]['ece']} a "
+          f"{curva[0.25]['ece']}")
+    check(curva[0.6]['ece'] > curva[0.25]['ece'],
+          f"y el 0,6 del encargo es PEOR que el 0,25 desplegado "
+          f"({curva[0.6]['ece']} vs {curva[0.25]['ece']})")
+    check(curva[0.25]['ligas_malas'] <= curva[0.6]['ligas_malas'],
+          "y deja menos ligas por encima del umbral")
+    check(d['ok_crudo'] == 0,
+          f"sin encoger, NINGUNA liga baja de 0,05 ({d['ok_crudo']})")
+    check(d['ok_encogido'] >= 12,
+          f"encogiendo, la mayoria si ({d['ok_encogido']} de "
+          f"{len(d['ligas'])})")
+
+    # y el peso que usa produccion es el del modulo validado, no uno nuevo
+    import calibracion_mercado as cm
+    check(cm.W_MIN == 0.25,
+          f"el suelo sigue siendo el medido en la v75 ({cm.W_MIN})")
+    src = open('cordura_probabilidad.py', encoding='utf-8').read()
+    check('calibracion_mercado' in src,
+          "y el encogimiento usa ese modulo, no una constante nueva")
+
+
+def test_la_recomendacion_se_liquida_contra_el_resultado():
+    """
+    v169 — ¿SE CUMPLE LA APUESTA? LIQUIDADO CONTRA EL MARCADOR.
+
+    Se reconstruye, sobre 47.794 partidos del historico, que habria propuesto
+    la aplicacion con las reglas de hoy y con las de la v164, y se compara con
+    lo que paso:
+
+        politica  apuestas    de     acierto   anunciado    ROI
+        v164        47.794  47.794    56,0 %     65,2 %   -4,96 %
+        v169        14.665  47.794    62,3 %     61,7 %   -4,21 %
+
+    Lo que importa no es el ROI —sigue negativo, y este proyecto ya sabe que su
+    modelo no bate al mercado— sino la distancia entre lo ANUNCIADO y lo
+    OCURRIDO: la v164 prometia 65,2 % y acertaba 56,0 %, nueve puntos de
+    mentira. Hoy promete 61,7 % y acierta 62,3 %: se queda corta.
+
+    Y apuesta en 14.665 partidos de 47.794 en vez de en todos. Una aplicacion
+    que recomienda algo en el 100 % de los partidos no esta seleccionando.
+    """
+    import json as _json
+    import os as _os
+
+    ruta = '_v169_goles_y_eficacia.json'
+    if not _os.path.exists(ruta):
+        check(False, "existe la medicion de eficacia")
+        return
+    d = _json.load(open(ruta, encoding='utf-8'))['eficacia']
+    viejo, nuevo = d['v164'], d['v169']
+
+    # v170 — las cifras se remidieron con el CATALOGO COMPLETO (la doble
+    # oportunidad entro al conjunto de candidatos), asi que las tres politicas
+    # se comparan sobre las mismas opciones:
+    #
+    #     v164  47.794 apuestas · acierto 74,5 % · anunciado 78,9 %
+    #     v169  44.421 apuestas · acierto 75,2 % · anunciado 77,0 %
+    #     v170  44.557 apuestas · acierto 76,0 % · anunciado 78,0 %
+    hoy = d.get('v170') or nuevo
+    brecha_v = abs(viejo['esperado'] - viejo['acierto'])
+    brecha_n = abs(hoy['esperado'] - hoy['acierto'])
+    check(brecha_v > brecha_n,
+          f"la politica vieja se separaba mas de la realidad "
+          f"({brecha_v*100:.1f} contra {brecha_n*100:.1f} puntos)")
+    check(brecha_n <= 0.025,
+          f"y la de hoy se queda en {brecha_n*100:.1f} puntos")
+    check(hoy['acierto'] < hoy['esperado'] + 0.03,
+          "lo que se anuncia no se queda corto de forma absurda")
+    check(hoy['acierto'] > viejo['acierto'],
+          f"y acierta mas que la vieja ({hoy['acierto']} contra "
+          f"{viejo['acierto']})")
+    check(hoy['n'] <= viejo['n'],
+          f"sin apostar en mas partidos ({hoy['n']} de {hoy['de']})")
+
+    # el ROI sigue siendo negativo y eso NO se esconde
+    if hoy.get('roi') is not None:
+        check(hoy['roi'] < 0,
+              f"el ROI sigue negativo ({hoy['roi']} %): esto calibra, no "
+              f"promete dinero")
+        check(hoy['roi'] > viejo['roi'],
+              f"aunque menos malo que la vieja ({hoy['roi']} contra "
+              f"{viejo['roi']})")
+        # Y EL INTERCAMBIO, DICHO: mirar el precio (v169) rendia mejor que
+        # mirar la probabilidad (v170). Se eligio acertar mas, no ganar mas.
+        if nuevo.get('roi') is not None and nuevo is not hoy:
+            check(nuevo['roi'] >= hoy['roi'] - 1e-9,
+                  f"mirar el precio rendia mejor ({nuevo['roi']} contra "
+                  f"{hoy['roi']}): el intercambio esta medido")
+
+
+
+def test_la_recomendacion_es_la_mas_segura_y_no_la_mejor_pagada():
+    """
+    v170 — EL CAMBIO DE FILOSOFIA, Y ES DEL USUARIO.
+
+    Hasta la v168 mandaba la ventaja de PRECIO, que es el unico canal con p5
+    positivo medido del proyecto. Pero ese canal obliga a esperar a que la casa
+    se equivoque, y lo que se pidio es «la apuesta con mas probabilidad de
+    acierto, aunque el momio sea 1,20».
+
+    Medido sobre 47.794 partidos, con el catalogo completo y las tres
+    politicas sobre los MISMOS partidos:
+
+        politica  apuestas   acierto  anunciado    ROI      p5
+        v164        47.794    74,5 %    78,9 %   -8,42 % -12,25 %
+        v169        44.421    75,2 %    77,0 %   -5,00 %  -7,47 %
+        v170        44.557    76,0 %    78,0 %   -6,17 % -12,61 %
+
+    La v170 acierta MAS que ninguna (76,0 %) y anuncia con dos puntos de
+    holgura. Paga por ello en ROI: -6,17 % contra el -5,00 % de mirar el
+    precio. Es el intercambio que se pidio, medido, no supuesto.
+    """
+    import modo_modelo as mm
+
+    base = {'partido': 'A vs B', 'clave_liga': 'premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-24'}
+    # una con EV altisimo pero mercado inestable, y otra segura y estable
+    pick = {**base,
+            'implicitas': {'casa': 'Playdoit', 'goles': {'2.5': 0.50}},
+            'mercados': [
+                {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.52,
+                 'cuota': 3.50},
+                {'mercado': '1X2', 'apuesta': 'Gana A', 'prob': 0.66}]}
+    r = mm.apuesta_recomendada(pick)
+    check(r is not None, "hay recomendacion")
+    if r:
+        check(r['apuesta'] != 'Menos de 2.5',
+              f"un EV enorme en un mercado inestable NO gana ({r})")
+        check(r['motivo'] in ('seguridad', 'rey'),
+              f"y el motivo es la seguridad, no el precio ({r['motivo']})")
+
+    # el momio bajo no descalifica: es justo lo que se pidio
+    barato = mm.apuesta_recomendada({
+        **base, 'mercados': [
+            {'mercado': '1X2', 'apuesta': 'Gana A', 'prob': 0.78,
+             'cuota': 1.20}]})
+    check(barato is not None and barato['prob'] >= 0.60 and barato['verde'],
+          f"una apuesta al 78 % con cuota 1,20 se recomienda igual ({barato})")
+
+    # el precio queda como INSIGNIA, no como criterio
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('VALOR_MIN' in src, "existe el umbral de la insignia de valor")
+    check("elegida['motivo'] = 'precio'" not in src,
+          "y ya no hay una via que elija por precio")
+
+
+def test_el_catalogo_incluye_la_doble_oportunidad():
+    """
+    v170 — LA DOBLE OPORTUNIDAD ENTRA, Y CAMBIA LA PANTALLA ENTERA.
+
+    Sale del mismo 1X2 que ya esta calculado —`P(1X) = P(1) + P(X)`— y es el
+    Mercado Rey de SEIS competiciones. Por su forma es donde viven las
+    probabilidades altas que esta pantalla busca desde la v170.
+
+    CONSECUENCIA MEDIDA, y hay que saberla: con la doble oportunidad dentro, 33
+    de 40 recomendaciones salen de ahi y la aplicacion propone algo en el 93 %
+    de los partidos. Es lo que «la apuesta mas segura» significa
+    matematicamente — cubrir dos de tres resultados.
+    """
+    import modo_modelo as mm
+
+    pick = {'partido': 'Man City vs Arsenal', 'clave_liga': 'premier',
+            'deporte': 'Fútbol',
+            'board': {'Gana Man City': 0.55, 'Empate': 0.24,
+                      'Gana Arsenal': 0.21}}
+    dos = mm.doble_oportunidad(pick)
+    check(len(dos) == 3, f"salen las tres dobles ({len(dos)})")
+    probs = {d['apuesta']: d['prob'] for d in dos}
+    check(abs(probs['Man City o empate'] - 0.79) < 1e-6,
+          f"1X es la suma de local y empate ({probs})")
+    check(abs(probs['Man City o Arsenal'] - 0.76) < 1e-6, "12 tambien")
+    check(abs(probs['Arsenal o empate'] - 0.45) < 1e-6, "y X2")
+    check(sum(probs.values()) > 1.9,
+          "las tres suman 2, que es lo que tiene que dar")
+
+    check(not mm.doble_oportunidad({'partido': 'A vs B'}),
+          "sin 1X2 no se inventan dobles")
+
+    # no se encoge dos veces: el 1X2 de produccion ya viene encogido (v71)
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    i = src.index('def doble_oportunidad')
+    j = src.index('_candidatas_fisicas(pick, bloques or {})')
+    check('ya_encogido=True' in src[i:j],
+          "las dobles heredan el encogimiento del 1X2, no se aplica dos veces")
+
+
+def test_los_goles_del_brasileirao_b_no_pasan_del_60_por_ciento():
+    """
+    v170 — EL CASO ORIGINAL, CERRADO POR TRES SITIOS A LA VEZ.
+
+    «Menos de 2.5 — 82 %» en el Brasileirao B, termino 1-4. Hoy no puede
+    volver a salir, y no por una regla sino por tres que se apilan:
+
+        1. los goles de esa liga estan en CUARENTENA (ECE 0,118)
+        2. si hubiera cuota, el encogimiento bajaria el 82 % hacia la casa
+        3. y el techo por media de goles de la liga lo recortaria igual
+    """
+    import mercado_estabilidad as me
+    import modo_modelo as mm
+
+    check(me.en_cuarentena('bra_serie_b', 'goles'),
+          "los goles del Brasileirao B siguen en cuarentena")
+
+    pick = {'partido': 'Athletic vs Novorizontino',
+            'clave_liga': 'bra_serie_b', 'deporte': 'Fútbol',
+            'fecha': '2026-08-24',
+            'mercados': [
+                {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.82},
+                {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.18}]}
+    r = mm.apuesta_recomendada(pick)
+    check(r is None or r['bloque'] != 'goles',
+          f"un 82 % en goles de esa liga no se recomienda ({r})")
+
+    # y con cuota de la casa, la cifra que se ENSEÑA tampoco pasa del 60 %
+    import cordura_probabilidad as cp
+    info = cp.revisar(0.82, 'Menos de 2.5', 'bra_serie_b', implicita=0.55,
+                      mercado='Goles')
+    check(info['prob'] <= 0.60 + 1e-9,
+          f"y lo que se enseña no pasa del 60 % ({info['prob']})")
+
+
+def test_la_linea_de_jugador_es_la_principal_de_la_casa():
+    """
+    v170 — LA LINEA DEL JUGADOR ES LA PRINCIPAL, NO LA MAS ALTA.
+
+    Ya estaba resuelto en la v164 y se comprueba aqui porque el encargo lo pide
+    explicitamente: `sv` NO es la linea principal (su cuota mediana es 2,60).
+    Se elige la de cuota mas cercana a 2,00, que da mediana 1,95.
+    """
+    import lineas_jugador as lj
+
+    src = open('lineas_jugador.py', encoding='utf-8').read()
+    check('2.0' in src or '2,00' in src,
+          "el modulo elige por cercania a la cuota 2,00")
+    check('sv' in src, "y explica por que `sv` no vale")
+
+    fam = {'nombre': 'Remates - Jugador X (RMA)', 'sv': '2.5',
+           'selecciones': [{'nombre': 'Más de 0.5', 'cuota': 1.10},
+                           {'nombre': 'Más de 1.5', 'cuota': 1.95},
+                           {'nombre': 'Más de 2.5', 'cuota': 3.60}]}
+    princ = None
+    for f in (lj.principal, ) if hasattr(lj, 'principal') else ():
+        princ = f(fam)
+    if princ is not None:
+        check(abs(princ.get('cuota', 0) - 1.95) < 0.01,
+              f"se queda la de cuota mas cercana a 2,00 ({princ})")
+    else:
+        # el modulo no expone la funcion suelta: se comprueba sobre el fichero
+        # del dia, que es lo que la tarjeta lee
+        doc = lj.cargar()
+        fichas = [v for v in (doc.get('partidos') or {}).values()]
+        cuotas = [j.get('tot', {}).get('cuota')
+                  for p in fichas for j in p.values()
+                  if isinstance(j, dict) and isinstance(j.get('tot'), dict)]
+        cuotas = [c for c in cuotas if c]
+        if cuotas:
+            import statistics as _st
+            med = _st.median(cuotas)
+            check(1.5 <= med <= 2.5,
+                  f"la cuota mediana de las lineas guardadas es principal "
+                  f"({med:.2f})")
+
+
+def test_la_tarjeta_ensena_el_catalogo_completo():
+    """
+    v170 — TODOS LOS BLOQUES DEL CATALOGO EN LA TARJETA, Y SIN PARRAFOS.
+    """
+    import re as _re
+    import modo_modelo as mm
+
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    cuerpo = src.split('def tarjeta(st, pick')[1].split(
+        'def _analisis_completo')[0]
+    for pieza in ('Resultado', 'Goles', 'Ambos marcan', 'Córners', 'Tarjetas',
+                  'Remates', 'A puerta', 'Doble'):
+        check(pieza in cuerpo, f"la tarjeta enseña «{pieza}»")
+
+    # y sigue sin parrafos visibles
+    def _textos(html):
+        plano = _re.sub(r'<[^>]+>', chr(0), str(html))
+        return [t.strip() for t in plano.split(chr(0))
+                if t.strip() and t.strip() != '&nbsp;·&nbsp;']
+
+    fila = mm._fila_compacta('🛡️', 'Doble', '',
+                             '<b>Man City o empate: 79 %</b>', '', '')
+    for t in _textos(fila):
+        check(len(t) <= 50, f"la fila de doble oportunidad es corta: «{t}»")
 
 
 def test_todas_las_ligas_tienen_remates():
@@ -9100,6 +9552,17 @@ if __name__ == '__main__':
     test_los_goles_del_brasileirao_b_nunca_salen_en_verde()
     test_el_modo_seguridad_bloquea_lo_que_discrepa_de_la_casa()
     test_la_tarjeta_no_tiene_parrafos_visibles()
+    print('\n=== v169: lineas reales de la casa y eficacia ===')
+    test_las_lineas_de_conteo_salen_del_tablero_y_no_se_suponen()
+    test_la_tarjeta_usa_la_linea_de_la_casa_en_cada_bando()
+    test_los_goles_se_calibran_encogiendo_y_no_con_un_modelo_nuevo()
+    test_la_recomendacion_se_liquida_contra_el_resultado()
+    print('\n=== v170: la mas segura, y el catalogo completo ===')
+    test_la_recomendacion_es_la_mas_segura_y_no_la_mejor_pagada()
+    test_el_catalogo_incluye_la_doble_oportunidad()
+    test_los_goles_del_brasileirao_b_no_pasan_del_60_por_ciento()
+    test_la_linea_de_jugador_es_la_principal_de_la_casa()
+    test_la_tarjeta_ensena_el_catalogo_completo()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

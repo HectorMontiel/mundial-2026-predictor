@@ -2398,3 +2398,218 @@ tarjeta pasa de 50 caracteres, y hay un test con regex que lo comprueba.
 
 Coste medido: `apuesta_recomendada` 0,27 s por 40 tarjetas y la tira 0,000 s.
 Los 296 s del render fueron barrido en frío, no esto.
+
+## 19. Las líneas que la casa publica de verdad, y la apuesta liquidada
+
+### 19.1 La pregunta del usuario, contestada mirando el tablero
+
+«¿Se están mostrando las líneas de Playdoit para córners, tarjetas y remates?»
+**No.** La v166 sacaba sólo el TOTAL de córners y descartaba a propósito las
+familias por equipo; tarjetas y remates no se leían en absoluto. Con la
+recomendación moviéndose a esos mercados (v168), los más estables estaban sin su
+línea real.
+
+### 19.2 Lo que se encontró al mirar, que no era lo que se suponía
+
+El encargo decía que Playdoit publica sólo el total de tarjetas y **no** las de
+equipo. Medido sobre ocho tableros del día, es al revés — y es muy desigual:
+
+    Botafogo–Athletico-PR   16 familias de tarjetas: «Total de tarjetas»
+                            (4,5/5,5/6,5) Y «Total de tarjetas Atlético» (2,5)
+    Valencia–Betis          22 familias
+    Real Madrid–Real Soc.    0 familias de tarjetas
+
+Así que no se puede codificar «la casa publica esto». `_conteos_del_tablero` LEE
+cada tablero y guarda lo que traiga. Cobertura medida sobre los 80 partidos del
+precálculo:
+
+    córners total 59 · tarjetas total 41 · remates 12 · a puerta 10
+    córners por equipo 9 · tarjetas por equipo 10
+
+O sea que las líneas por equipo existen, pero sólo en uno de cada nueve
+partidos. Decirlo es parte de la respuesta.
+
+### 19.3 Cuatro cosas que se descartan, cada una por su motivo
+
+* **media parte** — es otro partido;
+* **exacto, escala, impar/par, 1x2, hándicap, carrera, ambos, primer/último** —
+  no son Más-Menos sobre una línea, así que no se pueden comparar con una
+  binomial negativa;
+* **tarjetas ROJAS** — nuestro modelo cuenta amarillas MÁS rojas (v160), y la
+  familia de rojas sola es otro mercado. Mezclarlas no se vería;
+* **mercados de JUGADOR** — Playdoit los rotula «Remates a Puerta - Vinicius
+  Jr. (RMA)». Sin guarda, la línea de 1,5 remates de un extremo se archivaría
+  junto a la de 24,5 del partido. Se detectan por el paréntesis, con excepción
+  para los clubes que llevan uno en su nombre («Racing (Montevideo)»): si el
+  rótulo casa con un equipo, es suyo.
+
+Y el bando se resuelve con `casa_home`/`casa_away`, que `mercados_playdoit` ya
+entrega orientados — el tablero de Botafogo llega `invertido` y aun así cada
+línea acaba en su lado.
+
+### 19.4 Goles: la medición dijo que no al 0,6 del encargo
+
+El encargo proponía `0,6·modelo + 0,4·casa` y pedía calibrar los pesos con el
+histórico. Ajustado sobre 17.532 partidos con las dos cuotas de cierre:
+
+    peso del modelo      ECE      ligas con ECE > 0,05 (de 20)
+    1,00 (crudo)       0,0948            20
+    0,60 (pedido)      0,0472            16
+    0,40               0,0230             9
+    0,25 (desplegado)  0,0139             5
+    0,09 (óptimo)      0,0109             6
+    0,00 (sólo casa)   0,0123             6
+
+El **0,60 es 4,3 veces peor que el óptimo** y dejaría 16 de 20 ligas por encima
+del umbral. Y lo que ya estaba desplegado —0,25, el suelo de `calibracion_mercado`
+fijado en la v75— es **el que menos ligas deja mal**. Así que no se cambia, y
+eso también es un resultado: la solución inmediata que pedía el encargo ya
+estaba puesta desde la v166.
+
+**El objetivo de «ninguna liga por encima de 0,05» NO se alcanza.** Quedan cinco:
+sco_premiership 0,078 · sco_championship 0,063 · turquía 0,062 · bundesliga
+0,052 · eredivisie 0,051. Sin encoger no bajaba **ninguna** de las veinte;
+encogiendo bajan quince.
+
+**No se construyó el modelo de goles enriquecido**, y hay tres razones medidas
+para no hacerlo: el xG y la posesión de football-data son SINTÉTICOS y el
+proyecto tiene prohibido entrenar sobre ellos (§NO HACER); el peso óptimo del
+modelo es 0,09, o sea que **el modelo aporta un 9 % de la mezcla** y el margen
+de mejora por ahí es el que es; y el propio encargo decía «si el nuevo modelo no
+mejora, usar sólo el encogimiento hacia la casa». La medición contesta antes de
+construirlo.
+
+### 19.5 La eficacia, liquidada contra el marcador
+
+Lo que el usuario pidió: reconstruir sobre el histórico qué habría propuesto la
+aplicación y comprobar si la apuesta se cumple. Sobre **47.794 partidos** con
+1X2 y goles del mismo encuentro:
+
+    política  apuestas    de      acierto   anunciado    ROI      p5
+    v164        47.794  47.794     56,0 %     65,2 %   −4,96 %  −6,16 %
+    v169        14.665  47.794     62,3 %     61,7 %   −4,21 %  −5,35 %
+
+Lo importante no es el ROI. Es la distancia entre lo **anunciado** y lo
+**ocurrido**: la política vieja prometía 65,2 % y acertaba 56,0 % — **nueve
+puntos de mentira, sostenidos sobre 47.794 apuestas**. La de hoy promete 61,7 %
+y acierta 62,3 %: se queda corta, que es el lado correcto del error.
+
+Y apuesta en **14.665 de 47.794** partidos en vez de en todos. Una aplicación
+que recomienda algo en el 100 % de los partidos no está seleccionando.
+
+**El ROI sigue siendo negativo (−4,21 %) y el p5 también.** Esto calibra, no
+promete dinero. Es exactamente lo que el proyecto lleva midiendo desde el
+principio: el modelo no bate al mercado, y lo que ha mejorado es que ya no
+finge lo contrario.
+
+Una limitación honesta del backtest: los candidatos son 1X2, goles y BTTS,
+porque son los que los ledgers guardan con probabilidad del modelo. En
+producción entran además córners, tarjetas y remates, que no se pueden
+reconstruir hacia atrás. Así que esta tabla mide la política, no todo el
+catálogo.
+
+### 19.6 Y el ranking deja de envejecer
+
+`mercado_estable_por_liga.json` se generaba a mano. Ahora lo regenera
+`recalibrar.yml` justo DESPUÉS de `informe_calibracion.py` —de donde lee la
+calibración física— y se commitea. Al revés coronaría a los mercados con la
+foto de ayer.
+
+## 20. La apuesta más segura, no la mejor pagada
+
+### 20.1 El cambio de filosofía, y es del usuario
+
+Hasta la v168 la recomendación la decidía la **ventaja de precio**: la casa paga
+de más. Es el único canal con percentil 5 positivo medido de este proyecto
+(+11,49 %, p5 +1,73 %). Pero obliga a esperar a que Playdoit se equivoque, y lo
+que se pidió es otra cosa:
+
+> «No quiero depender del line shopping. Recomiéndame la apuesta con más
+> probabilidad de acierto, aunque el momio sea 1,20.»
+
+Son dos objetivos legítimos y distintos. Lo que no se puede es mezclarlos y
+llamar «ventaja» a los dos. Desde la v170:
+
+    la recomendación se elige por PROBABILIDAD entre los mercados estables de
+    esa liga; el precio deja de decidir y pasa a ser una insignia, «💰 Valor»,
+    cuando la casa se ha pasado de largo más de un 10 %.
+
+**Y el verde cambia de significado.** Ya no dice «ventaja de precio medida»:
+dice «mercado estable en esta liga y por encima del 60 %». La tarjeta no promete
+ventaja de precio en ninguna parte, así que la marca no miente — pero es un
+cambio del contrato que fijaba §0, y queda anotado aquí.
+
+### 20.2 El intercambio, medido sobre 47.794 partidos
+
+Las tres políticas sobre los MISMOS partidos y el MISMO catálogo:
+
+    política  apuestas    de      acierto   anunciado    ROI      p5
+    v164        47.794  47.794     74,5 %     78,9 %   −8,42 %  −12,25 %
+    v169        44.421  47.794     75,2 %     77,0 %   −5,00 %   −7,47 %
+    v170        44.557  47.794     76,0 %     78,0 %   −6,17 %  −12,61 %
+
+La v170 **acierta más que ninguna** (76,0 %) y anuncia con dos puntos de holgura
+—se queda corta, que es el lado correcto del error—. Y **paga por ello**:
+−6,17 % de ROI contra el −5,00 % de mirar el precio.
+
+Eso es exactamente el intercambio que se pidió, con números delante: se cambia
+rentabilidad por tasa de acierto. **Ninguna de las tres gana dinero.** Esta
+pantalla calibra; no promete beneficio, y no debe empezar a hacerlo.
+
+### 20.3 La doble oportunidad entra, y se come la pantalla
+
+`P(1X) = P(1) + P(X)`: no es un modelo nuevo, son sumas de la matriz de marcador
+que ya estaba. Entra porque la medición la puso ahí — es el Mercado Rey de seis
+competiciones — y porque por su forma es donde viven las probabilidades altas
+que esta pantalla busca desde ahora.
+
+**Consecuencia medida, y hay que saberla:** con la doble oportunidad dentro, 33
+de 40 recomendaciones salen de ella y la aplicación propone algo en el **93 %**
+de los partidos (antes de añadirla eran 17 de 40). Es lo que «la apuesta más
+segura» significa matemáticamente: cubrir dos de tres resultados. Si esa
+monotonía molesta, el mando está en subir el umbral del verde o dejar la doble
+fuera del catálogo — las dos son una línea.
+
+### 20.4 La α por liga: se probó y NO se adopta
+
+El encargo pedía `α` por competición (0,7 si el modelo es bueno, 0,3 si es
+malo). Se ajustó sobre el histórico de cada liga con validación fuera de
+muestra, y el resultado no da para adoptarla:
+
+    en muestra    α por liga deja 13 ligas bajo 0,05 · el 0,25 fijo deja 15
+    fuera de muestra, ambas sobre el MISMO tramo:
+        la α por liga mejora o iguala en 13 de 20 (p ≈ 0,13, no significativo)
+        ECE medio: α 0,0933 · 0,25 fijo 0,0994
+
+Y las α ajustadas son inestables — 0,00 en Premier, LaLiga y Eredivisie; 0,60 en
+Ligue 2; 0,55 en Turquía — sobre muestras de 400 a 1.500 partidos. Es la misma
+trampa que `calibracion_mercado` documentó en la v80: pesos por liga ajustados
+sobre muestras cortas son decisiones sobre ruido. **Se mantiene el 0,25 global**
+y `alfa_goles_por_liga.json` NO se genera, para que nadie lo confunda con algo
+que producción lee.
+
+La primera versión de esta medición comparaba la α **fuera de muestra** contra
+el 0,25 **dentro**, y daba «0 de 20». Era una comparación injusta: el 0,25 ya
+había visto esos partidos. Corregida, es 13 de 20. Queda escrito porque el error
+es fácil de repetir.
+
+### 20.5 Lo que el catálogo cubre hoy, y lo que no
+
+Entran como candidatos: 1X2, doble oportunidad, goles, BTTS, hándicap, córners
+(total y bando), tarjetas (total y bando), remates y remates a puerta. Las
+líneas de conteo salen del tablero real (§19).
+
+No entran, y se dice: **goles por equipo** (ningún ledger guarda la probabilidad
+del modelo por bando), **resultado exacto** y **remates de jugador como
+recomendación** — estos últimos sí se enseñan en la fila «🎯 Remata», con la
+línea principal de la casa desde la v164, pero su calibración está medida
+AGREGADA sobre todas las ligas y no por liga, así que no pueden coronar a
+ninguna.
+
+### 20.6 El caso original, cerrado por tres sitios
+
+«Menos de 2.5 — 82 %» en el Brasileirão B, terminó 1-4. Hoy no puede volver, y
+no por una regla sino por tres apiladas: los goles de esa liga están en
+**cuarentena** (ECE 0,118); si hubiera cuota, el **encogimiento** bajaría el
+82 % hacia la casa; y el **techo por media de goles** lo recortaría igual. Hay un
+test por cada una.

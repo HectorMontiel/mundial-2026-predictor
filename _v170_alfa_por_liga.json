@@ -1,0 +1,212 @@
+{
+ "resumen": {
+  "generado_por": "_v170_alfa_por_liga.py",
+  "n": 17532,
+  "alfa_global": 0.15,
+  "min_n": 300,
+  "ligas": {
+   "bel_pro_league": 0.2,
+   "bundesliga": 0.1,
+   "eng_championship": 0.0,
+   "eng_league_one": 0.4,
+   "eng_league_two": 0.1,
+   "eng_national": 0.15,
+   "eredivisie": 0.0,
+   "esp_hypermotion": 0.5,
+   "fra_ligue2": 0.6,
+   "ger_bundesliga2": 0.3,
+   "gre_super_league": 0.2,
+   "ita_serie_b": 0.0,
+   "laliga": 0.0,
+   "ligue_1": 0.05,
+   "premier": 0.0,
+   "primeira": 0.25,
+   "sco_championship": 0.3,
+   "sco_premiership": 0.0,
+   "serie_a": 0.25,
+   "turquia": 0.55
+  }
+ },
+ "detalle": [
+  {
+   "liga": "bel_pro_league",
+   "n": 754,
+   "alfa": 0.2,
+   "ece_025": 0.03465,
+   "ece_alfa": 0.05513,
+   "ece_fuera": 0.1004,
+   "ece_fuera_025": 0.09646
+  },
+  {
+   "liga": "bundesliga",
+   "n": 741,
+   "alfa": 0.1,
+   "ece_025": 0.05155,
+   "ece_alfa": 0.04098,
+   "ece_fuera": 0.0787,
+   "ece_fuera_025": 0.08826
+  },
+  {
+   "liga": "eng_championship",
+   "n": 1340,
+   "alfa": 0.0,
+   "ece_025": 0.0446,
+   "ece_alfa": 0.02102,
+   "ece_fuera": 0.0562,
+   "ece_fuera_025": 0.08829
+  },
+  {
+   "liga": "eng_league_one",
+   "n": 1332,
+   "alfa": 0.4,
+   "ece_025": 0.03057,
+   "ece_alfa": 0.02978,
+   "ece_fuera": 0.06871,
+   "ece_fuera_025": 0.0701
+  },
+  {
+   "liga": "eng_league_two",
+   "n": 1335,
+   "alfa": 0.1,
+   "ece_025": 0.02866,
+   "ece_alfa": 0.03538,
+   "ece_fuera": 0.07209,
+   "ece_fuera_025": 0.08806
+  },
+  {
+   "liga": "eng_national",
+   "n": 1311,
+   "alfa": 0.15,
+   "ece_025": 0.03131,
+   "ece_alfa": 0.02399,
+   "ece_fuera": 0.07564,
+   "ece_fuera_025": 0.0716
+  },
+  {
+   "liga": "eredivisie",
+   "n": 742,
+   "alfa": 0.0,
+   "ece_025": 0.05104,
+   "ece_alfa": 0.03685,
+   "ece_fuera": 0.07863,
+   "ece_fuera_025": 0.06521
+  },
+  {
+   "liga": "esp_hypermotion",
+   "n": 1112,
+   "alfa": 0.5,
+   "ece_025": 0.03757,
+   "ece_alfa": 0.03869,
+   "ece_fuera": 0.05531,
+   "ece_fuera_025": 0.07986
+  },
+  {
+   "liga": "fra_ligue2",
+   "n": 837,
+   "alfa": 0.6,
+   "ece_025": 0.04587,
+   "ece_alfa": 0.06231,
+   "ece_fuera": 0.09558,
+   "ece_fuera_025": 0.08524
+  },
+  {
+   "liga": "ger_bundesliga2",
+   "n": 733,
+   "alfa": 0.3,
+   "ece_025": 0.0325,
+   "ece_alfa": 0.05529,
+   "ece_fuera": 0.11508,
+   "ece_fuera_025": 0.117
+  },
+  {
+   "liga": "gre_super_league",
+   "n": 577,
+   "alfa": 0.2,
+   "ece_025": 0.04972,
+   "ece_alfa": 0.05137,
+   "ece_fuera": 0.06947,
+   "ece_fuera_025": 0.074
+  },
+  {
+   "liga": "ita_serie_b",
+   "n": 903,
+   "alfa": 0.0,
+   "ece_025": 0.03824,
+   "ece_alfa": 0.04087,
+   "ece_fuera": 0.07233,
+   "ece_fuera_025": 0.07625
+  },
+  {
+   "liga": "laliga",
+   "n": 926,
+   "alfa": 0.0,
+   "ece_025": 0.03546,
+   "ece_alfa": 0.03383,
+   "ece_fuera": 0.06987,
+   "ece_fuera_025": 0.12898
+  },
+  {
+   "liga": "ligue_1",
+   "n": 816,
+   "alfa": 0.05,
+   "ece_025": 0.03093,
+   "ece_alfa": 0.02596,
+   "ece_fuera": 0.07754,
+   "ece_fuera_025": 0.07352
+  },
+  {
+   "liga": "premier",
+   "n": 547,
+   "alfa": 0.0,
+   "ece_025": 0.04609,
+   "ece_alfa": 0.03225,
+   "ece_fuera": 0.10621,
+   "ece_fuera_025": 0.09959
+  },
+  {
+   "liga": "primeira",
+   "n": 1500,
+   "alfa": 0.25,
+   "ece_025": 0.03598,
+   "ece_alfa": 0.03598,
+   "ece_fuera": 0.08792,
+   "ece_fuera_025": 0.08792
+  },
+  {
+   "liga": "sco_championship",
+   "n": 429,
+   "alfa": 0.3,
+   "ece_025": 0.0626,
+   "ece_alfa": 0.05663,
+   "ece_fuera": 0.21413,
+   "ece_fuera_025": 0.17422
+  },
+  {
+   "liga": "sco_premiership",
+   "n": 558,
+   "alfa": 0.0,
+   "ece_025": 0.07809,
+   "ece_alfa": 0.05155,
+   "ece_fuera": 0.10629,
+   "ece_fuera_025": 0.14399
+  },
+  {
+   "liga": "serie_a",
+   "n": 548,
+   "alfa": 0.25,
+   "ece_025": 0.04673,
+   "ece_alfa": 0.04673,
+   "ece_fuera": 0.16696,
+   "ece_fuera_025": 0.16696
+  },
+  {
+   "liga": "turquia",
+   "n": 491,
+   "alfa": 0.55,
+   "ece_025": 0.06188,
+   "ece_alfa": 0.05063,
+   "ece_fuera": 0.09924,
+   "ece_fuera_025": 0.11336
+  }
+ ]
+}
