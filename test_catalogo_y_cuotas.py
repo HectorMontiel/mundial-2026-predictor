@@ -8316,9 +8316,26 @@ def test_la_tarjeta_enseña_todos_los_mercados():
     cuerpo = src.split('def tarjeta(')[1]
     for pieza in ('_bloque_goles_html', '_bloque_corners_html',
                   '_bloque_tarjetas_html', '_bloque_remates_html',
-                  '_bloque_quien_remata_html', 'Ambos marcan'):
+                  '_bloque_quien_remata_html'):
         check(pieza in cuerpo,
               f"la tarjeta pinta {pieza}")
+
+    # v175 — LOS MERCADOS YA NO SE ESCRIBEN A MANO EN `tarjeta`.
+    #
+    # Estaban uno a uno en el cuerpo, cada cual con su llamada y su
+    # candado. Ahora hay una tabla —`_MERCADOS_TARJETA`— y un solo bucle,
+    # que es lo que permite la regla del encargo: una fila por mercado
+    # QUE PLAYDOIT COTICE, con su recomendacion, y ninguna para el que no.
+    check('_filas_de_mercados' in cuerpo,
+          "la tarjeta recorre el catalogo de mercados")
+    catalogo = {c for c, _, _ in mm._MERCADOS_TARJETA}
+    for mercado in ('1X2', 'Goles', 'BTTS', 'Córners', 'Tarjetas',
+                    'Remates', 'Remates a puerta', 'Doble oportunidad'):
+        check(mercado in catalogo,
+              f"«{mercado}» esta en el catalogo de la tarjeta")
+    rotulos = {r for _, _, r in mm._MERCADOS_TARJETA}
+    check('Ambos marcan' in rotulos,
+          "y el BTTS se rotula «Ambos marcan», que es como se lee")
 
     for clave, partido in (('premier', 'Man City vs Arsenal'),
                            ('uru_primera', 'Danubio vs Racing (Montevideo)')):
@@ -8615,46 +8632,75 @@ def test_el_mercado_rey_recorre_todo_el_catalogo():
           f"({len(en_cuarentena)} casos)")
 
 
-def test_los_goles_del_brasileirao_b_nunca_salen_en_verde():
+def test_los_goles_del_brasileirao_b_se_avisan_pero_ya_no_se_bloquean():
     """
-    v168 — EL CASO QUE LO PROVOCA: «Menos de 2.5 — 82 %», termino 1-4.
+    v175 — EL CANDADO SE VA. EL AVISO SE QUEDA. LA MEDICION NO CAMBIA.
 
-    Medido: en el Brasileirao B los goles calibran a **0,118** en crudo —mas
-    del doble del 0,05 que este proyecto llama aceptable— y su liga no tiene
-    cuota en el ledger con la que encogerlos, asi que lo que se veria en
-    pantalla es ese crudo. El bloque entero queda en cuarentena.
+    EL CASO ORIGINAL (v168): «Menos de 2.5 — 82 %», termino 1-4. En el
+    Brasileirao B los goles calibran a **0,118** en crudo, mas del doble
+    del 0,05 que este proyecto llama aceptable. La v168 mando el bloque
+    entero a cuarentena y le puso «🔒 No recomendado».
 
-    Y no esta solo: los goles salen 🔴 en TODAS las ligas medidas sin cuota. Es
-    el mercado del que salia el 64 % de los titulares de la aplicacion.
+    EL ENCARGO DE LA v175 LO QUITA POR SU NOMBRE: «Eliminar el estado 🔒
+    No recomendado... Solo deben faltar si el mercado no existe en
+    Playdoit». Asi que ahora el mercado SI propone —el usuario puede
+    jugarlo, es su dinero— pero sale en gris, con «⚠️ Alta
+    incertidumbre» y sin poder llevar el ✅ nunca.
+
+    LO QUE NO HA CAMBIADO: el 0,118. La medicion sigue ahi, la tira de
+    estabilidad lo sigue pintando 🔴 y la cifra que se publica sigue
+    viniendo encogida hacia el precio de Playdoit. Lo que se levanta es
+    el bloqueo, no el control.
     """
     import mercado_estabilidad as me
     import modo_modelo as mm
 
     check(me.estado_bloque('bra_serie_b', 'goles') == me.INESTABLE,
-          "los goles del Brasileirao B estan marcados inestables")
+          "los goles del Brasileirao B siguen marcados inestables")
     check(me.en_cuarentena('bra_serie_b', 'goles'),
-          "y por tanto en cuarentena")
+          "y siguen en cuarentena")
 
-    pick = {'partido': 'Athletic vs Novorizontino', 'clave_liga': 'bra_serie_b',
-            'deporte': 'Fútbol', 'fecha': '2026-08-24',
-            'mercados': [
-                {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.82},
-                {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.18}]}
-    r = mm.apuesta_recomendada(pick)
-    check(r is None or r['bloque'] != 'goles',
-          f"un 82 % en goles de esa liga NO se recomienda ({r})")
-
-    # y en la tarjeta el bloque sale con candado
+    # la fila del mercado: aviso, gris, y NI RASTRO del candado
     fila = mm._fila_dos_lados('⚽', 'Goles', '2.5', 0.18, 0.82, 'Más', 'Menos',
-                              mm._candado('bra_serie_b', 'goles'))
-    check('🔒' in fila, "y su fila lleva candado")
-    check('mm-sinsena' in fila, "y sale apagada")
-    check('No recomendado' in fila, "con tres palabras, no un parrafo")
+                              mm._incertidumbre('bra_serie_b', 'goles'))
+    check('⚠️' in fila and 'Alta incertidumbre' in fila,
+          "la fila avisa de la incertidumbre")
+    check('mm-sinsena' in fila, "y sale en gris")
+    check('🔒' not in fila and 'No recomendado' not in fila,
+          "pero ya NO lleva candado ni dice «No recomendado»")
 
-    # la tira lo enseña de un vistazo
+    # y el rotulo que lo pintaba ya no se emite en ninguna parte.
+    # Se busca el HTML literal, no la frase: la frase sigue en los
+    # comentarios que explican por que se quito, y esos tienen que
+    # seguir ahi.
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('🔒 No recomendado</span>' not in src,
+          "el rotulo «No recomendado» ya no se pinta")
+    for liga in ('bra_serie_b', 'premier', 'laliga'):
+        for bloque in ('goles', 'btts', 'corners', 'tarjetas',
+                       'remates', 'resultado'):
+            check('🔒' not in mm._incertidumbre(liga, bloque),
+                  f"ningun mercado lleva candado ({liga}/{bloque})")
+
+    # una recomendacion que salga de un bloque en cuarentena NO va en verde
+    imp = {'casa': 'Playdoit', 'goles': {
+        '2.5': {'p': 0.62, 'mas': 1.55, 'menos': 2.45}}}
+    pick = {'partido': 'Athletic vs Novorizontino',
+            'clave_liga': 'bra_serie_b', 'deporte': 'Fútbol',
+            'fecha': '2026-08-24', 'implicitas': imp,
+            'goles_lineas': {'2.5': 0.66}}
+    r = mm.apuesta_recomendada(pick)
+    check(r is not None,
+          "el mercado en cuarentena SI propone ahora (%s)" % r)
+    if r and r['bloque'] == 'goles':
+        check(r.get('incierto'), "y su propuesta viaja marcada")
+        check(not r['verde'],
+              "y no puede ir en verde (%s)" % r["verde"])
+
+    # la tira lo enseña de un vistazo, como siempre
     tira = mm._tira_estabilidad('bra_serie_b')
     check('🔴' in tira and 'Goles' in tira,
-          "la tira de estabilidad lo pinta en rojo")
+          "la tira de estabilidad lo sigue pintando en rojo")
 
 
 def test_el_modo_seguridad_bloquea_lo_que_discrepa_de_la_casa():
@@ -8715,7 +8761,7 @@ def test_la_tarjeta_no_tiene_parrafos_visibles():
         mm._fila_compacta('⛳', 'Córners', '9.5', 'Más: 53 %', 'Menos: 47 %',
                           '<span>📐 Estimado</span>'),
         mm._fila_dos_lados('⚽', 'Goles', '2.5', 0.42, 0.58, 'Más', 'Menos',
-                           mm._candado('bra_serie_b', 'goles')),
+                           mm._incertidumbre('bra_serie_b', 'goles')),
     ]
     for html in piezas:
         for t in _textos(html):
@@ -9224,9 +9270,16 @@ def test_la_tarjeta_ensena_el_catalogo_completo():
     src = open('modo_modelo.py', encoding='utf-8').read()
     cuerpo = src.split('def tarjeta(st, pick')[1].split(
         'def _analisis_completo')[0]
-    for pieza in ('Resultado', 'Goles', 'Ambos marcan', 'Córners', 'Tarjetas',
-                  'Remates', 'A puerta', 'Doble'):
-        check(pieza in cuerpo, f"la tarjeta enseña «{pieza}»")
+    # v175 — el catalogo vive en `_MERCADOS_TARJETA` y la tarjeta lo
+    # recorre con un bucle. Antes estaba escrito mercado a mercado en
+    # el cuerpo, cada cual con su llamada y su candado.
+    check('_filas_de_mercados' in cuerpo,
+          "la tarjeta recorre el catalogo completo")
+    rotulos = {r for _, _, r in mm._MERCADOS_TARJETA}
+    for pieza in ('Goles', 'Ambos marcan', 'Córners', 'Tarjetas',
+                  'Remates', 'A puerta', 'Doble', 'Resultado'):
+        check(pieza in rotulos,
+              f"la tarjeta enseña «{pieza}»")
 
     # y sigue sin parrafos visibles
     def _textos(html):
@@ -9256,10 +9309,18 @@ def test_la_recomendacion_se_elige_por_score_y_no_por_probabilidad():
     """
     import valor_apuesta as va
 
-    check(abs(va.SCORE_VERDE - 1.10) < 1e-9,
-          f"el verde es Score > 1,10 ({va.SCORE_VERDE})")
-    check(abs(va.SCORE_AMBAR - 0.95) < 1e-9,
-          f"y el ambar baja hasta 0,95 ({va.SCORE_AMBAR})")
+    # v175 — el verde exige AHORA las dos cosas: >= 60 % de
+    # probabilidad Y Score >= 0,97. El 1,10 de la v171 era
+    # inalcanzable salvo que la casa se equivocara; el 0,97 marca
+    # «bien pagada dentro del margen que Playdoit cobra».
+    check(abs(va.SCORE_VERDE - 0.97) < 1e-9,
+          f"el verde pide Score >= 0,97 ({va.SCORE_VERDE})")
+    check(abs(va.PROB_MINIMA - 0.60) < 1e-9,
+          f"y probabilidad >= 60 % ({va.PROB_MINIMA})")
+    check(va.semaforo(0.80, prob=0.72) == '🟡',
+          "un 72 % mal pagado (Score 0,80) YA NO va en verde")
+    check(va.semaforo(0.99, prob=0.72) == '🟢',
+          "y bien pagado, si")
 
     # v173 — EL COLOR VUELVE A SER LA PROBABILIDAD, no el Score.
     #
@@ -9419,10 +9480,18 @@ def test_se_exploran_todas_las_lineas_de_cada_mercado():
 
     # y la tabla de valor se pinta en la tarjeta
     src = open('modo_modelo.py', encoding='utf-8').read()
-    check('MEJOR VALOR' in src, "la tarjeta enseña la tabla de valor")
+    # v175 — la seccion «MEJOR VALOR» se retiro: contradecia a la
+    # recomendacion. Lo que hay es «Otras opciones de valor», que
+    # sale de la MISMA lista ordenada y por eso no puede
+    # contradecirla.
+    check('mm-otros">💰 MEJOR VALOR</div>' not in src,
+          "la seccion separada de mejor valor ya no se pinta")
+    check('Otras opciones de valor' in src,
+          "y en su sitio van las siguientes por Score")
     cuerpo = src.split('def tarjeta(st, pick')[1].split(
         'def _analisis_completo')[0]
-    check('_tabla_valor' in cuerpo, "y se pinta en el cuerpo de la tarjeta")
+    check('_otras_opciones' in cuerpo,
+          "pegadas a la recomendacion, en el cuerpo de la tarjeta")
     check('Score' in src, "con el Score a la vista")
 
 
@@ -9636,8 +9705,17 @@ def test_siempre_hay_apuesta_recomendada():
           f"y lo que propone es el favorito ({r and r['apuesta']})")
     check(r and r['prob'] > 0.65,
           f"con la probabilidad ya encogida hacia la casa ({r and r['prob']})")
-    check(r and r['verde'],
-          "y en verde, porque pasa del 60 %")
+    # v175 — el verde pide las DOS cosas. Aqui la propuesta es
+    # «Gana Mamelodi Sundowns» al 73 % con cuota 1,231: Score 0,90,
+    # o sea muy probable y mal pagada. Va en ambar, y esa es
+    # exactamente la informacion que la v173 escondia pintandola de
+    # verde.
+    check(r and r['prob'] >= va.PROB_MINIMA,
+          f"pasa del 60 % ({r and r['prob']})")
+    check(r and r['verde'] == ((r.get('score') or 0.0)
+                               >= va.SCORE_VERDE),
+          f"y el color lo decide el Score ({r and r.get('score')} "
+          f"-> {r and r['verde']})")
 
     # un partido SIN precio de la casa tambien tiene recomendacion
     sin_precio = {k: v for k, v in pick.items() if k != 'implicitas'}
@@ -10018,6 +10096,328 @@ def test_corners_no_suben_a_seccion1_sin_medicion():
           "y no usa ninguno de los canales medidos con p5 positivo")
 
 
+def test_ningun_mercado_con_precio_se_queda_sin_recomendacion():
+    """
+    v175 — COMPROBACION 1 DEL ENCARGO, LITERAL.
+
+    «Verificar que NINGUN mercado aparezca con 🔒 No recomendado si tiene
+    precio en Playdoit.» El caso que lo provoca es la tarjeta de Toluca -
+    Austin, donde 1X2, BTTS, Corners, Tarjetas y Remates salian todos
+    bloqueados y el usuario no tenia nada que jugar en ninguno de ellos.
+
+    La regla es simetrica y las dos mitades importan: si Playdoit lo
+    cotiza, HAY fila con recomendacion; si no lo cotiza, NO hay fila. Lo
+    segundo es la leccion de la v174 —las lineas fantasma eran el 28 % de
+    las candidatas de goles— y desbloquear no puede reabrirla.
+    """
+    import modo_modelo as mm
+    import valor_apuesta as va
+
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.45, 'draw': 0.27, 'away': 0.28},
+           '1x2_cuotas': {'home': 2.10, 'draw': 3.40, 'away': 3.30},
+           'doble_cuotas': {'1X': 1.32, '12': 1.28, 'X2': 1.55},
+           'btts': 0.54, 'btts_cuotas': {'si': 1.78, 'no': 2.00},
+           'goles': {'1.5': {'p': 0.76, 'mas': 1.28, 'menos': 3.55},
+                     '2.5': {'p': 0.55, 'mas': 1.75, 'menos': 2.05},
+                     '3.5': {'p': 0.31, 'mas': 2.90, 'menos': 1.40}},
+           'corners': {'9.5': {'p': 0.52, 'mas': 1.85, 'menos': 1.90}}}
+    pick = {'partido': 'Toluca vs Austin FC', 'clave_liga': 'liga_mx',
+            'deporte': 'Fútbol', 'fecha': '2026-08-26',
+            'implicitas': imp,
+            'goles_lineas': {'1.5': 0.79, '2.5': 0.57, '3.5': 0.33},
+            'board': {'Gana Toluca': 0.45, 'Empate': 0.27,
+                      'Gana Austin FC': 0.28,
+                      'Ambos marcan: Sí': 0.56,
+                      'Ambos marcan: No': 0.44}}
+    mejores = va.por_mercado(pick, {})
+    for mercado in ('1X2', 'Goles', 'BTTS'):
+        f = mejores.get(mercado)
+        check(f is not None,
+              f"«{mercado}» tiene recomendacion porque Playdoit lo cotiza")
+        if f:
+            check(f.get('cuota') and f['cuota'] > 1,
+                  f"con la cuota real de la casa ({f and f.get('cuota')})")
+            check(f.get('score') is not None,
+                  f"y su Score calculado ({f and f.get('score')})")
+
+    # el handicap NO lo publica este tablero: no se inventa una fila
+    check('Hándicap' not in mejores and 'Handicap' not in mejores,
+          "un mercado que la casa no cotiza no aparece")
+
+    # y en la tarjeta, ninguna fila lleva candado
+    filas = mm._filas_de_mercados(pick, {}, 'liga_mx')
+    check(len(filas) >= 3,
+          f"la tarjeta pinta una fila por mercado cotizado ({len(filas)})")
+    for fila in filas:
+        check('🔒' not in fila and 'No recomendado' not in fila,
+              "ninguna fila de mercado lleva candado")
+        check('Score' in fila, "y todas enseñan su Score")
+
+
+def test_la_apuesta_principal_es_la_de_maximo_score():
+    """
+    v175 — COMPROBACION 2 DEL ENCARGO, CON SU CASO REAL.
+
+    «Verificar que la apuesta principal sea la de maximo Score que cumpla
+    los minimos (probabilidad >= 50 % y cuota >= 1,20).»
+
+    EL DEFECTO QUE CIERRA: en Toluca - Austin la tarjeta recomendaba
+    «Goles Mas de 1,5» al 79 % con Score 0,95 y, tres lineas mas abajo,
+    en «Mejor Valor», enseñaba un Score 0,98. Recomendar lo que uno mismo
+    esta diciendo que vale menos no se puede defender.
+    """
+    import valor_apuesta as va
+
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.45, 'draw': 0.27, 'away': 0.28},
+           '1x2_cuotas': {'home': 2.10, 'draw': 3.40, 'away': 3.30},
+           'doble_cuotas': {'1X': 1.32, '12': 1.28, 'X2': 1.55},
+           'btts': 0.54, 'btts_cuotas': {'si': 1.78, 'no': 2.00},
+           'goles': {'1.5': {'p': 0.76, 'mas': 1.28, 'menos': 3.55},
+                     '2.5': {'p': 0.55, 'mas': 1.75, 'menos': 2.05},
+                     '3.5': {'p': 0.31, 'mas': 2.90, 'menos': 1.40}},
+           'corners': {'9.5': {'p': 0.52, 'mas': 1.85, 'menos': 1.90}}}
+    pick = {'partido': 'Toluca vs Austin FC', 'clave_liga': 'liga_mx',
+            'deporte': 'Fútbol', 'fecha': '2026-08-26',
+            'implicitas': imp,
+            'goles_lineas': {'1.5': 0.79, '2.5': 0.57, '3.5': 0.33},
+            'board': {'Gana Toluca': 0.45, 'Empate': 0.27,
+                      'Gana Austin FC': 0.28,
+                      'Ambos marcan: Sí': 0.56,
+                      'Ambos marcan: No': 0.44}}
+    filas = va.candidatos(pick, {})
+    dignas = [f for f in filas
+              if f['prob'] >= va.PROB_SUELO_DURO
+              and f['prob'] <= va.PROB_MAXIMA_RECO
+              and (f.get('cuota') or 0) >= va.CUOTA_DECENTE]
+    check(bool(dignas), "hay candidatas que cumplen los minimos")
+    tope = max(f['score'] for f in dignas)
+
+    m = va.mejor(pick, {})
+    check(m is not None, "hay recomendacion")
+    check(m and abs(m['score'] - tope) < 1e-9,
+          f"y es la de maximo Score ({m and m['score']} de {tope})")
+    check(m and m['prob'] >= va.PROB_SUELO_DURO,
+          f"con probabilidad >= 50 % ({m and m['prob']})")
+    check(m and m['cuota'] >= va.CUOTA_DECENTE,
+          f"y cuota >= 1,20 ({m and m['cuota']})")
+
+    # ninguna de las alternativas puede tener MAS Score que la principal
+    import modo_modelo as mm
+    import re as _re
+    html = mm._otras_opciones(pick, {}, m)
+    scores = [float(x) for x in _re.findall(r'Score <b>([0-9.]+)</b>',
+                                            html)]
+    check(all(x <= m['score'] + 1e-9 for x in scores),
+          f"ninguna alternativa supera a la principal ({scores} vs "
+          f"{m['score']})")
+
+    # regla 4: la de mayor Score ABSOLUTO puede no cumplir, y entonces se
+    # pasa a la siguiente que si cumpla
+    imp2 = {'casa': 'Playdoit',
+            '1x2': {'home': 0.80, 'draw': 0.14, 'away': 0.06},
+            '1x2_cuotas': {'home': 1.22, 'draw': 5.50, 'away': 12.0}}
+    pick2 = {'partido': 'A vs B', 'clave_liga': 'premier',
+             'deporte': 'Fútbol', 'fecha': '2026-08-26',
+             'implicitas': imp2,
+             'board': {'Gana A': 0.62, 'Empate': 0.24, 'Gana B': 0.14}}
+    todas = va.candidatos(pick2, {})
+    m2 = va.mejor(pick2, {})
+    if todas and m2:
+        cumbre = max(todas, key=lambda f: f.get('score') or 0.0)
+        if cumbre['prob'] < va.PROB_SUELO_DURO:
+            check(m2['apuesta'] != cumbre['apuesta'],
+                  f"el Score mas alto ({cumbre['apuesta']}, "
+                  f"p={cumbre['prob']}) no gana si no llega al 50 %")
+        check(m2['prob'] >= va.PROB_SUELO_DURO or m2.get(
+            'baja_probabilidad'),
+              "y si ninguna llega, se avisa en vez de callar el partido")
+
+
+def test_el_techo_de_las_ligas_de_alta_varianza():
+    """
+    v175 — COMPROBACION 3 DEL ENCARGO.
+
+    «Verificar que en ligas de alta varianza las probabilidades no superen
+    el techo»: 60 % para el lado «Menos» y 75 % para el «Mas», cuando la
+    media de goles de la competicion pasa de 3,0.
+
+    Y EL DIAGNOSTICO ESTA MEDIDO. `_v175_goles_binomial_negativa.py` da
+    la dispersion de Pearson de los goles sobre los 47.794 partidos del
+    ledger: φ = 1,179 global y 53 de 55 competiciones por encima de 1,02.
+    Las mas dispersas son justo las de media alta (bol_division 1,570).
+
+    EL «(si es la media)» SE RESPETA. Un techo del 75 % sobre «Mas de
+    0,5» en una liga de 3,1 goles —donde esa linea vale el 96 % de
+    verdad— destrozaria la calibracion en nombre de protegerla.
+    """
+    import cordura_probabilidad as cp
+    import rendimiento_equipos as rq
+
+    check(abs(cp.MEDIA_ALTA - 3.0) < 1e-9,
+          f"el corte de alta varianza esta en 3,0 goles ({cp.MEDIA_ALTA})")
+    check(abs(cp.TECHO_ALTA_MENOS - 0.60) < 1e-9,
+          f"el techo del «Menos» es 60 % ({cp.TECHO_ALTA_MENOS})")
+    check(abs(cp.TECHO_ALTA_MAS - 0.75) < 1e-9,
+          f"y el del «Mas» 75 % ({cp.TECHO_ALTA_MAS})")
+
+    altas = [lg for lg in ('bol_division', 'mex_expansion', 'ligue_1',
+                           'aus_aleague', 'jpn_j1', 'eredivisie')
+             if (rq.media_goles_liga(lg) or 0) > cp.MEDIA_ALTA]
+    check(bool(altas),
+          f"hay competiciones por encima de 3,0 goles ({altas})")
+    for lg in altas:
+        media = rq.media_goles_liga(lg)
+        central = round(media * 2) / 2.0
+        if abs(central - media) > cp.BANDA_CENTRAL:
+            continue
+        t_menos = cp.techo_por_liga(lg, 'Menos de %.1f' % central)
+        t_mas = cp.techo_por_liga(lg, 'Más de %.1f' % central)
+        check(t_menos is not None and t_menos <= cp.TECHO_ALTA_MENOS,
+              f"{lg} (media {media}): el «Menos de {central}» topa en "
+              f"{t_menos}")
+        check(t_mas is not None and t_mas <= cp.TECHO_ALTA_MAS,
+              f"{lg}: y el «Mas de {central}» en {t_mas}")
+        # y una linea de la cola NO se toca
+        check(cp.techo_por_liga(lg, 'Más de 0.5') is None,
+              f"{lg}: «Mas de 0,5» sigue sin techo, que es lo correcto")
+
+    # el techo sólo BAJA, nunca sube: la regla de siempre de este modulo
+    if altas:
+        lg = altas[0]
+        media = rq.media_goles_liga(lg)
+        central = round(media * 2) / 2.0
+        info = cp.revisar(0.88, 'Menos de %.1f' % central, lg,
+                          implicita=0.86, mercado='Goles')
+        check(info['prob'] <= cp.TECHO_ALTA_MENOS + 1e-9,
+              f"lo que se publica respeta el techo ({info['prob']})")
+        info2 = cp.revisar(0.30, 'Menos de %.1f' % central, lg,
+                           implicita=0.31, mercado='Goles')
+        check(info2['prob'] <= 0.32,
+              f"y un numero bajo no se sube al techo ({info2['prob']})")
+
+
+def test_el_h2h_y_la_forma_mueven_la_lambda_de_goles():
+    """
+    v175 — COMPROBACION 4 DEL ENCARGO, Y EL PENDIENTE 2 DEL TRASPASO.
+
+    «Verificar que el H2H modifica la lambda.» Hasta la v174 lo hacia
+    SOLO en cornrs, tarjetas y remates: la escalera de goles salia de
+    sumar la matriz de marcador y el historial del cruce no la tocaba.
+
+    LOS PESOS NO SON UNA CORAZONADA. Salen de la regresion del residuo
+    sobre los 47.794 partidos walk-forward del ledger, con el H2H
+    calculado solo con los cruces anteriores a cada fecha
+    (`_v175_h2h_en_la_lambda.py`):
+
+        y - lambda = beta * (senal - lambda)
+        h2h    beta 0,3401  (t = 35,1)
+        forma  beta 0,3768  (t = 45,7)
+        juntas 0,186 y 0,255   <- los que se usan
+
+    Y BAJA EL ECE DE LA CIFRA QUE SE PUBLICA, que es la prueba dura:
+    0,0111 -> 0,0083 sobre las 12.059 lineas de 2,5 con precio de la
+    casa. Sin precio (n=19.414), de 0,0891 a 0,0496. Y la cruda de las
+    tres lineas, de 0,0795 a 0,0460.
+    """
+    import contexto_partido as cx
+
+    check(abs(cx.BETA_H2H - 0.186) < 1e-9,
+          f"el peso del H2H es el medido ({cx.BETA_H2H})")
+    check(abs(cx.BETA_FORMA - 0.255) < 1e-9,
+          f"y el de la forma reciente ({cx.BETA_FORMA})")
+    # y la ventana con la que se midieron es la que se aplica
+    g, n = cx._goles_del_h2h('rsa_premier', 'Mamelodi Sundowns',
+                             'AmaZulu')
+    check(n <= cx.N_H2H,
+          f"la lambda mira los ultimos {cx.N_H2H} cruces ({n})")
+    check(abs(g - cx.h2h('rsa_premier', 'Mamelodi Sundowns',
+                         'AmaZulu')['goles']) < 0.01,
+          "y es el MISMO numero que la tarjeta enseña")
+
+    # el caso de Mamelodi: sus cruces con AmaZulu tienen POCOS goles
+    cr = cx.h2h('rsa_premier', 'Mamelodi Sundowns', 'AmaZulu')
+    check(cr.get('n', 0) >= cx.MIN_H2H,
+          f"hay cruces suficientes ({cr.get('n')})")
+    base = 2.70
+    ajustada = cx.lambda_goles('rsa_premier', 'Mamelodi Sundowns',
+                               'AmaZulu', base)
+    check(abs(ajustada - base) > 1e-6,
+          f"la lambda se mueve con el historico ({base} -> {ajustada})")
+    if cr.get('goles') and cr['goles'] < base:
+        check(ajustada < base,
+              f"y si en los cruces se marca poco, baja ({ajustada})")
+
+    # sin historico no se inventa nada: la lambda sale intacta
+    check(cx.lambda_goles('no_existe', 'X', 'Y', 2.70) == 2.70,
+          "sin historico la lambda no se toca")
+    check(cx.lambda_goles('premier', '', '', 2.70) == 2.70,
+          "y sin equipos, tampoco")
+
+    # y llega a la escalera de goles del barrido
+    import numpy as _np
+    import alpha_finder as af
+    M = _np.zeros((8, 8))
+    for i in range(8):
+        for j in range(8):
+            M[i, j] = _np.exp(-1.35) * 1.35 ** i / _np.math.factorial(i) \
+                * _np.exp(-1.35) * 1.35 ** j / _np.math.factorial(j)
+    M = M / M.sum()
+    sin_ctx = af.lineas_de_goles({'score_matrix': M.tolist()})
+    con_ctx = af.lineas_de_goles({'score_matrix': M.tolist()},
+                                 clave_liga='rsa_premier',
+                                 home='Mamelodi Sundowns', away='AmaZulu')
+    check(set(sin_ctx) == set(con_ctx),
+          "la escalera tiene las mismas lineas con contexto y sin el")
+    check(sin_ctx.get('2.5') != con_ctx.get('2.5'),
+          f"pero sus numeros cambian ({sin_ctx.get('2.5')} -> "
+          f"{con_ctx.get('2.5')})")
+
+
+def test_la_binomial_negativa_se_midio_y_no_entro():
+    """
+    v175 — EL ENCARGO PEDIA BINOMIAL NEGATIVA PARA LOS GOLES. SE MIDIO.
+
+    «Cambiar de Poisson simple a Binomial Negativa si la liga muestra
+    sobredispersion.» El diagnostico es CORRECTO: φ = 1,179 y 53 de 55
+    competiciones sobredispersan. El remedio, medido, no lo es.
+
+        probabilidad CRUDA      1,5 −1,1 % · 2,5 +4,9 % · 3,5 +7,3 %
+        probabilidad PUBLICADA  ECE 0,0097 -> 0,0117   (EMPEORA 21 %)
+
+    La segunda fila es la que manda: esta aplicacion no publica la cruda,
+    publica la encogida hacia el precio de Playdoit con w=0,25 (v166), y
+    ahi la binomial negativa aleja al modelo del mercado sin ganar nada.
+    Se probaron cuatro cortes de dispersion (1,02 · 1,10 · 1,20 · 1,30) y
+    los cuatro empeoran.
+
+    ESTE TEST EXISTE PARA QUE NO SE VUELVA A PROPONER SIN MEDIRLO. Lo que
+    si entro de la Parte 3 es el techo de alta varianza (que usa el mismo
+    diagnostico) y la correccion de lambda por H2H y forma, que sobrevive
+    al encogimiento y baja el ECE publicado de 0,0111 a 0,0083.
+    """
+    import os
+
+    check(os.path.exists('_v175_goles_binomial_negativa.py'),
+          "la medicion esta en el repo y se puede repetir")
+    src = open('alpha_finder.py', encoding='utf-8').read()
+    cuerpo = src.split('def lineas_de_goles(')[1].split('\ndef ')[0]
+    check('nbinom' not in cuerpo,
+          "la escalera de goles NO usa binomial negativa")
+    check('poisson' in cuerpo.lower(),
+          "sigue siendo Poisson sobre la lambda corregida")
+
+    # y los conteos, que SI sobredispersan de forma util, la siguen usando
+    import rendimiento_equipos as rq
+    p_poisson = rq.prob_mas_de(9.5, 9.5, 1.0)
+    p_nb = rq.prob_mas_de(9.5, 9.5, 1.6)
+    check(p_poisson is not None and p_nb is not None,
+          "cornrs, tarjetas y remates siguen con binomial negativa")
+    check(abs(p_poisson - p_nb) > 0.005,
+          f"y la dispersion cambia su respuesta ({p_poisson} vs {p_nb})")
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -10227,7 +10627,7 @@ if __name__ == '__main__':
     test_la_tarjeta_es_accionable_y_no_un_parrafo()
     print('\n=== v168: mercado rey y modo seguridad ===')
     test_el_mercado_rey_recorre_todo_el_catalogo()
-    test_los_goles_del_brasileirao_b_nunca_salen_en_verde()
+    test_los_goles_del_brasileirao_b_se_avisan_pero_ya_no_se_bloquean()
     test_el_modo_seguridad_bloquea_lo_que_discrepa_de_la_casa()
     test_la_tarjeta_no_tiene_parrafos_visibles()
     print('\n=== v169: lineas reales de la casa y eficacia ===')
@@ -10260,6 +10660,12 @@ if __name__ == '__main__':
     test_no_se_inventan_lineas_que_playdoit_no_publica()
     test_la_recomendacion_sale_de_la_linea_que_la_casa_ofrece()
     test_el_historico_alimenta_la_lambda()
+    print(chr(10) + '=== v175: sin bloqueos, maximo Score, lambda del historico ===')
+    test_ningun_mercado_con_precio_se_queda_sin_recomendacion()
+    test_la_apuesta_principal_es_la_de_maximo_score()
+    test_el_techo_de_las_ligas_de_alta_varianza()
+    test_el_h2h_y_la_forma_mueven_la_lambda_de_goles()
+    test_la_binomial_negativa_se_midio_y_no_entro()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

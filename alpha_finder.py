@@ -592,7 +592,8 @@ def _precalculo(clave_liga, home_crudo, away_crudo):
         return None
 
 
-def lineas_de_goles(pred: Dict) -> Dict[str, float]:
+def lineas_de_goles(pred: Dict, clave_liga=None, home: str = '',
+                    away: str = '') -> Dict[str, float]:
     """
     v163.1 — P(más de N goles) en las tres líneas que cotiza la casa.
 
@@ -614,6 +615,44 @@ def lineas_de_goles(pred: Dict) -> Dict[str, float]:
             return salida
         idx = np.arange(M.shape[0])
         total = idx[:, None] + idx[None, :]
+        # v175 — EL H2H Y LA FORMA MUEVEN LA LAMBDA, CON EL PESO MEDIDO.
+        #
+        # Hasta la v174 la escalera de goles salia de sumar la matriz y nada
+        # mas: el historial del cruce no la tocaba. Medido sobre los 47.794
+        # partidos del ledger (`_v175_h2h_en_la_lambda.py`), eso dejaba fuera
+        # una senal real — la regresion del residuo da beta 0,186 para el H2H y
+        # 0,255 para la forma, y corregir la lambda con ellos baja el ECE de la
+        # cifra PUBLICADA de 0,0111 a 0,0083, y el de la cruda de
+        # 0,0795 a 0,0460.
+        #
+        # POR QUE POISSON Y NO LA MATRIZ. Medido en el mismo sitio: el marginal
+        # de goles totales de la matriz de marcador ES Poisson(lam_h + lam_a)
+        # hasta el cuarto decimal en ECE, Brier y log-loss. Asi que recalcular
+        # con Poisson sobre la lambda corregida no cambia el modelo: le aplica
+        # la correccion. Sin correccion —sin H2H ni forma— este camino ni se
+        # toma y la salida es la suma de la matriz de siempre.
+        lam = float((M * total).sum())
+        lam2 = lam
+        if clave_liga and home and away and lam > 0:
+            try:
+                import contexto_partido as _cx
+                lam2 = float(_cx.lambda_goles(clave_liga, home, away, lam))
+            except Exception as e:
+                logger.debug('[alpha] lambda de goles corregida: %s', e)
+        if abs(lam2 - lam) > 1e-6:
+            # UNA sola llamada a scipy con las siete lineas. Medido:
+            # siete llamadas sueltas cuestan 5,8 ms por partido y una
+            # vectorizada 0,1 ms. Con 150 partidos por barrido, esa
+            # diferencia es el techo de 0,5 s del encargo.
+            from scipy import stats as _st
+            ks = np.array([0, 1, 2, 3, 4, 5, 6])
+            ps = 1.0 - _st.poisson.cdf(ks, lam2)
+            for linea, p in zip((0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5),
+                                ps):
+                p = float(p)
+                if 0.0 <= p <= 1.0:
+                    salida['%.1f' % linea] = round(p, 4)
+            return salida
         # v171 — la escalera entera, no tres peldaños. Playdoit cotiza
         # de 0,5 a 6,5 y la recomendación se elige por Score sobre
         # TODAS las líneas: una que el modelo no calcule es una que la
@@ -1357,7 +1396,9 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             mejor = max(x2, key=lambda m: m['prob'])
             pron = {**base, **mejor, 'mercados': mercados, 'board': board,
                     # v163.1 — las tres líneas de goles, para la tarjeta
-                    'goles_lineas': lineas_de_goles(pred),
+                    'goles_lineas': lineas_de_goles(
+                        pred, clave_liga=clave, home=home,
+                        away=away),
                     'sin_cuota': True}
             pronosticos.append(pron)
             # v52: ¿ESPN trajo cuotas 1X2/O-U reales para este partido? Si sí,

@@ -1647,3 +1647,116 @@ recuento y las dos rachas con puntos y goles por partido.
 3. Los 24 partidos que se recomiendan por el camino heredado llevan mercados
    sin cuota. No son líneas fantasma —son las estándar del barrido— pero
    convendría marcarlos en la tarjeta como «sin precio de la casa».
+
+## 5f. v175 — SIN BLOQUEOS, MÁXIMO SCORE, Y LA λ QUE ESCUCHA AL HISTÓRICO
+
+Detalle en **BITACORA_ARQUITECTURA.md §25**.
+
+**El caso que lo provoca: la tarjeta de Toluca – Austin.** Dos defectos:
+
+1. 1X2, BTTS, Córners, Tarjetas y Remates salían con `🔒 No recomendado`.
+   Cinco mercados que Playdoit cotiza y ninguno con nada que jugar.
+2. **La tarjeta se contradecía**: recomendaba Score 0,95 y tres líneas más
+   abajo, en «💰 MEJOR VALOR», enseñaba Score 0,98. Dos secciones ordenadas por
+   criterios distintos (v173 por probabilidad, v171 por Score).
+
+### Lo que cambia
+
+**`🔒 No recomendado` desaparece del proyecto.** En su lugar `⚠️ Alta
+incertidumbre` en gris. Un mercado en cuarentena, o sin insignia de confianza,
+**propone igual**; lo único que sigue sin enseñarse es el mercado que Playdoit
+no cotiza. Un mercado marcado no puede ir en verde.
+
+**La recomendación es la de máximo Score** entre las que cumplen prob ≥ 50 % y
+cuota ≥ 1,20 (y ≤ 90 %). Si ninguna cumple, la de mejor Score con aviso «Baja
+probabilidad». La sección «MEJOR VALOR» se retira: en su sitio, «📊 Otras
+opciones de valor», que son **las siguientes de la misma lista** y por eso ya no
+pueden contradecir a la principal.
+
+**Los mínimos se aplican en los tres sitios** (`mejor`, `por_mercado`,
+`_otras_opciones`). Sin eso, la primera prueba contra un tablero real puso
+«Gana AmaZulu» al 10 % —Score 1,08 por cuota 11,00— como recomendación del 1X2
+y como primera alternativa. Es la trampa de la v172 por la puerta de al lado.
+
+**El verde, por quinta vez:** prob ≥ 60 % **Y** Score ≥ 0,97 **y** sin aviso.
+Un 70 % a cuota 1,05 (Score 0,735) ya no va en verde. El ámbar no lo levanta el
+Score solo: un 30 % a cuota 4,00 da 1,20 y sigue siendo un volado.
+
+### Parte 3: dos hipótesis, una entró
+
+**Binomial negativa para los goles — NO entró, y está medido.** La
+sobredispersión es real (`_v175_goles_binomial_negativa.py`, 47.794 partidos):
+**φ de Pearson = 1,179 global, 53 de 55 competiciones por encima de 1,02**. Pero
+sobre la cifra que se PUBLICA —encogida hacia el precio con w=0,25— empeora:
+
+    matriz (producción)  ECE 0,0097  ·  binomial negativa  0,0117  (−21 %)
+
+Cuatro cortes de dispersión probados, los cuatro empeoran. En crudo mejora la
+cola (2,5 +4,9 % · 3,5 +7,3 %) y empeora el centro (1,5 −1,1 %), pero el
+encogimiento diluye el cambio cuatro veces. Hay test para que no se reproponga.
+
+**Sí entró el techo de alta varianza** que usa el mismo diagnóstico: liga de más
+de 3,0 goles ⇒ las líneas centrales (±0,5 de la media) topan en 60 % el «Menos»
+y 75 % el «Más». Es techo de presentación: sólo baja.
+
+**El H2H en la λ de goles — SÍ entró, y es el pendiente nº 2 cerrado.**
+Regresión sobre el residuo con el H2H previo a cada fecha
+(`_v175_h2h_en_la_lambda.py`, 47.794 partidos):
+
+    señal      n        β        error est.   t
+    h2h      31.473   0,3401      0,0097     35,1
+    forma    47.781   0,3768      0,0082     45,7
+    juntas             0,186 y 0,255        ← los que se usan
+
+    ECE cruda, 3 líneas ....  0,0795 → 0,0460   (−42 %)
+    ECE PUBLICADA, 2,5 .....  0,0111 → 0,0083   (−25 %)
+    sin precio de la casa ..  0,0891 → 0,0496   (−44 %)
+
+Medido con la MISMA ventana que aplica el código (10 cruces · 5 partidos). La
+primera pasada usó todos los cruces previos y daba 0,204/0,244; se rehízo.
+
+El agujero estaba en que `factor_lambda(..., rival=...)` de la v174 sólo lo
+llamaban córners, tarjetas y remates: la escalera de **goles** salía de sumar la
+matriz y el historial no la tocaba. Ahora `alpha_finder.lineas_de_goles` recibe
+liga y equipos. Se recalcula con Poisson sobre la λ corregida porque el marginal
+de la matriz **es** Poisson(λ_h+λ_a) hasta el cuarto decimal; sin señal, ese
+camino ni se toma.
+
+### Eficacia, liquidada — pendiente nº 1 cerrado
+
+`_v169_goles_y_eficacia.py`, 47.794 partidos:
+
+    política  apuestas    de      acierto  anunciado   ROI %    p5 %
+    v164        47.794   47.794    74,5 %    78,9 %    −8,42   −12,25
+    v169        44.421   47.794    75,2 %    77,0 %    −5,00    −7,47
+    v170        44.557   47.794    76,0 %    78,0 %    −6,17   −12,61
+    v171         2.947   47.794    66,0 %    65,2 %    −0,67    −2,81
+    v174        35.954   47.794    52,7 %    52,5 %    −4,72    −5,57
+    v175        21.837   47.794    58,3 %    58,2 %    −4,64    −5,62
+
+La v175 mejora a la v174 poco en ROI y mucho en acierto, y las dos anuncian lo
+que pasa (0,1-0,2 puntos de distancia). **Ninguna gana dinero.** La v171 sigue
+siendo la mejor por ROI y cubría el 6 % de los partidos: levantar la cuarentena
+y el suelo de Score cuesta cuatro puntos de ROI y multiplica por siete la
+cobertura. Es el intercambio que se pidió.
+
+**Limitación:** el ledger sólo tiene cuota de goles 2,5 y del 1X2. La tabla mide
+**la regla**, no todo el catálogo.
+
+**Rendimiento.** El techo del encargo era 0,5 s en el barrido. La primera
+versión costaba 19,4 ms/partido (2,9 s en 150). Con un índice de goles por
+competición y la Poisson vectorizada: **0,11 ms/partido, 17 ms en 150.**
+
+**Pendiente que deja:**
+
+1. Las líneas de la cola (3,5 · 4,5 · 5,5) no se pueden medir ya encogidas:
+   nadie guardó su cuota en el ledger. Es donde la binomial negativa más
+   cambiaría, así que el «no entró» está medido sólo en 2,5.
+2. La corrección de λ por H2H y forma se aplica a los GOLES. Los conteos
+   (córners, tarjetas, remates) siguen con el `factor_lambda` multiplicativo de
+   la v173/v174, que sigue sin medir contra el ECE.
+3. Sigue sin resolverse: `cuotas_multi._buscar` empareja partidos distintos del
+   mismo día (Botafogo ↔ Botafogo SP), tapado sólo en `alpha_finder`.
+4. 12 ligas sin córners observados; `champions` tiene 774 filas con córners
+   reales sin inyectar en su histórico.
+5. HMREY debe rotar la clave de The Odds API.

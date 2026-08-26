@@ -130,6 +130,38 @@ TECHO_LIGA_SUAVE = 0.65  # línea por debajo de la media de la competición
 TECHO_LIGA_DURO = 0.50   # línea 0,5 goles o más por debajo de la media
 MARGEN_DURO = 0.50
 
+# ---------------------------------------------------------------------------
+# v175 — EL TECHO DE LAS COMPETICIONES DE ALTA VARIANZA
+# ---------------------------------------------------------------------------
+# EL ENCARGO, literal: «si la liga tiene una media de goles alta (λ>3,0), usar
+# un techo de probabilidad de 60 % para el lado "Menos" y de 75 % para el lado
+# "Más" (si es la media). Esto fuerza a que el Score no se infle con
+# probabilidades irreales.»
+#
+# Y LA MEDICIÓN LE DA LA RAZÓN EN EL DIAGNÓSTICO. `_v175_goles_binomial_
+# negativa.py` mide la dispersión de Pearson de los goles sobre los 47.794
+# partidos del ledger: **φ = 1,179 global, y 53 de 55 competiciones por encima
+# de 1,02**. Las más dispersas son justo las de media alta —bol_division 1,570,
+# mex_expansion 1,541, champions 1,533—. O sea que en esas ligas la varianza
+# que el modelo no explica es un 50 % mayor de lo que su Poisson supone, y una
+# probabilidad publicada ahí está más segura de lo que puede estar.
+#
+# QUÉ ES ESTO Y QUÉ NO ES. Es un techo de PRESENTACIÓN, como los otros dos de
+# este módulo: sólo baja, nunca sube, y no toca la Sección 1 ni el EV. No es
+# una recalibración del modelo — eso se probó (binomial negativa) y sobre la
+# cifra publicada EMPEORA, así que no entró.
+#
+# EL «(si es la media)» DEL ENCARGO SE RESPETA, Y NO ES UN DETALLE. Aplicar un
+# techo del 75 % a «Más de 0,5» en una liga de 3,2 goles —donde esa línea vale
+# el 96 % de verdad— sería destrozar la calibración con la excusa de
+# protegerla. El techo actúa sólo sobre las líneas CENTRALES, las que caen a
+# menos de `BANDA_CENTRAL` goles de la media de la competición, que son las que
+# el encargo llama «la media» y las que mueven el Score.
+MEDIA_ALTA = 3.0         # a partir de aquí la competición es de alta varianza
+TECHO_ALTA_MENOS = 0.60  # el lado «Menos» no puede anunciarse por encima
+TECHO_ALTA_MAS = 0.75    # y el lado «Más», tampoco
+BANDA_CENTRAL = 0.5      # sólo las líneas a menos de medio gol de la media
+
 _RE_MAS = re.compile(r'^m[aá]s de ([0-9]+(?:[.,][0-9]+)?)$', re.I)
 _RE_MENOS = re.compile(r'^menos de ([0-9]+(?:[.,][0-9]+)?)$', re.I)
 
@@ -179,11 +211,18 @@ def techo_por_liga(clave_liga, apuesta: str) -> Optional[float]:
         return None
     if media is None:
         return None
+    techos = []
     # distancia hacia el lado incorrecto de la apuesta
     d = (media - linea) if es_menos else (linea - media)
-    if d <= 0:
+    if d > 0:
+        techos.append(TECHO_LIGA_DURO if d >= MARGEN_DURO
+                      else TECHO_LIGA_SUAVE)
+    # v175 — y el techo de alta varianza, sobre las líneas centrales
+    if media > MEDIA_ALTA and abs(linea - media) <= BANDA_CENTRAL:
+        techos.append(TECHO_ALTA_MENOS if es_menos else TECHO_ALTA_MAS)
+    if not techos:
         return None
-    return TECHO_LIGA_DURO if d >= MARGEN_DURO else TECHO_LIGA_SUAVE
+    return min(techos)
 
 
 def _encoger(p: float, imp: float, clave_liga) -> tuple:

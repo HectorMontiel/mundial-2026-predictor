@@ -56,8 +56,25 @@ SCORE_EXCEPCION = 1.15      # ...salvo que el valor sea muy alto
 # este proyecto tiene medido como anti-indicador (-4,66 % a -6,52 % sobre
 # 37.158 apuestas). Con contraste, es otra cosa: es discrepancia de precio.
 PROB_SUELO_DURO = 0.50
-SCORE_VERDE = 1.10          # 🟢 valor
-SCORE_AMBAR = 0.95          # 🟡 aceptable
+# v175 — EL VERDE EXIGE LAS DOS COSAS: PROBABILIDAD **Y** PRECIO.
+#
+# El encargo lo fija literal: «Verde para la principal (Score > 0,97 y
+# Prob > 60 %), Ambar para secundarias buenas». Es la QUINTA acepcion del
+# verde en siete versiones —v168 ventaja de precio, v170 estable y
+# >=60 %, v171 Score > 1,10, v173/v174 probabilidad >= 60 %— y conviene
+# que sea la ultima. Pero es la unica que no promete una sola cosa: un
+# 70 % a cuota 1,05 (Score 0,735) ya no puede ir en verde, y era justo el
+# tipo de apuesta que llenaba la pantalla.
+#
+# POR QUE 0,97 Y NO 1,00. Un Score de 1,00 es el equilibrio TEORICO, y
+# Playdoit cobra margen: en un mercado de dos vias con 5 % de vig, la
+# apuesta perfectamente valorada da Score 0,95. Exigir 1,00 seria exigir
+# que la casa se equivoque — un canal que este proyecto tiene medido
+# (+11,49 % comprando al mejor precio) pero que aparece en un partido de
+# cada muchos. 0,97 marca «bien pagada dentro de lo que hay», que es lo
+# que el verde tiene que decir.
+SCORE_VERDE = 0.97          # 🟢 valor
+SCORE_AMBAR = 0.90          # 🟡 aceptable
 CUOTA_MINIMA_DOBLE = 1.30   # la doble oportunidad no entra por debajo de esto
 # v173 — «LA DE MAYOR PROBABILIDAD QUE TENGA UNA CUOTA DECENTE».
 #
@@ -88,21 +105,33 @@ _RE_MAS = re.compile(r'^m[aá]s de ', re.I)
 
 def semaforo(score=None, prob=None) -> str:
     """
-    v173 — EL COLOR VUELVE A SER LA PROBABILIDAD.
+    v175 — EL COLOR PIDE PROBABILIDAD **Y** PRECIO, Y YA NO BLOQUEA NADA.
 
-    Se pidio: verde por encima del 60 %, ambar entre 50 y 60, gris por
-    debajo aunque sea lo mejor que hay. El Score se sigue calculando y
-    enseñando —es lo que dice si la apuesta esta bien pagada— pero ya no
-    decide el color.
+    Verde: >= 60 % de probabilidad Y Score >= 0,97 — o sea, probable y
+    bien pagada. Ambar: >= 50 %, o buen Score sin llegar al 60 %. Gris:
+    lo demas.
 
-    Es la CUARTA acepcion del verde en cinco versiones: v168 ventaja de
-    precio, v170 estable y >=60 %, v171 Score > 1,10, v173 probabilidad
-    >= 60 %. Conviene no volver a moverlo.
+    LO QUE CAMBIA DE VERDAD NO ES EL UMBRAL, ES LO QUE SIGNIFICA EL GRIS.
+    Hasta la v174 un mercado mal calibrado en esa liga salia con «🔒 No
+    recomendado» y sin propuesta. Desde la v175 el gris quiere decir alta
+    incertidumbre, no prohibido: el mercado enseña igual su mejor lado, y
+    el color solo dice si es candidato a apuesta principal o a secundaria.
+
+    Sin `score` —una fila sin cuota— manda la probabilidad sola, que es lo
+    que hacia la v173. No es un caso de la tarjeta: desde la v174 toda
+    candidata tiene precio.
     """
     if prob is None:
         return '\u26aa'
-    if prob >= PROB_MINIMA:
+    if score is None:
+        return ('\U0001f7e2' if prob >= PROB_MINIMA
+                else '\U0001f7e1' if prob >= PROB_SUELO_DURO
+                else '\u26aa')
+    if prob >= PROB_MINIMA and score >= SCORE_VERDE:
         return '\U0001f7e2'
+    # el ambar NO lo levanta el Score solo: un 30 % a cuota 4,00 da
+    # Score 1,20 y sigue siendo un volado. Es la leccion de la v172
+    # y el unico sitio del semaforo donde el precio no vota.
     if prob >= PROB_SUELO_DURO:
         return '\U0001f7e1'
     return '\u26aa'
@@ -245,9 +274,20 @@ def _de_conteo(pick: Dict, bloques: Dict) -> List[Dict]:
         bloque = bloques.get(titulo)
         if not bloque:
             continue
-        # un mercado que no se ha ganado la insignia no propone (v164/v168)
-        if not (bloque.get('confianza') or {}).get('insignia'):
-            continue
+        # v175 — UN MERCADO SIN INSIGNIA YA NO SE CALLA: SE MARCA.
+        #
+        # Hasta la v174 un bloque estimado o mal calibrado no entraba en
+        # la lista y su mercado se quedaba sin ninguna propuesta. El
+        # encargo lo rechaza: «que TODOS los mercados que Playdoit ofrece
+        # tengan siempre una recomendacion». Asi que entra, con
+        # `incierto=True` colgado de cada fila, y la tarjeta lo pinta en
+        # gris con el aviso de alta incertidumbre en vez de un candado.
+        #
+        # Lo que NO se ha quitado: la correccion. Estas filas siguen
+        # pasando por `cordura_probabilidad` —encogidas hacia el precio
+        # de Playdoit y recortadas— exactamente igual que las demas. Lo
+        # que se levanta es el BLOQUEO, no el control.
+        incierto = not (bloque.get('confianza') or {}).get('insignia')
         disp_tot = bloque.get('dispersion_total')
         disp_eq = bloque.get('dispersion')
         for etq, media, disp, sufijo in (
@@ -278,11 +318,12 @@ def _de_conteo(pick: Dict, bloques: Dict) -> List[Dict]:
                     continue
                 salida.extend(_dos_lados(
                     pick, titulo, etq, linea, float(p_mas), dato,
-                    clave_bloque, media))
+                    clave_bloque, media, incierto=incierto))
     return salida
 
 
-def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media):
+def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
+               incierto: bool = False):
     """Las dos apuestas de una línea —Más y Menos—, cada una con su cuota."""
     import mercado_implicito as mi
     imp_mas = mi.prob_de(dato)
@@ -304,6 +345,7 @@ def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media):
                                        texto),
             info.get('prob', p), cuota, imp, bloque, linea,
             {'media': round(float(media), 2),
+             'incierto': bool(incierto),
              'contrastada': bool(info.get('contrastada'))}))
     return filas
 
@@ -473,26 +515,28 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
         filas += _de_conteo(pick, bloques or {})
     except Exception as e:
         logger.debug('[valor] conteo: %s', e)
-    # la cuarentena de la v168 sigue mandando: un mercado inestable en esta
-    # liga no se propone por mucho Score que tenga.
+    # v175 — LA CUARENTENA DEJA DE APARTAR NADA: SOLO MARCA.
+    #
+    # La v168 la puso como muro (un bloque mal calibrado en esa liga no
+    # se propone) y la v173 la rebajo a preferencia (aparta si queda
+    # algo). El encargo la rebaja del todo: «Eliminar el estado 🔒 No
+    # recomendado... solo deben faltar si el mercado no existe en
+    # Playdoit». Un mercado en cuarentena sigue siendo un mercado que la
+    # casa cotiza y el usuario puede jugar.
+    #
+    # LO QUE ESTO CUESTA, Y NO ES CERO. La cuarentena existe porque hay
+    # mercados que en algunas ligas calibran mal de verdad: los goles del
+    # Brasileirao B dan ECE 0,118 en crudo, mas del doble del 0,05 que
+    # este proyecto llama aceptable. Ese 0,118 es de la probabilidad
+    # CRUDA; lo que se publica va encogido hacia el precio de Playdoit y
+    # medido asi da 0,0111 (v175). Aun asi, una recomendacion de un
+    # bloque en cuarentena es peor que una de un bloque estable, y por
+    # eso la fila viaja marcada y la tarjeta lo dice.
     try:
         import mercado_estabilidad as me
-        limpias = [f for f in filas
-                   if not me.en_cuarentena(pick.get('clave_liga'),
-                                           f['bloque'])]
-        # v173 — LA CUARENTENA ES UNA PREFERENCIA, NO UN MURO.
-        #
-        # Filtrar a secas dejaba 26 partidos de 117 sin ninguna candidata: en
-        # las competiciones sin medir (leagues_cup, conference_league,
-        # chi_primera...) TODOS los bloques salen «sin medir» y la lista se
-        # vaciaba entera. Como desde la v173 tiene que haber recomendacion
-        # siempre, la cuarentena aparta lo inestable cuando queda algo, y se
-        # hace a un lado cuando no queda nada — marcando esas filas para que la
-        # tarjeta pueda decir que ese mercado no esta medido en esa liga.
-        if limpias:
-            filas = limpias
-        else:
-            for f in filas:
+        for f in filas:
+            if me.en_cuarentena(pick.get('clave_liga'), f['bloque']):
+                f['incierto'] = True
                 f['sin_medir'] = True
     except Exception as e:
         logger.debug('[valor] estabilidad: %s', e)
@@ -504,47 +548,105 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
 
 def mejor(pick: Dict, bloques: Optional[Dict] = None) -> Optional[Dict]:
     """
-    v173 — LA MEJOR APUESTA DEL PARTIDO. SIEMPRE HAY UNA.
+    v175 — LA APUESTA RECOMENDADA ES LA DE MAYOR SCORE. SIEMPRE HAY UNA.
 
-    EL CAMBIO, Y LO QUE CUESTA. Hasta la v172 la recomendacion se elegia por
-    `Score = probabilidad x cuota` y podia no haber ninguna: si nada llegaba a
-    0,95 de Score, la tarjeta decia «Sin apuestas jugables». El usuario lo
-    rechaza — quiere una propuesta en todos los partidos.
+    EL ENCARGO, con sus numeros: «La 🏆 Apuesta Recomendada sera la de
+    mayor Score, siempre que Probabilidad >= 50 % y Cuota >= 1,20. Si la
+    de mayor Score no cumple, se pasa a la siguiente que si cumpla. Si
+    ninguna cumple, se muestra la de mayor Score con aviso de baja
+    probabilidad.» Eso es exactamente lo que hace esta funcion.
 
-    Asi que se elige por PROBABILIDAD AJUSTADA, y a igualdad de probabilidad
-    gana la de mejor cuota. Y no hay suelo: si lo mejor del partido es un 52 %,
-    ese es el que sale.
+    EL CASO QUE LO PROVOCA, del propio usuario: en Toluca - Austin la
+    aplicacion recomendaba «Goles Mas de 1,5» al 79 % con Score 0,95
+    mientras en «Mejor Valor», dos lineas mas abajo, habia un Score 0,98.
+    Recomendar lo que uno mismo esta diciendo que vale menos no se puede
+    defender, y la separacion entre las dos secciones era el sintoma.
 
-    LO QUE ESTO CUESTA, MEDIDO SOBRE 47.794 PARTIDOS
-    ------------------------------------------------
-        elegir por Score        2.947 apuestas · acierto 66,0 % · ROI −0,67 %
-        elegir por probabilidad 44.557 apuestas · acierto 76,0 % · ROI −6,17 %
+    LO QUE CUESTA, MEDIDO SOBRE 47.794 PARTIDOS (v171.1)
+    -----------------------------------------------------
+        elegir por Score        2.947 apuestas · acierto 66,0 % ·
+                                ROI −0,67 % · p5 −2,81 %
+        elegir por probabilidad 44.557 apuestas · acierto 76,0 % ·
+                                ROI −6,17 %
 
-    Se acierta mas y se gana menos: cinco puntos y medio de ROI. Es un
-    intercambio legitimo —el usuario quiere jugar todos los dias, no esperar a
-    que la casa se equivoque— pero no es gratis y queda escrito aqui.
+    Se acierta DIEZ PUNTOS MENOS y se pierde cinco y medio menos. De las
+    cuatro politicas que este proyecto ha liquidado contra el marcador,
+    la del Score es la unica que se acerca al equilibrio — y ninguna gana
+    dinero. La tarjeta no puede prometer que se bate al mercado y no lo
+    promete.
 
     LO QUE **NO** SE QUITA
     ----------------------
-    El ajuste de la probabilidad. Una linea que se separa mas de 10 puntos del
-    precio de la casa sigue viniendo encogida y recortada por
-    `cordura_probabilidad`: lo que se quita es el BLOQUEO, no la correccion.
-    Por eso «AmaZulu o empate» ya no puede ganar aunque vuelva a la lista —
-    entra con su probabilidad corregida (0,27), no con la cruda (0,45), y
-    pierde contra el 0,73 de Mamelodi.
+    Ni el ajuste de la probabilidad —una linea que se separa del precio
+    de la casa sigue viniendo encogida y recortada por
+    `cordura_probabilidad`— ni el techo del 90 %: una cifra por encima de
+    ahi con cuota jugable es casi siempre un defecto del modelo, no una
+    ganga. Lo que se levanta es el bloqueo por mercado, no el control de
+    la cifra.
     """
     filas = candidatos(pick, bloques)
     if not filas:
         return None
-    # «cuota decente»: se aparta lo que no es jugable de verdad
     dignas = [f for f in filas
-              if f['prob'] <= PROB_MAXIMA_RECO
-              and (f.get('cuota') is None or f['cuota'] >= CUOTA_DECENTE)]
-    # y si de todo el partido no queda ninguna, se propone lo mejor que haya:
-    # la promesa de la v173 es que SIEMPRE hay recomendacion.
-    if dignas:
-        filas = dignas
-    # mayor probabilidad; a igualdad, la que mejor pague
-    elegida = max(filas, key=lambda f: (round(f['prob'], 4),
-                                        f.get('cuota') or 0.0))
-    return dict(elegida, mejor_del_partido=True)
+              if f.get('score') is not None
+              and f['prob'] >= PROB_SUELO_DURO
+              and f['prob'] <= PROB_MAXIMA_RECO
+              and (f.get('cuota') or 0.0) >= CUOTA_DECENTE]
+    baja = not dignas
+    if baja:
+        # regla 5 del encargo: si ninguna llega a los minimos se propone
+        # igual la de mejor Score, avisando. La promesa de la v173 —que
+        # siempre hay recomendacion— sigue en pie.
+        dignas = filas
+    elegida = max(dignas, key=lambda f: (f.get('score') or 0.0,
+                                         round(f['prob'], 4)))
+    return dict(elegida, mejor_del_partido=True, baja_probabilidad=baja)
+
+
+def por_mercado(pick: Dict, bloques: Optional[Dict] = None) -> Dict:
+    """
+    v175 — LA MEJOR APUESTA DE **CADA** MERCADO QUE PLAYDOIT COTIZA.
+
+    La tarjeta ya no enseña un mercado con sus dos lados y un candado:
+    enseña, mercado por mercado, la linea concreta que la aplicacion
+    jugaria y su Score. Un mercado sin entrada aqui es un mercado que
+    Playdoit NO publica — la unica ausencia que el encargo admite.
+
+    Devuelve `{nombre_del_mercado: fila}` con la de mejor Score de cada
+    uno, sin filtro de probabilidad ni de cuota: aqui se INFORMA de lo
+    mejor que hay en ese mercado. Los minimos son cosa de `mejor`, que es
+    quien elige la apuesta principal.
+    """
+    grupos: Dict[str, List[Dict]] = {}
+    for f in candidatos(pick, bloques):
+        grupos.setdefault(str(f.get('mercado') or ''), []).append(f)
+    salida: Dict[str, Dict] = {}
+    for clave, filas in grupos.items():
+        # LOS MISMOS MINIMOS QUE LA PRINCIPAL, Y NO ES UN ADORNO.
+        #
+        # Sin ellos, la primera prueba contra el tablero real de
+        # Mamelodi - AmaZulu propuso «Gana AmaZulu» al 10 % como
+        # recomendacion del 1X2, porque a cuota 11,00 su Score es 1,08 —
+        # el mas alto del mercado. Es la trampa de la cuota inflada que
+        # la v172 vino a cerrar, entrando por la puerta de al lado.
+        #
+        # Y cuando NINGUNA linea del mercado llega a los minimos no se
+        # deja el mercado vacio —eso seria el candado otra vez— sino que
+        # se propone la MAS PROBABLE. En un mercado donde no hay nada
+        # bien pagado, lo honesto es enseñar lo mas probable, no lo mas
+        # caro.
+        dignas = [f for f in filas
+                  if f.get('score') is not None
+                  and f['prob'] >= PROB_SUELO_DURO
+                  and f['prob'] <= PROB_MAXIMA_RECO
+                  and (f.get('cuota') or 0.0) >= CUOTA_DECENTE]
+        if dignas:
+            salida[clave] = max(dignas,
+                                key=lambda f: (f.get('score') or 0.0,
+                                               round(f['prob'], 4)))
+        else:
+            salida[clave] = dict(
+                max(filas, key=lambda f: (round(f['prob'], 4),
+                                          f.get('cuota') or 0.0)),
+                incierto=True)
+    return salida

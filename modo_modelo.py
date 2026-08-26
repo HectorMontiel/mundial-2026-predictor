@@ -171,7 +171,9 @@ def _bloque_tenis(st, pick: Dict) -> None:
     hubo = False
     for quien in (h, a):
         f = rq.forma_tenis(quien)
-        if not f.get('n'):
+        # `n` positivo con la racha vacia es el caso de «pocos
+        # partidos»: hay muestra pero no hay nada que pintar.
+        if not f.get('n') or not f.get('racha'):
             continue
         hubo = True
         trozos = ['**%s** `%s`' % (quien, f['racha'])]
@@ -1519,9 +1521,26 @@ def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
                 'ev': (None if _mej.get('score') is None
                        else _mej['score'] - 1.0),
                 'score': _mej.get('score'),
-                # EL VERDE PASA A SIGNIFICAR VALOR, y la tarjeta lo dice.
-                # v173 — verde por PROBABILIDAD (>=60 %), no por Score.
-                'verde': _mej['prob'] >= va.PROB_MINIMA,
+                # v175 — EL VERDE EXIGE LAS DOS COSAS: >= 60 % DE
+                # PROBABILIDAD **Y** SCORE >= 0,97. Lo pide el
+                # encargo literal y arregla lo que la v173 dejaba
+                # pasar: un 70 % a cuota 1,05 iba en verde y no es
+                # una buena apuesta, es un tramite caro.
+                # ...Y NO PUEDE IR EN VERDE LO QUE LLEVA UN AVISO.
+                # Un ✅ junto a «⚠️ Alta incertidumbre» diria dos
+                # cosas contrarias en la misma linea. El mercado
+                # sigue proponiendo —eso es lo que la v175 desbloquea
+                # y no se toca— pero su propuesta sale en ambar.
+                'verde': (_mej['prob'] >= va.PROB_MINIMA
+                          and (_mej.get('score') or 0.0)
+                          >= va.SCORE_VERDE
+                          and not _mej.get('incierto')),
+                # y la tarjeta avisa cuando la propuesta viene de un
+                # mercado que en esta liga calibra mal, o cuando no
+                # llego a los minimos del encargo
+                'incierto': bool(_mej.get('incierto')),
+                'baja_probabilidad': bool(
+                    _mej.get('baja_probabilidad')),
                 'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
                                              'remates_on'),
                 'original': _mej['prob'], 'fiable': True,
@@ -1764,40 +1783,152 @@ def _bloque_contexto(pick: Dict) -> str:
     return ''.join(trozos)
 
 
-def _tabla_valor(pick: Dict, bloques: Dict, tope: int = 4) -> str:
+def _otras_opciones(pick: Dict, bloques: Dict, elegida=None,
+                    tope: int = 3) -> str:
     """
-    v171 — LAS MEJORES LINEAS DEL PARTIDO, CON SU CUOTA Y SU SCORE.
+    v175 — LAS 2-3 SIGUIENTES POR SCORE, DEBAJO DE LA PRINCIPAL.
 
-    Es la mitad del encargo que no se ve en la recomendacion: que el usuario
-    pueda comparar. «Mas de 2,5 al 80 % paga 1,40 (Score 1,12)» y «Mas de 3,5
-    al 67 % paga 1,80 (Score 1,21)» son dos apuestas del mismo mercado y la
-    segunda vale mas — hasta la v171 la aplicacion ni siquiera calculaba la
-    segunda.
+    La v171 puso una seccion «💰 MEJOR VALOR» separada de la
+    recomendacion, y con la seleccion por probabilidad de la v173 las dos
+    dejaron de coincidir: en Toluca - Austin la tarjeta recomendaba un
+    Score 0,95 y tres lineas mas abajo enseñaba un 0,98. El encargo lo
+    corta de raiz — «Eliminar la seccion 💰 Mejor Valor separada (porque
+    ahora la principal ES la mejor valor)»— y esto es lo que queda: las
+    siguientes de la misma lista, pegadas a la que gano.
 
-    Cuatro filas y ninguna frase: mercado, probabilidad, cuota y Score.
+    Ya no puede haber contradiccion porque las dos salen del mismo orden:
+    la principal es la primera de esta lista, no una lista distinta.
     """
     try:
         import valor_apuesta as va
         filas = va.candidatos(pick, bloques or {})
     except Exception as e:
-        logger.debug('[modo_modelo] tabla de valor: %s', e)
+        logger.debug('[modo_modelo] otras opciones: %s', e)
         return ''
     if not filas:
         return ''
-    filas = sorted(filas, key=lambda f: -f['score'])[:tope]
-    trozos = ['<div class="mm-otros">💰 MEJOR VALOR</div>']
-    for i, f in enumerate(filas):
+    clave_elegida = None
+    if elegida:
+        clave_elegida = (str(elegida.get('apuesta')),
+                         elegida.get('linea'))
+    filas = [f for f in filas
+             if (str(f['apuesta']), f.get('linea')) != clave_elegida]
+    # LOS MISMOS MINIMOS QUE LA PRINCIPAL. Sin ellos, la primera fila de
+    # esta lista en Mamelodi - AmaZulu era «Gana AmaZulu» al 10 % con
+    # Score 1,08: el Score mas alto del partido y la peor apuesta
+    # posible. Una alternativa que la regla principal nunca elegiria no
+    # es una alternativa, es un cebo.
+    dignas = [f for f in filas
+              if f.get('score') is not None
+              and f['prob'] >= va.PROB_SUELO_DURO
+              and f['prob'] <= va.PROB_MAXIMA_RECO
+              and (f.get('cuota') or 0.0) >= va.CUOTA_DECENTE]
+    if dignas:
+        filas = dignas
+    filas = sorted(filas, key=lambda f: -(f.get('score') or 0.0))[:tope]
+    if not filas:
+        return ''
+    trozos = ['<div class="mm-otros">📊 Otras opciones de valor</div>']
+    for f in filas:
         trozos.append(
-            '<div class="mm-fc%s">'
+            '<div class="mm-fc mm-sinsena">'
             '<span class="mm-fc-n">%s %s</span>'
             '<span class="mm-fc-l">%.0f %%</span>'
             '<span class="mm-fc-v">Cuota <b>%.2f</b></span>'
             '<span class="mm-fc-v">Score <b>%.2f</b></span>'
             '<span class="mm-fc-e">%s</span></div>'
-            % ('' if i == 0 else ' mm-sinsena', f['semaforo'],
-               _esc_mm(f['apuesta'])[:34], f['prob'] * 100, f['cuota'],
-               f['score'], '★' if i == 0 else ''))
+            % (_sema(f), _esc_mm(f['apuesta'])[:34], f['prob'] * 100,
+               f['cuota'], f['score'],
+               '⚠️' if f.get('incierto') else ''))
     return ''.join(trozos)
+
+
+# El orden en el que se enseñan los mercados, con su icono y su rotulo.
+# Es el catalogo del encargo: 1X2, Handicap, Goles, BTTS, Corners,
+# Tarjetas, Remates, A puerta, Doble oportunidad. El handicap no lo lee
+# todavia `mercado_implicito`, asi que no aparece: enseñar un mercado
+# vacio seria peor que no enseñarlo.
+_MERCADOS_TARJETA = (
+    ('1X2', '📊', 'Resultado'),
+    ('Doble oportunidad', '🛡️', 'Doble'),
+    ('Goles', '⚽', 'Goles'),
+    ('BTTS', '🤝', 'Ambos marcan'),
+    ('Córners', '⛳', 'Córners'),
+    ('Tarjetas', '🟨', 'Tarjetas'),
+    ('Remates', '🎯', 'Remates'),
+    ('Remates a puerta', '🥅', 'A puerta'),
+)
+
+
+def _sema(f: Dict) -> str:
+    """El semáforo de la fila, bajado a ámbar si lleva aviso."""
+    icono = str(f.get('semaforo') or '')
+    if f.get('incierto') and icono == '🟢':
+        return '🟡'
+    return icono
+
+
+def _apuesta_corta(f: Dict) -> str:
+    """El lado recomendado, sin repetir el nombre del mercado."""
+    ap = str(f.get('apuesta') or '')
+    mer = str(f.get('mercado') or '')
+    # el mercado se llama BTTS por dentro y «Ambos marcan» en la
+    # etiqueta de la apuesta: sin este alias la fila se leia «🤝
+    # Ambos marcan · Ambos marcan: Si».
+    if mer == 'BTTS':
+        mer = 'Ambos marcan'
+    if mer and ap.startswith(mer):
+        ap = ap[len(mer):].lstrip(' :')
+    etq = str(f.get('etiqueta') or '')
+    if etq in ('Local', 'Visita') and not ap.startswith(etq):
+        ap = '%s %s' % (etq, ap)
+    return ap[:26]
+
+
+def _filas_de_mercados(pick: Dict, bloques: Dict, clave_liga) -> list:
+    """
+    v175 — CADA MERCADO DE PLAYDOIT, CON SU RECOMENDACION. SIN CANDADOS.
+
+    EL ENCARGO: «Para cada mercado disponible en Playdoit (1X2, Handicap,
+    Goles, BTTS, Corners, Tarjetas, Remates, A puerta, Doble
+    oportunidad), siempre mostrar una recomendacion (el lado con mayor
+    probabilidad ajustada o mejor Score). Excepcion unica: si Playdoit no
+    publica ese mercado, no se muestra el bloque.»
+
+    Y ESO ES LO QUE DECIDE SI UNA FILA APARECE: que `valor_apuesta` haya
+    encontrado al menos una linea CON PRECIO en ese mercado. No hay
+    ninguna otra puerta — ni la insignia de confianza, ni la cuarentena de
+    estabilidad, ni el suelo de probabilidad. Lo que esas tres siguen
+    haciendo es marcar la fila en gris con «⚠️ Alta incertidumbre».
+
+    La fila enseña la apuesta concreta, su probabilidad y su Score, que es
+    lo que la hace comparable con las demas. Antes enseñaba los dos lados
+    de la linea central y ninguna instruccion.
+    """
+    try:
+        import valor_apuesta as va
+        mejores = va.por_mercado(pick, bloques or {})
+    except Exception as e:
+        logger.debug('[modo_modelo] mercados de la tarjeta: %s', e)
+        return []
+    filas = []
+    for clave, icono, rotulo in _MERCADOS_TARJETA:
+        f = mejores.get(clave)
+        if not f:
+            continue      # Playdoit no lo publica: no se inventa un bloque
+        aviso = _incertidumbre(clave_liga, f.get('bloque') or '')
+        if not aviso and f.get('incierto'):
+            aviso = ('<span class="mm-ck-est">⚠️ Alta '
+                     'incertidumbre</span>')
+        filas.append(_fila_compacta(
+            icono, rotulo,
+            ('%.1f' % f['linea']) if f.get('linea') is not None else '',
+            '%s <b>%s — %.0f %%</b>' % (_sema(f),
+                                        _esc_mm(_apuesta_corta(f)),
+                                        f['prob'] * 100),
+            'Score <b>%.2f</b>' % (f.get('score') or 0.0),
+            aviso, apagado=bool(aviso)))
+    return filas
 
 
 def _tira_estabilidad(clave_liga) -> str:
@@ -1829,12 +1960,26 @@ def _tira_estabilidad(clave_liga) -> str:
             '<div class="mm-tira">%s</div>' % ''.join(celdas))
 
 
-def _candado(clave_liga, bloque: str) -> str:
-    """`🔒` si ese bloque está en cuarentena. Tres palabras, no un párrafo."""
+def _incertidumbre(clave_liga, bloque: str) -> str:
+    """
+    v175 — EL CANDADO SE VA. LO QUE QUEDA ES UN AVISO, NO UNA PUERTA.
+
+    Hasta la v174 un mercado en cuarentena en esa liga salia con «🔒 No
+    recomendado» y sin propuesta ninguna. El encargo lo rechaza por su
+    nombre: «Eliminar el estado 🔒 No recomendado... Si el mercado tiene
+    probabilidad muy cercana a 50 %, igual se muestra, pero con un aviso
+    de alta incertidumbre y un color neutro (gris), pero nunca No
+    recomendado».
+
+    Asi que la informacion no se pierde —el mercado sigue diciendo que en
+    esta competicion calibra mal— pero deja de bloquear. La tira de
+    📊 ESTABILIDAD sigue debajo con los seis semaforos, que es donde vive
+    el detalle de por que.
+    """
     try:
         import mercado_estabilidad as me
         if me.en_cuarentena(clave_liga, bloque):
-            return '<span class="mm-ck-est">🔒 No recomendado</span>'
+            return '<span class="mm-ck-est">⚠️ Alta incertidumbre</span>'
     except Exception:
         pass
     return ''
@@ -1893,7 +2038,7 @@ def _fila_de_bloque(bloque: Optional[Dict], icono: str, nombre: str,
     # v168 — el candado manda sobre la etiqueta de origen: si el mercado esta
     # en cuarentena, lo que el usuario necesita saber es que no se recomienda,
     # no de donde salen sus cifras.
-    cand = _candado(bloque.get('clave_liga') or clave_liga, bloque_nombre)
+    cand = _incertidumbre(bloque.get('clave_liga') or clave_liga, bloque_nombre)
     return _fila_compacta(
         icono, nombre, '%.1f' % total['linea'],
         '<b>%s: %.0f %%</b>' % (total['texto'].split(' de ')[0], total['prob'] * 100),
@@ -1952,6 +2097,15 @@ def _esc_mm(t) -> str:
     return _html.escape(str(t if t is not None else ''), quote=True)
 
 
+def va_PROB_MINIMA() -> float:
+    """El suelo del verde de `valor_apuesta`, o su valor conocido."""
+    try:
+        import valor_apuesta as va
+        return float(va.PROB_MINIMA)
+    except Exception:
+        return 0.60
+
+
 def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
                         n: int = 0, motivo: str = '') -> None:
     """
@@ -1980,11 +2134,23 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     # Pegada a la apuesta hacia una frase de 53 caracteres, que es justo
     # el parrafo que este rediseño vino a quitar.
     if rec.get('motivo') == 'valor':
-        # v173 — la recomendacion se elige por probabilidad y el color sale de
-        # ella. La coletilla dice en cuatro palabras en que tramo cae.
-        coleta = ('' if rec['verde']
-                  else ('Sólo para combinar' if rec['prob'] >= 0.50
-                        else 'Lo mejor que hay'))
+        # v175 — LA COLETILLA DICE LO QUE LE FALTA, EN TRES PALABRAS.
+        #
+        # Nunca dice «no recomendado»: desde la v175 no hay tal
+        # estado. Dice si la apuesta llega a los minimos del encargo
+        # (prob >= 50 % y cuota >= 1,20), si viene de un mercado que
+        # en esta liga calibra mal, o si simplemente no esta tan
+        # bien pagada como para ir en verde.
+        if rec.get('baja_probabilidad'):
+            coleta = 'Baja probabilidad'
+        elif rec.get('incierto'):
+            coleta = 'Alta incertidumbre'
+        elif rec['verde']:
+            coleta = ''
+        elif rec['prob'] < va_PROB_MINIMA():
+            coleta = 'Bien pagada, poco probable'
+        else:
+            coleta = 'Probable, poco pagada'
     elif rec['verde']:
         coleta = ''
     else:
@@ -2081,50 +2247,47 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
             _bloque_recomendada(st, rec, clave_vista, n_boton,
                                 motivo=_motivo_sin_apuesta(pick))
+            # v175 — las 2-3 siguientes por Score, PEGADAS a la
+            # principal y sacadas de la misma lista. Ver
+            # `_otras_opciones`: la seccion separada de «MEJOR
+            # VALOR» es lo que permitia que la tarjeta se
+            # contradijera a si misma.
+            _alt = _otras_opciones(
+                pick, {'Córners': _ck, 'Tarjetas': _tj,
+                       'Remates': (_rm or {}).get('totales'),
+                       'Remates a puerta':
+                           (_rm or {}).get('a_puerta')}, rec)
+            if _alt:
+                st.markdown(_alt, unsafe_allow_html=True)
 
-        # ---- 2) otros mercados, en filas compactas ----------------------
+        # ---- 2) TODOS los mercados, cada uno con su recomendacion ----
+        #
+        # v175 — SE ACABARON LOS CANDADOS. La v174 enseñaba aqui la linea
+        # central de cada mercado con sus dos lados y, cuando el mercado
+        # estaba en cuarentena en esa liga, un «🔒 No recomendado» en vez
+        # de una propuesta. El encargo lo quita por su nombre y pide lo
+        # contrario: una recomendacion en cada mercado que Playdoit
+        # cotice, y ninguna fila para el que no cotice.
         filas = []
         tri = probabilidades_1x2(pick)
         if tri and h and a:
+            # la barra del 1X2 se queda: es contexto, no una apuesta, y
+            # es la unica pieza de la tarjeta que enseña las tres vias a
+            # la vez.
             filas.append(
                 '<div class="mm-fc"><span class="mm-fc-n">📊 Resultado</span>'
                 '<span class="mm-fc-barra">%s</span></div>'
                 % _barra_1x2(tri[0], tri[1], tri[2], h, a))
-        filas.append(_fila_dos_lados('⚽', 'Goles', '2.5', b.get(_ETQ_OVER),
-                                     b.get(_ETQ_UNDER), 'Más', 'Menos',
-                                     _candado(pick.get('clave_liga'), 'goles')))
-        filas.append(_fila_dos_lados('🤝', 'Ambos marcan', '',
-                                     b.get(_ETQ_BTTS_SI), b.get(_ETQ_BTTS_NO),
-                                     'Sí', 'No',
-                                     _candado(pick.get('clave_liga'), 'btts')))
-        _cl = pick.get('clave_liga')
-        filas.append(_fila_de_bloque(_ck, '⛳', 'Córners', _cl, 'corners'))
-        filas.append(_fila_de_bloque(_tj, '🟨', 'Tarjetas', _cl, 'tarjetas'))
-        filas.append(_fila_de_bloque((_rm or {}).get('totales'), '🎯',
-                                     'Remates', _cl, 'remates'))
-        # v170 — el catalogo completo en la tarjeta: remates a puerta y la
-        # doble oportunidad, que es de donde sale casi toda recomendacion desde
-        # que la seleccion mira la probabilidad y no el precio.
-        filas.append(_fila_de_bloque((_rm or {}).get('a_puerta'), '🥅',
-                                     'A puerta', _cl, 'remates_on'))
-        _do = doble_oportunidad(pick)
-        if _do:
-            _mejor_do = max(_do, key=lambda x: x['prob'])
-            filas.append(_fila_compacta(
-                '🛡️', 'Doble', '',
-                '<b>%s: %.0f %%</b>' % (_mejor_do['apuesta'][:22],
-                                        _mejor_do['prob'] * 100),
-                '', _candado(_cl, 'resultado'),
-                apagado=bool(_candado(_cl, 'resultado'))))
+        filas += _filas_de_mercados(
+            pick, {'Córners': _ck, 'Tarjetas': _tj,
+                   'Remates': (_rm or {}).get('totales'),
+                   'Remates a puerta': (_rm or {}).get('a_puerta')},
+            pick.get('clave_liga'))
         filas.append(_quien_remata_compacto(_qr))
         filas = [f for f in filas if f]
         if filas:
-            st.markdown(_tabla_valor(pick, {'Córners': _ck, 'Tarjetas': _tj,
-                                            'Remates': (_rm or {}).get('totales'),
-                                            'Remates a puerta':
-                                                (_rm or {}).get('a_puerta')})
-                        + _tira_estabilidad(pick.get('clave_liga'))
-                        + '<div class="mm-otros">📊 OTROS MERCADOS</div>'
+            st.markdown(_tira_estabilidad(pick.get('clave_liga'))
+                        + '<div class="mm-otros">📊 MERCADOS</div>'
                         + ''.join(filas), unsafe_allow_html=True)
 
         if str(pick.get('deporte') or '') == 'Tenis':

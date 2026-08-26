@@ -3019,3 +3019,258 @@ que queda es: **se propone siempre que haya algo real que proponer**, y cuando
 la casa no cotiza el partido, la aplicación usa los mercados estándar del
 barrido en vez de fabricar una escalera. Si en el futuro alguien vuelve a
 ampliar las líneas del modelo, este §24.1 explica qué pasa.
+
+## 25. Sin bloqueos, máximo Score, y la λ que por fin escucha al histórico
+
+La v175 responde a un encargo de tres partes, y las tres tenían razón en el
+diagnóstico. Sólo una de las tres se implementó como pedía; las otras dos se
+midieron primero y salieron distintas de lo que el encargo suponía. Está todo
+aquí, con los números.
+
+### 25.1 El caso que lo provoca: la tarjeta de Toluca – Austin
+
+Dos defectos, y el segundo es el grave:
+
+1. **Media pantalla bloqueada.** 1X2, BTTS, Córners, Tarjetas y Remates salían
+   con `🔒 No recomendado` porque en esa liga están en cuarentena. El usuario
+   veía cinco mercados que Playdoit sí cotiza y ninguno con nada que jugar.
+2. **La tarjeta se contradecía a sí misma.** Recomendaba «Goles Más de 1,5» al
+   79 % con **Score 0,95** y, tres líneas más abajo, en la sección «💰 MEJOR
+   VALOR», enseñaba un **Score 0,98**. Las dos secciones se ordenaban por
+   criterios distintos —la recomendación por probabilidad (v173), la tabla por
+   Score (v171)— así que era cuestión de tiempo.
+
+El segundo no se arregla ajustando un umbral: se arregla haciendo que las dos
+listas sean **la misma lista**. Es lo que hace la v175.
+
+### 25.2 El bloqueo se levanta, la medición se queda
+
+`🔒 No recomendado` desaparece del proyecto. En su lugar, `⚠️ Alta
+incertidumbre` en gris. La diferencia no es cosmética:
+
+| | v174 | v175 |
+|---|---|---|
+| Mercado en cuarentena | sin propuesta | propone, marcado |
+| Bloque sin insignia de confianza | no entra en candidatos | entra, marcado |
+| Mercado que Playdoit no cotiza | no se enseña | **no se enseña** |
+| Puede ir en verde | — | **no**, aunque llegue a los umbrales |
+
+La última fila es el freno que se conserva. Un ✅ junto a un «⚠️ Alta
+incertidumbre» diría dos cosas contrarias en la misma línea.
+
+**Lo que NO se levanta, y hay que decirlo:** la corrección. Estas filas siguen
+pasando por `cordura_probabilidad` —encogidas hacia el precio de Playdoit con
+w=0,25 y recortadas si se separan más de 5 pp— exactamente igual que las demás.
+Lo que se levanta es el bloqueo, no el control. Y un caso concreto sigue
+filtrando: una línea que el propio sistema marca `fiable=False` no se propone.
+No es un bloqueo por mercado sino por línea, y es lo que impide que «AmaZulu o
+empate» vuelva a la tarjeta (§22).
+
+### 25.3 La recomendación es la de máximo Score
+
+    Score = probabilidad ajustada × cuota de Playdoit
+
+y gana la de **mayor Score** entre las que cumplen **probabilidad ≥ 50 %** y
+**cuota ≥ 1,20** (más el techo del 90 %, que se conserva de la v173). Si
+ninguna cumple, se propone la de mejor Score con el aviso «Baja probabilidad»:
+la promesa de que siempre hay recomendación sigue en pie.
+
+**La sección «💰 MEJOR VALOR» se retira** y en su sitio van «📊 Otras opciones
+de valor»: las 2-3 siguientes **de la misma lista ordenada**. Por construcción
+ya no pueden contradecir a la principal.
+
+**Una nota sobre el ejemplo del encargo.** Pedía como resultado corregido
+«GOLES: MENOS DE 5,5 — 94 % | Cuota 1,04 | Score 0,98», pero su propia regla
+exige cuota ≥ 1,20 y 1,04 no llega. Se ha implementado **la regla**, no el
+ejemplo: un 1,04 es el mismo trámite caro que la v173 vino a quitar («Menos de
+6,5 al 100 % con cuota 1,01»).
+
+**Y los mínimos se aplican en los tres sitios.** La primera prueba contra un
+tablero real los tenía sólo en la principal, y la fila del 1X2 propuso «Gana
+AmaZulu» al 10 % —Score 1,08 por una cuota de 11,00— y la lista de
+alternativas lo puso el primero. La trampa de la cuota inflada de la v172,
+entrando por la puerta de al lado. Ahora `mejor`, `por_mercado` y
+`_otras_opciones` filtran igual.
+
+### 25.4 El color, por quinta vez
+
+    v168  ventaja de precio
+    v170  mercado estable y ≥ 60 %
+    v171  Score > 1,10
+    v173  probabilidad ≥ 60 %
+    v175  probabilidad ≥ 60 %  Y  Score ≥ 0,97   ← y sin aviso de incertidumbre
+
+Es la única acepción que no promete una sola cosa. Un 70 % a cuota 1,05 (Score
+0,735) ya no puede ir en verde, y era exactamente el tipo de apuesta que
+llenaba la pantalla en la v173.
+
+**Por qué 0,97 y no 1,00.** El 1,00 es el equilibrio teórico y Playdoit cobra
+margen: en un mercado de dos vías con 5 % de vig, la apuesta perfectamente
+valorada da Score 0,95. Exigir 1,00 sería exigir que la casa se equivoque.
+
+**El ámbar no lo levanta el Score solo.** Un 30 % a cuota 4,00 da Score 1,20 y
+sigue siendo un volado. Es el único sitio del semáforo donde el precio no vota.
+
+### 25.5 Parte 3: la binomial negativa. Diagnóstico correcto, remedio no
+
+El encargo pedía cambiar los goles de Poisson a binomial negativa «si la liga
+muestra sobredispersión». **La sobredispersión existe y está medida ahora**
+(`_v175_goles_binomial_negativa.py`, 47.794 partidos walk-forward). No con
+var/media —que con λ variable contaría como racimo lo que sólo es que unos
+partidos son más abiertos que otros— sino con el estadístico de Pearson
+φ = (1/n)·Σ(y−λ)²/λ, que vale 1 exactamente cuando el Poisson con ESAS lambdas
+explica la varianza:
+
+    φ global ......................  1,179
+    competiciones con φ > 1,02 ....  53 de 55
+    las más dispersas .............  bol_division 1,570 · mex_expansion 1,541
+                                     champions 1,533 · afc_champions 1,502
+    las menos .....................  eng_championship 1,016 ·
+                                     arg_primera_nacional 0,992
+
+Y sin embargo **no entró**. La probabilidad cruda mejora en la cola y empeora
+en el centro:
+
+    línea 1,5   ECE 0,0700 → 0,0708   (empeora 1,1 %)
+    línea 2,5   ECE 0,0892 → 0,0848   (mejora  4,9 %)
+    línea 3,5   ECE 0,0741 → 0,0687   (mejora  7,3 %)
+
+pero **esta aplicación no publica la cruda**. Publica la encogida hacia el
+precio de Playdoit con w=0,25 (v166), y ahí:
+
+    matriz (producción)   ECE 0,0097
+    binomial negativa     ECE 0,0117     ← empeora un 21 %
+    el mercado solo       ECE 0,0094
+
+Se probaron cuatro cortes de dispersión (1,02 · 1,10 · 1,20 · 1,30) y los
+cuatro empeoran la cifra publicada. La razón es aritmética: el encogimiento
+diluye cualquier cambio del modelo cuatro veces, y lo que la binomial negativa
+hace es **alejar** al modelo del mercado. Hay un test —
+`test_la_binomial_negativa_se_midio_y_no_entro`— para que no se vuelva a
+proponer sin medirlo.
+
+**Limitación honesta:** en el ledger sólo la línea de 2,5 tiene cuota, así que
+las líneas de la cola (3,5 · 4,5 · 5,5), donde la binomial negativa más cambia,
+no se pueden medir ya encogidas. Nadie guardó su precio. Se dice en vez de
+suponerlo.
+
+**Lo que sí entró del mismo diagnóstico** es el techo de alta varianza: en una
+competición de más de 3,0 goles por partido, las líneas centrales no pueden
+anunciarse por encima del 60 % («Menos») ni del 75 % («Más»). Es un techo de
+**presentación** —sólo baja, como los otros dos de `cordura_probabilidad`— y
+respeta el «(si es la media)» del encargo: se aplica sólo a menos de medio gol
+de la media de la liga. Poner un techo del 75 % a «Más de 0,5» en una liga de
+3,1 goles, donde esa línea vale el 96 % de verdad, sería destrozar la
+calibración en nombre de protegerla.
+
+### 25.6 Parte 3: el H2H en la λ. Aquí el encargo acertó de lleno
+
+Era además el **pendiente nº 2 del traspaso**: el peso de 0,5 que la v174
+escribió a mano nunca se había medido contra el ECE.
+
+La pregunta correcta no es «¿dicen algo los cruces?» sino «¿dicen algo que la λ
+del motor NO sepa ya?». Eso lo responde una regresión sobre el residuo, con el
+H2H calculado sólo con los cruces **anteriores** a cada fecha
+(`_v175_h2h_en_la_lambda.py`, 47.794 partidos):
+
+    y − λ = β · (señal − λ)
+
+    señal      n        β        error est.    t
+    h2h      31.473   0,3401      0,0097      35,1
+    forma    47.781   0,3768      0,0082      45,7
+    juntas             0,186 y 0,255          ← los que se usan
+
+Un β de 0 habría significado «el modelo ya se lo sabía». No lo es, ni de lejos.
+Se usan los **coeficientes conjuntos** porque sumar los sueltos contaría dos
+veces la parte común.
+
+**Y se midieron con la ventana que producción aplica**: los últimos `N_H2H`=10
+cruces y los últimos `N_FORMA`=5 partidos de cada equipo. La primera medición
+usó *todos* los cruces previos y daba 0,204/0,255; se rehízo al ver que el
+código no podía aplicar eso. Un peso medido sobre una ventana que nadie usa es
+un peso inventado con decimales.
+
+Y esta vez la mejora **sobrevive al encogimiento**, que es la prueba que tumbó
+a la binomial negativa:
+
+    probabilidad CRUDA, 3 líneas (n=31.473)   ECE 0,0795 → 0,0460   (−42 %)
+    PUBLICADA, 2,5 con precio (n=12.059)      ECE 0,0111 → 0,0083   (−25 %)
+    sin precio de la casa (n=19.414)          ECE 0,0891 → 0,0496   (−44 %)
+
+**Dónde estaba el agujero.** `factor_lambda(..., rival=...)` de la v174 sólo se
+llamaba desde `valor_apuesta._factor_lambda_de`, o sea para córners, tarjetas y
+remates. La escalera de **goles** salía de sumar la matriz de marcador y el
+historial del cruce no la tocaba. Ahora `alpha_finder.lineas_de_goles` recibe
+liga y equipos y corrige la λ antes de repartir.
+
+**Por qué Poisson y no la matriz.** Medido en el mismo sitio: el marginal de
+goles totales de la matriz de marcador **es** Poisson(λ_h+λ_a) hasta el cuarto
+decimal en ECE, Brier y log-loss. Recalcular con Poisson sobre la λ corregida
+no cambia el modelo: le aplica la corrección. Y sin señal —sin H2H ni forma—
+ese camino ni se toma: la salida es byte a byte la suma de la matriz de
+siempre.
+
+### 25.7 La política, liquidada contra el marcador
+
+Era el **pendiente nº 1 del traspaso**: ni la v173 ni la v174 se habían
+liquidado nunca. Ahora sí, las dos, y la v175 con ellas
+(`_v169_goles_y_eficacia.py`, 47.794 partidos):
+
+    política  apuestas    de      acierto  anunciado   ROI %    p5 %
+    v164        47.794   47.794    74,5 %    78,9 %    −8,42   −12,25
+    v169        44.421   47.794    75,2 %    77,0 %    −5,00    −7,47
+    v170        44.557   47.794    76,0 %    78,0 %    −6,17   −12,61
+    v171         2.947   47.794    66,0 %    65,2 %    −0,67    −2,81
+    v174        35.954   47.794    52,7 %    52,5 %    −4,72    −5,57
+    v175        21.837   47.794    58,3 %    58,2 %    −4,64    −5,62
+
+Tres lecturas, y ninguna es que se gane dinero:
+
+1. **La v175 mejora a la v174**, que es lo que había. Poco en ROI (−4,64 contra
+   −4,72) y mucho en acierto (58,3 % contra 52,7 %) con la mitad de apuestas.
+2. **Las dos son honestas.** La distancia entre lo que se anuncia y lo que pasa
+   es de 0,2 puntos en la v174 y de 0,1 en la v175. La v164 anunciaba 78,9 % y
+   acertaba 74,5 %: cuatro puntos y medio de mentira.
+3. **La v171 sigue siendo la mejor por ROI y sólo cubría el 6 % de los
+   partidos.** Levantar la cuarentena y el suelo de Score cuesta cuatro puntos
+   de ROI y multiplica por siete la cobertura. Es el intercambio que se pidió y
+   queda escrito aquí.
+
+**Limitación, la misma de siempre:** el ledger sólo guarda cuota de goles 2,5 y
+del 1X2. En producción la regla mira además córners, tarjetas, la escalera
+entera de goles y la doble oportunidad, que aquí no se pueden reconstruir. La
+tabla mide **la regla**, no todo el catálogo.
+
+### 25.9 El coste en el barrido, que era un requisito explícito
+
+«No añadir más de 0,5 s al barrido.» La primera versión lo incumplía por seis
+veces y hubo que arreglar dos cosas:
+
+    primera versión ........................  19,4 ms/partido  (2,9 s en 150)
+    con índice por competición .............   5,8 ms/partido  (0,9 s)
+    y con la Poisson vectorizada ...........   0,11 ms/partido (0,017 s)
+
+1. **`h2h()` y `forma()` filtran el histórico entero cada vez.** Se sustituyen
+   por `_indice_goles(liga)`, que lo recorre UNA vez por competición y deja dos
+   diccionarios —cruce → goles, equipo → goles— para consultar en O(1). El
+   índice cuesta 11 ms por liga y lo comparten sus diez o veinte partidos.
+2. **Siete llamadas sueltas a `scipy.stats.poisson.cdf`**, una por línea. Una
+   sola llamada vectorizada con las siete a la vez.
+
+El resultado son 17 ms en un barrido de 150 partidos: el 3 % del techo.
+
+### 25.8 Lo que la tarjeta enseña ahora
+
+    Toluca vs Austin FC
+    Fútbol · Liga MX · 🕐 21:00
+
+    📊 CONTEXTO            H2H + forma de los dos + ELO
+    🏆 APUESTA RECOMENDADA la de máximo Score, con cuota y Score
+       [🎲 Jugar en Playdoit]
+    📊 Otras opciones      las 2-3 siguientes de la MISMA lista
+    📊 MERCADOS            una fila por mercado que Playdoit cotice, cada
+                           una con SU recomendación y SU Score
+    📊 ESTABILIDAD         los seis semáforos, sin cambios
+    🔍 Análisis            todo el detalle, plegado
+
+Ningún candado en ninguna parte.

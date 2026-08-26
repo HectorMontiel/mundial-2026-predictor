@@ -612,7 +612,16 @@ def forma_tenis(jugador: str, n: int = VENTANA) -> Dict:
     cinco partidos por superficie dejaría muestras de uno o dos, que no dicen
     nada.
     """
-    vacio = {'n': 0, 'jugador': jugador}
+    # v175 — EL ESQUEMA COMPLETO, SIEMPRE. Es el mismo defecto que la
+    # v153.1 arreglo en `forma` y que el docstring de aquella llamo «un
+    # contrato a medias»: los dos caminos de «pocos partidos» devolvian
+    # `n` y nada mas, la interfaz veia `n` positivo, accedia a `racha` y
+    # reventaba. Medido en `valida_render` de la v172 y de la v174: dos
+    # `KeyError: 'racha'` por pasada, y cada uno se lleva por delante la
+    # pestaña ENTERA del Modo Modelo, no solo el bloque de tenis.
+    vacio = {'n': 0, 'jugador': jugador, 'racha': '', 'ganados': 0,
+             'perdidos': 0, 'sets_favor': 0, 'sets_contra': 0,
+             'pct_sets': None}
     d = _historico_tenis()
     if d is None or getattr(d, 'empty', True) or not jugador:
         return vacio

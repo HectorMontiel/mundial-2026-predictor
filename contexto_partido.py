@@ -201,6 +201,167 @@ def _factor(dominio, fh, fa, d_elo, es_home: bool) -> float:
     return round(max(FACTOR_MINIMO, min(FACTOR_MAXIMO, f)), 3)
 
 
+# ---------------------------------------------------------------------------
+# v175 — EL HISTORICO ENTRA EN LA LAMBDA DE GOLES, Y CON EL PESO MEDIDO
+# ---------------------------------------------------------------------------
+# EL ENCARGO: «aumentar el peso del H2H en la lambda... pesos a calibrar con el
+# historico (regresion o gradiente)». Se calibraron. El fichero de la medicion
+# es `_v175_h2h_en_la_lambda.py` y esto es lo que dijo, sobre los 47.794
+# partidos walk-forward del ledger y con el H2H calculado SOLO con los cruces
+# anteriores a cada fecha:
+#
+#     regresion sobre el residuo   y - lambda = beta * (senal - lambda)
+#
+#       senal        n        beta     error est.      t
+#       h2h        31.473    0,3401      0,0097      35,08
+#       forma      47.781    0,3768      0,0082      45,73
+#       las dos a la vez:  beta_h2h 0,1858 · beta_forma 0,2547
+#
+# Un beta de 0 habria significado «el modelo ya se lo sabia». Sueltos salieron
+# 0,340 y 0,377 con t de 35 y 46; juntos, 0,186 y 0,255 — o sea que comparten
+# parte de la senal pero cada uno aporta lo suyo. Se usan los coeficientes
+# CONJUNTOS: sumar los sueltos seria contar dos veces la parte comun.
+#
+# Y SE MIDIERON CON LA VENTANA QUE USA ESTE MODULO: los ultimos `N_H2H` cruces
+# y los ultimos `N_FORMA` partidos de cada equipo. Medir sobre TODOS los cruces
+# daba un beta ligeramente distinto (0,204/0,244) que luego nadie aplicaria.
+#
+# LO QUE MEJORA, MEDIDO CONTRA EL ECE
+#
+#     probabilidad CRUDA, 3 lineas, n=31.473    0,0795 -> 0,0460   (-42 %)
+#     PUBLICADA (encogida al precio), 2,5       0,0111 -> 0,0083   (-25 %)
+#     sin precio de la casa (n=19.414)          0,0891 -> 0,0496   (-44 %)
+#
+# La segunda fila es la que decide. Este proyecto publica la probabilidad
+# ENCOGIDA hacia el precio con w=0,25 (v166), asi que cualquier mejora sobre la
+# cruda entra diluida cuatro veces y puede desaparecer entera — le paso a la
+# binomial negativa, que mejora la cruda y EMPEORA la publicada
+# (`_v175_goles_binomial_negativa.py`). Esta sobrevive.
+BETA_H2H = 0.186
+BETA_FORMA = 0.255
+LAMBDA_SUELO = 0.05          # el mismo suelo con el que se midio
+
+
+_INDICE: Dict[str, Dict] = {}
+
+
+def _indice_goles(clave_liga: str) -> Dict:
+    """
+    Los goles totales de cada cruce y de cada equipo, INDEXADOS UNA VEZ.
+
+    POR QUE EXISTE ESTO Y NO SE LLAMA A `h2h` Y `forma`. Se midio: con
+    esas dos —cada una filtrando el historico entero de la competicion—
+    la correccion de lambda costaba **19,4 ms por partido**, o sea 2,9 s
+    en un barrido de 150. El encargo pone el techo en 0,5 s.
+
+    Recorrer el historico UNA vez por competicion y dejar los dos
+    diccionarios montados deja la consulta en O(1). El coste se paga una
+    sola vez y se comparte entre todos los partidos de esa liga, que es
+    justo el caso del barrido: diez o veinte partidos por competicion.
+    """
+    clave = str(clave_liga or "")
+    if clave in _INDICE:
+        return _INDICE[clave]
+    salida = {'cruces': {}, 'equipos': {}}
+    try:
+        import pandas as pd
+        import rendimiento_equipos as rq
+        d = rq._historico(clave)
+        if d is None or getattr(d, "empty", True):
+            _INDICE[clave] = salida
+            return salida
+        d = d.sort_values('date')
+        gh = pd.to_numeric(d['home_goals'], errors='coerce')
+        ga = pd.to_numeric(d['away_goals'], errors='coerce')
+        total = (gh + ga).to_numpy()
+        casa = d['home_team'].astype(str).to_numpy()
+        fuera = d['away_team'].astype(str).to_numpy()
+        cruces, equipos = salida['cruces'], salida['equipos']
+        for h, a, t in zip(casa, fuera, total):
+            if t != t:                 # NaN: partido sin marcador
+                continue
+            t = float(t)
+            cruces.setdefault(tuple(sorted((h, a))), []).append(t)
+            equipos.setdefault(h, []).append(t)
+            equipos.setdefault(a, []).append(t)
+    except Exception as e:
+        logger.debug('[contexto] indice de goles de %s: %s', clave, e)
+    _INDICE[clave] = salida
+    return salida
+
+
+def _goles_recientes(clave_liga: str, equipo: str) -> Optional[float]:
+    """Goles TOTALES por partido en los ultimos `N_FORMA` de ese equipo."""
+    suyos = (_indice_goles(clave_liga).get('equipos') or {}).get(
+        str(equipo or ""))
+    if not suyos:
+        return None
+    ultimos = suyos[-N_FORMA:]
+    if len(ultimos) < 3:
+        return None
+    return sum(ultimos) / len(ultimos)
+
+
+def _goles_del_h2h(clave_liga: str, home: str, away: str):
+    """
+    Goles totales medios de los ultimos `N_H2H` cruces, o `(None, 0)`.
+
+    Devuelve `(media, n)`. Es la MISMA ventana que usa `h2h` para pintar
+    el bloque de contexto: si la tarjeta enseña «10 cruces · 1,7 goles»,
+    ese 1,7 es exactamente el numero que movio la lambda.
+    """
+    par = tuple(sorted((str(home or ''), str(away or ''))))
+    prev = (_indice_goles(clave_liga).get('cruces') or {}).get(par)
+    if not prev:
+        return None, 0
+    ultimos = prev[-N_H2H:]
+    return sum(ultimos) / len(ultimos), len(ultimos)
+
+
+def lambda_goles(clave_liga: str, home: str, away: str,
+                 lam: float) -> float:
+    """
+    La lambda de goles del partido, corregida con el H2H y la forma reciente.
+
+        lambda' = lambda + 0,186 * (goles_del_H2H - lambda)
+                         + 0,255 * (goles_recientes - lambda)
+
+    Cada sumando entra SOLO si su senal existe: sin cruces suficientes no hay
+    termino de H2H, y sin forma de los dos no hay termino de forma. Sin ninguna
+    de las dos devuelve `lam` intacta, que es lo que hacia la v174 — o sea que
+    los partidos sin historial no cambian ni un decimal.
+
+    NO SE RECORTA A UNA HORQUILLA. La medicion se hizo asi, con suelo y sin
+    techo, y meter aqui un recorte que no se midio seria publicar un numero
+    distinto del que dio 0,0083 de ECE.
+    """
+    try:
+        lam = float(lam)
+    except (TypeError, ValueError):
+        return lam
+    if lam <= 0 or not (clave_liga and home and away):
+        return lam
+    ck = 'lam|%s|%s|%s|%.4f' % (clave_liga, home, away, lam)
+    if ck in _CACHE:
+        return _CACHE[ck]
+    ajuste = 0.0
+    try:
+        g_h2h, n_h2h = _goles_del_h2h(clave_liga, home, away)
+        if n_h2h >= MIN_H2H and g_h2h is not None:
+            ajuste += BETA_H2H * (float(g_h2h) - lam)
+        gh = _goles_recientes(clave_liga, home)
+        ga = _goles_recientes(clave_liga, away)
+        if gh is not None and ga is not None:
+            ajuste += BETA_FORMA * ((gh + ga) / 2.0 - lam)
+    except Exception as e:
+        logger.debug('[contexto] lambda de goles %s-%s: %s', home, away, e)
+        _CACHE[ck] = lam
+        return lam
+    salida = round(max(LAMBDA_SUELO, lam + ajuste), 4)
+    _CACHE[ck] = salida
+    return salida
+
+
 # El recorte del factor de lambda. Cinco partidos son POCOS: un equipo que
 # metio 2 goles en cinco no es un equipo de 0,4 goles, es un equipo con una
 # mala racha de cinco partidos. Sin recorte, la media movil de cinco haria
