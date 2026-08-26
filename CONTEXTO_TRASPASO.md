@@ -1417,11 +1417,11 @@ es subir el umbral del verde o sacar la doble del catálogo.
 
 1. La monotonía de la doble oportunidad (93 % de los partidos). Decidir si se
    quiere y con qué umbral.
-2. El smoke completo quedó sin veredicto: `smoke_botones.py` muere con
-   `RecursionError` dentro de `streamlit.testing.element_tree` al recorrer el
-   árbol. Sospecha razonable: los ~60 `st.expander` que la v167 añadió (uno por
-   tarjeta) anidados en `st.container`. `valida_render.py` sí pasa. Medir si es
-   el expander y, si lo es, plegar el análisis de otra forma.
+2. ~~El smoke muere con `RecursionError`~~ — **DESCARTADO en la v171.** El
+   proceso terminó con **exit 0**; el `RecursionError` que se vio era ruido de
+   `streamlit.testing` al cerrar un proceso MATADO por tiempo de espera, no un
+   fallo de la prueba. Los `st.expander` de la v167 no son el problema. Queda
+   escrito porque la conclusión equivocada ya estaba anotada como defecto.
 3. El backtest de eficacia sólo cubre 1X2, doble oportunidad, goles y BTTS —los
    que los ledgers guardan—. Córners, tarjetas y remates no se pueden
    reconstruir hacia atrás sin un ledger walk-forward propio.
@@ -1475,10 +1475,15 @@ Conviene no volver a moverlo sin motivo.
 
 1. La cobertura de cuotas manda sobre todo: sólo 23 de 117 partidos tienen
    recomendación por Score. Subirla es emparejamiento, no umbrales.
-2. El backtest de eficacia (`_v169_goles_y_eficacia.py`) NO se ha vuelto a
-   correr con la política del Score: sus cifras son de la v170. Hay que
-   añadirle una `_politica_v171` antes de citar números de eficacia.
+2. ~~El backtest no cubre la política del Score~~ — **HECHO.** Medido sobre
+   los mismos 47.794 partidos: **2.947 apuestas · acierto 66,0 % · anunciado
+   65,2 % · ROI −0,67 % · p5 −2,81 %**. Un orden de magnitud mejor que las
+   otras tres políticas, apostando en el 6,2 % de los partidos. SIGUE SIENDO
+   NEGATIVO: se acerca al equilibrio, no demuestra ventaja. Sólo evalúa goles
+   2,5 y 1X2 —los únicos con cuota en el ledger—, así que mide la REGLA, no
+   todo el catálogo. Detalle en BITACORA §21.9.
 3. Remates y remates a puerta casi no tienen precio (3/22). Merece decidir si
    se siguen enseñando como Mercado Rey cuando no se pueden jugar.
-4. El smoke completo sigue sin veredicto por el `RecursionError` de
-   `streamlit.testing` (§20, pendiente 2).
+4. ~~El smoke sigue sin veredicto~~ — descartado: ver 5a, pendiente 2. El
+   smoke termina con exit 0; lo que se vio era ruido de cierre de un proceso
+   matado por tiempo de espera.

@@ -8997,6 +8997,35 @@ def test_la_recomendacion_se_liquida_contra_el_resultado():
           f"sin apostar en mas partidos ({hoy['n']} de {hoy['de']})")
 
     # el ROI sigue siendo negativo y eso NO se esconde
+    # v171 — Y LA POLITICA DEL SCORE, QUE ES LA MEJOR MEDIDA HASTA HOY.
+    #
+    #     politica  apuestas    de     acierto  anunciado    ROI      p5
+    #     v164        47.794  47.794    74,5 %    78,9 %   -8,42 % -12,25 %
+    #     v169        44.421  47.794    75,2 %    77,0 %   -5,00 %  -7,47 %
+    #     v170        44.557  47.794    76,0 %    78,0 %   -6,17 % -12,61 %
+    #     v171         2.947  47.794    66,0 %    65,2 %   -0,67 %  -2,81 %
+    #
+    # Un orden de magnitud mejor en ROI, y apostando en el 6,2 % de los
+    # partidos en vez de en el 93 %. SIGUE SIENDO NEGATIVO: -0,67 % con p5
+    # -2,81 % no demuestra ventaja, demuestra que se acerco al punto de
+    # equilibrio. No se puede prometer dinero con esto.
+    score = d.get('v171')
+    if score:
+        check(score['n'] < hoy['n'] / 5,
+              f"la politica del Score es mucho mas selectiva ({score['n']} de "
+              f"{score['de']})")
+        check(score['roi'] > hoy['roi'],
+              f"y rinde mejor que elegir por probabilidad ({score['roi']} "
+              f"contra {hoy['roi']})")
+        check(score['roi'] > viejo['roi'],
+              f"y muchisimo mejor que la v164 ({score['roi']} contra "
+              f"{viejo['roi']})")
+        check(score['roi'] < 0,
+              f"pero NO es positivo ({score['roi']} %): no se promete dinero")
+        check(abs(score['esperado'] - score['acierto']) <= 0.02,
+              f"y lo que anuncia se parece a lo que pasa "
+              f"({score['esperado']} contra {score['acierto']})")
+
     if hoy.get('roi') is not None:
         check(hoy['roi'] < 0,
               f"el ROI sigue negativo ({hoy['roi']} %): esto calibra, no "

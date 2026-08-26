@@ -252,6 +252,41 @@ def _politica_v170(cands):
     return max(vivos, key=lambda c: c['p_ajustada'])
 
 
+def _politica_v171(cands):
+    """
+    v171 — LA DE MEJOR SCORE = probabilidad ajustada x cuota.
+
+    LIMITACION QUE HAY QUE DECIR: en el ledger solo hay cuota para goles 2,5 y
+    para el 1X2, asi que esta politica solo puede evaluar esas. En produccion
+    mira ademas cornrs, tarjetas, la escalera entera de goles y la doble
+    oportunidad, que aqui no se pueden reconstruir porque el ledger no guarda
+    su precio. Asi que esta tabla mide la REGLA, no todo el catalogo.
+    """
+    vivos = []
+    for c in cands:
+        if not c['cuota']:
+            continue                     # sin cuota no hay Score
+        p = c['p']
+        contrastada = c['p_mkt'] is not None
+        if contrastada:
+            p = 0.25 * p + 0.75 * c['p_mkt']
+            if p - c['p_mkt'] > 0.10:
+                continue
+            if p - c['p_mkt'] > 0.05:
+                p = min(p, 0.60)
+        if c['estado'] not in ('estable', 'moderado'):
+            continue
+        score = p * c['cuota']
+        if score < 0.95 or p < 0.50:
+            continue
+        if p < 0.60 and not (score > 1.15 and contrastada):
+            continue
+        vivos.append({**c, 'p_ajustada': p, 'score': score})
+    if not vivos:
+        return None
+    return max(vivos, key=lambda c: (c['score'], c['p_ajustada']))
+
+
 def _politica_v164(cands):
     """Lo que proponía antes: el máximo de probabilidad cruda, sin más."""
     vivos = [c for c in cands if c['p'] >= 0.50]
@@ -276,7 +311,7 @@ def eficacia(rng):
         filas = (me.de_liga(lg).get('mercados') or [])
         estab_por_liga[lg] = {f['mercado']: f for f in filas}
 
-    res = {'v169': [], 'v170': [], 'v164': []}
+    res = {'v169': [], 'v170': [], 'v171': [], 'v164': []}
     for fila in d.to_dict('records'):
         cands = _candidatos_del_partido(fila, estab_por_liga.get(fila['liga'],
                                                                  {}))
@@ -284,6 +319,7 @@ def eficacia(rng):
             continue
         for nombre, pol in (('v169', _politica_v169),
                             ('v170', _politica_v170),
+                            ('v171', _politica_v171),
                             ('v164', _politica_v164)):
             e = pol(cands)
             if e is None:
@@ -298,7 +334,7 @@ def eficacia(rng):
              'p5 %'))
     print('-' * 78)
     salida = {}
-    for nombre in ('v164', 'v169', 'v170'):
+    for nombre in ('v164', 'v169', 'v170', 'v171'):
         r = res[nombre]
         if not r:
             continue
@@ -326,7 +362,7 @@ def eficacia(rng):
 
     # de qué mercados sale cada política
     from collections import Counter
-    for nombre in ('v164', 'v169', 'v170'):
+    for nombre in ('v164', 'v169', 'v170', 'v171'):
         c = Counter(x['mercado'] for x in res[nombre])
         print('\n  %s propone desde: %s' % (nombre, dict(c.most_common(6))))
         salida.setdefault(nombre, {})['mercados'] = dict(c)

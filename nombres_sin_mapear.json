@@ -19,13 +19,33 @@
     "contexto": "fixture→eredivisie",
     "visto": "2026-08-20"
   },
+  "AEK Athens FC": {
+    "contexto": "remates_jugador/roster",
+    "visto": "2026-08-25"
+  },
   "AFC Hornchurch": {
     "contexto": "fixture→eng_national",
     "visto": "2026-08-20"
   },
+  "AGF": {
+    "contexto": "fixture→europa_league",
+    "visto": "2026-08-25"
+  },
+  "AS Monaco": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
   "Académico de Viseu": {
     "contexto": "fixture→primeira",
     "visto": "2026-08-20"
+  },
+  "Agustín Morales": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Alejo Dramisino": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
   },
   "Amed SFK": {
     "contexto": "fixture→turquia",
@@ -45,6 +65,10 @@
   },
   "Aruba": {
     "contexto": "selecciones",
+    "visto": "2026-08-25"
+  },
+  "Atalanta": {
+    "contexto": "fixture→conference_league",
     "visto": "2026-08-25"
   },
   "Athletic Club": {
@@ -83,6 +107,14 @@
     "contexto": "selecciones",
     "visto": "2026-08-25"
   },
+  "Branndon Zapata": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Brighton & Hove Albion": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
   "Bromley": {
     "contexto": "fixture→eng_league_one",
     "visto": "2026-08-20"
@@ -90,6 +122,14 @@
   "CD Sabadell": {
     "contexto": "fixture→esp_hypermotion",
     "visto": "2026-08-20"
+  },
+  "Carlão": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Celje": {
+    "contexto": "remates_jugador/roster",
+    "visto": "2026-08-25"
   },
   "Cincinnati Open": {
     "contexto": "tenis/atp",
@@ -99,13 +139,29 @@
     "contexto": "fixture→premier",
     "visto": "2026-08-20"
   },
+  "Cristian Blanco": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "Cruz Azul": {
     "contexto": "evid",
+    "visto": "2026-08-25"
+  },
+  "D'Angelo Kazeem": {
+    "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
   "Deportivo": {
     "contexto": "fixture→laliga",
     "visto": "2026-08-17"
+  },
+  "Edson Tortolero": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Egnatia": {
+    "contexto": "fixture→europa_league",
+    "visto": "2026-08-25"
   },
   "Energie Cottbus": {
     "contexto": "fixture→ger_bundesliga2",
@@ -115,8 +171,68 @@
     "contexto": "fixture→turquia",
     "visto": "2026-08-20"
   },
+  "Estiven Sarria": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Everton Morelli": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Ewerton": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "FC Hradec Králové": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "FC Inter Turku": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
   "FC Juarez": {
     "contexto": "evid",
+    "visto": "2026-08-25"
+  },
+  "FC Sion": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "FC Twente": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "Facundo Pons": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Fenerbahçe": {
+    "contexto": "remates_jugador/roster",
+    "visto": "2026-08-25"
+  },
+  "Gastón Sirino": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Geovany Soares": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Getafe": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "Ghampani Lungu": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Goitseone Phoko": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Gornik Zabrze": {
+    "contexto": "fixture→conference_league",
     "visto": "2026-08-25"
   },
   "Group A 2nd Place": {
@@ -171,25 +287,69 @@
     "contexto": "evid",
     "visto": "2026-08-25"
   },
+  "Guilherme Mariano": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Guilherme Queiroz": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Hajduk Split": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
   "Hapoel Be'er": {
     "contexto": "fixture→champions",
-    "visto": "2026-08-17"
+    "visto": "2026-08-25"
+  },
+  "Hapoel Tel Aviv": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "Harold Majadibodu": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
   },
   "Harrogate Town": {
     "contexto": "fixture→eng_national",
     "visto": "2026-08-20"
   },
+  "Heart of Midlothian": {
+    "contexto": "remates_jugador/roster",
+    "visto": "2026-08-25"
+  },
   "Hellas Verona": {
     "contexto": "fixture→ita_serie_b",
     "visto": "2026-08-20"
+  },
+  "Hibernian": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "Hugo": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
   },
   "Hull City": {
     "contexto": "fixture→premier",
     "visto": "2026-08-20"
   },
+  "Imraan Jones": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Inter D'Escaldes": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
   "Iraklis": {
     "contexto": "fixture→gre_super_league",
     "visto": "2026-08-20"
+  },
+  "Isaac Camargo": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
   },
   "Istanbul Basaksehir": {
     "contexto": "fixture→turquia",
@@ -199,9 +359,57 @@
     "contexto": "fixture→jpn_j1",
     "visto": "2026-08-20"
   },
+  "Jagiellonia Bialystok": {
+    "contexto": "fixture→europa_league",
+    "visto": "2026-08-25"
+  },
+  "Jaisen Clifford": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Jefferson Mena": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Jefferson Nem": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "John Mokone": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Jonathan Lemos": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Jordan": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "José García": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Juan Arcila": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Juan Díaz": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Kabelo Mofokeng": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "Kalamata": {
     "contexto": "fixture→gre_super_league",
     "visto": "2026-08-20"
+  },
+  "Kauno Zalgiris": {
+    "contexto": "fixture→europa_league",
+    "visto": "2026-08-25"
   },
   "Kyrgyz Republic": {
     "contexto": "selecciones",
@@ -209,7 +417,11 @@
   },
   "LASK Linz": {
     "contexto": "fixture→champions",
-    "visto": "2026-08-17"
+    "visto": "2026-08-25"
+  },
+  "Lautaro López": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
   },
   "Le Mans": {
     "contexto": "fixture→ligue_1",
@@ -219,6 +431,10 @@
     "contexto": "fixture→eng_league_one",
     "visto": "2026-08-20"
   },
+  "Levski Sofia": {
+    "contexto": "remates_jugador/roster",
+    "visto": "2026-08-25"
+  },
   "León": {
     "contexto": "evid",
     "visto": "2026-08-25"
@@ -227,13 +443,49 @@
     "contexto": "nfl",
     "visto": "2026-08-15"
   },
+  "Luis Quiñones": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Luiz Guilherme Vieira Da Silva": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Lukas Soza": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Lyon": {
+    "contexto": "remates_jugador/roster",
+    "visto": "2026-08-25"
+  },
+  "Léo Tocantins": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Maliele Pule": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "Mallorca": {
     "contexto": "fixture→esp_hypermotion",
     "visto": "2026-08-15"
   },
+  "Matheus Sales": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Melusi Buthelezi": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "Mito Hollyhock": {
     "contexto": "fixture→jpn_j1",
     "visto": "2026-08-20"
+  },
+  "Mjällby AIF": {
+    "contexto": "fixture→europa_league",
+    "visto": "2026-08-25"
   },
   "Monterrey": {
     "contexto": "evid",
@@ -241,6 +493,14 @@
   },
   "Montserrat": {
     "contexto": "selecciones",
+    "visto": "2026-08-25"
+  },
+  "Motherwell": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "Mthetheleli Mthiyane": {
+    "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
   "Mubadala DC Open": {
@@ -251,9 +511,13 @@
     "contexto": "fixture→laliga",
     "visto": "2026-08-17"
   },
+  "Márcio Maranhão": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
   "NEC Nijmegen": {
     "contexto": "fixture→champions",
-    "visto": "2026-08-17"
+    "visto": "2026-08-25"
   },
   "Nantes": {
     "contexto": "fixture→fra_ligue2",
@@ -263,16 +527,52 @@
     "contexto": "tenis/atp",
     "visto": "2026-08-09"
   },
+  "Natã": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
   "Necaxa": {
     "contexto": "evid",
+    "visto": "2026-08-25"
+  },
+  "Nilson Castrillón": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Njabulo Ngcobo": {
+    "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
   "Notts County": {
     "contexto": "fixture→eng_league_one",
     "visto": "2026-08-20"
   },
+  "Ntuthuko Mlotshwa": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Nyiko Mobbie": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "OFI Crete": {
+    "contexto": "fixture→europa_league",
+    "visto": "2026-08-25"
+  },
   "Pachuca": {
     "contexto": "evid",
+    "visto": "2026-08-25"
+  },
+  "Patrick Brey": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Paulo Vítor": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Peixoto": {
+    "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
   "Puebla": {
@@ -315,6 +615,10 @@
     "contexto": "fixture→esp_hypermotion",
     "visto": "2026-08-20"
   },
+  "Riga FC": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
   "Rotherham United": {
     "contexto": "fixture→eng_league_two",
     "visto": "2026-08-20"
@@ -351,6 +655,22 @@
     "contexto": "selecciones",
     "visto": "2026-08-14"
   },
+  "SC Freiburg": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "SK Brann": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
+  "Sander Navarro": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Santiago Mera": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "Santos": {
     "contexto": "evid",
     "visto": "2026-08-25"
@@ -363,8 +683,28 @@
     "contexto": "selecciones",
     "visto": "2026-08-14"
   },
+  "Shane Saralina": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Simphiwe Masilela": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "Sint Maarten": {
     "contexto": "selecciones",
+    "visto": "2026-08-25"
+  },
+  "Sint-Truidense": {
+    "contexto": "fixture→europa_league",
+    "visto": "2026-08-25"
+  },
+  "Siyabonga Msomi": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Slovan Bratislava": {
+    "contexto": "remates_jugador/roster",
     "visto": "2026-08-25"
   },
   "Sonderjyske": {
@@ -391,6 +731,18 @@
     "contexto": "fixture→sco_championship",
     "visto": "2026-08-20"
   },
+  "Tashreeq Morris": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Thapelo Mokobodi": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Thiago Moraes": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
   "Tigres UANL": {
     "contexto": "evid",
     "visto": "2026-08-25"
@@ -403,8 +755,20 @@
     "contexto": "evid",
     "visto": "2026-08-25"
   },
+  "Tomás Rodríguez": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
+  "Tromso": {
+    "contexto": "fixture→conference_league",
+    "visto": "2026-08-25"
+  },
   "Turks and Caicos Islands": {
     "contexto": "selecciones",
+    "visto": "2026-08-25"
+  },
+  "Tylo Sanger": {
+    "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
   "Urawa Red Diamonds": {
@@ -415,6 +779,22 @@
     "contexto": "fixture→ger_bundesliga2",
     "visto": "2026-08-15"
   },
+  "Victor Souza": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Viking FK": {
+    "contexto": "fixture→champions",
+    "visto": "2026-08-25"
+  },
+  "Wallace": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
+  },
+  "Warley": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "Worthing": {
     "contexto": "fixture→eng_national",
     "visto": "2026-08-20"
@@ -423,9 +803,17 @@
     "contexto": "nfl",
     "visto": "2026-08-25"
   },
+  "Yesus Cabrera": {
+    "contexto": "remates_jugador",
+    "visto": "2026-08-25"
+  },
   "York City": {
     "contexto": "fixture→eng_league_two",
     "visto": "2026-08-20"
+  },
+  "Yuri": {
+    "contexto": "lineas_jugador",
+    "visto": "2026-08-25"
   },
   "Çorum FK": {
     "contexto": "fixture→turquia",

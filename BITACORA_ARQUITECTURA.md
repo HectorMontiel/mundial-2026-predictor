@@ -2724,3 +2724,49 @@ cogía los seis primeros partidos del fichero a ciegas, la ventana de fixtures s
 movió y esos seis eran de ligas sin roster cacheado. Ocho de los diecisiete sí
 servían. Ahora busca hasta encontrar cuatro. Un validador que depende del orden
 de un diccionario mide el orden, no lo que dice medir.
+
+### 21.9 La eficacia del Score, liquidada contra el marcador
+
+Quedaba pendiente y es lo que decide si el cambio valió la pena. Reconstruida
+la política del Score sobre los mismos 47.794 partidos del histórico:
+
+    política  apuestas    de      acierto   anunciado    ROI      p5
+    v164        47.794  47.794     74,5 %     78,9 %   −8,42 %  −12,25 %
+    v169        44.421  47.794     75,2 %     77,0 %   −5,00 %   −7,47 %
+    v170        44.557  47.794     76,0 %     78,0 %   −6,17 %  −12,61 %
+    v171         2.947  47.794     66,0 %     65,2 %   **−0,67 %**  −2,81 %
+
+**Un orden de magnitud mejor en ROI**, y apostando en el **6,2 %** de los
+partidos en vez del 93 %. La tasa de acierto baja —66 % contra 76 %— y eso es
+exactamente lo esperado: se cambian favoritos baratos por apuestas bien
+pagadas. Lo que importa es que el dinero mejora al hacerlo.
+
+Y la honestidad se mantiene: anuncia 65,2 % y acierta 66,0 %, se queda corta.
+
+**SIGUE SIENDO NEGATIVO, Y ESO NO SE PUEDE ADORNAR.** −0,67 % con percentil 5 de
+bootstrap en −2,81 % no demuestra ventaja: demuestra que el sistema se acercó al
+punto de equilibrio. La regla de oro del proyecto sigue en pie — nada en verde
+sin p5 positivo medido — y este canal no lo tiene. Lo que sí se puede decir es
+que de las cuatro políticas medidas, ésta es la única que se aproxima a no
+perder.
+
+**Dos limitaciones del backtest, dichas:**
+
+* Sólo evalúa **goles 2,5 y 1X2**, que son los únicos mercados con cuota en el
+  ledger. En producción la regla mira además córners, tarjetas, la escalera
+  entera de goles y la doble oportunidad, que no se pueden reconstruir hacia
+  atrás porque su precio no está guardado. Esta tabla mide la REGLA, no todo el
+  catálogo.
+* n = 2.947 frente a los 44.000 de las otras políticas: el intervalo es más
+  ancho, y por eso se mira el p5 de bootstrap y no la media a secas.
+
+### 21.10 Y un defecto que se anotó sin serlo
+
+En la v170 quedó escrito que el smoke «muere con `RecursionError` dentro de
+`streamlit.testing`». **No es cierto.** El proceso terminó con **exit 0**; lo que
+se vio eran mensajes de cierre de un proceso MATADO por tiempo de espera —
+«Exception ignored in: WeakSet…»— y no un fallo de la prueba. Los ~60
+`st.expander` de la v167 no son el problema.
+
+Queda escrito porque la conclusión equivocada llegó a anotarse como pendiente, y
+un pendiente falso cuesta tiempo al siguiente que lo lea.
