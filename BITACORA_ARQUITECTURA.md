@@ -2613,3 +2613,114 @@ no por una regla sino por tres apiladas: los goles de esa liga están en
 **cuarentena** (ECE 0,118); si hubiera cuota, el **encogimiento** bajaría el
 82 % hacia la casa; y el **techo por media de goles** lo recortaría igual. Hay un
 test por cada una.
+
+## 21. El Score: la mejor relación probabilidad/cuota, línea a línea
+
+### 21.1 Lo que la v170 hizo mal, con sus propias consecuencias
+
+La v170 eligió por probabilidad absoluta y acabó recomendando doble oportunidad
+al 79 % con cuota **1,10** en el 93 % de los partidos. Era literalmente «la
+apuesta más segura», y era inservible. Desde la v171:
+
+    Score = probabilidad ajustada × cuota de Playdoit
+
+que es el valor esperado más uno. Un Score de 1,20 significa que, si la
+probabilidad es correcta, cada peso devuelve 1,20.
+
+### 21.2 Sin cuota no hay Score, así que la cuota se guarda
+
+Hasta aquí `mercado_dia.json` guardaba sólo la probabilidad SIN MARGEN. Para el
+Score hace falta el **precio que el usuario cobra**, que no es `1/implícita` —
+la implícita ya no lleva margen y la cuota sí. Cada línea pasa a guardarse como
+
+    {'p': 0.5447, 'mas': 1.741, 'menos': 2.05}
+
+y se añaden `1x2_cuotas`, `btts_cuotas` y `doble_cuotas`. `prob_de()` y
+`cuota_de()` entienden también el formato viejo: el fichero se regenera cada
+noche y durante unas horas conviven los dos — sin esa compatibilidad la tarjeta
+se quedaría sin líneas hasta que corriera el bot.
+
+### 21.3 La escalera entera, que es la mitad del encargo
+
+El ejemplo que se dio es exacto y ahora se cumple: «Más de 2,5» al 80 % con
+cuota 1,40 da Score 1,12; «Más de 3,5» al 67 % con cuota 1,80 da **1,21**. La
+segunda es mejor apuesta y hasta la v171 la aplicación **ni la calculaba**,
+porque sólo miraba la línea más cercana a la media.
+
+`valor_apuesta` recorre todas las líneas que la casa publica de cada mercado. El
+modelo sabe dar probabilidad a cualquiera —la binomial negativa de córners,
+tarjetas y remates acepta cualquier línea, y la matriz de marcador también—, así
+que no hay que elegir una: se evalúan todas. `alpha_finder.lineas_de_goles` pasa
+de tres peldaños (1,5/2,5/3,5) a siete (0,5 a 6,5), porque una línea que el
+modelo no calcula es una que no se puede proponer aunque sea la de mejor valor.
+
+Medido sobre los partidos del día: **327 líneas candidatas** en 117 partidos.
+
+### 21.4 Qué publica Playdoit, medido antes de construir
+
+`_v171_catalogo_playdoit.py` contesta la pregunta «para saber qué otros mercados
+podemos meter». Sobre 22 tableros:
+
+    familia        publica   con línea    ¿lo modelamos?
+    goles            22/22      22/22     sí
+    corners          22/22      22/22     sí
+    tarjetas         15/22      15/22     sí
+    remates           3/22       3/22     sí
+    remates_on        3/22       3/22     sí
+    marcador exacto  22/22       0/22     no
+    jugador_goles    15/22       0/22     no
+    jugador_tarjetas 15/22       0/22     no
+
+Goles y córners están en el 100 % de los tableros. Remates y remates a puerta,
+en el 14 % — así que el Mercado Rey «Remates a puerta» de siete competiciones
+casi nunca tiene precio con el que jugarse. Eso no se sabía y cambia la lista de
+la compra.
+
+### 21.5 Dos guardas que aparecieron probando contra tableros reales
+
+**La excepción del 1,15 no es una puerta para un volado.** Sin suelo duro, la
+primera prueba contra el tablero de Real Madrid–Real Sociedad eligió «Real
+Sociedad o empate» al **38 %** con cuota 3,10 (Score 1,178) — justo la apuesta
+que el encargo dice no querer. Ahora hay suelo del 50 % pase lo que pase, y la
+excepción exige además **contraste con la casa**: un EV alto calculado sobre una
+probabilidad que nadie ha contradicho es el canal que este proyecto tiene medido
+como anti-indicador.
+
+**Nunca se propone un 🔴.** El propio encargo define el rojo como «no
+recomendado» (Score < 0,95); devolver el máximo de una lista donde todo es rojo
+sería recomendar lo menos malo. Medido: sin esa guarda salían recomendaciones
+con Score 0,872.
+
+### 21.6 La doble oportunidad, degradada a mercado normal
+
+Entra al catálogo con su cuota, y por debajo de **1,30** ni se evalúa — a ese
+precio el Score no puede competir aunque la probabilidad sea del 80 %, que es
+exactamente lo que llenaba la pantalla en la v170. Medido en un tablero real:
+1X a 1,091 y 12 a 1,111 quedan fuera; X2 a 3,10 se evalúa.
+
+### 21.7 El resultado en pantalla, medido
+
+Sobre los 117 pronósticos del día con el precio nuevo adjunto:
+
+    23 partidos con recomendación por Score (7 🟢 · 16 🟡 · 0 🔴)
+    Score mediana 1,033 · mínimo 0,961 · máximo 1,270
+    reparto: doble oportunidad 19 · córners 3 · goles 1
+
+Y cuando no hay cuotas de la casa no hay Score que calcular: ahí se cae a la vía
+de la v170, que elige por probabilidad entre lo estable. La tarjeta añade una
+tabla **💰 MEJOR VALOR** con las cuatro mejores líneas del partido, cada una con
+su probabilidad, su cuota y su Score, para que la comparación se vea.
+
+**El verde cambia de significado otra vez, y hay que decirlo:** en la v168 era
+«ventaja de precio medida», en la v170 «estable y ≥60 %», y ahora es **Score >
+1,10**. Es la tercera acepción en cuatro versiones. La coletilla de la tarjeta lo
+dice en cuatro palabras («Mejor valor del partido»), pero conviene no volver a
+moverlo sin motivo.
+
+### 21.8 Un validador que medía el orden de un diccionario
+
+`_v164_valida_tarjeta.py` falló el 2026-08-25 sin que nada se hubiera roto:
+cogía los seis primeros partidos del fichero a ciegas, la ventana de fixtures se
+movió y esos seis eran de ligas sin roster cacheado. Ocho de los diecisiete sí
+servían. Ahora busca hasta encontrar cuatro. Un validador que depende del orden
+de un diccionario mide el orden, no lo que dice medir.

@@ -7239,8 +7239,13 @@ def test_los_goles_traen_tres_lineas():
             M[i, j] = 1.0 / ((i + 1) * (j + 1))
     M = M / M.sum()
     lineas = af.lineas_de_goles({'score_matrix': M.tolist()})
-    check(set(lineas) == {'1.5', '2.5', '3.5'},
-          f"salen las tres lineas ({sorted(lineas)})")
+    # v171 — son SIETE, no tres. La recomendacion se elige por Score sobre
+    # TODAS las lineas que la casa publica (de 0,5 a 6,5), y una que el modelo
+    # no calcule es una que no se puede proponer aunque sea la de mejor valor.
+    check(set(lineas) >= {'1.5', '2.5', '3.5'},
+          f"siguen las tres de siempre ({sorted(lineas)})")
+    check(set(lineas) == {'0.5', '1.5', '2.5', '3.5', '4.5', '5.5', '6.5'},
+          f"y la escalera entera desde la v171 ({sorted(lineas)})")
     check(lineas['1.5'] > lineas['2.5'] > lineas['3.5'],
           f"y son monotonas: cuanto mas alta la linea, menos probable "
           f"({lineas})")
@@ -7982,16 +7987,22 @@ def test_el_precio_de_la_casa_llega_a_la_tarjeta_sin_pedir_red():
           f"del tablero salen los tres mercados ({sorted(precio)})")
     check(abs(sum(precio['1x2'].values()) - 1.0) < 1e-6,
           "el 1X2 sale SIN margen: los tres lados suman 1")
+    # v171 — cada linea guarda ahora un dict con la probabilidad Y las dos
+    # cuotas, porque sin cuota no hay Score. Se lee con `prob_de`, que entiende
+    # tambien el formato viejo mientras el fichero del dia no se regenere.
     for linea in ('2.5', '3.5'):
-        p = precio['goles'][linea]
+        p = mi.prob_de(precio['goles'][linea])
         check(0.0 < p < 1.0, f"la linea {linea} sale como probabilidad ({p})")
-    check(precio['goles']['3.5'] < precio['goles']['2.5'],
+    check(mi.prob_de(precio['goles']['3.5'])
+          < mi.prob_de(precio['goles']['2.5']),
           "y las lineas van en orden: mas de 3,5 es menos probable que mas "
           "de 2,5")
     crudo_mas = 1 / 1.8
-    check(precio['goles']['2.5'] < crudo_mas,
+    check(mi.prob_de(precio['goles']['2.5']) < crudo_mas,
           f"quitar el margen BAJA la implicita cruda "
-          f"({precio['goles']['2.5']:.4f} < {crudo_mas:.4f})")
+          f"({mi.prob_de(precio['goles']['2.5']):.4f} < {crudo_mas:.4f})")
+    check(abs(mi.cuota_de(precio['goles']['2.5'], 'mas') - 1.8) < 1e-6,
+          "y la cuota del lado «Mas» se conserva tal cual la publica la casa")
 
     # la traduccion de la etiqueta del proyecto a este diccionario
     check(abs(mi.implicita(precio, 'Más de 2.5') +
@@ -8282,7 +8293,7 @@ def test_los_corners_salen_en_todas_las_ligas_y_con_la_linea_de_la_casa():
     ck = p.get('corners') or {}
     check(set(ck) == {'9.5'},
           f"solo el total del PARTIDO, con sus dos lados ({sorted(ck)})")
-    check(abs(ck['9.5'] - 0.5) < 1e-6,
+    check(abs(mi.prob_de(ck['9.5']) - 0.5) < 1e-6,
           "y devigada: dos cuotas iguales dan 50 %")
     check('4.5' not in ck,
           "ni la familia por equipo ni la de media parte se cuelan")
@@ -8810,11 +8821,12 @@ def test_las_lineas_de_conteo_salen_del_tablero_y_no_se_suponen():
           "y el de cada equipo, cuando la casa lo publica")
     check('tarjetas_away' in p and '2.5' in p['tarjetas_away'],
           "los dos bandos")
-    check(p['tarjetas_home']['2.5'] != p['tarjetas_away']['2.5'],
+    check(mi.prob_de(p['tarjetas_home']['2.5'])
+          != mi.prob_de(p['tarjetas_away']['2.5']),
           "y no se confunden entre si")
     check('corners' in p and 'corners_home' in p,
           "cornrs: total y equipo")
-    check(abs(p['corners']['9.5'] - 0.5) < 1e-6,
+    check(abs(mi.prob_de(p['corners']['9.5']) - 0.5) < 1e-6,
           "devigada: dos cuotas iguales dan 50 %")
 
     # lo que se descarta, y que se descarte por el motivo correcto
@@ -8828,9 +8840,9 @@ def test_las_lineas_de_conteo_salen_del_tablero_y_no_se_suponen():
 
     # la orientacion: `casa_home` es NUESTRO local aunque la casa lo publique
     # al reves, y aqui el tablero viene invertido a proposito
-    check(p['tarjetas_home']['2.5'] == p['corners_home']['4.5'] or True,
+    check(mi.prob_de(p['tarjetas_home']['2.5']) is not None,
           "el bando se resuelve por el nombre que usa la casa")
-    check(abs(p['tarjetas_home']['2.5'] - 0.5729) < 0.01,
+    check(abs(mi.prob_de(p['tarjetas_home']['2.5']) - 0.5729) < 0.01,
           f"«Botafogo SP» es nuestro local ({p['tarjetas_home']})")
 
 
@@ -9199,6 +9211,185 @@ def test_la_tarjeta_ensena_el_catalogo_completo():
         check(len(t) <= 50, f"la fila de doble oportunidad es corta: «{t}»")
 
 
+
+def test_la_recomendacion_se_elige_por_score_y_no_por_probabilidad():
+    """
+    v171 — LA MEJOR RELACION PROBABILIDAD/CUOTA, NO LA MAS SEGURA.
+
+    La v170 elegia por probabilidad absoluta y acabo recomendando doble
+    oportunidad al 79 % con cuota 1,10 en el 93 % de los partidos. Desde la
+    v171 manda `Score = probabilidad ajustada x cuota de Playdoit`, que es el
+    valor esperado mas uno.
+
+    El ejemplo del encargo, comprobado literalmente: «Mas de 2,5» al 80 % con
+    cuota 1,40 da 1,12; «Mas de 3,5» al 67 % con cuota 1,80 da 1,21. Gana la
+    segunda, y hasta la v171 la aplicacion ni la calculaba.
+    """
+    import valor_apuesta as va
+
+    check(abs(va.SCORE_VERDE - 1.10) < 1e-9,
+          f"el verde es Score > 1,10 ({va.SCORE_VERDE})")
+    check(abs(va.SCORE_AMBAR - 0.95) < 1e-9,
+          f"y el ambar baja hasta 0,95 ({va.SCORE_AMBAR})")
+
+    # el semaforo es por SCORE, que es lo que ahora significa el color
+    check(va.semaforo(1.21) == '🟢', "Score 1,21 es verde")
+    check(va.semaforo(1.00) == '🟡', "Score 1,00 es ambar")
+    check(va.semaforo(0.90) == '🔴', "Score 0,90 es rojo")
+    check(va.semaforo(None) == '⚪', "sin cuota no hay color")
+    check(va.semaforo(1.20, prob=0.30) == '🟢',
+          "un Score alto con probabilidad baja sigue siendo valor...")
+    check(va.semaforo(1.05, prob=0.30) == '🔴',
+          "...pero uno mediano con probabilidad baja, no")
+
+    # y el ejemplo del encargo, con las dos lineas del mismo mercado
+    a = va._fila('Goles', 'Total', 'Goles: Más de 2.5', 0.80, 1.40, 0.72,
+                 'goles', 2.5)
+    b = va._fila('Goles', 'Total', 'Goles: Más de 3.5', 0.67, 1.80, 0.60,
+                 'goles', 3.5)
+    check(abs(a['score'] - 1.12) < 0.01 and abs(b['score'] - 1.206) < 0.01,
+          f"los Score salen como en el ejemplo ({a['score']}, {b['score']})")
+    check(b['score'] > a['score'],
+          "y la de 3,5 vale mas que la de 2,5 pese a ser menos probable")
+
+
+def test_el_score_no_recomienda_volados_ni_rojos():
+    """
+    v171 — DOS GUARDAS QUE APARECIERON PROBANDO CONTRA TABLEROS REALES.
+
+    1) LA EXCEPCION DEL 1,15 NO ES UNA PUERTA PARA UN VOLADO. Sin suelo duro,
+       la primera prueba contra el tablero de Real Madrid-Real Sociedad eligio
+       «Real Sociedad o empate» al 38 % con cuota 3,10 (Score 1,178) — justo
+       la apuesta que el encargo dice no querer. Ahora hay suelo del 50 % pase
+       lo que pase, y la excepcion exige ademas CONTRASTE con la casa: un EV
+       alto sobre una probabilidad que nadie ha contradicho es el canal que
+       este proyecto tiene medido como anti-indicador.
+
+    2) NUNCA SE PROPONE UN 🔴. El propio encargo define el rojo como «no
+       recomendado»; devolver el maximo de una lista donde todo es rojo seria
+       recomendar lo menos malo. Medido: sin esta guarda salian
+       recomendaciones con Score 0,872.
+    """
+    import valor_apuesta as va
+
+    check(va.PROB_SUELO_DURO >= 0.50,
+          f"hay un suelo duro de probabilidad ({va.PROB_SUELO_DURO})")
+
+    src = open('valor_apuesta.py', encoding='utf-8').read()
+    cuerpo = src.split('def mejor(')[1]
+    check('SCORE_AMBAR' in cuerpo,
+          "`mejor` no devuelve nada por debajo del ambar")
+    check('PROB_SUELO_DURO' in cuerpo, "ni por debajo del suelo duro")
+    check("f.get('contrastada')" in cuerpo,
+          "y la excepcion del Score alto exige contraste con la casa")
+
+    # la doble oportunidad no entra a precio de saldo
+    check(abs(va.CUOTA_MINIMA_DOBLE - 1.30) < 1e-9,
+          f"la doble oportunidad exige cuota >= 1,30 ({va.CUOTA_MINIMA_DOBLE})")
+    src_do = src.split('LA DOBLE OPORTUNIDAD ENTRA')[1][:900]
+    check('CUOTA_MINIMA_DOBLE' in src_do,
+          "y el filtro esta en el sitio donde se construye")
+
+
+def test_la_casa_guarda_sus_cuotas_y_el_lector_es_compatible():
+    """
+    v171 — SIN CUOTA NO HAY SCORE, ASI QUE LA CUOTA SE GUARDA.
+
+    Hasta la v170 el precalculo del dia guardaba solo la probabilidad SIN
+    MARGEN, que bastaba para contrastar. Para el Score hace falta el PRECIO que
+    el usuario cobra — que no es 1/implicita, porque la implicita ya no lleva
+    margen y la cuota si.
+
+    El fichero se regenera cada noche, asi que durante unas horas conviven el
+    formato viejo (`float`) y el nuevo (`dict`). El lector entiende los dos: sin
+    eso, la tarjeta se quedaria sin lineas hasta que corriera el bot.
+    """
+    import mercado_implicito as mi
+
+    tablero = {'casa': 'Playdoit', 'home': 'A', 'away': 'B',
+               'casa_home': 'A', 'casa_away': 'B', 'mercados': [
+                   {'nombre': 'Total', 'sv': '2.5', 'selecciones': [
+                       {'nombre': 'Más de 2.5', 'cuota': 1.80},
+                       {'nombre': 'Menos de 2.5', 'cuota': 2.05}]},
+                   {'nombre': 'Resultado Final (Tiempo Regular)',
+                    'selecciones': [{'nombre': 'A', 'cuota': 2.2, 'tipo': 1},
+                                    {'nombre': 'Empate', 'cuota': 3.4,
+                                     'tipo': 2},
+                                    {'nombre': 'B', 'cuota': 3.1,
+                                     'tipo': 3}]},
+                   {'nombre': 'Doble oportunidad', 'selecciones': [
+                       {'nombre': '1X', 'cuota': 1.28},
+                       {'nombre': '12', 'cuota': 1.31},
+                       {'nombre': 'X2', 'cuota': 1.62}]}]}
+    p = mi.del_tablero(tablero)
+    g = (p.get('goles') or {}).get('2.5')
+    check(isinstance(g, dict),
+          f"la linea guarda un dict, no un numero suelto ({g})")
+    check(abs(mi.cuota_de(g, 'mas') - 1.80) < 1e-6,
+          "con la cuota del lado «Mas»")
+    check(abs(mi.cuota_de(g, 'menos') - 2.05) < 1e-6, "y la del «Menos»")
+    check(0.0 < mi.prob_de(g) < 1.0, "y la probabilidad sin margen")
+    check(mi.prob_de(g) < 1 / 1.80,
+          "que es MENOR que la implicita cruda, porque se le quito el margen")
+
+    check((p.get('1x2_cuotas') or {}).get('home') == 2.2,
+          f"el 1X2 guarda sus tres cuotas ({p.get('1x2_cuotas')})")
+    check(set(p.get('doble_cuotas') or {}) == {'1X', '12', 'X2'},
+          f"y la doble oportunidad las suyas ({p.get('doble_cuotas')})")
+
+    # compatibilidad con el formato viejo
+    check(abs(mi.prob_de(0.53) - 0.53) < 1e-9,
+          "un `float` del formato viejo sigue leyendose")
+    check(mi.cuota_de(0.53) is None,
+          "y no inventa una cuota que no estaba")
+
+
+def test_se_exploran_todas_las_lineas_de_cada_mercado():
+    """
+    v171 — LA ESCALERA ENTERA, NO EL PELDAÑO MAS CERCANO A LA MEDIA.
+
+    Playdoit publica de diez a veinte lineas por mercado. El modelo sabe dar
+    probabilidad a todas —la binomial negativa acepta cualquier linea y la
+    matriz de marcador tambien—, asi que la recomendacion las mira todas.
+
+    Medido sobre los partidos del dia: 327 lineas candidatas en 117 partidos.
+    """
+    import modo_modelo as mm
+    import valor_apuesta as va
+
+    pick = {'partido': 'A vs B', 'clave_liga': 'premier', 'deporte': 'Fútbol',
+            'fecha': '2026-08-25',
+            'goles_lineas': {'1.5': 0.82, '2.5': 0.62, '3.5': 0.40},
+            'implicitas': {'casa': 'Playdoit', 'goles': {
+                '1.5': {'p': 0.78, 'mas': 1.22, 'menos': 4.20},
+                '2.5': {'p': 0.58, 'mas': 1.65, 'menos': 2.30},
+                '3.5': {'p': 0.36, 'mas': 2.60, 'menos': 1.48}}}}
+    filas = va._de_goles(pick)
+    lineas = {f['linea'] for f in filas}
+    check(lineas == {1.5, 2.5, 3.5},
+          f"se evaluan las tres lineas que publica la casa ({lineas})")
+    lados = {f['apuesta'] for f in filas}
+    check(any('Más' in x for x in lados) and any('Menos' in x for x in lados),
+          "y los dos lados de cada una")
+    for f in filas:
+        check(f['score'] is not None and f['cuota'] > 1,
+              f"cada linea trae cuota y Score ({f['apuesta']})")
+
+    # el alpha_finder calcula ahora mas lineas del modelo, o la casa publicaria
+    # lineas que no podriamos evaluar
+    af = open('alpha_finder.py', encoding='utf-8').read()
+    check('for linea in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5):' in af,
+          "el modelo calcula la escalera entera de goles")
+
+    # y la tabla de valor se pinta en la tarjeta
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('MEJOR VALOR' in src, "la tarjeta enseña la tabla de valor")
+    cuerpo = src.split('def tarjeta(st, pick')[1].split(
+        'def _analisis_completo')[0]
+    check('_tabla_valor' in cuerpo, "y se pinta en el cuerpo de la tarjeta")
+    check('Score' in src, "con el Score a la vista")
+
+
 def test_todas_las_ligas_tienen_remates():
     """
     v163 — ninguna competicion se queda sin la seccion, y la estimada lo dice.
@@ -9563,6 +9754,11 @@ if __name__ == '__main__':
     test_los_goles_del_brasileirao_b_no_pasan_del_60_por_ciento()
     test_la_linea_de_jugador_es_la_principal_de_la_casa()
     test_la_tarjeta_ensena_el_catalogo_completo()
+    print('\n=== v171: el Score, todas las lineas ===')
+    test_la_recomendacion_se_elige_por_score_y_no_por_probabilidad()
+    test_el_score_no_recomienda_volados_ni_rojos()
+    test_la_casa_guarda_sus_cuotas_y_el_lector_es_compatible()
+    test_se_exploran_todas_las_lineas_de_cada_mercado()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

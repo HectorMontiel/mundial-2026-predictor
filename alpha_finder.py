@@ -614,7 +614,12 @@ def lineas_de_goles(pred: Dict) -> Dict[str, float]:
             return salida
         idx = np.arange(M.shape[0])
         total = idx[:, None] + idx[None, :]
-        for linea in (1.5, 2.5, 3.5):
+        # v171 — la escalera entera, no tres peldaños. Playdoit cotiza
+        # de 0,5 a 6,5 y la recomendación se elige por Score sobre
+        # TODAS las líneas: una que el modelo no calcule es una que la
+        # aplicación no puede proponer aunque sea la de mejor valor.
+        # Cuestan una suma sobre la misma matriz que ya está hecha.
+        for linea in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5):
             p = float(M[total > linea].sum())
             if 0.0 <= p <= 1.0:
                 salida['%.1f' % linea] = round(p, 4)

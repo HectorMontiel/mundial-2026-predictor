@@ -1426,3 +1426,59 @@ es subir el umbral del verde o sacar la doble del catálogo.
    que los ledgers guardan—. Córners, tarjetas y remates no se pueden
    reconstruir hacia atrás sin un ledger walk-forward propio.
 4. Las cinco ligas con ECE de goles > 0,05 siguen ahí (§19.4).
+
+## 5b. v171 — EL SCORE: PROBABILIDAD × CUOTA, LÍNEA A LÍNEA
+
+Detalle en **BITACORA_ARQUITECTURA.md §21**.
+
+**El cambio.** La recomendación se elige por `Score = probabilidad ajustada ×
+cuota de Playdoit`, no por probabilidad absoluta. La v170 recomendaba doble
+oportunidad al 79 % con cuota 1,10 en el 93 % de los partidos.
+
+**Módulo nuevo: `valor_apuesta.py`.** Recorre TODAS las líneas que la casa
+publica de cada mercado y devuelve la de mejor Score. Constantes: `PROB_MINIMA`
+0,60 · `SCORE_EXCEPCION` 1,15 · `PROB_SUELO_DURO` 0,50 · `SCORE_VERDE` 1,10 ·
+`SCORE_AMBAR` 0,95 · `CUOTA_MINIMA_DOBLE` 1,30.
+
+**`mercado_dia.json` cambia de formato.** Cada línea pasa de `float` a
+`{'p', 'mas', 'menos'}` y se añaden `1x2_cuotas`, `btts_cuotas`,
+`doble_cuotas`. `mercado_implicito.prob_de()` y `cuota_de()` leen los dos
+formatos — el fichero se regenera cada noche y durante unas horas conviven.
+
+**`alpha_finder.lineas_de_goles` pasa de 3 líneas a 7** (0,5 a 6,5): una línea
+que el modelo no calcula no se puede proponer aunque sea la de mejor valor.
+
+**Qué publica Playdoit** (`_v171_catalogo_playdoit.py`, 22 tableros): goles y
+córners 22/22 con línea · tarjetas 15/22 · remates y a puerta **3/22**. Es
+decir, el Mercado Rey «Remates a puerta» de siete competiciones casi nunca tiene
+precio con el que jugarse.
+
+**Dos guardas descubiertas probando:**
+
+1. La excepción del Score 1,15 exige suelo duro del 50 % **y** contraste con la
+   casa. Sin ella se eligió «Real Sociedad o empate» al 38 % con cuota 3,10.
+2. `mejor()` nunca devuelve un 🔴 (Score < 0,95). Sin la guarda salían
+   recomendaciones con Score 0,872.
+
+**Medido sobre los 117 pronósticos del día:** 23 con recomendación por Score
+(7 🟢 · 16 🟡 · 0 🔴), Score mediana 1,033, máximo 1,270. Sin cuotas de la casa
+se cae a la vía de la v170.
+
+**El verde cambia de significado por tercera vez en cuatro versiones**: v168
+«ventaja de precio medida» → v170 «estable y ≥60 %» → v171 «Score > 1,10».
+Conviene no volver a moverlo sin motivo.
+
+**Validación.** Suite 2.378 checks TODO OK · `valida_render.py` 3 vistas OK ·
+`_v164_valida_tarjeta.py` OK · `_v163_valida_ficha_remates.py` OK.
+
+**Pendiente que deja:**
+
+1. La cobertura de cuotas manda sobre todo: sólo 23 de 117 partidos tienen
+   recomendación por Score. Subirla es emparejamiento, no umbrales.
+2. El backtest de eficacia (`_v169_goles_y_eficacia.py`) NO se ha vuelto a
+   correr con la política del Score: sus cifras son de la v170. Hay que
+   añadirle una `_politica_v171` antes de citar números de eficacia.
+3. Remates y remates a puerta casi no tienen precio (3/22). Merece decidir si
+   se siguen enseñando como Mercado Rey cuando no se pueden jugar.
+4. El smoke completo sigue sin veredicto por el `RecursionError` de
+   `streamlit.testing` (§20, pendiente 2).

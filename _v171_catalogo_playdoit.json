@@ -1,0 +1,249 @@
+{
+ "partidos": 22,
+ "familias": [
+  {
+   "familia": "goles",
+   "publica": 22,
+   "con_linea": 22,
+   "de": 22,
+   "modelable": true,
+   "modelo": "matriz de marcador",
+   "ejemplos": [
+    "Real Madrid total de goles",
+    "Real Sociedad total de goles",
+    "Total"
+   ]
+  },
+  {
+   "familia": "1x2",
+   "publica": 22,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": true,
+   "modelo": "matriz de marcador, encogida al mercado",
+   "ejemplos": [
+    "Resultado Final (Tiempo Regular)"
+   ]
+  },
+  {
+   "familia": "marcador",
+   "publica": 22,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "Marcador exacto",
+    "Marcador exacto XL",
+    "Primera mitad/final del partido y marcador exacto"
+   ]
+  },
+  {
+   "familia": "corners",
+   "publica": 22,
+   "con_linea": 22,
+   "de": 22,
+   "modelable": true,
+   "modelo": "ataque/defensa + binomial negativa",
+   "ejemplos": [
+    "Tiros de esquina Par/Impar",
+    "Total Tiros De Esquina",
+    "Total de Tiros de Esquina 3 opciones"
+   ]
+  },
+  {
+   "familia": "otros",
+   "publica": 22,
+   "con_linea": 22,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "Empate No Accion",
+    "Primer Gol",
+    "Último gol"
+   ]
+  },
+  {
+   "familia": "btts",
+   "publica": 22,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": true,
+   "modelo": "matriz de marcador",
+   "ejemplos": [
+    "1ª Mitad - ambos equipos marcan",
+    "2ª Mitad - ambos equipos marcan",
+    "Ambos equipos marcan"
+   ]
+  },
+  {
+   "familia": "doble_oportunidad",
+   "publica": 22,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "1X2 1ª mitad / Doble oportunidad (partido)",
+    "Doble oportunidad",
+    "Doble oportunidad 1º mitad / Doble oportunidad (part"
+   ]
+  },
+  {
+   "familia": "handicap",
+   "publica": 22,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": true,
+   "modelo": "matriz de marcador con push",
+   "ejemplos": [
+    "1ª Mitad - hándicap 1X2",
+    "Hándicap 1x2",
+    "Hándicap Asiatico"
+   ]
+  },
+  {
+   "familia": "otros_sucesos",
+   "publica": 22,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "Marcar un penalti",
+    "Penalti en el encuentro",
+    "¿Qué equipo realizará el primer saque de banda del p"
+   ]
+  },
+  {
+   "familia": "tarjetas",
+   "publica": 15,
+   "con_linea": 15,
+   "de": 22,
+   "modelable": true,
+   "modelo": "ataque/defensa + árbitro + binomial negativa",
+   "ejemplos": [
+    "Real Madrid - Total de tarjetas rojas",
+    "Real Sociedad - Total de tarjetas rojas",
+    "Total de tarjetas rojas"
+   ]
+  },
+  {
+   "familia": "jugador_tarjetas",
+   "publica": 15,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "Jugador recibe una tarjeta (Igor Zubeldia (RSO))",
+    "Jugador recibe una tarjeta (Jon Mikel Aramburu Mejia",
+    "Jugador recibe una tarjeta (Yangel Herrera (RSO))"
+   ]
+  },
+  {
+   "familia": "jugador_goles",
+   "publica": 15,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "Goleador - Carlos Espi (RMA)",
+    "Goleador - Kylian Mbappe (RMA)",
+    "Goleador - Vinicius Jr. (RMA)"
+   ]
+  },
+  {
+   "familia": "jugador_remates_on",
+   "publica": 4,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "Remates a Puerta - Endrick (RMA)",
+    "Remates a Puerta - Kylian Mbappe (RMA)",
+    "Remates a Puerta - Vinicius Jr. (RMA)"
+   ]
+  },
+  {
+   "familia": "remates_on",
+   "publica": 3,
+   "con_linea": 3,
+   "de": 22,
+   "modelable": true,
+   "modelo": "ataque/defensa + binomial negativa",
+   "ejemplos": [
+    "Primer disparo a puerta",
+    "Real Madrid Remates a Puerta totales",
+    "Real Sociedad Remates a Puerta totales"
+   ]
+  },
+  {
+   "familia": "jugador_otros",
+   "publica": 3,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "Asistencias - Arda Guler (RMA)",
+    "Asistencias - Vinicius Jr. (RMA)",
+    "Asistencias - Yan Diomande (RMA)"
+   ]
+  },
+  {
+   "familia": "remates",
+   "publica": 3,
+   "con_linea": 3,
+   "de": 22,
+   "modelable": true,
+   "modelo": "ataque/defensa + binomial negativa",
+   "ejemplos": [
+    "1X2 Remates Totales",
+    "1X2 Remates Totales a portería",
+    "¿Primer disparo de hoy? (Tiros bloqueados excluidos)"
+   ]
+  },
+  {
+   "familia": "jugador_remates",
+   "publica": 3,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": true,
+   "modelo": "Poisson por jugador encogido a la cuota posicional",
+   "ejemplos": [
+    "Remates - Bernardo Silva (RMA)",
+    "Remates - Gorka Carrera (RSO)",
+    "Remates - Jorge Cestero Sancho (RMA)"
+   ]
+  },
+  {
+   "familia": "fuera_de_juego",
+   "publica": 1,
+   "con_linea": 0,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "1X2 Fuera de juego",
+    "Fuera de juego primero"
+   ]
+  },
+  {
+   "familia": "faltas",
+   "publica": 1,
+   "con_linea": 1,
+   "de": 22,
+   "modelable": false,
+   "modelo": null,
+   "ejemplos": [
+    "1x2 Faltas",
+    "Primera falta",
+    "Real Madrid Total de faltas cometidas"
+   ]
+  }
+ ]
+}

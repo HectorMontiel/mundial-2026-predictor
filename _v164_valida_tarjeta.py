@@ -126,8 +126,17 @@ def main():
     check(bool(partidos),
           'el precálculo del día trae líneas de jugador')
 
+    # v171 — SE BUSCA HASTA ENCONTRAR, NO SE MIRAN LOS SEIS PRIMEROS.
+    #
+    # Cogia los seis primeros a ciegas y el 2026-08-25 fallo sin que nada
+    # se hubiera roto: la ventana de fixtures se movio, los seis primeros del fichero
+    # eran de ligas sin roster cacheado y el validador concluyo «1 partido
+    # probado». Ocho de los diecisiete SI servian. Un validador que depende
+    # del orden de un diccionario mide el orden, no lo que dice medir.
     probados, con_linea, con_nd = 0, 0, 0
-    for llave, datos in list(partidos.items())[:6]:
+    for llave, datos in list(partidos.items())[:40]:
+        if probados >= 4:
+            break
         clave = datos.get('clave_liga')
         h, a = datos.get('home'), datos.get('away')
         if not (clave and h and a):

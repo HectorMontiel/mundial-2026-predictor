@@ -711,6 +711,15 @@ def _filas_de(eq: Dict, icono: str, mercado: str = '',
         logger.debug('[modo_modelo] confianza de %s: %s', mercado, e)
     return {'filas': filas, 'mejor': max(filas, key=lambda f: f['prob']),
             'origen': origen,
+            # v171 — la lambda y la dispersion viajan con el bloque para que
+            #  pueda dar probabilidad a CUALQUIER linea de la
+            # casa, no solo a la que este bloque pinto. Sin esto habria que
+            # recalcularlas por fuera y dos caminos al mismo numero divergen.
+            'lambda_total': eq.get('lambda_total'),
+            'lambda_home': eq.get('lambda_home'),
+            'lambda_away': eq.get('lambda_away'),
+            'dispersion': eq.get('dispersion'),
+            'dispersion_total': eq.get('dispersion_total'),
             'aceptable': eq.get('aceptable', True),
             'error_calibracion': eq.get('error_calibracion'),
             'confianza': conf,
@@ -1549,7 +1558,44 @@ def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
     if not jugables:
         return None
 
-    # v170 — LA APUESTA MÁS SEGURA, NO LA MEJOR PAGADA.
+    # v171 — LA DE MEJOR RELACIÓN PROBABILIDAD/CUOTA.
+    #
+    # La v170 elegía por probabilidad absoluta y acabó recomendando doble
+    # oportunidad al 79 % con cuota 1,10 en el 93 % de los partidos. El usuario
+    # lo rechazó: quiere valor, no seguridad a cualquier precio.
+    #
+    #     Score = probabilidad ajustada × cuota de Playdoit
+    #
+    # `valor_apuesta` recorre TODAS las líneas que la casa publica de cada
+    # mercado —no sólo la más cercana a la media— y devuelve la de mejor Score.
+    # Si no hay cuotas de la casa no hay Score que calcular, y entonces se cae
+    # a la vía de abajo, que sigue eligiendo por probabilidad entre lo estable.
+    try:
+        import valor_apuesta as va
+        _mej = va.mejor(pick, bloques or {})
+    except Exception as e:
+        logger.debug('[modo_modelo] valor: %s', e)
+        _mej = None
+    if _mej:
+        est = _estabilidad_de(pick.get('clave_liga'), _mej['mercado'],
+                              _mej['apuesta'])
+        return {'apuesta': _mej['apuesta'], 'mercado': _mej['mercado'],
+                'prob': _mej['prob'], 'cuota': _mej['cuota'],
+                'cuota_justa': round(1.0 / max(_mej['prob'], 1e-6), 2),
+                'ev': _mej['score'] - 1.0, 'score': _mej['score'],
+                # EL VERDE PASA A SIGNIFICAR VALOR, y la tarjeta lo dice.
+                'verde': _mej['score'] > va.SCORE_VERDE,
+                'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
+                                             'remates_on'),
+                'original': _mej['prob'], 'fiable': True,
+                'contrastada': True, 'implicita': _mej.get('implicita'),
+                'bloqueada': False, 'estabilidad': est,
+                'bloque': _mej['bloque'], 'puesto': est.get('puesto'),
+                'es_rey': False, 'linea': _mej.get('linea'),
+                'semaforo': _mej.get('semaforo'), 'motivo': 'valor',
+                'aviso': ''}
+
+    # v170 — SIN CUOTAS DE LA CASA, LA MÁS SEGURA ENTRE LAS ESTABLES.
     #
     # EL CAMBIO DE FILOSOFÍA, Y ES DEL USUARIO. Hasta la v168 mandaba la
     # ventaja de PRECIO: la casa paga de más y eso es el único canal con
@@ -1620,6 +1666,42 @@ def _barra_1x2(pl, px, pv, home: str, away: str) -> str:
 # Rótulo corto de verdad: la tira se lee de un vistazo o no sirve de nada.
 _TIRA = (('resultado', '1X2'), ('goles', 'Goles'), ('btts', 'BTTS'),
          ('corners', 'Córners'), ('tarjetas', 'Tarj.'), ('remates', 'Rem.'))
+
+
+def _tabla_valor(pick: Dict, bloques: Dict, tope: int = 4) -> str:
+    """
+    v171 — LAS MEJORES LINEAS DEL PARTIDO, CON SU CUOTA Y SU SCORE.
+
+    Es la mitad del encargo que no se ve en la recomendacion: que el usuario
+    pueda comparar. «Mas de 2,5 al 80 % paga 1,40 (Score 1,12)» y «Mas de 3,5
+    al 67 % paga 1,80 (Score 1,21)» son dos apuestas del mismo mercado y la
+    segunda vale mas — hasta la v171 la aplicacion ni siquiera calculaba la
+    segunda.
+
+    Cuatro filas y ninguna frase: mercado, probabilidad, cuota y Score.
+    """
+    try:
+        import valor_apuesta as va
+        filas = va.candidatos(pick, bloques or {})
+    except Exception as e:
+        logger.debug('[modo_modelo] tabla de valor: %s', e)
+        return ''
+    if not filas:
+        return ''
+    filas = sorted(filas, key=lambda f: -f['score'])[:tope]
+    trozos = ['<div class="mm-otros">💰 MEJOR VALOR</div>']
+    for i, f in enumerate(filas):
+        trozos.append(
+            '<div class="mm-fc%s">'
+            '<span class="mm-fc-n">%s %s</span>'
+            '<span class="mm-fc-l">%.0f %%</span>'
+            '<span class="mm-fc-v">Cuota <b>%.2f</b></span>'
+            '<span class="mm-fc-v">Score <b>%.2f</b></span>'
+            '<span class="mm-fc-e">%s</span></div>'
+            % ('' if i == 0 else ' mm-sinsena', f['semaforo'],
+               _esc_mm(f['apuesta'])[:34], f['prob'] * 100, f['cuota'],
+               f['score'], '★' if i == 0 else ''))
+    return ''.join(trozos)
 
 
 def _tira_estabilidad(clave_liga) -> str:
@@ -1796,16 +1878,25 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     # v168 — la coletilla va en SU PROPIA LINEA y en cuatro palabras.
     # Pegada a la apuesta hacia una frase de 53 caracteres, que es justo
     # el parrafo que este rediseño vino a quitar.
-    if rec.get('motivo') == 'precio':
-        coleta = 'La casa paga de más'
+    if rec.get('motivo') == 'valor':
+        # El verde de esta pantalla significa VALOR desde la v171, no
+        # seguridad. Decirlo en cuatro palabras evita que se lea como antes.
+        coleta = ('Mejor valor del partido' if rec['verde']
+                  else 'Valor justo, para combinar')
     elif rec['verde']:
         coleta = ''
     else:
         coleta = 'Sólo para combinar'
-    precio = ('Cuota %.2f · justa %.2f' % (rec['cuota'], rec['cuota_justa'])
-              if rec.get('cuota') else 'Cuota justa: %.2f' % rec['cuota_justa'])
-    if rec.get('ev') is not None:
-        precio += ' · EV %+.1f %%' % (rec['ev'] * 100)
+    # v171 — la cuota y el Score, que es lo que hace comparable una apuesta
+    # con otra. «Cuota 1,80 · Score 1,21» dice mas en dos cifras que cualquier
+    # frase: por cada peso, 1,21 de vuelta si la probabilidad es correcta.
+    if rec.get('score') is not None and rec.get('cuota'):
+        precio = 'Cuota %.2f · Score %.2f' % (rec['cuota'], rec['score'])
+    elif rec.get('cuota'):
+        precio = 'Cuota %.2f · justa %.2f' % (rec['cuota'],
+                                              rec['cuota_justa'])
+    else:
+        precio = 'Cuota justa: %.2f' % rec['cuota_justa']
     st.markdown(
         '<div class="mm-rec %s">'
         '<span class="mm-rec-tit">🏆 APUESTA RECOMENDADA</span>'
@@ -1924,7 +2015,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         filas.append(_quien_remata_compacto(_qr))
         filas = [f for f in filas if f]
         if filas:
-            st.markdown(_tira_estabilidad(pick.get('clave_liga'))
+            st.markdown(_tabla_valor(pick, {'Córners': _ck, 'Tarjetas': _tj,
+                                            'Remates': (_rm or {}).get('totales'),
+                                            'Remates a puerta':
+                                                (_rm or {}).get('a_puerta')})
+                        + _tira_estabilidad(pick.get('clave_liga'))
                         + '<div class="mm-otros">📊 OTROS MERCADOS</div>'
                         + ''.join(filas), unsafe_allow_html=True)
 

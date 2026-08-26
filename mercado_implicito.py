@@ -135,6 +135,36 @@ def _es_corner(texto: str) -> bool:
     return 'corner' in t or 'esquina' in t
 
 
+def prob_de(entrada) -> Optional[float]:
+    """
+    La probabilidad SIN MARGEN de una linea, sea cual sea el formato guardado.
+
+    Hasta la v170 cada linea era un `float`; desde la v171 es un dict con la
+    probabilidad y las dos cuotas. El fichero del dia se regenera cada noche,
+    asi que durante unas horas conviven los dos — y un lector que solo
+    entienda el nuevo dejaria la tarjeta sin lineas hasta que corriera el bot.
+    """
+    if isinstance(entrada, dict):
+        v = entrada.get('p')
+    else:
+        v = entrada
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def cuota_de(entrada, lado: str = 'mas') -> Optional[float]:
+    """La cuota de ese lado, o `None` si lo guardado es del formato viejo."""
+    if not isinstance(entrada, dict):
+        return None
+    try:
+        v = float(entrada.get(lado))
+    except (TypeError, ValueError):
+        return None
+    return v if v > 1.0 else None
+
+
 def _menciona(nombre: str, equipo: str) -> bool:
     """
     ¿El rótulo de esta familia nombra a ese equipo?
@@ -183,7 +213,16 @@ def _lineas_dos_lados(sels) -> Dict[str, float]:
             continue
         justa = _devig({'mas': c_mas, 'menos': c_menos})
         if len(justa) == 2:
-            salida[linea] = round(justa['mas'], 4)
+            # v171 — SE GUARDA TAMBIEN LA CUOTA, NO SOLO LA IMPLICITA.
+            #
+            # Hasta aqui bastaba la probabilidad sin margen para contrastar el
+            # numero del modelo. Desde la v171 la recomendacion se elige por
+            # `Score = probabilidad x cuota`, y para eso hace falta el PRECIO
+            # que el usuario va a cobrar — que no es 1/implicita, porque la
+            # implicita ya no lleva el margen y la cuota si.
+            salida[linea] = {'p': round(justa['mas'], 4),
+                             'mas': round(float(c_mas), 3),
+                             'menos': round(float(c_menos), 3)}
     return salida
 
 
@@ -373,11 +412,41 @@ def del_tablero(tablero: Optional[Dict]) -> Dict:
                 justa = _devig(cu)
                 if len(justa) == 3:
                     salida['1x2'] = {k: round(v, 4) for k, v in justa.items()}
+                    # v171 — y las tres cuotas, para poder calcular el Score
+                    salida['1x2_cuotas'] = {k: round(float(v), 3)
+                                            for k, v in cu.items()}
         # --- goles: TODAS las líneas de medio punto, cada una devigada ---
         elif 'goles' not in salida and nom in _N_TOTAL:
             goles = _lineas_dos_lados(sels)
             if goles:
                 salida['goles'] = goles
+        # --- doble oportunidad -------------------------------------------
+        #
+        # v171 — entra al catálogo con SU cuota. La probabilidad no hace falta
+        # guardarla: sale de sumar dos lados del 1X2 que ya está aquí. Lo que
+        # no se puede deducir es el precio, y sin precio no hay Score.
+        elif 'doble_cuotas' not in salida and 'doble oportunidad' in nom \
+                and 'mitad' not in nom and len(sels) == 3:
+            cu = {}
+            for s_ in sels:
+                c = _cuota(s_)
+                if c is None:
+                    continue
+                n = _norm(s_.get('nombre'))
+                # la casa las rotula «Local o Empate», «Local o Visitante»…
+                # y también «1X»/«12»/«X2» según la liga. Se aceptan las dos.
+                if n in ('1x', '12', 'x2'):
+                    cu[n.upper()] = c
+                elif casa_home and casa_home in n and 'empate' in n:
+                    cu['1X'] = c
+                elif casa_away and casa_away in n and 'empate' in n:
+                    cu['X2'] = c
+                elif casa_home and casa_away and casa_home in n \
+                        and casa_away in n:
+                    cu['12'] = c
+            if cu:
+                salida['doble_cuotas'] = {k: round(float(v), 3)
+                                          for k, v in cu.items()}
         # --- ambos marcan -----------------------------------------------
         elif 'btts' not in salida and nom in _N_BTTS and len(sels) == 2:
             cu = {}
@@ -394,6 +463,8 @@ def del_tablero(tablero: Optional[Dict]) -> Dict:
                 justa = _devig(cu)
                 if len(justa) == 2:
                     salida['btts'] = round(justa['si'], 4)
+                    salida['btts_cuotas'] = {k: round(float(v), 3)
+                                             for k, v in cu.items()}
     # v169 — y TODAS las familias de conteo que la casa traiga: córners y
     # tarjetas, del partido y de cada equipo, y remates si las publica. No se
     # codifica qué publica: se lee.
@@ -473,10 +544,11 @@ def implicita(precio: Dict, apuesta: str,
         mm = rx.match(etq)
         if mm:
             linea = clave_linea(mm.group(1))
-            p = (precio.get('goles') or {}).get(linea) if linea else None
+            p = prob_de((precio.get('goles') or {}).get(linea)) \
+                if linea else None
             if p is None:
                 return None
-            return float(p) if es_mas else 1.0 - float(p)
+            return p if es_mas else 1.0 - p
     # ambos marcan
     if n.startswith('ambos marcan'):
         p = precio.get('btts')
