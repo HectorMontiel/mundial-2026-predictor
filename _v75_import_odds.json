@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-27T17:47:39Z",
- "filas_insertadas": 234237,
+ "generado": "2026-08-28T18:59:08Z",
+ "filas_insertadas": 234242,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -75,8 +75,8 @@
    "partidos": 8744
   },
   "eng_national": {
-   "filas": 15743,
-   "partidos": 8610
+   "filas": 15744,
+   "partidos": 8611
   },
   "eredivisie": {
    "filas": 5217,
@@ -115,8 +115,8 @@
    "partidos": 2507
   },
   "laliga": {
-   "filas": 11225,
-   "partidos": 6096
+   "filas": 11229,
+   "partidos": 6100
   },
   "liga_mx": {
    "filas": 5023,
