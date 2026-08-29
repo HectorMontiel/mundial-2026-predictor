@@ -5480,11 +5480,33 @@ def render_alpha_finder():
     _opciones = [e for e, d in _DEPORTES_FILTRO
                  if d == 'Todo' or d in _presentes]
     _mapa_dep = {e: d for e, d in _DEPORTES_FILTRO}
+    # v176 — LA ELECCIÓN SOBREVIVE A LA RECARGA.
+    #
+    # Entre pestañas ya persistía —las dos leen la misma clave global,
+    # `_filtro_deporte`, así que Hoy y Mañana comparten estado dentro de
+    # una sesión—. Lo que no sobrevivía era recargar la página, y el
+    # encargo lo pide: «guardarse en un archivo de preferencias para que al
+    # recargar la app se mantengan».
+    #
+    # `recordar` sólo SIEMBRA: si el usuario ya tocó el control en esta
+    # sesión, lo que acaba de elegir manda sobre lo guardado. Y si el
+    # deporte guardado hoy no está en el barrido —ayer había tenis y hoy
+    # no—, `leer_opcion` lo descarta en vez de reventar el `radio` con un
+    # valor que no está en su lista.
+    try:
+        import preferencias_usuario as _prefu
+    except Exception:
+        _prefu = None
     if len(_opciones) > 2:
+        if _prefu is not None:
+            _prefu.recordar(st, '_filtro_deporte', _opciones, 'Todo')
         _sel = st.radio('Deporte', _opciones, horizontal=True,
                         key='_filtro_deporte', label_visibility='collapsed',
                         help='Reordena lo que se ve. No cambia lo que se '
-                             'envía a Telegram ni lo que se exporta.')
+                             'envía a Telegram ni lo que se exporta. Se '
+                             'recuerda entre pestañas y entre sesiones.')
+        if _prefu is not None:
+            _prefu.guardar('_filtro_deporte', _sel)
     else:
         _sel = 'Todo'
     _dep_sel = _mapa_dep.get(_sel, 'Todo')
@@ -5501,14 +5523,21 @@ def render_alpha_finder():
     # Lo que este filtro NO hace: prometer que las secundarias rinden más. Es
     # una hipótesis razonable —menos volumen, líneas menos trabajadas— que en
     # este proyecto todavía no tiene su propio percentil 5.
+    _GRUPOS_LIGA = ['Todas', 'Sólo secundarias', 'Sólo principales']
+    if _prefu is not None:
+        _prefu.recordar(st, '_filtro_grupo_liga', _GRUPOS_LIGA,
+                        'Todas')
     _grupo_liga = st.radio(
-        'Competiciones', ['Todas', 'Sólo secundarias', 'Sólo principales'],
+        'Competiciones', _GRUPOS_LIGA,
         horizontal=True, key='_filtro_grupo_liga', label_visibility='collapsed',
         help='«Secundaria» es toda competición de FÚTBOL que no está en la '
              'lista corta de ligas grandes. El resto de deportes no se reparte '
              'por este eje —la MLB no es una liga de fútbol secundaria— así '
              'que sólo aparecen en «Todas». Reordena lo que se ve: no cambia '
              'el barrido, ni el envío a Telegram, ni la exportación.')
+
+    if _prefu is not None:
+        _prefu.guardar('_filtro_grupo_liga', _grupo_liga)
 
     def _filtra(lista):
         """La lista tal cual, o sólo lo elegido. Nunca muta el barrido."""

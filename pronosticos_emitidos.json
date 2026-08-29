@@ -1,0 +1,50 @@
+{
+ "liga_mx|2026-08-29|Club Tijuana|UNAM Pumas": {
+  "clave_liga": "liga_mx",
+  "home": "Club Tijuana",
+  "away": "UNAM Pumas",
+  "partido": "Club Tijuana vs UNAM Pumas",
+  "liga": "Liga MX",
+  "fecha": "2026-08-29",
+  "inicio": "2026-08-29 03:10:00",
+  "anotado": "2026-08-29",
+  "recomendadas": [
+   {
+    "mercado": "Goles",
+    "bloque": "goles",
+    "etiqueta": "Total",
+    "apuesta": "Goles: Más de 2.5",
+    "linea": 2.5,
+    "prob": 0.5154,
+    "cuota": 1.909,
+    "score": 0.9839,
+    "semaforo": "🟡",
+    "incierto": true
+   },
+   {
+    "mercado": "BTTS",
+    "bloque": "btts",
+    "etiqueta": "Ambos marcan",
+    "apuesta": "Ambos marcan: Sí",
+    "linea": null,
+    "prob": 0.5568,
+    "cuota": 1.741,
+    "score": 0.9694,
+    "semaforo": "🟡",
+    "incierto": true
+   },
+   {
+    "mercado": "Doble oportunidad",
+    "bloque": "resultado",
+    "etiqueta": "Doble",
+    "apuesta": "Club Tijuana o UNAM Pumas",
+    "linea": null,
+    "prob": 0.69,
+    "cuota": 1.3,
+    "score": 0.897,
+    "semaforo": "🟡",
+    "incierto": false
+   }
+  ]
+ }
+}

@@ -499,6 +499,26 @@ jobs:
       - name: Refrescar la cobertura de Playdoit
         run: python monitor_playdoit.py || echo "::warning::monitor de Playdoit con avisos"
 
+      # v176 — DEJA ANOTADO LO QUE LA APLICACION VA A RECOMENDAR HOY.
+      #
+      # Va JUSTO DESPUES del monitor de Playdoit y eso no es cosmetico:
+      # la recomendacion es probabilidad x CUOTA, asi que necesita el
+      # tablero recien bajado. Antes del monitor, `mercado_dia.json`
+      # seria el de ayer y el registro guardaria una cuota que ya no
+      # existe.
+      #
+      # POR QUE HACE FALTA EN CI Y NO BASTA CON LA APLICACION. Streamlit
+      # Cloud reinicia el contenedor cuando le parece y se lleva lo que
+      # la aplicacion escribio en disco. Un registro que no sobrevive al
+      # reinicio no puede validarse al dia siguiente, que es justo para
+      # lo que existe. Aqui viaja en el repositorio, como
+      # `predicciones_dia.json`.
+      #
+      # Y cubre los partidos que NADIE mira: la aplicacion solo puede
+      # anotar la tarjeta que pinta.
+      - name: Anotar los pronosticos del dia
+        run: python pronosticos_guardados.py || echo "::warning::anotacion de pronosticos con avisos"
+
       # v99 — CUOTAS DE CIERRE DE KBO, que solo se pueden reunir dia a dia.
       # El archivo por temporadas de BetExplorer solo sirve playoffs (la
       # temporada regular esta tras ?stage=, prohibido por robots.txt), pero
@@ -573,6 +593,12 @@ jobs:
           # única referencia con la que la tarjeta puede contrastar su propio
           # porcentaje, y la casa mueve sus líneas durante el día.
           git add -A mercado_dia.json 2>/dev/null || true
+          # v176 — y el registro de lo que se recomendo, que es lo
+          # unico contra lo que se puede validar manana. Se AÑADE,
+          # nunca se reescribe: `pronosticos_guardados.guardar` es de
+          # solo-insercion, asi que el commit de hoy no puede borrar
+          # el pronostico de ayer.
+          git add -A pronosticos_emitidos.json 2>/dev/null || true
           # v162 — las estadísticas reales de ESPN. Son la fuente de que
           # córners y tarjetas dejen de ser sintéticos en 40 competiciones;
           # sin commitearlas, cada despliegue empezaría de cero.

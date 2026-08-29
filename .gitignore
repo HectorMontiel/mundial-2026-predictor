@@ -180,3 +180,15 @@ fotmob_cache/
 # de tres competiciones). Se vuelve a bajar solo con
 # `python _v163_remates_jugador.py <code_espn>`.
 _v163_cache_jugadores/
+
+# v176 — LAS PREFERENCIAS DE LA PANTALLA SON DE QUIEN LA MIRA.
+#
+# `preferencias_usuario.json` guarda qué deporte y qué orden dejó elegidos el
+# usuario. Es comodidad local: no es dato, no es pick y no lo consume nadie más.
+# Committearlo haría que el despliegue impusiera a todo el mundo el último
+# filtro que alguien tocó en su portátil.
+#
+# `pronosticos_emitidos.json` NO va aquí a propósito: ése SÍ se committea (lo
+# genera el workflow nocturno) porque es la única forma de que el registro
+# sobreviva al reinicio del contenedor de Streamlit Cloud.
+preferencias_usuario.json

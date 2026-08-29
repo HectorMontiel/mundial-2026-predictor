@@ -3274,3 +3274,205 @@ El resultado son 17 ms en un barrido de 150 partidos: el 3 % del techo.
     🔍 Análisis            todo el detalle, plegado
 
 Ningún candado en ninguna parte.
+
+## 26. Lo que la aplicación dijo, y si acertó
+
+La v176 responde a cinco encargos. Tres eran defectos reales y se arreglan
+enteros; uno estaba **ya resuelto** desde hace versiones y lo que hacía falta
+era comprobarlo antes de reescribirlo; y del quinto entra la mitad medible.
+
+### 26.1 El pronóstico previo, guardado y liquidado
+
+Un partido acabado enseñaba el 1X2 y los goles reconstruidos de la matriz, y
+nada más. No se veía **la apuesta que la aplicación recomendó** ni si acertó.
+
+**Dónde se guarda, y por qué no donde se pidió.** El encargo decía
+«guardar esta estructura en `predicciones_dia.json`». Ese fichero **lo
+regenera el bot entero cada noche** — `predicciones_dia.generar` escribe el
+JSON completo, no lo actualiza. Guardar ahí una copia descrita como *inmutable*
+sería garantizar que se borra en la primera pasada. Y hay una segunda razón: ese
+fichero sólo lleva probabilidades del modelo, a propósito («no es una fuente de
+precios», dice su cabecera), y una recomendación lleva la **cuota**.
+
+Así que va en `pronosticos_emitidos.json`, con dos propiedades que lo definen:
+
+| | |
+|---|---|
+| **Sólo-inserción** | un partido ya anotado no se vuelve a tocar |
+| **Poda por fecha de anotación** | 21 días, y se poda por cuándo se escribió, no por la fecha del partido — los registros del bot no traen fecha y podando por ella no se borrarían nunca |
+
+**Y por qué también lo escribe el bot.** Streamlit Cloud reinicia el contenedor
+cuando le parece y se lleva lo que la aplicación escribió en disco. Un registro
+que no sobrevive al reinicio no puede validarse al día siguiente, que es
+exactamente para lo que existe. Así que hay un paso nuevo en
+`retrain_leagues.yml`, **justo después del monitor de Playdoit** —la
+recomendación es probabilidad × cuota, así que necesita el tablero recién
+bajado— y el fichero viaja en el repositorio como `predicciones_dia.json`.
+
+Medido sobre el precálculo real: **298 partidos evaluados, 96 anotados, 48 s**.
+Los otros 202 son partidos que Playdoit no cotiza, y ésos no tienen
+recomendación que anotar — es la regla de la v174 y sigue en pie.
+
+**Eso cierra además el punto 1.3 del encargo** («en Dalian Yingbo vs Beijing
+Guoan decía Sin pronóstico»). La aplicación sólo puede anotar la tarjeta que
+pinta; el bot anota todos los que el precálculo evaluó, los mire alguien o no.
+Y dentro de la aplicación hay además un barrido después del bucle de tarjetas
+que recoge los que un filtro apartó.
+
+**De dónde sale el resultado real.** Los goles, del propio marcador. Córners,
+tarjetas y remates, de `stats_espn.leer(liga)` — la **caché en disco** que el
+backfill nocturno ya mantiene. Cero red desde la tarjeta: esa regla ya costó
+tres regresiones. Consecuencia honesta: un partido recién terminado todavía no
+tiene su boxscore, así que sus mercados de conteo salen **⏳ Pendiente** en vez
+de con un veredicto inventado.
+
+### 26.2 Los tres colores, y el que importa es el ámbar
+
+    🟢 el lado pronosticado fue correcto
+    🔴 fue incorrecto
+    🟡 correcto con probabilidad < 50 %, O fallado por menos de una unidad
+
+La segunda puerta del ámbar es la que aporta. Un «Menos de 2,5 tarjetas» que
+termina en 3 falló, sí, pero falló por medio punto; leerlo en el mismo rojo que
+un 9 sería tirar la única información que distingue un modelo afinado de uno
+perdido. Comprobado contra un partido real (León–Monterrey del 22-08, 1-1, 13
+córners):
+
+    🟡 Córners: Menos de 12.5      61 %   Cerca         13
+    🟢 Córners Local: Menos de 6.5 61 %   Cumplido       3
+    🔴 Remates Visita: Menos 11.5  58 %   No cumplido   20
+    🟢 Tarjetas Visita: Menos 2.5  60 %   Cumplido       2
+    🔴 Gana León                   45 %   No cumplido   empate
+
+**Y «sin pronóstico previo» no es «falló».** Un partido sin registro sale con
+esa frase, no con una fila roja. Colapsar las dos cosas convertiría un hueco de
+datos en un error del modelo.
+
+### 26.3 Mañana enseña lo mismo que hoy
+
+`con_apuesta=False` cortaba el bloque entero y dejaba «Mañana: sólo análisis».
+El encargo lo rechaza y acierta en el diagnóstico: la diferencia no estaba en
+los datos —son los mismos— sino en una decisión de diseño de la v155.
+
+Ahora `con_apuesta` decide **sólo la etiqueta**: `📅 Análisis previo (no jugable
+aún)`. Lo que sigue siendo verdad, y por eso la etiqueta se queda: las líneas de
+mañana se mueven durante la noche, y ese movimiento es el único canal con
+percentil 5 positivo medido en este proyecto (+11,49 % comprando al mejor
+precio). La cuota que se ve ahora no es la que habrá mañana. Se dice en tres
+palabras en vez de esconder el análisis para protegerlo.
+
+### 26.4 Tres recomendadas, y una por mercado
+
+    🏆 APUESTA RECOMENDADA   Goles: Más de 1.5    77 %  Cuota 1.28  Score 0.98
+    📊 2ª RECOMENDADA        Ambos marcan: Sí     55 %  Cuota 1.78  Score 0.97
+    📊 3ª RECOMENDADA        Toluca o empate      72 %  Cuota 1.32  Score 0.95
+
+Tres cosas que van juntas:
+
+1. **Salen de la misma lista ordenada.** `valor_apuesta.mejores` filtra por los
+   mínimos (prob ≥ 50 %, cuota ≥ 1,20, ≤ 90 %) y ordena por Score;
+   `apuesta_recomendada` devuelve literalmente su primera fila. Es la lección
+   de la v175 —dos listas con dos criterios acaban contradiciéndose— aplicada
+   antes de que vuelva a pasar.
+2. **Una por mercado.** Sin esta regla la escalera de goles se lleva las tres
+   plazas: «Más de 1,5», «Más de 2,5» y «Menos de 3,5» del mismo partido tienen
+   Scores casi iguales, así que las «alternativas» serían la misma apuesta tres
+   veces, correlacionadas al 90 %. Si falla una, fallan las tres.
+3. **No se rellena a la fuerza.** Un partido donde sólo dos líneas llegan a los
+   mínimos devuelve dos. Completar con lo que la regla rechazó se leería como
+   una apuesta.
+
+El botón de Playdoit va sólo bajo la principal: tres botones idénticos seguidos
+no son tres accesos, son la misma acción repetida tres veces.
+
+**Y la sección «Otras opciones de valor» de la v175 se retira.** Duró una
+versión. Lo que hacía —enseñar las siguientes por Score— se conserva; lo que
+cambia es que ahora se leen como lo que son.
+
+### 26.5 Los filtros, y qué estaba roto de verdad
+
+El encargo junta dos problemas que se arreglan en sitios distintos, y conviene
+separarlos porque **uno de los dos no existía**:
+
+| | estado real | qué se hizo |
+|---|---|---|
+| Deporte entre pestañas | **ya persistía** — una sola clave global en `dashboard_ui`, las dos pestañas leen el mismo estado | nada |
+| Orden entre pestañas | **roto** — `mm_orden` para hoy y `man_orden` para mañana, dos ajustes distintos a propósito | una sola `CLAVE_ORDEN` |
+| Cualquiera entre sesiones | **roto** — `st.session_state` se vacía al recargar | `preferencias_usuario.json` |
+
+La guarda que hace falta y no es obvia: una preferencia puede quedarse
+**huérfana**. Si mañana se renombra un criterio de orden, el JSON seguiría
+pidiendo el viejo y `st.selectbox` reventaría con un valor que no está en su
+lista. Por eso `leer_opcion` recibe las opciones válidas y descarta lo que ya no
+existe — el mismo cuidado que `_olvidar_seleccion_muerta` tiene con los
+selectores de partido, aplicado antes de que muerda.
+
+Las **casillas** no comparten clave entre pestañas, y es deliberado: «sólo alta
+probabilidad» sobre los partidos de mañana esconde casi todo, y arrastrar ahí
+una casilla marcada en hoy dejaría la pestaña vacía sin que se vea por qué.
+
+### 26.6 El orden por apuesta recomendada
+
+    verde (prob ≥ 60 % y Score ≥ 0,97)  →  ámbar por Score  →  sin apuesta
+
+El verde manda sobre el Score y no al revés. Un Score de 0,99 en un mercado que
+en esa liga calibra mal no puede adelantar a un 0,97 que sí está medido: ordenar
+sólo por Score convertiría la lista en un ranking de lo peor medido, que es como
+se llenó la pantalla en la v164. Los partidos ya jugados caen al final, que es
+donde deben estar en una lista que ordena por apuesta.
+
+### 26.7 Autoaprendizaje: lo que ya estaba, y lo que se añade
+
+**La parte 4.1 del encargo ya funciona, y desde hace versiones.** Antes de
+escribir nada se comprobó: `.github/workflows/retrain_leagues.yml` corre cada
+noche a las 05:30 UTC, añade los partidos jugados a `historico_*.csv`, recalcula
+`team_stats_*.json` —ELO y medias móviles— y reentrena los modelos de liga. La
+prueba está en el propio repositorio: los commits `chore(datos): históricos y
+estado de equipos` y `chore(datos): reentrenamiento automático de ligas` son de
+todos los días. Reimplementarlo habría sido duplicar una tubería que ya
+funciona, con el riesgo de que las dos se pisaran.
+
+Lo que le faltaba a ese circuito era **el pronóstico previo guardado junto al
+resultado**, y eso es lo que aporta §26.1.
+
+**La parte 4.2 —los patrones— sí es nueva**, y con un umbral distinto del que
+pedía el ejemplo:
+
+    ⛳ Atlante:      Over 9.5 córners en 4 de 5
+    ⛳ Club America: Over 9.5 córners en 5 de 5
+    🟨 Atlante:      Under 3.5 tarjetas en 4 de 5
+
+**Por qué 4 de 5 y no 3 de 5.** Tres de cinco no es un patrón: si el mercado
+fuera una moneda, sacar 3 o más de 5 pasa el **50 %** de las veces. Enseñarlo
+como hallazgo sería llenar la tarjeta de ruido con aspecto de señal, que es lo
+que las últimas cinco versiones han ido quitando. Con 4 de 5 la probabilidad por
+azar baja al 18,75 %, y con 5 de 5 al 3,1 %. Es un umbral, no una ley:
+`patrones_equipo.MIN_RACHA` es una constante y cambiarla es una línea.
+
+**Y no tocan ninguna probabilidad.** Van en el bloque de CONTEXTO, junto al H2H
+y las rachas, porque son de la misma naturaleza: un recuento de lo observado. La
+λ ya escucha al histórico desde la v175 y con un peso **medido** (β 0,186 para
+el H2H y 0,255 para la forma, sobre 47.794 partidos). Meter encima un segundo
+canal sin medir sería contar la misma información dos veces — el error que la
+v172 dejó escrito.
+
+### 26.8 El coste, que era un requisito
+
+«El autoaprendizaje no debe añadir más de 0,5 s al barrido.»
+
+    índice de patrones por competición ....  10 ms   (una vez por liga)
+    patrones por partido ..................  0,014 ms
+    anotar el pronóstico ..................  una consulta a un diccionario
+                                             tras la primera vez
+
+El índice es el mismo patrón que `contexto_partido._indice_goles` de la v175, y
+por el mismo motivo: sin él, filtrar el histórico entero por equipo cuesta 19 ms
+por partido. La anotación completa del día —298 partidos con sus bloques
+físicos— son 48 s, pero eso corre **en el workflow nocturno**, no en el barrido.
+
+### 26.9 Lo que esta versión no promete
+
+Que las apuestas ganen. La validación enseña qué pasó, no mejora lo que va a
+pasar. La política de la v175 está liquidada contra 47.794 partidos y da **ROI
+−4,64 %**; ver los aciertos y los fallos en la tarjeta no cambia ese número. Lo
+que cambia es que ahora se pueden ver, que es lo que se pidió.

@@ -584,9 +584,44 @@ def mejor(pick: Dict, bloques: Optional[Dict] = None) -> Optional[Dict]:
     ganga. Lo que se levanta es el bloqueo por mercado, no el control de
     la cifra.
     """
+    # v176 — UNA SOLA DEFINICION DEL ORDEN. `mejores` filtra por los
+    # minimos del encargo (prob >= 50 %, cuota >= 1,20, <= 90 %) y
+    # ordena por Score; la principal es su primera fila. Tener aqui
+    # una copia del mismo filtro era garantizar que algun dia una de
+    # las dos cambiara sin la otra.
+    lista = mejores(pick, bloques, n=1)
+    return lista[0] if lista else None
+
+
+def mejores(pick: Dict, bloques: Optional[Dict] = None,
+            n: int = 3) -> List[Dict]:
+    """
+    v176 — LAS `n` MEJORES DEL PARTIDO, EN ORDEN DE SCORE.
+
+    EL ENCARGO: «para cada partido, la app debe mostrar hasta 3
+    recomendaciones ordenadas por Score descendente... todas deben cumplir
+    probabilidad >= 50 % y cuota >= 1,20».
+
+    LA PRIMERA DE ESTA LISTA ES EXACTAMENTE LO QUE DEVUELVE `mejor`, y no
+    por casualidad: las dos recorren la misma lista con el mismo filtro y
+    el mismo orden. Es la leccion de la v175 —dos secciones ordenadas por
+    criterios distintos acaban contradiciendose— aplicada antes de que
+    vuelva a pasar, esta vez entre la principal y sus alternativas.
+
+    NO SE RELLENA HASTA `n` A LA FUERZA. Un partido donde solo dos lineas
+    llegan a los minimos devuelve dos. Completar con lo que no cumple
+    seria enseñar como «2ª recomendada» algo que la regla principal
+    rechazo, y el usuario lo leeria como una apuesta.
+
+    UNA POR MERCADO. Sin esto, la escalera de goles se lleva las tres
+    plazas —«Mas de 1,5», «Mas de 2,5» y «Menos de 3,5» del mismo partido
+    tienen Scores casi iguales— y las «alternativas» son la misma apuesta
+    tres veces. Correlacionadas al 90 %, ademas: si falla una, fallan las
+    tres.
+    """
     filas = candidatos(pick, bloques)
     if not filas:
-        return None
+        return []
     dignas = [f for f in filas
               if f.get('score') is not None
               and f['prob'] >= PROB_SUELO_DURO
@@ -594,13 +629,21 @@ def mejor(pick: Dict, bloques: Optional[Dict] = None) -> Optional[Dict]:
               and (f.get('cuota') or 0.0) >= CUOTA_DECENTE]
     baja = not dignas
     if baja:
-        # regla 5 del encargo: si ninguna llega a los minimos se propone
-        # igual la de mejor Score, avisando. La promesa de la v173 —que
-        # siempre hay recomendacion— sigue en pie.
         dignas = filas
-    elegida = max(dignas, key=lambda f: (f.get('score') or 0.0,
-                                         round(f['prob'], 4)))
-    return dict(elegida, mejor_del_partido=True, baja_probabilidad=baja)
+    orden = sorted(dignas, key=lambda f: (-(f.get('score') or 0.0),
+                                          -round(f['prob'], 4)))
+    salida, vistos = [], set()
+    for f in orden:
+        mercado = str(f.get('mercado') or '')
+        if mercado in vistos:
+            continue
+        vistos.add(mercado)
+        salida.append(dict(f, mejor_del_partido=not salida,
+                           baja_probabilidad=baja,
+                           puesto_valor=len(salida) + 1))
+        if len(salida) >= max(1, int(n)):
+            break
+    return salida
 
 
 def por_mercado(pick: Dict, bloques: Optional[Dict] = None) -> Dict:

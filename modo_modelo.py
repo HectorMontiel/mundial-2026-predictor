@@ -195,6 +195,10 @@ def _bloque_tenis(st, pick: Dict) -> None:
 # ---------------------------------------------------------------------------
 # v153.1 — LA APUESTA DEL PARTIDO, Y EL SEMÁFORO POR PROBABILIDAD
 # ---------------------------------------------------------------------------
+MAX_RECOMENDADAS = 3        # la principal y sus dos alternativas
+# El AJUSTE de orden es uno solo para las dos pestañas; sus widgets no
+# pueden compartir clave (Streamlit lo prohíbe). Ver `render`.
+CLAVE_ORDEN = 'orden_lista'
 UMBRAL_ALTA = 0.60          # verde: el modelo se moja
 UMBRAL_PATA = 0.50          # amarillo: sólo para combinar
 
@@ -1481,6 +1485,79 @@ def _candidatas_fisicas(pick: Dict, bloques: Dict) -> List[Dict]:
     return salida
 
 
+def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
+    """
+    Una fila de `valor_apuesta` con lo que la tarjeta necesita encima.
+
+    Estaba escrito dentro de `apuesta_recomendada` y sale aquí porque
+    desde la v176 hay TRES recomendaciones por partido y las tres tienen
+    que llevar el mismo color, la misma estabilidad y el mismo aviso. Dos
+    copias del criterio del verde en la misma pantalla es exactamente lo
+    que hizo falsa a la v164.
+    """
+    import valor_apuesta as va
+    est = _estabilidad_de(pick.get('clave_liga'), _mej['mercado'],
+                          _mej['apuesta'])
+    return {'apuesta': _mej['apuesta'], 'mercado': _mej['mercado'],
+            'prob': _mej['prob'], 'cuota': _mej['cuota'],
+            'cuota_justa': round(1.0 / max(_mej['prob'], 1e-6), 2),
+            # v173 — sin cuota no hay Score ni EV, y eso no es un fallo:
+            # es un partido que la casa no cotiza. La tarjeta lo enseña
+            # con su probabilidad y sin precio, en vez de callarse.
+            'ev': (None if _mej.get('score') is None
+                   else _mej['score'] - 1.0),
+            'score': _mej.get('score'),
+            # v175 — EL VERDE EXIGE LAS DOS COSAS: >= 60 % DE PROBABILIDAD
+            # **Y** SCORE >= 0,97, y ademas no llevar aviso. Un 70 % a
+            # cuota 1,05 (Score 0,735) no es una buena apuesta, es un
+            # tramite caro; y un ✅ junto a «⚠️ Alta incertidumbre» diria
+            # dos cosas contrarias en la misma linea.
+            'verde': (_mej['prob'] >= va.PROB_MINIMA
+                      and (_mej.get('score') or 0.0) >= va.SCORE_VERDE
+                      and not _mej.get('incierto')),
+            'incierto': bool(_mej.get('incierto')),
+            'baja_probabilidad': bool(_mej.get('baja_probabilidad')),
+            'puesto_valor': int(_mej.get('puesto_valor') or puesto),
+            'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
+                                         'remates_on'),
+            'original': _mej['prob'], 'fiable': True,
+            'contrastada': True, 'implicita': _mej.get('implicita'),
+            'bloqueada': False, 'estabilidad': est,
+            'bloque': _mej['bloque'], 'puesto': est.get('puesto'),
+            'es_rey': False, 'linea': _mej.get('linea'),
+            'etiqueta': _mej.get('etiqueta'),
+            'semaforo': _mej.get('semaforo'), 'motivo': 'valor',
+            'aviso': ''}
+
+
+def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
+                 n: int = 3) -> list:
+    """
+    v176 — HASTA TRES APUESTAS POR PARTIDO, EN ORDEN DE SCORE.
+
+    EL ENCARGO: «para cada partido (hoy y mañana), la app debe mostrar
+    hasta 3 recomendaciones ordenadas por Score descendente... todas deben
+    cumplir probabilidad >= 50 % y cuota >= 1,20».
+
+    La primera es la de `apuesta_recomendada`, y no por convenio: esa
+    funcion devuelve literalmente `recomendadas(...)[0]`. Una sola
+    definicion del orden es lo que impide que la tarjeta vuelva a
+    contradecirse como en la v175.
+
+    DEVUELVE MENOS DE `n` CUANDO HAY MENOS. No se rellena a la fuerza con
+    lo que la regla rechazo — eso se leeria como una apuesta y no lo es.
+    """
+    if pick.get('jugado') or pick.get('sin_modelo'):
+        return []
+    try:
+        import valor_apuesta as va
+        filas = va.mejores(pick, bloques or {}, n=n)
+    except Exception as e:
+        logger.debug('[modo_modelo] valor: %s', e)
+        filas = []
+    return [_enriquece(pick, f, i + 1) for i, f in enumerate(filas)]
+
+
 def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
                         ) -> Optional[Dict]:
     """
@@ -1493,63 +1570,16 @@ def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
         return None
     # v171 — LA DE MEJOR RELACIÓN PROBABILIDAD/CUOTA.
     #
-    # La v170 elegía por probabilidad absoluta y acabó recomendando doble
-    # oportunidad al 79 % con cuota 1,10 en el 93 % de los partidos. El usuario
-    # lo rechazó: quiere valor, no seguridad a cualquier precio.
-    #
     #     Score = probabilidad ajustada × cuota de Playdoit
     #
     # `valor_apuesta` recorre TODAS las líneas que la casa publica de cada
-    # mercado —no sólo la más cercana a la media— y devuelve la de mejor Score.
-    # Si no hay cuotas de la casa no hay Score que calcular, y entonces se cae
-    # a la vía de abajo, que sigue eligiendo por probabilidad entre lo estable.
-    try:
-        import valor_apuesta as va
-        _mej = va.mejor(pick, bloques or {})
-    except Exception as e:
-        logger.debug('[modo_modelo] valor: %s', e)
-        _mej = None
-    if _mej:
-        est = _estabilidad_de(pick.get('clave_liga'), _mej['mercado'],
-                              _mej['apuesta'])
-        return {'apuesta': _mej['apuesta'], 'mercado': _mej['mercado'],
-                'prob': _mej['prob'], 'cuota': _mej['cuota'],
-                'cuota_justa': round(1.0 / max(_mej['prob'], 1e-6), 2),
-                # v173 — sin cuota no hay Score ni EV, y eso no es un fallo:
-                # es un partido que la casa no cotiza. La tarjeta lo enseña
-                # con su probabilidad y sin precio, en vez de callarse.
-                'ev': (None if _mej.get('score') is None
-                       else _mej['score'] - 1.0),
-                'score': _mej.get('score'),
-                # v175 — EL VERDE EXIGE LAS DOS COSAS: >= 60 % DE
-                # PROBABILIDAD **Y** SCORE >= 0,97. Lo pide el
-                # encargo literal y arregla lo que la v173 dejaba
-                # pasar: un 70 % a cuota 1,05 iba en verde y no es
-                # una buena apuesta, es un tramite caro.
-                # ...Y NO PUEDE IR EN VERDE LO QUE LLEVA UN AVISO.
-                # Un ✅ junto a «⚠️ Alta incertidumbre» diria dos
-                # cosas contrarias en la misma linea. El mercado
-                # sigue proponiendo —eso es lo que la v175 desbloquea
-                # y no se toca— pero su propuesta sale en ambar.
-                'verde': (_mej['prob'] >= va.PROB_MINIMA
-                          and (_mej.get('score') or 0.0)
-                          >= va.SCORE_VERDE
-                          and not _mej.get('incierto')),
-                # y la tarjeta avisa cuando la propuesta viene de un
-                # mercado que en esta liga calibra mal, o cuando no
-                # llego a los minimos del encargo
-                'incierto': bool(_mej.get('incierto')),
-                'baja_probabilidad': bool(
-                    _mej.get('baja_probabilidad')),
-                'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
-                                             'remates_on'),
-                'original': _mej['prob'], 'fiable': True,
-                'contrastada': True, 'implicita': _mej.get('implicita'),
-                'bloqueada': False, 'estabilidad': est,
-                'bloque': _mej['bloque'], 'puesto': est.get('puesto'),
-                'es_rey': False, 'linea': _mej.get('linea'),
-                'semaforo': _mej.get('semaforo'), 'motivo': 'valor',
-                'aviso': ''}
+    # mercado —no sólo la más cercana a la media— y devuelve la de mejor
+    # Score. Si no hay cuotas de la casa no hay Score que calcular, y
+    # entonces se cae a la vía de abajo, que sigue eligiendo por
+    # probabilidad entre lo estable.
+    lista = recomendadas(pick, bloques, n=1)
+    if lista:
+        return lista[0]
 
 
     # v173 — LO DE ABAJO ES EL CAMINO DE RESPALDO, Y VA DESPUES A PROPOSITO.
@@ -1744,7 +1774,17 @@ def _bloque_contexto(pick: Dict) -> str:
         logger.debug('[modo_modelo] contexto: %s', e)
         return ''
     cr = ctx.get('h2h') or {}
-    if not cr.get('n') and not (ctx.get('forma_home') or {}).get('racha'):
+    # v176 — con patrones tambien hay algo que contar aunque no haya
+    # cruces ni racha: un equipo recien ascendido no tiene H2H y si
+    # tiene cinco partidos de los que decir algo.
+    _hay_patrones = False
+    try:
+        import patrones_equipo as _pat
+        _hay_patrones = bool(_pat.de_partido(clave, h, a))
+    except Exception:
+        pass
+    if (not cr.get('n') and not _hay_patrones
+            and not (ctx.get('forma_home') or {}).get('racha')):
         return ''
     trozos = ['<div class="mm-otros">📊 CONTEXTO</div>']
     if cr.get('n'):
@@ -1774,6 +1814,23 @@ def _bloque_contexto(pick: Dict) -> str:
             % (etq, racha_html(f['racha']),
                ('%.1f' % f['ppp']) if f.get('ppp') is not None else '—',
                ('%.1f' % f['gf']) if f.get('gf') is not None else '—'))
+    # v176 — PATRONES RECIENTES: lo observado, no lo predicho.
+    #
+    # Va aquí, dentro de CONTEXTO, porque es de la misma naturaleza que el
+    # H2H y las rachas: un recuento de lo que ha pasado. No toca ninguna
+    # probabilidad — la λ ya escucha al histórico desde la v175 y con un
+    # peso medido; meter encima un segundo canal sería contar lo mismo dos
+    # veces.
+    try:
+        import patrones_equipo as pat
+        for pt in pat.de_partido(clave, h, a):
+            trozos.append(
+                '<div class="mm-fc"><span class="mm-fc-n">%s %s</span>'
+                '<span class="mm-fc-barra">%s</span></div>'
+                % (pt['icono'], _esc_mm(pt['equipo'])[:18],
+                   _esc_mm(pt['texto'])))
+    except Exception as e:
+        logger.debug('[modo_modelo] patrones: %s', e)
     if ctx.get('elo') is not None:
         quien = h if ctx['elo'] > 0 else a
         trozos.append(
@@ -1783,64 +1840,18 @@ def _bloque_contexto(pick: Dict) -> str:
     return ''.join(trozos)
 
 
-def _otras_opciones(pick: Dict, bloques: Dict, elegida=None,
-                    tope: int = 3) -> str:
-    """
-    v175 — LAS 2-3 SIGUIENTES POR SCORE, DEBAJO DE LA PRINCIPAL.
-
-    La v171 puso una seccion «💰 MEJOR VALOR» separada de la
-    recomendacion, y con la seleccion por probabilidad de la v173 las dos
-    dejaron de coincidir: en Toluca - Austin la tarjeta recomendaba un
-    Score 0,95 y tres lineas mas abajo enseñaba un 0,98. El encargo lo
-    corta de raiz — «Eliminar la seccion 💰 Mejor Valor separada (porque
-    ahora la principal ES la mejor valor)»— y esto es lo que queda: las
-    siguientes de la misma lista, pegadas a la que gano.
-
-    Ya no puede haber contradiccion porque las dos salen del mismo orden:
-    la principal es la primera de esta lista, no una lista distinta.
-    """
-    try:
-        import valor_apuesta as va
-        filas = va.candidatos(pick, bloques or {})
-    except Exception as e:
-        logger.debug('[modo_modelo] otras opciones: %s', e)
-        return ''
-    if not filas:
-        return ''
-    clave_elegida = None
-    if elegida:
-        clave_elegida = (str(elegida.get('apuesta')),
-                         elegida.get('linea'))
-    filas = [f for f in filas
-             if (str(f['apuesta']), f.get('linea')) != clave_elegida]
-    # LOS MISMOS MINIMOS QUE LA PRINCIPAL. Sin ellos, la primera fila de
-    # esta lista en Mamelodi - AmaZulu era «Gana AmaZulu» al 10 % con
-    # Score 1,08: el Score mas alto del partido y la peor apuesta
-    # posible. Una alternativa que la regla principal nunca elegiria no
-    # es una alternativa, es un cebo.
-    dignas = [f for f in filas
-              if f.get('score') is not None
-              and f['prob'] >= va.PROB_SUELO_DURO
-              and f['prob'] <= va.PROB_MAXIMA_RECO
-              and (f.get('cuota') or 0.0) >= va.CUOTA_DECENTE]
-    if dignas:
-        filas = dignas
-    filas = sorted(filas, key=lambda f: -(f.get('score') or 0.0))[:tope]
-    if not filas:
-        return ''
-    trozos = ['<div class="mm-otros">📊 Otras opciones de valor</div>']
-    for f in filas:
-        trozos.append(
-            '<div class="mm-fc mm-sinsena">'
-            '<span class="mm-fc-n">%s %s</span>'
-            '<span class="mm-fc-l">%.0f %%</span>'
-            '<span class="mm-fc-v">Cuota <b>%.2f</b></span>'
-            '<span class="mm-fc-v">Score <b>%.2f</b></span>'
-            '<span class="mm-fc-e">%s</span></div>'
-            % (_sema(f), _esc_mm(f['apuesta'])[:34], f['prob'] * 100,
-               f['cuota'], f['score'],
-               '⚠️' if f.get('incierto') else ''))
-    return ''.join(trozos)
+# v176 — `_otras_opciones` SE RETIRA, Y LO QUE HACÍA SE QUEDA.
+#
+# La v175 la creó para sustituir a la sección «💰 MEJOR VALOR», que
+# contradecía a la recomendación. Duró una versión: el encargo pide que
+# las alternativas se vean como lo que son —1ª, 2ª y 3ª recomendada, con
+# su color y su Score— y no como una tabla aparte.
+#
+# La propiedad que la v175 vino a garantizar NO se pierde, y es la que
+# importa: las tres salen de la MISMA lista ordenada (`recomendadas`, que
+# envuelve a `valor_apuesta.mejores`), así que la 2ª nunca puede tener
+# mejor Score que la 1ª. Antes eran dos listas con dos criterios; ahora es
+# una lista y tres puestos.
 
 
 # El orden en el que se enseñan los mercados, con su icono y su rotulo.
@@ -2165,19 +2176,84 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
                                               rec['cuota_justa'])
     else:
         precio = 'Cuota justa: %.2f' % rec['cuota_justa']
+    titulo = ('🏆 APUESTA RECOMENDADA' if int(rec.get('puesto_valor')
+                                            or 1) <= 1
+              else '📊 %dª RECOMENDADA'
+                   % int(rec['puesto_valor']))
+    # el titulo entra como argumento y NO concatenado con `+`: un `+`
+    # en mitad de una cadena implicita rompe la adyacencia y el `%`
+    # de abajo pasa a formatear solo el ultimo trozo. Costo un
+    # TypeError en la suite entera.
     st.markdown(
         '<div class="mm-rec %s">'
-        '<span class="mm-rec-tit">🏆 APUESTA RECOMENDADA</span>'
+        '<span class="mm-rec-tit">%s</span>'
         '<span class="mm-rec-ap">%s %s — %.0f %%</span>'
         '<span class="mm-rec-cu">%s %s</span>%s'
-        '</div>' % (tono, icono, _esc_mm(rec['apuesta']).upper(),
+        '</div>' % (tono, titulo, icono,
+                    _esc_mm(rec['apuesta']).upper(),
                     rec['prob'] * 100,
                     (rec.get('estabilidad') or {}).get('icono', ''),
                     precio,
                     ('<span class="mm-rec-cu">%s</span>' % coleta)
                     if coleta else ''),
         unsafe_allow_html=True)
-    st.link_button('🎲 Jugar en Playdoit', URL_PLAYDOIT, width='stretch')
+    if int(rec.get('puesto_valor') or 1) <= 1:
+        # el botón va SOLO bajo la principal. Tres botones idénticos
+        # seguidos no son tres accesos: son la misma acción repetida
+        # tres veces, y el usuario ya tiene que elegir entre tres
+        # apuestas sin que además parezcan tres destinos.
+        st.link_button('🎲 Jugar en Playdoit', URL_PLAYDOIT,
+                       width='stretch')
+
+
+def _bloque_validacion(st, pick: Dict) -> bool:
+    """
+    v176 — QUÉ DIJO LA APLICACIÓN ANTES DEL PARTIDO, Y SI ACERTÓ.
+
+    EL ENCARGO: «mostrar el pronóstico previo en partidos finalizados, con
+    colores de validación (verde si se cumplió, rojo si no, amarillo si
+    estuvo cerca)».
+
+    Sale de `pronosticos_guardados`, que anotó la recomendación la primera
+    vez que se vio el partido y no la ha vuelto a tocar. Esa inmutabilidad
+    es lo que hace que esto valga algo: si se recalculara ahora, con el
+    ELO y las medias ya movidas por el resultado, no sería el pronóstico —
+    sería una reconstrucción con información del futuro.
+
+    Devuelve `True` si pintó algo, para que quien llama sepa si tiene que
+    decir «sin pronóstico previo».
+    """
+    try:
+        import pronosticos_guardados as pgs
+        filas = pgs.validar(pick)
+    except Exception as e:
+        logger.debug('[modo_modelo] validacion: %s', e)
+        return False
+    if not filas:
+        return False
+    trozos = ['<div class="mm-otros">📊 VALIDACIÓN DEL PRONÓSTICO</div>']
+    for f in filas:
+        real = f.get('real')
+        if real is None:
+            marcador = 'sin dato'
+        elif isinstance(real, str):
+            marcador = {'home': 'ganó el local', 'away': 'ganó la visita',
+                        'draw': 'empate', 'si': 'sí', 'no': 'no'}.get(
+                real, str(real))
+        else:
+            marcador = ('%.0f' % real if float(real).is_integer()
+                        else '%.1f' % real)
+        trozos.append(
+            '<div class="mm-fc">'
+            '<span class="mm-fc-n">%s %s</span>'
+            '<span class="mm-fc-l">%.0f %%</span>'
+            '<span class="mm-fc-v">%s</span>'
+            '<span class="mm-fc-e">%s</span></div>'
+            % (f['icono'], _esc_mm(f.get('apuesta') or '')[:34],
+               (f.get('prob') or 0.0) * 100, f['rotulo'],
+               _esc_mm(marcador)))
+    st.markdown(''.join(trozos), unsafe_allow_html=True)
+    return True
 
 
 def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
@@ -2222,7 +2298,28 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         _rm = remates_tarjeta(pick)
         _qr = quien_remata_tarjeta(pick)
 
-        # ---- 1) la apuesta recomendada, o por qué no la hay --------------
+        # ---- 1) las apuestas recomendadas, o por qué no las hay -------
+        #
+        # v176 — MAÑANA ENSEÑA LO MISMO QUE HOY.
+        #
+        # Hasta la v175, `con_apuesta=False` cortaba el bloque entero y
+        # dejaba «Mañana: sólo análisis» y una lista de mercados. El
+        # encargo lo rechaza: «los partidos de mañana deben mostrar
+        # exactamente lo mismo que los de hoy». Y tiene razón en que la
+        # diferencia no estaba en los datos —son los mismos— sino en una
+        # decisión de diseño que ya no se sostiene.
+        #
+        # LO QUE SÍ SIGUE SIENDO VERDAD, y por eso queda la etiqueta: las
+        # líneas de mañana se mueven durante la noche, y ese movimiento es
+        # justo el canal que este proyecto tiene medido con percentil 5
+        # positivo (+11,49 % comprando al mejor precio). La cuota que se
+        # ve ahora no es la que habrá mañana. Se dice en tres palabras y
+        # se enseña todo, en vez de esconder el análisis para protegerlo.
+        rec = None
+        recos = []
+        _bloques = {'Córners': _ck, 'Tarjetas': _tj,
+                    'Remates': (_rm or {}).get('totales'),
+                    'Remates a puerta': (_rm or {}).get('a_puerta')}
         if pick.get('jugado'):
             gh, ga = pick.get('goles_home'), pick.get('goles_away')
             if gh is not None and ga is not None:
@@ -2230,35 +2327,50 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                             % (int(gh), int(ga)))
             else:
                 st.markdown('### ✅ Finalizado')
-            st.caption('Sin pronóstico.' if sin_modelo
-                       else 'Pronóstico previo. No jugable.')
-            rec = None
+            st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
+            # v176 — el pronóstico que se emitió, liquidado contra el
+            # marcador. Si no hay ninguno guardado se DICE: «sin
+            # pronóstico previo» y «falló» no son lo mismo, y colapsarlos
+            # convertiría un hueco de datos en un error del modelo.
+            if not _bloque_validacion(st, pick):
+                st.caption('Sin pronóstico previo guardado de este '
+                           'partido.' if not sin_modelo
+                           else 'Sin datos de modelo.')
         elif sin_modelo:
             st.markdown('**· Sin datos de modelo**')
-            rec = None
-        elif not con_apuesta:
-            st.caption('Mañana: sólo análisis.')
-            rec = None
         else:
-            rec = apuesta_recomendada(
-                pick, {'Córners': _ck, 'Tarjetas': _tj,
-                       'Remates': (_rm or {}).get('totales'),
-                       'Remates a puerta': (_rm or {}).get('a_puerta')})
+            if not con_apuesta:
+                st.caption('📅 Análisis previo (no jugable aún)')
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
+            recos = recomendadas(pick, _bloques, n=MAX_RECOMENDADAS)
+            rec = recos[0] if recos else None
             _bloque_recomendada(st, rec, clave_vista, n_boton,
                                 motivo=_motivo_sin_apuesta(pick))
-            # v175 — las 2-3 siguientes por Score, PEGADAS a la
-            # principal y sacadas de la misma lista. Ver
-            # `_otras_opciones`: la seccion separada de «MEJOR
-            # VALOR» es lo que permitia que la tarjeta se
-            # contradijera a si misma.
-            _alt = _otras_opciones(
-                pick, {'Córners': _ck, 'Tarjetas': _tj,
-                       'Remates': (_rm or {}).get('totales'),
-                       'Remates a puerta':
-                           (_rm or {}).get('a_puerta')}, rec)
-            if _alt:
-                st.markdown(_alt, unsafe_allow_html=True)
+            # v176 — LAS ALTERNATIVAS SON RECOMENDACIONES, NO UNA TABLA.
+            #
+            # La v175 las pintaba como filas sueltas bajo el rótulo «Otras
+            # opciones de valor». El encargo pide que las tres se vean como
+            # lo que son —1ª, 2ª y 3ª recomendada, con su color y su
+            # Score— y salen de la misma lista ordenada, así que no pueden
+            # contradecir a la primera.
+            for otra in recos[1:]:
+                _bloque_recomendada(st, otra, clave_vista, n_boton)
+            # v176 — SE ANOTA LO QUE SE ENSEÑA, Y AQUÍ ES DONDE SE
+            # ENSEÑA. Podría anotarse en `render`, que también calcula
+            # una recomendación para ordenar la lista, pero esa va SIN
+            # los bloques físicos (córners, tarjetas, remates) para no
+            # pagar tres consultas por partido en una pantalla que ya
+            # tarda. Guardar aquella y enseñar ésta dejaría un
+            # registro que no es el pronóstico que nadie vio.
+            #
+            # `guardar` sólo escribe la PRIMERA vez que ve el partido:
+            # las siguientes pasadas son una consulta a un diccionario.
+            try:
+                import pronosticos_guardados as _pgs
+                _pgs.guardar(pick, recos)
+            except Exception as _e_pg:
+                logger.debug('[modo_modelo] anotar pronostico: %s',
+                             _e_pg)
 
         # ---- 2) TODOS los mercados, cada uno con su recomendacion ----
         #
@@ -2364,8 +2476,34 @@ def _k_destacada(p):
     return -((p.get('_destacada') or {}).get('prob') or -1)
 
 
+def _k_recomendada(p):
+    """
+    v176 — LOS PARTIDOS CON MEJOR APUESTA, PRIMERO.
+
+    EL ENCARGO: «ordena los partidos de mayor a menor según el Score de la
+    1ª apuesta recomendada. Los partidos con apuesta verde (prob >= 60 %)
+    aparecen primero, luego los ámbar, y finalmente los que no tienen».
+
+    La clave es una tupla de tres tramos y ese orden es el del encargo: el
+    verde manda sobre el Score, no al revés. Un Score de 0,99 en un
+    mercado que en esa liga calibra mal no puede adelantar a un 0,97 que
+    sí está medido — eso convertiría el orden en un ranking de lo peor
+    medido, que es como se llenó la pantalla en la v164.
+
+    Los partidos ya jugados y los que no tienen recomendación caen al
+    final, que es donde deben estar en una lista que ordena por apuesta.
+    """
+    r = p.get('_recomendada') or {}
+    if not r or p.get('jugado'):
+        return (2, 0.0, str(p.get('inicio') or '~'))
+    return (0 if r.get('verde') else 1,
+            -(r.get('score') or 0.0),
+            str(p.get('inicio') or '~'))
+
+
 ORDENES = {
     'Hora': _k_hora,
+    'Apuesta recomendada': _k_recomendada,
     'Probabilidad del local': _k_local,
     'Probabilidad de más de 2.5': _k_over,
     'Probabilidad de ambos marcan': _k_btts,
@@ -2529,34 +2667,74 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         # remates nunca pueden ir en verde (no tienen p5 medido), asi que no
         # cambian la respuesta a «cuantas hay jugables en solitario» y pedirlos
         # aqui costaria tres consultas por partido en una pantalla que ya tarda.
-        p['_recomendada'] = (None if p.get('jugado')
-                             else apuesta_recomendada(p))
+        # v176 — se calcula la LISTA y se guarda entera. `_recomendada`
+        # es su primera fila: pedir una y luego las tres recorreria
+        # `candidatos` dos veces por partido.
+        p['_recomendadas'] = ([] if p.get('jugado')
+                              else recomendadas(p, None,
+                                                n=MAX_RECOMENDADAS))
+        p['_recomendada'] = (p['_recomendadas'] or [None])[0]
     # Los jugados no cuentan para «N con una apuesta por encima del 60 %»: esa
     # frase es un recuento de oportunidades, y una oportunidad que ya pasó no
     # lo es.
     n_altas = sum(1 for p in con
                   if not p.get('jugado')
                   and (p.get('_recomendada') or {}).get('verde'))
+    # la lista ANTES de los filtros: lo que el barrido evaluó, que es
+    # lo que hay que dejar anotado. Ver el barrido de abajo.
+    _evaluados = [p for p in con if not p.get('jugado')]
     n_jugados = sum(1 for p in con if p.get('jugado'))
 
+    # v176 — LOS FILTROS SE QUEDAN COMO SE DEJARON.
+    #
+    # Dos cambios que el encargo pide juntos y que se arreglan distinto:
+    #
+    #   · ENTRE PESTAÑAS. El orden usaba `'%s_orden' % clave`, o sea
+    #     `mm_orden` para hoy y `man_orden` para mañana: dos ajustes
+    #     independientes a propósito. «El usuario quiere consistencia»,
+    #     así que pasan a compartir una sola clave.
+    #   · ENTRE SESIONES. Eso `st.session_state` no lo hace —se vacía al
+    #     recargar— y para eso está `preferencias_usuario`, que siembra el
+    #     widget con lo último elegido y lo vuelve a guardar.
+    #
+    # Las CASILLAS no comparten clave y es a propósito: «sólo alta
+    # probabilidad» sobre los partidos de mañana esconde casi todo (las
+    # líneas todavía no están afinadas), y arrastrar ahí una casilla
+    # marcada en hoy dejaría la pestaña vacía sin que se vea por qué.
+    # Persisten entre sesiones, cada una la suya.
+    try:
+        import preferencias_usuario as _pref
+    except Exception:
+        _pref = None
+    _k_orden = '%s_orden' % clave
+    if _pref is not None:
+        # el VALOR se comparte, la CLAVE no puede: ver
+        # `preferencias_usuario.sincronizar`.
+        _pref.sincronizar(st, _k_orden, CLAVE_ORDEN, list(ORDENES),
+                          'Hora')
+        _pref.recordar(st, '%s_solo_altas' % clave, por_defecto=False)
+        _pref.recordar(st, '%s_solo_fisicos' % clave, por_defecto=False)
     c1, c2 = st.columns([3, 2])
     with c1:
         etq_orden = st.selectbox('Ordenar por', list(ORDENES),
-                                 key='%s_orden' % clave)
+                                 key=_k_orden,
+                                 help='Se recuerda entre las dos '
+                                      'pestañas y entre sesiones.')
     with c2:
-        if con_apuesta:
-            solo_altas = st.checkbox('Sólo alta probabilidad (%d %%)'
-                                     % (UMBRAL_ALTA * 100),
-                                     key='%s_solo_altas' % clave,
-                                     help='Deja sólo las apuestas que llegan '
-                                          'al %d %% Y se pueden contrastar con '
-                                          'el precio de la casa sin separarse '
-                                          'más de %d puntos. Una cifra alta que '
-                                          'nadie ha podido contradecir no entra '
-                                          'aquí.'
-                                          % (UMBRAL_ALTA * 100, 15))
-        else:
-            solo_altas = False
+        # v176 — la casilla vale AHORA TAMBIEN EN MAÑANA. Estaba
+        # apagada alli porque mañana no tenia recomendacion que
+        # filtrar; desde que la tiene, esconderla dejaria la pestaña
+        # con menos control que la de hoy sin ningun motivo.
+        solo_altas = st.checkbox('Sólo alta probabilidad (%d %%)'
+                                 % (UMBRAL_ALTA * 100),
+                                 key='%s_solo_altas' % clave,
+                                 help='Deja sólo las apuestas que llegan '
+                                      'al %d %% Y se pueden contrastar con '
+                                      'el precio de la casa sin separarse '
+                                      'más de %d puntos. Una cifra alta que '
+                                      'nadie ha podido contradecir no entra '
+                                      'aquí.'
+                                      % (UMBRAL_ALTA * 100, 15))
         solo_fisicos = st.checkbox('Sólo con córners y tarjetas',
                                    key='%s_solo_fisicos' % clave,
                                    help='Deja sólo las competiciones que '
@@ -2572,10 +2750,15 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     if solo_fisicos:
         con = [p for p in con if _tiene_fisicos(p)]
 
+    if _pref is not None:
+        _pref.confirmar(st, _k_orden, CLAVE_ORDEN, etq_orden)
+        _pref.guardar('%s_solo_altas' % clave, bool(solo_altas))
+        _pref.guardar('%s_solo_fisicos' % clave, bool(solo_fisicos))
+
     con.sort(key=ORDENES.get(etq_orden, _k_hora))
 
     st.subheader('%s (%d)' % (titulo, len(con)))
-    if n_altas and con_apuesta:
+    if n_altas:
         st.caption('%d con una apuesta por encima del %d %%.'
                    % (n_altas, UMBRAL_ALTA * 100))
     if n_jugados:
@@ -2591,6 +2774,36 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
             tarjeta(st, p, navegar=navegar, n_boton=i, con_apuesta=con_apuesta)
         if len(con) > maximo:
             st.caption('Se muestran %d de %d.' % (maximo, len(con)))
+
+    # v176 — EL PARTIDO QUE NADIE MIRÓ TAMBIÉN DEJA RASTRO.
+    #
+    # EL DEFECTO QUE CIERRA, con el nombre que le puso el usuario: «en
+    # Dalian Yingbo vs Beijing Guoan decía Sin pronóstico». Pasaba porque
+    # el pronóstico se anota al PINTAR la tarjeta, y una tarjeta que un
+    # filtro apartó —o que cayó más allá del tope— no se pinta. Al
+    # día siguiente ese partido salía finalizado y sin nada que enseñar.
+    #
+    # Este barrido pasa por TODOS los evaluados, filtrados o no. Va DESPUÉS
+    # del bucle de tarjetas a propósito y el orden es lo único que lo hace
+    # correcto: `guardar` es de sólo-inserción, así que el primero que
+    # llega manda. Las tarjetas ya anotaron su versión —la buena, con
+    # córners, tarjetas y remates dentro— y esto sólo rellena los huecos,
+    # con una recomendación más pobre pero real. Al revés, esta versión
+    # pisaría siempre a la otra y el registro sería peor de lo que el
+    # usuario vio.
+    try:
+        import pronosticos_guardados as _pgs
+        _nuevos = 0
+        for p in _evaluados:
+            _r = p.get('_recomendadas')
+            if _r is None:
+                _r = recomendadas(p, None, n=MAX_RECOMENDADAS)
+            if _r and _pgs.guardar(p, _r):
+                _nuevos += 1
+        if _nuevos:
+            logger.info('[modo_modelo] %d pronosticos anotados', _nuevos)
+    except Exception as _e_pg:
+        logger.debug('[modo_modelo] barrido de pronosticos: %s', _e_pg)
 
     if sin:
         with st.expander('Sin datos de modelo (%d)' % len(sin)):

@@ -1760,3 +1760,124 @@ competición y la Poisson vectorizada: **0,11 ms/partido, 17 ms en 150.**
 4. 12 ligas sin córners observados; `champions` tiene 774 filas con córners
    reales sin inyectar en su histórico.
 5. HMREY debe rotar la clave de The Odds API.
+
+## 5g. v176 — LO QUE LA APLICACIÓN DIJO, Y SI ACERTÓ
+
+Detalle en **BITACORA_ARQUITECTURA.md §26**.
+
+### Módulos nuevos
+
+| | |
+|---|---|
+| `pronosticos_guardados.py` | el registro inmutable de lo recomendado + su liquidación contra el marcador. Tiene CLI: `python pronosticos_guardados.py` |
+| `patrones_equipo.py` | patrones observados de los últimos 5 partidos (4 de 5 mínimo) |
+| `preferencias_usuario.py` | los filtros de la pantalla, entre sesiones |
+
+### 1. Pronóstico previo en finalizados, con validación
+
+**No va en `predicciones_dia.json`, aunque el encargo lo pidiera ahí**: ese
+fichero lo REGENERA el bot entero cada noche, así que una copia «inmutable»
+guardada ahí se borraría en la primera pasada. Va en
+`pronosticos_emitidos.json`, de **sólo inserción** y podado a 21 días **por
+fecha de anotación** (los registros del bot no traen fecha del partido; podando
+por ella no se borrarían nunca).
+
+**Lo escriben los dos, y hace falta que sean los dos:**
+
+- la **aplicación**, al pintar la tarjeta (con córners, tarjetas y remates
+  dentro, que es la versión buena) y con un barrido posterior para los que un
+  filtro apartó;
+- el **bot**, en `retrain_leagues.yml`, justo después de `monitor_playdoit.py`.
+  Sin este paso el registro no sobreviviría al reinicio del contenedor de
+  Streamlit Cloud. Medido: **298 evaluados · 96 anotados · 48 s**. Los otros
+  202 son partidos que Playdoit no cotiza.
+
+**Colores:** 🟢 acertó · 🔴 falló · 🟡 acertó con prob < 50 % **o** falló por
+menos de una unidad de la línea. Y «sin pronóstico previo» ≠ «falló»: sale esa
+frase, no una fila roja.
+
+**Los conteos salen de `stats_espn.leer`** —la caché en disco del backfill
+nocturno—, cero red desde la tarjeta. Un partido recién acabado sale
+⏳ Pendiente en esos mercados en vez de con un veredicto inventado.
+
+### 2. Mañana, con el detalle entero
+
+`con_apuesta` ya sólo decide la ETIQUETA (`📅 Análisis previo (no jugable aún)`).
+Contexto, recomendadas, mercados y estabilidad se pintan igual que en hoy. Y la
+casilla de «sólo alta probabilidad» se enciende también allí.
+
+### 3. Tres recomendadas, una por mercado
+
+`valor_apuesta.mejores` filtra por los mínimos (prob ≥ 50 %, cuota ≥ 1,20,
+≤ 90 %) y ordena por Score; `apuesta_recomendada` devuelve su primera fila. Una
+sola definición del orden. **Una por mercado**: sin eso la escalera de goles se
+lleva las tres plazas con apuestas correlacionadas al 90 %. No se rellena a la
+fuerza. La sección «Otras opciones de valor» de la v175 se retira.
+
+### 4. Filtros, y qué estaba roto de verdad
+
+| | estado real |
+|---|---|
+| Deporte entre pestañas | **ya persistía** (clave global en `dashboard_ui`) |
+| Orden entre pestañas | **roto** → una sola `CLAVE_ORDEN` |
+| Cualquiera entre sesiones | **roto** → `preferencias_usuario.json` (gitignorado) |
+
+`leer_opcion` descarta la preferencia huérfana: sin esa guarda, renombrar un
+criterio de orden reventaría la pantalla entera al arrancar.
+
+### 5. Orden «Apuesta recomendada»
+
+verde → ámbar por Score → sin apuesta. El verde manda sobre el Score: ordenar
+sólo por Score haría un ranking de lo peor medido (v164).
+
+### 6. Autoaprendizaje
+
+**La parte 4.1 YA EXISTÍA y se comprobó antes de tocar nada.**
+`retrain_leagues.yml` corre cada noche: añade los partidos al histórico,
+recalcula ELO y medias móviles, reentrena. Los commits `chore(datos): …` son
+diarios. No se reimplementó.
+
+**Los patrones (4.2) son nuevos**, con **4 de 5** y no 3 de 5: tres de cinco
+pasa el 50 % de las veces por azar y no es un patrón. Van en CONTEXTO y **no
+tocan ninguna probabilidad** — la λ ya escucha al histórico desde la v175 con un
+peso medido (β 0,186 / 0,255).
+
+### Rendimiento
+
+    índice de patrones por liga ....  10 ms  (una vez)
+    patrones por partido ...........  0,014 ms
+    anotar el pronóstico ...........  consulta a un diccionario
+
+**Nota operativa que costó una hora de diagnóstico.** El paso nuevo del bot
+llama a `remates_tarjeta` para 298 partidos, y ése necesita los ROSTERS de
+ESPN. Corriéndolo en local, ESPN empieza a rechazar peticiones a mitad de la
+pasada y `goleadores_cache.json` **guarda los fallos** —lo hace a propósito, hay
+un test que lo comprueba—, así que durante un rato la aplicación se queda sin el
+bloque de «Quién remata». Se vio como un `_v164_valida_tarjeta` en rojo con «0
+jugadores llevan la línea de la casa», y se descartó que fuera una regresión
+comparando contra HEAD **en un worktree aparte**: HEAD fallaba igual con esa
+caché envenenada y volvía a pasar al restaurarla.
+
+En CI no ocurre: `precalcular_rosters.yml` corre a las 04:30 y deja la caché
+caliente una hora antes de `retrain_leagues.yml`. **En local, conviene restaurar
+`goleadores_cache.json` desde git después de correr `pronosticos_guardados.py` a
+mano.**
+
+**Pendiente que deja:**
+
+1. La validación de córners, tarjetas y remates depende de que el backfill
+   nocturno de `stats_espn` haya pasado. Los partidos del propio día salen
+   ⏳ Pendiente hasta la mañana siguiente.
+2. `predicciones_dia.json` no guarda la fecha del partido, así que los registros
+   del bot van sin ella y la búsqueda cae en la pasada tolerante (mismo par, sin
+   mirar fecha). Dos cruces del mismo par en 21 días podrían confundirse; se
+   acota eligiendo el de fecha más cercana. Lo limpio sería que
+   `predicciones_dia.generar` guardara la fecha.
+3. Los patrones no están medidos contra nada: son un recuento honesto, pero
+   nadie ha comprobado que un equipo con «Over 9,5 en 4 de 5» repita más que el
+   resto. Es medible con el ledger y no se ha hecho.
+4. Sigue sin resolverse: `cuotas_multi._buscar` empareja partidos distintos del
+   mismo día (Botafogo ↔ Botafogo SP), tapado sólo en `alpha_finder`.
+5. `smoke_botones.py` volvió a colgarse en la fase de red sin veredicto, como en
+   la v173 y la v174.
+6. HMREY debe rotar la clave de The Odds API.

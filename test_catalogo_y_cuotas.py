@@ -6723,7 +6723,9 @@ def test_los_ordenes_de_la_lista():
     """
     import modo_modelo as mm
 
-    check(len(mm.ORDENES) == 5, "hay cinco criterios de orden (%d)"
+    # v176 — SEIS: entra «Apuesta recomendada», que ordena por el
+    # Score de la primera recomendada y pone los verdes delante.
+    check(len(mm.ORDENES) == 6, "hay seis criterios de orden (%d)"
           % len(mm.ORDENES))
     for etq in ('Hora', 'Probabilidad del local',
                 'Probabilidad de más de 2.5',
@@ -9486,12 +9488,18 @@ def test_se_exploran_todas_las_lineas_de_cada_mercado():
     # contradecirla.
     check('mm-otros">💰 MEJOR VALOR</div>' not in src,
           "la seccion separada de mejor valor ya no se pinta")
-    check('Otras opciones de valor' in src,
-          "y en su sitio van las siguientes por Score")
+    # v176 — «Otras opciones de valor» duro una version. Las
+    # alternativas se ven ahora como lo que son: 2ª y 3ª
+    # RECOMENDADA, con su color y su Score. La propiedad que la
+    # v175 vino a garantizar no se pierde —salen de la MISMA lista
+    # ordenada, `recomendadas`— y ahora ademas se leen como
+    # apuestas y no como una tabla.
     cuerpo = src.split('def tarjeta(st, pick')[1].split(
         'def _analisis_completo')[0]
-    check('_otras_opciones' in cuerpo,
-          "pegadas a la recomendacion, en el cuerpo de la tarjeta")
+    check('recomendadas(' in cuerpo,
+          "la tarjeta pide la lista de recomendadas")
+    check('RECOMENDADA' in src,
+          "y las pinta como recomendaciones numeradas")
     check('Score' in src, "con el Score a la vista")
 
 
@@ -9727,13 +9735,23 @@ def test_siempre_hay_apuesta_recomendada():
         check(r2.get('cuota') is None or r2['cuota'] >= va.CUOTA_DECENTE,
               "y si no hay cuota se dice, en vez de callar el partido")
 
-    # el orden importa: el motor va ANTES del camino heredado
+    # el orden importa: el motor va ANTES del camino heredado.
+    #
+    # v176 — el `import valor_apuesta` ya no esta dentro de
+    # `apuesta_recomendada`: vive en `recomendadas`, que es quien
+    # recorre el catalogo. Lo que se comprueba sigue siendo lo
+    # mismo —que el motor se consulta antes del `return None`
+    # heredado— con el nombre nuevo.
     src = open('modo_modelo.py', encoding='utf-8').read()
     cuerpo = src.split('def apuesta_recomendada(')[1]
-    i_valor = cuerpo.index('import valor_apuesta')
+    i_valor = cuerpo.index('recomendadas(pick, bloques, n=1)')
     i_legacy = cuerpo.index('if not jugables:')
     check(i_valor < i_legacy,
           "el motor de valor se consulta antes del `return None` heredado")
+    cuerpo_lista = src.split('def recomendadas(')[1].split(
+        '\ndef ')[0]
+    check('valor_apuesta' in cuerpo_lista,
+          "y es `recomendadas` quien llama al motor")
 
 
 def test_la_cuota_decente_evita_las_lineas_absurdas():
@@ -10203,15 +10221,17 @@ def test_la_apuesta_principal_es_la_de_maximo_score():
     check(m and m['cuota'] >= va.CUOTA_DECENTE,
           f"y cuota >= 1,20 ({m and m['cuota']})")
 
-    # ninguna de las alternativas puede tener MAS Score que la principal
+    # ninguna de las alternativas puede tener MAS Score que la
+    # principal, y desde la v176 es imposible por construccion: las
+    # tres salen de la misma lista ordenada.
     import modo_modelo as mm
-    import re as _re
-    html = mm._otras_opciones(pick, {}, m)
-    scores = [float(x) for x in _re.findall(r'Score <b>([0-9.]+)</b>',
-                                            html)]
+    recos = mm.recomendadas(pick, {}, n=3)
+    scores = [r['score'] for r in recos[1:]]
     check(all(x <= m['score'] + 1e-9 for x in scores),
           f"ninguna alternativa supera a la principal ({scores} vs "
           f"{m['score']})")
+    check(recos and recos[0]['apuesta'] == m['apuesta'],
+          "y la primera de la lista ES la principal")
 
     # regla 4: la de mayor Score ABSOLUTO puede no cumplir, y entonces se
     # pasa a la siguiente que si cumpla
@@ -10345,9 +10365,32 @@ def test_el_h2h_y_la_forma_mueven_la_lambda_de_goles():
                                'AmaZulu', base)
     check(abs(ajustada - base) > 1e-6,
           f"la lambda se mueve con el historico ({base} -> {ajustada})")
-    if cr.get('goles') and cr['goles'] < base:
-        check(ajustada < base,
-              f"y si en los cruces se marca poco, baja ({ajustada})")
+    # LO QUE ESTE TEST COMPROBABA ANTES ERA FALSO, y lo destapo el commit
+    # de datos del 2026-08-28: «si en los cruces se marca poco, la lambda
+    # baja». No tiene por que. La correccion tiene DOS terminos —H2H y
+    # forma reciente— y el segundo puede tirar hacia arriba mas de lo que
+    # el primero tira hacia abajo. Con los datos nuevos, el H2H de
+    # Mamelodi-AmaZulu bajaba y la forma de los dos subia mas: 2,70 ->
+    # 2,804. La implicacion solo vale para el termino del H2H POR
+    # SEPARADO, que es lo que se comprueba ahora.
+    g_h2h, n_h2h = cx._goles_del_h2h('rsa_premier', 'Mamelodi Sundowns',
+                                     'AmaZulu')
+    gh = cx._goles_recientes('rsa_premier', 'Mamelodi Sundowns')
+    ga = cx._goles_recientes('rsa_premier', 'AmaZulu')
+    esperada = base
+    if n_h2h >= cx.MIN_H2H and g_h2h is not None:
+        esperada += cx.BETA_H2H * (g_h2h - base)
+    if gh is not None and ga is not None:
+        esperada += cx.BETA_FORMA * ((gh + ga) / 2.0 - base)
+    check(abs(ajustada - esperada) < 1e-3,
+          f"la lambda es exactamente la formula medida ({ajustada} vs "
+          f"{round(esperada, 4)})")
+    if g_h2h is not None and g_h2h < base:
+        sin_h2h = base + (0.0 if gh is None or ga is None
+                          else cx.BETA_FORMA * ((gh + ga) / 2.0 - base))
+        check(ajustada < sin_h2h,
+              f"y el termino del H2H tira hacia abajo cuando en los "
+              f"cruces se marca poco ({ajustada} < {round(sin_h2h, 4)})")
 
     # sin historico no se inventa nada: la lambda sale intacta
     check(cx.lambda_goles('no_existe', 'X', 'Y', 2.70) == 2.70,
@@ -10416,6 +10459,440 @@ def test_la_binomial_negativa_se_midio_y_no_entro():
           "cornrs, tarjetas y remates siguen con binomial negativa")
     check(abs(p_poisson - p_nb) > 0.005,
           f"y la dispersion cambia su respuesta ({p_poisson} vs {p_nb})")
+
+
+def _pron_aislado():
+    """
+    `pronosticos_guardados` apuntando a un fichero temporal.
+
+    Los tests NO pueden escribir en el registro de produccion: es de
+    solo-insercion, asi que una entrada de prueba con nombres inventados
+    se quedaria ahi hasta que la poda de 21 dias se la llevara.
+    """
+    import tempfile
+    import pronosticos_guardados as pg
+    ruta = os.path.join(tempfile.mkdtemp(), 'pron_test.json')
+    pg.FICHERO = ruta
+    pg.recargar()
+    return pg
+
+
+def test_el_pronostico_previo_se_guarda_y_no_se_reescribe():
+    """
+    v176 — COMPROBACION 1 DEL ENCARGO: «todos los partidos finalizados
+    tienen pronostico previo guardado».
+
+    LA PROPIEDAD QUE LO HACE VALER ALGO ES LA INMUTABILIDAD. Si el
+    registro se sobrescribiera con la recomendacion de esta tarde, lo que
+    se enseñaria despues del partido seria lo que la aplicacion pensaba al
+    final, no lo que dijo al principio. Y si se recalculara ahora, con el
+    ELO y las medias ya movidas por el resultado, seria peor todavia: una
+    reconstruccion con informacion del futuro, presentada como pronostico.
+    """
+    import modo_modelo as mm
+    pg = _pron_aislado()
+
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.45, 'draw': 0.27, 'away': 0.28},
+           '1x2_cuotas': {'home': 2.10, 'draw': 3.40, 'away': 3.30},
+           'doble_cuotas': {'1X': 1.32, '12': 1.28, 'X2': 1.55},
+           'btts': 0.54, 'btts_cuotas': {'si': 1.78, 'no': 2.00},
+           'goles': {'1.5': {'p': 0.76, 'mas': 1.28, 'menos': 3.55},
+                     '2.5': {'p': 0.55, 'mas': 1.75, 'menos': 2.05},
+                     '3.5': {'p': 0.31, 'mas': 2.90, 'menos': 1.40}}}
+    pick = {'partido': 'León vs Monterrey', 'clave_liga': 'liga_mx',
+            'deporte': 'Fútbol', 'fecha': '2026-08-22',
+            'implicitas': imp,
+            'goles_lineas': {'1.5': 0.79, '2.5': 0.57, '3.5': 0.33},
+            'board': {'Gana León': 0.45, 'Empate': 0.27,
+                      'Gana Monterrey': 0.28,
+                      'Ambos marcan: Sí': 0.56,
+                      'Ambos marcan: No': 0.44}}
+    recos = mm.recomendadas(pick, {}, n=3)
+    check(bool(recos), "hay recomendacion que anotar")
+    check(pg.guardar(pick, recos), "se guarda la primera vez")
+    check(not pg.guardar(pick, recos),
+          "y la segunda vez NO se toca: el registro es inmutable")
+
+    # y otra recomendacion distinta tampoco lo pisa
+    otra = [dict(recos[0], apuesta='INVENTADA', prob=0.99)]
+    pg.guardar(pick, otra)
+    g = pg.de_partido('liga_mx', 'León', 'Monterrey', '2026-08-22')
+    check(g and g['recomendadas'][0]['apuesta'] == recos[0]['apuesta'],
+          "lo guardado sigue siendo lo primero que se dijo")
+
+    # se guarda lo que hay que liquidar, y la cuota es parte de ello
+    fila = g['recomendadas'][0]
+    for campo in ('mercado', 'bloque', 'apuesta', 'prob', 'cuota',
+                  'score'):
+        check(campo in fila, f"el registro guarda «{campo}»")
+    check(fila['cuota'] and fila['cuota'] > 1,
+          f"con la cuota real de la casa ({fila.get('cuota')})")
+
+    # un partido ya jugado no se pronostica
+    check(not pg.guardar(dict(pick, jugado=True, partido='X vs Y'),
+                         recos),
+          "de un partido acabado ya no se pronostica")
+
+    # la busqueda tolera que el precalculo no traiga fecha (el bot)
+    check(pg.de_partido('liga_mx', 'León', 'Monterrey', '') is not None,
+          "se encuentra tambien sin fecha, que es como lo anota el bot")
+
+
+def test_los_colores_de_validacion_son_los_del_encargo():
+    """
+    v176 — COMPROBACION 2: «los colores de validacion son correctos».
+
+    El encargo los define asi, y asi se comprueban:
+
+        🟢 el lado pronosticado fue correcto
+        🔴 fue incorrecto
+        🟡 correcto pero con probabilidad < 50 %, O a una unidad de la
+           linea
+
+    El ejemplo del propio encargo —«Tarjetas Visita Menos de 2.5 - 60 %»
+    con 3 tarjetas → 🟡 Cerca— es la segunda puerta: fallo por medio
+    punto. Pintarlo del mismo rojo que un 9 seria tirar la unica
+    informacion que separa un modelo afinado de uno perdido.
+    """
+    import pronosticos_guardados as pg
+
+    check(pg._estado(True, 0.5, 0.61) == pg.CUMPLIDO, "acierto → verde")
+    check(pg._estado(False, 5.0, 0.61) == pg.FALLADO, "fallo lejos → rojo")
+    check(pg._estado(False, 0.5, 0.60) == pg.CERCA,
+          "fallo por menos de una unidad → ambar (el caso del encargo)")
+    check(pg._estado(True, None, 0.42) == pg.CERCA,
+          "acierto con menos del 50 % → ambar")
+    check(pg._estado(None, None, 0.6) == pg.PENDIENTE,
+          "sin dato real → pendiente, no un veredicto inventado")
+    check(abs(pg.MARGEN_CERCA - 1.0) < 1e-9,
+          f"la unidad de margen es 1 ({pg.MARGEN_CERCA})")
+
+    # y la liquidacion completa, contra un marcador de verdad
+    pg = _pron_aislado()
+    k = pg.clave('liga_mx', 'León', 'Monterrey', '2026-08-22')
+    pg._escribir({k: {
+        'clave_liga': 'liga_mx', 'home': 'León', 'away': 'Monterrey',
+        'fecha': '2026-08-22', 'anotado': '2026-08-22', 'recomendadas': [
+            {'mercado': 'Goles', 'bloque': 'goles', 'etiqueta': 'Total',
+             'apuesta': 'Goles: Más de 2.5', 'linea': 2.5, 'prob': 0.57,
+             'cuota': 1.75, 'score': 1.0},
+            {'mercado': 'BTTS', 'bloque': 'btts',
+             'etiqueta': 'Ambos marcan',
+             'apuesta': 'Ambos marcan: No', 'linea': None, 'prob': 0.44,
+             'cuota': 2.0, 'score': 0.88},
+            {'mercado': '1X2', 'bloque': 'resultado',
+             'etiqueta': 'Resultado', 'apuesta': 'Gana León',
+             'linea': None, 'prob': 0.45, 'cuota': 2.1, 'score': 0.94},
+            {'mercado': 'Córners', 'bloque': 'corners',
+             'etiqueta': 'Total', 'apuesta': 'Córners: Menos de 12.5',
+             'linea': 12.5, 'prob': 0.61, 'cuota': 1.8, 'score': 1.1},
+        ]}})
+    jug = {'partido': 'León vs Monterrey', 'clave_liga': 'liga_mx',
+           'deporte': 'Fútbol', 'fecha': '2026-08-22', 'jugado': True,
+           'goles_home': 1, 'goles_away': 1}
+    filas = {f['apuesta']: f for f in pg.validar(jug)}
+    check(len(filas) == 4, f"se liquidan las cuatro ({len(filas)})")
+    check(filas['Goles: Más de 2.5']['estado'] == pg.CERCA,
+          "1-1 son 2 goles: «Mas de 2,5» fallo POR MEDIO GOL, y eso es "
+          "ambar, no rojo")
+    check(filas['Ambos marcan: No']['estado'] == pg.FALLADO,
+          "«Ambos marcan: No» con 1-1 fallo, y sin linea no hay «cerca» "
+          "posible: el ambar por probabilidad baja es solo para los ACIERTOS")
+    check(filas['Gana León']['estado'] == pg.FALLADO,
+          "empataron: «Gana Leon» no se cumplio")
+
+    # LOS CONTEOS SALEN DE LA CACHE EN DISCO, NO DE LA RED. Leon-Monterrey
+    # del 2026-08-22 tuvo 3 y 10 cornrs: 13 contra «Menos de 12,5» es
+    # fallo por medio punto.
+    ck = filas['Córners: Menos de 12.5']
+    check(ck['estado'] in (pg.CERCA, pg.PENDIENTE),
+          "los cornrs se liquidan de la cache")
+    if ck['real'] is not None:
+        check(abs(ck['real'] - 13.0) < 1e-6,
+              f"con el numero real de ESPN ({ck['real']})")
+
+    # y un partido sin pronostico guardado NO dice que fallo: dice nada
+    otro = dict(jug, partido='A vs B')
+    check(pg.validar(otro) == [],
+          "sin pronostico previo la lista sale vacia, no en rojo")
+
+
+def test_hay_hasta_tres_recomendadas_y_de_mercados_distintos():
+    """
+    v176 — COMPROBACION 3: «los partidos muestran las 3 recomendaciones».
+
+    Con dos condiciones que el encargo pone y una que hizo falta al
+    probarlo:
+
+      · ordenadas por Score descendente;
+      · todas con probabilidad >= 50 % y cuota >= 1,20;
+      · **una por mercado**. Sin esto, la escalera de goles se lleva las
+        tres plazas —«Mas de 1,5», «Mas de 2,5» y «Menos de 3,5» del mismo
+        partido tienen Scores casi iguales— y las «alternativas» son la
+        misma apuesta tres veces, correlacionadas al 90 %: si falla una,
+        fallan las tres.
+    """
+    import modo_modelo as mm
+    import valor_apuesta as va
+
+    imp = {'casa': 'Playdoit',
+           '1x2': {'home': 0.45, 'draw': 0.27, 'away': 0.28},
+           '1x2_cuotas': {'home': 2.10, 'draw': 3.40, 'away': 3.30},
+           'doble_cuotas': {'1X': 1.32, '12': 1.28, 'X2': 1.55},
+           'btts': 0.54, 'btts_cuotas': {'si': 1.78, 'no': 2.00},
+           'goles': {'1.5': {'p': 0.76, 'mas': 1.28, 'menos': 3.55},
+                     '2.5': {'p': 0.55, 'mas': 1.75, 'menos': 2.05},
+                     '3.5': {'p': 0.31, 'mas': 2.90, 'menos': 1.40}}}
+    pick = {'partido': 'León vs Monterrey', 'clave_liga': 'liga_mx',
+            'deporte': 'Fútbol', 'fecha': '2026-08-22',
+            'implicitas': imp,
+            'goles_lineas': {'1.5': 0.79, '2.5': 0.57, '3.5': 0.33},
+            'board': {'Gana León': 0.45, 'Empate': 0.27,
+                      'Gana Monterrey': 0.28,
+                      'Ambos marcan: Sí': 0.56,
+                      'Ambos marcan: No': 0.44}}
+    recos = mm.recomendadas(pick, {}, n=3)
+    check(len(recos) >= 2,
+          f"hay mas de una recomendacion ({len(recos)})")
+    check(len(recos) <= 3, f"y como mucho tres ({len(recos)})")
+    scores = [r['score'] for r in recos]
+    check(scores == sorted(scores, reverse=True),
+          f"van en orden de Score descendente ({scores})")
+    mercados = [r['mercado'] for r in recos]
+    check(len(set(mercados)) == len(mercados),
+          f"y cada una de un mercado distinto ({mercados})")
+    for r in recos:
+        check(r['prob'] >= va.PROB_SUELO_DURO,
+              f"«{r['apuesta']}» llega al 50 % ({r['prob']})")
+        check(r['cuota'] >= va.CUOTA_DECENTE,
+              f"«{r['apuesta']}» tiene cuota jugable ({r['cuota']})")
+        check(r.get('puesto_valor'), "y sabe que puesto ocupa")
+
+    # la primera ES la de `apuesta_recomendada`: una sola definicion del
+    # orden es lo que impide que la tarjeta se contradiga (leccion v175)
+    principal = mm.apuesta_recomendada(pick, {})
+    check(principal and principal['apuesta'] == recos[0]['apuesta'],
+          "la principal es la primera de la lista")
+
+    # no se rellena a la fuerza: un partido con una sola linea da una
+    flaco = {'partido': 'A vs B', 'clave_liga': 'premier',
+             'deporte': 'Fútbol', 'fecha': '2026-08-28',
+             'goles_lineas': {'2.5': 0.57},
+             'implicitas': {'casa': 'Playdoit', 'goles': {
+                 '2.5': {'p': 0.55, 'mas': 1.75, 'menos': 2.05}}}}
+    check(len(mm.recomendadas(flaco, {}, n=3)) <= 2,
+          "no se inventan alternativas donde no las hay")
+
+
+def test_manana_enseña_lo_mismo_que_hoy():
+    """
+    v176 — COMPROBACION 3 (segunda mitad): mañana con el detalle entero.
+
+    Hasta la v175, `con_apuesta=False` cortaba el bloque y dejaba «Mañana:
+    solo analisis». El encargo lo rechaza y tiene razon en el diagnostico:
+    la diferencia no estaba en los datos —son los mismos— sino en una
+    decision de diseño.
+
+    LO QUE SIGUE SIENDO VERDAD, y por eso queda la etiqueta: las lineas de
+    mañana se mueven durante la noche, y ese movimiento es el unico canal
+    con percentil 5 positivo que este proyecto tiene medido (+11,49 %
+    comprando al mejor precio). La cuota que se ve ahora no es la que
+    habra mañana. Se dice en tres palabras en vez de esconder el analisis.
+    """
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    cuerpo = src.split('def tarjeta(st, pick')[1].split(
+        'def _analisis_completo')[0]
+    # se busca la LLAMADA, no la frase: la frase sigue en el comentario
+    # que explica por que se quito, y ahi tiene que seguir.
+    check("st.caption('Mañana: sólo análisis.')" not in src,
+          "el texto que cortaba el analisis de mañana ya no se pinta")
+    check('Análisis previo (no jugable aún)' in cuerpo,
+          "en su sitio va una etiqueta corta")
+    # y el bloque de recomendacion NO esta dentro de un `if con_apuesta`
+    i_rec = cuerpo.index('_bloque_recomendada')
+    trozo = cuerpo[:i_rec]
+    check('if not con_apuesta:' in trozo
+          and 'elif not con_apuesta' not in trozo,
+          "`con_apuesta` ya solo decide la ETIQUETA, no si hay apuesta")
+
+    # el contexto y los mercados tambien se pintan en las dos vistas
+    for pieza in ('_bloque_contexto', '_filas_de_mercados',
+                  '_tira_estabilidad', 'recomendadas('):
+        check(pieza in cuerpo, f"mañana tambien pinta {pieza}")
+
+
+def test_los_filtros_se_recuerdan_entre_pestanas_y_sesiones():
+    """
+    v176 — COMPROBACION 4: «los filtros persisten entre pestañas».
+
+    Son dos problemas y se arreglan en sitios distintos:
+
+      · ENTRE PESTAÑAS. El de deporte ya persistia (una sola clave global
+        en `dashboard_ui`). El de ORDEN no: usaba `mm_orden` para hoy y
+        `man_orden` para mañana. Ahora comparten `CLAVE_ORDEN`.
+      · ENTRE SESIONES. `st.session_state` se vacia al recargar, asi que
+        eso lo hace `preferencias_usuario` con un JSON.
+    """
+    import tempfile
+    import modo_modelo as mm
+    import preferencias_usuario as pu
+
+    check(mm.CLAVE_ORDEN and '%s' not in mm.CLAVE_ORDEN,
+          f"el AJUSTE de orden es uno solo ({mm.CLAVE_ORDEN})")
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    # LOS WIDGETS SIGUEN TENIENDO CLAVE PROPIA, Y TIENEN QUE TENERLA.
+    # Darles la misma —que fue el primer intento— levanta un
+    # `StreamlitDuplicateElementKey`: las dos pestañas se pintan en cada
+    # pasada, tambien la que no se ve. Lo cazo `valida_render`.
+    check("_k_orden = '%s_orden' % clave" in src,
+          "cada vista conserva la clave de SU widget")
+    check('sincronizar' in src,
+          "y lo que comparten es el VALOR, no la clave")
+    check('preferencias_usuario' in src,
+          "la lista siembra sus filtros con lo guardado")
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    check('preferencias_usuario' in dash,
+          "y el filtro de deporte tambien")
+
+    # el fichero: se lee, se escribe, y no se reescribe si no cambia
+    pu.FICHERO = os.path.join(tempfile.mkdtemp(), 'prefs.json')
+    pu.olvidar()
+    check(pu.guardar('mm_orden_global', 'Apuesta recomendada'),
+          "la preferencia se guarda")
+    check(not pu.guardar('mm_orden_global', 'Apuesta recomendada'),
+          "y no se reescribe si no ha cambiado")
+    pu.olvidar()
+    check(pu.leer('mm_orden_global') == 'Apuesta recomendada',
+          "y sobrevive a releer el fichero, que es lo que pedia el encargo")
+
+    # LA GUARDA QUE HACE FALTA: una preferencia huerfana no puede llegar a
+    # un `selectbox`. Si mañana se renombra un criterio de orden, el JSON
+    # seguiria pidiendo el viejo y la pantalla reventaria entera.
+    check(pu.leer_opcion('mm_orden_global', ['Hora'], 'Hora') == 'Hora',
+          "un valor que ya no es opcion se descarta, no revienta")
+    check(pu.leer_opcion('no_existe', list(mm.ORDENES), 'Hora') == 'Hora',
+          "y sin nada guardado se usa el defecto")
+
+    # EL SINCRONIZADOR: lo que Hoy elige, Mañana lo adopta.
+    class _Falso:
+        def __init__(self):
+            self.session_state = {}
+    st_ = _Falso()
+    pu.guardar(mm.CLAVE_ORDEN, 'Apuesta recomendada')
+    pu.sincronizar(st_, 'mm_orden', mm.CLAVE_ORDEN, list(mm.ORDENES),
+                   'Hora')
+    pu.sincronizar(st_, 'man_orden', mm.CLAVE_ORDEN, list(mm.ORDENES),
+                   'Hora')
+    check(st_.session_state.get('mm_orden') == 'Apuesta recomendada'
+          and st_.session_state.get('man_orden') == 'Apuesta recomendada',
+          f"las dos vistas arrancan con el mismo orden ({st_.session_state})")
+
+    # y si el usuario cambia el de hoy, el de mañana lo adopta en la
+    # siguiente pasada
+    st_.session_state['mm_orden'] = 'Hora'
+    pu.confirmar(st_, 'mm_orden', mm.CLAVE_ORDEN, 'Hora')
+    pu.sincronizar(st_, 'man_orden', mm.CLAVE_ORDEN, list(mm.ORDENES),
+                   'Hora')
+    check(st_.session_state.get('man_orden') == 'Hora',
+          "lo que se elige en una pestaña llega a la otra")
+    check(st_.session_state.get('mm_orden') == 'Hora',
+          "y no se pisa lo que el usuario acaba de elegir")
+
+
+def test_el_orden_por_apuesta_recomendada():
+    """
+    v176 — COMPROBACION 5: el nuevo criterio de orden funciona.
+
+    EL ENCARGO: «ordena de mayor a menor segun el Score de la 1ª apuesta
+    recomendada. Los partidos con apuesta verde (prob >= 60 %) aparecen
+    primero, luego los ambar, y finalmente los que no tienen apuesta».
+
+    El verde manda sobre el Score y no al reves: un Score de 0,99 en un
+    mercado que en esa liga calibra mal no puede adelantar a un 0,97 que
+    si esta medido. Ordenar solo por Score convertiria la lista en un
+    ranking de lo peor medido, que es como se lleno la pantalla en la
+    v164.
+    """
+    import modo_modelo as mm
+
+    check('Apuesta recomendada' in mm.ORDENES,
+          f"el criterio esta en el selector ({list(mm.ORDENES)})")
+
+    verde = {'partido': 'V', 'inicio': '3',
+             '_recomendada': {'verde': True, 'score': 0.97}}
+    ambar_alto = {'partido': 'A', 'inicio': '1',
+                  '_recomendada': {'verde': False, 'score': 0.99}}
+    ambar_bajo = {'partido': 'B', 'inicio': '2',
+                  '_recomendada': {'verde': False, 'score': 0.90}}
+    jugado = {'partido': 'J', 'inicio': '0', 'jugado': True}
+    sin = {'partido': 'S', 'inicio': '0', '_recomendada': None}
+    lista = [ambar_bajo, jugado, verde, sin, ambar_alto]
+    lista.sort(key=mm.ORDENES['Apuesta recomendada'])
+    orden = [p['partido'] for p in lista]
+    check(orden[0] == 'V',
+          f"el verde va primero aunque su Score sea menor ({orden})")
+    check(orden[1] == 'A' and orden[2] == 'B',
+          f"luego los ambar, por Score ({orden})")
+    check(set(orden[3:]) == {'J', 'S'},
+          f"y al final el jugado y el que no tiene apuesta ({orden})")
+
+
+def test_los_patrones_recientes_son_observados_y_no_ruido():
+    """
+    v176 — LOS PATRONES: un recuento de lo que paso, y nada mas.
+
+    POR QUE 4 DE 5 Y NO 3 DE 5, que es lo que decia el ejemplo del
+    encargo. Tres de cinco no es un patron: si el mercado fuera una
+    moneda, **sacar 3 o mas de 5 pasa el 50 % de las veces**. Con 4 de 5
+    la probabilidad por azar baja al 18,75 % y con 5 de 5 al 3,1 %.
+    Enseñar 3 de 5 como hallazgo seria llenar la tarjeta de ruido con
+    aspecto de señal, que es lo que las ultimas cinco versiones han ido
+    quitando.
+
+    Y NO TOCAN NINGUNA PROBABILIDAD. La lambda ya escucha al historico
+    desde la v175, con beta 0,186 para el H2H y 0,255 para la forma
+    (medido sobre 47.794 partidos). Meter encima un segundo canal seria
+    contar lo mismo dos veces — el error que la v172 dejo escrito.
+    """
+    import patrones_equipo as pat
+    import rendimiento_equipos as rq
+
+    check(pat.MIN_RACHA >= 4,
+          f"el umbral no admite 3 de 5 ({pat.MIN_RACHA})")
+    check(pat.N_ULTIMOS == 5, f"la ventana son 5 partidos ({pat.N_ULTIMOS})")
+
+    d = rq._historico('liga_mx')
+    equipos = sorted(set(d['home_team'].dropna().astype(str)))[:14]
+    con_patron = [e for e in equipos if pat.de_equipo('liga_mx', e)]
+    check(bool(con_patron),
+          f"se detectan patrones sobre datos reales ({len(con_patron)} de "
+          f"{len(equipos)} equipos)")
+    for p in pat.de_equipo('liga_mx', con_patron[0]):
+        check(p['aciertos'] >= pat.MIN_RACHA,
+              f"ningun patron flojo se cuela ({p['texto']})")
+        check(p['aciertos'] <= p['n'], "y el recuento es coherente")
+        check(p['lado'] in ('Over', 'Under'), "con su lado")
+
+    # los dos bandos se alternan: si el local tiene tres patrones y el
+    # visitante uno, enseñar solo los del local diria menos del partido
+    mezcla = pat.de_partido('liga_mx', equipos[0], equipos[1])
+    check(len(mezcla) <= pat.MAX_POR_PARTIDO,
+          f"no mas de {pat.MAX_POR_PARTIDO} lineas en la tarjeta "
+          f"({len(mezcla)})")
+
+    # sin historico no se inventa nada
+    check(pat.de_partido('no_existe', 'X', 'Y') == [],
+          "una competicion sin historico no produce patrones")
+    check(pat.de_equipo('liga_mx', 'Equipo Que No Existe') == [],
+          "ni un equipo desconocido")
+
+    # y se ven en la tarjeta, dentro de CONTEXTO
+    import modo_modelo as mm
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    ctx = src.split('def _bloque_contexto')[1].split('\ndef ')[0]
+    check('patrones_equipo' in ctx,
+          "los patrones se pintan en el bloque de contexto")
 
 
 if __name__ == '__main__':
@@ -10666,6 +11143,14 @@ if __name__ == '__main__':
     test_el_techo_de_las_ligas_de_alta_varianza()
     test_el_h2h_y_la_forma_mueven_la_lambda_de_goles()
     test_la_binomial_negativa_se_midio_y_no_entro()
+    print(chr(10) + '=== v176: validacion, mañana completo, filtros y patrones ===')
+    test_el_pronostico_previo_se_guarda_y_no_se_reescribe()
+    test_los_colores_de_validacion_son_los_del_encargo()
+    test_hay_hasta_tres_recomendadas_y_de_mercados_distintos()
+    test_manana_enseña_lo_mismo_que_hoy()
+    test_los_filtros_se_recuerdan_entre_pestanas_y_sesiones()
+    test_el_orden_por_apuesta_recomendada()
+    test_los_patrones_recientes_son_observados_y_no_ruido()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)
