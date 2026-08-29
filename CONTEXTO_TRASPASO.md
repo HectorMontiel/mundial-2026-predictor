@@ -117,6 +117,12 @@ el mismo modo de fallo en el sitio donde el cambio puede provocarlo.
 - **Ficha: 13,4 s → 0,9 s**, de 41 peticiones a 0. El coste era RED, no cálculo.
 - `st.tabs` NO sirve: Streamlit renderiza todas las pestañas. `partido_ui` usa radio horizontal
   (no `segmented_control`: **AppTest no lo expone**, el smoke no podría pulsarlo).
+  - **v177.1 — esa última parte YA NO ES CIERTA.** AppTest sí expone
+    `segmented_control` en Streamlit 1.61.1: `valida_render` lo pulsa
+    para abrir la vista de mañana y el smoke recorre con él las cuatro
+    vistas de «Apuestas del Día». La salvedad real es otra: `.options`
+    devuelve los **rótulos ya formateados**, no los valores, así que
+    hay que pulsar por índice o mandar la clave a ciegas.
 - Smoke recorre las 5 secciones Y pulsa botones dentro (si no, dejaba de probar «Proponer parlays»).
 - **Desacople H2H/modelo**: CSV con 9-16 temporadas, modelo con ventana medida (`temporadas_modelo`).
   - H2H Premier: 5,0 → 17,6 cruces/pareja; parejas con ≥10: 0 % → 76 %.

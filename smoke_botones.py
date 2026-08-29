@@ -33,6 +33,27 @@ import io
 import sys
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+# v177.1 — LOS VALIDADORES ARRANCAN SIN PREFERENCIAS HEREDADAS.
+#
+# Desde la v177 la pantalla RECUERDA la vista y los filtros en
+# `preferencias_usuario.json`. Eso es lo que se pidió para el usuario y
+# está bien; para un validador es veneno: pasa a comprobar la vista que
+# dejó abierta la ejecución anterior, no la que dice comprobar.
+#
+# Medido en cuanto se puso: esta misma pasada dio tres FALLOS —«Partidos
+# de hoy» no aparece, falta `mm_orden`, falta `mm_solo_altas`— porque una
+# prueba previa había dejado guardada la vista de mañana. No estaba roto
+# nada; estaba mirando otra pantalla.
+#
+# Se apunta la preferencia a un fichero de usar y tirar ANTES de que nada
+# importe `preferencias_usuario` —lee la ruta del entorno al importarse—
+# así que cada pasada empieza igual y no toca lo que el usuario tenga
+# elegido en su máquina.
+import os as _os
+import tempfile as _tempfile
+_os.environ['PREFERENCIAS_USUARIO'] = _os.path.join(
+    _tempfile.mkdtemp(prefix='prefs_valida_'), 'preferencias_usuario.json')
+
 from streamlit.testing.v1 import AppTest
 
 # vista -> subcadenas de los botones a pulsar (los costosos/críticos)
@@ -96,6 +117,43 @@ def botones(at):
 
     _recoger(at)
     return fuera
+
+
+def _vistas_declaradas():
+    """
+    Las claves de las vistas de «Apuestas del Día», LEÍDAS SIN EJECUTAR.
+
+    `dashboard_ui.py` NO es un módulo importable: es el script de la
+    aplicación y tiene llamadas a `st.*` en el nivel superior. Importarlo
+    desde aquí lo ejecuta una segunda vez en el mismo proceso en el que ya
+    corre `AppTest`, y las dos ejecuciones se pisan: lo primero que sale
+    es un `st.button() can't be used in an st.form()` que no tiene nada
+    que ver con el código de la pantalla. Costó una tarde localizarlo.
+
+    Así que la declaración se lee con `ast`, que analiza el fichero sin
+    ejecutar una sola línea. Y se lee en vez de copiarse aquí para que
+    añadir una vista a la pantalla no deje al smoke sin abrirla.
+    """
+    import ast as _ast
+    try:
+        arbol = _ast.parse(open('dashboard_ui.py', encoding='utf-8').read())
+    except Exception:
+        return '_vista_principal', ()
+    clave, vistas = '_vista_principal', ()
+    for nodo in arbol.body:
+        if not isinstance(nodo, _ast.Assign):
+            continue
+        for destino in nodo.targets:
+            nombre = getattr(destino, 'id', '')
+            try:
+                valor = _ast.literal_eval(nodo.value)
+            except Exception:
+                continue
+            if nombre == 'CLAVE_VISTA_PRINCIPAL':
+                clave = str(valor)
+            elif nombre == 'VISTAS_PRINCIPALES':
+                vistas = tuple(valor)
+    return clave, vistas
 
 
 # ---------------------------------------------------------------------------
@@ -168,6 +226,77 @@ for vista, textos in VISTAS.items():
         # lo está — que es el fallo del que nació este fichero.
         for t in _fuera:
             print(f'  ⏭️  botón «{t}» OMITIDO por --rapido (no validado)')
+    # v177.1 — RECORRER LAS VISTAS DE «APUESTAS DEL DÍA».
+    #
+    # LA COBERTURA QUE SE PERDIÓ SIN QUE NADIE LO VIERA. Hasta la v176 esa
+    # pantalla usaba `st.tabs`, que renderiza TODAS las pestañas aunque
+    # sólo se vea una, así que este smoke enumeraba los botones de las
+    # cuatro sin hacer nada especial. La v177 cambió `st.tabs` por un
+    # `segmented_control` —`st.tabs` no conserva la pestaña abierta al
+    # recargar, que era el defecto que había que arreglar— y descarta al
+    # final el contenido de las tres vistas que no se han elegido. Los
+    # cuatro cuerpos SE SIGUEN EJECUTANDO, así que una excepción seguiría
+    # saliendo aquí; lo que se perdió es poder PULSAR lo que vive dentro
+    # de Mañana, Combinadas y Estado.
+    #
+    # Es el mismo patrón que las secciones de la ficha, de abajo, y por el
+    # mismo motivo: si la pantalla sólo pinta lo que está abierto, el
+    # smoke tiene que abrirlo.
+    #
+    # Y de paso corrige una nota del traspaso que ya no es cierta:
+    # «AppTest no expone `segmented_control`». Lo expone desde hace
+    # versiones —comprobado en Streamlit 1.61.1— con una salvedad que sí
+    # hay que saber: `.options` devuelve los RÓTULOS ya formateados, no
+    # los valores, así que se pulsa por índice y no por nombre.
+    _vistas_sc = [w for w in getattr(at, 'segmented_control', [])
+                  if str(getattr(w, 'key', '') or '') == '_vista_principal']
+    if _vistas_sc:
+        # SE PULSA POR CLAVE, no por rótulo. `.options` devuelve los
+        # rótulos ya formateados y `set_value` con uno de ellos no da
+        # error: Streamlit lo ignora y se queda donde estaba. Las claves
+        # las declara la propia pantalla en `VISTAS_PRINCIPALES`.
+        CLAVE_VISTA_PRINCIPAL, VISTAS_PRINCIPALES = _vistas_declaradas()
+        if not VISTAS_PRINCIPALES:
+            fallos.append(f'{vista}: no se pudieron leer las vistas '
+                          f'declaradas en dashboard_ui.py')
+        print(f'  ·  {len(VISTAS_PRINCIPALES)} vistas internas: '
+              f'se recorren todas')
+        for _clave in VISTAS_PRINCIPALES:
+            _sc = [w for w in getattr(at, 'segmented_control', [])
+                   if str(getattr(w, 'key', '') or '') == '_vista_principal']
+            if not _sc:
+                fallos.append(f'{vista} [vista {_clave}]: '
+                              f'desaparecio el selector')
+                break
+            try:
+                _sc[0].set_value(_clave).run()
+            except Exception as e:
+                fallos.append(f'{vista} [vista {_clave}]: '
+                              f'{type(e).__name__}: {e}')
+                print(f'  FALLO vista «{_clave}»: {type(e).__name__}')
+                continue
+            if at.exception:
+                fallos.append(f'{vista} [vista {_clave}]: '
+                              f'{at.exception[0].message}')
+                print(f'  FALLO vista «{_clave}»: '
+                      f'{at.exception[0].message}')
+                continue
+            # Y SE COMPRUEBA QUE DE VERDAD CAMBIÓ. Sin esto, un
+            # `set_value` que Streamlit ignore se cuenta como vista
+            # probada — que es exactamente lo que pasaba al pulsar por
+            # rótulo.
+            try:
+                _ahora = str(at.session_state[CLAVE_VISTA_PRINCIPAL])
+            except Exception:
+                _ahora = ''
+            if _ahora != _clave:
+                fallos.append(f'{vista} [vista {_clave}]: no se abrio '
+                              f'(el selector quedo en {_ahora!r})')
+                print(f'  FALLO vista «{_clave}»: no se abrio '
+                      f'(quedo en {_ahora!r})')
+                continue
+            print(f'  OK   vista «{_clave}» · {len(botones(at))} botones')
+
     # v147 — recorrer las secciones de la ficha, si la vista las tiene.
     #
     # `partido_ui` ejecuta SÓLO la sección abierta, así que cargar la vista

@@ -39,6 +39,27 @@ import time
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8',
                               errors='replace')
+# v177.1 — LOS VALIDADORES ARRANCAN SIN PREFERENCIAS HEREDADAS.
+#
+# Desde la v177 la pantalla RECUERDA la vista y los filtros en
+# `preferencias_usuario.json`. Eso es lo que se pidió para el usuario y
+# está bien; para un validador es veneno: pasa a comprobar la vista que
+# dejó abierta la ejecución anterior, no la que dice comprobar.
+#
+# Medido en cuanto se puso: esta misma pasada dio tres FALLOS —«Partidos
+# de hoy» no aparece, falta `mm_orden`, falta `mm_solo_altas`— porque una
+# prueba previa había dejado guardada la vista de mañana. No estaba roto
+# nada; estaba mirando otra pantalla.
+#
+# Se apunta la preferencia a un fichero de usar y tirar ANTES de que nada
+# importe `preferencias_usuario` —lee la ruta del entorno al importarse—
+# así que cada pasada empieza igual y no toca lo que el usuario tenga
+# elegido en su máquina.
+import os as _os
+import tempfile as _tempfile
+_os.environ['PREFERENCIAS_USUARIO'] = _os.path.join(
+    _tempfile.mkdtemp(prefix='prefs_valida_'), 'preferencias_usuario.json')
+
 from streamlit.testing.v1 import AppTest
 
 APP = 'dashboard_ui.py'

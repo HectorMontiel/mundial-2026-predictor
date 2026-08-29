@@ -4768,6 +4768,25 @@ BANKROLL = st.sidebar.number_input(
          "app sugiere el stake por ¼ de Kelly (tope 5 % del bankroll por "
          "apuesta). Solo informativo.")
 
+# v177.1 — LAS CLAVES DE LAS VISTAS, DECLARADAS FUERA DE LA FUNCIÓN.
+#
+# Las necesitan `smoke_botones` y `valida_render` para poder ABRIR cada
+# vista, y no pueden deducirlas de la pantalla: `AppTest` devuelve en
+# `.options` los RÓTULOS ya formateados —pasan por `format_func` y además
+# les quita el emoji de delante— mientras que el widget guarda la CLAVE.
+#
+# Mandarle a `set_value` un rótulo no da error: Streamlit lo ignora y deja
+# el control donde estaba. Medido: el smoke recorría las cuatro vistas,
+# cantaba cuatro OK y no cambiaba de vista ni una vez — 171 botones y
+# `_vista_principal == 'manana'` en las cuatro pasadas. Un validador que
+# da por probado lo que no abrió es peor que no tenerlo.
+#
+# Con la lista aquí, quien valida pulsa por clave y la comprobación es
+# real. El rótulo sigue siendo cosa de la pantalla.
+CLAVE_VISTA_PRINCIPAL = '_vista_principal'
+VISTAS_PRINCIPALES = ('hoy', 'manana', 'combi', 'estado')
+
+
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     # v128 — EL CHIP DE CASAS DEJA DE SER UN LITERAL.
@@ -6551,6 +6570,12 @@ def render_alpha_finder():
     # `format_func` el usuario ve el rótulo y el estado guarda `hoy`.
     _ROTULO = {k: e for k, e in _VISTAS}
     _claves = [k for k, _ in _VISTAS]
+    # las claves son las declaradas arriba: si alguien añade una vista
+    # y se olvida de la constante, el smoke dejaría de abrirla sin que
+    # nada fallara. Aquí salta.
+    assert tuple(_claves) == VISTAS_PRINCIPALES, (
+        'VISTAS_PRINCIPALES no coincide con las vistas de la '
+        'pantalla: %s vs %s' % (_claves, list(VISTAS_PRINCIPALES)))
     try:
         import preferencias_usuario as _prefv
         _prefv.recordar(st, '_vista_principal', _claves, 'hoy')

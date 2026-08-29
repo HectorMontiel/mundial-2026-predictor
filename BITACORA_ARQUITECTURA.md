@@ -3656,3 +3656,41 @@ apuestas: mejora lo que se puede aprender de ellas. Y la corrección de λ de
 §27.5 arregla un sesgo de calibración, que es otra cosa que ganar dinero — el
 canal con percentil 5 positivo de este proyecto sigue siendo comprar al mejor
 precio, y sigue en la pestaña de al lado.
+
+### 27.8 Una cobertura que se perdió al arreglar la pestaña
+
+Cambiar `st.tabs` por `segmented_control` (§27.4) tuvo un efecto de segundo
+orden que no se vio hasta mirar el smoke con calma: **`smoke_botones` dejó de
+poder pulsar lo que vive dentro de Mañana, Combinadas y Estado.**
+
+El mecanismo es exactamente el que hacía a `st.tabs` inservible para lo que se
+pedía. Streamlit renderiza todas las pestañas de un `st.tabs`, así que el smoke
+enumeraba los botones de las cuatro vistas sin hacer nada especial. Desde la
+v177 los cuatro cuerpos **se siguen ejecutando** —una excepción en cualquiera de
+ellos sigue saliendo— pero el contenido de los tres no elegidos se descarta al
+final del render, así que no hay botones que pulsar.
+
+Se arregla con el mismo patrón que ya usaban las secciones de la ficha (v147):
+si la pantalla sólo pinta lo que está abierto, el smoke tiene que abrirlo. Ahora
+recorre las cuatro vistas y las cuenta.
+
+**Y de paso corrige una nota del traspaso que llevaba desde la v147 y ya no era
+cierta:** «`segmented_control`: AppTest no lo expone, el smoke no podría
+pulsarlo». Sí lo expone en Streamlit 1.61.1 — `valida_render` lo pulsa para
+abrir la vista de mañana. La salvedad real es otra, y conviene que quede
+escrita porque costó dos intentos encontrarla:
+
+    at.segmented_control[i].options  ->  los RÓTULOS ya formateados
+                                          (pasan por `format_func`)
+    at.session_state[clave]          ->  el VALOR
+
+O sea que buscar la opción por su nombre en `.options` y mandarla a `set_value`
+no funciona: se envía un rótulo donde se espera una clave. Hay que pulsar por
+índice, o mandar la clave a ciegas.
+
+**Nota sobre el propio smoke.** El de la v175 se dio por colgado a los 57
+minutos porque llevaba media hora sin escribir en su log. No estaba colgado:
+terminó tres días después con `TODO OK`. Eso invalida el veredicto —el árbol
+cambió dos versiones por debajo mientras corría— pero también invalida la
+costumbre de matarlo a los 30 minutos de silencio. La fase de red es
+sencillamente mucho más lenta de lo que suponía la bitácora.
