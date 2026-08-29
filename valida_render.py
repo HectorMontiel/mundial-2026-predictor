@@ -226,9 +226,20 @@ def valida_vista_extra(clave, pedido, timeout=900):
                      f'({at.exception[0].message})')
         return
     check(True, f'{que} carga sin excepciones')
+    # QUÉ COMPRUEBA ESTE BLOQUE, Y QUÉ NO.
+    #
+    # Desde la v177.2 las cuatro vistas se RENDERIZAN siempre y sólo se
+    # oculta por CSS la que no toca —hay que dejarlas en el árbol o
+    # Streamlit se lleva el `session_state` de sus widgets, ver §27.9—.
+    # `AppTest` no sabe nada de CSS, así que este check dice «el texto se
+    # generó», no «el usuario lo ve». Sigue valiendo para lo que vale:
+    # detecta que el cuerpo de esa vista dejó de producirse.
+    #
+    # La comprobación FUERTE de que la vista cambió es la de abajo, sobre
+    # `session_state`. Ésa sí falla si el selector no hace su trabajo.
     t = textos(at)
     for exigido in (pedido.get('textos') or []):
-        check(exigido in t, f'{que}: «{exigido}» aparece en pantalla')
+        check(exigido in t, f'{que}: «{exigido}» se genera')
     # LA COMPROBACIÓN QUE DA SENTIDO A TODO ESTO: la vista elegida SIGUE
     # elegida. Con `st.tabs` cualquier interacción devolvía al usuario a
     # «Hoy», que es el defecto que el encargo mandó arreglar.

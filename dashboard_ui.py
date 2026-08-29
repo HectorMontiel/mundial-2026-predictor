@@ -6549,13 +6549,28 @@ def render_alpha_finder():
     # la recarga igual que los filtros, y por el mismo camino:
     # `preferencias_usuario` la siembra al arrancar.
     #
-    # EL SUMIDERO, que es la parte que no se ve. Los cuatro cuerpos siguen
-    # ejecutándose —con `st.tabs` también se ejecutaban los cuatro, así que
-    # no hay coste nuevo— y al final se BORRA el contenido de los tres que
-    # no se han elegido. Se hace así, y no con un `if` alrededor de cada
-    # bloque, porque la vista de hoy tiene su cuerpo repartido en seis
-    # sitios distintos de esta función: envolverlos todos habría sido
-    # reindentar trescientas líneas para arreglar una pestaña.
+    # CÓMO SE ESCONDE LO QUE NO SE HA ELEGIDO, que es la parte delicada.
+    #
+    # Los cuatro cuerpos se ejecutan siempre —con `st.tabs` también se
+    # ejecutaban los cuatro, así que no hay coste nuevo— y lo único que
+    # cambia es cuál se VE. Se hace con CSS sobre el contenedor, y no con
+    # un `if` alrededor de cada bloque, porque la vista de hoy tiene su
+    # cuerpo repartido en seis sitios distintos de esta función:
+    # envolverlos todos habría sido reindentar trescientas líneas para
+    # arreglar una pestaña.
+    #
+    # v177.2 — Y **NO** SE BORRA EL CONTENIDO, QUE FUE EL PRIMER INTENTO.
+    # La v177 usaba `st.empty()` y vaciaba al final los tres slots no
+    # elegidos. Funciona para pintar, y rompe el estado: un widget que no
+    # llega vivo al final del run desaparece de `st.session_state`. El
+    # smoke lo cazó — estando en la vista «Estado», pulsar «🔄 Actualizar
+    # ahora» reventaba con `KeyError: parlay_base`, que es el `selectbox`
+    # de la combinada y vive en la vista de hoy. En la aplicación real eso
+    # es la página entera caída.
+    #
+    # Ocultar por CSS deja los cuatro cuerpos EN EL ÁRBOL, que es
+    # exactamente lo que hacía `st.tabs`: mismo estado de sesión que
+    # antes, y sólo cambia la visibilidad.
     _VISTAS = [
         ('hoy', f"⚽ Hoy ({len(_pron_hoy)})"),
         ('manana', f"🗓️ Mañana ({len(_pron_man)})"),
@@ -6592,11 +6607,13 @@ def render_alpha_finder():
     _vista = _sel_vista if _sel_vista in _ROTULO else 'hoy'
     if _prefv is not None:
         _prefv.guardar('_vista_principal', _vista)
-    _slots = {k: st.empty() for k, _ in _VISTAS}
-    _tab_hoy = _slots['hoy'].container()
-    _tab_manana = _slots['manana'].container()
-    _tab_combi = _slots['combi'].container()
-    _tab_estado = _slots['estado'].container()
+    # `key` pone una clase CSS `st-key-vista_<clave>` en el contenedor,
+    # que es lo que permite esconderlo desde la hoja de estilo.
+    _slots = {k: st.container(key='vista_%s' % k) for k, _ in _VISTAS}
+    _tab_hoy = _slots['hoy']
+    _tab_manana = _slots['manana']
+    _tab_combi = _slots['combi']
+    _tab_estado = _slots['estado']
     # Los nombres antiguos siguen apuntando a la vista de hoy: el resto de la
     # función los usa en una docena de sitios y renombrarlos todos en el mismo
     # cambio que reordena las pestañas sería mezclar dos cosas que conviene
@@ -6927,12 +6944,17 @@ def render_alpha_finder():
     _render_combinada_segura(pdd)
     _render_combinadas_dia()
 
-    # v177 — y aquí se descartan las vistas que no se han elegido. Va
+    # v177.2 — y aquí se esconden las vistas que no se han elegido. Va
     # al FINAL a propósito: el cuerpo de «hoy» se pinta en seis sitios
     # distintos de esta función y el último es el de aquí arriba.
-    for _k_vista, _slot in _slots.items():
-        if _k_vista != _vista:
-            _slot.empty()
+    #
+    # OCULTAR, no borrar: ver la nota de arriba. Borrar se lleva por
+    # delante el `session_state` de los widgets de la vista oculta.
+    _ocultas = ''.join('.st-key-vista_%s{display:none !important;}' % k
+                       for k in _ROTULO if k != _vista)
+    if _ocultas:
+        st.markdown('<style>%s</style>' % _ocultas,
+                    unsafe_allow_html=True)
 
 
 # v88 — SE RETIRA LA ACTUALIZACIÓN VÍA THE ODDS API.

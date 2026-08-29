@@ -1965,6 +1965,28 @@ versión, no colarse en un arreglo de interfaz.
 - **Techo del 50 % en ligas de >3,0 goles**: ya se cumplía desde la v165. El
   65 % es el techo de las ligas de 2,5 a 3,0, no de las de 3,2. Hay test.
 
+### v177.2 — ocultar no es borrar
+
+El selector de vista de la v177 escondía las vistas no elegidas **vaciando** su
+`st.empty()` al final del render. Pinta bien y rompe el estado: un widget que no
+llega vivo al final de la pasada desaparece de `st.session_state`. En la
+aplicación real, estando en «Mañana» o «Estado», pulsar «🔄 Actualizar ahora»
+tiraba la página con `KeyError: parlay_base` — el `selectbox` de la combinada,
+que vive en la vista de hoy.
+
+Con `st.tabs` no pasaba porque renderiza las cuatro pestañas y todas quedan en
+el árbol. El arreglo devuelve esa propiedad: contenedores con `key` y
+`display:none` por CSS para las que no tocan.
+
+**Lo cazó el smoke**, y sólo porque la v177.1 le devolvió la capacidad de abrir
+las otras vistas y pulsar un botón estando en ellas. Ni la suite ni
+`valida_render` podían verlo.
+
+**Consecuencia para `valida_render`:** con las cuatro vistas en el árbol,
+`AppTest` ve el texto de todas —no sabe nada de CSS—, así que su check de la
+vista de mañana pasó a llamarse «se genera». La comprobación fuerte es la de
+`session_state`. Detalle en **BITACORA §27.9**.
+
 **Pendiente que deja:**
 
 1. **El g=0,8.** La medición dice que la λ de goles casi no discrimina dentro de

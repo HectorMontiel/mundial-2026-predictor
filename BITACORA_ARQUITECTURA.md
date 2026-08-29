@@ -3694,3 +3694,47 @@ terminó tres días después con `TODO OK`. Eso invalida el veredicto —el árb
 cambió dos versiones por debajo mientras corría— pero también invalida la
 costumbre de matarlo a los 30 minutos de silencio. La fase de red es
 sencillamente mucho más lenta de lo que suponía la bitácora.
+
+### 27.9 Ocultar no es borrar: la regresión que cazó el smoke
+
+El arreglo de §27.4 —cambiar `st.tabs` por un selector con estado— trajo una
+regresión que ni la suite ni `valida_render` podían ver, y que el smoke encontró
+en cuanto se le enseñó a recorrer las vistas (§27.8).
+
+**El defecto.** La primera versión escondía las vistas no elegidas vaciando su
+`st.empty()` al final del render. Pinta bien, y rompe el estado: **un widget que
+no llega vivo al final de la pasada desaparece de `st.session_state`**. Con
+`st.tabs` eso no podía pasar, porque renderiza las cuatro pestañas y todas
+quedan en el árbol; al sustituirlo se perdió esa propiedad sin que nadie lo
+notara.
+
+**Lo que costaba en la aplicación real:** estando en «Mañana» o en «Estado»,
+pulsar «🔄 Actualizar ahora» tiraba la página entera con
+
+    KeyError: st.session_state has no key "parlay_base"
+
+`parlay_base` es el `selectbox` de la pata base de la combinada, y vive dentro
+de la vista de hoy. Nada que ver con el botón que se pulsó.
+
+**El arreglo.** Contenedores con `key` —que ponen una clase
+`st-key-vista_<clave>`— y una regla `display:none` para las que no tocan. Los
+cuatro cuerpos siguen en el árbol, igual que con `st.tabs`, así que el estado de
+sesión vuelve a ser el de antes de la v177; lo único que cambia es cuál se ve.
+Y la vista sigue sin perderse al recargar, que era el encargo.
+
+**Lo que esto le hace a `valida_render`.** Con las cuatro vistas en el árbol,
+`AppTest` ve el texto de todas: no sabe nada de CSS. Así que el check de
+«aparece en pantalla» pasó a llamarse «se genera», que es lo que de verdad
+comprueba, y la comprobación fuerte de que el selector funciona es la que mira
+`session_state`. Un check que no puede fallar es peor que no tenerlo, y aquí
+casi se queda uno.
+
+**La moraleja, que es la de siempre en este proyecto.** El smoke no encontró
+esto por ser exhaustivo: lo encontró porque §27.8 le devolvió la capacidad de
+abrir las otras vistas y de pulsar un botón estando en ellas. La cobertura que
+se pierde en silencio se paga entera más tarde.
+
+**Salvedad honesta:** el `KeyError` no se pudo reproducir a mano el día del
+arreglo, porque sin picks de Sección 1 ese `selectbox` ni se crea. El arreglo se
+acepta por ser estructural —los widgets vuelven al árbol, no depende del
+contenido del día— y lo confirma el smoke.

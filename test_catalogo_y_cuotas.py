@@ -11070,8 +11070,19 @@ def test_la_vista_elegida_no_se_pierde():
           "usa un selector con clave")
     check('segmented_control' in cuerpo,
           "y es un control con estado de servidor")
-    check('_slot.empty()' in cuerpo,
-          "las vistas no elegidas se descartan al final del render")
+    # v177.2 — SE OCULTAN, NO SE DESCARTAN, y la diferencia costo una
+    # regresion. Vaciar el slot al final del render pinta bien y se
+    # lleva por delante el `session_state` de los widgets de la vista
+    # oculta: estando en «Estado», pulsar «Actualizar ahora» reventaba
+    # con `KeyError: parlay_base`. Con `st.tabs` no pasaba porque
+    # renderiza las cuatro pestañas y todas quedan en el arbol; el
+    # arreglo devuelve esa propiedad.
+    check('_slot.empty()' not in cuerpo,
+          "las vistas ocultas NO se borran del arbol")
+    check('display:none' in cuerpo,
+          "se esconden por CSS, que es lo que hacia `st.tabs`")
+    check("st.container(key='vista_%s' % k)" in cuerpo,
+          "cada vista tiene su contenedor con clave")
 
     # la eleccion se guarda y se recupera, como los demas filtros
     pu.FICHERO = os.path.join(tempfile.mkdtemp(), 'prefs177.json')
