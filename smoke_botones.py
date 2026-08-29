@@ -295,7 +295,21 @@ for vista, textos in VISTAS.items():
                 print(f'  FALLO vista «{_clave}»: no se abrio '
                       f'(quedo en {_ahora!r})')
                 continue
-            print(f'  OK   vista «{_clave}» · {len(botones(at))} botones')
+            # SE INFORMA DEL ESTADO, NO DEL NUMERO DE BOTONES.
+            #
+            # Desde la v177.2 las cuatro vistas se renderizan y solo
+            # se oculta por CSS la que no toca —hay que dejarlas en el
+            # arbol o Streamlit se lleva el `session_state` de sus
+            # widgets, §27.9—, asi que el recuento de botones es el
+            # MISMO en las cuatro: 563 y 563 y 563. Imprimirlo
+            # sugeriria que cada vista se ejercito por separado, y no
+            # es lo que pasa.
+            #
+            # Lo que este bucle comprueba de verdad, y no es poco: que
+            # el selector acepta cada clave, que cambiar de vista no
+            # levanta excepcion, y que el estado queda donde debe. Eso
+            # ultimo es lo que cazo el `KeyError: parlay_base`.
+            print(f'  OK   vista «{_clave}» abierta (estado {_ahora!r})')
 
     # v147 — recorrer las secciones de la ficha, si la vista las tiene.
     #
