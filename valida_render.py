@@ -65,11 +65,36 @@ VISTAS = {
             ('_filtro_grupo_liga', 'filtro de competiciones'),
             ('mm_solo_altas', 'filtro de alta probabilidad'),
             ('mm_orden', 'selector de orden de hoy'),
-            ('man_orden', 'selector de orden de mañana'),
+            # v177 — `_vista_principal` sustituye a `st.tabs`, que no tiene
+            # estado de servidor: la pestaña abierta vivía en el navegador
+            # y cualquier interacción la devolvía a «Hoy».
+            ('_vista_principal', 'selector de vista'),
         ],
+        # `man_orden` YA NO ESTÁ, y no es un descuido. La vista que no se
+        # ha elegido se descarta al final del render, así que sus widgets
+        # no llegan vivos al cierre y Streamlit recoge su estado. Lo que
+        # conserva la elección entre vistas y entre sesiones es
+        # `preferencias_usuario`, en disco, no `st.session_state`.
     },
     '🏴 Premier League': {},      # rama de córners OBSERVADOS
     '🇲🇽 Liga MX': {},            # rama de córners SIN observar
+}
+
+# v177 — LAS OTRAS DOS VISTAS DE LA PANTALLA PRINCIPAL.
+#
+# El encargo pide validar «Hoy, Mañana y Finalizados». Hasta ahora sólo se
+# probaba la de hoy, y las tres se pintan con el MISMO `modo_modelo.render`
+# con banderas distintas — o sea que un fallo en la de mañana no lo veía
+# nadie hasta abrirla. La vista se elige por `_vista_principal`, que desde
+# la v177 es un control con estado y no `st.tabs`.
+VISTAS_EXTRA = {
+    'manana': {
+        # el valor del selector es una CLAVE estable, no el rotulo: el
+        # rotulo lleva el numero de partidos dentro y cambia cada dia.
+        'sesion': {'_vista_principal': 'manana'},
+        'textos': ['Análisis previo'],
+        'que': 'la vista de MAÑANA',
+    },
 }
 
 FALLOS = []
@@ -124,11 +149,77 @@ def valida(vista, pedido, timeout=900):
         # dos widgets convierte cada cambio de control en un falso negativo.
         if not any(clave_widget in str(getattr(w, 'key', '') or '')
                    for col in ('radio', 'checkbox', 'selectbox',
-                               'multiselect', 'toggle')
+                               'multiselect', 'toggle',
+                               # v177 — el selector de vista sustituyo
+                               # a `st.tabs` y es un
+                               # `segmented_control`. Sin añadirlo
+                               # aqui, este validador daba justo el
+                               # falso negativo que su propio
+                               # comentario de arriba describe.
+                               'segmented_control', 'pills')
                    for w in getattr(at, col, [])):
             check(False, f'{vista}: falta el {que} ({clave_widget})')
         else:
             check(True, f'{vista}: está el {que}')
+
+
+def valida_vista_extra(clave, pedido, timeout=900):
+    """
+    v177 — la MISMA pantalla con otra vista elegida.
+
+    Se arranca, se selecciona «💎 Apuestas del Día» y luego se pulsa el
+    selector de vista. Es la única forma de probar la de mañana: las tres
+    vistas salen del mismo `modo_modelo.render` con banderas distintas, y
+    hasta la v177 sólo se ejercitaba la de hoy.
+    """
+    que = pedido.get('que', clave)
+    at = AppTest.from_file(APP, default_timeout=timeout).run()
+    if at.exception:
+        check(False, f'{que}: la app no arranca')
+        return
+    try:
+        at.selectbox(key='competencia').select('💎 Apuestas del Día').run()
+    except Exception as e:
+        check(False, f'{que}: no se pudo abrir Apuestas del Día ({e})')
+        return
+    try:
+        sc = [w for w in at.segmented_control
+              if str(getattr(w, 'key', '')) == '_vista_principal'][0]
+    except Exception as e:
+        check(False, f'{que}: no hay selector de vista ({e})')
+        return
+    marca = (pedido.get('sesion') or {}).get('_vista_principal', '')
+    # `AppTest` expone en `.options` los ROTULOS ya formateados (pasan
+    # por el `format_func` de la pantalla), no los valores. Asi que no
+    # se busca ahi: se manda directamente la clave, que es lo que el
+    # widget guarda, y si no existiera fallaria aqui mismo.
+    destino = marca
+    try:
+        sc.set_value(destino).run()
+    except Exception as e:
+        check(False, f'{que}: no se pudo cambiar a «{marca}» ({e}); '
+                     f'rotulos={list(sc.options)}')
+        return
+    if at.exception:
+        check(False, f'{que}: excepción al cambiar de vista '
+                     f'({at.exception[0].message})')
+        return
+    check(True, f'{que} carga sin excepciones')
+    t = textos(at)
+    for exigido in (pedido.get('textos') or []):
+        check(exigido in t, f'{que}: «{exigido}» aparece en pantalla')
+    # LA COMPROBACIÓN QUE DA SENTIDO A TODO ESTO: la vista elegida SIGUE
+    # elegida. Con `st.tabs` cualquier interacción devolvía al usuario a
+    # «Hoy», que es el defecto que el encargo mandó arreglar.
+    # `SafeSessionState` no expone `.get`: se accede por clave, que es
+    # como lo hace el resto de este validador.
+    try:
+        quedo = str(at.session_state['_vista_principal'])
+    except Exception:
+        quedo = ''
+    check(quedo == str(destino),
+          f'{que}: la vista elegida sobrevive a la recarga '
+          f'({quedo!r})')
 
 
 def main():
@@ -144,6 +235,9 @@ def main():
         objetivo = VISTAS
     for vista, pedido in objetivo.items():
         valida(vista, pedido)
+    if not pedidas:
+        for clave, pedido in VISTAS_EXTRA.items():
+            valida_vista_extra(clave, pedido)
     print()
     print(f'{len(FALLOS)} FALLOS' if FALLOS else 'TODO OK')
     for f in FALLOS:

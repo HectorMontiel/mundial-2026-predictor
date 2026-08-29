@@ -1256,6 +1256,30 @@ CSS = """
 .mm-rec-ambar { background:rgba(154,103,0,.14); border-color:var(--mira); }
 .mm-rec-no { background:var(--panel2); opacity:.8; }
 .mm-rec-no span { font-size:.76rem; opacity:.8; }
+/* v177 — LA VALIDACION SE MIRA, NO SE LEE.
+   El encargo pide «mas visuales que texto, mas facil de reconocer», y en
+   una lista de aciertos y fallos eso tiene una forma concreta: el color y
+   el tamaño hacen el trabajo, y el texto solo confirma. Tres piezas:
+     · `mm-val-res`  el marcador, grande, con el resumen al lado
+     · `mm-val`      una fila por apuesta, con la barra de lo que se dijo
+     · `mm-val-b`    la barra: cuanto se mojo el modelo, en ancho */
+.mm-val-res { display:flex; align-items:center; gap:.6rem; margin:.35rem 0;
+              padding:.4rem .6rem; border-radius:10px;
+              background:var(--panel2); border:1px solid var(--borde); }
+.mm-val-marc { font-size:1.5rem; font-weight:800; letter-spacing:.02em; }
+.mm-val-cnt { font-size:1.05rem; letter-spacing:.12em; }
+.mm-val-sub { font-size:.68rem; opacity:.7; margin-left:auto; }
+.mm-val { display:grid; grid-template-columns:1.3rem 1fr 3.6rem 3.2rem;
+          gap:.4rem; align-items:center; font-size:.78rem; line-height:1.8;
+          border-top:1px solid var(--borde); }
+.mm-val-ic { font-size:.95rem; text-align:center; }
+.mm-val-ap { overflow:hidden; text-overflow:ellipsis;
+             white-space:nowrap; }
+.mm-val-b { height:.32rem; border-radius:3px; background:var(--borde);
+            overflow:hidden; margin-top:.1rem; }
+.mm-val-b span { display:block; height:100%; }
+.mm-val-real { font-weight:800; text-align:right; }
+.mm-val-e { font-size:.66rem; opacity:.75; text-align:right; }
 .mm-otros { font-size:.64rem; font-weight:800; letter-spacing:.06em;
             opacity:.7; margin:.5rem 0 .2rem; }
 .mm-fc { display:grid; grid-template-columns:7.5rem 2.4rem 1fr 1fr auto;
@@ -2197,31 +2221,41 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
                     ('<span class="mm-rec-cu">%s</span>' % coleta)
                     if coleta else ''),
         unsafe_allow_html=True)
-    if int(rec.get('puesto_valor') or 1) <= 1:
-        # el botón va SOLO bajo la principal. Tres botones idénticos
-        # seguidos no son tres accesos: son la misma acción repetida
-        # tres veces, y el usuario ya tiene que elegir entre tres
-        # apuestas sin que además parezcan tres destinos.
-        st.link_button('🎲 Jugar en Playdoit', URL_PLAYDOIT,
-                       width='stretch')
+    # v177 — EL BOTON DE PLAYDOIT SE RETIRA, A PETICION.
+    #
+    # «El usuario solo quiere ver la apuesta; el ira a Playdoit por su
+    # cuenta.» Y ademas el enlace nunca llevo al PARTIDO —`URL_PLAYDOIT`
+    # es la portada de la casa— asi que prometia una navegacion que no
+    # daba.
+    #
+    # `URL_PLAYDOIT` NO se borra: la usan otras vistas y el encargo pide
+    # expresamente conservar lo que sirva para integrar el partido mas
+    # adelante.
 
 
 def _bloque_validacion(st, pick: Dict) -> bool:
     """
-    v176 — QUÉ DIJO LA APLICACIÓN ANTES DEL PARTIDO, Y SI ACERTÓ.
+    v177 — QUÉ DIJO LA APLICACIÓN, Y SI ACERTÓ. DE UN VISTAZO.
 
     EL ENCARGO: «mostrar el pronóstico previo en partidos finalizados, con
-    colores de validación (verde si se cumplió, rojo si no, amarillo si
-    estuvo cerca)».
+    colores de validación», y encima «más visuales que texto, más fácil de
+    reconocer». Así que el color y el ancho hacen el trabajo:
 
-    Sale de `pronosticos_guardados`, que anotó la recomendación la primera
-    vez que se vio el partido y no la ha vuelto a tocar. Esa inmutabilidad
-    es lo que hace que esto valga algo: si se recalculara ahora, con el
-    ELO y las medias ya movidas por el resultado, no sería el pronóstico —
-    sería una reconstrucción con información del futuro.
+        1 – 3   🟢🟢🔴                    2 de 3 · del precálculo
+        🟢 Goles: Más de 2.5   ▓▓▓▓▓▓░░░░  62 %      4
+        🔴 Gana Qingdao        ▓▓▓░░░░░░░  39 %  visita
 
-    Devuelve `True` si pintó algo, para que quien llama sepa si tiene que
-    decir «sin pronóstico previo».
+    La barra es la probabilidad que se anunció: cuánto se mojó el modelo.
+    Una fila roja con la barra llena es un error grave; una roja con la
+    barra corta es el modelo dudando y acertando al dudar. Esa diferencia
+    no se ve en una lista de porcentajes y se ve sola en una de barras.
+
+    TRES ORÍGENES, Y SE DICEN. `pronosticos_guardados.validar` busca el
+    pronóstico guardado, luego lo reconstruye del precálculo de esa mañana
+    y, si la casa no cotizaba el partido, cae a los mercados del modelo.
+    Lo tercero no eran apuestas —no tenían precio— y la coletilla lo dice.
+
+    Devuelve `True` si pintó algo.
     """
     try:
         import pronosticos_guardados as pgs
@@ -2231,27 +2265,52 @@ def _bloque_validacion(st, pick: Dict) -> bool:
         return False
     if not filas:
         return False
-    trozos = ['<div class="mm-otros">📊 VALIDACIÓN DEL PRONÓSTICO</div>']
+    import pronosticos_guardados as pgs
+    res = pgs.resumen(filas)
+    juzgadas = len(filas) - res.get(pgs.PENDIENTE, 0)
+    gh, ga = pick.get('goles_home'), pick.get('goles_away')
+    marcador = ('%d – %d' % (int(gh), int(ga))
+                if gh is not None and ga is not None else '—')
+    origen = {'guardado': 'lo que se anunció',
+              'precalculo': 'del precálculo del día',
+              'modelo': 'sin precio de la casa'}.get(
+        str(filas[0].get('origen') or 'guardado'), '')
+    tira = ''.join(f['icono'] for f in filas)
+    trozos = [
+        '<div class="mm-val-res">'
+        '<span class="mm-val-marc">%s</span>'
+        '<span class="mm-val-cnt">%s</span>'
+        '<span class="mm-val-sub">%s%s</span></div>'
+        % (marcador, tira,
+           ('%d de %d · ' % (res.get(pgs.CUMPLIDO, 0), juzgadas)
+            if juzgadas else ''), origen)]
     for f in filas:
         real = f.get('real')
         if real is None:
-            marcador = 'sin dato'
+            texto_real = '—'
         elif isinstance(real, str):
-            marcador = {'home': 'ganó el local', 'away': 'ganó la visita',
-                        'draw': 'empate', 'si': 'sí', 'no': 'no'}.get(
-                real, str(real))
+            texto_real = {'home': 'local', 'away': 'visita',
+                          'draw': 'empate', 'si': 'sí',
+                          'no': 'no'}.get(real, str(real))
         else:
-            marcador = ('%.0f' % real if float(real).is_integer()
-                        else '%.1f' % real)
+            texto_real = ('%.0f' % real if float(real).is_integer()
+                          else '%.1f' % real)
+        p = float(f.get('prob') or 0.0)
+        color = {pgs.CUMPLIDO: 'var(--ok)', pgs.CERCA: 'var(--mira)',
+                 pgs.FALLADO: 'var(--no)'}.get(f['estado'], 'var(--tenue)')
         trozos.append(
-            '<div class="mm-fc">'
-            '<span class="mm-fc-n">%s %s</span>'
-            '<span class="mm-fc-l">%.0f %%</span>'
-            '<span class="mm-fc-v">%s</span>'
-            '<span class="mm-fc-e">%s</span></div>'
-            % (f['icono'], _esc_mm(f.get('apuesta') or '')[:34],
-               (f.get('prob') or 0.0) * 100, f['rotulo'],
-               _esc_mm(marcador)))
+            '<div class="mm-val">'
+            '<span class="mm-val-ic">%s</span>'
+            '<span class="mm-val-ap">%s'
+            '<span class="mm-val-b">'
+            '<span style="width:%.0f%%;background:%s"></span>'
+            '</span></span>'
+            '<span class="mm-val-e">%.0f %%</span>'
+            '<span class="mm-val-real" style="color:%s">%s</span>'
+            '</div>'
+            % (f['icono'], _esc_mm(f.get('apuesta') or '')[:30],
+               max(3.0, min(100.0, p * 100)), color, p * 100,
+               color, _esc_mm(texto_real)))
     st.markdown(''.join(trozos), unsafe_allow_html=True)
     return True
 
@@ -2328,14 +2387,18 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             else:
                 st.markdown('### ✅ Finalizado')
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
-            # v176 — el pronóstico que se emitió, liquidado contra el
-            # marcador. Si no hay ninguno guardado se DICE: «sin
-            # pronóstico previo» y «falló» no son lo mismo, y colapsarlos
-            # convertiría un hueco de datos en un error del modelo.
+            # v177 — el pronóstico que se emitió, liquidado contra el
+            # marcador. `validar` lo busca por tres vías —guardado,
+            # reconstruido del precálculo, y los mercados del modelo
+            # cuando la casa no cotizaba— así que llegar aquí sin nada
+            # significa que ESTE partido no lo evaluó el barrido, no
+            # que no se anotara. Se dice eso, que es lo que pasa.
+            #
+            # Y sigue sin decirse «falló»: un hueco de datos no es un
+            # error del modelo, y colapsarlos era el defecto de fondo.
             if not _bloque_validacion(st, pick):
-                st.caption('Sin pronóstico previo guardado de este '
-                           'partido.' if not sin_modelo
-                           else 'Sin datos de modelo.')
+                st.caption('Este partido no llegó a evaluarse: no hay '
+                           'modelo suyo en el precálculo del día.')
         elif sin_modelo:
             st.markdown('**· Sin datos de modelo**')
         else:

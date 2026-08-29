@@ -154,6 +154,22 @@ def de_dia(dia: str, maximo: int = 200) -> List[Dict]:
             'jugado': True,
             'goles_home': r.get('goles_home'),
             'goles_away': r.get('goles_away'),
+            # v177 — EL NOMBRE CRUDO DE ESPN VIAJA CON EL PARTIDO.
+            #
+            # `predicciones_dia.json` y `mercado_dia.json` se indexan
+            # los dos por el nombre TAL COMO LLEGA DEL FIXTURE, no por
+            # el del catálogo del modelo. Abajo, `pick['partido']` pasa
+            # a los nombres MAPEADOS —hacen falta para que córners y
+            # tarjetas encuentren su histórico— y con eso se perdía la
+            # única llave que abre esos dos ficheros.
+            #
+            # Sin ella, un partido acabado no puede recuperar lo que la
+            # aplicación recomendó por la mañana, y la tarjeta acababa
+            # diciendo «sin pronóstico previo» de un partido que sí se
+            # había evaluado. Es el defecto que el usuario reportó en
+            # Dalian Yingbo - Beijing Guoan.
+            '_home_crudo': home,
+            '_away_crudo': away,
         }
         pred = None
         if _pd is not None:

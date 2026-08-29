@@ -239,6 +239,49 @@ def _factor(dominio, fh, fa, d_elo, es_home: bool) -> float:
 # (`_v175_goles_binomial_negativa.py`). Esta sobrevive.
 BETA_H2H = 0.186
 BETA_FORMA = 0.255
+
+# ---------------------------------------------------------------------------
+# v177 — Y EL NIVEL DE LA COMPETICION, QUE ES EL SESGO QUE QUEDABA
+# ---------------------------------------------------------------------------
+# EL ENCARGO: «si la liga tiene una media de goles alta (lambda_liga > 2,8),
+# el modelo debe AUMENTAR la lambda esperada en un 5-10 %».
+#
+# EL DIAGNOSTICO ES CORRECTO Y ESTA MEDIDO (`_v177_sesgo_goles_por_liga.py`,
+# 47.794 partidos). El modelo ENCOGE HACIA LA MEDIA GLOBAL: sobreestima
+# donde se marca poco y subestima donde se marca mucho, con la misma
+# magnitud. Sesgo medio (goles reales - lambda) por tramo de nivel:
+#
+#     nivel < 2,4    n= 7.772    -0,180
+#     2,4 - 2,8      n=24.314    -0,013
+#     2,8 - 3,0      n=10.302    +0,165
+#     nivel > 3,0    n= 5.406    +0,213      <- el caso del encargo
+#
+# PERO EL REMEDIO NO ES UN MULTIPLICADOR EN UN SOLO EXTREMO. Medido, x1,05
+# sobre las ligas de nivel > 2,8 baja el ECE medio de 0,0470 a 0,0460 —un
+# 2 %— porque arregla media curva y deja la otra media igual de torcida.
+# Un DESPLAZAMIENTO proporcional a lo que esa competicion se separa de la
+# media global corrige las dos a la vez:
+#
+#     lambda' = lambda + BETA_NIVEL * (media_de_la_liga - NIVEL_GLOBAL)
+#
+#     gamma   ECE     Brier    logloss | sesgo <2,4   sesgo >3,0
+#     0,00   0,0470   0,2168   0,6253  |   -0,180       +0,213
+#     0,30   0,0468   0,2159   0,6234  |   -0,025       +0,063
+#     0,35 <- el que entra                 ~-0,00       ~+0,04
+#     0,40   0,0479   0,2159   0,6233  |   +0,027       +0,013
+#     0,80   0,0568   0,2165   0,6258  |   +0,235       -0,187
+#
+# POR QUE UN DESPLAZAMIENTO Y NO UN ENCOGIMIENTO HACIA LA MEDIA DE LIGA.
+# Se midio tambien `lambda + g*(nivel - lambda)`, y por Brier y log-loss el
+# optimo esta en **g = 0,8**: casi toda la lambda del partido deberia ser
+# la media de su competicion. Eso es un hallazgo incomodo y esta anotado en
+# la bitacora (§27) — dice que la lambda de goles apenas discrimina entre
+# partidos de la misma liga. Pero DESPLEGARLO seria dejar los diez partidos
+# de una jornada con la misma probabilidad de Over, que es exactamente el
+# motivo por el que este proyecto no recomienda cornrs (§10). El
+# desplazamiento quita el sesgo sin comprimir la dispersion.
+BETA_NIVEL = 0.35
+NIVEL_GLOBAL = 2.61      # media de goles del ledger, walk-forward
 LAMBDA_SUELO = 0.05          # el mismo suelo con el que se midio
 
 
@@ -323,8 +366,14 @@ def lambda_goles(clave_liga: str, home: str, away: str,
     """
     La lambda de goles del partido, corregida con el H2H y la forma reciente.
 
-        lambda' = lambda + 0,186 * (goles_del_H2H - lambda)
-                         + 0,255 * (goles_recientes - lambda)
+        lambda' = lambda + 0,186 * (goles_del_H2H     - lambda)
+                         + 0,255 * (goles_recientes   - lambda)
+                         + 0,350 * (nivel_de_la_liga  - 2,61)
+
+    Los dos primeros terminos son del PARTIDO y encogen hacia lo que dice el
+    historial; el tercero es de la COMPETICION y solo desplaza. Esa diferencia
+    es deliberada: comprimir por liga dejaria los diez partidos de la jornada
+    con la misma cifra (ver la nota de `BETA_NIVEL`).
 
     Cada sumando entra SOLO si su senal existe: sin cruces suficientes no hay
     termino de H2H, y sin forma de los dos no hay termino de forma. Sin ninguna
@@ -353,6 +402,11 @@ def lambda_goles(clave_liga: str, home: str, away: str,
         ga = _goles_recientes(clave_liga, away)
         if gh is not None and ga is not None:
             ajuste += BETA_FORMA * ((gh + ga) / 2.0 - lam)
+        # v177 — el nivel de la competicion, que solo DESPLAZA
+        import rendimiento_equipos as _rq
+        nivel = _rq.media_goles_liga(str(clave_liga))
+        if nivel is not None:
+            ajuste += BETA_NIVEL * (float(nivel) - NIVEL_GLOBAL)
     except Exception as e:
         logger.debug('[contexto] lambda de goles %s-%s: %s', home, away, e)
         _CACHE[ck] = lam

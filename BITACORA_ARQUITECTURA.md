@@ -3476,3 +3476,183 @@ Que las apuestas ganen. La validación enseña qué pasó, no mejora lo que va a
 pasar. La política de la v175 está liquidada contra 47.794 partidos y da **ROI
 −4,64 %**; ver los aciertos y los fallos en la tarjeta no cambia ese número. Lo
 que cambia es que ahora se pueden ver, que es lo que se pidió.
+
+## 27. Cuatro fallos, y el que no lo era
+
+La v177 responde a cuatro defectos reportados. Tres eran defectos de verdad y
+uno estaba ya arreglado desde la v165 — comprobarlo antes de tocarlo evitó
+cambiar un techo que ya hacía lo que se pedía.
+
+### 27.1 «Sin pronóstico previo»: la causa y las tres vías
+
+**El síntoma.** Dalian Yingbo–Beijing Guoan y Técnico–Cuenca, ya finalizados,
+salían con «Sin pronóstico previo guardado».
+
+**La causa.** La v176 sólo sabía leer el REGISTRO, y el registro sólo existe si
+alguien —la aplicación al pintar la tarjeta, o el bot en su paso nocturno— vio
+el partido **antes** de que se jugara. Un partido que terminó mientras nadie
+miraba no tenía nada que enseñar. Y había un segundo agujero, más tonto:
+`partidos_jugados` sustituye los nombres del fixture por los del catálogo del
+modelo —los necesita para que córners y tarjetas encuentren su histórico— y con
+eso **perdía la única llave** que abre `predicciones_dia.json` y
+`mercado_dia.json`, que se indexan por el nombre crudo de ESPN (v165).
+
+**Ahora hay tres vías, y se prueban las tres:**
+
+| | de dónde sale | qué enseña |
+|---|---|---|
+| 1 · guardado | `pronosticos_emitidos.json` | la recomendación tal cual se anunció |
+| 2 · precálculo | `predicciones_dia.json` + `mercado_dia.json` | la misma, reconstruida del estado de esa mañana |
+| 3 · modelo | la matriz de marcador del precálculo | goles, BTTS y 1X2 — **sin cuota y sin Score** |
+
+**Por qué la vía 2 no es mirar el futuro**, que es la objeción obvia: no se
+vuelve a predecir el partido, se leen los dos ficheros que el bot dejó **esa
+mañana**. Es el mismo razonamiento por el que `partidos_jugados` ya reconstruía
+el 1X2 y los goles de un partido acabado. Recalcularlo con el ELO ya movido por
+el resultado sería otra cosa, y sería mentir. Las filas van marcadas con
+`origen`, y la tarjeta lo dice.
+
+**La vía 3 es la que cierra el caso del usuario.** Playdoit casi no cotiza la
+Superliga china, así que por las dos primeras vías esos partidos seguirían
+vacíos. Sin precio no hay APUESTA —regla de la v174, y no se toca— pero sí hubo
+PROBABILIDADES, y son las que la tarjeta enseñaba antes del partido. Van sin
+cuota y sin Score a propósito: no eran apuestas, eran lecturas.
+
+Medido sobre el precálculo real: **25 de 25 partidos** probados recuperan su
+pronóstico. La tarjeta sólo dice que no hay cuando el partido no lo evaluó el
+barrido, y entonces dice eso, que es lo que pasa.
+
+### 27.2 La validación se mira, no se lee
+
+El encargo pide «más visuales que texto, más fácil de reconocer». En una lista
+de aciertos y fallos eso tiene una forma concreta:
+
+    1 – 3   🟢🟢🔴                       2 de 3 · sin precio de la casa
+    🟢 Goles: Más de 2.5    ▓▓▓▓▓▓░░░░   62 %        4
+    🟢 Ambos marcan: Sí     ▓▓▓▓▓▓▓░░░   65 %       sí
+    🔴 Gana Qingdao Hainiu  ▓▓▓░░░░░░░   39 %   visita
+
+La barra es la probabilidad que se anunció: **cuánto se mojó el modelo**. Una
+fila roja con la barra llena es un error grave; una roja con la barra corta es
+el modelo dudando y acertando al dudar. Esa diferencia no se ve en una columna
+de porcentajes y se ve sola en una de barras.
+
+### 27.3 El botón de Playdoit se retira
+
+«El usuario sólo quiere ver la apuesta; él irá a Playdoit por su cuenta.» Y
+además el enlace nunca llevó al PARTIDO: `URL_PLAYDOIT` es la portada de la
+casa, así que prometía una navegación que no daba. La constante se conserva —el
+encargo lo pide expresamente— pero ya no hay `link_button` en esta pantalla.
+
+### 27.4 Los filtros: la causa no era el filtro
+
+**El síntoma.** «Al cambiar el filtro Ordenar por en la pestaña de mañana, la
+app te regresa a partidos de hoy.»
+
+**La causa, y por eso la v176 no lo arregló del todo: `st.tabs` no tiene estado
+de servidor.** La pestaña abierta vive en el navegador; cualquier interacción
+rehace el script y la devuelve a la primera. Da igual lo persistente que sea el
+VALOR del filtro —la v176 lo dejó guardado en disco— si el usuario acaba
+mirando otra lista. Se estaba arreglando la mitad correcta del problema
+equivocado.
+
+`st.segmented_control` sí tiene clave, así que la elección sobrevive por el
+mismo camino que los filtros. Dos decisiones que lo acompañan:
+
+- **Las opciones son claves, no rótulos.** El rótulo lleva dentro el número de
+  partidos —«Hoy (247)»— y eso es lo que se guardaría: mañana habría 231 y el
+  valor guardado dejaría de ser una opción válida, así que la vista se perdería
+  justo al recargar. Con `format_func` el usuario ve el rótulo y el estado
+  guarda `hoy`.
+- **Las vistas no elegidas se descartan al final del render**, no se envuelven
+  en un `if`. El cuerpo de «hoy» está repartido en seis sitios de
+  `render_alpha_finder`; envolverlos habría sido reindentar trescientas líneas
+  para arreglar una pestaña. Los cuatro cuerpos se ejecutan —con `st.tabs`
+  también se ejecutaban los cuatro, así que no hay coste nuevo— y al cierre se
+  vacía el sitio de los tres que no tocan.
+
+**Consecuencia que hay que decir:** los widgets de la vista oculta ya no llegan
+vivos al final del run, así que Streamlit recoge su estado de sesión. Lo que
+conserva la elección entre vistas y entre sesiones es
+`preferencias_usuario`, en disco, no `st.session_state`. `valida_render` se
+actualizó en consecuencia y ahora prueba además **la vista de mañana**, que
+hasta hoy no la ejercitaba nadie.
+
+### 27.5 Los goles: el diagnóstico era bueno, el remedio no
+
+**Lo que se pedía:** «si λ_liga > 2,8, aumentar la λ un 5-10 %».
+
+**El diagnóstico es correcto y ahora está medido**
+(`_v177_sesgo_goles_por_liga.py`, 47.794 partidos walk-forward). El modelo
+**encoge hacia la media global**: sobreestima donde se marca poco y subestima
+donde se marca mucho, con la misma magnitud.
+
+    sesgo medio (goles reales − λ)      n        λ de la v175
+    nivel < 2,4                       7.772        −0,180
+    nivel 2,4 - 2,8                  24.314        −0,013
+    nivel 2,8 - 3,0                  10.302        +0,165
+    nivel > 3,0                       5.406        +0,213   ← el caso del encargo
+
+    las peores: bol_division +0,477 · mls +0,392 · liga_mx +0,319
+    y al otro lado: arg_primera_nacional −0,399 · rsa_premier −0,258
+
+**Pero el remedio no es un multiplicador en un solo extremo.** Medido, ×1,05
+sobre las ligas de nivel > 2,8 baja el ECE medio de 0,0470 a 0,0460 —un 2 %—
+porque arregla media curva y deja la otra media igual de torcida. Lo que entra
+es un **desplazamiento** proporcional a lo que la competición se separa de la
+media global:
+
+    λ' = λ + 0,35 · (media_de_la_liga − 2,61)
+
+    γ      ECE      Brier    logloss  | sesgo <2,4   sesgo >3,0
+    0,00  0,0470   0,2168   0,6253    |   −0,180       +0,213
+    0,30  0,0468   0,2159   0,6234    |   −0,025       +0,063
+    0,35  ← el que entra
+    0,40  0,0479   0,2159   0,6233    |   +0,027       +0,013
+    0,80  0,0568   0,2165   0,6258    |   +0,235       −0,187
+
+**El hallazgo incómodo, que se mide y no se despliega.** Se probó también
+encoger hacia la media de liga, `λ + g·(nivel − λ)`, y por **Brier y log-loss el
+óptimo está en g ≈ 0,8**:
+
+    g      ECE      Brier    logloss
+    0,0   0,0470   0,2168   0,6253
+    0,5   0,0096   0,2112   0,6115
+    0,8   0,0074   0,2101   0,6090
+    1,0   0,0077   0,2105   0,6098
+
+O sea que la λ de goles **apenas discrimina entre partidos de la misma liga**:
+casi toda la información está en el nivel de la competición. Que los tres
+indicadores mejoren a la vez descarta que sea el aplanamiento de siempre —
+encoger hacia la tasa base mejora el ECE y estropea el Brier, y aquí el Brier
+mejora—. Pero desplegarlo dejaría los diez partidos de una jornada con la misma
+probabilidad de Over, que es exactamente el motivo por el que este proyecto no
+recomienda córners (§10). Queda anotado como lo que es: una medición que dice
+algo serio sobre el motor de goles y que merece su propia versión, no un cambio
+metido de rebote en un arreglo de interfaz.
+
+### 27.6 Lo que no entró, con el criterio del propio encargo
+
+**w = 0,30.** La regla que se pidió es condicional: «si el ECE de goles sigue
+> 0,08, aplicar el encogimiento más agresivo». Medido, el ECE de la cifra
+publicada es **0,0083** — la regla no se dispara. Y por si acaso se midió
+igualmente: w=0,30 da 0,0086 contra los 0,0083 de w=0,25, o sea peor. El óptimo
+está en 0,20 (0,0080), una diferencia de tres diezmilésimas que no justifica
+mover una constante que este proyecto tiene medida tres veces.
+
+**El techo del 50 % en las ligas de más de 3,0 goles.** Ya se cumplía desde la
+v165. `cordura_probabilidad.techo_por_liga` topa el lado «Menos» en 50 % en
+cuanto la media de la competición pasa de la línea por medio gol o más, que con
+la línea de 2,5 es exactamente «media > 3,0». La premisa del encargo —«el
+modelo cree que un partido de una liga de 3,2 goles termina bajo 2,5 con un
+65 %»— no puede ocurrir: el 65 % es el techo de las ligas de 2,5 a 3,0. Hay un
+test que lo fija para que no se vuelva a pedir.
+
+### 27.7 Lo que esta versión no cambia
+
+El ROI. La política sigue siendo la de la v175 y sigue midiendo **−4,64 %**
+sobre 47.794 partidos. Ver los aciertos y los fallos en la tarjeta no mejora las
+apuestas: mejora lo que se puede aprender de ellas. Y la corrección de λ de
+§27.5 arregla un sesgo de calibración, que es otra cosa que ganar dinero — el
+canal con percentil 5 positivo de este proyecto sigue siendo comprar al mejor
+precio, y sigue en la pestaña de al lado.

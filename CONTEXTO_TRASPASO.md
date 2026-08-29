@@ -1881,3 +1881,93 @@ mano.**
 5. `smoke_botones.py` volvió a colgarse en la fase de red sin veredicto, como en
    la v173 y la v174.
 6. HMREY debe rotar la clave de The Odds API.
+
+## 5h. v177 — CUATRO FALLOS, Y EL QUE NO LO ERA
+
+Detalle en **BITACORA_ARQUITECTURA.md §27**.
+
+### 1. «Sin pronóstico previo» — TRES vías, no una
+
+La v176 sólo leía el REGISTRO, y el registro sólo existe si alguien vio el
+partido antes de que se jugara. Y había un segundo agujero: `partidos_jugados`
+cambiaba los nombres del fixture por los del catálogo del modelo y con eso
+**perdía la llave** de `predicciones_dia.json` y `mercado_dia.json` (se indexan
+por el nombre crudo de ESPN, v165). Ahora viaja en `_home_crudo`/`_away_crudo`.
+
+| vía | fuente | qué enseña |
+|---|---|---|
+| guardado | `pronosticos_emitidos.json` | la recomendación tal cual se anunció |
+| precálculo | `predicciones_dia` + `mercado_dia` | la misma, del estado de esa mañana |
+| modelo | matriz de marcador | goles, BTTS, 1X2 · **sin cuota ni Score** |
+
+La tercera cierra el caso del usuario: Playdoit casi no cotiza la Superliga
+china, así que por las dos primeras esos partidos seguirían vacíos. Medido:
+**25 de 25 partidos del precálculo recuperan su pronóstico.**
+
+### 2. Visual: la validación se mira
+
+    1 – 3   🟢🟢🔴                       2 de 3 · sin precio de la casa
+    🟢 Goles: Más de 2.5    ▓▓▓▓▓▓░░░░   62 %        4
+    🔴 Gana Qingdao Hainiu  ▓▓▓░░░░░░░   39 %   visita
+
+La barra es cuánto se mojó el modelo. Roja y llena = error grave; roja y corta =
+dudó y acertó al dudar.
+
+### 3. Botón de Playdoit: retirado. `URL_PLAYDOIT` se conserva.
+
+### 4. Filtros: la causa NO era el filtro
+
+**`st.tabs` no tiene estado de servidor.** La pestaña vive en el navegador y
+cualquier interacción la devuelve a la primera. La v176 arreglaba la mitad
+correcta del problema equivocado. Ahora `st.segmented_control` con clave, y:
+
+- **las opciones son claves, no rótulos** — el rótulo lleva el contador dentro
+  («Hoy (247)») y mañana dejaría de ser una opción válida;
+- **las vistas no elegidas se descartan al final del render** (`_slot.empty()`),
+  no se envuelven en un `if`: el cuerpo de «hoy» está repartido en seis sitios
+  de `render_alpha_finder`.
+
+Consecuencia: los widgets de la vista oculta ya no llegan vivos al cierre, así
+que su `session_state` se recoge. Lo que conserva la elección es
+`preferencias_usuario`, en disco. `valida_render` prueba ahora **la vista de
+mañana**, que no ejercitaba nadie.
+
+### 5. Goles: diagnóstico bueno, remedio distinto
+
+Medido (`_v177_sesgo_goles_por_liga.py`, 47.794 partidos): el modelo encoge
+hacia la media global.
+
+    sesgo (goles reales − λ)     nivel <2,4  −0,180   ·  nivel >3,0  +0,213
+
+×1,05 sólo en las ligas altas baja el ECE un 2 %: arregla media curva. Entra un
+**desplazamiento** simétrico, `λ + 0,35·(media_liga − 2,61)`, que deja el sesgo
+en ±0,04 en los dos extremos y NO comprime la dispersión entre partidos.
+
+**Hallazgo incómodo, medido y NO desplegado:** encoger hacia la media de liga
+(`λ + g·(nivel − λ)`) tiene su óptimo por Brier y log-loss en **g ≈ 0,8**. O sea
+que la λ de goles apenas discrimina entre partidos de la misma liga. Los tres
+indicadores mejoran a la vez, así que no es el aplanamiento de siempre. Pero
+desplegarlo dejaría los diez partidos de la jornada con la misma probabilidad —
+lo mismo que hace a los córners no recomendables (§10). Merece su propia
+versión, no colarse en un arreglo de interfaz.
+
+### Lo que NO entró, con el criterio del propio encargo
+
+- **w=0,30**: la regla era condicional a «ECE > 0,08». El ECE publicado es
+  **0,0083**, así que no se dispara. Medido igualmente: w=0,30 da 0,0086 contra
+  0,0083. Peor.
+- **Techo del 50 % en ligas de >3,0 goles**: ya se cumplía desde la v165. El
+  65 % es el techo de las ligas de 2,5 a 3,0, no de las de 3,2. Hay test.
+
+**Pendiente que deja:**
+
+1. **El g=0,8.** La medición dice que la λ de goles casi no discrimina dentro de
+   una liga. O el motor de goles mejora, o hay que decidir a cara descubierta
+   cuánto encoger. Es el pendiente más importante que deja esta versión.
+2. La vía 2 (reconstruir del precálculo) sólo funciona **el mismo día**:
+   `predicciones_dia.json` y `mercado_dia.json` se regeneran cada noche. Para
+   partidos de días anteriores manda el registro guardado, que sí persiste.
+3. `predicciones_dia.json` sigue sin guardar la fecha del partido.
+4. Los patrones (v176) siguen sin medir contra el ledger.
+5. `cuotas_multi._buscar` empareja partidos distintos del mismo día.
+6. HMREY debe rotar la clave de The Odds API.

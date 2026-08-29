@@ -110,7 +110,12 @@ def _escribir(doc: Dict) -> bool:
     _CACHE = doc
     try:
         import io_atomico
-        return bool(io_atomico.escribir_json(FICHERO, doc, indent=1))
+        # SIN indentar, como sus hermanos `mercado_dia.json` y
+        # `predicciones_dia.json`: es un fichero de datos que se
+        # regenera a diario y viaja en el repositorio. Con `indent=1`
+        # un solo dia ocupaba 12.000 lineas y la poda de 21 dias lo
+        # habria dejado en un cuarto de millon.
+        return bool(io_atomico.escribir_json(FICHERO, doc))
     except Exception as e:
         logger.debug('[pronosticos] no se pudo escribir %s: %s', FICHERO, e)
         return False
@@ -426,6 +431,132 @@ def _estado(acierto, distancia, prob) -> str:
     return FALLADO
 
 
+def reconstruir(pick: Dict) -> List[Dict]:
+    """
+    v177 — LO QUE LA APLICACIÓN RECOMENDABA, RECONSTRUIDO DEL PRECÁLCULO.
+
+    EL DEFECTO QUE CIERRA. El registro de `guardar` sólo existe si alguien
+    —la aplicación o el bot— vio el partido ANTES de que se jugara. Un
+    partido que terminó mientras nadie miraba salía con «sin pronóstico
+    previo», y el usuario lo leyó como lo que parecía: que la aplicación no
+    había dicho nada. Había dicho, y se puede recuperar.
+
+    POR QUÉ ESTO **NO** ES MIRAR EL FUTURO, que es la objeción obvia y hay
+    que contestarla. No se vuelve a predecir el partido: se leen los dos
+    ficheros que el bot dejó ESA MAÑANA y que son estado anterior al
+    pitido inicial —`predicciones_dia.json` con la matriz de marcador y
+    `mercado_dia.json` con el tablero de Playdoit—. Es exactamente el mismo
+    razonamiento por el que `partidos_jugados` ya reconstruye el 1X2 y los
+    goles de un partido acabado, y su cabecera lo explica: recalcularlo con
+    el ELO ya movido por el resultado sería otra cosa, y sería mentir.
+
+    LO QUE SÍ CAMBIA respecto a un pronóstico guardado, y por eso las filas
+    salen marcadas con `origen='precalculo'`: los dos ficheros se
+    regeneran cada noche. Reconstruir el partido de esta tarde funciona;
+    reconstruir el del martes pasado ya no, porque el tablero de aquel día
+    no existe. Por eso `guardar` sigue siendo la vía principal y esto es la
+    red debajo.
+    """
+    try:
+        import modo_modelo as mm
+        import predicciones_dia as pdia
+    except Exception as e:
+        logger.debug('[pronosticos] sin precalculo: %s', e)
+        return []
+    h_crudo = pick.get('_home_crudo')
+    a_crudo = pick.get('_away_crudo')
+    if not (h_crudo and a_crudo):
+        # sin el nombre crudo no hay llave: los dos ficheros se indexan
+        # por el del fixture, no por el del catálogo del modelo (v165).
+        return []
+    try:
+        reg = pdia.prediccion(pick.get('clave_liga'), h_crudo, a_crudo)
+    except Exception as e:
+        logger.debug('[pronosticos] prediccion de %s: %s', h_crudo, e)
+        return []
+    if not reg:
+        return []
+    clave_p = '%s|%s|%s' % (pick.get('clave_liga') or '', h_crudo, a_crudo)
+    previo = _pick_de_registro(clave_p, dict(reg,
+                                             fecha=pick.get('fecha')))
+    if not previo:
+        return []
+    try:
+        _rm = mm.remates_tarjeta(previo) or {}
+        bloques = {'Córners': mm.corners_tarjeta(previo),
+                   'Tarjetas': mm.tarjetas_tarjeta(previo),
+                   'Remates': _rm.get('totales'),
+                   'Remates a puerta': _rm.get('a_puerta')}
+        recos = mm.recomendadas(previo, bloques, n=MAX_RECOMENDADAS)
+    except Exception as e:
+        logger.debug('[pronosticos] reconstruir %s: %s', clave_p, e)
+        return []
+    if recos:
+        return [dict(_fila(r), origen='precalculo') for r in recos]
+    # v177 — Y SI PLAYDOIT NO COTIZA EL PARTIDO, LOS MERCADOS DEL MODELO.
+    #
+    # Es el caso que el usuario nombró: Dalian Yingbo - Beijing Guoan.
+    # Sin precio no hay APUESTA que recomendar —regla de la v174, y no se
+    # toca— pero sí hubo PROBABILIDADES, y son las que la tarjeta enseñaba
+    # en su sección de mercados antes del partido. Validarlas es
+    # exactamente lo que se pidió: ver si lo que decía la app se cumplió.
+    #
+    # Van sin cuota y sin Score a propósito, y la tarjeta lo dice: no eran
+    # apuestas, eran lecturas. Confundirlas sería inventar un precio que
+    # nadie ofreció.
+    return _del_board(previo)
+
+
+def _del_board(pick: Dict) -> List[Dict]:
+    """
+    Los tres mercados que el modelo calcula sin precio: goles, BTTS y 1X2.
+
+    Se elige el lado que el modelo prefería —el de probabilidad más alta—,
+    que es el que la tarjeta enseñaba en negrita. Validar el otro lado
+    sería puntuar al modelo por algo que no dijo.
+    """
+    try:
+        import modo_modelo as mm
+        b = mm._board(pick) or {}
+        h, a = mm._equipos(pick)
+    except Exception as e:
+        logger.debug('[pronosticos] board de %s: %s', pick, e)
+        return []
+    if not b:
+        return []
+    filas = []
+
+    def _dos(mercado, bloque, etiqueta, etq_a, etq_b):
+        pa, pb = b.get(etq_a), b.get(etq_b)
+        if pa is None or pb is None:
+            return
+        gana, p = (etq_a, pa) if float(pa) >= float(pb) else (etq_b, pb)
+        filas.append({'mercado': mercado, 'bloque': bloque,
+                      'etiqueta': etiqueta, 'apuesta': gana,
+                      'linea': 2.5 if bloque == 'goles' else None,
+                      'prob': round(float(p), 4), 'cuota': None,
+                      'score': None, 'semaforo': None,
+                      'incierto': False, 'origen': 'modelo'})
+
+    _dos('Goles', 'goles', 'Total', 'Más de 2.5', 'Menos de 2.5')
+    _dos('BTTS', 'btts', 'Ambos marcan', 'Ambos marcan: Sí',
+         'Ambos marcan: No')
+    if h and a:
+        tri = {'Gana %s' % h: b.get('Gana %s' % h),
+               'Empate': b.get('Empate'),
+               'Gana %s' % a: b.get('Gana %s' % a)}
+        tri = {k: v for k, v in tri.items() if v is not None}
+        if tri:
+            mejor_lado = max(tri, key=lambda k: float(tri[k]))
+            filas.append({'mercado': '1X2', 'bloque': 'resultado',
+                          'etiqueta': 'Resultado', 'apuesta': mejor_lado,
+                          'linea': None,
+                          'prob': round(float(tri[mejor_lado]), 4),
+                          'cuota': None, 'score': None, 'semaforo': None,
+                          'incierto': False, 'origen': 'modelo'})
+    return filas[:MAX_RECOMENDADAS]
+
+
 def validar(pick: Dict) -> List[Dict]:
     """
     El pronóstico guardado de este partido, liquidado contra el marcador.
@@ -435,8 +566,13 @@ def validar(pick: Dict) -> List[Dict]:
         {'apuesta', 'prob', 'cuota', 'score', 'mercado', 'bloque',
          'estado', 'icono', 'rotulo', 'real'}
 
-    Lista vacía si no había pronóstico guardado. Es una distinción que la
-    tarjeta enseña: «sin pronóstico previo» no es lo mismo que «falló».
+    Se busca primero el pronóstico GUARDADO y, si no lo hay, se
+    reconstruye del precálculo de esa mañana (`reconstruir`). Las
+    filas reconstruidas van marcadas con `origen='precalculo'`.
+
+    Lista vacía sólo cuando fallan las dos vías, o sea cuando el
+    partido no lo evaluó nadie. La tarjeta lo enseña distinto: «sin
+    pronóstico previo» no es lo mismo que «falló».
     """
     if not pick:
         return []
@@ -448,15 +584,20 @@ def validar(pick: Dict) -> List[Dict]:
     if not (h and a):
         return []
     g = de_partido(pick.get('clave_liga'), h, a, pick.get('fecha'))
-    if not g:
+    filas_previas = list((g or {}).get('recomendadas') or [])
+    if not filas_previas:
+        # v177 — la red debajo: se reconstruye del precálculo de esa
+        # mañana. Ver `reconstruir`.
+        filas_previas = reconstruir(pick)
+    if not filas_previas:
         return []
     gh, ga = pick.get('goles_home'), pick.get('goles_away')
     stats = None
-    if any(str(f.get('bloque')) in _CAMPO for f in (g.get('recomendadas') or [])):
+    if any(str(f.get('bloque')) in _CAMPO for f in filas_previas):
         stats = _stats_del_partido(pick.get('clave_liga'), h, a,
                                    pick.get('fecha'))
     salida = []
-    for f in (g.get('recomendadas') or []):
+    for f in filas_previas:
         real = _valor_real(f, gh, ga, stats)
         acierto, dist = _acierto(f, real, h, a)
         est = _estado(acierto, dist, f.get('prob'))

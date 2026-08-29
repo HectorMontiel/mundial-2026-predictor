@@ -8515,9 +8515,14 @@ def test_la_tarjeta_es_accionable_y_no_un_parrafo():
         check(parrafo in detalle,
               f"pero {parrafo} SI vive en el analisis completo")
 
-    # el boton de Playdoit existe y apunta a la casa del usuario
-    check('link_button' in src and 'Playdoit' in src,
-          "hay boton para ir a jugarla")
+    # v177 — EL BOTON DE PLAYDOIT SE RETIRA, A PETICION. «El usuario
+    # solo quiere ver la apuesta; el ira a Playdoit por su cuenta.» Y
+    # ademas el enlace nunca llevo al PARTIDO —`URL_PLAYDOIT` es la
+    # portada de la casa— asi que prometia una navegacion que no daba.
+    check('link_button' not in src,
+          "la tarjeta ya no lleva boton")
+    check('URL_PLAYDOIT' in src,
+          "pero la URL se conserva para futuras integraciones")
     check(mm.URL_PLAYDOIT.startswith('https://'),
           "con una URL de verdad")
 
@@ -8556,7 +8561,8 @@ def test_la_tarjeta_es_accionable_y_no_un_parrafo():
     check(any('AMBOS MARCAN: NO' in t for t in f2.txt),
           "y cuando la hay, la enseña en mayusculas y con su porcentaje")
     check(any('1.67' in t for t in f2.txt), "con la cuota justa al lado")
-    check(any('BOTON' in t for t in f2.txt), "y el boton para jugarla")
+    check(not any('BOTON' in t for t in f2.txt),
+          "y ya sin boton debajo (v177)")
 
 
 
@@ -10342,6 +10348,7 @@ def test_el_h2h_y_la_forma_mueven_la_lambda_de_goles():
     tres lineas, de 0,0795 a 0,0460.
     """
     import contexto_partido as cx
+    import rendimiento_equipos as rq
 
     check(abs(cx.BETA_H2H - 0.186) < 1e-9,
           f"el peso del H2H es el medido ({cx.BETA_H2H})")
@@ -10382,6 +10389,11 @@ def test_el_h2h_y_la_forma_mueven_la_lambda_de_goles():
         esperada += cx.BETA_H2H * (g_h2h - base)
     if gh is not None and ga is not None:
         esperada += cx.BETA_FORMA * ((gh + ga) / 2.0 - base)
+    # v177 — y el tercer termino: el nivel de la competicion, que
+    # DESPLAZA (no encoge). Ver `test_el_nivel_de_la_liga_corrige_el_sesgo_de_goles`.
+    _nivel = rq.media_goles_liga('rsa_premier')
+    if _nivel is not None:
+        esperada += cx.BETA_NIVEL * (float(_nivel) - cx.NIVEL_GLOBAL)
     check(abs(ajustada - esperada) < 1e-3,
           f"la lambda es exactamente la formula medida ({ajustada} vs "
           f"{round(esperada, 4)})")
@@ -10895,6 +10907,301 @@ def test_los_patrones_recientes_son_observados_y_no_ruido():
           "los patrones se pintan en el bloque de contexto")
 
 
+def test_el_pronostico_previo_se_recupera_siempre():
+    """
+    v177 — COMPROBACION 1: NINGUN PARTIDO EVALUADO SE QUEDA SIN PRONOSTICO.
+
+    EL DEFECTO, con los partidos que lo destaparon: Dalian Yingbo - Beijing
+    Guoan y Tecnico - Cuenca salian con «sin pronostico previo guardado».
+    La v176 solo sabia leer el REGISTRO, y el registro solo existe si
+    alguien —la aplicacion o el bot— vio el partido antes de que se jugara.
+    Un partido que termino mientras nadie miraba no tenia nada que enseñar.
+
+    DESDE LA v177 HAY TRES VIAS, y se prueban las tres:
+
+      1. el pronostico GUARDADO, que es el bueno;
+      2. reconstruido del PRECALCULO de esa mañana —`predicciones_dia.json`
+         y `mercado_dia.json`, los dos estado anterior al pitido inicial—;
+      3. y si Playdoit no cotizaba el partido, los MERCADOS DEL MODELO
+         (goles, BTTS, 1X2), que no eran apuestas pero si eran lo que la
+         tarjeta enseñaba.
+
+    LA TERCERA VIA ES LA QUE CIERRA EL CASO DEL USUARIO: la Superliga china
+    casi no la cotiza Playdoit, asi que por las dos primeras vias esos
+    partidos seguirian vacios.
+    """
+    import predicciones_dia as pdia
+    import pronosticos_guardados as pg
+
+    registros = (pdia._leer() or {}).get('predicciones') or {}
+    check(bool(registros),
+          f"el precalculo del dia tiene partidos ({len(registros)})")
+
+    # se prueban varios partidos reales del precalculo: los que Playdoit
+    # cotiza (vias 1-2) y los que no (via 3)
+    con_algo, probados = 0, 0
+    for k, reg in list(registros.items())[:60]:
+        trozos = str(k).split('|')
+        if len(trozos) < 3:
+            continue
+        liga, h_crudo, a_crudo = trozos[0], trozos[1], trozos[2]
+        pick = {'partido': '%s vs %s' % (reg.get('home'), reg.get('away')),
+                'clave_liga': liga, 'deporte': 'Fútbol',
+                'fecha': '2026-08-29', 'jugado': True,
+                'goles_home': 1, 'goles_away': 2,
+                '_home_crudo': h_crudo, '_away_crudo': a_crudo}
+        probados += 1
+        if pg.validar(pick):
+            con_algo += 1
+        if probados >= 25:
+            break
+    check(probados >= 10, f"se probaron partidos de verdad ({probados})")
+    check(con_algo == probados,
+          f"TODOS los partidos evaluados tienen pronostico recuperable "
+          f"({con_algo} de {probados})")
+
+    # y sin el nombre CRUDO no hay llave: los dos ficheros se indexan por
+    # el del fixture, no por el del catalogo del modelo (v165)
+    sin_llave = {'partido': 'A vs B', 'clave_liga': 'premier',
+                 'deporte': 'Fútbol', 'fecha': '2026-08-29',
+                 'jugado': True, 'goles_home': 1, 'goles_away': 1}
+    check(pg.reconstruir(sin_llave) == [],
+          "sin el nombre crudo no se reconstruye nada")
+    src = open('partidos_jugados.py', encoding='utf-8').read()
+    check("'_home_crudo'" in src,
+          "y el partido jugado lo lleva, que es lo que faltaba")
+
+    # la via 3 no inventa precio: sin tablero, sin cuota y sin Score
+    for k, reg in list(registros.items())[:80]:
+        trozos = str(k).split('|')
+        if len(trozos) < 3:
+            continue
+        import mercado_implicito as mi
+        if mi.del_partido(trozos[1], trozos[2]):
+            continue
+        pick = {'partido': '%s vs %s' % (reg.get('home'), reg.get('away')),
+                'clave_liga': trozos[0], 'deporte': 'Fútbol',
+                'fecha': '2026-08-29', 'jugado': True,
+                'goles_home': 1, 'goles_away': 2,
+                '_home_crudo': trozos[1], '_away_crudo': trozos[2]}
+        filas = pg.validar(pick)
+        if not filas:
+            continue
+        check(all(f.get('origen') == 'modelo' for f in filas),
+              "sin tablero, la validacion sale de los mercados del modelo")
+        check(all(f.get('cuota') is None for f in filas),
+              "y sin cuota inventada")
+        break
+
+
+def test_el_boton_de_playdoit_ya_no_esta():
+    """
+    v177 — COMPROBACION 3: el boton se retira, la URL se queda.
+
+    «El usuario solo quiere ver la apuesta; el ira a Playdoit por su
+    cuenta.» Y ademas el enlace nunca llevaba al PARTIDO —`URL_PLAYDOIT` es
+    la portada de la casa— asi que prometia una navegacion que no daba.
+
+    La constante NO se borra: el encargo pide expresamente conservar lo que
+    sirva para integrar el partido mas adelante.
+    """
+    import modo_modelo as mm
+
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('Jugar en Playdoit' not in src,
+          "el boton ya no existe en la tarjeta")
+    check('link_button' not in src,
+          "y no queda ningun enlace-boton en esta pantalla")
+    check(hasattr(mm, 'URL_PLAYDOIT') and mm.URL_PLAYDOIT,
+          "pero la URL se conserva para futuras integraciones")
+
+    # y la tarjeta sigue pintando la recomendacion, que es lo que queda
+    class _Falso:
+        def __init__(self):
+            self.txt = []
+
+        def markdown(self, t, **k):
+            self.txt.append(t)
+
+        def link_button(self, *a, **k):
+            self.txt.append('BOTON')
+
+        def caption(self, t, **k):
+            self.txt.append(t)
+    f = _Falso()
+    mm._bloque_recomendada(f, {'apuesta': 'Goles: Más de 2.5',
+                               'prob': 0.62, 'cuota': 1.75,
+                               'cuota_justa': 1.61, 'score': 1.08,
+                               'ev': 0.08, 'verde': True, 'fisico': False,
+                               'aviso': '', 'motivo': 'valor',
+                               'puesto_valor': 1,
+                               'estabilidad': {'icono': '🟢'}}, 'x', 0)
+    check(any('APUESTA RECOMENDADA' in t for t in f.txt),
+          "la recomendacion se sigue pintando")
+    check('BOTON' not in f.txt, "y ya no lleva boton debajo")
+
+
+def test_la_vista_elegida_no_se_pierde():
+    """
+    v177 — COMPROBACION 4: cambiar un filtro en Mañana ya no devuelve a Hoy.
+
+    LA CAUSA NO ERA EL FILTRO, y por eso la v176 no lo arreglo del todo.
+    **`st.tabs` no tiene estado de servidor**: la pestaña abierta vive en
+    el navegador y cualquier interaccion rehace el script y la devuelve a
+    la primera. Da igual lo persistente que sea el VALOR del filtro si el
+    usuario acaba mirando otra lista.
+
+    `segmented_control` si tiene clave, asi que la eleccion sobrevive por
+    el mismo camino que los filtros: `preferencias_usuario`, en disco.
+    """
+    import tempfile
+    import preferencias_usuario as pu
+
+    dash = open('dashboard_ui.py', encoding='utf-8').read()
+    # SOLO el cuerpo de esta funcion: mas abajo hay pantallas (MLB,
+    # NBA, la ficha del partido) que usan `st.tabs` con toda la razon
+    # —ahi no hay filtros que sobrevivan a nada— y contarlas seria un
+    # falso positivo.
+    cuerpo = dash.split('def render_alpha_finder')[1].split(
+        chr(10) + 'def ')[0]
+    check('st.tabs(' not in cuerpo,
+          "la pantalla principal ya no usa `st.tabs`")
+    check('_vista_principal' in cuerpo,
+          "usa un selector con clave")
+    check('segmented_control' in cuerpo,
+          "y es un control con estado de servidor")
+    check('_slot.empty()' in cuerpo,
+          "las vistas no elegidas se descartan al final del render")
+
+    # la eleccion se guarda y se recupera, como los demas filtros
+    pu.FICHERO = os.path.join(tempfile.mkdtemp(), 'prefs177.json')
+    pu.olvidar()
+    check(pu.guardar('vista_principal', 'manana'),
+          "la vista elegida se guarda")
+    pu.olvidar()
+    check(pu.leer('vista_principal') == 'manana',
+          "y sobrevive a releer el fichero")
+
+    # el filtro de orden sigue siendo uno solo para las dos vistas
+    import modo_modelo as mm
+    check(mm.CLAVE_ORDEN and '%s' not in mm.CLAVE_ORDEN,
+          f"el ajuste de orden es unico ({mm.CLAVE_ORDEN})")
+
+
+def test_el_nivel_de_la_liga_corrige_el_sesgo_de_goles():
+    """
+    v177 — COMPROBACION 5: la lambda deja de encoger hacia la media global.
+
+    EL ENCARGO pedia «aumentar la lambda un 5-10 % si la liga tiene media
+    alta». El DIAGNOSTICO es correcto y esta medido sobre los 47.794
+    partidos del ledger (`_v177_sesgo_goles_por_liga.py`): el modelo
+    encoge hacia la media global y el sesgo (goles reales − lambda) es
+
+        nivel < 2,4   −0,180        nivel 2,8-3,0   +0,165
+        nivel 2,4-2,8 −0,013        nivel > 3,0     +0,213
+
+    PERO EL REMEDIO NO ES UN MULTIPLICADOR EN UN SOLO EXTREMO: x1,05 sobre
+    las ligas altas baja el ECE medio de 0,0470 a 0,0460, un 2 %, porque
+    arregla media curva. Un DESPLAZAMIENTO proporcional a lo que la
+    competicion se separa de la media global corrige las dos a la vez, y
+    con gamma 0,35 el sesgo cae a ~0,04 en los dos extremos.
+
+    Y DESPLAZA, NO ENCOGE. Se midio tambien encoger hacia la media de
+    liga: por Brier el optimo es g=0,8, o sea casi toda la lambda seria la
+    media de su competicion. Eso dejaria los diez partidos de la jornada
+    con la misma probabilidad — que es justo por lo que este proyecto no
+    recomienda cornrs (§10). Esta anotado en la bitacora y no se despliega.
+    """
+    import contexto_partido as cx
+    import rendimiento_equipos as rq
+
+    check(abs(cx.BETA_NIVEL - 0.35) < 1e-9,
+          f"el peso del nivel es el medido ({cx.BETA_NIVEL})")
+    check(2.5 <= cx.NIVEL_GLOBAL <= 2.7,
+          f"y la referencia es la media global ({cx.NIVEL_GLOBAL})")
+
+    base = 2.70
+    alta = [lg for lg in ('china', 'bol_division', 'noruega')
+            if (rq.media_goles_liga(lg) or 0) > 3.0]
+    baja = [lg for lg in ('arg_primera_nacional', 'rsa_premier')
+            if (rq.media_goles_liga(lg) or 9) < 2.3]
+    check(bool(alta) and bool(baja),
+          f"hay ligas de los dos extremos ({alta} / {baja})")
+    for lg in alta:
+        lam = cx.lambda_goles(lg, 'Equipo Sin Historia A',
+                              'Equipo Sin Historia B', base)
+        check(lam > base,
+              f"{lg} (media {rq.media_goles_liga(lg)}): la lambda SUBE "
+              f"({base} -> {lam})")
+    for lg in baja:
+        lam = cx.lambda_goles(lg, 'Equipo Sin Historia A',
+                              'Equipo Sin Historia B', base)
+        check(lam < base,
+              f"{lg} (media {rq.media_goles_liga(lg)}): la lambda BAJA "
+              f"({base} -> {lam})")
+
+    # el desplazamiento NO comprime: dos partidos distintos de la misma
+    # liga siguen separados exactamente lo mismo que antes
+    if alta:
+        lg = alta[0]
+        a = cx.lambda_goles(lg, 'Equipo Sin Historia A',
+                            'Equipo Sin Historia B', 2.0)
+        b = cx.lambda_goles(lg, 'Equipo Sin Historia A',
+                            'Equipo Sin Historia B', 3.0)
+        check(abs((b - a) - 1.0) < 1e-6,
+              f"la separacion entre partidos se conserva ({b - a})")
+
+    # sin liga conocida no se inventa nivel
+    check(cx.lambda_goles('no_existe', 'X', 'Y', base) == base,
+          "sin histórico la lambda no se toca")
+
+
+def test_el_techo_de_goles_en_la_superliga_china():
+    """
+    v177 — COMPROBACION 5 (segunda mitad), literal del encargo:
+    «verificar que en un partido de la Superliga China con lambda_liga >
+    3,0 la probabilidad de Menos de 2.5 nunca supere el 55 %».
+
+    YA SE CUMPLIA ANTES DE ESTA VERSION, y conviene dejarlo escrito para
+    que no se vuelva a pedir: `cordura_probabilidad.techo_por_liga` topa
+    ese lado en **50 %** desde la v165 en cuanto la media de la liga pasa
+    de la linea por medio gol o mas, que con la linea de 2,5 es
+    exactamente «media > 3,0». La premisa del encargo —«el modelo cree que
+    un partido de una liga de 3,2 goles termina bajo 2,5 con un 65 %»— no
+    puede pasar: el 65 % es el techo de las ligas de 2,5 a 3,0.
+
+    Lo que SI cambia en la v177 es que ahora ademas la lambda sube en esas
+    ligas, asi que la cifra ni se acerca al techo.
+    """
+    import cordura_probabilidad as cp
+    import rendimiento_equipos as rq
+
+    media = rq.media_goles_liga('china')
+    check(media is not None and media > 3.0,
+          f"la Superliga china pasa de 3,0 goles ({media})")
+    techo = cp.techo_por_liga('china', 'Menos de 2.5')
+    check(techo is not None and techo <= 0.55,
+          f"y su «Menos de 2,5» no puede pasar del 55 % ({techo})")
+    check(abs(techo - 0.50) < 1e-9,
+          f"de hecho topa en 50 %, desde la v165 ({techo})")
+
+    # y lo que se PUBLICA lo respeta, venga de donde venga
+    for cruda in (0.62, 0.75, 0.88):
+        info = cp.revisar(cruda, 'Menos de 2.5', 'china',
+                          implicita=cruda - 0.02, mercado='Goles')
+        check(info['prob'] <= 0.55 + 1e-9,
+              f"un {cruda:.0%} crudo se publica como {info['prob']:.0%}")
+
+    # TODAS las ligas de mas de 3,0 goles, no solo la china
+    import config
+    altas = [lg for lg in list(config.LEAGUES)[:70]
+             if (rq.media_goles_liga(lg) or 0) > 3.0]
+    for lg in altas:
+        t = cp.techo_por_liga(lg, 'Menos de 2.5')
+        check(t is not None and t <= 0.55,
+              f"{lg}: «Menos de 2,5» topa en {t}")
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -11151,6 +11458,12 @@ if __name__ == '__main__':
     test_los_filtros_se_recuerdan_entre_pestanas_y_sesiones()
     test_el_orden_por_apuesta_recomendada()
     test_los_patrones_recientes_son_observados_y_no_ruido()
+    print(chr(10) + '=== v177: pronostico recuperable, vista estable y nivel de liga ===')
+    test_el_pronostico_previo_se_recupera_siempre()
+    test_el_boton_de_playdoit_ya_no_esta()
+    test_la_vista_elegida_no_se_pierde()
+    test_el_nivel_de_la_liga_corrige_el_sesgo_de_goles()
+    test_el_techo_de_goles_en_la_superliga_china()
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

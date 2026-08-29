@@ -6515,12 +6515,63 @@ def render_alpha_finder():
     # puede desaparecer porque la pantalla se simplifique, así que baja a un
     # desplegable DENTRO de la vista principal, abierto cuando hay algo que
     # enseñar. Cambia dónde está, no si está.
-    (_tab_hoy, _tab_manana, _tab_combi, _tab_estado) = st.tabs([
-        f"⚽ Apuestas de hoy ({len(_pron_hoy)})",
-        f"🗓️ Mañana ({len(_pron_man)})",
-        f"🧩 Combinadas ({len(r.get('combinadas') or [])})",
-        "⚙️ Estado",
-    ])
+    # v177 — LAS PESTAÑAS DEJAN DE SER `st.tabs`, Y ES UN ARREGLO, NO UN
+    # CAMBIO DE ESTILO.
+    #
+    # EL DEFECTO, con las palabras del usuario: «al cambiar el filtro
+    # Ordenar por en la pestaña de mañana, la app te regresa a partidos de
+    # hoy». Y no era el filtro: **`st.tabs` no tiene estado de servidor**.
+    # La pestaña abierta vive en el navegador, y cualquier interacción
+    # rehace el script y la devuelve a la primera. Da igual lo persistente
+    # que sea el valor del filtro —la v176 lo dejó guardado en disco— si el
+    # usuario acaba mirando otra lista.
+    #
+    # `segmented_control` sí tiene clave, así que la elección sobrevive a
+    # la recarga igual que los filtros, y por el mismo camino:
+    # `preferencias_usuario` la siembra al arrancar.
+    #
+    # EL SUMIDERO, que es la parte que no se ve. Los cuatro cuerpos siguen
+    # ejecutándose —con `st.tabs` también se ejecutaban los cuatro, así que
+    # no hay coste nuevo— y al final se BORRA el contenido de los tres que
+    # no se han elegido. Se hace así, y no con un `if` alrededor de cada
+    # bloque, porque la vista de hoy tiene su cuerpo repartido en seis
+    # sitios distintos de esta función: envolverlos todos habría sido
+    # reindentar trescientas líneas para arreglar una pestaña.
+    _VISTAS = [
+        ('hoy', f"⚽ Hoy ({len(_pron_hoy)})"),
+        ('manana', f"🗓️ Mañana ({len(_pron_man)})"),
+        ('combi', f"🧩 Combinadas ({len(r.get('combinadas') or [])})"),
+        ('estado', "⚙️ Estado"),
+    ]
+    # LAS OPCIONES SON CLAVES, NO RÓTULOS, y eso no es un detalle de
+    # estilo. El rótulo lleva dentro el número de partidos —«Hoy (247)»— y
+    # eso es lo que se guardaría en la preferencia: mañana habría 231 y el
+    # valor guardado dejaría de ser una opción válida, así que la vista se
+    # perdería justo al recargar, que es lo que esto viene a arreglar. Con
+    # `format_func` el usuario ve el rótulo y el estado guarda `hoy`.
+    _ROTULO = {k: e for k, e in _VISTAS}
+    _claves = [k for k, _ in _VISTAS]
+    try:
+        import preferencias_usuario as _prefv
+        _prefv.recordar(st, '_vista_principal', _claves, 'hoy')
+    except Exception:
+        _prefv = None
+    _sel_vista = st.segmented_control(
+        'Vista', _claves, key='_vista_principal',
+        format_func=lambda k: _ROTULO.get(k, k),
+        label_visibility='collapsed',
+        help='La vista elegida se recuerda: cambiar un filtro ya no te '
+             'devuelve a «Hoy».')
+    # `segmented_control` admite deselección: si el usuario pulsa la que ya
+    # estaba, devuelve None y la pantalla se quedaría en blanco.
+    _vista = _sel_vista if _sel_vista in _ROTULO else 'hoy'
+    if _prefv is not None:
+        _prefv.guardar('_vista_principal', _vista)
+    _slots = {k: st.empty() for k, _ in _VISTAS}
+    _tab_hoy = _slots['hoy'].container()
+    _tab_manana = _slots['manana'].container()
+    _tab_combi = _slots['combi'].container()
+    _tab_estado = _slots['estado'].container()
     # Los nombres antiguos siguen apuntando a la vista de hoy: el resto de la
     # función los usa en una docena de sitios y renombrarlos todos en el mismo
     # cambio que reordena las pestañas sería mezclar dos cosas que conviene
@@ -6850,6 +6901,13 @@ def render_alpha_finder():
     st.divider()
     _render_combinada_segura(pdd)
     _render_combinadas_dia()
+
+    # v177 — y aquí se descartan las vistas que no se han elegido. Va
+    # al FINAL a propósito: el cuerpo de «hoy» se pinta en seis sitios
+    # distintos de esta función y el último es el de aquí arriba.
+    for _k_vista, _slot in _slots.items():
+        if _k_vista != _vista:
+            _slot.empty()
 
 
 # v88 — SE RETIRA LA ACTUALIZACIÓN VÍA THE ODDS API.
