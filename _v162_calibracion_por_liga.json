@@ -1,5 +1,5 @@
 {
- "generado": "2026-08-23T10:33:00Z",
+ "generado": "2026-08-31T11:21:01Z",
  "ligas": [
   {
    "clave": "liga_mx",
@@ -1905,17 +1905,20 @@
    "clave": "eng_national",
    "partidos_espn": 1,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
     "origen": "estimado",
     "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
