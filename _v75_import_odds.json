@@ -1,6 +1,6 @@
 {
- "generado": "2026-08-31T12:56:21Z",
- "filas_insertadas": 234253,
+ "generado": "2026-09-01T11:34:53Z",
+ "filas_insertadas": 234313,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -35,139 +35,139 @@
  ],
  "por_liga": {
   "argentina": {
-   "filas": 7214,
-   "partidos": 3806
+   "filas": 7205,
+   "partidos": 3809
   },
   "aut_bundesliga": {
-   "filas": 2958,
+   "filas": 2952,
    "partidos": 1553
   },
   "bel_pro_league": {
-   "filas": 2903,
-   "partidos": 1571
+   "filas": 2912,
+   "partidos": 1580
   },
   "brasil": {
-   "filas": 5879,
-   "partidos": 3079
+   "filas": 5865,
+   "partidos": 3077
   },
   "bundesliga": {
-   "filas": 9023,
-   "partidos": 4896
+   "filas": 9032,
+   "partidos": 4905
   },
   "china": {
-   "filas": 3549,
+   "filas": 3541,
    "partidos": 1880
   },
   "dinamarca": {
-   "filas": 3128,
-   "partidos": 1636
+   "filas": 3120,
+   "partidos": 1635
   },
   "eng_championship": {
-   "filas": 5262,
-   "partidos": 2784
+   "filas": 5274,
+   "partidos": 2796
   },
   "eng_league_one": {
-   "filas": 15891,
-   "partidos": 8704
+   "filas": 15902,
+   "partidos": 8715
   },
   "eng_league_two": {
-   "filas": 15972,
-   "partidos": 8744
+   "filas": 15984,
+   "partidos": 8756
   },
   "eng_national": {
-   "filas": 15755,
-   "partidos": 8622
+   "filas": 15766,
+   "partidos": 8633
   },
   "eredivisie": {
-   "filas": 5217,
-   "partidos": 2704
+   "filas": 5226,
+   "partidos": 2713
   },
   "esp_hypermotion": {
-   "filas": 8029,
-   "partidos": 4159
+   "filas": 8040,
+   "partidos": 4170
   },
   "finlandia": {
-   "filas": 2533,
-   "partidos": 1335
+   "filas": 2525,
+   "partidos": 1334
   },
   "fra_ligue2": {
-   "filas": 6161,
-   "partidos": 3197
+   "filas": 6170,
+   "partidos": 3206
   },
   "ger_bundesliga2": {
-   "filas": 5310,
-   "partidos": 2772
+   "filas": 5319,
+   "partidos": 2781
   },
   "gre_super_league": {
-   "filas": 4084,
-   "partidos": 2154
+   "filas": 4091,
+   "partidos": 2161
   },
   "irlanda": {
-   "filas": 2582,
-   "partidos": 1368
+   "filas": 2585,
+   "partidos": 1372
   },
   "ita_serie_b": {
-   "filas": 6636,
-   "partidos": 3471
+   "filas": 6646,
+   "partidos": 3481
   },
   "jpn_j1": {
-   "filas": 4972,
-   "partidos": 2507
+   "filas": 4964,
+   "partidos": 2508
   },
   "laliga": {
-   "filas": 11229,
-   "partidos": 6100
+   "filas": 11239,
+   "partidos": 6110
   },
   "liga_mx": {
-   "filas": 5023,
+   "filas": 5014,
    "partidos": 2642
   },
   "ligue_1": {
-   "filas": 10609,
-   "partidos": 5766
+   "filas": 10618,
+   "partidos": 5775
   },
   "mls": {
-   "filas": 7126,
+   "filas": 7111,
    "partidos": 3728
   },
   "noruega": {
-   "filas": 3674,
-   "partidos": 1922
+   "filas": 3650,
+   "partidos": 1914
   },
   "polonia": {
-   "filas": 4488,
-   "partidos": 2360
+   "filas": 4481,
+   "partidos": 2361
   },
   "premier": {
-   "filas": 11240,
-   "partidos": 6090
+   "filas": 11250,
+   "partidos": 6100
   },
   "primeira": {
-   "filas": 5989,
-   "partidos": 3084
+   "filas": 5998,
+   "partidos": 3093
   },
   "rumania": {
-   "filas": 4656,
-   "partidos": 2463
+   "filas": 4650,
+   "partidos": 2464
   },
   "rus_premier": {
    "filas": 3711,
    "partidos": 1942
   },
   "sco_championship": {
-   "filas": 2957,
-   "partidos": 1547
+   "filas": 2962,
+   "partidos": 1552
   },
   "sco_premiership": {
-   "filas": 6580,
-   "partidos": 3612
+   "filas": 6586,
+   "partidos": 3618
   },
   "serie_a": {
-   "filas": 11226,
-   "partidos": 6088
+   "filas": 11236,
+   "partidos": 6098
   },
   "suecia": {
-   "filas": 3702,
+   "filas": 3694,
    "partidos": 1930
   },
   "suiza": {
@@ -175,8 +175,8 @@
    "partidos": 1599
   },
   "turquia": {
-   "filas": 5959,
-   "partidos": 3076
+   "filas": 5968,
+   "partidos": 3085
   }
  },
  "nota": "Fuente: historico_*.csv del propio proyecto (data/raw no existe; league_engine ya normaliza las cuotas al descargar). Las ligas sin cuota son las servidas por ESPN, que retira el bloque odds tras el partido -> solo pueden acumular histórico vía daily_snapshots.py."
