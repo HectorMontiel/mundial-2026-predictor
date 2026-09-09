@@ -4110,3 +4110,111 @@ sin un solo error en local con exactamente el mismo commit que estaba
 desplegado; sin el log se habría acabado revirtiendo un cambio correcto o
 fijando una versión al azar. Diez líneas de log valieron más que todo el
 razonamiento sobre el código.
+
+---
+
+## 31. La Champions llevaba dos meses congelada, y sus córners eran inventados
+
+### 31.1. El síntoma no era el problema
+
+«Ya empezó la Champions y el único partido que veo es el de Barcelona de hoy
+cuando hay más.» Lo primero fue comprobar si faltaban datos, y no faltaban: el
+barrido traía **7 partidos de Champions de hoy y 6 de mañana**, y
+`fixtures_liga('champions')` devolvía los 12 de la jornada. La lista en vivo
+estaba bien.
+
+Lo que estaba parado era el **histórico**, que es de donde sale todo lo demás:
+el H2H, la forma, el ELO, los córners, las tarjetas y los remates de la tarjeta.
+
+### 31.2. Dos meses sin actualizarse, y ni una estadística real
+
+`historico_champions.csv` no se tocaba desde el **2026-07-14**. La causa:
+`formato: api_football`, con un plan Free que sólo sirve las temporadas
+2022-2024 y que necesita clave. Sus dos competiciones hermanas van por otro
+sitio:
+
+    champions          api_football   hasta 2026-07-14   stats_origen NO
+    europa_league      espn           hasta 2026-05-20   stats_origen SÍ
+    conference_league  espn           hasta 2026-05-27   stats_origen SÍ
+
+Y esa columna `stats_origen` es lo importante: la Champions era **la única de
+las tres sin una sola estadística observada**. Sus córners, tarjetas, remates y
+posesión los ponía el generador sintético. La tarjeta enseñaba números con
+aspecto de córners que nadie había contado.
+
+Mientras tanto, **`stats_espn/champions.csv.gz` llevaba 774 partidos con
+córners, tarjetas, remates, faltas, posesión y fueras de juego reales de ESPN,
+guardados en el repositorio desde la v162 y sin usarse**. Es el pendiente nº 6
+del traspaso, y estaba pagado.
+
+### 31.3. El cambio, y la medición que lo decide
+
+    fuente          partidos  hasta        estadísticas REALES
+    api_football       1.174  2026-07-14     0     (0,0 %)
+    ESPN                 895  2026-09-08   774    (86,5 %)
+
+`champions` pasa a `formato: espn`, `espn_liga: uefa.champions`. Con los nombres
+de ESPN se aprovechan **las 774 filas, el 100 %**; con los de API-Football,
+725. No es casualidad: son los mismos nombres que traen los fixtures del
+barrido, así que además desaparece un catálogo que emparejar.
+
+`stats_disponibles('champions')` pasa de `corners/remates/tarjetas: False` a
+**True en las tres**.
+
+**El coste, sin adornos:** se pierden 736 partidos que ESPN no tiene y
+API-Football sí. Son casi todos **rondas previas** — 2022 traía 212 filas frente
+a las 125 de una fase liga. Para predecir un partido de la fase principal, el
+historial de las previas aporta poco: son equipos de otro nivel que en su
+mayoría no vuelven a aparecer.
+
+**Y lo que NO mejora:** el 1X2. Reentrenada, la Champions da `acc 0,524` contra
+`0,579` del ELO. No lo batía antes y no lo bate ahora. Lo que cambia son las
+estadísticas físicas. No se pudo comparar contra el modelo anterior porque
+`modelos/` no se versiona desde la v148 y el metadata previo se sobrescribió al
+reentrenar — anotado como límite de esta medición, no como resultado.
+
+### 31.4. El puente con la liga local: medido, y parado a tiempo
+
+El encargo pedía cruzar el histórico de Champions con el de cada equipo en su
+liga, ponderando por el nivel de la liga. Hace falta de verdad: aun con las 774
+filas, la muestra por equipo es corta —mediana 16, el 37 % por debajo de 10, y
+Viking FK, Sabah FK y Como con **cero**—.
+
+**Factor de competición** (Champions ÷ liga local), sobre los 30 equipos que
+casan:
+
+    córners   0,861   ·   tarjetas 1,076   ·   remates a puerta 0,833
+                          remates fuera 0,879
+
+En Champions se sacan un 14 % menos de córners y un 8 % más de tarjetas que en
+la liga de origen. Pero el número que decide el diseño es la dispersión:
+
+    del factor ENTRE LIGAS    sd 0,102
+    del factor ENTRE EQUIPOS  sd 0,232
+
+**El nivel de la liga explica menos que el propio equipo.** La intuición de que
+un Barcelona no es comparable con un equipo de una liga menor es correcta para
+la FUERZA del equipo —y de eso ya se ocupan el ELO y el nivel de liga en la λ de
+goles— pero no se traslada al ajuste de las estadísticas físicas: con 4-5
+equipos por liga, separar el factor por liga añade ruido, no señal.
+
+**Por qué no se ha desplegado.** Sólo 30 de 73 equipos casan con su liga por
+nombre. Al intentar cerrar el hueco con `name_mapper.mapear` contra las 46
+ligas, el emparejador difuso inventa:
+
+    Internazionale → brasil  Internacional      Juventus → brasil  Juventude
+    Atalanta       → liga_mx Atlante            Arsenal  → rus     Arsenal Tula
+    Lille          → noruega Lillestrom         Braga    → suecia  Brage
+
+`name_mapper` está hecho para buscar dentro del catálogo de UNA liga conocida,
+no para adivinar en cuál de 46 juega un club. Encender la mezcla así le daría a
+la Juventus los córners del Juventude, y a la Atalanta los del Atlante. Es
+exactamente el modo de fallo que el traspaso ya tiene anotado —`Botafogo ↔
+Botafogo SP`— y el peor de todos: **no se notaría**, porque saldría un número
+con aspecto de córner normal. La misma lección que dejó escrita `_traductor` en
+la v162.
+
+Se para aquí. La vía limpia es un mapa equipo → liga **construido con lo que
+ESPN publica** (cada competición lista sus equipos), no adivinado; con él los 73
+casan por construcción, y sólo entonces tiene sentido medir la mezcla contra el
+ledger.

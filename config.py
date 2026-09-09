@@ -464,11 +464,42 @@ LEAGUES = {
         'features_extra': ['imt', 'ck'],
     },
     'champions': {
-        # v21: activada con API-Football (plan Free). LIMITACIÓN honesta del
-        # plan: solo temporadas 2022-2024 — el estado de los equipos queda
-        # congelado al final de la 2024-25 y se muestra en la UI.
+        # v179 — DE API-FOOTBALL A ESPN, QUE ES LO QUE USAN SUS DOS HERMANAS.
+        #
+        # EL DEFECTO, con las palabras del usuario: «ya empezó la Champions y
+        # el único partido que veo es el de hoy cuando hay más». El barrido sí
+        # los traía; lo que estaba parado era el HISTÓRICO, y con él todo lo
+        # que se calcula sobre él.
+        #
+        #     fuente          partidos  hasta        estadísticas REALES
+        #     api_football       1.174  2026-07-14     0     (0,0 %)
+        #     ESPN                 895  2026-09-08   774    (86,5 %)
+        #
+        # `historico_champions.csv` no se tocaba desde el 14 de julio: el plan
+        # Free de API-Football sólo sirve 2022-2024 y hace falta una clave, así
+        # que la competición se quedó congelada. Y era la ÚNICA competición
+        # UEFA sin `stats_origen` —Europa League y Conference League van por
+        # ESPN y sí lo tienen—, o sea que sus córners, tarjetas y remates eran
+        # los que inventa el generador sintético, no los que se jugaron.
+        #
+        # Las 774 filas de `stats_espn/champions.csv.gz` llevaban en el
+        # repositorio sin usarse. Con los nombres de ESPN se aprovechan **las
+        # 774, el 100 %**; con los de API-Football, 725. No es casualidad: son
+        # los mismos nombres que traen los fixtures del barrido, así que además
+        # deja de haber dos catálogos que emparejar.
+        #
+        # LO QUE SE PIERDE, dicho a las claras: API-Football traía 736 partidos
+        # que ESPN no tiene, y son casi todos RONDAS PREVIAS (2022: 212 filas
+        # contra 125, y una fase liga son 125). Para predecir un partido de la
+        # fase principal, el historial de las previas —equipos de otro nivel,
+        # que en su mayoría no vuelven a aparecer— aporta poco, y a cambio
+        # costaba tener el histórico dos meses parado.
+        #
+        # `api_league_id` se conserva: es el segundo eslabón de la cadena de
+        # resiliencia de `uefa_scraper.historico_uefa` (ESPN → API-Football →
+        # CSV local), no una fuente que se elija.
         'nombre': 'UEFA Champions League', 'pais': 'Europa',
-        'formato': 'api_football',
+        'formato': 'espn', 'espn_liga': 'uefa.champions',
         'api_league_id': 2, 'api_seasons': [2022, 2023, 2024],
         # v22: + FBref (resultados 2017-presente, incluida la temporada en
         # curso). Walk-forward de 3 profundidades de historia (VALIDACION_v22):
@@ -480,7 +511,9 @@ LEAGUES = {
         # (en Champions la "tabla" es la general de la temporada — proxy de
         # la presión clasificatoria de la fase liga desde 2024)
         'features_extra': ['urg'],
-        'nota': 'API-Football (2022-24) + FBref (resto, incl. temporada actual).',
+        'nota': 'ESPN (histórico y temporada en curso) con córners, tarjetas y '
+                'remates observados; API-Football y el CSV local quedan de '
+                'respaldo.',
     },
     # v35 (§2): competiciones UEFA secundarias. CORRECCIÓN DEL SPEC —
     # football-data.co.uk NO las publica (su índice solo tiene ligas

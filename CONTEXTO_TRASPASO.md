@@ -2274,3 +2274,112 @@ correcto.
 1. Si Streamlit Cloud vuelve a necesitar `packages.txt` algún día, hay que mirar
    antes si el paquete hace falta de verdad: hoy ninguno de los del
    `requirements.txt` compila desde fuente.
+
+---
+
+## 5m. v179 — LA CHAMPIONS ESTABA CONGELADA DESDE JULIO, Y SUS CÓRNERS ERAN INVENTADOS
+
+Detalle en **BITACORA_ARQUITECTURA.md §31**.
+
+El encargo empezó así: «ya empezó la Champions y el único partido que veo es el
+de Barcelona de hoy cuando hay más». El barrido **sí** los traía —7 de hoy y 6
+de mañana, comprobado sobre el pkl del guardia— y `fixtures_liga('champions')`
+devolvía los 12. Lo que estaba parado era el **histórico**, y con él todo lo que
+se calcula encima.
+
+### Lo que estaba roto, medido
+
+    fuente          partidos  hasta        estadísticas REALES
+    api_football       1.174  2026-07-14     0     (0,0 %)
+    ESPN                 895  2026-09-08   774    (86,5 %)
+
+`historico_champions.csv` no se tocaba desde el **14 de julio**. Es la única
+competición UEFA con `formato: api_football` —Europa League y Conference League
+usan `espn`— y era la única de las tres **sin `stats_origen`**: sus córners,
+tarjetas, remates y posesión eran los que inventa el generador sintético.
+
+Y las **774 filas de `stats_espn/champions.csv.gz`** llevaban en el repositorio
+sin usarse desde la v162. Es el pendiente nº 6 del traspaso, cerrado.
+
+### El cambio
+
+`champions` pasa a `formato: 'espn', 'espn_liga': 'uefa.champions'`. Con eso:
+
+| | antes | ahora |
+|---|---|---|
+| histórico hasta | 2026-07-14 | **2026-09-08** |
+| córners / tarjetas / remates / posesión | ❌ sintéticos | ✅ **observados** |
+| partidos con estadística real | 0 | **774** de 895 |
+| aprovechamiento de `stats_espn/` | 0 % | **100 %** |
+
+`stats_disponibles('champions')` pasa de `corners: False, remates: False,
+tarjetas: False` a **True en las tres**, que es lo que decide si la tarjeta
+enseña un número medido o uno estimado.
+
+**Lo que se pierde, dicho a las claras:** API-Football traía 736 partidos que
+ESPN no tiene, y son casi todos **rondas previas** (2022: 212 filas contra 125,
+y una fase liga son 125). Para un partido de la fase principal, el historial de
+las previas —equipos de otro nivel que en su mayoría no vuelven— aporta poco, y
+a cambio costaba tener la competición dos meses parada y con los nombres
+desalineados con los del barrido.
+
+**El 1X2 no mejora y no se vende como que sí:** reentrenada, la Champions da
+`acc 0,524` contra una línea base ELO de `0,579`. No bate al ELO, igual que
+antes. Lo que cambia son las ESTADÍSTICAS FÍSICAS, que pasan de inventadas a
+observadas. No se pudo comparar el 1X2 contra el modelo anterior porque
+`modelos/` no está versionado desde la v148 y el metadata previo se sobrescribió
+al reentrenar.
+
+### La correlación con la liga local: MEDIDA y NO desplegada
+
+El encargo pedía además cruzar el histórico de Champions con el de cada equipo
+en su liga local, ponderando por el nivel de la liga. Se midió el puente
+(`_v179_champions_vs_liga.py`), y hace falta: aun con las 774 filas, la muestra
+**por equipo** es corta —mediana 16 partidos, 37 % por debajo de 10, y Viking
+FK, Sabah FK y Como con **cero**—.
+
+**Factor de competición** (Champions ÷ liga local), sobre los 30 equipos que
+casan:
+
+    córners      0,861      remates a puerta   0,833
+    tarjetas     1,076      remates fuera      0,879
+
+O sea: en Champions se sacan un 14 % menos de córners y un 8 % más de tarjetas
+que en la liga de origen. Pero el dato que decide el diseño es otro:
+
+    dispersión del factor ENTRE LIGAS   sd 0,102 (córners)
+    dispersión del factor ENTRE EQUIPOS sd 0,232
+
+**El nivel de la liga de origen explica menos que el propio equipo.** La
+intuición de que «no es lo mismo el Barcelona que un equipo de una liga menor»
+es cierta para la FUERZA, y no se traslada al ajuste de las estadísticas
+físicas: separar el factor por liga con 4-5 equipos por liga añadiría ruido.
+
+**Y por qué NO se despliega todavía.** Sólo 30 de los 73 equipos casan con su
+liga por nombre. Al intentar cerrar el hueco con `name_mapper.mapear` contra las
+46 ligas, el emparejador difuso inventa:
+
+    Internazionale → brasil  Internacional
+    Juventus       → brasil  Juventude
+    Atalanta       → liga_mx Atlante
+    Arsenal        → rus     Arsenal Tula
+    Lille          → noruega Lillestrom
+
+`name_mapper` está hecho para buscar dentro del catálogo de UNA liga conocida,
+no para adivinar en cuál de 46 juega un club. Desplegar la mezcla así le daría a
+la Juventus los córners del Juventude brasileño — mucho peor que no hacerla, y
+justo el fallo que el traspaso ya tiene anotado con `Botafogo ↔ Botafogo SP`.
+
+**Lo que falta y es la vía limpia:** un mapa equipo → liga construido con el
+dato de ESPN (cada liga publica sus equipos), no adivinado. Con él, los 73
+equipos casan por construcción y la mezcla se puede medir contra el ledger antes
+de encenderla.
+
+**Pendiente que deja:**
+
+1. El mapa equipo → liga desde los equipos que publica ESPN por competición. Es
+   lo que desbloquea la mezcla con la liga local, y sin él no debe encenderse.
+2. Medida la mezcla, decidir el peso por tamaño de muestra (el proyecto ya tiene
+   el patrón del encogimiento hacia la casa, w=0,25).
+3. Europa League y Conference League tienen el mismo problema de muestra corta y
+   la misma solución.
