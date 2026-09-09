@@ -1,0 +1,28 @@
+{
+ "champions": {
+  "corners": {
+   "factor": 0.8157,
+   "n_equipos": 55,
+   "sd_entre_equipos": 0.2242,
+   "sd_entre_ligas": 0.0996
+  },
+  "shots_off": {
+   "factor": 0.8873,
+   "n_equipos": 55,
+   "sd_entre_equipos": 0.1928,
+   "sd_entre_ligas": 0.0651
+  },
+  "shots_on": {
+   "factor": 0.851,
+   "n_equipos": 55,
+   "sd_entre_equipos": 0.1994,
+   "sd_entre_ligas": 0.1172
+  },
+  "yellow": {
+   "factor": 0.9981,
+   "n_equipos": 55,
+   "sd_entre_equipos": 0.2893,
+   "sd_entre_ligas": 0.1641
+  }
+ }
+}

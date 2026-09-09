@@ -2539,3 +2539,98 @@ de la v180 al cálculo, que es el pendiente nº 1 del proyecto ahora mismo.
    (`Gana PSG @ 1,029`). No llega a verde —el Score la deja en ámbar— pero
    convendría revisar si `recomendadas` debe aplicar el mismo suelo que
    `mejores`.
+
+---
+
+## 5p. v182 — EL ENCHUFE: UN EQUIPO SIN PASADO EN LA COMPETICIÓN USA EL DE SU LIGA
+
+Detalle en **BITACORA_ARQUITECTURA.md §34**. Es la conexión que la v180 dejó
+preparada y la v179 dejó medida.
+
+Módulo nuevo: **`perfil_liga_local.py`**, enganchado en las tres lambdas por
+equipo de `rendimiento_equipos` (córners, tarjetas y remates).
+
+### El agujero que se cierra
+
+En Champions la muestra por equipo es corta —mediana 16 partidos, el 37 % por
+debajo de 10, y **Viking FK, Sabah FK y Como con cero**—. Con menos de
+`MIN_PARTIDOS`, `lambda_corners_equipo` y sus dos hermanas devolvían `None`, y
+el partido caía a `_estimado`, que reparte el nivel medio de la competición
+entre los dos bandos: **los dos equipos salían con el mismo número**.
+
+Y sí había con qué: el Viking juega en Noruega y allí tiene cientos de partidos
+con córners contados.
+
+### Lo que se midió ANTES de enchufarlo
+
+`_v182_mide_mezcla.py`, walk-forward sobre los 774 partidos de Champions con
+estadísticas observadas (1.548 equipos-partido), error absoluto medio:
+
+                          córners   tarjetas   remates
+    sólo Champions         2,4429    1,1362    2,2973
+    mezcla con su liga     2,3618    1,1027    2,2187
+
+Y donde de verdad importa, los que llegan con menos de 5 partidos previos en la
+competición (362 casos):
+
+    córners  −6,20 %   ·   tarjetas  −5,11 %   ·   remates  −7,79 %
+
+**Por eso sólo actúa cuando falta muestra.** Con el equipo ya visto en la
+competición, lo suyo manda: la mejora está en la cola, y el estimador actual
+está validado sobre 30.454 equipos-partido. Cambiar lo que ya funciona por una
+corazonada sería exactamente lo que este proyecto no hace.
+
+### El factor de competición, re-medido
+
+`_v182_factor_competicion.py`, 55 equipos (la v179 tenía 30), en
+`factor_competicion.json`:
+
+    córners 0,8157 · tarjetas 0,9981 · remates a puerta 0,8510 · fuera 0,8873
+
+En Champions se sacan un 18 % menos de córners y **las mismas tarjetas**. Eso
+último **corrige a la v179**, que con 30 equipos midió 1,076: con casi el doble
+de muestra el efecto desaparece.
+
+**Un factor único, no uno por liga**, y sigue medido: la dispersión entre ligas
+(sd 0,10 en córners) es menor que entre equipos (sd 0,22). El nivel de la liga
+de origen explica menos que el propio equipo.
+
+### El resultado
+
+Sobre los próximos partidos de las tres competiciones UEFA:
+
+    casos (partido × estadística)   186
+    observado   SIN enchufe  42  ->  CON enchufe 118
+    estimado    SIN enchufe 144  ->  CON enchufe  68
+
+**76 casos pasan de un número inventado a uno calculado con partidos reales**, y
+cada equipo con el suyo:
+
+    Como vs RB Leipzig          estimado -> observado   5,01 / 3,45
+    VfB Stuttgart vs Viking FK  estimado -> observado   4,62 / 3,94
+    Braga vs KuPS Kuopio        estimado -> observado   6,73 / 3,08
+
+### Y un fallo del catálogo que apareció por el camino
+
+El Como seguía sin datos, y no era el enchufe: **el catálogo lo mandaba a la
+Serie B**.
+
+    Serie B   114 partidos, último 2024-05-10   <- el catálogo elegía ésta
+    Serie A    79 partidos, último 2026-09-04   <- donde juega AHORA
+
+El desempate por volumen premiaba el pasado. Ahora primero se filtra por las
+ligas donde el equipo ha jugado **en el último año**, y sólo si ninguna lo es
+—o si hay varias— se recurre al número de partidos. Un ascenso o un descenso se
+refleja en cuanto hay una jornada nueva. Con eso el Como pasa a `serie_a` y su
+partido tiene estadísticas observadas.
+
+**Pendiente que deja:**
+
+1. Los equipos sin liga en el catálogo (Sabah FK, Slovan Bratislava, Shakhtar,
+   Qarabag…) siguen sin respaldo: sus ligas no están en el catálogo del
+   proyecto. El mapa lo dice en vez de inventarlo.
+2. El enchufe cubre córners, tarjetas y remates. El **1X2 sigue sin predecirse**
+   para los equipos que el motor de la competición no conoce: eso es el modelo
+   entrenado, no las estadísticas, y es otro trabajo.
+3. El factor está medido sólo para `champions`. Las otras cinco competiciones
+   de la lista usan 1,0 —no corregir— hasta que se mida cada una.

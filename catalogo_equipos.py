@@ -110,6 +110,16 @@ ALIAS = {
     'paris saint germain': ('ligue_1', 'Paris SG'),
 }
 
+# Un equipo «juega» en la liga donde ha aparecido en el último año. Con ese
+# corte, un ascenso o un descenso se refleja en cuanto hay una jornada nueva.
+try:
+    import pandas as _pd_cat
+    _HACE_UN_ANIO = _pd_cat.Timestamp.now().normalize() - _pd_cat.Timedelta(days=365)
+    _VIEJO = _pd_cat.Timestamp('1900-01-01')
+except Exception:                                    # pragma: no cover
+    _HACE_UN_ANIO = None
+    _VIEJO = None
+
 _CACHE: Optional[Dict] = None
 
 
@@ -167,6 +177,7 @@ def _de_los_historicos() -> Tuple[Dict[str, List[str]], Dict[Tuple[str, str], st
     pertenencia = defaultdict(list)
     nombre_real: Dict[Tuple[str, str], str] = {}
     partidos: Dict[Tuple[str, str], int] = defaultdict(int)
+    ultimo: Dict[Tuple[str, str], object] = {}
     for clave in config.LEAGUES:
         if _es_copa(clave):
             continue
@@ -174,25 +185,34 @@ def _de_los_historicos() -> Tuple[Dict[str, List[str]], Dict[Tuple[str, str], st
         if not os.path.exists(ruta):
             continue
         try:
-            df = pd.read_csv(ruta, usecols=['home_team', 'away_team'])
+            df = pd.read_csv(ruta, usecols=['date', 'home_team', 'away_team'])
         except Exception:
             continue
-        cuenta = pd.concat([df['home_team'], df['away_team']]).dropna()
-        for crudo, n in cuenta.value_counts().items():
+        largo = pd.concat([
+            df[['date', 'home_team']].rename(columns={'home_team': 'e'}),
+            df[['date', 'away_team']].rename(columns={'away_team': 'e'})])
+        largo = largo.dropna(subset=['e'])
+        for crudo, sub in largo.groupby('e'):
             e = normalizar(crudo)
             if not e:
                 continue
             if clave not in pertenencia[e]:
                 pertenencia[e].append(clave)
-            partidos[(e, clave)] += int(n)
+            partidos[(e, clave)] += int(len(sub))
             nombre_real.setdefault((e, clave), str(crudo))
-    return pertenencia, nombre_real, partidos
+            try:
+                ultimo[(e, clave)] = max(ultimo.get((e, clave), _VIEJO),
+                                         pd.to_datetime(sub['date'],
+                                                        errors='coerce').max())
+            except Exception:
+                pass
+    return pertenencia, nombre_real, partidos, ultimo
 
 
 def construir() -> Dict[str, Dict]:
     """El diccionario completo. Es puro cálculo local: no toca la red."""
     por_espn = _de_la_cache_de_rosters()
-    por_hist, nombre_real, partidos = _de_los_historicos()
+    por_hist, nombre_real, partidos, ultimo = _de_los_historicos()
     # El catálogo de nombres de cada histórico, para emparejar dentro de él.
     catalogos: Dict[str, List[str]] = defaultdict(list)
     for (e_, liga_), crudo_ in nombre_real.items():
@@ -215,16 +235,30 @@ def construir() -> Dict[str, Dict]:
             liga = candidatas[0]
             motivo = 'unica'
         else:
-            # gana la liga donde tiene más partidos; sin histórico, no se decide
-            marcador = {c: partidos.get((e, c), 0) for c in candidatas}
-            mejor = max(marcador.values())
+            # DÓNDE JUEGA AHORA MANDA SOBRE DÓNDE JUGÓ MÁS.
+            #
+            # El desempate por número de partidos mandó al Como a la Serie B:
+            # 114 partidos allí con el último en mayo de 2024, contra 79 en la
+            # Serie A con el último hace cinco días. Ascendió, y el catálogo
+            # seguía mirando su pasado — y la Serie B ni siquiera tenía sus
+            # córners observados, así que el partido se quedaba sin estadística.
+            #
+            # Primero se filtra por RECIENTE: las ligas donde el equipo ha
+            # jugado en el último año. Sólo si ninguna lo es —o si hay varias—
+            # se recurre al volumen.
+            recientes = [c for c in candidatas
+                         if ultimo.get((e, c)) is not None
+                         and ultimo[(e, c)] >= _HACE_UN_ANIO]
+            en_juego = recientes if recientes else candidatas
+            marcador = {c: partidos.get((e, c), 0) for c in en_juego}
+            mejor = max(marcador.values()) if marcador else 0
             ganadoras = [c for c, v in marcador.items() if v == mejor]
             if mejor == 0 or len(ganadoras) != 1:
                 logger.debug('[catalogo] %s ambiguo entre %s: sin asignar',
                              e, candidatas)
                 continue
             liga = ganadoras[0]
-            motivo = 'mas_partidos'
+            motivo = 'reciente' if recientes else 'mas_partidos'
         en_hist = nombre_real.get((e, liga))
         if not en_hist:
             # EL PASO QUE CIERRA EL CÍRCULO, Y AQUÍ SÍ ES SEGURO EMPAREJAR.

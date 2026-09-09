@@ -178,7 +178,7 @@
 "liga": "eng_league_two",
 "en_historico": "Accrington",
 "partidos": 510,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -230,7 +230,7 @@
 "liga": "ned_eerste",
 "en_historico": "ADO Den Haag",
 "partidos": 190,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -293,10 +293,10 @@
 "candidatas": null
 },
 "afc wimbledon": {
-"liga": "eng_league_two",
+"liga": "eng_league_one",
 "en_historico": "AFC Wimbledon",
-"partidos": 368,
-"motivo": "mas_partidos",
+"partidos": 315,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -432,7 +432,7 @@
 "liga": "laliga",
 "en_historico": "Alaves",
 "partidos": 345,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -470,7 +470,7 @@
 "liga": "eng_national",
 "en_historico": "Aldershot",
 "partidos": 591,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -487,7 +487,7 @@
 "liga": "argentina",
 "en_historico": "Aldosivi",
 "partidos": 191,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "arg_primera_nacional",
 "argentina"
@@ -525,7 +525,7 @@
 "liga": "slv_primera",
 "en_historico": "Alianza FC",
 "partidos": 248,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "col_primera_a",
 "slv_primera"
@@ -570,7 +570,7 @@
 "liga": "ned_eerste",
 "en_historico": "Almere City",
 "partidos": 119,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -580,7 +580,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Almeria",
 "partidos": 297,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -695,7 +695,7 @@
 "liga": "fra_ligue2",
 "en_historico": "Amiens",
 "partidos": 220,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -726,7 +726,7 @@
 "liga": "ligue_1",
 "en_historico": "Angers",
 "partidos": 364,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -866,10 +866,10 @@
 "candidatas": null
 },
 "arsenal sarandi": {
-"liga": "argentina",
+"liga": "arg_primera_nacional",
 "en_historico": "Arsenal Sarandi",
-"partidos": 154,
-"motivo": "mas_partidos",
+"partidos": 72,
+"motivo": "reciente",
 "candidatas": [
 "arg_primera_nacional",
 "argentina"
@@ -984,7 +984,7 @@
 "liga": "brasil",
 "en_historico": "Athletico-PR",
 "partidos": 271,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -1036,7 +1036,7 @@
 "liga": "mex_expansion",
 "en_historico": "Atlante",
 "partidos": 199,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "liga_mx",
 "mex_expansion"
@@ -1232,10 +1232,10 @@
 "candidatas": null
 },
 "auxerre": {
-"liga": "fra_ligue2",
+"liga": "ligue_1",
 "en_historico": "Auxerre",
-"partidos": 218,
-"motivo": "mas_partidos",
+"partidos": 185,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -1245,7 +1245,7 @@
 "liga": "bra_serie_b",
 "en_historico": "Avaí",
 "partidos": 171,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -1311,7 +1311,7 @@
 "liga": "brasil",
 "en_historico": "Bahia",
 "partidos": 270,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -1356,17 +1356,17 @@
 "liga": "ita_serie_b",
 "en_historico": "Bari",
 "partidos": 194,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
 ]
 },
 "barnet": {
-"liga": "eng_national",
+"liga": "eng_league_two",
 "en_historico": "Barnet",
-"partidos": 398,
-"motivo": "mas_partidos",
+"partidos": 326,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -1376,7 +1376,7 @@
 "liga": "eng_league_one",
 "en_historico": "Barnsley",
 "partidos": 326,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -1393,7 +1393,7 @@
 "liga": "argentina",
 "en_historico": "Barracas Central",
 "partidos": 182,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "arg_primera_nacional",
 "argentina"
@@ -1403,7 +1403,7 @@
 "liga": "eng_national",
 "en_historico": "Barrow",
 "partidos": 364,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -1417,10 +1417,10 @@
 "candidatas": null
 },
 "bastia": {
-"liga": "ligue_1",
+"liga": "fra_ligue2",
 "en_historico": "Bastia",
-"partidos": 190,
-"motivo": "mas_partidos",
+"partidos": 181,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -1496,7 +1496,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Benevento",
 "partidos": 152,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -1548,7 +1548,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Bielefeld",
 "partidos": 174,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -1558,7 +1558,7 @@
 "liga": "eng_championship",
 "en_historico": "Birmingham",
 "partidos": 188,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -1590,7 +1590,7 @@
 "liga": "eng_championship",
 "en_historico": "Blackburn",
 "partidos": 234,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -1608,7 +1608,7 @@
 "liga": "eng_league_one",
 "en_historico": "Blackpool",
 "partidos": 361,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -1641,7 +1641,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Bochum",
 "partidos": 173,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -1686,7 +1686,7 @@
 "liga": "eng_league_one",
 "en_historico": "Bolton",
 "partidos": 310,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -1795,7 +1795,7 @@
 "liga": "premier",
 "en_historico": "Bournemouth",
 "partidos": 344,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -1817,10 +1817,10 @@
 "candidatas": null
 },
 "bradford": {
-"liga": "eng_league_two",
+"liga": "eng_league_one",
 "en_historico": "Bradford",
-"partidos": 405,
-"motivo": "mas_partidos",
+"partidos": 326,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -1879,7 +1879,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Braunschweig",
 "partidos": 207,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -1903,7 +1903,7 @@
 "liga": "premier",
 "en_historico": "Brentford",
 "partidos": 192,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "premier"
@@ -1923,7 +1923,7 @@
 "liga": "ligue_1",
 "en_historico": "Brest",
 "partidos": 360,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -1933,7 +1933,7 @@
 "liga": "premier",
 "en_historico": "Brighton",
 "partidos": 344,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "premier"
@@ -1957,7 +1957,7 @@
 "liga": "eng_championship",
 "en_historico": "Bristol City",
 "partidos": 234,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -1971,10 +1971,10 @@
 "candidatas": null
 },
 "bristol rvs": {
-"liga": "eng_league_one",
+"liga": "eng_league_two",
 "en_historico": "Bristol Rvs",
-"partidos": 403,
-"motivo": "mas_partidos",
+"partidos": 280,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -1982,10 +1982,10 @@
 ]
 },
 "bromley": {
-"liga": "eng_national",
+"liga": "eng_league_two",
 "en_historico": "Bromley",
-"partidos": 401,
-"motivo": "mas_partidos",
+"partidos": 92,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -2052,7 +2052,7 @@
 "liga": "premier",
 "en_historico": "Burnley",
 "partidos": 342,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -2069,7 +2069,7 @@
 "liga": "eng_league_one",
 "en_historico": "Burton",
 "partidos": 407,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -2124,7 +2124,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Cadiz",
 "partidos": 213,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -2144,7 +2144,7 @@
 "liga": "serie_a",
 "en_historico": "Cagliari",
 "partidos": 534,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -2161,7 +2161,7 @@
 "liga": "eng_league_two",
 "en_historico": "Cambridge",
 "partidos": 359,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -2228,7 +2228,7 @@
 "liga": "eng_championship",
 "en_historico": "Cardiff",
 "partidos": 188,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -2243,10 +2243,10 @@
 "candidatas": null
 },
 "carlisle": {
-"liga": "eng_league_two",
+"liga": "eng_national",
 "en_historico": "Carlisle",
-"partidos": 451,
-"motivo": "mas_partidos",
+"partidos": 51,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -2393,7 +2393,7 @@
 "liga": "brasil",
 "en_historico": "Ceara",
 "partidos": 207,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -2529,7 +2529,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Cesena",
 "partidos": 120,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -2602,7 +2602,7 @@
 "liga": "bra_serie_b",
 "en_historico": "Chapecoense",
 "partidos": 152,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -2651,10 +2651,10 @@
 "candidatas": null
 },
 "charlton": {
-"liga": "eng_league_one",
+"liga": "eng_championship",
 "en_historico": "Charlton",
-"partidos": 460,
-"motivo": "mas_partidos",
+"partidos": 50,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -2692,7 +2692,7 @@
 "liga": "eng_league_two",
 "en_historico": "Cheltenham",
 "partidos": 546,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -2731,7 +2731,7 @@
 "liga": "eng_league_two",
 "en_historico": "Chesterfield",
 "partidos": 280,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -2836,7 +2836,7 @@
 "liga": "fra_ligue2",
 "en_historico": "Clermont",
 "partidos": 215,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -2937,7 +2937,7 @@
 "liga": "eng_league_two",
 "en_historico": "Colchester",
 "partidos": 455,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -3007,10 +3007,10 @@
 "candidatas": null
 },
 "como": {
-"liga": "ita_serie_b",
+"liga": "serie_a",
 "en_historico": "Como",
-"partidos": 114,
-"motivo": "mas_partidos",
+"partidos": 79,
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -3055,7 +3055,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Cordoba",
 "partidos": 171,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -3072,7 +3072,7 @@
 "liga": "brasil",
 "en_historico": "Coritiba",
 "partidos": 139,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -3142,10 +3142,10 @@
 "candidatas": null
 },
 "coventry": {
-"liga": "eng_league_one",
+"liga": "eng_championship",
 "en_historico": "Coventry",
-"partidos": 310,
-"motivo": "mas_partidos",
+"partidos": 230,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -3171,7 +3171,7 @@
 "liga": "eng_league_two",
 "en_historico": "Crawley Town",
 "partidos": 501,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -3189,7 +3189,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Cremonese",
 "partidos": 270,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -3199,7 +3199,7 @@
 "liga": "eng_league_two",
 "en_historico": "Crewe",
 "partidos": 455,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -3216,7 +3216,7 @@
 "liga": "bra_serie_b",
 "en_historico": "Criciúma",
 "partidos": 141,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -3250,7 +3250,7 @@
 "liga": "brasil",
 "en_historico": "Cruzeiro",
 "partidos": 194,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -3309,10 +3309,10 @@
 "candidatas": null
 },
 "cuiaba": {
-"liga": "brasil",
-"en_historico": "Cuiaba",
-"partidos": 152,
-"motivo": "mas_partidos",
+"liga": "bra_serie_b",
+"en_historico": "Cuiabá",
+"partidos": 65,
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -3403,7 +3403,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Darmstadt",
 "partidos": 275,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -3675,7 +3675,7 @@
 "liga": "eng_championship",
 "en_historico": "Derby",
 "partidos": 142,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -3703,10 +3703,10 @@
 "candidatas": null
 },
 "dijon": {
-"liga": "ligue_1",
+"liga": "fra_ligue2",
 "en_historico": "Dijon",
-"partidos": 218,
-"motivo": "mas_partidos",
+"partidos": 81,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -3751,7 +3751,7 @@
 "liga": "eng_league_one",
 "en_historico": "Doncaster",
 "partidos": 406,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -3831,7 +3831,7 @@
 "liga": "sco_premiership",
 "en_historico": "Dundee",
 "partidos": 385,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -3841,7 +3841,7 @@
 "liga": "sco_premiership",
 "en_historico": "Dundee United",
 "partidos": 423,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -3851,7 +3851,7 @@
 "liga": "sco_championship",
 "en_historico": "Dunfermline",
 "partidos": 275,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -3928,10 +3928,10 @@
 "candidatas": null
 },
 "eibar": {
-"liga": "laliga",
+"liga": "esp_hypermotion",
 "en_historico": "Eibar",
-"partidos": 266,
-"motivo": "mas_partidos",
+"partidos": 213,
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -3976,7 +3976,7 @@
 "liga": "laliga",
 "en_historico": "Elche",
 "partidos": 231,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -4000,7 +4000,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Elversberg",
 "partidos": 102,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -4014,10 +4014,10 @@
 "candidatas": null
 },
 "empoli": {
-"liga": "serie_a",
+"liga": "ita_serie_b",
 "en_historico": "Empoli",
-"partidos": 304,
-"motivo": "mas_partidos",
+"partidos": 158,
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -4076,7 +4076,7 @@
 "liga": "laliga",
 "en_historico": "Espanol",
 "partidos": 535,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -4128,7 +4128,7 @@
 "liga": "arg_primera_nacional",
 "en_historico": "Estudiantes de Río Cuarto",
 "partidos": 176,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "arg_primera_nacional",
 "argentina"
@@ -4180,7 +4180,7 @@
 "liga": "eredivisie",
 "en_historico": "Excelsior",
 "partidos": 173,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -4190,7 +4190,7 @@
 "liga": "eng_league_two",
 "en_historico": "Exeter",
 "partidos": 455,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -4239,10 +4239,10 @@
 "candidatas": null
 },
 "falkirk": {
-"liga": "sco_championship",
+"liga": "sco_premiership",
 "en_historico": "Falkirk",
-"partidos": 108,
-"motivo": "mas_partidos",
+"partidos": 42,
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -4364,7 +4364,7 @@
 "liga": "ned_eerste",
 "en_historico": "FC Emmen",
 "partidos": 157,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -4426,7 +4426,7 @@
 "liga": "bundesliga",
 "en_historico": "FC Koln",
 "partidos": 409,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -4629,10 +4629,10 @@
 "candidatas": null
 },
 "fleetwood town": {
-"liga": "eng_league_one",
+"liga": "eng_league_two",
 "en_historico": "Fleetwood Town",
-"partidos": 449,
-"motivo": "mas_partidos",
+"partidos": 188,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -4664,7 +4664,7 @@
 "liga": "eng_national",
 "en_historico": "Forest Green",
 "partidos": 419,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -4682,7 +4682,7 @@
 "liga": "brasil",
 "en_historico": "Fortaleza",
 "partidos": 266,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -4699,7 +4699,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Fortuna Dusseldorf",
 "partidos": 238,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -4737,7 +4737,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Frosinone",
 "partidos": 270,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -4761,7 +4761,7 @@
 "liga": "premier",
 "en_historico": "Fulham",
 "partidos": 382,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -4862,7 +4862,7 @@
 "liga": "serie_a",
 "en_historico": "Genoa",
 "partidos": 573,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -4897,10 +4897,10 @@
 "candidatas": null
 },
 "gillingham": {
-"liga": "eng_league_one",
+"liga": "eng_league_two",
 "en_historico": "Gillingham",
-"partidos": 403,
-"motivo": "mas_partidos",
+"partidos": 326,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -4910,7 +4910,7 @@
 "liga": "arg_primera_nacional",
 "en_historico": "Gimnasia (Mendoza)",
 "partidos": 175,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "arg_primera_nacional",
 "argentina"
@@ -4969,7 +4969,7 @@
 "liga": "laliga",
 "en_historico": "Girona",
 "partidos": 228,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -5018,10 +5018,10 @@
 "candidatas": null
 },
 "goias": {
-"liga": "brasil",
-"en_historico": "Goias",
-"partidos": 152,
-"motivo": "mas_partidos",
+"liga": "bra_serie_b",
+"en_historico": "Goiás",
+"partidos": 132,
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -5084,10 +5084,10 @@
 "candidatas": null
 },
 "granada": {
-"liga": "laliga",
+"liga": "esp_hypermotion",
 "en_historico": "Granada",
-"partidos": 380,
-"motivo": "mas_partidos",
+"partidos": 213,
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -5125,7 +5125,7 @@
 "liga": "brasil",
 "en_historico": "Gremio",
 "partidos": 268,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -5142,7 +5142,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Greuther Furth",
 "partidos": 275,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -5152,7 +5152,7 @@
 "liga": "eng_league_two",
 "en_historico": "Grimsby",
 "partidos": 409,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -5246,7 +5246,7 @@
 "liga": "par_division",
 "en_historico": "Guaraní",
 "partidos": 225,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "par_division"
@@ -5284,7 +5284,7 @@
 "liga": "fra_ligue2",
 "en_historico": "Guingamp",
 "partidos": 252,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -5364,7 +5364,7 @@
 "liga": "bundesliga",
 "en_historico": "Hamburg",
 "partidos": 307,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -5409,10 +5409,10 @@
 "candidatas": null
 },
 "hannover": {
-"liga": "bundesliga",
+"liga": "ger_bundesliga2",
 "en_historico": "Hannover",
-"partidos": 272,
-"motivo": "mas_partidos",
+"partidos": 242,
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -5436,7 +5436,7 @@
 "liga": "eng_league_two",
 "en_historico": "Harrogate",
 "partidos": 276,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -5467,7 +5467,7 @@
 "liga": "eng_national",
 "en_historico": "Hartlepool",
 "partidos": 316,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -5520,7 +5520,7 @@
 "liga": "sco_premiership",
 "en_historico": "Hearts",
 "partidos": 528,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -5544,7 +5544,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Heidenheim",
 "partidos": 207,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -5621,10 +5621,10 @@
 "candidatas": null
 },
 "hertha": {
-"liga": "bundesliga",
+"liga": "ger_bundesliga2",
 "en_historico": "Hertha",
-"partidos": 374,
-"motivo": "mas_partidos",
+"partidos": 105,
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -5690,7 +5690,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Holstein Kiel",
 "partidos": 275,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -5742,7 +5742,7 @@
 "liga": "eng_league_one",
 "en_historico": "Huddersfield",
 "partidos": 188,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -5760,7 +5760,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Huesca",
 "partidos": 294,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -5770,7 +5770,7 @@
 "liga": "eng_championship",
 "en_historico": "Hull",
 "partidos": 230,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -6039,10 +6039,10 @@
 "candidatas": null
 },
 "inverness c": {
-"liga": "sco_premiership",
+"liga": "sco_championship",
 "en_historico": "Inverness C",
-"partidos": 266,
-"motivo": "mas_partidos",
+"partidos": 238,
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -6063,10 +6063,10 @@
 "candidatas": null
 },
 "ipswich": {
-"liga": "eng_league_one",
+"liga": "eng_championship",
 "en_historico": "Ipswich",
-"partidos": 174,
-"motivo": "mas_partidos",
+"partidos": 92,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -6252,7 +6252,7 @@
 "liga": "brasil",
 "en_historico": "Juventude",
 "partidos": 152,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -6276,7 +6276,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Kaiserslautern",
 "partidos": 173,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -6433,7 +6433,7 @@
 "liga": "sco_premiership",
 "en_historico": "Kilmarnock",
 "partidos": 566,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -6597,7 +6597,7 @@
 "liga": "laliga",
 "en_historico": "La Coruna",
 "partidos": 231,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -6677,7 +6677,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Las Palmas",
 "partidos": 256,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -6733,10 +6733,10 @@
 "candidatas": null
 },
 "le havre": {
-"liga": "fra_ligue2",
+"liga": "ligue_1",
 "en_historico": "Le Havre",
-"partidos": 218,
-"motivo": "mas_partidos",
+"partidos": 104,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -6753,7 +6753,7 @@
 "liga": "fra_ligue2",
 "en_historico": "Le Mans",
 "partidos": 62,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -6763,7 +6763,7 @@
 "liga": "serie_a",
 "en_historico": "Lecce",
 "partidos": 268,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -6801,7 +6801,7 @@
 "liga": "premier",
 "en_historico": "Leeds",
 "partidos": 154,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -6818,7 +6818,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Leganes",
 "partidos": 214,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -6839,10 +6839,10 @@
 "candidatas": null
 },
 "leicester": {
-"liga": "premier",
+"liga": "eng_championship",
 "en_historico": "Leicester",
-"partidos": 380,
-"motivo": "mas_partidos",
+"partidos": 92,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -6860,7 +6860,7 @@
 "liga": "ligue_1",
 "en_historico": "Lens",
 "partidos": 294,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -6912,7 +6912,7 @@
 "liga": "laliga",
 "en_historico": "Levante",
 "partidos": 459,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -6936,7 +6936,7 @@
 "liga": "eng_league_one",
 "en_historico": "Leyton Orient",
 "partidos": 372,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -7003,7 +7003,7 @@
 "liga": "eng_league_one",
 "en_historico": "Lincoln",
 "partidos": 311,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -7022,7 +7022,7 @@
 "liga": "premier",
 "en_historico": "Liverpool",
 "partidos": 611,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "premier",
 "uru_primera"
@@ -7032,7 +7032,7 @@
 "liga": "sco_premiership",
 "en_historico": "Livingston",
 "partidos": 258,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -7115,7 +7115,7 @@
 "liga": "ligue_1",
 "en_historico": "Lorient",
 "partidos": 450,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -7183,6 +7183,19 @@
 "partidos": 234,
 "motivo": "unica",
 "candidatas": null
+},
+"luton": {
+"liga": "eng_league_one",
+"en_historico": "Luton",
+"partidos": 96,
+"motivo": "reciente",
+"candidatas": [
+"eng_championship",
+"eng_league_one",
+"eng_league_two",
+"eng_national",
+"premier"
+]
 },
 "luton town": {
 "liga": "eng_league_one",
@@ -7303,7 +7316,7 @@
 "liga": "laliga",
 "en_historico": "Malaga",
 "partidos": 307,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -7313,7 +7326,7 @@
 "liga": "laliga",
 "en_historico": "Mallorca",
 "partidos": 342,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -7362,10 +7375,10 @@
 "candidatas": null
 },
 "mansfield": {
-"liga": "eng_league_two",
+"liga": "eng_league_one",
 "en_historico": "Mansfield",
-"partidos": 496,
-"motivo": "mas_partidos",
+"partidos": 96,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -7523,7 +7536,7 @@
 "liga": "ligue_1",
 "en_historico": "Metz",
 "partidos": 286,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -7547,7 +7560,7 @@
 "liga": "eng_championship",
 "en_historico": "Middlesbrough",
 "partidos": 234,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -7592,7 +7605,7 @@
 "liga": "eng_championship",
 "en_historico": "Millwall",
 "partidos": 234,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -7602,7 +7615,7 @@
 "liga": "eng_league_one",
 "en_historico": "Milton Keynes Dons",
 "partidos": 499,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -7658,10 +7671,10 @@
 "candidatas": null
 },
 "mirassol": {
-"liga": "bra_serie_b",
+"liga": "brasil",
 "en_historico": "Mirassol",
-"partidos": 76,
-"motivo": "mas_partidos",
+"partidos": 63,
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -7794,10 +7807,10 @@
 "candidatas": null
 },
 "montpellier": {
-"liga": "ligue_1",
+"liga": "fra_ligue2",
 "en_historico": "Montpellier",
-"partidos": 552,
-"motivo": "mas_partidos",
+"partidos": 38,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -7807,17 +7820,17 @@
 "liga": "serie_a",
 "en_historico": "Monza",
 "partidos": 116,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
 ]
 },
 "morecambe": {
-"liga": "eng_league_two",
+"liga": "eng_national",
 "en_historico": "Morecambe",
-"partidos": 589,
-"motivo": "mas_partidos",
+"partidos": 46,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -7898,7 +7911,7 @@
 "liga": "eredivisie",
 "en_historico": "NAC Breda",
 "partidos": 136,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -7908,7 +7921,7 @@
 "liga": "uru_primera",
 "en_historico": "Nacional",
 "partidos": 203,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "primeira",
 "uru_primera"
@@ -7939,7 +7952,7 @@
 "liga": "fra_ligue2",
 "en_historico": "Nancy",
 "partidos": 218,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -7949,7 +7962,7 @@
 "liga": "ligue_1",
 "en_historico": "Nantes",
 "partidos": 472,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -8071,7 +8084,7 @@
 "liga": "eng_league_two",
 "en_historico": "Newport County",
 "partidos": 592,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -8140,7 +8153,7 @@
 "liga": "eng_league_two",
 "en_historico": "Northampton",
 "partidos": 455,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -8161,10 +8174,10 @@
 "candidatas": null
 },
 "norwich": {
-"liga": "premier",
+"liga": "eng_championship",
 "en_historico": "Norwich",
-"partidos": 228,
-"motivo": "mas_partidos",
+"partidos": 188,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -8188,7 +8201,7 @@
 "liga": "premier",
 "en_historico": "Nott'm Forest",
 "partidos": 154,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -8198,7 +8211,7 @@
 "liga": "eng_league_two",
 "en_historico": "Notts County",
 "partidos": 322,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -8254,7 +8267,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Nurnberg",
 "partidos": 275,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -8338,10 +8351,10 @@
 "candidatas": null
 },
 "oldham": {
-"liga": "eng_league_one",
+"liga": "eng_league_two",
 "en_historico": "Oldham",
-"partidos": 368,
-"motivo": "mas_partidos",
+"partidos": 225,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -8499,7 +8512,7 @@
 "liga": "laliga",
 "en_historico": "Osasuna",
 "partidos": 459,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -8558,7 +8571,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Oviedo",
 "partidos": 339,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -8568,7 +8581,7 @@
 "liga": "eng_league_one",
 "en_historico": "Oxford",
 "partidos": 360,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -8607,7 +8620,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "Paderborn",
 "partidos": 238,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -8624,7 +8637,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Palermo",
 "partidos": 232,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -8694,10 +8707,10 @@
 "candidatas": null
 },
 "paris fc": {
-"liga": "fra_ligue2",
+"liga": "ligue_1",
 "en_historico": "Paris FC",
-"partidos": 290,
-"motivo": "mas_partidos",
+"partidos": 37,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -8721,7 +8734,7 @@
 "liga": "serie_a",
 "en_historico": "Parma",
 "partidos": 382,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -8731,7 +8744,7 @@
 "liga": "sco_championship",
 "en_historico": "Partick",
 "partidos": 247,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -8755,7 +8768,7 @@
 "liga": "arg_primera_nacional",
 "en_historico": "Patronato",
 "partidos": 137,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "arg_primera_nacional",
 "argentina"
@@ -8831,7 +8844,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Pescara",
 "partidos": 192,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -8841,7 +8854,7 @@
 "liga": "eng_league_one",
 "en_historico": "Peterboro",
 "partidos": 591,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -8900,7 +8913,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Pisa",
 "partidos": 230,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -8938,7 +8951,7 @@
 "liga": "eng_league_one",
 "en_historico": "Plymouth",
 "partidos": 326,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -9005,7 +9018,7 @@
 "liga": "eng_league_two",
 "en_historico": "Port Vale",
 "partidos": 409,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -9033,10 +9046,10 @@
 "candidatas": null
 },
 "portsmouth": {
-"liga": "eng_league_one",
+"liga": "eng_championship",
 "en_historico": "Portsmouth",
-"partidos": 357,
-"motivo": "mas_partidos",
+"partidos": 96,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -9054,7 +9067,7 @@
 "liga": "eng_championship",
 "en_historico": "Preston",
 "partidos": 234,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -9169,7 +9182,7 @@
 "liga": "eng_championship",
 "en_historico": "QPR",
 "partidos": 234,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -9389,7 +9402,7 @@
 "liga": "eng_league_one",
 "en_historico": "Reading",
 "partidos": 141,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -9530,10 +9543,10 @@
 "candidatas": null
 },
 "reims": {
-"liga": "ligue_1",
+"liga": "fra_ligue2",
 "en_historico": "Reims",
-"partidos": 400,
-"motivo": "mas_partidos",
+"partidos": 76,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -9543,7 +9556,7 @@
 "liga": "bra_serie_b",
 "en_historico": "Remo",
 "partidos": 69,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -9616,7 +9629,7 @@
 "liga": "argentina",
 "en_historico": "River Plate",
 "partidos": 284,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "argentina",
 "uru_primera"
@@ -9644,10 +9657,10 @@
 "candidatas": null
 },
 "rochdale": {
-"liga": "eng_league_one",
+"liga": "eng_league_two",
 "en_historico": "Rochdale",
-"partidos": 402,
-"motivo": "mas_partidos",
+"partidos": 188,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -9711,10 +9724,10 @@
 "candidatas": null
 },
 "ross county": {
-"liga": "sco_premiership",
+"liga": "sco_championship",
 "en_historico": "Ross County",
-"partidos": 448,
-"motivo": "mas_partidos",
+"partidos": 72,
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -9731,7 +9744,7 @@
 "liga": "eng_league_one",
 "en_historico": "Rotherham",
 "partidos": 265,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -9857,7 +9870,7 @@
 "liga": "eng_league_two",
 "en_historico": "Salford",
 "partidos": 317,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -9892,10 +9905,10 @@
 "candidatas": null
 },
 "sampdoria": {
-"liga": "serie_a",
+"liga": "ita_serie_b",
 "en_historico": "Sampdoria",
-"partidos": 456,
-"motivo": "mas_partidos",
+"partidos": 116,
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -10059,7 +10072,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Santander",
 "partidos": 210,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -10076,7 +10089,7 @@
 "liga": "brasil",
 "en_historico": "Santos",
 "partidos": 269,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil",
@@ -10144,7 +10157,7 @@
 "liga": "serie_a",
 "en_historico": "Sassuolo",
 "partidos": 458,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -10154,7 +10167,7 @@
 "liga": "ned_eerste",
 "en_historico": "SC Cambuur",
 "partidos": 114,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -10199,17 +10212,17 @@
 "liga": "bundesliga",
 "en_historico": "Schalke 04",
 "partidos": 409,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
 ]
 },
 "scunthorpe": {
-"liga": "eng_league_one",
+"liga": "eng_national",
 "en_historico": "Scunthorpe",
-"partidos": 322,
-"motivo": "mas_partidos",
+"partidos": 97,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -10329,10 +10342,10 @@
 "candidatas": null
 },
 "sheffield united": {
-"liga": "eng_league_one",
+"liga": "eng_championship",
 "en_historico": "Sheffield United",
-"partidos": 276,
-"motivo": "mas_partidos",
+"partidos": 188,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -10350,7 +10363,7 @@
 "liga": "eng_league_one",
 "en_historico": "Sheffield Weds",
 "partidos": 188,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one"
@@ -10399,10 +10412,10 @@
 "candidatas": null
 },
 "shrewsbury": {
-"liga": "eng_league_one",
+"liga": "eng_league_two",
 "en_historico": "Shrewsbury",
-"partidos": 540,
-"motivo": "mas_partidos",
+"partidos": 188,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -10524,7 +10537,7 @@
 "liga": "fra_ligue2",
 "en_historico": "Sochaux",
 "partidos": 223,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -10580,10 +10593,10 @@
 "candidatas": null
 },
 "southampton": {
-"liga": "premier",
+"liga": "eng_championship",
 "en_historico": "Southampton",
-"partidos": 456,
-"motivo": "mas_partidos",
+"partidos": 96,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -10591,10 +10604,10 @@
 ]
 },
 "southend": {
-"liga": "eng_league_two",
+"liga": "eng_national",
 "en_historico": "Southend",
-"partidos": 276,
-"motivo": "mas_partidos",
+"partidos": 233,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -10626,7 +10639,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Sp Gijon",
 "partidos": 381,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -10657,7 +10670,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Spezia",
 "partidos": 230,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -10783,10 +10796,10 @@
 "candidatas": null
 },
 "st etienne": {
-"liga": "ligue_1",
+"liga": "fra_ligue2",
 "en_historico": "St Etienne",
-"partidos": 480,
-"motivo": "mas_partidos",
+"partidos": 114,
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -10810,7 +10823,7 @@
 "liga": "sco_premiership",
 "en_historico": "St Johnstone",
 "partidos": 565,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -10834,7 +10847,7 @@
 "liga": "sco_premiership",
 "en_historico": "St Mirren",
 "partidos": 490,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "sco_championship",
 "sco_premiership"
@@ -10851,7 +10864,7 @@
 "liga": "ger_bundesliga2",
 "en_historico": "St Pauli",
 "partidos": 242,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -10942,20 +10955,20 @@
 "candidatas": null
 },
 "stevenage": {
-"liga": "eng_league_two",
+"liga": "eng_league_one",
 "en_historico": "Stevenage",
-"partidos": 450,
-"motivo": "mas_partidos",
+"partidos": 280,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
 ]
 },
 "stockport": {
-"liga": "eng_national",
+"liga": "eng_league_one",
 "en_historico": "Stockport",
-"partidos": 218,
-"motivo": "mas_partidos",
+"partidos": 96,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -10970,10 +10983,10 @@
 "candidatas": null
 },
 "stoke": {
-"liga": "premier",
+"liga": "eng_championship",
 "en_historico": "Stoke",
-"partidos": 304,
-"motivo": "mas_partidos",
+"partidos": 234,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -11011,7 +11024,7 @@
 "liga": "bundesliga",
 "en_historico": "Stuttgart",
 "partidos": 477,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -11035,7 +11048,7 @@
 "liga": "premier",
 "en_historico": "Sunderland",
 "partidos": 306,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -11060,7 +11073,7 @@
 "liga": "eng_national",
 "en_historico": "Sutton",
 "partidos": 315,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -11095,10 +11108,10 @@
 "candidatas": null
 },
 "swansea": {
-"liga": "premier",
+"liga": "eng_championship",
 "en_historico": "Swansea",
-"partidos": 266,
-"motivo": "mas_partidos",
+"partidos": 234,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -11115,7 +11128,7 @@
 "liga": "eng_league_two",
 "en_historico": "Swindon",
 "partidos": 408,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -11234,10 +11247,10 @@
 "candidatas": null
 },
 "telstar": {
-"liga": "ned_eerste",
+"liga": "eredivisie",
 "en_historico": "Telstar",
-"partidos": 152,
-"motivo": "mas_partidos",
+"partidos": 37,
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -11317,7 +11330,7 @@
 "liga": "argentina",
 "en_historico": "Tigre",
 "partidos": 206,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "arg_primera_nacional",
 "argentina"
@@ -11449,7 +11462,7 @@
 "liga": "ligue_1",
 "en_historico": "Toulouse",
 "partidos": 513,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -11480,7 +11493,7 @@
 "liga": "eng_league_two",
 "en_historico": "Tranmere",
 "partidos": 372,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -11533,7 +11546,7 @@
 "liga": "fra_ligue2",
 "en_historico": "Troyes",
 "partidos": 209,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "fra_ligue2",
 "ligue_1"
@@ -11669,7 +11682,7 @@
 "liga": "bundesliga",
 "en_historico": "Union Berlin",
 "partidos": 239,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -11882,10 +11895,10 @@
 "candidatas": null
 },
 "valladolid": {
-"liga": "laliga",
+"liga": "esp_hypermotion",
 "en_historico": "Valladolid",
-"partidos": 266,
-"motivo": "mas_partidos",
+"partidos": 171,
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -11895,7 +11908,7 @@
 "liga": "laliga",
 "en_historico": "Vallecano",
 "partidos": 421,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"
@@ -11985,7 +11998,7 @@
 "liga": "ita_serie_b",
 "en_historico": "Venezia",
 "partidos": 268,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -12016,7 +12029,7 @@
 "liga": "serie_a",
 "en_historico": "Verona",
 "partidos": 418,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "ita_serie_b",
 "serie_a"
@@ -12149,10 +12162,10 @@
 "candidatas": null
 },
 "vitesse": {
-"liga": "eredivisie",
+"liga": "ned_eerste",
 "en_historico": "Vitesse",
-"partidos": 230,
-"motivo": "mas_partidos",
+"partidos": 81,
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -12162,7 +12175,7 @@
 "liga": "brasil",
 "en_historico": "Vitoria",
 "partidos": 117,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bra_serie_b",
 "brasil"
@@ -12214,7 +12227,7 @@
 "liga": "ned_eerste",
 "en_historico": "VVV-Venlo",
 "partidos": 195,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -12242,10 +12255,10 @@
 "candidatas": null
 },
 "walsall": {
-"liga": "eng_league_one",
+"liga": "eng_league_two",
 "en_historico": "Walsall",
-"partidos": 414,
-"motivo": "mas_partidos",
+"partidos": 316,
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -12273,10 +12286,10 @@
 "candidatas": null
 },
 "watford": {
-"liga": "premier",
+"liga": "eng_championship",
 "en_historico": "Watford",
-"partidos": 228,
-"motivo": "mas_partidos",
+"partidos": 188,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -12314,17 +12327,17 @@
 "liga": "bundesliga",
 "en_historico": "Werder Bremen",
 "partidos": 511,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
 ]
 },
 "west brom": {
-"liga": "premier",
+"liga": "eng_championship",
 "en_historico": "West Brom",
-"partidos": 342,
-"motivo": "mas_partidos",
+"partidos": 234,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -12341,7 +12354,7 @@
 "liga": "premier",
 "en_historico": "West Ham",
 "partidos": 570,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "premier"
@@ -12400,7 +12413,7 @@
 "liga": "eng_league_one",
 "en_historico": "Wigan",
 "partidos": 326,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -12418,7 +12431,7 @@
 "liga": "eredivisie",
 "en_historico": "Willem II",
 "partidos": 199,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eredivisie",
 "ned_eerste"
@@ -12477,7 +12490,7 @@
 "liga": "bundesliga",
 "en_historico": "Wolfsburg",
 "partidos": 544,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "bundesliga",
 "ger_bundesliga2"
@@ -12494,7 +12507,7 @@
 "liga": "premier",
 "en_historico": "Wolves",
 "partidos": 380,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -12509,10 +12522,10 @@
 "candidatas": null
 },
 "wrexham": {
-"liga": "eng_national",
+"liga": "eng_championship",
 "en_historico": "Wrexham",
-"partidos": 584,
-"motivo": "mas_partidos",
+"partidos": 50,
+"motivo": "reciente",
 "candidatas": [
 "eng_championship",
 "eng_league_one",
@@ -12552,7 +12565,7 @@
 "liga": "eng_league_one",
 "en_historico": "Wycombe",
 "partidos": 360,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two"
@@ -12611,7 +12624,7 @@
 "liga": "eng_national",
 "en_historico": "Yeovil",
 "partidos": 267,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_one",
 "eng_league_two",
@@ -12643,7 +12656,7 @@
 "liga": "eng_national",
 "en_historico": "York",
 "partidos": 322,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "eng_league_two",
 "eng_national"
@@ -12709,7 +12722,7 @@
 "liga": "esp_hypermotion",
 "en_historico": "Zaragoza",
 "partidos": 378,
-"motivo": "mas_partidos",
+"motivo": "reciente",
 "candidatas": [
 "esp_hypermotion",
 "laliga"

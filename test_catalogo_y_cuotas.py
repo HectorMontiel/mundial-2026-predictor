@@ -3989,6 +3989,67 @@ def test_kbo_integrada():
           "el dataset de KBO no etiqueta empates como derrota local")
 
 
+def test_perfil_de_la_liga_local():
+    """
+    v182 — UN EQUIPO SIN PASADO EN LA COMPETICION USA EL DE SU LIGA.
+
+    En Champions la mediana por equipo es de 16 partidos y el 37 % baja de 10;
+    Viking FK, Sabah FK y Como llegaban con CERO. Con menos de `MIN_PARTIDOS`
+    las lambdas por equipo devolvian None y el partido caia al estimador de la
+    competicion, que reparte el nivel medio entre los dos bandos: los dos
+    equipos salian con el MISMO numero.
+
+    Medido walk-forward sobre 1.548 equipos-partido, en los que llegan con
+    menos de 5 partidos previos: corners -6,20 %, tarjetas -5,11 %,
+    remates -7,79 % de error absoluto medio.
+
+    Y medido sobre los proximos partidos de las tres competiciones UEFA:
+    de 42 a 118 casos con estadistica OBSERVADA en vez de estimada.
+    """
+    import perfil_liga_local as plc
+    plc.olvidar()
+
+    # EL FACTOR, medido sobre 55 equipos con el catalogo.
+    f_ck = plc.factor('champions', 'corners')
+    check(0.70 <= f_ck <= 0.95,
+          f"el factor de corners de Champions esta medido y es plausible "
+          f"({f_ck})")
+    # Sin dato no se inventa un ajuste: la hipotesis nula es no corregir.
+    check(plc.factor('competicion_que_no_existe', 'corners') == 1.0,
+          "sin factor medido no se corrige nada (devuelve 1,0)")
+    check(plc.factor('champions', 'estadistica_inventada') == 1.0,
+          "una estadistica sin medir tampoco inventa ajuste")
+
+    # SOLO APLICA A TORNEOS. Una liga domestica no lo necesita: sus equipos
+    # juegan ahi toda la temporada, y mirarles otro historico seria un error.
+    check(plc.aplica('champions') and plc.aplica('europa_league'),
+          "el respaldo aplica a las competiciones UEFA")
+    check(not plc.aplica('premier') and not plc.aplica('laliga'),
+          "y NO a las ligas domesticas, que no lo necesitan")
+
+    # NO TOCA LO QUE YA FUNCIONA: con serie larga, se devuelve tal cual.
+    import pandas as _pd
+    larga = _pd.Series([5.0] * 10)
+    salida, completada = plc.completar(larga, 'Barcelona', 'champions',
+                                       'corners', True, 10, 'hace')
+    check(not completada and len(salida) == 10,
+          "una serie con muestra suficiente no se toca")
+
+    # Y EL CASO QUE LO MOTIVA: un equipo sin partidos en la competicion.
+    import os
+    if os.path.exists('historico_champions.csv'):
+        import rendimiento_equipos as rq
+        r = rq.corners_equipo('champions', 'VfB Stuttgart', 'Viking FK')
+        if r:
+            check(r.get('origen') == 'observado',
+                  f"Stuttgart-Viking da corners OBSERVADOS "
+                  f"({r.get('origen')})")
+            lh, la = r.get('lambda_home'), r.get('lambda_away')
+            check(lh is not None and la is not None and abs(lh - la) > 1e-6,
+                  f"y cada equipo el suyo, no la media repartida "
+                  f"({lh} / {la})")
+
+
 def test_catalogo_de_equipos():
     """
     v180 — CADA EQUIPO EN SU LIGA, Y NINGUNO EN LA DE OTRO.
@@ -11481,6 +11542,7 @@ if __name__ == '__main__':
     print('\n=== v97: ITF en vivo, KBO y Leagues Cup ===')
     test_itf_fuente_viva()
     test_kbo_integrada()
+    test_perfil_de_la_liga_local()
     test_catalogo_de_equipos()
     test_leagues_cup_integrada()
     print('\n=== v96: el circuito ITF tiene datos y modelo ===')

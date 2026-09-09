@@ -4366,3 +4366,94 @@ son justo los equipos sin histórico de Champions que la v179 dejó medidos
 el catálogo equipo → liga de la v180 al cálculo, para que un equipo sin pasado
 en la competición use el de su liga con el factor ya medido. Ése es el pendiente
 número uno.
+
+---
+
+## 34. El enchufe: cuando no hay pasado en la competición, se mira su liga
+
+Es la conexión que la v180 preparó —el catálogo equipo → liga— y la v179 dejó
+medida —el factor de competición—. Aquí se junta todo y se enciende.
+
+### 34.1. Qué estaba pasando
+
+En Champions la muestra por equipo es corta: mediana 16 partidos, el 37 % por
+debajo de 10, y **Viking FK, Sabah FK y Como con cero**. Con menos de
+`MIN_PARTIDOS`, las tres lambdas por equipo —córners, tarjetas y remates—
+devolvían `None`, y `corners_equipo` caía a `_estimado`, que reparte el nivel
+medio de la competición entre los dos bandos.
+
+El resultado en pantalla era un número con aspecto normal donde **los dos
+equipos salían igual**. Ni el Bayern ni el Bodø/Glimt tenían nada suyo dentro.
+
+Y sí había con qué: el Viking juega en Noruega, con cientos de partidos y
+córners contados.
+
+### 34.2. Lo que se midió antes de tocar nada
+
+Walk-forward sobre los 774 partidos de Champions con estadísticas observadas
+(1.548 equipos-partido), error absoluto medio:
+
+                          córners   tarjetas   remates
+    sólo Champions         2,4429    1,1362    2,2973
+    mezcla con su liga     2,3618    1,1027    2,2187
+
+Y en los que llegan con menos de 5 partidos previos (362 casos):
+
+    córners  −6,20 %   ·   tarjetas  −5,11 %   ·   remates  −7,79 %
+
+**Por eso el enchufe sólo actúa cuando falta muestra.** El estimador actual está
+validado sobre 30.454 equipos-partido y gana seis veces a la media de la
+competición (§10); la mejora medida está en la cola, no en el centro. Tocar lo
+que ya funciona habría sido cambiar un estimador validado por una corazonada.
+
+Hay además un dato que conviene no esconder: en la misma medición, la **media de
+la competición** salió mejor que cualquier estimador por equipo en córners
+(2,3355) y tarjetas (1,0482). No es contradictorio —esa comparación se hizo con
+medias móviles simples, no con el estimador ataque+defensa que usa producción,
+que es seis veces mejor que la media— pero queda anotado como límite de esta
+medición.
+
+### 34.3. El factor, re-medido y con una corrección
+
+55 equipos, frente a los 30 de la v179:
+
+    córners 0,8157 · tarjetas 0,9981 · remates a puerta 0,8510 · fuera 0,8873
+
+En Champions se sacan un 18 % menos de córners y **las mismas tarjetas**. La
+v179 había medido 1,076 en tarjetas con 30 equipos; con casi el doble de muestra
+el efecto desaparece. Es un recordatorio barato: un factor medido sobre treinta
+casos es una hipótesis, no un número.
+
+Sigue siendo **un factor único**: la dispersión entre ligas de origen (sd 0,10)
+es menor que entre equipos (sd 0,22).
+
+Y cuando no hay factor medido, `perfil_liga_local.factor` devuelve **1,0** —no
+corregir—, que es la hipótesis nula honesta. Nunca inventa un ajuste.
+
+### 34.4. El resultado
+
+    casos (partido × estadística)   186
+    observado   SIN enchufe  42  ->  CON enchufe 118
+    estimado    SIN enchufe 144  ->  CON enchufe  68
+
+**76 casos pasan de la media repartida a un número propio de cada equipo.**
+
+### 34.5. El fallo del catálogo que destapó, y que era peor
+
+El Como seguía sin datos después del enchufe. No era el enchufe:
+
+    Serie B   114 partidos, último 2024-05-10   <- el catálogo elegía ésta
+    Serie A    79 partidos, último 2026-09-04   <- donde juega AHORA
+
+El desempate de la v180 era «gana la liga donde tenga más partidos», y eso
+premia el pasado. El Como ascendió: su liga es la Serie A desde hace dos
+temporadas, y encima la Serie B ni siquiera tenía sus córners observados.
+
+Ahora se filtra primero por **las ligas donde ha jugado en el último año**, y
+sólo si ninguna lo es —o si hay varias— se mira el volumen. Un ascenso o un
+descenso se refleja en cuanto hay una jornada nueva.
+
+Es el mismo tipo de fallo que el resto de esta serie: el catálogo daba una
+respuesta, la respuesta era plausible, y estaba mal. Lo que lo destapó no fue
+leer el código: fue mirar un partido concreto y preguntarse por qué seguía
+saliendo en gris.
