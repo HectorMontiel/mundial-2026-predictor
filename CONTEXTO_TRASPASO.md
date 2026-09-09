@@ -1999,3 +1999,153 @@ vista de mañana pasó a llamarse «se genera». La comprobación fuerte es la d
 4. Los patrones (v176) siguen sin medir contra el ledger.
 5. `cuotas_multi._buscar` empareja partidos distintos del mismo día.
 6. HMREY debe rotar la clave de The Odds API.
+
+---
+
+## 5i. v178 — LA VISTA QUE NO CAMBIABA, Y LOS DOS MINUTOS QUE NADIE MIRABA
+
+Detalle en **BITACORA_ARQUITECTURA.md §28**.
+
+El encargo fueron dos frases del usuario:
+
+> «los partidos de mañana ya no me aparecen cuando aplico el filtro, no cambia
+> nada, me mantiene los de hoy y no me permite analizar los de mañana»
+>
+> «cuando dejo de usar la app y quiero volver a usarla tarda muchísimo en
+> cargar todo. ¿Hay forma de mudar a algo que igual sea gratis?»
+
+Y resultaron ser **el mismo defecto por dos caras**.
+
+### 1. La vista sí cambiaba; el navegador no se enteraba
+
+Todo lo que la v177 comprobaba estaba bien: `_vista_principal` valía `manana`
+en todas las pasadas, el cuerpo de mañana se generaba, `preferencias_usuario`
+lo recordaba entre sesiones. Los dos checks que había —`session_state` y «el
+texto se genera»— pasaban en verde con la pantalla enseñando lo que no era.
+
+Lo que estaba roto era **el orden de lo que se manda al navegador**. Streamlit
+sustituye los elementos por su posición y a medida que llegan, así que la hoja
+de estilo que esconde las vistas —emitida al final de `render_alpha_finder`—
+llegaba la última. Hasta entonces seguía aplicada **la del render anterior**.
+
+Medido en el navegador, contra la aplicación real:
+
+| | v177.2.1 | v178 |
+|---|---|---|
+| pulsar una pestaña y que la pantalla obedezca | **nunca en 153 s** | **1,7 s** |
+
+Ciento cincuenta y tres segundos con la vista equivocada delante. Con eso,
+«no cambia nada, me mantiene los de hoy» es la descripción exacta.
+
+**El arreglo son cuatro líneas movidas**: el `<style>` se emite justo después
+de conocer la vista y antes de crear los contenedores. El motivo que tenía
+escrito para ir al final —«el cuerpo de hoy se pinta en seis sitios
+distintos»— era el motivo equivocado: eso obliga a que el CONTENEDOR se cree
+antes que su contenido, no a que la hoja de estilo se emita después. El CSS es
+global y se aplica a lo que llegue luego.
+
+### 2. Los dos minutos: el 97 % se iba en pintar lo que estaba escondido
+
+`_v178_perfil_pantalla.py` y `_v178_perfil_primera.py`, con el barrido ya
+cacheado en disco y la revalidación en segundo plano neutralizada:
+
+| | v177.2.1 | v178 |
+|---|---|---|
+| primera carga de «Apuestas del Día» | **213,2 s** | **39,1 s** |
+| rerun al cambiar de vista | **60,4 s** | **14,7 s** |
+| texto de la página | 155 KB | 27 KB |
+
+De dónde salían, y qué se hizo con cada trozo:
+
+| coste | qué era | arreglo |
+|---|---|---|
+| 67,3 s | `_render_combinadas_dia` cargaba cuatro motores de liga y pedía los remates por jugador a ESPN **para llenar un desplegable cerrado**, y lo hacía también estando en «Mañana» | va dentro de la vista de hoy y detrás de una casilla que se recuerda |
+| 40,2 s | las tarjetas de las cuatro vistas se dibujaban siempre, incluidas las que están detrás de un `display:none` | `modo_modelo.render(pintar=False)` en la vista que no se mira |
+| 14,7 s | `clv_historico` releía el CSV de apuestas en cada pasada | `st.cache_data(ttl=1800)` |
+
+**Lo que NO cambia, y es la parte delicada:** los cuatro cuerpos de vista
+siguen ejecutándose y sus CONTROLES se siguen creando. Es el invariante de
+§27.9 —un widget que no llega vivo al final de la pasada desaparece de
+`st.session_state` y tira la página con `KeyError: parlay_base`—. Lo que se
+salta es sólo el bucle de tarjetas, que no crea estado que nadie lea.
+
+### 3. Y el filtro que dejaba «Mañana» en cero sin decir por qué
+
+Medido sobre el barrido del día:
+
+    HOY     261 partidos · 222 con cuota · 28 con recomendada · 3 en VERDE
+    MAÑANA   35 partidos ·  18 con cuota · 15 con recomendada · 0 en VERDE
+
+«Sólo alta probabilidad» pide verde, y el verde exige probabilidad **y** que la
+cuota publicada lo sostenga. Los partidos de mañana casi no tienen precio —las
+casas abren línea durante la noche—, así que esa casilla deja la vista de
+mañana vacía muchos días sin que haya nada roto. La pantalla decía «No hay
+partidos que cumplan el filtro» y eso se lee como que la lista desapareció.
+Ahora dice cuántos había y qué casilla se los llevó.
+
+### Sobre mudar de plataforma
+
+La pregunta era razonable y la respuesta la dan los números de arriba: **lo que
+hacía lenta la aplicación era la propia pantalla, no el servidor.** Mudar a un
+contenedor más rápido habría dado quizá un 2× sobre 213 s; recortar lo que se
+pinta dio 5,5×, y el cambio de pestaña 90×.
+
+Lo único que NO se arregla desde el código es el arranque en frío de Streamlit
+Community Cloud: cuando la aplicación lleva horas sin visitas el contenedor se
+apaga, y al volver **reinstala el entorno pip entero** (numpy, scipy,
+scikit-learn, xgboost, lightgbm, ripser, matplotlib, plotly, pyarrow). Eso son
+minutos y no depende de esta pantalla. La alternativa gratuita que sí lo evita
+es **Hugging Face Spaces con Docker** —la imagen se construye una vez y al
+despertar sólo arranca el contenedor—, 2 vCPU y 16 GB, la misma aplicación
+Streamlit sin tocar una línea y con `secrets` propios. Queda **pendiente y sin
+hacer**: crear la cuenta es de HMREY.
+
+### 4. Y el smoke cazó una segunda vía del `KeyError: parlay_base`
+
+Con todo lo demás en verde, el smoke rápido salió rojo pulsando «🔄 Actualizar
+ahora» estando en «Estado» — el mismo error que la v177.2 dice haber cerrado.
+Sobre `a8a49c3`, en un worktree, el smoke sale TODO OK: no venía de antes.
+
+La causa que se encontró: el botón hacía `st.rerun()`, que **corta la pasada en
+seco**, y está arriba de las cuatro vistas. Al cortar ahí no se registra ni uno
+de los widgets de abajo, y un widget que no se registra deja de estar vivo. El
+rerun no hacía falta: la bandera la consume la misma pasada en
+`barrido_universal(forzar=...)`. Quitarlo deja el script llegando entero al
+final **y** ahorra una pasada completa.
+
+**Salvedad honesta, la misma que dejó la v177.2:** el `KeyError` no se pudo
+reproducir a voluntad. Cuatro variantes de reproductor —Sección 1 inyectada,
+Sección 1 que desaparece a mitad, recorrido completo de las cuatro vistas, y
+pulsar el objeto botón capturado en la carga inicial como hace el smoke— y
+ninguna lo levantó, ni aquí ni en `a8a49c3`. `parlay_base` sólo existe los días
+que hay Sección 1, y el barrido se revalida solo: el propio smoke contó 503,
+558 y 365 botones en tres pasadas del mismo día. Lo que se afirma es que el
+smoke está verde y que esa vía está cerrada; no que fuera la única.
+
+### Checks nuevos, y por qué los anteriores no podían fallar
+
+- `test_la_vista_elegida_no_se_pierde` comprueba ahora **el ORDEN**: el
+  `<style>` tiene que emitirse antes de `st.container(key='vista_%s')`. Si
+  alguien lo devuelve al final, se pone rojo.
+- y que las dos listas reciben `pintar=(_vista == ...)`.
+- `valida_render` comprueba lo mismo sobre la pantalla real, y además que la
+  vista escondida **no dibuja sus tarjetas** (sus botones «Ver ficha» no
+  existen).
+- y que el botón de refresco no vuelve a llamar a `st.rerun()` antes de que el
+  barrido consuma su bandera.
+
+Los cuatro se comprobaron en un worktree con el `dashboard_ui.py` de la
+v177.2.1: los cuatro se ponen rojos.
+
+Los dos que había miraban `session_state` y el texto generado, y los dos
+estaban en verde mientras el usuario veía la pantalla equivocada. Es §27.9 otra
+vez: un check que no puede fallar es peor que no tenerlo.
+
+**Pendiente que deja:**
+
+1. Todo lo de la v177 sigue vigente (g=0,8 el primero).
+2. La primera carga son todavía **39 s**, y 28,8 de ellos son las 200 tarjetas
+   de hoy. Bajarlo pide paginar la lista, que es decisión de producto.
+3. `partidos_jugados.de_dia` cuesta 5,8 s en 61 peticiones a ESPN cada vez que
+   se abre la vista de hoy.
+4. Mudar a Hugging Face Spaces: decidido que compensa, sin hacer.

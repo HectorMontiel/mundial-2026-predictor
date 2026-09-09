@@ -2658,7 +2658,7 @@ def _dia_de(pronosticos: List[Dict]) -> str:
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 200, con_apuesta: bool = True,
            titulo: str = '⚽ Partidos de hoy',
-           dia: Optional[str] = None) -> None:
+           dia: Optional[str] = None, pintar: bool = True) -> None:
     """
     La lista de partidos, con sus filtros y su orden.
 
@@ -2666,6 +2666,15 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     pueden tener criterios distintos. Streamlit conserva la elección mientras
     dure la sesión; entre sesiones distintas no se guarda —eso necesitaría
     almacenamiento propio y no lo hay.
+
+    `pintar=False` es la vista que el usuario NO está mirando. Los cuatro
+    cuerpos de la pantalla se ejecutan en cada pasada —hay que dejar sus
+    widgets vivos o Streamlit se lleva su `session_state`— pero dibujar
+    doscientas tarjetas escondidas detrás de un `display:none` no aporta
+    nada y es casi toda la espera: medido, 40,2 s de los 60,4 que costaba
+    cambiar de pestaña con los datos ya en memoria. Los CONTROLES se crean
+    igual (el selector de orden y las dos casillas), así que el estado que
+    se conserva es exactamente el mismo que antes.
 
     v162 — `maximo` sube de 40 a 200, y no es por gusto. Desde que los partidos
     ya jugados entran en la misma lista ordenados por hora, son los PRIMEROS
@@ -2689,7 +2698,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     # Sólo en la vista con apuesta —la de HOY—: mañana no hay nada jugado, y
     # pedirlo igualmente serían 61 peticiones a ESPN para una lista vacía.
     jugados: List[Dict] = []
-    if con_apuesta:
+    if con_apuesta and pintar:
         try:
             import partidos_jugados
             # v163.1 — EL DÍA LO DICE QUIEN LLAMA, y no se adivina de la lista.
@@ -2805,13 +2814,20 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                                         'El resto también las enseña, pero '
                                         'estimadas a partir de sus goles.')
 
+    # Cuantos habia ANTES de las casillas. Sin esto, una lista vacia no puede
+    # decir si es que no hay partidos o es que el filtro se los llevo, y son
+    # dos cosas muy distintas para quien mira.
+    _antes_de_filtrar = len(con)
+    _quito = []
     if solo_altas:
         # Los jugados salen también de aquí: ese filtro sirve para buscar
         # apuestas, y en un partido acabado no queda ninguna que hacer.
         con = [p for p in con
                if (p.get('_recomendada') or {}).get('verde')]
+        _quito.append('alta')
     if solo_fisicos:
         con = [p for p in con if _tiene_fisicos(p)]
+        _quito.append('fisicos')
 
     if _pref is not None:
         _pref.confirmar(st, _k_orden, CLAVE_ORDEN, etq_orden)
@@ -2831,8 +2847,34 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
 
     st.markdown(CSS, unsafe_allow_html=True)
     if not con:
-        st.info('No hay partidos que cumplan el filtro.')
-    else:
+        # QUE FILTRO LO DEJO VACIO, Y CUANTOS HABIA. Medido sobre el barrido
+        # del dia: de 35 partidos de mañana, 18 tienen precio, 15 tienen una
+        # recomendación y **0 llegan al verde**. Con el mensaje anterior —«No
+        # hay partidos que cumplan el filtro»— eso se leía como que la lista
+        # de mañana había desaparecido, que es literalmente lo que el usuario
+        # reportó.
+        #
+        # El verde no es sólo probabilidad: exige el umbral **y** que el
+        # precio de la casa lo sostenga. Los de mañana casi no tienen precio
+        # todavía —las casas abren línea durante la noche—, así que en esa
+        # vista la casilla deja la lista en cero muchos días sin que haya nada
+        # roto. Decirlo aquí es la diferencia entre un filtro y una avería.
+        if _antes_de_filtrar and 'alta' in _quito:
+            st.info(
+                'Ninguno de los **%d** partidos de esta lista tiene una '
+                'apuesta en verde. El verde pide %d %% de probabilidad **y** '
+                'que la cuota publicada lo sostenga, así que en los partidos '
+                'que todavía no tienen precio abierto no puede salir. '
+                'Desmarca «Sólo alta probabilidad» para verlos todos.'
+                % (_antes_de_filtrar, UMBRAL_ALTA * 100))
+        elif _antes_de_filtrar and 'fisicos' in _quito:
+            st.info(
+                'Ninguna de las **%d** competiciones de esta lista publica '
+                'córners y tarjetas observados. Desmarca «Sólo con córners y '
+                'tarjetas» para verlas todas.' % _antes_de_filtrar)
+        else:
+            st.info('No hay partidos que cumplan el filtro.')
+    elif pintar:
         for i, p in enumerate(con[:maximo]):
             tarjeta(st, p, navegar=navegar, n_boton=i, con_apuesta=con_apuesta)
         if len(con) > maximo:

@@ -252,6 +252,35 @@ def valida_vista_extra(clave, pedido, timeout=900):
     check(quedo == str(destino),
           f'{que}: la vista elegida sobrevive a la recarga '
           f'({quedo!r})')
+    # v178 — LOS DOS CHECKS QUE FALTABAN, Y QUE SÍ PUEDEN FALLAR.
+    #
+    # Lo que el usuario reportó —«no cambia nada, me mantiene los de hoy»—
+    # pasaba con `_vista_principal` correcto y con el cuerpo de mañana
+    # generado, así que los dos checks de arriba lo daban por bueno. El
+    # defecto estaba en el ORDEN de lo que se manda al navegador: la hoja
+    # de estilo que esconde las vistas se emitía al final de la pasada, y
+    # hasta que llegaba seguía aplicada la de la pasada anterior. Medido
+    # en el navegador: **153 s enseñando la vista equivocada.**
+    marcas = []
+    for md in getattr(at, 'markdown', []):
+        v = str(md.value)
+        if 'st-key-vista_' in v:
+            marcas.append('estilo')
+        elif '.mm-merc' in v:
+            marcas.append('vistas')
+    check('estilo' in marcas,
+          f'{que}: se emite el estilo que esconde las vistas')
+    if 'estilo' in marcas and 'vistas' in marcas:
+        check(marcas.index('estilo') < marcas.index('vistas'),
+              f'{que}: el estilo va ANTES del cuerpo de las vistas '
+              f'(si no, el navegador enseña la vista anterior toda la '
+              f'pasada)')
+    # Y la vista escondida no gasta el tiempo de nadie: sus tarjetas no se
+    # dibujan. El botón «Ver ficha» lleva la clave de la vista dentro.
+    otra = 'mm' if destino == 'manana' else 'man'
+    botones = [str(getattr(b, 'key', '') or '') for b in getattr(at, 'button', [])]
+    check(not any(k.startswith('mm_ir_%s_' % otra) for k in botones),
+          f'{que}: la vista escondida no pinta sus tarjetas')
 
 
 def main():

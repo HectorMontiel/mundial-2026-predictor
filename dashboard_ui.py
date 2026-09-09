@@ -4853,8 +4853,21 @@ def render_alpha_finder():
         # los demás y, de paso, los cerrojos que impiden barridos simultáneos.
         # Ahora sólo se marca que este usuario quiere datos frescos; el guardia
         # se encarga de que siga habiendo un único barrido a la vez.
+        # v178 — SIN `st.rerun()`, Y NO ES UN AHORRO: ES EL ARREGLO.
+        #
+        # `st.rerun()` corta la pasada en seco. Este botón está ARRIBA del
+        # todo, antes de las cuatro vistas, así que al cortar aquí no se crea
+        # ni uno de los widgets de abajo —`parlay_base`, `mm_orden`,
+        # `man_orden`, el selector de vista, la casilla de combinadas— y un
+        # widget que no se registra en la pasada deja de estar vivo. Ése es el
+        # `KeyError: parlay_base` que sale al pulsar este botón, el mismo que
+        # la v177.2 creyó cerrar: aquella arregló el `st.empty()`, y esta vía
+        # seguía abierta.
+        #
+        # No hacía falta rehacer la pasada: la bandera la consume esta misma,
+        # treinta líneas más abajo, en la llamada a `barrido_universal`. Mismo
+        # resultado, una pasada menos.
         st.session_state['_forzar_barrido'] = True
-        st.rerun()
     # v88 — El botón sólo MARCA la intención; el envío se hace más abajo,
     # cuando el barrido `r` ya está calculado, y se le pasa.
     #
@@ -6084,7 +6097,15 @@ def render_alpha_finder():
             try:
                 import clv_tracker
                 import edge_engine
-                clv = clv_tracker.clv_historico()
+                # 14,7 s de los 16,4 que costaba esta vista, y sale de un CSV
+                # que no cambia mientras dure la sesión. Se cachea media hora,
+                # que es la misma frescura que el resto de la pantalla.
+                @st.cache_data(ttl=1800, show_spinner=False)
+                def _clv_cacheado():
+                    import clv_tracker as _clv
+                    return _clv.clv_historico()
+
+                clv = _clv_cacheado()
                 if clv.get('n'):
                     cc1, cc2, cc3 = st.columns(3)
                     cc1.metric("CLV medio", f"{clv['clv_medio_pct']:+.2f} %",
@@ -6607,6 +6628,41 @@ def render_alpha_finder():
     _vista = _sel_vista if _sel_vista in _ROTULO else 'hoy'
     if _prefv is not None:
         _prefv.guardar('_vista_principal', _vista)
+    # v178 — EL ESTILO QUE ESCONDE LAS VISTAS SE EMITE **AQUÍ**, NO AL FINAL.
+    #
+    # EL DEFECTO, con las palabras del usuario: «los partidos de mañana ya no
+    # me aparecen cuando aplico el filtro, no cambia nada, me mantiene los de
+    # hoy». Y la vista SÍ cambiaba: `_vista_principal` valía `manana` en todas
+    # las pasadas —lo comprueba `valida_render`— y el cuerpo de mañana se
+    # generaba. Lo que no cambiaba era lo que el navegador ENSEÑABA.
+    #
+    # Streamlit sustituye los elementos de la pantalla por su posición y a
+    # medida que llegan, así que un elemento que se emite el último se
+    # reemplaza el último. Con la hoja de estilo al final de la función, en
+    # todo el rato que dura la pasada —medido en esta máquina: **más de 27 s
+    # sin que la regla cambiara**, y en el móvil del usuario más— seguía
+    # aplicada la del render ANTERIOR. O sea: pulsas «Mañana» y durante toda
+    # la espera el navegador sigue escondiendo mañana y enseñando hoy.
+    #
+    # Aquí arriba la regla viaja en el primer bloque de la pasada, así que el
+    # cambio de vista es inmediato: se ve el cuerpo que quedó de la pasada
+    # anterior mientras se recalcula, que es exactamente lo que hacía
+    # `st.tabs` y lo que el usuario espera de una pestaña.
+    #
+    # NO cambia nada más: el estilo es global al documento y se aplica a los
+    # contenedores que se creen después, no sólo a los que ya existen. Ése era
+    # el motivo que tenía escrito para ir al final —«el cuerpo de hoy se pinta
+    # en seis sitios distintos»— y era el motivo equivocado: eso obliga a que
+    # el CONTENEDOR se cree antes que su contenido, no a que la hoja de estilo
+    # se emita después.
+    #
+    # OCULTAR, no borrar (§27.9): borrar se lleva por delante el
+    # `session_state` de los widgets de la vista escondida y tira la página
+    # con `KeyError: parlay_base` al pulsar cualquier botón.
+    _ocultas = ''.join('.st-key-vista_%s{display:none !important;}' % k
+                       for k in _ROTULO if k != _vista)
+    if _ocultas:
+        st.markdown('<style>%s</style>' % _ocultas, unsafe_allow_html=True)
     # `key` pone una clase CSS `st-key-vista_<clave>` en el contenedor,
     # que es lo que permite esconderlo desde la hoja de estilo.
     _slots = {k: st.container(key='vista_%s' % k) for k, _ in _VISTAS}
@@ -6622,8 +6678,12 @@ def render_alpha_finder():
     with _tab_hoy:
         try:
             import modo_modelo as _mm
+            # `pintar` sólo dibuja las tarjetas de la vista que se está
+            # mirando. Las otras siguen ejecutándose —sus controles tienen
+            # que llegar vivos al final de la pasada— pero no pintan
+            # doscientas tarjetas detrás de un `display:none`.
             _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
-                       dia=_HOY_S)
+                       dia=_HOY_S, pintar=(_vista == 'hoy'))
         except Exception as _e_mm:
             logger.exception('[modo_modelo] fallo al pintar')
             st.caption(f"La lista de apuestas no está disponible "
@@ -6656,7 +6716,7 @@ def render_alpha_finder():
                 import modo_modelo as _mm_man
                 _mm_man.render(
                     st, _pron_man, navegar=_ir_al_partido, clave='man',
-                    con_apuesta=False,
+                    con_apuesta=False, pintar=(_vista == 'manana'),
                     titulo=f"🗓️ Partidos de mañana · {_MANANA_S} (CDMX)")
             except Exception as _e_m:
                 logger.exception('[modo_modelo/manana] fallo al pintar')
@@ -6940,21 +7000,51 @@ def render_alpha_finder():
         # Carlo; cuando vivían antes de las pestañas, todo lo importante (Máximo
         # Valor, Máxima Confianza) esperaba a que terminaran. Aquí abajo cuestan
         # lo mismo pero ya no retrasan nada.
-    st.divider()
-    _render_combinada_segura(pdd)
-    _render_combinadas_dia()
-
-    # v177.2 — y aquí se esconden las vistas que no se han elegido. Va
-    # al FINAL a propósito: el cuerpo de «hoy» se pinta en seis sitios
-    # distintos de esta función y el último es el de aquí arriba.
+    # v178 — LAS COMBINADAS DEL DÍA SON CONTENIDO DE HOY, Y SE CALCULAN
+    # CUANDO SE PIDEN.
     #
-    # OCULTAR, no borrar: ver la nota de arriba. Borrar se lleva por
-    # delante el `session_state` de los widgets de la vista oculta.
-    _ocultas = ''.join('.st-key-vista_%s{display:none !important;}' % k
-                       for k in _ROTULO if k != _vista)
-    if _ocultas:
-        st.markdown('<style>%s</style>' % _ocultas,
-                    unsafe_allow_html=True)
+    # Estaban fuera de los cuatro contenedores de vista, así que eran el único
+    # trozo de la pantalla de hoy que se colaba en «Mañana» y en «Estado». Y no
+    # eran un trozo cualquiera: medido con el barrido ya en memoria, **67,3 s
+    # de los 106,2 que costaba la primera carga** se iban aquí —
+    # `construir_parlay_partido` carga el motor de cuatro ligas y pide los
+    # remates por jugador a ESPN— para llenar un desplegable que arranca
+    # CERRADO. Nadie estaba mirando eso mientras se calculaba.
+    #
+    # La casilla se recuerda entre sesiones igual que el resto de filtros: quien
+    # use las combinadas la enciende una vez y vuelven a ser automáticas, que es
+    # lo que se pidió al quitarles el botón. Quien no, deja de pagarlas.
+    #
+    # El WIDGET se crea siempre —está dentro del `with`, sin condición— porque
+    # un widget que no llega vivo al final de la pasada desaparece de
+    # `st.session_state`; lo que se condiciona es el CÁLCULO.
+    with _tab_hoy:
+        st.divider()
+        if _prefv is not None:
+            _prefv.recordar(st, '_combinadas_dia', por_defecto=False)
+        _quiere_combis = st.checkbox(
+            "🎲 Calcular las combinadas del día",
+            key='_combinadas_dia',
+            help="Arma combinadas de un solo partido con los mejores "
+                 "encuentros del día. Carga el motor de cuatro ligas y pide "
+                 "los remates por jugador, así que tarda; por eso no se hace "
+                 "sola. La casilla se recuerda: enciéndela una vez y vuelve a "
+                 "salir siempre.")
+        if _prefv is not None:
+            _prefv.guardar('_combinadas_dia', bool(_quiere_combis))
+        if _quiere_combis and _vista == 'hoy':
+            _render_combinada_segura(pdd)
+            _render_combinadas_dia()
+        elif not _quiere_combis:
+            st.caption("Las combinadas del día están apagadas: marca la "
+                       "casilla y aparecen aquí. ⚠️ Recuerda que combinar "
+                       "empeora el valor del boleto —el EV combinado es "
+                       "Π(1+EVᵢ)−1— así que tres patas flojas multiplican la "
+                       "pérdida, no la ganancia.")
+
+    # v178 — el estilo que esconde las vistas ya NO va aquí: se emite arriba,
+    # antes de crear los contenedores, o el navegador pasa toda la pasada
+    # enseñando la vista anterior. Ver la nota junto a `_ocultas`.
 
 
 # v88 — SE RETIRA LA ACTUALIZACIÓN VÍA THE ODDS API.

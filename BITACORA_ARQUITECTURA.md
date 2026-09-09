@@ -3738,3 +3738,225 @@ se pierde en silencio se paga entera más tarde.
 arreglo, porque sin picks de Sección 1 ese `selectbox` ni se crea. El arreglo se
 acepta por ser estructural —los widgets vuelven al árbol, no depende del
 contenido del día— y lo confirma el smoke.
+
+---
+
+## 28. La vista que no cambiaba, y los dos minutos que nadie estaba mirando
+
+### 28.1. El defecto, y por qué tres versiones no lo cazaron
+
+El usuario lo dijo así:
+
+> «los partidos de mañana ya no me aparecen cuando aplico el filtro, no cambia
+> nada, me mantiene los de hoy y no me permite analizar los de mañana»
+
+Es la tercera versión seguida que ataca esta frase. La v176 hizo persistir los
+filtros; la v177 descubrió que `st.tabs` no tiene estado de servidor y lo
+cambió por `segmented_control`; la v177.2 arregló que ocultar no es borrar. Las
+tres mejoraron algo real. Y el usuario seguía viendo lo mismo.
+
+Lo que ninguna miró es **cuándo llega al navegador la regla que esconde las
+vistas**.
+
+Streamlit no repinta la página: manda deltas y el cliente sustituye elementos
+**por posición y a medida que llegan**. El `<style>` con las tres reglas
+`display:none` se emitía en la última línea de `render_alpha_finder`, después
+de las cuatro vistas, de las combinadas del día y del Monte Carlo. Hasta que
+llegaba, el navegador seguía aplicando **la hoja de la pasada anterior**: la
+que escondía mañana y enseñaba hoy.
+
+Medido en la aplicación real, con un observador en el navegador que registra
+cada 200 ms qué reglas hay puestas y qué `display` computa cada contenedor:
+
+    v177.2.1   pulsar «Hoy» estando en «Mañana»
+               t =      3 ms   .st-key-vista_hoy{display:none}   ← regla vieja
+               t = 153.510 ms  .st-key-vista_hoy{display:none}   ← LA MISMA
+
+    v178       pulsar «Mañana» estando en «Hoy»
+               t =      1 ms   .st-key-vista_manana{display:none}
+               t =  1.706 ms   .st-key-vista_hoy{display:none}   ← obedeció
+
+Dos minutos y medio con la vista equivocada delante. Nadie espera eso a un
+clic: se vuelve a pulsar, se cambia otro filtro, y la conclusión razonable es
+«esto no funciona».
+
+**Por qué los checks no podían verlo.** Los dos que había preguntaban por el
+estado del servidor (`session_state['_vista_principal'] == 'manana'`) y por el
+texto generado (`'Análisis previo' in textos`). Los dos eran ciertos. El
+defecto vivía en el ORDEN del flujo de salida, que es justo lo que `AppTest` no
+modela: expone las colecciones de elementos, no la secuencia con que se
+mandan. Es §27.9 con otra cara — no es que el check fuera trivial, es que
+medía la variable equivocada.
+
+### 28.2. El arreglo, y el comentario que estaba mal
+
+Cuatro líneas movidas: el `<style>` se emite justo después de resolver
+`_vista` y **antes** de `st.container(key='vista_%s')`.
+
+El comentario de la v177.2 justificaba la posición final así: «va al FINAL a
+propósito: el cuerpo de hoy se pinta en seis sitios distintos de esta función y
+el último es el de aquí arriba». Es cierto y es irrelevante. Una hoja de estilo
+es global al documento y se aplica a lo que se cree después; lo que el reparto
+en seis sitios obliga es a que el CONTENEDOR exista antes que su contenido, no
+a que el CSS se emita el último. La frase describía correctamente un hecho y
+sacaba de él una conclusión que no se seguía, y por eso sobrevivió a dos
+revisiones.
+
+### 28.3. Los dos minutos: el 97 % era trabajo invisible
+
+La segunda queja —«tarda muchísimo en cargar»— resultó ser el mismo defecto
+por la otra cara. Con el barrido ya cacheado en disco y la revalidación en
+segundo plano neutralizada (`guardia_barrido.FRESCURA_S` alto; sin eso una
+pasada salió en 377 s con `_revalidar` compitiendo por la CPU y la medida no
+vale):
+
+|  | v177.2.1 | v178 |
+|---|---|---|
+| primera carga de «Apuestas del Día» | 213,2 s | **39,1 s** |
+| rerun al cambiar de vista | 60,4 s | **14,7 s** |
+| `innerText` de la página | 155.152 | **27.231** |
+
+El desglose de la primera carga, por `cProfile`:
+
+    _render_combinadas_dia -> _combinadas_dia -> proponer_parlays    67,3 s
+        construir_parlay_partido (x25)                               55,7 s
+        league_engine.plantilla_club (x33)                           29,5 s
+        remates_jugadores.remates_equipo -> ESPN (x50)               21,9 s
+    modo_modelo.render (x2)                                          40,2 s
+        modo_modelo.tarjeta (x233)                                   40,1 s
+    _render_estado_sistema -> clv_tracker.clv_historico              14,7 s
+
+Tres cosas, y las tres eran trabajo que nadie estaba mirando:
+
+**a) Las combinadas del día.** Vivían FUERA de los cuatro contenedores de
+vista, así que eran el único trozo de la pantalla de hoy que se colaba en
+«Mañana» y en «Estado». Cargaban el motor de cuatro ligas y pedían los remates
+por jugador a ESPN **para llenar un `st.expander` que arranca cerrado**. Ahora
+van dentro de la vista de hoy y detrás de una casilla que `preferencias_usuario`
+recuerda: quien las use la enciende una vez y vuelven a ser automáticas —que es
+lo que se pidió en la v89 al quitarles el botón— y quien no, deja de pagarlas.
+
+**b) Las tarjetas de las vistas escondidas.** El comentario de la v177 decía
+«los cuatro cuerpos se ejecutan siempre —con `st.tabs` también se ejecutaban
+los cuatro, así que no hay coste nuevo—». La primera parte es cierta y la
+conclusión también, pero mide contra el listón equivocado: que el coste no sea
+NUEVO no lo hace aceptable. Doscientas tarjetas detrás de un `display:none` son
+40 s de cada pasada.
+
+`modo_modelo.render(pintar=False)` salta el bucle de tarjetas y nada más. **Los
+controles se siguen creando** —el selector de orden y las dos casillas— porque
+ése es el invariante que costó la regresión de la v177.2: un widget que no
+llega vivo al final de la pasada desaparece de `st.session_state` y la página
+se cae con `KeyError: parlay_base`. Lo que se salta no crea estado que nadie
+lea.
+
+**c) `clv_historico`.** Releía el CSV de apuestas y recalculaba el CLV en cada
+pasada, dentro de un expander cerrado de la vista de Estado. `st.cache_data`
+con media hora de TTL, la misma frescura que el resto de la pantalla.
+
+### 28.4. Y la pregunta de mudar de plataforma
+
+El usuario preguntó si convenía mudar a otro alojamiento gratuito. Los números
+de arriba contestan la mitad: **lo que hacía lenta la aplicación era la
+pantalla, no el servidor.** Un contenedor el doble de rápido habría bajado 213 s
+a ~107; recortar lo que se pinta los bajó a 39.
+
+La otra mitad no se arregla desde aquí. Streamlit Community Cloud apaga el
+contenedor cuando la aplicación pasa horas sin visitas, y al despertar
+**reinstala el entorno pip entero**: numpy, scipy, scikit-learn, xgboost,
+lightgbm, ripser, matplotlib, plotly y pyarrow, con las versiones exactas que
+`requirements.txt` fija por los pickles. Eso son minutos y no depende de este
+código.
+
+La alternativa gratuita que sí lo evita es **Hugging Face Spaces con Docker**:
+la imagen se construye una vez y al despertar sólo arranca el contenedor. Mismo
+Streamlit sin tocar una línea, 2 vCPU y 16 GB, `secrets` propios y sincronizable
+desde GitHub. Queda **pendiente y sin hacer** — la cuenta la tiene que crear
+HMREY.
+
+### 28.5. El filtro que vaciaba «Mañana» sin decir por qué
+
+Medido sobre el barrido del día (`_v178_manana_filtro.py`):
+
+    HOY     261 partidos · 222 con cuota · 28 con recomendada · 3 en VERDE
+    MAÑANA   35 partidos ·  18 con cuota · 15 con recomendada · 0 en VERDE
+
+El verde exige probabilidad ≥ 60 % **y** Score ≥ 0,97, o sea que la cuota
+publicada lo sostenga. Los partidos de mañana casi no tienen precio abierto
+—las casas mueven línea durante la noche, que es justo el canal que este
+proyecto mide—, así que «Sólo alta probabilidad» deja esa vista en cero muchos
+días sin que haya nada roto.
+
+La pantalla decía «No hay partidos que cumplan el filtro», que es verdad y no
+dice nada. Ahora dice cuántos había, qué casilla se los llevó y por qué en esa
+vista pasa a menudo. La casilla NO se retira: se pidió en la v176 y sigue
+siendo útil en la vista de hoy.
+
+### 28.6. Los checks nuevos, y la prueba de que pueden fallar
+
+- `test_la_vista_elegida_no_se_pierde` comprueba el ORDEN por texto: el
+  `<style>` antes de `st.container(key='vista_%s')`. Y que las dos listas
+  reciben `pintar=(_vista == ...)`, y que `modo_modelo.render` acepta el
+  parámetro.
+- `valida_render` comprueba lo mismo sobre la pantalla real —el índice del
+  markdown con `st-key-vista_` antes del que trae el CSS de `modo_modelo`— y
+  que la vista escondida **no dibuja sus tarjetas**: sus botones
+  `mm_ir_<vista>_<n>` no existen.
+
+**Y se comprobó que fallan.** Corridos en un `git worktree` con el
+`dashboard_ui.py` de la v177.2.1 y el test de la v178, los tres se ponen rojos.
+Un check que no puede fallar es peor que no tenerlo, y aquí ya se habían
+colado dos.
+
+### 28.7. Y el smoke volvió a cazar algo — la segunda vía del `KeyError`
+
+Con todo lo anterior en verde, el smoke rápido salió rojo:
+
+    FALLO botón «🔄 Actualizar ahora»: KeyError: 'st.session_state has no key
+    "parlay_base"'
+
+El mismo error que la v177.2 dice haber cerrado. Corrido el smoke sobre
+`a8a49c3` en un `git worktree`, ahí salió **TODO OK**, así que no venía de
+antes.
+
+**Lo que se encontró buscándolo.** El botón hacía:
+
+    st.session_state['_forzar_barrido'] = True
+    st.rerun()
+
+`st.rerun()` corta la pasada en seco, y ese botón está **arriba del todo**,
+antes de las cuatro vistas. Al cortar ahí no se registra ni uno de los widgets
+de abajo —`parlay_base`, `mm_orden`, `man_orden`, el selector de vista, la
+casilla de combinadas— y un widget que no se registra en la pasada deja de
+estar vivo. Es exactamente el mecanismo de §27.9 por otra puerta: la v177.2
+cerró la del `st.empty()` y ésta seguía abierta.
+
+Y el rerun no hacía falta para nada: la bandera la consume la MISMA pasada,
+treinta líneas más abajo, en
+
+    r = barrido_universal(forzar=st.session_state.pop('_forzar_barrido', False))
+
+Quitarlo da el mismo resultado con una pasada menos —que en esta pantalla son
+decenas de segundos— y deja el script llegando entero al final. Con eso el
+smoke vuelve a salir limpio.
+
+**La salvedad honesta, que es la misma que dejó escrita la v177.2.** El
+`KeyError` **no se pudo reproducir a voluntad**. Se intentaron cuatro
+variantes de reproductor —forzando la Sección 1 con una fila inyectada,
+haciéndola desaparecer a mitad, recorriendo las cuatro vistas en el orden del
+smoke, y pulsando el objeto botón capturado en la carga inicial como hace él— y
+ninguna lo levantó, ni en la rama nueva ni en `a8a49c3`. El motivo es
+estructural: `parlay_base` sólo existe los días en que la Sección 1 trae picks,
+y el barrido se revalida en segundo plano, así que la condición aparece y
+desaparece sola. El recuento de botones del propio smoke lo enseña — 503, 558 y
+365 en tres pasadas del mismo día.
+
+O sea que lo que se puede afirmar es esto, y no más:
+
+- el smoke estaba rojo con este cambio y ahora está verde;
+- `st.rerun()` en ese punto **sí** corta la pasada antes de crear
+  `parlay_base`, y eso es demostrable leyendo el orden del fichero;
+- no se ha demostrado que ésa fuera la única causa del fallo observado.
+
+Hay check que lo fija: el botón de refresco no puede volver a llamar a
+`st.rerun()` antes de la llamada al barrido.

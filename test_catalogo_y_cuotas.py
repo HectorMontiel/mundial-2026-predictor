@@ -11041,6 +11041,12 @@ def test_el_boton_de_playdoit_ya_no_esta():
     check('BOTON' not in f.txt, "y ya no lleva boton debajo")
 
 
+def mm_render_sig():
+    """`modo_modelo.render`, para mirarle la firma sin importar la pantalla."""
+    import modo_modelo as _mm
+    return _mm.render
+
+
 def test_la_vista_elegida_no_se_pierde():
     """
     v177 — COMPROBACION 4: cambiar un filtro en Mañana ya no devuelve a Hoy.
@@ -11083,6 +11089,54 @@ def test_la_vista_elegida_no_se_pierde():
           "se esconden por CSS, que es lo que hacia `st.tabs`")
     check("st.container(key='vista_%s' % k)" in cuerpo,
           "cada vista tiene su contenedor con clave")
+    # v178 — Y EL ORDEN, QUE ES LO QUE ESTABA ROTO DE VERDAD.
+    #
+    # Con el estilo al final de la funcion, la regla llegaba al navegador
+    # la ultima: durante toda la pasada seguia aplicada la del render
+    # anterior, o sea que pulsar «Mañana» dejaba la pantalla enseñando
+    # los partidos de hoy. Medido en el navegador antes del arreglo:
+    # **153 s con la vista equivocada delante**, y ni la suite ni
+    # `valida_render` podian verlo porque los dos miraban el estado de
+    # sesion, que era correcto.
+    _i_estilo = cuerpo.find("_ocultas = ''.join")
+    _i_slots = cuerpo.find("_slots = {k: st.container")
+    check(_i_estilo != -1 and _i_slots != -1 and _i_estilo < _i_slots,
+          "el CSS que esconde las vistas se emite ANTES de crear los "
+          "contenedores (si vuelve al final, el navegador enseña la "
+          "vista anterior toda la pasada)")
+    # Y la vista que no se ve no gasta el tiempo de nadie. Medido: de los
+    # 60,4 s que costaba cambiar de pestaña con los datos ya en memoria,
+    # 40,2 se iban en dibujar tarjetas escondidas por `display:none`.
+    check(cuerpo.count("pintar=(_vista ==") == 2,
+          "las dos listas de partidos solo pintan sus tarjetas cuando "
+          "su vista es la elegida")
+    import inspect
+    check('pintar' in inspect.signature(mm_render_sig()).parameters,
+          "`modo_modelo.render` acepta `pintar`")
+    # v178 — «ACTUALIZAR AHORA» NO PUEDE ABORTAR LA PASADA.
+    #
+    # `st.rerun()` corta el script en seco, y ese boton esta ARRIBA de las
+    # cuatro vistas: al cortar ahi no se registra ni uno de los widgets de
+    # abajo —`parlay_base` el primero— y un widget que no se registra deja de
+    # estar vivo. Es la segunda via del `KeyError: parlay_base`; la v177.2
+    # cerro la primera (el `st.empty()`) y esta seguia abierta.
+    #
+    # No hace falta rehacer la pasada: la bandera la consume la MISMA, en la
+    # llamada a `barrido_universal` treinta lineas mas abajo.
+    _i_boton = cuerpo.find("key='refresh_alpha'")
+    _i_barrido = cuerpo.find('barrido_universal(forzar=')
+    check(_i_boton != -1 and _i_barrido != -1 and _i_boton < _i_barrido,
+          "el boton de refresco marca la bandera antes de que el barrido "
+          "la consuma, en la misma pasada")
+    if _i_boton != -1 and _i_barrido != -1:
+        # Solo CODIGO: el comentario que explica esto cita `st.rerun()` entre
+        # comillas invertidas, y un check que se caza a si mismo en la prosa no
+        # sirve para nada.
+        _tramo = [l for l in cuerpo[_i_boton:_i_barrido].split(chr(10))
+                  if not l.strip().startswith("#")]
+        check(not any('st.rerun()' in l for l in _tramo),
+              "y NO llama a `st.rerun()`, que abortaria la pasada y se "
+              "llevaria por delante el estado de los widgets de abajo")
 
     # la eleccion se guarda y se recupera, como los demas filtros
     pu.FICHERO = os.path.join(tempfile.mkdtemp(), 'prefs177.json')
