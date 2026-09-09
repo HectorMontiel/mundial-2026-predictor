@@ -2801,3 +2801,34 @@ Release. Es una versión propia, no el final de ésta.
 3. Los 193 equipos sin liga de `bra_copa` y `eng_fa_cup` son de categorías
    inferiores que juegan un partido y desaparecen; el coste por equipo cubierto
    es mucho peor que el de las demás.
+
+
+---
+
+## 5s. v185 — LA SAUDI PRO LEAGUE, ENCENDIDA
+
+Pedido: «si vas a agregar la liga de Arabia Saudí, que también aparezca en
+Apuestas del Día».
+
+La v144 la dejó apagada con un motivo escrito y un test que lo vigilaba: «no
+tiene ni histórico ni team_stats». La v184 le bajó el histórico —1.211 partidos,
+664 con córners y tarjetas observados de ESPN— para alimentar el catálogo
+equipo→liga, así que ya sólo faltaba entrenarla.
+
+    modelo    n_train 924 · acc 0,5517 · ELO 0,5560 · log-loss 0,9518
+    proximos  11 partidos con cuota en los 7 dias siguientes
+
+**Su modelo no bate al ELO** (0,5517 contra 0,5560) y eso no la deja fuera:
+desde la v161 el acierto del 1X2 dejó de decidir qué competiciones salen. El
+modelo bate al mercado en 1 de 34 y el valor medido está en el precio, no en el
+pronóstico. La nota de la liga lo dice con esas palabras para que nadie lo lea
+como una promesa.
+
+El check de la suite cambia de sentido: antes comprobaba que seguía apagada
+**porque le faltaban las dos cosas**; ahora comprueba que las tiene y que está
+encendida. Son 63 competiciones disponibles.
+
+**`isr_premier` se queda apagada**, y por un motivo distinto: ESPN no publica su
+boxscore —0 partidos con estadísticas— y su histórico se corta en mayo de 2025.
+Da liga local a Maccabi Haifa y Hapoel para el catálogo, que es para lo que
+entró, pero no tiene con qué aparecer en la pantalla.

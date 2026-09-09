@@ -189,8 +189,19 @@ def test_las_ligas_apagadas_por_elo_se_encendieron():
               f"{c} sigue apagada: no tiene team_stats_{c}.json")
         check(not os.path.exists('team_stats_%s.json' % c),
               f"y efectivamente no lo tiene")
-    check(not (config.LEAGUES.get('ksa_pro') or {}).get('disponible'),
-          "ksa_pro sigue apagada: no tiene ni histórico ni team_stats")
+    # v185 — `ksa_pro` YA NO ESTA APAGADA, y el check cambia de sentido.
+    #
+    # La v144 la dejo fuera «sin historico ni team_stats». La v184 le bajo el
+    # historico de ESPN (1.211 partidos, 664 con estadisticas observadas) para
+    # alimentar el catalogo equipo->liga, y con eso entrenada ya tiene las dos
+    # cosas. Lo que se comprueba ahora es que las TIENE, que es la condicion
+    # que la mantenia fuera.
+    _ksa = config.LEAGUES.get('ksa_pro') or {}
+    check(_ksa.get('disponible'), "ksa_pro esta encendida (v185)")
+    check(os.path.exists('historico_ksa_pro.csv'),
+          "y tiene historico, que era lo que le faltaba")
+    check(os.path.exists('team_stats_ksa_pro.json'),
+          "y team_stats, que era lo otro")
 
     # Toda liga encendida tiene que tener con que trabajar.
     import fixtures_espn

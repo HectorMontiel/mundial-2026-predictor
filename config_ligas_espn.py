@@ -325,14 +325,24 @@ LIGAS_V68 = {
     'ksa_pro': {
         'nombre': 'Saudi Pro League', 'pais': 'Arabia Saudita',
         'formato': 'espn', 'espn_liga': 'ksa.1', 'desde': '2022-07-01',
-        'urls': [], 'disponible': False, 'features_extra': [],
+        'urls': [], 'disponible': True, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 865,
-        'nota': 'alta en v144 con validación estricta: se activa sola si el '
-                'reentrenamiento la mide por encima de la línea base ELO. '
-                'v184: su histórico se descarga aunque siga apagada, porque '
-                'alimenta el catálogo equipo→liga y el respaldo de '
-                'estadísticas de la AFC Champions (Al Hilal, Al Nassr, '
-                'Al Ittihad, Al Ahli y cinco más).',
+        # v185 — ENCENDIDA. Ya tiene lo que le faltaba.
+        #
+        # La v144 la dejó apagada «sin histórico ni team_stats», y la v184 le
+        # bajó el histórico (1.211 partidos, 664 con estadísticas reales de
+        # ESPN) para alimentar el catálogo equipo→liga. Con eso entrenada, ya
+        # tiene modelo y `team_stats_ksa_pro.json`, que es exactamente lo que
+        # el test pedía.
+        #
+        # Su modelo NO bate al ELO —0,5517 contra 0,5560— y eso no la deja
+        # fuera: desde la v161 el acierto del 1X2 dejó de decidir qué ligas
+        # salen. El modelo bate al mercado en 1 de 34 competiciones y el valor
+        # medido está en el precio, no en el pronóstico. Esto describe su
+        # modelo, no su derecho a aparecer.
+        'nota': 'v185: encendida. Histórico y estadísticas de ESPN (664 de '
+                '1.211 partidos con córners y tarjetas observados). Su modelo '
+                'no bate al ELO (0,5517 vs 0,5560), como la mayoría.',
     },
     # v184 — ISRAEL, POR EL MISMO MOTIVO Y CON LA MISMA CAUTELA.
     #
