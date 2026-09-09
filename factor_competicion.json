@@ -1,28 +1,236 @@
 {
- "champions": {
+ "afc_champions": {
   "corners": {
-   "factor": 0.8157,
-   "n_equipos": 55,
-   "sd_entre_equipos": 0.2242,
-   "sd_entre_ligas": 0.0996
+   "factor": 0.8994,
+   "n_equipos": 17,
+   "sd_entre_equipos": 0.2473,
+   "sd_entre_ligas": 0.1744
   },
   "shots_off": {
-   "factor": 0.8873,
-   "n_equipos": 55,
-   "sd_entre_equipos": 0.1928,
-   "sd_entre_ligas": 0.0651
+   "factor": 0.8368,
+   "n_equipos": 17,
+   "sd_entre_equipos": 0.2334,
+   "sd_entre_ligas": 0.1163
   },
   "shots_on": {
-   "factor": 0.851,
-   "n_equipos": 55,
-   "sd_entre_equipos": 0.1994,
-   "sd_entre_ligas": 0.1172
+   "factor": 0.7591,
+   "n_equipos": 17,
+   "sd_entre_equipos": 0.3769,
+   "sd_entre_ligas": 0.2762
   },
   "yellow": {
-   "factor": 0.9981,
-   "n_equipos": 55,
-   "sd_entre_equipos": 0.2893,
-   "sd_entre_ligas": 0.1641
+   "factor": 1.1311,
+   "n_equipos": 17,
+   "sd_entre_equipos": 0.328,
+   "sd_entre_ligas": 0.179
+  }
+ },
+ "bra_copa": {
+  "corners": {
+   "factor": 1.0237,
+   "n_equipos": 23,
+   "sd_entre_equipos": 0.1835,
+   "sd_entre_ligas": null
+  },
+  "shots_off": {
+   "factor": 1.0623,
+   "n_equipos": 23,
+   "sd_entre_equipos": 0.2029,
+   "sd_entre_ligas": null
+  },
+  "shots_on": {
+   "factor": 1.0617,
+   "n_equipos": 23,
+   "sd_entre_equipos": 0.2208,
+   "sd_entre_ligas": null
+  },
+  "yellow": {
+   "factor": 1.0321,
+   "n_equipos": 23,
+   "sd_entre_equipos": 0.165,
+   "sd_entre_ligas": null
+  }
+ },
+ "champions": {
+  "corners": {
+   "factor": 0.8195,
+   "n_equipos": 56,
+   "sd_entre_equipos": 0.2222,
+   "sd_entre_ligas": 0.1232
+  },
+  "shots_off": {
+   "factor": 0.8836,
+   "n_equipos": 56,
+   "sd_entre_equipos": 0.1922,
+   "sd_entre_ligas": 0.0882
+  },
+  "shots_on": {
+   "factor": 0.8434,
+   "n_equipos": 56,
+   "sd_entre_equipos": 0.1981,
+   "sd_entre_ligas": 0.1196
+  },
+  "yellow": {
+   "factor": 0.999,
+   "n_equipos": 56,
+   "sd_entre_equipos": 0.287,
+   "sd_entre_ligas": 0.1553
+  }
+ },
+ "conference_league": {
+  "corners": {
+   "factor": 0.8907,
+   "n_equipos": 54,
+   "sd_entre_equipos": 0.2245,
+   "sd_entre_ligas": 0.119
+  },
+  "shots_off": {
+   "factor": 0.9663,
+   "n_equipos": 54,
+   "sd_entre_equipos": 0.2185,
+   "sd_entre_ligas": 0.1767
+  },
+  "shots_on": {
+   "factor": 1.0113,
+   "n_equipos": 54,
+   "sd_entre_equipos": 0.2699,
+   "sd_entre_ligas": 0.1658
+  },
+  "yellow": {
+   "factor": 1.0349,
+   "n_equipos": 54,
+   "sd_entre_equipos": 0.3402,
+   "sd_entre_ligas": 0.1553
+  }
+ },
+ "eng_fa_cup": {
+  "corners": {
+   "factor": 1.1489,
+   "n_equipos": 14,
+   "sd_entre_equipos": 0.2265,
+   "sd_entre_ligas": null
+  },
+  "shots_off": {
+   "factor": 1.0616,
+   "n_equipos": 14,
+   "sd_entre_equipos": 0.1593,
+   "sd_entre_ligas": null
+  },
+  "shots_on": {
+   "factor": 1.1414,
+   "n_equipos": 14,
+   "sd_entre_equipos": 0.1766,
+   "sd_entre_ligas": null
+  },
+  "yellow": {
+   "factor": 0.7153,
+   "n_equipos": 14,
+   "sd_entre_equipos": 0.1504,
+   "sd_entre_ligas": null
+  }
+ },
+ "europa_league": {
+  "corners": {
+   "factor": 0.8798,
+   "n_equipos": 77,
+   "sd_entre_equipos": 0.2344,
+   "sd_entre_ligas": 0.1625
+  },
+  "shots_off": {
+   "factor": 0.908,
+   "n_equipos": 77,
+   "sd_entre_equipos": 0.2211,
+   "sd_entre_ligas": 0.166
+  },
+  "shots_on": {
+   "factor": 0.9056,
+   "n_equipos": 77,
+   "sd_entre_equipos": 0.2405,
+   "sd_entre_ligas": 0.1785
+  },
+  "yellow": {
+   "factor": 1.0781,
+   "n_equipos": 77,
+   "sd_entre_equipos": 0.3165,
+   "sd_entre_ligas": 0.1868
+  }
+ },
+ "leagues_cup": {
+  "corners": {
+   "factor": 0.9297,
+   "n_equipos": 48,
+   "sd_entre_equipos": 0.1741,
+   "sd_entre_ligas": null
+  },
+  "shots_off": {
+   "factor": 0.9368,
+   "n_equipos": 48,
+   "sd_entre_equipos": 0.1548,
+   "sd_entre_ligas": null
+  },
+  "shots_on": {
+   "factor": 1.0474,
+   "n_equipos": 48,
+   "sd_entre_equipos": 0.1834,
+   "sd_entre_ligas": null
+  },
+  "yellow": {
+   "factor": 0.9047,
+   "n_equipos": 48,
+   "sd_entre_equipos": 0.1833,
+   "sd_entre_ligas": null
+  }
+ },
+ "libertadores": {
+  "corners": {
+   "factor": 0.8889,
+   "n_equipos": 67,
+   "sd_entre_equipos": 0.1865,
+   "sd_entre_ligas": 0.0781
+  },
+  "shots_off": {
+   "factor": 0.9753,
+   "n_equipos": 67,
+   "sd_entre_equipos": 0.1417,
+   "sd_entre_ligas": 0.1293
+  },
+  "shots_on": {
+   "factor": 0.9428,
+   "n_equipos": 67,
+   "sd_entre_equipos": 0.2055,
+   "sd_entre_ligas": 0.1404
+  },
+  "yellow": {
+   "factor": 1.0615,
+   "n_equipos": 67,
+   "sd_entre_equipos": 0.3438,
+   "sd_entre_ligas": 0.2134
+  }
+ },
+ "sudamericana": {
+  "corners": {
+   "factor": 0.9368,
+   "n_equipos": 98,
+   "sd_entre_equipos": 0.2257,
+   "sd_entre_ligas": 0.1274
+  },
+  "shots_off": {
+   "factor": 1.0003,
+   "n_equipos": 98,
+   "sd_entre_equipos": 0.1911,
+   "sd_entre_ligas": 0.1209
+  },
+  "shots_on": {
+   "factor": 1.0125,
+   "n_equipos": 98,
+   "sd_entre_equipos": 0.2438,
+   "sd_entre_ligas": 0.0932
+  },
+  "yellow": {
+   "factor": 1.0515,
+   "n_equipos": 98,
+   "sd_entre_equipos": 0.3291,
+   "sd_entre_ligas": 0.2608
   }
  }
 }

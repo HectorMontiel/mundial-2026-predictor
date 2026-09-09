@@ -4020,12 +4020,31 @@ def test_perfil_de_la_liga_local():
     check(plc.factor('champions', 'estadistica_inventada') == 1.0,
           "una estadistica sin medir tampoco inventa ajuste")
 
-    # SOLO APLICA A TORNEOS. Una liga domestica no lo necesita: sus equipos
+    # SOLO APLICA A COPAS. Una liga domestica no lo necesita: sus equipos
     # juegan ahi toda la temporada, y mirarles otro historico seria un error.
-    check(plc.aplica('champions') and plc.aplica('europa_league'),
-          "el respaldo aplica a las competiciones UEFA")
+    #
+    # v183 — la lista dejo de ser fija: son las competiciones con factor
+    # medido, y eso se cumple exactamente cuando la copa publica estadisticas
+    # observadas. Una lista escrita a mano se queda corta sola.
+    COPAS = ('champions', 'europa_league', 'conference_league', 'libertadores',
+             'sudamericana', 'leagues_cup')
+    faltan = [c for c in COPAS if not plc.aplica(c)]
+    check(not faltan, f"el respaldo aplica a todas las copas medidas ({faltan})")
     check(not plc.aplica('premier') and not plc.aplica('laliga'),
           "y NO a las ligas domesticas, que no lo necesitan")
+
+    # EL PATRON DE LAS COPAS CONTINENTALES, que es lo que la medicion enseño:
+    # menos corners y mas tarjetas que en la liga de origen.
+    for copa in ('champions', 'europa_league', 'conference_league',
+                 'libertadores', 'sudamericana'):
+        f = plc.factor(copa, 'corners')
+        check(0.75 <= f <= 1.0,
+              f"en {copa} se sacan MENOS corners que en la liga ({f})")
+
+    # Y LA GUARDA DE MUESTRA: con pocos equipos no se corrige nada. La FA Cup
+    # lo midio con 14 y dio el patron invertido (0,7153 en tarjetas).
+    check(plc.factor('eng_fa_cup', 'yellow') == 1.0,
+          "un factor medido con pocos equipos no se aplica (queda en 1,0)")
 
     # NO TOCA LO QUE YA FUNCIONA: con serie larga, se devuelve tal cual.
     import pandas as _pd

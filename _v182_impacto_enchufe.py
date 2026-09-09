@@ -20,14 +20,21 @@ import fixtures_espn as fe
 import perfil_liga_local as plc
 import rendimiento_equipos as rq
 
-COMPS = ('champions', 'europa_league', 'conference_league')
+_aplica_real = plc.aplica
+
+import json as _json
+try:
+    COMPS = tuple(sorted(_json.load(io.open('factor_competicion.json',
+                                            encoding='utf-8'))))
+except Exception:
+    COMPS = ('champions', 'europa_league', 'conference_league')
 
 
 def mide(con_enchufe):
     if not con_enchufe:
-        plc.COMPETICIONES = ()
+        plc.aplica = lambda c: False
     else:
-        plc.COMPETICIONES = COMPS
+        plc.aplica = _aplica_real
     filas = []
     for comp in COMPS:
         try:

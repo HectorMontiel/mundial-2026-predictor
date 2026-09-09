@@ -30,9 +30,30 @@ import pandas as pd
 import catalogo_equipos as ce
 
 SALIDA = 'factor_competicion.json'
-COMPETICIONES = ('champions',)
+# v183 — TODAS las copas con estadisticas observadas, no solo la Champions.
+# Una copa es una competicion donde los equipos vienen de ligas distintas y
+# juegan pocos partidos: exactamente el caso que el respaldo resuelve.
+def _copas_con_datos():
+    import os
+    import catalogo_equipos as ce
+    import rendimiento_equipos as rq
+    import config
+    salida = []
+    for k in config.LEAGUES:
+        if not ce._es_copa(k) or not os.path.exists('historico_%s.csv' % k):
+            continue
+        try:
+            d = rq.stats_disponibles(k)
+        except Exception:
+            continue
+        if d.get('corners') or d.get('tarjetas'):
+            salida.append(k)
+    return tuple(salida)
+
+
+COMPETICIONES = _copas_con_datos()
 STATS = ('corners', 'yellow', 'shots_on', 'shots_off')
-MIN_COMP = 6
+MIN_COMP = 5
 MIN_LIGA = 20
 
 

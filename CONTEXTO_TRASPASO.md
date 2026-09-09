@@ -2634,3 +2634,74 @@ partido tiene estadísticas observadas.
    entrenado, no las estadísticas, y es otro trabajo.
 3. El factor está medido sólo para `champions`. Las otras cinco competiciones
    de la lista usan 1,0 —no corregir— hasta que se mida cada una.
+
+---
+
+## 5q. v183 — LA MISMA CORRELACIÓN, EN LAS NUEVE COPAS
+
+La v182 enchufó el respaldo de liga local sólo en la Champions. Es el mismo
+problema en todas las copas: los equipos vienen de ligas distintas y juegan
+pocos partidos.
+
+### El factor, medido copa por copa
+
+`_v182_factor_competicion.py` recorre ahora todas las competiciones que
+`catalogo_equipos._es_copa` reconoce y que publican estadísticas observadas:
+
+    competición          córners  tarjetas  sh_on  sh_off   n equipos
+    champions             0,8195   0,9990  0,8434  0,8836      56
+    europa_league         0,8798   1,0781  0,9056  0,9080      77
+    conference_league     0,8907   1,0349  1,0113  0,9663      54
+    libertadores          0,8889   1,0615  0,9428  0,9753      67
+    sudamericana          0,9368   1,0515  1,0125  1,0003      98
+    leagues_cup           0,9297   0,9047  1,0474  0,9368      48
+    bra_copa              1,0237   1,0321  1,0617  1,0623      23
+    eng_fa_cup            1,1489   0,7153  1,1414  1,0616      14  ← no se usa
+    afc_champions         0,8994   1,1311  0,7591  0,8368      17  ← no se usa
+
+**El patrón se repite en las cinco copas continentales**: menos córners
+(0,88-0,94) y más tarjetas (1,03-1,08) que en la liga de origen. Partidos más
+cerrados y más tensos, medido.
+
+**Y una guarda nueva:** `MIN_EQUIPOS_FACTOR = 20`. Con menos, el factor es ruido
+y se deja en 1,0. La FA Cup lo midió con 14 equipos y dio justo el patrón
+invertido —0,7153 en tarjetas, 1,1489 en córners—, que es lo que produce una
+muestra corta llena de cruces entre categorías distintas. Prefiere no corregir a
+corregir mal.
+
+### La lista dejó de escribirse a mano
+
+`perfil_liga_local.aplica()` ya no consulta una tupla fija: **son las
+competiciones que tienen factor medido**, y eso se cumple exactamente cuando la
+copa publica estadísticas observadas — que es también la condición para que el
+estimador por equipo pueda usarse. Una lista escrita a mano se queda corta sola,
+y ya pasó con `eng_carabao` en el catálogo.
+
+### El resultado
+
+Sobre los próximos partidos de las nueve copas:
+
+    casos (partido × estadística)   240
+    observado   SIN enchufe  76  ->  CON enchufe 158
+    estimado    SIN enchufe 164  ->  CON enchufe  82
+
+    Sunderland vs AZ Alkmaar    estimado -> observado   3,84 / 5,26
+    CSKA Sofia vs Trabzonspor   estimado -> observado   6,86 / 5,68
+    Braga vs KuPS Kuopio        estimado -> observado   6,46 / 2,94
+
+### La cobertura, y dónde están los huecos
+
+De los 1.197 equipos que aparecen en los históricos de las nueve copas, **436
+(36 %) no tienen liga local resuelta**, y no están repartidos por igual:
+
+    libertadores        0 sin liga     leagues_cup     0 sin liga
+    sudamericana        0 sin liga     champions      16 sin liga
+    afc_champions      60              eng_fa_cup     53
+    conference_league  68              europa_league  99
+    bra_copa          140
+
+Las tres copas americanas están **al 100 %** —el proyecto tiene muchas ligas de
+allí—. Los huecos son: el Golfo (Al Hilal, Al Nassr, Al Sadd… en la AFC), las
+ligas europeas menores (Chipre, Israel, Serbia, Croacia, Eslovaquia, Kazajistán,
+Azerbaiyán) y los equipos de categorías inferiores de la FA Cup y la Copa do
+Brasil, que juegan un partido y desaparecen.
