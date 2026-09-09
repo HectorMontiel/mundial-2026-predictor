@@ -4293,3 +4293,76 @@ paso siguiente, y se mide contra el ledger antes de encenderse.
 Se sube ahora porque es la pieza que faltaba, porque tiene test propio y porque
 sin ella cualquier mezcla habría sido adivinada. El orden importa: primero
 saber de qué liga es cada equipo, después usar sus datos.
+
+---
+
+## 33. El precio estaba descargado y se tiraba a la basura
+
+### 33.1. Primero, un error de medición propio
+
+El encargo fue «que sí haya cuota, que no haya nada de que no llegó la cuota», y
+la primera medición dijo **0 de 100 partidos de fútbol con cuota**. Era falso, y
+el fallo fue mirar el campo equivocado: `pick['cuota']` es una cabecera que
+`_mercados_modelo` deja a `None` **a propósito** desde la v49 —esos mercados
+llevan cuota justa, no precio— y las apuestas de verdad las produce
+`valor_apuesta.candidatos()` leyendo `implicitas`.
+
+Sobre el mismo partido, `candidatos()` devolvía 13 filas con precio. Queda
+anotado porque el error es fácil de repetir: **en este proyecto la cuota de un
+pronóstico de fútbol no está en `pick['cuota']`**.
+
+### 33.2. Y midiendo bien apareció el agujero de verdad
+
+    Barcelona vs Feyenoord       implicitas COMPLETAS (Playdoit)  13 candidatas
+    PSG vs Slovan Bratislava     implicitas {1x2, goles}            0 candidatas
+    Napoli vs Arsenal            implicitas {1x2, goles}            0 candidatas
+    Sporting CP vs Galatasaray   implicitas {1x2, goles}            0 candidatas
+
+Los tres de abajo tenían modelo y tenían precio —ESPN publica las tres cuotas
+1X2 para los doce partidos de Champions—, y aun así no producían **ni una sola
+candidata**.
+
+La causa, en `implicitas_de_la_casa`: cuando el tablero de Playdoit no cubre el
+partido, el respaldo calcula las probabilidades sin margen a partir de las
+cuotas de ESPN, guarda `salida['1x2']`… y **descarta las cuotas**. Y
+`valor_apuesta._1x2` no puede hacer nada sin ellas:
+
+    cuota = cu.get(lado)      # cu = imp.get('1x2_cuotas') or {}
+    if not cuota:
+        continue
+
+Idéntico en goles: el respaldo guardaba un `float` con la probabilidad cuando el
+formato de la v171 es `{'p':…, 'mas':…, 'menos':…}`, y `_de_goles` lee de ahí las
+dos cuotas.
+
+Es un fallo de los que no se ven: el partido aparecía en la lista, con su
+porcentaje y su barra, y simplemente nunca proponía nada. Sin error, sin aviso.
+
+### 33.3. Por qué esto NO contradice el §24
+
+El §24 prohíbe inventar líneas que ninguna casa publica —costó el 28 % de las
+candidatas de goles, líneas fantasma sacadas del modelo—. Aquí es lo contrario:
+**la línea existe, la publica una casa real y el precio ya estaba descargado**.
+Lo único que se hacía con él era tirarlo. La regla sigue intacta: el tablero
+manda, y lo que se amplía es de qué tablero se lee cuando el primero no cubre.
+
+### 33.4. El resultado, medido
+
+|  | antes | ahora |
+|---|---|---|
+| fútbol de hoy con apuesta recomendada | 28 de 39 (72 %) | **37 de 39 (95 %)** |
+| con `1x2_cuotas` en las implícitas | — | **37 (95 %)** |
+| Champions con apuesta | 3 de 9 | **9 de 12** |
+
+`Gana PSG @ 1,029`, `Gana Sporting CP @ 1,685`, `Goles: Más de 2.5 @ 1,909`.
+
+### 33.5. Los tres que siguen sin nada, y qué los arregla
+
+    VfB Stuttgart vs Viking FK · Fenerbahce vs AS Roma · Como vs RB Leipzig
+
+Los tres con `prob: None`. **No es el precio: es que el modelo no predice**, y
+son justo los equipos sin histórico de Champions que la v179 dejó medidos
+—Viking FK, Sabah FK y Como con cero partidos—. Lo que los arregla es conectar
+el catálogo equipo → liga de la v180 al cálculo, para que un equipo sin pasado
+en la competición use el de su liga con el factor ya medido. Ése es el pendiente
+número uno.

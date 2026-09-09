@@ -768,6 +768,22 @@ def implicitas_de_la_casa(fx: Dict, o_espn: Dict) -> Dict:
                     if len(justa) == 3:
                         salida['1x2'] = {k: round(v, 4)
                                          for k, v in justa.items()}
+                        # v181 — Y EL PRECIO DEL QUE SALIERON, QUE SE TIRABA.
+                        #
+                        # Sin esto el partido se quedaba con la probabilidad
+                        # implícita y sin una sola cuota, y `valor_apuesta._1x2`
+                        # descarta la fila en cuanto `1x2_cuotas` no trae el
+                        # lado: «sin cuota no hay apuesta que proponer». Medido
+                        # en la Champions del día: PSG-Slovan, Napoli-Arsenal y
+                        # Sporting-Galatasaray tenían modelo Y precio de ESPN, y
+                        # producían CERO candidatas.
+                        #
+                        # No es inventar una línea (§24): la línea existe y la
+                        # publica una casa real. Es la cuota que el barrido ya
+                        # había descargado.
+                        salida['1x2_cuotas'] = {'home': round(float(_h), 3),
+                                                'draw': round(float(_d), 3),
+                                                'away': round(float(_a), 3)}
                         break
         goles = dict(salida.get('goles') or {})
         for _linea, _o, _u in ((2.5, o_espn.get('odd_over25'),
@@ -783,7 +799,16 @@ def implicitas_de_la_casa(fx: Dict, o_espn: Dict) -> Dict:
                 continue
             justa = _cm.devig({'mas': _o, 'menos': _u}, metodo='potencia')
             if len(justa) == 2:
-                goles[etq] = round(justa['mas'], 4)
+                # v181 — con sus DOS CUOTAS, que es el formato de la v171.
+                #
+                # Guardar sólo el float dejaba la línea sin precio, y
+                # `valor_apuesta._de_goles` lee `mas` y `menos` de aquí: una
+                # línea sin cuota no llega nunca a ser una apuesta.
+                # `mercado_implicito.prob_de` entiende los dos formatos, así
+                # que esto no rompe a ningún lector.
+                goles[etq] = {'p': round(justa['mas'], 4),
+                              'mas': round(float(_o), 3),
+                              'menos': round(float(_u), 3)}
         if goles:
             salida['goles'] = goles
     except Exception as e:

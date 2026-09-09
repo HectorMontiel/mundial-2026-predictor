@@ -2464,3 +2464,78 @@ propio: sin ella, cualquier mezcla habría sido adivinada.
 3. `Como -> ita_serie_b` es correcto por histórico y **obsoleto por realidad**:
    ascendió a la Serie A. El mapa refleja dónde tiene más partidos, no la
    temporada en curso.
+
+---
+
+## 5o. v181 — EL PRECIO ESTABA DESCARGADO Y SE TIRABA A LA BASURA
+
+Detalle en **BITACORA_ARQUITECTURA.md §33**.
+
+El encargo era «que sí haya cuota, que no haya nada de que no llegó la cuota».
+Y la primera medición apuntaba a que no llegaba ninguna — **era un error de
+medición mío**: se miró `pick['cuota']`, que es un campo de cabecera y está a
+`None` a propósito desde la v49, en vez de las apuestas que produce
+`valor_apuesta`. La aplicación sí tenía cuotas.
+
+Pero al medir bien apareció un agujero de verdad.
+
+### Lo que estaba roto, medido en los 12 partidos de Champions
+
+    Barcelona vs Feyenoord       implicitas COMPLETAS (Playdoit)  13 candidatas
+    PSG vs Slovan Bratislava     implicitas {1x2, goles}            0 candidatas
+    Napoli vs Arsenal            implicitas {1x2, goles}            0 candidatas
+    Sporting CP vs Galatasaray   implicitas {1x2, goles}            0 candidatas
+
+Los tres de abajo tenían modelo **y tenían precio**: ESPN publica `odd_home`,
+`odd_draw` y `odd_away` para los doce. Lo que fallaba es que cuando el tablero
+de Playdoit no cubre el partido, el respaldo de `implicitas_de_la_casa`
+calculaba las probabilidades sin margen y **descartaba las cuotas de las que
+salían**. Y `valor_apuesta._1x2` corta en seco sin ellas:
+
+    cuota = cu.get(lado)
+    if not cuota:
+        continue
+
+Lo mismo en goles: el respaldo guardaba un `float` con la probabilidad cuando el
+formato de la v171 es `{'p':…, 'mas':…, 'menos':…}`, y `_de_goles` lee las dos
+cuotas de ahí.
+
+**Esto no es inventar líneas (§24).** Aquella regla prohibía proponer líneas que
+ninguna casa publica, sacadas del modelo — y costó el 28 % de las de goles. Aquí
+el precio existe, viene de una casa real y ya estaba descargado por el propio
+barrido: lo único que se hacía con él era tirarlo.
+
+### El resultado
+
+|  | antes | ahora |
+|---|---|---|
+| fútbol de hoy con apuesta recomendada | 28 de 39 (72 %) | **37 de 39 (95 %)** |
+| con cuota en la recomendada | 28 | **37** |
+| con `1x2_cuotas` en las implícitas | — | **37 (95 %)** |
+| Champions con apuesta | 3 de 9 | **9 de 12** |
+
+Los tres que fallaban pasan a proponer: `Gana PSG @ 1,029`,
+`Gana Sporting CP @ 1,685`, `Goles: Más de 2.5 @ 1,909`.
+
+`mercado_implicito.prob_de` entiende los dos formatos desde la v171, así que
+pasar el respaldo a dict no rompe a ningún lector.
+
+### Los tres que siguen sin apuesta, y por qué
+
+    VfB Stuttgart vs Viking FK      prob None · sin cuotas
+    Fenerbahce vs AS Roma           prob None · sin cuotas
+    Como vs RB Leipzig              prob None · sin cuotas
+
+No es el precio: es que **el modelo no predice**. Son los equipos sin histórico
+de Champions —Viking FK, Sabah FK y Como tienen cero partidos, medido en la
+v179—. Ésos son exactamente los que arregla conectar el catálogo equipo → liga
+de la v180 al cálculo, que es el pendiente nº 1 del proyecto ahora mismo.
+
+**Pendiente que deja:**
+
+1. Conectar `catalogo_equipos` al cálculo para los equipos sin histórico de la
+   competición. Sin eso, esos tres partidos seguirán sin pronóstico.
+2. Alguna recomendada sale con cuota por debajo del mínimo declarado de 1,20
+   (`Gana PSG @ 1,029`). No llega a verde —el Score la deja en ámbar— pero
+   convendría revisar si `recomendadas` debe aplicar el mismo suelo que
+   `mejores`.
