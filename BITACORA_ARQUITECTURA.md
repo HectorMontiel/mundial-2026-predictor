@@ -4218,3 +4218,78 @@ Se para aquí. La vía limpia es un mapa equipo → liga **construido con lo que
 ESPN publica** (cada competición lista sus equipos), no adivinado; con él los 73
 casan por construcción, y sólo entonces tiene sentido medir la mezcla contra el
 ledger.
+
+---
+
+## 32. Un equipo pertenece a una liga, y eso se mira
+
+La v179 dejó el problema planteado con números: para estimar los córners de un
+equipo con pocos partidos de Champions hace falta su histórico de liga local, y
+adivinar la liga con emparejamiento difuso contra las 46 daba `Juventus →
+Juventude`, `Atalanta → Atlante`, `Arsenal → Arsenal Tula`. La solución la puso
+el usuario en una frase: **hace falta un diccionario**.
+
+### 32.1. Por qué un diccionario cambia el problema
+
+No es que `name_mapper` sea malo: es que se le estaba pidiendo algo para lo que
+no está hecho. Buscar «Juventus» entre 1.069 equipos de 61 competiciones es una
+pregunta mal planteada; buscarlo entre los 20 de la Serie A es la pregunta para
+la que se escribió. **El diccionario no sustituye al emparejador: le acota el
+terreno.**
+
+Y la pertenencia no hay que inferirla, porque está escrita: `goleadores_cache`
+guarda `teams:<liga>` con los equipos que ESPN publica de cada competición, y
+cada `historico_<liga>.csv` lista los suyos. Dos ficheros que ya estaban en el
+repositorio.
+
+Faltaban 16 ligas en esa caché —**la Bundesliga entre ellas**, y por eso el
+Bayern y el Dortmund no casaban—. Se completaron desde local, que es donde se
+puede: ESPN bloquea `/teams` desde IPs de centro de datos (v147). Quedan 61
+ligas, 1.707 equipos, y **67 de los 83 de Champions (81 %)** con liga y nombre
+resueltos.
+
+### 32.2. Las tres trampas, que son la parte que enseña
+
+**El Liverpool uruguayo.** 91 equipos figuran en más de una competición. Tres
+reglas en orden: las copas no otorgan pertenencia —un club juega la
+Libertadores, es de su liga—; si quedan varias, gana donde tenga más partidos;
+si hay empate, **se deja sin asignar**. La última regla es la importante: un
+mapa que se calla es mucho mejor que uno que se inventa, porque lo que se
+inventa no se nota.
+
+**El Manchester City en la Carabao Cup.** La lista fija de copas se quedó corta
+—`eng_carabao` no estaba— y el City acabó asignado a una copa. Una lista que hay
+que acordarse de ampliar es una lista que se queda corta: ahora las copas se
+reconocen por el nombre de la competición en `config`.
+
+**El PSG y el Paris FC.** Éste es el que enseña más. `name_mapper` manda «Paris
+Saint-Germain» a «Paris FC» **con confianza alta**, porque comparten «Paris» y
+la regla de contención se dispara. Subir el umbral no sirve: con 0,95 sigue
+dando «Paris FC». Y son dos clubes distintos de la MISMA liga, así que acotar el
+terreno tampoco lo salva.
+
+La respuesta honesta a eso es un alias a mano —`paris saint germain → ligue_1,
+Paris SG`—, revisado y con test. Lo que no vale es dejar que el emparejador
+decida y enterarse el día que el PSG salga con los córners del Paris FC.
+
+### 32.3. La guarda que se buscó, y lo que dijo
+
+Se buscaron **colisiones**: dos equipos distintos que acaban en el mismo nombre
+de histórico. Hay 220, y filtrando las que comparten raíz quedan 48. Revisadas
+una a una, **todas legítimas**: son el mismo club con rótulos alternativos
+—«agf»/«aarhus», «ath madrid»/«atletico madrid», «fc københavn»/«fc
+copenhagen»—. Tras el alias del PSG no queda ninguna peligrosa.
+
+Es un resultado, no un trámite: si mañana entra un club que colisiona de verdad,
+esa cuenta lo enseña.
+
+### 32.4. Lo que NO hace
+
+`catalogo_equipos` es **infraestructura y nadie la consume todavía**. Conectarla
+a `rendimiento_equipos` para mezclar el perfil de Champions con el de la liga
+local —con el factor ya medido en la v179: córners 0,861, tarjetas 1,076— es el
+paso siguiente, y se mide contra el ledger antes de encenderse.
+
+Se sube ahora porque es la pieza que faltaba, porque tiene test propio y porque
+sin ella cualquier mezcla habría sido adivinada. El orden importa: primero
+saber de qué liga es cada equipo, después usar sus datos.

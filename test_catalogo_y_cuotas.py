@@ -3989,6 +3989,88 @@ def test_kbo_integrada():
           "el dataset de KBO no etiqueta empates como derrota local")
 
 
+def test_catalogo_de_equipos():
+    """
+    v180 — CADA EQUIPO EN SU LIGA, Y NINGUNO EN LA DE OTRO.
+
+    Nace de un fallo que NO se veia: para estimar los corners de un equipo con
+    pocos partidos de Champions hace falta su historico de liga local, y
+    buscarlo con emparejamiento difuso contra las 46 ligas daba esto —medido—
+
+        Internazionale -> brasil  Internacional    Juventus -> brasil  Juventude
+        Atalanta       -> liga_mx Atlante          Arsenal  -> rus     Arsenal Tula
+
+    Lo peor no es fallar: es que sale un numero con aspecto de corner normal y
+    nadie vuelve a mirarlo. Es el mismo modo de fallo que `Botafogo <-> Botafogo
+    SP`, y la misma leccion que dejo escrita `stats_espn._traductor`.
+
+    Los casos de abajo son los que se rompieron de verdad durante la
+    construccion, uno por uno. Si alguno vuelve a fallar, el emparejador esta
+    decidiendo donde no debe.
+    """
+    import catalogo_equipos as ce
+    ce.olvidar()
+
+    # LOS QUE EL EMPAREJADOR DIFUSO SE INVENTABA
+    CRITICOS = {
+        'Juventus': 'serie_a',            # y NO Juventude (brasil)
+        'Internazionale': 'serie_a',      # y NO Internacional (brasil)
+        'Atalanta': 'serie_a',            # y NO Atlante (liga_mx)
+        'Arsenal': 'premier',             # y NO Arsenal Tula (rus_premier)
+        'Lille': 'ligue_1',               # y NO Lillestrom (noruega)
+    }
+    for equipo, liga in CRITICOS.items():
+        check(ce.liga_de(equipo) == liga,
+              f"{equipo} es de {liga} (da {ce.liga_de(equipo)!r})")
+
+    # EL LIVERPOOL URUGUAYO: dos clubes distintos con el mismo nombre, y el
+    # desempate es por numero de partidos en su historico.
+    check(ce.liga_de('Liverpool') == 'premier',
+          f"«Liverpool» es el ingles, no el uruguayo "
+          f"({ce.liga_de('Liverpool')!r})")
+
+    # UNA COPA NO OTORGA PERTENENCIA. Con la lista fija, el Manchester City
+    # acabo asignado a la Carabao Cup.
+    check(ce.liga_de('Manchester City') == 'premier',
+          f"el Manchester City es de la Premier, no de una copa "
+          f"({ce.liga_de('Manchester City')!r})")
+    check(ce._es_copa('eng_carabao') and ce._es_copa('libertadores')
+          and not ce._es_copa('premier'),
+          "las copas se reconocen por su nombre, no por una lista fija")
+
+    # EL NOMBRE EN EL HISTORICO, que es lo que hace falta para leer sus datos:
+    # ESPN dice «Borussia Dortmund» y football-data dice «Dortmund».
+    NOMBRES = {
+        'Borussia Dortmund': ('bundesliga', 'Dortmund'),
+        'Internazionale': ('serie_a', 'Inter'),
+        'Manchester City': ('premier', 'Man City'),
+        # `name_mapper` manda el PSG a «Paris FC» con confianza alta y son dos
+        # clubes DISTINTOS de la misma liga: subir el umbral no lo arregla, por
+        # eso hay un alias a mano.
+        'Paris Saint-Germain': ('ligue_1', 'Paris SG'),
+    }
+    for equipo, esperado in NOMBRES.items():
+        check(ce.nombre_en_su_liga(equipo) == esperado,
+              f"{equipo} -> {esperado} (da {ce.nombre_en_su_liga(equipo)!r})")
+
+    # Y NO SE INVENTA NADA: un equipo que no consta devuelve None.
+    check(ce.liga_de('Equipo Que No Existe FC') is None,
+          "un equipo desconocido no se asigna a ninguna liga")
+
+    # cobertura sobre los equipos de la Champions, que es para lo que se hizo
+    import os
+    if os.path.exists('historico_champions.csv'):
+        import pandas as _pd
+        _ch = _pd.read_csv('historico_champions.csv')
+        _eq = sorted(set(_pd.concat([_ch['home_team'],
+                                     _ch['away_team']]).dropna()))
+        _res = [e for e in _eq if ce.nombre_en_su_liga(e)]
+        _pct = 100.0 * len(_res) / max(len(_eq), 1)
+        check(_pct >= 70,
+              f"la mayoria de los equipos de Champions tienen liga local "
+              f"resuelta ({len(_res)}/{len(_eq)} = {_pct:.0f} %)")
+
+
 def test_leagues_cup_integrada():
     """La Leagues Cup está en el catálogo, con nombres correctos."""
     import config
@@ -11399,6 +11481,7 @@ if __name__ == '__main__':
     print('\n=== v97: ITF en vivo, KBO y Leagues Cup ===')
     test_itf_fuente_viva()
     test_kbo_integrada()
+    test_catalogo_de_equipos()
     test_leagues_cup_integrada()
     print('\n=== v96: el circuito ITF tiene datos y modelo ===')
     test_itf_tiene_datos_y_modelo()

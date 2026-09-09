@@ -2383,3 +2383,84 @@ de encenderla.
    el patrón del encogimiento hacia la casa, w=0,25).
 3. Europa League y Conference League tienen el mismo problema de muestra corta y
    la misma solución.
+
+---
+
+## 5n. v180 — EL DICCIONARIO EQUIPO → LIGA, QUE ES LA PIEZA QUE FALTABA
+
+Detalle en **BITACORA_ARQUITECTURA.md §32**. La idea es del usuario y es la
+correcta: **un equipo pertenece a una liga, y eso se mira, no se adivina.**
+
+### Por qué hacía falta
+
+La v179 dejó medido que para estimar los córners de un Como o un Viking FK en
+Champions hace falta su histórico de liga local —en Champions tienen cero
+partidos—, y que buscar la liga con emparejamiento difuso contra las 46
+producía esto:
+
+    Internazionale -> brasil  Internacional      Juventus -> brasil  Juventude
+    Atalanta       -> liga_mx Atlante            Arsenal  -> rus     Arsenal Tula
+    Lille          -> noruega Lillestrom         Braga    -> suecia  Brage
+
+Con la pertenencia fijada, el emparejamiento deja de buscar entre 1.069 equipos
+de 61 competiciones y busca entre los 18 o 20 de UNA liga, que es donde
+`name_mapper` acierta y para lo que está hecho.
+
+### De dónde sale, y no cuesta ni una petición en producción
+
+Dos fuentes que ya están en el repositorio:
+
+- `goleadores_cache.json` guarda `teams:<liga>` con los equipos que ESPN publica
+  de cada competición. Tenía 47 ligas; **faltaban 16, entre ellas la
+  Bundesliga**, y por eso el Bayern y el Dortmund no casaban. Se completaron
+  desde local (ESPN bloquea `/teams` desde IPs de centro de datos, v147): ahora
+  son **61 ligas**.
+- Los propios `historico_<liga>.csv`, que dan **el nombre tal y como está
+  escrito en el histórico** — que es el que hace falta para leer sus córners.
+
+Resultado: `catalogo_equipos.json` con **1.707 equipos**, y de los 83 que
+aparecen en el histórico de Champions, **67 (81 %)** tienen liga y nombre
+resueltos.
+
+### Las tres trampas que aparecieron, y cómo se cierran
+
+**1. El Liverpool uruguayo.** 91 equipos figuran en más de una competición.
+Reglas, en orden: las copas no otorgan pertenencia; si quedan varias, gana la
+liga donde el equipo tiene más partidos; si hay empate, **se deja sin asignar**.
+Un mapa que se calla es mucho mejor que uno que se inventa.
+
+**2. El Manchester City en la Carabao Cup.** La lista fija de copas se quedaba
+corta —`eng_carabao` no estaba— y el City acabó asignado a una copa. Ahora las
+copas se reconocen por el NOMBRE de la competición en `config`, no por una lista
+que hay que acordarse de ampliar.
+
+**3. El PSG y el Paris FC.** `name_mapper` manda «Paris Saint-Germain» a
+«Paris FC» **con confianza alta**, y son dos clubes distintos de la misma liga.
+Subir el umbral no lo arregla: con 0,95 sigue dando «Paris FC». Se fija con un
+alias explícito al nombre bueno, «Paris SG», revisado a mano y con test.
+
+Se buscaron además **colisiones** (dos equipos distintos al mismo nombre de
+histórico): hay 220, y al filtrarlas quedan 48 sin raíz común — revisadas, todas
+legítimas («agf»/«aarhus», «ath madrid»/«atletico madrid»,
+«fc københavn»/«fc copenhagen»). Tras el alias del PSG **no queda ninguna
+peligrosa**.
+
+### Lo que este cambio NO hace todavía
+
+`catalogo_equipos` es **infraestructura**: nadie lo consume aún. Conectarlo al
+cálculo de córners, tarjetas y remates —mezclar el perfil de Champions con el de
+la liga local usando el factor medido en la v179 (córners 0,861, tarjetas
+1,076)— es el paso siguiente, y tiene que medirse contra el ledger antes de
+encenderse. Se sube ahora porque es la pieza que faltaba y porque tiene test
+propio: sin ella, cualquier mezcla habría sido adivinada.
+
+**Pendiente que deja:**
+
+1. Consumir el catálogo en `rendimiento_equipos` para la mezcla, con peso por
+   tamaño de muestra, y medirlo.
+2. Los 16 equipos de Champions sin liga resuelta son de ligas que el catálogo no
+   cubre (Shakhtar, Slovan Bratislava, Qarabag, Ferencvaros, Pafos…). Para ésos
+   no hay liga local que mirar, y el mapa lo dice en vez de inventarla.
+3. `Como -> ita_serie_b` es correcto por histórico y **obsoleto por realidad**:
+   ascendió a la Serie A. El mapa refleja dónde tiene más partidos, no la
+   temporada en curso.
