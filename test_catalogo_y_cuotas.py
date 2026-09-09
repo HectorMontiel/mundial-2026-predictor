@@ -4000,6 +4000,69 @@ def test_kbo_integrada():
           "el dataset de KBO no etiqueta empates como derrota local")
 
 
+def test_frescura_y_guarda_de_historicos():
+    """
+    v188 — QUE NADA SE QUEDE PARADO EN SILENCIO, Y QUE NADIE LO PISE.
+
+    Tres fallos del mismo dia, todos con el workflow en verde:
+
+        historico_champions.csv  parado 2 meses   (fuente de pago caducada)
+        pick_ledger_total.csv    parado 6 semanas (`git add` con path ignorado)
+        stats_espn/              parado 3 semanas (un `\n` literal)
+
+    Ninguno dio error: un fichero que deja de actualizarse no se queja, se queda
+    quieto, y todo lo que se calcula encima sigue devolviendo lo de antes.
+
+    Y por el otro lado: la guarda de la v178.9 solo vigilaba que un historico no
+    ENCOGIERA, y por ese hueco un script de medicion escribio 53.264 filas
+    encima de las 895 de la Champions sin un solo aviso.
+    """
+    import os
+    import tempfile
+    import pandas as _pd
+    import league_engine as le
+
+    # ---- LA GUARDA POR ARRIBA, que es la que faltaba ----------------------
+    _cwd = os.getcwd()
+    _dir = tempfile.mkdtemp(prefix='hist188_')
+    try:
+        os.chdir(_dir)
+        base = _pd.DataFrame({'date': range(1000), 'x': range(1000)})
+        le._guardar_historico('pruebav188', base)
+        check(len(_pd.read_csv('historico_pruebav188.csv')) == 1000,
+              "un historico nuevo se escribe sin mirar (es la primera descarga)")
+        le._guardar_historico('pruebav188',
+                              _pd.DataFrame({'date': range(1010),
+                                             'x': range(1010)}))
+        check(len(_pd.read_csv('historico_pruebav188.csv')) == 1010,
+              "un crecimiento normal pasa (una liga suma partidos)")
+        try:
+            le._guardar_historico('pruebav188',
+                                  _pd.DataFrame({'date': range(53000),
+                                                 'x': range(53000)}))
+            freno = False
+        except RuntimeError:
+            freno = True
+        n = len(_pd.read_csv('historico_pruebav188.csv'))
+        check(freno, "un crecimiento x52 se FRENA: una liga no se multiplica")
+        check(n == 1010, f"y el fichero bueno queda intacto ({n})")
+    finally:
+        os.chdir(_cwd)
+
+    # ---- EL VIGILANTE DE FRESCURA -----------------------------------------
+    import frescura_datos as fd
+    check(bool(fd.VIGILADOS), "hay una lista de ficheros vigilados")
+    check('pick_ledger_total.csv' in fd.VIGILADOS,
+          "el ledger esta vigilado: es el que llevaba 42 dias parado")
+    check(fd.VIGILADOS['pick_ledger_total.csv'][0] >= 7,
+          "con un plazo generoso: esto avisa de SEMANAS, no de una noche mala")
+    # y sabe distinguir un historico de lo que no lo es
+    check(fd._clave_de_historico('historico_laliga.csv') == 'laliga',
+          "reconoce el historico de una liga por su nombre")
+    check(fd._clave_de_historico('pick_ledger_total.csv') is None,
+          "y no confunde otros ficheros con historicos")
+
+
 def test_perfil_de_la_liga_local():
     """
     v182 — UN EQUIPO SIN PASADO EN LA COMPETICION USA EL DE SU LIGA.
@@ -11572,6 +11635,7 @@ if __name__ == '__main__':
     print('\n=== v97: ITF en vivo, KBO y Leagues Cup ===')
     test_itf_fuente_viva()
     test_kbo_integrada()
+    test_frescura_y_guarda_de_historicos()
     test_perfil_de_la_liga_local()
     test_catalogo_de_equipos()
     test_leagues_cup_integrada()

@@ -113,6 +113,20 @@ jobs:
               print(f'::warning::paso fallido: {f}')
           PY
 
+      # v188 — Y SE MIRA QUE NADA SE HAYA QUEDADO PARADO.
+      #
+      # Va DESPUÉS de recalibrar y ANTES de commitear, que es el único
+      # momento en que se sabe si la pasada de esta semana movió algo.
+      # Tres ficheros llevaban entre tres y seis semanas congelados sin
+      # que nada avisara, y el workflow terminaba en verde cada lunes.
+      #
+      # No rompe la pasada: avisa. Un check que la tumba por una liga en
+      # receso se desactiva a la tercera semana.
+      - name: Vigilar la frescura de los datos que aprenden
+        run: |
+          python frescura_datos.py \
+            || echo "::warning::hay datos parados, mira frescura_datos.json"
+
       - name: Commitear las calibraciones actualizadas
         run: |
           git config user.name  "recalibrar-bot"
@@ -136,7 +150,7 @@ jobs:
                      pick_ledger_total.csv calibracion_confianza.json \
                      precision_ligas.json edge_map.json deportes_capa1.json \
                      calibracion_mercado.json umbrales_capa1.json \
-                     recalibracion_estado.json \
+                     recalibracion_estado.json frescura_datos.json \
             || echo "::warning::git add de las calibraciones falló"
           # v162 — el fondo histórico de estadísticas de ESPN y lo que
           # se deriva de él. Sin commitearlo, el trabajo de 3-4 h del paso

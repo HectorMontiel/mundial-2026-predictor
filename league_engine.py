@@ -1308,6 +1308,9 @@ def preparar_features_extra(clave, df, ds, X_df, corte_imt):
 # Salida de emergencia para el día que un recorte grande SÍ sea intencionado
 # —una liga que cambia de fuente, por ejemplo—: `PERMITIR_HISTORICO_MENOR=1`.
 CAIDA_MAXIMA = float(os.environ.get('CAIDA_MAXIMA_HISTORICO', '0.30'))
+# Y el techo por arriba: x2 en una sola pasada ya no es una liga creciendo.
+CRECIMIENTO_MAXIMO = float(os.environ.get('CRECIMIENTO_MAXIMO_HISTORICO',
+                                          '2.0'))
 
 
 def _guardar_historico(clave: str, df) -> None:
@@ -1325,6 +1328,25 @@ def _guardar_historico(clave: str, df) -> None:
             logger.warning(f'[{clave}] no se pudo leer {ruta} para '
                            f'compararlo: {type(e).__name__}: {e}')
             previas = 0
+    # v188 — Y TAMBIEN SI CRECE DE FORMA IMPOSIBLE.
+    #
+    # La guarda de la v178.9 solo vigilaba que un historico no ENCOGIERA, y por
+    # ese hueco se colo lo contrario: un script de medicion parcheo
+    # `descargar_liga` para devolver el historico AGRUPADO de la Champions y
+    # esto escribio **53.264 filas encima de las 895** de produccion, sin un
+    # solo aviso. Se restauro a mano porque alguien miro el `git status`.
+    #
+    # Una liga crece unos diez partidos por semana sobre miles: duplicarse en
+    # una pasada no es una temporada nueva, es otra cosa. El fichero que NO
+    # existia se escribe sin mirar —esa es la primera descarga— y lo demas pasa
+    # por aqui.
+    if previas and len(df) > previas * CRECIMIENTO_MAXIMO:
+        raise RuntimeError(
+            f'{clave}: la descarga trae {len(df)} partidos y el histórico en '
+            f'disco tiene {previas} (x{len(df) / max(previas, 1):.1f}). NO se '
+            f'sobrescribe: una liga no se multiplica en una pasada. Si es a '
+            f'propósito —un agrupado, un cambio de fuente— '
+            f'PERMITIR_HISTORICO_MENOR=1 lo salta.')
     if previas and len(df) < previas * (1.0 - CAIDA_MAXIMA):
         raise RuntimeError(
             f'{clave}: la descarga trae {len(df)} partidos y el histórico en '

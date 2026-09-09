@@ -3016,3 +3016,86 @@ tomándolos.
    cierre el **15,2 %** de las veces. Y un dato que contradice la teoría y
    merece su propia mirada: el ROI **cuando batimos** el cierre (−6,62 %) es
    PEOR que cuando no (−3,70 %).
+
+---
+
+## 5v. v188 — UN VIGILANTE DE FRESCURA, Y LA GUARDA QUE FALTABA POR ARRIBA
+
+Los cuatro puntos que quedaban de la tanda anterior. Tres entran; el cuarto se
+explica.
+
+### 1. `europa_league` NO estaba rota: está en receso
+
+Salió en la auditoría con el histórico parado en mayo de 2025, y no le pasa
+nada. ESPN devuelve para la Europa League **exactamente hasta el 2026-05-20**,
+que es su final —SC Freiburg 0-3 Aston Villa—. Su fase liga nueva empieza el 24
+de septiembre. Igual la Conference League, la FA Cup, la A-League australiana y
+la ISL india: las cinco terminan en mayo.
+
+**No hay nada que arreglar**, y eso también es un resultado.
+
+### 2. El vigilante: `frescura_datos.py`
+
+Tres fallos del mismo día, todos silenciosos y con el workflow en verde:
+
+    historico_champions.csv    parado 2 meses    (fuente de pago caducada)
+    pick_ledger_total.csv      parado 6 semanas  (`git add` con path ignorado)
+    stats_espn/                parado 3 semanas  (un `\n` literal)
+
+Lo que tienen en común no es la causa, sino que **nada miraba la fecha**. Un
+fichero que deja de actualizarse no da error: se queda quieto y todo lo que se
+calcula encima sigue devolviendo lo de antes. Los tres salieron porque el
+usuario preguntó, no porque algo avisara.
+
+El vigilante mira, para cada pieza que debería refrescarse sola, cuántos días
+lleva sin cambiar —por la fecha del último COMMIT, no por el `mtime`, que un
+`git clone` pone todo a la hora del clon— contra un plazo generoso: 3 días para
+lo del bot nocturno, 10 para lo semanal y para los históricos. No está para
+avisar de un 503 de anoche, sino de que algo lleva semanas quieto.
+
+**Y distingue receso de avería, que es lo que lo hace usable.** La primera
+versión marcaba las cinco competiciones de arriba como paradas: cinco falsos
+positivos, y un check con falsos positivos se ignora a la tercera semana. La
+segunda preguntaba «¿tiene partidos próximos?», y eso tampoco valía —la Europa
+League los tiene y su histórico está completo—. La pregunta correcta es **¿le
+falta algún partido ya jugado?**, y con ella el resultado queda limpio:
+
+    al día:      64
+    PARADOS:      4   <- pick_ledger, umbrales_capa1, calibracion_confianza, edge_map
+    en receso:    5   <- las cinco de arriba, correctamente descartadas
+    sin evaluar:  0
+
+Los cuatro que quedan son exactamente los del bug de la v186. Cero falsos
+positivos.
+
+Entra en `recalibrar.yml` **después** de recalibrar y **antes** de commitear,
+que es el único momento en que se sabe si la pasada movió algo. Avisa, no rompe.
+
+### 3. La guarda de históricos, ahora también por arriba
+
+La de la v178.9 sólo vigilaba que un histórico no **encogiera**. Por ese hueco
+se coló lo contrario: un script de medición parcheó `descargar_liga` y
+`_guardar_historico` escribió **53.264 filas encima de las 895** de la
+Champions, sin un solo aviso. Se restauró porque alguien miró el `git status`.
+
+Ahora hay techo por arriba: **×2 en una sola pasada** aborta. Una liga suma unos
+diez partidos por semana sobre miles; duplicarse no es una temporada nueva.
+El fichero que no existía se escribe sin mirar —ésa es la primera descarga— y
+`PERMITIR_HISTORICO_MENOR=1` sigue siendo la salida para lo intencionado.
+
+Probado en la suite: escribe la primera vez, deja pasar +1 %, **frena un ×52** y
+el fichero bueno queda intacto.
+
+### 4. El modelo de respaldo por copa: sigue sin hacerse, y por qué
+
+Es lo único del encargo original que queda abierto: Stuttgart-Viking,
+Fenerbahce-Roma y Como-Leipzig siguen sin pronóstico 1X2 porque el motor no
+conoce a esos equipos.
+
+El histórico agrupado que lo resolvería está construido y medido (§5r): acierta
+un 3,9 % más y **calibra peor** (log-loss +0,0476), así que encenderlo tal cual
+degradaría lo único en lo que este proyecto se apoya. La vía que las mediciones
+sostienen —un segundo modelo por copa consultado sólo donde hoy no hay nada—
+obliga a entrenar y publicar un modelo más por copa, y a tocar el workflow de
+reentrenamiento y la subida al Release. Es una versión propia, no el final de
+ésta.
