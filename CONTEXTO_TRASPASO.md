@@ -2924,3 +2924,95 @@ es peor que uno que rompe el workflow**.
    números de eficacia que la app enseña son los de julio.
 3. Nadie vigila la frescura de estos ficheros. Un check que compare su fecha
    contra la del último commit de datos lo habría cazado en agosto.
+
+---
+
+## 5u. v187 — LOS SNAPSHOTS SÍ SIRVEN, Y ESTABAN ESPERANDO A UN `git add` ROTO
+
+Pregunta del usuario: «los snapshots llevan tiempo tomándose y no sé si han
+servido de algo; si sí, aplícalo, y si no, bórralos».
+
+**Respuesta: sirven, no se borran, y ya se han liquidado por primera vez.**
+
+### Para qué se crearon
+
+La v159 los empezó porque **no existe histórico de líneas de córners**:
+football-data no las publica y el de The Odds API es de pago. Sin líneas pasadas
+no hay apuestas que liquidar, así que la regla de oro del proyecto —percentil 5
+positivo— no se podía ni aplicar a ese mercado, y su EV sale marcado. El plan
+escrito era: «en unos meses habrá con qué medir».
+
+    corners_snapshots.csv    167.700 fotos · 2026-08-22 -> 2026-09-09
+    tarjetas_snapshots.csv    50.577
+    remates_snapshots.csv     22.680
+
+### Por qué no habían servido: dos causas, y ninguna era el fichero
+
+**1. El emparejamiento.** Las fotos vienen de Playdoit («Eyupspor», «Gaziantep
+FK») y los resultados de football-data («Ath Bilbao», «Ath Madrid»). Comparando
+los nombres tal cual casaban **0 de 167.700**. Pero cada foto trae su
+`clave_liga`, así que se empareja DENTRO de esa liga con `name_mapper`, que es
+para lo que está hecho. Es la misma lección de la v180 aplicada aquí.
+
+**2. El fondo de estadísticas estaba congelado, por el bug de la v186.** Los
+snapshots fotografían partidos del 23-08 en adelante, y las estadísticas
+observadas de todas las ligas se paraban el **2026-08-22** — exactamente la
+fecha del último commit de `stats_espn/`. La causa es el `\n` literal que rompía
+su `git add`:
+
+    el \n literal rompe el git add de stats_espn/
+      -> el fondo de estadísticas se congela el 22 de agosto
+      -> los históricos no reciben córners nuevos
+      -> los snapshots no tienen con qué liquidarse
+
+Puesto al día el fondo (backfill de 10 ligas, 2 s cada una) y reinyectado en los
+históricos, aparecen los resultados y se puede liquidar.
+
+### La primera liquidación
+
+Sólo las familias de **total del partido** con mercado Más/Menos. Y en tarjetas
+se cuentan **amarillas más rojas**, que es lo que cuenta la casa:
+
+    CÓRNERS   378 apuestas · 50,0 % aciertos · ROI  −9,91 % · p5 −18,46 %
+    TARJETAS  180 apuestas · 50,0 % aciertos · ROI −10,17 % · p5 −21,98 %
+    REMATES   118 apuestas · 50,0 % aciertos · ROI  −7,07 % · p5 −21,74 %
+
+Los tres clavados en **50,0 % de acierto**, que es exactamente lo que se espera
+de apostar contra el margen de la casa: la línea está donde la probabilidad es
+50/50 y el margen se lo queda ella.
+
+**Ninguno supera la regla de oro.** Con esta muestra, el EV que el proyecto
+calcula para córners, tarjetas y remates **no gana dinero**.
+
+**Y la salvedad, que es grande:** son 18 días y menos de 400 apuestas por
+mercado. El p5 tan negativo lo dice — con esta muestra no se puede afirmar mucho
+más que «no hay evidencia de que gane». Lo que sí queda es la máquina montada:
+`_v187_liquida_snapshots.py` se puede volver a correr cada semana, y con el
+`git add` arreglado la muestra crecerá sola.
+
+### Un ROI del +76,93 % que era mío, no del mercado
+
+La primera pasada dio **+76,93 % en tarjetas con p5 +60,22 %**. No era un
+hallazgo: metía en el mismo saco «Total de tarjetas», «1ª mitad - tarjetas
+exacto», «15 minutos - total tarjetas», «Impar/Par» y «Ambos equipos 2+», y las
+comparaba todas contra el total del partido. Una línea de media parte contra el
+marcador final da un número con aspecto de ROI.
+
+Queda escrito porque es el error más fácil de cometer aquí y el más difícil de
+ver: **el número salía bonito**.
+
+**Qué NO se borra:** nada. Los tres CSV se quedan y el workflow sigue
+tomándolos.
+
+**Pendiente que deja:**
+
+1. Repetir la liquidación con más muestra. Un mes más y son ~1.500 apuestas por
+   mercado, que ya empieza a decir algo.
+2. Las familias que no se liquidan —exactas, rangos, 1x2, impar/par, ventanas
+   de 15 minutos, por equipo— necesitan cada una su regla. Son el 89 % de las
+   fotos de córners.
+3. `odds_snapshots.csv` sí se consume (cinco módulos) y alimenta el CLV, que ya
+   da una medición sobre 2.504 apuestas: CLV medio **−2,78 %** y sólo batimos el
+   cierre el **15,2 %** de las veces. Y un dato que contradice la teoría y
+   merece su propia mirada: el ROI **cuando batimos** el cierre (−6,62 %) es
+   PEOR que cuando no (−3,70 %).
