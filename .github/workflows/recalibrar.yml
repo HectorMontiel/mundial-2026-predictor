@@ -117,15 +117,36 @@ jobs:
         run: |
           git config user.name  "recalibrar-bot"
           git config user.email "actions@github.com"
-          git add -A historico_itf.csv.gz modelos/tennis modelos/tennis_wta \
+          # v186 — SIN `modelos/`, Y SIN TRAGARSE EL FALLO.
+          #
+          # Este `git add` llevaba `modelos/tennis` y `modelos/tennis_wta`,
+          # y desde la v161 (2026-08-22) `modelos/` está en .gitignore: sus
+          # pesos viajan por el GitHub Release, no por el repositorio.
+          # `git add` con un path ignorado **falla entero y no añade
+          # NINGUNO de los demás** —comprobado, devuelve exit 1— y el
+          # `|| true` se lo tragaba.
+          #
+          # Efecto medido: la recalibración corría cada lunes y sólo
+          # commiteaba `_v162_calibracion_por_liga.json`, que va en su
+          # propio `git add`. `pick_ledger_total.csv` llevaba desde el
+          # 2026-07-29 sin actualizarse y `umbrales_capa1.json` desde el
+          # 2026-07-28: seis semanas sin medir si los pronósticos
+          # aciertan, con el workflow en verde.
+          git add -A historico_itf.csv.gz \
                      pick_ledger_total.csv calibracion_confianza.json \
                      precision_ligas.json edge_map.json deportes_capa1.json \
                      calibracion_mercado.json umbrales_capa1.json \
-                     recalibracion_estado.json 2>/dev/null || true
+                     recalibracion_estado.json \
+            || echo "::warning::git add de las calibraciones falló"
           # v162 — el fondo histórico de estadísticas de ESPN y lo que
           # se deriva de él. Sin commitearlo, el trabajo de 3-4 h del paso
           # de arriba se pierde con el runner.
-          git add -A stats_espn/ calibracion_stats_liga.json \n                     INFORME_CALIBRACION.md 2>/dev/null || true
+          # v186 — aquí había un «\n» LITERAL en medio del comando, en
+          # vez de un salto de línea: el shell lo pasaba como argumento y
+          # el `git add` se rompía. Otro fallo callado por el `|| true`.
+          git add -A stats_espn/ calibracion_stats_liga.json \
+                     INFORME_CALIBRACION.md \
+            || echo "::warning::git add del fondo de estadísticas falló"
           # v169 — y el ranking de estabilidad, que sale del informe de arriba.
           git add -A mercado_estable_por_liga.json 2>/dev/null || true
           git add -A _v162_calibracion_por_liga.json 2>/dev/null || true

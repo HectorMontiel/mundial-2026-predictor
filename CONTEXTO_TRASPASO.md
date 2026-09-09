@@ -2832,3 +2832,95 @@ encendida. Son 63 competiciones disponibles.
 boxscore —0 partidos con estadísticas— y su histórico se corta en mayo de 2025.
 Da liga local a Maccabi Haifa y Hapoel para el catálogo, que es para lo que
 entró, pero no tiene con qué aparecer en la pantalla.
+
+---
+
+## 5t. v186 — SEIS SEMANAS SIN MEDIR SI LOS PRONÓSTICOS ACIERTAN, CON EL WORKFLOW EN VERDE
+
+Salió de una pregunta del usuario: «¿qué has hecho con los resultados de los
+partidos que ya han acabado?». La respuesta corta era buena —los históricos sí
+los llevan— y al comprobarla apareció lo que no.
+
+### Lo que sí estaba entrando
+
+Los resultados recientes llegan a los históricos todas las noches:
+
+    champions       hasta 2026-09-08   (los de la jornada de ayer)
+    libertadores    hasta 2026-09-08
+    ksa_pro         hasta 2026-09-09
+    laliga · premier · serie_a · ligue_1   hasta 2026-09-04 (parón de selecciones)
+    liga_mx · mls   hasta 2026-09-05
+    bundesliga      hasta 2026-08-30
+    europa_league   hasta 2026-05-20   ← ésta no
+
+### Lo que NO estaba entrando
+
+    pick_ledger_total.csv        último commit 2026-07-29
+    umbrales_capa1.json          último commit 2026-07-28
+    calibracion_confianza.json   último commit 2026-08-08
+    edge_map.json                último commit 2026-08-17
+    calibracion_mercado.json     último commit 2026-09-09   ← al día
+
+`pick_ledger_total.csv` es **el fichero que mide si los pronósticos aciertan**.
+Seis semanas sin actualizarse. Y `umbrales_capa1.json`, que es lo que decide qué
+entra en la Capa 1, otras seis.
+
+Y no es que el workflow no corriera: `recalibrar.yml` se ejecutó el 2026-08-31 y
+el 2026-09-07, y sus dos commits tocaron **un solo fichero**,
+`_v162_calibracion_por_liga.json`, con un cambio de una línea.
+
+### La causa: dos fallos en el mismo paso, los dos callados
+
+```
+git add -A historico_itf.csv.gz modelos/tennis modelos/tennis_wta \
+           pick_ledger_total.csv calibracion_confianza.json \
+           ... 2>/dev/null || true
+```
+
+**`modelos/` está en .gitignore desde la v161** (2026-08-22): sus pesos viajan
+por el GitHub Release, no por el repositorio. Y `git add` con un path ignorado
+**falla entero y no añade ninguno de los demás**. Comprobado aquí:
+
+    con modelos/tennis y modelos/tennis_wta ....  exit 1
+    sin ellos ..................................  exit 0
+
+El `2>/dev/null || true` convertía ese fallo en silencio, y el `git add` de
+`_v162_calibracion_por_liga.json` —que va aparte, con un solo fichero— seguía
+funcionando. De ahí que el commit semanal existiera y no llevara nada dentro.
+
+El segundo fallo, en la línea de al lado:
+
+```
+git add -A stats_espn/ calibracion_stats_liga.json \n                     INFORME_CALIBRACION.md
+```
+
+Un **`\n` literal** en medio del comando en vez de un salto de línea. El shell
+lo pasaba como argumento y el `git add` se rompía. Mismo `|| true`, mismo
+silencio.
+
+### El arreglo
+
+- Fuera `modelos/tennis` y `modelos/tennis_wta` del `git add`.
+- El `\n` literal pasa a ser una continuación de línea de verdad.
+- Y los dos `git add` **avisan si fallan** (`::warning::`) en vez de callarlo.
+
+### Lo que esto enseña, que es lo de siempre en este proyecto
+
+Un workflow en verde no es un workflow que funciona. Éste corría cada lunes,
+terminaba bien, publicaba su commit y no estaba haciendo su trabajo desde hacía
+seis semanas. Lo que lo tapaba no era un bug raro: era `2>/dev/null || true`
+puesto para que un fallo no tumbara la pasada.
+
+Es exactamente el §27.9 con otra ropa —un check que no puede fallar es peor que
+no tenerlo— aplicado a un paso de CI: **un comando que no puede fallar visible
+es peor que uno que rompe el workflow**.
+
+**Pendiente que deja:**
+
+1. `europa_league` sigue con el histórico en mayo de 2025. No se ha investigado
+   por qué no se regenera; es formato `espn` y debería.
+2. El ledger no se recupera solo: hay que dejar correr la recalibración del
+   lunes (o lanzarla a mano) para que vuelva a medir. Hasta entonces, los
+   números de eficacia que la app enseña son los de julio.
+3. Nadie vigila la frescura de estos ficheros. Un check que compare su fecha
+   contra la del último commit de datos lo habría cazado en agosto.
