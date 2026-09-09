@@ -328,7 +328,36 @@ LIGAS_V68 = {
         'urls': [], 'disponible': False, 'features_extra': [],
         'fuente_v68': 'espn', 'partidos_espn': 865,
         'nota': 'alta en v144 con validación estricta: se activa sola si el '
-                'reentrenamiento la mide por encima de la línea base ELO.',
+                'reentrenamiento la mide por encima de la línea base ELO. '
+                'v184: su histórico se descarga aunque siga apagada, porque '
+                'alimenta el catálogo equipo→liga y el respaldo de '
+                'estadísticas de la AFC Champions (Al Hilal, Al Nassr, '
+                'Al Ittihad, Al Ahli y cinco más).',
+    },
+    # v184 — ISRAEL, POR EL MISMO MOTIVO Y CON LA MISMA CAUTELA.
+    #
+    # Entra para dar liga local a los equipos israelíes que juegan la Europa
+    # League y la Conference —Maccabi Haifa y Hapoel—, que hasta ahora se
+    # quedaban sin respaldo de estadísticas.
+    #
+    # VERIFICADA CONTRA ESPN, no adivinada: `isr.1` devuelve 56 partidos en el
+    # sondeo de febrero-abril de 2025. Se comprobaron también `cyp.1` (Chipre)
+    # y `cze.1` (Chequia): las dos responden HTTP 200 y devuelven **0
+    # eventos** — el endpoint existe y está vacío, que no es lo mismo que
+    # tener datos. Y de Qatar, Emiratos, Serbia, Croacia, Ucrania, Azerbaiyán,
+    # Kazajistán, Hungría, Eslovaquia y Bulgaria, ESPN devuelve HTTP 400: no
+    # las publica. Es la misma conclusión que la v144 dejó escrita al mirar su
+    # catálogo real de 218 competiciones.
+    #
+    # `disponible: False` a propósito: no entra en el barrido ni necesita
+    # modelo. Su trabajo es alimentar el catálogo y el respaldo.
+    'isr_premier': {
+        'nombre': 'Israeli Premier League', 'pais': 'Israel',
+        'formato': 'espn', 'espn_liga': 'isr.1', 'desde': '2022-07-01',
+        'urls': [], 'disponible': False, 'features_extra': [],
+        'fuente_v68': 'espn',
+        'nota': 'v184: apagada en el barrido; existe para dar liga local a los '
+                'equipos israelíes de las copas UEFA.',
     },
 }
 
@@ -487,6 +516,8 @@ ESPN_CODIGOS_V68 = {
     'arg_primera_nacional': 'arg.2',
     'col_primera_a': 'col.1',
     'usl_championship': 'usa.usl.1',
+    'isr_premier': 'isr.1',
+    'ksa_pro': 'ksa.1',
     'ned_eerste': 'ned.2',
     'bra_serie_b': 'bra.2',
     'per_liga1': 'per.1',

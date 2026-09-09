@@ -111,6 +111,13 @@
 "motivo": "unica",
 "candidatas": null
 },
+"abha": {
+"liga": "ksa_pro",
+"en_historico": "Abha",
+"partidos": 69,
+"motivo": "unica",
+"candidatas": null
+},
 "ac horsens": {
 "liga": "dinamarca",
 "en_historico": "Horsens",
@@ -411,6 +418,181 @@
 "liga": "rus_premier",
 "en_historico": "Akron Togliatti",
 "partidos": 0,
+"motivo": "unica",
+"candidatas": null
+},
+"al adalah": {
+"liga": "ksa_pro",
+"en_historico": "Al Adalah",
+"partidos": 30,
+"motivo": "unica",
+"candidatas": null
+},
+"al ahli": {
+"liga": "ksa_pro",
+"en_historico": "Al Ahli",
+"partidos": 108,
+"motivo": "unica",
+"candidatas": null
+},
+"al batin": {
+"liga": "ksa_pro",
+"en_historico": "Al Batin",
+"partidos": 30,
+"motivo": "unica",
+"candidatas": null
+},
+"al diriyah": {
+"liga": "ksa_pro",
+"en_historico": "Al Diriyah",
+"partidos": 5,
+"motivo": "unica",
+"candidatas": null
+},
+"al ettifaq": {
+"liga": "ksa_pro",
+"en_historico": "Al Ettifaq",
+"partidos": 138,
+"motivo": "unica",
+"candidatas": null
+},
+"al faisaly": {
+"liga": "ksa_pro",
+"en_historico": "Al Faisaly",
+"partidos": 6,
+"motivo": "unica",
+"candidatas": null
+},
+"al fateh": {
+"liga": "ksa_pro",
+"en_historico": "Al Fateh",
+"partidos": 137,
+"motivo": "unica",
+"candidatas": null
+},
+"al fayha": {
+"liga": "ksa_pro",
+"en_historico": "Al Fayha",
+"partidos": 138,
+"motivo": "unica",
+"candidatas": null
+},
+"al hazem": {
+"liga": "ksa_pro",
+"en_historico": "Al Hazem",
+"partidos": 74,
+"motivo": "unica",
+"candidatas": null
+},
+"al hilal": {
+"liga": "ksa_pro",
+"en_historico": "Al Hilal",
+"partidos": 138,
+"motivo": "unica",
+"candidatas": null
+},
+"al ittihad": {
+"liga": "ksa_pro",
+"en_historico": "Al Ittihad",
+"partidos": 138,
+"motivo": "unica",
+"candidatas": null
+},
+"al khaleej": {
+"liga": "ksa_pro",
+"en_historico": "Al Khaleej",
+"partidos": 138,
+"motivo": "unica",
+"candidatas": null
+},
+"al kholood": {
+"liga": "ksa_pro",
+"en_historico": "Al Kholood",
+"partidos": 74,
+"motivo": "unica",
+"candidatas": null
+},
+"al najma": {
+"liga": "ksa_pro",
+"en_historico": "Al Najma",
+"partidos": 34,
+"motivo": "unica",
+"candidatas": null
+},
+"al nassr": {
+"liga": "ksa_pro",
+"en_historico": "Al Nassr",
+"partidos": 137,
+"motivo": "unica",
+"candidatas": null
+},
+"al okhdood": {
+"liga": "ksa_pro",
+"en_historico": "Al Okhdood",
+"partidos": 102,
+"motivo": "unica",
+"candidatas": null
+},
+"al orobah": {
+"liga": "ksa_pro",
+"en_historico": "Al Orobah",
+"partidos": 34,
+"motivo": "unica",
+"candidatas": null
+},
+"al qadsiah": {
+"liga": "ksa_pro",
+"en_historico": "Al Qadsiah",
+"partidos": 74,
+"motivo": "unica",
+"candidatas": null
+},
+"al raed": {
+"liga": "ksa_pro",
+"en_historico": "Al Raed",
+"partidos": 99,
+"motivo": "unica",
+"candidatas": null
+},
+"al riyadh": {
+"liga": "ksa_pro",
+"en_historico": "Al Riyadh",
+"partidos": 108,
+"motivo": "unica",
+"candidatas": null
+},
+"al shabab": {
+"liga": "ksa_pro",
+"en_historico": "Al Shabab",
+"partidos": 138,
+"motivo": "unica",
+"candidatas": null
+},
+"al taawoun": {
+"liga": "ksa_pro",
+"en_historico": "Al Taawoun",
+"partidos": 138,
+"motivo": "unica",
+"candidatas": null
+},
+"al tai": {
+"liga": "ksa_pro",
+"en_historico": "Al Tai",
+"partidos": 64,
+"motivo": "unica",
+"candidatas": null
+},
+"al wehda": {
+"liga": "ksa_pro",
+"en_historico": "Al Wehda",
+"partidos": 98,
+"motivo": "unica",
+"candidatas": null
+},
+"al wehdat": {
+"liga": "ksa_pro",
+"en_historico": "Al Wehdat",
+"partidos": 1,
 "motivo": "unica",
 "candidatas": null
 },
@@ -1468,6 +1650,13 @@
 "motivo": "unica",
 "candidatas": null
 },
+"beitar jerusalem": {
+"liga": "isr_premier",
+"en_historico": "Beitar Jerusalem",
+"partidos": 102,
+"motivo": "unica",
+"candidatas": null
+},
 "belenenses": {
 "liga": "primeira",
 "en_historico": "Belenenses",
@@ -1620,6 +1809,13 @@
 "liga": "bol_division",
 "en_historico": "Blooming",
 "partidos": 197,
+"motivo": "unica",
+"candidatas": null
+},
+"bnei sakhnin": {
+"liga": "isr_premier",
+"en_historico": "Bnei Sakhnin",
+"partidos": 102,
 "motivo": "unica",
 "candidatas": null
 },
@@ -3382,6 +3578,13 @@
 "liga": "suecia",
 "en_historico": "Dalkurd",
 "partidos": 10,
+"motivo": "unica",
+"candidatas": null
+},
+"damac": {
+"liga": "ksa_pro",
+"en_historico": "Damac",
+"partidos": 132,
 "motivo": "unica",
 "candidatas": null
 },
@@ -5432,6 +5635,55 @@
 "motivo": "unica",
 "candidatas": null
 },
+"hapoel beer": {
+"liga": "isr_premier",
+"en_historico": "Hapoel Be'er",
+"partidos": 108,
+"motivo": "unica",
+"candidatas": null
+},
+"hapoel hadera": {
+"liga": "isr_premier",
+"en_historico": "Hapoel Hadera",
+"partidos": 99,
+"motivo": "unica",
+"candidatas": null
+},
+"hapoel haifa": {
+"liga": "isr_premier",
+"en_historico": "Hapoel Haifa",
+"partidos": 105,
+"motivo": "unica",
+"candidatas": null
+},
+"hapoel jerusalem": {
+"liga": "isr_premier",
+"en_historico": "Hapoel Jerusalem",
+"partidos": 102,
+"motivo": "unica",
+"candidatas": null
+},
+"hapoel kiryat shmona": {
+"liga": "isr_premier",
+"en_historico": "Hapoel Kiryat Shmona",
+"partidos": 66,
+"motivo": "unica",
+"candidatas": null
+},
+"hapoel petah tikva": {
+"liga": "isr_premier",
+"en_historico": "Hapoel Petah Tikva",
+"partidos": 33,
+"motivo": "unica",
+"candidatas": null
+},
+"hapoel tel aviv": {
+"liga": "isr_premier",
+"en_historico": "Hapoel Tel Aviv",
+"partidos": 66,
+"motivo": "unica",
+"candidatas": null
+},
 "harrogate": {
 "liga": "eng_league_two",
 "en_historico": "Harrogate",
@@ -6084,6 +6336,13 @@
 "liga": "gre_super_league",
 "en_historico": "Iraklis",
 "partidos": 2,
+"motivo": "unica",
+"candidatas": null
+},
+"ironi tiberias": {
+"liga": "isr_premier",
+"en_historico": "Ironi Tiberias",
+"partidos": 33,
 "motivo": "unica",
 "candidatas": null
 },
@@ -7246,6 +7505,41 @@
 "motivo": "unica",
 "candidatas": null
 },
+"maccabi haifa": {
+"liga": "isr_premier",
+"en_historico": "Maccabi Haifa",
+"partidos": 108,
+"motivo": "unica",
+"candidatas": null
+},
+"maccabi netanya": {
+"liga": "isr_premier",
+"en_historico": "Maccabi Netanya",
+"partidos": 105,
+"motivo": "unica",
+"candidatas": null
+},
+"maccabi petah tikva": {
+"liga": "isr_premier",
+"en_historico": "Maccabi Petah-Tikva",
+"partidos": 66,
+"motivo": "unica",
+"candidatas": null
+},
+"maccabi raina": {
+"liga": "isr_premier",
+"en_historico": "Maccabi Raina",
+"partidos": 102,
+"motivo": "unica",
+"candidatas": null
+},
+"maccabi tel aviv": {
+"liga": "isr_premier",
+"en_historico": "Maccabi Tel-Aviv",
+"partidos": 108,
+"motivo": "unica",
+"candidatas": null
+},
 "macclesfield": {
 "liga": "eng_national",
 "en_historico": "Macclesfield",
@@ -7722,6 +8016,13 @@
 "motivo": "unica",
 "candidatas": null
 },
+"moadon sport ashdod": {
+"liga": "isr_premier",
+"en_historico": "Moadon Sport Ashdod",
+"partidos": 102,
+"motivo": "unica",
+"candidatas": null
+},
 "modena": {
 "liga": "ita_serie_b",
 "en_historico": "Modena",
@@ -8007,6 +8308,13 @@
 "liga": "liga_mx",
 "en_historico": "Necaxa",
 "partidos": 278,
+"motivo": "unica",
+"candidatas": null
+},
+"neom sc": {
+"liga": "ksa_pro",
+"en_historico": "Neom SC",
+"partidos": 40,
 "motivo": "unica",
 "candidatas": null
 },
@@ -10254,6 +10562,13 @@
 "liga": "rsa_premier",
 "en_historico": "Sekhukhune United FC",
 "partidos": 153,
+"motivo": "unica",
+"candidatas": null
+},
+"sektzia nes tziona": {
+"liga": "isr_premier",
+"en_historico": "Sektzia Nes Tziona",
+"partidos": 33,
 "motivo": "unica",
 "candidatas": null
 },

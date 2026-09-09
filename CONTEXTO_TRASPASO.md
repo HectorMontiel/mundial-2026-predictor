@@ -2705,3 +2705,99 @@ allí—. Los huecos son: el Golfo (Al Hilal, Al Nassr, Al Sadd… en la AFC), l
 ligas europeas menores (Chipre, Israel, Serbia, Croacia, Eslovaquia, Kazajistán,
 Azerbaiyán) y los equipos de categorías inferiores de la FA Cup y la Copa do
 Brasil, que juegan un partido y desaparecen.
+
+---
+
+## 5r. v184 — DOS LIGAS NUEVAS, Y EL HISTÓRICO AGRUPADO MEDIDO Y **NO** ENCENDIDO
+
+Las dos cosas que quedaban pendientes de la v183. Una entra y la otra no, y las
+dos por lo mismo: lo que dice la medición.
+
+### (b) La cobertura — el techo era mucho más bajo de lo estimado
+
+Se propuso añadir «unas diez ligas» (el Golfo y las europeas menores). Al
+comprobarlo contra ESPN, **sólo dos son viables**:
+
+    ksa.1  Saudi Pro League        66 eventos   ✅  1.211 partidos, 27 equipos
+    isr.1  Israeli Premier League  56 eventos   ✅    720 partidos, 17 equipos
+    cyp.1  Cypriot First Division   0 eventos   ❌  responde 200 y está vacío
+    cze.1  Gambrinus Liga           0 eventos   ❌  igual
+    qat · uae · srb · cro · ukr · aze · kaz · hun · svk · bul   HTTP 400
+
+**Y esto ya estaba investigado en la v144**, que dejó escrito que ESPN publica
+218 competiciones y que ninguna de las pedidas está en su catálogo. `ksa_pro`
+incluso estaba ya definida, apagada y sin histórico. La propuesta de las diez
+ligas se hizo sin leer esa sección: la lección es que este repositorio ya sabe
+muchas cosas, y re-derivarlas cuesta tiempo y produce estimaciones infladas.
+
+**Lo que entra:** las dos ligas, con `disponible: False` — no entran en el
+barrido ni necesitan modelo. Su trabajo es alimentar el catálogo equipo → liga y
+el respaldo de estadísticas.
+
+    ksa_pro      1.211 partidos · 664 con estadísticas reales inyectadas
+    isr_premier    720 partidos · 0 con estadísticas (ESPN no publica su
+                                    boxscore: da liga, no da córners)
+
+Resultado sobre las copas:
+
+    afc_champions   60 -> 50 equipos sin liga
+    europa_league   99 -> 96
+    conference      68 -> 65
+
+Al Hilal, Al Nassr, Al Ittihad, Al Ahli y Al Shabab pasan a tener liga local, y
+`Al Hilal vs Al Nassr` en la AFC Champions da ya **4,50 / 5,30 observado**.
+
+### (a) El histórico agrupado — medido, y NO se enciende
+
+`historico_agrupado.py` construye, para una copa, su histórico más los partidos
+de liga de sus participantes. Es el patrón que `leagues_cup` ya usa. La
+cobertura es total:
+
+    champions        895 -> 51.345 partidos    83/83 equipos
+    europa_league  1.356 -> 66.245            214/214
+    libertadores     791 -> 25.904            107/107
+
+**La primera medición dijo que mejoraba, y no valía.** Comparaba el margen sobre
+la línea base ELO de los dos modelos:
+
+    actual     n_train    566 · acc 0,5274 · ELO 0,5822 · margen −0,0548
+    agrupado   n_train 41.725 · acc 0,5213 · ELO 0,5082 · margen +0,0131
+
+El margen sube porque **la línea base baja**, y baja porque cada modelo se
+valida sobre un conjunto distinto: el agrupado valida sobre partidos de liga,
+donde el ELO acierta menos que en Champions. La precisión, de hecho, **bajaba**.
+Comparar márgenes calculados sobre conjuntos distintos no dice nada.
+
+**La medición buena**, los dos entrenados con lo anterior a un corte y evaluados
+sobre **los mismos 179 partidos de Champions**:
+
+    solo copa      acc 0,5419   logloss 0,9526
+    agrupado       acc 0,5810   logloss 1,0002
+                   acc +0,0391  logloss +0,0476
+
+**Señales cruzadas: acierta un 3,9 % más y calibra peor.** Y en este proyecto la
+calibración no es un detalle secundario — todo lo que se enseña se apoya en que
+«cuando dice 62 %, es un 62 %». Un modelo que acierta más el ganador pero cuyas
+probabilidades son peores no sirve para decidir una apuesta.
+
+Así que **no se enciende**. Queda el módulo, medido y documentado.
+
+### Lo que sí propondría hacer con él, y por qué no se ha hecho ya
+
+La vía que las mediciones sostienen es la misma que funcionó con las
+estadísticas: **usarlo sólo donde ahora no hay nada**. Un segundo modelo por
+copa, entrenado con el agrupado, que se consulte únicamente cuando el motor de
+la competición no conoce a un equipo —los `prob: None`— y no toque el resto.
+
+No se ha hecho en esta tanda porque significa entrenar y almacenar un modelo más
+por copa, y tocar el workflow de reentrenamiento y la publicación de pesos al
+Release. Es una versión propia, no el final de ésta.
+
+**Pendiente que deja:**
+
+1. El modelo de respaldo por copa para los `prob: None`. Es lo que cierra el
+   caso de Stuttgart-Viking, Fenerbahce-Roma y Como-Leipzig.
+2. `isr_premier` da liga pero no estadísticas: ESPN no publica su boxscore.
+3. Los 193 equipos sin liga de `bra_copa` y `eng_fa_cup` son de categorías
+   inferiores que juegan un partido y desaparecen; el coste por equipo cubierto
+   es mucho peor que el de las demás.
