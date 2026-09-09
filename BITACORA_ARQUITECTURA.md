@@ -4051,3 +4051,62 @@ porque es la misma caída.
 
 Un check que aprueba por el motivo equivocado es peor que uno que falla: el que
 falla se mira.
+
+---
+
+## 30. La app no arrancaba, y no era el código: dos paquetes apt que sobraban desde la v11
+
+### 30.1. El log, que lo dice entero
+
+    [06:26:21] 🚀 Starting up repository: 'mundial-2026-predictor', branch: 'main'
+    [06:35:49] 📦 Apt dependencies were installed from .../packages.txt using apt-get.
+               E: Release file for http://deb.debian.org/debian-security/dists/
+                  bullseye-security/InRelease is expired (invalid since 1d 9h 22min)
+    [06:35:50] ❗️ installer returned a non-zero exit code
+    [06:35:50] ❗️ Error during processing dependencies!
+
+Streamlit Community Cloud ejecuta `apt-get` **sólo si el repositorio trae un
+`packages.txt`**. El nuestro lo traía. `apt-get update` se encontró el índice de
+`bullseye-security` **caducado** —Debian 11 está archivado y su fichero
+`Release` tiene fecha de expiración— devolvió código distinto de cero, y el
+Cloud abortó la instalación entera. Sin dependencias no hay app.
+
+La imagen del Cloud mezcla `bullseye-security` (Debian 11) con `trixie`
+(Debian 13), así que esto no es algo que se pueda arreglar desde el
+`requirements.txt`: el índice caducado es de ellos.
+
+**Y no era ningún cambio nuestro.** El primer fallo es de las 06:26 UTC, y los
+dos commits de la v178 se subieron después: los pulls de las 10:45, 14:24 y
+14:36 fallan por lo mismo y desde antes.
+
+### 30.2. Los dos paquetes no hacían falta
+
+`packages.txt` pedía `libxslt1-dev` y `libxml2-dev`. Son las cabeceras de
+compilación de `lxml`, y vienen del commit inicial del proyecto (v11), de cuando
+`lxml` se compilaba desde fuente en la instalación.
+
+Hoy no se compila nada. Comprobado en PyPI para las versiones que el proyecto
+usa, todas con rueda binaria para Linux x86_64:
+
+    lxml 6.1.3        manylinux_2_28_x86_64 · manylinux2014_x86_64
+    ripser 0.6.15     32 ruedas linux
+    xgboost 3.3.0     py3-none-manylinux_2_28_x86_64
+    lightgbm 4.6.0    py3-none-manylinux_2_28_x86_64
+    scipy, scikit-learn, pyarrow   idem
+
+Así que `packages.txt` se borra. Sin él, el Cloud no ejecuta `apt-get` y el paso
+que fallaba desaparece — no se parchea, se deja de necesitar.
+
+### 30.3. Lo que hay que recordar de esto
+
+**Un fichero de configuración heredado puede tumbar la aplicación años después
+sin que nadie lo toque.** Estos dos paquetes llevaban desde la v11 sin hacer
+nada útil, y el día que el índice de un Debian archivado caducó, se llevaron la
+app por delante. La causa no estaba en ningún cambio reciente y por eso no había
+forma de encontrarla mirando el diff.
+
+Y la lección de método: **el log de la plataforma primero**. La app arrancaba
+sin un solo error en local con exactamente el mismo commit que estaba
+desplegado; sin el log se habría acabado revirtiendo un cambio correcto o
+fijando una versión al azar. Diez líneas de log valieron más que todo el
+razonamiento sobre el código.

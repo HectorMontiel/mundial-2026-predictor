@@ -2235,3 +2235,42 @@ de prometer nada: la capacidad ARM y que los modelos entrenados en x86_64
 carguen bien en aarch64. Lo que **sí** está medido es que la v178 bajó la
 primera carga de 213,2 s a 39,1 s y el cambio de pestaña de más de 153 s a
 1,7 s, así que la urgencia de mudarse es mucho menor que antes de mirarlo.
+
+---
+
+## 5l. v178.10 — LA APP NO ARRANCABA, Y NO ERA EL CÓDIGO
+
+Detalle en **BITACORA_ARQUITECTURA.md §30**.
+
+Streamlit Cloud daba «Oh no. Error running app.». El log:
+
+    [06:35:49] 📦 Apt dependencies were installed from .../packages.txt using apt-get.
+               E: Release file for .../bullseye-security/InRelease is expired
+    [06:35:50] ❗️ installer returned a non-zero exit code
+    [06:35:50] ❗️ Error during processing dependencies!
+
+El Cloud ejecuta `apt-get` **sólo si el repositorio trae un `packages.txt`**. El
+índice de `bullseye-security` está caducado —Debian 11 archivado— así que
+`apt-get update` devuelve código distinto de cero y el Cloud aborta la
+instalación entera. Es de su imagen, no del `requirements.txt`.
+
+**No lo provocó ningún cambio nuestro:** el primer fallo es de las 06:26 UTC y
+los dos commits de la v178 se subieron después.
+
+`packages.txt` pedía `libxslt1-dev` y `libxml2-dev`, las cabeceras de
+compilación de `lxml`, y venían del commit inicial de la v11. Hoy **nada compila
+desde fuente**: comprobado en PyPI que lxml 6.1.3, ripser 0.6.15, xgboost 3.3.0,
+lightgbm 4.6.0, scipy, scikit-learn y pyarrow traen rueda binaria para Linux
+x86_64. Se borra el fichero y el paso que fallaba deja de ejecutarse.
+
+**Lo que hay que recordar:** un fichero de configuración heredado puede tumbar
+la aplicación años después sin que nadie lo toque, y el diff no lo enseña. **El
+log de la plataforma, primero** — la app arrancaba sin un error en local con el
+mismo commit desplegado, así que sin el log se habría revertido un cambio
+correcto.
+
+**Pendiente que deja:**
+
+1. Si Streamlit Cloud vuelve a necesitar `packages.txt` algún día, hay que mirar
+   antes si el paquete hace falta de verdad: hoy ninguno de los del
+   `requirements.txt` compila desde fuente.
