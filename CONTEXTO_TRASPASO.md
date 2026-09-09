@@ -2094,11 +2094,9 @@ Lo único que NO se arregla desde el código es el arranque en frío de Streamli
 Community Cloud: cuando la aplicación lleva horas sin visitas el contenedor se
 apaga, y al volver **reinstala el entorno pip entero** (numpy, scipy,
 scikit-learn, xgboost, lightgbm, ripser, matplotlib, plotly, pyarrow). Eso son
-minutos y no depende de esta pantalla. La alternativa gratuita que sí lo evita
-es **Hugging Face Spaces con Docker** —la imagen se construye una vez y al
-despertar sólo arranca el contenedor—, 2 vCPU y 16 GB, la misma aplicación
-Streamlit sin tocar una línea y con `secrets` propios. Queda **pendiente y sin
-hacer**: crear la cuenta es de HMREY.
+minutos y no depende de esta pantalla. La alternativa que se propuso aquí
+—Hugging Face Spaces con Docker— **resultó no ser gratuita ya**: ver la §5k,
+que trae la comparativa completa con los números de septiembre de 2026.
 
 ### 4. Y el smoke cazó una segunda vía del `KeyError: parlay_base`
 
@@ -2148,4 +2146,92 @@ vez: un check que no puede fallar es peor que no tenerlo.
    de hoy. Bajarlo pide paginar la lista, que es decisión de producto.
 3. `partidos_jugados.de_dia` cuesta 5,8 s en 61 peticiones a ESPN cada vez que
    se abre la vista de hoy.
-4. Mudar a Hugging Face Spaces: decidido que compensa, sin hacer.
+4. Mudar de plataforma: comparado en la §5k. Hugging Face dejó de ser
+   gratuito para lo que hace falta aquí, y ninguna alternativa gratis gana
+   claramente. Sin hacer y sin urgencia.
+
+---
+
+## 5j. v178.9 — UNA FUENTE CAÍDA VACIÓ UN HISTÓRICO, Y NADIE SE ENTERÓ EN TRES DÍAS
+
+Detalle en **BITACORA_ARQUITECTURA.md §29**. Salió tirando del hilo de los dos
+fallos que la suite arrastraba, y resultaron ser **el mismo problema**.
+
+    historico_leagues_cup.csv   2026-09-03  6.758 filas
+                                2026-09-06    291 filas   (−95,7 %)
+
+Ese histórico es agrupado a propósito: la competición sola tiene 290 partidos,
+así que `leagues_cup.historico()` le junta MLS y Liga MX bajando
+`/new/USA.csv` y `/new/MEX.csv` de football-data.co.uk. **Esas dos URL devuelven
+503** (comprobado el 2026-09-09, y sigue así). Sin ellas la función devuelve
+sólo la competición, y `entrenar_liga` lo escribía encima del bueno sin mirar.
+
+El modelo se salvó de casualidad —`entrenar_liga` exige 300 partidos
+utilizables y 291 no llegan, así que reventó antes de entrenar—; lo que quedó
+roto tres días fueron el H2H, la forma, el ELO y el panel de equipos de esa
+competición.
+
+**Barrido sobre los 75 históricos** (`_v178_historicos_encogidos.py`): siete
+encogieron y no hay nada en medio — seis entre 0,1 % y 0,4 % (la ventana móvil
+de años, que es correcta) y uno el 95,7 %. Esa separación tan limpia es lo que
+hace que un corte por porcentaje sea una guarda y no una lotería.
+
+**Lo que entra:**
+
+- `league_engine._guardar_historico` sustituye al `to_csv` pelado: si el nuevo
+  tiene menos del 70 % de las filas del que hay en disco, levanta
+  `RuntimeError` — ni escribe ni deja entrenar con datos degradados.
+  `PERMITIR_HISTORICO_MENOR=1` para el recorte intencionado.
+- El fichero restaurado a 6.759 filas: el último bueno más los dos partidos
+  nuevos que sí traía el degradado, deduplicando por fecha y equipos.
+- `odds_store.fuente_football_data_valida` devuelve `accesible` además de
+  `valida`, que son cosas distintas: «no responde» y «responde y miente». Con
+  la fuente caída, el check de COL **aprobaba por el motivo equivocado** —se le
+  pide que rechace por CONTENIDO y rechazaba por red— y el de AUT se ponía rojo
+  sin que hubiera nada roto. Ahora, si no hay fuente, se avisa en voz alta y no
+  cuenta como fallo del código.
+
+**La suite queda en 2.675 checks y CERO fallos.**
+
+**Pendiente que deja:**
+
+1. football-data.co.uk sigue caído. Mientras lo esté, la Leagues Cup no
+   incorpora partidos nuevos de MLS ni Liga MX a su agrupado — la guarda impide
+   que empeore, no puede arreglar la fuente.
+2. Nadie vigila los históricos entre commits nocturnos.
+   `_v178_historicos_encogidos.py` lo hace a mano; podría ser un paso del
+   workflow de reentrenamiento.
+
+---
+
+## 5k. ALOJAMIENTO — LA COMPARATIVA, CON LOS NÚMEROS DE SEPTIEMBRE DE 2026
+
+**Esto corrige lo que decía la §5i.** Allí se recomendó Hugging Face Spaces
+como alternativa gratuita; al comprobarlo resultó estar **desactualizado**, y
+por eso esta sección existe. El aviso vale para la próxima vez: los planes
+gratuitos de 2026 se han recortado casi todos, y una recomendación de
+alojamiento caduca en meses.
+
+**El requisito que manda, y sale de la propia bitácora:**
+`_v86_barrido_concurrente.py` midió **1.297,7 MB de pico con un solo barrido**
+y 2.172,2 MB con dos. Streamlit Community Cloud da **~1 GB**. O sea que la
+aplicación vive por encima del techo de su plataforma, y ése es el «se cae
+cuando entran dos personas» del §8b, no una casualidad.
+
+| plataforma | RAM | duerme | arranque en frío | veredicto |
+|---|---|---|---|---|
+| Streamlit Community Cloud | ~1 GB | 12 h sin visitas | reinstala el entorno pip entero | donde está hoy; **por debajo del pico medido** |
+| Hugging Face Spaces | 2 vCPU / 16 GB | 48 h | 30-90 s | **ya NO es gratis**: la doc del Hub dice que Gradio y Docker exigen plan de pago (PRO) para cuentas personales; sólo los Static siguen libres, y Streamlit ya ni figura como SDK |
+| Render free | **512 MB** / 0,1 CPU | 15 min | 30-60 s | inviable: menos de la mitad del pico medido |
+| Fly.io | — | — | — | sin plan gratuito desde 2024 (prueba de 2 h de VM) |
+| Railway | según plan | no | — | $1/mes de crédito no da para nada; el Hobby son $5/mes |
+| Google Cloud Run | hasta 32 GB | escala a cero | arranca la imagen, no reinstala pip | gratis 180.000 vCPU-s y 360.000 GiB-s al mes ≈ 50 h de instancia con 2 GiB; pide tarjeta |
+| Oracle Cloud Always Free | 2 OCPU ARM / **12 GB** | **no duerme** | — | la única máquina permanente gratis; recortada a la mitad en junio de 2026 y con «Out of Capacity» habitual; es **ARM**, y este proyecto ya sabe que los `.joblib` son sensibles a la plataforma (17 de 61 no cargan en Windows por estar serializados en Linux) |
+
+**Lo que se concluye, y lo que no.** Ninguna alternativa gratuita es
+claramente mejor hoy. La única que resuelve de verdad los dos problemas —RAM de
+sobra y no dormir nunca— es Oracle, y trae dos riesgos que hay que probar antes
+de prometer nada: la capacidad ARM y que los modelos entrenados en x86_64
+carguen bien en aarch64. Lo que **sí** está medido es que la v178 bajó la
+primera carga de 213,2 s a 39,1 s y el cambio de pestaña de más de 153 s a
+1,7 s, así que la urgencia de mudarse es mucho menor que antes de mirarlo.

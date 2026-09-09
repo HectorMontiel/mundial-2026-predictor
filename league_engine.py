@@ -1285,6 +1285,56 @@ def preparar_features_extra(clave, df, ds, X_df, corte_imt):
 
 
 
+# v178 — UN HISTÓRICO NO SE SOBRESCRIBE CON UNO MUCHO MÁS PEQUEÑO.
+#
+# QUÉ PASÓ, con fechas: `historico_leagues_cup.csv` tenía 6.758 filas el
+# 2026-09-03 y 291 el 2026-09-06. `football-data.co.uk` lleva devolviendo 503
+# —comprobado sobre `/new/USA.csv` y `/new/MEX.csv`— y `leagues_cup.historico()`
+# construye su agrupado descargando esos dos CSV; cuando fallan devuelve sólo
+# los partidos de la propia competición. Aquí se escribía encima del bueno sin
+# mirar, y el commit nocturno lo subía.
+#
+# EL CORTE SEPARA DOS COSAS QUE NO SE PARECEN. Medido sobre los 75 históricos
+# del repositorio: siete encogieron, seis de ellos entre 0,1 % y 0,4 % —la
+# ventana móvil de años dejando fuera partidos viejos, que es correcto— y uno
+# el 95,7 %. No hay nada en medio, así que cualquier umbral razonable acierta;
+# se elige 30 % por dejar margen de sobra a un recorte legítimo.
+#
+# Y SE LEVANTA EXCEPCIÓN, no basta con no escribir: si la descarga vino
+# degradada, entrenar con ella produciría un modelo peor que el que ya hay.
+# `entrenar_ligas_v68.entrenar_una` captura por liga y sigue con las demás, así
+# que abortar ésta no tumba la noche entera.
+#
+# Salida de emergencia para el día que un recorte grande SÍ sea intencionado
+# —una liga que cambia de fuente, por ejemplo—: `PERMITIR_HISTORICO_MENOR=1`.
+CAIDA_MAXIMA = float(os.environ.get('CAIDA_MAXIMA_HISTORICO', '0.30'))
+
+
+def _guardar_historico(clave: str, df) -> None:
+    """Escribe `historico_<clave>.csv`, salvo que sea una pérdida de datos."""
+    ruta = f'historico_{clave}.csv'
+    if os.environ.get('PERMITIR_HISTORICO_MENOR') == '1':
+        df.to_csv(ruta, index=False)
+        return
+    previas = 0
+    if os.path.exists(ruta):
+        try:
+            with open(ruta, 'rb') as f:
+                previas = max(sum(1 for _ in f) - 1, 0)   # sin la cabecera
+        except OSError as e:
+            logger.warning(f'[{clave}] no se pudo leer {ruta} para '
+                           f'compararlo: {type(e).__name__}: {e}')
+            previas = 0
+    if previas and len(df) < previas * (1.0 - CAIDA_MAXIMA):
+        raise RuntimeError(
+            f'{clave}: la descarga trae {len(df)} partidos y el histórico en '
+            f'disco tiene {previas} ({100.0 * (previas - len(df)) / previas:.1f} '
+            f'% menos). NO se sobrescribe ni se reentrena: casi siempre es la '
+            f'fuente caída, no una temporada que desaparece. '
+            f'PERMITIR_HISTORICO_MENOR=1 si esta vez es a propósito.')
+    df.to_csv(ruta, index=False)
+
+
 def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     """Entrena el modelo de una liga.
 
@@ -1325,7 +1375,7 @@ def entrenar_liga(clave: str, con_ratings: bool = False) -> Dict:
     # `temporadas_modelo` la fija cada liga y por defecto es el número de
     # temporadas que ya entrenaba, así que el modelo no cambia ni un dígito.
     if not con_ratings:
-        df.to_csv(f'historico_{clave}.csv', index=False)
+        _guardar_historico(clave, df)
 
     # v153 — UNA LIGA SIN PARTIDOS NUEVOS NO SE REENTRENA.
     #

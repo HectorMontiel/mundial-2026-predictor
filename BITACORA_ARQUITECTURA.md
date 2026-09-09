@@ -3868,11 +3868,15 @@ lightgbm, ripser, matplotlib, plotly y pyarrow, con las versiones exactas que
 `requirements.txt` fija por los pickles. Eso son minutos y no depende de este
 código.
 
-La alternativa gratuita que sí lo evita es **Hugging Face Spaces con Docker**:
-la imagen se construye una vez y al despertar sólo arranca el contenedor. Mismo
-Streamlit sin tocar una línea, 2 vCPU y 16 GB, `secrets` propios y sincronizable
-desde GitHub. Queda **pendiente y sin hacer** — la cuenta la tiene que crear
-HMREY.
+Aquí se propuso **Hugging Face Spaces con Docker** como la alternativa gratuita
+que lo evita. **Al comprobarlo, ya no lo es**: la documentación del Hub dice que
+los Spaces de Gradio y Docker exigen plan de pago para cuentas personales, y
+Streamlit ni siquiera figura ya como SDK. La comparativa completa, con lo que
+queda gratis en septiembre de 2026 y con el requisito de memoria de este
+proyecto delante, está en **CONTEXTO_TRASPASO.md §5k**.
+
+Se deja escrito el error a propósito: una recomendación de alojamiento caduca en
+meses, y la de arriba se dio sin comprobar la fuente.
 
 ### 28.5. El filtro que vaciaba «Mañana» sin decir por qué
 
@@ -3960,3 +3964,90 @@ O sea que lo que se puede afirmar es esto, y no más:
 
 Hay check que lo fija: el botón de refresco no puede volver a llamar a
 `st.rerun()` antes de la llamada al barrido.
+
+---
+
+## 29. Una fuente caída vació un histórico, y nadie se enteró en tres días
+
+### 29.1. Lo que pasó, con fechas
+
+`historico_leagues_cup.csv`:
+
+    2026-09-03    6.758 filas   {mls: 3.780, liga_mx: 2.687, leagues_cup: 290}
+    2026-09-06      291 filas   {leagues_cup: 291}          −95,7 %
+
+Ese histórico es **agrupado a propósito**: la Leagues Cup sola tiene 290
+partidos y con eso no se entrena nada, así que `leagues_cup.historico()` le
+junta la MLS y la Liga MX descargando `/new/USA.csv` y `/new/MEX.csv` de
+football-data.co.uk. Cuando esas dos descargas fallan, la función devuelve sólo
+la competición — que es un comportamiento defendible en sí mismo — y
+`entrenar_liga` escribía eso **encima del bueno, sin mirar**. El commit
+nocturno lo subió.
+
+La causa de raíz sigue viva mientras se escribe esto: comprobado el 2026-09-09,
+`https://www.football-data.co.uk/new/USA.csv` y `/new/MEX.csv` devuelven **503**.
+
+### 29.2. Cuánto daño, medido
+
+`_v178_historicos_encogidos.py` compara los 75 históricos del repositorio
+contra un commit de referencia:
+
+    historico_leagues_cup.csv     6758 -> 293    95,7 %
+    historico_suecia.csv          1931 -> 1924    0,4 %
+    historico_jpn_j1.csv          2519 -> 2510    0,4 %
+    historico_dinamarca.csv       1637 -> 1632    0,3 %
+    historico_polonia.csv         2362 -> 2356    0,3 %
+    historico_aut_bundesliga.csv  1556 -> 1554    0,1 %
+    historico_brasil.csv          3079 -> 3076    0,1 %
+
+Siete encogen y **no hay nada en medio**: seis pierden entre 0,1 % y 0,4 %, que
+es la ventana móvil de años dejando fuera partidos viejos y es correcto; uno
+pierde el 95,7 %. Esa separación tan limpia es lo que hace que un corte por
+porcentaje sea una guarda y no una lotería.
+
+**El modelo se salvó por accidente**: `entrenar_liga` exige 300 partidos
+utilizables y 291 no llegan, así que reventó antes de entrenar y los pesos
+viejos siguieron en su sitio. Lo que sí quedó roto durante tres días fue todo lo
+que lee el CSV directamente: H2H, forma, ELO y el panel de equipos de la
+Leagues Cup.
+
+### 29.3. La guarda
+
+`league_engine._guardar_historico(clave, df)` sustituye al `to_csv` pelado:
+
+- si no hay fichero previo, escribe;
+- si el nuevo tiene **menos del 70 %** de las filas del que hay en disco,
+  **levanta `RuntimeError`** — ni escribe ni deja entrenar;
+- `PERMITIR_HISTORICO_MENOR=1` es la salida para el día que un recorte grande
+  sea intencionado (una liga que cambia de fuente).
+
+Se levanta excepción y no se calla el fallo por un motivo: si la descarga vino
+degradada, entrenar con ella produciría un modelo peor que el que ya hay.
+`entrenar_ligas_v68.entrenar_una` captura por liga y sigue con las demás, así
+que abortar una no tumba la noche entera.
+
+El fichero se restauró juntando el último bueno (2026-09-03) con los dos
+partidos de Leagues Cup que sí traía el degradado, deduplicando por (fecha,
+local, visitante), que es la llave que usa `leagues_cup.historico`. Quedan 6.759
+filas.
+
+### 29.4. Y el check que aprobaba por el motivo equivocado
+
+Con football-data caído, `test_verificacion_de_fuente` daba esto:
+
+    OK    /new/COL.csv rechazado por contenido (no accesible: 503 ...)
+    FALLO /new/AUT.csv aceptado (es Austria de verdad)
+
+Los dos por la misma razón y los dos mal. A COL se le pide que se rechace **por
+contenido** —football-data sirve la Ekstraklasa con HTTP 200 bajo ese nombre— y
+se rechazó por red: aprobó sin comprobar nada. Y AUT se puso rojo sin que
+hubiera nada roto en el proyecto.
+
+`odds_store.fuente_football_data_valida` devuelve ahora `accesible` además de
+`valida`, que son dos cosas distintas: «no responde» y «responde y miente». Si
+la fuente no responde, el test **avisa en voz alta y no cuenta como fallo del
+código** — y el aviso apunta explícitamente al histórico de la Leagues Cup,
+porque es la misma caída.
+
+Un check que aprueba por el motivo equivocado es peor que uno que falla: el que
+falla se mira.

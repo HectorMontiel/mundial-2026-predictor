@@ -512,11 +512,31 @@ def test_verificacion_de_fuente():
     import odds_store
     # COL no existe: football-data devuelve la Ekstraklasa con HTTP 200
     r = odds_store.fuente_football_data_valida('COL', pais_esperado='Colombia')
-    check(not r['valida'],
-          f"/new/COL.csv rechazado por contenido ({r.get('motivo', '')[:60]})")
     # AUT sí existe y es Austria
     r2 = odds_store.fuente_football_data_valida('AUT')
-    check(r2['valida'], "/new/AUT.csv aceptado (es Austria de verdad)")
+    # v178 — SI LA FUENTE NO RESPONDE, ESTO NO PUEDE CONCLUIR NADA.
+    #
+    # Con football-data devolviendo 503 el 2026-09-09, la pasada daba «OK
+    # /new/COL.csv rechazado por contenido (no accesible: 503...)» y «FALLO
+    # /new/AUT.csv aceptado». Los dos por el mismo motivo y los dos mal: el
+    # primero aprobaba por la razón equivocada —se le pide que rechace por
+    # CONTENIDO, no por red— y el segundo se ponía rojo sin que hubiera nada
+    # roto aquí.
+    #
+    # Y la caída NO es una anécdota que se pueda callar: es lo que vació
+    # `historico_leagues_cup.csv` el 2026-09-06, de 6.758 filas a 291. Así que
+    # se avisa en voz alta y se deja de contar como fallo del código.
+    if r.get('accesible') is False and r2.get('accesible') is False:
+        print('AVISO football-data.co.uk no responde '
+              f"({r.get('motivo', '')[:50]}). No se puede comprobar si sirve "
+              'la liga que dice servir. **Es la misma caída que vació el '
+              'histórico de la Leagues Cup**: revisa que ningún otro '
+              'histórico haya encogido (`_v178_historicos_encogidos.py`).')
+    else:
+        check(not r['valida'] and r.get('accesible') is not False,
+              f"/new/COL.csv rechazado por CONTENIDO, no por red "
+              f"({r.get('motivo', '')[:60]})")
+        check(r2['valida'], "/new/AUT.csv aceptado (es Austria de verdad)")
 
 
 def test_esquema_e_idempotencia():
@@ -3999,6 +4019,48 @@ def test_leagues_cup_integrada():
                   if alias.get(k) not in (v, None) or k not in alias]
         check(not faltan,
               f"los alias de Leagues Cup están en alias_manuales.json ({faltan[:4]})")
+
+    # v178 — Y LA GUARDA QUE IMPIDE QUE SE VUELVA A VACIAR.
+    #
+    # El 2026-09-06 este historico paso de 6.758 filas a 291:
+    # `football-data.co.uk` empezo a devolver 503, `leagues_cup.historico()` se
+    # quedo sin MLS ni Liga MX y `entrenar_liga` escribio el resultado encima
+    # del bueno sin mirar. El check de abajo lo caza DESPUES; este lo impide.
+    #
+    # El corte separa dos cosas que no se parecen: de los 75 historicos del
+    # repositorio, seis encogieron entre 0,1 % y 0,4 % —la ventana movil de
+    # anios, que es correcto— y uno el 95,7 %. No hay nada en medio.
+    import tempfile as _tmp
+    import pandas as _pd0
+    import league_engine as _le
+    check(hasattr(_le, '_guardar_historico'),
+          "`league_engine` guarda los historicos por una funcion con guarda")
+    if hasattr(_le, '_guardar_historico'):
+        _cwd = os.getcwd()
+        _dir = _tmp.mkdtemp(prefix='hist178_')
+        try:
+            os.chdir(_dir)
+            _grande = _pd0.DataFrame({'date': range(1000), 'x': range(1000)})
+            _le._guardar_historico('pruebav178', _grande)
+            _n0 = len(_pd0.read_csv('historico_pruebav178.csv'))
+            check(_n0 == 1000, "escribe cuando no habia nada (%d)" % _n0)
+            # una perdida pequena SI pasa: es la ventana movil de anios
+            _le._guardar_historico('pruebav178', _grande.iloc[:995])
+            _n1 = len(_pd0.read_csv('historico_pruebav178.csv'))
+            check(_n1 == 995,
+                  "deja pasar un recorte pequeno, que es legitimo (%d)" % _n1)
+            # una perdida grande NO: es la fuente caida
+            try:
+                _le._guardar_historico('pruebav178', _grande.iloc[:100])
+                _salto = False
+            except RuntimeError:
+                _salto = True
+            _n2 = len(_pd0.read_csv('historico_pruebav178.csv'))
+            check(_salto, "y se niega a escribir un historico un 90 % menor")
+            check(_n2 == 995,
+                  "el fichero bueno sigue intacto tras el intento (%d)" % _n2)
+        finally:
+            os.chdir(_cwd)
 
     if os.path.exists('historico_leagues_cup.csv'):
         import pandas as _pd

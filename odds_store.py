@@ -354,8 +354,12 @@ def fuente_football_data_valida(codigo: str, pais_esperado: Optional[str] = None
     """
     Comprueba que `/new/{codigo}.csv` es DE VERDAD la liga que se le pide.
 
-    Devuelve {'valida': bool, 'motivo': str, 'pais': str, 'liga': str,
-              'filas': int}. Nunca lanza: un fallo de red devuelve valida=False.
+    Devuelve {'valida': bool, 'accesible': bool, 'motivo': str, 'pais': str,
+              'liga': str, 'filas': int}. Nunca lanza: un fallo de red devuelve
+    valida=False **y accesible=False**, que no es lo mismo que un fichero que
+    responde y miente — y quien llama necesita poder distinguirlo. Con
+    football-data devolviendo 503 el 2026-09-09, sin esta distinción un check
+    de «tiene que rechazarlo» aprobaba por la razón equivocada.
 
     Se comprueba el CONTENIDO (columna `Country` y, si se dan, los equipos),
     no el código de estado: /new/COL.csv responde 200 con la Ekstraklasa.
@@ -364,14 +368,16 @@ def fuente_football_data_valida(codigo: str, pais_esperado: Optional[str] = None
     try:
         df = _leer_csv_remoto(url)
     except Exception as e:
-        return {'valida': False, 'motivo': f'no accesible: {e}', 'url': url}
+        return {'valida': False, 'accesible': False,
+                'motivo': f'no accesible: {e}', 'url': url}
     if 'Country' not in df.columns or 'Home' not in df.columns:
         return {'valida': False, 'motivo': 'no tiene el esquema "new"', 'url': url}
     paises = [str(p) for p in df['Country'].dropna().unique()[:3]]
     liga = [str(p) for p in df.get('League', []).dropna().unique()[:3]] \
         if 'League' in df.columns else []
     esperado = pais_esperado or _PAIS_ESPERADO.get(codigo.upper())
-    info = {'url': url, 'pais': paises, 'liga': liga, 'filas': int(len(df))}
+    info = {'url': url, 'accesible': True, 'pais': paises, 'liga': liga,
+            'filas': int(len(df))}
     if esperado and (not paises or paises[0].strip().lower() != esperado.strip().lower()):
         info.update({'valida': False,
                      'motivo': f'sirve {paises} y se esperaba {esperado} '
