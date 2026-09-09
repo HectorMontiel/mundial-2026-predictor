@@ -1,37 +1,37 @@
 # Informe de calibración — córners, tarjetas y remates
 
-Generado 2026-08-23T10:33:00Z
+Generado 2026-09-09T21:13:43Z
 
 ```
 competición              origen     partidos  ck err  ck corr  tj err  tj corr  rm err  rm corr  ra err  ra corr
 ----------------------------------------------------------------------------------------------------------------
-liga_mx                  observado      1780  0.0107  0.2091  0.0180  0.0883  0.0111  0.4553  0.0074  0.3456
-mls                      observado      2793  0.0064  0.2146  0.0175  0.1514  0.0124  0.3493  0.0106  0.2699
-brasil                   observado      2082  0.0096  0.2076  0.0168  0.1514  0.0109  0.3988  0.0143  0.3038
+liga_mx                  observado      1785  0.0099  0.2069  0.0181  0.0826  0.0118  0.4567  0.0074  0.3480
+mls                      observado      2807  0.0067  0.2163  0.0182  0.1473  0.0113  0.3458  0.0109  0.2667
+brasil                   observado      2093  0.0110  0.2089  0.0174  0.1522  0.0125  0.3907  0.0142  0.2965
 argentina                observado      2299  0.0044  0.2821  0.0210  0.2113  0.0131  0.4517  0.0187  0.3273
 noruega                  observado       511       -       -       -       -       -       -       -       -
 suecia                   observado       514       -       -       -       -       -       -       -       -
 finlandia                estimado          0       -       -       -       -       -       -       -       -
 rumania                  estimado        328       -       -       -       -       -       -       -       -
 irlanda                  estimado          0       -       -       -       -       -       -       -       -
-turquia                  observado       663  0.0219  0.2409  0.0093  0.0954  0.0231  0.4672  0.0128  0.3921
+turquia                  observado       672  0.0183  0.2262  0.0101  0.0918  0.0215  0.4601  0.0165  0.3838
 dinamarca                observado       408       -       -       -       -       -       -       -       -
 china                    observado      1379  0.0067  0.2579  0.0142  0.1115  0.0293  0.4434  0.0161  0.3447
 aut_bundesliga           estimado        351       -       -       -       -       -       -       -       -
 rus_premier              observado       514  0.0150  0.1720  0.0198  0.1108  0.0329  0.4262  0.0284  0.3223
 gre_super_league         estimado        224       -       -       -       -       -       -       -       -
-premier                  observado      1992  0.0087  0.2594  0.0131  0.1937  0.0224  0.4692  0.0226  0.3084
-laliga                   observado      2093  0.0130  0.3170  0.0134  0.1407  0.0054  0.4862  0.0181  0.4254
-serie_a                  observado      2055  0.0018  0.2915  0.0186  0.2085  0.0138  0.4522  0.0077  0.3405
-bundesliga               observado      1678  0.0120  0.2646  0.0075  0.1089  0.0161  0.3830  0.0213  0.3801
-ligue_1                  observado      1851  0.0085  0.2365  0.0323  0.1708  0.0040  0.4334  0.0122  0.3801
+premier                  observado      2002  0.0095  0.2567  0.0132  0.1915  0.0248  0.4676  0.0213  0.3042
+laliga                   observado      2104  0.0118  0.3197  0.0138  0.1378  0.0050  0.4866  0.0188  0.4294
+serie_a                  observado      2065  0.0036  0.2934  0.0185  0.2083  0.0125  0.4521  0.0105  0.3440
+bundesliga               observado      1687  0.0114  0.2712  0.0075  0.1051  0.0158  0.3902  0.0229  0.3894
+ligue_1                  observado      1860  0.0087  0.2416  0.0325  0.1671  0.0069  0.4366  0.0088  0.3791
 eredivisie               observado      1739  0.0150  0.3317  0.0116  0.2086  0.0277  0.5026  0.0330  0.3725
 primeira                 observado      1678  0.0128  0.3431  0.0118  0.1173  0.0125  0.4802  0.0186  0.4277
 champions                observado       774  0.0167  0.3967  0.0278  0.0992  0.0047  0.5211  0.0358  0.4281
 europa_league            observado       855  0.0143  0.2928  0.0147  0.1728  0.0099  0.3903  0.0147  0.2865
 conference_league        observado       713       -       -       -       -       -       -       -       -
 leagues_cup              estimado        277       -       -       -       -       -       -       -       -
-eng_championship         observado      2539  0.0095  0.2594  0.0133  0.1155  0.0185  0.4008  0.0085  0.2251
+eng_championship         observado      2569  0.0086  0.2521  0.0134  0.1118  0.0175  0.3976  0.0092  0.2243
 eng_league_one           observado      1134  0.0160  0.2372  0.0187  0.1265  0.0202  0.4037  0.0140  0.2854
 eng_league_two           observado      1136  0.0182  0.2381  0.0206  0.1360  0.0108  0.3058  0.0103  0.1830
 eng_national             estimado          1       -       -       -       -       -       -       -       -
@@ -66,15 +66,16 @@ eng_fa_cup               estimado        206       -       -       -       -    
 ind_isl                  observado       618  0.0245  0.2617  0.0262  0.1632  0.0161  0.3023  0.0097  0.2549
 afc_champions            observado       639  0.0230  0.1825  0.0061  0.1739  0.0332  0.3090  0.0157  0.3655
 bra_copa                 estimado        210       -       -       -       -       -       -       -       -
+ksa_pro                  observado       664  0.0085  0.3747  0.0299  0.0723  0.0486  0.5186  0.0310  0.4799
 
-competiciones con córners           OBSERVADOS .. 42 de 61
-competiciones con tarjetas          OBSERVADOS .. 42 de 61
-competiciones con remates           OBSERVADOS .. 42 de 61
-competiciones con remates a puerta  OBSERVADOS .. 42 de 61
+competiciones con córners           OBSERVADOS .. 43 de 62
+competiciones con tarjetas          OBSERVADOS .. 43 de 62
+competiciones con remates           OBSERVADOS .. 43 de 62
+competiciones con remates a puerta  OBSERVADOS .. 43 de 62
 competiciones sin ningún dato observado ......... 19
-error de calibración medio en córners observados: 0.0134 (35 competiciones)
-error de calibración medio en tarjetas observados: 0.0184 (35 competiciones)
-error de calibración medio en remates observados: 0.0165 (35 competiciones)
-error de calibración medio en remates a puerta observados: 0.0176 (35 competiciones)
+error de calibración medio en córners observados: 0.0132 (36 competiciones)
+error de calibración medio en tarjetas observados: 0.0188 (36 competiciones)
+error de calibración medio en remates observados: 0.0175 (36 competiciones)
+error de calibración medio en remates a puerta observados: 0.0181 (36 competiciones)
 estimación (validación dejando una liga fuera): córners 0.0247 · tarjetas 0.0539 · remates 0.0281 · remates a puerta 0.0168
 ```

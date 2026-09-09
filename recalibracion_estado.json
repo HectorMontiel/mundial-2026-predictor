@@ -1,35 +1,35 @@
 {
- "generado": "2026-08-17T05:28:45Z",
+ "generado": "2026-09-09T21:14:10Z",
  "pasos": [
   {
    "paso": "1. ledger (re-predice el histórico con los modelos de hoy)",
    "ok": true,
-   "segundos": 0.8,
+   "segundos": 0.9,
    "detalle": "120077 filas"
   },
   {
    "paso": "2. calibración de confianza (acierto real por banda)",
    "ok": true,
-   "segundos": 10.5,
+   "segundos": 10.2,
    "detalle": "89748 predicciones medidas · umbral 0.70"
   },
   {
    "paso": "3. techo de acierto por liga",
    "ok": true,
-   "segundos": 3.8,
+   "segundos": 3.7,
    "detalle": "37 ligas · correlación 0.7184 · publicado"
   },
   {
    "paso": "4. banda de EV rentable",
    "ok": true,
    "segundos": 0.3,
-   "detalle": "banda EV [0.030, 0.100] · piso de probabilidad 0.65"
+   "detalle": "banda EV [0.020, 0.120] · piso de probabilidad 0.65"
   },
   {
    "paso": "5. qué deportes tienen edge validado",
    "ok": true,
-   "segundos": 0.7,
-   "detalle": "con edge validado: ['Fútbol']"
+   "segundos": 0.8,
+   "detalle": "con edge validado: ninguno"
   },
   {
    "paso": "6. peso del encogimiento al mercado",
@@ -46,11 +46,11 @@
   {
    "paso": "8. calibración adaptativa (aprende de lo liquidado)",
    "ok": true,
-   "segundos": 6.7,
+   "segundos": 6.8,
    "detalle": "6 nodos · fuentes {'ledger_goles': 4, 'produccion': 4} · n global 318"
   }
  ],
  "ok": 8,
  "fallos": [],
- "segundos_total": 24.7
+ "segundos_total": 24.6
 }

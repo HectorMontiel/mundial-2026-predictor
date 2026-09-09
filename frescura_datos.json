@@ -19,6 +19,30 @@
    "quien": "bot nocturno"
   },
   {
+   "fichero": "pick_ledger_total.csv",
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "recalibrar.yml (semanal)"
+  },
+  {
+   "fichero": "umbrales_capa1.json",
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "recalibrar.yml (semanal)"
+  },
+  {
+   "fichero": "calibracion_confianza.json",
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "recalibrar.yml (semanal)"
+  },
+  {
+   "fichero": "edge_map.json",
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "recalibrar.yml (semanal)"
+  },
+  {
    "fichero": "calibracion_mercado.json",
    "dias": 0,
    "tolerado": 10,
@@ -38,43 +62,49 @@
   },
   {
    "fichero": "historico_afc_champions.csv",
-   "dias": 3,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_arg_primera_nacional.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_argentina.csv",
-   "dias": 4,
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)"
+  },
+  {
+   "fichero": "historico_aus_aleague.csv",
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_aut_bundesliga.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_bel_pro_league.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_bol_division.csv",
-   "dias": 2,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_bra_copa.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
@@ -104,37 +134,43 @@
   },
   {
    "fichero": "historico_chi_primera.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_china.csv",
-   "dias": 8,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_col_primera_a.csv",
-   "dias": 1,
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)"
+  },
+  {
+   "fichero": "historico_conference_league.csv",
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_crc_fpd.csv",
-   "dias": 2,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_dinamarca.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_ecu_liga_pro.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
@@ -145,74 +181,92 @@
    "quien": "retrain_leagues.yml (diario)"
   },
   {
+   "fichero": "historico_eng_fa_cup.csv",
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)"
+  },
+  {
    "fichero": "historico_eng_league_one.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_eng_league_two.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_eng_national.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_eredivisie.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_esp_hypermotion.csv",
-   "dias": 4,
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)"
+  },
+  {
+   "fichero": "historico_europa_league.csv",
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_finlandia.csv",
-   "dias": 8,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_fra_ligue2.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_ger_bundesliga2.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_gre_super_league.csv",
-   "dias": 8,
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)"
+  },
+  {
+   "fichero": "historico_ind_isl.csv",
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_irlanda.csv",
-   "dias": 8,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_ita_serie_b.csv",
-   "dias": 8,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_jpn_j1.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
@@ -254,7 +308,7 @@
   },
   {
    "fichero": "historico_mex_expansion.csv",
-   "dias": 2,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
@@ -266,31 +320,31 @@
   },
   {
    "fichero": "historico_ned_eerste.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_noruega.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_par_division.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_per_liga1.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_polonia.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
@@ -302,37 +356,37 @@
   },
   {
    "fichero": "historico_primeira.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_rsa_premier.csv",
-   "dias": 2,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_rumania.csv",
-   "dias": 8,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_rus_premier.csv",
-   "dias": 9,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_sco_championship.csv",
-   "dias": 4,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_sco_premiership.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
@@ -356,7 +410,7 @@
   },
   {
    "fichero": "historico_suecia.csv",
-   "dias": 5,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
@@ -368,85 +422,24 @@
   },
   {
    "fichero": "historico_uru_primera.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_usl_championship.csv",
-   "dias": 2,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   },
   {
    "fichero": "historico_ven_primera.csv",
-   "dias": 1,
+   "dias": 0,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)"
   }
  ],
- "viejos": [
-  {
-   "fichero": "pick_ledger_total.csv",
-   "dias": 42,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (semanal)"
-  },
-  {
-   "fichero": "umbrales_capa1.json",
-   "dias": 42,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (semanal)"
-  },
-  {
-   "fichero": "calibracion_confianza.json",
-   "dias": 31,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (semanal)"
-  },
-  {
-   "fichero": "edge_map.json",
-   "dias": 23,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (semanal)"
-  }
- ],
+ "viejos": [],
  "sin_datos": [],
- "en_receso": [
-  {
-   "fichero": "historico_aus_aleague.csv",
-   "dias": 17,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "motivo": "en receso: sin partidos próximos"
-  },
-  {
-   "fichero": "historico_conference_league.csv",
-   "dias": 17,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "motivo": "en receso: sin partidos próximos"
-  },
-  {
-   "fichero": "historico_eng_fa_cup.csv",
-   "dias": 17,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "motivo": "en receso: sin partidos próximos"
-  },
-  {
-   "fichero": "historico_europa_league.csv",
-   "dias": 16,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "motivo": "en receso: sin partidos próximos"
-  },
-  {
-   "fichero": "historico_ind_isl.csv",
-   "dias": 17,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "motivo": "en receso: sin partidos próximos"
-  }
- ]
+ "en_receso": []
 }
