@@ -2911,11 +2911,43 @@ def avisos_sin_modelo(pronosticos: List[Dict]) -> List[str]:
     # un motor que no carga es una avería, un nombre que no casa es un alias
     # que falta, y un equipo sin historia en esa competición no es ninguna de
     # las dos y no se arregla.
-    def _clase(motivo: str) -> str:
+    # v189 — «NO CASA CON EL CATÁLOGO» NO SIGNIFICA QUE EL NOMBRE ESTÉ MAL.
+    #
+    # El 2026-09-09 el aviso decía de la Champions (partidos del 10): «sus nombres no casan con
+    # el catálogo del modelo, falta un alias en alias_manuales.json». Los
+    # equipos eran Fenerbahce, AS Roma y Como, y sus nombres estaban PERFECTOS.
+    # Lo que pasa es que el histórico de la Champions va de 2020 a hoy y en esa
+    # ventana ninguno de los tres la ha jugado: Roma no se clasifica desde
+    # antes de 2020 y Como debuta este año. Ese alias no existe y no puede
+    # existir; el aviso mandaba a buscar durante horas algo que no está roto.
+    #
+    # La pregunta que lo separa: **¿este equipo es conocido en alguna otra
+    # competición?** Si lo es, su nombre está bien escrito y lo que le falta es
+    # historia AQUÍ. Y esa pregunta ya tiene quien la responda desde la v180:
+    # el diccionario equipo -> liga, 1.753 equipos.
+    #
+    # Si no lo conoce nadie, entonces sí puede ser el nombre y se deja el aviso
+    # como estaba: es lo único accionable que queda.
+    def _nombres_conocidos_en_otra_parte(partido: str) -> bool:
+        try:
+            import catalogo_equipos as _ce
+        except Exception:
+            return False          # sin diccionario no se afirma nada
+        equipos = [t.strip() for t in str(partido or '').split(' vs ')]
+        if len(equipos) != 2 or not all(equipos):
+            return False
+        try:
+            return all(_ce.liga_de(e) for e in equipos)
+        except Exception:
+            return False
+
+    def _clase(motivo: str, partido: str = '') -> str:
         m = (motivo or '').lower()
         if 'no se pudo cargar' in m or 'no pudo predecirlo' in m:
             return 'motor'
         if 'no casa con el catálogo' in m or 'mismo equipo del catálogo' in m:
+            if _nombres_conocidos_en_otra_parte(partido):
+                return 'sin_historia'
             return 'nombres'
         return 'sin_historia'
 
@@ -2924,7 +2956,8 @@ def avisos_sin_modelo(pronosticos: List[Dict]) -> List[str]:
         if p.get('deporte') != 'Fútbol' or not p.get('sin_modelo'):
             continue
         k = p.get('clave_liga') or p.get('liga') or '?'
-        c = _clase(str(p.get('motivo_sin_modelo') or ''))
+        c = _clase(str(p.get('motivo_sin_modelo') or ''),
+                   str(p.get('partido') or ''))
         motivos.setdefault(k, {})[c] = motivos.setdefault(k, {}).get(c, 0) + 1
 
     _CONSEJO = {

@@ -36,7 +36,16 @@
  "Atlético de Madrid": "Ath Madrid",
  "Atlético de San Luis": "Atl. San Luis",
  "Austin FC": "Austin FC",
+ "Austria Lustenau": [
+  "A. Lustenau",
+  "Austria Lustenau"
+ ],
  "Basaksehir": "Buyuksehyr",
+ "Borussia Mönchengladbach": [
+  "M'gladbach",
+  "Borussia Mönchengladbach",
+  "Borussia Monchengladbach"
+ ],
  "Buyuksehyr": [
   "Buyuksehyr",
   "Istanbul Basaksehir"
@@ -81,6 +90,11 @@
  ],
  "F.C. København": "FC Copenhagen",
  "FC Cincinnati": "FC Cincinnati",
+ "FC Cologne": [
+  "FC Koln",
+  "FC Cologne",
+  "Koln"
+ ],
  "FC Dallas": "FC Dallas",
  "FC Juarez": "Juarez",
  "FC Koln": [
@@ -97,6 +111,10 @@
  "Houston Dynamo FC": "Houston Dynamo",
  "Inter Miami": "Inter Miami CF",
  "Inter Miami CF": "Inter Miami",
+ "Inverness Caledonian Thistle": [
+  "Inverness C",
+  "Inverness Caledonian Thistle"
+ ],
  "Istanbul Basaksehir": "Buyuksehyr",
  "Juarez": "FC Juarez",
  "LA Galaxy": "Los Angeles Galaxy",
@@ -122,6 +140,10 @@
   "Manchester United"
  ],
  "Man Utd": "Man United",
+ "Manchester United": [
+  "Man United",
+  "Manchester United"
+ ],
  "Mazatlan FC": "Mazatlán FC",
  "Mazatlán FC": "Mazatlan FC",
  "Minnesota United": "Minnesota United FC",
@@ -135,14 +157,26 @@
  "New York City": "New York City FC",
  "New York City FC": "New York City",
  "New York Red Bulls": "Red Bull New York",
+ "OH Leuven": [
+  "Oud-Heverlee Leuven",
+  "OH Leuven"
+ ],
  "Orlando City": "Orlando City SC",
  "Orlando City SC": "Orlando City",
  "Pachuca": "Pachuca",
+ "Peterborough United": [
+  "Peterboro",
+  "Peterborough United"
+ ],
  "Philadelphia Union": "Philadelphia Union",
  "Portland Timbers": "Portland Timbers",
  "Puebla": "Puebla",
  "Pumas UNAM": "UNAM Pumas",
  "QPR": [
+  "QPR",
+  "Queens Park Rangers"
+ ],
+ "Queens Park Rangers": [
   "QPR",
   "Queens Park Rangers"
  ],
@@ -155,6 +189,10 @@
  ],
  "Racing Santander": "Santander",
  "Racing de Santander": "Santander",
+ "Rapid Vienna": [
+  "SK Rapid",
+  "Rapid Vienna"
+ ],
  "Real Salt Lake": "Real Salt Lake",
  "Real Sociedad B": "Sociedad B",
  "Real Sociedad II": "Sociedad B",
@@ -209,6 +247,10 @@
  "Vancouver Whitecaps FC": "Vancouver Whitecaps",
  "Vitoria de Guimaraes": "Guimaraes",
  "Vitória de Guimaraes": "Guimaraes",
+ "Wolverhampton Wanderers": [
+  "Wolves",
+  "Wolverhampton Wanderers"
+ ],
  "Wolves": [
   "Wolverhampton",
   "Wolverhampton Wanderers"

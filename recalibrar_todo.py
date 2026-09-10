@@ -33,7 +33,9 @@ El orden importa
 ----------------
 Todo cuelga del ledger, así que la cadena es estrictamente secuencial:
 
-    1. build_ledger_total     ← re-predice el histórico con los modelos de HOY
+    1. build_pick_ledger     ← re-predice el fútbol con los modelos de HOY
+       build_ledger_deportes ← y el tenis y el MLB
+       build_ledger_total    ← junta los dos (esto es lo único que corría)
     2. calibracion_confianza  ← acierto real por banda y mercado
     3. precision_ligas        ← techo de acierto de cada competición
     4. edge_engine            ← banda de EV rentable (maximin + bootstrap)
@@ -82,10 +84,108 @@ def _paso(nombre: str, fn) -> Dict:
                 'error': f'{type(e).__name__}: {e}'}
 
 
+# Un ledger que sale con menos de esta fracción de las filas que tenía es
+# una descarga a medias, no una temporada que encogió. Misma guarda y mismo
+# motivo que `league_engine._guardar_historico`.
+ENCOGIMIENTO_MAXIMO = 0.30
+
+
+def _filas(ruta: str):
+    import os
+    if not os.path.exists(ruta):
+        return None
+    try:
+        import pandas as pd
+        return len(pd.read_csv(ruta, usecols=[0], low_memory=False))
+    except Exception:
+        return None
+
+
+def _rehacer(etiqueta: str, modulo, temporal: str) -> str:
+    """
+    Reconstruye un ledger EN UN FICHERO APARTE y sólo sustituye al bueno si
+    sale sano.
+
+    Sin esto, un `construir()` que se queda a medias —una liga cuyo histórico
+    no se descargó, una fuente caída— escribe igualmente su resultado corto
+    encima del ledger anterior, y toda la cadena que cuelga de él se recalibra
+    con menos partidos sin que nada lo diga. Es exactamente lo que ya pasó con
+    `historico_champions.csv`: 53.264 filas encima de 895, sin un aviso.
+    """
+    import os
+
+    csv_bueno, meta_buena = modulo.SALIDA_CSV, modulo.SALIDA_META
+    antes = _filas(csv_bueno)
+    modulo.SALIDA_CSV = temporal
+    modulo.SALIDA_META = temporal.replace('.csv', '.json')
+    try:
+        df = modulo.construir()
+    finally:
+        modulo.SALIDA_CSV, modulo.SALIDA_META = csv_bueno, meta_buena
+
+    ahora = len(df)
+    if antes and ahora < antes * (1.0 - ENCOGIMIENTO_MAXIMO):
+        for f in (temporal, temporal.replace('.csv', '.json')):
+            if os.path.exists(f):
+                os.remove(f)
+        raise RuntimeError(
+            '%s salio con %d filas y tenia %d (-%.0f%%): se conserva el '
+            'anterior' % (etiqueta, ahora, antes,
+                          100.0 * (1 - ahora / float(antes))))
+
+    os.replace(temporal, csv_bueno)
+    tmp_meta = temporal.replace('.csv', '.json')
+    if os.path.exists(tmp_meta):
+        os.replace(tmp_meta, meta_buena)
+    return '%s: %d filas (%+d)' % (etiqueta, ahora,
+                                   ahora - (antes or 0))
+
+
 def _ledger() -> str:
+    """
+    v189 — ESTE PASO DECIA RE-PREDECIR Y SOLO CONCATENABA.
+
+    El encabezado de este modulo describe el paso 1 como «re-predice el
+    historico con los modelos de HOY» y calcula que cuesta unos 40 minutos;
+    por ese coste la recalibracion se dejo semanal en vez de diaria.
+
+    **Ese coste no se pagaba nunca.** `build_ledger_total.construir()` no
+    re-predice nada: junta `pick_ledger.csv` y `pick_ledger_deportes.csv`, que
+    los escriben otros dos modulos, y a los que no llamaba nadie. La pasada
+    semanal terminaba en 7 min y volvia a producir, byte a byte, el mismo
+    fichero.
+
+    Consecuencia, medida el 2026-09-09: `pick_ledger.csv` seguia generado el
+    2026-07-28 —lo dice su propio `_v75_pick_ledger.json`—, o sea que durante
+    seis semanas la cadena entera se recalibro sobre partidos de julio. Y como
+    salia identico, no habia diff, no habia commit, y el workflow terminaba en
+    verde cada lunes. Los cuatro ficheros que no se actualizaban no eran cuatro
+    fallos: eran este.
+
+    Ahora el paso reconstruye los dos ledgers de origen y DESPUES concatena.
+    Cada uno por separado: si el de futbol falla, el de deportes se rehace
+    igual y el total se arma con el futbol anterior, que es viejo pero existe.
+    """
+    import build_ledger_deportes
     import build_ledger_total
+    import build_pick_ledger
+
+    notas, fallos = [], []
+    for etiqueta, modulo, temporal in (
+            ('futbol', build_pick_ledger, '_pick_ledger.nuevo.csv'),
+            ('deportes', build_ledger_deportes,
+             '_pick_ledger_deportes.nuevo.csv')):
+        try:
+            notas.append(_rehacer(etiqueta, modulo, temporal))
+        except Exception as e:
+            fallos.append('%s: %s' % (etiqueta, e))
+            logger.warning('[ledger/%s] no se rehizo: %s', etiqueta, e)
+
     df = build_ledger_total.construir()
-    return f'{len(df)} filas'
+    notas.append('total: %d filas' % len(df))
+    if fallos:
+        notas.append('SIN REHACER -> ' + '; '.join(fallos))
+    return ' | '.join(notas)
 
 
 def _confianza() -> str:

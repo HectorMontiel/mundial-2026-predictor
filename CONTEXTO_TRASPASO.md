@@ -3099,3 +3099,220 @@ sostienen —un segundo modelo por copa consultado sólo donde hoy no hay nada�
 obliga a entrenar y publicar un modelo más por copa, y a tocar el workflow de
 reentrenamiento y la subida al Release. Es una versión propia, no el final de
 ésta.
+
+---
+
+## 5w. v189 — EL PASO QUE DECÍA RE-PREDECIR Y SÓLO CONCATENABA
+
+Los cuatro ficheros que la v188 dejó marcados como parados no eran cuatro
+fallos. Eran uno.
+
+### 1. La recalibración semanal nunca reconstruyó el ledger
+
+`recalibrar_todo.py` describe su paso 1 como «re-predice el histórico con los
+modelos de HOY» y calcula que cuesta unos 40 minutos. Por ese coste se decidió
+que el workflow fuera semanal y no diario.
+
+**Ese coste no se pagaba nunca.** El paso llamaba a
+`build_ledger_total.construir()`, que no re-predice nada: junta
+`pick_ledger.csv` y `pick_ledger_deportes.csv` en un segundo. Los dos módulos
+que sí re-predicen —`build_pick_ledger` y `build_ledger_deportes`— no los
+llamaba nadie; `retrain_leagues.yml` los documenta como «a mano».
+
+Lo dice el propio fichero de metadatos del ledger:
+
+    _v75_pick_ledger.json    generado: 2026-07-28T18:48:47Z
+
+Desde la v93 (2026-08-03), **cada lunes la cadena entera —bandas de confianza,
+umbrales de Capa 1, mapa de EV, precisión por liga— se recalibró sobre partidos
+de julio**. Y como el ledger salía idéntico byte a byte, no había diff, no había
+commit, y el workflow terminaba en verde. Los cuatro ficheros «parados» eran
+la sombra de esto.
+
+**Medido antes de desplegar**, regenerando en un fichero aparte para no pisar el
+bueno:
+
+    reconstrucción completa            42,4 min   (la estimación decía ~40)
+    filas          47.948 -> 80.635    (+32.687)
+    ligas              56 -> 63        (+7)
+    rango       2021-08-16 -> 2026-07-28  pasa a  2018-02-17 -> 2026-09-09
+    partidos que el modelo no había visto nunca:  2.357, en 57 ligas
+
+Sobre los **mismos 46.518 partidos**, el acierto cambia +0,0002 y el log-loss
+−0,0023. Casi idéntico, que es lo que debe salir al re-predecir con modelos
+apenas más nuevos: un salto grande habría sido la señal de que algo estaba mal.
+Los 2.357 partidos nuevos rinden en línea (0,4820 de acierto frente a 0,4903
+global), sin anomalías.
+
+**Qué mejora esto y qué no.** No hace mejores las predicciones. Hace que las
+*correcciones* se calculen sobre lo que de verdad ha pasado en vez de sobre
+julio. Y hay una limitación honesta: de esos 2.357 partidos nuevos **sólo el
+6,0 % trae cuota de cierre**, porque football-data.co.uk lleva caído (503 en
+todo el sitio). Sirven para calibrar el acierto; no para medir ROI.
+
+La cobertura global de cuota baja del 75,1 % al 64,8 %, y **no se perdió
+ninguna**: en las mismas 56 ligas y el mismo tramo pasa de 36.006 a 48.448
+cuotas. El porcentaje cae porque crece el denominador.
+
+**El arreglo** reconstruye los dos ledgers de origen y después concatena, cada
+uno con su fallo independiente. Y con guarda: un ledger que sale con menos del
+70 % de las filas que tenía no pisa al anterior —se construye en un temporal y
+sólo sustituye si sale sano—. Es la misma lección de
+`league_engine._guardar_historico`, y aquí hacía falta porque una liga cuyo
+histórico no se descargue desaparece del ledger sin decir nada.
+
+El job pasa de 120 a 180 minutos. Y el paso del fondo ESPN, que pedía 240
+dentro de un job de 120, baja a 100: un paso con permiso para tardar más que su
+job lo mata **antes de commitear**, y entonces se pierde todo lo demás.
+
+También baja `mercado_estabilidad.py` detrás de la recalibración. Lee los tres
+ledgers walk-forward y corría antes de que se reconstruyeran: coronaba el
+mercado de cada liga con la foto de la semana pasada.
+
+### 2. El vigilante de la v188 no podía fallar donde tenía que avisar
+
+Medía la edad por la fecha del último commit. En el runner,
+`actions/checkout@v4` clona con `fetch-depth: 1`: con un solo commit en el
+historial, `git log -1 -- <lo que sea>` devuelve ese commit para todo. Cero días
+para todo.
+
+Informó **«PARADOS: 0 / al día: 73»** la misma semana en que cuatro ficheros
+llevaban seis semanas congelados. Un check que no puede fallar en el único
+sitio donde importa.
+
+Subir el `fetch-depth` no era la salida: este `.git` pesa **16 GB** —años de
+CSV grandes commiteados a diario—, así que un clon completo no cabe en el
+runner. La salida es no depender de git: **cada fichero lleva dentro la fecha de
+su dato más reciente**, y esa fecha es además la que importa. Un ledger
+recommiteado con las filas de julio no está fresco por mucho que su commit sea
+de hoy —que es exactamente lo que pasaba—.
+
+Donde un fichero no lleva fecha dentro se cae a la de commit, y si el clon es
+superficial se declara **«sin evaluar»**. No saber no se informa nunca como «al
+día»: ése fue el fallo. Simulado el clon superficial, caza 3 de los 4 parados
+por contenido y declara el resto; **nada se juzga por commit**.
+
+Entran al vigilante `_v75_pick_ledger.json` y `_v78_ledger_deportes.json` —que
+dicen CUÁL de los dos ledgers se paró— y `goleadores_cache.json`, cuyo bot
+diario `precalcular_rosters.yml` **no ha commiteado nunca, ni una vez**.
+
+### 3. Los `git add` que se callaban, y la tercera pata del mismo bug
+
+Un test nuevo barre los `git add` de los cuatro workflows y comprueba tres
+cosas: que ningún path esté en `.gitignore` (falla entero y no añade ninguno),
+que ninguno termine en `|| true`, y que ninguna orden lleve un `\n` LITERAL.
+
+Encontró **17 en el workflow diario** tragándose su fallo, incluido el que
+mantiene frescos los históricos. Ya avisan.
+
+Y la tercera comprobación existe porque **el `\n` literal volvió a colarse
+mientras se escribía esta versión**, parcheando el YAML desde un script — el
+mismo bug de la v186, dos veces en seis semanas. El test no lo veía; ahora sí.
+
+### 4. El aviso mandaba a escribir un alias que no puede existir
+
+Sobre la Champions decía: «sus nombres no casan con el catálogo del modelo,
+falta un alias en `alias_manuales.json`». Los equipos eran **Fenerbahce, AS Roma
+y Como, y sus nombres estaban perfectos**: el histórico de la Champions va de
+2020-08-07 a hoy y en esa ventana ninguno de los tres la ha jugado. Ese alias no
+existe y no puede existir.
+
+El código ya intentaba separar «alias que falta» de «equipo sin historia» por
+parecido con el catálogo (≥ 0,62), y ahí falla: «AS Roma» se parece a «AS
+Monaco». La pregunta que sí lo separa es otra: **¿este equipo es conocido en
+alguna otra competición?** Si lo es, su nombre está bien. Y eso lo responde el
+diccionario equipo → liga de la v180.
+
+    AS Roma -> serie_a      Fenerbahce -> turquia      Como -> serie_a
+    Sabah FK -> None        (equipo inventado) -> None
+
+El aviso pasa de ⚠️ «falta un alias» a ℹ️ «no han jugado nunca esta competición
+y no hay nada que arreglar», y sigue distinguiendo los otros dos casos: un
+nombre que no conoce ningún catálogo sí pide alias, y un motor que no carga
+sigue siendo avería.
+
+**Esto arregla el diagnóstico, no la cobertura.** Esos partidos siguen saliendo
+con el precio del mercado; cubrirlos es el modelo de respaldo por copa que la
+v188 dejó medido y sin encender.
+
+### 5. Los «411 nombres sin mapear»: uno era real
+
+`nombres_sin_mapear.json` es un registro acumulativo que no se poda. De sus 375
+entradas:
+
+    233   nombres de JUGADOR (líneas y remates), no equipos
+     39   marcadores de cuadro («3rd Place Group A»), no mapearán jamás
+     71   equipos de verdad
+           42  ya mapean hoy: entradas caducadas
+           28  son de COPA: el equipo existe, no tiene historia ahí
+            1  bug real
+
+El mensaje «añade alias para llegar a 0» pide algo imposible por construcción.
+
+La pregunta correcta es otra: de los nombres que ESPN manda **ahora**, cuáles no
+casan. Barridos **988 nombres reales de 55 competiciones** contra el catálogo
+que usa el motor (`eng.stats.keys()`, no el conjunto crudo del histórico — la
+primera medición usó el equivocado y hubo que rehacerla). Salieron **10**, y uno
+sorprende: **`Manchester United` no casaba en la Premier**, cuyo histórico dice
+«Man United». No canta a diario porque el camino normal usa el precálculo
+nocturno, donde los nombres ya vienen mapeados; sólo se cae en partidos que
+aparecen después.
+
+Los diez llevan **doble destino**, porque el fichero es global y las
+competiciones no comparten universo de nombres: la Premier viene de
+football-data y la Champions de ESPN. El mapeador se queda con el primero que
+exista en el catálogo de esa liga (mecanismo de la v148, por el Deportivo).
+Verificado que arregla una sin romper la otra:
+
+    premier    Manchester United -> Man United
+    champions  Manchester United -> Manchester United
+
+Rebarrido: **988 nombres, 0 sin casar en ligas normales.** Los 33 que quedan son
+todos de copa.
+
+### 6. La Saudi Pro League ya estaba encendida; le faltaba una vuelta del bot
+
+    la Saudi se encendió (v185)   2026-09-09 19:23 UTC
+    el precálculo que había       2026-09-09 10:44 UTC
+
+Nueve horas antes. No aparecía en `predicciones_dia.json` ni como fallo: no
+estaba en la lista porque cuando el bot corrió no existía. Regenerado a mano,
+entra completa —6 de 6 partidos—, con cuota, motor de 28 equipos y cero nombres
+sin mapear.
+
+Y el efecto de los alias se mide aquí:
+
+    antes:  49 ligas · 42 completas · 301 partidos · 7 incompletas
+    ahora:  50 ligas · 49 completas · 304 partidos · 1 incompleta
+
+Las seis ligas con alias rotos pasan a completas. La única que queda es la
+Champions, que es el caso legítimo del punto 4.
+
+### 7. Usar la última foto como línea de cierre: medido y descartado
+
+football-data sigue devolviendo 503 en todo el sitio, así que no entran cuotas
+de cierre nuevas. Hay 683 partidos con foto y sin cierre, 267 de ellos con una
+foto a **≤12 h del pitido**, y la tentación era promoverlas.
+
+Medido contra los 80 partidos donde están las dos, en probabilidad implícita:
+
+    foto <=12h, cruda          error medio 0,0356    p90 0,1121
+    foto <=12h, normalizada    error medio 0,0234    p90 0,0602
+
+Las fotos vienen de casas con unos 4 puntos más de margen (sobreredondeo 1,138
+frente a 1,095), y normalizarlo arregla la mitad. Pero el error que queda **es
+del mismo tamaño que la señal**: el CLV medio del proyecto es −2,78 %. Sería
+medir con una regla más gruesa que la cosa medida, y el CLV es la métrica rey.
+
+**No se promueve nada.** Es un «no» medido, no una corazonada.
+
+### Lo que esta versión deja abierto
+
+1. El modelo de respaldo por copa, que sigue siendo lo único del encargo
+   original sin cerrar.
+2. `precalcular_rosters.yml` no ha commiteado nunca. Ya está vigilado, pero la
+   causa no se ha buscado.
+3. El `.git` de 16 GB. Es lo que impide medir la frescura por commit en el
+   runner y lo que hará lento cualquier clon nuevo.
+4. Las cuotas de cierre siguen dependiendo de una fuente caída, sin sustituto
+   que aguante la medición.

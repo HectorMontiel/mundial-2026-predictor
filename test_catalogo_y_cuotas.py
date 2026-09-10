@@ -4000,6 +4000,300 @@ def test_kbo_integrada():
           "el dataset de KBO no etiqueta empates como derrota local")
 
 
+def test_el_aviso_no_manda_a_escribir_un_alias_imposible():
+    """
+    v189 — «NO CASA CON EL CATALOGO» NO SIGNIFICA QUE EL NOMBRE ESTE MAL.
+
+    El 2026-09-09 el aviso de la Champions decia: «sus nombres no casan con el
+    catalogo del modelo, falta un alias en alias_manuales.json». Los equipos
+    eran Fenerbahce, AS Roma y Como, y sus nombres estaban PERFECTOS: el
+    historico de la Champions va de 2020 a hoy y en esa ventana ninguno de los
+    tres la ha jugado. Ese alias no existe y no puede existir.
+
+    La pregunta que lo separa: si el equipo es conocido en otra competicion,
+    su nombre esta bien escrito y lo que le falta es historia AQUI. Y eso lo
+    responde el diccionario equipo -> liga de la v180.
+    """
+    import alpha_finder as af
+
+    motivo_nombre = ('partido nuevo desde el último precálculo y su nombre '
+                     'no casa con el catálogo del modelo')
+
+    def _fila(partido, motivo=motivo_nombre):
+        return {'deporte': 'Fútbol', 'sin_modelo': True,
+                'clave_liga': 'champions', 'partido': partido,
+                'motivo_sin_modelo': motivo}
+
+    # ---- A) equipos reales, conocidos en su liga: NO es el nombre ---------
+    a = af.avisos_sin_modelo([_fila('Fenerbahce vs AS Roma'),
+                              _fila('Como vs RB Leipzig'),
+                              _fila('Lazio vs Napoli')])
+    check(len(a) == 1, "sale un aviso para la competicion")
+    check('alias' not in a[0],
+          "y NO manda a escribir un alias para equipos que existen")
+    check('no tiene historia suya' in a[0],
+          "dice lo que pasa: no han jugado nunca esta competicion")
+    check(a[0].startswith('\u2139'),
+          "y va como informacion, no como averia")
+
+    # ---- B) un nombre que no conoce nadie: ahi si puede ser el nombre -----
+    b = af.avisos_sin_modelo([_fila('Zzz Inventado vs Qqq Falso'),
+                              _fila('Aaa Raro vs Bbb Raro'),
+                              _fila('Ccc Raro vs Ddd Raro')])
+    check(len(b) == 1 and 'alias' in b[0],
+          "un nombre que no conoce ningun catalogo si pide alias")
+
+    # ---- C) el motor caido sigue siendo una averia ------------------------
+    c = af.avisos_sin_modelo(
+        [_fila('Fenerbahce vs AS Roma',
+               'el modelo de esta competición no se pudo cargar')] * 3)
+    check(len(c) == 1 and 'avería' in c[0],
+          "y un motor que no carga sigue senalandose como averia")
+
+
+def test_ningun_git_add_de_los_workflows_puede_fallar_callado():
+    """
+    v189 — LA CLASE DE BUG QUE YA HA MORDIDO DOS VECES.
+
+    `git add` con un path que esta en `.gitignore` **falla entero y no anade
+    NINGUNO de los demas** —devuelve exit 1—. Si esa orden lleva detras un
+    `|| true`, el workflow termina en verde sin haber anadido nada.
+
+    Paso en la v186: el `git add` de la recalibracion llevaba `modelos/tennis`,
+    que esta ignorado desde la v161, y durante seis semanas la pasada semanal
+    commiteo un unico fichero. Y volvio a pasar con un `\n` literal en medio
+    de otro `git add`, callado por el mismo `|| true`.
+
+    Las dos veces se descubrio porque el usuario pregunto. Esto lo mira solo:
+
+      1. ningun path de ningun `git add` esta ignorado;
+      2. ningun `git add` se traga su fallo en silencio.
+    """
+    import glob
+    import os
+    import re
+    import subprocess
+
+    if not os.path.isdir('.github/workflows'):
+        check(False, "no hay .github/workflows: este test NO se ha ejecutado")
+        return
+
+    ficheros = sorted(glob.glob('.github/workflows/*.yml')
+                      + glob.glob('.github/workflows/*.yaml'))
+    check(len(ficheros) >= 2,
+          f"se revisan los workflows del repo ({len(ficheros)})")
+
+    ordenes = []          # (workflow, linea, texto de la orden entera)
+    for wf in ficheros:
+        with open(wf, encoding='utf-8') as f:
+            lineas = f.read().split(chr(10))
+        i = 0
+        while i < len(lineas):
+            cruda = lineas[i]
+            sin = cruda.strip()
+            if sin.startswith('git add') and not sin.startswith('#'):
+                entera, n = sin, i
+                # una orden puede continuar con `\` al final de la linea
+                while entera.endswith(chr(92)) and n + 1 < len(lineas):
+                    n += 1
+                    entera = entera[:-1].rstrip() + ' ' + lineas[n].strip()
+                ordenes.append((wf, i + 1, entera))
+                i = n
+            i += 1
+
+    check(len(ordenes) >= 3,
+          f"y se encuentran sus `git add` ({len(ordenes)})")
+
+    # ---- 1. ningun path ignorado -----------------------------------------
+    ignorados = []
+    for wf, ln, orden in ordenes:
+        trozo = orden.split('||')[0].split('&&')[0]
+        paths = [p for p in trozo.split()[2:]
+                 if not p.startswith('-') and p not in ('git', 'add')]
+        for p in paths:
+            # se saltan variables del shell y comodines: no son rutas fijas
+            if any(c in p for c in ('$', '*', '?', chr(34), chr(39), chr(92))):
+                continue
+            if not os.path.exists(p):
+                continue
+            r = subprocess.run(['git', 'check-ignore', '-q', p],
+                               capture_output=True)
+            if r.returncode == 0:
+                ignorados.append(f'{os.path.basename(wf)}:{ln} -> {p}')
+    check(not ignorados,
+          f"ningun path de un `git add` esta en .gitignore ({ignorados[:3]})")
+
+    # ---- 2. ninguno se traga su fallo -------------------------------------
+    callados = []
+    for wf, ln, orden in ordenes:
+        if re.search(r'\|\|\s*true\s*$', orden) or '2>/dev/null || true' in orden:
+            callados.append(f'{os.path.basename(wf)}:{ln}')
+    check(not callados,
+          f"ningun `git add` termina en `|| true`: si falla, avisa "
+          f"({callados[:3]})")
+
+    # ---- 3. ni un salto de linea escrito como dos caracteres --------------
+    #
+    # LA TERCERA PATA DE LA MISMA FAMILIA, y ha mordido dos veces. En la v186
+    # una orden quedo con un «\n» LITERAL en medio: el shell lo pasa como un
+    # argumento mas, `git add` no encuentra ese fichero y falla entera. Tres
+    # semanas de `stats_espn/` congelado.
+    #
+    # Volvio a pasar mientras se escribia esta misma version, parcheando el
+    # YAML desde un script. Por eso se mira aqui y no se confia en el cuidado.
+    marca = chr(92) + 'n'
+    literales = []
+    for wf in ficheros:
+        with open(wf, encoding='utf-8') as f:
+            for k, ln in enumerate(f.read().split(chr(10))):
+                if marca in ln and not ln.strip().startswith('#'):
+                    literales.append(f'{os.path.basename(wf)}:{k + 1}')
+    check(not literales,
+          f"ninguna orden lleva un salto de linea escrito como dos "
+          f"caracteres ({literales[:3]})")
+
+
+def test_la_cadena_rehace_el_ledger():
+    """
+    v189 — EL PASO 1 DECIA RE-PREDECIR Y SOLO CONCATENABA DOS CSV.
+
+    `recalibrar_todo` describe su paso 1 como «re-predice el historico con los
+    modelos de HOY» y estima que cuesta ~40 min; por ese coste el workflow se
+    dejo semanal. El coste no se pagaba: llamaba a `build_ledger_total`, que
+    junta dos CSV en un segundo, y nadie llamaba a los dos modulos que de
+    verdad re-predicen.
+
+    Medido el 2026-09-09: `_v75_pick_ledger.json` seguia diciendo
+    `generado: 2026-07-28`. Seis semanas recalibrando la cadena entera sobre
+    partidos de julio, con el workflow en verde cada lunes porque el fichero
+    salia identico y no habia diff que commitear.
+    """
+    import os
+    import tempfile
+    import types
+    import pandas as _pd
+    import recalibrar_todo as rt
+
+    # ---- el paso 1 llama a los DOS constructores, no solo al concatenador --
+    llamados = []
+    _rehacer_real = rt._rehacer
+
+    def _espia(etiqueta, modulo, temporal):
+        llamados.append((etiqueta, getattr(modulo, '__name__', '?')))
+        return '%s: espiado' % etiqueta
+
+    import build_ledger_total as _blt
+    _construir_real = _blt.construir
+    rt._rehacer = _espia
+    _blt.construir = lambda: _pd.DataFrame({'a': [1, 2, 3]})
+    try:
+        rt._ledger()
+    finally:
+        rt._rehacer = _rehacer_real
+        _blt.construir = _construir_real
+
+    modulos = [m for _, m in llamados]
+    check('build_pick_ledger' in modulos,
+          "el paso 1 rehace el ledger de FUTBOL (esto es lo que no pasaba)")
+    check('build_ledger_deportes' in modulos,
+          "y el de tenis y MLB")
+    check([e for e, _ in llamados] == ['futbol', 'deportes'],
+          "en ese orden, y despues concatena")
+
+    # ---- y no pisa el ledger bueno si sale encogido -----------------------
+    _cwd = os.getcwd()
+    _dir = tempfile.mkdtemp(prefix='ledger189_')
+    try:
+        os.chdir(_dir)
+        _pd.DataFrame({'a': range(1000)}).to_csv('bueno.csv', index=False)
+
+        def _falso(n):
+            m = types.ModuleType('falso')
+            m.SALIDA_CSV, m.SALIDA_META = 'bueno.csv', 'bueno.json'
+
+            def construir():
+                df = _pd.DataFrame({'a': range(n)})
+                df.to_csv(m.SALIDA_CSV, index=False)
+                with open(m.SALIDA_META, 'w') as fh:
+                    fh.write('{}')
+                return df
+            m.construir = construir
+            return m
+
+        rt._rehacer('sano', _falso(1200), 'tmp189.csv')
+        check(len(_pd.read_csv('bueno.csv')) == 1200,
+              "un ledger que crece sustituye al anterior")
+        try:
+            rt._rehacer('corto', _falso(300), 'tmp189.csv')
+            freno = False
+        except RuntimeError:
+            freno = True
+        n = len(_pd.read_csv('bueno.csv'))
+        check(freno, "uno que sale al 25 % se FRENA: es una descarga a medias")
+        check(n == 1200, f"y el bueno queda intacto ({n})")
+        check(not os.path.exists('tmp189.csv'), "sin dejar restos temporales")
+    finally:
+        os.chdir(_cwd)
+
+
+def test_el_vigilante_no_puede_decir_al_dia_sin_saberlo():
+    """
+    v189 — UN CHECK QUE NO PODIA FALLAR EN EL SITIO DONDE DEBIA AVISAR.
+
+    El vigilante de la v188 medía la edad por la fecha del ultimo COMMIT. En el
+    runner, `actions/checkout@v4` clona con `fetch-depth: 1`: con un solo
+    commit en el historial, `git log -1 -- <lo que sea>` devuelve ESE commit
+    para todo, o sea «0 dias» para todo.
+
+    Resultado real del 2026-09-09: informo «PARADOS: 0 / al dia: 73» la misma
+    semana en que cuatro ficheros llevaban seis semanas congelados. Y subir el
+    `fetch-depth` no era la salida: este `.git` pesa 16 GB.
+
+    Asi que ahora la edad sale del CONTENIDO, que ademas es la fecha que
+    importa: un ledger recommiteado con las filas de julio no esta fresco.
+    """
+    import frescura_datos as fd
+
+    check(bool(fd.VIGILADOS), "hay una lista de ficheros vigilados")
+    con_lector = [r for r, c in fd.VIGILADOS.items()
+                  if len(c) > 2 and c[2] is not None]
+    check(len(con_lector) >= 8,
+          f"casi todos se miden por contenido, no por commit ({len(con_lector)})")
+    check(fd.VIGILADOS['pick_ledger_total.csv'][2] is not None,
+          "el ledger, el primero: es el que llevaba 42 dias parado")
+    check('_v75_pick_ledger.json' in fd.VIGILADOS,
+          "y la meta del ledger de futbol, que dice CUAL de los dos se paro")
+
+    # El lector del ledger lee la fecha del ultimo PARTIDO que contiene.
+    hasta = fd.VIGILADOS['pick_ledger_total.csv'][2]('pick_ledger_total.csv')
+    check(hasta is not None and len(str(hasta)) == 10,
+          f"y sabe leerla del fichero de verdad ({hasta})")
+
+    # LO QUE DE VERDAD FALLABA: en un clon superficial no se consulta a git, y
+    # lo que no se puede evaluar se declara, nunca se cuenta como «al dia».
+    _superficial, _commit = fd._es_clon_superficial, fd._dias_desde_el_ultimo_commit
+
+    def _prohibido(ruta):
+        raise AssertionError('en clon superficial no se consulta a git: ' + ruta)
+
+    fd._es_clon_superficial = lambda: True
+    fd._dias_desde_el_ultimo_commit = _prohibido
+    try:
+        r = fd.revisar()
+    finally:
+        fd._es_clon_superficial, fd._dias_desde_el_ultimo_commit = (
+            _superficial, _commit)
+
+    check(r.get('clon_superficial') is True, "detecta el clon superficial")
+    vias = {f.get('via') for f in (r['ok'] + r['viejos'])}
+    check(vias <= {'contenido'},
+          f"y ahi NADA se juzga por la fecha de commit ({sorted(vias)})")
+    check(len(r['viejos']) >= 1,
+          "sigue cazando lo parado (era «PARADOS: 0» y no lo estaba)")
+    check(len(r['sin_datos']) >= 1,
+          "y lo que no puede evaluar lo dice, en vez de darlo por bueno")
+
+
 def test_frescura_y_guarda_de_historicos():
     """
     v188 — QUE NADA SE QUEDE PARADO EN SILENCIO, Y QUE NADIE LO PISE.
@@ -11635,6 +11929,11 @@ if __name__ == '__main__':
     print('\n=== v97: ITF en vivo, KBO y Leagues Cup ===')
     test_itf_fuente_viva()
     test_kbo_integrada()
+    print(chr(10) + '=== v188/v189: nada parado en silencio, y el paso 1 re-predice ===')
+    test_el_aviso_no_manda_a_escribir_un_alias_imposible()
+    test_ningun_git_add_de_los_workflows_puede_fallar_callado()
+    test_la_cadena_rehace_el_ledger()
+    test_el_vigilante_no_puede_decir_al_dia_sin_saberlo()
     test_frescura_y_guarda_de_historicos()
     test_perfil_de_la_liga_local()
     test_catalogo_de_equipos()

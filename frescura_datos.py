@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-v188 — VIGILA QUE LOS DATOS QUE APRENDEN NO SE QUEDEN PARADOS.
+v188/v189 — VIGILA QUE LOS DATOS QUE APRENDEN NO SE QUEDEN PARADOS.
 
 POR QUÉ EXISTE, y son tres fallos del mismo día
 ------------------------------------------------
@@ -33,11 +33,31 @@ cuántos se le toleran. El plazo sale de cada cuánto corre quien la escribe:
 NO FALLA POR UN DÍA MALO. El umbral es generoso a propósito: esto no está para
 avisar de que anoche hubo un 503, sino de que algo lleva SEMANAS sin moverse.
 
-CÓMO SE MIDE LA EDAD, Y POR QUÉ NO POR `mtime`
------------------------------------------------
-La fecha del fichero en disco no vale: un `git clone` los pone todos a la hora
-del clon. Se usa la fecha del último COMMIT que tocó cada uno, que es lo que de
-verdad dice cuándo cambió su contenido.
+CÓMO SE MIDE LA EDAD — v189: PREGUNTÁNDOLE AL CONTENIDO
+-------------------------------------------------------
+La v188 usaba la fecha del último COMMIT que tocó cada fichero, porque el
+`mtime` no vale —un `git clone` los pone todos a la hora del clon—.
+
+**Y ahí este check se volvió un check que no podía fallar.** En el runner,
+`actions/checkout@v4` clona con `fetch-depth: 1`: un solo commit. Con un commit
+en el historial, `git log -1 -- <lo que sea>` devuelve ESE commit para todo, o
+sea «0 días» para todo. El vigilante informó **«PARADOS: 0, al día: 73»** en el
+único sitio donde tenía que avisar, la misma semana en que cuatro ficheros
+llevaban seis semanas congelados.
+
+Subir el `fetch-depth` no era la salida: este `.git` pesa **16 GB** —años de
+CSV grandes commiteados a diario—, así que un clon completo no cabe en el
+runner.
+
+La salida es no depender de git: **cada fichero lleva dentro la fecha de su
+dato más reciente**, y esa fecha es además la que de verdad importa. Un ledger
+recommiteado con las mismas filas de julio no está fresco por mucho que su
+commit sea de hoy —es exactamente lo que pasaba—, y un histórico dice hasta qué
+día llega mirando su columna `date`.
+
+Donde un fichero no lleva fecha dentro se cae a la de commit, y si el clon es
+superficial se declara **«sin evaluar»**. No saber nunca se informa como «al
+día»: ése fue el fallo.
 """
 import io
 import json
@@ -45,31 +65,139 @@ import logging
 import os
 import subprocess
 import sys
-from typing import Dict, List, Optional
+from typing import Callable, Dict, List, Optional
 
 logger = logging.getLogger('frescura_datos')
 
-# fichero -> (días tolerados, quién debería tocarlo)
+
+# ---------------------------------------------------------------------------
+# LECTORES: cómo saber, mirando dentro, hasta qué día llega cada fichero.
+# Devuelven 'AAAA-MM-DD' o None si el fichero no lleva esa fecha dentro.
+# ---------------------------------------------------------------------------
+def _fecha_json(campo: str = 'generado') -> Callable[[str], Optional[str]]:
+    def leer(ruta: str) -> Optional[str]:
+        try:
+            with io.open(ruta, encoding='utf-8') as f:
+                d = json.load(f)
+            v = d.get(campo) if isinstance(d, dict) else None
+            return str(v)[:10] if v else None
+        except Exception as e:
+            logger.debug('[frescura] json %s: %s', ruta, e)
+            return None
+    return leer
+
+
+def _fecha_csv(*columnas: str) -> Callable[[str], Optional[str]]:
+    """
+    Se pasan varios nombres porque no todos los CSV del proyecto llaman igual a
+    su columna de fecha: los históricos usan `date` y el fondo ESPN usa `fecha`.
+    Con un solo nombre, el fondo caía a la fecha de commit sin decir nada —y el
+    fondo es justo uno de los tres que se habían quedado congelados—.
+    """
+    def leer(ruta: str) -> Optional[str]:
+        import pandas as pd
+        for columna in columnas:
+            try:
+                d = pd.read_csv(ruta, usecols=[columna], low_memory=False)
+                m = pd.to_datetime(d[columna], errors='coerce').max()
+                if not pd.isna(m):
+                    return str(m)[:10]
+            except Exception as e:
+                logger.debug('[frescura] csv %s (%s): %s', ruta, columna, e)
+        return None
+    return leer
+
+
+def _fecha_pronosticos(ruta: str) -> Optional[str]:
+    """`pronosticos_emitidos.json` no tiene cabecera: la fecha va por entrada."""
+    try:
+        with io.open(ruta, encoding='utf-8') as f:
+            d = json.load(f)
+        fechas = [str(v.get('fecha'))[:10] for v in d.values()
+                  if isinstance(v, dict) and v.get('fecha')]
+        return max(fechas) if fechas else None
+    except Exception as e:
+        logger.debug('[frescura] pronosticos: %s', e)
+        return None
+
+
+def _fecha_rosters(ruta: str):
+    """
+    `goleadores_cache.json` no lleva fecha de cabecera: cada entrada trae su
+    propio `ts`. La mas reciente contesta lo unico que se pregunta aqui, que es
+    si algo lo ha refrescado ultimamente.
+
+    Se vigila porque su bot —`precalcular_rosters.yml`, diario— **no ha
+    commiteado nunca**, ni una sola vez, y nada lo decia. Sin esta cache la app
+    pide los rosters a ESPN en cada carga y ESPN devuelve 403 desde las IPs de
+    Streamlit Cloud.
+    """
+    try:
+        import datetime as dt
+        with io.open(ruta, encoding='utf-8') as f:
+            d = json.load(f)
+        ts = [v.get('ts') for v in d.values()
+              if isinstance(v, dict) and v.get('ts')]
+        if not ts:
+            return None
+        return dt.date.fromtimestamp(max(ts)).isoformat()
+    except Exception as e:
+        logger.debug('[frescura] rosters: %s', e)
+        return None
+
+
+# fichero -> (días tolerados, quién debería tocarlo, cómo leer su fecha)
 VIGILADOS = {
     # ---- lo que escribe el bot nocturno -------------------------------
-    'pronosticos_emitidos.json': (3, 'bot nocturno'),
-    'predicciones_dia.json': (3, 'bot nocturno'),
-    'mercado_dia.json': (3, 'bot nocturno'),
+    'pronosticos_emitidos.json': (3, 'bot nocturno', _fecha_pronosticos),
+    'predicciones_dia.json': (3, 'bot nocturno', _fecha_json()),
+    'mercado_dia.json': (3, 'bot nocturno', _fecha_json()),
+    # El bot de rosters corre a diario y NO ha commiteado nunca.
+    'goleadores_cache.json': (5, 'precalcular_rosters.yml (diario)',
+                              _fecha_rosters),
     # ---- lo que escribe la recalibración semanal ----------------------
-    'pick_ledger_total.csv': (10, 'recalibrar.yml (semanal)'),
-    'umbrales_capa1.json': (10, 'recalibrar.yml (semanal)'),
-    'calibracion_confianza.json': (10, 'recalibrar.yml (semanal)'),
-    'edge_map.json': (10, 'recalibrar.yml (semanal)'),
-    'calibracion_mercado.json': (10, 'recalibrar.yml (semanal)'),
+    # El ledger se mira por la fecha del ÚLTIMO PARTIDO que contiene, que es
+    # justo lo que se le pide: haber aprendido de lo que ya se jugó.
+    'pick_ledger_total.csv': (10, 'recalibrar.yml (semanal)',
+                              _fecha_csv('fecha')),
+    'umbrales_capa1.json': (10, 'recalibrar.yml (semanal)', _fecha_json()),
+    # Las metas de los dos ledgers de origen. Pesan nada y llevan dentro su
+    # `generado`, que es lo que senala CUAL de los dos se quedo atras: el
+    # total puede parecer reciente y estar hecho de un futbol de julio.
+    '_v75_pick_ledger.json': (10, 'recalibrar.yml (ledger de futbol)',
+                              _fecha_json()),
+    '_v78_ledger_deportes.json': (10, 'recalibrar.yml (ledger de deportes)',
+                                  _fecha_json()),
+    # Éste no lleva fecha dentro; se cae a la de commit.
+    'calibracion_confianza.json': (10, 'recalibrar.yml (semanal)', None),
+    'edge_map.json': (10, 'recalibrar.yml (semanal)', _fecha_json()),
+    'calibracion_mercado.json': (10, 'recalibrar.yml (semanal)', _fecha_json()),
     # ---- el fondo de estadísticas -------------------------------------
-    'stats_espn/laliga.csv.gz': (10, 'recalibrar.yml (fondo ESPN)'),
-    'stats_espn/premier.csv.gz': (10, 'recalibrar.yml (fondo ESPN)'),
+    'stats_espn/laliga.csv.gz': (10, 'recalibrar.yml (fondo ESPN)',
+                                 _fecha_csv('date', 'fecha')),
+    'stats_espn/premier.csv.gz': (10, 'recalibrar.yml (fondo ESPN)',
+                                  _fecha_csv('date', 'fecha')),
 }
 
 # Y los históricos de las competiciones encendidas, que los toca el
 # reentrenamiento diario. Se comprueban aparte porque son muchos y la lista
 # sale de `config`, no escrita a mano — una lista a mano se queda corta sola.
 DIAS_HISTORICO = 10
+
+
+def _es_clon_superficial() -> bool:
+    """
+    Un `actions/checkout@v4` sin `fetch-depth` deja UN solo commit, y entonces
+    `git log -1 -- <fichero>` devuelve ese commit para todos: cero días para
+    todo. Saberlo es lo que separa «al día» de «no puedo saberlo».
+    """
+    try:
+        r = subprocess.run(['git', 'rev-parse', '--is-shallow-repository'],
+                           capture_output=True, text=True, timeout=30)
+        return (r.stdout or '').strip().lower() == 'true'
+    except Exception as e:
+        logger.debug('[frescura] rev-parse: %s', e)
+        return False
 
 
 def _dias_desde_el_ultimo_commit(ruta: str) -> Optional[int]:
@@ -87,6 +215,15 @@ def _dias_desde_el_ultimo_commit(ruta: str) -> Optional[int]:
         return int((time.time() - float(marca)) / 86400)
     except Exception as e:
         logger.debug('[frescura] git log de %s: %s', ruta, e)
+        return None
+
+
+def _dias_desde(fecha: str) -> Optional[int]:
+    try:
+        import datetime as dt
+        d = dt.date.fromisoformat(str(fecha)[:10])
+        return (dt.date.today() - d).days
+    except Exception:
         return None
 
 
@@ -108,19 +245,43 @@ def _historicos_de_ligas_activas() -> List[str]:
 def revisar() -> Dict:
     """`{'ok': [...], 'viejos': [...], 'sin_datos': [...]}`."""
     ok, viejos, sin_datos = [], [], []
+    superficial = _es_clon_superficial()
 
-    def mira(ruta, dias_max, quien):
-        d = _dias_desde_el_ultimo_commit(ruta)
-        if d is None:
-            sin_datos.append({'fichero': ruta, 'motivo': 'no existe o sin commits'})
+    def mira(ruta, dias_max, quien, lector=None):
+        if not os.path.exists(ruta):
+            sin_datos.append({'fichero': ruta, 'motivo': 'no existe'})
             return
-        fila = {'fichero': ruta, 'dias': d, 'tolerado': dias_max, 'quien': quien}
+        d, via, hasta = None, None, None
+        if lector is not None:
+            hasta = lector(ruta)
+            if hasta:
+                d, via = _dias_desde(hasta), 'contenido'
+        if d is None:
+            # Sin fecha dentro: sólo queda git, y en un clon superficial git
+            # miente. Antes que decir «al día» sin saberlo, no se dice nada.
+            if superficial:
+                sin_datos.append({
+                    'fichero': ruta,
+                    'motivo': 'sin fecha dentro y el clon es superficial: '
+                              'no se puede evaluar'})
+                return
+            d, via = _dias_desde_el_ultimo_commit(ruta), 'commit'
+        if d is None:
+            sin_datos.append({'fichero': ruta, 'motivo': 'sin fecha ni commits'})
+            return
+        fila = {'fichero': ruta, 'dias': d, 'tolerado': dias_max,
+                'quien': quien, 'via': via}
+        if hasta:
+            fila['hasta'] = hasta
         (viejos if d > dias_max else ok).append(fila)
 
-    for ruta, (dias, quien) in VIGILADOS.items():
-        mira(ruta, dias, quien)
+    for ruta, cfg in VIGILADOS.items():
+        dias, quien = cfg[0], cfg[1]
+        lector = cfg[2] if len(cfg) > 2 else None
+        mira(ruta, dias, quien, lector)
     for ruta in _historicos_de_ligas_activas():
-        mira(ruta, DIAS_HISTORICO, 'retrain_leagues.yml (diario)')
+        mira(ruta, DIAS_HISTORICO, 'retrain_leagues.yml (diario)',
+             _fecha_csv('date', 'fecha'))
 
     # UNA COMPETICION EN RECESO NO ESTA ROTA, Y CONFUNDIRLAS ARRUINA EL CHECK.
     #
@@ -132,7 +293,7 @@ def revisar() -> Dict:
     #
     # Un check con cinco falsos positivos se ignora a la tercera semana, y
     # entonces no avisa del que sí importa. Así que a las sospechosas se les
-    # pregunta si tienen partidos próximos: si no los tienen, están en receso.
+    # pregunta si les FALTA algún partido ya jugado.
     #
     # Sólo se consulta a las que ya salieron marcadas —cinco peticiones, no
     # sesenta— y si la consulta falla se deja como estaba: no saber no es
@@ -151,7 +312,7 @@ def revisar() -> Dict:
 
     viejos.sort(key=lambda x: -x['dias'])
     return {'ok': ok, 'viejos': viejos, 'sin_datos': sin_datos,
-            'en_receso': en_receso}
+            'en_receso': en_receso, 'clon_superficial': superficial}
 
 
 def _clave_de_historico(ruta: str) -> Optional[str]:
@@ -209,6 +370,8 @@ def main() -> int:
                                   errors='replace')
     r = revisar()
     print('frescura de los datos que aprenden')
+    if r.get('clon_superficial'):
+        print('  (clon superficial: lo que no lleva fecha dentro no se evalúa)')
     print('  al día:      %d' % len(r['ok']))
     print('  PARADOS:     %d' % len(r['viejos']))
     print('  en receso:   %d  (sin partidos próximos: no es un fallo)'
@@ -217,12 +380,16 @@ def main() -> int:
     for f in (r.get('en_receso') or []):
         print('     · %-38s %3d días · %s'
               % (f['fichero'], f['dias'], f.get('motivo', '')))
+    for f in r['sin_datos']:
+        print('     · %-38s %s' % (f['fichero'], f.get('motivo', '')))
     if r['viejos']:
         print()
-        print('  %-40s %6s %10s  %s' % ('fichero', 'días', 'tolerado', 'quién'))
+        print('  %-38s %6s %9s %-9s %s'
+              % ('fichero', 'días', 'tolerado', 'medido por', 'quién'))
         for f in r['viejos']:
-            print('  %-40s %6d %10d  %s'
-                  % (f['fichero'], f['dias'], f['tolerado'], f['quien']))
+            print('  %-38s %6d %9d %-9s %s'
+                  % (f['fichero'], f['dias'], f['tolerado'],
+                     f.get('via', '?'), f['quien']))
     with io.open('frescura_datos.json', 'w', encoding='utf-8',
                  newline='\n') as fh:
         json.dump(r, fh, ensure_ascii=False, indent=1)
