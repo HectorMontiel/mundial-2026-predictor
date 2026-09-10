@@ -1,5 +1,4 @@
 date,home_team,away_team,home_goals,away_goals,odd_home,odd_draw,odd_away,odd_home_pin,odd_draw_pin,odd_away_pin,tournament,stadium,MATCH_ID,elo_diff,home_corners,away_corners,home_yellow,away_yellow,home_red,away_red,home_shots_on,away_shots_on,home_shots_off,away_shots_off,home_fouls,away_fouls,home_possession,away_possession,home_offsides,away_offsides,stats_origen,home_xg,away_xg
-2018-09-02,FC Tokyo,Sagan Tosu,0,0,1.74,3.61,4.7,1.74,3.86,5.08,J1 League,,20180902_FC-Tokyo_Sagan-Tosu,0.0,9.0,5.0,2.0,3.0,0.0,0.0,5.0,2.0,10.0,6.0,,,46.5,53.5,,,,1.32,1.2
 2018-09-14,Cerezo Osaka,Iwata,1,1,1.93,3.32,4.11,1.95,3.36,4.5,J1 League,,20180914_Cerezo-Osaka_Iwata,0.0,1.0,4.0,0.0,3.0,0.0,0.0,1.0,2.0,2.0,4.0,,,56.6,43.4,,,,0.26,1.02
 2018-09-14,Kashima Antlers,Shonan Bellmare,2,1,1.69,3.82,4.76,1.74,3.91,4.98,J1 League,,20180914_Kashima-Antlers_Shonan-Bellmare,0.0,3.0,5.0,1.0,0.0,0.0,0.0,3.0,4.0,7.0,9.0,,,51.1,48.9,,,,0.87,0.91
 2018-09-15,Kashiwa Reysol,Shimizu S-Pulse,2,3,2.31,3.4,2.97,2.39,3.57,3.0,J1 League,,20180915_Kashiwa-Reysol_Shimizu-S-Pulse,0.0,9.0,4.0,0.0,1.0,0.0,0.0,5.0,7.0,10.0,16.0,,,36.2,63.8,,,,1.53,1.56
@@ -2508,3 +2507,13 @@ date,home_team,away_team,home_goals,away_goals,odd_home,odd_draw,odd_away,odd_ho
 2026-09-02,V-Varen Nagasaki,Gamba Osaka,2,2,2.77,3.23,2.44,,,,J1 League,,20260902_V-Varen-Nagasaki_Gamba-Osaka,-98.6636771444837,5.0,2.0,1.0,0.0,0.0,0.0,4.0,2.0,8.0,5.0,,,40.1,59.9,,,,1.32,0.28
 2026-09-02,Verdy,Vissel Kobe,0,2,3.43,2.89,2.25,,,,J1 League,,20260902_Verdy_Vissel-Kobe,-139.74970190167892,0.0,5.0,1.0,2.0,0.0,0.0,0.0,5.0,0.0,11.0,,,45.8,54.2,,,,0.34,1.45
 2026-09-02,Yokohama F. Marinos,Kyoto,1,1,1.97,3.54,3.42,,,,J1 League,,20260902_Yokohama-F.-Marinos_Kyoto,-50.54565772424803,3.0,3.0,3.0,1.0,0.0,0.0,1.0,5.0,3.0,10.0,,,52.4,47.6,,,,0.95,1.35
+2026-09-05,Avispa Fukuoka,Mito,1,1,2.0,3.23,3.67,,,,J1 League,,20260905_Avispa-Fukuoka_Mito,-49.241200307631516,6.0,9.0,2.0,1.0,0.0,1.0,4.0,6.0,11.0,16.0,,,48.9,51.1,,,,1.36,1.59
+2026-09-06,Cerezo Osaka,Verdy,0,0,1.61,3.78,5.06,,,,J1 League,,20260906_Cerezo-Osaka_Verdy,70.565155621352,5.0,5.0,0.0,2.0,0.0,0.0,0.0,1.0,0.0,2.0,,,55.7,44.3,,,,0.05,0.05
+2026-09-06,Chiba,Gamba Osaka,2,0,3.55,3.64,1.9,,,,J1 League,,20260906_Chiba_Gamba-Osaka,-108.51565033906718,4.0,4.0,2.0,2.0,0.0,0.0,2.0,2.0,5.0,4.0,,,49.5,50.5,,,,0.8,0.69
+2026-09-06,FC Tokyo,Kyoto,2,0,1.47,4.35,5.88,,,,J1 League,,20260906_FC-Tokyo_Kyoto,-33.45371202984802,4.0,2.0,1.0,1.0,0.0,1.0,2.0,2.0,2.0,8.0,,,45.6,54.4,,,,0.2,1.18
+2026-09-06,Kashima Antlers,Urawa Reds,0,1,1.74,3.73,4.19,,,,J1 League,,20260906_Kashima-Antlers_Urawa-Reds,119.12305715465868,8.0,10.0,2.0,1.0,0.0,0.0,2.0,4.0,4.0,9.0,,,52.5,47.5,,,,0.59,0.95
+2026-09-06,Kashiwa Reysol,Yokohama F. Marinos,0,2,1.68,3.81,4.51,,,,J1 League,,20260906_Kashiwa-Reysol_Yokohama-F.-Marinos,108.02324651070398,7.0,4.0,1.0,1.0,0.0,0.0,4.0,3.0,9.0,6.0,,,50.0,50.0,,,,1.65,0.85
+2026-09-06,Kawasaki Frontale,Shimizu S-Pulse,3,1,1.78,3.57,4.11,,,,J1 League,,20260906_Kawasaki-Frontale_Shimizu-S-Pulse,105.34276943081636,12.0,8.0,1.0,1.0,0.0,0.0,5.0,5.0,13.0,11.0,,,47.1,52.9,,,,1.78,1.26
+2026-09-06,Nagoya Grampus,Machida,1,3,3.02,3.38,2.2,,,,J1 League,,20260906_Nagoya-Grampus_Machida,-119.9988379328122,6.0,3.0,1.0,3.0,0.0,0.0,3.0,3.0,6.0,9.0,,,46.7,53.3,,,,0.86,0.91
+2026-09-06,Okayama,Sanfrecce Hiroshima,3,2,3.98,3.48,1.84,,,,J1 League,,20260906_Okayama_Sanfrecce-Hiroshima,-175.66966188065385,10.0,2.0,2.0,0.0,0.0,0.0,7.0,4.0,14.0,8.0,,,41.2,58.8,,,,1.75,1.38
+2026-09-06,Vissel Kobe,V-Varen Nagasaki,3,1,1.58,3.81,5.35,,,,J1 League,,20260906_Vissel-Kobe_V-Varen-Nagasaki,150.79183349704158,4.0,2.0,5.0,3.0,0.0,1.0,5.0,1.0,9.0,4.0,,,54.9,45.1,,,,1.42,0.9
