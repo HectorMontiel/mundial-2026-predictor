@@ -1,6 +1,6 @@
 {
- "generado": "2026-09-09T10:49:04Z",
- "filas_insertadas": 234304,
+ "generado": "2026-09-10T11:13:28Z",
+ "filas_insertadas": 234439,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -20,6 +20,8 @@
   "esp_copa_rey",
   "europa_league",
   "ind_isl",
+  "isr_premier",
+  "ksa_pro",
   "leagues_cup",
   "libertadores",
   "mex_expansion",
@@ -35,148 +37,148 @@
  ],
  "por_liga": {
   "argentina": {
-   "filas": 7205,
-   "partidos": 3809
+   "filas": 7196,
+   "partidos": 3812
   },
   "aut_bundesliga": {
    "filas": 2949,
    "partidos": 1553
   },
   "bel_pro_league": {
-   "filas": 2915,
-   "partidos": 1583
+   "filas": 2924,
+   "partidos": 1592
   },
   "brasil": {
-   "filas": 5860,
-   "partidos": 3075
+   "filas": 5836,
+   "partidos": 3068
   },
   "bundesliga": {
-   "filas": 9032,
-   "partidos": 4905
+   "filas": 9041,
+   "partidos": 4914
   },
   "china": {
-   "filas": 3541,
+   "filas": 3533,
    "partidos": 1880
   },
   "dinamarca": {
-   "filas": 3108,
-   "partidos": 1630
+   "filas": 3114,
+   "partidos": 1636
   },
   "eng_championship": {
-   "filas": 5286,
-   "partidos": 2808
+   "filas": 5298,
+   "partidos": 2820
   },
   "eng_league_one": {
-   "filas": 15914,
-   "partidos": 8727
+   "filas": 15926,
+   "partidos": 8739
   },
   "eng_league_two": {
-   "filas": 15996,
-   "partidos": 8768
+   "filas": 16008,
+   "partidos": 8780
   },
   "eng_national": {
-   "filas": 15767,
-   "partidos": 8634
+   "filas": 15779,
+   "partidos": 8646
   },
   "eredivisie": {
-   "filas": 5226,
-   "partidos": 2713
+   "filas": 5234,
+   "partidos": 2721
   },
   "esp_hypermotion": {
-   "filas": 8040,
-   "partidos": 4170
+   "filas": 8051,
+   "partidos": 4181
   },
   "finlandia": {
    "filas": 2525,
    "partidos": 1334
   },
   "fra_ligue2": {
-   "filas": 6170,
-   "partidos": 3206
+   "filas": 6179,
+   "partidos": 3215
   },
   "ger_bundesliga2": {
-   "filas": 5319,
-   "partidos": 2781
+   "filas": 5328,
+   "partidos": 2790
   },
   "gre_super_league": {
-   "filas": 4091,
-   "partidos": 2161
+   "filas": 4098,
+   "partidos": 2168
   },
   "irlanda": {
-   "filas": 2585,
-   "partidos": 1372
+   "filas": 2576,
+   "partidos": 1368
   },
   "ita_serie_b": {
-   "filas": 6646,
-   "partidos": 3481
+   "filas": 6656,
+   "partidos": 3491
   },
   "jpn_j1": {
-   "filas": 4956,
-   "partidos": 2509
+   "filas": 4964,
+   "partidos": 2518
   },
   "laliga": {
-   "filas": 11240,
-   "partidos": 6111
+   "filas": 11250,
+   "partidos": 6121
   },
   "liga_mx": {
-   "filas": 5014,
-   "partidos": 2642
+   "filas": 5001,
+   "partidos": 2638
   },
   "ligue_1": {
-   "filas": 10619,
-   "partidos": 5776
+   "filas": 10627,
+   "partidos": 5784
   },
   "mls": {
-   "filas": 7111,
-   "partidos": 3728
+   "filas": 7105,
+   "partidos": 3732
   },
   "noruega": {
-   "filas": 3650,
+   "filas": 3642,
    "partidos": 1914
   },
   "polonia": {
-   "filas": 4467,
-   "partidos": 2355
+   "filas": 4476,
+   "partidos": 2364
   },
   "premier": {
-   "filas": 11250,
-   "partidos": 6100
+   "filas": 11260,
+   "partidos": 6110
   },
   "primeira": {
-   "filas": 5998,
-   "partidos": 3093
+   "filas": 6007,
+   "partidos": 3102
   },
   "rumania": {
-   "filas": 4650,
-   "partidos": 2464
+   "filas": 4644,
+   "partidos": 2465
   },
   "rus_premier": {
    "filas": 3711,
    "partidos": 1942
   },
   "sco_championship": {
-   "filas": 2962,
-   "partidos": 1552
+   "filas": 2967,
+   "partidos": 1557
   },
   "sco_premiership": {
-   "filas": 6592,
-   "partidos": 3624
+   "filas": 6598,
+   "partidos": 3630
   },
   "serie_a": {
-   "filas": 11236,
-   "partidos": 6098
+   "filas": 11246,
+   "partidos": 6108
   },
   "suecia": {
-   "filas": 3679,
-   "partidos": 1923
+   "filas": 3687,
+   "partidos": 1931
   },
   "suiza": {
    "filas": 3026,
    "partidos": 1599
   },
   "turquia": {
-   "filas": 5968,
-   "partidos": 3085
+   "filas": 5977,
+   "partidos": 3094
   }
  },
  "nota": "Fuente: historico_*.csv del propio proyecto (data/raw no existe; league_engine ya normaliza las cuotas al descargar). Las ligas sin cuota son las servidas por ESPN, que retira el bloque odds tras el partido -> solo pueden acumular histórico vía daily_snapshots.py."
