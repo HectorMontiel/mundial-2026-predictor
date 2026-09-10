@@ -2233,6 +2233,44 @@ def cuotas_partido(deporte: str, home: str, away: str,
                                  if k in ('home', 'draw', 'away')}
             fuentes.append('playdoit')
 
+    # v192 — CINCO CASAS MEXICANAS MÁS, Y NI UNA PETICIÓN DE RED AQUÍ.
+    #
+    # El encargo era Novibet. Su API está detrás del desafío de Cloudflare y
+    # devuelve 403 a todo —hasta a `robots.txt`—, así que por ahí no se entra.
+    # Pero sus cuotas SÍ están publicadas en el comparador de Flashscore, que
+    # responde 200 a una petición normal, y por esa puerta entran cinco casas,
+    # todas mexicanas: Caliente, 1xBet, Winpot, Novibet y Sportium.
+    #
+    # Eso importa más de lo que parece. El proyecto tenía tres casas y su única
+    # señal con ROI positivo medido es la DISPERSIÓN entre casas —saber si el
+    # precio que el usuario puede tomar está por encima del resto—. Con tres
+    # casas esa señal apenas se ve; con ocho se ve.
+    #
+    # Y son mexicanas, que es la diferencia entre un EV teórico y uno cobrable.
+    #
+    # AQUÍ NO SE PIDE NADA A LA RED: `cuotas_mx.buscar` lee un fichero que deja
+    # un barrido de fondo. Un barrido completo son ~4.500 peticiones y catorce
+    # minutos; meterlo en este camino desharía la v178 —y en esta misma tanda
+    # ya se metió sin querer algo así y dejó el smoke colgado 33 minutos—.
+    try:
+        import cuotas_mx as _cmx
+        _mx = _cmx.buscar(deporte, home, away)
+        for _casa, _mercados in ((_mx.get('casas') or {}).items()
+                                 if _mx else ()):
+            _c = ((_mercados.get('HOME_DRAW_AWAY')
+                   or _mercados.get('HOME_AWAY')) or {})
+            _fila = {k: _c[k] for k in ('home', 'draw', 'away') if _c.get(k)}
+            if _mx.get('invertido'):
+                _fila['home'], _fila['away'] = (_fila.get('away'),
+                                                _fila.get('home'))
+                _fila = {k: v for k, v in _fila.items() if v}
+            if _fila.get('home') and _fila.get('away'):
+                casas.setdefault(_casa, _fila)
+        if _mx:
+            fuentes.append('flashscore_mx')
+    except Exception as _e_mx:
+        logger.debug('[cuotas] casas mexicanas: %s', _e_mx)
+
     # v126 — EL CORE DE ESPN ENTRA SIEMPRE, NO SÓLO CUANDO NO HAY NADIE.
     #
     # Estaba puesto como último recurso (`if not casas`), o sea que en cuanto

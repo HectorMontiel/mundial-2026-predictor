@@ -2324,13 +2324,132 @@ def _picks_nba() -> Dict[str, List[Dict]]:
 UMBRAL_NFL_CAPA2 = 0.62
 
 
+# v191 — EL TOTAL DE TOUCHDOWNS, CON LA LINEA DE LA CASA COMO ANCLA.
+#
+# Playdoit publica «Total de Touchdowns (incl. prórroga)» con lineas en 4,5,
+# 5,5 y 6,5. El modelo puede ponerle una probabilidad porque el histórico ya
+# trae los touchdowns de cada partido —los cuenta `nfl_datos` de la lista de
+# anotaciones de ESPN— y correlacionan 0,934 con los puntos.
+#
+# LO QUE NO SE HACE, Y ESTUVO A PUNTO DE HACERSE: derivarlos de NUESTRO total.
+# Medido en validacion, nuestro total se equivoca 10,58 puntos de media, la
+# linea de cierre 10,30 —la casa acierta mas— y el modelo predice +1,19 de mas
+# de forma sistematica. Convertido a touchdowns, eso producia «mas de» con
+# +11 %, +26 % y +40 % de EV en las tres lineas A LA VEZ. Un EV que apunta
+# siempre al mismo lado no es una ventaja: es un sesgo con otro nombre.
+#
+# Anclado a la linea de PUNTOS de la casa, la correlacion sube de 0,165 a
+# 0,328 y lo que se mide pasa a ser otra cosa, mas defendible: si la linea de
+# touchdowns de una casa es coherente con su propia linea de puntos.
+#
+# Y NO VA A CAPA 1. No hay historico de lineas de touchdowns con el que
+# liquidar esto, asi que su percentil 5 no esta medido y la regla de oro del
+# proyecto no se puede aplicar. Sale como informacion con su precio al lado,
+# igual que los cornrs antes de que hubiera fotos con las que medirlos.
+def _dias_hasta(fecha) -> Optional[float]:
+    """
+    Dias desde hoy hasta `fecha`. `None` si no se puede leer.
+
+    EL RELOJ ES `hoy_utc()`, NO EL LOCAL, y no es un detalle de estilo. Las
+    fechas de los fixtures vienen de ESPN en UTC, y la v91 fijo por contrato
+    que todo el barrido use el mismo reloj: mezclarlos hacia que en cualquier
+    maquina de America se pidieran los partidos del dia y se descartaran todos
+    por 24 h de desfase —«partidos evaluados: 0» con 12 disponibles—. En
+    Streamlit Cloud, que va en UTC, el fallo es invisible.
+
+    La primera version de esta funcion usaba `date.today()` y el test del reloj
+    unico la cazó antes de subir.
+    """
+    try:
+        d = pd.Timestamp(str(fecha)[:10])
+        return int((d - hoy_utc()).days)
+    except (TypeError, ValueError):
+        return None
+
+
+def _linea_puntos_principal(cuotas: Dict):
+    """
+    La linea de puntos mas «central» de las que publican las casas.
+
+    Se elige la de over y under mas parejos, que es la que la casa considera
+    50/50 y por tanto su mejor estimacion del total. Coger la primera del
+    diccionario daria una linea de los extremos, donde el precio esta lejos
+    del equilibrio y la estimacion implicita no es la suya.
+    """
+    mejor = None
+    for k, v in (cuotas.get('lineas_totales') or {}).items():
+        try:
+            o, u = float(v['over']), float(v['under'])
+            linea = float(k)
+        except (TypeError, ValueError, KeyError):
+            continue
+        d = abs(o - u)
+        if mejor is None or d < mejor[0]:
+            mejor = (d, linea)
+    return mejor[1] if mejor else None
+
+
+def _mercado_td_nfl(modelo, h, a, total_casa):
+    """Las lineas de touchdowns de Playdoit con la probabilidad del modelo."""
+    if modelo is None or total_casa is None:
+        return []
+    try:
+        import cuotas_multi as cm
+        tablero = cm.mercados_playdoit('nfl', h, a)
+    except Exception as e:
+        logger.debug('[alpha/nfl] tablero de Playdoit %s-%s: %s', h, a, e)
+        return []
+    if not tablero:
+        return []
+    filas = []
+    for m in (tablero.get('mercados') or []):
+        if str(m.get('nombre') or '') != 'Total de Touchdowns (incl. prórroga)':
+            continue
+        for s in (m.get('selecciones') or []):
+            nombre = str(s.get('nombre') or '')
+            try:
+                cuota = float(s.get('cuota'))
+            except (TypeError, ValueError):
+                continue
+            partes = nombre.replace(',', '.').split()
+            try:
+                linea = float(partes[-1])
+            except (TypeError, ValueError, IndexError):
+                continue
+            p_mas = modelo.prob_td_mas(total_casa, linea)
+            if p_mas is None:
+                continue
+            es_mas = nombre.lower().startswith('más') or nombre.lower().startswith('mas')
+            p = p_mas if es_mas else 1.0 - p_mas
+            filas.append({'apuesta': '%s touchdowns' % nombre,
+                          'linea': linea, 'lado': 'mas' if es_mas else 'menos',
+                          'prob': round(p, 3), 'cuota': cuota,
+                          'ev': round(p * cuota - 1.0, 4),
+                          'casa': 'Playdoit'})
+    return filas
+
+
 def _picks_nfl() -> Dict[str, List[Dict]]:
     """NFL: valor de mercado a Capa 1, modelo a Capa 2."""
     salida: Dict[str, List] = {'capa1': [], 'capa2': [], 'incidencias': [],
                                'pronosticos': [], 'evaluados': 0, 'cobertura': {}}
     try:
         import nfl_datos as nd
-        fixtures = nd.fixtures_nfl(dias=2)
+        # v191 — OCHO DIAS, NO DOS: LA NFL JUEGA UNA VEZ POR SEMANA.
+        #
+        # La ventana de dos dias es la del futbol, que juega a diario y con
+        # ella no se pierde nada. La NFL concentra su jornada en el DOMINGO,
+        # con un partido suelto el jueves y otro el lunes.
+        #
+        # Medido el 2026-09-10, jueves de la semana 1: ESPN devolvia 15
+        # partidos y el barrido evaluaba UNO. Los catorce del domingo no
+        # existian para la aplicacion — ni en su pestaña ni en Apuestas del
+        # Dia cuando llegara su dia, porque el precalculo tampoco los veia.
+        #
+        # Ocho dias cubren la semana entera sin solaparse con la siguiente.
+        # Los que caigan fuera de hoy y mañana no ensucian nada: la pantalla
+        # reparte por fecha y solo pinta los del dia que toca.
+        fixtures = nd.fixtures_nfl(dias=8)
         if not fixtures:
             logger.info('[alpha] NFL: sin partidos en la ventana.')
             return salida
@@ -2441,6 +2560,43 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
                 'board': {f'Gana {h}': ph, f'Gana {a}': pa},
                 'cuota': (mejor.get('home' if ph >= 0.5 else 'away')
                           or {}).get('cuota')})
+            # v191 — y el total de touchdowns, con la linea de PUNTOS de la
+            # casa como ancla. Va colgado del partido y NO a Capa 1: su
+            # percentil 5 no esta medido porque no hay historico de lineas de
+            # touchdowns con el que liquidarlo. Ver `_mercado_td_nfl`.
+            try:
+                # v191.1 — SOLO LOS PARTIDOS INMINENTES, Y NO ES UN CAPRICHO.
+                #
+                # `mercados_playdoit` baja el TABLERO ENTERO de un partido
+                # —600 mercados— y cuesta entre 0,5 y 1,2 s con la cache
+                # caliente. Pedirlo para los 16 partidos de la semana metia
+                # **14,2 s** en cada barrido: medido. El smoke se quedo 33
+                # minutos sin escribir una linea y hubo que matarlo.
+                #
+                # Esta aplicacion bajo de 213 s a 39 s de carga en la v178 a
+                # base de quitar exactamente este tipo de peticion del camino
+                # caliente. Volver a meterla habria deshecho esa version.
+                #
+                # Tres dias cubren de sobra lo que se puede apostar hoy: la
+                # jornada de la NFL es el domingo y desde el jueves entra
+                # entera. Un partido a cinco dias vista muchas veces ni tiene
+                # linea de touchdowns abierta todavia.
+                _dias = _dias_hasta(fx.get('fecha'))
+                _td = []
+                if _dias is not None and _dias <= 3:
+                    _lp = _linea_puntos_principal(r if isinstance(r, dict) else {})
+                    _td = _mercado_td_nfl(modelo, h, a, _lp)
+                else:
+                    _lp = None
+                if _td:
+                    fila['mercado_touchdowns'] = _td
+                    fila['linea_puntos_casa'] = _lp
+                    # el TD esperado que se enseña sale de la MISMA linea
+                    # que las probabilidades. Con el de nuestro total
+                    # salian dos cifras distintas en la misma fila.
+                    fila['td_esperados'] = modelo.tds_esperados(_lp)
+            except Exception as _e_td:
+                logger.debug('[alpha/nfl] touchdowns %s-%s: %s', h, a, _e_td)
             salida['pronosticos'].append(fila)
 
             for lado, nombre in (('home', h), ('away', a)):

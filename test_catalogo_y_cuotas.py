@@ -4130,6 +4130,153 @@ def test_las_cuotas_de_espn_entran_donde_no_habia_ninguna():
         os.chdir(_cwd)
 
 
+def test_las_cinco_casas_mexicanas_y_su_coste_cero():
+    """
+    v192 — NOVIBET POR UNA PUERTA ABIERTA, Y CUATRO CASAS MAS DE REGALO.
+
+    El encargo era Novibet. Su API devuelve 403 desde cualquier IP —hasta
+    `robots.txt`— porque esta detras del desafio de Cloudflare, y resolver una
+    proteccion anti-bot no es algo que este proyecto haga. La v114 ya lo habia
+    medido igual.
+
+    Pero sus cuotas SI estan publicadas en el comparador de Flashscore, que
+    responde 200 a una peticion normal. Y por esa puerta entran cinco casas,
+    todas MEXICANAS —o sea precios que el usuario puede tomar de verdad—:
+
+        Calientemx 631 · 1xBet 417 · Winpot 1113 · Novibet 632 · Sportium 1041
+
+    Medido sobre 211 partidos de futbol: Novibet cubre 200 (95 %). El consenso
+    pasa de 5 casas a 10, y la dispersion entre casas es la unica señal que
+    este proyecto tiene medida como positiva.
+
+    LO QUE ESTE TEST VIGILA DE VERDAD ES EL COSTE. Un barrido completo son
+    ~30.000 peticiones y 16 minutos: eso va en un trabajo de fondo y la
+    pantalla solo lee un fichero. La primera version hacia emparejado difuso
+    contra los 1.900 nombres del catalogo en cada consulta y metia **22,7 s**
+    en el barrido (114,8 s con las casas contra 92,1 s sin ellas). Con un
+    indice por palabra bajo a 0,0003 s por consulta.
+    """
+    import time
+    import cuotas_mx as cx
+
+    check(set(cx.CASAS) == {'Calientemx', '1xBet', 'Winpot', 'Novibet',
+                            'Sportium.mx'},
+          "estan las cinco casas mexicanas")
+    check(cx.CASAS.get('Novibet') == 632,
+          "y Novibet con su identificador de Flashscore")
+    check(set(cx.DEPORTES.values()) >= {'futbol', 'tenis', 'nba', 'nfl', 'mlb'},
+          "se cubren los cinco deportes del proyecto")
+
+    # NADA DE RED EN EL CAMINO CALIENTE. `buscar` solo lee el fichero.
+    import inspect
+    src = inspect.getsource(cx.buscar)
+    check('requests' not in src and 'get(' not in src.replace('.get(', ''),
+          "`buscar` no pide nada a la red: solo lee lo que dejo el barrido")
+
+    # Y NO SE USA UN FICHERO VIEJO: un precio de ayer no es un precio.
+    check(cx.TTL_HORAS <= 12,
+          f"un fichero de mas de {cx.TTL_HORAS} h no se usa")
+
+    # La conversion de cuota rechaza lo imposible.
+    check(cx._valor('2.15') == 2.15, "una cuota normal se lee")
+    check(cx._valor(0.5) is None and cx._valor('x') is None
+          and cx._valor(None) is None,
+          "y una cuota imposible no se inventa")
+
+    # EL COSTE, que es lo que importa. Sin fichero no se puede medir, y
+    # entonces se dice, no se aprueba en silencio.
+    import os
+    if not os.path.exists(cx.FICHERO):
+        check(True, "sin `cuotas_mx.json` no se mide el coste (no es un fallo)")
+        return
+    cx.buscar('futbol', 'calienta', 'el indice')
+    t0 = time.time()
+    for _ in range(20):
+        cx.buscar('futbol', 'Equipo Que No Existe', 'Otro Que Tampoco')
+    por_busqueda = (time.time() - t0) / 20
+    check(por_busqueda < 0.005,
+          f"cada consulta cuesta {por_busqueda*1000:.2f} ms "
+          f"(con el catalogo entero eran 33)")
+
+
+def test_la_nfl_ve_la_jornada_entera_y_sus_touchdowns():
+    """
+    v191 — LA NFL JUEGA EL DOMINGO, NO TODOS LOS DIAS.
+
+    El barrido pedia `fixtures_nfl(dias=2)`, que es la ventana del futbol.
+    Medido el jueves 2026-09-10, semana 1: ESPN devolvia 15 partidos y el
+    barrido evaluaba UNO. Los catorce del domingo no existian para la
+    aplicacion. Con ocho dias pasa a 16.
+
+    Y los TOUCHDOWNS, que no estaban: ESPN no los publica como estadistica de
+    equipo, pero si la lista de anotaciones. `nfl_datos` los cuenta del mismo
+    `summary` que ya bajaba —cero peticiones nuevas— y el historico los trae.
+
+    LO QUE NO SE HACE, Y ESTUVO A PUNTO DE HACERSE: derivarlos de NUESTRO
+    total. Medido en validacion, nuestro total se equivoca 10,58 puntos y la
+    linea de la casa 10,30 —la casa acierta mas— y el modelo predice +1,19 de
+    mas de forma sistematica. Convertido a touchdowns eso daba «mas de» con
+    +11 %, +26 % y +40 % de EV en las tres lineas A LA VEZ: un EV que apunta
+    siempre al mismo lado es un sesgo, no una ventaja. Anclado a la linea de
+    la casa, la correlacion del touchdown predicho con el real sube de 0,165 a
+    0,328.
+    """
+    import modelo_nfl as mn
+    import nfl_datos as nd
+
+    # ---- la ventana --------------------------------------------------------
+    with open('alpha_finder.py', encoding='utf-8') as f:
+        src = f.read()
+    check('nd.fixtures_nfl(dias=8)' in src,
+          "el barrido de NFL pide OCHO dias, no dos")
+    check('nd.fixtures_nfl(dias=2)' not in src,
+          "y la ventana del futbol ya no esta")
+
+    # ---- los touchdowns en el historico ------------------------------------
+    import pandas as _pd
+    d = _pd.read_csv('historico_nfl.csv', low_memory=False)
+    check('home_td' in d.columns and 'away_td' in d.columns,
+          "el historico de NFL trae los touchdowns de cada equipo")
+    con = int(d['home_td'].notna().sum())
+    check(con >= 1000, f"y los trae en casi todos los partidos ({con} de {len(d)})")
+    reg = d[(d['tipo'] == 'regular') & d['home_td'].notna()]
+    tot = (reg['home_td'] + reg['away_td'])
+    check(4.0 <= float(tot.mean()) <= 6.0,
+          f"la media de touchdowns por partido es creible ({tot.mean():.2f})")
+    check(int(tot.max()) <= 20 and int(tot.min()) >= 0,
+          "y no hay valores imposibles")
+    check((d['tipo'] == 'playoffs').sum() >= 40,
+          f"hay playoffs en el historico ({int((d['tipo'] == 'playoffs').sum())})")
+
+    # ---- el ancla, que es lo que evita vender el sesgo ----------------------
+    with open('modelo_nfl.py', encoding='utf-8') as f:
+        msrc = f.read()
+    check('def ajustar_touchdowns(' in msrc and 'def prob_td_mas(' in msrc,
+          "el modelo aprende la relacion touchdowns-puntos y la publica")
+    m = mn.NFLModelo.cargar(historico=nd.cargar_historico())
+    if m is None:
+        check(False, "el modelo de NFL carga (NO se ha ejecutado el resto)")
+        return
+    check(getattr(m, 'td_desde', None) == 'linea',
+          f"y la ajusta sobre la LINEA DE LA CASA, no sobre nuestro total "
+          f"({getattr(m, 'td_desde', None)})")
+    check(m.n_td >= 500, f"con muestra suficiente ({m.n_td})")
+
+    # una linea alta implica mas touchdowns que una baja, y las probabilidades
+    # se mueven en el sentido correcto
+    p_baja = m.prob_td_mas(38.0, 5.5)
+    p_alta = m.prob_td_mas(55.0, 5.5)
+    check(p_baja is not None and p_alta is not None and p_alta > p_baja,
+          f"mas puntos esperados -> mas probabilidad de superar la linea "
+          f"({p_baja} -> {p_alta})")
+    check(all(0.0 <= m.prob_td_mas(48.0, L) <= 1.0 for L in (3.5, 4.5, 5.5, 6.5)),
+          "y todas las probabilidades son probabilidades")
+    # monotonia: subir la linea no puede subir la probabilidad
+    ps = [m.prob_td_mas(48.0, L) for L in (3.5, 4.5, 5.5, 6.5, 7.5)]
+    check(all(ps[i] >= ps[i + 1] for i in range(len(ps) - 1)),
+          f"y bajan al subir la linea ({[round(x, 3) for x in ps]})")
+
+
 def test_un_partido_sin_modelo_pero_con_precio_no_se_esconde():
     """
     v190 — EL MANCHESTER UNITED DEL 10 DE SEPTIEMBRE NO SE VEIA.
@@ -6980,7 +7127,15 @@ def test_las_tarjetas_cuentan_amarillas_y_rojas():
     # La comprobacion que no depende del texto: la media que sale del modulo
     # tiene que ser la de amarillas+rojas, no la de amarillas.
     clave = 'premier'
-    d = rq._historico(clave)
+    # v192 — SOBRE LAS MISMAS FILAS QUE MIRA LA FUNCION, no sobre el historico
+    # entero. `dispersion_tarjetas_liga` va por `_serie_tarjetas`, que filtra
+    # con `_solo_reales`: solo las filas con tarjetas OBSERVADAS, nunca las
+    # sinteticas. Este test recalculaba sobre todo el historico y coincidian
+    # por casualidad; el commit nocturno del 2026-09-10 cambio la mezcla de
+    # observadas y sinteticas de la Premier y los dos numeros se separaron
+    # 0,13. La funcion estaba bien: el que comparaba conjuntos distintos era
+    # este test.
+    d = rq._solo_reales(rq._historico(clave), 'yellow')
     if d is not None and not getattr(d, 'empty', True) and 'home_red' in d.columns:
         y = (pd.to_numeric(d['home_yellow'], errors='coerce')
              + pd.to_numeric(d['away_yellow'], errors='coerce'))
@@ -12125,6 +12280,8 @@ if __name__ == '__main__':
     print(chr(10) + '=== v188/v189: nada parado en silencio, y el paso 1 re-predice ===')
     test_el_aviso_no_manda_a_escribir_un_alias_imposible()
     test_las_cuotas_de_espn_entran_donde_no_habia_ninguna()
+    test_las_cinco_casas_mexicanas_y_su_coste_cero()
+    test_la_nfl_ve_la_jornada_entera_y_sus_touchdowns()
     test_un_partido_sin_modelo_pero_con_precio_no_se_esconde()
     test_los_widgets_no_dependen_de_que_haya_datos()
     test_ningun_git_add_de_los_workflows_puede_fallar_callado()

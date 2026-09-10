@@ -393,6 +393,37 @@ def _stats_equipo(bloque: dict) -> Dict[str, Optional[float]]:
     }
 
 
+def _touchdowns(j: dict, ab_home: str, ab_away: str):
+    """
+    Touchdowns de cada equipo, contados de `scoringPlays`.
+
+    ESPN no publica el touchdown como estadística de equipo —el boxscore trae
+    `defensiveTouchdowns` y nada más—, pero sí publica la lista de anotaciones
+    con su tipo y su equipo. Contarlas es exacto y no cuesta una petición más:
+    `scoringPlays` viene dentro del mismo `summary` que esta función ya baja.
+
+    SIN LISTA NO SE DEVUELVE CERO. Un partido sin `scoringPlays` es un partido
+    del que no hay dato, no un partido sin touchdowns, y meter ceros hunde la
+    media de todo lo que se calcule encima. Es la misma lección que el boxscore
+    a ceros de la Liga MX (ver `stats_espn`).
+    """
+    jugadas = j.get('scoringPlays')
+    if not jugadas:
+        return None, None
+    th = ta = 0
+    for p in jugadas:
+        tipo = str((p.get('scoringType') or {}).get('name') or '').lower()
+        if tipo != 'touchdown':
+            continue
+        eq = p.get('team') or {}
+        ab = abreviatura(eq.get('displayName') or eq.get('abbreviation'))
+        if ab and ab == ab_home:
+            th += 1
+        elif ab and ab == ab_away:
+            ta += 1
+    return th, ta
+
+
 def resumen_partido(event_id: str) -> Optional[dict]:
     """Marcador, contexto y las 25 estadísticas de equipo de ambos bandos."""
     j = _get(f'{SITE}/summary', {'event': event_id})
@@ -439,6 +470,9 @@ def resumen_partido(event_id: str) -> Optional[dict]:
     for lado in ('home', 'away'):
         for k, v in (caja.get(fila[lado]) or {}).items():
             fila[f'{lado}_{k}'] = v
+    # v191 — y los touchdowns, del mismo `summary`, sin pedir nada más.
+    td_h, td_a = _touchdowns(j, fila['home'], fila['away'])
+    fila['home_td'], fila['away_td'] = td_h, td_a
     return fila
 
 
@@ -596,7 +630,11 @@ def construir_historico(anios: List[int], salida: str = HISTORICO,
         return d
     d = d.drop_duplicates(subset=['event_id'], keep='last')
     d = d.sort_values(['fecha', 'event_id']).reset_index(drop=True)
-    d.to_csv(salida, index=False)
+    # v192 — `lineterminator` EXPLICITO. En Windows `to_csv` escribe CRLF y
+    # el historico esta en LF, asi que sin esto git ve el fichero ENTERO
+    # reescrito aunque solo cambien dos filas. Mismo caso que costo un
+    # diff de 325.130 lineas en la v190.
+    d.to_csv(salida, index=False, lineterminator='\n')
     logger.info(f'[nfl] guardado {salida}: {len(d)} partidos '
                 f'({d["fecha"].min()} → {d["fecha"].max()})')
     return d

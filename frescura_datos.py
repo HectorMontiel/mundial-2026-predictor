@@ -172,6 +172,11 @@ VIGILADOS = {
     'calibracion_confianza.json': (10, 'recalibrar.yml (semanal)', None),
     'edge_map.json': (10, 'recalibrar.yml (semanal)', _fecha_json()),
     'calibracion_mercado.json': (10, 'recalibrar.yml (semanal)', _fecha_json()),
+    # ---- la NFL, que se quedo parada 4 semanas sin que nada lo dijera ---
+    # Su historico solo lo construia una funcion llamada a mano y se congelo
+    # en pretemporada. Se mide por la fecha del ultimo partido que contiene.
+    'historico_nfl.csv': (10, 'retrain_leagues.yml (diario)',
+                          _fecha_csv('fecha', 'date')),
     # ---- el fondo de estadísticas -------------------------------------
     'stats_espn/laliga.csv.gz': (10, 'recalibrar.yml (fondo ESPN)',
                                  _fecha_csv('date', 'fecha')),

@@ -1,0 +1,81 @@
+name: Cuotas de las casas mexicanas
+
+# v192 — CINCO CASAS MEXICANAS, CADA SEIS HORAS.
+#
+# De dónde sale esto: el encargo era meter Novibet. Su API está detrás del
+# desafío de Cloudflare y devuelve 403 a todo, hasta a `robots.txt`, así que
+# por ahí no se entra y no se va a entrar. Pero sus cuotas SÍ están publicadas
+# en el comparador de Flashscore, que responde 200 a una petición normal, y por
+# esa puerta entran cinco casas en vez de una:
+#
+#     Calientemx · 1xBet · Winpot · Novibet · Sportium.mx
+#
+# Todas mexicanas, que es la diferencia entre un EV teórico y uno cobrable: de
+# nada sirve detectar valor en un precio que el usuario no puede tomar.
+#
+# POR QUÉ UN WORKFLOW APARTE Y NO EL DIARIO
+# ------------------------------------------
+# Un barrido son ~30.000 peticiones y unos 16 minutos, y sobre todo: son
+# PRECIOS. Un precio de hace un día no es un precio. `cuotas_mx` descarta el
+# fichero si tiene más de 8 horas, así que con una pasada diaria estaría
+# caducado dos tercios del tiempo. Cada seis horas lo mantiene fresco siempre.
+#
+# Y por eso NO va dentro de la aplicación: meterlo en el barrido que corre al
+# abrir la pantalla desharía la v178, que bajó la carga de 213 s a 39 s
+# quitando exactamente este tipo de petición del camino caliente. En esta misma
+# tanda se metió sin querer algo así dos veces —el tablero de touchdowns y el
+# emparejado difuso— y costó 14,2 s y 22,7 s respectivamente. Medido las dos
+# veces, arreglado las dos veces.
+
+on:
+  schedule:
+    - cron: '10 */6 * * *'      # cada seis horas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cuotas-mx
+  cancel-in-progress: false
+
+jobs:
+  cuotas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      # Sólo `requests`: este módulo no toca pandas ni los modelos. Instalar
+      # el requirements entero serían tres minutos por nada.
+      - name: Instalar dependencias mínimas
+        run: pip install requests
+
+      - name: Barrer las cinco casas
+        run: |
+          python cuotas_mx.py --dias 2 --max 400 \
+            || echo "::warning::barrido de casas mexicanas con avisos"
+
+      - name: Commitear las cuotas
+        run: |
+          git config user.name  "cuotas-mx-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cuotas_mx.json || echo "::warning::git add de cuotas_mx.json fallo"
+          if git diff --cached --quiet; then
+            echo "Las cuotas no cambiaron."
+          else
+            git commit -m "chore(cuotas): casas mexicanas ($(date -u +%Y-%m-%dT%H:%MZ))
+
+            Calientemx, 1xBet, Winpot, Novibet y Sportium via el comparador
+            publico de Flashscore. Ver el encabezado de cuotas_mx.py."
+            # Rebase antes de empujar: el reentrenamiento puede haber empujado
+            # entre medias y sólo toca datos.
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

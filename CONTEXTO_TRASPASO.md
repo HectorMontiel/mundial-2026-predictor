@@ -3471,3 +3471,267 @@ esconde es su contenedor, con la misma clase `st-key-…`.
    recorre, no sobre la temporada. El que ya estaba conserva sus totales; el
    nuevo empieza en cero. Es correcto para saber QUIÉN está en el equipo, que
    es para lo que se usa, pero no reconstruye una temporada perdida.
+
+---
+
+## 5y. v191 — LA NFL ESTABA CONSTRUIDA Y MIRABA POR UNA RENDIJA DE DOS DÍAS
+
+Encargo: que la NFL aparezca en las categorías y en Apuestas del Día, con
+modelo propio, y con dos mercados —ganador y total de touchdowns—.
+
+Lo primero que había que averiguar era cuánto de eso ya existía, y existía casi
+todo: `nfl_datos.py`, `modelo_nfl.py` (estado rodante por equipo y dos
+regresiones ridge) y la rama `_picks_nfl` enchufada al barrido desde la v131.
+El modelo funciona: Rams-49ers de la jornada 1 sale con margen +5,71, total
+53,2 y 66 % al local, con 59 y 61 partidos de historia por equipo.
+
+Los datos también: **1.055 partidos, temporadas 2022-2026, 52 de playoffs**, 71
+columnas de estadística avanzada por equipo y las cuotas de cierre dentro.
+
+### 1. La rendija
+
+    fixtures = nd.fixtures_nfl(dias=2)
+
+Dos días es la ventana del fútbol, que juega a diario y con ella no pierde
+nada. **La NFL juega el domingo.** Medido el jueves 2026-09-10, semana 1: ESPN
+devolvía 15 partidos y el barrido evaluaba **uno**. Los catorce del domingo no
+existían para la aplicación — ni en su pestaña ni en Apuestas del Día cuando
+llegara su día, porque el precálculo tampoco los veía.
+
+Con ocho días: **de 1 a 16 partidos**, todos con probabilidad del modelo y 15
+con precio real.
+
+### 2. Y el histórico llevaba cuatro semanas congelado
+
+`historico_nfl.csv` sólo lo construía `construir_historico()` llamada **a
+mano**. Se quedó en el **2026-08-14**: pretemporada. La temporada arrancó el 7
+de septiembre y sus resultados no entraban, así que el modelo predecía la
+jornada 1 con lo aprendido en febrero.
+
+Es el mismo patrón que el ledger de la v189 y el bot de plantillas de la v190:
+una pieza que alguien tenía que ejecutar y nadie ejecutaba. Ahora entra en
+`retrain_leagues.yml` (diario) y en el vigilante de frescura. Actualizado:
+**1.095 partidos, hasta hoy**.
+
+### 3. Los touchdowns, del mismo `summary`
+
+ESPN no publica el touchdown como estadística de equipo —el boxscore trae
+`defensiveTouchdowns` y nada más— pero sí la lista de anotaciones, con su tipo
+y su equipo. Se cuentan de ahí, sin una petición más, porque `resumen_partido`
+ya descargaba ese `summary`.
+
+Rellenados **1.095 de 1.095, cero fallos**, en 7,8 minutos. Y queda enganchado
+a la ingesta: las filas nuevas los traen solas.
+
+Comprobación de cordura: media 4,99 por partido, mediana 5, rango 0-12, y
+correlación con los puntos de **0,934**. Un partido de 13-10 sale como 1-1
+touchdowns, que cuadra exactamente (13 = 1 TD + 2 FG).
+
+Y con la guarda de siempre: **sin lista de anotaciones no se devuelve cero**.
+Un partido sin dato no es un partido sin touchdowns, y meter ceros hunde la
+media de todo lo que se calcule encima.
+
+### 4. El EV que había que NO publicar
+
+Playdoit publica «Total de Touchdowns (incl. prórroga)» con líneas en 4,5, 5,5
+y 6,5. La primera versión derivaba los touchdowns de NUESTRO total y salía
+esto:
+
+    Más de 4.5  EV +11 %     Más de 5.5  EV +26 %     Más de 6.5  EV +40 %
+
+Tres líneas, tres veces «más», siempre el mismo lado. Un EV que apunta siempre
+en la misma dirección no es una ventaja. Medido contra la línea de cierre, que
+el histórico ya traía:
+
+    error absoluto contra el total real:  modelo 10,58  ·  casa 10,30
+    sesgo del modelo: +1,19 puntos de más, sistemático
+
+**La casa acierta más que nosotros, y nosotros predecimos alto.** Ese EV era el
+sesgo con otro nombre.
+
+Anclado a la línea de PUNTOS de la casa en vez de a nuestro total:
+
+                          nuestro total    línea de la casa
+    correlación TD             0,165            0,328
+    MAE                        1,649            1,612
+    peor desvío de calibración 0,007            0,011
+
+La correlación se duplica, y lo que se mide pasa a ser otra cosa más
+defendible: si la línea de touchdowns de una casa es **coherente con su propia
+línea de puntos**. Esa discrepancia es suya, no nuestra. Los números quedan
+creíbles: +0,0 %, +5,1 % y +5,7 % en vez de +11, +26 y +40.
+
+**Y no va a Capa 1.** No existe histórico de líneas de touchdowns con el que
+liquidarlo, así que su percentil 5 no está medido y la regla de oro no se le
+puede aplicar. Sale como información con su precio al lado, igual que los
+córners antes de que hubiera fotos con las que medirlos.
+
+Sobre la sigma, que es donde estaba la trampa: ajustar la recta sobre los
+puntos REALES da un residuo de 0,73 y una calibración casi perfecta, y esa
+cifra es mentira — a la hora de apostar no se conocen los puntos. Las dos
+fuentes de error se suman en cuadratura y la sigma buena sale ~2,0, que
+coincide con la medida fuera de muestra (2,002). Con ella el peor desvío entre
+las líneas de 3,5 y 7,5 es de **0,011**.
+
+### 5. Novibet: no entra, y el motivo no es técnico
+
+Pedido en la misma tanda. No se puede, y ya estaba medido:
+
+    Novibet-MX (API propia)  403  pagina de Cloudflare; hasta robots.txt da 403
+    Altenar:novibet2         400  no corre sobre Altenar como Playdoit
+    The Odds API (23 casas)  ---  no esta en su catalogo
+
+La v114 lo sondeó y midió lo mismo. Comprobado otra vez desde una IP
+residencial, que no está bloqueada por ser centro de datos: el bloqueo es a
+todo acceso automático.
+
+Playdoit funciona porque corre sobre **Altenar**, cuya API de widget es pública
+y sin clave. Novibet tiene motor propio detrás de Cloudflare. Automatizarlo
+exigiría un sistema que resuelva ese desafío anti-bot, y eso no se construye.
+
+Las alternativas tampoco sirven y conviene dejarlo escrito para que nadie las
+vuelva a proponer: The Odds API tiene Betano y Codere, pero son `betano_uk` y
+`codere_it` —la operación británica y la italiana—, precios que el usuario no
+puede tomar. Caliente no está.
+
+### Lo que esta versión deja abierto
+
+1. Fotografiar las líneas de touchdowns de Playdoit, como se hace con los
+   córners desde la v159. Con unas semanas de fotos ese mercado se podría
+   liquidar y dejaría de ser «sin p5 medido».
+2. El modelo de NFL predice el total peor que la casa (10,58 contra 10,30).
+   No es raro ni deshonroso, pero mientras siga así su total no debe usarse
+   para apostar contra ella, sólo para describir el partido.
+3. Sólo hay 847 partidos de temporada regular. Para la NFL son tres
+   temporadas, y es poco: cada equipo aporta ~60 partidos.
+
+---
+
+## 5z. v192 — NOVIBET NO SE PUDO POR SU PUERTA, ASÍ QUE ENTRARON CINCO POR OTRA
+
+Encargo: meter Novibet, en fútbol y en todos los deportes, automatizado.
+
+### 1. Por su puerta no se entra, y no por falta de intentarlo
+
+    Novibet-MX (API propia)   403   pagina de Cloudflare «Just a moment...»
+                                    hasta robots.txt devuelve 403
+    Altenar:novibet2          400   no corre sobre Altenar como Playdoit
+    The Odds API (23 casas)   ---   no esta en su catalogo
+    novibet.gr                200   pero es el armazon de una SPA, no JSON
+
+La v114 ya lo había sondeado y midió lo mismo. Comprobado otra vez desde una IP
+residencial —que no está bloqueada por ser centro de datos—: el bloqueo es a
+**todo acceso automático, sin distinguir**.
+
+Automatizarlo por ahí exigiría un sistema que resuelva el desafío anti-bot.
+Eso no se construye, y la respuesta no cambia porque se insista.
+
+### 2. Pero sus cuotas están publicadas en otro sitio
+
+El comparador de **Flashscore** las publica, y responde 200 a una petición
+normal de Python: sin navegador, sin resolver nada. Es la misma categoría que
+el scraping de BetExplorer que el proyecto ya hacía.
+
+Se encontró abriendo Flashscore en el navegador y leyendo **qué petición hace
+su propia web** para pintar las cuotas:
+
+    https://global.ds.lsapp.eu/odds/pq_graphql
+        ?_hash=ope2&eventId=<id>&bookmakerId=632&betType=HOME_DRAW_AWAY
+
+`632` es Novibet, y la lista de casas del propio Flashscore la marca con
+`geo_ip: "MX"`: **precios mexicanos**, los que el usuario puede tomar.
+
+### 3. Y por esa puerta no entra una casa: entran cinco
+
+    Calientemx 631 · 1xBet 417 · Winpot 1113 · Novibet 632 · Sportium.mx 1041
+
+Todas mexicanas. El proyecto tenía cinco casas en el consenso (Pinnacle,
+Bovada, Unibet, Matchbook, Playdoit) y pasa a **diez**.
+
+Eso no es un adorno: la dispersión entre casas es la **única señal que este
+proyecto tiene medida con ROI positivo**, y con pocas casas apenas se ve.
+Medido en Pumas-León de la Liga MX:
+
+    1xBet        2.05     <- mejor precio al local
+    Novibet      2.09
+    Winpot       2.12  (= Pinnacle)
+    Calientemx   2.16
+    Sportium     2.16
+
+Y el mejor precio del partido pasó de Playdoit (2,14) a **Sportium (2,16)**.
+
+**Cobertura medida** sobre 211 partidos de fútbol barridos de verdad:
+
+    1xBet 209 · Winpot 206 · Novibet 200 (95 %) · Caliente 179 · Sportium 177
+
+Por deporte (12 partidos por deporte, 1.040 peticiones):
+
+                  Caliente  1xBet  Winpot  Novibet  Sportium
+    futbol          10/12   10/12   10/12   10/12     9/12
+    tenis           11/12   12/12   12/12   12/12    11/12
+    baloncesto       4/12    9/12    4/12   10/12     0/12
+    americano        3/4     0/4     0/4     0/4      3/4
+    beisbol          1/12   11/12    0/12    0/12    11/12
+
+**Novibet no cotiza NFL ni MLB**, y eso hay que decirlo aunque el encargo
+pidiera «todos los deportes»: es fuerte en fútbol, tenis y baloncesto —ahí es
+la mejor de las cinco— y ausente en los otros dos. Los cubren Caliente, 1xBet
+y Sportium. Las cinco juntas sí llegan a los cinco deportes.
+
+Un regalo inesperado: el feed trae el **precio de apertura** junto al actual y
+la dirección del movimiento. Ninguna de las casas que ya había lo publica, y es
+materia prima directa para el CLV.
+
+### 4. Lo que costó, que es la parte que se aprendió por las malas
+
+Tres veces en la misma tanda se metió trabajo caro en el camino caliente. Las
+tres las cazó la medición, ninguna la intuición.
+
+**Primera: el tablero de touchdowns.** `mercados_playdoit` baja 600 mercados
+por partido y se pedía para los 16 de la NFL: **+14,2 s por barrido**. El smoke
+se quedó 33 minutos sin escribir y hubo que matarlo. Arreglado limitándolo a
+los partidos a tres días o menos: **0,6 s**, y siguen apareciendo 13 de 16.
+
+**Segunda: el emparejado difuso.** `cuotas_mx.buscar` comparaba cada nombre
+contra los 1.900 del catálogo, dos veces por partido —«Pumas» contra equipos de
+Kazajistán, 260 veces por barrido—:
+
+    barrido CON casas mexicanas   114,8 s
+    barrido SIN ellas              92,1 s
+                                 --------
+    coste                          22,7 s
+
+Arreglado con un índice por palabra: lo difuso sólo se prueba contra los que
+comparten alguna, de 1.900 candidatos a una veintena.
+
+    por consulta:  0,0313 s -> 0,0003 s   (100x)
+    barrido:       114,8 s  ->  86,3 s
+
+Queda por debajo de la línea base sin las casas, o sea que **la aportación es
+gratis**.
+
+**Tercera** fue en la v190 y se cuenta allí: escribir 863 cuotas producía
+325.130 líneas de diff.
+
+### 5. Cómo queda montado
+
+`barrer()` corre en `cuotas_mx.yml` **cada seis horas** y deja `cuotas_mx.json`;
+la pantalla sólo lo lee. Seis horas y no un día porque son PRECIOS: el módulo
+descarta el fichero si tiene más de ocho, y con una pasada diaria estaría
+caducado dos tercios del tiempo.
+
+El barrido está paralelizado a ocho hilos —**381 s → 97 s** para las mismas
+1.830 peticiones— y ocho es cortesía, no una carrera: la medición dio 0,19 s
+por petición sin ningún límite de ritmo, y no hace falta averiguar dónde está
+el límite para que nos lo pongan.
+
+### Lo que esta versión deja abierto
+
+1. Los mercados de totales y hándicap de estas casas se recogen pero **no se
+   usan todavía**: sólo entra el 1X2 al consenso. Enchufar los otros dos es
+   trabajo directo y con datos ya en el fichero.
+2. El precio de apertura se guarda y **nadie lo lee aún**. Es la pieza que
+   permitiría medir CLV contra el movimiento real de cinco casas en vez de
+   contra un cierre que football-data ya no publica.
+3. El barrido tarda 16 minutos si no se le pone tope. Con `--max 400` baja a
+   unos 6, y habría que medir si 400 deja fuera ligas que importan.

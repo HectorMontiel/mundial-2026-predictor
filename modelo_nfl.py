@@ -377,6 +377,12 @@ class NFLModelo:
         self.m_total: Optional[_Ridge] = None
         self.sigma_margen = 13.5
         self.sigma_total = 10.0
+        # v191 — la recta de touchdowns; `ajustar_touchdowns` la reajusta con
+        # el histórico y estos valores son sólo el punto de partida medido.
+        self.td_a, self.td_b = self.TD_A, self.TD_B
+        self.sigma_td = self.TD_SIGMA
+        self.n_td = 0
+        self.td_desde = 'puntos'
         self.res_margen: np.ndarray = np.array([])
         self.res_total: np.ndarray = np.array([])
         self.metodo_margen = 'normal'     # lo decide la medición, no el gusto
@@ -403,8 +409,93 @@ class NFLModelo:
         self.entrenado_hasta = str(pd.to_datetime(ent['fecha']).max().date())
         return self
 
+    # v191 — LOS TOUCHDOWNS, DERIVADOS DEL TOTAL Y CON SU ERROR COMPLETO.
+    #
+    # ESPN no publica el touchdown como estadística de equipo, pero sí la lista
+    # de anotaciones: `nfl_datos` las cuenta y el histórico ya trae `home_td` y
+    # `away_td`. Sobre 846 partidos de temporada regular, los touchdowns
+    # correlacionan **0,934** con los puntos, así que no hace falta un modelo
+    # aparte: basta una recta sobre el total, que este modelo ya predice.
+    #
+    # LA SIGMA ES LO QUE HAY QUE HACER BIEN. Ajustar la recta sobre los puntos
+    # REALES da un error residual de 0,73 y una calibración casi perfecta, y esa
+    # cifra es mentira: a la hora de apostar no se conocen los puntos, se conoce
+    # `total_esperado`, que trae su propio error de unos 13. Las dos fuentes se
+    # suman en cuadratura y la sigma buena sale ~2,04 —medida fuera de muestra,
+    # 2,09—. Con ella la calibración aguanta: el peor desvío en las líneas de
+    # 3,5 a 7,5 es de **0,007**.
+    #
+    # Lo que NO hay que vender es ventaja. La correlación entre el touchdown
+    # predicho y el real es 0,165: la probabilidad está bien calibrada pero
+    # apenas discrimina, y en la línea de 4,5 el tercio de abajo se equivoca de
+    # lado (predice 0,538 donde la realidad da 0,631). Sirve para poner un
+    # número honesto al lado del precio, no para afirmar que gana dinero.
+    TD_A, TD_B, TD_SIGMA = 0.1455, -1.555, 2.04
+
+    def ajustar_touchdowns(self, historico: pd.DataFrame) -> 'NFLModelo':
+        """La recta touchdowns<-puntos, con el error de las DOS fuentes."""
+        try:
+            h = historico
+            if 'home_td' not in h.columns or 'away_td' not in h.columns:
+                return self
+            h = h[h['tipo'].isin(TIPOS_ENTRENAMIENTO)]
+            h = h.dropna(subset=['home_td', 'away_td', 'pts_home', 'pts_away'])
+            if len(h) < 120:
+                return self          # con menos no se toca el valor por defecto
+            td = (h['home_td'] + h['away_td']).values.astype(float)
+            # SE AJUSTA SOBRE LA LINEA DE LA CASA, NO SOBRE NUESTRO TOTAL.
+            #
+            # Medido en validacion: nuestro total se equivoca 10,58 puntos de
+            # media y la linea de cierre 10,30 —la casa acierta mas— y ademas
+            # el modelo predice +1,19 puntos de mas de forma sistematica.
+            # Convertir ESE total en touchdowns arrastraba el sesgo: salian
+            # «mas de» con +11 %, +26 % y +40 % de EV en las tres lineas a la
+            # vez, que no es una ventaja sino un sesgo con otro nombre.
+            #
+            # Anclado a la linea de la casa, la correlacion entre el touchdown
+            # predicho y el real pasa de 0,165 a **0,328** y el MAE baja. Lo
+            # que se mide entonces es otra cosa, y mejor: si la linea de
+            # touchdowns de una casa es coherente con su PROPIA linea de
+            # puntos. Esa discrepancia si es suya, no nuestra.
+            x = pd.to_numeric(h.get('total'), errors='coerce') if 'total' in h.columns else None
+            if x is not None and x.notna().sum() >= 120:
+                mask = x.notna().values
+                base, td = x.values[mask].astype(float), td[mask]
+                self.td_desde = 'linea'
+            else:
+                base = (h['pts_home'] + h['pts_away']).values.astype(float)
+                self.td_desde = 'puntos'
+            a, b = np.polyfit(base, td, 1)
+            res = td - (a * base + b)
+            s = float(np.std(res))
+            if self.td_desde == 'puntos':
+                # sin linea hay que sumar el error de nuestro propio total
+                s = float(np.sqrt((a * float(self.sigma_total)) ** 2 + s ** 2))
+            self.td_a, self.td_b = float(a), float(b)
+            self.sigma_td = s
+            self.n_td = int(len(base))
+        except Exception as e:
+            logger.debug('[nfl] no se pudo ajustar touchdowns: %s', e)
+        return self
+
+    def prob_td_mas(self, total_esp: float, linea: float):
+        """P(touchdowns del partido > `linea`). `None` si no se puede."""
+        try:
+            mu = self.td_a * float(total_esp) + self.td_b
+            s = max(float(self.sigma_td), 1e-6)
+            return float(1.0 - _phi((float(linea) - mu) / s))
+        except (TypeError, ValueError):
+            return None
+
+    def tds_esperados(self, total_esp: float):
+        try:
+            return round(self.td_a * float(total_esp) + self.td_b, 2)
+        except (TypeError, ValueError):
+            return None
+
     def construir_estado(self, historico: pd.DataFrame) -> 'NFLModelo':
         """Rehace la memoria rodante recorriendo el histórico completo."""
+        self.ajustar_touchdowns(historico)
         est = EstadoEquipos(self.ventana, self.arrastre)
         h = historico.sort_values(['fecha', 'event_id'])
         for r in h.to_dict('records'):
@@ -580,6 +671,8 @@ class NFLModelo:
         r['n_away'] = int(self.estado.jugados.get(away, 0))
         r['entrenado_hasta'] = self.entrenado_hasta
         r['tipo'] = tipo
+        r['tds_esperados'] = self.tds_esperados(total)
+        r['sigma_td'] = round(float(self.sigma_td), 3)
         r['probabilidades_publicables'] = tipo != 'pretemporada'
         if not r['probabilidades_publicables']:
             r['motivo_sin_probabilidad'] = self.MOTIVO_PRETEMPORADA
@@ -603,6 +696,8 @@ class NFLModelo:
             'metodo_margen': self.metodo_margen,
             'entrenado_hasta': self.entrenado_hasta,
             'n_entrenamiento': self.n_entrenamiento,
+            'td_a': self.td_a, 'td_b': self.td_b,
+            'sigma_td': self.sigma_td, 'n_td': self.n_td,
             # La bolsa de residuos se guarda en PERCENTILES y no entera: 201
             # números describen la forma igual de bien que 900 y el artefacto
             # se queda en 30 KB.
@@ -638,6 +733,10 @@ class NFLModelo:
         m.res_total = np.array(d.get('res_total_pct') or [], dtype=float)
         m.entrenado_hasta = d.get('entrenado_hasta')
         m.n_entrenamiento = int(d.get('n_entrenamiento') or 0)
+        m.td_a = float(d.get('td_a', NFLModelo.TD_A))
+        m.td_b = float(d.get('td_b', NFLModelo.TD_B))
+        m.sigma_td = float(d.get('sigma_td', NFLModelo.TD_SIGMA))
+        m.n_td = int(d.get('n_td') or 0)
         if historico is not None and len(historico):
             m.construir_estado(historico)
         return m
