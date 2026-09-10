@@ -2400,7 +2400,27 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 st.caption('Este partido no llegó a evaluarse: no hay '
                            'modelo suyo en el precálculo del día.')
         elif sin_modelo:
+            # v190 — SE DICE POR QUÉ FALTA, Y NO SE TAPA CON EL MERCADO.
+            #
+            # Estos partidos ya no se esconden: llegan a la lista con su
+            # tarjeta, su hora y su nombre, que es lo que faltaba. Pero aquí
+            # NO se rellena el hueco con la probabilidad implícita de la casa.
+            #
+            # La v152 lo prohíbe y tiene razón: en una pantalla cuyo único
+            # propósito es leer al MODELO, un número del mercado en una fila
+            # del modelo hace imposible distinguir uno del otro, que es justo
+            # lo que esta pantalla vino a arreglar. El precio está en Apuestas
+            # del Día, que es su sitio.
+            #
+            # (El primer intento sí lo pintaba, y encima llamó `_board` a su
+            # variable local —el mismo nombre que la función `_board` de
+            # arriba—, con lo que Python la marcaba como local en TODA
+            # `tarjeta` y reventaba en su primera línea con
+            # `UnboundLocalError`. Lo cazó `valida_render`.)
             st.markdown('**· Sin datos de modelo**')
+            _por_que = pick.get('motivo_sin_modelo')
+            if _por_que:
+                st.caption(str(_por_que))
         else:
             if not con_apuesta:
                 st.caption('📅 Análisis previo (no jugable aún)')
@@ -2722,7 +2742,31 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         if p.get('jugado'):
             con.append(p)
         elif p.get('sin_modelo') or p.get('prob') is None:
-            sin.append(p)
+            # v190 — SIN MODELO PERO CON PRECIO: A LA LISTA PRINCIPAL.
+            #
+            # El usuario avisó de que no veía el Manchester United-Sabah FK
+            # del 10 de septiembre. El partido SÍ estaba en el barrido, con su
+            # hora y su cuota; lo que pasaba es que acababa aquí, y de aquí a
+            # una línea de texto dentro de un desplegable plegado —sin
+            # tarjeta, sin hora y sin nada—.
+            #
+            # El motivo por el que no tiene modelo ni siquiera es una avería:
+            # «Sabah FK no ha jugado todavía en esta competición». Le pasa a
+            # medio cuadro de una Champions recién empezada, así que esconderlo
+            # deja la lista corta justo cuando más partidos hay.
+            #
+            # Al desplegable se van sólo los que no tienen NADA que enseñar:
+            # ni modelo ni precio. Ésos sí son una línea de texto.
+            # Se mira `sin_cuota`, la bandera que el barrido ya pone, y NO
+            # el relleno de mercado: la v152 exige que esta pantalla no lea
+            # ese relleno ni para decidir, porque de ahi a pintarlo hay un
+            # paso y el test lo vigila. La bandera dice lo mismo y es la
+            # canonica. Si falta, se supone que no hay precio: asi un pick de
+            # otra procedencia se comporta como antes.
+            if not p.get('sin_cuota', True):
+                con.append(p)
+            else:
+                sin.append(p)
         else:
             con.append(p)
 

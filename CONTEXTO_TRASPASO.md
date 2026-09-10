@@ -3316,3 +3316,158 @@ medir con una regla más gruesa que la cosa medida, y el CLV es la métrica rey.
    runner y lo que hará lento cualquier clon nuevo.
 4. Las cuotas de cierre siguen dependiendo de una fuente caída, sin sustituto
    que aguante la medición.
+
+---
+
+## 5x. v190 — LO QUE YA VENÍA EN EL `summary` DE ESPN Y NADIE HABÍA ABIERTO
+
+La v189 dejó tres cosas apuntadas y sin hacer. Las tres se cierran aquí, y dos
+de ellas con la misma llave.
+
+### 1. El Manchester United que no se veía
+
+Lo reportó el usuario: el 10 de septiembre no aparecía `Manchester United vs
+Sabah FK` en la lista de mañana.
+
+**El partido sí estaba en el barrido**, con su hora, con cuota 1,111 y con el
+motivo escrito: «Sabah FK no ha jugado todavía en esta competición». Eso no es
+una avería —le pasa a medio cuadro de una Champions recién empezada— pero el
+reparto de `modo_modelo` lo mandaba a una lista secundaria:
+
+    elif p.get('sin_modelo') or p.get('prob') is None:
+        sin.append(p)
+    ...
+    if sin:
+        with st.expander('Sin datos de modelo (%d)'):     # plegado
+            st.markdown('· **%s** — %s')                  # una línea de texto
+
+Sin tarjeta, sin hora y sin precio. Y no le tocaba sólo al United: Fenerbahce-
+Roma y Como-Leipzig estaban en el mismo saco.
+
+**Lo que más duele es que el dato ya estaba calculado.** `alpha_finder` produce
+`board_mercado` para exactamente estos partidos —la probabilidad implícita de
+la casa, ya sin su margen— y lo documenta con un «SIN MODELO NO ES SIN
+INFORMACIÓN». La pantalla lo ignoraba y pintaba un `**· Sin datos de modelo**`
+mudo.
+
+Ahora: **con precio, a la lista principal con su tarjeta**; sin nada que
+enseñar, al desplegable. La tarjeta dice **por qué** no hay modelo en vez de un
+«Sin datos de modelo» mudo.
+
+**Y NO se rellena el hueco con el precio, que fue el primer intento y estaba
+mal.** La v152 lo prohíbe con un argumento mejor que el mío: en una pantalla
+cuyo único propósito es leer al MODELO, un número del mercado en una fila del
+modelo hace imposible distinguir uno del otro. Su test lo paró en seco. El
+precio sigue en Apuestas del Día, que es su sitio.
+
+El reparto mira `sin_cuota` —la bandera que el barrido ya pone— y no
+`board_mercado`, así que la cadena prohibida no aparece ni una vez en
+`modo_modelo.py` y el invariante de la v152 queda intacto al pie de la letra.
+
+**Y el primer intento tenía algo peor que un criterio discutible.** La variable
+local se llamaba `_board`, igual que la función `_board` de arriba, así que
+Python la marcaba como local en TODA `tarjeta` y reventaba en su primera línea:
+
+    UnboundLocalError: cannot access local variable '_board'
+      modo_modelo.py:2343   b = _board(pick)
+
+Eso es la página entera caída, en las dos vistas y para todos los partidos, no
+sólo los que no tienen modelo. Lo cazó `valida_render` antes de que llegara a
+producción — y es la respuesta a si vale la pena correr la validación de
+interfaz cuando se toca la interfaz.
+
+Lo otro que había que comprobar: esos picks pasan ahora por funciones que nunca
+los habían visto. `apuesta_destacada` devuelve None, `recomendadas` devuelve
+`[]` y los seis criterios de orden aguantan con `prob=None`.
+
+### 2. Las cuotas de cierre: el agujero era mayor que la caída
+
+`football-data.co.uk` lleva caído —503 en todo el sitio— y de ahí salían las
+columnas `odd_*`, que son las que `odds_store` importa como fase «cierre». Pero
+al medirlo, el problema no era sólo el 503:
+
+    partidos posteriores al 2026-08-01     2.405
+    sin precio                             1.225   (51 %)
+
+Y la mayoría de esos 1.225 son de ligas que football-data **nunca** cubrió: la
+Saudi, la Leagues Cup, la Libertadores, la Champions, Colombia, Perú, Ecuador,
+Bolivia. Sin precio se puede medir si el modelo acierta, pero no si gana
+dinero: el EV de esas competiciones no se liquida nunca.
+
+La fuente estaba delante desde la v162. El `summary` de ESPN —el que
+`stats_espn` ya descarga para cada partido, todos los días, sin un fallo— trae
+`pickcenter` con la línea de una casa. Coste de red adicional: cero peticiones
+nuevas por partido.
+
+**Medido contra 60 cierres conocidos de LaLiga**, en probabilidad implícita:
+
+                        football-data   ESPN/DraftKings   foto Playdoit
+    sobreredondeo          1,0555           1,0482           1,1377
+    error normalizado         —             0,0162           0,0234
+    p90                       —             0,0343           0,0602
+    mismo favorito            —             97 %                —
+    cobertura                 —             60 de 60            —
+
+ESPN trae **menos margen que la propia football-data**, o sea que es una línea
+más ajustada que la referencia que se venía usando. Y la columna de la derecha
+es la foto de Playdoit que la v189 descartó por tener un error del tamaño de la
+señal: ESPN mejora un 30 % la media y un 43 % el p90.
+
+Queda dicho lo que es y no se disfraza: la línea de UNA casa para un partido ya
+jugado, no un cierre de consenso.
+
+**Sólo rellena huecos.** Si football-data vuelve, su cierre manda y esto no pisa
+nada. El emparejamiento va por fecha y marcador, no por nombre —football-data
+escribe «Ath Bilbao» y ESPN «Athletic Club»—, y si dos partidos del mismo día
+comparten marcador no se adivina: se deja vacío.
+
+### 3. El bot de plantillas, por la misma puerta
+
+`precalcular_rosters.yml` corre a diario desde hace meses y **no ha commiteado
+nunca, ni una vez**. La última pasada se comió **1.130 errores 403**: ESPN
+bloquea `/teams` y `/roster` desde IPs de centro de datos, y ese workflow
+existía justamente para rodear ese bloqueo desde Streamlit Cloud. Ahora bloquea
+también las de GitHub Actions. Como la caché no cambiaba, el paso de commit
+decía «la caché no cambió» y todo terminaba en verde.
+
+El mismo `summary` trae `rosters`: las dos alineaciones con sus jugadores, sus
+identificadores y sus estadísticas del partido. Misma caché, mismo formato, por
+una puerta que no está cerrada.
+
+**Se fusiona, no se sustituye.** La caché lleva la temporada entera y esto es
+una ventana de días: reemplazarla dejaría el panel de máximos goleadores
+contando desde el lunes. Un equipo que no jugó esta semana conserva lo suyo.
+
+Lo que NO se puede verificar desde una máquina de casa: qué endpoints bloquea
+ESPN en el runner. Una IP residencial responde a todo. Lo único que se sabe con
+certeza es que `summary` funciona allí, porque `stats_espn` lo usa a diario y
+acierta — y por eso se construye sobre eso y sobre nada más.
+
+### 4. Los widgets que se iban con los datos
+
+Tercera vía de una avería con dos vías ya cerradas. Un widget que no llega vivo
+al final de la pasada desaparece de `session_state`:
+
+    st.empty() vaciando los slots     -> cerrada en la v177.2 (ocultar por CSS)
+    st.rerun() cortando la pasada     -> cerrada en la v178
+    creación condicionada por DATOS   -> ésta
+
+`ev_extremo_tog` vivía dentro de `if extremo:` y `parlay_base` dentro de
+`if _s1:`. Basta con que un «Actualizar ahora» devuelva un barrido sin picks de
+EV extremo para que la clave se vaya. El smoke lo cazó con `KeyError:
+ev_extremo_tog`; antes había cazado `KeyError: parlay_base`, que la v177.2 dio
+por cerrado y que ya tiró la página una vez.
+
+Se arregla como las vistas: el widget se queda **en el árbol** y lo que se
+esconde es su contenedor, con la misma clase `st-key-…`.
+
+### Lo que esta versión deja abierto
+
+1. El modelo de respaldo por copa. Sigue siendo lo único del encargo original
+   sin cerrar, y ahora molesta menos: esos partidos ya se ven con el precio de
+   la casa en vez de esconderse.
+2. El `.git` de 16 GB.
+3. Las estadísticas de las plantillas se acumulan sobre la ventana que se
+   recorre, no sobre la temporada. El que ya estaba conserva sus totales; el
+   nuevo empieza en cero. Es correcto para saber QUIÉN está en el equipo, que
+   es para lo que se usa, pero no reconstruye una temporada perdida.

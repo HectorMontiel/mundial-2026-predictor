@@ -79,6 +79,27 @@ jobs:
           python stats_espn.py --dias 10 || echo "::warning::stats de ESPN con avisos"
           python stats_espn.py --limpiar || echo "::warning::limpieza con avisos"
 
+      # v190 — Y DEL MISMO `summary`, LAS CUOTAS Y LAS PLANTILLAS.
+      #
+      # `football-data.co.uk` lleva caido (503 en todo el sitio) y de ahi
+      # salian las columnas `odd_*`. Pero el agujero era mayor que la caida:
+      # de 2.405 partidos posteriores al 1 de agosto, 1.225 no tenian precio,
+      # y en su mayoria son ligas que esa fuente NUNCA cubrio — la Saudi, la
+      # Leagues Cup, la Libertadores, Colombia, Peru, Ecuador.
+      #
+      # Sin precio se puede medir si el modelo acierta, pero no si gana
+      # dinero: el ledger entra sin cuota y el EV de esas ligas no se liquida.
+      #
+      # Medido contra 60 cierres conocidos de LaLiga: error 0,0162 en
+      # probabilidad implicita y sobreredondeo 1,0482, MENOS margen que la
+      # propia football-data. Solo rellena huecos: si football-data vuelve,
+      # su cierre manda y esto no pisa nada.
+      - name: Cuotas y plantillas del summary de ESPN
+        continue-on-error: true
+        run: |
+          python espn_extras.py --dias 10 \
+            || echo "::warning::cuotas/plantillas de ESPN con avisos"
+
       - name: Reentrenar todas las ligas disponibles
         run: |
           # league_engine --build descarga los CSV frescos de football-data y

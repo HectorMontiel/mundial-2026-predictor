@@ -6244,10 +6244,32 @@ def render_alpha_finder():
 
         # v32 (§3): EV extremo segregado, oculto por defecto
         extremo = r.get('ev_extremo') or []
-        if extremo:
+        # v190 — LA CASILLA SE CREA SIEMPRE, TENGA O NO PICKS QUE ENSEÑAR.
+        #
+        # Estaba dentro de `if extremo:`, así que su existencia dependía de
+        # los DATOS. Al pulsar «Actualizar ahora» se relanza el barrido, y si
+        # esa pasada ya no traía picks de EV extremo el widget no se creaba y
+        # su clave desaparecía de `session_state`. El smoke lo cazó:
+        # `KeyError: ev_extremo_tog`.
+        #
+        # Es la tercera vía de la misma avería, y las otras dos ya estaban
+        # cerradas: la v177.2 dejó de vaciar los slots con `st.empty()` y la
+        # v178 quitó el `st.rerun()` que cortaba la pasada. Las dos apuntaban
+        # a lo mismo —un widget que no llega vivo al final del run se pierde—
+        # pero ninguna miró los widgets que se crean bajo condición. Por ese
+        # hueco volvió `KeyError: parlay_base`, que ya tiró la página una vez.
+        #
+        # Se arregla como las vistas: el widget se queda EN EL ÁRBOL y lo que
+        # se esconde es el contenedor, con la misma clase `st-key-…`.
+        if not extremo:
+            st.markdown('<style>.st-key-caja_ev_extremo'
+                        '{display:none !important;}</style>',
+                        unsafe_allow_html=True)
+        with st.container(key='caja_ev_extremo'):
             st.divider()
             if st.checkbox(f"⚠️ Mostrar {len(extremo)} picks de EV extremo "
-                           "(alta incertidumbre)", value=False, key='ev_extremo_tog'):
+                           "(alta incertidumbre)", value=False,
+                           key='ev_extremo_tog') and extremo:
                 st.warning("Estos picks tienen un EV inusualmente alto (>+15 %). "
                            "En el histórico, ese tramo acertó **15 pp por debajo** "
                            "de lo que el modelo prometía y su ROI fue 12 pp peor: "
@@ -6855,7 +6877,18 @@ def render_alpha_finder():
         #
         # Se parte siempre de la Sección 1 y se admite UNA pata de relleno.
         # Ver `parlay_ev` para la aritmética y las reglas.
-        if _s1:
+        # v190 — Y AQUÍ IGUAL, que éste es el que tiró la página.
+        #
+        # `parlay_base` vivía dentro de `if _s1:`. Un día sin picks en la
+        # Sección 1 —o un «Actualizar» que la deja vacía— y la clave se va.
+        # El cuerpo ya está envuelto en un `try/except` que enseña
+        # «Calculadora no disponible», así que dejarlo vivo con la lista
+        # vacía no rompe nada: sólo mantiene el widget registrado.
+        if not _s1:
+            st.markdown('<style>.st-key-caja_parlay'
+                        '{display:none !important;}</style>',
+                        unsafe_allow_html=True)
+        with st.container(key='caja_parlay'):
             with st.expander("🧮 Arma tu combinada — con el EV calculado antes "
                              "de jugarla", expanded=False):
                 try:

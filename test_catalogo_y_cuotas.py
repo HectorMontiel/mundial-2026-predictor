@@ -4051,6 +4051,199 @@ def test_el_aviso_no_manda_a_escribir_un_alias_imposible():
           "y un motor que no carga sigue senalandose como averia")
 
 
+def test_las_cuotas_de_espn_entran_donde_no_habia_ninguna():
+    """
+    v190 — football-data NO ES LA UNICA FUENTE, Y NUNCA CUBRIO MEDIO CATALOGO.
+
+    `football-data.co.uk` lleva caido (503 en todo el sitio) y de ahi salian
+    las columnas `odd_*`. Pero al mirarlo de cerca el agujero era mayor que la
+    caida: de los 2.405 partidos posteriores al 1 de agosto, 1.225 no tenian
+    precio, y no por el 503 — son ligas que esa fuente NUNCA cubrio: la Saudi,
+    la Leagues Cup, la Libertadores, Colombia, Peru, Ecuador, Bolivia.
+
+    El `summary` de ESPN —el mismo que `stats_espn` ya baja cada dia sin un
+    fallo— traia dentro `pickcenter` con la linea de una casa. Medido contra
+    60 cierres conocidos de LaLiga: error normalizado 0,0162 (p90 0,0343),
+    mismo favorito el 97 %, y sobreredondeo 1,0482 — MENOS margen que la
+    propia football-data (1,0555). La foto de Playdoit que la v189 descarto
+    daba 0,0234 y p90 0,0602.
+    """
+    import espn_extras as ex
+
+    # ---- la conversion de americana a decimal -----------------------------
+    check(abs(ex.a_decimal(-1100) - 1.0909) < 0.001,
+          "una americana negativa se convierte bien (-1100 -> 1,091)")
+    check(abs(ex.a_decimal(2200) - 23.0) < 0.001,
+          "y una positiva tambien (+2200 -> 23,0)")
+    check(ex.a_decimal(None) is None and ex.a_decimal('x') is None
+          and ex.a_decimal(0) is None,
+          "y lo que no es un numero no inventa una cuota")
+
+    # ---- la guarda del sobreredondeo --------------------------------------
+    # Una linea de verdad suma entre 1,00 y 1,15 de probabilidad implicita.
+    # Fuera de ahi lo que hay es una lectura mal hecha, no un precio.
+    buena = {'pickcenter': [{'provider': {'name': 'X'},
+                             'homeTeamOdds': {'moneyLine': -110},
+                             'drawOdds': {'moneyLine': 240},
+                             'awayTeamOdds': {'moneyLine': 300}}]}
+    r = ex._cuotas_de(buena)
+    check(r is not None and r['odd_home'] > 1,
+          "una linea normal se acepta")
+    imposible = {'pickcenter': [{'provider': {'name': 'X'},
+                                 'homeTeamOdds': {'moneyLine': -100000},
+                                 'drawOdds': {'moneyLine': -100000},
+                                 'awayTeamOdds': {'moneyLine': -100000}}]}
+    check(ex._cuotas_de(imposible) is None,
+          "y una con sobreredondeo imposible se descarta en vez de colarse")
+    check(ex._cuotas_de({}) is None, "sin pickcenter no se devuelve nada")
+
+    # ---- rellenar NO es pisar ---------------------------------------------
+    import os
+    import tempfile
+    import pandas as _pd
+    _cwd = os.getcwd()
+    _dir = tempfile.mkdtemp(prefix='extras190_')
+    try:
+        os.chdir(_dir)
+        base = _pd.DataFrame({
+            'date': ['2026-09-01', '2026-09-02'],
+            'home_team': ['A', 'C'], 'away_team': ['B', 'D'],
+            'home_goals': [1, 2], 'away_goals': [0, 2],
+            'odd_home': [1.85, None], 'odd_draw': [3.4, None],
+            'odd_away': [4.2, None]})
+        base.to_csv('historico_prueba190.csv', index=False)
+        cuotas = [
+            {'fecha': '2026-09-01', 'home_goals': 1, 'away_goals': 0,
+             'odd_home': 9.9, 'odd_draw': 9.9, 'odd_away': 9.9},
+            {'fecha': '2026-09-02', 'home_goals': 2, 'away_goals': 2,
+             'odd_home': 2.5, 'odd_draw': 3.1, 'odd_away': 2.9}]
+        res = ex.aplicar_cuotas('prueba190', cuotas)
+        d = _pd.read_csv('historico_prueba190.csv')
+        check(res['escritas'] == 1,
+              "solo se rellena el hueco: la fila que ya tenia cuota no se toca")
+        check(abs(float(d.loc[0, 'odd_home']) - 1.85) < 1e-6,
+              "y la cuota que ya estaba sigue intacta (manda football-data)")
+        check(abs(float(d.loc[1, 'odd_home']) - 2.5) < 1e-6,
+              "la que faltaba se escribe")
+        check(len(d) == 2, "y el historico NO cambia de tamaño al rellenar")
+    finally:
+        os.chdir(_cwd)
+
+
+def test_un_partido_sin_modelo_pero_con_precio_no_se_esconde():
+    """
+    v190 — EL MANCHESTER UNITED DEL 10 DE SEPTIEMBRE NO SE VEIA.
+
+    El usuario aviso de que no aparecia en la lista de mañana. El partido SI
+    estaba en el barrido —`Manchester United vs Sabah FK`, Champions, con hora
+    y con cuota 1,111— y ademas con su motivo escrito: «Sabah FK no ha jugado
+    todavia en esta competicion». Eso no es una averia: le pasa a medio cuadro
+    de una Champions recien empezada.
+
+    Lo que lo escondia era el reparto de `modo_modelo`: todo lo que llega con
+    `sin_modelo` o sin `prob` se iba a una lista secundaria que se pinta como
+    UNA LINEA DE TEXTO dentro de un desplegable plegado. Sin tarjeta, sin hora
+    y sin precio.
+
+    Y encima tiraba trabajo ya hecho: `alpha_finder` calcula `board_mercado`
+    para exactamente estos partidos —la probabilidad implicita de la casa— con
+    el argumento escrito de que «sin modelo no es sin informacion».
+
+    Ahora: con precio, a la lista principal; sin nada que enseñar, al
+    desplegable.
+    """
+    import modo_modelo as mm
+
+    with open('modo_modelo.py', encoding='utf-8') as f:
+        src = f.read()
+    check("if not p.get('sin_cuota', True):" in src,
+          "el reparto mira si el partido trae precio")
+    check('board_mercado' not in src,
+          "y lo hace SIN leer el relleno de mercado, que la v152 prohibe aqui")
+    check(src.count('sin.append(p)') == 1,
+          "y al desplegable solo va lo que no tiene NADA que enseñar")
+    check('motivo_sin_modelo' in src,
+          "y la tarjeta dice POR QUE no hay modelo, en vez de callarse")
+
+    # LO QUE DE VERDAD IMPORTA: que nada reviente con `prob` a None. Estos
+    # partidos no pasaban por aqui, y cambiar una tarjeta que falta por una
+    # pagina caida seria peor que el fallo original.
+    p = {'deporte': 'Fútbol', 'partido': 'Manchester United vs Sabah FK',
+         'liga': 'UEFA Champions League', 'clave_liga': 'champions',
+         'fecha': '2026-09-10', 'es_hoy': False, 'prob': None, 'cuota': None,
+         'sin_modelo': True, 'sin_cuota': False,
+         'motivo_sin_modelo': 'Sabah FK no ha jugado todavía en esta competición',
+         'board_mercado': {'Gana Manchester United': 0.86, 'Empate': 0.09,
+                           'Gana Sabah FK': 0.05},
+         'n_casas': 3}
+    fallos = []
+    for nombre, fn in (('apuesta_destacada', lambda: mm.apuesta_destacada(p)),
+                       ('recomendadas', lambda: mm.recomendadas(p, None, n=3))):
+        try:
+            fn()
+        except Exception as ex:
+            fallos.append('%s: %s' % (nombre, type(ex).__name__))
+    for etq, k in mm.ORDENES.items():
+        try:
+            k(p)
+        except Exception as ex:
+            fallos.append('orden %s: %s' % (etq, type(ex).__name__))
+    check(not fallos,
+          f"un pick sin prob no revienta en ninguna funcion de la lista "
+          f"({fallos[:3]})")
+    check(mm.apuesta_destacada(p) is None and mm.recomendadas(p, None) == [],
+          "y no se le inventa una apuesta recomendada por no tener modelo")
+
+
+def test_los_widgets_no_dependen_de_que_haya_datos():
+    """
+    v190 — LA TERCERA VIA DE LA MISMA AVERIA, Y LA QUE SEGUIA ABIERTA.
+
+    Un widget que no llega vivo al final de la pasada desaparece de
+    `session_state`, y leerlo despues tira la pagina. Habia tres formas de
+    matarlo y solo se habian cerrado dos:
+
+        st.empty() vaciando los slots   -> cerrada en la v177.2 (ocultar por CSS)
+        st.rerun() cortando la pasada   -> cerrada en la v178
+        creacion condicionada por DATOS -> esta
+
+    `ev_extremo_tog` vivia dentro de `if extremo:` y `parlay_base` dentro de
+    `if _s1:`. Basta con que un «Actualizar ahora» devuelva un barrido sin
+    picks de EV extremo para que la clave se vaya. El smoke lo cazo con
+    `KeyError: ev_extremo_tog`, y antes con `KeyError: parlay_base`, que la
+    v177.2 dio por cerrado.
+
+    Se arregla como las vistas: el widget se queda en el arbol y lo que se
+    esconde es su contenedor.
+    """
+    with open('dashboard_ui.py', encoding='utf-8') as f:
+        src = f.read()
+
+    for clave, caja in (('ev_extremo_tog', 'caja_ev_extremo'),
+                        ('parlay_base', 'caja_parlay')):
+        check(src.count("key='%s'" % clave) == 1,
+              f"«{clave}» sigue existiendo una sola vez")
+        check("key='%s'" % caja in src,
+              f"y vive dentro de un contenedor propio ({caja})")
+        check("<style>.st-key-%s" % caja in src
+              and "{display:none !important;}</style>" in src,
+              f"que se esconde por CSS en vez de borrarse ({caja})")
+        i_caja, i_widget = src.index("key='%s'" % caja), src.index("key='%s'" % clave)
+        check(i_caja < i_widget,
+              f"y el contenedor se crea ANTES que el widget ({caja})")
+
+    # Y LO QUE NO PUEDE VOLVER: los dos patrones EXACTOS que mataban la
+    # clave. Se miran asi de pegados a proposito — hay otros `if _s1:` en
+    # la pantalla que solo pintan tarjetas, sin un widget dentro, y
+    # prohibirlos todos seria un check que estorba sin proteger nada.
+    _mal_ev = 'if extremo:' + chr(10) + ' ' * 12 + 'st.divider()'
+    _mal_s1 = 'if _s1:' + chr(10) + ' ' * 12 + 'with st.expander('
+    check(_mal_ev not in src,
+          "ya no hay un `if extremo:` decidiendo si existe la casilla")
+    check(_mal_s1 not in src,
+          "ni un `if _s1:` decidiendo si existe el selector de la combinada")
+
+
 def test_ningun_git_add_de_los_workflows_puede_fallar_callado():
     """
     v189 — LA CLASE DE BUG QUE YA HA MORDIDO DOS VECES.
@@ -11931,6 +12124,9 @@ if __name__ == '__main__':
     test_kbo_integrada()
     print(chr(10) + '=== v188/v189: nada parado en silencio, y el paso 1 re-predice ===')
     test_el_aviso_no_manda_a_escribir_un_alias_imposible()
+    test_las_cuotas_de_espn_entran_donde_no_habia_ninguna()
+    test_un_partido_sin_modelo_pero_con_precio_no_se_esconde()
+    test_los_widgets_no_dependen_de_que_haya_datos()
     test_ningun_git_add_de_los_workflows_puede_fallar_callado()
     test_la_cadena_rehace_el_ledger()
     test_el_vigilante_no_puede_decir_al_dia_sin_saberlo()

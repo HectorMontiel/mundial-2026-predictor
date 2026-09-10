@@ -65,9 +65,28 @@ jobs:
         # scikit-learn y compañía aquí serían tres minutos por nada.
         run: pip install requests pandas
 
-      - name: Precalcular la caché de goleadores
+      # v190 — POR `summary`, QUE NO ESTÁ BLOQUEADO.
+      #
+      # `precalcular_goleadores.py` pide `/teams` y `/roster`, y ESPN devuelve
+      # 403 a los dos desde IPs de centro de datos. Este workflow existía
+      # justamente para rodear ese bloqueo desde Streamlit Cloud, y desde hace
+      # tiempo bloquea también las de GitHub Actions: la última pasada se comió
+      # **1.130 errores 403**, no actualizó nada, y como la caché no cambiaba
+      # el paso de commit decía «no cambió» y todo terminaba en verde. No ha
+      # commiteado ni una sola vez.
+      #
+      # `/summary` sí responde —`stats_espn` lo usa cada día sin fallar— y trae
+      # dentro las dos alineaciones con sus jugadores. Es la misma caché, en el
+      # mismo formato, por una puerta que no está cerrada.
+      #
+      # Se FUSIONA con lo que ya hay: esto es una ventana de días y la caché
+      # lleva la temporada, así que un equipo que no jugó esta semana conserva
+      # lo suyo.
+      - name: Refrescar la caché de plantillas (vía summary de ESPN)
         run: |
-          python precalcular_goleadores.py --ligas ${{ github.event.inputs.ligas }}
+          python espn_extras.py --solo-plantillas --dias 8 \
+                 ${{ github.event.inputs.ligas }} \
+            || echo "::warning::refresco de plantillas con avisos"
 
       - name: Comprobar que la caché creció
         # Si el fichero no cambió, no se commitea: un commit vacío por día
@@ -90,9 +109,9 @@ jobs:
           git add goleadores_cache.json
           git commit -m "chore(datos): caché de goleadores precalculada ($(date -u +%Y-%m-%d))
 
-          Se precalcula en el runner porque ESPN devuelve 403 a /teams y
-          /roster desde las IPs de Streamlit Cloud. Ver el encabezado de
-          precalcular_goleadores.py."
+          Sale del `summary` de cada partido, que ESPN si responde desde el
+          runner. `/teams` y `/roster` devuelven 403 desde cualquier IP de
+          centro de datos. Ver el encabezado de espn_extras.py."
           # Rebase antes de empujar: el workflow de reentrenamiento puede haber
           # empujado entre medias y sólo toca datos, nunca .py.
           git pull --rebase origin main
