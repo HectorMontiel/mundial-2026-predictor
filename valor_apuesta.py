@@ -396,6 +396,69 @@ def _de_goles(pick: Dict) -> List[Dict]:
     return salida
 
 
+def _de_dos_vias(pick: Dict) -> List[Dict]:
+    """
+    El ganador en los deportes SIN EMPATE: NFL, tenis, MLB, NBA.
+
+    POR QUE HACIA FALTA. `probabilidades_1x2` exige las tres selecciones y
+    devuelve `None` cuando no hay empate, asi que `_de_resultado` no producia
+    ni una fila para esos deportes. Resultado en pantalla, reportado por el
+    usuario el 2026-09-10:
+
+        Los Angeles Rams vs San Francisco 49ers
+        🚫 Sin apuestas jugables — ninguna apuesta llega al valor minimo
+
+    ...en un partido donde el modelo daba 68,6 % al local y la casa pagaba
+    1,5155. No es que no llegara al minimo: es que nunca se evaluo. Lo mismo en
+    tenis, con un 84,5 % y cuota publicada.
+
+    Esto NO relaja ningun umbral ni inventa valor. Construye la fila para que
+    el mismo filtro de siempre pueda juzgarla, que es lo que ya pasaba con el
+    futbol.
+    """
+    import modo_modelo as mm
+
+    imp = pick.get('implicitas') or {}
+    cu = imp.get('1x2_cuotas') or {}
+    h, a = mm._equipos(pick)
+    board = mm._board(pick) or {}
+    if not (h and a) or not cu:
+        return []
+    # si hay empate, este no es su camino: lo cubre `_de_resultado`
+    if board.get('Empate') is not None:
+        return []
+
+    pl = board.get('Gana %s' % h)
+    pv = board.get('Gana %s' % a)
+    if pl is None or pv is None:
+        return []
+
+    # la implicita de la casa, devigada a dos vias
+    x2 = {}
+    try:
+        ch, ca = float(cu.get('home')), float(cu.get('away'))
+        if ch > 1 and ca > 1:
+            s = 1.0 / ch + 1.0 / ca
+            if s > 0:
+                x2 = {'home': (1.0 / ch) / s, 'away': (1.0 / ca) / s}
+    except (TypeError, ValueError):
+        x2 = {}
+
+    salida = []
+    for lado, p, etq in (('home', pl, 'Gana %s' % h),
+                         ('away', pv, 'Gana %s' % a)):
+        cuota = cu.get(lado)
+        if not cuota:
+            continue
+        info = _ajusta(pick, etq, p, '1X2', x2.get(lado))
+        if not info.get('fiable'):
+            continue
+        salida.append(_fila('1X2', 'Resultado', etq,
+                            info.get('prob', p), cuota, x2.get(lado),
+                            'resultado'))
+    return salida
+
+
 def _de_resultado(pick: Dict) -> List[Dict]:
     """1X2, ambos marcan y doble oportunidad, con las cuotas de la casa."""
     import modo_modelo as mm
@@ -507,6 +570,12 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
         filas += _de_resultado(pick)
     except Exception as e:
         logger.debug('[valor] resultado: %s', e)
+    try:
+        # v193 — y el ganador de los deportes sin empate, que hasta ahora no
+        # producia NI UNA candidata: ver `_de_dos_vias`.
+        filas += _de_dos_vias(pick)
+    except Exception as e:
+        logger.debug('[valor] dos vias: %s', e)
     try:
         filas += _de_goles(pick)
     except Exception as e:

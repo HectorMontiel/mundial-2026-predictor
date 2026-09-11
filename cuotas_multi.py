@@ -88,7 +88,21 @@ DEPORTES = {'futbol': 29, 'tenis': 33, 'mlb': 3, 'nba': 4, 'nfl': 15}
 # v77: casa de referencia del usuario. Es donde apuesta de verdad, así que su
 # precio es el que convierte un EV teórico en un EV cobrable. Ver
 # `precio_accionable` para por qué esto NO sustituye al line shopping.
-CASA_PRIORITARIA = 'Playdoit'
+# v193 — SON DOS CASAS, Y ESO CAMBIA EL EV.
+#
+# El usuario apuesta en Playdoit y en Novibet. Eso no es un detalle de
+# presentación: `preferida` es el precio que el sistema considera TOMABLE, y de
+# ahí sale el EV que decide si una apuesta entra en la Sección 1. Con una sola
+# casa se estaba descartando valor real —un precio mejor en la otra cuenta— y
+# se estaba calculando el EV con el peor de los dos.
+#
+# Ahora se toma el MEJOR de las dos, que es lo que el usuario puede tomar de
+# verdad, y se dice cuál es para que sepa dónde ponerla.
+#
+# `CASA_PRIORITARIA` se conserva porque hay código y tests que la leen; es la
+# primera de la lista.
+CASAS_PRIORITARIAS = ('Playdoit', 'Novibet')
+CASA_PRIORITARIA = CASAS_PRIORITARIAS[0]
 
 CACHE_DIR = 'cuotas_cache'
 TTL = 1800                     # 30 min: las líneas se mueven, pero no tanto
@@ -2351,20 +2365,30 @@ def cuotas_partido(deporte: str, home: str, away: str,
     #                    Es información para que decida si le compensa abrir o
     #                    usar otra cuenta, no un EV que se apunte solo.
     # -----------------------------------------------------------------------
+    # v193 — EL MEJOR PRECIO DE LAS CASAS DEL USUARIO, no el de una sola.
+    #
+    # Apuesta en Playdoit y en Novibet, así que el precio tomable es el mayor
+    # de los dos. Con una sola casa se calculaba el EV con el peor y se perdían
+    # apuestas que sí eran jugables en la otra cuenta.
     preferida = {}
-    p_casa = reales.get(CASA_PRIORITARIA)
-    if p_casa:
+    _suyas = [(n, reales.get(n)) for n in CASAS_PRIORITARIAS if reales.get(n)]
+    if _suyas:
         for lado in ('home', 'draw', 'away'):
-            v = p_casa.get(lado)
-            if v and v > 1:
-                mj = (mejor.get(lado) or {}).get('cuota')
-                preferida[lado] = {
-                    'cuota': v, 'casa': CASA_PRIORITARIA,
-                    'mejor_alternativa': (mejor.get(lado) or {}).get('casa'),
-                    'ventaja_alternativa': (round((mj - v) / v, 4)
-                                            if mj and mj > v else 0.0)}
+            _cands = [(c[lado], n) for n, c in _suyas
+                      if (c or {}).get(lado) and c[lado] > 1]
+            if not _cands:
+                continue
+            v, casa = max(_cands)
+            mj = (mejor.get(lado) or {}).get('cuota')
+            preferida[lado] = {
+                'cuota': v, 'casa': casa,
+                'casas_propias': [n for _, n in _cands],
+                'mejor_alternativa': (mejor.get(lado) or {}).get('casa'),
+                'ventaja_alternativa': (round((mj - v) / v, 4)
+                                        if mj and mj > v else 0.0)}
     salida = {'casas': reales, 'mejor': mejor, 'preferida': preferida,
             'casa_prioritaria': CASA_PRIORITARIA,
+            'casas_prioritarias': list(CASAS_PRIORITARIAS),
             'totales': totales,
             # v90: los mismos totales SIN fusionar, con la casa que puso cada
             # precio. Nadie lo consume todavía para decidir picks; lo escribe

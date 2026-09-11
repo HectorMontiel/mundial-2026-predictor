@@ -1801,7 +1801,13 @@ def test_playdoit_multideporte():
 def test_precio_accionable():
     """v77: el EV se calcula con el precio que el usuario PUEDE tomar."""
     import cuotas_multi as cm
-    check(cm.CASA_PRIORITARIA == 'Playdoit', "la casa prioritaria es Playdoit")
+    # v193 — el usuario apuesta en DOS casas. El precio tomable es el mejor de
+    # las dos, no el de una: con una sola se calculaba el EV con el peor y se
+    # perdian apuestas jugables en la otra cuenta.
+    check(cm.CASAS_PRIORITARIAS == ('Playdoit', 'Novibet'),
+          "las casas del usuario son Playdoit y Novibet")
+    check(cm.CASA_PRIORITARIA == cm.CASAS_PRIORITARIAS[0],
+          "y la constante antigua sigue apuntando a la primera")
     c = {'casas': {'Pinnacle': {'home': 2.0, 'away': 2.0},
                    'Playdoit': {'home': 1.9, 'away': 2.3}},
          'mejor': {'home': {'cuota': 2.0, 'casa': 'Pinnacle'},
@@ -4128,6 +4134,73 @@ def test_las_cuotas_de_espn_entran_donde_no_habia_ninguna():
         check(len(d) == 2, "y el historico NO cambia de tamaño al rellenar")
     finally:
         os.chdir(_cwd)
+
+
+def test_los_deportes_sin_empate_si_proponen_apuestas():
+    """
+    v193 — «SIN APUESTAS JUGABLES» CUANDO LO QUE PASABA ES QUE NO SE MIRABA.
+
+    El usuario lo reporto el 2026-09-10:
+
+        Los Angeles Rams vs San Francisco 49ers
+        🚫 Sin apuestas jugables — ninguna apuesta llega al valor minimo
+
+    ...en un partido donde el modelo daba 68,6 % al local y la casa pagaba
+    1,5155. Y lo mismo en tenis, con un 84,5 % y precio publicado.
+
+    La causa: `modo_modelo.probabilidades_1x2` exige las TRES selecciones y
+    devuelve `None` cuando no hay empate, asi que `valor_apuesta._de_resultado`
+    no producia ni una fila para NFL, tenis, MLB ni NBA. El mensaje decia
+    «ninguna llega al minimo» cuando la verdad era «no se miro ninguna».
+
+    NO SE BAJO NINGUN UMBRAL. Se construye la candidata para que el filtro de
+    siempre pueda juzgarla, que es lo que ya pasaba con el futbol.
+    """
+    import valor_apuesta as va
+
+    # Un pick de dos vias como el que emiten la NFL y el tenis.
+    pick = {'deporte': 'NFL', 'liga': 'NFL', 'clave_liga': 'nfl',
+            'partido': 'Equipo Local vs Equipo Visitante',
+            'mercado': 'Moneyline', 'apuesta': 'Gana Equipo Local',
+            'prob': 0.65, 'cuota': 1.55,
+            'board': {'Gana Equipo Local': 0.65,
+                      'Gana Equipo Visitante': 0.35},
+            'implicitas': {'1x2_cuotas': {'home': 1.55, 'away': 2.60}}}
+
+    filas = va._de_dos_vias(pick)
+    check(len(filas) == 2,
+          f"un partido sin empate produce las dos candidatas ({len(filas)})")
+    etqs = {f.get('apuesta') for f in filas}
+    check(etqs == {'Gana Equipo Local', 'Gana Equipo Visitante'},
+          "una por cada lado, con su nombre")
+    check(all(f.get('cuota') for f in filas),
+          "y las dos con precio: sin cuota no hay apuesta que proponer")
+
+    # LA IMPLICITA SE DEVIGA A DOS VIAS, no a tres. Con 1,55 y 2,60 la suma
+    # cruda es 1,0299: el margen de la casa. Devigado tiene que sumar 1.
+    impl = [f.get('implicita') for f in filas if f.get('implicita')]
+    if len(impl) == 2:
+        check(abs(sum(impl) - 1.0) < 0.01,
+              f"las implicitas de los dos lados suman 1 ({sum(impl):.4f})")
+
+    # Y NO SE METE DONDE NO TOCA: un partido CON empate lo cubre el camino de
+    # siempre, y este no debe duplicar sus filas.
+    con_empate = dict(pick)
+    con_empate['board'] = {'Gana Equipo Local': 0.45, 'Empate': 0.28,
+                           'Gana Equipo Visitante': 0.27}
+    check(va._de_dos_vias(con_empate) == [],
+          "y un partido con empate no pasa por aqui: lo cubre `_de_resultado`")
+
+    # Sin cuotas no se inventa nada.
+    sin_cuotas = {k: v for k, v in pick.items() if k != 'implicitas'}
+    check(va._de_dos_vias(sin_cuotas) == [],
+          "sin las cuotas de la casa no se propone nada")
+
+    # Y la cadena entera: `candidatos` tiene que verlas.
+    cand = va.candidatos(pick, {})
+    check(len(cand) >= 2,
+          f"y `candidatos` las recoge, que es lo que mira la pantalla "
+          f"({len(cand)})")
 
 
 def test_las_cinco_casas_mexicanas_y_su_coste_cero():
@@ -12280,6 +12353,7 @@ if __name__ == '__main__':
     print(chr(10) + '=== v188/v189: nada parado en silencio, y el paso 1 re-predice ===')
     test_el_aviso_no_manda_a_escribir_un_alias_imposible()
     test_las_cuotas_de_espn_entran_donde_no_habia_ninguna()
+    test_los_deportes_sin_empate_si_proponen_apuestas()
     test_las_cinco_casas_mexicanas_y_su_coste_cero()
     test_la_nfl_ve_la_jornada_entera_y_sus_touchdowns()
     test_un_partido_sin_modelo_pero_con_precio_no_se_esconde()

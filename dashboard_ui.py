@@ -2117,16 +2117,19 @@ def _mostrar_cuotas_multi(clave_liga: str, home: str, away: str,
                   if (c or {}).get(_lado)]
         if _cands:
             _mejor_lado[_lado] = max(_cands)[1]
-    _mia = None
+    # v193 — son DOS casas del usuario, no una: apuesta en Playdoit y en
+    # Novibet, asi que las dos se marcan y el mejor precio entre ellas es el
+    # que de verdad puede tomar.
     try:
-        _mia = _cm.CASA_PRIORITARIA
+        _mias = set(_cm.CASAS_PRIORITARIAS)
     except Exception:
-        _mia = 'Playdoit'
+        _mias = {'Playdoit'}
+    _mia = next(iter(_mias)) if len(_mias) == 1 else None
     if _estilo is not None:
         _filas_html = []
         for casa, c in _casas_1x2.items():
-            _et = _estilo.pildora(casa, 'ok' if casa == _mia else 'info')
-            if casa == _mia:
+            _et = _estilo.pildora(casa, 'ok' if casa in _mias else 'info')
+            if casa in _mias:
                 _et += ' ' + _estilo.pildora('tu casa', 'ok')
             _filas_html.append([_et] + [
                 _estilo.chip_cuota((c or {}).get(l), '',

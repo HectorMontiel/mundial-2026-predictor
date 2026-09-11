@@ -3735,3 +3735,81 @@ el límite para que nos lo pongan.
    contra un cierre que football-data ya no publica.
 3. El barrido tarda 16 minutos si no se le pone tope. Con `--max 400` baja a
    unos 6, y habría que medir si 400 deja fuera ligas que importan.
+
+---
+
+## 6a. v193 — «SIN APUESTAS JUGABLES» CUANDO LO QUE PASABA ES QUE NO SE MIRABA
+
+Tres cosas de un mismo encargo.
+
+### 1. Dos casas prioritarias, y eso cambia el EV
+
+El usuario apuesta en **Playdoit y en Novibet**. `CASA_PRIORITARIA` era una sola
+cadena, y no es un detalle de presentación: `preferida` es el precio que el
+sistema considera TOMABLE, y de ahí sale el EV que decide si una apuesta entra
+en la Sección 1.
+
+Con una sola casa se calculaba el EV con el peor de los dos precios y se
+perdían apuestas jugables en la otra cuenta. Medido en Pumas-León:
+
+    visitante:  Playdoit 3,20  ·  Novibet 3,35   ->  ahora toma Novibet
+
+Ahora `preferida` toma el mejor de las dos y dice cuál es. `CASA_PRIORITARIA`
+se conserva apuntando a la primera, porque hay código y tests que la leen.
+
+### 2. Los deportes sin empate no proponían NADA
+
+Reportado con dos capturas:
+
+    Los Angeles Rams vs San Francisco 49ers
+    🚫 Sin apuestas jugables — ninguna apuesta llega al valor minimo
+
+    Dabin Kim vs Seo Yun Choi
+    🚫 Sin apuestas jugables
+
+El primero con el modelo dando **68,6 %** al local y la casa pagando **1,5155**.
+El segundo con un **84,5 %** y precio publicado.
+
+**No era que no llegaran al mínimo: es que nunca se evaluaban.**
+`modo_modelo.probabilidades_1x2` exige las TRES selecciones y devuelve `None`
+cuando no hay empate, así que `valor_apuesta._de_resultado` no producía ni una
+fila para NFL, tenis, MLB ni NBA. El mensaje decía «ninguna llega al mínimo»
+cuando la verdad era «no se miró ninguna».
+
+Se añade `_de_dos_vias`, que construye la candidata de cada lado con la cuota
+de la casa y la implícita devigada a DOS vías —no a tres: sus dos selecciones
+suman 1, no 2—. Y las ramas de NFL y tenis publican ahora las cuotas de los dos
+lados, no sólo la del favorito.
+
+    NFL:    0 -> 15 de 15 partidos con candidatas
+    Tenis:  0 -> 119 de 119
+
+    Dabin Kim vs Seo Yun Choi  ->  Gana Dabin Kim · 70,7 % · cuota 1,376
+
+**NO SE BAJÓ NINGÚN UMBRAL.** Las candidatas pasan por el mismo filtro de
+siempre, con la probabilidad encogida hacia el mercado igual que en el fútbol
+—en la NFL, 0,589 crudo pasa a 0,6325 calibrado—. Lo que cambió es que ahora
+hay algo que filtrar.
+
+Y no se mete donde no toca: un partido CON empate sigue yendo por
+`_de_resultado`, y el test lo fija.
+
+### 3. El workflow de cuotas, corriendo en el runner
+
+Lanzado a mano para comprobar que funciona fuera de una máquina de casa:
+
+    540 partidos con cuota · 15.215 peticiones en 410 s
+    Novibet en 424 partidos
+    commit a82602c
+
+### Lo que esta versión deja abierto
+
+1. **Tenis: primer set y total de sets.** Se pidieron y no se pueden dar: el
+   histórico guarda el resultado del partido, no el marcador por sets. ESPN
+   publica el detalle, así que es trabajo de ingesta —como fue el de los
+   touchdowns— y no de modelo. Inventar una probabilidad sobre sets sin ese
+   dato sería exactamente lo que este proyecto no hace.
+2. Al tomar el mejor precio de las dos casas, algunas apuestas que antes no
+   llegaban al mínimo ahora sí van a llegar. No es que baje el listón: es que
+   el precio real que el usuario puede tomar es mejor de lo que el sistema
+   creía.

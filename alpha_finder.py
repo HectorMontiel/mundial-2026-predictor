@@ -2075,6 +2075,14 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 'board': {f"Gana {m['home']}": round(_probs['home'], 3),
                           f"Gana {m['away']}": round(_probs['away'], 3)},
                 'sin_cuota': not bool(m.get('odd_home')),
+                # v193 — LAS DOS CUOTAS, que es lo que `valor_apuesta`
+                # necesita para proponer algo. Sin ellas el tenis salia con
+                # «Sin apuestas jugables» incluso con un 84,5 % y precio
+                # publicado: no es que no llegara al minimo, es que nunca se
+                # evaluaba. Ver `valor_apuesta._de_dos_vias`.
+                **({'implicitas': {'1x2_cuotas': {
+                    'home': m.get('odd_home'), 'away': m.get('odd_away')}}}
+                   if m.get('odd_home') and m.get('odd_away') else {}),
             })
 
             for lado, nombre, prob, cuota in (
@@ -2560,6 +2568,16 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
                 'board': {f'Gana {h}': ph, f'Gana {a}': pa},
                 'cuota': (mejor.get('home' if ph >= 0.5 else 'away')
                           or {}).get('cuota')})
+            # v193 — LAS CUOTAS DE LOS DOS LADOS, no solo la del favorito.
+            #
+            # `valor_apuesta._de_dos_vias` las necesita para construir las
+            # candidatas, y sin ellas la NFL salia con «Sin apuestas jugables»
+            # en partidos donde el modelo daba 68,6 % y la casa pagaba 1,5155.
+            # No es que no llegaran al minimo: es que nunca se evaluaban.
+            _ch = (mejor.get('home') or {}).get('cuota')
+            _ca = (mejor.get('away') or {}).get('cuota')
+            if _ch and _ca:
+                fila['implicitas'] = {'1x2_cuotas': {'home': _ch, 'away': _ca}}
             # v191 — y el total de touchdowns, con la linea de PUNTOS de la
             # casa como ancla. Va colgado del partido y NO a Capa 1: su
             # percentil 5 no esta medido porque no hay historico de lineas de
