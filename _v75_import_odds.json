@@ -1,6 +1,6 @@
 {
- "generado": "2026-09-10T11:13:28Z",
- "filas_insertadas": 234439,
+ "generado": "2026-09-11T11:09:04Z",
+ "filas_insertadas": 234457,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -65,12 +65,12 @@
    "partidos": 1636
   },
   "eng_championship": {
-   "filas": 5298,
-   "partidos": 2820
+   "filas": 5307,
+   "partidos": 2829
   },
   "eng_league_one": {
-   "filas": 15926,
-   "partidos": 8739
+   "filas": 15927,
+   "partidos": 8740
   },
   "eng_league_two": {
    "filas": 16008,
@@ -81,15 +81,15 @@
    "partidos": 8646
   },
   "eredivisie": {
-   "filas": 5234,
-   "partidos": 2721
+   "filas": 5237,
+   "partidos": 2724
   },
   "esp_hypermotion": {
    "filas": 8051,
    "partidos": 4181
   },
   "finlandia": {
-   "filas": 2525,
+   "filas": 2519,
    "partidos": 1334
   },
   "fra_ligue2": {
@@ -101,8 +101,8 @@
    "partidos": 2790
   },
   "gre_super_league": {
-   "filas": 4098,
-   "partidos": 2168
+   "filas": 4099,
+   "partidos": 2169
   },
   "irlanda": {
    "filas": 2576,
@@ -129,8 +129,8 @@
    "partidos": 5784
   },
   "mls": {
-   "filas": 7105,
-   "partidos": 3732
+   "filas": 7111,
+   "partidos": 3742
   },
   "noruega": {
    "filas": 3642,
@@ -145,8 +145,8 @@
    "partidos": 6110
   },
   "primeira": {
-   "filas": 6007,
-   "partidos": 3102
+   "filas": 6009,
+   "partidos": 3104
   },
   "rumania": {
    "filas": 4644,
@@ -161,8 +161,8 @@
    "partidos": 1557
   },
   "sco_premiership": {
-   "filas": 6598,
-   "partidos": 3630
+   "filas": 6600,
+   "partidos": 3632
   },
   "serie_a": {
    "filas": 11246,
