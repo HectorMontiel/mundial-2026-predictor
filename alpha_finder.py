@@ -1843,11 +1843,20 @@ def _cuotas_tenis_multi() -> List[Dict]:
     return salida
 
 
-def _mercados_sets_tenis(p_home, home, away) -> Dict:
-    """El primer set y el total de sets, si se pueden calcular."""
+def _mercados_sets_tenis(p_home, home, away, liga=None, torneo=None) -> Dict:
+    """
+    El primer set y el total de sets, si se pueden calcular.
+
+    EL NIVEL IMPORTA Y SE PASA. La recta del tercer set NO transfiere entre
+    niveles: ajustada sobre ITF y aplicada a torneos altos subestima hasta 5,5
+    puntos —arriba se llega al tercer set mas a menudo aunque el ranking diga
+    otra cosa—. Los partidos de esta pantalla son ATP y WTA, o sea el nivel
+    donde peor iba. Ver `tenis_sets.NIVELES`.
+    """
     try:
         import tenis_sets
-        m = tenis_sets.mercados(p_home, home, away)
+        m = tenis_sets.mercados(p_home, home, away,
+                                tenis_sets.nivel_de(liga, torneo))
         return {'mercados_sets': m} if m else {}
     except Exception as e:
         logger.debug('[alpha/tenis] sets: %s', e)
@@ -2106,7 +2115,9 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 # enseña; pedir el tablero de los 119 partidos del barrido
                 # meteria un minuto largo en el camino caliente, que es el
                 # error que esta misma jornada ya se cometio dos veces.
-                **_mercados_sets_tenis(_probs.get('home'), m['home'], m['away']),
+                **_mercados_sets_tenis(_probs.get('home'), m['home'],
+                                      m['away'], eng.circuito,
+                                      m.get('torneo')),
             })
 
             for lado, nombre, prob, cuota in (

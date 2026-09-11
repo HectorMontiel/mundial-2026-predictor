@@ -3908,10 +3908,51 @@ serían 231 y el filtro se perderia justo al recargar — exactamente lo que ese
 comentario documenta del selector de vistas. Con `format_func` el usuario ve el
 número y el estado guarda la clave.
 
+### 7. Y el nivel del torneo SÍ importaba
+
+El apartado anterior de esta misma sección decía: «habría que comprobar si ATP
+y WTA se comportan igual; a priori no hay motivo para que no, **pero no está
+medido**». El usuario pidió que se hiciera para todos, no para algunos. Se
+midió, y el «a priori» estaba medio equivocado:
+
+                     1er set (dif)        3 sets (dif)
+    ITF            -0,003 .. +0,003    +0,017 .. -0,006
+    Challenger     -0,006 .. +0,012    -0,010 .. -0,033
+    Grand Slam     +0,003 .. +0,015    -0,034 .. -0,055
+
+**La recta del primer set transfiere; la del tercer set NO.** En torneos de
+nivel alto se llega al tercer set hasta **5,5 puntos** más a menudo de lo que
+predice la recta de ITF: arriba los partidos son más competitivos aunque el
+ranking diga otra cosa.
+
+Y los partidos que enseña la aplicación son ATP y WTA — justo el nivel donde
+peor iba. Durante unas horas se publicó una probabilidad sesgada en el mercado
+que se acababa de añadir.
+
+Dos juegos de coeficientes, cada uno ajustado con el 70 % antiguo de SU nivel y
+validado con el 30 % reciente:
+
+    ALTO (challenger + Grand Slam, n=99.431)
+        3 sets  peor desvio 0,0287   ·   1er set  peor desvio 0,0075
+    ITF (n=298.271)
+        3 sets  peor desvio 0,0200   ·   1er set  peor desvio 0,0068
+
+Para p=0,70 el tercer set pasa de 0,2894 a 0,3195. El nivel se reconoce por el
+circuito y el torneo, y **por defecto se usa el alto**, que es lo que la
+pantalla enseña.
+
+La lección, que ya va siendo un patrón en esta bitácora: un «a priori no hay
+motivo» no es una medición, y este proyecto no acepta lo primero como sustituto
+de lo segundo. Estaba escrito como pendiente y se resolvió porque alguien
+preguntó, no porque el sistema lo cazara.
+
 ### Lo que esta versión deja abierto
 
 1. El total de sets se calcula y no se puede liquidar: ninguna casa de las que
    se leen publica esa línea. Si algún día aparece, el modelo ya está.
-2. La recta del primer set se ajustó sobre ITF/challenger, que es de donde hay
-   volumen. Habría que comprobar si ATP y WTA de primer nivel se comportan
-   igual; a priori no hay motivo para que no, pero no está medido.
+2. El tercer set calibra peor que el primero en los dos niveles —casi 3 puntos
+   en el peor tramo del nivel alto—. Es usable, pero es el más flojo de los dos
+   y conviene recordarlo antes de apoyarse en él.
+3. No hay datos de ATP/WTA de circuito (250, 500, 1000) con marcador por sets:
+   el archivo llega a challenger y Grand Slam. Se usa «alto» para todos ellos,
+   que es lo más parecido que hay medido.

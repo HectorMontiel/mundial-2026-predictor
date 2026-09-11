@@ -58,17 +58,65 @@ from typing import Dict, Optional
 
 logger = logging.getLogger('tenis_sets')
 
-# Ajustadas con el 70 % antiguo de `historico_itf.csv.gz` y validadas con el
-# 30 % reciente. Ver el encabezado.
-A1, B1 = 0.8700, 0.0586        # P(gana el 1er set) desde P(gana el partido)
-A3, B3 = -0.4157, 0.5852       # P(el partido va a 3 sets)
+# v194.1 — HAY QUE SEPARAR POR NIVEL, Y SE COMPROBO MIDIENDO.
+#
+# La primera version ajusto una sola recta sobre TODO el archivo, que es en su
+# mayoria ITF, y la aplico a los partidos de ATP y WTA que enseña la app. Al
+# contrastarla por nivel de torneo salio esto:
+#
+#                 1er set (dif)        3 sets (dif)
+#     ITF          -0,003 .. +0,003    +0,017 .. -0,006
+#     Challenger   -0,006 .. +0,012    -0,010 .. -0,033
+#     Grand Slam   +0,003 .. +0,015    -0,034 .. -0,055
+#
+# **La del primer set transfiere; la del tercer set NO.** En torneos de nivel
+# alto se llega al tercer set bastante mas a menudo —hasta 5,5 puntos mas— de
+# lo que predice la recta de ITF. Tiene sentido: arriba los partidos son mas
+# competitivos aunque el ranking diga otra cosa.
+#
+# Y los partidos que enseña la app son ATP y WTA, o sea el nivel donde peor
+# iba. Asi que hay dos juegos de coeficientes, cada uno ajustado con el 70 %
+# antiguo de SU nivel y validado con el 30 % reciente:
+#
+#     ALTO (challenger + Grand Slam, n=99.431)
+#         3 sets  peor desvio 0,0287   ·   1er set  peor desvio 0,0075
+#     ITF (n=298.271)
+#         3 sets  peor desvio 0,0200   ·   1er set  peor desvio 0,0068
+#
+# El tercer set calibra peor que el primero en los dos niveles, y eso se dice:
+# casi 3 puntos de desvio en el peor tramo del nivel alto.
+NIVELES = {
+    'alto': {'A1': 0.8505, 'B1': 0.0675, 'A3': -0.3790, 'B3': 0.5848},
+    'itf': {'A1': 0.8595, 'B1': 0.0663, 'A3': -0.3863, 'B3': 0.5598},
+}
+# Por defecto el nivel alto: es lo que la app enseña (ATP y WTA). Elegir mal
+# por defecto cuesta hasta 2,5 puntos en el total de sets.
+NIVEL_POR_DEFECTO = 'alto'
+
+
+def _coef(nivel=None):
+    return NIVELES.get(str(nivel or NIVEL_POR_DEFECTO).lower(),
+                       NIVELES[NIVEL_POR_DEFECTO])
+
+
+def nivel_de(liga=None, torneo=None) -> str:
+    """`itf` si el partido es de circuito ITF; `alto` en lo demas."""
+    texto = ('%s %s' % (liga or '', torneo or '')).lower()
+    if 'itf' in texto or texto.strip().startswith(('m15', 'w15', 'm25', 'w25')):
+        return 'itf'
+    return 'alto'
+
+
+# Se conservan por compatibilidad: son los del nivel por defecto.
+A1, B1 = NIVELES['alto']['A1'], NIVELES['alto']['B1']
+A3, B3 = NIVELES['alto']['A3'], NIVELES['alto']['B3']
 
 # Por encima de esto la validación sólo tenía 687 partidos y el error subía a
 # +0,027. No se prohíbe, se marca.
 P_MUESTRA_CORTA = 0.88
 
 
-def prob_primer_set(p_partido: float) -> Optional[float]:
+def prob_primer_set(p_partido: float, nivel=None) -> Optional[float]:
     """
     P(gana el PRIMER SET) de quien tiene `p_partido` de ganar el partido.
 
@@ -81,10 +129,11 @@ def prob_primer_set(p_partido: float) -> Optional[float]:
         return None
     if not (0.0 < p < 1.0):
         return None
-    return round(min(max(A1 * p + B1, 0.01), 0.99), 4)
+    c = _coef(nivel)
+    return round(min(max(c['A1'] * p + c['B1'], 0.01), 0.99), 4)
 
 
-def prob_tres_sets(p_partido: float) -> Optional[float]:
+def prob_tres_sets(p_partido: float, nivel=None) -> Optional[float]:
     """P(el partido llega al tercer set), al mejor de tres."""
     try:
         p = float(p_partido)
@@ -94,7 +143,8 @@ def prob_tres_sets(p_partido: float) -> Optional[float]:
         return None
     # se mira desde el FAVORITO: el tercer set no distingue quién gana
     fav = max(p, 1.0 - p)
-    return round(min(max(A3 * fav + B3, 0.01), 0.99), 4)
+    c = _coef(nivel)
+    return round(min(max(c['A3'] * fav + c['B3'], 0.01), 0.99), 4)
 
 
 def muestra_corta(p_partido: float) -> bool:
@@ -105,15 +155,16 @@ def muestra_corta(p_partido: float) -> bool:
         return False
 
 
-def mercados(p_home: float, home: str, away: str) -> Dict:
+def mercados(p_home: float, home: str, away: str, nivel=None) -> Dict:
     """
     Los dos mercados derivados, con su probabilidad.
 
     No lleva cuota: quien la tenga la añade. Esto sólo sabe de probabilidades.
     """
-    ph = prob_primer_set(p_home)
-    pa = prob_primer_set(1.0 - p_home) if p_home is not None else None
-    p3 = prob_tres_sets(p_home)
+    ph = prob_primer_set(p_home, nivel)
+    pa = (prob_primer_set(1.0 - p_home, nivel)
+          if p_home is not None else None)
+    p3 = prob_tres_sets(p_home, nivel)
     salida = {}
     if ph is not None and pa is not None:
         # LAS DOS SE NORMALIZAN. Cada una sale de su propia recta, y dos rectas

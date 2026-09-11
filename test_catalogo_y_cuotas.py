@@ -4198,6 +4198,32 @@ def test_el_primer_set_y_el_total_de_sets_del_tenis():
     check(ts.muestra_corta(0.95) and not ts.muestra_corta(0.70),
           "se marca el tramo donde la validacion solo tenia 687 partidos")
 
+    # ---- EL NIVEL, que es lo que fallaba ---------------------------------
+    #
+    # La primera version ajusto UNA recta sobre todo el archivo —en su mayoria
+    # ITF— y la aplico a los partidos de ATP y WTA que enseña la app.
+    # Contrastada por nivel: el 1er set transfiere (desvios de 0,003 a 0,015)
+    # pero el TERCER SET no, y subestimaba hasta 5,5 puntos en Grand Slam. En
+    # torneos altos se llega al tercer set mas a menudo.
+    check(set(ts.NIVELES) == {'alto', 'itf'},
+          "hay coeficientes separados por nivel de torneo")
+    check(ts.prob_tres_sets(0.70, 'alto') > ts.prob_tres_sets(0.70, 'itf'),
+          f"y en nivel alto se llega mas al tercer set "
+          f"({ts.prob_tres_sets(0.70, 'alto')} vs {ts.prob_tres_sets(0.70, 'itf')})")
+    check(abs(ts.prob_tres_sets(0.70, 'alto')
+              - ts.prob_tres_sets(0.70, 'itf')) > 0.02,
+          "la diferencia no es cosmetica: son unos 3 puntos")
+    # el 1er set apenas cambia, porque SI transfiere
+    check(abs(ts.prob_primer_set(0.70, 'alto')
+              - ts.prob_primer_set(0.70, 'itf')) < 0.01,
+          "y la del primer set apenas cambia entre niveles, como se midio")
+    check(ts.nivel_de('ATP', 'Roland Garros') == 'alto'
+          and ts.nivel_de('ITF', 'M15 Monastir') == 'itf',
+          "el nivel se reconoce por el circuito y el torneo")
+    # POR DEFECTO EL ALTO: es lo que la app enseña. Equivocarse cuesta 3 puntos.
+    check(ts.prob_tres_sets(0.70) == ts.prob_tres_sets(0.70, 'alto'),
+          "y por defecto se usa el alto, que es lo que la pantalla enseña")
+
     # ---- lo que no se puede colar ----------------------------------------
     check(ts.prob_primer_set(None) is None
           and ts.prob_primer_set(1.5) is None
