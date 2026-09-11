@@ -3813,3 +3813,105 @@ Lanzado a mano para comprobar que funciona fuera de una máquina de casa:
    llegaban al mínimo ahora sí van a llegar. No es que baje el listón: es que
    el precio real que el usuario puede tomar es mejor de lo que el sistema
    creía.
+
+---
+
+## 6b. v194 — EL MARCADOR POR SETS SÍ ESTABA, Y ESCRITO AL REVÉS DE LO QUE PARECÍA
+
+### 1. La respuesta anterior era falsa
+
+Al pedirse el primer set y el total de sets se contestó que el histórico de
+tenis guardaba el resultado del partido y no el marcador por sets.
+**`historico_itf.csv.gz` trae una columna `Score` con «6-2 6-1» en 566.860
+partidos.** Se dijo que no se podía sin haberlo mirado.
+
+### 2. La trampa que casi cuesta el modelo
+
+El marcador está escrito **siempre desde la perspectiva del GANADOR**: medido,
+el lado izquierdo gana el partido el **100,00 %** de las veces. Leerlo como si
+fuera del jugador 1 daba «quien gana el primer set gana el partido: **0,4993**»
+—una moneda al aire— cuando la cifra real es **0,8467**.
+
+Ese 0,4993 era la señal de que algo estaba mal, y por poco pasa por un
+resultado. Un modelo construido encima habría sido ruido con formato de
+probabilidad.
+
+### 3. Lo medido
+
+Sobre 397.702 partidos al mejor de tres con ranking de los dos jugadores,
+agrupados por diferencia de ranking:
+
+    gap (log)      n        P(fav gana)   P(fav 1er set)   P(3 sets)
+    0,00-0,25   109.719        0,5395         0,5340         0,3448
+    0,25-0,50   105.520        0,6134         0,5921         0,3320
+    0,50-0,75    77.503        0,6896         0,6553         0,3127
+    0,75-1,00    49.059        0,7449         0,7002         0,2911
+    1,00-1,50    43.219        0,8057         0,7550         0,2611
+    1,50-2,00    10.331        0,8578         0,8051         0,2234
+    2,00-3,00     2.297        0,8890         0,8293         0,1937
+
+Monótonas las dos. Ajustadas con el 70 % más antiguo del calendario y
+**validadas con el 30 % reciente (119.311 partidos)**:
+
+    1er set:  P = 0,8700 · p + 0,0586    error de -0,0072 a +0,0078
+    3 sets :  P = -0,4157 · p + 0,5852   error de  ±0,015
+
+El primer set calibra muy bien salvo por encima de 0,88, donde la validación
+son 687 partidos y el error sube a +0,027. Se marca con `muestra_corta`.
+
+### 4. Por qué NO vale la fórmula obvia
+
+La tentación era `P(1er set) = p·K + (1-p)·(1-K)` con K = 0,8467, la frecuencia
+global. **Subestima al favorito y el error crece con la ventaja**:
+
+    partidos parejos   -0,007
+    favoritos claros   -0,060
+
+K no es constante: un favorito dominante que gana lo hace más veces en dos
+sets. La recta ajustada no arrastra ese sesgo.
+
+Y las dos probabilidades del primer set **se normalizan**: salen de rectas
+independientes y sin normalizar no suman 1 (con p=0,9 dan 0,8416 y 0,1456).
+Publicar dos probabilidades de un mercado de dos salidas que no suman 1 es dar
+un número que no es una probabilidad.
+
+### 5. Qué se puede jugar y qué no
+
+Playdoit publica **«Primer set - ganador»** con precio, así que ese mercado
+lleva EV medible. **El total de SETS no lo publica** —da total de JUEGOS, que
+es otra cosa—, así que su probabilidad se enseña sin EV.
+
+El precio NO se pide en el barrido: el tablero de la ficha ya lo enseña, y
+pedirlo para los 116 partidos de tenis metería más de un minuto en el camino
+caliente. Las probabilidades cuestan **0,001 s para 116 partidos**: son
+matemática pura.
+
+### 6. El filtro de deportes que aparecía y desaparecía
+
+Reportado como «me quitaste el filtro de tenis y de béisbol». Nadie lo había
+tocado: el botón de un deporte **sólo se dibujaba si ESE barrido traía
+pronósticos suyos**, así que una mañana floja de tenis y el botón no existe.
+
+Ahora los cinco están siempre y cada uno lleva su cuenta:
+
+    antes, un dia flojo:   ['Todo', '⚽ 120', '🏈 3']
+    ahora:                 ['Todo', '⚽ 120', '⚾ 0', '🎾 0', '🏈 3']
+
+Un «🎾 0» dice lo que pasa; la ausencia del botón no dice nada.
+
+Y entra la **KBO**, que tenía partidos en el barrido y no tenía botón: no había
+forma de filtrar por ella.
+
+**Un bug evitado por el comentario de la v177.** La primera versión metía la
+cuenta DENTRO de la opción («⚽ 395»). La preferencia guarda ese valor, mañana
+serían 231 y el filtro se perderia justo al recargar — exactamente lo que ese
+comentario documenta del selector de vistas. Con `format_func` el usuario ve el
+número y el estado guarda la clave.
+
+### Lo que esta versión deja abierto
+
+1. El total de sets se calcula y no se puede liquidar: ninguna casa de las que
+   se leen publica esa línea. Si algún día aparece, el modelo ya está.
+2. La recta del primer set se ajustó sobre ITF/challenger, que es de donde hay
+   volumen. Habría que comprobar si ATP y WTA de primer nivel se comportan
+   igual; a priori no hay motivo para que no, pero no está medido.

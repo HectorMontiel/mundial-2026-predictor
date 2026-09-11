@@ -4136,6 +4136,75 @@ def test_las_cuotas_de_espn_entran_donde_no_habia_ninguna():
         os.chdir(_cwd)
 
 
+def test_el_primer_set_y_el_total_de_sets_del_tenis():
+    """
+    v194 — MEDIDO SOBRE 544.692 PARTIDOS, NO DEDUCIDO.
+
+    Se pidieron estos mercados y la primera respuesta fue que el historico no
+    guardaba el marcador por sets. **Era falso**, y conviene que quede escrito:
+    `historico_itf.csv.gz` trae una columna `Score` con «6-2 6-1» en 566.860
+    partidos.
+
+    Y una trampa que casi cuesta el modelo: el marcador esta escrito SIEMPRE
+    desde la perspectiva del ganador —el lado izquierdo gana el 100,00 % de las
+    veces—. Leerlo como si fuera del jugador 1 daba «quien gana el primer set
+    gana el partido: 0,4993», una moneda al aire, cuando la cifra real es
+    0,8467.
+
+    Las dos rectas se ajustaron con el 70 % mas antiguo del calendario y se
+    validaron con el 30 % reciente (119.311 partidos):
+
+        1er set:  P = 0,8700 p + 0,0586   error de -0,0072 a +0,0078
+        3 sets :  P = -0,4157 p + 0,5852  error de  ±0,015
+    """
+    import tenis_sets as ts
+
+    # ---- lo que no puede dejar de cumplirse ------------------------------
+    check(ts.prob_primer_set(0.5) is not None
+          and abs(ts.prob_primer_set(0.5) - 0.5) < 0.02,
+          f"con el partido 50/50 el primer set tambien lo es "
+          f"({ts.prob_primer_set(0.5)})")
+
+    # UN SET ES MENOS MUESTRA QUE UN PARTIDO. Su probabilidad SIEMPRE tiene que
+    # quedar mas cerca de 0,5 que la del partido; si no, el modelo estaria
+    # diciendo que es mas facil predecir una parte que el todo.
+    peores = [p for p in (0.55, 0.65, 0.75, 0.85, 0.95)
+              if abs(ts.prob_primer_set(p) - 0.5) >= abs(p - 0.5)]
+    check(not peores,
+          f"el primer set siempre esta mas cerca de 0,5 que el partido "
+          f"({peores})")
+
+    # MAS PAREJO, MAS TERCER SET. Medido: 0,3448 con partidos parejos contra
+    # 0,1937 con favoritos claros.
+    check(ts.prob_tres_sets(0.5) > ts.prob_tres_sets(0.9),
+          f"un partido parejo llega al tercer set mas a menudo "
+          f"({ts.prob_tres_sets(0.5)} vs {ts.prob_tres_sets(0.9)})")
+    check(0.30 <= ts.prob_tres_sets(0.5) <= 0.45,
+          f"y el valor es creible con partidos parejos "
+          f"({ts.prob_tres_sets(0.5)})")
+
+    # ---- el mercado que se publica ---------------------------------------
+    m = ts.mercados(0.70, 'Jugador A', 'Jugador B')
+    ps = m.get('primer_set') or {}
+    check(len(ps) == 2, "el primer set sale con sus dos selecciones")
+    check(abs(sum(ps.values()) - 1.0) < 1e-6,
+          f"y SUMAN 1: son dos rectas independientes y sin normalizar no "
+          f"sumaban ({sum(ps.values())})")
+    st = m.get('sets') or {}
+    check(abs(sum(st.values()) - 1.0) < 1e-6,
+          "el total de sets tambien suma 1")
+
+    # y se avisa donde la validacion tenia poca muestra
+    check(ts.muestra_corta(0.95) and not ts.muestra_corta(0.70),
+          "se marca el tramo donde la validacion solo tenia 687 partidos")
+
+    # ---- lo que no se puede colar ----------------------------------------
+    check(ts.prob_primer_set(None) is None
+          and ts.prob_primer_set(1.5) is None
+          and ts.prob_primer_set('x') is None,
+          "una probabilidad imposible no devuelve un numero")
+
+
 def test_los_deportes_sin_empate_si_proponen_apuestas():
     """
     v193 — «SIN APUESTAS JUGABLES» CUANDO LO QUE PASABA ES QUE NO SE MIRABA.
@@ -12353,6 +12422,7 @@ if __name__ == '__main__':
     print(chr(10) + '=== v188/v189: nada parado en silencio, y el paso 1 re-predice ===')
     test_el_aviso_no_manda_a_escribir_un_alias_imposible()
     test_las_cuotas_de_espn_entran_donde_no_habia_ninguna()
+    test_el_primer_set_y_el_total_de_sets_del_tenis()
     test_los_deportes_sin_empate_si_proponen_apuestas()
     test_las_cinco_casas_mexicanas_y_su_coste_cero()
     test_la_nfl_ve_la_jornada_entera_y_sus_touchdowns()

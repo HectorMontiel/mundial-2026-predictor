@@ -5508,13 +5508,45 @@ def render_alpha_finder():
     # coja — y el envío diario es un canal que no puede depender de dónde tenga
     # puesto el usuario un selector. Así que `r` se queda entero y lo único que
     # se filtra son las listas justo antes de dibujarlas.
+    # v194 — EL FILTRO DEJA DE APARECER Y DESAPARECER, Y ENTRA LA KBO.
+    #
+    # El botón de un deporte sólo se dibujaba si ESE barrido traía pronósticos
+    # suyos. Resultado: una mañana floja de tenis y el botón del tenis no
+    # existe, con lo que parece que se ha quitado una función. El usuario lo
+    # reportó así — «me quitaste el filtro de tenis y de béisbol»— y tenía
+    # razón en el efecto aunque nadie hubiera tocado nada.
+    #
+    # Ahora los cinco están SIEMPRE, y cada uno lleva su número al lado. Un
+    # «🎾 0» dice lo que pasa —hoy no hay tenis— mucho mejor que la ausencia
+    # del botón, que no dice nada.
+    #
+    # Y entra la KBO, que tenía partidos en el barrido y NO tenía botón: no
+    # había forma de filtrar por ella.
     _DEPORTES_FILTRO = [('Todo', 'Todo'), ('⚽', 'Fútbol'), ('⚾', 'MLB'),
-                        ('🏀', 'NBA'), ('🎾', 'Tenis'), ('🏈', 'NFL')]
-    _presentes = {p.get('deporte') for p in (r.get('pronosticos') or [])
-                  if p.get('deporte')}
+                        ('🏀', 'NBA'), ('🎾', 'Tenis'), ('🏈', 'NFL'),
+                        ('⚾KBO', 'KBO')]
+    _cuenta_dep = {}
+    for _p in (r.get('pronosticos') or []):
+        _d = _p.get('deporte')
+        if _d:
+            _cuenta_dep[_d] = _cuenta_dep.get(_d, 0) + 1
+    _presentes = set(_cuenta_dep)
+    # Los cinco principales van siempre; los demás (KBO) sólo si hay partidos.
+    _SIEMPRE = {'Todo', 'Fútbol', 'MLB', 'Tenis', 'NFL'}
+    # LAS OPCIONES SON CLAVES ESTABLES, EL NUMERO VA EN EL ROTULO.
+    #
+    # Meter la cuenta dentro de la opcion —«⚽ 395»— seria repetir el bug que
+    # la v177 documento en el selector de vistas: la preferencia guarda el
+    # valor, mañana habria 231 partidos y el valor guardado dejaria de existir,
+    # asi que el filtro se perderia justo al recargar. Con `format_func` el
+    # usuario ve el numero y el estado guarda «⚽».
     _opciones = [e for e, d in _DEPORTES_FILTRO
-                 if d == 'Todo' or d in _presentes]
+                 if d in _SIEMPRE or d in _presentes]
     _mapa_dep = {e: d for e, d in _DEPORTES_FILTRO}
+
+    def _rotulo_dep(e):
+        d = _mapa_dep.get(e, e)
+        return e if d == 'Todo' else '%s %d' % (e, _cuenta_dep.get(d, 0))
     # v176 — LA ELECCIÓN SOBREVIVE A LA RECARGA.
     #
     # Entre pestañas ya persistía —las dos leen la misma clave global,
@@ -5537,6 +5569,7 @@ def render_alpha_finder():
             _prefu.recordar(st, '_filtro_deporte', _opciones, 'Todo')
         _sel = st.radio('Deporte', _opciones, horizontal=True,
                         key='_filtro_deporte', label_visibility='collapsed',
+                        format_func=_rotulo_dep,
                         help='Reordena lo que se ve. No cambia lo que se '
                              'envía a Telegram ni lo que se exporta. Se '
                              'recuerda entre pestañas y entre sesiones.')

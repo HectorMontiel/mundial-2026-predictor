@@ -1843,6 +1843,17 @@ def _cuotas_tenis_multi() -> List[Dict]:
     return salida
 
 
+def _mercados_sets_tenis(p_home, home, away) -> Dict:
+    """El primer set y el total de sets, si se pueden calcular."""
+    try:
+        import tenis_sets
+        m = tenis_sets.mercados(p_home, home, away)
+        return {'mercados_sets': m} if m else {}
+    except Exception as e:
+        logger.debug('[alpha/tenis] sets: %s', e)
+        return {}
+
+
 def _picks_tenis() -> Dict[str, List[Dict]]:
     """Tenis ATP **y WTA** (v35 §1.4).
 
@@ -2083,6 +2094,19 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                 **({'implicitas': {'1x2_cuotas': {
                     'home': m.get('odd_home'), 'away': m.get('odd_away')}}}
                    if m.get('odd_home') and m.get('odd_away') else {}),
+                # v194 — EL PRIMER SET Y EL TOTAL DE SETS.
+                #
+                # Es matematica pura sobre la probabilidad del partido, asi
+                # que no cuesta una peticion: las dos rectas estan medidas
+                # sobre 544.692 partidos del archivo de ITF y validadas fuera
+                # de muestra con 119.311. Ver `tenis_sets`.
+                #
+                # El PRECIO no se pide aqui a proposito. Playdoit publica
+                # «Primer set - ganador» y el tablero de la ficha ya lo
+                # enseña; pedir el tablero de los 119 partidos del barrido
+                # meteria un minuto largo en el camino caliente, que es el
+                # error que esta misma jornada ya se cometio dos veces.
+                **_mercados_sets_tenis(_probs.get('home'), m['home'], m['away']),
             })
 
             for lado, nombre, prob, cuota in (
