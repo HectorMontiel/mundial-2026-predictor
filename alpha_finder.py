@@ -1325,14 +1325,57 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                 # probabilidad sería peor que no darla.
                 _falla = [n for n, m in ((fx['home'], home), (fx['away'], away))
                           if not m]
+                # v195 — UN PARECIDO QUE SALE DE UN «AL» NO ES UN PARECIDO.
+                #
+                # Esto decidía «se parece, falta un alias» con sólo el 0,62 de
+                # similitud, y esa cifra la alcanzan dos clubes distintos por
+                # compartir una partícula. El 2026-09-12 el aviso de la AFC
+                # Champions mandó a buscar un alias inexistente por esto:
+                #
+                #     «Al Shamal»  (Catar)         vs «Al Shabab»  0,778
+                #     «Al Qadsiah» (Arabia Saudí)  vs «Al-Jazira»  0,632
+                #
+                # Son cuatro clubes de cuatro países. Lo único que comparten es
+                # el «Al», que está en 22 de los 80 equipos del catálogo. Lo
+                # que les pasa de verdad es que debutan en esta competición,
+                # que es el otro motivo y no se arregla con un alias — la misma
+                # trampa que la v189 documentó con Roma y Como.
+                #
+                # Así que además del parecido se pide que compartan una palabra
+                # DE VERDAD, de tres letras o más; y por encima del umbral con
+                # el que el propio emparejador declara un acierto
+                # (`name_mapper.UMBRAL`) se acepta sin más, que es donde caen
+                # las abreviaturas («Dep. A Coruna» / «Deportivo»).
+                #
+                # Medido sobre los 97 alias reales de `alias_manuales.json` y
+                # 2.506 nombres de otras ligas que no casan:
+                #
+                #                       detecta el alias   falsa alarma
+                #     antes (0,62)             63,9 %          3,4 %
+                #     ahora                    55,7 %          0,8 %
+                #
+                # Se cambian 8 detecciones por 64 falsas alarmas menos, y esa
+                # es la dirección correcta: el alias que falta queda apuntado
+                # igual en `nombres_sin_mapear.json`, mientras que la falsa
+                # alarma manda a buscar durante horas algo que no existe.
+                def _palabras_reales(_x):
+                    try:
+                        return {_t for _t in name_mapper.normalizar(_x).split()
+                                if len(_t) >= 3}
+                    except Exception:
+                        return set()
+
                 _parecido = False
                 for _n in _falla:
                     try:
                         _c, _r = name_mapper.mejor_candidato(_n, catalogo)
-                        if _r >= 0.62:
-                            _parecido = True
                     except Exception:
-                        pass
+                        continue
+                    if _r >= getattr(name_mapper, 'UMBRAL', 0.78):
+                        _parecido = True
+                    elif _r >= 0.62 and (_palabras_reales(_n)
+                                         & _palabras_reales(_c)):
+                        _parecido = True
                 if not _falla:
                     # Los dos nombres mapearon, pero al MISMO equipo: el
                     # catálogo tiene una entrada que se come a las dos. No es
@@ -1765,14 +1808,39 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
 
 def _cuotas_tenis_multi() -> List[Dict]:
     """
-    v72 — partidos de tenis con cuota desde Pinnacle y Bovada, en el mismo
-    formato que esperaba la cadena de resiliencia
-    (`home`, `away`, `odd_home`, `odd_away`, `circuito`).
+    v72 — partidos de tenis con cuota, en el mismo formato que esperaba la
+    cadena de resiliencia (`home`, `away`, `odd_home`, `odd_away`, `circuito`).
 
     El circuito se deduce del nombre del torneo que publica la casa: los ITF y
     challengers femeninos y los WTA llevan marca explícita; el resto se trata
     como ATP, que es el motor por defecto (y si el emparejado falla,
     `_picks_tenis` ya reintenta con el otro motor).
+
+    v195 — EL UNIVERSO SALÍA DE DOS CASAS DE LAS CINCO QUE YA SE PEDÍAN.
+
+    Esto miraba sólo Pinnacle y Bovada. Las otras tres —Unibet, Playdoit y
+    Matchbook— **ya se descargaban en este mismo barrido**: `valor_vs_sharp`
+    las consulta partido a partido para comparar precios. O sea que estaban
+    bajadas, en memoria, y no se usaban para decidir QUÉ partidos mirar. Un
+    partido que sólo cotizara Unibet no existía para la aplicación.
+
+    Y eso no es un caso raro. Medido el 2026-09-12, deduplicando por apellidos
+    y quitando dobles y cuotas de 1,0x:
+
+        fuente      partidos   nuevos   enlazan con el modelo
+        Pinnacle          56       56                      29
+        Bovada             0        0                       0   (caída hoy)
+        Unibet            85       38                      18
+        Playdoit          85       11                       4
+        Matchbook          0        0                       0
+        TOTAL                     105                      51
+
+    De 56 partidos a 105, y de 29 evaluables por el modelo a 51: el 76 % más.
+    Bovada estaba caído ese día, que es justo el motivo por el que el universo
+    no puede depender de dos casas.
+
+    No cuesta red: los cinco índices se piden igual. Lo que cambia es que se
+    leen. La cuenta del coste en CPU está en `_picks_tenis`.
     """
     try:
         import cuotas_multi as cm
@@ -1787,7 +1855,17 @@ def _cuotas_tenis_multi() -> List[Dict]:
         ap = sorted((cm._clave_tenista(h)[0], cm._clave_tenista(a)[0]))
         return '|'.join(ap)
 
-    for idx in (cm._indice('tenis'), cm._indice_bov('tenis')):
+    # Orden deliberado: las dos primeras son las que traen la fecha de inicio
+    # más fiable y el nombre más limpio, así que ganan el desempate del
+    # deduplicado. Las otras tres RELLENAN lo que ellas no cotizan.
+    _FUENTES = (cm._indice, cm._indice_bov, cm._indice_uni,
+                cm._indice_pdt, cm._indice_mb)
+    for _fuente in _FUENTES:
+        try:
+            idx = _fuente('tenis')
+        except Exception as _e_idx:
+            logger.debug('[alpha/tenis] índice no disponible: %s', _e_idx)
+            continue
         for v in (idx or {}).values():
             c = v.get('cuotas') or {}
             oh, oa = c.get('home'), c.get('away')
@@ -1838,8 +1916,89 @@ def _cuotas_tenis_multi() -> List[Dict]:
                            # la conversión a CDMX es de presentación.
                            'inicio': v.get('fecha'),
                            'casa': v.get('casa')})
+    # Y las cinco casas mexicanas, que son las que el usuario puede jugar.
+    #
+    # No cuesta red: `cuotas_mx` lee el fichero que deja el workflow cada seis
+    # horas (y lo descarta si tiene más de ocho, que es lo que hay que hacer
+    # con un precio). Medido el 2026-09-12 sobre el universo ya ampliado a
+    # cinco fuentes: **59 partidos más, y los 59 con los dos jugadores en el
+    # catálogo del modelo**. Es la aportación más limpia de todas, y tiene
+    # sentido: Flashscore publica el circuito menor que las casas
+    # internacionales no cotizan.
+    #
+    # El precio que se anota no decide el EV —de eso se encarga
+    # `precio_accionable`, que prioriza las casas del usuario—: es la
+    # referencia de mercado con la que se encoge la probabilidad del modelo y
+    # la que enseña la tarjeta cuando no hay modelo.
+    try:
+        import cuotas_mx as _cmx
+        _doc = _cmx.cargar()
+        _n_mx = 0
+        for _v in (_doc.get('partidos') or {}).values():
+            if _v.get('deporte') != 'tenis':
+                continue
+            _h, _a = _v.get('home'), _v.get('away')
+            if not (_h and _a) or '/' in _h or '/' in _a:
+                continue
+            # LA CASA QUE SE ANOTA TIENE QUE SER UNA CASA, Y A SER POSIBLE LA
+            # TUYA. Coger el mejor precio de cada lado daría una cuota que
+            # nadie ofrece junta, y la tarjeta la enseña con el nombre de quien
+            # la da. Así que manda **Novibet**, que es una de las dos casas
+            # prioritarias y la que cubre más partidos de las cinco; si no
+            # cotiza éste, se toma la de menor margen y el guardia de
+            # `apuestas_del_dia_universal` ya le quitará el precio al llegar a
+            # pantalla. El partido sigue saliendo: lo que no sale es una cuota
+            # que no puedes tomar.
+            _oh = _oa = _casa_mx = None
+            _mejor_margen = None
+            _prioritarias = getattr(cm, 'CASAS_PRIORITARIAS',
+                                    ('Playdoit', 'Novibet'))
+            for _nombre_casa, _mk in (_v.get('casas') or {}).items():
+                _c = (_mk.get('HOME_AWAY') or _mk.get('HOME_DRAW_AWAY') or {})
+                if not (_c.get('home') and _c.get('away')):
+                    continue
+                try:
+                    _margen = 1.0 / float(_c['home']) + 1.0 / float(_c['away'])
+                except (TypeError, ValueError, ZeroDivisionError):
+                    continue
+                _suya = _nombre_casa in _prioritarias
+                _ya_suya = _casa_mx in _prioritarias
+                if _ya_suya and not _suya:
+                    continue
+                if (_mejor_margen is None or (_suya and not _ya_suya)
+                        or _margen < _mejor_margen):
+                    _mejor_margen = _margen
+                    _oh, _oa, _casa_mx = _c['home'], _c['away'], _nombre_casa
+            if not (_oh and _oa):
+                continue
+            if min(float(_oh), float(_oa)) <= CUOTA_MINIMA_REAL:
+                continue
+            _clave = _clave_par(_h, _a)
+            if _clave in vistos:
+                continue
+            vistos.add(_clave)
+            _liga = _v.get('liga') or ''
+            _ini = None
+            try:
+                _ini = pd.to_datetime(int(_v['inicio']), unit='s').isoformat()
+            except (TypeError, ValueError, KeyError):
+                _ini = None
+            salida.append({
+                'home': _h, 'away': _a, 'odd_home': _oh, 'odd_away': _oa,
+                'circuito': ('wta' if ('women' in _liga.lower()
+                                       or 'wta' in _liga.lower()
+                                       or '(w)' in _liga.lower()) else 'atp'),
+                'torneo': _liga, 'inicio': _ini, 'casa': _casa_mx})
+            _n_mx += 1
+        if _n_mx:
+            logger.info(f'[alpha/tenis] +{_n_mx} partidos que sólo cotizan las '
+                        f'cinco casas mexicanas')
+    except Exception as _e_mx:
+        logger.debug(f'[alpha/tenis] casas mexicanas omitidas: {_e_mx}')
+
     logger.info(f"[alpha/tenis] {len(salida)} partidos con cuota "
-                f"(Pinnacle + Bovada)")
+                f"(Pinnacle, Bovada, Unibet, Playdoit, Matchbook y las cinco "
+                f"casas mexicanas)")
     return salida
 
 
@@ -2570,10 +2729,10 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
                     {**base, 'motivo': pred['error']})
                 continue
             try:
-                r = cm.cuotas_partido('nfl', h, a)
-                mejor = r.get('mejor') or {}
+                _cuotas_nfl = cm.cuotas_partido('nfl', h, a)
+                mejor = _cuotas_nfl.get('mejor') or {}
             except Exception:
-                mejor = {}
+                _cuotas_nfl, mejor = {}, {}
 
             # TODOS los partidos del día van a `pronosticos`, pasen o no el
             # umbral. Es lo que llena las pestañas «Partidos de hoy» y «de
@@ -2656,12 +2815,16 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
                 prob = pred.get(f'prob_{lado}_sin_empate')
                 if not prob or prob < UMBRAL_NFL_CAPA2:
                     continue
-                precio = (mejor.get(lado) or {}).get('cuota')
+                # v195.1 — el precio es el de TUS casas, no el mejor del
+                # mercado. Con `mejor` la tarjeta ofrecía cuotas de Pinnacle o
+                # Unibet, donde no se puede apostar.
+                _pa = cm.precio_accionable(_cuotas_nfl, lado) or {}
+                precio = _pa.get('cuota')
                 pick = {**base, 'apuesta': f'Gana {nombre}', 'lado': lado,
                         'prob': round(float(prob), 3),
                         'cuota_justa': round(1 / max(float(prob), 1e-6), 2),
                         'cuota': round(float(precio), 2) if precio else None,
-                        'casa': (mejor.get(lado) or {}).get('casa'),
+                        'casa': _pa.get('casa'),
                         'valor': '🎯',
                         'margen_esperado': pred.get('margen_esperado'),
                         'total_esperado': pred.get('total_esperado'),
@@ -3195,6 +3358,171 @@ def avisos_sin_modelo(pronosticos: List[Dict]) -> List[str]:
     return salida
 
 
+# ---------------------------------------------------------------------------
+# v195.4 — LA REGLA DE LAS DOS CASAS, EN UN SOLO SITIO Y PROBABLE.
+#
+# Estaba metida dentro de `apuestas_del_dia_universal` como un par de closures,
+# y una regla que decide qué precio ve el usuario no puede vivir donde no se
+# puede llamar desde un test. Aquí está entera y `solo_tus_casas` se prueba
+# sola, deporte por deporte.
+# ---------------------------------------------------------------------------
+try:
+    import cuotas_multi as _cm_casas
+except Exception:                                    # pragma: no cover
+    _cm_casas = None
+
+# -----------------------------------------------------------------------
+# v195.1 — UNA APUESTA SE COLOCA EN TU CASA, O NO ES UNA APUESTA.
+#
+# Las casas prioritarias son Playdoit y Novibet, y de ahí sale el EV desde
+# la v192. Pero cada rama construía su fila por su cuenta y varias cogían
+# el MEJOR precio del mercado: la Capa 2 de la NFL, las tarjetas de tenis y
+# el respaldo de `precio_accionable`. Medido el 2026-09-12 sobre el barrido
+# real: de los 30 picks de Capa 2, **23 llevaban precio de una casa donde
+# el usuario no puede apostar** — Pinnacle 13, Unibet 6, Caliente 3,
+# 1xBet 1.
+#
+# Eso no es un detalle de presentación. El EV de esas filas se calculó con
+# una cuota que nadie le va a pagar, así que era EV de mentira.
+#
+# Las demás casas SIGUEN LEYÉNDOSE y hacen falta: de ellas sale el precio
+# justo contra el que se mide el valor. Lo que ya no hacen es prestar su
+# cuota a una apuesta. Si ninguna de las dos cotiza el partido, la fila se
+# queda con su probabilidad y sin precio ni EV, que es la verdad — y lo
+# dice.
+SUYAS = set(getattr(_cm_casas, 'CASAS_PRIORITARIAS', ('Playdoit',
+                                                        'Novibet')))
+_DEP_A_CLAVE = {'Tenis': 'tenis', 'MLB': 'mlb', 'NBA': 'nba',
+                'NFL': 'nfl', 'KBO': 'mlb', 'Fútbol': 'futbol'}
+
+def _lados_del_pick(p):
+    """(clave de deporte, local, visitante, lado apostado) o None.
+
+    El texto del partido va «A vs B» en casi todo y «visitante @ local» en
+    béisbol, y la apuesta es «Gana X». Con eso se sabe a qué lado hay que
+    pedirle precio.
+    """
+    dep = _DEP_A_CLAVE.get(p.get('deporte'))
+    txt = str(p.get('partido') or '')
+    if not dep:
+        return None
+    if ' @ ' in txt:
+        visitante, local = [x.strip() for x in txt.split(' @ ', 1)]
+    elif ' vs ' in txt:
+        local, visitante = [x.strip() for x in txt.split(' vs ', 1)]
+    else:
+        return None
+    if not (local and visitante):
+        return None
+    lado = p.get('lado')
+    if lado not in ('home', 'away'):
+        apuesta = str(p.get('apuesta') or '')
+        if not apuesta.startswith('Gana '):
+            return None            # totales, hándicaps: no es 1X2
+        quien = apuesta[len('Gana '):].strip()
+        if quien == local:
+            lado = 'home'
+        elif quien == visitante:
+            lado = 'away'
+        else:
+            return None
+    return dep, local, visitante, lado
+
+# v195.2 — ANTES DE QUITAR EL PRECIO, SE BUSCA EL TUYO.
+#
+# La primera versión de este guardia sólo tachaba, y eso dejaba sin EV a
+# filas que Novibet SÍ cotiza: el precio que traían venía de la fuente que
+# las metió en la lista (Pinnacle o Unibet), y nadie había ido a preguntar
+# por el de tus casas. Medido: 16 filas de tenis tachadas, y el fichero de
+# las casas mexicanas tenía la cuota de Novibet para varias de ellas.
+#
+# Así que primero se re-precia. `cuotas_partido` está memoizado y las casas
+# mexicanas se leen de fichero, así que esto cuesta poco y sólo se hace por
+# las filas que lo necesitan, que son unas decenas.
+def solo_tus_casas(filas):
+    """Deja cada fila con precio de Playdoit/Novibet, o sin precio.
+
+    v195.4 — ESTO MIRABA TRES LISTAS Y HAY CATORCE.
+    --------------------------------------------------
+    La primera versión recorría `capa1 + capa2 + candidatos`, que son las
+    apuestas, y ahí quedó limpio en los cinco deportes. Pero el barrido
+    devuelve además `sin_modelo`, `elite`, `seccion1`, `seccion2`,
+    `mejores_patas`, `capa1_prob`... y por `sin_modelo` seguían saliendo
+    tarjetas de tenis que decían «🏠 Unibet», que es justo lo que no se
+    quiere ver. Ahora es una función y se le pasa TODO lo que va a
+    pantalla, deporte por deporte.
+    """
+    _rep = _sin = 0
+    for p in filas:
+        if not isinstance(p, dict):
+            continue
+        _rep_p, _sin_p = _una_fila(p)
+        _rep += _rep_p
+        _sin += _sin_p
+    return _rep, _sin
+
+def _una_fila(p):
+    _casa = p.get('casa')
+    if p.get('cuota') is None or (_casa in SUYAS):
+        return 0, 0
+    # v195.4 — UNA FILA SIN CASA NO ESTÁ OFRECIENDO NADA, Y PREGUNTAR CUESTA.
+    #
+    # La lista de «Partidos de hoy» lleva precio pero NO lleva casa: es la
+    # referencia de mercado con la que se contrasta la probabilidad, y el
+    # usuario dio permiso expreso para eso («puedes seguir comparando con
+    # algunas otras para saber el precio justo»). Nadie le está ofreciendo
+    # apostar ahí, porque no se nombra ningún sitio.
+    #
+    # Y preguntar por ellas salía carísimo. Medido: el guardia pedía
+    # `cuotas_partido` para las 565 filas de pronóstico, y como los nombres no
+    # siempre casan, cada fallo arrastra el emparejado difuso entero. El smoke
+    # pasó de ~40 min a **agotar los 90 de tope con 3 comprobaciones hechas**,
+    # y el log lo delataba: «1118 nombres sin mapear volcados», cuando lo
+    # normal son 46.
+    #
+    # Es la cuarta vez que este proyecto mete una petición cara en el camino
+    # caliente (§4 de la bitácora: +14,2 s, +22,7 s y el `to_csv`). La regla
+    # sigue valiendo para todo lo que NOMBRA una casa —que es donde se puede
+    # confundir con una oferta— y para los cinco deportes.
+    if not _casa:
+        return 0, 0
+    _lados = _lados_del_pick(p)
+    _nuevo = None
+    if _lados:
+        _dep, _loc, _vis, _lado = _lados
+        try:
+            _c = _cm_casas.cuotas_partido(_dep, _loc, _vis,
+                                            fecha=p.get('inicio'))
+            _nuevo = _cm_casas.precio_accionable(_c, _lado)
+        except Exception as _e_rp:
+            logger.debug('[alpha/guardia] %s: %s', p.get('partido'), _e_rp)
+    if _nuevo and _nuevo.get('cuota') and _nuevo.get('casa') in SUYAS:
+        p['precio_ajeno'] = _casa
+        p['casa'] = _nuevo['casa']
+        p['cuota'] = round(float(_nuevo['cuota']), 2)
+        if p.get('prob') is not None:
+            try:
+                p['ev'] = round(float(p['cuota']) * float(p['prob']) - 1, 4)
+            except (TypeError, ValueError):
+                p['ev'] = None
+        else:
+            p['ev'] = None
+        return 1, 0
+    p['precio_ajeno'] = _casa                 # para poder auditarlo
+    p['casa'] = None
+    p['cuota'] = None
+    p['ev'] = None
+    p['nota'] = ((p.get('nota') or '') + ' ' +
+                 (f'🏷️ Ni Playdoit ni Novibet cotizan este partido; el '
+                  f'precio que había era de {_casa} y ahí no puedes '
+                  f'apostar, así que se enseña la probabilidad sin EV.'
+                  if _casa else
+                  '🏷️ Sin precio en Playdoit ni Novibet: se enseña la '
+                  'probabilidad sin EV.')).strip()
+    return 0, 1
+
+
+
 def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     """Barrido de TODAS las competiciones activas (11 de fútbol + MLB, NBA,
     tenis) con clasificación en dos capas (§1.2, §5.1)."""
@@ -3371,11 +3699,17 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # donde se genera, y el mapa por nombre queda solo como último recurso.
     # -----------------------------------------------------------------------
     from config import LEAGUES as _LGN
+    import cuotas_multi as _cm_guardia
     LIGA_A_CLAVE = {cfg.get('nombre', c): c for c, cfg in _LGN.items()}
     LIGA_A_CLAVE.update({'ATP': 'atp', 'WTA': 'wta', 'MLB': 'mlb', 'NBA': 'nba',
                          'NFL': 'nfl',                        # v131
                          'Brasileirão Serie A': 'brasil',
                          'Primera División': 'argentina'})
+    # v195.4 — la regla vive fuera (ver `solo_tus_casas`), para poder
+    # probarla sola. Aquí sólo se aplica.
+    _repreciadas, _sin_tus_casas = solo_tus_casas(
+        capa1 + capa2 + list(r.get('candidatos') or []))
+
     for p in capa1 + capa2 + list(r.get('candidatos') or []):
         # v82: la clave REAL viaja en el pick; el nombre solo es respaldo.
         clave = (p.get('clave_liga')
@@ -3969,6 +4303,27 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         rendimiento_real.registrar(capa2, 'capa2')
     except Exception as e:
         logger.warning(f"[alpha] rendimiento_real no registrado: {e}")
+    # v195.4 — LA ÚLTIMA PALABRA SOBRE EL PRECIO, SOBRE TODO Y EN TODO DEPORTE.
+    #
+    # El guardia de más arriba corre antes de que se armen `sin_modelo`,
+    # `elite`, `seccion1`, `seccion2` y compañía, así que por ahí seguían
+    # saliendo precios de casas donde el usuario no puede apostar. Esta pasada
+    # va sobre el diccionario YA montado: cualquier lista de filas que lleve
+    # cuota pasa por la misma regla. Es barato —`cuotas_partido` está memoizado
+    # y sólo se pregunta por lo que trae casa ajena— y es el único sitio donde
+    # se puede garantizar que no se escapa nada.
+    _rep2 = _sin2 = 0
+    for _clave, _valor in r.items():
+        if _clave in ('incidencias', 'deportes_cubiertos') or not isinstance(
+                _valor, list):
+            continue
+        _a, _b = solo_tus_casas(_valor)
+        _rep2 += _a
+        _sin2 += _b
+    logger.info(f'[alpha] guardia de casas: '
+                f'{_repreciadas + _rep2} filas repreciadas en Playdoit/Novibet '
+                f'· {_sin_tus_casas + _sin2} sin precio en ninguna de las dos')
+
     global _ULTIMO_RESULTADO
     _ULTIMO_RESULTADO = r
     logger.info(f"[alpha] universal: capa1={len(capa1)} capa2={len(capa2)} "

@@ -1823,11 +1823,17 @@ def test_precio_accionable():
           f"se toma el precio de Playdoit aunque otro sea mejor ({a})")
     check(a and a['ventaja_alternativa'] > 0,
           "y se informa de cuánto se deja en la otra casa")
-    # sin Playdoit, cae al mejor del mercado
+    # v195.1 — SIN PLAYDOIT NI NOVIBET, NO HAY PRECIO.
+    #
+    # Hasta aqui esto caia al mejor del mercado, y este test lo daba por bueno.
+    # Lo pedido es que solo se ocupen esas dos casas: una cuota de Pinnacle no
+    # se puede tomar, asi que el EV que sale de ella es EV de mentira. Medido
+    # el 2026-09-12: 23 de los 30 picks de Capa 2 llevaban precio ajeno.
     c2 = dict(c, preferida={})
     b = cm.precio_accionable(c2, 'home')
-    check(b and b['casa'] == 'Pinnacle',
-          f"sin Playdoit se usa el mejor del mercado ({b})")
+    check(b is None,
+          f"sin Playdoit ni Novibet no hay precio accionable, aunque el "
+          f"mercado lo tenga ({b})")
 
 
 def test_solo_mlb_en_el_tablon_de_mlb():
@@ -12375,6 +12381,546 @@ def test_el_techo_de_goles_en_la_superliga_china():
               f"{lg}: «Menos de 2,5» topa en {t}")
 
 
+
+
+# ---------------------------------------------------------------------------
+# v195 — el beisbol de las casas mexicanas, las fuentes de tenis y el aviso
+#        que mandaba a buscar un alias inexistente
+# ---------------------------------------------------------------------------
+def test_el_beisbol_pide_el_alcance_que_las_casas_cotizan():
+    """
+    En los deportes con tiempo extra, Flashscore llama `FULL_TIME` a la parte
+    reglamentaria y `FULL_TIME_OVER_TIME` al partido entero, que es lo que
+    cotizan las casas. Con el alcance fijo a `FULL_TIME`, la MLB entera de las
+    cinco casas mexicanas devolvia `null` — 0 de 25 partidos medidos — y la NFL
+    y la NBA colaban el 1X2 reglamentario, con empate, como si fuera el
+    ganador: un precio mas largo que el real.
+    """
+    import cuotas_mx as mx
+    for dep in ('mlb', 'nba', 'nfl'):
+        pares = dict(mx.MERCADOS[dep])
+        check(pares.get('HOME_AWAY') == 'FULL_TIME_OVER_TIME',
+              f'{dep}: el ganador se pide con FULL_TIME_OVER_TIME '
+              f'(ahora: {pares.get("HOME_AWAY")!r})')
+        check('HOME_DRAW_AWAY' not in pares,
+              f'{dep}: no se pide el 1X2 reglamentario, que no es el ganador '
+              f'y el lector lo prefiere')
+    for dep in ('futbol', 'tenis'):
+        alcances = {a for _m, a in mx.MERCADOS[dep]}
+        check(alcances == {'FULL_TIME'},
+              f'{dep}: sin tiempo extra, todo va con FULL_TIME '
+              f'(ahora: {sorted(alcances)})')
+    # y el alcance tiene que LLEGAR a la peticion, no quedarse en la tabla
+    import inspect
+    fuente = inspect.getsource(mx.cuotas_evento)
+    check("'betScope': alcance" in fuente,
+          'cuotas_evento manda el alcance recibido y no uno fijo')
+
+
+def test_las_casas_mexicanas_no_cotizan_el_partido_de_ayer():
+    """
+    `buscar` emparejaba solo por nombres y devolvia el primer candidato. En
+    beisbol, que juega series diarias contra el mismo rival, eso significaba
+    el juego de la VISPERA: los 14 partidos de MLB del 2026-09-12 tenian un
+    gemelo terminado y se comparaba su precio de cierre contra el Pinnacle de
+    hoy. Salian EV de +19 % en un moneyline de dos vias.
+    """
+    import time
+    import cuotas_mx as mx
+
+    ayer = int(time.time()) - 20 * 3600
+    hoy = int(time.time()) + 4 * 3600
+    manana = int(time.time()) + 28 * 3600
+    doc = {'generado': 'x', 'casas': mx.CASAS, 'partidos': {
+        'AYER': {'deporte': 'mlb', 'home': 'New York Yankees',
+                 'away': 'New York Mets', 'liga': 'USA: MLB',
+                 'inicio': str(ayer),
+                 'casas': {'Novibet': {'HOME_AWAY': {'home': 1.77,
+                                                     'away': 2.10}}}},
+        'HOY': {'deporte': 'mlb', 'home': 'New York Yankees',
+                'away': 'New York Mets', 'liga': 'USA: MLB',
+                'inicio': str(hoy),
+                'casas': {'Novibet': {'HOME_AWAY': {'home': 1.54,
+                                                    'away': 2.55}}}},
+        'MANANA': {'deporte': 'mlb', 'home': 'New York Yankees',
+                   'away': 'New York Mets', 'liga': 'USA: MLB',
+                   'inicio': str(manana),
+                   'casas': {'Novibet': {'HOME_AWAY': {'home': 1.90,
+                                                       'away': 2.00}}}},
+    }}
+    guardado_cargar, guardado_mem = mx.cargar, dict(mx._MEM)
+    try:
+        mx.cargar = lambda: doc
+        mx._MEM.clear()
+        mx._MEM['marca'] = 'prueba_v195'
+
+        sin_fecha = mx.buscar('mlb', 'New York Yankees', 'New York Mets')
+        precio = ((sin_fecha.get('casas') or {}).get('Novibet') or {}
+                  ).get('HOME_AWAY', {}).get('home')
+        check(precio == 1.54,
+              'sin fecha se toma el PROXIMO partido que no ha empezado '
+              f'(esperado 1.54, salio {precio})')
+
+        import datetime
+        cuando = datetime.datetime.utcfromtimestamp(manana).isoformat()
+        con_fecha = mx.buscar('mlb', 'New York Yankees', 'New York Mets',
+                              fecha=cuando)
+        precio = ((con_fecha.get('casas') or {}).get('Novibet') or {}
+                  ).get('HOME_AWAY', {}).get('home')
+        check(precio == 1.90,
+              'con fecha gana el candidato de ESA fecha '
+              f'(esperado 1.90, salio {precio})')
+
+        lejos = datetime.datetime.utcfromtimestamp(
+            int(time.time()) + 9 * 86400).isoformat()
+        check(mx.buscar('mlb', 'New York Yankees', 'New York Mets',
+                        fecha=lejos) == {},
+              'una fecha fuera de tolerancia se queda sin cuota, que es '
+              'honesto, en vez de coger el precio de otro partido')
+    finally:
+        mx.cargar = guardado_cargar
+        mx._MEM.clear()
+        mx._MEM.update(guardado_mem)
+
+    # y la fecha tiene que VIAJAR desde cuotas_multi
+    import inspect
+    import cuotas_multi as cm
+    fuente = inspect.getsource(cm.cuotas_partido)
+    check('_cmx.buscar(deporte, home, away, fecha=fecha)' in fuente,
+          'cuotas_partido le pasa la fecha a las casas mexicanas')
+
+
+def test_el_universo_de_tenis_mira_las_cinco_casas():
+    """
+    El barrido de tenis salia de Pinnacle y Bovada, y las otras tres —Unibet,
+    Playdoit y Matchbook— ya se descargaban en la misma pasada para comparar
+    precios. Un partido que solo cotizara Unibet no existia. Medido el
+    2026-09-12: de 56 partidos a 105, y de 29 evaluables por el modelo a 51.
+    """
+    import alpha_finder as af
+    import cuotas_multi as cm
+
+    def tablon(clave, jugadores):
+        return {clave: {'home': jugadores[0], 'away': jugadores[1],
+                        'liga': 'ATP Prueba', 'fecha': '2026-09-12T10:00:00',
+                        'casa': clave,
+                        'cuotas': {'home': 1.80, 'away': 2.05}}}
+
+    originales = (cm._indice, cm._indice_bov, cm._indice_uni,
+                  cm._indice_pdt, cm._indice_mb)
+    try:
+        cm._indice = lambda d: tablon('pin', ('Aaa Pinnacle', 'Bbb Pinnacle'))
+        cm._indice_bov = lambda d: tablon('bov', ('Ccc Bovada', 'Ddd Bovada'))
+        cm._indice_uni = lambda d: tablon('uni', ('Eee Unibet', 'Fff Unibet'))
+        cm._indice_pdt = lambda d: tablon('pdt', ('Ggg Playdoit', 'Hhh Playdoit'))
+        cm._indice_mb = lambda d: tablon('mb', ('Iii Matchbook', 'Jjj Matchbook'))
+        salida = af._cuotas_tenis_multi()
+    finally:
+        (cm._indice, cm._indice_bov, cm._indice_uni,
+         cm._indice_pdt, cm._indice_mb) = originales
+
+    vistos = {p['home'].split()[-1] for p in salida}
+    for casa in ('Pinnacle', 'Bovada', 'Unibet', 'Playdoit', 'Matchbook'):
+        check(casa in vistos,
+              f'el universo de tenis incluye los partidos de {casa} '
+              f'(vistos: {sorted(vistos)[:8]})')
+
+    # y la sexta fuente, las cinco casas mexicanas, que no son un indice sino
+    # el fichero que deja el workflow. Aporto uno inventado y tiene que salir.
+    import cuotas_mx as cmx
+    guardado = cmx.cargar
+    try:
+        cmx.cargar = lambda: {'partidos': {'ZZZ': {
+            'deporte': 'tenis', 'home': 'Kkk Mexicana', 'away': 'Lll Mexicana',
+            'liga': 'ITF Prueba', 'inicio': '1789200000',
+            'casas': {'Novibet': {'HOME_AWAY': {'home': 1.9, 'away': 1.9}}}}}}
+        cm._indice = cm._indice_bov = cm._indice_uni =             cm._indice_pdt = cm._indice_mb = lambda d: {}
+        con_mx = af._cuotas_tenis_multi()
+    finally:
+        cmx.cargar = guardado
+        (cm._indice, cm._indice_bov, cm._indice_uni,
+         cm._indice_pdt, cm._indice_mb) = originales
+    check(any(p['home'] == 'Kkk Mexicana' for p in con_mx),
+          'el universo de tenis incluye los partidos que solo cotizan las '
+          'cinco casas mexicanas')
+
+
+def test_el_emparejado_de_tenistas_da_lo_mismo_y_sin_recorrerlo_todo():
+    """
+    `emparejar_jugador` recorria los 13.561 nombres del catalogo DOS veces por
+    consulta: 46,0 s de los 61,6 s de la rama de tenis, a 211 ms la llamada.
+    Es la segunda regresion de la v178 otra vez (§4). El indice tiene que dar
+    EXACTAMENTE el mismo resultado — si acelera cambiando a quien empareja,
+    cambia las predicciones, y eso es peor que ir lento.
+    """
+    import time
+    from difflib import SequenceMatcher
+    import betexplorer_scraper as bx
+    from cuotas_multi import _sim_tenista
+
+    def exhaustivo(nombre, catalogo, umbral=0.75):
+        mejor_t, score_t = None, 0.0
+        for c in catalogo:
+            s = _sim_tenista(nombre, c)
+            if s > score_t:
+                mejor_t, score_t = c, s
+        if mejor_t and score_t >= 0.85:
+            return mejor_t
+        objetivo = bx.normalizar_nombre(nombre)
+        mejor, ratio = None, 0.0
+        for c in catalogo:
+            s = SequenceMatcher(None, objetivo,
+                                bx.normalizar_nombre(c)).ratio()
+            if s > ratio:
+                mejor, ratio = c, s
+        return mejor if ratio >= umbral else None
+
+    try:
+        from engines.tennis_engine import TennisEngine
+        eng = TennisEngine('atp').cargar_modelo()
+        catalogo = list(eng.jugadores)
+    except Exception as e:
+        print(f'AVISO  sin catalogo de tenis, no se comprueba: {e}')
+        return
+    if len(catalogo) < 500:
+        print(f'AVISO  catalogo de tenis con {len(catalogo)} nombres, '
+              f'demasiado corto para medir: no se comprueba')
+        return
+
+    import random
+    rnd = random.Random(195)
+    muestra = [rnd.choice(catalogo) for _ in range(25)]
+    muestra += [' '.join(reversed(n.split())) for n in muestra[:10]]
+    muestra += [n.replace('.', '').strip() for n in muestra[:10]]
+    muestra += ['Jakub Mensik', 'Zzz Noexiste Qqq', 'Felix Auger-Aliassime']
+
+    distintos = []
+    for n in muestra:
+        bx._CACHE_FUZZY.clear()
+        if bx.emparejar_jugador(n, catalogo) != exhaustivo(n, catalogo):
+            distintos.append(n)
+    check(not distintos,
+          f'el indice empareja igual que el barrido exhaustivo '
+          f'({len(distintos)} de {len(muestra)} difieren: {distintos[:4]})')
+
+    # LA VELOCIDAD SE MIDE CONTRA EL BARRIDO EXHAUSTIVO, NO EN MILISEGUNDOS.
+    #
+    # La primera version exigia «menos de 50 ms por consulta» y fallaba segun
+    # lo ocupada que estuviera la maquina: 42,7 ms en una pasada y 57,9 ms en
+    # la siguiente, con el mismo codigo. Un test que se pone rojo por eso deja
+    # de leerse, que es peor que no tenerlo.
+    #
+    # Lo que hay que garantizar es que el indice SIGUE AHI. Se cronometran las
+    # dos implementaciones en la misma pasada y se pide una mejora holgada: si
+    # alguien quita el indice, la razon se va a 1 y esto se pone rojo en
+    # cualquier maquina.
+    bx._CACHE_FUZZY.clear()
+    bx.emparejar_jugador(muestra[0], catalogo)     # construye el indice
+    t0 = time.time()
+    for n in muestra:
+        bx._CACHE_FUZZY.clear()
+        bx.emparejar_jugador(n, catalogo)
+    con_indice = time.time() - t0
+    t0 = time.time()
+    for n in muestra:
+        exhaustivo(n, catalogo)
+    sin_indice = time.time() - t0
+    razon = sin_indice / max(con_indice, 1e-9)
+    check(razon >= 2.0,
+          f'el indice es al menos 2x mas rapido que recorrerlo todo '
+          f'(ahora {razon:.1f}x: {con_indice / len(muestra) * 1000:.0f} ms '
+          f'por consulta contra {sin_indice / len(muestra) * 1000:.0f} ms)')
+
+    # el cache tiene que distinguir catalogos: el reintento con el otro motor
+    # dependia de eso y llevaba desde la v72 sin funcionar
+    bx._CACHE_FUZZY.clear()
+    corto = ['Zzz Inventado Qqq']
+    bx.emparejar_jugador('Jakub Mensik', corto)
+    check(bx.emparejar_jugador('Jakub Mensik', catalogo) is not None,
+          'el cache va por (catalogo, nombre): buscar en un catalogo no '
+          'contamina la busqueda en el otro')
+
+
+def test_un_al_compartido_no_es_un_alias_que_falta():
+    """
+    El aviso de la AFC Champions del 2026-09-12 decia «falta un alias en
+    alias_manuales.json» por dos clubes de dos paises distintos que solo
+    comparten la particula «Al», presente en 22 de los 80 equipos del
+    catalogo. Es la trampa que la v189 ya documento con Roma y Como: no hay
+    alias que anadir, lo que falta es historia en esa competicion.
+    """
+    import inspect
+    import name_mapper as nm
+    import alpha_finder as af
+
+    fuente = inspect.getsource(af._barrido_fixtures)
+    check('_palabras_reales' in fuente,
+          'el parecido exige una palabra en comun, no solo similitud')
+
+    def palabras(x):
+        return {t for t in nm.normalizar(x).split() if len(t) >= 3}
+
+    def parecido(nombre, catalogo):
+        c, r = nm.mejor_candidato(nombre, catalogo)
+        if r >= getattr(nm, 'UMBRAL', 0.78):
+            return True
+        return r >= 0.62 and bool(palabras(nombre) & palabras(c or ''))
+
+    catalogo = ['Al Shabab', 'Al-Jazira', 'Al Hilal', 'Al Ain',
+                'Dep. A Coruna', 'Machida Zelvia']
+    for n in ('Al Shamal', 'Al Qadsiah'):
+        c, r = nm.mejor_candidato(n, catalogo)
+        check(r >= 0.62,
+              f'«{n}» sigue pareciendose a «{c}» ({r:.3f}): si no, este test '
+              f'no estaria probando nada')
+        check(not parecido(n, catalogo),
+              f'«{n}» NO se anuncia como alias que falta (mejor: «{c}», '
+              f'{r:.3f})')
+    check(parecido('Deportivo La Coruna', catalogo),
+          'y un alias de verdad se sigue detectando: «Deportivo La Coruna» '
+          'comparte «coruna» con «Dep. A Coruna»')
+
+
+
+
+def test_una_apuesta_se_coloca_en_tus_casas_o_no_es_una_apuesta():
+    """
+    Las casas del usuario son Playdoit y Novibet. `precio_accionable` caia al
+    MEJOR precio del mercado cuando ninguna de las dos cotizaba, y varias ramas
+    cogian `mejor` directamente. Medido el 2026-09-12 sobre el barrido real:
+    de 30 picks de Capa 2, **23 llevaban precio de una casa donde no se puede
+    apostar** (Pinnacle 13, Unibet 6, Caliente 3, 1xBet 1). El EV de esas filas
+    se calculo con una cuota que nadie iba a pagar.
+
+    Las demas casas se siguen leyendo: de ellas sale el precio justo. Lo que no
+    hacen es prestar su cuota a una apuesta.
+    """
+    import inspect
+    import cuotas_multi as cm
+    import alpha_finder as af
+
+    check(set(cm.CASAS_PRIORITARIAS) == {'Playdoit', 'Novibet'},
+          f'las casas del usuario son Playdoit y Novibet '
+          f'(ahora: {cm.CASAS_PRIORITARIAS})')
+
+    solo_mercado = {'mejor': {'home': {'cuota': 2.40, 'casa': 'Pinnacle'}},
+                    'preferida': {}}
+    check(cm.precio_accionable(solo_mercado, 'home') is None,
+          'sin precio en tus casas no hay precio accionable, aunque el '
+          'mercado lo tenga')
+
+    con_la_tuya = {'mejor': {'home': {'cuota': 2.40, 'casa': 'Pinnacle'}},
+                   'preferida': {'home': {'cuota': 2.30, 'casa': 'Novibet'}}}
+    p = cm.precio_accionable(con_la_tuya, 'home')
+    check(p and p.get('casa') == 'Novibet' and p.get('cuota') == 2.30,
+          f'con precio en tus casas se usa ESE, aunque otro pague mas '
+          f'(salio: {p})')
+
+    # la NFL cogia `mejor` para construir su Capa 2
+    fuente = inspect.getsource(af._picks_nfl)
+    check('cm.precio_accionable(_cuotas_nfl, lado)' in fuente,
+          'la Capa 2 de la NFL se precia con las casas del usuario')
+
+    # y el guardia central, que es el que cubre a todas las ramas a la vez
+    universal = (inspect.getsource(af.apuestas_del_dia_universal)
+                 + inspect.getsource(af.solo_tus_casas)
+                 + inspect.getsource(af._una_fila)
+                 + inspect.getsource(af._lados_del_pick))
+    check('precio_ajeno' in universal,
+          'hay un guardia central que quita el precio ajeno antes de pantalla')
+
+    # el guardia tiene que quitar cuota Y ev, no solo el nombre de la casa:
+    # una cuota huerfana seguiria produciendo un EV de mentira
+    for campo in ("p['cuota'] = None", "p['ev'] = None", "p['casa'] = None"):
+        check(campo in universal,
+              f'el guardia anula {campo.split("[")[1].split("]")[0]}')
+
+    # v195.2 — y antes de tachar tiene que PREGUNTAR por el precio de tus
+    # casas. Sin esto quedaban sin EV partidos que Novibet si cotiza: el
+    # precio que traian era de quien los metio en la lista, no de las tuyas.
+    check('precio_accionable' in universal and '_lados_del_pick' in universal,
+          'el guardia re-precia en Playdoit/Novibet antes de quitar el precio')
+
+    # v195.4 — y sobre TODAS las listas, no solo sobre las apuestas. Por
+    # `sin_modelo` salian tarjetas de tenis que decian «Unibet».
+    check('for _clave, _valor in r.items()' in universal,
+          'el guardia recorre TODAS las listas del resultado, no tres')
+    faltan = [d for d in ('Tenis', 'MLB', 'NBA', 'NFL', 'Fútbol')
+              if d not in getattr(af, '_DEP_A_CLAVE', {})]
+    check(not faltan,
+          f'y cubre los cinco deportes, no solo el tenis (faltan: {faltan})')
+
+    # que la regla se aplique de verdad, no solo que este escrita: se monta
+    # una fila de cada deporte con precio ajeno y tiene que salir sin el
+    import types
+    for deporte, partido in (('Tenis', 'Aaa Bbb vs Ccc Ddd'),
+                             ('MLB', 'Zzz Team @ Yyy Team'),
+                             ('NFL', 'Qqq Team vs Rrr Team'),
+                             ('NBA', 'Sss Team vs Ttt Team'),
+                             ('Fútbol', 'Uuu FC vs Vvv FC')):
+        fila = {'deporte': deporte, 'partido': partido,
+                'apuesta': 'Gana ' + partido.split(' vs ')[0].split(' @ ')[-1],
+                'prob': 0.6, 'cuota': 2.5, 'ev': 0.5, 'casa': 'Pinnacle'}
+        # sin red: se finge que ninguna de las dos casas cotiza
+        guardado = cm.cuotas_partido
+        try:
+            cm.cuotas_partido = lambda *a, **k: {'casas': {}, 'mejor': {},
+                                                 'preferida': {}}
+            af._cm_casas = cm
+            af.solo_tus_casas([fila])
+        finally:
+            cm.cuotas_partido = guardado
+        check(fila.get('cuota') is None and fila.get('casa') is None
+              and fila.get('ev') is None,
+              f'{deporte}: una fila con precio de Pinnacle sale sin precio '
+              f'(quedo: casa={fila.get("casa")!r} cuota={fila.get("cuota")!r})')
+        check(fila.get('precio_ajeno') == 'Pinnacle',
+              f'{deporte}: y queda constancia de que el precio era ajeno')
+
+
+
+
+def test_el_push_del_reentrenamiento_sobrevive_a_una_carrera():
+    """
+    El 2026-09-12 el reentrenamiento murio con exit 128 tras 1 h 26 min. El
+    push choco con `cuotas_mx` y, al reintentar, el rebase NI ARRANCO —«cannot
+    rebase: You have unstaged changes»—; el manejador dio por hecho que habia
+    un rebase a medias, no encontro conflictos, y su propio `git rebase
+    --abort` respondio «fatal: no rebase in progress». Con `bash -e` eso mata
+    el paso: el codigo escrito para salvar el dia fue el que lo tiro.
+
+    Este test NO lee el YAML buscando palabras: **saca el bucle de reintento
+    del workflow y lo ejecuta** contra un repositorio de mentira montado con
+    ese mismo escenario. Si el bucle vuelve a no publicar, el test se pone
+    rojo.
+    """
+    import os
+    import re
+    import shutil
+    import subprocess
+    import tempfile
+
+    ruta = os.path.join('.github', 'workflows', 'retrain_leagues.yml')
+    if not os.path.exists(ruta):
+        check(False, f'{ruta} existe (si no, este test no prueba nada)')
+        return
+    with open(ruta, encoding='utf-8') as f:
+        yml = f.read()
+
+    # el bucle de reintento, tal cual esta en el workflow. Hay DOS en este
+    # fichero; el que fallo es el ultimo, el que publica los artefactos.
+    FIN_BUCLE = chr(10) + ' ' * 12 + 'done'
+    ini = yml.rfind('for intento in 1 2 3; do')
+    fin = yml.find(FIN_BUCLE, ini)
+    check(ini >= 0 and fin > ini,
+          'se encuentra el bucle de reintento del push en el workflow')
+    if not (ini >= 0 and fin > ini):
+        return
+    bloque = yml[ini:fin + len(FIN_BUCLE)]
+    guion = '\n'.join(l[12:] if l.startswith(' ' * 12) else l.lstrip()
+                      for l in bloque.splitlines())
+    check('rebase-merge' in guion or 'rebase-apply' in guion,
+          'el bucle comprueba si el rebase llego a empezar antes de tratarlo '
+          'como un conflicto')
+
+    if shutil.which('git') is None:
+        print('AVISO  sin git en el PATH: no se ejecuta el ensayo')
+        return
+
+    # EL `bash` DEL PATH NO SIRVE EN WINDOWS: es el de WSL, y si no hay
+    # distribucion instalada imprime el menu de ayuda y devuelve 0. Con eso el
+    # ensayo parecia correr y no corria nada. Se busca el que trae Git.
+    def _bash():
+        cand = []
+        g_exe = shutil.which('git')
+        if g_exe:
+            raiz = os.path.dirname(os.path.dirname(g_exe))
+            cand += [os.path.join(raiz, 'bin', 'bash.exe'),
+                     os.path.join(raiz, 'usr', 'bin', 'bash.exe')]
+        cand += ['/bin/bash', '/usr/bin/bash']
+        w = shutil.which('bash')
+        if w:
+            cand.append(w)            # el ultimo: puede ser el de WSL
+        for c in cand:
+            if not c or not os.path.exists(c):
+                continue
+            try:
+                p = subprocess.run([c, '-c', 'echo vale'], capture_output=True,
+                                   text=True, encoding='utf-8',
+                                   errors='replace', timeout=30)
+            except Exception:
+                continue
+            if p.returncode == 0 and 'vale' in (p.stdout or ''):
+                return c
+        return None
+
+    sh = _bash()
+    if sh is None:
+        print('AVISO  sin un bash utilizable: no se ejecuta el ensayo')
+        return
+
+    base = tempfile.mkdtemp(prefix='ensayo_push_')
+    try:
+        def g(*args, cwd, **kw):
+            # encoding explicito: el guion del workflow lleva tildes y el
+            # codec del sistema en Windows es cp1252, que revienta con UTF-8
+            return subprocess.run(('git',) + args, cwd=cwd,
+                                  capture_output=True, text=True,
+                                  encoding='utf-8', errors='replace', **kw)
+
+        remoto = os.path.join(base, 'remoto.git')
+        g('init', '-q', '--bare', remoto, cwd=base)
+        otro = os.path.join(base, 'otro')
+        g('clone', '-q', remoto, otro, cwd=base)
+        for k, v in (('user.email', 'a@b'), ('user.name', 'a')):
+            g('config', k, v, cwd=otro)
+        with open(os.path.join(otro, 'datos.csv'), 'w') as f:
+            f.write('base\n')
+        g('add', '-A', cwd=otro)
+        g('commit', '-qm', 'base', cwd=otro)
+        g('push', '-q', 'origin', 'HEAD:main', cwd=otro)
+
+        bot = os.path.join(base, 'bot')
+        g('clone', '-q', '-b', 'main', remoto, bot, cwd=base)
+        for k, v in (('user.email', 'bot@b'), ('user.name', 'bot')):
+            g('config', k, v, cwd=bot)
+
+        # alguien empuja mientras el bot trabaja
+        g('pull', '-q', '--rebase', 'origin', 'main', cwd=otro)
+        with open(os.path.join(otro, 'datos.csv'), 'a') as f:
+            f.write('ajeno\n')
+        g('commit', '-qam', 'push ajeno', cwd=otro)
+        g('push', '-q', 'origin', 'HEAD:main', cwd=otro)
+
+        # el bot commitea SOLO sus artefactos y deja cambios sin guardar,
+        # que es lo que impedia el rebase
+        with open(os.path.join(bot, 'team_stats_x.json'), 'w') as f:
+            f.write('{}\n')
+        g('add', '-A', 'team_stats_x.json', cwd=bot)
+        g('commit', '-qm', 'chore(datos): reentrenamiento', cwd=bot)
+        with open(os.path.join(bot, 'cache.tmp'), 'w') as f:
+            f.write('sobras\n')
+        with open(os.path.join(bot, 'datos.csv'), 'a') as f:
+            f.write('tocado\n')
+
+        r = subprocess.run([sh, '-e', '-c', guion], cwd=bot,
+                           capture_output=True, text=True, encoding='utf-8',
+                           errors='replace', timeout=180)
+        if r.returncode not in (0, 1):
+            print(f'      (el guion salio con {r.returncode})')
+        salida = (r.stdout or '') + (r.stderr or '')
+        check('fatal: no rebase in progress' not in salida,
+              f'el reintento no trata como conflicto un rebase que no empezo '
+              f'(salida: {salida[-160:]!r})')
+        # y lo que de verdad importa: que el trabajo se publique
+        log = g('log', '--oneline', 'main', cwd=remoto).stdout
+        check('reentrenamiento' in log,
+              f'el commit del reentrenamiento acaba publicado pese a la '
+              f'carrera (main del remoto: {log.strip()[:120]!r})')
+    finally:
+        shutil.rmtree(base, ignore_errors=True)
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -12652,6 +13198,15 @@ if __name__ == '__main__':
     test_la_vista_elegida_no_se_pierde()
     test_el_nivel_de_la_liga_corrige_el_sesgo_de_goles()
     test_el_techo_de_goles_en_la_superliga_china()
+    print('\n=== v195: beisbol de las casas mexicanas, fuentes de tenis y el aviso del alias ===')
+    test_el_beisbol_pide_el_alcance_que_las_casas_cotizan()
+    test_las_casas_mexicanas_no_cotizan_el_partido_de_ayer()
+    test_el_universo_de_tenis_mira_las_cinco_casas()
+    test_el_emparejado_de_tenistas_da_lo_mismo_y_sin_recorrerlo_todo()
+    test_un_al_compartido_no_es_un_alias_que_falta()
+    test_una_apuesta_se_coloca_en_tus_casas_o_no_es_una_apuesta()
+    test_el_push_del_reentrenamiento_sobrevive_a_una_carrera()
+
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
         print('  - ' + f)

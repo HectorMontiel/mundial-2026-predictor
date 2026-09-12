@@ -671,27 +671,57 @@ jobs:
             # choca es un `.py` o algo de `.github/`, aquí no hay criterio para
             # decidir y se aborta con un aviso en vez de pisar el trabajo de
             # alguien.
+            # v195.3 — EL REBASE PUEDE FALLAR SIN HABER EMPEZADO, Y ESO NO
+            # ES UN CONFLICTO.
+            #
+            # El 2026-09-12 el job murió con exit 128 después de 1 h 26 min de
+            # reentrenamiento. El push chocó con `cuotas_mx` (a3ac94a..29e6146)
+            # y al reintentar, el rebase ni arrancó:
+            #
+            #     error: cannot rebase: You have unstaged changes.
+            #
+            # Son ficheros que el job toca y NO se commitean —cachés, y sobre
+            # todo `odds_snapshots.csv`, que git renormaliza CRLF al añadirlo y
+            # deja el árbol distinto del índice—. El manejador de abajo dio por
+            # hecho que había un rebase a medias: no encontró conflictos, dijo
+            # «conflicto sólo en artefactos», y su propio `git rebase --abort`
+            # respondió «fatal: no rebase in progress». Con `bash -e`, eso mata
+            # el paso. O sea que el código escrito para SALVAR el día fue el
+            # que lo tiró.
+            #
+            # Dos arreglos. Primero, `--autostash`: aparta lo que esté sin
+            # guardar, rebasa y lo devuelve. No es un invento — es EXACTAMENTE
+            # lo que el paso hermano de más arriba («Guardar históricos y
+            # estado») ya usaba, y a éste se le quedó sin poner. Segundo, mirar
+            # si de verdad hay un rebase en marcha antes de tratarlo como un
+            # conflicto, y que ningún `abort` pueda tumbar el job.
             for intento in 1 2 3; do
               if git push; then
                 echo "Modelos actualizados y publicados."
                 exit 0
               fi
               echo "push rechazado (intento $intento): alguien empujó mientras corría el job."
-              git fetch origin main
-              if git rebase origin/main; then
+              git fetch origin main || true
+              if git rebase --autostash origin/main; then
+                continue
+              fi
+              if [ ! -d .git/rebase-merge ] && [ ! -d .git/rebase-apply ]; then
+                echo "::warning::el rebase no llegó a empezar (intento $intento). Se reintenta limpio."
+                git rebase --abort >/dev/null 2>&1 || true
+                git reset --hard HEAD >/dev/null 2>&1 || true
                 continue
               fi
               conflictos=$(git diff --name-only --diff-filter=U)
               codigo=$(echo "$conflictos" | grep -E '\.py$|^\.github/' || true)
               if [ -n "$codigo" ]; then
                 echo "::warning::conflicto en CÓDIGO durante el rebase ($codigo); no se pisa. Se aborta y se publicará en la próxima ejecución."
-                git rebase --abort
+                git rebase --abort || true
                 exit 0
               fi
               echo "conflicto sólo en artefactos: se toma la versión recién generada."
               for f in $conflictos; do git checkout --theirs -- "$f" || git rm -f -- "$f"; done
               git add -A
-              GIT_EDITOR=true git rebase --continue || { git rebase --abort; exit 0; }
+              GIT_EDITOR=true git rebase --continue || { git rebase --abort || true; exit 0; }
             done
             echo "::warning::no se pudo publicar tras tres intentos; los artefactos se regeneran mañana."
           fi

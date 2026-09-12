@@ -2268,7 +2268,12 @@ def cuotas_partido(deporte: str, home: str, away: str,
     # ya se metió sin querer algo así y dejó el smoke colgado 33 minutos—.
     try:
         import cuotas_mx as _cmx
-        _mx = _cmx.buscar(deporte, home, away)
+        # v195 — LA FECHA VIAJA. Sin ella, un cruce que se repite dos días
+        # seguidos —toda la MLB, que juega series— se emparejaba con el juego
+        # de la víspera y comparaba precios de otro partido. Ver el docstring
+        # de `cuotas_mx.buscar`. Quien no sepa la fecha sigue funcionando: allí
+        # se cae a «el próximo que no haya empezado».
+        _mx = _cmx.buscar(deporte, home, away, fecha=fecha)
         for _casa, _mercados in ((_mx.get('casas') or {}).items()
                                  if _mx else ()):
             _c = ((_mercados.get('HOME_DRAW_AWAY')
@@ -2418,20 +2423,29 @@ def cuotas_partido(deporte: str, home: str, away: str,
 
 def precio_accionable(c: Dict, lado: str) -> Optional[dict]:
     """
-    Precio con el que se debe calcular el EV de una selección.
+    Precio con el que se debe calcular el EV de una selección: el de las casas
+    del usuario (`CASAS_PRIORITARIAS`) y el de ninguna otra.
 
-    Prioriza la casa del usuario (`CASA_PRIORITARIA`) y solo cae al mejor del
-    mercado si esa casa no cotiza ese partido. Devuelve el mismo dict que
-    `mejor[lado]`, con `mejor_alternativa` y `ventaja_alternativa` cuando otra
-    casa paga más, para que la interfaz lo pueda avisar.
+    v195.1 — Y SI NINGUNA DE LAS DOS COTIZA, NO HAY PRECIO.
+
+    Aquí había una caída al mejor del mercado. La contradicción estaba escrita
+    tres líneas más abajo, en el comentario de la v77 de `valor_vs_sharp`: «un
+    pick de line shopping que sólo existe en una casa donde no se puede apostar
+    no es una oportunidad; y como el EV sale de superar el precio justo de
+    Pinnacle, usar una cuota que el usuario no puede tomar inflaría el EV de
+    toda la Capa 1». Exactamente eso hacía el respaldo.
+
+    Las demás casas siguen leyéndose, y son imprescindibles: de ellas sale el
+    precio justo contra el que se mide el valor. Lo que no hacen es prestar su
+    cuota a una apuesta que el usuario no puede colocar.
+
+    Devolver None es un resultado correcto: la fila se queda con su
+    probabilidad y sin EV, que es la verdad. Ver el guardia de
+    `apuestas_del_dia_universal`, que lo aplica a todo lo que llega a pantalla.
     """
     if not c:
         return None
-    p = (c.get('preferida') or {}).get(lado)
-    if p:
-        return p
-    m = (c.get('mejor') or {}).get(lado)
-    return dict(m, mejor_alternativa=None, ventaja_alternativa=0.0) if m else None
+    return (c.get('preferida') or {}).get(lado)
 
 
 def devig(cuotas: Dict[str, float], metodo: str = 'potencia') -> Dict[str, float]:
@@ -2513,7 +2527,7 @@ def sharp_gap_2via(prob_modelo: float, pin_a: Optional[float],
 
 def valor_vs_sharp(deporte: str, home: str, away: str,
                    odds_espn: Optional[dict] = None,
-                   min_edge: float = 0.02) -> Dict:
+                   min_edge: float = 0.02, fecha=None) -> Dict:
     """
     v71 — VALOR DE MERCADO: dónde una casa blanda paga más que el precio justo
     de Pinnacle.
@@ -2535,7 +2549,8 @@ def valor_vs_sharp(deporte: str, home: str, away: str,
     Devuelve, por selección: mejor cuota, casa, probabilidad justa de Pinnacle,
     EV contra esa probabilidad y el margen que se está capturando.
     """
-    res = cuotas_partido(deporte, home, away, odds_espn=odds_espn)
+    res = cuotas_partido(deporte, home, away, odds_espn=odds_espn,
+                         fecha=fecha)
     pin = res.get('pinnacle') or {}
     salida = {'valor': [], 'n_casas': res.get('n_casas', 0),
               'casas': res.get('casas'), 'pinnacle': pin}

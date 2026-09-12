@@ -3956,3 +3956,455 @@ preguntó, no porque el sistema lo cazara.
 3. No hay datos de ATP/WTA de circuito (250, 500, 1000) con marcador por sets:
    el archivo llega a challenger y Grand Slam. Se usa «alto» para todos ellos,
    que es lo más parecido que hay medido.
+
+## 6c. v195 — EL BÉISBOL PEDÍA UN MERCADO QUE NO EXISTE, Y LO QUE TAPABA ERA PEOR
+
+El encargo traía tres cosas: el aviso de la AFC Champions pedía un alias que no
+existe, el tenis no llegaba a las apuestas del día, y «el béisbol no da ninguna
+apuesta». Las tres eran ciertas. Ninguna era lo que parecía.
+
+### 1. El béisbol: 0 partidos, no pocos
+
+La v192 abrió la puerta de Flashscore y metió cinco casas mexicanas. El log del
+barrido lo decía todos los días, entre las otras cuatro líneas que sí traían:
+
+    [mx] futbol     400 partidos, 248 con cuota
+    [mx] tenis      154 partidos, 121 con cuota
+    [mx] nba        113 partidos,  62 con cuota
+    [mx] nfl        119 partidos,  61 con cuota
+    [mx] mlb        139 partidos,   0 con cuota      <- aquí
+
+Cero. No «pocos»: cero, cada seis horas, desde la v192. El servicio no da error
+— responde 200 con `null` —, así que nada saltó.
+
+El motivo estaba en una constante. El alcance del mercado (`betScope`) iba fijo
+a `FULL_TIME` para los cinco deportes, y en los deportes que pueden ir a tiempo
+extra Flashscore llama `FULL_TIME` a la **parte reglamentaria** y
+`FULL_TIME_OVER_TIME` al partido entero, que es lo que cotiza una casa. Se
+encontró como la propia puerta de la v192: abriendo el comparador en el
+navegador y leyendo qué pide él mismo.
+
+Medido el 2026-09-12 sobre 25 partidos programados por deporte, las cinco casas
+y los cuatro mercados. Partidos con precio de GANADOR:
+
+    deporte   FULL_TIME   FULL_TIME_OVER_TIME
+    mlb            0/25            10/25
+    nba            6/25             8/25
+    nfl           11/25            13/25
+    futbol        14/25             0/25
+    tenis         25/25             0/25
+
+**Y los seis que sí traía la NBA no eran el ganador.** Eran el 1X2 de la parte
+reglamentaria, con su empate — y el lector de `cuotas_multi` prefiere
+`HOME_DRAW_AWAY` cuando está. Así que la NFL y la NBA llevaban comparando un
+precio de tres vías contra el de dos vías de Pinnacle, y el de tres vías es más
+largo porque el empate se lleva probabilidad:
+
+    Toronto    3 vías 1,24 / 26,0 / 4,00      ganador 1,15 / 5,50
+    Michigan   3 vías 2,85 / 18,0 / 1,45      ganador 2,75 / 1,41
+
+Leído como ganador, ese 1,24 finge pagar un 8 % más de lo que paga. O sea que
+al béisbol le faltaban picks y a la NFL y la NBA les sobraban.
+
+El alcance pasa a decidirse por (deporte, mercado), con cada combinación
+medida; las que dieron cero no se piden. Barrido real después del cambio:
+
+    mlb   0 -> 59 partidos con cuota
+    nfl  61 -> 96
+    nba  62 -> 52 (menos, y todos con el ganador de verdad)
+
+De paso cae una creencia de la v192: **Novibet sí cotiza MLB**. Que no lo
+hiciera era el alcance equivocado, no la casa.
+
+### 2. Y lo que el béisbol destapó al empezar a traer datos
+
+Con las cinco casas dentro, los 14 partidos de MLB del día pasaron de 2-4 casas
+a 7-9, y aparecieron picks de +19 % de EV en un moneyline de dos vías. Eso no
+es valor: es la firma de un emparejado equivocado.
+
+`cuotas_mx.buscar` emparejaba **sólo por los dos nombres** y devolvía el primer
+candidato. En fútbol no se nota, porque dos equipos no se cruzan dos veces en
+dos días. En béisbol es la norma: se juega en series diarias contra el mismo
+rival. Con el fichero de dos días, los 14 partidos de MLB tenían un gemelo —el
+juego de la víspera, ya terminado— y ganaba siempre el de ayer:
+
+    Mets @ Yankees   Pinnacle 1,55 / 2,63   las cinco casas 1,77 / 2,10
+    Angels @ Nats    Pinnacle 1,90 / 2,01   las cinco casas 1,62 / 2,35
+
+La segunda columna es del partido del día anterior. **14 de 14.**
+
+Es, letra por letra, la lección de la v114 —«un partido del mismo cruce cinco
+días después, con las cuotas de otro partido»— que `_buscar` ya había aprendido
+para las demás casas y que esta puerta, abierta en la v192, no heredó. Dos
+arreglos: el barrido ya no pide cuotas de partidos que no están programados, y
+`buscar` acepta la fecha, exige que el candidato caiga a menos de doce horas y
+se queda con el más cercano; sin fecha, con el próximo que no haya empezado.
+
+Después del arreglo, los 14 partidos siguen con sus 7-9 casas y el mejor EV del
+día es **−0,78 %**. O sea: hoy el béisbol sigue sin dar apuestas, pero ahora eso
+es un resultado medido sobre el mercado entero y no el silencio de media
+comparación rota. Que es la diferencia que importa.
+
+**Lo que esto casi cuesta.** Si el apartado 1 se hubiera desplegado solo, el
+usuario habría visto seis picks de MLB con EV de entre +3,9 % y +19,2 %, todos
+falsos. El único aviso fue que los números eran demasiado buenos.
+
+### 3. El tenis miraba dos casas de las cinco que ya se descargaban
+
+`_cuotas_tenis_multi` construía el universo de partidos con Pinnacle y Bovada.
+Las otras tres —Unibet, Playdoit y Matchbook— **ya se bajaban en la misma
+pasada**, porque `valor_vs_sharp` las consulta partido a partido para comparar
+precios. Estaban en memoria y no se usaban para decidir qué mirar. Un partido
+que sólo cotizara Unibet no existía para la aplicación.
+
+Medido el 2026-09-12, deduplicando por apellidos y sin dobles:
+
+    fuente      partidos   nuevos   enlazan con el modelo
+    Pinnacle          56       56                      29
+    Bovada             0        0                       0   (caído ese día)
+    Unibet            85       38                      18
+    Playdoit          85       11                       4
+    Matchbook          0        0                       0
+    TOTAL                     105                      51
+
+De 56 partidos a 105 y de 29 evaluables a 51. Y Bovada estaba caído justo ese
+día, que es el motivo por el que el universo no puede depender de dos casas.
+
+**Y falta la sexta fuente, que resultó ser la mejor.** Las cinco casas
+mexicanas también cotizan tenis, y su fichero ya está en disco: no cuesta ni
+una petición. Sobre el universo ya ampliado a cinco, aportan **59 partidos más,
+y los 59 con los dos jugadores en el catálogo del modelo**. Tiene sentido:
+Flashscore publica el circuito menor que las casas internacionales no tocan. Y
+son las casas que el usuario puede jugar, que es de lo que iba la v192.
+
+Total: **56 → 164 partidos** de tenis en el universo del barrido.
+
+### 4. Pero ampliarlo destapó la segunda regresión de la v178, otra vez
+
+Con las cinco fuentes, la rama de tenis pasó de 35 s a 61 s y el barrido
+completo de 90,8 s a 139,3 s. **+48,5 s de reloj**, más que cualquiera de las
+tres regresiones que la v178 revirtió. No se despliega algo así.
+
+Perfilando la rama, el culpable no era el tenis nuevo:
+
+    emparejar_jugador   46,0 s de 61,6 s   ·   218 llamadas a 211 ms
+
+`emparejar_jugador` recorría los 13.561 nombres del catálogo de ATP (14.746 en
+WTA) **dos veces por consulta**, normalizando el catálogo entero cada vez. Es
+la segunda regresión de la v178 —«emparejado difuso contra 1.900 nombres,
++22,7 s, índice por palabra»— repetida aquí con un catálogo siete veces mayor,
+y llevaba ahí desde la v72 sin que nadie la midiera.
+
+Se le pone índice: apellido, palabras, y tres trozos del apellido (arranque,
+final e interior). El segundo pase descarta por longitud, que es una cota
+exacta del parecido de dos cadenas, y recorre de la longitud más parecida hacia
+fuera.
+
+**Y aquí el proyecto estuvo a punto de tragarse su propia regla, dos veces.**
+La primera versión del índice pasó el test de 48 nombres sin una diferencia. El
+test amplio —709 nombres reales contra los dos catálogos, 1.418 consultas—
+encontró **16 diferencias**: con sólo el arranque del apellido, «Anastasia
+Gasanova» no alcanzaba a «Andrin Casanova», que difieren en la primera letra.
+Se añadieron final e interior y quedaron **8**: «Maeda Rio» no alcanzaba a
+«Rios M.», porque ahí la diferencia es de LONGITUD y una ventana de cuatro
+letras tampoco la cubre. Con ventanas de tres: **cero de 1.418**.
+
+Que en alguno de esos 16 el índice acertara MÁS que el original da igual:
+acelerar cambiando a quién se empareja no es optimizar, es publicar otro
+modelo. La lección operativa es más simple: **un test de 48 casos dijo que
+estaba bien dos veces seguidas, y las dos veces mentía.**
+
+Y de paso salió un fallo que llevaba desde la v72: el caché del emparejador iba
+por nombre a secas, sin el catálogo. `_picks_tenis` reintenta con el otro motor
+«por si el circuito viene mal etiquetado», y ese reintento leía la respuesta
+guardada del PRIMER catálogo. No reintentaba nada.
+
+### 4 bis. Y una ranura para cinco deportes
+
+Contando las reconstrucciones del índice de `cuotas_mx` en un barrido real:
+**69 para 742 consultas**, cuando deberían ser cinco. El índice vivía en una
+sola ranura con la clave del deporte al lado, y las cinco ramas corren en
+paralelo desde la v79: cada una pisaba el índice de la anterior. Uno por
+deporte y se acabó: 69 → 6.
+
+### 4 ter. Lo que costó al final
+
+Medido dos veces, con y sin las fuentes nuevas, procesos separados:
+
+    barrido completo, antes de la v195              90,8 s   464 pronósticos
+    barrido completo, despues de la v195            83,0 s   559 pronósticos
+
+El barrido acaba **7,8 s más rápido que antes** con el triple de partidos de
+tenis y con el béisbol comparándose contra el mercado entero. Las dos medidas
+son de dos pasadas cada una en procesos separados (82,9 y 83,2 s la segunda).
+
+Como referencia de cuánto pesa cada cosa, anulando Unibet, Playdoit y Matchbook
+—o sea, quitándolos del universo de tenis Y de la comparación de precios de
+todos los deportes— el mismo barrido baja a 61,3 s. No es un reparto limpio
+entre las dos cosas, pero da el orden de magnitud: el emparejador arreglado
+libera más de lo que cuesta la ampliación entera.
+
+### 5. El aviso que mandaba a buscar un alias que no puede existir
+
+El informe decía: «afc_champions: 3 de 6 partidos salen con el precio del
+mercado — sus nombres no casan con el catálogo del modelo. Falta un alias en
+`alias_manuales.json`». Los tres partidos eran reales; el consejo, falso.
+
+    Al Shamal  (Catar)         mejor candidato  Al Shabab    0,778
+    Al Qadsiah (Arabia Saudí)  mejor candidato  Al-Jazira    0,632
+    Neftchi Fergana (Uzbekistán)                Machida Zelvia 0,414
+
+Son cuatro clubes de cuatro países. Lo único que comparten es el «Al», que está
+en 22 de los 80 equipos del catálogo. La regla declaraba «se parece, falta un
+alias» con sólo 0,62 de similitud, y esa cifra la alcanzan dos clubes distintos
+por compartir una partícula. Lo que les pasa de verdad es que **debutan en esta
+competición**: la misma trampa que la v189 documentó con Roma y Como, y que su
+guardia no cazó porque consulta el diccionario equipo→liga y ahí no están las
+ligas de Catar, Uzbekistán ni Corea.
+
+Ahora, por debajo del umbral con el que el propio emparejador declara un
+acierto, se exige además una palabra en común de tres letras o más. Medido
+sobre los 97 alias reales de `alias_manuales.json` y 2.506 nombres de otras
+ligas que no casan:
+
+                          detecta el alias   falsa alarma
+    antes (0,62)                 63,9 %          3,4 %
+    ahora                        55,7 %          0,8 %
+
+Se cambian 8 detecciones por 64 falsas alarmas menos, y esa es la dirección
+correcta: el alias que falta queda apuntado igual en `nombres_sin_mapear.json`,
+mientras que la falsa alarma manda a buscar durante horas algo que no existe.
+El aviso de hoy pasa de ⚠️ a ℹ️ y dice lo que pasa: esos equipos no han jugado
+nunca esta competición.
+
+### 6. v195.1 — y una apuesta se coloca en tu casa, o no es una apuesta
+
+El usuario lo dijo a media versión: «ya sólo quiero que estén Playdoit y
+Novibet; puedes seguir comparando con otras para saber el precio justo». Las
+dos mitades importan, y el sistema cumplía la segunda y no la primera.
+
+`CASAS_PRIORITARIAS` son esas dos desde la v192, pero `precio_accionable` caía
+al MEJOR precio del mercado cuando ninguna cotizaba, y varias ramas ni pasaban
+por ahí: la Capa 2 de la NFL leía `mejor` directamente y las tarjetas de tenis
+se quedaban con la casa de la fuente. Medido sobre el barrido real del
+2026-09-12:
+
+    Capa 1   4 picks    los 4 en Novibet                    — limpia
+    Capa 2  30 picks    23 con precio de otra casa          — Pinnacle 13,
+                                                              Unibet 6,
+                                                              Caliente 3,
+                                                              1xBet 1
+
+No es presentación: el EV de esas 23 se calculó con una cuota que nadie iba a
+pagar. Y la contradicción estaba escrita en el propio código desde la v77, en
+`valor_vs_sharp`: «usar una cuota que el usuario no puede tomar inflaría el EV
+de toda la Capa 1». El respaldo de `precio_accionable` hacía exactamente eso.
+
+Tres cambios: `precio_accionable` ya no tiene respaldo, la NFL pasa por él, y
+un guardia central en `apuestas_del_dia_universal` recorre todo lo que va a
+pantalla y le quita cuota, EV y casa a lo que no venga de las dos. La fila NO
+desaparece: se queda con su probabilidad y una nota que dice por qué no lleva
+precio. Las demás casas se siguen leyendo — sin ellas no hay precio justo y no
+hay forma de saber si el de Playdoit es bueno.
+
+Y en tenis se aprovecha para que Novibet gane el desempate al anotar el precio
+de las casas mexicanas: de 45 partidos con precio tomable a **83 de 161**.
+
+**Lo que la medición dijo, y por qué estaba mal.** Con el guardia tachando sin
+más quedaban 18 filas sin precio (16 de tenis, 2 de MLB), y la conclusión
+apresurada fue «Playdoit y Novibet no cotizan el circuito menor». El usuario no
+se lo creyó —«al menos Novibet siempre tiene sus cuotas actualizadas, valida
+todas las formas»— y tenía razón.
+
+## 6d. v195.2 — NOVIBET SÍ TENÍA EL PRECIO; NADIE SE LO ESTABA PIDIENDO
+
+Dos fallos encadenados, los dos de emparejado y ninguno de fuente.
+
+### 1. `cuotas_mx.buscar` emparejaba tenistas con las reglas de los clubes
+
+Todo ese módulo empareja CLUBES: normaliza, quita sufijos societarios y compara
+palabras. Con tenistas no funciona, porque cada fuente escribe el nombre de una
+forma:
+
+    la app busca    «Hayu Kinoshita vs Victoria Rodriguez»
+    el fichero dice «Kinoshita H. vs Rodriguez V.»   Novibet 1,24 / 3,90
+
+Normalizados quedan «hayu kinoshita» y «kinoshita h»: ni iguales, ni uno dentro
+del otro, ni al 0,80 que se exige. `cuotas_multi._clave_tenista` existe desde la
+v72 justo para esto y `_buscar` ya la usa con las demás casas; esta puerta,
+abierta en la v192, volvió a emparejar por club.
+
+### 2. Y el guardia tachaba en vez de preguntar
+
+Aun arreglado lo anterior, las filas seguían sin precio: el que traían venía de
+la fuente que las metió en la lista (Pinnacle o Unibet) y **nadie iba a
+preguntar por el de las casas del usuario**. El guardia ahora RE-PRECIA antes
+de tachar, y sólo tacha si de verdad no hay.
+
+    Capa 2, con precio tomable      antes  9 de 27
+                                    ahora 24 de 27   (Novibet 10, Playdoit 14)
+
+Quedan 3: un partido de tenis y dos de MLB ya empezados, donde no hay precio de
+prepartido en ninguna casa. Eso sí es correcto.
+
+### 3. Y el sondeo de puertas que el usuario pidió
+
+«No te cierres»: se volvieron a probar todas, una por una, con una petición
+normal de Python.
+
+    novibet.mx (6 rutas, incl. robots.txt)   403   desafío anti-bot
+    novibet.gr api                           200   armazón de SPA, no JSON
+    oddspedia api / bookmakers               403   desafío anti-bot
+    oddschecker                              403   desafío anti-bot
+    sofascore odds                           403
+    the-odds-api                             401   clave caducada; y Novibet MX
+                                                   no está en su catálogo (v192)
+    betexplorer                              200   NO lleva ninguna casa
+                                                   mexicana (comprobado: ni
+                                                   Novibet, ni Caliente, ni
+                                                   Winpot, ni Sportium, ni
+                                                   1xBet, ni Playdoit)
+    flashscore (la puerta de la v192)        200   funciona
+
+Sigue sin haber otra puerta, y la que hay es buena. Lo importante es cuánto
+cubre, que es lo que no se había medido nunca:
+
+    partidos de tenis del barrido                       161
+      de ellos, presentes en el comparador de Flashscore  93
+        de esos 93, con precio de Novibet                 88   (94,6 %)
+
+**Cuando Flashscore tiene el partido, Novibet tiene el precio el 95 % de las
+veces.** El techo no es Novibet: es la cobertura del comparador. Y los 68 que
+faltan tienen nombre propio —44 son de la **UTR Pro Tennis Series**, un circuito
+de exhibición que Flashscore no sigue y que sólo cotizan Unibet, Pinnacle y
+Playdoit—. De esos 68, 17 los cotiza Playdoit, así que sí llevan precio tomable.
+
+También se comprobó si el fichero llegaba tarde: consultando Flashscore EN VIVO
+en ese momento salían 49 partidos con Novibet, contra 84 del fichero de 8 h. El
+fichero cubre más, porque a media tarde muchos partidos ya han empezado y dejan
+de tener precio de prepartido. No era frescura.
+
+## 6e. v195.3 — EL REENTRENAMIENTO MURIÓ MATÁNDOSE A SÍ MISMO
+
+El mismo día, el workflow diario falló con **exit 128 tras 1 h 26 min**. El push
+chocó con `cuotas_mx` (a3ac94a..29e6146) y al reintentar el rebase ni arrancó:
+
+    error: cannot rebase: You have unstaged changes.
+
+Son ficheros que el job toca y no commitea —cachés, y sobre todo
+`odds_snapshots.csv`, que git renormaliza CRLF al añadirlo y deja el árbol
+distinto del índice—. El manejador de conflictos dio por hecho que había un
+rebase a medias: no encontró conflictos, anunció «conflicto sólo en artefactos»,
+y su propio `git rebase --abort` contestó «fatal: no rebase in progress». Con
+`bash -e`, eso mata el paso. **El código escrito para salvar el día fue el que
+lo tiró.**
+
+El arreglo no es un invento: el paso hermano de más arriba, «Guardar históricos
+y estado», ya usaba `git pull --rebase --autostash` y a éste se le quedó sin
+poner. Se añade `--autostash` y se comprueba que haya un rebase en marcha antes
+de tratarlo como un conflicto; ningún `abort` puede volver a tumbar el job.
+
+Y lleva test de verdad, no de leer el YAML buscando palabras:
+`test_el_push_del_reentrenamiento_sobrevive_a_una_carrera` **saca el bucle del
+workflow y lo ejecuta** contra un repositorio de mentira con esa misma carrera.
+Contra el bucle viejo reproduce el `exit 128` y los dos `fatal: no rebase in
+progress`, y deja el commit sin publicar; contra el nuevo, publica.
+
+## 6f. v195.4 — LA REGLA ERA BUENA Y MIRABA TRES LISTAS DE CATORCE
+
+«Igual lo de Novibet y Playdoit aplicado a todos los deportes, no sólo tenis».
+Se auditaron **las once listas que devuelve el barrido**, fila a fila:
+
+    candidatos · capa1 · capa1_prob · capa2 · elite · ev_extremo
+    mejores_patas · seccion1 · seccion2                      todas limpias
+    sin_modelo      4 tarjetas de tenis diciendo «🏠 Unibet»  <- se escapaba
+    pronosticos   181 filas con precio y SIN casa             <- ver abajo
+
+O sea: las apuestas ya estaban bien en los cinco deportes, porque el guardia de
+la v195.1 recorría `capa1 + capa2 + candidatos`. Lo que no estaba era todo lo
+demás, y por ahí salía a pantalla el nombre de una casa donde el usuario no
+puede apostar.
+
+Tres cambios:
+
+1. El guardia pasa a correr sobre el diccionario YA MONTADO, recorriendo todas
+   sus listas. Es el único punto donde se puede garantizar que no se escapa
+   nada.
+2. Sale de dentro de `apuestas_del_dia_universal` a `solo_tus_casas()`, a nivel
+   de módulo. Una regla que decide qué precio ve el usuario no puede vivir
+   donde un test no la puede llamar.
+3. El test monta una fila de CADA deporte —Tenis, MLB, NFL, NBA, Fútbol— con
+   precio de Pinnacle y comprueba que sale sin precio, sin EV y sin casa.
+
+### Y la cuarta regresión de rendimiento del §4, en la misma tanda
+
+La primera versión de esa pasada final trataba como sospechosa cualquier fila
+con precio, incluidas las 565 de «Partidos de hoy». Esas llevan precio pero NO
+llevan casa: son la referencia de mercado con la que se contrasta la
+probabilidad, y el usuario dio permiso expreso para eso. Nadie está ofreciendo
+apostar ahí, porque no se nombra ningún sitio.
+
+Preguntar por ellas salió carísimo, y el smoke lo cazó antes que nadie:
+
+    smoke_botones.py    ~40 min normalmente
+                        **agotó los 90 min de tope con 3 comprobaciones hechas**
+
+Y el log lo decía con todas las letras: «1118 nombres sin mapear volcados»,
+cuando lo normal son 46. Cada fila cuyo nombre no casa arrastra el emparejado
+difuso entero.
+
+    llamadas a `cuotas_partido` desde el guardia     antes  ~565
+                                                     ahora     25   (0,09 s)
+
+Es la cuarta vez que este proyecto mete una petición cara en el camino caliente
+—las tres de la v178 fueron +14,2 s, +22,7 s y el `to_csv`— y la cuarta vez que
+lo caza la medición y no la lectura del código. La regla sigue valiendo para
+todo lo que NOMBRA una casa, que es donde se puede confundir con una oferta.
+
+### Y un test que se ponía rojo por la máquina
+
+`test_el_emparejado_de_tenistas...` exigía «menos de 50 ms por consulta». Dio
+42,7 ms en una pasada y 57,9 ms en la siguiente **con el mismo código**. Un
+test que falla por eso deja de leerse, que es peor que no tenerlo. Ahora
+cronometra las dos implementaciones en la misma pasada y pide una mejora
+holgada: 5,0x medido. Si alguien quita el índice, la razón se va a 1 y el test
+se pone rojo en cualquier máquina.
+
+### Lo que esta versión deja abierto
+
+1. **Los totales y hándicaps de las cinco casas** ahora se recogen con el
+   alcance correcto en los tres deportes de tiempo extra, pero al consenso
+   sigue entrando sólo el 1X2. Sigue pendiente de la v192.
+2. **La apertura de las cinco casas** sigue guardándose y sin leerse: es lo que
+   permitiría medir CLV real. Sigue pendiente de la v192.
+3. **El segundo pase del emparejador sigue siendo el caro** cuando el nombre
+   no se resuelve por apellido+inicial: es el único que no tiene puerta de
+   entrada y descarta sólo por longitud. Si algún día estorba, ahí está el
+   margen.
+4. **El fuzzy del segundo pase enlaza jugadores distintos, y se midió.** De los
+   149 partidos de tenis del día, 3 se enlazan por similitud floja en vez de
+   por apellido+inicial, y los tres están mal: «Francesca Pace» → «Francesco
+   Paschetto», «Panova, Alexandra» → «Malova Alexandra» y —el más claro—
+   «Mpetshi Perricard D.» → «Mpetshi Perricard G.», que `_sim_tenista` ya había
+   rechazado a propósito («mismo apellido, jugador distinto») y el segundo pase
+   deshace. Es el 2 %, y cada uno es una predicción publicada sobre otra
+   persona. NO se ha tocado en esta versión: es un cambio de comportamiento y
+   quería su propia medición, no colarse dentro de una optimización que debía
+   ser equivalente.
+5. **Nadie vigila que una fuente traiga cero.** El béisbol estuvo así desde la
+   v192 y el log lo decía cada seis horas. `frescura_datos.py` vigila que los
+   ficheros no se queden parados, no que un deporte dentro de un fichero venga
+   vacío. Es el aviso que habría ahorrado esta versión entera, y sigue sin
+   existir. **Es el pendiente más valioso que deja la v195.**
+6. **La UTR Pro Tennis Series no la cubre ninguna de tus casas.** Son 44 de los
+   68 partidos de tenis sin precio en Flashscore, y sólo los cotizan Unibet y
+   Pinnacle (Playdoit, 17). No hay nada que arreglar: es un circuito de
+   exhibición que el comparador no sigue. Si algún día importa, habría que
+   buscarle fuente propia.
+7. **Los tres partidos de Capa 2 que quedan sin precio son partidos EMPEZADOS.**
+   No hay precio de prepartido en ninguna casa para ellos, así que la fila sin
+   EV es la respuesta correcta. Si molesta verlos, esconderlos es una decisión
+   de pantalla y se cambia en un sitio.
+8. **La clave de The Odds API sigue caducada** (401 en el sondeo de hoy).
+   Llevaba pendiente desde el traspaso original y sigue igual; no estorba,
+   porque ninguna de las dos casas del usuario está en su catálogo.
