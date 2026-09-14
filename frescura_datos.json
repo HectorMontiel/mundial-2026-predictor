@@ -2,27 +2,51 @@
  "ok": [
   {
    "fichero": "predicciones_dia.json",
-   "dias": 0,
+   "dias": 1,
    "tolerado": 3,
    "quien": "bot nocturno",
    "via": "contenido",
-   "hasta": "2026-09-09"
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "mercado_dia.json",
-   "dias": 0,
+   "dias": 1,
    "tolerado": 3,
    "quien": "bot nocturno",
    "via": "contenido",
-   "hasta": "2026-09-09"
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "goleadores_cache.json",
-   "dias": 0,
+   "dias": 4,
    "tolerado": 5,
    "quien": "precalcular_rosters.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-09"
+   "hasta": "2026-09-10"
+  },
+  {
+   "fichero": "pick_ledger_total.csv",
+   "dias": 1,
+   "tolerado": 10,
+   "quien": "recalibrar.yml (semanal)",
+   "via": "contenido",
+   "hasta": "2026-09-13"
+  },
+  {
+   "fichero": "_v75_pick_ledger.json",
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "recalibrar.yml (ledger de futbol)",
+   "via": "contenido",
+   "hasta": "2026-09-14"
+  },
+  {
+   "fichero": "_v78_ledger_deportes.json",
+   "dias": 0,
+   "tolerado": 10,
+   "quien": "recalibrar.yml (ledger de deportes)",
+   "via": "contenido",
+   "hasta": "2026-09-14"
   },
   {
    "fichero": "edge_map.json",
@@ -30,19 +54,27 @@
    "tolerado": 10,
    "quien": "recalibrar.yml (semanal)",
    "via": "contenido",
-   "hasta": "2026-09-09"
+   "hasta": "2026-09-14"
   },
   {
    "fichero": "calibracion_mercado.json",
-   "dias": 0,
+   "dias": 1,
    "tolerado": 10,
    "quien": "recalibrar.yml (semanal)",
    "via": "contenido",
-   "hasta": "2026-09-09"
+   "hasta": "2026-09-13"
+  },
+  {
+   "fichero": "historico_nfl.csv",
+   "dias": 4,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-10"
   },
   {
    "fichero": "stats_espn/laliga.csv.gz",
-   "dias": 2,
+   "dias": 7,
    "tolerado": 10,
    "quien": "recalibrar.yml (fondo ESPN)",
    "via": "contenido",
@@ -50,7 +82,7 @@
   },
   {
    "fichero": "stats_espn/premier.csv.gz",
-   "dias": 3,
+   "dias": 8,
    "tolerado": 10,
    "quien": "recalibrar.yml (fondo ESPN)",
    "via": "contenido",
@@ -62,79 +94,71 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_argentina.csv",
-   "dias": 5,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-04"
-  },
-  {
-   "fichero": "historico_aut_bundesliga.csv",
-   "dias": 7,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-02"
-  },
-  {
-   "fichero": "historico_bel_pro_league.csv",
-   "dias": 5,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-04"
-  },
-  {
-   "fichero": "historico_bol_division.csv",
    "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
   },
   {
-   "fichero": "historico_bra_copa.csv",
-   "dias": 6,
+   "fichero": "historico_aut_bundesliga.csv",
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-03"
+   "hasta": "2026-09-12"
   },
   {
-   "fichero": "historico_bra_serie_b.csv",
-   "dias": 0,
+   "fichero": "historico_bel_pro_league.csv",
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-09"
+   "hasta": "2026-09-12"
   },
   {
-   "fichero": "historico_brasil.csv",
-   "dias": 7,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-02"
-  },
-  {
-   "fichero": "historico_bundesliga.csv",
-   "dias": 10,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-08-30"
-  },
-  {
-   "fichero": "historico_champions.csv",
+   "fichero": "historico_bol_division.csv",
    "dias": 1,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-08"
+   "hasta": "2026-09-13"
+  },
+  {
+   "fichero": "historico_bra_serie_b.csv",
+   "dias": 3,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-11"
+  },
+  {
+   "fichero": "historico_brasil.csv",
+   "dias": 1,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-13"
+  },
+  {
+   "fichero": "historico_bundesliga.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_champions.csv",
+   "dias": 4,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-10"
   },
   {
    "fichero": "historico_chi_primera.csv",
@@ -142,31 +166,39 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_china.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_col_primera_a.csv",
-   "dias": 2,
+   "dias": 1,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "historico_crc_fpd.csv",
-   "dias": 2,
+   "dias": 1,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "historico_dinamarca.csv",
-   "dias": 5,
+   "dias": 3,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-11"
   },
   {
    "fichero": "historico_ecu_liga_pro.csv",
@@ -174,87 +206,87 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-08"
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "historico_eng_championship.csv",
-   "dias": 7,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-02"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_eng_league_one.csv",
-   "dias": 7,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-02"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_eng_league_two.csv",
-   "dias": 8,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-01"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_eng_national.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_eredivisie.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_esp_hypermotion.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_finlandia.csv",
-   "dias": 9,
+   "dias": 5,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-08-31"
+   "hasta": "2026-09-09"
   },
   {
    "fichero": "historico_fra_ligue2.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_ger_bundesliga2.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_gre_super_league.csv",
-   "dias": 9,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-08-31"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_irlanda.csv",
@@ -262,87 +294,87 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-08-30"
-  },
-  {
-   "fichero": "historico_ita_serie_b.csv",
-   "dias": 10,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-08-30"
-  },
-  {
-   "fichero": "historico_jpn_j1.csv",
-   "dias": 7,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-02"
-  },
-  {
-   "fichero": "historico_ksa_pro.csv",
-   "dias": 0,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-09"
-  },
-  {
-   "fichero": "historico_laliga.csv",
-   "dias": 5,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
    "hasta": "2026-09-04"
   },
   {
-   "fichero": "historico_leagues_cup.csv",
+   "fichero": "historico_ita_serie_b.csv",
    "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
   },
   {
-   "fichero": "historico_libertadores.csv",
-   "dias": 1,
+   "fichero": "historico_jpn_j1.csv",
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-08"
+   "hasta": "2026-09-12"
   },
   {
-   "fichero": "historico_liga_mx.csv",
+   "fichero": "historico_ksa_pro.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_laliga.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_leagues_cup.csv",
    "dias": 4,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-05"
+   "hasta": "2026-09-10"
   },
   {
-   "fichero": "historico_ligue_1.csv",
-   "dias": 5,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-04"
-  },
-  {
-   "fichero": "historico_mex_expansion.csv",
+   "fichero": "historico_libertadores.csv",
    "dias": 3,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-06"
+   "hasta": "2026-09-11"
   },
   {
-   "fichero": "historico_mls.csv",
-   "dias": 5,
+   "fichero": "historico_liga_mx.csv",
+   "dias": 1,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-13"
+  },
+  {
+   "fichero": "historico_ligue_1.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_mex_expansion.csv",
+   "dias": 1,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-13"
+  },
+  {
+   "fichero": "historico_mls.csv",
+   "dias": 1,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "historico_ned_eerste.csv",
@@ -350,15 +382,15 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_noruega.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_par_division.csv",
@@ -366,119 +398,119 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_per_liga1.csv",
-   "dias": 3,
+   "dias": 1,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-06"
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "historico_polonia.csv",
-   "dias": 6,
+   "dias": 7,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-03"
+   "hasta": "2026-09-07"
   },
   {
    "fichero": "historico_premier.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_primeira.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_rsa_premier.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_rumania.csv",
+   "dias": 7,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-07"
+  },
+  {
+   "fichero": "historico_rus_premier.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_sco_championship.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_sco_premiership.csv",
    "dias": 5,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-09"
   },
   {
-   "fichero": "historico_rsa_premier.csv",
+   "fichero": "historico_serie_a.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_slv_primera.csv",
+   "dias": 2,
+   "tolerado": 10,
+   "quien": "retrain_leagues.yml (diario)",
+   "via": "contenido",
+   "hasta": "2026-09-12"
+  },
+  {
+   "fichero": "historico_sudamericana.csv",
    "dias": 3,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-06"
-  },
-  {
-   "fichero": "historico_rumania.csv",
-   "dias": 9,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-08-31"
-  },
-  {
-   "fichero": "historico_rus_premier.csv",
-   "dias": 10,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-08-30"
-  },
-  {
-   "fichero": "historico_sco_championship.csv",
-   "dias": 5,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-04"
-  },
-  {
-   "fichero": "historico_sco_premiership.csv",
-   "dias": 6,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-03"
-  },
-  {
-   "fichero": "historico_serie_a.csv",
-   "dias": 5,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-04"
-  },
-  {
-   "fichero": "historico_slv_primera.csv",
-   "dias": 0,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-09"
-  },
-  {
-   "fichero": "historico_sudamericana.csv",
-   "dias": 0,
-   "tolerado": 10,
-   "quien": "retrain_leagues.yml (diario)",
-   "via": "contenido",
-   "hasta": "2026-09-09"
+   "hasta": "2026-09-11"
   },
   {
    "fichero": "historico_suecia.csv",
-   "dias": 6,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-03"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_turquia.csv",
-   "dias": 5,
+   "dias": 2,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-04"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_uru_primera.csv",
@@ -486,15 +518,15 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
   },
   {
    "fichero": "historico_usl_championship.csv",
-   "dias": 3,
+   "dias": 1,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-06"
+   "hasta": "2026-09-13"
   },
   {
    "fichero": "historico_ven_primera.csv",
@@ -502,63 +534,37 @@
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-09-07"
+   "hasta": "2026-09-12"
   }
  ],
  "viejos": [
   {
    "fichero": "umbrales_capa1.json",
-   "dias": 43,
+   "dias": 48,
    "tolerado": 10,
    "quien": "recalibrar.yml (semanal)",
    "via": "contenido",
    "hasta": "2026-07-28"
-  },
-  {
-   "fichero": "_v75_pick_ledger.json",
-   "dias": 43,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (ledger de futbol)",
-   "via": "contenido",
-   "hasta": "2026-07-28"
-  },
-  {
-   "fichero": "pick_ledger_total.csv",
-   "dias": 42,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (semanal)",
-   "via": "contenido",
-   "hasta": "2026-07-29"
-  },
-  {
-   "fichero": "_v78_ledger_deportes.json",
-   "dias": 42,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (ledger de deportes)",
-   "via": "contenido",
-   "hasta": "2026-07-29"
-  },
-  {
-   "fichero": "calibracion_confianza.json",
-   "dias": 31,
-   "tolerado": 10,
-   "quien": "recalibrar.yml (semanal)",
-   "via": "commit"
   },
   {
    "fichero": "pronosticos_emitidos.json",
-   "dias": 9,
+   "dias": 14,
    "tolerado": 3,
    "quien": "bot nocturno",
    "via": "contenido",
    "hasta": "2026-08-31"
   }
  ],
- "sin_datos": [],
+ "sin_datos": [
+  {
+   "fichero": "calibracion_confianza.json",
+   "motivo": "sin fecha dentro y el clon es superficial: no se puede evaluar"
+  }
+ ],
  "en_receso": [
   {
    "fichero": "historico_afc_champions.csv",
-   "dias": 137,
+   "dias": 142,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
@@ -567,7 +573,7 @@
   },
   {
    "fichero": "historico_aus_aleague.csv",
-   "dias": 109,
+   "dias": 114,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
@@ -575,17 +581,17 @@
    "motivo": "en receso: sin partidos próximos"
   },
   {
-   "fichero": "historico_china.csv",
+   "fichero": "historico_bra_copa.csv",
    "dias": 11,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
-   "hasta": "2026-08-29",
+   "hasta": "2026-09-03",
    "motivo": "en receso: sin partidos próximos"
   },
   {
    "fichero": "historico_conference_league.csv",
-   "dias": 105,
+   "dias": 110,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
@@ -594,7 +600,7 @@
   },
   {
    "fichero": "historico_eng_fa_cup.csv",
-   "dias": 116,
+   "dias": 121,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
@@ -603,7 +609,7 @@
   },
   {
    "fichero": "historico_europa_league.csv",
-   "dias": 112,
+   "dias": 117,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
@@ -612,7 +618,7 @@
   },
   {
    "fichero": "historico_ind_isl.csv",
-   "dias": 111,
+   "dias": 116,
    "tolerado": 10,
    "quien": "retrain_leagues.yml (diario)",
    "via": "contenido",
@@ -620,5 +626,5 @@
    "motivo": "en receso: sin partidos próximos"
   }
  ],
- "clon_superficial": false
+ "clon_superficial": true
 }

@@ -1,6 +1,6 @@
 # Informe de calibración — córners, tarjetas y remates
 
-Generado 2026-09-09T21:13:43Z
+Generado 2026-09-14T10:18:45Z
 
 ```
 competición              origen     partidos  ck err  ck corr  tj err  tj corr  rm err  rm corr  ra err  ra corr
