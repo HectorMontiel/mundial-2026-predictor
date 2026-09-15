@@ -269,6 +269,133 @@ def roi_pata(sub: pd.DataFrame) -> Dict:
                     if len(sub) >= 30 else None)}
 
 
+def ece_sin_cuota(ruta: str = LEDGER_TOT) -> Dict:
+    """
+    Error de calibración por competición de TODA la escalera de goles y BTTS.
+
+    EL HALLAZGO QUE ABRE ESTO: **el ECE no necesita cuotas.** Necesita la
+    probabilidad del modelo y el resultado real, y las dos están en
+    `pick_ledger_totales.csv` —47.794 partidos, 55 competiciones, todas con
+    `p_over_1.5/2.5/3.5` y `p_btts` y sus columnas `_real`—.
+
+    Hasta ahora el ECE se sacaba del conjunto de patas, que exige cuota de
+    cierre, y por eso sólo había medición para el 1X2 y la línea de 2,5: eran
+    los dos únicos mercados con precio guardado. Medido el 2026-09-16, eso
+    dejaba **13 de 366 patas** del día con calibración conocida. Con esta vía
+    se miden las seis líneas y el BTTS de las 55 competiciones.
+
+    Lo que sigue necesitando cuota es el ROI, que es otra pregunta.
+    """
+    try:
+        t = pd.read_csv(ruta)
+    except Exception as e:
+        logger.warning('[sonadora] sin %s: %s', ruta, e)
+        return {}
+    columnas = (('Goles 1.5', 'p_over_1.5', 'over_1.5_real'),
+                ('Goles 2.5', 'p_over_2.5', 'over_2.5_real'),
+                ('Goles 3.5', 'p_over_3.5', 'over_3.5_real'),
+                ('BTTS', 'p_btts', 'btts_real'))
+    fuera: Dict = {}
+    for liga, g in t.groupby('liga'):
+        if len(g) < N_MINIMO_ECE:
+            continue
+        for etiqueta, pcol, rcol in columnas:
+            if pcol not in g.columns or rcol not in g.columns:
+                continue
+            sub = g[g[pcol].notna() & g[rcol].notna()]
+            if len(sub) < N_MINIMO_ECE:
+                continue
+            p = sub[pcol].astype(float).values
+            y = sub[rcol].astype(float).round().values
+            fuera.setdefault(str(liga), {})[etiqueta] = {
+                'n': int(len(sub)),
+                'ece': round(ece(p, y), 4),
+                'acierto': round(float(y.mean()), 4),
+                'prob_media': round(float(p.mean()), 4),
+                'fuente': 'ledger de totales (sin cuota)'}
+    return fuera
+
+
+def ece_de_conteos() -> Dict:
+    """
+    Error de calibración de córners, tarjetas y remates — QUE YA ESTABA MEDIDO.
+
+    Lo genera `informe_calibracion.py` en `_v162_calibracion_por_liga.json` y lo
+    sirve `confianza_mercado`. La primera versión de la Soñadora lo descartó
+    diciendo «ese módulo no mide estos mercados», y eso era cierto para los
+    GOLES y falso para éstos: 36 competiciones medidas, con el error entre
+    0,0027 y 0,0486.
+
+    El descarte costó caro: de las 366 patas del 2026-09-16, **202 eran de
+    córners, tarjetas o remates** y salían todas marcadas «sin calibración
+    medida» teniendo su número a mano.
+    """
+    fuera: Dict = {}
+    try:
+        import confianza_mercado as cm
+        with open('_v162_calibracion_por_liga.json', encoding='utf-8') as f:
+            inf = json.load(f) or {}
+    except Exception as e:
+        logger.warning('[sonadora] sin informe de calibración: %s', e)
+        return fuera
+    nombres = {'corners': 'Córners', 'tarjetas': 'Tarjetas',
+               'remates': 'Remates', 'remates_on': 'Remates a puerta'}
+    for lg in (inf.get('ligas') or []):
+        clave = lg.get('clave')
+        if not clave:
+            continue
+        for interno, etiqueta in nombres.items():
+            e = cm.error_medido(clave, interno)
+            if e is None:
+                continue
+            bloque = (lg.get(interno) or {}).get('por_equipo') or {}
+            fuera.setdefault(str(clave), {})[etiqueta] = {
+                'n': int(bloque.get('n') or 0),
+                'ece': round(float(e), 4),
+                'fuente': 'informe_calibracion (modelo contra lo observado)'}
+    return fuera
+
+
+def cortes_por_mercado(tabla: Dict) -> Dict:
+    """Los cuartiles del ECE DENTRO de cada mercado.
+
+    POR QUÉ POR MERCADO Y NO UN UMBRAL ÚNICO, que es la trampa evidente. Las dos
+    fuentes de ECE no están en la misma escala y no se pueden comparar:
+
+        goles y BTTS (ledger) ..............  0,047 a 0,161   mediana 0,09-0,11
+        córners/tarjetas/remates (informe) .  0,003 a 0,049   mediana 0,012-0,018
+
+    Con un corte único en 0,05 —el que pedía el encargo— saldría que **todos**
+    los mercados de goles están mal calibrados y **todos** los de córners
+    perfectos. Eso no describe los modelos: describe que los dos números se
+    calculan de formas distintas.
+
+    Así que cada mercado se juzga contra su propia distribución: fino por
+    debajo de su cuartil 1, flojo por encima de su cuartil 3, aceptable en
+    medio. «Esta liga está en el peor cuarto de su mercado» sí es una frase con
+    contenido.
+    """
+    import collections
+    por_mercado = collections.defaultdict(list)
+    for mercados in (tabla or {}).values():
+        for mercado, datos in mercados.items():
+            e = datos.get('ece')
+            if e is not None:
+                por_mercado[mercado].append(float(e))
+    cortes: Dict = {}
+    for mercado, valores in por_mercado.items():
+        valores.sort()
+        if len(valores) < 8:
+            continue
+
+        def _q(p):
+            return round(valores[int(p * (len(valores) - 1))], 4)
+
+        cortes[mercado] = {'n_ligas': len(valores), 'p25': _q(0.25),
+                           'mediana': _q(0.50), 'p75': _q(0.75)}
+    return cortes
+
+
 def ece_por_liga(P: pd.DataFrame) -> Dict:
     """
     Error de calibración de cada competición en los mercados de goles.
@@ -426,9 +553,12 @@ def validar(meses: int = 6, n_sim: int = N_SIMULACIONES) -> Dict:
             P[(P['cuota'] >= lo) & (P['cuota'] <= hi)
               & (P['prob'] >= PROB_MINIMA)])
             for lo, hi in BANDAS},
-        # el ECE por liga se mide sobre su propia ventana, más larga
-        'ece_por_liga': ece_por_liga(conjunto_patas(
-            (hoy - _dt.timedelta(days=int(MESES_ECE * 30.44))).isoformat())),
+        # el ECE por liga se mide sobre su propia ventana, más larga, y se
+        # funde con el que NO necesita cuotas (toda la escalera de goles)
+        'ece_por_liga': _fundir_ece(
+            ece_por_liga(conjunto_patas(
+                (hoy - _dt.timedelta(days=int(MESES_ECE * 30.44))).isoformat())),
+            ece_sin_cuota(), ece_de_conteos()),
         'meses_ece': MESES_ECE,
         'configuraciones': [],
     }
@@ -467,6 +597,8 @@ def validar(meses: int = 6, n_sim: int = N_SIMULACIONES) -> Dict:
                     '+'.join(combo), entrada['pata_suelta'].get('n'),
                     entrada['pata_suelta'].get('roi'), cfg4.get('hit_rate'))
 
+    doc['cortes_ece'] = cortes_por_mercado(doc['ece_por_liga'])
+
     viables = [c for c in doc['configuraciones']
                if c.get('veredicto') == 'viable']
     doc['configuraciones_viables'] = [
@@ -476,6 +608,17 @@ def validar(meses: int = 6, n_sim: int = N_SIMULACIONES) -> Dict:
     doc['medido'] = True
     doc['veredicto'] = 'con_configuracion_viable' if viables else 'todas_negativas'
     return doc
+
+
+def _fundir_ece(*tablas: Dict) -> Dict:
+    """Junta varias tablas de ECE por competición. La primera manda en empate."""
+    fuera: Dict = {}
+    for tabla in tablas:
+        for liga, mercados in (tabla or {}).items():
+            destino = fuera.setdefault(liga, {})
+            for mercado, datos in mercados.items():
+                destino.setdefault(mercado, datos)
+    return fuera
 
 
 def _veredicto_config(cfg: Dict) -> str:

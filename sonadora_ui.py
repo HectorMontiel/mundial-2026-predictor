@@ -60,11 +60,23 @@ def _sello(q: Dict) -> str:
     return q.get('color') or '⚪'
 
 
+_FLECHA = {'a_favor': '📉 el mercado se mueve a favor',
+           'en_contra': '📈 el mercado se mueve en contra',
+           'estable': ''}
+_ALI = {'confirmada': '✅ alineación confirmada',
+        'probable': '🔸 alineación probable',
+        'ultimo_once': '', 'desconocida': ''}
+
+
 def _linea_pata(q: Dict) -> str:
     cola = '' if q.get('medido') else '  ·  _sin calibración medida_'
+    extra = [x for x in (_FLECHA.get(q.get('movimiento') or '', ''),
+                         _ALI.get(q.get('alineacion') or '', '')) if x]
+    pie = ('  \n     ' + ' · '.join(extra)) if extra else ''
     return (f"{_sello(q)} **{q['etiqueta']}** · {q['partido']} "
             f"— `{q['cuota']:.2f}` · modelo {_pct(q['prob'], 0)} "
-            f"· {q['liga']}{(' · ' + q['hora']) if q.get('hora') else ''}{cola}")
+            f"· {q['liga']}{(' · ' + q['hora']) if q.get('hora') else ''}"
+            f"{cola}{pie}")
 
 
 def render(st, r: Dict, dia: Optional[str] = None) -> None:

@@ -592,6 +592,45 @@ def _precalculo(clave_liga, home_crudo, away_crudo):
         return None
 
 
+def lineas_por_equipo(pred: Dict) -> Dict[str, Dict[str, float]]:
+    """
+    v200 — P(el LOCAL marca más de N) y lo mismo del visitante.
+
+    Sale de los MARGINALES de la misma matriz de marcador de la que ya sale
+    todo lo demás: sumar por filas da los goles del local y por columnas los
+    del visitante. No hay modelo nuevo ni calibración nueva que validar, y
+    cuesta dos sumas de una matriz 7×7 que ya está en memoria.
+
+    Por qué hace falta: Playdoit cotiza «<Equipo> total de goles» —medido en su
+    tablero: `Hibernian FC total de goles` con Más de 1,5 a 1,40— y hasta ahora
+    la aplicación no publicaba la probabilidad de ese lado, así que ese mercado
+    entero se quedaba fuera. El usuario lo pidió por lo que es: una apuesta más
+    acotada que el total del partido.
+
+    Las líneas son las que la casa cotiza de verdad para un solo equipo: 0,5 ·
+    1,5 · 2,5. Por encima de eso el marginal se va a la cola de la Poisson y es
+    justo donde peor se porta.
+    """
+    salida: Dict[str, Dict[str, float]] = {}
+    try:
+        M = np.asarray(pred.get('score_matrix'), dtype=float)
+        if M.ndim != 2 or M.size == 0:
+            return salida
+        g_h, g_a = M.sum(axis=1), M.sum(axis=0)
+        for etiqueta, g in (('local', g_h), ('visitante', g_a)):
+            fila = {}
+            for linea in (0.5, 1.5, 2.5):
+                corte = int(linea) + 1
+                if corte >= len(g):
+                    continue
+                fila[f'{linea:g}'] = round(float(g[corte:].sum()), 4)
+            if fila:
+                salida[etiqueta] = fila
+    except Exception as e:
+        logger.debug('[alpha] goles por equipo: %s', e)
+    return salida
+
+
 def lineas_de_goles(pred: Dict, clave_liga=None, home: str = '',
                     away: str = '') -> Dict[str, float]:
     """
@@ -1490,6 +1529,9 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                     'goles_lineas': lineas_de_goles(
                         pred, clave_liga=clave, home=home,
                         away=away),
+                    # v200 — y los goles de CADA equipo, que Playdoit cotiza
+                    # aparte y hasta ahora no se publicaban
+                    'goles_equipo': lineas_por_equipo(pred),
                     'sin_cuota': True}
             pronosticos.append(pron)
             # v52: ¿ESPN trajo cuotas 1X2/O-U reales para este partido? Si sí,

@@ -101,14 +101,19 @@ PROB_AMBAR = 0.58
 ECE_DEGRADA = 0.12             # con el ECE medido por encima, baja un escalon
 
 
-def color(prob, ece=None) -> str:
-    """El semaforo de una pata: probabilidad primero, calibracion como freno."""
+def color(prob, ece=None, floja: bool = False) -> str:
+    """El semáforo de una pata: probabilidad primero, calibración como freno.
+
+    `floja` lo decide `calibracion_floja` comparando la competición contra la
+    distribución de SU mercado, no contra un umbral fijo. `ece` se acepta por
+    compatibilidad y como red: un error absurdamente alto baja igual.
+    """
     p = _num(prob)
     if p is None:
         return GRIS
     base = VERDE if p >= PROB_VERDE else (AMBAR if p >= PROB_AMBAR else ROJO)
     e = _num(ece)
-    if e is not None and e >= ECE_DEGRADA:
+    if floja or (e is not None and e >= ECE_DEGRADA):
         base = {VERDE: AMBAR, AMBAR: ROJO, ROJO: ROJO}[base]
     return base
 
@@ -137,24 +142,61 @@ def historico() -> Dict:
     return _CACHE_HIST
 
 
-ECE_DE = {'1X2': '1X2', 'Goles': 'Goles 2.5'}
+# A QUE MERCADO MEDIDO CORRESPONDE CADA CATEGORIA DE LA PANTALLA.
+#
+# v200 — ESTO MIRABA DOS MERCADOS Y HAY OCHO MEDIDOS.
+#
+# La version anterior solo reconocia el 1X2 y la linea de 2,5 goles, porque
+# saco el ECE del conjunto de patas y ese exige cuota de cierre. Dos errores
+# encadenados:
+#
+#   1. **El ECE no necesita cuotas.** Necesita la probabilidad del modelo y el
+#      resultado real, y las dos estan en `pick_ledger_totales.csv` para 47.794
+#      partidos: toda la escalera de goles y el BTTS, en 55 competiciones.
+#   2. **El de cornrs, tarjetas y remates YA ESTABA MEDIDO** en
+#      `_v162_calibracion_por_liga.json`, que sirve `confianza_mercado`. Se
+#      descarto por «ese modulo no mide estos mercados», cierto para los goles
+#      y falso para estos: 36 competiciones con el error entre 0,0027 y 0,0486.
+#
+# Medido el 2026-09-16, esos dos descartes dejaban **13 de 366 patas** con
+# calibracion conocida, y 202 de las 366 eran justo de cornrs, tarjetas y
+# remates — con su numero a mano.
+ECE_DE = {
+    '1X2': '1X2', 'Ganador': '1X2', 'Moneyline': '1X2',
+    'Doble oportunidad': '1X2',
+    'BTTS': 'BTTS', 'Tarjetas': 'Tarjetas', 'Córners': 'Córners',
+    'Remates': 'Remates', 'Remates a puerta': 'Remates a puerta',
+}
+# las lineas de goles que tienen medicion propia
+ECE_GOLES = {'1.5': 'Goles 1.5', '2.5': 'Goles 2.5', '3.5': 'Goles 3.5'}
+
+
+def _mercado_medido(categoria: str, etiqueta: str = '') -> Optional[str]:
+    """La clave del informe que mide esta pata, o None si no hay ninguna."""
+    cat = str(categoria or '')
+    # «Córners de Hibernian» o «Remates a puerta de Kilmarnock»
+    base = cat.split(' de ')[0].strip() if ' de ' in cat else cat
+    if cat.startswith('Remates a puerta'):
+        base = 'Remates a puerta'
+    if base == 'Goles' and cat.startswith('Goles de '):
+        # los goles POR EQUIPO no tienen medición propia: el ledger mide el
+        # total del partido, no el de cada bando. Se dice, no se presta.
+        return None
+    if base == 'Goles':
+        for linea, clave in ECE_GOLES.items():
+            if linea in str(etiqueta):
+                return clave
+        return None
+    return ECE_DE.get(base)
 
 
 def ece_liga(clave_liga: Optional[str], categoria: str,
              etiqueta: str = '') -> Optional[float]:
-    """Error de calibración medido, o `None` si ese mercado no está medido.
-
-    Sólo hay medición para el 1X2 y la línea de 2,5 goles, que son los dos
-    mercados con cuota de cierre guardada en el histórico. Todo lo demás
-    devuelve `None` A PROPÓSITO: prestarle el ECE del 2,5 sería atribuirle una
-    medición que no tiene.
-    """
+    """Error de calibración medido de esta pata, o `None` si no lo hay."""
     if not clave_liga:
         return None
-    clave = ECE_DE.get(categoria)
+    clave = _mercado_medido(categoria, etiqueta)
     if clave is None:
-        return None
-    if clave == 'Goles 2.5' and '2.5' not in str(etiqueta):
         return None
     blo = (historico().get('ece_por_liga') or {}).get(str(clave_liga)) or {}
     v = (blo.get(clave) or {}).get('ece')
@@ -164,17 +206,48 @@ def ece_liga(clave_liga: Optional[str], categoria: str,
         return None
 
 
+def calibracion_floja(clave_liga: Optional[str], categoria: str,
+                      etiqueta: str = '') -> bool:
+    """¿Esta competición está en el PEOR CUARTO de su mercado?
+
+    No se compara contra un umbral fijo, y la razón está medida: las dos
+    fuentes de ECE no están en la misma escala.
+
+        goles y BTTS (ledger) ..............  0,047 a 0,161
+        córners/tarjetas/remates (informe) .  0,003 a 0,049
+
+    Con el corte único en 0,05 que pedía el encargo, TODOS los mercados de
+    goles saldrían mal calibrados y TODOS los de córners perfectos — y eso no
+    describe los modelos, describe que los dos números se calculan distinto.
+    Cada mercado se juzga contra su propia distribución.
+    """
+    clave = _mercado_medido(categoria, etiqueta)
+    if clave is None:
+        return False
+    e = ece_liga(clave_liga, categoria, etiqueta)
+    if e is None:
+        return False
+    corte = ((historico().get('cortes_ece') or {}).get(clave) or {}).get('p75')
+    try:
+        return float(e) > float(corte)
+    except (TypeError, ValueError):
+        return False
+
+
 def prob_ajustada(prob: float, ece: Optional[float]) -> float:
     """La probabilidad con la que se puntúa la pata.
 
-    Con error de calibración medido y fino se usa tal cual; sin medición se
-    encoge un 15 %, que es una penalización declarada por incertidumbre y no
-    una corrección medida — la pantalla lo dice en cada pata.
+    Con error de calibración medido se usa tal cual; SIN medición se encoge un
+    15 %, que es una penalización declarada por incertidumbre y no una
+    corrección medida — la pantalla lo dice en cada pata.
+
+    v200 — la condición era `ece < 0,05`, y con eso ninguna pata de goles se
+    libraba: su ECE va de 0,047 a 0,161 porque se mide de otra forma que el de
+    córners. Lo que decide ahora es si HAY medición; que sea buena o mala lo
+    resuelve el semáforo contra la distribución de su propio mercado.
     """
     p = float(prob)
-    if ece is not None and ece < ECE_MAXIMO:
-        return p
-    return p * PENALIZA_SIN_MEDIR
+    return p if ece is not None else p * PENALIZA_SIN_MEDIR
 
 
 def score_segura(prob: float, cuota: float, ece: Optional[float]) -> float:
@@ -237,6 +310,7 @@ def _pata(partido: Dict, categoria: str, etiqueta: str, prob, cuota,
         return None
     clave = partido.get('clave_liga') or ''
     ece = ece_liga(clave, categoria, etiqueta)
+    floja = calibracion_floja(clave, categoria, etiqueta)
     return {
         'id': f"{partido.get('deporte')}|{partido.get('partido')}|"
               f"{categoria}|{etiqueta}",
@@ -253,8 +327,9 @@ def _pata(partido: Dict, categoria: str, etiqueta: str, prob, cuota,
         'casa': casa,
         'ece': ece,
         'medido': ece is not None,
+        'calibracion_floja': floja,
         'score': score_segura(p, c, ece),
-        'color': color(p, ece),
+        'color': color(p, ece, floja),
     }
 
 
@@ -317,6 +392,30 @@ def patas_del_partido(partido: Dict, det: Optional[Dict]) -> List[Dict]:
 
     for etq, p, c in _lineas_del_mercado(pn.get('Total', []), _p_goles):
         _add('Goles', etq, p, c)
+
+    # --- 1b. goles de CADA equipo --------------------------------------
+    #
+    # Playdoit los cotiza en su propio mercado («Hibernian FC total de goles»)
+    # y el barrido publica desde la v200 los marginales de la matriz de
+    # marcador. Es la apuesta más acotada que pidió el usuario: un solo equipo
+    # en vez del total del partido.
+    por_equipo = partido.get('goles_equipo') or {}
+    for lado, nombre_eq, casa_eq in (('local', local, casa_home),
+                                     ('visitante', visitante, casa_away)):
+        lineas = {str(k): _num(v) for k, v in (por_equipo.get(lado) or {}).items()}
+        if not lineas or not casa_eq:
+            continue
+
+        def _p_eq(linea, es_mas, _l=lineas):
+            p = _l.get(f'{linea:g}')
+            return None if p is None else (p if es_mas else 1.0 - p)
+
+        mercados_eq = []
+        for nm in (f'{casa_eq} total de goles', f'{casa_eq} Total de goles',
+                   f'{casa_eq} Totales'):
+            mercados_eq += pn.get(nm, [])
+        for etq, p, c in _lineas_del_mercado(mercados_eq, _p_eq):
+            _add(f'Goles de {nombre_eq}', f'{etq} · goles', p, c)
 
     # --- 2. córners, tarjetas y remates, del mismo sitio que la ficha -----
     clave = partido.get('clave_liga') or ''
@@ -593,10 +692,69 @@ def _board_por_partido(r: Dict, dia: str) -> Dict:
                 continue
             k = (str(p.get('deporte') or 'Fútbol'), str(p['partido']))
             reg = fuera.setdefault(k, {})
-            for campo in ('board', 'goles_lineas', 'clave_liga', 'inicio'):
+            for campo in ('board', 'goles_lineas', 'goles_equipo',
+                          'clave_liga', 'inicio'):
                 if p.get(campo) and not reg.get(campo):
                     reg[campo] = p[campo]
     return fuera
+
+
+def _contexto_del_partido(partido: Dict, lado: str) -> Dict:
+    """Movimiento de línea y alineación de este partido, si los hay.
+
+    Se consulta UNA vez por partido y se copia a sus patas: por pata serían
+    cientos de consultas para el mismo dato.
+    """
+    try:
+        import contexto_mercado as cx
+        local, visitante = _lados(partido.get('partido'))
+        if not local:
+            return {}
+        return cx.contexto(local, visitante, lado,
+                           str(partido.get('inicio') or ''))
+    except Exception as e:
+        logger.debug('[sonadora] contexto de mercado: %s', e)
+        return {}
+
+
+def _pegar_contexto(patas: List[Dict], partido: Dict) -> None:
+    """Anota el contexto en las patas a las que de verdad les aplica.
+
+    El MOVIMIENTO de la línea 1X2 habla del ganador, no de los córners: se pega
+    sólo a las patas de ganador, y del lado correcto. La ALINEACIÓN habla del
+    partido entero, así que va en todas.
+
+    Va marcado como informativo y no toca el Score ni el color: no está medido
+    que el movimiento prediga nada en este proyecto, y no puede estarlo hasta
+    que el ledger vuelva a tener cuotas.
+    """
+    if not patas:
+        return
+    local, visitante = _lados(partido.get('partido'))
+    ctx_home = _contexto_del_partido(partido, 'home')
+    ali = (ctx_home or {}).get('alineacion')
+    ctx_away = None
+    for q in patas:
+        if ali:
+            q['alineacion'] = ali.get('nivel')
+            q['nota_alineacion'] = ali.get('texto')
+        if q['categoria'] not in ('1X2', 'Ganador', 'Moneyline'):
+            continue
+        etq = str(q.get('etiqueta') or '')
+        if visitante and etq.endswith(visitante):
+            if ctx_away is None:
+                ctx_away = _contexto_del_partido(partido, 'away')
+            ctx = ctx_away
+        elif local and etq.endswith(local):
+            ctx = ctx_home
+        else:
+            continue
+        mov = (ctx or {}).get('movimiento')
+        if mov:
+            q['movimiento'] = mov.get('sentido')
+            q['nota_movimiento'] = mov.get('texto')
+        if (ctx or {}).get('lectura'):
+            q['lectura_mercado'] = ctx['lectura']
 
 
 def _recoger(r: Dict, dia: str, max_partidos: int,
@@ -652,6 +810,7 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
             for q in patas_de_fila(p):
                 if (q['partido'], q['etiqueta']) not in vistos:
                     nuevas.append(q)
+        _pegar_contexto(nuevas, p)
         patas += nuevas
     return {'patas': patas, 'n_partidos': len(partidos),
             'tableros_pedidos': sum(pedidos.values()),

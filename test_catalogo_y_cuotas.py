@@ -13414,13 +13414,23 @@ def test_la_sonadora_no_inventa_lineas_ni_mercados_prohibidos():
           'entra Ambos Marcan, que si esta permitido')
     check(all(q['cuota'] for q in patas),
           'ninguna pata sale sin cuota de la casa')
-    # sin calibracion medida NO se excluye: se etiqueta y se encoge
-    sin_medir = [q for q in patas if not q['medido']]
+    # v200 — ESTE FIXTURE YA NO TIENE PATAS SIN MEDIR, Y ES LA MEJORA.
+    #
+    # Antes exigia que las hubiera: con laliga y los mercados de goles, TODAS
+    # salian sin medicion porque el ECE solo cubria el 1X2 y la linea de 2,5.
+    # Ahora las ocho familias estan medidas, asi que la comprobacion se hace
+    # con una competicion que de verdad no esta en la tabla.
+    check(all(q['medido'] for q in patas),
+          f'con una liga medida, TODAS sus patas traen calibracion '
+          f'({[(q["etiqueta"], q["medido"]) for q in patas if not q["medido"]]})')
+    ajena = dict(partido, clave_liga='liga_que_no_existe')
+    patas_ajenas = sm.patas_del_partido(ajena, det)
+    sin_medir = [q for q in patas_ajenas if not q['medido']]
     check(bool(sin_medir),
-          'las patas sin calibracion medida ENTRAN, etiquetadas')
+          'las patas de una competicion sin medir ENTRAN igual, etiquetadas')
     q = sin_medir[0]
-    # se comprueba el VALOR, no la constante: `prob * PENALIZA` usando la
-    # misma constante que el codigo pasaria aunque alguien la pusiera a 1,0
+    # se comprueba el VALOR, no la constante: usar `prob * PENALIZA` pasaria
+    # aunque alguien pusiera la constante a 1,0
     check(q['prob_ajustada'] < q['prob'] - 1e-6,
           f'y su probabilidad se encoge al puntuar '
           f'({q["prob"]} -> {q["prob_ajustada"]})')
@@ -13761,6 +13771,193 @@ def test_las_rojas_se_esconden_pero_no_dejan_la_lista_vacia():
     finally:
         sm._recoger = guardado
 
+
+def test_el_ece_cubre_los_ocho_mercados_y_no_mezcla_escalas():
+    """
+    EL DESCARTE QUE COSTO EL SEMAFORO EN BLANCO.
+
+    La version anterior solo reconocia calibracion para el 1X2 y la linea de
+    2,5 goles —13 de 366 patas— por dos errores encadenados:
+
+      1. Sacaba el ECE del conjunto de patas, que exige cuota de cierre. Pero
+         **el ECE no necesita cuotas**: necesita probabilidad y resultado, y las
+         dos estan en `pick_ledger_totales.csv` para 47.794 partidos.
+      2. Descarto `confianza_mercado` diciendo «no mide estos mercados». Era
+         cierto para los goles y FALSO para cornrs, tarjetas y remates, que
+         tiene medidos en 36 competiciones.
+
+    Y las dos fuentes NO estan en la misma escala, asi que no se pueden juzgar
+    con un umbral unico: cada mercado se compara contra su propia distribucion.
+    """
+    import json
+    import os
+    import sonadora_motor as sm
+
+    check(os.path.exists('sonadora_historico.json'),
+          'el fichero de validacion existe')
+    with open('sonadora_historico.json', encoding='utf-8') as fh:
+        d = json.load(fh)
+    tabla = d.get('ece_por_liga') or {}
+    mercados = {m for v in tabla.values() for m in v}
+    for esperado in ('Goles 1.5', 'Goles 2.5', 'Goles 3.5', 'BTTS',
+                     'Córners', 'Tarjetas', 'Remates', 'Remates a puerta'):
+        check(esperado in mercados,
+              f'hay calibracion medida de «{esperado}» '
+              f'(mercados: {sorted(mercados)})')
+    check(len(tabla) >= 40,
+          f'y cubre muchas competiciones ({len(tabla)})')
+
+    cortes = d.get('cortes_ece') or {}
+    check(len(cortes) >= 6,
+          f'cada mercado publica sus cuartiles ({sorted(cortes)})')
+    # LAS DOS ESCALAS NO SE SOLAPAN, que es la razon de no usar un umbral unico
+    ck = (cortes.get('Córners') or {}).get('mediana')
+    g25 = (cortes.get('Goles 2.5') or {}).get('mediana')
+    check(ck is not None and g25 is not None and g25 > ck * 3,
+          f'el ECE de goles y el de cornrs estan en escalas distintas '
+          f'(medianas {g25} contra {ck}): por eso no hay umbral unico')
+
+    # el enrutado: cada categoria de la pantalla va a su mercado medido
+    for cat, etq, esperado in (
+            ('Goles', 'Más de 2.5', 'Goles 2.5'),
+            ('Goles', 'Más de 1.5', 'Goles 1.5'),
+            ('Goles', 'Más de 4.5', None),          # esa linea no esta medida
+            ('Córners', 'Más de 9.5 · córners', 'Córners'),
+            ('Córners de Aaa', 'Más de 4.5 · córners de aaa', 'Córners'),
+            ('Remates a puerta de Bbb', 'Más de 3.5', 'Remates a puerta'),
+            ('Tarjetas', 'Más de 4.5 · tarjetas', 'Tarjetas'),
+            ('BTTS', 'Ambos marcan: Sí', 'BTTS'),
+            ('Ganador', 'Gana X', '1X2'),
+            ('Goles de Aaa', 'Menos de 1.5 · goles', None)):
+        check(sm._mercado_medido(cat, etq) == esperado,
+              f'«{cat}» con «{etq}» se mide como {esperado!r} '
+              f'(salio {sm._mercado_medido(cat, etq)!r})')
+
+    # y una liga real tiene que traer su numero
+    e = sm.ece_liga('laliga', 'Córners', 'Más de 9.5 · córners')
+    check(e is not None and 0 < e < 0.05,
+          f'laliga tiene ECE de cornrs y es fino ({e})')
+    e2 = sm.ece_liga('laliga', 'Goles', 'Más de 2.5')
+    check(e2 is not None and e2 > 0.05,
+          f'y el de goles es peor, en su propia escala ({e2})')
+    check(sm.calibracion_floja('laliga', 'Goles', 'Más de 2.5') is False,
+          'pero laliga NO esta en el peor cuarto de su mercado de goles: el '
+          'umbral absoluto de 0,05 la habria castigado sin motivo')
+
+
+def test_los_goles_por_equipo_salen_de_la_matriz_y_tienen_precio():
+    """
+    El usuario pidio poder apostar los goles de UN equipo, no solo el total.
+    Playdoit lo cotiza («Hibernian FC total de goles») y el modelo no publicaba
+    esa probabilidad, asi que el mercado entero se quedaba fuera.
+
+    Sale de los MARGINALES de la misma matriz de marcador que ya se usa para
+    todo lo demas: sumar por filas da los goles del local y por columnas los del
+    visitante. Ni modelo nuevo ni calibracion nueva.
+    """
+    import numpy as np
+    import alpha_finder as af
+    import sonadora_motor as sm
+
+    # una matriz donde el local marca claramente mas que el visitante
+    M = np.zeros((5, 5))
+    M[2, 0] = 0.30   # 2-0
+    M[3, 1] = 0.30   # 3-1
+    M[1, 0] = 0.25   # 1-0
+    M[0, 0] = 0.15   # 0-0
+    eq = af.lineas_por_equipo({'score_matrix': M.tolist()})
+    check(set(eq) == {'local', 'visitante'},
+          f'se publican los dos bandos ({sorted(eq)})')
+    check(abs(eq['local']['0.5'] - 0.85) < 1e-6,
+          f"P(local marca) sale de la matriz ({eq['local']['0.5']})")
+    check(eq['local']['1.5'] > eq['visitante']['1.5'],
+          'el equipo que mas marca en la matriz tiene mas probabilidad')
+    check(eq['local']['0.5'] > eq['local']['1.5'] > eq['local']['2.5'],
+          'y las lineas son monotonas, como tienen que ser')
+    check(af.lineas_por_equipo({}) == {},
+          'sin matriz no se inventa nada')
+
+    # y el motor las cruza con el mercado de la casa
+    partido = {'deporte': 'Fútbol', 'partido': 'Aaa FC vs Bbb FC',
+               'liga': 'L', 'clave_liga': 'laliga', 'hora': '',
+               'board': {}, 'goles_lineas': {},
+               'goles_equipo': {'local': {'0.5': 0.85, '1.5': 0.60,
+                                          '2.5': 0.30},
+                                'visitante': {'0.5': 0.55, '1.5': 0.25}}}
+    det = {'casa_home': 'Aaa FC', 'casa_away': 'Bbb FC', 'mercados': [
+        {'nombre': 'Aaa FC total de goles', 'selecciones': [
+            {'nombre': 'Más de 1.5', 'cuota': 1.55},
+            {'nombre': 'Menos de 1.5', 'cuota': 2.30}]},
+        {'nombre': 'Bbb FC total de goles', 'selecciones': [
+            {'nombre': 'Más de 0.5', 'cuota': 1.70}]}]}
+    patas = sm.patas_del_partido(partido, det)
+    cats = {q['categoria'] for q in patas}
+    check('Goles de Aaa FC' in cats and 'Goles de Bbb FC' in cats,
+          f'el motor produce patas de goles por equipo ({sorted(cats)})')
+    mas15 = next((q for q in patas if q['categoria'] == 'Goles de Aaa FC'
+                  and q['etiqueta'].startswith('Más de 1.5')), None)
+    check(mas15 is not None and abs(mas15['prob'] - 0.60) < 1e-6,
+          'y con la probabilidad del bando correcto')
+    menos15 = next((q for q in patas if q['categoria'] == 'Goles de Aaa FC'
+                    and q['etiqueta'].startswith('Menos de 1.5')), None)
+    check(menos15 is not None and abs(menos15['prob'] - 0.40) < 1e-6,
+          'el «menos de» es el complemento, no otra cifra')
+    check(all(not q['medido'] for q in patas
+              if q['categoria'].startswith('Goles de ')),
+          'y NO se les presta la calibracion del total del partido: el ledger '
+          'mide el total, no el de cada bando')
+
+
+def test_el_contexto_de_mercado_informa_y_no_recomienda():
+    """
+    El usuario pidio «analizar el mercado y las noticias en conjunto». Las dos
+    señales ya estaban guardadas y sin leer: el precio de APERTURA de las cinco
+    casas mexicanas (2.502 entradas) y `alineaciones_dia.json`.
+
+    Lo que NO puede pasar es que eso entre en el Score o en el color: no esta
+    medido que el movimiento de linea prediga nada en este proyecto, y no puede
+    medirse hasta que el ledger vuelva a tener cuotas.
+    """
+    import inspect
+    import contexto_mercado as cx
+    import sonadora_motor as sm
+
+    # los cuatro tipos de alineacion, y solo UNO es una confirmacion
+    check(cx.NIVEL_ALINEACION.get('standard') == 'confirmada',
+          'el tipo «standard» es la alineacion confirmada')
+    for tipo in ('predicted', 'simple'):
+        check(cx.NIVEL_ALINEACION.get(tipo) == 'probable',
+              f'«{tipo}» es probable, NO confirmada: llamarla confirmada era '
+              f'una frase falsa sobre un dato bien etiquetado')
+    check(cx.NIVEL_ALINEACION.get('lastStarting11') == 'ultimo_once',
+          'y el once del ultimo partido no es una alineacion')
+
+    # el movimiento necesita varias casas de acuerdo
+    check(cx.CASAS_MINIMAS >= 2,
+          'una sola casa moviendose es su ajuste, no el mercado')
+    check(cx.UMBRAL_MOVIMIENTO > 0,
+          'y hay un umbral por debajo del cual es ruido de redondeo')
+
+    ctx = cx.contexto('Equipo Que No Existe', 'Otro Que Tampoco')
+    check(ctx.get('medido') is False,
+          'el contexto se declara NO medido')
+    check(ctx.get('movimiento') is None and ctx.get('alineacion') is None,
+          'y con un partido inexistente no inventa nada')
+    check(ctx.get('lectura') == '',
+          'sin las dos mitades no hay lectura conjunta')
+
+    # no toca el Score ni el color
+    fuente = inspect.getsource(sm._pegar_contexto)
+    for prohibido in ("q['score']", "q['color']", "q['prob']"):
+        check(prohibido not in fuente,
+              f'el contexto no escribe en {prohibido}')
+    check("q['categoria'] not in ('1X2', 'Ganador', 'Moneyline')" in fuente,
+          'el movimiento del 1X2 solo se pega a las patas de ganador: no dice '
+          'nada de los cornrs')
+
+    # el indice, para que no cueste una pasada por pata
+    check(hasattr(cx, '_indice_mx'),
+          'los partidos se indexan una vez en vez de recorrerlos por pata')
 
 def test_el_veredicto_de_la_sonadora_es_el_medido():
     """
@@ -14107,6 +14304,9 @@ if __name__ == '__main__':
     test_el_semaforo_colorea_todas_las_patas()
     test_el_filtro_de_deportes_no_mezcla_lo_no_seleccionado()
     test_las_rojas_se_esconden_pero_no_dejan_la_lista_vacia()
+    test_el_ece_cubre_los_ocho_mercados_y_no_mezcla_escalas()
+    test_los_goles_por_equipo_salen_de_la_matriz_y_tienen_precio()
+    test_el_contexto_de_mercado_informa_y_no_recomienda()
     test_el_veredicto_de_la_sonadora_es_el_medido()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")

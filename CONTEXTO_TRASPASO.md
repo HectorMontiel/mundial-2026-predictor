@@ -5317,3 +5317,158 @@ síntoma del mismo agujero de la v198: **el histórico de cuotas está parado**.
    de distribución en el modelo.
 4. **Los goles por equipo** siguen fuera por lo mismo, y son fáciles: la matriz
    de marcador ya tiene los marginales por bando.
+
+
+---
+
+## 6k. v200 — EL ECE YA ESTABA MEDIDO Y NADIE LO MIRABA
+
+El usuario preguntó cómo cerrar el agujero del histórico parado «para meter ya
+todas esas estadísticas», pidió los goles por equipo y pidió analizar el
+mercado y las noticias juntos. Al investigarlo, la primera pregunta tenía una
+respuesta que no esperaba: **buena parte del dato ya estaba, y el problema era
+mío, no del histórico.**
+
+---
+
+### 1. El error de diagnóstico: el ECE no necesita cuotas
+
+Las versiones §6h–§6j decían que sólo había calibración medida para el 1X2 y la
+línea de 2,5 goles —13 de 366 patas—, y que para el resto habría que esperar a
+que el histórico de cuotas volviera. Eso era **falso por dos caminos distintos**:
+
+**1a. El ECE no necesita cuotas.** Necesita la probabilidad del modelo y el
+resultado real. Las dos están en `pick_ledger_totales.csv`: 47.794 partidos, 55
+competiciones, con `p_over_1.5 / 2.5 / 3.5` y `p_btts` y sus columnas `_real`.
+El ECE se sacaba del conjunto de PATAS, y ése sí exige cuota de cierre — de ahí
+la confusión. Lo que necesita cuotas es el **ROI**, que es otra pregunta.
+
+**1b. El de córners, tarjetas y remates YA ESTABA MEDIDO.** Vive en
+`_v162_calibracion_por_liga.json` y lo sirve `confianza_mercado`, con 36
+competiciones y el error entre 0,0027 y 0,0486. La §6h lo descartó escribiendo
+que «ese módulo no mide estos mercados»: cierto para los goles, falso para
+éstos. Y eran justo **202 de las 366 patas** del día.
+
+Resultado de corregir las dos cosas, medido sobre el mismo día:
+
+```
+patas con calibración medida    antes  13 de 366   ( 3,6 %)
+                                ahora 241 de 356   (67,7 %)
+```
+
+### 2. Y no se pueden juzgar con un umbral único
+
+Al juntarlas sale que las dos fuentes están en **escalas distintas**:
+
+```
+goles y BTTS (ledger) ..............  0,047 a 0,161   mediana 0,09-0,11
+córners/tarjetas/remates (informe) .  0,003 a 0,049   mediana 0,012-0,018
+```
+
+Con el corte en 0,05 que pedía el encargo saldría que **todos** los mercados de
+goles están mal calibrados y **todos** los de córners perfectos. Eso no describe
+los modelos: describe que los dos números se calculan de formas distintas.
+
+Así que cada mercado se juzga contra **su propia distribución**: el semáforo
+baja un escalón cuando la competición está en el peor cuarto de SU mercado. Los
+cuartiles se publican en `sonadora_historico.json` (`cortes_ece`) y se recalculan
+con la validación.
+
+### 3. Lo que esto deja pendiente, ahora con nombre
+
+El histórico de cuotas sigue parado y sigue importando, pero ya se sabe para
+qué: **para el ROI, no para el semáforo.** Y la causa está localizada:
+`build_pick_ledger.adjuntar_cuotas` lee `odds_historico.db`, que está en
+`.gitignore` y **no existe en el runner** — por eso `_v75_pick_ledger.json`
+dice `con_cuota_mercado: 0`.
+
+Y hay una salida clara que no exige base de datos: **los `historico_*.csv` YA
+llevan las cuotas y se commitean a diario.** Medido en `historico_laliga.csv`:
+
+```
+odd_home / odd_draw / odd_away   6.131 de 6.131 filas, hasta 2026-09-14
+odd_over25 / odd_under25         2.711 de 6.131,     hasta 2026-09-14
+odd_home_pin (Pinnacle)          hasta 2026-01-12  ← Pinnacle sí está parado
+```
+
+Y su `MATCH_ID` (`20260913_Levante_Barcelona`) tiene **exactamente la misma
+forma** que el `match_id` del ledger. O sea que `adjuntar_cuotas` puede leer de
+ahí y el ledger recuperaría sus cuotas en CI, al día, sin tocar nada más. **No
+se ha hecho en esta versión**: cambia el sustrato con el que se calibra media
+aplicación y merece su propia tanda con su medición antes y después.
+
+---
+
+### 4. Goles por equipo
+
+Playdoit los cotiza en su propio mercado («Hibernian FC total de goles», Más de
+1,5 a 1,40) y la aplicación no publicaba esa probabilidad, así que el mercado
+entero se quedaba fuera. Ahora `alpha_finder.lineas_por_equipo` los saca de los
+**marginales de la misma matriz de marcador** de la que ya sale todo lo demás:
+sumar por filas da los goles del local y por columnas los del visitante. Ni
+modelo nuevo ni calibración nueva; dos sumas de una matriz 7×7 que ya está en
+memoria.
+
+Medido: **75 patas** de goles por equipo con precio real el 2026-09-16, sobre
+87 partidos que publican la matriz.
+
+Van marcadas **sin calibración medida**, y a propósito: el ledger mide el total
+del partido, no el de cada bando. Prestarles el ECE del total sería atribuirles
+una medición que no tienen — es el mismo error que costó el semáforo en blanco,
+al revés.
+
+---
+
+### 5. El mercado y las noticias, juntos
+
+`contexto_mercado.py` junta las dos señales que el proyecto ya guardaba y no
+leía nadie:
+
+**El movimiento de línea.** `cuotas_mx.py` guarda el precio de APERTURA de las
+cinco casas mexicanas desde la v192 —2.502 entradas en 646 partidos— y la
+bitácora lo tenía apuntado como pendiente de alto valor. Una cuota que se acorta
+es dinero entrando en ese lado. Se promedia entre casas y se exige que al menos
+dos se muevan en la misma dirección: una sola es su ajuste, no el mercado.
+
+**La alineación.** `alineaciones_dia.json` distingue cuatro tipos, y sólo uno es
+una alineación de verdad:
+
+```
+standard        «confirmada»    la publicó el club
+predicted       «probable»      el pronóstico de FotMob
+simple          «probable»
+lastStarting11  «último once»   el XI del partido anterior
+```
+
+La primera versión de este módulo trataba todo lo que no fuera `lastStarting11`
+como confirmado, y la lectura conjunta decía «con la alineación ya confirmada»
+de un once que FotMob sólo había pronosticado. Frase falsa sobre un dato que el
+propio fichero etiquetaba bien. Corregido a tres niveles.
+
+Juntas dan cuatro lecturas, y la útil es ésta: **el mercado se mueve en contra
+con la alineación ya confirmada** significa que el dinero ha visto algo que el
+modelo no.
+
+**Y va marcado `medido: False`.** No está medido que el movimiento de línea
+prediga nada en este proyecto, no toca el Score ni el color, y no puede medirse
+hasta que el ledger recupere las cuotas — que es el punto 3. El test vigila las
+tres cosas.
+
+Cobertura el 2026-09-16: 17 de 36 partidos de fútbol con movimiento de línea, 18
+con alineación, 297 patas con el estado de la alineación anotado.
+
+---
+
+### 6. Lo que queda, por orden de valor
+
+1. **Cambiar `adjuntar_cuotas` para leer los `historico_*.csv`.** Es lo que
+   devuelve el ROI al ledger y lo que permite medir si el movimiento de línea
+   sirve. El dato está, la clave casa y el cambio es acotado.
+2. **Pinnacle lleva parado desde el 2026-01-12** en los históricos
+   (`odd_home_pin`). Es la referencia sharp del proyecto entero y nadie lo
+   había mirado.
+3. **Los goles por equipo, sin calibración propia.** Se mide igual que el
+   total: probabilidad del marginal contra el resultado real, que está en los
+   mismos CSV.
+4. **Los totales de MLB, NBA y KBO** siguen cotizados y sin distribución del
+   modelo con la que cruzarlos.
