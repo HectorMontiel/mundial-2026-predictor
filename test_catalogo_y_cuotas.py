@@ -2196,10 +2196,33 @@ def test_calibracion_de_totales_y_btts():
                 check(r <= p + 1e-9,
                       f"{merc} al {p:.0%}: el histórico no infla "
                       f"({r:.1%} <= {p:.0%})")
-    # y el caso concreto que lo motivó
-    check(abs(cc.probabilidad_real(0.72, '1X2') - 0.72) < 1e-9,
-          "la banda 1X2 0,70-0,75 (n=33, IC [69,7 %, 90,9 %]) ya no sube "
-          "el 71,3 % a 81,8 %")
+    # y el caso concreto que lo motivó: la banda 1X2 0,70-0,75, que con n=33
+    # decía que el acierto real era del 81,8 % y "corregiría" hacia ARRIBA.
+    #
+    # v196 — ESTA COMPROBACIÓN SE ROMPIÓ SOLA, Y NO POR UN CAMBIO DE CÓDIGO.
+    #
+    # La recalibración semanal del 2026-09-14 rehizo `calibracion_confianza.json`
+    # y esa banda pasó de n=33 a **n=9**, o sea por debajo del mínimo para
+    # publicar acierto: ahora sale `acierto: None` y `probabilidad_real`
+    # devuelve None, que es la respuesta correcta —«no hay medición»— y no un
+    # número inventado. La versión anterior del test hacía `None - 0.72` y
+    # tumbaba la suite entera en la comprobación 258 de 2.869.
+    #
+    # Se comprueba lo que de verdad importa y que sigue pudiendo fallar: esa
+    # banda NUNCA infla, tenga medición o no la tenga.
+    _banda = next((x for x in __import__('json').load(
+        open('calibracion_confianza.json', encoding='utf-8'))['bandas']
+        if abs(x.get('desde', 0) - 0.70) < 1e-9), None)
+    _r72 = cc.probabilidad_real(0.72, '1X2')
+    if _banda and _banda.get('acierto') is not None:
+        check(_r72 is not None and _r72 <= 0.72 + 1e-9,
+              f"la banda 1X2 0,70-0,75 (n={_banda.get('n')}) no sube el "
+              f"71,3 % a 81,8 % (devuelve {_r72})")
+    else:
+        check(_r72 is None,
+              f"la banda 1X2 0,70-0,75 se quedó con n={(_banda or {}).get('n')}, "
+              f"por debajo del mínimo: hay que decir que no hay medición, no "
+              f"rellenar (devolvió {_r72})")
 
     # las bandas llevan intervalo, no sólo el punto
     import json
@@ -12921,6 +12944,264 @@ def test_el_push_del_reentrenamiento_sobrevive_a_una_carrera():
         shutil.rmtree(base, ignore_errors=True)
 
 
+def test_el_dia_completo_lleva_todos_los_deportes_y_todas_las_metricas():
+    """
+    El usuario pidio un envio con TODAS las apuestas del dia de TODOS los
+    deportes y con todas las metricas, no solo el ganador. Aqui se comprueba
+    que el mensaje las lleva de verdad, no que la funcion no reviente.
+
+    Medido sobre el barrido real del 2026-09-15: 368 partidos y 5.951
+    mercados, 457 KB. Va como adjunto y no como mensajes porque a 3.900
+    caracteres serian 107 mensajes con el limite de frecuencia de Telegram
+    por medio.
+    """
+    import mercados_dia as md
+    import bot_telegram as bt
+
+    hoy, manana = '2026-09-15', '2026-09-16'
+    r = {
+        'pronosticos': [
+            {'deporte': 'Fútbol', 'partido': 'Real Madrid vs Barcelona',
+             'clave_liga': 'laliga', 'liga': 'LaLiga', 'fecha': hoy,
+             'fecha_cdmx': hoy, 'hora_cdmx': '14:00', 'prob': 0.55,
+             'apuesta': 'Gana Real Madrid', 'mercado': '1X2',
+             'board': {'Gana Real Madrid': 0.55, 'Empate': 0.25,
+                       'Gana Barcelona': 0.20},
+             'goles_lineas': {'1.5': 0.79, '2.5': 0.56, '3.5': 0.34}},
+            {'deporte': 'Tenis', 'partido': 'Aaa A. vs Bbb B.', 'liga': 'ATP',
+             'fecha': hoy, 'fecha_cdmx': hoy, 'hora_cdmx': '09:00',
+             'apuesta': 'Gana Aaa A.', 'mercado': 'Ganador', 'prob': 0.7,
+             'cuota': 1.4, 'casa': 'Playdoit', 'ev': -0.02,
+             'mercados_sets': {'primer_set': {'Gana el 1er set Aaa A.': 0.66},
+                               'sets': {'Mas de 2.5 sets': 0.31}}},
+            {'deporte': 'MLB', 'partido': 'Zzz @ Yyy', 'liga': 'MLB',
+             'fecha': hoy, 'fecha_cdmx': hoy, 'hora_cdmx': '18:10',
+             'apuesta': 'Gana Yyy', 'mercado': 'Moneyline', 'prob': 0.6,
+             'board': {'Gana Yyy': 0.6, 'Gana Zzz': 0.4}},
+            {'deporte': 'NFL', 'partido': 'Qqq vs Rrr', 'liga': 'NFL',
+             'fecha': manana, 'fecha_cdmx': manana, 'hora_cdmx': '18:15',
+             'apuesta': 'Gana Qqq', 'mercado': 'Moneyline', 'prob': 0.62,
+             'marcador_esperado': '25.7-21.8', 'total_esperado': 47.4},
+        ],
+    }
+
+    de_hoy = md.partidos_del_dia(r, hoy)
+    deportes = {p['deporte'] for p in de_hoy}
+    check(deportes == {'Fútbol', 'Tenis', 'MLB'},
+          f'el dia de hoy lleva los tres deportes que se jugaban hoy '
+          f'(salio: {sorted(deportes)})')
+    check(all(p['deporte'] != 'NFL' for p in de_hoy),
+          'y NO lleva el partido de manana: el filtro de dia filtra de verdad')
+
+    de_manana = md.partidos_del_dia(r, manana)
+    check([p['deporte'] for p in de_manana] == ['NFL'],
+          f'el dia de manana lleva justo el partido de manana '
+          f'(salio: {[p["deporte"] for p in de_manana]})')
+
+    fut = [p for p in de_hoy if p['deporte'] == 'Fútbol'][0]
+    cats = {m['categoria'] for m in fut['mercados']}
+    for esperada in ('Córners', 'Tarjetas', 'Remates', 'Remates a puerta'):
+        check(esperada in cats,
+              f'el futbol lleva la seccion de {esperada.lower()} '
+              f'(categorias: {sorted(cats)})')
+    check('Goles' in cats and 'Pronóstico' in cats,
+          f'y sigue llevando el 1X2 y la escalera de goles (salio: {sorted(cats)})')
+
+    ten = [p for p in de_hoy if p['deporte'] == 'Tenis'][0]
+    cats_t = {m['categoria'] for m in ten['mercados']}
+    check('Primer set' in cats_t and 'Sets' in cats_t,
+          f'el tenis lleva primer set y total de sets (salio: {sorted(cats_t)})')
+
+    nfl = de_manana[0]
+    check(any(m['categoria'] == 'NFL · modelo' for m in nfl['mercados']),
+          'la NFL lleva el marcador y el total que predice el modelo')
+
+    # y el texto que se manda tiene que contener lo que dicen los datos
+    texto = bt.texto_dia_completo(r, hoy)
+    for trozo in ('Real Madrid vs Barcelona', 'córners', 'tarjetas',
+                  'remates', 'Gana el 1er set'):
+        check(trozo in texto,
+              f'el documento del dia menciona «{trozo}»')
+    check('Qqq vs Rrr' not in texto,
+          'y el documento de hoy no cuela el partido de manana')
+
+
+def test_los_corners_y_las_tarjetas_van_sin_ev():
+    """
+    `corners_ui` lo dejo escrito y medido: el modelo de cornrs ORDENA bien los
+    partidos (correlacion +0,81 con la linea de la casa) pero su NIVEL va
+    ~1 cornr alto, y cruzar eso contra la cuota produce EV de +50 % a +136 %,
+    que es la firma de que el modelo se equivoca, no de que la casa regale.
+
+    Asi que el envio publica la probabilidad y NO publica EV. Si alguien le
+    pone EV a un cornr, este test se cae.
+    """
+    import mercados_dia as md
+
+    extras = md.extras_futbol('laliga', 'Real Madrid', 'Barcelona')
+    check(len(extras) >= 20,
+          f'la seccion de cornrs/tarjetas/remates trae sus lineas '
+          f'(salieron {len(extras)}); si sale 0, la fuente local cambio')
+    con_ev = [m for m in extras if m.get('ev') is not None]
+    check(not con_ev,
+          f'ninguna linea de cornrs, tarjetas o remates lleva EV '
+          f'(lo llevan: {[m["etiqueta"] for m in con_ev][:3]})')
+    con_cuota = [m for m in extras if m.get('cuota') is not None]
+    check(not con_cuota,
+          f'ni cuota de casa: nadie esta ofreciendo ese precio '
+          f'(la llevan: {[m["etiqueta"] for m in con_cuota][:3]})')
+    check(all(m.get('informativo') for m in extras),
+          'y todas van marcadas como informativas')
+
+    # y una competicion sin datos no inventa nada: un hueco se ve, un relleno no
+    check(md.extras_futbol('liga_que_no_existe', 'A', 'B') == [],
+          'una competicion sin datos locales no devuelve lineas inventadas')
+
+
+def test_el_envio_del_dia_completo_no_lanza_un_segundo_barrido():
+    """
+    El «se cae al enviar a Telegram» de la v88 no era el envio: era la memoria
+    de rehacer el barrido dentro del proceso de Streamlit (1.297 MB pasaban a
+    2.172 MB y el contenedor moria). El camino nuevo no puede reabrir esa
+    puerta.
+    """
+    import inspect
+    import bot_telegram as bt
+    import mercados_dia as md
+
+    fuente = (inspect.getsource(bt.texto_dia_completo)
+              + inspect.getsource(bt.resumen_dia_completo)
+              + inspect.getsource(bt.enviar_dia_completo)
+              + inspect.getsource(md.partidos_del_dia))
+    check('apuestas_del_dia_universal' not in fuente,
+          'ninguna funcion del dia completo llama al barrido por su cuenta')
+    for f in (bt.texto_dia_completo, bt.resumen_dia_completo):
+        primero = list(inspect.signature(f).parameters)[0]
+        check(primero == 'r',
+              f'{f.__name__} recibe el barrido ya calculado (primer argumento: '
+              f'{primero!r})')
+
+    # y el boton del panel tiene que pasarle ESE barrido, no pedir otro
+    with open('dashboard_ui.py', encoding='utf-8') as fh:
+        panel = fh.read()
+    check("_enviar_dia_completo" in panel,
+          'el panel tiene los botones del dia completo')
+    check('_bt_dia.texto_dia_completo(r, _dia' in panel,
+          'y le pasan el barrido `r` que ya esta en memoria')
+    for boton in ('tg_send_hoy', 'tg_send_manana'):
+        check(f"key='{boton}'" in panel,
+              f'existe el boton {boton}')
+
+
+def test_el_dia_completo_va_como_adjunto_y_no_como_cien_mensajes():
+    """
+    Medido: un dia real son 5.951 mercados, unos 457 KB. A 3.900 caracteres
+    por mensaje son 107 mensajes, y Telegram limita a ~20 por minuto en un
+    chat. Por eso se manda como fichero. Si alguien lo cambia a mensajes
+    sueltos, este test lo dice.
+    """
+    import inspect
+    import bot_telegram as bt
+
+    check(hasattr(bt, 'enviar_documento'),
+          'existe el envio como fichero adjunto')
+    fuente = inspect.getsource(bt.enviar_documento)
+    check('sendDocument' in fuente,
+          'el adjunto usa sendDocument, que es lo que admite un fichero')
+    check('files=' in fuente,
+          'y lo manda como fichero, no como cuerpo del mensaje')
+    check('TELEGRAM_BOT_TOKEN' in fuente and 'os.environ' in fuente,
+          'el token sale del entorno y solo del entorno')
+    check('token' not in inspect.getsource(bt.enviar_documento).split(
+              'logger.error')[-1],
+          'y el token no viaja a los logs ni cuando Telegram responde error')
+
+    # sin credenciales no puede lanzar: tiene que devolver False y ya
+    import os
+    guardado = (os.environ.pop('TELEGRAM_BOT_TOKEN', None),
+                os.environ.pop('TELEGRAM_CHAT_ID', None))
+    try:
+        check(bt.enviar_documento('hola', 'x.txt') is False,
+              'sin credenciales el adjunto devuelve False sin lanzar')
+    finally:
+        if guardado[0]:
+            os.environ['TELEGRAM_BOT_TOKEN'] = guardado[0]
+        if guardado[1]:
+            os.environ['TELEGRAM_CHAT_ID'] = guardado[1]
+
+    # el envio automatico al empezar el dia
+    ruta = os.path.join('.github', 'workflows', 'telegram_dia_completo.yml')
+    check(os.path.exists(ruta),
+          'existe el workflow que lo manda solo al empezar el dia')
+    with open(ruta, encoding='utf-8') as fh:
+        wf = fh.read()
+    check("cron: '5 6 * * *'" in wf,
+          'y corre a las 06:05 UTC, que son las 00:05 de CDMX')
+    check('bot_dia_completo.py' in wf,
+          'y llama al arranque del dia completo')
+
+
+def test_el_contexto_nfl_no_se_despliega_sin_muestra():
+    """
+    La hipotesis era que los favoritos con spread >= 9.5 fallan mas en las
+    semanas 1-3. Medido sobre el juicio walk-forward del historico (569
+    partidos fuera de muestra): el subconjunto tiene **6 partidos**, y los 6
+    los gano el favorito. El control de semanas 4+ tiene 58, y el minimo para
+    ajustar un peso es 100.
+
+    Ademas el sesgo medido va al reves de la hipotesis: en semanas 1-3 el
+    favorito acierta 66,7 % con 56,3 % de confianza, y en semanas 4+ 69,0 %
+    con 58,6 % — el MISMO sesgo de −10,4 pp. No hay efecto de arranque que
+    corregir.
+
+    Asi que no hay modulo desplegado. Este test vigila que siga sin haberlo
+    mientras no haya medicion: un peso puesto a mano se cae aqui.
+    """
+    import json
+    import os
+
+    ruta = os.path.join('modelos', 'contexto_nfl.json')
+    check(os.path.exists(ruta),
+          'el veredicto de la calibracion esta escrito y se puede auditar')
+    with open(ruta, encoding='utf-8') as fh:
+        v = json.load(fh)
+
+    check(v.get('veredicto') in ('sin_muestra', 'no_mejora', 'desplegado'),
+          f'el veredicto es uno de los tres previstos (salio {v.get("veredicto")!r})')
+    if not v.get('medido'):
+        for g in ('gamma_1', 'gamma_2', 'gamma_3'):
+            check(v.get(g) is None,
+                  f'sin medicion, {g} tiene que estar vacio '
+                  f'(salio {v.get(g)!r})')
+        check(bool(v.get('motivo')),
+              'y el fichero dice POR QUE no se desplego')
+        # lo importante: que nadie lo este leyendo ya en produccion
+        import glob
+        lectores = []
+        for py in glob.glob('*.py'):
+            if py.startswith(('_v', 'calibrar_contexto_nfl', 'test_')):
+                continue
+            with open(py, encoding='utf-8', errors='ignore') as fh:
+                if 'contexto_nfl' in fh.read():
+                    lectores.append(py)
+        check(not lectores,
+              f'y ningun modulo de produccion aplica todavia esos pesos '
+              f'(los leen: {lectores})')
+
+    inf = v.get('informe') or {}
+    check((inf.get('arranque') or {}).get('n') is not None,
+          'el informe deja escrito el tamano de la muestra que se midio')
+    ic = inf.get('diferencia_acierto') or {}
+    if ic and ic.get('interpretable') is False:
+        check(True, 'el intervalo degenerado queda marcado como no interpretable')
+    # las reglas sin fuente se declaran en vez de inventarse
+    sin_fuente = v.get('reglas_sin_fuente') or {}
+    check('gamma_2_coordinador_nuevo' in sin_fuente,
+          'se dice que no hay dato de coordinadores en el pipeline')
+    check('gamma_3_dinero_sharp' in sin_fuente,
+          'y que no hay feed de dinero sharp')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -13206,6 +13487,13 @@ if __name__ == '__main__':
     test_un_al_compartido_no_es_un_alias_que_falta()
     test_una_apuesta_se_coloca_en_tus_casas_o_no_es_una_apuesta()
     test_el_push_del_reentrenamiento_sobrevive_a_una_carrera()
+
+    print(chr(10) + '=== v196: el dia completo a Telegram y el contexto de la NFL ===')
+    test_el_dia_completo_lleva_todos_los_deportes_y_todas_las_metricas()
+    test_los_corners_y_las_tarjetas_van_sin_ev()
+    test_el_envio_del_dia_completo_no_lanza_un_segundo_barrido()
+    test_el_dia_completo_va_como_adjunto_y_no_como_cien_mensajes()
+    test_el_contexto_nfl_no_se_despliega_sin_muestra()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

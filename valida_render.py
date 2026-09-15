@@ -90,6 +90,21 @@ VISTAS = {
             # estado de servidor: la pestaña abierta vivía en el navegador
             # y cualquier interacción la devolvía a «Hoy».
             ('_vista_principal', 'selector de vista'),
+            # v196 — los dos envíos del DÍA COMPLETO a Telegram. Van aquí y no
+            # sólo en la suite porque lo que puede romperse es el RENDER: un
+            # botón que no se registra en la pasada deja de estar vivo, y eso
+            # el AST no lo ve (misma lección que el `KeyError: parlay_base`).
+            ('tg_send_top', 'envío del resumen a Telegram'),
+            ('tg_send_hoy', 'envío de todo lo de hoy'),
+            ('tg_send_manana', 'envío de todo lo de mañana'),
+        ],
+        # Botones que además se PULSAN. Se eligen los del día completo
+        # porque su rama construye el documento entero —368 partidos y 5.951
+        # mercados— y es código nuevo; el de arriba ya lo cubría el smoke.
+        'pulsar': [
+            ('tg_send_hoy', 'envío de todo lo de hoy', 'dl_dia_completo'),
+            ('tg_send_manana', 'envío de todo lo de mañana',
+             'dl_dia_completo'),
         ],
         # `man_orden` YA NO ESTÁ, y no es un descuido. La vista que no se
         # ha elegido se descarta al final del render, así que sus widgets
@@ -177,11 +192,61 @@ def valida(vista, pedido, timeout=900):
                                # aqui, este validador daba justo el
                                # falso negativo que su propio
                                # comentario de arriba describe.
-                               'segmented_control', 'pills')
+                               'segmented_control', 'pills',
+                               # v196 - y los BOTONES. No estaban, asi
+                               # que un boton nunca se encontraba y
+                               # cualquier control de esta familia daba
+                               # «falta» aunque estuviera en pantalla:
+                               # el mismo falso negativo que describe el
+                               # comentario de arriba, con otro widget.
+                               'button', 'download_button')
                    for w in getattr(at, col, [])):
             check(False, f'{vista}: falta el {que} ({clave_widget})')
         else:
             check(True, f'{vista}: está el {que}')
+    for clave_boton, que, huella in (pedido.get('pulsar') or []):
+        pulsa(at, clave_boton, que, huella, vista)
+
+
+def pulsa(at, clave_boton, que, huella, vista):
+    """
+    PULSA el botón y comprueba que hizo su trabajo.
+
+    v196 — que el botón EXISTA no prueba nada de lo que hay dentro. Un
+    `UnboundLocalError` en la rama de un `if st.button(...)` no lo ve ni el AST
+    ni `py_compile`: sólo se ve pulsando, y ésa es la lección que hizo nacer
+    `smoke_botones.py`. Lo que hace el smoke con las ocho vistas y hora y media
+    por delante, aquí se hace con los botones que el cambio tocó.
+
+    Y NO BASTA CON «no lanzó excepción», que es la trampa evidente: esa rama
+    envuelve su trabajo en un `try/except` que pinta un `st.error`, así que
+    `at.exception` sigue vacío aunque todo haya fallado. Un check que no puede
+    fallar no está probando nada. Por eso se exige una HUELLA: el widget que
+    sólo aparece si el trabajo salió bien.
+    """
+    try:
+        at.button(key=clave_boton).click().run()
+    except Exception as e:
+        check(False, f'{vista}: al pulsar el {que} ({type(e).__name__}: {e})')
+        return
+    if at.exception:
+        check(False, f'{vista}: el {que} lanzó '
+                     f'{at.exception[0].message}')
+        return
+    # Se miran SOLO los errores de esta rama, no todos los de la pantalla:
+    # «Apuestas del Día» pinta de continuo un `st.error` con la advertencia
+    # medida sobre apostar picks sueltos, que es contenido y no un fallo.
+    # Exigir cero errores marcaba ese aviso como rotura.
+    errores = [str(e.value) for e in getattr(at, 'error', [])
+               if 'No se pudo preparar el día completo' in str(e.value)]
+    check(not errores,
+          f'{vista}: el {que} no deja ningún error propio en pantalla '
+          f'({errores[:1]})')
+    presentes = [str(getattr(w, 'key', '') or '')
+                 for col in ('button', 'download_button')
+                 for w in getattr(at, col, [])]
+    check(any(huella in k for k in presentes),
+          f'{vista}: el {que} produjo su resultado ({huella})')
 
 
 def valida_vista_extra(clave, pedido, timeout=900):

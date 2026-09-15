@@ -1,0 +1,127 @@
+{
+ "gamma_1": null,
+ "gamma_2": null,
+ "gamma_3": null,
+ "medido": false,
+ "fecha": "2026-09-15",
+ "n_partidos": 6,
+ "ece_mejora": null,
+ "veredicto": "sin_muestra",
+ "informe": {
+  "criterio_spread": "spread_fav",
+  "n_juicio_total": 569,
+  "n_con_spread": 569,
+  "n_spread_sucio_descartado": 0,
+  "arranque": {
+   "nombre": "semanas 1-3, spread >= 9.5",
+   "n": 6,
+   "confianza_media": 0.6917,
+   "acierto_real": 1.0,
+   "sesgo_pp": -30.83,
+   "ece": 0.30825,
+   "brier": 0.09882
+  },
+  "control": {
+   "nombre": "semanas 4+, spread >= 9.5",
+   "n": 58,
+   "confianza_media": 0.7147,
+   "acierto_real": 0.9138,
+   "sesgo_pp": -19.91,
+   "ece": 0.19913,
+   "brier": 0.13154
+  },
+  "arranque_todos": {
+   "nombre": "semanas 1-3, cualquier spread",
+   "n": 120,
+   "confianza_media": 0.5629,
+   "acierto_real": 0.6667,
+   "sesgo_pp": -10.38,
+   "ece": 0.14672,
+   "brier": 0.22579
+  },
+  "control_todos": {
+   "nombre": "semanas 4+, cualquier spread",
+   "n": 449,
+   "confianza_media": 0.5864,
+   "acierto_real": 0.6904,
+   "sesgo_pp": -10.4,
+   "ece": 0.10397,
+   "brier": 0.22428
+  },
+  "diferencia_acierto": {
+   "dif": 0.0862,
+   "lo": 0.014,
+   "hi": 0.1584,
+   "se": 0.0369,
+   "p1": 1.0,
+   "p2": 0.9138,
+   "interpretable": false
+  },
+  "potencia_10pp": 0.057,
+  "sensibilidad_spread_implicito": {
+   "criterio_spread": "spread_implicito",
+   "n_juicio_total": 569,
+   "n_con_spread": 569,
+   "n_spread_sucio_descartado": 0,
+   "arranque": {
+    "nombre": "semanas 1-3, spread >= 9.5",
+    "n": 4,
+    "confianza_media": 0.6807,
+    "acierto_real": 1.0,
+    "sesgo_pp": -31.93,
+    "ece": 0.31932,
+    "brier": 0.10614
+   },
+   "control": {
+    "nombre": "semanas 4+, spread >= 9.5",
+    "n": 55,
+    "confianza_media": 0.7124,
+    "acierto_real": 0.9273,
+    "sesgo_pp": -21.49,
+    "ece": 0.21489,
+    "brier": 0.12706
+   },
+   "arranque_todos": {
+    "nombre": "semanas 1-3, cualquier spread",
+    "n": 120,
+    "confianza_media": 0.5629,
+    "acierto_real": 0.6667,
+    "sesgo_pp": -10.38,
+    "ece": 0.14672,
+    "brier": 0.22579
+   },
+   "control_todos": {
+    "nombre": "semanas 4+, cualquier spread",
+    "n": 449,
+    "confianza_media": 0.5864,
+    "acierto_real": 0.6904,
+    "sesgo_pp": -10.4,
+    "ece": 0.10397,
+    "brier": 0.22428
+   },
+   "diferencia_acierto": {
+    "dif": 0.0727,
+    "lo": 0.0041,
+    "hi": 0.1414,
+    "se": 0.035,
+    "p1": 1.0,
+    "p2": 0.9273,
+    "interpretable": false
+   },
+   "potencia_10pp": 0.05
+  },
+  "ajuste": {
+   "ajustado": true,
+   "n": 64,
+   "intercepto": 2.3696,
+   "pendiente_logit": 0.0077,
+   "gamma_1_logit": 1.0616
+  }
+ },
+ "reglas_sin_fuente": {
+  "gamma_2_coordinador_nuevo": "no hay dato de coordinadores en nfl_datos.py ni en ninguna otra fuente del proyecto; la regla no se puede activar",
+  "gamma_3_dinero_sharp": "no hay feed de reparto de apuestas; la regla no se puede activar",
+  "novatos_titulares": "no hay depth chart ni año de debut por jugador en el pipeline"
+ },
+ "motivo": "el subconjunto de semanas 1-3 con spread ≥ 9.5 tiene 6 partidos y el mínimo para ajustar un peso es 100 · el grupo de control (semanas 4+) tiene 58 partidos y el mínimo es 100 · el intervalo de la diferencia de acierto no es interpretable: algún grupo baja de 30 partidos o su proporción está pegada a 0 o a 1, y ahí la varianza binomial sale cero y el intervalo miente"
+}

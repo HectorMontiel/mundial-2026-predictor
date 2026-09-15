@@ -395,3 +395,264 @@ def enviar_ponches(filas: list, titulo: str = 'PONCHES DEL DÍA',
                    nota: str = '') -> bool:
     """Formatea y envía la sección de ponches entera."""
     return enviar(formatear_ponches(filas, titulo, nota))
+
+
+# ---------------------------------------------------------------------------
+# EL DÍA ENTERO, NO SÓLO LOS PICKS.
+#
+# El envío de arriba manda lo que pasa los filtros: el Pick del Día, la Capa 1,
+# la Capa 2. Es lo que hay que apostar. El usuario pidió además poder mandar
+# el día COMPLETO —todos los deportes, todos los partidos y todas las métricas,
+# no sólo el ganador— y el de mañana igual.
+#
+# POR QUÉ VA COMO DOCUMENTO Y NO COMO MENSAJES
+# --------------------------------------------
+# Medido sobre un día real (2026-09-15): 368 partidos y 5.951 mercados, unos
+# 407 KB de texto. A 3.900 caracteres por mensaje son **107 mensajes**, y
+# Telegram limita a ~20 por minuto en un chat: el envío tardaría seis minutos,
+# llenaría la conversación y se cortaría a la mitad por límite de frecuencia.
+#
+# Un documento adjunto entra de una vez, se lee entero en el móvil y se puede
+# buscar dentro. Así que va un mensaje corto con el resumen y el día completo
+# adjunto. Si el adjunto falla, se manda al menos el resumen y se dice que la
+# lista no cabía — nunca un silencio.
+# ---------------------------------------------------------------------------
+MAX_CAPTION = 1000          # límite de Telegram para el pie de un adjunto
+
+
+def _linea_mercado(m: dict) -> str:
+    """Una fila de mercado en texto plano, con lo accionable delante."""
+    prob = m.get('prob')
+    izq = f"      {m.get('etiqueta', '?')}"
+    trozos = []
+    if prob is not None:
+        trozos.append(f"{float(prob)*100:.1f}%")
+    if m.get('cuota'):
+        precio = f"@ {m['cuota']}"
+        if m.get('casa'):
+            precio += f" ({m['casa']})"
+        trozos.append(precio)
+    if m.get('ev') is not None:
+        trozos.append(f"EV {float(m['ev'])*100:+.1f}%")
+    if m.get('cuota_justa'):
+        trozos.append(f"justa {m['cuota_justa']}")
+    cola = ' · '.join(trozos)
+    nota = m.get('nota') or ''
+    if not cola and nota:
+        # una media («9,9 córners») no tiene probabilidad ni precio: la nota ES
+        # el dato, así que va en la misma línea y no colgando debajo
+        return f"{izq}: {nota}"
+    linea = f"{izq}{'  ' + cola if cola else ''}"
+    if nota:
+        linea += f"\n         {nota}"
+    return linea
+
+
+def texto_dia_completo(r: dict, dia: Optional[str] = None,
+                       con_extras: bool = True,
+                       partidos: Optional[list] = None) -> str:
+    """El día entero en texto plano: cada partido con todos sus mercados.
+
+    `r` es un barrido YA calculado. No se lanza uno nuevo aquí por la misma
+    razón que en `construir_mensaje`: un segundo barrido dentro del proceso de
+    Streamlit sube el pico de memoria de 1.297 MB a 2.172 MB y mata el
+    contenedor.
+    """
+    import mercados_dia as md
+    dia = dia or md.dia_cdmx()
+    # `partidos` permite construir el documento y su resumen de UNA sola
+    # pasada: rehacerlo cuesta 3,1 s por los cornrs, las tarjetas y los
+    # remates de los 42 partidos de futbol, y no cambia nada entre las dos.
+    if partidos is None:
+        partidos = md.partidos_del_dia(r, dia, con_extras=con_extras)
+
+    lineas = [f"APUESTAS COMPLETAS DEL {dia} (hora de Ciudad de México)",
+              "=" * 62, ""]
+    if not partidos:
+        lineas.append("No hay ningún partido con pronóstico para ese día.")
+        return '\n'.join(lineas)
+
+    por_deporte: dict = {}
+    for p in partidos:
+        por_deporte.setdefault(p['deporte'], []).append(p)
+
+    for deporte in sorted(por_deporte):
+        grupo = por_deporte[deporte]
+        n_mer = sum(len(x['mercados']) for x in grupo)
+        lineas += ["", "#" * 62,
+                   f"# {deporte.upper()} — {len(grupo)} partidos, "
+                   f"{n_mer} mercados", "#" * 62]
+        for p in grupo:
+            cab = f"\n{p['hora'] or '--:--'}  {p['partido']}"
+            if p.get('liga'):
+                cab += f"   [{p['liga']}]"
+            if p.get('superficie'):
+                cab += f"   {p['superficie']}"
+            lineas.append(cab)
+            if p.get('fiabilidad'):
+                lineas.append(f"      {p['fiabilidad']}")
+            categorias: dict = {}
+            for m in p['mercados']:
+                categorias.setdefault(m['categoria'], []).append(m)
+            for cat in categorias:
+                ms = categorias[cat]
+                marca = ' (informativo, sin EV)' if all(
+                    x.get('informativo') for x in ms) else ''
+                lineas.append(f"   · {cat}{marca}")
+                lineas += [_linea_mercado(m) for m in ms]
+            for nota in (p.get('notas') or []):
+                lineas.append(f"   ! {nota}")
+
+    # Las combinadas también son apuestas del día, y el barrido ya las trae
+    # montadas. Sólo salen en el documento de HOY: las del barrido se arman
+    # con los picks del día y meterlas en el de mañana sería enseñar patas
+    # que ya se habrán jugado.
+    if dia == md.dia_cdmx():
+        combis = [c for c in (r.get('combinadas') or []) if c.get('patas')]
+        if combis:
+            lineas += ["", "#" * 62,
+                       f"# COMBINADAS PROPUESTAS ({len(combis)})", "#" * 62]
+            for c in combis:
+                lineas.append(
+                    f"\n{c.get('perfil', 'combinada')} · "
+                    f"{c.get('n_patas', len(c['patas']))} patas · "
+                    f"prob {(c.get('prob_conjunta') or 0)*100:.0f}% · "
+                    f"cuota {c.get('cuota_total', '?')}"
+                    + (f" · EV {(c.get('ev') or 0)*100:+.1f}%"
+                       if c.get('ev') is not None else ''))
+                if c.get('descripcion'):
+                    lineas.append(f"      {c['descripcion']}")
+                for pata in c['patas']:
+                    lineas.append(
+                        f"      • [{pata.get('deporte', '?')}] "
+                        f"{pata.get('partido', '?')}: {pata.get('apuesta', '?')}"
+                        f"  {(pata.get('prob') or 0)*100:.0f}%"
+                        + (f" @ {pata['cuota']}" if pata.get('cuota') else '')
+                        + (f" ({pata['casa']})" if pata.get('casa') else ''))
+                if c.get('supuesto'):
+                    lineas.append(f"      ! {c['supuesto']}")
+
+        tp = r.get('tenis_parlay') or {}
+        if tp.get('patas'):
+            lineas += ["", "#" * 62, "# PARLAY DE TENIS", "#" * 62,
+                       f"\n{tp.get('n_patas', len(tp['patas']))} patas · "
+                       f"prob {(tp.get('prob_conjunta') or 0)*100:.0f}% · "
+                       f"cuota {tp.get('cuota_combinada', '?')}"]
+            for pata in tp['patas']:
+                lineas.append(f"      • [{pata.get('circuito', '?')}] "
+                              f"{pata.get('partido', '?')}: "
+                              f"{pata.get('mercado', '?')}  "
+                              f"{(pata.get('prob') or 0)*100:.0f}%"
+                              + (f" · justa {pata['cuota_justa']}"
+                                 if pata.get('cuota_justa') else ''))
+            if tp.get('nota'):
+                lineas.append(f"      ! {tp['nota']}")
+
+    lineas += ["", "=" * 62,
+               "CÓMO LEER ESTO",
+               "- La cuota y la casa sólo aparecen donde puedes apostar de "
+               "verdad: Playdoit o Novibet. Las demás casas se leen para "
+               "calcular el precio justo, no para ofrecerte nada.",
+               "- 'justa' es 1/probabilidad: por debajo de esa cuota, la "
+               "apuesta pierde valor aunque el pronóstico acierte.",
+               "- Córners, tarjetas y remates van SIN EV a propósito: el "
+               "modelo ordena bien los partidos pero su nivel va alto, y "
+               "cruzarlo contra la cuota fabricaría un valor que no existe.",
+               "- El total de sets del tenis se publica sin precio porque "
+               "ninguna de las casas que se leen cotiza esa línea.",
+               "- Juego responsable."]
+    return '\n'.join(lineas)
+
+
+def resumen_dia_completo(r: dict, dia: Optional[str] = None,
+                         etiqueta: str = '', con_extras: bool = True,
+                         partidos: Optional[list] = None) -> str:
+    """El mensaje corto que acompaña al adjunto: qué lleva y qué destaca."""
+    import mercados_dia as md
+    dia = dia or md.dia_cdmx()
+    if partidos is None:
+        partidos = md.partidos_del_dia(r, dia, con_extras=con_extras)
+    n_mer = sum(len(p['mercados']) for p in partidos)
+    por_deporte: dict = {}
+    for p in partidos:
+        por_deporte.setdefault(p['deporte'], []).append(p)
+
+    titulo = f"📋 *TODAS LAS APUESTAS — {etiqueta or dia}*" if etiqueta else \
+             f"📋 *TODAS LAS APUESTAS — {dia}*"
+    lineas = [titulo]
+    if not partidos:
+        lineas.append("_No hay ningún partido con pronóstico para ese día._")
+        return '\n'.join(lineas)[:MAX_CAPTION]
+    lineas.append(f"{len(partidos)} partidos · {n_mer} mercados")
+    lineas.append(' · '.join(f"{d} {len(v)}"
+                             for d, v in sorted(por_deporte.items())))
+
+    # lo accionable: los mercados con precio en tus casas y EV positivo
+    con_valor = [(p, m) for p in partidos for m in p['mercados']
+                 if m.get('cuota') and (m.get('ev') or 0) > 0]
+    con_valor.sort(key=lambda pm: -(pm[1].get('ev') or 0))
+    if con_valor:
+        lineas += ["", f"Con precio en tus casas y EV positivo: "
+                       f"{len(con_valor)}"]
+        for p, m in con_valor[:4]:
+            lineas.append(f"• {p['partido']} — {m['etiqueta']} @ {m['cuota']}"
+                          + (f" ({m['casa']})" if m.get('casa') else '')
+                          + f" · EV {float(m['ev'])*100:+.1f}%")
+    else:
+        lineas += ["", "_Ningún mercado con precio en Playdoit o Novibet y EV "
+                       "positivo. Cero no es un fallo: es que las casas y el "
+                       "modelo coinciden._"]
+    lineas.append("")
+    lineas.append("_El detalle completo va en el fichero adjunto._")
+    return '\n'.join(lineas)[:MAX_CAPTION]
+
+
+def enviar_documento(texto: str, nombre: str, pie: str = '') -> bool:
+    """Manda `texto` como fichero adjunto. False si faltan credenciales."""
+    token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+    if not token or not chat_id:
+        logger.warning("Sin TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID en el "
+                       "entorno: modo seco (no se envía nada).")
+        return False
+    import requests
+    datos = {'chat_id': chat_id}
+    if pie:
+        datos['caption'] = pie[:MAX_CAPTION]
+        datos['parse_mode'] = 'Markdown'
+    r = requests.post(
+        f'https://api.telegram.org/bot{token}/sendDocument',
+        data=datos,
+        files={'document': (nombre, texto.encode('utf-8'), 'text/plain')},
+        timeout=90)
+    if r.ok:
+        logger.info("Documento enviado a Telegram (%d KB).",
+                    len(texto.encode('utf-8')) // 1024)
+        return True
+    # nunca registrar el token: sólo el código y el motivo
+    logger.error("Telegram respondió %s al adjunto: %s", r.status_code,
+                 (r.json().get('description', '?')
+                  if r.headers.get('content-type', '').startswith(
+                      'application/json') else 'error'))
+    return False
+
+
+def enviar_dia_completo(r: dict, dia: Optional[str] = None,
+                        etiqueta: str = '', con_extras: bool = True) -> bool:
+    """Resumen al chat y el día entero como adjunto.
+
+    Devuelve True sólo si algo llegó. Si el adjunto falla pero el resumen sale,
+    también es True y el resumen dice que la lista no cabía: un envío a medias
+    se ve, un silencio no.
+    """
+    import mercados_dia as md
+    dia = dia or md.dia_cdmx()
+    partidos = md.partidos_del_dia(r, dia, con_extras=con_extras)
+    texto = texto_dia_completo(r, dia, con_extras, partidos)
+    pie = resumen_dia_completo(r, dia, etiqueta, con_extras, partidos)
+    nombre = f"apuestas_{dia}.txt"
+    if enviar_documento(texto, nombre, pie):
+        return True
+    aviso = (pie + "\n\n_No se pudo adjuntar el detalle completo; abre la app "
+                   "para verlo._")
+    return enviar(aviso)

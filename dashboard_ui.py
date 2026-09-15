@@ -4848,7 +4848,7 @@ def render_alpha_finder():
                "(«Próximos partidos»).")
     # v47/v49: acciones SIEMPRE visibles arriba — refrescar y enviar a Telegram
     # (el botón de Telegram estaba escondido en un expander; ahora es fijo).
-    cacc1, cacc2 = st.columns(2)
+    cacc1, cacc2, cacc3, cacc4 = st.columns(4)
     if cacc1.button("🔄 Actualizar ahora", key='refresh_alpha', width='stretch',
                     help="Vuelve a bajar cuotas y recalcula todas las apuestas."):
         # v86: antes esto hacía `st.cache_data.clear()`, que es GLOBAL al
@@ -4889,6 +4889,32 @@ def render_alpha_finder():
                     help="Envía el resumen del día a tu Telegram (mismo mensaje "
                          "que el envío diario automático)."):
         st.session_state['_enviar_telegram'] = True
+
+    # v196 — EL DÍA ENTERO, NO SÓLO LOS PICKS.
+    #
+    # El botón de arriba manda lo que pasa los filtros. Estos dos mandan TODOS
+    # los partidos de todos los deportes con TODOS sus mercados: 1X2, goles,
+    # BTTS, hándicap, ganador, primer set, total de sets, córners, tarjetas y
+    # remates, con su cuota y su EV donde los hay.
+    #
+    # Siguen exactamente el mismo camino que el botón que ya funciona: marcan
+    # una bandera y el envío se hace abajo, con el barrido `r` YA calculado.
+    # Llamar aquí a `alpha_finder` lanzaría un segundo barrido dentro del
+    # proceso de Streamlit —1.297 MB pasan a 2.172 MB— y el contenedor muere.
+    #
+    # Va como fichero adjunto y no como mensajes: medido, un día real son 368
+    # partidos y 5.951 mercados, unos 457 KB, o sea 107 mensajes de Telegram
+    # con su límite de frecuencia por medio.
+    if cacc3.button("🗂️ Todo lo de hoy", key='tg_send_hoy', width='stretch',
+                    help="Envía a Telegram TODOS los partidos de hoy de todos "
+                         "los deportes, con todos sus mercados y sus cuotas, "
+                         "como fichero adjunto."):
+        st.session_state['_enviar_dia_completo'] = 0
+    if cacc4.button("🗓️ Todo lo de mañana", key='tg_send_manana',
+                    width='stretch',
+                    help="Lo mismo que el botón de al lado, pero con los "
+                         "partidos de mañana."):
+        st.session_state['_enviar_dia_completo'] = 1
 
     # v86: pasa por el guardia de proceso (ver barrido_universal), que impide
     # que dos sesiones lancen el barrido a la vez. El spinner se pone aquí
@@ -4939,6 +4965,54 @@ def render_alpha_finder():
                 st.code(msg, language=None)
         except Exception as e:
             st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+
+    # v196 — el envío del DÍA COMPLETO, con el mismo barrido ya calculado.
+    #
+    # El resultado se GUARDA en la sesión en vez de pintarse y olvidarse, y no
+    # es un capricho: `st.download_button` provoca un rerun al pulsarlo, y si
+    # el bloque que lo crea depende de una bandera que ya se consumió, el botón
+    # desaparece en esa misma pasada y la descarga se queda sin fichero. Es la
+    # misma familia de fallo que el `KeyError: parlay_base` de la v178: un
+    # widget que no se vuelve a registrar deja de estar vivo.
+    _desp = st.session_state.pop('_enviar_dia_completo', None)
+    if _desp is not None:
+        _etq = 'HOY' if _desp == 0 else 'MAÑANA'
+        try:
+            import bot_telegram as _bt_dia
+            import mercados_dia as _md_dia
+            _dia = _md_dia.dia_cdmx(int(_desp))
+            with st.spinner(f"Preparando todas las apuestas de {_etq.lower()}…"):
+                _ps = _md_dia.partidos_del_dia(r, _dia)
+                _txt = _bt_dia.texto_dia_completo(r, _dia, True, _ps)
+                _pie = _bt_dia.resumen_dia_completo(r, _dia, _etq, True, _ps)
+                _ok = _bt_dia.enviar_documento(_txt, f"apuestas_{_dia}.txt",
+                                               _pie)
+            st.session_state['_dia_completo_listo'] = {
+                'dia': _dia, 'etiqueta': _etq, 'texto': _txt, 'pie': _pie,
+                'enviado': bool(_ok)}
+        except Exception as e:
+            st.session_state.pop('_dia_completo_listo', None)
+            st.error(f"No se pudo preparar el día completo "
+                     f"({type(e).__name__}: {e}).")
+
+    _listo = st.session_state.get('_dia_completo_listo')
+    if _listo:
+        if _listo['enviado']:
+            st.success(f"✅ Enviado a Telegram: todas las apuestas de "
+                       f"{_listo['etiqueta'].lower()} ({_listo['dia']}).")
+        else:
+            st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en los "
+                       "Secrets, o Telegram rechazó el adjunto. Vista previa "
+                       "del resumen; el detalle completo se descarga abajo:")
+            st.code(_listo['pie'], language=None)
+        # el fichero se ofrece SIEMPRE, haya salido o no el envío: si las
+        # credenciales fallan, el usuario no se queda sin el contenido
+        st.download_button(
+            f"⬇️ Descargar todas las apuestas de {_listo['etiqueta'].lower()}",
+            data=_listo['texto'].encode('utf-8'),
+            file_name=f"apuestas_{_listo['dia']}.txt",
+            mime='text/plain', key='dl_dia_completo')
+
     # v41: BANNER de salud de datos — distingue "no llegan datos" (problema)
     # de "llegan pero hoy no hay picks" (normal). Antes salía indistinguible.
     try:

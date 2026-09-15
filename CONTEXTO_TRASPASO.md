@@ -4408,3 +4408,359 @@ se pone rojo en cualquier máquina.
 8. **La clave de The Odds API sigue caducada** (401 en el sondeo de hoy).
    Llevaba pendiente desde el traspaso original y sigue igual; no estorba,
    porque ninguna de las dos casas del usuario está en su catálogo.
+
+
+---
+
+## 6g. v196 — EL DÍA ENTERO A TELEGRAM, Y UN MÓDULO DE NFL QUE NO SE DESPLIEGA
+
+Dos encargos independientes en la misma tanda. Uno sale y el otro no, y el que
+no sale es el que más tenía escrito de antemano.
+
+---
+
+### 1. Lo que se pidió
+
+**Telegram.** El envío que existe manda los PICKS —Pick del Día, Capa 1, Capa 2—,
+que es lo que hay que apostar. El usuario pidió un segundo botón que mande el
+día ENTERO: todos los partidos de todos los deportes con todas sus métricas
+(sets, ganador, córners, tiros, tarjetas…) y sus cuotas; un tercero igual para
+mañana; y que salga solo al empezar el día.
+
+**NFL.** Un módulo `ajuste_contexto_nfl.py` que recortara la confianza de los
+favoritos con spread ≤ −9.5 en las semanas 1-3, con pesos γ medidos, y que se
+desplegara en la misma tanda si el ECE mejoraba ≥ 5 %.
+
+---
+
+### 2. El módulo de NFL: la muestra son SEIS partidos, y el efecto va al revés
+
+El encargo traía su propia regla de oro —«si no mejora, no se despliega»— y la
+respetó el primer paso: **no hay con qué medir.**
+
+`calibrar_contexto_nfl.py` construye el juicio walk-forward con el mismo método
+que `modelo_nfl.backtest` (entrena con lo anterior, juzga la temporada
+siguiente) y sale esto, sobre 569 partidos fuera de muestra:
+
+```
+                                        n   confianza   real    sesgo     ECE
+semanas 1-3, spread >= 9.5              6     69,2 %   100,0 %  -30,8 pp  0,3083
+semanas 4+,  spread >= 9.5             58     71,5 %    91,4 %  -19,9 pp  0,1991
+semanas 1-3, cualquier spread         120     56,3 %    66,7 %  -10,4 pp  0,1467
+semanas 4+,  cualquier spread         449     58,6 %    69,0 %  -10,4 pp  0,1040
+```
+
+**Seis partidos.** El encargo hablaba de 143 y de temporadas 2020-2025;
+`historico_nfl.csv` empieza en 2023-01-01 y sólo tiene semanas 1-3 de 2023,
+2024 y 2025. Sondeado ESPN para rellenar hacia atrás: **2020 y 2021 no traen
+moneyline, ni spread, ni total** —el proveedor responde con los bloques vacíos—
+y 2022 trae moneyline pero no línea (ver el punto 3). O sea que la muestra no
+es pequeña por descuido: es el techo del dato disponible.
+
+Y lo más importante, que no depende del tamaño: **el sesgo de las semanas 1-3 y
+el de las semanas 4+ es EXACTAMENTE el mismo, −10,4 pp.** No hay ninguna
+anomalía de arranque de temporada que corregir. Los favoritos grandes de las
+semanas 1-3 no fallaron más: ganaron los seis. Aplicar el recorte que pedía el
+encargo habría EMPEORADO la calibración, no mejorado, porque el modelo ya va
+corto de confianza y el ajuste iba a restarle más.
+
+De las cinco reglas del encargo, además:
+
+| # | regla | estado |
+|---|---|---|
+| 1 | semanas 1-3 | hay dato (`semana` en el histórico) |
+| 2 | spread ≤ −9.5 (γ₁) | hay dato, pero n=6 |
+| 3 | coordinador nuevo (γ₂) | **no existe la fuente** en todo el proyecto |
+| 4 | novatos titulares | **no existe** depth chart ni año de debut |
+| 5 | dinero sharp (γ₃) | **no existe** feed de reparto de apuestas |
+
+Tres de las cinco no se pueden activar porque el dato no está, y eso lo decía
+el propio encargo («si la fuente no está, la regla no se activa»). Queda
+escrito en `modelos/contexto_nfl.json`, no adivinado.
+
+**Veredicto: `sin_muestra`. No se despliega nada.** No existe
+`ajuste_contexto_nfl.py`, y es deliberado: un módulo que sólo puede ser
+identidad es un gancho que no hace nada y sí puede romperse. Lo que queda es el
+script de calibración —que se vuelve a correr cuando haya temporadas— y un test
+que se cae si alguien le pone un γ a mano sin medición.
+
+El mínimo de muestra (100 partidos por grupo) no es redondo por gusto: el
+propio script imprime la potencia, y con n=6 contra n=58 es **0,057** para
+detectar 10 pp. O sea que aunque el efecto existiera, esta muestra no lo vería
+ni el 6 % de las veces.
+
+Un detalle de método que conviene no repetir: la primera versión del script
+daba un intervalo de confianza de [+0,014, +0,158] para la diferencia de
+acierto, que «excluye el cero» y parecía concluyente. Es falso: con 6 de 6
+aciertos la varianza binomial sale CERO y la fórmula normal se estrecha sola.
+Ahora esos intervalos salen marcados como **no interpretables**.
+
+---
+
+### 3. De paso: `hcp_home` lleva PRECIOS americanos en 72 partidos
+
+`nfl_datos._pointspread` lee `close.pointSpread.value` y, si falta, cae al
+campo `american`. Para unos cuantos partidos ESPN mete ahí el **precio**
+(−115, −120, +105) en vez de la **línea** (−6.5). Resultado: 72 de los 841
+partidos de liga regular tienen en `hcp_home` un número imposible —el récord de
+spread en la NFL ronda los 27 puntos— y `modelo_nfl.backtest` los usa para el
+ROI de hándicap.
+
+El dato bueno SÍ está en la respuesta, en la raíz del ítem (`item['spread']`,
+que da −6.5 donde `pointSpread.american` daba −115). **No se ha tocado en esta
+versión**: cambiarlo obliga a volver a descargar el histórico y a re-medir el
+ROI de hándicap, que hoy es el único canal con p5 cercano a cero
+(`handicap_lado_del_modelo`: ROI +5,96 %). Es su propia tanda.
+
+En la calibración de arriba no contamina: el juicio es 2024-2026 y ahí no hay
+ninguno (`n_spread_sucio_descartado: 0`).
+
+---
+
+### 4. Telegram: el día entero cabe, pero no en mensajes
+
+Lo primero fue medir qué hay y qué cuesta, porque la §4 de esta bitácora cuenta
+tres regresiones de rendimiento seguidas y las tres entraron por meter una
+petición nueva en el camino caliente.
+
+**Qué trae ya el barrido, gratis:** 1X2, la escalera de goles (0,5 a 6,5), BTTS,
+hándicap asiático, ganador, primer set, total de sets, moneyline, el marcador
+esperado de la NFL y la referencia de precio del mercado.
+
+**Qué NO trae:** córners, tarjetas y remates. Viven en la ficha del partido. Y
+ahí estaba la trampa:
+
+```
+ClubEngine.plantilla_club × 102 partidos ........  ~14 min  (8,35 s/partido)
+cuotas_multi.mercados_playdoit × 102 partidos ...  1 petición de 250-320 KB
+                                                    por partido
+```
+
+Catorce minutos para un botón, y con la ficha entera dentro. Eso es la
+regresión de la §4 otra vez, a sesenta veces su tamaño.
+
+Pero los tres bloques no hacen falta enteros: `rendimiento_equipos` ya expone
+los mismos estimadores que usa la ficha, y salen de CSV locales.
+
+```
+rendimiento_equipos.corners_equipo  × 102 partidos ....  1,20 s
+rendimiento_equipos.tarjetas_equipo × 102 partidos ....  0,68 s
+rendimiento_equipos.remates_equipo  × 102 partidos ....  1,55 s
+                                                        -------
+                                                          3,43 s   (34 ms/partido)
+```
+
+Cobertura: 102 de 102. Se llama a la función pública y no se copia la fórmula
+del motor **a propósito**: si la ficha dice 9,4 córners, el mensaje dice 9,4.
+Dos verdades para el mismo partido sería peor que no enseñar ninguna.
+
+Eso es `mercados_dia.py`.
+
+**Y el tamaño obligó a cambiar el medio.** Medido sobre el día real del
+2026-09-15:
+
+```
+hoy     368 partidos · 5.951 mercados · 457 KB
+mañana  109 partidos · 2.707 mercados · 180 KB
+```
+
+457 KB a 3.900 caracteres por mensaje son **107 mensajes**, y Telegram limita a
+~20 por minuto en un chat: el envío tardaría seis minutos, llenaría la
+conversación y se cortaría por la mitad. Así que va **un mensaje corto con el
+resumen y el día completo como fichero adjunto** (`sendDocument`), que entra de
+una vez y se puede buscar dentro. Si el adjunto falla, sale el resumen diciendo
+que el detalle no cabía: un envío a medias se ve, un silencio no.
+
+**Qué NO lleva EV, y no es un olvido.** Córners, tarjetas y remates van con
+probabilidad y cuota justa, sin EV y sin recomendación. Es la misma decisión
+medida que ya tenía `corners_ui`: el modelo **ordena** bien los partidos
+(correlación +0,81 con la línea de la casa) pero su **nivel** va ~1 córner
+alto, y cruzar eso contra la cuota produce EV de +50 % a +136 %, que es la
+firma de `EV_SOSPECHOSO` — «el modelo se equivoca», no «la casa regala». El
+total de sets del tenis sigue sin precio porque ninguna casa que se lee cotiza
+esa línea.
+
+Y el guardia de casas sigue mandando: la cuota y el nombre de la casa sólo
+aparecen donde se puede apostar de verdad (Playdoit o Novibet). Las demás
+siguen leyéndose para el precio justo, y la fila de referencia de mercado va
+etiquetada como lo que es.
+
+**Los dos botones y el envío automático.** Los botones marcan una bandera y el
+envío se hace abajo con el barrido `r` **ya calculado**, exactamente igual que
+el botón que ya funcionaba: llamar a `alpha_finder` desde ahí lanzaría un
+segundo barrido dentro del proceso de Streamlit (1.297 MB → 2.172 MB) y el
+contenedor muere. El fichero se ofrece además como descarga directa, salga o no
+el envío, para que un fallo de credenciales no deje al usuario sin el
+contenido.
+
+El automático es `telegram_dia_completo.yml`, a las **06:05 UTC = 00:05 de
+CDMX**: manda hoy y mañana en cuanto el día cambia. Va en su propio workflow y
+no dentro de `telegram_bot.yml` a propósito — aquél manda los picks a las 10:00
+UTC y es el mensaje que el usuario ya usa a diario; un fallo aquí no puede
+llevárselo por delante.
+
+El arranque vive en `bot_dia_completo.py` y no como argumento de
+`bot_telegram.py` por una razón concreta: el `if __name__ == '__main__':` de ese
+fichero está **a mitad**, con funciones definidas después, así que una rama
+nueva ahí daría `NameError`.
+
+---
+
+### 5. La suite se cayó sola, y no por nada de esta versión
+
+Al validar, `test_calibracion_de_totales_y_btts` reventó con `TypeError:
+NoneType - float` y tumbó la suite entera en la comprobación 258 de 2.869.
+
+No es una regresión: la **recalibración semanal del 2026-09-14** rehizo
+`calibracion_confianza.json` y la banda 1X2 0,70-0,75 pasó de **n=33 a n=9**,
+por debajo del mínimo para publicar acierto. Ahora sale `acierto: None` y
+`probabilidad_real(0.72, '1X2')` devuelve `None`, que es la respuesta CORRECTA
+—«no hay medición»— y no un número inventado. El test hacía `None - 0.72`.
+
+Es literalmente la regla 6 del traspaso: tras rebasar sobre los commits
+nocturnos de datos, re-validar; un test se rompe por deriva de datos y sólo se
+ve así. El test ahora comprueba lo que importa y sigue pudiendo fallar: esa
+banda no infla, tenga medición o no la tenga.
+
+---
+
+---
+
+### 5b. Y el validador de render no sabía mirar botones
+
+Al añadir los dos botones nuevos a `valida_render.py` salió que **faltaban**.
+No faltaban: la lista de colecciones que recorre el comprobador de controles
+era `radio, checkbox, selectbox, multiselect, toggle, segmented_control,
+pills` — **`button` no estaba**, así que un botón nunca se encontraba. Es el
+mismo falso negativo que su propio comentario describe («un validador que sólo
+conoce dos widgets convierte cada cambio de control en un falso negativo»), con
+otro widget. Ahora mira también `button` y `download_button`, y de paso cubre
+el `tg_send_top` que ya existía y nadie vigilaba.
+
+Y se añade algo que no había: **pulsar**. Que un botón exista no prueba nada de
+lo que hay dentro de su rama, que es justo donde vive el `UnboundLocalError`
+que hizo nacer el smoke. Los dos botones del día completo se pulsan de verdad
+en cada pasada.
+
+Con una trampa que hubo que cerrar: la rama envuelve su trabajo en un
+`try/except` que pinta un `st.error`, así que «no lanzó excepción» se cumple
+siempre y el check no podía fallar. Se exige además una HUELLA —el botón de
+descarga, que sólo aparece si el documento se construyó— y que no quede en
+pantalla un error DE ESTA RAMA (no cualquier error: la pantalla pinta de
+continuo la advertencia medida sobre apostar picks sueltos, que es contenido).
+Comprobado rompiendo `partidos_del_dia` a propósito: los cuatro checks se caen.
+
+### 6. Lo que destapó la validación: la MLB desapareció del ledger y NADIE lo vio
+
+La suite dejó tres fallos que **no son de esta versión** y que, tirando del
+hilo, salen del mismo sitio. Van aquí porque son lo más grave que hay hoy
+abierto.
+
+**7.1 — La recalibración del lunes rehízo el ledger y la MLB se quedó en cero.**
+
+```
+                    antes (commit 8ff2847)      después (655e22c, 2026-09-14)
+Fútbol                    47.948                      77.915
+Tenis                     64.588                     328.515
+MLB                        7.541                           0   ← desapareció
+```
+
+`deportes_capa1.json` pasó de tres deportes evaluados a **uno** (sólo Tenis).
+El workflow terminó en verde.
+
+**Por qué.** `build_ledger_deportes.ledger_mlb()` saca las cuotas de cierre de
+`odds_historico.db`, y ese fichero **está en `.gitignore` (línea 31) y no está
+en el repositorio**. En el runner no existe, así que la función registra
+«sin cuotas históricas: ejecuta backfill_mlb_odds.py» y devuelve vacío.
+`recalibrar.yml` no llama a `backfill_mlb_odds.py` ni restaura la base en
+ningún paso.
+
+Antes no se notaba porque `recalibrar_todo._ledger()` sólo CONCATENABA dos
+CSV: las filas de MLB del ledger eran restos de una construcción local antigua
+y sobrevivían a cada pasada. **La v189 arregló que ese paso re-predijera de
+verdad, y al hacerlo se llevó por delante lo único que tapaba el agujero.** El
+arreglo funcionó; lo que hizo fue enseñar el problema de debajo.
+
+**Y la consecuencia va en la dirección peligrosa.** `validacion_deportes.
+tiene_edge()` devuelve **True** para un deporte que no está en el fichero: el
+veto sólo se aplica a quien tiene veredicto medido. O sea que la MLB, que antes
+tenía uno («+3,46 %, n=394, p5 −3,98 % → fuera»), ahora **pasa el filtro de la
+Capa 1 por ausencia de medición, no por tenerla a favor**. Comprobado:
+
+```
+MLB    tiene_edge=True   motivo=None      ← no hay veredicto, y entra
+Tenis  tiene_edge=False  motivo=«sin edge de modelo, medido a lo grande…»
+```
+
+Un hueco se ve, un relleno no — y aquí el hueco se rellena con un sí.
+
+**NO se ha arreglado en esta versión.** Hay dos decisiones dentro y ninguna es
+de una línea: (a) meter `backfill_mlb_odds.py` en `recalibrar.yml`, o publicar
+la base de cuotas de otra forma; y (b) decidir si el `tiene_edge` por defecto
+debe ser permisivo o restrictivo, que cambia qué picks se venden como élite y
+pide su propia medición. Las dos son suyas.
+
+**7.2 — El precálculo del día lleva 44 horas y el límite son 30.**
+
+```
+predicciones_dia.json   generado 2026-09-13T11:22Z   ·   44 h   ·   usable: False
+```
+
+`predicciones_dia.estado()` lo declara inutilizable por encima de
+`HORAS_VALIDO = 30`, así que el barrido predice todo en vivo y
+`pronosticos_guardados.reconstruir()` no puede recuperar ningún pronóstico
+previo: **0 de 25 partidos**, que es el tercer fallo de la suite.
+
+Lo genera `retrain_leagues.yml` — el mismo workflow que el 2026-09-14 salió
+**cancelado a 1 h 30 min con `timeout-minutes: 90`**. No es un fallo nuevo: es
+la consecuencia concreta de ese pendiente, y ahora tiene nombre. Mientras el
+reentrenamiento no quepa en su tiempo, la aplicación pierde el precálculo y la
+validación de pronósticos previos.
+
+**7.3 — El test que se cayó solo.** Ver el punto 5.
+
+Los tres son de datos, no de código, y ninguno lo cazó una alarma: lo cazó
+correr la suite. Sigue sin existir el vigilante de «una fuente trajo cero» que
+la v195 dejó como el pendiente más valioso — y en esta versión habría avisado
+dos veces.
+
+### 7. Lo que se midió y lo que queda
+
+**Comprobado de los pendientes que dejó la v195:**
+
+- **El ledger SÍ se reconstruye.** `recalibrar.yml` corrió el lunes 14 (1 h 25
+  min) y `_v75_pick_ledger.json`, `pick_ledger_total.csv` y
+  `_v78_ledger_deportes.json` ya **no** aparecen parados en `frescura_datos.py`.
+  El arreglo de la v189 funcionó.
+
+- **Pero `umbrales_capa1.json` sigue parado, 49 días, y ahora se sabe por qué:
+  NADIE lo regenera.** Lo escribe `backtest_thresholds.py`, y ese fichero **no
+  lo llama nadie** — ni `recalibrar_todo.PASOS` (que tiene ocho pasos y ninguno
+  es éste) ni `recalibrar.yml` ni ningún otro `.py` o `.yml` del repositorio.
+  La única mención en todo el proyecto es un comentario en `alpha_finder`. Y el
+  propio `recalibrar_todo` lo lista en su cabecera como «❌ NUNCA» y luego dice
+  que la cadena cubre «los umbrales de Capa 1»: nunca los cubrió.
+  `frescura_datos.py` se lo atribuye a `recalibrar.yml (semanal)`, así que la
+  vigilancia cree que está cubierto y no lo está — el mismo modo de fallo que
+  la v150: un hueco se ve, un relleno no.
+  **NO se ha arreglado en esta versión**, y a propósito: añadir el paso
+  cambiaría los umbrales que deciden qué entra en la Capa 1, o sea el
+  comportamiento de producción, y eso pide su propia medición antes de
+  encenderlo. Es un cambio de una línea y una tarde de medición.
+
+- **`pronosticos_emitidos.json` va por 15 días** (tolerancia 3). Eran 12 en el
+  traspaso: sigue creciendo y sigue sin investigar.
+
+**Lo que esta versión NO hizo y sigue pendiente:**
+
+1. `retrain_leagues.yml` se quedó sin tiempo el 14 (cancelado a 1 h 30 min con
+   `timeout-minutes: 90`). Ya no es el exit 128 de la v195.3: es que el job
+   engordó. Hay que ver qué paso creció antes de subir el número.
+2. Nadie vigila que una fuente traiga CERO. Sigue siendo el pendiente más
+   valioso.
+3. `smoke_botones.py` no completa en 90 min. Medido el 12-09 que no es
+   regresión de la v195.
+4. El fuzzy de `emparejar_jugador` enlaza jugadores distintos (3 de 149).
+5. El precio de APERTURA de las cinco casas mexicanas se guarda y no se lee
+   (CLV real). Totales y hándicaps se recogen y no entran al consenso.
+6. El `hcp_home` con precios americanos, del punto 3.
