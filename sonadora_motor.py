@@ -840,11 +840,20 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
     todas = bruto['patas']
 
     def _filtra(lo, hi):
-        # verdes primero, luego ámbar, luego grises y las rojas al final; a
-        # igualdad de color, por Score
+        # Verdes primero, luego ámbar, luego grises y las rojas al final. A
+        # igualdad de color mandan las MEDIDAS, y sólo después el Score.
+        #
+        # POR QUÉ LAS MEDIDAS DELANTE. Sin ese criterio la lista la encabezaban
+        # «Menos de 4,5 al 98 % a 1,10» y «Menos de 5,5 al 95 %»: son las
+        # líneas de la cola de la Poisson, las únicas de la escalera SIN error
+        # de calibración medido y justo donde este proyecto tiene documentado
+        # que el modelo se equivoca (la firma de `EV_SOSPECHOSO`). Siguen
+        # estando —quitarlas sería decidir por el usuario— pero detrás de las
+        # que sí se han medido.
         return sorted((q for q in todas
                        if lo <= q['cuota'] <= hi and q['prob'] >= PROB_MINIMA),
                       key=lambda q: (ORDEN_COLOR.get(q['color'], 9),
+                                     not q.get('medido'),
                                      -q['score']))
 
     # red final contra duplicados: misma apuesta del mismo partido una vez
@@ -947,7 +956,8 @@ def permutaciones(patas: List[Dict], n_patas: int) -> List[Dict]:
     # no hay verdes suficientes, se completan con ámbar en vez de devolver
     # menos patas de las pedidas.
     def _por_color(clave):
-        return lambda q: (ORDEN_COLOR.get(q['color'], 9), clave(q))
+        return lambda q: (ORDEN_COLOR.get(q['color'], 9),
+                          not q.get('medido'), clave(q))
 
     mitad = n // 2
     seguras = _elegir(patas, mitad, _por_color(lambda q: -q['prob']))

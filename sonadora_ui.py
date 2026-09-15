@@ -56,8 +56,23 @@ def _pct(x, dec=1) -> str:
 
 
 def _sello(q: Dict) -> str:
-    """El semáforo de la pata. Sale del motor, no se recalcula aquí."""
-    return q.get('color') or '⚪'
+    """El semáforo de la pata.
+
+    Normalmente lo trae el motor. Si faltara —una pata de un camino antiguo, o
+    un estado guardado de antes— se recalcula aquí en vez de caer a gris: gris
+    es «no se sabe», y con la probabilidad delante sí se sabe. Es justo el
+    síntoma que el usuario reportó, «veo puro blanco», y esta red lo cierra
+    venga de donde venga la pata.
+    """
+    color = q.get('color')
+    if color:
+        return color
+    try:
+        import sonadora_motor as sm
+        return sm.color(q.get('prob'), q.get('ece'),
+                        bool(q.get('calibracion_floja')))
+    except Exception:
+        return '⚪'
 
 
 _FLECHA = {'a_favor': '📉 el mercado se mueve a favor',
@@ -119,11 +134,25 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     # 2. Las patas del día
     # ------------------------------------------------------------------ #
     dia = dia or md.dia_cdmx()
+
+    # EN CLOUD CADA CLIC ES UNA PASADA ENTERA, y esta sección pide hasta
+    # sesenta tableros de Playdoit. Sin caché, marcar una pata del multiselect
+    # volvía a bajarlos todos: medido en local, de 3 s con caché caliente a 32 s
+    # con la fría — y el contenedor de Streamlit Cloud es más lento que esto.
+    #
+    # La clave incluye `actualizado` del barrido, así que un barrido nuevo
+    # invalida la lista sola. `_r` con guion bajo le dice a Streamlit que no
+    # intente hashear el diccionario del barrido, que es enorme.
+    @st.cache_data(ttl=900, show_spinner=False)
+    def _patas(_r, sello, dia_, lo, hi, deps, rojas):
+        return sm.patas_del_dia(_r, dia_, cuota_min=lo, cuota_max=hi,
+                                deportes=list(deps), con_rojas=rojas)
+
     with st.spinner('Leyendo el tablero de Playdoit…'):
         try:
-            res = sm.patas_del_dia(r, dia, cuota_min=cuota_min,
-                                   cuota_max=cuota_max,
-                                   deportes=deportes, con_rojas=con_rojas)
+            res = _patas(r, str(r.get('actualizado') or ''), dia,
+                         cuota_min, cuota_max, tuple(sorted(deportes)),
+                         con_rojas)
         except Exception as e:
             st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
             return
@@ -144,6 +173,11 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
             f"que pediste no había ninguna pata hoy.")
 
     cc = res.get('conteo_color') or {}
+    st.markdown(
+        '**Semáforo:** 🟢 sólida (probabilidad ≥ 70 %) · '
+        '🟡 moderada (≥ 58 %) · 🔴 alto riesgo · '
+        '⚪ sin probabilidad. La calibración de la competición sólo puede '
+        'bajar un escalón, nunca subirlo.')
     st.caption(
         f"**{len(patas)} patas** de {res.get('partidos_con_pata', 0)} "
         f"partidos · 🟢 {cc.get('🟢', 0)} sólidas · 🟡 {cc.get('🟡', 0)} "

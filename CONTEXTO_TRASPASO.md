@@ -5472,3 +5472,35 @@ con alineación, 297 patas con el estado de la alineación anotado.
    mismos CSV.
 4. **Los totales de MLB, NBA y KBO** siguen cotizados y sin distribución del
    modelo con la que cruzarlos.
+
+### 7. v200.1 — el usuario seguía viendo círculos blancos, y el código estaba bien
+
+Reportó «veo puro blanco» y que no encontraba el filtro de deportes. Renderizada
+la pantalla con AppTest sobre el código de `main`, sale esto:
+
+```
+🟢 **Menos de 4.5** · Vasco da Gama vs Independiente Santa Fe — `1.10` · modelo 98 %
+CAPTION: 259 patas de 31 partidos · 🟢 134 sólidas · 🟡 125 moderadas · 🔴 39
+multiselect key='son_deportes'   checkbox key='son_rojas'
+```
+
+O sea que el color, el selector de deportes y el interruptor de rojas están. Lo
+que su captura enseñaba era una **build antigua de Streamlit Cloud**: no llevaba
+la línea de recuentos ni el selector. No es algo que se arregle desde el
+repositorio, pero sí se puede reducir la probabilidad de que vuelva a pasar y de
+que la sección se atragante allí:
+
+1. **El sello se recalcula si falta.** `_sello` caía a ⚪ cuando la pata no
+   traía `color`; ahora lo calcula de la probabilidad. Gris es «no se sabe», y
+   con la probabilidad delante sí se sabe.
+2. **La lista se cachea entre pasadas** (15 min, invalidada por `actualizado`
+   del barrido). En Cloud cada clic es una pasada entera y esta sección pide
+   hasta sesenta tableros: medido en local, 3 s con caché caliente contra 32 s
+   con la fría.
+3. **Leyenda del semáforo visible**, con los umbrales escritos.
+4. **Las patas MEDIDAS van delante.** Sin eso la lista la encabezaban «Menos de
+   4,5 al 98 % a 1,10» y «Menos de 5,5 al 95 %»: las líneas de la cola de la
+   Poisson, las únicas de la escalera sin calibración medida y justo donde el
+   proyecto tiene documentado que el modelo se equivoca. Siguen estando —
+   quitarlas sería decidir por el usuario— pero detrás de las medidas. Con el
+   cambio, la primera permutación de 13 patas sale entera calibrada.
