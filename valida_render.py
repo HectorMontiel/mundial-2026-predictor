@@ -112,6 +112,24 @@ VISTAS = {
         # conserva la elección entre vistas y entre sesiones es
         # `preferencias_usuario`, en disco, no `st.session_state`.
     },
+    # v197 — la Soñadora. Es una vista NUEVA y entera, y lo que puede
+    # romperse es justo lo que el AST no ve: que la advertencia se pinte antes
+    # que las patas, que los deslizadores se registren y que la lista se arme
+    # sin reventar cuando no hay ninguna pata que pase los filtros.
+    '🎰 Armar Soñadora': {
+        'textos': [
+            'entretenimiento de alto riesgo',
+            'Patas disponibles',
+        ],
+        'controles': [
+            ('son_cuota', 'rango de cuota por pata'),
+            ('son_prob', 'probabilidad mínima'),
+            ('son_n', 'número de patas'),
+            ('son_nivel', 'exigencia de calibración'),
+            ('son_deportes', 'filtro de deportes'),
+            ('son_dia', 'selector de día'),
+        ],
+    },
     '🏴 Premier League': {},      # rama de córners OBSERVADOS
     '🇲🇽 Liga MX': {},            # rama de córners SIN observar
 }
@@ -199,7 +217,11 @@ def valida(vista, pedido, timeout=900):
                                # «falta» aunque estuviera en pantalla:
                                # el mismo falso negativo que describe el
                                # comentario de arriba, con otro widget.
-                               'button', 'download_button')
+                               'button', 'download_button',
+                               # v197 - la Sonadora usa deslizadores y un
+                               # campo numerico; sin estos dos, sus controles
+                               # daban «falta» aunque estuvieran en pantalla.
+                               'slider', 'number_input')
                    for w in getattr(at, col, [])):
             check(False, f'{vista}: falta el {que} ({clave_widget})')
         else:

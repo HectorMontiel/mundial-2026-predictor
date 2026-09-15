@@ -4764,3 +4764,221 @@ dos veces.
 5. El precio de APERTURA de las cinco casas mexicanas se guarda y no se lee
    (CLV real). Totales y hándicaps se recogen y no entran al consenso.
 6. El `hcp_home` con precios americanos, del punto 3.
+
+
+---
+
+## 6h. v197 — LA SOÑADORA: SE MIDIÓ, NO GANA, Y SE DESPLIEGA DICIÉNDOLO
+
+El usuario ganó un parlay de 13 patas con 46 pesos que pagó 22.544,60 —cuotas
+de 1,35 a 1,79, ocho patas de total de goles, cuatro de ellas «Más de 1,5»— y
+pidió una sección para repetir ese patrón de forma sistemática, con validación
+previa y despliegue inmediato.
+
+Se midió. **Ninguna de las veinte configuraciones tiene esperanza positiva.**
+La sección se despliega igual, que es lo que el propio encargo mandaba en ese
+caso, con la advertencia obligatoria y el número medido dentro.
+
+---
+
+### 1. La cuenta que decide, y por qué la simulación sólo la confirma
+
+Un parlay de patas independientes **multiplica** el rendimiento de sus patas:
+si cada una rinde (1+e), el de N rinde (1+e)^N − 1. Combinar no crea ventaja
+—la amplifica, en el signo que tenga—. Así que la pregunta no es «qué
+combinación gana» sino **«tiene alguna pata ventaja positiva»**.
+
+Medido sobre los ledgers fuera de muestra, con la probabilidad walk-forward del
+modelo y la cuota de cierre real, filtrando como pedía el encargo (cuota
+1,10-1,80 y probabilidad ≥ 55 %):
+
+```
+ventana      n        modelo dice   acierta    ROI/pata      p5
+6 meses      1.381      65,4 %      62,9 %     −5,38 %    −8,66 %
+12 meses     4.925      65,7 %      62,7 %     −4,72 %    −6,55 %
+24 meses    10.354      66,1 %      63,3 %     −3,72 %    −4,96 %
+```
+
+El modelo es **optimista en unos 3 puntos** de forma estable. Aplicado N veces:
+
+```
+patas        4        6        8       10       13
+ROI      −19,8 %  −28,2 %  −35,8 %  −42,5 %  −51,3 %
+```
+
+Eso es lo que la pantalla enseña junto al premio.
+
+---
+
+### 2. Dos trampas de método que salieron por el camino
+
+**2.1 — `resultado` no es el 1X2 clásico, y leerlo mal daba números imposibles.**
+
+La primera pasada decía que **un favorito a 1,50 acierta el 27 %** y que el ROI
+por pata era −60 %. Imposible: es la firma de desalineación que
+`build_ledger_deportes.verificar_alineacion` existe para cazar.
+
+`pick_ledger.csv` guarda `resultado` como el **índice de `[p_home, p_draw,
+p_away]`** —0 local, 1 empate, 2 visitante— y no como el 1X2 de toda la vida.
+Verificado contra los goles: las filas con `resultado=0` promedian 2,37 goles
+locales y 0,56 visitantes. Con la lectura correcta, el acierto pasa de 27 % a
+66 % y todo cuadra.
+
+**2.2 — La unidad independiente es la JORNADA, no el parlay. Y sin eso, la
+simulación mentía a lo grande.**
+
+La simulación arma 10.000 parlays por configuración, tomando las patas de un
+mismo día (nadie combina el martes con el sábado, y los partidos de una jornada
+comparten contexto). Pero 10.000 parlays sobre 75 jornadas **no son 10.000
+observaciones**: son 75 repetidas. Con el bootstrap de siempre salía esto:
+
+```
+13 patas, banda 1,30-1,50   ROI +60,4 %   p5 +41,6 %   ← ¡viable!
+10 patas, banda 1,30-1,50   ROI +15,1 %   p5  +5,0 %   ← ¡viable!
+ 8 patas, banda 1,10-1,30   ROI +49,9 %   p5 +45,6 %   ← ¡viable!
+```
+
+Y la proyección desde la pata suelta, que sí tiene observaciones
+independientes, decía −37 %, −30 % y −27 % para esas mismas tres.
+
+La diferencia entera era esto: **de los 180 parlays ganadores de 13 patas,
+todos salían de 11 jornadas**; el de 8 patas en la banda 1,10-1,30 se armaba
+sobre **4 jornadas**, y el de 10 patas sobre **una sola**. Cuatro tardes de
+fútbol con suerte, muestreadas dos mil quinientas veces cada una, con premios
+de x90 en la cola.
+
+Se arregla con dos cosas, y las dos están en el código:
+
+- **Bootstrap agrupado por jornada** (`_p5_por_dia`): cada jornada entra o no
+  entra en bloque, que es como se comporta de verdad. Los tres «viables» de
+  arriba pasan a p5 −75 %, −49 % y −88 %.
+- **Puerta de muestra** (`DIAS_MINIMOS = 30`): una configuración armada sobre
+  menos de treinta jornadas distintas sale como `sin_muestra`, salga el ROI que
+  salga. Un ROI medido sobre cuatro jornadas no es un ROI.
+
+Con las dos, el veredicto de las veinte configuraciones es **`todas_negativas`**
+en la ventana de 6 meses y también en la de 24.
+
+---
+
+### 3. Un hallazgo que sí se sostiene: las patas de un día NO son independientes
+
+En todas las configuraciones bien muestreadas, **el acierto real supera al
+producto de las probabilidades**, y la brecha crece con el número de patas:
+
+```
+config                    producto    real
+ 4 patas 1,10-1,30         29,5 %    43,2 %
+ 6 patas 1,10-1,30         16,8 %    29,9 %
+ 4 patas 1,30-1,50         20,6 %    22,1 %
+13 patas 1,10-1,80          0,43 %    0,18 %
+```
+
+O sea que la cuenta del usuario —0,65¹³ ≈ 0,4 %— **se queda corta** para las
+combinaciones de pocas patas: hay días en los que los favoritos ganan en bloque
+y días en los que caen en bloque. Eso sube la probabilidad de acertar una
+combinada corta y también la de perderla entera. **No cambia el signo del ROI**,
+porque el precio ya lo recoge; pero explica por qué un parlay largo se siente
+más alcanzable de lo que dice la multiplicación.
+
+---
+
+### 4. Qué se puede medir y qué no, y por qué importa aquí
+
+Sólo hay cuota de cierre guardada para **dos mercados**: el 1X2 y el total de
+2,5 goles. Con eso se midió todo lo anterior.
+
+**«Más de 1,5» no tiene precio en el histórico**, y era *cuatro de las trece
+patas* del parlay ganador. Su probabilidad está (`p_over_1.5`) y su resultado
+también, así que se puede medir su acierto, pero **su ROI no se puede calcular
+sin inventar un precio, y eso no se hace**. Lo mismo con 3,5, Ambos Marcan y
+Doble Oportunidad: el modelo los publica, la casa los cotiza en vivo, y el
+histórico no guardó su precio.
+
+Tampoco se modela el **Pago Anticipado** de Playdoit, que el usuario nombró en
+dos de sus patas: sube el valor real de un «Gana X» y no está en ningún dato.
+Lo medido es el caso sin PA, que es el peor caso.
+
+---
+
+### 5. Lo que la sección ofrece, y las tres decisiones que la acotan
+
+Las patas salen del **tablero real de Playdoit** (`mercados_playdoit`), que
+trae la escalera entera de goles con su precio. Coste medido: **0,01 s por
+partido con la caché caliente** (42 partidos en 0,5 s); la caché de tableros
+vive 6 h en disco, así que la primera visita del día paga una petición por
+partido y por eso hay tope y barra de progreso. La pantalla es opt-in: nada de
+esto entra en el barrido.
+
+**5.1 — Fuera 0,5 y 4,5 de la escalera de goles.** Medido en el barrido del
+2026-09-16: las patas mejor puntuadas eran todas «Menos de 4,5» al 92-97 % con
+EV aparente de **+10 % a +19 %** — la firma exacta de `EV_SOSPECHOSO`, el
+modelo equivocándose y no la casa regalando. Las colas de una Poisson son donde
+peor se porta un modelo de goles, y el único punto de la escalera con error de
+calibración medido es el 2,5. Quedan 1,5 / 2,5 / 3,5, que es lo que el usuario
+usó de verdad.
+
+**5.2 — Fuera los córners**, que el encargo permitía. Por lo que este proyecto
+ya tiene medido en `corners_ui`: el modelo **ordena** bien (correlación +0,81
+con la línea de la casa) pero su **nivel** va ~1 córner alto. Elegir patas por
+probabilidad con el nivel sesgado es elegir sistemáticamente el lado equivocado,
+y en un parlay eso se paga N veces. Es cambiar una constante el día que el
+nivel esté validado.
+
+**5.3 — El filtro de calibración tiene tres niveles y no uno.** El encargo
+pedía «liga con ECE < 0,05 en ESE mercado, las no medidas fuera». Al pie de la
+letra, el 2026-09-16 dejaba la lista en **cero patas**: sólo hay medición para
+el 1X2 y el 2,5, y las patas del día eran «Menos de 3,5» y «Más de 1,5». Una
+pantalla vacía no es más rigurosa, es inservible. Así que la regla literal se
+conserva como nivel `mercado` —y la pantalla dice cuántas patas aparta— y el
+nivel por defecto exige que la **competición** esté bien calibrada, que es lo
+que la regla perseguía. Cada pata dice si su mercado está medido o no.
+
+El ECE por competición **no sale de `confianza_mercado.py`**, y no por capricho:
+ese módulo mide córners, tarjetas y remates, no goles ni 1X2. Se calcula en
+`validar_sonadora.py` del mismo ledger, sobre 24 meses (a 6 meses cada liga
+aporta 120-280 filas y sólo 3 de 31 quedaban bajo 0,05 — no porque el modelo
+sea malo en las otras 28, sino porque con esa muestra el ECE no distingue). Con
+24 meses: **42 competiciones medidas, 16 con todos sus mercados por debajo de
+0,05**.
+
+---
+
+### 6. Draftea: se sondeó y hoy no hay puerta
+
+El usuario apuesta en tres casas. `CASAS_PRIORITARIAS` pasa a
+`('Playdoit', 'Novibet', 'Draftea')`, pero **ninguna fuente la alimenta**:
+
+```
+Flashscore (la puerta de Novibet) ..  sus bundles JS no la nombran; sí nombran
+                                      Novibet, Winpot, Caliente y Sportium
+Altenar (la puerta de Playdoit) ....  400 en cinco `integration` probadas,
+                                      igual que novibet2 en la v192
+draftea.mx .........................  200, pero es un Webflow de marketing con
+                                      Cloudflare Turnstile; el producto es una
+                                      app móvil
+api.draftea.com ....................  existe y contesta {"message":"Not Found"}
+                                      en todas las rutas probadas: hay pasarela,
+                                      no hay catálogo público
+```
+
+Se deja el nombre puesto porque no cuesta nada y deja la fontanería lista: en
+cuanto una fuente publique un precio etiquetado «Draftea», el guardia de casas
+lo acepta sin tocar una línea. **Adivinar rutas de un API privado no es una
+puerta legítima y no se hace** — misma regla que con Novibet en la v192, que
+acabó encontrando la puerta buena por otro lado.
+
+---
+
+### 7. Lo que queda abierto
+
+1. **«Más de 1,5» sin ROI medido**, y es el mercado que el usuario más usa.
+   Se arregla capturando su precio a diario, como ya hace `snapshots_corners`
+   con los córners desde la v159. Con unas semanas de fotos, su ROI se puede
+   medir y la Soñadora dejaría de tener un hueco justo en su mercado estrella.
+2. **El Pago Anticipado no se modela.** Cambia el valor de las patas de «Gana
+   X» y no está en ningún dato.
+3. **La correlación entre patas del mismo día está medida pero no usada.** Hoy
+   la pantalla enseña el producto de probabilidades y avisa de que se queda
+   corto; se podría estimar la conjunta de verdad con la dispersión por jornada.
+4. **Draftea**, cuando aparezca una puerta.

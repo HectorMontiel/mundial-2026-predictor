@@ -101,7 +101,34 @@ DEPORTES = {'futbol': 29, 'tenis': 33, 'mlb': 3, 'nba': 4, 'nfl': 15}
 #
 # `CASA_PRIORITARIA` se conserva porque hay código y tests que la leen; es la
 # primera de la lista.
-CASAS_PRIORITARIAS = ('Playdoit', 'Novibet')
+# Las casas donde el usuario puede apostar de verdad. De aquí sale el precio
+# con el que se calcula el EV, así que no es cosmético: una cuota de una casa
+# que no está en esta lista no es una oferta, es una referencia.
+#
+# v197 — DRAFTEA ENTRA EN LA LISTA Y HOY NO LA ALIMENTA NINGUNA FUENTE.
+#
+# El usuario apuesta en tres: Playdoit, Novibet y Draftea. Las dos primeras
+# tienen puerta —Altenar y el comparador de Flashscore—. La tercera se sondeó
+# el 2026-09-16 y NO la tiene:
+#
+#     Flashscore (la puerta de Novibet) ...  sus bundles no la nombran; sí
+#                                            nombran Novibet, Winpot, Caliente
+#                                            y Sportium
+#     Altenar (la puerta de Playdoit) ....   400 en cinco `integration`
+#                                            probadas, igual que novibet2
+#     draftea.mx .........................   200, pero es un Webflow de
+#                                            marketing con Cloudflare Turnstile;
+#                                            el producto es una app móvil
+#     api.draftea.com ....................   existe y contesta
+#                                            {"message":"Not Found"} en todas
+#                                            las rutas probadas: hay pasarela,
+#                                            no hay catálogo público
+#
+# Se deja el nombre puesto porque no cuesta nada y deja la fontanería lista: en
+# cuanto una fuente publique un precio etiquetado «Draftea», el guardia de
+# casas lo aceptará sin tocar una línea. Adivinar rutas de un API privado no es
+# una puerta legítima y no se hace.
+CASAS_PRIORITARIAS = ('Playdoit', 'Novibet', 'Draftea')
 CASA_PRIORITARIA = CASAS_PRIORITARIAS[0]
 
 CACHE_DIR = 'cuotas_cache'

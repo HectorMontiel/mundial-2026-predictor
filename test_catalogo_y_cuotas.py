@@ -1801,11 +1801,15 @@ def test_playdoit_multideporte():
 def test_precio_accionable():
     """v77: el EV se calcula con el precio que el usuario PUEDE tomar."""
     import cuotas_multi as cm
-    # v193 — el usuario apuesta en DOS casas. El precio tomable es el mejor de
-    # las dos, no el de una: con una sola se calculaba el EV con el peor y se
-    # perdian apuestas jugables en la otra cuenta.
-    check(cm.CASAS_PRIORITARIAS == ('Playdoit', 'Novibet'),
-          "las casas del usuario son Playdoit y Novibet")
+    # v193 — el usuario apuesta en VARIAS casas. El precio tomable es el mejor
+    # de las suyas, no el de una: con una sola se calculaba el EV con el peor y
+    # se perdian apuestas jugables en la otra cuenta.
+    # v197 — y son TRES: se suma Draftea. Hoy ninguna fuente la alimenta (ver
+    # el sondeo en `cuotas_multi`), pero el nombre puesto deja la fontaneria
+    # lista y no cambia nada mientras no llegue un precio con esa etiqueta.
+    check(set(cm.CASAS_PRIORITARIAS) == {'Playdoit', 'Novibet', 'Draftea'},
+          f"las casas del usuario son Playdoit, Novibet y Draftea "
+          f"(ahora: {cm.CASAS_PRIORITARIAS})")
     check(cm.CASA_PRIORITARIA == cm.CASAS_PRIORITARIAS[0],
           "y la constante antigua sigue apuntando a la primera")
     c = {'casas': {'Pinnacle': {'home': 2.0, 'away': 2.0},
@@ -12722,8 +12726,8 @@ def test_una_apuesta_se_coloca_en_tus_casas_o_no_es_una_apuesta():
     import cuotas_multi as cm
     import alpha_finder as af
 
-    check(set(cm.CASAS_PRIORITARIAS) == {'Playdoit', 'Novibet'},
-          f'las casas del usuario son Playdoit y Novibet '
+    check(set(cm.CASAS_PRIORITARIAS) == {'Playdoit', 'Novibet', 'Draftea'},
+          f'las casas del usuario son Playdoit, Novibet y Draftea '
           f'(ahora: {cm.CASAS_PRIORITARIAS})')
 
     solo_mercado = {'mejor': {'home': {'cuota': 2.40, 'casa': 'Pinnacle'}},
@@ -13202,6 +13206,220 @@ def test_el_contexto_nfl_no_se_despliega_sin_muestra():
           'y que no hay feed de dinero sharp')
 
 
+def test_la_sonadora_no_contamina_lo_que_el_sistema_recomienda():
+    """
+    La Sonadora es entretenimiento declarado con rendimiento medido NEGATIVO.
+    Lo unico que no puede pasar es que se cuele en lo que el sistema si
+    recomienda: la pantalla del dia, el envio de Telegram o los pesos del
+    clasificador.
+    """
+    import inspect
+    import sonadora_motor as sm
+    import sonadora_ui as sui
+
+    # se busca el USO, no la palabra: los dos modulos explican en su cabecera
+    # que NO comparten pesos con `clasificador`, y buscar la cadena a secas se
+    # cazaba a si misma
+    import ast
+    usados = set()
+    for mod in (sm, sui):
+        arbol = ast.parse(inspect.getsource(mod))
+        for nodo in ast.walk(arbol):
+            if isinstance(nodo, ast.Import):
+                usados.update(a.name.split('.')[0] for a in nodo.names)
+            elif isinstance(nodo, ast.ImportFrom) and nodo.module:
+                usados.add(nodo.module.split('.')[0])
+    for prohibido in ('clasificador', 'bot_telegram', 'alpha_finder',
+                      'guardia_barrido'):
+        check(prohibido not in usados,
+              f'la Sonadora no importa {prohibido} (importa: {sorted(usados)})')
+
+    # y al reves: el envio del dia completo no la menciona
+    import bot_telegram as bt
+    tg = (inspect.getsource(bt.texto_dia_completo)
+          + inspect.getsource(bt.resumen_dia_completo))
+    check('sonadora' not in tg.lower(),
+          'el mensaje de Telegram no lleva nada de la Sonadora')
+
+    # la vista existe y es SUYA, separada de «Apuestas del Dia»
+    with open('dashboard_ui.py', encoding='utf-8') as fh:
+        panel = fh.read()
+    check("'🎰 Armar Soñadora': 'sonadora'" in panel,
+          'la Sonadora tiene su propia entrada en el selector de competicion')
+    check("if _clave_comp == 'sonadora':" in panel,
+          'y su propio despacho')
+    check('def render_sonadora' in panel, 'y su funcion de render')
+    check('barrido_universal()' in inspect.getsource(sm) is False
+          or 'apuestas_del_dia_universal' not in inspect.getsource(sm),
+          'el motor no lanza un barrido por su cuenta')
+
+
+def test_la_sonadora_solo_ofrece_precios_de_tus_casas():
+    """
+    Una pata con precio de una casa donde no puedes apostar no es una pata: es
+    una referencia. El usuario apuesta en Playdoit, Novibet y Draftea.
+    """
+    import cuotas_multi as cm
+    import sonadora_motor as sm
+
+    check(set(cm.CASAS_PRIORITARIAS) == {'Playdoit', 'Novibet', 'Draftea'},
+          f'las tres casas del usuario estan en la lista '
+          f'(ahora: {cm.CASAS_PRIORITARIAS})')
+
+    # las patas de futbol salen del tablero de Playdoit, asi que su casa es
+    # Playdoit por construccion; las de los otros deportes vienen del barrido
+    # ya pasadas por el guardia de casas
+    import inspect
+    fuente = inspect.getsource(sm.patas_de_fila)
+    check("m.get('casa')" in fuente,
+          'las patas de los otros deportes exigen que la fila traiga casa')
+    fuente2 = inspect.getsource(sm._pata)
+    check("'casa': 'Playdoit'" in fuente2,
+          'las patas del tablero se etiquetan con la casa de la que salen')
+
+
+def test_la_sonadora_no_inventa_lineas_ni_mercados_prohibidos():
+    """
+    Solo entran mercados que la casa publica de verdad, y de los permitidos.
+    Handicaps, marcador exacto y mercados de jugador se quedan fuera: un
+    parlay de patas «seguras» con un handicap dentro no es lo que se midio.
+    """
+    import sonadora_motor as sm
+
+    partido = {'deporte': 'Fútbol', 'partido': 'Aaa FC vs Bbb FC',
+               'liga': 'Liga', 'clave_liga': 'laliga', 'hora': '12:00',
+               'board': {'Gana Aaa FC': 0.62, 'Empate': 0.22,
+                         'Gana Bbb FC': 0.16,
+                         'Ambos marcan: Sí': 0.55, 'Ambos marcan: No': 0.45},
+               # se incluye la de 4,5 A PROPOSITO: sin probabilidad de
+               # modelo para esa linea, el filtro de LINEAS_GOLES nunca
+               # llegaria a ejercitarse y el check no podria fallar
+               'goles_lineas': {'1.5': 0.80, '2.5': 0.58, '3.5': 0.33,
+                                '4.5': 0.15}}
+    det = {'casa_home': 'Aaa FC', 'casa_away': 'Bbb FC', 'mercados': [
+        {'tipo': 18, 'nombre': 'Total', 'sv': '2.5', 'selecciones': [
+            {'nombre': 'Más de 1.5', 'cuota': 1.20},
+            {'nombre': 'Más de 2.5', 'cuota': 1.70},
+            {'nombre': 'Más de 2.75', 'cuota': 1.85},   # línea de cuartos
+            {'nombre': 'Menos de 3.5', 'cuota': 1.35},
+            {'nombre': 'Más de 4.5', 'cuota': 4.50}]},   # línea excluida
+        {'tipo': 1, 'nombre': 'Resultado Final (Tiempo Regular)',
+         'selecciones': [{'nombre': 'Aaa FC', 'cuota': 1.55},
+                         {'nombre': 'Empate', 'cuota': 4.0},
+                         {'nombre': 'Bbb FC', 'cuota': 6.0}]},
+        {'tipo': 29, 'nombre': 'Ambos equipos marcan', 'selecciones': [
+            {'nombre': 'Sí', 'cuota': 1.75}, {'nombre': 'No', 'cuota': 2.05}]},
+        # los prohibidos, que NO deben salir
+        # la seleccion se llama IGUAL que el equipo local para que lo unico
+        # que pueda dejarla fuera sea el nombre del mercado: si el filtro se
+        # afloja, esta pata entra y el check se cae
+        {'tipo': 9, 'nombre': 'Hándicap Asiatico', 'sv': '-0.5',
+         'selecciones': [{'nombre': 'Aaa FC', 'cuota': 1.95},
+                         {'nombre': 'Aaa FC -0.5', 'cuota': 1.55}]},
+        {'tipo': 40, 'nombre': 'Marcador exacto', 'selecciones': [
+            {'nombre': '1:0', 'cuota': 7.0}]},
+        {'tipo': 700, 'nombre': 'Goleador en cualquier momento',
+         'selecciones': [{'nombre': 'Jugador X', 'cuota': 3.5}]},
+    ]}
+    patas = sm.patas_del_partido(partido, det)
+    etiquetas = {q['etiqueta'] for q in patas}
+    check('Más de 1.5' in etiquetas and 'Más de 2.5' in etiquetas,
+          f'entran las lineas de goles que el modelo publica ({etiquetas})')
+    check('Más de 2.75' not in etiquetas,
+          'NO entra la linea de cuartos: el modelo no publica esa probabilidad '
+          'y cruzarla con la de 2,5 seria comparar dos sucesos distintos')
+    check('Más de 4.5' not in etiquetas,
+          'NO entra la de 4,5: es cola de Poisson y no esta medida')
+    for prohibido in ('Aaa FC -0.5', '1:0', 'Jugador X'):
+        check(prohibido not in etiquetas,
+              f'NO entra el mercado prohibido «{prohibido}»')
+    # el handicap lleva una seleccion que se llama como el local: lo unico que
+    # la deja fuera es que su MERCADO no esta en la lista permitida
+    _ganas = [q for q in patas if q['etiqueta'] == 'Gana Aaa FC']
+    check(len(_ganas) == 1 and abs(_ganas[0]['cuota'] - 1.55) < 1e-9,
+          f'«Gana Aaa FC» sale una vez y con el precio del 1X2 (1,55), no con '
+          f'el del handicap (1,95): {[(q["etiqueta"], q["cuota"]) for q in patas]}')
+    check('Empate' not in etiquetas,
+          'el empate nunca es una pata segura y no se ofrece')
+    check(any(q['mercado'] == 'BTTS' for q in patas),
+          'entra Ambos Marcan, que si esta permitido')
+    # ninguna pata sin precio real
+    check(all(q['cuota'] for q in patas),
+          'ninguna pata sale sin cuota de la casa')
+
+
+def test_el_veredicto_de_la_sonadora_es_el_medido():
+    """
+    Se midieron las veinte configuraciones del encargo. Este test vigila que lo
+    que enseña la pantalla sea ESO y no otra cosa, y que las configuraciones
+    armadas sobre cuatro jornadas no se vendan como estrategia.
+    """
+    import json
+    import os
+    import sonadora_motor as sm
+
+    check(os.path.exists('sonadora_historico.json'),
+          'la validacion historica esta escrita y se puede auditar')
+    with open('sonadora_historico.json', encoding='utf-8') as fh:
+        d = json.load(fh)
+    check(d.get('medido') is True, 'el fichero dice que se midio')
+    cfgs = d.get('configuraciones') or []
+    check(len(cfgs) >= 15,
+          f'se midieron las configuraciones del encargo ({len(cfgs)})')
+
+    # la puerta de muestra: nada con pocas jornadas puede salir «viable»
+    import validar_sonadora as vs
+    malas = [c for c in cfgs
+             if c.get('veredicto') == 'viable'
+             and (c.get('dias_con_suficientes_partidos') or 0)
+             < vs.DIAS_MINIMOS]
+    check(not malas,
+          f'ninguna configuracion con menos de {vs.DIAS_MINIMOS} jornadas se '
+          f'declara viable ({[(c["n_patas"], c["rango_cuota"]) for c in malas]})')
+
+    # el p5 que decide es el agrupado por jornada
+    import inspect
+    check('p5_por_dia' in inspect.getsource(vs._veredicto_config),
+          'el veredicto usa el percentil remuestreando JORNADAS')
+
+    # y la pata suelta, que es de donde cuelga todo
+    ps = d.get('pata_suelta') or {}
+    check((ps.get('n') or 0) >= 500,
+          f'la pata suelta se midio sobre muestra suficiente (n={ps.get("n")})')
+    check(ps.get('roi') is not None, 'y tiene su ROI medido')
+    # el ROI esperado de un parlay es el de la pata elevado a N
+    esperado = sm._roi_esperado(13)
+    check(esperado is not None and esperado < ps['roi'],
+          f'trece patas empeoran la expectativa de una sola '
+          f'({esperado} frente a {ps.get("roi")})')
+
+
+def test_la_sonadora_avisa_antes_de_ensenar_nada():
+    """
+    La advertencia va ARRIBA y lleva el numero dentro. Al pie no se lee: es la
+    misma leccion que puso la alarma de datos al principio del mensaje diario.
+    """
+    import inspect
+    import sonadora_ui as sui
+
+    fuente = inspect.getsource(sui.render)
+    i_aviso = fuente.find('st.error(AVISO)')
+    i_patas = fuente.find('Patas disponibles')
+    check(i_aviso > 0, 'la pantalla pinta la advertencia')
+    check(i_patas > 0 and i_aviso < i_patas,
+          'y la pinta ANTES de la lista de patas')
+    check('permitirte perder' in sui.AVISO,
+          'la advertencia dice que solo se use dinero que se pueda perder')
+    check('5,4' in sui.AVISO or '5.4' in sui.AVISO,
+          'y lleva el numero medido dentro, no una formula vacia')
+    check('son_entendido' in fuente,
+          'hay que marcar «entiendo el riesgo» antes de confirmar')
+    check('disabled=not entendido' in fuente,
+          'y el boton de confirmar esta bloqueado hasta marcarlo')
+    check('roi_esperado_medido' in fuente,
+          'el parlay ensena la expectativa MEDIDA, no solo el premio')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -13494,6 +13712,13 @@ if __name__ == '__main__':
     test_el_envio_del_dia_completo_no_lanza_un_segundo_barrido()
     test_el_dia_completo_va_como_adjunto_y_no_como_cien_mensajes()
     test_el_contexto_nfl_no_se_despliega_sin_muestra()
+
+    print(chr(10) + '=== v197: la Sonadora, medida y separada ===')
+    test_la_sonadora_no_contamina_lo_que_el_sistema_recomienda()
+    test_la_sonadora_solo_ofrece_precios_de_tus_casas()
+    test_la_sonadora_no_inventa_lineas_ni_mercados_prohibidos()
+    test_el_veredicto_de_la_sonadora_es_el_medido()
+    test_la_sonadora_avisa_antes_de_ensenar_nada()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

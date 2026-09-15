@@ -4363,6 +4363,11 @@ def render_liga_club(clave: str, nombre_liga: str):
 
 COMPETENCIAS = {'🌍 Partidos Internacionales': 'mundial',
                 '💎 Apuestas del Día': 'alpha',
+                # v197 — la Soñadora va SEPARADA de «Apuestas del Día» a
+                # propósito: no es una recomendación del sistema, es una
+                # herramienta de entretenimiento con el rendimiento medido en
+                # negativo. Mezclarlas sería darle el aval que no tiene.
+                '🎰 Armar Soñadora': 'sonadora',
                 '⚾ MLB (béisbol)': 'mlb_deporte',
                 '⚾ KBO (béisbol coreano)': 'kbo_deporte',       # v97
                 '🏀 NBA (baloncesto)': 'nba_deporte',
@@ -4549,7 +4554,8 @@ PAIS_COMPETICIONES = _mapa_paises(COMPETENCIAS)
 # Aquí se cae la entrada del menú en vez de la aplicación. `_NO_SON_LIGAS` son
 # las vistas que no salen del catálogo y por eso no se comprueban.
 _NO_SON_LIGAS = {'mundial', 'alpha', 'mlb_deporte', 'kbo_deporte',
-                 'nba_deporte', 'tennis_deporte', 'nfl_deporte'}   # v131
+                 'nba_deporte', 'tennis_deporte', 'nfl_deporte',   # v131
+                 'sonadora'}                                       # v197
 try:
     import logging as _log_menu
 
@@ -8184,6 +8190,30 @@ def render_tennis():
     _panel_ev_tenis()
 
 
+def render_sonadora():
+    """v197 — la pantalla de la Soñadora.
+
+    Usa el MISMO barrido guardado que «Apuestas del Día» (`barrido_universal`
+    pasa por el guardia de proceso), así que abrir esta pestaña no lanza un
+    segundo barrido: dos dentro del proceso de Streamlit suben el pico de
+    memoria de 1.297 MB a 2.172 MB y matan el contenedor.
+    """
+    import sonadora_ui as _sui
+    c1, c2 = st.columns([3, 1])
+    with c2:
+        _dia_sel = st.selectbox(
+            '📅 Día', ('hoy', 'mañana'), key='son_dia',
+            help='Los partidos de mañana suelen tener menos mercados abiertos.')
+    with st.spinner('🔍 Buscando los partidos del día…'):
+        _r = barrido_universal()
+    try:
+        import mercados_dia as _md
+        _dia = _md.dia_cdmx(0 if _dia_sel == 'hoy' else 1)
+    except Exception:
+        _dia = None
+    _sui.render(st, _r, _dia)
+
+
 _clave_comp = COMPETENCIAS[competencia_sel]
 # v141 — VOLVER A APUESTAS DEL DÍA, SIN EL BOTÓN DEL NAVEGADOR.
 #
@@ -8223,6 +8253,9 @@ if _clave_comp == 'nfl_deporte':                          # v131
     st.stop()
 if _clave_comp == 'alpha':
     render_alpha_finder()
+    st.stop()
+if _clave_comp == 'sonadora':
+    render_sonadora()
     st.stop()
 if _clave_comp != 'mundial':
     render_liga_club(_clave_comp, NOMBRES_LIGAS[_clave_comp])

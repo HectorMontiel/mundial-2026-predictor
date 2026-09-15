@@ -1,0 +1,973 @@
+{
+ "fecha_validacion": "2026-09-15",
+ "periodo": "2026-03-17 a 2026-09-15",
+ "meses": 6,
+ "n_patas_con_cuota": 9316,
+ "n_partidos": 3040,
+ "n_patas_tras_filtro": 1381,
+ "mercados_medidos": [
+  "1X2",
+  "Goles 2.5"
+ ],
+ "pata_suelta": {
+  "n": 1381,
+  "acierto": 0.6293,
+  "prob_media": 0.6542,
+  "cuota_media": 1.5227,
+  "roi": -0.0538,
+  "p5": -0.0866,
+  "ece": 0.0327
+ },
+ "pata_por_mercado": {
+  "1X2": {
+   "n": 675,
+   "acierto": 0.6607,
+   "prob_media": 0.6504,
+   "cuota_media": 1.4557,
+   "roi": -0.0497,
+   "p5": -0.0931,
+   "ece": 0.0527
+  },
+  "Goles 2.5": {
+   "n": 706,
+   "acierto": 0.5992,
+   "prob_media": 0.6578,
+   "cuota_media": 1.5868,
+   "roi": -0.0578,
+   "p5": -0.1046,
+   "ece": 0.0586
+  }
+ },
+ "pata_por_banda": {
+  "1.1-1.3": {
+   "n": 173,
+   "acierto": 0.7803,
+   "prob_media": 0.7146,
+   "cuota_media": 1.234,
+   "roi": -0.0381,
+   "p5": -0.1044,
+   "ece": 0.0924
+  },
+  "1.3-1.5": {
+   "n": 469,
+   "acierto": 0.661,
+   "prob_media": 0.6634,
+   "cuota_media": 1.4095,
+   "roi": -0.0703,
+   "p5": -0.1227,
+   "ece": 0.0554
+  },
+  "1.5-1.8": {
+   "n": 805,
+   "acierto": 0.5814,
+   "prob_media": 0.6373,
+   "cuota_media": 1.6406,
+   "roi": -0.0492,
+   "p5": -0.0957,
+   "ece": 0.0559
+  },
+  "1.1-1.8": {
+   "n": 1381,
+   "acierto": 0.6293,
+   "prob_media": 0.6542,
+   "cuota_media": 1.5227,
+   "roi": -0.0538,
+   "p5": -0.0866,
+   "ece": 0.0327
+  }
+ },
+ "ece_por_liga": {
+  "argentina": {
+   "1X2": {
+    "n": 1928,
+    "ece": 0.0175,
+    "acierto": 0.3377,
+    "prob_media": 0.3465
+   }
+  },
+  "bel_pro_league": {
+   "1X2": {
+    "n": 1130,
+    "ece": 0.0217,
+    "acierto": 0.3628,
+    "prob_media": 0.3717
+   },
+   "Goles 2.5": {
+    "n": 1140,
+    "ece": 0.1088,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "bol_division": {
+   "1X2": {
+    "n": 418,
+    "ece": 0.0461,
+    "acierto": 0.4115,
+    "prob_media": 0.386
+   }
+  },
+  "bra_serie_b": {
+   "1X2": {
+    "n": 254,
+    "ece": 0.0838,
+    "acierto": 0.4252,
+    "prob_media": 0.3508
+   }
+  },
+  "brasil": {
+   "1X2": {
+    "n": 1416,
+    "ece": 0.0313,
+    "acierto": 0.3651,
+    "prob_media": 0.3633
+   }
+  },
+  "bundesliga": {
+   "1X2": {
+    "n": 1166,
+    "ece": 0.0394,
+    "acierto": 0.3748,
+    "prob_media": 0.377
+   },
+   "Goles 2.5": {
+    "n": 1166,
+    "ece": 0.1018,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "chi_primera": {
+   "1X2": {
+    "n": 108,
+    "ece": 0.0912,
+    "acierto": 0.4537,
+    "prob_media": 0.3688
+   }
+  },
+  "china": {
+   "1X2": {
+    "n": 852,
+    "ece": 0.0439,
+    "acierto": 0.3732,
+    "prob_media": 0.3818
+   }
+  },
+  "dinamarca": {
+   "1X2": {
+    "n": 686,
+    "ece": 0.0357,
+    "acierto": 0.3644,
+    "prob_media": 0.3722
+   }
+  },
+  "eng_championship": {
+   "1X2": {
+    "n": 2078,
+    "ece": 0.017,
+    "acierto": 0.3638,
+    "prob_media": 0.3743
+   },
+   "Goles 2.5": {
+    "n": 2078,
+    "ece": 0.0992,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "eng_fa_cup": {
+   "1X2": {
+    "n": 148,
+    "ece": 0.1012,
+    "acierto": 0.5,
+    "prob_media": 0.4316
+   }
+  },
+  "eng_league_one": {
+   "1X2": {
+    "n": 2068,
+    "ece": 0.0227,
+    "acierto": 0.3767,
+    "prob_media": 0.3732
+   },
+   "Goles 2.5": {
+    "n": 2068,
+    "ece": 0.0818,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "eng_league_two": {
+   "1X2": {
+    "n": 2050,
+    "ece": 0.0229,
+    "acierto": 0.3634,
+    "prob_media": 0.3605
+   },
+   "Goles 2.5": {
+    "n": 2050,
+    "ece": 0.1178,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "eng_national": {
+   "1X2": {
+    "n": 1950,
+    "ece": 0.0191,
+    "acierto": 0.3723,
+    "prob_media": 0.3737
+   },
+   "Goles 2.5": {
+    "n": 1972,
+    "ece": 0.0629,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "eredivisie": {
+   "1X2": {
+    "n": 1142,
+    "ece": 0.0254,
+    "acierto": 0.3722,
+    "prob_media": 0.3727
+   },
+   "Goles 2.5": {
+    "n": 1142,
+    "ece": 0.0791,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "esp_hypermotion": {
+   "1X2": {
+    "n": 1738,
+    "ece": 0.013,
+    "acierto": 0.3677,
+    "prob_media": 0.3558
+   },
+   "Goles 2.5": {
+    "n": 1738,
+    "ece": 0.0631,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "finlandia": {
+   "1X2": {
+    "n": 618,
+    "ece": 0.0358,
+    "acierto": 0.377,
+    "prob_media": 0.385
+   }
+  },
+  "fra_ligue2": {
+   "1X2": {
+    "n": 1130,
+    "ece": 0.032,
+    "acierto": 0.3628,
+    "prob_media": 0.3674
+   },
+   "Goles 2.5": {
+    "n": 1130,
+    "ece": 0.0962,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "ger_bundesliga2": {
+   "1X2": {
+    "n": 1134,
+    "ece": 0.0195,
+    "acierto": 0.3695,
+    "prob_media": 0.3732
+   },
+   "Goles 2.5": {
+    "n": 1134,
+    "ece": 0.1142,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "gre_super_league": {
+   "1X2": {
+    "n": 870,
+    "ece": 0.0225,
+    "acierto": 0.3759,
+    "prob_media": 0.3765
+   },
+   "Goles 2.5": {
+    "n": 886,
+    "ece": 0.1087,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "irlanda": {
+   "1X2": {
+    "n": 680,
+    "ece": 0.0369,
+    "acierto": 0.3485,
+    "prob_media": 0.3683
+   }
+  },
+  "ita_serie_b": {
+   "1X2": {
+    "n": 1400,
+    "ece": 0.0269,
+    "acierto": 0.3386,
+    "prob_media": 0.3358
+   },
+   "Goles 2.5": {
+    "n": 1400,
+    "ece": 0.1126,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "jpn_j1": {
+   "1X2": {
+    "n": 928,
+    "ece": 0.0229,
+    "acierto": 0.3696,
+    "prob_media": 0.3734
+   }
+  },
+  "laliga": {
+   "1X2": {
+    "n": 1426,
+    "ece": 0.0277,
+    "acierto": 0.3766,
+    "prob_media": 0.3678
+   },
+   "Goles 2.5": {
+    "n": 1426,
+    "ece": 0.0926,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "liga_mx": {
+   "1X2": {
+    "n": 1258,
+    "ece": 0.0225,
+    "acierto": 0.3792,
+    "prob_media": 0.3743
+   }
+  },
+  "ligue_1": {
+   "1X2": {
+    "n": 1156,
+    "ece": 0.0264,
+    "acierto": 0.3858,
+    "prob_media": 0.3793
+   },
+   "Goles 2.5": {
+    "n": 1156,
+    "ece": 0.1012,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "mls": {
+   "1X2": {
+    "n": 1836,
+    "ece": 0.0212,
+    "acierto": 0.3807,
+    "prob_media": 0.3734
+   }
+  },
+  "ned_eerste": {
+   "1X2": {
+    "n": 960,
+    "ece": 0.0322,
+    "acierto": 0.3979,
+    "prob_media": 0.3878
+   }
+  },
+  "noruega": {
+   "1X2": {
+    "n": 846,
+    "ece": 0.0327,
+    "acierto": 0.3995,
+    "prob_media": 0.38
+   }
+  },
+  "par_division": {
+   "1X2": {
+    "n": 142,
+    "ece": 0.0763,
+    "acierto": 0.3239,
+    "prob_media": 0.3618
+   }
+  },
+  "per_liga1": {
+   "1X2": {
+    "n": 107,
+    "ece": 0.0569,
+    "acierto": 0.3832,
+    "prob_media": 0.3756
+   }
+  },
+  "polonia": {
+   "1X2": {
+    "n": 1108,
+    "ece": 0.0237,
+    "acierto": 0.3682,
+    "prob_media": 0.3681
+   }
+  },
+  "premier": {
+   "1X2": {
+    "n": 1094,
+    "ece": 0.0224,
+    "acierto": 0.3748,
+    "prob_media": 0.3768
+   },
+   "Goles 2.5": {
+    "n": 1094,
+    "ece": 0.1326,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "primeira": {
+   "1X2": {
+    "n": 1136,
+    "ece": 0.0337,
+    "acierto": 0.3644,
+    "prob_media": 0.3858
+   },
+   "Goles 2.5": {
+    "n": 1136,
+    "ece": 0.065,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "rumania": {
+   "1X2": {
+    "n": 1154,
+    "ece": 0.0161,
+    "acierto": 0.3562,
+    "prob_media": 0.3626
+   }
+  },
+  "rus_premier": {
+   "1X2": {
+    "n": 852,
+    "ece": 0.0348,
+    "acierto": 0.3603,
+    "prob_media": 0.3715
+   }
+  },
+  "sco_championship": {
+   "1X2": {
+    "n": 658,
+    "ece": 0.0387,
+    "acierto": 0.3541,
+    "prob_media": 0.351
+   },
+   "Goles 2.5": {
+    "n": 658,
+    "ece": 0.1279,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "sco_premiership": {
+   "1X2": {
+    "n": 848,
+    "ece": 0.0338,
+    "acierto": 0.3821,
+    "prob_media": 0.3729
+   },
+   "Goles 2.5": {
+    "n": 848,
+    "ece": 0.1234,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "serie_a": {
+   "1X2": {
+    "n": 1096,
+    "ece": 0.0263,
+    "acierto": 0.3695,
+    "prob_media": 0.3608
+   },
+   "Goles 2.5": {
+    "n": 1096,
+    "ece": 0.1199,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "suecia": {
+   "1X2": {
+    "n": 842,
+    "ece": 0.043,
+    "acierto": 0.3729,
+    "prob_media": 0.3673
+   }
+  },
+  "turquia": {
+   "1X2": {
+    "n": 982,
+    "ece": 0.0303,
+    "acierto": 0.3686,
+    "prob_media": 0.3759
+   },
+   "Goles 2.5": {
+    "n": 982,
+    "ece": 0.1062,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "uru_primera": {
+   "1X2": {
+    "n": 200,
+    "ece": 0.0897,
+    "acierto": 0.35,
+    "prob_media": 0.3605
+   }
+  }
+ },
+ "meses_ece": 24,
+ "configuraciones": [
+  {
+   "n_patas": 4,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 173,
+   "intentos": 10000,
+   "ganadas": 3137,
+   "hit_rate": 0.3137,
+   "hit_rate_teorico": 0.25757,
+   "multiplicador_medio": 2.31,
+   "multiplicador_mediana": 2.3,
+   "multiplicador_de_las_ganadoras": 2.3,
+   "roi_simulado": -0.28,
+   "p5": -0.2977,
+   "p5_por_dia": -0.5634,
+   "dias_con_suficientes_partidos": 18,
+   "dias_que_aportan_ganadoras": 12,
+   "roi_proyectado_desde_la_pata": -0.1439,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 4,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 469,
+   "intentos": 10000,
+   "ganadas": 1612,
+   "hit_rate": 0.1612,
+   "hit_rate_teorico": 0.19212,
+   "multiplicador_medio": 4.0,
+   "multiplicador_mediana": 4.05,
+   "multiplicador_de_las_ganadoras": 3.98,
+   "roi_simulado": -0.3578,
+   "p5": -0.3828,
+   "p5_por_dia": -0.5536,
+   "dias_con_suficientes_partidos": 32,
+   "dias_que_aportan_ganadoras": 24,
+   "roi_proyectado_desde_la_pata": -0.2529,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 4,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 805,
+   "intentos": 10000,
+   "ganadas": 1326,
+   "hit_rate": 0.1326,
+   "hit_rate_teorico": 0.16314,
+   "multiplicador_medio": 7.29,
+   "multiplicador_mediana": 7.22,
+   "multiplicador_de_las_ganadoras": 7.54,
+   "roi_simulado": -0.0008,
+   "p5": -0.0428,
+   "p5_por_dia": -0.4318,
+   "dias_con_suficientes_partidos": 40,
+   "dias_que_aportan_ganadoras": 36,
+   "roi_proyectado_desde_la_pata": -0.1827,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 4,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 1381,
+   "intentos": 10000,
+   "ganadas": 1332,
+   "hit_rate": 0.1332,
+   "hit_rate_teorico": 0.17909,
+   "multiplicador_medio": 5.43,
+   "multiplicador_mediana": 5.41,
+   "multiplicador_de_las_ganadoras": 5.48,
+   "roi_simulado": -0.2696,
+   "p5": -0.3,
+   "p5_por_dia": -0.5013,
+   "dias_con_suficientes_partidos": 52,
+   "dias_que_aportan_ganadoras": 42,
+   "roi_proyectado_desde_la_pata": -0.1984,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 173,
+   "intentos": 10000,
+   "ganadas": 2569,
+   "hit_rate": 0.2569,
+   "hit_rate_teorico": 0.1475,
+   "multiplicador_medio": 3.65,
+   "multiplicador_mediana": 3.64,
+   "multiplicador_de_las_ganadoras": 3.63,
+   "roi_simulado": -0.0677,
+   "p5": -0.0927,
+   "p5_por_dia": -0.7358,
+   "dias_con_suficientes_partidos": 10,
+   "dias_que_aportan_ganadoras": 7,
+   "roi_proyectado_desde_la_pata": -0.2079,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 469,
+   "intentos": 10000,
+   "ganadas": 845,
+   "hit_rate": 0.0845,
+   "hit_rate_teorico": 0.08692,
+   "multiplicador_medio": 7.81,
+   "multiplicador_mediana": 7.87,
+   "multiplicador_de_las_ganadoras": 7.87,
+   "roi_simulado": -0.3354,
+   "p5": -0.3714,
+   "p5_por_dia": -0.6306,
+   "dias_con_suficientes_partidos": 25,
+   "dias_que_aportan_ganadoras": 17,
+   "roi_proyectado_desde_la_pata": -0.3543,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 805,
+   "intentos": 10000,
+   "ganadas": 207,
+   "hit_rate": 0.0207,
+   "hit_rate_teorico": 0.06709,
+   "multiplicador_medio": 19.32,
+   "multiplicador_mediana": 19.02,
+   "multiplicador_de_las_ganadoras": 18.9,
+   "roi_simulado": -0.6087,
+   "p5": -0.6538,
+   "p5_por_dia": -0.7368,
+   "dias_con_suficientes_partidos": 35,
+   "dias_que_aportan_ganadoras": 23,
+   "roi_proyectado_desde_la_pata": -0.2612,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 1381,
+   "intentos": 10000,
+   "ganadas": 391,
+   "hit_rate": 0.0391,
+   "hit_rate_teorico": 0.07636,
+   "multiplicador_medio": 13.22,
+   "multiplicador_mediana": 12.88,
+   "multiplicador_de_las_ganadoras": 12.04,
+   "roi_simulado": -0.5294,
+   "p5": -0.5694,
+   "p5_por_dia": -0.6448,
+   "dias_con_suficientes_partidos": 41,
+   "dias_que_aportan_ganadoras": 33,
+   "roi_proyectado_desde_la_pata": -0.2824,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 8,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 173,
+   "intentos": 10000,
+   "ganadas": 2598,
+   "hit_rate": 0.2598,
+   "hit_rate_teorico": 0.07187,
+   "multiplicador_medio": 5.41,
+   "multiplicador_mediana": 5.5,
+   "multiplicador_de_las_ganadoras": 5.77,
+   "roi_simulado": 0.4985,
+   "p5": 0.4556,
+   "p5_por_dia": null,
+   "dias_con_suficientes_partidos": 4,
+   "dias_que_aportan_ganadoras": 2,
+   "roi_proyectado_desde_la_pata": -0.2671,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 8,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 469,
+   "intentos": 10000,
+   "ganadas": 368,
+   "hit_rate": 0.0368,
+   "hit_rate_teorico": 0.0356,
+   "multiplicador_medio": 15.88,
+   "multiplicador_mediana": 16.11,
+   "multiplicador_de_las_ganadoras": 15.73,
+   "roi_simulado": -0.421,
+   "p5": -0.4695,
+   "p5_por_dia": -0.7649,
+   "dias_con_suficientes_partidos": 21,
+   "dias_que_aportan_ganadoras": 11,
+   "roi_proyectado_desde_la_pata": -0.4419,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 8,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 805,
+   "intentos": 10000,
+   "ganadas": 57,
+   "hit_rate": 0.0057,
+   "hit_rate_teorico": 0.02733,
+   "multiplicador_medio": 52.06,
+   "multiplicador_mediana": 51.39,
+   "multiplicador_de_las_ganadoras": 49.83,
+   "roi_simulado": -0.716,
+   "p5": -0.776,
+   "p5_por_dia": -0.8474,
+   "dias_con_suficientes_partidos": 28,
+   "dias_que_aportan_ganadoras": 17,
+   "roi_proyectado_desde_la_pata": -0.3321,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 8,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 1381,
+   "intentos": 10000,
+   "ganadas": 149,
+   "hit_rate": 0.0149,
+   "hit_rate_teorico": 0.03178,
+   "multiplicador_medio": 31.44,
+   "multiplicador_mediana": 30.29,
+   "multiplicador_de_las_ganadoras": 26.14,
+   "roi_simulado": -0.6106,
+   "p5": -0.6616,
+   "p5_por_dia": -0.7398,
+   "dias_con_suficientes_partidos": 37,
+   "dias_que_aportan_ganadoras": 26,
+   "roi_proyectado_desde_la_pata": -0.3575,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 10,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 173,
+   "intentos": 10000,
+   "ganadas": 0,
+   "hit_rate": 0.0,
+   "hit_rate_teorico": 0.03571,
+   "multiplicador_medio": 8.83,
+   "multiplicador_mediana": 8.83,
+   "multiplicador_de_las_ganadoras": null,
+   "roi_simulado": -1.0,
+   "p5": -1.0,
+   "p5_por_dia": null,
+   "dias_con_suficientes_partidos": 1,
+   "dias_que_aportan_ganadoras": 0,
+   "roi_proyectado_desde_la_pata": -0.3219,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 10,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 469,
+   "intentos": 10000,
+   "ganadas": 129,
+   "hit_rate": 0.0129,
+   "hit_rate_teorico": 0.01652,
+   "multiplicador_medio": 31.42,
+   "multiplicador_mediana": 32.33,
+   "multiplicador_de_las_ganadoras": 31.02,
+   "roi_simulado": -0.5998,
+   "p5": -0.6561,
+   "p5_por_dia": -0.9202,
+   "dias_con_suficientes_partidos": 18,
+   "dias_que_aportan_ganadoras": 6,
+   "roi_proyectado_desde_la_pata": -0.5176,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 10,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 805,
+   "intentos": 10000,
+   "ganadas": 17,
+   "hit_rate": 0.0017,
+   "hit_rate_teorico": 0.01131,
+   "multiplicador_medio": 140.1,
+   "multiplicador_mediana": 138.75,
+   "multiplicador_de_las_ganadoras": 128.04,
+   "roi_simulado": -0.7823,
+   "p5": -0.864,
+   "p5_por_dia": -0.9033,
+   "dias_con_suficientes_partidos": 23,
+   "dias_que_aportan_ganadoras": 9,
+   "roi_proyectado_desde_la_pata": -0.3962,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 10,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 1381,
+   "intentos": 10000,
+   "ganadas": 60,
+   "hit_rate": 0.006,
+   "hit_rate_teorico": 0.01377,
+   "multiplicador_medio": 72.08,
+   "multiplicador_mediana": 69.15,
+   "multiplicador_de_las_ganadoras": 54.75,
+   "roi_simulado": -0.6715,
+   "p5": -0.7414,
+   "p5_por_dia": -0.8375,
+   "dias_con_suficientes_partidos": 34,
+   "dias_que_aportan_ganadoras": 13,
+   "roi_proyectado_desde_la_pata": -0.4248,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 13,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 173,
+   "intentos": 0,
+   "motivo": "ningun dia tiene 13 partidos distintos que pasen el filtro",
+   "roi_proyectado_desde_la_pata": -0.3965,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 13,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 469,
+   "intentos": 10000,
+   "ganadas": 70,
+   "hit_rate": 0.007,
+   "hit_rate_teorico": 0.00489,
+   "multiplicador_medio": 89.48,
+   "multiplicador_mediana": 90.43,
+   "multiplicador_de_las_ganadoras": 89.67,
+   "roi_simulado": -0.3723,
+   "p5": -0.494,
+   "p5_por_dia": -1.0,
+   "dias_con_suficientes_partidos": 10,
+   "dias_que_aportan_ganadoras": 2,
+   "roi_proyectado_desde_la_pata": -0.6123,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 13,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 805,
+   "intentos": 10000,
+   "ganadas": 1,
+   "hit_rate": 0.0001,
+   "hit_rate_teorico": 0.00294,
+   "multiplicador_medio": 618.61,
+   "multiplicador_mediana": 606.34,
+   "multiplicador_de_las_ganadoras": 559.35,
+   "roi_simulado": -0.9441,
+   "p5": -1.0,
+   "p5_por_dia": -1.0,
+   "dias_con_suficientes_partidos": 20,
+   "dias_que_aportan_ganadoras": 1,
+   "roi_proyectado_desde_la_pata": -0.481,
+   "veredicto": "sin_muestra"
+  },
+  {
+   "n_patas": 13,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 1381,
+   "intentos": 10000,
+   "ganadas": 9,
+   "hit_rate": 0.0009,
+   "hit_rate_teorico": 0.00381,
+   "multiplicador_medio": 262.4,
+   "multiplicador_mediana": 242.75,
+   "multiplicador_de_las_ganadoras": 152.67,
+   "roi_simulado": -0.8626,
+   "p5": -0.9372,
+   "p5_por_dia": -0.9478,
+   "dias_con_suficientes_partidos": 30,
+   "dias_que_aportan_ganadoras": 6,
+   "roi_proyectado_desde_la_pata": -0.5127,
+   "veredicto": "loteria"
+  }
+ ],
+ "configuraciones_viables": [],
+ "medido": true,
+ "veredicto": "todas_negativas"
+}
