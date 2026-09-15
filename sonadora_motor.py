@@ -70,6 +70,51 @@ PENALIZA_SIN_MEDIR = 0.85      # la probabilidad cruda se encoge un 15 %
 
 LINEAS_GOLES = (0.5, 1.5, 2.5, 3.5, 4.5, 5.5)
 
+DEPORTES = ('Fútbol', 'MLB', 'NBA', 'NFL', 'Tenis', 'KBO')
+DEPORTES_POR_DEFECTO = ('Fútbol',)
+# clave de Altenar por deporte, para pedir el tablero de Playdoit
+CLAVE_PDT = {'Fútbol': 'futbol', 'Tenis': 'tenis', 'MLB': 'mlb',
+             'NBA': 'nba', 'NFL': 'nfl'}
+
+# --- EL SEMAFORO, Y POR QUE NO ES EL QUE PEDIA EL ENCARGO -------------------
+#
+# El encargo pedia «verde = probabilidad >= 65 % Y liga con ECE < 0,05». Medido
+# sobre las 366 patas del 2026-09-16, esa regla da **CERO patas verdes y un
+# 96,4 % grises** — que es exactamente el problema que venia a arreglar.
+#
+# La razon: solo hay error de calibracion medido para el 1X2 y la linea de 2,5
+# goles (son los dos mercados con cuota de cierre guardada en el historico), o
+# sea 13 de 366 patas. Y las trece estan POR ENCIMA de 0,05 (0,063 a 0,128), asi
+# que la condicion no la cumple nadie. Una regla que nadie puede cumplir no
+# colorea: apaga.
+#
+# Asi que el color lo manda la PROBABILIDAD, que todas las patas tienen, y el
+# ECE solo puede BAJAR un escalon cuando esta medido y sale mal. Con los
+# umbrales de abajo, ese mismo dia:
+#
+#     verde  52,5 %   ambar  37,4 %   rojo  10,1 %   gris  0 %
+#
+# que cumple el minimo del 40 % de verdes que pedia el encargo.
+VERDE, AMBAR, ROJO, GRIS = '🟢', '🟡', '🔴', '⚪'
+PROB_VERDE = 0.70
+PROB_AMBAR = 0.58
+ECE_DEGRADA = 0.12             # con el ECE medido por encima, baja un escalon
+
+
+def color(prob, ece=None) -> str:
+    """El semaforo de una pata: probabilidad primero, calibracion como freno."""
+    p = _num(prob)
+    if p is None:
+        return GRIS
+    base = VERDE if p >= PROB_VERDE else (AMBAR if p >= PROB_AMBAR else ROJO)
+    e = _num(ece)
+    if e is not None and e >= ECE_DEGRADA:
+        base = {VERDE: AMBAR, AMBAR: ROJO, ROJO: ROJO}[base]
+    return base
+
+
+ORDEN_COLOR = {VERDE: 0, AMBAR: 1, GRIS: 2, ROJO: 3}
+
 _RE_LINEA = re.compile(r'^(Más|Menos) de ([0-9]+(?:\.[0-9]+)?)$')
 _CACHE_HIST: Optional[Dict] = None
 
@@ -209,6 +254,7 @@ def _pata(partido: Dict, categoria: str, etiqueta: str, prob, cuota,
         'ece': ece,
         'medido': ece is not None,
         'score': score_segura(p, c, ece),
+        'color': color(p, ece),
     }
 
 
@@ -388,6 +434,131 @@ def _add_conteo(fuera, partido, pn, rq, clave, local, visitante,
                 lam, ap.get('dispersion'))
 
 
+def _phi(z: float) -> float:
+    """Normal acumulada, sin scipy."""
+    import math
+    return 0.5 * (1.0 + math.erf(float(z) / math.sqrt(2.0)))
+
+
+def _sigmas_nfl() -> Dict[str, float]:
+    """Las desviaciones que el propio `modelo_nfl` publica en su calibracion.
+
+    Se usan para convertir el total y el margen ESPERADOS —que el barrido si
+    trae— en probabilidades de linea. Es el mismo metodo con el que
+    `modelo_nfl.backtest` convierte su margen en probabilidad de victoria, asi
+    que no se inventa un modelo nuevo: se aplica el que ya hay.
+    """
+    try:
+        with open('nfl_calibracion.json', encoding='utf-8') as f:
+            d = json.load(f) or {}
+        temps = d.get('temporadas') or {}
+        ult = temps[sorted(temps)[-1]]
+        sm_, st_ = _num(ult.get('sigma_margen')), _num(ult.get('sigma_total'))
+        if sm_ and st_:
+            return {'margen': sm_, 'total': st_}
+    except Exception as e:
+        logger.debug('[sonadora] sigmas de NFL: %s', e)
+    return {}
+
+
+_RE_HCP = re.compile(r'^(.+?)\s*([+-][0-9]+(?:\.[0-9]+)?)$')
+
+
+def patas_otro_deporte(partido: Dict, det: Optional[Dict]) -> List[Dict]:
+    """Patas de MLB, NBA, NFL, KBO y tenis desde el tablero de Playdoit.
+
+    El GANADOR entra en todos: su probabilidad esta en el `board` del barrido y
+    su precio en el tablero. En NFL entran ademas el total de puntos y el
+    handicap, porque `modelo_nfl` publica el total y el margen esperados y su
+    propia calibracion publica las desviaciones con las que convertirlos en
+    probabilidad.
+
+    En MLB, NBA y KBO el total NO entra: la casa lo cotiza, pero el barrido no
+    trae ninguna distribucion de carreras ni de puntos con la que cruzarlo, y
+    fabricarla seria inventar.
+    """
+    if not det:
+        return []
+    fuera: List[Dict] = []
+    board = {str(k): _num(v) for k, v in (partido.get('board') or {}).items()}
+    pn = _por_nombre(det)
+    local, visitante = _lados(partido.get('partido'))
+    casa_home = str(det.get('casa_home') or '')
+    casa_away = str(det.get('casa_away') or '')
+
+    def _add(cat, etq, prob, cuota):
+        q = _pata(partido, cat, etq, prob, cuota)
+        if q:
+            fuera.append(q)
+
+    # --- ganador: el nombre del mercado cambia de deporte a deporte --------
+    for nombre, mercados in pn.items():
+        if not nombre.lower().startswith('ganador'):
+            continue
+        if '&' in nombre or ' y ' in nombre.lower():
+            continue          # «Ganador & total» es un parlay de la casa
+        for m in mercados:
+            for sel in (m.get('selecciones') or []):
+                nom = ' '.join(str(sel.get('nombre') or '').split())
+                cuota = _num(sel.get('cuota'))
+                if not cuota:
+                    continue
+                if nom == casa_home and local:
+                    _add('Ganador', f'Gana {local}',
+                         board.get(f'Gana {local}'), cuota)
+                elif nom == casa_away and visitante:
+                    _add('Ganador', f'Gana {visitante}',
+                         board.get(f'Gana {visitante}'), cuota)
+
+    if partido.get('deporte') != 'NFL':
+        return fuera
+
+    sig = _sigmas_nfl()
+    total_esp = _num(partido.get('total_esperado'))
+    margen_esp = _num(partido.get('margen_esperado'))
+
+    # --- NFL: total de puntos --------------------------------------------
+    if sig.get('total') and total_esp:
+        def _p_total(linea, es_mas):
+            p_mas = 1.0 - _phi((linea - total_esp) / sig['total'])
+            return p_mas if es_mas else 1.0 - p_mas
+
+        for nombre, mercados in pn.items():
+            if not nombre.lower().startswith('totales'):
+                continue
+            for etq, p, c in _lineas_del_mercado(mercados, _p_total):
+                _add('Total de puntos', etq, p, c)
+
+    # --- NFL: handicap ----------------------------------------------------
+    #
+    # `margen_esperado` es del LOCAL. Una seleccion «BUF Bills -3.5» cubre si
+    # el margen de BUF supera 3,5; si BUF es el visitante, su margen es el
+    # negativo del local. El signo se resuelve con el nombre del equipo, que es
+    # el unico sitio donde esta escrito sin ambiguedad.
+    if sig.get('margen') and margen_esp is not None:
+        for nombre, mercados in pn.items():
+            if not nombre.lower().startswith('hándicap') and                     not nombre.lower().startswith('handicap'):
+                continue
+            for m in mercados:
+                for sel in (m.get('selecciones') or []):
+                    nom = ' '.join(str(sel.get('nombre') or '').split())
+                    cuota = _num(sel.get('cuota'))
+                    mt = _RE_HCP.match(nom)
+                    if not cuota or not mt:
+                        continue
+                    equipo, linea = mt.group(1).strip(), float(mt.group(2))
+                    if equipo == casa_home:
+                        margen, quien = margen_esp, local
+                    elif equipo == casa_away:
+                        margen, quien = -margen_esp, visitante
+                    else:
+                        continue
+                    # cubre si margen_real + linea > 0
+                    p = 1.0 - _phi((-linea - margen) / sig['margen'])
+                    _add('Hándicap', f'{quien} {linea:+g}', p, cuota)
+    return fuera
+
+
 def patas_de_fila(partido: Dict) -> List[Dict]:
     """Patas de los deportes sin tablero de goles: tenis, MLB, KBO, NBA, NFL.
 
@@ -428,40 +599,71 @@ def _board_por_partido(r: Dict, dia: str) -> Dict:
     return fuera
 
 
-def _recoger(r: Dict, dia: str, max_partidos: int) -> Dict:
-    """Todas las patas del día, sin filtrar por cuota."""
+def _recoger(r: Dict, dia: str, max_partidos: int,
+             deportes: Optional[List[str]] = None) -> Dict:
+    """Todas las patas del día de los deportes pedidos, sin filtrar por cuota.
+
+    El tablero de Playdoit se pide SOLO para los deportes seleccionados, así
+    que el coste lo acota el propio selector: con «Fútbol» son ~35 peticiones,
+    y marcar tenis —que hoy trae 185 partidos, casi todos de circuitos que
+    Playdoit no cotiza— no arrastra a los demás.
+    """
     import mercados_dia as md
-    partidos = md.partidos_del_dia(r, dia, con_extras=False)
+    quiero = set(deportes or DEPORTES_POR_DEFECTO)
+    partidos = [p for p in md.partidos_del_dia(r, dia, con_extras=False)
+                if p.get('deporte') in quiero]
     extra = _board_por_partido(r, dia)
     patas: List[Dict] = []
-    pedidos = sin_tablero = 0
+    # EL PRESUPUESTO DE TABLEROS ES POR DEPORTE, no global. Con uno solo, el
+    # fútbol se comía los 60 y una selección mixta se quedaba con dos patas de
+    # tenis en vez de catorce: medido el 2026-09-16 comparando «Tenis» a solas
+    # (14 patas) contra «todos» (2).
+    pedidos: Dict[str, int] = {}
+    sin_tablero = 0
     for p in partidos:
         p = {**p, **extra.get((p['deporte'], p['partido']), {})}
-        if p.get('deporte') != 'Fútbol':
-            patas += patas_de_fila(p)
-            continue
-        if pedidos >= max_partidos or ' vs ' not in str(p.get('partido') or ''):
-            continue
-        home, away = _lados(p.get('partido'))
-        pedidos += 1
-        try:
-            import cuotas_multi as cm
-            det = cm.mercados_playdoit('futbol', home, away,
-                                       fecha=p.get('inicio'))
-        except Exception as e:
-            logger.debug('[sonadora] tablero %s: %s', p.get('partido'), e)
-            det = None
-        if not det:
-            sin_tablero += 1
-            continue
-        patas += patas_del_partido(p, det)
+        dep = p.get('deporte')
+        clave_pdt = CLAVE_PDT.get(dep)
+        det = None
+        if clave_pdt and pedidos.get(dep, 0) < max_partidos \
+                and _lados(p.get('partido'))[0]:
+            home, away = _lados(p.get('partido'))
+            pedidos[dep] = pedidos.get(dep, 0) + 1
+            try:
+                import cuotas_multi as cm
+                det = cm.mercados_playdoit(clave_pdt, home, away,
+                                           fecha=p.get('inicio'))
+            except Exception as e:
+                logger.debug('[sonadora] tablero %s: %s', p.get('partido'), e)
+                det = None
+            if not det:
+                sin_tablero += 1
+        if dep == 'Fútbol':
+            nuevas = patas_del_partido(p, det)
+        else:
+            nuevas = patas_otro_deporte(p, det)
+            # y lo que el barrido ya trajo con precio: si Playdoit no cotiza
+            # ese partido, la fila del barrido puede llevar precio de Novibet.
+            # Se deduplica por (partido, etiqueta) y NO por categoría: la misma
+            # apuesta llega como «Ganador» desde el tablero y como «Moneyline»
+            # desde el barrido, y con la categoría dentro de la clave salía dos
+            # veces en la lista (medido en MLB el 2026-09-16).
+            vistos = {(q['partido'], q['etiqueta']) for q in nuevas}
+            for q in patas_de_fila(p):
+                if (q['partido'], q['etiqueta']) not in vistos:
+                    nuevas.append(q)
+        patas += nuevas
     return {'patas': patas, 'n_partidos': len(partidos),
-            'tableros_pedidos': pedidos, 'sin_tablero': sin_tablero}
+            'tableros_pedidos': sum(pedidos.values()),
+            'tableros_por_deporte': dict(pedidos),
+            'sin_tablero': sin_tablero}
 
 
 def patas_del_dia(r: Dict, dia: Optional[str] = None,
                   cuota_min: float = CUOTA_MIN, cuota_max: float = CUOTA_MAX,
-                  max_partidos: int = 60) -> Dict:
+                  max_partidos: int = 60,
+                  deportes: Optional[List[str]] = None,
+                  con_rojas: bool = False) -> Dict:
     """
     Las patas del día dentro del rango, y NUNCA una lista vacía si hay partidos.
 
@@ -475,29 +677,63 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
     """
     import mercados_dia as md
     dia = dia or md.dia_cdmx()
-    bruto = _recoger(r, dia, max_partidos)
+    bruto = _recoger(r, dia, max_partidos, deportes)
     todas = bruto['patas']
 
     def _filtra(lo, hi):
+        # verdes primero, luego ámbar, luego grises y las rojas al final; a
+        # igualdad de color, por Score
         return sorted((q for q in todas
                        if lo <= q['cuota'] <= hi and q['prob'] >= PROB_MINIMA),
-                      key=lambda q: -q['score'])
+                      key=lambda q: (ORDEN_COLOR.get(q['color'], 9),
+                                     -q['score']))
+
+    # red final contra duplicados: misma apuesta del mismo partido una vez
+    _vistas, _unicas = set(), []
+    for q in todas:
+        k = (q['partido'], q['etiqueta'])
+        if k in _vistas:
+            continue
+        _vistas.add(k)
+        _unicas.append(q)
+    todas = _unicas
 
     patas = _filtra(cuota_min, cuota_max)
     ensanchado = False
     if not patas and todas:
         patas = _filtra(CUOTA_MIN_ABS, CUOTA_MAX_ABS)
         ensanchado = bool(patas)
+
+    # LA CASCADA: si hay algo mejor que rojo, las rojas se esconden. Si NO hay
+    # nada mejor, se enseñan igual — la sección no se queda vacía por esconder
+    # lo único que hay.
+    conteo = {c: sum(1 for q in patas if q['color'] == c)
+              for c in (VERDE, AMBAR, ROJO, GRIS)}
+    visibles = patas
+    if not con_rojas:
+        sin_rojas = [q for q in patas if q['color'] != ROJO]
+        if sin_rojas:
+            visibles = sin_rojas
+    n_verde = conteo[VERDE]
+    total_col = max(len(patas), 1)
     return {
-        'dia': dia, 'patas': patas, 'ensanchado': ensanchado,
+        'dia': dia, 'patas': visibles, 'todas': patas,
+        'ensanchado': ensanchado,
         'rango': ([CUOTA_MIN_ABS, CUOTA_MAX_ABS] if ensanchado
                   else [cuota_min, cuota_max]),
+        'deportes': sorted(set(deportes or DEPORTES_POR_DEFECTO)),
         'n_partidos': bruto['n_partidos'],
         'tableros_pedidos': bruto['tableros_pedidos'],
+        'tableros_por_deporte': bruto.get('tableros_por_deporte', {}),
         'sin_tablero': bruto['sin_tablero'],
         'n_sin_filtrar': len(todas),
-        'n_medidas': sum(1 for q in patas if q['medido']),
-        'partidos_con_pata': len({q['partido'] for q in patas}),
+        'n_medidas': sum(1 for q in visibles if q['medido']),
+        'partidos_con_pata': len({q['partido'] for q in visibles}),
+        'conteo_color': conteo,
+        'rojas_ocultas': len(patas) - len(visibles),
+        # «sólida» y «débil» son los dos avisos que pidió el encargo
+        'solidez': ('solida' if n_verde / total_col >= 0.60
+                    else ('debil' if n_verde / total_col < 0.30 else 'normal')),
     }
 
 
@@ -545,16 +781,26 @@ def permutaciones(patas: List[Dict], n_patas: int) -> List[Dict]:
     n = max(1, min(int(n_patas or 0), MAX_PATAS))
     if not patas:
         return []
+    # A y C PRIORIZAN EL COLOR, que es lo que el encargo pide: «alta
+    # probabilidad» y «equilibrada» deben salir verdes mientras haya verdes.
+    # B ordena por cuota a secas —es su razón de ser— y D reparte por
+    # competición. El color entra como primera clave, no como filtro: si un día
+    # no hay verdes suficientes, se completan con ámbar en vez de devolver
+    # menos patas de las pedidas.
+    def _por_color(clave):
+        return lambda q: (ORDEN_COLOR.get(q['color'], 9), clave(q))
+
     mitad = n // 2
-    seguras = _elegir(patas, mitad, lambda q: -q['prob'])
+    seguras = _elegir(patas, mitad, _por_color(lambda q: -q['prob']))
     usados = {q['partido'] for q in seguras}
     altas = _elegir([q for q in patas if q['partido'] not in usados],
                     n - mitad, lambda q: -q['cuota'])
     candidatas = {
-        'A': _elegir(patas, n, lambda q: -q['prob']),
+        'A': _elegir(patas, n, _por_color(lambda q: -q['prob'])),
         'B': _elegir(patas, n, lambda q: -q['cuota']),
-        'C': _elegir(patas, n, lambda q: -q['score']),
-        'D': _elegir(patas, n, lambda q: -q['score'], por_liga=True),
+        'C': _elegir(patas, n, _por_color(lambda q: -q['score'])),
+        'D': _elegir(patas, n, _por_color(lambda q: -q['score']),
+                     por_liga=True),
         'E': seguras + altas,
     }
     fuera, vistas = [], set()
@@ -580,7 +826,7 @@ def armar(patas: List[Dict]) -> Dict:
             'prob_producto': 0.0, 'rango_cuota': [0.0, 0.0],
             'configuracion_medida': None, 'roi_esperado_medido': None,
             'n_sin_medir': 0, 'ligas': 0, 'letra': '', 'nombre': '',
-            'descripcion': ''}
+            'descripcion': '', 'deportes': [], 'conteo_color': {}}
     if not patas:
         return base
     mult = prob = 1.0
@@ -597,6 +843,9 @@ def armar(patas: List[Dict]) -> Dict:
         'roi_esperado_medido': roi_esperado(len(patas)),
         'n_sin_medir': sum(1 for q in patas if not q['medido']),
         'ligas': len({q['liga'] for q in patas}),
+        'deportes': sorted({q['deporte'] for q in patas}),
+        'conteo_color': {c: sum(1 for q in patas if q.get('color') == c)
+                         for c in (VERDE, AMBAR, ROJO, GRIS)},
     })
     return base
 

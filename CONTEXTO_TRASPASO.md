@@ -5173,3 +5173,147 @@ lleva parado desde mayo**. Merece su propia mirada.
    avisado de las dos ramas caídas el mismo día. Es la tercera versión seguida
    que lo echa de menos.
 5. **Draftea**, cuando aparezca una puerta (sondeada el 2026-09-16, ver §6h).
+
+
+---
+
+## 6j. v199 — EL SEMÁFORO QUE PEDÍA EL ENCARGO DABA CERO VERDES
+
+Dos ajustes sobre la Soñadora: un selector de deportes y colorear las patas,
+que salían «en blanco». El selector salió como se pidió; el semáforo **no**,
+porque la regla propuesta estaba medida y no funcionaba.
+
+---
+
+### 1. Por qué las patas salían en blanco, y por qué la regla del encargo lo
+### habría empeorado
+
+El color lo daba `medido` —si la liga tenía error de calibración en ese
+mercado— y eso lo tienen **13 de 366 patas**: sólo el 1X2 y la línea de 2,5
+goles guardan cuota de cierre en el histórico, así que sólo esos dos tienen
+ECE. Todo lo demás salía ⚪.
+
+La regla que pedía el encargo era **verde = probabilidad ≥ 65 % Y ECE < 0,05**.
+Medida sobre esas mismas 366 patas del 2026-09-16:
+
+```
+verdes    0   ( 0,0 %)
+grises  353   (96,4 %)
+```
+
+Cero. Y no por casualidad: las trece patas con ECE medido lo tienen **entre
+0,063 y 0,128**, o sea todas por encima de 0,05. La condición no la cumple
+nadie. Una regla que nadie puede cumplir no colorea: apaga.
+
+**Lo que se hizo.** El color lo manda la **probabilidad**, que todas las patas
+tienen, y la calibración sólo puede **bajarlo** un escalón cuando está medida y
+sale mal:
+
+```
+🟢 verde   probabilidad >= 70 %
+🟡 ámbar   probabilidad >= 58 %
+🔴 rojo    por debajo
+⚪ gris    sin probabilidad (no debería pasar)
+
+y si el ECE medido >= 0,12, baja un escalón: verde -> ámbar -> rojo
+```
+
+Sobre el mismo día: **🟢 52,5 % · 🟡 37,4 % · 🔴 10,1 % · ⚪ 0 %**, que cumple
+el mínimo del 40 % de verdes que pedía el encargo. La calibración no
+desaparece: sigue escribiéndose en cada pata («sin calibración medida») y sigue
+encogiendo la probabilidad un 15 % al puntuar.
+
+**Las rojas se esconden por defecto**, con interruptor para verlas. Con una
+excepción que importa: si un día NO hay nada mejor que rojas, se enseñan igual.
+Esconder lo único que hay es dejar la pantalla vacía por otra vía, que es justo
+lo que el rediseño anterior vino a arreglar.
+
+---
+
+### 2. El selector de deportes, y el presupuesto que había que repartir
+
+Seis deportes, sólo **Fútbol** marcado por defecto. El tablero de Playdoit se
+pide **únicamente** para lo que esté marcado, así que el selector acota el
+coste: con fútbol son ~36 peticiones; marcar tenis —185 partidos hoy, casi
+todos de circuitos que Playdoit no cotiza— ya no arrastra a los demás.
+
+Dos cosas salieron al probarlo y están arregladas:
+
+**El presupuesto de tableros era global.** Con `max_partidos = 60` compartido,
+el fútbol se los comía y una selección mixta se quedaba con **2 patas de tenis
+en vez de 14**. Ahora se cuenta por deporte.
+
+**Las patas de MLB salían duplicadas.** La misma apuesta llega como «Ganador»
+desde el tablero y como «Moneyline» desde el barrido, y el deduplicado usaba
+`(categoría, etiqueta)` — dos nombres distintos para la misma apuesta. Ahora la
+clave es `(partido, etiqueta)`, que es lo que de verdad la identifica.
+
+Medido tras los dos arreglos:
+
+```
+Fútbol                        36 partidos · 36 tableros · 299 patas · 🟢154 🟡119 🔴26
+MLB                           15 partidos · 15 tableros ·   4 patas · 🟡2 🔴2
+Tenis                        185 partidos · 60 tableros ·  15 patas · 🟢8 🟡6 🔴1
+Fútbol+MLB                    51 partidos · 51 tableros · 307 patas
+```
+
+Y la regla de oro se comprueba en el test: con cualquier combinación, ninguna
+pata de un deporte no marcado aparece.
+
+---
+
+### 3. Cobertura nueva: MLB, NBA, NFL y tenis desde SU tablero
+
+Antes, los deportes que no son fútbol sólo aportaban lo que el barrido ya traía
+con precio (el ganador, y sólo si Playdoit o Novibet lo cotizaban en la lista
+del día). Ahora se lee **su propio tablero de Playdoit**, igual que el de
+fútbol. De ahí sale el ganador de todos, y en **NFL** además el total de puntos
+y el hándicap.
+
+El total y el hándicap de NFL se derivan del total y el margen esperados que el
+barrido ya publica, con las desviaciones que **el propio `modelo_nfl` guarda en
+su calibración** (`sigma_margen` 13,61 · `sigma_total` 13,14). No es un modelo
+nuevo: es el mismo método con el que `modelo_nfl.backtest` convierte su margen
+en probabilidad de victoria.
+
+**MLB, NBA y KBO se quedan sólo con el ganador.** La casa cotiza sus totales,
+pero el barrido no trae ninguna distribución de carreras ni de puntos con la
+que cruzarlos, y fabricarla sería inventar.
+
+---
+
+### 4. La validación, ahora por combinación de deportes
+
+`validar_sonadora.py` lee también `pick_ledger_deportes.csv` (MLB y tenis con
+su cuota de cierre) y mide cada combinación por separado. Sobre 24 meses:
+
+```
+combinación        pata suelta                    4 patas 1,10-1,80
+Fútbol             n=10.354  acierta 63,3 %  ROI −3,72 %   hit 14,84 %  ROI −19,2 %  (402 jornadas)
+Tenis              n= 6.074  acierta 69,5 %  ROI −4,35 %   hit 23,64 %  ROI −14,7 %  (445 jornadas)
+Fútbol+MLB+Tenis   n=16.428  acierta 65,6 %  ROI −3,95 %   hit 18,32 %  ROI −21,8 %  (610 jornadas)
+MLB                sin patas con cuota en la ventana
+```
+
+El veredicto no cambia: **`todas_negativas`**. El tenis pierde un poco menos en
+combinada corta que el fútbol, pero pierde; y su modelo es el que este proyecto
+tiene medido como peor calibrado que el mercado sobre 108.657 partidos (§8 del
+traspaso). Que MLB no tenga patas con cuota en los últimos 24 meses es otro
+síntoma del mismo agujero de la v198: **el histórico de cuotas está parado**.
+
+---
+
+### 5. Lo que queda abierto
+
+1. **El histórico de cuotas sigue parado** (1X2 en julio, totales de goles en
+   mayo, MLB sin nada en la ventana de 24 meses). Es el mismo pendiente de la
+   v198 y sigue siendo el más caro: sin él, la validación de la Soñadora
+   envejece y no se puede medir ningún mercado nuevo.
+2. **Sólo hay ECE para dos mercados.** Por eso el semáforo no puede apoyarse en
+   la calibración: con el histórico de cuotas al día se podría medir el ECE de
+   córners, tarjetas, remates y del resto de la escalera de goles, y entonces
+   sí tendría sentido que el color dependiera de él.
+3. **Los totales de MLB, NBA y KBO** están cotizados y no se ofrecen por falta
+   de distribución en el modelo.
+4. **Los goles por equipo** siguen fuera por lo mismo, y son fáciles: la matriz
+   de marcador ya tiene los marginales por bando.

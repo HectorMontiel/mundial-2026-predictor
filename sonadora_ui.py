@@ -11,13 +11,22 @@ Vacía no por prudencia: la rama de fútbol del barrido estaba reventando
 (arreglado en `alpha_finder`) y encima el filtro de calibración tiraba 133 de
 174 patas. Ahora:
 
-    · **Dos controles**: rango de cuota y número de patas. La probabilidad
-      mínima queda fija en 55 % y el filtro de calibración desaparece — cada
-      pata dice si su mercado está medido y el usuario decide.
+    · **Configuración corta**: rango de cuota, número de patas y qué deportes
+      entran. La probabilidad mínima queda fija en 55 % y el filtro de
+      calibración desapareció — cada pata lleva su semáforo y el usuario
+      decide.
     · **Nunca vacía**: si el rango no deja nada, el motor lo ensancha solo y la
       pantalla lo dice en una línea.
-    · **Sin rojo**: un aviso pequeño arriba y una casilla antes de confirmar.
-      El rendimiento medido sigue estando, al lado del premio, sin dramatizar.
+    · **Sin advertencia roja**: un aviso pequeño arriba y una casilla antes de
+      confirmar. El rendimiento medido sigue estando, al lado del premio.
+
+EL SEMÁFORO
+-----------
+🟢 sólida · 🟡 moderada · 🔴 alto riesgo · ⚪ sin probabilidad. Lo calcula
+`sonadora_motor.color` y aquí sólo se pinta. Las rojas se esconden por defecto
+y hay un interruptor para verlas; si un día NO hay nada mejor que rojas, se
+enseñan igual — esconder lo único que hay es dejar la pantalla vacía por otra
+vía.
 
 EL ORDEN DE LO QUE SE ENSEÑA
 ----------------------------
@@ -47,13 +56,15 @@ def _pct(x, dec=1) -> str:
 
 
 def _sello(q: Dict) -> str:
-    return '🟢' if q.get('medido') else '⚪'
+    """El semáforo de la pata. Sale del motor, no se recalcula aquí."""
+    return q.get('color') or '⚪'
 
 
 def _linea_pata(q: Dict) -> str:
+    cola = '' if q.get('medido') else '  ·  _sin calibración medida_'
     return (f"{_sello(q)} **{q['etiqueta']}** · {q['partido']} "
             f"— `{q['cuota']:.2f}` · modelo {_pct(q['prob'], 0)} "
-            f"· {q['liga']}{(' · ' + q['hora']) if q.get('hora') else ''}")
+            f"· {q['liga']}{(' · ' + q['hora']) if q.get('hora') else ''}{cola}")
 
 
 def render(st, r: Dict, dia: Optional[str] = None) -> None:
@@ -81,6 +92,17 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
         index=N_PATAS_OPCIONES.index(13), key='son_n',
         format_func=lambda n: f'{n} patas')
 
+    deportes = st.multiselect(
+        'Deportes', list(sm.DEPORTES), default=list(sm.DEPORTES_POR_DEFECTO),
+        key='son_deportes',
+        help='El tablero de Playdoit se pide sólo para lo que marques, así '
+             'que marcar menos deportes es también más rápido.')
+    if not deportes:
+        st.warning('Marca al menos un deporte para ver patas.')
+        return
+    con_rojas = st.checkbox('Mostrar patas de alto riesgo (🔴)',
+                            key='son_rojas')
+
     # ------------------------------------------------------------------ #
     # 2. Las patas del día
     # ------------------------------------------------------------------ #
@@ -88,7 +110,8 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     with st.spinner('Leyendo el tablero de Playdoit…'):
         try:
             res = sm.patas_del_dia(r, dia, cuota_min=cuota_min,
-                                   cuota_max=cuota_max)
+                                   cuota_max=cuota_max,
+                                   deportes=deportes, con_rojas=con_rojas)
         except Exception as e:
             st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
             return
@@ -108,11 +131,26 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
             f"{rango[0]:.2f}–{rango[1]:.2f} para mostrarte opciones: con el "
             f"que pediste no había ninguna pata hoy.")
 
+    cc = res.get('conteo_color') or {}
     st.caption(
-        f"{len(patas)} patas de {res.get('partidos_con_pata', 0)} partidos "
-        f"· {res.get('tableros_pedidos', 0)} tableros de Playdoit leídos "
-        f"· 🟢 {res.get('n_medidas', 0)} con error de calibración medido, "
-        f"⚪ el resto sin medir (probabilidad encogida un 15 % al puntuar).")
+        f"**{len(patas)} patas** de {res.get('partidos_con_pata', 0)} "
+        f"partidos · 🟢 {cc.get('🟢', 0)} sólidas · 🟡 {cc.get('🟡', 0)} "
+        f"moderadas · 🔴 {cc.get('🔴', 0)} de alto riesgo"
+        + (f" ({res.get('rojas_ocultas', 0)} ocultas)"
+           if res.get('rojas_ocultas') else '')
+        + f" · {res.get('tableros_pedidos', 0)} tableros de Playdoit leídos.")
+    st.caption(
+        f"El color lo manda la probabilidad del modelo; la calibración sólo "
+        f"puede bajarlo. {res.get('n_medidas', 0)} de estas patas tienen error "
+        f"de calibración medido — al resto se le encoge la probabilidad un "
+        f"15 % al puntuar, y se dice en cada línea.")
+    if res.get('solidez') == 'debil':
+        st.warning('⚠️ Pocas patas verdes hoy con esta configuración. '
+                   'Considera ampliar el rango de cuota o marcar más '
+                   'deportes.')
+    elif res.get('solidez') == 'solida':
+        st.success('✅ Lista sólida: la mayoría de las patas de hoy son '
+                   'verdes.')
 
     # ------------------------------------------------------------------ #
     # 3. Permutaciones
@@ -136,7 +174,11 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
                           'cuenta.')
             for q in p['patas']:
                 st.markdown(_linea_pata(q))
-            pie = [f"{p['ligas']} competiciones distintas"]
+            _cc = p.get('conteo_color') or {}
+            pie = [f"🟢 {_cc.get('🟢', 0)} · 🟡 {_cc.get('🟡', 0)} · "
+                   f"🔴 {_cc.get('🔴', 0)}",
+                   f"{p['ligas']} competiciones distintas",
+                   ' + '.join(p.get('deportes') or [])]
             if p.get('n_sin_medir'):
                 pie.append(f"{p['n_sin_medir']} patas sin calibración medida")
             roi = p.get('roi_esperado_medido')

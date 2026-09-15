@@ -2,21 +2,22 @@
  "fecha_validacion": "2026-09-15",
  "periodo": "2024-09-15 a 2026-09-15",
  "meses": 24,
- "n_patas_con_cuota": 70353,
- "n_partidos": 22051,
- "n_patas_tras_filtro": 10354,
+ "n_patas_con_cuota": 88407,
+ "n_partidos": 31079,
+ "n_patas_tras_filtro": 16428,
  "mercados_medidos": [
   "1X2",
+  "Ganador",
   "Goles 2.5"
  ],
  "pata_suelta": {
-  "n": 10354,
-  "acierto": 0.6334,
-  "prob_media": 0.6615,
-  "cuota_media": 1.5421,
-  "roi": -0.0372,
-  "p5": -0.0496,
-  "ece": 0.0439
+  "n": 16428,
+  "acierto": 0.6563,
+  "prob_media": 0.6706,
+  "cuota_media": 1.4904,
+  "roi": -0.0395,
+  "p5": -0.0489,
+  "ece": 0.0314
  },
  "pata_por_mercado": {
   "1X2": {
@@ -27,6 +28,15 @@
    "roi": -0.0232,
    "p5": -0.0392,
    "ece": 0.0288
+  },
+  "Ganador": {
+   "n": 6074,
+   "acierto": 0.6953,
+   "prob_media": 0.686,
+   "cuota_media": 1.4022,
+   "roi": -0.0435,
+   "p5": -0.0569,
+   "ece": 0.0201
   },
   "Goles 2.5": {
    "n": 5593,
@@ -40,43 +50,59 @@
  },
  "pata_por_banda": {
   "1.1-1.3": {
-   "n": 1150,
-   "acierto": 0.813,
-   "prob_media": 0.7314,
-   "cuota_media": 1.2263,
-   "roi": -0.0053,
-   "p5": -0.0291,
-   "ece": 0.1172
+   "n": 3450,
+   "acierto": 0.8038,
+   "prob_media": 0.7414,
+   "cuota_media": 1.2184,
+   "roi": -0.0238,
+   "p5": -0.0372,
+   "ece": 0.0768
   },
   "1.3-1.5": {
-   "n": 3000,
-   "acierto": 0.6847,
-   "prob_media": 0.6743,
-   "cuota_media": 1.412,
-   "roi": -0.0354,
-   "p5": -0.0539,
-   "ece": 0.0579
+   "n": 5358,
+   "acierto": 0.6859,
+   "prob_media": 0.6745,
+   "cuota_media": 1.4049,
+   "roi": -0.0383,
+   "p5": -0.0531,
+   "ece": 0.0608
   },
   "1.5-1.8": {
-   "n": 6628,
-   "acierto": 0.5815,
-   "prob_media": 0.6446,
-   "cuota_media": 1.6479,
-   "roi": -0.0445,
-   "p5": -0.0609,
-   "ece": 0.0651
+   "n": 8701,
+   "acierto": 0.5812,
+   "prob_media": 0.641,
+   "cuota_media": 1.6404,
+   "roi": -0.0495,
+   "p5": -0.0636,
+   "ece": 0.0606
   },
   "1.1-1.8": {
-   "n": 10354,
-   "acierto": 0.6334,
-   "prob_media": 0.6615,
-   "cuota_media": 1.5421,
-   "roi": -0.0372,
-   "p5": -0.0496,
-   "ece": 0.0439
+   "n": 16428,
+   "acierto": 0.6563,
+   "prob_media": 0.6706,
+   "cuota_media": 1.4904,
+   "roi": -0.0395,
+   "p5": -0.0489,
+   "ece": 0.0314
   }
  },
  "ece_por_liga": {
+  "ATP": {
+   "Ganador": {
+    "n": 9254,
+    "ece": 0.009,
+    "acierto": 0.5,
+    "prob_media": 0.5
+   }
+  },
+  "WTA": {
+   "Ganador": {
+    "n": 8800,
+    "ece": 0.0126,
+    "acierto": 0.4999,
+    "prob_media": 0.4999
+   }
+  },
   "argentina": {
    "1X2": {
     "n": 1928,
@@ -542,240 +568,240 @@
     1.1,
     1.3
    ],
-   "patas_disponibles": 1150,
+   "patas_disponibles": 3450,
    "intentos": 10000,
-   "ganadas": 4323,
-   "hit_rate": 0.4323,
-   "hit_rate_teorico": 0.29456,
-   "multiplicador_medio": 2.25,
-   "multiplicador_mediana": 2.25,
-   "multiplicador_de_las_ganadoras": 2.25,
-   "roi_simulado": -0.028,
-   "p5": -0.0457,
-   "p5_por_dia": -0.1602,
-   "dias_con_suficientes_partidos": 119,
+   "ganadas": 3787,
+   "hit_rate": 0.3787,
+   "hit_rate_teorico": 0.30194,
+   "multiplicador_medio": 2.21,
+   "multiplicador_mediana": 2.21,
+   "multiplicador_de_las_ganadoras": 2.18,
+   "roi_simulado": -0.1756,
+   "p5": -0.1933,
+   "p5_por_dia": -0.2419,
+   "dias_con_suficientes_partidos": 378,
+   "dias_que_aportan_ganadoras": 300,
+   "roi_proyectado_desde_la_pata": -0.0919,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 4,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 5358,
+   "intentos": 10000,
+   "ganadas": 2218,
+   "hit_rate": 0.2218,
+   "hit_rate_teorico": 0.20488,
+   "multiplicador_medio": 3.9,
+   "multiplicador_mediana": 3.88,
+   "multiplicador_de_las_ganadoras": 3.9,
+   "roi_simulado": -0.1353,
+   "p5": -0.1626,
+   "p5_por_dia": -0.213,
+   "dias_con_suficientes_partidos": 481,
+   "dias_que_aportan_ganadoras": 338,
+   "roi_proyectado_desde_la_pata": -0.1446,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 4,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 8701,
+   "intentos": 10000,
+   "ganadas": 1107,
+   "hit_rate": 0.1107,
+   "hit_rate_teorico": 0.16553,
+   "multiplicador_medio": 7.13,
+   "multiplicador_mediana": 7.08,
+   "multiplicador_de_las_ganadoras": 7.05,
+   "roi_simulado": -0.2193,
+   "p5": -0.2554,
+   "p5_por_dia": -0.3027,
+   "dias_con_suficientes_partidos": 520,
+   "dias_que_aportan_ganadoras": 298,
+   "roi_proyectado_desde_la_pata": -0.1838,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 4,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 16428,
+   "intentos": 10000,
+   "ganadas": 1910,
+   "hit_rate": 0.191,
+   "hit_rate_teorico": 0.20448,
+   "multiplicador_medio": 4.76,
+   "multiplicador_mediana": 4.64,
+   "multiplicador_de_las_ganadoras": 4.21,
+   "roi_simulado": -0.1956,
+   "p5": -0.224,
+   "p5_por_dia": -0.2465,
+   "dias_con_suficientes_partidos": 610,
+   "dias_que_aportan_ganadoras": 489,
+   "roi_proyectado_desde_la_pata": -0.1489,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 3450,
+   "intentos": 10000,
+   "ganadas": 2597,
+   "hit_rate": 0.2597,
+   "hit_rate_teorico": 0.16878,
+   "multiplicador_medio": 3.25,
+   "multiplicador_mediana": 3.25,
+   "multiplicador_de_las_ganadoras": 3.16,
+   "roi_simulado": -0.1785,
+   "p5": -0.2011,
+   "p5_por_dia": -0.2901,
+   "dias_con_suficientes_partidos": 259,
+   "dias_que_aportan_ganadoras": 174,
+   "roi_proyectado_desde_la_pata": -0.1346,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 5358,
+   "intentos": 10000,
+   "ganadas": 1059,
+   "hit_rate": 0.1059,
+   "hit_rate_teorico": 0.09373,
+   "multiplicador_medio": 7.68,
+   "multiplicador_mediana": 7.65,
+   "multiplicador_de_las_ganadoras": 7.67,
+   "roi_simulado": -0.1881,
+   "p5": -0.2286,
+   "p5_por_dia": -0.3201,
+   "dias_con_suficientes_partidos": 381,
+   "dias_que_aportan_ganadoras": 189,
+   "roi_proyectado_desde_la_pata": -0.2089,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 8701,
+   "intentos": 10000,
+   "ganadas": 393,
+   "hit_rate": 0.0393,
+   "hit_rate_teorico": 0.06817,
+   "multiplicador_medio": 19.19,
+   "multiplicador_mediana": 18.97,
+   "multiplicador_de_las_ganadoras": 18.71,
+   "roi_simulado": -0.2648,
+   "p5": -0.325,
+   "p5_por_dia": -0.4077,
+   "dias_con_suficientes_partidos": 429,
+   "dias_que_aportan_ganadoras": 147,
+   "roi_proyectado_desde_la_pata": -0.2626,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 6,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 16428,
+   "intentos": 10000,
+   "ganadas": 821,
+   "hit_rate": 0.0821,
+   "hit_rate_teorico": 0.09242,
+   "multiplicador_medio": 10.59,
+   "multiplicador_mediana": 9.92,
+   "multiplicador_de_las_ganadoras": 9.02,
+   "roi_simulado": -0.2594,
+   "p5": -0.3032,
+   "p5_por_dia": -0.3335,
+   "dias_con_suficientes_partidos": 576,
+   "dias_que_aportan_ganadoras": 320,
+   "roi_proyectado_desde_la_pata": -0.2148,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 8,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 3450,
+   "intentos": 10000,
+   "ganadas": 1868,
+   "hit_rate": 0.1868,
+   "hit_rate_teorico": 0.09381,
+   "multiplicador_medio": 4.83,
+   "multiplicador_mediana": 4.77,
+   "multiplicador_de_las_ganadoras": 4.65,
+   "roi_simulado": -0.131,
+   "p5": -0.1616,
+   "p5_por_dia": -0.3139,
+   "dias_con_suficientes_partidos": 157,
    "dias_que_aportan_ganadoras": 93,
-   "roi_proyectado_desde_la_pata": -0.021,
+   "roi_proyectado_desde_la_pata": -0.1753,
    "veredicto": "alto_riesgo"
   },
   {
-   "n_patas": 4,
+   "n_patas": 8,
    "rango_cuota": [
     1.3,
     1.5
    ],
-   "patas_disponibles": 3000,
+   "patas_disponibles": 5358,
    "intentos": 10000,
-   "ganadas": 2205,
-   "hit_rate": 0.2205,
-   "hit_rate_teorico": 0.20634,
-   "multiplicador_medio": 3.98,
-   "multiplicador_mediana": 3.98,
-   "multiplicador_de_las_ganadoras": 3.98,
-   "roi_simulado": -0.1217,
-   "p5": -0.1487,
-   "p5_por_dia": -0.2345,
-   "dias_con_suficientes_partidos": 234,
-   "dias_que_aportan_ganadoras": 177,
-   "roi_proyectado_desde_la_pata": -0.1343,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 4,
-   "rango_cuota": [
-    1.5,
-    1.8
-   ],
-   "patas_disponibles": 6628,
-   "intentos": 10000,
-   "ganadas": 1155,
-   "hit_rate": 0.1155,
-   "hit_rate_teorico": 0.1743,
-   "multiplicador_medio": 7.35,
-   "multiplicador_mediana": 7.31,
-   "multiplicador_de_las_ganadoras": 7.36,
-   "roi_simulado": -0.1504,
-   "p5": -0.1918,
-   "p5_por_dia": -0.2758,
-   "dias_con_suficientes_partidos": 329,
-   "dias_que_aportan_ganadoras": 222,
-   "roi_proyectado_desde_la_pata": -0.1665,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 4,
-   "rango_cuota": [
-    1.1,
-    1.8
-   ],
-   "patas_disponibles": 10354,
-   "intentos": 10000,
-   "ganadas": 1537,
-   "hit_rate": 0.1537,
-   "hit_rate_teorico": 0.18593,
-   "multiplicador_medio": 5.73,
-   "multiplicador_mediana": 5.66,
-   "multiplicador_de_las_ganadoras": 5.37,
-   "roi_simulado": -0.1741,
-   "p5": -0.2057,
-   "p5_por_dia": -0.2583,
-   "dias_con_suficientes_partidos": 402,
-   "dias_que_aportan_ganadoras": 288,
-   "roi_proyectado_desde_la_pata": -0.1407,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 6,
-   "rango_cuota": [
-    1.1,
-    1.3
-   ],
-   "patas_disponibles": 1150,
-   "intentos": 10000,
-   "ganadas": 2994,
-   "hit_rate": 0.2994,
-   "hit_rate_teorico": 0.1677,
-   "multiplicador_medio": 3.44,
-   "multiplicador_mediana": 3.43,
-   "multiplicador_de_las_ganadoras": 3.38,
-   "roi_simulado": 0.0133,
-   "p5": -0.0136,
-   "p5_por_dia": -0.2672,
-   "dias_con_suficientes_partidos": 61,
-   "dias_que_aportan_ganadoras": 43,
-   "roi_proyectado_desde_la_pata": -0.0314,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 6,
-   "rango_cuota": [
-    1.3,
-    1.5
-   ],
-   "patas_disponibles": 3000,
-   "intentos": 10000,
-   "ganadas": 1087,
-   "hit_rate": 0.1087,
-   "hit_rate_teorico": 0.09528,
-   "multiplicador_medio": 7.97,
-   "multiplicador_mediana": 7.95,
-   "multiplicador_de_las_ganadoras": 7.88,
-   "roi_simulado": -0.1429,
-   "p5": -0.181,
-   "p5_por_dia": -0.317,
-   "dias_con_suficientes_partidos": 174,
-   "dias_que_aportan_ganadoras": 107,
-   "roi_proyectado_desde_la_pata": -0.1945,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 6,
-   "rango_cuota": [
-    1.5,
-    1.8
-   ],
-   "patas_disponibles": 6628,
-   "intentos": 10000,
-   "ganadas": 325,
-   "hit_rate": 0.0325,
-   "hit_rate_teorico": 0.07199,
-   "multiplicador_medio": 19.93,
-   "multiplicador_mediana": 19.75,
-   "multiplicador_de_las_ganadoras": 20.18,
-   "roi_simulado": -0.3442,
-   "p5": -0.4017,
-   "p5_por_dia": -0.4964,
-   "dias_con_suficientes_partidos": 275,
-   "dias_que_aportan_ganadoras": 112,
-   "roi_proyectado_desde_la_pata": -0.239,
-   "veredicto": "loteria"
-  },
-  {
-   "n_patas": 6,
-   "rango_cuota": [
-    1.1,
-    1.8
-   ],
-   "patas_disponibles": 10354,
-   "intentos": 10000,
-   "ganadas": 577,
-   "hit_rate": 0.0577,
-   "hit_rate_teorico": 0.08093,
-   "multiplicador_medio": 13.99,
-   "multiplicador_mediana": 13.72,
-   "multiplicador_de_las_ganadoras": 12.52,
-   "roi_simulado": -0.2778,
-   "p5": -0.33,
-   "p5_por_dia": -0.3842,
-   "dias_con_suficientes_partidos": 330,
-   "dias_que_aportan_ganadoras": 191,
-   "roi_proyectado_desde_la_pata": -0.2034,
+   "ganadas": 440,
+   "hit_rate": 0.044,
+   "hit_rate_teorico": 0.04352,
+   "multiplicador_medio": 15.19,
+   "multiplicador_mediana": 15.14,
+   "multiplicador_de_las_ganadoras": 15.44,
+   "roi_simulado": -0.3206,
+   "p5": -0.3714,
+   "p5_por_dia": -0.4969,
+   "dias_con_suficientes_partidos": 285,
+   "dias_que_aportan_ganadoras": 92,
+   "roi_proyectado_desde_la_pata": -0.2683,
    "veredicto": "loteria"
   },
   {
    "n_patas": 8,
    "rango_cuota": [
-    1.1,
-    1.3
-   ],
-   "patas_disponibles": 1150,
-   "intentos": 10000,
-   "ganadas": 1111,
-   "hit_rate": 0.1111,
-   "hit_rate_teorico": 0.07886,
-   "multiplicador_medio": 5.31,
-   "multiplicador_mediana": 5.35,
-   "multiplicador_de_las_ganadoras": 5.58,
-   "roi_simulado": -0.3798,
-   "p5": -0.4096,
-   "p5_por_dia": -0.8799,
-   "dias_con_suficientes_partidos": 22,
-   "dias_que_aportan_ganadoras": 9,
-   "roi_proyectado_desde_la_pata": -0.0416,
-   "veredicto": "sin_muestra"
-  },
-  {
-   "n_patas": 8,
-   "rango_cuota": [
-    1.3,
-    1.5
-   ],
-   "patas_disponibles": 3000,
-   "intentos": 10000,
-   "ganadas": 554,
-   "hit_rate": 0.0554,
-   "hit_rate_teorico": 0.04384,
-   "multiplicador_medio": 16.0,
-   "multiplicador_mediana": 15.83,
-   "multiplicador_de_las_ganadoras": 15.37,
-   "roi_simulado": -0.1485,
-   "p5": -0.2071,
-   "p5_por_dia": -0.4106,
-   "dias_con_suficientes_partidos": 139,
-   "dias_que_aportan_ganadoras": 61,
-   "roi_proyectado_desde_la_pata": -0.2505,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 8,
-   "rango_cuota": [
     1.5,
     1.8
    ],
-   "patas_disponibles": 6628,
+   "patas_disponibles": 8701,
    "intentos": 10000,
-   "ganadas": 95,
-   "hit_rate": 0.0095,
-   "hit_rate_teorico": 0.03024,
-   "multiplicador_medio": 54.17,
-   "multiplicador_mediana": 53.3,
-   "multiplicador_de_las_ganadoras": 54.02,
-   "roi_simulado": -0.4868,
-   "p5": -0.5702,
-   "p5_por_dia": -0.6229,
-   "dias_con_suficientes_partidos": 236,
-   "dias_que_aportan_ganadoras": 50,
-   "roi_proyectado_desde_la_pata": -0.3052,
+   "ganadas": 144,
+   "hit_rate": 0.0144,
+   "hit_rate_teorico": 0.02814,
+   "multiplicador_medio": 52.29,
+   "multiplicador_mediana": 51.98,
+   "multiplicador_de_las_ganadoras": 49.3,
+   "roi_simulado": -0.29,
+   "p5": -0.3831,
+   "p5_por_dia": -0.516,
+   "dias_con_suficientes_partidos": 347,
+   "dias_que_aportan_ganadoras": 65,
+   "roi_proyectado_desde_la_pata": -0.3338,
    "veredicto": "loteria"
   },
   {
@@ -784,20 +810,20 @@
     1.1,
     1.8
    ],
-   "patas_disponibles": 10354,
+   "patas_disponibles": 16428,
    "intentos": 10000,
-   "ganadas": 236,
-   "hit_rate": 0.0236,
-   "hit_rate_teorico": 0.03525,
-   "multiplicador_medio": 34.0,
-   "multiplicador_mediana": 32.57,
-   "multiplicador_de_las_ganadoras": 27.18,
-   "roi_simulado": -0.3586,
-   "p5": -0.4296,
-   "p5_por_dia": -0.4817,
-   "dias_con_suficientes_partidos": 287,
-   "dias_que_aportan_ganadoras": 100,
-   "roi_proyectado_desde_la_pata": -0.2616,
+   "ganadas": 363,
+   "hit_rate": 0.0363,
+   "hit_rate_teorico": 0.04133,
+   "multiplicador_medio": 23.8,
+   "multiplicador_mediana": 21.59,
+   "multiplicador_de_las_ganadoras": 18.89,
+   "roi_simulado": -0.3143,
+   "p5": -0.3788,
+   "p5_por_dia": -0.4196,
+   "dias_con_suficientes_partidos": 543,
+   "dias_que_aportan_ganadoras": 172,
+   "roi_proyectado_desde_la_pata": -0.2756,
    "veredicto": "loteria"
   },
   {
@@ -806,142 +832,152 @@
     1.1,
     1.3
    ],
-   "patas_disponibles": 1150,
+   "patas_disponibles": 3450,
    "intentos": 10000,
-   "ganadas": 1464,
-   "hit_rate": 0.1464,
-   "hit_rate_teorico": 0.03526,
-   "multiplicador_medio": 8.57,
-   "multiplicador_mediana": 8.83,
-   "multiplicador_de_las_ganadoras": 8.91,
-   "roi_simulado": 0.305,
-   "p5": 0.2511,
+   "ganadas": 1441,
+   "hit_rate": 0.1441,
+   "hit_rate_teorico": 0.05365,
+   "multiplicador_medio": 7.1,
+   "multiplicador_mediana": 7.08,
+   "multiplicador_de_las_ganadoras": 6.71,
+   "roi_simulado": -0.0333,
+   "p5": -0.0733,
+   "p5_por_dia": -0.3749,
+   "dias_con_suficientes_partidos": 99,
+   "dias_que_aportan_ganadoras": 45,
+   "roi_proyectado_desde_la_pata": -0.2141,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 10,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 5358,
+   "intentos": 10000,
+   "ganadas": 202,
+   "hit_rate": 0.0202,
+   "hit_rate_teorico": 0.01953,
+   "multiplicador_medio": 30.41,
+   "multiplicador_mediana": 29.99,
+   "multiplicador_de_las_ganadoras": 31.15,
+   "roi_simulado": -0.3708,
+   "p5": -0.4438,
+   "p5_por_dia": -0.6288,
+   "dias_con_suficientes_partidos": 205,
+   "dias_que_aportan_ganadoras": 51,
+   "roi_proyectado_desde_la_pata": -0.3233,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 10,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 8701,
+   "intentos": 10000,
+   "ganadas": 31,
+   "hit_rate": 0.0031,
+   "hit_rate_teorico": 0.01179,
+   "multiplicador_medio": 142.06,
+   "multiplicador_mediana": 140.07,
+   "multiplicador_de_las_ganadoras": 132.64,
+   "roi_simulado": -0.5888,
+   "p5": -0.7041,
+   "p5_por_dia": -0.7683,
+   "dias_con_suficientes_partidos": 280,
+   "dias_que_aportan_ganadoras": 18,
+   "roi_proyectado_desde_la_pata": -0.3981,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 10,
+   "rango_cuota": [
+    1.1,
+    1.8
+   ],
+   "patas_disponibles": 16428,
+   "intentos": 10000,
+   "ganadas": 160,
+   "hit_rate": 0.016,
+   "hit_rate_teorico": 0.01861,
+   "multiplicador_medio": 53.48,
+   "multiplicador_mediana": 46.28,
+   "multiplicador_de_las_ganadoras": 41.95,
+   "roi_simulado": -0.3288,
+   "p5": -0.4263,
+   "p5_por_dia": -0.5261,
+   "dias_con_suficientes_partidos": 514,
+   "dias_que_aportan_ganadoras": 81,
+   "roi_proyectado_desde_la_pata": -0.3317,
+   "veredicto": "loteria"
+  },
+  {
+   "n_patas": 13,
+   "rango_cuota": [
+    1.1,
+    1.3
+   ],
+   "patas_disponibles": 3450,
+   "intentos": 10000,
+   "ganadas": 1165,
+   "hit_rate": 0.1165,
+   "hit_rate_teorico": 0.02303,
+   "multiplicador_medio": 12.08,
+   "multiplicador_mediana": 11.88,
+   "multiplicador_de_las_ganadoras": 12.26,
+   "roi_simulado": 0.4279,
+   "p5": 0.3617,
+   "p5_por_dia": -0.4909,
+   "dias_con_suficientes_partidos": 41,
+   "dias_que_aportan_ganadoras": 16,
+   "roi_proyectado_desde_la_pata": -0.2689,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 13,
+   "rango_cuota": [
+    1.3,
+    1.5
+   ],
+   "patas_disponibles": 5358,
+   "intentos": 10000,
+   "ganadas": 123,
+   "hit_rate": 0.0123,
+   "hit_rate_teorico": 0.00603,
+   "multiplicador_medio": 85.43,
+   "multiplicador_mediana": 84.19,
+   "multiplicador_de_las_ganadoras": 89.11,
+   "roi_simulado": 0.0961,
+   "p5": -0.0686,
+   "p5_por_dia": -0.7773,
+   "dias_con_suficientes_partidos": 125,
+   "dias_que_aportan_ganadoras": 16,
+   "roi_proyectado_desde_la_pata": -0.3981,
+   "veredicto": "alto_riesgo"
+  },
+  {
+   "n_patas": 13,
+   "rango_cuota": [
+    1.5,
+    1.8
+   ],
+   "patas_disponibles": 8701,
+   "intentos": 10000,
+   "ganadas": 2,
+   "hit_rate": 0.0002,
+   "hit_rate_teorico": 0.0032,
+   "multiplicador_medio": 638.14,
+   "multiplicador_mediana": 623.19,
+   "multiplicador_de_las_ganadoras": 571.73,
+   "roi_simulado": -0.8857,
+   "p5": -1.0,
    "p5_por_dia": -1.0,
-   "dias_con_suficientes_partidos": 7,
-   "dias_que_aportan_ganadoras": 1,
-   "roi_proyectado_desde_la_pata": -0.0518,
-   "veredicto": "sin_muestra"
-  },
-  {
-   "n_patas": 10,
-   "rango_cuota": [
-    1.3,
-    1.5
-   ],
-   "patas_disponibles": 3000,
-   "intentos": 10000,
-   "ganadas": 380,
-   "hit_rate": 0.038,
-   "hit_rate_teorico": 0.01968,
-   "multiplicador_medio": 31.88,
-   "multiplicador_mediana": 31.51,
-   "multiplicador_de_las_ganadoras": 30.28,
-   "roi_simulado": 0.1507,
-   "p5": 0.05,
-   "p5_por_dia": -0.4891,
-   "dias_con_suficientes_partidos": 110,
-   "dias_que_aportan_ganadoras": 36,
-   "roi_proyectado_desde_la_pata": -0.3026,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 10,
-   "rango_cuota": [
-    1.5,
-    1.8
-   ],
-   "patas_disponibles": 6628,
-   "intentos": 10000,
-   "ganadas": 40,
-   "hit_rate": 0.004,
-   "hit_rate_teorico": 0.01245,
-   "multiplicador_medio": 149.01,
-   "multiplicador_mediana": 146.21,
-   "multiplicador_de_las_ganadoras": 145.42,
-   "roi_simulado": -0.4183,
-   "p5": -0.5686,
-   "p5_por_dia": -0.6231,
-   "dias_con_suficientes_partidos": 197,
-   "dias_que_aportan_ganadoras": 24,
-   "roi_proyectado_desde_la_pata": -0.3657,
-   "veredicto": "loteria"
-  },
-  {
-   "n_patas": 10,
-   "rango_cuota": [
-    1.1,
-    1.8
-   ],
-   "patas_disponibles": 10354,
-   "intentos": 10000,
-   "ganadas": 81,
-   "hit_rate": 0.0081,
-   "hit_rate_teorico": 0.01544,
-   "multiplicador_medio": 83.87,
-   "multiplicador_mediana": 79.41,
-   "multiplicador_de_las_ganadoras": 69.64,
-   "roi_simulado": -0.4359,
-   "p5": -0.5462,
-   "p5_por_dia": -0.5719,
-   "dias_con_suficientes_partidos": 258,
-   "dias_que_aportan_ganadoras": 49,
-   "roi_proyectado_desde_la_pata": -0.3155,
-   "veredicto": "loteria"
-  },
-  {
-   "n_patas": 13,
-   "rango_cuota": [
-    1.1,
-    1.3
-   ],
-   "patas_disponibles": 1150,
-   "intentos": 0,
-   "motivo": "ningun dia tiene 13 partidos distintos que pasen el filtro",
-   "roi_proyectado_desde_la_pata": -0.0668,
-   "veredicto": "sin_muestra"
-  },
-  {
-   "n_patas": 13,
-   "rango_cuota": [
-    1.3,
-    1.5
-   ],
-   "patas_disponibles": 3000,
-   "intentos": 10000,
-   "ganadas": 180,
-   "hit_rate": 0.018,
-   "hit_rate_teorico": 0.0059,
-   "multiplicador_medio": 89.73,
-   "multiplicador_mediana": 88.51,
-   "multiplicador_de_las_ganadoras": 89.1,
-   "roi_simulado": 0.6038,
-   "p5": 0.4158,
-   "p5_por_dia": -0.7531,
-   "dias_con_suficientes_partidos": 75,
-   "dias_que_aportan_ganadoras": 11,
-   "roi_proyectado_desde_la_pata": -0.3741,
-   "veredicto": "alto_riesgo"
-  },
-  {
-   "n_patas": 13,
-   "rango_cuota": [
-    1.5,
-    1.8
-   ],
-   "patas_disponibles": 6628,
-   "intentos": 10000,
-   "ganadas": 3,
-   "hit_rate": 0.0003,
-   "hit_rate_teorico": 0.00345,
-   "multiplicador_medio": 669.2,
-   "multiplicador_mediana": 653.0,
-   "multiplicador_de_las_ganadoras": 641.32,
-   "roi_simulado": -0.8076,
-   "p5": -0.9401,
-   "p5_por_dia": -0.941,
-   "dias_con_suficientes_partidos": 158,
-   "dias_que_aportan_ganadoras": 3,
-   "roi_proyectado_desde_la_pata": -0.4467,
+   "dias_con_suficientes_partidos": 214,
+   "dias_que_aportan_ganadoras": 2,
+   "roi_proyectado_desde_la_pata": -0.4831,
    "veredicto": "loteria"
   },
   {
@@ -950,23 +986,187 @@
     1.1,
     1.8
    ],
-   "patas_disponibles": 10354,
+   "patas_disponibles": 16428,
    "intentos": 10000,
-   "ganadas": 18,
-   "hit_rate": 0.0018,
-   "hit_rate_teorico": 0.0043,
-   "multiplicador_medio": 316.65,
-   "multiplicador_mediana": 292.84,
-   "multiplicador_de_las_ganadoras": 238.54,
-   "roi_simulado": -0.5706,
-   "p5": -0.7488,
-   "p5_por_dia": -0.7762,
-   "dias_con_suficientes_partidos": 223,
-   "dias_que_aportan_ganadoras": 12,
-   "roi_proyectado_desde_la_pata": -0.3891,
+   "ganadas": 60,
+   "hit_rate": 0.006,
+   "hit_rate_teorico": 0.00576,
+   "multiplicador_medio": 182.81,
+   "multiplicador_mediana": 146.25,
+   "multiplicador_de_las_ganadoras": 115.64,
+   "roi_simulado": -0.3061,
+   "p5": -0.4697,
+   "p5_por_dia": -0.7391,
+   "dias_con_suficientes_partidos": 464,
+   "dias_que_aportan_ganadoras": 25,
+   "roi_proyectado_desde_la_pata": -0.4078,
    "veredicto": "loteria"
   }
  ],
+ "por_deporte": {
+  "Fútbol": {
+   "deportes": [
+    "Fútbol"
+   ],
+   "pata_suelta": {
+    "n": 10354,
+    "acierto": 0.6334,
+    "prob_media": 0.6615,
+    "cuota_media": 1.5421,
+    "roi": -0.0372,
+    "p5": -0.0496,
+    "ece": 0.0439
+   },
+   "cuatro_patas": {
+    "n_patas": 4,
+    "rango_cuota": [
+     1.1,
+     1.8
+    ],
+    "patas_disponibles": 10354,
+    "intentos": 2500,
+    "ganadas": 371,
+    "hit_rate": 0.1484,
+    "hit_rate_teorico": 0.18626,
+    "multiplicador_medio": 5.74,
+    "multiplicador_mediana": 5.72,
+    "multiplicador_de_las_ganadoras": 5.45,
+    "roi_simulado": -0.1916,
+    "p5": -0.2544,
+    "p5_por_dia": -0.2955,
+    "dias_con_suficientes_partidos": 402,
+    "dias_que_aportan_ganadoras": 187,
+    "veredicto": "alto_riesgo"
+   }
+  },
+  "MLB": {
+   "deportes": [
+    "MLB"
+   ],
+   "pata_suelta": {
+    "n": 0
+   },
+   "cuatro_patas": {
+    "n_patas": 4,
+    "rango_cuota": [
+     1.1,
+     1.8
+    ],
+    "patas_disponibles": 0,
+    "intentos": 0,
+    "motivo": "ninguna pata pasa el filtro",
+    "veredicto": "sin_muestra"
+   }
+  },
+  "Tenis": {
+   "deportes": [
+    "Tenis"
+   ],
+   "pata_suelta": {
+    "n": 6074,
+    "acierto": 0.6953,
+    "prob_media": 0.686,
+    "cuota_media": 1.4022,
+    "roi": -0.0435,
+    "p5": -0.0569,
+    "ece": 0.0201
+   },
+   "cuatro_patas": {
+    "n_patas": 4,
+    "rango_cuota": [
+     1.1,
+     1.8
+    ],
+    "patas_disponibles": 6074,
+    "intentos": 2500,
+    "ganadas": 591,
+    "hit_rate": 0.2364,
+    "hit_rate_teorico": 0.22484,
+    "multiplicador_medio": 3.9,
+    "multiplicador_mediana": 3.74,
+    "multiplicador_de_las_ganadoras": 3.61,
+    "roi_simulado": -0.1469,
+    "p5": -0.2017,
+    "p5_por_dia": -0.2343,
+    "dias_con_suficientes_partidos": 445,
+    "dias_que_aportan_ganadoras": 261,
+    "veredicto": "alto_riesgo"
+   }
+  },
+  "Fútbol+MLB": {
+   "deportes": [
+    "Fútbol",
+    "MLB"
+   ],
+   "pata_suelta": {
+    "n": 10354,
+    "acierto": 0.6334,
+    "prob_media": 0.6615,
+    "cuota_media": 1.5421,
+    "roi": -0.0372,
+    "p5": -0.0496,
+    "ece": 0.0439
+   },
+   "cuatro_patas": {
+    "n_patas": 4,
+    "rango_cuota": [
+     1.1,
+     1.8
+    ],
+    "patas_disponibles": 10354,
+    "intentos": 2500,
+    "ganadas": 371,
+    "hit_rate": 0.1484,
+    "hit_rate_teorico": 0.18626,
+    "multiplicador_medio": 5.74,
+    "multiplicador_mediana": 5.72,
+    "multiplicador_de_las_ganadoras": 5.45,
+    "roi_simulado": -0.1916,
+    "p5": -0.2544,
+    "p5_por_dia": -0.2955,
+    "dias_con_suficientes_partidos": 402,
+    "dias_que_aportan_ganadoras": 187,
+    "veredicto": "alto_riesgo"
+   }
+  },
+  "Fútbol+MLB+Tenis": {
+   "deportes": [
+    "Fútbol",
+    "MLB",
+    "Tenis"
+   ],
+   "pata_suelta": {
+    "n": 16428,
+    "acierto": 0.6563,
+    "prob_media": 0.6706,
+    "cuota_media": 1.4904,
+    "roi": -0.0395,
+    "p5": -0.0489,
+    "ece": 0.0314
+   },
+   "cuatro_patas": {
+    "n_patas": 4,
+    "rango_cuota": [
+     1.1,
+     1.8
+    ],
+    "patas_disponibles": 16428,
+    "intentos": 2500,
+    "ganadas": 458,
+    "hit_rate": 0.1832,
+    "hit_rate_teorico": 0.2034,
+    "multiplicador_medio": 4.78,
+    "multiplicador_mediana": 4.64,
+    "multiplicador_de_las_ganadoras": 4.27,
+    "roi_simulado": -0.2183,
+    "p5": -0.2764,
+    "p5_por_dia": -0.2881,
+    "dias_con_suficientes_partidos": 610,
+    "dias_que_aportan_ganadoras": 276,
+    "veredicto": "loteria"
+   }
+  }
+ },
  "configuraciones_viables": [],
  "medido": true,
  "veredicto": "todas_negativas"

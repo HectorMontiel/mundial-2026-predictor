@@ -66,6 +66,13 @@ logger = logging.getLogger(__name__)
 SALIDA = 'sonadora_historico.json'
 LEDGER_1X2 = 'pick_ledger.csv'
 LEDGER_TOT = 'pick_ledger_totales.csv'
+LEDGER_DEP = 'pick_ledger_deportes.csv'     # MLB y tenis, con su cuota
+
+# Las combinaciones de deportes que la pantalla puede pedir. Se miden por
+# separado porque no rinden igual: el modelo de tenis no bate al mercado
+# (medido sobre 108.657 partidos, §8 del traspaso) y el de MLB tampoco.
+COMBOS_DEPORTE = (('Fútbol',), ('MLB',), ('Tenis',),
+                  ('Fútbol', 'MLB'), ('Fútbol', 'MLB', 'Tenis'))
 
 # Las configuraciones del encargo.
 N_PATAS = (4, 6, 8, 10, 13)
@@ -146,10 +153,38 @@ def _patas_goles(t: pd.DataFrame) -> pd.DataFrame:
     return pd.concat(fuera, ignore_index=True)
 
 
+def _patas_deportes(d: pd.DataFrame) -> pd.DataFrame:
+    """Ganador de MLB y tenis, con su cuota de cierre real.
+
+    Mismo criterio que el 1X2 del futbol: `resultado` es el INDICE de
+    [p_home, p_draw, p_away], asi que 0 es local y 2 visitante.
+    """
+    fuera = []
+    for lado, pcol, ccol, res in (('Gana local', 'p_home', 'cuota_home', 0),
+                                  ('Gana visitante', 'p_away', 'cuota_away', 2)):
+        g = d[d[ccol].notna() & d[pcol].notna() & d['resultado'].notna()]
+        fuera.append(pd.DataFrame({
+            'fecha': g['fecha'].astype(str), 'liga': g['liga'].astype(str),
+            'match_id': g['match_id'].astype(str),
+            'deporte': g['deporte'].astype(str),
+            'mercado': 'Ganador', 'seleccion': lado,
+            'prob': g[pcol].astype(float), 'cuota': g[ccol].astype(float),
+            'gana': (g['resultado'].astype(int) == res).astype(int)}))
+    return pd.concat(fuera, ignore_index=True)
+
+
 def conjunto_patas(desde: Optional[str] = None) -> pd.DataFrame:
     d = pd.read_csv(LEDGER_1X2)
     t = pd.read_csv(LEDGER_TOT)
-    P = pd.concat([_patas_1x2(d), _patas_goles(t)], ignore_index=True)
+    trozos = [_patas_1x2(d), _patas_goles(t)]
+    for tr in trozos:
+        tr['deporte'] = 'Fútbol'
+    try:
+        dep = pd.read_csv(LEDGER_DEP)
+        trozos.append(_patas_deportes(dep))
+    except Exception as e:
+        logger.warning('[sonadora] sin ledger multideporte: %s', e)
+    P = pd.concat(trozos, ignore_index=True)
     if desde:
         P = P[P['fecha'] >= desde]
     return P.reset_index(drop=True)
@@ -415,6 +450,23 @@ def validar(meses: int = 6, n_sim: int = N_SIMULACIONES) -> Dict:
                         n, lo, hi, (cfg.get('hit_rate') or 0) * 100,
                         cfg.get('roi_simulado'))
 
+    # POR COMBINACION DE DEPORTES, que es lo que el selector permite pedir.
+    # Se mide la pata suelta de cada combo —el numero del que cuelga todo— y
+    # una configuracion representativa de 4 patas.
+    doc['por_deporte'] = {}
+    for combo in COMBOS_DEPORTE:
+        sub = P[P['deporte'].isin(combo)]
+        F2 = sub[(sub['cuota'] >= 1.10) & (sub['cuota'] <= 1.80)
+                 & (sub['prob'] >= PROB_MINIMA)]
+        entrada = {'deportes': list(combo), 'pata_suelta': roi_pata(F2)}
+        cfg4 = simular(sub, 4, 1.10, 1.80, max(n_sim // 4, 1000))
+        cfg4['veredicto'] = _veredicto_config(cfg4)
+        entrada['cuatro_patas'] = cfg4
+        doc['por_deporte']['+'.join(combo)] = entrada
+        logger.info('[sonadora] %s: pata suelta n=%s roi=%s · 4 patas hit=%s',
+                    '+'.join(combo), entrada['pata_suelta'].get('n'),
+                    entrada['pata_suelta'].get('roi'), cfg4.get('hit_rate'))
+
     viables = [c for c in doc['configuraciones']
                if c.get('veredicto') == 'viable']
     doc['configuraciones_viables'] = [
@@ -490,6 +542,20 @@ def _imprimir(doc: Dict) -> None:
               f"{(c.get('p5_por_dia') or 0)*100:>7.1f}% "
               f"{(_pr*100 if _pr is not None else 0):>8.1f}% "
               f"{c.get('dias_que_aportan_ganadoras', 0):>4d}  {c['veredicto']}")
+    print()
+    print('POR COMBINACION DE DEPORTES (pata suelta y 4 patas 1,10-1,80)')
+    for nombre, e in (doc.get('por_deporte') or {}).items():
+        ps2 = e.get('pata_suelta') or {}
+        c4 = e.get('cuatro_patas') or {}
+        if not ps2.get('n'):
+            print(f"   {nombre:24s} sin patas con cuota en la ventana")
+            continue
+        print(f"   {nombre:24s} n={ps2['n']:6d} acierta "
+              f"{ps2['acierto']*100:5.1f} % ROI {ps2['roi']*100:+6.2f} % "
+              f"| 4 patas: hit {(c4.get('hit_rate') or 0)*100:5.2f} % "
+              f"mult {c4.get('multiplicador_medio', 0):6.2f}x "
+              f"ROI {(c4.get('roi_simulado') or 0)*100:+6.1f} % "
+              f"({c4.get('dias_con_suficientes_partidos', 0)} jornadas)")
     print()
     print(f"VEREDICTO: {doc.get('veredicto')}")
     for c in doc.get('configuraciones_viables') or []:

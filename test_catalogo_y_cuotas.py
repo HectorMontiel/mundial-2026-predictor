@@ -13452,12 +13452,33 @@ def test_la_sonadora_genera_permutaciones_distintas():
                 'prob_ajustada': 0.85 - i * 0.02 - j * 0.005,
                 'cuota': 1.10 + i * 0.05 + j * 0.01,
                 'casa': 'Playdoit', 'ece': None, 'medido': False,
+                'color': sm.color(0.90 - i * 0.02 - j * 0.005),
                 'score': (0.85 - i * 0.02 - j * 0.005)
                 * (1.10 + i * 0.05 + j * 0.01)})
+
+    # UNA PATA TRAMPA: probabilidad altisima pero calibracion medida MALA, asi
+    # que el semaforo la baja a ambar. Sin ella, ordenar por probabilidad y
+    # ordenar por color dan lo mismo —el color sale de la probabilidad— y el
+    # check de «A prioriza el color» no podria fallar nunca.
+    patas.append({
+        'id': 'trampa', 'deporte': 'Fútbol', 'partido': 'Trampa vs Rival',
+        'liga': 'LigaT', 'clave_liga': 'lt', 'hora': '12:00',
+        'categoria': '1X2', 'etiqueta': 'Gana Trampa',
+        'prob': 0.97, 'prob_ajustada': 0.82, 'cuota': 1.12,
+        'casa': 'Playdoit', 'ece': 0.20, 'medido': True,
+        'color': sm.color(0.97, 0.20), 'score': 0.92})
+    check(patas[-1]['color'] == sm.AMBAR,
+          'la pata trampa sale ambar pese a su 97 %: la calibracion la baja')
 
     perms = sm.permutaciones(patas, 4)
     check(len(perms) >= 3,
           f'se generan varias permutaciones distintas ({len(perms)})')
+    _a = {p['letra']: p for p in perms}.get('A')
+    if _a:
+        check(all(q['color'] == sm.VERDE for q in _a['patas']),
+              f'la permutacion de alta probabilidad se arma con verdes y deja '
+              f'fuera la trampa, aunque sea la de mayor probabilidad '
+              f'({[(q["etiqueta"], q["color"]) for q in _a["patas"]]})')
     firmas = {tuple(sorted(q['id'] for q in p['patas'])) for p in perms}
     check(len(firmas) == len(perms),
           'y ninguna repite exactamente la combinacion de otra')
@@ -13479,6 +13500,15 @@ def test_la_sonadora_genera_permutaciones_distintas():
         check(len({q['liga'] for q in por_letra['D']['patas']}) == 4
               or len({q['liga'] for q in patas}) < 4,
               'la diversificada usa competiciones distintas')
+    if 'A' in por_letra and 'B' in por_letra:
+        _va = por_letra['A']['conteo_color'].get(sm.VERDE, 0)
+        _vb = por_letra['B']['conteo_color'].get(sm.VERDE, 0)
+        check(_va >= _vb,
+              f'la de alta probabilidad no lleva menos verdes que la de alto '
+              f'multiplicador ({_va} frente a {_vb})')
+    for p in perms:
+        check(sum(p['conteo_color'].values()) == p['n_patas'],
+              f"{p['letra']}: el reparto de colores cuadra con las patas")
 
     # el tope duro
     check(len(sm.armar(patas[:20])['patas']) <= sm.MAX_PATAS,
@@ -13502,7 +13532,7 @@ def test_la_sonadora_ensancha_el_rango_antes_que_quedarse_vacia():
 
     guardado = sm._recoger
     try:
-        sm._recoger = lambda r, dia, mx: {
+        sm._recoger = lambda r, dia, mx, deportes=None: {
             'patas': sm.patas_de_fila(fila), 'n_partidos': 1,
             'tableros_pedidos': 0, 'sin_tablero': 0}
         # 2,10 queda FUERA del rango pedido
@@ -13523,7 +13553,7 @@ def test_la_sonadora_ensancha_el_rango_antes_que_quedarse_vacia():
 
     # sin ningun partido no se inventa nada
     try:
-        sm._recoger = lambda r, dia, mx: {
+        sm._recoger = lambda r, dia, mx, deportes=None: {
             'patas': [], 'n_partidos': 0, 'tableros_pedidos': 0,
             'sin_tablero': 0}
         vacio = sm.patas_del_dia({}, '2026-09-15')
@@ -13556,12 +13586,180 @@ def test_la_sonadora_avisa_sin_asustar_y_ensena_lo_medido():
     check('roi_esperado_medido' in fuente,
           'el rendimiento medido sigue en pantalla, junto al premio')
 
-    # y solo quedan DOS controles de configuracion
-    for quitado in ('son_prob', 'son_nivel', 'son_deportes'):
+    # los controles que el redisenio quito siguen fuera
+    for quitado in ('son_prob', 'son_nivel'):
         check(quitado not in fuente,
               f'el control «{quitado}» se quito del rediseno')
-    for queda in ('son_cuota', 'son_n'):
-        check(queda in fuente, f'queda el control «{queda}»')
+    # y los que hay son los tres pedidos, mas el interruptor de rojas
+    for queda in ('son_cuota', 'son_n', 'son_deportes', 'son_rojas'):
+        check(queda in fuente, f'esta el control «{queda}»')
+
+
+def test_el_semaforo_colorea_todas_las_patas():
+    """
+    El usuario veia «muchas patas en blanco». La causa: el color salia de si la
+    liga tenia error de calibracion medido, y solo lo tienen el 1X2 y la linea
+    de 2,5 goles — 13 de 366 patas el 2026-09-16.
+
+    Y la regla que pedia el encargo —«verde = prob >= 65 % Y ECE < 0,05»— era
+    PEOR: las trece medidas tienen el ECE entre 0,063 y 0,128, o sea por encima
+    de 0,05, asi que esa regla daba **cero verdes y 96,4 % grises**. Una regla
+    que nadie puede cumplir no colorea: apaga.
+
+    Ahora el color lo manda la PROBABILIDAD, que todas las patas tienen, y la
+    calibracion solo puede bajarlo un escalon.
+    """
+    import sonadora_motor as sm
+
+    check(sm.color(0.85) == sm.VERDE, 'una pata al 85 % sale verde')
+    check(sm.color(0.62) == sm.AMBAR, 'una al 62 % sale ambar')
+    check(sm.color(0.50) == sm.ROJO, 'una al 50 % sale roja')
+    check(sm.color(None) == sm.GRIS, 'sin probabilidad, gris')
+    # la calibracion BAJA, nunca sube
+    check(sm.color(0.85, 0.13) == sm.AMBAR,
+          'un ECE malo baja una verde a ambar')
+    check(sm.color(0.62, 0.13) == sm.ROJO,
+          'y una ambar a roja')
+    check(sm.color(0.85, 0.01) == sm.VERDE,
+          'un ECE bueno no la sube mas alla de verde')
+    check(sm.color(0.85, None) == sm.VERDE,
+          'y NO tener medicion no la manda a gris: eso era el bug')
+
+    # ninguna pata con probabilidad puede salir gris
+    for p in (0.55, 0.60, 0.65, 0.70, 0.80, 0.95):
+        check(sm.color(p) != sm.GRIS,
+              f'una pata al {p:.0%} nunca sale sin color')
+
+    # y el orden pone las verdes delante y las rojas al final
+    check(sm.ORDEN_COLOR[sm.VERDE] < sm.ORDEN_COLOR[sm.AMBAR]
+          < sm.ORDEN_COLOR[sm.GRIS] < sm.ORDEN_COLOR[sm.ROJO],
+          'el orden es verde, ambar, gris y las rojas al final')
+
+    # el color viaja dentro de la pata
+    partido = {'deporte': 'Fútbol', 'partido': 'Aaa FC vs Bbb FC',
+               'liga': 'L', 'clave_liga': 'laliga', 'hora': '',
+               'board': {'Gana Aaa FC': 0.80, 'Empate': 0.12,
+                         'Gana Bbb FC': 0.08},
+               'goles_lineas': {'1.5': 0.82, '2.5': 0.60}}
+    det = {'casa_home': 'Aaa FC', 'casa_away': 'Bbb FC', 'mercados': [
+        {'nombre': 'Total', 'selecciones': [
+            {'nombre': 'Más de 1.5', 'cuota': 1.18},
+            {'nombre': 'Más de 2.5', 'cuota': 1.60}]}]}
+    patas = sm.patas_del_partido(partido, det)
+    check(bool(patas), 'el partido de prueba produce patas')
+    check(all(q.get('color') for q in patas),
+          'todas las patas llevan color')
+    check(any(q['color'] == sm.VERDE for q in patas),
+          f'y las de alta probabilidad salen verdes '
+          f'({[(q["etiqueta"], q["color"], q["prob"]) for q in patas]})')
+
+
+def test_el_filtro_de_deportes_no_mezcla_lo_no_seleccionado():
+    """
+    Regla de oro del encargo: el motor **nunca** usa patas de deportes que el
+    usuario no marco. Y el presupuesto de tableros es POR DEPORTE: con uno
+    global, el futbol se comia los 60 y una seleccion mixta se quedaba con dos
+    patas de tenis en vez de catorce (medido el 2026-09-16).
+    """
+    import inspect
+    import sonadora_motor as sm
+
+    check(set(sm.DEPORTES) >= {'Fútbol', 'MLB', 'NBA', 'NFL', 'Tenis', 'KBO'},
+          f'estan los seis deportes ({sm.DEPORTES})')
+    check(sm.DEPORTES_POR_DEFECTO == ('Fútbol',),
+          f'por defecto solo futbol ({sm.DEPORTES_POR_DEFECTO})')
+
+    fuente = inspect.getsource(sm._recoger)
+    check("if p.get('deporte') in quiero" in fuente,
+          'el motor descarta los partidos de deportes no marcados')
+    check('pedidos.get(dep, 0) < max_partidos' in fuente,
+          'y el presupuesto de tableros se cuenta por deporte')
+
+    # comportamiento: se finge un dia con patas de tres deportes
+    def _fila(dep, partido, liga):
+        return {'deporte': dep, 'partido': partido, 'liga': liga,
+                'clave_liga': liga, 'hora': '', 'mercados': [
+                    {'categoria': 'Ganador', 'etiqueta': f'Gana {partido[:4]}',
+                     'prob': 0.72, 'cuota': 1.45, 'casa': 'Playdoit',
+                     'informativo': False}]}
+
+    filas = [_fila('Fútbol', 'Aaa vs Bbb', 'laliga'),
+             _fila('MLB', 'Ccc @ Ddd', 'mlb'),
+             _fila('Tenis', 'Eee vs Fff', 'atp')]
+    guardado = sm._recoger
+    try:
+        def _falso(r, dia, mx, deportes=None):
+            quiero = set(deportes or sm.DEPORTES_POR_DEFECTO)
+            pat = []
+            for f in filas:
+                if f['deporte'] in quiero:
+                    pat += sm.patas_de_fila(f)
+            return {'patas': pat, 'n_partidos': len(filas),
+                    'tableros_pedidos': 0, 'sin_tablero': 0}
+        sm._recoger = _falso
+        for combo in (['Fútbol'], ['MLB'], ['Fútbol', 'Tenis'],
+                      ['Fútbol', 'MLB', 'Tenis']):
+            res = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
+                                   cuota_max=2.50, deportes=combo)
+            deps = {q['deporte'] for q in res['patas']}
+            check(deps <= set(combo),
+                  f'con {combo} no aparece ningun deporte ajeno (salio {deps})')
+            check(deps == set(combo),
+                  f'y aparecen todos los marcados (salio {deps})')
+            check(res.get('deportes') == sorted(set(combo)),
+                  'el resultado dice con que deportes se armo')
+    finally:
+        sm._recoger = guardado
+
+
+def test_las_rojas_se_esconden_pero_no_dejan_la_lista_vacia():
+    """
+    Las patas de alto riesgo no se enseñan por defecto. Pero si un dia NO hay
+    nada mejor, se enseñan igual: esconder lo unico que hay es dejar la
+    pantalla vacia por otra via, que es justo lo que el redisenio venia a
+    arreglar.
+    """
+    import sonadora_motor as sm
+
+    def _fila(prob, cuota, nombre):
+        return {'deporte': 'Fútbol', 'partido': nombre, 'liga': 'L',
+                'clave_liga': 'laliga', 'hora': '', 'mercados': [
+                    {'categoria': 'Ganador', 'etiqueta': f'Gana {nombre[:3]}',
+                     'prob': prob, 'cuota': cuota, 'casa': 'Playdoit',
+                     'informativo': False}]}
+
+    guardado = sm._recoger
+    try:
+        # caso 1: hay verdes y rojas -> las rojas se esconden
+        mezcla = [_fila(0.80, 1.40, 'Aaa vs Bbb'),
+                  _fila(0.56, 1.90, 'Ccc vs Ddd')]
+        sm._recoger = lambda r, dia, mx, deportes=None: {
+            'patas': [q for f in mezcla for q in sm.patas_de_fila(f)],
+            'n_partidos': 2, 'tableros_pedidos': 0, 'sin_tablero': 0}
+        res = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
+                               cuota_max=2.50)
+        check(all(q['color'] != sm.ROJO for q in res['patas']),
+              'con verdes disponibles, las rojas no se enseñan')
+        check(res['rojas_ocultas'] >= 1, 'y se dice cuantas se escondieron')
+        res2 = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
+                                cuota_max=2.50, con_rojas=True)
+        check(any(q['color'] == sm.ROJO for q in res2['patas']),
+              'con el interruptor puesto si se enseñan')
+
+        # caso 2: SOLO hay rojas -> se enseñan igual
+        solo_rojas = [_fila(0.56, 1.90, 'Eee vs Fff')]
+        sm._recoger = lambda r, dia, mx, deportes=None: {
+            'patas': [q for f in solo_rojas for q in sm.patas_de_fila(f)],
+            'n_partidos': 1, 'tableros_pedidos': 0, 'sin_tablero': 0}
+        res3 = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
+                                cuota_max=2.50)
+        check(bool(res3['patas']),
+              'si lo unico que hay son rojas, se enseñan: la lista no se '
+              'queda vacia por esconderlas')
+        check(res3['solidez'] == 'debil',
+              f'y la lista se marca como debil (salio {res3["solidez"]})')
+    finally:
+        sm._recoger = guardado
 
 
 def test_el_veredicto_de_la_sonadora_es_el_medido():
@@ -13906,6 +14104,9 @@ if __name__ == '__main__':
     test_la_sonadora_genera_permutaciones_distintas()
     test_la_sonadora_ensancha_el_rango_antes_que_quedarse_vacia()
     test_la_sonadora_avisa_sin_asustar_y_ensena_lo_medido()
+    test_el_semaforo_colorea_todas_las_patas()
+    test_el_filtro_de_deportes_no_mezcla_lo_no_seleccionado()
+    test_las_rojas_se_esconden_pero_no_dejan_la_lista_vacia()
     test_el_veredicto_de_la_sonadora_es_el_medido()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
