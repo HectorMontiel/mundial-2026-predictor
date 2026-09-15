@@ -5504,3 +5504,97 @@ que la sección se atragante allí:
    proyecto tiene documentado que el modelo se equivoca. Siguen estando —
    quitarlas sería decidir por el usuario— pero detrás de las medidas. Con el
    cambio, la primera permutación de 13 patas sale entera calibrada.
+
+---
+
+## 6l. v201 — UNA CASA POR PARLAY, Y LOS MERCADOS QUE SE PEDÍAN Y SE TIRABAN
+
+El usuario pidió poder elegir la casa —Novibet por defecto— y que **no se
+mezclen precios entre casas**. Tiene razón en lo segundo y es más importante
+que lo primero: un parlay con una pata de Playdoit y otra de Novibet da un
+multiplicador que **nadie va a pagar**, porque no existe ningún sitio donde se
+puedan poner las dos juntas.
+
+---
+
+### 1. Qué ofrece cada casa, medido
+
+**Novibet** entra por el comparador de Flashscore, que publica por tipo de
+mercado. Sondeados 12 partidos de 12 competiciones distintas:
+
+```
+HOME_DRAW_AWAY (1X2) ....  12 de 12      OVER_UNDER (goles) ...   0 de 12
+DOUBLE_CHANCE ...........  12 de 12      ASIAN_HANDICAP .......   4 de 12
+BOTH_TEAMS_TO_SCORE .....   4 de 12
+```
+
+O sea que **Novibet no publica totales de goles por esa puerta**, y la doble
+oportunidad es el único mercado, además del 1X2, que da siempre.
+
+**Playdoit** entra por Altenar y su tablero trae la oferta completa: goles
+totales y por equipo, córners, tarjetas, remates, 1X2, doble oportunidad y
+ambos marcan.
+
+**Draftea** no tiene puerta (sondeada en §6h). Aparece en el selector porque el
+usuario apuesta ahí, y al elegirla la pantalla explica exactamente qué se probó
+y por qué no hay nada, en vez de salir vacía sin motivo.
+
+### 2. Y dos de esos mercados se pedían desde la v192 y se tiraban
+
+`cuotas_mx.MERCADOS` pedía `OVER_UNDER` y `ASIAN_HANDICAP` desde la v192, y la
+bitácora daba por hecho que «los totales ya se recogen». **No se recogían.**
+`cuotas_evento` buscaba `over` y `under` en la raíz de la respuesta, y el
+servicio no los manda ahí: manda una LISTA de `opportunities`, una por línea,
+cada una con su `over`, su `under` y su valor. Como el lector no miraba esa
+lista, de los tres mercados que se pedían sólo se guardaba el 1X2.
+
+Arreglado, y con `DOUBLE_CHANCE` y `BOTH_TEAMS_TO_SCORE` añadidos a la tabla.
+El fichero regenerado pasa de un mercado a seis:
+
+```
+                   antes            después
+Novibet   HOME_DRAW_AWAY 251   HOME_DRAW_AWAY 251 · DOUBLE_CHANCE 252
+                               BOTH_TEAMS_TO_SCORE 108 · ASIAN_HANDICAP 194
+                               HOME_AWAY 273 · OVER_UNDER 110
+```
+
+661 partidos, más que los 623 que había. Los cambios son **aditivos**: las
+claves nuevas se suman y ningún consumidor lee las que no existían.
+
+Queda un cabo: las líneas de `OVER_UNDER` llegan **sin el número de línea** en
+varios casos, así que se guardan los precios pero no siempre se sabe a qué
+línea corresponden. Por eso los totales de las casas mexicanas todavía no
+producen patas — se guardan para cuando se resuelva.
+
+### 3. El filtro, y la red que lo garantiza
+
+`patas_del_dia(..., casa=...)` elige la fuente: Novibet sale de
+`cuotas_mx.json` (cero peticiones, el fichero ya está en disco) y Playdoit de
+su tablero de Altenar.
+
+Y hay una **red al final**: se descarta cualquier pata cuya casa no sea la
+elegida. Hace falta porque las filas del barrido traen la casa que eligió el
+guardia —la que mejor pagara de las dos—, así que sin la red se colaría alguna
+del otro sitio. El test la rompe a propósito para comprobar que se cae.
+
+Medido el 2026-09-16, con los seis deportes marcados:
+
+```
+Novibet    69 patas   1X2 1 · Ganador 37 · Doble oportunidad 17 · BTTS 14
+Playdoit  430 patas   Goles 199 · Córners 88 · Remates 64 · Tarjetas 44 ·
+                      BTTS 23 · Ganador 10 · 1X2 2
+Draftea     0 patas   sin fuente, y la pantalla dice por qué
+```
+
+Con el valor por defecto de la pantalla —Novibet y sólo fútbol— salen 23 patas
+de 20 partidos: 12 verdes, 11 ámbar.
+
+### 4. Lo que queda
+
+1. **Las líneas de los totales de las casas mexicanas**, sin número de línea en
+   parte de las respuestas. Resolverlo daría patas de goles con precio de
+   Novibet, que hoy no existen.
+2. **El hándicap asiático de Novibet** (194 partidos) no produce patas porque
+   el barrido no publica la probabilidad de hándicap del partido. El histórico
+   sí la tiene (`pick_ledger_handicap`), así que es medible.
+3. **Draftea**, cuando aparezca una puerta.

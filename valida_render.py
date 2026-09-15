@@ -127,6 +127,7 @@ VISTAS = {
         'controles': [
             ('son_cuota', 'rango de cuota por pata'),
             ('son_n', 'número de patas'),
+            ('son_casa', 'selector de casa de apuestas'),
             ('son_deportes', 'selector de deportes'),
             ('son_rojas', 'interruptor de patas de alto riesgo'),
             ('son_dia', 'selector de día'),

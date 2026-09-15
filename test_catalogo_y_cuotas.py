@@ -13542,12 +13542,12 @@ def test_la_sonadora_ensancha_el_rango_antes_que_quedarse_vacia():
 
     guardado = sm._recoger
     try:
-        sm._recoger = lambda r, dia, mx, deportes=None: {
+        sm._recoger = lambda r, dia, mx, deportes=None, casa=None: {
             'patas': sm.patas_de_fila(fila), 'n_partidos': 1,
             'tableros_pedidos': 0, 'sin_tablero': 0}
         # 2,10 queda FUERA del rango pedido
         res = sm.patas_del_dia({}, '2026-09-15', cuota_min=1.10,
-                               cuota_max=1.80)
+                               cuota_max=1.80, casa='Playdoit')
         check(bool(res['patas']),
               'con el rango estrecho vacio, el motor ensancha y devuelve algo')
         check(res['ensanchado'] is True, 'y marca que lo ensanchó')
@@ -13555,7 +13555,7 @@ def test_la_sonadora_ensancha_el_rango_antes_que_quedarse_vacia():
               f'hasta el maximo permitido (salio {res["rango"]})')
         # y cuando el rango pedido SI vale, no se toca
         res2 = sm.patas_del_dia({}, '2026-09-15', cuota_min=1.10,
-                                cuota_max=2.50)
+                                cuota_max=2.50, casa='Playdoit')
         check(res2['ensanchado'] is False,
               'y no ensancha cuando no hace falta')
     finally:
@@ -13563,10 +13563,10 @@ def test_la_sonadora_ensancha_el_rango_antes_que_quedarse_vacia():
 
     # sin ningun partido no se inventa nada
     try:
-        sm._recoger = lambda r, dia, mx, deportes=None: {
+        sm._recoger = lambda r, dia, mx, deportes=None, casa=None: {
             'patas': [], 'n_partidos': 0, 'tableros_pedidos': 0,
             'sin_tablero': 0}
-        vacio = sm.patas_del_dia({}, '2026-09-15')
+        vacio = sm.patas_del_dia({}, '2026-09-15', casa='Playdoit')
         check(vacio['patas'] == [] and vacio['ensanchado'] is False,
               'un dia sin partidos devuelve vacio y no finge lo contrario')
     finally:
@@ -13698,7 +13698,7 @@ def test_el_filtro_de_deportes_no_mezcla_lo_no_seleccionado():
              _fila('Tenis', 'Eee vs Fff', 'atp')]
     guardado = sm._recoger
     try:
-        def _falso(r, dia, mx, deportes=None):
+        def _falso(r, dia, mx, deportes=None, casa=None):
             quiero = set(deportes or sm.DEPORTES_POR_DEFECTO)
             pat = []
             for f in filas:
@@ -13710,7 +13710,8 @@ def test_el_filtro_de_deportes_no_mezcla_lo_no_seleccionado():
         for combo in (['Fútbol'], ['MLB'], ['Fútbol', 'Tenis'],
                       ['Fútbol', 'MLB', 'Tenis']):
             res = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
-                                   cuota_max=2.50, deportes=combo)
+                                   cuota_max=2.50, deportes=combo,
+                                   casa='Playdoit')
             deps = {q['deporte'] for q in res['patas']}
             check(deps <= set(combo),
                   f'con {combo} no aparece ningun deporte ajeno (salio {deps})')
@@ -13743,26 +13744,27 @@ def test_las_rojas_se_esconden_pero_no_dejan_la_lista_vacia():
         # caso 1: hay verdes y rojas -> las rojas se esconden
         mezcla = [_fila(0.80, 1.40, 'Aaa vs Bbb'),
                   _fila(0.56, 1.90, 'Ccc vs Ddd')]
-        sm._recoger = lambda r, dia, mx, deportes=None: {
+        sm._recoger = lambda r, dia, mx, deportes=None, casa=None: {
             'patas': [q for f in mezcla for q in sm.patas_de_fila(f)],
             'n_partidos': 2, 'tableros_pedidos': 0, 'sin_tablero': 0}
         res = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
-                               cuota_max=2.50)
+                               cuota_max=2.50, casa='Playdoit')
         check(all(q['color'] != sm.ROJO for q in res['patas']),
               'con verdes disponibles, las rojas no se enseñan')
         check(res['rojas_ocultas'] >= 1, 'y se dice cuantas se escondieron')
         res2 = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
-                                cuota_max=2.50, con_rojas=True)
+                                cuota_max=2.50, con_rojas=True,
+                                casa='Playdoit')
         check(any(q['color'] == sm.ROJO for q in res2['patas']),
               'con el interruptor puesto si se enseñan')
 
         # caso 2: SOLO hay rojas -> se enseñan igual
         solo_rojas = [_fila(0.56, 1.90, 'Eee vs Fff')]
-        sm._recoger = lambda r, dia, mx, deportes=None: {
+        sm._recoger = lambda r, dia, mx, deportes=None, casa=None: {
             'patas': [q for f in solo_rojas for q in sm.patas_de_fila(f)],
             'n_partidos': 1, 'tableros_pedidos': 0, 'sin_tablero': 0}
         res3 = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
-                                cuota_max=2.50)
+                                cuota_max=2.50, casa='Playdoit')
         check(bool(res3['patas']),
               'si lo unico que hay son rojas, se enseñan: la lista no se '
               'queda vacia por esconderlas')
@@ -13958,6 +13960,76 @@ def test_el_contexto_de_mercado_informa_y_no_recomienda():
     # el indice, para que no cueste una pasada por pata
     check(hasattr(cx, '_indice_mx'),
           'los partidos se indexan una vez en vez de recorrerlos por pata')
+
+def test_la_sonadora_no_mezcla_casas():
+    """
+    UN PARLAY SE JUEGA EN UNA CASA.
+
+    Combinar una pata con precio de Playdoit y otra con precio de Novibet da un
+    multiplicador que nadie va a pagar: no existe ningun sitio donde se puedan
+    poner las dos juntas. Asi que la pantalla pide que se elija casa y toda la
+    lista —y todas las permutaciones— salen de ella.
+
+    Y la casa por defecto es Novibet, que es la que el usuario pidio.
+    """
+    import inspect
+    import sonadora_motor as sm
+
+    check(tuple(sm.CASAS) == ('Novibet', 'Playdoit', 'Draftea'),
+          f'estan las tres casas del usuario ({sm.CASAS})')
+    check(sm.CASA_POR_DEFECTO == 'Novibet',
+          f'y por defecto es Novibet (salio {sm.CASA_POR_DEFECTO!r})')
+    check('Draftea' not in sm.CASAS_CON_FUENTE,
+          'Draftea se ofrece pero no tiene fuente: se sondearon todas las '
+          'puertas del proyecto y ninguna la sirve')
+    for c in ('Novibet', 'Playdoit'):
+        check(c in sm.CASAS_CON_FUENTE, f'{c} si tiene fuente')
+
+    def _fila(casa, partido, cuota):
+        return {'deporte': 'Fútbol', 'partido': partido, 'liga': 'L',
+                'clave_liga': 'laliga', 'hora': '', 'mercados': [
+                    {'categoria': 'Ganador', 'etiqueta': f'Gana {partido[:3]}',
+                     'prob': 0.72, 'cuota': cuota, 'casa': casa,
+                     'informativo': False}]}
+
+    # el barrido devuelve filas de las DOS casas: es lo normal, porque el
+    # guardia se queda con la que mejor pague
+    mezcla = [_fila('Playdoit', 'Aaa vs Bbb', 1.45),
+              _fila('Novibet', 'Ccc vs Ddd', 1.52)]
+    guardado = sm._recoger
+    try:
+        sm._recoger = lambda r, dia, mx, deportes=None, casa=None: {
+            'patas': [q for f in mezcla for q in sm.patas_de_fila(f)],
+            'n_partidos': 2, 'tableros_pedidos': 0, 'sin_tablero': 0}
+        for casa in ('Playdoit', 'Novibet'):
+            res = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.05,
+                                   cuota_max=2.50, casa=casa, con_rojas=True)
+            casas = {q['casa'] for q in res['patas']}
+            check(casas == {casa},
+                  f'con «{casa}» elegida, TODAS las patas son suyas '
+                  f'(salieron {casas})')
+            check(res.get('casa') == casa,
+                  'y el resultado dice con que casa se armo')
+            # y las permutaciones heredan la regla
+            perms = sm.permutaciones(res['patas'], 1)
+            for p in perms:
+                check({q['casa'] for q in p['patas']} == {casa},
+                      f'{p["letra"]}: la permutacion tampoco mezcla')
+    finally:
+        sm._recoger = guardado
+
+    # Draftea no produce patas, y no por un filtro: no hay de donde
+    fuente = inspect.getsource(sm._recoger)
+    check('casa not in CASAS_CON_FUENTE' in fuente,
+          'una casa sin fuente no se intenta leer')
+    check("casa == 'Novibet'" in fuente,
+          'Novibet sale del fichero de las casas mexicanas, no del tablero')
+
+    # la red final, por si una fila del barrido trae otra casa
+    cuerpo = inspect.getsource(sm.patas_del_dia)
+    check("q.get('casa') == casa" in cuerpo,
+          'hay una red que descarta cualquier pata de otra casa')
+
 
 def test_el_veredicto_de_la_sonadora_es_el_medido():
     """
@@ -14307,6 +14379,7 @@ if __name__ == '__main__':
     test_el_ece_cubre_los_ocho_mercados_y_no_mezcla_escalas()
     test_los_goles_por_equipo_salen_de_la_matriz_y_tienen_precio()
     test_el_contexto_de_mercado_informa_y_no_recomienda()
+    test_la_sonadora_no_mezcla_casas()
     test_el_veredicto_de_la_sonadora_es_el_medido()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")

@@ -119,6 +119,16 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
         index=N_PATAS_OPCIONES.index(13), key='son_n',
         format_func=lambda n: f'{n} patas')
 
+    # LA CASA VA PRIMERO PORQUE LO DECIDE TODO. Un parlay se juega EN UNA
+    # CASA: mezclar una pata de Playdoit con otra de Novibet da un
+    # multiplicador que nadie va a pagar, porque no hay ningún sitio donde se
+    # puedan poner juntas. Así que toda la lista sale de la casa elegida.
+    casa = st.selectbox(
+        'Casa de apuestas', list(sm.CASAS),
+        index=list(sm.CASAS).index(sm.CASA_POR_DEFECTO), key='son_casa',
+        help='Todas las patas y todas las permutaciones salen de esta casa. '
+             'No se mezclan precios de casas distintas.')
+
     deportes = st.multiselect(
         'Deportes', list(sm.DEPORTES), default=list(sm.DEPORTES_POR_DEFECTO),
         key='son_deportes',
@@ -126,6 +136,17 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
              'que marcar menos deportes es también más rápido.')
     if not deportes:
         st.warning('Marca al menos un deporte para ver patas.')
+        return
+    if casa not in sm.CASAS_CON_FUENTE:
+        st.warning(
+            f'**{casa} todavía no tiene fuente de precios.** Se sondearon '
+            f'todas las puertas que usa el proyecto: el comparador de '
+            f'Flashscore —por donde entra Novibet— no la nombra; Altenar —por '
+            f'donde entra Playdoit— responde 400 a las cinco integraciones '
+            f'probadas; su web es una página de marketing con protección '
+            f'anti-bot y su API contesta «no encontrado» en todas las rutas. '
+            f'Está en la lista para que el día que aparezca una puerta no haya '
+            f'que tocar nada. Mientras tanto, elige Novibet o Playdoit.')
         return
     con_rojas = st.checkbox('Mostrar patas de alto riesgo (🔴)',
                             key='son_rojas')
@@ -144,15 +165,16 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     # invalida la lista sola. `_r` con guion bajo le dice a Streamlit que no
     # intente hashear el diccionario del barrido, que es enorme.
     @st.cache_data(ttl=900, show_spinner=False)
-    def _patas(_r, sello, dia_, lo, hi, deps, rojas):
+    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_):
         return sm.patas_del_dia(_r, dia_, cuota_min=lo, cuota_max=hi,
-                                deportes=list(deps), con_rojas=rojas)
+                                deportes=list(deps), con_rojas=rojas,
+                                casa=casa_)
 
-    with st.spinner('Leyendo el tablero de Playdoit…'):
+    with st.spinner(f'Leyendo los precios de {casa}…'):
         try:
             res = _patas(r, str(r.get('actualizado') or ''), dia,
                          cuota_min, cuota_max, tuple(sorted(deportes)),
-                         con_rojas)
+                         con_rojas, casa)
         except Exception as e:
             st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
             return
@@ -160,10 +182,10 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
 
     if not patas:
         st.warning(
-            f"📅 Hoy no hay partidos con mercados suficientes "
-            f"({res.get('n_partidos', 0)} partidos, "
-            f"{res.get('tableros_pedidos', 0)} tableros leídos). "
-            f"Vuelve más tarde o prueba el día siguiente.")
+            f"📅 Hoy **{casa}** no cotiza ningún mercado que pase estos "
+            f"filtros ({res.get('n_partidos', 0)} partidos mirados). "
+            f"Prueba con la otra casa, con más deportes o con un rango de "
+            f"cuota más ancho.")
         return
     if res.get('ensanchado'):
         rango = res.get('rango') or []
@@ -184,7 +206,7 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
         f"moderadas · 🔴 {cc.get('🔴', 0)} de alto riesgo"
         + (f" ({res.get('rojas_ocultas', 0)} ocultas)"
            if res.get('rojas_ocultas') else '')
-        + f" · {res.get('tableros_pedidos', 0)} tableros de Playdoit leídos.")
+        + f" · todas en **{casa}**, sin mezclar con otras casas.")
     st.caption(
         f"El color lo manda la probabilidad del modelo; la calibración sólo "
         f"puede bajarlo. {res.get('n_medidas', 0)} de estas patas tienen error "
@@ -310,8 +332,8 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
                             key='son_entendido')
     if st.button('🎲 Confirmar parlay', key='son_confirmar', type='primary',
                  disabled=not entendido):
-        st.success('Listo. Móntalo en Playdoit: esta pantalla no apuesta por '
-                   'ti ni manda nada a ningún sitio.')
+        st.success(f'Listo. Móntalo en {casa}: esta pantalla no apuesta por '
+                   f'ti ni manda nada a ningún sitio.')
         st.code('\n'.join(f"{q['partido']} — {q['etiqueta']} @ {q['cuota']:.2f}"
                           for q in parlay['patas']), language=None)
 

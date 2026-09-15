@@ -70,6 +70,42 @@ PENALIZA_SIN_MEDIR = 0.85      # la probabilidad cruda se encoge un 15 %
 
 LINEAS_GOLES = (0.5, 1.5, 2.5, 3.5, 4.5, 5.5)
 
+# LAS CASAS, Y POR QUE NO SE MEZCLAN.
+#
+# Un parlay se juega EN UNA CASA. Combinar una pata con precio de Playdoit y
+# otra con precio de Novibet da un multiplicador que nadie va a pagar, porque
+# no existe ningun sitio donde se puedan poner las dos juntas. Asi que la
+# pantalla pide que se elija casa y toda la lista sale de ella.
+#
+# QUE OFRECE CADA UNA, MEDIDO EL 2026-09-16
+# -----------------------------------------
+# **Playdoit** entra por Altenar y su tablero trae la oferta completa: goles
+# totales y por equipo, cornrs, tarjetas, remates, 1X2, doble oportunidad y
+# ambos marcan.
+#
+# **Novibet** entra por el comparador de Flashscore, que publica por tipo de
+# mercado. Sondeados 12 partidos de 12 competiciones distintas:
+#
+#     HOME_DRAW_AWAY (1X2) ....  12 de 12
+#     DOUBLE_CHANCE ...........  12 de 12
+#     BOTH_TEAMS_TO_SCORE .....   4 de 12
+#     ASIAN_HANDICAP ..........   4 de 12
+#     OVER_UNDER (goles) ......   0 de 12   <- NUNCA
+#
+# O sea que con Novibet no hay patas de goles, y no es un fallo del lector: la
+# casa no las publica por esa puerta. Se dice en pantalla en vez de dejar la
+# lista corta sin explicacion.
+#
+# **Draftea** no tiene puerta. Sondeada el 2026-09-16 (ver `cuotas_multi`):
+# Flashscore no la nombra, Altenar da 400 en cinco integraciones, su web es un
+# Webflow con Turnstile y `api.draftea.com` contesta «Not Found» en todas las
+# rutas probadas. Aparece en el selector porque el usuario apuesta ahi, y
+# cuando se elige la pantalla dice exactamente por que no hay nada.
+CASAS = ('Novibet', 'Playdoit', 'Draftea')
+CASA_POR_DEFECTO = 'Novibet'
+# las que hoy tienen fuente; el resto se ofrece y se explica
+CASAS_CON_FUENTE = ('Novibet', 'Playdoit')
+
 DEPORTES = ('Fútbol', 'MLB', 'NBA', 'NFL', 'Tenis', 'KBO')
 DEPORTES_POR_DEFECTO = ('Fútbol',)
 # clave de Altenar por deporte, para pedir el tablero de Playdoit
@@ -658,6 +694,77 @@ def patas_otro_deporte(partido: Dict, det: Optional[Dict]) -> List[Dict]:
     return fuera
 
 
+_DEP_MX = {'Fútbol': 'futbol', 'Tenis': 'tenis', 'MLB': 'mlb',
+           'NBA': 'nba', 'NFL': 'nfl'}
+
+
+def patas_novibet(partido: Dict) -> List[Dict]:
+    """Las patas que Novibet publica de este partido, con su precio real.
+
+    Salen de `cuotas_mx.json`, que el workflow de las casas mexicanas refresca
+    cada seis horas. Novibet da 1X2 y doble oportunidad siempre, y ambos marcan
+    en parte de las competiciones; goles NO da ninguno (ver la cabecera).
+    """
+    dep = _DEP_MX.get(partido.get('deporte'))
+    local, visitante = _lados(partido.get('partido'))
+    if not dep or not local:
+        return []
+    try:
+        import cuotas_mx as mx
+        reg = mx.buscar(dep, local, visitante, partido.get('inicio'))
+    except Exception as e:
+        logger.debug('[sonadora] cuotas_mx %s: %s', partido.get('partido'), e)
+        return []
+    casas = (reg or {}).get('casas') or {}
+    nb = casas.get('Novibet') or {}
+    if not nb:
+        return []
+
+    board = {str(k): _num(v) for k, v in (partido.get('board') or {}).items()}
+    p_h = board.get(f'Gana {local}')
+    p_a = board.get(f'Gana {visitante}')
+    p_x = board.get('Empate')
+    fuera: List[Dict] = []
+
+    def _add(cat, etq, prob, cuota):
+        q = _pata(partido, cat, etq, prob, cuota, casa='Novibet')
+        if q:
+            fuera.append(q)
+
+    # --- 1X2 / ganador ---------------------------------------------------
+    for clave in ('HOME_DRAW_AWAY', 'HOME_AWAY'):
+        bloque = nb.get(clave)
+        if not isinstance(bloque, dict):
+            continue
+        cat = '1X2' if clave == 'HOME_DRAW_AWAY' else 'Ganador'
+        _add(cat, f'Gana {local}', p_h, bloque.get('home'))
+        _add(cat, f'Gana {visitante}', p_a, bloque.get('away'))
+
+    # --- doble oportunidad: la probabilidad es la suma del 1X2 -----------
+    #
+    # El comparador publica SOLO `homeOrDraw` —la doble del favorito—, no las
+    # tres. Se emite lo que hay; inventar las otras dos a partir del 1X2 sería
+    # dar un precio que la casa no ha puesto.
+    doble = nb.get('DOUBLE_CHANCE')
+    if isinstance(doble, dict) and None not in (p_h, p_a, p_x):
+        for campo, prob, etq in (
+                ('homeOrDraw', p_h + p_x, f'{local} o empate'),
+                ('drawOrAway', p_x + p_a, f'Empate o {visitante}'),
+                ('homeOrAway', p_h + p_a, f'{local} o {visitante}')):
+            if doble.get(campo) is None:
+                continue
+            _add('Doble oportunidad', etq, min(prob, 0.999), doble[campo])
+
+    # --- ambos marcan -----------------------------------------------------
+    btts = nb.get('BOTH_TEAMS_TO_SCORE')
+    if isinstance(btts, dict):
+        _add('BTTS', 'Ambos marcan: Sí', board.get('Ambos marcan: Sí'),
+             btts.get('yes'))
+        _add('BTTS', 'Ambos marcan: No', board.get('Ambos marcan: No'),
+             btts.get('no'))
+    return fuera
+
+
 def patas_de_fila(partido: Dict) -> List[Dict]:
     """Patas de los deportes sin tablero de goles: tenis, MLB, KBO, NBA, NFL.
 
@@ -758,7 +865,8 @@ def _pegar_contexto(patas: List[Dict], partido: Dict) -> None:
 
 
 def _recoger(r: Dict, dia: str, max_partidos: int,
-             deportes: Optional[List[str]] = None) -> Dict:
+             deportes: Optional[List[str]] = None,
+             casa: str = CASA_POR_DEFECTO) -> Dict:
     """Todas las patas del día de los deportes pedidos, sin filtrar por cuota.
 
     El tablero de Playdoit se pide SOLO para los deportes seleccionados, así
@@ -781,6 +889,13 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
     for p in partidos:
         p = {**p, **extra.get((p['deporte'], p['partido']), {})}
         dep = p.get('deporte')
+        if casa == 'Novibet':
+            # Novibet no pasa por el tablero de Altenar: sale del fichero de
+            # las casas mexicanas, que ya está en disco. Cero peticiones.
+            patas += patas_novibet(p)
+            continue
+        if casa not in CASAS_CON_FUENTE:
+            continue                    # Draftea: no hay de dónde sacarlo
         clave_pdt = CLAVE_PDT.get(dep)
         det = None
         if clave_pdt and pedidos.get(dep, 0) < max_partidos \
@@ -822,7 +937,8 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
                   cuota_min: float = CUOTA_MIN, cuota_max: float = CUOTA_MAX,
                   max_partidos: int = 60,
                   deportes: Optional[List[str]] = None,
-                  con_rojas: bool = False) -> Dict:
+                  con_rojas: bool = False,
+                  casa: str = CASA_POR_DEFECTO) -> Dict:
     """
     Las patas del día dentro del rango, y NUNCA una lista vacía si hay partidos.
 
@@ -836,7 +952,7 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
     """
     import mercados_dia as md
     dia = dia or md.dia_cdmx()
-    bruto = _recoger(r, dia, max_partidos, deportes)
+    bruto = _recoger(r, dia, max_partidos, deportes, casa)
     todas = bruto['patas']
 
     def _filtra(lo, hi):
@@ -855,6 +971,13 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
                       key=lambda q: (ORDEN_COLOR.get(q['color'], 9),
                                      not q.get('medido'),
                                      -q['score']))
+
+    # LA RED QUE GARANTIZA QUE NO SE MEZCLAN CASAS. `_recoger` ya elige la
+    # fuente, pero las filas del barrido traen la casa que eligió el guardia
+    # (Playdoit o Novibet, la que pagara mejor), así que sin esto se colaría
+    # alguna del otro sitio y el multiplicador sería de un parlay que nadie
+    # acepta.
+    todas = [q for q in todas if q.get('casa') == casa]
 
     # red final contra duplicados: misma apuesta del mismo partido una vez
     _vistas, _unicas = set(), []
@@ -890,6 +1013,8 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
         'rango': ([CUOTA_MIN_ABS, CUOTA_MAX_ABS] if ensanchado
                   else [cuota_min, cuota_max]),
         'deportes': sorted(set(deportes or DEPORTES_POR_DEFECTO)),
+        'casa': casa,
+        'casa_con_fuente': casa in CASAS_CON_FUENTE,
         'n_partidos': bruto['n_partidos'],
         'tableros_pedidos': bruto['tableros_pedidos'],
         'tableros_por_deporte': bruto.get('tableros_por_deporte', {}),

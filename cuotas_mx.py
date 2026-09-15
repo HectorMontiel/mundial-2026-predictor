@@ -117,8 +117,22 @@ DEPORTES = {1: 'futbol', 2: 'tenis', 3: 'nba', 5: 'nfl', 6: 'mlb'}
 # Por eso el alcance se decide por (deporte, mercado) y no por deporte, y cada
 # combinación que aquí aparece está medida arriba. Las que dieron cero no
 # están: pedirlas es gastar una petición para recibir `null`.
+# v201 — DOS MERCADOS MAS EN FUTBOL, Y NO SON UN CAPRICHO.
+#
+# Novibet es una de las casas del usuario y por esta puerta publica muy poco.
+# Sondeados 12 partidos de 12 competiciones distintas el 2026-09-16:
+#
+#     HOME_DRAW_AWAY .....  12 de 12      OVER_UNDER .........   0 de 12
+#     DOUBLE_CHANCE ......  12 de 12      ASIAN_HANDICAP .....   4 de 12
+#     BOTH_TEAMS_TO_SCORE    4 de 12
+#
+# O sea que la doble oportunidad es el UNICO mercado, ademas del 1X2, que
+# Novibet da siempre — y no se estaba pidiendo. Sin el, la Sonadora con Novibet
+# se queda en el ganador y poco mas.
 MERCADOS = {
     'futbol': (('HOME_DRAW_AWAY', 'FULL_TIME'),
+               ('DOUBLE_CHANCE', 'FULL_TIME'),
+               ('BOTH_TEAMS_TO_SCORE', 'FULL_TIME'),
                ('OVER_UNDER', 'FULL_TIME'),
                ('ASIAN_HANDICAP', 'FULL_TIME')),
     'tenis': (('HOME_AWAY', 'FULL_TIME'),
@@ -262,9 +276,64 @@ def cuotas_evento(evento_id: str, casa_id: int, mercado: str,
                 ap = _valor(it.get('opening'))
                 if ap is not None:
                     salida.setdefault('apertura', {})[lado] = ap
-    # totales y hándicap: over / under con su línea
-    for lado, clave in (('over', 'over'), ('under', 'under')):
-        it = d.get(clave)
+    # doble oportunidad: tres salidas con nombre propio
+    for campo in ('homeOrDraw', 'drawOrAway', 'homeOrAway'):
+        it = d.get(campo)
+        if isinstance(it, dict):
+            v = _valor(it.get('value'))
+            if v is not None:
+                salida[campo] = v
+                ap = _valor(it.get('opening'))
+                if ap is not None:
+                    salida.setdefault('apertura', {})[campo] = ap
+
+    # ambos marcan
+    for campo in ('yes', 'no'):
+        it = d.get(campo)
+        if isinstance(it, dict):
+            v = _valor(it.get('value'))
+            if v is not None:
+                salida[campo] = v
+
+    # v201 — TOTALES Y HANDICAP VIENEN EN `opportunities`, Y SE TIRABAN.
+    #
+    # El servicio no devuelve `over`/`under` en la raiz: devuelve una LISTA de
+    # oportunidades, una por linea, cada una con su `over`, su `under` y su
+    # `value` (la linea). Este lector solo miraba la raiz, asi que de los cinco
+    # mercados que se pedian solo se guardaba el 1X2 — y la bitacora daba por
+    # hecho que «los totales ya se recogen». No se recogian: se pedian y se
+    # tiraban.
+    #
+    # Se guardan TODAS las lineas, porque cual cotiza la casa cambia de partido
+    # a partido y quedarse con una seria elegir por el usuario.
+    oportunidades = d.get('opportunities')
+    if isinstance(oportunidades, list) and oportunidades:
+        lineas = []
+        for op in oportunidades:
+            if not isinstance(op, dict):
+                continue
+            fila = {}
+            for lado in ('over', 'under', 'home', 'away'):
+                it = op.get(lado)
+                if isinstance(it, dict):
+                    v = _valor(it.get('value'))
+                    if v is not None:
+                        fila[lado] = v
+            linea = op.get('value')
+            if linea is None:
+                linea = op.get('handicap') or op.get('total')
+            try:
+                fila['linea'] = float(linea)
+            except (TypeError, ValueError):
+                pass
+            if len(fila) > 1:
+                lineas.append(fila)
+        if lineas:
+            salida['lineas'] = lineas
+
+    # el formato antiguo de raiz, por si alguna respuesta lo usa
+    for lado in ('over', 'under'):
+        it = d.get(lado)
         if isinstance(it, dict):
             v = _valor(it.get('value'))
             if v is not None:
