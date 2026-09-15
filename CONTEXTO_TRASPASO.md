@@ -4982,3 +4982,194 @@ acabó encontrando la puerta buena por otro lado.
    la pantalla enseña el producto de probabilidades y avisa de que se queda
    corto; se podría estimar la conjunta de verdad con la dispersión por jornada.
 4. **Draftea**, cuando aparezca una puerta.
+
+
+---
+
+## 6i. v198 — LA SOÑADORA SALÍA VACÍA, Y LA CAUSA ERAN DOS CRASHES DEL BARRIDO
+
+El usuario abrió la sección nueva y vio esto:
+
+```
+181 partidos del día · 0 tableros de Playdoit leídos
+174 patas antes de filtrar · 133 apartadas por calibración · 0 patas
+```
+
+Pidió rediseñarla. El rediseño estaba justificado, pero **el síntoma no era
+suyo**: lo que fallaba era el barrido, y la sección nueva fue el sitio donde se
+vio. Es el mismo patrón que la v195 con el béisbol: el fallo llevaba tiempo
+ahí, y hizo falta una pantalla que lo mirara de frente.
+
+---
+
+### 1. La rama de FÚTBOL llevaba muriendo entera
+
+```
+[alpha] rama 'futbol' falló: TypeError: 'NoneType' object is not iterable
+  File "alpha_finder.py", line 1304, in _barrido_fixtures
+    home = name_mapper.mapear(fx['home'], catalogo, ...)
+  File "name_mapper.py", line 194, in mapear
+    catalogo = list(catalogo)
+```
+
+El camino rápido de `_barrido_fixtures` **no carga el motor** para las
+competiciones que tienen precálculo: sus nombres vienen ya mapeados dentro de
+la predicción, así que deja `catalogo = None` a propósito. Pero el precálculo
+cubre los partidos que existían cuando el bot corrió de madrugada, **no los que
+aparecen después**, y para ésos caía a `name_mapper.mapear(nombre, None)`, que
+hace `list(None)`.
+
+`_barrido_fixtures` no atrapa nada, así que la excepción subía hasta el
+`ThreadPoolExecutor` de `apuestas_del_dia_universal` y se llevaba **la rama de
+fútbol completa**. No un partido: los 97.
+
+Consecuencia en cadena: sin fútbol no hay tableros de Playdoit que pedir → 0
+tableros → la Soñadora sin patas de goles. Y «Apuestas del Día» llevaba el
+mismo agujero, sólo que ahí se veía como «hoy hay poco fútbol».
+
+Un partido que el precálculo no cubre **no es un error**: es un partido sin
+pronóstico, que es un caso que esta función sabe contar desde la v145. Ahora se
+encauza por ahí.
+
+### 2. Y la de TENIS también, por un `or` que no filtra NaN
+
+```
+[alpha] tenis omitido: ValueError: Input X contains NaN
+  engines/tennis_engine.py:753  'DIFF_RANK_LOG': (np.log(r2) - np.log(r1)) / 3.0
+```
+
+`r1 = p1.get('rank') or 500` filtra `None` y `0`, pero **NaN es truthy**: un
+jugador con el ranking a NaN pasaba tal cual, `np.log(nan)` daba NaN y el
+RandomForest lo rechazaba. Otra vez: no un partido, la rama entera. Medido:
+**145 partidos de tenis sin picks**.
+
+Lo llamativo es que el propio fichero ya documentaba este bug cinco líneas más
+abajo, para los PUNTOS:
+
+```python
+def _pts(e):
+    # OJO: NaN es "truthy" → un `or` no lo filtra (bug cazado en v35)
+```
+
+y el camino de ENTRENAMIENTO (`_dataset`) ya lo resolvía bien con
+`np.isfinite(...) and > 0`. Faltaba el tercer sitio: el camino de predicción.
+Con el guardia puesto, el tenis vuelve con 7 de Capa 1 y 67 de Capa 2.
+
+**Las dos son de la misma familia** —un valor centinela que el guardia no
+cubre— y las dos convierten un fallo de UN partido en la caída de un deporte
+entero. Cada una tiene su test de regresión.
+
+---
+
+### 3. El rediseño de la sección
+
+**Dos controles y nada más.** Rango de cuota y número de patas. Fuera la
+probabilidad mínima (fija al 55 %), la exigencia de calibración y el filtro de
+deportes.
+
+**La calibración etiqueta en vez de excluir.** Antes tiraba 133 de 174 patas
+porque su liga no tenía error de calibración medido en ese mercado — y sólo hay
+medición para el 1X2 y la línea de 2,5 goles, así que casi todo caía. Ahora
+entran todas: 🟢 medida, ⚪ sin medir, y a las de ⚪ se les encoge la
+probabilidad un 15 % al puntuar. Es una penalización declarada, no una
+corrección medida, y la pantalla lo dice.
+
+**Siete familias de mercado en vez de dos.** Leyendo el tablero de Playdoit por
+su nombre exacto:
+
+```
+Total ............................  goles totales      (modelo: goles_lineas)
+Total Tiros De Esquina ...........  córners totales    (rendimiento_equipos)
+<Equipo> Tiros de esquina totales   córners por equipo (rendimiento_equipos)
+Total de tarjetas ................  tarjetas           (rendimiento_equipos)
+<Equipo> Remates a Puerta totales   remates a puerta   (rendimiento_equipos)
+Resultado Final (Tiempo Regular) .  1X2                (modelo: board)
+Doble oportunidad ................  1X / X2 / 12       (suma del 1X2)
+Ambos equipos marcan .............  BTTS               (modelo: board)
+```
+
+más el ganador de tenis, MLB, KBO, NBA y NFL desde el barrido. Medido el
+2026-09-16: **302 patas de 35 partidos** para hoy y 138 para mañana, en 0,5-30 s
+según lo caliente que esté la caché de tableros.
+
+Los córners entran ahora, y en la v197 no. No es que la medición haya cambiado
+—el modelo de córners sigue con el nivel ~1 córner alto— es que la regla
+cambió: el usuario pidió etiquetar en vez de excluir y decidir él. Van con ⚪ y
+con su probabilidad encogida.
+
+**Lo que sigue fuera, y por qué.** Una pata necesita **precio real Y
+probabilidad del modelo**; con uno solo no se emite. Se quedan fuera los goles
+por equipo (Playdoit los cotiza, el barrido no publica la probabilidad por
+bando), los totales y hándicaps de NFL/NBA (el modelo da el total esperado pero
+no su distribución) y los mercados de jugador (dependen de alineación no
+confirmada). Y las líneas de cuartos —2,25 · 2,75— que la casa cotiza y el
+modelo no publica: cruzar la probabilidad de 2,5 con el precio de 2,75 sería
+comparar dos sucesos distintos.
+
+**Cinco permutaciones.** Alta probabilidad, alto multiplicador, equilibrada
+(mejor Score), diversificada (una por competición) y mixta. Una pata por
+partido en todas: dos del mismo encuentro están correlacionadas y la casa ni
+las deja combinar. Dos recetas que dan la misma combinación se enseñan una sola
+vez — repetirla con otro nombre sería fingir que hay más opciones.
+
+Ejemplo real de 13 patas: alta probabilidad 7,39x al 34,7 %; alto multiplicador
+**1.732,93x** al 0,20 %; diversificada 577,17x con 13 competiciones distintas.
+
+**Nunca vacía.** Si el rango pedido no deja nada, el motor lo ensancha solo a
+1,05-2,50 y lo dice en una línea. Sólo se queda sin nada cuando no hay partidos,
+y entonces lo dice también.
+
+**Sin rojo.** Fuera la advertencia roja permanente. Queda un aviso pequeño
+arriba, una casilla obligatoria antes de confirmar, y el rendimiento histórico
+**junto al premio** — que es donde se lee. El número no desaparece; deja de
+gritar.
+
+**Sobre el orden por `Score = probabilidad × cuota`.** Es lo que pidió el
+encargo y así está. Conviene saber qué ordena: es el valor esperado, y el del
+modelo es más alto justo donde el modelo se equivoca más — las patas de mayor
+Score eran «Menos de 4,5 goles» al 92-97 %. Por eso la permutación A ordena por
+**probabilidad** y es la primera que se enseña.
+
+---
+
+### 4. La validación: tres meses no tienen datos
+
+El encargo pedía validar sobre los últimos 3 meses. Se hizo, y da esto:
+
+```
+277 partidos · 554 patas · mercados con cuota: sólo 1X2
+y una sola jornada por configuración → las 20 salen «sin_muestra»
+```
+
+La razón es que **las cuotas del ledger se acaban antes que el ledger**:
+
+```
+pick_ledger.csv          cuotas hasta 2026-07-27
+pick_ledger_totales.csv  cuotas hasta 2026-05-31
+```
+
+Así que «los últimos 3 meses» son en realidad seis semanas de cobertura y
+ningún total de goles. Con eso no se mide nada. La validación que se publica es
+la de **24 meses** (10.354 patas, 42 competiciones con ECE), que es la ventana
+donde hay datos, y el veredicto sigue siendo **`todas_negativas`**: el ROI por
+pata es −3,72 % y un parlay lo multiplica, no lo arregla.
+
+Eso es a la vez el resultado y un pendiente: **el histórico de cuotas de goles
+lleva parado desde mayo**. Merece su propia mirada.
+
+---
+
+### 5. Lo que queda abierto
+
+1. **Las cuotas del ledger están paradas** (1X2 en julio, totales en mayo).
+   Sin eso, la validación de la Soñadora envejece y no se puede medir nada
+   nuevo. Es el pendiente más caro que deja esta versión.
+2. **«Más de 1,5» sigue sin precio histórico**, y es el mercado que el usuario
+   más usa. Se arregla fotografiando su línea a diario.
+3. **Los goles por equipo y los totales de NFL/NBA** están cotizados y no se
+   ofrecen por falta de probabilidad del modelo. Los primeros son fáciles: la
+   matriz de marcador ya tiene los marginales por bando.
+4. **Sigue faltando el vigilante de «una fuente trajo cero»**, que habría
+   avisado de las dos ramas caídas el mismo día. Es la tercera versión seguida
+   que lo echa de menos.
+5. **Draftea**, cuando aparezca una puerta (sondeada el 2026-09-16, ver §6h).

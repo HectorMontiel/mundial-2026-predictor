@@ -713,8 +713,24 @@ class TennisEngine(BaseSportsEngine):
         es1, es2 = _elo_sup(p1), _elo_sup(p2)
         f1 = np.mean(p1['forma']) if p1['forma'] else 0.5
         f2 = np.mean(p2['forma']) if p2['forma'] else 0.5
-        r1 = p1.get('rank') or 500
-        r2 = p2.get('rank') or 500
+        # v198 — EL MISMO BLINDAJE QUE YA TENIAN LOS PUNTOS, Y AQUI FALTABA.
+        #
+        # `x or 500` filtra None y 0, pero **NaN es truthy**: un jugador con el
+        # ranking a NaN se colaba tal cual, `np.log(nan)` daba NaN y el
+        # RandomForest lanzaba «Input X contains NaN» — que no tumbaba un
+        # partido, tumbaba la RAMA DE TENIS ENTERA del barrido (`[alpha] tenis
+        # omitido`). Medido el 2026-09-16: 145 partidos de tenis sin picks.
+        #
+        # Es exactamente el bug que `_pts` documenta cinco lineas mas abajo
+        # («NaN es truthy → un `or` no lo filtra, cazado en v35») y que el
+        # camino de ENTRENAMIENTO ya resuelve bien en `_dataset`. Faltaba el
+        # tercer sitio: el camino de prediccion.
+        def _rank(e):
+            v = e.get('rank')
+            return (float(v) if v is not None and np.isfinite(v) and v > 0
+                    else 500.0)
+
+        r1, r2 = _rank(p1), _rank(p2)
         hk = '|'.join(sorted((home, away)))
         hb = self.estado.get('h2h', {}).get(hk, 0)
         hb = hb if hk.split('|')[0] == home else -hb

@@ -118,16 +118,17 @@ VISTAS = {
     # sin reventar cuando no hay ninguna pata que pase los filtros.
     '🎰 Armar Soñadora': {
         'textos': [
-            'entretenimiento de alto riesgo',
-            'Patas disponibles',
+            'Sección de entretenimiento',
+            'Permutaciones generadas',
         ],
+        # v198 — sólo quedan DOS controles. El rediseño quitó la
+        # probabilidad mínima (fija al 55 %), la exigencia de calibración
+        # (ahora se etiqueta en vez de excluir) y el filtro de deportes.
         'controles': [
             ('son_cuota', 'rango de cuota por pata'),
-            ('son_prob', 'probabilidad mínima'),
             ('son_n', 'número de patas'),
-            ('son_nivel', 'exigencia de calibración'),
-            ('son_deportes', 'filtro de deportes'),
             ('son_dia', 'selector de día'),
+            ('son_elegidas', 'selector manual de patas'),
         ],
     },
     '🏴 Premier League': {},      # rama de córners OBSERVADOS

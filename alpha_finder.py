@@ -1300,6 +1300,29 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             _pre = _precalculo(clave, fx.get('home'), fx.get('away'))
             if _pre:
                 home, away = _pre.get('home'), _pre.get('away')
+            elif catalogo is None:
+                # v198 — ESTE HUECO SE LLEVABA LA RAMA DE FÚTBOL ENTERA.
+                #
+                # El camino rápido no carga el motor para las competiciones que
+                # tienen precálculo, así que su `catalogo` es None a propósito:
+                # los nombres vienen ya mapeados dentro de la predicción. Pero
+                # el precálculo cubre los partidos que existían cuando el bot
+                # corrió de madrugada, no los que aparecen después — y para
+                # ésos se caía aquí a `name_mapper.mapear(nombre, None)`, que
+                # hace `list(None)` y lanza `TypeError`.
+                #
+                # No era un fallo de un partido: `_barrido_fixtures` no atrapa
+                # nada, así que la excepción subía hasta el `ThreadPoolExecutor`
+                # de `apuestas_del_dia_universal` y mataba la rama COMPLETA.
+                # Medido el 2026-09-15 en producción: **0 partidos de fútbol**
+                # en «Apuestas del Día», 0 tableros de Playdoit y la Soñadora
+                # vacía. El síntoma aparecía en la sección nueva y la causa
+                # estaba aquí.
+                #
+                # Un partido que el precálculo no cubre no es un error: es un
+                # partido sin pronóstico, que es un caso que esta función ya
+                # sabe contar desde la v145. Se encauza por ahí.
+                home = away = None
             else:
                 home = name_mapper.mapear(fx['home'], catalogo,
                                           contexto=f'fixture→{clave}')

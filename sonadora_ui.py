@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Pantalla «Armar Soñadora»: el usuario combina patas de alta probabilidad.
+Pantalla «Armar Soñadora»: dos controles, permutaciones propuestas y elección
+manual.
 
-QUÉ ENSEÑA Y EN QUÉ ORDEN, Y POR QUÉ ESE ORDEN
-----------------------------------------------
-Primero lo que se midió, después lo que se puede armar. Al revés —patas
-arriba, advertencia al pie— la advertencia no se lee: es el mismo motivo por el
-que la alarma de datos va al principio del mensaje de Telegram desde la v41.
+QUÉ CAMBIÓ RESPECTO A LA PRIMERA VERSIÓN
+----------------------------------------
+La primera tenía seis controles, una advertencia roja permanente y salía vacía.
+Vacía no por prudencia: la rama de fútbol del barrido estaba reventando
+(arreglado en `alpha_finder`) y encima el filtro de calibración tiraba 133 de
+174 patas. Ahora:
 
-    1. La advertencia, con el número medido dentro.
-    2. La configuración: cuántas patas, qué rango de cuota, qué deportes.
-    3. Lo que rindió ESA configuración en el histórico.
-    4. Las patas del día, ordenadas por Score_Segura.
-    5. El parlay armado, con el premio Y con lo que se espera perder.
+    · **Dos controles**: rango de cuota y número de patas. La probabilidad
+      mínima queda fija en 55 % y el filtro de calibración desaparece — cada
+      pata dice si su mercado está medido y el usuario decide.
+    · **Nunca vacía**: si el rango no deja nada, el motor lo ensancha solo y la
+      pantalla lo dice en una línea.
+    · **Sin rojo**: un aviso pequeño arriba y una casilla antes de confirmar.
+      El rendimiento medido sigue estando, al lado del premio, sin dramatizar.
 
-LO QUE ESTA PANTALLA NO HACE
+EL ORDEN DE LO QUE SE ENSEÑA
 ----------------------------
-No recomienda. `validar_sonadora.py` midió las veinte configuraciones del
-encargo sobre el histórico reciente y **ninguna** tiene esperanza positiva; la
-mejor pata suelta pierde el 5,4 % y un parlay multiplica esa pérdida, no la
-compensa. La sección existe porque el usuario la pidió sabiendo eso.
-
-No entra en «Apuestas del Día», no viaja por Telegram y no comparte pesos con
-`clasificador.py`: es entretenimiento declarado, separado de lo que el sistema
-sí recomienda.
+Permutación A (la más segura) primero, y el ROI medido junto al premio y no al
+pie: al pie no se lee. Es la misma lección que puso la alarma de datos al
+principio del mensaje diario en la v41.
 """
 
 from __future__ import annotations
@@ -34,22 +33,10 @@ from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
-AVISO = (
-    "⚠️ **Esto es entretenimiento de alto riesgo, y el número lo dice.** "
-    "Se midieron las combinaciones de 4, 6, 8, 10 y 13 patas sobre los "
-    "partidos de los últimos meses con cuota de cierre real: **ninguna** sale "
-    "con ganancia esperada. Una pata suelta de este tipo pierde un 5,4 % de "
-    "media, y un parlay no arregla eso — lo multiplica. Usa sólo dinero que "
-    "puedas permitirte perder."
-)
+AVISO = ('ℹ️ Sección de entretenimiento. No es asesoramiento financiero ni una '
+         'recomendación del sistema.')
 
 N_PATAS_OPCIONES = (4, 6, 8, 10, 13)
-MULT_OBJETIVO = (10, 50, 100, 500)
-NIVELES = {
-    'liga': 'Ligas con calibración medida (recomendado)',
-    'mercado': 'Sólo mercados con error de calibración medido (más estricto)',
-    'todo': 'Todo lo que cotice Playdoit (sin filtro de calibración)',
-}
 
 
 def _pct(x, dec=1) -> str:
@@ -59,246 +46,200 @@ def _pct(x, dec=1) -> str:
         return '—'
 
 
-def _color_roi(roi: Optional[float]) -> str:
-    if roi is None:
-        return '⚪'
-    if roi > 0:
-        return '🟢'
-    if roi > -0.05:
-        return '🟡'
-    return '🔴'
+def _sello(q: Dict) -> str:
+    return '🟢' if q.get('medido') else '⚪'
+
+
+def _linea_pata(q: Dict) -> str:
+    return (f"{_sello(q)} **{q['etiqueta']}** · {q['partido']} "
+            f"— `{q['cuota']:.2f}` · modelo {_pct(q['prob'], 0)} "
+            f"· {q['liga']}{(' · ' + q['hora']) if q.get('hora') else ''}")
 
 
 def render(st, r: Dict, dia: Optional[str] = None) -> None:
-    """Pinta la pantalla entera. `r` es un barrido YA calculado."""
-    import sonadora_motor as sm
+    """Pinta la pantalla. `r` es un barrido YA calculado."""
     import mercados_dia as md
+    import sonadora_motor as sm
 
     st.header('🎰 Armar Soñadora')
-    st.error(AVISO)
-
-    hist = sm.historico()
-    if not hist.get('medido'):
-        st.warning(
-            'Todavía no hay validación histórica (`sonadora_historico.json`). '
-            'Se puede armar el parlay, pero no hay con qué comparar: corre '
-            '`python validar_sonadora.py`.')
-    else:
-        ps = hist.get('pata_suelta') or {}
-        st.caption(
-            f"Medido sobre {hist.get('n_partidos', 0)} partidos del periodo "
-            f"{hist.get('periodo', '?')}: una pata de cuota 1,10-1,80 con "
-            f"probabilidad ≥ 55 % la da el modelo al "
-            f"{_pct(ps.get('prob_media'))} y **acierta el "
-            f"{_pct(ps.get('acierto'))}** — un ROI de "
-            f"**{_pct(ps.get('roi'), 2)}** por pata "
-            f"(n={ps.get('n', 0)}, p5 {_pct(ps.get('p5'), 2)}).")
+    st.info(AVISO)
 
     # ------------------------------------------------------------------ #
-    # 2. Configuración
+    # 1. Los dos controles
     # ------------------------------------------------------------------ #
-    st.subheader('⚙️ Configuración')
-    c1, c2 = st.columns(2)
+    c1, c2 = st.columns([2, 1])
     cuota_min, cuota_max = c1.slider(
-        'Cuota por pata', min_value=1.01, max_value=2.50,
-        value=(sm.CUOTA_MIN, sm.CUOTA_MAX), step=0.01, key='son_cuota',
-        help='El parlay que ganó el usuario iba de 1,35 a 1,79.')
-    prob_min = c2.slider(
-        'Probabilidad mínima del modelo', min_value=0.50, max_value=0.95,
-        value=sm.PROB_MINIMA, step=0.01, key='son_prob',
-        format='%.2f')
-
-    c3, c4 = st.columns(2)
-    n_patas = c3.selectbox(
+        'Cuota por pata', min_value=sm.CUOTA_MIN_ABS,
+        max_value=sm.CUOTA_MAX_ABS, value=(sm.CUOTA_MIN, sm.CUOTA_MAX),
+        step=0.05, key='son_cuota',
+        help='El parlay que ganaste iba de 1,35 a 1,79.')
+    # v198 — el número NO va dentro de la etiqueta de la opción. La preferencia
+    # guardaría un valor que mañana no existe: lección de la v177 con el filtro
+    # de deportes. El valor es el entero y `format_func` pone el rótulo.
+    n_patas = c2.selectbox(
         'Número de patas', N_PATAS_OPCIONES,
-        index=N_PATAS_OPCIONES.index(13), key='son_n')
-    # v197 — el número NO va dentro de la opción del selector de nivel.
-    # La preferencia guardaría un valor que mañana no existe: es la lección de
-    # la v177 con el filtro de deportes, y se resuelve con `format_func`.
-    nivel = c4.selectbox(
-        'Exigencia de calibración', list(NIVELES), index=0, key='son_nivel',
-        format_func=lambda k: NIVELES[k])
-
-    deportes_todos = ['Fútbol', 'Tenis', 'MLB', 'KBO', 'NBA', 'NFL']
-    deportes = st.multiselect(
-        'Deportes', deportes_todos, default=deportes_todos, key='son_deportes')
+        index=N_PATAS_OPCIONES.index(13), key='son_n',
+        format_func=lambda n: f'{n} patas')
 
     # ------------------------------------------------------------------ #
-    # 3. Lo que rindió esta configuración
+    # 2. Las patas del día
     # ------------------------------------------------------------------ #
-    cfg = sm.configuracion(n_patas, (cuota_min, cuota_max))
-    st.subheader('📊 Lo que rindió esta configuración en el histórico')
-    if not cfg or not cfg.get('intentos'):
-        st.info(
-            f'No hay medición para {n_patas} patas en ese rango: '
-            f"{(cfg or {}).get('motivo', 'no se pudo simular')}. "
-            f'Sin medición no hay tasa de acierto que enseñar, y no se '
-            f'inventa una.')
-    else:
-        rango = cfg.get('rango_cuota') or []
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric('Acierto', _pct(cfg.get('hit_rate'), 2),
-                  help=f"{cfg.get('ganadas', 0)} de {cfg.get('intentos', 0)} "
-                       f"combinaciones simuladas")
-        m2.metric('Multiplicador medio',
-                  f"{cfg.get('multiplicador_medio', 0):.1f}x")
-        m3.metric('ROI simulado', _pct(cfg.get('roi_simulado')),
-                  help='Rendimiento medio de esa configuración en las '
-                       'jornadas simuladas.')
-        m4.metric('p5 por jornada', _pct(cfg.get('p5_por_dia')),
-                  help='Percentil 5 remuestreando JORNADAS, no combinaciones: '
-                       'las combinaciones comparten partidos y su intervalo '
-                       'miente.')
-        st.caption(
-            f"{_color_roi(cfg.get('roi_simulado'))} Veredicto medido: "
-            f"**{cfg.get('veredicto', '?')}** · rango simulado "
-            f"{rango[0] if rango else '?'}–{rango[1] if len(rango) > 1 else '?'} "
-            f"· {cfg.get('dias_con_suficientes_partidos', 0)} jornadas con "
-            f"partidos suficientes, de las que "
-            f"{cfg.get('dias_que_aportan_ganadoras', 0)} aportan alguna "
-            f"ganadora.")
-        if cfg.get('veredicto') == 'sin_muestra':
-            st.warning(
-                'Esta configuración **no tiene muestra suficiente**: se armó '
-                'sobre muy pocas jornadas distintas, así que su ROI es el de '
-                'esas tardes concretas y no el de una estrategia. No se puede '
-                'leer como una expectativa.')
-        _teorico = cfg.get('hit_rate_teorico')
-        if _teorico and cfg.get('hit_rate'):
-            st.caption(
-                f"El producto de las probabilidades daría "
-                f"{_pct(_teorico, 2)} y en la práctica salió "
-                f"{_pct(cfg.get('hit_rate'), 2)}: los partidos de una misma "
-                f"jornada **no son independientes**, así que la cuenta de "
-                f"multiplicar se queda corta en las dos direcciones.")
-
-    # ------------------------------------------------------------------ #
-    # 4. Las patas del día
-    # ------------------------------------------------------------------ #
-    st.subheader('🎯 Patas disponibles')
     dia = dia or md.dia_cdmx()
     with st.spinner('Leyendo el tablero de Playdoit…'):
         try:
             res = sm.patas_del_dia(r, dia, cuota_min=cuota_min,
-                                   cuota_max=cuota_max, prob_min=prob_min,
-                                   deportes=deportes or None, nivel=nivel)
+                                   cuota_max=cuota_max)
         except Exception as e:
             st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
             return
-    patas = res.get('patas') or []
-    st.caption(
-        f"{res.get('n_partidos', 0)} partidos del {dia} · "
-        f"{res.get('tableros_pedidos', 0)} tableros de Playdoit leídos "
-        f"({res.get('sin_tablero', 0)} sin tablero) · "
-        f"{res.get('n_sin_filtrar', 0)} patas antes de filtrar · "
-        f"{res.get('n_apartadas_por_calibracion', 0)} apartadas por "
-        f"calibración.")
+    patas: List[Dict] = res.get('patas') or []
+
     if not patas:
-        st.info(
-            'Ninguna pata pasa estos filtros hoy. Baja la probabilidad '
-            'mínima, ensancha el rango de cuota o afloja la exigencia de '
-            'calibración. Cero patas no es un fallo: es que hoy no hay nada '
-            'que cumpla lo que pediste.')
+        st.warning(
+            f"📅 Hoy no hay partidos con mercados suficientes "
+            f"({res.get('n_partidos', 0)} partidos, "
+            f"{res.get('tableros_pedidos', 0)} tableros leídos). "
+            f"Vuelve más tarde o prueba el día siguiente.")
         return
+    if res.get('ensanchado'):
+        rango = res.get('rango') or []
+        st.caption(
+            f"⚙️ Ajustamos el rango automáticamente a "
+            f"{rango[0]:.2f}–{rango[1]:.2f} para mostrarte opciones: con el "
+            f"que pediste no había ninguna pata hoy.")
 
+    st.caption(
+        f"{len(patas)} patas de {res.get('partidos_con_pata', 0)} partidos "
+        f"· {res.get('tableros_pedidos', 0)} tableros de Playdoit leídos "
+        f"· 🟢 {res.get('n_medidas', 0)} con error de calibración medido, "
+        f"⚪ el resto sin medir (probabilidad encogida un 15 % al puntuar).")
+
+    # ------------------------------------------------------------------ #
+    # 3. Permutaciones
+    # ------------------------------------------------------------------ #
+    st.subheader('🎯 Permutaciones generadas')
+    perms = sm.permutaciones(patas, n_patas)
+    if not perms:
+        st.info(
+            f'Hoy no hay {n_patas} partidos distintos con pata disponible '
+            f'(hay {res.get("partidos_con_pata", 0)}). Prueba con menos '
+            f'patas o ensancha el rango de cuota.')
+    for p in perms:
+        with st.container(border=True):
+            a, b, c = st.columns([2, 1, 1])
+            a.markdown(f"**{p['nombre']}**  \n{p['descripcion']}")
+            b.metric('Multiplicador', f"{p['multiplicador']:.2f}x")
+            c.metric('Probabilidad', _pct(p['prob_producto'], 2),
+                     help='Producto de las probabilidades del modelo. Supone '
+                          'independencia, que es un supuesto: los partidos de '
+                          'un mismo día se parecen más de lo que dice esa '
+                          'cuenta.')
+            for q in p['patas']:
+                st.markdown(_linea_pata(q))
+            pie = [f"{p['ligas']} competiciones distintas"]
+            if p.get('n_sin_medir'):
+                pie.append(f"{p['n_sin_medir']} patas sin calibración medida")
+            roi = p.get('roi_esperado_medido')
+            if roi is not None:
+                pie.append(f"rendimiento histórico de esta longitud: "
+                           f"{_pct(roi)}")
+            st.caption(' · '.join(pie))
+            if st.button(f"Usar {p['nombre']}", key=f"son_usar_{p['letra']}"):
+                st.session_state['son_elegidas'] = [q['id'] for q in p['patas']]
+                st.rerun()
+
+    # ------------------------------------------------------------------ #
+    # 4. Elección manual
+    # ------------------------------------------------------------------ #
+    st.subheader('✍️ O arma la tuya')
     opciones = {q['id']: q for q in patas}
-
-    def _rotulo(cid: str) -> str:
-        q = opciones[cid]
-        sello = '' if q.get('medido') else ' · sin ECE medido'
-        return (f"[{q['deporte']}] {q['partido']} — {q['etiqueta']}  "
-                f"({q['cuota']:.2f} · {_pct(q['prob'], 0)} · {q['casa']}"
-                f"{sello})")
+    # Una selección guardada puede apuntar a patas que ya no están (cambió el
+    # rango, cambió el día). Streamlit lanza si el default no es una opción, y
+    # eso es una pantalla en blanco: se limpia aquí, que es donde se sabe.
+    previas = [c for c in (st.session_state.get('son_elegidas') or [])
+               if c in opciones]
+    if previas != (st.session_state.get('son_elegidas') or []):
+        st.session_state['son_elegidas'] = previas
 
     elegidas = st.multiselect(
-        f'Elige hasta {sm.MAX_PATAS} patas (ordenadas por Score_Segura)',
-        list(opciones), key='son_elegidas', format_func=_rotulo,
+        f'Patas (hasta {sm.MAX_PATAS})', list(opciones), key='son_elegidas',
+        format_func=lambda cid: (
+            f"{_sello(opciones[cid])} [{opciones[cid]['deporte']}] "
+            f"{opciones[cid]['partido']} — {opciones[cid]['etiqueta']} "
+            f"({opciones[cid]['cuota']:.2f} · "
+            f"{_pct(opciones[cid]['prob'], 0)})"),
         max_selections=sm.MAX_PATAS)
-
-    if st.button(f'⚡ Rellenar con las {n_patas} de mayor Score',
-                 key='son_autorellena'):
-        # una pata por PARTIDO: dos del mismo encuentro están correlacionadas
-        # y la casa ni siquiera las deja combinar sin tratarlas aparte
-        vistos, auto = set(), []
-        for q in patas:
-            if q['partido'] in vistos:
-                continue
-            vistos.add(q['partido'])
-            auto.append(q['id'])
-            if len(auto) >= n_patas:
-                break
-        st.session_state['son_elegidas'] = auto
-        st.rerun()
+    if not elegidas:
+        st.caption('Elige patas arriba o pulsa «Usar» en una permutación.')
+        return
 
     # ------------------------------------------------------------------ #
     # 5. El parlay
     # ------------------------------------------------------------------ #
-    if not elegidas:
-        st.info('Elige patas arriba para ver el parlay.')
-        return
-    st.subheader('🎰 Parlay armado')
+    st.subheader('🎰 Tu parlay')
     parlay = sm.armar([opciones[c] for c in elegidas])
-    partidos = {q['partido'] for q in parlay['patas']}
-    if len(partidos) < len(parlay['patas']):
+    if len({q['partido'] for q in parlay['patas']}) < parlay['n_patas']:
         st.warning(
-            'Hay dos patas del MISMO partido. Están muy correlacionadas y la '
+            'Hay dos patas del mismo partido. Están muy correlacionadas y la '
             'casa normalmente no las deja combinar: el multiplicador que ves '
             'no es el que te van a pagar.')
 
-    p1, p2, p3 = st.columns(3)
-    p1.metric('Patas', parlay['n_patas'])
-    p2.metric('Multiplicador', f"{parlay['multiplicador']:.2f}x")
-    p3.metric('Probabilidad del modelo', _pct(parlay['prob_producto'], 2),
-              help='Producto de las probabilidades. Supone independencia, que '
-                   'es un supuesto, no una medición.')
+    m1, m2, m3 = st.columns(3)
+    m1.metric('Patas', parlay['n_patas'])
+    m2.metric('Multiplicador', f"{parlay['multiplicador']:.2f}x")
+    m3.metric('Probabilidad', _pct(parlay['prob_producto'], 2))
 
-    apuesta = st.number_input('¿Cuánto apostarías?', min_value=1.0,
-                              value=46.0, step=1.0, key='son_apuesta',
+    apuesta = st.number_input('¿Cuánto apostarías?', min_value=1.0, value=46.0,
+                              step=1.0, key='son_apuesta',
                               help='46 es lo que costó el parlay que ganaste.')
-    st.markdown(
-        f"### Premio: **${apuesta * parlay['multiplicador']:,.2f}**")
+    st.markdown(f"### Premio: **${apuesta * parlay['multiplicador']:,.2f}**")
 
-    roi_med = parlay.get('roi_esperado_medido')
-    if roi_med is not None:
-        st.error(
-            f"Con lo medido, la expectativa de este parlay es "
-            f"**{_pct(roi_med)}** sobre lo apostado — unos "
-            f"**${apuesta * roi_med:,.2f}** de media por cada "
-            f"${apuesta:,.2f}. Sale de aplicar {parlay['n_patas']} veces el "
-            f"−5,4 % que pierde una pata suelta; combinar no crea ventaja, "
-            f"multiplica la que haya.")
-    cfg_p = parlay.get('configuracion_medida')
-    if cfg_p and cfg_p.get('intentos'):
-        st.caption(
-            f"La configuración medida más parecida "
-            f"({cfg_p['n_patas']} patas, {cfg_p.get('rango_cuota')}) ganó "
-            f"{cfg_p.get('ganadas', 0)} de {cfg_p.get('intentos', 0)} veces "
-            f"({_pct(cfg_p.get('hit_rate'), 2)}).")
+    roi = parlay.get('roi_esperado_medido')
+    cfg = parlay.get('configuracion_medida')
+    datos = []
+    if roi is not None:
+        datos.append(
+            f"**Rendimiento histórico de un parlay de {parlay['n_patas']} "
+            f"patas: {_pct(roi)}** (≈ ${apuesta * roi:,.2f} por cada "
+            f"${apuesta:,.2f}). Sale de aplicar {parlay['n_patas']} veces lo "
+            f"que rinde una pata suelta: combinar multiplica el rendimiento "
+            f"de las patas, no lo mejora.")
+    if cfg and cfg.get('intentos'):
+        datos.append(
+            f"La configuración medida más parecida ({cfg['n_patas']} patas, "
+            f"{cfg.get('rango_cuota')}) acertó "
+            f"{cfg.get('ganadas', 0)} de {cfg.get('intentos', 0)} veces "
+            f"({_pct(cfg.get('hit_rate'), 2)}), con un multiplicador medio de "
+            f"{cfg.get('multiplicador_medio', 0):.1f}x.")
+    if datos:
+        st.caption('  \n'.join(datos))
 
     st.markdown('**Las patas:**')
     for q in parlay['patas']:
-        sello = '' if q.get('medido') else '  ·  _sin error de calibración medido_'
-        st.markdown(
-            f"- `{q['cuota']:.2f}`  **{q['etiqueta']}** — {q['partido']} "
-            f"({q['liga']}, {q['hora'] or 'sin hora'})  ·  modelo "
-            f"{_pct(q['prob'], 0)}  ·  {q['casa']}{sello}")
+        st.markdown(_linea_pata(q))
 
-    entendido = st.checkbox(
-        'Entiendo que el rendimiento medido de esto es negativo y que apuesto '
-        'dinero que puedo perder.', key='son_entendido')
-    if st.button('🎲 Confirmar parlay', key='son_confirmar',
-                 disabled=not entendido, type='primary'):
-        st.success(
-            'Anotado. Ve a Playdoit y móntalo ahí: esta pantalla no apuesta '
-            'por ti ni manda nada a ningún sitio.')
-        st.code(
-            '\n'.join(f"{q['partido']} — {q['etiqueta']} @ {q['cuota']:.2f}"
-                      for q in parlay['patas']), language=None)
+    entendido = st.checkbox('Entiendo que este parlay tiene un alto riesgo.',
+                            key='son_entendido')
+    if st.button('🎲 Confirmar parlay', key='son_confirmar', type='primary',
+                 disabled=not entendido):
+        st.success('Listo. Móntalo en Playdoit: esta pantalla no apuesta por '
+                   'ti ni manda nada a ningún sitio.')
+        st.code('\n'.join(f"{q['partido']} — {q['etiqueta']} @ {q['cuota']:.2f}"
+                          for q in parlay['patas']), language=None)
 
     # ------------------------------------------------------------------ #
-    # 6. Las otras configuraciones, para comparar
+    # 6. Lo medido, para quien quiera mirarlo
     # ------------------------------------------------------------------ #
-    with st.expander('📊 Todas las configuraciones medidas'):
+    hist = sm.historico()
+    with st.expander('📊 Qué rindió cada longitud en el histórico'):
+        ps = hist.get('pata_suelta') or {}
+        if ps.get('n'):
+            st.caption(
+                f"Periodo {hist.get('periodo', '?')} · "
+                f"{hist.get('n_partidos', 0)} partidos. Una pata suelta de "
+                f"cuota 1,10-1,80 con probabilidad ≥ 55 %: el modelo le da "
+                f"{_pct(ps.get('prob_media'))} y acierta "
+                f"{_pct(ps.get('acierto'))} (n={ps.get('n')}).")
         filas = []
         for c in (hist.get('configuraciones') or []):
             if not c.get('intentos'):
@@ -310,13 +251,10 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
                 'Jornadas': c.get('dias_con_suficientes_partidos'),
                 'Acierto': _pct(c.get('hit_rate'), 2),
                 'Multiplicador': f"{c.get('multiplicador_medio', 0):.1f}x",
-                'ROI simulado': _pct(c.get('roi_simulado')),
-                'p5 por jornada': _pct(c.get('p5_por_dia')),
-                'Veredicto': c.get('veredicto'),
+                'Rendimiento': _pct(c.get('roi_simulado')),
             })
         if filas:
             st.dataframe(filas, width='stretch', hide_index=True)
         st.caption(
-            'El ROI simulado de una fila con pocas jornadas es el de esas '
-            'jornadas, no el de una estrategia; por eso va al lado el número '
-            'de jornadas y el veredicto dice «sin_muestra».')
+            'Una fila con pocas jornadas describe esas jornadas, no una '
+            'estrategia: por eso va al lado el número de jornadas.')
