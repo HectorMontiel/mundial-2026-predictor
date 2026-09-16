@@ -6025,3 +6025,134 @@ un cambio) y comprueba que en la tercera dispara sobre el caso del encargo.
 4. **El historial de entrenadores empieza vacío.** Hasta que acumule fondo, la
    regla del rebote sigue apagada — y su penalización de 0,15 sigue sin
    medirse, que es lo primero que habrá que hacer cuando haya con qué.
+
+## 6o. v204 — NOVIBET NO DA GOLES, Y SÍ DABA TRES COSAS QUE SE TIRABAN
+
+Tres encargos: que el filtro de día permita un rango, que se busquen de verdad
+todas las cuotas de Novibet —«sí cotiza goles y muchísimas métricas más»— y que
+el entrenador salga de la web y no de algo puesto a mano.
+
+### 1. Novibet y los goles: la respuesta es no, y está comprobada por dos vías
+
+**Barrido exhaustivo**, 36 tipos de apuesta × 6 alcances × 3 partidos grandes
+(LaLiga ×2 y Europa League), preguntando al comparador uno por uno:
+
+```
+Novibet publica EXACTAMENTE cuatro mercados
+    HOME_DRAW_AWAY · DOUBLE_CHANCE · BOTH_TEAMS_TO_SCORE · ASIAN_HANDICAP
+y ninguno de goles, en ninguno de los tres partidos
+```
+
+Y la comprobación que lo cierra, por el otro lado: se abrió la **página de
+Flashscore en el navegador**, pestaña «Más de/Menos de», y ahí está Novibet
+listada en las 22 líneas del Barcelona–Racing **con un guion en todas**. No es
+que el lector las tire: la casa no alimenta ese mercado al comparador.
+
+Su propia puerta sigue cerrada, re-medido hoy: `novibet.mx` devuelve **403 en
+la portada, en el sitemap y hasta en robots.txt**. Es el Cloudflare que la v192
+ya documentó. Y las otras puertas tampoco: BetExplorer y OddsPortal no nombran
+a Novibet, y The Odds API no la tiene en catálogo (v192).
+
+**Así que los goles de Novibet no se pueden obtener.** Lo que sí se encontró,
+buscando, fueron tres cosas que el proyecto ya tenía delante y estaba tirando.
+
+### 2. Dos tercios de la doble oportunidad, tirados por un nombre de campo
+
+El lector pedía `drawOrAway` y `homeOrAway`. El servicio los llama
+**`awayOrDraw` y `noDraw`**. Ninguno de los dos casaba nunca, así que de las
+tres salidas se guardaba **una**:
+
+```
+lo que el lector buscaba:  homeOrDraw · drawOrAway · homeOrAway
+lo que el servicio da:     homeOrDraw · awayOrDraw · noDraw
+```
+
+Peor que el fallo es lo que provocó: el comentario de la v201 en
+`sonadora_motor` concluyó de ahí que «el comparador publica SÓLO `homeOrDraw`»
+y lo dejó escrito como un hecho del mundo. Era un nombre mal escrito.
+
+Afecta a las **cinco** casas, no sólo a Novibet.
+
+### 3. El número de línea venía anidado y se tiraba con un `except` vacío
+
+El servicio manda la línea así:
+
+```json
+"handicap": {"__typename": "EventOddsItemHandicap", "value": "-5.75"}
+```
+
+o sea un **diccionario**. El lector hacía `float(op.get('handicap'))` —float de
+un diccionario, que lanza `TypeError`— dentro de un `try` cuyo `except` se lo
+tragaba en silencio. Resultado: **todas** las líneas de goles y de hándicap de
+las cinco casas se guardaban como precios sueltos, sin saber a qué línea iban.
+
+Medido en un solo partido: 25 líneas de Más/Menos de 1xBet y 22 de hándicap de
+Novibet, todas sin número. Era el punto 4 de «lo que queda» desde la v201, y la
+causa no era la que allí se suponía.
+
+### 4. Y con eso, el hándicap de Novibet pasa a ser su mercado de volumen
+
+Novibet da 14-22 líneas de hándicap por partido. No producían ni una pata
+porque el barrido no publica probabilidad de hándicap. Ahora sale de la **matriz
+de marcador**, igual que la escalera de goles:
+
+- la línea viene desde el lado del local: «−1,5» es el local dando goles, y en
+  esa misma fila el precio del visitante es el de «+1,5»;
+- **las líneas enteras tienen empate técnico** —con −1 exacto, ganar por uno
+  devuelve la apuesta— así que la probabilidad se publica condicionada a que no
+  haya nulo, que es la que corresponde al precio que la casa paga;
+- **los cuartos (−0,25, −0,75) no se ofrecen**: parten la apuesta en dos
+  mitades y darles una sola probabilidad sería inventar un suceso que no existe.
+
+### 5. El filtro de día: hoy, mañana o un rango de hasta una semana
+
+Un martes de septiembre tiene seis partidos de fútbol en todo el catálogo, con
+los que no se llega a trece patas ni queriendo. El selector pasa a **hoy /
+mañana / rango**, con el rango topado en siete días por `MAX_DIAS_RANGO`.
+
+Lo que no se hace es esconderlo: cada pata lleva su día, su identificador lleva
+la fecha dentro —sin eso, el mismo cruce en dos días colisiona en el selector
+manual y la pantalla enseña uno donde el usuario eligió el otro— y el parlay
+declara cuántos días abarca. **La validación histórica mide boletos de UN día a
+propósito**, porque los partidos de una misma jornada comparten contexto, así
+que un boleto repartido en cinco días no está cubierto por esa medición.
+
+### 6. El entrenador: Wikidata tiene la fecha, y FotMob no
+
+La v203 adoptó FotMob y se topó con que da **quién entrena ahora y no desde
+cuándo**, así que un cambio sólo se veía comparando fotos y el primer día no
+detectaba nada.
+
+**Wikidata publica el nombramiento con su fecha de inicio** (P286 con el
+calificador P580, descartando los que tienen P582). Una consulta SPARQL para el
+mundo entero, cacheada por día. Medido el 2026-09-15:
+
+```
+60 nombramientos vigentes desde junio
+ 4 en los últimos 7 días, uno del mismo día (Velež Mostar)
+   · 2026-09-13  Selección de Ecuador   Marcelo Gallardo
+   · 2026-09-11  Widzew Łódź            Mateusz Stolarski
+   · 2026-09-10  Olympiacos             Imanol Alguacil
+```
+
+Las dos fuentes se complementan por donde cada una flojea: Wikidata tiene la
+fecha pero la escribe gente y puede ir con retraso; FotMob es inmediato pero no
+dice desde cuándo. El retraso de Wikidata va **a favor de seguridad** —un
+cambio que aún no está no dispara la regla, en vez de disparar una falsa— y si
+las dos discrepan en quién entrena, eso mismo es señal de un cambio más fresco
+que la base.
+
+Con esto la regla del rebote **ya se puede encender**, y el test comprueba que
+dispara sobre el caso que motivó el encargo.
+
+### 7. Lo que queda
+
+1. **La penalización de 0,15 del rebote sigue sin medirse.** Ahora que hay
+   fuente con fechas se puede: cruzar los nombramientos históricos de Wikidata
+   con los resultados posteriores. Hasta entonces la regla marca el partido
+   pero no debería mover probabilidades.
+2. **El hándicap sólo se valora en los partidos del catálogo**, que son los que
+   llevan matriz de marcador. Un partido que venga del barrido y no de
+   `predicciones_dia.json` no tiene con qué calcular la probabilidad.
+3. **Los goles de Novibet no existen por ninguna puerta accesible.** Para ese
+   mercado, Playdoit.

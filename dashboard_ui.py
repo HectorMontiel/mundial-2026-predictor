@@ -8190,19 +8190,13 @@ def render_tennis():
     _panel_ev_tenis()
 
 
-_DIAS_ES = ('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado',
-            'domingo')
-
-
-def _md_etiqueta_dia(desplazamiento: int) -> str:
-    """'jueves 18' para el selector de día de la Soñadora."""
+def _sm_max_dias() -> int:
+    """El tope de días de un boleto, que lo fija el motor y no la pantalla."""
     try:
-        import datetime as _d
-        import mercados_dia as _md
-        f = _d.date.fromisoformat(_md.dia_cdmx(int(desplazamiento)))
-        return f'{_DIAS_ES[f.weekday()]} {f.day}'
+        import sonadora_motor as _sm
+        return int(_sm.MAX_DIAS_RANGO)
     except Exception:
-        return f'+{int(desplazamiento)} días'
+        return 7
 
 
 def render_sonadora():
@@ -8216,27 +8210,50 @@ def render_sonadora():
     import sonadora_ui as _sui
     c1, c2 = st.columns([3, 1])
     with c2:
-        # v203 — HASTA CINCO DÍAS, Y NO POR CAPRICHO. Con «hoy» y «mañana» la
-        # NFL era inalcanzable desde esta pantalla: sus partidos caen en jueves
-        # y domingo, así que medido el 2026-09-15 los 16 de la jornada estaban
-        # a tres, cinco y seis días vista y la sección no tenía forma de
-        # ensenarlos: la jornada completa caia a cinco dias vista. Lo mismo
-        # con cualquier competicion que no juegue a diario.
-        _dia_sel = st.selectbox(
-            '📅 Día', tuple(range(8)), key='son_dia',
-            format_func=lambda d: ('hoy' if d == 0 else
-                                   'mañana' if d == 1 else
-                                   _md_etiqueta_dia(d)),
-            help='Cuanto más lejos, menos mercados hay abiertos — pero la NFL '
-                 'y las copas sólo aparecen así.')
-    with st.spinner('🔍 Buscando los partidos del día…'):
-        _r = barrido_universal()
+        # v204 — HOY, MAÑANA O UN RANGO DE HASTA UNA SEMANA.
+        #
+        # Con «hoy» y «mañana» la NFL era inalcanzable: sus partidos caen en
+        # jueves y domingo, así que medido el 2026-09-15 la jornada completa
+        # estaba a cinco días vista. Y un martes de septiembre tiene seis
+        # partidos de fútbol en todo el catálogo, con los que no se llega a
+        # trece patas ni queriendo.
+        _modo = st.radio('📅 Días', ('hoy', 'mañana', 'rango'),
+                         key='son_modo', horizontal=True,
+                         help='El rango permite juntar partidos de varios '
+                              'días en un mismo boleto, hasta una semana.')
+    import datetime as _dt
+    import mercados_dia as _md
+    _dias = None
+    _dia = None
     try:
-        import mercados_dia as _md
-        _dia = _md.dia_cdmx(int(_dia_sel))
+        if _modo == 'hoy':
+            _dia = _md.dia_cdmx(0)
+        elif _modo == 'mañana':
+            _dia = _md.dia_cdmx(1)
+        else:
+            _hoy = _dt.date.fromisoformat(_md.dia_cdmx(0))
+            _rango = st.date_input(
+                'Del … al …', value=(_hoy, _hoy + _dt.timedelta(days=2)),
+                min_value=_hoy, max_value=_hoy + _dt.timedelta(days=13),
+                key='son_rango', format='DD/MM/YYYY')
+            if isinstance(_rango, (list, tuple)) and len(_rango) == 2:
+                _desde, _hasta = _rango
+            else:
+                _desde = _hasta = (_rango if isinstance(_rango, _dt.date)
+                                   else _hoy)
+            _n = (_hasta - _desde).days + 1
+            if _n > _sm_max_dias():
+                _hasta = _desde + _dt.timedelta(days=_sm_max_dias() - 1)
+                st.caption(f'El rango se limita a {_sm_max_dias()} días: se '
+                           f'usa hasta el {_hasta.strftime("%d/%m")}.')
+            _dias = [(_desde + _dt.timedelta(days=k)).isoformat()
+                     for k in range((_hasta - _desde).days + 1)]
+            _dia = _dias[0]
     except Exception:
         _dia = None
-    _sui.render(st, _r, _dia)
+    with st.spinner('🔍 Buscando los partidos…'):
+        _r = barrido_universal()
+    _sui.render(st, _r, _dia, dias=_dias)
 
 
 _clave_comp = COMPETENCIAS[competencia_sel]

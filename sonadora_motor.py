@@ -153,6 +153,11 @@ MAX_POR_DEPORTE = 3
 # Registro de parlays vivos, para que un partido no entre en dos a la vez.
 ACTIVOS = 'parlays_activos.json'
 
+# Días distintos que puede abarcar un boleto. El encargo pide «no más de una
+# semana» y es un tope sensato por otra razón: cuanto más lejos, menos
+# mercados tiene abiertos la casa y más se mueve el precio antes del partido.
+MAX_DIAS_RANGO = 7
+
 
 # --- EL SEMAFORO, Y POR QUE NO ES EL QUE PEDIA EL ENCARGO -------------------
 #
@@ -782,6 +787,45 @@ _DEP_MX = {'Fútbol': 'futbol', 'Tenis': 'tenis', 'MLB': 'mlb',
            'NBA': 'nba', 'NFL': 'nfl'}
 
 
+def _probs_handicap(partido: Dict, local: str, visitante: str) -> Dict:
+    """P(cubrir) de cada línea de hándicap, desde la matriz de marcador.
+
+    La clave es el hándicap CON SIGNO tal y como lo ve el equipo que lo lleva:
+    −1,5 para el favorito que debe ganar por dos, +1,5 para el que puede
+    perder por uno. Se calcula sobre la diferencia de goles.
+
+    LAS LÍNEAS ENTERAS Y LAS MEDIAS NO SE TRATAN IGUAL, y es la trampa clásica
+    del hándicap asiático: con −1 exacto un triunfo por uno es EMPATE TÉCNICO y
+    devuelven la apuesta, así que su probabilidad de GANAR no incluye ese caso.
+    Aquí se publica la probabilidad de cubrir sin contar el nulo, que es la que
+    corresponde al precio que la casa paga. Los cuartos (−0,25, −0,75) parten
+    la apuesta en dos mitades y se descartan: dar una sola probabilidad a una
+    apuesta que son dos sería inventar un suceso que no existe.
+    """
+    fuera: Dict[Tuple[str, float], float] = {}
+    try:
+        import numpy as np
+        M = np.asarray(partido.get('score_matrix'), dtype=float)
+        if M.ndim != 2 or not M.size:
+            return fuera
+    except Exception:
+        return fuera
+    idx = np.arange(M.shape[0])
+    dif = idx[:, None] - idx[None, :]          # goles locales − visitantes
+    # de medio en medio gol: los cuartos (−0,25, −0,75) parten la apuesta en
+    # dos mitades y no tienen UNA probabilidad de ganar
+    paso = [x / 2.0 for x in range(-24, 25)]
+    for h in paso:
+        for lado, propio in (('home', dif), ('away', -dif)):
+            gana = float(M[(propio + h) > 0].sum())
+            nulo = float(M[(propio + h) == 0].sum())
+            resto = 1.0 - nulo
+            if resto <= 1e-9:
+                continue
+            fuera[(lado, round(h, 2))] = round(min(gana / resto, 0.9999), 4)
+    return fuera
+
+
 def patas_novibet(partido: Dict) -> List[Dict]:
     """Las patas que Novibet publica de este partido, con su precio real.
 
@@ -826,18 +870,61 @@ def patas_novibet(partido: Dict) -> List[Dict]:
 
     # --- doble oportunidad: la probabilidad es la suma del 1X2 -----------
     #
-    # El comparador publica SOLO `homeOrDraw` —la doble del favorito—, no las
-    # tres. Se emite lo que hay; inventar las otras dos a partir del 1X2 sería
-    # dar un precio que la casa no ha puesto.
+    # v204 — LAS TRES, NO UNA. El comentario anterior decía que «el comparador
+    # publica SÓLO `homeOrDraw`», y era falso: publica las tres y este lector
+    # preguntaba por dos nombres que el servicio no usa (`drawOrAway` y
+    # `homeOrAway` en vez de `awayOrDraw` y `noDraw`). Se arregló en
+    # `cuotas_mx.cuotas_evento`; aquí se leen con los nombres buenos y se
+    # aceptan los viejos por si queda un fichero de antes.
     doble = nb.get('DOUBLE_CHANCE')
     if isinstance(doble, dict) and None not in (p_h, p_a, p_x):
-        for campo, prob, etq in (
-                ('homeOrDraw', p_h + p_x, f'{local} o empate'),
-                ('drawOrAway', p_x + p_a, f'Empate o {visitante}'),
-                ('homeOrAway', p_h + p_a, f'{local} o {visitante}')):
-            if doble.get(campo) is None:
+        for campos, prob, etq in (
+                (('homeOrDraw',), p_h + p_x, f'{local} o empate'),
+                (('awayOrDraw', 'drawOrAway'), p_x + p_a,
+                 f'Empate o {visitante}'),
+                (('noDraw', 'homeOrAway'), p_h + p_a,
+                 f'{local} o {visitante}')):
+            cuota = next((doble[c] for c in campos
+                          if doble.get(c) is not None), None)
+            if cuota is None:
                 continue
-            _add('Doble oportunidad', etq, min(prob, 0.999), doble[campo])
+            _add('Doble oportunidad', etq, min(prob, 0.999), cuota)
+
+    # --- HANDICAP ASIATICO, QUE ES LO QUE NOVIBET SI DA EN VOLUMEN --------
+    #
+    # MEDIDO EL 2026-09-15, barriendo 36 tipos de apuesta x 6 alcances sobre
+    # tres partidos grandes: en el comparador **Novibet publica exactamente
+    # cuatro mercados** —1X2, doble oportunidad, ambos marcan y handicap
+    # asiatico— y ni una linea de goles. No es que el lector las tire: la
+    # propia pagina de Flashscore pinta a Novibet en la tabla de Mas/Menos con
+    # un guion en todas las lineas, y la casa no alimenta ese mercado al
+    # comparador.
+    #
+    # Pero el handicap trae 14-22 lineas por partido y NO SE ESTABA USANDO,
+    # porque el barrido no publica probabilidad de handicap. Ahora si se
+    # puede: sale de la matriz de marcador, que es la misma fuente de la que
+    # sale la escalera de goles.
+    hcp = nb.get('ASIAN_HANDICAP')
+    lineas_h = (hcp or {}).get('lineas') if isinstance(hcp, dict) else None
+    if lineas_h:
+        probs = _probs_handicap(partido, local, visitante)
+        for fila in lineas_h:
+            if not isinstance(fila, dict):
+                continue
+            linea = _num(fila.get('linea'))
+            if linea is None:
+                continue
+            # LA LINEA VIENE DESDE EL LADO DEL LOCAL. «−1,5» es el local dando
+            # goles, y en esa misma fila el precio del visitante es el de «+1,5».
+            for lado, equipo, h in (('home', local, linea),
+                                    ('away', visitante, -linea)):
+                cuota = _num(fila.get(lado))
+                if cuota is None:
+                    continue
+                p = probs.get((lado, round(h, 2)))
+                if p is None:
+                    continue                   # cuartos y líneas fuera de rango
+                _add('Hándicap', f'{equipo} {h:+g}', p, cuota)
 
     # --- ambos marcan -----------------------------------------------------
     btts = nb.get('BOTH_TEAMS_TO_SCORE')
@@ -1158,8 +1245,27 @@ def partidos_de_predicciones(dia: str, casa: str = CASA_POR_DEFECTO,
             'liga': liga, 'clave_liga': liga, 'hora': hora,
             'inicio': inicio, 'board': board,
             'origen': 'predicciones precalculadas',
+            # la matriz viaja con el partido: de ella salen las
+            # probabilidades del hándicap, que no están en el tablero
+            'score_matrix': pred.get('score_matrix'),
             **lineas_de_prediccion(pred),
         })
+    return fuera
+
+
+def _con_dia(patas: List[Dict], dia: str) -> List[Dict]:
+    """Marca cada pata con el día del que salió y hace único su `id`.
+
+    Sin el día dentro del `id`, dos partidos del mismo cruce en días distintos
+    —una eliminatoria de ida y vuelta, una serie de béisbol— colisionan en el
+    selector manual y la pantalla enseña uno donde el usuario eligió el otro.
+    """
+    fuera = []
+    for q in patas:
+        q = dict(q)
+        q['dia'] = dia
+        q['id'] = f"{dia}|{q.get('id')}"
+        fuera.append(q)
     return fuera
 
 
@@ -1256,7 +1362,8 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
                   deportes: Optional[List[str]] = None,
                   con_rojas: bool = False,
                   casa: str = CASA_POR_DEFECTO,
-                  solo_riesgo_bajo: bool = False) -> Dict:
+                  solo_riesgo_bajo: bool = False,
+                  dias: Optional[List[str]] = None) -> Dict:
     """
     Las patas del día dentro del rango, y NUNCA una lista vacía si hay partidos.
 
@@ -1270,7 +1377,36 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
     """
     import mercados_dia as md
     dia = dia or md.dia_cdmx()
-    bruto = _recoger(r, dia, max_partidos, deportes, casa)
+
+    # EL RANGO DE FECHAS. Un parlay se puede armar con partidos de varios días
+    # —las casas lo permiten— y con seis partidos de fútbol en toda la jornada
+    # de un martes de septiembre es la única forma de llegar a trece patas.
+    #
+    # Lo que NO se hace es esconderlo: cada pata lleva su día, y `armar` dice
+    # cuántos días distintos abarca el boleto. La validación histórica mide
+    # parlays de un solo día a propósito —los partidos de una misma jornada
+    # comparten contexto— así que un boleto repartido en cinco días NO está
+    # cubierto por esa medición, y la pantalla lo avisa.
+    lista_dias = [d for d in (dias or [dia]) if d]
+    lista_dias = sorted(dict.fromkeys(lista_dias))[:MAX_DIAS_RANGO]
+    if len(lista_dias) > 1:
+        trozos = [_recoger(r, d, max_partidos, deportes, casa)
+                  for d in lista_dias]
+        bruto = {
+            'patas': [q for i, t in enumerate(trozos)
+                      for q in _con_dia(t['patas'], lista_dias[i])],
+            'n_partidos': sum(t['n_partidos'] for t in trozos),
+            'tableros_pedidos': sum(t['tableros_pedidos'] for t in trozos),
+            'tableros_por_deporte': {},
+            'futbol_del_barrido': sum(t.get('futbol_del_barrido', 0)
+                                      for t in trozos),
+            'futbol_del_catalogo': sum(t.get('futbol_del_catalogo', 0)
+                                       for t in trozos),
+            'sin_tablero': sum(t['sin_tablero'] for t in trozos),
+        }
+    else:
+        bruto = _recoger(r, lista_dias[0], max_partidos, deportes, casa)
+        bruto['patas'] = _con_dia(bruto['patas'], lista_dias[0])
     todas = bruto['patas']
 
     def _filtra(lo, hi):
@@ -1669,6 +1805,7 @@ def armar(patas: List[Dict]) -> Dict:
                                  if q.get('nivel_riesgo') == n)
                           for n in ('baja', 'media', 'alta', 'sin_medir')},
         'exposicion': _exposicion(patas),
+        'dias': sorted({str(q.get('dia')) for q in patas if q.get('dia')}),
     })
     return base
 

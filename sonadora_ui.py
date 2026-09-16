@@ -119,7 +119,8 @@ def _linea_pata(q: Dict) -> str:
             f"{cola}{pie}")
 
 
-def render(st, r: Dict, dia: Optional[str] = None) -> None:
+def render(st, r: Dict, dia: Optional[str] = None,
+           dias: Optional[List[str]] = None) -> None:
     """Pinta la pantalla. `r` es un barrido YA calculado."""
     import mercados_dia as md
     import sonadora_motor as sm
@@ -207,16 +208,18 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     # invalida la lista sola. `_r` con guion bajo le dice a Streamlit que no
     # intente hashear el diccionario del barrido, que es enorme.
     @st.cache_data(ttl=900, show_spinner=False)
-    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_, riesgo_):
+    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_, riesgo_, dias_):
         return sm.patas_del_dia(_r, dia_, cuota_min=lo, cuota_max=hi,
                                 deportes=list(deps), con_rojas=rojas,
-                                casa=casa_, solo_riesgo_bajo=riesgo_)
+                                casa=casa_, solo_riesgo_bajo=riesgo_,
+                                dias=list(dias_) if dias_ else None)
 
     with st.spinner(f'Leyendo los precios de {casa}…'):
         try:
             res = _patas(r, str(r.get('actualizado') or ''), dia,
                          cuota_min, cuota_max, tuple(sorted(deportes)),
-                         con_rojas, casa, solo_bajo)
+                         con_rojas, casa, solo_bajo,
+                         tuple(dias) if dias else ())
         except Exception as e:
             st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
             return
@@ -227,8 +230,9 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
         # septiembre tiene seis partidos de futbol en todo el catalogo y el
         # siguiente diecisiete: decirle al usuario «no hay nada» cuando
         # manana hay tablero completo es dejarle sin la seccion por un dia.
-        otro = _cuenta_del_otro_dia(st, sm, r, dia, cuota_min, cuota_max,
-                                    deportes, con_rojas, casa, solo_bajo)
+        otro = (None if dias and len(dias) > 1 else
+                _cuenta_del_otro_dia(st, sm, r, dia, cuota_min, cuota_max,
+                                     deportes, con_rojas, casa, solo_bajo))
         st.warning(
             f"📅 Con esta configuración no hay ninguna pata: **{casa}** no "
             f"cotiza ningún mercado de los {res.get('n_partidos', 0)} "
@@ -351,6 +355,9 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
             _cr = p.get('conteo_riesgo') or {}
             if _cr.get('alta'):
                 pie.append(f"⚠️ {_cr['alta']} de competición de riesgo alto")
+            _ds = p.get('dias') or []
+            if len(_ds) > 1:
+                pie.append(f"reparte en {len(_ds)} días")
             roi = p.get('roi_esperado_medido')
             if roi is not None:
                 pie.append(f"rendimiento histórico de esta longitud: "
@@ -443,6 +450,16 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
 
     entendido = st.checkbox('Entiendo que este parlay tiene un alto riesgo.',
                             key='son_entendido')
+    _dias_parlay = parlay.get('dias') or []
+    if len(_dias_parlay) > 1:
+        st.info(
+            f"📅 Este boleto reparte sus patas en **{len(_dias_parlay)} días** "
+            f"({_dias_parlay[0]} a {_dias_parlay[-1]}). La casa lo acepta, "
+            f"pero el rendimiento histórico que ves abajo está medido sobre "
+            f"boletos de un solo día: los partidos de una misma jornada "
+            f"comparten contexto y los de días distintos no, así que ese "
+            f"número no cubre exactamente esta combinación.")
+
     ex = parlay.get('exposicion') or {}
     if not ex.get('respeta_topes', True):
         st.warning(

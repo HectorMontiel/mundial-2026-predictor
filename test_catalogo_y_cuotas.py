@@ -14752,11 +14752,16 @@ def test_el_buscador_no_enciende_la_regla_sin_historial():
             os.remove(f)
     original = bf.HISTORIAL
     bf.HISTORIAL = hist
+    # WIKIDATA SE APAGA PARA ESTE TEST. Desde la v204 es la fuente principal y
+    # enciende la regla ella sola; aquí se mide la OTRA vía —el historial de
+    # fotos de FotMob— y hay que dejarla sola para poder verla.
+    original_wd = bf.cambios_wikidata
+    bf.cambios_wikidata = lambda *a, **k: {}
     try:
         check(bf.cambios_recientes(7, '2026-09-15', hist) == {},
               'sin historial no hay ningún cambio que declarar')
         check(fc.conectar_buscador() is False and fc.hay_fuente() is False,
-              'y la regla del rebote no se enciende')
+              'sin historial Y sin Wikidata la regla no se enciende')
 
         # PRIMERA FOTO: es el punto de partida, no un cambio
         r1 = bf.anotar_entrenador('Valencia', 'Carlos Corberán',
@@ -14790,16 +14795,385 @@ def test_el_buscador_no_enciende_la_regla_sin_historial():
     finally:
         fc.registrar_fuente(None)
         bf.HISTORIAL = original
+        bf.cambios_wikidata = original_wd
         for f in (hist, reg):
             if os.path.exists(f):
                 os.remove(f)
 
     check(bool(bf.SONDEO.get('entrenador')),
           'el sondeo de fuentes viaja con el código')
-    adoptadas = [s for s in bf.SONDEO['entrenador']
-                 if s.get('estado') == 'adoptada']
-    check(len(adoptadas) == 1 and 'FotMob' in adoptadas[0]['fuente'],
-          f'y dice cuál se adoptó y por qué las demás no ({adoptadas})')
+    adoptadas = [x['fuente'] for x in bf.SONDEO['entrenador']
+                 if x.get('estado') == 'adoptada']
+    descartadas = [x['fuente'] for x in bf.SONDEO['entrenador']
+                   if x.get('estado') != 'adoptada']
+    check(any('FotMob' in f for f in adoptadas)
+          and any('Wikidata' in f for f in adoptadas),
+          f'se adoptaron las dos que funcionan ({adoptadas})')
+    check(len(descartadas) >= 3,
+          f'y queda constancia de las que no, para no volver a probarlas '
+          f'({descartadas})')
+
+
+def test_la_doble_oportunidad_ya_no_pierde_dos_de_tres():
+    """
+    El lector de las casas mexicanas buscaba `drawOrAway` y `homeOrAway`, y el
+    servicio los llama `awayOrDraw` y `noDraw`. Ninguno casaba nunca, así que
+    de las TRES salidas de la doble oportunidad se guardaba UNA. Y el
+    comentario del motor sacó de ahí la conclusión equivocada —«el comparador
+    publica sólo homeOrDraw»— cuando lo que fallaba era el nombre.
+
+    Comprobado contra el crudo del servicio el 2026-09-15:
+        buscaba:  homeOrDraw · drawOrAway · homeOrAway
+        da:       homeOrDraw · awayOrDraw · noDraw
+    """
+    import sonadora_motor as sm
+
+    partido = {'deporte': 'Fútbol', 'partido': 'Local FC vs Visita CF',
+               'liga': 'laliga', 'clave_liga': 'laliga', 'hora': '12:00',
+               'board': {'Gana Local FC': 0.55, 'Empate': 0.25,
+                         'Gana Visita CF': 0.20}}
+    reg = {'casas': {'Novibet': {'DOUBLE_CHANCE': {
+        'mercado': 'DOUBLE_CHANCE', 'homeOrDraw': 1.15,
+        'awayOrDraw': 2.10, 'noDraw': 1.30}}}}
+
+    import cuotas_mx as mx
+    original = mx.buscar
+    mx.buscar = lambda *a, **k: reg
+    try:
+        patas = sm.patas_novibet(partido)
+    finally:
+        mx.buscar = original
+
+    dobles = [q for q in patas if q['categoria'] == 'Doble oportunidad']
+    check(len(dobles) == 3,
+          f'salen las tres dobles oportunidades, no una ({len(dobles)}: '
+          f'{[q["etiqueta"] for q in dobles]})')
+    etiquetas = {q['etiqueta'] for q in dobles}
+    check(etiquetas == {'Local FC o empate', 'Empate o Visita CF',
+                        'Local FC o Visita CF'},
+          f'con sus tres nombres ({sorted(etiquetas)})')
+    por_etq = {q['etiqueta']: q for q in dobles}
+    if len(por_etq) == 3:
+        check(abs(por_etq['Local FC o empate']['prob'] - 0.80) < 1e-6,
+              'la del local suma local + empate')
+        check(abs(por_etq['Empate o Visita CF']['prob'] - 0.45) < 1e-6,
+              'la del visitante suma empate + visitante')
+        check(abs(por_etq['Local FC o Visita CF']['prob'] - 0.75) < 1e-6,
+              'y la de «sin empate» suma los dos ganadores')
+
+    # LOS NOMBRES VIEJOS SE SIGUEN ACEPTANDO, por si queda un fichero de antes
+    reg2 = {'casas': {'Novibet': {'DOUBLE_CHANCE': {
+        'mercado': 'DOUBLE_CHANCE', 'homeOrDraw': 1.15,
+        'drawOrAway': 2.10, 'homeOrAway': 1.30}}}}
+    mx.buscar = lambda *a, **k: reg2
+    try:
+        patas2 = sm.patas_novibet(partido)
+    finally:
+        mx.buscar = original
+    check(len([q for q in patas2 if q['categoria'] == 'Doble oportunidad']) == 3,
+          'y un fichero con los nombres antiguos sigue dando las tres')
+
+    # Y EL LECTOR, que es donde estaba el fallo. Comprobar sólo el motor deja
+    # fuera a `cuotas_evento`, que es quien pregunta al servicio por unos
+    # nombres de campo que no existían — cazado con un mutante.
+    def _item(v):
+        return {'__typename': 'EventOddsOverviewItem', 'value': str(v)}
+
+    crudo = {'data': {'findPrematchOddsForBookmaker': {
+        'bookmakerId': 632, 'type': 'DOUBLE_CHANCE',
+        'homeOrDraw': _item(1.04), 'awayOrDraw': _item(3.20),
+        'noDraw': _item(1.18)}}}
+
+    class _Resp:
+        def json(self):
+            return crudo
+
+    class _Ses:
+        headers = {}
+
+        def get(self, *a, **k):
+            return _Resp()
+
+    leido = mx.cuotas_evento('x', 632, 'DOUBLE_CHANCE', sesion=_Ses())
+    check(leido is not None
+          and {'homeOrDraw', 'awayOrDraw', 'noDraw'} <= set(leido),
+          f'el lector guarda las tres salidas del servicio ({sorted(leido or {})})')
+    check((leido or {}).get('awayOrDraw') == 3.20
+          and (leido or {}).get('noDraw') == 1.18,
+          'con su precio, y no el del local repetido')
+
+
+def test_la_linea_de_goles_y_handicap_ya_no_se_tira():
+    """
+    El número de línea viene ANIDADO —`handicap: {value: '-5.75'}`— y el lector
+    hacía `float()` de ese diccionario, que lanza `TypeError`, con un `except`
+    que se lo tragaba. Resultado: todas las líneas de goles y de hándicap de
+    las cinco casas se guardaban como precios sueltos sin saber a qué línea
+    iban. Era el punto 4 de «lo que queda» desde la v201.
+    """
+    import cuotas_mx as mx
+
+    def _item(v):
+        return {'__typename': 'EventOddsOverviewItem', 'value': str(v)}
+
+    crudo = {'data': {'findPrematchOddsForBookmaker': {
+        'bookmakerId': 632, 'type': 'ASIAN_HANDICAP',
+        'opportunities': [
+            {'home': _item(1.85), 'away': _item(1.95),
+             'handicap': {'__typename': 'EventOddsItemHandicap',
+                          'value': '-0.5'}},
+            {'home': _item(2.40), 'away': _item(1.55),
+             'handicap': {'__typename': 'EventOddsItemHandicap',
+                          'value': '-1.5'}},
+            # una sin número: tiene que sobrevivir sin línea, no tumbar el resto
+            {'home': _item(3.10), 'away': _item(1.33)},
+        ]}}}
+
+    class _Resp:
+        def json(self):
+            return crudo
+
+    class _Ses:
+        headers = {}
+
+        def get(self, *a, **k):
+            return _Resp()
+
+    r = mx.cuotas_evento('x', 632, 'ASIAN_HANDICAP', sesion=_Ses())
+    lineas = (r or {}).get('lineas') or []
+    check(len(lineas) == 3, f'se leen las tres oportunidades ({len(lineas)})')
+    con = [f for f in lineas if 'linea' in f]
+    check(len(con) == 2,
+          f'las dos que traen número lo conservan ({len(con)})')
+    check({f['linea'] for f in con} == {-0.5, -1.5},
+          f'y es el número de verdad, no otra cosa '
+          f'({[f.get("linea") for f in lineas]})')
+    check(len(lineas[2]) >= 2 and 'linea' not in lineas[2],
+          'la que no lo trae se guarda igual, sin inventarle una línea')
+
+
+def test_el_handicap_de_novibet_se_valora_con_la_matriz():
+    """
+    Novibet publica en el comparador exactamente cuatro mercados —medido el
+    2026-09-15 barriendo 36 tipos x 6 alcances sobre tres partidos grandes— y
+    NINGUNO es de goles: la propia página de Flashscore pinta a Novibet en la
+    tabla de Más/Menos con un guion en todas las líneas.
+
+    El que sí trae volumen es el hándicap asiático: 14-22 líneas por partido.
+    No se usaba porque el barrido no publica probabilidad de hándicap; ahora
+    sale de la matriz de marcador.
+    """
+    import sonadora_motor as sm
+
+    pred = _prediccion_de_prueba()          # local más fuerte que visitante
+    partido = {'deporte': 'Fútbol', 'partido': 'Local FC vs Visita CF',
+               'liga': 'laliga', 'clave_liga': 'laliga', 'hora': '12:00',
+               'score_matrix': pred['score_matrix'],
+               'board': sm.board_de_prediccion(pred, 'Local FC', 'Visita CF')}
+
+    probs = sm._probs_handicap(partido, 'Local FC', 'Visita CF')
+    check(bool(probs), 'la matriz produce probabilidades de hándicap')
+    # cuanto más da el favorito, menos probable es que cubra
+    serie = [probs.get(('home', h)) for h in (1.5, 0.5, -0.5, -1.5, -2.5)]
+    check(all(x is not None for x in serie),
+          f'están las líneas de medio en medio gol ({serie})')
+    if all(x is not None for x in serie):
+        check(all(serie[i] >= serie[i + 1] for i in range(len(serie) - 1)),
+              f'y cuanto más hándicap da el local, menos cubre ({serie})')
+    # en las líneas de medio gol no hay empate técnico: las dos suman 1
+    a, b = probs.get(('home', -0.5)), probs.get(('away', 0.5))
+    check(a is not None and b is not None and abs(a + b - 1.0) < 0.01,
+          f'local −0,5 y visitante +0,5 suman 1 ({a} + {b})')
+    # en las enteras SÍ hay empate técnico, y la probabilidad va condicionada
+    c, d = probs.get(('home', -1.0)), probs.get(('away', 1.0))
+    check(c is not None and d is not None and abs(c + d - 1.0) < 0.01,
+          f'y las enteras también, porque el nulo se descuenta ({c} + {d})')
+
+    # y el extremo a extremo: una fila de hándicap produce sus dos patas
+    reg = {'casas': {'Novibet': {'ASIAN_HANDICAP': {
+        'mercado': 'ASIAN_HANDICAP',
+        'lineas': [{'home': 1.85, 'away': 1.95, 'linea': -0.5},
+                   {'home': 2.50, 'away': 1.50, 'linea': -1.5},
+                   # un cuarto: parte la apuesta en dos y NO se ofrece
+                   {'home': 1.70, 'away': 2.10, 'linea': -0.25}]}}}}
+    import cuotas_mx as mx
+    original = mx.buscar
+    mx.buscar = lambda *a, **k: reg
+    try:
+        patas = sm.patas_novibet(partido)
+    finally:
+        mx.buscar = original
+    hcp = [q for q in patas if q['categoria'] == 'Hándicap']
+    check(len(hcp) == 4,
+          f'las dos líneas de medio gol dan cuatro patas ({len(hcp)}: '
+          f'{[q["etiqueta"] for q in hcp]})')
+    check(not any('0.25' in q['etiqueta'] or '-0.25' in q['etiqueta']
+                  for q in hcp),
+          'y el cuarto de gol no se ofrece: es una apuesta partida en dos')
+    check({q['etiqueta'] for q in hcp} == {'Local FC -0.5', 'Visita CF +0.5',
+                                           'Local FC -1.5', 'Visita CF +1.5'},
+          f'con el signo visto desde cada equipo '
+          f'({sorted(q["etiqueta"] for q in hcp)})')
+
+
+def test_el_boleto_puede_abarcar_varios_dias_y_lo_dice():
+    """
+    Un martes de septiembre tiene seis partidos de fútbol en todo el catálogo,
+    con los que no se llega a trece patas. El encargo pide poder juntar hasta
+    una semana. Lo que no se hace es esconderlo: cada pata lleva su día y el
+    parlay dice cuántos abarca, porque la validación histórica mide boletos de
+    UN día y uno repartido en cinco no está cubierto por esa medición.
+    """
+    import sonadora_motor as sm
+
+    def _falsas(r, dia, mx_, deportes=None, casa=sm.CASA_POR_DEFECTO):
+        return {'patas': [{
+            # EL MISMO `id` LOS TRES DIAS a proposito: es lo que hace
+            # que el mutante que quita el dia del identificador se
+            # note. Con un id que ya lleva la fecha dentro, el check
+            # de colision no puede fallar.
+            'id': f'p{i}', 'deporte': 'Fútbol',
+            'partido': f'{dia}·Equipo{i} vs Rival{i}', 'liga': f'l{i % 3}',
+            'clave_liga': f'l{i % 3}', 'hora': '12:00', 'categoria': 'Goles',
+            'etiqueta': f'Más de {1.5 + i}', 'prob': 0.80 - i * 0.01,
+            'prob_ajustada': 0.80, 'cuota': 1.30 + i * 0.02, 'casa': casa,
+            'ece': None, 'medido': False, 'nivel_riesgo': 'media',
+            'color': sm.color(0.80 - i * 0.01), 'score': 1.0}
+            for i in range(3)],
+            'n_partidos': 3, 'tableros_pedidos': 0,
+            'tableros_por_deporte': {}, 'sin_tablero': 0,
+            'futbol_del_barrido': 3, 'futbol_del_catalogo': 0}
+
+    original = sm._recoger
+    sm._recoger = _falsas
+    try:
+        uno = sm.patas_del_dia({}, '2026-09-15', casa='Novibet')
+        tres = sm.patas_del_dia({}, '2026-09-15', casa='Novibet',
+                                dias=['2026-09-15', '2026-09-16',
+                                      '2026-09-17'])
+        # el tope de una semana lo pone el motor, no la pantalla
+        muchos = sm.patas_del_dia(
+            {}, '2026-09-15', casa='Novibet',
+            dias=[f'2026-09-{d:02d}' for d in range(15, 30)])
+    finally:
+        sm._recoger = original
+
+    check(len(uno['patas']) == 3, f"un día da tres patas ({len(uno['patas'])})")
+    check(len(tres['patas']) == 9,
+          f"tres días dan nueve ({len(tres['patas'])})")
+    check(len({q['id'] for q in tres['patas']}) == 9,
+          'y los identificadores no colisionan entre días: el mismo cruce en '
+          'dos días son dos patas distintas')
+    check(len({q['dia'] for q in tres['patas']}) == 3,
+          'cada pata sabe de qué día es')
+    check(len({q['dia'] for q in muchos['patas']}) == sm.MAX_DIAS_RANGO,
+          f'y el rango se corta en {sm.MAX_DIAS_RANGO} días aunque se pidan '
+          f'quince ({len({q["dia"] for q in muchos["patas"]})})')
+
+    parlay = sm.armar(tres['patas'][:4])
+    check(len(parlay.get('dias') or []) >= 2,
+          f"el parlay declara los días que abarca ({parlay.get('dias')})")
+    parlay1 = sm.armar(uno['patas'][:3])
+    check(parlay1.get('dias') == ['2026-09-15'],
+          f"y uno de un solo día lo dice igual ({parlay1.get('dias')})")
+
+
+def test_el_entrenador_sale_de_la_web_con_su_fecha():
+    """
+    FotMob dice quién entrena hoy pero no desde cuándo, así que con él un
+    cambio sólo se ve comparando fotos. **Wikidata publica el nombramiento con
+    su fecha de inicio** (P286 con el calificador P580, sin P582), y eso
+    responde «¿cambió en los últimos 7 días?» de una consulta.
+
+    Aquí no se llama a la red: se comprueba que el lector interpreta bien la
+    respuesta, que la caché por día funciona y que la regla del rebote se
+    enciende con ella.
+    """
+    import os
+    import buscador_fuentes as bf
+    import filtro_contexto as fc
+
+    cache = '_test_cambios_entrenador.json'
+    if os.path.exists(cache):
+        os.remove(cache)
+
+    respuesta = {'results': {'bindings': [
+        {'clubLabel': {'value': 'Valencia CF'},
+         'coachLabel': {'value': 'Un Técnico Nuevo'},
+         'desde': {'value': '2026-09-12T00:00:00Z'}},
+        {'clubLabel': {'value': 'Olympiacos'},
+         'coachLabel': {'value': 'Imanol Alguacil'},
+         'desde': {'value': '2026-09-10T00:00:00Z'}},
+        # el mismo club dos veces: manda el nombramiento más reciente
+        {'clubLabel': {'value': 'Valencia CF'},
+         'coachLabel': {'value': 'El Anterior'},
+         'desde': {'value': '2026-01-02T00:00:00Z'}},
+        {'clubLabel': {'value': ''}, 'desde': {'value': ''}},
+    ]}}
+
+    class _R:
+        status_code = 200
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return respuesta
+
+    import requests
+    original_get = requests.get
+    llamadas = {'n': 0}
+
+    def _get(*a, **k):
+        llamadas['n'] += 1
+        return _R()
+
+    requests.get = _get
+    try:
+        c = bf.cambios_wikidata(7, '2026-09-15', cache)
+        check(c == {'Valencia CF': '2026-09-12',
+                    'Olympiacos': '2026-09-10'},
+              f'se leen los clubes con su fecha de nombramiento ({c})')
+        check(llamadas['n'] == 1, 'con una sola consulta')
+        bf.cambios_wikidata(7, '2026-09-15', cache)
+        check(llamadas['n'] == 1,
+              'y la segunda vez del mismo día sale de la caché, sin volver a '
+              'preguntar')
+        bf.cambios_wikidata(7, '2026-09-16', cache)
+        check(llamadas['n'] == 2, 'pero al día siguiente sí se vuelve a pedir')
+
+        # y con esto la regla del encargo dispara sin necesitar historial
+        fc.registrar_fuente(lambda dia: bf.cambios_wikidata(7, dia, cache))
+        info = fc.rebote_entrenador('Alavés', 'Valencia CF', '2026-09-15',
+                                    cuota_favorito=1.84,
+                                    lado_favorito='local')
+        check(info['activo'] is True and info['dias'] == 3,
+              f'el favorito contra un rival con entrenador nuevo de hace 3 '
+              f'días dispara el rebote ({info})')
+    finally:
+        requests.get = original_get
+        fc.registrar_fuente(None)
+        if os.path.exists(cache):
+            os.remove(cache)
+
+    # si la red falla no se inventa nada
+    def _boom(*a, **k):
+        raise RuntimeError('sin red')
+
+    requests.get = _boom
+    try:
+        vacio = bf.cambios_wikidata(7, '2026-09-15', cache)
+        check(vacio == {},
+              'sin red se devuelve vacío en vez de inventarse cambios')
+    finally:
+        requests.get = original_get
+        if os.path.exists(cache):
+            os.remove(cache)
+
+    fuentes = [s['fuente'] for s in bf.SONDEO['entrenador']
+               if s.get('estado') == 'adoptada']
+    check(any('Wikidata' in f for f in fuentes),
+          f'y el sondeo deja constancia de que Wikidata se adoptó ({fuentes})')
 
 
 if __name__ == '__main__':
@@ -15129,6 +15503,13 @@ if __name__ == '__main__':
     test_la_sonadora_no_depende_de_que_haya_pick()
     test_la_sonadora_ya_no_pregunta_por_el_boost()
     test_el_buscador_no_enciende_la_regla_sin_historial()
+
+    print(chr(10) + '=== v204: mercados de Novibet, rango de dias y entrenador ===')
+    test_la_doble_oportunidad_ya_no_pierde_dos_de_tres()
+    test_la_linea_de_goles_y_handicap_ya_no_se_tira()
+    test_el_handicap_de_novibet_se_valora_con_la_matriz()
+    test_el_boleto_puede_abarcar_varios_dias_y_lo_dice()
+    test_el_entrenador_sale_de_la_web_con_su_fecha()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

@@ -108,13 +108,31 @@ def conectar_buscador() -> bool:
     """
     try:
         import buscador_fuentes as bf
-        if not bf.estado().get('puede_detectar_cambios'):
-            return False
-        registrar_fuente(lambda dia: bf.cambios_recientes(DIAS_VENTANA, dia))
-        return True
     except Exception as e:
         logger.debug('[contexto] no se pudo conectar el buscador: %s', e)
         return False
+
+    # PRIMERO WIKIDATA, QUE ES LA QUE TRAE LA FECHA. Responde «¿cambió en los
+    # últimos 7 días?» de una consulta, sin necesitar historial. El respaldo
+    # por fotos de FotMob sigue existiendo para los clubes que Wikidata no
+    # tenga al día, pero ya no es la vía principal.
+    try:
+        wd = bf.cambios_wikidata(DIAS_VENTANA)
+    except Exception as e:
+        logger.debug('[contexto] Wikidata: %s', e)
+        wd = {}
+    hist = bool(bf.estado().get('puede_detectar_cambios'))
+    if not wd and not hist:
+        return False
+
+    def _fuente(dia: str) -> Dict[str, str]:
+        fuera = dict(bf.cambios_wikidata(DIAS_VENTANA, dia) or {})
+        if hist:
+            fuera.update(bf.cambios_recientes(DIAS_VENTANA, dia) or {})
+        return fuera
+
+    registrar_fuente(_fuente)
+    return True
 
 
 def hay_fuente() -> bool:

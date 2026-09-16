@@ -49,19 +49,27 @@ por eso todo va por el `__NEXT_DATA__` de la página, que es la puerta que este
 proyecto ya usaba para los córners y el árbitro. No se resuelve ningún
 anti-bot: se lee la página como la lee un navegador.
 
-LO QUE FOTMOB **NO** DA, Y POR QUÉ IMPORTA
-------------------------------------------
-**La fecha de nombramiento.** El bloque `coach` trae id, nombre, edad y país,
-y ni un campo de cuándo llegó. Así que «cambió de entrenador en los últimos 7
-días» NO se puede responder con una consulta: hay que recordar quién
-entrenaba antes.
+FOTMOB NO DA LA FECHA. WIKIDATA SÍ, Y ÉSA ES LA BUENA
+-----------------------------------------------------
+El bloque `coach` de FotMob trae id, nombre, edad y país, y ni un campo de
+cuándo llegó. Con él, «cambió en los últimos 7 días» sólo se puede responder
+recordando quién entrenaba antes — o sea acumulando fotos, y el primer día no
+detecta nada.
 
-Eso es lo que hace `historial_entrenadores.json`: una foto por equipo y día.
-Un cambio es que la foto de hoy no coincida con la última guardada. Tiene una
-consecuencia que hay que decir en voz alta: **el primer día no detecta nada**,
-porque no hay con qué comparar, y la regla que dependa de ello sigue apagada
-hasta que el historial tenga fondo. Es lento y es honesto; la alternativa era
-inventarse una fecha.
+**Wikidata publica el nombramiento con su fecha de inicio** (P286 con el
+calificador P580, y sin P582 para quedarse con los vivos). Medido el
+2026-09-15: 60 nombramientos vigentes desde junio, cuatro en la última semana
+y uno del mismo día. Una consulta SPARQL para el mundo entero, cacheada por
+día.
+
+Las dos se usan, y se complementan por donde cada una flojea:
+
+    Wikidata   tiene la FECHA, pero la escribe gente y puede ir con retraso
+    FotMob     es inmediato, pero no dice desde cuándo
+
+Si las dos discrepan en quién entrena, eso mismo es señal de un cambio más
+fresco que la base. Y el retraso de Wikidata va a favor de seguridad: un
+cambio que aún no está NO dispara la regla, en vez de disparar una falsa.
 """
 
 import datetime as _dt
@@ -87,7 +95,12 @@ SONDEO = {
          'http': 200},
         {'fuente': 'transfermarkt-api.fly.dev', 'estado': 'caída', 'http': 500},
         {'fuente': 'FotMob __NEXT_DATA__', 'estado': 'adoptada', 'http': 200,
-         'detalle': 'coach de los dos equipos, sin fecha de nombramiento'},
+         'detalle': 'quién entrena AHORA, sin fecha de nombramiento'},
+        {'fuente': 'Wikidata SPARQL (P286 + P580)', 'estado': 'adoptada',
+         'http': 200,
+         'detalle': 'el nombramiento CON su fecha de inicio; 60 vivos desde '
+                    'junio y uno del mismo 2026-09-15 — es la fuente que '
+                    'responde «¿cambió en 7 días?» sin historial'},
     ],
     'alineaciones': [
         {'fuente': 'SofaScore lineups', 'estado': 'bloqueada', 'http': 403},
@@ -251,6 +264,86 @@ def cambios_recientes(dias: int = 7, hoy: Optional[str] = None,
     return fuera
 
 
+# ---------------------------------------------------------------------------
+# WIKIDATA: la fuente que sí trae la FECHA
+# ---------------------------------------------------------------------------
+SPARQL = 'https://query.wikidata.org/sparql'
+CACHE_CAMBIOS = 'cambios_entrenador.json'
+
+# Q476028 es «club de fútbol»; P286 «entrenador»; P580 «fecha de inicio» y
+# P582 «fecha de fin». Se piden sólo los nombramientos VIVOS —sin fecha de
+# fin— posteriores a la fecha que se pase.
+_CONSULTA = """
+SELECT ?clubLabel ?coachLabel ?desde WHERE {
+  ?club wdt:P31/wdt:P279* wd:Q476028 .
+  ?club p:P286 ?st .
+  ?st ps:P286 ?coach .
+  ?st pq:P580 ?desde .
+  FILTER NOT EXISTS { ?st pq:P582 ?hasta . }
+  FILTER (?desde > "%sT00:00:00Z"^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+} ORDER BY DESC(?desde) LIMIT 400
+"""
+
+
+def cambios_wikidata(dias: int = 7, hoy: Optional[str] = None,
+                     cache: Optional[str] = None) -> Dict[str, str]:
+    """`{club: 'AAAA-MM-DD'}` de los entrenadores nombrados hace <= `dias`.
+
+    ES LA PIEZA QUE FALTABA. FotMob dice quién entrena hoy y no cuándo llegó,
+    así que con él un cambio sólo se ve comparando fotos y el primer día no
+    detecta nada. Wikidata publica el nombramiento **con su fecha de inicio**,
+    o sea que responde la pregunta del encargo —«¿cambió en los últimos 7
+    días?»— de una sola consulta y sin historial.
+
+    Medido el 2026-09-15: 60 nombramientos vivos desde junio, con uno del
+    mismo día (Velež Mostar) y cuatro en la última semana. La base está al día.
+
+    LO QUE HAY QUE SABER DE ESTA FUENTE: la escribe gente, así que un cese de
+    anoche puede tardar en aparecer. Va a favor de seguridad —un cambio que no
+    está no dispara la regla, en vez de disparar una falsa— y por eso se cruza
+    con FotMob, que sí es inmediato: si los dos no coinciden en quién entrena,
+    es señal de un cambio más fresco que la base.
+
+    Una consulta por día para el mundo entero, cacheada en disco.
+    """
+    import datetime as d
+    ruta = cache or CACHE_CAMBIOS
+    hoy = hoy or d.date.today().isoformat()
+    guardado = _cargar(ruta, {}) or {}
+    if guardado.get('dia') == hoy and guardado.get('dias') == int(dias):
+        return dict(guardado.get('cambios') or {})
+    try:
+        import requests
+        desde = (d.date.fromisoformat(hoy)
+                 - d.timedelta(days=int(dias))).isoformat()
+        r = requests.get(SPARQL, params={'query': _CONSULTA % desde,
+                                         'format': 'json'},
+                         headers={'User-Agent': 'mundial-2026-predictor/1.0 '
+                                                '(analisis deportivo)'},
+                         timeout=60)
+        r.raise_for_status()
+        filas = r.json()['results']['bindings']
+    except Exception as e:
+        apuntar('entrenador', 'Wikidata', False, f'{type(e).__name__}: {e}')
+        return dict(guardado.get('cambios') or {})
+    fuera: Dict[str, str] = {}
+    for f in filas:
+        club = ((f.get('clubLabel') or {}).get('value') or '').strip()
+        fecha = ((f.get('desde') or {}).get('value') or '')[:10]
+        if not (club and fecha):
+            continue
+        # el más reciente manda si un club aparece dos veces
+        if club not in fuera or fecha > fuera[club]:
+            fuera[club] = fecha
+    apuntar('entrenador', 'Wikidata', bool(fuera),
+            f'{len(fuera)} clubes con nombramiento en {dias} días')
+    _guardar(ruta, {'dia': hoy, 'dias': int(dias), 'cambios': fuera,
+                    'consultado': d.datetime.now(
+                        d.timezone.utc).isoformat(timespec='seconds')})
+    return fuera
+
+
 def foto_del_dia(claves: Optional[List[str]] = None,
                  max_por_liga: int = 12) -> Dict:
     """Guarda quién entrena hoy a cada equipo, y devuelve lo que cambió.
@@ -309,15 +402,21 @@ def estado() -> Dict:
     hist = _cargar(HISTORIAL, {}) or {}
     con_anterior = sum(1 for v in hist.values()
                        if isinstance(v, dict) and v.get('anterior'))
+    wd = _cargar(CACHE_CAMBIOS, {}) or {}
+    n_wd = len(wd.get('cambios') or {})
     return {
         'sondeo': SONDEO,
         'equipos_con_foto': len(hist),
         'equipos_con_cambio_observado': con_anterior,
+        'cambios_en_wikidata': n_wd,
+        'wikidata_consultada': wd.get('consultado'),
+        # `puede_detectar_cambios` sigue hablando SÓLO del historial de fotos,
+        # que es lo que consume `cambios_recientes`. Wikidata no lo necesita.
         'puede_detectar_cambios': con_anterior > 0,
         'motivo': ('' if con_anterior else
-                   'el historial no tiene aún ningún cambio observado: hace '
-                   'falta al menos una foto anterior por equipo, y FotMob no '
-                   'publica la fecha de nombramiento'),
+                   'el historial de fotos no tiene aún ningún cambio '
+                   'observado; la detección va por Wikidata, que sí trae la '
+                   'fecha de nombramiento'),
         'consultas': consultadas(),
     }
 

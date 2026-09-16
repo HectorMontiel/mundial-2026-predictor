@@ -276,9 +276,30 @@ def cuotas_evento(evento_id: str, casa_id: int, mercado: str,
                 ap = _valor(it.get('opening'))
                 if ap is not None:
                     salida.setdefault('apertura', {})[lado] = ap
-    # doble oportunidad: tres salidas con nombre propio
-    for campo in ('homeOrDraw', 'drawOrAway', 'homeOrAway'):
+    # DOBLE OPORTUNIDAD: LOS TRES CAMPOS, CON EL NOMBRE QUE USA EL SERVICIO.
+    #
+    # v204 — aquí se buscaba `drawOrAway` y `homeOrAway`, y el servicio los
+    # llama **`awayOrDraw` y `noDraw`**. Ninguno de los dos casaba nunca, así
+    # que de las tres salidas de la doble oportunidad se guardaba UNA, la del
+    # local. Y el comentario de la v201 en `sonadora_motor` sacó de ahí la
+    # conclusión equivocada —«el comparador publica sólo `homeOrDraw`»— cuando
+    # lo que pasaba es que se preguntaba por un nombre que no existe.
+    #
+    # Comprobado contra el crudo del servicio el 2026-09-15:
+    #     lo que el lector buscaba:  homeOrDraw · drawOrAway · homeOrAway
+    #     lo que el servicio da:     homeOrDraw · awayOrDraw · noDraw
+    #
+    # Afecta a las CINCO casas, no sólo a Novibet. Se conservan los nombres
+    # antiguos como alias por si alguna respuesta vieja los trae.
+    for campo, alias in (('homeOrDraw', ()),
+                         ('awayOrDraw', ('drawOrAway',)),
+                         ('noDraw', ('homeOrAway',))):
         it = d.get(campo)
+        if not isinstance(it, dict):
+            for viejo in alias:
+                if isinstance(d.get(viejo), dict):
+                    it = d[viejo]
+                    break
         if isinstance(it, dict):
             v = _valor(it.get('value'))
             if v is not None:
@@ -319,13 +340,34 @@ def cuotas_evento(evento_id: str, casa_id: int, mercado: str,
                     v = _valor(it.get('value'))
                     if v is not None:
                         fila[lado] = v
-            linea = op.get('value')
-            if linea is None:
-                linea = op.get('handicap') or op.get('total')
-            try:
-                fila['linea'] = float(linea)
-            except (TypeError, ValueError):
-                pass
+            # EL NUMERO DE LINEA VIENE ANIDADO, Y AQUI SE TIRABA.
+            #
+            # v204 — el servicio lo manda como
+            #     'handicap': {'__typename': 'EventOddsItemHandicap',
+            #                  'value': '-5.75', 'type': 'UNKNOWN'}
+            # o sea un DICCIONARIO. Este lector hacía `float(op.get('handicap'))`
+            # —float de un diccionario—, que lanza `TypeError`, y el `except`
+            # de abajo se lo tragaba en silencio. Resultado: TODAS las líneas de
+            # goles y de hándicap de las cinco casas se guardaban como precios
+            # sueltos, sin saber a qué línea correspondían.
+            #
+            # Medido el 2026-09-15: 25 líneas de Más/Menos de 1xBet y 22 de
+            # hándicap de Novibet en un solo partido, todas sin número. Era el
+            # punto 4 de «lo que queda» del traspaso desde la v201.
+            linea = None
+            for clave in ('handicap', 'total', 'value', 'line'):
+                bruto = op.get(clave)
+                if isinstance(bruto, dict):
+                    bruto = bruto.get('value')
+                if bruto is None:
+                    continue
+                try:
+                    linea = float(bruto)
+                    break
+                except (TypeError, ValueError):
+                    continue
+            if linea is not None:
+                fila['linea'] = linea
             if len(fila) > 1:
                 lineas.append(fila)
         if lineas:

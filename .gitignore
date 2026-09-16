@@ -213,3 +213,8 @@ parlays_activos.json
 # un workflow lo genere, porque su valor entero esta en acumular fotos de dias
 # anteriores y un fichero que muere con el contenedor no detecta ningun cambio.
 fuentes_consultadas.json
+
+# v204 — la cache diaria de los cambios de entrenador de Wikidata. Se rehace
+# sola cada dia y committearla seria un diff diario que nadie lee; el dato vive
+# en Wikidata, no aqui.
+cambios_entrenador.json
