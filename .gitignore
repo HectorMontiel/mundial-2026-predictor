@@ -203,3 +203,13 @@ preferencias_usuario.json
 # precio de no versionar estado personal, y es el correcto: un registro que
 # sobrevive al reinicio pero es de otro usuario seria peor que no tenerlo.
 parlays_activos.json
+
+# v203 — el registro de que fuentes se han consultado. Es un diario local del
+# proceso que lo ejecute: se reescribe en cada llamada, asi que versionarlo
+# produciria un diff por pasada que nadie lee. El SONDEO —lo que de verdad hay
+# que recordar, que funciono y que no— viaja dentro de buscador_fuentes.py.
+#
+# `historial_entrenadores.json` NO va aqui: ese SI hay que committearlo cuando
+# un workflow lo genere, porque su valor entero esta en acumular fotos de dias
+# anteriores y un fichero que muere con el contenedor no detecta ningun cambio.
+fuentes_consultadas.json

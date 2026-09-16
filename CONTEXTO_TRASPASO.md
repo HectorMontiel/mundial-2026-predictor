@@ -5865,3 +5865,163 @@ hace.
    `.gitignore`. Los `historico_*.csv` traen las mismas cuotas con el mismo
    `MATCH_ID`: cambiar la fuente devolvería el ROI de las sudamericanas, que es
    justo donde este encargo no ha podido medir.
+
+## 6n. v203 — LA SOÑADORA PEDÍA SU CATÁLOGO A UNA LISTA DE PICKS
+
+El usuario reportó la sección con **1 pata de 1 partido** y cero permutaciones,
+y el encargo traía su propio diagnóstico: «el pipeline no está leyendo el
+tablero de Playdoit para fútbol, NFL, MLB, NBA ni KBO». Se midió antes de
+tocar nada, y la causa era otra.
+
+### 1. Lo que salió al medir
+
+Sobre el barrido real de las 20:01 del 2026-09-15 —el mismo que produjo la
+captura—:
+
+```
+deportes_cubiertos del barrido ....  KBO, MLB, NFL, Tenis   (fútbol NO)
+cobertura_ligas ...................  MLB 12 · ATP 173 · WTA 159 · KBO 4 ·
+                                     NFL 16   (ni una competición de fútbol)
+filas de fútbol en las doce listas   0
+```
+
+Y en el mismo momento, en disco:
+
+```
+predicciones_dia.json .............  147 partidos de fútbol, 45 competiciones,
+                                     con matriz de marcador
+cuotas_mx.json ....................  290 partidos de fútbol con precio de
+                                     cinco casas mexicanas
+```
+
+**Las dos mitades de una pata —probabilidad del modelo y precio de la casa—
+estaban en disco, y la sección enseñaba cero.**
+
+### 2. La causa: un catálogo que era una lista de picks
+
+`sonadora_motor._recoger` tomaba sus partidos de `mercados_dia.
+partidos_del_dia(r, dia)`, que recorre las doce listas del barrido. Y esas
+listas son listas de **picks**: `capa1`, `capa2`, `candidatos`, `elite`,
+`mejores_patas`… o sea, partidos que pasaron los filtros de probabilidad y EV
+del sistema.
+
+El barrido no fallaba. Hacía lo suyo, que es elegir picks, y ese día el fútbol
+no produjo ninguno — su propio aviso lo decía: «Hoy ningún mercado cumple los
+filtros de élite». Lo que estaba mal era pedirle el catálogo a quien sólo
+guarda lo que ya filtró.
+
+Es la misma familia de error que la v193 («sin apuestas jugables» cuando lo que
+pasaba es que no se miraba) y la v195.4 (una regla que miraba tres listas de
+catorce): **confundir lo que el sistema recomienda con lo que el sistema
+conoce.**
+
+### 3. El arreglo
+
+El universo de fútbol se construye aparte: **todo partido con probabilidad del
+modelo y precio de la casa elegida entra, haya producido pick o no.**
+
+- `sonadora_motor.board_de_prediccion` saca de la matriz de marcador el 1X2, la
+  doble oportunidad, la escalera de goles entera, los goles de cada equipo y el
+  «ambos marcan».
+- `lineas_de_prediccion` produce además `goles_lineas` y `goles_equipo`, que es
+  el formato que `patas_del_partido` lee de verdad. **Sin eso un partido del
+  catálogo llegaba sin una sola pata de goles** — y ocho de las trece patas del
+  parlay que el usuario ganó eran Total de Goles.
+- `partidos_de_predicciones` monta el catálogo del día y `_recoger` lo funde
+  con lo que sí trajo el barrido, deduplicando por partido.
+
+**La fecha era el eslabón que faltaba.** `predicciones_dia.json` no guardaba la
+hora del partido: `generar` tenía el fixture delante y tiraba `inicio`. Sin
+hora no se puede saber de qué día es un partido. Ahora la guarda (v203), y
+mientras el fichero viejo siga en producción hay un respaldo que la saca del
+fichero de las casas mexicanas, que sí la tiene. Así el arreglo funciona **hoy**
+sin esperar al workflow.
+
+### 4. Lo que se ganó, medido
+
+```
+                        ANTES   DESPUÉS
+2026-09-15  Novibet        0        6 patas de 5 partidos
+2026-09-16  Novibet        0       11 patas de 9 partidos
+2026-09-16  Playdoit       0      100 patas de 12 partidos
+                                   (33 de goles, 22 córners, 12 tarjetas,
+                                    goles por equipo y remates · 63 verdes)
+```
+
+Las permutaciones vuelven a salir: 1 configuración el 15, 3 el 16.
+
+### 5. Los otros cuatro deportes NO eran un fallo
+
+El encargo daba por rotos también NFL, MLB, NBA y KBO. Medido, es el
+calendario:
+
+```
+NFL   16 partidos, pero el 18, 20, 21 y 22 — ninguno hoy ni mañana
+NBA   fuera de temporada
+MLB   12 partidos mañana (Novibet da 2 patas, Playdoit 0)
+KBO   1 partido mañana
+```
+
+Lo que sí era un fallo de producto: **el selector de día sólo ofrecía «hoy» y
+«mañana»**, y la NFL juega jueves y domingo. Su jornada completa estaba a cinco
+días vista y la pantalla no tenía forma de enseñarla. La ventana pasa a ocho
+días, y con eso la NFL da 11 patas el día 20.
+
+### 6. El boost, fuera
+
+Quitado de `sonadora_ui` y `sonadora_motor`, con su test. Es una decisión de la
+casa, no del modelo. (La v202 había medido que la tabla del encargo iba al
+revés —más boost aguanta más patas, no menos—; ahora la pregunta desaparece
+entera.)
+
+### 7. La búsqueda autónoma de fuentes
+
+`buscador_fuentes.py`. Se sondearon todas las candidatas que el encargo
+nombraba:
+
+```
+ENTRENADOR
+  ESPN soccer summary ............  0 campos de cuerpo técnico
+  SofaScore api/v1/team ..........  403
+  Transfermarkt (web) ............  200, pero sin el dato en el HTML
+  transfermarkt-api.fly.dev ......  500
+  FotMob (__NEXT_DATA__) .........  ✅ ADOPTADA
+
+ALINEACIONES
+  SofaScore lineups ..............  403
+  FotMob .........................  ✅ once, suplentes, formación,
+                                    `lineupType` y bajas
+
+xG      Understat 200 ✅  ·  FBref 403
+CUOTAS  The Odds API — ya integrada, clave en el entorno
+```
+
+La API interna de FotMob exige el header firmado `x-mas`; se entra por el
+`__NEXT_DATA__` de la página, que es la puerta que `fotmob_scraper` ya usaba
+para los córners y el árbitro. No se resuelve ningún anti-bot.
+
+**Y lo que FotMob no da: la fecha de nombramiento.** El bloque `coach` trae id,
+nombre, edad y país, y ni un campo de cuándo llegó. Así que «cambió de
+entrenador en los últimos 7 días» no se responde con una consulta: hay que
+recordar quién entrenaba antes. `historial_entrenadores.json` guarda una foto
+por equipo y día, y un cambio es que la foto de hoy no coincida con la última.
+
+Con una consecuencia que hay que decir en voz alta: **el primer día no detecta
+nada**, porque no hay con qué comparar. `filtro_contexto.conectar_buscador()`
+sólo enchufa la fuente si el historial tiene al menos un cambio observado —una
+fuente que siempre devuelve vacío haría creer que la regla está viva cuando
+está ciega—. El test recorre las tres fases (sin historial, con una foto, con
+un cambio) y comprueba que en la tercera dispara sobre el caso del encargo.
+
+### 8. Lo que queda
+
+1. **Novibet no cotiza totales de goles** (0 de 12 competiciones, medido en la
+   v201). Las patas de goles sólo salen de Playdoit, así que el usuario que
+   quiera su mercado favorito tiene que elegir esa casa.
+2. **Playdoit no cotizó ninguno de los 6 partidos de fútbol del 2026-09-15**.
+   Eso no es un fallo del lector: el propio barrido lo avisa liga por liga.
+3. **Los goles por equipo siguen sin calibrar** contra resultados reales: salen
+   de las marginales de la matriz, y eso ya estaba apuntado desde la v201.
+4. **El historial de entrenadores empieza vacío.** Hasta que acumule fondo, la
+   regla del rebote sigue apagada — y su penalización de 0,15 sigue sin
+   medirse, que es lo primero que habrá que hacer cuando haya con qué.

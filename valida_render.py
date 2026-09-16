@@ -136,7 +136,6 @@ VISTAS = {
             ('son_deportes', 'selector de deportes'),
             ('son_rojas', 'interruptor de patas de alto riesgo'),
             ('son_riesgo', 'filtro de competiciones de riesgo bajo'),
-            ('son_boost', 'selector de boost de la casa'),
             ('son_dia', 'selector de día'),
             ('son_elegidas', 'selector manual de patas'),
         ],

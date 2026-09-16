@@ -277,7 +277,20 @@ def generar(dias: int = 3, salida: str = None) -> Dict:
             resumen = _resumen_de(pred)
             if not resumen:
                 continue
-            resumen.update({'home': home, 'away': away, 'clave_liga': clave})
+            # v203 — LA HORA DEL PARTIDO VIAJA CON LA PREDICCION.
+            #
+            # Se tiraba, y sin ella `predicciones_dia.json` es una lista de
+            # partidos sin fecha: no se puede saber cuales son de hoy. La
+            # Soñadora lo pagaba caro —tomaba su catalogo del barrido, que es
+            # una lista de PICKS, y un dia sin picks de futbol la dejaba con
+            # cero patas teniendo 147 partidos y 290 precios en disco—.
+            #
+            # `fecha` es el dia UTC del fixture e `inicio` la hora exacta; la
+            # conversion a CDMX la hace quien lo consume, que es donde vive
+            # `horario`.
+            resumen.update({'home': home, 'away': away, 'clave_liga': clave,
+                            'inicio': fx.get('inicio'),
+                            'fecha': fx.get('fecha')})
             salida_dict[clave_partido(clave, crudo_h, crudo_a)] = resumen
             hechos += 1
         # «Completa» es lo que autoriza a NO cargar el motor. Si falta un solo

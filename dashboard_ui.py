@@ -8190,6 +8190,21 @@ def render_tennis():
     _panel_ev_tenis()
 
 
+_DIAS_ES = ('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado',
+            'domingo')
+
+
+def _md_etiqueta_dia(desplazamiento: int) -> str:
+    """'jueves 18' para el selector de día de la Soñadora."""
+    try:
+        import datetime as _d
+        import mercados_dia as _md
+        f = _d.date.fromisoformat(_md.dia_cdmx(int(desplazamiento)))
+        return f'{_DIAS_ES[f.weekday()]} {f.day}'
+    except Exception:
+        return f'+{int(desplazamiento)} días'
+
+
 def render_sonadora():
     """v197 — la pantalla de la Soñadora.
 
@@ -8201,14 +8216,24 @@ def render_sonadora():
     import sonadora_ui as _sui
     c1, c2 = st.columns([3, 1])
     with c2:
+        # v203 — HASTA CINCO DÍAS, Y NO POR CAPRICHO. Con «hoy» y «mañana» la
+        # NFL era inalcanzable desde esta pantalla: sus partidos caen en jueves
+        # y domingo, así que medido el 2026-09-15 los 16 de la jornada estaban
+        # a tres, cinco y seis días vista y la sección no tenía forma de
+        # ensenarlos: la jornada completa caia a cinco dias vista. Lo mismo
+        # con cualquier competicion que no juegue a diario.
         _dia_sel = st.selectbox(
-            '📅 Día', ('hoy', 'mañana'), key='son_dia',
-            help='Los partidos de mañana suelen tener menos mercados abiertos.')
+            '📅 Día', tuple(range(8)), key='son_dia',
+            format_func=lambda d: ('hoy' if d == 0 else
+                                   'mañana' if d == 1 else
+                                   _md_etiqueta_dia(d)),
+            help='Cuanto más lejos, menos mercados hay abiertos — pero la NFL '
+                 'y las copas sólo aparecen así.')
     with st.spinner('🔍 Buscando los partidos del día…'):
         _r = barrido_universal()
     try:
         import mercados_dia as _md
-        _dia = _md.dia_cdmx(0 if _dia_sel == 'hoy' else 1)
+        _dia = _md.dia_cdmx(int(_dia_sel))
     except Exception:
         _dia = None
     _sui.render(st, _r, _dia)

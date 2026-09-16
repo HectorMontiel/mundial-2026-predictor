@@ -71,6 +71,7 @@ ECE_MAXIMO = 0.05
 PENALIZA_SIN_MEDIR = 0.85      # la probabilidad cruda se encoge un 15 %
 
 LINEAS_GOLES = (0.5, 1.5, 2.5, 3.5, 4.5, 5.5)
+LINEAS_GOLES_EQUIPO = (0.5, 1.5, 2.5)
 
 # LAS CASAS, Y POR QUE NO SE MEZCLAN.
 #
@@ -947,6 +948,221 @@ def _pegar_contexto(patas: List[Dict], partido: Dict) -> None:
             q['lectura_mercado'] = ctx['lectura']
 
 
+# ---------------------------------------------------------------------------
+# EL UNIVERSO DE PARTIDOS, Y POR QUE NO PUEDE SALIR DEL BARRIDO
+# ---------------------------------------------------------------------------
+#
+# LO QUE PASABA. La Sonadora tomaba sus partidos de `mercados_dia.
+# partidos_del_dia(r, dia)`, que recorre las doce listas del barrido. Y esas
+# listas son listas de PICKS: capa1, capa2, candidatos, elite… o sea, partidos
+# que pasaron los filtros de probabilidad y EV del sistema. Un dia en que el
+# futbol no produce ni un pick deja a la Sonadora sin un solo partido de
+# futbol, aunque haya doscientos en el catalogo con precio en la casa.
+#
+# MEDIDO el 2026-09-15 sobre el barrido real de las 20:01:
+#
+#     deportes_cubiertos del barrido ....  KBO, MLB, NFL, Tenis  (futbol NO)
+#     cobertura_ligas ...................  MLB 12 · ATP 173 · WTA 159 ·
+#                                          KBO 4 · NFL 16   (ni una de futbol)
+#     patas de futbol en la Sonadora ....  0
+#
+#     y en el mismo momento, en disco:
+#     predicciones_dia.json .............  147 partidos de futbol de 45
+#                                          competiciones, con matriz de
+#                                          marcador
+#     cuotas_mx.json ....................  290 partidos de futbol con precio
+#                                          de cinco casas mexicanas
+#
+# Las dos mitades de una pata —probabilidad del modelo y precio de la casa—
+# estaban en disco y la seccion ensenaba cero. El barrido no fallaba: hacia lo
+# suyo, que es elegir picks. Lo que estaba mal era pedirle el catalogo.
+#
+# ASI QUE EL UNIVERSO SE CONSTRUYE APARTE: todo partido que tenga probabilidad
+# del modelo Y precio de la casa elegida entra, haya producido pick o no. El
+# barrido sigue usandose para los demas deportes y para el contexto.
+def board_de_prediccion(pred: Dict, home: str, away: str) -> Dict[str, float]:
+    """Todas las probabilidades del partido, desde la matriz de marcador.
+
+    Es la misma cuenta que hacen `partidos_jugados._board_de_matriz` y el
+    barrido —1X2 por triangulos, la escalera de goles sumando por diagonales y
+    «ambos marcan» quitando fila y columna cero— extendida a lo que la
+    Sonadora necesita: las seis lineas de goles totales, las tres por equipo y
+    la doble oportunidad.
+
+    Se calcula aqui y no se importa de `alpha_finder` porque alli vive dentro
+    de `_mercados_del_partido`, que exige cuotas; el universo de la Sonadora
+    empieza justo antes de tener precio.
+    """
+    fuera: Dict[str, float] = {}
+    try:
+        import numpy as np
+        M = np.asarray(pred.get('score_matrix'), dtype=float)
+        if M.ndim != 2 or not M.size:
+            return fuera
+    except Exception as e:
+        logger.debug('[sonadora] matriz ilegible: %s', e)
+        return fuera
+    pr = pred.get('probabilities') or {}
+    idx = np.arange(M.shape[0])
+    total = idx[:, None] + idx[None, :]
+    try:
+        pl, px, pv = float(pr['home']), float(pr['draw']), float(pr['away'])
+    except (KeyError, TypeError, ValueError):
+        pl = float(np.tril(M, -1).sum())
+        px = float(np.trace(M))
+        pv = float(np.triu(M, 1).sum())
+    fuera[f'Gana {home}'] = pl
+    fuera['Empate'] = px
+    fuera[f'Gana {away}'] = pv
+    fuera[f'{home} o empate'] = pl + px
+    fuera[f'Empate o {away}'] = px + pv
+    fuera[f'{home} o {away}'] = pl + pv
+    for ln in LINEAS_GOLES:
+        over = float(M[total > ln].sum())
+        fuera[f'Más de {ln}'] = over
+        fuera[f'Menos de {ln}'] = 1.0 - over
+    # POR EQUIPO, DESDE LAS MARGINALES de la matriz. Es lo mismo que hace
+    # `alpha_finder.lineas_por_equipo`, y va con el mismo aviso: no esta
+    # calibrado contra resultados reales (§3 de lo que queda del traspaso).
+    mh, ma = M.sum(axis=1), M.sum(axis=0)
+    for ln in LINEAS_GOLES_EQUIPO:
+        oh, oa = float(mh[idx > ln].sum()), float(ma[idx > ln].sum())
+        fuera[f'{home}: más de {ln}'] = oh
+        fuera[f'{home}: menos de {ln}'] = 1.0 - oh
+        fuera[f'{away}: más de {ln}'] = oa
+        fuera[f'{away}: menos de {ln}'] = 1.0 - oa
+    btts = float(M[1:, 1:].sum())
+    fuera['Ambos marcan: Sí'] = btts
+    fuera['Ambos marcan: No'] = 1.0 - btts
+    return {k: round(v, 4) for k, v in fuera.items() if 0.0 <= v <= 1.0}
+
+
+def lineas_de_prediccion(pred: Dict) -> Dict:
+    """La escalera de goles del partido, en el formato que espera el motor.
+
+    `patas_del_partido` NO lee los goles del `board`: los lee de
+    `goles_lineas` —«0.5» → P(más de 0,5)— y los de cada equipo de
+    `goles_equipo`, porque así los publica el barrido. Sin esto, un partido
+    del catálogo llega con el 1X2 y el «ambos marcan» y **sin una sola pata de
+    goles**, que es la columna vertebral del parlay que el usuario ganó: ocho
+    de sus trece patas eran Total de Goles.
+    """
+    vacio = {'goles_lineas': {}, 'goles_equipo': {}}
+    try:
+        import numpy as np
+        M = np.asarray(pred.get('score_matrix'), dtype=float)
+        if M.ndim != 2 or not M.size:
+            return vacio
+    except Exception:
+        return vacio
+    idx = np.arange(M.shape[0])
+    total = idx[:, None] + idx[None, :]
+    lineas = {f'{ln:g}': round(float(M[total > ln].sum()), 4)
+              for ln in LINEAS_GOLES}
+    mh, ma = M.sum(axis=1), M.sum(axis=0)
+    equipo = {
+        'local': {f'{ln:g}': round(float(mh[idx > ln].sum()), 4)
+                  for ln in LINEAS_GOLES_EQUIPO},
+        'visitante': {f'{ln:g}': round(float(ma[idx > ln].sum()), 4)
+                      for ln in LINEAS_GOLES_EQUIPO},
+    }
+    return {'goles_lineas': lineas, 'goles_equipo': equipo}
+
+
+def _dia_y_hora(inicio) -> Tuple[str, str]:
+    """(día CDMX, 'HH:MM') de un inicio, en cualquiera de sus formatos."""
+    if inicio is None or inicio == '':
+        return '', ''
+    try:
+        import horario
+        d = horario.fecha(inicio)
+        h = horario.hora(inicio) if hasattr(horario, 'hora') else ''
+        if d:
+            return str(d)[:10], str(h or '')[:5]
+    except Exception:
+        pass
+    # respaldo: marca de tiempo Unix como la que trae `cuotas_mx.json`
+    try:
+        t = _dt.datetime.fromtimestamp(
+            int(float(inicio)), _dt.timezone(_dt.timedelta(hours=-6)))
+        return t.date().isoformat(), t.strftime('%H:%M')
+    except (TypeError, ValueError, OSError, OverflowError):
+        pass
+    try:
+        t = _dt.datetime.fromisoformat(str(inicio))
+        return t.date().isoformat(), t.strftime('%H:%M')
+    except (TypeError, ValueError):
+        return str(inicio)[:10], ''
+
+
+def partidos_de_predicciones(dia: str, casa: str = CASA_POR_DEFECTO,
+                             limite: int = 400) -> List[Dict]:
+    """Los partidos de fútbol de ese día con probabilidad del modelo.
+
+    La fecha del partido sale, por este orden:
+
+    1. Del propio `predicciones_dia.json`, si lo lleva. Desde la v203 lo
+       lleva: `predicciones_dia.generar` guardaba el resultado del modelo y
+       tiraba la hora del fixture, y sin hora no se puede saber de qué día es
+       un partido.
+    2. Del fichero de las casas mexicanas, que sí guarda `inicio`. Es el
+       respaldo para un `predicciones_dia.json` generado antes de ese cambio,
+       y es lo que hace que esto funcione HOY sin esperar al workflow.
+
+    Un partido sin fecha por ninguna de las dos vías se descarta: meterlo
+    «por si acaso» sería enseñar el partido de mañana como si fuera de hoy.
+    """
+    try:
+        import predicciones_dia as pd_
+        doc = pd_._leer() or {}
+    except Exception as e:
+        logger.debug('[sonadora] sin predicciones precalculadas: %s', e)
+        return []
+    preds = (doc.get('predicciones') or {})
+    if not preds:
+        return []
+    try:
+        import cuotas_mx as mx
+    except Exception:
+        mx = None
+
+    fuera: List[Dict] = []
+    for clave, pred in preds.items():
+        if len(fuera) >= limite:
+            break
+        if not isinstance(pred, dict):
+            continue
+        partes = str(clave).split('|', 2)
+        liga = pred.get('clave_liga') or (partes[0] if partes else '')
+        home = pred.get('home') or (partes[1] if len(partes) > 1 else '')
+        away = pred.get('away') or (partes[2] if len(partes) > 2 else '')
+        if not (home and away):
+            continue
+        d, hora = _dia_y_hora(pred.get('inicio') or pred.get('fecha'))
+        inicio = pred.get('inicio')
+        if d != dia and mx is not None:
+            try:
+                reg = mx.buscar('futbol', home, away)
+            except Exception:
+                reg = None
+            if reg:
+                inicio = reg.get('inicio')
+                d, hora = _dia_y_hora(inicio)
+        if d != dia:
+            continue
+        board = board_de_prediccion(pred, home, away)
+        if not board:
+            continue
+        fuera.append({
+            'deporte': 'Fútbol', 'partido': f'{home} vs {away}',
+            'liga': liga, 'clave_liga': liga, 'hora': hora,
+            'inicio': inicio, 'board': board,
+            'origen': 'predicciones precalculadas',
+            **lineas_de_prediccion(pred),
+        })
+    return fuera
+
+
 def _recoger(r: Dict, dia: str, max_partidos: int,
              deportes: Optional[List[str]] = None,
              casa: str = CASA_POR_DEFECTO) -> Dict:
@@ -961,6 +1177,20 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
     quiero = set(deportes or DEPORTES_POR_DEFECTO)
     partidos = [p for p in md.partidos_del_dia(r, dia, con_extras=False)
                 if p.get('deporte') in quiero]
+    # EL CATALOGO DE FUTBOL NO SALE DEL BARRIDO (ver el bloque de arriba): se
+    # anaden los partidos con probabilidad del modelo que el barrido no trajo
+    # porque no produjeron pick. Se deduplica por nombre de partido, asi que
+    # el que SI venia del barrido conserva su fila —con su contexto y su casa
+    # elegida por el guardia— y solo se suman los que faltaban.
+    del_barrido = 0
+    if 'Fútbol' in quiero:
+        del_barrido = sum(1 for p in partidos if p.get('deporte') == 'Fútbol')
+        vistos = {str(p.get('partido')) for p in partidos
+                  if p.get('deporte') == 'Fútbol'}
+        for p in partidos_de_predicciones(dia, casa):
+            if str(p.get('partido')) not in vistos:
+                vistos.add(str(p.get('partido')))
+                partidos.append(p)
     extra = _board_por_partido(r, dia)
     patas: List[Dict] = []
     # EL PRESUPUESTO DE TABLEROS ES POR DEPORTE, no global. Con uno solo, el
@@ -1013,6 +1243,10 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
     return {'patas': patas, 'n_partidos': len(partidos),
             'tableros_pedidos': sum(pedidos.values()),
             'tableros_por_deporte': dict(pedidos),
+            'futbol_del_barrido': del_barrido,
+            'futbol_del_catalogo': sum(
+                1 for p in partidos
+                if p.get('origen') == 'predicciones precalculadas'),
             'sin_tablero': sin_tablero}
 
 
@@ -1123,6 +1357,8 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
         'n_partidos': bruto['n_partidos'],
         'tableros_pedidos': bruto['tableros_pedidos'],
         'tableros_por_deporte': bruto.get('tableros_por_deporte', {}),
+        'futbol_del_barrido': bruto.get('futbol_del_barrido', 0),
+        'futbol_del_catalogo': bruto.get('futbol_del_catalogo', 0),
         'sin_tablero': bruto['sin_tablero'],
         'n_sin_filtrar': len(todas),
         'n_medidas': sum(1 for q in visibles if q['medido']),
@@ -1313,69 +1549,6 @@ def olvidar_parlays(ruta: str = ACTIVOS) -> None:
     """Vacía el registro. Lo usa la pantalla y lo usan los tests."""
     with open(ruta, 'w', encoding='utf-8') as f:
         json.dump({'parlays': []}, f, ensure_ascii=False, indent=1)
-
-
-# --- EL TOPE DE PATAS SEGUN EL BOOST ----------------------------------------
-#
-# EL ENCARGO PEDIA ESTA TABLA: sin boost 13 patas · +20 % 8 · +50 % 6 · +80 % 5
-# · +100 % 4. Y la justificaba diciendo que «cuanto mayor el boost, menos patas
-# para maximizar la probabilidad de acierto».
-#
-# LA CUENTA DICE LO CONTRARIO, y no es una opinion. Con un boost B que
-# multiplica el premio y N patas de ventaja e cada una, el parlay rinde
-# B x (1+e)^N - 1. El boost es un factor CONSTANTE: no interactua con N. Lo
-# unico que decide cuantas patas aguanta el boleto es cuanto boost hay para
-# compensar la ventaja negativa de cada pata:
-#
-#     B x (1+e)^N >= 1   <=>   N <= ln(B) / -ln(1+e)
-#
-# Con la ventaja MEDIDA de una pata en este proyecto (e = -3,95 % sobre 16.428
-# patas del ledger con cuota de cierre real), eso da:
-#
-#     +20 %  ->  4 patas        +80 %  ->  14 patas
-#     +50 %  ->  10 patas       +100 % ->  17 patas
-#
-# O sea que el boost grande permite MAS patas, no menos. La tabla del encargo
-# invierte la relacion, y aplicarla tendria un efecto concreto y malo: con un
-# boost del +100 % —el mejor que da una casa— limitaria el boleto a cuatro
-# patas justo cuando es cuando mas patas se pueden pagar. Habria bloqueado el
-# parlay de trece patas que el usuario gano.
-#
-# Lo que SI cae en picado con N es la tasa de acierto, y eso es verdad con
-# boost y sin el. Por eso se publican las dos cosas: el tope donde el boleto
-# deja de tener esperanza positiva, y lo que se espera que acierte.
-def limite_por_boost(boost: float, roi_pata: Optional[float] = None) -> Dict:
-    """Hasta cuántas patas aguanta ese boost, con la ventaja medida de la pata.
-
-    `boost` es el multiplicador del premio: 0,20 para un +20 %.
-    """
-    try:
-        b = 1.0 + float(boost or 0.0)
-    except (TypeError, ValueError):
-        b = 1.0
-    e = roi_pata
-    if e is None:
-        e = (historico().get('pata_suelta') or {}).get('roi')
-    try:
-        e = float(e)
-    except (TypeError, ValueError):
-        e = None
-    base = {'boost': round(b - 1.0, 4), 'roi_pata': e, 'medido': e is not None}
-    if e is None or e >= 0:
-        # sin ventaja negativa medida no hay techo que calcular, y con ventaja
-        # positiva mas patas siempre suman: el tope lo pone la casa
-        return {**base, 'max_patas': MAX_PATAS,
-                'motivo': ('sin ROI de la pata medido: no se puede calcular un '
-                           'tope' if e is None else
-                           'la pata tiene ventaja positiva medida')}
-    if b <= 1.0:
-        return {**base, 'max_patas': 0,
-                'motivo': f'sin boost y con la pata a {e*100:+.2f} %, ninguna '
-                          f'cantidad de patas tiene esperanza positiva'}
-    n = int(math.log(b) / -math.log(1.0 + e))
-    return {**base, 'max_patas': max(0, min(n, MAX_PATAS)),
-            'motivo': f'con la pata a {e*100:+.2f} %, un boost del '
-                      f'{(b-1)*100:.0f} % se agota en {n} patas'}
 
 
 def permutaciones(patas: List[Dict], n_patas: int,

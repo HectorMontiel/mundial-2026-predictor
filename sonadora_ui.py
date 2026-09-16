@@ -47,9 +47,6 @@ AVISO = ('ℹ️ Sección de entretenimiento. No es asesoramiento financiero ni 
 
 N_PATAS_OPCIONES = (4, 6, 8, 10, 13)
 
-# Los boosts que ofrecen las casas sobre el premio de una combinada.
-BOOSTS = (0.0, 0.20, 0.50, 0.80, 1.00)
-
 
 def _pct(x, dec=1) -> str:
     try:
@@ -88,6 +85,26 @@ _ALI = {'confirmada': '✅ alineación confirmada',
 
 _RIESGO = {'alta': '⚠️ competición del peor cuarto por calibración',
            'baja': '', 'media': '', 'sin_medir': ''}
+
+
+def _cuenta_del_otro_dia(st, sm, r, dia, lo, hi, deportes, rojas, casa,
+                         solo_bajo):
+    """(día, nº de patas) del día contiguo, o None si tampoco hay.
+
+    Cuesta una pasada más, así que sólo se llama cuando el día pedido salió
+    vacío — que es justo cuando el usuario necesita saber si el problema es el
+    día o la configuración.
+    """
+    import mercados_dia as md
+    try:
+        hoy = md.dia_cdmx()
+        otro = md.dia_cdmx(1) if str(dia) == hoy else hoy
+        res = sm.patas_del_dia(r, otro, cuota_min=lo, cuota_max=hi,
+                               deportes=list(deportes), con_rojas=rojas,
+                               casa=casa, solo_riesgo_bajo=solo_bajo)
+        return otro, len(res.get('patas') or [])
+    except Exception:
+        return None
 
 
 def _linea_pata(q: Dict) -> str:
@@ -176,37 +193,6 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
              'día. Sin marcar, las competiciones de riesgo alto siguen '
              'saliendo pero las últimas.')
 
-    # EL BOOST, Y POR QUE EL TOPE VA AL REVES DE LO QUE PARECE. El boost es un
-    # factor constante sobre el premio: no interactua con el numero de patas.
-    # Lo unico que hace es dar margen para absorber la ventaja negativa de cada
-    # pata, asi que cuanto MAS boost, MAS patas aguanta el boleto — no menos.
-    boost = st.selectbox(
-        'Boost de la casa', BOOSTS, index=0, key='son_boost',
-        format_func=lambda b: ('Sin boost' if not b else f'+{int(b*100)} %'),
-        help='Si tu casa te da un porcentaje extra sobre el premio de la '
-             'combinada, ponlo aquí y se calcula hasta cuántas patas lo '
-             'aguanta.')
-    lim = sm.limite_por_boost(boost)
-    if lim.get('medido'):
-        if not boost:
-            st.caption(
-                f"ℹ️ Con la ventaja medida de una pata ({_pct(lim['roi_pata'], 2)}"
-                f") **ninguna cantidad de patas tiene esperanza positiva sin "
-                f"boost**. Un parlay de N patas rinde (1+e)^N − 1: combinar "
-                f"multiplica el rendimiento de las patas, no lo mejora.")
-        else:
-            st.caption(
-                f"ℹ️ {lim['motivo'].capitalize()}. Por encima de "
-                f"**{lim['max_patas']} patas** el boost ya no compensa lo que "
-                f"pierde cada pata. Ojo: el tope es de *esperanza*, no de "
-                f"acierto — la probabilidad de acertar baja con cada pata que "
-                f"añades, con boost y sin él.")
-            if n_patas > lim['max_patas']:
-                st.warning(
-                    f"⚠️ Con un boost del {int(boost*100)} % se recomienda un "
-                    f"máximo de {lim['max_patas']} patas; has pedido "
-                    f"{n_patas}.")
-
     # ------------------------------------------------------------------ #
     # 2. Las patas del día
     # ------------------------------------------------------------------ #
@@ -237,11 +223,20 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     patas: List[Dict] = res.get('patas') or []
 
     if not patas:
+        # SE MIRA EL OTRO DIA ANTES DE RENDIRSE. Un dia entre semana de
+        # septiembre tiene seis partidos de futbol en todo el catalogo y el
+        # siguiente diecisiete: decirle al usuario «no hay nada» cuando
+        # manana hay tablero completo es dejarle sin la seccion por un dia.
+        otro = _cuenta_del_otro_dia(st, sm, r, dia, cuota_min, cuota_max,
+                                    deportes, con_rojas, casa, solo_bajo)
         st.warning(
-            f"📅 Hoy **{casa}** no cotiza ningún mercado que pase estos "
-            f"filtros ({res.get('n_partidos', 0)} partidos mirados). "
-            f"Prueba con la otra casa, con más deportes o con un rango de "
-            f"cuota más ancho.")
+            f"📅 Con esta configuración no hay ninguna pata: **{casa}** no "
+            f"cotiza ningún mercado de los {res.get('n_partidos', 0)} "
+            f"partidos de ese día que el modelo predice."
+            + (f"  \n**El {otro[0]} hay {otro[1]} patas** — cámbialo en el "
+               f"selector de día." if otro and otro[1] else
+               '  \nPrueba con la otra casa, con más deportes o con un rango '
+               'de cuota más ancho.'))
         return
     if res.get('ensanchado'):
         rango = res.get('rango') or []
@@ -268,6 +263,20 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
         f"puede bajarlo. {res.get('n_medidas', 0)} de estas patas tienen error "
         f"de calibración medido — al resto se le encoge la probabilidad un "
         f"15 % al puntuar, y se dice en cada línea.")
+    # DE DONDE SALEN LOS PARTIDOS. Hasta la v203 el catálogo lo ponía el
+    # barrido, que es una lista de PICKS: un día en que el fútbol no producía
+    # ni un pick dejaba la sección con cero patas aunque hubiera cientos de
+    # partidos con precio. Se dice cuántos vienen de cada sitio porque explica
+    # la diferencia entre «hoy hay poco» y «hoy no se está mirando».
+    _cat = res.get('futbol_del_catalogo') or 0
+    if _cat:
+        st.caption(
+            f"📚 {_cat} de los partidos de fútbol de este día salen del "
+            f"catálogo completo del modelo, no de la lista de pronósticos "
+            f"del sistema: tienen probabilidad y precio aunque no hayan "
+            f"producido un pick."
+            + (f" Otros {res['futbol_del_barrido']} sí venían de ella."
+               if res.get('futbol_del_barrido') else ''))
     cr = res.get('conteo_riesgo') or {}
     st.caption(
         f"**Riesgo de la competición** (error de calibración del modelo, "

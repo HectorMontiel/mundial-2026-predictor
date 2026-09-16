@@ -14400,50 +14400,6 @@ def test_un_partido_no_entra_en_dos_parlays_a_la_vez():
             os.remove(ruta)
 
 
-def test_el_tope_por_boost_sale_de_la_ventaja_medida():
-    """
-    El encargo daba esta tabla: sin boost 13 patas · +20 % 8 · +50 % 6 ·
-    +80 % 5 · +100 % 4, con el argumento de que «cuanto mayor el boost, menos
-    patas».
-
-    LA CUENTA DICE LO CONTRARIO. Un parlay con boost B y N patas de ventaja e
-    rinde B·(1+e)^N − 1: el boost es un factor constante que NO interactúa con
-    N, así que lo único que hace es dar margen para absorber la ventaja
-    negativa de cada pata. Más boost aguanta MÁS patas, no menos. Aplicar la
-    tabla del encargo habría bloqueado el parlay de trece patas que el usuario
-    ganó, justo con el boost más alto.
-    """
-    import sonadora_motor as sm
-
-    lim20 = sm.limite_por_boost(0.20)
-    lim50 = sm.limite_por_boost(0.50)
-    lim100 = sm.limite_por_boost(1.00)
-    check(lim20.get('medido') is True,
-          'el tope sale del ROI medido de una pata, no de una tabla a mano')
-    check(lim20['max_patas'] < lim50['max_patas'] < lim100['max_patas'],
-          f"más boost aguanta más patas, no menos "
-          f"(+20 %: {lim20['max_patas']} · +50 %: {lim50['max_patas']} · "
-          f"+100 %: {lim100['max_patas']})")
-    check(lim100['max_patas'] > 4,
-          f"con +100 % el tope NO son 4 patas como pedía el encargo "
-          f"({lim100['max_patas']}): esa regla habría bloqueado el parlay de "
-          f"13 que el usuario ganó")
-
-    sin_boost = sm.limite_por_boost(0.0)
-    check(sin_boost['max_patas'] == 0,
-          'sin boost y con la pata en negativo, ninguna cantidad de patas '
-          'tiene esperanza positiva — combinar multiplica el rendimiento de '
-          'las patas, no lo mejora')
-
-    # con una ventaja POSITIVA inyectada el tope desaparece: si la función
-    # devolviera siempre lo mismo, este check se caería
-    positiva = sm.limite_por_boost(0.20, roi_pata=0.02)
-    check(positiva['max_patas'] == sm.MAX_PATAS,
-          'con ventaja positiva medida el tope lo pone la casa, no la cuenta')
-    check(sm.limite_por_boost(0.20, roi_pata='basura')['medido'] is False,
-          'sin ROI utilizable se dice que no está medido en vez de inventarlo')
-
-
 def test_el_rebote_por_entrenador_esta_apagado_por_falta_de_fuente():
     """
     El encargo pedía penalizar al favorito cuyo rival cambió de entrenador en
@@ -14603,6 +14559,247 @@ def test_las_rojas_no_entran_en_una_combinada_automatica():
         check(p.get('rojas_forzadas') is True,
               f"y avisa de que la combinada {p['letra']} lleva rojas por "
               f"falta de alternativa")
+
+
+def _prediccion_de_prueba():
+    """Una matriz de marcador Poisson x Poisson, con sus marginales."""
+    import math
+    lh, la = 1.6, 1.1
+    n = 8
+
+    def _p(lam, k):
+        return math.exp(-lam) * lam ** k / math.factorial(k)
+
+    M = [[_p(lh, i) * _p(la, j) for j in range(n)] for i in range(n)]
+    s = sum(sum(f) for f in M)
+    M = [[v / s for v in f] for f in M]
+    pl = sum(M[i][j] for i in range(n) for j in range(n) if i > j)
+    px = sum(M[i][i] for i in range(n))
+    pv = sum(M[i][j] for i in range(n) for j in range(n) if i < j)
+    return {'score_matrix': M, 'home': 'Local FC', 'away': 'Visita CF',
+            'clave_liga': 'laliga',
+            'probabilities': {'home': pl, 'draw': px, 'away': pv},
+            'expected_goals': {'home': lh, 'away': la}}
+
+
+def test_el_tablero_sale_de_la_matriz_de_marcador():
+    """
+    Un partido que el barrido no trajo sigue teniendo todo lo que hace falta
+    para ofrecer patas: la matriz de marcador está en `predicciones_dia.json`
+    y de ella salen el 1X2, la doble oportunidad, la escalera de goles entera,
+    los goles de cada equipo y el «ambos marcan».
+    """
+    import sonadora_motor as sm
+
+    pred = _prediccion_de_prueba()
+    b = sm.board_de_prediccion(pred, 'Local FC', 'Visita CF')
+    check(bool(b), 'la matriz produce tablero')
+
+    suma = (b.get('Gana Local FC', 0) + b.get('Empate', 0)
+            + b.get('Gana Visita CF', 0))
+    check(abs(suma - 1.0) < 0.01,
+          f'el 1X2 del tablero suma 1 ({suma:.4f})')
+    check(abs(b.get('Local FC o empate', 0)
+              - (b['Gana Local FC'] + b['Empate'])) < 0.001,
+          'la doble oportunidad es la suma de sus dos partes')
+    check(abs(b.get('Ambos marcan: Sí', 0) + b.get('Ambos marcan: No', 0)
+              - 1.0) < 0.001,
+          'ambos marcan y su contrario suman 1')
+
+    # LA ESCALERA TIENE QUE SER DECRECIENTE. Si no lo fuera, la matriz se
+    # estaría recorriendo mal —que es el fallo que produce «Menos de 4,5 al
+    # 98 %» y patas que nadie deberia ver arriba del todo.
+    escalera = [b.get(f'Más de {ln}') for ln in sm.LINEAS_GOLES]
+    check(all(x is not None for x in escalera),
+          f'están las seis líneas de goles ({escalera})')
+    if all(x is not None for x in escalera):
+        check(all(escalera[i] >= escalera[i + 1]
+                  for i in range(len(escalera) - 1)),
+              f'y van de más a menos probable ({escalera})')
+        check(escalera[0] > 0.5 and escalera[-1] < 0.2,
+              f'con valores creíbles para 2,7 goles esperados '
+              f'(más de 0,5: {escalera[0]:.3f} · más de 5,5: '
+              f'{escalera[-1]:.3f})')
+
+    # y la escalera que consume el motor, que NO es el tablero
+    ln = sm.lineas_de_prediccion(pred)
+    check(set(ln['goles_lineas']) == {f'{x:g}' for x in sm.LINEAS_GOLES},
+          f"`goles_lineas` trae las seis líneas ({sorted(ln['goles_lineas'])})")
+    check(set(ln['goles_equipo']) == {'local', 'visitante'},
+          'y los goles de cada equipo por su lado')
+    check(abs(ln['goles_lineas']['2.5'] - b['Más de 2.5']) < 0.001,
+          'las dos vías dan el mismo número para la misma línea')
+    # el local marca mas que el visitante en esta matriz: si se leyeran las
+    # marginales al reves, esto se caeria
+    check(ln['goles_equipo']['local']['0.5']
+          > ln['goles_equipo']['visitante']['0.5'],
+          f"el equipo con más goles esperados marca más a menudo "
+          f"({ln['goles_equipo']['local']['0.5']} contra "
+          f"{ln['goles_equipo']['visitante']['0.5']})")
+
+    check(sm.board_de_prediccion({}, 'a', 'b') == {}
+          and sm.lineas_de_prediccion({})['goles_lineas'] == {},
+          'sin matriz no se inventa un tablero')
+
+
+def test_la_sonadora_no_depende_de_que_haya_pick():
+    """
+    EL FALLO QUE ESTO CIERRA. La sección tomaba su catálogo de
+    `partidos_del_dia`, que recorre las doce listas del barrido — y esas son
+    listas de PICKS. Medido el 2026-09-15 sobre el barrido real de las 20:01:
+
+        deportes cubiertos por el barrido ...  KBO, MLB, NFL, Tenis
+        patas de fútbol en la Soñadora ......  0
+        partidos de fútbol en disco .........  147 con matriz de marcador
+        precios de fútbol en disco ..........  290 de cinco casas
+
+    Las dos mitades de una pata estaban en el disco y la pantalla enseñaba
+    cero. El universo ya no sale del barrido.
+    """
+    import sonadora_motor as sm
+
+    pred = _prediccion_de_prueba()
+    doc = {'predicciones': {
+        f'laliga|Local{i} FC|Visita{i} CF': {
+            **pred, 'home': f'Local{i} FC', 'away': f'Visita{i} CF',
+            'inicio': f'2026-09-15 1{i}:00:00', 'fecha': '2026-09-15'}
+        for i in range(4)}}
+
+    import predicciones_dia as pd_
+    original = pd_._leer
+    pd_._leer = lambda: doc
+    try:
+        hoy = sm.partidos_de_predicciones('2026-09-15')
+        otro = sm.partidos_de_predicciones('2026-09-20')
+    finally:
+        pd_._leer = original
+
+    check(len(hoy) == 4,
+          f'los cuatro partidos del día entran en el catálogo ({len(hoy)})')
+    check(not otro,
+          f'y ninguno se cuela en un día que no es el suyo ({len(otro)})')
+    if hoy:
+        p = hoy[0]
+        check(p['deporte'] == 'Fútbol' and ' vs ' in p['partido'],
+              'con la forma que espera el motor')
+        check(bool(p.get('board')) and bool(p.get('goles_lineas')),
+              'y con tablero Y escalera de goles: sin la escalera, un partido '
+              'del catálogo llega sin una sola pata de goles')
+        check(p.get('origen') == 'predicciones precalculadas',
+              'marcado de dónde salió, para poder decirlo en pantalla')
+        # LA HORA SE CONVIERTE A CDMX. El fixture viene en UTC y la pantalla
+        # habla en hora de Ciudad de Mexico: 10:00 UTC son las 04:00 alli.
+        # Sin la conversion, un partido de la madrugada UTC sale con el dia
+        # cambiado, que es el fallo que `horario` existe para evitar.
+        check(p.get('hora') == '04:00',
+              f"y con su hora convertida a CDMX ({p.get('hora')}), no la UTC")
+
+    # Y AHORA LO QUE DE VERDAD IMPORTA: que el RECOLECTOR lo use. Comprobar
+    # `partidos_de_predicciones` por su cuenta no vigila nada si `_recoger`
+    # no la llama — cazado con un mutante que vaciaba esa lista y dejaba el
+    # test en verde.
+    pd_._leer = lambda: doc
+    try:
+        res = sm.patas_del_dia({}, '2026-09-15', deportes=['Fútbol'],
+                               casa='Novibet')
+    finally:
+        pd_._leer = original
+    check(res.get('futbol_del_barrido') == 0,
+          'con un barrido vacío no hay ni un partido de fútbol suyo')
+    check((res.get('futbol_del_catalogo') or 0) == 4,
+          f"y aun así la sección mira los 4 partidos del catálogo "
+          f"({res.get('futbol_del_catalogo')})")
+    check(res.get('n_partidos') == 4,
+          f"que son los que cuenta la pantalla ({res.get('n_partidos')})")
+
+
+def test_la_sonadora_ya_no_pregunta_por_el_boost():
+    """
+    El boost es una decisión de la casa, no del modelo: el encargo lo quitó y
+    aquí se comprueba que no quedó ni el control ni la función.
+    """
+    import sonadora_motor as sm
+    import sonadora_ui as su
+
+    check(not hasattr(sm, 'limite_por_boost'),
+          'el motor ya no calcula topes por boost')
+    fuente = open('sonadora_ui.py', encoding='utf-8').read().lower()
+    check('son_boost' not in fuente,
+          'la pantalla ya no tiene el selector de boost')
+    check('boost' not in fuente,
+          'ni una mención al boost en la pantalla')
+    check(not hasattr(su, 'BOOSTS'), 'ni la tabla de boosts')
+
+
+def test_el_buscador_no_enciende_la_regla_sin_historial():
+    """
+    `buscador_fuentes` encontró el entrenador en FotMob, pero FotMob NO
+    publica la fecha de nombramiento: sólo dice quién entrena hoy. Así que un
+    cambio se detecta comparando fotos, y el primer día de un equipo nunca es
+    un cambio.
+
+    Se comprueban las tres fases —sin historial, con una foto, con un cambio—
+    porque comprobar sólo la primera sería un test que no puede fallar.
+    """
+    import os
+    import buscador_fuentes as bf
+    import filtro_contexto as fc
+
+    hist = '_test_historial_entrenadores.json'
+    reg = '_test_fuentes_consultadas.json'
+    for f in (hist, reg):
+        if os.path.exists(f):
+            os.remove(f)
+    original = bf.HISTORIAL
+    bf.HISTORIAL = hist
+    try:
+        check(bf.cambios_recientes(7, '2026-09-15', hist) == {},
+              'sin historial no hay ningún cambio que declarar')
+        check(fc.conectar_buscador() is False and fc.hay_fuente() is False,
+              'y la regla del rebote no se enciende')
+
+        # PRIMERA FOTO: es el punto de partida, no un cambio
+        r1 = bf.anotar_entrenador('Valencia', 'Carlos Corberán',
+                                  '2026-09-08', hist)
+        check(r1['cambio'] is False and r1['anterior'] is None,
+              'la primera foto de un equipo no es un cambio')
+        check(bf.cambios_recientes(7, '2026-09-15', hist) == {},
+              'y sigue sin haber cambios que declarar')
+        check(fc.conectar_buscador() is False,
+              'con una sola foto la regla sigue apagada')
+
+        # SEGUNDA FOTO DISTINTA: eso sí es un cambio
+        r2 = bf.anotar_entrenador('Valencia', 'Un Técnico Nuevo',
+                                  '2026-09-12', hist)
+        check(r2['cambio'] is True and r2['anterior'] == 'Carlos Corberán',
+              f'un entrenador distinto sí es un cambio ({r2})')
+        recientes = bf.cambios_recientes(7, '2026-09-15', hist)
+        check(recientes == {'Valencia': '2026-09-12'},
+              f'y sale como reciente ({recientes})')
+        check(bf.cambios_recientes(2, '2026-09-15', hist) == {},
+              'pero no si se pregunta por una ventana más corta')
+
+        # y ahora la regla del encargo dispara sobre su caso
+        check(fc.conectar_buscador() is True and fc.hay_fuente() is True,
+              'con un cambio observado la regla se puede encender')
+        info = fc.rebote_entrenador('Alavés', 'Valencia', '2026-09-15',
+                                    cuota_favorito=1.84,
+                                    lado_favorito='local')
+        check(info['activo'] is True and info['dias'] == 3,
+              f'y dispara en el partido que motivó el encargo ({info})')
+    finally:
+        fc.registrar_fuente(None)
+        bf.HISTORIAL = original
+        for f in (hist, reg):
+            if os.path.exists(f):
+                os.remove(f)
+
+    check(bool(bf.SONDEO.get('entrenador')),
+          'el sondeo de fuentes viaja con el código')
+    adoptadas = [s for s in bf.SONDEO['entrenador']
+                 if s.get('estado') == 'adoptada']
+    check(len(adoptadas) == 1 and 'FotMob' in adoptadas[0]['fuente'],
+          f'y dice cuál se adoptó y por qué las demás no ({adoptadas})')
 
 
 if __name__ == '__main__':
@@ -14923,10 +15120,15 @@ if __name__ == '__main__':
     test_los_topes_de_exposicion_cortan_la_falsa_diversificacion()
     test_un_tope_se_levanta_antes_que_no_armar_el_parlay()
     test_un_partido_no_entra_en_dos_parlays_a_la_vez()
-    test_el_tope_por_boost_sale_de_la_ventaja_medida()
     test_el_rebote_por_entrenador_esta_apagado_por_falta_de_fuente()
     test_el_backtest_de_riesgo_no_se_despliega_sin_medirse()
     test_las_rojas_no_entran_en_una_combinada_automatica()
+
+    print(chr(10) + '=== v203: la Sonadora deja de depender del barrido ===')
+    test_el_tablero_sale_de_la_matriz_de_marcador()
+    test_la_sonadora_no_depende_de_que_haya_pick()
+    test_la_sonadora_ya_no_pregunta_por_el_boost()
+    test_el_buscador_no_enciende_la_regla_sin_historial()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

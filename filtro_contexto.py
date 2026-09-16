@@ -73,7 +73,17 @@ SONDEO = {
 }
 
 # El enchufe. Una función que, dado un día, devuelva
-# {nombre_de_equipo: 'AAAA-MM-DD' del cambio}. Hoy no hay ninguna.
+# {nombre_de_equipo: 'AAAA-MM-DD' del cambio}.
+#
+# v203 — YA HAY PUERTA, Y SIGUE SIN HABER DATO. `buscador_fuentes` encontró el
+# entrenador en FotMob (por el `__NEXT_DATA__`, la misma vía que el proyecto ya
+# usaba para los córners), pero FotMob **no publica la fecha de nombramiento**:
+# da quién entrena hoy y nada más. Así que un cambio sólo se ve comparando con
+# la foto de ayer, y eso exige un historial con fondo.
+#
+# `conectar_buscador()` enchufa ese historial. Mientras no tenga ni un cambio
+# observado devuelve un diccionario vacío y la regla sigue apagada — que es lo
+# correcto y no un fallo: el primer día de una serie no tiene «antes».
 _FUENTE: Optional[Callable[[str], Dict[str, str]]] = None
 
 
@@ -86,6 +96,25 @@ def registrar_fuente(fn: Optional[Callable[[str], Dict[str, str]]]) -> None:
     """
     global _FUENTE
     _FUENTE = fn
+
+
+def conectar_buscador() -> bool:
+    """Enchufa el historial de entrenadores de `buscador_fuentes`.
+
+    Devuelve `True` sólo si ese historial puede detectar cambios de verdad —o
+    sea, si tiene al menos un entrenador anterior guardado—. Si no, no enchufa
+    nada: una fuente que siempre devuelve vacío haría creer que la regla está
+    viva cuando está ciega.
+    """
+    try:
+        import buscador_fuentes as bf
+        if not bf.estado().get('puede_detectar_cambios'):
+            return False
+        registrar_fuente(lambda dia: bf.cambios_recientes(DIAS_VENTANA, dia))
+        return True
+    except Exception as e:
+        logger.debug('[contexto] no se pudo conectar el buscador: %s', e)
+        return False
 
 
 def hay_fuente() -> bool:
