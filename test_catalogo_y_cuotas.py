@@ -15176,6 +15176,158 @@ def test_el_entrenador_sale_de_la_web_con_su_fecha():
           f'y el sondeo deja constancia de que Wikidata se adoptó ({fuentes})')
 
 
+def test_la_altitud_se_lee_de_sedes_escritas_a_mano():
+    """
+    Las sedes vienen escritas por personas: «El Alto, La Paz.» nombra dos
+    ciudades y lleva un punto, y «Coachabamba» es una errata que está en los
+    datos. Con emparejado exacto, la mitad de los partidos en altura se
+    quedaban a 0 m — o sea fuera de la única corrección de contexto medida.
+    """
+    import validar_contexto as vc
+
+    check(vc.altitud_de('El Alto, La Paz.') == 4150,
+          f"«El Alto, La Paz.» resuelve a El Alto y no a La Paz "
+          f"({vc.altitud_de('El Alto, La Paz.')}) — gana el nombre más largo, "
+          f"que son 500 m de diferencia")
+    check(vc.altitud_de('Coachabamba') == 2558,
+          'la errata de Cochabamba también resuelve')
+    check(vc.altitud_de('BOGOTÁ') == vc.altitud_de('bogota') == 2640,
+          'mayúsculas y acentos dan lo mismo')
+    check(vc.altitud_de('Cusco, Perú') == 3400,
+          '«Ciudad, País» resuelve por la ciudad')
+    check(vc.altitud_de('Barcelona') == 0 and vc.altitud_de(None) == 0
+          and vc.altitud_de('') == 0,
+          'una ciudad a nivel del mar, un vacío y un None dan 0 y no lanzan')
+
+
+def test_el_contexto_solo_corrige_lo_que_esta_medido():
+    """
+    LA VARIABLE BUENA NO ERA LA ALTURA, ERA EL DESNIVEL. Con sólo Bolivia,
+    Ecuador, Colombia y Perú, corregir «ambos marcan» por altura de la sede
+    mejoraba un 1,80 %; al meter la Liga MX —donde casi toda la liga juega en
+    alto y los dos equipos llegan aclimatados— se cayó.
+
+    Lo que sí aguanta fuera de muestra es la ACLIMATACIÓN sobre el 1X2: cuando
+    el visitante sube 1.000 m o más, el log-loss baja un 1,54 % y el error de
+    calibración un 34 % en esos 376 partidos.
+    """
+    import contexto_ampliado as ca
+
+    d = ca.ajuste_medido()
+    check(d is not None and d > 0,
+          f'la medición autoriza un ajuste a favor del local ({d})')
+
+    ph, px, pa = 0.45, 0.27, 0.28
+    q = ca.ajustar_1x2(ph, px, pa, False)
+    check(q[:3] == (ph, px, pa) and q[3] is False,
+          f'sin subida las tres probabilidades salen intactas ({q})')
+
+    h2, x2, a2, aplicado = ca.ajustar_1x2(ph, px, pa, True)
+    check(aplicado is True and h2 > ph,
+          f'con subida el local sube ({ph} → {round(h2, 4)})')
+    check(abs(h2 + x2 + a2 - 1.0) < 1e-9,
+          f'y las tres SIGUEN sumando 1 ({round(h2 + x2 + a2, 9)}) — sin '
+          f'reescalar, la doble oportunidad daría probabilidades imposibles')
+    check(x2 < px and a2 < pa,
+          'el empate y la victoria visitante bajan, no se quedan quietos')
+
+    # SI LA MEDICIÓN DICE QUE NO, NO SE APLICA. El módulo lee el veredicto.
+    original = ca.medicion
+    ca.medicion = lambda *a, **k: {
+        'altitud_corte_m': 2200,
+        'pruebas': {ca.PRUEBA_APLICADA: {'medido': True, 'mejora': False,
+                                         'ajustes': {ca.VARIABLE_APLICADA:
+                                                     {'1.0': 0.9}}}}}
+    try:
+        check(ca.ajuste_medido() is None,
+              'con la prueba en «no mejora» no hay ajuste que aplicar')
+        r = ca.ajustar_1x2(ph, px, pa, True)
+        check(r[3] is False and r[0] == ph,
+              f'y las probabilidades salen intactas aunque haya subida ({r})')
+    finally:
+        ca.medicion = original
+
+
+def test_el_desnivel_distingue_subir_de_jugar_alto():
+    """
+    Dos equipos de La Paz no tienen efecto de altura entre ellos, y el modelo
+    no debe corregir ahí. Es la diferencia entre «la sede está alta» —que se
+    midió y es ruido— y «el visitante sube», que es la que aguanta.
+    """
+    import contexto_ampliado as ca
+
+    sube = ca.de_partido('bol_division', 'Bolivar', 'Blooming')['altitud']
+    baja = ca.de_partido('bol_division', 'Blooming', 'Bolivar')['altitud']
+    check(sube.get('sube_visitante') is True and sube.get('desnivel', 0) > 1000,
+          f'Blooming subiendo a La Paz sí es una subida ({sube.get("desnivel")} m)')
+    check(baja.get('sube_visitante') is False,
+          'y Bolívar bajando a Santa Cruz no lo es')
+    check(baja.get('desnivel', 0) < 0,
+          f'el desnivel del que baja es negativo ({baja.get("desnivel")})')
+
+    # EL CASO QUE DE VERDAD SEPARA LAS DOS HIPÓTESIS: sede alta y los DOS
+    # equipos aclimatados. Un derbi bogotano se juega a 2.640 m y ahí no hay
+    # nada que corregir. Sin este check, cambiar «sube el visitante» por
+    # «la sede está alta» pasaba desapercibido — cazado con un mutante.
+    derbi = ca.de_partido('col_primera_a', 'Millonarios', 'Santa Fe')['altitud']
+    check(derbi.get('en_altura') is True,
+          f"el derbi bogotano se juega en altura ({derbi.get('metros')} m)")
+    check(derbi.get('sube_visitante') is False,
+          'pero el visitante no sube: los dos equipos son de Bogotá')
+    check(abs(derbi.get('desnivel', 99)) < 1000,
+          f"y el desnivel es casi cero ({derbi.get('desnivel')} m)")
+
+    check(ca.DESNIVEL_MINIMO == 1000,
+          f'el desnivel mínimo es el medido ({ca.DESNIVEL_MINIMO} m)')
+    txt = ca.resumen({'altitud': sube})
+    check('sube' in txt and 'corregido' in txt,
+          f'y la pantalla lo dice ({txt})')
+
+
+def test_la_medicion_del_contexto_parte_pasado_y_futuro():
+    """
+    La corrección se ajusta sobre el PASADO y se evalúa sobre el FUTURO.
+    Ajustar y evaluar sobre lo mismo siempre «mejora»: es la trampa que este
+    proyecto ya pagó con el bootstrap ingenuo de la v197.
+    """
+    import json
+    import os
+
+    ruta = 'modelos/contexto_medido.json'
+    if not os.path.exists(ruta):
+        check(False, f'{ruta} está generado')
+        return
+    with open(ruta, encoding='utf-8') as f:
+        doc = json.load(f)
+
+    check(doc.get('medido') is True, 'la medición del contexto está hecha')
+    check(0.5 < float(doc.get('corte_entrena', 0)) < 0.95,
+          f"se ajusta sobre una parte y se evalúa sobre otra "
+          f"({doc.get('corte_entrena')})")
+    pruebas = doc.get('pruebas') or {}
+    check(len(pruebas) >= 5,
+          f'se probaron varias variables, no sólo la que salió ({len(pruebas)})')
+    for nombre, p in pruebas.items():
+        if not p.get('medido'):
+            continue
+        check(p['n_ajuste'] > p['n_prueba'],
+              f'{nombre}: el tramo de ajuste es anterior y mayor '
+              f'({p["n_ajuste"]} contra {p["n_prueba"]})')
+        check(bool(p.get('corte_fecha')),
+              f'{nombre}: consta la fecha en que se parte la serie')
+
+    # LAS DESCARTADAS SIGUEN PUBLICADAS. Guardar sólo la que salió bien es
+    # cómo se pierde la memoria de lo que ya se probó.
+    descartadas = [n for n, p in pruebas.items()
+                   if p.get('medido') and not p.get('mejora')]
+    check(len(descartadas) >= 3,
+          f'quedan publicadas las que NO mejoraron ({descartadas})')
+    desc = pruebas.get('1x2_descanso') or {}
+    check(desc.get('medido') and not desc.get('mejora'),
+          'el descanso está medido y descartado: corregir por él empeora el '
+          'log-loss, al revés de lo que dice la intuición')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -15510,6 +15662,12 @@ if __name__ == '__main__':
     test_el_handicap_de_novibet_se_valora_con_la_matriz()
     test_el_boleto_puede_abarcar_varios_dias_y_lo_dice()
     test_el_entrenador_sale_de_la_web_con_su_fecha()
+
+    print(chr(10) + '=== v205: el contexto del partido, medido ===')
+    test_la_altitud_se_lee_de_sedes_escritas_a_mano()
+    test_el_contexto_solo_corrige_lo_que_esta_medido()
+    test_el_desnivel_distingue_subir_de_jugar_alto()
+    test_la_medicion_del_contexto_parte_pasado_y_futuro()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

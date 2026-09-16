@@ -6156,3 +6156,121 @@ dispara sobre el caso que motivó el encargo.
    `predicciones_dia.json` no tiene con qué calcular la probabilidad.
 3. **Los goles de Novibet no existen por ninguna puerta accesible.** Para ese
    mercado, Playdoit.
+
+## 6p. v205 — LA VARIABLE BUENA NO ERA LA ALTURA, ERA EL DESNIVEL
+
+El encargo pedía correlacionar «lesiones, geografía, noticias actuales,
+estadísticas de SofaScore» y meterlo en el modelo. Antes de traer nada hubo que
+separar dos cosas que no se parecen en nada.
+
+### 1. Lo que se puede medir y lo que no
+
+```
+SE PUEDE MEDIR      geografía (altitud de la sede), descanso entre partidos,
+                    congestión. Se derivan de los `historico_*.csv` que ya
+                    están en disco, así que se reconstruyen para los 47.794
+                    partidos del ledger y se comprueba si mejoran algo.
+
+NO SE PUEDE MEDIR   lesiones, noticias, alineaciones. Se pueden leer HOY, pero
+                    nadie guardó la lista de bajas que tenía un equipo en
+                    marzo de 2024: no hay contra qué contrastarlas.
+```
+
+Eso no es una excusa, es la diferencia entre un dato que corrige una
+probabilidad y uno que sólo se enseña. Las segundas salen con `medido: False`
+y no tocan nada, igual que `contexto_mercado` desde la v196.
+
+### 2. Y buena parte ya estaba construida, sin conectar
+
+Inventario antes de escribir una línea:
+
+```
+altitud.py            existe · lo importa sólo prediction_api (Mundial)
+contexto_previo.py    existe · lo importa sólo autopsia (post-mortem)
+cdi_futbol.py         existe · lo usa league_engine — ése sí está en el modelo
+anulacion_tactica.py  existe · NO LO IMPORTA NADIE
+alineacion_vorp.py    existe · lo importa sólo dashboard_ui
+clima.py              existe · lo usan cuatro módulos
+```
+
+Es el mismo patrón que la v203: cosas hechas que nadie enchufó.
+
+### 3. La medición, y el giro que dio
+
+`validar_contexto.py` ajusta una corrección sobre el PASADO y la evalúa sobre
+el FUTURO, partiendo la serie por fecha — ajustar y evaluar sobre lo mismo
+siempre «mejora», que es la trampa de la v197. Se mide en log-loss y en ECE, y
+tienen que mejorar las dos.
+
+**Primera pasada**, con Bolivia, Ecuador, Colombia y Perú: corregir «ambos
+marcan» por altura de la sede mejoraba un **1,80 %**. Parecía la respuesta.
+
+**Segunda pasada**, metiendo la Liga MX —que no entraba porque
+`historico_liga_mx.csv` no tiene columna `sede_ciudad`—: la mejora bajó a
+1,53 % y el ECE empeoró. **Se cayó.**
+
+La razón es física y estaba delante: en México casi toda la liga juega en alto,
+así que los dos equipos llegan aclimatados. «La sede está alta» nunca fue la
+variable. La variable es **que el visitante suba**.
+
+### 4. Lo que aguanta
+
+```
+prueba                n prueba   log-loss (donde aplica)          veredicto
+1x2_aclimatacion         5193    0,65712 → 0,64703   −1,54 %      MEJORA
+                                 ECE 0,08142 → 0,05355  (−34 %)
+1x2_altura (bruta)       5193    0,65465 → 0,65396   −0,10 %      ruido
+goles_altura             5146    0,71470 → 0,71119   −0,49 %      no llega
+btts_aclimatacion        5146    0,74855 → 0,74426   −0,57 %      no llega
+goles_aclimatacion       5146    0,69373 → 0,68747   −0,90 %      no llega
+1x2_descanso             5192    0,66268 → 0,66367   +0,15 %      EMPEORA
+```
+
+**Una sola corrección se despliega**: cuando el visitante sube 1.000 m o más a
+una sede por encima de 2.200 m, el 1X2 del local se corrige +0,235 en el logit.
+Sobre los 376 partidos del tramo de prueba que cumplen eso, el log-loss baja un
+1,54 % y **el error de calibración un 34 %**.
+
+Y el descanso merece su línea: la intuición dice que un equipo con tres días
+menos rinde peor, y corregir por ello **sube** el log-loss un 0,15 %. Se publica
+como dato y no corrige nada.
+
+### 5. El listón, que hubo que apretar
+
+La primera versión daba «mejora» con una diferencia de **0,00003** en el
+log-loss —el cuarto decimal— porque sólo miraba el signo. Con dos métricas y
+puro ruido, las dos mejoran una de cada cuatro veces: era un check que no podía
+fallar. Ahora se exige tamaño (0,1 % global o 1 % sobre los partidos afectados)
+y se mide **sólo donde la corrección de verdad toca**, porque diluir 376
+partidos entre 5.193 esconde cualquier efecto real.
+
+Para que esa columna significara algo hubo que arreglar otra cosa: el ajuste se
+aplicaba también al grupo de referencia, o sea que no corregía por contexto
+—recalibraba el modelo entero y se lo atribuía a la variable—. Se detectó
+porque «donde aplica» salía idéntico al total.
+
+### 6. Dos arreglos de datos que hicieron falta
+
+- **Las sedes las escriben personas.** «El Alto, La Paz.» nombra dos ciudades y
+  lleva un punto; «Coachabamba» es una errata que está en los datos. Con
+  emparejado exacto, la mitad de los partidos en altura se quedaban a 0 m. El
+  emparejado va por contención y gana el nombre más largo — entre «El Alto» y
+  «La Paz» hay 500 metros.
+- **La Liga MX no tiene sede en su histórico** y `sedes_futbol.csv` sólo cubre
+  competiciones europeas. Se añadió una tabla acotada: sólo los equipos cuya
+  sede pasa de 1.500 m. Sin ella, la competición donde el usuario más juega
+  quedaba fuera de la medición.
+
+### 7. Lo que queda
+
+1. **El efecto rebote por entrenador sigue sin medirse.** Ahora hay fuente con
+   fechas (Wikidata, v204), así que ya se puede: cruzar los nombramientos
+   históricos con los resultados posteriores. Hasta entonces marca el partido y
+   no mueve probabilidades.
+2. **Lesiones y alineaciones sólo se pueden leer en vivo.** La única forma de
+   medirlas sería empezar a guardarlas hoy y esperar una temporada. FotMob ya
+   las da (`unavailable`), así que el coste de empezar a acumularlas es bajo.
+3. **SofaScore sigue devolviendo 403** a todo acceso automático — sondeado dos
+   veces, v203 y v205.
+4. **`anulacion_tactica.py` sigue sin importarlo nadie.** 312 líneas escritas y
+   nunca medidas; o se mide o se borra.

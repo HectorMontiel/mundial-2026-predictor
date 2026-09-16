@@ -1067,7 +1067,8 @@ def _pegar_contexto(patas: List[Dict], partido: Dict) -> None:
 # ASI QUE EL UNIVERSO SE CONSTRUYE APARTE: todo partido que tenga probabilidad
 # del modelo Y precio de la casa elegida entra, haya producido pick o no. El
 # barrido sigue usandose para los demas deportes y para el contexto.
-def board_de_prediccion(pred: Dict, home: str, away: str) -> Dict[str, float]:
+def board_de_prediccion(pred: Dict, home: str, away: str,
+                        clave_liga: str = '') -> Dict[str, float]:
     """Todas las probabilidades del partido, desde la matriz de marcador.
 
     Es la misma cuenta que hacen `partidos_jugados._board_de_matriz` y el
@@ -1098,6 +1099,29 @@ def board_de_prediccion(pred: Dict, home: str, away: str) -> Dict[str, float]:
         pl = float(np.tril(M, -1).sum())
         px = float(np.trace(M))
         pv = float(np.triu(M, 1).sum())
+
+    # LA ACLIMATACION, QUE ES LA UNICA CORRECCION DE CONTEXTO MEDIDA.
+    #
+    # Cuando el visitante sube 1.000 m o mas a una sede por encima de 2.200, el
+    # modelo se queda corto con el local. Medido fuera de muestra sobre 376
+    # partidos (`validar_contexto.py`): el log-loss baja un 1,54 % y el error
+    # de calibracion un 34 %.
+    #
+    # NO se aplica por estar la sede alta —eso se midio y es ruido— sino por el
+    # DESNIVEL: en la Liga MX los dos equipos llegan aclimatados y ahi no hay
+    # nada que corregir. Y si el JSON de medicion dice que la prueba no mejora,
+    # `ajustar_1x2` devuelve las probabilidades intactas: el motor lee el
+    # veredicto, no lo presupone.
+    aclimatacion = False
+    if clave_liga:
+        try:
+            import contexto_ampliado as ca
+            ficha = ca.de_partido(clave_liga, home, away)
+            sube = bool((ficha.get('altitud') or {}).get('sube_visitante'))
+            pl, px, pv, aclimatacion = ca.ajustar_1x2(pl, px, pv, sube)
+        except Exception as e:
+            logger.debug('[sonadora] contexto ampliado: %s', e)
+    fuera['_aclimatacion'] = 1.0 if aclimatacion else 0.0
     fuera[f'Gana {home}'] = pl
     fuera['Empate'] = px
     fuera[f'Gana {away}'] = pv
@@ -1121,7 +1145,8 @@ def board_de_prediccion(pred: Dict, home: str, away: str) -> Dict[str, float]:
     btts = float(M[1:, 1:].sum())
     fuera['Ambos marcan: Sí'] = btts
     fuera['Ambos marcan: No'] = 1.0 - btts
-    return {k: round(v, 4) for k, v in fuera.items() if 0.0 <= v <= 1.0}
+    return {k: (round(v, 4) if not k.startswith('_') else v)
+            for k, v in fuera.items() if 0.0 <= v <= 1.0}
 
 
 def lineas_de_prediccion(pred: Dict) -> Dict:
@@ -1237,7 +1262,7 @@ def partidos_de_predicciones(dia: str, casa: str = CASA_POR_DEFECTO,
                 d, hora = _dia_y_hora(inicio)
         if d != dia:
             continue
-        board = board_de_prediccion(pred, home, away)
+        board = board_de_prediccion(pred, home, away, liga)
         if not board:
             continue
         fuera.append({
