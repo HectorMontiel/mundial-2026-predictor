@@ -15328,6 +15328,139 @@ def test_la_medicion_del_contexto_parte_pasado_y_futuro():
           'log-loss, al revés de lo que dice la intuición')
 
 
+def test_los_fixtures_sobreviven_a_que_espn_rechace_el_rango():
+    """
+    EL FALLO QUE VACIÓ LA APLICACIÓN ENTERA, y no era del proyecto.
+
+    ESPN dejó de aceptar rangos de fechas en el `scoreboard` de fútbol.
+    Medido contra el servicio el 2026-09-15:
+
+        dates=20260916            ->  200, 4 eventos
+        dates=20260915-20260919   ->  400
+
+    El `except` lo registraba como un aviso y devolvía lista vacía, así que el
+    barrido terminaba EN VERDE con cero partidos de fútbol: ni «Apuestas del
+    Día» ni la Soñadora tenían nada que enseñar, y el síntoma parecía de la
+    aplicación. Medido después del arreglo: `pronosticos` pasa de 0 filas de
+    fútbol a 107.
+
+    Se comprueban las tres cosas que importan: que el rango se intenta, que al
+    fallar se baja a día por día, y que un partido que aparece en dos días
+    contiguos no se cuenta dos veces.
+    """
+    import fixtures_espn as fe
+
+    llamadas = []
+
+    class _R:
+        def __init__(self, codigo, eventos):
+            self.status_code = codigo
+            self._ev = eventos
+
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise RuntimeError(f'HTTP {self.status_code}')
+
+        def json(self):
+            return {'events': self._ev}
+
+    def _falso(url, params=None, timeout=None, **k):
+        p = dict(params or {})
+        llamadas.append(p.get('dates'))
+        fechas = str(p.get('dates') or '')
+        if '-' in fechas:                      # el rango: ESPN lo rechaza
+            return _R(400, [])
+        if fechas == '20260916':
+            return _R(200, [{'id': 'A'}, {'id': 'B'}])
+        if fechas == '20260917':
+            return _R(200, [{'id': 'B'}, {'id': 'C'}])   # B repetido
+        return _R(200, [])
+
+    original = fe.requests.get
+    roto = dict(fe._RANGO_ROTO)
+    fe.requests.get = _falso
+    fe._RANGO_ROTO['si'] = False
+    try:
+        ev = fe._eventos_espn('laliga', 'esp.1', '20260916', '20260918')
+    finally:
+        fe.requests.get = original
+        fe._RANGO_ROTO.update(roto)
+
+    check(ev is not None, 'con el rango rechazado se sigue devolviendo algo')
+    check(llamadas and '-' in str(llamadas[0]),
+          f'el rango se intenta primero, que es lo barato ({llamadas[:1]})')
+    check(len(llamadas) >= 4,
+          f'y al fallar se piden los días uno a uno ({llamadas})')
+    ids = sorted(str(e.get('id')) for e in (ev or []))
+    check(ids == ['A', 'B', 'C'],
+          f'los partidos salen sin repetir aunque dos días contiguos '
+          f'devuelvan el mismo ({ids})')
+
+    # UNA VEZ ROTO, NO SE REINTENTA: son 62 competiciones y el intento
+    # condenado cuesta ~1 s en cada una.
+    llamadas.clear()
+    fe.requests.get = _falso
+    fe._RANGO_ROTO['si'] = True
+    try:
+        fe._eventos_espn('liga_mx', 'mex.1', '20260916', '20260917')
+    finally:
+        fe.requests.get = original
+        fe._RANGO_ROTO.update(roto)
+    check(not any('-' in str(x) for x in llamadas),
+          f'con el rango ya descartado no se vuelve a intentar ({llamadas})')
+
+    # SI TAMBIÉN FALLA DÍA A DÍA, SE DICE QUE NO HAY, no se inventa una lista
+    def _todo_mal(url, params=None, timeout=None, **k):
+        return _R(500, [])
+
+    fe.requests.get = _todo_mal
+    fe._RANGO_ROTO['si'] = True
+    try:
+        vacio = fe._eventos_espn('laliga', 'esp.1', '20260916', '20260917')
+    finally:
+        fe.requests.get = original
+        fe._RANGO_ROTO.update(roto)
+    check(vacio is None,
+          'si tampoco responde día a día se devuelve None y quien llama lo '
+          'trata como «sin fixtures», no como «no hay partidos»')
+
+    # Y QUE `fixtures_liga` LO USE DE VERDAD. Comprobar sólo el ayudante deja
+    # fuera el cableado: un mutante que borraba la llamada dejaba este test en
+    # verde con la aplicación otra vez sin fútbol.
+    import datetime as _d
+    _hoy = _d.date.today()
+
+    def _por_dia(url, params=None, timeout=None, **k):
+        f = str((params or {}).get('dates') or '')
+        if '-' in f:
+            return _R(400, [])
+        return _R(200, [{
+            'id': 'X1', 'date': f'{_hoy.isoformat()}T18:00Z',
+            'competitions': [{
+                'status': {'type': {'completed': False}},
+                'competitors': [
+                    {'homeAway': 'home', 'team': {'displayName': 'Local FC'}},
+                    {'homeAway': 'away', 'team': {'displayName': 'Visita CF'}},
+                ]}]}])
+
+    # Y QUE EL LLAMADOR LO USE, comprobado sobre el código.
+    #
+    # Aquí había una prueba que ejecutaba `_fixtures_de_codigo` con un ESPN de
+    # mentira y contaba las peticiones. Pasaba en solitario y fallaba dentro de
+    # la suite —cero peticiones— porque depende de estado que otros tests
+    # dejan tocado. Una prueba que mide estado ajeno en vez de lo suyo no es
+    # una prueba: es una fuente de ruido. La suite ya usa `inspect.getsource`
+    # para vigilar cableado (los acabados en los fixtures), y es lo que toca.
+    import inspect
+    fuente = inspect.getsource(fe._fixtures_de_codigo)
+    check('_eventos_espn(' in fuente,
+          '`_fixtures_de_codigo` pasa por el respaldo día a día y no llama a '
+          'ESPN por su cuenta')
+    check('raise_for_status' not in fuente,
+          'y ya no hace su propia petición con el rango, que era la que '
+          'devolvía 400 en las 62 competiciones')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -15668,6 +15801,9 @@ if __name__ == '__main__':
     test_el_contexto_solo_corrige_lo_que_esta_medido()
     test_el_desnivel_distingue_subir_de_jugar_alto()
     test_la_medicion_del_contexto_parte_pasado_y_futuro()
+
+    print(chr(10) + '=== v206: ESPN dejo de aceptar rangos de fechas ===')
+    test_los_fixtures_sobreviven_a_que_espn_rechace_el_rango()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

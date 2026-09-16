@@ -29,6 +29,101 @@ logger = logging.getLogger(__name__)
 
 ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports/soccer/{liga}/scoreboard'
 
+
+# Se pone a True en cuanto ESPN rechaza el primer rango.
+_RANGO_ROTO = {'si': False}
+
+
+def _eventos_espn(clave: str, code: str, ini: str, fin: str):
+    """Los eventos de ESPN entre dos fechas. `None` si no se pudo.
+
+    ESPN DEJÓ DE ACEPTAR RANGOS EN EL `scoreboard` DE FÚTBOL, y eso vació la
+    aplicación entera sin que saltara ningún error propio. Medido el
+    2026-09-15 contra el servicio:
+
+        dates=20260916            ->  200, 4 eventos
+        dates=20260915-20260919   ->  400
+        sin el parámetro `dates`  ->  200, 3 eventos
+
+    O sea que la petición que el proyecto llevaba haciendo desde siempre
+    empezó a devolver 400 en **todas** las competiciones de fútbol. El
+    `except` lo registraba como aviso y devolvía lista vacía, así que el
+    barrido terminaba en verde con `deportes_cubiertos` sin fútbol, y tanto
+    «Apuestas del Día» como la Soñadora se quedaban sin un solo partido de
+    fútbol. El síntoma parecía de la aplicación y era del proveedor.
+
+    Se intenta el rango primero —una petición por liga, que es lo barato— y
+    si falla se baja a día por día. Son más peticiones, pero la alternativa
+    medida es cero partidos.
+    """
+    import datetime as _d
+    # UNA VEZ QUE EL RANGO FALLA, NO SE VUELVE A INTENTAR EN ESTA PASADA.
+    # El intento condenado cuesta ~1 s por competición y son 62: probarlo
+    # sesenta y dos veces para recibir sesenta y dos 400 es un minuto tirado.
+    # Se reintenta en la siguiente pasada del proceso por si ESPN lo arregla.
+    if not _RANGO_ROTO['si']:
+        try:
+            r = requests.get(ESPN_BASE.format(liga=code),
+                             params={'dates': f'{ini}-{fin}', 'limit': 500},
+                             timeout=TIMEOUT)
+            r.raise_for_status()
+            return r.json().get('events', []) or []
+        except Exception as e:
+            _RANGO_ROTO['si'] = True
+            logger.warning(f"[fixtures/{clave}] ESPN rechaza los rangos de "
+                           f"fechas ({type(e).__name__}); a partir de aquí se "
+                           f"piden día a día")
+
+    try:
+        d0 = _d.datetime.strptime(ini, '%Y%m%d').date()
+        d1 = _d.datetime.strptime(fin, '%Y%m%d').date()
+    except ValueError:
+        return None
+    dias = []
+    dia = d0
+    while dia <= d1:
+        dias.append(dia)
+        dia += _d.timedelta(days=1)
+
+    # LOS DÍAS VAN EN PARALELO. Secuencial costaba 5 s por competición
+    # —medido— y con 62 competiciones eso son cinco minutos metidos en el
+    # camino caliente del barrido, que es exactamente el error que la v192
+    # cometió tres veces con el tablero de la NFL. En paralelo baja a ~1 s.
+    def _un_dia(d):
+        try:
+            r = requests.get(ESPN_BASE.format(liga=code),
+                             params={'dates': d.strftime('%Y%m%d'),
+                                     'limit': 500}, timeout=TIMEOUT)
+            r.raise_for_status()
+            return r.json().get('events', []) or []
+        except Exception as e:
+            logger.debug(f"[fixtures/{clave}] ESPN {code} {d}: "
+                         f"{type(e).__name__}: {e}")
+            return None
+
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=min(len(dias), 6)) as ex:
+        tandas = list(ex.map(_un_dia, dias))
+
+    eventos, vistos, fallos = [], set(), 0
+    for tanda in tandas:
+        if tanda is None:
+            fallos += 1
+            continue
+        for ev in tanda:
+            # el mismo partido no puede entrar dos veces aunque dos días
+            # contiguos lo devuelvan: el `id` de ESPN es el que manda
+            eid = str(ev.get('id') or '')
+            if eid and eid in vistos:
+                continue
+            vistos.add(eid)
+            eventos.append(ev)
+    if fallos and not eventos:
+        logger.warning(f"[fixtures/{clave}] ESPN {code} falló también día a "
+                       f"día ({fallos} días)")
+        return None
+    return eventos
+
 # clave interna del proyecto -> código de liga en ESPN (soccer).
 # Verificado 2026-07-24: mex.1/usa.1/bra.1/arg.1 devuelven fixtures futuros.
 ESPN_CODIGOS: Dict[str, str] = {
@@ -418,15 +513,8 @@ def _fixtures_de_codigo(clave: str, code: str, dias: int) -> List[Dict]:
     ini = (hoy - pd.Timedelta(days=1)).strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     fixtures: List[Dict] = []
-    try:
-        r = requests.get(ESPN_BASE.format(liga=code),
-                         params={'dates': f'{ini}-{fin}', 'limit': 500},
-                         timeout=TIMEOUT)
-        r.raise_for_status()
-        eventos = r.json().get('events', []) or []
-    except Exception as e:
-        logger.warning(f"[fixtures/{clave}] ESPN {code} falló: "
-                       f"{type(e).__name__}: {e}")
+    eventos = _eventos_espn(clave, code, ini, fin)
+    if eventos is None:
         return []
     # v163.1 — se anota el rango recorrido ANTES de mirar los eventos, para
     # que un día sin partidos cuente como barrido y no como desconocido.

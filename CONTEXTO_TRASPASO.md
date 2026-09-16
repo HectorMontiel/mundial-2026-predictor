@@ -6274,3 +6274,120 @@ porque «donde aplica» salía idéntico al total.
    veces, v203 y v205.
 4. **`anulacion_tactica.py` sigue sin importarlo nadie.** 312 líneas escritas y
    nunca medidas; o se mide o se borra.
+
+## 6q. v206 — ESPN DEJÓ DE ACEPTAR RANGOS Y VACIÓ LA APLICACIÓN ENTERA
+
+El usuario reportó que «Apuestas del Día» no enseñaba nada, ni de hoy ni de
+mañana, y lo atribuyó a los cambios de la Soñadora. Lo primero fue comprobar
+esa atribución, y lo segundo encontrar la causa de verdad.
+
+### 1. No era una regresión de las tandas anteriores
+
+Comprobado antes de tocar nada:
+
+```
+valida_render «Apuestas del Día» ....  TODO OK — la vista carga, están sus
+                                       controles y los botones de Telegram
+¿filtra algo por los campos nuevos?    no: `nivel_riesgo`, `ivl_liga` y
+                                       `rebote_entrenador` sólo los leen
+                                       `sonadora_ui` (una etiqueta) y
+                                       `validar_riesgo` (fuera de línea)
+el cambio en alpha_finder .........    puramente aditivo, dentro de try/except
+¿llamadas de red nuevas en el barrido? no: `conectar_buscador` no lo llama
+                                       nadie en producción
+```
+
+La vista estaba bien. Lo que no había era **qué enseñar**.
+
+### 2. La causa: el proveedor, y llevaba tiempo callado
+
+```
+pronosticos del barrido ....  361 filas: 332 Tenis · 12 MLB · 1 KBO · 16 NFL
+                              CERO de fútbol
+deportes_cubiertos .........  KBO, MLB, NFL, Tenis
+```
+
+En el log del barrido, repetido en todas las competiciones de fútbol:
+
+```
+[fixtures/liga_mx] ESPN mex.1 falló: HTTPError: 400 Client Error
+[fixtures/brasil]  ESPN bra.1 falló: HTTPError: 400 Client Error
+[fixtures/laliga]  ESPN esp.1 falló: HTTPError: 400 Client Error
+```
+
+Aislado contra el servicio, parámetro a parámetro:
+
+```
+sin el parámetro `dates`      ->  200, 3 eventos
+dates=20260916 (un día)       ->  200, 4 eventos
+dates=20260915-20260919       ->  400      <- lo que el proyecto pedía
+limit=100 con rango           ->  400
+```
+
+**ESPN dejó de aceptar rangos de fechas en el `scoreboard` de fútbol.** La
+petición que el proyecto llevaba haciendo desde siempre empezó a devolver 400
+en las 62 competiciones.
+
+### 3. Por qué no saltó ninguna alarma
+
+El `except` lo registraba como aviso y devolvía lista vacía. Sin fixtures no
+hay partidos, sin partidos no hay picks, y el barrido **terminaba en verde**
+con `deportes_cubiertos` sin fútbol. Ni un error, ni un rojo: la aplicación
+simplemente no tenía fútbol que enseñar, y el síntoma parecía suyo.
+
+Es el mismo patrón que la v186 («seis semanas sin medir con el workflow en
+verde») y la v189: un fallo que se traga su propio error y deja todo aparentando
+normalidad.
+
+### 4. El arreglo
+
+`_eventos_espn` intenta el rango primero —una petición por competición, que es
+lo barato— y al primer 400 baja a **día por día**, con los días en paralelo.
+Detalles que importan:
+
+- **El mismo partido en dos días contiguos no se cuenta dos veces**: manda el
+  `id` de ESPN.
+- **Un fallo total devuelve `None`, no lista vacía.** «No pude preguntar» y «no
+  hay partidos» no son lo mismo, y confundirlos es justo lo que escondió esto.
+- **Una vez que el rango falla, no se reintenta en esa pasada.** El intento
+  condenado cuesta ~1 s y son 62 competiciones: un minuto tirado para recibir
+  62 veces el mismo 400.
+
+Coste medido: de 0,5 s a **2,5 s por competición**, y `fixtures_multi` ya
+paraleliza ocho a la vez, así que el barrido pasa de ~85 s a **102 s**. Es lo
+que cuesta tener fútbol.
+
+### 5. Lo que se recupera, medido
+
+```
+                        ANTES        DESPUÉS
+pronosticos (fútbol)        0            107 filas
+competiciones cubiertas     0             20+ (mls, brasil, argentina,
+                                          laliga, premier, serie_a, …)
+barrido completo           85 s          102 s
+```
+
+Y en la Soñadora, con el rango de días y Playdoit:
+
+```
+521 patas de 83 partidos en tres días
+13 patas -> 4 permutaciones (×41,3)
+10 patas -> 4 permutaciones (×15,5)
+```
+
+**Las trece patas salen.** Con Novibet se queda en ocho, y no es un fallo: esa
+casa cotiza nueve partidos y un parlay de trece necesita trece partidos
+distintos —una pata por encuentro, que es la regla que evita combinar sucesos
+correlacionados—.
+
+### 6. Lo que queda
+
+1. **La vista sigue dependiendo de que haya picks.** Hoy «Apuestas del Día»
+   enseña `pronosticos`, que ya trae fútbol, pero en un día sin partidos
+   seguirá vacía. El catálogo completo sólo lo usa la Soñadora (v203).
+2. **Nada vigila que una fuente deje de responder.** Esto llevaba días
+   devolviendo 400 en las 62 competiciones y el único rastro era una línea de
+   aviso en un log que nadie lee. `frescura_datos.py` vigila ficheros parados;
+   no vigila proveedores.
+3. **Novibet cotiza pocos partidos** (nueve el 2026-09-16 contra 83 de
+   Playdoit). Para combinadas largas, Playdoit.
