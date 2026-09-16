@@ -1,0 +1,1158 @@
+{
+ "medido": true,
+ "fecha": "2026-09-16",
+ "periodo": "2024-08-27 a 2026-07-28",
+ "corte_calibracion": "2025-10-19",
+ "dias_pedidos": 700,
+ "n_patas": 72820,
+ "n_jornadas": 278,
+ "prob_minima": 0.55,
+ "max_por_liga": 2,
+ "resultados": {
+  "A_mas_probable|4": {
+   "receta": "A_mas_probable",
+   "n_patas": 4,
+   "jornadas": 247,
+   "ganados": 97,
+   "acierto_real": 0.39271,
+   "acierto_teorico": 0.60085,
+   "ratio": 0.654,
+   "ic95": [
+    0.3339,
+    0.45481
+   ],
+   "prob_media_pata": 0.8752,
+   "cumple": false
+  },
+  "A_mas_probable|6": {
+   "receta": "A_mas_probable",
+   "n_patas": 6,
+   "jornadas": 226,
+   "ganados": 51,
+   "acierto_real": 0.22566,
+   "acierto_teorico": 0.44045,
+   "ratio": 0.512,
+   "ic95": [
+    0.17601,
+    0.28449
+   ],
+   "prob_media_pata": 0.8652,
+   "cumple": false
+  },
+  "A_mas_probable|8": {
+   "receta": "A_mas_probable",
+   "n_patas": 8,
+   "jornadas": 209,
+   "ganados": 29,
+   "acierto_real": 0.13876,
+   "acierto_teorico": 0.31407,
+   "ratio": 0.442,
+   "ic95": [
+    0.09838,
+    0.19217
+   ],
+   "prob_media_pata": 0.8551,
+   "cumple": false
+  },
+  "A_mas_probable|10": {
+   "receta": "A_mas_probable",
+   "n_patas": 10,
+   "jornadas": 188,
+   "ganados": 17,
+   "acierto_real": 0.09043,
+   "acierto_teorico": 0.22698,
+   "ratio": 0.398,
+   "ic95": [
+    0.05722,
+    0.14003
+   ],
+   "prob_media_pata": 0.8509,
+   "cumple": false
+  },
+  "A_mas_probable|13": {
+   "receta": "A_mas_probable",
+   "n_patas": 13,
+   "jornadas": 158,
+   "ganados": 8,
+   "acierto_real": 0.05063,
+   "acierto_teorico": 0.13903,
+   "ratio": 0.364,
+   "ic95": [
+    0.02588,
+    0.09672
+   ],
+   "prob_media_pata": 0.8444,
+   "cumple": false
+  },
+  "P_solo_patron|4": {
+   "receta": "P_solo_patron",
+   "n_patas": 4,
+   "jornadas": 247,
+   "ganados": 97,
+   "acierto_real": 0.39271,
+   "acierto_teorico": 0.60085,
+   "ratio": 0.654,
+   "ic95": [
+    0.3339,
+    0.45481
+   ],
+   "prob_media_pata": 0.8752,
+   "cumple": false
+  },
+  "P_solo_patron|6": {
+   "receta": "P_solo_patron",
+   "n_patas": 6,
+   "jornadas": 226,
+   "ganados": 51,
+   "acierto_real": 0.22566,
+   "acierto_teorico": 0.44045,
+   "ratio": 0.512,
+   "ic95": [
+    0.17601,
+    0.28449
+   ],
+   "prob_media_pata": 0.8652,
+   "cumple": false
+  },
+  "P_solo_patron|8": {
+   "receta": "P_solo_patron",
+   "n_patas": 8,
+   "jornadas": 209,
+   "ganados": 29,
+   "acierto_real": 0.13876,
+   "acierto_teorico": 0.31407,
+   "ratio": 0.442,
+   "ic95": [
+    0.09838,
+    0.19217
+   ],
+   "prob_media_pata": 0.8551,
+   "cumple": false
+  },
+  "P_solo_patron|10": {
+   "receta": "P_solo_patron",
+   "n_patas": 10,
+   "jornadas": 188,
+   "ganados": 17,
+   "acierto_real": 0.09043,
+   "acierto_teorico": 0.22698,
+   "ratio": 0.398,
+   "ic95": [
+    0.05722,
+    0.14003
+   ],
+   "prob_media_pata": 0.8509,
+   "cumple": false
+  },
+  "P_solo_patron|13": {
+   "receta": "P_solo_patron",
+   "n_patas": 13,
+   "jornadas": 158,
+   "ganados": 8,
+   "acierto_real": 0.05063,
+   "acierto_teorico": 0.13903,
+   "ratio": 0.364,
+   "ic95": [
+    0.02588,
+    0.09672
+   ],
+   "prob_media_pata": 0.8444,
+   "cumple": false
+  },
+  "A_calibrada|4": {
+   "receta": "A_calibrada",
+   "n_patas": 4,
+   "jornadas": 247,
+   "ganados": 91,
+   "acierto_real": 0.36842,
+   "acierto_teorico": 0.41362,
+   "ratio": 0.891,
+   "ic95": [
+    0.31071,
+    0.43017
+   ],
+   "prob_media_pata": 0.7995,
+   "cumple": true
+  },
+  "A_calibrada|6": {
+   "receta": "A_calibrada",
+   "n_patas": 6,
+   "jornadas": 226,
+   "ganados": 44,
+   "acierto_real": 0.19469,
+   "acierto_teorico": 0.25232,
+   "ratio": 0.772,
+   "ic95": [
+    0.14835,
+    0.25124
+   ],
+   "prob_media_pata": 0.7918,
+   "cumple": false
+  },
+  "A_calibrada|8": {
+   "receta": "A_calibrada",
+   "n_patas": 8,
+   "jornadas": 209,
+   "ganados": 24,
+   "acierto_real": 0.11483,
+   "acierto_teorico": 0.15127,
+   "ratio": 0.759,
+   "ic95": [
+    0.07839,
+    0.16518
+   ],
+   "prob_media_pata": 0.7859,
+   "cumple": true
+  },
+  "A_calibrada|10": {
+   "receta": "A_calibrada",
+   "n_patas": 10,
+   "jornadas": 188,
+   "ganados": 14,
+   "acierto_real": 0.07447,
+   "acierto_teorico": 0.09173,
+   "ratio": 0.812,
+   "ic95": [
+    0.04487,
+    0.1211
+   ],
+   "prob_media_pata": 0.7833,
+   "cumple": true
+  },
+  "A_calibrada|13": {
+   "receta": "A_calibrada",
+   "n_patas": 13,
+   "jornadas": 158,
+   "ganados": 7,
+   "acierto_real": 0.0443,
+   "acierto_teorico": 0.04329,
+   "ratio": 1.023,
+   "ic95": [
+    0.02162,
+    0.08862
+   ],
+   "prob_media_pata": 0.78,
+   "cumple": true
+  },
+  "P_calibrada|4": {
+   "receta": "P_calibrada",
+   "n_patas": 4,
+   "jornadas": 247,
+   "ganados": 91,
+   "acierto_real": 0.36842,
+   "acierto_teorico": 0.4136,
+   "ratio": 0.891,
+   "ic95": [
+    0.31071,
+    0.43017
+   ],
+   "prob_media_pata": 0.7995,
+   "cumple": true
+  },
+  "P_calibrada|6": {
+   "receta": "P_calibrada",
+   "n_patas": 6,
+   "jornadas": 226,
+   "ganados": 51,
+   "acierto_real": 0.22566,
+   "acierto_teorico": 0.25231,
+   "ratio": 0.894,
+   "ic95": [
+    0.17601,
+    0.28449
+   ],
+   "prob_media_pata": 0.7918,
+   "cumple": true
+  },
+  "P_calibrada|8": {
+   "receta": "P_calibrada",
+   "n_patas": 8,
+   "jornadas": 209,
+   "ganados": 25,
+   "acierto_real": 0.11962,
+   "acierto_teorico": 0.15126,
+   "ratio": 0.791,
+   "ic95": [
+    0.08235,
+    0.17062
+   ],
+   "prob_media_pata": 0.7859,
+   "cumple": true
+  },
+  "P_calibrada|10": {
+   "receta": "P_calibrada",
+   "n_patas": 10,
+   "jornadas": 188,
+   "ganados": 13,
+   "acierto_real": 0.06915,
+   "acierto_teorico": 0.09172,
+   "ratio": 0.754,
+   "ic95": [
+    0.04085,
+    0.1147
+   ],
+   "prob_media_pata": 0.7832,
+   "cumple": true
+  },
+  "P_calibrada|13": {
+   "receta": "P_calibrada",
+   "n_patas": 13,
+   "jornadas": 158,
+   "ganados": 8,
+   "acierto_real": 0.05063,
+   "acierto_teorico": 0.04328,
+   "ratio": 1.17,
+   "ic95": [
+    0.02588,
+    0.09672
+   ],
+   "prob_media_pata": 0.78,
+   "cumple": true
+  },
+  "D_calibrada|4": {
+   "receta": "D_calibrada",
+   "n_patas": 4,
+   "jornadas": 230,
+   "ganados": 83,
+   "acierto_real": 0.36087,
+   "acierto_teorico": 0.40974,
+   "ratio": 0.881,
+   "ic95": [
+    0.30156,
+    0.42475
+   ],
+   "prob_media_pata": 0.7977,
+   "cumple": true
+  },
+  "D_calibrada|6": {
+   "receta": "D_calibrada",
+   "n_patas": 6,
+   "jornadas": 197,
+   "ganados": 36,
+   "acierto_real": 0.18274,
+   "acierto_teorico": 0.25106,
+   "ratio": 0.728,
+   "ic95": [
+    0.13502,
+    0.2426
+   ],
+   "prob_media_pata": 0.7914,
+   "cumple": false
+  },
+  "D_calibrada|8": {
+   "receta": "D_calibrada",
+   "n_patas": 8,
+   "jornadas": 168,
+   "ganados": 22,
+   "acierto_real": 0.13095,
+   "acierto_teorico": 0.15231,
+   "ratio": 0.86,
+   "ic95": [
+    0.08809,
+    0.19031
+   ],
+   "prob_media_pata": 0.7866,
+   "cumple": true
+  },
+  "D_calibrada|10": {
+   "receta": "D_calibrada",
+   "n_patas": 10,
+   "jornadas": 137,
+   "ganados": 15,
+   "acierto_real": 0.10949,
+   "acierto_teorico": 0.09575,
+   "ratio": 1.143,
+   "ic95": [
+    0.06748,
+    0.1728
+   ],
+   "prob_media_pata": 0.7871,
+   "cumple": true
+  },
+  "D_calibrada|13": {
+   "receta": "D_calibrada",
+   "n_patas": 13,
+   "jornadas": 118,
+   "ganados": 6,
+   "acierto_real": 0.05085,
+   "acierto_teorico": 0.04456,
+   "ratio": 1.141,
+   "ic95": [
+    0.02351,
+    0.10651
+   ],
+   "prob_media_pata": 0.7822,
+   "cumple": true
+  },
+  "M15_calibrada|4": {
+   "receta": "M15_calibrada",
+   "n_patas": 4,
+   "jornadas": 247,
+   "ganados": 97,
+   "acierto_real": 0.39271,
+   "acierto_teorico": 0.38848,
+   "ratio": 1.011,
+   "ic95": [
+    0.3339,
+    0.45481
+   ],
+   "prob_media_pata": 0.7882,
+   "cumple": true
+  },
+  "M15_calibrada|6": {
+   "receta": "M15_calibrada",
+   "n_patas": 6,
+   "jornadas": 224,
+   "ganados": 53,
+   "acierto_real": 0.23661,
+   "acierto_teorico": 0.23539,
+   "ratio": 1.005,
+   "ic95": [
+    0.18568,
+    0.29641
+   ],
+   "prob_media_pata": 0.784,
+   "cumple": true
+  },
+  "M15_calibrada|8": {
+   "receta": "M15_calibrada",
+   "n_patas": 8,
+   "jornadas": 209,
+   "ganados": 29,
+   "acierto_real": 0.13876,
+   "acierto_teorico": 0.1392,
+   "ratio": 0.997,
+   "ic95": [
+    0.09838,
+    0.19217
+   ],
+   "prob_media_pata": 0.779,
+   "cumple": true
+  },
+  "M15_calibrada|10": {
+   "receta": "M15_calibrada",
+   "n_patas": 10,
+   "jornadas": 188,
+   "ganados": 13,
+   "acierto_real": 0.06915,
+   "acierto_teorico": 0.08367,
+   "ratio": 0.826,
+   "ic95": [
+    0.04085,
+    0.1147
+   ],
+   "prob_media_pata": 0.7774,
+   "cumple": true
+  },
+  "M15_calibrada|13": {
+   "receta": "M15_calibrada",
+   "n_patas": 13,
+   "jornadas": 156,
+   "ganados": 3,
+   "acierto_real": 0.01923,
+   "acierto_teorico": 0.03913,
+   "ratio": 0.492,
+   "ic95": [
+    0.00656,
+    0.05501
+   ],
+   "prob_media_pata": 0.7754,
+   "cumple": true
+  },
+  "F70_calibrada|4": {
+   "receta": "F70_calibrada",
+   "n_patas": 4,
+   "jornadas": 239,
+   "ganados": 88,
+   "acierto_real": 0.3682,
+   "acierto_teorico": 0.41781,
+   "ratio": 0.881,
+   "ic95": [
+    0.30959,
+    0.43098
+   ],
+   "prob_media_pata": 0.8018,
+   "cumple": true
+  },
+  "F70_calibrada|6": {
+   "receta": "F70_calibrada",
+   "n_patas": 6,
+   "jornadas": 216,
+   "ganados": 47,
+   "acierto_real": 0.21759,
+   "acierto_teorico": 0.25682,
+   "ratio": 0.847,
+   "ic95": [
+    0.16776,
+    0.27729
+   ],
+   "prob_media_pata": 0.7946,
+   "cumple": true
+  },
+  "F70_calibrada|8": {
+   "receta": "F70_calibrada",
+   "n_patas": 8,
+   "jornadas": 191,
+   "ganados": 23,
+   "acierto_real": 0.12042,
+   "acierto_teorico": 0.15717,
+   "ratio": 0.766,
+   "ic95": [
+    0.0816,
+    0.17421
+   ],
+   "prob_media_pata": 0.7905,
+   "cumple": true
+  },
+  "F70_calibrada|10": {
+   "receta": "F70_calibrada",
+   "n_patas": 10,
+   "jornadas": 176,
+   "ganados": 12,
+   "acierto_real": 0.06818,
+   "acierto_teorico": 0.09432,
+   "ratio": 0.723,
+   "ic95": [
+    0.03943,
+    0.11538
+   ],
+   "prob_media_pata": 0.7859,
+   "cumple": true
+  },
+  "F70_calibrada|13": {
+   "receta": "F70_calibrada",
+   "n_patas": 13,
+   "jornadas": 141,
+   "ganados": 7,
+   "acierto_real": 0.04965,
+   "acierto_teorico": 0.04587,
+   "ratio": 1.082,
+   "ic95": [
+    0.02425,
+    0.09893
+   ],
+   "prob_media_pata": 0.7843,
+   "cumple": true
+  },
+  "F75_calibrada|4": {
+   "receta": "F75_calibrada",
+   "n_patas": 4,
+   "jornadas": 144,
+   "ganados": 48,
+   "acierto_real": 0.33333,
+   "acierto_teorico": 0.46068,
+   "ratio": 0.724,
+   "ic95": [
+    0.26155,
+    0.41378
+   ],
+   "prob_media_pata": 0.8229,
+   "cumple": false
+  },
+  "F75_calibrada|6": {
+   "receta": "F75_calibrada",
+   "n_patas": 6,
+   "jornadas": 95,
+   "ganados": 25,
+   "acierto_real": 0.26316,
+   "acierto_teorico": 0.30559,
+   "ratio": 0.861,
+   "ic95": [
+    0.18506,
+    0.35966
+   ],
+   "prob_media_pata": 0.8199,
+   "cumple": true
+  },
+  "F75_calibrada|8": {
+   "receta": "F75_calibrada",
+   "n_patas": 8,
+   "jornadas": 65,
+   "ganados": 11,
+   "acierto_real": 0.16923,
+   "acierto_teorico": 0.20261,
+   "ratio": 0.835,
+   "ic95": [
+    0.09721,
+    0.27817
+   ],
+   "prob_media_pata": 0.8184,
+   "cumple": true
+  },
+  "F75_calibrada|10": {
+   "receta": "F75_calibrada",
+   "n_patas": 10,
+   "jornadas": 54,
+   "ganados": 5,
+   "acierto_real": 0.09259,
+   "acierto_teorico": 0.13358,
+   "ratio": 0.693,
+   "ic95": [
+    0.0402,
+    0.1991
+   ],
+   "prob_media_pata": 0.817,
+   "cumple": true
+  },
+  "F75_calibrada|13": {
+   "receta": "F75_calibrada",
+   "n_patas": 13,
+   "jornadas": 44,
+   "ganados": 3,
+   "acierto_real": 0.06818,
+   "acierto_teorico": 0.06918,
+   "ratio": 0.986,
+   "ic95": [
+    0.02346,
+    0.18225
+   ],
+   "prob_media_pata": 0.8138,
+   "cumple": true
+  }
+ },
+ "notas": [
+  "el acierto TEÓRICO es el producto de las probabilidades del modelo y supone independencia; los partidos de una misma jornada no lo son",
+  "córners, tarjetas y remates NO entran: el ledger no guarda su resultado, así que su acierto no se puede comprobar",
+  "el intervalo es de Wilson al 95 %, que es el que no da límites negativos con aciertos del 1 %"
+ ],
+ "boletos_ganadores": {
+  "4": {
+   "jornadas": 251,
+   "ganados": 92,
+   "acierto": 0.36653,
+   "ejemplo": {
+    "fecha": "2026-01-06",
+    "probabilidad": 0.27142,
+    "patas": [
+     {
+      "liga": "serie_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "serie_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "premier",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "sco_premiership",
+      "mercado": "Más de 1.5",
+      "prob": 0.7
+     }
+    ]
+   }
+  },
+  "5": {
+   "jornadas": 235,
+   "ganados": 68,
+   "acierto": 0.28936,
+   "ejemplo": {
+    "fecha": "2026-07-06",
+    "probabilidad": 0.20495,
+    "patas": [
+     {
+      "liga": "ecu_liga_pro",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "suecia",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "suecia",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "bra_serie_b",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "bra_serie_b",
+      "mercado": "Más de 1.5",
+      "prob": 0.7
+     }
+    ]
+   }
+  },
+  "6": {
+   "jornadas": 231,
+   "ganados": 57,
+   "acierto": 0.24675,
+   "ejemplo": {
+    "fecha": "2026-02-04",
+    "probabilidad": 0.18535,
+    "patas": [
+     {
+      "liga": "sco_premiership",
+      "mercado": "Más de 1.5",
+      "prob": 0.811
+     },
+     {
+      "liga": "brasil",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "argentina",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "gre_super_league",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "slv_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "slv_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     }
+    ]
+   }
+  },
+  "7": {
+   "jornadas": 220,
+   "ganados": 43,
+   "acierto": 0.19545,
+   "ejemplo": {
+    "fecha": "2026-01-15",
+    "probabilidad": 0.13358,
+    "patas": [
+     {
+      "liga": "liga_mx",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "liga_mx",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "bundesliga",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "crc_fpd",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "serie_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "serie_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "crc_fpd",
+      "mercado": "Más de 1.5",
+      "prob": 0.673
+     }
+    ]
+   }
+  },
+  "8": {
+   "jornadas": 213,
+   "ganados": 29,
+   "acierto": 0.13615,
+   "ejemplo": {
+    "fecha": "2026-03-31",
+    "probabilidad": 0.0993,
+    "patas": [
+     {
+      "liga": "esp_hypermotion",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "par_division",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "par_division",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "eng_national",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "eng_national",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "esp_hypermotion",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "uru_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "uru_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     }
+    ]
+   }
+  },
+  "9": {
+   "jornadas": 203,
+   "ganados": 24,
+   "acierto": 0.11823,
+   "ejemplo": {
+    "fecha": "2026-03-31",
+    "probabilidad": 0.06801,
+    "patas": [
+     {
+      "liga": "esp_hypermotion",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "par_division",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "par_division",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "eng_national",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "eng_national",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "esp_hypermotion",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "uru_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "uru_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "argentina",
+      "mercado": "Más de 1.5",
+      "prob": 0.685
+     }
+    ]
+   }
+  },
+  "10": {
+   "jornadas": 197,
+   "ganados": 18,
+   "acierto": 0.09137,
+   "ejemplo": {
+    "fecha": "2026-03-31",
+    "probabilidad": 0.04575,
+    "patas": [
+     {
+      "liga": "esp_hypermotion",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "par_division",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "par_division",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "eng_national",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "eng_national",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "esp_hypermotion",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "uru_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "uru_primera",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "argentina",
+      "mercado": "Más de 1.5",
+      "prob": 0.685
+     },
+     {
+      "liga": "col_primera_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.673
+     }
+    ]
+   }
+  },
+  "11": {
+   "jornadas": 193,
+   "ganados": 14,
+   "acierto": 0.07254,
+   "ejemplo": {
+    "fecha": "2026-02-16",
+    "probabilidad": 0.04127,
+    "patas": [
+     {
+      "liga": "afc_champions",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "afc_champions",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "ned_eerste",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "turquia",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "dinamarca",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "ned_eerste",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "serie_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "crc_fpd",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "col_primera_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "eng_championship",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "gre_super_league",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     }
+    ]
+   }
+  },
+  "12": {
+   "jornadas": 182,
+   "ganados": 10,
+   "acierto": 0.05495,
+   "ejemplo": {
+    "fecha": "2026-02-16",
+    "probabilidad": 0.03027,
+    "patas": [
+     {
+      "liga": "afc_champions",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "afc_champions",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "ned_eerste",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "turquia",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "dinamarca",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "ned_eerste",
+      "mercado": "Más de 1.5",
+      "prob": 0.748
+     },
+     {
+      "liga": "serie_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "crc_fpd",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "col_primera_a",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "eng_championship",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "gre_super_league",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "argentina",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     }
+    ]
+   }
+  },
+  "13": {
+   "jornadas": 168,
+   "ganados": 7,
+   "acierto": 0.04167,
+   "ejemplo": {
+    "fecha": "2026-07-23",
+    "probabilidad": 0.02045,
+    "patas": [
+     {
+      "liga": "mls",
+      "mercado": "Más de 1.5",
+      "prob": 0.811
+     },
+     {
+      "liga": "mls",
+      "mercado": "Más de 1.5",
+      "prob": 0.811
+     },
+     {
+      "liga": "brasil",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "sudamericana",
+      "mercado": "Más de 1.5",
+      "prob": 0.8
+     },
+     {
+      "liga": "bra_serie_b",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "bra_serie_b",
+      "mercado": "Más de 1.5",
+      "prob": 0.738
+     },
+     {
+      "liga": "ecu_liga_pro",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "ecu_liga_pro",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "brasil",
+      "mercado": "Más de 1.5",
+      "prob": 0.734
+     },
+     {
+      "liga": "usl_championship",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "sudamericana",
+      "mercado": "Más de 1.5",
+      "prob": 0.706
+     },
+     {
+      "liga": "argentina",
+      "mercado": "Más de 1.5",
+      "prob": 0.673
+     },
+     {
+      "liga": "argentina",
+      "mercado": "Más de 1.5",
+      "prob": 0.673
+     }
+    ]
+   }
+  }
+ },
+ "cumplen": 27,
+ "no_cumplen": 13,
+ "veredicto": "la_herramienta_cumple"
+}

@@ -13975,15 +13975,28 @@ def test_la_sonadora_no_mezcla_casas():
     import inspect
     import sonadora_motor as sm
 
-    check(tuple(sm.CASAS) == ('Novibet', 'Playdoit', 'Draftea'),
-          f'estan las tres casas del usuario ({sm.CASAS})')
-    check(sm.CASA_POR_DEFECTO == 'Novibet',
-          f'y por defecto es Novibet (salio {sm.CASA_POR_DEFECTO!r})')
-    check('Draftea' not in sm.CASAS_CON_FUENTE,
-          'Draftea se ofrece pero no tiene fuente: se sondearon todas las '
-          'puertas del proyecto y ninguna la sirve')
-    for c in ('Novibet', 'Playdoit'):
-        check(c in sm.CASAS_CON_FUENTE, f'{c} si tiene fuente')
+    # v208 — UNA SOLA CASA, y las dos que salieron no fue por simplificar.
+    #
+    #   Novibet   medido barriendo 36 tipos de apuesta x 6 alcances sobre tres
+    #             partidos grandes: publica CUATRO mercados y NI UNA LINEA DE
+    #             GOLES. La propia pagina de Flashscore la pinta con un guion
+    #             en las 22 lineas de Mas/Menos. El patron del usuario es de
+    #             goles, asi que Novibet no puede armarlo.
+    #   Draftea   sus precios viven dentro de la app movil. Re-sondeada el
+    #             2026-09-16: la web es Webflow de marketing y
+    #             `api.draftea.com` da 404 en las veinte rutas probadas.
+    #
+    # Un selector de tres con dos que no sirven no es una eleccion.
+    check(tuple(sm.CASAS) == ('Playdoit',),
+          f'queda la unica casa que tiene el tablero completo ({sm.CASAS})')
+    check(sm.CASA_POR_DEFECTO == 'Playdoit',
+          f'y es la de por defecto ({sm.CASA_POR_DEFECTO!r})')
+    check(tuple(sm.CASAS_CON_FUENTE) == ('Playdoit',),
+          f'y es la unica con fuente ({sm.CASAS_CON_FUENTE})')
+    fuente_ui = open('sonadora_ui.py', encoding='utf-8').read()
+    check('son_casa' not in fuente_ui,
+          'la pantalla ya no pide elegir casa: con una sola, el selector solo '
+          'podia llevar a equivocarse')
 
     def _fila(casa, partido, cuota):
         return {'deporte': 'Fútbol', 'partido': partido, 'liga': 'L',
@@ -15631,6 +15644,192 @@ def test_la_sonadora_puede_reproducir_un_boleto_de_trece():
           'no paga dos patas del mismo encuentro como si fueran dos apuestas')
 
 
+def test_la_probabilidad_de_la_pata_deja_de_ir_sobrada():
+    """
+    SIMULADO SOBRE 540 DÍAS DE JORNADAS YA JUGADAS (`simular_sonadora.py`), la
+    sección prometía el doble o el triple de lo que daba:
+
+        4 patas   promete 59,76 %   da 37,23 %   ratio 0,62
+        8 patas   promete 32,20 %   da 13,70 %   ratio 0,43
+       13 patas   promete 14,49 %   da  4,74 %   ratio 0,33
+
+    El ratio cae con cada pata: es una probabilidad sobreconfiada
+    multiplicándose por sí misma. Con el mapa de calibración, el boleto de
+    ocho pasa a dar 15,19 % contra un 13,35 % prometido — ratio 1,14.
+    """
+    import sonadora_motor as sm
+
+    sm._olvidar_calibracion()
+    doc = sm.calibracion()
+    check(bool(doc.get('etiquetas')),
+          'el mapa de calibración está generado')
+    if not doc.get('etiquetas'):
+        return
+
+    # LO QUE EL MAPA DICE, Y ES FUERTE
+    p, corregida = sm.prob_calibrada('Más de 2.5', 0.92)
+    check(corregida and p < 0.70,
+          f'«Más de 2,5» al 92 % del modelo cae por debajo del 70 % real '
+          f'({p:.3f})')
+    p35, c35 = sm.prob_calibrada('Más de 3.5', 0.60)
+    check(c35 and p35 < 0.50,
+          f'«Más de 3,5» al 60 % del modelo no llega ni al 50 % ({p35:.3f})')
+    p15, c15 = sm.prob_calibrada('Más de 1.5', 0.92)
+    check(c15 and 0.75 < p15 < 0.88,
+          f'«Más de 1,5» es la mejor portada y baja poco ({p15:.3f})')
+
+    # LA CORRECCIÓN SIEMPRE BAJA O DEJA IGUAL EN LA PARTE ALTA. Si subiera,
+    # estaría inventando confianza que nadie midió.
+    for etq in ('Más de 1.5', 'Más de 2.5', 'Más de 3.5', 'Gana local'):
+        q, c = sm.prob_calibrada(etq, 0.90)
+        if c:
+            check(q <= 0.90 + 1e-9,
+                  f'{etq}: corregir al 90 % no sube la confianza ({q:.3f})')
+
+    # UN MERCADO SIN MAPA SE DEJA CRUDO, no se inventa una corrección
+    q, c = sm.prob_calibrada('Córners', 0.80)
+    check(q == 0.80 and c is False,
+          f'un mercado sin mapa se deja como está ({q}, {c})')
+    q2, c2 = sm.prob_calibrada('Más de 1.5', 'basura')
+    check(c2 is False, 'y un valor que no es número no revienta')
+
+    # Y LA PATA LLEVA LAS DOS: la corregida manda y la cruda se conserva
+    partido = {'deporte': 'Fútbol', 'partido': 'Local FC vs Visita CF',
+               'liga': 'laliga', 'clave_liga': 'laliga', 'hora': '12:00'}
+    q = sm._pata(partido, 'Goles', 'Más de 3.5', 0.60, 1.50)
+    check(q is not None and q['prob'] < 0.50 and q['prob_modelo'] == 0.60,
+          f"la pata usa la corregida y conserva la cruda "
+          f"({q and q['prob']}, {q and q.get('prob_modelo')})")
+    check(q is not None and q.get('prob_calibrada') is True,
+          'y dice que se corrigió')
+
+
+def test_el_numero_de_patas_pedido_sale_si_o_si():
+    """
+    «Sí o sí debe de haber el número de patas que se pidan en el filtro».
+
+    Un boleto necesita N PARTIDOS DISTINTOS —una pata por encuentro, que es lo
+    que evita combinar sucesos correlacionados—, así que cuando no llegan se
+    ensancha por pasos: primero el rango de cuota, luego el patrón de
+    mercados, y al final se dejan entrar las rojas. Cada paso se apunta: un
+    boleto armado con las rojas dentro no es el mismo que uno armado con lo
+    que se pidió.
+    """
+    import sonadora_motor as sm
+
+    def _falsas(n_partidos, prob_alta=True):
+        fuera = []
+        for i in range(n_partidos):
+            # la mitad con probabilidad baja: sin ensanchar no pasan el corte
+            p = 0.80 if (prob_alta and i % 2 == 0) else 0.57
+            fuera.append({
+                'id': f'p{i}', 'deporte': 'Fútbol',
+                'partido': f'Eq{i} vs Riv{i}', 'liga': f'l{i % 5}',
+                'clave_liga': f'l{i % 5}', 'hora': '12:00',
+                'categoria': 'Goles', 'etiqueta': 'Más de 1.5',
+                'prob': p, 'prob_modelo': p, 'prob_ajustada': p,
+                'prob_calibrada': False,
+                'cuota': 1.50 if i % 3 else 2.30,   # algunas fuera de banda
+                'casa': 'Playdoit', 'ece': None, 'medido': False,
+                'nivel_riesgo': 'media', 'color': sm.color(p),
+                'score': p * 1.5})
+        return fuera
+
+    original = sm._recoger
+    try:
+        for n_part, pedidas in ((20, 13), (16, 13), (6, 4)):
+            sm._recoger = (lambda r, dia, mx, deportes=None,
+                           casa=sm.CASA_POR_DEFECTO, _n=n_part: {
+                'patas': _falsas(_n), 'n_partidos': _n,
+                'tableros_pedidos': 0, 'tableros_por_deporte': {},
+                'sin_tablero': 0, 'futbol_del_barrido': _n,
+                'futbol_del_catalogo': 0})
+            res = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.35,
+                                   cuota_max=1.60, garantizar=pedidas)
+            partidos = len({q['partido'] for q in res['patas']})
+            check(partidos >= pedidas,
+                  f'con {n_part} partidos y {pedidas} patas pedidas salen '
+                  f'{partidos} partidos distintos')
+            check(res['alcanza_garantia'] is True,
+                  f'y se declara alcanzada ({n_part} partidos)')
+            perms = sm.permutaciones(res['patas'], pedidas)
+            check(bool(perms) and all(p['n_patas'] == pedidas for p in perms),
+                  f'y las permutaciones son de {pedidas} patas de verdad')
+
+        # CUANDO DE VERDAD NO SE PUEDE, SE DICE. Cuatro partidos no dan trece
+        # patas por mucho que se ensanche, y fingirlo sería peor.
+        sm._recoger = lambda r, dia, mx, deportes=None, \
+            casa=sm.CASA_POR_DEFECTO: {
+                'patas': _falsas(4), 'n_partidos': 4, 'tableros_pedidos': 0,
+                'tableros_por_deporte': {}, 'sin_tablero': 0,
+                'futbol_del_barrido': 4, 'futbol_del_catalogo': 0}
+        corto = sm.patas_del_dia({}, '2026-09-16', cuota_min=1.35,
+                                 cuota_max=1.60, garantizar=13)
+        check(corto['alcanza_garantia'] is False,
+              'con cuatro partidos se declara que NO se alcanzan trece patas')
+        check(sm.permutaciones(corto['patas'], 13) == [],
+              'y no se arma un boleto de trece a medias')
+    finally:
+        sm._recoger = original
+
+
+def test_la_simulacion_mide_la_herramienta_y_no_el_mercado():
+    """
+    El usuario pidió simular boletos contra jornadas ya jugadas. El artefacto
+    tiene que comparar el acierto REAL con el TEÓRICO —el producto de las
+    probabilidades— porque ésa es la cifra que dice si la herramienta promete
+    lo que da, y probar varias recetas para poder elegir la que más acierta.
+    """
+    import json
+    import os
+
+    ruta = 'modelos/simulacion_sonadora.json'
+    if not os.path.exists(ruta):
+        check(False, f'{ruta} está generado')
+        return
+    with open(ruta, encoding='utf-8') as f:
+        doc = json.load(f)
+
+    check(doc.get('medido') is True, 'la simulación está hecha')
+    check((doc.get('n_jornadas') or 0) >= 100,
+          f"se simula sobre jornadas de verdad ({doc.get('n_jornadas')})")
+    check(bool(doc.get('corte_calibracion')),
+          'el mapa se aprende antes del corte y se aplica después, no sobre '
+          'lo mismo')
+
+    res = doc.get('resultados') or {}
+    recetas = {v.get('receta') for v in res.values() if v.get('receta')}
+    check(len(recetas) >= 4,
+          f'se comparan varias recetas, no una sola ({sorted(recetas)})')
+
+    crudas = [v for v in res.values()
+              if v.get('receta') in ('A_mas_probable', 'P_solo_patron')
+              and v.get('ratio')]
+    calibradas = [v for v in res.values()
+                  if str(v.get('receta', '')).endswith('_calibrada')
+                  and v.get('ratio')]
+    check(crudas and calibradas, 'hay recetas crudas y calibradas que comparar')
+    if crudas and calibradas:
+        import statistics
+        rc = statistics.mean(v['ratio'] for v in crudas)
+        rk = statistics.mean(v['ratio'] for v in calibradas)
+        check(rk > rc,
+              f'las calibradas se acercan más a lo que prometen '
+              f'({rk:.2f} contra {rc:.2f})')
+        check(rc < 0.8,
+              f'y las crudas prometían bastante más de lo que daban '
+              f'({rc:.2f})')
+
+    for v in res.values():
+        if not v.get('ratio'):
+            continue
+        check(v['jornadas'] >= 30,
+              f"{v['receta']}/{v['n_patas']}: la muestra son jornadas, no "
+              f"boletos repetidos ({v['jornadas']})")
+        check(len(v.get('ic95') or []) == 2 and v['ic95'][0] >= 0,
+              f"{v['receta']}/{v['n_patas']}: el intervalo no da negativos")
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -15979,6 +16178,11 @@ if __name__ == '__main__':
     test_el_patron_del_boleto_ganador_deja_fuera_lo_que_no_era()
     test_la_escalera_da_el_mismo_monton_en_todos_los_tamanos()
     test_la_sonadora_puede_reproducir_un_boleto_de_trece()
+
+    print(chr(10) + '=== v208: calibracion, una casa y las patas que se piden ===')
+    test_la_probabilidad_de_la_pata_deja_de_ir_sobrada()
+    test_el_numero_de_patas_pedido_sale_si_o_si()
+    test_la_simulacion_mide_la_herramienta_y_no_el_mercado()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

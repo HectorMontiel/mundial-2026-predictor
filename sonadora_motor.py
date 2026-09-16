@@ -104,10 +104,29 @@ LINEAS_GOLES_EQUIPO = (0.5, 1.5, 2.5)
 # Webflow con Turnstile y `api.draftea.com` contesta «Not Found» en todas las
 # rutas probadas. Aparece en el selector porque el usuario apuesta ahi, y
 # cuando se elige la pantalla dice exactamente por que no hay nada.
-CASAS = ('Novibet', 'Playdoit', 'Draftea')
-CASA_POR_DEFECTO = 'Novibet'
+# v208 — UNA SOLA CASA, Y NO ES UNA SIMPLIFICACION GRATUITA.
+#
+# La Sonadora ofrecia tres y solo una sirve para lo que el usuario arma:
+#
+#     Playdoit   tablero completo: goles totales y por equipo, cornes,
+#                tarjetas, remates, 1X2, doble oportunidad, BTTS
+#     Novibet    medido el 2026-09-15 barriendo 36 tipos de apuesta x 6
+#                alcances sobre tres partidos grandes: publica CUATRO
+#                mercados y NI UNA LINEA DE GOLES. Su propia pagina de
+#                Flashscore la pinta con un guion en las 22 lineas de
+#                Mas/Menos. El patron del usuario es de goles, asi que
+#                Novibet no puede armarlo.
+#     Draftea    sus precios viven dentro de la app movil. Re-sondeada el
+#                2026-09-16: la web es Webflow de marketing y
+#                `api.draftea.com` da 404 en las veinte rutas probadas.
+#
+# Un selector con tres opciones de las que dos no pueden hacer el trabajo no
+# es una eleccion: es una forma de que el usuario se equivoque. Se queda la
+# que tiene el tablero.
+CASAS = ('Playdoit',)
+CASA_POR_DEFECTO = 'Playdoit'
 # las que hoy tienen fuente; el resto se ofrece y se explica
-CASAS_CON_FUENTE = ('Novibet', 'Playdoit')
+CASAS_CON_FUENTE = ('Playdoit',)
 
 DEPORTES = ('Fútbol', 'MLB', 'NBA', 'NFL', 'Tenis', 'KBO')
 DEPORTES_POR_DEFECTO = ('Fútbol',)
@@ -433,6 +452,99 @@ def _por_nombre(det: Dict) -> Dict[str, List[Dict]]:
     return fuera
 
 
+# --- LA CALIBRACION DE LA PATA, QUE ES LO QUE DEJA DE MENTIR ----------------
+#
+# Simulado sobre 540 dias de jornadas ya jugadas (`simular_sonadora.py`), la
+# seccion prometia el doble o el triple de lo que daba:
+#
+#     4 patas   promete 59,76 %   da 37,23 %   ratio 0,62
+#     8 patas   promete 32,20 %   da 13,70 %   ratio 0,43
+#    13 patas   promete 14,49 %   da  4,74 %   ratio 0,33
+#
+# El ratio cae con cada pata: es una probabilidad sobreconfiada multiplicandose
+# por si misma. El mapa de `modelos/calibracion_patas.json` la lleva a la que
+# se observa de verdad, y con eso el boleto de ocho pasa a dar 15,19 % contra
+# un 13,35 % prometido — ratio 1,14, o sea que ya cumple.
+#
+# Lo que el mapa dice, y es fuerte:
+#
+#     «Mas de 2,5»  el modelo dice 90 % y cae el 61 %
+#     «Mas de 3,5»  el modelo dice 55 % y cae el 38-43 %
+#     «Ambos marcan» TODAS las cajas caen entre el 54 y el 59 %: el modelo no
+#                    distingue nada en ese mercado
+#     «Mas de 1,5»  la mejor portada, monotona y con el menor desvio
+#
+# Por eso la calibracion entra en `prob` y no en un campo decorativo: de ella
+# cuelgan el semaforo, el Score y el producto del boleto. La probabilidad
+# cruda se conserva en `prob_modelo` para poder comparar.
+CALIBRACION = 'modelos/calibracion_patas.json'
+_CAL: Optional[Dict] = None
+
+
+def calibracion(ruta: str = CALIBRACION) -> Dict:
+    global _CAL
+    if _CAL is None:
+        try:
+            with open(ruta, encoding='utf-8') as f:
+                _CAL = json.load(f) or {}
+        except Exception as e:
+            logger.debug('[sonadora] sin mapa de calibración: %s', e)
+            _CAL = {}
+    return _CAL
+
+
+def _olvidar_calibracion() -> None:
+    global _CAL
+    _CAL = None
+
+
+def prob_calibrada(etiqueta: str, prob) -> Tuple[float, bool]:
+    """(probabilidad observada para esa etiqueta y tramo, si se corrigió).
+
+    Sin mapa, sin la etiqueta o sin muestra suficiente en su celda, devuelve la
+    probabilidad tal cual: no corregir es mejor que corregir con ruido.
+    """
+    try:
+        p = float(prob)
+    except (TypeError, ValueError):
+        return prob, False
+    doc = calibracion()
+    celdas = (doc.get('etiquetas') or {}).get(str(etiqueta))
+    if not celdas:
+        return p, False
+    cajas = doc.get('cajas') or []
+    caja = None
+    for i in range(len(cajas) - 1):
+        if (p >= cajas[i] if i == 0 else p > cajas[i]) and p <= cajas[i + 1]:
+            caja = i
+            break
+    if caja is None:
+        return p, False
+    celda = celdas.get(str(caja))
+    if not isinstance(celda, dict) or celda.get('observado') is None:
+        # LA CELDA SIN MUESTRA SE APOYA EN LA VECINA CON DATOS, Y NO SE DEJA
+        # CRUDA. Es justo donde más falta hace: «Más de 2,5» al 92 % cae en un
+        # tramo que el histórico casi no tiene, y dejarlo tal cual conserva el
+        # número más sobreconfiado de todos. El mapa es monótono por mercado,
+        # así que la celda vecina es una estimación mucho mejor que el crudo.
+        # Se prefiere la de ABAJO para las probabilidades altas: extrapolar
+        # hacia arriba inventaría confianza que nadie ha medido.
+        cercanas = []
+        for k, v in celdas.items():
+            if not isinstance(v, dict) or v.get('observado') is None:
+                continue
+            try:
+                cercanas.append((abs(int(k) - caja), int(k) > caja, int(k),
+                                 float(v['observado'])))
+            except (TypeError, ValueError):
+                continue
+        if not cercanas:
+            return p, False
+        cercanas.sort()
+        return cercanas[0][3], True
+    return float(celda['observado']), True
+
+
 def _riesgo_de(clave_liga: str) -> Tuple[str, Optional[float]]:
     """Nivel de riesgo e IVL de la competición. Nunca lanza y nunca bloquea."""
     try:
@@ -475,7 +587,17 @@ def _pata(partido: Dict, categoria: str, etiqueta: str, prob, cuota,
     ece = ece_liga(clave, categoria, etiqueta)
     floja = calibracion_floja(clave, categoria, etiqueta)
     riesgo, ivl = _riesgo_de(clave)
+    # LA CALIBRACION ENTRA AQUI, ANTES QUE NADA. De `p` cuelgan el semaforo, el
+    # Score y el producto del boleto; corregirla despues seria maquillar el
+    # numero que se ensena dejando intacto el que decide.
+    p_crudo = p
+    p, corregida = prob_calibrada(etiqueta, p)
+    if not (0.0 < p < 1.0):
+        p = p_crudo
+        corregida = False
     return {
+        'prob_modelo': round(p_crudo, 4),
+        'prob_calibrada': bool(corregida),
         'nivel_riesgo': riesgo,
         # el IVL del encargo, PUBLICADO COMO DESCRIPTOR y no como puerta: mide
         # el ritmo goleador de la liga (vale 1/raiz(media de goles)) y medido
@@ -1435,7 +1557,9 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
                   con_rojas: bool = False,
                   casa: str = CASA_POR_DEFECTO,
                   solo_riesgo_bajo: bool = False,
-                  dias: Optional[List[str]] = None) -> Dict:
+                  dias: Optional[List[str]] = None,
+                  garantizar: int = 0,
+                  solo_patron: bool = False) -> Dict:
     """
     Las patas del día dentro del rango, y NUNCA una lista vacía si hay partidos.
 
@@ -1536,11 +1660,64 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
         else:
             riesgo_apagado = True
 
+    if solo_patron:
+        _pat = filtrar_patron(todas)
+        if _pat:
+            todas = _pat
+
     patas = _filtra(cuota_min, cuota_max)
     ensanchado = False
     if not patas and todas:
         patas = _filtra(CUOTA_MIN_ABS, CUOTA_MAX_ABS)
         ensanchado = bool(patas)
+
+    # --- QUE SALGAN LAS PATAS QUE SE PIDEN, Y DECIR QUÉ COSTÓ --------------
+    #
+    # «Sí o sí debe de haber el número de patas que se pidan en el filtro».
+    # Un boleto necesita N PARTIDOS DISTINTOS —una pata por encuentro, que es
+    # la regla que evita combinar sucesos correlacionados—, así que cuando no
+    # llegan se ensancha por pasos, del más barato al más caro, y se para en
+    # cuanto alcanza. Cada paso que se da se apunta: un boleto armado con el
+    # rango ensanchado y las rojas dentro no es el mismo que uno armado con lo
+    # que se pidió, y la pantalla tiene que poder decirlo.
+    relajado: List[str] = []
+
+    def _n_partidos(lista):
+        return len({q['partido'] for q in lista})
+
+    if garantizar and _n_partidos(patas) < garantizar:
+        pasos = [
+            ('el rango de cuota', lambda: _filtra(CUOTA_MIN_ABS,
+                                                  CUOTA_MAX_ABS)),
+        ]
+        if solo_patron:
+            # se sale del patrón antes que dejar el boleto corto
+            def _fuera_del_patron():
+                base = bruto['patas']
+                base = [q for q in base if q.get('casa') == casa]
+                _v, _u = set(), []
+                for q in base:
+                    k = (q['partido'], q['etiqueta'])
+                    if k in _v:
+                        continue
+                    _v.add(k)
+                    _u.append(q)
+                return sorted(
+                    (q for q in _u if CUOTA_MIN_ABS <= q['cuota']
+                     <= CUOTA_MAX_ABS and q['prob'] >= PROB_MINIMA),
+                    key=lambda q: (ORDEN_COLOR.get(q['color'], 9),
+                                   ORDEN_RIESGO.get(q.get('nivel_riesgo'), 1),
+                                   not q.get('medido'), -q['score']))
+            pasos.append(('el patrón del boleto', _fuera_del_patron))
+        for nombre, intento in pasos:
+            if _n_partidos(patas) >= garantizar:
+                break
+            nuevas = intento()
+            if _n_partidos(nuevas) > _n_partidos(patas):
+                patas = nuevas
+                relajado.append(nombre)
+        if relajado and 'el rango de cuota' in relajado:
+            ensanchado = True
 
     # LA CASCADA: si hay algo mejor que rojo, las rojas se esconden. Si NO hay
     # nada mejor, se enseñan igual — la sección no se queda vacía por esconder
@@ -1550,8 +1727,16 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
     visibles = patas
     if not con_rojas:
         sin_rojas = [q for q in patas if q['color'] != ROJO]
-        if sin_rojas:
+        # LAS ROJAS ENTRAN SI SIN ELLAS NO SE LLEGA AL NÚMERO PEDIDO. Es el
+        # último paso del ensanchado y el más caro, por eso va aquí y no
+        # antes: esconder una pata de alto riesgo es preferible, pero dejar el
+        # boleto corto cuando el usuario pidió trece no lo es.
+        if sin_rojas and (not garantizar
+                          or len({q['partido'] for q in sin_rojas})
+                          >= garantizar):
             visibles = sin_rojas
+        elif sin_rojas:
+            relajado.append('se incluyen patas de alto riesgo')
     n_verde = conteo[VERDE]
     total_col = max(len(patas), 1)
     return {
@@ -1577,6 +1762,11 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
                           for n in ('baja', 'media', 'alta', 'sin_medir')},
         'solo_riesgo_bajo': bool(solo_riesgo_bajo and not riesgo_apagado),
         'riesgo_apagado': riesgo_apagado,
+        'garantizar': int(garantizar or 0),
+        'relajado': relajado,
+        'alcanza_garantia': (not garantizar
+                             or len({q['partido'] for q in visibles})
+                             >= garantizar),
         'rojas_ocultas': len(patas) - len(visibles),
         # «sólida» y «débil» son los dos avisos que pidió el encargo
         'solidez': ('solida' if n_verde / total_col >= 0.60

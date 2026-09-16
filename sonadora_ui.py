@@ -113,8 +113,11 @@ def _linea_pata(q: Dict) -> str:
                          _ALI.get(q.get('alineacion') or '', ''),
                          _RIESGO.get(q.get('nivel_riesgo') or '', '')) if x]
     pie = ('  \n     ' + ' · '.join(extra)) if extra else ''
+    cal = ''
+    if q.get('prob_calibrada') and q.get('prob_modelo') is not None:
+        cal = f" _(el modelo decía {_pct(q['prob_modelo'], 0)})_"
     return (f"{_sello(q)} **{q['etiqueta']}** · {q['partido']} "
-            f"— `{q['cuota']:.2f}` · modelo {_pct(q['prob'], 0)} "
+            f"— `{q['cuota']:.2f}` · {_pct(q['prob'], 0)}{cal} "
             f"· {q['liga']}{(' · ' + q['hora']) if q.get('hora') else ''}"
             f"{cola}{pie}")
 
@@ -145,15 +148,12 @@ def render(st, r: Dict, dia: Optional[str] = None,
         index=N_PATAS_OPCIONES.index(13), key='son_n',
         format_func=lambda n: f'{n} patas')
 
-    # LA CASA VA PRIMERO PORQUE LO DECIDE TODO. Un parlay se juega EN UNA
-    # CASA: mezclar una pata de Playdoit con otra de Novibet da un
-    # multiplicador que nadie va a pagar, porque no hay ningún sitio donde se
-    # puedan poner juntas. Así que toda la lista sale de la casa elegida.
-    casa = st.selectbox(
-        'Casa de apuestas', list(sm.CASAS),
-        index=list(sm.CASAS).index(sm.CASA_POR_DEFECTO), key='son_casa',
-        help='Todas las patas y todas las permutaciones salen de esta casa. '
-             'No se mezclan precios de casas distintas.')
+    # v208 — SIN SELECTOR DE CASA. Había tres y sólo una puede armar lo que
+    # el usuario combina: Novibet no publica ni una línea de goles (medido
+    # barriendo 36 tipos de apuesta sobre tres partidos grandes) y Draftea
+    # tiene sus precios dentro de la app móvil. Un selector de tres opciones
+    # con dos que no sirven no es una elección, es una trampa.
+    casa = sm.CASA_POR_DEFECTO
 
     deportes = st.multiselect(
         'Deportes', list(sm.DEPORTES), default=list(sm.DEPORTES_POR_DEFECTO),
@@ -224,18 +224,20 @@ def render(st, r: Dict, dia: Optional[str] = None,
     # invalida la lista sola. `_r` con guion bajo le dice a Streamlit que no
     # intente hashear el diccionario del barrido, que es enorme.
     @st.cache_data(ttl=900, show_spinner=False)
-    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_, riesgo_, dias_):
+    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_, riesgo_, dias_,
+               patron_, n_):
         return sm.patas_del_dia(_r, dia_, cuota_min=lo, cuota_max=hi,
                                 deportes=list(deps), con_rojas=rojas,
                                 casa=casa_, solo_riesgo_bajo=riesgo_,
-                                dias=list(dias_) if dias_ else None)
+                                dias=list(dias_) if dias_ else None,
+                                solo_patron=patron_, garantizar=int(n_))
 
     with st.spinner(f'Leyendo los precios de {casa}…'):
         try:
             res = _patas(r, str(r.get('actualizado') or ''), dia,
                          cuota_min, cuota_max, tuple(sorted(deportes)),
                          con_rojas, casa, solo_bajo,
-                         tuple(dias) if dias else ())
+                         tuple(dias) if dias else (), patron, n_patas)
         except Exception as e:
             st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
             return
@@ -340,20 +342,25 @@ def render(st, r: Dict, dia: Optional[str] = None,
             st.rerun()
 
     if patron:
-        _antes = len(patas)
-        _pat = sm.filtrar_patron(patas)
-        if _pat:
-            patas = _pat
-            st.success(
-                f'🎯 **{len(patas)} patas del patrón** de tu boleto ganador, '
-                f'de {len({q["partido"] for q in patas})} partidos distintos '
-                f'(de {_antes} en total): sólo goles «Más de» y «Gana X», '
-                f'entre {sm.CUOTA_PATRON[0]:.2f} y {sm.CUOTA_PATRON[1]:.2f}.')
-        else:
-            st.warning(
-                '🎯 Hoy no hay ninguna pata del patrón (goles «Más de» o '
-                '«Gana X» entre 1,35 y 1,80) con esta casa y estos días. Se '
-                'muestra la lista completa.')
+        st.success(
+            f'🎯 **{len(patas)} patas** de '
+            f'{len({q["partido"] for q in patas})} partidos distintos, con el '
+            f'patrón de tu boleto ganador: goles «Más de» y «Gana X» entre '
+            f'{sm.CUOTA_PATRON[0]:.2f} y {sm.CUOTA_PATRON[1]:.2f}.')
+
+    # QUE SALGAN LAS PATAS QUE SE PIDEN, Y QUE SE DIGA QUÉ COSTÓ.
+    if res.get('relajado'):
+        st.warning(
+            f'⚙️ Para llegar a **{n_patas} patas** hubo que ensanchar: '
+            f'{", ".join(res["relajado"])}. El boleto que sale no es el que '
+            f'pediste exactamente — mira las patas antes de confirmarlo.')
+    if res.get('garantizar') and not res.get('alcanza_garantia'):
+        st.error(
+            f'❌ Hoy **no hay {n_patas} partidos distintos** con pata, ni '
+            f'ensanchando todo: sólo {res.get("partidos_con_pata", 0)}. Un '
+            f'boleto necesita un partido por pata —dos patas del mismo '
+            f'encuentro no se pagan como dos apuestas—, así que o bajas el '
+            f'número o amplías el rango de días.')
 
     perms = sm.permutaciones(patas, n_patas, bloqueados=comprometidos)
     if not perms:
