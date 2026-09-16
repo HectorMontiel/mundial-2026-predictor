@@ -6391,3 +6391,148 @@ correlacionados—.
    no vigila proveedores.
 3. **Novibet cotiza pocos partidos** (nueve el 2026-09-16 contra 83 de
    Playdoit). Para combinadas largas, Playdoit.
+
+## 6r. v207 — EL BOLETO GANADOR, LEÍDO PATA A PATA: EL BOOST ERA TODO
+
+El usuario mandó la captura de su boleto de Draftea. Es el dato que faltaba
+desde la v197: hasta ahora la sección se diseñaba contra una descripción de
+memoria, y esto es el boleto.
+
+### 1. Reconstruido exacto
+
+```
+13 patas · $46 · 245,05x · BOOSTER +100% -> 490,10x · $22.544,60
+```
+
+Multiplicando las trece cuotas sale **245,05x** clavado, ×2 = 490,11 y
+46 × 490,11 = 22.545. La lectura es correcta hasta el último decimal.
+
+```
+10 de 13  GOLES TOTALES    5x «Más de 2,5»  ·  5x «Más de 1,5»
+ 3 de 13  «Gana X»         las tres con Pago Anticipado
+cuotas    1,35 a 1,79      media 1,532 · mediana 1,50
+implícita 65,7 % por pata  ·  0,408 % el boleto entero
+goles reales de las 10     3 6 8 5 3 4 3 2 6 3  ·  media 4,30
+```
+
+**Ni una de córners, ni de tarjetas, ni de remates, ni de hándicap. Y ninguna
+«Menos de».** La sección le ofrecía justo lo contrario: encabezaba con «Menos
+de 9,5 remates a puerta» y «Menos de 4,5 goles», que son las líneas de la cola
+de la Poisson donde el modelo está documentado como malo.
+
+### 2. Lo que dice el histórico de ese patrón
+
+```
+LO QUE PASA EN 47.794 PARTIDOS
+    «Más de 1,5» cae el 73,3 %   (cuota justa 1,37)
+    «Más de 2,5» cae el 49,5 %   (cuota justa 2,02)
+
+«MÁS DE 2,5» CON CUOTA REAL, POR TRAMO DE PRECIO
+    cuota 1,00-1,40   n=  744   implícita 75,5 %   cae 72,7 %   ROI −3,82 %
+    cuota 1,40-1,55   n= 1640   implícita 67,2 %   cae 64,5 %   ROI −4,16 %
+    cuota 1,55-1,70   n= 2760   implícita 61,3 %   cae 58,2 %   ROI −5,19 %
+    cuota 1,70-1,85   n= 3124   implícita 56,1 %   cae 54,1 %   ROI −3,64 %
+    cuota 1,85-2,10   n= 4871   implícita 50,8 %   cae 48,2 %   ROI −5,16 %
+    cuota 2,10+       n= 4393   implícita 42,9 %   cae 40,4 %   ROI −5,71 %
+```
+
+**Negativo en todos los tramos, sin excepción, sobre 17.532 partidos.** No hay
+precio al que «Más de 2,5» sea valor.
+
+### 3. Una trampa que casi me trago, y cómo se cazó
+
+La primera cuenta decía: «Más de 1,5» cae el 71 % en la banda 1,35-1,80, luego
+la cuota justa es 1,408, luego una pata a 1,73 tiene **+22,8 % de EV**. Y de
+ahí salía un boleto de trece «sólo Más de 1,5» al +354 %.
+
+Es falso, y el error es de libro: **sesgo de selección**. El 71 % es la media
+de la banda, y una cuota de 1,73 marca precisamente los partidos donde la casa
+espera menos goles. Aplicar la media de la banda a su extremo es suponer que
+la casa pone los precios al azar.
+
+La comprobación que lo zanja es mirar por tramos, y en «Más de 2,5» —el único
+con cuota guardada— **ningún tramo es positivo**. El sesgo de selección se lo
+come entero.
+
+Y la calibración de «Más de 1,5» tampoco es una ventaja: es una **regresión a
+la media**.
+
+```
+    modelo dice 46 %  ->  cae 67,5 %   (+21,5 pp)
+    modelo dice 72 %  ->  cae 73,2 %   ( +0,7 pp)
+    modelo dice 89 %  ->  cae 80,0 %   ( −8,8 pp)
+```
+
+El modelo se queda corto abajo y se pasa arriba, cruzando el cero sobre el
+73 % — que es justo la tasa base. Eso no es una oportunidad: es un modelo mal
+calibrado cuya probabilidad hay que encoger hacia la base.
+
+### 4. Lo que de verdad hace rentable el boleto: EL BOOST
+
+Con la ventaja medida de una pata de este patrón (`e = −4,88 %` sobre 17.532
+partidos con cuota real):
+
+```
+              sin boost      con BOOSTER +100%
+ 4 patas       −18,1 %            +63,7 %
+ 8 patas       −33,0 %            +34,0 %
+13 patas       −48,0 %             +4,0 %
+```
+
+El boost multiplica el premio por dos, así que el rendimiento pasa de
+`(1+e)^N − 1` a `2(1+e)^N − 1`. **Es un factor constante: no crece con las
+patas.** Y como `(1+e)^N` baja con N, la consecuencia es dura y clara:
+
+> Si el +100 % se consigue con pocas patas, **pocas patas es estrictamente
+> mejor**. Cuatro patas con boost rinden +63,7 % proyectado; trece, +4,0 %.
+
+El boleto ganador fue de trece porque así lo pide el boost de Draftea, no
+porque trece sea mejor. Confirma la cuenta de la v202 —«más boost aguanta más
+patas»— con el número concreto de este mercado: el punto de equilibrio con un
+×2 está en **14 patas**.
+
+Con una advertencia que va junto: un boleto de trece acierta ~1 % de las
+veces. Un +4 % de esperanza con un 1 % de acierto son rachas largas de nada.
+
+### 5. Lo que se desplegó
+
+- **`filtrar_patron`**: deja el montón en lo que el usuario combina de verdad
+  —goles «Más de» y «Gana X», cuota 1,35-1,80— y fuera córners, tarjetas,
+  remates, hándicap y todas las «Menos de». Con una casilla en la pantalla.
+- **`escalera_de_parlays`**: el mismo montón en todos los tamaños que quepan,
+  con las cinco recetas por tamaño. No se listan las combinaciones de verdad
+  —con 18 patas y 13 huecos son 8.568 boletos, con 40 y 8 son 76 millones— y
+  cada receta es la óptima de su criterio, que es lo que uno buscaría a mano.
+- **`modelos/patron_boleto.json`** con todo lo medido.
+
+Medido el 2026-09-16 con Playdoit: **18 patas del patrón de 15 partidos
+distintos**, y el boleto de trece más probable sale a ×154 (×308 con el boost)
+con un 1,00 % de probabilidad.
+
+### 6. Draftea, re-sondeada
+
+Cambió respecto a la v192, y no para bien:
+
+```
+draftea.com -> www.draftea.mx    200 (antes 403) — pero es WEBFLOW de marketing
+/bets                            200 — sólo ofrece descargar la app
+api.draftea.com                  {"message":"Not Found"} y 404 en 20 rutas
+subdominios probados             14 x 2 dominios: sólo api. y app. resuelven
+Cloudflare Turnstile             presente en la web
+```
+
+Sus precios viven **dentro de la app móvil**. No hay puerta web, y sacarlos
+exigiría interceptar el tráfico de la aplicación. Playdoit sigue siendo la casa
+con el tablero completo de goles, que es lo que este patrón necesita.
+
+### 7. Lo que queda
+
+1. **No sé qué escalera de boost usa Draftea.** Toda la conclusión de la §4
+   depende de si el +100 % exige trece patas o se consigue con menos. Es el
+   dato que más cambia la recomendación y no está en ningún sitio público.
+2. **«Más de 1,5» no tiene cuota en el histórico**, así que su ROI no se puede
+   medir — sólo su tasa de acierto. Es la mitad del patrón del usuario sin
+   número de rendimiento.
+3. **El Pago Anticipado no se modela.** Las tres patas de «Gana X» del boleto
+   lo llevaban, y cobrar cuando tu equipo se pone por delante sube el valor
+   real de esa pata por encima de lo que dice su cuota. No está en ningún dato.

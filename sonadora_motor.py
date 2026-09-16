@@ -153,6 +153,53 @@ MAX_POR_DEPORTE = 3
 # Registro de parlays vivos, para que un partido no entre en dos a la vez.
 ACTIVOS = 'parlays_activos.json'
 
+# --- EL PATRON DEL BOLETO QUE EL USUARIO GANO -------------------------------
+#
+# 13 patas, 46 pesos, 245,05x que el boost dejo en 490,10x: 22.544,60. Leido
+# pata a pata del boleto, el patron no es una intuicion, es una cuenta:
+#
+#     10 de 13 son GOLES TOTALES     5x «Mas de 2,5» · 5x «Mas de 1,5»
+#      3 de 13 son «Gana X»          las tres con Pago Anticipado
+#     cuotas de 1,35 a 1,79          media 1,532 · mediana 1,50
+#     probabilidad implicita         65,7 % por pata · 0,408 % el boleto
+#     goles reales de esas 10 patas  3 6 8 5 3 4 3 2 6 3  ·  media 4,30
+#
+# O sea que no hubo ni una pata de cornes, ni de tarjetas, ni de remates, ni
+# de handicap: **goles y ganador, y nada mas**. Y ninguna «Menos de»: las diez
+# eran «Mas de», que es una apuesta a que el partido se abra.
+#
+# Esto NO dice que la estrategia gane —un boleto ganador es un boleto ganador,
+# y la validacion historica de esta seccion sigue midiendo lo que mide—. Dice
+# que cuando el usuario arma a mano, arma ESTO, y que la pantalla tiene que
+# saber ofrecerselo en vez de encabezar la lista con «Menos de 9,5 remates a
+# puerta», que es lo que hacia.
+CATEGORIAS_PATRON = ('Goles', '1X2', 'Ganador')
+PREFIJOS_PATRON = ('Más de', 'Gana')
+CUOTA_PATRON = (1.35, 1.80)
+
+# Los tamaños de boleto que la escalera ofrece de golpe.
+TAMANOS_ESCALERA = (4, 6, 8, 10, 13)
+
+
+def del_patron(q: Dict) -> bool:
+    """¿Esta pata es de las que el usuario combina de verdad?"""
+    if q.get('categoria') not in CATEGORIAS_PATRON:
+        return False
+    etq = str(q.get('etiqueta') or '')
+    if not etq.startswith(PREFIJOS_PATRON):
+        return False
+    try:
+        c = float(q.get('cuota'))
+    except (TypeError, ValueError):
+        return False
+    return CUOTA_PATRON[0] <= c <= CUOTA_PATRON[1]
+
+
+def filtrar_patron(patas: List[Dict]) -> List[Dict]:
+    """Sólo las patas del patrón. Lista vacía si no hay ninguna."""
+    return [q for q in (patas or []) if del_patron(q)]
+
+
 # Días distintos que puede abarcar un boleto. El encargo pide «no más de una
 # semana» y es un tope sensato por otra razón: cuanto más lejos, menos
 # mercados tiene abiertos la casa y más se mueve el precio antes del partido.
@@ -1796,6 +1843,35 @@ def permutaciones(patas: List[Dict], n_patas: int,
                   'topes_levantados': list(tp['levantados']),
                   'rojas_forzadas': rojas_forzadas})
         fuera.append(p)
+    return fuera
+
+
+def escalera_de_parlays(patas: List[Dict],
+                        tamanos=TAMANOS_ESCALERA,
+                        bloqueados: Optional[set] = None) -> List[Dict]:
+    """Todas las combinadas que salen del mismo montón, por tamaño.
+
+    El usuario pidió «todas las permutaciones posibles con las diferentes
+    cantidades de patas». Esto devuelve, para cada tamaño que quepa, las cinco
+    recetas de `permutaciones` — y no las que no quepan.
+
+    POR QUÉ NO SE DEVUELVEN TODAS LAS COMBINACIONES DE VERDAD. Con 18 patas y
+    13 huecos son 8.568 boletos, y con 40 patas y 8 huecos son 76 millones:
+    una lista así no se lee, no se elige de ella y tarda. Las cinco recetas
+    cubren los extremos que importan —la más probable, la de mayor
+    multiplicador, la de mejor Score, la más repartida y la mixta— y cada una
+    es la ÓPTIMA de su criterio, que es lo que uno buscaría a mano en esos
+    ocho mil.
+    """
+    fuera = []
+    partidos = len({q['partido'] for q in (patas or [])
+                    if q['partido'] not in (bloqueados or set())})
+    for n in sorted(set(int(t) for t in (tamanos or ()))):
+        if n < 2 or n > partidos:
+            continue
+        for p in permutaciones(patas, n, bloqueados=bloqueados):
+            p['n_pedidas'] = n
+            fuera.append(p)
     return fuera
 
 

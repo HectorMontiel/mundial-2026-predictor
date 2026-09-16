@@ -1,0 +1,134 @@
+{
+ "fecha": "2026-09-16",
+ "boleto": {
+  "patas": 13,
+  "entrada": 46,
+  "momio": 245.05,
+  "boost": 2.0,
+  "pago": 22544.6,
+  "mercados": {
+   "Más de 2.5": 5,
+   "Más de 1.5": 5,
+   "Gana X (PA)": 3
+  },
+  "cuota_min": 1.35,
+  "cuota_max": 1.79,
+  "cuota_media": 1.532,
+  "prob_implicita_boleto": 0.00408,
+  "goles_reales": [
+   3,
+   6,
+   8,
+   5,
+   3,
+   4,
+   3,
+   2,
+   6,
+   3
+  ]
+ },
+ "base": {
+  "over_1.5": 0.7325,
+  "over_2.5": 0.4947,
+  "n": 47794
+ },
+ "over25_por_cuota": {
+  "(1.0, 1.4]": {
+   "n": 744,
+   "cae": 0.7272,
+   "roi": -0.0382
+  },
+  "(1.4, 1.55]": {
+   "n": 1640,
+   "cae": 0.6451,
+   "roi": -0.0416
+  },
+  "(1.55, 1.7]": {
+   "n": 2760,
+   "cae": 0.5815,
+   "roi": -0.0519
+  },
+  "(1.7, 1.85]": {
+   "n": 3124,
+   "cae": 0.541,
+   "roi": -0.0364
+  },
+  "(1.85, 2.1]": {
+   "n": 4871,
+   "cae": 0.482,
+   "roi": -0.0516
+  },
+  "(2.1, 9.0]": {
+   "n": 4393,
+   "cae": 0.4036,
+   "roi": -0.0571
+  }
+ },
+ "over15_calibracion": {
+  "(0.0, 0.55]": {
+   "n": 5602,
+   "modelo": 0.4597,
+   "cae": 0.6749
+  },
+  "(0.55, 0.6]": {
+   "n": 3267,
+   "modelo": 0.5769,
+   "cae": 0.6927
+  },
+  "(0.6, 0.65]": {
+   "n": 4628,
+   "modelo": 0.6262,
+   "cae": 0.6927
+  },
+  "(0.65, 0.7]": {
+   "n": 6041,
+   "modelo": 0.6758,
+   "cae": 0.7149
+  },
+  "(0.7, 0.75]": {
+   "n": 6989,
+   "modelo": 0.7253,
+   "cae": 0.732
+  },
+  "(0.75, 0.8]": {
+   "n": 7613,
+   "modelo": 0.7749,
+   "cae": 0.7407
+  },
+  "(0.8, 0.85]": {
+   "n": 6827,
+   "modelo": 0.8243,
+   "cae": 0.7649
+  },
+  "(0.85, 1.01]": {
+   "n": 6827,
+   "modelo": 0.8881,
+   "cae": 0.8005
+  }
+ },
+ "roi_pata_over25": -0.0488,
+ "proyeccion": {
+  "4": {
+   "sin_boost": -0.1814,
+   "boost_x2": 0.6373
+  },
+  "6": {
+   "sin_boost": -0.2593,
+   "boost_x2": 0.4814
+  },
+  "8": {
+   "sin_boost": -0.3298,
+   "boost_x2": 0.3404
+  },
+  "10": {
+   "sin_boost": -0.3936,
+   "boost_x2": 0.2127
+  },
+  "13": {
+   "sin_boost": -0.4781,
+   "boost_x2": 0.0437
+  }
+ },
+ "conclusion": "«Más de 2,5» es negativo en TODOS los tramos de cuota (-3,6 % a -5,7 %, n=17.532): no hay precio al que sea valor. La calibración de «Más de 1,5» es una regresión a la media —el modelo se queda corto por debajo del 70 % y se pasa por encima del 80 %—, no una ventaja. Lo que hace rentable el boleto es EL BOOST: con e=-4,5 %, un x2 da +10,2 % a 13 patas y +66,5 % a 4. Si el +100 % se consigue con pocas patas, pocas patas es estrictamente mejor."
+}

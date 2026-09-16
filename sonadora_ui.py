@@ -165,17 +165,33 @@ def render(st, r: Dict, dia: Optional[str] = None,
         return
     if casa not in sm.CASAS_CON_FUENTE:
         st.warning(
-            f'**{casa} todavía no tiene fuente de precios.** Se sondearon '
-            f'todas las puertas que usa el proyecto: el comparador de '
-            f'Flashscore —por donde entra Novibet— no la nombra; Altenar —por '
-            f'donde entra Playdoit— responde 400 a las cinco integraciones '
-            f'probadas; su web es una página de marketing con protección '
-            f'anti-bot y su API contesta «no encontrado» en todas las rutas. '
-            f'Está en la lista para que el día que aparezca una puerta no haya '
-            f'que tocar nada. Mientras tanto, elige Novibet o Playdoit.')
+            f'**{casa} no publica sus cuotas fuera de su app.** Re-sondeado el '
+            f'2026-09-16: su web ya responde 200 —antes daba 403— pero es una '
+            f'página de Webflow de marketing, y `/bets` sólo ofrece descargar '
+            f'la aplicación. `api.draftea.com` contesta «Not Found» en la raíz '
+            f'y 404 en las veinte rutas probadas. El comparador de Flashscore '
+            f'—por donde entra Novibet— no la nombra, y Altenar —por donde '
+            f'entra Playdoit— responde 400. Sus precios viven dentro de la app '
+            f'móvil. Mientras tanto, elige Playdoit, que es la que tiene el '
+            f'tablero completo de goles.')
         return
     con_rojas = st.checkbox('Mostrar patas de alto riesgo (🔴)',
                             key='son_rojas')
+
+    # --- LA RÉPLICA DEL BOLETO QUE EL USUARIO GANÓ -------------------------
+    #
+    # Leído pata a pata de su boleto de 13 (46 → 22.544,60): DIEZ de goles
+    # totales —cinco «Más de 2,5» y cinco «Más de 1,5»— y TRES «Gana X», todas
+    # entre 1,35 y 1,79. Ni una de córners, ni de tarjetas, ni de remates, ni
+    # de hándicap, y ninguna «Menos de».
+    #
+    # La sección le ofrecía justo lo contrario: encabezaba con «Menos de 9,5
+    # remates a puerta». Esta casilla deja el montón en lo que él combina.
+    patron = st.checkbox(
+        '🎯 Sólo el patrón de mi boleto ganador', key='son_patron',
+        help='Goles totales «Más de» y «Gana X», con cuota entre 1,35 y '
+             '1,80 — que es de lo que estaban hechas las 13 patas que '
+             'ganaron. Nada de córners, tarjetas, remates ni hándicap.')
 
     # --- LA CAPA DE RIESGO, QUE ORDENA SIEMPRE Y BLOQUEA SI SE LE PIDE ------
     #
@@ -323,6 +339,22 @@ def render(st, r: Dict, dia: Optional[str] = None,
             sm.olvidar_parlays()
             st.rerun()
 
+    if patron:
+        _antes = len(patas)
+        _pat = sm.filtrar_patron(patas)
+        if _pat:
+            patas = _pat
+            st.success(
+                f'🎯 **{len(patas)} patas del patrón** de tu boleto ganador, '
+                f'de {len({q["partido"] for q in patas})} partidos distintos '
+                f'(de {_antes} en total): sólo goles «Más de» y «Gana X», '
+                f'entre {sm.CUOTA_PATRON[0]:.2f} y {sm.CUOTA_PATRON[1]:.2f}.')
+        else:
+            st.warning(
+                '🎯 Hoy no hay ninguna pata del patrón (goles «Más de» o '
+                '«Gana X» entre 1,35 y 1,80) con esta casa y estos días. Se '
+                'muestra la lista completa.')
+
     perms = sm.permutaciones(patas, n_patas, bloqueados=comprometidos)
     if not perms:
         st.info(
@@ -377,6 +409,40 @@ def render(st, r: Dict, dia: Optional[str] = None,
             if st.button(f"Usar {p['nombre']}", key=f"son_usar_{p['letra']}"):
                 st.session_state['son_elegidas'] = [q['id'] for q in p['patas']]
                 st.rerun()
+
+    # --- LA ESCALERA: EL MISMO MONTÓN EN TODOS LOS TAMAÑOS ----------------
+    #
+    # «Todas las permutaciones posibles con las diferentes cantidades de
+    # patas». Lo que no se hace es listar las combinaciones de verdad: con 18
+    # patas y 13 huecos son 8.568 boletos, y con 40 patas y 8 huecos son 76
+    # millones. Ninguna de esas listas se lee ni se elige. Las cinco recetas
+    # son cada una la ÓPTIMA de su criterio, que es lo que uno buscaría a mano
+    # entre esos ocho mil.
+    with st.expander('📐 El mismo montón, en todos los tamaños'):
+        esc = sm.escalera_de_parlays(patas, bloqueados=comprometidos)
+        if not esc:
+            st.caption('Hoy no hay partidos suficientes para armar la '
+                       'escalera.')
+        else:
+            filas = []
+            for n in sorted({x['n_pedidas'] for x in esc}):
+                delg = [x for x in esc if x['n_pedidas'] == n]
+                seguro = max(delg, key=lambda x: x['prob_producto'])
+                premio = max(delg, key=lambda x: x['multiplicador'])
+                filas.append({
+                    'Patas': n,
+                    'Variantes': len(delg),
+                    'Más probable': f"{seguro['multiplicador']:.2f}x  "
+                                    f"({_pct(seguro['prob_producto'], 2)})",
+                    'Mayor premio': f"{premio['multiplicador']:.2f}x  "
+                                    f"({_pct(premio['prob_producto'], 2)})",
+                })
+            st.dataframe(filas, width='stretch', hide_index=True)
+            st.caption(
+                'La probabilidad es el producto de las del modelo y supone '
+                'independencia: los partidos del mismo día se parecen más de '
+                'lo que dice esa cuenta. El boleto que ganaste tenía una '
+                'probabilidad implícita del 0,41 %.')
 
     # ------------------------------------------------------------------ #
     # 4. Elección manual

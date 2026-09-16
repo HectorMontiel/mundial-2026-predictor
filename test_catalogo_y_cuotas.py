@@ -15461,6 +15461,176 @@ def test_los_fixtures_sobreviven_a_que_espn_rechace_el_rango():
           'devolvía 400 en las 62 competiciones')
 
 
+def _patas_variadas(sm):
+    """Un montón con lo que la Soñadora ofrece de verdad: goles, córners,
+    tarjetas, remates, hándicap y ganador."""
+    crudo = [
+        ('Goles', 'Más de 2.5', 1.65),
+        ('Goles', 'Más de 1.5', 1.40),
+        ('Goles', 'Más de 3.5', 2.90),      # fuera de banda por arriba
+        ('Goles', 'Menos de 4.5', 1.12),    # «Menos de»: no es el patrón
+        ('Goles', 'Menos de 2.5', 1.50),    # en banda pero «Menos de»
+        ('1X2', 'Gana Local FC', 1.55),
+        ('Ganador', 'Gana Visita CF', 1.45),
+        ('1X2', 'Gana Otro FC', 1.20),      # fuera de banda por abajo
+        ('Córners', 'Más de 9.5', 1.60),    # en banda pero no es goles
+        ('Tarjetas', 'Más de 4.5', 1.50),
+        ('Remates a puerta de X', 'Menos de 9.5', 1.55),
+        ('Hándicap', 'Local FC -0.5', 1.70),
+        ('Doble oportunidad', 'Local FC o empate', 1.38),
+        ('BTTS', 'Ambos marcan: Sí', 1.62),
+    ]
+    fuera = []
+    for i, (cat, etq, cuota) in enumerate(crudo):
+        p = 0.80 - i * 0.008
+        fuera.append({
+            'id': f'p{i}', 'deporte': 'Fútbol',
+            'partido': f'Equipo{i} vs Rival{i}', 'liga': f'l{i % 4}',
+            'clave_liga': f'l{i % 4}', 'hora': '12:00', 'categoria': cat,
+            'etiqueta': etq, 'prob': p, 'prob_ajustada': p, 'cuota': cuota,
+            'casa': 'Playdoit', 'ece': None, 'medido': False,
+            'nivel_riesgo': 'media', 'color': sm.color(p), 'score': p * cuota})
+    return fuera
+
+
+def test_el_patron_del_boleto_ganador_deja_fuera_lo_que_no_era():
+    """
+    EL BOLETO QUE EL USUARIO GANÓ, leído pata a pata: 13 patas, 46 pesos,
+    245,05x que el boost dejó en 490,10x → 22.544,60.
+
+        10 de 13 GOLES TOTALES   cinco «Más de 2,5» y cinco «Más de 1,5»
+         3 de 13 «Gana X»        las tres con Pago Anticipado
+        cuotas 1,35 a 1,79       media 1,532 · mediana 1,50
+
+    Ni una de córners, ni de tarjetas, ni de remates, ni de hándicap. Y
+    ninguna «Menos de»: las diez eran «Más de». La sección le ofrecía justo lo
+    contrario —encabezaba con «Menos de 9,5 remates a puerta»—, así que este
+    filtro existe para dejar el montón en lo que él combina.
+    """
+    import sonadora_motor as sm
+
+    patas = _patas_variadas(sm)
+    pat = sm.filtrar_patron(patas)
+    etiquetas = sorted(q['etiqueta'] for q in pat)
+    check(len(pat) == 4,
+          f'de las 14 patas variadas quedan las 4 del patrón ({etiquetas})')
+    check(all(q['categoria'] in sm.CATEGORIAS_PATRON for q in pat),
+          f'sólo goles y ganador '
+          f'({sorted({q["categoria"] for q in pat})})')
+    check(not any('Menos de' in q['etiqueta'] for q in pat),
+          'ninguna «Menos de»: el boleto ganador no tenía ni una')
+    check(not any(q['categoria'] in ('Córners', 'Tarjetas', 'Hándicap',
+                                     'BTTS', 'Doble oportunidad')
+                  for q in pat),
+          'ni córners, ni tarjetas, ni hándicap, ni ambos marcan, ni doble')
+    cuotas = [q['cuota'] for q in pat]
+    check(all(1.35 <= c <= 1.80 for c in cuotas),
+          f'todas en la banda del boleto ({cuotas})')
+    check(sm.CUOTA_PATRON == (1.35, 1.80),
+          f'la banda es la del boleto, 1,35-1,80 ({sm.CUOTA_PATRON})')
+
+    # las dos de goles que quedan son las «Más de» en banda
+    goles = [q for q in pat if q['categoria'] == 'Goles']
+    check(sorted(q['etiqueta'] for q in goles)
+          == ['Más de 1.5', 'Más de 2.5'],
+          f'quedan las dos líneas que el boleto usaba '
+          f'({sorted(q["etiqueta"] for q in goles)})')
+
+    check(sm.filtrar_patron([]) == [],
+          'un montón vacío no revienta ni inventa patas')
+
+
+def test_la_escalera_da_el_mismo_monton_en_todos_los_tamanos():
+    """
+    «Todas las permutaciones posibles con las diferentes cantidades de patas».
+    Lo que NO se hace es listar las combinaciones de verdad: con 18 patas y 13
+    huecos son 8.568 boletos y con 40 patas y 8 huecos son 76 millones.
+    Ninguna de esas listas se lee ni se elige de ella.
+    """
+    import sonadora_motor as sm
+
+    # doce partidos distintos, para que quepan los tamaños de hasta 10
+    patas = []
+    for i in range(12):
+        p = 0.82 - i * 0.01
+        patas.append({
+            'id': f'g{i}', 'deporte': 'Fútbol',
+            'partido': f'Equipo{i} vs Rival{i}', 'liga': f'l{i % 5}',
+            'clave_liga': f'l{i % 5}', 'hora': '12:00', 'categoria': 'Goles',
+            'etiqueta': 'Más de 1.5' if i % 2 else 'Más de 2.5',
+            'prob': p, 'prob_ajustada': p, 'cuota': 1.40 + i * 0.02,
+            'casa': 'Playdoit', 'ece': None, 'medido': False,
+            'nivel_riesgo': 'media', 'color': sm.color(p),
+            'score': p * (1.40 + i * 0.02)})
+
+    esc = sm.escalera_de_parlays(patas)
+    tamanos = sorted({p['n_pedidas'] for p in esc})
+    check(tamanos == [4, 6, 8, 10],
+          f'salen los tamaños que caben en 12 partidos, y 13 no ({tamanos})')
+    check(all(p['n_patas'] == p['n_pedidas'] for p in esc),
+          'cada boleto tiene exactamente las patas que declara')
+    for p in esc:
+        check(len({q['partido'] for q in p['patas']}) == p['n_patas'],
+              f"el boleto de {p['n_pedidas']} no repite partido")
+
+    # con menos partidos que el tamaño más pequeño, no se inventa nada
+    check(sm.escalera_de_parlays(patas[:3]) == [],
+          'con tres partidos no sale ninguna escalera en vez de un boleto '
+          'a medias')
+    check(sm.escalera_de_parlays([]) == [],
+          'y sin patas tampoco')
+
+    # los tamaños se pueden pedir a medida
+    solo8 = sm.escalera_de_parlays(patas, tamanos=(8,))
+    check(solo8 and {p['n_pedidas'] for p in solo8} == {8},
+          f'se puede pedir un tamaño concreto ({ {p["n_pedidas"] for p in solo8} })')
+
+
+def test_la_sonadora_puede_reproducir_un_boleto_de_trece():
+    """
+    El usuario pidió las trece patas y no es un capricho: es el tamaño del
+    boleto que ganó. Con quince partidos distintos del patrón tiene que salir,
+    y con menos NO tiene que salir a medias — una pata por partido es la regla
+    que evita combinar sucesos correlacionados.
+    """
+    import sonadora_motor as sm
+
+    def _monton(n_partidos):
+        # DOS PATAS POR PARTIDO a propósito: con una sola, el guardia que
+        # impide repetir encuentro nunca se ejercita y un mutante que lo
+        # quitaba dejaba el test en verde. Con dos líneas de goles por
+        # partido, si el guardia falla el boleto sale con el mismo encuentro
+        # dos veces — que es lo que la casa no paga como dos apuestas.
+        fuera = []
+        for i in range(n_partidos):
+            for j, etq in enumerate(('Más de 1.5', 'Más de 2.5')):
+                p = 0.78 - (i % 7) * 0.01 - j * 0.005
+                fuera.append({
+                    'id': f'x{i}_{j}', 'deporte': 'Fútbol',
+                    'partido': f'Casa{i} vs Fuera{i}', 'liga': f'l{i % 6}',
+                    'clave_liga': f'l{i % 6}', 'hora': '12:00',
+                    'categoria': 'Goles', 'etiqueta': etq,
+                    'prob': p, 'prob_ajustada': p,
+                    'cuota': 1.45 + (i % 5) * 0.05 + j * 0.01,
+                    'casa': 'Playdoit', 'ece': None, 'medido': False,
+                    'nivel_riesgo': 'media', 'color': sm.color(p),
+                    'score': p * 1.5})
+        return fuera
+
+    trece = sm.permutaciones(_monton(15), 13)
+    check(bool(trece), 'con quince partidos salen boletos de trece patas')
+    for p in trece:
+        check(p['n_patas'] == 13,
+              f"y son de trece de verdad ({p['n_patas']})")
+        check(len({q['partido'] for q in p['patas']}) == 13,
+              'con trece partidos distintos, uno por pata')
+
+    doce = sm.permutaciones(_monton(12), 13)
+    check(doce == [],
+          'con doce partidos NO se arma un boleto de trece a medias: la casa '
+          'no paga dos patas del mismo encuentro como si fueran dos apuestas')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -15804,6 +15974,11 @@ if __name__ == '__main__':
 
     print(chr(10) + '=== v206: ESPN dejo de aceptar rangos de fechas ===')
     test_los_fixtures_sobreviven_a_que_espn_rechace_el_rango()
+
+    print(chr(10) + '=== v207: el patron del boleto ganador ===')
+    test_el_patron_del_boleto_ganador_deja_fuera_lo_que_no_era()
+    test_la_escalera_da_el_mismo_monton_en_todos_los_tamanos()
+    test_la_sonadora_puede_reproducir_un_boleto_de_trece()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
