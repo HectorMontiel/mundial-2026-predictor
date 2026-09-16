@@ -192,3 +192,14 @@ _v163_cache_jugadores/
 # genera el workflow nocturno) porque es la única forma de que el registro
 # sobreviva al reinicio del contenedor de Streamlit Cloud.
 preferencias_usuario.json
+
+# v202 — el registro de boletos que el usuario da por vivos (`parlays_activos
+# .json`). Es estado de UNA persona: sirve para que un partido no entre en dos
+# combinadas a la vez, y committearlo impondria a todo el mundo los boletos del
+# ultimo que tocara la pantalla. Mismo criterio que preferencias_usuario.json.
+#
+# CONSECUENCIA QUE HAY QUE SABER: en Streamlit Cloud el fichero vive en el
+# contenedor, asi que el registro se pierde cuando la app se reinicia. Es el
+# precio de no versionar estado personal, y es el correcto: un registro que
+# sobrevive al reinicio pero es de otro usuario seria peor que no tenerlo.
+parlays_activos.json

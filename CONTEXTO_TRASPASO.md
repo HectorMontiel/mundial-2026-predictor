@@ -5598,3 +5598,270 @@ de 20 partidos: 12 verdes, 11 ámbar.
    el barrido no publica la probabilidad de hándicap del partido. El histórico
    sí la tiene (`pick_ledger_handicap`), así que es medible.
 3. **Draftea**, cuando aparezca una puerta.
+
+## 6m. v202 — EL ÍNDICE DE RIESGO QUE PEDÍA EL ENCARGO NO PODÍA DISPARAR NUNCA
+
+El encargo traía cinco filtros de gestión de riesgo y una regla de despliegue
+—medir antes, y no desplegar si no pasa el listón—. Se midieron los cinco. Dos
+resultaron imposibles tal como venían escritos, uno no tiene fuente, otro no
+puede hacer lo que se le pedía por aritmética, y el que sí tenía señal la tenía
+en un sitio distinto del que el encargo suponía.
+
+### 1. El IVL: una fórmula condenada a no disparar
+
+Se pedía `IVL = desviación_goles / media_goles` con tres tramos: alta varianza
+por encima de 1,5 · media entre 1,2 y 1,5 · baja por debajo. Medido sobre las
+**69 competiciones de fútbol con histórico** (tres años):
+
+```
+IVL   mínimo 0,5408    mediana 0,6082    máximo 0,7237
+competiciones por encima de 1,2 .......... 0
+competiciones por encima de 1,5 .......... 0
+```
+
+Con esos cortes las 69 salen «varianza baja» y **el filtro no bloquea nada
+nunca**. Y no es que el umbral esté un poco alto: la fórmula no puede dar eso.
+El total de goles de un partido se parece a una Poisson, y en una Poisson el
+coeficiente de variación vale `1/√media`. Con medias de 1,8 a 3,3 goles, el IVL
+está condenado al rango 0,55-0,74.
+
+Es la **tercera vez** que este proyecto se encuentra un umbral absoluto puesto
+sobre un número cuya escala nadie midió: la v199 con «ECE < 0,05» (cero patas
+verdes) y la v200 con lo mismo en `prob_ajustada`. El patrón está claro y la
+respuesta ya la tenía el proyecto: **cuartiles de la distribución observada**,
+que por construcción siempre marcan a un cuarto.
+
+### 2. Y además el IVL no mide caos, mide cuántos goles se marcan
+
+Ordena las ligas por `1/√media`, así que la «más volátil» del mundo es
+simplemente la que menos goles mete: Primera Nacional argentina, 1,84 de media,
+IVL 0,724. Que coincida con la lista de sospechosas del encargo —sudamericanas
+y de ascenso— es real, pero es una coincidencia: esas ligas marcan menos goles,
+no son más impredecibles.
+
+La comprobación que lo zanja, cruzando cada índice con el **ROI real de una
+pata** en esa competición (ledger con cuota de cierre y resultado, 34
+competiciones, 14.647 patas):
+
+```
+IVL        vs ROI   Pearson −0,031   Spearman −0,113
+           peor cuartil de IVL −4,65 %  ·  mejor cuartil −3,69 %
+
+ECE medio  vs ROI   Pearson −0,460   Spearman −0,563
+           peor cuartil de ECE −6,20 %  ·  mejor cuartil −1,01 %
+```
+
+El IVL separa un punto y el peor cuartil incluye **LaLiga** mientras el mejor
+incluye la **Eredivisie**. El error de calibración separa 5,19 puntos y va en
+la dirección correcta. Así que el nivel de riesgo lo fija el ECE, y el IVL se
+publica como **descriptor** —«en esta liga se marcan pocos goles», que sí es
+información útil para una pata de Más de 2,5— con su correlación medida dentro
+del JSON para que nadie lo vuelva a proponer como puerta sin mirarla.
+
+### 3. Y la lista de sospechosas estaba, en parte, al revés
+
+El ECE por competición se mide sobre `pick_ledger_totales.csv` —47.794
+partidos, 55 competiciones— y **no necesita cuotas**, que es justo por lo que
+llega donde el ROI no llega: el ledger con precio cubre 34 competiciones
+europeas y asiáticas y deja fuera todas las sudamericanas.
+
+```
+PEOR CUARTO (riesgo alto)    Conference League 0,1429 · Libertadores 0,1407 ·
+                             AFC Champions 0,1390 · Sudamericana 0,1354 ·
+                             Champions 0,1210 · Europa League 0,1144
+INTERMEDIO                   Premier League 0,1119 · Colombia Primera A 0,1070
+MEJOR MITAD                  Brasileirão B 0,0936 · Argentina 0,0869 ·
+                             Primera Nacional 0,0761 · MLS 0,0603
+```
+
+Las tres competiciones que el encargo quería excluir por nombre —Brasileirão B,
+Liga BetPlay, Primera Nacional— están en la mitad mejor calibrada. Las que sí
+están en el peor cuarto son las **copas continentales**, sudamericanas y
+europeas, y la Premier League queda peor que el Championship. La intuición de
+«Europa top = seguro, sudamericano = caos» no la sostiene ninguna de las dos
+mediciones.
+
+### 4. El backtest: la señal es fuerte en la pata y no rescata el parlay
+
+`validar_riesgo.py` arma parlays sobre el histórico día a día —las reglas de
+`validar_sonadora`: patas del mismo día, una por partido, percentil 5
+remuestreando **jornadas** y no parlays— con y sin cada filtro. Ventana de 24
+meses, 16.428 patas, 51 competiciones.
+
+```
+UNA PATA, POR NIVEL DE RIESGO DE SU COMPETICIÓN
+   alta        n=  625   13 ligas   acierta 63,4 %   ROI −7,14 %
+   media       n= 5179   23 ligas   acierta 62,1 %   ROI −5,24 %
+   baja        n= 4542   12 ligas   acierta 64,7 %   ROI −1,53 %
+   sin medir   n= 6082    3 ligas   acierta 69,5 %   ROI −4,34 %
+```
+
+El índice separa **5,6 puntos por pata**, que es mucho. Pero al llevarlo al
+parlay:
+
+```
+política                      patas   ROI proyectado   Δ    reducción
+sin filtros (4 patas)         16428       −14,9 %     —        —
+fuera alto riesgo             15803       −14,4 %   +0,5     3,8 %
+máx 2 por competición         16428       −14,9 %    0,0     0,0 %
+máx 2 por mercado             16428       −14,9 %    0,0     0,0 %
+sólo riesgo bajo               4542        −6,0 %   +8,9    72,4 %
+```
+
+Tres resultados, y los tres importan:
+
+1. **Quitar el peor cuarto no hace nada** porque es el 3,8 % del catálogo.
+2. **Quedarse sólo con el mejor cuarto sí funciona** —de −14,9 % a −6,0 % en un
+   parlay de cuatro— pero se lleva el **72,4 %** de las patas, por encima del
+   tope del 60 % que el propio encargo puso para que un filtro no vacíe la
+   pantalla.
+3. **Los topes de exposición no mueven el ROI ni pueden moverlo.** Un parlay de
+   patas independientes rinde `(1+e)^N − 1`: cómo se repartan las patas entre
+   ligas y mercados no cambia la esperanza. Medido, 0,0 puntos. Lo que sí hacen
+   es quitar correlación, y por eso se aplican igual — pero vendidos por lo que
+   son: control de varianza, no de rendimiento.
+
+**El ROI simulado no decide, y no es para bajar el listón.** Su diferencia
+contra la base salta de −11,5 a +9,4 puntos entre tamaños de parlay sin signo
+estable, porque se arma sobre unas decenas de jornadas remuestreadas diez mil
+veces. Es exactamente la trampa que la v197 documentó. El que decide es el
+proyectado desde la pata suelta, que sí tiene observaciones independientes.
+
+### 5. Qué se desplegó, entonces
+
+Ningún bloqueo automático. El nivel de riesgo **ordena y se enseña**:
+
+- entra en el orden de las patas justo detrás del color y delante de «medido»,
+  porque es la señal más fuerte de las dos;
+- sale en cada pata de competición del peor cuarto y en el pie de cada
+  permutación;
+- y hay una casilla, **apagada por defecto**, «sólo competiciones de riesgo
+  bajo», con los dos números al lado: mejora de −14,9 % a −6,0 % y se lleva
+  tres cuartas partes del catálogo. Esa es una decisión del usuario, no del
+  programa. Si un día no hay ninguna pata de riesgo bajo, el filtro **se apaga
+  solo y lo dice**, en vez de dejar la pantalla en blanco.
+
+Es la misma decisión que la v175 tomó con «🔒 No recomendado»: la información
+no se pierde, deja de decidir por el usuario.
+
+### 6. El efecto rebote por entrenador: no hay fuente, y se dice
+
+Sondeado el 2026-09-15:
+
+```
+grep de coach/manager/entrenador en todo el repo ......... 0
+ESPN soccer scoreboard (esp.1) .......................... 0 campos
+ESPN soccer summary (evento completo, 430 KB) ........... 0 campos
+   claves: boxscore · broadcasts · commentary · format · gameInfo ·
+   hasOdds · header · keyEvents · lastFiveGames · leaders · meta · news ·
+   odds · pickcenter · rosters · seasonseries · standings
+```
+
+`rosters` trae jugadores, no cuerpo técnico. Así que la regla del encargo está
+**escrita, probada y apagada** en `filtro_contexto.py`: sus umbrales, su
+penalización de 0,15 y sus tres guardias existen, y el test los ejercita
+inyectando una fuente falsa —si sólo comprobara que está apagado, sería un test
+que no puede fallar—. `rebote_entrenador` viaja en la pata y en el pick y vale
+siempre `False`, con `medido: False`.
+
+Y algo que tampoco se puede afirmar todavía: **que el efecto rebote exista**.
+Es una creencia razonable que este proyecto no ha medido nunca. Cuando aparezca
+la fuente, lo primero no es encender la regla, es medir si el rebote existe y
+de qué tamaño — el 0,15 es un número puesto a mano.
+
+### 7. El tope de patas por boost va al revés de lo que pedía el encargo
+
+Se pedía: sin boost 13 patas · +20 % 8 · +50 % 6 · +80 % 5 · +100 % 4, con el
+argumento de que «cuanto mayor el boost, menos patas».
+
+La cuenta dice lo contrario y no es una opinión. Con boost `B` sobre el premio
+y `N` patas de ventaja `e`, el parlay rinde `B·(1+e)^N − 1`. **El boost es un
+factor constante: no interactúa con N.** Lo único que hace es dar margen para
+absorber la ventaja negativa de cada pata:
+
+```
+B·(1+e)^N ≥ 1   ⟺   N ≤ ln(B) / −ln(1+e)
+```
+
+Con la ventaja medida de una pata en este proyecto (`e = −3,95 %`):
+
+```
++20 %  →   4 patas          +80 %  →  14 patas
++50 %  →  10 patas          +100 % →  17 patas
+```
+
+Más boost aguanta **más** patas, no menos. Aplicar la tabla del encargo
+limitaría el boleto a cuatro patas con un boost del +100 %, que es justo cuando
+más patas se pueden pagar — y **habría bloqueado el parlay de trece patas que
+el usuario ganó**. Lo que sí cae en picado con N es la tasa de acierto, y eso
+pasa con boost y sin él: por eso la pantalla enseña las dos cosas y dice que el
+tope es de esperanza, no de acierto.
+
+### 8. Lo demás que se aplicó
+
+- **Un partido no entra en dos boletos vivos a la vez** (`parlays_activos
+  .json`, ignorado por git porque es estado de una persona). Es el caso de
+  Boyacá Chicó en dos parlays simultáneos: eso no es diversificar, es doblar la
+  apuesta al mismo resultado con la pantalla diciendo que son dos boletos.
+  **Consecuencia que hay que saber:** en Streamlit Cloud el fichero vive en el
+  contenedor, así que el registro se pierde al reiniciar la app.
+- **Los topes se levantan antes que no armar el parlay.** «Máximo 2 por
+  mercado» pone un techo duro de `2 × mercados distintos`: medido en el
+  backtest, con los tres mercados del histórico deja el parlay de 8 patas en
+  **cero parlays armados**, no en peores. Y «máximo 3 por deporte» haría
+  imposible cualquier parlay de más de tres patas de fútbol, que es lo que la
+  pantalla pide por defecto. Cuando un tope hace inalcanzable el número de
+  patas pedido, se levanta y se dice cuál.
+- **`clasificador.py` no se tocó**, y es deliberado: su semáforo gobierna las
+  apuestas simples del día, y el propio encargo pide que la capa de riesgo no
+  las contamine. Meterles un índice que no predice el ROI habría sido peor que
+  no meter nada.
+
+### 8b. Los cuatro boletos perdidos contra los filtros
+
+El encargo pedia que «al menos 3 de los 4 parlays fallidos» quedaran
+bloqueados. Contrastados los seis partidos contra el indice:
+
+```
+partido                      competicion        nivel    ECE      bloqueado
+Alaves - Valencia            laliga             baja    0,0772   NO
+Middlesbrough - Millwall     eng_championship   baja    0,0827   NO
+Nautico - Operario PR        bra_serie_b        media   0,0936   solo con el filtro
+Londrina - Ponte Preta       bra_serie_b        media   0,0936   solo con el filtro
+Boyaca Chico - Alianza       col_primera_a      media   0,1070   solo con el filtro
+Platense - Fluminense        libertadores       alta    0,1407   solo con el filtro
+```
+
+**Con la configuracion por defecto no se bloquea ninguno.** Con la casilla
+«solo riesgo bajo» marcada se bloquean cuatro de seis. Y los dos que NO caen en
+ningun caso son justo los dos que el encargo daba por mas claros:
+
+- **Alaves-Valencia** iba a bloquearlo el filtro anti-entrenador, que no tiene
+  fuente. LaLiga esta en el mejor cuarto por calibracion, asi que ningun otro
+  filtro la toca.
+- **Middlesbrough** iba a bloquearlo la bandera rojo de alta incertidumbre. El
+  Championship tambien esta en el mejor cuarto — y la bandera, medida, dispara
+  en 70 de 77 competiciones.
+
+Y lo que esta comprobacion **no** puede decir: si bloquearlos habria sido
+acertado. Los cuatro boletos no estan en el repositorio como dato —llegaron
+descritos en prosa— y esos partidos todavia no tienen resultado en el
+historico. Es una comprobacion de COMPORTAMIENTO del filtro, no una medicion de
+su acierto, y presentarla como lo segundo seria justo lo que este proyecto no
+hace.
+
+### 9. Lo que queda
+
+1. **`risk_flags.json` no existe**, así que `match_parlay._riesgo_partido`
+   devuelve `'bajo'` siempre desde que se escribió. Es código muerto que parece
+   vivo.
+2. **La bandera 🔴 «Alta incertidumbre» de `alpha_finder.etiqueta_fiabilidad`
+   dispara en 70 de 77 competiciones** (Brier ≥ 0,22, y el Brier de un binario
+   cerca del 50 % vale ~0,25 por construcción). Bloquear por ella —que es lo
+   que pedía la Parte 3 del encargo— habría vaciado el generador de
+   combinadas. El umbral necesita su propia tanda medida.
+3. **El ROI por competición sólo se puede medir en 34**, porque
+   `build_pick_ledger.adjuntar_cuotas` lee `odds_historico.db`, que está en
+   `.gitignore`. Los `historico_*.csv` traen las mismas cuotas con el mismo
+   `MATCH_ID`: cambiar la fuente devolvería el ROI de las sudamericanas, que es
+   justo donde este encargo no ha podido medir.

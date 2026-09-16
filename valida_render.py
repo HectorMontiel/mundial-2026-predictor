@@ -120,6 +120,11 @@ VISTAS = {
         'textos': [
             'Sección de entretenimiento',
             'Permutaciones generadas',
+            # v202 — la capa de riesgo por competición. Que el reparto de
+            # niveles se pinte es lo que distingue «el índice está cargado» de
+            # «el índice no se encontró y todo sale sin medir», y eso el AST no
+            # lo ve.
+            'Riesgo de la competición',
         ],
         # v198 — sólo quedan DOS controles. El rediseño quitó la
         # probabilidad mínima (fija al 55 %), la exigencia de calibración
@@ -130,6 +135,8 @@ VISTAS = {
             ('son_casa', 'selector de casa de apuestas'),
             ('son_deportes', 'selector de deportes'),
             ('son_rojas', 'interruptor de patas de alto riesgo'),
+            ('son_riesgo', 'filtro de competiciones de riesgo bajo'),
+            ('son_boost', 'selector de boost de la casa'),
             ('son_dia', 'selector de día'),
             ('son_elegidas', 'selector manual de patas'),
         ],

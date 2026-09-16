@@ -47,6 +47,9 @@ AVISO = ('ℹ️ Sección de entretenimiento. No es asesoramiento financiero ni 
 
 N_PATAS_OPCIONES = (4, 6, 8, 10, 13)
 
+# Los boosts que ofrecen las casas sobre el premio de una combinada.
+BOOSTS = (0.0, 0.20, 0.50, 0.80, 1.00)
+
 
 def _pct(x, dec=1) -> str:
     try:
@@ -83,10 +86,15 @@ _ALI = {'confirmada': '✅ alineación confirmada',
         'ultimo_once': '', 'desconocida': ''}
 
 
+_RIESGO = {'alta': '⚠️ competición del peor cuarto por calibración',
+           'baja': '', 'media': '', 'sin_medir': ''}
+
+
 def _linea_pata(q: Dict) -> str:
     cola = '' if q.get('medido') else '  ·  _sin calibración medida_'
     extra = [x for x in (_FLECHA.get(q.get('movimiento') or '', ''),
-                         _ALI.get(q.get('alineacion') or '', '')) if x]
+                         _ALI.get(q.get('alineacion') or '', ''),
+                         _RIESGO.get(q.get('nivel_riesgo') or '', '')) if x]
     pie = ('  \n     ' + ' · '.join(extra)) if extra else ''
     return (f"{_sello(q)} **{q['etiqueta']}** · {q['partido']} "
             f"— `{q['cuota']:.2f}` · modelo {_pct(q['prob'], 0)} "
@@ -151,6 +159,54 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     con_rojas = st.checkbox('Mostrar patas de alto riesgo (🔴)',
                             key='son_rojas')
 
+    # --- LA CAPA DE RIESGO, QUE ORDENA SIEMPRE Y BLOQUEA SI SE LE PIDE ------
+    #
+    # El filtro no viene encendido y el motivo está medido: quedarse sólo con
+    # las competiciones mejor calibradas sube el rendimiento proyectado de un
+    # parlay de cuatro de −14,9 % a −6,0 %, pero se lleva el 72 % del
+    # catálogo. Eso es una decisión del usuario, no del programa, así que la
+    # casilla lleva los dos números al lado.
+    solo_bajo = st.checkbox(
+        'Sólo competiciones de riesgo bajo',
+        key='son_riesgo',
+        help='El nivel sale del error de calibración del modelo en cada '
+             'competición, medido sobre 47.794 partidos. Marcarlo mejora el '
+             'rendimiento proyectado de un parlay de 4 patas de −14,9 % a '
+             '−6,0 %, y deja fuera unas tres cuartas partes de las patas del '
+             'día. Sin marcar, las competiciones de riesgo alto siguen '
+             'saliendo pero las últimas.')
+
+    # EL BOOST, Y POR QUE EL TOPE VA AL REVES DE LO QUE PARECE. El boost es un
+    # factor constante sobre el premio: no interactua con el numero de patas.
+    # Lo unico que hace es dar margen para absorber la ventaja negativa de cada
+    # pata, asi que cuanto MAS boost, MAS patas aguanta el boleto — no menos.
+    boost = st.selectbox(
+        'Boost de la casa', BOOSTS, index=0, key='son_boost',
+        format_func=lambda b: ('Sin boost' if not b else f'+{int(b*100)} %'),
+        help='Si tu casa te da un porcentaje extra sobre el premio de la '
+             'combinada, ponlo aquí y se calcula hasta cuántas patas lo '
+             'aguanta.')
+    lim = sm.limite_por_boost(boost)
+    if lim.get('medido'):
+        if not boost:
+            st.caption(
+                f"ℹ️ Con la ventaja medida de una pata ({_pct(lim['roi_pata'], 2)}"
+                f") **ninguna cantidad de patas tiene esperanza positiva sin "
+                f"boost**. Un parlay de N patas rinde (1+e)^N − 1: combinar "
+                f"multiplica el rendimiento de las patas, no lo mejora.")
+        else:
+            st.caption(
+                f"ℹ️ {lim['motivo'].capitalize()}. Por encima de "
+                f"**{lim['max_patas']} patas** el boost ya no compensa lo que "
+                f"pierde cada pata. Ojo: el tope es de *esperanza*, no de "
+                f"acierto — la probabilidad de acertar baja con cada pata que "
+                f"añades, con boost y sin él.")
+            if n_patas > lim['max_patas']:
+                st.warning(
+                    f"⚠️ Con un boost del {int(boost*100)} % se recomienda un "
+                    f"máximo de {lim['max_patas']} patas; has pedido "
+                    f"{n_patas}.")
+
     # ------------------------------------------------------------------ #
     # 2. Las patas del día
     # ------------------------------------------------------------------ #
@@ -165,16 +221,16 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     # invalida la lista sola. `_r` con guion bajo le dice a Streamlit que no
     # intente hashear el diccionario del barrido, que es enorme.
     @st.cache_data(ttl=900, show_spinner=False)
-    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_):
+    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_, riesgo_):
         return sm.patas_del_dia(_r, dia_, cuota_min=lo, cuota_max=hi,
                                 deportes=list(deps), con_rojas=rojas,
-                                casa=casa_)
+                                casa=casa_, solo_riesgo_bajo=riesgo_)
 
     with st.spinner(f'Leyendo los precios de {casa}…'):
         try:
             res = _patas(r, str(r.get('actualizado') or ''), dia,
                          cuota_min, cuota_max, tuple(sorted(deportes)),
-                         con_rojas, casa)
+                         con_rojas, casa, solo_bajo)
         except Exception as e:
             st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
             return
@@ -212,6 +268,19 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
         f"puede bajarlo. {res.get('n_medidas', 0)} de estas patas tienen error "
         f"de calibración medido — al resto se le encoge la probabilidad un "
         f"15 % al puntuar, y se dice en cada línea.")
+    cr = res.get('conteo_riesgo') or {}
+    st.caption(
+        f"**Riesgo de la competición** (error de calibración del modelo, "
+        f"medido sobre 47.794 partidos): {cr.get('baja', 0)} patas de "
+        f"competición bien calibrada · {cr.get('media', 0)} intermedia · "
+        f"{cr.get('alta', 0)} del peor cuarto · {cr.get('sin_medir', 0)} sin "
+        f"medir. En el histórico una pata del peor cuarto rinde −7,14 % y una "
+        f"del mejor −1,53 %, así que las de riesgo alto salen las últimas.")
+    if res.get('riesgo_apagado'):
+        st.warning(
+            '⚠️ Hoy no hay ninguna pata de competición de riesgo bajo con '
+            'esta casa y estos deportes, así que el filtro se ha desactivado '
+            'solo: lo que ves es la lista completa.')
     if res.get('solidez') == 'debil':
         st.warning('⚠️ Pocas patas verdes hoy con esta configuración. '
                    'Considera ampliar el rango de cuota o marcar más '
@@ -224,7 +293,24 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
     # 3. Permutaciones
     # ------------------------------------------------------------------ #
     st.subheader('🎯 Permutaciones generadas')
-    perms = sm.permutaciones(patas, n_patas)
+
+    # LOS PARTIDOS QUE YA ESTAN EN OTRO BOLETO VIVO NO SE REPITEN. El caso lo
+    # trajo el usuario: Boyacá Chicó en dos parlays a la vez, que no es
+    # diversificar sino doblar la apuesta al mismo resultado con la pantalla
+    # diciendo que son dos boletos distintos.
+    comprometidos = sm.partidos_comprometidos(dia=dia)
+    if comprometidos:
+        cols = st.columns([3, 1])
+        cols[0].caption(
+            f"🔒 {len(comprometidos)} partido(s) ya están en un boleto que "
+            f"diste por jugado hoy, así que no vuelven a entrar: "
+            f"{', '.join(sorted(comprometidos)[:3])}"
+            + ('…' if len(comprometidos) > 3 else ''))
+        if cols[1].button('Vaciar registro', key='son_vaciar'):
+            sm.olvidar_parlays()
+            st.rerun()
+
+    perms = sm.permutaciones(patas, n_patas, bloqueados=comprometidos)
     if not perms:
         st.info(
             f'Hoy no hay {n_patas} partidos distintos con pata disponible '
@@ -249,11 +335,29 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
                    ' + '.join(p.get('deportes') or [])]
             if p.get('n_sin_medir'):
                 pie.append(f"{p['n_sin_medir']} patas sin calibración medida")
+            _ex = p.get('exposicion') or {}
+            if _ex.get('max_por_liga', 0) > 1:
+                pie.append(f"máximo {_ex['max_por_liga']} patas de "
+                           f"{_ex.get('liga_mas_repetida')}")
+            _cr = p.get('conteo_riesgo') or {}
+            if _cr.get('alta'):
+                pie.append(f"⚠️ {_cr['alta']} de competición de riesgo alto")
             roi = p.get('roi_esperado_medido')
             if roi is not None:
                 pie.append(f"rendimiento histórico de esta longitud: "
                            f"{_pct(roi)}")
             st.caption(' · '.join(pie))
+            if p.get('rojas_forzadas'):
+                st.caption(
+                    f"⚠️ Hoy no hay {n_patas} partidos con pata que no sea de "
+                    f"alto riesgo, así que esta combinada lleva alguna 🔴. "
+                    f"Normalmente las combinadas se arman sin ellas.")
+            if p.get('topes_levantados'):
+                st.caption(
+                    f"⚙️ Para llegar a {n_patas} patas hubo que levantar el "
+                    f"tope por {', '.join(p['topes_levantados'])}: hoy no hay "
+                    f"variedad suficiente para respetarlo. El boleto está más "
+                    f"concentrado de lo que la sección recomienda.")
             if st.button(f"Usar {p['nombre']}", key=f"son_usar_{p['letra']}"):
                 st.session_state['son_elegidas'] = [q['id'] for q in p['patas']]
                 st.rerun()
@@ -330,12 +434,26 @@ def render(st, r: Dict, dia: Optional[str] = None) -> None:
 
     entendido = st.checkbox('Entiendo que este parlay tiene un alto riesgo.',
                             key='son_entendido')
+    ex = parlay.get('exposicion') or {}
+    if not ex.get('respeta_topes', True):
+        st.warning(
+            f"⚠️ Concentración alta: {ex.get('max_por_liga')} patas de "
+            f"{ex.get('liga_mas_repetida')} y {ex.get('max_por_mercado')} del "
+            f"mercado «{ex.get('mercado_mas_repetido')}». No baja el "
+            f"rendimiento esperado —eso sólo depende de las patas— pero sí "
+            f"sube el riesgo de que falle todo a la vez, porque los partidos "
+            f"de una misma liga y una misma jornada fallan juntos.")
+
     if st.button('🎲 Confirmar parlay', key='son_confirmar', type='primary',
                  disabled=not entendido):
         st.success(f'Listo. Móntalo en {casa}: esta pantalla no apuesta por '
                    f'ti ni manda nada a ningún sitio.')
         st.code('\n'.join(f"{q['partido']} — {q['etiqueta']} @ {q['cuota']:.2f}"
                           for q in parlay['patas']), language=None)
+        sm.registrar_parlay(parlay, dia)
+        st.caption(
+            'Apuntado como boleto vivo de hoy: sus partidos no volverán a '
+            'salir en otra combinada hasta que vacíes el registro.')
 
     # ------------------------------------------------------------------ #
     # 6. Lo medido, para quien quiera mirarlo

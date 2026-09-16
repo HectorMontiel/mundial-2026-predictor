@@ -111,6 +111,16 @@ jobs:
       - name: Ranking de estabilidad por mercado
         run: python mercado_estabilidad.py || echo "::warning::ranking de estabilidad con avisos"
 
+      # v202 — EL ÍNDICE DE RIESGO POR COMPETICIÓN, AQUÍ Y NO EN EL DIARIO.
+      #
+      # Cuelga de `pick_ledger_totales.csv`, que es justo lo que el paso de
+      # recalibración acaba de reconstruir: generarlo en el workflow diario
+      # sería medir el error de calibración contra un ledger de la semana
+      # pasada, que es el mismo fallo que la v189 arregló con el ranking de
+      # estabilidad. Va detrás por la misma razón y no por costumbre.
+      - name: Índice de riesgo por competición
+        run: python riesgo_liga.py || echo "::warning::índice de riesgo con avisos"
+
       - name: Publicar el estado de la recalibración
         run: |
           python - <<'PY'
@@ -183,6 +193,11 @@ jobs:
           # anadido nada. Si falla, que se vea.
           git add -A mercado_estable_por_liga.json || echo "::warning::git add del ranking de estabilidad fallo"
           git add -A _v162_calibracion_por_liga.json || echo "::warning::git add de la calibracion por liga fallo"
+          # v202 — el indice de riesgo por competicion, que sale del ledger de
+          # totales reconstruido arriba. Sin commitearlo, la app desplegada
+          # ordena las patas con el indice del dia en que alguien lo genero a
+          # mano, que es exactamente lo que le paso a umbrales_capa1.json.
+          git add -A indice_volatilidad_liga.json || echo "::warning::git add del indice de riesgo fallo"
           if git diff --cached --quiet; then
             echo "Las calibraciones no cambiaron esta semana."
           else

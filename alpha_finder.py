@@ -3786,6 +3786,32 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         p['dias_estado'] = dias
         p['antiguedad'] = indicador_antiguedad(dias)      # §5 semáforo
         p['pretemporada'] = bool(dias and dias > DIAS_ESTADO_OBSOLETO)
+        # v202 — EL RIESGO DE LA COMPETICION VIAJA EN EL PICK. `nivel_riesgo`
+        # sale del error de calibracion medido (la señal que separa 5,6 puntos
+        # de ROI entre el mejor y el peor cuarto) e `ivl_liga` es el indice de
+        # goles del encargo, que se publica como DESCRIPTOR porque medido
+        # contra el ROI real da Spearman -0,113. `rebote_entrenador` es False
+        # siempre: no hay fuente de cambios de entrenador en el pipeline y la
+        # regla esta escrita y apagada (`filtro_contexto`).
+        #
+        # Va dentro de try porque esto corre dentro del barrido, donde UNA
+        # EXCEPCION SE LLEVA LA RAMA ENTERA — ha pasado dos veces.
+        try:
+            import riesgo_liga as _rl
+            _f = _rl.ficha(clave)
+            p['nivel_riesgo'] = _rl.nivel_liga(clave)
+            p['ivl_liga'] = _f.get('ivl')
+        except Exception:
+            p['nivel_riesgo'] = 'sin_medir'
+            p['ivl_liga'] = None
+        try:
+            import filtro_contexto as _fc
+            p['rebote_entrenador'] = (False if not _fc.hay_fuente() else bool(
+                _fc.rebote_entrenador(p.get('home'), p.get('away'),
+                                      str(p.get('fecha') or ''))
+                .get('activo')))
+        except Exception:
+            p['rebote_entrenador'] = False
         if p['pretemporada']:
             p['nota'] = (f'⚠️ El modelo de esta liga no ve partidos desde hace '
                          f'{dias} días (pretemporada o estado sin refrescar) — '

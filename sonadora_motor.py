@@ -48,8 +48,10 @@ que la pantalla enseña primero.
 
 from __future__ import annotations
 
+import datetime as _dt
 import json
 import logging
+import math
 import os
 import re
 from typing import Dict, List, Optional, Tuple
@@ -111,6 +113,45 @@ DEPORTES_POR_DEFECTO = ('Fútbol',)
 # clave de Altenar por deporte, para pedir el tablero de Playdoit
 CLAVE_PDT = {'Fútbol': 'futbol', 'Tenis': 'tenis', 'MLB': 'mlb',
              'NBA': 'nba', 'NFL': 'nfl'}
+
+# --- LA CAPA DE RIESGO, Y POR QUE ORDENA EN VEZ DE BLOQUEAR -----------------
+#
+# `riesgo_liga` mide el nivel de cada competicion por su error de calibracion.
+# Medido sobre 16.428 patas del ledger con cuota de cierre real (24 meses):
+#
+#     competiciones de riesgo ALTO  ...  ROI de una pata  -7,14 %  (625 patas)
+#     competiciones de riesgo MEDIO ...                   -5,24 %
+#     competiciones de riesgo BAJO  ...                   -1,53 %
+#
+# La señal es fuerte y separa 5,6 puntos. LO QUE NO SALIO es que bloquear
+# mejore el parlay: quitar el cuarto peor mueve 625 patas de 16.428 y el ROI
+# proyectado sube 0,5 puntos. Y quedarse SOLO con el cuarto mejor si lo sube
+# —de -14,9 % a -6,0 % en un parlay de cuatro, +8,9 puntos— pero se lleva el
+# 72,4 % del catalogo, por encima del tope del 60 % que el propio encargo puso
+# para que un filtro no vacie la pantalla (`validar_riesgo.py`).
+#
+# Asi que el nivel ORDENA y se ENSEÑA, y bloquear es una casilla que el usuario
+# marca si quiere, con el numero medido al lado. Es la misma decision que el
+# proyecto ya tomo con «🔒 No recomendado» en la v175: la informacion no se
+# pierde, deja de decidir por el usuario.
+ORDEN_RIESGO = {'baja': 0, 'sin_medir': 1, 'media': 1, 'alta': 2}
+
+# Los topes de exposicion dentro de un parlay.
+#
+# NO MEJORAN EL ROI Y NO PUEDEN HACERLO: un parlay de patas independientes
+# rinde (1+e)^N - 1, asi que como se repartan las patas entre ligas y mercados
+# no cambia la esperanza. Medido: con el tope por liga el ROI proyectado se
+# mueve 0,0 puntos. Lo que si hacen es quitar CORRELACION —dos patas de la
+# misma jornada y la misma liga fallan juntas mucho mas a menudo de lo que el
+# producto de sus probabilidades dice— y por eso se aplican igual, pero
+# vendidos por lo que son: control de varianza, no de rendimiento.
+MAX_POR_LIGA = 2
+MAX_POR_MERCADO = 2
+MAX_POR_DEPORTE = 3
+
+# Registro de parlays vivos, para que un partido no entre en dos a la vez.
+ACTIVOS = 'parlays_activos.json'
+
 
 # --- EL SEMAFORO, Y POR QUE NO ES EL QUE PEDIA EL ENCARGO -------------------
 #
@@ -339,6 +380,39 @@ def _por_nombre(det: Dict) -> Dict[str, List[Dict]]:
     return fuera
 
 
+def _riesgo_de(clave_liga: str) -> Tuple[str, Optional[float]]:
+    """Nivel de riesgo e IVL de la competición. Nunca lanza y nunca bloquea."""
+    try:
+        import riesgo_liga as rl
+        f = rl.ficha(clave_liga)
+        return rl.nivel_liga(clave_liga), f.get('ivl')
+    except Exception as e:
+        logger.debug('[sonadora] sin índice de riesgo: %s', e)
+        return 'sin_medir', None
+
+
+def _rebote_de(partido: Dict) -> bool:
+    """¿Efecto rebote por entrenador nuevo? HOY SIEMPRE `False`, y a propósito.
+
+    `filtro_contexto` no tiene fuente —ESPN no publica cuerpo técnico, medido
+    el 2026-09-15— así que la regla está escrita y apagada. El campo viaja en
+    la pata igualmente porque el encargo lo pide y porque el día que haya
+    fuente no hay que tocar nada más.
+    """
+    try:
+        import filtro_contexto as fc
+        if not fc.hay_fuente():
+            return False
+        home, away = _lados(partido.get('partido'))
+        info = fc.rebote_entrenador(home, away, partido.get('dia') or '',
+                                    cuota_favorito=partido.get('cuota_favorito'),
+                                    lado_favorito=partido.get('lado_favorito') or '')
+        return bool(info.get('activo'))
+    except Exception as e:
+        logger.debug('[sonadora] sin filtro de contexto: %s', e)
+        return False
+
+
 def _pata(partido: Dict, categoria: str, etiqueta: str, prob, cuota,
           casa: str = 'Playdoit') -> Optional[Dict]:
     p, c = _num(prob), _num(cuota)
@@ -347,7 +421,16 @@ def _pata(partido: Dict, categoria: str, etiqueta: str, prob, cuota,
     clave = partido.get('clave_liga') or ''
     ece = ece_liga(clave, categoria, etiqueta)
     floja = calibracion_floja(clave, categoria, etiqueta)
+    riesgo, ivl = _riesgo_de(clave)
     return {
+        'nivel_riesgo': riesgo,
+        # el IVL del encargo, PUBLICADO COMO DESCRIPTOR y no como puerta: mide
+        # el ritmo goleador de la liga (vale 1/raiz(media de goles)) y medido
+        # contra el ROI real da Spearman -0,113. Quien lo mire sabra que en esa
+        # liga se marcan pocos goles, que es informacion util para una pata de
+        # «Mas de 2,5» y no un motivo para bloquear nada.
+        'ivl_liga': ivl,
+        'rebote_entrenador': _rebote_de(partido),
         'id': f"{partido.get('deporte')}|{partido.get('partido')}|"
               f"{categoria}|{etiqueta}",
         'deporte': partido.get('deporte') or 'Fútbol',
@@ -938,7 +1021,8 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
                   max_partidos: int = 60,
                   deportes: Optional[List[str]] = None,
                   con_rojas: bool = False,
-                  casa: str = CASA_POR_DEFECTO) -> Dict:
+                  casa: str = CASA_POR_DEFECTO,
+                  solo_riesgo_bajo: bool = False) -> Dict:
     """
     Las patas del día dentro del rango, y NUNCA una lista vacía si hay partidos.
 
@@ -966,9 +1050,15 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
         # que el modelo se equivoca (la firma de `EV_SOSPECHOSO`). Siguen
         # estando —quitarlas sería decidir por el usuario— pero detrás de las
         # que sí se han medido.
+        #
+        # EL NIVEL DE RIESGO ENTRA DETRAS DEL COLOR Y DELANTE DE «MEDIDO».
+        # Es la señal mas fuerte de las dos: el cuarto peor de competiciones
+        # rinde -7,14 % por pata y el mejor -1,53 %, medido sobre 16.428 patas
+        # con cuota de cierre real.
         return sorted((q for q in todas
                        if lo <= q['cuota'] <= hi and q['prob'] >= PROB_MINIMA),
                       key=lambda q: (ORDEN_COLOR.get(q['color'], 9),
+                                     ORDEN_RIESGO.get(q.get('nivel_riesgo'), 1),
                                      not q.get('medido'),
                                      -q['score']))
 
@@ -988,6 +1078,21 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
         _vistas.add(k)
         _unicas.append(q)
     todas = _unicas
+
+    # EL FILTRO DE RIESGO, QUE ES OPCIONAL Y LO ENCIENDE EL USUARIO.
+    #
+    # Se aplica ANTES de ensanchar el rango de cuota a propósito: si el usuario
+    # pide sólo competiciones bien calibradas, la respuesta correcta a «no hay»
+    # es ensanchar la cuota, no colar de vuelta las competiciones que acaba de
+    # descartar. Y si con el filtro no queda NADA, se apaga solo y se dice —la
+    # pantalla vacía es el fallo que el rediseño de la Soñadora vino a quitar.
+    riesgo_apagado = False
+    if solo_riesgo_bajo:
+        _bajas = [q for q in todas if q.get('nivel_riesgo') == 'baja']
+        if _bajas:
+            todas = _bajas
+        else:
+            riesgo_apagado = True
 
     patas = _filtra(cuota_min, cuota_max)
     ensanchado = False
@@ -1023,6 +1128,11 @@ def patas_del_dia(r: Dict, dia: Optional[str] = None,
         'n_medidas': sum(1 for q in visibles if q['medido']),
         'partidos_con_pata': len({q['partido'] for q in visibles}),
         'conteo_color': conteo,
+        'conteo_riesgo': {n: sum(1 for q in visibles
+                                 if q.get('nivel_riesgo') == n)
+                          for n in ('baja', 'media', 'alta', 'sin_medir')},
+        'solo_riesgo_bajo': bool(solo_riesgo_bajo and not riesgo_apagado),
+        'riesgo_apagado': riesgo_apagado,
         'rojas_ocultas': len(patas) - len(visibles),
         # «sólida» y «débil» son los dos avisos que pidió el encargo
         'solidez': ('solida' if n_verde / total_col >= 0.60
@@ -1042,29 +1152,234 @@ PERMUTACIONES = (
 )
 
 
+def topes_efectivos(patas: List[Dict], n: int) -> Dict:
+    """Los topes que de verdad se pueden aplicar para armar `n` patas.
+
+    POR QUE UN TOPE SE PUEDE LEVANTAR, Y POR QUE ESO NO ES HACER TRAMPA. Un
+    tope de «maximo 2 por mercado» pone un techo duro al parlay: 2 x (numero
+    de mercados distintos). Medido en el backtest, con los tres mercados que
+    el historico cubre, ese tope deja el parlay de 8 patas en CERO parlays
+    armados — no en peores, en ninguno. Y el tope de «maximo 3 por deporte»
+    haria imposible cualquier parlay de mas de tres patas de futbol, que es la
+    configuracion por defecto de la pantalla.
+
+    Asi que cuando un tope hace inalcanzable el numero de patas PEDIDO, se
+    levanta ese tope y se dice cual. La alternativa es una pantalla que no
+    arma nada y no explica por que, que es justo el fallo que el rediseño de
+    la Soñadora vino a quitar.
+    """
+    n = max(1, int(n or 0))
+    campos = (('liga', 'liga', MAX_POR_LIGA),
+              ('mercado', 'categoria', MAX_POR_MERCADO),
+              ('deporte', 'deporte', MAX_POR_DEPORTE))
+    # EL TOPE POR DEPORTE SOLO EXISTE SI EL PARLAY ES MIXTO, y lo dice el
+    # encargo con esas palabras. Con un solo deporte no es que el tope se
+    # levante —es que no aplica—: la configuracion por defecto de la pantalla
+    # es «solo futbol», asi que tratarlo como levantado ponia el aviso «hubo
+    # que levantar el tope por deporte» en TODOS los parlays normales, y un
+    # aviso que sale siempre no avisa de nada.
+    mixto = len({q.get('deporte') or '' for q in patas}) > 1
+    # LOS TRES LIMITES SE PUBLICAN SIEMPRE, con `None` cuando no se aplican.
+    # Omitir una clave no es lo mismo que ponerla a `None`: `_elegir` cae en su
+    # valor por defecto y acaba aplicando un tope que esta funcion habia
+    # decidido no aplicar. Paso, y dejo la Soñadora sin armar ni un parlay.
+    limites: Dict[str, Optional[int]] = {}
+    levantados: List[str] = []
+    for nombre, campo, tope in campos:
+        if nombre == 'deporte' and not mixto:
+            limites[nombre] = None          # no aplica; no es un levantamiento
+            continue
+        # una pata por PARTIDO, asi que el techo lo pone el numero de partidos
+        # distintos que aporta cada grupo, no el numero de patas
+        grupos: Dict[str, set] = {}
+        for q in patas:
+            grupos.setdefault(q.get(campo) or '', set()).add(q.get('partido'))
+        techo = sum(min(len(v), tope) for v in grupos.values())
+        if techo < n:
+            limites[nombre] = None
+            levantados.append(nombre)
+        else:
+            limites[nombre] = tope
+    return {'limites': limites, 'levantados': levantados, 'mixto': mixto}
+
+
 def _elegir(patas: List[Dict], n: int, clave,
-            por_liga: bool = False) -> List[Dict]:
-    """Elige `n` patas sin repetir partido (ni competición, si se pide).
+            por_liga: bool = False, topes: bool = True,
+            bloqueados: Optional[set] = None,
+            limites: Optional[Dict] = None) -> List[Dict]:
+    """Elige `n` patas sin repetir partido y respetando los topes.
 
     Dos patas del mismo encuentro están correlacionadas de forma brutal y la
     casa normalmente ni las deja combinar: el multiplicador que saldría no es
-    el que se paga.
+    el que se paga. Ésa es la regla vieja.
+
+    LO QUE AÑADEN LOS TOPES (`MAX_POR_LIGA`, `MAX_POR_MERCADO`,
+    `MAX_POR_DEPORTE`) es cortar la falsa diversificación: cuatro patas de la
+    misma jornada de la misma liga no son cuatro apuestas independientes. No
+    suben el ROI —medido, 0,0 puntos, y la aritmética dice que no pueden— pero
+    quitan el riesgo compartido, que es lo que hunde un boleto entero de
+    golpe.
+
+    `bloqueados` son los partidos que ya están en otro parlay vivo.
     """
     vistos_p, vistos_l, fuera = set(), set(), []
+    por_liga_n: Dict[str, int] = {}
+    por_mercado: Dict[str, int] = {}
+    por_deporte: Dict[str, int] = {}
+    bloqueados = bloqueados or set()
+    lim = (limites or {}) if topes else {}
+    t_liga = lim.get('liga', MAX_POR_LIGA if topes else None)
+    t_merc = lim.get('mercado', MAX_POR_MERCADO if topes else None)
+    t_dep = lim.get('deporte', MAX_POR_DEPORTE if topes else None)
     for q in sorted(patas, key=clave):
-        if q['partido'] in vistos_p:
+        if q['partido'] in vistos_p or q['partido'] in bloqueados:
             continue
         if por_liga and q['liga'] in vistos_l:
             continue
+        lg, mc, dp = q.get('liga') or '', q.get('categoria') or '', \
+            q.get('deporte') or ''
+        if topes:
+            if t_liga is not None and por_liga_n.get(lg, 0) >= t_liga:
+                continue
+            if t_merc is not None and por_mercado.get(mc, 0) >= t_merc:
+                continue
+            if t_dep is not None and por_deporte.get(dp, 0) >= t_dep:
+                continue
         vistos_p.add(q['partido'])
         vistos_l.add(q['liga'])
+        por_liga_n[lg] = por_liga_n.get(lg, 0) + 1
+        por_mercado[mc] = por_mercado.get(mc, 0) + 1
+        por_deporte[dp] = por_deporte.get(dp, 0) + 1
         fuera.append(q)
         if len(fuera) >= n:
             break
     return fuera
 
 
-def permutaciones(patas: List[Dict], n_patas: int) -> List[Dict]:
+def parlays_activos(ruta: str = ACTIVOS) -> List[Dict]:
+    """Los parlays que el usuario dio por vivos. Lista vacía si no hay fichero."""
+    try:
+        with open(ruta, encoding='utf-8') as f:
+            d = json.load(f) or {}
+        return list(d.get('parlays') or [])
+    except Exception:
+        return []
+
+
+def partidos_comprometidos(ruta: str = ACTIVOS,
+                           dia: Optional[str] = None) -> set:
+    """Partidos que ya están en un parlay vivo, y por tanto no se repiten.
+
+    EL CASO QUE LO MOTIVA lo trajo el usuario: Boyacá Chicó apareció en dos
+    parlays a la vez. Eso no es diversificar —es doblar la apuesta al mismo
+    resultado mientras la pantalla dice que son dos boletos distintos.
+
+    Sólo cuentan los del MISMO día: un parlay de la semana pasada ya se
+    resolvió y no compromete nada.
+    """
+    fuera = set()
+    for p in parlays_activos(ruta):
+        if dia and str(p.get('dia')) != str(dia):
+            continue
+        for q in (p.get('partidos') or []):
+            fuera.add(str(q))
+    return fuera
+
+
+def registrar_parlay(parlay: Dict, dia: str, ruta: str = ACTIVOS) -> Dict:
+    """Apunta un parlay como vivo. Devuelve el registro entero.
+
+    No se llama solo: lo dispara el usuario desde la pantalla cuando da un
+    boleto por jugado. Apuntar automáticamente cada parlay que se propone
+    bloquearía el catálogo entero a la primera permutación que se mire.
+    """
+    doc = {'parlays': parlays_activos(ruta)}
+    doc['parlays'].append({
+        'dia': str(dia),
+        'registrado': _dt.datetime.now().isoformat(timespec='seconds'),
+        'n_patas': int(parlay.get('n_patas') or 0),
+        'multiplicador': parlay.get('multiplicador'),
+        'letra': parlay.get('letra') or '',
+        'partidos': sorted({str(q.get('partido'))
+                            for q in (parlay.get('patas') or [])}),
+        'patas': [q.get('id') for q in (parlay.get('patas') or [])],
+    })
+    with open(ruta, 'w', encoding='utf-8') as f:
+        json.dump(doc, f, ensure_ascii=False, indent=1)
+    return doc
+
+
+def olvidar_parlays(ruta: str = ACTIVOS) -> None:
+    """Vacía el registro. Lo usa la pantalla y lo usan los tests."""
+    with open(ruta, 'w', encoding='utf-8') as f:
+        json.dump({'parlays': []}, f, ensure_ascii=False, indent=1)
+
+
+# --- EL TOPE DE PATAS SEGUN EL BOOST ----------------------------------------
+#
+# EL ENCARGO PEDIA ESTA TABLA: sin boost 13 patas · +20 % 8 · +50 % 6 · +80 % 5
+# · +100 % 4. Y la justificaba diciendo que «cuanto mayor el boost, menos patas
+# para maximizar la probabilidad de acierto».
+#
+# LA CUENTA DICE LO CONTRARIO, y no es una opinion. Con un boost B que
+# multiplica el premio y N patas de ventaja e cada una, el parlay rinde
+# B x (1+e)^N - 1. El boost es un factor CONSTANTE: no interactua con N. Lo
+# unico que decide cuantas patas aguanta el boleto es cuanto boost hay para
+# compensar la ventaja negativa de cada pata:
+#
+#     B x (1+e)^N >= 1   <=>   N <= ln(B) / -ln(1+e)
+#
+# Con la ventaja MEDIDA de una pata en este proyecto (e = -3,95 % sobre 16.428
+# patas del ledger con cuota de cierre real), eso da:
+#
+#     +20 %  ->  4 patas        +80 %  ->  14 patas
+#     +50 %  ->  10 patas       +100 % ->  17 patas
+#
+# O sea que el boost grande permite MAS patas, no menos. La tabla del encargo
+# invierte la relacion, y aplicarla tendria un efecto concreto y malo: con un
+# boost del +100 % —el mejor que da una casa— limitaria el boleto a cuatro
+# patas justo cuando es cuando mas patas se pueden pagar. Habria bloqueado el
+# parlay de trece patas que el usuario gano.
+#
+# Lo que SI cae en picado con N es la tasa de acierto, y eso es verdad con
+# boost y sin el. Por eso se publican las dos cosas: el tope donde el boleto
+# deja de tener esperanza positiva, y lo que se espera que acierte.
+def limite_por_boost(boost: float, roi_pata: Optional[float] = None) -> Dict:
+    """Hasta cuántas patas aguanta ese boost, con la ventaja medida de la pata.
+
+    `boost` es el multiplicador del premio: 0,20 para un +20 %.
+    """
+    try:
+        b = 1.0 + float(boost or 0.0)
+    except (TypeError, ValueError):
+        b = 1.0
+    e = roi_pata
+    if e is None:
+        e = (historico().get('pata_suelta') or {}).get('roi')
+    try:
+        e = float(e)
+    except (TypeError, ValueError):
+        e = None
+    base = {'boost': round(b - 1.0, 4), 'roi_pata': e, 'medido': e is not None}
+    if e is None or e >= 0:
+        # sin ventaja negativa medida no hay techo que calcular, y con ventaja
+        # positiva mas patas siempre suman: el tope lo pone la casa
+        return {**base, 'max_patas': MAX_PATAS,
+                'motivo': ('sin ROI de la pata medido: no se puede calcular un '
+                           'tope' if e is None else
+                           'la pata tiene ventaja positiva medida')}
+    if b <= 1.0:
+        return {**base, 'max_patas': 0,
+                'motivo': f'sin boost y con la pata a {e*100:+.2f} %, ninguna '
+                          f'cantidad de patas tiene esperanza positiva'}
+    n = int(math.log(b) / -math.log(1.0 + e))
+    return {**base, 'max_patas': max(0, min(n, MAX_PATAS)),
+            'motivo': f'con la pata a {e*100:+.2f} %, un boost del '
+                      f'{(b-1)*100:.0f} % se agota en {n} patas'}
+
+
+def permutaciones(patas: List[Dict], n_patas: int,
+                  bloqueados: Optional[set] = None) -> List[Dict]:
     """Hasta cinco formas distintas de armar el parlay con las patas del día.
 
     Las que no llegan a `n_patas` no se enseñan a medias, y dos recetas que dan
@@ -1084,18 +1399,53 @@ def permutaciones(patas: List[Dict], n_patas: int) -> List[Dict]:
         return lambda q: (ORDEN_COLOR.get(q['color'], 9),
                           not q.get('medido'), clave(q))
 
+    bloqueados = bloqueados or set()
+
+    # LAS ROJAS NO ENTRAN EN UNA COMBINADA AUTOMATICA, aunque el usuario las
+    # haya hecho visibles con la casilla. Verlas es una cosa —puede quererlas
+    # para armar la suya a mano— y que la pantalla se las PROPONGA metidas en
+    # un parlay es otra.
+    #
+    # Con el respaldo de siempre: si sin rojas no se llega a `n` patas, se usan
+    # todas y se dice. La alternativa es no proponer nada los dias flojos, que
+    # es el fallo que el rediseño de la Soñadora vino a quitar.
+    #
+    # OJO CON LA OTRA BANDERA ROJA. La de `alpha_finder.etiqueta_fiabilidad`
+    # —el Brier de los picks publicados— dispara en 70 de las 77 competiciones
+    # medidas, porque el Brier de un binario cerca del 50 % vale ~0,25 por
+    # construccion. Bloquear por esa habria vaciado el generador entero. La que
+    # se usa aqui es el color del semaforo de la pata, que si reparte.
+    sin_rojas = [q for q in patas if q.get('color') != ROJO]
+    rojas_forzadas = len(
+        {q['partido'] for q in sin_rojas if q['partido'] not in bloqueados}) < n
+    fuente = patas if rojas_forzadas else sin_rojas
+
+    tp = topes_efectivos([q for q in fuente
+                          if q['partido'] not in bloqueados], n)
+    lim = tp['limites']
+    patas = fuente
+
+    def _el(fuente, k, clave, por_liga=False):
+        return _elegir(fuente, k, clave, por_liga=por_liga,
+                       bloqueados=bloqueados, limites=lim)
+
     mitad = n // 2
-    seguras = _elegir(patas, mitad, _por_color(lambda q: -q['prob']))
+    seguras = _el(patas, mitad, _por_color(lambda q: -q['prob']))
     usados = {q['partido'] for q in seguras}
-    altas = _elegir([q for q in patas if q['partido'] not in usados],
-                    n - mitad, lambda q: -q['cuota'])
+    altas = _el([q for q in patas if q['partido'] not in usados],
+                n - mitad, lambda q: -q['cuota'])
+    # LA MIXTA SE ARMA EN DOS TANDAS, y cada tanda cuenta sus topes por
+    # separado: sin esta pasada final, dos patas de una liga en la mitad segura
+    # y dos mas en la de cuota alta dan cuatro de la misma liga respetando el
+    # tope «dos veces». Se vuelve a filtrar el resultado conservando el orden.
+    _orden = {id(q): i for i, q in enumerate(seguras + altas)}
+    mixta = _el(seguras + altas, n, lambda q: _orden.get(id(q), 99))
     candidatas = {
-        'A': _elegir(patas, n, _por_color(lambda q: -q['prob'])),
-        'B': _elegir(patas, n, lambda q: -q['cuota']),
-        'C': _elegir(patas, n, _por_color(lambda q: -q['score'])),
-        'D': _elegir(patas, n, _por_color(lambda q: -q['score']),
-                     por_liga=True),
-        'E': seguras + altas,
+        'A': _el(patas, n, _por_color(lambda q: -q['prob'])),
+        'B': _el(patas, n, lambda q: -q['cuota']),
+        'C': _el(patas, n, _por_color(lambda q: -q['score'])),
+        'D': _el(patas, n, _por_color(lambda q: -q['score']), por_liga=True),
+        'E': mixta,
     }
     fuera, vistas = [], set()
     for letra, nombre, descripcion in PERMUTACIONES:
@@ -1108,7 +1458,9 @@ def permutaciones(patas: List[Dict], n_patas: int) -> List[Dict]:
         vistas.add(firma)
         p = armar(sel)
         p.update({'letra': letra, 'nombre': nombre,
-                  'descripcion': descripcion})
+                  'descripcion': descripcion,
+                  'topes_levantados': list(tp['levantados']),
+                  'rojas_forzadas': rojas_forzadas})
         fuera.append(p)
     return fuera
 
@@ -1140,8 +1492,46 @@ def armar(patas: List[Dict]) -> Dict:
         'deportes': sorted({q['deporte'] for q in patas}),
         'conteo_color': {c: sum(1 for q in patas if q.get('color') == c)
                          for c in (VERDE, AMBAR, ROJO, GRIS)},
+        'conteo_riesgo': {n: sum(1 for q in patas
+                                 if q.get('nivel_riesgo') == n)
+                          for n in ('baja', 'media', 'alta', 'sin_medir')},
+        'exposicion': _exposicion(patas),
     })
     return base
+
+
+def _exposicion(patas: List[Dict]) -> Dict:
+    """Cuánto se repite el parlay en liga, mercado y deporte.
+
+    Es lo que convierte «ocho patas» en «ocho patas que son en realidad tres
+    apuestas»: la falsa diversificación que el usuario trajo de sus boletos
+    perdidos. Se publica el máximo de cada eje y si respeta el tope.
+    """
+    def _max(campo):
+        cuenta: Dict[str, int] = {}
+        for q in patas:
+            k = q.get(campo) or ''
+            cuenta[k] = cuenta.get(k, 0) + 1
+        if not cuenta:
+            return 0, ''
+        k = max(cuenta, key=lambda x: cuenta[x])
+        return cuenta[k], k
+
+    n_liga, liga = _max('liga')
+    n_merc, merc = _max('categoria')
+    n_dep, dep = _max('deporte')
+    # el tope por deporte solo cuenta en un parlay MIXTO, igual que en
+    # `topes_efectivos`: con un solo deporte no aplica
+    mixto = len({q.get('deporte') or '' for q in patas}) > 1
+    return {
+        'max_por_liga': n_liga, 'liga_mas_repetida': liga,
+        'max_por_mercado': n_merc, 'mercado_mas_repetido': merc,
+        'max_por_deporte': n_dep, 'deporte_mas_repetido': dep,
+        'mixto': mixto,
+        'respeta_topes': (n_liga <= MAX_POR_LIGA
+                          and n_merc <= MAX_POR_MERCADO
+                          and (not mixto or n_dep <= MAX_POR_DEPORTE)),
+    }
 
 
 def roi_esperado(n_patas: int) -> Optional[float]:

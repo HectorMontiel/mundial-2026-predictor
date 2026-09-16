@@ -14071,6 +14071,540 @@ def test_el_veredicto_de_la_sonadora_es_el_medido():
           f'({esperado} frente a {ps.get("roi")})')
 
 
+# ---------------------------------------------------------------------------
+# v202 — LA CAPA DE GESTIÓN DE RIESGO
+# ---------------------------------------------------------------------------
+def _patas_de_prueba(sm, ligas=('lig_a', 'lig_b', 'lig_c'), por_liga=4,
+                     categorias=('Goles', 'Córners')):
+    """Patas sintéticas con liga, mercado y deporte controlados."""
+    fuera = []
+    for li, lg in enumerate(ligas):
+        for i in range(por_liga):
+            for j, cat in enumerate(categorias):
+                p = 0.88 - i * 0.01 - j * 0.002 - li * 0.001
+                c = 1.20 + i * 0.05 + j * 0.01
+                fuera.append({
+                    'id': f'{lg}_{i}_{j}', 'deporte': 'Fútbol',
+                    'partido': f'{lg}·Equipo{i} vs Rival{i}',
+                    'liga': lg, 'clave_liga': lg, 'hora': '12:00',
+                    'categoria': cat, 'etiqueta': f'{cat} línea {j}',
+                    'prob': p, 'prob_ajustada': p, 'cuota': c,
+                    'casa': 'Playdoit', 'ece': None, 'medido': False,
+                    'nivel_riesgo': 'media', 'ivl_liga': 0.61,
+                    'rebote_entrenador': False,
+                    'color': sm.color(p), 'score': p * c})
+    return fuera
+
+
+def test_el_indice_de_riesgo_no_usa_un_umbral_que_nadie_alcanza():
+    """
+    El encargo fijaba el nivel con IVL > 1,5 y > 1,2. Medido sobre las 69
+    competiciones con histórico, el IVL va de 0,54 a 0,72: con esos cortes
+    NINGUNA liga se marca nunca y el filtro es decorativo.
+
+    Este test vigila las dos mitades: que el número del encargo sigue sin
+    alcanzarse (o sea, que el motivo del cambio sigue vivo) y que el nivel que
+    se usa de verdad —cuartiles del error de calibración— SÍ reparte.
+    """
+    import riesgo_liga as rl
+
+    rl._olvidar()
+    doc = rl.indice()
+    check(bool(doc.get('ligas')),
+          'el índice de riesgo por competición está generado')
+    if not doc.get('ligas'):
+        return
+
+    ivls = [v['ivl'] for v in doc['ligas'].values() if v.get('ivl') is not None]
+    check(len(ivls) >= 50,
+          f'hay IVL medido para las competiciones de fútbol ({len(ivls)})')
+    check(max(ivls) < 1.2,
+          f'ninguna competición alcanza el umbral 1,2 del encargo '
+          f'(el máximo medido es {max(ivls):.4f}) — por eso el IVL no bloquea')
+    check(doc.get('ivl_bloquea') is False,
+          'el índice declara explícitamente que el IVL no bloquea')
+
+    # y el nivel que sí decide reparte de verdad
+    c = doc.get('conteo_nivel') or {}
+    check(c.get('alta', 0) > 0 and c.get('baja', 0) > 0
+          and c.get('media', 0) > 0,
+          f"el nivel por calibración reparte las competiciones "
+          f"(alta {c.get('alta')} · media {c.get('media')} · "
+          f"baja {c.get('baja')})")
+    cortes = doc.get('cortes_ece') or {}
+    check(cortes.get('p25') is not None and cortes.get('p75') is not None
+          and cortes['p25'] < cortes['p75'],
+          'los cortes salen de la distribución observada y no de un número '
+          'puesto a mano')
+
+    # la correlación medida viaja con el dato, para que nadie vuelva a
+    # proponer el IVL como puerta sin mirarla
+    corr = doc.get('correlacion_medida') or {}
+    ivl_s = abs(((corr.get('ivl_vs_roi') or {}).get('spearman') or 0))
+    ece_s = abs(((corr.get('ece_vs_roi') or {}).get('spearman') or 0))
+    check(ece_s > ivl_s,
+          f'el índice que se usa predice mejor el ROI que el que se descartó '
+          f'(ECE |rho|={ece_s:.3f} contra IVL |rho|={ivl_s:.3f})')
+
+    # y los accesos no lanzan con basura
+    check(rl.nivel_liga(None) == rl.SIN_MEDIR
+          and rl.nivel_liga('no_existe_esta_liga') == rl.SIN_MEDIR
+          and rl.es_alto_riesgo(None) is False,
+          'preguntar por una competición desconocida devuelve «sin medir» y '
+          'no bloquea')
+
+
+def test_el_riesgo_de_competicion_ordena_y_no_bloquea():
+    """
+    La medición dice que el peor cuarto de competiciones rinde −7,14 % por
+    pata y el mejor −1,53 %. Lo que NO dice es que haya que esconderlas: quitar
+    el peor cuarto mueve 625 patas de 16.428 y el ROI proyectado sube 0,5
+    puntos, mientras que quedarse sólo con el mejor se lleva el 72 % del
+    catálogo. Así que el nivel ordena.
+    """
+    import sonadora_motor as sm
+
+    check(sm.ORDEN_RIESGO['baja'] < sm.ORDEN_RIESGO['alta'],
+          'el orden pone delante las competiciones bien calibradas')
+    check(sm.ORDEN_RIESGO['sin_medir'] < sm.ORDEN_RIESGO['alta'],
+          'no estar medido no es peor que estar medido y salir mal: '
+          'una competición nueva no se castiga como una mal calibrada')
+
+    patas = _patas_de_prueba(sm)
+    # la liga con MEJOR score se marca de riesgo alto: si el nivel no entrara
+    # en el orden, encabezaría la lista
+    for q in patas:
+        if q['liga'] == 'lig_a':
+            q['nivel_riesgo'] = 'alta'
+            q['prob'] = 0.95
+            q['score'] = 0.95 * q['cuota']
+            q['color'] = sm.color(0.95)
+        elif q['liga'] == 'lig_b':
+            q['nivel_riesgo'] = 'baja'
+
+    ordenadas = sorted(patas, key=lambda q: (
+        sm.ORDEN_COLOR.get(q['color'], 9),
+        sm.ORDEN_RIESGO.get(q.get('nivel_riesgo'), 1),
+        not q.get('medido'), -q['score']))
+    primeras = [q['nivel_riesgo'] for q in ordenadas[:6]]
+    check('alta' not in primeras,
+          f'las patas de competición de riesgo alto no encabezan la lista '
+          f'aunque tengan el mejor Score ({primeras})')
+    check(any(q['nivel_riesgo'] == 'alta' for q in ordenadas),
+          'pero siguen estando: el nivel ordena, no esconde')
+
+
+def test_el_filtro_de_riesgo_bajo_no_deja_la_pantalla_vacia():
+    """
+    La casilla «sólo competiciones de riesgo bajo» la marca el usuario. Si un
+    día no hay NINGUNA pata de riesgo bajo con esa casa y esos deportes, la
+    respuesta correcta no es una pantalla en blanco —que es el fallo que el
+    rediseño de la Soñadora vino a quitar— sino apagar el filtro y decirlo.
+    """
+    import sonadora_motor as sm
+
+    patas = _patas_de_prueba(sm)
+    for q in patas:                       # ni una sola de riesgo bajo
+        q['nivel_riesgo'] = 'alta'
+
+    def _fake(r, dia, max_partidos, deportes=None, casa=sm.CASA_POR_DEFECTO):
+        return {'patas': [dict(q) for q in patas], 'n_partidos': 12,
+                'tableros_pedidos': 0, 'tableros_por_deporte': {},
+                'sin_tablero': 0}
+
+    original = sm._recoger
+    sm._recoger = _fake
+    try:
+        res = sm.patas_del_dia({}, '2026-09-15', cuota_min=1.10,
+                               cuota_max=1.80, casa='Playdoit',
+                               solo_riesgo_bajo=True)
+    finally:
+        sm._recoger = original
+
+    check(bool(res.get('patas')),
+          'con el filtro marcado y sin patas de riesgo bajo, la lista NO se '
+          'queda vacía')
+    check(res.get('riesgo_apagado') is True,
+          'y se dice que el filtro se desactivó solo')
+    check(res.get('solo_riesgo_bajo') is False,
+          'la pantalla no puede anunciar un filtro que no está aplicado')
+
+    # y con patas de riesgo bajo disponibles, el filtro SÍ filtra
+    mezcla = [dict(q) for q in patas]
+    for q in mezcla:
+        if q['liga'] == 'lig_b':
+            q['nivel_riesgo'] = 'baja'
+
+    def _fake2(r, dia, max_partidos, deportes=None, casa=sm.CASA_POR_DEFECTO):
+        return {'patas': [dict(q) for q in mezcla], 'n_partidos': 12,
+                'tableros_pedidos': 0, 'tableros_por_deporte': {},
+                'sin_tablero': 0}
+
+    sm._recoger = _fake2
+    try:
+        res2 = sm.patas_del_dia({}, '2026-09-15', cuota_min=1.10,
+                                cuota_max=1.80, casa='Playdoit',
+                                solo_riesgo_bajo=True)
+    finally:
+        sm._recoger = original
+
+    check(bool(res2.get('patas'))
+          and all(q['nivel_riesgo'] == 'baja' for q in res2['patas']),
+          'con el filtro marcado y patas de riesgo bajo disponibles, sólo '
+          'salen ésas')
+    check(res2.get('riesgo_apagado') is False
+          and res2.get('solo_riesgo_bajo') is True,
+          'y entonces sí se anuncia como aplicado')
+
+
+def test_los_topes_de_exposicion_cortan_la_falsa_diversificacion():
+    """
+    «Ocho patas» de las que cinco son de la misma liga y la misma jornada no
+    son ocho apuestas: fallan juntas. Los topes no suben el ROI —medido, 0,0
+    puntos, y la aritmética dice que no pueden— pero quitan el riesgo
+    compartido, que es lo que hunde un boleto entero de golpe.
+    """
+    import sonadora_motor as sm
+
+    # tres ligas con cuatro partidos cada una: hay de sobra para respetar el
+    # tope de dos por liga en un parlay de cuatro
+    patas = _patas_de_prueba(sm, por_liga=4)
+    perms = sm.permutaciones(patas, 4)
+    check(bool(perms), 'con variedad suficiente se arman permutaciones')
+    # LOS TOPES SE COMPRUEBAN CONTRA EL NUMERO, NO CONTRA LA CONSTANTE. Con
+    # `<= sm.MAX_POR_LIGA` el check se mide contra si mismo: subir la constante
+    # a 99 lo deja en verde. Cazado con un mutante el 2026-09-15.
+    check(sm.MAX_POR_LIGA == 2 and sm.MAX_POR_MERCADO == 2
+          and sm.MAX_POR_DEPORTE == 3,
+          f'los topes del encargo son los que estan puestos '
+          f'({sm.MAX_POR_LIGA}/{sm.MAX_POR_MERCADO}/{sm.MAX_POR_DEPORTE})')
+    for p in perms:
+        ex = p.get('exposicion') or {}
+        check(ex.get('max_por_liga', 99) <= 2,
+              f"la permutación {p['letra']} no mete más de "
+              f"{sm.MAX_POR_LIGA} patas de la misma competición "
+              f"(mete {ex.get('max_por_liga')} de {ex.get('liga_mas_repetida')})")
+        check(ex.get('max_por_mercado', 99) <= 2,
+              f"la permutación {p['letra']} no mete más de "
+              f"{sm.MAX_POR_MERCADO} patas del mismo mercado "
+              f"(mete {ex.get('max_por_mercado')})")
+        check(ex.get('respeta_topes') is True,
+              f"la permutación {p['letra']} declara que respeta los topes")
+        check(not p.get('topes_levantados'),
+              f"y no ha hecho falta levantar ninguno ({p.get('topes_levantados')})")
+
+
+def test_un_tope_se_levanta_antes_que_no_armar_el_parlay():
+    """
+    Un tope de «máximo 2 por mercado» pone un techo duro: 2 × mercados
+    distintos. Medido en el backtest, con los tres mercados que el histórico
+    cubre ese tope deja el parlay de 8 patas en CERO parlays armados — no en
+    peores, en ninguno. Y «máximo 3 por deporte» haría imposible cualquier
+    parlay de más de tres patas de fútbol, que es lo que la pantalla pide por
+    defecto.
+
+    Así que cuando un tope hace inalcanzable el número de patas pedido, se
+    levanta y se dice cuál.
+    """
+    import sonadora_motor as sm
+
+    # UNA sola liga y UN solo mercado: los tres topes son inalcanzables para
+    # un parlay de cuatro
+    patas = _patas_de_prueba(sm, ligas=('lig_unica',), por_liga=6,
+                             categorias=('Goles',))
+    tp = sm.topes_efectivos(patas, 4)
+    check(set(tp['levantados']) == {'liga', 'mercado'},
+          f"con una liga y un mercado se levantan esos dos topes "
+          f"({tp['levantados']})")
+    # EL TOPE POR DEPORTE NO SE LEVANTA: NO APLICA. El encargo lo condiciona a
+    # que el parlay sea mixto, y estas patas son todas de futbol. Tratarlo como
+    # levantado ponia el aviso «hubo que levantar el tope por deporte» en todos
+    # los parlays normales, y un aviso que sale siempre no avisa de nada.
+    check('deporte' not in tp['levantados'],
+          'el tope por deporte no aparece como levantado en un parlay de un '
+          'solo deporte: simplemente no aplica')
+    mixtas = _patas_de_prueba(sm, ligas=('lig_a',), por_liga=6,
+                              categorias=('Goles',))
+    for i, q in enumerate(mixtas):
+        q['deporte'] = 'Fútbol' if i % 2 else 'MLB'
+    tp_mix = sm.topes_efectivos(mixtas, 8)
+    check('deporte' in tp_mix['levantados'],
+          f"pero en un parlay mixto SI se evalua, y con dos deportes un "
+          f"parlay de 8 patas no cabe en el tope de "
+          f"{sm.MAX_POR_DEPORTE} ({tp_mix['levantados']})")
+
+    perms = sm.permutaciones(patas, 4)
+    check(bool(perms),
+          'y el parlay se arma igual en vez de devolver una pantalla vacía')
+    for p in perms:
+        check(p['n_patas'] == 4,
+              f"la permutación {p['letra']} llega a las 4 patas pedidas")
+        check('liga' in (p.get('topes_levantados') or []),
+              f"y avisa de que el tope por liga está levantado "
+              f"({p.get('topes_levantados')})")
+
+    # con variedad de sobra NO se levanta nada: si se levantara siempre, el
+    # tope no existiría
+    holgadas = _patas_de_prueba(sm, ligas=tuple(f'l{i}' for i in range(8)),
+                                por_liga=2)
+    tp2 = sm.topes_efectivos(holgadas, 4)
+    check(tp2['levantados'] == [],
+          f'con ocho competiciones no se levanta ningún tope '
+          f'({tp2["levantados"]})')
+    check(tp2['limites']['liga'] == sm.MAX_POR_LIGA,
+          'y el tope por liga queda en su valor')
+
+
+def test_un_partido_no_entra_en_dos_parlays_a_la_vez():
+    """
+    El caso lo trajo el usuario: Boyacá Chicó apareció en dos parlays activos
+    al mismo tiempo. Eso no es diversificar — es doblar la apuesta al mismo
+    resultado con la pantalla diciendo que son dos boletos distintos.
+    """
+    import os
+    import sonadora_motor as sm
+
+    ruta = '_test_parlays_activos.json'
+    try:
+        sm.olvidar_parlays(ruta)
+        check(sm.partidos_comprometidos(ruta, '2026-09-15') == set(),
+              'sin boletos vivos no hay ningún partido comprometido')
+
+        patas = _patas_de_prueba(sm, ligas=('l1', 'l2', 'l3'), por_liga=3)
+        perms = sm.permutaciones(patas, 4)
+        check(bool(perms), 'hay permutaciones de las que partir')
+        primero = perms[0]
+        sm.registrar_parlay(primero, '2026-09-15', ruta)
+
+        comprometidos = sm.partidos_comprometidos(ruta, '2026-09-15')
+        check(len(comprometidos) == 4,
+              f'los 4 partidos del boleto quedan apuntados '
+              f'({len(comprometidos)})')
+
+        # OTRO DÍA NO COMPROMETE NADA: un parlay de la semana pasada ya se
+        # resolvió
+        check(sm.partidos_comprometidos(ruta, '2026-09-16') == set(),
+              'un boleto de otro día no bloquea los partidos de hoy')
+
+        segundas = sm.permutaciones(patas, 4, bloqueados=comprometidos)
+        for p in segundas:
+            repetidos = {q['partido'] for q in p['patas']} & comprometidos
+            check(not repetidos,
+                  f"la permutación {p['letra']} no repite ningún partido del "
+                  f"boleto vivo ({sorted(repetidos)})")
+        check(bool(segundas),
+              'y con nueve partidos y cuatro comprometidos todavía se puede '
+              'armar otro boleto')
+    finally:
+        if os.path.exists(ruta):
+            os.remove(ruta)
+
+
+def test_el_tope_por_boost_sale_de_la_ventaja_medida():
+    """
+    El encargo daba esta tabla: sin boost 13 patas · +20 % 8 · +50 % 6 ·
+    +80 % 5 · +100 % 4, con el argumento de que «cuanto mayor el boost, menos
+    patas».
+
+    LA CUENTA DICE LO CONTRARIO. Un parlay con boost B y N patas de ventaja e
+    rinde B·(1+e)^N − 1: el boost es un factor constante que NO interactúa con
+    N, así que lo único que hace es dar margen para absorber la ventaja
+    negativa de cada pata. Más boost aguanta MÁS patas, no menos. Aplicar la
+    tabla del encargo habría bloqueado el parlay de trece patas que el usuario
+    ganó, justo con el boost más alto.
+    """
+    import sonadora_motor as sm
+
+    lim20 = sm.limite_por_boost(0.20)
+    lim50 = sm.limite_por_boost(0.50)
+    lim100 = sm.limite_por_boost(1.00)
+    check(lim20.get('medido') is True,
+          'el tope sale del ROI medido de una pata, no de una tabla a mano')
+    check(lim20['max_patas'] < lim50['max_patas'] < lim100['max_patas'],
+          f"más boost aguanta más patas, no menos "
+          f"(+20 %: {lim20['max_patas']} · +50 %: {lim50['max_patas']} · "
+          f"+100 %: {lim100['max_patas']})")
+    check(lim100['max_patas'] > 4,
+          f"con +100 % el tope NO son 4 patas como pedía el encargo "
+          f"({lim100['max_patas']}): esa regla habría bloqueado el parlay de "
+          f"13 que el usuario ganó")
+
+    sin_boost = sm.limite_por_boost(0.0)
+    check(sin_boost['max_patas'] == 0,
+          'sin boost y con la pata en negativo, ninguna cantidad de patas '
+          'tiene esperanza positiva — combinar multiplica el rendimiento de '
+          'las patas, no lo mejora')
+
+    # con una ventaja POSITIVA inyectada el tope desaparece: si la función
+    # devolviera siempre lo mismo, este check se caería
+    positiva = sm.limite_por_boost(0.20, roi_pata=0.02)
+    check(positiva['max_patas'] == sm.MAX_PATAS,
+          'con ventaja positiva medida el tope lo pone la casa, no la cuenta')
+    check(sm.limite_por_boost(0.20, roi_pata='basura')['medido'] is False,
+          'sin ROI utilizable se dice que no está medido en vez de inventarlo')
+
+
+def test_el_rebote_por_entrenador_esta_apagado_por_falta_de_fuente():
+    """
+    El encargo pedía penalizar al favorito cuyo rival cambió de entrenador en
+    los últimos 7 días. **No hay fuente**: ni el repo ni los dos endpoints de
+    ESPN que el proyecto usa publican cuerpo técnico (sondeado el 2026-09-15,
+    0 campos en scoreboard y 0 en summary).
+
+    Su propia regla de oro dice que sin dato en el pipeline la regla no se
+    activa. Así que se comprueban las dos cosas: que está apagada, y que la
+    regla escrita FUNCIONA cuando se le enchufa una fuente — si sólo se
+    comprobara lo primero, sería un test que no puede fallar.
+    """
+    import filtro_contexto as fc
+
+    check(fc.hay_fuente() is False,
+          'sin fuente registrada el filtro de entrenador está apagado')
+    info = fc.rebote_entrenador('Alavés', 'Valencia', '2026-09-15',
+                                cuota_favorito=1.84, lado_favorito='local')
+    check(info['activo'] is False and info['medido'] is False,
+          'y no marca rebote en ningún partido, ni siquiera en el que motivó '
+          'el encargo')
+    check(fc.penalizar(0.70, info) == 0.70,
+          'la probabilidad sale intacta mientras no haya fuente')
+    check(fc.estado()['activo'] is False and fc.estado()['medido'] is False,
+          'el módulo declara que no está medido en vez de disimularlo')
+
+    # AHORA CON FUENTE: la regla tiene que disparar como pide el encargo
+    try:
+        fc.registrar_fuente(lambda dia: {'Valencia': '2026-09-12'})
+        activo = fc.rebote_entrenador('Alavés', 'Valencia', '2026-09-15',
+                                      cuota_favorito=1.84,
+                                      lado_favorito='local')
+        check(activo['activo'] is True and activo['dias'] == 3,
+              'con fuente, el rival que cambió de entrenador hace 3 días '
+              'dispara el rebote')
+        check(abs(fc.penalizar(0.70, activo) - 0.55) < 1e-9,
+              f"y la probabilidad del favorito baja {fc.PENALIZACION} "
+              f"({fc.penalizar(0.70, activo)})")
+
+        # los tres guardias de la regla
+        caro = fc.rebote_entrenador('Alavés', 'Valencia', '2026-09-15',
+                                    cuota_favorito=1.95,
+                                    lado_favorito='local')
+        check(caro['activo'] is False,
+              f'un favorito por encima de {fc.CUOTA_FAVORITO_MAXIMA} no '
+              f'dispara el rebote')
+        fc.registrar_fuente(lambda dia: {'Valencia': '2026-08-01'})
+        viejo = fc.rebote_entrenador('Alavés', 'Valencia', '2026-09-15',
+                                     cuota_favorito=1.84,
+                                     lado_favorito='local')
+        check(viejo['activo'] is False,
+              f'un cambio de hace más de {fc.DIAS_VENTANA} días tampoco')
+        fc.registrar_fuente(lambda dia: {'Alavés': '2026-09-12'})
+        propio = fc.rebote_entrenador('Alavés', 'Valencia', '2026-09-15',
+                                      cuota_favorito=1.84,
+                                      lado_favorito='local')
+        check(propio['activo'] is False,
+              'y el rebote lo produce el entrenador nuevo del RIVAL, no el '
+              'del propio favorito')
+    finally:
+        fc.registrar_fuente(None)
+    check(fc.hay_fuente() is False,
+          'el test deja el módulo como lo encontró: apagado')
+
+
+def test_el_backtest_de_riesgo_no_se_despliega_sin_medirse():
+    """
+    `gestion_riesgo.json` es el resultado de comparar cada política contra la
+    Soñadora sin filtros. Lo que vigila este test es que siga siendo una
+    MEDICIÓN y no una declaración: que tenga la política base, que el criterio
+    sea la proyección desde la pata —no el ROI simulado, que sale de jornadas
+    repetidas— y que diga lo que NO puede medir.
+    """
+    import json
+    import os
+
+    ruta = 'modelos/gestion_riesgo.json'
+    if not os.path.exists(ruta):
+        check(False, f'{ruta} está generado')
+        return
+    with open(ruta, encoding='utf-8') as f:
+        doc = json.load(f)
+
+    check(doc.get('medido') is True, 'el backtest de riesgo está medido')
+    check((doc.get('n_patas') or 0) >= 10000,
+          f"se midió sobre el histórico entero ({doc.get('n_patas')} patas)")
+
+    niveles = doc.get('pata_por_nivel') or {}
+    alta = (niveles.get('alta') or {}).get('roi')
+    baja = (niveles.get('baja') or {}).get('roi')
+    check(alta is not None and baja is not None and baja > alta,
+          f'una pata de competición bien calibrada rinde más que una del peor '
+          f'cuarto ({baja} contra {alta}) — es la señal de la que cuelga todo')
+
+    politicas = doc.get('politicas') or {}
+    check(bool(politicas), 'hay políticas comparadas')
+    for n, cfgs in politicas.items():
+        letras = [c.get('letra') for c in cfgs]
+        check('A' in letras,
+              f'el tamaño {n} tiene política base con la que comparar')
+        for c in cfgs:
+            if c.get('letra') == 'A':
+                continue
+            d = c.get('contra_la_base') or {}
+            if c.get('veredicto') in (None, 'sin_muestra'):
+                continue
+            check('mejora_roi_proyectado_pp' in d,
+                  f"la política {c.get('letra')} de {n} patas se juzga por la "
+                  f"proyección desde la pata")
+            check('mejora_roi_simulado_pp' in d,
+                  f"y publica también el ROI simulado ({c.get('letra')}/{n})")
+
+    check(bool((doc.get('cobertura') or {}).get('aviso')),
+          'el informe dice qué competiciones NO puede medir en vez de '
+          'presentarlo como una medición completa')
+
+
+def test_las_rojas_no_entran_en_una_combinada_automatica():
+    """
+    El encargo pide que el generador de parlays no use picks con bandera roja.
+    Con el respaldo de siempre: si sin rojas no se llega al numero de patas, se
+    usan igual y se dice — no proponer nada los dias flojos es el fallo que el
+    rediseno de la Sonadora vino a quitar.
+    """
+    import sonadora_motor as sm
+
+    patas = _patas_de_prueba(sm, ligas=('l1', 'l2', 'l3'), por_liga=3)
+    # media docena de partidos con pata SOLIDA y el resto rojas
+    for i, q in enumerate(patas):
+        if q['liga'] == 'l1':
+            q['prob'] = 0.40                      # por debajo de PROB_AMBAR
+            q['color'] = sm.color(0.40)
+            q['score'] = 0.40 * q['cuota'] * 5    # y el mejor Score del dia
+    check(any(q['color'] == sm.ROJO for q in patas),
+          'el escenario tiene patas rojas que ganarian por Score')
+
+    perms = sm.permutaciones(patas, 4)
+    check(bool(perms), 'se arman combinadas')
+    for p in perms:
+        rojas = [q for q in p['patas'] if q['color'] == sm.ROJO]
+        check(not rojas,
+              f"la combinada {p['letra']} no mete ninguna pata roja "
+              f"({len(rojas)})")
+        check(p.get('rojas_forzadas') is False,
+              f"y no ha hecho falta forzarlas ({p['letra']})")
+
+    # AHORA SIN ALTERNATIVA: casi todo rojo, y hay que armar igual
+    solo_rojas = _patas_de_prueba(sm, ligas=('l1', 'l2'), por_liga=3)
+    for q in solo_rojas:
+        q['prob'] = 0.40
+        q['color'] = sm.color(0.40)
+        q['score'] = 0.40 * q['cuota']
+    perms2 = sm.permutaciones(solo_rojas, 4)
+    check(bool(perms2),
+          'sin patas que no sean rojas la seccion no se queda vacia')
+    for p in perms2:
+        check(p.get('rojas_forzadas') is True,
+              f"y avisa de que la combinada {p['letra']} lleva rojas por "
+              f"falta de alternativa")
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -14381,6 +14915,18 @@ if __name__ == '__main__':
     test_el_contexto_de_mercado_informa_y_no_recomienda()
     test_la_sonadora_no_mezcla_casas()
     test_el_veredicto_de_la_sonadora_es_el_medido()
+
+    print(chr(10) + '=== v202: la capa de gestion de riesgo ===')
+    test_el_indice_de_riesgo_no_usa_un_umbral_que_nadie_alcanza()
+    test_el_riesgo_de_competicion_ordena_y_no_bloquea()
+    test_el_filtro_de_riesgo_bajo_no_deja_la_pantalla_vacia()
+    test_los_topes_de_exposicion_cortan_la_falsa_diversificacion()
+    test_un_tope_se_levanta_antes_que_no_armar_el_parlay()
+    test_un_partido_no_entra_en_dos_parlays_a_la_vez()
+    test_el_tope_por_boost_sale_de_la_ventaja_medida()
+    test_el_rebote_por_entrenador_esta_apagado_por_falta_de_fuente()
+    test_el_backtest_de_riesgo_no_se_despliega_sin_medirse()
+    test_las_rojas_no_entran_en_una_combinada_automatica()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
