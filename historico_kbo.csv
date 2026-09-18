@@ -6610,8 +6610,8 @@ date,home_team,away_team,game_id,estadio,home_runs,away_runs,home_pitcher,away_p
 2018-05-30,Hanwha Eagles,NC Dinos,20180530NCHH02018,대전,10,4,배영수,
 2018-05-30,Kia Tigers,Kiwoom Heroes,20180530WOHT02018,광주,1,6,임기영,한현희
 2018-05-31,Kia Tigers,Kiwoom Heroes,20180531WOHT02018,광주,5,0,,최원태
-2018-05-31,Doosan Bears,SSG Landers,20180531SKOB02018,잠실,6,4,,김광현
 2018-05-31,Hanwha Eagles,NC Dinos,20180531NCHH02018,대전,4,5,,최성영
+2018-05-31,Doosan Bears,SSG Landers,20180531SKOB02018,잠실,6,4,,김광현
 2018-05-31,Lotte Giants,LG Twins,20180531LGLT02018,사직,10,11,김원중,김대현
 2018-05-31,Samsung Lions,KT Wiz,20180531KTSS02018,대구,6,0,,
 2018-06-01,Lotte Giants,Hanwha Eagles,20180601HHLT02018,사직,6,13,,
@@ -13146,3 +13146,5 @@ date,home_team,away_team,game_id,estadio,home_runs,away_runs,home_pitcher,away_p
 2026-09-16,Lotte Giants,SSG Landers,20260916SKLT02026,사직,1,4,비슬리,아빌라
 2026-09-16,Hanwha Eagles,KT Wiz,20260916KTHH02026,대전,4,4,류현진,배제성
 2026-09-16,Doosan Bears,Samsung Lions,20260916SSOB02026,잠실,3,1,벤자민,페덱
+2026-09-17,NC Dinos,SSG Landers,20260917SKNC02026,창원,1,2,라일리,이로운
+2026-09-17,Kia Tigers,Kiwoom Heroes,20260917WOHT02026,광주,2,0,올러,안우진
