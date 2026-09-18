@@ -1,6 +1,6 @@
 {
- "generado": "2026-09-17T11:18:28Z",
- "filas_insertadas": 234718,
+ "generado": "2026-09-18T10:59:03Z",
+ "filas_insertadas": 234733,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -49,8 +49,8 @@
    "partidos": 1601
   },
   "brasil": {
-   "filas": 5824,
-   "partidos": 3067
+   "filas": 5819,
+   "partidos": 3065
   },
   "bundesliga": {
    "filas": 9050,
@@ -65,24 +65,24 @@
    "partidos": 1642
   },
   "eng_championship": {
-   "filas": 5319,
-   "partidos": 2841
+   "filas": 5321,
+   "partidos": 2843
   },
   "eng_league_one": {
-   "filas": 15938,
-   "partidos": 8751
+   "filas": 15939,
+   "partidos": 8752
   },
   "eng_league_two": {
    "filas": 16020,
    "partidos": 8792
   },
   "eng_national": {
-   "filas": 15791,
-   "partidos": 8658
+   "filas": 15803,
+   "partidos": 8670
   },
   "eredivisie": {
-   "filas": 5246,
-   "partidos": 2733
+   "filas": 5247,
+   "partidos": 2734
   },
   "esp_hypermotion": {
    "filas": 8062,
@@ -117,12 +117,12 @@
    "partidos": 2528
   },
   "laliga": {
-   "filas": 11260,
-   "partidos": 6131
+   "filas": 11268,
+   "partidos": 6139
   },
   "liga_mx": {
-   "filas": 5011,
-   "partidos": 2648
+   "filas": 5008,
+   "partidos": 2647
   },
   "ligue_1": {
    "filas": 10636,
@@ -137,7 +137,7 @@
    "partidos": 1922
   },
   "polonia": {
-   "filas": 4485,
+   "filas": 4483,
    "partidos": 2373
   },
   "premier": {
@@ -157,20 +157,20 @@
    "partidos": 1942
   },
   "sco_championship": {
-   "filas": 2971,
-   "partidos": 1561
+   "filas": 2972,
+   "partidos": 1562
   },
   "sco_premiership": {
-   "filas": 6600,
-   "partidos": 3632
+   "filas": 6603,
+   "partidos": 3635
   },
   "serie_a": {
    "filas": 11256,
    "partidos": 6118
   },
   "suecia": {
-   "filas": 3695,
-   "partidos": 1939
+   "filas": 3692,
+   "partidos": 1938
   },
   "suiza": {
    "filas": 3026,
