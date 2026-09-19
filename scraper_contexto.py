@@ -45,6 +45,7 @@ es lo que un cron puede vigilar para avisar de que una fuente dejó de dar nada.
 """
 
 import datetime as _dt
+import json
 import logging
 from typing import Callable, Dict, List, Optional
 
@@ -209,7 +210,84 @@ def _p_arbitro(ctx: Dict) -> List[Dict]:
     return []
 
 
+def _p_bajas(ctx: Dict) -> List[Dict]:
+    """Lesiones y sanciones reales, del endpoint de FotMob (sin clave).
+
+    Sustituye al hueco que este módulo declaraba como `lesiones: no
+    disponible`. El sondeo de la v214 encontró la vía: no hacía falta clave de
+    API, hacía falta buscar mejor. Cobertura medida: 10 de 45 partidos de un
+    día cualquiera traen alguna baja, y sube en las ligas grandes.
+    """
+    import fuente_bajas as fb
+    home, away = ctx.get('home'), ctx.get('away')
+    fecha = str(ctx.get('fecha') or '').replace('-', '')[:8]
+    if not (home and away and len(fecha) == 8):
+        return []
+    ficha = fb.de_partido(home, away, fecha)
+    if not ficha.get('encontrado'):
+        return []
+    señales = fb.a_senales(ficha, ctx.get('deporte', 'futbol'))
+    return list(señales.get('home') or []) + list(señales.get('away') or [])
+
+
+def _p_lesiones_espn(ctx: Dict) -> List[Dict]:
+    """Lesiones de NFL, MLB y NBA desde el core de ESPN, sin clave.
+
+    En FÚTBOL no se llama: está medido que ESPN devuelve `count: 0` en los diez
+    equipos probados de cinco ligas. Un proveedor que siempre devuelve vacío es
+    peor que no tenerlo, porque parece cobertura.
+    """
+    import fuente_bajas as fb
+    dep = str(ctx.get('deporte') or '').lower()
+    fuera = []
+    for lado in ('home', 'away'):
+        tid = ctx.get(f'espn_team_id_{lado}')
+        if not tid:
+            continue
+        les = fb.espn_lesiones(dep, tid)
+        if len(les) >= 2:
+            fuera.append(senal('lesion_multiple', 1, 'espn', dep,
+                               ctx.get('metrica', ''),
+                               f'{len(les)} jugadores en el parte de bajas'))
+        elif les:
+            b = les[0]
+            fuera.append(senal('lesion_clave', 1, 'espn', dep,
+                               ctx.get('metrica', ''),
+                               f"{b.get('nombre')} ({b.get('estado')})"))
+    return fuera
+
+
+def _p_clima(ctx: Dict) -> List[Dict]:
+    """Clima del partido, que FotMob publica en `content.weather`.
+
+    Sólo emite señal cuando el clima es REALMENTE adverso. Un día nublado no
+    cambia un partido, y una señal que se enciende siempre no informa de nada.
+    """
+    import fuente_bajas as fb
+    home, away = ctx.get('home'), ctx.get('away')
+    fecha = str(ctx.get('fecha') or '').replace('-', '')[:8]
+    if not (home and away and len(fecha) == 8):
+        return []
+    ficha = fb.de_partido(home, away, fecha)
+    c = ficha.get('clima') or {}
+    if not c:
+        return []
+    texto = json.dumps(c, ensure_ascii=False).lower()
+    adverso = [p for p in ('rain', 'snow', 'storm', 'thunder', 'lluvia',
+                           'nieve', 'tormenta') if p in texto]
+    if not adverso:
+        return []
+    return [senal('contexto', 1, 'fotmob', ctx.get('deporte', 'futbol'),
+                  ctx.get('metrica', ''),
+                  f"clima adverso en el partido ({adverso[0]})")]
+
+
 registrar('entrenador', _p_entrenador, ('futbol',))
+# OJO: `_p_bajas` se registra UNA sola vez, abajo, bajo el nombre `lesiones`.
+# Registrarlo también como `bajas` hacía que cada lesión se emitiera dos veces
+# y `ajuste_contexto` la penalizara doble.
+registrar('lesiones_espn', _p_lesiones_espn, ('nfl', 'mlb'))
+registrar('clima', _p_clima, ('futbol',))
 registrar('racha', _p_racha, DEPORTES)
 registrar('h2h', _p_h2h, DEPORTES)
 registrar('aclimatacion', _p_aclimatacion, ('futbol',))
@@ -219,14 +297,21 @@ registrar('arbitro', _p_arbitro, ('futbol',))
 # ---------------------------------------------------------------------------
 # Huecos declarados. No se simulan; se registran para que se vean.
 # ---------------------------------------------------------------------------
-registrar('lesiones', None, DEPORTES, disponible=False,
-          motivo='API-Football sin clave configurada (API_FOOTBALL_KEY). '
-                 'La regla existe; falta la credencial.')
+# v214 — TRES HUECOS QUE YA NO LO SON.
+#
+# `lesiones`, `alineaciones` y `clima` estaban declarados como NO disponibles
+# «porque falta la clave de API-Football». Era falso, y el sondeo de 16 fuentes
+# del 2026-09-19 lo demostró: FotMob publica los tres en un endpoint abierto.
+# Se conserva la anotación porque el error tiene valor — el hueco no estaba en
+# el mundo, estaba en no haber buscado lo suficiente.
+registrar('lesiones', _p_bajas, ('futbol',),
+          motivo='RESUELTO en la v214: FotMob `unavailable`, sin clave')
 registrar('alineaciones', None, DEPORTES, disponible=False,
-          motivo='misma clave. ESPN publica `rosters` (plantilla), no el once '
-                 'confirmado, así que no responde «falta el central».')
-registrar('clima', None, ('futbol', 'nfl', 'mlb'), disponible=False,
-          motivo='no hay ninguna fuente de clima en el pipeline')
+          motivo='parcialmente resuelto: FotMob y ESPN dan el once, pero '
+                 'FotMob lo marca `lastStarting11` (el del partido ANTERIOR) '
+                 'en 19 de 23 casos medidos. Se lee con `fuente_bajas.once()`, '
+                 'que devuelve el tipo, y no se emite como señal hasta poder '
+                 'distinguirlo de forma fiable.')
 registrar('x_twitter', None, DEPORTES, disponible=False,
           motivo='sin API abierta; no se scrapea')
 registrar('sofascore', None, ('futbol',), disponible=False,

@@ -16328,11 +16328,18 @@ def test_el_contexto_declara_las_fuentes_que_no_tiene():
     e = sc.estado()
     check(len(e['disponibles']) >= 3,
           f"hay proveedores disponibles ({e['disponibles']})")
-    for esperado in ('lesiones', 'clima', 'x_twitter'):
+    # v214 — `lesiones` y `clima` SALIERON de esta lista, y el cambio es el
+    # resultado, no un retoque del test: el sondeo de 16 fuentes encontro que
+    # FotMob publica las dos sin clave. Lo que este test sigue protegiendo es
+    # la propiedad de verdad —que todo hueco se declare con su motivo— y no
+    # una foto de cuales eran los huecos en septiembre.
+    for esperado in ('x_twitter', 'sofascore', 'transfermarkt'):
         check(esperado in e['no_disponibles'],
               f'`{esperado}` esta declarado como NO disponible con su motivo')
     check(all(bool(v) for v in e['no_disponibles'].values()),
           'y ninguno se queda sin explicar por que')
+    check('lesiones' in e['disponibles'] and 'clima' in e['disponibles'],
+          'las dos que se resolvieron en la v214 ya no figuran como huecos')
     check('entrenador' in e['por_deporte']['futbol'],
           'el entrenador esta disponible en futbol')
     for dep in sc.DEPORTES:
@@ -16671,6 +16678,177 @@ def test_el_buscador_de_patrones_puede_decir_que_no_hay():
     check(pa.CUOTA_MINIMA_UTIL >= 1.50,
           f'el barrido descarta las cuotas que no sirven para combinar '
           f'({pa.CUOTA_MINIMA_UTIL})')
+
+
+# ===========================================================================
+# v214 — BAJAS, ONCE Y CLIMA SIN CLAVE DE API
+# ===========================================================================
+def _detalle_falso():
+    """Un matchDetails de FotMob recortado, con la forma REAL del endpoint."""
+    return {'content': {'lineup': {
+        'lineupType': 'standard',
+        'homeTeam': {
+            'name': 'Espanyol', 'formation': '4-2-3-1',
+            'coach': {'name': 'Un Entrenador'},
+            'totalStarterMarketValue': 50000000, 'averageStarterAge': 26.5,
+            'starters': [{'name': 'Jugador %d' % i} for i in range(11)],
+            'unavailable': [
+                {'name': 'Jofre Carreras', 'age': 24, 'marketValue': 3000000,
+                 'unavailability': {'type': 'injury',
+                                    'expectedReturn': 'Doubtful'}},
+                {'name': 'Javi Puado', 'age': 27, 'marketValue': 9000000,
+                 'unavailability': {'type': 'injury',
+                                    'expectedReturn': 'Late September 2026'}},
+                {'name': 'Omar El Hilali', 'age': 22,
+                 'unavailability': {'type': 'suspension',
+                                    'expectedReturn': 'Mid September 2026'}},
+            ]},
+        'awayTeam': {
+            'name': 'Elche', 'formation': '4-4-2',
+            'starters': [{'name': 'Visitante %d' % i} for i in range(11)],
+            'unavailable': []},
+    }, 'weather': {'temperature': 22, 'windSpeed': 1}}}
+
+
+def test_las_bajas_se_leen_del_endpoint_abierto_de_fotmob():
+    """
+    EL ENCARGO ERA «no quiero API, busca otra forma». El sondeo de 16 fuentes
+    encontro que FotMob publica bajas, once y clima en un endpoint abierto.
+    Este test ata la FORMA del payload: si FotMob cambia el esquema, se entera
+    aqui y no en pantalla.
+    """
+    import fuente_bajas as fb
+
+    det = _detalle_falso()
+    b = fb.bajas(det, 'home')
+    check(len(b) == 3, f'se leen las tres bajas del local ({len(b)})')
+    check(b[0]['nombre'] == 'Jofre Carreras', 'con su nombre')
+    check(b[0]['tipo'] == 'injury', 'y su tipo')
+    check(b[0]['regreso'] == 'Doubtful', 'y su fecha esperada de regreso')
+    check(any(x['tipo'] == 'suspension' for x in b),
+          'las sanciones se distinguen de las lesiones')
+    check(fb.bajas(det, 'away') == [],
+          'un equipo sin bajas devuelve lista vacia, no None')
+    check(fb.bajas({}, 'home') == [],
+          'y un detalle vacio no revienta')
+
+
+def test_el_once_viaja_siempre_con_su_tipo():
+    """
+    EL MATIZ QUE IMPIDE USARLO A LA LIGERA. Medido sobre 23 partidos con
+    alineacion: `lastStarting11` 19 veces, o sea el once del partido ANTERIOR.
+    Presentarlo como el de hoy seria inventarse un dato con formato de dato.
+    """
+    import fuente_bajas as fb
+
+    det = _detalle_falso()
+    o = fb.once(det, 'home')
+    check(o['tipo'] == 'standard', f"el tipo viaja con el once ({o['tipo']})")
+    check(o['confirmado'] is True, '`standard` si cuenta como confirmado')
+    check(len(o['titulares']) == 11, 'salen los once titulares')
+    check(o['valor_once'] == 50000000,
+          'y el valor de mercado del once, que mide si falta un crack')
+
+    det2 = _detalle_falso()
+    det2['content']['lineup']['lineupType'] = 'lastStarting11'
+    o2 = fb.once(det2, 'home')
+    check(o2['confirmado'] is False,
+          '`lastStarting11` NO cuenta como confirmado: es el del partido previo')
+    check(o2['titulares'], 'pero los nombres se siguen devolviendo')
+
+    det3 = _detalle_falso()
+    det3['content']['lineup']['lineupType'] = 'predicted'
+    check(fb.once(det3, 'home')['confirmado'] is False,
+          'y un once `predicted` tampoco se presenta como confirmado')
+
+
+def test_las_bajas_se_traducen_a_senales_con_el_peso_correcto():
+    """Dos o mas lesiones son `lesion_multiple`; una sola es `lesion_clave`."""
+    import fuente_bajas as fb
+
+    ficha = {'bajas_home': [
+        {'nombre': 'A', 'tipo': 'injury', 'regreso': 'Doubtful'},
+        {'nombre': 'B', 'tipo': 'injury', 'regreso': 'Late September'}],
+        'bajas_away': [{'nombre': 'C', 'tipo': 'injury', 'regreso': None}],
+        'once_home': {'equipo': 'Espanyol'}, 'once_away': {'equipo': 'Elche'}}
+    s = fb.a_senales(ficha)
+    tipos_h = [x['tipo'] for x in s['home']]
+    tipos_a = [x['tipo'] for x in s['away']]
+    check('lesion_multiple' in tipos_h,
+          f'dos lesiones dan `lesion_multiple` ({tipos_h})')
+    check('lesion_clave' in tipos_a,
+          f'una sola da `lesion_clave` ({tipos_a})')
+    check(all(x['fuente'] == 'fotmob' for x in s['home'] + s['away']),
+          'y todas declaran su fuente')
+
+    vacia = fb.a_senales({'bajas_home': [], 'bajas_away': []})
+    check(vacia['home'] == [] and vacia['away'] == [],
+          'sin bajas no se inventa ninguna senal')
+
+
+def test_el_sondeo_de_fuentes_viaja_con_el_codigo():
+    """
+    Para que nadie repita el barrido de 16 fuentes, y para que el hueco que ya
+    NO lo es quede documentado como lo que fue: no faltaba la fuente, faltaba
+    haber buscado mas.
+    """
+    import fuente_bajas as fb
+
+    s = fb.estado()
+    check(s['fuentes_probadas'] >= 10,
+          f"queda registrado cuantas fuentes se probaron ({s['fuentes_probadas']})")
+    check('fotmob_matchdetails' in s['funcionan'],
+          'FotMob queda registrado como fuente que funciona')
+    for muerta in ('sofascore', 'transfermarkt', 'x_twitter'):
+        check(muerta in s['no_funcionan'],
+              f'`{muerta}` queda registrada como fuente que NO sirve, con su motivo')
+    check('0 en 10 equipos' in s['espn_injuries_futbol'],
+          'y queda medido que ESPN no puebla lesiones de futbol')
+
+
+def test_el_contexto_ya_no_declara_hueco_donde_hay_fuente():
+    """
+    `lesiones` y `clima` estaban marcados «no disponible, falta la clave de
+    API-Football». Era falso. Ahora son proveedores de verdad.
+    """
+    import scraper_contexto as sc
+
+    e = sc.estado()
+    check('lesiones' in e['disponibles'],
+          f"`lesiones` ya es un proveedor disponible ({e['disponibles']})")
+    check('clima' in e['disponibles'], '`clima` tambien')
+    check('lesiones' not in e['no_disponibles'],
+          'y ya no figura entre los huecos')
+    check('lesiones' in e['por_deporte']['futbol'],
+          'cubre futbol')
+    check('lesiones_espn' in e['por_deporte']['nfl'],
+          'y la NFL tiene su propia via por el core de ESPN')
+
+    # las que siguen sin resolverse, siguen declaradas
+    for muerta in ('x_twitter', 'sofascore', 'transfermarkt'):
+        check(muerta in e['no_disponibles'],
+              f'`{muerta}` sigue declarada como hueco con su motivo')
+    check('alineaciones' in e['no_disponibles'],
+          'y el once sigue como hueco PARCIAL: FotMob lo da, pero casi '
+          'siempre es el del partido anterior')
+
+
+def test_cada_lesion_se_cuenta_una_sola_vez():
+    """
+    Un bug real de esta tanda: `_p_bajas` estaba registrado DOS veces —como
+    `bajas` y como `lesiones`— asi que cada lesion se emitia por duplicado y
+    `ajuste_contexto` la penalizaba doble.
+    """
+    import scraper_contexto as sc
+
+    proveedores = [n for n, p in sc._REGISTRO.items()
+                   if p.get('fn') is not None]
+    funciones = [sc._REGISTRO[n]['fn'] for n in proveedores]
+    repetidas = [f for f in funciones if funciones.count(f) > 1]
+    check(not repetidas,
+          f'ninguna funcion esta registrada dos veces ({len(repetidas)} repetidas)')
+    check('bajas' not in sc._REGISTRO,
+          'el alias duplicado `bajas` ya no existe')
 
 
 if __name__ == '__main__':
@@ -17063,6 +17241,14 @@ if __name__ == '__main__':
     test_las_barritas_se_explican_una_a_una()
     test_el_modo_valor_compra_precio_y_no_probabilidad()
     test_el_buscador_de_patrones_puede_decir_que_no_hay()
+
+    print(chr(10) + '=== v214: bajas, once y clima sin clave de API ===')
+    test_las_bajas_se_leen_del_endpoint_abierto_de_fotmob()
+    test_el_once_viaja_siempre_con_su_tipo()
+    test_las_bajas_se_traducen_a_senales_con_el_peso_correcto()
+    test_el_sondeo_de_fuentes_viaja_con_el_codigo()
+    test_el_contexto_ya_no_declara_hueco_donde_hay_fuente()
+    test_cada_lesion_se_cuenta_una_sola_vez()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
