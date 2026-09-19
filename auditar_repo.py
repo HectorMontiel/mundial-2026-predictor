@@ -282,9 +282,63 @@ def _estado(f: Dict, importadores: Set[str]) -> str:
         return 'refutado_o_apagado'
     if importadores:
         return 'activo_medido' if f['marcas_medido'] else 'activo_sin_medir'
-    if nombre.startswith(PREFIJOS_SCRIPT) or f['tiene_main']:
+    # v222 — EL PUNTO CIEGO QUE ESTA AUDITORÍA TENÍA.
+    #
+    # Antes bastaba un `if __name__ == '__main__'` para salir clasificado como
+    # `script_de_entrada` y dejar de aparecer en las banderas. Pero casi todo
+    # módulo de librería de este repositorio lleva un bloque `__main__` de
+    # demostración, así que la regla estaba absolviendo justo lo que hay que
+    # cazar: una librería escrita, con su API, que nadie importa.
+    #
+    # Lo comprobó la propia auditoría de la v222: `archivo_contexto` y
+    # `feedback_humano` tenían CERO importadores y salían limpios.
+    #
+    # Ahora sólo se considera script de entrada lo que su NOMBRE anuncia como
+    # tal (`build_`, `train_`, `validar_`…). Un `__main__` sin ese prefijo
+    # baja a `sin_importadores`, que es una pregunta, no una condena.
+    if nombre.startswith(PREFIJOS_SCRIPT) or nombre in _invocados_por_workflow():
         return 'script_de_entrada'
     return 'sin_importadores'
+
+
+_CACHE_WORKFLOWS: Optional[Set[str]] = None
+
+
+def _invocados_por_workflow() -> Set[str]:
+    """Módulos que algún workflow ejecuta con `python <modulo>.py`.
+
+    ES LA EVIDENCIA QUE FALTABA. Un script de cron no lo importa nadie —lo
+    invoca YAML— así que por el grafo de imports parece muerto. Mirar el
+    nombre no bastaba: `liquidador`, `recalibrar_todo` y `frescura_datos` no
+    empiezan por ninguno de los prefijos y son de los más vivos del repo.
+
+    Al quitar la absolución por `__main__` salieron 38 banderas, casi todas
+    falsas por este motivo. Con esto quedan las que de verdad no las llama
+    nadie, ni Python ni CI.
+    """
+    global _CACHE_WORKFLOWS
+    if _CACHE_WORKFLOWS is not None:
+        return _CACHE_WORKFLOWS
+    _CACHE_WORKFLOWS = set()
+    import re as _re
+    for carpeta in ('.github/workflows',):
+        if not os.path.isdir(carpeta):
+            continue
+        for fichero in os.listdir(carpeta):
+            if not fichero.endswith(('.yml', '.yaml')):
+                continue
+            try:
+                with open(os.path.join(carpeta, fichero), encoding='utf-8') as f:
+                    texto = f.read()
+            except Exception as e:
+                logger.debug('[auditoria] %s: %s', fichero, e)
+                continue
+            for m in _re.finditer(r'python3?\s+(?:-m\s+)?([A-Za-z_][\w]*)\.py',
+                                  texto):
+                _CACHE_WORKFLOWS.add(m.group(1))
+            for m in _re.finditer(r'python3?\s+-m\s+([A-Za-z_][\w]*)', texto):
+                _CACHE_WORKFLOWS.add(m.group(1))
+    return _CACHE_WORKFLOWS
 
 
 def construir() -> Dict:

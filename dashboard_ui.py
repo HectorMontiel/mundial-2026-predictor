@@ -4395,8 +4395,16 @@ def render_liga_club(clave: str, nombre_liga: str):
                        mime="text/markdown")
 
 
-COMPETENCIAS = {'🌍 Partidos Internacionales': 'mundial',
-                '💎 Apuestas del Día': 'alpha',
+# v222 — «APUESTAS DEL DÍA» ES LA PRIMERA, Y POR TANTO LA QUE ABRE.
+#
+# El selector usa `index=0`, así que el orden de este diccionario decide con
+# qué pantalla se encuentra el usuario al entrar. Estaba abriendo en
+# «Partidos Internacionales» —la vista de selecciones, que fuera de un Mundial
+# está casi siempre vacía— mientras que la pantalla que se usa todos los días
+# quedaba en segundo lugar. Se pidió al revés y es lo razonable: lo primero
+# que se ve tiene que ser lo que se viene a ver.
+COMPETENCIAS = {'💎 Apuestas del Día': 'alpha',
+                '🌍 Partidos Internacionales': 'mundial',
                 # v197 — la Soñadora va SEPARADA de «Apuestas del Día» a
                 # propósito: no es una recomendación del sistema, es una
                 # herramienta de entretenimiento con el rendimiento medido en
@@ -5830,6 +5838,50 @@ def render_alpha_finder():
     if _prefu is not None:
         _prefu.guardar('_filtro_grupo_liga', _grupo_liga)
 
+    # v222 — EL FILTRO POR LIGA, QUE ES LO QUE SE PIDIÓ.
+    #
+    # «Muchas veces no encuentro tan fácil la liga y tengo que estar
+    # explorando mucho.» Con 368 partidos de 43 competiciones en un día, el
+    # filtro de deporte y el de principales/secundarias no bastan: dentro de
+    # «⚽ Fútbol · Sólo principales» siguen quedando decenas de partidos de
+    # quince ligas distintas.
+    #
+    # LAS OPCIONES SALEN DEL BARRIDO, NO DEL CATÁLOGO. Ofrecer las 50
+    # competiciones configuradas dejaría elegir ligas que hoy no juegan, y el
+    # usuario se encontraría una lista vacía sin saber por qué. Aquí sólo
+    # aparecen las que tienen partidos HOY, con su número al lado.
+    #
+    # Y se ordenan por número de partidos, no alfabéticamente: la liga que más
+    # juega hoy es la que más probablemente se busca, y va arriba.
+    _LIGA_TODAS = 'Todas las ligas'
+    _cuenta_liga = {}
+    for _p in (r.get('pronosticos') or []):
+        if not isinstance(_p, dict):
+            continue
+        if _dep_sel != 'Todo' and _p.get('deporte') != _dep_sel:
+            continue
+        _lg = str(_p.get('liga') or '').strip()
+        if _lg:
+            _cuenta_liga[_lg] = _cuenta_liga.get(_lg, 0) + 1
+    _ligas_ord = sorted(_cuenta_liga, key=lambda k: (-_cuenta_liga[k], k))
+    _opciones_liga = [_LIGA_TODAS] + _ligas_ord
+
+    # La elección se guarda por NOMBRE, y un nombre puede desaparecer mañana
+    # —esa liga no juega—. Si el valor guardado ya no está entre las opciones,
+    # Streamlit lanza por un default que no existe: una pantalla en blanco.
+    # Es la misma trampa que el selector de país documenta más arriba.
+    if st.session_state.get('_filtro_liga') not in _opciones_liga:
+        st.session_state.pop('_filtro_liga', None)
+    if len(_opciones_liga) > 2:
+        _liga_sel = st.selectbox(
+            'Liga', _opciones_liga, key='_filtro_liga',
+            format_func=lambda x: (x if x == _LIGA_TODAS
+                                   else '%s (%d)' % (x, _cuenta_liga.get(x, 0))),
+            help='Sólo salen las competiciones que TIENEN partidos hoy, '
+                 'ordenadas por cuántos. Escribe para buscar.')
+    else:
+        _liga_sel = _LIGA_TODAS
+
     def _filtra(lista):
         """La lista tal cual, o sólo lo elegido. Nunca muta el barrido."""
         salida = list(lista or [])
@@ -5848,6 +5900,9 @@ def render_alpha_finder():
                           and _mmf.es_secundaria(p) is quiere_sec]
             except Exception:
                 pass
+        if _liga_sel != _LIGA_TODAS:
+            salida = [p for p in salida if isinstance(p, dict)
+                      and str(p.get('liga') or '').strip() == _liga_sel]
         return salida
 
     # v141 — LA SEPARACIÓN POR DÍA, QUE HASTA AHORA NO EXISTÍA.

@@ -16464,8 +16464,16 @@ def test_la_auditoria_del_repo_no_declara_muerto_lo_que_no_sabe():
           'un modulo sin importadores se marca como pregunta abierta')
     check('muerto' not in ar._estado(f, set()),
           'y NUNCA se declara muerto')
-    check(ar._estado(dict(f, tiene_main=True), set()) == 'script_de_entrada',
-          'si arranca solo, es script de entrada y no una bandera')
+    # v222 — ESTA COMPROBACION AFIRMABA EL PUNTO CIEGO, y por eso cambia.
+    # Tener un `__main__` ya NO absuelve: casi todo modulo de libreria de este
+    # repo lleva un bloque de demostracion, asi que la regla estaba tapando
+    # justo lo que hay que cazar. Lo que absuelve ahora es que el NOMBRE se
+    # anuncie como script, o que un workflow lo ejecute.
+    check(ar._estado(dict(f, tiene_main=True), set()) == 'sin_importadores',
+          'un `__main__` de demostracion ya no absuelve a una libreria suelta')
+    check(ar._estado(dict(f, modulo='build_lo_que_sea'), set())
+          == 'script_de_entrada',
+          'pero un nombre que se anuncia como script si')
     check(ar._estado(f, {'otro'}) == 'activo_sin_medir',
           'con importadores y sin medicion, activo_sin_medir')
     check(ar._estado(dict(f, marcas_medido=['roi']), {'otro'}) == 'activo_medido',
@@ -17775,6 +17783,15 @@ def test_sin_pestillo_y_sin_precalculo_se_calcula_como_siempre():
               'sin precalculo y sin pestillo, se calcula igual que antes')
         check(r.get('actualizado') == 'test', 'y se devuelve lo calculado')
     finally:
+        # El guardia ESCRIBE la cache al terminar un barrido, asi que el
+        # fichero de mentira acaba existiendo. Se borra aqui: un test no puede
+        # dejar basura en la raiz del repositorio.
+        import os as _os
+        try:
+            if _os.path.exists(gb.ARCHIVO) and 'no_existe' in gb.ARCHIVO:
+                _os.remove(gb.ARCHIVO)
+        except Exception:
+            pass
         pre.FICHERO = antes_fichero
         pre.SOLO_PRECALCULO = antes_pestillo
         gb.ARCHIVO = antes_archivo
@@ -18004,6 +18021,129 @@ def test_la_reserva_cubre_de_sobra_los_fallos_del_cron():
     pasadas = pre.RESERVA_S / (3 * 3600)      # el cron corre cada 3 h
     check(pasadas >= 8,
           f'la reserva aguanta {pasadas:.0f} pasadas fallidas seguidas')
+
+
+# ===========================================================================
+# v222 — LA PAGINA QUE ABRE, Y EL FILTRO POR LIGA
+# ===========================================================================
+def test_la_pagina_que_abre_es_apuestas_del_dia():
+    """
+    El selector usa `index=0`, asi que el ORDEN del diccionario decide con que
+    pantalla se encuentra el usuario al entrar. Abria en «Partidos
+    Internacionales» —la vista de selecciones, casi siempre vacia fuera de un
+    Mundial— mientras la pantalla de todos los dias quedaba segunda.
+    """
+    import ast
+
+    # Se localiza la ASIGNACION con AST y no buscando el cierre a mano:
+    # `COMPETENCIAS` se amplia mas abajo con las ligas de cada pais, asi que
+    # el primer `\n}` del fichero no es el final de este literal — cazarlo asi
+    # se llevaba por delante el siguiente diccionario.
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    doc = None
+    for nodo in ast.walk(ast.parse(src)):
+        if isinstance(nodo, ast.Assign) and any(
+                isinstance(t, ast.Name) and t.id == 'COMPETENCIAS'
+                for t in nodo.targets):
+            doc = ast.literal_eval(nodo.value)
+            break
+    check(doc is not None, 'se encuentra la asignacion de COMPETENCIAS')
+    if doc is None:
+        return
+    claves = list(doc)
+    check(claves[0] == '💎 Apuestas del Día',
+          f'la primera competicion —la que abre— es Apuestas del Dia '
+          f'({claves[0]})')
+    check(doc[claves[0]] == 'alpha',
+          'y enruta a la vista `alpha`')
+    check('🌍 Partidos Internacionales' in doc,
+          'la vista de selecciones sigue existiendo, solo que no la primera')
+
+
+def test_el_filtro_por_liga_solo_ofrece_ligas_que_juegan_hoy():
+    """
+    Ofrecer las 50 competiciones del catalogo dejaria elegir ligas que hoy no
+    juegan, y el usuario se encontraria una lista vacia sin saber por que. Las
+    opciones salen del BARRIDO.
+    """
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    check("_cuenta_liga[_lg] = _cuenta_liga.get(_lg, 0) + 1" in src,
+          'las opciones se cuentan desde los pronosticos del barrido')
+    check("r.get('pronosticos')" in src.split('_LIGA_TODAS =')[1][:900],
+          'y no desde el catalogo de competiciones')
+    check("key=lambda k: (-_cuenta_liga[k], k)" in src,
+          'se ordenan por numero de partidos: la que mas juega hoy va arriba')
+    # el guardia contra el valor guardado que ya no existe
+    check("if st.session_state.get('_filtro_liga') not in _opciones_liga" in src,
+          'y una liga guardada que hoy no juega se descarta antes de que '
+          'Streamlit lance por un default inexistente')
+
+
+def test_la_auditoria_ya_no_absuelve_por_tener_un_main():
+    """
+    EL PUNTO CIEGO QUE LA AUDITORIA TENIA, y que se cazo a si misma.
+
+    Bastaba un `if __name__ == '__main__'` para salir clasificado como script
+    de entrada y desaparecer de las banderas. Pero casi todo modulo de
+    libreria de este repo lleva un bloque de demostracion, asi que la regla
+    absolvia justo lo que hay que cazar: una libreria escrita, con su API, que
+    nadie importa. `archivo_contexto` y `feedback_humano` tenian CERO
+    importadores y salian limpios.
+    """
+    import auditar_repo as ar
+
+    f = {'modulo': 'una_libreria', 'error': '', 'marcas_refutado': [],
+         'marcas_medido': [], 'tiene_main': True}
+    check(ar._estado(f, set()) == 'sin_importadores',
+          'una libreria con `__main__` y sin importadores YA aparece como '
+          'pregunta abierta')
+    check(ar._estado(dict(f, modulo='build_algo'), set()) == 'script_de_entrada',
+          'pero un nombre que se anuncia como script sigue absuelto')
+
+
+def test_la_auditoria_reconoce_los_scripts_que_llama_un_workflow():
+    """
+    La sobrecorreccion del arreglo anterior saco 38 banderas, casi todas
+    falsas: un script de cron no lo importa NADIE —lo invoca el YAML— asi que
+    por el grafo de imports parece muerto. Y mirar el nombre no basta:
+    `liquidador` y `recalibrar_todo` no empiezan por ningun prefijo y son de
+    los mas vivos del repositorio.
+    """
+    import auditar_repo as ar
+
+    invocados = ar._invocados_por_workflow()
+    check(len(invocados) >= 5,
+          f'se detectan los scripts que ejecutan los workflows ({len(invocados)})')
+    check('precalculo_dia' in invocados,
+          'entre ellos el precalculo del dia')
+    f = {'modulo': 'recalibrar_todo', 'error': '', 'marcas_refutado': [],
+         'marcas_medido': [], 'tiene_main': True}
+    if 'recalibrar_todo' in invocados:
+        check(ar._estado(f, set()) == 'script_de_entrada',
+              'un script que un workflow ejecuta NO es una bandera roja')
+
+
+def test_el_contexto_se_archiva_desde_el_cron_y_no_desde_la_pantalla():
+    """
+    `archivo_contexto` llevaba desde la v217 con CERO importadores. El sitio
+    correcto es el cron: consultar bajas sale a la red —justo lo que la v220
+    saco del render— y tiene que correr aunque nadie abra la aplicacion. Si
+    solo se archivara al mirar, los dias que no entras se pierden.
+    """
+    src = open('precalculo_dia.py', encoding='utf-8').read()
+    check('import archivo_contexto' in src,
+          'el precalculo archiva el contexto')
+    check('archivar_del_barrido' in src,
+          'usando la funcion pensada para una tanda')
+    # y NO desde la vista, que es lo que costaria una llamada a la red por
+    # tarjeta y volveria a meter cosas caras en el camino caliente
+    vista = open('modo_modelo.py', encoding='utf-8').read()
+    check('archivar_del_barrido' not in vista,
+          'y la pantalla NO lo hace, que seria red por tarjeta')
+
+    wf = open('.github/workflows/precalculo_dia.yml', encoding='utf-8').read()
+    check('archivo_contexto.json' in wf,
+          'el workflow lo commitea: sin eso se perderia con el runner')
 
 
 if __name__ == '__main__':
@@ -18456,6 +18596,15 @@ if __name__ == '__main__':
     test_no_calcular_viene_encendido_de_fabrica()
     test_un_precalculo_viejo_se_sirve_avisando_en_vez_de_dejar_la_app_vacia()
     test_la_reserva_cubre_de_sobra_los_fallos_del_cron()
+
+    print(chr(10) + '=== v222: pagina principal y filtro por liga ===')
+    test_la_pagina_que_abre_es_apuestas_del_dia()
+    test_el_filtro_por_liga_solo_ofrece_ligas_que_juegan_hoy()
+
+    print(chr(10) + '=== v222b: la auditoria se caza a si misma ===')
+    test_la_auditoria_ya_no_absuelve_por_tener_un_main()
+    test_la_auditoria_reconoce_los_scripts_que_llama_un_workflow()
+    test_el_contexto_se_archiva_desde_el_cron_y_no_desde_la_pantalla()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

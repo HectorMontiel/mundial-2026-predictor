@@ -91,7 +91,11 @@ jobs:
         run: |
           git config user.name  "precalculo-bot"
           git config user.email "actions@github.com"
-          git add -A pronostico_dia.json \
+          # El archivo de contexto viaja con el precálculo: lo escribe la misma
+          # pasada y es la materia prima para medir, más adelante, si las
+          # banderas de la v209 (lesiones, racha, entrenador) anticipan algo.
+          # Sin commitearlo se perdería con el runner.
+          git add -A pronostico_dia.json archivo_contexto.json \
             || echo "::warning::git add del precalculo fallo"
           if git diff --cached --quiet; then
             echo "El precálculo no cambió."

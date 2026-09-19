@@ -242,6 +242,30 @@ def main() -> int:
         return 0
 
     datos = construir()
+
+    # v222 — SE ARCHIVA EL CONTEXTO AQUÍ, Y NO EN LA PANTALLA.
+    #
+    # `archivo_contexto` existía desde la v217 con CERO importadores: escrito,
+    # probado y sin enchufar — el mismo patrón que este proyecto lleva
+    # señalando en `filtro_contexto` y `ventaja_ponches`. Lo cazó la propia
+    # auditoría en cuanto se le quitó el punto ciego del `__main__`.
+    #
+    # El sitio correcto es el cron y no la vista, por dos motivos: consultar
+    # bajas sale a la red (justo lo que la v220 sacó del render) y esto tiene
+    # que correr aunque nadie abra la aplicación — si sólo se archivara al
+    # mirar, los días que no entras se pierden.
+    #
+    # Falla en blando a propósito: un archivo de contexto incompleto es un
+    # problema de mañana; no escribir el precálculo es un problema de ahora.
+    try:
+        import archivo_contexto as _arc
+        _res = _arc.archivar_del_barrido(
+            (datos.get('pronosticos') or [])[:400], con_contexto=True)
+        logger.info('contexto archivado: %d nuevos, %d ya estaban',
+                    _res.get('archivados', 0), _res.get('saltados', 0))
+    except Exception as e:
+        logger.warning('[precalculo] no se pudo archivar el contexto: %s', e)
+
     if not datos or not datos.get('pronosticos'):
         logger.error('el barrido salió vacío: NO se escribe el precálculo')
         # Escribir un día vacío sería peor que no escribirlo: la aplicación
