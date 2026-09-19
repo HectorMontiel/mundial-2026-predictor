@@ -121,6 +121,28 @@ jobs:
       - name: Índice de riesgo por competición
         run: python riesgo_liga.py || echo "::warning::índice de riesgo con avisos"
 
+      # v212 — LA PUERTA DE ACTIVACIÓN, Y POR QUÉ VA JUSTO AQUÍ.
+      #
+      # `backtest_v212.py` mide las reglas nuevas contra los ledgers
+      # walk-forward y escribe `activacion_v212.json`, que es el interruptor
+      # que leen `modo_seguridad` y `escalada_lineas`. Va DETRÁS de la
+      # recalibración por la misma razón que el índice de riesgo: los ledgers
+      # que mide son los que el paso de arriba acaba de reconstruir. Medirlos
+      # antes sería juzgar las reglas con la foto de la semana pasada.
+      #
+      # ESTO IMPLEMENTA LAS DOS MITADES DEL §7:
+      #   · §7.7 activación automática — una regla que pasa los cuatro
+      #     criterios se enciende sola en el siguiente despliegue, sin que
+      #     nadie apruebe nada.
+      #   · §7.8 auditoría post-activación — al correr cada semana sobre datos
+      #     nuevos, una regla que DEJA de cumplirlos se apaga sola. El encargo
+      #     pedía 30 días; semanal es más estricto y sale gratis aquí.
+      #
+      # Falla en blando como el resto: sin fichero de activación, los dos
+      # motores arrancan APAGADOS, que es el lado seguro del error.
+      - name: Puerta de activación de las reglas v212
+        run: python backtest_v212.py || echo "::warning::backtest v212 con avisos"
+
       - name: Publicar el estado de la recalibración
         run: |
           python - <<'PY'
@@ -198,6 +220,12 @@ jobs:
           # ordena las patas con el indice del dia en que alguien lo genero a
           # mano, que es exactamente lo que le paso a umbrales_capa1.json.
           git add -A indice_volatilidad_liga.json || echo "::warning::git add del indice de riesgo fallo"
+          # v212 — el veredicto de la puerta. Sin commitearlo, la app
+          # desplegada leeria la activacion del dia en que alguien corrio el
+          # backtest a mano, y una regla que dejo de cumplir los criterios
+          # seguiria encendida en produccion. Es el mismo fallo que la v202
+          # arreglo con el indice de riesgo.
+          git add -A activacion_v212.json backtesting_v212.md || echo "::warning::git add de la activacion v212 fallo"
           if git diff --cached --quiet; then
             echo "Las calibraciones no cambiaron esta semana."
           else

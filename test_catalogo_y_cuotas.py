@@ -16121,6 +16121,371 @@ def test_la_fuente_de_entrenadores_esta_enchufada_o_lo_dice():
         ap._BUSCADOR_CONECTADO = None
 
 
+# ===========================================================================
+# v212 — MODO SEGURIDAD, ESCALADA, CONTEXTO Y LA PUERTA DE ACTIVACION
+# ===========================================================================
+def test_el_modo_seguridad_arranca_apagado():
+    """
+    LA PROPIEDAD MAS IMPORTANTE DE LA TANDA. Una regla sin medicion no sale a
+    pantalla. `activo()` lee `activacion_v212.json`, que escribe el backtest;
+    sin fichero, apagada. Si esto se invierte, el §7 deja de ser una puerta.
+    """
+    import json
+    import os
+    import modo_seguridad as ms
+
+    ruta = ms.FICHERO_ACTIVACION
+    guardado = None
+    if os.path.exists(ruta):
+        with open(ruta, encoding='utf-8') as f:
+            guardado = f.read()
+    try:
+        # sin fichero de activacion
+        if os.path.exists(ruta):
+            os.remove(ruta)
+        ms._ACTIVACION = None
+        check(ms.activo() is False,
+              'sin fichero de activacion, el Modo Seguridad esta APAGADO')
+        check('backtest' in ms.motivo_estado(),
+              f'y lo dice ({ms.motivo_estado()[:50]})')
+
+        # con el fichero diciendo que no
+        with open(ruta, 'w', encoding='utf-8') as f:
+            json.dump({'reglas': {'modo_seguridad':
+                                  {'activa': False, 'motivo': 'p5 negativo'}}}, f)
+        ms._ACTIVACION = None
+        check(ms.activo() is False, 'con veredicto negativo, sigue apagado')
+
+        # y solo se enciende si el backtest lo dice
+        with open(ruta, 'w', encoding='utf-8') as f:
+            json.dump({'reglas': {'modo_seguridad':
+                                  {'activa': True, 'motivo': 'pasa los 4'}}}, f)
+        ms._ACTIVACION = None
+        check(ms.activo() is True,
+              'solo se enciende cuando el backtest lo aprueba')
+    finally:
+        if guardado is not None:
+            with open(ruta, 'w', encoding='utf-8') as f:
+                f.write(guardado)
+        elif os.path.exists(ruta):
+            os.remove(ruta)
+        ms._ACTIVACION = None
+
+
+def test_los_tres_criterios_de_entrada_del_modo_seguridad():
+    """prob >= 60 %, cuota entre 1,30 y 1,90, y |modelo - mercado| <= 8 pp."""
+    import modo_seguridad as ms
+
+    ok = ms.evaluar(0.68, 0.66, 1.55, factor_riesgo=1.0)
+    check(ok['entra'], f'un pick que cumple los tres entra ({ok})')
+
+    check(not ms.evaluar(0.55, 0.54, 1.55)['entra'],
+          'por debajo del 60 % de probabilidad no entra')
+    check(not ms.evaluar(0.68, 0.66, 1.15)['entra'],
+          'con cuota 1,15 (fuera de banda) no entra')
+    check(not ms.evaluar(0.68, 0.66, 2.40)['entra'],
+          'con cuota 2,40 (fuera de banda) no entra')
+    check(not ms.evaluar(0.68, 0.50, 1.55)['entra'],
+          'separandose 18 puntos del mercado no entra')
+    check(not ms.evaluar(0.68, None, 1.55)['entra'],
+          'sin precio de mercado con el que alinear, tampoco')
+
+
+def test_los_filtros_duros_del_modo_seguridad():
+    """Alta incertidumbre, EV, divergencia, cuota inflada y liga de riesgo."""
+    import modo_seguridad as ms
+
+    check(not ms.evaluar(0.68, 0.66, 1.55, alta_incertidumbre=True)['entra'],
+          'la alta incertidumbre deja fuera aunque cumpla los tres criterios')
+    check(not ms.evaluar(0.68, 0.66, 1.55, factor_riesgo=1.8)['entra'],
+          'liga de alto riesgo con cuota < 1,80 queda fuera')
+    check(ms.evaluar(0.62, 0.60, 1.85, factor_riesgo=1.8)['entra'],
+          'pero con cuota >= 1,80 esa misma liga si entra')
+    # EV: prob 0,62 y cuota 1,32 -> EV = -18,2 %, por debajo del -8 %
+    check(not ms.evaluar(0.62, 0.62, 1.32)['entra'],
+          'un EV por debajo del -8 % queda fuera')
+
+
+def test_el_score_de_solidez_ordena_como_debe():
+    """Mas probabilidad, mas alineacion y menos riesgo => mas solidez."""
+    import modo_seguridad as ms
+
+    base = ms.solidez(0.65, 0.64, 1.60, 1.0)
+    check(ms.solidez(0.75, 0.74, 1.60, 1.0) > base,
+          'mas probabilidad sube la solidez')
+    check(ms.solidez(0.65, 0.57, 1.60, 1.0) < base,
+          'separarse del mercado la baja')
+    check(ms.solidez(0.65, 0.64, 1.60, 1.8) < base,
+          'una liga de mas riesgo la baja')
+    check(ms.solidez(None, 0.6, 1.6) == 0.0,
+          'sin probabilidad, la solidez es cero y no revienta')
+    # El termino de riesgo nunca puede ser negativo (se normaliza sobre 1,0-1,8)
+    check(ms.solidez(0.65, 0.64, 1.60, 1.8) > 0,
+          'ni siquiera la peor liga produce un score negativo')
+
+
+def test_la_escalada_exige_tres_de_cuatro_fuentes():
+    """La regla del encargo, con sus cuatro fuentes y sus anti-patrones."""
+    import escalada_lineas as el
+
+    fuerte = {'fuerza': 'fuerte'}
+    debil = {'fuerza': 'debil'}
+
+    tres = {'modelo': fuerte, 'mercado': fuerte, 'forma': fuerte,
+            'contexto': debil}
+    check(el.decidir(tres, cuota_superior=1.60, cuota_base=1.45)['escalar'],
+          'con 3 de 4 fuentes fuertes se escala')
+
+    dos = {'modelo': fuerte, 'mercado': fuerte, 'forma': debil,
+           'contexto': debil}
+    r = el.decidir(dos, cuota_superior=1.60, cuota_base=1.45)
+    check(not r['escalar'] and r.get('contexto_positivo'),
+          'con 2 se marca contexto positivo pero NO se escala')
+
+    una = {'modelo': fuerte, 'mercado': debil, 'forma': debil,
+           'contexto': debil}
+    check(not el.decidir(una, cuota_superior=1.60)['escalar'],
+          'con 1 no se escala')
+
+    # 3 fuertes pero mercado debil: solo si la cuota superior compensa
+    tres_sin_mercado = {'modelo': fuerte, 'mercado': debil, 'forma': fuerte,
+                        'contexto': fuerte}
+    check(el.decidir(tres_sin_mercado, cuota_superior=1.55,
+                     cuota_base=1.45)['escalar'],
+          'mercado en contra pero cuota 1,55 >= 1,50: se escala')
+    check(not el.decidir(tres_sin_mercado, cuota_superior=1.52,
+                         cuota_base=1.45, factor_riesgo=1.8)['escalar'],
+          'y una liga de riesgo 1,8 lo bloquea igualmente')
+
+
+def test_los_antipatrones_de_la_escalada_van_primero():
+    """Descalifican aunque las cuatro fuentes esten fuertes."""
+    import escalada_lineas as el
+
+    todas = {k: {'fuerza': 'fuerte'} for k in
+             ('modelo', 'mercado', 'forma', 'contexto')}
+    check(not el.decidir(todas, 1.60, 1.45, alta_incertidumbre=True)['escalar'],
+          'alta incertidumbre bloquea con las cuatro fuentes fuertes')
+    check(not el.decidir(todas, 1.60, 1.45, factor_riesgo=1.8)['escalar'],
+          'liga de riesgo 1,8 tambien')
+    check(not el.decidir(todas, 1.60, 1.20)['escalar'],
+          'una cuota base de 1,20 tambien')
+    check(not el.decidir(todas, 1.40, 1.45)['escalar'],
+          'y una cuota superior de 1,40 tambien')
+
+
+def test_la_cadena_de_escalada_para_en_dos():
+    """Maximo 2 escaladas por pick, y para en el primer «no»."""
+    import escalada_lineas as el
+
+    paso = dict(metrica='goles', linea_base=1.5, linea_superior=2.5,
+                deporte='futbol', prob_superior=0.72, cuota_superior=1.55,
+                cuota_base=1.40, media_5=3.6, esperado_5=3.2,
+                senales=[{'tipo': 'h2h', 'peso': 1},
+                         {'tipo': 'racha', 'peso': 1}])
+    r = el.cadena([dict(paso), dict(paso), dict(paso)])
+    check(r['n'] <= el.MAX_ESCALADAS,
+          f"la cadena nunca pasa de {el.MAX_ESCALADAS} escaladas ({r['n']})")
+
+    malo = dict(paso, prob_superior=0.20, cuota_superior=2.60, media_5=0.5,
+                senales=None)
+    r2 = el.cadena([malo, dict(paso)])
+    check(r2['n'] == 0 and r2['parada'] is not None,
+          'para en el primer «no» y no se salta al siguiente escalon')
+
+
+def test_las_dos_lecturas_de_la_fuente_de_forma_existen():
+    """
+    EL ENCARGO SE CONTRADICE CON SU PROPIO EJEMPLO. La regla compara contra la
+    linea SUPERIOR; el ejemplo Barcelona-Getafe solo cuadra comparando contra
+    la BASE. No se elige a ojo: se dejan las dos y las mide el backtest.
+    """
+    import escalada_lineas as el
+
+    ej = dict(metrica='goles', linea_base=2.5, linea_superior=3.5,
+              deporte='futbol', prob_superior=0.62, cuota_superior=1.72,
+              cuota_base=1.45, media_5=3.4, esperado_5=3.1,
+              senales=[{'tipo': 'baja_defensiva', 'peso': 1},
+                       {'tipo': 'h2h', 'peso': 1}])
+    sup = el.evaluar(**ej, referencia_forma='superior')
+    bas = el.evaluar(**ej, referencia_forma='base')
+    check(sup['n_fuertes'] == 2 and not sup['escalar'],
+          f"con la regla literal salen 2 fuentes fuertes ({sup['n_fuertes']})")
+    check(bas['n_fuertes'] == 3 and bas['escalar'],
+          f"con la referencia base salen 3 y el ejemplo cuadra "
+          f"({bas['n_fuertes']})")
+    check(el.REFERENCIA_FORMA == 'superior',
+          'y por defecto manda la regla escrita, no el ejemplo')
+
+
+def test_el_contexto_declara_las_fuentes_que_no_tiene():
+    """
+    Un hueco declarado se ve; uno no declarado no existe para nadie — que es
+    como `filtro_contexto` se paso de la v202 a la v209 sin disparar.
+    """
+    import scraper_contexto as sc
+
+    e = sc.estado()
+    check(len(e['disponibles']) >= 3,
+          f"hay proveedores disponibles ({e['disponibles']})")
+    for esperado in ('lesiones', 'clima', 'x_twitter'):
+        check(esperado in e['no_disponibles'],
+              f'`{esperado}` esta declarado como NO disponible con su motivo')
+    check(all(bool(v) for v in e['no_disponibles'].values()),
+          'y ninguno se queda sin explicar por que')
+    check('entrenador' in e['por_deporte']['futbol'],
+          'el entrenador esta disponible en futbol')
+    for dep in sc.DEPORTES:
+        check(dep in e['por_deporte'],
+              f'la matriz cubre {dep}')
+
+
+def test_la_agregacion_de_senales_usa_los_tramos_del_encargo():
+    import scraper_contexto as sc
+
+    s = [sc.senal('h2h', 1, 'historico_propio', 'futbol'),
+         sc.senal('racha', 1, 'historico_propio', 'futbol'),
+         sc.senal('contexto', 1, 'wikidata', 'futbol')]
+    check(sc.agregar(s)['veredicto'] == 'respalda_escalada',
+          '3 senales respaldan la escalada')
+    check(sc.agregar(s[:2])['veredicto'] == 'contexto_positivo',
+          '2 son contexto positivo')
+    check(sc.agregar(s[:1])['veredicto'] == 'insuficiente',
+          '1 es insuficiente')
+    check(sc.agregar([])['veredicto'] == 'insuficiente',
+          'y ninguna tambien')
+    # el formato normalizado del encargo
+    for campo in ('tipo', 'peso', 'fuente', 'confianza_fuente', 'timestamp',
+                  'deporte', 'metrica_afectada'):
+        check(campo in s[0], f'la senal trae `{campo}`')
+
+
+def test_la_puerta_trata_lo_no_medible_como_no_aprobado():
+    """
+    EL NUCLEO DE SEGURIDAD DEL §7. Si «no medible» contara como aprobado, una
+    regla podria activarse en produccion por FALTA de datos, que es
+    exactamente al reves de lo que la puerta existe para hacer.
+    """
+    import backtest_v212 as bt
+
+    base = {'n': 5000, 'brier': 0.24, 'hit_rate': 0.50, 'roi': -0.05,
+            'p5': -0.06, 'montecarlo': {'prob_ruina': 0.0}}
+    buena = {'n': 2000, 'brier': 0.22, 'hit_rate': 0.65, 'roi': -0.01,
+             'p5': 0.01, 'montecarlo': {'prob_ruina': 0.0}}
+    check(bt.veredicto(base, buena)['activa'],
+          'una regla que cumple los cuatro criterios se activa sola')
+
+    sin_roi = dict(buena, roi=None)
+    v = bt.veredicto(base, sin_roi)
+    check(not v['activa'] and any('roi' in f for f in v['fallos']),
+          f'sin ROI medible NO se activa ({v["fallos"]})')
+
+    sin_p5 = dict(buena, p5=None)
+    check(not bt.veredicto(base, sin_p5)['activa'],
+          'sin p5 medible tampoco')
+
+    p5_negativo = dict(buena, p5=-0.001)
+    check(not bt.veredicto(base, p5_negativo)['activa'],
+          'con p5 negativo tampoco, por poco que sea')
+
+    peor_brier = dict(buena, brier=0.26)
+    check(not bt.veredicto(base, peor_brier)['activa'],
+          'si empeora la calibracion tampoco')
+
+    ruina = dict(buena, montecarlo={'prob_ruina': 0.30})
+    check(not bt.veredicto(base, ruina)['activa'],
+          'y con 30 % de ruina a 30 dias tampoco')
+
+    vacia = bt.veredicto(base, {'n': 3})
+    check(not vacia['activa'] and vacia['muestra_insuficiente'],
+          'una muestra de 3 picks no activa nada')
+
+
+def test_las_metricas_del_backtest_son_las_de_siempre():
+    """Brier, ECE y p5 calculados a mano contra el modulo."""
+    import numpy as np
+    import backtest_v212 as bt
+
+    p = np.array([1.0, 0.0, 1.0, 0.0])
+    y = np.array([1, 0, 1, 0])
+    check(bt.brier(p, y) == 0.0, 'un predictor perfecto da Brier 0')
+    check(bt.brier(np.array([0.0, 1.0]), np.array([1, 0])) == 1.0,
+          'y uno invertido da 1')
+    check(bt.brier(np.array([]), np.array([])) is None,
+          'sin datos, Brier es None y no revienta')
+
+    # ROI a stake plano: dos apuestas, una gana a cuota 3 (+2), otra pierde (-1)
+    check(abs(bt.roi_de(np.array([2.0, -1.0])) - 0.5) < 1e-9,
+          'el ROI es la ganancia media por unidad apostada')
+
+    # ECE de un predictor perfectamente calibrado es ~0
+    rng = np.random.default_rng(0)
+    pp = rng.uniform(0, 1, 20000)
+    yy = (rng.uniform(0, 1, 20000) < pp).astype(int)
+    e = bt.ece(pp, yy)
+    check(e is not None and e < 0.02,
+          f'un predictor calibrado da ECE casi cero ({e:.4f})')
+
+    check(bt.p5_bootstrap(np.array([1.0, -1.0])) is None,
+          'con menos de 30 apuestas no se calcula p5: seria ruido')
+
+
+def test_la_auditoria_del_repo_no_declara_muerto_lo_que_no_sabe():
+    """
+    `sin_importadores` es una PREGUNTA, no una sentencia. La v209 encontro el
+    caso: `filtro_contexto` tenia cero importadores y no estaba muerto, estaba
+    sin enchufar.
+    """
+    import auditar_repo as ar
+
+    estados = set()
+    for nombre in ('_x', 'y'):
+        pass
+    f = {'modulo': 'ejemplo', 'error': '', 'marcas_refutado': [],
+         'marcas_medido': [], 'tiene_main': False}
+    check(ar._estado(f, set()) == 'sin_importadores',
+          'un modulo sin importadores se marca como pregunta abierta')
+    check('muerto' not in ar._estado(f, set()),
+          'y NUNCA se declara muerto')
+    check(ar._estado(dict(f, tiene_main=True), set()) == 'script_de_entrada',
+          'si arranca solo, es script de entrada y no una bandera')
+    check(ar._estado(f, {'otro'}) == 'activo_sin_medir',
+          'con importadores y sin medicion, activo_sin_medir')
+    check(ar._estado(dict(f, marcas_medido=['roi']), {'otro'}) == 'activo_medido',
+          'con medicion encima, activo_medido')
+
+    check(len(ar.REGLAS) >= 15,
+          f'el inventario de reglas esta poblado ({len(ar.REGLAS)})')
+    for r in ar.REGLAS:
+        for campo in ('regla', 'modulo', 'version', 'evidencia', 'estado'):
+            if campo not in r:
+                check(False, f'la regla {r.get("regla")} no trae `{campo}`')
+                break
+    check(any('REFUTADA' in r['estado'] for r in ar.REGLAS),
+          'y registra las reglas refutadas por datos propios')
+    check(len(ar.DECISIONES_ABIERTAS) >= 3,
+          'hay decisiones abiertas anotadas en vez de tomadas por cuenta propia')
+
+
+def test_las_reglas_v212_no_salen_a_pantalla_sin_aprobacion():
+    """
+    Cierre de seguridad de la tanda: los dos motores nuevos leen el MISMO
+    fichero de activacion y los dos arrancan apagados.
+    """
+    import escalada_lineas as el
+    import modo_seguridad as ms
+
+    check(ms.FICHERO_ACTIVACION == el.FICHERO_ACTIVACION,
+          'los dos motores leen el mismo interruptor')
+    # Con el veredicto real del backtest, tal y como esta hoy en el repo.
+    ms._ACTIVACION = None
+    el._ACTIVACION = None
+    check(ms.activo() is False,
+          f'Modo Seguridad apagado con el backtest actual: {ms.motivo_estado()[:60]}')
+    check(el.activo() is False,
+          f'escalada apagada con el backtest actual: {el.motivo_estado()[:60]}')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -16486,6 +16851,22 @@ if __name__ == '__main__':
     test_el_stake_respeta_el_tope_y_se_parte_con_incertidumbre()
     test_la_auditoria_nunca_tumba_la_tarjeta()
     test_la_fuente_de_entrenadores_esta_enchufada_o_lo_dice()
+
+    print(chr(10) + '=== v212: modo seguridad, escalada y la puerta ===')
+    test_el_modo_seguridad_arranca_apagado()
+    test_los_tres_criterios_de_entrada_del_modo_seguridad()
+    test_los_filtros_duros_del_modo_seguridad()
+    test_el_score_de_solidez_ordena_como_debe()
+    test_la_escalada_exige_tres_de_cuatro_fuentes()
+    test_los_antipatrones_de_la_escalada_van_primero()
+    test_la_cadena_de_escalada_para_en_dos()
+    test_las_dos_lecturas_de_la_fuente_de_forma_existen()
+    test_el_contexto_declara_las_fuentes_que_no_tiene()
+    test_la_agregacion_de_senales_usa_los_tramos_del_encargo()
+    test_la_puerta_trata_lo_no_medible_como_no_aprobado()
+    test_las_metricas_del_backtest_son_las_de_siempre()
+    test_la_auditoria_del_repo_no_declara_muerto_lo_que_no_sabe()
+    test_las_reglas_v212_no_salen_a_pantalla_sin_aprobacion()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

@@ -5631,6 +5631,65 @@ def render_alpha_finder():
     # -----------------------------------------------------------------------
     _render_incidencias(r)          # v77: visible antes de las pestañas
 
+    # -----------------------------------------------------------------------
+    # v212 — «APUESTAS SEGURAS DEL DÍA», Y LA PUERTA QUE LA GOBIERNA.
+    #
+    # Va a NIVEL SUPERIOR de la vista, no dentro de una pestaña ni de un
+    # desplegable: `st.expander` no se puede anidar y aquí abajo ya hay uno
+    # por pestaña.
+    #
+    # LO IMPORTANTE ES LO QUE PASA CUANDO ESTÁ APAGADA. El §7 del encargo dice
+    # que una regla sale a producción sola si pasa los cuatro criterios, y que
+    # si no, se queda apagada. Apagada NO puede significar «enseño los picks
+    # igual con un aviso»: significa que no hay picks que enseñar. Lo que se
+    # pinta entonces es el motivo medido, que es información y no relleno.
+    try:
+        import modo_seguridad as _seg
+        _seg_activo = _seg.activo()
+        _seg_motivo = _seg.motivo_estado()
+    except Exception as _e_seg:
+        logger.debug('[alpha] modo seguridad: %s', _e_seg)
+        _seg_activo, _seg_motivo = False, ''
+    if _seg_motivo:
+        if _seg_activo:
+            _seccion('🛡️ Apuestas Seguras del Día',
+                     'probabilidad alta, cuota corta y acuerdo con el mercado',
+                     'ok')
+            try:
+                _sel = _seg.seleccionar((r.get('capa1') or [])
+                                        + (r.get('capa2') or []))
+                if _sel['seguras']:
+                    for _rs in _sel['seguras']:
+                        _ps = _rs['pick']
+                        st.markdown(
+                            f"- **{_ps.get('apuesta', '?')}** · "
+                            f"{_ps.get('partido', '?')} "
+                            f"({_ps.get('liga', '')}) @ {_ps.get('cuota', '?')} "
+                            f"— solidez **{_rs['solidez']:.3f}**")
+                    if _sel['complementos']:
+                        st.caption(f"Y {len(_sel['complementos'])} complementos "
+                                   f"por debajo del top 5.")
+                else:
+                    st.info('Hoy ningún pick cumple los tres criterios de '
+                            'entrada. Es un resultado, no un fallo.')
+            except Exception as _e_sel:
+                logger.warning('[alpha] selección segura: %s', _e_sel)
+                st.caption('Sección no disponible en este barrido.')
+        else:
+            with st.expander('🛡️ Apuestas Seguras del Día — apagada por el '
+                             'backtest', expanded=False):
+                st.warning(f'**Esta sección está apagada.** {_seg_motivo}')
+                st.caption(
+                    'No se enciende ni se apaga a mano: `backtest_v212.py` la '
+                    'mide contra los ledgers fuera de muestra y escribe el '
+                    'veredicto en `activacion_v212.json`. Se encenderá sola el '
+                    'día que pase los cuatro criterios (Brier, p5, hit rate y '
+                    'ROI), y se apagará sola si deja de pasarlos.')
+                st.caption(
+                    'Enseñar los picks igualmente con un aviso sería saltarse '
+                    'la puerta: si la medición dice que no, no hay nada que '
+                    'enseñar. El detalle está en `backtesting_v212.md`.')
+
     # v131 — EL FILTRO DE DEPORTE, Y POR QUÉ NO TOCA LOS DATOS.
     #
     # Filtra en el PUNTO DE PINTADO, no el barrido. Si recortara `r`, el botón
