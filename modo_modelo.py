@@ -2953,6 +2953,15 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     # Cuantos habia ANTES de las casillas. Sin esto, una lista vacia no puede
     # decir si es que no hay partidos o es que el filtro se los llevo, y son
     # dos cosas muy distintas para quien mira.
+    # v218.1 — los estilos del veredicto, UNA vez por render y no por tarjeta.
+    # Va aquí y no dentro de `pintar` porque Streamlit reconstruye la página en
+    # cada pasada: memorizarlo dejaría la segunda sin estilos.
+    try:
+        import veredicto_pick as _vp_css
+        _vp_css.estilos(st)
+    except Exception as _e_vpc:
+        logger.debug('[modo_modelo] estilos del veredicto: %s', _e_vpc)
+
     _antes_de_filtrar = len(con)
     _quito = []
     # v219 — el estado va PRIMERO, antes que las casillas: es el filtro más

@@ -306,11 +306,31 @@ def _esc(t) -> str:
             .replace('>', '&gt;').replace('"', '&quot;'))
 
 
-def pintar(st, veredictos: List[Dict], titulo: str = '') -> None:
+def estilos(st) -> None:
+    """Inyecta el CSS UNA vez. Lo llama quien pinta la lista, no cada fila.
+
+    EL CSS NO PUEDE IR POR TARJETA. Medido con AppTest sobre la vista real: se
+    inyectaba 138 veces, una por llamada a `pintar`, o sea 138 bloques
+    `<style>` idénticos. No rompe nada —el navegador los colapsa— pero es peso
+    muerto en cada render y en cada reenvío por websocket.
+
+    Y NO PUEDE MEMORIZARSE EN `session_state`: ese diccionario sobrevive entre
+    pasadas, pero Streamlit reconstruye la página entera en cada una. Marcarlo
+    como «ya inyectado» dejaría la segunda pasada SIN estilos. Por eso lo
+    controla el llamador, que sabe dónde empieza y acaba un render.
+    """
+    try:
+        st.markdown(CSS, unsafe_allow_html=True)
+    except Exception as e:
+        logger.debug('[veredicto] estilos: %s', e)
+
+
+def pintar(st, veredictos: List[Dict], titulo: str = '',
+           con_estilos: bool = False) -> None:
     """Pinta la lista entera. Un solo `markdown`, que es lo barato."""
     if not veredictos:
         return
-    trozos = [CSS]
+    trozos = [CSS] if con_estilos else []
     if titulo:
         trozos.append('<div style="font-size:.8rem;opacity:.7;'
                       'margin:.4rem 0 .2rem">%s</div>' % _esc(titulo))
