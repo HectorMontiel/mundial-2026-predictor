@@ -71,9 +71,28 @@ FICHERO = os.environ.get('PRECALCULO_DIA', 'pronostico_dia.json')
 # de hoy: un pronóstico de ayer con cuotas de ayer no es un pronóstico.
 CADUCIDAD_S = int(os.environ.get('PRECALCULO_CADUCIDAD_S', 6 * 3600))
 
-# El pestillo de producción. Ver el encabezado.
-SOLO_PRECALCULO = str(os.environ.get('SOLO_PRECALCULO', '')).strip().lower() \
-    in ('1', 'true', 'si', 'sí', 'yes')
+# v221 — NO CALCULAR ES EL COMPORTAMIENTO POR DEFECTO, NO UNA OPCIÓN.
+#
+# La v220 dejó esto como una variable de entorno que había que ir a poner a
+# mano en el despliegue. Estaba mal, y el usuario lo dijo con razón: «no quiero
+# hacer cosas manuales ni estarlo cambiando a cada rato».
+#
+# Un interruptor que hay que acordarse de encender no protege de nada: protege
+# los días que alguien se acordó. Y lo que hay detrás no es una preferencia
+# —es que el barrido pica a 1,3 GB y el servidor tiene 1 GB—, así que la
+# respuesta correcta no depende de la opinión de nadie.
+#
+# Ahora viene ENCENDIDO de fábrica. La variable sigue existiendo, pero para lo
+# contrario: ponerla a 0 en una máquina de desarrollo, donde sí interesa que la
+# aplicación calcule si falta el fichero.
+_CRUDO = str(os.environ.get('SOLO_PRECALCULO', '')).strip().lower()
+SOLO_PRECALCULO = _CRUDO not in ('0', 'false', 'no')
+
+# Cuánto se sigue sirviendo un precálculo viejo ANTES de rendirse. Ver
+# `guardia_barrido`: entre `CADUCIDAD_S` y esto se enseña igual, avisando de
+# su edad, porque un pronóstico de hace ocho horas es muchísimo mejor que una
+# pantalla vacía. Sólo por encima de aquí se deja de enseñar.
+RESERVA_S = int(os.environ.get('PRECALCULO_RESERVA_S', 36 * 3600))
 
 
 def _jsonable(o, prof: int = 0):

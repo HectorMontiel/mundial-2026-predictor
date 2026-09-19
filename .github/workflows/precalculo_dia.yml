@@ -62,10 +62,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Con reintento: el barrido depende de media docena de fuentes externas
+      # y una caída de ESPN de treinta segundos no puede costar tres horas de
+      # datos. Dos intentos con dos minutos en medio cubren lo transitorio; lo
+      # que no se arregle así es una avería de verdad y se ve en el aviso.
       - name: Cocinar el día
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python precalculo_dia.py
+        run: |
+          if python precalculo_dia.py; then
+            exit 0
+          fi
+          echo "::warning::primer intento sin resultado; se reintenta en 120 s"
+          sleep 120
+          if python precalculo_dia.py; then
+            exit 0
+          fi
+          echo "::warning::el precalculo no se pudo generar. La app sigue sirviendo el anterior mientras tenga menos de 36 h."
 
       # `precalculo_dia` NO escribe si el barrido sale vacío, y devuelve 1.
       # Este paso lo convierte en un aviso en vez de un job rojo: un barrido

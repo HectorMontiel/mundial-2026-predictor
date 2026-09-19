@@ -17752,9 +17752,17 @@ def test_sin_pestillo_y_sin_precalculo_se_calcula_como_siempre():
     import precalculo_dia as pre
 
     antes_fichero, antes_pestillo = pre.FICHERO, pre.SOLO_PRECALCULO
+    # HAY QUE APARTAR TAMBIEN LA CACHE EN DISCO. `reiniciar()` limpia la
+    # memoria pero deja `.cache_barrido.pkl`, y el guardia lo lee ANTES del
+    # cerrojo: con el pickle fresco servia de ahi y no llamaba a `_calcular`.
+    # El test pasaba solo cuando esa cache resultaba estar vieja, que es la
+    # peor clase de test — el que depende de lo que hiciera la corrida
+    # anterior.
+    antes_archivo = gb.ARCHIVO
     try:
         pre.FICHERO = '__no_existe_este_precalculo__.json'
         pre.SOLO_PRECALCULO = False
+        gb.ARCHIVO = '__no_existe_esta_cache__.pkl'
         gb.reiniciar()
         llamadas = {'n': 0}
 
@@ -17769,6 +17777,7 @@ def test_sin_pestillo_y_sin_precalculo_se_calcula_como_siempre():
     finally:
         pre.FICHERO = antes_fichero
         pre.SOLO_PRECALCULO = antes_pestillo
+        gb.ARCHIVO = antes_archivo
         gb.reiniciar()
 
 
@@ -17862,6 +17871,139 @@ class _FalsoNumpy:
 
     def item(self):
         return self._v
+
+
+# ===========================================================================
+# v221 — SE DEFIENDE SOLA: sin pestillos que poner ni crones que vigilar
+# ===========================================================================
+def test_no_calcular_viene_encendido_de_fabrica():
+    """
+    LA CORRECCION DE LA v220, y el usuario tenia razon: «no quiero hacer cosas
+    manuales ni estarlo cambiando a cada rato». Un interruptor que hay que
+    acordarse de encender protege los dias que alguien se acordo.
+
+    Y detras no hay una preferencia: el barrido pica a 1,3 GB y el servidor
+    tiene 1 GB. La respuesta correcta no depende de la opinion de nadie, asi
+    que no puede ser una opcion apagada por defecto.
+    """
+    import os
+    import importlib
+    import precalculo_dia as pre
+
+    antes = os.environ.get('SOLO_PRECALCULO')
+    try:
+        # sin variable ninguna: tiene que venir ENCENDIDO
+        os.environ.pop('SOLO_PRECALCULO', None)
+        importlib.reload(pre)
+        check(pre.SOLO_PRECALCULO is True,
+              'sin configurar nada, la app NO calcula')
+
+        # y solo se apaga pidiendolo explicitamente, para desarrollo
+        for apagar in ('0', 'false', 'no'):
+            os.environ['SOLO_PRECALCULO'] = apagar
+            importlib.reload(pre)
+            check(pre.SOLO_PRECALCULO is False,
+                  f'`SOLO_PRECALCULO={apagar}` lo apaga (maquina de desarrollo)')
+
+        # cualquier otra cosa lo deja encendido: ante la duda, no calcular
+        for raro in ('1', 'true', 'si', 'lo-que-sea', ''):
+            os.environ['SOLO_PRECALCULO'] = raro
+            importlib.reload(pre)
+            check(pre.SOLO_PRECALCULO is True,
+                  f'con `{raro}` sigue encendido: ante la duda, no calcular')
+    finally:
+        if antes is None:
+            os.environ.pop('SOLO_PRECALCULO', None)
+        else:
+            os.environ['SOLO_PRECALCULO'] = antes
+        importlib.reload(pre)
+
+
+def _precalculo_de(horas, ruta):
+    import json
+    import time
+    with open(ruta, 'w', encoding='utf-8') as f:
+        json.dump({'version': 1, 'generado_ts': time.time() - horas * 3600,
+                   'generado': 'prueba',
+                   'datos': {'pronosticos': [{'p': 1}], 'capa1': [],
+                             'capa2': [], 'seccion1': [], 'seccion2': [],
+                             'combinadas': [], 'incidencias': [],
+                             'actualizado': '2026-09-19'}}, f)
+
+
+def test_un_precalculo_viejo_se_sirve_avisando_en_vez_de_dejar_la_app_vacia():
+    """
+    EL TRAMO QUE HACE QUE ESTO NO NECESITE VIGILANCIA. El cron corre cada 3 h
+    con ventana de 6: para quedarse sin datos tienen que fallar DOCE pasadas
+    seguidas. Y aun asi, un pronostico de anoche con su etiqueta es mucho mas
+    util que una pantalla vacia — los partidos de hoy siguen siendo los
+    mismos, lo que envejece son las cuotas.
+    """
+    import os
+    import tempfile
+    import guardia_barrido as gb
+    import precalculo_dia as pre
+
+    ruta = os.path.join(tempfile.gettempdir(), 'pd_v221.json')
+    antes_f, antes_p = pre.FICHERO, pre.SOLO_PRECALCULO
+    try:
+        pre.FICHERO, pre.SOLO_PRECALCULO = ruta, True
+        llam = {'n': 0}
+
+        def _calc():
+            llam['n'] += 1
+            return {'pronosticos': [{'CALCULADO': 1}]}
+
+        # fresco: se sirve tal cual, sin aviso de edad
+        _precalculo_de(1, ruta)
+        gb.reiniciar()
+        r = gb.barrido(_calc)
+        check(r.get('precalculo_viejo_h') is None,
+              'un precalculo fresco no lleva etiqueta de edad')
+        check(len(r.get('pronosticos') or []) == 1, 'y trae los partidos')
+
+        # viejo pero dentro de la reserva: SE SIRVE IGUAL, con su edad
+        _precalculo_de(10, ruta)
+        gb.reiniciar()
+        r = gb.barrido(_calc)
+        check(len(r.get('pronosticos') or []) == 1,
+              'con 10 h de antiguedad los partidos SIGUEN saliendo')
+        check(r.get('precalculo_viejo_h') == 10.0,
+              f"con su edad escrita ({r.get('precalculo_viejo_h')})")
+        check('horas' in (r.get('aviso') or ''),
+              f"y un aviso que lo explica ({(r.get('aviso') or '')[:40]})")
+
+        # pasada la reserva: ya no se enseña como si fuera de hoy
+        _precalculo_de(pre.RESERVA_S / 3600.0 + 5, ruta)
+        gb.reiniciar()
+        r = gb.barrido(_calc)
+        check(r.get('sin_precalculo') is True,
+              'pasadas las 36 h deja de servirse: eso ya no es el dia de hoy')
+
+        check(llam['n'] == 0,
+              f"y en NINGUN tramo se calculo nada ({llam['n']} llamadas)")
+    finally:
+        pre.FICHERO, pre.SOLO_PRECALCULO = antes_f, antes_p
+        try:
+            os.remove(ruta)
+        except Exception:
+            pass
+        gb.reiniciar()
+
+
+def test_la_reserva_cubre_de_sobra_los_fallos_del_cron():
+    """
+    Las constantes tienen que guardar una relacion o la defensa es de mentira:
+    la reserva debe cubrir varias pasadas fallidas del cron.
+    """
+    import precalculo_dia as pre
+
+    check(pre.RESERVA_S > pre.CADUCIDAD_S,
+          f'la reserva ({pre.RESERVA_S/3600:.0f} h) es mayor que la caducidad '
+          f'({pre.CADUCIDAD_S/3600:.0f} h)')
+    pasadas = pre.RESERVA_S / (3 * 3600)      # el cron corre cada 3 h
+    check(pasadas >= 8,
+          f'la reserva aguanta {pasadas:.0f} pasadas fallidas seguidas')
 
 
 if __name__ == '__main__':
@@ -18309,6 +18451,11 @@ if __name__ == '__main__':
     test_un_precalculo_caducado_no_se_sirve_como_si_fuera_de_hoy()
     test_el_precalculo_ilegible_se_comporta_como_ausente()
     test_lo_que_se_vuelca_sobrevive_al_viaje_por_json()
+
+    print(chr(10) + '=== v221: se defiende sola ===')
+    test_no_calcular_viene_encendido_de_fabrica()
+    test_un_precalculo_viejo_se_sirve_avisando_en_vez_de_dejar_la_app_vacia()
+    test_la_reserva_cubre_de_sobra_los_fallos_del_cron()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

@@ -211,18 +211,42 @@ def barrido(calcular, forzar: bool = False):
     # JSON de 1 MB (milisegundos) y el cron lo reescribe por debajo. Cachearlo
     # dejaría a la aplicación sirviendo el de hace seis horas hasta que
     # alguien reiniciara el proceso.
+    # v221 — TRES TRAMOS, Y NINGUNO PIDE QUE NADIE HAGA NADA.
+    #
+    #     fresco (< 6 h) ........ se sirve y ya
+    #     viejo  (< 36 h) ....... SE SIRVE IGUAL, diciendo su edad
+    #     no hay / muy viejo .... se avisa (y en desarrollo, se calcula)
+    #
+    # El tramo del medio es el que hace que esto no necesite vigilancia. El
+    # cron corre cada 3 h con una ventana de 6: para quedarse sin datos tienen
+    # que fallar DOCE pasadas seguidas. Y aun así, un pronóstico de anoche con
+    # su etiqueta es muchísimo más útil que una pantalla vacía — los partidos
+    # de hoy siguen siendo los mismos, lo que envejece son las cuotas.
     if not forzar:
         try:
             import precalculo_dia as _pre
             _d = _pre.leer()
-            if _d is not None and _d['edad_s'] < _pre.CADUCIDAD_S:
-                return _sellar(_d['datos'], _d['ts'], entrada)
+            if _d is not None:
+                _edad = _d['edad_s']
+                if _edad < _pre.CADUCIDAD_S:
+                    return _sellar(_d['datos'], _d['ts'], entrada)
+                if _edad < _pre.RESERVA_S:
+                    _h = _edad / 3600.0
+                    logger.warning('[guardia] precálculo de hace %.1f h: se '
+                                   'sirve avisando', _h)
+                    _viejo = dict(_d['datos'])
+                    _viejo['precalculo_viejo_h'] = round(_h, 1)
+                    _viejo['aviso'] = (
+                        'Estos datos son de hace %.0f horas: los partidos son '
+                        'los de hoy, pero las cuotas pueden haberse movido. '
+                        'Se actualiza solo cada pocas horas.' % _h)
+                    return _sellar(_viejo, _d['ts'], entrada)
             if _pre.SOLO_PRECALCULO:
-                # EL PESTILLO. Sin él, un día sin cron devuelve el crash: la
-                # aplicación se pondría a calcular 1,3 GB con tres usuarios
-                # dentro. Es mejor decir que el día no está listo.
-                logger.warning('[guardia] SOLO_PRECALCULO y el precálculo %s',
-                               'no existe' if _d is None else 'está caducado')
+                # Aquí ya no hay nada servible. Se avisa en vez de levantar
+                # 1,3 GB en un servidor de 1 GB — que no es una preferencia,
+                # es que no cabe.
+                logger.warning('[guardia] sin precálculo servible (%s)',
+                               'no existe' if _d is None else 'demasiado viejo')
                 return _sellar({'pronosticos': [], 'capa1': [], 'capa2': [],
                                 'seccion1': [], 'seccion2': [],
                                 'combinadas': [], 'incidencias': [],
