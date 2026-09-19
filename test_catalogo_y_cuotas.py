@@ -16486,6 +16486,193 @@ def test_las_reglas_v212_no_salen_a_pantalla_sin_aprobacion():
           f'escalada apagada con el backtest actual: {el.motivo_estado()[:60]}')
 
 
+# ===========================================================================
+# v213 — LAS BARRITAS QUE SUMAN Y RESTAN, Y EL MODO VALOR
+# ===========================================================================
+def test_el_contexto_suma_resta_y_nunca_pisa_la_probabilidad_del_modelo():
+    """
+    LA PROPIEDAD QUE SOSTIENE EL MODULO. Ninguno de estos deltas esta medido
+    contra ROI, asi que la probabilidad del modelo tiene que sobrevivir intacta
+    al lado de la ajustada. Si se pisara, el dia que haya ledger ya no se
+    podria medir CUAL de las dos acierta mas.
+    """
+    import ajuste_contexto as ac
+
+    a = ac.ajustar(0.50, [{'tipo': 'lesion_clave', 'peso': 1,
+                           'confianza_fuente': 1.0}])
+    check(a['prob_modelo'] == 0.50,
+          f"la probabilidad del modelo sale intacta ({a['prob_modelo']})")
+    check(a['prob_ajustada'] < 0.50,
+          f"y la ajustada baja con una lesion ({a['prob_ajustada']})")
+
+    b = ac.ajustar(0.50, [{'tipo': 'regreso_clave', 'peso': 1,
+                           'confianza_fuente': 1.0}])
+    check(b['prob_ajustada'] > 0.50,
+          f"un regreso importante la sube ({b['prob_ajustada']})")
+
+    c = ac.ajustar(0.50, [])
+    check(c['prob_ajustada'] == c['prob_modelo'],
+          'sin senales, la ajustada es la del modelo')
+    check(ac.ajustar(None, [])['prob_ajustada'] is None,
+          'sin probabilidad no revienta')
+
+
+def test_el_ajuste_de_contexto_tiene_tope():
+    """
+    Sin tope, cuatro senales mueven 20 puntos y el «contexto» pesa mas que un
+    modelo entrenado con miles de partidos.
+    """
+    import ajuste_contexto as ac
+
+    muchas = [{'tipo': 'lesion_multiple', 'peso': 2, 'confianza_fuente': 1.0},
+              {'tipo': 'lesion_clave', 'peso': 2, 'confianza_fuente': 1.0},
+              {'tipo': 'racha_negativa', 'peso': 2, 'confianza_fuente': 1.0},
+              {'tipo': 'fatiga', 'peso': 2, 'confianza_fuente': 1.0}]
+    a = ac.ajustar(0.50, muchas)
+    check(a['topado'] is True, 'con cuatro senales fuertes el ajuste se topa')
+    check(abs(a['delta_total']) <= ac.TOPE_TOTAL + 1e-9,
+          f"y nunca pasa de {ac.TOPE_TOTAL} ({a['delta_total']})")
+    check(abs(a['delta_bruto']) > ac.TOPE_TOTAL,
+          'el bruto sin topar se conserva para poder auditarlo')
+
+    # ni siquiera un caso extremo saca la probabilidad del rango
+    ext = ac.ajustar(0.03, muchas)
+    check(ac.SUELO <= ext['prob_ajustada'] <= ac.TECHO,
+          f"la ajustada respeta suelo y techo ({ext['prob_ajustada']})")
+
+
+def test_una_senal_desconocida_o_poco_fiable_no_mueve_nada():
+    """Y lo DICE, en vez de descartarla en silencio."""
+    import ajuste_contexto as ac
+
+    d = ac.delta_de({'tipo': 'esto_no_existe', 'peso': 1})
+    check(d['delta'] == 0.0 and not d['aplicado'],
+          'un tipo sin peso definido no mueve la probabilidad')
+    check('sin peso definido' in d['motivo'],
+          f"y explica por que ({d['motivo']})")
+
+    p = ac.delta_de({'tipo': 'lesion_clave', 'peso': 1,
+                     'confianza_fuente': 0.2})
+    check(p['delta'] == 0.0 and not p['aplicado'],
+          'una fuente poco fiable tampoco mueve nada')
+    check('poco fiable' in p['motivo'], 'y tambien lo explica')
+
+    # la confianza ESCALA el delta de las que si se aplican
+    alta = ac.delta_de({'tipo': 'lesion_clave', 'peso': 1,
+                        'confianza_fuente': 1.0})['delta']
+    media = ac.delta_de({'tipo': 'lesion_clave', 'peso': 1,
+                         'confianza_fuente': 0.6})['delta']
+    check(abs(media) < abs(alta),
+          f'una fuente menos fiable mueve menos ({media} vs {alta})')
+
+
+def test_el_1x2_ajustado_sigue_sumando_uno():
+    """
+    Si el local sube y nadie mas se mueve, las tres dejan de sumar 1 y la doble
+    oportunidad —que se calcula sumando dos— empieza a dar probabilidades
+    imposibles. Es el mismo cuidado que `contexto_ampliado.ajustar_1x2`.
+    """
+    import ajuste_contexto as ac
+
+    a = ac.ajustar_1x2(
+        0.45, 0.27, 0.28,
+        senales_home=[{'tipo': 'invicto_local', 'peso': 1,
+                       'confianza_fuente': 0.95, 'detalle': '12 sin perder'}],
+        senales_away=[{'tipo': 'lesion_multiple', 'peso': 1,
+                       'confianza_fuente': 0.85, 'detalle': 'dos centrales'}])
+    s = a['p_home'] + a['p_draw'] + a['p_away']
+    check(abs(s - 1.0) < 1e-6, f'las tres ajustadas suman 1 ({s})')
+    check(a['p_home'] > a['p_home_modelo'],
+          'el local sube con sus senales positivas')
+    check(a['p_away'] < a['p_away_modelo'],
+          'y el visitante baja con las suyas negativas')
+    check(a['p_home_modelo'] == 0.45,
+          'las del modelo siguen ahi, intactas')
+
+    sin = ac.ajustar_1x2(0.45, 0.27, 0.28)
+    check(not sin['aplicado'], 'sin senales no se marca como aplicado')
+
+    malo = ac.ajustar_1x2(None, 0.27, 0.28)
+    check(not malo['aplicado'], 'con una probabilidad ausente no revienta')
+
+
+def test_las_barritas_se_explican_una_a_una():
+    """El encargo pide ver QUE suma y QUE resta, no solo el total."""
+    import ajuste_contexto as ac
+
+    a = ac.ajustar_1x2(
+        0.45, 0.27, 0.28,
+        senales_home=[{'tipo': 'invicto_local', 'peso': 1,
+                       'confianza_fuente': 0.95, 'detalle': '12 sin perder'},
+                      {'tipo': 'regreso_clave', 'peso': 1,
+                       'confianza_fuente': 0.85, 'detalle': 'vuelve el 9'}],
+        senales_away=[{'tipo': 'lesion_multiple', 'peso': 1,
+                       'confianza_fuente': 0.85, 'detalle': 'dos centrales'}])
+    lineas = ac.explicar(a)
+    check(len(lineas) == 3, f'sale una linea por senal aplicada ({len(lineas)})')
+    check(any('▲' in l for l in lineas), 'las que suman llevan flecha arriba')
+    check(any('▼' in l for l in lineas), 'las que restan, flecha abajo')
+    check(any('12 sin perder' in l for l in lineas),
+          'y cada una arrastra su detalle')
+    check(a.get('medido') is False,
+          'todo el ajuste viaja marcado como NO medido')
+
+
+def test_el_modo_valor_compra_precio_y_no_probabilidad():
+    """
+    El hallazgo de `patrones_acierto`: el modelo se desordena cuanto mas larga
+    es la cuota (calibracion +0,045 -> -0,147), pero la ventaja de precio rinde
+    MAS ahi (+12,50 % de ROI en la banda 2,20-3,00). Asi que el Modo Valor
+    decide por precio contra precio y NO mira la probabilidad del modelo.
+    """
+    import inspect
+    import modo_seguridad as ms
+
+    firma = inspect.signature(ms.evaluar_valor).parameters
+    check('ventaja' in firma and 'prob_modelo' not in firma,
+          f'el Modo Valor no recibe la probabilidad del modelo ({list(firma)})')
+
+    check(ms.evaluar_valor(2.50, 0.08)['entra'],
+          'buena cuota con ventaja del 8 % entra')
+    check(not ms.evaluar_valor(2.50, 0.02)['entra'],
+          'con ventaja del 2 % no entra')
+    check(not ms.evaluar_valor(1.45, 0.10)['entra'],
+          'y una cuota de 1,45 queda fuera de la banda medida')
+    check(not ms.evaluar_valor(2.50, 0.45)['entra'],
+          'una ventaja del 45 % es error de datos, no una oportunidad')
+    check(not ms.evaluar_valor(2.50, None)['entra'],
+          'sin precio de referencia no se puede medir ventaja')
+    check(not ms.evaluar_valor(2.50, 0.08, alta_incertidumbre=True)['entra'],
+          'y la alta incertidumbre deja fuera igual')
+
+    lo, hi = ms.BANDA_VALOR
+    check(lo >= 1.80 and hi <= 3.00,
+          f'la banda es la medida, no una cualquiera ({lo}-{hi})')
+
+
+def test_el_buscador_de_patrones_puede_decir_que_no_hay():
+    """
+    Un buscador de patrones que no puede devolver «ninguno» no sirve: siempre
+    devolveria algo. Con 500 preguntas al 5 % salen 25 hallazgos falsos por
+    aritmetica pura, asi que el liston es juicio fuera de muestra + BH.
+    """
+    import patrones_acierto as pa
+
+    # Benjamini-Hochberg: con p-valores altos no sobrevive ninguno
+    check(not any(pa.benjamini_hochberg([0.9, 0.8, 0.7, 0.6])),
+          'con p-valores altos, BH no deja pasar ninguno')
+    check(all(pa.benjamini_hochberg([0.0001, 0.0002])),
+          'con p-valores minusculos, pasan')
+    check(pa.benjamini_hochberg([]) == [],
+          'y con la lista vacia no revienta')
+
+    check(pa.PLIEGUE_JUICIO not in pa.PLIEGUES_DESCUBRIMIENTO,
+          'el pliegue de juicio NO se usa para descubrir')
+    check(pa.CUOTA_MINIMA_UTIL >= 1.50,
+          f'el barrido descarta las cuotas que no sirven para combinar '
+          f'({pa.CUOTA_MINIMA_UTIL})')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -16867,6 +17054,15 @@ if __name__ == '__main__':
     test_las_metricas_del_backtest_son_las_de_siempre()
     test_la_auditoria_del_repo_no_declara_muerto_lo_que_no_sabe()
     test_las_reglas_v212_no_salen_a_pantalla_sin_aprobacion()
+
+    print(chr(10) + '=== v213: barritas de contexto y modo valor ===')
+    test_el_contexto_suma_resta_y_nunca_pisa_la_probabilidad_del_modelo()
+    test_el_ajuste_de_contexto_tiene_tope()
+    test_una_senal_desconocida_o_poco_fiable_no_mueve_nada()
+    test_el_1x2_ajustado_sigue_sumando_uno()
+    test_las_barritas_se_explican_una_a_una()
+    test_el_modo_valor_compra_precio_y_no_probabilidad()
+    test_el_buscador_de_patrones_puede_decir_que_no_hay()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

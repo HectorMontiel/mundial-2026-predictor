@@ -3425,6 +3425,40 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                 _pinta(_estilo.barra_1x2(
                     _an_pj['p_home'], _an_pj['p_draw'], _an_pj['p_away'],
                     home, away) if _estilo else None)
+
+                # v213 — LAS BARRITAS QUE SUMAN Y RESTAN.
+                #
+                # El contexto (bajas, regresos, racha, invicto local, cambio de
+                # entrenador) mueve la probabilidad y se enseña DESCOMPUESTO:
+                # qué suma, qué resta y cuánto. La barra del modelo se queda
+                # arriba, intacta, y ésta va debajo — las dos a la vista.
+                #
+                # Que sean DOS barras y no una corregida es deliberado: ningún
+                # peso de `ajuste_contexto.PESOS` está medido contra ROI. Con
+                # las dos separadas, el día que haya ledger se puede medir cuál
+                # de las dos acierta más; pisando la original, esa pregunta ya
+                # no se podría hacer.
+                try:
+                    import ajuste_contexto as _ajc
+                    _ctx = _ajc.de_partido(
+                        getattr(motor, 'clave', None) or key, home, away,
+                        _an_pj['p_home'], _an_pj['p_draw'], _an_pj['p_away'])
+                except Exception as _e_ctx:
+                    logger.debug('[partido] ajuste de contexto: %s', _e_ctx)
+                    _ctx = None
+                if _ctx and _ctx.get('aplicado'):
+                    st.markdown('**Con el contexto del partido**')
+                    _pinta(_estilo.barra_1x2(
+                        _ctx['p_home'], _ctx['p_draw'], _ctx['p_away'],
+                        home, away) if _estilo else None)
+                    for _linea in _ajc.explicar(_ctx):
+                        st.caption(_linea)
+                    st.caption(
+                        '⚠️ Estos ajustes **no están medidos** contra ROI: son '
+                        'la escala del encargo, puesta a mano y con tope de '
+                        f"±{_ajc.TOPE_TOTAL*100:.0f} puntos. La barra de "
+                        'arriba sigue siendo la del modelo entrenado, y es la '
+                        'que manda mientras esto no se mida.')
                 _filas_pj = []
                 for _f in _an_pj.get('lados', []):
                     if not (_f.get('cuota_gana') and _f.get('cuota_doble')):

@@ -276,6 +276,72 @@ def seleccionar(picks: Sequence[Dict]) -> Dict:
             'motivo_estado': motivo_estado()}
 
 
+# ---------------------------------------------------------------------------
+# v213 — MODO VALOR: buena cuota Y ventaja medida, que no son incompatibles
+# ---------------------------------------------------------------------------
+# DE DÓNDE SALE. El Modo Seguridad selecciona favoritos a cuota corta alineados
+# con el mercado, y medido da −1,80 % de ROI en fútbol: pierde menos, no gana.
+# El barrido de `patrones_acierto.py` sobre 107.280 picks resueltos explica por
+# qué, y señala dónde SÍ hay algo:
+#
+#   banda cuota   calibración del modelo   ROI    ROI con ventaja >= 5 %
+#   1,20-1,50          +0,045            −2,95 %        −3,70 %  (n=27)
+#   1,50-1,80          −0,015            −5,68 %       +11,35 %
+#   1,80-2,20          −0,059            −6,25 %       +11,47 %   p5 +0,64 %
+#   2,20-3,00          −0,093            −6,69 %       +12,50 %   p5 +3,14 %
+#   3,00-6,00          −0,147            −3,08 %        +1,42 %
+#
+# Dos lecturas, y las dos importan:
+#   · el MODELO se desordena cuanto más larga es la cuota (la calibración cae
+#     de +0,045 a −0,147: en la banda de 3,00 promete un 43,6 % y acierta un
+#     28,9 %). Buscar «buenas cuotas» con el modelo es ir adonde peor predice.
+#   · la VENTAJA DE PRECIO no depende de que el modelo acierte, y es justo en
+#     la banda de cuota buena donde más rinde.
+#
+# Así que la forma de tener multiplicador y edge a la vez no es predecir mejor:
+# es comprar la misma predicción más barata. Este modo hace eso.
+#
+# LO QUE NO SE PUEDE AFIRMAR TODAVÍA. Los números de arriba salen de los
+# pliegues de descubrimiento. El pliegue de juicio tiene 77 apuestas con
+# ventaja —Pinnacle sólo cubre 971 partidos ahí— y con esa muestra el p5 sale
+# −32 %: no confirma nada. Por eso este modo NACE APAGADO igual que el otro y
+# espera a que el backtest semanal acumule juicio.
+BANDA_VALOR = (1.80, 3.00)      # donde la ventaja rindió más
+VENTAJA_MINIMA = 0.05           # el umbral ya medido del proyecto
+VENTAJA_IMPOSIBLE = 0.30        # guardia de datos: por encima es otro partido
+
+
+def evaluar_valor(cuota: Optional[float], ventaja: Optional[float],
+                  alta_incertidumbre: bool = False) -> Dict:
+    """¿Entra este pick en Modo Valor? Buena cuota + ventaja de precio.
+
+    NO mira la probabilidad del modelo a propósito: es lo que la medición dice
+    que sobra en esta banda. Decide el precio contra el precio.
+    """
+    c, v = _f(cuota), _f(ventaja)
+    fuera = {'entra': False, 'ventaja': v}
+    if c is None:
+        return {**fuera, 'motivo': 'sin cuota'}
+    if v is None:
+        return {**fuera, 'motivo': 'sin precio de referencia con el que '
+                                   'medir la ventaja'}
+    if v > VENTAJA_IMPOSIBLE:
+        return {**fuera, 'motivo': f'ventaja de {v:.0%}: entre dos casas '
+                                   f'reales es imposible, casi seguro que los '
+                                   f'precios son de partidos distintos'}
+    if alta_incertidumbre:
+        return {**fuera, 'motivo': '🔴 Alta incertidumbre'}
+    lo, hi = BANDA_VALOR
+    if not (lo <= c <= hi):
+        return {**fuera, 'motivo': f'cuota {c:.2f} fuera de la banda medida '
+                                   f'{lo:.2f}-{hi:.2f}'}
+    if v < VENTAJA_MINIMA:
+        return {**fuera, 'motivo': f'ventaja {v:+.1%}, por debajo del '
+                                   f'{VENTAJA_MINIMA:.0%} medido'}
+    return {'entra': True, 'ventaja': round(v, 4), 'motivo': '',
+            'solidez': round(min(1.0, v / VENTAJA_IMPOSIBLE), 4)}
+
+
 def explicar(resultado: Dict) -> str:
     """Una línea por pick seguro, para el resumen de texto y el bot."""
     lineas = []
