@@ -270,7 +270,26 @@ def _tokens(nombre: str) -> frozenset:
     return frozenset(p for p in _norm(nombre).split() if p not in _VACIAS)
 
 
+_MEMO_SIMILITUD: Dict = {}
+
+
 def _similitud(a: str, b: str) -> float:
+    """Memoriza `_similitud_cruda`. Ver allí el cómo y el porqué.
+
+    v216 — Es pura sobre dos cadenas y se llamaba **80.668 veces** en un rerun
+    de «Apuestas del Día» para emparejar 335 fixtures: cada `_empareja` compara
+    su partido contra el índice entero, así que el mismo par de nombres se
+    evalúa una y otra vez. Medido: 9,5 s de la pasada.
+    """
+    llave = (a, b)
+    v = _MEMO_SIMILITUD.get(llave)
+    if v is None:
+        v = _similitud_cruda(a, b)
+        _MEMO_SIMILITUD[llave] = v
+    return v
+
+
+def _similitud_cruda(a: str, b: str) -> float:
     """
     Cuánto se parecen dos nombres de club, de 0 a 1.
 

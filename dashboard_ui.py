@@ -6959,12 +6959,20 @@ def render_alpha_finder():
     with _tab_hoy:
         try:
             import modo_modelo as _mm
+            import pronosticos_guardados as _pgl
             # `pintar` sólo dibuja las tarjetas de la vista que se está
             # mirando. Las otras siguen ejecutándose —sus controles tienen
             # que llegar vivos al final de la pasada— pero no pintan
             # doscientas tarjetas detrás de un `display:none`.
-            _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
-                       dia=_HOY_S, pintar=(_vista == 'hoy'))
+            #
+            # v216 — Y TODA LA PASADA ESCRIBE UNA SOLA VEZ. Cada `guardar`
+            # volcaba el fichero entero a disco: 157 escrituras completas en
+            # una pasada, 94,8 s de los 206 que costaba la vista. El lote las
+            # junta en una, y su `__exit__` garantiza el volcado aunque el
+            # cuerpo lance.
+            with _pgl.lote():
+                _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
+                           dia=_HOY_S, pintar=(_vista == 'hoy'))
         except Exception as _e_mm:
             logger.exception('[modo_modelo] fallo al pintar')
             st.caption(f"La lista de apuestas no está disponible "
@@ -6995,10 +7003,12 @@ def render_alpha_finder():
         else:
             try:
                 import modo_modelo as _mm_man
-                _mm_man.render(
-                    st, _pron_man, navegar=_ir_al_partido, clave='man',
-                    con_apuesta=False, pintar=(_vista == 'manana'),
-                    titulo=f"🗓️ Partidos de mañana · {_MANANA_S} (CDMX)")
+                import pronosticos_guardados as _pgm
+                with _pgm.lote():       # v216: una escritura, no una por pick
+                    _mm_man.render(
+                        st, _pron_man, navegar=_ir_al_partido, clave='man',
+                        con_apuesta=False, pintar=(_vista == 'manana'),
+                        titulo=f"🗓️ Partidos de mañana · {_MANANA_S} (CDMX)")
             except Exception as _e_m:
                 logger.exception('[modo_modelo/manana] fallo al pintar')
                 st.caption(f"Lista no disponible ({type(_e_m).__name__}).")

@@ -99,8 +99,42 @@ def _historico(clave: str):
         return pd.DataFrame()
 
 
+_MEMO_FORMA: Dict = {}
+
+
+def olvidar_forma() -> None:
+    """Vacía la memoria de `forma`. La usan los tests y quien reescriba un CSV."""
+    _MEMO_FORMA.clear()
+
+
 def forma(clave: str, equipo: str, n: int = VENTANA,
           solo_bando: Optional[str] = None) -> Dict:
+    """La forma del equipo, memorizada. El cálculo está en `_forma`.
+
+    v216 — POR QUÉ SE MEMORIZA. Es pura respecto a sus argumentos: lo demás
+    que lee es `_historico(clave)`, el CSV de la competición, que no cambia
+    mientras dura un render. Y se llamaba 1.318 veces en un rerun de «Apuestas
+    del Día» para unas pocas docenas de (liga, equipo): 13 s de la pasada,
+    filtrando y recorriendo el mismo histórico una vez por tarjeta.
+
+    SE DEVUELVE UNA COPIA, y no es paranoia: el diccionario lleva dentro la
+    lista `partidos`, y si un consumidor la modificara, el siguiente en pedir
+    la misma forma recibiría la versión mutada. Copiar cuesta microsegundos
+    contra los 10 ms que costaba recalcular.
+    """
+    llave = (clave, equipo, n, solo_bando)
+    guardado = _MEMO_FORMA.get(llave)
+    if guardado is None:
+        guardado = _forma(clave, equipo, n, solo_bando)
+        _MEMO_FORMA[llave] = guardado
+    copia = dict(guardado)
+    if isinstance(copia.get('partidos'), list):
+        copia['partidos'] = list(copia['partidos'])
+    return copia
+
+
+def _forma(clave: str, equipo: str, n: int = VENTANA,
+           solo_bando: Optional[str] = None) -> Dict:
     """
     Cómo llega `equipo` a su próximo partido, en `n` partidos.
 
@@ -1407,9 +1441,35 @@ def dispersion_remates_equipo(clave: str,
     return valor
 
 
+_MEMO_REMATES: Dict = {}
+
+
+def olvidar_remates() -> None:
+    """Vacía la memoria de `lambda_remates_equipo`."""
+    _MEMO_REMATES.clear()
+
+
 def lambda_remates_equipo(clave: str, equipo: str, rival: str, en_casa: bool,
                           n: int = 10,
                           objetivo: str = 'tot') -> Optional[float]:
+    """Memoriza `_lambda_remates_equipo`. El cálculo está allí.
+
+    v216 — Pura respecto a sus argumentos (lo demás que lee es el histórico de
+    la competición, que no cambia durante un render) y se llamaba 1.136 veces
+    en un rerun de «Apuestas del Día»: 10,9 s de la pasada, recorriendo el
+    mismo CSV una vez por tarjeta y por objetivo.
+    """
+    llave = (clave, equipo, rival, bool(en_casa), n, objetivo)
+    if llave in _MEMO_REMATES:
+        return _MEMO_REMATES[llave]
+    v = _lambda_remates_equipo(clave, equipo, rival, en_casa, n, objetivo)
+    _MEMO_REMATES[llave] = v
+    return v
+
+
+def _lambda_remates_equipo(clave: str, equipo: str, rival: str, en_casa: bool,
+                           n: int = 10,
+                           objetivo: str = 'tot') -> Optional[float]:
     """
     Remates esperados de `equipo` contra `rival`, jugando en su bando.
 

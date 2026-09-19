@@ -121,6 +121,64 @@ def _escribir(doc: Dict) -> bool:
         return False
 
 
+# v216 — ESCRIBIR UNA VEZ, NO UNA POR PRONÓSTICO.
+#
+# `_leer` está cacheado; `_escribir` no. Así que `guardar` volcaba el
+# diccionario ENTERO a disco en cada llamada: con 1.737 registros y 157
+# pronósticos nuevos en una pasada, eso son 157 escrituras completas del mismo
+# fichero. Medido en el perfil de «Apuestas del Día»: **94,8 s de los 206**,
+# más que pintar las doscientas tarjetas.
+#
+# El modo diferido acumula en la caché y escribe una sola vez al salir. Se usa
+# con el gestor de contexto `lote()`, que garantiza el volcado aunque el cuerpo
+# lance — si se dejara al llamador, el primer `except` del camino se llevaría
+# los pronósticos del día sin que nadie se enterara.
+_DIFERIDO = False
+_PENDIENTE = False
+
+
+class lote:
+    """Agrupa varios `guardar` en una sola escritura.
+
+        with pronosticos_guardados.lote():
+            for p in partidos:
+                guardar(p, recomendadas(p))
+
+    Reentrante: si ya hay un lote abierto, el interior no cierra el de fuera.
+    """
+
+    def __init__(self):
+        self._era = False
+
+    def __enter__(self):
+        global _DIFERIDO
+        self._era = _DIFERIDO
+        _DIFERIDO = True
+        return self
+
+    def __exit__(self, *exc):
+        global _DIFERIDO
+        _DIFERIDO = self._era
+        if not _DIFERIDO:
+            volcar()
+        return False            # no se traga la excepción
+
+
+def volcar() -> bool:
+    """Escribe lo acumulado en modo diferido. Idempotente."""
+    global _PENDIENTE
+    if not _PENDIENTE:
+        return False
+    _PENDIENTE = False
+    doc = _leer()
+    try:
+        import io_atomico
+        return bool(io_atomico.escribir_json(FICHERO, _poda(dict(doc))))
+    except Exception as e:
+        logger.debug('[pronosticos] no se pudo volcar %s: %s', FICHERO, e)
+        return False
+
+
 def _hoy() -> str:
     """El día de hoy en UTC, o cadena vacía si pandas no está."""
     try:
@@ -167,6 +225,36 @@ def _fila(f: Dict) -> Dict:
             'incierto': bool(f.get('incierto'))}
 
 
+def ya_anotado(pick: Dict) -> bool:
+    """¿Este partido ya tiene pronóstico guardado (o no puede tenerlo)?
+
+    POR QUÉ EXISTE, Y ES UNA CUESTIÓN DE VELOCIDAD, NO DE LÓGICA.
+    `guardar()` es de sólo-inserción: si la clave ya está, no toca nada y
+    devuelve `False`. Pero para llegar a esa comprobación hay que haberle
+    pasado ya las `recomendadas`, y calcularlas es lo caro — sale a predecir el
+    partido entero. Resultado medido en el perfil de «Apuestas del Día»: en
+    cada pasada se recalculaban las recomendaciones de TODOS los partidos ya
+    anotados para tirarlas a la basura dentro de `guardar`.
+
+    Esto es la misma pregunta hecha ANTES de pagar: mismas condiciones
+    —partido jugado o clave ya presente— y ninguna más, para que no pueda
+    decir que sí donde `guardar` diría que no.
+    """
+    if not pick:
+        return True
+    if pick.get('jugado'):
+        return True               # de un partido acabado ya no se pronostica
+    try:
+        import modo_modelo as mm
+        h, a = mm._equipos(pick)
+    except Exception:
+        return False              # ante la duda, que siga el camino de siempre
+    if not (h and a):
+        return True               # sin equipos, `guardar` tampoco escribiría
+    k = clave(pick.get('clave_liga'), h, a, pick.get('fecha'))
+    return k in _leer()
+
+
 def guardar(pick: Dict, recomendadas: List[Dict]) -> bool:
     """
     Deja constancia de lo que se recomendó en este partido. UNA sola vez.
@@ -193,13 +281,21 @@ def guardar(pick: Dict, recomendadas: List[Dict]) -> bool:
     filas = [_fila(f) for f in recomendadas[:MAX_RECOMENDADAS] if f]
     if not filas:
         return False
+    entrada = {'clave_liga': pick.get('clave_liga'), 'home': h, 'away': a,
+               'partido': pick.get('partido'), 'liga': pick.get('liga'),
+               'fecha': str(pick.get('fecha') or '')[:10],
+               'inicio': pick.get('inicio'),
+               'anotado': _hoy(),
+               'recomendadas': filas}
+    if _DIFERIDO:
+        # En lote: se anota en la caché y el disco espera al `volcar()` del
+        # gestor de contexto. La poda también se aplica allí, una sola vez.
+        global _PENDIENTE
+        doc[k] = entrada
+        _PENDIENTE = True
+        return True
     doc = dict(doc)
-    doc[k] = {'clave_liga': pick.get('clave_liga'), 'home': h, 'away': a,
-              'partido': pick.get('partido'), 'liga': pick.get('liga'),
-              'fecha': str(pick.get('fecha') or '')[:10],
-              'inicio': pick.get('inicio'),
-              'anotado': _hoy(),
-              'recomendadas': filas}
+    doc[k] = entrada
     return _escribir(_poda(doc))
 
 

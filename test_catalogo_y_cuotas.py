@@ -17034,6 +17034,237 @@ def test_las_curvas_por_pliegue_no_miran_el_futuro():
                       f'{curva.get("n_train")} picks, por encima del minimo')
 
 
+# ===========================================================================
+# v216 — LA VISTA DEJA DE TARDAR: memos, vectorizacion y una sola escritura
+# ===========================================================================
+def test_ya_anotado_no_dice_que_si_donde_guardar_diria_que_no():
+    """
+    LA PROPIEDAD QUE HACE SEGURO EL ATAJO. `ya_anotado` se consulta ANTES de
+    calcular las recomendaciones, que es lo caro. Si dijera que si en algun
+    caso donde `guardar` habria escrito, se perderian pronosticos en silencio.
+    Tiene que ser un subconjunto estricto de «guardar devolveria False».
+    """
+    import pronosticos_guardados as pg
+
+    doc = pg._leer()
+    recs = [{'apuesta': 'Goles: Mas de 2.5', 'prob': 0.6, 'cuota': 1.8,
+             'mercado': 'Goles'}]
+    revisados = coinciden = 0
+    for k, reg in list(doc.items())[:40]:
+        p = {'clave_liga': reg.get('clave_liga'), 'partido': reg.get('partido'),
+             'liga': reg.get('liga'), 'fecha': reg.get('fecha'),
+             'home': reg.get('home'), 'away': reg.get('away')}
+        revisados += 1
+        if pg.ya_anotado(p) and not pg.guardar(p, recs):
+            coinciden += 1
+    if revisados:
+        check(coinciden == revisados,
+              f'los {revisados} partidos ya guardados coinciden: `ya_anotado` '
+              f'dice si y `guardar` dice que no ({coinciden})')
+
+    nuevo = {'clave_liga': 'xx_test_v216', 'partido': 'Uno FC vs Dos FC',
+             'fecha': '2030-01-01', 'home': 'Uno FC', 'away': 'Dos FC'}
+    check(pg.ya_anotado(nuevo) is False,
+          'un partido nuevo NO se salta: hay que calcularle la recomendacion')
+    check(pg.ya_anotado(dict(nuevo, jugado=True)) is True,
+          'uno ya jugado si se salta: de un partido acabado no se pronostica')
+    check(pg.ya_anotado({'partido': 'sin separador'}) is True,
+          'y uno sin equipos tambien, porque `guardar` tampoco escribiria')
+
+
+def test_el_lote_escribe_una_sola_vez():
+    """
+    `guardar` volcaba el fichero ENTERO a disco en cada llamada: 157
+    escrituras completas en una pasada, 94,8 s de los 206 que costaba la
+    vista — mas que pintar las doscientas tarjetas.
+    """
+    import io_atomico
+    import pronosticos_guardados as pg
+
+    recs = [{'apuesta': 'Goles: Mas de 2.5', 'prob': 0.6, 'cuota': 1.8,
+             'mercado': 'Goles'}]
+    picks = [{'clave_liga': 'xx_lote', 'partido': 'L%d vs V%d' % (i, i),
+              'fecha': '2030-01-01', 'home': 'L%d' % i, 'away': 'V%d' % i}
+             for i in range(6)]
+
+    n = {'escrituras': 0}
+    original = io_atomico.escribir_json
+
+    def _espia(ruta, doc, *a, **k):
+        n['escrituras'] += 1
+        return True                      # no se toca el disco de verdad
+
+    io_atomico.escribir_json = _espia
+    try:
+        with pg.lote():
+            for p in picks:
+                pg.guardar(p, recs)
+        check(n['escrituras'] == 1,
+              f"seis pronosticos en lote escriben UNA vez ({n['escrituras']})")
+
+        n['escrituras'] = 0
+        pg.volcar()
+        check(n['escrituras'] == 0,
+              'y volcar dos veces no vuelve a escribir: es idempotente')
+    finally:
+        io_atomico.escribir_json = original
+        # deshacer lo que el lote metio en la cache, que no llego al disco
+        cache = pg._leer()
+        for p in picks:
+            k = pg.clave(p['clave_liga'], p['home'], p['away'], p['fecha'])
+            cache.pop(k, None)
+
+
+def test_el_lote_vuelca_aunque_el_cuerpo_lance():
+    """
+    Si el volcado quedara en manos del llamador, el primer `except` del camino
+    se llevaria los pronosticos del dia sin que nadie se enterara.
+    """
+    import io_atomico
+    import pronosticos_guardados as pg
+
+    n = {'escrituras': 0}
+    original = io_atomico.escribir_json
+
+    def _espia(ruta, doc, *a, **k):
+        n['escrituras'] += 1
+        return True
+
+    io_atomico.escribir_json = _espia
+    clave_test = None
+    try:
+        try:
+            with pg.lote():
+                p = {'clave_liga': 'xx_boom', 'partido': 'A FC vs B FC',
+                     'fecha': '2030-01-01', 'home': 'A FC', 'away': 'B FC'}
+                clave_test = pg.clave('xx_boom', 'A FC', 'B FC', '2030-01-01')
+                pg.guardar(p, [{'apuesta': 'x', 'prob': 0.5, 'cuota': 2.0,
+                                'mercado': 'm'}])
+                raise RuntimeError('fallo a proposito')
+        except RuntimeError:
+            pass
+        check(n['escrituras'] == 1,
+              f"el lote volco pese a la excepcion ({n['escrituras']})")
+    finally:
+        io_atomico.escribir_json = original
+        if clave_test:
+            pg._leer().pop(clave_test, None)
+
+
+def test_las_memos_devuelven_lo_mismo_que_el_calculo_directo():
+    """
+    Cuatro funciones puras que se llamaban miles de veces por pasada. La memo
+    no puede cambiar NI UN VALOR: si lo hiciera, estaria acelerando otra cosa.
+    """
+    import glob
+    import os
+    import contexto_partido as cp
+    import rendimiento_equipos as rq
+
+    historicos = sorted(glob.glob('historico_*.csv'), key=os.path.getsize,
+                        reverse=True)
+    if not historicos:
+        check(True, 'sin historicos en disco, la comprobacion se salta')
+        return
+    clave = os.path.basename(historicos[0])[len('historico_'):-4]
+    d = rq._historico(clave)
+    if d is None or getattr(d, 'empty', True):
+        check(True, 'el historico mas grande vino vacio; se salta')
+        return
+    equipos = [e for e in d['home_team'].dropna().unique()[:5]]
+
+    cp.olvidar_factores()
+    for e in equipos:
+        for m in ('goles', 'corners', 'tarjetas'):
+            check(cp.factor_lambda(clave, e, m) == cp._factor_lambda(clave, e, m),
+                  f'factor_lambda memorizado == calculado ({e}/{m})')
+
+    rq.olvidar_forma()
+    for e in equipos[:3]:
+        check(rq.forma(clave, e) == rq._forma(clave, e),
+              f'forma memorizada == calculada ({e})')
+
+    rq.olvidar_remates()
+    if len(equipos) >= 2:
+        a, b = equipos[0], equipos[1]
+        check(rq.lambda_remates_equipo(clave, a, b, True)
+              == rq._lambda_remates_equipo(clave, a, b, True),
+              'lambda_remates_equipo memorizada == calculada')
+
+
+def test_la_forma_memorizada_devuelve_una_copia():
+    """
+    El diccionario lleva dentro la lista `partidos`. Si un consumidor la
+    modificara, el siguiente en pedir la misma forma recibiria la version
+    mutada — y ese fallo no deja rastro.
+    """
+    import glob
+    import os
+    import rendimiento_equipos as rq
+
+    historicos = sorted(glob.glob('historico_*.csv'), key=os.path.getsize,
+                        reverse=True)
+    if not historicos:
+        check(True, 'sin historicos, se salta')
+        return
+    clave = os.path.basename(historicos[0])[len('historico_'):-4]
+    d = rq._historico(clave)
+    if d is None or getattr(d, 'empty', True):
+        check(True, 'historico vacio, se salta')
+        return
+    equipo = str(d['home_team'].dropna().iloc[0])
+
+    rq.olvidar_forma()
+    a = rq.forma(clave, equipo)
+    check(a is not rq.forma(clave, equipo),
+          'cada llamada devuelve un diccionario distinto')
+    if isinstance(a.get('partidos'), list):
+        a['partidos'].append('__BASURA__')
+    a['racha'] = '__TOCADA__'
+    b = rq.forma(clave, equipo)
+    check('__BASURA__' not in (b.get('partidos') or []),
+          'mutar la lista del resultado no contamina la memoria')
+    check(b.get('racha') != '__TOCADA__',
+          'ni mutar sus campos')
+
+
+def test_el_mapa_de_elo_se_lee_una_vez_y_da_lo_mismo():
+    """
+    `elo()` abria `elo_actual.csv` del disco y lo recorria con `iterrows()` en
+    CADA llamada: 303 veces por pasada para leer el mismo fichero.
+    """
+    import os
+    import contexto_partido as cp
+
+    if not os.path.exists('elo_actual.csv'):
+        check(True, 'sin elo_actual.csv, se salta')
+        return
+    import pandas as pd
+    d = pd.read_csv('elo_actual.csv')
+    col_eq = 'equipo' if 'equipo' in d.columns else d.columns[0]
+    col_el = 'elo' if 'elo' in d.columns else d.columns[-1]
+    viejo = {str(r[col_eq]): float(r[col_el]) for _, r in d.iterrows()}
+
+    cp.olvidar_elo()
+    nuevo = cp._mapa_elo()
+    faltan = [k for k in viejo if k not in nuevo]
+    difieren = [k for k in viejo
+                if k in nuevo and abs(viejo[k] - nuevo[k]) > 1e-9]
+    check(not faltan and not difieren,
+          f'el mapa vectorizado es identico al de iterrows '
+          f'({len(faltan)} faltan, {len(difieren)} difieren)')
+    check(cp._mapa_elo() is nuevo,
+          'y la segunda llamada devuelve el mismo objeto: se lee una vez')
+
+    equipos = list(viejo)[:2]
+    if len(equipos) == 2:
+        a, b = equipos
+        check(cp.elo('x', a, b) == round(viejo[a] - viejo[b], 1),
+              'la diferencia de ELO sigue siendo la de siempre')
+    check(cp.elo('x', '__no_existe__', '__tampoco__') is None,
+          'y un equipo desconocido sigue devolviendo None')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -17442,6 +17673,14 @@ if __name__ == '__main__':
     test_el_veredicto_solo_cuenta_la_banda_objetivo()
     test_el_artefacto_de_calibracion_es_portable()
     test_las_curvas_por_pliegue_no_miran_el_futuro()
+
+    print(chr(10) + '=== v216: la vista deja de tardar ===')
+    test_ya_anotado_no_dice_que_si_donde_guardar_diria_que_no()
+    test_el_lote_escribe_una_sola_vez()
+    test_el_lote_vuelca_aunque_el_cuerpo_lance()
+    test_las_memos_devuelven_lo_mismo_que_el_calculo_directo()
+    test_la_forma_memorizada_devuelve_una_copia()
+    test_el_mapa_de_elo_se_lee_una_vez_y_da_lo_mismo()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

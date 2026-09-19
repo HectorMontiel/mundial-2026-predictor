@@ -2944,6 +2944,21 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         import pronosticos_guardados as _pgs
         _nuevos = 0
         for p in _evaluados:
+            # v216 — PREGUNTAR ANTES DE PAGAR.
+            #
+            # `guardar` es de sólo-inserción, así que para un partido ya
+            # anotado no escribe nada... pero para averiguarlo había que
+            # haberle pasado ya las `recomendadas`, y calcularlas sale a
+            # predecir el partido entero. Medido en el perfil de la vista:
+            # cada pasada recalculaba las recomendaciones de TODOS los
+            # partidos ya guardados para tirarlas dentro de `guardar`.
+            #
+            # `ya_anotado` hace exactamente la misma pregunta —mismas
+            # condiciones, ni una más— antes de gastar. El comportamiento no
+            # cambia: lo que antes se calculaba y se descartaba, ahora no se
+            # calcula.
+            if _pgs.ya_anotado(p):
+                continue
             _r = p.get('_recomendadas')
             if _r is None:
                 _r = recomendadas(p, None, n=MAX_RECOMENDADAS)

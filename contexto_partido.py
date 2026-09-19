@@ -148,18 +148,46 @@ def forma(clave_liga: str, equipo: str, n: int = N_FORMA) -> Dict:
             'gf': f.get('gf_media'), 'gc': f.get('gc_media')}
 
 
-def elo(clave_liga: str, home: str, away: str) -> Optional[float]:
-    """Diferencia de ELO entre los dos, o `None`. Positiva = local mejor."""
+_MAPA_ELO: Optional[Dict] = None
+
+
+def _mapa_elo() -> Dict:
+    """El CSV de ELO leído UNA vez y convertido sin `iterrows()`.
+
+    v216 — Antes esto vivía dentro de `elo()`, así que cada llamada abría
+    `elo_actual.csv` del disco y lo recorría fila a fila para construir el
+    mismo diccionario. Medido en el rerun de «Apuestas del Día»: 303 llamadas,
+    6,6 s. El fichero no cambia durante un render.
+    """
+    global _MAPA_ELO
+    if _MAPA_ELO is not None:
+        return _MAPA_ELO
+    _MAPA_ELO = {}
     try:
         import pandas as pd
         d = pd.read_csv('elo_actual.csv')
         col_eq = 'equipo' if 'equipo' in d.columns else d.columns[0]
         col_el = 'elo' if 'elo' in d.columns else d.columns[-1]
-        m = {str(r[col_eq]): float(r[col_el]) for _, r in d.iterrows()}
-        if home in m and away in m:
-            return round(m[home] - m[away], 1)
+        valores = pd.to_numeric(d[col_el], errors='coerce')
+        _MAPA_ELO = {str(k): float(v) for k, v in
+                     zip(d[col_eq].astype(str), valores) if v == v}
     except Exception as e:
-        logger.debug('[contexto] elo: %s', e)
+        logger.debug('[contexto] mapa de elo: %s', e)
+        _MAPA_ELO = {}
+    return _MAPA_ELO
+
+
+def olvidar_elo() -> None:
+    """Vacía el mapa de ELO. La usan los tests y quien reescriba el CSV."""
+    global _MAPA_ELO
+    _MAPA_ELO = None
+
+
+def elo(clave_liga: str, home: str, away: str) -> Optional[float]:
+    """Diferencia de ELO entre los dos, o `None`. Positiva = local mejor."""
+    m = _mapa_elo()
+    if home in m and away in m:
+        return round(m[home] - m[away], 1)
     return None
 
 
@@ -423,8 +451,43 @@ def lambda_goles(clave_liga: str, home: str, away: str,
 LAMBDA_MIN, LAMBDA_MAX = 0.80, 1.20
 
 
+_MEMO_LAMBDA: Dict = {}
+
+
+def olvidar_factores() -> None:
+    """Vacía la memoria de `factor_lambda`. La usan los tests y el reentreno."""
+    _MEMO_LAMBDA.clear()
+
+
 def factor_lambda(clave_liga: str, equipo: str, mercado: str = 'goles',
                   n: int = N_FORMA, rival: str = '') -> float:
+    """El factor, memorizado. Ver `_factor_lambda` para el cálculo.
+
+    POR QUÉ SE MEMORIZA, Y POR QUÉ ES SEGURO
+    ----------------------------------------
+    La función es PURA respecto a sus argumentos: lo único que lee además es
+    `rendimiento_equipos._historico(clave_liga)`, que es el CSV de la
+    competición y no cambia mientras dura un render —lo reescribe el bot de
+    madrugada, no la aplicación—.
+
+    Y se llama muchísimo: 3.456 veces en un rerun de «Apuestas del Día», para
+    unas pocas docenas de combinaciones distintas de (liga, equipo, mercado).
+    Cada llamada filtraba el histórico entero, lo ordenaba por fecha y
+    recorría dos ventanas. Era el 55 % de la pasada.
+
+    `olvidar_factores()` existe para que quien reescriba un histórico pueda
+    invalidar esto, igual que `rendimiento_equipos` invalida el suyo.
+    """
+    llave = (clave_liga, equipo, mercado, n, rival)
+    if llave in _MEMO_LAMBDA:
+        return _MEMO_LAMBDA[llave]
+    v = _factor_lambda(clave_liga, equipo, mercado, n, rival)
+    _MEMO_LAMBDA[llave] = v
+    return v
+
+
+def _factor_lambda(clave_liga: str, equipo: str, mercado: str = 'goles',
+                   n: int = N_FORMA, rival: str = '') -> float:
     """
     v173 — CUANTO SE DESVIA ESTE EQUIPO DE SI MISMO EN LOS ULTIMOS `n`.
 
@@ -456,15 +519,26 @@ def factor_lambda(clave_liga: str, equipo: str, mercado: str = 'goles',
         if len(suyos) < 12:
             return 1.0
 
+        # v216 — SIN `iterrows()`, QUE ERA MEDIO RENDER.
+        #
+        # Esto recorría el dataframe fila a fila y convertía cada celda por
+        # separado. Medido en el perfil del rerun de «Apuestas del Día»:
+        # `factor_lambda` se llevaba **47,5 s de los 85,8** de la pasada, y
+        # `_serie` se ejecutaba 6.688 veces.
+        #
+        # La versión vectorizada hace exactamente lo mismo —el valor del local
+        # si el equipo jugaba en casa, el del visitante si no, descartando lo
+        # que no sea número— en una pasada de numpy.
+        import numpy as _np
+
         def _serie(df):
-            v = []
-            for _, row in df.iterrows():
-                x = (row.get(col_h) if row['home_team'] == equipo
-                     else row.get(col_a))
-                x = pd.to_numeric(x, errors='coerce')
-                if not pd.isna(x):
-                    v.append(float(x))
-            return v
+            if df is None or df.empty:
+                return []
+            es_local = (df['home_team'] == equipo).to_numpy()
+            vh = pd.to_numeric(df[col_h], errors='coerce').to_numpy(dtype=float)
+            va = pd.to_numeric(df[col_a], errors='coerce').to_numpy(dtype=float)
+            x = _np.where(es_local, vh, va)
+            return [float(v) for v in x[~_np.isnan(x)]]
         largo = _serie(suyos.tail(40))
         corto = _serie(suyos.tail(n))
         if len(corto) < 3 or len(largo) < 10:
