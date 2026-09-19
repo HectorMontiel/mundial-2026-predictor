@@ -16851,6 +16851,189 @@ def test_cada_lesion_se_cuenta_una_sola_vez():
           'el alias duplicado `bajas` ya no existe')
 
 
+# ===========================================================================
+# v215 — CALIBRACION POR BANDA DE CUOTA (Fase A)
+# ===========================================================================
+def test_la_calibracion_arranca_apagada_y_no_cambia_nada():
+    """
+    Como todo lo que este proyecto no ha validado en produccion. Y ademas:
+    con el interruptor apagado, `modo_seguridad.evaluar` tiene que decidir
+    EXACTAMENTE igual que antes de que existiera la calibracion.
+    """
+    import calibrador_bandas as cb
+    import modo_seguridad as ms
+
+    check(cb.USAR_CALIBRACION is False,
+          'USAR_CALIBRACION arranca en False')
+
+    for p, pm, c in ((0.68, 0.66, 1.55), (0.62, 0.60, 1.85), (0.55, 0.54, 1.70)):
+        a = ms.evaluar(p, pm, c, usar_calibracion=False)
+        b = ms.evaluar(p, pm, c, usar_calibracion=None)  # usa el flag global
+        check(a['entra'] == b['entra'],
+              f'con el flag apagado la decision no cambia ({p}, {c})')
+
+
+def test_la_calibracion_es_monotona_y_no_reordena_los_picks():
+    """
+    LA PROPIEDAD QUE DECIDE QUE ESPERAR DE ESTO. La isotonica es monotona, asi
+    que NO puede descubrir apuestas buenas: si A parecia mejor que B, sigue
+    pareciendolo. Lo que hace es arreglar el mapeo e impedir apuestas malas.
+    Si esto se rompiera, el modulo estaria haciendo algo que no dice hacer.
+    """
+    import calibrador_bandas as cb
+
+    cuota = 2.00
+    ps = [0.30, 0.40, 0.45, 0.50, 0.55, 0.60, 0.70, 0.80]
+    cal = [cb.calibrar(p, cuota) for p in ps]
+    check(all(cal[i] <= cal[i + 1] + 1e-9 for i in range(len(cal) - 1)),
+          f'la calibracion conserva el orden ({[round(x,3) for x in cal]})')
+
+
+def test_la_calibracion_nunca_devuelve_una_probabilidad_imposible():
+    """Una calibracion que produce 0, 1 o None es peor que no calibrar."""
+    import calibrador_bandas as cb
+
+    for p in (0.0001, 0.01, 0.5, 0.99, 0.9999):
+        for c in (1.25, 1.65, 2.00, 2.50, 4.00, 12.0):
+            v = cb.calibrar(p, c)
+            check(v is not None and 0.0 < v < 1.0,
+                  f'calibrar({p}, {c}) = {v} sigue siendo una probabilidad')
+    check(cb.calibrar(None, 2.0) is None, 'sin probabilidad devuelve None')
+    check(cb.calibrar(0.5, None) == 0.5,
+          'sin cuota no hay banda: devuelve la cruda intacta')
+    check(cb.calibrar(0.5, 'x') == 0.5, 'y una cuota basura tampoco revienta')
+
+
+def test_sin_curva_para_esa_banda_se_devuelve_la_probabilidad_cruda():
+    """Nunca se inventa una correccion donde no hay con que corregir."""
+    import calibrador_bandas as cb
+
+    check(cb.nombre_banda(50.0) is None,
+          'una cuota de 50 no cae en ninguna banda medida')
+    check(cb.calibrar(0.4, 50.0) == 0.4,
+          'y su probabilidad sale sin tocar')
+    check(cb.nombre_banda(1.05) is None, 'una cuota de 1,05 tampoco')
+    check(cb.calibrar(0.9, 1.05) == 0.9, 'y tampoco se toca')
+
+
+def test_la_calibracion_corrige_el_sesgo_en_la_banda_objetivo():
+    """
+    El diagnostico: en 1,80-2,20 el modelo promete 53,8 % y acierta 47,9 %.
+    Este test comprueba el SENTIDO de la correccion —hacia abajo donde sobra
+    confianza y hacia arriba donde falta— sobre el artefacto real.
+    """
+    import calibrador_bandas as cb
+
+    if not cb.disponible():
+        check(True, 'sin artefacto entrenado, la comprobacion se salta')
+        return
+
+    # banda de partidos parejos: el modelo sobra, la calibracion baja
+    if cb.disponible('1.80-2.20'):
+        p, c = 0.54, 2.00
+        check(cb.calibrar(p, c) < p,
+              f'en 1,80-2,20 la calibracion BAJA la probabilidad '
+              f'({p} -> {cb.calibrar(p, c):.4f})')
+    # banda corta: ahi el modelo se queda CORTO (+0,045), asi que sube
+    if cb.disponible('1.20-1.50'):
+        p, c = 0.70, 1.40
+        check(cb.calibrar(p, c) > p,
+              f'en 1,20-1,50 la SUBE, porque ahi el modelo se queda corto '
+              f'({p} -> {cb.calibrar(p, c):.4f})')
+
+
+def test_el_veredicto_solo_cuenta_la_banda_objetivo():
+    """
+    LA REGLA DURA DEL ENCARGO: «ninguna variable entra si no mejora la
+    calibracion en 1,80-2,20 especificamente. Mejorar el ROI global no basta
+    — puede venir de cuotas cortas.»
+    """
+    import calibrador_bandas as cb
+
+    check(cb.BANDA_OBJETIVO == '1.80-2.20',
+          f'la banda objetivo es la del encargo ({cb.BANDA_OBJETIVO})')
+
+    # mejora en todas MENOS en la objetivo -> se rechaza
+    malo = {'filas': [
+        {'banda': '1.20-1.50', 'brier_antes': 0.20, 'brier_despues': 0.15,
+         'ece_antes': 0.07, 'ece_despues': 0.01, 'calib_antes': 0.04,
+         'calib_despues': 0.005},
+        {'banda': '1.80-2.20', 'brier_antes': 0.24, 'brier_despues': 0.26,
+         'ece_antes': 0.07, 'ece_despues': 0.09, 'calib_antes': -0.059,
+         'calib_despues': -0.08},
+    ]}
+    v = cb.veredicto(malo)
+    check(not v['activa'],
+          f'si empeora la banda objetivo se rechaza aunque mejore el resto '
+          f'({v["motivo"][:50]})')
+
+    bueno = {'filas': [
+        {'banda': '1.80-2.20', 'brier_antes': 0.2497, 'brier_despues': 0.2470,
+         'ece_antes': 0.0757, 'ece_despues': 0.0189, 'calib_antes': -0.059,
+         'calib_despues': -0.016}]}
+    check(cb.veredicto(bueno)['activa'],
+          'y si la mejora se acepta')
+
+    sin = cb.veredicto({'filas': []})
+    check(not sin['activa'], 'sin datos de la banda objetivo, no se acepta')
+
+
+def test_el_artefacto_de_calibracion_es_portable():
+    """
+    No se guarda el objeto de sklearn con pickle: se guardan los puntos de la
+    funcion escalonada. Este repositorio ya tuvo boosters que no abrian en
+    otra plataforma (`modelos_portables.py` existe por eso).
+    """
+    import json
+    import os
+    import calibrador_bandas as cb
+
+    if not os.path.exists(cb.ARTEFACTO):
+        check(True, 'sin artefacto en disco, la comprobacion se salta')
+        return
+    with open(cb.ARTEFACTO, encoding='utf-8') as f:
+        d = json.load(f)
+    check('bandas' in d and 'por_pliegue' in d,
+          'el artefacto trae las curvas de produccion y las de cada pliegue')
+    for nombre, curva in (d.get('bandas') or {}).items():
+        check(isinstance(curva.get('x'), list)
+              and isinstance(curva.get('y'), list),
+              f'la curva de {nombre} son dos listas de numeros, no un pickle')
+        check(len(curva['x']) == len(curva['y']) and len(curva['x']) >= 2,
+              f'y estan emparejadas ({nombre})')
+        ys = curva['y']
+        check(all(ys[i] <= ys[i + 1] + 1e-9 for i in range(len(ys) - 1)),
+              f'la curva de {nombre} es monotona, como debe ser una isotonica')
+
+
+def test_las_curvas_por_pliegue_no_miran_el_futuro():
+    """
+    SIN ESTO LA MEDICION NO VALE. La curva del pliegue k se ajusta solo con los
+    pliegues anteriores; calibrar con el mismo tramo que se mide da un ECE
+    precioso que no significa nada. El pliegue 0 no tiene pasado y por eso NO
+    puede tener curva.
+    """
+    import os
+    import calibrador_bandas as cb
+
+    if not os.path.exists(cb.ARTEFACTO):
+        check(True, 'sin artefacto, la comprobacion se salta')
+        return
+    d = cb.cargar(recargar=True)
+    por = d.get('por_pliegue') or {}
+    check('0' not in por,
+          'el pliegue 0 no tiene curva: no hay pasado con el que ajustarla')
+    if por:
+        ks = sorted(int(k) for k in por)
+        check(min(ks) >= 1,
+              f'las curvas empiezan en el pliegue 1 o despues ({ks})')
+        for k in ks:
+            for banda, curva in por[str(k)].items():
+                check(curva.get('n_train', 0) >= cb.N_MINIMO_BANDA,
+                      f'la curva del pliegue {k}/{banda} se ajusto con '
+                      f'{curva.get("n_train")} picks, por encima del minimo')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -17249,6 +17432,16 @@ if __name__ == '__main__':
     test_el_sondeo_de_fuentes_viaja_con_el_codigo()
     test_el_contexto_ya_no_declara_hueco_donde_hay_fuente()
     test_cada_lesion_se_cuenta_una_sola_vez()
+
+    print(chr(10) + '=== v215: calibracion por banda de cuota ===')
+    test_la_calibracion_arranca_apagada_y_no_cambia_nada()
+    test_la_calibracion_es_monotona_y_no_reordena_los_picks()
+    test_la_calibracion_nunca_devuelve_una_probabilidad_imposible()
+    test_sin_curva_para_esa_banda_se_devuelve_la_probabilidad_cruda()
+    test_la_calibracion_corrige_el_sesgo_en_la_banda_objetivo()
+    test_el_veredicto_solo_cuenta_la_banda_objetivo()
+    test_el_artefacto_de_calibracion_es_portable()
+    test_las_curvas_por_pliegue_no_miran_el_futuro()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

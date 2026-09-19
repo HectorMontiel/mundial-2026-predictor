@@ -156,7 +156,8 @@ def solidez(prob_modelo: Optional[float], prob_mercado: Optional[float],
 def evaluar(prob_modelo: Optional[float], prob_mercado: Optional[float],
             cuota: Optional[float], factor_riesgo: float = 1.3,
             alta_incertidumbre: bool = False,
-            ev: Optional[float] = None) -> Dict:
+            ev: Optional[float] = None,
+            usar_calibracion: Optional[bool] = None) -> Dict:
     """¿Entra este pick en Modo Seguridad? Con el motivo si no.
 
     ES LA FUNCIÓN QUE MIDE EL BACKTEST. La ruta de producción y la de
@@ -168,6 +169,30 @@ def evaluar(prob_modelo: Optional[float], prob_mercado: Optional[float],
 
     if p is None or c is None:
         return {**fuera, 'motivo': 'sin probabilidad o sin cuota'}
+
+    # v215 — LA CALIBRACIÓN POR BANDA, DETRÁS DE SU INTERRUPTOR.
+    #
+    # El modelo está sobreconfiado y el sesgo crece con la cuota: +0,045 en
+    # 1,20-1,50 y −0,147 en 3,00-6,00. En la banda de los partidos parejos
+    # —1,80-2,20— promete 53,8 % y acierta 47,9 %. La isotónica por banda lo
+    # deja en −0,016 y baja el ECE de 0,0757 a 0,0189, medido sin fuga.
+    #
+    # Se aplica ANTES de los criterios de entrada a propósito: si el filtro
+    # mirara la probabilidad cruda, estaría decidiendo con el número que
+    # sabemos que está mal. `p_cruda` se conserva en la salida para poder
+    # comparar las dos en pantalla y en el ledger.
+    p_cruda = p
+    calibrada = False
+    try:
+        import calibrador_bandas as cb
+        activo_cal = (cb.USAR_CALIBRACION if usar_calibracion is None
+                      else bool(usar_calibracion))
+        if activo_cal and cb.disponible(cb.nombre_banda(c)):
+            nueva = cb.calibrar(p, c)
+            if nueva is not None:
+                p, calibrada = nueva, True
+    except Exception as e:
+        logger.debug('[seguridad] calibración: %s', e)
     if pm is None:
         return {**fuera, 'motivo': 'sin precio de mercado con el que alinear'}
 
@@ -207,7 +232,10 @@ def evaluar(prob_modelo: Optional[float], prob_mercado: Optional[float],
     return {'entra': True, 'motivo': '',
             'solidez': solidez(p, pm, c, factor_riesgo),
             'alineacion': round(alineacion, 4),
-            'ev': round(e, 4)}
+            'ev': round(e, 4),
+            'prob_usada': round(p, 4),
+            'prob_cruda': round(p_cruda, 4),
+            'calibrada': calibrada}
 
 
 # ---------------------------------------------------------------------------
