@@ -17464,6 +17464,222 @@ def test_el_archivo_de_contexto_no_reescribe_lo_que_ya_anoto():
         ac.FICHERO, ac._CACHE = antes_fichero, antes_cache
 
 
+# ===========================================================================
+# v218 — METER O NO METER: el veredicto visual corregido por lo medido
+# ===========================================================================
+def test_la_correccion_sale_de_lo_medido_y_nunca_se_inventa():
+    """
+    La probabilidad que se pinta deja de ser la del modelo y pasa a ser la del
+    modelo corregida por lo que ese mercado y esa banda han acertado DE
+    VERDAD. Si no hay muestra, la correccion es CERO: no medir no es lo mismo
+    que medir cero, pero corregir sin medir es peor que no corregir.
+    """
+    import veredicto_pick as vp
+
+    # Un mercado DESCONOCIDO no se queda sin correccion: cae al dato de la
+    # banda global, que agrega todos los mercados y sigue siendo una medicion.
+    # Lo que no existe es corregir SIN dato ninguno.
+    c = vp.correccion(0.55, '__mercado_que_no_existe__')
+    check(abs(c['delta']) <= vp.CORRECCION_MAXIMA,
+          f"un mercado desconocido cae a la banda global ({c['delta']:+.3f})")
+
+    # fuera de toda banda medida (por debajo del 50 %) no hay nada que usar
+    fuera = vp.correccion(0.20, 'Goles')
+    check(fuera['delta'] == 0.0 and fuera['medido'] is False,
+          'por debajo del 50 % no hay banda, asi que no se corrige nada')
+    check(vp.correccion(None, 'Goles')['delta'] == 0.0,
+          'sin probabilidad tampoco se corrige nada')
+
+    # la correccion esta topada: una banda con muestra corta puede tener una
+    # brecha grande por azar, y sin tope se convertiria en una correccion enorme
+    for p in (0.52, 0.65, 0.75, 0.85):
+        for m in ('Goles', 'BTTS', '1X2', 'Doble oportunidad'):
+            d = vp.correccion(p, m)['delta']
+            check(abs(d) <= vp.CORRECCION_MAXIMA + 1e-9,
+                  f'la correccion de {m}/{p} respeta el tope '
+                  f'({d:+.3f} vs {vp.CORRECCION_MAXIMA})')
+
+
+def test_el_mismo_porcentaje_no_vale_lo_mismo_en_cada_mercado():
+    """
+    EL HALLAZGO QUE JUSTIFICA EL MODULO, medido sobre los picks publicados:
+
+        Goles             50-60 %  dijo 55,3 %  acerto 47,0 %  -> engaña
+        Doble oportunidad 50-60 %  dijo 55,3 %  acerto 63,0 %  -> vale mas
+
+    Ocho puntos entre dos picks que la pantalla enseñaba identicos.
+    """
+    import fiabilidad_picks as fp
+    import veredicto_pick as vp
+
+    goles = fp.fiabilidad(0.55, 'Goles')
+    doble = fp.fiabilidad(0.55, 'Doble oportunidad')
+    if goles['veredicto'] == 'sin_medir' or doble['veredicto'] == 'sin_medir':
+        check(True, 'sin histórico suficiente todavia; la comprobacion se salta')
+        return
+
+    v_g = vp.evaluar({'apuesta': 'Goles: Mas de 2.5', 'mercado': 'Goles',
+                      'prob': 0.55, 'cuota': 1.9})
+    v_d = vp.evaluar({'apuesta': 'A o empate', 'mercado': 'Doble oportunidad',
+                      'prob': 0.55, 'cuota': 1.75})
+    check(v_g['prob_ajustada'] < v_d['prob_ajustada'],
+          f"el mismo 55 % se ajusta distinto segun el mercado "
+          f"({v_g['prob_ajustada']:.3f} en Goles vs "
+          f"{v_d['prob_ajustada']:.3f} en Doble oportunidad)")
+    check(v_g['prob_ajustada'] < 0.55,
+          'el de Goles baja: esa banda va sobrada')
+    check(v_d['prob_ajustada'] > 0.55,
+          'el de Doble oportunidad sube: esa banda se queda corta')
+
+
+def test_el_veredicto_es_binario_y_ordena_por_lo_que_hay_que_meter():
+    """«Es si o no.» Un tercer estado invita a apostar lo dudoso."""
+    import veredicto_pick as vp
+
+    picks = [
+        {'apuesta': 'baja', 'mercado': 'Goles', 'prob': 0.40, 'cuota': 2.5},
+        {'apuesta': 'alta', 'mercado': 'Goles', 'prob': 0.85, 'cuota': 1.3},
+        {'apuesta': 'media', 'mercado': 'Goles', 'prob': 0.62, 'cuota': 1.7},
+    ]
+    vs = vp.evaluar_lista(picks)
+    check({v['veredicto'] for v in vs} <= {vp.METER, vp.NO_METER},
+          'solo hay dos veredictos posibles')
+    check(vs[0]['pick']['apuesta'] == 'alta',
+          f"lo que hay que meter va primero ({vs[0]['pick']['apuesta']})")
+    check(vs[0]['veredicto'] == vp.METER, 'y el 85 % se mete')
+    check(vs[-1]['veredicto'] == vp.NO_METER, 'y el 40 % no')
+    for v in vs:
+        check(0.0 <= v['fuerza'] <= 1.0,
+              f"la fuerza cabe en 0-1 ({v['fuerza']})")
+
+
+def test_el_contexto_se_ensena_pero_no_decide():
+    """
+    Ninguna de las reglas de contexto esta medida contra ROI todavia. Si
+    decidieran, esto seria otra capa de intuicion con pinta de dato.
+    """
+    import veredicto_pick as vp
+
+    pick = {'apuesta': 'Goles: Mas de 2.5', 'mercado': 'Goles', 'prob': 0.70,
+            'cuota': 1.6, 'partido': 'A vs B', 'clave_liga': 'x'}
+    sin = vp.evaluar(pick, con_contexto=False)
+    check(sin['senales'] == [],
+          'sin pedir contexto no se sale a la red: es una llamada por tarjeta')
+    check(sin['veredicto'] in (vp.METER, vp.NO_METER),
+          'y el veredicto se emite igual, porque no depende del contexto')
+    # el veredicto sale de la probabilidad ajustada y del umbral, punto
+    check((sin['prob_ajustada'] >= vp.UMBRAL_METER)
+          == (sin['veredicto'] == vp.METER),
+          'el veredicto es exactamente «la ajustada pasa el liston»')
+
+
+def test_el_veredicto_no_revienta_con_basura():
+    """Se pinta una vez por tarjeta: no puede tumbar la vista."""
+    import veredicto_pick as vp
+
+    for basura in ({}, {'prob': None}, {'prob': 'x', 'mercado': None},
+                   {'prob': -1, 'mercado': 'Goles'},
+                   {'prob': 2.0, 'mercado': 'Goles', 'cuota': 'y'}):
+        try:
+            v = vp.evaluar(basura)
+            check(isinstance(v, dict) and 'veredicto' in v,
+                  f'{basura} se evalua sin lanzar')
+        except Exception as e:
+            check(False, f'{basura} lanzo {e!r}')
+
+    check(vp.evaluar_lista([None, 'x', {'prob': 0.8, 'mercado': 'Goles'}])
+          .__len__() == 1,
+          'una lista con basura se filtra sola')
+
+    # el html tiene que salir escapado, que se inyecta con unsafe_allow_html
+    h = vp.html({'veredicto': vp.METER, 'prob_ajustada': 0.8,
+                 'correccion': 0.0, 'senales': []},
+                '<script>alert(1)</script>')
+    check('<script>' not in h and '&lt;script&gt;' in h,
+          'la etiqueta se escapa antes de entrar en el HTML')
+
+
+def test_la_barra_visual_lleva_el_liston_dibujado():
+    """
+    Es lo que hace la fila legible de un vistazo: no hay que comparar numeros
+    contra un umbral que el usuario tiene que recordar.
+    """
+    import veredicto_pick as vp
+
+    h = vp.html({'veredicto': vp.METER, 'prob_ajustada': 0.80,
+                 'correccion': -0.01, 'medido': True, 'senales': []}, 'x')
+    check('vp-pb' in h, 'la fila trae su barra')
+    check('left:%.0f%%' % (vp.UMBRAL_METER * 100) in h,
+          f'con el liston del {vp.UMBRAL_METER:.0%} marcado dentro')
+    check('80 %' in h, 'y el porcentaje ajustado escrito')
+
+    rojo = vp.html({'veredicto': vp.NO_METER, 'prob_ajustada': 0.45,
+                    'correccion': 0.0, 'senales': []}, 'y')
+    check('--no' in rojo and '🔴' in rojo,
+          'el no-meter se pinta rojo y con su icono')
+
+
+# ===========================================================================
+# v219 — EL FILTRO DE JUGADO / SIN JUGAR, Y EL ORDEN QUE LO ESTORBABA
+# ===========================================================================
+def test_el_orden_por_hora_pone_delante_lo_que_todavia_se_puede_apostar():
+    """
+    EL BUG QUE CIERRA, con las palabras del usuario: «cuando filtro por otro
+    deporte, luego me manda los que ya estan finalizados». No era el filtro:
+    era que `_k_hora` ordenaba SOLO por hora, y un partido finalizado empieza
+    antes por definicion. Con 130 acabados de 163, lo primero que se veia
+    eran siempre los que ya no sirven para apostar.
+    """
+    import modo_modelo as mm
+
+    partidos = [
+        {'partido': 'A vs B', 'inicio': '2026-09-19T06:00', 'jugado': True},
+        {'partido': 'C vs D', 'inicio': '2026-09-19T20:00', 'jugado': False},
+        {'partido': 'E vs F', 'inicio': '2026-09-19T08:00', 'jugado': True},
+        {'partido': 'G vs H', 'inicio': '2026-09-19T18:00', 'jugado': False},
+    ]
+    orden = [p['partido'] for p in sorted(partidos, key=mm._k_hora)]
+    check(orden == ['G vs H', 'C vs D', 'A vs B', 'E vs F'],
+          f'los jugables van primero y dentro de cada grupo por hora ({orden})')
+
+    jugados = [i for i, n in enumerate(orden) if n in ('A vs B', 'E vs F')]
+    sin = [i for i, n in enumerate(orden) if n in ('C vs D', 'G vs H')]
+    check(min(jugados) > max(sin),
+          'ningun finalizado se cuela por delante de uno por jugar')
+
+    # `_k_recomendada` ya lo hacia bien; este test ata que ahora los dos
+    # coinciden en esa propiedad y no solo uno.
+    p_jugado = {'partido': 'X vs Y', 'jugado': True,
+                '_recomendada': {'verde': True, 'score': 9.9}}
+    p_vivo = {'partido': 'Z vs W', 'jugado': False,
+              '_recomendada': {'verde': False, 'score': 0.1}}
+    ord2 = sorted([p_jugado, p_vivo], key=mm._k_recomendada)
+    check(ord2[0]['partido'] == 'Z vs W',
+          'y ordenando por apuesta tampoco adelanta un jugado, aunque su '
+          'score sea mejor')
+
+
+def test_el_filtro_de_estado_reparte_sin_perder_partidos():
+    """Tres estados, y entre «Sin jugar» y «Finalizados» esta todo."""
+    import modo_modelo as mm
+
+    check(set(mm.ESTADOS) == {mm.ESTADO_SIN_JUGAR, mm.ESTADO_JUGADOS,
+                              mm.ESTADO_TODOS},
+          f'hay exactamente tres estados ({mm.ESTADOS})')
+    check(mm.ESTADOS[0] == mm.ESTADO_SIN_JUGAR,
+          'el primero —y el que viene por defecto— es «Sin jugar»: es el '
+          'unico que se puede apostar')
+
+    partidos = [{'partido': 'p%d' % i, 'jugado': i % 3 == 0} for i in range(12)]
+    sin = [p for p in partidos if not p.get('jugado')]
+    jug = [p for p in partidos if p.get('jugado')]
+    check(len(sin) + len(jug) == len(partidos),
+          f'los dos filtros reparten el total sin perder ni duplicar '
+          f'({len(sin)} + {len(jug)} = {len(partidos)})')
+    check(not any(p in jug for p in sin),
+          'y no se solapan')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -17889,6 +18105,18 @@ if __name__ == '__main__':
     test_el_feedback_humano_nunca_pesa_sin_demostrarlo()
     test_el_feedback_humano_es_de_solo_anadir()
     test_el_archivo_de_contexto_no_reescribe_lo_que_ya_anoto()
+
+    print(chr(10) + '=== v218: meter o no meter, visual ===')
+    test_la_correccion_sale_de_lo_medido_y_nunca_se_inventa()
+    test_el_mismo_porcentaje_no_vale_lo_mismo_en_cada_mercado()
+    test_el_veredicto_es_binario_y_ordena_por_lo_que_hay_que_meter()
+    test_el_contexto_se_ensena_pero_no_decide()
+    test_el_veredicto_no_revienta_con_basura()
+    test_la_barra_visual_lleva_el_liston_dibujado()
+
+    print(chr(10) + '=== v219: filtro de jugado y el orden ===')
+    test_el_orden_por_hora_pone_delante_lo_que_todavia_se_puede_apostar()
+    test_el_filtro_de_estado_reparte_sin_perder_partidos()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

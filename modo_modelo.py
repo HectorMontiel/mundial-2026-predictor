@@ -2454,6 +2454,32 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
             recos = recomendadas(pick, _bloques, n=MAX_RECOMENDADAS)
             rec = recos[0] if recos else None
+
+            # v218 — METER O NO METER, DE UN VISTAZO Y ANTES DEL DETALLE.
+            #
+            # Va ARRIBA del bloque de recomendaciones porque es la decisión, y
+            # el detalle es el respaldo. La probabilidad que se pinta aquí NO
+            # es la del modelo: es la del modelo corregida por lo que ese
+            # mercado y esa banda han acertado de verdad
+            # (`fiabilidad_picks`). La diferencia no es cosmética — un 55 % en
+            # «Goles» acierta el 47 % y uno en «Doble oportunidad» el 63 %, y
+            # la pantalla los enseñaba idénticos.
+            #
+            # `con_contexto=False`: las señales de bajas salen a la red y esto
+            # se pinta una vez por tarjeta. El contexto completo se pide en la
+            # ficha del partido.
+            try:
+                import veredicto_pick as _vp
+                _vers = _vp.evaluar_lista(recos, con_contexto=False)
+                if _vers:
+                    _vp.pintar(st, _vers, 'Meter o no meter, corregido por lo '
+                                          'que este mercado acierta de verdad')
+                    _porques = [r for v in _vers[:1] for r in v['razones']]
+                    for _pq in _porques[:1]:
+                        st.caption(_pq)
+            except Exception as _e_vp:
+                logger.debug('[modo_modelo] veredicto: %s', _e_vp)
+
             _bloque_recomendada(st, rec, clave_vista, n_boton,
                                 motivo=_motivo_sin_apuesta(pick))
             # v176 — LAS ALTERNATIVAS SON RECOMENDACIONES, NO UNA TABLA.
@@ -2566,7 +2592,25 @@ def _analisis_completo(st, pick: Dict, b: Dict, rec, _ck, _tj, _rm, _qr
 # Criterios de orden. El valor es la función que da la CLAVE de ordenación;
 # todas devuelven un número que se ordena de mayor a menor salvo la hora.
 def _k_hora(p):
-    return (str(p.get('inicio') or '~'), str(p.get('partido') or ''))
+    """Por hora, pero los que TODAVÍA SE PUEDEN JUGAR primero.
+
+    v219 — El orden era sólo por hora, y los partidos finalizados empiezan
+    antes por definición: en una jornada con 130 acabados de 163, lo primero
+    que se veía eran siempre los 130 que ya no sirven para apostar. El usuario
+    lo reportó como «filtro por otro deporte y me manda los finalizados
+    primero» — no era el filtro, era este orden.
+
+    `_k_recomendada` ya lo hacía bien (manda los jugados al final) y éste no,
+    que es justo el que viene por defecto.
+    """
+    return (1 if p.get('jugado') else 0,
+            str(p.get('inicio') or '~'), str(p.get('partido') or ''))
+
+
+# Los tres estados del filtro nuevo, y lo que dejan pasar.
+ESTADO_TODOS, ESTADO_SIN_JUGAR, ESTADO_JUGADOS = (
+    'Todos', 'Sin jugar', 'Finalizados')
+ESTADOS = (ESTADO_SIN_JUGAR, ESTADO_JUGADOS, ESTADO_TODOS)
 
 
 def _k_local(p):
@@ -2885,11 +2929,41 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                                         'El resto también las enseña, pero '
                                         'estimadas a partir de sus goles.')
 
+    # v219 — EL FILTRO QUE FALTABA: jugado o sin jugar.
+    #
+    # La lista mezclaba las dos cosas y el desequilibrio es grande — en la
+    # captura del usuario, 130 finalizados de 163. Los finalizados sirven para
+    # mirar el histórico de aciertos (los puntos verdes y rojos) y los que no
+    # se han jugado son los únicos que se pueden apostar: son dos usos
+    # distintos de la misma pantalla y no pueden compartir lista sin estorbarse.
+    #
+    # Por defecto SIN JUGAR, y no es un capricho: la pestaña de arriba dice
+    # «Hoy (33)» mientras la lista enseñaba 163. El número de la pestaña ya
+    # contaba sólo los jugables, así que el defecto nuevo hace que la lista
+    # diga lo mismo que el rótulo que la abre.
+    _k_estado = '%s_estado_partido' % clave
+    if _pref is not None:
+        _pref.recordar(st, _k_estado, por_defecto=ESTADO_SIN_JUGAR)
+    estado_sel = st.radio(
+        'Mostrar', ESTADOS, key=_k_estado, horizontal=True,
+        help='«Sin jugar» son los que todavía se pueden apostar. '
+             '«Finalizados» enseñan el pronóstico previo con su resultado, '
+             'para ver qué acertó y qué no.')
+
     # Cuantos habia ANTES de las casillas. Sin esto, una lista vacia no puede
     # decir si es que no hay partidos o es que el filtro se los llevo, y son
     # dos cosas muy distintas para quien mira.
     _antes_de_filtrar = len(con)
     _quito = []
+    # v219 — el estado va PRIMERO, antes que las casillas: es el filtro más
+    # grueso y aplicarlo después dejaba a los otros dos trabajando sobre una
+    # lista mayoritariamente de partidos acabados.
+    if estado_sel == ESTADO_SIN_JUGAR:
+        con = [p for p in con if not p.get('jugado')]
+        _quito.append('sin_jugar')
+    elif estado_sel == ESTADO_JUGADOS:
+        con = [p for p in con if p.get('jugado')]
+        _quito.append('jugados')
     if solo_altas:
         # Los jugados salen también de aquí: ese filtro sirve para buscar
         # apuestas, y en un partido acabado no queda ninguna que hacer.
@@ -2904,6 +2978,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         _pref.confirmar(st, _k_orden, CLAVE_ORDEN, etq_orden)
         _pref.guardar('%s_solo_altas' % clave, bool(solo_altas))
         _pref.guardar('%s_solo_fisicos' % clave, bool(solo_fisicos))
+        _pref.guardar(_k_estado, str(estado_sel))
 
     con.sort(key=ORDENES.get(etq_orden, _k_hora))
 
@@ -2930,7 +3005,23 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         # todavía —las casas abren línea durante la noche—, así que en esa
         # vista la casilla deja la lista en cero muchos días sin que haya nada
         # roto. Decirlo aquí es la diferencia entre un filtro y una avería.
-        if _antes_de_filtrar and 'alta' in _quito:
+        # v219 — el filtro de estado va PRIMERO también aquí, porque es el que
+        # más probablemente vació la lista. Decir «ninguno llega al 60 %»
+        # cuando lo que pasa es que todos están jugados manda a mirar el sitio
+        # equivocado.
+        if _antes_de_filtrar and 'sin_jugar' in _quito:
+            st.info(
+                'Los **%d** partidos de esta lista ya están finalizados. '
+                'Cambia «Mostrar» a **Finalizados** para ver qué acertó el '
+                'pronóstico, o a **Todos** para verlos junto a los que '
+                'quedan por jugar.' % _antes_de_filtrar)
+        elif _antes_de_filtrar and 'jugados' in _quito:
+            st.info(
+                'Ninguno de los **%d** partidos de esta lista se ha jugado '
+                'todavía, así que no hay resultado que revisar. Cambia '
+                '«Mostrar» a **Sin jugar** para ver los que se pueden '
+                'apostar.' % _antes_de_filtrar)
+        elif _antes_de_filtrar and 'alta' in _quito:
             st.info(
                 'Ninguno de los **%d** partidos de esta lista tiene una '
                 'apuesta en verde. El verde pide %d %% de probabilidad **y** '
