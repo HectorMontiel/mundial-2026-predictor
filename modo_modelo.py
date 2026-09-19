@@ -2296,7 +2296,11 @@ def _bloque_validacion(st, pick: Dict) -> bool:
             texto_real = ('%.0f' % real if float(real).is_integer()
                           else '%.1f' % real)
         p = float(f.get('prob') or 0.0)
-        color = {pgs.CUMPLIDO: 'var(--ok)', pgs.CERCA: 'var(--mira)',
+        # v217 — YA NO HAY AMBAR. El estado es binario (`pgs._estado`), y el
+        # mapa se queda con las dos entradas que quedan más el gris del
+        # pendiente. Se conserva la entrada de `CERCA` apuntando al rojo por
+        # si quedara alguna fila liquidada con el esquema viejo en el disco.
+        color = {pgs.CUMPLIDO: 'var(--ok)', pgs.CERCA: 'var(--no)',
                  pgs.FALLADO: 'var(--no)'}.get(f['estado'], 'var(--tenue)')
         trozos.append(
             '<div class="mm-val">'
@@ -2312,6 +2316,29 @@ def _bloque_validacion(st, pick: Dict) -> bool:
                max(3.0, min(100.0, p * 100)), color, p * 100,
                color, _esc_mm(texto_real)))
     st.markdown(''.join(trozos), unsafe_allow_html=True)
+
+    # v217 — QUÉ VALE DE VERDAD ESE PORCENTAJE.
+    #
+    # Un pick al 60 % TIENE que fallar cuatro de cada diez veces: un punto
+    # rojo suelto no dice nada. Lo que hace falta para decidir es si la banda
+    # entera cumple lo que promete, y eso está medido sobre los picks que esta
+    # misma aplicación publicó. Se enseña aquí, pegado a los puntos, porque es
+    # donde nace la pregunta «¿por qué salió rojo si daba 60 %?».
+    try:
+        import fiabilidad_picks as _fpk
+        _vistas, _lineas = set(), []
+        for f in filas:
+            _b = _fpk.nombre_banda(f.get('prob'))
+            if not _b or _b in _vistas:
+                continue
+            _vistas.add(_b)
+            _fi = _fpk.fiabilidad(f.get('prob'), str(f.get('mercado') or ''))
+            if _fi.get('veredicto') != 'sin_medir':
+                _lineas.append('%s: %s' % (_b, _fi['texto']))
+        for _l in _lineas[:2]:
+            st.caption(_l)
+    except Exception as _e_fi:
+        logger.debug('[modo_modelo] fiabilidad: %s', _e_fi)
     return True
 
 

@@ -11710,16 +11710,23 @@ def test_los_colores_de_validacion_son_los_del_encargo():
     """
     import pronosticos_guardados as pg
 
+    # v217 — EL AMBAR SE QUITO, por peticion explicita del usuario: «de nada
+    # me sirve amarillo, es si o no, en cuanto a si atino su prediccion».
+    # Las dos puertas que lo encendian confundian la misma pregunta; el juicio
+    # sobre la CONFIANZA se mudo a `fiabilidad_picks`, que lo mide de verdad.
     check(pg._estado(True, 0.5, 0.61) == pg.CUMPLIDO, "acierto → verde")
     check(pg._estado(False, 5.0, 0.61) == pg.FALLADO, "fallo lejos → rojo")
-    check(pg._estado(False, 0.5, 0.60) == pg.CERCA,
-          "fallo por menos de una unidad → ambar (el caso del encargo)")
-    check(pg._estado(True, None, 0.42) == pg.CERCA,
-          "acierto con menos del 50 % → ambar")
+    check(pg._estado(False, 0.5, 0.60) == pg.FALLADO,
+          "fallar por medio gol es fallar: en una apuesta no hay «casi»")
+    check(pg._estado(True, None, 0.42) == pg.CUMPLIDO,
+          "acertar con 42 % sigue siendo acertar: verde")
     check(pg._estado(None, None, 0.6) == pg.PENDIENTE,
-          "sin dato real → pendiente, no un veredicto inventado")
-    check(abs(pg.MARGEN_CERCA - 1.0) < 1e-9,
-          f"la unidad de margen es 1 ({pg.MARGEN_CERCA})")
+          "sin dato real → pendiente, que NO es un «casi» sino un «todavia no»")
+    check(pg.CERCA not in {pg._estado(a, d, p)
+                           for a in (True, False)
+                           for d in (None, 0.0, 0.5, 5.0)
+                           for p in (0.1, 0.42, 0.61, 0.95)},
+          "ningun camino produce ya el ambar")
 
     # y la liquidacion completa, contra un marcador de verdad
     pg = _pron_aislado()
@@ -11746,9 +11753,12 @@ def test_los_colores_de_validacion_son_los_del_encargo():
            'goles_home': 1, 'goles_away': 1}
     filas = {f['apuesta']: f for f in pg.validar(jug)}
     check(len(filas) == 4, f"se liquidan las cuatro ({len(filas)})")
-    check(filas['Goles: Más de 2.5']['estado'] == pg.CERCA,
-          "1-1 son 2 goles: «Mas de 2,5» fallo POR MEDIO GOL, y eso es "
-          "ambar, no rojo")
+    check(filas['Goles: Más de 2.5']['estado'] == pg.FALLADO,
+          "1-1 son 2 goles: «Mas de 2,5» fallo por medio gol, y desde la "
+          "v217 eso es rojo — la apuesta se pierde igual")
+    check(filas['Goles: Más de 2.5'].get('distancia') is not None,
+          "pero la DISTANCIA se sigue guardando: fallar por poco o por mucho "
+          "dice mucho de un mercado, aunque ya no cambie el color")
     check(filas['Ambos marcan: No']['estado'] == pg.FALLADO,
           "«Ambos marcan: No» con 1-1 fallo, y sin linea no hay «cerca» "
           "posible: el ambar por probabilidad baja es solo para los ACIERTOS")
@@ -11759,7 +11769,7 @@ def test_los_colores_de_validacion_son_los_del_encargo():
     # del 2026-08-22 tuvo 3 y 10 cornrs: 13 contra «Menos de 12,5» es
     # fallo por medio punto.
     ck = filas['Córners: Menos de 12.5']
-    check(ck['estado'] in (pg.CERCA, pg.PENDIENTE),
+    check(ck['estado'] in (pg.FALLADO, pg.PENDIENTE),
           "los cornrs se liquidan de la cache")
     if ck['real'] is not None:
         check(abs(ck['real'] - 13.0) < 1e-6,
@@ -17265,6 +17275,195 @@ def test_el_mapa_de_elo_se_lee_una_vez_y_da_lo_mismo():
           'y un equipo desconocido sigue devolviendo None')
 
 
+# ===========================================================================
+# v217 — SIN AMBAR, FIABILIDAD MEDIDA, FEEDBACK HUMANO Y ARCHIVO DE CONTEXTO
+# ===========================================================================
+def test_el_intervalo_de_wilson_aguanta_muestras_pequenas():
+    """
+    Por que Wilson y no el intervalo normal: con n chico o p cerca de los
+    extremos, el normal se sale de [0,1] y da anchuras absurdas — que es
+    exactamente el caso de «esta liga lleva 12 picks y todos verdes».
+    """
+    import fiabilidad_picks as fp
+
+    lo, hi = fp.wilson(8, 12)
+    check(0.0 <= lo <= hi <= 1.0, f'el intervalo cabe en [0,1] ({lo:.2f}-{hi:.2f})')
+    check(hi - lo > 0.3,
+          f'con 12 picks el intervalo es ANCHO y no permite concluir '
+          f'({hi - lo:.2f})')
+
+    lo2, hi2 = fp.wilson(800, 1200)
+    check(hi2 - lo2 < 0.06,
+          f'con 1.200 se estrecha ({hi2 - lo2:.3f})')
+
+    lo3, hi3 = fp.wilson(10, 10)
+    check(hi3 <= 1.0 and lo3 < 1.0,
+          f'10 de 10 no produce un intervalo imposible ({lo3:.2f}-{hi3:.2f})')
+    check(fp.wilson(0, 0) == (0.0, 1.0),
+          'sin muestra, el intervalo es toda la recta')
+
+
+def test_el_veredicto_de_fiabilidad_exige_muestra():
+    """«Sin medir» es una respuesta, y mejor que un numero inventado."""
+    import fiabilidad_picks as fp
+
+    check(fp._veredicto(5, 0.60, 1.00, 0.5, 1.0) == 'sin_medir',
+          'con 5 picks no se afirma nada aunque acierte el 100 %')
+    # el intervalo contiene lo prometido -> no se puede decir que mienta
+    check(fp._veredicto(500, 0.60, 0.59, 0.55, 0.63) == 'de_fiar',
+          'si el intervalo contiene lo prometido, el numero se sostiene')
+    check(fp._veredicto(500, 0.60, 0.45, 0.41, 0.49) == 'optimista',
+          'si acierta bastante menos y el intervalo no llega, es optimista')
+    check(fp._veredicto(500, 0.60, 0.75, 0.71, 0.79) == 'conservador',
+          'y si acierta mas, conservador')
+
+    check(fp.nombre_banda(0.65) == '60%-70%', 'las bandas parten bien')
+    check(fp.nombre_banda(65) == '60%-70%', 'y admiten el porcentaje en 0-100')
+    check(fp.nombre_banda(0.30) is None, 'por debajo del 50 % no hay banda')
+    check(fp.nombre_banda(None) is None, 'y sin probabilidad tampoco')
+
+
+def test_la_fiabilidad_no_inventa_cuando_no_tiene_historico():
+    import fiabilidad_picks as fp
+
+    r = fp.fiabilidad(0.999, '__mercado_que_no_existe__')
+    check(r['veredicto'] == 'sin_medir',
+          'un mercado sin historico sale `sin_medir`')
+    check('sin histórico' in r['texto'], 'y lo dice en texto llano')
+    check(fp.fiabilidad(None, 'Goles')['veredicto'] == 'sin_medir',
+          'sin probabilidad tampoco se inventa nada')
+
+
+def test_el_feedback_humano_separa_hechos_de_opiniones():
+    """
+    No todo el feedback vale lo mismo. Corregir un dato es un hecho y se
+    respeta desde el dia uno; opinar sobre un pick es la misma intuicion que
+    el mercado ya tiene incorporada, y arranca SIN peso.
+    """
+    import feedback_humano as fh
+
+    check(fh.TIPOS['dato_malo']['peso_inicial'] == 1.0,
+          'corregir un dato pesa desde el principio: no es una opinion')
+    for opinion in ('me_gusta', 'no_me_gusta'):
+        check(fh.TIPOS[opinion]['peso_inicial'] == 0.0,
+              f'`{opinion}` arranca sin peso: es opinion')
+        check(fh.TIPOS[opinion]['clase'] == 'opinion',
+              f'y esta clasificado como tal')
+    check(fh.TIPOS['veto']['clase'] == 'informacion',
+          'el veto es informacion, no opinion: puede ganarse su peso')
+    check(fh.TIPOS['veto']['peso_inicial'] == 0.0,
+          'pero tambien arranca en cero hasta demostrarlo')
+
+
+def test_el_feedback_humano_nunca_pesa_sin_demostrarlo():
+    """
+    LA REGLA QUE IMPIDE QUE ESTO ESTROPEE EL MODELO. El humano no es una
+    excepcion a la puerta del proyecto: es otra senal que tiene que demostrar
+    que separa mejor que el azar.
+    """
+    import feedback_humano as fh
+
+    check(fh.influencia() == 0.0,
+          'sin vetos resueltos suficientes, la influencia humana es CERO')
+    m = fh.medir()
+    check(m.get('el_veto_se_gana_su_peso') is not True,
+          'y el veto no se declara ganador por defecto')
+    check(m.get('medible') is False,
+          f"con la muestra de hoy no se puede medir ({m.get('motivo')})")
+    check(fh.N_MINIMO_PARA_PESAR >= 30,
+          f'hace falta muestra de verdad ({fh.N_MINIMO_PARA_PESAR} vetos)')
+
+
+def test_el_feedback_humano_es_de_solo_anadir():
+    """El valor esta en saber que dijo el humano ANTES del resultado."""
+    import os
+    import tempfile
+    import feedback_humano as fh
+
+    antes_fichero, antes_cache = fh.FICHERO, fh._CACHE
+    fh.FICHERO = os.path.join(tempfile.gettempdir(), 'fb_v217_test.json')
+    fh._CACHE = None
+    try:
+        if os.path.exists(fh.FICHERO):
+            os.remove(fh.FICHERO)
+        fh.recargar()
+        pick = {'clave_liga': 'l', 'partido': 'A vs B', 'fecha': '2030-01-01',
+                'apuesta': 'Goles: Mas de 2.5', 'prob': 0.7}
+        check(fh.anotar(pick, 'veto', 'no juega el portero') is True,
+              'se anota un veto')
+        check(fh.anotar(pick, 'apoyo', 'me gusta el dato') is True,
+              'y un apoyo del mismo pick, sin pisar al anterior')
+        check(len(fh.de_pick(pick)) == 2,
+              'las dos entradas conviven: es de solo-anadir')
+        check(fh.anotar(pick, 'tipo_inventado') is False,
+              'un tipo desconocido se rechaza en vez de guardarse a medias')
+        check(fh.hay_veto(pick) is True, 'el veto se detecta')
+        check(fh.hay_dato_malo(pick) is False,
+              'y no se confunde con una correccion de dato')
+        entradas = fh.de_pick(pick)
+        check(all(e.get('resuelto') is None for e in entradas),
+              'nacen sin resolver: el resultado se cruza despues')
+        check(all(e.get('prob') == 0.7 for e in entradas),
+              'y guardan la FOTO del pick, para poder liquidarlo luego')
+    finally:
+        try:
+            if os.path.exists(fh.FICHERO):
+                os.remove(fh.FICHERO)
+        except Exception:
+            pass
+        fh.FICHERO, fh._CACHE = antes_fichero, antes_cache
+
+
+def test_el_archivo_de_contexto_no_reescribe_lo_que_ya_anoto():
+    """
+    Un registro que se puede retocar despues de ver el resultado no es
+    evidencia. Es la misma propiedad de `pronosticos_guardados.guardar`.
+    """
+    import os
+    import tempfile
+    import archivo_contexto as ac
+
+    antes_fichero, antes_cache = ac.FICHERO, ac._CACHE
+    ac.FICHERO = os.path.join(tempfile.gettempdir(), 'arc_v217_test.json')
+    ac._CACHE = None
+    try:
+        if os.path.exists(ac.FICHERO):
+            os.remove(ac.FICHERO)
+        ac.recargar()
+        pick = {'clave_liga': 'laliga', 'partido': 'Espanyol vs Elche',
+                'fecha': '2030-01-01', 'liga': 'LaLiga'}
+        s = [{'tipo': 'lesion_multiple', 'peso': 1, 'fuente': 'fotmob',
+              'confianza_fuente': 0.8, 'detalle': '3 bajas'}]
+        check(ac.archivar(pick, s, ['Racha negativa']) is True,
+              'se archiva el contexto del partido')
+        check(ac.archivar(pick, s, ['OTRA BANDERA']) is False,
+              'y un segundo intento NO lo reescribe')
+        check(ac.de_partido(pick)['banderas'] == ['Racha negativa'],
+              'lo guardado sigue siendo lo primero que se supo')
+        check(ac.archivar(dict(pick, partido='C vs D', jugado=True), s, ['x'])
+              is False,
+              'de un partido ya jugado no se archiva contexto')
+        check(ac.archivar({'clave_liga': 'l', 'partido': 'E vs F',
+                           'fecha': '2030-01-01'}, [], []) is False,
+              'y sin senales ni banderas no se crea un registro vacio')
+
+        e = ac.estado()
+        check(e['partidos'] == 1, f"el estado cuenta lo archivado ({e['partidos']})")
+        check(e['por_senal'].get('lesion_multiple') == 1,
+              'y desglosa por tipo de senal')
+        check(e['banderas_medibles'] == [],
+              'con un solo partido no hay nada medible, y lo dice')
+        check(ac.N_MINIMO_PARA_MEDIR >= 100,
+              f'el minimo para medir es serio ({ac.N_MINIMO_PARA_MEDIR})')
+    finally:
+        try:
+            if os.path.exists(ac.FICHERO):
+                os.remove(ac.FICHERO)
+        except Exception:
+            pass
+        ac.FICHERO, ac._CACHE = antes_fichero, antes_cache
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -17681,6 +17880,15 @@ if __name__ == '__main__':
     test_las_memos_devuelven_lo_mismo_que_el_calculo_directo()
     test_la_forma_memorizada_devuelve_una_copia()
     test_el_mapa_de_elo_se_lee_una_vez_y_da_lo_mismo()
+
+    print(chr(10) + '=== v217: sin ambar, fiabilidad, feedback y archivo ===')
+    test_el_intervalo_de_wilson_aguanta_muestras_pequenas()
+    test_el_veredicto_de_fiabilidad_exige_muestra()
+    test_la_fiabilidad_no_inventa_cuando_no_tiene_historico()
+    test_el_feedback_humano_separa_hechos_de_opiniones()
+    test_el_feedback_humano_nunca_pesa_sin_demostrarlo()
+    test_el_feedback_humano_es_de_solo_anadir()
+    test_el_archivo_de_contexto_no_reescribe_lo_que_ya_anoto()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

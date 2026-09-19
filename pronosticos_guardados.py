@@ -510,21 +510,31 @@ def _acierto(guardada: Dict, real, home: str, away: str):
 
 
 def _estado(acierto, distancia, prob) -> str:
-    """El color, con las dos puertas del 🟡 que pidió el encargo."""
+    """El color: verde si la predicción se cumplió, rojo si no. Y ya.
+
+    v217 — SE QUITA EL 🟡, POR PETICIÓN EXPLÍCITA: «de nada me sirve amarillo,
+    es sí o no, en cuanto a si atinó su predicción».
+
+    El amarillo tenía DOS puertas y las dos confundían la misma pregunta:
+
+      · acertar con probabilidad < 50 % se pintaba 🟡 («acertó, pero no lo
+        sabía»). Eso es un juicio sobre la CONFIANZA, no sobre el acierto, y
+        tiene su sitio: ahora vive en `fiabilidad_picks`, que mide cuánto
+        acierta de verdad cada banda de probabilidad. Mezclarlo con el
+        resultado hacía que un acierto pareciera medio fallo.
+      · fallar por menos de una unidad se pintaba 🟡 («casi»). En una apuesta
+        no hay casi: un Under 3.5 con cuatro goles se pierde igual que con
+        ocho.
+
+    `distancia` sigue en la firma y se sigue guardando en la fila, porque es
+    información real para el análisis —saber si se falló por poco o por mucho
+    dice mucho de un mercado—; lo que ya no hace es cambiar el color.
+
+    ⏳ PENDIENTE se queda: no es un «casi», es «todavía no se sabe».
+    """
     if acierto is None:
         return PENDIENTE
-    try:
-        p = float(prob)
-    except (TypeError, ValueError):
-        p = None
-    if acierto:
-        # acertar con menos del 50 % es acertar, pero no es haberlo sabido
-        if p is not None and p < PROB_FLOJA:
-            return CERCA
-        return CUMPLIDO
-    if distancia is not None and distancia <= MARGEN_CERCA:
-        return CERCA
-    return FALLADO
+    return CUMPLIDO if acierto else FALLADO
 
 
 def reconstruir(pick: Dict) -> List[Dict]:
@@ -697,9 +707,16 @@ def validar(pick: Dict) -> List[Dict]:
         real = _valor_real(f, gh, ga, stats)
         acierto, dist = _acierto(f, real, h, a)
         est = _estado(acierto, dist, f.get('prob'))
+        # v217 — LA DISTANCIA SE DEVUELVE, aunque ya no decida el color.
+        #
+        # Se calculaba y se tiraba. Desde que el estado es binario, la
+        # distancia deja de pintar nada — pero es justo entonces cuando vale
+        # como DATO: fallar un Under 3.5 por medio gol y fallarlo por cuatro
+        # son dos cosas muy distintas sobre un mercado, y sin este campo el
+        # análisis no puede distinguirlas.
         salida.append({**f, 'estado': est, 'icono': ICONO[est],
                        'rotulo': ROTULO[est], 'real': real,
-                       'acierto': acierto})
+                       'acierto': acierto, 'distancia': dist})
     return salida
 
 
