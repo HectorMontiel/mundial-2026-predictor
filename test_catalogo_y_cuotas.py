@@ -15830,6 +15830,297 @@ def test_la_simulacion_mide_la_herramienta_y_no_el_mercado():
               f"{v['receta']}/{v['n_patas']}: el intervalo no da negativos")
 
 
+# ===========================================================================
+# v209 — LA CAPA DE AUDITORIA DEL PICK
+# ===========================================================================
+def test_la_auditoria_publica_la_ficha_que_pide_el_encargo():
+    """
+    El encargo fija un JSON de salida por recomendacion. Este test ata la
+    ficha a ESOS campos: si alguno se cae al refactorizar, la integracion que
+    los consume se entera aqui y no en pantalla.
+    """
+    import auditoria_pick as ap
+
+    f = ap.auditar({'partido': 'Gil Vicente vs Maritimo',
+                    'liga': 'Primeira Liga', 'clave_liga': 'portugal',
+                    'mercado': 'Goles', 'apuesta': 'Mas de 1.5',
+                    'prob': 0.68, 'cuota': 1.42, 'cuota_justa': 1.42},
+                   con_contexto=False)
+    for campo in ('partido', 'liga', 'factor_riesgo_liga', 'apuesta', 'cuota',
+                  'probabilidad_modelo', 'probabilidad_mercado', 'EV',
+                  'confianza', 'razones', 'banderas', 'stake_sugerido',
+                  'explicabilidad'):
+        check(campo in f, f'la ficha de auditoria trae `{campo}`')
+    check(isinstance(f['razones'], list) and isinstance(f['banderas'], list),
+          'razones y banderas son listas')
+    check(bool(f['explicabilidad']),
+          f'la explicabilidad no sale vacia ({f["explicabilidad"][:40]}...)')
+    # 0,68 x 1,42 - 1 = -0,0344. El ejemplo del encargo dice -2,4 %, que no
+    # sale de esos dos numeros; el que manda es la aritmetica.
+    check(f['EV'] == -3.4, f'el EV es el de la formula, no el del ejemplo '
+                           f'({f["EV"]} %)')
+
+
+def test_el_ev_se_publica_pero_no_asciende_a_seccion_1():
+    """
+    EL PUNTO MAS DELICADO DEL ENCARGO. Pide «nunca recomendar una apuesta con
+    EV negativo», y elegir por EV sobre la probabilidad del modelo es el canal
+    que este proyecto tiene MEDIDO como anti-indicador: -4,66 % a -6,52 % de
+    ROI sobre 37.158 apuestas.
+
+    La capa lo resuelve publicando el veredicto de EV —con los tres tramos
+    del encargo— y dejando el reparto de secciones donde estaba, en
+    `clasificador`, que decide por ventaja de precio. Este test ata las dos
+    mitades: que el veredicto existe y que la confianza NO sube por venir del
+    canal del EV del modelo.
+    """
+    import auditoria_pick as ap
+
+    check(ap.veredicto_ev(0.05) == 'valor', 'EV > +3 % es valor')
+    check(ap.veredicto_ev(0.0) == 'neutro', 'EV entre -2 % y +3 % es neutro')
+    check(ap.veredicto_ev(-0.05) == 'descartar', 'EV < -2 % se descarta')
+
+    check('ev_del_modelo' not in ap.CANALES_MEDIDOS,
+          'el canal del EV del modelo NO esta entre los que suben la confianza')
+
+    # Un pick real del barrido por ese canal: 89,2 % y cuota 1,06.
+    f = ap.auditar({'partido': 'A vs B', 'liga': 'WTA', 'mercado': 'Ganador',
+                    'apuesta': 'Gana A', 'prob': 0.892, 'cuota': 1.06,
+                    'cuota_justa': 1.12, 'ev': -0.0545,
+                    'canal': 'ev_del_modelo'}, con_contexto=False)
+    check(f['confianza'] != 'ALTA',
+          f'un pick del canal anti-indicador no puede leerse ALTA '
+          f'({f["confianza"]})')
+    check(f['veredicto_ev'] == 'descartar',
+          'y su veredicto de EV es descartar')
+
+
+def test_el_riesgo_de_liga_sale_de_lo_medido_y_no_de_la_tabla_del_encargo():
+    """
+    El encargo fija Premier en 1,0 y Brasileirao B, Liga BetPlay y Primera
+    Nacional en 1,8. `riesgo_liga` ya lo midio contra el ROI real de 14.647
+    patas y sale AL REVES. La tabla se conserva marcada como refutada para
+    que nadie la reintroduzca sin volver a medir.
+    """
+    import auditoria_pick as ap
+
+    check('REFUTADA' in ap.TABLA_DEL_ENCARGO['estado'],
+          'la tabla literal del encargo viaja marcada como refutada')
+    check(set(ap.FACTOR_RIESGO) == {'baja', 'media', 'alta', 'sin_medir'},
+          'el factor se indexa por NIVEL MEDIDO, no por nombre de liga')
+    check(ap.FACTOR_RIESGO['baja'] == 1.0 and ap.FACTOR_RIESGO['alta'] == 1.8,
+          'y usa la escala de numeros que el encargo pide')
+
+    r = ap.riesgo_de_liga('una_liga_que_no_existe')
+    check(r['nivel'] == 'sin_medir',
+          'una competicion desconocida sale `sin_medir`, no `alta`')
+    check(r['factor'] == 1.3,
+          'sin medir no es culpa: factor medio, no el de castigo')
+
+
+def test_el_alto_riesgo_exige_cuota_y_bloquea_under_y_btts_no():
+    """La regla del encargo para competiciones de riesgo > 1,5."""
+    import auditoria_pick as ap
+
+    alto = {'nivel': 'alta', 'factor': 1.8}
+    bajo = {'nivel': 'baja', 'factor': 1.0}
+
+    check(ap.bloqueo_por_riesgo(
+        {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'cuota': 2.10},
+        alto) is not None, 'un Under en liga de alto riesgo se bloquea')
+    check(ap.bloqueo_por_riesgo(
+        {'mercado': 'Goles', 'apuesta': 'Mas de 2.5', 'cuota': 1.50},
+        alto) is not None,
+        f'y por debajo de {ap.CUOTA_MINIMA_RIESGO} tampoco pasa')
+    check(ap.bloqueo_por_riesgo(
+        {'mercado': 'Goles', 'apuesta': 'Mas de 2.5', 'cuota': 1.95},
+        alto) is None, 'con cuota suficiente si pasa')
+    check(ap.bloqueo_por_riesgo(
+        {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'cuota': 1.50},
+        bajo) is None, 'y en una liga de bajo riesgo no se bloquea nada')
+
+
+def test_las_banderas_nuevas_se_encienden_donde_deben():
+    """Divergencia extrema y cuota inflada, con sus recortes de confianza."""
+    import auditoria_pick as ap
+
+    d = ap.divergencia(0.52, 0.30)
+    check(d['activa'] and d['recorte'] == ap.RECORTE_DIVERGENCIA,
+          f'22 puntos de separacion encienden la divergencia ({d["delta"]})')
+    check(not ap.divergencia(0.52, 0.50)['activa'],
+          'dos puntos no la encienden')
+    check(not ap.divergencia(None, 0.5)['activa'],
+          'y sin probabilidad no se inventa nada')
+
+    # cuota 2,60 con prob 0,50 -> justa 2,00 -> ratio 1,30 EXACTO, que no pasa
+    check(not ap.cuota_inflada(2.60, 0.50)['activa'],
+          f'el ratio {ap.UMBRAL_CUOTA_INFLADA} exacto NO enciende la bandera')
+    i = ap.cuota_inflada(3.00, 0.50)
+    check(i['activa'] and i['recorte'] == ap.RECORTE_CUOTA_INFLADA,
+          f'y 1,5 veces la cuota justa si ({i["ratio"]})')
+
+    # Las tres nuevas salen sin medir: avisan, no corrigen probabilidad.
+    check(d.get('medido') is False and i.get('medido') is False,
+          'las dos banderas nuevas viajan con `medido: False`')
+
+
+def test_una_combinada_no_admite_dos_patas_que_se_anulan():
+    """
+    El modulo 4 del encargo, con sus ejemplos literales. Se clasifica sobre el
+    vocabulario del BARRIDO (`mercado` + etiqueta), que es otra capa que la de
+    `match_parlay` — esa trabaja sobre los `id` de campo de la ficha.
+    """
+    import auditoria_pick as ap
+
+    par = {'partido': 'Gil Vicente vs Maritimo', 'deporte': 'Futbol'}
+    gana_l = {**par, 'mercado': '1X2', 'apuesta': 'Gana Gil Vicente'}
+    gana_v = {**par, 'mercado': '1X2', 'apuesta': 'Gana Maritimo'}
+    over = {**par, 'mercado': 'Goles', 'apuesta': 'Mas de 2.5'}
+    under = {**par, 'mercado': 'Goles', 'apuesta': 'Menos de 1.5'}
+    btts_no = {**par, 'mercado': 'BTTS', 'apuesta': 'Ambos marcan: No'}
+
+    check(ap._incompatibles(gana_l, gana_v),
+          'gana A + gana B en el mismo partido es imposible')
+    check(ap._incompatibles(gana_l, under),
+          'gana A + Menos de 1.5 se anulan')
+    check(ap._incompatibles(btts_no, over),
+          'BTTS No + Mas de 2.5 se anulan')
+    check(not ap._incompatibles(gana_l, over),
+          'gana A + Mas de 2.5 SI se permite (correlacion positiva)')
+
+    res = ap.patas_compatibles([gana_l, gana_v, over])
+    check(len(res) == 2 and res[0]['apuesta'] == 'Gana Gil Vicente',
+          f'el boleto deja fuera la pata imposible y conserva la primera '
+          f'({[p["apuesta"] for p in res]})')
+
+    corner = {**par, 'mercado': 'Corners', 'apuesta': 'Mas de 9.5 corners'}
+    check(len(ap.patas_compatibles([gana_l, over, corner])) == 2,
+          'no entran mas de 2 patas del mismo partido')
+
+    otro = {'partido': 'C vs D', 'deporte': 'Futbol', 'mercado': '1X2',
+            'apuesta': 'Gana C'}
+    check(len(ap.patas_compatibles([gana_l, over, otro])) == 3,
+          'y un partido distinto no cuenta contra ese tope')
+
+
+def test_las_reglas_de_oro_dejan_fuera_de_la_combinada_lo_que_deben():
+    """Alta incertidumbre, bloqueo de liga y EV de descarte."""
+    import auditoria_pick as ap
+
+    check(not ap.apto_para_combinada(
+        {'alta_incertidumbre': True, 'veredicto_ev': 'valor'})['apto'],
+        'un pick de alta incertidumbre no entra en ninguna combinada')
+    check(not ap.apto_para_combinada(
+        {'veredicto_ev': 'descartar', 'EV': -13.5})['apto'],
+        'ni uno con EV por debajo del umbral de descarte')
+    check(not ap.apto_para_combinada(
+        {'veredicto_ev': 'valor', 'bloqueo': 'liga de alto riesgo'})['apto'],
+        'ni uno bloqueado por su competicion')
+    check(ap.apto_para_combinada(
+        {'alta_incertidumbre': False, 'veredicto_ev': 'valor'})['apto'],
+        'y lo que sobrevive a las tres, si')
+
+    # El EV de la ficha va en PUNTOS de porcentaje: formatearlo como `%` lo
+    # multiplicaba otra vez por cien y el motivo decia «EV -1350 %».
+    m = ap.apto_para_combinada({'veredicto_ev': 'descartar', 'EV': -13.5})
+    check('-1350' not in m['motivo'] and '-13.5' in m['motivo'],
+          f'el EV del motivo se escribe una sola vez en porcentaje ({m["motivo"]})')
+
+
+def test_el_stake_respeta_el_tope_y_se_parte_con_incertidumbre():
+    """El modulo 8: Kelly fraccional, tope de exposicion y ajuste por riesgo."""
+    import auditoria_pick as ap
+
+    s = ap.stake_sugerido(0.60, 2.20, bankroll=1000)
+    check(s['pct'] > 0, f'con valor real hay stake ({s["texto"]})')
+    check(s['pct'] <= ap.EXPOSICION_MAXIMA,
+          f'y nunca pasa del {ap.EXPOSICION_MAXIMA:.0%} del bankroll')
+
+    s2 = ap.stake_sugerido(0.60, 2.20, bankroll=1000, alta_incertidumbre=True)
+    check(abs(s2['pct'] - s['pct'] * 0.5) < 1e-9,
+          f'la alta incertidumbre lo parte a la mitad ({s["pct"]} -> {s2["pct"]})')
+
+    check(ap.stake_sugerido(0.40, 1.50, bankroll=1000)['pct'] == 0,
+          'sin valor, el stake es cero y lo dice')
+
+
+def test_la_auditoria_nunca_tumba_la_tarjeta():
+    """
+    Se llama una vez por apuesta desde `_fila_apuesta`. Un pick raro no puede
+    lanzar: se lleva la vista de «Apuestas del Dia» entera.
+    """
+    import auditoria_pick as ap
+
+    for basura in ({}, {'prob': 'x', 'cuota': None}, {'partido': None},
+                   {'apuesta': '', 'prob': -1, 'cuota': 0},
+                   {'partido': 'sin separador', 'prob': 0.5, 'cuota': 2.0}):
+        try:
+            f = ap.auditar(basura, con_contexto=False)
+            check(isinstance(f, dict), f'{basura} se audita sin lanzar')
+        except Exception as e:
+            check(False, f'{basura} lanzo {e!r}')
+
+    check(len(ap.auditar_lista([None, 'x', {'prob': 0.5, 'cuota': 2.0}])) == 1,
+          'una lista con basura se filtra sola')
+    check(ap.equipos_del_pick({'partido': 'A vs B'}) == ('A', 'B'),
+          'los equipos se parten por el separador')
+    check(ap.equipos_del_pick({'partido': 'raro'}) == ('', ''),
+          'y un partido sin separador no revienta')
+
+
+def test_la_fuente_de_entrenadores_esta_enchufada_o_lo_dice():
+    """
+    LA REGLA ESTABA ESCRITA Y NADIE LA LLAMABA. `filtro_contexto` tiene el
+    rebote por entrenador nuevo desde la v202, con `conectar_buscador()`
+    listo, y no habia una sola llamada en el repositorio: la regla estaba
+    viva y ciega.
+
+    Este test NO exige que haya fuente —depende de la red y de que Wikidata
+    conteste— sino que el enchufe exista y que sin fuente la regla calle en
+    vez de inventar.
+    """
+    import auditoria_pick as ap
+    import filtro_contexto as fc
+
+    check(hasattr(ap, 'asegurar_fuente_entrenadores'),
+          'la capa tiene el enchufe que faltaba')
+
+    _antes = fc._FUENTE
+    try:
+        # SIN FUENTE HAY QUE FIJAR TAMBIEN EL MEMO. `asegurar_fuente_
+        # entrenadores` cachea en `_BUSCADOR_CONECTADO`, y con el memo vacio
+        # intenta `conectar_buscador()`, que sale a Wikidata y engancha una
+        # fuente DE VERDAD: el caso «sin fuente» dejaba de serlo y el test
+        # fallaba segun hubiera red. Un test no puede depender de eso.
+        fc.registrar_fuente(None)
+        ap._BUSCADOR_CONECTADO = False
+        r = ap.entrenador_nuevo({'partido': 'Inter vs Bologna',
+                                 'apuesta': 'Gana Inter', 'cuota': 1.55})
+        check(r['activa'] is False,
+              'sin fuente registrada la regla no dispara')
+
+        # Con una fuente inyectada SI dispara, y el nombre se empareja aunque
+        # la fuente lo escriba largo (Wikidata dice «Bologna Football Club
+        # 1909» y el barrido dice «Bologna»).
+        fc.registrar_fuente(lambda dia: {'Bologna Football Club 1909':
+                                         '2026-09-16'})
+        ap._BUSCADOR_CONECTADO = True
+        r2 = ap.entrenador_nuevo({'partido': 'Inter vs Bologna',
+                                  'apuesta': 'Gana Inter', 'cuota': 1.55},
+                                 dia='2026-09-18')
+        check(r2['activa'] is True and r2['dias'] == 2,
+              f'con fuente dispara y empareja el nombre largo ({r2})')
+
+        r3 = ap.entrenador_nuevo({'partido': 'Inter vs Bologna',
+                                  'apuesta': 'Gana Inter', 'cuota': 2.40},
+                                 dia='2026-09-18')
+        check(r3['activa'] is False,
+              'y no dispara si el favorito no lo es tanto (cuota 2,40)')
+    finally:
+        fc.registrar_fuente(_antes)
+        ap._BUSCADOR_CONECTADO = None
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -16183,6 +16474,18 @@ if __name__ == '__main__':
     test_la_probabilidad_de_la_pata_deja_de_ir_sobrada()
     test_el_numero_de_patas_pedido_sale_si_o_si()
     test_la_simulacion_mide_la_herramienta_y_no_el_mercado()
+
+    print(chr(10) + '=== v209: la capa de auditoria del pick ===')
+    test_la_auditoria_publica_la_ficha_que_pide_el_encargo()
+    test_el_ev_se_publica_pero_no_asciende_a_seccion_1()
+    test_el_riesgo_de_liga_sale_de_lo_medido_y_no_de_la_tabla_del_encargo()
+    test_el_alto_riesgo_exige_cuota_y_bloquea_under_y_btts_no()
+    test_las_banderas_nuevas_se_encienden_donde_deben()
+    test_una_combinada_no_admite_dos_patas_que_se_anulan()
+    test_las_reglas_de_oro_dejan_fuera_de_la_combinada_lo_que_deben()
+    test_el_stake_respeta_el_tope_y_se_parte_con_incertidumbre()
+    test_la_auditoria_nunca_tumba_la_tarjeta()
+    test_la_fuente_de_entrenadores_esta_enchufada_o_lo_dice()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

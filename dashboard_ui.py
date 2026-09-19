@@ -5412,6 +5412,56 @@ def render_alpha_finder():
                     for c in sorted(mts, key=lambda x: -x['valor'])])
                 st.dataframe(df, hide_index=True, width='stretch')
 
+        # v209 — LA AUDITORÍA DEL PICK, EN SU PROPIA TARJETA.
+        #
+        # VA INLINE Y NO EN UN `st.expander`, y no es una preferencia de
+        # diseño: `_tarjetas` se pinta DENTRO del desplegable de «Ventaja de
+        # precio», y Streamlit no admite expanders anidados. Uno aquí lanzaría
+        # `StreamlitAPIException` y se llevaría la vista entera — exactamente
+        # el modo de fallo para el que existe `smoke_botones.py`.
+        #
+        # `con_contexto=False` también es deliberado: la racha lee el histórico
+        # de la competición y el entrenador consulta Wikidata, y esta función
+        # se llama una vez por apuesta. El contexto completo se pide bajo
+        # demanda desde la ficha del partido, no aquí.
+        try:
+            import auditoria_pick as _aud
+            _fa = _aud.auditar(t, con_contexto=False)
+        except Exception as _e_aud:
+            logger.debug('[alpha] auditoría del pick: %s', _e_aud)
+            _fa = None
+        if _fa:
+            _TONO_BANDERA = {'Divergencia extrema': 'mira',
+                             'Cuota inflada': 'mira',
+                             'Alta incertidumbre': 'no',
+                             'Racha negativa': 'mira',
+                             'Entrenador nuevo': 'mira',
+                             'Competición de alto riesgo': 'no',
+                             'Competición sin medir': 'info'}
+            _TONO_CONF = {'ALTA': 'ok', 'MEDIA': 'mira', 'BAJA': 'no'}
+            if _estilo is not None:
+                _pil = [_estilo.pildora(f"confianza {_fa['confianza']}",
+                                        _TONO_CONF.get(_fa['confianza'], 'info'))]
+                _pil += [_estilo.pildora(b, _TONO_BANDERA.get(b, 'info'))
+                         for b in _fa['banderas']]
+                _estilo.pinta(st, ' '.join(_pil))
+            else:
+                st.caption('Confianza ' + _fa['confianza']
+                           + (' · ' + ' · '.join(_fa['banderas'])
+                              if _fa['banderas'] else ''))
+            if _fa.get('explicabilidad'):
+                st.caption('🔍 ' + _fa['explicabilidad'])
+            # Las razones que NO repiten lo que la fila ya dice arriba.
+            _razones = [_r for _r in (_fa.get('razones') or [])
+                        if _r != t.get('motivo')]
+            if _razones:
+                st.caption('Por qué: ' + ' · '.join(_razones[:3]))
+            if _fa.get('bloqueo'):
+                st.caption('⛔ ' + _fa['bloqueo'])
+            elif not (_fa.get('apto_combinada') or {}).get('apto', True):
+                st.caption('🚫 Fuera de combinadas: '
+                           + _fa['apto_combinada']['motivo'])
+
     def _etiqueta_dia(fecha):
         """
         v95 — ÚLTIMA GUARDIA contra una fecha imposible.
