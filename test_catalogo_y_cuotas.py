@@ -18146,6 +18146,172 @@ def test_el_contexto_se_archiva_desde_el_cron_y_no_desde_la_pantalla():
           'el workflow lo commitea: sin eso se perderia con el runner')
 
 
+# ===========================================================================
+# v223 — LA SONADORA ARMADA CON LOS PICKS DEL DIA
+# ===========================================================================
+def _barrido_falso():
+    """Cuatro partidos con recomendadas ya puestas, para no pagar el motor."""
+    def _p(partido, liga, recos, jugado=False):
+        return {'partido': partido, 'liga': liga, 'clave_liga': 'x',
+                'deporte': 'Futbol', 'fecha': '2030-01-01', 'jugado': jugado,
+                '_recomendadas': recos}
+    return {'pronosticos': [
+        # este partido tiene DOS rojas y UNA verde: debe entrar la verde
+        _p('A vs B', 'Liga Uno', [
+            {'apuesta': 'Roja cara', 'mercado': 'Goles', 'prob': 0.55,
+             'cuota': 2.50},
+            {'apuesta': 'La verde', 'mercado': '1X2', 'prob': 0.80,
+             'cuota': 1.40},
+            {'apuesta': 'Roja barata', 'mercado': 'BTTS', 'prob': 0.52,
+             'cuota': 1.60}]),
+        _p('C vs D', 'Liga Dos', [
+            {'apuesta': 'Verde dos', 'mercado': 'BTTS', 'prob': 0.78,
+             'cuota': 1.45}]),
+        # solo rojas: sirve de relleno, y debe entrar la MAS PROBABLE
+        _p('E vs F', 'Liga Tres', [
+            {'apuesta': 'Roja probable', 'mercado': 'Goles', 'prob': 0.58,
+             'cuota': 1.50},
+            {'apuesta': 'Roja pagada', 'mercado': '1X2', 'prob': 0.45,
+             'cuota': 3.00}]),
+        # jugado: no puede entrar nunca
+        _p('G vs H', 'Liga Cuatro', [
+            {'apuesta': 'Ya jugada', 'mercado': 'Goles', 'prob': 0.95,
+             'cuota': 1.90}], jugado=True),
+    ]}
+
+
+def test_la_sonadora_coge_la_verde_de_cada_partido():
+    """
+    «Si de un partido hay tres opciones y dos estan en rojo y una en verde, la
+    Sonadora debe coger la verde.» Y la CUOTA NO ORDENA: la roja de 2,50 paga
+    mas que la verde de 1,40 y aun asi no entra.
+    """
+    import patas_veredicto as pv
+
+    s = pv.seleccionar(_barrido_falso(), n_patas=2, cuota_minima=1.30)
+    apuestas = [q['apuesta'] for q in s['patas']]
+    check('La verde' in apuestas,
+          f'de un partido con dos rojas y una verde entra la verde ({apuestas})')
+    check('Roja cara' not in apuestas,
+          'y la roja mejor pagada del mismo partido NO entra')
+    check(all(q['verde'] for q in s['patas']),
+          'con dos verdes disponibles, las dos patas son verdes')
+
+
+def test_solo_una_pata_por_partido():
+    """Dos patas del mismo partido no multiplican lo que parece."""
+    import patas_veredicto as pv
+
+    s = pv.seleccionar(_barrido_falso(), n_patas=6, cuota_minima=1.30)
+    partidos = [q['partido'] for q in s['patas']]
+    check(len(partidos) == len(set(partidos)),
+          f'ningun partido aporta dos patas ({partidos})')
+    check('G vs H' not in partidos,
+          'y un partido ya jugado no entra aunque tenga el 95 %')
+
+
+def test_el_relleno_rojo_es_el_mas_probable_no_el_mejor_pagado():
+    """
+    «Si ya no hay verdes para completar las patas, hay que meter la roja que
+    sea mas probable.» En un boleto la probabilidad se multiplica, asi que una
+    pata floja hunde el conjunto mas de lo que su cuota lo levanta.
+    """
+    import patas_veredicto as pv
+
+    s = pv.seleccionar(_barrido_falso(), n_patas=3, cuota_minima=1.30)
+    apuestas = [q['apuesta'] for q in s['patas']]
+    check(len(s['patas']) == 3, f'se completan las tres patas ({apuestas})')
+    check('Roja probable' in apuestas,
+          'el relleno es la roja con MAS probabilidad (58 %)')
+    check('Roja pagada' not in apuestas,
+          'y no la que mejor paga (3,00 al 45 %)')
+    check(s['n_rojas_de_relleno'] == 1,
+          f"y se declara cuantas rojas se metieron ({s['n_rojas_de_relleno']})")
+
+
+def test_la_cuota_minima_descarta_y_luego_manda_la_probabilidad():
+    """Con el minimo puesto, de lo que queda entra la mas probable."""
+    import patas_veredicto as pv
+
+    alto = pv.seleccionar(_barrido_falso(), n_patas=4, cuota_minima=2.00)
+    for q in alto['patas']:
+        check(q['cuota'] >= 2.00,
+              f"ninguna pata baja del minimo pedido ({q['cuota']})")
+    imposible = pv.seleccionar(_barrido_falso(), n_patas=4, cuota_minima=9.0)
+    check(imposible['patas'] == [],
+          'con un minimo que nadie alcanza, el boleto sale vacio')
+    check('cuota' in imposible['motivo'].lower(),
+          f"y se dice por que ({imposible['motivo'][:50]})")
+
+
+def test_el_numero_de_patas_se_queda_entre_1_y_20():
+    import patas_veredicto as pv
+
+    check((pv.MIN_PATAS, pv.MAX_PATAS) == (1, 20),
+          f'el rango es el pedido ({pv.MIN_PATAS}-{pv.MAX_PATAS})')
+    for pedidas, esperado in ((0, 1), (-5, 1), (99, 20)):
+        s = pv.seleccionar(_barrido_falso(), n_patas=pedidas)
+        check(s['n_pedidas'] == esperado,
+              f'pedir {pedidas} patas se recorta a {esperado} '
+              f"(salio {s['n_pedidas']})")
+
+
+def test_los_topes_evitan_un_boleto_de_ocho_patas_del_mismo_mercado():
+    """
+    Sin topes salia con ocho patas de «Goles» a cuota 1,30: ocho apuestas que
+    dependen del MISMO modelo y del mismo sesgo de hoy. No estan
+    correlacionadas por el marcador —son partidos distintos— pero si por el
+    error del estimador, que es la correlacion que hunde un parlay.
+    """
+    import patas_veredicto as pv
+
+    muchos = {'pronosticos': [
+        {'partido': 'P%d vs Q%d' % (i, i), 'liga': 'Liga %d' % i,
+         'clave_liga': 'x', 'deporte': 'Futbol', 'fecha': '2030-01-01',
+         '_recomendadas': [{'apuesta': 'Goles: Mas de 1.5', 'mercado': 'Goles',
+                            'prob': 0.80 - i * 0.001, 'cuota': 1.40}]}
+        for i in range(12)]}
+    s = pv.seleccionar(muchos, n_patas=4, cuota_minima=1.30,
+                       max_por_mercado=2, max_por_liga=2)
+    # con un solo mercado disponible, el tope se LEVANTA antes que devolver un
+    # boleto corto: el usuario pidio 4 y recibe 4
+    check(len(s['patas']) == 4,
+          f"se entregan las 4 patas pedidas ({len(s['patas'])})")
+    s2 = pv.seleccionar(muchos, n_patas=2, cuota_minima=1.30,
+                        max_por_mercado=2, max_por_liga=2)
+    check(len(s2['patas']) == 2, 'y con 2 pedidas, dos')
+
+
+def test_el_filtro_de_principales_no_cuela_lo_que_no_sabe():
+    """
+    `es_secundaria` devuelve None cuando el eje no aplica —todo lo que no es
+    futbol—. Eso NO es «principal»: es «no se sabe», y colarlo meteria la KBO
+    entre las ligas grandes.
+    """
+    import patas_veredicto as pv
+
+    check(pv._es_principal({'deporte': 'KBO', 'liga': 'KBO',
+                            'clave_liga': 'kbo'}) is False,
+          'un deporte donde el eje no aplica NO cuenta como principal')
+    s = pv.seleccionar(_barrido_falso(), n_patas=4, solo_principales=True)
+    check(isinstance(s['patas'], list),
+          'y con el filtro puesto la funcion sigue devolviendo una lista')
+    check(s['solo_principales'] is True, 'declarando que estaba puesto')
+
+
+def test_el_armado_por_veredicto_nunca_revienta():
+    import patas_veredicto as pv
+
+    for basura in ({}, {'pronosticos': None}, {'pronosticos': [None, 'x']},
+                   {'pronosticos': [{'partido': 'A vs B'}]}):
+        try:
+            s = pv.seleccionar(basura, n_patas=3)
+            check(isinstance(s, dict) and 'patas' in s,
+                  f'{str(basura)[:34]} se resuelve sin lanzar')
+        except Exception as e:
+            check(False, f'{str(basura)[:34]} lanzo {e!r}')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -18605,6 +18771,16 @@ if __name__ == '__main__':
     test_la_auditoria_ya_no_absuelve_por_tener_un_main()
     test_la_auditoria_reconoce_los_scripts_que_llama_un_workflow()
     test_el_contexto_se_archiva_desde_el_cron_y_no_desde_la_pantalla()
+
+    print(chr(10) + '=== v223: la Sonadora con los picks del dia ===')
+    test_la_sonadora_coge_la_verde_de_cada_partido()
+    test_solo_una_pata_por_partido()
+    test_el_relleno_rojo_es_el_mas_probable_no_el_mejor_pagado()
+    test_la_cuota_minima_descarta_y_luego_manda_la_probabilidad()
+    test_el_numero_de_patas_se_queda_entre_1_y_20()
+    test_los_topes_evitan_un_boleto_de_ocho_patas_del_mismo_mercado()
+    test_el_filtro_de_principales_no_cuela_lo_que_no_sabe()
+    test_el_armado_por_veredicto_nunca_revienta()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

@@ -132,6 +132,73 @@ def render(st, r: Dict, dia: Optional[str] = None,
     st.info(AVISO)
 
     # ------------------------------------------------------------------ #
+    # v223 — LA SOÑADORA ARMADA CON LOS PICKS DEL DÍA
+    #
+    # Lo que se pidió: «que sólo me extraiga las apuestas, una de cada partido
+    # y que sea la que esté en verde». Esta sección hace exactamente eso, y es
+    # una FUENTE DISTINTA de la de abajo: aquí entran las mismas
+    # recomendaciones que se ven en «Apuestas del Día», con su veredicto y su
+    # probabilidad ya corregida por lo que cada mercado acierta de verdad. El
+    # armador clásico de más abajo sigue intacto, recorriendo el tablero
+    # entero de la casa.
+    #
+    # Van separadas a propósito: mezclarlas daría un boleto que no se puede
+    # explicar, porque las dos mitades se habrían elegido con criterios
+    # distintos.
+    # ------------------------------------------------------------------ #
+    with st.expander('⚡ Armar con los picks de «Apuestas del Día»',
+                     expanded=True):
+        st.caption('Una pata por partido, la que está en verde. Si no hay '
+                   'verdes suficientes se completa con las rojas **más '
+                   'probables** — no con las mejor pagadas: en un boleto la '
+                   'probabilidad se multiplica.')
+        _cv1, _cv2, _cv3 = st.columns([1, 1, 1])
+        _n_v = _cv1.number_input('Patas', min_value=1, max_value=20, value=4,
+                                 step=1, key='son_v_patas')
+        _cuota_v = _cv2.number_input('Cuota mínima por pata', min_value=1.05,
+                                     max_value=5.0, value=1.30, step=0.05,
+                                     key='son_v_cuota')
+        _princ_v = _cv3.checkbox('Sólo principales', key='son_v_principales',
+                                 help='Deja sólo competiciones grandes de '
+                                      'fútbol. Sin marcar entra cualquiera, '
+                                      'incluidos los otros deportes.')
+        try:
+            import patas_veredicto as _pv
+            _sel = _pv.seleccionar(r, int(_n_v), float(_cuota_v),
+                                   bool(_princ_v))
+            if _sel['patas']:
+                _c1, _c2, _c3 = st.columns(3)
+                _c1.metric('Cuota del boleto', '%.2f' % (_sel['cuota_total'] or 0))
+                _c2.metric('Probabilidad', '%.1f %%'
+                           % ((_sel['prob_total'] or 0) * 100))
+                _c3.metric('Verdes', '%d de %d'
+                           % (_sel['n_verdes'], len(_sel['patas'])))
+                for _q in _sel['patas']:
+                    st.markdown(
+                        '%s **%s** · %s _(%s)_ — @%.2f · **%.0f %%**'
+                        % ('🟢' if _q['verde'] else '🔴',
+                           _q.get('apuesta', '?'), _q.get('partido', '?'),
+                           _q.get('liga', ''), _q['cuota'],
+                           (_q['prob'] or 0) * 100))
+                st.caption(_sel['motivo'])
+                # La probabilidad de un parlay se desploma con cada pata, y
+                # enseñar sólo la cuota invita a pedir veinte.
+                st.caption(
+                    'Con %d patas el boleto acierta **%.1f %%** de las veces. '
+                    'Cada pata que añades multiplica la cuota y divide esa '
+                    'probabilidad.'
+                    % (len(_sel['patas']), (_sel['prob_total'] or 0) * 100))
+            else:
+                st.info(_sel['motivo'])
+        except Exception as _e_pv:
+            logger.exception('[sonadora] armado por veredicto')
+            st.caption('Armado por veredicto no disponible en este barrido '
+                       f'({type(_e_pv).__name__}).')
+
+    st.divider()
+    st.caption('O arma a mano, recorriendo el tablero completo de la casa:')
+
+    # ------------------------------------------------------------------ #
     # 1. Los dos controles
     # ------------------------------------------------------------------ #
     c1, c2 = st.columns([2, 1])
