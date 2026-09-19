@@ -200,6 +200,41 @@ def barrido(calcular, forzar: bool = False):
     if not forzar and _fresco(entrada):
         return _sellar(_estado['datos'], _estado['ts'], entrada)
 
+    # v220 — EL DÍA COCINADO, ANTES QUE NADA.
+    #
+    # Va lo PRIMERO —antes del disco y del cerrojo— porque es lo único que
+    # evita el pico de 1.297 MB que este mismo repositorio tiene medido y que
+    # no cabe en el gigabyte de Streamlit. El resto del guardia sirve para que
+    # dos barridos no se solapen; esto sirve para que no haya barrido.
+    #
+    # Se lee en cada llamada y no se memoriza en `_estado` a propósito: es un
+    # JSON de 1 MB (milisegundos) y el cron lo reescribe por debajo. Cachearlo
+    # dejaría a la aplicación sirviendo el de hace seis horas hasta que
+    # alguien reiniciara el proceso.
+    if not forzar:
+        try:
+            import precalculo_dia as _pre
+            _d = _pre.leer()
+            if _d is not None and _d['edad_s'] < _pre.CADUCIDAD_S:
+                return _sellar(_d['datos'], _d['ts'], entrada)
+            if _pre.SOLO_PRECALCULO:
+                # EL PESTILLO. Sin él, un día sin cron devuelve el crash: la
+                # aplicación se pondría a calcular 1,3 GB con tres usuarios
+                # dentro. Es mejor decir que el día no está listo.
+                logger.warning('[guardia] SOLO_PRECALCULO y el precálculo %s',
+                               'no existe' if _d is None else 'está caducado')
+                return _sellar({'pronosticos': [], 'capa1': [], 'capa2': [],
+                                'seccion1': [], 'seccion2': [],
+                                'combinadas': [], 'incidencias': [],
+                                'actualizado': '',
+                                'aviso': 'El pronóstico del día todavía no '
+                                         'está listo. Se genera solo cada '
+                                         'pocas horas.',
+                                'sin_precalculo': True},
+                               entrada, entrada)
+        except Exception as e:
+            logger.debug('[guardia] precálculo no disponible: %s', e)
+
     # v148 — el disco, ANTES del cerrojo.
     #
     # Va aquí y no dentro del `with` a propósito: si un barrido está corriendo,

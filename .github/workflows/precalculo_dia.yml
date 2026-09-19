@@ -1,0 +1,92 @@
+name: Precálculo del día (cada 3 h)
+
+# v220 — EL CÁLCULO SALE DEL RENDER, Y ESTE WORKFLOW ES LA MITAD QUE LO PAGA.
+#
+# POR QUÉ EXISTE
+# --------------
+# La aplicación calculaba el barrido dentro de la pantalla. El propio
+# `dashboard_ui` lo tenía medido y escrito:
+#
+#     «El barrido de alpha_finder pica a 1297,7 MB; dos a la vez, a 2172,2 MB»
+#
+# contra el **1 GB** de Streamlit Community Cloud. No era un bug: el pico no
+# cabe, y con tres usuarios no cabe nunca. Medido de nuevo en esta tanda:
+#
+#     sin precálculo (barrido real) ..... 86,7 s   pico +647 MB
+#     con precálculo (leer el JSON) .....  0,0 s   pico  +0 MB
+#
+# Aquí el pico no molesta: el runner de GitHub tiene 7 GB y nadie está
+# esperando delante de una pantalla.
+#
+# CADA 3 HORAS, Y NO UNA VEZ AL DÍA
+# ---------------------------------
+# `precalculo_dia.CADUCIDAD_S` son 6 h, y el contenido son PRECIOS. Un
+# pronóstico con las cuotas de esta mañana no es el pronóstico de ahora. Con
+# una pasada diaria estaría caducado la mayor parte del tiempo, que es el mismo
+# razonamiento que ya llevó a `cuotas_mx` a correr cada seis.
+#
+# Se cuelga detrás de las cuotas mexicanas a propósito: el barrido las lee, y
+# correr antes que ellas sería cocinar el día con los precios de la pasada
+# anterior.
+
+on:
+  schedule:
+    - cron: '20 */3 * * *'        # cada 3 h, pasadas las de cuotas_mx
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Dos pasadas a la vez escribirían el mismo fichero: la segunda gana y la
+# primera fue tiempo de CI tirado. Se cancela la vieja.
+concurrency:
+  group: precalculo-dia
+  cancel-in-progress: true
+
+jobs:
+  precalcular:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Cocinar el día
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python precalculo_dia.py
+
+      # `precalculo_dia` NO escribe si el barrido sale vacío, y devuelve 1.
+      # Este paso lo convierte en un aviso en vez de un job rojo: un barrido
+      # vacío es casi siempre una fuente caída, no una regresión, y el
+      # precálculo anterior sigue siendo mejor que ninguno.
+      - name: Comprobar lo que se generó
+        run: python precalculo_dia.py --estado
+
+      - name: Publicar el día cocinado
+        run: |
+          git config user.name  "precalculo-bot"
+          git config user.email "actions@github.com"
+          git add -A pronostico_dia.json \
+            || echo "::warning::git add del precalculo fallo"
+          if git diff --cached --quiet; then
+            echo "El precálculo no cambió."
+          else
+            # `--rebase` porque los otros workflows commitean a la vez y este
+            # corre ocho veces al día: sin él, la carrera se pierde seguro.
+            git commit -m "chore(dia): precálculo del día ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git pull --rebase --autostash origin main || true
+            git push
+            echo "Día cocinado y publicado."
+          fi

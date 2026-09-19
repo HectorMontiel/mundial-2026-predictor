@@ -17680,6 +17680,190 @@ def test_el_filtro_de_estado_reparte_sin_perder_partidos():
           'y no se solapan')
 
 
+# ===========================================================================
+# v220 — EL CALCULO SALE DEL RENDER
+# ===========================================================================
+def test_el_precalculo_se_lee_sin_calcular_nada():
+    """
+    LA PROPIEDAD ENTERA DE LA TANDA. Si el guardia llama a `calcular` teniendo
+    precalculo fresco, vuelve el pico de 1,3 GB que no cabe en el gigabyte de
+    Streamlit. El test inyecta un `calcular` que EXPLOTA: si se llama, se nota.
+    """
+    import guardia_barrido as gb
+    import precalculo_dia as pre
+
+    if not pre.fresco():
+        check(True, 'sin precalculo fresco en disco; la comprobacion se salta')
+        return
+
+    def _bomba():
+        raise AssertionError('el guardia calculo teniendo precalculo fresco')
+
+    gb.reiniciar()
+    r = gb.barrido(_bomba)
+    check(isinstance(r, dict) and r.get('pronosticos') is not None,
+          'el barrido sale del precalculo')
+    check(len(r.get('pronosticos') or []) > 0,
+          f"y trae partidos ({len(r.get('pronosticos') or [])})")
+
+
+def test_el_pestillo_impide_calcular_cuando_no_hay_precalculo():
+    """
+    Sin este pestillo, un dia sin cron devuelve el crash: la aplicacion se
+    pondria a levantar 1,3 GB con tres usuarios dentro. Es la diferencia entre
+    «normalmente no calcula» y «no puede calcular».
+    """
+    import guardia_barrido as gb
+    import precalculo_dia as pre
+
+    antes_fichero = pre.FICHERO
+    antes_pestillo = pre.SOLO_PRECALCULO
+    try:
+        pre.FICHERO = '__no_existe_este_precalculo__.json'
+        pre.SOLO_PRECALCULO = True
+        gb.reiniciar()
+        llamadas = {'n': 0}
+
+        def _calcular():
+            llamadas['n'] += 1
+            return {'pronosticos': [{'x': 1}]}
+
+        r = gb.barrido(_calcular)
+        check(llamadas['n'] == 0,
+              f"con el pestillo puesto NO se calcula ({llamadas['n']} llamadas)")
+        check(r.get('sin_precalculo') is True,
+              'y el resultado se marca como «sin precalculo»')
+        check(bool(r.get('aviso')),
+              'con un aviso para la pantalla en vez de una lista vacia muda')
+        for clave in ('pronosticos', 'capa1', 'capa2', 'seccion1', 'seccion2',
+                      'combinadas', 'incidencias'):
+            check(clave in r,
+                  f'y con el esquema completo, para que la vista no reviente '
+                  f'buscando `{clave}`')
+    finally:
+        pre.FICHERO = antes_fichero
+        pre.SOLO_PRECALCULO = antes_pestillo
+        gb.reiniciar()
+
+
+def test_sin_pestillo_y_sin_precalculo_se_calcula_como_siempre():
+    """El corte no puede dejar la app sin camino: sin pestillo, se calcula."""
+    import guardia_barrido as gb
+    import precalculo_dia as pre
+
+    antes_fichero, antes_pestillo = pre.FICHERO, pre.SOLO_PRECALCULO
+    try:
+        pre.FICHERO = '__no_existe_este_precalculo__.json'
+        pre.SOLO_PRECALCULO = False
+        gb.reiniciar()
+        llamadas = {'n': 0}
+
+        def _calcular():
+            llamadas['n'] += 1
+            return {'pronosticos': [{'x': 1}], 'actualizado': 'test'}
+
+        r = gb.barrido(_calcular)
+        check(llamadas['n'] == 1,
+              'sin precalculo y sin pestillo, se calcula igual que antes')
+        check(r.get('actualizado') == 'test', 'y se devuelve lo calculado')
+    finally:
+        pre.FICHERO = antes_fichero
+        pre.SOLO_PRECALCULO = antes_pestillo
+        gb.reiniciar()
+
+
+def test_un_precalculo_caducado_no_se_sirve_como_si_fuera_de_hoy():
+    """
+    El contenido son PRECIOS. Un pronostico con las cuotas de anteayer no es un
+    pronostico, y servirlo sin decirlo es peor que no tenerlo.
+    """
+    import json
+    import os
+    import tempfile
+    import time
+    import precalculo_dia as pre
+
+    antes = pre.FICHERO
+    ruta = os.path.join(tempfile.gettempdir(), 'precalc_v220_test.json')
+    try:
+        pre.FICHERO = ruta
+        viejo = {'version': 1,
+                 'generado_ts': time.time() - (pre.CADUCIDAD_S + 600),
+                 'generado': 'viejo',
+                 'datos': {'pronosticos': [{'x': 1}]}}
+        with open(ruta, 'w', encoding='utf-8') as f:
+            json.dump(viejo, f)
+        check(pre.leer(ruta) is not None,
+              'un precalculo caducado se LEE (para poder decir su edad)')
+        check(pre.fresco(ruta) is False,
+              'pero no se considera fresco')
+        e = pre.estado(ruta)
+        check(e['hay'] is True and e['fresco'] is False,
+              'y el estado lo distingue de no tener ninguno')
+        check(e['edad_min'] > pre.CADUCIDAD_S / 60.0,
+              f"diciendo cuantos minutos tiene ({e['edad_min']})")
+    finally:
+        pre.FICHERO = antes
+        try:
+            os.remove(ruta)
+        except Exception:
+            pass
+
+
+def test_el_precalculo_ilegible_se_comporta_como_ausente():
+    """Un fichero a medias o de otro formato no puede tumbar la aplicacion."""
+    import os
+    import tempfile
+    import precalculo_dia as pre
+
+    ruta = os.path.join(tempfile.gettempdir(), 'precalc_roto.json')
+    for contenido in ('', '{', '[]', '{"version":1}', '{"datos": 5}'):
+        with open(ruta, 'w', encoding='utf-8') as f:
+            f.write(contenido)
+        check(pre.leer(ruta) is None,
+              f'un precalculo con {contenido[:14]!r} se trata como ausente')
+        check(pre.fresco(ruta) is False, 'y nunca como fresco')
+    check(pre.leer('__no_existe_de_verdad__.json') is None,
+          'y uno que no existe tampoco revienta')
+    try:
+        os.remove(ruta)
+    except Exception:
+        pass
+
+
+def test_lo_que_se_vuelca_sobrevive_al_viaje_por_json():
+    """
+    El barrido de hoy ya sale limpio, pero `_jsonable` es la red por si mañana
+    alguien mete un numpy.float64 en cualquiera de los 27 campos. Fallar al
+    volcar dejaria a la app calculando a 1,3 GB.
+    """
+    import json
+    import datetime as _dt
+    import precalculo_dia as pre
+
+    raro = {'np': _FalsoNumpy(3.5), 'fecha': _dt.date(2026, 9, 19),
+            'conjunto': {1, 2}, 'tupla': (1, 'a'),
+            'anidado': {'lista': [_FalsoNumpy(1.0), None, True]}}
+    limpio = pre._jsonable(raro)
+    texto = json.dumps(limpio, ensure_ascii=False)   # no debe lanzar
+    check('3.5' in texto, f'un numero raro sale como numero ({texto[:40]})')
+    check('2026-09-19' in texto, 'una fecha sale como cadena ISO')
+    check(isinstance(limpio['conjunto'], list), 'un set sale como lista')
+    check(isinstance(limpio['tupla'], list), 'y una tupla tambien')
+    check(pre._jsonable({'a': {'b': {'c': 1}}})['a']['b']['c'] == 1,
+          'y lo anidado se conserva')
+
+
+class _FalsoNumpy:
+    """Imita lo unico que `_jsonable` necesita de un numpy scalar: `.item()`."""
+
+    def __init__(self, v):
+        self._v = v
+
+    def item(self):
+        return self._v
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -18117,6 +18301,14 @@ if __name__ == '__main__':
     print(chr(10) + '=== v219: filtro de jugado y el orden ===')
     test_el_orden_por_hora_pone_delante_lo_que_todavia_se_puede_apostar()
     test_el_filtro_de_estado_reparte_sin_perder_partidos()
+
+    print(chr(10) + '=== v220: el calculo sale del render ===')
+    test_el_precalculo_se_lee_sin_calcular_nada()
+    test_el_pestillo_impide_calcular_cuando_no_hay_precalculo()
+    test_sin_pestillo_y_sin_precalculo_se_calcula_como_siempre()
+    test_un_precalculo_caducado_no_se_sirve_como_si_fuera_de_hoy()
+    test_el_precalculo_ilegible_se_comporta_como_ausente()
+    test_lo_que_se_vuelca_sobrevive_al_viaje_por_json()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
