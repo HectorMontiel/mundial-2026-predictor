@@ -4835,7 +4835,7 @@ BANKROLL = st.sidebar.number_input(
 # Con la lista aquí, quien valida pulsa por clave y la comprobación es
 # real. El rótulo sigue siendo cosa de la pantalla.
 CLAVE_VISTA_PRINCIPAL = '_vista_principal'
-VISTAS_PRINCIPALES = ('hoy', 'manana', 'combi', 'estado')
+VISTAS_PRINCIPALES = ('hoy', 'manana', 'pasado', 'combi', 'estado')
 
 
 def render_alpha_finder():
@@ -6056,6 +6056,11 @@ def render_alpha_finder():
     if not _HOY_S:                      # sin base de zonas: se degrada a UTC
         _HOY_S = str(pd.Timestamp.now('UTC').tz_localize(None).date())
     _MANANA_S = str(pd.Timestamp(_HOY_S).date() + pd.Timedelta(days=1))
+    # v250 - EL TERCER DIA. El barrido YA lo produce: `_en_ventana` cubre
+    # «hoy, manana o pasado» desde la v144 y esos partidos estaban en el
+    # fichero sin que ninguna pantalla los ensenara. Esto no pide un dato
+    # nuevo, solo deja de esconder el que hay.
+    _PASADO_S = str(pd.Timestamp(_HOY_S).date() + pd.Timedelta(days=2))
 
     def _fecha_local(p: dict) -> str:
         """
@@ -6975,6 +6980,7 @@ def render_alpha_finder():
     _pron_f = _filtra(r.get('pronosticos'))
     _pron_hoy = _del_dia(_pron_f, _HOY_S)
     _pron_man = _del_dia(_pron_f, _MANANA_S)
+    _pron_pas = _del_dia(_pron_f, _PASADO_S)          # v250
     _s1_hoy = _del_dia(_s1_f, _HOY_S) or _s1_f
     _s2_hoy = _del_dia(_s2_f, _HOY_S) or _s2_f
     # v152 — MODO MODELO PRIMERO, MODO VALOR SEGUNDO.
@@ -7047,6 +7053,7 @@ def render_alpha_finder():
     _VISTAS = [
         ('hoy', f"⚽ Hoy ({len(_pron_hoy)})"),
         ('manana', f"🗓️ Mañana ({len(_pron_man)})"),
+        ('pasado', f"🗓️ Pasado ({len(_pron_pas)})"),
         ('combi', f"🧩 Combinadas ({len(r.get('combinadas') or [])})"),
         ('estado', "⚙️ Estado"),
     ]
@@ -7120,6 +7127,7 @@ def render_alpha_finder():
     _slots = {k: st.container(key='vista_%s' % k) for k, _ in _VISTAS}
     _tab_hoy = _slots['hoy']
     _tab_manana = _slots['manana']
+    _tab_pasado = _slots['pasado']                    # v250
     _tab_combi = _slots['combi']
     _tab_estado = _slots['estado']
     # Los nombres antiguos siguen apuntando a la vista de hoy: el resto de la
@@ -7194,6 +7202,34 @@ def render_alpha_finder():
                 logger.exception('[modo_modelo/manana] fallo al pintar')
                 st.caption(f"Lista no disponible ({type(_e_m).__name__}).")
     _tab_ev, _tab_prob = _tab_jugar, _tab_pata
+    with _tab_pasado:
+        # v250 - EL DIA DESPUES DE MANANA.
+        #
+        # El barrido ya lo evaluaba —`_en_ventana` cubre hoy, manana y pasado
+        # desde la v144— pero no habia pantalla que lo ensenara, asi que esos
+        # partidos se calculaban y se tiraban.
+        #
+        # Va con `con_apuesta=False`, igual que manana y por el mismo motivo:
+        # las lineas se mueven durante la noche y la cuota que se ve ahora no
+        # es la que habra. Se ensena el analisis entero y se dice que todavia
+        # no es una apuesta.
+        if not _pron_pas:
+            st.subheader(f"🗓️ Partidos de PASADO MAÑANA · {_PASADO_S} (hora de CDMX)")
+            st.info("Todavía no hay partidos de pasado mañana en el barrido. "
+                    "Las casas suelen abrir línea 2-4 días antes, así que esto "
+                    "se llena solo a lo largo del día.")
+        else:
+            try:
+                import modo_modelo as _mm_pas
+                import pronosticos_guardados as _pgp
+                with _pgp.lote():
+                    _mm_pas.render(
+                        st, _pron_pas, navegar=_ir_al_partido, clave='pas',
+                        con_apuesta=False, pintar=(_vista == 'pasado'),
+                        titulo=f"🗓️ Partidos de pasado mañana · {_PASADO_S} (CDMX)")
+            except Exception as _e_p:
+                logger.exception('[modo_modelo/pasado] fallo al pintar')
+                st.caption(f"Lista no disponible ({type(_e_p).__name__}).")
     with _tab_estado:
         _render_estado_sistema()
     with _tab_combi:

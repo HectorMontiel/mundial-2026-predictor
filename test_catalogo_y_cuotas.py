@@ -12350,9 +12350,18 @@ def test_la_vista_elegida_no_se_pierde():
     # Y la vista que no se ve no gasta el tiempo de nadie. Medido: de los
     # 60,4 s que costaba cambiar de pestaña con los datos ya en memoria,
     # 40,2 se iban en dibujar tarjetas escondidas por `display:none`.
-    check(cuerpo.count("pintar=(_vista ==") == 2,
-          "las dos listas de partidos solo pintan sus tarjetas cuando "
-          "su vista es la elegida")
+    # v250 — pasaron a ser TRES con el dia de pasado manana. Lo que el check
+    # protege no es el numero sino que NINGUNA pinte sin ser la elegida, asi
+    # que se compara contra las listas de dias que hay, no contra un 2 fijo.
+    # se lee del FUENTE y no se importa: `dashboard_ui` es un script de
+    # Streamlit y al importarlo se ejecuta la pantalla entera.
+    import re as _re
+    _m = _re.search(r'VISTAS_PRINCIPALES = \(([^)]*)\)', dash)
+    _decl = _m.group(1) if _m else ''
+    _n_listas = len([k for k in ('hoy', 'manana', 'pasado') if k in _decl])
+    check(cuerpo.count("pintar=(_vista ==") == _n_listas,
+          "las %d listas de partidos solo pintan sus tarjetas cuando "
+          "su vista es la elegida" % _n_listas)
     import inspect
     check('pintar' in inspect.signature(mm_render_sig()).parameters,
           "`modo_modelo.render` acepta `pintar`")

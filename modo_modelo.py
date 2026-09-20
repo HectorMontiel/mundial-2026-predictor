@@ -3194,6 +3194,20 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                                         'publican esas estadísticas de verdad. '
                                         'El resto también las enseña, pero '
                                         'estimadas a partir de sus goles.')
+        # v250 — «QUIERO FILTRAR POR GANADOR».
+        #
+        # «En esa vista me vas a enseñar y ordenar los que sean ganadores; en
+        # donde tú digas "gana tal", ahí es donde quiero que me muestres.»
+        #
+        # Los otros filtros cortan por CÓMO de buena es la apuesta; éste corta
+        # por QUÉ mercado es, que es una pregunta distinta y no se podía hacer.
+        # Y ordena por probabilidad, porque en una lista de ganadores lo que se
+        # busca es el más claro primero.
+        solo_ganador = st.checkbox('Sólo ganador (1X2)',
+                                   key='%s_solo_ganador' % clave,
+                                   help='Deja sólo los partidos cuya apuesta '
+                                        'recomendada es a quién gana, y los '
+                                        'ordena del más probable al menos.')
 
     # v219 — EL FILTRO QUE FALTABA: jugado o sin jugar.
     #
@@ -3248,14 +3262,28 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     if solo_fisicos:
         con = [p for p in con if _tiene_fisicos(p)]
         _quito.append('fisicos')
+    if solo_ganador:
+        # v250 — por MERCADO, no por etiqueta. «Gana X» es la etiqueta que se
+        # pinta, pero la doble oportunidad se escribe «X o empate» y también
+        # habla de quién gana; el mercado los separa sin depender del texto.
+        con = [p for p in con
+               if str((p.get('_recomendada') or {}).get('mercado') or '')
+               == '1X2']
+        _quito.append('ganador')
 
     if _pref is not None:
         _pref.confirmar(st, _k_orden, CLAVE_ORDEN, etq_orden)
         _pref.guardar('%s_solo_altas' % clave, bool(solo_altas))
         _pref.guardar('%s_solo_fisicos' % clave, bool(solo_fisicos))
+        _pref.guardar('%s_solo_ganador' % clave, bool(solo_ganador))
         _pref.guardar(_k_estado, str(estado_sel))
 
     con.sort(key=ORDENES.get(etq_orden, _k_hora))
+    if solo_ganador:
+        # y en esta vista manda la probabilidad: una lista de ganadores se lee
+        # del más claro al menos claro, no por hora.
+        con.sort(key=lambda p: -float((p.get('_recomendada') or {})
+                                      .get('prob') or 0.0))
 
     st.subheader('%s (%d)' % (titulo, len(con)))
     if n_altas:
@@ -3309,6 +3337,14 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                 'Ninguna de las **%d** competiciones de esta lista publica '
                 'córners y tarjetas observados. Desmarca «Sólo con córners y '
                 'tarjetas» para verlas todas.' % _antes_de_filtrar)
+        elif _antes_de_filtrar and 'ganador' in _quito:
+            # v250 — el mismo criterio que los otros dos: decir POR QUE esta
+            # vacia en vez de mandar a tocar filtros a ciegas.
+            st.info(
+                'En ninguno de los **%d** partidos de esta lista la apuesta '
+                'recomendada es a quién gana: hoy el valor está en goles, '
+                'córners o ambos marcan. Desmarca «Sólo ganador» para verlos '
+                'todos.' % _antes_de_filtrar)
         elif not _antes_de_filtrar and juego_hoy:
             # v238 — HAY PARTIDOS Y NO HAY PICKS: SE DICE, NO SE CALLA.
             #
