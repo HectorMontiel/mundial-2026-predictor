@@ -686,9 +686,44 @@ def lineas_de_goles(pred: Dict, clave_liga=None, home: str = '',
             from scipy import stats as _st
             ks = np.array([0, 1, 2, 3, 4, 5, 6])
             ps = 1.0 - _st.poisson.cdf(ks, lam2)
+            # v225 — LA CALIBRACIÓN DE GOLES, DETRÁS DE SU INTERRUPTOR.
+            #
+            # Los lambdas están SOBREDISPERSOS: medido sobre 47.794 partidos
+            # walk-forward, cuando el modelo predice 1,67 goles la realidad
+            # son 2,35 (ratio 1,41) y cuando predice 3,73 son 3,01 (0,81). La
+            # media global es correcta —2,637 contra 2,639— así que no es un
+            # sesgo, es exceso de varianza.
+            #
+            # Como la línea de 2,5 cae justo en esa zona, el efecto visible es
+            # un exceso de «Menos de»: el modelo se inclina a Under el 54,5 %
+            # de las veces y el Under ocurre el 50,5 %.
+            #
+            # `distributions.encoger_lambdas` NO lo arregla: conserva
+            # λ_h + λ_a a propósito, así que sólo reparte entre local y
+            # visitante. La dispersión del TOTAL no la tocaba nadie.
+            #
+            # Se corrige aquí, sobre la probabilidad ya calculada, y no sobre
+            # el lambda: encoger el lambda daba una log-loss ligeramente mejor
+            # pero EMPEORABA el sesgo (53,5 % → 58,9 % de Unders), porque
+            # arrastra todo hacia 2,63, justo por debajo del punto donde
+            # P(over 2,5) cruza el 50 %. Y además tocar el lambda cambiaría
+            # también el 1X2, el hándicap y los goles por equipo.
+            #
+            # Medido en el pliegue de juicio (n=9.584, ajustado sólo en 0-3):
+            # log-loss −3,37 %, Brier −3,67 %, sesgo Under +4,8 pp → +3,7 pp,
+            # y mejora en el 100 % de 1.000 remuestreos de bootstrap.
+            try:
+                import calibrador_goles as _cg
+            except Exception:
+                _cg = None
             for linea, p in zip((0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5),
                                 ps):
                 p = float(p)
+                if _cg is not None:
+                    try:
+                        p = float(_cg.calibrar_si_activo(p, linea))
+                    except Exception as _e_cg:
+                        logger.debug('[goles] calibración: %s', _e_cg)
                 if 0.0 <= p <= 1.0:
                     salida['%.1f' % linea] = round(p, 4)
             return salida

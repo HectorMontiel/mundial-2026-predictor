@@ -17491,11 +17491,13 @@ def test_la_correccion_sale_de_lo_medido_y_nunca_se_inventa():
     check(abs(c['delta']) <= vp.CORRECCION_MAXIMA,
           f"un mercado desconocido cae a la banda global ({c['delta']:+.3f})")
 
-    # fuera de toda banda medida (por debajo del 50 %) no hay nada que usar
-    fuera = vp.correccion(0.20, 'Goles')
+    # fuera de toda banda medida (por debajo del 50 %) no hay nada que usar.
+    # v225 — el mercado de prueba deja de ser «Goles»: desde que la escalera
+    # de goles se calibra EN ORIGEN, ese mercado sale antes por otro camino.
+    fuera = vp.correccion(0.20, 'BTTS')
     check(fuera['delta'] == 0.0 and fuera['medido'] is False,
           'por debajo del 50 % no hay banda, asi que no se corrige nada')
-    check(vp.correccion(None, 'Goles')['delta'] == 0.0,
+    check(vp.correccion(None, 'BTTS')['delta'] == 0.0,
           'sin probabilidad tampoco se corrige nada')
 
     # la correccion esta topada: una banda con muestra corta puede tener una
@@ -17530,14 +17532,24 @@ def test_el_mismo_porcentaje_no_vale_lo_mismo_en_cada_mercado():
                       'prob': 0.55, 'cuota': 1.9})
     v_d = vp.evaluar({'apuesta': 'A o empate', 'mercado': 'Doble oportunidad',
                       'prob': 0.55, 'cuota': 1.75})
-    check(v_g['prob_ajustada'] < v_d['prob_ajustada'],
-          f"el mismo 55 % se ajusta distinto segun el mercado "
+    check(v_g['prob_ajustada'] != v_d['prob_ajustada'],
+          f"el mismo 55 % NO vale lo mismo segun el mercado "
           f"({v_g['prob_ajustada']:.3f} en Goles vs "
           f"{v_d['prob_ajustada']:.3f} en Doble oportunidad)")
-    check(v_g['prob_ajustada'] < 0.55,
-          'el de Goles baja: esa banda va sobrada')
     check(v_d['prob_ajustada'] > 0.55,
           'el de Doble oportunidad sube: esa banda se queda corta')
+
+    # v225 — Y LOS GOLES YA NO SE CORRIGEN AQUI, porque llegan calibrados.
+    # Las correcciones de este modulo se midieron sobre las probabilidades SIN
+    # calibrar; aplicarlas encima de una escalera ya arreglada empujaria el
+    # numero una segunda vez en el mismo sentido.
+    import calibrador_goles as cg
+    if cg.USAR_CALIBRACION_GOLES:
+        check(abs(v_g['prob_ajustada'] - 0.55) < 1e-9,
+              f"con la calibracion de goles activa, el veredicto NO vuelve a "
+              f"corregir ese mercado ({v_g['prob_ajustada']:.3f})")
+        check('calibrada en origen' in vp.correccion(0.55, 'Goles', 1.9)['fuente'],
+              'y lo dice en la fuente, para que se pueda auditar')
 
 
 def test_el_veredicto_es_binario_y_ordena_por_lo_que_hay_que_meter():

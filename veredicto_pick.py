@@ -124,6 +124,29 @@ def correccion(prob: Optional[float], mercado: str = '',
     #
     # Se elige por tamaño de muestra, que es lo único defendible cuando dos
     # mediciones honestas discrepan.
+    # v225 — NO SE CORRIGE DOS VECES EL MISMO ERROR.
+    #
+    # Las dos correcciones de abajo se midieron sobre las probabilidades TAL Y
+    # COMO SALÍAN DEL MODELO, sin calibrar. Si `calibrador_goles` está activo,
+    # la escalera de goles ya llega arreglada en origen: aplicar encima la
+    # corrección por fiabilidad —ajustada sobre los picks viejos, los que sí
+    # iban descalibrados— empujaría el número una segunda vez en el mismo
+    # sentido.
+    #
+    # Sólo afecta a los mercados de goles, que son los que el calibrador toca.
+    # El 1X2, la doble oportunidad y el BTTS siguen corrigiéndose igual.
+    try:
+        import calibrador_goles as _cgol
+        if (_cgol.USAR_CALIBRACION_GOLES
+                and str(mercado or '').strip().lower().startswith('goles')):
+            return {'delta': 0.0, 'medido': True, 'n': 0,
+                    'veredicto_banda': 'de_fiar',
+                    'real': p, 'prometido': p,
+                    'fuente': 'la escalera de goles ya viene calibrada en '
+                              'origen (calibrador_goles)'}
+    except Exception as e:
+        logger.debug('[veredicto] calibrador de goles: %s', e)
+
     cand = []
     if fi.get('veredicto') != 'sin_medir' and fi.get('real') is not None:
         cand.append({
