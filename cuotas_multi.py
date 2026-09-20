@@ -191,10 +191,30 @@ EQUIVALENCIAS = {
 }
 
 # Palabras que no distinguen a un club y solo meten ruido en la comparación
+# v247 — LAS PALABRAS QUE DISTINGUEN AL CLUB NO SON RUIDO.
+#
+# Estaban dentro de `RUIDO_CLUB`, y el resultado es que dos clubes de la misma
+# ciudad quedaban en el MISMO conjunto de tokens:
+#
+#     Manchester United -> {manchester}     Manchester City -> {manchester}
+#     Real Madrid       -> {madrid}         Atletico Madrid -> {madrid, atl}
+#
+# Con eso `_sim_club('Manchester United', 'Manchester City')` daba 1,000, y
+# reproducido: buscando «Manchester City» en un tablón que sólo tenía al
+# United, se le colgaban las cuotas del United. Igual con Atlético/Real y con
+# Paris FC/PSG, que es el caso que reportó el usuario.
+#
+# Se SIGUEN quitando cuando sólo una de las dos partes las lleva —«Betis» y
+# «Real Betis» tienen que casar, y casan por la regla de subconjunto—, pero si
+# las DOS llevan una y son distintas, son clubes distintos. Ver `_sim_club`.
+DISTINTIVO_CLUB = {
+    'deportivo', 'atletico', 'atlético', 'athletic', 'real', 'sporting',
+    'united', 'city', 'inter', 'internacional', 'juniors', 'juventud',
+}
+
 RUIDO_CLUB = {
     'fc', 'cf', 'sc', 'ac', 'afc', 'cd', 'ud', 'sd', 'ec', 'fk', 'sk', 'nk',
-    'club', 'clube', 'deportivo', 'atletico', 'atlético', 'athletic', 'real',
-    'sporting', 'united', 'city', 'de', 'do', 'da', 'del', 'the', 'if', 'ff',
+    'club', 'clube', 'de', 'do', 'da', 'del', 'the', 'if', 'ff',
     'bk', 'ik', 'cr', 'ca', 'aa', 'se', 'esporte', 'futebol', 'futbol', 'rj',
     'sp', 'mg', 'rs', 'pr', 'sc2', 'u20', 'ii', 'b',
     # v114: siglas de sociedad que unas fuentes ponen y otras no. «Volos NFC»
@@ -443,6 +463,10 @@ _ALIAS_CLUB = {
     'panaitolikos': 'panetolikos',
     # abreviaturas que la casa usa y la fuente no
     'psg': 'paris saint germain',
+    # v247 — «Wolves» y «Wolverhampton Wanderers» no comparten ni un token, así
+    # que ningún parecido los une: hace falta decirlo. Salió al medir por qué
+    # Wolves-West Brom se quedaba sin la escalera de la casa.
+    'wolves': 'wolverhampton wanderers',
     'ham kam': 'hamarkameratene',
     'estudiantes lp': 'estudiantes de la plata',
 }
@@ -530,6 +554,22 @@ def _sim_club(a: str, b: str) -> float:
     ta, tb = _tokens_club(a), _tokens_club(b)
     if not ta or not tb:
         return 0.0
+
+    # v247 — DOS DISTINTIVOS DISTINTOS SON DOS CLUBES DISTINTOS.
+    #
+    # «Manchester United» y «Manchester City» comparten la ciudad y se separan
+    # justo en la palabra que hasta la v247 se tiraba como ruido: las dos
+    # quedaban en {manchester} y esto devolvía 1,000. Reproducido: buscando
+    # «Manchester City» en un tablón que sólo tenía al United, se le colgaban
+    # las cuotas del United. Igual con Atlético/Real Madrid.
+    #
+    # Si sólo UNA de las dos lleva distintivo —«Betis» contra «Real Betis»—
+    # esto no se activa, y sigue casando por la regla de subconjunto de abajo,
+    # que es justo para lo que existe.
+    da, db = ta & DISTINTIVO_CLUB, tb & DISTINTIVO_CLUB
+    if da and db and da != db:
+        return 0.0
+
     inter = ta & tb
     if inter and (inter == ta or inter == tb):
         # v114 — CONTENCIÓN NO ES IGUALDAD, Y CONFUNDIRLAS COSTÓ UN PICK FALSO.
@@ -549,7 +589,24 @@ def _sim_club(a: str, b: str) -> float:
         # exige `_buscar`, así que ningún emparejamiento que hoy funciona deja
         # de funcionar; lo único que cambia es que si en el mismo tablón están
         # el club exacto Y uno que lo contiene, gana el exacto.
-        return 1.0 if ta == tb else 0.93
+        if ta == tb:
+            return 1.0
+        # v247 — UN SOLO TOKEN COMPARTIDO NO IDENTIFICA UNA CIUDAD.
+        #
+        # «Gremio» ⊂ «Gremio FBPA» es el caso para el que se escribió esto: un
+        # token fuerte y UNA sigla de más. Pero «Paris» ⊂ «Paris Saint-Germain»
+        # tiene exactamente la misma forma, y son dos clubes distintos —Paris
+        # FC y el PSG—: es lo que el usuario vio cruzado.
+        #
+        # Lo que los separa es cuánto nombre sobra: una sigla, o un nombre
+        # entero. Con DOS o más palabras significativas de diferencia sobre un
+        # único token compartido, no se afirma que sea el mismo club. Queda en
+        # 0,60, por debajo de cualquier umbral de emparejamiento, para que el
+        # partido se quede sin precio en vez de con el precio de otro.
+        corto, largo = (ta, tb) if len(ta) <= len(tb) else (tb, ta)
+        if len(corto) == 1 and len(largo - corto) >= 2:
+            return 0.60
+        return 0.93
     jac = len(inter) / len(ta | tb)
     if not inter:
         # v79 — atajo DEMOSTRABLEMENTE inocuo, no una heurística.

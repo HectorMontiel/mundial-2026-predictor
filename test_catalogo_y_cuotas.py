@@ -20421,6 +20421,100 @@ def test_la_mezcla_de_goles_va_antes_de_encoger_hacia_la_casa():
     check(i_aj > i_pata,
           'v246: y ANTES de encoger hacia la casa, no despues')
 
+
+# ---------------------------------------------------------------------------
+# v247 — EL PSG NO ES EL PARIS FC
+# ---------------------------------------------------------------------------
+def test_dos_clubes_de_la_misma_ciudad_no_se_cruzan():
+    """
+    «El PSG no lo estas confundiendo con el Paris FC, asi que aguas con eso.»
+
+    `RUIDO_CLUB` tiraba las palabras que DISTINGUEN al club —«united», «city»,
+    «real», «atletico»— asi que dos equipos de la misma ciudad quedaban en el
+    mismo conjunto de tokens:
+
+        Manchester United -> {manchester}    Manchester City -> {manchester}
+
+    Y `_sim_club` devolvia 1,000. Reproducido en el camino de produccion:
+    buscando «Manchester City» en un tablon que solo tenia al United, se le
+    colgaban las cuotas del United. Igual con Atletico/Real Madrid y con
+    Paris FC/PSG.
+
+    Colgarle a un partido el precio de OTRO es peor que dejarlo sin precio:
+    fabrica un EV sobre una apuesta que no existe. Es la misma leccion de la
+    v114 con «Independiente» y «Independiente Rivadavia».
+    """
+    import cuotas_multi as cm
+
+    # los que TIENEN que romperse
+    for a, b in (('Paris FC', 'Paris Saint-Germain'),
+                 ('Manchester United', 'Manchester City'),
+                 ('Real Madrid', 'Atletico Madrid'),
+                 ('Manchester City', 'Manchester United')):
+        s = cm._sim_club(a, b)
+        check(s < 0.80,
+              'v247: «%s» y «%s» NO son el mismo club (%.3f)' % (a, b, s))
+
+    # y los que tienen que SEGUIR casando, que es la otra mitad
+    for a, b in (('Gremio', 'Gremio FBPA'),
+                 ('Betis', 'Real Betis'),
+                 ('Leeds', 'Leeds United'),
+                 ('Feyenoord', 'Feyenoord Rotterdam'),
+                 ('Cottbus', 'Energie Cottbus'),
+                 ('Dinamo Moscow', 'Dynamo Moscow'),
+                 ('PSG', 'Paris Saint-Germain'),
+                 ('Wolves', 'Wolverhampton Wanderers')):
+        s = cm._sim_club(a, b)
+        check(s >= 0.80,
+              'v247: «%s» y «%s» SI son el mismo club (%.3f)' % (a, b, s))
+
+
+def test_el_cruce_se_rechaza_en_el_camino_de_produccion():
+    """No basta con la funcion de parecido: se comprueba sobre `_buscar`, que
+    es lo que usa el barrido, y con el tablon en el estado peligroso — el que
+    tiene UNO de los dos clubes y no el otro."""
+    import cuotas_multi as cm
+
+    for busco, rival, hay in (('Paris FC', 'Marseille', 'Paris Saint-Germain'),
+                              ('Manchester City', 'Arsenal',
+                               'Manchester United'),
+                              ('Atletico Madrid', 'Getafe', 'Real Madrid')):
+        idx = {cm.normalizar(hay) + '|' + cm.normalizar(rival): {
+            'home': hay, 'away': rival,
+            'cuotas': {'home': 1.4, 'away': 7.0}, 'casa': 'X'}}
+        r = cm._buscar(idx, busco, rival)
+        check(not r,
+              'v247: buscando «%s» con solo «%s» en el tablon no se empareja '
+              '(devolvio %s)' % (busco, hay, (r or {}).get('home')))
+
+    # y el emparejamiento bueno sigue saliendo
+    idx = {cm.normalizar('Feyenoord Rotterdam') + '|' + cm.normalizar('FC Utrecht'): {
+        'home': 'Feyenoord Rotterdam', 'away': 'FC Utrecht',
+        'cuotas': {'home': 1.7, 'away': 4.5}, 'casa': 'X'}}
+    r = cm._buscar(idx, 'Feyenoord', 'Utrecht') or {}
+    check(r.get('home') == 'Feyenoord Rotterdam',
+          'v247: y «Feyenoord» sigue casando con «Feyenoord Rotterdam» (%s)'
+          % r.get('home'))
+
+
+def test_las_palabras_que_distinguen_no_son_ruido():
+    """La lista de ruido solo puede llevar formas juridicas y siglas.
+
+    Una palabra que aparece en el nombre de un club Y en el de otro de la
+    misma ciudad no es ruido: es lo unico que los separa.
+    """
+    import cuotas_multi as cm
+    for p in ('united', 'city', 'real', 'atletico', 'athletic', 'sporting',
+              'deportivo'):
+        check(p not in cm.RUIDO_CLUB,
+              'v247: «%s» ya no se tira como ruido' % p)
+        check(p in cm.DISTINTIVO_CLUB,
+              'v247: «%s» cuenta como distintivo de club' % p)
+    # las formas juridicas SI siguen siendo ruido
+    for p in ('fc', 'cf', 'sc', 'club'):
+        check(p in cm.RUIDO_CLUB,
+              'v247: «%s» sigue siendo ruido, que para eso esta la lista' % p)
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -20991,6 +21085,11 @@ if __name__ == '__main__':
     test_la_pata_historica_cubre_goles()
     test_la_ventana_de_la_pata_es_la_que_se_midio()
     test_la_mezcla_de_goles_va_antes_de_encoger_hacia_la_casa()
+
+    print(chr(10) + '=== v247: el PSG no es el Paris FC ===')
+    test_dos_clubes_de_la_misma_ciudad_no_se_cruzan()
+    test_el_cruce_se_rechaza_en_el_camino_de_produccion()
+    test_las_palabras_que_distinguen_no_son_ruido()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
