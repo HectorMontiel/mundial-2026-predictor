@@ -74,14 +74,17 @@ MIN_PARTIDOS = 10
 #     corners    modelo 0,61050 -> mezcla 0,59174   p5 +0,01855
 #     remates    modelo 0,67030 -> mezcla 0,63838   p5 +0,03168
 #     tarjetas   modelo 0,52449 -> mezcla 0,51845   p5 +0,00585
+#     remates_on modelo 0,57814 -> mezcla 0,56033   p5 +0,01760
 #
-# «Remates a puerta» NO está, aunque `rendimiento_equipos` publique su serie y
-# sea la misma clase de cuenta. No se midió, y suponer que se comporta igual
-# que los remates totales es exactamente el atajo que este proyecto no da. Se
-# añade el día que se mida, no antes.
+# «Remates a puerta» entró DESPUÉS, cuando el usuario pidió que se midiera
+# también. Hasta entonces estuvo fuera a propósito, aunque su serie existiera
+# y fuera la misma clase de cuenta: suponer que se comporta igual que los
+# remates totales habría sido el atajo que este proyecto no da. Ahora está
+# medido sobre los mismos 180.103 partidos y entra con el mismo derecho.
 _SERIE = {'corners': 'serie_corners',
           'tarjetas': 'serie_tarjetas',
-          'remates': 'serie_remates'}
+          'remates': 'serie_remates',
+          'remates_on': 'serie_remates_on'}
 
 _MEMO: Dict = {}
 

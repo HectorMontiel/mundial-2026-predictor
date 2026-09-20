@@ -20269,22 +20269,22 @@ def test_el_techo_de_goles_solo_toca_mercados_de_goles():
 
 def test_la_pata_historica_solo_donde_esta_medida():
     """
-    Tres mercados medidos sobre 180.103 partidos de 67 ligas, con el 100 % de
-    los remuestreos a favor:
+    Cuatro mercados medidos sobre 180.103 partidos de 67 ligas, con el 100 %
+    de los remuestreos a favor:
 
-        corners    0,61050 -> 0,59174   p5 +0,01855
-        remates    0,67030 -> 0,63838   p5 +0,03168
-        tarjetas   0,52449 -> 0,51845   p5 +0,00585
+        corners      0,61050 -> 0,59174   p5 +0,01855
+        remates      0,67030 -> 0,63838   p5 +0,03168
+        tarjetas     0,52449 -> 0,51845   p5 +0,00585
+        remates_on   0,57814 -> 0,56033   p5 +0,01760
 
-    «Remates a puerta» NO se midio, y por eso no esta — aunque su serie exista
-    y sea la misma clase de cuenta.
+    El ultimo entro despues, cuando se pidio medirlo. Lo que NO esta medido
+    sigue fuera: las lineas de «Local» y «Visita», que hablan de un solo
+    equipo.
     """
     import pata_historica as ph
 
-    check(set(ph._SERIE) == {'corners', 'remates', 'tarjetas'},
-          'v245: solo los tres mercados medidos (%s)' % sorted(ph._SERIE))
-    check('remates_on' not in ph._SERIE,
-          'v245: remates a puerta queda fuera hasta que se mida')
+    check(set(ph._SERIE) == {'corners', 'remates', 'tarjetas', 'remates_on'},
+          'v245: los CUATRO mercados medidos (%s)' % sorted(ph._SERIE))
     check(0.0 < ph.PESO_MODELO < 1.0,
           'v245: el peso esta entre 0 y 1 (%s)' % ph.PESO_MODELO)
     check(abs(ph.mezclar(0.80, 0.60) - 0.70) < 1e-9,
