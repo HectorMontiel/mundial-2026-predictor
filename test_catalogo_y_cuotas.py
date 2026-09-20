@@ -20220,6 +20220,116 @@ def test_la_mezcla_va_despues_de_la_correccion_historica():
     check(cc.mezclar(0.80, None) is None and cc.mezclar(None, 0.6) is None,
           'v243: sin las dos partes no hay mezcla')
 
+
+# ---------------------------------------------------------------------------
+# v245 — EL TECHO DE GOLES NO PUEDE APLASTAR LOS CONTEOS
+# ---------------------------------------------------------------------------
+def test_el_techo_de_goles_solo_toca_mercados_de_goles():
+    """
+    `techo_por_liga` compara la linea contra `media_goles_liga` (~2,7 en una
+    liga normal) y no miraba de que mercado era la linea. A `revisar` llegan
+    tambien las de corners, tarjetas y remates, asi que:
+
+        «Mas de 7.5» corners    d = 7,5 - 2,7 = +4,8  ->  techo 0,50
+        «Menos de 11.5» corners d = 2,7 - 11,5 = -8,8 ->  sin techo
+
+    TODA linea de «Mas de» de un conteo caia a 0,50 —comparada contra una
+    media de GOLES— y ninguna de «Menos de». Medido sobre el fichero
+    publicado, el reparto de las filas de conteo era 359 «Menos» contra 76
+    «Mas» en corners y 775 contra 95 en remates.
+
+    El caso que lo destapo: Leeds-Crystal Palace daba «Menos de 11.5 corners»
+    en una Premier de 10,6 corners por partido, y dejaba fuera «Mas de 7.5»,
+    que el modelo ponia al 79 %.
+    """
+    import cordura_probabilidad as cp
+
+    # el conteo pasa intacto
+    r = cp.revisar(0.79, 'Más de 7.5', 'premier', implicita=0.78,
+                   mercado='Córners')
+    check(abs(r['prob'] - 0.79) < 0.02,
+          'v245: «Más de 7.5» de córners ya no se aplasta (%.2f)' % r['prob'])
+    check('no sostiene' not in str(r.get('motivo') or ''),
+          'v245: y no se le cuelga el motivo del techo de goles')
+
+    # y el de goles SIGUE con su techo, que es lo que protegia
+    g = cp.revisar(0.80, 'Menos de 1.5', 'premier', implicita=0.72,
+                   mercado='Goles')
+    check(g['prob'] <= 0.65,
+          'v245: en GOLES el techo sigue puesto (%.2f) — esto es lo que '
+          'evito el «Menos de 2.5 al 80 %%» que acabo 4-2' % g['prob'])
+
+    # sin mercado, el comportamiento de antes (lo usan los tests directos)
+    t = cp.techo_por_liga('premier', 'Menos de 1.5')
+    check(t is not None,
+          'v245: sin `mercado` se conserva el comportamiento anterior')
+    check(cp.techo_por_liga('premier', 'Más de 7.5', 'Córners') is None,
+          'v245: con mercado de conteo no hay techo')
+
+
+def test_la_pata_historica_solo_donde_esta_medida():
+    """
+    Tres mercados medidos sobre 180.103 partidos de 67 ligas, con el 100 % de
+    los remuestreos a favor:
+
+        corners    0,61050 -> 0,59174   p5 +0,01855
+        remates    0,67030 -> 0,63838   p5 +0,03168
+        tarjetas   0,52449 -> 0,51845   p5 +0,00585
+
+    «Remates a puerta» NO se midio, y por eso no esta — aunque su serie exista
+    y sea la misma clase de cuenta.
+    """
+    import pata_historica as ph
+
+    check(set(ph._SERIE) == {'corners', 'remates', 'tarjetas'},
+          'v245: solo los tres mercados medidos (%s)' % sorted(ph._SERIE))
+    check('remates_on' not in ph._SERIE,
+          'v245: remates a puerta queda fuera hasta que se mida')
+    check(0.0 < ph.PESO_MODELO < 1.0,
+          'v245: el peso esta entre 0 y 1 (%s)' % ph.PESO_MODELO)
+    check(abs(ph.mezclar(0.80, 0.60) - 0.70) < 1e-9,
+          'v245: con peso 0,5 la mezcla es el promedio')
+    check(ph.mezclar(0.8, None) is None and ph.mezclar(None, 0.6) is None,
+          'v245: sin las dos partes no hay mezcla')
+
+    # solo el TOTAL: las lineas de equipo no se midieron
+    pick = {'partido': 'A vs B', 'clave_liga': 'premier'}
+    r = ph.aplicar(pick, 'corners', 9.5, 0.62, etiqueta='Local')
+    check(r['hay'] is False and r['p_mas'] == 0.62,
+          'v245: en «Local» el numero sale intacto (no esta medido)')
+
+
+def test_la_linea_del_mercado_se_elige_por_probabilidad():
+    """
+    `mejores` ordenaba por `Score = probabilidad x cuota`, y ese orden no solo
+    ordena: elige QUE LINEA representa a cada mercado, porque justo debajo hay
+    una regla de una-por-mercado.
+
+        Córners: Más de 7.5          70 %  cuota 1.25   score 0.871
+        Córners Local: Más de 5.5    51 %  cuota 1.85   score 0.950  <- ganaba
+
+    Un volado al 51 % se llevaba la plaza y dejaba fuera un 70 %. Es la misma
+    leccion de la v241, que faltaba aplicar donde se poda.
+    """
+    import io as _io
+    s = _io.open('valor_apuesta.py', encoding='utf-8').read()
+    cuerpo = s.split('def mejores(')[1].split('\ndef ')[0]
+    i_orden = cuerpo.find('orden = sorted(')
+    check(i_orden > 0, 'v245: sigue habiendo un orden')
+    tramo = cuerpo[i_orden:i_orden + 200]
+    check("-round(f['prob'], 4)" in tramo,
+          'v245: la probabilidad va PRIMERA en la clave de orden')
+    i_p = tramo.find("-round(f['prob'], 4)")
+    i_s = tramo.find("f.get('score')")
+    check(i_p < i_s,
+          'v245: y el Score va despues, como desempate')
+    # los dos guardarrailes que acotan el coste siguen puestos
+    import valor_apuesta as va
+    check(va.CUOTA_DECENTE >= 1.20,
+          'v245: el suelo de cuota sigue, para que no se cuele un 1,05')
+    check(va.PROB_MAXIMA_RECO <= 0.90,
+          'v245: y el techo de probabilidad, para que no se cuele un 97 %')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -20780,6 +20890,11 @@ if __name__ == '__main__':
     test_la_apuesta_encuentra_su_precio_en_cada_mercado()
     test_sin_precio_de_casa_el_veredicto_no_cambia()
     test_la_mezcla_va_despues_de_la_correccion_historica()
+
+    print(chr(10) + '=== v245: pata historica y techo de goles ===')
+    test_el_techo_de_goles_solo_toca_mercados_de_goles()
+    test_la_pata_historica_solo_donde_esta_medida()
+    test_la_linea_del_mercado_se_elige_por_probabilidad()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

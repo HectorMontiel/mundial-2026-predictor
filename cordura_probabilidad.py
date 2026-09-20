@@ -179,9 +179,36 @@ def _linea_de(apuesta: str):
     return None
 
 
-def techo_por_liga(clave_liga, apuesta: str) -> Optional[float]:
+# v245 — este techo mide GOLES, y sólo puede aplicarse a mercados de goles.
+MERCADOS_CON_TECHO = ('Goles',)
+
+
+def techo_por_liga(clave_liga, apuesta: str,
+                   mercado: Optional[str] = None) -> Optional[float]:
     """
     El techo que impone el nivel de goles de la competición, o `None`.
+
+    v245 — SE COMPRUEBA EL MERCADO, QUE ES LO QUE FALTABA.
+
+    Este techo compara la línea contra `media_goles_liga` (≈2,7 en una liga
+    normal). Hasta aquí no miraba de qué mercado era la línea, y a `revisar`
+    llegan también las de córners, tarjetas y remates. El resultado, medido
+    sobre un partido real de Premier:
+
+        «Más de 7.5» córners    d = 7,5 − 2,7 = +4,8  ->  techo 0,50
+        «Menos de 11.5» córners d = 2,7 − 11,5 = −8,8 ->  sin techo
+
+    O sea que TODA línea de «Más de» de un conteo caía a 0,50 —comparada
+    contra una media de goles— y ninguna de «Menos de». Eso, y no el análisis,
+    es lo que producía el reparto que el usuario vio: 82 % de los córners y
+    89 % de los remates recomendados eran «Menos de».
+
+    El caso que lo destapó: Leeds-Crystal Palace daba «Menos de 11.5 córners»
+    y no «Más de 7.5», que el modelo ponía al 79 % y el histórico de los dos
+    equipos al 80 %. El 79 % se aplastaba a 50 % y no podía ganar.
+
+    Con `mercado=None` se conserva el comportamiento de antes, que es lo que
+    usan los tests que llaman directamente con líneas de goles.
 
     Sólo se aplica a las apuestas de GOLES y sólo cuando la línea está en el
     lado equivocado de la media de la competición:
@@ -199,6 +226,8 @@ def techo_por_liga(clave_liga, apuesta: str) -> Optional[float]:
     cotiza toda casa y la que manda en la aplicación— eso es exactamente
     «λ > 2,5 -> 65 %» y «λ > 3,0 -> 50 %».
     """
+    if mercado is not None and str(mercado).strip() not in MERCADOS_CON_TECHO:
+        return None
     par = _linea_de(apuesta)
     if not par or not clave_liga:
         return None
@@ -336,7 +365,7 @@ def revisar(prob, apuesta: str, clave_liga=None,
                        % ((p - imp) * 100))
         p = min(p, TECHO_DESVIADO)
 
-    techo = techo_por_liga(clave_liga, apuesta)
+    techo = techo_por_liga(clave_liga, apuesta, mercado)
     if techo is not None and p > techo:
         p = techo
         motivos.append('la competición no sostiene más en esta línea')

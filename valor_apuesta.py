@@ -316,14 +316,37 @@ def _de_conteo(pick: Dict, bloques: Dict) -> List[Dict]:
                     p_mas = None
                 if p_mas is None:
                     continue
+                # v245 — LA PATA HISTÓRICA, ANTES DE ENCOGER HACIA LA CASA.
+                #
+                # Aquí `p_mas` es todavía la del modelo puro. Se mezcla con
+                # qué fracción de los últimos partidos de esos dos equipos
+                # pasó esta línea, que es una estimación independiente y —
+                # medido sobre 1.260.350 pares (partido, línea) de 67 ligas—
+                # baja el log-loss de 0,61062 a 0,59187, p5 +0,0186, 100 % de
+                # los remuestreos a favor.
+                #
+                # Es lo que arregla el caso que reportó el usuario:
+                # Leeds-Palace daba «Menos de 11.5» (modelo 66 %, histórico
+                # 60 %) y dejaba fuera «Más de 7.5» (79 % y 80 %).
+                #
+                # Solo en las líneas de TOTAL: las de Local y Visita no están
+                # medidas y salen intactas. Ver `pata_historica`.
+                _hist = {'hay': False}
+                try:
+                    import pata_historica as _ph
+                    _hist = _ph.aplicar(pick, clave_bloque, linea,
+                                        float(p_mas), etq)
+                    p_mas = float(_hist.get('p_mas', p_mas))
+                except Exception as e:
+                    logger.debug('[valor] pata historica: %s', e)
                 salida.extend(_dos_lados(
                     pick, titulo, etq, linea, float(p_mas), dato,
-                    clave_bloque, media, incierto=incierto))
+                    clave_bloque, media, incierto=incierto, hist=_hist))
     return salida
 
 
 def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
-               incierto: bool = False):
+               incierto: bool = False, hist=None):
     """Las dos apuestas de una línea —Más y Menos—, cada una con su cuota."""
     import mercado_implicito as mi
     imp_mas = mi.prob_de(dato)
@@ -346,6 +369,8 @@ def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
             info.get('prob', p), cuota, imp, bloque, linea,
             {'media': round(float(media), 2),
              'incierto': bool(incierto),
+             # v245 — de donde sale el numero, para que la tarjeta lo diga
+             'historico': dict(hist) if (hist or {}).get('hay') else None,
              'contrastada': bool(info.get('contrastada'))}))
     return filas
 
@@ -785,12 +810,30 @@ def mejores(pick: Dict, bloques: Optional[Dict] = None,
     # En el respaldo la pregunta ya no es «cual paga mejor» sino «cual es mas
     # probable que ocurra», que es lo que el usuario pidio: «deberias mandar
     # las probables, como lo hemos estado haciendo en el futbol».
-    if baja:
-        orden = sorted(dignas, key=lambda f: (-round(f['prob'], 4),
-                                              -(f.get('score') or 0.0)))
-    else:
-        orden = sorted(dignas, key=lambda f: (-(f.get('score') or 0.0),
-                                              -round(f['prob'], 4)))
+    # v245 — LA PROBABILIDAD MANDA, Y EL SCORE DESEMPATA.
+    #
+    # Aquí se decidía por `Score = probabilidad × cuota`, y ese orden no sólo
+    # ordena la lista: también elige QUÉ LÍNEA representa a cada mercado,
+    # porque justo debajo hay una regla de una-por-mercado. Esa era la mitad
+    # del problema que el usuario reportó dos veces.
+    #
+    # Leeds-Crystal Palace, con el techo de goles ya arreglado:
+    #
+    #     Córners: Más de 7.5          70 %  cuota 1.25   score 0.871
+    #     Córners Local: Más de 5.5    51 %  cuota 1.85   score 0.950  <- ganaba
+    #
+    # Un volado al 51 % se llevaba la plaza de córners y dejaba fuera un 70 %.
+    # Como `Score ≈ p × cuota ≈ 1` en cualquier apuesta bien tarifada, el
+    # criterio apenas discrimina y premia a los mercados de moneda al aire,
+    # que son los de cuota más larga. Es la misma lección que la v241 aplicó
+    # a la lista final; faltaba aplicarla aquí, que es donde se poda.
+    #
+    # El coste se asume y se dice: ordenar por probabilidad favorece al
+    # favorito barato frente al valor. Lo acotan los dos filtros de arriba —
+    # `CUOTA_DECENTE` (1,20) y `PROB_MAXIMA_RECO` (0,90)—, así que no puede
+    # colarse un 1,05 ni un 97 %. Y el Score sigue a la vista en la tarjeta.
+    orden = sorted(dignas, key=lambda f: (-round(f['prob'], 4),
+                                          -(f.get('score') or 0.0)))
     salida, vistos = [], set()
     for f in orden:
         mercado = str(f.get('mercado') or '')

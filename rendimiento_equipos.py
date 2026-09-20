@@ -184,6 +184,18 @@ def _forma(clave: str, equipo: str, n: int = VENTANA,
 
     racha, gf, gc, ck_f, ck_c, rem_f, rem_c, amar = [], [], [], [], [], [], [], []
     partidos = []
+    # v245 — LA SERIE PARTIDO A PARTIDO, NO SOLO LA MEDIA.
+    #
+    # Hasta aqui esto devolvia `ck_total` (una media) y con una media no se
+    # puede responder a «¿cuantos de sus ultimos partidos pasaron de 7,5
+    # corners?». Y esa pregunta resulto valer: medida sobre 180.103 partidos de
+    # 67 ligas, la fraccion historica sobre la linea mezclada al 50 % con el
+    # modelo baja el log-loss de 0,61062 a 0,59187, con p5 +0,0186 y el 100 %
+    # de los remuestreos a favor.
+    #
+    # Se guardan solo los partidos con AMBOS lados presentes: medio dato no es
+    # un total, y meterlo desviaria la serie hacia abajo.
+    serie_ck, serie_rem, serie_amar, serie_on = [], [], [], []
     for _, r in suyos.iterrows():
         casa = (r['home_team'] == equipo)
         yo, otro = ('home', 'away') if casa else ('away', 'home')
@@ -210,6 +222,20 @@ def _forma(clave: str, equipo: str, n: int = VENTANA,
         a = _num(r.get(yo + '_yellow'))
         if a is not None:
             amar.append(a)
+        # v245 — los totales del partido, para la pata historica
+        if c_yo is not None and c_otro is not None:
+            serie_ck.append(float(c_yo) + float(c_otro))
+        _r_yo = _num(r.get(yo + '_shots_on')), _num(r.get(yo + '_shots_off'))
+        _r_ot = _num(r.get(otro + '_shots_on')), _num(r.get(otro + '_shots_off'))
+        if all(v is not None for v in _r_yo + _r_ot):
+            serie_rem.append(float(sum(_r_yo)) + float(sum(_r_ot)))
+        _a_ot = _num(r.get(otro + '_yellow'))
+        if a is not None and _a_ot is not None:
+            serie_amar.append(float(a) + float(_a_ot))
+        _on_yo, _on_ot = (_num(r.get(yo + '_shots_on')),
+                          _num(r.get(otro + '_shots_on')))
+        if _on_yo is not None and _on_ot is not None:
+            serie_on.append(float(_on_yo) + float(_on_ot))
         partidos.append({
             'fecha': str(r['date'].date()) if hasattr(r['date'], 'date') else '',
             'rival': r['away_team'] if casa else r['home_team'],
@@ -238,6 +264,11 @@ def _forma(clave: str, equipo: str, n: int = VENTANA,
                      else None),
         'remates_favor': _media(rem_f), 'remates_contra': _media(rem_c),
         'amarillas': _media(amar),
+        # v245 — las series de TOTALES del partido. Ver la nota de arriba.
+        'serie_corners': list(serie_ck),
+        'serie_remates': list(serie_rem),
+        'serie_tarjetas': list(serie_amar),
+        'serie_remates_on': list(serie_on),
         'partidos': partidos,
     }
 
