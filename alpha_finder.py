@@ -3137,18 +3137,36 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
     # descarta, y con razón.
     try:
         import totales_deporte as _td
+        # EL PICK YA TRAE `total_esperado` EN LA RAIZ, no dentro de un `pred`.
+        #
+        # La primera version buscaba `_p['pred']['total_esperado']` y no
+        # disparaba nunca: el pick de NFL publica `total_esperado` y
+        # `margen_esperado` como campos suyos. Se vio al mirar el precalculo ya
+        # publicado —16 partidos, 0 con totales— en vez de darlo por hecho.
+        #
+        # La sigma no viaja con el pick porque es del MODELO, no del partido:
+        # es la misma para todos. Se lee del objeto que esta funcion ya tiene
+        # cargado, y si no hay modelo no hay totales, que es correcto.
+        _sig = getattr(modelo, 'sigma_total', None) if modelo else None
         _n_tot = 0
         for _p in (list(salida.get('capa1') or [])
                    + list(salida.get('capa2') or [])
                    + list(salida.get('pronosticos') or [])):
-            if _p.get('totales'):
+            if _p.get('totales') or _p.get('total_esperado') is None or not _sig:
                 continue
-            _pred = _p.get('pred') or _p.get('prediccion') or {}
-            if not isinstance(_pred, dict) or 'total_esperado' not in _pred:
-                continue
+            _pred = {'total_esperado': _p.get('total_esperado'),
+                     'sigma_total': _sig,
+                     'margen_esperado': _p.get('margen_esperado') or 0.0,
+                     'sigma_margen': getattr(modelo, 'sigma_margen', None)}
             _partido = str(_p.get('partido') or '')
             _h, _a = (_partido.split(' vs ', 1) + ['', ''])[:2]
-            _t = _td.de_nfl(_pred, _h.strip(), _a.strip())
+            # las lineas que la CASA publica mandan sobre las inventadas: son
+            # las que se pueden jugar de verdad
+            _casa = sorted(
+                float(k) for k in
+                ((_p.get('implicitas') or {}).get('totales_cuotas') or {}))
+            _t = _td.de_nfl(_pred, _h.strip(), _a.strip(),
+                            {'total': _casa} if _casa else None)
             if _t:
                 _p['totales'] = _t
                 _n_tot += 1
