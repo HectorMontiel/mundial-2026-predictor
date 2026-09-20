@@ -2645,6 +2645,23 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     _porques = [r for v in _vers[:1] for r in v['razones']]
                     for _pq in _porques[:1]:
                         st.caption(_pq)
+                    # v248 — LO QUE DICEN SUS PROPIOS PARTIDOS, A LA VISTA.
+                    #
+                    # «Aquí estás dando un Under de 3.5 cuando estos dos
+                    # equipos tienen media de goles muy alta y están primero y
+                    # segundo. ¿Por qué? Eso es lo que quiero que también se
+                    # muestre.»
+                    #
+                    # La pata histórica (v245/v246) ya entra en el número, pero
+                    # se quedaba dentro del cálculo. Medido en Porto-Benfica:
+                    # sus últimos veinte partidos promedian 3,2 goles y sólo
+                    # DIEZ de veinte se quedaron bajo 3.5, mientras el modelo
+                    # daba 78 %. Enseñar la cuenta es lo que permite al usuario
+                    # ver esa discrepancia en vez de tener que intuirla.
+                    _hs = [(v['pick'].get('historico') or {}) for v in _vers]
+                    _hs = [h for h in _hs if h.get('razon')]
+                    if _hs:
+                        st.caption('📊 %s' % _hs[0]['razon'])
                     # v229 — LA LAMBDA, QUE ES LO QUE FALTABA PARA ENTENDERLO.
                     #
                     # El usuario miró un América-Chivas con las dos formas en
