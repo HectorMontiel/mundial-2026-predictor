@@ -102,9 +102,27 @@ jobs:
           # `jugados_dia.json` va desde la v229 por el mismo motivo que el
           # resto: son 186 peticiones a ESPN y 13 s medidos, y sin commitearlo
           # los pagaría el navegador del usuario en cada pasada.
-          git add -A pronostico_dia.json archivo_contexto.json \
-            ponches_snapshots.csv jugados_dia.json alias_equipos.json \
-            || echo "::warning::git add del precalculo fallo"
+          # v237 — SE ANADE LO QUE EXISTE, UNO A UNO. ESTO TENIA LA APP
+          # CONGELADA.
+          #
+          # `git add a.json b.csv` falla ENTERO si UNO de los paths no existe
+          # —«pathspec did not match any files»— y no anade ninguno de los
+          # demas. Con el `|| echo warning` detras, el workflow termina en
+          # verde sin haber commiteado nada.
+          #
+          # `ponches_snapshots.csv` solo se crea los dias que Pinnacle tiene
+          # props de ponches abiertos. El dia que no los hay, el `add` fallaba
+          # y el PRECALCULO ENTERO se quedaba sin publicar. Medido: el cron
+          # corrio a las 04:55, calculo 164 pronosticos, escribio el fichero...
+          # y la aplicacion siguio sirviendo el de las 00:24.
+          #
+          # El bucle anade lo que hay y se salta lo que no, sin tragarse un
+          # fallo real en los ficheros que SI estan.
+          for _f in pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json; do
+            if [ -e "$_f" ]; then
+              git add "$_f" || echo "::warning::git add de $_f fallo"
+            fi
+          done
           if git diff --cached --quiet; then
             echo "El precálculo no cambió."
           else

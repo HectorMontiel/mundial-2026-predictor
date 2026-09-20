@@ -396,6 +396,52 @@ def _de_goles(pick: Dict) -> List[Dict]:
     return salida
 
 
+def _de_totales(pick: Dict) -> List[Dict]:
+    """Las lineas de total de los deportes que no son futbol.
+
+    v237 — CARRERAS, PUNTOS Y JUEGOS, COMO APUESTA Y NO SOLO COMO DATO.
+
+    La v229 llevo los totales al pick (`pick['totales']`), pero solo se pintaban
+    dentro del desplegable «Analisis»: informacion, no apuesta. El usuario los
+    pidio como tarjeta —«asi como muestras los de futbol, asi tiene que
+    mostrarse lo de beisbol»— y para armar parlays, que es donde de verdad los
+    usa.
+
+    LA CUOTA, QUE ES LO QUE FALTA. El modelo da la probabilidad de cada linea;
+    el precio lo tiene la casa. Cuando `implicitas` trae las cuotas de totales
+    se usan, y esa candidata compite por Score como cualquier otra. Cuando NO
+    las hay, la fila sale SIN cuota: se puede ensenar y ordenar por
+    probabilidad, pero no puede fingir un EV que nadie ha pagado. Es la misma
+    regla que ya sigue `_mercados_modelo` con la cuota justa.
+    """
+    tot = pick.get('totales') or {}
+    lineas = tot.get('lineas') or {}
+    if not lineas:
+        return []
+    unidad = str(tot.get('unidad') or 'puntos')
+    etiqueta = unidad.capitalize()
+    cuotas = ((pick.get('implicitas') or {}).get('totales_cuotas') or {})
+    salida = []
+    for clave, p_mas in sorted(lineas.items(), key=lambda kv: float(kv[0])):
+        try:
+            p_mas = float(p_mas)
+        except (TypeError, ValueError):
+            continue
+        if not (0.0 < p_mas < 1.0):
+            continue
+        par = cuotas.get(clave) or {}
+        for lado, p, rotulo in (
+                ('mas', p_mas, '%s: Más de %s' % (etiqueta, clave)),
+                ('menos', 1.0 - p_mas, '%s: Menos de %s' % (etiqueta, clave))):
+            info = _ajusta(pick, rotulo, p, etiqueta, None)
+            if not info.get('fiable'):
+                continue
+            salida.append(_fila(etiqueta, etiqueta, rotulo,
+                                info.get('prob', p), par.get(lado), None,
+                                'totales', linea=clave))
+    return salida
+
+
 def _de_dos_vias(pick: Dict) -> List[Dict]:
     """
     El ganador en los deportes SIN EMPATE: NFL, tenis, MLB, NBA.
@@ -419,9 +465,26 @@ def _de_dos_vias(pick: Dict) -> List[Dict]:
     import modo_modelo as mm
 
     imp = pick.get('implicitas') or {}
-    cu = imp.get('1x2_cuotas') or {}
+    cu = dict(imp.get('1x2_cuotas') or {})
     h, a = mm._equipos(pick)
     board = mm._board(pick) or {}
+    # v237 — Y SI NO HAY `1x2_cuotas`, LA DEL PROPIO PICK.
+    #
+    # La MLB no publicaba NI UNA tarjeta: «Sin apuestas jugables» en los siete
+    # partidos del dia. No era que no llegaran al minimo — es que no habia ni
+    # una candidata que juzgar. Sus picks salen de la comparacion de precios
+    # contra Pinnacle, que deja la cuota en el pick (`apuesta` + `cuota`) y no
+    # rellena `implicitas`, asi que esta funcion se iba en la primera linea.
+    #
+    # El precio existe y se conoce: es el del lado que el barrido eligio. Del
+    # otro no se sabe nada, y no se inventa — sale una sola candidata, que es
+    # honesto y es infinitamente mejor que ninguna.
+    if not cu and pick.get('cuota') and pick.get('apuesta'):
+        _etq = str(pick.get('apuesta') or '')
+        if h and _etq == 'Gana %s' % h:
+            cu = {'home': pick['cuota']}
+        elif a and _etq == 'Gana %s' % a:
+            cu = {'away': pick['cuota']}
     if not (h and a) or not cu:
         return []
     # si hay empate, este no es su camino: lo cubre `_de_resultado`
@@ -581,6 +644,12 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
     except Exception as e:
         logger.debug('[valor] goles: %s', e)
     try:
+        # v237 — carreras, puntos y juegos. En futbol no hace nada: ese deporte
+        # publica `goles_lineas`, no `totales`, y lo cubre `_de_goles`.
+        filas += _de_totales(pick)
+    except Exception as e:
+        logger.debug('[valor] totales: %s', e)
+    try:
         filas += _de_conteo(pick, bloques or {})
     except Exception as e:
         logger.debug('[valor] conteo: %s', e)
@@ -699,8 +768,29 @@ def mejores(pick: Dict, bloques: Optional[Dict] = None,
     baja = not dignas
     if baja:
         dignas = filas
-    orden = sorted(dignas, key=lambda f: (-(f.get('score') or 0.0),
-                                          -round(f['prob'], 4)))
+    # v237 — CUANDO NADA PASA EL LISTON, MANDA LA PROBABILIDAD, NO EL SCORE.
+    #
+    # El score es `cuota x prob`, o sea EV. Ordenar por el esta bien entre
+    # candidatas que YA pasaron el filtro; en el respaldo es una trampa,
+    # porque el EV premia al que paga mucho, y el que paga mucho es el que casi
+    # nunca gana.
+    #
+    # Lo reporto el usuario con un WTA: la tarjeta recomendaba «Gana Lorena
+    # Schaedel - 16 %» a cuota 5,80 (score 0,93) y dejaba fuera a la rival al
+    # 84 % con cuota 1,10 (score 0,92). Un 16 % anunciado como apuesta
+    # recomendada, con la bolita en rojo. Las dos fallaban el filtro —una por
+    # probabilidad, la otra por cuota corta— y el desempate se lo llevo la de
+    # valor, que es justo la que no hay que ensenar cuando no hay nada bueno.
+    #
+    # En el respaldo la pregunta ya no es «cual paga mejor» sino «cual es mas
+    # probable que ocurra», que es lo que el usuario pidio: «deberias mandar
+    # las probables, como lo hemos estado haciendo en el futbol».
+    if baja:
+        orden = sorted(dignas, key=lambda f: (-round(f['prob'], 4),
+                                              -(f.get('score') or 0.0)))
+    else:
+        orden = sorted(dignas, key=lambda f: (-(f.get('score') or 0.0),
+                                              -round(f['prob'], 4)))
     salida, vistos = [], set()
     for f in orden:
         mercado = str(f.get('mercado') or '')

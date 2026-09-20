@@ -1844,6 +1844,56 @@ def indicador_antiguedad(dias: Optional[int]) -> str:
     return f'🔴 sin datos nuevos desde hace {dias} d'
 
 
+def _cuotas_de_totales(picks, deporte: str) -> int:
+    """Cuelga `implicitas.totales_cuotas` de cada pick. Devuelve cuántos.
+
+    v237 — SIN PRECIO, EL TOTAL NO ES UNA APUESTA.
+
+    La v229 llevó los totales al pick, pero `valor_apuesta` descarta toda
+    candidata sin cuota y tiene razón: «una probabilidad sobre algo que la casa
+    no ofrece no es una apuesta». Así que las carreras y los puntos se quedaban
+    como dato dentro del desplegable de análisis en vez de ser una tarjeta con
+    la que armar un parlay, que es como el usuario los usa.
+
+    Esto trae el precio que faltaba, del MISMO endpoint que el barrido ya
+    consulta para el moneyline. No cuesta una petición nueva.
+
+    El emparejamiento va por la clave normalizada de los dos bandos, y se
+    prueban los dos órdenes: la MLB escribe «VISITANTE @ LOCAL» y Pinnacle
+    publica al local primero, así que fiarse de uno solo perdería la mitad.
+    """
+    try:
+        import cuotas_multi as _cm
+        tabla = _cm.totales_del_deporte(deporte)
+    except Exception as e:
+        logger.warning('[alpha/%s] cuotas de total: %s: %s', deporte,
+                       type(e).__name__, e)
+        return 0
+    if not tabla:
+        return 0
+    n = 0
+    for p in (picks or []):
+        partido = str(p.get('partido') or '')
+        sep = ' @ ' if ' @ ' in partido else (' vs ' if ' vs ' in partido else None)
+        if not sep:
+            continue
+        a, b = [x.strip() for x in partido.split(sep, 1)]
+        if sep == ' @ ':
+            visita, local = a, b
+        else:
+            local, visita = a, b
+        na, nb = _cm.normalizar(local), _cm.normalizar(visita)
+        lineas = tabla.get('%s|%s' % (na, nb)) or tabla.get('%s|%s' % (nb, na))
+        if not lineas:
+            continue
+        imp = dict(p.get('implicitas') or {})
+        imp['totales_cuotas'] = lineas
+        p['implicitas'] = imp
+        n += 1
+    logger.info('[alpha/%s] %d picks con cuota de total', deporte, n)
+    return n
+
+
 def _totales_mlb(eng, picks) -> int:
     """Cuelga `totales` de cada pick de MLB. Devuelve cuántos lo consiguieron.
 
@@ -1997,6 +2047,9 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         # quitó.
         _totales_mlb(eng, capa1)
         _totales_mlb(eng, _conf)
+        # v237 — y su PRECIO, que es lo que los convierte en apuesta.
+        _todos_mlb = list(capa1) + list(_conf) + list(r.get('todos') or [])
+        _cuotas_de_totales(_todos_mlb, 'mlb')
 
         # v98: el contador de «partidos evaluados» de la cabecera sumaba
         # SOLO el pase de fútbol; cada deporte informa ahora del suyo.
@@ -3071,6 +3124,42 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
     except Exception as e:
         logger.warning(f'[alpha] NFL omitida: {type(e).__name__}: {e}')
         salida['incidencias'].append(f'NFL omitida: {type(e).__name__}: {e}')
+
+    # v237 — EL MÁS/MENOS PUNTOS, QUE ES LO QUE FALTABA PARA EL PARLAY.
+    #
+    # La NFL ya daba el ganador, y el usuario pidió lo otro: «también quiero
+    # que me des el más menos puntos en las tarjetas, también tienes que darme
+    # eso para armar el parlay».
+    #
+    # El modelo ya lo sabía —`nfl_mercados.plantilla_nfl` calcula el total del
+    # partido desde la v131— pero sólo alimentaba la ficha de detalle. Aquí se
+    # cuelga del pick, y con él su PRECIO: sin cuota `valor_apuesta` lo
+    # descarta, y con razón.
+    try:
+        import totales_deporte as _td
+        _n_tot = 0
+        for _p in (list(salida.get('capa1') or [])
+                   + list(salida.get('capa2') or [])
+                   + list(salida.get('pronosticos') or [])):
+            if _p.get('totales'):
+                continue
+            _pred = _p.get('pred') or _p.get('prediccion') or {}
+            if not isinstance(_pred, dict) or 'total_esperado' not in _pred:
+                continue
+            _partido = str(_p.get('partido') or '')
+            _h, _a = (_partido.split(' vs ', 1) + ['', ''])[:2]
+            _t = _td.de_nfl(_pred, _h.strip(), _a.strip())
+            if _t:
+                _p['totales'] = _t
+                _n_tot += 1
+        if _n_tot:
+            logger.info('[alpha/nfl] %d picks con total del modelo', _n_tot)
+        _cuotas_de_totales(
+            list(salida.get('capa1') or []) + list(salida.get('capa2') or [])
+            + list(salida.get('pronosticos') or []), 'nfl')
+    except Exception as e:
+        logger.warning('[alpha/nfl] totales omitidos: %s: %s',
+                       type(e).__name__, e)
     return salida
 
 

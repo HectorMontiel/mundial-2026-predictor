@@ -141,6 +141,20 @@ VISTAS = {
     },
     '🏴 Premier League': {},      # rama de córners OBSERVADOS
     '🇲🇽 Liga MX': {},            # rama de córners SIN observar
+    # v237 — LAS QUE EL SMOKE SÓLO CARGABA, AHORA AQUÍ.
+    #
+    # En `smoke_botones` estas cuatro no pulsaban ningún botón: se limitaban a
+    # abrir la vista y comprobar que no reventara. Eso es literalmente lo que
+    # hace este fichero, y aquí cuesta ~20 s por vista en vez de arrastrar al
+    # smoke a durar horas.
+    #
+    # La cobertura NO baja: sigue siendo AppTest abriendo la vista entera, que
+    # es lo que caza un `UnboundLocalError` de render. Lo que se queda en el
+    # smoke es lo único que sólo él puede hacer: PULSAR.
+    '🎾 Tenis (ATP/WTA)': {},
+    '🌍 Partidos Internacionales': {},
+    '⚾ KBO (béisbol coreano)': {},
+    '🏆 Leagues Cup': {},
 }
 
 # v177 — LAS OTRAS DOS VISTAS DE LA PANTALLA PRINCIPAL.

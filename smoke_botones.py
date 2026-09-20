@@ -57,29 +57,45 @@ _os.environ['PREFERENCIAS_USUARIO'] = _os.path.join(
 from streamlit.testing.v1 import AppTest
 
 # vista -> subcadenas de los botones a pulsar (los costosos/críticos)
+# v237 — SE RECORTA A LO QUE SOLO ESTE FICHERO PUEDE COMPROBAR.
+#
+# Costaba HORAS: el 2026-08-22 no termino en 55 minutos en dos intentos, y en
+# la tanda del 2026-09-20 llevaba 1 h 43 min sin haber pulsado un solo boton.
+# Eso lo saco de la puerta del push, y una puerta que no se usa no protege
+# nada. El recorte no es por comodidad: es para que vuelva a correrse.
+#
+# QUE SE QUEDA, Y POR QUE CADA UNO
+#
+#   NFL «Cargar»          el UNICO boton que hace `st.rerun()` y reescribe
+#                         `session_state`. Es exactamente el camino del
+#                         `KeyError: parlay_base`, la averia que este fichero
+#                         existe para cazar.
+#   Liga MX «Traer        la unica llamada a RED bajo un boton. Si el
+#   cuotas reales»        `.clear()` de una funcion cacheada definida despues
+#                         del boton se rompe, es un NameError que solo se ve
+#                         pulsando.
+#   MLB «Proponer         el boton que dio origen al fichero (el
+#   parlays»              UnboundLocalError de `sonadora_motor`). Va en UNA
+#                         vista y no en cinco: es el MISMO codigo, asi que
+#                         repetirlo multiplica el coste sin anadir cobertura.
+#
+# QUE SE VA, Y POR QUE NO SE PIERDE NADA
+#
+#   «Enviar estos         sin TELEGRAM_BOT_TOKEN —y no lo hay— `enviar()`
+#   parlays»              devuelve False en su primera linea sin tocar la red:
+#                         probaba un `if` que siempre toma la misma rama. Y si
+#                         algun dia se pone el token en la maquina, mandaria
+#                         mensajes de verdad en cada pasada. Coste sin
+#                         cobertura y con riesgo.
+#   Tenis, Internacio-    solo CARGABAN la vista, sin pulsar nada. Eso es
+#   nales, KBO,           literalmente lo que hace `valida_render` en ~20 s por
+#   Leagues Cup           vista, y ahi es donde estan ahora.
+#   Apuestas del Dia      la cubre `valida_render` con sus textos y sus
+#                         controles por clave, que es MAS de lo que hacia aqui.
 VISTAS = {
-    '⚾ MLB (béisbol)': ['Proponer parlays', 'Enviar estos parlays'],
-    '🇲🇽 Liga MX': ['Proponer parlays', 'Enviar estos parlays', 'Traer cuotas reales ahora'],
-    # v67: el tenis ya tiene combinadas y envío a Telegram, así que sus botones
-    # entran al smoke igual que los del resto de deportes.
-    '🎾 Tenis (ATP/WTA)': ['Proponer parlays', 'Enviar estos parlays'],
-    # v89: «Generar combinadas» dejó de ser botón — las combinadas del día se
-    # calculan solas (el usuario pidió cero pasos manuales). La vista se sigue
-    # cargando entera en el smoke, que es lo que detecta los crashes.
-    '💎 Apuestas del Día': [],
-    '🌍 Partidos Internacionales': ['Proponer parlays'],
-    # v97 — las dos competiciones nuevas. La de KBO tiene motor propio (vista
-    # aparte, como la de MLB) y la Leagues Cup es una liga de fútbol más, pero
-    # con un histórico construido a mano (MLS + Liga MX + ESPN): si ese armado
-    # se rompe, es aquí donde tiene que verse y no en producción.
-    '⚾ KBO (béisbol coreano)': [],
-    '🏆 Leagues Cup': ['Proponer parlays'],
-    # v131 — la NFL. Entra en el smoke desde el primer día y no «cuando se
-    # estabilice»: su vista pulsa «Cargar» (que reescribe `session_state` y
-    # hace `st.rerun()`) y su pestaña de EV+ lanza el barrido del deporte.
-    # Los dos son exactamente el tipo de camino que sólo se recorre pulsando,
-    # que es la razón por la que este fichero existe.
     '🏈 NFL (fútbol americano)': ['Cargar'],
+    '🇲🇽 Liga MX': ['Traer cuotas reales ahora'],
+    '⚾ MLB (béisbol)': ['Proponer parlays'],
 }
 
 def botones(at):

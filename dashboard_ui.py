@@ -5056,13 +5056,24 @@ def render_alpha_finder():
                        " · ".join(salud['detalles']))
     except Exception:
         pass
-    if r.get('actualizado'):
-        cob = r.get('cobertura_ligas', {})
-        st.caption(f"Cuotas actualizadas: {r['actualizado']} · "
-                   f"partidos evaluados: {r.get('partidos_evaluados', 0)} · "
-                   f"ligas: {', '.join(f'{k}:{v}' for k, v in cob.items()) or '—'}"
-                   + (f" · {r.get('partidos_sin_liga', 0)} sin mapear"
-                      if r.get('partidos_sin_liga') else ''))
+    # v237 — LA HORA DEL ÚLTIMO REFRESCO, Y NADA MÁS.
+    #
+    # Aquí salía la lista ENTERA de las cuarenta ligas con su conteo
+    # —«liga_mx:5, mls:10, brasil:6, argentina:9…»— ocupando media pantalla.
+    # Es diagnóstico del barrido, no información para apostar: el usuario no
+    # decide nada con saber que la Primera de Paraguay trae dos partidos.
+    #
+    # Lo que sí pidió, con estas palabras: «quiero que me digas la última hora
+    # en la que se hizo el refresh, pero no en un mensaje grande, simplemente
+    # en letras pequeñas». Eso es exactamente esto.
+    _ts_ref = ((r.get('_frescura') or {}).get('calculado_ts'))
+    if _ts_ref:
+        try:
+            _hh = _horario.hora(pd.Timestamp(_ts_ref, unit='s', tz='UTC'))
+        except Exception:
+            _hh = None
+        if _hh:
+            st.caption('Último refresco: %s CDMX' % _hh)
     if r.get('aviso'):
         st.info(r['aviso'])
     # v30 (§1): exportar las apuestas del día — BLINDADO (pre-genera el
@@ -5252,10 +5263,15 @@ def render_alpha_finder():
                    f"{pdd.get('fiabilidad','')}")
         if pdd.get('nota_calibracion'):
             st.caption(f"ℹ️ {pdd['nota_calibracion']}")
-    else:
-        st.info("🥇 Hoy **no hay Pick del Día**: ninguno reúne confianza >80 %, "
-                "EV entre +2 % y +15 % y fiabilidad histórica suficiente. "
-                "Forzarlo sería el error clásico.")
+    # v237 — SI NO HAY PICK DEL DÍA, NO SE DICE NADA.
+    #
+    # Había un bloque azul de tres renglones explicando los tres umbrales que
+    # no se cumplieron. Es la explicación correcta y no la lee nadie: un aviso
+    # que sale casi todos los días deja de informar y pasa a ser decorado.
+    # El usuario lo pidió así: «no lo mandes a menos que sí haya un pick del
+    # día; si lo hay, sí debe aparecer el texto en azul como lo tienes».
+    #
+    # Cuando SÍ lo hay, el bloque verde de arriba sigue igual.
 
     # v91 — LAS COMBINADAS SE MUEVEN AL FINAL DE LA PÁGINA.
     #

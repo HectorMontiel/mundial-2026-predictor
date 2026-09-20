@@ -1644,6 +1644,89 @@ def _selecciones_altenar(m: dict, precios: Dict[int, dict]) -> List[dict]:
     return out
 
 
+
+# ---------------------------------------------------------------------------
+# v237 — LAS CUOTAS DE TOTAL DE LOS DEPORTES QUE NO SON FUTBOL
+# ---------------------------------------------------------------------------
+def totales_del_deporte(deporte: str) -> Dict[str, Dict]:
+    """`{clave_partido: {linea: {'mas': cuota, 'menos': cuota}}}` de Pinnacle.
+
+    POR QUE HACIA FALTA. El modelo ya sabia cuantas carreras, puntos o juegos
+    espera —la v229 llevo esos totales al pick— pero `valor_apuesta` descarta
+    toda candidata sin precio, y con razon: «sin cuota no hay apuesta, es una
+    probabilidad sobre algo que la casa no ofrece». Asi que los totales se
+    quedaban como dato dentro del desplegable de analisis en vez de ser una
+    tarjeta jugable. Esto trae el precio que faltaba.
+
+    NO CUESTA UNA PETICION NUEVA. Sale de los dos mismos endpoints que el
+    proyecto ya consulta para el moneyline (`/matchups` y `/markets/straight`),
+    exactamente como hace `beisbol_pitchers.props_ponches` con los ponches.
+
+    SE INCLUYEN LAS ALTERNATIVAS. Pinnacle publica una linea principal y varias
+    alternativas por partido; el modelo tiene probabilidad para todas, asi que
+    quedarse solo con la principal seria tirar la mitad del mercado. Lo que NO
+    entra son los periodos: `period != 0` es la primera mitad o las primeras
+    cinco entradas, que son otra apuesta con otra probabilidad.
+    """
+    sid = DEPORTES.get(deporte)
+    if not sid:
+        return {}
+    try:
+        partidos = _get(f'{PIN_BASE}/sports/{sid}/matchups', {'brandId': 0})
+        mercados = _get(f'{PIN_BASE}/sports/{sid}/markets/straight',
+                        {'primaryOnly': 'false'})
+    except Exception as e:
+        logger.warning('[totales/%s] %s: %s', deporte, type(e).__name__, e)
+        return {}
+    if not partidos or not mercados:
+        return {}
+
+    por_matchup: Dict = {}
+    for mk in mercados:
+        if mk.get('type') != 'total' or mk.get('period') != 0:
+            continue
+        por_matchup.setdefault(mk.get('matchupId'), []).append(mk)
+
+    fuera: Dict[str, Dict] = {}
+    for m in partidos:
+        # los «special» son props de jugador, no el total del partido
+        if m.get('special'):
+            continue
+        mks = por_matchup.get(m.get('id'))
+        if not mks:
+            continue
+        eq = {p.get('alignment'): p.get('name')
+              for p in (m.get('participants') or [])}
+        home, away = eq.get('home'), eq.get('away')
+        if not (home and away):
+            continue
+        lineas: Dict[str, Dict] = {}
+        for mk in mks:
+            for p in (mk.get('prices') or []):
+                pts = p.get('points')
+                if pts is None:
+                    continue
+                # `designation` dice «over»/«under» explicitamente, y es lo que
+                # se usa. El ORDEN de `prices` no se mira: fiarse de la
+                # posicion es la leccion del « @ » de la v77, que etiquetaba al
+                # visitante como local y habria publicado el lado contrario con
+                # un EV inventado. Sin designacion, la linea se descarta.
+                lado = str(p.get('designation') or '').strip().lower()
+                if lado not in ('over', 'under'):
+                    continue
+                cuota = american_a_decimal(p.get('price'))
+                if not cuota:
+                    continue
+                dest = lineas.setdefault('%.1f' % float(pts), {})
+                dest['mas' if lado == 'over' else 'menos'] = round(cuota, 3)
+        lineas = {k: v for k, v in lineas.items() if v.get('mas') or v.get('menos')}
+        if lineas:
+            fuera[f'{normalizar(home)}|{normalizar(away)}'] = lineas
+    logger.info('[totales/%s] %d partidos con cuota de total', deporte,
+                len(fuera))
+    return fuera
+
+
 def mercados_playdoit(deporte: str, home: str, away: str, fecha=None,
                       liga: Optional[str] = None) -> Optional[Dict]:
     """

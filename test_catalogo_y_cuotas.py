@@ -4319,10 +4319,29 @@ def test_los_deportes_sin_empate_si_proponen_apuestas():
     check(va._de_dos_vias(con_empate) == [],
           "y un partido con empate no pasa por aqui: lo cubre `_de_resultado`")
 
-    # Sin cuotas no se inventa nada.
-    sin_cuotas = {k: v for k, v in pick.items() if k != 'implicitas'}
-    check(va._de_dos_vias(sin_cuotas) == [],
-          "sin las cuotas de la casa no se propone nada")
+    # v237 — SIN `implicitas`, LA CUOTA DEL PROPIO PICK.
+    #
+    # La MLB no publicaba NI UNA tarjeta —«Sin apuestas jugables» en los siete
+    # partidos del dia— porque sus picks salen de comparar precios contra
+    # Pinnacle: la cuota queda en el pick y `implicitas` se queda vacia, asi que
+    # esta funcion se iba en la primera linea.
+    #
+    # Ese precio es REAL y se conoce: es el del lado que el barrido eligio. Del
+    # otro no se sabe nada y no se inventa, asi que sale UNA sola candidata.
+    solo_pick = {k: v for k, v in pick.items() if k != 'implicitas'}
+    filas_pick = va._de_dos_vias(solo_pick)
+    check(len(filas_pick) == 1,
+          "sin `implicitas` se usa la cuota del propio pick, y sale UNA sola "
+          "candidata: la del lado cuyo precio se conoce (%d)" % len(filas_pick))
+    check(filas_pick and filas_pick[0]['apuesta'] == 'Gana Equipo Local',
+          "y es el lado que el barrido eligio, no el contrario")
+
+    # PERO SIN NINGUN PRECIO, NADA. Esta es la mitad que no se relaja: una
+    # probabilidad sobre algo que la casa no ofrece no es una apuesta.
+    sin_nada = {k: v for k, v in pick.items()
+                if k not in ('implicitas', 'cuota')}
+    check(va._de_dos_vias(sin_nada) == [],
+          "sin cuota de ninguna de las dos fuentes no se propone nada")
 
     # Y la cadena entera: `candidatos` tiene que verlas.
     cand = va.candidatos(pick, {})
@@ -4692,6 +4711,45 @@ def test_ningun_git_add_de_los_workflows_puede_fallar_callado():
     check(not literales,
           f"ninguna orden lleva un salto de linea escrito como dos "
           f"caracteres ({literales[:3]})")
+
+    # ---- 4. NI UN PATH QUE PUEDE NO EXISTIR ESE DIA -----------------------
+    #
+    # v237 — LA CUARTA PATA, Y LA QUE TUVO LA APP CONGELADA SEIS HORAS.
+    #
+    # Las tres de arriba miran paths ignorados, `|| true` y saltos literales.
+    # Ninguna mira el caso mas simple: un fichero que sencillamente NO ESTA ese
+    # dia. `git add a.json b.csv` falla ENTERO con «pathspec did not match» y
+    # no anade ninguno de los demas.
+    #
+    # `ponches_snapshots.csv` solo se crea los dias que Pinnacle tiene props de
+    # ponches abiertos. El dia que no los hay, el `add` fallaba, el warning se
+    # lo tragaba y el PRECALCULO ENTERO se quedaba sin publicar. El cron corrio,
+    # calculo 164 pronosticos, escribio el fichero — y la aplicacion siguio
+    # sirviendo el de seis horas antes.
+    #
+    # La regla: si un `git add` lista VARIOS paths, todos tienen que estar
+    # versionados (o sea, garantizados). Los que pueden faltar se anaden de uno
+    # en uno, dentro de un `if [ -e ]`, que es lo que hace el bucle del
+    # workflow de precalculo.
+    frag = []
+    for wf, ln, orden in ordenes:
+        trozo = orden.split('||')[0].split('&&')[0]
+        paths = [p for p in trozo.split()[2:]
+                 if not p.startswith('-') and p not in ('git', 'add')]
+        if len(paths) < 2:
+            continue          # uno solo: si falla, falla solo el suyo
+        for p in paths:
+            if any(c in p for c in ('$', '*', '?', chr(34), chr(39), chr(92))):
+                continue
+            r = subprocess.run(['git', 'ls-files', '--error-unmatch', p],
+                               capture_output=True)
+            if r.returncode != 0:
+                frag.append('%s:%d -> %s' % (os.path.basename(wf), ln, p))
+    check(not frag,
+          'ningun `git add` de varios paths incluye uno que puede no existir '
+          'ese dia: si falta, se lleva por delante a todos los demas (%s)'
+          % frag[:3])
+
 
 
 def test_la_cadena_rehace_el_ledger():
@@ -19396,6 +19454,164 @@ def test_el_cron_descubre_los_alias_antes_de_cocinar_el_dia():
           'v236: y el workflow lo commitea (si no, se va con el runner y cada '
           'pasada vuelve a empezar de cero)')
 
+
+# ---------------------------------------------------------------------------
+# v237 — LAS TARJETAS QUE FALTABAN Y LA QUE SOBRABA
+# ---------------------------------------------------------------------------
+def test_cuando_nada_pasa_el_liston_manda_la_probabilidad():
+    """
+    El usuario mando la captura: «GANA LORENA SCHAEDEL — 16 %» como APUESTA
+    RECOMENDADA, con la bolita en rojo, mientras la rival iba al 84 %.
+
+    Las dos fallaban el filtro —una por probabilidad, la otra por cuota corta—
+    asi que el respaldo ordenaba por SCORE, o sea por EV. Y el EV premia al que
+    paga mucho, que es justamente el que casi nunca gana. En el respaldo la
+    pregunta ya no es «cual paga mejor» sino «cual es mas probable».
+    """
+    import valor_apuesta as va
+    pick = {'deporte': 'Tenis', 'partido': 'Gaia Maduzzi vs Lorena Schaedel',
+            'clave_liga': 'wta',
+            'mercados': [{'apuesta': 'Gana Gaia Maduzzi', 'prob': 0.84,
+                          'mercado': 'Ganador'},
+                         {'apuesta': 'Gana Lorena Schaedel', 'prob': 0.16,
+                          'mercado': 'Ganador'}],
+            'implicitas': {'1x2_cuotas': {'home': 1.10, 'away': 5.80}}}
+    m = va.mejores(pick, {}, n=2)
+    check(m and m[0]['apuesta'] == 'Gana Gaia Maduzzi',
+          'v237: en el respaldo se recomienda la MAS PROBABLE (%s)'
+          % (m[0]['apuesta'] if m else 'ninguna'))
+    check(m and m[0].get('baja_probabilidad'),
+          'v237: y se marca como respaldo, para que la tarjeta lo diga')
+    # el score de la perdedora era MAYOR: 5.80 x 0.16 = 0.928 contra
+    # 1.10 x 0.84 = 0.924. Si el orden fuera por score, ganaria el 16 %.
+    check(m and m[0]['prob'] > 0.5,
+          'v237: y no es la del 16 % aunque su score fuera mayor')
+
+
+def test_los_totales_son_apuesta_cuando_tienen_precio():
+    """
+    La v229 llevo los totales al pick pero `valor_apuesta` descarta toda
+    candidata sin cuota —con razon: «una probabilidad sobre algo que la casa no
+    ofrece no es una apuesta»—. Asi que carreras y puntos se quedaban como dato
+    dentro del desplegable en vez de ser tarjeta.
+
+    Con el precio delante, compiten como cualquier otra.
+    """
+    import valor_apuesta as va
+    base = {'deporte': 'MLB', 'partido': 'A @ B', 'clave_liga': 'mlb',
+            'totales': {'lineas': {'7.5': 0.65, '8.5': 0.515},
+                        'unidad': 'carreras', 'centro': 8.5}}
+    check(va.candidatos(dict(base), {}) == [],
+          'v237: sin precio no hay candidata, y esa regla NO se relaja')
+
+    con_precio = dict(base, implicitas={'totales_cuotas': {
+        '7.5': {'mas': 1.787, 'menos': 2.08},
+        '8.5': {'mas': 2.10, 'menos': 1.781}}})
+    cand = va.candidatos(con_precio, {})
+    check(len(cand) >= 2,
+          'v237: con precio si las hay (%d)' % len(cand))
+    etqs = {c['apuesta'] for c in cand}
+    check(any('Carreras' in e for e in etqs),
+          'v237: y se llaman por su unidad, no «goles» (%s)' % sorted(etqs)[:2])
+    check(all(c.get('cuota') for c in cand),
+          'v237: todas con su cuota')
+
+
+def test_la_mlb_produce_tarjeta_con_la_cuota_de_su_propio_pick():
+    """
+    «Sin apuestas jugables» en los siete partidos del dia. No era que no
+    llegaran al minimo: es que no habia NI UNA candidata que juzgar.
+    """
+    import valor_apuesta as va
+    pick = {'deporte': 'MLB', 'clave_liga': 'mlb',
+            'partido': 'Miami Marlins @ San Diego Padres',
+            'mercado': 'Moneyline', 'apuesta': 'Gana San Diego Padres',
+            'prob': 0.569, 'cuota': 1.7246,
+            'board': {'Gana San Diego Padres': 0.569,
+                      'Gana Miami Marlins': 0.431}}
+    m = va.mejores(pick, {}, n=3)
+    check(len(m) >= 1,
+          'v237: la MLB ya produce tarjeta (%d)' % len(m))
+    check(m and m[0]['apuesta'] == 'Gana San Diego Padres',
+          'v237: y es el lado cuyo precio se conoce')
+
+
+def test_las_cuotas_de_total_no_se_fian_del_orden():
+    """
+    Pinnacle marca cada lado con `designation`. Fiarse de la POSICION en
+    `prices` es la leccion del « @ » de la v77, que etiquetaba al visitante
+    como local: habria publicado el lado contrario con un EV inventado.
+    """
+    import io as _io
+    s = _io.open('cuotas_multi.py', encoding='utf-8').read()
+    i = s.find('def totales_del_deporte')
+    check(i > 0, 'v237: existe el extractor de cuotas de total')
+    cuerpo = s[i:i + 4000]
+    check("designation" in cuerpo,
+          'v237: usa `designation` para saber cual es el over')
+    check("period') != 0" in cuerpo or "period') == 0" in cuerpo,
+          'v237: y descarta los periodos (primera mitad, F5), que son otra '
+          'apuesta con otra probabilidad')
+
+
+def test_el_reparto_de_validadores_no_pierde_cobertura():
+    """
+    El smoke costaba horas y dejo de usarse; una puerta que no se usa no
+    protege nada. Se recorta a lo que SOLO el puede hacer —pulsar— y lo que
+    solo cargaba se mueve a `valida_render`.
+
+    Lo que no puede pasar es que una vista desaparezca de los DOS.
+    """
+    import io as _io
+    import re
+
+    def _vistas(f):
+        s = _io.open(f, encoding='utf-8').read()
+        i = s.index('VISTAS = {')
+        j = s.index(chr(10) + '}', i)
+        return set(re.findall(r"^    '([^']+)':", s[i:j], re.M))
+
+    sm = _vistas('smoke_botones.py')
+    vr = _vistas('valida_render.py')
+    check(len(sm) <= 3,
+          'v237: el smoke se queda en las que PULSAN (%d)' % len(sm))
+    faltan = {v for v in ('🎾 Tenis (ATP/WTA)', '🌍 Partidos Internacionales',
+                          '⚾ KBO (béisbol coreano)', '🏆 Leagues Cup')
+              if v not in vr}
+    check(not faltan,
+          'v237: y las que solo cargaban estan en valida_render (%s)' % faltan)
+    # ninguna vista puede haberse caido de los dos
+    todas = sm | vr
+    for v in ('💎 Apuestas del Día', '🇲🇽 Liga MX', '🏈 NFL (fútbol americano)',
+              '⚾ MLB (béisbol)', '🎾 Tenis (ATP/WTA)'):
+        check(v in todas, 'v237: «%s» sigue cubierta por alguno' % v)
+    # y el envio a Telegram ya no se pulsa: sin token prueba un `if` que
+    # siempre toma la misma rama, y con token mandaria mensajes de verdad
+    s = _io.open('smoke_botones.py', encoding='utf-8').read()
+    i = s.index('VISTAS = {')
+    j = s.index(chr(10) + '}', i)
+    check('Enviar estos parlays' not in s[i:j],
+          'v237: el smoke ya no pulsa el envio a Telegram')
+
+
+def test_los_textos_que_solo_ocupaban_sitio_se_fueron():
+    """
+    La lista entera de las cuarenta ligas con su conteo ocupaba media pantalla
+    y no decidia nada. En su lugar, lo unico que el usuario pidio: la hora del
+    ultimo refresco, en letra pequena.
+    """
+    import io as _io
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check('Cuotas actualizadas:' not in d,
+          'v237: se fue el listado de ligas con su conteo')
+    check('Último refresco:' in d,
+          'v237: y queda la hora del ultimo refresco')
+    check('no hay Pick del Día' not in d,
+          'v237: y el aviso de que hoy no hay pick del dia, que salia casi '
+          'todos los dias y dejaba de informar')
+    check('Pick del Día' in d,
+          'v237: pero cuando SI lo hay, se sigue anunciando')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -19920,6 +20136,14 @@ if __name__ == '__main__':
     test_los_alias_se_descubren_sin_inventar()
     test_la_tabla_escrita_a_mano_manda_sobre_la_automatica()
     test_el_cron_descubre_los_alias_antes_de_cocinar_el_dia()
+
+    print(chr(10) + '=== v237: tarjetas de MLB/NFL/tenis y validadores ===')
+    test_cuando_nada_pasa_el_liston_manda_la_probabilidad()
+    test_los_totales_son_apuesta_cuando_tienen_precio()
+    test_la_mlb_produce_tarjeta_con_la_cuota_de_su_propio_pick()
+    test_las_cuotas_de_total_no_se_fian_del_orden()
+    test_el_reparto_de_validadores_no_pierde_cobertura()
+    test_los_textos_que_solo_ocupaban_sitio_se_fueron()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
