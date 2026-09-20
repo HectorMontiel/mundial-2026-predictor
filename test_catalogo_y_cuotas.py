@@ -20686,6 +20686,84 @@ def test_el_ancla_es_la_misma_que_usa_el_resto_del_proyecto():
     check('media_goles_liga' in c,
           'v251: que es la misma que consulta el techo por liga')
 
+
+# ---------------------------------------------------------------------------
+# v252 — EL RANGO CON GUION DE ESPN, EN EL MODULO QUE NO SE MIRO
+# ---------------------------------------------------------------------------
+def test_stats_espn_no_pide_rangos_con_guion():
+    """
+    La v228 arreglo esto en `fixtures_espn` y `stats_espn` se quedo con el
+    formato viejo. La consulta era:
+
+        /scoreboard?dates=20260901-20260930
+
+    ESPN RECHAZA ese formato: acepta `YYYYMMDD`, `YYYYMM` y `YYYY`, y ante el
+    rango con guion devuelve una respuesta sin eventos — sin error, sin codigo
+    HTTP distinto, sin nada.
+
+    Medido antes del arreglo: `_eventos('eng.1', '2026-09-01', '2026-09-30')`
+    devolvia CERO, y con el TODAS las ligas. La cache de estadisticas tenia 11
+    de 54 competiciones con datos de septiembre y alguna un ano entero atras.
+
+    Consecuencia en cadena: `pronosticos_guardados._stats_del_partido` lee esa
+    cache, asi que los 498 picks de corners guardados no se podian resolver
+    NUNCA. Despues del arreglo: 1.610 filas nuevas, 47 de 55 ligas al dia, y
+    41 picks de corners liquidados.
+    """
+    import io as _io
+    s = _io.open('stats_espn.py', encoding='utf-8').read()
+    cuerpo = s.split('def _eventos(')[1].split('\ndef ')[0]
+    check('dates=%s-%s' not in cuerpo,
+          'v252: ya no se pide el rango con guion, que ESPN no entiende')
+    check("strftime('%Y%m')" in cuerpo,
+          'v252: se pide por MES, que es el formato que ESPN si acepta y el '
+          'que `backfill` necesita (llama con rangos de un mes natural)')
+    # y no puede volver a colarse por otro sitio del modulo
+    check('dates=%s-%s' not in s,
+          'v252: ni en ningun otro sitio del modulo')
+
+
+def test_la_ventana_del_tablero_es_la_de_la_pantalla():
+    """
+    La v250 anadio la pestana de pasado manana, pero el tablero seguia
+    pidiendo DOS dias: los partidos del tercer dia se pintaban sin precio de
+    la casa. Una de las dos ventanas mentia.
+    """
+    import io as _io
+    p = _io.open('precalculo_dia.py', encoding='utf-8').read()
+    check('precalcular(dias=3)' in p,
+          'v252: el tablero cubre tres dias, los mismos que las tres pestanas')
+
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check("'pasado'" in d and 'VISTAS_PRINCIPALES' in d,
+          'v252: y la pantalla sigue teniendo esas tres')
+
+
+def test_las_selecciones_entran_en_el_tablero():
+    """
+    Un amistoso internacional no esta en `LEAGUES` —no tiene clave de
+    competicion— asi que el bucle del tablero no lo veia. Mexico-Colombia del
+    26-sep se quedaba sin precio aunque Playdoit SI lo cotiza («Partidos
+    Amistosos Internacionales», comprobado en el tablon real).
+
+    Se filtran los juveniles y femeninos y se cine a la ventana del tablero:
+    `fixtures_selecciones` barre 200 partidos en tres semanas y preguntar por
+    todos costaria ~128 s sobre los 67 que tarda el tablero entero.
+    """
+    import io as _io
+    s = _io.open('mercado_implicito.py', encoding='utf-8').read()
+    cuerpo = s.split('def precalcular(')[1].split('\ndef ')[0]
+    check('fixtures_selecciones' in cuerpo,
+          'v252: el tablero pregunta tambien por las selecciones')
+    check('juvenil' in cuerpo or 'u-?' in cuerpo,
+          'v252: y descarta juveniles y femeninos, que no tienen mercado')
+    check('_tope' in cuerpo,
+          'v252: cenidas a la ventana del tablero, no a las tres semanas que '
+          'devuelve el barrido de selecciones')
+    check("pendientes.append(('', h, a" in cuerpo,
+          'v252: con `clave_liga` vacia a proposito — no tienen liga, y '
+          'fingir una les aplicaria la calibracion de otra')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -21271,6 +21349,11 @@ if __name__ == '__main__':
     test_la_lambda_se_encoge_hacia_la_media_de_su_liga()
     test_el_encogimiento_va_antes_de_la_escalera()
     test_el_ancla_es_la_misma_que_usa_el_resto_del_proyecto()
+
+    print(chr(10) + '=== v252: ESPN por mes, y la ventana del tablero ===')
+    test_stats_espn_no_pide_rangos_con_guion()
+    test_la_ventana_del_tablero_es_la_de_la_pantalla()
+    test_las_selecciones_entran_en_el_tablero()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

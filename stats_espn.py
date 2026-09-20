@@ -143,13 +143,43 @@ def _get(url: str, intentos: int = 2) -> Optional[Dict]:
 
 
 def _eventos(code: str, desde: str, hasta: str) -> List[Dict]:
-    """Los partidos JUGADOS de un rango. Una petición por rango."""
-    d = _get(BASE.format(code=code) + '/scoreboard?dates=%s-%s&limit=500'
-             % (str(desde).replace('-', ''), str(hasta).replace('-', '')))
-    if not d:
+    """Los partidos JUGADOS de un rango.
+
+    v252 — EL RANGO CON GUION NO EXISTE PARA ESPN, Y ESTO LLEVABA MESES MUDO.
+
+    La consulta era `dates=20260901-20260930`. ESPN **rechaza** ese formato:
+    acepta `YYYYMMDD`, `YYYYMM` y `YYYY`, y ante el rango con guion devuelve
+    una respuesta sin eventos — sin error, sin código HTTP distinto, sin nada.
+
+    Medido: `_eventos('eng.1', '2026-09-01', '2026-09-30')` devolvía **0**, y
+    con él TODAS las ligas. De ahí que la caché de estadísticas tuviera 11 de
+    54 competiciones con datos de septiembre y algunas un año entero atrás, y
+    de ahí que los 498 picks de córners guardados no se pudieran resolver
+    nunca: `pronosticos_guardados._stats_del_partido` lee justo esta caché.
+
+    Es el mismo fallo que la v228 arregló en `fixtures_espn`, en el módulo que
+    entonces no se miró. `backfill` llama aquí con rangos de un mes natural,
+    así que `dates=YYYYMM` es exactamente la consulta que corresponde; cuando
+    el rango cruza meses se piden uno a uno y se juntan.
+    """
+    ini, fin = pd.Timestamp(desde), pd.Timestamp(hasta)
+    meses = pd.date_range(ini.replace(day=1), fin, freq='MS')
+    if len(meses) == 0:
+        meses = pd.DatetimeIndex([ini.replace(day=1)])
+    brutos, vistos = [], set()
+    for m in meses:
+        d = _get(BASE.format(code=code)
+                 + '/scoreboard?dates=%s&limit=500' % m.strftime('%Y%m'))
+        for ev in ((d or {}).get('events') or []):
+            eid = str(ev.get('id') or '')
+            if eid and eid in vistos:
+                continue
+            vistos.add(eid)
+            brutos.append(ev)
+    if not brutos:
         return []
     salida = []
-    for ev in (d.get('events') or []):
+    for ev in brutos:
         st = ((ev.get('status') or {}).get('type') or {})
         if not st.get('completed'):
             continue

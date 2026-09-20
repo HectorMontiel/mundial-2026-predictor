@@ -598,6 +598,53 @@ def precalcular(dias: int = 2, max_hilos: int = 4) -> Dict:
             if h and a:
                 pendientes.append((clave, h, a, f.get('fecha'), nombre))
 
+    # v252 — LAS SELECCIONES TAMBIÉN, QUE NO SON UNA LIGA.
+    #
+    # El bucle de arriba recorre `LEAGUES`, y un amistoso internacional no
+    # está ahí: no tiene clave de competición. Así que México-Colombia del
+    # 26-sep se quedaba sin precio de la casa aunque Playdoit SÍ lo cotiza
+    # («Partidos Amistosos Internacionales», comprobado en el tablón real).
+    #
+    # El usuario lo pidió por su nombre: «las siguientes semanas se van a
+    # jugar partidos internacionales, quiero que esté todo súper bien medido».
+    # El modelo de selecciones existe y está `deploy_ready` (60,1 % de acierto
+    # sobre un techo teórico del 60-65 %); lo que le faltaba era con qué
+    # contrastarse.
+    #
+    # Se les pone `clave_liga` vacía a propósito: no tienen liga, y fingir una
+    # haría que la calibración por competición les aplicara la de otra.
+    try:
+        import fixtures_espn as _fx
+        import datetime as _dt
+        import re as _re
+        _hoy = _dt.date.today()
+        _tope = (_hoy + _dt.timedelta(days=int(dias))).isoformat()
+        # `fixtures_selecciones` barre 200 partidos en tres semanas, casi
+        # todos juveniles y femeninos sin mercado. Preguntar por todos
+        # costaria ~128 s sobre los 73 que tarda el tablero entero, y para
+        # nada: la pantalla solo enseña la misma ventana que este tablero.
+        _RUIDO = _re.compile(
+            r'\b(u-?\d{2}|sub-?\d{2}|women|femenin|fem\b|youth|juvenil)',
+            _re.I)
+        _n_sel = 0
+        for f in _fx.fixtures_selecciones(dias=max(int(dias), 3)) or []:
+            h, a = f.get('home'), f.get('away')
+            if not (h and a):
+                continue
+            _f = str(f.get('fecha') or '')[:10]
+            if not _f or _f < _hoy.isoformat() or _f > _tope:
+                continue
+            if _RUIDO.search('%s %s %s' % (f.get('torneo') or '', h, a)):
+                continue
+            pendientes.append(('', h, a, f.get('fecha'),
+                               f.get('torneo') or 'Selecciones'))
+            _n_sel += 1
+        if _n_sel:
+            logger.info('[mercado] %d partidos de selecciones añadidos',
+                        _n_sel)
+    except Exception as e:
+        logger.warning('[mercado] selecciones no disponibles: %s', e)
+
     def _uno(par):
         # LA FECHA Y LA LIGA VAN SIEMPRE, Y NO ES OPCIONAL AQUI.
         #

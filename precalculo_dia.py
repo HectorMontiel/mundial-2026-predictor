@@ -376,7 +376,17 @@ def main() -> int:
     # ANTES del barrido: `construir()` lee este fichero.
     try:
         import mercado_implicito as _mi
-        _doc = _mi.precalcular(dias=2)
+        # v252 — TRES DIAS, LOS MISMOS QUE ENSENA LA PANTALLA.
+        #
+        # La v250 anadio la pestana de pasado manana, pero el tablero seguia
+        # pidiendo dos dias: los partidos del tercer dia se pintaban sin
+        # precio de la casa. La ventana del tablero y la de la pantalla tienen
+        # que ser la misma o una de las dos miente.
+        #
+        # Y con tres dias entran tambien las selecciones que juegan en esa
+        # ventana, que es como Mexico-Colombia del 26-sep tendra su precio
+        # cuando llegue el dia 23 — antes no, porque antes tampoco se ve.
+        _doc = _mi.precalcular(dias=3)
         if (_doc.get('partidos') or {}):
             # v242 — regenerar no puede EMPOBRECER. La casa retira los
             # mercados pre-partido en cuanto arranca el juego, y el tablero
