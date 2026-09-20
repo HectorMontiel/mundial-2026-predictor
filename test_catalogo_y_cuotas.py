@@ -19293,6 +19293,94 @@ def test_el_boton_dice_si_habia_algo_nuevo_o_no():
     check(i_set > 0 and i_pop > i_set,
           'v233: se apunta al pulsar y se consume DESPUES del barrido')
 
+
+# ---------------------------------------------------------------------------
+# v235 — LOS NOMBRES QUE DEJABAN PARTIDOS SIN TABLERO
+# ---------------------------------------------------------------------------
+def test_las_letras_que_nfkd_no_deshace_se_pliegan():
+    """
+    NFKD separa la letra de su TILDE y aqui se tira la tilde — por eso
+    «Atletico» casa con «Atlético». Pero hay letras cuyo trazo NO es una marca
+    combinante: la barra de la «o» nordica, la ligadura «ae», la «ss» alemana.
+    NFKD las deja intactas y sobrevivian al filtro.
+
+    Medido el 2026-09-19: ESPN publica «Sonderjyske Fodbold» con la o barrada y
+    Playdoit «Sonderjyske» sin ella. Normalizados no compartian ni un token, asi
+    que el partido salia SIN TABLERO —sin escalera de goles, sin doble
+    oportunidad y sin BTTS— y su tarjeta se quedaba con una sola apuesta. Le
+    pasaba a las ligas nordicas enteras.
+    """
+    import cuotas_multi as cm
+    esperado = {
+        'S\u00f8nderjyske Fodbold': 'sonderjyske fodbold',
+        'Br\u00f8ndby IF': 'brondby if',
+        'FC Nordsj\u00e6lland': 'fc nordsjaelland',
+        'Malm\u00f6 FF': 'malmo ff',
+        'Be\u015fikta\u015f': 'besiktas',
+    }
+    for crudo, limpio in esperado.items():
+        check(cm.normalizar(crudo) == limpio,
+              'v235: «%s» -> «%s» (sale «%s»)'
+              % (crudo, limpio, cm.normalizar(crudo)))
+    # y lo que YA funcionaba sigue igual: la tilde se sigue quitando
+    check(cm.normalizar('Atl\u00e9tico Madrid').startswith('atl'),
+          'v235: los acentos de toda la vida se siguen quitando')
+
+
+def test_los_exonimos_unen_el_nombre_local_con_el_de_la_casa():
+    """
+    ESPN publica el nombre local y una casa en espanol usa el exonimo: «Napoli»
+    contra «Napoles», «Genoa» contra «Genova». Normalizados no comparten token.
+
+    La lista esta MEDIDA: sale de recorrer los fixtures del dia, quedarse con
+    los que no casan y buscarles candidato parecido en el catalogo de la casa.
+    No se inventa ninguno, porque un alias supuesto es la forma de servir las
+    cuotas de OTRO partido.
+    """
+    import cuotas_multi as cm
+    pares = (('N\u00e1poles', 'Napoli'), ('G\u00e9nova', 'Genoa'),
+             ('PSG', 'Paris Saint-Germain'))
+    for casa, fuente in pares:
+        check(cm.normalizar(casa) == cm.normalizar(fuente),
+              'v235: «%s» y «%s» acaban en la misma clave (%s / %s)'
+              % (casa, fuente, cm.normalizar(casa), cm.normalizar(fuente)))
+
+
+def test_el_alias_solo_se_aplica_al_nombre_entero():
+    """
+    Un `replace` dentro de la cadena convertiria «Genoa» en «Genova» en
+    cualquier palabra que lo contuviera, y ahi empiezan los emparejamientos
+    inventados. Se compara el nombre COMPLETO ya limpio.
+    """
+    import cuotas_multi as cm
+    # «genoa» suelto entra al alias; dentro de otro nombre, no lo toca
+    check(cm.normalizar('Genoa') == cm.normalizar('G\u00e9nova'),
+          'v235: el nombre entero si se traduce')
+    otro = cm.normalizar('Genoa Cricket and Football Club')
+    check('genova' not in otro,
+          'v235: pero no se sustituye dentro de un nombre mas largo (%s)' % otro)
+    check(cm.normalizar('') == '', 'v235: el vacio sigue siendo vacio')
+
+
+def test_el_plegado_no_rompe_lo_que_ya_casaba():
+    """
+    Un cambio en el normalizador toca TODAS las fuentes a la vez. Lo que ya
+    emparejaba tiene que seguir emparejando, o se arregla un partido y se
+    rompen cincuenta.
+    """
+    import cuotas_multi as cm
+    iguales = (
+        ('LA Dodgers', 'los angeles dodgers'),     # v228, abreviatura de ciudad
+        ('CHI Bears', 'chicago bears'),            # y la NFL sin tocar
+        ('KC Royals', 'kansas city royals'),
+        ('Manchester United', 'manchester united'),
+        ('Real Madrid', 'real madrid'),
+    )
+    for crudo, esperado in iguales:
+        check(cm.normalizar(crudo) == esperado,
+              'v235: «%s» sigue dando «%s» (sale «%s»)'
+              % (crudo, esperado, cm.normalizar(crudo)))
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -19808,6 +19896,12 @@ if __name__ == '__main__':
     test_actualizar_ahora_va_a_lo_publicado_y_no_al_disco()
     test_el_boton_nunca_deja_al_usuario_peor_de_como_estaba()
     test_el_boton_dice_si_habia_algo_nuevo_o_no()
+
+    print(chr(10) + '=== v235: nombres que dejaban partidos sin tablero ===')
+    test_las_letras_que_nfkd_no_deshace_se_pliegan()
+    test_los_exonimos_unen_el_nombre_local_con_el_de_la_casa()
+    test_el_alias_solo_se_aplica_al_nombre_entero()
+    test_el_plegado_no_rompe_lo_que_ya_casaba()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

@@ -373,6 +373,48 @@ def _expandir_abreviatura(prefijo: str, resto: str) -> Optional[str]:
     return candidatos[0] if len(candidatos) == 1 else None
 
 
+# Letras cuyo trazo no es una marca combinante, así que NFKD no las deshace.
+# El orden importa: primero las ligaduras de dos letras, y la «ı» turca sin
+# punto va aparte porque su mayúscula NO es la «I» latina.
+_PLEGADO = (
+    ('æ', 'ae'), ('œ', 'oe'), ('ß', 'ss'),
+    ('ø', 'o'), ('đ', 'd'), ('ð', 'd'), ('þ', 'th'),
+    ('ł', 'l'), ('ı', 'i'), ('ĸ', 'k'), ('ŋ', 'n'),
+)
+
+# v235 — LOS NOMBRES QUE CADA FUENTE ESCRIBE EN SU IDIOMA.
+#
+# ESPN publica el nombre local —«Napoli», «Genoa», «F.C. København»— y una casa
+# en español usa el exónimo: «Nápoles», «Génova», «FC Copenhagen». Normalizados
+# no comparten ni un token, así que el emparejador no los une y el partido se
+# queda sin tablero: sin escalera de goles, sin doble oportunidad y sin BTTS.
+#
+# LA LISTA ESTÁ MEDIDA, NO SUPUESTA. Sale de recorrer los fixtures del día y
+# quedarse con los que NO casan y tienen un candidato parecido en el catálogo
+# de la casa (`difflib` >= 0,55). Sólo entran los pares verificados uno a uno:
+# inventar alias «que seguro que también» es la forma de acabar sirviendo las
+# cuotas de otro partido, que es el fallo que la v114 costó caro.
+#
+# Se aplica sobre el nombre YA plegado y en minúsculas, y sólo si el nombre
+# entero coincide: un `replace` parcial convertiría «Genoa» en «Genova» dentro
+# de cualquier palabra que lo contuviera.
+_ALIAS_CLUB = {
+    # exónimos
+    'napoles': 'napoli',
+    'genova': 'genoa',
+    'fc copenhagen': 'f c kobenhavn',
+    'copenhagen': 'kobenhavn',
+    'tromsoe': 'tromso',
+    # transliteraciones del griego
+    'levadeiakos': 'levadiakos',
+    'panaitolikos': 'panetolikos',
+    # abreviaturas que la casa usa y la fuente no
+    'psg': 'paris saint germain',
+    'ham kam': 'hamarkameratene',
+    'estudiantes lp': 'estudiantes de la plata',
+}
+
+
 @lru_cache(maxsize=100_000)
 # v149 — MEMORIZADA. Es una función PURA de una cadena y el emparejador la
 # llama millones de veces sobre un puñado de nombres distintos: `_buscar`
@@ -385,15 +427,36 @@ def _expandir_abreviatura(prefijo: str, resto: str) -> Optional[str]:
 # El caché no cambia ni un resultado: misma entrada, misma salida, sólo que no
 # se vuelve a calcular. El tope existe para que un tablón enorme no haga crecer
 # la memoria sin límite.
-@lru_cache(maxsize=200_000)
 def normalizar(nombre: str) -> str:
     """Clave de comparación: sin acentos, sin puntuación, sin sufijos de club."""
     if not nombre:
         return ''
     s = unicodedata.normalize('NFKD', str(nombre))
     s = ''.join(c for c in s if not unicodedata.combining(c)).lower()
+    # v235 — LAS LETRAS QUE NFKD NO DESHACE, Y QUE ROMPÍAN EL EMPAREJADOR.
+    #
+    # NFKD separa la letra de su TILDE y aquí se tira la tilde, que es lo que
+    # hace que «Atlético» case con «Atletico». Pero hay letras cuyo trazo NO es
+    # una marca combinante: la barra de la «ø», la ligadura «æ», la «ß». NFKD
+    # las deja intactas, así que sobreviven al filtro y el nombre normalizado
+    # sigue llevándolas.
+    #
+    # El efecto, medido el 2026-09-19: ESPN publica «Sønderjyske Fodbold» y
+    # Playdoit «Sonderjyske». Normalizados quedaban «sønderjyske fodbold» y
+    # «sonderjyske», que no comparten ni un token, así que el partido salía sin
+    # tablero —sin escalera de goles, sin doble oportunidad y sin BTTS— y su
+    # tarjeta se quedaba con una sola apuesta. Le pasaba a las ligas nórdicas
+    # enteras y a media Europa del este.
+    for _a, _b in _PLEGADO:
+        s = s.replace(_a, _b)
     for ch in ".,-'()/&":
         s = s.replace(ch, ' ')
+    # El alias se mira con el nombre ENTERO ya limpio, nunca por trozos: un
+    # `replace` dentro de la cadena convertiría «Genoa» en «Genova» en
+    # cualquier palabra que lo contuviera. Ver `_ALIAS_CLUB`.
+    _limpio = ' '.join(s.split())
+    if _limpio in _ALIAS_CLUB:
+        s = _ALIAS_CLUB[_limpio]
     partes = [EQUIVALENCIAS.get(p, p) for p in s.split()]
     # La abreviatura sólo se expande cuando ENCABEZA el nombre y hay algo
     # detrás («det tigers»), que es como la escriben las casas. Suelta no se
