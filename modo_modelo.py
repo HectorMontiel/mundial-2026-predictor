@@ -1668,6 +1668,10 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             # aparecer nunca. Se vio verificando el fichero publicado: 0 de
             # 312 filas traian `historico`.
             'historico': _mej.get('historico'),
+            # v258 — y la correccion por linea, por el mismo motivo exacto
+            # que la v250.1 documenta justo arriba: lo que no se liste aqui
+            # no llega a la tarjeta, por mucho que `valor_apuesta` lo cuelgue.
+            'h2h': _mej.get('h2h'),
             'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
                                          'remates_on'),
             'original': _mej['prob'], 'fiable': True,
@@ -2128,7 +2132,13 @@ def _filas_de_mercados(pick: Dict, bloques: Dict, clave_liga) -> list:
             '%s <b>%s — %.0f %%</b>' % (_sema(f),
                                         _esc_mm(_apuesta_corta(f)),
                                         f['prob'] * 100),
-            'Score <b>%.2f</b>' % (f.get('score') or 0.0),
+            # v258 — «Score 0,95» no lo entiende nadie que no lo haya
+            # programado. Es cuota x probabilidad, o sea lo que esperas
+            # recuperar por cada 100 que metes, asi que se dice asi y se
+            # acabo. El usuario fue tajante: «tiene que ser entendible para
+            # el que va a apostar».
+            'Devuelve <b>$%.0f</b> por cada $100'
+            % ((f.get('score') or 0.0) * 100),
             aviso, apagado=bool(aviso)))
     return filas
 
@@ -2357,11 +2367,16 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
         coleta = ''
     else:
         coleta = 'Sólo para combinar'
-    # v171 — la cuota y el Score, que es lo que hace comparable una apuesta
-    # con otra. «Cuota 1,80 · Score 1,21» dice mas en dos cifras que cualquier
-    # frase: por cada peso, 1,21 de vuelta si la probabilidad es correcta.
+    # v171 — la cuota y lo que rinde, que es lo que hace comparable una
+    # apuesta con otra.
+    #
+    # v258 — Y SE DICE EN DINERO, NO EN «SCORE». La cifra siempre fue la
+    # misma —cuota x probabilidad— pero llamarla Score obligaba a saber que
+    # significa. En pesos se lee sola: por encima de 100 la apuesta esta bien
+    # pagada, por debajo la casa se queda con la diferencia.
     if rec.get('score') is not None and rec.get('cuota'):
-        precio = 'Cuota %.2f · Score %.2f' % (rec['cuota'], rec['score'])
+        precio = ('Cuota %.2f · devuelve $%.0f por cada $100'
+                  % (rec['cuota'], rec['score'] * 100))
     elif rec.get('cuota'):
         precio = 'Cuota %.2f · justa %.2f' % (rec['cuota'],
                                               rec['cuota_justa'])
@@ -2671,6 +2686,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     _hs = [h for h in _hs if h.get('razon')]
                     if _hs:
                         st.caption('📊 %s' % _hs[0]['razon'])
+                    # v258 — y el historial mutuo, cuando movio el 1X2.
+                    _h2 = [(v['pick'].get('h2h') or {}) for v in _vers]
+                    _h2 = [x for x in _h2 if x.get('razon')]
+                    if _h2:
+                        st.caption('%s' % _h2[0]['razon'])
                     # v229 — LA LAMBDA, QUE ES LO QUE FALTABA PARA ENTENDERLO.
                     #
                     # El usuario miró un América-Chivas con las dos formas en

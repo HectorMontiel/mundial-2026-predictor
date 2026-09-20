@@ -214,6 +214,21 @@ jobs:
           # que falla, se calla, y el workflow termina en verde sin haber
           # anadido nada. Si falla, que se vea.
           git add -A mercado_estable_por_liga.json || echo "::warning::git add del ranking de estabilidad fallo"
+          # v256 - LO QUE ANTES SE REHACIA A MANO Y POR ESO ENVEJECIA SOLO.
+          #
+          # `pick_ledger_totales.csv` alimenta la calibracion por banda de
+          # cuota, que corrige TODAS las probabilidades publicadas. Se
+          # encontro con 42 dias mientras este workflow corria en verde cada
+          # lunes, porque no estaba en la cadena. Y `calibracion_bandas.json`
+          # se entrenaba ejecutando su script a mano.
+          #
+          # Bucle por fichero, como en `precalculo_dia`: un `git add` con un
+          # pathspec que no existe falla ENTERO y se lleva los demas.
+          for _f in pick_ledger_totales.csv calibracion_bandas.json calibracion_goles.json pick_ledger_deportes.csv pronosticos_emitidos.json; do
+            if [ -e "$_f" ]; then
+              git add "$_f" || echo "::warning::git add de $_f fallo"
+            fi
+          done
           git add -A _v162_calibracion_por_liga.json || echo "::warning::git add de la calibracion por liga fallo"
           # v202 — el indice de riesgo por competicion, que sale del ledger de
           # totales reconstruido arriba. Sin commitearlo, la app desplegada

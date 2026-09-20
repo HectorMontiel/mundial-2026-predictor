@@ -117,26 +117,29 @@ VISTAS = {
     # que las patas, que los deslizadores se registren y que la lista se arme
     # sin reventar cuando no hay ninguna pata que pase los filtros.
     '🎰 Armar Soñadora': {
+        # v257 — UN SOLO ARMADOR, Y ES EL DE LOS PICKS DEL DÍA.
+        #
+        # «Quiero que sólo dejes uno, vas a dejar el de picks del día.» El
+        # armador manual y su escalera de permutaciones se fueron, y con ellos
+        # sus textos y sus siete controles. Lo que NO se fue —y por eso sigue
+        # comprobándose aquí— es el cierre del boleto: el premio, el
+        # rendimiento medido, la casilla de riesgo y el botón de confirmar.
+        # Era la mitad honesta de aquella pantalla y se trasladó entera.
         'textos': [
             'Sección de entretenimiento',
-            'Permutaciones generadas',
-            # v202 — la capa de riesgo por competición. Que el reparto de
-            # niveles se pinte es lo que distingue «el índice está cargado» de
-            # «el índice no se encontró y todo sale sin medir», y eso el AST no
-            # lo ve.
-            'Riesgo de la competición',
+            'Una pata por partido',
         ],
-        # v198 — sólo quedan DOS controles. El rediseño quitó la
-        # probabilidad mínima (fija al 55 %), la exigencia de calibración
-        # (ahora se etiqueta en vez de excluir) y el filtro de deportes.
+        # Sólo van aquí los controles que se pintan SIEMPRE. El selector de
+        # deportes necesita dos deportes en el barrido, y el premio, la
+        # casilla de riesgo y el botón de confirmar necesitan que el boleto
+        # tenga al menos una pata. Exigirlos aquí convertiría un día flojo en
+        # un fallo de validación, que es la clase de alarma que enseña a
+        # ignorar las alarmas. Que existan y estén bien cableados lo comprueba
+        # `test_la_sonadora_avisa_sin_asustar_y_ensena_lo_medido`.
         'controles': [
-            ('son_cuota', 'rango de cuota por pata'),
-            ('son_n', 'número de patas'),
-            ('son_deportes', 'selector de deportes'),
-            ('son_rojas', 'interruptor de patas de alto riesgo'),
-            ('son_riesgo', 'filtro de competiciones de riesgo bajo'),
-            ('son_modo', 'selector de hoy/mañana/rango'),
-            ('son_elegidas', 'selector manual de patas'),
+            ('son_v_patas', 'número de patas'),
+            ('son_v_cuota', 'cuota mínima por pata'),
+            ('son_v_principales', 'interruptor de sólo principales'),
         ],
     },
     '🏴 Premier League': {},      # rama de córners OBSERVADOS

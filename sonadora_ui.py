@@ -122,6 +122,36 @@ def _linea_pata(q: Dict) -> str:
             f"{cola}{pie}")
 
 
+def _a_pata_de_motor(q: Dict, dia: Optional[str]) -> Dict:
+    """La pata del veredicto, con los nombres que usa `sonadora_motor`.
+
+    Las dos mitades del proyecto nombran lo mismo de forma distinta —el
+    veredicto dice `apuesta` y `mercado`, el motor dice `etiqueta` y
+    `categoria`— y hasta la v257 eso no importaba porque cada armador usaba su
+    propio motor. Ahora sólo queda un armador, y para que conserve el premio,
+    la exposición y el registro de boletos vivos hay que traducir una vez.
+
+    Se traduce AQUÍ y no en `patas_veredicto`: el veredicto lo consumen
+    también las tarjetas y el Telegram, y renombrarle las claves habría
+    obligado a tocar los tres sitios para arreglar uno.
+    """
+    return {
+        'id': '%s|%s' % (q.get('partido'), q.get('apuesta')),
+        'partido': q.get('partido'),
+        'etiqueta': q.get('apuesta'),
+        'categoria': q.get('mercado'),
+        'liga': q.get('liga') or '',
+        'deporte': q.get('deporte') or '',
+        'cuota': float(q.get('cuota') or 1.0),
+        'prob': float(q.get('prob') or 0.0),
+        'prob_modelo': q.get('prob_modelo'),
+        'medido': bool(q.get('medido')),
+        'dia': q.get('fecha') or dia,
+        'hora': q.get('inicio'),
+        'color': 'verde' if q.get('verde') else 'rojo',
+    }
+
+
 def render(st, r: Dict, dia: Optional[str] = None,
            dias: Optional[List[str]] = None) -> None:
     """Pinta la pantalla. `r` es un barrido YA calculado."""
@@ -152,6 +182,82 @@ def render(st, r: Dict, dia: Optional[str] = None,
                    'verdes suficientes se completa con las rojas **más '
                    'probables** — no con las mejor pagadas: en un boleto la '
                    'probabilidad se multiplica.')
+        # v257 — CON QUÉ DEPORTES SE ARMA.
+        #
+        # «Tienes que agregar con qué deportes se tiene que usar. Puede ser un
+        # solo deporte u opción múltiple, además de con todos.»
+        #
+        # Sin marcar ninguno entran TODOS, que es exactamente el boleto que
+        # salía antes de que este control existiera: quien no lo toque no ve
+        # cambiar nada. El número al lado de cada deporte es cuántos partidos
+        # suyos trae ESTE barrido, y un deporte sin partidos hoy ni aparece —
+        # ofrecer un filtro que sólo puede devolver vacío es la trampa que la
+        # v238 documentó en el selector de «Apuestas del Día».
+        _EMOJI_DEP = {'Fútbol': '⚽', 'MLB': '⚾', 'NBA': '🏀', 'Tenis': '🎾',
+                      'NFL': '🏈', 'KBO': '⚾'}
+        _cuenta_son = {}
+        for _p_s in (r.get('pronosticos') or []):
+            _d_s = _p_s.get('deporte') if isinstance(_p_s, dict) else None
+            if _d_s:
+                _cuenta_son[_d_s] = _cuenta_son.get(_d_s, 0) + 1
+        _deps_disp = sorted(_cuenta_son, key=lambda k: (-_cuenta_son[k], k))
+
+        def _rotulo_son(d):
+            return '%s %s · %d' % (_EMOJI_DEP.get(d, '•'), d,
+                                   _cuenta_son.get(d, 0))
+
+        _deps_v = []
+        if len(_deps_disp) > 1:
+            _ayuda_dep = ('Marca uno, varios o ninguno. Sin marcar entran '
+                          'todos. El boleto sigue poniendo UNA pata por '
+                          'partido: elegir dos deportes no duplica nada.')
+            if hasattr(st, 'pills'):
+                _deps_v = st.pills(
+                    'Deportes', _deps_disp, selection_mode='multi',
+                    key='son_v_deportes', format_func=_rotulo_son,
+                    help=_ayuda_dep) or []
+            else:
+                # `st.pills` es de Streamlit 1.40. El despliegue va muy por
+                # encima, pero un entorno viejo no puede quedarse sin el
+                # control: se degrada al multiselector de toda la vida.
+                _deps_v = st.multiselect(
+                    'Deportes', _deps_disp, key='son_v_deportes',
+                    format_func=_rotulo_son, help=_ayuda_dep) or []
+            st.caption(
+                ('Armando con **%s**.' % ' + '.join(_deps_v)) if _deps_v
+                else ('Sin marcar ninguno: entran **los %d deportes** del '
+                      'barrido (%d partidos).'
+                      % (len(_deps_disp), sum(_cuenta_son.values()))))
+
+        # v257 — LOS PARTIDOS DE UN BOLETO VIVO NO SE REPITEN.
+        #
+        # Venía del armador manual y el caso lo trajo el usuario: Boyacá Chicó
+        # en dos parlays a la vez, que no es diversificar sino doblar la
+        # apuesta al mismo resultado con la pantalla diciendo que son dos
+        # boletos distintos. El filtro va ANTES de `seleccionar` para que los
+        # topes por liga y por mercado se repartan sobre lo que de verdad
+        # puede entrar.
+        _comprometidos = set()
+        try:
+            _comprometidos = sm.partidos_comprometidos(dia=dia)
+        except Exception as _e_com:
+            logger.debug('[sonadora] boletos vivos: %s', _e_com)
+        _r_libre = r
+        if _comprometidos:
+            _r_libre = dict(r or {})
+            _r_libre['pronosticos'] = [
+                _p_c for _p_c in ((r or {}).get('pronosticos') or [])
+                if str((_p_c or {}).get('partido')) not in _comprometidos]
+            _cc = st.columns([3, 1])
+            _cc[0].caption(
+                '🔒 %d partido(s) ya están en un boleto que diste por jugado '
+                'hoy, así que no vuelven a entrar: %s%s'
+                % (len(_comprometidos), ', '.join(sorted(_comprometidos)[:3]),
+                   '…' if len(_comprometidos) > 3 else ''))
+            if _cc[1].button('Vaciar registro', key='son_vaciar'):
+                sm.olvidar_parlays()
+                st.rerun()
+
         _cv1, _cv2, _cv3 = st.columns([1, 1, 1])
         _n_v = _cv1.number_input('Patas', min_value=1, max_value=20, value=4,
                                  step=1, key='son_v_patas')
@@ -164,8 +270,9 @@ def render(st, r: Dict, dia: Optional[str] = None,
                                       'incluidos los otros deportes.')
         try:
             import patas_veredicto as _pv
-            _sel = _pv.seleccionar(r, int(_n_v), float(_cuota_v),
-                                   bool(_princ_v))
+            _sel = _pv.seleccionar(_r_libre, int(_n_v), float(_cuota_v),
+                                   bool(_princ_v),
+                                   deportes=list(_deps_v) or None)
             if _sel['patas']:
                 _c1, _c2, _c3 = st.columns(3)
                 _c1.metric('Cuota del boleto', '%.2f' % (_sel['cuota_total'] or 0))
@@ -188,6 +295,102 @@ def render(st, r: Dict, dia: Optional[str] = None,
                     'Cada pata que añades multiplica la cuota y divide esa '
                     'probabilidad.'
                     % (len(_sel['patas']), (_sel['prob_total'] or 0) * 100))
+
+                # v257 — EL PREMIO, LO MEDIDO, EL RIESGO Y EL REGISTRO.
+                #
+                # Todo esto vivía al final del armador manual. Quitar aquel
+                # menú sin traérselo habría dejado la pantalla enseñando
+                # cuánto paga y callando cuánto rinde, que es exactamente la
+                # mitad que conviene a la casa. El usuario pidió un solo menú,
+                # no la mitad de uno: «todo se mantiene con eso».
+                _parlay = sm.armar([_a_pata_de_motor(_q, dia)
+                                    for _q in _sel['patas']])
+                _stake = st.number_input(
+                    '¿Cuánto apostarías?', min_value=1.0, value=46.0,
+                    step=1.0, key='son_v_apuesta',
+                    help='46 es lo que costó el parlay que ganaste.')
+                st.markdown('### Premio: **$%s**'
+                            % format(_stake * (_parlay['multiplicador'] or 1),
+                                     ',.2f'))
+                _roi = _parlay.get('roi_esperado_medido')
+                _cfg = _parlay.get('configuracion_medida')
+                _dicho = []
+                if _roi is not None:
+                    _dicho.append(
+                        '**Rendimiento histórico de un boleto de %d patas: '
+                        '%s** (≈ $%s por cada $%s). Sale de aplicar %d veces '
+                        'lo que rinde una pata suelta: combinar multiplica el '
+                        'rendimiento de las patas, no lo mejora.'
+                        % (_parlay['n_patas'], _pct(_roi),
+                           format(_stake * _roi, ',.2f'),
+                           format(_stake, ',.2f'), _parlay['n_patas']))
+                if _cfg and _cfg.get('intentos'):
+                    _dicho.append(
+                        'La configuración medida más parecida (%s patas, %s) '
+                        'acertó %s de %s veces (%s), con un multiplicador '
+                        'medio de %.1fx.'
+                        % (_cfg.get('n_patas'), _cfg.get('rango_cuota'),
+                           _cfg.get('ganadas', 0), _cfg.get('intentos', 0),
+                           _pct(_cfg.get('hit_rate'), 2),
+                           _cfg.get('multiplicador_medio', 0)))
+                if _parlay.get('n_sin_medir'):
+                    _dicho.append(
+                        '%d de las %d patas no tienen calibración medida: su '
+                        'probabilidad es la del modelo sin corregir.'
+                        % (_parlay['n_sin_medir'], _parlay['n_patas']))
+                if _dicho:
+                    st.caption('  \n'.join(_dicho))
+
+                _ex = _parlay.get('exposicion') or {}
+                if not _ex.get('respeta_topes', True):
+                    st.warning(
+                        '⚠️ Concentración alta: %s patas de %s y %s del '
+                        'mercado «%s». No baja el rendimiento esperado —eso '
+                        'sólo depende de las patas— pero sí sube el riesgo de '
+                        'que falle todo a la vez, porque los partidos de una '
+                        'misma liga y una misma jornada fallan juntos.'
+                        % (_ex.get('max_por_liga'),
+                           _ex.get('liga_mas_repetida'),
+                           _ex.get('max_por_mercado'),
+                           _ex.get('mercado_mas_repetido')))
+
+                _dias_b = _parlay.get('dias') or []
+                if len(_dias_b) > 1:
+                    st.info(
+                        '📅 Este boleto reparte sus patas en **%d días** (%s a '
+                        '%s). La casa lo acepta, pero el rendimiento '
+                        'histórico de arriba está medido sobre boletos de un '
+                        'solo día: los partidos de una misma jornada '
+                        'comparten contexto y los de días distintos no.'
+                        % (len(_dias_b), _dias_b[0], _dias_b[-1]))
+
+                _entendido = st.checkbox(
+                    'Entiendo que este parlay tiene un alto riesgo.',
+                    key='son_entendido')
+                if st.button('🎲 Confirmar parlay', key='son_confirmar',
+                             type='primary', disabled=not _entendido):
+                    st.success('Listo: esta pantalla no apuesta por ti ni '
+                               'manda nada a ningún sitio.')
+                    st.code('\n'.join(
+                        '%s — %s @ %.2f' % (_q.get('partido'),
+                                            _q.get('apuesta'), _q['cuota'])
+                        for _q in _sel['patas']), language=None)
+                    try:
+                        sm.registrar_parlay(_parlay, dia)
+                        st.caption(
+                            'Apuntado como boleto vivo de hoy: sus partidos '
+                            'no volverán a salir en otra combinada hasta que '
+                            'vacíes el registro.')
+                    except Exception as _e_reg:
+                        logger.exception('[sonadora] registrar parlay')
+                        st.caption('No se pudo apuntar el boleto (%s).'
+                                   % type(_e_reg).__name__)
+            elif _deps_v:
+                # Un «no hay patas» a secas, con un filtro puesto, se lee como
+                # un fallo del modelo. Casi siempre es el filtro.
+                st.info('%s — con el filtro de deporte puesto (%s). Quita '
+                        'deportes del filtro o baja la cuota mínima.'
+                        % (_sel['motivo'], ' + '.join(_deps_v)))
             else:
                 st.info(_sel['motivo'])
         except Exception as _e_pv:
@@ -196,431 +399,20 @@ def render(st, r: Dict, dia: Optional[str] = None,
                        f'({type(_e_pv).__name__}).')
 
     st.divider()
-    st.caption('O arma a mano, recorriendo el tablero completo de la casa:')
-
-    # ------------------------------------------------------------------ #
-    # 1. Los dos controles
-    # ------------------------------------------------------------------ #
-    c1, c2 = st.columns([2, 1])
-    cuota_min, cuota_max = c1.slider(
-        'Cuota por pata', min_value=sm.CUOTA_MIN_ABS,
-        max_value=sm.CUOTA_MAX_ABS, value=(sm.CUOTA_MIN, sm.CUOTA_MAX),
-        step=0.05, key='son_cuota',
-        help='El parlay que ganaste iba de 1,35 a 1,79.')
-    # v198 — el número NO va dentro de la etiqueta de la opción. La preferencia
-    # guardaría un valor que mañana no existe: lección de la v177 con el filtro
-    # de deportes. El valor es el entero y `format_func` pone el rótulo.
-    n_patas = c2.selectbox(
-        'Número de patas', N_PATAS_OPCIONES,
-        index=N_PATAS_OPCIONES.index(13), key='son_n',
-        format_func=lambda n: f'{n} patas')
-
-    # v208 — SIN SELECTOR DE CASA. Había tres y sólo una puede armar lo que
-    # el usuario combina: Novibet no publica ni una línea de goles (medido
-    # barriendo 36 tipos de apuesta sobre tres partidos grandes) y Draftea
-    # tiene sus precios dentro de la app móvil. Un selector de tres opciones
-    # con dos que no sirven no es una elección, es una trampa.
-    casa = sm.CASA_POR_DEFECTO
-
-    deportes = st.multiselect(
-        'Deportes', list(sm.DEPORTES), default=list(sm.DEPORTES_POR_DEFECTO),
-        key='son_deportes',
-        help='El tablero de Playdoit se pide sólo para lo que marques, así '
-             'que marcar menos deportes es también más rápido.')
-    if not deportes:
-        st.warning('Marca al menos un deporte para ver patas.')
-        return
-    if casa not in sm.CASAS_CON_FUENTE:
-        st.warning(
-            f'**{casa} no publica sus cuotas fuera de su app.** Re-sondeado el '
-            f'2026-09-16: su web ya responde 200 —antes daba 403— pero es una '
-            f'página de Webflow de marketing, y `/bets` sólo ofrece descargar '
-            f'la aplicación. `api.draftea.com` contesta «Not Found» en la raíz '
-            f'y 404 en las veinte rutas probadas. El comparador de Flashscore '
-            f'—por donde entra Novibet— no la nombra, y Altenar —por donde '
-            f'entra Playdoit— responde 400. Sus precios viven dentro de la app '
-            f'móvil. Mientras tanto, elige Playdoit, que es la que tiene el '
-            f'tablero completo de goles.')
-        return
-    con_rojas = st.checkbox('Mostrar patas de alto riesgo (🔴)',
-                            key='son_rojas')
-
-    # --- LA RÉPLICA DEL BOLETO QUE EL USUARIO GANÓ -------------------------
+    # v257 — UN SOLO MENU, Y ES EL DE LOS PICKS DEL DIA.
     #
-    # Leído pata a pata de su boleto de 13 (46 → 22.544,60): DIEZ de goles
-    # totales —cinco «Más de 2,5» y cinco «Más de 1,5»— y TRES «Gana X», todas
-    # entre 1,35 y 1,79. Ni una de córners, ni de tarjetas, ni de remates, ni
-    # de hándicap, y ninguna «Menos de».
+    # «Las sonadoras tienen dos menus: el de picks del dia y el otro que son
+    # de permutaciones. Quiero que solo dejes uno, vas a dejar el de picks del
+    # dia. Mantenlo como el principal, es el unico que deberias tener.»
     #
-    # La sección le ofrecía justo lo contrario: encabezaba con «Menos de 9,5
-    # remates a puerta». Esta casilla deja el montón en lo que él combina.
-    patron = st.checkbox(
-        '🎯 Sólo el patrón de mi boleto ganador', key='son_patron',
-        help='Goles totales «Más de» y «Gana X», con cuota entre 1,35 y '
-             '1,80 — que es de lo que estaban hechas las 13 patas que '
-             'ganaron. Nada de córners, tarjetas, remates ni hándicap.')
-
-    # --- LA CAPA DE RIESGO, QUE ORDENA SIEMPRE Y BLOQUEA SI SE LE PIDE ------
+    # Aqui vivia el armador manual —recorrer el tablero entero de la casa con
+    # un rango de cuota y un numero de patas— y su escalera de permutaciones.
+    # Hacian la misma pregunta que el de arriba por un camino mas largo, y con
+    # dos caminos la pantalla podia contradecirse consigo misma: el mismo
+    # partido con una pata distinta segun por donde entraras.
     #
-    # El filtro no viene encendido y el motivo está medido: quedarse sólo con
-    # las competiciones mejor calibradas sube el rendimiento proyectado de un
-    # parlay de cuatro de −14,9 % a −6,0 %, pero se lleva el 72 % del
-    # catálogo. Eso es una decisión del usuario, no del programa, así que la
-    # casilla lleva los dos números al lado.
-    solo_bajo = st.checkbox(
-        'Sólo competiciones de riesgo bajo',
-        key='son_riesgo',
-        help='El nivel sale del error de calibración del modelo en cada '
-             'competición, medido sobre 47.794 partidos. Marcarlo mejora el '
-             'rendimiento proyectado de un parlay de 4 patas de −14,9 % a '
-             '−6,0 %, y deja fuera unas tres cuartas partes de las patas del '
-             'día. Sin marcar, las competiciones de riesgo alto siguen '
-             'saliendo pero las últimas.')
-
-    # ------------------------------------------------------------------ #
-    # 2. Las patas del día
-    # ------------------------------------------------------------------ #
-    dia = dia or md.dia_cdmx()
-
-    # EN CLOUD CADA CLIC ES UNA PASADA ENTERA, y esta sección pide hasta
-    # sesenta tableros de Playdoit. Sin caché, marcar una pata del multiselect
-    # volvía a bajarlos todos: medido en local, de 3 s con caché caliente a 32 s
-    # con la fría — y el contenedor de Streamlit Cloud es más lento que esto.
-    #
-    # La clave incluye `actualizado` del barrido, así que un barrido nuevo
-    # invalida la lista sola. `_r` con guion bajo le dice a Streamlit que no
-    # intente hashear el diccionario del barrido, que es enorme.
-    @st.cache_data(ttl=900, show_spinner=False)
-    def _patas(_r, sello, dia_, lo, hi, deps, rojas, casa_, riesgo_, dias_,
-               patron_, n_):
-        return sm.patas_del_dia(_r, dia_, cuota_min=lo, cuota_max=hi,
-                                deportes=list(deps), con_rojas=rojas,
-                                casa=casa_, solo_riesgo_bajo=riesgo_,
-                                dias=list(dias_) if dias_ else None,
-                                solo_patron=patron_, garantizar=int(n_))
-
-    with st.spinner(f'Leyendo los precios de {casa}…'):
-        try:
-            res = _patas(r, str(r.get('actualizado') or ''), dia,
-                         cuota_min, cuota_max, tuple(sorted(deportes)),
-                         con_rojas, casa, solo_bajo,
-                         tuple(dias) if dias else (), patron, n_patas)
-        except Exception as e:
-            st.error(f'No se pudieron leer las patas ({type(e).__name__}: {e}).')
-            return
-    patas: List[Dict] = res.get('patas') or []
-
-    if not patas:
-        # SE MIRA EL OTRO DIA ANTES DE RENDIRSE. Un dia entre semana de
-        # septiembre tiene seis partidos de futbol en todo el catalogo y el
-        # siguiente diecisiete: decirle al usuario «no hay nada» cuando
-        # manana hay tablero completo es dejarle sin la seccion por un dia.
-        otro = (None if dias and len(dias) > 1 else
-                _cuenta_del_otro_dia(st, sm, r, dia, cuota_min, cuota_max,
-                                     deportes, con_rojas, casa, solo_bajo))
-        st.warning(
-            f"📅 Con esta configuración no hay ninguna pata: **{casa}** no "
-            f"cotiza ningún mercado de los {res.get('n_partidos', 0)} "
-            f"partidos de ese día que el modelo predice."
-            + (f"  \n**El {otro[0]} hay {otro[1]} patas** — cámbialo en el "
-               f"selector de día." if otro and otro[1] else
-               '  \nPrueba con la otra casa, con más deportes o con un rango '
-               'de cuota más ancho.'))
-        return
-    if res.get('ensanchado'):
-        rango = res.get('rango') or []
-        st.caption(
-            f"⚙️ Ajustamos el rango automáticamente a "
-            f"{rango[0]:.2f}–{rango[1]:.2f} para mostrarte opciones: con el "
-            f"que pediste no había ninguna pata hoy.")
-
-    cc = res.get('conteo_color') or {}
-    st.markdown(
-        '**Semáforo:** 🟢 sólida (probabilidad ≥ 70 %) · '
-        '🟡 moderada (≥ 58 %) · 🔴 alto riesgo · '
-        '⚪ sin probabilidad. La calibración de la competición sólo puede '
-        'bajar un escalón, nunca subirlo.')
-    st.caption(
-        f"**{len(patas)} patas** de {res.get('partidos_con_pata', 0)} "
-        f"partidos · 🟢 {cc.get('🟢', 0)} sólidas · 🟡 {cc.get('🟡', 0)} "
-        f"moderadas · 🔴 {cc.get('🔴', 0)} de alto riesgo"
-        + (f" ({res.get('rojas_ocultas', 0)} ocultas)"
-           if res.get('rojas_ocultas') else '')
-        + f" · todas en **{casa}**, sin mezclar con otras casas.")
-    st.caption(
-        f"El color lo manda la probabilidad del modelo; la calibración sólo "
-        f"puede bajarlo. {res.get('n_medidas', 0)} de estas patas tienen error "
-        f"de calibración medido — al resto se le encoge la probabilidad un "
-        f"15 % al puntuar, y se dice en cada línea.")
-    # DE DONDE SALEN LOS PARTIDOS. Hasta la v203 el catálogo lo ponía el
-    # barrido, que es una lista de PICKS: un día en que el fútbol no producía
-    # ni un pick dejaba la sección con cero patas aunque hubiera cientos de
-    # partidos con precio. Se dice cuántos vienen de cada sitio porque explica
-    # la diferencia entre «hoy hay poco» y «hoy no se está mirando».
-    _cat = res.get('futbol_del_catalogo') or 0
-    if _cat:
-        st.caption(
-            f"📚 {_cat} de los partidos de fútbol de este día salen del "
-            f"catálogo completo del modelo, no de la lista de pronósticos "
-            f"del sistema: tienen probabilidad y precio aunque no hayan "
-            f"producido un pick."
-            + (f" Otros {res['futbol_del_barrido']} sí venían de ella."
-               if res.get('futbol_del_barrido') else ''))
-    cr = res.get('conteo_riesgo') or {}
-    st.caption(
-        f"**Riesgo de la competición** (error de calibración del modelo, "
-        f"medido sobre 47.794 partidos): {cr.get('baja', 0)} patas de "
-        f"competición bien calibrada · {cr.get('media', 0)} intermedia · "
-        f"{cr.get('alta', 0)} del peor cuarto · {cr.get('sin_medir', 0)} sin "
-        f"medir. En el histórico una pata del peor cuarto rinde −7,14 % y una "
-        f"del mejor −1,53 %, así que las de riesgo alto salen las últimas.")
-    if res.get('riesgo_apagado'):
-        st.warning(
-            '⚠️ Hoy no hay ninguna pata de competición de riesgo bajo con '
-            'esta casa y estos deportes, así que el filtro se ha desactivado '
-            'solo: lo que ves es la lista completa.')
-    if res.get('solidez') == 'debil':
-        st.warning('⚠️ Pocas patas verdes hoy con esta configuración. '
-                   'Considera ampliar el rango de cuota o marcar más '
-                   'deportes.')
-    elif res.get('solidez') == 'solida':
-        st.success('✅ Lista sólida: la mayoría de las patas de hoy son '
-                   'verdes.')
-
-    # ------------------------------------------------------------------ #
-    # 3. Permutaciones
-    # ------------------------------------------------------------------ #
-    st.subheader('🎯 Permutaciones generadas')
-
-    # LOS PARTIDOS QUE YA ESTAN EN OTRO BOLETO VIVO NO SE REPITEN. El caso lo
-    # trajo el usuario: Boyacá Chicó en dos parlays a la vez, que no es
-    # diversificar sino doblar la apuesta al mismo resultado con la pantalla
-    # diciendo que son dos boletos distintos.
-    comprometidos = sm.partidos_comprometidos(dia=dia)
-    if comprometidos:
-        cols = st.columns([3, 1])
-        cols[0].caption(
-            f"🔒 {len(comprometidos)} partido(s) ya están en un boleto que "
-            f"diste por jugado hoy, así que no vuelven a entrar: "
-            f"{', '.join(sorted(comprometidos)[:3])}"
-            + ('…' if len(comprometidos) > 3 else ''))
-        if cols[1].button('Vaciar registro', key='son_vaciar'):
-            sm.olvidar_parlays()
-            st.rerun()
-
-    if patron:
-        st.success(
-            f'🎯 **{len(patas)} patas** de '
-            f'{len({q["partido"] for q in patas})} partidos distintos, con el '
-            f'patrón de tu boleto ganador: goles «Más de» y «Gana X» entre '
-            f'{sm.CUOTA_PATRON[0]:.2f} y {sm.CUOTA_PATRON[1]:.2f}.')
-
-    # QUE SALGAN LAS PATAS QUE SE PIDEN, Y QUE SE DIGA QUÉ COSTÓ.
-    if res.get('relajado'):
-        st.warning(
-            f'⚙️ Para llegar a **{n_patas} patas** hubo que ensanchar: '
-            f'{", ".join(res["relajado"])}. El boleto que sale no es el que '
-            f'pediste exactamente — mira las patas antes de confirmarlo.')
-    if res.get('garantizar') and not res.get('alcanza_garantia'):
-        st.error(
-            f'❌ Hoy **no hay {n_patas} partidos distintos** con pata, ni '
-            f'ensanchando todo: sólo {res.get("partidos_con_pata", 0)}. Un '
-            f'boleto necesita un partido por pata —dos patas del mismo '
-            f'encuentro no se pagan como dos apuestas—, así que o bajas el '
-            f'número o amplías el rango de días.')
-
-    perms = sm.permutaciones(patas, n_patas, bloqueados=comprometidos)
-    if not perms:
-        st.info(
-            f'Hoy no hay {n_patas} partidos distintos con pata disponible '
-            f'(hay {res.get("partidos_con_pata", 0)}). Prueba con menos '
-            f'patas o ensancha el rango de cuota.')
-    for p in perms:
-        with st.container(border=True):
-            a, b, c = st.columns([2, 1, 1])
-            a.markdown(f"**{p['nombre']}**  \n{p['descripcion']}")
-            b.metric('Multiplicador', f"{p['multiplicador']:.2f}x")
-            c.metric('Probabilidad', _pct(p['prob_producto'], 2),
-                     help='Producto de las probabilidades del modelo. Supone '
-                          'independencia, que es un supuesto: los partidos de '
-                          'un mismo día se parecen más de lo que dice esa '
-                          'cuenta.')
-            for q in p['patas']:
-                st.markdown(_linea_pata(q))
-            _cc = p.get('conteo_color') or {}
-            pie = [f"🟢 {_cc.get('🟢', 0)} · 🟡 {_cc.get('🟡', 0)} · "
-                   f"🔴 {_cc.get('🔴', 0)}",
-                   f"{p['ligas']} competiciones distintas",
-                   ' + '.join(p.get('deportes') or [])]
-            if p.get('n_sin_medir'):
-                pie.append(f"{p['n_sin_medir']} patas sin calibración medida")
-            _ex = p.get('exposicion') or {}
-            if _ex.get('max_por_liga', 0) > 1:
-                pie.append(f"máximo {_ex['max_por_liga']} patas de "
-                           f"{_ex.get('liga_mas_repetida')}")
-            _cr = p.get('conteo_riesgo') or {}
-            if _cr.get('alta'):
-                pie.append(f"⚠️ {_cr['alta']} de competición de riesgo alto")
-            _ds = p.get('dias') or []
-            if len(_ds) > 1:
-                pie.append(f"reparte en {len(_ds)} días")
-            roi = p.get('roi_esperado_medido')
-            if roi is not None:
-                pie.append(f"rendimiento histórico de esta longitud: "
-                           f"{_pct(roi)}")
-            st.caption(' · '.join(pie))
-            if p.get('rojas_forzadas'):
-                st.caption(
-                    f"⚠️ Hoy no hay {n_patas} partidos con pata que no sea de "
-                    f"alto riesgo, así que esta combinada lleva alguna 🔴. "
-                    f"Normalmente las combinadas se arman sin ellas.")
-            if p.get('topes_levantados'):
-                st.caption(
-                    f"⚙️ Para llegar a {n_patas} patas hubo que levantar el "
-                    f"tope por {', '.join(p['topes_levantados'])}: hoy no hay "
-                    f"variedad suficiente para respetarlo. El boleto está más "
-                    f"concentrado de lo que la sección recomienda.")
-            if st.button(f"Usar {p['nombre']}", key=f"son_usar_{p['letra']}"):
-                st.session_state['son_elegidas'] = [q['id'] for q in p['patas']]
-                st.rerun()
-
-    # --- LA ESCALERA: EL MISMO MONTÓN EN TODOS LOS TAMAÑOS ----------------
-    #
-    # «Todas las permutaciones posibles con las diferentes cantidades de
-    # patas». Lo que no se hace es listar las combinaciones de verdad: con 18
-    # patas y 13 huecos son 8.568 boletos, y con 40 patas y 8 huecos son 76
-    # millones. Ninguna de esas listas se lee ni se elige. Las cinco recetas
-    # son cada una la ÓPTIMA de su criterio, que es lo que uno buscaría a mano
-    # entre esos ocho mil.
-    with st.expander('📐 El mismo montón, en todos los tamaños'):
-        esc = sm.escalera_de_parlays(patas, bloqueados=comprometidos)
-        if not esc:
-            st.caption('Hoy no hay partidos suficientes para armar la '
-                       'escalera.')
-        else:
-            filas = []
-            for n in sorted({x['n_pedidas'] for x in esc}):
-                delg = [x for x in esc if x['n_pedidas'] == n]
-                seguro = max(delg, key=lambda x: x['prob_producto'])
-                premio = max(delg, key=lambda x: x['multiplicador'])
-                filas.append({
-                    'Patas': n,
-                    'Variantes': len(delg),
-                    'Más probable': f"{seguro['multiplicador']:.2f}x  "
-                                    f"({_pct(seguro['prob_producto'], 2)})",
-                    'Mayor premio': f"{premio['multiplicador']:.2f}x  "
-                                    f"({_pct(premio['prob_producto'], 2)})",
-                })
-            st.dataframe(filas, width='stretch', hide_index=True)
-            st.caption(
-                'La probabilidad es el producto de las del modelo y supone '
-                'independencia: los partidos del mismo día se parecen más de '
-                'lo que dice esa cuenta. El boleto que ganaste tenía una '
-                'probabilidad implícita del 0,41 %.')
-
-    # ------------------------------------------------------------------ #
-    # 4. Elección manual
-    # ------------------------------------------------------------------ #
-    st.subheader('✍️ O arma la tuya')
-    opciones = {q['id']: q for q in patas}
-    # Una selección guardada puede apuntar a patas que ya no están (cambió el
-    # rango, cambió el día). Streamlit lanza si el default no es una opción, y
-    # eso es una pantalla en blanco: se limpia aquí, que es donde se sabe.
-    previas = [c for c in (st.session_state.get('son_elegidas') or [])
-               if c in opciones]
-    if previas != (st.session_state.get('son_elegidas') or []):
-        st.session_state['son_elegidas'] = previas
-
-    elegidas = st.multiselect(
-        f'Patas (hasta {sm.MAX_PATAS})', list(opciones), key='son_elegidas',
-        format_func=lambda cid: (
-            f"{_sello(opciones[cid])} [{opciones[cid]['deporte']}] "
-            f"{opciones[cid]['partido']} — {opciones[cid]['etiqueta']} "
-            f"({opciones[cid]['cuota']:.2f} · "
-            f"{_pct(opciones[cid]['prob'], 0)})"),
-        max_selections=sm.MAX_PATAS)
-    if not elegidas:
-        st.caption('Elige patas arriba o pulsa «Usar» en una permutación.')
-        return
-
-    # ------------------------------------------------------------------ #
-    # 5. El parlay
-    # ------------------------------------------------------------------ #
-    st.subheader('🎰 Tu parlay')
-    parlay = sm.armar([opciones[c] for c in elegidas])
-    if len({q['partido'] for q in parlay['patas']}) < parlay['n_patas']:
-        st.warning(
-            'Hay dos patas del mismo partido. Están muy correlacionadas y la '
-            'casa normalmente no las deja combinar: el multiplicador que ves '
-            'no es el que te van a pagar.')
-
-    m1, m2, m3 = st.columns(3)
-    m1.metric('Patas', parlay['n_patas'])
-    m2.metric('Multiplicador', f"{parlay['multiplicador']:.2f}x")
-    m3.metric('Probabilidad', _pct(parlay['prob_producto'], 2))
-
-    apuesta = st.number_input('¿Cuánto apostarías?', min_value=1.0, value=46.0,
-                              step=1.0, key='son_apuesta',
-                              help='46 es lo que costó el parlay que ganaste.')
-    st.markdown(f"### Premio: **${apuesta * parlay['multiplicador']:,.2f}**")
-
-    roi = parlay.get('roi_esperado_medido')
-    cfg = parlay.get('configuracion_medida')
-    datos = []
-    if roi is not None:
-        datos.append(
-            f"**Rendimiento histórico de un parlay de {parlay['n_patas']} "
-            f"patas: {_pct(roi)}** (≈ ${apuesta * roi:,.2f} por cada "
-            f"${apuesta:,.2f}). Sale de aplicar {parlay['n_patas']} veces lo "
-            f"que rinde una pata suelta: combinar multiplica el rendimiento "
-            f"de las patas, no lo mejora.")
-    if cfg and cfg.get('intentos'):
-        datos.append(
-            f"La configuración medida más parecida ({cfg['n_patas']} patas, "
-            f"{cfg.get('rango_cuota')}) acertó "
-            f"{cfg.get('ganadas', 0)} de {cfg.get('intentos', 0)} veces "
-            f"({_pct(cfg.get('hit_rate'), 2)}), con un multiplicador medio de "
-            f"{cfg.get('multiplicador_medio', 0):.1f}x.")
-    if datos:
-        st.caption('  \n'.join(datos))
-
-    st.markdown('**Las patas:**')
-    for q in parlay['patas']:
-        st.markdown(_linea_pata(q))
-
-    entendido = st.checkbox('Entiendo que este parlay tiene un alto riesgo.',
-                            key='son_entendido')
-    _dias_parlay = parlay.get('dias') or []
-    if len(_dias_parlay) > 1:
-        st.info(
-            f"📅 Este boleto reparte sus patas en **{len(_dias_parlay)} días** "
-            f"({_dias_parlay[0]} a {_dias_parlay[-1]}). La casa lo acepta, "
-            f"pero el rendimiento histórico que ves abajo está medido sobre "
-            f"boletos de un solo día: los partidos de una misma jornada "
-            f"comparten contexto y los de días distintos no, así que ese "
-            f"número no cubre exactamente esta combinación.")
-
-    ex = parlay.get('exposicion') or {}
-    if not ex.get('respeta_topes', True):
-        st.warning(
-            f"⚠️ Concentración alta: {ex.get('max_por_liga')} patas de "
-            f"{ex.get('liga_mas_repetida')} y {ex.get('max_por_mercado')} del "
-            f"mercado «{ex.get('mercado_mas_repetido')}». No baja el "
-            f"rendimiento esperado —eso sólo depende de las patas— pero sí "
-            f"sube el riesgo de que falle todo a la vez, porque los partidos "
-            f"de una misma liga y una misma jornada fallan juntos.")
-
-    if st.button('🎲 Confirmar parlay', key='son_confirmar', type='primary',
-                 disabled=not entendido):
-        st.success(f'Listo. Móntalo en {casa}: esta pantalla no apuesta por '
-                   f'ti ni manda nada a ningún sitio.')
-        st.code('\n'.join(f"{q['partido']} — {q['etiqueta']} @ {q['cuota']:.2f}"
-                          for q in parlay['patas']), language=None)
-        sm.registrar_parlay(parlay, dia)
-        st.caption(
-            'Apuntado como boleto vivo de hoy: sus partidos no volverán a '
-            'salir en otra combinada hasta que vacíes el registro.')
-
+    # Lo que se conserva de ellos es lo unico que no duplicaba nada: el
+    # historico de que rindio cada longitud, que esta justo debajo.
     # ------------------------------------------------------------------ #
     # 6. Lo medido, para quien quiera mirarlo
     # ------------------------------------------------------------------ #

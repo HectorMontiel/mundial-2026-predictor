@@ -952,9 +952,83 @@ def implicitas_de_la_casa(fx: Dict, o_espn: Dict) -> Dict:
                               'menos': round(float(_u), 3)}
         if goles:
             salida['goles'] = goles
+        # v254 - EL PRECIO DEL HANDICAP, QUE YA VENIA Y NO SE GUARDABA.
+        #
+        # `o_espn` trae `ah_linea` y las dos cuotas desde el scoreboard —
+        # comprobado: 6 de 6 eventos probados las traen— pero nadie las
+        # metia en `implicitas`, asi que `valor_apuesta` no podia ponerle
+        # precio a la escalera del modelo. Es la otra mitad del mercado que
+        # no decidia nada.
+        _ahl = o_espn.get('ah_linea')
+        _ahh, _aha = o_espn.get('odd_ah_home'), o_espn.get('odd_ah_away')
+        if _ahl is not None and _ahh and _aha:
+            try:
+                salida['handicap_cuotas'] = {
+                    mi.clave_linea(_ahl): {'home': round(float(_ahh), 3),
+                                           'away': round(float(_aha), 3)}}
+            except (TypeError, ValueError):
+                pass
     except Exception as e:
         logger.debug(f'[alpha] implícitas de respaldo: {e}')
     return salida
+
+
+def lineas_de_handicap(pred: Dict,
+                       probs_1x2: Optional[Dict] = None) -> Dict[str, Dict]:
+    """v254 — P(cubrir) del local en cada linea de handicap, y su push.
+
+    POR QUE ESTO NO EXISTIA, Y ES EL FALLO QUE CIERRA
+    `handicap.evaluar` lleva desde la v106 en `_mercados_del_partido`, que es
+    el camino de los partidos CON cuota en vivo. Pero la lista de pronosticos
+    del dia —la que leen las tarjetas— la construye `_mercados_modelo`, que
+    solo emite 1X2, O/U 2.5 y BTTS. Medido sobre el fichero publicado: **0 de
+    340 picks** llevaban un mercado de handicap, y 0 de 312 recomendaciones
+    eran de ese mercado.
+
+    O sea que el handicap no estaba «sin medir»: es que no se producia. 321
+    lineas de codigo y un ledger de 17 MB que no decidian nada.
+
+    Aqui se calcula la escalera entera desde la matriz de marcador, igual que
+    `lineas_de_goles` hace con los goles, y viaja en el pick para que
+    `valor_apuesta` pueda ponerle el precio de la casa.
+
+    `probs_1x2` reponderа la distribucion de margen a las probabilidades 1X2
+    ya encogidas hacia el mercado, que es lo que la v106 hace en el otro
+    camino: sin eso el handicap arrastraria la maldicion del ganador que el
+    1X2 ya corrige.
+    """
+    try:
+        import handicap as _hcp
+    except Exception as e:
+        logger.debug('[alpha] handicap no disponible: %s', e)
+        return {}
+    M = pred.get('score_matrix')
+    if M is None:
+        return {}
+    try:
+        dist = _hcp.distribucion_margen(M)
+        if probs_1x2:
+            dist = _hcp.reponderar_a_1x2(dist, probs_1x2) or dist
+    except Exception as e:
+        logger.debug('[alpha] distribucion de margen: %s', e)
+        return {}
+    if not dist:
+        return {}
+    fuera: Dict[str, Dict] = {}
+    # las lineas que cotiza cualquier casa: de -2.5 a +2.5 en cuartos
+    for i in range(-10, 11):
+        L = i / 4.0
+        try:
+            d = _hcp.desglose(dist, L)
+            p = _hcp.probabilidad(dist, L)
+        except Exception:
+            continue
+        if p is None or d is None:
+            continue
+        fuera['%g' % L] = {'home': round(float(p), 4),
+                           'away': round(1.0 - float(p), 4),
+                           'push': round(float(d.get('push') or 0.0), 4)}
+    return fuera
 
 
 def _mercados_modelo(pred: Dict, home: str, away: str,
@@ -1641,6 +1715,12 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                     # v200 — y los goles de CADA equipo, que Playdoit cotiza
                     # aparte y hasta ahora no se publicaban
                     'goles_equipo': lineas_por_equipo(pred),
+                    # v254 — la escalera de handicap, que nunca salia de aqui.
+                    # Ver `lineas_de_handicap`: medido, 0 de 340 picks la
+                    # llevaban y por eso el mercado no decidia nada.
+                    'handicap_lineas': lineas_de_handicap(
+                        pred, probs_1x2=pred.get('prediction', {})
+                        .get('probabilities')),
                     'sin_cuota': True}
             pronosticos.append(pron)
             # v52: ¿ESPN trajo cuotas 1X2/O-U reales para este partido? Si sí,

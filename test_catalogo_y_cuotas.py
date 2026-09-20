@@ -25,6 +25,7 @@ ponga en rojo.
 Ejecutar:  .venv\\Scripts\\python test_catalogo_y_cuotas.py
 """
 
+import ast
 import json
 import os
 import sqlite3
@@ -10705,7 +10706,34 @@ def test_se_exploran_todas_las_lineas_de_cada_mercado():
           "la tarjeta pide la lista de recomendadas")
     check('RECOMENDADA' in src,
           "y las pinta como recomendaciones numeradas")
-    check('Score' in src, "con el Score a la vista")
+    # v258 — LA CIFRA SIGUE, EL NOMBRE NO.
+    #
+    # El contrato era «con el Score a la vista» y sigue siendolo: lo que
+    # cambia es como se llama. «Score 0,95» obliga a saber que es cuota x
+    # probabilidad; «devuelve $95 por cada $100» es el mismo numero y se lee
+    # solo. El usuario lo pidio asi: «tiene que ser entendible para el que va
+    # a apostar, no solo para el desarrollador».
+    check('por cada $100' in src,
+          "con lo que rinde a la vista, dicho en dinero")
+    # Se miran las CADENAS, no el texto fuente: un comentario que explique de
+    # donde viene la cifra puede decir «Score» sin que nadie lo lea en
+    # pantalla, y confundir las dos cosas hace fallar la prueba por algo que
+    # al usuario no le llega. (Fallo real de esta misma prueba al escribirla.)
+    _arbol = ast.parse(src)
+    _pintadas = []
+    for _f in ast.walk(_arbol):
+        if (isinstance(_f, ast.FunctionDef)
+                and _f.name in ('tarjeta', '_filas_de_mercados')):
+            for _n in ast.walk(_f):
+                if (isinstance(_n, ast.Constant)
+                        and isinstance(_n.value, str)):
+                    _pintadas.append(_n.value)
+    # el docstring no se pinta
+    _pintadas = [t for t in _pintadas if len(t) < 400]
+    check(not [t for t in _pintadas if 'Score' in t],
+          "y sin la palabra «Score» en lo que se pinta, que no la entiende "
+          "quien apuesta (%s)"
+          % ([t[:40] for t in _pintadas if 'Score' in t][:2]))
 
 
 
@@ -11375,7 +11403,9 @@ def test_ningun_mercado_con_precio_se_queda_sin_recomendacion():
     for fila in filas:
         check('🔒' not in fila and 'No recomendado' not in fila,
               "ninguna fila de mercado lleva candado")
-        check('Score' in fila, "y todas enseñan su Score")
+        check('por cada $100' in fila,
+              "y todas enseñan lo que rinden, en dinero y no como «Score» "
+              "(v258)")
 
 
 def test_la_apuesta_principal_es_la_de_maximo_score():
@@ -13691,18 +13721,35 @@ def test_la_sonadora_avisa_sin_asustar_y_ensena_lo_medido():
           'que dice que es entretenimiento')
     check('son_entendido' in fuente,
           'sigue habiendo una casilla de riesgo antes de confirmar')
-    check('disabled=not entendido' in fuente,
+    check('disabled=not _entendido' in fuente,
           'y el boton de confirmar sigue bloqueado hasta marcarla')
     check('roi_esperado_medido' in fuente,
           'el rendimiento medido sigue en pantalla, junto al premio')
 
-    # los controles que el redisenio quito siguen fuera
-    for quitado in ('son_prob', 'son_nivel'):
+    # v257 — LOS CONTROLES SON LOS DEL UNICO ARMADOR QUE QUEDA.
+    #
+    # Al quitar el armador manual se fueron con el sus controles (`son_n`,
+    # `son_cuota`, `son_deportes`, `son_rojas`, `son_elegidas`). Lo que NO se
+    # podia ir con el eran el premio, el rendimiento medido, el aviso de
+    # concentracion, la casilla de riesgo y el registro de boletos vivos: eso
+    # se traslado al armador de picks del dia, porque una pantalla que dice
+    # cuanto paga y calla cuanto rinde es exactamente la mitad que le conviene
+    # a la casa. Por eso los tres `check` de arriba siguen intactos y solo
+    # cambian los nombres de los controles.
+    for quitado in ('son_prob', 'son_nivel', 'son_n', 'son_cuota',
+                    'son_deportes', 'son_rojas', 'son_elegidas'):
         check(quitado not in fuente,
-              f'el control «{quitado}» se quito del rediseno')
-    # y los que hay son los tres pedidos, mas el interruptor de rojas
-    for queda in ('son_cuota', 'son_n', 'son_deportes', 'son_rojas'):
+              f'el control «{quitado}» ya no esta: era del armador manual')
+    for queda in ('son_v_patas', 'son_v_cuota', 'son_v_deportes',
+                  'son_v_principales', 'son_v_apuesta', 'son_confirmar'):
         check(queda in fuente, f'esta el control «{queda}»')
+    check('registrar_parlay' in fuente,
+          'v257: y el boleto confirmado se sigue apuntando como vivo, que es '
+          'lo que impide que el mismo partido entre en dos boletos a la vez')
+    check('partidos_comprometidos' in fuente,
+          'v257: y los partidos ya comprometidos se descuentan ANTES de '
+          'elegir, para que los topes por liga y mercado repartan sobre lo '
+          'que de verdad puede entrar')
 
 
 def test_el_semaforo_colorea_todas_las_patas():
@@ -19445,8 +19492,12 @@ def test_los_insights_siguen_al_filtro_de_deporte():
         check(lista in d,
               'v236: tambien filtra %s (si no, la cifra de «para meter» '
               'seguiria contando otros deportes)' % lista)
-    check("st.session_state.get('_filtro_deporte')" in d,
-          'v236: lee la eleccion vigente del estado de sesion')
+    # v257: la clave paso a `_filtro_deportes` al volverse de opcion
+    # multiple. El contrato que importa es el mismo —los KPIs leen la eleccion
+    # VIGENTE del estado de sesion, no una variable que aun no existe— y por
+    # eso se actualiza la cadena en vez de borrar la comprobacion.
+    check("st.session_state.get('_filtro_deportes')" in d,
+          'v236/v257: lee la eleccion vigente del estado de sesion')
 
 
 def test_los_alias_se_descubren_sin_inventar():
@@ -20764,6 +20815,574 @@ def test_las_selecciones_entran_en_el_tablero():
           'v252: con `clave_liga` vacia a proposito — no tienen liga, y '
           'fingir una les aplicaria la calibracion de otra')
 
+
+# ---------------------------------------------------------------------------
+# v254 — EL HANDICAP NO ESTABA SIN MEDIR: NO SE PRODUCIA
+# ---------------------------------------------------------------------------
+def test_el_handicap_llega_al_pick_publicado():
+    """
+    `handicap.py` lleva desde la v106 evaluando el mercado, pero SOLO en
+    `_mercados_del_partido` — el camino de los partidos con cuota en vivo. La
+    lista de pronosticos del dia, que es la que leen las tarjetas, la
+    construye `_mercados_modelo`, que emite 1X2, O/U 2.5 y BTTS y nada mas.
+
+    Medido sobre el fichero publicado: **0 de 340 picks** con mercado de
+    handicap y **0 de 312** recomendaciones. No era deuda de medicion —era un
+    mercado que no se producia— y por eso la auditoria lo marcaba en rojo:
+    321 lineas de codigo y un ledger de 17 MB que no decidian nada.
+    """
+    import io as _io
+    import alpha_finder as af
+
+    check(hasattr(af, 'lineas_de_handicap'),
+          'v254: el barrido calcula la escalera de handicap')
+    s = _io.open('alpha_finder.py', encoding='utf-8').read()
+    check("'handicap_lineas'" in s,
+          'v254: y viaja en el pick, como `goles_lineas`')
+    check("'handicap_cuotas'" in s,
+          'v254: con el precio de la casa, que ya venia y no se guardaba')
+
+    # la escalera, sobre una matriz conocida
+    import numpy as np
+    from scipy.stats import poisson
+    ph = poisson.pmf(np.arange(8), 1.6)
+    pa = poisson.pmf(np.arange(8), 1.1)
+    M = np.outer(ph, pa)
+    M = M / M.sum()
+    esc = af.lineas_de_handicap({'score_matrix': M.tolist()})
+    check(len(esc) > 10,
+          'v254: sale la escalera entera, no una linea (%d)' % len(esc))
+    # el push es el que tiene que ser: el empate en la linea 0
+    check(abs(esc['0']['push'] - float(np.trace(M))) < 0.02,
+          'v254: el push de la linea 0 ES la probabilidad de empate '
+          '(%.3f vs %.3f)' % (esc['0']['push'], float(np.trace(M))))
+    check(abs(esc['-0.5']['push']) < 1e-9,
+          'v254: y en las lineas de medio punto no hay push, porque el '
+          'margen entero nunca cae justo ahi')
+    # monotonia: cuanto mas favorable la linea, mas probable cubrir
+    check(esc['1']['home'] > esc['0']['home'] > esc['-1']['home'],
+          'v254: dar mas ventaja al local sube su probabilidad de cubrir')
+
+
+def test_el_handicap_produce_candidatas_con_precio():
+    """Las dos mitades existian por separado; lo que faltaba era juntarlas."""
+    import numpy as np
+    from scipy.stats import poisson
+    import alpha_finder as af
+    import valor_apuesta as va
+
+    ph = poisson.pmf(np.arange(8), 1.6)
+    pa = poisson.pmf(np.arange(8), 1.1)
+    M = np.outer(ph, pa)
+    M = M / M.sum()
+    pick = {'partido': 'Alfa vs Beta', 'clave_liga': 'premier',
+            'deporte': 'Fútbol',
+            'handicap_lineas': af.lineas_de_handicap({'score_matrix': M.tolist()}),
+            'implicitas': {'handicap_cuotas': {
+                '-0.5': {'home': 1.95, 'away': 1.90}}}}
+    filas = va._de_handicap(pick)
+    check(len(filas) == 2,
+          'v254: salen las DOS caras de la linea (%d)' % len(filas))
+    for f in filas:
+        check(f.get('cuota'),
+              'v254: con precio de la casa, o no es una apuesta')
+        check(0.0 < f.get('prob', 0) < 1.0,
+              'v254: y con probabilidad de verdad')
+    check(abs(sum(f['prob'] for f in filas) - 1.0) < 0.02,
+          'v254: las dos caras suman 1 en una linea sin push')
+
+    # y sin precio no se inventa nada
+    sin = dict(pick, implicitas={})
+    check(va._de_handicap(sin) == [],
+          'v254: sin cuota de la casa no hay candidata')
+
+
+# ---------------------------------------------------------------------------
+# v255 — NFL Y KBO YA TIENEN LEDGER FUERA DE MUESTRA
+# ---------------------------------------------------------------------------
+def test_nfl_y_kbo_tienen_constructor_de_ledger():
+    """
+    La propia auditoria del proyecto lo listaba: «NFL y KBO no tienen ledger
+    fuera de muestra; sin el, ninguna regla nueva puede activarse ahi, porque
+    la puerta del §7 exige ROI y p5 y no hay con que calcularlos».
+
+    Construidos con la MISMA receta que MLB —walk-forward de origen movil,
+    reentrenando en cada pliegue con solo lo anterior— extraida a
+    `_ledger_dos_vias` para que los tres corran exactamente lo mismo: tres
+    copias de un backtest divergen en cuanto alguien toque una.
+    """
+    import build_ledger_deportes as b
+    for n in ('ledger_nfl', 'ledger_kbo', '_ledger_dos_vias'):
+        check(hasattr(b, n), 'v255: existe `%s`' % n)
+
+    import io as _io
+    s = _io.open('build_ledger_deportes.py', encoding='utf-8').read()
+    check("choices=['tenis', 'mlb', 'nfl', 'kbo']" in s,
+          'v255: y la CLI los acepta')
+    cuerpo = s.split('def construir(')[1].split('\ndef ')[0]
+    check("('nfl', ledger_nfl)" in cuerpo and "('kbo', ledger_kbo)" in cuerpo,
+          'v255: el despachador los llama')
+
+
+def test_el_walkforward_no_mira_el_futuro():
+    """Lo que hace util a un ledger es justo lo que es facil romper.
+
+    La v78 ya se quemo con esto: uso el modelo YA ENTRENADO para predecir el
+    pasado, y eso es fuga pura — el modelo parecia mejor de lo que era y la
+    calibracion corregia MENOS de lo necesario. Un ledger con fuga es peor que
+    no tener ledger.
+    """
+    import io as _io
+    s = _io.open('build_ledger_deportes.py', encoding='utf-8').read()
+    cuerpo = s.split('def _ledger_dos_vias(')[1].split('\ndef ')[0]
+    check('f_corte' in cuerpo and 'idx_tr' in cuerpo,
+          'v255: cada pliegue se entrena con lo ANTERIOR a su fecha de corte')
+    check('< f_corte' in cuerpo,
+          'v255: estrictamente anterior, no «hasta e incluyendo»')
+    i_fit = cuerpo.find('.fit(')
+    i_pred = cuerpo.find('predict_proba')
+    check(i_fit > 0 and i_pred > i_fit,
+          'v255: se reentrena ANTES de predecir ese pliegue')
+
+
+# ---------------------------------------------------------------------------
+# v256 — LO QUE SE REHACIA A MANO ENVEJECIA SOLO
+# ---------------------------------------------------------------------------
+def test_la_cadena_automatica_rehace_todo_lo_que_decide():
+    """
+    `pick_ledger_totales.csv` alimenta la calibracion por banda de cuota, que
+    corrige TODAS las probabilidades publicadas. Se encontro con 42 DIAS
+    mientras el workflow semanal corria en verde cada lunes: no estaba en la
+    cadena y nadie lo notaba.
+
+    Un fichero que decide y que nadie regenera es una bomba de relojeria
+    silenciosa, y el sintoma es el peor posible — todo verde.
+    """
+    import io as _io
+    r = _io.open('recalibrar_todo.py', encoding='utf-8').read()
+    check('build_ledger_totales' in r,
+          'v256: la cadena rehace el ledger de totales')
+    check('calibrador_bandas' in r,
+          'v256: y reentrena la calibracion por banda de cuota')
+    check('resolver_pendientes' in r,
+          'v256: y liquida los pronosticos ya jugados')
+
+    # el orden importa: calibrar antes de rehacer el ledger es calibrar con
+    # la foto de la semana pasada
+    i_led = r.find("('1. ledger")
+    i_ban = r.find("('9. calibración por banda")
+    check(i_led > 0 and i_ban > i_led,
+          'v256: la calibracion va DESPUES del ledger del que come')
+
+    y = _io.open('.github/workflows/recalibrar.yml', encoding='utf-8').read()
+    for f in ('pick_ledger_totales.csv', 'calibracion_bandas.json'):
+        check(f in y, 'v256: el workflow commitea `%s`' % f)
+    check('git add "$_f"' in y,
+          'v256: y con el bucle por fichero — un `git add` con un pathspec '
+          'que no existe falla ENTERO y se lleva los demas')
+
+
+# ---------------------------------------------------------------------------
+# v257 — UN SOLO MENU EN LA SONADORA, Y EL DEPORTE DE OPCION MULTIPLE
+# ---------------------------------------------------------------------------
+def test_la_sonadora_tiene_un_solo_armador():
+    """
+    «Las sonadoras tienen dos menus: el de picks del dia y el otro que son de
+    permutaciones. Quiero que solo dejes uno, vas a dejar el de picks del dia.»
+
+    Los dos armadores respondian la misma pregunta por caminos distintos, y con
+    dos caminos la pantalla puede contradecirse consigo misma: el mismo partido
+    con una pata distinta segun por donde entres. Lo que se conserva del que se
+    fue es lo unico que no duplicaba nada — el historico por longitud.
+    """
+    import io as _io
+    s = _io.open('sonadora_ui.py', encoding='utf-8').read()
+    check('Armar con los picks de' in s,
+          'v257: sigue el armador de picks del dia, que es el que se queda')
+    for ido in ('O arma a mano, recorriendo el tablero',
+                'El mismo montón, en todos los tamaños'):
+        check(ido not in s, 'v257: ya no esta el armador manual («%s»)' % ido)
+    check('rindió cada longitud' in s,
+          'v257: pero SI se conserva el historico por longitud, que no '
+          'duplicaba nada')
+
+
+def test_la_sonadora_elige_deportes():
+    """«Tienes que agregar con que deportes se tiene que usar. Puede ser un
+    solo deporte u opcion multiple, ademas de con todos.»
+
+    El filtro vive en `seleccionar`, no en la pantalla: si se hiciera arriba,
+    el reparto por mercado y por liga se haria sobre el monton SIN filtrar y
+    los topes (`max_por_mercado`, `max_por_liga`) saldrian mal repartidos.
+    """
+    import patas_veredicto as pv
+    import inspect
+    check('deportes' in inspect.signature(pv.seleccionar).parameters,
+          'v257: `seleccionar` acepta `deportes`')
+
+    r = {'pronosticos': [
+        {'partido': 'A vs B', 'deporte': 'Futbol', 'liga': 'x'},
+        {'partido': 'C vs D', 'deporte': 'Futbol', 'liga': 'x'},
+        {'partido': 'E vs F', 'deporte': 'MLB', 'liga': 'mlb'},
+        {'partido': 'G vs H', 'deporte': 'Tenis', 'liga': 'atp'},
+    ]}
+    check(pv.seleccionar(r)['partidos_mirados'] == 4,
+          'v257: sin filtro entran todos')
+    check(pv.seleccionar(r, deportes=None)['partidos_mirados'] == 4,
+          'v257: None es «todos», no «ninguno» — lo contrario dejaria la '
+          'pantalla vacia a quien no toque el control')
+    check(pv.seleccionar(r, deportes=[])['partidos_mirados'] == 4,
+          'v257: y la lista vacia tambien, que es lo que devuelve un '
+          'multiselector sin marcar')
+    check(pv.seleccionar(r, deportes=['MLB'])['partidos_mirados'] == 1,
+          'v257: un solo deporte')
+    check(pv.seleccionar(r, deportes=['MLB', 'Tenis'])['partidos_mirados'] == 2,
+          'v257: varios a la vez')
+    check(pv.seleccionar(r, deportes=['  mlb  '])['partidos_mirados'] == 1,
+          'v257: y compara sin mayusculas ni espacios de sobra')
+    check(pv.seleccionar(r, deportes=['NFL'])['partidos_mirados'] == 0,
+          'v257: un deporte sin partidos da cero, y lo dice en el motivo')
+
+
+def test_el_filtro_de_deporte_es_de_opcion_multiple():
+    """«Cuando apliques los filtros de escoger deporte, tambien debe de
+    poderse poner opcion multiple.»
+
+    La clave de sesion CAMBIA de nombre a proposito. El fichero de
+    preferencias de quien ya usaba la aplicacion guarda una CADENA bajo
+    `_filtro_deporte`; sembrar con ella un widget de lista revienta la
+    pantalla en el arranque, que es el peor momento posible para fallar.
+    """
+    import io as _io
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check("selection_mode='multi'" in d, 'v257: el control es multiple')
+    check("key='_filtro_deportes'" in d,
+          'v257: bajo una clave NUEVA, en plural')
+    check("st.session_state.get('_filtro_deportes')" in d,
+          'v257: y los KPIs de arriba leen esa misma clave')
+    check('_dep_sel' not in d,
+          'v257: no queda ni un consumidor del escalar viejo — uno solo que '
+          'sobreviva compara una cadena con un conjunto y filtra de mas')
+    check("hasattr(st, 'pills')" in d,
+          'v257: con salida por multiselect si `st.pills` no existe')
+
+    # el defecto tiene que seguir siendo «todo»: nadie que no toque el
+    # control puede perder partidos de vista
+    i = d.find('def _filtra(')
+    check(i > 0, 'v257: sigue existiendo `_filtra`')
+    cuerpo = d[i:i + 1200]
+    check('if _deps_sel:' in cuerpo,
+          'v257: `_filtra` solo corta si hay deportes marcados')
+    check("p.get('deporte') in _deps_sel" in cuerpo,
+          'v257: y corta por pertenencia al conjunto')
+
+
+# ---------------------------------------------------------------------------
+# v258 — EL SESGO DE GOLES NO ES UNO: ES UNO POR LINEA
+# ---------------------------------------------------------------------------
+def test_el_h2h_pesa_en_el_1x2_y_arrastra_a_la_doble():
+    """
+    «Te preferiste ir por el visitante o empate y termino perdiendo; en la
+    barrita se ve como el Leverkusen tiene mejor pronostico en el H2H.»
+
+    Medido sobre 15.473 partidos con tres o mas cruces previos, y con el H2H
+    construido SOLO con lo anterior a cada partido: cuando el historial
+    favorece claramente al local, el modelo lo subestima dos puntos (0,526
+    anunciado contra 0,546 real, n=4.348). Con w=0,10 la mejora es +0,00253 de
+    log-loss, p5 +0,00077 y el 100 % de los remuestreos a favor.
+
+    Dos puntos, no veinte: el caso concreto del Leverkusen son 2.019 partidos
+    en los que el modelo decia 41,2 % y salio 42,3 %. Eso se perdio por
+    varianza, y el test lo deja escrito para que nadie suba el peso creyendo
+    que hay mas.
+    """
+    import pata_h2h as ph
+
+    check(abs(ph.PESO - 0.20) < 1e-9,
+          'v258: el peso es el optimo medido (%.2f)' % ph.PESO)
+    check(ph.MIN_CRUCES >= 3,
+          'v258: menos de tres cruces no es una muestra')
+
+    # EL ANCLA ES EL MODELO, NO EL 50 %, Y ESO SE PUEDE COMPROBAR.
+    #
+    # La primera version encogia el H2H hacia 0,5 y con eso arrastraba al
+    # centro cualquier probabilidad extrema AUNQUE el historial estuviera de
+    # acuerdo con el modelo. Se vio en un aviso que se contradecia solo:
+    # «Volos NFC gano 1, empato 1 y perdio 8 — le va MEJOR de lo que decia el
+    # modelo». Con el ancla en la probabilidad del modelo, el numero sube si y
+    # solo si la tasa del H2H la supera, asi que el mensaje es coherente POR
+    # CONSTRUCCION. Medido: contradice la lectura simple del historial el
+    # 20 % de las veces en vez del 45 %, y ademas mide mejor (+0,00258 con p5
+    # +0,00090, contra +0,00253 con p5 +0,00077).
+    import io as _io
+    _s = _io.open('pata_h2h.py', encoding='utf-8').read()
+    check('pl + PESO * float(d[' in _s,
+          'v258: el ancla del encogimiento es `pl`, la del modelo')
+    check("0.5 + (t - 0.5)" not in _s,
+          'v258: y ya no queda el encogimiento hacia 0,5')
+
+    # nunca lanza, pase lo que pase
+    for tri in (None, (), (0.5,), ('a', 'b', 'c'), (0.9, 0.9, 0.9)):
+        r = ph.aplicar({'clave_liga': 'x'}, tri)
+        check(isinstance(r, dict) and not r.get('hay'),
+              'v258: `aplicar` aguanta %r' % (tri,))
+
+    # con el 1X2 YA encogido al mercado no se toca: la medicion se hizo sobre
+    # la probabilidad cruda, y empujar contra el precio no esta medido
+    r = ph.aplicar({'clave_liga': 'laliga', 'partido': 'A vs B'},
+                   (0.45, 0.28, 0.27), ya_encogido=True)
+    check(not r.get('hay'),
+          'v258: con el 1X2 ya encogido al mercado, la pata no entra')
+
+    # el trio sigue sumando 1 cuando SI entra
+    d = ph.tasa.__doc__
+    check('empate cuenta medio' in d,
+          'v258: el empate cuenta medio, que es lo que se midio')
+
+    import io as _io
+    s = _io.open('valor_apuesta.py', encoding='utf-8').read()
+    cuerpo = s.split('def _de_resultado(')[1].split(chr(10) + 'def ')[0]
+    i_h2h = cuerpo.find('pata_h2h')
+    i_bucle = cuerpo.find("for lado, p, etq in (('home'")
+    i_dob = cuerpo.find('doble_cuotas')
+    check(0 < i_h2h < i_bucle < i_dob,
+          'v258: la pata entra ANTES del bucle, asi que el 1X2 y la DOBLE '
+          'salen del mismo trio — aplicarla solo al 1X2 dejaria la doble con '
+          'las probabilidades viejas, que es el mercado donde el usuario vio '
+          'el problema')
+
+
+def test_los_avisos_los_entiende_quien_apuesta():
+    """
+    «Ese mensaje solo lo entiende el desarrollador. La persona que va a
+    apostar tiene que entender si se mete o no se mete. Todos los mensajes que
+    salgan tienen que ser faciles de digerir.»
+
+    Medido sobre las cadenas que van a pantalla: las tarjetas y la sonadora no
+    tenian jerga, y las 39 apariciones del resto viven en el panel de estado,
+    donde «log-loss» y «p5» estan en su sitio. La excepcion era «Score», que
+    SI salia en la tarjeta. Es cuota x probabilidad, o sea lo que esperas
+    recuperar, asi que se dice en dinero y se acabo.
+    """
+    import ast as _ast
+    import io as _io
+
+    src = _io.open('modo_modelo.py', encoding='utf-8').read()
+    arbol = _ast.parse(src)
+    pintadas = []
+    for f in _ast.walk(arbol):
+        if (isinstance(f, _ast.FunctionDef)
+                and f.name in ('tarjeta', '_filas_de_mercados',
+                               '_bloque_recomendada')):
+            for n in _ast.walk(f):
+                if isinstance(n, _ast.Constant) and isinstance(n.value, str):
+                    if len(n.value) < 400:
+                        pintadas.append(n.value)
+    malas = [t for t in pintadas if 'Score' in t]
+    check(not malas,
+          'v258: «Score» ya no sale en la tarjeta (%s)' % [t[:40]
+                                                          for t in malas][:2])
+    check(any('por cada $100' in t for t in pintadas),
+          'v258: y en su lugar se dice lo que devuelve, en dinero')
+
+    # el aviso del historial mutuo: cuenta PARTIDOS, que se entienden sin
+    # saber que es una probabilidad
+    h = _io.open('pata_h2h.py', encoding='utf-8').read()
+    cuerpo = h.split('def aplicar(')[1]
+    for jerga in ('encogida', 'tasa encogida', 'log-loss', 'p5', 'isot'):
+        i_r = cuerpo.find('razon = (')
+        check(jerga not in cuerpo[i_r:i_r + 700],
+              'v258: el aviso de H2H no dice «%s»' % jerga)
+    check('Se han enfrentado' in cuerpo,
+          'v258: dice cuantas veces se han visto, que es como lo mira '
+          'cualquiera al abrir el historial')
+    # y un mensaje simple no puede ser un mensaje falso
+    check("d.get('ganados', 0)" in cuerpo,
+          'v258: cuenta victorias de verdad — «gano 6» cuando fueron 5 '
+          'victorias y 2 empates seria simple Y FALSO, que es peor que uno '
+          'complicado')
+
+
+def test_la_curva_de_goles_se_reajusta_sola_y_con_su_puerta():
+    """
+    LA EQUIVOCACION QUE ORIGINA ESTA PRUEBA, ESCRITA PARA QUE NO SE REPITA.
+
+    Se llego a anadir una correccion por linea en `valor_apuesta._de_goles`,
+    medida sobre `pick_ledger_totales.csv`: el modelo se queda corto en «Mas
+    de 1.5» y va sobrado en «Menos de 2.5». El sesgo es real. Lo que estaba
+    mal era el sitio: ese ledger guarda la probabilidad que sale de lambda SIN
+    CALIBRAR, y `calibrador_goles` (v225) ya la arregla mucho antes, dentro de
+    `alpha_finder`. Corregirla otra vez en `valor_apuesta` la empujaba dos
+    veces en el mismo sentido.
+
+    LO QUE SI FALTABA, Y ES LO QUE ESTA PRUEBA FIJA
+    Nadie reentrenaba esa curva. `calibracion_goles.json` se genero a mano en
+    la v225 y ni la cadena semanal ni ningun workflow volvian a tocarlo. Es la
+    misma bomba de relojeria que la v256 encontro con el ledger de totales:
+    42 dias de antiguedad con el workflow en verde cada lunes.
+    """
+    import io as _io
+
+    # 1) la correccion vive en UN solo sitio
+    v = _io.open('valor_apuesta.py', encoding='utf-8').read()
+    cuerpo = v.split('def _de_goles(')[1].split(chr(10) + 'def ')[0]
+    check('import calibrador_goles' not in cuerpo,
+          'v258: `_de_goles` NO vuelve a calibrar: la escalera ya llega '
+          'corregida desde `alpha_finder`')
+    a = _io.open('alpha_finder.py', encoding='utf-8').read()
+    check('import calibrador_goles' in a,
+          'v258: y quien la corrige sigue siendo el barrido, en origen')
+
+    # 2) y se reentrena sola
+    r = _io.open('recalibrar_todo.py', encoding='utf-8').read()
+    check('calibrador_goles' in r,
+          'v258: la cadena semanal reajusta la curva de goles')
+    i_led = r.find("('1. ledger")
+    i_gol = r.find("('11. curva por línea")
+    check(i_led > 0 and i_gol > i_led,
+          'v258: y va DESPUES del ledger del que come')
+    y = _io.open('.github/workflows/recalibrar.yml', encoding='utf-8').read()
+    check('calibracion_goles.json' in y,
+          'v258: el workflow commitea el artefacto, o el reajuste se pierde '
+          'al terminar el runner')
+
+    # 3) LA PUERTA. Publicar una curva que no pasa su juicio es peor que
+    #    conservar una vieja, y este paso es mas estricto que el `main` del
+    #    propio modulo, que escribe el artefacto pase lo que pase.
+    cuerpo_p = r.split('def _goles_por_linea(')[1].split(chr(10) + 'def ')[0]
+    check('hasta_pliegue=cg.PLIEGUE_JUICIO' in cuerpo_p,
+          'v258: el juicio se hace en el pliegue reservado, no en el mismo '
+          'con el que se ajusto')
+    # v259 — EL CONTRATO CAMBIO, Y A MEJOR.
+    #
+    # La v258 no escribia el artefacto si el juicio fallaba. Desde la v259 se
+    # escribe SIEMPRE la curva reajustada y lo que se decide es si USARLA,
+    # en `activa_medida`. Es mejor porque una curva fresca y apagada puede
+    # encenderse sola en cuanto los datos la favorezcan, mientras que no
+    # regenerarla la deja envejecer justo cuando esta en duda — que es el
+    # fallo que este paso vino a arreglar.
+    i_jui = cuerpo_p.find('juicio_contra_sin_curva')
+    i_esc = cuerpo_p.find("open(cg.ARTEFACTO, 'w'")
+    check(0 < i_jui < i_esc,
+          'v259: el juicio se calcula ANTES de escribir, y viaja dentro del '
+          'artefacto para poder auditarlo despues')
+
+
+
+# ---------------------------------------------------------------------------
+# v259 — LA CURVA DE GOLES SE AJUSTABA SOBRE UNA LAMBDA Y SE APLICABA SOBRE OTRA
+# ---------------------------------------------------------------------------
+def test_el_ledger_de_totales_usa_la_lambda_de_produccion():
+    """
+    `build_ledger_totales` dice en su cabecera «Paridad con produccion», y
+    desde la v251 habia dejado de cumplirlo sin que nada avisara.
+
+    `distributions.encoger_lambdas` reparte entre local y visitante pero
+    CONSERVA la suma —lo dice su propio docstring—, asi que el total del
+    ledger seguia siendo el crudo del modelo. Produccion no: `alpha_finder`
+    encoge el TOTAL hacia la media de su liga antes de construir la escalera.
+
+    La consecuencia se mide: en el pliegue de juicio la log-loss cruda es
+    0,63015 con la lambda del ledger y 0,61049 con la de produccion. No son el
+    mismo problema, y `calibrador_goles` ajustaba su curva sobre el primero
+    para aplicarla sobre el segundo.
+    """
+    import io as _io
+    b = _io.open('build_ledger_totales.py', encoding='utf-8').read()
+    check('calibrador_lambda' in b,
+          'v259: el ledger encoge el total como lo hace produccion')
+    check("'lam_total_prod'" in b,
+          'v259: y lo publica en su propia columna')
+    # lam_h y lam_a NO se tocan: `p_btts` sale de ellos por separado y
+    # produccion tampoco encoge esa parte
+    # Se comprueba el CODIGO, no el texto: la primera version de esta prueba
+    # encontraba «p_btts» dentro del comentario que explica justamente esto y
+    # fallaba por ello. Mismo error que buscar «Score» en un comentario.
+    check('tot = float(_clam.encoger(' in b,
+          'v259: se encoge el TOTAL')
+    check('max(tot, 1e-9)' in b,
+          'v259: y la escalera de goles sale de ese total encogido')
+    check('(1 - np.exp(-lh)) * (1 - np.exp(-la))' in b,
+          'v259: mientras el BTTS sigue saliendo de lam_h y lam_a sin tocar, '
+          'porque produccion tampoco encoge esa parte')
+
+    a = _io.open('alpha_finder.py', encoding='utf-8').read()
+    check('calibrador_lambda' in a,
+          'v259: y produccion sigue siendo quien marca la referencia')
+
+    # y el calibrador lee esa columna, con respaldo para un ledger viejo
+    import calibrador_goles as cg
+    src = _io.open('calibrador_goles.py', encoding='utf-8').read()
+    d = src.split('def _datos(')[1].split(chr(10) + 'def ')[0]
+    check("'lam_total_prod' in t.columns" in d,
+          'v259: `_datos` prefiere la columna de produccion')
+    check('calibrador_lambda' in d,
+          'v259: y con un ledger anterior a la v259 encoge al leer, para que '
+          'la medicion sea correcta igual')
+
+
+def test_la_curva_de_goles_la_enciende_la_medicion_no_una_constante():
+    """
+    Reajustada sobre la lambda correcta, la curva pasa a ser un empate:
+
+        log-loss    0,61049 -> 0,61009   (+0,00040, p5 +0,00014)
+        sesgo Under    -0,5 pp -> +0,5 pp
+        acierto/ROI    54,6 % / -5,77 %  ->  54,5 % / -5,93 %
+
+    Gana cuatro diezmilesimas de log-loss y pierde en el sesgo que vino a
+    arreglar. El encogimiento de lambda de la v251 le absorbio el trabajo.
+
+    Asi que el interruptor deja de ser una constante que alguien recuerde
+    mover: lo escribe el paso 11 cada semana, y exige las DOS cosas. Aceptar
+    la curva por +0,0004 a cambio de reintroducir el sesgo seria cumplir la
+    letra del criterio y romper su motivo.
+    """
+    import calibrador_goles as cg
+
+    check(hasattr(cg, 'activa'), 'v259: existe `activa()`')
+    # el artefacto manda
+    guardado = cg._TABLA
+    try:
+        cg._TABLA = {'lineas': {'2.5': {'x': [0.1, 0.9], 'y': [0.2, 0.8]}},
+                     'activa_medida': False}
+        check(cg.activa() is False,
+              'v259: con `activa_medida` en False la curva no se aplica')
+        check(cg.calibrar_si_activo(0.62, 2.5) == 0.62,
+              'v259: y el motor recibe la cruda')
+        cg._TABLA = dict(cg._TABLA, activa_medida=True)
+        check(cg.activa() is True,
+              'v259: y con True vuelve sola, sin que nadie toque codigo')
+        # pero la constante es el interruptor maestro
+        v = cg.USAR_CALIBRACION_GOLES
+        try:
+            cg.USAR_CALIBRACION_GOLES = False
+            check(cg.activa() is False,
+                  'v259: apagar a mano gana a la medicion — una medicion '
+                  'puede estar rota y hay que poder cortarla')
+        finally:
+            cg.USAR_CALIBRACION_GOLES = v
+        # y sin la clave, manda la constante (comportamiento de siempre)
+        cg._TABLA = {'lineas': {'2.5': {'x': [0.1, 0.9], 'y': [0.2, 0.8]}}}
+        check(cg.activa() is bool(cg.USAR_CALIBRACION_GOLES),
+              'v259: sin `activa_medida` manda la constante')
+    finally:
+        cg._TABLA = guardado
+
+    # el paso de la cadena escribe esa clave y exige los dos criterios
+    import io as _io
+    r = _io.open('recalibrar_todo.py', encoding='utf-8').read()
+    cuerpo = r.split('def _goles_por_linea(')[1].split(chr(10) + 'def ')[0]
+    check("'activa_medida'" in cuerpo,
+          'v259: el paso 11 escribe el interruptor')
+    check('sesgo_con' in cuerpo and 'p5 > 0' in cuerpo,
+          'v259: y lo decide con la log-loss Y el sesgo al Under')
+    check('abs(sesgo_con) <= abs(sesgo_sin)' in cuerpo,
+          'v259: el sesgo no puede empeorar, que es el motivo del modulo')
+    # se compara contra NO-CURVA, no contra la curva anterior
+    check('crudas' in cuerpo and 'cal' in cuerpo,
+          'v259: se compara contra NO usar curva, que es la pregunta util '
+          'desde que la v251 hace el mismo trabajo antes')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -21354,6 +21973,25 @@ if __name__ == '__main__':
     test_stats_espn_no_pide_rangos_con_guion()
     test_la_ventana_del_tablero_es_la_de_la_pantalla()
     test_las_selecciones_entran_en_el_tablero()
+
+    print(chr(10) + '=== v254-v256: handicap, ledgers nuevos y automatizacion ===')
+    test_el_handicap_llega_al_pick_publicado()
+    test_el_handicap_produce_candidatas_con_precio()
+    test_nfl_y_kbo_tienen_constructor_de_ledger()
+    test_el_walkforward_no_mira_el_futuro()
+    test_la_cadena_automatica_rehace_todo_lo_que_decide()
+
+    print(chr(10) + '=== v257: un menu en la sonadora y deporte multiple ===')
+    test_la_sonadora_tiene_un_solo_armador()
+    test_la_sonadora_elige_deportes()
+    test_el_filtro_de_deporte_es_de_opcion_multiple()
+
+    print(chr(10) + '=== v258: la curva por linea del mercado de goles ===')
+    test_la_curva_de_goles_se_reajusta_sola_y_con_su_puerta()
+    test_el_ledger_de_totales_usa_la_lambda_de_produccion()
+    test_la_curva_de_goles_la_enciende_la_medicion_no_una_constante()
+    test_el_h2h_pesa_en_el_1x2_y_arrastra_a_la_doble()
+    test_los_avisos_los_entiende_quien_apuesta()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

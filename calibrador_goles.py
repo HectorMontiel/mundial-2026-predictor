@@ -103,7 +103,49 @@ N_PUNTOS = 60              # resolución de la curva guardada
 #
 # Validado fuera de muestra (pliegue 4, n=9.584, ajustado sólo en 0-3):
 # log-loss −3,37 %, Brier −3,67 %, y mejora en el 100 % de 1.000 remuestreos.
-USAR_CALIBRACION_GOLES = True
+#
+# ---------------------------------------------------------------------------
+# v259 — ESTABA AJUSTADA SOBRE UNA λ Y APLICADA SOBRE OTRA
+# ---------------------------------------------------------------------------
+# Todo lo de arriba se midió con la λ de ENTONCES. La v251 añadió después el
+# encogimiento de λ hacia la media de la liga (`calibrador_lambda`), que ataca
+# la MISMA sobredispersión antes y por otro camino — pero sólo en producción:
+# `build_ledger_totales` siguió escribiendo la λ cruda, así que desde la v251
+# esta curva se ajustaba sobre una distribución y se aplicaba sobre otra.
+#
+# No era teórico. En el pliegue de juicio (n=16.170) la log-loss cruda es
+# 0,63015 con la λ del ledger y 0,61049 con la de producción: no son el mismo
+# problema. Aplicada así, la curva publicada EMPEORABA las cosas:
+#
+#     sin la curva : log-loss 0,61049 · Brier 0,21068 · sesgo Under  −0,5 pp
+#     con la curva : log-loss 0,61301 · Brier 0,21175 · sesgo Under −16,1 pp
+#
+#     apagarla mejoraba +0,00252 · p5 +0,00164 · 100 % a favor
+#
+# La v259 arregla la causa: el ledger publica `lam_total_prod`, que es la λ que
+# usa producción, y esta curva se ajusta sobre ella.
+#
+# Y ENTONCES RESULTA QUE YA CASI NO HACE FALTA. Reajustada sobre la λ correcta
+# sus desplazamientos caen de +0,019/+0,016/−0,004 a +0,001/+0,004/−0,002, y
+# el balance queda en empate técnico:
+#
+#     log-loss    0,61049 -> 0,61009   (+0,00040, p5 +0,00014)
+#     sesgo Under    −0,5 pp -> +0,5 pp
+#     acierto/ROI    54,6 % / −5,77 %  ->  54,5 % / −5,93 %
+#
+# Gana cuatro diezmilésimas de log-loss y pierde en el sesgo que vino a
+# arreglar y en la decisión. El encogimiento de λ le absorbió el trabajo.
+#
+# POR ESO EL INTERRUPTOR YA NO ES ESTA CONSTANTE. La decide el paso 11 de
+# `recalibrar_todo`, que cada semana compara curva contra NO-curva sobre la λ
+# de producción y escribe `activa_medida` en el artefacto, exigiendo las dos
+# cosas: que mejore la log-loss en el remuestreo Y que no empeore el sesgo al
+# Under. Hoy sale APAGADA. Si el modelo cambia y la curva vuelve a hacer
+# falta, se enciende sola.
+#
+# No se borra el módulo: apagarlo con la medición escrita permite volver atrás
+# sin rehacer nada, y borrarlo obligaría a medirlo otra vez desde cero.
+USAR_CALIBRACION_GOLES = True   # interruptor maestro; manda `activa_medida`
 
 
 def _f(x) -> Optional[float]:
@@ -163,9 +205,27 @@ def calibrar(prob: Optional[float], linea) -> Optional[float]:
         return p
 
 
+def activa() -> bool:
+    """Si la curva debe aplicarse, según lo MEDIDO y no según una constante.
+
+    `activa_medida` lo escribe el paso 11 de `recalibrar_todo` comparando la
+    curva contra NO usarla, sobre la λ de producción y en el pliegue
+    reservado. Mientras no exista esa clave manda la constante, que es el
+    comportamiento de siempre.
+
+    La constante sigue siendo el interruptor maestro: si está en `False` no se
+    aplica aunque el artefacto diga que sí. Apagar a mano tiene que poder
+    ganarle a una medición, porque la medición puede estar rota.
+    """
+    if not USAR_CALIBRACION_GOLES:
+        return False
+    v = cargar().get('activa_medida')
+    return True if v is None else bool(v)
+
+
 def calibrar_si_activo(prob, linea):
     """Lo que llama el motor: respeta el interruptor."""
-    if not USAR_CALIBRACION_GOLES:
+    if not activa():
         return prob
     v = calibrar(prob, linea)
     return prob if v is None else v
@@ -173,10 +233,32 @@ def calibrar_si_activo(prob, linea):
 
 # ---------------------------------------------------------------------------
 def _datos():
+    """El ledger, con la lambda QUE USA PRODUCCIÓN.
+
+    v259 — `lam_h + lam_a` es el total crudo del modelo; desde la v251
+    producción encoge ese total hacia la media de su liga antes de construir
+    la escalera. Ajustar la curva sobre uno y aplicarla sobre el otro es medir
+    un problema y corregir otro: en el pliegue de juicio la log-loss cruda es
+    0,63015 con el total crudo y 0,61049 con el de producción.
+
+    `build_ledger_totales` publica `lam_total_prod` desde la v259. Mientras el
+    ledger sea anterior a eso se encoge aquí, para que la medición sea
+    correcta también con un fichero viejo.
+    """
     import pandas as pd
     t = pd.read_csv(LEDGER)
     t = t[t.lam_h.notna() & t.lam_a.notna()].copy()
-    t['lam'] = t.lam_h + t.lam_a
+    if 'lam_total_prod' in t.columns and t['lam_total_prod'].notna().any():
+        t['lam'] = t['lam_total_prod'].fillna(t.lam_h + t.lam_a)
+        return t
+    crudo = (t.lam_h + t.lam_a).astype(float)
+    try:
+        import calibrador_lambda as _clam
+        t['lam'] = [float(_clam.encoger(v, str(g)))
+                    for v, g in zip(crudo, t['liga'].astype(str))]
+    except Exception as e:
+        logger.debug('[goles] sin encogimiento de lambda: %s', e)
+        t['lam'] = crudo
     return t
 
 

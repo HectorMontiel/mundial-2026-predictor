@@ -292,6 +292,240 @@ def ledger_mlb(n_folds: int = N_FOLDS, inicio: float = INICIO_TRAIN) -> pd.DataF
     return out
 
 
+def _cuotas_de_csv(ruta: str, col_h: str, col_a: str,
+                   por_casa: bool = False) -> dict:
+    """{(fecha, home, away): (cuota_home, cuota_away)} desde un CSV de cierres.
+
+    Las claves van normalizadas con `cuotas_multi.normalizar`, que es el mismo
+    emparejador de clubes del resto del proyecto — y desde la v247 ya no cruza
+    dos equipos de la misma ciudad.
+    """
+    if not os.path.exists(ruta):
+        return {}
+    try:
+        import cuotas_multi as _cm
+        d = pd.read_csv(ruta, low_memory=False)
+    except Exception as e:
+        logger.warning('[ledger] %s: %s', ruta, e)
+        return {}
+    if col_h not in d.columns or col_a not in d.columns:
+        return {}
+    col_f = 'fecha' if 'fecha' in d.columns else 'date'
+    fuera = {}
+    for _, r in d.iterrows():
+        try:
+            ch, ca = float(r[col_h]), float(r[col_a])
+        except (TypeError, ValueError):
+            continue
+        if not (ch > 1.0 and ca > 1.0):
+            continue
+        k = (str(r.get(col_f) or '')[:10],
+             _cm.normalizar(str(r.get('home') or '')),
+             _cm.normalizar(str(r.get('away') or '')))
+        if not all(k):
+            continue
+        # con varias casas por partido nos quedamos con el MEJOR precio de
+        # cada lado, que es lo que la aplicacion jugaria de verdad
+        if por_casa and k in fuera:
+            ph, pa = fuera[k]
+            fuera[k] = (max(ph, ch), max(pa, ca))
+        else:
+            fuera[k] = (ch, ca)
+    return fuera
+
+
+def _ledger_dos_vias(etiqueta: str, X, y, fechas, identidades, cuotas,
+                     n_folds: int, inicio: float, min_train: int,
+                     min_test: int = MIN_TEST) -> pd.DataFrame:
+    """La receta de `ledger_mlb`, compartida por NFL y KBO.
+
+    Se extrae para que los tres deportes corran EXACTAMENTE el mismo
+    walk-forward de origen movil: tres copias de un backtest divergen en
+    cuanto alguien toque una, y entonces sus calibraciones dejan de ser
+    comparables entre si — que es justo para lo que existe el ledger.
+    """
+    from sklearn.calibration import CalibratedClassifierCV
+    from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+    from sklearn.preprocessing import StandardScaler
+    from lightgbm import LGBMClassifier
+    from xgboost import XGBClassifier
+
+    X = np.asarray(X, dtype=float)
+    y = np.asarray(y).astype(int)
+    fechas = pd.Series(pd.to_datetime(fechas)).reset_index(drop=True)
+    con_odds = np.array([i for i, k in enumerate(identidades)
+                         if cuotas.get(k)])
+    if len(con_odds) < n_folds * min_test:
+        logger.warning('[%s] solo %d partidos con cuota: se omite '
+                       '(hacen falta %d para %d pliegues de %d)',
+                       etiqueta, len(con_odds), n_folds * min_test,
+                       n_folds, min_test)
+        return pd.DataFrame()
+    logger.info('[%s] %d partidos con cuota de %d del historico',
+                etiqueta, len(con_odds), len(X))
+    bordes = np.linspace(int(len(con_odds) * inicio), len(con_odds),
+                         n_folds + 1).astype(int)
+    filas = []
+    for k in range(n_folds):
+        sel = con_odds[bordes[k]:bordes[k + 1]]
+        if len(sel) < min_test:
+            continue
+        ini, fin = int(sel[0]), int(sel[-1]) + 1
+        f_corte = fechas.iloc[ini:fin].min()
+        idx_tr = np.arange(ini)[fechas.iloc[:ini].values < f_corte]
+        if len(idx_tr) < min_train:
+            continue
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
+            sc = StandardScaler().fit(X[idx_tr])
+            vc = VotingClassifier([
+                ('xgb', XGBClassifier(n_estimators=200, max_depth=4,
+                                      learning_rate=0.05, verbosity=0)),
+                ('lgbm', LGBMClassifier(n_estimators=200, max_depth=4,
+                                        learning_rate=0.05, verbose=-1)),
+                ('rf', RandomForestClassifier(n_estimators=200, max_depth=8,
+                                              random_state=42))], voting='soft')
+            modelo = CalibratedClassifierCV(vc, method='isotonic', cv=3).fit(
+                sc.transform(X[idx_tr]), y[idx_tr])
+            i1 = list(modelo.classes_).index(1)
+            proba = modelo.predict_proba(sc.transform(X[ini:fin]))[:, i1]
+        for j, i in enumerate(range(ini, fin)):
+            c = cuotas.get(identidades[i])
+            if not c:
+                continue
+            p = float(proba[j])
+            filas.append({'deporte': etiqueta, 'liga': etiqueta.lower(),
+                          'match_id': '%s_%s_%s' % identidades[i],
+                          'fecha': str(fechas.iloc[i].date()),
+                          'pliegue': k,
+                          'p_home': round(p, 5), 'p_draw': 0.0,
+                          'p_away': round(1.0 - p, 5),
+                          'resultado': 0 if int(y[i]) == 1 else 2,
+                          'cuota_home': c[0], 'cuota_away': c[1],
+                          'cuota_draw': None,
+                          'pin_home': None, 'pin_draw': None,
+                          'pin_away': None})
+    return pd.DataFrame(filas)
+
+
+def ledger_nfl(n_folds: int = N_FOLDS,
+               inicio: float = INICIO_TRAIN) -> pd.DataFrame:
+    """v255 — NFL fuera de muestra, con los cierres multicasa que ya se juntan.
+
+    Era uno de los dos deportes sin ledger, y sin el la puerta del §7 no se
+    puede abrir ahi: exige ROI y p5, y no habia con que calcularlos.
+
+    Las cuotas salen de `nfl_cierres_multicasa.csv`, que el bot ya acumula.
+    Como trae varias casas por partido se toma el MEJOR precio de cada lado,
+    que es lo que la aplicacion jugaria.
+    """
+    ruta = 'historico_nfl.csv'
+    if not os.path.exists(ruta):
+        logger.warning('[nfl] sin %s', ruta)
+        return pd.DataFrame()
+    try:
+        import cuotas_multi as _cm
+        import modelo_nfl as _mn
+    except Exception as e:
+        logger.warning('[nfl] dependencias: %s', e)
+        return pd.DataFrame()
+    d = pd.read_csv(ruta, low_memory=False)
+    col_f = 'fecha' if 'fecha' in d.columns else 'date'
+    d[col_f] = pd.to_datetime(d[col_f], errors='coerce')
+    d = d.dropna(subset=[col_f]).sort_values(col_f).reset_index(drop=True)
+    try:
+        # `construir_dataset` devuelve un DataFrame de FEATURES alineado 1:1
+        # con las filas de entrada: el objetivo y las fechas salen del propio
+        # historico, no de ahi.
+        feats = _mn.construir_dataset(d)
+    except Exception as e:
+        logger.warning('[nfl] construir_dataset: %s', e)
+        return pd.DataFrame()
+    n = len(feats)
+    if n == 0 or n != len(d):
+        logger.warning('[nfl] dataset no alineado (%d vs %d)', n, len(d))
+        return pd.DataFrame()
+    # solo las columnas numericas: el DataFrame trae tambien etiquetas de
+    # texto («regular»/«playoff») que no son features y revientan el escalado.
+    feats = feats.select_dtypes(include='number').astype(float)
+    # Las primeras jornadas de cada temporada no tienen ventana con la que
+    # calcular la forma, asi que salen NaN. Se rellenan con la MEDIA DE LA
+    # COLUMNA hasta esa fila —nunca con la global, que seria mirar el futuro—
+    # y lo que quede al principio, con cero: el vector de features de
+    # produccion hace lo mismo cuando falta el dato.
+    feats = feats.ffill().fillna(0.0)
+    if feats.empty:
+        logger.warning('[nfl] el dataset no tiene features numericas')
+        return pd.DataFrame()
+    X = feats.to_numpy(dtype=float)
+    if 'pts_home' not in d.columns or 'pts_away' not in d.columns:
+        logger.warning('[nfl] sin marcador en el historico')
+        return pd.DataFrame()
+    y = (pd.to_numeric(d['pts_home'], errors='coerce')
+         > pd.to_numeric(d['pts_away'], errors='coerce')).astype(int).to_numpy()
+    fechas = d[col_f]
+    base = d.reset_index(drop=True)
+    ident = [(str(base[col_f].iloc[i].date()),
+              _cm.normalizar(str(base['home'].iloc[i])),
+              _cm.normalizar(str(base['away'].iloc[i]))) for i in range(n)]
+    cuotas = _cuotas_de_csv('nfl_cierres_multicasa.csv', 'c_home', 'c_away',
+                            por_casa=True)
+    # tres pliegues de 100: el historico son 1.095 partidos y los cierres
+    # multicasa cubren una parte, asi que cinco de 200 no caben.
+    return _ledger_dos_vias('NFL', X, y, fechas, ident, cuotas,
+                            n_folds=3, inicio=0.40, min_train=300,
+                            min_test=100)
+
+
+def ledger_kbo(n_folds: int = N_FOLDS,
+               inicio: float = INICIO_TRAIN) -> pd.DataFrame:
+    """v255 — KBO fuera de muestra, con los cierres que la v99 acumula.
+
+    El bloqueo declarado era «KBO no tiene NINGUNA cuota historica». Ya no es
+    cierto: `cuotas_kbo_cierre.csv` los viene juntando dia a dia desde la v99
+    y hoy son 348. Son pocos —y por eso la muestra saldra corta y hay que
+    decirlo— pero crecen solos, y sin construir el ledger nunca empezarian a
+    servir para nada.
+
+    El motor usa `MLBEngine._dataset` tal cual (lo dice su propia cabecera),
+    asi que la receta es la misma que la de MLB sin tocar una linea.
+    """
+    if not os.path.exists('historico_kbo.csv'):
+        logger.warning('[kbo] sin historico_kbo.csv')
+        return pd.DataFrame()
+    try:
+        import cuotas_multi as _cm
+        from engines.kbo_engine import KBOEngine
+    except Exception as e:
+        logger.warning('[kbo] dependencias: %s', e)
+        return pd.DataFrame()
+    df = pd.read_csv('historico_kbo.csv', low_memory=False)
+    col_f = 'date' if 'date' in df.columns else 'fecha'
+    df[col_f] = pd.to_datetime(df[col_f], errors='coerce')
+    df = df.dropna(subset=[col_f]).sort_values(col_f).reset_index(drop=True)
+    try:
+        X, y, _tot, fechas, estado = KBOEngine._dataset(df)
+    except Exception as e:
+        logger.warning('[kbo] _dataset: %s', e)
+        return pd.DataFrame()
+    filas_id = (estado or {}).get('filas') or []
+    if len(filas_id) != len(np.asarray(X, dtype=float)):
+        logger.warning('[kbo] `_dataset` no devolvio identidades alineadas '
+                       '(%d vs %d): se omite', len(filas_id), len(X))
+        return pd.DataFrame()
+    ident = [(pd.Timestamp(f).strftime('%Y-%m-%d'),
+              _cm.normalizar(str(h)), _cm.normalizar(str(a)))
+             for f, h, a in filas_id]
+    cuotas = _cuotas_de_csv('cuotas_kbo_cierre.csv', 'odd_home', 'odd_away')
+    # DOS pliegues de 100 y no cinco de 200: con 336 cierres acumulados no
+    # caben mas, y partir en cinco dejaria trozos de 67 partidos donde un
+    # acierto mueve la calibracion punto y medio. Crece solo segun la v99
+    # siga juntando cierres; entonces se sube.
+    return _ledger_dos_vias('KBO', X, y, fechas, ident, cuotas,
+                            n_folds=2, inicio=0.35, min_train=1000,
+                            min_test=100)
+
+
 def verificar_alineacion(d: pd.DataFrame, etiqueta: str) -> dict:
     """
     Guardia contra el desalineado entre predicción y cuota.
@@ -363,6 +597,18 @@ def construir(deporte: Optional[str] = None) -> pd.DataFrame:
                 partes.append(d)
         except Exception as e:
             logger.warning(f"[mlb] {type(e).__name__}: {e}")
+    # v255 - los dos que faltaban. Sin ledger fuera de muestra, la puerta del
+    # §7 no se puede abrir en esos deportes: exige ROI y p5 y no habia con que
+    # calcularlos.
+    for _dep, _fn in (('nfl', ledger_nfl), ('kbo', ledger_kbo)):
+        if deporte not in (None, _dep):
+            continue
+        try:
+            d = _fn()
+            if not d.empty:
+                partes.append(d)
+        except Exception as e:
+            logger.warning(f"[{_dep}] {type(e).__name__}: {e}")
     if not partes:
         raise RuntimeError('ningún deporte produjo ledger')
     # guardia obligatoria: un ledger desalineado es peor que ninguno
@@ -418,7 +664,7 @@ def construir(deporte: Optional[str] = None) -> pd.DataFrame:
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
     ap = argparse.ArgumentParser()
-    ap.add_argument('--deporte', choices=['tenis', 'mlb'])
+    ap.add_argument('--deporte', choices=['tenis', 'mlb', 'nfl', 'kbo'])
     a = ap.parse_args()
     d = construir(a.deporte)
     print(f"\n{len(d)} filas · {d['deporte'].value_counts().to_dict()}")

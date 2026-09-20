@@ -181,6 +181,21 @@ def _ledger() -> str:
             fallos.append('%s: %s' % (etiqueta, e))
             logger.warning('[ledger/%s] no se rehizo: %s', etiqueta, e)
 
+    # v256 - EL LEDGER DE TOTALES TAMBIEN, QUE SE REHACIA A MANO.
+    #
+    # `pick_ledger_totales.csv` alimenta la calibracion por banda de cuota,
+    # que corrige TODAS las probabilidades publicadas. No estaba en esta
+    # cadena, asi que envejecia solo: se encontro con 42 dias mientras el
+    # workflow semanal corria en verde cada lunes. Un fichero que decide y que
+    # nadie regenera es una bomba de relojeria silenciosa.
+    try:
+        import build_ledger_totales
+        _dt = build_ledger_totales.construir()
+        notas.append('totales: %d filas' % len(_dt))
+    except Exception as e:
+        fallos.append('totales: %s' % e)
+        logger.warning('[ledger/totales] no se rehizo: %s', e)
+
     df = build_ledger_total.construir()
     notas.append('total: %d filas' % len(df))
     if fallos:
@@ -249,6 +264,136 @@ def _aprender() -> str:
             f"n global {s['n_total']}")
 
 
+def _bandas() -> str:
+    """v256 - La calibracion por banda de cuota, regenerada aqui y no a mano.
+
+    `calibracion_bandas.json` es lo que corrige la probabilidad de CADA pick
+    que se publica (`veredicto_pick.correccion`), y se entrenaba ejecutando
+    `calibrador_bandas.py` a mano. Va DESPUES del ledger porque come de el:
+    regenerarla antes seria calibrar con la foto de la semana pasada.
+    """
+    import calibrador_bandas as cb
+    doc = cb.entrenar()
+    return 'n=%s · bandas=%d' % (doc.get('n_total'),
+                                 len(doc.get('bandas') or {}))
+
+
+def _liquidar() -> str:
+    """v256 - Y los pronosticos ya jugados se resuelven.
+
+    La v249 lo metio en el workflow nocturno, pero ahi solo corre si ese
+    workflow entero llega hasta el final. Aqui va tambien, porque es de donde
+    sale el historico de corners, tarjetas y remates — los tres mercados que
+    no tenian NI UNA fila resuelta.
+    """
+    import pronosticos_guardados as pg
+    r = pg.resolver_pendientes()
+    return ('%d partidos, %d picks liquidados'
+            % (r.get('resueltos', 0), r.get('picks', 0)))
+
+
+def _goles_por_linea():
+    """Reajusta la curva de goles y decide, midiendo, si debe estar encendida.
+
+    POR QUE ESTE PASO EXISTE
+    `calibrador_goles` es de la v225 y corrige la escalera de goles en origen,
+    dentro de `alpha_finder`. Lo que no tenia era quien lo reentrenara:
+    `calibracion_goles.json` se genero a mano y ninguna cadena lo volvia a
+    tocar. Misma bomba silenciosa que la v256 encontro con el ledger de
+    totales, y mismo sintoma: todo verde mientras el artefacto envejece.
+
+    POR QUE MIDE CONTRA NO-CURVA Y NO CONTRA LA CURVA ANTERIOR
+    La v251 anadio despues el encogimiento de lambda, que ataca la MISMA
+    sobredispersion antes y mejor. Medido en el pliegue de juicio (n=16.170)
+    con la lambda de produccion, apagar la curva mejora la log-loss +0,00252
+    con p5 +0,00164 y el 100 % de los remuestreos a favor, y deja el sesgo al
+    Under en -0,5 pp en vez de -16,1. O sea que la pregunta util ya no es
+    «esta curva es mejor que la anterior» sino «hace falta alguna curva».
+
+    Asi que el paso compara las tres probabilidades sobre el pliegue
+    reservado, escribe el veredicto en `activa_medida` y deja que el modulo lo
+    lea. Si algun dia la curva vuelve a ganar, se enciende sola; si no, se
+    queda apagada sin que nadie tenga que acordarse.
+    """
+    import json
+    import numpy as np
+    import calibrador_goles as cg
+
+    doc = cg.entrenar(hasta_pliegue=cg.PLIEGUE_JUICIO)
+    if not doc.get('lineas'):
+        return 'sin datos suficientes para ajustar'
+
+    t = cg._datos()
+    ju = t[t.pliegue == cg.PLIEGUE_JUICIO]
+    if not len(ju):
+        return 'el pliegue de juicio esta vacio'
+    lam = ju['lam'].to_numpy()
+    crudas = {L: cg._p_over(lam, L) for L in cg.LINEAS}
+    cal = {}
+    for L in cg.LINEAS:
+        c = (doc.get('lineas') or {}).get(cg.clave_linea(L))
+        cal[L] = (np.clip(np.interp(crudas[L], c['x'], c['y']), 1e-6, 1 - 1e-6)
+                  if c else crudas[L])
+    ll_sin, br_sin = cg._metricas(ju, crudas)
+    ll_con, br_con = cg._metricas(ju, cal)
+
+    # remuestreo de la diferencia, pareado: positivo = la curva GANA
+    difs = []
+    for L in cg.LINEAS:
+        col = 'over_%s_real' % str(L)
+        if col not in ju.columns:
+            continue
+        m = ju[col].notna().to_numpy()
+        y = ju.loc[ju[col].notna(), col].to_numpy(dtype=float)
+        a = np.clip(crudas[L][m], 1e-6, 1 - 1e-6)
+        b = np.clip(cal[L][m], 1e-6, 1 - 1e-6)
+        difs.append((-(y * np.log(a) + (1 - y) * np.log(1 - a)))
+                    - (-(y * np.log(b) + (1 - y) * np.log(1 - b))))
+    g = np.concatenate(difs) if difs else np.array([0.0])
+    rng = np.random.default_rng(31)
+    xs = np.array([g[rng.integers(0, len(g), len(g))].mean()
+                   for _ in range(1000)])
+    p5 = float(np.percentile(xs, 5))
+
+    # LOS DOS CRITERIOS, NO UNO.
+    #
+    # La log-loss sola dice que la curva gana (+0,00040, p5 +0,00014). Pero
+    # este modulo existe para arreglar el sesgo al Under, y con la lambda ya
+    # encogida ese sesgo esta practicamente en cero SIN curva (-0,5 pp) y la
+    # curva lo empeora (+2,2 pp). Aceptarla por una ganancia de 0,0004 a
+    # cambio de reintroducir lo que vino a quitar seria cumplir la letra del
+    # criterio y romper su motivo. Es el mismo par de condiciones que exige
+    # `calibrador_goles.veredicto`, aplicado aqui contra NO-curva.
+    col = 'over_2.5_real'
+    sesgo_sin = sesgo_con = 0.0
+    if col in ju.columns and ju[col].notna().any():
+        mm = ju[col].notna().to_numpy()
+        real_u = 1.0 - float(ju.loc[ju[col].notna(), col].mean())
+        sesgo_sin = float((crudas[2.5][mm] < 0.5).mean()) - real_u
+        sesgo_con = float((cal[2.5][mm] < 0.5).mean()) - real_u
+    gana = (p5 > 0) and (abs(sesgo_con) <= abs(sesgo_sin))
+
+    final = cg.entrenar()
+    final['juicio_contra_sin_curva'] = {
+        'n': int(len(ju)),
+        'log_loss_sin': round(ll_sin, 5), 'log_loss_con': round(ll_con, 5),
+        'brier_sin': round(br_sin, 5), 'brier_con': round(br_con, 5),
+        'mejora_de_la_curva': round(float(g.mean()), 5),
+        'p5': round(p5, 5),
+        'a_favor': round(float((xs > 0).mean()), 3),
+        'sesgo_under_sin': round(sesgo_sin, 4),
+        'sesgo_under_con': round(sesgo_con, 4),
+    }
+    final['activa_medida'] = bool(gana)
+    with open(cg.ARTEFACTO, 'w', encoding='utf-8') as f:
+        json.dump(final, f, ensure_ascii=False)
+    cg.cargar(recargar=True)
+    return ('%s · log-loss sin %.5f / con %.5f · p5 %+.5f · sesgo Under '
+            '%+.1f -> %+.1f pp'
+            % ('ENCENDIDA' if gana else 'APAGADA', ll_sin, ll_con, p5,
+               100 * sesgo_sin, 100 * sesgo_con))
+
+
 PASOS = [
     ('1. ledger (re-predice el histórico con los modelos de hoy)', _ledger),
     ('2. calibración de confianza (acierto real por banda)', _confianza),
@@ -264,6 +409,18 @@ PASOS = [
     # orden: sin el diagnóstico, la corrección no sabría dónde hace falta.
     ('7. autopsia de los picks publicados', _autopsia),
     ('8. calibración adaptativa (aprende de lo liquidado)', _aprender),
+    ('9. calibración por banda de cuota (isotónica walk-forward)', _bandas),
+    ('10. liquidar los pronósticos ya jugados', _liquidar),
+    # v258 — LA CURVA POR LÍNEA DE GOLES.
+    #
+    # Va DESPUÉS del paso 1, que es quien rehace `pick_ledger_totales.csv`, y
+    # por la misma razón que la v256 puso ahí la calibración por banda: una
+    # curva ajustada sobre el ledger de la semana pasada corrige el sesgo de
+    # la semana pasada. Y tiene su propia puerta dentro —si separar por línea
+    # no aguanta el remuestreo, `entrenar` publica el fichero vacío y todo
+    # sigue como estaba—, así que este paso no puede empeorar nada por sí
+    # solo.
+    ('11. curva por línea del mercado de goles', _goles_por_linea),
 ]
 
 

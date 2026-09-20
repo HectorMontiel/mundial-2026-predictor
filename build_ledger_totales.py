@@ -27,7 +27,8 @@ Se replica la cadena de `ClubEngine.predecir` para los goles:
 
     λ = regresor.predict(X)  ->  clip(0.2, 3.8)
     λ_h, λ_a = distributions.encoger_lambdas(λ_h, λ_a, s=factor_shrink(liga))
-    P(over L)   = 1 - Poisson.cdf(floor(L), λ_h + λ_a)
+    λ_total   = calibrador_lambda.encoger(λ_h + λ_a, liga)      # v251/v259
+    P(over L)   = 1 - Poisson.cdf(floor(L), λ_total)
     P(BTTS)     = (1 - e^-λ_h)(1 - e^-λ_a)
 
 Sin fuga: mismo esquema de pliegues cronológicos que `build_pick_ledger`; el
@@ -136,11 +137,41 @@ def ledger_de_liga(clave: str) -> pd.DataFrame:
         for j, ig in enumerate(idx_te):
             lh, la = dist.encoger_lambdas(float(lam_h[j]), float(lam_a[j]),
                                           s=s_shrink)
-            tot = lh + la
+            # v259 — LA LAMBDA DEL TOTAL, COMO LA USA PRODUCCION.
+            #
+            # `dist.encoger_lambdas` reparte entre local y visitante pero
+            # CONSERVA la suma —su docstring lo dice— asi que hasta aqui el
+            # total es el crudo del modelo. Produccion no: desde la v251,
+            # `alpha_finder` encoge el TOTAL hacia la media de su liga
+            # (`calibrador_lambda.encoger`) justo antes de construir la
+            # escalera de goles.
+            #
+            # Este fichero dice en su cabecera «Paridad con produccion», y
+            # desde la v251 habia dejado de cumplirlo. La consecuencia no era
+            # teorica: `calibrador_goles` ajusta su curva sobre ESTA columna y
+            # se aplica sobre la otra, asi que la correccion se media sobre
+            # una distribucion y se usaba sobre otra distinta. Medido en el
+            # pliegue de juicio (n=16.170), con la lambda de produccion la
+            # log-loss cruda es 0,61049 y con la del ledger 0,63015: no son el
+            # mismo problema.
+            #
+            # `lam_h` y `lam_a` se dejan intactos a proposito: `p_btts` sale
+            # de ellos por separado y produccion tampoco encoge esa parte.
+            tot_crudo = lh + la
+            tot = tot_crudo
+            try:
+                import calibrador_lambda as _clam
+                tot = float(_clam.encoger(tot_crudo, clave))
+            except Exception as _e_cl:
+                logger.debug('[totales] encogimiento de lambda: %s', _e_cl)
             fila = {'liga': clave, 'match_id': ids[ig],
                     'fecha': fechas.iloc[ig].strftime('%Y-%m-%d'),
                     'pliegue': k,
                     'lam_h': round(lh, 4), 'lam_a': round(la, 4),
+                    # el total tal y como lo usa produccion, que es el que hay
+                    # que calibrar; `lam_h + lam_a` sigue siendo el crudo
+                    'lam_total_prod': round(tot, 4),
+                    'lam_total_crudo': round(tot_crudo, 4),
                     'goles_local': int(goles[ig, 0]),
                     'goles_visit': int(goles[ig, 1]),
                     'goles_total': int(goles[ig, 0] + goles[ig, 1]),

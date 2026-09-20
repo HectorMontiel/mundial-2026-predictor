@@ -128,6 +128,13 @@ def candidatas_de(pick: Dict, cuota_minima: float) -> List[Dict]:
             'prob_modelo': v.get('prob_modelo'),
             'prob': v.get('prob_ajustada'),
             'verde': v.get('veredicto') == 'meter',
+            # v257 — si la probabilidad de esta pata la corrigió algo MEDIDO o
+            # es el modelo a pelo. `sonadora_motor.armar` lo exige para contar
+            # las patas sin calibrar, y decirlo es media honestidad del
+            # boleto: «8 patas» y «8 patas de las que 5 nadie ha medido» no
+            # son la misma apuesta.
+            'medido': bool(v.get('medido')),
+            'n_muestra': v.get('n_muestra') or 0,
             'razones': v.get('razones') or [],
             'principal': _es_principal(pick),
         })
@@ -189,7 +196,8 @@ def seleccionar(r: Dict, n_patas: int = 4,
                 solo_principales: bool = False,
                 max_partidos: int = 400,
                 max_por_mercado: int = 2,
-                max_por_liga: int = 2) -> Dict:
+                max_por_liga: int = 2,
+                deportes: Optional[List[str]] = None) -> Dict:
     """Arma el boleto: una pata por partido, verdes primero.
 
     Devuelve siempre el mismo esquema y NUNCA lanza. Si no llega a `n_patas`
@@ -201,6 +209,17 @@ def seleccionar(r: Dict, n_patas: int = 4,
 
     pron = [p for p in ((r or {}).get('pronosticos') or [])
             if isinstance(p, dict) and not p.get('jugado')]
+    # v257 - POR DEPORTE, QUE ES LO QUE FALTABA PARA ELEGIR.
+    #
+    # `solo_principales` corta por TAMANO de competicion y no por deporte, asi
+    # que no habia forma de pedir «solo MLB» ni «futbol y tenis». Una lista
+    # vacia o None quiere decir TODOS, que es como se comporta el selector
+    # cuando no se elige nada.
+    if deportes:
+        _q = {str(d).strip().lower() for d in deportes if d}
+        if _q:
+            pron = [p for p in pron
+                    if str(p.get('deporte') or '').strip().lower() in _q]
     if solo_principales:
         pron = [p for p in pron if _es_principal(p)]
     pron = pron[:max_partidos]

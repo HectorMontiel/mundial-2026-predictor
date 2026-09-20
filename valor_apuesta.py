@@ -405,6 +405,20 @@ def _de_goles(pick: Dict) -> List[Dict]:
             p_mas = float(p_mas)
         except (TypeError, ValueError):
             continue
+        # v258 — AQUI NO VA NINGUNA CORRECCION POR LINEA, Y CONVIENE
+        # QUE QUEDE ESCRITO.
+        #
+        # Se llego a poner una, midiendo sobre `pick_ledger_totales.csv` que
+        # el modelo se queda corto en «Mas de 1.5» y va sobrado en «Menos de
+        # 2.5». El sesgo es real, pero ese ledger guarda la probabilidad que
+        # sale de lambda SIN CALIBRAR, y `calibrador_goles` (v225) ya la
+        # arregla mucho antes, dentro de `alpha_finder`, al construir
+        # `goles_lineas`. O sea que aqui la escalera YA LLEGA CORREGIDA y
+        # corregirla otra vez la empuja dos veces en el mismo sentido.
+        #
+        # Es exactamente lo que `veredicto_pick` explica al saltarse la
+        # correccion por banda en los mercados de goles: «la escalera de goles
+        # ya viene calibrada en origen».
         # v246 — LA PATA HISTÓRICA TAMBIÉN EN GOLES, Y ANTES DEL ENCOGIDO.
         #
         # Aquí `p_mas` es todavía la del modelo. Se mezcla con qué fracción de
@@ -438,6 +452,73 @@ def _de_goles(pick: Dict) -> List[Dict]:
                                 {'contrastada': bool(info.get('contrastada')),
                                  'historico': (dict(_hg) if _hg.get('hay')
                                                else None)}))
+    return salida
+
+
+def _de_handicap(pick: Dict) -> List[Dict]:
+    """v254 - El handicap, por fin como apuesta y no como codigo dormido.
+
+    `handicap.py` lleva desde la v106 evaluando el mercado, pero solo en
+    `_mercados_del_partido` — el camino de los partidos con cuota en vivo. La
+    lista de pronosticos del dia, que es la que leen las tarjetas, la
+    construye `_mercados_modelo`, que emite 1X2, O/U 2.5 y BTTS y nada mas.
+
+    Medido sobre el fichero publicado antes de esto: **0 de 340 picks** con un
+    mercado de handicap y **0 de 312** recomendaciones de ese mercado. No era
+    deuda de medicion: era un mercado que no se producia.
+
+    Aqui se juntan las dos mitades que ya existian por separado:
+      · la escalera del modelo (`pick['handicap_lineas']`, v254), que sale de
+        la matriz de marcador reponderada al 1X2 encogido;
+      · el precio de la casa (`implicitas['handicap_cuotas']`), que el
+        scoreboard ya traia y no se guardaba.
+
+    EL PUSH SE DICE. En las lineas de cuarto y en las enteras una parte del
+    importe vuelve, y eso cambia como se combina en una parlay. La
+    probabilidad que se publica ya es CONDICIONADA a que la apuesta se
+    resuelva —`handicap.probabilidad` descuenta el push— que es la cifra
+    correcta contra la cuota, porque la casa tambien devuelve en el push.
+    """
+    esc = pick.get('handicap_lineas') or {}
+    imp = (pick.get('implicitas') or {}).get('handicap_cuotas') or {}
+    if not esc or not imp:
+        return []
+    try:
+        import modo_modelo as _mm
+        home, away = _mm._equipos(pick)
+    except Exception as e:
+        logger.debug('[valor] equipos para handicap: %s', e)
+        return []
+    if not (home and away):
+        return []
+    salida: List[Dict] = []
+    for clave, precios in imp.items():
+        try:
+            linea = float(clave)
+        except (TypeError, ValueError):
+            continue
+        fila_mod = esc.get(clave) or esc.get('%g' % linea)
+        if not fila_mod:
+            continue
+        push = float(fila_mod.get('push') or 0.0)
+        for lado, equipo, signo in (('home', home, 1.0), ('away', away, -1.0)):
+            p = fila_mod.get(lado)
+            cuota = (precios or {}).get(lado)
+            if p is None or not cuota:
+                continue
+            etq = '%s %+g' % (equipo, linea * signo)
+            info = _ajusta(pick, etq, float(p), 'Handicap', None)
+            if not info.get('fiable'):
+                continue
+            extra = {'ah_linea': round(linea * signo, 2),
+                     'ah_push': round(push, 4)}
+            if push > 1e-6:
+                extra['nota'] = ('%.0f %% del importe se devuelve si el '
+                                 'partido acaba justo en la linea.'
+                                 % (push * 100))
+            salida.append(_fila('Handicap', 'Total', 'Handicap: %s' % etq,
+                                info.get('prob', p), cuota, None, 'handicap',
+                                linea * signo, extra))
     return salida
 
 
@@ -584,6 +665,33 @@ def _de_resultado(pick: Dict) -> List[Dict]:
              for m in (pick.get('mercados') or [])
              if isinstance(m, dict) and str(m.get('mercado')) == '1X2')
     tri = mm.probabilidades_1x2(pick)
+    # v258 — EL HISTORIAL ENTRE LOS DOS, Y AQUI ARRIBA A PROPOSITO.
+    #
+    # «Te preferiste ir por el visitante o empate y al final termino
+    # perdiendo; en la barrita se ve como el Leverkusen tiene mejor pronostico
+    # en el H2H. Eso es lo que tienes que analizar tambien del historico.»
+    #
+    # Va ANTES del bucle para que el 1X2 y la DOBLE OPORTUNIDAD salgan del
+    # mismo trio. Aplicarlo solo dentro del bucle del 1X2 dejaria la doble
+    # calculada con las probabilidades viejas, que es justo el mercado en el
+    # que el usuario vio el problema: «RB Leipzig o empate».
+    #
+    # Lo medido, sobre 15.473 partidos con tres o mas cruces previos y el H2H
+    # construido solo con lo anterior a cada partido: cuando el historial
+    # favorece claramente al local, el modelo lo subestima DOS puntos
+    # (0,526 anunciado contra 0,546 real, n=4.348). Con w=0,10 la mejora es
+    # +0,00253 de log-loss, p5 +0,00077 y el 100 % de los remuestreos a favor.
+    # Es poco y hay que decirlo: el caso concreto del Leverkusen son 2.019
+    # partidos en los que el modelo decia 41,2 % y salio 42,3 %. Aquel boleto
+    # se perdio por varianza. Ver `pata_h2h`.
+    _h2h = {'hay': False}
+    try:
+        import pata_h2h as _ph2
+        _h2h = _ph2.aplicar(pick, tri, ya_encogido=ya)
+        if _h2h.get('hay'):
+            tri = _h2h['tri']
+    except Exception as e:
+        logger.debug('[valor] pata h2h: %s', e)
     cu = imp.get('1x2_cuotas') or {}
     x2 = imp.get('1x2') or {}
     if tri and h and a:
@@ -607,7 +715,9 @@ def _de_resultado(pick: Dict) -> List[Dict]:
                 continue
             salida.append(_fila('1X2', 'Resultado', etq,
                                 info.get('prob', p), cuota, x2.get(lado),
-                                'resultado'))
+                                'resultado',
+                                extra={'h2h': (dict(_h2h) if _h2h.get('hay')
+                                               else None)}))
         # LA DOBLE OPORTUNIDAD ENTRA, PERO NO POR LA PUERTA GRANDE.
         #
         # Se pidió explícitamente: es un mercado más y sólo se recomienda si
@@ -645,7 +755,9 @@ def _de_resultado(pick: Dict) -> List[Dict]:
                 continue
             salida.append(_fila('Doble oportunidad', 'Doble', etq,
                                 info.get('prob', p), cuota, imp_do,
-                                'resultado'))
+                                'resultado',
+                                extra={'h2h': (dict(_h2h) if _h2h.get('hay')
+                                               else None)}))
     b = mm._board(pick)
     cb = imp.get('btts_cuotas') or {}
     p_si = b.get(mm._ETQ_BTTS_SI)
@@ -688,6 +800,13 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
         filas += _de_goles(pick)
     except Exception as e:
         logger.debug('[valor] goles: %s', e)
+    try:
+        # v254 - el handicap, que hasta aqui no producia NI UNA candidata
+        # porque nadie juntaba la escalera del modelo con el precio de la
+        # casa. Ver `_de_handicap`.
+        filas += _de_handicap(pick)
+    except Exception as e:
+        logger.debug('[valor] handicap: %s', e)
     try:
         # v237 — carreras, puntos y juegos. En futbol no hace nada: ese deporte
         # publica `goles_lineas`, no `totales`, y lo cubre `_de_goles`.

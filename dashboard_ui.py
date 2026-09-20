@@ -5151,14 +5151,20 @@ def render_alpha_finder():
         # vigente y no la anterior.
         _DEP_POR_EMOJI = {'⚽': 'Fútbol', '⚾': 'MLB', '🏀': 'NBA',
                           '🎾': 'Tenis', '🏈': 'NFL', '⚾KBO': 'KBO'}
-        _dep_kpi = _DEP_POR_EMOJI.get(
-            st.session_state.get('_filtro_deporte'), 'Todo')
+        # v257 — el filtro pasó a opción múltiple, así que en sesión hay una
+        # LISTA de emojis bajo una clave nueva, `_filtro_deportes`. La clave
+        # vieja no se reutiliza a propósito: el fichero de preferencias de
+        # quien ya usaba la aplicación guarda ahí una CADENA, y un widget de
+        # lista sembrado con una cadena revienta la pantalla al arrancar.
+        _deps_kpi = {_DEP_POR_EMOJI[_e]
+                     for _e in (st.session_state.get('_filtro_deportes') or [])
+                     if _e in _DEP_POR_EMOJI}
 
         def _del_deporte(lista):
-            if _dep_kpi == 'Todo':
+            if not _deps_kpi:
                 return [x for x in (lista or []) if isinstance(x, dict)]
             return [x for x in (lista or [])
-                    if isinstance(x, dict) and x.get('deporte') == _dep_kpi]
+                    if isinstance(x, dict) and x.get('deporte') in _deps_kpi]
 
         _prons = _del_deporte(r.get('pronosticos'))
         _de_hoy = [p for p in _prons if _dia_cdmx_de(p) == _hoy_kpi]
@@ -5219,7 +5225,8 @@ def render_alpha_finder():
         f1, f2, f3, f4 = st.columns(4)
         # El rotulo dice de que deporte habla. Sin eso, con «⚽» puesto, un «3»
         # a secas se lee como el total del dia y no como el del futbol.
-        _suf_kpi = '' if _dep_kpi == 'Todo' else ' · %s' % _dep_kpi
+        _suf_kpi = '' if not _deps_kpi else ' · %s' % ' + '.join(
+            sorted(_deps_kpi))
         f1.metric("Para meter hoy" + _suf_kpi,
                   len(_verdes) if _verdes else '0',
                   help="Apuestas que pasan el liston tras corregir la "
@@ -5870,13 +5877,20 @@ def render_alpha_finder():
     # valor, mañana habria 231 partidos y el valor guardado dejaria de existir,
     # asi que el filtro se perderia justo al recargar. Con `format_func` el
     # usuario ve el numero y el estado guarda «⚽».
+    #
+    # v257 — Y SON DE OPCIÓN MÚLTIPLE: «cuando apliques los filtros de escoger
+    # deporte, también debe de poderse poner opción múltiple».
+    #
+    # «Todo» desaparece de la lista porque en un control múltiple ya no es una
+    # opción: es lo que significa no marcar nada. Dejarlo sería un botón que
+    # puede convivir con «⚽» marcado y entonces la pantalla tendría que
+    # decidir cuál de los dos manda.
     _opciones = [e for e, d in _DEPORTES_FILTRO
-                 if d in _SIEMPRE or d in _presentes]
+                 if d not in _SIEMPRE and d in _presentes]
     _mapa_dep = {e: d for e, d in _DEPORTES_FILTRO}
 
     def _rotulo_dep(e):
-        d = _mapa_dep.get(e, e)
-        return e if d == 'Todo' else '%s %d' % (e, _cuenta_dep.get(d, 0))
+        return '%s %d' % (e, _cuenta_dep.get(_mapa_dep.get(e, e), 0))
     # v176 — LA ELECCIÓN SOBREVIVE A LA RECARGA.
     #
     # Entre pestañas ya persistía —las dos leen la misma clave global,
@@ -5894,20 +5908,39 @@ def render_alpha_finder():
         import preferencias_usuario as _prefu
     except Exception:
         _prefu = None
-    if len(_opciones) > 2:
+    _sel = []
+    if len(_opciones) > 1:
+        # `recordar` siembra un ESCALAR validado contra la lista de opciones y
+        # aquí hace falta una lista, así que la siembra va a mano. Se conserva
+        # lo que sí enseñó la v176: un deporte guardado que hoy no juega se
+        # descarta en vez de llegar al widget, donde reventaría.
+        if _prefu is not None and '_filtro_deportes' not in st.session_state:
+            _guard = _prefu.leer('_filtro_deportes') or []
+            if isinstance(_guard, (list, tuple)):
+                st.session_state['_filtro_deportes'] = [
+                    e for e in _guard if e in _opciones]
+        _ayuda_dep = ('Marca uno, varios o ninguno. Sin marcar se ven todos. '
+                  'Reordena lo que se ve: no cambia lo que se envía a '
+                  'Telegram ni lo que se exporta. Se recuerda entre '
+                  'pestañas y entre sesiones.')
+        if hasattr(st, 'pills'):
+            _sel = st.pills('Deporte', _opciones, selection_mode='multi',
+                            key='_filtro_deportes',
+                            label_visibility='collapsed',
+                            format_func=_rotulo_dep, help=_ayuda_dep) or []
+        else:
+            # `st.pills` es de Streamlit 1.40 y el despliegue va muy por
+            # encima; un entorno viejo se degrada en vez de quedarse sin
+            # filtro.
+            _sel = st.multiselect('Deporte', _opciones,
+                                  key='_filtro_deportes',
+                                  label_visibility='collapsed',
+                                  format_func=_rotulo_dep, help=_ayuda_dep) or []
         if _prefu is not None:
-            _prefu.recordar(st, '_filtro_deporte', _opciones, 'Todo')
-        _sel = st.radio('Deporte', _opciones, horizontal=True,
-                        key='_filtro_deporte', label_visibility='collapsed',
-                        format_func=_rotulo_dep,
-                        help='Reordena lo que se ve. No cambia lo que se '
-                             'envía a Telegram ni lo que se exporta. Se '
-                             'recuerda entre pestañas y entre sesiones.')
-        if _prefu is not None:
-            _prefu.guardar('_filtro_deporte', _sel)
-    else:
-        _sel = 'Todo'
-    _dep_sel = _mapa_dep.get(_sel, 'Todo')
+            _prefu.guardar('_filtro_deportes', list(_sel))
+    # Conjunto de deportes elegidos. Vacío = todos, en todos los sitios que
+    # lo consultan.
+    _deps_sel = {_mapa_dep.get(e, e) for e in (_sel or [])}
 
     # v152 — EL FILTRO DE LIGAS SECUNDARIAS, EN EL MISMO SITIO QUE EL DE
     # DEPORTE Y POR EL MISMO MOTIVO.
@@ -5957,7 +5990,7 @@ def render_alpha_finder():
     for _p in (r.get('pronosticos') or []):
         if not isinstance(_p, dict):
             continue
-        if _dep_sel != 'Todo' and _p.get('deporte') != _dep_sel:
+        if _deps_sel and _p.get('deporte') not in _deps_sel:
             continue
         _lg = str(_p.get('liga') or '').strip()
         if _lg:
@@ -5984,9 +6017,10 @@ def render_alpha_finder():
     def _filtra(lista):
         """La lista tal cual, o sólo lo elegido. Nunca muta el barrido."""
         salida = list(lista or [])
-        if _dep_sel != 'Todo':
+        if _deps_sel:
             salida = [p for p in salida
-                      if isinstance(p, dict) and p.get('deporte') == _dep_sel]
+                      if isinstance(p, dict)
+                      and p.get('deporte') in _deps_sel]
         if _grupo_liga != 'Todas':
             try:
                 import modo_modelo as _mmf
@@ -6125,9 +6159,10 @@ def render_alpha_finder():
 
     _s1_f = _filtra(r.get('seccion1'))
     _s2_f = _filtra(r.get('seccion2'))
-    if _dep_sel != 'Todo':
-        st.caption(f"Filtrando por **{_dep_sel}**. El envío a Telegram y la "
-                   f"exportación siguen llevando todos los deportes.")
+    if _deps_sel:
+        st.caption(f"Filtrando por **{' + '.join(sorted(_deps_sel))}**. El "
+                   f"envío a Telegram y la exportación siguen llevando todos "
+                   f"los deportes.")
 
     # v131 — CINCO PESTAÑAS, Y EL DEPORTE COMO FILTRO.
     #
@@ -7156,9 +7191,10 @@ def render_alpha_finder():
                 # que una lista vacia pueda decir «los hay, no los tenemos aun»
                 # en vez de «no hay partidos que cumplan el filtro».
                 _juego_hoy = 0
-                if _dep_sel != 'Todo':
-                    _juego_hoy = int((r.get('deportes_con_juego') or {})
-                                     .get(_dep_sel) or 0)
+                if _deps_sel:
+                    _con_juego = r.get('deportes_con_juego') or {}
+                    _juego_hoy = sum(int(_con_juego.get(_d) or 0)
+                                     for _d in _deps_sel)
                 _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
                            dia=_HOY_S, pintar=(_vista == 'hoy'),
                            filtro=_filtra, juego_hoy=_juego_hoy)
@@ -7323,8 +7359,8 @@ def render_alpha_finder():
         if _s2:
             # v131: con filtro puesto, el total del día ya no describe lo que
             # se está viendo; manda lo que hay delante.
-            _n2 = len(_s2) if _dep_sel != 'Todo' else (r.get('n_seccion2')
-                                                       or len(_s2))
+            _n2 = len(_s2) if _deps_sel else (r.get('n_seccion2')
+                                              or len(_s2))
             with st.expander(f"🟡 NO JUGAR EN SOLITARIO — sólo como pata de "
                              f"una combinada ({_n2})", expanded=False):
                 st.warning(
