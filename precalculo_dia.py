@@ -266,6 +266,50 @@ def main() -> int:
     except Exception as e:
         logger.warning('[precalculo] no se pudo archivar el contexto: %s', e)
 
+    # v227 — LA FOTO DE LAS ESCALERAS DE PONCHES, POR EL MISMO MOTIVO.
+    #
+    # `ventaja_ponches` lleva sin enchufar desde la v132, y su propio docstring
+    # explica por qué no puede encenderse: no existe histórico de precios de
+    # props —cero filas entre las 155.364 de 1X2—, así que no hay ROI ni p5 que
+    # medir, y sin eso el proyecto no publica una recomendación. Es la regla y
+    # no se salta.
+    #
+    # Lo que sí se puede hacer hoy es empezar a fabricar esa muestra. Esto no
+    # elige ningún pick ni toca uno existente: escribe un CSV. En unas semanas
+    # habrá con qué contestar la pregunta que lleva abierta cinco versiones.
+    #
+    # Va aquí y no en la vista por lo mismo que el contexto: sale a la red, y
+    # el precio de hoy no se puede recuperar mañana. Cada pasada añade una foto
+    # con su hora, así que las ocho del día también capturan el movimiento de
+    # línea, que es gratis y no se podía mirar de ninguna otra forma.
+    try:
+        import ventaja_ponches as _vp
+        _n = _vp.snapshot_diario()
+        logger.info('foto de ponches: %d filas', _n)
+    except Exception as e:
+        logger.warning('[precalculo] no se pudo fotografiar los ponches: %s', e)
+
+    # v229 — LOS PARTIDOS ACABADOS, QUE VOLVIERON A COSTAR DINERO.
+    #
+    # `partidos_jugados.de_dia` salía gratis mientras ESPN rechazaba los rangos
+    # de fechas: las 62 competiciones fallaban y la lista quedaba vacía al
+    # instante. Al arreglarlo (v228) volvió a hacer su trabajo —190 partidos,
+    # 186 peticiones, 13 s medidos— y lo hacía AL PINTAR, con el usuario
+    # delante. Es el mismo error que la v220 vino a corregir, reaparecido por
+    # la puerta de atrás.
+    #
+    # Se cocinan los DOS días: el de hoy y el de ayer. La vista de «hoy» en
+    # hora de CDMX toca los dos husos, y un partido de las 19:00 de ayer sigue
+    # apareciendo esta madrugada.
+    try:
+        import datetime as _dt
+        import partidos_jugados as _pj
+        _hoy = _dt.datetime.now()
+        _n = _pj.escribir_dia(_hoy.strftime('%Y-%m-%d'))
+        logger.info('partidos jugados precocinados: %d', _n)
+    except Exception as e:
+        logger.warning('[precalculo] no se pudieron cocinar los jugados: %s', e)
+
     if not datos or not datos.get('pronosticos'):
         logger.error('el barrido salió vacío: NO se escribe el precálculo')
         # Escribir un día vacío sería peor que no escribirlo: la aplicación

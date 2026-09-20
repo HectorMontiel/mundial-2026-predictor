@@ -264,3 +264,100 @@ def fotografiar(filas: List[Dict], ruta: str = ARCHIVO_FOTOS) -> int:
         logger.warning(f'[ponches] no se pudo escribir la foto: '
                        f'{type(e).__name__}: {e}')
         return 0
+
+
+# ---------------------------------------------------------------------------
+# v227 — EL CONDUCTOR QUE LLENA LA FOTO
+# ---------------------------------------------------------------------------
+# `fotografiar()` recibía filas ya hechas y nadie se las daba nunca. Por eso
+# este módulo llevaba desde la v132 escrito, correcto y con cero importadores:
+# no le faltaba lógica, le faltaba quien lo llamara. Esto es ese quien.
+#
+# QUÉ SE GUARDA Y POR QUÉ ESE ORDEN DE PRIORIDADES
+#
+# Lo que caduca es el PRECIO. La λ del modelo se puede recalcular mañana con el
+# mismo perfil del lanzador; la línea que Pinnacle tenía abierta el martes a las
+# seis no vuelve. Así que el ancla de mercado se guarda siempre, y todo lo demás
+# es opcional: si Playdoit no cotiza el partido, se guarda igual la fila del
+# ancla con `escalon = 0`. Media foto hoy vale más que una foto entera dentro de
+# tres semanas, porque dentro de tres semanas es cuando se quiere MEDIR.
+#
+# NO DECIDE NADA, Y ESO ES EL PUNTO
+#
+# Esto no publica un pick ni toca uno existente: escribe un CSV. La regla del
+# proyecto —sin ROI ni p5 medidos no se recomienda— sigue intacta, y de hecho
+# esto es lo único que puede levantarla algún día, porque es lo que fabrica la
+# muestra que hoy no existe.
+def snapshot_diario(ruta: str = ARCHIVO_FOTOS,
+                    con_playdoit: bool = True) -> int:
+    """
+    Fotografía las escaleras de ponches de hoy. Devuelve cuántas filas escribió.
+
+    Pensado para correr desde el workflow diario. No lanza nunca: cualquier
+    fuente que falle se degrada a lo que sí se pudo conseguir, porque una foto
+    parcial sigue siendo muestra y una excepción tumbaría el barrido entero.
+    """
+    import datetime as _dt
+
+    try:
+        import beisbol_pitchers as bp
+        props = bp.props_ponches()
+    except Exception as e:
+        logger.warning(f'[ponches] sin props de Pinnacle: '
+                       f'{type(e).__name__}: {e}')
+        return 0
+    if not props:
+        logger.info('[ponches] hoy no hay props de ponches abiertos')
+        return 0
+
+    hoy = _dt.datetime.now().strftime('%Y-%m-%d %H:%M')
+    filas: List[Dict] = []
+    # El detalle de Playdoit se pide UNA vez por partido, no una por lanzador:
+    # en un partido hay dos aperturas y el tablero es el mismo para las dos.
+    tableros: Dict[tuple, Optional[Dict]] = {}
+
+    for p in props:
+        home, away = p.get('home'), p.get('away')
+        lam_mer = lam_desde_linea(p.get('linea'), p.get('odd_over'),
+                                  p.get('odd_under'))
+        base = {'fecha_foto': hoy, 'fecha_partido': p.get('inicio'),
+                'home': home, 'away': away,
+                'lanzador': p.get('pitcher_nombre'),
+                'linea_pinnacle': p.get('linea'),
+                'odd_over_pin': p.get('odd_over'),
+                'odd_under_pin': p.get('odd_under'),
+                'lam_mercado': lam_mer}
+
+        escalera: Dict[int, float] = {}
+        if con_playdoit and home and away:
+            clave = (home, away)
+            if clave not in tableros:
+                try:
+                    import cuotas_multi as cm
+                    tableros[clave] = cm.mercados_playdoit(
+                        'mlb', home, away, fecha=p.get('inicio'))
+                except Exception as e:
+                    logger.debug(f'[ponches] sin tablero {home}-{away}: '
+                                 f'{type(e).__name__}: {e}')
+                    tableros[clave] = None
+            det = tableros[clave]
+            if det:
+                try:
+                    escalera = escalera_de(det, p.get('pitcher_nombre'))
+                except Exception as e:
+                    logger.debug(f'[ponches] escalera ilegible: '
+                                 f'{type(e).__name__}: {e}')
+
+        if escalera:
+            for n, cuota in sorted(escalera.items()):
+                filas.append({**base, 'escalon': n, 'cuota_playdoit': cuota})
+        else:
+            # `escalon = 0` es la marca de «sólo ancla»: no había escalera de la
+            # casa, pero el precio de Pinnacle de este día queda guardado.
+            filas.append({**base, 'escalon': 0, 'cuota_playdoit': ''})
+
+    n = fotografiar(filas, ruta)
+    con_esc = sum(1 for f in filas if f.get('escalon'))
+    logger.info(f'[ponches] foto: {n} filas de {len(props)} aperturas '
+                f'({con_esc} con escalera de la casa)')
+    return n

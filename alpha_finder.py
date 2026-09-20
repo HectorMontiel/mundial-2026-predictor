@@ -349,6 +349,39 @@ def _en_ventana(fx: dict) -> bool:
 # su clave de liga puesta.
 
 
+def _btts_calibrado(btts: float, clave_liga=None) -> float:
+    """P(ambos marcan) corregida por lo que esa liga hace de verdad.
+
+    v230 — EL MODELO SE COMÍA EL «AMBOS MARCAN» EN 44 DE 55 LIGAS.
+
+    `btts` sale de la matriz de marcador, que multiplica dos Poisson
+    INDEPENDIENTES. Los goles de los dos equipos no lo son: el marcador cambia
+    cómo se juega —el que pierde adelanta líneas, el que gana sale al
+    contragolpe— y eso los correlaciona. Bajo independencia esa correlación se
+    pierde, y con ella la probabilidad que falta.
+
+    Medido sobre 47.794 partidos (`auditoria_ligas.json`): mediana −4,3 puntos,
+    con el mismo signo en 44 de 55 ligas y hasta −10 en algunas. En la MLS
+    —la que el usuario preguntó tras perder dos patas suyas— el modelo promete
+    56,9 % donde ocurre el 59,6 %.
+
+    Fuera de muestra, con la curva ajustada sólo en los pliegues anteriores:
+    log-loss −2,4 %, Brier −4,5 %, el sesgo baja de −4,87 a −1,73 puntos y
+    mejora en el 100 % de 1.000 remuestreos.
+
+    La isotónica es monótona, así que NO inventa picks: no puede decidir que un
+    partido es más probable que otro si el modelo decía lo contrario. Sólo pone
+    bien el nivel.
+    """
+    try:
+        import calibrador_btts as _cb
+        v = _cb.calibrar_si_activo(btts, clave_liga)
+        return float(v) if v is not None else btts
+    except Exception as e:
+        logger.debug('[alpha] calibración de BTTS omitida: %s', e)
+        return btts
+
+
 def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
                           clave_liga: str = None) -> List[Dict]:
     """Evalúa cada mercado con cuota disponible contra el modelo."""
@@ -406,6 +439,7 @@ def _mercados_del_partido(pred: Dict, o: Dict, home: str, away: str,
         except Exception as e:
             logger.debug(f"[alpha] calibración de mercado omitida: {e}")
     btts = float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum())
+    btts = _btts_calibrado(btts, clave_liga)
     over25 = float(M[total > 2.5].sum())
 
     candidatos = []
@@ -632,7 +666,8 @@ def lineas_por_equipo(pred: Dict) -> Dict[str, Dict[str, float]]:
 
 
 def lineas_de_goles(pred: Dict, clave_liga=None, home: str = '',
-                    away: str = '') -> Dict[str, float]:
+                    away: str = '',
+                    lambdas: Optional[Dict] = None) -> Dict[str, float]:
     """
     v163.1 — P(más de N goles) en las tres líneas que cotiza la casa.
 
@@ -678,6 +713,21 @@ def lineas_de_goles(pred: Dict, clave_liga=None, home: str = '',
                 lam2 = float(_cx.lambda_goles(clave_liga, home, away, lam))
             except Exception as e:
                 logger.debug('[alpha] lambda de goles corregida: %s', e)
+        # v229 — LA LAMBDA SALE, PORQUE SIN ELLA EL PORCENTAJE NO SE EXPLICA.
+        #
+        # El usuario miro un partido con las dos formas en 2,6 goles y no
+        # entendio que «Menos de 3.5» fuera el 72 %. La cuenta es correcta
+        # —Poisson(2,6) da 73,6 %— y la confusion venia de que «Over 2.5» y
+        # «Under 3.5» parecen contrarios y no lo son: se solapan en el partido
+        # de tres goles exactos, que con esa media es el 21,8 %.
+        #
+        # Con la lambda a la vista eso deja de necesitar explicacion. Va en un
+        # dict aparte y no en `salida` a proposito: `salida` la recorren otros
+        # buscando lineas, y colarle una clave que no es una linea rompe a
+        # quien la itera.
+        if lambdas is not None:
+            lambdas['total'] = round(lam2, 3)
+            lambdas['sin_contexto'] = round(lam, 3)
         if abs(lam2 - lam) > 1e-6:
             # UNA sola llamada a scipy con las siete lineas. Medido:
             # siete llamadas sueltas cuestan 5,8 ms por partido y una
@@ -890,7 +940,8 @@ def implicitas_de_la_casa(fx: Dict, o_espn: Dict) -> Dict:
     return salida
 
 
-def _mercados_modelo(pred: Dict, home: str, away: str) -> List[Dict]:
+def _mercados_modelo(pred: Dict, home: str, away: str,
+                     clave_liga=None) -> List[Dict]:
     """v49: mercados derivados SOLO del modelo (sin cuota real) — para los
     fixtures sin cuota en vivo. Devuelve 1X2, O/U 2.5 y BTTS con la CUOTA JUSTA
     (1/prob) y sin EV. Alimenta la Capa 2 y la lista de pronósticos del día,
@@ -899,7 +950,8 @@ def _mercados_modelo(pred: Dict, home: str, away: str) -> List[Dict]:
     idx = np.arange(M.shape[0])
     total = idx[:, None] + idx[None, :]
     pr = pred['prediction']['probabilities']
-    btts = float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum())
+    btts = _btts_calibrado(
+        float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum()), clave_liga)
     over25 = float(M[total > 2.5].sum())
     crudos = [
         ('1X2', f'Gana {home}', pr['home']),
@@ -1502,7 +1554,7 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             # cosa distinta según hubiera fichero o no.
             if _pre:
                 pred = _pre['pred']
-                mercados = _mercados_modelo(pred, home, away)
+                mercados = _mercados_modelo(pred, home, away, clave)
             else:
                 if eng is None:
                     # La liga estaba marcada como completa en el fichero y este
@@ -1532,7 +1584,7 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                     pronosticos.append(_fila_sin_modelo(
                         f"el modelo no pudo predecirlo: {pred['error']}"))
                     continue
-                mercados = _mercados_modelo(pred, home, away)
+                mercados = _mercados_modelo(pred, home, away, clave)
             n_eval += 1
             cobertura[clave] = cobertura.get(clave, 0) + 1
             partido = f'{home} vs {away}'
@@ -1559,11 +1611,16 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
             board = {m['apuesta']: round(m['prob'], 3) for m in mercados}
             x2 = [m for m in mercados if m['mercado'] == '1X2']
             mejor = max(x2, key=lambda m: m['prob'])
+            _lam_goles: Dict = {}
             pron = {**base, **mejor, 'mercados': mercados, 'board': board,
                     # v163.1 — las tres líneas de goles, para la tarjeta
                     'goles_lineas': lineas_de_goles(
                         pred, clave_liga=clave, home=home,
-                        away=away),
+                        away=away, lambdas=_lam_goles),
+                    # v229 — la lambda que genero esa escalera, para que la
+                    # tarjeta pueda ensenar «2,6 goles esperados» junto al
+                    # porcentaje en vez de solo el porcentaje
+                    'goles_lambda': _lam_goles.get('total'),
                     # v200 — y los goles de CADA equipo, que Playdoit cotiza
                     # aparte y hasta ahora no se publicaban
                     'goles_equipo': lineas_por_equipo(pred),
@@ -1787,6 +1844,42 @@ def indicador_antiguedad(dias: Optional[int]) -> str:
     return f'🔴 sin datos nuevos desde hace {dias} d'
 
 
+def _totales_mlb(eng, picks) -> int:
+    """Cuelga `totales` de cada pick de MLB. Devuelve cuántos lo consiguieron.
+
+    Los nombres salen de `partido`, que la MLB escribe «VISITANTE @ LOCAL». Se
+    respeta ese orden: invertirlo daría la probabilidad del partido al revés, y
+    en un total no se notaría —el total es simétrico— pero sí en cuanto alguien
+    añada el desglose por equipo. Mejor no plantar el error esperando.
+
+    Cachea por cruce: en un mismo barrido el mismo partido aparece en capa 1 y
+    en capa 2, y la plantilla es la misma.
+    """
+    import totales_deporte as _td
+    from engines.mlb_engine import codigo_mlb
+    cache: Dict[tuple, Dict] = {}
+    n = 0
+    for p in (picks or []):
+        partido = str(p.get('partido') or '')
+        if '@' not in partido:
+            continue
+        visita, local = [x.strip() for x in partido.split('@', 1)]
+        clave = (local, visita)
+        if clave not in cache:
+            try:
+                cache[clave] = _td.de_plantilla(
+                    eng.plantilla_mlb(codigo_mlb(local), codigo_mlb(visita)),
+                    'MLB')
+            except Exception as e:
+                logger.debug('[alpha/mlb] totales de %s: %s: %s', partido,
+                             type(e).__name__, e)
+                cache[clave] = {}
+        if cache[clave]:
+            p['totales'] = cache[clave]
+            n += 1
+    return n
+
+
 def _picks_mlb() -> Dict[str, List[Dict]]:
     """
     MLB con la capa de cuotas sin límite (Pinnacle + Bovada + Playdoit).
@@ -1889,6 +1982,22 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         # material de «Máxima Confianza»; antes se descartaban dentro del
         # motor y la MLB no aparecía nunca en esa pestaña.
         _conf = [{**p, 'deporte': 'MLB'} for p in (r.get('confianza') or [])]
+
+        # v229 — EL TOTAL DE CARRERAS, QUE EL MOTOR YA SABÍA Y NO PUBLICABA.
+        #
+        # El usuario lo pidió así: «no sólo el del gane». Y no faltaba modelo:
+        # `plantilla_mlb` arma la matriz de carreras y saca over/under de 7.5 a
+        # 10.5 desde hace versiones. Lo que pasaba es que sólo alimentaba la
+        # ficha de detalle, la que hay que abrir partido a partido, y el pick
+        # del día salía con un único mercado.
+        #
+        # Se hace aquí y no en la pantalla porque el motor YA está cargado en
+        # esta función: pedirle la plantilla es una predicción más, y hacerlo
+        # en el render sería devolver al navegador el cálculo que la v220 le
+        # quitó.
+        _totales_mlb(eng, capa1)
+        _totales_mlb(eng, _conf)
+
         # v98: el contador de «partidos evaluados» de la cabecera sumaba
         # SOLO el pase de fútbol; cada deporte informa ahora del suyo.
         return {'capa1': capa1, 'capa2': _conf, 'incidencias': inc,
@@ -2242,9 +2351,12 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
             try:
                 pl = eng.plantilla(j1, j2, surface=superficie)
                 mercados = [c for c in pl.get('campos', [])]
+                import totales_deporte as _td
+                _totales_tenis = _td.de_plantilla(pl, 'Tenis')
             except Exception as e:
                 logger.warning(f"[alpha] plantilla tenis {m['home']}: {e}")
                 mercados = []
+                _totales_tenis = {}
             # legs candidatos a parlay: mercados con prob en [55%, 88%] (ni
             # trivial ni arriesgado), ordenados por confianza. Se etiquetan con
             # el partido y su cuota justa (1/prob) para combinar.
@@ -2391,6 +2503,17 @@ def _picks_tenis() -> Dict[str, List[Dict]]:
                         'prob': round(prob, 3),
                         'superficie': superficie,
                         'mercados_tenis': mercados,   # v47: 19 mercados
+                        # v229 — EL TOTAL DE JUEGOS, EN LA FORMA COMÚN.
+                        #
+                        # Ya estaba dentro de `mercados_tenis`, que son 19
+                        # campos en crudo con su etiqueta: útil para el parlay
+                        # y para la ficha, ilegible para una tarjeta. `totales`
+                        # es el mismo dato en el formato que el fútbol usa para
+                        # los goles, así que la pantalla lo pinta sin saber de
+                        # qué deporte viene. La regresión de juegos está
+                        # calibrada sobre 68.000 partidos; lo que faltaba era
+                        # publicarla.
+                        'totales': _totales_tenis,
                         'calibracion': _info_cal,     # v78: w aplicado
                         'cuota_justa': round(1 / max(prob, 1e-6), 2)}
                 if prob > UMBRAL_CONF['Tenis'] and ev > MIN_EV and cuota > MIN_CUOTA:

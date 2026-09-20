@@ -15400,49 +15400,39 @@ def test_los_fixtures_sobreviven_a_que_espn_rechace_el_rango():
         return _R(200, [])
 
     original = fe.requests.get
-    roto = dict(fe._RANGO_ROTO)
     fe.requests.get = _falso
-    fe._RANGO_ROTO['si'] = False
     try:
         ev = fe._eventos_espn('laliga', 'esp.1', '20260916', '20260918')
     finally:
         fe.requests.get = original
-        fe._RANGO_ROTO.update(roto)
 
     check(ev is not None, 'con el rango rechazado se sigue devolviendo algo')
-    check(llamadas and '-' in str(llamadas[0]),
-          f'el rango se intenta primero, que es lo barato ({llamadas[:1]})')
-    check(len(llamadas) >= 4,
-          f'y al fallar se piden los días uno a uno ({llamadas})')
+    # v228 — YA NO SE INTENTA EL RANGO NI LA PRIMERA VEZ.
+    #
+    # Este test nació comprobando lo contrario: «el rango se intenta primero,
+    # que es lo barato». Dejó de ser cierto al medir los demás deportes. En
+    # tenis el rango NO da 400: da 200 con menos partidos (2 donde el día
+    # suelto da 7), así que el intento no es barato, es una respuesta creíble
+    # a la que le faltan datos. Un intento condenado por competición era el
+    # precio a pagar; una lista incompleta que nadie detecta, no.
+    check(not any('-' in str(x) for x in llamadas),
+          f'no se pide ningún rango, ni siquiera el primero ({llamadas})')
+    check(len(llamadas) >= 3,
+          f'se piden los días uno a uno ({llamadas})')
     ids = sorted(str(e.get('id')) for e in (ev or []))
     check(ids == ['A', 'B', 'C'],
           f'los partidos salen sin repetir aunque dos días contiguos '
           f'devuelvan el mismo ({ids})')
-
-    # UNA VEZ ROTO, NO SE REINTENTA: son 62 competiciones y el intento
-    # condenado cuesta ~1 s en cada una.
-    llamadas.clear()
-    fe.requests.get = _falso
-    fe._RANGO_ROTO['si'] = True
-    try:
-        fe._eventos_espn('liga_mx', 'mex.1', '20260916', '20260917')
-    finally:
-        fe.requests.get = original
-        fe._RANGO_ROTO.update(roto)
-    check(not any('-' in str(x) for x in llamadas),
-          f'con el rango ya descartado no se vuelve a intentar ({llamadas})')
 
     # SI TAMBIÉN FALLA DÍA A DÍA, SE DICE QUE NO HAY, no se inventa una lista
     def _todo_mal(url, params=None, timeout=None, **k):
         return _R(500, [])
 
     fe.requests.get = _todo_mal
-    fe._RANGO_ROTO['si'] = True
     try:
         vacio = fe._eventos_espn('laliga', 'esp.1', '20260916', '20260917')
     finally:
         fe.requests.get = original
-        fe._RANGO_ROTO.update(roto)
     check(vacio is None,
           'si tampoco responde día a día se devuelve None y quien llama lo '
           'trata como «sin fixtures», no como «no hay partidos»')
@@ -18397,6 +18387,751 @@ def test_la_correccion_sigue_bajando_lo_que_va_sobrado():
               f'la correccion de ({p}, {c}) respeta el tope ({d["delta"]:+.3f})')
 
 
+
+# ---------------------------------------------------------------------------
+# v227 — LA CIUDAD ABREVIADA, Y LA FOTO DE LOS PONCHES
+# ---------------------------------------------------------------------------
+def test_la_ciudad_abreviada_de_playdoit_se_expande():
+    """
+    «LA Dodgers» tiene que llegar a «los angeles dodgers».
+
+    El fallo que esto cierra no daba error: daba SILENCIO. `ABREV_MLB` trae las
+    canonicas de ESPN (LAD, LAA, NYM, CWS) y Playdoit escribe la ciudad corta,
+    asi que la similitud contra el nombre de Pinnacle salia 0,435 contra un
+    umbral de 0,80 y el partido aparecia «sin cuota de Playdoit». Medido el
+    2026-09-19: 0 escaleras de ponches encontradas; con la expansion, 21.
+    """
+    import cuotas_multi as cm
+    esperado = {
+        'LA Dodgers': 'los angeles dodgers',
+        'LA Angels': 'los angeles angels',
+        'NY Mets': 'new york mets',
+        'NY Yankees': 'new york yankees',
+        'CHI White Sox': 'chicago white sox',
+        'CHI Cubs': 'chicago cubs',
+    }
+    for corto, largo in esperado.items():
+        check(cm.normalizar(corto) == largo,
+              'v227: «%s» se expande a «%s» (sale «%s»)'
+              % (corto, largo, cm.normalizar(corto)))
+    check(cm._sim_club('Los Angeles Dodgers', cm.normalizar('LA Dodgers')) > 0.9,
+          'v227: tras expandir, la similitud supera el umbral del emparejador')
+
+
+def test_la_ciudad_corta_no_le_roba_el_equipo_a_la_nfl():
+    """
+    «la», «ny» y «chi» YA existian como claves, puestas por la NFL.
+
+    Por eso el arreglo es delicado: si colgar los equipos de beisbol de esas
+    mismas abreviaturas hiciera ambiguo «CHI Bears», se habrian arreglado los
+    ponches rompiendo el futbol americano. No pasa, y el motivo esta escrito en
+    `_expandir_abreviatura`: desempata el APODO, no la ciudad.
+    """
+    import cuotas_multi as cm
+    esperado = {
+        'CHI Bears': 'chicago bears',
+        'LA Rams': 'los angeles rams',
+        'LA Chargers': 'los angeles chargers',
+        'NY Giants': 'new york giants',
+        'NY Jets': 'new york jets',
+        'KC Chiefs': 'kansas city chiefs',
+        'KC Royals': 'kansas city royals',
+    }
+    for corto, largo in esperado.items():
+        check(cm.normalizar(corto) == largo,
+              'v227: «%s» sigue yendo a «%s» (sale «%s»)'
+              % (corto, largo, cm.normalizar(corto)))
+
+
+def test_la_foto_de_ponches_guarda_el_ancla_aunque_no_haya_escalera():
+    """
+    Lo que caduca es el PRECIO, asi que media foto hoy vale mas que una entera
+    dentro de tres semanas.
+
+    Si Playdoit no cotiza el partido, la fila se escribe igual con
+    `escalon = 0` y el ancla de Pinnacle dentro. Sin esto, un dia en que la
+    casa no publique escalera seria un dia perdido del historico que este
+    modulo existe para fabricar.
+    """
+    import os
+    import tempfile
+    import ventaja_ponches as vp
+
+    props = [{'pitcher_nombre': 'Tarik Skubal', 'linea': 7.5,
+              'odd_over': 2.04, 'odd_under': 1.7246,
+              'home': 'Equipo A', 'away': 'Equipo B',
+              'inicio': '2026-09-20T01:10:00'}]
+
+    class _FalsoBP:
+        @staticmethod
+        def props_ponches():
+            return props
+
+    import sys
+    previo = sys.modules.get('beisbol_pitchers')
+    sys.modules['beisbol_pitchers'] = _FalsoBP
+    ruta = os.path.join(tempfile.gettempdir(), '_v227_foto_test.csv')
+    try:
+        if os.path.exists(ruta):
+            os.remove(ruta)
+        n = vp.snapshot_diario(ruta=ruta, con_playdoit=False)
+        check(n == 1, 'v227: sin escalera se escribe igual 1 fila (salen %s)' % n)
+        with open(ruta, encoding='utf-8') as f:
+            lineas = [l for l in f.read().splitlines() if l.strip()]
+        check(len(lineas) == 2,
+              'v227: la foto lleva cabecera y una fila (lleva %d)' % len(lineas))
+        campos = dict(zip(lineas[0].split(','), lineas[1].split(',')))
+        check(campos.get('escalon') == '0',
+              'v227: la fila de solo-ancla se marca con escalon 0')
+        # 7,5 con over a 2,04 implica una lambda de mercado cercana a 7,4: lo
+        # que se comprueba es que el ancla se CALCULA, no que se copie la linea.
+        lam = float(campos.get('lam_mercado') or 0)
+        check(7.0 < lam < 7.8,
+              'v227: la lambda de mercado sale de devigar (%.4f)' % lam)
+        check(campos.get('linea_pinnacle') == '7.5',
+              'v227: el precio de Pinnacle queda guardado tal cual')
+
+        # Y una segunda pasada ANADE, no reescribe: son fotos distintas del
+        # mismo dia y el movimiento de linea esta justo en esa diferencia.
+        vp.snapshot_diario(ruta=ruta, con_playdoit=False)
+        with open(ruta, encoding='utf-8') as f:
+            lineas2 = [l for l in f.read().splitlines() if l.strip()]
+        check(len(lineas2) == 3,
+              'v227: la segunda foto anade una fila y no pisa la primera')
+    finally:
+        if previo is not None:
+            sys.modules['beisbol_pitchers'] = previo
+        else:
+            sys.modules.pop('beisbol_pitchers', None)
+        if os.path.exists(ruta):
+            os.remove(ruta)
+
+
+def test_el_triaje_de_la_auditoria_no_tapa_modulos_vivos():
+    """
+    Una tabla curada envejece, y al envejecer deja de documentar y pasa a tapar.
+
+    El §1.6 silencia la bandera roja de un modulo sin importadores a cambio de
+    una explicacion escrita. Ese trato solo vale mientras la explicacion sea
+    cierta: si alguien engancha un modulo triado como «aparcada», la ficha
+    miente y la auditoria lo estaria escondiendo. `triaje_rancio` lo detecta.
+    """
+    import auditar_repo as ar
+    doc = ar.construir()
+    rancio = ar.triaje_rancio(doc)
+    check(not rancio,
+          'v227: ninguna ficha del triaje esta rancia (%s)' % '; '.join(rancio))
+    faltan = [m for m in ar.TRIAJE_MODULOS if m not in doc['modulos']]
+    check(not faltan,
+          'v227: el triaje no habla de modulos inexistentes (%s)' % faltan)
+
+
+# ---------------------------------------------------------------------------
+# v228 — ESPN DEJO DE ACEPTAR RANGOS DE FECHAS
+# ---------------------------------------------------------------------------
+class _RespuestaFalsa:
+    def __init__(self, status=200, eventos=None):
+        self.status_code = status
+        self._eventos = eventos or []
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise RuntimeError('HTTP %d' % self.status_code)
+
+    def json(self):
+        return {'events': self._eventos}
+
+
+def _espia_espn(por_trozo=None, status=200):
+    """Sustituye `requests.get` y apunta que `dates` pidio cada llamada."""
+    pedidos = []
+
+    def _get(url, params=None, timeout=None, headers=None):
+        d = (params or {}).get('dates')
+        pedidos.append(d)
+        if status >= 400:
+            return _RespuestaFalsa(status)
+        return _RespuestaFalsa(200, (por_trozo or {}).get(d, []))
+
+    return _get, pedidos
+
+
+def test_espn_nunca_vuelve_a_pedir_un_rango_de_fechas():
+    """
+    El fallo que esto cierra costo cuatro dias de «Finalizados» en blanco.
+
+    ESPN rechaza `dates=A-B` con 400 desde el 2026-09-15 en futbol, NFL, NBA,
+    MLB y college. El arreglo de aquel dia se hizo en una sola funcion y
+    `resultados_liga` se quedo con su propia copia del rango, asi que devolvia
+    lista vacia en las 62 competiciones. El usuario lo reporto como «filtro la
+    Liga MX por finalizados y no sale ninguno», y el filtro no tenia nada que
+    ver: la lista llegaba vacia.
+
+    La comprobacion es literal: NINGUNA peticion puede llevar un guion.
+    """
+    import fixtures_espn as fe
+    get, pedidos = _espia_espn()
+    previo = fe.requests.get
+    fe.requests.get = get
+    try:
+        fe.eventos_por_dias('prueba', 'http://x', '20260917', '20260919')
+    finally:
+        fe.requests.get = previo
+    check(pedidos, 'v228: se pidio algo')
+    con_guion = [p for p in pedidos if '-' in str(p)]
+    check(not con_guion,
+          'v228: ninguna peticion lleva rango con guion (%s)' % con_guion)
+    check(sorted(pedidos) == ['20260917', '20260918', '20260919'],
+          'v228: una ventana corta se pide dia a dia (%s)' % sorted(pedidos))
+
+
+def test_una_ventana_ancha_se_pide_por_meses_y_no_por_dias():
+    """
+    210 dias son 210 peticiones por competicion, y hay veinte competiciones.
+
+    ESPN acepta `dates=YYYYMM`, que la v228 encontro probando. Sin esta rama,
+    arreglar el rango en `fixtures_selecciones` habria cambiado un fallo por
+    una tormenta de cuatro mil peticiones.
+    """
+    import fixtures_espn as fe
+    get, pedidos = _espia_espn()
+    previo = fe.requests.get
+    fe.requests.get = get
+    try:
+        fe.eventos_por_dias('prueba', 'http://x', '20260901', '20261215')
+    finally:
+        fe.requests.get = previo
+    check(all(len(str(p)) == 6 for p in pedidos),
+          'v228: la ventana ancha se pide por meses (%s)' % pedidos)
+    check(sorted(pedidos) == ['202609', '202610', '202611', '202612'],
+          'v228: son los cuatro meses que toca (%s)' % sorted(pedidos))
+
+
+def test_el_mes_no_cuela_partidos_de_fuera_de_la_ventana():
+    """
+    Pedir el mes trae el mes ENTERO, y el contrato es el del rango.
+
+    Sin este recorte, «los jugados del 19» traeria los treinta dias de
+    septiembre y la vista mentiria por exceso — que es peor que por defecto,
+    porque parece que funciona.
+    """
+    import fixtures_espn as fe
+    eventos = [{'id': '1', 'date': '2026-09-05T18:00Z'},
+               {'id': '2', 'date': '2026-09-20T18:00Z'},
+               {'id': '3', 'date': '2026-10-02T18:00Z'},
+               {'id': '4', 'date': 'fecha rara'}]
+    get, _ = _espia_espn(por_trozo={'202609': eventos, '202610': eventos})
+    previo = fe.requests.get
+    fe.requests.get = get
+    try:
+        out = fe.eventos_por_dias('prueba', 'http://x', '20260910', '20260925')
+    finally:
+        fe.requests.get = previo
+    ids = sorted(e['id'] for e in out)
+    check(ids == ['2', '4'],
+          'v228: solo pasan los de dentro, y el de fecha ilegible (%s)' % ids)
+
+
+def test_el_mismo_partido_no_entra_dos_veces():
+    """Dos trozos contiguos pueden devolver el mismo evento; manda el `id`."""
+    import fixtures_espn as fe
+    ev = {'id': '77', 'date': '2026-09-18T18:00Z'}
+    get, _ = _espia_espn(por_trozo={'20260917': [ev], '20260918': [ev],
+                                    '20260919': [ev]})
+    previo = fe.requests.get
+    fe.requests.get = get
+    try:
+        out = fe.eventos_por_dias('prueba', 'http://x', '20260917', '20260919')
+    finally:
+        fe.requests.get = previo
+    check(len(out) == 1, 'v228: el evento repetido entra una sola vez (%d)'
+          % len(out))
+
+
+def test_si_no_contesta_nadie_se_devuelve_none_y_no_lista_vacia():
+    """
+    «Contestaron y no habia partidos» y «no contesto nadie» no son lo mismo.
+
+    Confundirlos es justo como se perdio el fallo original: el `except`
+    devolvia `[]` y el barrido terminaba en verde sin un solo partido.
+    """
+    import fixtures_espn as fe
+    get, _ = _espia_espn(status=500)
+    previo = fe.requests.get
+    fe.requests.get = get
+    try:
+        out = fe.eventos_por_dias('prueba', 'http://x', '20260918', '20260919')
+    finally:
+        fe.requests.get = previo
+    check(out is None, 'v228: sin respuesta se devuelve None (%r)' % out)
+
+
+def test_el_403_llega_a_quien_llama_y_no_se_queda_en_el_except():
+    """
+    ESPN veta las IPs de centro de datos con 403, y `fixtures_selecciones`
+    cuenta esos vetos para dejar de pedir. Si el troceo se tragara el codigo,
+    un bloqueo se volveria un silencio y se seguirian pidiendo veinte ligas.
+    """
+    import fixtures_espn as fe
+    get, _ = _espia_espn(status=403)
+    previo = fe.requests.get
+    fe.requests.get = get
+    est = {}
+    try:
+        fe.eventos_por_dias('prueba', 'http://x', '20260918', '20260919',
+                            estado=est)
+    finally:
+        fe.requests.get = previo
+    check(est.get('http') == 403,
+          'v228: el 403 se le cuenta a quien llama (%s)' % est)
+
+
+def test_resultados_liga_pasa_por_el_troceo():
+    """
+    Es la funcion concreta que estaba rota, y de la que cuelga la lista de
+    partidos finalizados que el usuario no veia.
+    """
+    import fixtures_espn as fe
+    hecho = {'ok': False}
+    previo = fe.eventos_por_dias
+
+    def _espia(etiqueta, url, ini, fin, **kw):
+        hecho['ok'] = True
+        return []
+
+    fe.eventos_por_dias = _espia
+    fe._CACHE.clear()
+    try:
+        fe.resultados_liga('liga_mx', '2026-09-18', '2026-09-19')
+    finally:
+        fe.eventos_por_dias = previo
+        fe._CACHE.clear()
+    check(hecho['ok'],
+          'v228: resultados_liga pide por `eventos_por_dias` y no por su cuenta')
+
+
+# ---------------------------------------------------------------------------
+# v229 — «NO SOLO EL DEL GANE»
+# ---------------------------------------------------------------------------
+def test_el_total_sale_igual_en_los_tres_deportes():
+    """
+    La forma tiene que ser UNA, o la pantalla acaba con un bloque por deporte.
+
+    El futbol ya publica `goles_lineas` —{linea: P(over)}— y la tarjeta sabe
+    pintarlo. Devolver lo mismo para carreras, puntos y juegos es lo que hace
+    que los tres hereden esa pantalla sin tocarla.
+    """
+    import totales_deporte as td
+
+    mlb = {'secciones': [{'titulo': '4. Totales de carreras', 'campos': [
+        {'id': 'over_7.5', 'etiqueta': 'Mas de 7.5 carreras', 'valor': 65.0},
+        {'id': 'under_7.5', 'etiqueta': 'Menos de 7.5 carreras', 'valor': 35.0},
+        {'id': 'over_8.5', 'etiqueta': 'Mas de 8.5 carreras', 'valor': 51.5},
+    ]}]}
+    out = td.de_plantilla(mlb, 'MLB')
+    check(out.get('unidad') == 'carreras', 'v229: MLB mide en carreras')
+    check(out.get('lineas') == {'7.5': 0.65, '8.5': 0.515},
+          'v229: MLB da {linea: P(over)} en [0,1] (%s)' % out.get('lineas'))
+    check(out.get('centro') == 8.5,
+          'v229: el centro es la linea mas cercana al 50 %% (%s)'
+          % out.get('centro'))
+
+    tenis = {'campos': [
+        {'id': 'ml_home', 'etiqueta': 'Gana A', 'valor': 55.0},
+        {'id': 'juegos_over_21.0', 'etiqueta': 'Mas de 21.0 juegos',
+         'valor': 66.0},
+        {'id': 'juegos_over_24.0', 'etiqueta': 'Mas de 24.0 juegos',
+         'valor': 48.4},
+    ]}
+    out = td.de_plantilla(tenis, 'Tenis')
+    check(out.get('unidad') == 'juegos', 'v229: el tenis mide en juegos')
+    check(out.get('centro') == 24.0,
+          'v229: el centro del tenis es 24 juegos (%s)' % out.get('centro'))
+    check('55.0' not in (out.get('lineas') or {}),
+          'v229: el moneyline NO se cuela como si fuera una linea de total')
+
+
+def test_el_total_por_equipo_no_se_mezcla_con_el_del_partido():
+    """
+    Los tres motores publican tambien el total de CADA equipo.
+
+    Mezclarlos daria dos probabilidades distintas para la misma linea —«mas de
+    4.5» del partido y «mas de 4.5» del local— y la tarjeta ensenaria una de
+    las dos sin decir cual. Se filtra por el prefijo del id, que es lo unico
+    que las distingue sin ambiguedad.
+    """
+    import totales_deporte as td
+    pl = {'secciones': [{'titulo': 'Totales', 'campos': [
+        {'id': 'over_8.5', 'etiqueta': 'Mas de 8.5 carreras', 'valor': 51.0},
+        {'id': 'tt_home_over_4.5', 'etiqueta': 'Local: mas de 4.5 carreras',
+         'valor': 42.0},
+        {'id': 'tt_away_over_4.5', 'etiqueta': 'Visita: mas de 4.5 carreras',
+         'valor': 38.0},
+    ]}]}
+    out = td.de_plantilla(pl, 'MLB')
+    check(out.get('lineas') == {'8.5': 0.51},
+          'v229: solo entra el total del PARTIDO (%s)' % out.get('lineas'))
+
+
+def test_las_lineas_que_se_inventan_para_la_nfl_van_siempre_a_medio_punto():
+    """
+    Una linea entera admite el «push» —empate, la casa devuelve— y eso es otro
+    mercado con otra probabilidad. Publicar 8 queriendo decir 8.5 seria
+    publicar el numero de un mercado distinto.
+    """
+    import totales_deporte as td
+    for centro in (44.5, 44.0, 47.3, 8.2, 21.0):
+        ls = td.lineas_alrededor(centro, 3.0, 3)
+        check(ls and all(abs(x - int(x)) == 0.5 for x in ls),
+              'v229: centro %s da lineas a medio punto (%s)' % (centro, ls))
+    check(td.lineas_alrededor(None, 3.0) == [],
+          'v229: sin centro no se inventa ninguna linea')
+
+
+def test_la_nfl_pide_las_lineas_de_la_casa_cuando_las_hay():
+    """
+    `plantilla_nfl` solo calcula las lineas que se le piden, a proposito, para
+    no fabricar mercados que nadie cotiza. Si la casa publica las suyas, mandan
+    ellas: son las que se pueden jugar de verdad.
+    """
+    import totales_deporte as td
+    pred = {'total_esperado': 47.3, 'margen_esperado': 2.5,
+            'pts_home_esperado': 24.9, 'pts_away_esperado': 22.4,
+            'sigma_total': 10.0, 'sigma_margen': 13.2, 'sigma_equipo': 8.3,
+            'prob_home': 0.57, 'prob_away': 0.43}
+    solo = td.de_nfl(pred, 'KC', 'BUF', {'total': [44.5, 47.5]})
+    check(sorted(solo.get('lineas') or {}) == ['44.5', '47.5'],
+          'v229: con lineas de la casa se usan esas y no otras (%s)'
+          % sorted(solo.get('lineas') or {}))
+    auto = td.de_nfl(pred, 'KC', 'BUF')
+    check(len(auto.get('lineas') or {}) == 3,
+          'v229: sin lineas de la casa se generan tres alrededor del total')
+    check(abs(float(auto.get('centro')) - 47.3) < 3.5,
+          'v229: y el centro cae cerca del total esperado (%s)'
+          % auto.get('centro'))
+
+
+def test_un_total_que_no_se_puede_calcular_no_revienta_el_barrido():
+    """
+    Degradacion silenciosa: un total que falta es una fila menos en la tarjeta;
+    una excepcion aqui tumbaria el barrido entero, que es el error que este
+    proyecto ya cometio con el tablero de la NFL.
+    """
+    import totales_deporte as td
+    check(td.de_plantilla({'error': 'equipos desconocidos'}, 'MLB') == {},
+          'v229: una plantilla con error da {}')
+    check(td.de_plantilla({}, 'MLB') == {}, 'v229: una plantilla vacia da {}')
+    check(td.para_pick(None, 'MLB', 'A', 'B') == {},
+          'v229: sin motor da {} y no lanza')
+
+    class _Explota:
+        def plantilla(self, *a, **k):
+            raise RuntimeError('boom')
+
+    check(td.para_pick(_Explota(), 'Tenis', 'A', 'B') == {},
+          'v229: un motor que revienta se traga y da {}')
+
+
+def test_la_tarjeta_pinta_el_total_de_cualquier_deporte():
+    """Un solo formato para los tres: que el ojo no aprenda uno por deporte."""
+    import modo_modelo as mm
+    for unidad, centro, icono in (('carreras', 8.5, '⚾'),
+                                  ('juegos', 24.0, '🎾'),
+                                  ('puntos', 47.5, '🏈')):
+        pick = {'totales': {'lineas': {str(centro): 0.49,
+                                       str(centro - 3): 0.65},
+                            'unidad': unidad, 'centro': centro}}
+        html = mm._bloque_totales_html(pick)
+        check(icono in html,
+              'v229: el bloque de %s lleva su icono' % unidad)
+        check(str(centro) in html,
+              'v229: y su linea central (%s)' % unidad)
+    check(mm._bloque_totales_html({}) == '',
+          'v229: sin totales no se pinta nada, que es mejor que un hueco')
+    check(mm._bloque_totales_html({'totales': {'lineas': {}}}) == '',
+          'v229: con la escalera vacia tampoco')
+
+
+def test_la_lambda_de_goles_viaja_con_el_pronostico():
+    """
+    Sin ella el 72 % no se explica, y ese fue justo el reporte del usuario.
+
+    `lineas_de_goles` ya calculaba la lambda corregida y se la guardaba. Va en
+    un dict aparte y no en la escalera porque a `salida` la recorren otros
+    buscando lineas, y colarle una clave que no es una linea rompe a quien la
+    itera.
+    """
+    import numpy as np
+    from scipy.stats import poisson
+    import alpha_finder as af
+
+    kk = np.arange(10)
+    ph = poisson.pmf(kk, 1.3)
+    M = np.outer(ph, ph)
+    M = M / M.sum()
+    lam = {}
+    esc = af.lineas_de_goles({'score_matrix': M.tolist()}, lambdas=lam)
+    check(abs(lam.get('total', 0) - 2.6) < 0.05,
+          'v229: la lambda sale (%s)' % lam.get('total'))
+    check(all(_es_linea(k) for k in esc),
+          'v229: la escalera sigue siendo SOLO lineas (%s)' % list(esc))
+    # el numero del reporte: Poisson(2,6) da 73,6 % para menos de 3,5
+    check(abs((1 - esc['3.5']) - 0.736) < 0.01,
+          'v229: Under 3.5 con lambda 2,6 da 73,6 %% (%.4f)'
+          % (1 - esc['3.5']))
+
+
+def _es_linea(k):
+    try:
+        float(k)
+        return True
+    except (TypeError, ValueError):
+        return False
+
+
+def test_la_tarjeta_explica_de_donde_sale_el_porcentaje_de_goles():
+    """
+    «Over 2.5» y «Under 3.5» PARECEN contrarios y no lo son: se solapan en el
+    partido de tres goles exactos. Por eso la misma tarjeta podia decir «Over
+    2.5 en 4 de 5» arriba y «Menos de 3.5 al 72 %» abajo sin contradecirse, y
+    no habia forma de verlo.
+    """
+    import modo_modelo as mm
+    txt = mm._caption_goles({'goles_lambda': 2.6,
+                             'goles_lineas': {'2.5': 0.4816, '3.5': 0.264}})
+    check('2,6' in txt, 'v229: la caption dice la lambda (%s)' % txt)
+    check('48' in txt and '74' in txt,
+          'v229: y los dos porcentajes que parecen contradecirse (%s)' % txt)
+    check('22' in txt,
+          'v229: y cuanto vale el solape, que es lo que los concilia (%s)'
+          % txt)
+    check(mm._caption_goles({}) == '',
+          'v229: sin lambda no se escribe una linea vacia de contenido')
+    check(mm._caption_goles({'goles_lambda': 'x'}) == '',
+          'v229: una lambda ilegible tampoco')
+
+
+def test_los_partidos_acabados_salen_del_precalculo_y_no_de_la_red():
+    """
+    13,7 s medidos contra 0,00 s, y se pagaban AL PINTAR.
+
+    `de_dia` salia gratis mientras ESPN rechazaba los rangos de fechas: las 62
+    competiciones fallaban y la lista quedaba vacia al instante. Al arreglarlo
+    volvio a hacer su trabajo —193 partidos, 186 peticiones— y lo hacia en cada
+    pasada de Streamlit, con el usuario esperando. Es el mismo error que la
+    v220 vino a corregir, reaparecido por la puerta de atras.
+    """
+    import json
+    import os
+    import tempfile
+    import time
+    import partidos_jugados as pj
+
+    ruta = os.path.join(tempfile.gettempdir(), '_v229_jugados_test.json')
+    previo = os.environ.get('JUGADOS_DIA_FICHERO')
+    os.environ['JUGADOS_DIA_FICHERO'] = ruta
+    tocada = {'red': False}
+    _red = pj._de_dia_por_red
+
+    def _espia(dia, maximo=200):
+        tocada['red'] = True
+        return _red(dia, maximo)
+
+    pj._de_dia_por_red = _espia
+    try:
+        if os.path.exists(ruta):
+            os.remove(ruta)
+        with open(ruta, 'w', encoding='utf-8') as f:
+            json.dump({'dia': '2026-09-19', 'ts': time.time(),
+                       'partidos': [{'partido': 'A vs B', 'jugado': True}]}, f)
+        out = pj.de_dia('2026-09-19')
+        check(len(out) == 1 and not tocada['red'],
+              'v229: con precalculo fresco NO se toca la red (%d, red=%s)'
+              % (len(out), tocada['red']))
+
+        # UN DIA PASADO CON CERO PARTIDOS ES UNA RESPUESTA, NO UN HUECO.
+        # Confundir «[]» con «no hay precalculo» devolveria a la red cada vez
+        # que se mire un dia sin futbol, que es justo lo que se queria evitar.
+        tocada['red'] = False
+        with open(ruta, 'w', encoding='utf-8') as f:
+            json.dump({'dia': '2026-09-15', 'ts': time.time() - 99 * 3600,
+                       'partidos': []}, f)
+        out = pj.de_dia('2026-09-15')
+        check(out == [] and not tocada['red'],
+              'v229: un dia pasado sin partidos se sirve del precalculo')
+
+        # EL DIA EN CURSO CADUCA, y el de ayer no. A las 18:00 faltan los
+        # partidos de la noche, asi que servir un precalculo de la manana
+        # seria enseniar una lista corta como si estuviera completa.
+        import datetime as _dt
+        hoy = _dt.datetime.now().strftime('%Y-%m-%d')
+        tocada['red'] = False
+        with open(ruta, 'w', encoding='utf-8') as f:
+            json.dump({'dia': hoy, 'ts': time.time() - 20 * 3600,
+                       'partidos': [{'partido': 'viejo'}]}, f)
+        pj.de_dia(hoy)
+        check(tocada['red'],
+              'v229: un precalculo rancio del dia EN CURSO manda a la red')
+
+        # Y SIN FICHERO, LA RED. Preferir lento a vacio es la regla.
+        tocada['red'] = False
+        os.remove(ruta)
+        pj.de_dia('2026-09-19')
+        check(tocada['red'],
+              'v229: sin precalculo se sale a la red, no se devuelve vacio')
+    finally:
+        pj._de_dia_por_red = _red
+        if previo is None:
+            os.environ.pop('JUGADOS_DIA_FICHERO', None)
+        else:
+            os.environ['JUGADOS_DIA_FICHERO'] = previo
+        if os.path.exists(ruta):
+            os.remove(ruta)
+
+
+def test_el_cron_es_quien_escribe_los_jugados():
+    """
+    Comprobar solo el lector dejaria fuera el cableado: un mutante que borrara
+    la llamada del cron dejaria este test en verde y el fichero sin generarse
+    nunca, o sea la aplicacion pagando la red otra vez.
+    """
+    import io as _io
+    s = _io.open('precalculo_dia.py', encoding='utf-8').read()
+    check('partidos_jugados' in s and 'escribir_dia' in s,
+          'v229: precalculo_dia llama a partidos_jugados.escribir_dia')
+    y = _io.open('.github/workflows/precalculo_dia.yml', encoding='utf-8').read()
+    check('jugados_dia.json' in y,
+          'v229: el workflow commitea jugados_dia.json (si no, se va con el '
+          'runner y la aplicacion vuelve a pagar la red)')
+
+
+# ---------------------------------------------------------------------------
+# v230 — «AMBOS MARCAN», QUE EL MODELO SE COMIA EN 44 DE 55 LIGAS
+# ---------------------------------------------------------------------------
+def test_la_calibracion_de_btts_sube_donde_el_modelo_se_quedaba_corto():
+    """
+    El usuario perdio dos patas de un parley y las dos eran de la MLS.
+
+    Medido sobre 47.794 partidos: el modelo promete 56,9 % de «ambos marcan»
+    en la MLS donde ocurre el 59,6 %, y el mismo signo se repite en 44 de las
+    55 ligas con muestra. La causa es multiplicar dos Poisson INDEPENDIENTES:
+    los goles de los dos equipos estan correlacionados —el que pierde adelanta
+    lineas— y bajo independencia esa correlacion se pierde.
+    """
+    import calibrador_btts as cb
+    if not cb.disponible():
+        check(False, 'v230: falta calibracion_btts.json')
+        return
+    subidas = 0
+    for liga in ('mls', 'liga_mx', 'premier'):
+        antes, despues = 0.50, cb.calibrar(0.50, liga)
+        check(despues is not None,
+              'v230: %s devuelve una probabilidad' % liga)
+        if despues > antes:
+            subidas += 1
+    check(subidas >= 2,
+          'v230: la correccion SUBE el BTTS en las ligas donde el modelo se '
+          'quedaba corto (%d de 3)' % subidas)
+
+
+def test_la_calibracion_de_btts_nunca_se_sale_de_rango_ni_lanza():
+    """Degradacion segura: una liga desconocida hereda la curva global."""
+    import calibrador_btts as cb
+    for v in (0.0, 1.0, -0.5, 1.5, 0.5):
+        r = cb.calibrar(v, 'liga_que_no_existe')
+        check(r is not None and 0.0 < r < 1.0,
+              'v230: %r -> %r se queda dentro de (0,1)' % (v, r))
+    check(cb.calibrar(None, 'mls') is None,
+          'v230: sin probabilidad no se inventa una')
+    check(cb.calibrar('x', 'mls') is None,
+          'v230: una probabilidad ilegible devuelve None')
+
+
+def test_el_motor_publica_el_btts_ya_calibrado():
+    """
+    Comprobar solo el calibrador dejaria fuera el cableado: un mutante que
+    borrara la llamada dejaria este test en verde y la aplicacion seguiria
+    publicando el numero crudo, que es el que estaba mal.
+    """
+    import numpy as np
+    from scipy.stats import poisson
+    import alpha_finder as af
+
+    kk = np.arange(10)
+    M = np.outer(poisson.pmf(kk, 1.3), poisson.pmf(kk, 1.3))
+    M = M / M.sum()
+    idx = np.arange(10)
+    crudo = float(M[(idx[:, None] >= 1) & (idx[None, :] >= 1)].sum())
+    calibrado = af._btts_calibrado(crudo, 'mls')
+    check(abs(calibrado - crudo) > 0.005,
+          'v230: el motor corrige el BTTS de la MLS (%.4f -> %.4f)'
+          % (crudo, calibrado))
+    check(af._btts_calibrado(crudo, None) is not None,
+          'v230: sin liga se usa la curva global y no revienta')
+
+
+def test_el_caracter_de_la_liga_solo_habla_cuando_tiene_algo_que_decir():
+    """
+    Una competicion del monton no aporta nada, y rellenar con «esta en la
+    media» seria gastar renglon en una tarjeta de la que el usuario ya dijo
+    que sobra texto. Por eso el umbral de una sigma.
+    """
+    import auditoria_ligas as al
+    dicen = [al.rasgo_de_liga(l, m) for l, m in (
+        ('mls', 'Ambos marcan: Sí'), ('premier', 'Córners'),
+        ('laliga', 'Tarjetas'), ('argentina', 'Goles'))]
+    check(all(dicen), 'v230: las ligas con carácter propio lo cuentan')
+    check(al.rasgo_de_liga('no_existe', 'Goles') == '',
+          'v230: una liga sin ficha calla')
+    check(al.rasgo_de_liga('mls', 'mercado raro') == '',
+          'v230: un mercado que no encaja con ningún rasgo calla')
+    check('MLS' in al.rasgo_de_liga('mls', 'Ambos marcan: Sí'),
+          'v230: y el texto nombra la liga')
+
+
+def test_el_rasgo_que_se_ensena_es_el_del_mercado_recomendado():
+    """
+    Enseñar los córners debajo de una recomendación de goles seria peor que no
+    enseñar nada: parecería que la justifica.
+    """
+    import modo_modelo as mm
+    goles = mm._rasgo_liga({'clave_liga': 'argentina'},
+                           [{'mercado': 'Goles', 'apuesta': 'Menos de 2.5'}])
+    check('goles' in goles.lower(),
+          'v230: con un pick de goles se habla de goles (%s)' % goles)
+    corners = mm._rasgo_liga({'clave_liga': 'premier'},
+                             [{'mercado': 'Córners'}])
+    check('córner' in corners.lower(),
+          'v230: con un pick de córners se habla de córners (%s)' % corners)
+    check(mm._rasgo_liga({}, None) == '',
+          'v230: sin liga no se pinta nada')
+
+
+def test_la_auditoria_de_ligas_corrige_por_multiples_pruebas():
+    """
+    55 ligas x 4 mercados son 220 pruebas. Al 5 %, once saldrian
+    «significativas» sin que pase nada. Sin Benjamini-Hochberg este fichero
+    seria una maquina de fabricar patrones.
+    """
+    import auditoria_ligas as al
+    filas = [{'p_valor': p} for p in
+             (0.001, 0.004, 0.02, 0.2, 0.5, 0.8, 0.9, 0.95, 0.99, 0.999)]
+    al.benjamini_hochberg(filas, alfa=0.10)
+    sig = [f for f in filas if f.get('significativo')]
+    check(len(sig) >= 1, 'v230: BH deja pasar los p-valores claramente bajos')
+    check(all(f['p_valor'] <= 0.05 for f in sig),
+          'v230: y no cuela los altos (%s)' % [f['p_valor'] for f in sig])
+    # el 0,2 NO puede pasar: su umbral seria 4/10*0,10 = 0,04
+    check(not any(abs(f['p_valor'] - 0.2) < 1e-9 for f in sig),
+          'v230: un p-valor de 0,2 no sobrevive a la correccion')
+
+    lo, hi = al.wilson(50, 100)
+    check(lo < 0.5 < hi and 0 <= lo and hi <= 1,
+          'v230: el intervalo de Wilson contiene la proporcion y no se sale')
+    lo2, hi2 = al.wilson(50, 1000)
+    check((hi2 - lo2) < (hi - lo),
+          'v230: y se estrecha con mas muestra')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -18871,6 +19606,41 @@ if __name__ == '__main__':
     test_la_correccion_elige_la_medicion_con_mas_evidencia()
     test_un_favorito_claro_del_mercado_deja_de_salir_en_rojo()
     test_la_correccion_sigue_bajando_lo_que_va_sobrado()
+
+    print(chr(10) + '=== v227: ciudad abreviada, foto de ponches y triaje ===')
+    test_la_ciudad_abreviada_de_playdoit_se_expande()
+    test_la_ciudad_corta_no_le_roba_el_equipo_a_la_nfl()
+    test_la_foto_de_ponches_guarda_el_ancla_aunque_no_haya_escalera()
+    test_el_triaje_de_la_auditoria_no_tapa_modulos_vivos()
+
+    print(chr(10) + '=== v228: ESPN dejo de aceptar rangos de fechas ===')
+    test_espn_nunca_vuelve_a_pedir_un_rango_de_fechas()
+    test_una_ventana_ancha_se_pide_por_meses_y_no_por_dias()
+    test_el_mes_no_cuela_partidos_de_fuera_de_la_ventana()
+    test_el_mismo_partido_no_entra_dos_veces()
+    test_si_no_contesta_nadie_se_devuelve_none_y_no_lista_vacia()
+    test_el_403_llega_a_quien_llama_y_no_se_queda_en_el_except()
+    test_resultados_liga_pasa_por_el_troceo()
+
+    print(chr(10) + '=== v229: totales por deporte y la lambda a la vista ===')
+    test_el_total_sale_igual_en_los_tres_deportes()
+    test_el_total_por_equipo_no_se_mezcla_con_el_del_partido()
+    test_las_lineas_que_se_inventan_para_la_nfl_van_siempre_a_medio_punto()
+    test_la_nfl_pide_las_lineas_de_la_casa_cuando_las_hay()
+    test_un_total_que_no_se_puede_calcular_no_revienta_el_barrido()
+    test_la_tarjeta_pinta_el_total_de_cualquier_deporte()
+    test_la_lambda_de_goles_viaja_con_el_pronostico()
+    test_la_tarjeta_explica_de_donde_sale_el_porcentaje_de_goles()
+    test_los_partidos_acabados_salen_del_precalculo_y_no_de_la_red()
+    test_el_cron_es_quien_escribe_los_jugados()
+
+    print(chr(10) + '=== v230: ambos marcan y el caracter de cada liga ===')
+    test_la_calibracion_de_btts_sube_donde_el_modelo_se_quedaba_corto()
+    test_la_calibracion_de_btts_nunca_se_sale_de_rango_ni_lanza()
+    test_el_motor_publica_el_btts_ya_calibrado()
+    test_el_caracter_de_la_liga_solo_habla_cuando_tiene_algo_que_decir()
+    test_el_rasgo_que_se_ensena_es_el_del_mercado_recomendado()
+    test_la_auditoria_de_ligas_corrige_por_multiples_pruebas()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

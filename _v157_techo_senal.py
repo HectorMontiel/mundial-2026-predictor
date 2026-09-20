@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+r"""
 v157 — CUÁNTA SEÑAL HAY DE VERDAD EN LOS CÓRNERS (y por qué el MAE engañaba).
 
 CORRECCIÓN A LA v156. Aquel experimento midió el suelo del MAE —2,4835 con un

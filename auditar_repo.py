@@ -179,6 +179,101 @@ REGLAS = [
 ]
 
 # ---------------------------------------------------------------------------
+# §1.6 — TRIAJE DE LOS MODULOS SIN IMPORTADORES
+# ---------------------------------------------------------------------------
+# La clasificacion automatica llega hasta donde llega: sabe quien importa a
+# quien y quien comparte fichero de datos, pero no sabe PARA QUE se escribio un
+# modulo. Esto es la lectura, uno a uno, de los que quedaban sin explicar.
+#
+# La regla del §10.1 del encargo v212 manda: «se documenta, se decide, no se
+# borra sin test de regresion». Ninguno se ha borrado; lo que cambia es que
+# ahora cada uno tiene una respuesta en vez de una bandera roja.
+#
+# Cuatro familias, y solo UNA pide accion:
+#
+#   generador   produce un catalogo o un dataset. Se corre cuando hace falta.
+#   sondeo      contesto una pregunta concreta. La respuesta esta en su
+#               docstring y en su JSON `_vNNN_*`. Es el cuaderno de laboratorio.
+#   aparcada    hipotesis medida que no llego al liston. Se deja lista.
+#   sin_enchufar  escrita, correcta y sin llamar. AQUI si hay decision.
+TRIAJE_MODULOS = {
+    # --- generadores y ingesta: se corren cuando hace falta ----------------
+    'generar_universo_selecciones': ('generador',
+        'v66. Genera el universo de selecciones del modelo internacional. Se '
+        'corre al ampliar el catalogo, no en cada barrido.'),
+    'generar_ligas_v68': ('generador',
+        'v68. Genera el catalogo de ligas de futbol. Mismo caso.'),
+    'entrenar_ligas_v68': ('generador',
+        'v68. Entrena las competiciones nuevas y decide cuales se despliegan. '
+        'Lo sustituyo el workflow de reentrenamiento diario.'),
+    'precalcular_goleadores': ('generador',
+        'v147. Precalcula la cache de goleadores EN EL RUNNER y no en el '
+        'navegador. Es la misma idea que la v220 generalizo: calcular fuera '
+        'del render.'),
+    'ingesta_cuotas_leagues_cup': ('generador',
+        'v100. Cuotas de cierre historicas de la Leagues Cup desde '
+        'BetExplorer. Ingesta de una vez.'),
+    'retrosheet_scraper': ('generador',
+        'v29. Game logs historicos de MLB. Ingesta.'),
+    'nba_scraper': ('generador',
+        'v30. Game logs de NBA via nba_api. Ingesta.'),
+    'pipeline_mundial': ('generador',
+        'Pipeline diario del Mundial con tres fuentes abiertas.'),
+
+    # --- sondeos: la pregunta ya tiene respuesta --------------------------
+    'sondeo_casas': ('sondeo',
+        'v126. Barrio las casas de apuestas para ver cuales se pueden '
+        'integrar. La respuesta gobierna `cuotas_multi` desde entonces.'),
+    'sondeo_odds_api': ('sondeo',
+        'v127. Contesto si The Odds API cubre las 24 ligas sin historico de '
+        'cuotas.'),
+    'backtest_btts': ('sondeo',
+        'v75. Contesto si el mercado BTTS merecia entrar en la Capa 1. La '
+        'respuesta quedo en `_v75_btts.json`.'),
+
+    # --- aparcadas: medidas, no llegaron al liston ------------------------
+    'elo_global': ('aparcada',
+        'v105. ELO cross-competicion para las copas, donde el ELO por '
+        'competicion no converge (68 de 135 equipos de la Conference tienen 8 '
+        'partidos o menos). Medido en `_v105_ab_elo_global.json`.'),
+    'indice_forma': ('aparcada',
+        'v99.1. Indice de Dispersion de Forma y factor de parque de la KBO. '
+        'Medido en `_v102_ab_idf_*.json`.'),
+    'nba_features': ('aparcada',
+        'v70 Mejora F. Fatiga, viajes y avanzadas de NBA. El motor ya llevaba '
+        'descanso y back-to-back; esto añadia densidad de calendario y millas.'),
+    'tenis_saque': ('aparcada',
+        'v69. Estadisticas de saque y resto desde TennisAbstract, que v67 dio '
+        'por imposible. La fuente FUNCIONA; lo que falta es medir si el ELO de '
+        'saque mejora algo.'),
+    'kbo_preview': ('aparcada',
+        'v104. Calidad del abridor y bullpen de la KBO desde Naver. Produce '
+        '`kbo_preview.csv`, que hoy no lee nadie.'),
+    'props_model': ('aparcada',
+        'v45. Modelo de props de ponches. Lo sustituyo `beisbol_pitchers`, que '
+        'si esta enchufado.'),
+    'portfolio_optimizer': ('aparcada',
+        'v33. Optimizador de Markowitz, marcado EXPERIMENTAL por su propio '
+        'autor.'),
+
+    # --- SIN ENCHUFAR: aqui si hay una decision que tomar ------------------
+    # `ventaja_ponches` ESTUVO aqui y ya no: en la v227 se le escribio el
+    # conductor que le faltaba (`snapshot_diario`, llamado desde
+    # `precalculo_dia`), asi que dejo de ser un modulo sin importadores y su
+    # ficha la borro este mismo fichero via `triaje_rancio`, que fallo en el
+    # primer test en cuanto la explicacion dejo de ser cierta. Sigue sin
+    # publicar picks: acumula `ponches_snapshots.csv` hasta que haya ROI y p5.
+    'historico_agrupado': ('aparcada',
+        'v184, CERRADO en v227. Agrupaba el historico de una copa con el de '
+        'las ligas de sus equipos para predecir a los que no tienen muestra. '
+        'Medido dos veces y NO se engancha: en global el logloss empeora '
+        '(`_v184`), y en los huecos —los partidos que motivaron el modulo— '
+        'acierta 0,4615 contra 0,5000 del modelo de la copa y ni gana a la '
+        'base tonta (0,4808). Ver `_v227_agrupado_huecos.json`.'),
+}
+
+
+# ---------------------------------------------------------------------------
 # §1.5 — DECISIONES ABIERTAS
 # ---------------------------------------------------------------------------
 DECISIONES_ABIERTAS = [
@@ -240,7 +335,7 @@ def _analizar(ruta: str) -> Dict:
     ficha = {'modulo': ruta[:-3], 'fichero': ruta, 'lineas': 0,
              'importa': set(), 'tiene_main': False, 'defs': 0,
              'docstring': '', 'marcas_medido': [], 'marcas_refutado': [],
-             'deportes': [], 'error': ''}
+             'deportes': [], 'error': '', 'artefactos': set()}
     try:
         with open(ruta, encoding='utf-8') as f:
             src = f.read()
@@ -253,6 +348,30 @@ def _analizar(ruta: str) -> Dict:
     ficha['marcas_medido'] = [m for m in MARCAS_MEDIDO if m in bajo]
     ficha['marcas_refutado'] = [m for m in MARCAS_REFUTADO if m in bajo]
     ficha['deportes'] = [d for d in DEPORTES if d in bajo]
+
+    # v226 — LA ARISTA QUE FALTABA EN EL GRAFO: el ARTEFACTO.
+    #
+    # Dos módulos pueden depender uno del otro sin que ninguno importe al
+    # otro: A escribe un JSON y B lo lee. El grafo de imports no ve esa
+    # relación, y por eso `backtest_thresholds` salía como huérfano cuando en
+    # realidad produce `umbrales_capa1.json`, que leen `alpha_finder`,
+    # `dashboard_ui`, `frescura_datos` y `recalibrar_todo`. Marcar como
+    # olvidado algo de lo que dependen cuatro módulos de producción es el peor
+    # falso positivo posible: enseña a no fiarse de la lista.
+    #
+    # Se recogen los nombres de fichero de datos que el módulo menciona. No se
+    # distingue lectura de escritura a propósito: para saber si un módulo está
+    # ACOPLADO a producción basta con que compartan el fichero.
+    import re as _re
+    for m in _re.finditer(r"['\"]([A-Za-z0-9_\-./]+\.(?:json|csv|pkl|db|gz))['\"]",
+                          src):
+        nombre = os.path.basename(m.group(1))
+        # los `historico_*.csv` y los `roi_bets_*.json` los toca medio
+        # repositorio: acoplarían todo con todo y el criterio dejaría de
+        # separar nada.
+        if nombre.startswith(('historico_', 'roi_bets_', 'modelo', 'metadata')):
+            continue
+        ficha['artefactos'].add(nombre)
 
     try:
         arbol = ast.parse(src)
@@ -282,7 +401,8 @@ def _analizar(ruta: str) -> Dict:
     return ficha
 
 
-def _estado(f: Dict, importadores: Set[str]) -> str:
+def _estado(f: Dict, importadores: Set[str],
+            acoplados: Optional[Set[str]] = None) -> str:
     """El estado del módulo, con el sesgo de NO declarar muerto sin pruebas."""
     nombre = f['modulo']
     if f['error']:
@@ -293,6 +413,10 @@ def _estado(f: Dict, importadores: Set[str]) -> str:
         return 'refutado_o_apagado'
     if importadores:
         return 'activo_medido' if f['marcas_medido'] else 'activo_sin_medir'
+    # Nadie lo importa, pero comparte fichero de datos con producción: es un
+    # productor de artefactos, no un huérfano. Ver la nota del artefacto.
+    if acoplados:
+        return 'productor_de_artefacto'
     # v222 — EL PUNTO CIEGO QUE ESTA AUDITORÍA TENÍA.
     #
     # Antes bastaba un `if __name__ == '__main__'` para salir clasificado como
@@ -378,6 +502,21 @@ def construir() -> Dict:
         f['fecha'] = _fecha_git(f['fichero'])
         f['importa'] = sorted(f['importa'])
 
+    # SEGUNDA PASADA para el acoplamiento por artefacto. Va aparte porque
+    # necesita los `artefactos` de TODOS los modulos ya calculados: hacerlo en
+    # el bucle de arriba comparaba contra los que aun no se habian visto.
+    for nombre, f in fichas.items():
+        f['acoplados'] = sorted(
+            otro for otro, g in fichas.items()
+            if otro != nombre
+            and not otro.startswith(PREFIJO_SONDEO)
+            and not otro.startswith('test_')
+            and (f['artefactos'] & g['artefactos']))
+        if f['estado'] == 'sin_importadores' and f['acoplados']:
+            f['estado'] = 'productor_de_artefacto'
+    for f in fichas.values():
+        f['artefactos'] = sorted(f['artefactos'])
+
     conteo = collections.Counter(f['estado'] for f in fichas.values())
     return {'generado': _dt.datetime.now().strftime('%Y-%m-%d %H:%M'),
             'n_modulos': len(fichas),
@@ -392,11 +531,20 @@ def banderas_rojas(doc: Dict) -> List[Dict]:
     fuera = []
     for nombre, f in doc['modulos'].items():
         if f['estado'] == 'sin_importadores' and f['lineas'] >= 80:
+            # §1.6: un módulo triado ya NO es un hallazgo pendiente. Tiene una
+            # respuesta escrita de por qué nadie lo importa, y esa respuesta es
+            # el entregable. Los únicos que siguen siendo bandera son los
+            # `sin_enchufar`: código correcto que de verdad espera decisión.
+            cat, porque = TRIAJE_MODULOS.get(nombre, (None, ''))
+            if cat is not None and cat != 'sin_enchufar':
+                continue
             fuera.append({
                 'modulo': nombre, 'lineas': f['lineas'], 'fecha': f['fecha'],
-                'tipo': 'escrito_sin_importadores',
-                'nota': 'nadie lo importa y no es script de entrada: o se '
-                        'engancha, o se retira con test de regresión'})
+                'tipo': ('escrito_sin_enchufar' if cat
+                         else 'escrito_sin_importadores'),
+                'nota': porque or ('nadie lo importa y no es script de '
+                                   'entrada: o se engancha, o se retira con '
+                                   'test de regresión')})
         elif f['estado'] == 'error':
             fuera.append({'modulo': nombre, 'lineas': f['lineas'],
                           'fecha': f['fecha'], 'tipo': 'no_parsea',
@@ -409,6 +557,28 @@ def banderas_rojas(doc: Dict) -> List[Dict]:
                 'nota': f"{len(f['importadores_produccion'])} módulos "
                         f"dependen de él y no lleva medición encima"})
     return sorted(fuera, key=lambda x: -x['lineas'])
+
+
+def triaje_rancio(doc: Dict) -> List[str]:
+    """Entradas del §1.6 que ya no describen la realidad del repo.
+
+    Dos formas de envejecer mal. Una, el módulo se borró y la ficha se quedó
+    hablando de un fichero que no existe. Otra, más traicionera: alguien lo
+    enganchó, el módulo pasó a producción, y el triaje sigue diciendo que está
+    aparcado. Esa segunda es la que convierte una tabla honesta en una coartada.
+    """
+    fuera = []
+    for nombre, (cat, _) in sorted(TRIAJE_MODULOS.items()):
+        f = doc['modulos'].get(nombre)
+        if f is None:
+            fuera.append(f'{nombre}: triado como «{cat}» y ya no está en el '
+                         f'repo — quita la entrada')
+        elif f['estado'] not in ('sin_importadores', 'sondeo_historico',
+                                 'script_de_entrada', 'refutado_o_apagado',
+                                 'productor_de_artefacto'):
+            fuera.append(f'{nombre}: triado como «{cat}» pero ahora está '
+                         f'«{f["estado"]}» — el triaje ya no vale, revísalo')
+    return fuera
 
 
 def cobertura_por_deporte(doc: Dict) -> Dict[str, List[str]]:
@@ -506,6 +676,25 @@ def escribir(doc: Dict, ruta: str = SALIDA) -> str:
         ['deporte', 'módulos', 'algunos']))
     part.append("")
 
+    part.append("## 1.6 Triaje de los modulos sin importadores\n")
+    part.append("La clasificacion automatica sabe quien importa a quien y "
+                "quien comparte fichero de datos, pero no sabe PARA QUE se "
+                "escribio un modulo. Esto es la lectura, uno a uno.\n")
+    _fam = {}
+    for _m, (_cat, _txt) in TRIAJE_MODULOS.items():
+        _fam.setdefault(_cat, []).append((_m, _txt))
+    _ROTULO = {'generador': 'Generadores e ingesta — se corren cuando hace falta',
+               'sondeo': 'Sondeos — la pregunta ya tiene respuesta',
+               'aparcada': 'Aparcadas — medidas, no llegaron al liston',
+               'sin_enchufar': 'SIN ENCHUFAR — aqui si hay decision'}
+    for _cat in ('sin_enchufar', 'aparcada', 'sondeo', 'generador'):
+        if _cat not in _fam:
+            continue
+        part.append("### %s\n" % _ROTULO[_cat])
+        part.append(_tabla([[m, t] for m, t in sorted(_fam[_cat])],
+                           ['modulo', 'que es y que se decide']))
+        part.append("")
+
     part.append("## 1.5 Decisiones abiertas\n")
     part.append("Lo que necesita una decisión antes de tocar código. Ninguna "
                 "se ha tomado por cuenta propia en la v212.\n")
@@ -535,6 +724,11 @@ def main() -> int:
     print(f'\nbanderas rojas: {len(rojas)}')
     for r in rojas[:15]:
         print(f"  {r['modulo']:34s} {r['lineas']:5d} líneas  {r['tipo']}")
+
+    # Una tabla curada envejece: el módulo se borra, o se engancha y la excusa
+    # deja de ser cierta. Si no se avisa, el triaje pasa de documentar a tapar.
+    for rancio in triaje_rancio(doc):
+        print(f'  AVISO  {rancio}')
 
     if a.json:
         serial = {k: (sorted(v) if isinstance(v, set) else v)

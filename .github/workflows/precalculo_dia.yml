@@ -95,7 +95,15 @@ jobs:
           # pasada y es la materia prima para medir, más adelante, si las
           # banderas de la v209 (lesiones, racha, entrenador) anticipan algo.
           # Sin commitearlo se perdería con el runner.
+          # `ponches_snapshots.csv` va con ellos desde la v227: es un fichero
+          # que sólo CRECE y que no se puede reconstruir hacia atrás, porque
+          # son los precios que había abiertos a esa hora. Si no se commitea,
+          # se va con el runner y la muestra no se acumula nunca.
+          # `jugados_dia.json` va desde la v229 por el mismo motivo que el
+          # resto: son 186 peticiones a ESPN y 13 s medidos, y sin commitearlo
+          # los pagaría el navegador del usuario en cada pasada.
           git add -A pronostico_dia.json archivo_contexto.json \
+            ponches_snapshots.csv jugados_dia.json \
             || echo "::warning::git add del precalculo fallo"
           if git diff --cached --quiet; then
             echo "El precálculo no cambió."

@@ -485,6 +485,57 @@ def _bloque_goles_html(pick: Dict, board: Dict) -> str:
                      % ' &nbsp;·&nbsp; '.join(otras)) + casa
 
 
+_ICONO_TOTAL = {'carreras': '⚾', 'puntos': '🏈', 'juegos': '🎾'}
+
+
+def _bloque_totales_html(pick: Dict) -> str:
+    """
+    v229 — EL TOTAL DE LOS DEPORTES QUE NO SON FÚTBOL.
+
+    El usuario lo pidió en una frase: «no sólo el del gane». Medido sobre el
+    precálculo del 2026-09-19, la NFL, la MLB y el tenis publicaban un único
+    mercado por partido —quién gana— mientras el fútbol llevaba 1X2, siete
+    líneas de goles y BTTS.
+
+    Y no faltaba el modelo. Los tres lo tenían: la matriz de carreras de la
+    MLB, la regresión de juegos del tenis calibrada sobre 68.000 partidos y el
+    total del partido de la NFL. Sólo alimentaban la ficha de detalle, la que
+    hay que abrir uno a uno.
+
+    Esto lo pinta con la MISMA forma que los goles —una línea central en
+    negrita y las otras en compacto— y a propósito: que el ojo no tenga que
+    aprender un formato por deporte.
+    """
+    tot = pick.get('totales') or {}
+    lineas = tot.get('lineas') or {}
+    if not lineas:
+        return ''
+    unidad = str(tot.get('unidad') or 'puntos')
+    icono = _ICONO_TOTAL.get(unidad, '📊')
+    try:
+        centro = '%.1f' % float(tot.get('centro'))
+    except (TypeError, ValueError):
+        centro = None
+    if centro not in lineas:
+        # sin centro declarado manda la más cercana al 50 %, que es donde el
+        # modelo de verdad está diciendo algo y no una obviedad
+        centro = min(lineas.items(), key=lambda kv: abs(kv[1] - 0.5))[0]
+    p = float(lineas[centro])
+    fila = _fila_mercado(icono, unidad.capitalize(), p, 1.0 - p,
+                         'Más %s' % centro, 'Menos %s' % centro)
+    otras = []
+    for etq in sorted(lineas, key=lambda x: float(x)):
+        if etq == centro:
+            continue
+        q = float(lineas[etq])
+        otras.append('Más %s <b>%.0f %%</b> · Menos %s %.0f %%'
+                     % (etq, q * 100, etq, (1.0 - q) * 100))
+    if not otras:
+        return fila
+    return fila + ('<div class="mm-ck-fila mm-goles-otras">%s</div>'
+                   % ' &nbsp;·&nbsp; '.join(otras))
+
+
 def _fila_casa(pick: Dict, linea: str = '2.5') -> str:
     """
     v165 — LO QUE LA CASA CREE DE LA MISMA LÍNEA, DEBAJO DE LO QUE CREE EL MODELO.
@@ -730,6 +781,58 @@ def _filas_de(eq: Dict, icono: str, mercado: str = '',
             'error_calibracion': eq.get('error_calibracion'),
             'confianza': conf,
             'base': eq.get('base'), 'icono': icono, 'mercado': mercado}
+
+
+def _caption_goles(pick: Dict) -> str:
+    """Una línea que explica de dónde sale el porcentaje de goles.
+
+    Devuelve '' cuando no hay λ: un partido sin modelo de goles no tiene nada
+    que explicar, y poner un texto vacío de contenido es peor que no ponerlo.
+    """
+    lam = pick.get('goles_lambda')
+    try:
+        lam = float(lam)
+    except (TypeError, ValueError):
+        return ''
+    if not (0 < lam < 20):
+        return ''
+    esc = pick.get('goles_lineas') or {}
+    p25 = esc.get('2.5')
+    p35 = esc.get('3.5')
+    txt = '⚽ %s goles esperados' % ('%.1f' % lam).replace('.', ',')
+    if p25 is not None and p35 is not None:
+        try:
+            # El solape es justo lo que confunde: los dos mercados se cumplen a
+            # la vez en el partido de tres goles exactos.
+            solape = max(0.0, float(p25) - float(p35))
+            txt += (' · Over 2.5 (%.0f %%) y Under 3.5 (%.0f %%) se solapan '
+                    'en el partido de 3 goles (%.0f %%)'
+                    % (float(p25) * 100, (1 - float(p35)) * 100, solape * 100))
+        except (TypeError, ValueError):
+            pass
+    return txt
+
+
+def _rasgo_liga(pick: Dict, vers) -> str:
+    """Lo que esa liga hace en el mercado que se está recomendando.
+
+    Se mira el mercado del PRIMER veredicto, que es el que la tarjeta pone
+    arriba. Enseñar el rasgo de los córners debajo de una recomendación de
+    goles sería peor que no enseñar nada: parecería que lo justifica.
+    """
+    try:
+        mercado = ''
+        if vers:
+            v0 = vers[0] if isinstance(vers, (list, tuple)) else vers
+            mercado = str((v0 or {}).get('mercado')
+                          or (v0 or {}).get('apuesta') or '')
+        if not mercado:
+            mercado = str(pick.get('apuesta') or pick.get('mercado') or '')
+        import auditoria_ligas as _al
+        return _al.rasgo_de_liga(pick.get('clave_liga'), mercado)
+    except Exception as e:
+        logger.debug('[modo_modelo] rasgo de liga: %s', e)
+        return ''
 
 
 def _etiqueta_origen(bloque: Dict) -> str:
@@ -2477,6 +2580,44 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     _porques = [r for v in _vers[:1] for r in v['razones']]
                     for _pq in _porques[:1]:
                         st.caption(_pq)
+                    # v229 — LA LAMBDA, QUE ES LO QUE FALTABA PARA ENTENDERLO.
+                    #
+                    # El usuario miró un América-Chivas con las dos formas en
+                    # 2,6 goles y no entendió que «Menos de 3.5» fuera el 72 %.
+                    # La cuenta era correcta: Poisson(2,6) da 73,6 %. Lo que
+                    # fallaba era la pantalla, que enseñaba el resultado y
+                    # escondía el número del que sale.
+                    #
+                    # Y sobre todo, «Over 2.5» y «Under 3.5» PARECEN contrarios
+                    # y no lo son: se solapan en el partido de tres goles
+                    # exactos. Por eso la misma tarjeta podía decir «Over 2.5
+                    # en 4 de 5» arriba y «Menos de 3.5 al 72 %» abajo sin
+                    # contradecirse, y no había forma de verlo.
+                    #
+                    # Una línea y no un párrafo: ya se avisó de que sobra texto.
+                    _cap = _caption_goles(pick)
+                    if _cap:
+                        st.caption(_cap)
+                    # v230 — EL CARÁCTER DE LA LIGA, JUNTO AL PICK.
+                    #
+                    # El usuario perdió dos patas de un parley y las dos eran de
+                    # la MLS, y preguntó lo correcto: ¿esa liga está bien
+                    # calibrada? Medido sobre 47.794 partidos, la MLS es la
+                    # tercera competición donde más marcan los dos —60 %, a 1,7
+                    # sigmas de la media— y el modelo prometía 56,9 %.
+                    #
+                    # La corrección ya va en el número (`calibrador_btts`), pero
+                    # el número solo no enseña POR QUÉ. Esta línea lo dice, y es
+                    # lo que convierte un porcentaje en una decisión: en la
+                    # Premier hay 10,6 córners por partido y en Grecia 8,7, y
+                    # eso cambia a qué línea conviene irse.
+                    #
+                    # Sólo habla cuando la liga se aparta de verdad (>= 1 sigma).
+                    # Una competición del montón no tiene nada que contar, y
+                    # rellenar con «está en la media» sería gastar renglón.
+                    _rg = _rasgo_liga(pick, _vers)
+                    if _rg:
+                        st.caption(_rg)
             except Exception as _e_vp:
                 logger.debug('[modo_modelo] veredicto: %s', _e_vp)
 
@@ -2615,6 +2756,10 @@ def _analisis_completo(st, pick: Dict, b: Dict, rec, _ck, _tj, _rm, _qr
         st.caption(rec['aviso'])
     piezas = [
         _bloque_goles_html(pick, b),
+        # v229 — y el total del deporte que no sea fútbol. Los dos no coinciden
+        # nunca: `goles_lineas` sólo lo llena el fútbol y `totales` sólo los
+        # otros, así que van seguidos sin estorbarse.
+        _bloque_totales_html(pick),
         _bloque_corners_html(_ck),
         _bloque_tarjetas_html(_tj),
         _bloque_remates_html(_rm),

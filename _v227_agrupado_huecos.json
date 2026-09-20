@@ -1,0 +1,44 @@
+{
+ "clave": "champions",
+ "corte": "2025-09-30",
+ "n_eval": 180,
+ "min_filas": 8,
+ "n_huecos": 52,
+ "grupos": {
+  "conocidos": {
+   "solo_copa": {
+    "n": 128,
+    "acc": 0.578125,
+    "logloss": 0.934124218586456
+   },
+   "agrupado": {
+    "n": 128,
+    "acc": 0.6015625,
+    "logloss": 0.9754929669838902
+   },
+   "base_mayoria": {
+    "n": 128,
+    "acc": 0.515625,
+    "logloss": null
+   }
+  },
+  "huecos": {
+   "solo_copa": {
+    "n": 52,
+    "acc": 0.5,
+    "logloss": 0.9950507249414886
+   },
+   "agrupado": {
+    "n": 52,
+    "acc": 0.46153846153846156,
+    "logloss": 1.0148678717792525
+   },
+   "base_mayoria": {
+    "n": 52,
+    "acc": 0.4807692307692308,
+    "logloss": null
+   }
+  }
+ },
+ "veredicto_huecos": "en_contra"
+}

@@ -1,0 +1,19 @@
+{
+ "d": 0.08,
+ "n_train": 38210,
+ "n_juicio": 9584,
+ "logloss_sin": 1.0452243513771649,
+ "logloss_con": 1.04493525366082,
+ "p_empate_sin": 0.24920102847345596,
+ "p_empate_con": 0.26361515856052276,
+ "empates_reales": 0.2601210350584307,
+ "sesgo_sin": -0.010920006584974745,
+ "sesgo_con": 0.0034941235020920502,
+ "modal_sin": 209,
+ "modal_con": 341,
+ "bootstrap_p5": -0.000323972625157054,
+ "bootstrap_media": 0.00025659683455474426,
+ "sesgo_bootstrap_p5": -0.0064620475035008255,
+ "sesgo_bootstrap_media": 0.006345014598501669,
+ "activa": false
+}

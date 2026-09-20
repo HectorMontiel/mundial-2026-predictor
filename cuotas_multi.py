@@ -315,9 +315,37 @@ ABREV_MLB = {
 # «kc chiefs» → sólo «kansas city chiefs» contiene «chiefs». Si ninguno o más
 # de uno encaja, no se expande nada y el nombre se deja como estaba, que es la
 # degradación segura de siempre.
+#
+# v227 — LAS DE CIUDAD CORTA, QUE FALTABAN Y SE NOTABA.
+#
+# `ABREV_MLB` trae las canónicas de ESPN (LAD, LAA, NYM, CWS), pero Playdoit
+# escribe la CIUDAD abreviada: «LA Dodgers», «NY Mets», «CHI White Sox». Sin
+# registrarlas, `normalizar` dejaba «la dodgers» y la similitud contra «los
+# angeles dodgers» daba 0,435, muy por debajo del 0,80 del emparejador. El
+# efecto no era un error visible sino un silencio: esos partidos salían SIN
+# cuota de Playdoit, que es la casa del usuario, y por tanto sin comparación de
+# precio — justo el único criterio con p5 positivo del proyecto.
+#
+# Peor aún, `la`, `ny` y `chi` YA existían como claves… registradas por la NFL
+# (Rams, Chargers, Giants, Jets, Bears). Así que la abreviatura sí se buscaba y
+# simplemente no encontraba ningún candidato de béisbol.
+#
+# Colgarlas no crea ambigüedad porque la desambiguación no la hace la ciudad
+# sino el apodo, tal como explica el comentario de arriba: «la dodgers» sólo
+# encaja con «los angeles dodgers», y «chi bears» sigue yendo a los Bears.
+_ALIAS_MLB_EXTRA = {'LAD': ('la',), 'LAA': ('la', 'ana'),
+                    'NYM': ('ny',), 'NYY': ('ny',),
+                    'CWS': ('chi', 'chw'), 'CHC': ('chi',),
+                    'WSH': ('was', 'wsn'), 'AZ': ('ari', 'arz'),
+                    'SF': ('sfg',), 'TB': ('tbr',), 'KC': ('kcr',),
+                    'SD': ('sdp',)}
 _ABREV_EQUIPOS: Dict[str, List[str]] = {}
 for _k, _v in ABREV_MLB.items():
-    _ABREV_EQUIPOS.setdefault(_k.lower(), []).append(_v.lower().replace('.', ''))
+    _nom_mlb = _v.lower().replace('.', '')
+    for _ab in (_k.lower(),) + _ALIAS_MLB_EXTRA.get(_k, ()):
+        _lista = _ABREV_EQUIPOS.setdefault(_ab, [])
+        if _nom_mlb not in _lista:
+            _lista.append(_nom_mlb)
 try:
     from nfl_datos import EQUIPOS as _EQ_NFL
     # Las abreviaturas que usa Playdoit para la NFL no siempre son las

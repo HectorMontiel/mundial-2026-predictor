@@ -30,99 +30,177 @@ logger = logging.getLogger(__name__)
 ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports/soccer/{liga}/scoreboard'
 
 
-# Se pone a True en cuanto ESPN rechaza el primer rango.
-_RANGO_ROTO = {'si': False}
-
-
-def _eventos_espn(clave: str, code: str, ini: str, fin: str):
-    """Los eventos de ESPN entre dos fechas. `None` si no se pudo.
-
-    ESPN DEJÓ DE ACEPTAR RANGOS EN EL `scoreboard` DE FÚTBOL, y eso vació la
-    aplicación entera sin que saltara ningún error propio. Medido el
-    2026-09-15 contra el servicio:
-
-        dates=20260916            ->  200, 4 eventos
-        dates=20260915-20260919   ->  400
-        sin el parámetro `dates`  ->  200, 3 eventos
-
-    O sea que la petición que el proyecto llevaba haciendo desde siempre
-    empezó a devolver 400 en **todas** las competiciones de fútbol. El
-    `except` lo registraba como aviso y devolvía lista vacía, así que el
-    barrido terminaba en verde con `deportes_cubiertos` sin fútbol, y tanto
-    «Apuestas del Día» como la Soñadora se quedaban sin un solo partido de
-    fútbol. El síntoma parecía de la aplicación y era del proveedor.
-
-    Se intenta el rango primero —una petición por liga, que es lo barato— y
-    si falla se baja a día por día. Son más peticiones, pero la alternativa
-    medida es cero partidos.
-    """
+def _dias_del_rango(ini: str, fin: str):
+    """La lista de días de `[ini, fin]`, ambos en YYYYMMDD. `None` si no parsea."""
     import datetime as _d
-    # UNA VEZ QUE EL RANGO FALLA, NO SE VUELVE A INTENTAR EN ESTA PASADA.
-    # El intento condenado cuesta ~1 s por competición y son 62: probarlo
-    # sesenta y dos veces para recibir sesenta y dos 400 es un minuto tirado.
-    # Se reintenta en la siguiente pasada del proceso por si ESPN lo arregla.
-    if not _RANGO_ROTO['si']:
-        try:
-            r = requests.get(ESPN_BASE.format(liga=code),
-                             params={'dates': f'{ini}-{fin}', 'limit': 500},
-                             timeout=TIMEOUT)
-            r.raise_for_status()
-            return r.json().get('events', []) or []
-        except Exception as e:
-            _RANGO_ROTO['si'] = True
-            logger.warning(f"[fixtures/{clave}] ESPN rechaza los rangos de "
-                           f"fechas ({type(e).__name__}); a partir de aquí se "
-                           f"piden día a día")
-
     try:
-        d0 = _d.datetime.strptime(ini, '%Y%m%d').date()
-        d1 = _d.datetime.strptime(fin, '%Y%m%d').date()
+        d0 = _d.datetime.strptime(str(ini), '%Y%m%d').date()
+        d1 = _d.datetime.strptime(str(fin), '%Y%m%d').date()
     except ValueError:
         return None
-    dias = []
-    dia = d0
+    dias, dia = [], d0
     while dia <= d1:
         dias.append(dia)
         dia += _d.timedelta(days=1)
+    return dias
 
-    # LOS DÍAS VAN EN PARALELO. Secuencial costaba 5 s por competición
-    # —medido— y con 62 competiciones eso son cinco minutos metidos en el
-    # camino caliente del barrido, que es exactamente el error que la v192
-    # cometió tres veces con el tablero de la NFL. En paralelo baja a ~1 s.
-    def _un_dia(d):
+
+# Por encima de esto se pide MES a mes en vez de día a día. Ocho días es el
+# punto donde una ventana deja de ser «los partidos de estos días» y pasa a ser
+# un calendario, y donde el número de peticiones empieza a doler.
+_DIAS_PARA_MENSUAL = 8
+
+
+def eventos_por_dias(etiqueta: str, url: str, ini: str, fin: str,
+                     limite: int = 500, headers=None, max_peticiones: int = 45,
+                     estado: Optional[Dict] = None):
+    """
+    Los eventos de un `scoreboard` de ESPN entre dos fechas, TROCEANDO.
+
+    v228 — NUNCA UN RANGO, Y LA GRANULARIDAD SEGÚN LO ANCHO QUE SEA.
+
+    El 2026-09-15 se descubrió que ESPN rechaza `dates=A-B` en el fútbol y se
+    arregló allí. Lo que no se comprobó entonces es si pasaba en los demás
+    deportes. Medido el 2026-09-19, rango contra día suelto:
+
+        futbol   400   ·   un dia 200 (4 eventos)
+        nfl      400   ·   un dia 200
+        mlb      400   ·   un dia 200 (15 eventos)
+        nba      400   ·   un dia 200
+        ncaaf    400   ·   un dia 200 (71 eventos)
+        tenis    200 (2 eventos)  ·   un dia 200 (7 eventos)   ← EL PEOR
+
+    El tenis es el que obliga a no dejar el rango ni como primer intento. No
+    devuelve 400: devuelve 200 con MENOS partidos. Un error se ve en el log y
+    tarde o temprano alguien lo mira; una respuesta correcta a la que le faltan
+    cinco de siete partidos no la ve nadie, y el proyecto llevaba desde el 15
+    de septiembre liquidando el tenis con una fracción de los resultados.
+
+    LO QUE SÍ ACEPTA, y que la v228 encontró probando en vez de suponiendo:
+
+        dates=20260919    ->  200, 4 eventos     (un día)
+        dates=202609      ->  200, 34 eventos    (un mes)
+        dates=2026        ->  200, 100 eventos   (un año)
+        dates=A-B         ->  400
+
+    Así que troceando se cubre cualquier ventana. Corta —hasta ocho días— va
+    día por día, que es exacto. Ancha va mes por mes: una ventana de 210 días,
+    como la de selecciones, son siete peticiones en vez de doscientas diez.
+
+    Como el mes trae partidos de fuera de la ventana pedida, se filtran por la
+    fecha del propio evento. El contrato es el del rango: lo que hay ENTRE las
+    dos fechas, ambas incluidas, y ni un partido más.
+
+    Devuelve `None` si el rango no parsea o si NINGÚN trozo contestó — que es
+    distinto de una lista vacía, o sea «contestaron y no había partidos».
+
+    `estado` es un dict opcional donde se apunta el código HTTP más grave que
+    se vio. Existe por el 403: ESPN bloquea las IPs de centro de datos, y quien
+    llama necesita distinguir «no hay partidos» de «me han vetado la fuente»
+    para no seguir pidiendo. Tragarse esa diferencia dentro del `except` sería
+    convertir un veto en un silencio.
+    """
+    dias = _dias_del_rango(ini, fin)
+    if dias is None:
+        return None
+
+    if len(dias) <= _DIAS_PARA_MENSUAL:
+        trozos = [d.strftime('%Y%m%d') for d in dias]
+    else:
+        vistos_mes = []
+        for d in dias:
+            m = d.strftime('%Y%m')
+            if m not in vistos_mes:
+                vistos_mes.append(m)
+        trozos = vistos_mes
+    if len(trozos) > max_peticiones:
+        logger.info('[%s] ventana de %d trozos recortada a %d',
+                    etiqueta, len(trozos), max_peticiones)
+        trozos = trozos[:max_peticiones]
+
+    def _un_trozo(t):
         try:
-            r = requests.get(ESPN_BASE.format(liga=code),
-                             params={'dates': d.strftime('%Y%m%d'),
-                                     'limit': 500}, timeout=TIMEOUT)
+            r = requests.get(url, params={'dates': t, 'limit': limite},
+                             timeout=TIMEOUT, headers=headers)
+            if estado is not None and r.status_code >= 400:
+                # gana el más grave: un 403 no se borra con un 404 posterior
+                estado['http'] = max(int(estado.get('http') or 0),
+                                     r.status_code)
             r.raise_for_status()
             return r.json().get('events', []) or []
         except Exception as e:
-            logger.debug(f"[fixtures/{clave}] ESPN {code} {d}: "
-                         f"{type(e).__name__}: {e}")
+            logger.debug('[%s] ESPN %s: %s: %s', etiqueta, t,
+                         type(e).__name__, e)
             return None
 
     from concurrent.futures import ThreadPoolExecutor
-    with ThreadPoolExecutor(max_workers=min(len(dias), 6)) as ex:
-        tandas = list(ex.map(_un_dia, dias))
+    with ThreadPoolExecutor(max_workers=min(len(trozos), 6)) as ex:
+        tandas = list(ex.map(_un_trozo, trozos))
 
+    d0, d1 = dias[0], dias[-1]
     eventos, vistos, fallos = [], set(), 0
     for tanda in tandas:
         if tanda is None:
             fallos += 1
             continue
         for ev in tanda:
-            # el mismo partido no puede entrar dos veces aunque dos días
+            # el mismo partido no puede entrar dos veces aunque dos trozos
             # contiguos lo devuelvan: el `id` de ESPN es el que manda
             eid = str(ev.get('id') or '')
             if eid and eid in vistos:
                 continue
+            if not _dentro_del_rango(ev, d0, d1):
+                continue
             vistos.add(eid)
             eventos.append(ev)
-    if fallos and not eventos:
-        logger.warning(f"[fixtures/{clave}] ESPN {code} falló también día a "
-                       f"día ({fallos} días)")
+    if fallos == len(trozos):
+        logger.warning('[%s] ESPN no contestó ninguno de los %d trozos',
+                       etiqueta, len(trozos))
         return None
+    if fallos:
+        logger.info('[%s] %d de %d trozos sin respuesta', etiqueta, fallos,
+                    len(trozos))
     return eventos
+
+
+def _dentro_del_rango(ev, d0, d1) -> bool:
+    """¿La fecha de este evento cae en [d0, d1]? Sin fecha legible, pasa.
+
+    Dejar pasar lo indescifrable es a propósito: quien llama ya filtra por
+    `completed` y por su propia ventana, y descartar aquí un partido cuya fecha
+    no se entiende sería perderlo del todo por un formato raro.
+    """
+    crudo = str(ev.get('date') or '')[:10]
+    if len(crudo) != 10:
+        return True
+    try:
+        import datetime as _d
+        f = _d.datetime.strptime(crudo, '%Y-%m-%d').date()
+    except ValueError:
+        return True
+    return d0 <= f <= d1
+
+
+def _eventos_espn(clave: str, code: str, ini: str, fin: str):
+    """Los eventos de fútbol de ESPN entre dos fechas. `None` si no se pudo.
+
+    v228 — ESTO ERA LA SEGUNDA COPIA DEL TROCEO, Y HABÍA UNA TERCERA.
+
+    El 2026-09-15 se descubrió que ESPN devuelve 400 a `dates=A-B` y se
+    arregló AQUÍ: intentar el rango, y al primer fallo bajar a día por día.
+    Funcionó para el fútbol del barrido y dejó fuera a `resultados_liga`, que
+    llevaba su propia copia del rango — y con ella, la lista de partidos
+    finalizados quedó vacía durante cuatro días en las 62 competiciones.
+
+    Así que ahora hay UNA sola implementación, `eventos_por_dias`, y ésta sólo
+    la llama. También desaparece el intento de rango: además de estar roto en
+    fútbol, NFL, NBA y MLB, en tenis devuelve 200 con menos partidos, que es
+    peor porque no se ve. Ver el docstring de `eventos_por_dias` con la tabla
+    de lo medido.
+    """
+    return eventos_por_dias(f'fixtures/{clave}',
+                            ESPN_BASE.format(liga=code), ini, fin, limite=500)
+
 
 # clave interna del proyecto -> código de liga en ESPN (soccer).
 # Verificado 2026-07-24: mex.1/usa.1/bra.1/arg.1 devuelven fixtures futuros.
@@ -588,14 +666,25 @@ def resultados_liga(clave: str, desde: str, hasta: str) -> List[Dict]:
     ini = str(desde).replace('-', '')
     fin = str(hasta).replace('-', '')
     salida: List[Dict] = []
-    try:
-        r = requests.get(ESPN_BASE.format(liga=code),
-                         params={'dates': f'{ini}-{fin}', 'limit': 500},
-                         timeout=TIMEOUT)
-        r.raise_for_status()
-        eventos = r.json().get('events', []) or []
-    except Exception as e:
-        logger.warning(f"[resultados/{clave}] ESPN falló: {type(e).__name__}: {e}")
+    # v228 — POR `_eventos_espn`, QUE ES QUIEN SABE QUE LOS RANGOS ESTÁN ROTOS.
+    #
+    # Esta función construía la petición por su cuenta, con el `dates=A-B` de
+    # siempre, y ESPN lleva rechazándolo desde el 2026-09-15. El arreglo de
+    # aquel día se hizo en `_eventos_espn` —intentar el rango y bajar a día por
+    # día— pero esta copia se quedó fuera, así que `resultados_liga` devolvía
+    # lista vacía en las 62 competiciones.
+    #
+    # El síntoma que reportó el usuario era otro y parecía de la vista: filtrar
+    # Liga MX por «Finalizados» y ver cero partidos sabiendo que sí los hubo.
+    # No era el filtro. `partidos_jugados.de_dia` cuelga de aquí, así que la
+    # lista de acabados llegaba vacía todos los días y el filtro estaba
+    # haciendo su trabajo sobre una lista que nadie había podido llenar.
+    #
+    # Reusar en vez de duplicar es justo lo que evita la tercera copia: la
+    # segunda ya costó cuatro días de finalizados en blanco.
+    eventos = _eventos_espn(clave, code, ini, fin)
+    if eventos is None:
+        logger.warning(f"[resultados/{clave}] ESPN no devolvió eventos")
         _CACHE[ck] = (ahora, [])
         return []
     for ev in eventos:
@@ -793,12 +882,19 @@ def resultados_tenis(desde: str, hasta: str) -> List[Dict]:
     ini, fin = str(desde).replace('-', ''), str(hasta).replace('-', '')
     salida: List[Dict] = []
     for circuito in ('atp', 'wta'):
+        # v228 — DÍA POR DÍA, y aquí es donde más se notaba.
+        #
+        # El tenis no daba 400 como los demás: daba 200 con menos partidos.
+        # Medido el 2026-09-19 en la WTA, el rango devolvía 2 eventos donde el
+        # día suelto devolvía 7. O sea que esta función llevaba desde el 15 de
+        # septiembre liquidando el tenis con una fracción de los resultados, y
+        # sin un solo aviso en el log porque la respuesta era correcta.
         try:
-            r = requests.get(
-                ESPN_BASE_DEP.format(path=f'tennis/{circuito}'),
-                params={'dates': f'{ini}-{fin}'}, timeout=TIMEOUT)
-            r.raise_for_status()
-            eventos = r.json().get('events', []) or []
+            eventos = eventos_por_dias(
+                f'restenis/{circuito}',
+                ESPN_BASE_DEP.format(path=f'tennis/{circuito}'), ini, fin)
+            if eventos is None:
+                raise RuntimeError('ningún día contestó')
         except Exception as e:
             logger.warning(f'[tenis/{circuito}] ESPN falló: '
                            f'{type(e).__name__}: {e}')
@@ -1120,14 +1216,13 @@ def fixtures_deporte(deporte: str, dias: int = DIAS_SEMANA) -> List[Dict]:
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     salida: List[Dict] = []
-    try:
-        r = requests.get(ESPN_BASE_DEP.format(path=path),
-                         params={'dates': f'{ini}-{fin}', 'limit': 300},
-                         timeout=TIMEOUT, headers={'User-Agent': 'Mozilla/5.0'})
-        r.raise_for_status()
-        eventos = r.json().get('events', []) or []
-    except Exception as e:
-        logger.warning(f"[fixtures/{deporte}] ESPN falló: {type(e).__name__}: {e}")
+    # v228 — día por día: el rango devuelve 400 en nfl, nba y mlb. Ver
+    # `eventos_por_dias`.
+    eventos = eventos_por_dias(
+        f'fixtures/{deporte}', ESPN_BASE_DEP.format(path=path), ini, fin,
+        limite=300, headers={'User-Agent': 'Mozilla/5.0'})
+    if eventos is None:
+        logger.warning(f"[fixtures/{deporte}] ESPN no devolvió eventos")
         _CACHE[ck] = (ahora, [])
         return []
     for ev in eventos:
@@ -1383,19 +1478,23 @@ def fixtures_selecciones(dias: int = 210, limite: int = 200) -> List[Dict]:
             _marcar_espn_bloqueado()
             break
         try:
-            r = requests.get(ESPN_BASE.format(liga=liga),
-                             params={'dates': f'{ini}-{fin}', 'limit': 400},
-                             timeout=TIMEOUT,
-                             headers={'User-Agent': 'Mozilla/5.0'})
-            if r.status_code == 403:
+            # v228 — el rango da 400 desde el 2026-09-15. Aquí la ventana son
+            # 210 días, así que `eventos_por_dias` la trocea POR MESES: siete
+            # peticiones por competición en vez de doscientas diez.
+            _est: Dict = {}
+            eventos = eventos_por_dias(
+                f'selecciones/{liga}', ESPN_BASE.format(liga=liga), ini, fin,
+                limite=400, headers={'User-Agent': 'Mozilla/5.0'},
+                estado=_est)
+            if _est.get('http') == 403:
                 _bloqueos += 1
                 _avisar_una_vez('selecciones:403',
                                 '[selecciones] ESPN devuelve 403 (bloquea las '
                                 'IPs de centro de datos). El calendario sale '
                                 'del tablón de cuotas.')
                 continue
-            r.raise_for_status()
-            eventos = r.json().get('events', []) or []
+            if eventos is None:
+                raise RuntimeError('ningún trozo contestó')
         except Exception as e:
             # v110 — SE AVISA UNA VEZ POR LIGA, NO EN CADA CARGA.
             #

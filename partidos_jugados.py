@@ -109,6 +109,90 @@ def _hora_txt(inicio: str) -> str:
         return ''
 
 
+FICHERO_JUGADOS = 'jugados_dia.json'
+# Un día acabado ya no cambia, pero el día EN CURSO sí: a las 18:00 faltan los
+# partidos de la noche. Por eso el precálculo del día de hoy caduca y el de
+# ayer no. Tres horas es la cadencia del cron que lo escribe.
+CADUCIDAD_HOY_S = 3 * 3600
+
+
+def _ruta_jugados() -> str:
+    """Se resuelve en cada llamada, no al importar.
+
+    Un `def leer(ruta=FICHERO)` ata el valor en el momento de definir la
+    función, y este proyecto ya perdió una tarde con eso en la v220.
+    """
+    import os
+    return os.environ.get('JUGADOS_DIA_FICHERO') or FICHERO_JUGADOS
+
+
+def _leer_precalculo(dia: str):
+    """La lista precocinada de `dia`, o `None` si no sirve.
+
+    `None` y `[]` NO son lo mismo: `[]` es «ese día no se jugó nada», que es
+    una respuesta legítima y ahorra la red; `None` es «no hay precálculo», y
+    obliga a salir a buscarlo.
+    """
+    import json
+    import os
+    import time
+    ruta = _ruta_jugados()
+    try:
+        if not os.path.exists(ruta):
+            return None
+        with open(ruta, encoding='utf-8') as f:
+            doc = json.load(f)
+    except Exception as e:
+        logger.debug('[jugados] precálculo ilegible: %s: %s',
+                     type(e).__name__, e)
+        return None
+    if str(doc.get('dia') or '') != str(dia):
+        return None
+    partidos = doc.get('partidos')
+    if not isinstance(partidos, list):
+        return None
+    # ¿es el día de hoy? entonces caduca
+    try:
+        import datetime as _dt
+        hoy = _dt.datetime.now().strftime('%Y-%m-%d')
+    except Exception:
+        hoy = None
+    if str(dia) == hoy:
+        edad = time.time() - float(doc.get('ts') or 0)
+        if edad > CADUCIDAD_HOY_S:
+            logger.info('[jugados] el precálculo del día en curso tiene %.1f h '
+                        'y faltarían los partidos de después; se va a la red',
+                        edad / 3600.0)
+            return None
+    return partidos
+
+
+def escribir_dia(dia: str, ruta: str = '') -> int:
+    """Cocina los partidos jugados de `dia` y los deja en disco. Para el cron.
+
+    Devuelve cuántos escribió. No lanza: si falla, la aplicación sigue con el
+    respaldo por red, que es más lento pero correcto.
+    """
+    import json
+    import time
+    try:
+        import os
+        os.environ.pop('_JUGADOS_DESDE_PRECALCULO', None)
+        partidos = _de_dia_por_red(dia)
+        doc = {'dia': str(dia), 'ts': time.time(),
+               'generado': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+               'partidos': partidos}
+        with open(ruta or _ruta_jugados(), 'w', encoding='utf-8') as f:
+            json.dump(doc, f, ensure_ascii=False)
+        logger.info('[jugados] %d partidos del %s escritos en %s',
+                    len(partidos), dia, ruta or _ruta_jugados())
+        return len(partidos)
+    except Exception as e:
+        logger.warning('[jugados] no se pudo escribir el precálculo: %s: %s',
+                       type(e).__name__, e)
+        return 0
+
+
 def de_dia(dia: str, maximo: int = 200) -> List[Dict]:
     """
     Los partidos jugados de `dia`, con la forma que espera `modo_modelo.tarjeta`.
@@ -118,6 +202,33 @@ def de_dia(dia: str, maximo: int = 200) -> List[Dict]:
     precalcularlos no es motivo para esconder el partido — el usuario pidió
     verlos todos.
     """
+    if not dia:
+        return []
+    # v229 — PRIMERO EL PRECÁLCULO, Y LA RED SÓLO SI NO LO HAY.
+    #
+    # Esto costaba cero mientras ESPN rechazaba los rangos de fechas: las 62
+    # competiciones fallaban y la lista salía vacía al instante. Al arreglarlo
+    # (v228) la función pasó a hacer su trabajo de verdad —190 partidos, 186
+    # peticiones, 13 segundos medidos— y ese trabajo ocurre AL PINTAR.
+    #
+    # Es exactamente el coste que la v220 sacó del render por el mismo motivo,
+    # y aquí duele igual: se paga en cada pasada de Streamlit, con el usuario
+    # esperando delante, y para eso está el cron.
+    #
+    # El respaldo por red NO se quita. Un día sin precálculo tiene que seguir
+    # enseñando los partidos acabados, aunque tarde: preferir lento a vacío es
+    # la misma regla que gobierna el resto del precálculo.
+    precocinado = _leer_precalculo(dia)
+    if precocinado is not None:
+        logger.info('[jugados] %d partidos del %s desde el precálculo '
+                    '(sin tocar la red)', len(precocinado), dia)
+        return precocinado[:maximo]
+    return _de_dia_por_red(dia, maximo)
+
+
+def _de_dia_por_red(dia: str, maximo: int = 200) -> List[Dict]:
+    """El camino largo: 62 competiciones contra ESPN. Lo usa el cron, y la
+    aplicación sólo cuando no hay precálculo del día."""
     if not dia:
         return []
     try:
