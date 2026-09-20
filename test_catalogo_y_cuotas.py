@@ -20090,6 +20090,129 @@ def test_el_precio_de_antes_del_saque_se_declara():
     check(i_f > 0 and i_g > i_f,
           'v242: fusiona ANTES de guardar (al reves no serviria de nada)')
 
+
+# ---------------------------------------------------------------------------
+# v243 — LA SEGUNDA OPINION: QUE DICE LA CASA DE ESTA MISMA APUESTA
+# ---------------------------------------------------------------------------
+def test_el_libro_de_la_casa_se_demargina_bien():
+    """
+    El margen no es probabilidad. Un 1X2 a 2,05/3,20/4,00 suma 1,0503 en
+    inversas: ese 5 % de mas es la comision de la casa y hay que repartirlo
+    antes de comparar con el modelo.
+
+    Y la doble oportunidad NO suma 1 sino 2, porque cada resultado aparece en
+    dos de las tres selecciones. Comprobado contra el 1X2 de la MISMA casa en
+    Getafe-Malaga, que es la comprobacion que de verdad lo valida.
+    """
+    import concordancia as cc
+
+    p = cc.demarginar([2.05, 3.20, 4.00])
+    check(p is not None, 'v243: un 1X2 completo se demargina')
+    check(abs(sum(p) - 1.0) < 1e-9,
+          'v243: y el resultado suma 1 (%.6f)' % sum(p))
+
+    # doble oportunidad de Getafe-Malaga
+    d = cc.demarginar([1.231, 1.333, 1.733], salidas_por_seleccion=2)
+    check(d is not None, 'v243: la doble oportunidad se demargina')
+    check(abs(sum(d) - 2.0) < 1e-6,
+          'v243: y suma 2, no 1 (%.4f)' % sum(d))
+    # 1X = home + draw del 1X2 de la misma casa (2.05/3.20/4.00)
+    t = cc.demarginar([2.05, 3.20, 4.00])
+    check(abs(d[0] - (t[0] + t[1])) < 0.02,
+          'v243: el 1X coincide con home+empate del 1X2 (%.3f vs %.3f)'
+          % (d[0], t[0] + t[1]))
+    check(abs(d[2] - (t[1] + t[2])) < 0.02,
+          'v243: y el X2 con empate+visitante (%.3f vs %.3f)'
+          % (d[2], t[1] + t[2]))
+
+    check(cc.demarginar([2.05, None, 4.00]) is None,
+          'v243: media cuota NO es un libro y no se demargina')
+    check(cc.demarginar([1.01, 1.01]) is None,
+          'v243: un libro imposible se rechaza en vez de dar un numero raro')
+
+
+def test_la_apuesta_encuentra_su_precio_en_cada_mercado():
+    """De la etiqueta de la tarjeta al precio que le corresponde."""
+    import concordancia as cc
+    pick = {'partido': 'Getafe vs Malaga',
+            'implicitas': {
+                '1x2_cuotas': {'home': 2.05, 'draw': 3.20, 'away': 4.00},
+                'doble_cuotas': {'1X': 1.231, '12': 1.333, 'X2': 1.733},
+                'btts_cuotas': {'si': 2.20, 'no': 1.647},
+                'goles': {'1.5': {'p': .65, 'mas': 1.48, 'menos': 2.6},
+                          '2.5': {'p': .37, 'mas': 2.5, 'menos': 1.538}}}}
+    casos = [('Gana Getafe', '1X2', True), ('Empate', '1X2', True),
+             ('Gana Malaga', '1X2', True),
+             ('Malaga o empate', 'Doble oportunidad', True),
+             ('Ambos marcan: Sí', 'Ambos marcan', True),
+             ('Goles: Más de 1.5', 'Goles', True),
+             ('Goles: Menos de 2.5', 'Goles', True),
+             ('Córners: Menos de 9.5', 'Córners', False)]
+    for apuesta, mercado, esperado in casos:
+        v = cc.prob_mercado(pick, apuesta, mercado)
+        check((v is not None) == esperado,
+              'v243: «%s» %s precio de casa' % (apuesta,
+                                                'tiene' if esperado
+                                                else 'NO tiene'))
+        if v is not None:
+            check(0.0 < v < 1.0,
+                  'v243: y es una probabilidad (%s -> %.3f)' % (apuesta, v))
+
+    # más y menos de la misma línea tienen que sumar 1
+    a = cc.prob_mercado(pick, 'Goles: Más de 2.5', 'Goles')
+    b = cc.prob_mercado(pick, 'Goles: Menos de 2.5', 'Goles')
+    check(abs(a + b - 1.0) < 1e-9,
+          'v243: más y menos de la misma línea suman 1 (%.4f)' % (a + b))
+
+
+def test_sin_precio_de_casa_el_veredicto_no_cambia():
+    """Lo mas importante de todo: esto no puede inventar probabilidad.
+
+    Cordoners, tarjetas y remates no tienen libro de dos lados en
+    `implicitas`, asi que ahi no hay segunda opinion — y el numero tiene que
+    quedarse EXACTAMENTE como estaba, no movido por un valor inventado.
+    """
+    import veredicto_pick as vp
+    fila = {'apuesta': 'Córners: Menos de 9.5', 'mercado': 'Córners',
+            'prob': 0.71, 'cuota': 1.45}
+    v = vp.evaluar(dict(fila), con_contexto=False)
+    check(not (v.get('concordancia') or {}).get('hay'),
+          'v243: sin precio de casa no hay segunda opinion')
+    esperada = v['prob_modelo'] + v['correccion']
+    check(abs(v['prob_ajustada'] - max(0.01, min(0.99, esperada))) < 1e-6,
+          'v243: y la ajustada es SOLO la correccion historica, sin tocar')
+
+
+def test_la_mezcla_va_despues_de_la_correccion_historica():
+    """No es corregir dos veces: son dos cosas distintas.
+
+    `correccion` endereza el sesgo PROPIO del modelo (medido sobre lo que ese
+    mercado ha acertado). La mezcla promedia el resultado con una estimacion
+    INDEPENDIENTE. Si se hiciera al reves, la correccion se aplicaria sobre un
+    numero que ya no es el del modelo y que no es el que se midio.
+    """
+    import io as _io
+    s = _io.open('veredicto_pick.py', encoding='utf-8').read()
+    cuerpo = s.split('def evaluar(')[1].split('\ndef ')[0]
+    i_corr = cuerpo.find("c = correccion(")
+    i_conc = cuerpo.find('concordancia')
+    check(i_corr > 0 and i_conc > i_corr,
+          'v243: la concordancia entra DESPUES de la correccion historica')
+    check("conc['p_mezcla']" in cuerpo,
+          'v243: y es la mezcla lo que pasa a ser la probabilidad ajustada')
+
+    import concordancia as cc
+    check(0.0 < cc.PESO_MODELO < 1.0,
+          'v243: el peso del modelo esta entre 0 y 1 (%s)' % cc.PESO_MODELO)
+    check(cc.PESO_MODELO >= 0.5,
+          'v243: y NO por debajo de la mitad. El optimo medido es 0,0 pero el '
+          'ledger usa cuotas de CIERRE, que el modelo no podia conocer: '
+          'creerselo del todo seria creerse una medicion inflada')
+    check(abs(cc.mezclar(0.80, 0.60) - 0.70) < 1e-9,
+          'v243: con peso 0,5 la mezcla es el promedio')
+    check(cc.mezclar(0.80, None) is None and cc.mezclar(None, 0.6) is None,
+          'v243: sin las dos partes no hay mezcla')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -20644,6 +20767,12 @@ if __name__ == '__main__':
     print(chr(10) + '=== v242: el tablero no se empobrece ===')
     test_el_tablero_no_pierde_mercados_al_regenerarse()
     test_el_precio_de_antes_del_saque_se_declara()
+
+    print(chr(10) + '=== v243: la segunda opinion del mercado ===')
+    test_el_libro_de_la_casa_se_demargina_bien()
+    test_la_apuesta_encuentra_su_precio_en_cada_mercado()
+    test_sin_precio_de_casa_el_veredicto_no_cambia()
+    test_la_mezcla_va_despues_de_la_correccion_historica()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

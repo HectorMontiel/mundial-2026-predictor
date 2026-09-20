@@ -247,6 +247,34 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     c = correccion(prob, mercado, cuota)
     ajustada = max(0.01, min(0.99, prob + c['delta']))
 
+    # v243 — LA SEGUNDA OPINIÓN: LO QUE LA CASA DICE DE ESTA MISMA APUESTA.
+    #
+    # Va DESPUÉS de `correccion` a propósito, y no en su lugar. No es corregir
+    # dos veces: `correccion` endereza el sesgo propio del modelo, y esto
+    # promedia el resultado con una estimación INDEPENDIENTE del mismo suceso,
+    # hecha por gente que se juega dinero.
+    #
+    # Medido sobre 47.948 partidos de `pick_ledger.csv` y 47.794 de
+    # `pick_ledger_totales.csv`, la mezcla con el mercado baja el log-loss en
+    # los cuatro mercados con p5 positivo y el 100 % de los remuestreos a
+    # favor. Y por bandas separa muchísimo: en «Más de 2.5», banda 60-70 %,
+    # los picks que concuerdan con la casa aciertan el 63,7 % (prometen 64,6)
+    # y los que discrepan, el 49,7 %. La discrepancia no es ventaja: es error.
+    #
+    # El peso es 0,5 y NO el 0,0 que dicen los datos, porque el ledger guarda
+    # cuotas de CIERRE y batir al cierre es casi imposible por construcción.
+    # Todo el razonamiento y lo que se intentó para medirlo mejor está en
+    # `concordancia.py`.
+    conc = {'hay': False}
+    try:
+        import concordancia as _conc
+        conc = _conc.evaluar(p, str(p.get('apuesta') or ''), mercado,
+                             prob_modelo=ajustada)
+        if conc.get('hay') and conc.get('p_mezcla') is not None:
+            ajustada = float(conc['p_mezcla'])
+    except Exception as e:
+        logger.debug('[veredicto] concordancia: %s', e)
+
     razones = []
     if c['medido']:
         if c['veredicto_banda'] == 'optimista':
@@ -263,6 +291,15 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
                 f"{c['n']} picks de este mercado")
     else:
         razones.append('sin histórico de este mercado y banda todavía')
+
+    # v243 — la segunda opinión va la PRIMERA de las razones cuando las dos
+    # fuentes se separan, porque entonces es lo más importante que hay que
+    # saber de ese número.
+    if conc.get('hay') and conc.get('razon'):
+        if (conc.get('brecha') or 0) > 0.03:
+            razones.insert(0, conc['razon'])
+        else:
+            razones.append(conc['razon'])
 
     mete = ajustada >= UMBRAL_METER
     if not mete and c['medido'] and c['veredicto_banda'] != 'optimista':
@@ -283,6 +320,7 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
             'medido': c['medido'],
             'n_muestra': c.get('n', 0),
             'veredicto_banda': c['veredicto_banda'],
+            'concordancia': conc,          # v243: para pintar y para auditar
             'cuota': cuota,
             'razones': razones[:2],
             'senales': senales}

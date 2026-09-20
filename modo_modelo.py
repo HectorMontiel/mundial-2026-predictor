@@ -1626,12 +1626,25 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
     import valor_apuesta as va
     est = _estabilidad_de(pick.get('clave_liga'), _mej['mercado'],
                           _mej['apuesta'])
+    # v243 — el precio de la casa para ESTA apuesta viaja con la fila.
+    #
+    # `veredicto_pick` recibe la fila de recomendación, no el partido, y en la
+    # fila no hay `implicitas` ni `partido` —son del partido—. Aquí sí están
+    # los dos, así que el precio se resuelve una vez y se lleva puesto. Ver
+    # `concordancia.py` para qué se hace con él y por qué.
+    try:
+        import concordancia as _conc
+        _p_mercado = _conc.prob_mercado(pick, _mej['apuesta'], _mej['mercado'])
+    except Exception as e:
+        logger.debug('[modo_modelo] precio de mercado: %s', e)
+        _p_mercado = None
     return {'apuesta': _mej['apuesta'], 'mercado': _mej['mercado'],
             'prob': _mej['prob'], 'cuota': _mej['cuota'],
             'cuota_justa': round(1.0 / max(_mej['prob'], 1e-6), 2),
             # v173 — sin cuota no hay Score ni EV, y eso no es un fallo:
             # es un partido que la casa no cotiza. La tarjeta lo enseña
             # con su probabilidad y sin precio, en vez de callarse.
+            'p_mercado': _p_mercado,        # v243
             'ev': (None if _mej.get('score') is None
                    else _mej['score'] - 1.0),
             'score': _mej.get('score'),
