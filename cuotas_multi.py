@@ -373,6 +373,39 @@ def _expandir_abreviatura(prefijo: str, resto: str) -> Optional[str]:
     return candidatos[0] if len(candidatos) == 1 else None
 
 
+_ALIAS_AUTO = None
+
+
+def _alias_vigentes():
+    """La tabla fija MÁS la que `alias_equipos` descubre sola.
+
+    v236 — LA LISTA DEJA DE ESCRIBIRSE A MANO.
+
+    `_ALIAS_CLUB` la escribí leyendo los fallos de UN día, y ésa es su ruina:
+    mañana juega otra liga, salen otros seis nombres y la tabla se queda corta
+    sin que nadie se entere. `alias_equipos.detectar` los descubre en cada
+    pasada del cron, y sólo acepta un alias cuando un lado del partido casa
+    EXACTO y el otro se parece más de un 0,82 — o sea, cuando ya no es una
+    adivinanza sino una deducción.
+
+    La fija NO se retira: manda sobre la automática. Lo verificado a mano no
+    puede quedar pisado por un descubrimiento con el parecido raspado.
+
+    Se carga una vez por proceso. `normalizar` está memorizada y la llama el
+    emparejador millones de veces; leer un JSON ahí dentro costaría el barrido.
+    """
+    global _ALIAS_AUTO
+    if _ALIAS_AUTO is None:
+        _ALIAS_AUTO = {}
+        try:
+            import alias_equipos as _ae
+            _ALIAS_AUTO = dict(_ae.tabla())
+        except Exception as _e:
+            logger.debug('[cuotas] alias automáticos no disponibles: %s', _e)
+        _ALIAS_AUTO.update(_ALIAS_CLUB)      # la fija manda
+    return _ALIAS_AUTO
+
+
 # Letras cuyo trazo no es una marca combinante, así que NFKD no las deshace.
 # El orden importa: primero las ligaduras de dos letras, y la «ı» turca sin
 # punto va aparte porque su mayúscula NO es la «I» latina.
@@ -455,8 +488,9 @@ def normalizar(nombre: str) -> str:
     # `replace` dentro de la cadena convertiría «Genoa» en «Genova» en
     # cualquier palabra que lo contuviera. Ver `_ALIAS_CLUB`.
     _limpio = ' '.join(s.split())
-    if _limpio in _ALIAS_CLUB:
-        s = _ALIAS_CLUB[_limpio]
+    _al = _alias_vigentes()
+    if _limpio in _al:
+        s = _al[_limpio]
     partes = [EQUIVALENCIAS.get(p, p) for p in s.split()]
     # La abreviatura sólo se expande cuando ENCABEZA el nombre y hay algo
     # detrás («det tigers»), que es como la escriben las casas. Suelta no se

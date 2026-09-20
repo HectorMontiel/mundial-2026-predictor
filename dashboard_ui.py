@@ -4885,72 +4885,31 @@ def render_alpha_finder():
             "ruido.")
     if _ayuda is not None:
         _ayuda.render(st, 'apuestas_dia')
-    st.caption("SOLO los partidos de **HOY**: todas las ligas con "
-               "jornada este día (ESPN + Pinnacle + Bovada + Playdoit + "
-               "Unibet + Matchbook) + "
-               "⚾ MLB, 🏀 NBA, 🎾 tenis ATP/WTA y 🏈 NFL, con cuota y EV automáticos. "
-               "**Todas las horas están en hora de Ciudad de México.** "
-               "**Capa 1** = cuota real con EV; **Capa 2** = alta confianza "
-               "sin cuota en vivo; **Pronósticos** = todos los partidos de "
-               "hoy. La semana completa vive en la vista de cada liga "
-               "(«Próximos partidos»).")
+    # v236 — UNA LÍNEA EN VEZ DE UN PÁRRAFO.
+    #
+    # Aquí había siete renglones enumerando las seis fuentes de precio, los
+    # cinco deportes, las tres capas y el huso horario. Todo cierto y todo
+    # inútil de leer cada vez: son datos de arquitectura, no de decisión, y el
+    # usuario ya los sabe después de la primera visita. Lo que de verdad
+    # necesita saber cabe en un renglón, y el resto vive en la ayuda.
+    st.caption('Partidos de **hoy**, hora de CDMX. Se actualiza solo cada 3 h.')
     # v47/v49: acciones SIEMPRE visibles arriba — refrescar y enviar a Telegram
     # (el botón de Telegram estaba escondido en un expander; ahora es fijo).
-    cacc1, cacc2, cacc3, cacc4 = st.columns(4)
-    if cacc1.button("🔄 Actualizar ahora", key='refresh_alpha', width='stretch',
-                    help="Recoge el último pronóstico publicado. El cálculo "
-                         "corre solo cada 3 horas fuera de la aplicación: "
-                         "rehacerlo aquí pediría 1,3 GB y el servidor tiene 1."):
-        # v86: antes esto hacía `st.cache_data.clear()`, que es GLOBAL al
-        # proceso: un usuario pulsando "Actualizar" borraba el caché de todos
-        # los demás y, de paso, los cerrojos que impiden barridos simultáneos.
-        # Ahora sólo se marca que este usuario quiere datos frescos; el guardia
-        # se encarga de que siga habiendo un único barrido a la vez.
-        # v178 — SIN `st.rerun()`, Y NO ES UN AHORRO: ES EL ARREGLO.
-        #
-        # `st.rerun()` corta la pasada en seco. Este botón está ARRIBA del
-        # todo, antes de las cuatro vistas, así que al cortar aquí no se crea
-        # ni uno de los widgets de abajo —`parlay_base`, `mm_orden`,
-        # `man_orden`, el selector de vista, la casilla de combinadas— y un
-        # widget que no se registra en la pasada deja de estar vivo. Ése es el
-        # `KeyError: parlay_base` que sale al pulsar este botón, el mismo que
-        # la v177.2 creyó cerrar: aquella arregló el `st.empty()`, y esta vía
-        # seguía abierta.
-        #
-        # No hacía falta rehacer la pasada: la bandera la consume esta misma,
-        # treinta líneas más abajo, en la llamada a `barrido_universal`. Mismo
-        # resultado, una pasada menos.
-        st.session_state['_forzar_barrido'] = True
-        # v233 — Y SE DICE QUÉ PASÓ, QUE ES LA OTRA MITAD DE «QUE FUNCIONE».
-        #
-        # El cálculo corre fuera de la aplicación cada tres horas. Lo normal es
-        # que al pulsar NO haya nada nuevo que traer, y eso, sin decirlo, se ve
-        # exactamente igual que un botón roto — que es como el usuario lo
-        # reportó dos veces.
-        #
-        # La bandera la consume `barrido_universal` treinta líneas más abajo,
-        # en esta misma pasada; aquí sólo se apunta de qué fecha veníamos para
-        # poder comparar después y decir si cambió algo.
-        try:
-            import precalculo_dia as _pd_btn
-            _ant = _pd_btn.leer()
-            st.session_state['_ts_antes_de_forzar'] = (
-                None if _ant is None else _ant['ts'])
-        except Exception:
-            st.session_state['_ts_antes_de_forzar'] = None
-    # v88 — El botón sólo MARCA la intención; el envío se hace más abajo,
-    # cuando el barrido `r` ya está calculado, y se le pasa.
+    # v236 — SE RETIRA «ACTUALIZAR AHORA», POR PETICIÓN.
     #
-    # Antes llamaba a `bot_telegram.construir_mensaje()` sin argumentos, y esa
-    # función lanzaba `alpha_finder.apuestas_del_dia_universal()` por su cuenta:
-    # un SEGUNDO barrido completo dentro del proceso de Streamlit, encima del
-    # que ya estaba en memoria.
+    # El cálculo corre fuera de la aplicación cada 3 h. La v233 hizo que el
+    # botón bajara de verdad el último publicado —antes releía un fichero que
+    # no cambia nunca— y de paso avisara de si había traído algo nuevo. Con eso
+    # quedó claro lo que el botón era en realidad: la mayoría de las veces sólo
+    # podía contestar «ya tenías lo último».
     #
-    #     1 barrido  -> pico de 1.297,7 MB
-    #     2 barridos -> pico de 2.172,2 MB   (_v86_barrido_concurrente.py)
+    # Un botón que casi siempre responde «no hay nada que hacer» no es una
+    # acción: es un recordatorio de la cadencia, y para eso basta una línea. El
+    # usuario lo pidió así: «no tiene caso tener el botón, mantén algo leve».
     #
-    # Eso es lo que tumbaba la app al pulsar «Enviar a Telegram»: no fallaba el
-    # envío, fallaba la memoria de rehacer un trabajo que ya estaba hecho.
+    # El pronóstico se sigue refrescando solo: `precalculo_dia.yml` cada 3 h, y
+    # la aplicación lee el fichero publicado en cada despliegue.
+    cacc2, cacc3, cacc4 = st.columns(3)
     if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
                     width='stretch', type="primary",
                     help="Envía el resumen del día a tu Telegram (mismo mensaje "
@@ -4987,31 +4946,8 @@ def render_alpha_finder():
     # que dos sesiones lancen el barrido a la vez. El spinner se pone aquí
     # porque el guardia no es un decorador de Streamlit.
     with st.spinner("🔍 Buscando valor en todos los deportes…"):
-        r = barrido_universal(forzar=st.session_state.pop('_forzar_barrido', False))
+        r = barrido_universal()
 
-    # v233 — EL BOTÓN CONTESTA. Un «Actualizar» que no dice nada se lee como
-    # roto aunque haya hecho su trabajo, y el trabajo la mayoría de las veces
-    # es comprobar que ya tenías lo último: el cálculo corre fuera cada 3 h.
-    if '_ts_antes_de_forzar' in st.session_state:
-        _ts_ant = st.session_state.pop('_ts_antes_de_forzar')
-        try:
-            import precalculo_dia as _pd_msg
-            _aho = _pd_msg.leer()
-            _ts_aho = None if _aho is None else _aho['ts']
-            if _ts_aho and (_ts_ant is None or _ts_aho > _ts_ant + 1):
-                st.success('✅ Traído el pronóstico publicado más reciente '
-                           '(%s).' % (_aho.get('generado') or ''))
-            elif _ts_aho:
-                _min = int(max(0.0, _aho['edad_s']) // 60)
-                _falta = max(0, int(_pd_msg.CADUCIDAD_S // 60) - _min)
-                st.info('✅ Ya tenías el último publicado, de hace %d min. '
-                        'El cálculo corre fuera de la aplicación cada 3 h; '
-                        'el siguiente llega en unos %d min.' % (_min, _falta))
-            else:
-                st.warning('No se pudo comprobar si hay uno más reciente. Se '
-                           'sigue mostrando lo que ya había.')
-        except Exception as _e_msg:
-            logger.debug('[dashboard] aviso de actualizar: %s', _e_msg)
 
     # v148 — LA EDAD DE LO QUE SE ESTÁ MIRANDO, ANTES DE MIRARLO.
     #
@@ -5035,13 +4971,15 @@ def render_alpha_finder():
         _seg = int(_fr.get('edad_s', 0))
         _h, _m = _seg // 3600, (_seg % 3600) // 60
         _edad_txt = (f"{_h} h {_m:02d} min" if _h else f"{_m} min")
-        _texto = (
-            f"⏱️ Los precios que se ven se bajaron hace **{_edad_txt}** y se "
-            f"están actualizando en segundo plano. Los pronósticos del modelo "
-            f"siguen siendo válidos —sólo cambian cuando reentrena el bot—, "
-            f"pero **confirma el precio en la casa antes de apostar**. "
-            f"«Actualizar ahora» recoge el último pronóstico publicado.")
-        (st.error if _seg >= 3600 else st.warning)(_texto)
+        # v236 — CINCO RENGLONES A UNO.
+        #
+        # Decía lo mismo cuatro veces: que los precios son de hace un rato, que
+        # el modelo no cambia, que confirmes en la casa y qué hace un botón que
+        # ya no existe. Lo único accionable es «confirma el precio», y cabe con
+        # la edad al lado.
+        (st.error if _seg >= 3600 else st.warning)(
+            f"⏱️ Precios de hace **{_edad_txt}** — confirma en la casa antes "
+            f"de apostar.")
 
     if st.session_state.pop('_enviar_telegram', False):
         try:
@@ -5178,12 +5116,35 @@ def render_alpha_finder():
         _hoy_kpi = _horario.fecha(pd.Timestamp.now('UTC')) or ''
         _man_kpi = (str(pd.Timestamp(_hoy_kpi).date() + pd.Timedelta(days=1))
                     if _hoy_kpi else '')
-        _prons = [p for p in (r.get('pronosticos') or []) if isinstance(p, dict)]
+        # v236 — LOS INSIGHTS SIGUEN AL FILTRO DE DEPORTE.
+        #
+        # Enseñaban siempre el total de los cinco deportes, así que con «⚽»
+        # puesto las cuatro cifras seguían contando tenis, MLB y NFL. El
+        # usuario lo pidió claro: «si escojo el filtro de fútbol pues me pone
+        # las métricas de fútbol, y así con cada deporte».
+        #
+        # El selector se construye MÁS ABAJO —necesita el conteo por deporte,
+        # que sale de este mismo barrido— así que aquí se lee su estado de
+        # sesión en vez de su variable. Streamlit rehace la pasada entera al
+        # cambiar un widget, de modo que lo que hay en sesión es la elección
+        # vigente y no la anterior.
+        _DEP_POR_EMOJI = {'⚽': 'Fútbol', '⚾': 'MLB', '🏀': 'NBA',
+                          '🎾': 'Tenis', '🏈': 'NFL', '⚾KBO': 'KBO'}
+        _dep_kpi = _DEP_POR_EMOJI.get(
+            st.session_state.get('_filtro_deporte'), 'Todo')
+
+        def _del_deporte(lista):
+            if _dep_kpi == 'Todo':
+                return [x for x in (lista or []) if isinstance(x, dict)]
+            return [x for x in (lista or [])
+                    if isinstance(x, dict) and x.get('deporte') == _dep_kpi]
+
+        _prons = _del_deporte(r.get('pronosticos'))
         _de_hoy = [p for p in _prons if _dia_cdmx_de(p) == _hoy_kpi]
         _de_man = [p for p in _prons if _dia_cdmx_de(p) == _man_kpi]
         _hoy_ct = sum(1 for p in _de_hoy if p.get('cuota') or p.get('n_casas'))
         _casas_vistas = set()
-        for _p in (r.get('capa1') or []):
+        for _p in _del_deporte(r.get('capa1')):
             if _p.get('casa'):
                 _casas_vistas.add(_p['casa'])
         # v226 — CUATRO CIFRAS QUE SIRVAN PARA APOSTAR.
@@ -5211,7 +5172,7 @@ def render_alpha_finder():
             _fuente = []
             _vistos = set()
             for _lst in ('capa1', 'capa2', 'candidatos'):
-                for _x in (r.get(_lst) or []):
+                for _x in _del_deporte(r.get(_lst)):
                     if not isinstance(_x, dict):
                         continue
                     _k = (_x.get('partido'), _x.get('apuesta'))
@@ -5235,7 +5196,11 @@ def render_alpha_finder():
             logger.debug('[alpha] kpis de decision: %s', _e_kpi)
 
         f1, f2, f3, f4 = st.columns(4)
-        f1.metric("Para meter hoy", len(_verdes) if _verdes else '0',
+        # El rotulo dice de que deporte habla. Sin eso, con «⚽» puesto, un «3»
+        # a secas se lee como el total del dia y no como el del futbol.
+        _suf_kpi = '' if _dep_kpi == 'Todo' else ' · %s' % _dep_kpi
+        f1.metric("Para meter hoy" + _suf_kpi,
+                  len(_verdes) if _verdes else '0',
                   help="Apuestas que pasan el liston tras corregir la "
                        "probabilidad por lo que ese mercado acierta DE "
                        "VERDAD. Es el numero que decide si hoy se juega.")
@@ -5845,9 +5810,17 @@ def render_alpha_finder():
         _d = _p.get('deporte')
         if _d:
             _cuenta_dep[_d] = _cuenta_dep.get(_d, 0) + 1
-    _presentes = set(_cuenta_dep)
-    # Los cinco principales van siempre; los demás (KBO) sólo si hay partidos.
-    _SIEMPRE = {'Todo', 'Fútbol', 'MLB', 'Tenis', 'NFL'}
+    _presentes = {d for d, n in _cuenta_dep.items() if n > 0}
+    # v236 — UN DEPORTE SIN PARTIDOS NO TIENE BOTÓN.
+    #
+    # Antes los cinco principales salían SIEMPRE, con partidos o sin ellos. La
+    # NBA en septiembre y la KBO fuera de temporada ocupaban su sitio para no
+    # enseñar nada: pulsarlos daba una lista vacía, que es peor que no estar.
+    #
+    # Ahora sólo queda fijo «Todo», que es el estado por defecto y tiene que
+    # existir aunque el día venga vacío. El resto aparece cuando hay juego y
+    # desaparece cuando no, sin que nadie mantenga una lista de temporadas.
+    _SIEMPRE = {'Todo'}
     # LAS OPCIONES SON CLAVES ESTABLES, EL NUMERO VA EN EL ROTULO.
     #
     # Meter la cuenta dentro de la opcion —«⚽ 395»— seria repetir el bug que
@@ -6645,10 +6618,13 @@ def render_alpha_finder():
         # v190 — LA CASILLA SE CREA SIEMPRE, TENGA O NO PICKS QUE ENSEÑAR.
         #
         # Estaba dentro de `if extremo:`, así que su existencia dependía de
-        # los DATOS. Al pulsar «Actualizar ahora» se relanza el barrido, y si
-        # esa pasada ya no traía picks de EV extremo el widget no se creaba y
-        # su clave desaparecía de `session_state`. El smoke lo cazó:
-        # `KeyError: ev_extremo_tog`.
+        # los DATOS. En cuanto una pasada dejaba de traer picks de EV extremo,
+        # el widget no se creaba y su clave desaparecía de `session_state`. El
+        # smoke lo cazó: `KeyError: ev_extremo_tog`.
+        #
+        # (Lo disparaba el botón «Actualizar ahora», retirado en la v236. La
+        # lección no depende de él: cualquier pasada en la que cambien los
+        # datos hace lo mismo, y de ésas hay una cada vez que el cron publica.)
         #
         # Es la tercera vía de la misma avería, y las otras dos ya estaban
         # cerradas: la v177.2 dejó de vaciar los slots con `st.empty()` y la

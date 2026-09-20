@@ -103,7 +103,7 @@ jobs:
           # resto: son 186 peticiones a ESPN y 13 s medidos, y sin commitearlo
           # los pagaría el navegador del usuario en cada pasada.
           git add -A pronostico_dia.json archivo_contexto.json \
-            ponches_snapshots.csv jugados_dia.json \
+            ponches_snapshots.csv jugados_dia.json alias_equipos.json \
             || echo "::warning::git add del precalculo fallo"
           if git diff --cached --quiet; then
             echo "El precálculo no cambió."

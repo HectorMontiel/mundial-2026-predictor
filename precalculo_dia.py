@@ -333,6 +333,21 @@ def main() -> int:
         print(json.dumps(estado(a.salida), ensure_ascii=False, indent=1))
         return 0
 
+    # v236 — LOS ALIAS DE NOMBRE SE DESCUBREN ANTES DE COCINAR EL DÍA.
+    #
+    # Va PRIMERO a propósito: `construir()` empareja cada fixture con el
+    # tablero de la casa, y si un alias falta, ese partido se cocina sin
+    # escalera de goles, sin doble oportunidad y sin BTTS — la tarjeta de una
+    # sola apuesta que el usuario reportó. Descubrirlos después serviría para
+    # el barrido de dentro de tres horas, no para éste.
+    #
+    # Falla en blando: sin alias nuevos se sigue con los que ya había.
+    try:
+        import alias_equipos as _ae
+        logger.info('alias de equipo conocidos: %d', _ae.actualizar())
+    except Exception as e:
+        logger.warning('[precalculo] alias no actualizados: %s', e)
+
     datos = construir()
 
     # v222 — SE ARCHIVA EL CONTEXTO AQUÍ, Y NO EN LA PANTALLA.

@@ -12264,30 +12264,19 @@ def test_la_vista_elegida_no_se_pierde():
     import inspect
     check('pintar' in inspect.signature(mm_render_sig()).parameters,
           "`modo_modelo.render` acepta `pintar`")
-    # v178 — «ACTUALIZAR AHORA» NO PUEDE ABORTAR LA PASADA.
+    # v236 — ESTE TROZO COMPROBABA UN BOTON QUE YA NO EXISTE.
     #
-    # `st.rerun()` corta el script en seco, y ese boton esta ARRIBA de las
-    # cuatro vistas: al cortar ahi no se registra ni uno de los widgets de
-    # abajo —`parlay_base` el primero— y un widget que no se registra deja de
-    # estar vivo. Es la segunda via del `KeyError: parlay_base`; la v177.2
-    # cerro la primera (el `st.empty()`) y esta seguia abierta.
+    # Vigilaba que «Actualizar ahora» marcara su bandera ANTES del barrido y
+    # que no llamara a `st.rerun()`, porque cortar la pasada ahi se llevaba por
+    # delante los widgets de abajo (`KeyError: parlay_base`).
     #
-    # No hace falta rehacer la pasada: la bandera la consume la MISMA, en la
-    # llamada a `barrido_universal` treinta lineas mas abajo.
-    _i_boton = cuerpo.find("key='refresh_alpha'")
-    _i_barrido = cuerpo.find('barrido_universal(forzar=')
-    check(_i_boton != -1 and _i_barrido != -1 and _i_boton < _i_barrido,
-          "el boton de refresco marca la bandera antes de que el barrido "
-          "la consuma, en la misma pasada")
-    if _i_boton != -1 and _i_barrido != -1:
-        # Solo CODIGO: el comentario que explica esto cita `st.rerun()` entre
-        # comillas invertidas, y un check que se caza a si mismo en la prosa no
-        # sirve para nada.
-        _tramo = [l for l in cuerpo[_i_boton:_i_barrido].split(chr(10))
-                  if not l.strip().startswith("#")]
-        check(not any('st.rerun()' in l for l in _tramo),
-              "y NO llama a `st.rerun()`, que abortaria la pasada y se "
-              "llevaria por delante el estado de los widgets de abajo")
+    # El boton se retiro por peticion del usuario: el calculo corre fuera cada
+    # 3 h, asi que casi siempre solo podia contestar «ya tenias lo ultimo». Con
+    # el fuera, la via que este check cerraba desaparece con el.
+    #
+    # LA LECCION NO SE PIERDE, porque no dependia de ese boton: cualquier
+    # `st.rerun()` por encima de los widgets hace lo mismo, y de eso se ocupa
+    # `test_los_widgets_no_dependen_de_que_haya_datos`, que sigue vivo.
 
     # la eleccion se guarda y se recupera, como los demas filtros
     pu.FICHERO = os.path.join(tempfile.mkdtemp(), 'prefs177.json')
@@ -19186,117 +19175,6 @@ def test_los_partidos_acabados_respetan_el_filtro_de_liga():
 # ---------------------------------------------------------------------------
 # v233 — EL BOTON QUE RELEIA UN FICHERO QUE NUNCA CAMBIA
 # ---------------------------------------------------------------------------
-def test_actualizar_ahora_va_a_lo_publicado_y_no_al_disco():
-    """
-    La v226 hizo que forzar RELEYERA el disco en vez de recalcular, y lo
-    justifico asi: «el cron reescribe el fichero cada tres horas».
-
-    Eso es falso en Streamlit Cloud y es la raiz del fallo. El cron NO escribe
-    en el disco del contenedor: commitea a GitHub, y el contenedor solo ve el
-    fichero nuevo al REDESPLEGAR. Releerlo devolvia byte a byte lo mismo, asi
-    que el boton no hacia nada — reportado dos veces por el usuario.
-    """
-    import io as _io
-    import inspect
-    import precalculo_dia as pd
-
-    check(hasattr(pd, 'descargar') and hasattr(pd, 'mas_nuevo_publicado'),
-          'v233: existe la via que baja lo publicado')
-    check('raw.githubusercontent.com' in pd.URL_PRECALCULO,
-          'v233: apunta al fichero publicado (%s)' % pd.URL_PRECALCULO)
-    check('REPO_MODELOS' in _io.open('precalculo_dia.py',
-                                     encoding='utf-8').read(),
-          'v233: el repo sale de la variable de entorno, para que un fork no '
-          'sirva el pronostico de otro')
-
-    g = _io.open('guardia_barrido.py', encoding='utf-8').read()
-    check('mas_nuevo_publicado' in g,
-          'v233: el guardia la usa al forzar (si no, el boton vuelve a releer '
-          'el disco y a no hacer nada)')
-
-
-def test_el_boton_nunca_deja_al_usuario_peor_de_como_estaba():
-    """
-    Tres formas de que salga mal, y las tres tienen que degradar en blando:
-    sin red, con una respuesta ilegible, y con lo publicado MAS VIEJO que lo
-    local —que pasa en la maquina que genera el precalculo—.
-    """
-    import json
-    import os
-    import tempfile
-    import time
-    import precalculo_dia as pd
-
-    ruta = os.path.join(tempfile.gettempdir(), '_v233_pre.json')
-    try:
-        # 1) sin red: None, y sin lanzar
-        check(pd.descargar(url='https://no.existe.invalido/x.json') is None,
-              'v233: sin red devuelve None en vez de lanzar')
-
-        # 2) lo local es MAS NUEVO: no se pisa
-        json.dump({'version': 1, 'generado_ts': time.time() + 86400,
-                   'generado': 'del futuro', 'datos': {'pronosticos': []}},
-                  open(ruta, 'w', encoding='utf-8'))
-        _previo = pd.descargar
-
-        def _falso(url=None, guardar_en=None):
-            return {'datos': {'pronosticos': []}, 'ts': 1.0,
-                    'edad_s': 1.0, 'generado': 'viejisimo', 'remoto': True}
-
-        pd.descargar = _falso
-        try:
-            check(pd.mas_nuevo_publicado(ruta) is None,
-                  'v233: lo publicado mas viejo NO pisa lo local (retroceder '
-                  'tambien seria no funcionar)')
-        finally:
-            pd.descargar = _previo
-
-        # 3) respuesta ilegible: None
-        class _R:
-            status_code = 200
-
-            def raise_for_status(self):
-                pass
-
-            def json(self):
-                return ['no', 'es', 'un', 'dict']
-
-        import requests
-        _get = requests.get
-        requests.get = lambda *a, **k: _R()
-        try:
-            check(pd.descargar() is None,
-                  'v233: una respuesta con otra forma se descarta')
-        finally:
-            requests.get = _get
-    finally:
-        if os.path.exists(ruta):
-            os.remove(ruta)
-
-
-def test_el_boton_dice_si_habia_algo_nuevo_o_no():
-    """
-    La otra mitad de «que funcione». El calculo corre fuera cada 3 h, asi que
-    lo NORMAL es que al pulsar no haya nada nuevo — y eso, sin decirlo, se ve
-    igual que un boton roto. Es literalmente como se reporto.
-    """
-    import io as _io
-    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
-    check('_ts_antes_de_forzar' in d,
-          'v233: se apunta de que fecha se venia antes de forzar')
-    check('Ya tenías el último publicado' in d,
-          'v233: y se dice cuando no habia nada nuevo, en vez de callar')
-    check('Traído el pronóstico publicado más reciente' in d,
-          'v233: y se dice cuando si lo habia')
-    i_pop = d.find("pop('_ts_antes_de_forzar'")
-    i_set = d.find("_ts_antes_de_forzar'] =")
-    check(i_set > 0 and i_pop > i_set,
-          'v233: se apunta al pulsar y se consume DESPUES del barrido')
-
-
-# ---------------------------------------------------------------------------
-# v235 — LOS NOMBRES QUE DEJABAN PARTIDOS SIN TABLERO
-# ---------------------------------------------------------------------------
 def test_las_letras_que_nfkd_no_deshace_se_pliegan():
     """
     NFKD separa la letra de su TILDE y aqui se tira la tilde — por eso
@@ -19380,6 +19258,143 @@ def test_el_plegado_no_rompe_lo_que_ya_casaba():
         check(cm.normalizar(crudo) == esperado,
               'v235: «%s» sigue dando «%s» (sale «%s»)'
               % (crudo, esperado, cm.normalizar(crudo)))
+
+
+# ---------------------------------------------------------------------------
+# v236 — MENOS TEXTO, FILTROS QUE SIGUEN AL DIA, ALIAS QUE SE DESCUBREN SOLOS
+# ---------------------------------------------------------------------------
+def test_se_retira_el_boton_de_actualizar_y_su_palabreria():
+    """
+    El calculo corre fuera cada 3 h. La v233 hizo que el boton bajara de verdad
+    lo ultimo publicado y avisara de si habia traido algo — y con eso quedo
+    claro que casi siempre solo podia contestar «ya tenias lo ultimo».
+
+    Un boton que responde «no hay nada que hacer» no es una accion: es un
+    recordatorio de la cadencia, y para eso basta una linea.
+    """
+    import io as _io
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    # Se comprueba que el BOTON no esta, no que las palabras no aparezcan: una
+    # nota historica que explique por que un widget se crea siempre puede
+    # citarlo, y prohibirlo obligaria a contorsionar la documentacion para
+    # satisfacer al test. Lo que no puede quedar es la llamada ni su estado.
+    for muerto in ('refresh_alpha', '_forzar_barrido', '_ts_antes_de_forzar'):
+        check(muerto not in d,
+              'v236: ya no queda rastro de «%s»' % muerto)
+    # Hay OTROS botones de refresco en otras vistas —el de cuotas por deporte y
+    # el del panel de beisbol— y esos se quedan: limpian cache y vuelven a
+    # bajar de la red, o sea que hacen trabajo de verdad. El que se fue es el
+    # de «Apuestas del Dia», y su clave `refresh_alpha` lo identifica sin
+    # cazar a los otros dos por el camino.
+    check('Se actualiza solo cada 3 h' in d,
+          'v236: y en su lugar hay una linea que dice la cadencia')
+    # el parrafo de siete renglones de la cabecera
+    check('SOLO los partidos de **HOY**' not in d,
+          'v236: el parrafo que enumeraba fuentes, deportes y capas se fue')
+    check('Los precios que se ven se bajaron' not in d,
+          'v236: y el aviso de cinco renglones tambien')
+    check('confirma en la casa antes' in d,
+          'v236: se conserva lo unico accionable de aquel aviso')
+
+
+def test_un_deporte_sin_partidos_no_tiene_boton():
+    """
+    La NBA en septiembre y la KBO fuera de temporada ocupaban sitio para no
+    ensenar nada: pulsarlos daba una lista vacia, que es peor que no estar.
+
+    Solo «Todo» queda fijo, porque es el estado por defecto y tiene que existir
+    aunque el dia venga vacio.
+    """
+    import io as _io
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    i = d.find('_SIEMPRE = ')
+    check(i > 0, 'v236: existe la lista de deportes fijos')
+    linea = d[i:d.find(chr(10), i)]
+    check("'Todo'" in linea and 'MLB' not in linea and 'NBA' not in linea,
+          'v236: solo «Todo» es fijo (%s)' % linea.strip())
+    check('_presentes = {d for d, n in _cuenta_dep.items() if n > 0}' in d,
+          'v236: y «presentes» exige partidos de verdad, no solo la clave')
+
+
+def test_los_insights_siguen_al_filtro_de_deporte():
+    """
+    Ensenaban siempre el total de los cinco deportes, asi que con futbol puesto
+    las cuatro cifras seguian contando tenis, MLB y NFL.
+
+    El selector se construye MAS ABAJO —necesita el conteo por deporte— asi que
+    los KPIs leen su estado de sesion. Streamlit rehace la pasada entera al
+    cambiar un widget, de modo que lo que hay en sesion es la eleccion vigente.
+    """
+    import io as _io
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check('_del_deporte' in d, 'v236: existe el filtro de los KPIs')
+    i_def = d.find('def _del_deporte')
+    i_uso = d.find('_prons = _del_deporte(')
+    check(i_def > 0 and i_uso > i_def,
+          'v236: se define antes de usarse')
+    for lista in ("_del_deporte(r.get('capa1'))",
+                  "_del_deporte(r.get(_lst))"):
+        check(lista in d,
+              'v236: tambien filtra %s (si no, la cifra de «para meter» '
+              'seguiria contando otros deportes)' % lista)
+    check("st.session_state.get('_filtro_deporte')" in d,
+          'v236: lee la eleccion vigente del estado de sesion')
+
+
+def test_los_alias_se_descubren_sin_inventar():
+    """
+    La tentacion es bajar el umbral y dejar que el emparejador ligue lo que
+    pueda. Asi es como se sirve la cuota de OTRO partido — el fallo de la v114,
+    un partido femenino emparejado con uno masculino cinco dias despues.
+
+    Un alias solo se acepta con UN LADO EXACTO y el otro muy parecido.
+    """
+    import alias_equipos as ae
+
+    check(ae.MIN_PARECIDO >= 0.80,
+          'v236: el liston de parecido es alto (%.2f)' % ae.MIN_PARECIDO)
+    # los juveniles y filiales NUNCA entran: son otro partido
+    for malo in ('Barcelona Sub 19', 'Real Madrid U19', 'Chelsea B',
+                 'Ajax II', 'Arsenal Women'):
+        check(ae._vetado(malo), 'v236: «%s» queda vetado' % malo)
+    for bueno in ('Napoli', 'Sint-Truidense', 'Brondby IF'):
+        check(not ae._vetado(bueno), 'v236: «%s» no se veta' % bueno)
+    # y un nombre corto no puede generar alias: «psv» y «psg» se parecen
+    check(ae.MIN_LARGO >= 5,
+          'v236: los nombres cortos no generan alias (%d)' % ae.MIN_LARGO)
+
+
+def test_la_tabla_escrita_a_mano_manda_sobre_la_automatica():
+    """
+    Lo verificado uno a uno no puede quedar pisado por un descubrimiento con el
+    parecido raspado.
+    """
+    import cuotas_multi as cm
+    vig = cm._alias_vigentes()
+    for k, v in cm._ALIAS_CLUB.items():
+        check(vig.get(k) == v,
+              'v236: el alias fijo «%s» sobrevive a la fusion' % k)
+    check(len(vig) >= len(cm._ALIAS_CLUB),
+          'v236: y la automatica solo puede anadir')
+
+
+def test_el_cron_descubre_los_alias_antes_de_cocinar_el_dia():
+    """
+    Va PRIMERO a proposito: `construir()` empareja cada fixture con el tablero
+    de la casa, y si un alias falta ese partido se cocina sin escalera de
+    goles, sin doble oportunidad y sin BTTS. Descubrirlos despues serviria para
+    el barrido de dentro de tres horas, no para este.
+    """
+    import io as _io
+    p = _io.open('precalculo_dia.py', encoding='utf-8').read()
+    i_alias = p.find('alias_equipos')
+    i_constr = p.find('datos = construir()')
+    check(i_alias > 0 and i_constr > i_alias,
+          'v236: los alias se actualizan ANTES del barrido')
+    y = _io.open('.github/workflows/precalculo_dia.yml', encoding='utf-8').read()
+    check('alias_equipos.json' in y,
+          'v236: y el workflow lo commitea (si no, se va con el runner y cada '
+          'pasada vuelve a empezar de cero)')
 
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
@@ -19892,16 +19907,19 @@ if __name__ == '__main__':
     test_el_rasgo_que_se_ensena_es_el_del_mercado_recomendado()
     test_la_auditoria_de_ligas_corrige_por_multiples_pruebas()
 
-    print(chr(10) + '=== v233: «Actualizar ahora» va a lo publicado ===')
-    test_actualizar_ahora_va_a_lo_publicado_y_no_al_disco()
-    test_el_boton_nunca_deja_al_usuario_peor_de_como_estaba()
-    test_el_boton_dice_si_habia_algo_nuevo_o_no()
-
     print(chr(10) + '=== v235: nombres que dejaban partidos sin tablero ===')
     test_las_letras_que_nfkd_no_deshace_se_pliegan()
     test_los_exonimos_unen_el_nombre_local_con_el_de_la_casa()
     test_el_alias_solo_se_aplica_al_nombre_entero()
     test_el_plegado_no_rompe_lo_que_ya_casaba()
+
+    print(chr(10) + '=== v236: menos texto, filtros vivos, alias solos ===')
+    test_se_retira_el_boton_de_actualizar_y_su_palabreria()
+    test_un_deporte_sin_partidos_no_tiene_boton()
+    test_los_insights_siguen_al_filtro_de_deporte()
+    test_los_alias_se_descubren_sin_inventar()
+    test_la_tabla_escrita_a_mano_manda_sobre_la_automatica()
+    test_el_cron_descubre_los_alias_antes_de_cocinar_el_dia()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
