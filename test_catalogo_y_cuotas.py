@@ -19375,8 +19375,15 @@ def test_se_retira_el_boton_de_actualizar_y_su_palabreria():
           'v236: el parrafo que enumeraba fuentes, deportes y capas se fue')
     check('Los precios que se ven se bajaron' not in d,
           'v236: y el aviso de cinco renglones tambien')
-    check('confirma en la casa antes' in d,
-          'v236: se conserva lo unico accionable de aquel aviso')
+    # v244 — ese aviso ya no es un cartel aparte: vive en la linea del
+    # ultimo refresco, en letra pequena. «Lo de los precios de hace siete
+    # minutos esta muy grande; ponlo en letras chicas al lado del ultimo
+    # refresco.» Lo accionable sigue estando, que es lo que este check
+    # protege; lo que cambia es donde.
+    check('confirma en la casa' in d,
+          'v244: se conserva lo unico accionable de aquel aviso')
+    check('Ultimo refresco' in d or 'ltimo refresco' in d,
+          'v244: y va pegado a la hora del ultimo refresco, no en un cartel')
 
 
 def test_un_deporte_sin_partidos_no_tiene_boton():

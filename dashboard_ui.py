@@ -4977,9 +4977,15 @@ def render_alpha_finder():
         # el modelo no cambia, que confirmes en la casa y qué hace un botón que
         # ya no existe. Lo único accionable es «confirma el precio», y cabe con
         # la edad al lado.
-        (st.error if _seg >= 3600 else st.warning)(
-            f"⏱️ Precios de hace **{_edad_txt}** — confirma en la casa antes "
-            f"de apostar.")
+        # v244 — VA JUNTO AL ÚLTIMO REFRESCO, EN LETRA PEQUEÑA.
+        #
+        # «Lo de los precios de hace siete minutos está muy grande. Ese letrero
+        # en amarillo ponlo en letras chicas al lado del último refresco.»
+        #
+        # Y tiene razón en el fondo: son dos formas de decir lo mismo —cuándo
+        # se calculó esto— en dos sitios y con dos tamaños distintos. Se
+        # guarda aquí y se pinta allí, en una sola línea.
+        st.session_state['_edad_precios'] = _edad_txt
 
     if st.session_state.pop('_enviar_telegram', False):
         try:
@@ -5073,7 +5079,11 @@ def render_alpha_finder():
         except Exception:
             _hh = None
         if _hh:
-            st.caption('Último refresco: %s CDMX' % _hh)
+            # v244 — la edad de los precios va aquí, no en un cartel aparte
+            _ed = st.session_state.get('_edad_precios')
+            st.caption('Último refresco: %s CDMX%s'
+                       % (_hh, (' · precios de hace %s, confirma en la casa'
+                                % _ed) if _ed else ''))
     if r.get('aviso'):
         st.info(r['aviso'])
     # v30 (§1): exportar las apuestas del día — BLINDADO (pre-genera el
@@ -5981,12 +5991,26 @@ def render_alpha_finder():
             try:
                 import modo_modelo as _mmf
                 quiere_sec = (_grupo_liga == 'Sólo secundarias')
-                # `es_secundaria` devuelve None cuando el eje no aplica (todo
-                # lo que no es fútbol). Se compara con `is` a propósito: un
-                # `None` no debe colarse en «Sólo principales» por ser distinto
-                # de True, que es lo que pasaría con una negación.
+                # v244 — ESTE EJE ES DE LIGAS DE FÚTBOL Y SÓLO FILTRA FÚTBOL.
+                #
+                # `es_secundaria` devuelve None cuando el eje no aplica, que es
+                # todo lo que no es fútbol. Antes se comparaba con `is
+                # quiere_sec` a secas, y como `None is False` es falso, elegir
+                # «Sólo principales» BORRABA la MLB, la NFL y el tenis enteros:
+                #
+                #     MLB    0 de  15        Fútbol  46 de 145
+                #     NFL    0 de  16
+                #     Tenis  0 de 178
+                #
+                # El usuario lo vio así: «sigue sin darme béisbol, tenis y NFL,
+                # ¿cómo es que antes sí me lo estabas dando y ahora no?». Antes
+                # tampoco se los daba — es que hasta la v240 esos deportes
+                # llegaban vacíos y no había nada que borrar.
+                #
+                # Un filtro de ligas de fútbol no puede decidir sobre el
+                # béisbol. Lo que no tiene el eje, pasa.
                 salida = [p for p in salida if isinstance(p, dict)
-                          and _mmf.es_secundaria(p) is quiere_sec]
+                          and _mmf.es_secundaria(p) in (None, quiere_sec)]
             except Exception:
                 pass
         if _liga_sel != _LIGA_TODAS:
