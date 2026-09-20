@@ -196,6 +196,7 @@ def _bloque_tenis(st, pick: Dict) -> None:
 # v153.1 — LA APUESTA DEL PARTIDO, Y EL SEMÁFORO POR PROBABILIDAD
 # ---------------------------------------------------------------------------
 MAX_RECOMENDADAS = 3        # la principal y sus dos alternativas
+ANCHO_CANDIDATAS = 12       # v241: entre cuántas se elige esas tres
 # El AJUSTE de orden es uno solo para las dos pestañas; sus widgets no
 # pueden compartir clave (Streamlit lo prohíbe). Ver `render`.
 CLAVE_ORDEN = 'orden_lista'
@@ -1678,11 +1679,52 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
         return []
     try:
         import valor_apuesta as va
-        filas = va.mejores(pick, bloques or {}, n=n)
+        # v241 — se piden MAS candidatas de las que se van a enseñar, porque
+        # la criba de verdad es la de abajo y necesita entre qué elegir.
+        filas = va.mejores(pick, bloques or {}, n=max(n, ANCHO_CANDIDATAS))
     except Exception as e:
         logger.debug('[modo_modelo] valor: %s', e)
         filas = []
-    return [_enriquece(pick, f, i + 1) for i, f in enumerate(filas)]
+    candidatas = [_enriquece(pick, f, i + 1) for i, f in enumerate(filas)]
+
+    # v241 — SE ELIGE CON EL MISMO NUMERO CON EL QUE SE PINTA.
+    #
+    # Hasta aquí las tres se escogían por Score = probabilidad × cuota, y la
+    # tarjeta las pintaba y coloreaba con la probabilidad AJUSTADA (la del
+    # modelo corregida por lo que ese mercado acierta de verdad). Dos criterios
+    # distintos para elegir y para mostrar, y el resultado era el que el
+    # usuario mandó en tres capturas seguidas:
+    #
+    #   AZ Alkmaar-Telstar     ajustada  veredicto   ¿se pintaba?
+    #     Gana AZ Alkmaar        73 %      meter        NO
+    #     Córners: Menos de 12.5 72 %      meter        NO
+    #     Goles: Menos de 4.5    70 %      meter        sí
+    #     Remates L: Menos 19.5  48 %      no_meter     SI
+    #     Remates a puerta L     47 %      no_meter     SI
+    #
+    # Dos «no meter» en rojo ocupando el sitio de dos «meter» en verde. Y no
+    # era mala suerte: como `Score ≈ p × cuota ≈ 1` en cualquier apuesta bien
+    # tarifada, el criterio apenas discrimina y premia sistemáticamente a los
+    # mercados de moneda al aire, que son los que llevan la cuota más larga.
+    # En Getafe-Malaga la «apuesta recomendada» acabó siendo la PEOR de las
+    # siete candidatas (Remates: Menos de 22.5, 55 % → 49 %).
+    #
+    # `evaluar_lista` ya ordena como hay que leerlo: los «meter» primero y,
+    # dentro, por probabilidad ajustada descendente. Basta con hacerle caso
+    # ANTES de cortar por `n` en vez de después. Un rojo sigue pudiendo salir
+    # —si no hay tres verdes, se enseña lo que hay— pero nunca por delante de
+    # un verde.
+    try:
+        import veredicto_pick as _vp
+        _vers = _vp.evaluar_lista(candidatas, con_contexto=False)
+        if _vers:
+            candidatas = [v['pick'] for v in _vers]
+    except Exception as e:
+        logger.debug('[modo_modelo] veredicto no aplicado al orden: %s', e)
+
+    for _i, _c in enumerate(candidatas[:n]):
+        _c['puesto_valor'] = _i + 1
+    return candidatas[:n]
 
 
 def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None

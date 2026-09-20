@@ -11877,9 +11877,33 @@ def test_hay_hasta_tres_recomendadas_y_de_mercados_distintos():
     check(len(recos) >= 2,
           f"hay mas de una recomendacion ({len(recos)})")
     check(len(recos) <= 3, f"y como mucho tres ({len(recos)})")
-    scores = [r['score'] for r in recos]
-    check(scores == sorted(scores, reverse=True),
-          f"van en orden de Score descendente ({scores})")
+    # v241 — EL ORDEN YA NO ES POR SCORE, Y ESO ES EL ARREGLO.
+    #
+    # Este check exigia Score descendente. Era el contrato de la v176 y
+    # resulto ser justo el fallo: como `Score ~ p x cuota ~ 1` en cualquier
+    # apuesta bien tarifada, el criterio apenas discrimina y premia a los
+    # mercados de moneda al aire, que son los de cuota mas larga. La tarjeta
+    # elegia asi y luego pintaba con la probabilidad AJUSTADA, de modo que
+    # salian «no meter» en rojo mientras un «meter» en verde no se enseñaba
+    # (AZ Alkmaar: «Gana AZ Alkmaar» 73 % fuera, dos remates al 47-48 %
+    # dentro).
+    #
+    # El orden es ahora el del veredicto: los «meter» primero y, dentro, por
+    # probabilidad ajustada. Se comprueba eso.
+    import veredicto_pick as _vp
+    _vers = _vp.evaluar_lista(recos, con_contexto=False)
+    _rojo = False
+    for _v in _vers:
+        if _v['veredicto'] != 'meter':
+            _rojo = True
+        else:
+            check(not _rojo,
+                  "ningun «meter» va detras de un «no_meter» "
+                  "(%s)" % _v['pick'].get('apuesta'))
+    _aj = [round(_v['prob_ajustada'], 4) for _v in _vers
+           if _v['veredicto'] == 'meter']
+    check(_aj == sorted(_aj, reverse=True),
+          "los «meter» van por probabilidad ajustada descendente (%s)" % _aj)
     mercados = [r['mercado'] for r in recos]
     check(len(set(mercados)) == len(mercados),
           f"y cada una de un mercado distinto ({mercados})")
@@ -19888,6 +19912,98 @@ def test_un_partido_sin_modelo_dice_por_que():
     check('logger.warning' in tramo,
           'v240: el motivo exacto queda en el log del runner')
 
+
+# ---------------------------------------------------------------------------
+# v241 — LA TARJETA ELIGE CON EL MISMO NUMERO CON EL QUE PINTA
+# ---------------------------------------------------------------------------
+def test_las_recomendadas_se_ordenan_por_la_probabilidad_ajustada():
+    """
+    Las tres se escogian por Score = probabilidad x cuota y se pintaban con la
+    probabilidad AJUSTADA. Dos criterios distintos para elegir y para mostrar.
+
+    Lo que salia (AZ Alkmaar-Telstar, medido sobre el fichero publicado):
+
+        Gana AZ Alkmaar         73 %  meter      NO se pintaba
+        Corners: Menos de 12.5  72 %  meter      NO se pintaba
+        Goles: Menos de 4.5     70 %  meter      si
+        Remates L: Menos 19.5   48 %  no_meter   SI se pintaba
+        Remates a puerta Local  47 %  no_meter   SI se pintaba
+
+    Dos «no meter» en rojo ocupando el sitio de dos «meter» en verde. Y no era
+    mala suerte: como `Score ~ p x cuota ~ 1` en cualquier apuesta bien
+    tarifada, el criterio apenas discrimina y premia a los mercados de moneda
+    al aire, que son los de cuota mas larga. En Getafe-Malaga la «apuesta
+    recomendada» acabo siendo la PEOR de las siete candidatas.
+
+    Medido sobre los 144 partidos de futbol del dia: cambia la terna en 79
+    (55 %), las filas rojas bajan de 227 a 157, y 25 partidos recuperan un 1X2
+    o una doble oportunidad que no salia.
+    """
+    import io as _io
+    s = _io.open('modo_modelo.py', encoding='utf-8').read()
+    cuerpo = s.split('def recomendadas(')[1].split('\ndef ')[0]
+
+    check('ANCHO_CANDIDATAS' in cuerpo,
+          'v241: se piden mas candidatas de las que se enseñan, porque si no '
+          'no hay entre que elegir')
+    check('evaluar_lista' in cuerpo,
+          'v241: la terna se ordena con el veredicto, que es lo que la tarjeta '
+          'pinta y colorea')
+    i_ev = cuerpo.find('evaluar_lista')
+    i_corte = cuerpo.find('candidatas[:n]')
+    check(i_ev > 0 and i_corte > i_ev,
+          'v241: se ordena ANTES de cortar por `n`, no despues — cortar '
+          'primero es justo el fallo que esto arregla')
+
+    # y el ancho tiene que ser mayor que la terna, o no cambia nada
+    import modo_modelo as mm
+    check(mm.ANCHO_CANDIDATAS > mm.MAX_RECOMENDADAS,
+          'v241: el pozo de candidatas es mayor que las que se enseñan '
+          '(ancho=%s, terna=%s)' % (mm.ANCHO_CANDIDATAS, mm.MAX_RECOMENDADAS))
+
+
+def test_un_verde_nunca_queda_fuera_por_un_rojo():
+    """
+    La regla que hace falta comprobar de verdad, sobre datos y no sobre el
+    fuente: si entre las candidatas hay «meter», ninguna «no_meter» puede
+    ocupar su sitio.
+
+    Un rojo SI puede salir —cuando no hay tres verdes se enseña lo que hay,
+    que es lo que el usuario pidio: «prefiero precision y no arriesgar»— pero
+    nunca por delante de un verde.
+    """
+    import json as _json
+    import os as _os
+    if not _os.path.exists('pronostico_dia.json'):
+        check(True, 'v241: sin fichero del dia, nada que comprobar')
+        return
+    import modo_modelo as mm
+    import veredicto_pick as vp
+    with open('pronostico_dia.json', encoding='utf-8') as f:
+        datos = (_json.load(f) or {}).get('datos') or {}
+    ps = [p for p in (datos.get('pronosticos') or [])
+          if p.get('deporte') == 'Fútbol'][:40]
+    malos = []
+    for p in ps:
+        bl = {'Córners': mm.corners_tarjeta(p),
+              'Tarjetas': mm.tarjetas_tarjeta(p),
+              'Remates': (mm.remates_tarjeta(p) or {}).get('totales'),
+              'Remates a puerta': (mm.remates_tarjeta(p) or {}).get('a_puerta')}
+        recos = mm.recomendadas(p, bl, n=mm.MAX_RECOMENDADAS)
+        if len(recos) < mm.MAX_RECOMENDADAS:
+            continue            # no hubo de sobra: nada que desplazar
+        vers = vp.evaluar_lista(recos, con_contexto=False)
+        # dentro de la terna, un «meter» no puede ir detras de un «no_meter»
+        visto_rojo = False
+        for v in vers:
+            if v['veredicto'] != 'meter':
+                visto_rojo = True
+            elif visto_rojo:
+                malos.append((p.get('partido'), v['pick'].get('apuesta')))
+    check(not malos,
+          'v241: ningun «meter» queda detras de un «no_meter» en la terna '
+          '(%d casos)' % len(malos))
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -20434,6 +20550,10 @@ if __name__ == '__main__':
     print(chr(10) + '=== v240: el runner limpio y el motivo real ===')
     test_el_estado_se_relee_despues_de_bajar_el_modelo()
     test_un_partido_sin_modelo_dice_por_que()
+
+    print(chr(10) + '=== v241: elegir con el numero que se pinta ===')
+    test_las_recomendadas_se_ordenan_por_la_probabilidad_ajustada()
+    test_un_verde_nunca_queda_fuera_por_un_rojo()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
