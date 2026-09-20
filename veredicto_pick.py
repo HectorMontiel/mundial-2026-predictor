@@ -86,7 +86,8 @@ def _f(x) -> Optional[float]:
 
 
 # ---------------------------------------------------------------------------
-def correccion(prob: Optional[float], mercado: str = '') -> Dict:
+def correccion(prob: Optional[float], mercado: str = '',
+               cuota: Optional[float] = None) -> Dict:
     """Cuánto hay que mover ese porcentaje según lo que ha acertado de verdad.
 
     Devuelve la brecha medida (acierto real − prometido) topada, y de dónde
@@ -104,14 +105,62 @@ def correccion(prob: Optional[float], mercado: str = '') -> Dict:
     except Exception as e:
         logger.debug('[veredicto] fiabilidad: %s', e)
         return vacio
-    if fi.get('veredicto') == 'sin_medir' or fi.get('real') is None:
-        return vacio
-    bruto = float(fi['real']) - float(fi['prometido'])
-    delta = max(-CORRECCION_MAXIMA, min(CORRECCION_MAXIMA, bruto))
-    return {'delta': round(delta, 4), 'medido': True, 'n': fi.get('n', 0),
+    # v224 — DOS MEDICIONES, Y SE USA LA QUE TIENE MÁS EVIDENCIA DETRÁS.
+    #
+    # Hay dos formas medidas de corregir el mismo número, y no siempre
+    # coinciden:
+    #
+    #   `fiabilidad_picks`   por MERCADO y banda de probabilidad, sobre los
+    #                        picks que esta app publicó. Muy pertinente, pero
+    #                        con muestras pequeñas: `1X2|70-80 %` tiene n=31.
+    #   `calibrador_bandas`  por BANDA DE CUOTA, isotónica walk-forward sobre
+    #                        el ledger. `1,20-1,50` tiene n=24.282.
+    #
+    # El caso que lo destapó: «Gana Milan» a 1,25. El mercado lo ve al 80 %, el
+    # modelo dice 72 %, y la medición por banda de cuota dice que ahí el
+    # modelo se queda CORTO +4,5 puntos. Con sólo la corrección por mercado
+    # (n=31, −2,4) el pick bajaba a 70 % y se pintaba rojo — se estaba
+    # escondiendo un favorito claro por la medición más débil de las dos.
+    #
+    # Se elige por tamaño de muestra, que es lo único defendible cuando dos
+    # mediciones honestas discrepan.
+    cand = []
+    if fi.get('veredicto') != 'sin_medir' and fi.get('real') is not None:
+        cand.append({
+            'delta': float(fi['real']) - float(fi['prometido']),
+            'n': int(fi.get('n') or 0),
             'veredicto_banda': fi.get('veredicto', ''),
             'real': fi.get('real'), 'prometido': fi.get('prometido'),
-            'fuente': f"{fi.get('n')} picks publicados de este mercado"}
+            'fuente': f"{fi.get('n')} picks publicados de este mercado"})
+
+    c = _f(cuota)
+    if c is not None:
+        try:
+            import calibrador_bandas as cb
+            banda = cb.nombre_banda(c)
+            curva = ((cb.cargar().get('bandas') or {}).get(banda) or {})
+            calibrada = cb.calibrar(p, c)
+            if curva.get('n_train') and calibrada is not None:
+                cand.append({
+                    'delta': float(calibrada) - p,
+                    'n': int(curva['n_train']),
+                    'veredicto_banda': ('conservador' if calibrada > p
+                                        else 'optimista' if calibrada < p
+                                        else 'de_fiar'),
+                    'real': calibrada, 'prometido': p,
+                    'fuente': f"{curva['n_train']:,} picks en la banda de "
+                              f"cuota {banda}".replace(',', '.')})
+        except Exception as e:
+            logger.debug('[veredicto] calibrador de bandas: %s', e)
+
+    if not cand:
+        return vacio
+    mejor = max(cand, key=lambda x: x['n'])
+    delta = max(-CORRECCION_MAXIMA, min(CORRECCION_MAXIMA, mejor['delta']))
+    return {'delta': round(delta, 4), 'medido': True, 'n': mejor['n'],
+            'veredicto_banda': mejor['veredicto_banda'],
+            'real': mejor['real'], 'prometido': mejor['prometido'],
+            'fuente': mejor['fuente']}
 
 
 def senales_visibles(pick: Dict, con_contexto: bool = False) -> List[Dict]:
@@ -172,7 +221,7 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     if prob is None:
         return {**base, 'razones': ['sin probabilidad']}
 
-    c = correccion(prob, mercado)
+    c = correccion(prob, mercado, cuota)
     ajustada = max(0.01, min(0.99, prob + c['delta']))
 
     razones = []

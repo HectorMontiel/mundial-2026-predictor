@@ -18312,6 +18312,79 @@ def test_el_armado_por_veredicto_nunca_revienta():
             check(False, f'{str(basura)[:34]} lanzo {e!r}')
 
 
+# ===========================================================================
+# v224 — CUANDO DOS MEDICIONES DISCREPAN, MANDA LA QUE TIENE MAS MUESTRA
+# ===========================================================================
+def test_la_correccion_elige_la_medicion_con_mas_evidencia():
+    """
+    EL CASO QUE LO DESTAPO, y lo reporto el usuario mirando la pantalla: «casi
+    no pones que gana un equipo en especifico, te vas a la doble oportunidad;
+    si el mercado ve que un equipo es mucho mas probable que gane, quiero que
+    lo señales».
+
+    Medido sobre el barrido: 55 «Gana X» con cuota <= 1,50 —favoritos claros
+    del mercado— y en 63 casos el mercado los ve MAS favoritos que el modelo.
+    «Gana Milan» a 1,25: mercado 80 %, modelo 72 %.
+
+    Hay dos mediciones honestas del mismo numero y discrepan:
+      · `fiabilidad_picks` por mercado: `1X2|70-80 %` tiene n=31 y dice -2,4
+      · `calibrador_bandas` por cuota: `1,20-1,50` tiene n=24.282 y dice +4,5
+
+    Con la primera el favorito bajaba a 70 % y se pintaba rojo. Se elige por
+    tamaño de muestra, que es lo unico defendible cuando dos mediciones
+    honestas no coinciden.
+    """
+    import veredicto_pick as vp
+
+    c = vp.correccion(0.72, '1X2', cuota=1.25)
+    check(c['medido'] is True, 'el favorito claro se corrige con algo medido')
+    check(c['n'] >= 1000,
+          f"y se usa la medicion con muestra grande, no la de n=31 ({c['n']})")
+    check('cuota' in c['fuente'],
+          f"la fuente es la banda de cuota ({c['fuente'][:44]})")
+
+    # sin cuota solo queda la medicion por mercado: no se inventa la otra
+    sin = vp.correccion(0.72, '1X2')
+    check(sin['n'] <= c['n'],
+          'sin cuota no se puede usar la banda de cuota')
+
+
+def test_un_favorito_claro_del_mercado_deja_de_salir_en_rojo():
+    """
+    El efecto medido sobre el barrido real: el verde sube del 32 % al 43 %, y
+    «Gana X» pasa a ser el 22,6 % de lo verde cuando antes casi no aparecia.
+    """
+    import veredicto_pick as vp
+
+    for apuesta, prob, cuota in (('Gana Milan', 0.72, 1.25),
+                                 ('Gana Feyenoord', 0.70, 1.25),
+                                 ('Gana AZ Alkmaar', 0.72, 1.22)):
+        v = vp.evaluar({'apuesta': apuesta, 'mercado': '1X2',
+                        'prob': prob, 'cuota': cuota})
+        check(v['prob_ajustada'] >= prob,
+              f'{apuesta}: la correccion SUBE al favorito claro '
+              f"({prob:.0%} -> {v['prob_ajustada']:.0%})")
+        check(v['veredicto'] == vp.METER,
+              f'{apuesta} deja de pintarse en rojo')
+
+
+def test_la_correccion_sigue_bajando_lo_que_va_sobrado():
+    """Subir favoritos no puede convertirse en subirlo todo."""
+    import veredicto_pick as vp
+
+    v = vp.evaluar({'apuesta': 'Ambos marcan: No', 'mercado': 'BTTS',
+                    'prob': 0.53, 'cuota': 1.80})
+    check(v['prob_ajustada'] < 0.53,
+          f"un 53 % a cuota 1,80 sigue BAJANDO "
+          f"({v['prob_ajustada']:.0%})")
+    check(v['veredicto'] == vp.NO_METER, 'y sigue en rojo')
+    # y el tope se respeta en los dos sentidos
+    for p, c in ((0.40, 1.25), (0.90, 3.50), (0.55, 2.50)):
+        d = vp.correccion(p, 'Goles', cuota=c)
+        check(abs(d['delta']) <= vp.CORRECCION_MAXIMA + 1e-9,
+              f'la correccion de ({p}, {c}) respeta el tope ({d["delta"]:+.3f})')
+
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -18781,6 +18854,11 @@ if __name__ == '__main__':
     test_los_topes_evitan_un_boleto_de_ocho_patas_del_mismo_mercado()
     test_el_filtro_de_principales_no_cuela_lo_que_no_sabe()
     test_el_armado_por_veredicto_nunca_revienta()
+
+    print(chr(10) + '=== v224: manda la medicion con mas muestra ===')
+    test_la_correccion_elige_la_medicion_con_mas_evidencia()
+    test_un_favorito_claro_del_mercado_deja_de_salir_en_rojo()
+    test_la_correccion_sigue_bajando_lo_que_va_sobrado()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
