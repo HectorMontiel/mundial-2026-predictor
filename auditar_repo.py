@@ -62,8 +62,19 @@ DEPORTES = ('futbol', 'nfl', 'mlb', 'tenis', 'kbo', 'nba')
 # Palabras que delatan que un módulo lleva su medición encima.
 MARCAS_MEDIDO = ('roi', 'p5', 'bootstrap', 'ece', 'brier', 'log_loss',
                  'medido', 'percentil')
+# v226 — se añaden las formas en que este repositorio dice «medido y aparcado».
+# `lineup_impact` (470 líneas) salía como bandera roja y no lo era: está medido
+# —«+0,07 pp, dirección correcta, magnitud de ruido»— y su `lineup_coef.json`
+# declara «NINGUNA liga los tiene adoptados». Eso no es código sin enchufar: es
+# una hipótesis que se midió, no llegó al listón, y se dejó lista por si algún
+# día cambia la fuente. Marcarla igual que a lo olvidado enseña a ignorar las
+# banderas.
 MARCAS_REFUTADO = ('refutada', 'refutado', 'no separa', 'anti-indicador',
-                   'esta apagada', 'está apagada')
+                   'esta apagada', 'está apagada',
+                   'no se adopt', 'ninguna liga los tiene adoptados',
+                   'magnitud de ruido', 'no llega al liston',
+                   'no llega al listón', 'queda listo por si',
+                   'quedan listos por si')
 
 # ---------------------------------------------------------------------------
 # §1.2 — INVENTARIO DE REGLAS DE NEGOCIO

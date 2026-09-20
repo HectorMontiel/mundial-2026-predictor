@@ -2480,6 +2480,57 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             except Exception as _e_vp:
                 logger.debug('[modo_modelo] veredicto: %s', _e_vp)
 
+            # v226 — EL FEEDBACK HUMANO, QUE LLEVABA SIN ENCHUFAR DESDE LA v217.
+            #
+            # `feedback_humano` estaba escrito, probado y con CERO importadores
+            # —el mismo patrón que este proyecto lleva señalando— porque no
+            # había forma de marcar nada desde la pantalla. Esto es esa forma.
+            #
+            # DOS BOTONES Y NO CINCO, a propósito. El módulo distingue tres
+            # clases y sólo dos merecen un clic aquí:
+            #   · `dato_malo` es un HECHO que el sistema no puede detectar solo
+            #     (marcador mal, partido mal emparejado) y se respeta desde el
+            #     primer día.
+            #   · `veto` es información que el usuario tiene y la app no. Pesa
+            #     CERO hasta que demuestre, con 40 vetos resueltos, que separa
+            #     mejor que el azar.
+            # `me_gusta` / `no_me_gusta` no salen: son la misma intuición que
+            # el mercado ya tiene mejor calibrada, y darles un botón invita a
+            # usarlos como si contaran.
+            try:
+                import feedback_humano as _fh
+                _pk = {'clave_liga': pick.get('clave_liga'),
+                       'partido': pick.get('partido'), 'liga': pick.get('liga'),
+                       'fecha': pick.get('fecha'),
+                       'apuesta': (rec or {}).get('apuesta'),
+                       'mercado': (rec or {}).get('mercado'),
+                       'prob': (rec or {}).get('prob'),
+                       'cuota': (rec or {}).get('cuota')}
+                if _pk['apuesta']:
+                    _ya = _fh.de_pick(_pk)
+                    if _ya:
+                        st.caption('📝 Anotado: '
+                                   + ' · '.join(sorted({str(e.get('tipo'))
+                                                        for e in _ya})))
+                    else:
+                        _fb1, _fb2 = st.columns(2)
+                        _kb = '%s_%d' % (clave_vista, n_boton)
+                        if _fb1.button('🚫 No la metería', key='fb_veto_' + _kb,
+                                       help='Guarda tu veto y lo mide contra '
+                                            'el resultado. Pesa cero hasta '
+                                            'que demuestre que acierta.'):
+                            _fh.anotar(_pk, 'veto')
+                            st.rerun()
+                        if _fb2.button('⚠️ Dato incorrecto',
+                                       key='fb_dato_' + _kb,
+                                       help='El marcador, el equipo o la cuota '
+                                            'están mal. Esto sí se respeta '
+                                            'desde el primer día.'):
+                            _fh.anotar(_pk, 'dato_malo')
+                            st.rerun()
+            except Exception as _e_fb:
+                logger.debug('[modo_modelo] feedback humano: %s', _e_fb)
+
             _bloque_recomendada(st, rec, clave_vista, n_boton,
                                 motivo=_motivo_sin_apuesta(pick))
             # v176 — LAS ALTERNATIVAS SON RECOMENDACIONES, NO UNA TABLA.

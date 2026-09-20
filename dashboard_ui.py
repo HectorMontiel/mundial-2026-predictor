@@ -4898,7 +4898,9 @@ def render_alpha_finder():
     # (el botón de Telegram estaba escondido en un expander; ahora es fijo).
     cacc1, cacc2, cacc3, cacc4 = st.columns(4)
     if cacc1.button("🔄 Actualizar ahora", key='refresh_alpha', width='stretch',
-                    help="Vuelve a bajar cuotas y recalcula todas las apuestas."):
+                    help="Recoge el último pronóstico publicado. El cálculo "
+                         "corre solo cada 3 horas fuera de la aplicación: "
+                         "rehacerlo aquí pediría 1,3 GB y el servidor tiene 1."):
         # v86: antes esto hacía `st.cache_data.clear()`, que es GLOBAL al
         # proceso: un usuario pulsando "Actualizar" borraba el caché de todos
         # los demás y, de paso, los cerrojos que impiden barridos simultáneos.
@@ -4997,7 +4999,7 @@ def render_alpha_finder():
             f"están actualizando en segundo plano. Los pronósticos del modelo "
             f"siguen siendo válidos —sólo cambian cuando reentrena el bot—, "
             f"pero **confirma el precio en la casa antes de apostar**. "
-            f"«Actualizar ahora» rehace el barrido.")
+            f"«Actualizar ahora» recoge el último pronóstico publicado.")
         (st.error if _seg >= 3600 else st.warning)(_texto)
 
     if st.session_state.pop('_enviar_telegram', False):
@@ -5143,49 +5145,90 @@ def render_alpha_finder():
         for _p in (r.get('capa1') or []):
             if _p.get('casa'):
                 _casas_vistas.add(_p['casa'])
+        # v226 — CUATRO CIFRAS QUE SIRVAN PARA APOSTAR.
+        #
+        # Las de antes eran de diagnostico, no de decision: «partidos
+        # evaluados 358», «casas comparadas 2». Ninguna contesta la pregunta
+        # con la que se abre esta pantalla, que es **cual meto hoy**. El
+        # usuario lo dijo con esas palabras: «no me sirven de nada, elimínalos
+        # o pon algo que de verdad me sirva».
+        #
+        # Estas cuatro salen del veredicto ya calculado —la probabilidad
+        # corregida por lo que cada mercado acierta de verdad— asi que no
+        # cuestan un barrido extra.
+        _verdes, _mejor, _cuota_media = [], None, []
+        try:
+            import veredicto_pick as _vpk
+            import modo_modelo as _mmk
+            # LAS LISTAS QUE EL BARRIDO YA TRAE, y no `_recomendadas`.
+            # En este punto los partidos todavia no las tienen calculadas —eso
+            # pasa mas abajo, al pintar cada tarjeta— asi que leerlas aqui
+            # daba SIEMPRE cero. Calcularlas costaria unos 5 s (42 ms x 120),
+            # justo el tipo de gasto que la v216 saco del camino caliente.
+            # `capa1`, `capa2` y `candidatos` ya vienen con apuesta, mercado,
+            # probabilidad y cuota, que es todo lo que el veredicto necesita.
+            _fuente = []
+            _vistos = set()
+            for _lst in ('capa1', 'capa2', 'candidatos'):
+                for _x in (r.get(_lst) or []):
+                    if not isinstance(_x, dict):
+                        continue
+                    _k = (_x.get('partido'), _x.get('apuesta'))
+                    if _k in _vistos or not _x.get('prob'):
+                        continue
+                    _vistos.add(_k)
+                    _fuente.append(_x)
+            for _p in [None]:
+                for _v in _vpk.evaluar_lista(_fuente):
+                    if _v['veredicto'] != _vpk.METER:
+                        continue
+                    _verdes.append(_v)
+                    _c = (_v.get('pick') or {}).get('cuota')
+                    if _c:
+                        _cuota_media.append(float(_c))
+                    if _mejor is None or _v['prob_ajustada'] > _mejor['prob_ajustada']:
+                        _mejor = {**_v,
+                                  '_partido': (_v.get('pick') or {}).get('partido'),
+                                  '_liga': (_v.get('pick') or {}).get('liga')}
+        except Exception as _e_kpi:
+            logger.debug('[alpha] kpis de decision: %s', _e_kpi)
+
         f1, f2, f3, f4 = st.columns(4)
-        f1.metric("Partidos evaluados", len(_de_hoy) + len(_de_man),
-                  help=f"Los de hoy ({len(_de_hoy)}) más los de mañana "
-                       f"({len(_de_man)}), en hora de CDMX — exactamente los "
-                       f"que salen en las dos pestañas. El barrido mira un día "
-                       f"más para que mañana esté completo, y ese sobrante no "
-                       f"se cuenta aquí.")
-        f2.metric("Hoy con cuota", _hoy_ct,
-                  help=f"De los {len(_de_hoy)} de hoy, los que tienen precio "
-                       f"abierto en alguna casa. El resto se muestran igual, "
-                       f"marcados «sin cuota».")
-        f3.metric("Pasan el filtro", _n_capa1,
-                  help="Cumplen probabilidad, EV y fiabilidad mínimas. Que "
-                       "sean pocos —o ninguno— es lo normal y es correcto.")
-        # v141 — CONTABA EN EL SITIO EQUIVOCADO.
-        #
-        # `_casas_vistas` sale sólo de `capa1`, y `capa1` está vacía la mayoría
-        # de los días —hoy tenía 0 picks—, así que el indicador enseñaba «—»
-        # aunque el barrido hubiera comparado tres casas. Medido: Pinnacle 28
-        # precios, Bovada 14, Playdoit 2, y el contador decía que ninguna.
-        #
-        # Se cuentan las casas de TODAS las listas del barrido, que es lo que
-        # de verdad respalda el consenso. Y si no hay ninguna se dice con
-        # palabras, porque un guion no distingue «cero» de «no lo sé».
-        _casas_todas = set()
-        for _lst in ('capa1', 'capa2', 'candidatos', 'pronosticos',
-                     'capa1_prob', 'seleccion_dia'):
-            for _p in (r.get(_lst) or []):
-                if isinstance(_p, dict) and _p.get('casa'):
-                    _casas_todas.add(str(_p['casa']))
-        f4.metric("Casas comparadas",
-                  len(_casas_todas) if _casas_todas else '0',
-                  help=("Casas que han puesto precio hoy: "
-                        + (', '.join(sorted(_casas_todas)) if _casas_todas
-                           else 'ninguna ha respondido todavía, así que no hay '
-                                'consenso con el que comparar')
-                        + ". Cuantas más, más veces aparece un precio mejor "
-                          "que el resto — es la ventaja medida del proyecto."))
-        if not _casas_todas:
-            st.caption("⚠️ **Consenso no disponible**: ninguna casa ha dado "
-                       "precio en este barrido. Sin dos precios del mismo "
-                       "suceso no se puede medir ventaja, así que hoy no hay "
-                       "Sección 1 posible.")
+        f1.metric("Para meter hoy", len(_verdes) if _verdes else '0',
+                  help="Apuestas que pasan el liston tras corregir la "
+                       "probabilidad por lo que ese mercado acierta DE "
+                       "VERDAD. Es el numero que decide si hoy se juega.")
+        f2.metric("Cuota media", ('%.2f' % (sum(_cuota_media) / len(_cuota_media))
+                                  if _cuota_media else '—'),
+                  help="De las que hay para meter. Sirve para saber si el dia "
+                       "da multiplicador o solo favoritos cortos.")
+        if _mejor:
+            f3.metric("La mas probable", '%.0f %%' % (_mejor['prob_ajustada'] * 100),
+                      help="%s · %s (%s)" % (
+                          (_mejor.get('pick') or {}).get('apuesta', '?'),
+                          _mejor.get('_partido', '?'), _mejor.get('_liga', '')))
+        else:
+            f3.metric("La mas probable", '—',
+                      help="Hoy ninguna apuesta pasa el liston.")
+        _fi_txt = '—'
+        try:
+            import fiabilidad_picks as _fpk
+            _doc = _fpk.cargar()
+            _b = [x for x in (_doc.get('por_banda') or [])
+                  if x.get('n', 0) >= 100]
+            if _b:
+                _prom = sum(x['real'] * x['n'] for x in _b) / sum(x['n'] for x in _b)
+                _fi_txt = '%.0f %%' % (_prom * 100)
+        except Exception:
+            pass
+        f4.metric("Acierto historico", _fi_txt,
+                  help="Lo que han acertado DE VERDAD los picks que esta "
+                       "aplicacion publico y ya se resolvieron. No es una "
+                       "promesa: es el registro.")
+        if _mejor:
+            st.caption('⭐ La mas probable de hoy: **%s** · %s _(%s)_'
+                       % ((_mejor.get('pick') or {}).get('apuesta', '?'),
+                          _mejor.get('_partido', '?'), _mejor.get('_liga', '')))
     except Exception:
         pass
 
@@ -5330,22 +5373,22 @@ def render_alpha_finder():
                                           for s in op['selecciones']))
         st.caption(AVISO_JUEGO_RESPONSABLE)
 
-    # v37 (§5): PLAN DE ATAQUE TEMPORAL (oleadas)
-    oleadas = r.get('oleadas') or {}
-    if any(oleadas.get(k) for k in ('oleada1', 'oleada2', 'resto')):
-        with st.container(border=True):
-            st.markdown("**🌊 Plan de ataque temporal** — no inviertas más del "
-                        "**50 % del bankroll** en una sola oleada.")
-            co1, co2, co3 = st.columns(3)
-            def _mejor(lst):
-                return (f"{lst[0]['partido']} · {lst[0].get('apuesta','')} "
-                        f"(EV {(lst[0].get('ev') or 0)*100:+.0f} %)") if lst else '—'
-            co1.metric("🔴 Oleada 1 · Hoy", len(oleadas.get('oleada1', [])),
-                       help=_mejor(oleadas.get('oleada1', [])))
-            co2.metric("🟡 Oleada 2 · Mañana", len(oleadas.get('oleada2', [])),
-                       help=_mejor(oleadas.get('oleada2', [])))
-            co3.metric("📋 Días siguientes", len(oleadas.get('resto', [])),
-                       help=_mejor(oleadas.get('resto', [])))
+    # v226 — SE RETIRA EL «PLAN DE ATAQUE TEMPORAL» (oleadas de la v37).
+    #
+    # Enseñaba tres contadores —«Oleada 1 · Hoy: 4», «Oleada 2 · Mañana: 2»,
+    # «Días siguientes: 0»— y el consejo de no pasar del 50 % del bankroll por
+    # oleada. El usuario lo señaló directamente: «no me sirve de nada a la
+    # hora de apostar».
+    #
+    # Y tenía razón por debajo de la impresión: contar cuántos picks caen en
+    # cada día NO es una decisión. El reparto por día ya está en las pestañas
+    # de Hoy y Mañana, y el tamaño de la apuesta lo decide el Kelly de
+    # `bankroll_manager`, que es lo único medido. Un «50 % por oleada» sin
+    # medición detrás, al lado de un Kelly que sí la tiene, sólo puede
+    # confundir sobre cuál de los dos hacer caso.
+    #
+    # Los datos siguen en `r['oleadas']` por si alguien los consume; lo que se
+    # retira es el bloque de pantalla.
 
     def _fila_apuesta(t):
         """

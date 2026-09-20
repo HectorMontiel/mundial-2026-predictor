@@ -222,9 +222,27 @@ def barrido(calcular, forzar: bool = False):
     # que fallar DOCE pasadas seguidas. Y aun así, un pronóstico de anoche con
     # su etiqueta es muchísimo más útil que una pantalla vacía — los partidos
     # de hoy siguen siendo los mismos, lo que envejece son las cuotas.
-    if not forzar:
+    # v226 — «ACTUALIZAR AHORA» TAMBIÉN PASA POR AQUÍ, Y ES UN ARREGLO.
+    #
+    # El botón ponía `forzar=True`, que saltaba este bloque entero y mandaba a
+    # recalcular: justo el barrido de 1,3 GB que la v220 sacó del render. En un
+    # servidor de 1 GB eso no refresca nada — se cuelga o se cae, que es lo que
+    # el usuario reportó como «le doy a actualizar y no actualiza».
+    #
+    # Con el pestillo puesto, forzar significa ahora **releer el precálculo del
+    # disco**, no recalcular. Y eso SÍ trae datos nuevos: el cron reescribe el
+    # fichero cada tres horas, así que el botón recoge lo último que haya
+    # publicado. Lo que no puede hacer es fabricar un barrido que no cabe.
+    #
+    # Sin pestillo —una máquina de desarrollo— `forzar` sigue recalculando.
+    try:
+        import precalculo_dia as _pre
+        _forzar_relee = forzar and _pre.SOLO_PRECALCULO
+    except Exception:
+        _pre, _forzar_relee = None, False
+
+    if _pre is not None and (not forzar or _forzar_relee):
         try:
-            import precalculo_dia as _pre
             _d = _pre.leer()
             if _d is not None:
                 _edad = _d['edad_s']
