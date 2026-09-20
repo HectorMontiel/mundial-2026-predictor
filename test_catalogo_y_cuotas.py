@@ -21383,6 +21383,108 @@ def test_la_curva_de_goles_la_enciende_la_medicion_no_una_constante():
           'v259: se compara contra NO usar curva, que es la pregunta util '
           'desde que la v251 hace el mismo trabajo antes')
 
+
+# ---------------------------------------------------------------------------
+# v260 — LA SONADORA, POR LIGA
+# ---------------------------------------------------------------------------
+def test_la_sonadora_filtra_por_liga():
+    """«Quiero que a las sonadoras se les pueda poner un filtro de liga, ya
+    sea todas o la que yo escoja.»
+
+    El filtro vive en `seleccionar` y no en la pantalla por el mismo motivo
+    que el de deporte: hacerlo arriba dejaria el reparto por mercado y por
+    liga calculado sobre el monton SIN filtrar, y los topes saldrian mal.
+
+    Va por el nombre VISIBLE de la liga y no por `clave_liga`: es lo que el
+    usuario ve y lo que el selector le ofrece, y filtrar por una clave interna
+    obligaria a mantener dos listas que se desincronizan.
+    """
+    import inspect
+    import patas_veredicto as pv
+
+    check('ligas' in inspect.signature(pv.seleccionar).parameters,
+          'v260: `seleccionar` acepta `ligas`')
+
+    r = {'pronosticos': [
+        {'partido': 'A vs B', 'deporte': 'Futbol', 'liga': 'LaLiga'},
+        {'partido': 'C vs D', 'deporte': 'Futbol', 'liga': 'LaLiga'},
+        {'partido': 'E vs F', 'deporte': 'Futbol', 'liga': 'Premier League'},
+        {'partido': 'G vs H', 'deporte': 'MLB', 'liga': 'MLB'},
+    ]}
+    def n(**kw):
+        return pv.seleccionar(r, **kw)['partidos_mirados']
+
+    check(n() == 4, 'v260: sin filtro entran todas')
+    check(n(ligas=None) == 4,
+          'v260: None es «todas», no «ninguna» — lo contrario dejaria vacia '
+          'la pantalla de quien no toque el control')
+    check(n(ligas=[]) == 4,
+          'v260: y la lista vacia igual, que es lo que devuelve un '
+          'multiselector sin marcar')
+    check(n(ligas=['LaLiga']) == 2, 'v260: una sola liga')
+    check(n(ligas=['LaLiga', 'Premier League']) == 3, 'v260: varias')
+    check(n(ligas=['  laliga ']) == 2,
+          'v260: compara sin mayusculas ni espacios de sobra')
+    check(n(ligas=['Serie A']) == 0,
+          'v260: una liga sin partidos da cero, y el motivo lo dice')
+    # los dos ejes se cruzan, no se pisan
+    check(n(deportes=['Futbol'], ligas=['MLB']) == 0,
+          'v260: deporte y liga se aplican LOS DOS — pedir futbol y la liga '
+          'de MLB no puede devolver los partidos de MLB')
+    check(n(deportes=['Futbol'], ligas=['LaLiga']) == 2,
+          'v260: y cuando son compatibles, cruzan bien')
+
+    # queda registrado en la salida, para que la pantalla pueda explicarse
+    s = pv.seleccionar(r, ligas=['LaLiga'])
+    check(s.get('ligas') == ['LaLiga'],
+          'v260: la salida dice con que filtro se armo')
+
+
+def test_una_sola_liga_no_acorta_el_boleto():
+    """La ayuda de la pantalla lo promete, asi que hay que comprobarlo.
+
+    `max_por_liga` vale 2 y existe por un motivo bueno: sin el, ocho patas de
+    la misma jornada fallan juntas. Pero si el usuario PIDE una sola liga, ese
+    tope convertiria un boleto de seis patas en uno de dos sin decir por que.
+
+    `_repartir` ya lo resuelve —hace una segunda pasada sin topes antes que
+    devolver un boleto corto— y esta prueba fija ese comportamiento, porque es
+    lo que sostiene la frase que se le ensena al usuario.
+    """
+    import patas_veredicto as pv
+
+    mismas = [{'partido': 'P%d' % i, 'liga': 'LaLiga', 'mercado': 'Goles',
+               'prob': 0.7 - i * 0.01, 'cuota': 1.5, 'verde': True}
+              for i in range(8)]
+    elegidas, topados = pv._repartir(mismas, 6, max_mercado=2, max_liga=2)
+    check(len(elegidas) == 6,
+          'v260: con una sola liga se llega a las 6 patas pedidas (%d)'
+          % len(elegidas))
+    check(topados,
+          'v260: y se marca que hubo que levantar los topes, que es lo que '
+          'permite avisar de la concentracion en vez de esconderla')
+
+
+def test_el_selector_de_ligas_sigue_al_de_deportes():
+    """
+    Ofrecer ligas que el filtro de deporte acaba de descartar es ofrecer un
+    boton que solo puede devolver vacio. Es la trampa que la v238 documento en
+    el selector de deportes del tablero, aplicada aqui antes de que ocurra.
+    """
+    import io as _io
+    s = _io.open('sonadora_ui.py', encoding='utf-8').read()
+    check("key='son_v_ligas'" in s, 'v260: existe el selector de ligas')
+    cuerpo = s.split('_cuenta_lig = {}')[1][:900]
+    check('_deps_v' in cuerpo,
+          'v260: la lista de ligas se construye respetando el filtro de '
+          'deportes de arriba')
+    check('ligas=list(_ligas_v) or None' in s,
+          'v260: y lo elegido viaja a `seleccionar`')
+    # el orden: la que mas juega, primero
+    check('-_cuenta_lig[k]' in s,
+          'v260: ordenadas por numero de partidos — la que mas juega es la '
+          'que mas probablemente se busca')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -21984,6 +22086,9 @@ if __name__ == '__main__':
     print(chr(10) + '=== v257: un menu en la sonadora y deporte multiple ===')
     test_la_sonadora_tiene_un_solo_armador()
     test_la_sonadora_elige_deportes()
+    test_la_sonadora_filtra_por_liga()
+    test_una_sola_liga_no_acorta_el_boleto()
+    test_el_selector_de_ligas_sigue_al_de_deportes()
     test_el_filtro_de_deporte_es_de_opcion_multiple()
 
     print(chr(10) + '=== v258: la curva por linea del mercado de goles ===')

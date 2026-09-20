@@ -197,7 +197,8 @@ def seleccionar(r: Dict, n_patas: int = 4,
                 max_partidos: int = 400,
                 max_por_mercado: int = 2,
                 max_por_liga: int = 2,
-                deportes: Optional[List[str]] = None) -> Dict:
+                deportes: Optional[List[str]] = None,
+                ligas: Optional[List[str]] = None) -> Dict:
     """Arma el boleto: una pata por partido, verdes primero.
 
     Devuelve siempre el mismo esquema y NUNCA lanza. Si no llega a `n_patas`
@@ -220,6 +221,20 @@ def seleccionar(r: Dict, n_patas: int = 4,
         if _q:
             pron = [p for p in pron
                     if str(p.get('deporte') or '').strip().lower() in _q]
+    # v260 - Y POR LIGA, QUE ES EL OTRO EJE QUE FALTABA.
+    #
+    # «Quiero que a las sonadoras se les pueda poner un filtro de liga, ya sea
+    # todas o la que yo escoja.»
+    #
+    # Va por el nombre visible (`liga`) y no por `clave_liga` porque es lo que
+    # el usuario ve en la pantalla y lo que el selector le ofrece: filtrar por
+    # una clave interna obligaria a mantener dos listas que se desincronizan.
+    # Lista vacia o None quiere decir TODAS, igual que en `deportes`.
+    if ligas:
+        _l = {str(x).strip().lower() for x in ligas if x}
+        if _l:
+            pron = [p for p in pron
+                    if str(p.get('liga') or '').strip().lower() in _l]
     if solo_principales:
         pron = [p for p in pron if _es_principal(p)]
     pron = pron[:max_partidos]
@@ -265,6 +280,8 @@ def seleccionar(r: Dict, n_patas: int = 4,
         'prob_total': round(prob, 4) if patas else None,
         'cuota_minima': cuota_minima,
         'solo_principales': bool(solo_principales),
+        'ligas': list(ligas or []),
+        'deportes': list(deportes or []),
         'completo': len(patas) == n_patas,
         'motivo': _motivo(len(patas), n_patas, len(verdes), len(rojas),
                           cuota_minima, solo_principales),

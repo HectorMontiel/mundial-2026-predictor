@@ -229,6 +229,53 @@ def render(st, r: Dict, dia: Optional[str] = None,
                       'barrido (%d partidos).'
                       % (len(_deps_disp), sum(_cuenta_son.values()))))
 
+        # v260 — Y POR LIGA.
+        #
+        # «Quiero que a las soñadoras se les pueda poner un filtro de liga,
+        # ya sea todas o la que yo escoja.»
+        #
+        # La lista SIGUE al filtro de deportes: si arriba se eligió MLB, aquí
+        # sólo salen competiciones de MLB. Ofrecer ligas que el filtro de
+        # arriba acaba de descartar sería ofrecer un botón que sólo puede
+        # devolver vacío, que es la trampa que la v238 documentó.
+        #
+        # Y sólo aparecen las que TIENEN partidos hoy, ordenadas por cuántos:
+        # la que más juega es la que más probablemente se busca.
+        _cuenta_lig = {}
+        for _p_l in (r.get('pronosticos') or []):
+            if not isinstance(_p_l, dict):
+                continue
+            if _deps_v and (_p_l.get('deporte') or '') not in _deps_v:
+                continue
+            _lg = str(_p_l.get('liga') or '').strip()
+            if _lg:
+                _cuenta_lig[_lg] = _cuenta_lig.get(_lg, 0) + 1
+        _ligas_disp = sorted(_cuenta_lig,
+                             key=lambda k: (-_cuenta_lig[k], k))
+        _ligas_v = []
+        if len(_ligas_disp) > 1:
+            _ligas_v = st.multiselect(
+                'Ligas', _ligas_disp, key='son_v_ligas',
+                format_func=lambda k: '%s · %d' % (k, _cuenta_lig.get(k, 0)),
+                placeholder='Todas las ligas',
+                help='Deja el campo vacío para que entren todas. Escribe '
+                     'para buscar. El tope de dos patas por competición se '
+                     'levanta solo si impide llegar a las patas que pediste, '
+                     'así que elegir una sola liga no acorta el boleto.') or []
+            st.caption(
+                ('Sólo **%s**.' % ' + '.join(_ligas_v)) if _ligas_v
+                else ('Sin marcar ninguna: entran **las %d competiciones** '
+                      'con partidos (%d en total).'
+                      % (len(_ligas_disp), sum(_cuenta_lig.values()))))
+            # Con una sola liga el boleto se concentra a propósito, y eso sube
+            # el riesgo de que falle todo a la vez: los partidos de una misma
+            # jornada comparten árbitro, clima y estado de la competición. Se
+            # dice aquí y además lo recoge el aviso de concentración de abajo.
+            if len(_ligas_v) == 1:
+                st.caption('⚠️ Con una sola competición, las patas fallan '
+                           'juntas más a menudo: comparten jornada, clima y '
+                           'estado de la liga.')
+
         # v257 — LOS PARTIDOS DE UN BOLETO VIVO NO SE REPITEN.
         #
         # Venía del armador manual y el caso lo trajo el usuario: Boyacá Chicó
@@ -272,7 +319,8 @@ def render(st, r: Dict, dia: Optional[str] = None,
             import patas_veredicto as _pv
             _sel = _pv.seleccionar(_r_libre, int(_n_v), float(_cuota_v),
                                    bool(_princ_v),
-                                   deportes=list(_deps_v) or None)
+                                   deportes=list(_deps_v) or None,
+                                   ligas=list(_ligas_v) or None)
             if _sel['patas']:
                 _c1, _c2, _c3 = st.columns(3)
                 _c1.metric('Cuota del boleto', '%.2f' % (_sel['cuota_total'] or 0))
@@ -385,12 +433,16 @@ def render(st, r: Dict, dia: Optional[str] = None,
                         logger.exception('[sonadora] registrar parlay')
                         st.caption('No se pudo apuntar el boleto (%s).'
                                    % type(_e_reg).__name__)
-            elif _deps_v:
+            elif _deps_v or _ligas_v:
                 # Un «no hay patas» a secas, con un filtro puesto, se lee como
                 # un fallo del modelo. Casi siempre es el filtro.
-                st.info('%s — con el filtro de deporte puesto (%s). Quita '
-                        'deportes del filtro o baja la cuota mínima.'
-                        % (_sel['motivo'], ' + '.join(_deps_v)))
+                _puesto = ' y '.join(
+                    x for x in (('deporte (%s)' % ' + '.join(_deps_v))
+                                if _deps_v else '',
+                                ('liga (%s)' % ' + '.join(_ligas_v))
+                                if _ligas_v else '') if x)
+                st.info('%s — con el filtro de %s puesto. Quita filtros o '
+                        'baja la cuota mínima.' % (_sel['motivo'], _puesto))
             else:
                 st.info(_sel['motivo'])
         except Exception as _e_pv:
