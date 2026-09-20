@@ -2945,7 +2945,8 @@ def _dia_de(pronosticos: List[Dict]) -> str:
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 200, con_apuesta: bool = True,
            titulo: str = '⚽ Partidos de hoy',
-           dia: Optional[str] = None, pintar: bool = True) -> None:
+           dia: Optional[str] = None, pintar: bool = True,
+           filtro: Optional[Callable] = None) -> None:
     """
     La lista de partidos, con sus filtros y su orden.
 
@@ -2995,6 +2996,27 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
             # estuviera vacía y mientras su `fecha` fuera del mismo día que el
             # rótulo, y ninguna de las dos cosas está garantizada.
             jugados = partidos_jugados.de_dia(dia or _dia_de(pronosticos))
+            # v232 — LOS FILTROS DE ARRIBA TAMBIÉN MANDAN AQUÍ.
+            #
+            # `pronosticos` llega YA filtrado por deporte, grupo y liga: quien
+            # llama aplica `_filtra` antes de entregarlo. Estos partidos NO
+            # pasan por ahí porque se piden aquí dentro, así que entraban los
+            # de las 62 competiciones.
+            #
+            # El sintoma que reportó el usuario: con «Liga MX» elegido, «Sin
+            # jugar» enseñaba 1 partido y «Finalizados» enseñaba 199 de todas
+            # las ligas. El filtro funcionaba; lo que pasaba es que la mitad de
+            # la lista se incorporaba después de aplicarlo.
+            #
+            # Se pasa el MISMO predicado en vez de reconstruirlo aquí: dos
+            # copias del criterio divergen en cuanto una cambie, y este fichero
+            # ya arrastra esa lección de los córners.
+            if filtro is not None and jugados:
+                antes = len(jugados)
+                jugados = list(filtro(jugados) or [])
+                if antes != len(jugados):
+                    logger.info('[modo_modelo] jugados: %d de %d tras los '
+                                'filtros de la vista', len(jugados), antes)
         except Exception as e:
             logger.debug('[modo_modelo] partidos jugados: %s', e)
 

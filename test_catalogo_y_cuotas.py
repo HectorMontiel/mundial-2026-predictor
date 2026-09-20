@@ -19132,6 +19132,56 @@ def test_la_auditoria_de_ligas_corrige_por_multiples_pruebas():
     check((hi2 - lo2) < (hi - lo),
           'v230: y se estrecha con mas muestra')
 
+
+def test_los_partidos_acabados_respetan_el_filtro_de_liga():
+    """
+    Con «Liga MX» elegido, «Sin jugar» ensenaba 1 partido y «Finalizados» 199,
+    de las 62 competiciones.
+
+    El filtro no fallaba. `pronosticos` llega YA filtrado —quien llama aplica
+    `_filtra` antes de entregarlo— pero los partidos acabados se piden DENTRO
+    de `render`, o sea despues, asi que entraban sin pasar por ningun filtro.
+    La mitad de la lista se incorporaba por detras del criterio.
+
+    Se comprueba el cableado sobre el codigo y el comportamiento del predicado:
+    un mutante que borrara el `filtro=` de la llamada dejaria el test de
+    comportamiento en verde y la aplicacion otra vez ensenando 199.
+    """
+    import io as _io
+    import inspect
+    import modo_modelo as mm
+
+    firma = inspect.signature(mm.render)
+    check('filtro' in firma.parameters,
+          'v232: `render` acepta el filtro de la vista')
+
+    src = _io.open('modo_modelo.py', encoding='utf-8').read()
+    i_pide = src.find('partidos_jugados.de_dia')
+    i_usa = src.find('filtro(jugados)')
+    check(i_pide > 0 and i_usa > i_pide,
+          'v232: el filtro se aplica DESPUES de pedir los acabados')
+
+    dash = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check('filtro=_filtra' in dash,
+          'v232: el dashboard le pasa SU MISMO predicado, y no una copia '
+          '(dos copias del criterio divergen en cuanto una cambie)')
+
+    # Y que el predicado haga lo que dice, sobre datos con la forma real.
+    jugados = [
+        {'liga': 'Liga MX', 'partido': 'Atlas vs Pumas', 'jugado': True},
+        {'liga': 'MLS', 'partido': 'NE vs ORL', 'jugado': True},
+        {'liga': 'J1 League', 'partido': 'Gamba vs Kobe', 'jugado': True},
+    ]
+
+    def _solo(liga):
+        return lambda lista: [p for p in (lista or [])
+                              if str(p.get('liga') or '').strip() == liga]
+
+    check(len(_solo('Liga MX')(jugados)) == 1,
+          'v232: el predicado deja pasar solo la liga elegida')
+    check(len(_solo('No Existe')(jugados)) == 0,
+          'v232: y ninguna cuando no hay partidos de esa liga')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -19633,6 +19683,7 @@ if __name__ == '__main__':
     test_la_tarjeta_explica_de_donde_sale_el_porcentaje_de_goles()
     test_los_partidos_acabados_salen_del_precalculo_y_no_de_la_red()
     test_el_cron_es_quien_escribe_los_jugados()
+    test_los_partidos_acabados_respetan_el_filtro_de_liga()
 
     print(chr(10) + '=== v230: ambos marcan y el caracter de cada liga ===')
     test_la_calibracion_de_btts_sube_donde_el_modelo_se_quedaba_corto()

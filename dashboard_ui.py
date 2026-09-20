@@ -7069,8 +7069,11 @@ def render_alpha_finder():
             # junta en una, y su `__exit__` garantiza el volcado aunque el
             # cuerpo lance.
             with _pgl.lote():
+                # v232 — el MISMO filtro para los partidos acabados, que se
+                # piden dentro de `render` y por tanto no pasaban por `_filtra`.
                 _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
-                           dia=_HOY_S, pintar=(_vista == 'hoy'))
+                           dia=_HOY_S, pintar=(_vista == 'hoy'),
+                           filtro=_filtra)
         except Exception as _e_mm:
             logger.exception('[modo_modelo] fallo al pintar')
             st.caption(f"La lista de apuestas no está disponible "
