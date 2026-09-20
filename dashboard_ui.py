@@ -5827,6 +5827,22 @@ def render_alpha_finder():
         if _d:
             _cuenta_dep[_d] = _cuenta_dep.get(_d, 0) + 1
     _presentes = {d for d, n in _cuenta_dep.items() if n > 0}
+    # v238 — UN DEPORTE CON PARTIDOS HOY NO DESAPARECE AUNQUE EL BARRIDO FALLE.
+    #
+    # La v236 dejo que el boton saliera solo si el deporte tenia PICKS, y eso
+    # convirtio un fallo pasajero en una desaparicion silenciosa: el cron de
+    # las 07:21 UTC pillo el tablero de MLB cuando aun traia sobre todo KBO y
+    # NPB, no reconocio ni un equipo, y la MLB se esfumo de la pantalla un
+    # domingo con quince partidos programados.
+    #
+    # `deportes_con_juego` sale del CALENDARIO, no de los picks, asi que no
+    # depende de que las casas hayan abierto lineas ni de que el modelo
+    # reconozca los nombres. Con el se distinguen dos cosas que hasta ahora se
+    # veian igual: «no hay partidos» (el boton no sale, que es lo que se pidio)
+    # y «hay partidos y cero picks» (el boton sale, y la lista dira por que).
+    _con_juego = {d for d, n in (r.get('deportes_con_juego') or {}).items()
+                  if n}
+    _presentes |= _con_juego
     # v236 — UN DEPORTE SIN PARTIDOS NO TIENE BOTÓN.
     #
     # Antes los cinco principales salían SIEMPRE, con partidos o sin ellos. La
@@ -7104,9 +7120,16 @@ def render_alpha_finder():
             with _pgl.lote():
                 # v232 — el MISMO filtro para los partidos acabados, que se
                 # piden dentro de `render` y por tanto no pasaban por `_filtra`.
+                # v238 — cuantos partidos hay HOY del deporte elegido, para
+                # que una lista vacia pueda decir «los hay, no los tenemos aun»
+                # en vez de «no hay partidos que cumplan el filtro».
+                _juego_hoy = 0
+                if _dep_sel != 'Todo':
+                    _juego_hoy = int((r.get('deportes_con_juego') or {})
+                                     .get(_dep_sel) or 0)
                 _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
                            dia=_HOY_S, pintar=(_vista == 'hoy'),
-                           filtro=_filtra)
+                           filtro=_filtra, juego_hoy=_juego_hoy)
         except Exception as _e_mm:
             logger.exception('[modo_modelo] fallo al pintar')
             st.caption(f"La lista de apuestas no está disponible "

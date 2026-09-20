@@ -61,6 +61,23 @@ def _cargar_alias() -> Dict[str, str]:
                           for k, v in json.load(f).items()}
         except Exception:
             _alias = {}
+        # v238 — Y LOS QUE SE DEDUJERON SOLOS, DEBAJO DE LOS MANUALES.
+        #
+        # `alias_nombres` mira los «sin mapear» ya registrados y se queda con
+        # los que son deducibles: «Nahuel Banegas» contra «Nahuel Eugenio
+        # Banegas» es la misma persona con el segundo nombre puesto, y eso se
+        # comprueba —no se estima— viendo que todo lo que dice el corto lo
+        # confirma el largo.
+        #
+        # `setdefault` y no `update`: lo escrito a mano MANDA. Un alias
+        # verificado por una persona no puede quedar pisado por una deduccion,
+        # por buena que sea la regla.
+        try:
+            import alias_nombres as _an
+            for _k, _v in (_an.tabla() or {}).items():
+                _alias.setdefault(normalizar(_k), [_v])
+        except Exception as _e:
+            logger.debug('[name_mapper] alias automaticos: %s', _e)
     return _alias
 
 
@@ -253,7 +270,15 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
             mejor, ratio = c, s
     if ratio >= umbral:
         return mejor
-    _fallos[nombre] = contexto or '?'
+    # v238 — SE GUARDA EL MEJOR CANDIDATO, NO SOLO EL FALLO.
+    #
+    # El log ya lo imprimia —«mejor candidato 'Nahuel Eugenio Banegas' con
+    # 0.78»— y luego lo tiraba. Guardarlo es lo que permite que `alias_nombres`
+    # deduzca el alias despues, sin volver a tener el catalogo delante: con el
+    # par (nombre, candidato) se puede comprobar si son la misma persona
+    # escrita de otra forma, que es una pregunta que se contesta sola.
+    _fallos[nombre] = {'contexto': contexto or '?',
+                       'candidato': mejor, 'ratio': round(float(ratio), 4)}
     # v115 — UN FALLO QUE SE REPITE CIEN VECES DEJA DE SER INFORMACIÓN.
     #
     # Esto emitía una línea POR INTENTO, y `buscar_event_id` compara cada
@@ -336,7 +361,12 @@ def volcar_fallos() -> int:
         except Exception:
             pass
     for k, ctx in _fallos.items():
-        previos[k] = {'contexto': ctx, 'visto': hoy}
+        # el formato viejo era un string suelto; se admiten los dos para que
+        # un fichero de antes no rompa el volcado de hoy
+        if isinstance(ctx, dict):
+            previos[k] = dict(ctx, visto=hoy)
+        else:
+            previos[k] = {'contexto': ctx, 'visto': hoy}
     with open(ARCHIVO_FALLOS, 'w', encoding='utf-8') as f:
         json.dump(previos, f, ensure_ascii=False, indent=2)
     return len(_fallos)

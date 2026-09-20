@@ -2912,7 +2912,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 200, con_apuesta: bool = True,
            titulo: str = '⚽ Partidos de hoy',
            dia: Optional[str] = None, pintar: bool = True,
-           filtro: Optional[Callable] = None) -> None:
+           filtro: Optional[Callable] = None, juego_hoy: int = 0) -> None:
     """
     La lista de partidos, con sus filtros y su orden.
 
@@ -3227,6 +3227,20 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                 'Ninguna de las **%d** competiciones de esta lista publica '
                 'córners y tarjetas observados. Desmarca «Sólo con córners y '
                 'tarjetas» para verlas todas.' % _antes_de_filtrar)
+        elif not _antes_de_filtrar and juego_hoy:
+            # v238 — HAY PARTIDOS Y NO HAY PICKS: SE DICE, NO SE CALLA.
+            #
+            # Antes este caso salia como «No hay partidos que cumplan el
+            # filtro», que es falso y ademas manda a tocar los filtros. Lo que
+            # pasa es otra cosa: el calendario dice que hoy SI se juega, y el
+            # barrido no pudo sacar nada de ese deporte —porque las casas aun
+            # no abrieron linea, o porque el tablero venia con otra liga
+            # dentro—. Distinguirlo es la diferencia entre «no hay» y «no lo
+            # tenemos todavia».
+            st.info(
+                'Hoy hay **%d** partidos de este deporte, pero el pronóstico '
+                'todavía no los recoge: las casas abren línea unas horas antes '
+                'y el cálculo corre cada 3 h. Vuelve más tarde.' % juego_hoy)
         else:
             st.info('No hay partidos que cumplan el filtro.')
     elif pintar:

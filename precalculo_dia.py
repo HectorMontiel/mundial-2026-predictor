@@ -348,6 +348,44 @@ def main() -> int:
     except Exception as e:
         logger.warning('[precalculo] alias no actualizados: %s', e)
 
+    # v238 — y los de PERSONA: jugadores de futbol, lanzadores, tenistas.
+    #
+    # Se alimenta de los «sin mapear» que `name_mapper` ya registraba y tiraba.
+    # Va aqui, con los de equipo, porque los dos son lo mismo: el catalogo se
+    # amplia solo en vez de esperar a que alguien edite un JSON a mano.
+    try:
+        import alias_nombres as _an
+        logger.info('alias de nombre conocidos: %d', _an.actualizar())
+    except Exception as e:
+        logger.warning('[precalculo] alias de nombre no actualizados: %s', e)
+
+    # v238 — EL TABLERO DE LA CASA, CADA 3 h Y NO UNA VEZ AL DIA.
+    #
+    # `mercado_dia.json` lo generaba SOLO `retrain_leagues.yml`, con cron a las
+    # 05:30 UTC. El precalculo corre cada 3 h y lee ese fichero, asi que los
+    # precios de la casa llegaban con hasta 24 h de retraso — y, peor, con el
+    # emparejador VIEJO: los arreglos de nombre de la v235 (la «o» nordica, los
+    # exonimos como Napoles/Napoli) no llegaban a la pantalla hasta el dia
+    # siguiente.
+    #
+    # Medido: regenerandolo con el emparejador arreglado, Fiorentina-Napoli
+    # pasa de UNA linea de goles a la escalera entera, mas doble oportunidad y
+    # BTTS. Esa era la tarjeta de una sola apuesta roja que el usuario reporto.
+    #
+    # Cuesta ~73 s medidos, dentro de un workflow con 45 min de margen. Va
+    # ANTES del barrido: `construir()` lee este fichero.
+    try:
+        import mercado_implicito as _mi
+        _doc = _mi.precalcular(dias=2)
+        if (_doc.get('partidos') or {}):
+            _mi.guardar(_doc)
+            logger.info('tablero de la casa: %d partidos',
+                        len(_doc['partidos']))
+        else:
+            logger.warning('[precalculo] tablero vacio: se conserva el previo')
+    except Exception as e:
+        logger.warning('[precalculo] tablero no regenerado: %s', e)
+
     datos = construir()
 
     # v222 — SE ARCHIVA EL CONTEXTO AQUÍ, Y NO EN LA PANTALLA.

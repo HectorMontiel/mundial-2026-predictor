@@ -541,8 +541,57 @@ class MLBEngine(BaseSportsEngine):
         # «Uni-President Lions» y «Uni-President 7-Eleven Lions» contaban como
         # equipos distintos) y esos partidos llegaban a la Capa 1 etiquetados
         # como MLB.
+        # v239 — EL UNIVERSO EMPIEZA POR EL CALENDARIO, NO POR LAS CASAS.
+        #
+        # Hasta aqui salia SOLO de los tableros: si la casa no habia abierto
+        # linea, el modelo no predecia ese partido. Y eso no tiene por que ser
+        # asi — el modelo conoce a los dos equipos y sabe quien lanza; lo unico
+        # que necesita la cuota es el EV, no la prediccion.
+        #
+        # El usuario lo dijo exacto: «¿por que habria partidos y cero picks?
+        # Eso ya deberia tener pronostico».
+        #
+        # Lo que pasaba, medido: el cron de las 07:21 UTC pillo el tablon de
+        # «mlb» cuando todavia traia sobre todo KBO y NPB. De las entradas que
+        # quedaron tras el filtro, NINGUNA era MLB, asi que el universo salio
+        # vacio y la MLB desaparecio de la pantalla un domingo con quince
+        # partidos programados.
+        #
+        # El calendario oficial no depende de eso: es gratuito, sin clave, trae
+        # los codigos canonicos ya puestos y el abridor probable. Se siembra con
+        # el y las casas ENRIQUECEN lo que ya esta. Asi un partido sin cuota
+        # sale igual, con su probabilidad y sin EV, que es lo que el futbol ya
+        # hace desde la v49 con `_mercados_modelo`.
         universo = {}
         fuera_mlb = 0
+        try:
+            import mlb_statsapi as _msa
+            for _p in (_msa.partidos_del_dia() or []):
+                _h, _a = _p.get('home'), _p.get('away')
+                if not (_h and _a):
+                    continue
+                # el calendario ya da el codigo canonico; `codigo_mlb` lo deja
+                # igual y de paso admite que algun dia venga el nombre largo
+                _ch, _ca = codigo_mlb(_h), codigo_mlb(_a)
+                # EL NOMBRE COMPLETO, NO EL CODIGO.
+                #
+                # El calendario da «TEX»/«TOR», y `cuotas_partido` empareja por
+                # NOMBRE contra el tablon de cada casa: con el codigo no casa
+                # ninguna. Medido: Toronto @ Texas tenia cuota en Unibet y
+                # salia «sin cuota» por esto. `CODIGO_A_NOMBRE` es la misma
+                # tabla que usa `todos` unas lineas mas abajo para pintarlo.
+                universo[(_ch, _ca)] = {
+                    'home': CODIGO_A_NOMBRE.get(_ch, _h),
+                    'away': CODIGO_A_NOMBRE.get(_ca, _a),
+                    'fecha': _p.get('fecha'), 'origen': 'calendario'}
+            if universo:
+                logger.info('[mlb] %d partidos del calendario oficial',
+                            len(universo))
+        except Exception as e:
+            logger.warning('[mlb] calendario no disponible (%s: %s); se usa '
+                           'solo el tablon de las casas',
+                           type(e).__name__, e)
+
         for idx in (cm._indice('mlb'), cm._indice_bov('mlb'), cm._indice_pdt('mlb')):
             for v in (idx or {}).values():
                 if not (v.get('home') and v.get('away')):
@@ -551,7 +600,10 @@ class MLBEngine(BaseSportsEngine):
                     fuera_mlb += 1
                     continue
                 clave = (codigo_mlb(v['home']), codigo_mlb(v['away']))
-                universo.setdefault(clave, v)
+                # las casas ENRIQUECEN: si el calendario ya lo trajo, se queda
+                # la entrada de la casa —lleva la hora exacta y el nombre que
+                # ella usa, que es lo que `cuotas_partido` necesita despues—
+                universo[clave] = v
         if fuera_mlb:
             # v91: filtrar las ligas ajenas (LMB/NPB/KBO/CPBL/AAA) es la
             # OPERACIÓN NORMAL del guardarraíl de la v88, no una incidencia —

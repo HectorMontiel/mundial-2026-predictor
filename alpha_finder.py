@@ -1930,6 +1930,58 @@ def _totales_mlb(eng, picks) -> int:
     return n
 
 
+
+def deportes_con_juego_hoy() -> Dict[str, int]:
+    """`{deporte: partidos programados hoy}`, del CALENDARIO y no de los picks.
+
+    v238 — POR QUE ESTO ES DISTINTO DE `deportes_cubiertos`.
+
+    `deportes_cubiertos` sale de los picks: si el barrido no saca ninguno, el
+    deporte no aparece. Eso convirtio un fallo PASAJERO en una desaparicion
+    silenciosa: el cron de las 07:21 UTC pillo el tablero de MLB cuando todavia
+    traia sobre todo KBO y NPB, los once partidos que quedaron tras filtrar no
+    se reconocieron, y la MLB se esfumo de la pantalla un domingo en el que se
+    jugaban quince partidos. Media hora despues habria salido bien.
+
+    El calendario no depende de que las casas hayan abierto sus lineas ni de
+    que el modelo reconozca los nombres: dice cuantos partidos HAY. Con eso, el
+    filtro puede distinguir dos cosas que hasta ahora se veian igual:
+
+        no hay partidos          -> el boton no sale, que es lo que se pidio
+        hay partidos y 0 picks   -> el boton sale, y la lista dice por que
+
+    Nunca lanza: una fuente caida devuelve 0 para su deporte y las demas
+    siguen. Un calendario incompleto es mejor que ninguno.
+    """
+    fuera: Dict[str, int] = {}
+
+    def _cuenta(deporte, fn):
+        try:
+            n = int(fn() or 0)
+            if n > 0:
+                fuera[deporte] = n
+        except Exception as e:
+            logger.debug('[alpha/juego] %s: %s: %s', deporte,
+                         type(e).__name__, e)
+
+    def _mlb():
+        import mlb_statsapi as _m
+        return len(_m.partidos_del_dia() or [])
+
+    def _nfl():
+        import nfl_datos as _n
+        return len(_n.fixtures_nfl(dias=1) or [])
+
+    def _tenis():
+        import fixtures_espn as _f
+        return len(_f.fixtures_deporte('tenis', 1) or [])
+
+    _cuenta('MLB', _mlb)
+    _cuenta('NFL', _nfl)
+    _cuenta('Tenis', _tenis)
+    return fuera
+
+
 def _picks_mlb() -> Dict[str, List[Dict]]:
     """
     MLB con la capa de cuotas sin límite (Pinnacle + Bovada + Playdoit).
@@ -2045,10 +2097,15 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         # esta función: pedirle la plantilla es una predicción más, y hacerlo
         # en el render sería devolver al navegador el cálculo que la v220 le
         # quitó.
-        _totales_mlb(eng, capa1)
-        _totales_mlb(eng, _conf)
-        # v237 — y su PRECIO, que es lo que los convierte en apuesta.
+        # v239 — A TODOS, no solo a las dos capas.
+        #
+        # `_totales_mlb` se llamaba sobre `capa1` y `capa2`, que son los picks
+        # que pasan un filtro. La lista que la pantalla pinta es `todos`, asi
+        # que los quince partidos del dia salian SIN su escalera de carreras
+        # aunque el motor la tuviera calculada.
         _todos_mlb = list(capa1) + list(_conf) + list(r.get('todos') or [])
+        _totales_mlb(eng, _todos_mlb)
+        # y su PRECIO, que es lo que los convierte en apuesta (v237)
         _cuotas_de_totales(_todos_mlb, 'mlb')
 
         # v98: el contador de «partidos evaluados» de la cabecera sumaba
@@ -4560,6 +4617,10 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               'partidos_evaluados': evaluados_dep,
               'cobertura_ligas': cobertura_dep,
               'no_enlazados': no_enlazados, 'deportes_cubiertos': deportes,
+              # v238 — los que TIENEN partidos hoy, salgan o no
+              # picks. Sin esto, un fallo pasajero de una fuente hace
+              # desaparecer el deporte entero de la pantalla.
+              'deportes_con_juego': deportes_con_juego_hoy(),
               # v91: los partidos con cuota que el modelo no cubre salen como
               # tarjeta con precio real, no como lista de texto.
               'sin_modelo': sorted(sin_modelo,

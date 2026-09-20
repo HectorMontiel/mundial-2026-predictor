@@ -118,7 +118,7 @@ jobs:
           #
           # El bucle anade lo que hay y se salta lo que no, sin tragarse un
           # fallo real en los ficheros que SI estan.
-          for _f in pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json; do
+          for _f in pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

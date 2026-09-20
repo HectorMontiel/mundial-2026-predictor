@@ -19612,6 +19612,202 @@ def test_los_textos_que_solo_ocupaban_sitio_se_fueron():
     check('Pick del Día' in d,
           'v237: pero cuando SI lo hay, se sigue anunciando')
 
+
+# ---------------------------------------------------------------------------
+# v238 — UN FALLO PASAJERO NO PUEDE BORRAR UN DEPORTE
+# ---------------------------------------------------------------------------
+def test_un_deporte_con_partidos_hoy_no_desaparece():
+    """
+    La v236 dejo que el boton saliera solo si el deporte tenia PICKS, y eso
+    convirtio un fallo pasajero en una desaparicion silenciosa.
+
+    Medido: el cron de las 07:21 UTC pillo el tablero de MLB cuando todavia
+    traia sobre todo KBO y NPB, no reconocio ni un equipo —«0 evaluados por el
+    modelo»— y la MLB se esfumo de la pantalla un domingo con QUINCE partidos
+    programados. Media hora despues habria salido bien.
+
+    El calendario no depende de que las casas hayan abierto linea ni de que el
+    modelo reconozca los nombres: dice cuantos partidos HAY.
+    """
+    import io as _io
+    import alpha_finder as af
+
+    check(hasattr(af, 'deportes_con_juego_hoy'),
+          'v238: el barrido sabe que deportes juegan hoy')
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check("_presentes |= _con_juego" in d,
+          'v238: y el filtro lo usa, ademas de los picks')
+    i_pres = d.find('_presentes = {d for d, n in _cuenta_dep')
+    i_union = d.find('_presentes |= _con_juego')
+    check(i_pres > 0 and i_union > i_pres,
+          'v238: se suma DESPUES de contar los picks, no en su lugar')
+    # y la lista vacia lo dice, en vez de mandar a tocar filtros
+    m = _io.open('modo_modelo.py', encoding='utf-8').read()
+    check('todavía no los recoge' in m,
+          'v238: con partidos y cero picks, la lista explica por que esta '
+          'vacia en vez de decir «no hay partidos que cumplan el filtro»')
+
+
+def test_el_tablero_de_la_casa_se_regenera_con_el_precalculo():
+    """
+    `mercado_dia.json` lo generaba SOLO el reentrenamiento diario (05:30 UTC),
+    y de el salen las lineas de goles, la doble oportunidad y el BTTS.
+
+    Eso tenia dos consecuencias: los precios llegaban con hasta 24 h, y —peor—
+    los arreglos de nombre de la v235 no llegaban a la pantalla hasta el dia
+    siguiente. Medido: regenerandolo con el emparejador arreglado,
+    Fiorentina-Napoli pasa de UNA linea de goles a la escalera entera.
+    """
+    import io as _io
+    p = _io.open('precalculo_dia.py', encoding='utf-8').read()
+    i_tab = p.find('mercado_implicito')
+    i_barrido = p.find('datos = construir()')
+    check(i_tab > 0, 'v238: el precalculo regenera el tablero')
+    check(i_barrido > i_tab,
+          'v238: y lo hace ANTES del barrido, que es quien lo lee')
+    check('se conserva el previo' in p,
+          'v238: si sale vacio NO se pisa el que habia (un tablero vacio es '
+          'peor que uno de hace tres horas)')
+    y = _io.open('.github/workflows/precalculo_dia.yml', encoding='utf-8').read()
+    check('mercado_dia.json' in y,
+          'v238: y el workflow lo commitea')
+
+
+# ---------------------------------------------------------------------------
+# v238 — EL DICCIONARIO DE NOMBRES SE AMPLIA SOLO
+# ---------------------------------------------------------------------------
+def test_los_alias_de_persona_se_deducen_no_se_estiman():
+    """
+    El log se llenaba de «sin mapear», y entre ellos habia dos cosas muy
+    distintas que un umbral no distingue:
+
+        'Nahuel Banegas'  -> 'Nahuel Eugenio Banegas'  la MISMA persona
+        'Lucas Acosta'    -> 'Lucas Castro'            dos personas
+
+    Y el parecido de letras no ayuda: el segundo par puntua MAS alto que el
+    primero en algunas cadenas. La regla no mira parecido, mira que todo lo
+    que dice el nombre corto lo confirme el largo.
+    """
+    import alias_nombres as an
+
+    aceptan = [
+        ('Nahuel Banegas', 'Nahuel Eugenio Banegas'),
+        ('Manuel Guillén', 'Manuel Agustin Guillen'),
+        ('Dardo Federico Miloc', 'Dardo Miloc'),
+        ('Andres Román', 'Andres Felipe Roman Mosquera'),
+        ('Mensik J.', 'Jakub Mensik'),          # tenis: apellido primero
+        ('José González', 'José De Jesús González'),
+    ]
+    for a, b in aceptan:
+        ok, motivo = an.deducible(a, b)
+        check(ok, 'v238: «%s» y «%s» son la misma persona (%s)' % (a, b, motivo))
+
+    rechazan = [
+        ('Lucas Acosta', 'Lucas Castro'),        # mismo nombre, otro apellido
+        ('Eduardo Salvio', 'Agustín Cardozo'),   # nada en comun
+        ('Nacho Rodríguez', 'Mateo Urrutia'),
+        ('Doka', 'Klaus'),                       # una sola palabra
+        ('Índio', 'Diego'),
+    ]
+    for a, b in rechazan:
+        ok, motivo = an.deducible(a, b)
+        check(not ok,
+              'v238: «%s» y «%s» NO se emparejan (%s)' % (a, b, motivo))
+
+
+def test_un_nombre_de_una_sola_palabra_nunca_genera_alias():
+    """
+    Es donde un alias falso hace mas dano: sin apellido no hay nada que
+    confirmar, y el fuzzy da 0,44 entre «Doka» y «Klaus» igual que entre dos
+    nombres que si lo son.
+    """
+    import alias_nombres as an
+    for a, b in (('Doka', 'Klaus'), ('Moraes', 'Mikael'), ('Índio', 'Diego'),
+                 ('Neymar', 'Neymar Jr')):
+        ok, motivo = an.deducible(a, b)
+        check(not ok, 'v238: «%s» no genera alias (%s)' % (a, motivo))
+
+
+def test_el_diccionario_manual_manda_sobre_el_deducido():
+    """
+    Un alias verificado por una persona no puede quedar pisado por una
+    deduccion, por buena que sea la regla.
+    """
+    import io as _io
+    s = _io.open('name_mapper.py', encoding='utf-8').read()
+    check('alias_nombres' in s,
+          'v238: `name_mapper` carga los alias deducidos')
+    check('setdefault' in s[s.find('alias_nombres') - 400:
+                            s.find('alias_nombres') + 400],
+          'v238: y con `setdefault`, o sea sin pisar los manuales')
+
+
+def test_el_fallo_de_mapeo_guarda_su_mejor_candidato():
+    """
+    Sin eso, deducir el alias despues exigiria volver a tener el catalogo
+    delante. El log ya lo imprimia y luego lo tiraba.
+    """
+    import io as _io
+    s = _io.open('name_mapper.py', encoding='utf-8').read()
+    i = s.find('_fallos[nombre]')
+    check(i > 0, 'v238: se registra el fallo')
+    check("'candidato'" in s[i:i + 300],
+          'v238: y con el mejor candidato dentro')
+    # el volcado tiene que admitir el formato viejo, o un fichero de antes
+    # rompe la pasada de hoy
+    check('isinstance(ctx, dict)' in s,
+          'v238: el volcado admite el formato viejo y el nuevo')
+
+
+def test_el_pronostico_de_mlb_sale_del_calendario_no_de_las_casas():
+    """
+    «¿Por que habria partidos y cero picks? Eso ya deberia tener pronostico.»
+
+    El universo de MLB se construia SOLO desde los tableros de las casas, asi
+    que si ninguna habia abierto linea el modelo ni siquiera PREDECIA el
+    partido — aunque conoce a los dos equipos y sabe quien lanza. La cuota hace
+    falta para el EV, no para el pronostico.
+
+    Lo que provoco: el cron de las 07:21 UTC pillo el tablon de «mlb» cuando
+    todavia traia sobre todo KBO y NPB. Tras el filtro no quedo ni un partido
+    de MLB, el universo salio vacio, y la MLB desaparecio de la pantalla un
+    domingo con QUINCE partidos programados.
+    """
+    import io as _io
+    s = _io.open('engines/mlb_engine.py', encoding='utf-8').read()
+    i_uni = s.find('universo = {}')
+    check(i_uni > 0, 'v239: existe la construccion del universo')
+    tramo = s[i_uni:i_uni + 2500]
+    check('partidos_del_dia' in tramo,
+          'v239: el universo se siembra con el calendario oficial')
+    i_cal = tramo.find('partidos_del_dia')
+    i_casas = tramo.find("cm._indice('mlb')")
+    check(i_cal > 0 and i_casas > i_cal,
+          'v239: el calendario va PRIMERO y las casas enriquecen despues '
+          '(al reves, un tablon vacio volveria a borrar el deporte)')
+    check('universo[clave] = v' in tramo,
+          'v239: la entrada de la casa pisa a la del calendario, porque lleva '
+          'la hora exacta y el nombre que `cuotas_partido` necesita')
+
+
+def test_los_totales_de_mlb_llegan_a_TODOS_los_partidos():
+    """
+    `_totales_mlb` se llamaba sobre `capa1` y `capa2`, que son los picks que
+    pasan un filtro. La lista que la pantalla pinta es `todos`, asi que los
+    quince partidos del dia salian sin su escalera de carreras aunque el motor
+    la tuviera calculada.
+    """
+    import io as _io
+    s = _io.open('alpha_finder.py', encoding='utf-8').read()
+    i = s.find('_todos_mlb = ')
+    check(i > 0, 'v239: se arma la lista completa')
+    tramo = s[i:i + 400]
+    check('_totales_mlb(eng, _todos_mlb)' in tramo,
+          'v239: y los totales del modelo se cuelgan de ELLA, no solo de las '
+          'dos capas')
+    check("_cuotas_de_totales(_todos_mlb, 'mlb')" in tramo,
+          'v239: igual que su precio')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -20144,6 +20340,16 @@ if __name__ == '__main__':
     test_las_cuotas_de_total_no_se_fian_del_orden()
     test_el_reparto_de_validadores_no_pierde_cobertura()
     test_los_textos_que_solo_ocupaban_sitio_se_fueron()
+
+    print(chr(10) + '=== v238: deportes, tablero y diccionario de nombres ===')
+    test_un_deporte_con_partidos_hoy_no_desaparece()
+    test_el_tablero_de_la_casa_se_regenera_con_el_precalculo()
+    test_los_alias_de_persona_se_deducen_no_se_estiman()
+    test_un_nombre_de_una_sola_palabra_nunca_genera_alias()
+    test_el_diccionario_manual_manda_sobre_el_deducido()
+    test_el_fallo_de_mapeo_guarda_su_mejor_candidato()
+    test_el_pronostico_de_mlb_sale_del_calendario_no_de_las_casas()
+    test_los_totales_de_mlb_llegan_a_TODOS_los_partidos()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
