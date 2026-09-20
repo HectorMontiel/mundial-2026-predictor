@@ -243,7 +243,25 @@ def barrido(calcular, forzar: bool = False):
 
     if _pre is not None and (not forzar or _forzar_relee):
         try:
-            _d = _pre.leer()
+            _d = None
+            if _forzar_relee:
+                # v233 — FORZAR VA A LA RED, PORQUE EL DISCO NO CAMBIA.
+                #
+                # La v226 hizo que forzar RELEYERA el disco, creyendo que el
+                # cron lo reescribía. No lo hace: commitea a GitHub, y el
+                # contenedor de Streamlit sólo ve el fichero nuevo al
+                # redesplegar. Releer devolvía byte a byte lo mismo, así que el
+                # botón no hacía nada — reportado dos veces.
+                #
+                # Bajar el publicado son 880 KB y una petición. Si no hay red,
+                # o si lo publicado no es más nuevo, se sigue con lo local: el
+                # botón nunca deja al usuario peor de como estaba.
+                _d = _pre.mas_nuevo_publicado()
+                if _d is not None:
+                    logger.info('[guardia] «Actualizar ahora» trajo el '
+                                'precálculo publicado (%s)', _d.get('generado'))
+            if _d is None:
+                _d = _pre.leer()
             if _d is not None:
                 _edad = _d['edad_s']
                 if _edad < _pre.CADUCIDAD_S:

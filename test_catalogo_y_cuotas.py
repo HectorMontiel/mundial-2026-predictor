@@ -19182,6 +19182,117 @@ def test_los_partidos_acabados_respetan_el_filtro_de_liga():
     check(len(_solo('No Existe')(jugados)) == 0,
           'v232: y ninguna cuando no hay partidos de esa liga')
 
+
+# ---------------------------------------------------------------------------
+# v233 — EL BOTON QUE RELEIA UN FICHERO QUE NUNCA CAMBIA
+# ---------------------------------------------------------------------------
+def test_actualizar_ahora_va_a_lo_publicado_y_no_al_disco():
+    """
+    La v226 hizo que forzar RELEYERA el disco en vez de recalcular, y lo
+    justifico asi: «el cron reescribe el fichero cada tres horas».
+
+    Eso es falso en Streamlit Cloud y es la raiz del fallo. El cron NO escribe
+    en el disco del contenedor: commitea a GitHub, y el contenedor solo ve el
+    fichero nuevo al REDESPLEGAR. Releerlo devolvia byte a byte lo mismo, asi
+    que el boton no hacia nada — reportado dos veces por el usuario.
+    """
+    import io as _io
+    import inspect
+    import precalculo_dia as pd
+
+    check(hasattr(pd, 'descargar') and hasattr(pd, 'mas_nuevo_publicado'),
+          'v233: existe la via que baja lo publicado')
+    check('raw.githubusercontent.com' in pd.URL_PRECALCULO,
+          'v233: apunta al fichero publicado (%s)' % pd.URL_PRECALCULO)
+    check('REPO_MODELOS' in _io.open('precalculo_dia.py',
+                                     encoding='utf-8').read(),
+          'v233: el repo sale de la variable de entorno, para que un fork no '
+          'sirva el pronostico de otro')
+
+    g = _io.open('guardia_barrido.py', encoding='utf-8').read()
+    check('mas_nuevo_publicado' in g,
+          'v233: el guardia la usa al forzar (si no, el boton vuelve a releer '
+          'el disco y a no hacer nada)')
+
+
+def test_el_boton_nunca_deja_al_usuario_peor_de_como_estaba():
+    """
+    Tres formas de que salga mal, y las tres tienen que degradar en blando:
+    sin red, con una respuesta ilegible, y con lo publicado MAS VIEJO que lo
+    local —que pasa en la maquina que genera el precalculo—.
+    """
+    import json
+    import os
+    import tempfile
+    import time
+    import precalculo_dia as pd
+
+    ruta = os.path.join(tempfile.gettempdir(), '_v233_pre.json')
+    try:
+        # 1) sin red: None, y sin lanzar
+        check(pd.descargar(url='https://no.existe.invalido/x.json') is None,
+              'v233: sin red devuelve None en vez de lanzar')
+
+        # 2) lo local es MAS NUEVO: no se pisa
+        json.dump({'version': 1, 'generado_ts': time.time() + 86400,
+                   'generado': 'del futuro', 'datos': {'pronosticos': []}},
+                  open(ruta, 'w', encoding='utf-8'))
+        _previo = pd.descargar
+
+        def _falso(url=None, guardar_en=None):
+            return {'datos': {'pronosticos': []}, 'ts': 1.0,
+                    'edad_s': 1.0, 'generado': 'viejisimo', 'remoto': True}
+
+        pd.descargar = _falso
+        try:
+            check(pd.mas_nuevo_publicado(ruta) is None,
+                  'v233: lo publicado mas viejo NO pisa lo local (retroceder '
+                  'tambien seria no funcionar)')
+        finally:
+            pd.descargar = _previo
+
+        # 3) respuesta ilegible: None
+        class _R:
+            status_code = 200
+
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return ['no', 'es', 'un', 'dict']
+
+        import requests
+        _get = requests.get
+        requests.get = lambda *a, **k: _R()
+        try:
+            check(pd.descargar() is None,
+                  'v233: una respuesta con otra forma se descarta')
+        finally:
+            requests.get = _get
+    finally:
+        if os.path.exists(ruta):
+            os.remove(ruta)
+
+
+def test_el_boton_dice_si_habia_algo_nuevo_o_no():
+    """
+    La otra mitad de «que funcione». El calculo corre fuera cada 3 h, asi que
+    lo NORMAL es que al pulsar no haya nada nuevo — y eso, sin decirlo, se ve
+    igual que un boton roto. Es literalmente como se reporto.
+    """
+    import io as _io
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check('_ts_antes_de_forzar' in d,
+          'v233: se apunta de que fecha se venia antes de forzar')
+    check('Ya tenías el último publicado' in d,
+          'v233: y se dice cuando no habia nada nuevo, en vez de callar')
+    check('Traído el pronóstico publicado más reciente' in d,
+          'v233: y se dice cuando si lo habia')
+    i_pop = d.find("pop('_ts_antes_de_forzar'")
+    i_set = d.find("_ts_antes_de_forzar'] =")
+    check(i_set > 0 and i_pop > i_set,
+          'v233: se apunta al pulsar y se consume DESPUES del barrido')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -19692,6 +19803,11 @@ if __name__ == '__main__':
     test_el_caracter_de_la_liga_solo_habla_cuando_tiene_algo_que_decir()
     test_el_rasgo_que_se_ensena_es_el_del_mercado_recomendado()
     test_la_auditoria_de_ligas_corrige_por_multiples_pruebas()
+
+    print(chr(10) + '=== v233: «Actualizar ahora» va a lo publicado ===')
+    test_actualizar_ahora_va_a_lo_publicado_y_no_al_disco()
+    test_el_boton_nunca_deja_al_usuario_peor_de_como_estaba()
+    test_el_boton_dice_si_habia_algo_nuevo_o_no()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

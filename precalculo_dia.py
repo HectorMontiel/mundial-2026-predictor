@@ -201,6 +201,98 @@ def leer(ruta: Optional[str] = None) -> Optional[Dict]:
         return None
 
 
+# De dónde se baja el día cocinado cuando el usuario pulsa «Actualizar ahora».
+# Se deriva del mismo repo que `modelos_remotos`, con su variable de entorno,
+# para que un fork no acabe sirviendo el pronóstico del repo de otro.
+REPO_PRECALCULO = os.environ.get('REPO_MODELOS',
+                                 'HectorMontiel/mundial-2026-predictor')
+RAMA_PRECALCULO = os.environ.get('RAMA_PRECALCULO', 'main')
+URL_PRECALCULO = os.environ.get(
+    'URL_PRECALCULO',
+    'https://raw.githubusercontent.com/%s/%s/pronostico_dia.json'
+    % (REPO_PRECALCULO, RAMA_PRECALCULO))
+# 20 s. El fichero pesa 880 KB y tarda ~8 s medidos; el doble largo cubre una
+# red lenta sin dejar al usuario mirando un botón que no responde.
+TIMEOUT_DESCARGA_S = float(os.environ.get('PRECALCULO_TIMEOUT_S', 20))
+
+
+def descargar(url: Optional[str] = None,
+              guardar_en: Optional[str] = None) -> Optional[Dict]:
+    """El día cocinado que hay PUBLICADO, bajado de GitHub. `None` si no se pudo.
+
+    v233 — POR QUÉ ESTO EXISTE, Y POR QUÉ RELEER EL DISCO NO BASTABA.
+
+    La v226 hizo que «Actualizar ahora» releyera el precálculo del disco en vez
+    de recalcular, y lo justificó así: «el cron reescribe el fichero cada tres
+    horas, así que el botón recoge lo último que haya publicado».
+
+    Eso es falso en Streamlit Cloud, y es la raíz del fallo. El cron NO escribe
+    en el disco del contenedor: commitea a GitHub. El contenedor recibe el
+    fichero nuevo únicamente cuando hay REDESPLIEGUE. Entre despliegues,
+    `pronostico_dia.json` en disco no cambia jamás, así que releerlo devuelve
+    exactamente lo mismo y el botón no hace nada — que es lo que el usuario
+    reportó dos veces.
+
+    La única fuente que sí tiene datos nuevos es el fichero publicado. Son 880
+    KB y una petición; ni cálculo ni memoria, o sea que cabe donde el barrido
+    de 1,3 GB no cabía.
+
+    Devuelve la misma forma que `leer()` para que quien llama no distinga de
+    dónde vino. Nunca lanza: sin red, el botón se queda como estaba y la
+    aplicación sigue sirviendo lo local, que es la degradación correcta.
+    """
+    url = url or URL_PRECALCULO
+    try:
+        import requests
+        r = requests.get(url, timeout=TIMEOUT_DESCARGA_S)
+        r.raise_for_status()
+        doc = r.json()
+    except Exception as e:
+        logger.warning('[precalculo] no se pudo bajar %s: %s: %s',
+                       url, type(e).__name__, e)
+        return None
+    if not isinstance(doc, dict) or not isinstance(doc.get('datos'), dict):
+        logger.warning('[precalculo] lo bajado no tiene la forma esperada')
+        return None
+    ts = float(doc.get('generado_ts') or 0.0)
+    if guardar_en is not None:
+        # Se guarda para que la siguiente pasada lo tenga sin volver a la red.
+        # Falla en blando: no poder escribir —disco de sólo lectura— no puede
+        # impedir que este usuario vea los datos que acaba de pedir.
+        try:
+            with open(_ruta(guardar_en), 'w', encoding='utf-8') as f:
+                json.dump(doc, f, ensure_ascii=False)
+        except Exception as e:
+            logger.info('[precalculo] bajado pero no guardado: %s', e)
+    logger.info('[precalculo] bajado el publicado (%s)', doc.get('generado'))
+    return {'datos': doc['datos'], 'ts': ts,
+            'edad_s': max(0.0, time.time() - ts),
+            'generado': doc.get('generado'), 'remoto': True}
+
+
+def mas_nuevo_publicado(ruta: Optional[str] = None) -> Optional[Dict]:
+    """Lo publicado si es MÁS NUEVO que lo local; si no, `None`.
+
+    La comparación por marca de tiempo evita el caso tonto: en la máquina que
+    genera el precálculo, lo local es más reciente que lo publicado, y bajarlo
+    sería retroceder. Que el botón no empeore nunca es parte de que funcione.
+    """
+    local = leer(ruta)
+    # `_ruta(ruta)` y no `ruta` a secas: con `ruta=None` —el caso normal—
+    # `descargar` entendería «no lo guardes», y entonces cada pulsación del
+    # botón volvería a la red para traer lo mismo. Resolver aquí la ruta es lo
+    # que hace que se baje UNA vez y las siguientes salgan del disco.
+    remoto = descargar(guardar_en=_ruta(ruta))
+    if remoto is None:
+        return None
+    if local is not None and local['ts'] >= remoto['ts']:
+        logger.info('[precalculo] lo publicado no es más nuevo que lo local '
+                    '(%s vs %s); se conserva lo local',
+                    remoto.get('generado'), local.get('generado'))
+        return None
+    return remoto
+
+
 def fresco(ruta: Optional[str] = None,
            caducidad_s: Optional[float] = None) -> bool:
     d = leer(ruta)

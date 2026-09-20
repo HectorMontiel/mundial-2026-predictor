@@ -4921,6 +4921,23 @@ def render_alpha_finder():
         # treinta líneas más abajo, en la llamada a `barrido_universal`. Mismo
         # resultado, una pasada menos.
         st.session_state['_forzar_barrido'] = True
+        # v233 — Y SE DICE QUÉ PASÓ, QUE ES LA OTRA MITAD DE «QUE FUNCIONE».
+        #
+        # El cálculo corre fuera de la aplicación cada tres horas. Lo normal es
+        # que al pulsar NO haya nada nuevo que traer, y eso, sin decirlo, se ve
+        # exactamente igual que un botón roto — que es como el usuario lo
+        # reportó dos veces.
+        #
+        # La bandera la consume `barrido_universal` treinta líneas más abajo,
+        # en esta misma pasada; aquí sólo se apunta de qué fecha veníamos para
+        # poder comparar después y decir si cambió algo.
+        try:
+            import precalculo_dia as _pd_btn
+            _ant = _pd_btn.leer()
+            st.session_state['_ts_antes_de_forzar'] = (
+                None if _ant is None else _ant['ts'])
+        except Exception:
+            st.session_state['_ts_antes_de_forzar'] = None
     # v88 — El botón sólo MARCA la intención; el envío se hace más abajo,
     # cuando el barrido `r` ya está calculado, y se le pasa.
     #
@@ -4971,6 +4988,30 @@ def render_alpha_finder():
     # porque el guardia no es un decorador de Streamlit.
     with st.spinner("🔍 Buscando valor en todos los deportes…"):
         r = barrido_universal(forzar=st.session_state.pop('_forzar_barrido', False))
+
+    # v233 — EL BOTÓN CONTESTA. Un «Actualizar» que no dice nada se lee como
+    # roto aunque haya hecho su trabajo, y el trabajo la mayoría de las veces
+    # es comprobar que ya tenías lo último: el cálculo corre fuera cada 3 h.
+    if '_ts_antes_de_forzar' in st.session_state:
+        _ts_ant = st.session_state.pop('_ts_antes_de_forzar')
+        try:
+            import precalculo_dia as _pd_msg
+            _aho = _pd_msg.leer()
+            _ts_aho = None if _aho is None else _aho['ts']
+            if _ts_aho and (_ts_ant is None or _ts_aho > _ts_ant + 1):
+                st.success('✅ Traído el pronóstico publicado más reciente '
+                           '(%s).' % (_aho.get('generado') or ''))
+            elif _ts_aho:
+                _min = int(max(0.0, _aho['edad_s']) // 60)
+                _falta = max(0, int(_pd_msg.CADUCIDAD_S // 60) - _min)
+                st.info('✅ Ya tenías el último publicado, de hace %d min. '
+                        'El cálculo corre fuera de la aplicación cada 3 h; '
+                        'el siguiente llega en unos %d min.' % (_min, _falta))
+            else:
+                st.warning('No se pudo comprobar si hay uno más reciente. Se '
+                           'sigue mostrando lo que ya había.')
+        except Exception as _e_msg:
+            logger.debug('[dashboard] aviso de actualizar: %s', _e_msg)
 
     # v148 — LA EDAD DE LO QUE SE ESTÁ MIRANDO, ANTES DE MIRARLO.
     #
