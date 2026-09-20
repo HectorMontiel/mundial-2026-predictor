@@ -631,6 +631,129 @@ def precalcular(dias: int = 2, max_hilos: int = 4) -> Dict:
             'partidos': salida}
 
 
+# Cuantas horas se conserva un mercado que la casa ya retiro. Un partido
+# dura ~2 h y el cron pasa cada 3: con 6 h se cubre el partido entero y su
+# sobremesa sin arrastrar precios de ayer.
+HORAS_GRACIA = 6
+
+# Los campos que hacen RICA una entrada. Se cuentan para decidir si la nueva
+# version empobrecio: no basta con que exista, tiene que traer lo mismo.
+_CAMPOS_RICOS = ('goles', 'btts_cuotas', 'doble_cuotas', '1x2_cuotas',
+                 'corners', 'tarjetas', 'remates', 'remates_on')
+
+
+def _riqueza(entrada: Dict) -> int:
+    """Cuantos mercados trae. La escalera de goles cuenta por sus lineas."""
+    if not isinstance(entrada, dict):
+        return 0
+    n = 0
+    for c in _CAMPOS_RICOS:
+        v = entrada.get(c)
+        if isinstance(v, dict):
+            n += len(v)
+        elif v:
+            n += 1
+    return n
+
+
+def fusionar(nuevo: Dict, previo: Optional[Dict] = None,
+             ahora: Optional[float] = None) -> Dict:
+    """v242 — REGENERAR NO PUEDE EMPOBRECER.
+
+    EL CASO QUE LO DESTAPO: Gamba Osaka-Vissel Kobe y Machida-Kashiwa (J1)
+    empezaron a las 08:00 UTC y el tablero se regenero a las 08:21. La casa
+    retira los mercados pre-partido en cuanto arranca el juego, asi que la
+    entrada nueva llego con UNA linea de goles donde antes habia escalera
+    entera, ambos marcan y doble oportunidad. La tarjeta se quedo con una sola
+    recomendacion, en rojo — y el usuario lo vio: «me estas quitando las
+    apuestas que ya me habias dado para ligas japonesas».
+
+    No era un fallo del codigo nuevo: `valor_apuesta` devolvia una sola
+    candidata tanto pidiendole tres como doce. Lo que fallaba es que el
+    tablero se pisa entero cada 3 h y pierde lo que la casa ya no cotiza.
+
+    La regla: si la entrada nueva trae MENOS mercados que la que habia, se
+    rellenan los huecos con la anterior y se marca de donde salen. No se
+    inventa nada — esos precios existieron de verdad — pero tampoco se hacen
+    pasar por actuales: la entrada queda con `precio_previo` y la hora en que
+    se capturo, para que la pantalla pueda decirlo.
+
+    Caduca a las %d h (`HORAS_GRACIA`), que cubre el partido entero sin
+    arrastrar precios del dia anterior.
+    """ % HORAS_GRACIA
+    import time as _t
+    nuevo = dict(nuevo or {})
+    partidos = dict(nuevo.get('partidos') or {})
+    viejos = (previo or {}).get('partidos') or {}
+    if not viejos:
+        return nuevo
+
+    ahora = float(ahora if ahora is not None else _t.time())
+    limite = ahora - HORAS_GRACIA * 3600.0
+    ts_previo = _f_ts((previo or {}).get('generado')) or ahora
+    rescatados = enriquecidos = 0
+
+    for clave, antes in viejos.items():
+        if not isinstance(antes, dict):
+            continue
+        cuando = _f_ts(antes.get('capturado')) or ts_previo
+        if cuando < limite:
+            continue                      # demasiado viejo, se deja morir
+        ahora_entrada = partidos.get(clave)
+        if not isinstance(ahora_entrada, dict):
+            # la casa lo retiro entero: se conserva lo que habia
+            copia = dict(antes)
+            copia['precio_previo'] = True
+            copia.setdefault('capturado', cuando)
+            partidos[clave] = copia
+            rescatados += 1
+            continue
+        if _riqueza(antes) <= _riqueza(ahora_entrada):
+            continue                      # lo nuevo es igual o mejor
+        # lo nuevo empobrecio: se rellenan SOLO los huecos
+        copia = dict(ahora_entrada)
+        huecos = 0
+        for campo in _CAMPOS_RICOS:
+            if not copia.get(campo) and antes.get(campo):
+                copia[campo] = antes[campo]
+                huecos += 1
+            elif (isinstance(copia.get(campo), dict)
+                  and isinstance(antes.get(campo), dict)
+                  and len(antes[campo]) > len(copia[campo])):
+                mezcla = dict(antes[campo])
+                mezcla.update(copia[campo])   # el precio NUEVO manda
+                copia[campo] = mezcla
+                huecos += 1
+        if huecos:
+            copia['precio_previo'] = True
+            copia.setdefault('capturado', cuando)
+            enriquecidos += 1
+        partidos[clave] = copia
+
+    if rescatados or enriquecidos:
+        logger.info('[mercado] %d partidos rescatados y %d completados con el '
+                    'tablero anterior (la casa ya no los cotiza)',
+                    rescatados, enriquecidos)
+    nuevo['partidos'] = partidos
+    return nuevo
+
+
+def _f_ts(valor) -> Optional[float]:
+    """Una marca de tiempo en segundos, venga como numero o como ISO."""
+    if valor is None:
+        return None
+    try:
+        return float(valor)
+    except (TypeError, ValueError):
+        pass
+    try:
+        import datetime as _dt
+        t = str(valor).replace('Z', '+00:00')
+        return _dt.datetime.fromisoformat(t).timestamp()
+    except Exception:
+        return None
+
+
 def guardar(doc: Dict, ruta: str = FICHERO) -> None:
     """Sin sangrado: son cifras y se commitea todos los días."""
     try:

@@ -20004,6 +20004,92 @@ def test_un_verde_nunca_queda_fuera_por_un_rojo():
           'v241: ningun «meter» queda detras de un «no_meter» en la terna '
           '(%d casos)' % len(malos))
 
+
+# ---------------------------------------------------------------------------
+# v242 — REGENERAR NO PUEDE EMPOBRECER
+# ---------------------------------------------------------------------------
+def test_el_tablero_no_pierde_mercados_al_regenerarse():
+    """
+    Gamba Osaka-Vissel Kobe y Machida-Kashiwa (J1) empezaron a las 08:00 UTC
+    del 2026-09-20 y el tablero se regenero a las 08:21. La casa retira los
+    mercados pre-partido en cuanto arranca el juego, asi que la entrada nueva
+    llego con UNA linea de goles donde antes habia escalera entera, ambos
+    marcan y doble oportunidad. La tarjeta se quedo con una sola
+    recomendacion, en rojo.
+
+    NO era del codigo de la v241: `valor_apuesta` devolvia una sola candidata
+    tanto pidiendole tres como doce. Lo que fallaba es que el tablero se pisa
+    entero cada 3 h.
+
+    La regla: los huecos se rellenan con lo anterior, el precio NUEVO manda
+    donde existe, y lo rescatado se marca para que la pantalla lo diga.
+    """
+    import datetime as _dt
+    import mercado_implicito as mi
+
+    previo = {'generado': '2026-09-20T05:30:00Z', 'partidos': {
+        'gamba osaka|vissel kobe': {
+            'home': 'Gamba Osaka', 'away': 'Vissel Kobe',
+            'goles': {'1.5': {'p': .8, 'mas': 1.3, 'menos': 3.4},
+                      '2.5': {'p': .5, 'mas': 1.9, 'menos': 1.9},
+                      '3.5': {'p': .27, 'mas': 3.1, 'menos': 1.35}},
+            'btts_cuotas': {'si': 1.8, 'no': 1.95},
+            'doble_cuotas': {'1X': 1.4, '12': 1.3, 'X2': 1.5}},
+        'machida|kashiwa reysol': {
+            'home': 'Machida', 'away': 'Kashiwa Reysol',
+            'goles': {'2.5': {'p': .47, 'mas': 2.0, 'menos': 1.8}}}}}
+    nuevo = {'generado': '2026-09-20T08:21:48Z', 'partidos': {
+        'gamba osaka|vissel kobe': {
+            'home': 'Gamba Osaka', 'away': 'Vissel Kobe',
+            'goles': {'2.5': {'p': .51, 'mas': 1.83, 'menos': 1.95}}}}}
+    ahora = _dt.datetime.fromisoformat('2026-09-20T08:21:48+00:00').timestamp()
+
+    f = mi.fusionar(nuevo, previo, ahora=ahora)
+    g = f['partidos']['gamba osaka|vissel kobe']
+    check(len(g.get('goles') or {}) == 3,
+          'v242: la escalera de goles vuelve entera (%d lineas)'
+          % len(g.get('goles') or {}))
+    check(bool(g.get('btts_cuotas')) and bool(g.get('doble_cuotas')),
+          'v242: y tambien ambos marcan y la doble oportunidad')
+    check(g['goles']['2.5']['mas'] == 1.83,
+          'v242: donde hay precio NUEVO, manda el nuevo (%s)'
+          % g['goles']['2.5']['mas'])
+    check(g.get('precio_previo') is True,
+          'v242: la entrada queda marcada, para que la tarjeta pueda decir '
+          'que ese precio es de antes del inicio')
+    check('machida|kashiwa reysol' in f['partidos'],
+          'v242: un partido que la casa retiro ENTERO se rescata igual')
+
+    # y no se arrastran precios de ayer
+    viejo = {'generado': '2026-09-19T20:00:00Z', 'partidos': previo['partidos']}
+    f2 = mi.fusionar(nuevo, viejo, ahora=ahora)
+    check('machida|kashiwa reysol' not in f2['partidos'],
+          'v242: pasadas %d h el rescate caduca, no se arrastra el tablero '
+          'del dia anterior' % mi.HORAS_GRACIA)
+
+
+def test_el_precio_de_antes_del_saque_se_declara():
+    """Un precio rescatado existio de verdad, pero no es el de ahora.
+
+    Callarlo seria hacerlo pasar por actual, que es la misma linea que el
+    proyecto ya no cruza con las cuotas inventadas.
+    """
+    import io as _io
+    m = _io.open('modo_modelo.py', encoding='utf-8').read()
+    check("precio_previo" in m,
+          'v242: la tarjeta mira la marca')
+    i = m.find("get('precio_previo')")
+    check(i > 0, 'v242: y la lee de las implicitas del pick')
+    check('antes del inicio' in m[i:i + 400],
+          'v242: y lo dice con todas las letras')
+    p = _io.open('precalculo_dia.py', encoding='utf-8').read()
+    check('fusionar' in p,
+          'v242: el precalculo fusiona con el tablero previo antes de guardar')
+    i_f = p.find('_mi.fusionar')
+    i_g = p.find('_mi.guardar')
+    check(i_f > 0 and i_g > i_f,
+          'v242: fusiona ANTES de guardar (al reves no serviria de nada)')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -20554,6 +20640,10 @@ if __name__ == '__main__':
     print(chr(10) + '=== v241: elegir con el numero que se pinta ===')
     test_las_recomendadas_se_ordenan_por_la_probabilidad_ajustada()
     test_un_verde_nunca_queda_fuera_por_un_rojo()
+
+    print(chr(10) + '=== v242: el tablero no se empobrece ===')
+    test_el_tablero_no_pierde_mercados_al_regenerarse()
+    test_el_precio_de_antes_del_saque_se_declara()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

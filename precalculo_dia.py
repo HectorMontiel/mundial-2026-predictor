@@ -378,6 +378,16 @@ def main() -> int:
         import mercado_implicito as _mi
         _doc = _mi.precalcular(dias=2)
         if (_doc.get('partidos') or {}):
+            # v242 — regenerar no puede EMPOBRECER. La casa retira los
+            # mercados pre-partido en cuanto arranca el juego, y el tablero
+            # se pisaba entero: los dos partidos de la J1 del 2026-09-20
+            # pasaron de escalera completa a UNA linea porque el cron paso 21
+            # minutos despues del saque. Ver `mercado_implicito.fusionar`.
+            try:
+                _doc = _mi.fusionar(_doc, _mi.cargar(recargar=True))
+            except Exception as _e:
+                logger.warning('[precalculo] no se pudo fusionar con el '
+                               'tablero previo: %s', _e)
             _mi.guardar(_doc)
             logger.info('tablero de la casa: %d partidos',
                         len(_doc['partidos']))

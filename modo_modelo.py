@@ -2619,6 +2619,16 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 if _vers:
                     _vp.pintar(st, _vers, 'Meter o no meter, corregido por lo '
                                           'que este mercado acierta de verdad')
+                    # v242 — un precio de antes del saque se declara.
+                    #
+                    # `mercado_implicito.fusionar` conserva los mercados que
+                    # la casa retira al arrancar el partido, para que la
+                    # tarjeta no pase de tres apuestas a una. Esos precios
+                    # existieron de verdad, pero no son los de ahora, y
+                    # callarlo sería hacerlos pasar por actuales.
+                    if (pick.get('implicitas') or {}).get('precio_previo'):
+                        st.caption('⏱️ Precio capturado antes del inicio: la '
+                                   'casa ya retiró estos mercados.')
                     _porques = [r for v in _vers[:1] for r in v['razones']]
                     for _pq in _porques[:1]:
                         st.caption(_pq)
