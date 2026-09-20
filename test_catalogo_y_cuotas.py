@@ -11415,28 +11415,38 @@ def test_la_apuesta_principal_es_la_de_maximo_score():
               and f['prob'] <= va.PROB_MAXIMA_RECO
               and (f.get('cuota') or 0) >= va.CUOTA_DECENTE]
     check(bool(dignas), "hay candidatas que cumplen los minimos")
-    tope = max(f['score'] for f in dignas)
+    # v245 — LA PRINCIPAL YA NO ES LA DE MAXIMO SCORE, Y ESO ES EL ARREGLO.
+    #
+    # Score = probabilidad x cuota ronda 1 en cualquier apuesta bien
+    # tarifada, asi que apenas discrimina y premia a los mercados de moneda al
+    # aire, que son los de cuota mas larga. Medido en Leeds-Crystal Palace:
+    # un volado al 51 % (score 0,950) se llevaba la plaza de corners y dejaba
+    # fuera un 70 % (score 0,871). Ahora manda la probabilidad y el Score
+    # desempata.
+    tope = max(f['prob'] for f in dignas)
 
     m = va.mejor(pick, {})
     check(m is not None, "hay recomendacion")
-    check(m and abs(m['score'] - tope) < 1e-9,
-          f"y es la de maximo Score ({m and m['score']} de {tope})")
+    check(m and abs(m['prob'] - tope) < 1e-9,
+          f"y es la de maxima probabilidad ({m and m['prob']} de {tope})")
     check(m and m['prob'] >= va.PROB_SUELO_DURO,
           f"con probabilidad >= 50 % ({m and m['prob']})")
     check(m and m['cuota'] >= va.CUOTA_DECENTE,
           f"y cuota >= 1,20 ({m and m['cuota']})")
 
-    # ninguna de las alternativas puede tener MAS Score que la
-    # principal, y desde la v176 es imposible por construccion: las
-    # tres salen de la misma lista ordenada.
     import modo_modelo as mm
     recos = mm.recomendadas(pick, {}, n=3)
-    scores = [r['score'] for r in recos[1:]]
-    check(all(x <= m['score'] + 1e-9 for x in scores),
-          f"ninguna alternativa supera a la principal ({scores} vs "
-          f"{m['score']})")
-    check(recos and recos[0]['apuesta'] == m['apuesta'],
-          "y la primera de la lista ES la principal")
+    # v245 — la comparacion es por PROBABILIDAD, que es el criterio nuevo.
+    # `recomendadas` reordena ademas por la probabilidad AJUSTADA (v241), asi
+    # que la principal de `mejor` puede no quedar la primera de la lista: lo
+    # que se comprueba es que ninguna alternativa la supere en el criterio con
+    # el que se eligio.
+    probs = [r['prob'] for r in recos]
+    check(all(x <= m['prob'] + 1e-9 for x in probs),
+          f"ninguna alternativa supera a la principal ({probs} vs "
+          f"{m['prob']})")
+    check(recos and any(r['apuesta'] == m['apuesta'] for r in recos),
+          "y la principal esta en la lista")
 
     # regla 4: la de mayor Score ABSOLUTO puede no cumplir, y entonces se
     # pasa a la siguiente que si cumpla
@@ -20283,8 +20293,9 @@ def test_la_pata_historica_solo_donde_esta_medida():
     """
     import pata_historica as ph
 
-    check(set(ph._SERIE) == {'corners', 'remates', 'tarjetas', 'remates_on'},
-          'v245: los CUATRO mercados medidos (%s)' % sorted(ph._SERIE))
+    check(set(ph._SERIE) == {'corners', 'remates', 'tarjetas', 'remates_on',
+                            'goles'},
+          'v245/v246: los CINCO mercados medidos (%s)' % sorted(ph._SERIE))
     check(0.0 < ph.PESO_MODELO < 1.0,
           'v245: el peso esta entre 0 y 1 (%s)' % ph.PESO_MODELO)
     check(abs(ph.mezclar(0.80, 0.60) - 0.70) < 1e-9,
@@ -20329,6 +20340,86 @@ def test_la_linea_del_mercado_se_elige_por_probabilidad():
           'v245: el suelo de cuota sigue, para que no se cuele un 1,05')
     check(va.PROB_MAXIMA_RECO <= 0.90,
           'v245: y el techo de probabilidad, para que no se cuele un 97 %')
+
+
+# ---------------------------------------------------------------------------
+# v246 — SUBIR DE LINEA EN GOLES, PERO FUNDADO
+# ---------------------------------------------------------------------------
+def test_la_pata_historica_cubre_goles():
+    """
+    «En vez de Más de 1.5 pudiéramos irnos a Más de 2.5 o incluso Más de 3.5,
+    porque el Barcelona anota mucho — pero que esté bien fundamentado, con la
+    media de goles de cada equipo y el histórico de ambos, no nada más porque
+    sí.»
+
+    Medido sobre 929.043 pares (partido, linea) de 180.103 partidos:
+    log-loss 0,50546 -> 0,48685, p5 +0,01832, 100 % de los remuestreos a
+    favor. Y el sesgo del modelo por altura de linea dice DONDE hacia falta:
+
+        linea 1.5-2.6   n=178.418   +1,99 pp  ->  +1,12 pp
+        linea 2.6-3.6   n=179.813   -0,86 pp  ->  -0,35 pp
+        linea 3.6+      n=401.390   -3,11 pp  ->  -1,65 pp
+
+    En las lineas altas el modelo se pasa de optimista tres puntos. Subir de
+    linea es buena idea y el modelo solo la sobrevalora: esto es lo que la
+    funda.
+    """
+    import pata_historica as ph
+    import rendimiento_equipos as rq
+
+    check('goles' in ph._SERIE,
+          'v246: los goles entran en la pata historica')
+    check(ph._SERIE['goles'] == 'serie_goles',
+          'v246: y leen su propia serie')
+
+    # la serie tiene que existir de verdad, no solo estar declarada
+    f = rq.forma('premier', 'Leeds', n=ph.VENTANA) or {}
+    s = f.get('serie_goles')
+    check(isinstance(s, list) and len(s) > 0,
+          'v246: `forma` publica la serie de goles del partido (%s)'
+          % (len(s) if isinstance(s, list) else type(s).__name__))
+    check(all(isinstance(x, float) and x >= 0 for x in (s or [])),
+          'v246: y son totales del partido, no medias')
+
+
+def test_la_ventana_de_la_pata_es_la_que_se_midio():
+    """
+    `rendimiento_equipos.forma` usa 5 partidos por defecto —lo que la tarjeta
+    pinta en la racha— pero la medicion se hizo con DIEZ por equipo, veinte
+    entre los dos.
+
+    Correrlo con 5 seria usar un numero distinto del que se valido, y ademas
+    lo haria en silencio: una fraccion sobre 10 partidos tiene el doble de
+    ruido que sobre 20. Se pide explicitamente para que las dos cosas no
+    puedan separarse sin que alguien lo note.
+    """
+    import io as _io
+    import pata_historica as ph
+    check(ph.VENTANA == 10,
+          'v246: la ventana es la medida (%s)' % ph.VENTANA)
+    s = _io.open('pata_historica.py', encoding='utf-8').read()
+    check('n=VENTANA' in s,
+          'v246: y se le pasa a `forma` en vez de aceptar su defecto')
+    check(ph.MIN_PARTIDOS >= 10,
+          'v246: y por debajo de %d partidos la fraccion no se usa'
+          % ph.MIN_PARTIDOS)
+
+
+def test_la_mezcla_de_goles_va_antes_de_encoger_hacia_la_casa():
+    """
+    El orden importa. `_ajusta` encoge la probabilidad hacia el precio de la
+    casa; si la pata historica entrara despues, estaria mezclando el numero de
+    los equipos con uno que ya es medio de la casa, y el peso real dejaria de
+    ser el medido.
+    """
+    import io as _io
+    s = _io.open('valor_apuesta.py', encoding='utf-8').read()
+    cuerpo = s.split('def _de_goles(')[1].split('\ndef ')[0]
+    i_pata = cuerpo.find('pata_historica')
+    i_aj = cuerpo.find('_ajusta(')
+    check(i_pata > 0, 'v246: la pata historica entra en la escalera de goles')
+    check(i_aj > i_pata,
+          'v246: y ANTES de encoger hacia la casa, no despues')
 
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
@@ -20895,6 +20986,11 @@ if __name__ == '__main__':
     test_el_techo_de_goles_solo_toca_mercados_de_goles()
     test_la_pata_historica_solo_donde_esta_medida()
     test_la_linea_del_mercado_se_elige_por_probabilidad()
+
+    print(chr(10) + '=== v246: la pata historica en goles ===')
+    test_la_pata_historica_cubre_goles()
+    test_la_ventana_de_la_pata_es_la_que_se_midio()
+    test_la_mezcla_de_goles_va_antes_de_encoger_hacia_la_casa()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

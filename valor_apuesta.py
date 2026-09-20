@@ -405,6 +405,24 @@ def _de_goles(pick: Dict) -> List[Dict]:
             p_mas = float(p_mas)
         except (TypeError, ValueError):
             continue
+        # v246 — LA PATA HISTÓRICA TAMBIÉN EN GOLES, Y ANTES DEL ENCOGIDO.
+        #
+        # Aquí `p_mas` es todavía la del modelo. Se mezcla con qué fracción de
+        # los últimos partidos de esos dos equipos pasó esta línea. Medido
+        # sobre 929.043 pares (partido, línea) de 180.103 partidos: log-loss
+        # 0,50546 -> 0,48685, p5 +0,01832, 100 % de los remuestreos a favor.
+        #
+        # Y es donde más falta hacía: en las líneas de 3.5 para arriba el
+        # modelo se pasa de optimista 3,11 pp y la mezcla lo deja en 1,65. Es
+        # lo que sostiene subir de línea en un partido de equipos goleadores
+        # en vez de hacerlo «porque sí». Ver `pata_historica`.
+        _hg = {'hay': False}
+        try:
+            import pata_historica as _ph
+            _hg = _ph.aplicar(pick, 'goles', float(clave), p_mas)
+            p_mas = float(_hg.get('p_mas', p_mas))
+        except Exception as e:
+            logger.debug('[valor] pata historica de goles: %s', e)
         imp_mas = mi.prob_de(dato)
         for es_mas, p, cuota, i in (
                 (True, p_mas, mi.cuota_de(dato, 'mas'), imp_mas),
@@ -417,7 +435,9 @@ def _de_goles(pick: Dict) -> List[Dict]:
             salida.append(_fila('Goles', 'Total', 'Goles: %s' % texto,
                                 info.get('prob', p), cuota, i, 'goles',
                                 float(clave),
-                                {'contrastada': bool(info.get('contrastada'))}))
+                                {'contrastada': bool(info.get('contrastada')),
+                                 'historico': (dict(_hg) if _hg.get('hay')
+                                               else None)}))
     return salida
 
 

@@ -196,6 +196,7 @@ def _forma(clave: str, equipo: str, n: int = VENTANA,
     # Se guardan solo los partidos con AMBOS lados presentes: medio dato no es
     # un total, y meterlo desviaria la serie hacia abajo.
     serie_ck, serie_rem, serie_amar, serie_on = [], [], [], []
+    serie_gol = []          # v246
     for _, r in suyos.iterrows():
         casa = (r['home_team'] == equipo)
         yo, otro = ('home', 'away') if casa else ('away', 'home')
@@ -206,6 +207,10 @@ def _forma(clave: str, equipo: str, n: int = VENTANA,
         racha.append(res)
         gf.append(g_yo)
         gc.append(g_otro)
+        # v246 — el total del partido, para la pata histórica de goles. Aquí
+        # los dos lados ya están comprobados por el `continue` de arriba, así
+        # que la serie no puede descolgarse de la racha.
+        serie_gol.append(float(g_yo) + float(g_otro))
         c_yo, c_otro = _num(r.get(yo + '_corners')), _num(r.get(otro + '_corners'))
         if c_yo is not None:
             ck_f.append(c_yo)
@@ -269,6 +274,7 @@ def _forma(clave: str, equipo: str, n: int = VENTANA,
         'serie_remates': list(serie_rem),
         'serie_tarjetas': list(serie_amar),
         'serie_remates_on': list(serie_on),
+        'serie_goles': list(serie_gol),      # v246
         'partidos': partidos,
     }
 

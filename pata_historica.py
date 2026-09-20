@@ -66,6 +66,15 @@ PESO_MODELO = 0.5
 # se separan 17 puntos por un solo resultado.
 MIN_PARTIDOS = 10
 
+# CUÁNTOS PARTIDOS POR EQUIPO, Y POR QUÉ ESTE NÚMERO Y NO OTRO.
+#
+# `rendimiento_equipos.forma` usa 5 por defecto, que es lo que la tarjeta pinta
+# en la racha. La medición de arriba se hizo con DIEZ por equipo —veinte entre
+# los dos—, así que pedir la ventana corta aquí sería correr con un número
+# distinto del que se validó. Se pide explícitamente para que las dos cosas
+# no puedan separarse sin que alguien lo note.
+VENTANA = 10
+
 # De la familia de mercado a la serie que publica `rendimiento_equipos`.
 #
 # Los TRES que están aquí son los tres que se midieron, cada uno sobre 180.103
@@ -75,6 +84,24 @@ MIN_PARTIDOS = 10
 #     remates    modelo 0,67030 -> mezcla 0,63838   p5 +0,03168
 #     tarjetas   modelo 0,52449 -> mezcla 0,51845   p5 +0,00585
 #     remates_on modelo 0,57814 -> mezcla 0,56033   p5 +0,01760
+#     goles      modelo 0,50546 -> mezcla 0,48685   p5 +0,01832
+#
+# LOS GOLES ENTRARON POR UNA PREGUNTA CONCRETA DEL USUARIO: «en vez de Más de
+# 1.5 pudiéramos irnos a Más de 2.5 o incluso Más de 3.5, porque el Barcelona
+# anota mucho — pero que esté bien fundamentado, con la media de goles de cada
+# equipo y el histórico de ambos, no nada más porque sí».
+#
+# Y la medición le da la razón y además dice DÓNDE hace falta. El sesgo del
+# modelo por altura de línea, sobre 929.043 pares:
+#
+#     línea 1.5-2.6   n=178.418   +1,99 pp  ->  +1,12 pp con la mezcla
+#     línea 2.6-3.6   n=179.813   -0,86 pp  ->  -0,35 pp
+#     línea 3.6+      n=401.390   -3,11 pp  ->  -1,65 pp
+#
+# Justo en las líneas altas —donde estaría ese «Más de 3.5»— el modelo se pasa
+# de optimista en tres puntos, y el histórico de los dos equipos lo corrige a
+# la mitad. O sea que subir de línea es buena idea, pero el modelo solo la
+# sobrevalora: esto es lo que la funda.
 #
 # «Remates a puerta» entró DESPUÉS, cuando el usuario pidió que se midiera
 # también. Hasta entonces estuvo fuera a propósito, aunque su serie existiera
@@ -84,7 +111,8 @@ MIN_PARTIDOS = 10
 _SERIE = {'corners': 'serie_corners',
           'tarjetas': 'serie_tarjetas',
           'remates': 'serie_remates',
-          'remates_on': 'serie_remates_on'}
+          'remates_on': 'serie_remates_on',
+          'goles': 'serie_goles'}
 
 _MEMO: Dict = {}
 
@@ -119,7 +147,7 @@ def serie(pick: Dict, familia: str) -> List[float]:
     try:
         import rendimiento_equipos as rq
         for equipo in (h, a):
-            f = rq.forma(clave_liga, equipo) or {}
+            f = rq.forma(clave_liga, equipo, n=VENTANA) or {}
             fuera.extend(float(x) for x in (f.get(campo) or [])
                          if x is not None)
     except Exception as e:
