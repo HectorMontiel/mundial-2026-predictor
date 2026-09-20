@@ -1420,5 +1420,17 @@
     "candidato": "Sp. Luqueno",
     "ratio": 0.7692,
     "visto": "2026-09-20"
+  },
+  "Independiente Santa Fe": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Independiente CBBA",
+    "ratio": 0.75,
+    "visto": "2026-09-20"
+  },
+  "Cienciano del Cusco": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Quintanar del Rey",
+    "ratio": 0.5,
+    "visto": "2026-09-20"
   }
 }
