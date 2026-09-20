@@ -1,0 +1,3027 @@
+{
+ "ligas": {
+  "afc_champions": {
+   "liga": "afc_champions",
+   "n": 564,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.556,
+     "lineas": {
+      "8.5": {
+       "n": 153,
+       "prometido": 0.5565,
+       "real": 0.5948,
+       "sesgo": -0.0383
+      },
+      "9.5": {
+       "n": 153,
+       "prometido": 0.4591,
+       "real": 0.4641,
+       "sesgo": -0.005
+      },
+      "10.5": {
+       "n": 153,
+       "prometido": 0.3686,
+       "real": 0.3791,
+       "sesgo": -0.0105
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.185,
+     "lineas": {
+      "3.5": {
+       "n": 153,
+       "prometido": 0.4559,
+       "real": 0.4706,
+       "sesgo": -0.0147
+      },
+      "4.5": {
+       "n": 153,
+       "prometido": 0.2934,
+       "real": 0.3072,
+       "sesgo": -0.0137
+      }
+     }
+    }
+   }
+  },
+  "arg_primera_nacional": {
+   "liga": "arg_primera_nacional",
+   "n": 3598,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.5,
+     "lineas": {
+      "8.5": {
+       "n": 1707,
+       "prometido": 0.5219,
+       "real": 0.5413,
+       "sesgo": -0.0194
+      },
+      "9.5": {
+       "n": 1707,
+       "prometido": 0.4204,
+       "real": 0.4376,
+       "sesgo": -0.0172
+      },
+      "10.5": {
+       "n": 1707,
+       "prometido": 0.3283,
+       "real": 0.3351,
+       "sesgo": -0.0068
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1707,
+       "prometido": 0.4196,
+       "real": 0.4247,
+       "sesgo": -0.0052
+      },
+      "4.5": {
+       "n": 1707,
+       "prometido": 0.2462,
+       "real": 0.2402,
+       "sesgo": 0.006
+      }
+     }
+    }
+   }
+  },
+  "argentina": {
+   "liga": "argentina",
+   "n": 3826,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.308,
+     "lineas": {
+      "8.5": {
+       "n": 1852,
+       "prometido": 0.5192,
+       "real": 0.5421,
+       "sesgo": -0.023
+      },
+      "9.5": {
+       "n": 1852,
+       "prometido": 0.4122,
+       "real": 0.4168,
+       "sesgo": -0.0046
+      },
+      "10.5": {
+       "n": 1852,
+       "prometido": 0.3157,
+       "real": 0.3035,
+       "sesgo": 0.0122
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.02,
+     "lineas": {
+      "3.5": {
+       "n": 1852,
+       "prometido": 0.6296,
+       "real": 0.6469,
+       "sesgo": -0.0172
+      },
+      "4.5": {
+       "n": 1852,
+       "prometido": 0.4584,
+       "real": 0.4779,
+       "sesgo": -0.0194
+      }
+     }
+    }
+   }
+  },
+  "aus_aleague": {
+   "liga": "aus_aleague",
+   "n": 834,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.166,
+     "lineas": {
+      "8.5": {
+       "n": 399,
+       "prometido": 0.6802,
+       "real": 0.6992,
+       "sesgo": -0.019
+      },
+      "9.5": {
+       "n": 399,
+       "prometido": 0.576,
+       "real": 0.599,
+       "sesgo": -0.023
+      },
+      "10.5": {
+       "n": 399,
+       "prometido": 0.471,
+       "real": 0.4787,
+       "sesgo": -0.0077
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 399,
+       "prometido": 0.4614,
+       "real": 0.4937,
+       "sesgo": -0.0323
+      },
+      "4.5": {
+       "n": 399,
+       "prometido": 0.2832,
+       "real": 0.2682,
+       "sesgo": 0.015
+      }
+     }
+    }
+   }
+  },
+  "aut_bundesliga": {
+   "liga": "aut_bundesliga",
+   "n": 1556,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.761,
+     "lineas": {
+      "8.5": {
+       "n": 748,
+       "prometido": 0.5541,
+       "real": 0.5976,
+       "sesgo": -0.0435
+      },
+      "9.5": {
+       "n": 748,
+       "prometido": 0.4601,
+       "real": 0.4773,
+       "sesgo": -0.0171
+      },
+      "10.5": {
+       "n": 748,
+       "prometido": 0.3727,
+       "real": 0.3703,
+       "sesgo": 0.0024
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 748,
+       "prometido": 0.4681,
+       "real": 0.4853,
+       "sesgo": -0.0172
+      },
+      "4.5": {
+       "n": 748,
+       "prometido": 0.2906,
+       "real": 0.2874,
+       "sesgo": 0.0032
+      }
+     }
+    }
+   }
+  },
+  "bel_pro_league": {
+   "liga": "bel_pro_league",
+   "n": 1601,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.173,
+     "lineas": {
+      "8.5": {
+       "n": 763,
+       "prometido": 0.6359,
+       "real": 0.6658,
+       "sesgo": -0.0299
+      },
+      "9.5": {
+       "n": 763,
+       "prometido": 0.5266,
+       "real": 0.5347,
+       "sesgo": -0.0081
+      },
+      "10.5": {
+       "n": 763,
+       "prometido": 0.4198,
+       "real": 0.4377,
+       "sesgo": -0.0179
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.046,
+     "lineas": {
+      "3.5": {
+       "n": 763,
+       "prometido": 0.5129,
+       "real": 0.5334,
+       "sesgo": -0.0205
+      },
+      "4.5": {
+       "n": 763,
+       "prometido": 0.335,
+       "real": 0.346,
+       "sesgo": -0.011
+      }
+     }
+    }
+   }
+  },
+  "bol_division": {
+   "liga": "bol_division",
+   "n": 1590,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.508,
+     "lineas": {
+      "8.5": {
+       "n": 756,
+       "prometido": 0.5896,
+       "real": 0.6032,
+       "sesgo": -0.0136
+      },
+      "9.5": {
+       "n": 756,
+       "prometido": 0.4881,
+       "real": 0.4974,
+       "sesgo": -0.0092
+      },
+      "10.5": {
+       "n": 756,
+       "prometido": 0.3919,
+       "real": 0.3876,
+       "sesgo": 0.0044
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 756,
+       "prometido": 0.4218,
+       "real": 0.4418,
+       "sesgo": -0.02
+      },
+      "4.5": {
+       "n": 756,
+       "prometido": 0.2479,
+       "real": 0.2381,
+       "sesgo": 0.0098
+      }
+     }
+    }
+   }
+  },
+  "bra_copa": {
+   "liga": "bra_copa",
+   "n": 667,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.085,
+     "lineas": {
+      "8.5": {
+       "n": 121,
+       "prometido": 0.6475,
+       "real": 0.5868,
+       "sesgo": 0.0607
+      },
+      "9.5": {
+       "n": 121,
+       "prometido": 0.5385,
+       "real": 0.5041,
+       "sesgo": 0.0344
+      },
+      "10.5": {
+       "n": 121,
+       "prometido": 0.4313,
+       "real": 0.3802,
+       "sesgo": 0.0511
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.073,
+     "lineas": {
+      "3.5": {
+       "n": 121,
+       "prometido": 0.4993,
+       "real": 0.4132,
+       "sesgo": 0.086
+      },
+      "4.5": {
+       "n": 121,
+       "prometido": 0.3255,
+       "real": 0.2975,
+       "sesgo": 0.028
+      }
+     }
+    }
+   }
+  },
+  "bra_serie_b": {
+   "liga": "bra_serie_b",
+   "n": 2100,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.08,
+     "lineas": {
+      "8.5": {
+       "n": 971,
+       "prometido": 0.6818,
+       "real": 0.6931,
+       "sesgo": -0.0113
+      },
+      "9.5": {
+       "n": 971,
+       "prometido": 0.5731,
+       "real": 0.5778,
+       "sesgo": -0.0047
+      },
+      "10.5": {
+       "n": 971,
+       "prometido": 0.4631,
+       "real": 0.4593,
+       "sesgo": 0.0037
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 971,
+       "prometido": 0.7117,
+       "real": 0.7044,
+       "sesgo": 0.0073
+      },
+      "4.5": {
+       "n": 971,
+       "prometido": 0.541,
+       "real": 0.5345,
+       "sesgo": 0.0065
+      }
+     }
+    }
+   }
+  },
+  "brasil": {
+   "liga": "brasil",
+   "n": 3065,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.419,
+     "lineas": {
+      "8.5": {
+       "n": 1478,
+       "prometido": 0.6371,
+       "real": 0.6786,
+       "sesgo": -0.0415
+      },
+      "9.5": {
+       "n": 1478,
+       "prometido": 0.5369,
+       "real": 0.5433,
+       "sesgo": -0.0064
+      },
+      "10.5": {
+       "n": 1478,
+       "prometido": 0.4389,
+       "real": 0.4276,
+       "sesgo": 0.0113
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.126,
+     "lineas": {
+      "3.5": {
+       "n": 1478,
+       "prometido": 0.6704,
+       "real": 0.68,
+       "sesgo": -0.0096
+      },
+      "4.5": {
+       "n": 1478,
+       "prometido": 0.5018,
+       "real": 0.5108,
+       "sesgo": -0.009
+      }
+     }
+    }
+   }
+  },
+  "bundesliga": {
+   "liga": "bundesliga",
+   "n": 4923,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.211,
+     "lineas": {
+      "8.5": {
+       "n": 2403,
+       "prometido": 0.6005,
+       "real": 0.618,
+       "sesgo": -0.0175
+      },
+      "9.5": {
+       "n": 2403,
+       "prometido": 0.4928,
+       "real": 0.5098,
+       "sesgo": -0.017
+      },
+      "10.5": {
+       "n": 2403,
+       "prometido": 0.3903,
+       "real": 0.3928,
+       "sesgo": -0.0025
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 2403,
+       "prometido": 0.5216,
+       "real": 0.5331,
+       "sesgo": -0.0115
+      },
+      "4.5": {
+       "n": 2403,
+       "prometido": 0.3388,
+       "real": 0.3525,
+       "sesgo": -0.0137
+      }
+     }
+    }
+   }
+  },
+  "champions": {
+   "liga": "champions",
+   "n": 907,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.268,
+     "lineas": {
+      "8.5": {
+       "n": 302,
+       "prometido": 0.5978,
+       "real": 0.6225,
+       "sesgo": -0.0247
+      },
+      "9.5": {
+       "n": 302,
+       "prometido": 0.4965,
+       "real": 0.5066,
+       "sesgo": -0.0102
+      },
+      "10.5": {
+       "n": 302,
+       "prometido": 0.3997,
+       "real": 0.4172,
+       "sesgo": -0.0175
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.159,
+     "lineas": {
+      "3.5": {
+       "n": 302,
+       "prometido": 0.4706,
+       "real": 0.4371,
+       "sesgo": 0.0335
+      },
+      "4.5": {
+       "n": 302,
+       "prometido": 0.3031,
+       "real": 0.2748,
+       "sesgo": 0.0282
+      }
+     }
+    }
+   }
+  },
+  "chi_primera": {
+   "liga": "chi_primera",
+   "n": 1335,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.019,
+     "lineas": {
+      "8.5": {
+       "n": 625,
+       "prometido": 0.6166,
+       "real": 0.608,
+       "sesgo": 0.0086
+      },
+      "9.5": {
+       "n": 625,
+       "prometido": 0.4994,
+       "real": 0.5024,
+       "sesgo": -0.003
+      },
+      "10.5": {
+       "n": 625,
+       "prometido": 0.3868,
+       "real": 0.3888,
+       "sesgo": -0.002
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 625,
+       "prometido": 0.6976,
+       "real": 0.7024,
+       "sesgo": -0.0048
+      },
+      "4.5": {
+       "n": 625,
+       "prometido": 0.5265,
+       "real": 0.528,
+       "sesgo": -0.0015
+      }
+     }
+    }
+   }
+  },
+  "china": {
+   "liga": "china",
+   "n": 1888,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.318,
+     "lineas": {
+      "8.5": {
+       "n": 869,
+       "prometido": 0.6192,
+       "real": 0.6502,
+       "sesgo": -0.0309
+      },
+      "9.5": {
+       "n": 869,
+       "prometido": 0.5186,
+       "real": 0.5259,
+       "sesgo": -0.0073
+      },
+      "10.5": {
+       "n": 869,
+       "prometido": 0.4214,
+       "real": 0.4085,
+       "sesgo": 0.0129
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 869,
+       "prometido": 0.5248,
+       "real": 0.5409,
+       "sesgo": -0.016
+      },
+      "4.5": {
+       "n": 869,
+       "prometido": 0.3396,
+       "real": 0.359,
+       "sesgo": -0.0194
+      }
+     }
+    }
+   }
+  },
+  "col_primera_a": {
+   "liga": "col_primera_a",
+   "n": 2297,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.197,
+     "lineas": {
+      "8.5": {
+       "n": 1109,
+       "prometido": 0.5311,
+       "real": 0.532,
+       "sesgo": -0.0009
+      },
+      "9.5": {
+       "n": 1109,
+       "prometido": 0.4209,
+       "real": 0.4148,
+       "sesgo": 0.0061
+      },
+      "10.5": {
+       "n": 1109,
+       "prometido": 0.3207,
+       "real": 0.3048,
+       "sesgo": 0.016
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1109,
+       "prometido": 0.7663,
+       "real": 0.7773,
+       "sesgo": -0.011
+      },
+      "4.5": {
+       "n": 1109,
+       "prometido": 0.6091,
+       "real": 0.6204,
+       "sesgo": -0.0113
+      }
+     }
+    }
+   }
+  },
+  "conference_league": {
+   "liga": "conference_league",
+   "n": 729,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.171,
+     "lineas": {
+      "8.5": {
+       "n": 142,
+       "prometido": 0.5814,
+       "real": 0.5775,
+       "sesgo": 0.004
+      },
+      "9.5": {
+       "n": 142,
+       "prometido": 0.4733,
+       "real": 0.4507,
+       "sesgo": 0.0225
+      },
+      "10.5": {
+       "n": 142,
+       "prometido": 0.3716,
+       "real": 0.338,
+       "sesgo": 0.0336
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.08,
+     "lineas": {
+      "3.5": {
+       "n": 142,
+       "prometido": 0.5881,
+       "real": 0.669,
+       "sesgo": -0.0809
+      },
+      "4.5": {
+       "n": 142,
+       "prometido": 0.4096,
+       "real": 0.4648,
+       "sesgo": -0.0552
+      }
+     }
+    }
+   }
+  },
+  "crc_fpd": {
+   "liga": "crc_fpd",
+   "n": 1312,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.355,
+     "lineas": {
+      "8.5": {
+       "n": 628,
+       "prometido": 0.5581,
+       "real": 0.5573,
+       "sesgo": 0.0008
+      },
+      "9.5": {
+       "n": 628,
+       "prometido": 0.4512,
+       "real": 0.4475,
+       "sesgo": 0.0038
+      },
+      "10.5": {
+       "n": 628,
+       "prometido": 0.3522,
+       "real": 0.3615,
+       "sesgo": -0.0093
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.034,
+     "lineas": {
+      "3.5": {
+       "n": 628,
+       "prometido": 0.424,
+       "real": 0.4108,
+       "sesgo": 0.0131
+      },
+      "4.5": {
+       "n": 628,
+       "prometido": 0.2515,
+       "real": 0.258,
+       "sesgo": -0.0064
+      }
+     }
+    }
+   }
+  },
+  "dinamarca": {
+   "liga": "dinamarca",
+   "n": 1642,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.414,
+     "lineas": {
+      "8.5": {
+       "n": 791,
+       "prometido": 0.5837,
+       "real": 0.6169,
+       "sesgo": -0.0332
+      },
+      "9.5": {
+       "n": 791,
+       "prometido": 0.4798,
+       "real": 0.5095,
+       "sesgo": -0.0296
+      },
+      "10.5": {
+       "n": 791,
+       "prometido": 0.3819,
+       "real": 0.3995,
+       "sesgo": -0.0176
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.067,
+     "lineas": {
+      "3.5": {
+       "n": 791,
+       "prometido": 0.4113,
+       "real": 0.4197,
+       "sesgo": -0.0084
+      },
+      "4.5": {
+       "n": 791,
+       "prometido": 0.2448,
+       "real": 0.2402,
+       "sesgo": 0.0046
+      }
+     }
+    }
+   }
+  },
+  "ecu_liga_pro": {
+   "liga": "ecu_liga_pro",
+   "n": 1410,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.371,
+     "lineas": {
+      "8.5": {
+       "n": 667,
+       "prometido": 0.5346,
+       "real": 0.5532,
+       "sesgo": -0.0186
+      },
+      "9.5": {
+       "n": 667,
+       "prometido": 0.428,
+       "real": 0.4063,
+       "sesgo": 0.0217
+      },
+      "10.5": {
+       "n": 667,
+       "prometido": 0.3308,
+       "real": 0.3103,
+       "sesgo": 0.0205
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 667,
+       "prometido": 0.461,
+       "real": 0.4768,
+       "sesgo": -0.0158
+      },
+      "4.5": {
+       "n": 667,
+       "prometido": 0.2883,
+       "real": 0.2714,
+       "sesgo": 0.017
+      }
+     }
+    }
+   }
+  },
+  "eng_championship": {
+   "liga": "eng_championship",
+   "n": 2843,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.154,
+     "lineas": {
+      "8.5": {
+       "n": 1346,
+       "prometido": 0.6596,
+       "real": 0.6776,
+       "sesgo": -0.0179
+      },
+      "9.5": {
+       "n": 1346,
+       "prometido": 0.5537,
+       "real": 0.5557,
+       "sesgo": -0.002
+      },
+      "10.5": {
+       "n": 1346,
+       "prometido": 0.4484,
+       "real": 0.4495,
+       "sesgo": -0.0011
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1346,
+       "prometido": 0.5032,
+       "real": 0.5163,
+       "sesgo": -0.0131
+      },
+      "4.5": {
+       "n": 1346,
+       "prometido": 0.3208,
+       "real": 0.315,
+       "sesgo": 0.0058
+      }
+     }
+    }
+   }
+  },
+  "eng_fa_cup": {
+   "liga": "eng_fa_cup",
+   "n": 675,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.237,
+     "lineas": {
+      "8.5": {
+       "n": 128,
+       "prometido": 0.6447,
+       "real": 0.5391,
+       "sesgo": 0.1056
+      },
+      "9.5": {
+       "n": 128,
+       "prometido": 0.5392,
+       "real": 0.4531,
+       "sesgo": 0.086
+      },
+      "10.5": {
+       "n": 128,
+       "prometido": 0.4354,
+       "real": 0.3516,
+       "sesgo": 0.0838
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.157,
+     "lineas": {
+      "3.5": {
+       "n": 128,
+       "prometido": 0.3818,
+       "real": 0.4531,
+       "sesgo": -0.0713
+      },
+      "4.5": {
+       "n": 128,
+       "prometido": 0.226,
+       "real": 0.1797,
+       "sesgo": 0.0463
+      }
+     }
+    }
+   }
+  },
+  "eng_league_one": {
+   "liga": "eng_league_one",
+   "n": 8752,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.178,
+     "lineas": {
+      "8.5": {
+       "n": 4230,
+       "prometido": 0.6541,
+       "real": 0.6709,
+       "sesgo": -0.0168
+      },
+      "9.5": {
+       "n": 4230,
+       "prometido": 0.5479,
+       "real": 0.5579,
+       "sesgo": -0.0101
+      },
+      "10.5": {
+       "n": 4230,
+       "prometido": 0.4427,
+       "real": 0.4428,
+       "sesgo": -0.0001
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.148,
+     "lineas": {
+      "3.5": {
+       "n": 4230,
+       "prometido": 0.4525,
+       "real": 0.4757,
+       "sesgo": -0.0231
+      },
+      "4.5": {
+       "n": 4230,
+       "prometido": 0.2875,
+       "real": 0.2849,
+       "sesgo": 0.0027
+      }
+     }
+    }
+   }
+  },
+  "eng_league_two": {
+   "liga": "eng_league_two",
+   "n": 8792,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.173,
+     "lineas": {
+      "8.5": {
+       "n": 4277,
+       "prometido": 0.6261,
+       "real": 0.6474,
+       "sesgo": -0.0213
+      },
+      "9.5": {
+       "n": 4277,
+       "prometido": 0.5169,
+       "real": 0.5261,
+       "sesgo": -0.0091
+      },
+      "10.5": {
+       "n": 4277,
+       "prometido": 0.4111,
+       "real": 0.4022,
+       "sesgo": 0.0089
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.12,
+     "lineas": {
+      "3.5": {
+       "n": 4277,
+       "prometido": 0.4382,
+       "real": 0.4601,
+       "sesgo": -0.0219
+      },
+      "4.5": {
+       "n": 4277,
+       "prometido": 0.2738,
+       "real": 0.2745,
+       "sesgo": -0.0007
+      }
+     }
+    }
+   }
+  },
+  "eng_national": {
+   "liga": "eng_national",
+   "n": 8706,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.303,
+     "lineas": {
+      "8.5": {
+       "n": 4182,
+       "prometido": 0.5821,
+       "real": 0.5799,
+       "sesgo": 0.0022
+      },
+      "9.5": {
+       "n": 4182,
+       "prometido": 0.4734,
+       "real": 0.4735,
+       "sesgo": -0.0
+      },
+      "10.5": {
+       "n": 4182,
+       "prometido": 0.3712,
+       "real": 0.3728,
+       "sesgo": -0.0016
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.107,
+     "lineas": {
+      "3.5": {
+       "n": 4182,
+       "prometido": 0.4321,
+       "real": 0.4582,
+       "sesgo": -0.0261
+      },
+      "4.5": {
+       "n": 4182,
+       "prometido": 0.2674,
+       "real": 0.2733,
+       "sesgo": -0.0059
+      }
+     }
+    }
+   }
+  },
+  "eredivisie": {
+   "liga": "eredivisie",
+   "n": 2734,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.223,
+     "lineas": {
+      "8.5": {
+       "n": 1321,
+       "prometido": 0.6495,
+       "real": 0.6919,
+       "sesgo": -0.0424
+      },
+      "9.5": {
+       "n": 1321,
+       "prometido": 0.5481,
+       "real": 0.5753,
+       "sesgo": -0.0272
+      },
+      "10.5": {
+       "n": 1321,
+       "prometido": 0.4483,
+       "real": 0.4701,
+       "sesgo": -0.0218
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.227,
+     "lineas": {
+      "3.5": {
+       "n": 1321,
+       "prometido": 0.3452,
+       "real": 0.3512,
+       "sesgo": -0.006
+      },
+      "4.5": {
+       "n": 1321,
+       "prometido": 0.2027,
+       "real": 0.1968,
+       "sesgo": 0.0059
+      }
+     }
+    }
+   }
+  },
+  "esp_hypermotion": {
+   "liga": "esp_hypermotion",
+   "n": 4213,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.135,
+     "lineas": {
+      "8.5": {
+       "n": 2006,
+       "prometido": 0.5702,
+       "real": 0.5808,
+       "sesgo": -0.0106
+      },
+      "9.5": {
+       "n": 2006,
+       "prometido": 0.4557,
+       "real": 0.4566,
+       "sesgo": -0.001
+      },
+      "10.5": {
+       "n": 2006,
+       "prometido": 0.3492,
+       "real": 0.331,
+       "sesgo": 0.0182
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.024,
+     "lineas": {
+      "3.5": {
+       "n": 2006,
+       "prometido": 0.6984,
+       "real": 0.7243,
+       "sesgo": -0.026
+      },
+      "4.5": {
+       "n": 2006,
+       "prometido": 0.5273,
+       "real": 0.5538,
+       "sesgo": -0.0265
+      }
+     }
+    }
+   }
+  },
+  "europa_league": {
+   "liga": "europa_league",
+   "n": 1356,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.422,
+     "lineas": {
+      "8.5": {
+       "n": 384,
+       "prometido": 0.5562,
+       "real": 0.5781,
+       "sesgo": -0.022
+      },
+      "9.5": {
+       "n": 384,
+       "prometido": 0.4543,
+       "real": 0.4818,
+       "sesgo": -0.0275
+      },
+      "10.5": {
+       "n": 384,
+       "prometido": 0.3597,
+       "real": 0.3516,
+       "sesgo": 0.0082
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.19,
+     "lineas": {
+      "3.5": {
+       "n": 384,
+       "prometido": 0.5602,
+       "real": 0.5885,
+       "sesgo": -0.0284
+      },
+      "4.5": {
+       "n": 384,
+       "prometido": 0.3902,
+       "real": 0.3958,
+       "sesgo": -0.0056
+      }
+     }
+    }
+   }
+  },
+  "finlandia": {
+   "liga": "finlandia",
+   "n": 1335,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.556,
+     "lineas": {
+      "8.5": {
+       "n": 632,
+       "prometido": 0.5972,
+       "real": 0.6155,
+       "sesgo": -0.0183
+      },
+      "9.5": {
+       "n": 632,
+       "prometido": 0.4978,
+       "real": 0.4873,
+       "sesgo": 0.0104
+      },
+      "10.5": {
+       "n": 632,
+       "prometido": 0.4031,
+       "real": 0.4019,
+       "sesgo": 0.0012
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 632,
+       "prometido": 0.4253,
+       "real": 0.432,
+       "sesgo": -0.0067
+      },
+      "4.5": {
+       "n": 632,
+       "prometido": 0.2498,
+       "real": 0.2547,
+       "sesgo": -0.0049
+      }
+     }
+    }
+   }
+  },
+  "fra_ligue2": {
+   "liga": "fra_ligue2",
+   "n": 3224,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.166,
+     "lineas": {
+      "8.5": {
+       "n": 1525,
+       "prometido": 0.5399,
+       "real": 0.5443,
+       "sesgo": -0.0043
+      },
+      "9.5": {
+       "n": 1525,
+       "prometido": 0.4277,
+       "real": 0.4361,
+       "sesgo": -0.0083
+      },
+      "10.5": {
+       "n": 1525,
+       "prometido": 0.3254,
+       "real": 0.3292,
+       "sesgo": -0.0038
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1525,
+       "prometido": 0.5013,
+       "real": 0.4951,
+       "sesgo": 0.0062
+      },
+      "4.5": {
+       "n": 1525,
+       "prometido": 0.3205,
+       "real": 0.3141,
+       "sesgo": 0.0064
+      }
+     }
+    }
+   }
+  },
+  "ger_bundesliga2": {
+   "liga": "ger_bundesliga2",
+   "n": 2799,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.166,
+     "lineas": {
+      "8.5": {
+       "n": 1333,
+       "prometido": 0.6543,
+       "real": 0.6774,
+       "sesgo": -0.0231
+      },
+      "9.5": {
+       "n": 1333,
+       "prometido": 0.5455,
+       "real": 0.5574,
+       "sesgo": -0.0118
+      },
+      "10.5": {
+       "n": 1333,
+       "prometido": 0.4379,
+       "real": 0.4389,
+       "sesgo": -0.0009
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1333,
+       "prometido": 0.6356,
+       "real": 0.6684,
+       "sesgo": -0.0328
+      },
+      "4.5": {
+       "n": 1333,
+       "prometido": 0.4546,
+       "real": 0.4846,
+       "sesgo": -0.03
+      }
+     }
+    }
+   }
+  },
+  "gre_super_league": {
+   "liga": "gre_super_league",
+   "n": 2176,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.191,
+     "lineas": {
+      "8.5": {
+       "n": 1047,
+       "prometido": 0.4927,
+       "real": 0.5205,
+       "sesgo": -0.0279
+      },
+      "9.5": {
+       "n": 1047,
+       "prometido": 0.3877,
+       "real": 0.3878,
+       "sesgo": -0.0001
+      },
+      "10.5": {
+       "n": 1047,
+       "prometido": 0.2948,
+       "real": 0.277,
+       "sesgo": 0.0178
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.023,
+     "lineas": {
+      "3.5": {
+       "n": 1047,
+       "prometido": 0.7214,
+       "real": 0.7373,
+       "sesgo": -0.0159
+      },
+      "4.5": {
+       "n": 1047,
+       "prometido": 0.5581,
+       "real": 0.5692,
+       "sesgo": -0.0112
+      }
+     }
+    }
+   }
+  },
+  "ind_isl": {
+   "liga": "ind_isl",
+   "n": 625,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.306,
+     "lineas": {
+      "8.5": {
+       "n": 288,
+       "prometido": 0.633,
+       "real": 0.691,
+       "sesgo": -0.058
+      },
+      "9.5": {
+       "n": 288,
+       "prometido": 0.5296,
+       "real": 0.6076,
+       "sesgo": -0.078
+      },
+      "10.5": {
+       "n": 288,
+       "prometido": 0.4288,
+       "real": 0.4757,
+       "sesgo": -0.0469
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.113,
+     "lineas": {
+      "3.5": {
+       "n": 288,
+       "prometido": 0.5635,
+       "real": 0.5451,
+       "sesgo": 0.0184
+      },
+      "4.5": {
+       "n": 288,
+       "prometido": 0.3894,
+       "real": 0.3785,
+       "sesgo": 0.0109
+      }
+     }
+    }
+   }
+  },
+  "irlanda": {
+   "liga": "irlanda",
+   "n": 1377,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.359,
+     "lineas": {
+      "8.5": {
+       "n": 662,
+       "prometido": 0.5589,
+       "real": 0.5498,
+       "sesgo": 0.009
+      },
+      "9.5": {
+       "n": 662,
+       "prometido": 0.4512,
+       "real": 0.4502,
+       "sesgo": 0.001
+      },
+      "10.5": {
+       "n": 662,
+       "prometido": 0.3515,
+       "real": 0.3399,
+       "sesgo": 0.0116
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 662,
+       "prometido": 0.431,
+       "real": 0.4381,
+       "sesgo": -0.0071
+      },
+      "4.5": {
+       "n": 662,
+       "prometido": 0.2548,
+       "real": 0.2447,
+       "sesgo": 0.0101
+      }
+     }
+    }
+   }
+  },
+  "isr_premier": {
+   "liga": "isr_premier",
+   "n": 720,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.324,
+     "lineas": {
+      "8.5": {
+       "n": 335,
+       "prometido": 0.5703,
+       "real": 0.5791,
+       "sesgo": -0.0088
+      },
+      "9.5": {
+       "n": 335,
+       "prometido": 0.4628,
+       "real": 0.4507,
+       "sesgo": 0.012
+      },
+      "10.5": {
+       "n": 335,
+       "prometido": 0.3623,
+       "real": 0.3433,
+       "sesgo": 0.019
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 335,
+       "prometido": 0.4207,
+       "real": 0.4418,
+       "sesgo": -0.0211
+      },
+      "4.5": {
+       "n": 335,
+       "prometido": 0.2457,
+       "real": 0.2388,
+       "sesgo": 0.0069
+      }
+     }
+    }
+   }
+  },
+  "ita_serie_b": {
+   "liga": "ita_serie_b",
+   "n": 3504,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.128,
+     "lineas": {
+      "8.5": {
+       "n": 1654,
+       "prometido": 0.5886,
+       "real": 0.6064,
+       "sesgo": -0.0178
+      },
+      "9.5": {
+       "n": 1654,
+       "prometido": 0.4746,
+       "real": 0.4843,
+       "sesgo": -0.0097
+      },
+      "10.5": {
+       "n": 1654,
+       "prometido": 0.3673,
+       "real": 0.3615,
+       "sesgo": 0.0057
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1654,
+       "prometido": 0.7183,
+       "real": 0.7443,
+       "sesgo": -0.026
+      },
+      "4.5": {
+       "n": 1654,
+       "prometido": 0.5497,
+       "real": 0.5683,
+       "sesgo": -0.0186
+      }
+     }
+    }
+   }
+  },
+  "jpn_j1": {
+   "liga": "jpn_j1",
+   "n": 2528,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.628,
+     "lineas": {
+      "8.5": {
+       "n": 1210,
+       "prometido": 0.5611,
+       "real": 0.5777,
+       "sesgo": -0.0166
+      },
+      "9.5": {
+       "n": 1210,
+       "prometido": 0.4624,
+       "real": 0.4835,
+       "sesgo": -0.021
+      },
+      "10.5": {
+       "n": 1210,
+       "prometido": 0.3705,
+       "real": 0.3711,
+       "sesgo": -0.0005
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.012,
+     "lineas": {
+      "3.5": {
+       "n": 1210,
+       "prometido": 0.3266,
+       "real": 0.3256,
+       "sesgo": 0.001
+      },
+      "4.5": {
+       "n": 1210,
+       "prometido": 0.1798,
+       "real": 0.1645,
+       "sesgo": 0.0153
+      }
+     }
+    }
+   }
+  },
+  "ksa_pro": {
+   "liga": "ksa_pro",
+   "n": 1222,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.352,
+     "lineas": {
+      "8.5": {
+       "n": 565,
+       "prometido": 0.6062,
+       "real": 0.6442,
+       "sesgo": -0.038
+      },
+      "9.5": {
+       "n": 565,
+       "prometido": 0.5075,
+       "real": 0.5239,
+       "sesgo": -0.0164
+      },
+      "10.5": {
+       "n": 565,
+       "prometido": 0.4129,
+       "real": 0.4177,
+       "sesgo": -0.0048
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.079,
+     "lineas": {
+      "3.5": {
+       "n": 565,
+       "prometido": 0.5506,
+       "real": 0.5646,
+       "sesgo": -0.014
+      },
+      "4.5": {
+       "n": 565,
+       "prometido": 0.3713,
+       "real": 0.3628,
+       "sesgo": 0.0084
+      }
+     }
+    }
+   }
+  },
+  "laliga": {
+   "liga": "laliga",
+   "n": 6139,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.161,
+     "lineas": {
+      "8.5": {
+       "n": 3008,
+       "prometido": 0.5655,
+       "real": 0.5841,
+       "sesgo": -0.0186
+      },
+      "9.5": {
+       "n": 3008,
+       "prometido": 0.4545,
+       "real": 0.4661,
+       "sesgo": -0.0116
+      },
+      "10.5": {
+       "n": 3008,
+       "prometido": 0.3514,
+       "real": 0.3497,
+       "sesgo": 0.0017
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 3008,
+       "prometido": 0.6918,
+       "real": 0.6892,
+       "sesgo": 0.0026
+      },
+      "4.5": {
+       "n": 3008,
+       "prometido": 0.5196,
+       "real": 0.5226,
+       "sesgo": -0.003
+      }
+     }
+    }
+   }
+  },
+  "leagues_cup": {
+   "liga": "leagues_cup",
+   "n": 6817,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.593,
+     "lineas": {
+      "8.5": {
+       "n": 3327,
+       "prometido": 0.5642,
+       "real": 0.5786,
+       "sesgo": -0.0144
+      },
+      "9.5": {
+       "n": 3327,
+       "prometido": 0.4647,
+       "real": 0.4668,
+       "sesgo": -0.0021
+      },
+      "10.5": {
+       "n": 3327,
+       "prometido": 0.3717,
+       "real": 0.3679,
+       "sesgo": 0.0038
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.016,
+     "lineas": {
+      "3.5": {
+       "n": 3327,
+       "prometido": 0.4292,
+       "real": 0.4367,
+       "sesgo": -0.0075
+      },
+      "4.5": {
+       "n": 3327,
+       "prometido": 0.2554,
+       "real": 0.2528,
+       "sesgo": 0.0026
+      }
+     }
+    }
+   }
+  },
+  "libertadores": {
+   "liga": "libertadores",
+   "n": 794,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.272,
+     "lineas": {
+      "8.5": {
+       "n": 222,
+       "prometido": 0.5452,
+       "real": 0.5631,
+       "sesgo": -0.0178
+      },
+      "9.5": {
+       "n": 222,
+       "prometido": 0.4357,
+       "real": 0.4775,
+       "sesgo": -0.0418
+      },
+      "10.5": {
+       "n": 222,
+       "prometido": 0.3352,
+       "real": 0.3559,
+       "sesgo": -0.0207
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.01,
+     "lineas": {
+      "3.5": {
+       "n": 222,
+       "prometido": 0.576,
+       "real": 0.491,
+       "sesgo": 0.085
+      },
+      "4.5": {
+       "n": 222,
+       "prometido": 0.3953,
+       "real": 0.3018,
+       "sesgo": 0.0935
+      }
+     }
+    }
+   }
+  },
+  "liga_mx": {
+   "liga": "liga_mx",
+   "n": 2647,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.648,
+     "lineas": {
+      "8.5": {
+       "n": 1291,
+       "prometido": 0.5793,
+       "real": 0.6166,
+       "sesgo": -0.0372
+      },
+      "9.5": {
+       "n": 1291,
+       "prometido": 0.4832,
+       "real": 0.4957,
+       "sesgo": -0.0125
+      },
+      "10.5": {
+       "n": 1291,
+       "prometido": 0.3926,
+       "real": 0.3788,
+       "sesgo": 0.0138
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.098,
+     "lineas": {
+      "3.5": {
+       "n": 1291,
+       "prometido": 0.5985,
+       "real": 0.6204,
+       "sesgo": -0.0219
+      },
+      "4.5": {
+       "n": 1291,
+       "prometido": 0.4232,
+       "real": 0.4214,
+       "sesgo": 0.0018
+      }
+     }
+    }
+   }
+  },
+  "ligue_1": {
+   "liga": "ligue_1",
+   "n": 5793,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.2,
+     "lineas": {
+      "8.5": {
+       "n": 2830,
+       "prometido": 0.5835,
+       "real": 0.6,
+       "sesgo": -0.0165
+      },
+      "9.5": {
+       "n": 2830,
+       "prometido": 0.4732,
+       "real": 0.4707,
+       "sesgo": 0.0025
+      },
+      "10.5": {
+       "n": 2830,
+       "prometido": 0.3694,
+       "real": 0.3516,
+       "sesgo": 0.0178
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 2830,
+       "prometido": 0.5051,
+       "real": 0.5194,
+       "sesgo": -0.0144
+      },
+      "4.5": {
+       "n": 2830,
+       "prometido": 0.3225,
+       "real": 0.3201,
+       "sesgo": 0.0023
+      }
+     }
+    }
+   }
+  },
+  "mex_expansion": {
+   "liga": "mex_expansion",
+   "n": 1443,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.519,
+     "lineas": {
+      "8.5": {
+       "n": 687,
+       "prometido": 0.5894,
+       "real": 0.5881,
+       "sesgo": 0.0013
+      },
+      "9.5": {
+       "n": 687,
+       "prometido": 0.4881,
+       "real": 0.4833,
+       "sesgo": 0.0048
+      },
+      "10.5": {
+       "n": 687,
+       "prometido": 0.3921,
+       "real": 0.3799,
+       "sesgo": 0.0122
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.032,
+     "lineas": {
+      "3.5": {
+       "n": 687,
+       "prometido": 0.4181,
+       "real": 0.4294,
+       "sesgo": -0.0113
+      },
+      "4.5": {
+       "n": 687,
+       "prometido": 0.2483,
+       "real": 0.2387,
+       "sesgo": 0.0096
+      }
+     }
+    }
+   }
+  },
+  "mls": {
+   "liga": "mls",
+   "n": 3756,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.233,
+     "lineas": {
+      "8.5": {
+       "n": 1830,
+       "prometido": 0.6119,
+       "real": 0.6295,
+       "sesgo": -0.0176
+      },
+      "9.5": {
+       "n": 1830,
+       "prometido": 0.5038,
+       "real": 0.5131,
+       "sesgo": -0.0093
+      },
+      "10.5": {
+       "n": 1830,
+       "prometido": 0.4,
+       "real": 0.3934,
+       "sesgo": 0.0065
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1830,
+       "prometido": 0.5729,
+       "real": 0.5913,
+       "sesgo": -0.0184
+      },
+      "4.5": {
+       "n": 1830,
+       "prometido": 0.3863,
+       "real": 0.3956,
+       "sesgo": -0.0093
+      }
+     }
+    }
+   }
+  },
+  "ned_eerste": {
+   "liga": "ned_eerste",
+   "n": 1962,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.093,
+     "lineas": {
+      "8.5": {
+       "n": 939,
+       "prometido": 0.6848,
+       "real": 0.7146,
+       "sesgo": -0.0298
+      },
+      "9.5": {
+       "n": 939,
+       "prometido": 0.5789,
+       "real": 0.6038,
+       "sesgo": -0.0249
+      },
+      "10.5": {
+       "n": 939,
+       "prometido": 0.4716,
+       "real": 0.4739,
+       "sesgo": -0.0023
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.081,
+     "lineas": {
+      "3.5": {
+       "n": 939,
+       "prometido": 0.4093,
+       "real": 0.4366,
+       "sesgo": -0.0273
+      },
+      "4.5": {
+       "n": 939,
+       "prometido": 0.2443,
+       "real": 0.2375,
+       "sesgo": 0.0068
+      }
+     }
+    }
+   }
+  },
+  "noruega": {
+   "liga": "noruega",
+   "n": 1922,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.406,
+     "lineas": {
+      "8.5": {
+       "n": 917,
+       "prometido": 0.6217,
+       "real": 0.615,
+       "sesgo": 0.0066
+      },
+      "9.5": {
+       "n": 917,
+       "prometido": 0.522,
+       "real": 0.5267,
+       "sesgo": -0.0047
+      },
+      "10.5": {
+       "n": 917,
+       "prometido": 0.4255,
+       "real": 0.422,
+       "sesgo": 0.0035
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.039,
+     "lineas": {
+      "3.5": {
+       "n": 917,
+       "prometido": 0.4199,
+       "real": 0.4209,
+       "sesgo": -0.0011
+      },
+      "4.5": {
+       "n": 917,
+       "prometido": 0.2503,
+       "real": 0.2399,
+       "sesgo": 0.0104
+      }
+     }
+    }
+   }
+  },
+  "par_division": {
+   "liga": "par_division",
+   "n": 1338,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.58,
+     "lineas": {
+      "8.5": {
+       "n": 634,
+       "prometido": 0.5556,
+       "real": 0.5678,
+       "sesgo": -0.0122
+      },
+      "9.5": {
+       "n": 634,
+       "prometido": 0.4561,
+       "real": 0.4621,
+       "sesgo": -0.006
+      },
+      "10.5": {
+       "n": 634,
+       "prometido": 0.3638,
+       "real": 0.3549,
+       "sesgo": 0.009
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 634,
+       "prometido": 0.4034,
+       "real": 0.4022,
+       "sesgo": 0.0012
+      },
+      "4.5": {
+       "n": 634,
+       "prometido": 0.2334,
+       "real": 0.224,
+       "sesgo": 0.0094
+      }
+     }
+    }
+   }
+  },
+  "per_liga1": {
+   "liga": "per_liga1",
+   "n": 1716,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.288,
+     "lineas": {
+      "8.5": {
+       "n": 811,
+       "prometido": 0.5161,
+       "real": 0.5253,
+       "sesgo": -0.0092
+      },
+      "9.5": {
+       "n": 811,
+       "prometido": 0.4102,
+       "real": 0.4106,
+       "sesgo": -0.0004
+      },
+      "10.5": {
+       "n": 811,
+       "prometido": 0.3148,
+       "real": 0.3194,
+       "sesgo": -0.0046
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.069,
+     "lineas": {
+      "3.5": {
+       "n": 811,
+       "prometido": 0.5644,
+       "real": 0.6042,
+       "sesgo": -0.0398
+      },
+      "4.5": {
+       "n": 811,
+       "prometido": 0.3883,
+       "real": 0.402,
+       "sesgo": -0.0137
+      }
+     }
+    }
+   }
+  },
+  "polonia": {
+   "liga": "polonia",
+   "n": 2373,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.484,
+     "lineas": {
+      "8.5": {
+       "n": 1129,
+       "prometido": 0.5687,
+       "real": 0.5819,
+       "sesgo": -0.0132
+      },
+      "9.5": {
+       "n": 1129,
+       "prometido": 0.4668,
+       "real": 0.4694,
+       "sesgo": -0.0026
+      },
+      "10.5": {
+       "n": 1129,
+       "prometido": 0.3715,
+       "real": 0.3756,
+       "sesgo": -0.004
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.004,
+     "lineas": {
+      "3.5": {
+       "n": 1129,
+       "prometido": 0.4073,
+       "real": 0.4128,
+       "sesgo": -0.0055
+      },
+      "4.5": {
+       "n": 1129,
+       "prometido": 0.2361,
+       "real": 0.2329,
+       "sesgo": 0.0032
+      }
+     }
+    }
+   }
+  },
+  "premier": {
+   "liga": "premier",
+   "n": 6120,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.178,
+     "lineas": {
+      "8.5": {
+       "n": 2981,
+       "prometido": 0.6587,
+       "real": 0.692,
+       "sesgo": -0.0333
+      },
+      "9.5": {
+       "n": 2981,
+       "prometido": 0.5552,
+       "real": 0.5763,
+       "sesgo": -0.0211
+      },
+      "10.5": {
+       "n": 2981,
+       "prometido": 0.4525,
+       "real": 0.4582,
+       "sesgo": -0.0057
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.109,
+     "lineas": {
+      "3.5": {
+       "n": 2981,
+       "prometido": 0.4611,
+       "real": 0.4807,
+       "sesgo": -0.0196
+      },
+      "4.5": {
+       "n": 2981,
+       "prometido": 0.2946,
+       "real": 0.2996,
+       "sesgo": -0.0049
+      }
+     }
+    }
+   }
+  },
+  "primeira": {
+   "liga": "primeira",
+   "n": 3113,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.22,
+     "lineas": {
+      "8.5": {
+       "n": 1504,
+       "prometido": 0.6085,
+       "real": 0.6243,
+       "sesgo": -0.0159
+      },
+      "9.5": {
+       "n": 1504,
+       "prometido": 0.5054,
+       "real": 0.5027,
+       "sesgo": 0.0027
+      },
+      "10.5": {
+       "n": 1504,
+       "prometido": 0.4065,
+       "real": 0.3916,
+       "sesgo": 0.0149
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.159,
+     "lineas": {
+      "3.5": {
+       "n": 1504,
+       "prometido": 0.7328,
+       "real": 0.7473,
+       "sesgo": -0.0146
+      },
+      "4.5": {
+       "n": 1504,
+       "prometido": 0.5798,
+       "real": 0.5871,
+       "sesgo": -0.0073
+      }
+     }
+    }
+   }
+  },
+  "rsa_premier": {
+   "liga": "rsa_premier",
+   "n": 1224,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.544,
+     "lineas": {
+      "8.5": {
+       "n": 571,
+       "prometido": 0.5049,
+       "real": 0.5254,
+       "sesgo": -0.0205
+      },
+      "9.5": {
+       "n": 571,
+       "prometido": 0.4052,
+       "real": 0.4028,
+       "sesgo": 0.0024
+      },
+      "10.5": {
+       "n": 571,
+       "prometido": 0.3156,
+       "real": 0.2995,
+       "sesgo": 0.0162
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.014,
+     "lineas": {
+      "3.5": {
+       "n": 571,
+       "prometido": 0.4314,
+       "real": 0.4694,
+       "sesgo": -0.038
+      },
+      "4.5": {
+       "n": 571,
+       "prometido": 0.2588,
+       "real": 0.2592,
+       "sesgo": -0.0004
+      }
+     }
+    }
+   }
+  },
+  "rumania": {
+   "liga": "rumania",
+   "n": 2473,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.443,
+     "lineas": {
+      "8.5": {
+       "n": 1176,
+       "prometido": 0.5497,
+       "real": 0.5655,
+       "sesgo": -0.0158
+      },
+      "9.5": {
+       "n": 1176,
+       "prometido": 0.4452,
+       "real": 0.4498,
+       "sesgo": -0.0046
+      },
+      "10.5": {
+       "n": 1176,
+       "prometido": 0.3489,
+       "real": 0.3614,
+       "sesgo": -0.0125
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.079,
+     "lineas": {
+      "3.5": {
+       "n": 1176,
+       "prometido": 0.4367,
+       "real": 0.4235,
+       "sesgo": 0.0132
+      },
+      "4.5": {
+       "n": 1176,
+       "prometido": 0.2659,
+       "real": 0.2611,
+       "sesgo": 0.0048
+      }
+     }
+    }
+   }
+  },
+  "rus_premier": {
+   "liga": "rus_premier",
+   "n": 1944,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.519,
+     "lineas": {
+      "8.5": {
+       "n": 923,
+       "prometido": 0.564,
+       "real": 0.5937,
+       "sesgo": -0.0297
+      },
+      "9.5": {
+       "n": 923,
+       "prometido": 0.4643,
+       "real": 0.4789,
+       "sesgo": -0.0146
+      },
+      "10.5": {
+       "n": 923,
+       "prometido": 0.3711,
+       "real": 0.3521,
+       "sesgo": 0.0189
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 923,
+       "prometido": 0.4787,
+       "real": 0.494,
+       "sesgo": -0.0154
+      },
+      "4.5": {
+       "n": 923,
+       "prometido": 0.2997,
+       "real": 0.3034,
+       "sesgo": -0.0037
+      }
+     }
+    }
+   }
+  },
+  "sco_championship": {
+   "liga": "sco_championship",
+   "n": 1562,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.085,
+     "lineas": {
+      "8.5": {
+       "n": 733,
+       "prometido": 0.6588,
+       "real": 0.6508,
+       "sesgo": 0.008
+      },
+      "9.5": {
+       "n": 733,
+       "prometido": 0.5523,
+       "real": 0.5443,
+       "sesgo": 0.008
+      },
+      "10.5": {
+       "n": 733,
+       "prometido": 0.4465,
+       "real": 0.4338,
+       "sesgo": 0.0127
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 733,
+       "prometido": 0.5299,
+       "real": 0.543,
+       "sesgo": -0.013
+      },
+      "4.5": {
+       "n": 733,
+       "prometido": 0.3483,
+       "real": 0.3574,
+       "sesgo": -0.0091
+      }
+     }
+    }
+   }
+  },
+  "sco_premiership": {
+   "liga": "sco_premiership",
+   "n": 3635,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.272,
+     "lineas": {
+      "8.5": {
+       "n": 1788,
+       "prometido": 0.6454,
+       "real": 0.6924,
+       "sesgo": -0.047
+      },
+      "9.5": {
+       "n": 1788,
+       "prometido": 0.5473,
+       "real": 0.5872,
+       "sesgo": -0.04
+      },
+      "10.5": {
+       "n": 1788,
+       "prometido": 0.4511,
+       "real": 0.4653,
+       "sesgo": -0.0142
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.014,
+     "lineas": {
+      "3.5": {
+       "n": 1788,
+       "prometido": 0.4721,
+       "real": 0.4782,
+       "sesgo": -0.0061
+      },
+      "4.5": {
+       "n": 1788,
+       "prometido": 0.2973,
+       "real": 0.2942,
+       "sesgo": 0.0031
+      }
+     }
+    }
+   }
+  },
+  "serie_a": {
+   "liga": "serie_a",
+   "n": 6120,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.177,
+     "lineas": {
+      "8.5": {
+       "n": 2985,
+       "prometido": 0.5994,
+       "real": 0.6154,
+       "sesgo": -0.016
+      },
+      "9.5": {
+       "n": 2985,
+       "prometido": 0.4915,
+       "real": 0.5055,
+       "sesgo": -0.0141
+      },
+      "10.5": {
+       "n": 2985,
+       "prometido": 0.3888,
+       "real": 0.3856,
+       "sesgo": 0.0032
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 2985,
+       "prometido": 0.6241,
+       "real": 0.6576,
+       "sesgo": -0.0335
+      },
+      "4.5": {
+       "n": 2985,
+       "prometido": 0.4452,
+       "real": 0.4513,
+       "sesgo": -0.0061
+      }
+     }
+    }
+   }
+  },
+  "slv_primera": {
+   "liga": "slv_primera",
+   "n": 1382,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.555,
+     "lineas": {
+      "8.5": {
+       "n": 656,
+       "prometido": 0.5686,
+       "real": 0.6021,
+       "sesgo": -0.0335
+      },
+      "9.5": {
+       "n": 656,
+       "prometido": 0.4684,
+       "real": 0.4802,
+       "sesgo": -0.0118
+      },
+      "10.5": {
+       "n": 656,
+       "prometido": 0.3747,
+       "real": 0.3674,
+       "sesgo": 0.0073
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 656,
+       "prometido": 0.3967,
+       "real": 0.4024,
+       "sesgo": -0.0057
+      },
+      "4.5": {
+       "n": 656,
+       "prometido": 0.2265,
+       "real": 0.2088,
+       "sesgo": 0.0177
+      }
+     }
+    }
+   }
+  },
+  "sudamericana": {
+   "liga": "sudamericana",
+   "n": 804,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.408,
+     "lineas": {
+      "8.5": {
+       "n": 174,
+       "prometido": 0.5472,
+       "real": 0.5402,
+       "sesgo": 0.007
+      },
+      "9.5": {
+       "n": 174,
+       "prometido": 0.445,
+       "real": 0.3966,
+       "sesgo": 0.0485
+      },
+      "10.5": {
+       "n": 174,
+       "prometido": 0.3507,
+       "real": 0.3161,
+       "sesgo": 0.0346
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.076,
+     "lineas": {
+      "3.5": {
+       "n": 174,
+       "prometido": 0.6465,
+       "real": 0.6322,
+       "sesgo": 0.0143
+      },
+      "4.5": {
+       "n": 174,
+       "prometido": 0.4696,
+       "real": 0.4138,
+       "sesgo": 0.0558
+      }
+     }
+    }
+   }
+  },
+  "suecia": {
+   "liga": "suecia",
+   "n": 1938,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.519,
+     "lineas": {
+      "8.5": {
+       "n": 915,
+       "prometido": 0.6266,
+       "real": 0.6503,
+       "sesgo": -0.0237
+      },
+      "9.5": {
+       "n": 915,
+       "prometido": 0.5289,
+       "real": 0.5628,
+       "sesgo": -0.034
+      },
+      "10.5": {
+       "n": 915,
+       "prometido": 0.4339,
+       "real": 0.4634,
+       "sesgo": -0.0294
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 915,
+       "prometido": 0.4448,
+       "real": 0.4426,
+       "sesgo": 0.0022
+      },
+      "4.5": {
+       "n": 915,
+       "prometido": 0.2692,
+       "real": 0.2667,
+       "sesgo": 0.0026
+      }
+     }
+    }
+   }
+  },
+  "suiza": {
+   "liga": "suiza",
+   "n": 1600,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.468,
+     "lineas": {
+      "8.5": {
+       "n": 771,
+       "prometido": 0.5961,
+       "real": 0.6109,
+       "sesgo": -0.0148
+      },
+      "9.5": {
+       "n": 771,
+       "prometido": 0.4938,
+       "real": 0.5084,
+       "sesgo": -0.0146
+      },
+      "10.5": {
+       "n": 771,
+       "prometido": 0.3965,
+       "real": 0.406,
+       "sesgo": -0.0095
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.056,
+     "lineas": {
+      "3.5": {
+       "n": 771,
+       "prometido": 0.4272,
+       "real": 0.415,
+       "sesgo": 0.0122
+      },
+      "4.5": {
+       "n": 771,
+       "prometido": 0.256,
+       "real": 0.2412,
+       "sesgo": 0.0147
+      }
+     }
+    }
+   }
+  },
+  "turquia": {
+   "liga": "turquia",
+   "n": 3133,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.115,
+     "lineas": {
+      "8.5": {
+       "n": 1496,
+       "prometido": 0.5937,
+       "real": 0.6049,
+       "sesgo": -0.0113
+      },
+      "9.5": {
+       "n": 1496,
+       "prometido": 0.4818,
+       "real": 0.4933,
+       "sesgo": -0.0115
+      },
+      "10.5": {
+       "n": 1496,
+       "prometido": 0.3761,
+       "real": 0.3757,
+       "sesgo": 0.0004
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.123,
+     "lineas": {
+      "3.5": {
+       "n": 1496,
+       "prometido": 0.6242,
+       "real": 0.6277,
+       "sesgo": -0.0035
+      },
+      "4.5": {
+       "n": 1496,
+       "prometido": 0.4523,
+       "real": 0.4519,
+       "sesgo": 0.0004
+      }
+     }
+    }
+   }
+  },
+  "uru_primera": {
+   "liga": "uru_primera",
+   "n": 1596,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.481,
+     "lineas": {
+      "8.5": {
+       "n": 754,
+       "prometido": 0.5411,
+       "real": 0.5358,
+       "sesgo": 0.0053
+      },
+      "9.5": {
+       "n": 754,
+       "prometido": 0.4375,
+       "real": 0.431,
+       "sesgo": 0.0065
+      },
+      "10.5": {
+       "n": 754,
+       "prometido": 0.3425,
+       "real": 0.3263,
+       "sesgo": 0.0163
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.064,
+     "lineas": {
+      "3.5": {
+       "n": 754,
+       "prometido": 0.4422,
+       "real": 0.4615,
+       "sesgo": -0.0194
+      },
+      "4.5": {
+       "n": 754,
+       "prometido": 0.2707,
+       "real": 0.2745,
+       "sesgo": -0.0038
+      }
+     }
+    }
+   }
+  },
+  "usl_championship": {
+   "liga": "usl_championship",
+   "n": 2352,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.235,
+     "lineas": {
+      "8.5": {
+       "n": 1116,
+       "prometido": 0.5439,
+       "real": 0.5726,
+       "sesgo": -0.0287
+      },
+      "9.5": {
+       "n": 1116,
+       "prometido": 0.4357,
+       "real": 0.4498,
+       "sesgo": -0.0141
+      },
+      "10.5": {
+       "n": 1116,
+       "prometido": 0.3367,
+       "real": 0.3351,
+       "sesgo": 0.0015
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 1116,
+       "prometido": 0.6754,
+       "real": 0.6971,
+       "sesgo": -0.0217
+      },
+      "4.5": {
+       "n": 1116,
+       "prometido": 0.4995,
+       "real": 0.5027,
+       "sesgo": -0.0032
+      }
+     }
+    }
+   }
+  },
+  "ven_primera": {
+   "liga": "ven_primera",
+   "n": 1343,
+   "mercados": {
+    "corners": {
+     "dispersion": 1.468,
+     "lineas": {
+      "8.5": {
+       "n": 638,
+       "prometido": 0.5487,
+       "real": 0.5517,
+       "sesgo": -0.003
+      },
+      "9.5": {
+       "n": 638,
+       "prometido": 0.445,
+       "real": 0.4263,
+       "sesgo": 0.0186
+      },
+      "10.5": {
+       "n": 638,
+       "prometido": 0.3493,
+       "real": 0.3386,
+       "sesgo": 0.0108
+      }
+     }
+    },
+    "tarjetas": {
+     "dispersion": 1.0,
+     "lineas": {
+      "3.5": {
+       "n": 638,
+       "prometido": 0.443,
+       "real": 0.4608,
+       "sesgo": -0.0178
+      },
+      "4.5": {
+       "n": 638,
+       "prometido": 0.2679,
+       "real": 0.2915,
+       "sesgo": -0.0236
+      }
+     }
+    }
+   }
+  }
+ },
+ "resumen": {
+  "corners_8.5": {
+   "ligas": 65,
+   "media": -0.0149,
+   "mediana": -0.0176,
+   "infravalorado_en": 53
+  },
+  "corners_9.5": {
+   "ligas": 65,
+   "media": -0.006,
+   "mediana": -0.0073,
+   "infravalorado_en": 47
+  },
+  "corners_10.5": {
+   "ligas": 65,
+   "media": 0.0042,
+   "mediana": 0.0032,
+   "infravalorado_en": 27
+  },
+  "tarjetas_3.5": {
+   "ligas": 65,
+   "media": -0.0105,
+   "mediana": -0.014,
+   "infravalorado_en": 51
+  },
+  "tarjetas_4.5": {
+   "ligas": 65,
+   "media": 0.0019,
+   "mediana": 0.0023,
+   "infravalorado_en": 30
+  }
+ },
+ "ventana": 10
+}
