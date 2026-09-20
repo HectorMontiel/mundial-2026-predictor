@@ -118,9 +118,40 @@ class BaseSportsEngine(ABC):
                 logging.getLogger(__name__).debug(
                     f"[{self.deporte}] inferencia_rapida no aplicada: {e}")
             self.listo = True
+            # v240 — EL ESTADO SE RELEE DESPUES DE BAJAR LA CARPETA.
+            #
+            # `__init__` lee `estado.json` (ELO, forma, rachas, aperturas de
+            # cada lanzador), pero quien BAJA esa carpeta del Release es este
+            # metodo, unas lineas mas arriba. En un clon con los ficheros ya en
+            # disco el orden da igual; en un runner limpio no:
+            #
+            #     MLBEngine()       -> lee estado.json: no existe -> {}
+            #      .cargar_modelo() -> AHORA baja la carpeta -> listo = True
+            #      .apuestas_dia()  -> 'TEX' not in {} -> None -> sin modelo
+            #
+            # Efecto medido en produccion el 2026-09-20: los 15 partidos de MLB
+            # y los 175 de tenis salian del barrido, y el aviso al usuario
+            # culpaba a un mapeo de ligas que no tenia nada que ver. En local
+            # nunca fallaba, porque la carpeta llevaba ahi de ejecuciones
+            # anteriores — de ahi que costara tanto verlo.
+            try:
+                self._releer_estado()
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).warning(
+                    '[%s] no se pudo releer el estado tras cargar: %s',
+                    self.deporte, e)
         except Exception as e:
             self.error = f"{type(e).__name__}: {e}"
         return self
+
+    def _releer_estado(self):
+        """Relee lo que `__init__` pudo no encontrar. Vacio por defecto.
+
+        Lo sobreescriben los motores que guardan estado aparte de los pesos
+        (MLB, tenis y KBO). Los que no lo usan no pagan nada.
+        """
+        return None
 
     @staticmethod
     def calcular_ev(prob: float, cuota: float) -> float:

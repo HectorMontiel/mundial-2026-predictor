@@ -19808,6 +19808,86 @@ def test_los_totales_de_mlb_llegan_a_TODOS_los_partidos():
     check("_cuotas_de_totales(_todos_mlb, 'mlb')" in tramo,
           'v239: igual que su precio')
 
+
+# ---------------------------------------------------------------------------
+# v240 — UN RUNNER LIMPIO NO PUEDE PERDER MEDIO BARRIDO
+# ---------------------------------------------------------------------------
+def test_el_estado_se_relee_despues_de_bajar_el_modelo():
+    """
+    `__init__` lee `estado.json` —ELO, forma, rachas, aperturas del lanzador—
+    pero quien BAJA esa carpeta del Release es `cargar_modelo`, que corre
+    despues. En un clon con los ficheros ya en disco el orden da igual. En un
+    runner limpio, no:
+
+        MLBEngine()       -> lee estado.json: no existe -> {}
+         .cargar_modelo() -> AHORA baja la carpeta -> listo = True
+         .apuestas_dia()  -> 'TEX' not in {} -> None -> los 15 «sin modelo»
+
+    Medido en produccion el 2026-09-20 y reproducido en local apartando las
+    carpetas: MLB 15 -> 0 y tenis 175 -> 0, con el mismo texto exacto que
+    publico el barrido («15 partidos con cuota, 0 evaluados por el modelo»).
+
+    Y el aviso al usuario culpaba a «una liga que falta por mapear», que no
+    tenia nada que ver: por eso el test mira TAMBIEN que el motivo real viaje.
+    """
+    import io as _io
+    b = _io.open('engines/base_engine.py', encoding='utf-8').read()
+    i_carga = b.find('self.listo = True')
+    i_relee = b.find('self._releer_estado()')
+    check(i_carga > 0 and i_relee > i_carga,
+          'v240: `cargar_modelo` relee el estado DESPUES de dejar el modelo '
+          'listo (y por tanto despues de haber bajado la carpeta)')
+    check('def _releer_estado' in b,
+          'v240: la clase base declara el enganche, para que un motor que no '
+          'guarde estado no pague nada')
+
+    # los tres motores que guardan estado aparte de los pesos
+    for fich, clave in (('engines/mlb_engine.py', 'equipos'),
+                        ('engines/tennis_engine.py', 'jugadores'),
+                        ('engines/kbo_engine.py', 'equipos')):
+        s = _io.open(fich, encoding='utf-8').read()
+        check('def _releer_estado' in s,
+              'v240: %s lo sobreescribe' % fich)
+        i_def = s.find('def _releer_estado')
+        cuerpo = s[i_def:i_def + 700]
+        check("estado.json" in cuerpo,
+              'v240: %s lee su estado.json ahi dentro' % fich)
+        check(clave in cuerpo,
+              'v240: %s rellena `%s`, que es lo que mira '
+              '`construir_features`' % (fich, clave))
+        # y __init__ tiene que usar el MISMO camino, no una copia que se
+        # quede atras cuando alguien toque uno de los dos
+        check(s.count('self._releer_estado()') >= 1,
+              'v240: %s lo llama tambien al construirse' % fich)
+
+
+def test_un_partido_sin_modelo_dice_por_que():
+    """
+    El contador de «sin modelo» se incrementaba y el motivo se tiraba. Cuando
+    los quince partidos de un domingo fallaron en el runner, el unico rastro
+    fue un aviso diciendo que faltaba mapear una liga — falso, y manda a
+    buscar donde no es.
+
+    `predecir` falla por tres razones distintas (el modelo no carga, los
+    equipos no estan en el estado, o las features revientan) y solo UNA es un
+    mapeo que falte.
+    """
+    import io as _io
+    s = _io.open('engines/mlb_engine.py', encoding='utf-8').read()
+    check('motivos_sin_modelo' in s,
+          'v240: se guarda el motivo, no solo la cuenta')
+    i = s.find('_otros = sin_modelo - _lmb')
+    check(i > 0, 'v240: sigue existiendo el reparto LMB / otros')
+    tramo = s[i:i + 1800]
+    check('desconocidos' in tramo,
+          'v240: el aviso distingue el caso de mapeo de los demas')
+    # el texto va partido entre dos lineas del fuente, asi que se busca
+    # el trozo estable y no la frase entera
+    check('no pudo' in tramo and 'NO es un mapeo' in tramo,
+          'v240: y cuando NO es mapeo lo dice sin culpar al mapeo')
+    check('logger.warning' in tramo,
+          'v240: el motivo exacto queda en el log del runner')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -20350,6 +20430,10 @@ if __name__ == '__main__':
     test_el_fallo_de_mapeo_guarda_su_mejor_candidato()
     test_el_pronostico_de_mlb_sale_del_calendario_no_de_las_casas()
     test_los_totales_de_mlb_llegan_a_TODOS_los_partidos()
+
+    print(chr(10) + '=== v240: el runner limpio y el motivo real ===')
+    test_el_estado_se_relee_despues_de_bajar_el_modelo()
+    test_un_partido_sin_modelo_dice_por_que()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

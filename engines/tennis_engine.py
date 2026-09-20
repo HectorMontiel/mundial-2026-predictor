@@ -350,7 +350,14 @@ class TennisEngine(BaseSportsEngine):
         self.features = list(cfg.get('features')
                              or globals()[FEATURES_POR_DEFECTO.get(circuito, 'FEATURES_V30')])
         self.estado = {}
-        ruta = os.path.join(cfg['carpeta'], 'estado.json')
+        self._releer_estado()
+
+    def _releer_estado(self):
+        # v240 — tambien despues de bajar la carpeta del Release. Sin esto, en
+        # un runner limpio `self.estado` queda vacio, ningun jugador se
+        # reconoce y el tenis entero desaparece del barrido (175 partidos el
+        # 2026-09-20). Ver la nota en `BaseSportsEngine.cargar_modelo`.
+        ruta = os.path.join(self.cfg['carpeta'], 'estado.json')
         if os.path.exists(ruta):
             with open(ruta, encoding='utf-8') as f:
                 self.estado = json.load(f)

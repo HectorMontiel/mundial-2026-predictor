@@ -212,6 +212,12 @@ class MLBEngine(BaseSportsEngine):
     def __init__(self):
         super().__init__('MLB', CARPETA)
         self.estado = {}
+        self._releer_estado()
+
+    def _releer_estado(self):
+        # v240 — se llama dos veces a proposito: aqui y despues de que
+        # `cargar_modelo` haya bajado la carpeta del Release. Ver la nota en
+        # `BaseSportsEngine.cargar_modelo`.
         ruta = os.path.join(CARPETA, 'estado.json')
         if os.path.exists(ruta):
             with open(ruta, encoding='utf-8') as f:
@@ -626,6 +632,7 @@ class MLBEngine(BaseSportsEngine):
                                f'se predice sin ellos.')
 
         picks, evaluados, sin_modelo, con_abridor = [], 0, 0, 0
+        motivos_sin_modelo: Dict[str, int] = {}   # v240
         # v119: cobertura completa — TODOS los partidos evaluados, con su
         # probabilidad, pasen o no los filtros de élite. Es lo que alimenta
         # «todos los pronósticos del día» de la pantalla general.
@@ -640,6 +647,18 @@ class MLBEngine(BaseSportsEngine):
                                  fecha=v.get('fecha'))
             if 'error' in pred:
                 sin_modelo += 1
+                # v240 — POR QUE falla, no solo cuantos.
+                #
+                # Esto se contaba y se tiraba. Cuando los quince partidos de un
+                # domingo fallaron en el runner, el unico rastro que quedo fue
+                # el aviso de mas abajo diciendo que «hay una liga que falta por
+                # mapear» — que es falso y manda a buscar donde no es. El motivo
+                # real vive en `pred['error']` y no llegaba a ningun sitio.
+                #
+                # Se guardan los motivos DISTINTOS, no uno por partido: si
+                # fallan los treinta por la misma causa, una linea basta.
+                motivos_sin_modelo[str(pred.get('error'))] = (
+                    motivos_sin_modelo.get(str(pred.get('error')), 0) + 1)
                 continue
             evaluados += 1
             c = cm.cuotas_partido('mlb', v['home'], v['away'])
@@ -785,10 +804,29 @@ class MLBEngine(BaseSportsEngine):
                     f'valor de mercado sí puede operarlos, porque no usa modelo.')
             _otros = sin_modelo - _lmb
             if _otros > 0:
-                incidencias.append(
-                    f'MLB: {_otros} partidos con cuota cuyos equipos no se '
-                    f'reconocen ni como MLB ni como Liga Mexicana. Si son '
-                    f'recurrentes, hay una liga que falta por mapear.')
+                # v240 — el aviso dice el motivo REAL.
+                #
+                # Antes daba por hecho que era un problema de mapeo de ligas.
+                # Pero `predecir` falla por tres razones distintas —el modelo no
+                # carga, los equipos no estan en el estado, o las features
+                # revientan— y solo UNA de ellas es un mapeo que falta. Decirlo
+                # mal cuesta horas de buscar en el sitio equivocado.
+                for _motivo, _n in sorted(motivos_sin_modelo.items(),
+                                          key=lambda kv: -kv[1]):
+                    logger.warning('[mlb] %d partidos sin modelo por: %s',
+                                   _n, _motivo)
+                _top = max(motivos_sin_modelo.items(),
+                           key=lambda kv: kv[1])[0] if motivos_sin_modelo else ''
+                if 'desconocidos' in _top:
+                    incidencias.append(
+                        f'MLB: {_otros} partidos cuyos equipos no estan en el '
+                        f'estado del modelo. Si son recurrentes, hay una liga '
+                        f'o unos codigos que faltan por mapear.')
+                else:
+                    incidencias.append(
+                        f'⚠️ MLB: {_otros} partidos que el modelo no pudo '
+                        f'evaluar — {_top}. Esto NO es un mapeo que falte: es '
+                        f'el modelo fallando, y sale en el log con el detalle.')
         if not universo:
             incidencias.append('ℹ️ MLB: ninguna casa publica partidos ahora mismo '
                                '(fuera de temporada o sin jornada).')

@@ -199,6 +199,10 @@ class KBOEngine(BaseSportsEngine):
     def __init__(self):
         super().__init__('KBO', CARPETA)
         self.estado = {}
+        self._releer_estado()
+
+    def _releer_estado(self):
+        # v240 — ver la nota en `BaseSportsEngine.cargar_modelo`.
         ruta = os.path.join(CARPETA, 'estado.json')
         if os.path.exists(ruta):
             with open(ruta, encoding='utf-8') as f:
