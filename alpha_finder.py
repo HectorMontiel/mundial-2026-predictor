@@ -725,9 +725,26 @@ def lineas_de_goles(pred: Dict, clave_liga=None, home: str = '',
         # dict aparte y no en `salida` a proposito: `salida` la recorren otros
         # buscando lineas, y colarle una clave que no es una linea rompe a
         # quien la itera.
+        # v251 - LA LAMBDA VA DEMASIADO EXTREMA, Y SE ENCOGE.
+        #
+        # Medido sobre 47.794 partidos con la lambda del modelo entrenado: el
+        # nivel esta perfecto (sesgo global +0,002 goles) pero la DISPERSION
+        # no. En lambda 3,5+ dice 3,90 y pasan 3,07; en lambda por debajo de
+        # 2,0 dice 1,68 y pasan 2,35. Encogiendo hacia la media de SU liga el
+        # sesgo por banda cae de -0,83/+0,67 a -0,04/+0,11.
+        #
+        # Va aqui, ANTES de construir la escalera, para que las tres lineas
+        # salgan de la misma lambda corregida. Ver `calibrador_lambda`.
+        _lam_sin_encoger = lam2
+        try:
+            import calibrador_lambda as _clam
+            lam2 = float(_clam.encoger(lam2, clave_liga))
+        except Exception as e:
+            logger.debug('[alpha] encogimiento de lambda: %s', e)
         if lambdas is not None:
             lambdas['total'] = round(lam2, 3)
             lambdas['sin_contexto'] = round(lam, 3)
+            lambdas['sin_encoger'] = round(_lam_sin_encoger, 3)
         if abs(lam2 - lam) > 1e-6:
             # UNA sola llamada a scipy con las siete lineas. Medido:
             # siete llamadas sueltas cuestan 5,8 ms por partido y una

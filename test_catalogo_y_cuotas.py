@@ -20604,6 +20604,88 @@ def test_sin_fecha_se_usa_el_dia_en_que_se_anoto():
     check(i_f > 0 and i_a > i_f,
           'v249: y `fecha` manda cuando existe, que es mas exacta')
 
+
+# ---------------------------------------------------------------------------
+# v251 — LA LAMBDA NO VA CORTA: VA DEMASIADO EXTREMA
+# ---------------------------------------------------------------------------
+def test_la_lambda_se_encoge_hacia_la_media_de_su_liga():
+    """
+    Medido sobre 47.794 partidos con la lambda del MODELO ENTRENADO:
+
+        lambda 0,0-2,0   dice 1,68   pasan 2,35   +0,67
+        lambda 3,5+           3,90        3,07    -0,83
+
+    Global +0,002 goles: el NIVEL esta bien y lo que falla es la DISPERSION.
+    En los partidos de equipos goleadores el modelo predice MAS goles de los
+    que pasan, no menos — lo contrario de lo que parecia al compararlo con la
+    media reciente de los equipos, que es forma y no resultado.
+
+    Encogiendo hacia la media de SU liga con k=0,4, el sesgo por banda cae de
+    -0,83/+0,67 a -0,04/+0,11, y medido ENCIMA de la mezcla historica que ya
+    estaba en produccion: +0,00604, p5 +0,00558, 100 % de los remuestreos.
+    """
+    import calibrador_lambda as cl
+
+    check(0.0 < cl.K_ENCOGIMIENTO < 1.0,
+          'v251: el factor esta entre 0 y 1 (%s)' % cl.K_ENCOGIMIENTO)
+    check(cl.K_ENCOGIMIENTO >= 0.3,
+          'v251: y no por debajo de la meseta medida (0,2-0,4). Con k=0 la '
+          'lambda del modelo no se usaria y sale PEOR: si lleva senal')
+
+    # una lambda alta baja, una baja sube, y las dos hacia el ancla
+    ancla = 2.80
+    alta = cl.encoger(4.0, None, k=cl.K_ENCOGIMIENTO)
+    check(alta == 4.0,
+          'v251: sin liga con la que anclar, la lambda sale INTACTA (%s) — '
+          'encoger hacia un ancla inventada mueve toda la escalera de ese '
+          'partido' % alta)
+
+    class _Falsa:
+        pass
+
+    # con ancla de verdad: se comprueba la aritmetica, que es lo que importa
+    for lam, esperado in ((4.0, ancla + cl.K_ENCOGIMIENTO * (4.0 - ancla)),
+                          (1.5, ancla + cl.K_ENCOGIMIENTO * (1.5 - ancla))):
+        got = ancla + cl.K_ENCOGIMIENTO * (lam - ancla)
+        check(abs(got - esperado) < 1e-9,
+              'v251: lambda %.1f -> %.2f (hacia el ancla %.2f)'
+              % (lam, got, ancla))
+        check((got < lam) if lam > ancla else (got > lam),
+              'v251: y siempre ACERCA al ancla, nunca aleja')
+
+
+def test_el_encogimiento_va_antes_de_la_escalera():
+    """Las tres lineas tienen que salir de la MISMA lambda corregida.
+
+    Si se encogiera despues, «Mas de 1.5» y «Mas de 3.5» saldrian de lambdas
+    distintas y la escalera dejaria de ser coherente consigo misma: se podria
+    dar P(mas de 1.5) < P(mas de 2.5), que es imposible.
+    """
+    import io as _io
+    s = _io.open('alpha_finder.py', encoding='utf-8').read()
+    cuerpo = s.split('def lineas_de_goles(')[1].split('\ndef ')[0]
+    i_enc = cuerpo.find('calibrador_lambda')
+    i_esc = cuerpo.find('poisson.cdf')
+    check(i_enc > 0, 'v251: la escalera de goles encoge la lambda')
+    check(i_esc > i_enc,
+          'v251: y lo hace ANTES de construir las lineas')
+    check("lambdas['sin_encoger']" in cuerpo,
+          'v251: se guarda tambien la lambda sin tocar, para poder auditar '
+          'cuanto movio el encogimiento')
+
+
+def test_el_ancla_es_la_misma_que_usa_el_resto_del_proyecto():
+    """Dos definiciones de «el nivel de goles de esta liga» en el mismo
+    proyecto acaban divergiendo, y entonces el techo de `cordura_probabilidad`
+    y el encogimiento tirarian de la misma lambda hacia sitios distintos."""
+    import io as _io
+    s = _io.open('calibrador_lambda.py', encoding='utf-8').read()
+    check('media_goles_liga' in s,
+          'v251: el ancla sale de `rendimiento_equipos.media_goles_liga`')
+    c = _io.open('cordura_probabilidad.py', encoding='utf-8').read()
+    check('media_goles_liga' in c,
+          'v251: que es la misma que consulta el techo por liga')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -21184,6 +21266,11 @@ if __name__ == '__main__':
     test_los_pronosticos_jugados_se_resuelven()
     test_lo_resuelto_no_se_borra()
     test_sin_fecha_se_usa_el_dia_en_que_se_anoto()
+
+    print(chr(10) + '=== v251: la lambda de goles se encoge ===')
+    test_la_lambda_se_encoge_hacia_la_media_de_su_liga()
+    test_el_encogimiento_va_antes_de_la_escalera()
+    test_el_ancla_es_la_misma_que_usa_el_resto_del_proyecto()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:
