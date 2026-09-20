@@ -20515,6 +20515,86 @@ def test_las_palabras_que_distinguen_no_son_ruido():
         check(p in cm.RUIDO_CLUB,
               'v247: «%s» sigue siendo ruido, que para eso esta la lista' % p)
 
+
+# ---------------------------------------------------------------------------
+# v249 — ANOTAR SIN RESOLVER NO SIRVE DE NADA
+# ---------------------------------------------------------------------------
+def test_los_pronosticos_jugados_se_resuelven():
+    """
+    «Si ya finalizaron no deberia borrar lo que ya habia marcado la app,
+    simplemente es para mantener el historico y validar, y que tu en segundo
+    plano puedas entrenarte y seguir patrones.»
+
+    El bot ANOTABA cada noche lo que la aplicacion iba a recomendar, y
+    `validar()` sabia juzgarlo contra el resultado — pero nadie juntaba las dos
+    cosas: `validar` solo se llamaba al abrir la ficha de un partido y su
+    veredicto no se guardaba. Medido antes de esto: 1.591 partidos anotados y
+    CERO resueltos, entre ellos 498 picks de corners.
+
+    Sin este paso no hay material con el que calibrar corners, tarjetas ni
+    remates, que es por lo que hubo que medirlos contra el historico crudo de
+    las ligas en vez de contra lo que la app recomendo.
+    """
+    import pronosticos_guardados as pg
+    check(hasattr(pg, 'resolver_pendientes'),
+          'v249: existe el paso que liquida los jugados')
+    check(hasattr(pg, '_resultado_historico'),
+          'v249: y sabe de donde sacar el marcador')
+
+    import io as _io
+    y = _io.open('.github/workflows/retrain_leagues.yml',
+                 encoding='utf-8').read()
+    check('resolver_pendientes' in y,
+          'v249: el workflow nocturno lo ejecuta')
+    i_anota = y.find('Anotar los pronosticos del dia')
+    i_res = y.find('Resolver los pronosticos ya jugados')
+    check(i_anota > 0 and i_res > i_anota,
+          'v249: y DESPUES de anotar, que es el orden que tiene sentido')
+
+
+def test_lo_resuelto_no_se_borra():
+    """
+    `_poda` quitaba todo lo mas viejo de 21 dias, resuelto o no. Un registro
+    ya liquidado es una fila con su acierto — el unico material con el que el
+    modelo puede aprender de lo que recomendo— y borrarlo es tirar justo lo
+    que costo esperar a que el partido se jugara.
+    """
+    import pronosticos_guardados as pg
+
+    viejo_sin = {'anotado': '2000-01-01', 'fecha': '2000-01-01',
+                 'recomendadas': [{'apuesta': 'Goles: Más de 2.5'}]}
+    viejo_con = {'anotado': '2000-01-01', 'fecha': '2000-01-01',
+                 'recomendadas': [{'apuesta': 'Goles: Más de 2.5',
+                                   'acierto': True}]}
+    doc = pg._poda({'a|x|H|A': dict(viejo_sin), 'b|x|H|A': dict(viejo_con)})
+    check('b|x|H|A' in doc,
+          'v249: un registro RESUELTO de hace anos se conserva')
+    check('a|x|H|A' not in doc,
+          'v249: y uno sin resolver y caducado se sigue podando, para que el '
+          'fichero no crezca sin fin')
+
+
+def test_sin_fecha_se_usa_el_dia_en_que_se_anoto():
+    """
+    Lo avisa el propio `_poda`: los registros que deja el bot salen de
+    `predicciones_dia.json`, que NO guarda la fecha del partido. Eran 947 de
+    1.591 — la mayoria del fichero— y sin fecha no hay contra que resolver.
+
+    `anotado` es el dia en que el bot escribio la entrada, y el bot anota los
+    partidos DEL DIA. El margen de +-1 dia de `_resultado_historico` lo cubre,
+    y como ademas exige que los dos equipos casen al 0,80, ese margen no puede
+    emparejar un partido distinto.
+    """
+    import io as _io
+    s = _io.open('pronosticos_guardados.py', encoding='utf-8').read()
+    cuerpo = s.split('def resolver_pendientes(')[1].split('\ndef ')[0]
+    check("get('anotado')" in cuerpo,
+          'v249: sin `fecha` se cae a `anotado`')
+    i_f = cuerpo.find("get('fecha')")
+    i_a = cuerpo.find("get('anotado')")
+    check(i_f > 0 and i_a > i_f,
+          'v249: y `fecha` manda cuando existe, que es mas exacta')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -21090,6 +21170,11 @@ if __name__ == '__main__':
     test_dos_clubes_de_la_misma_ciudad_no_se_cruzan()
     test_el_cruce_se_rechaza_en_el_camino_de_produccion()
     test_las_palabras_que_distinguen_no_son_ruido()
+
+    print(chr(10) + '=== v249: resolver lo jugado y no borrarlo ===')
+    test_los_pronosticos_jugados_se_resuelven()
+    test_lo_resuelto_no_se_borra()
+    test_sin_fecha_se_usa_el_dia_en_que_se_anoto()
 
     print(f"\n{'TODO OK' if not FALLOS else f'{len(FALLOS)} FALLOS'}")
     for f in FALLOS:

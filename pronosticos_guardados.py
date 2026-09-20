@@ -210,7 +210,26 @@ def _poda(doc: Dict) -> Dict:
         v = v or {}
         return max(str(v.get('fecha') or '')[:10],
                    str(v.get('anotado') or '')[:10]) or '9999'
-    return {k: v for k, v in doc.items() if _dia(v) >= corte}
+    # v249 — LO QUE YA SE RESOLVIO NO SE BORRA.
+    #
+    # «Si ya finalizaron no deberia borrar lo que ya habia marcado la app,
+    # simplemente es para mantener el historico y validar, y que tu en segundo
+    # plano puedas entrenarte y seguir patrones.»
+    #
+    # Tenia razon y el coste era grande: habia 1.591 partidos guardados, TODOS
+    # sin resolver, y a los 21 dias se iban. Entre ellos 498 picks de corners
+    # y 70 de tarjetas — que es exactamente por que no existe calibracion de
+    # esos mercados y hubo que medirlos contra el historico de las ligas.
+    #
+    # Un registro RESUELTO ya no crece sin fin por si solo: es una fila con su
+    # acierto, y es el unico material con el que el modelo puede aprender de
+    # sus propios aciertos. Se conserva.
+    def _resuelto(v):
+        return any((r or {}).get('acierto') is not None
+                   for r in ((v or {}).get('recomendadas') or []))
+
+    return {k: v for k, v in doc.items()
+            if _dia(v) >= corte or _resuelto(v)}
 
 
 def _fila(f: Dict) -> Dict:
@@ -404,8 +423,35 @@ def _stats_del_partido(clave_liga, home: str, away: str,
         h, a = str(home or '').strip(), str(away or '').strip()
         fila = m[(m['home'].astype(str) == h) & (m['away'].astype(str) == a)]
         if fila.empty:
-            return None
-        r = fila.iloc[-1]
+            # v249 — LA CACHÉ DE ESPN ESCRIBE «Heart of Midlothian» Y EL PICK
+            # «Hearts».
+            #
+            # La comparación era exacta, así que cualquier diferencia de
+            # grafía dejaba el mercado en ⏳ Pendiente para siempre — y con él
+            # los 498 picks de córners guardados, que son justo los que no
+            # tienen calibración por falta de histórico resuelto.
+            #
+            # Se usa `cuotas_multi._sim_club`, el mismo emparejador de clubes
+            # del resto del proyecto, con el mismo listón de 0,80 y exigiendo
+            # que casen LOS DOS equipos. Desde la v247 ese emparejador ya no
+            # cruza dos clubes de la misma ciudad.
+            try:
+                import cuotas_multi as _cm
+                mejor, mejor_s = None, 0.0
+                for _, r2 in m.iterrows():
+                    s = min(_cm._sim_club(h, str(r2.get('home'))),
+                            _cm._sim_club(a, str(r2.get('away'))))
+                    if s > mejor_s:
+                        mejor, mejor_s = r2, s
+                if mejor is None or mejor_s < 0.80:
+                    return None
+                fila = None
+                r = mejor
+            except Exception as e:
+                logger.debug('[pronosticos] parecido de %s-%s: %s', h, a, e)
+                return None
+        if fila is not None:
+            r = fila.iloc[-1]
 
         def _n(col):
             try:
@@ -773,6 +819,155 @@ def _pick_de_registro(clave_partido: str, reg: Dict) -> Optional[Dict]:
     except Exception as e:
         logger.debug('[pronosticos] pick de %s: %s', clave_partido, e)
         return None
+
+
+def _resultado_historico(clave_liga, home: str, away: str, fecha: str):
+    """Los goles reales de ese partido, del historico de la competicion.
+
+    Se usa `panel_equipos._historico`, que es el MISMO cargador del que comen
+    `rendimiento_equipos` y los modelos de conteo. Una segunda via para leer
+    resultados acabaria discrepando de la primera, y entonces un pick saldria
+    acertado en una pantalla y fallado en otra.
+    """
+    try:
+        import pandas as pd
+        import panel_equipos as pe
+        import cuotas_multi as cm
+    except Exception as e:
+        logger.debug('[resolver] sin dependencias: %s', e)
+        return None
+    try:
+        d = pe._historico(str(clave_liga or ''))
+    except Exception as e:
+        logger.debug('[resolver] historico de %s: %s', clave_liga, e)
+        return None
+    if d is None or getattr(d, 'empty', True):
+        return None
+    if 'home_goals' not in d.columns or 'date' not in d.columns:
+        return None
+    f = str(fecha or '')[:10]
+    if not f:
+        return None
+    try:
+        dias = pd.to_datetime(d['date'], errors='coerce').dt.strftime('%Y-%m-%d')
+    except Exception:
+        return None
+    # +-1 dia: el historico guarda la fecha local de la competicion y el
+    # registro la del fixture en UTC, y en los partidos de madrugada no
+    # coinciden. Mas de un dia ya no es el mismo partido.
+    objetivo = pd.to_datetime(f, errors='coerce')
+    if objetivo is None or objetivo is pd.NaT:
+        return None
+    cerca = d[(pd.to_datetime(dias, errors='coerce')
+               - objetivo).abs() <= pd.Timedelta(days=1)]
+    if not len(cerca):
+        return None
+    mejor, mejor_s = None, 0.0
+    for _, r in cerca.iterrows():
+        s = min(cm._sim_club(str(home), str(r.get('home_team'))),
+                cm._sim_club(str(away), str(r.get('away_team'))))
+        if s > mejor_s:
+            mejor, mejor_s = r, s
+    if mejor is None or mejor_s < 0.80:
+        return None
+    gh, ga = mejor.get('home_goals'), mejor.get('away_goals')
+    try:
+        return int(gh), int(ga)
+    except (TypeError, ValueError):
+        return None
+
+
+def resolver_pendientes(maximo: int = 0) -> Dict:
+    """v249 — Liquida los picks de los partidos que ya terminaron.
+
+    EL HUECO QUE CIERRA. `anotar_el_dia` dejaba escrito lo que la aplicacion
+    iba a recomendar, y `validar()` sabia juzgarlo contra el resultado — pero
+    nadie juntaba las dos cosas: `validar` solo se llamaba al abrir la ficha de
+    un partido, y su veredicto no se guardaba en ninguna parte. Resultado
+    medido: 1.591 partidos anotados y CERO resueltos.
+
+    Sin esto no hay material para calibrar corners, tarjetas ni remates —hay
+    498 picks de corners guardados sin resolver— y el modelo no puede aprender
+    de lo que recomendo.
+
+    De solo-escritura sobre lo que falta: un pick ya resuelto no se vuelve a
+    tocar, asi que correr esto dos veces no cambia nada.
+    """
+    doc = _leer()
+    if not doc:
+        return {'partidos': 0, 'resueltos': 0, 'picks': 0, 'pendientes': 0}
+    import datetime as _dt
+    hoy = _dt.date.today().isoformat()
+    res = {'partidos': 0, 'resueltos': 0, 'picks': 0, 'pendientes': 0}
+    cambios = False
+    for k, reg in doc.items():
+        filas = (reg or {}).get('recomendadas') or []
+        if not filas:
+            continue
+        if all(f.get('acierto') is not None for f in filas):
+            continue
+        # v249 — SIN `fecha`, VALE `anotado`, Y SON 947 DE 1.591.
+        #
+        # Lo avisa el propio `_poda`: los registros que deja el bot salen de
+        # `predicciones_dia.json`, que NO guarda la fecha del partido. Sin
+        # fecha no hay contra que resolver, y esos eran la mayoria del fichero.
+        #
+        # `anotado` es el dia en que el bot escribio la entrada, y el bot anota
+        # los partidos DEL DIA, asi que es la fecha del partido con un margen
+        # de horas. `_resultado_historico` ya busca con +-1 dia y exige que los
+        # dos equipos casen al 0,80, de modo que el margen no puede emparejar
+        # un partido distinto.
+        f_partido = (str((reg or {}).get('fecha') or '')[:10]
+                     or str((reg or {}).get('anotado') or '')[:10])
+        if not f_partido or f_partido >= hoy:
+            res['pendientes'] += 1          # todavia no se ha jugado
+            continue
+        res['partidos'] += 1
+        pick = _pick_de_registro(k, reg)
+        if not pick:
+            pick = {'partido': '%s vs %s' % (reg.get('home'), reg.get('away')),
+                    'clave_liga': str(k).split('|')[0],
+                    'fecha': f_partido, 'deporte': 'Fútbol'}
+        pick['fecha'] = pick.get('fecha') or f_partido
+        marcador = _resultado_historico(pick.get('clave_liga'),
+                                        reg.get('home') or '',
+                                        reg.get('away') or '', f_partido)
+        if not marcador:
+            res['pendientes'] += 1
+            continue
+        pick['goles_home'], pick['goles_away'] = marcador
+        try:
+            juzgadas = validar(pick)
+        except Exception as e:
+            logger.debug('[resolver] %s: %s', k, e)
+            continue
+        if not juzgadas:
+            continue
+        # se casan por la etiqueta de la apuesta, que es lo unico estable
+        por_apuesta = {str(j.get('apuesta')): j for j in juzgadas}
+        n = 0
+        for f in filas:
+            j = por_apuesta.get(str(f.get('apuesta')))
+            if not j or j.get('acierto') is None:
+                continue
+            f['acierto'] = bool(j['acierto'])
+            f['real'] = j.get('real')
+            f['estado'] = j.get('estado')
+            n += 1
+        if n:
+            reg['resuelto'] = hoy
+            reg['goles_home'], reg['goles_away'] = marcador
+            res['resueltos'] += 1
+            res['picks'] += n
+            cambios = True
+        if maximo and res['resueltos'] >= int(maximo):
+            break
+    if cambios:
+        _escribir(doc)
+    logger.info('[resolver] %d partidos resueltos, %d picks liquidados '
+                '(%d siguen pendientes)',
+                res['resueltos'], res['picks'], res['pendientes'])
+    return res
 
 
 def anotar_el_dia(maximo: int = 0) -> Dict:

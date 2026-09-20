@@ -555,6 +555,20 @@ jobs:
       - name: Anotar los pronosticos del dia
         run: python pronosticos_guardados.py || echo "::warning::anotacion de pronosticos con avisos"
 
+      # v249 — Y LIQUIDAR LOS QUE YA SE JUGARON.
+      #
+      # Anotar sin resolver no sirve para nada: habia 1.591 partidos
+      # guardados, CERO resueltos, y a los 21 dias se borraban. Sin esto no
+      # existe el historico con el que calibrar corners, tarjetas ni remates,
+      # ni con el que el modelo puede aprender de lo que recomendo.
+      #
+      # Va DESPUES de anotar y despues del backfill de estadisticas, porque
+      # lee los dos: el marcador del historico de la liga y los conteos de
+      # `stats_espn`. Es de solo-escritura sobre lo que falta, asi que correrlo
+      # dos veces no cambia nada.
+      - name: Resolver los pronosticos ya jugados
+        run: python -c "import pronosticos_guardados as p; print(p.resolver_pendientes())" || echo "::warning::resolucion de pronosticos con avisos"
+
       # v99 — CUOTAS DE CIERRE DE KBO, que solo se pueden reunir dia a dia.
       # El archivo por temporadas de BetExplorer solo sirve playoffs (la
       # temporada regular esta tras ?stage=, prohibido por robots.txt), pero
