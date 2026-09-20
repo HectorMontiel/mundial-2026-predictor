@@ -1213,8 +1213,8 @@
   },
   "Barracas Central": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rosario Central",
-    "ratio": 0.6452,
+    "candidato": "Sportivo Barracas",
+    "ratio": 0.4848,
     "visto": "2026-09-20"
   },
   "Independiente Rivadavia": {
@@ -1297,8 +1297,8 @@
   },
   "Jaguares de Córdoba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Cordoba",
-    "ratio": 0.6061,
+    "candidato": "Central Cordoba",
+    "ratio": 0.5294,
     "visto": "2026-09-20"
   },
   "San Antonio FC": {
@@ -1357,14 +1357,14 @@
   },
   "Central Español Fútbol Club": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Norte",
-    "ratio": 0.7143,
+    "candidato": "Central Ballester",
+    "ratio": 0.625,
     "visto": "2026-09-20"
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Orlando City B",
-    "ratio": 0.5556,
+    "candidato": "Racing Montevideo",
+    "ratio": 0.5128,
     "visto": "2026-09-20"
   },
   "Inter de San Carlos": {
@@ -1431,6 +1431,24 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Quintanar del Rey",
     "ratio": 0.5,
+    "visto": "2026-09-20"
+  },
+  "Estudiantes de La Plata": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Estudiantes Merida",
+    "ratio": 0.6829,
+    "visto": "2026-09-20"
+  },
+  "Liga de Quito": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "LDU Quito",
+    "ratio": 0.7273,
+    "visto": "2026-09-20"
+  },
+  "Universidad Católica (Quito)": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Universidad O&M",
+    "ratio": 0.6341,
     "visto": "2026-09-20"
   }
 }
