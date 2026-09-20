@@ -1659,6 +1659,15 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             'incierto': bool(_mej.get('incierto')),
             'baja_probabilidad': bool(_mej.get('baja_probabilidad')),
             'puesto_valor': int(_mej.get('puesto_valor') or puesto),
+            # v250.1 — LA RAZON HISTORICA VIAJA CON LA FILA.
+            #
+            # `_enriquece` construye un dict NUEVO con campos nombrados, asi
+            # que todo lo que `valor_apuesta` cuelgue y no se liste aqui se
+            # pierde. La mezcla con el historico si llegaba —va dentro de
+            # `prob`— pero su explicacion no, y el aviso de la v248 no podia
+            # aparecer nunca. Se vio verificando el fichero publicado: 0 de
+            # 312 filas traian `historico`.
+            'historico': _mej.get('historico'),
             'fisico': _mej['bloque'] in ('corners', 'tarjetas', 'remates',
                                          'remates_on'),
             'original': _mej['prob'], 'fiable': True,
