@@ -1255,8 +1255,8 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.5926,
+    "candidato": "Real Madrid B W",
+    "ratio": 0.6429,
     "visto": "2026-09-20"
   },
   "Las Palmas": {
@@ -1333,8 +1333,8 @@
   },
   "Defensor Sporting": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting Lokeren",
-    "ratio": 0.4848,
+    "candidato": "Defensor Sp.",
+    "ratio": 0.7857,
     "visto": "2026-09-20"
   },
   "Deportivo Recoleta": {
@@ -1345,14 +1345,14 @@
   },
   "Racing (Montevideo)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Cordoba",
-    "ratio": 0.6452,
+    "candidato": "Racing United",
+    "ratio": 0.7333,
     "visto": "2026-09-20"
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club A. Guemes",
-    "ratio": 0.48,
+    "candidato": "Club America W",
+    "ratio": 0.5833,
     "visto": "2026-09-20"
   },
   "Central Español Fútbol Club": {
@@ -1363,8 +1363,8 @@
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Stoke City LFC W",
-    "ratio": 0.4444,
+    "candidato": "Orlando City B",
+    "ratio": 0.5556,
     "visto": "2026-09-20"
   },
   "Inter de San Carlos": {
@@ -1375,8 +1375,50 @@
   },
   "Chippa United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "United Arab Emirates U23",
-    "ratio": 0.3243,
+    "candidato": "Racing United",
+    "ratio": 0.6923,
+    "visto": "2026-09-20"
+  },
+  "Atlético Tucumán": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Atletico de Porcuna",
+    "ratio": 0.6857,
+    "visto": "2026-09-20"
+  },
+  "Manchester United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Atlanta United 2",
+    "ratio": 0.6061,
+    "visto": "2026-09-20"
+  },
+  "Atlético Madrid": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Atletico Albericia",
+    "ratio": 0.7273,
+    "visto": "2026-09-20"
+  },
+  "RC Celta Fortuna": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Celta Vigo B",
+    "ratio": 0.5,
+    "visto": "2026-09-20"
+  },
+  "Nueva Chicago": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Chicago Fire II",
+    "ratio": 0.5,
+    "visto": "2026-09-20"
+  },
+  "Atletico Balboa": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Atletico Albericia",
+    "ratio": 0.7879,
+    "visto": "2026-09-20"
+  },
+  "Sportivo Luqueño": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sp. Luqueno",
+    "ratio": 0.7692,
     "visto": "2026-09-20"
   }
 }
