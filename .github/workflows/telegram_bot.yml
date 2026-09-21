@@ -2,7 +2,7 @@ name: Bot Telegram - Apuestas del Día
 
 on:
   schedule:
-    - cron: '0 10 * * *'   # diario a las 10:00 UTC
+    - cron: '19 10 * * *'   # diario a las 10:00 UTC
   workflow_dispatch:        # ejecución manual desde la web de GitHub
 
 jobs:

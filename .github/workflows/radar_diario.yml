@@ -32,7 +32,7 @@ name: Radar de errores de cuota (diario)
 
 on:
   schedule:
-    - cron: '40 5 * * *'      # diario, después del reentrenamiento de ligas
+    - cron: '17 6 * * *'      # diario, después del reentrenamiento de ligas
   workflow_dispatch:
 
 permissions:

@@ -28,7 +28,7 @@ on:
     # El orden importa: así el commit de los rosters no compite con el suyo
     # por el mismo push, que es como se generan los conflictos que luego hay
     # que rebasar a mano.
-    - cron: '30 4 * * *'
+    - cron: '43 4 * * *'
   workflow_dispatch:
     inputs:
       ligas:

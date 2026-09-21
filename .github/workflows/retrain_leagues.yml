@@ -23,7 +23,7 @@ name: Reentrenar modelos de ligas (datos frescos)
 # europea y antes de la hora punta de uso.
 on:
   schedule:
-    - cron: '30 5 * * *'    # todos los días 05:30 UTC
+    - cron: '47 5 * * *'    # todos los días 05:30 UTC
   workflow_dispatch:          # ejecución manual desde la web de GitHub
 
 # permiso para que el runner pueda commitear los modelos actualizados

@@ -9,7 +9,7 @@ name: Bot Telegram - Día completo (hoy y mañana)
 # diario. Un fallo aquí no puede llevárselo por delante.
 on:
   schedule:
-    - cron: '5 6 * * *'
+    - cron: '41 6 * * *'
   workflow_dispatch:
     inputs:
       solo_hoy:

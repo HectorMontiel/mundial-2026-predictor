@@ -58,7 +58,30 @@ on:
     # La caida DENTRO del dia no esta medida. Este cambio es justamente lo que
     # generara esos datos: dentro de unas semanas se podra medir si dos horas
     # es lo correcto, o si hay que bajar mas, o si con cuatro bastaba.
-    - cron: '10 */2 * * *'      # cada dos horas
+    # v285 — LOS MINUTOS REDONDOS SON LOS PEORES.
+    #
+    # Auditados los ocho workflows el 2026-09-21: NINGUNO corria a su hora.
+    #
+    #     declarado          corre de verdad
+    #     04:30      ->  10:07, 09:23, 08:53, 09:07   (+4,5 a +5,5 h)
+    #     05:30      ->  10:59, 09:59, 09:40, 09:59   (+4 a +5,5 h)
+    #     06:05      ->  12:29, 11:02, 10:39, 10:56   (+4,5 a +6 h)
+    #     10:00      ->  16:13, 13:57, 13:42, 14:07   (+3,7 a +6 h)
+    #     cada 2 h   ->  20:45 · 07:32 · 09:51 · 16:24  (huecos de 11 h)
+    #
+    # El programador de GitHub descarta ejecuciones cuando hay congestion, y la
+    # congestion se concentra en los minutos redondos: todo el mundo programa
+    # en :00, :15, :30 y :45. Los nuestros estaban en :00, :05, :10, :20 y :30,
+    # o sea en la cola de todos.
+    #
+    # Mover a un minuto impar y poco usado no garantiza nada —el programador
+    # sigue sin dar garantias— pero quita el problema de raiz mas barato que
+    # hay: cero coste, cero riesgo, y no toca la frecuencia.
+    #
+    # LO QUE ESTO NO ARREGLA, Y POR ESO LA v275 EXISTE: si aun asi se salta una
+    # pasada, la pantalla calcula la Capa 1 en vivo y avisa de la edad de los
+    # precios. El cron es el camino rapido, no el unico.
+    - cron: '37 */2 * * *'      # cada dos horas
   workflow_dispatch:
 
 permissions:

@@ -26,7 +26,7 @@ name: Recalibrar la cadena completa (semanal)
 
 on:
   schedule:
-    - cron: '0 5 * * 1'          # lunes 05:00 UTC, después del reentrenamiento
+    - cron: '29 5 * * 1'          # lunes 05:00 UTC, después del reentrenamiento
   workflow_dispatch:
 
 permissions:

@@ -31,7 +31,7 @@ name: Precálculo del día (cada 3 h)
 
 on:
   schedule:
-    - cron: '20 */3 * * *'        # cada 3 h, pasadas las de cuotas_mx
+    - cron: '53 */3 * * *'        # cada 3 h, pasadas las de cuotas_mx
   workflow_dispatch:
 
 permissions:
