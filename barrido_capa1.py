@@ -239,6 +239,14 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
                 'margen_pin': _mp,
             })
             break          # una por partido: la de mejor EV, que va primera
+    # v283 — y las discrepancias del mercado de goles, que es el que el
+    # usuario juega de verdad. Van marcadas como no validadas: ver
+    # `barrer_goles`.
+    try:
+        fuera.extend(barrer_goles(ruta))
+    except Exception as e:
+        logger.warning('[capa1] el barrido de goles fallo: %s: %s',
+                       type(e).__name__, e)
     fuera.sort(key=lambda x: (-int(x['validado']), -(x.get('ev') or 0)))
     return fuera
 
@@ -251,6 +259,158 @@ def _fecha_de(inicio) -> str:
     except (TypeError, ValueError, OSError, OverflowError):
         return ''
 
+
+
+# ---------------------------------------------------------------------------
+# v283 — EL MERCADO DE GOLES, POR DISCREPANCIA DE PRECIO
+# ---------------------------------------------------------------------------
+# POR QUE ESTE CANAL EXISTE
+#
+# El usuario juega «mas de 1.5», «mas de 2.5» y «ambos anotan»: son sus
+# mercados. Y una busqueda a fondo del 2026-09-21 dejo claro que NO se pueden
+# elegir con el modelo: 23 reglas distintas sobre 17.447 partidos con cuota y
+# resultado —umbrales de EV del 2 al 15 %, brechas contra el mercado de 5, 10
+# y 15 puntos, confianza del modelo, combinaciones, y las 20 ligas por
+# separado— y NINGUNA sobrevive a los dos tramos. Todas negativas en juicio,
+# la mayoria entre -4 % y -12 %.
+#
+# Pero eso descarta una FORMA de elegirlos, no el mercado. El mecanismo que si
+# esta validado en este proyecto es otro: comparar lo que paga la casa contra
+# el precio justo de Pinnacle. Eso no usa el modelo para nada.
+#
+# Y aqui si hay ancla, que es lo que fallo al intentarlo con «ambos anotan»:
+#
+#     Pinnacle publica «ambos anotan» en    50 de 521 partidos  -> imposible
+#     Pinnacle publica TOTALES en          405 de 405 partidos  -> viable
+#
+# LO QUE ESTE CANAL NO TIENE, Y HAY QUE DECIRLO
+# No esta validado sobre historico. El mecanismo es el mismo que el del 1X2
+# —que si lo esta, +7,77 % sobre 1.820 apuestas— pero el mercado es otro y no
+# hay forma de comprobarlo hacia atras: los ledgers guardan la cuota de UNA
+# casa, no el par casa-blanda/Pinnacle que haria falta.
+#
+# Por eso entra marcado como NO VALIDADO. Acumula su propio historico y se
+# juzgara cuando lo tenga, igual que se hizo con todo lo demas.
+def barrer_goles(ruta: str = TABLERO) -> List[Dict]:
+    """Discrepancias en el mercado de goles. NUNCA lanza.
+
+    Misma regla que el 1X2: la casa paga por encima del justo de Pinnacle.
+    """
+    try:
+        import cuotas_multi as cm
+    except Exception as e:
+        logger.warning('[capa1/goles] sin cuotas_multi: %s', e)
+        return []
+    try:
+        totales = cm.totales_del_deporte('futbol') or {}
+    except Exception as e:
+        logger.warning('[capa1/goles] sin totales de Pinnacle: %s', e)
+        return []
+    if not totales:
+        return []
+
+    fuera: List[Dict] = []
+    vistos = set()
+    for v in _tablero(ruta):
+        if str(v.get('deporte') or '').lower() != 'futbol':
+            continue
+        try:
+            clave = '%s|%s' % (cm.normalizar(v.get('home') or ''),
+                               cm.normalizar(v.get('away') or ''))
+            pin = totales.get(clave) or {}
+            if not pin:
+                continue
+            for casa, mk in (v.get('casas') or {}).items():
+                ou = (mk or {}).get('OVER_UNDER') or {}
+                for L in (ou.get('lineas') or []):
+                    try:
+                        linea = float(L.get('linea'))
+                    except (TypeError, ValueError):
+                        continue
+                    p = (pin.get(str(linea))
+                         or pin.get('%.1f' % linea) or {})
+                    try:
+                        pm, pn = float(p.get('mas')), float(p.get('menos'))
+                    except (TypeError, ValueError):
+                        continue
+                    if not (pm > 1 and pn > 1):
+                        continue
+                    sm = 1.0 / pm + 1.0 / pn
+                    margen = sm - 1.0
+                    for lado, campo, pin_cu in (('over', 'over', pm),
+                                                ('under', 'under', pn)):
+                        try:
+                            cu = float(L.get(campo))
+                        except (TypeError, ValueError):
+                            continue
+                        q = (1.0 / pin_cu) / sm
+                        ev = q * cu - 1.0
+                        if ev < 0.005 or q < 0.30 or cu < MIN_CUOTA:
+                            continue
+                        k = (str(v.get('home')), str(v.get('away')), linea,
+                             lado)
+                        if k in vistos:
+                            continue
+                        vistos.add(k)
+                        etq = ('Más de %.1f goles' % linea if lado == 'over'
+                               else 'Menos de %.1f goles' % linea)
+                        fuera.append({
+                            'deporte': 'Fútbol',
+                            'liga': v.get('liga') or '',
+                            'clave_liga': str(v.get('liga') or '').lower(),
+                            'partido': '%s vs %s' % (v['home'], v['away']),
+                            'inicio': v.get('inicio'),
+                            'fecha': _fecha_de(v.get('inicio')),
+                            'mercado': 'Goles',
+                            'apuesta': etq,
+                            'prob': round(q, 3),
+                            'cuota': cu,
+                            'cuota_justa': round(1.0 / q, 3) if q else None,
+                            'ev': round(ev, 4),
+                            'casa': casa,
+                            'lado': '%s_%.1f' % (lado, linea),
+                            'valor': '🟢', 'evc': True, 'valor_mercado': True,
+                            'validado': False,
+                            'margen_pin': round(margen, 4),
+                            'nota_canal': (
+                                'Mercado de goles por discrepancia de precio. '
+                                'El mecanismo es el mismo que ya está validado '
+                                'en el ganador, pero este mercado todavía no '
+                                'tiene medición propia: está acumulando.'),
+                            'origen': 'line shopping vs Pinnacle (goles)',
+                        })
+        except Exception as e:
+            logger.debug('[capa1/goles] %s: %s', v.get('home'), e)
+    # v283.1 — UNA LINEA POR PARTIDO, Y NO CINCO.
+    #
+    # La primera pasada real saco esto:
+    #
+    #     Mas de 3.0 goles  Montana vs Hebar  @2.49  EV +12,9 %
+    #     Mas de 3.2 goles  Montana vs Hebar  @2.81  EV +12,7 %
+    #     Mas de 3.5 goles  Montana vs Hebar  @3.08  EV +11,1 %
+    #     Mas de 2.8 goles  Montana vs Hebar  @2.08  EV  +7,9 %
+    #     Mas de 2.2 goles  Montana vs Hebar  @1.66  EV  +5,6 %
+    #
+    # Cinco tarjetas que son LA MISMA apuesta a distintas lineas. Quien las
+    # meta todas cree que diversifica y esta cargando un solo partido — el
+    # mismo fallo que la v278 arreglo para los picks repetidos, con otra cara.
+    #
+    # Se queda la de mejor EV de cada partido, igual que hace el barrido del
+    # ganador. Las alternativas siguen existiendo en el tablero; lo que no
+    # existe es la ilusion de que son cinco oportunidades.
+    mejor_por_partido = {}
+    for p in fuera:
+        k = p.get('partido')
+        if k not in mejor_por_partido or (
+                (p.get('ev') or 0) > (mejor_por_partido[k].get('ev') or 0)):
+            mejor_por_partido[k] = p
+    n_antes = len(fuera)
+    fuera = list(mejor_por_partido.values())
+    fuera.sort(key=lambda x: -(x.get('ev') or 0))
+    logger.info('[capa1/goles] %d discrepancias en %d partidos '
+                '(%d lineas alternativas fuera)',
+                len(fuera), len(fuera), n_antes - len(fuera))
+    return fuera
 
 def _bonito(dep: str, liga: str = '') -> str:
     """El nombre del deporte para la pantalla.

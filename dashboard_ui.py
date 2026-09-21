@@ -6262,6 +6262,93 @@ def render_alpha_finder():
     # arruina. Enseñarlas con el mismo aspecto, o esconder la buena detrás de
     # una pestaña, es lo que llevó al usuario a armar sus boletos con la
     # perdedora.
+    # v280 — LA ESCALERA: UNA SOLA APUESTA PARA IR DOBLANDO.
+    #
+    # El usuario lo pidio asi: «quiero una sola apuesta que me permita ir
+    # duplicando el banco; empezamos con 100, luego 200, luego 400».
+    #
+    # Se pone ARRIBA DEL TODO y con una sola tarjeta porque ese es justo el
+    # punto: si hay que elegir entre quince, ya no es una escalera. La regla
+    # que la elige esta medida en los dos tramos (ver `escalera`), y usa el
+    # MISMO semaforo que la lista de abajo para no poder contradecirla.
+    #
+    # Y se enseñan las probabilidades de cada escalon SIN maquillar, porque
+    # son las que son: llegar al cuarto escalon pasa el 5,8 % de las veces.
+    try:
+        import escalera as _esc
+        _c1_esc = _filtra(r.get('capa1')) or []
+        try:
+            _c1_esc = list(_c1_esc) + _filtra(_capa1_en_vivo())
+        except Exception:
+            pass
+        for _p in _c1_esc:
+            if _p.get('prob') is None:
+                _cu = _p.get('cuota') or 0
+                _p['prob'] = ((1 + (_p.get('ev') or 0)) / _cu) if _cu else 0
+        _pick_esc = _esc.elegir(_c1_esc)
+    except Exception as _e_esc:
+        logger.debug('[escalera] %s', _e_esc)
+        _esc, _pick_esc = None, None
+
+    if _esc is not None:
+        st.markdown('### 🪜 La Escalera — **una sola apuesta** para ir doblando')
+        if _pick_esc:
+            _cu_e = float(_pick_esc.get('cuota') or 0)
+            _pr_e = float(_pick_esc.get('prob_escalera') or 0)
+            # v281 — el nivel se enseña SIEMPRE: el usuario pidio que nunca
+            # falte apuesta, y la contrapartida es decirle cuando la que hay
+            # no es de las buenas.
+            _nv_e = _pick_esc.get('nivel_escalera') or {}
+            _etq_e = _nv_e.get('etiqueta', '')
+            _caja = st.success if _nv_e.get('n', 1) == 1 else st.warning
+            _caja('**%s**  ·  %s%s'
+                  % (_pick_esc.get('apuesta', '?'),
+                     _pick_esc.get('partido', '?'),
+                     ('  ·  _%s_' % _etq_e) if _etq_e else ''))
+            _col = st.columns(4)
+            _col[0].metric('Cuota', '%.2f' % _cu_e)
+            _col[1].metric('Entra', '%.0f %%' % (100 * _pr_e))
+            _col[2].metric('Pones', '100 $')
+            _col[3].metric('Si entra', '%.0f $' % (100 * _cu_e))
+            if _pick_esc.get('casa'):
+                st.caption('En **%s**. %s'
+                           % (_pick_esc['casa'], _esc.resumen(_pick_esc, 100)))
+            _pl = _esc.plan(100.0, _cu_e)
+            st.caption('**Si la vas rodando** (cada acierto se vuelve a jugar '
+                       'entero):')
+            _filas = []
+            for _x in _pl.get('escalones', []):
+                _filas.append(
+                    '| %d | %.0f $ | %.2f | %.0f $ | **%.1f %%** |'
+                    % (_x['paso'], _x['apuesta'], _x['cuota'], _x['si_entra'],
+                       100 * _x['prob_llegar']))
+            if _filas:
+                st.markdown('| Paso | Pones | Cuota | Si entra | Probabilidad '
+                            'de llegar |\n|---|---|---|---|---|\n'
+                            + '\n'.join(_filas))
+            # v282 — EL TEXTO, AL MINIMO. El usuario lo pidio dos veces:
+            # «que no haya tanto texto». Lo que hay que leer para apostar son
+            # cuatro numeros; el porque se abre solo si se quiere.
+            st.caption('⚠️ Cada escalón te juegas todo lo acumulado.')
+            with st.expander('Por qué estos números', expanded=False):
+                st.caption(
+                    'Sale de la Capa 1 con cuota ≥ 2,00 y probabilidad '
+                    '≥ 0,45. Medido en 440 apuestas históricas, por separado '
+                    'en el tramo antiguo y el reciente: acierta **47,6 %** y '
+                    '**51,9 %**.')
+                st.caption(
+                    'Rodando todo, llegar a 1.000 $ sale **8,9 %**. '
+                    'Apostando 100 fijos cada vez, **12,6 %**. Kelly demostró '
+                    'en 1956 que apostarlo todo lleva a la ruina aunque cada '
+                    'apuesta sea buena.')
+                st.caption(
+                    'Y el tamaño del escalón casi no importa: de 100 a 500 '
+                    'sale entre 13 % y 17 % con cualquier cuota, porque los '
+                    'pasos pequeños entran más veces pero hacen falta más.')
+        else:
+            st.info(_esc.resumen(None, 100))
+        st.divider()
+
     # v274 — EL SEMAFORO: CUAL METER, CUAL NO, Y EN QUE ORDEN.
     #
     # El usuario lo pidio asi: «quiero que me diga cuales meter y que las
