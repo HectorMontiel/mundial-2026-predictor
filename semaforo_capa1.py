@@ -58,6 +58,34 @@ CUOTA_MIN_VERDE = 2.20
 CUOTA_MAX_VERDE = 4.00
 EV_ROJO = 0.20
 
+# v276 — EL MARGEN DE PINNACLE, LA PUERTA QUE FALTABA.
+#
+# Lo encontro el usuario preguntando por un pick que no le cuadraba. Su
+# argumento —«ese equipo nunca le ha ganado a ese otro»— no era el correcto:
+# el historial YA esta dentro del precio de Pinnacle, por eso lo cotiza a 2,73
+# y no a 1,80. Pero su sospecha si lo era, por otro motivo:
+#
+#     ROI de la Capa 1 segun el margen de Pinnacle en ese partido
+#        margen  0-3 %   n=362    ROI +11,29 %   p5 +1,22 %
+#        margen  3-5 %   n=1263   ROI  +6,89 %   p5 +1,68 %
+#        margen  5-7 %   n=188    ROI  +5,09 %   p5 -6,45 %
+#        margen  7-9 %   n=6      <- sin muestra
+#        margen 9-12 %   n=1      <- sin muestra
+#
+# TODA la validacion de este canal se hizo con partidos donde Pinnacle cobra
+# menos del 7 %. Por encima hay SIETE apuestas en cuatro años y medio.
+#
+# Y esto no es teorico: el barrido completo del tablero (v266) abrio la puerta
+# a ligas georgianas, bolivianas y sub-23 donde Pinnacle pone el 9 o el 13 %.
+# El 2026-09-21, SIETE de quince picks del dia caian ahi, y dos de ellos
+# salian marcados en VERDE con el texto «es el tipo de apuesta que mejor ha
+# rendido». Era falso: ese tipo de apuesta no se ha medido nunca.
+#
+# Un margen del 13 % es Pinnacle diciendo «esta liga no me la creo». Su precio
+# deja de ser una referencia fiable, y quitarle el margen a partes
+# proporcionales distorsiona mas cuanto mas gordo es.
+MARGEN_PIN_MAXIMO = 0.07
+
 VERDE, AMBAR, ROJO = 'verde', 'ambar', 'rojo'
 
 
@@ -84,7 +112,7 @@ def clasificar(pick: Dict) -> Dict:
         if ev is None or cuota is None:
             return {'nivel': AMBAR, 'titulo': 'Puedes meterla',
                     'porque': 'Le falta algún dato para poder juzgarla mejor.',
-                    'orden': 5}
+                    'etiqueta': 'sin datos suficientes', 'orden': 5}
 
         if ev >= EV_ROJO:
             return {
@@ -95,7 +123,7 @@ def clasificar(pick: Dict) -> Dict:
                     'un precio viejo o un error que van a corregir. De éstas '
                     'ha habido 52 en cuatro años y medio, y no se puede '
                     'demostrar que ganen.' % (100 * ev)),
-                'orden': 9}
+                'etiqueta': 'paga demasiado: mala señal', 'orden': 9}
 
         if (not validado):
             return {
@@ -104,7 +132,23 @@ def clasificar(pick: Dict) -> Dict:
                     'La ventaja está ahí, pero este deporte todavía no tiene '
                     'suficientes apuestas resueltas como para prometerte nada. '
                     'Se está midiendo.'),
-                'orden': 6}
+                'etiqueta': 'deporte aún sin medir', 'orden': 6}
+
+        # la puerta del margen va ANTES de decidir el verde: si Pinnacle no
+        # se cree la liga, su precio no sirve de referencia y no hay nada
+        # medido que prometer
+        margen = _num(pick.get('margen_pin'))
+        if margen is not None and margen > MARGEN_PIN_MAXIMO:
+            return {
+                'nivel': AMBAR, 'titulo': 'Puedes meterla',
+                'porque': (
+                    'Cuidado con ésta: Pinnacle le pone un %.0f %% de comisión '
+                    'a este partido, el triple de lo normal. Cuando cobra '
+                    'tanto es que la liga no le interesa y su precio deja de '
+                    'ser buena referencia. De apuestas así sólo tenemos siete '
+                    'en cuatro años y medio, o sea que no hay con qué '
+                    'prometerte nada.' % (100 * margen)),
+                'etiqueta': 'liga que Pinnacle no se cree', 'orden': 8}
 
         if (EV_MIN_VERDE <= ev < EV_MAX_VERDE
                 and CUOTA_MIN_VERDE <= cuota < CUOTA_MAX_VERDE):
@@ -119,6 +163,7 @@ def clasificar(pick: Dict) -> Dict:
                     + extra +
                     ' Ojo: de cada diez así entran unas cuatro. Se gana por lo '
                     'que pagan, no por cuántas entran.'),
+                'etiqueta': 'la banda que mejor rinde',
                 # dentro del verde, primero la de EV mas cercano al 5 %, que es
                 # la banda de mejor p5 medido
                 'orden': 1 + abs(ev - 0.05)}
@@ -130,17 +175,85 @@ def clasificar(pick: Dict) -> Dict:
                     'Es de las que más entran, pero también de las que menos '
                     'dejan: a cuotas bajas la ventaja casi desaparece. '
                     'Medido, este grupo apenas empata.'),
-                'orden': 7}
+                'etiqueta': 'cuota baja: deja poco', 'orden': 7}
 
         return {
             'nivel': AMBAR, 'titulo': 'Puedes meterla',
             'porque': (
                 'Hay ventaja medida, aunque menos clara que en las verdes.'),
-            'orden': 4}
+            'etiqueta': 'ventaja menos clara', 'orden': 4}
     except Exception as e:
         logger.debug('[semaforo] %s', e)
         return {'nivel': AMBAR, 'titulo': 'Puedes meterla',
-                'porque': 'No se ha podido juzgar con detalle.', 'orden': 5}
+                'porque': 'No se ha podido juzgar con detalle.',
+                'etiqueta': 'sin juzgar', 'orden': 5}
+
+
+def _apellido(trozo: str) -> str:
+    """El apellido de un participante, con las iniciales fuera.
+
+    «Storm Hunter» y «Hunter S.» son la misma persona. Quedarse con el ultimo
+    token de tres letras o mas las une, y no une a dos jugadores distintos
+    salvo que compartan apellido —caso que la cuota desempata, ver `_clave`—.
+    """
+    import unicodedata
+    t = unicodedata.normalize('NFKD', str(trozo or '').lower())
+    t = t.encode('ascii', 'ignore').decode('ascii')
+    trozos = [x for x in t.replace('.', ' ').split() if len(x) >= 3]
+    return trozos[-1] if trozos else t.strip()
+
+
+def _clave(pick) -> tuple:
+    """Que dos picks sean EL MISMO, aunque esten escritos distinto."""
+    partido = str((pick or {}).get('partido') or '')
+    lados = [_apellido(x) for x in partido.replace(' vs ', '|').split('|')]
+    cuota = _num((pick or {}).get('cuota'))
+    return (frozenset(lados), _apellido((pick or {}).get('apuesta')),
+            round(cuota, 2) if cuota is not None else None)
+
+
+def quitar_repetidos(picks):
+    """El mismo partido dos veces es doblar la apuesta sin saberlo.
+
+    v278 — PASO DE VERDAD, Y EL USUARIO LO VIO ANTES QUE YO.
+
+    En la lista del 2026-09-21 aparecian:
+
+        6. Gana Joanna Garland · Storm Hunter vs Joanna Garland · @1.93
+        7. Gana Garland J.     · Hunter S. vs Garland J.        · @1.93
+
+    El mismo partido, la misma apuesta y la misma cuota, escritos de dos
+    formas porque vienen de dos fuentes (el barrido del tablero y el pase de
+    fixtures). El deduplicado de `alpha_finder` compara la cadena entera, asi
+    que no los veia.
+
+    Quien meta las dos cree que diversifica y en realidad esta doblando el
+    riesgo en un solo partido — que es lo contrario de lo que este canal
+    necesita, porque su ventaja vive en repartir muchas apuestas pequeñas.
+
+    Se exige que coincidan participantes, seleccion Y cuota: dos jugadores
+    distintos con el mismo apellido no se fusionan salvo que ademas coticen
+    identico, y en ese caso dan lo mismo.
+    """
+    if not picks:
+        return []
+    vistos, fuera, repetidos = set(), [], 0
+    for p in picks:
+        if not isinstance(p, dict):
+            continue
+        try:
+            k = _clave(p)
+        except Exception:
+            fuera.append(p)
+            continue
+        if k in vistos:
+            repetidos += 1
+            continue
+        vistos.add(k)
+        fuera.append(p)
+    if repetidos:
+        logger.info('[semaforo] %d picks repetidos fuera', repetidos)
+    return fuera
 
 
 def ordenar(picks: List[Dict]) -> List[Dict]:
@@ -151,6 +264,7 @@ def ordenar(picks: List[Dict]) -> List[Dict]:
     """
     if not picks:
         return []
+    picks = quitar_repetidos(picks)
     fuera = []
     for p in picks:
         # lo que no sea un diccionario se descarta: esto va dentro del render

@@ -58,6 +58,9 @@ logger = logging.getLogger(__name__)
 # torneos por año (México, Argentina), y una regla por liga se queda obsoleta
 # en cuanto una cambia de formato.
 HUECO_TEMPORADA_DIAS = 45
+# Competiciones que NO son de equipos: el panel no aplica. Ver `_historico`.
+SIN_PANEL_DE_EQUIPOS = frozenset(('atp', 'wta', 'tenis'))
+
 _CACHE: Dict[str, pd.DataFrame] = {}
 
 
@@ -65,6 +68,17 @@ def _historico(clave: str) -> pd.DataFrame:
     """El histórico de la competición, con la fecha ya parseada. Vacío si no
     existe — nunca lanza, para que la pantalla degrade sola."""
     if clave in _CACHE:
+        return _CACHE[clave]
+    # v277 — EL TENIS NO TIENE FICHERO DE EQUIPOS, Y NO ES UN FALLO.
+    #
+    # Este panel pinta la forma reciente de un EQUIPO. El tenis del proyecto no
+    # guarda historico asi —usa `tenis_juegos_atp.json` y `saque_atp.csv.gz`—,
+    # de modo que `historico_atp.csv` no existe ni tiene por que existir.
+    # Hasta ahora eso llenaba el log de produccion con avisos que parecian
+    # averias y no lo eran; el usuario los vio y pregunto.
+    if str(clave).lower() in SIN_PANEL_DE_EQUIPOS:
+        logger.debug(f'[panel] {clave} no usa panel de equipos (es tenis)')
+        _CACHE[clave] = pd.DataFrame()
         return _CACHE[clave]
     ruta = f'historico_{clave}.csv'
     if not os.path.exists(ruta):

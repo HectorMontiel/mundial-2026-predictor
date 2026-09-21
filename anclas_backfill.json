@@ -1,0 +1,26 @@
+{
+ "n_partidos": 1182,
+ "candidatas": {
+  "1187": {
+   "n_picks": 35,
+   "margen_mediano": 7.903
+  },
+  "1207": {
+   "n_picks": 8,
+   "margen_mediano": 9.934
+  },
+  "575": {
+   "n_picks": 36,
+   "margen_mediano": 6.597
+  },
+  "925": {
+   "n_picks": 40,
+   "margen_mediano": 6.962,
+   "aciertos": 47.5,
+   "roi": -10.6,
+   "p5": -36.48
+  }
+ },
+ "generado": "2026-09-21T08:31:36Z",
+ "aviso": "Cuotas de CIERRE, no las que se habrian tomado horas antes. El sesgo va en contra: las discrepancias se cierran segun se acerca el partido, asi que esto enseña MENOS ventaja de la que hubo. Sirve para DESCARTAR, no para aprobar."
+}

@@ -187,6 +187,22 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
             logger.debug('[capa1] no se pudo anotar la captura: %s', _e)
         if not (r or {}).get('prob_justa'):
             continue
+        # v276 — EL MARGEN DE PINNACLE VIAJA CON EL PICK.
+        #
+        # No es un adorno: es la puerta que decide si este pick esta dentro de
+        # lo que se valido. Toda la medicion de la Capa 1 (1.820 apuestas,
+        # +7,77 % de ROI) se hizo con partidos donde Pinnacle cobra MENOS del
+        # 7 % de margen; por encima de eso hay SIETE apuestas en cuatro años y
+        # medio. Ver `semaforo_capa1`.
+        _mp = None
+        try:
+            _pin = (r.get('pinnacle') or {})
+            _vs = [float(_pin[_k]) for _k in ('home', 'draw', 'away')
+                   if _pin.get(_k)]
+            if len(_vs) >= 2:
+                _mp = round(sum(1.0 / _v for _v in _vs) - 1.0, 4)
+        except (TypeError, ValueError, ZeroDivisionError):
+            _mp = None
         for val in (r.get('valor') or []):
             if not isinstance(val, dict):
                 continue
@@ -199,11 +215,15 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
                 continue
             vistos.add(clave)
             fuera.append({
-                'deporte': _bonito(dep),
+                'deporte': _bonito(dep, v.get('liga')),
                 'liga': v.get('liga') or '',
                 'clave_liga': str(v.get('liga') or '').lower(),
                 'partido': '%s vs %s' % (v['home'], v['away']),
                 'inicio': v.get('inicio'),
+                # v279 — `inicio` es una marca de tiempo Unix y la pantalla
+                # espera una fecha. Sin esto la tarjeta decia «fecha no
+                # disponible» en todos los picks del barrido.
+                'fecha': _fecha_de(v.get('inicio')),
                 'mercado': 'Ganador',
                 'apuesta': 'Gana %s' % nombre,
                 'prob': round(float(val['prob_justa']), 3),
@@ -216,15 +236,43 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
                 'validado': bool(regla['validado']),
                 'nota_canal': regla['nota'],
                 'origen': 'line shopping vs Pinnacle (barrido completo)',
+                'margen_pin': _mp,
             })
             break          # una por partido: la de mejor EV, que va primera
     fuera.sort(key=lambda x: (-int(x['validado']), -(x.get('ev') or 0)))
     return fuera
 
 
-def _bonito(dep: str) -> str:
+def _fecha_de(inicio) -> str:
+    """La fecha del partido en formato AAAA-MM-DD, o cadena vacia."""
+    import datetime as _dt
+    try:
+        return _dt.datetime.fromtimestamp(float(inicio)).strftime('%Y-%m-%d')
+    except (TypeError, ValueError, OSError, OverflowError):
+        return ''
+
+
+def _bonito(dep: str, liga: str = '') -> str:
+    """El nombre del deporte para la pantalla.
+
+    v277 — «NBA» ERA MENTIRA LA MITAD DE LAS VECES.
+
+    Flashscore mete TODO el baloncesto bajo el mismo identificador (sportId 3)
+    y el proyecto lo llama `nba` desde siempre. El barrido completo del tablero
+    saco a la luz lo que eso significaba: el 2026-09-21 aparecieron «Soles vs
+    Panteras» y «Santos vs Lobos Plateados» etiquetados como NBA, y son de la
+    LNBP mexicana; tambien «Djurgarden vs AIK Basket», que es sueco.
+
+    La clave interna (`nba`) NO se toca: la usan `cuotas_multi.DEPORTES`, las
+    REGLAS de aqui y media docena de sitios mas, y renombrarla seria un cambio
+    grande para arreglar una etiqueta. Lo que cambia es lo que LEE el usuario,
+    que es donde estaba el engaño.
+    """
+    if dep == 'nba':
+        # solo se llama NBA si de verdad lo es; si no, «Baloncesto»
+        return 'NBA' if 'nba' in str(liga or '').lower() else 'Baloncesto'
     return {'futbol': 'Fútbol', 'tenis': 'Tenis', 'mlb': 'MLB',
-            'nba': 'NBA', 'nfl': 'NFL'}.get(dep, dep)
+            'nfl': 'NFL'}.get(dep, dep)
 
 
 def kelly(prob: float, cuota: float, fraccion: float = 0.25,

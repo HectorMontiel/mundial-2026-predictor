@@ -88,6 +88,63 @@ def probar_orden():
     check(sm.ordenar(None) == [], 'None tampoco')
 
 
+def probar_repetidos():
+    """El mismo partido dos veces es doblar la apuesta sin saberlo."""
+    import semaforo_capa1 as sm
+
+    p = [
+        {'partido': 'Storm Hunter vs Joanna Garland',
+         'apuesta': 'Gana Joanna Garland', 'ev': 0.045, 'cuota': 1.93,
+         'validado': True},
+        {'partido': 'Hunter S. vs Garland J.', 'apuesta': 'Gana Garland J.',
+         'ev': 0.045, 'cuota': 1.93, 'validado': True},
+        {'partido': 'Dalila Spiteri vs Iva Primorac',
+         'apuesta': 'Gana Dalila Spiteri', 'ev': 0.036, 'cuota': 2.20,
+         'validado': True},
+    ]
+    o = sm.ordenar(p)
+    check(len(o) == 2,
+          'el mismo partido escrito de dos formas sale UNA vez (salieron %d)'
+          % len(o))
+
+    # dos jugadores distintos con el mismo apellido NO se fusionan
+    p2 = [
+        {'partido': 'Storm Hunter vs Joanna Garland',
+         'apuesta': 'Gana Joanna Garland', 'ev': 0.045, 'cuota': 1.93,
+         'validado': True},
+        {'partido': 'Ana Garland vs Otra Persona',
+         'apuesta': 'Gana Ana Garland', 'ev': 0.04, 'cuota': 3.10,
+         'validado': True},
+    ]
+    check(len(sm.ordenar(p2)) == 2,
+          'dos jugadoras con el mismo apellido y distinta cuota NO se fusionan')
+
+    check(sm.quitar_repetidos([]) == [], 'sin picks no rompe')
+    check(sm.quitar_repetidos(None) == [], 'None tampoco')
+    check(sm._apellido('Hunter S.') == sm._apellido('Storm Hunter'),
+          'el apellido une «Hunter S.» con «Storm Hunter»')
+    check(sm._apellido('') == '', 'un nombre vacio no revienta')
+
+
+def probar_margen():
+    """La puerta que el usuario encontro: el margen de Pinnacle."""
+    import semaforo_capa1 as sm
+
+    base = {'ev': 0.04, 'cuota': 3.10, 'validado': True}
+    check(sm.clasificar(dict(base, margen_pin=0.0422))['nivel'] == sm.VERDE,
+          'con margen normal (4,2 %) puede ser verde')
+    for m in (0.0907, 0.1308):
+        c = sm.clasificar(dict(base, margen_pin=m))
+        check(c['nivel'] == sm.AMBAR,
+              'con margen del %.0f %% NO puede ser verde' % (100 * m))
+        check('comisión' in c['porque'],
+              'y explica que Pinnacle cobra de mas')
+    check(sm.clasificar(base)['nivel'] == sm.VERDE,
+          'sin margen conocido se comporta como antes')
+    check(sm.MARGEN_PIN_MAXIMO == 0.07,
+          'el corte es el 7 %, que es donde acaba lo medido')
+
+
 def probar_resumen():
     import semaforo_capa1 as sm
 
@@ -141,6 +198,9 @@ if __name__ == '__main__':
     probar_clasificacion()
     print('\n=== 2. el orden ===')
     probar_orden()
+    print('\n=== 2b. repetidos y margen de Pinnacle ===')
+    probar_repetidos()
+    probar_margen()
     print('\n=== 3. el resumen ===')
     probar_resumen()
     print('\n=== 4. nunca lanza ===')

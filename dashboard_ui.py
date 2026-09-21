@@ -5661,10 +5661,27 @@ def render_alpha_finder():
         fecha absurda, aquí se dice «fecha no disponible» en vez de imprimir
         «Hoy · 1970-01-01», que es lo que salió en las tarjetas de MLB.
         """
+        # v279 — ESTA GUARDIA NO GUARDABA, Y TUMBABA LA APP ENTERA.
+        #
+        # `pd.Timestamp('1789938900')` no lanza: devuelve `NaT`. Y
+        # `NaT.normalize()` lanza AttributeError, que NO estaba en el except.
+        # Resultado: «AttributeError: 'NaTType' object has no attribute
+        # 'normalize'» y la pantalla entera sin arrancar.
+        #
+        # Llevaba latente desde la v95 porque hasta ahora aqui solo llegaban
+        # fechas ya normalizadas. Los picks del barrido en vivo (v275) traen
+        # `inicio` como marca de tiempo Unix y lo destaparon.
+        #
+        # Se captura Exception a secas y se comprueba el NaT explicitamente:
+        # una funcion que solo pinta una etiqueta no puede tumbar la app bajo
+        # ninguna circunstancia.
         hoy = pd.Timestamp.now('UTC').tz_localize(None).normalize()
         try:
-            f = pd.Timestamp(fecha).normalize()
-        except (ValueError, TypeError):
+            f = pd.Timestamp(fecha)
+            if f is pd.NaT or pd.isna(f):
+                return '📅 Fecha no disponible'
+            f = f.normalize()
+        except Exception:
             return '📅 Fecha no disponible'
         if not (2000 <= f.year <= 2100):
             return '📅 Fecha no disponible'
@@ -6303,6 +6320,16 @@ def render_alpha_finder():
             'hecho observable. Simulado sobre 1.629 apuestas de este canal '
             '(2021-2026): a **1 % fijo** el banco se multiplica por **2,26**; '
             'con **Kelly 1/4**, por **4,68**. Ninguna arruina.')
+        # v276 — TARJETAS PEQUEÑAS. El usuario lo pidio tal cual: «quiero
+        # tarjetas pequeñas que muestren el partido y qué voy a apostar, con
+        # probabilidad y cuota, y listo; es mucho por leer y no se entiende
+        # nada». Tenia razon: cada pick ocupaba seis lineas de texto y la
+        # pantalla era un muro.
+        #
+        # Asi que la tarjeta trae SOLO lo que hace falta para apostar —qué,
+        # dónde, a cuánto, cuánto meter— y una etiqueta de tres palabras. El
+        # porqué entero sigue estando, pero plegado: quien quiera el analisis
+        # lo abre, quien quiera apostar no tiene que leerlo.
         _ICONO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴'}
         for _i, _p in enumerate(_c1_val, 1):
             _k = None
@@ -6313,19 +6340,32 @@ def render_alpha_finder():
                 logger.debug('[capa1] kelly: %s', _e_k)
             _sf = _p.get('semaforo') or {}
             _ico = _ICONO.get(_sf.get('nivel'), '')
-            _linea = ('**%d. %s %s** — **%s** · %s — @%s · ventaja **+%.1f %%**'
-                      % (_i, _ico, _sf.get('titulo', ''),
-                         _p.get('apuesta', '?'), _p.get('partido', '?'),
-                         _p.get('cuota'), 100 * (_p.get('ev') or 0)))
+            _pr = _p.get('prob')
+            _partes = ['**%d. %s %s**' % (_i, _ico, _p.get('apuesta', '?')),
+                       str(_p.get('partido', '?'))]
+            _det = ['**@%s**' % _p.get('cuota')]
+            if _pr:
+                _det.append('%.0f %%' % (100 * float(_pr)))
             if _p.get('casa'):
-                _linea += ' · en **%s**' % _p['casa']
-            st.markdown(_linea)
-            if _sf.get('porque'):
-                st.caption(_sf['porque'])
+                _det.append(str(_p['casa']))
             if _k and _sf.get('nivel') != 'rojo':
-                st.caption('💰 Kelly 1/4: **%.2f %% del banco** — con $10.000 '
-                           'serían $%s.'
-                           % (100 * _k, format(int(10000 * _k), ',d')))
+                _det.append('meter **%.1f %%**' % (100 * _k))
+            st.markdown(' · '.join(_partes))
+            st.caption(' · '.join(_det) + '  ·  _%s_'
+                       % _sf.get('etiqueta', ''))
+        with st.expander('¿Por qué estos colores? El detalle de cada una',
+                         expanded=False):
+            st.caption(
+                '🟢 **Métela** · 🟡 **Puedes meterla** · 🔴 **No la metas**. '
+                'El orden NO es por probabilidad de acertar: medido sobre '
+                '1.820 apuestas, las de cuota 2,80-4,00 aciertan el 38,8 % y '
+                'rinden **+21,8 %**, mientras que las de cuota 1,15-1,80 '
+                'aciertan el 65,9 % y rinden **+0,3 %**. Se gana por lo que '
+                'pagan, no por cuántas entran.')
+            for _i, _p in enumerate(_c1_val, 1):
+                _sf = _p.get('semaforo') or {}
+                st.markdown('**%d. %s** — %s' % (_i, _p.get('apuesta', '?'),
+                                                 _sf.get('porque', '')))
         st.divider()
     else:
         st.markdown('### 🟢 Capa 1 — lo único con ventaja medida')
