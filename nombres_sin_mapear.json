@@ -1215,7 +1215,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sportivo Barracas",
     "ratio": 0.4848,
-    "visto": "2026-09-20"
+    "visto": "2026-09-21"
   },
   "Independiente Rivadavia": {
     "contexto": "cuotas_mx→futbol",
@@ -1299,7 +1299,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Central Cordoba",
     "ratio": 0.5294,
-    "visto": "2026-09-20"
+    "visto": "2026-09-21"
   },
   "San Antonio FC": {
     "contexto": "cuotas_mx→futbol",
@@ -1359,13 +1359,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Central Ballester",
     "ratio": 0.625,
-    "visto": "2026-09-20"
+    "visto": "2026-09-21"
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Racing Montevideo",
     "ratio": 0.5128,
-    "visto": "2026-09-20"
+    "visto": "2026-09-21"
   },
   "Inter de San Carlos": {
     "contexto": "cuotas_mx→futbol",
@@ -1437,7 +1437,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Estudiantes Merida",
     "ratio": 0.6829,
-    "visto": "2026-09-20"
+    "visto": "2026-09-21"
   },
   "Liga de Quito": {
     "contexto": "cuotas_mx→futbol",
@@ -1450,5 +1450,17 @@
     "candidato": "Universidad O&M",
     "ratio": 0.6341,
     "visto": "2026-09-20"
+  },
+  "Real Salt Lake": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Real Monarchs",
+    "ratio": 0.4444,
+    "visto": "2026-09-21"
+  },
+  "Fuerte San Francisco": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "San Antonio",
+    "ratio": 0.5161,
+    "visto": "2026-09-21"
   }
 }
