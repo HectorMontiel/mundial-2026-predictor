@@ -3,6 +3,34 @@
 """
 v106 — HÁNDICAP ASIÁTICO: el mercado que fallaba, y por qué.
 
+LO QUE MIDE ESTE MERCADO (v261)
+-------------------------------
+Este módulo llevaba desde la v212 marcado por `auditar_repo` como
+«grande_activo_sin_medicion», y con razón: 321 líneas decidiendo sin llevar su
+medición encima. La auditoría del 2026-09-20 destapó además el motivo de
+fondo — `pick_ledger_handicap.csv` estaba congelado desde el 8 de agosto y
+nadie lo regeneraba, mientras la v254 encendía el mercado en producción.
+
+Reconstruido sobre 46.067 partidos (paso 12 de `recalibrar_todo`, semanal), lo
+que este módulo promete frente a lo que ocurre:
+
+    línea      predicho   real     sesgo
+    −0,50       0,446     0,445    −0,001
+     0,00       0,607     0,604    −0,003
+    +0,50       0,710     0,708    −0,002
+
+Menos de medio punto en las tres. Es la mejor calibración medida del proyecto
+—por comparar, el ECE del mercado de goles está entre 0,009 y 0,016— y el
+motivo es estructural: el hándicap se calcula desde la matriz de marcador ya
+reponderada al 1X2, así que hereda la calibración del 1X2 en vez de arrastrar
+la sobredispersión de las lambdas.
+
+Lo que esto NO dice: que el mercado sea rentable. Una probabilidad honesta no
+crea valor donde la casa no lo deja, y el ROI de este mercado contra el precio
+NO está medido — sigue pendiente, igual que en el resto de mercados del
+modelo. Lo que queda demostrado es que la cifra que se publica es la cifra que
+pasa.
+
 El usuario reportó que el hándicap le falla «constantemente». No era una
 impresión: la evaluación del hándicap en `alpha_finder._mercados_del_partido`
 tenía tres agujeros, y los tres empujan en la MISMA dirección (inflar el lado
