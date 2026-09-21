@@ -36,10 +36,10 @@
     "visto": "2026-08-25"
   },
   "América de Cali": {
-    "candidato": "America RN U20",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.6207,
-    "visto": "2026-09-20"
+    "candidato": "Sol de America",
+    "ratio": 0.4828,
+    "visto": "2026-09-21"
   },
   "Anderson Angulo": {
     "contexto": "lineas_jugador",
@@ -194,10 +194,10 @@
     "visto": "2026-08-25"
   },
   "Cienciano del Cusco": {
-    "candidato": "Quintanar del Rey",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.5,
-    "visto": "2026-09-20"
+    "candidato": "Ind. Valle del Cauca",
+    "ratio": 0.5263,
+    "visto": "2026-09-21"
   },
   "Claudio Spinelli": {
     "contexto": "lineas_jugador",
@@ -332,9 +332,9 @@
     "visto": "2026-08-25"
   },
   "Estudiantes de La Plata": {
-    "candidato": "Estudiantes Merida",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.6829,
+    "candidato": "Estudiantes L.P.",
+    "ratio": 0.7895,
     "visto": "2026-09-21"
   },
   "Estudiantes de Río Cuarto": {
@@ -576,8 +576,8 @@
     "visto": "2026-08-25"
   },
   "Jaguares de Córdoba": {
-    "candidato": "Central Cordoba",
     "contexto": "cuotas_mx→futbol",
+    "candidato": "Central Cordoba",
     "ratio": 0.5294,
     "visto": "2026-09-21"
   },
@@ -1148,9 +1148,9 @@
     "visto": "2026-09-20"
   },
   "Real Salt Lake": {
-    "candidato": "Real Monarchs",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.4444,
+    "candidato": "Real Santander",
+    "ratio": 0.7143,
     "visto": "2026-09-21"
   },
   "Real Sociedad": {
@@ -1462,5 +1462,11 @@
   "Éverson": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
+  },
+  "Deportivo Cali": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Deportivo Espanol",
+    "ratio": 0.7742,
+    "visto": "2026-09-21"
   }
 }
