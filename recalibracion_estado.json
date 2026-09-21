@@ -1,41 +1,41 @@
 {
- "generado": "2026-09-14T11:35:41Z",
+ "generado": "2026-09-21T16:13:42Z",
  "pasos": [
   {
    "paso": "1. ledger (re-predice el histórico con los modelos de hoy)",
    "ok": true,
-   "segundos": 4588.1,
-   "detalle": "futbol: 80908 filas (+32960) | deportes: 328865 filas (+256733) | total: 406430 filas"
+   "segundos": 5023.7,
+   "detalle": "futbol: 81030 filas (+33082) | deportes: 329812 filas (+257680) | totales: 80736 filas | total: 407502 filas"
   },
   {
    "paso": "2. calibración de confianza (acierto real por banda)",
    "ok": true,
-   "segundos": 12.6,
-   "detalle": "27682 predicciones medidas · umbral 0.65"
+   "segundos": 10.9,
+   "detalle": "28374 predicciones medidas · umbral 0.65"
   },
   {
    "paso": "3. techo de acierto por liga",
    "ok": true,
-   "segundos": 0.9,
-   "detalle": "2 ligas · correlación 0.0 · NO publicado (inestable)"
+   "segundos": 1.0,
+   "detalle": "3 ligas · correlación 0.0 · NO publicado (inestable)"
   },
   {
    "paso": "4. banda de EV rentable",
    "ok": true,
    "segundos": 0.4,
-   "detalle": "banda EV [0.040, 0.120] · piso de probabilidad 0.50"
+   "detalle": "banda EV [0.030, 0.140] · piso de probabilidad 0.60"
   },
   {
    "paso": "5. qué deportes tienen edge validado",
    "ok": true,
    "segundos": 0.8,
-   "detalle": "con edge validado: ninguno"
+   "detalle": "con edge validado: ['KBO', 'NFL']"
   },
   {
    "paso": "6. peso del encogimiento al mercado",
    "ok": true,
    "segundos": 0.7,
-   "detalle": "w global 0.25 · 2 ligas adoptadas · log-loss 0.0319"
+   "detalle": "w global 0.25 · 2 ligas adoptadas · log-loss 0.0322"
   },
   {
    "paso": "7. autopsia de los picks publicados",
@@ -46,11 +46,53 @@
   {
    "paso": "8. calibración adaptativa (aprende de lo liquidado)",
    "ok": true,
-   "segundos": 11.4,
+   "segundos": 13.3,
    "detalle": "6 nodos · fuentes {'ledger_goles': 4, 'produccion': 4} · n global 318"
+  },
+  {
+   "paso": "9. calibración por banda de cuota (isotónica walk-forward)",
+   "ok": true,
+   "segundos": 0.7,
+   "detalle": "n=24012 · bandas=5"
+  },
+  {
+   "paso": "10. liquidar los pronósticos ya jugados",
+   "ok": true,
+   "segundos": 9.7,
+   "detalle": "6 partidos, 11 picks liquidados"
+  },
+  {
+   "paso": "11. curva por línea del mercado de goles",
+   "ok": true,
+   "segundos": 0.8,
+   "detalle": "APAGADA · log-loss sin 0.61046 / con 0.61005 · p5 +0.00014 · sesgo Under -0.5 -> +0.7 pp"
+  },
+  {
+   "paso": "12. ledger del hándicap asiático",
+   "ok": true,
+   "segundos": 90.0,
+   "detalle": "77726 partidos · -0,50 dijo 0.440 pasa 0.440 · +0,00 dijo 0.598 pasa 0.596 · +0,50 dijo 0.703 pasa 0.702"
+  },
+  {
+   "paso": "13. memoria de errores por equipo",
+   "ok": true,
+   "segundos": 0.4,
+   "detalle": "1,323 equipos · sesgo medio +0.0071 · desv 0.4205 · hasta 2026-09-17"
+  },
+  {
+   "paso": "14. selector de apuestas (aprende cuál tomar)",
+   "ok": true,
+   "segundos": 193.6,
+   "detalle": "3,199,135 apuestas · log-loss 0.53925 -> 0.53533 · p5 +0.00377 · ROI -2.96 % (n=5,461)"
+  },
+  {
+   "paso": "15. radar de errores de cuota (dónde mirar)",
+   "ok": true,
+   "segundos": 0.1,
+   "detalle": "sin universo suficiente"
   }
  ],
- "ok": 8,
+ "ok": 15,
  "fallos": [],
- "segundos_total": 4615.4
+ "segundos_total": 5346.6
 }

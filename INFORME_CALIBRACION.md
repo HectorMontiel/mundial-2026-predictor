@@ -1,81 +1,81 @@
 # Informe de calibración — córners, tarjetas y remates
 
-Generado 2026-09-14T10:18:45Z
+Generado 2026-09-21T14:44:35Z
 
 ```
 competición              origen     partidos  ck err  ck corr  tj err  tj corr  rm err  rm corr  ra err  ra corr
 ----------------------------------------------------------------------------------------------------------------
-liga_mx                  observado      1785  0.0099  0.2069  0.0181  0.0826  0.0118  0.4567  0.0074  0.3480
-mls                      observado      2807  0.0067  0.2163  0.0182  0.1473  0.0113  0.3458  0.0109  0.2667
-brasil                   observado      2093  0.0110  0.2089  0.0174  0.1522  0.0125  0.3907  0.0142  0.2965
-argentina                observado      2299  0.0044  0.2821  0.0210  0.2113  0.0131  0.4517  0.0187  0.3273
-noruega                  observado       511       -       -       -       -       -       -       -       -
-suecia                   observado       514       -       -       -       -       -       -       -       -
+liga_mx                  observado      1816  0.0114  0.2035  0.0149  0.0898  0.0172  0.4487  0.0111  0.3589
+mls                      observado      2874  0.0072  0.2281  0.0168  0.1470  0.0106  0.3570  0.0163  0.2746
+brasil                   observado      2127  0.0077  0.2116  0.0171  0.1504  0.0160  0.3893  0.0133  0.3028
+argentina                observado      2361  0.0063  0.2793  0.0207  0.2088  0.0188  0.4515  0.0219  0.3194
+noruega                  observado       539  0.0517  0.3788  0.0082  0.1989  0.0795  0.4380  0.0190  0.3262
+suecia                   observado       551  0.0102  0.2053  0.0211  0.1092  0.0230  0.4088  0.0078  0.2504
 finlandia                estimado          0       -       -       -       -       -       -       -       -
 rumania                  estimado        328       -       -       -       -       -       -       -       -
 irlanda                  estimado          0       -       -       -       -       -       -       -       -
-turquia                  observado       672  0.0183  0.2262  0.0101  0.0918  0.0215  0.4601  0.0165  0.3838
-dinamarca                observado       408       -       -       -       -       -       -       -       -
-china                    observado      1379  0.0067  0.2579  0.0142  0.1115  0.0293  0.4434  0.0161  0.3447
-aut_bundesliga           estimado        351       -       -       -       -       -       -       -       -
-rus_premier              observado       514  0.0150  0.1720  0.0198  0.1108  0.0329  0.4262  0.0284  0.3223
-gre_super_league         estimado        224       -       -       -       -       -       -       -       -
-premier                  observado      2002  0.0095  0.2567  0.0132  0.1915  0.0248  0.4676  0.0213  0.3042
-laliga                   observado      2104  0.0118  0.3197  0.0138  0.1378  0.0050  0.4866  0.0188  0.4294
-serie_a                  observado      2065  0.0036  0.2934  0.0185  0.2083  0.0125  0.4521  0.0105  0.3440
-bundesliga               observado      1687  0.0114  0.2712  0.0075  0.1051  0.0158  0.3902  0.0229  0.3894
-ligue_1                  observado      1860  0.0087  0.2416  0.0325  0.1671  0.0069  0.4366  0.0088  0.3791
-eredivisie               observado      1739  0.0150  0.3317  0.0116  0.2086  0.0277  0.5026  0.0330  0.3725
-primeira                 observado      1678  0.0128  0.3431  0.0118  0.1173  0.0125  0.4802  0.0186  0.4277
-champions                observado       774  0.0167  0.3967  0.0278  0.0992  0.0047  0.5211  0.0358  0.4281
-europa_league            observado       855  0.0143  0.2928  0.0147  0.1728  0.0099  0.3903  0.0147  0.2865
+turquia                  observado       702  0.0171  0.2341  0.0129  0.1008  0.0253  0.4768  0.0193  0.3959
+dinamarca                observado       439       -       -       -       -       -       -       -       -
+china                    observado      1401  0.0069  0.2561  0.0115  0.1316  0.0344  0.4190  0.0173  0.3337
+aut_bundesliga           estimado        360       -       -       -       -       -       -       -       -
+rus_premier              observado       551  0.0128  0.1111  0.0197  0.0892  0.0400  0.4252  0.0475  0.3397
+gre_super_league         estimado        245       -       -       -       -       -       -       -       -
+premier                  observado      2035  0.0089  0.2486  0.0117  0.2017  0.0275  0.4597  0.0181  0.2994
+laliga                   observado      2147  0.0117  0.3117  0.0144  0.1429  0.0056  0.4765  0.0211  0.4237
+serie_a                  observado      2099  0.0023  0.2831  0.0176  0.2024  0.0139  0.4431  0.0138  0.3383
+bundesliga               observado      1712  0.0126  0.2694  0.0091  0.1072  0.0183  0.3980  0.0260  0.4099
+ligue_1                  observado      1888  0.0082  0.2284  0.0319  0.1699  0.0084  0.4293  0.0085  0.3813
+eredivisie               observado      1780  0.0153  0.3426  0.0107  0.1920  0.0288  0.5021  0.0295  0.3762
+primeira                 observado      1715  0.0127  0.3499  0.0170  0.1256  0.0120  0.4988  0.0181  0.4368
+champions                observado       792  0.0159  0.3632  0.0238  0.1087  0.0068  0.5152  0.0353  0.4314
+europa_league            observado       873  0.0083  0.2941  0.0171  0.1707  0.0118  0.4002  0.0107  0.2726
 conference_league        observado       713       -       -       -       -       -       -       -       -
-leagues_cup              estimado        277       -       -       -       -       -       -       -       -
-eng_championship         observado      2569  0.0086  0.2521  0.0134  0.1118  0.0175  0.3976  0.0092  0.2243
-eng_league_one           observado      1134  0.0160  0.2372  0.0187  0.1265  0.0202  0.4037  0.0140  0.2854
-eng_league_two           observado      1136  0.0182  0.2381  0.0206  0.1360  0.0108  0.3058  0.0103  0.1830
+leagues_cup              estimado        285       -       -       -       -       -       -       -       -
+eng_championship         observado      2611  0.0073  0.2589  0.0128  0.1051  0.0179  0.3952  0.0150  0.2257
+eng_league_one           observado      1193  0.0134  0.2147  0.0097  0.1180  0.0212  0.3905  0.0141  0.2950
+eng_league_two           observado      1196  0.0210  0.2498  0.0102  0.1494  0.0174  0.2767  0.0056  0.1933
 eng_national             estimado          1       -       -       -       -       -       -       -       -
-sco_premiership          observado       440       -       -       -       -       -       -       -       -
-sco_championship         estimado        371       -       -       -       -       -       -       -       -
-esp_hypermotion          observado      2355  0.0122  0.2184  0.0128  0.1268  0.0105  0.4110  0.0138  0.2966
-ita_serie_b              observado      1020  0.0167  0.2119  0.0186  0.1091  0.0027  0.4068  0.0145  0.3376
-fra_ligue2               observado       638  0.0128  0.2470  0.0447  0.0280  0.0092  0.3572  0.0212  0.2153
-ger_bundesliga2          observado      1557  0.0220  0.1182  0.0113  0.0872  0.0098  0.2815  0.0061  0.2123
-bel_pro_league           observado       580  0.0160  0.2766  0.0264  0.2542  0.0278  0.4727  0.0273  0.4121
-jpn_j1                   observado       772  0.0113  0.2342  0.0180  0.2554  0.0104  0.3315  0.0129  0.2060
+sco_premiership          observado       469       -       -       -       -       -       -       -       -
+sco_championship         estimado        376       -       -       -       -       -       -       -       -
+esp_hypermotion          observado      2402  0.0123  0.2113  0.0135  0.1164  0.0108  0.4059  0.0128  0.3018
+ita_serie_b              observado      1062  0.0157  0.2090  0.0223  0.1511  0.0157  0.3891  0.0241  0.3361
+fra_ligue2               observado       675  0.0100  0.2737  0.0391 -0.0074  0.0162  0.3774  0.0262  0.2235
+ger_bundesliga2          observado      1591  0.0224  0.1143  0.0152  0.1023  0.0069  0.2689  0.0055  0.1998
+bel_pro_league           observado       619  0.0030  0.2748  0.0281  0.2052  0.0351  0.4806  0.0342  0.4129
+jpn_j1                   observado       823  0.0128  0.2015  0.0118  0.2135  0.0254  0.3321  0.0111  0.2350
 arg_primera_nacional     estimado          0       -       -       -       -       -       -       -       -
-col_primera_a            observado      2401  0.0083  0.2532  0.0156  0.1106  0.0115  0.4042  0.0196  0.3626
-usl_championship         observado      2444  0.0131  0.2406  0.0115  0.1642  0.0163  0.3493  0.0132  0.2897
-ned_eerste               observado      2135  0.0055  0.2982  0.0145  0.1178  0.0122  0.4356  0.0125  0.2691
-bra_serie_b              observado      2198  0.0133  0.2584  0.0163  0.0822  0.0237  0.3949  0.0129  0.3016
-per_liga1                observado       710  0.0093  0.3265  0.0309  0.0279  0.0461  0.4916  0.0433  0.3362
+col_primera_a            observado      2453  0.0099  0.2378  0.0182  0.1095  0.0120  0.4076  0.0190  0.3628
+usl_championship         observado      2499  0.0113  0.2469  0.0090  0.1810  0.0168  0.3494  0.0139  0.2906
+ned_eerste               observado      2181  0.0049  0.2910  0.0187  0.1134  0.0192  0.4278  0.0158  0.2692
+bra_serie_b              observado      2250  0.0069  0.2446  0.0180  0.0805  0.0240  0.3980  0.0120  0.3238
+per_liga1                observado       745  0.0072  0.3609  0.0286  0.0414  0.0544  0.4953  0.0599  0.2907
 uru_primera              estimado          2       -       -       -       -       -       -       -       -
-ecu_liga_pro             estimado        262       -       -       -       -       -       -       -       -
+ecu_liga_pro             estimado        300       -       -       -       -       -       -       -       -
 slv_primera              estimado          0       -       -       -       -       -       -       -       -
-bol_division             estimado         66       -       -       -       -       -       -       -       -
-par_division             estimado          0       -       -       -       -       -       -       -       -
+bol_division             estimado         85       -       -       -       -       -       -       -       -
+par_division             estimado         53       -       -       -       -       -       -       -       -
 crc_fpd                  estimado          0       -       -       -       -       -       -       -       -
 mex_expansion            estimado          0       -       -       -       -       -       -       -       -
-chi_primera              observado      1384  0.0064  0.2866  0.0257  0.1345  0.0123  0.4674  0.0140  0.3197
-rsa_premier              observado       479       -       -       -       -       -       -       -       -
+chi_primera              observado      1414  0.0096  0.2792  0.0272  0.1329  0.0109  0.4562  0.0141  0.3234
+rsa_premier              observado       511       -       -       -       -       -       -       -       -
 ven_primera              estimado          0       -       -       -       -       -       -       -       -
 aus_aleague              observado       987  0.0194  0.3103  0.0201  0.1132  0.0170  0.4723  0.0133  0.3412
-libertadores             observado       763  0.0335  0.3454  0.0249  0.2958  0.0211  0.5320  0.0409  0.4731
-sudamericana             observado       926       -       -       -       -       -       -       -       -
+libertadores             observado       772  0.0286  0.3450  0.0227  0.2936  0.0238  0.5370  0.0431  0.4789
+sudamericana             observado       935  0.0141  0.3378  0.0310  0.1354  0.0287  0.4397  0.0311  0.3624
 eng_fa_cup               estimado        206       -       -       -       -       -       -       -       -
 ind_isl                  observado       618  0.0245  0.2617  0.0262  0.1632  0.0161  0.3023  0.0097  0.2549
-afc_champions            observado       639  0.0230  0.1825  0.0061  0.1739  0.0332  0.3090  0.0157  0.3655
-bra_copa                 estimado        210       -       -       -       -       -       -       -       -
-ksa_pro                  observado       664  0.0085  0.3747  0.0299  0.0723  0.0486  0.5186  0.0310  0.4799
+afc_champions            observado       655  0.0133  0.1681  0.0165  0.1879  0.0351  0.2896  0.0126  0.3553
+bra_copa                 estimado        226       -       -       -       -       -       -       -       -
+ksa_pro                  observado       673  0.0132  0.3451  0.0329  0.0543  0.0487  0.5113  0.0267  0.4569
 
 competiciones con córners           OBSERVADOS .. 43 de 62
 competiciones con tarjetas          OBSERVADOS .. 43 de 62
 competiciones con remates           OBSERVADOS .. 43 de 62
 competiciones con remates a puerta  OBSERVADOS .. 43 de 62
 competiciones sin ningún dato observado ......... 19
-error de calibración medio en córners observados: 0.0132 (36 competiciones)
-error de calibración medio en tarjetas observados: 0.0188 (36 competiciones)
-error de calibración medio en remates observados: 0.0175 (36 competiciones)
-error de calibración medio en remates a puerta observados: 0.0181 (36 competiciones)
+error de calibración medio en córners observados: 0.0130 (39 competiciones)
+error de calibración medio en tarjetas observados: 0.0187 (39 competiciones)
+error de calibración medio en remates observados: 0.0223 (39 competiciones)
+error de calibración medio en remates a puerta observados: 0.0199 (39 competiciones)
 estimación (validación dejando una liga fuera): córners 0.0247 · tarjetas 0.0539 · remates 0.0281 · remates a puerta 0.0168
 ```

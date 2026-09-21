@@ -1,30 +1,48 @@
 {
- "generado": "2026-09-14T11:35:11Z",
- "filas": 328865,
+ "generado": "2026-09-21T16:01:33Z",
+ "filas": 329812,
  "por_deporte": {
-  "Tenis": 328865
+  "Tenis": 329054,
+  "NFL": 539,
+  "KBO": 219
  },
  "por_liga": {
-  "ATP": 174727,
-  "WTA": 154138
+  "ATP": 174827,
+  "WTA": 154227,
+  "nfl": 539,
+  "kbo": 219
  },
- "con_cuota": 27693,
+ "con_cuota": 28385,
  "rango": [
-  "2019-08-27",
-  "2026-09-13"
+  "2019-09-02",
+  "2026-09-21"
  ],
  "verificacion_alineacion": {
   "Tenis/ATP": {
    "ok": true,
-   "n": 16007,
-   "logloss_mercado": 0.5898,
+   "n": 15946,
+   "logloss_mercado": 0.5902,
    "techo_azar": 0.6931,
    "motivo": "ok"
   },
   "Tenis/WTA": {
    "ok": true,
-   "n": 11684,
-   "logloss_mercado": 0.5879,
+   "n": 11679,
+   "logloss_mercado": 0.5877,
+   "techo_azar": 0.6931,
+   "motivo": "ok"
+  },
+  "NFL/nfl": {
+   "ok": true,
+   "n": 539,
+   "logloss_mercado": 0.5939,
+   "techo_azar": 0.6931,
+   "motivo": "ok"
+  },
+  "KBO/kbo": {
+   "ok": true,
+   "n": 219,
+   "logloss_mercado": 0.6727,
    "techo_azar": 0.6931,
    "motivo": "ok"
   }
