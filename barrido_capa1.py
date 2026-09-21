@@ -101,10 +101,30 @@ def _tablero(ruta: str = TABLERO) -> List[Dict]:
     except Exception as e:
         logger.warning('[capa1] no se pudo leer %s: %s', ruta, e)
         return []
-    fuera = []
+    # v275 — LOS QUE YA EMPEZARON, FUERA.
+    #
+    # `cuotas_mx.json` se commitea al repositorio y el contenedor lo recibe con
+    # la edad que tenga. Si el cron se salta pasadas —y se las salta: medido
+    # el 2026-09-21, once horas sin correr con un cron de dos— el fichero
+    # puede traer partidos que ya se jugaron. Ofrecer un pick de un partido
+    # terminado no es un fallo de presentacion: es mandar a apostar algo que
+    # ya no existe.
+    import time as _t
+    ahora = _t.time()
+    fuera, pasados = [], 0
     for v in (doc.get('partidos') or {}).values():
-        if isinstance(v, dict) and v.get('home') and v.get('away'):
-            fuera.append(v)
+        if not (isinstance(v, dict) and v.get('home') and v.get('away')):
+            continue
+        try:
+            if float(v.get('inicio') or 0) <= ahora:
+                pasados += 1
+                continue
+        except (TypeError, ValueError):
+            pass
+        fuera.append(v)
+    if pasados:
+        logger.info('[capa1] %d partidos del tablero ya habian empezado',
+                    pasados)
     return fuera
 
 

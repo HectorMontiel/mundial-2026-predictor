@@ -133,6 +133,23 @@ jobs:
           python barrido_capa1.py \
             || echo "::warning::el barrido de la capa 1 salio con avisos"
 
+      # v273 — ACUMULAR EL PRECIO DE LAS ANCLAS CANDIDATAS.
+      #
+      # Un pick de Capa 1 necesita dos precios y el que falta casi siempre es
+      # el de referencia: de 277 partidos del tablero, sólo 97 tienen ancla de
+      # Pinnacle. Los otros 180 no se miran siquiera.
+      #
+      # Por la MISMA puerta que las cuotas responden 293 casas más, con el
+      # mismo identificador de evento. Cuatro de ellas son candidatas a servir
+      # de ancla de reserva. Esto NO decide nada todavía: acumula, y la
+      # medición se enciende sola cuando hay muestra (ver `anclas.py`).
+      #
+      # Son ~550 peticiones más sobre las 8.080 de la pasada: un 7 %.
+      - name: Acumular las anclas candidatas
+        run: |
+          python anclas.py \
+            || echo "::warning::la captura de anclas salio con avisos"
+
       - name: Commitear las cuotas
         run: |
           git config user.name  "cuotas-mx-bot"
@@ -144,6 +161,8 @@ jobs:
           # `test_catalogo_y_cuotas`, que es quien lo cazo aqui.
           git add cuotas_mx.json || echo "::warning::git add de cuotas_mx.json fallo"
           git add radar_capturas.csv || echo "::warning::todavia no hay capturas del radar"
+          git add anclas_capturas.csv || echo "::warning::todavia no hay capturas de anclas"
+          git add anclas.json || echo "::warning::todavia no hay medicion de anclas"
           if git diff --cached --quiet; then
             echo "Las cuotas no cambiaron."
           else

@@ -757,6 +757,24 @@ def cargar_motor() -> PredictionEngine:
 # guardia_barrido.py, que es un módulo importado de verdad: app.py re-ejecuta
 # ESTE script con runpy en cada rerun, así que un global de aquí no recordaría
 # nada entre interacciones.
+@st.cache_data(ttl=600, show_spinner=False)
+def _capa1_en_vivo() -> list:
+    """El barrido de la Capa 1, calculado aqui y ahora. NUNCA lanza.
+
+    Diez minutos de cache: un error de cuota dura poco —medido, solo el 36 %
+    sobrevive a la foto siguiente— asi que cachearlo mas seria enseñar precios
+    que ya no estan. Y menos seria repetir 13 segundos de trabajo en cada
+    interaccion del usuario.
+    """
+    try:
+        import barrido_capa1 as _bc1
+        return _bc1.barrer()
+    except Exception as e:
+        logger.warning('[capa1] barrido en vivo fallo: %s: %s',
+                       type(e).__name__, e)
+        return []
+
+
 def barrido_universal(forzar: bool = False) -> dict:
     """Barrido de alpha_finder con garantía de no solaparse consigo mismo."""
     import alpha_finder
@@ -6227,44 +6245,117 @@ def render_alpha_finder():
     # arruina. Enseñarlas con el mismo aspecto, o esconder la buena detrás de
     # una pestaña, es lo que llevó al usuario a armar sus boletos con la
     # perdedora.
+    # v274 — EL SEMAFORO: CUAL METER, CUAL NO, Y EN QUE ORDEN.
+    #
+    # El usuario lo pidio asi: «quiero que me diga cuales meter y que las
+    # ordene de menor a mayor riesgo». El orden NO es el que parece, y esta
+    # medido: ordenar por probabilidad de acertar pondria delante justo las
+    # que menos rinden (cuota 1,15-1,80 acierta el 65,9 % y da p5 -5,57 %,
+    # mientras que cuota 2,80-4,00 acierta el 38,8 % y da p5 +8,07 %).
+    #
+    # Asi que se ordena por CALIDAD MEDIDA. Ver `semaforo_capa1`, que lleva la
+    # tabla entera y los dos tramos.
     _c1 = _filtra(r.get('capa1'))
+    # v275 — LA CAPA 1 SE CALCULA EN VIVO, Y NO DEPENDE DEL CRON.
+    #
+    # EL FALLO QUE ARREGLA, QUE PASO TRES VECES SEGUIDAS. El usuario vio «Hoy
+    # no hay ninguna» tres veces por tres causas DISTINTAS: codigo sin
+    # empujar, el bloque del barrido metido en la funcion equivocada, y el
+    # cron de GitHub saltandose ejecuciones (medido el 2026-09-21: el
+    # precalculo declara cada 3 h y corrio con huecos de 5,7 h; el de cuotas
+    # declara cada 2 h y llevaba 11 sin dispararse).
+    #
+    # El sintoma era el mismo las tres veces porque la pantalla leia un
+    # fichero y se lo creia. Y el mensaje decia «cero no es un fallo», que
+    # tranquilizaba justo cuando debia alarmar.
+    #
+    # POR QUE SE PUEDE HACER EN VIVO Y EL RESTO NO. El barrido de la Capa 1 no
+    # usa el modelo: son 13 segundos y unos pocos MB. El que obligo a sacarlo
+    # todo al cron es `apuestas_del_dia_universal`, que pica a 1.297 MB en un
+    # servidor de 1 GB. No son lo mismo y no tenian por que compartir destino.
+    try:
+        _c1_vivo = _capa1_en_vivo()
+        _ya = {(str(p.get('partido')), p.get('lado')) for p in _c1}
+        _nuevos = [p for p in _filtra(_c1_vivo)
+                   if (str(p.get('partido')), p.get('lado')) not in _ya]
+        if _nuevos:
+            _c1 = list(_c1) + _nuevos
+            logger.info('[capa1] %d picks anadidos en vivo', len(_nuevos))
+    except Exception as _e_vivo:
+        logger.warning('[capa1] barrido en vivo omitido: %s', _e_vivo)
+    try:
+        import semaforo_capa1 as _sem
+        _c1 = _sem.ordenar(_c1)
+        _frase = _sem.resumen(_c1)
+    except Exception as _e_sem:
+        logger.debug('[capa1] semaforo: %s', _e_sem)
+        _sem, _frase = None, ''
     _c1_val = [p for p in _c1 if p.get('validado') is not False]
     _c1_nov = [p for p in _c1 if p.get('validado') is False]
     if _c1_val:
         st.markdown('### 🟢 Capa 1 — lo único con ventaja medida (%d)'
                     % len(_c1_val))
+        if _frase:
+            st.success(_frase)
         st.caption(
             'La casa paga **por encima del precio justo de Pinnacle**. No usa '
             'el modelo para nada: es una discrepancia entre casas, que es un '
             'hecho observable. Simulado sobre 1.629 apuestas de este canal '
             '(2021-2026): a **1 % fijo** el banco se multiplica por **2,26**; '
             'con **Kelly 1/4**, por **4,68**. Ninguna arruina.')
-        for _p in _c1_val:
+        _ICONO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴'}
+        for _i, _p in enumerate(_c1_val, 1):
             _k = None
             try:
                 import barrido_capa1 as _bc
                 _k = _bc.kelly(_p.get('prob'), _p.get('cuota'))
             except Exception as _e_k:
                 logger.debug('[capa1] kelly: %s', _e_k)
-            _linea = ('**%s** · %s — @%s · ventaja **+%.1f %%**'
-                      % (_p.get('apuesta', '?'), _p.get('partido', '?'),
+            _sf = _p.get('semaforo') or {}
+            _ico = _ICONO.get(_sf.get('nivel'), '')
+            _linea = ('**%d. %s %s** — **%s** · %s — @%s · ventaja **+%.1f %%**'
+                      % (_i, _ico, _sf.get('titulo', ''),
+                         _p.get('apuesta', '?'), _p.get('partido', '?'),
                          _p.get('cuota'), 100 * (_p.get('ev') or 0)))
             if _p.get('casa'):
                 _linea += ' · en **%s**' % _p['casa']
             st.markdown(_linea)
-            if _k:
+            if _sf.get('porque'):
+                st.caption(_sf['porque'])
+            if _k and _sf.get('nivel') != 'rojo':
                 st.caption('💰 Kelly 1/4: **%.2f %% del banco** — con $10.000 '
                            'serían $%s.'
                            % (100 * _k, format(int(10000 * _k), ',d')))
         st.divider()
     else:
         st.markdown('### 🟢 Capa 1 — lo único con ventaja medida')
+        # v275 — el vacio dice la EDAD del dato. Antes decia «cero no es un
+        # fallo» pasara lo que pasara, y eso tapo tres averias seguidas.
+        _edad = ''
+        try:
+            import cuotas_mx as _cmx_e
+            _d = _cmx_e.cargar() or {}
+            _g = _d.get('generado')
+            if _g:
+                import datetime as _dt_e
+                _t0 = _dt_e.datetime.strptime(_g, '%Y-%m-%dT%H:%M:%SZ')
+                _h = (_dt_e.datetime.utcnow() - _t0).total_seconds() / 3600.0
+                if _h > 4:
+                    _edad = ('\n\n⚠️ **Y ojo: los precios que tengo son de '
+                             'hace %.0f horas.** Con datos tan viejos no se '
+                             'puede saber si hoy hay oportunidades o no.'
+                             % _h)
+                else:
+                    _edad = ('\n\nLos precios son de hace %.0f h, así que '
+                             'esto sí es un cero de verdad.' % _h)
+        except Exception as _e_ed:
+            logger.debug('[capa1] edad del tablero: %s', _e_ed)
         st.info(
             'Hoy no hay ninguna. **Cero no es un fallo**: significa que las '
             'casas y Pinnacle coinciden, y ahí no hay nada que ganar. El '
             'histórico dice que salen **3,7 al día en sábado** y **0,2 el '
             'jueves**, así que los días flojos son normales. Lo de abajo es '
-            'Capa 2 y está medido como perdedor.')
+            'Capa 2 y está medido como perdedor.' + _edad)
     if _c1_nov:
         with st.expander('🔬 Sin validar todavía (%d) — se están midiendo'
                          % len(_c1_nov), expanded=False):
