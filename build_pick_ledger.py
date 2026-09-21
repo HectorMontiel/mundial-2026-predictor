@@ -227,12 +227,66 @@ def adjuntar_cuotas(ledger: pd.DataFrame) -> pd.DataFrame:
     def _col(mapa, pos):
         return ledger['match_id'].map(lambda m: (mapa.get(m) or (None,) * 5)[pos])
 
+    # v288 — LO QUE CI NO PUEDE RECONSTRUIR, NO SE PUEDE TIRAR.
+    #
+    # `odds_historico.db` pesa 57 MB y esta en .gitignore, asi que NO viaja al
+    # repositorio. En una maquina local tiene 64.879 cuotas de cierre de
+    # Pinnacle; en el runner de GitHub Actions no existe, `adjuntar_cuotas` se
+    # conecta a una base vacia y todos los `pin_*` salen a None.
+    #
+    # Resultado medido el 2026-09-21, comparando el ledger antes y despues de
+    # que la recalibracion semanal corriera POR FIN en CI:
+    #
+    #     antes (construido en local)   47.948 filas · 26.666 con Pinnacle
+    #     despues (construido en CI)    81.030 filas ·      0 con Pinnacle
+    #
+    # Mas cobertura y CERO Pinnacle. Y `pick_ledger.csv` es el unico fichero
+    # que guarda ese precio: sin el no se puede validar `valor_vs_sharp` —el
+    # unico canal con ventaja medida— ni entrenar el radar de errores.
+    #
+    # Lo ironico: el `git add` roto que la v263 documenta, el que llevaba ocho
+    # semanas sin publicar nada, estaba PROTEGIENDO el ledger de esto. Al
+    # arreglarlo (v284) la recalibracion empezo a publicar... y a destruir.
+    #
+    # LA REGLA: una columna que esta fuente no puede rellenar NO se sobrescribe
+    # con vacio. Se conserva lo que ya hubiera en el ledger publicado. Asi el
+    # rebuild en CI sigue ampliando cobertura sin tirar lo que solo existe en
+    # local, y el dia que la base de datos viaje (o se suba al Release como los
+    # modelos) esto deja de hacer nada por si solo.
+    previo = None
+    try:
+        if os.path.exists(SALIDA_CSV):
+            previo = pd.read_csv(SALIDA_CSV, low_memory=False)
+    except Exception as e:
+        logger.warning('[ledger] no se pudo leer el ledger previo: %s', e)
+
     ledger = ledger.copy()
     for nombre, pos in (('cuota_home', 0), ('cuota_draw', 1), ('cuota_away', 2),
                         ('cuota_over25', 3), ('cuota_under25', 4)):
         ledger[nombre] = _col(mercado, pos)
     for nombre, pos in (('pin_home', 0), ('pin_draw', 1), ('pin_away', 2)):
         ledger[nombre] = _col(pin, pos)
+
+    # y se rescata de la version publicada lo que esta pasada no pudo traer
+    if previo is not None and 'match_id' in previo.columns:
+        for nombre in ('cuota_home', 'cuota_draw', 'cuota_away',
+                       'cuota_over25', 'cuota_under25',
+                       'pin_home', 'pin_draw', 'pin_away'):
+            if nombre not in previo.columns:
+                continue
+            try:
+                antes = int(ledger[nombre].notna().sum())
+                mapa = dict(zip(previo['match_id'], previo[nombre]))
+                rescate = ledger['match_id'].map(mapa)
+                ledger[nombre] = ledger[nombre].fillna(rescate)
+                ganados = int(ledger[nombre].notna().sum()) - antes
+                if ganados:
+                    logger.warning('[ledger] %s: %d valores rescatados del '
+                                   'ledger publicado (esta pasada no los '
+                                   'pudo traer)', nombre, ganados)
+            except Exception as e:
+                logger.warning('[ledger] no se pudo rescatar %s: %s',
+                               nombre, e)
     return ledger
 
 
@@ -253,6 +307,50 @@ def construir(solo: Optional[str] = None, n_folds: int = N_FOLDS) -> pd.DataFram
     if not partes:
         raise RuntimeError('ninguna liga produjo predicciones')
     ledger = adjuntar_cuotas(pd.concat(partes, ignore_index=True))
+
+    # v287 — LA LEAGUES CUP ENTRABA DOS VECES.
+    #
+    # La Leagues Cup es un torneo ENTRE equipos de Liga MX y de la MLS, asi
+    # que cada uno de sus partidos existe en tres catalogos: el del torneo y
+    # el de la liga domestica de cada equipo. El ledger los concatenaba todos
+    # y el mismo partido acababa repetido:
+    #
+    #     leagues_cup   20230312_Tigres-UANL_Club-America
+    #     liga_mx       20230312_Tigres-UANL_Club-America
+    #
+    # Medido el 2026-09-21 sobre el ledger recien reconstruido: 3.010 partidos
+    # repetidos de 81.030 filas (3,71 %), todos con la Leagues Cup de por
+    # medio (3.010 leagues_cup + 1.849 mls + 1.161 liga_mx).
+    #
+    # POR QUE NADIE LO VIO ANTES. `test_catalogo_y_cuotas` comprueba esto
+    # desde hace tiempo, pero el ledger llevaba SIN RECONSTRUIRSE desde el
+    # 2026-07-28 —ocho semanas, por el `git add` roto que la v263 documenta—,
+    # asi que el test pasaba contra un fichero viejo que no tenia la Leagues
+    # Cup. Arreglar el push de la v284 lo destapo.
+    #
+    # QUE SE HACE CON EL DUPLICADO. Se conserva UNA fila por partido, la del
+    # torneo real donde se jugo: un Tigres-America de Leagues Cup no es un
+    # partido de Liga MX, y la calibracion por liga estaria mezclando dos
+    # competiciones con dinamicas distintas. `keep='first'` no serviria porque
+    # el orden depende de como se concatenen las ligas, asi que la preferencia
+    # se declara explicita.
+    #
+    # LO QUE ESTO ARREGLA AGUAS ABAJO: el ledger alimenta la calibracion por
+    # banda de cuota, el selector, el radar y toda medicion de ROI. Un 3,71 %
+    # de partidos contados dos veces sesga todas ellas.
+    if 'match_id' in ledger.columns:
+        antes = len(ledger)
+        _PREFERIDA = {'leagues_cup': 0}      # el torneo manda sobre la liga
+        ledger['_pref'] = ledger['liga'].map(_PREFERIDA).fillna(1)
+        ledger = (ledger.sort_values('_pref')
+                        .drop_duplicates(subset=['match_id'], keep='first')
+                        .drop(columns=['_pref'])
+                        .reset_index(drop=True))
+        if antes != len(ledger):
+            logger.warning('[ledger] %d partidos repetidos fuera '
+                           '(la Leagues Cup comparte partidos con Liga MX y '
+                           'MLS)', antes - len(ledger))
+
     ledger.to_csv(SALIDA_CSV, index=False)
 
     con_cuota = int(ledger['cuota_home'].notna().sum())

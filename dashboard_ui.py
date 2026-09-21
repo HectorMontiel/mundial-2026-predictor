@@ -4470,6 +4470,10 @@ def render_liga_club(clave: str, nombre_liga: str):
 # quedaba en segundo lugar. Se pidió al revés y es lo razonable: lo primero
 # que se ve tiene que ser lo que se viene a ver.
 COMPETENCIAS = {'💎 Apuestas del Día': 'alpha',
+                # v286 — la Escalera en su propia seccion. Es UNA apuesta y
+                # «Apuestas del Día» son quince: mezclarlas convierte una
+                # recomendacion unica en un elemento mas de una lista.
+                '🪜 La Escalera': 'escalera',
                 '🌍 Partidos Internacionales': 'mundial',
                 # v197 — la Soñadora va SEPARADA de «Apuestas del Día» a
                 # propósito: no es una recomendación del sistema, es una
@@ -4663,7 +4667,8 @@ PAIS_COMPETICIONES = _mapa_paises(COMPETENCIAS)
 # las vistas que no salen del catálogo y por eso no se comprueban.
 _NO_SON_LIGAS = {'mundial', 'alpha', 'mlb_deporte', 'kbo_deporte',
                  'nba_deporte', 'tennis_deporte', 'nfl_deporte',   # v131
-                 'sonadora'}                                       # v197
+                 'sonadora',                                      # v197
+                 'escalera'}                                      # v286
 try:
     import logging as _log_menu
 
@@ -6262,93 +6267,6 @@ def render_alpha_finder():
     # arruina. Enseñarlas con el mismo aspecto, o esconder la buena detrás de
     # una pestaña, es lo que llevó al usuario a armar sus boletos con la
     # perdedora.
-    # v280 — LA ESCALERA: UNA SOLA APUESTA PARA IR DOBLANDO.
-    #
-    # El usuario lo pidio asi: «quiero una sola apuesta que me permita ir
-    # duplicando el banco; empezamos con 100, luego 200, luego 400».
-    #
-    # Se pone ARRIBA DEL TODO y con una sola tarjeta porque ese es justo el
-    # punto: si hay que elegir entre quince, ya no es una escalera. La regla
-    # que la elige esta medida en los dos tramos (ver `escalera`), y usa el
-    # MISMO semaforo que la lista de abajo para no poder contradecirla.
-    #
-    # Y se enseñan las probabilidades de cada escalon SIN maquillar, porque
-    # son las que son: llegar al cuarto escalon pasa el 5,8 % de las veces.
-    try:
-        import escalera as _esc
-        _c1_esc = _filtra(r.get('capa1')) or []
-        try:
-            _c1_esc = list(_c1_esc) + _filtra(_capa1_en_vivo())
-        except Exception:
-            pass
-        for _p in _c1_esc:
-            if _p.get('prob') is None:
-                _cu = _p.get('cuota') or 0
-                _p['prob'] = ((1 + (_p.get('ev') or 0)) / _cu) if _cu else 0
-        _pick_esc = _esc.elegir(_c1_esc)
-    except Exception as _e_esc:
-        logger.debug('[escalera] %s', _e_esc)
-        _esc, _pick_esc = None, None
-
-    if _esc is not None:
-        st.markdown('### 🪜 La Escalera — **una sola apuesta** para ir doblando')
-        if _pick_esc:
-            _cu_e = float(_pick_esc.get('cuota') or 0)
-            _pr_e = float(_pick_esc.get('prob_escalera') or 0)
-            # v281 — el nivel se enseña SIEMPRE: el usuario pidio que nunca
-            # falte apuesta, y la contrapartida es decirle cuando la que hay
-            # no es de las buenas.
-            _nv_e = _pick_esc.get('nivel_escalera') or {}
-            _etq_e = _nv_e.get('etiqueta', '')
-            _caja = st.success if _nv_e.get('n', 1) == 1 else st.warning
-            _caja('**%s**  ·  %s%s'
-                  % (_pick_esc.get('apuesta', '?'),
-                     _pick_esc.get('partido', '?'),
-                     ('  ·  _%s_' % _etq_e) if _etq_e else ''))
-            _col = st.columns(4)
-            _col[0].metric('Cuota', '%.2f' % _cu_e)
-            _col[1].metric('Entra', '%.0f %%' % (100 * _pr_e))
-            _col[2].metric('Pones', '100 $')
-            _col[3].metric('Si entra', '%.0f $' % (100 * _cu_e))
-            if _pick_esc.get('casa'):
-                st.caption('En **%s**. %s'
-                           % (_pick_esc['casa'], _esc.resumen(_pick_esc, 100)))
-            _pl = _esc.plan(100.0, _cu_e)
-            st.caption('**Si la vas rodando** (cada acierto se vuelve a jugar '
-                       'entero):')
-            _filas = []
-            for _x in _pl.get('escalones', []):
-                _filas.append(
-                    '| %d | %.0f $ | %.2f | %.0f $ | **%.1f %%** |'
-                    % (_x['paso'], _x['apuesta'], _x['cuota'], _x['si_entra'],
-                       100 * _x['prob_llegar']))
-            if _filas:
-                st.markdown('| Paso | Pones | Cuota | Si entra | Probabilidad '
-                            'de llegar |\n|---|---|---|---|---|\n'
-                            + '\n'.join(_filas))
-            # v282 — EL TEXTO, AL MINIMO. El usuario lo pidio dos veces:
-            # «que no haya tanto texto». Lo que hay que leer para apostar son
-            # cuatro numeros; el porque se abre solo si se quiere.
-            st.caption('⚠️ Cada escalón te juegas todo lo acumulado.')
-            with st.expander('Por qué estos números', expanded=False):
-                st.caption(
-                    'Sale de la Capa 1 con cuota ≥ 2,00 y probabilidad '
-                    '≥ 0,45. Medido en 440 apuestas históricas, por separado '
-                    'en el tramo antiguo y el reciente: acierta **47,6 %** y '
-                    '**51,9 %**.')
-                st.caption(
-                    'Rodando todo, llegar a 1.000 $ sale **8,9 %**. '
-                    'Apostando 100 fijos cada vez, **12,6 %**. Kelly demostró '
-                    'en 1956 que apostarlo todo lleva a la ruina aunque cada '
-                    'apuesta sea buena.')
-                st.caption(
-                    'Y el tamaño del escalón casi no importa: de 100 a 500 '
-                    'sale entre 13 % y 17 % con cualquier cuota, porque los '
-                    'pasos pequeños entran más veces pero hacen falta más.')
-        else:
-            st.info(_esc.resumen(None, 100))
-        st.divider()
-
     # v274 — EL SEMAFORO: CUAL METER, CUAL NO, Y EN QUE ORDEN.
     #
     # El usuario lo pidio asi: «quiero que me diga cuales meter y que las
@@ -8945,6 +8863,131 @@ def _sm_max_dias() -> int:
         return 7
 
 
+def render_escalera():
+    """v286 — LA ESCALERA, EN SU PROPIA SECCION.
+
+    Estaba dentro de «Apuestas del Día» y el usuario pidió sacarla: «prefiero
+    una sección de escalera para no tener tan saturado las apuestas del día».
+
+    Tiene razón, y hay un motivo mejor que el espacio: la Escalera es UNA
+    apuesta y «Apuestas del Día» son quince. Mezclar una lista para elegir con
+    una recomendación única las convierte en lo mismo a los ojos de quien mira,
+    que es justo lo que la v197 evitó separando la Soñadora.
+    """
+    st.markdown('## 🪜 La Escalera')
+    st.caption('**Una sola apuesta al día** para ir doblando: 100 → 200 → 400. '
+               'Sale de la Capa 1, que es el único canal con ventaja medida.')
+
+    try:
+        import escalera as _esc
+    except Exception as _e:
+        st.error('La Escalera no está disponible ahora (%s).'
+                 % type(_e).__name__)
+        return
+
+    _picks = []
+    try:
+        _r = barrido_universal()
+        _picks = list(_r.get('capa1') or [])
+    except Exception as _e:
+        logger.debug('[escalera] sin precálculo: %s', _e)
+    try:
+        _picks += _capa1_en_vivo()
+    except Exception as _e:
+        logger.debug('[escalera] sin barrido en vivo: %s', _e)
+    for _p in _picks:
+        if isinstance(_p, dict) and _p.get('prob') is None:
+            _cu = _p.get('cuota') or 0
+            _p['prob'] = ((1 + (_p.get('ev') or 0)) / _cu) if _cu else 0
+
+    # v291 — VARIAS OPCIONES Y EL USUARIO ELIGE.
+    #
+    # «Que haya varias opciones, no sólo una, y yo escojo cuál.» La lista sale
+    # ordenada por calidad —nivel 1 primero— y el selector deja quedarse con
+    # cualquiera. Lo que NO cambia es el filtro: las que el semáforo marca en
+    # rojo no aparecen en ninguna posición.
+    _opciones = []
+    try:
+        _opciones = _esc.todas(_picks)
+    except Exception as _e:
+        logger.warning('[escalera] no se pudieron listar: %s', _e)
+
+    if not _opciones:
+        st.info(_esc.resumen(None, 100))
+        st.divider()
+        st.caption('Vuelve más tarde: el tablero se refresca cada dos horas.')
+        return
+
+    _ICO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴'}
+    _etqs = []
+    for _i, _o in enumerate(_opciones):
+        _nv = _o.get('nivel_escalera') or {}
+        _sf = (_o.get('semaforo') or {})
+        _etqs.append('%s  %s · %s — @%.2f · %.0f %%  ·  %s'
+                     % (_ICO.get(_sf.get('nivel'), '🟡'),
+                        str(_o.get('apuesta'))[:34],
+                        str(_o.get('partido'))[:30],
+                        float(_o.get('cuota') or 0),
+                        100 * float(_o.get('prob_escalera') or 0),
+                        _nv.get('etiqueta', '')))
+    if len(_opciones) > 1:
+        st.caption('**%d opciones** hoy, ordenadas de mejor a peor. La primera '
+                   'es la recomendada.' % len(_opciones))
+        _sel = st.radio('¿Cuál vas a jugar?', range(len(_opciones)),
+                        format_func=lambda i: _etqs[i], index=0,
+                        key='escalera_opcion')
+    else:
+        _sel = 0
+    _pick_esc = _opciones[_sel]
+
+    _cu_e = float(_pick_esc.get('cuota') or 0)
+    _pr_e = float(_pick_esc.get('prob_escalera') or 0)
+    _nv_e = _pick_esc.get('nivel_escalera') or {}
+    _etq_e = _nv_e.get('etiqueta', '')
+    _caja = st.success if _nv_e.get('n', 1) == 1 else st.warning
+    _caja('**%s**  ·  %s%s'
+          % (_pick_esc.get('apuesta', '?'), _pick_esc.get('partido', '?'),
+             ('  ·  _%s_' % _etq_e) if _etq_e else ''))
+
+    _col = st.columns(4)
+    _col[0].metric('Cuota', '%.2f' % _cu_e)
+    _col[1].metric('Entra', '%.0f %%' % (100 * _pr_e))
+    _col[2].metric('Pones', '100 $')
+    _col[3].metric('Si entra', '%.0f $' % (100 * _cu_e))
+    if _pick_esc.get('casa'):
+        st.caption('En **%s**. %s' % (_pick_esc['casa'],
+                                      _esc.resumen(_pick_esc, 100)))
+
+    _pl = _esc.plan(100.0, _cu_e)
+    _filas = []
+    for _x in _pl.get('escalones', []):
+        _filas.append('| %d | %.0f $ | %.2f | %.0f $ | **%.1f %%** |'
+                      % (_x['paso'], _x['apuesta'], _x['cuota'],
+                         _x['si_entra'], 100 * _x['prob_llegar']))
+    if _filas:
+        st.markdown('| Paso | Pones | Cuota | Si entra | Probabilidad de '
+                    'llegar |\n|---|---|---|---|---|\n' + '\n'.join(_filas))
+    st.caption('⚠️ Cada escalón te juegas todo lo acumulado.')
+
+    with st.expander('Por qué estos números', expanded=False):
+        st.caption(
+            'Sale de la Capa 1 con cuota ≥ 2,00 y probabilidad ≥ 0,45. '
+            'Medido en 440 apuestas históricas, por separado en el tramo '
+            'antiguo y el reciente: acierta **47,6 %** y **51,9 %**.')
+        st.caption(
+            'Rodando todo, llegar a 1.000 $ sale **8,9 %**. Apostando 100 '
+            'fijos cada vez, **12,6 %**. Kelly demostró en 1956 que apostarlo '
+            'todo lleva a la ruina aunque cada apuesta sea buena.')
+        st.caption(
+            'Y el tamaño del escalón casi no importa: de 100 a 500 sale entre '
+            '13 % y 17 % con cualquier cuota, porque los pasos pequeños '
+            'entran más veces pero hacen falta más.')
+        st.caption(
+            'Si hoy no hay ninguna de las mejores, se baja de nivel y se avisa '
+            'en la etiqueta. Lo que nunca se ofrece son las que el semáforo '
+            'marca en rojo por precio rancio.')
+
+
 def render_sonadora():
     """v197 — la pantalla de la Soñadora.
 
@@ -9041,6 +9084,9 @@ if _clave_comp == 'nfl_deporte':                          # v131
     st.stop()
 if _clave_comp == 'alpha':
     render_alpha_finder()
+    st.stop()
+if _clave_comp == 'escalera':
+    render_escalera()
     st.stop()
 if _clave_comp == 'sonadora':
     render_sonadora()

@@ -93,6 +93,39 @@ jobs:
           python stats_estimadas.py --ajustar || echo "::warning::ajuste con avisos"
           python informe_calibracion.py --md INFORME_CALIBRACION.md || echo "::warning::informe con avisos"
 
+      # v290 — LA BASE DE CUOTAS, ANTES DE USARLA.
+      #
+      # EL FALLO QUE ARREGLA, QUE COSTO LAS 26.666 CUOTAS DE PINNACLE.
+      #
+      # `build_pick_ledger.adjuntar_cuotas` saca el precio de cierre de
+      # `odds_historico.db`. Ese fichero pesa 57 MB, esta en .gitignore y NO
+      # viaja al repositorio: en una maquina local tiene 64.879 cierres de
+      # Pinnacle, y en el runner no existe.
+      #
+      # Resultado, medido el 2026-09-21 en cuanto la recalibracion pudo
+      # publicar por primera vez en ocho semanas (v284):
+      #
+      #     ledger construido en local   47.948 filas · 26.666 con Pinnacle
+      #     ledger construido en CI      81.030 filas ·      0 con Pinnacle
+      #
+      # Mas cobertura y CERO Pinnacle, que es el unico precio con el que se
+      # puede validar `valor_vs_sharp` —el canal que de verdad gana— y el
+      # unico con el que entrena el radar de errores.
+      #
+      # LA SOLUCION NO ERA SUBIR LOS 57 MB. El dato ya esta en el repositorio:
+      # los `historico_*.csv` traen `odd_home_pin`, `odd_draw_pin` y
+      # `odd_away_pin`, y `import_historical_odds.py` reconstruye la base
+      # entera a partir de ellos. Medido: 36 ligas, 125.752 partidos, 109.125
+      # con cierre de Pinnacle — CUATRO VECES lo que el ledger tenia.
+      #
+      # `retrain_leagues` ya ejecuta este mismo script a diario, pero en OTRO
+      # runner: la base que construye alli muere con su job. Cada workflow que
+      # necesite la base tiene que rehacerla, y cuesta segundos.
+      - name: Reconstruir la base de cuotas de cierre
+        run: |
+          python import_historical_odds.py \
+            || echo "::warning::importacion de cuotas de cierre con avisos"
+
       - name: Recalibrar la cadena completa
         run: python recalibrar_todo.py || echo "::warning::recalibración con avisos"
 

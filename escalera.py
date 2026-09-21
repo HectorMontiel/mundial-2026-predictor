@@ -73,7 +73,8 @@ CUOTA_MINIMA = 2.00
 PROB_MINIMA = 0.45
 
 # Lo medido sobre las 440 apuestas historicas que cumplen la regla.
-ACIERTO_MEDIDO = 0.491
+# El acierto del nivel 1, que es el que la pantalla proyecta por defecto.
+ACIERTO_MEDIDO = 0.518
 CUOTA_MEDIA = 2.16
 
 # El margen de Pinnacle por encima del cual su precio deja de ser referencia
@@ -100,20 +101,44 @@ MARGEN_PIN_MAXIMO = 0.07
 # ganar no dobla el banco. Sirve para no quedarse quieto, no para la escalera.
 #
 # Las ROJAS no entran en ningun nivel. Antes prefiero decir «hoy no hay».
+# v292 — EL NIVEL MAS PROBABLE, Y NO ESTABA DONDE PARECIA.
+#
+# El usuario lo pidio: «quiero que sea buena y probable». La respuesta obvia
+# —subir el liston de probabilidad— casi no sirve:
+#
+#   regla                        n    acierta  ELECCION  JUICIO  dias con
+#   cuota>=2,0 y prob>=0,45    425     49,2 %   48,1 %   51,5 %   56,0 %
+#   cuota>=2,0 y prob>=0,48    258     47,7 %   46,6 %   50,0 %   39,3 %
+#   cuota>=2,0 y prob>=0,50    154     50,6 %   51,0 %   50,0 %   26,1 %
+#   cuota>=1,9 y prob>=0,50    278     51,8 %   52,2 %   51,1 %   40,4 %  <-
+#
+# De 0,45 a 0,50 se ganan 1,4 puntos de acierto y se pierde la MITAD de los
+# dias. Lo que de verdad sube el acierto es bajar la cuota un pelo: 1,90 en
+# vez de 2,00 da 51,8 %, consistente en los dos tramos, y esta disponible el
+# 40 % de los dias.
+#
+# EL PRECIO, QUE HAY QUE DECIRLO: a 1,90 no se dobla. 100 se quedan en 190.
+# Diez pesos menos por escalon a cambio de 2,6 puntos mas de acierto. Para
+# quien quiera doblar exacto, el nivel 2 sigue ahi.
 NIVELES = (
-    {'n': 1, 'cuota': 2.00, 'prob': 0.45, 'acierta': 0.489,
-     'etiqueta': 'La buena', 'dias': 0.556,
-     'nota': 'Cumple la regla entera. Es la mejor que produce el sistema.'},
-    {'n': 2, 'cuota': 2.00, 'prob': 0.40, 'acierta': 0.472,
+    {'n': 1, 'cuota': 1.90, 'prob': 0.50, 'acierta': 0.518,
+     'etiqueta': 'La más probable', 'dias': 0.404,
+     'nota': 'La que más entra de todas las medidas: 52 de cada 100. Ojo, a '
+             'esta cuota no dobla del todo — 100 se quedan en unos 190.'},
+    {'n': 2, 'cuota': 2.00, 'prob': 0.45, 'acierta': 0.489,
+     'etiqueta': 'La que dobla', 'dias': 0.556,
+     'nota': 'Ésta sí dobla limpio. Entra algo menos que la más probable, '
+             'pero cuando entra pagas el doble.'},
+    {'n': 3, 'cuota': 2.00, 'prob': 0.40, 'acierta': 0.472,
      'etiqueta': 'Aceptable', 'dias': 0.676,
-     'nota': 'Hoy no había ninguna de las mejores. Ésta dobla igual, pero '
+     'nota': 'Hoy no había ninguna de las dos mejores. Dobla igual, pero '
              'es de un grupo que a la larga acierta un par de puntos menos.'},
-    {'n': 3, 'cuota': 2.00, 'prob': 0.30, 'acierta': 0.445,
+    {'n': 4, 'cuota': 2.00, 'prob': 0.30, 'acierta': 0.445,
      'etiqueta': 'Floja', 'dias': 0.800,
      'nota': 'Día pobre: es lo mejor que hay y no es gran cosa. Dobla, pero '
              'su grupo es el que menos acierta de los que doblan. Saltártela '
              'y esperar a mañana es una opción razonable.'},
-    {'n': 4, 'cuota': 1.80, 'prob': 0.30, 'acierta': 0.464,
+    {'n': 5, 'cuota': 1.80, 'prob': 0.30, 'acierta': 0.464,
      'etiqueta': 'No llega a doblar', 'dias': 0.884,
      'nota': 'Ojo: con esta cuota ganar NO dobla tu dinero. Entra más a '
              'menudo, pero 100 se te quedan en unos 180. Para la escalera no '
@@ -181,6 +206,34 @@ def candidatas(picks: List[Dict], nivel: Optional[Dict] = None) -> List[Dict]:
         fuera.sort(key=lambda x: (-x['prob_escalera'], -(x.get('cuota') or 0)))
     except Exception as e:
         logger.debug('[escalera] %s', e)
+    return fuera
+
+
+def todas(picks: List[Dict], tope: int = 8) -> List[Dict]:
+    """TODAS las que sirven, de mejor a peor, cada una con su nivel.
+
+    v291 — el usuario lo pidio: «que haya varias opciones, no sólo una, y yo
+    escojo cuál». Antes solo salia la primera.
+
+    Se recorren los niveles de mas exigente a menos y se van anadiendo sin
+    repetir, asi que el orden de la lista ES el de calidad: las del nivel 1
+    primero, luego las del 2, y asi. Las ROJAS no entran en ninguno.
+    """
+    fuera, vistos = [], set()
+    try:
+        for nv in NIVELES:
+            for p in candidatas(picks, nv):
+                k = (str(p.get('partido')), str(p.get('apuesta')))
+                if k in vistos:
+                    continue
+                vistos.add(k)
+                q = dict(p)
+                q['nivel_escalera'] = nv
+                fuera.append(q)
+                if len(fuera) >= tope:
+                    return fuera
+    except Exception as e:
+        logger.debug('[escalera] todas: %s', e)
     return fuera
 
 

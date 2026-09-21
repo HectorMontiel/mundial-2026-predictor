@@ -9,7 +9,10 @@ por encima de todas:
     prueba real eligió un pick marcado en ROJO —«no la metas, paga un 39 % por
     encima de lo que vale»— y lo habría puesto arriba del todo diciendo
     «juégate aquí los 100». Es el peor fallo posible de esta pantalla.
-  · no puede elegir cuotas por debajo de 2,00, porque entonces ganar NO dobla.
+  · cada apuesta cae en el nivel que le toca, y el nivel es lo que le dice al
+    usuario si la de hoy es de las buenas o es lo que había. Desde la v292 el
+    nivel 1 acepta cuota 1,90 —acierta más y por eso va primero— pero su nota
+    tiene que avisar de que a esa cuota NO se dobla.
   · no puede elegir en ligas donde Pinnacle cobra margen alto.
   · y no puede lanzar, porque va en el render.
 
@@ -35,26 +38,39 @@ def _pick(**kw):
 def probar_filtros():
     import escalera as esc
 
-    e = esc.elegir([_pick()])
+    # v292 — CINCO NIVELES, Y EL MAS ALTO YA NO ES EL QUE DOBLA.
+    #
+    # Medido: `cuota>=1,9 y prob>=0,50` acierta el 51,8 % contra el 48,9 % de
+    # `cuota>=2,0 y prob>=0,45`, y es consistente en los dos tramos. Asi que
+    # el nivel 1 pasa a ser «la mas probable» y el que dobla limpio es el 2.
+    # El precio esta dicho en su nota: a 1,90 no se dobla.
+    e = esc.elegir([_pick()])          # cuota 2,20 · prob 47,3 %
     check(e is not None, 'una candidata normal se elige')
-    check((e.get('nivel_escalera') or {}).get('n') == 1,
-          'y sale marcada como nivel 1, «La buena»')
+    check((e.get('nivel_escalera') or {}).get('n') == 2,
+          'cuota 2,20 y prob 47 % es nivel 2, «La que dobla»')
+
+    mas_prob = esc.elegir([_pick(cuota=1.95, ev=0.01)])   # prob 51,8 %
+    check(mas_prob is not None
+          and (mas_prob.get('nivel_escalera') or {}).get('n') == 1,
+          'cuota 1,95 y prob 52 % sube al nivel 1, «La más probable»')
+    check('no dobla' in (mas_prob['nivel_escalera'].get('nota') or ''),
+          'y su nota avisa de que a esa cuota no se dobla')
 
     # v281 — LA CASCADA. El usuario pidio que nunca falte apuesta, asi que
     # estas ya NO devuelven None: bajan de nivel. Lo que hay que comprobar es
     # que el nivel que sale es el correcto, porque es lo que le dice al
     # usuario que la de hoy es peor.
-    e2 = esc.elegir([_pick(cuota=1.90, ev=0.03)])
+    e2 = esc.elegir([_pick(cuota=1.85, ev=0.03)])     # prob 55,7 %
     check(e2 is not None
-          and (e2.get('nivel_escalera') or {}).get('n') == 4,
-          'cuota 1,90 baja al nivel 4 («no llega a doblar»)')
+          and (e2.get('nivel_escalera') or {}).get('n') == 5,
+          'cuota 1,85 baja al ultimo nivel («no llega a doblar»)')
     check('NO dobla' in (e2['nivel_escalera'].get('nota') or ''),
           'y la nota avisa de que ganar no dobla el dinero')
 
-    e3 = esc.elegir([_pick(cuota=2.50, ev=0.02)])
+    e3 = esc.elegir([_pick(cuota=2.50, ev=0.02)])     # prob 40,8 %
     check(e3 is not None
-          and (e3.get('nivel_escalera') or {}).get('n') == 2,
-          'probabilidad 0,41 baja al nivel 2 («aceptable»)')
+          and (e3.get('nivel_escalera') or {}).get('n') == 3,
+          'probabilidad 0,41 baja al nivel 3 («aceptable»)')
 
     check(esc.elegir([_pick(cuota=1.30, ev=0.02)]) is None,
           'por debajo de TODOS los niveles si devuelve None')
@@ -88,6 +104,41 @@ def probar_no_contradice_al_semaforo():
     for c in esc.candidatas([roja, buena, _pick(ev=0.35, cuota=2.6)]):
         check(sm.clasificar(c)['nivel'] != sm.ROJO,
               'ninguna candidata es roja (%s)' % c.get('apuesta'))
+
+
+def probar_varias_opciones():
+    """v291 — la seccion enseña varias y el usuario elige."""
+    import escalera as esc
+    import semaforo_capa1 as sm
+
+    picks = sm.ordenar([
+        _pick(apuesta='mas probable', cuota=1.95, ev=0.01),
+        _pick(apuesta='dobla', cuota=2.20, ev=0.04),
+        _pick(apuesta='aceptable', cuota=2.40, ev=0.02),
+        _pick(apuesta='no dobla', cuota=1.85, ev=0.03),
+        _pick(apuesta='ROJA', cuota=2.30, ev=0.39),
+    ])
+    t = esc.todas(picks)
+    check(len(t) == 4, 'salen las cuatro que sirven, no una (salieron %d)'
+          % len(t))
+    check(t and t[0].get('apuesta') == 'mas probable',
+          'y la primera es la MAS PROBABLE, no la que mas paga')
+    check(all((x.get('semaforo') or {}).get('nivel') != sm.ROJO for x in t),
+          'y NINGUNA de ellas es roja, este en la posicion que este')
+    niveles = [(x.get('nivel_escalera') or {}).get('n') for x in t]
+    check(niveles == sorted(niveles),
+          'salen ordenadas de mejor a peor nivel (%s)' % niveles)
+    check(all('nivel_escalera' in x for x in t),
+          'cada una trae su nivel, para que la pantalla lo pinte')
+
+    check(esc.todas([]) == [], 'sin picks no rompe')
+    check(esc.todas(None) == [], 'None tampoco')
+    check(len(esc.todas(picks, tope=2)) == 2, 'el tope se respeta')
+
+    # la primera de la lista tiene que ser la MISMA que elegir()
+    e = esc.elegir(picks)
+    check(e is not None and t and e.get('apuesta') == t[0].get('apuesta'),
+          'la primera de la lista es la que elegir() recomienda')
 
 
 def probar_orden():
@@ -136,8 +187,12 @@ def probar_numeros_medidos():
     import escalera as esc
     check(esc.CUOTA_MINIMA == 2.00, 'la cuota minima es 2,00')
     check(esc.PROB_MINIMA == 0.45, 'la probabilidad minima es 0,45')
-    check(abs(esc.ACIERTO_MEDIDO - 0.491) < 1e-6,
-          'el acierto medido es 49,1 %')
+    check(abs(esc.ACIERTO_MEDIDO - 0.518) < 1e-6,
+          'el acierto de referencia es el del nivel 1: 51,8 %')
+    check(esc.NIVELES[0]['acierta'] > esc.NIVELES[1]['acierta'],
+          'el nivel 1 acierta MAS que el 2, que es lo que lo hace nivel 1')
+    check(esc.NIVELES[0]['cuota'] < esc.NIVELES[1]['cuota'],
+          'y lo consigue bajando la cuota, no subiendo la probabilidad')
     pr = esc.probabilidades(1000)
     check(pr.get('a_todo') == 0.089 and pr.get('monto_fijo') == 0.126,
           'llegar a 1.000: 8,9 %% a todo, 12,6 %% a monto fijo (%s)' % pr)
@@ -165,6 +220,8 @@ if __name__ == '__main__':
     probar_filtros()
     print('\n=== 2. no contradice al semaforo ===')
     probar_no_contradice_al_semaforo()
+    print('\n=== 2c. varias opciones ===')
+    probar_varias_opciones()
     print('\n=== 3. el orden ===')
     probar_orden()
     print('\n=== 4. el plan ===')

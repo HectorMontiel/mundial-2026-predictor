@@ -9863,14 +9863,53 @@ def test_los_goles_del_brasileirao_b_se_avisan_pero_ya_no_se_bloquean():
     import mercado_estabilidad as me
     import modo_modelo as mm
 
-    check(me.estado_bloque('bra_serie_b', 'goles') == me.INESTABLE,
-          "los goles del Brasileirao B siguen marcados inestables")
-    check(me.en_cuarentena('bra_serie_b', 'goles'),
-          "y siguen en cuarentena")
+    # v289 — ESTE TEST EXIGIA QUE UNA LIGA SIGUIERA SIENDO MALA.
+    #
+    # Pedia `estado_bloque('bra_serie_b', 'goles') == INESTABLE`, y el
+    # Brasileirao B MEJORO. Medido el 2026-09-21, tras reconstruirse el ledger
+    # por primera vez en ocho semanas:
+    #
+    #     Goles 2.5   ece 0,11802 -> 0,04636   inestable -> moderado
+    #     Goles 3.5   ece 0,08593 -> 0,02666   inestable -> moderado
+    #     Goles 1.5   ece 0,09735 -> 0,05364   inestable -> inestable
+    #
+    # El 0,118 que el docstring de arriba cita como el problema original ya no
+    # existe: son 0,046, por debajo del 0,05 que este proyecto llama
+    # aceptable. O sea que el test fallaba POR UNA MEJORA, que es la tercera
+    # vez que pasa en esta tanda (ver v271 con el ECE de goles y v271 con el
+    # boton retirado en la v236).
+    #
+    # Lo que este test tiene que garantizar no es que una liga concreta siga
+    # siendo mala —eso es una foto, y las fotos caducan— sino el MECANISMO:
+    # que un bloque inestable avise, salga en gris, viaje marcado y NO lleve
+    # candado. Asi que se busca un bloque que este inestable AHORA, sea cual
+    # sea, y se comprueba sobre el.
+    _cuarentena = None
+    try:
+        import json as _js
+        import io as _io
+        _ligas = list((_js.load(_io.open(me.FICHERO, encoding='utf-8'))
+                       .get('ligas') or {}).keys())
+    except Exception:
+        _ligas = ['bra_serie_b', 'afc_champions', 'premier']
+    for _liga in _ligas:
+        for _bloque in ('goles', 'btts', 'corners', 'tarjetas', 'remates'):
+            if me.estado_bloque(_liga, _bloque) == me.INESTABLE:
+                _cuarentena = (_liga, _bloque)
+                break
+        if _cuarentena:
+            break
+    check(_cuarentena is not None,
+          "hay algun bloque inestable con el que probar el mecanismo")
+    if _cuarentena is None:
+        return
+    _lg, _bl = _cuarentena
+    check(me.en_cuarentena(_lg, _bl),
+          "lo inestable va a cuarentena (%s/%s)" % (_lg, _bl))
 
     # la fila del mercado: aviso, gris, y NI RASTRO del candado
     fila = mm._fila_dos_lados('⚽', 'Goles', '2.5', 0.18, 0.82, 'Más', 'Menos',
-                              mm._incertidumbre('bra_serie_b', 'goles'))
+                              mm._incertidumbre(_lg, _bl))
     check('⚠️' in fila and 'Alta incertidumbre' in fila,
           "la fila avisa de la incertidumbre")
     check('mm-sinsena' in fila, "y sale en gris")
@@ -9894,7 +9933,7 @@ def test_los_goles_del_brasileirao_b_se_avisan_pero_ya_no_se_bloquean():
     imp = {'casa': 'Playdoit', 'goles': {
         '2.5': {'p': 0.62, 'mas': 1.55, 'menos': 2.45}}}
     pick = {'partido': 'Athletic vs Novorizontino',
-            'clave_liga': 'bra_serie_b', 'deporte': 'Fútbol',
+            'clave_liga': _lg, 'deporte': 'Fútbol',
             'fecha': '2026-08-24', 'implicitas': imp,
             'goles_lineas': {'2.5': 0.66}}
     r = mm.apuesta_recomendada(pick)
@@ -10405,18 +10444,42 @@ def test_los_goles_del_brasileirao_b_no_pasan_del_60_por_ciento():
     import mercado_estabilidad as me
     import modo_modelo as mm
 
-    check(me.en_cuarentena('bra_serie_b', 'goles'),
-          "los goles del Brasileirao B siguen en cuarentena")
+    # v293 — LA MISMA FOTO VIEJA QUE LA v289, EN OTRA FUNCION.
+    #
+    # Este test exigia que los goles del Brasileirao B siguieran en
+    # cuarentena. Han dejado de estarlo porque MEJORARON: ece 0,11802 ->
+    # 0,04636 al reconstruirse el ledger. Ver la v289 para la tabla entera.
+    #
+    # Lo que hay que garantizar es el mecanismo —que un bloque en cuarentena
+    # no se recomiende— asi que se busca uno que lo este AHORA, sea cual sea.
+    _lg = _bl = None
+    try:
+        import json as _js
+        import io as _io2
+        for _l in list((_js.load(_io2.open(me.FICHERO, encoding='utf-8'))
+                        .get('ligas') or {}).keys()):
+            for _b in ('goles', 'btts', 'corners', 'tarjetas', 'remates'):
+                if me.en_cuarentena(_l, _b):
+                    _lg, _bl = _l, _b
+                    break
+            if _lg:
+                break
+    except Exception:
+        pass
+    check(_lg is not None, "hay algun bloque en cuarentena con el que probar")
+    if _lg is None:
+        return
 
     pick = {'partido': 'Athletic vs Novorizontino',
-            'clave_liga': 'bra_serie_b', 'deporte': 'Fútbol',
+            'clave_liga': _lg, 'deporte': 'Fútbol',
             'fecha': '2026-08-24',
             'mercados': [
                 {'mercado': 'Goles', 'apuesta': 'Menos de 2.5', 'prob': 0.82},
                 {'mercado': 'Goles', 'apuesta': 'Más de 2.5', 'prob': 0.18}]}
     r = mm.apuesta_recomendada(pick)
     check(r is None or r['bloque'] != 'goles',
-          f"un 82 % en goles de esa liga no se recomienda ({r})")
+          f"un 82 % en un bloque en cuarentena ({_lg}/{_bl}) no se "
+          f"recomienda ({r})")
 
     # y con cuota de la casa, la cifra que se ENSEÑA tampoco pasa del 60 %
     import cordura_probabilidad as cp
@@ -13269,8 +13332,18 @@ def test_el_dia_completo_va_como_adjunto_y_no_como_cien_mensajes():
           'existe el workflow que lo manda solo al empezar el dia')
     with open(ruta, encoding='utf-8') as fh:
         wf = fh.read()
-    check("cron: '5 6 * * *'" in wf,
-          'y corre a las 06:05 UTC, que son las 00:05 de CDMX')
+    # v293 — LA HORA SE COMPRUEBA, EL MINUTO NO.
+    #
+    # Esto exigia el literal `cron: '5 6 * * *'`. La v285 movio los ocho
+    # crones a minutos impares porque NINGUNO corria a su hora: el programador
+    # de GitHub descarta ejecuciones y la congestion esta en los minutos
+    # redondos. El minuto pasa a ser un detalle deliberado, la HORA no: lo que
+    # importa es que salga al empezar el dia en CDMX.
+    import re as _re_cron
+    _m = _re_cron.search(r"cron: '(\d+) (\d+) \* \* \*'", wf)
+    check(_m is not None and _m.group(2) == '6',
+          'y corre a las 06:xx UTC, que es el arranque del dia en CDMX (%s)'
+          % (_m.group(0) if _m else 'sin cron'))
     check('bot_dia_completo.py' in wf,
           'y llama al arranque del dia completo')
 
@@ -21978,10 +22051,14 @@ def test_el_tablero_de_cuotas_acumula_y_limpia():
     check(0 < i_acu < i_esc,
           'v267: se acumula ANTES de escribir, no despues')
 
+    import re as _re_cron
     y = _io.open('.github/workflows/cuotas_mx.yml', encoding='utf-8').read()
     check('_DIAS=7' in y and '_DIAS=2' in y,
           'v267: el workflow hace dos pasadas, corta y larga')
-    check("cron: '10 */2 * * *'" in y,
+    # v293 — igual que arriba: lo que la v267 garantiza es la FRECUENCIA
+    # (cada dos horas, porque dos tercios de los errores de cuota mueren entre
+    # foto y foto), no el minuto concreto.
+    check(_re_cron.search(r"cron: '\d+ \*/2 \* \* \*'", y) is not None,
           'v267: y la corta sigue siendo cada dos horas')
 
 if __name__ == '__main__':

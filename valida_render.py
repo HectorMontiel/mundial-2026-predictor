@@ -72,6 +72,22 @@ APP = 'dashboard_ui.py'
 # validador que pide lo mismo a pantallas distintas produce fallos que no lo
 # son, y a los tres días nadie lo mira.
 VISTAS = {
+    # v286 — LA ESCALERA, QUE AHORA ES UNA SECCION APARTE.
+    #
+    # Se valida como las demas porque el fallo que mas duele aqui no es que se
+    # vea fea: es que no arranque. Y el dia que no haya candidata tiene que
+    # decirlo sin romperse, que es el camino que mas veces se va a recorrer
+    # —solo el 55,6 % de los dias hay una de las buenas—.
+    '🪜 La Escalera': {
+        'textos': [
+            # el rotulo de la seccion, que solo pinta ella
+            'La Escalera',
+            # y la promesa que la define: una sola apuesta
+            'Una sola apuesta',
+        ],
+        'controles': [],
+        'que': 'la seccion de la Escalera',
+    },
     '💎 Apuestas del Día': {
         'textos': [
             # La pantalla de partidos, por el rótulo que sólo pinta ella.
