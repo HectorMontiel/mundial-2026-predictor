@@ -1,17 +1,17 @@
 # AUDITORÍA v212 — inventario del repositorio
 
-Generado automáticamente por `auditar_repo.py` el 2026-09-20 20:03. **Se vuelve a correr y se actualiza solo.**
+Generado automáticamente por `auditar_repo.py` el 2026-09-21 01:51. **Se vuelve a correr y se actualiza solo.**
 
-- Módulos Python: **391**
-- Líneas totales: **154.048**
+- Módulos Python: **401**
+- Líneas totales: **158.289**
 
 ## 1.0 Reparto por estado
 
 | estado | módulos | qué significa |
 |---|---|---|
 | sondeo_historico | 160 | sondeo `_vNNN_*`: cuaderno de laboratorio |
-| activo_medido | 144 | lo importa producción y lleva su medición encima |
-| script_de_entrada | 23 | se ejecuta solo (build, train, validación) |
+| activo_medido | 150 | lo importa producción y lleva su medición encima |
+| script_de_entrada | 27 | se ejecuta solo (build, train, validación) |
 | activo_sin_medir | 23 | lo importa producción y no declara medición |
 | sin_importadores | 22 | **nadie lo importa** — pregunta abierta |
 | refutado_o_apagado | 18 | contiene marca de refutado o apagado |
@@ -25,13 +25,13 @@ Ordenado por número de módulos que dependen de él. Se listan los que tienen a
 |---|---|---|---|---|---|
 | config | 687 | 48 | 2026-09-09 | refutado_o_apagado | Configuración central del pipeline. |
 | fixtures_espn | 1707 | 26 | 2026-09-19 | activo_medido | Fixtures ESPN (v49) — PRÓXIMOS partidos por liga, SIN clave y SIN cost |
-| cuotas_multi | 2936 | 24 | 2026-09-20 | activo_medido | v71 — Capa de cuotas UNIVERSAL, sin cuota de peticiones. |
+| cuotas_multi | 2936 | 27 | 2026-09-20 | activo_medido | v71 — Capa de cuotas UNIVERSAL, sin cuota de peticiones. |
 | rendimiento_equipos | 1602 | 19 | 2026-09-20 | activo_medido | v152 — CÓMO LLEGA CADA EQUIPO, CON DATOS OBSERVADOS Y NADA MÁS. |
 | name_mapper | 402 | 26 | 2026-09-20 | activo_medido | Mapeo centralizado de nombres entre fuentes (v34 §4). |
 | league_engine | 3106 | 12 | 2026-09-09 | refutado_o_apagado | Motor multi-liga de clubes (Mejora 5, v12): Liga MX, Premier League, L |
 | io_atomico | 136 | 21 | 2026-08-02 | activo_medido | v86 — Escritura atómica de JSON, para archivos que se tocan durante un |
-| alpha_finder | 4943 | 9 | 2026-09-20 | refutado_o_apagado | Alpha Finder — panel «Apuestas del Día» (v26, spec §4.2). |
-| modo_modelo | 3473 | 6 | 2026-09-20 | refutado_o_apagado | v152 — MODO MODELO: la pantalla que ordena por probabilidad, no por pr |
+| alpha_finder | 5009 | 9 | 2026-09-21 | refutado_o_apagado | Alpha Finder — panel «Apuestas del Día» (v26, spec §4.2). |
+| modo_modelo | 3473 | 7 | 2026-09-20 | refutado_o_apagado | v152 — MODO MODELO: la pantalla que ordena por probabilidad, no por pr |
 | feature_engineering | 411 | 9 | 2026-07-25 | activo_sin_medir | Feature engineering táctico-topológico. |
 | contexto_previo | 251 | 1 | 2026-08-05 | activo_medido | v101 — Contexto del partido ANTERIOR: qué traía cada equipo encima al  |
 | arbitro_partido | 561 | 3 | 2026-09-19 | activo_medido | v160 — EL ÁRBITRO DESIGNADO, Y CUÁNTO MUEVE LAS TARJETAS. |
@@ -39,11 +39,12 @@ Ordenado por número de módulos que dependen de él. Se listan los que tienen a
 | guardia_barrido | 363 | 3 | 2026-09-19 | activo_medido | v86 — Un solo barrido de alpha_finder a la vez en todo el proceso. |
 | horario | 213 | 7 | 2026-08-08 | activo_medido | v106 — LA HORA DEL PARTIDO, EN HORA DE CIUDAD DE MÉXICO. |
 | mercado_implicito | 830 | 5 | 2026-09-20 | activo_medido | v165 — LO QUE LA CASA CREE, AL LADO DE LO QUE CREE EL MODELO. |
+| calibrador_goles | 444 | 5 | 2026-09-20 | activo_medido | v225 — El sesgo al Under: sobredispersión de los lambdas, corregida do |
 | odds_store | 409 | 8 | 2026-09-09 | activo_medido | v75 — Almacén canónico de cuotas históricas (`odds_historico.db`). |
 | calibracion_mercado | 350 | 8 | 2026-07-29 | activo_medido | v71 — Corrección de la sobreconfianza del pick contra el mercado sharp |
 | remates_jugador | 1080 | 2 | 2026-08-23 | activo_medido | v163 — QUIÉN REMATA: probabilidad por jugador, con la alineación cuand |
-| calibrador_goles | 444 | 4 | 2026-09-20 | activo_medido | v225 — El sesgo al Under: sobredispersión de los lambdas, corregida do |
 | leagues_cup | 285 | 3 | 2026-08-04 | activo_sin_medir | v97 — Leagues Cup (MLS vs Liga MX). |
+| cuotas_mx | 925 | 5 | 2026-09-21 | activo_medido | v192 — CINCO CASAS MEXICANAS POR UNA PUERTA ABIERTA. |
 | nfl_datos | 851 | 5 | 2026-09-10 | activo_medido | v131 · NFL — capa de datos. |
 | contexto_partido | 598 | 6 | 2026-09-19 | activo_medido | v172 — EL CONTEXTO DEL PARTIDO: H2H, FORMA Y NIVEL. |
 | aprendizaje_continuo | 550 | 3 | 2026-08-05 | activo_medido | v101 — Aprendizaje autónomo: el sistema corrige su propia confianza. |
@@ -75,26 +76,25 @@ Ordenado por número de módulos que dependen de él. Se listan los que tienen a
 | prediction_api | 1403 | 2 | 2026-08-08 | activo_medido | Motor de inferencia + API de predicción (v3, arquitectura híbrida). |
 | match_parlay | 1364 | 1 | 2026-08-11 | activo_medido | Asistente de Parlay POR PARTIDO (v15) — agnóstico de competición. |
 | beisbol_pitchers | 949 | 2 | 2026-08-12 | activo_medido | v106 — BÉISBOL: ABRIDOR, ESTADIO Y PONCHES, TODO AUTOMÁTICO. |
-| cuotas_mx | 810 | 3 | 2026-09-15 | activo_medido | v192 — CINCO CASAS MEXICANAS POR UNA PUERTA ABIERTA. |
 | config_ligas_espn | 557 | 2 | 2026-09-09 | activo_medido | v68 — Competiciones de fútbol añadidas al catálogo. |
 | mercado_estabilidad | 525 | 2 | 2026-08-24 | activo_medido | v168 — EL MERCADO REY DE CADA COMPETICIÓN. |
+| precalculo_dia | 515 | 2 | 2026-09-21 | activo_medido | v220 — El día cocinado: separar el CÁLCULO del SERVICIO. |
 | veredicto_pick | 470 | 3 | 2026-09-20 | activo_medido | v218 — METER o NO METER: un veredicto visual, sin párrafos que leer. |
 | sgp_correlation | 457 | 3 | 2026-07-24 | activo_medido | Correlación empírica para Same Game Parlays — SGP (v25, spec §1.1). |
 | calibrador_bandas | 431 | 3 | 2026-09-18 | activo_medido | v215 — Calibración por banda de cuota: arreglar el mapeo sin tocar el  |
 | cordura_probabilidad | 417 | 2 | 2026-09-20 | activo_medido | v165 — CONTROL DE CORDURA: NINGÚN PORCENTAJE SIN ALGO CONTRA LO QUE ME |
-| handicap | 349 | 3 | 2026-08-08 | activo_medido | v106 — HÁNDICAP ASIÁTICO: el mercado que fallaba, y por qué. |
+| handicap | 349 | 3 | 2026-09-20 | activo_medido | v106 — HÁNDICAP ASIÁTICO: el mercado que fallaba, y por qué. |
 | edge_engine | 341 | 4 | 2026-07-23 | activo_medido | Motor de Rentabilidad (v38) — selección de apuestas VALIDADA con datos |
 | partidos_jugados | 317 | 3 | 2026-09-19 | activo_medido | v162 — LOS PARTIDOS YA JUGADOS, CON EL PRONÓSTICO QUE SE HIZO ANTES. |
 | contexto_ampliado | 293 | 3 | 2026-09-15 | activo_medido | Todo el contexto de un partido en un sitio, diciendo qué está medido y |
 | clima | 264 | 4 | 2026-07-15 | activo_sin_medir | Clima histórico y futuro con Open-Meteo (v23) — gratuito, sin clave. |
+| radar_capturas | 236 | 3 | 2026-09-21 | activo_medido | v271 — El cuaderno del radar: lo que se ve HOY, guardado para mañana. |
 | cuotas_manual | 227 | 3 | 2026-08-11 | activo_medido | Cuotas manuales (v63) — el usuario PEGA las cuotas de su casa y la app |
 | distributions | 227 | 4 | 2026-07-27 | activo_medido | Distribuciones probabilísticas de mercados cuantitativos (M2, v13). |
 | modelos_remotos | 200 | 3 | 2026-08-21 | activo_medido | v148 — Los pesos entrenados dejan de vivir en la historia de git. |
 | calibrador_lambda | 130 | 3 | 2026-09-20 | activo_medido | v251 — La lambda de goles no va corta: va demasiado extrema. |
-| sonadora_motor | 2152 | 2 | 2026-09-16 | activo_medido | Motor de la Soñadora: patas reales de Playdoit y permutaciones para co |
-| bot_telegram | 659 | 2 | 2026-09-15 | activo_medido | Bot de Telegram — resumen diario de las Apuestas del Día (v33 §4). |
 
-_Se muestran 70 de 180._
+_Se muestran 70 de 186._
 
 ## 1.2 Inventario de reglas de negocio
 
@@ -136,12 +136,12 @@ Módulos de producción que mencionan cada deporte. Es una cota SUPERIOR: mencio
 
 | deporte | módulos | algunos |
 |---|---|---|
-| futbol | 50 | ajuste_contexto, alias_equipos, alpha_finder, altitud, arbitro_partido, archivo_contexto, auditar_repo, autopsia… |
-| nfl | 55 | alpha_finder, arbitros, archivo_contexto, auditar_repo, auditoria_pick, backtest_v212, beisbol_pitchers, build_ledger_deportes… |
-| mlb | 63 | alpha_finder, aprendizaje_continuo, auditar_repo, ayuda, backfill_mlb_odds, beisbol_pitchers, bot_telegram, build_ledger_deportes… |
-| tenis | 63 | acumular_itf, acumular_tenis, alias_nombres, alpha_finder, aprendizaje_continuo, auditar_repo, auditoria_pick, ayuda… |
+| futbol | 55 | ajuste_contexto, alias_equipos, alpha_finder, altitud, anclas, arbitro_partido, archivo_contexto, auditar_repo… |
+| nfl | 58 | alpha_finder, anclas, arbitros, archivo_contexto, auditar_repo, auditoria_pick, backtest_v212, barrido_capa1… |
+| mlb | 66 | alpha_finder, aprendizaje_continuo, auditar_repo, ayuda, backfill_mlb_odds, barrido_capa1, beisbol_pitchers, bot_telegram… |
+| tenis | 67 | acumular_itf, acumular_tenis, alias_nombres, alpha_finder, aprendizaje_continuo, auditar_repo, auditoria_pick, ayuda… |
 | kbo | 31 | alpha_finder, aprendizaje_continuo, auditar_repo, backtest_v212, build_ledger_deportes, config, config_ligas_espn, daily_snapshots… |
-| nba | 36 | alpha_finder, aprendizaje_continuo, auditar_repo, betexplorer_scraper, build_ledger_deportes, calibracion_confianza, calibracion_mercado, cdi… |
+| nba | 37 | alpha_finder, aprendizaje_continuo, auditar_repo, barrido_capa1, betexplorer_scraper, build_ledger_deportes, calibracion_confianza, calibracion_mercado… |
 
 ## 1.6 Triaje de los modulos sin importadores
 
