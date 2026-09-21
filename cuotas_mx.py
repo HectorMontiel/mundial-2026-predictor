@@ -471,6 +471,55 @@ def barrer(dias: int = 3, max_por_deporte: int = 120,
 
     doc['segundos'] = round(time.time() - t0, 1)
     doc['peticiones'] = n_pet
+
+    # v267 — EL TABLERO ACUMULA, NO SE PISA.
+    #
+    # EL PROBLEMA QUE RESUELVE. El barrido miraba dos días, así que el tablero
+    # sólo tenía lo inmediato. Y las ligas grandes juegan jueves a domingo:
+    # un miércoles no aparecen, y cuando aparecen ya están encima. Medido
+    # sobre el histórico de 26.647 partidos con Pinnacle y casa blanda:
+    #
+    #     sábado    3,7 picks de Capa 1 por día   ·   jueves  0,2
+    #     ligas grandes: 9,7 % de los partidos dan pick (el resto, 5,1 %)
+    #
+    # O sea que las grandes dan casi el DOBLE de tasa, y nos las perdíamos por
+    # mirar sólo a 48 horas.
+    #
+    # POR QUÉ ACUMULAR Y NO SUBIR `--dias` A SIETE. Barrer siete días cada dos
+    # horas multiplica por tres y medio las peticiones (de 8.080 a ~28.000 por
+    # pasada, unas 340.000 al día), y eso es pedir que una casa nos corte.
+    # Acumulando, una pasada corta y frecuente refresca lo inmediato y una
+    # pasada larga y ocasional añade la semana; lo que ya está no se pierde.
+    #
+    # Y los precios lejanos son los MÁS valiosos: medido, la ventaja media de
+    # las discrepancias es +27 % a siete u ocho días contra +16 % el mismo día.
+    # La casa blanda todavía no ha ajustado.
+    try:
+        previo = {}
+        if os.path.exists(FICHERO):
+            with io.open(FICHERO, encoding='utf-8') as f:
+                previo = (json.load(f) or {}).get('partidos') or {}
+        ahora = time.time()
+        rescatados = 0
+        for k, v in previo.items():
+            if k in doc['partidos']:
+                continue            # lo nuevo manda: es el precio fresco
+            try:
+                # un partido que ya empezó no tiene precio de prepartido, y
+                # dejarlo ahí ensucia el emparejador con un cruce repetido
+                if float(v.get('inicio') or 0) <= ahora:
+                    continue
+            except (TypeError, ValueError):
+                continue
+            doc['partidos'][k] = v
+            rescatados += 1
+        if rescatados:
+            logger.info('[mx] %d partidos conservados de la pasada anterior',
+                        rescatados)
+        doc['acumulado'] = rescatados
+    except Exception as e:
+        logger.warning('[mx] no se pudo acumular con lo anterior: %s', e)
+
     tmp = FICHERO + '.nuevo'
     with io.open(tmp, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))

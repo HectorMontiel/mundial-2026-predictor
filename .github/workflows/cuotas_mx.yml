@@ -88,7 +88,29 @@ jobs:
 
       - name: Barrer las cinco casas
         run: |
-          python cuotas_mx.py --dias 2 --max 400 \
+          # v267 — DOS PASADAS: una corta y otra larga.
+          #
+          # La corta (2 dias) corre cada dos horas y mantiene fresco lo
+          # inmediato. La larga (7 dias) solo en las pasadas de las 00 y las
+          # 12 UTC, y anade la semana: es donde estan las ligas grandes, que
+          # juegan de jueves a domingo y que a 48 horas vista no aparecen.
+          #
+          # Medido sobre 26.647 partidos con Pinnacle y casa blanda: el sabado
+          # da 3,7 picks de Capa 1 por dia y el jueves 0,2; y las ligas
+          # grandes producen pick en el 9,7 % de sus partidos contra el 5,1 %
+          # del resto. Ademas los precios lejanos traen MAS ventaja: +27 % de
+          # EV medio a siete dias contra +16 % el mismo dia, porque la casa
+          # blanda todavia no ha ajustado.
+          #
+          # Se acumulan porque desde la v267 `cuotas_mx.py` ya no pisa el
+          # fichero: conserva lo anterior que aun no ha empezado. Asi la
+          # pasada larga no hay que repetirla cada dos horas, que seria
+          # multiplicar por tres y medio las peticiones (de 8.080 a ~28.000
+          # por pasada) y pedir que una casa nos corte.
+          _H=$(date -u +%H)
+          if [ "$_H" = "00" ] || [ "$_H" = "12" ]; then _DIAS=7; else _DIAS=2; fi
+          echo "barrido de $_DIAS dias (hora UTC $_H)"
+          python cuotas_mx.py --dias "$_DIAS" --max 400 \
             || echo "::warning::barrido de casas mexicanas con avisos"
 
       - name: Commitear las cuotas

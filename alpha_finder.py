@@ -3332,6 +3332,46 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
     except Exception as e:
         logger.warning('[alpha/nfl] totales omitidos: %s: %s',
                        type(e).__name__, e)
+
+    # v266 — LA CAPA 1 SOBRE TODO EL TABLERO, NO SOLO SOBRE LO QUE HAY MODELO.
+    #
+    # `valor_vs_sharp` no usa el modelo para nada: le basta el precio justo de
+    # Pinnacle y una casa donde el usuario pueda apostar. Pero hasta aqui se
+    # calculaba DENTRO de los bucles de cada deporte, asi que solo miraba los
+    # partidos con modelo y calendario.
+    #
+    # Medido sobre el tablero del 2026-09-20: de las seis oportunidades que
+    # pasaban todos los filtros validados, CINCO estaban en partidos que la
+    # aplicacion ni evaluaba. Por eso salia uno o dos picks al dia donde habia
+    # siete. Buscar errores de cuota solo donde hay modelo es buscar las
+    # llaves bajo la farola.
+    #
+    # Los filtros son los MISMOS que ya estaban validados, ni uno mas ni uno
+    # menos: futbol solo al lado local, tenis solo WTA, y lo que no tiene
+    # medicion propia entra marcado como no validado para que se acumule y
+    # pueda juzgarse. Ver `barrido_capa1`.
+    try:
+        import barrido_capa1 as _bc1
+        _ya = {(str(p.get('partido')), p.get('lado'))
+               for p in (salida.get('capa1') or [])}
+        _n_nuevos = 0
+        for _p in _bc1.barrer():
+            if (str(_p.get('partido')), _p.get('lado')) in _ya:
+                continue
+            salida.setdefault('capa1', []).append(_p)
+            _n_nuevos += 1
+        if _n_nuevos:
+            logger.info('[alpha/capa1] %d picks mas del barrido completo',
+                        _n_nuevos)
+            salida.setdefault('incidencias', []).append(
+                '🟢 %d oportunidades mas de Capa 1 salieron del barrido '
+                'completo del tablero: son partidos con precio de Pinnacle y '
+                'de tu casa que el modelo no cubre, y para este canal el '
+                'modelo no hace falta.' % _n_nuevos)
+    except Exception as e:
+        logger.warning('[alpha/capa1] barrido completo omitido: %s: %s',
+                       type(e).__name__, e)
+
     return salida
 
 

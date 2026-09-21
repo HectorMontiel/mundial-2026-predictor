@@ -2482,10 +2482,53 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
                 cc2.markdown(txt)
 
     if capa1:
-        _seccion(f"⚡ Con valor ({len(capa1)})",
-                 'la cuota paga más de lo que el modelo cree que vale', 'ok')
-        for pk in capa1:
+        # v266 — LAS DOS CAPAS SON COSAS DISTINTAS Y HAY QUE DECIRLO.
+        #
+        # Simulado sobre el histórico real, con el banco resuelto por día:
+        #
+        #     CAPA 1 (n=1.629)   plano 1 %   2,26x · caída 9,6 % · sin ruina
+        #                        Kelly 1/4   4,68x · caída 23 %  · sin ruina
+        #     CAPA 2 (n=80.893)  cualquier estrategia -> banco CERO
+        #     LAS DOS JUNTAS                 cualquier estrategia -> CERO
+        #
+        # La Capa 2 no es «peor»: destruye la ganancia de la Capa 1 y sigue.
+        # Enseñarlas con el mismo aspecto es lo que llevó al usuario a armar
+        # sus boletos con la de abajo.
+        _val = [p for p in capa1 if p.get('validado') is not False]
+        _nov = [p for p in capa1 if p.get('validado') is False]
+        _seccion(f"⚡ Con valor ({len(_val)})",
+                 'la casa paga por encima del precio justo de Pinnacle — '
+                 'es el único canal con ventaja medida', 'ok')
+        st.caption(
+            'Simulado sobre 1.629 apuestas de este canal (2021-2026): '
+            'apostando **1 % fijo** el banco se multiplica por **2,26** con '
+            'una caída máxima del 9,6 %; con **Kelly 1/4**, por **4,68** con '
+            'caída del 23 %. Ninguna de las dos arruina.')
+        for pk in _val:
             _tarjeta(pk, con_ev=True)
+            try:
+                import barrido_capa1 as _bc
+                _k = _bc.kelly(pk.get('prob'), pk.get('cuota'))
+                if _k:
+                    st.caption(
+                        '💰 Kelly 1/4: **%.2f %% del banco** — con $10.000 '
+                        'serían $%s. (Kelly completo daría más, pero con '
+                        'caídas del 67 %%, que en la práctica nadie aguanta.)'
+                        % (100 * _k, format(int(10000 * _k), ',d')))
+            except Exception as _e_k:
+                logger.debug('[capa1] kelly: %s', _e_k)
+        if _nov:
+            with st.expander(
+                    f"🔬 Sin validar todavía ({len(_nov)}) — se están midiendo",
+                    expanded=False):
+                st.caption(
+                    'Salen del mismo método, pero en deportes donde ese canal '
+                    '**aún no tiene su propia medición**. Se muestran para que '
+                    'se acumule histórico y se puedan juzgar, no como apuesta '
+                    'recomendada. Un EV enorme aquí suele ser un precio mal '
+                    'leído, no una oportunidad.')
+                for pk in _nov:
+                    _tarjeta(pk, con_ev=True)
     elif _estilo is not None:
         _pinta(_estilo.vacio(
             f"Hoy ninguna apuesta de {deporte} pasa los filtros",
@@ -2502,11 +2545,16 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
     if capa2:
         with st.expander(f"🎯 Alta confianza, sin valor suficiente "
                          f"({len(capa2)})", expanded=not capa1):
-            st.caption("Probables según el modelo, pero el precio no paga lo "
-                       "que arriesgan. **Combinarlos no arregla eso: multiplica "
-                       "el margen de la casa.** Con patas de EV −4,8 %, una "
-                       "combinada de tres sale a −13,6 %. Ver la bitácora de "
-                       "arquitectura.")
+            st.caption(
+                "⚠️ **Esto es Capa 2, y está medido como perdedor.** "
+                "Simulado sobre 80.893 apuestas: con cualquier estrategia "
+                "de staking el banco acaba en **cero**, y mezclarlas con "
+                "las de arriba también arruina. El mejor filtro posible "
+                "deja el ROI en −2,55 %, que es la comisión de la casa: "
+                "no hay corte que lo rompa." + chr(10) + chr(10) +
+                "Combinarlos **empeora**: multiplica el margen. Tres "
+                "patas de −4,8 % salen a −13,6 %. Están aquí porque son "
+                "lo más probable del día, no porque convengan.")
             for pk in capa2:
                 _tarjeta(pk, con_ev=True)
 

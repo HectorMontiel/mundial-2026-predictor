@@ -21572,6 +21572,395 @@ def test_los_ledgers_que_se_reconstruyen_tambien_se_guardan():
           'calibracion_bandas.json' in guardados,
           'v263: y las dos calibraciones que tambien se reajustan')
 
+
+# ---------------------------------------------------------------------------
+# v264 — EL SELECTOR: APRENDE CUAL TOMAR Y CUAL NO
+# ---------------------------------------------------------------------------
+def test_el_selector_nunca_revienta_y_calla_cuando_no_sabe():
+    """
+    `evaluar` se llama para CADA candidata de CADA partido. Si lanzara, se
+    llevaria por delante la lista entera; si inventara, seria peor que no
+    estar. Y si no puede opinar, `tomar` vale None: falta de opinion no es una
+    opinion.
+
+    El fallo que esta prueba fija de verdad: con una sola fila, un `None` en
+    `linea` convertia la columna en `object` y LightGBM la rechazaba. Se veia
+    SOLO en los mercados sin linea —BTTS y 1X2—, el `except` se tragaba el
+    error, y la apuesta salia con la probabilidad del modelo como si el
+    selector estuviera de acuerdo. Un fallo disfrazado de acuerdo.
+    """
+    import selector_apuestas as sel
+
+    for basura in ({}, {'prob': None}, {'prob': 'ocho'}, {'prob': 1.5},
+                   {'prob': 0.0}, {'prob': 0.6, 'cuota': 'x'}):
+        r = sel.evaluar(basura)
+        check(isinstance(r, dict) and 'p' in r and 'tomar' in r,
+              'v264: `evaluar` devuelve esquema con %r' % (basura,))
+
+    if not sel.disponible():
+        check(False, 'v264: falta el selector entrenado (%s)' % sel.MODELO)
+        return
+
+    # LOS MERCADOS SIN LINEA TIENEN QUE OPINAR: ese era el fallo
+    for mercado, apuesta in (('BTTS', 'Ambos marcan: No'),
+                             ('1X2', 'Gana el local'),
+                             ('Doble', 'Local o empate')):
+        r = sel.evaluar({'apuesta': apuesta, 'mercado': mercado,
+                         'prob': 0.65, 'cuota': 1.5, 'deporte': 'Futbol',
+                         'clave_liga': 'argentina', 'linea': None})
+        check(r.get('hay'),
+              'v264: el selector SI opina en «%s», que no tiene linea'
+              % mercado)
+        check(0.0 < (r.get('p') or 0) < 1.0,
+              'v264: y devuelve una probabilidad de verdad en «%s»' % mercado)
+
+    # una liga que nunca vio no puede reventar ni inventarse una categoria
+    r = sel.evaluar({'apuesta': 'Goles: Más de 2.5', 'mercado': 'Goles',
+                     'prob': 0.55, 'cuota': 1.9, 'deporte': 'Futbol',
+                     'clave_liga': 'liga_que_no_existe_xyz', 'linea': 2.5})
+    check(isinstance(r, dict), 'v264: una liga desconocida no revienta')
+
+
+def test_el_selector_se_gana_su_sitio_y_se_reentrena_solo():
+    """
+    La prueba del selector no es «acierta mucho» —con la probabilidad del
+    modelo como entrada eso es trivial— sino BATIRLA. Medido en walk-forward
+    por fecha sobre 955.568 apuestas fuera de muestra:
+
+        log-loss  modelo 0,53811 -> selector 0,53313  (p5 +0,00476, 100 % a
+        favor), y el ROI de las que llevan cuota real pasa de -8,17 % a
+        -5,66 % filtrando ademas un tercio de las apuestas.
+
+    No las vuelve rentables —eso hay que decirlo— pero elige mucho mejor.
+    """
+    import io as _io
+    import selector_apuestas as sel
+
+    src = _io.open('selector_apuestas.py', encoding='utf-8').read()
+    cuerpo = src.split('def entrenar(')[1].split(chr(10) + 'def ')[0]
+    check('P5_MINIMO' in cuerpo,
+          'v264: hay puerta, y es el percentil 5 del remuestreo')
+    i_p5 = cuerpo.find('p5 > P5_MINIMO')
+    i_save = cuerpo.find('save_model')
+    check(0 < i_p5 < i_save,
+          'v264: se juzga ANTES de publicar el modelo')
+    check("'activo': False" in cuerpo,
+          'v264: y si no gana, se deja escrito que esta apagado')
+    # el juicio es por FECHA, no aleatorio: con series temporales, barajar es
+    # dejar que el modelo vea el futuro
+    check('iloc[:ini]' in cuerpo and 'iloc[ini:fin]' in cuerpo,
+          'v264: walk-forward por fecha, no un reparto aleatorio')
+
+    # se reentrena solo
+    r = _io.open('recalibrar_todo.py', encoding='utf-8').read()
+    check('selector_apuestas' in r, 'v264: la cadena semanal lo reentrena')
+    i_led = r.find("('1. ledger")
+    i_sel = r.find("('14. selector")
+    check(i_led > 0 and i_sel > i_led,
+          'v264: y va detras de los ledgers de los que come')
+    y = _io.open('.github/workflows/recalibrar.yml', encoding='utf-8').read()
+    for f in ('selector_apuestas.txt', 'selector_apuestas.json'):
+        check(f in y, 'v264: el workflow guarda `%s`' % f)
+
+    # el modelo se guarda en TEXTO, no en pickle
+    # Se mira el USO, no la palabra: la cabecera del modulo dice «sin
+    # pickle» y una busqueda de texto la contaba como uso. Es la tercera vez
+    # en esta tanda que una prueba mia confunde un comentario con codigo —
+    # antes con «p_btts» y con «Score»— asi que aqui se hace con el arbol.
+    _a = ast.parse(src)
+    _malo = []
+    for _n in ast.walk(_a):
+        if isinstance(_n, ast.Import):
+            _malo += [x.name for x in _n.names if x.name in ('pickle',
+                                                             'joblib')]
+        elif isinstance(_n, ast.ImportFrom) and _n.module in ('pickle',
+                                                              'joblib'):
+            _malo.append(_n.module)
+        elif (isinstance(_n, ast.Attribute)
+              and _n.attr in ('dump', 'dumps')
+              and getattr(_n.value, 'id', '') in ('pickle', 'joblib')):
+            _malo.append(_n.attr)
+    check('save_model' in cuerpo and not _malo,
+          'v264: el booster se guarda en TEXTO y no con pickle (%s) — un '
+          'pickle ata el fichero a la version de la libreria y el despliegue '
+          'no la fija' % _malo)
+
+
+def test_el_selector_decide_que_pata_entra_en_el_boleto():
+    """
+    De poco sirve que el selector acierte si nadie le hace caso. Entra en
+    `candidatas_de`, que es quien elige QUE apuesta representa a cada partido
+    y por tanto que pata entra en la sonadora.
+
+    Y NO pisa `prob`: la del veredicto es la que se ensena y la que el resto
+    del proyecto tiene medida. Lo que cambia es el ORDEN, que era justo el
+    problema — tres patas identicas en pantalla y una de ellas mucho peor.
+    """
+    import io as _io
+    s2 = _io.open('patas_veredicto.py', encoding='utf-8').read()
+    # v264.1 — el selector ya no se llama dentro de `candidatas_de` sino en
+    # `aplicar_selector`, que recibe las candidatas de TODOS los partidos de
+    # golpe. El motivo esta medido: 400 partidos en lotes de 6 costaban 3,3 s
+    # y en un solo lote 0,1 s, porque LightGBM tiene un coste fijo por llamada
+    # que con seis filas no se amortiza.
+    ap = s2.split('def aplicar_selector(')[1].split(chr(10) + 'def ')[0]
+    check('selector_apuestas' in ap and 'evaluar_lote' in ap,
+          'v264: el selector se llama EN LOTE')
+    check("q['p_selector']" in ap,
+          'v264: su probabilidad se guarda aparte')
+    orden = s2.split('def ordenar(')[1].split(chr(10) + 'def ')[0]
+    check("q.get('p_selector') or q.get('prob')" in orden,
+          'v264: el orden lo decide el selector, con respaldo a la del '
+          'veredicto si no opino')
+    sel_f = s2.split('def seleccionar(')[1].split(chr(10) + 'def ')[0]
+    check('aplicar_selector(' in sel_f,
+          'v264: y `seleccionar` lo aplica a todo el barrido de una vez')
+    cuerpo = s2.split('def candidatas_de(')[1].split(chr(10) + 'def ')[0]
+    check("q['prob'] = " not in cuerpo,
+          'v264: y NO pisa la del veredicto')
+
+
+# ---------------------------------------------------------------------------
+# v265 — EN QUE SE EQUIVOCA EL MODELO CON CADA EQUIPO
+# ---------------------------------------------------------------------------
+def test_la_memoria_de_equipos_no_inventa_y_no_revienta():
+    """
+    «Que el modelo aprenda de si mismo... para que la proxima vez que ese
+    equipo juegue se tome en cuenta.»
+
+    Medido sobre 154.636 observaciones: correlacion +0,0493 entre lo que venia
+    fallando el modelo con un equipo y lo que falla hoy, con gradiente
+    monotono (de -0,069 goles cuando venia sobrando a +0,127 cuando venia
+    corto). Validado fuera de muestra con el peso ajustado solo en el 60 %
+    antiguo: MSE -0,247 %, p5 +0,00244, 100 % de remuestreos a favor.
+
+    Es REAL y es PEQUENO. Un cuarto de punto. Queda escrito para que nadie
+    espere de aqui lo que no da.
+    """
+    import memoria_equipos as me
+
+    for basura in (None, '', '   ', 123, object()):
+        check(me.sesgo(basura) is None or isinstance(me.sesgo(basura), float),
+              'v265: `sesgo` aguanta %r' % (basura,))
+    check(me.sesgo('equipo que no existe xyz') is None,
+          'v265: un equipo desconocido devuelve None — no inventar un sesgo '
+          'es mejor que inventarlo pequeno')
+    check(me.MIN_PARTIDOS >= 5,
+          'v265: cinco partidos no son una tendencia (%d)' % me.MIN_PARTIDOS)
+
+    d = me.cargar()
+    eq = (d.get('equipos') or {})
+    if eq:
+        check(all(v.get('n', 0) >= me.MIN_PARTIDOS for v in eq.values()),
+              'v265: no se publica ningun equipo por debajo del minimo')
+        # el sesgo esta en goles por partido: valores absurdos delatan un
+        # error de signo o de unidad
+        peor = max(abs(v['sesgo']) for v in eq.values())
+        check(peor < 4.0,
+              'v265: ningun sesgo es absurdo (el mayor es %+.2f goles)' % peor)
+
+
+def test_el_sesgo_de_entrenamiento_no_mira_el_futuro():
+    """
+    LA TRAMPA QUE ESTA PRUEBA EXISTE PARA EVITAR.
+
+    El artefacto `memoria_equipos.json` guarda el sesgo de HOY, que es lo
+    correcto en produccion: «antes del proximo partido» es justo ahora. Pero
+    usarlo como variable de ENTRENAMIENTO seria mirar el futuro — el equipo
+    que marco de mas en octubre no se sabia en marzo, y el selector aprenderia
+    a «predecir» con informacion que entonces no existia.
+
+    Por eso `construir_universo` recalcula el sesgo partido a partido, con la
+    ventana de los ANTERIORES.
+    """
+    import io as _io
+    s2 = _io.open('selector_apuestas.py', encoding='utf-8').read()
+    cuerpo = s2.split('def construir_universo(')[1].split(chr(10) + 'def ')[0]
+    check('sesgos[' in cuerpo and '_hist[' in cuerpo,
+          'v265: el universo recalcula el sesgo acumulando historia')
+    # el orden importa: se LEE la historia y DESPUES se anade el partido
+    i_lee = cuerpo.find('_hist[_kh][-me.VENTANA:]')
+    i_esc = cuerpo.find('_hist[_kh].append')
+    check(0 < i_lee < i_esc,
+          'v265: se lee la historia ANTES de meter el partido en ella — al '
+          'reves, el sesgo incluiria el resultado que se quiere predecir')
+    check('me.sesgo(' not in cuerpo,
+          'v265: y NO se usa el artefacto vigente para entrenar')
+
+    # en produccion si se usa el vigente, que es lo correcto
+    check('_sesgo_de' in s2 and 'me.sesgo(' in s2,
+          'v265: en produccion si manda el sesgo vigente')
+
+
+def test_la_memoria_se_rehace_antes_que_el_selector():
+    """El selector la usa como variable: rehacerla despues seria entrenarlo
+    con la memoria de la semana pasada."""
+    import io as _io
+    r = _io.open('recalibrar_todo.py', encoding='utf-8').read()
+    i_mem = r.find("('13. memoria de errores por equipo")
+    i_sel = r.find("('14. selector de apuestas")
+    i_led = r.find("('1. ledger")
+    check(0 < i_led < i_mem < i_sel,
+          'v265: ledger -> memoria -> selector, en ese orden')
+    y = _io.open('.github/workflows/recalibrar.yml', encoding='utf-8').read()
+    check('memoria_equipos.json' in y,
+          'v265: el workflow la guarda, o se pierde con el runner')
+
+
+# ---------------------------------------------------------------------------
+# v266 — LA CAPA 1 SOBRE TODO EL TABLERO, Y EL KELLY
+# ---------------------------------------------------------------------------
+def test_la_capa1_barre_todo_el_tablero_no_solo_lo_que_hay_modelo():
+    """
+    EL HALLAZGO. `valor_vs_sharp` no usa el modelo para nada: le basta el
+    precio justo de Pinnacle y una casa donde se pueda apostar. Pero se
+    calculaba DENTRO de los bucles de cada deporte, asi que solo miraba los
+    partidos con modelo y calendario.
+
+    Medido sobre el tablero del 2026-09-20: de las seis oportunidades que
+    pasaban TODOS los filtros validados, CINCO estaban en partidos que la
+    aplicacion ni evaluaba. Por eso salia uno o dos picks al dia donde habia
+    siete. Buscar errores de cuota solo donde hay modelo es buscar las llaves
+    bajo la farola.
+    """
+    import barrido_capa1 as bc
+
+    # los filtros son los VALIDADOS, ni uno mas ni uno menos
+    check(bc.REGLAS['futbol']['lados'] == ('home',),
+          'v266: futbol sigue siendo solo el lado LOCAL — el visitante lucia '
+          'bien en el tramo de eleccion y se hundia en el de juicio '
+          '(p5 -5,10 %)')
+    check(bc.REGLAS['tenis'].get('circuitos') == ('wta',),
+          'v266: tenis sigue siendo solo WTA')
+    check(bc.REGLAS['futbol']['validado'] and bc.REGLAS['tenis']['validado'],
+          'v266: y esos dos estan marcados como validados')
+    check(not bc.REGLAS['nba']['validado'] and not bc.REGLAS['nfl']['validado'],
+          'v266: NBA y NFL entran marcados como NO validados, no como apuesta')
+
+    # nunca lanza aunque no haya tablero
+    picks = bc.barrer(ruta='no_existe_este_tablero.json')
+    check(picks == [], 'v266: sin tablero devuelve vacio, no revienta')
+
+    # y lo que salga tiene la forma que espera la pantalla
+    reales = bc.barrer()
+    for p in reales[:5]:
+        for k in ('partido', 'apuesta', 'prob', 'cuota', 'ev', 'casa',
+                  'validado', 'origen'):
+            check(k in p, 'v266: el pick lleva `%s`' % k)
+        check(0.0 < p['prob'] < 1.0, 'v266: con probabilidad de verdad')
+        check(p['cuota'] >= bc.MIN_CUOTA,
+              'v266: y por encima del suelo de cuota')
+
+    # esta enganchado al barrido
+    import io as _io
+    a = _io.open('alpha_finder.py', encoding='utf-8').read()
+    check('barrido_capa1' in a,
+          'v266: `alpha_finder` lo llama')
+    check("_ya = {(str(p.get('partido')), p.get('lado'))" in a,
+          'v266: y deduplica contra lo que el camino por deporte ya encontro '
+          '— sin eso, el mismo pick saldria dos veces')
+
+
+def test_el_kelly_no_se_pasa_de_frenada():
+    """
+    Simulado sobre las 1.629 apuestas historicas de la Capa 1, con el banco
+    resuelto por DIA (resolverlo apuesta a apuesta le regalaria a Kelly un
+    compuesto que en la realidad no existe):
+
+        plano 1 % fijo ....  2,26x   caida maxima  9,6 %
+        Kelly 1/8 .........  2,42x                12,1 %
+        Kelly 1/4 .........  4,68x                23,0 %
+        Kelly 1/2 .........  7,38x                41,8 %
+        Kelly completo ....  9,36x                67,0 %
+
+    Se usa 1/4: dobla el resultado del plano con una caida que se tolera.
+    Kelly completo dobla el de 1/4 pero con caidas del 67 %, y el que va por
+    la mitad de su banco deja de apostar.
+    """
+    import barrido_capa1 as bc
+
+    for basura in ((None, None), (0.5, None), ('x', 2.0), (1.5, 2.0),
+                   (0.5, 0.9), (0.0, 2.0)):
+        r = bc.kelly(*basura)
+        check(r is None or 0.0 <= r <= 0.05,
+              'v266: `kelly%r` no devuelve una barbaridad (%r)' % (basura, r))
+
+    # sin ventaja, no se apuesta
+    check(bc.kelly(0.40, 2.0) == 0.0,
+          'v266: sin ventaja la fraccion es cero')
+    # con ventaja, algo se apuesta
+    k = bc.kelly(0.60, 2.0)
+    check(k and k > 0, 'v266: con ventaja sale una fraccion positiva')
+    # y el tope se respeta aunque el EV sea absurdo
+    check(bc.kelly(0.99, 3.0) <= 0.05,
+          'v266: el tope del 5 %% aguanta un EV enorme, que casi siempre es '
+          'un precio mal leido y no una oportunidad')
+    # la fraccion por defecto es un cuarto
+    import inspect
+    fr = inspect.signature(bc.kelly).parameters['fraccion'].default
+    check(abs(fr - 0.25) < 1e-9,
+          'v266: la fraccion por defecto es 1/4 (%.2f)' % fr)
+
+
+def test_la_pantalla_separa_las_dos_capas():
+    """
+    Simulado: la Capa 1 sola multiplica por 2,26 (plano) o 4,68 (Kelly 1/4)
+    sin arruinar; la Capa 2 sola lleva el banco a CERO con cualquier
+    estrategia, y mezclarlas tambien. Ensenarlas con el mismo aspecto es lo
+    que llevo al usuario a armar sus boletos con la perdedora.
+    """
+    import io as _io
+    d = _io.open('dashboard_ui.py', encoding='utf-8').read()
+    check('Kelly 1/4' in d, 'v266: la pantalla ensena el Kelly')
+    check('barrido_capa1' in d, 'v266: y sale del modulo que lo mide')
+    check('medido como perdedor' in d,
+          'v266: y la Capa 2 dice lo que es, medido')
+    check('sin validar todavía' in d.lower(),
+          'v266: y lo que aun no tiene medicion propia va aparte')
+
+
+def test_el_tablero_de_cuotas_acumula_y_limpia():
+    """
+    v267 — EL HORIZONTE, QUE ERA LO QUE DEJABA FUERA A LAS LIGAS GRANDES.
+
+    El barrido miraba dos dias. Las ligas grandes juegan de jueves a domingo,
+    asi que a 48 horas vista no aparecen. Medido sobre 26.647 partidos con
+    Pinnacle y casa blanda:
+
+        sabado 3,7 picks de Capa 1 por dia   ·   jueves 0,2
+        ligas grandes: pick en el 9,7 % de sus partidos (el resto, 5,1 %)
+
+    O sea que las grandes dan casi el DOBLE de tasa y nos las perdiamos por
+    mirar corto. Y los precios lejanos traen MAS ventaja (+27 % de EV medio a
+    siete dias contra +16 % el mismo dia).
+
+    La solucion no es subir `--dias` a siete cada dos horas —multiplicaria por
+    tres y medio las peticiones— sino que el tablero ACUMULE: una pasada corta
+    y frecuente refresca lo inmediato, una larga y ocasional anade la semana.
+
+    Y limpia lo que ya empezo: un partido en juego no tiene precio de
+    prepartido, y dejarlo ensucia el emparejador con un cruce repetido.
+    """
+    import io as _io
+    c = _io.open('cuotas_mx.py', encoding='utf-8').read()
+    cuerpo = c.split('def barrer(')[1].split(chr(10) + 'def ')[0]
+    check("doc['acumulado']" in cuerpo,
+          'v267: el barrido acumula con lo anterior')
+    check('if k in doc[' in cuerpo,
+          'v267: y lo NUEVO manda sobre lo viejo — es el precio fresco')
+    check("v.get('inicio') or 0) <= ahora" in cuerpo,
+          'v267: y descarta lo que ya empezo')
+    i_acu = cuerpo.find("doc['acumulado']")
+    i_esc = cuerpo.rfind('os.replace(tmp, FICHERO)')
+    check(0 < i_acu < i_esc,
+          'v267: se acumula ANTES de escribir, no despues')
+
+    y = _io.open('.github/workflows/cuotas_mx.yml', encoding='utf-8').read()
+    check('_DIAS=7' in y and '_DIAS=2' in y,
+          'v267: el workflow hace dos pasadas, corta y larga')
+    check("cron: '10 */2 * * *'" in y,
+          'v267: y la corta sigue siendo cada dos horas')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -22184,6 +22573,16 @@ if __name__ == '__main__':
     test_la_curva_de_goles_la_enciende_la_medicion_no_una_constante()
     test_el_ledger_del_handicap_se_rehace_solo()
     test_los_ledgers_que_se_reconstruyen_tambien_se_guardan()
+    test_el_selector_nunca_revienta_y_calla_cuando_no_sabe()
+    test_el_selector_se_gana_su_sitio_y_se_reentrena_solo()
+    test_el_selector_decide_que_pata_entra_en_el_boleto()
+    test_la_memoria_de_equipos_no_inventa_y_no_revienta()
+    test_el_sesgo_de_entrenamiento_no_mira_el_futuro()
+    test_la_memoria_se_rehace_antes_que_el_selector()
+    test_la_capa1_barre_todo_el_tablero_no_solo_lo_que_hay_modelo()
+    test_el_kelly_no_se_pasa_de_frenada()
+    test_la_pantalla_separa_las_dos_capas()
+    test_el_tablero_de_cuotas_acumula_y_limpia()
     test_el_h2h_pesa_en_el_1x2_y_arrastra_a_la_doble()
     test_los_avisos_los_entiende_quien_apuesta()
 

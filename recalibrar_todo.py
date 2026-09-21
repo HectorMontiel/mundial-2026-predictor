@@ -433,6 +433,62 @@ def _ledger_handicap():
     return '%d partidos · %s' % (len(d), ' · '.join(partes) or 'sin cordura')
 
 
+def _selector():
+    """Reentrena el selector de apuestas (v264).
+
+    Es lo que hace que la aplicacion APRENDA de sus propios resultados: cada
+    semana rehace el universo de 1,9 millones de apuestas con resultado y
+    vuelve a ajustar el modelo que decide cual tomar y cual no.
+
+    Va el ULTIMO porque come de todos los ledgers que los pasos anteriores
+    acaban de reconstruir. Y tiene su propia puerta: si no le gana a la
+    probabilidad del modelo en el remuestreo, no se publica y todo sigue como
+    estaba.
+    """
+    import selector_apuestas as sel
+    doc = sel.entrenar()
+    if not doc:
+        return 'sin universo suficiente'
+    m = doc.get('medicion') or {}
+    if not doc.get('activo'):
+        return ('NO se publica: no bate a la probabilidad del modelo '
+                '(p5 %+.5f)' % m.get('p5', 0))
+    extra = ''
+    if 'roi_selector' in m:
+        extra = (' · ROI %+.2f %% (n=%s)'
+                 % (100 * m['roi_selector'], format(m.get('n_roi', 0), ',d')))
+    return ('%s apuestas · log-loss %.5f -> %.5f · p5 %+.5f%s'
+            % (format(doc.get('n_entrenamiento', 0), ',d'),
+               m.get('log_loss_modelo', 0), m.get('log_loss_selector', 0),
+               m.get('p5', 0), extra))
+
+
+def _memoria_equipos():
+    """Reajusta en que se viene equivocando el modelo con cada equipo (v265).
+
+    Va ANTES del selector, que la usa como variable. Medido: correlacion
+    +0,0493 entre el error pasado de un equipo y el de hoy, con gradiente
+    monotono; validado fuera de muestra, MSE -0,247 % con p5 +0,00244 y el
+    100 % de los remuestreos a favor.
+
+    Es pequeno y conviene que este escrito: un cuarto de punto. No corrige la
+    lambda —sobre ella ya hay dos correcciones apiladas— sino que se la da al
+    selector para que la pese junto con lo demas.
+    """
+    import memoria_equipos as me
+    doc = me.construir()
+    if not doc:
+        return 'sin ledger de totales'
+    eq = doc.get('equipos') or {}
+    if not eq:
+        return 'ningun equipo con partidos suficientes'
+    import numpy as np
+    ses = [v['sesgo'] for v in eq.values()]
+    return ('%s equipos · sesgo medio %+.4f · desv %.4f · hasta %s'
+            % (format(len(eq), ',d'), float(np.mean(ses)),
+               float(np.std(ses)), doc.get('hasta')))
+
+
 PASOS = [
     ('1. ledger (re-predice el histórico con los modelos de hoy)', _ledger),
     ('2. calibración de confianza (acierto real por banda)', _confianza),
@@ -461,6 +517,8 @@ PASOS = [
     # solo.
     ('11. curva por línea del mercado de goles', _goles_por_linea),
     ('12. ledger del hándicap asiático', _ledger_handicap),
+    ('13. memoria de errores por equipo', _memoria_equipos),
+    ('14. selector de apuestas (aprende cuál tomar)', _selector),
 ]
 
 

@@ -86,7 +86,8 @@ def _es_principal(pick: Dict) -> bool:
         return False
 
 
-def candidatas_de(pick: Dict, cuota_minima: float) -> List[Dict]:
+def candidatas_de(pick: Dict, cuota_minima: float,
+                  con_selector: bool = True) -> List[Dict]:
     """Las recomendaciones de UN partido, evaluadas y ordenadas.
 
     Orden: primero las verdes, y dentro de cada grupo por probabilidad
@@ -110,6 +111,21 @@ def candidatas_de(pick: Dict, cuota_minima: float) -> List[Dict]:
     if not recos:
         return []
 
+    # v264 - EL SELECTOR, QUE ES QUIEN HA VISTO COMO ACABARON LAS PARECIDAS.
+    #
+    # El caso que lo trae: un parley de cuatro patas con tres aciertos, donde
+    # la que fallo venia en verde igual que las otras. Medido sobre esos picks
+    # reales (2026-09-20, posteriores al entrenamiento del selector):
+    #
+    #     Belgrano   FALLO   67,1 % -> 57,7 %   (-0,094)
+    #     Chaco      entro   67,0 % -> 64,5 %   (-0,025)
+    #     Firpo      entro   67,2 % -> 70,7 %   (+0,035)
+    #
+    # Las tres se veian identicas en pantalla. El selector las separa.
+    #
+    # Tres picks son una anecdota; la prueba es el walk-forward de 955.568
+    # apuestas con p5 +0,00476 y el 100 % de los remuestreos a favor. Ver
+    # `selector_apuestas`.
     fuera = []
     for v in vp.evaluar_lista(recos):
         cuota = _f((v.get('pick') or {}).get('cuota'))
@@ -135,12 +151,68 @@ def candidatas_de(pick: Dict, cuota_minima: float) -> List[Dict]:
             # son la misma apuesta.
             'medido': bool(v.get('medido')),
             'n_muestra': v.get('n_muestra') or 0,
+            # lo rellena el selector justo debajo; se deja declarado aqui para
+            # que la fila tenga SIEMPRE la misma forma
+            'p_selector': None, 'selector': None,
+            # la linea hace falta para el selector (distingue 1.5 de 3.5) y
+            # no estaba en la fila: se pesca del pick, no de una variable
+            # suelta del bucle
+            'linea': (v.get('pick') or {}).get('linea'),
             'razones': v.get('razones') or [],
             'principal': _es_principal(pick),
         })
-    # verde primero; dentro de cada grupo, la más probable
-    fuera.sort(key=lambda q: (not q['verde'], -(q['prob'] or 0)))
+    # v264 - y AHORA el selector opina sobre cada una.
+    #
+    # Se guarda su probabilidad aparte y NO se pisa `prob`: la del veredicto
+    # es la que se ensena y la que el resto del proyecto ya tiene medida. Lo
+    # que cambia es el ORDEN, que es lo que decide que pata entra en el
+    # boleto — que era justo el problema: tres patas identicas en pantalla y
+    # una de ellas mucho peor.
+    if con_selector:
+        aplicar_selector(fuera)
+    ordenar(fuera)
     return fuera
+
+
+def aplicar_selector(filas: List[Dict]) -> None:
+    """Pone `p_selector` en cada fila, EN UN SOLO LOTE. Nunca lanza.
+
+    POR QUE EN LOTE Y POR QUE ARRIBA. LightGBM tiene un coste fijo por
+    llamada que con seis filas no se amortiza. Medido sobre el barrido real:
+
+        400 partidos en lotes de 6 candidatas ....  3,3 s
+        los mismos 2.400 en UN lote .............  0,1 s
+
+    Treinta y tres veces. Por eso `seleccionar` junta las candidatas de TODOS
+    los partidos y llama una sola vez, en vez de una por partido.
+    """
+    if not filas:
+        return
+    try:
+        import selector_apuestas as _s
+    except Exception as e:
+        logger.debug('[patas] sin selector: %s', e)
+        return
+    try:
+        rs = _s.evaluar_lote([
+            {'apuesta': q.get('apuesta'), 'mercado': q.get('mercado'),
+             'prob': q.get('prob'), 'cuota': q.get('cuota'),
+             'deporte': q.get('deporte'), 'clave_liga': q.get('clave_liga'),
+             'liga': q.get('liga'), 'linea': q.get('linea'),
+             'partido': q.get('partido')} for q in filas])
+    except Exception as e:
+        logger.debug('[patas] selector en lote: %s', e)
+        return
+    for q, r in zip(filas, rs):
+        if r.get('hay'):
+            q['p_selector'] = r['p']
+            q['selector'] = {'delta': r['delta'], 'razon': r['razon']}
+
+
+def ordenar(filas: List[Dict]) -> None:
+    """Verde primero; dentro de cada grupo, la que el SELECTOR ve mejor."""
+    filas.sort(key=lambda q: (not q['verde'],
+                              -(q.get('p_selector') or q.get('prob') or 0)))
 
 
 def _repartir(candidatas: List[Dict], cuantas: int,
@@ -240,11 +312,20 @@ def seleccionar(r: Dict, n_patas: int = 4,
     pron = pron[:max_partidos]
 
     # La MEJOR de cada partido, que es la regla «una de cada partido».
-    mejores = []
+    #
+    # v264.1 — el selector se aplica a TODAS las candidatas de TODOS los
+    # partidos en una sola llamada, y sólo DESPUÉS se elige la mejor de cada
+    # uno. Hacerlo partido a partido costaba 3,3 s contra 0,1 s.
+    listas = []
     for p in pron:
-        cands = candidatas_de(p, cuota_minima)
+        cands = candidatas_de(p, cuota_minima, con_selector=False)
         if cands:
-            mejores.append(cands[0])
+            listas.append(cands)
+    aplicar_selector([q for cs in listas for q in cs])
+    mejores = []
+    for cs in listas:
+        ordenar(cs)
+        mejores.append(cs[0])
 
     verdes = [q for q in mejores if q['verde']]
     rojas = [q for q in mejores if not q['verde']]

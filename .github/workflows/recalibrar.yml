@@ -240,7 +240,7 @@ jobs:
           # medir el movimiento de linea: el historico de precios empieza
           # el 2026-07-30 y el de resultados acaba el 2026-07-28, con dos
           # dias de separacion y cero solape.
-          for _f in pick_ledger.csv pick_ledger_total.csv pick_ledger_totales.csv calibracion_bandas.json calibracion_goles.json pick_ledger_handicap.csv pick_ledger_deportes.csv pronosticos_emitidos.json; do
+          for _f in memoria_equipos.json selector_apuestas.txt selector_apuestas.json pick_ledger.csv pick_ledger_total.csv pick_ledger_totales.csv calibracion_bandas.json calibracion_goles.json pick_ledger_handicap.csv pick_ledger_deportes.csv pronosticos_emitidos.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi
