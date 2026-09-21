@@ -3355,44 +3355,6 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
         logger.warning('[alpha/nfl] totales omitidos: %s: %s',
                        type(e).__name__, e)
 
-    # v266 — LA CAPA 1 SOBRE TODO EL TABLERO, NO SOLO SOBRE LO QUE HAY MODELO.
-    #
-    # `valor_vs_sharp` no usa el modelo para nada: le basta el precio justo de
-    # Pinnacle y una casa donde el usuario pueda apostar. Pero hasta aqui se
-    # calculaba DENTRO de los bucles de cada deporte, asi que solo miraba los
-    # partidos con modelo y calendario.
-    #
-    # Medido sobre el tablero del 2026-09-20: de las seis oportunidades que
-    # pasaban todos los filtros validados, CINCO estaban en partidos que la
-    # aplicacion ni evaluaba. Por eso salia uno o dos picks al dia donde habia
-    # siete. Buscar errores de cuota solo donde hay modelo es buscar las
-    # llaves bajo la farola.
-    #
-    # Los filtros son los MISMOS que ya estaban validados, ni uno mas ni uno
-    # menos: futbol solo al lado local, tenis solo WTA, y lo que no tiene
-    # medicion propia entra marcado como no validado para que se acumule y
-    # pueda juzgarse. Ver `barrido_capa1`.
-    try:
-        import barrido_capa1 as _bc1
-        _ya = {(str(p.get('partido')), p.get('lado'))
-               for p in (salida.get('capa1') or [])}
-        _n_nuevos = 0
-        for _p in _bc1.barrer():
-            if (str(_p.get('partido')), _p.get('lado')) in _ya:
-                continue
-            salida.setdefault('capa1', []).append(_p)
-            _n_nuevos += 1
-        if _n_nuevos:
-            logger.info('[alpha/capa1] %d picks mas del barrido completo',
-                        _n_nuevos)
-            salida.setdefault('incidencias', []).append(
-                '🟢 %d oportunidades mas de Capa 1 salieron del barrido '
-                'completo del tablero: son partidos con precio de Pinnacle y '
-                'de tu casa que el modelo no cubre, y para este canal el '
-                'modelo no hace falta.' % _n_nuevos)
-    except Exception as e:
-        logger.warning('[alpha/capa1] barrido completo omitido: %s: %s',
-                       type(e).__name__, e)
 
     return salida
 
@@ -4900,10 +4862,52 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                 f'{_repreciadas + _rep2} filas repreciadas en Playdoit/Novibet '
                 f'· {_sin_tus_casas + _sin2} sin precio en ninguna de las dos')
 
+    # v272 — EL BARRIDO COMPLETO DEL TABLERO, QUE ESTABA EN OTRA FUNCION.
+    #
+    # Esto se escribio en la v266 y se inserto por error al final de
+    # `_picks_nfl`, que es una funcion de picks de NFL. Alli `salida` es otra
+    # cosa y lo que anadia se tiraba, asi que produccion enseñaba «Hoy no hay
+    # ninguna» mientras el barrido encontraba siete. Lo reporto el usuario con
+    # una captura de la pantalla.
+    #
+    # POR QUE EL BARRIDO COMPLETO IMPORTA. La Capa 1 salia solo de partidos
+    # con modelo, y este canal NO USA EL MODELO: apuesta donde una casa se ha
+    # descolgado de Pinnacle. Buscar solo donde hay modelo era buscar las
+    # llaves bajo la farola. Medido sobre el tablero real: de 277 partidos,
+    # 97 tienen las dos puntas (Pinnacle y casa blanda) y el modelo cubre una
+    # fraccion de esos.
+    #
+    # Los filtros son los MISMOS que ya estaban validados, ni uno mas ni uno
+    # menos: futbol solo al lado local, tenis solo WTA, y lo que no tiene
+    # medicion propia entra marcado como no validado para que se acumule y
+    # pueda juzgarse. Ver `barrido_capa1`.
+    try:
+        import barrido_capa1 as _bc1
+        _ya = {(str(p.get('partido')), p.get('lado'))
+               for p in (r.get('capa1') or [])}
+        _n_nuevos = 0
+        for _p in _bc1.barrer():
+            if (str(_p.get('partido')), _p.get('lado')) in _ya:
+                continue
+            r.setdefault('capa1', []).append(_p)
+            _n_nuevos += 1
+        if _n_nuevos:
+            logger.info('[alpha/capa1] %d picks mas del barrido completo',
+                        _n_nuevos)
+            r.setdefault('incidencias', []).append(
+                '🟢 %d oportunidades mas de Capa 1 salieron del barrido '
+                'completo del tablero: son partidos con precio de Pinnacle y '
+                'de tu casa que el modelo no cubre, y para este canal el '
+                'modelo no hace falta.' % _n_nuevos)
+    except Exception as e:
+        logger.warning('[alpha/capa1] barrido completo omitido: %s: %s',
+                       type(e).__name__, e)
+
     global _ULTIMO_RESULTADO
     _ULTIMO_RESULTADO = r
-    logger.info(f"[alpha] universal: capa1={len(capa1)} capa2={len(capa2)} "
-                f"deportes={deportes} no_enlazados={len(no_enlazados)}")
+    logger.info(f"[alpha] universal: capa1={len(r.get('capa1') or [])} "
+                f"capa2={len(capa2)} deportes={deportes} "
+                f"no_enlazados={len(no_enlazados)}")
     return r
 
 
