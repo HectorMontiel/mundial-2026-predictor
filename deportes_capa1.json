@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-21T07:47:44Z",
+ "generado": "2026-09-21T11:00:15Z",
  "regla": "Un deporte entra en la Capa 1 accionable solo si, con ALGÚN peso de calibración, su ROI fuera de muestra es positivo Y su bootstrap p5 también. Es la misma regla que dejó fuera el Over/Under 2.5 en la v44.",
  "nota": "Sin medición = se permite. No se castiga la falta de datos, se castiga la evidencia en contra.",
  "deportes": {

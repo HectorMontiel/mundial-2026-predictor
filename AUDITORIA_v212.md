@@ -1,19 +1,19 @@
 # AUDITORÍA v212 — inventario del repositorio
 
-Generado automáticamente por `auditar_repo.py` el 2026-09-21 01:51. **Se vuelve a correr y se actualiza solo.**
+Generado automáticamente por `auditar_repo.py` el 2026-09-21 05:04. **Se vuelve a correr y se actualiza solo.**
 
-- Módulos Python: **401**
-- Líneas totales: **158.289**
+- Módulos Python: **404**
+- Líneas totales: **159.530**
 
 ## 1.0 Reparto por estado
 
 | estado | módulos | qué significa |
 |---|---|---|
 | sondeo_historico | 160 | sondeo `_vNNN_*`: cuaderno de laboratorio |
-| activo_medido | 150 | lo importa producción y lleva su medición encima |
+| activo_medido | 152 | lo importa producción y lleva su medición encima |
 | script_de_entrada | 27 | se ejecuta solo (build, train, validación) |
 | activo_sin_medir | 23 | lo importa producción y no declara medición |
-| sin_importadores | 22 | **nadie lo importa** — pregunta abierta |
+| sin_importadores | 23 | **nadie lo importa** — pregunta abierta |
 | refutado_o_apagado | 18 | contiene marca de refutado o apagado |
 | productor_de_artefacto | 1 |  |
 
@@ -43,8 +43,8 @@ Ordenado por número de módulos que dependen de él. Se listan los que tienen a
 | odds_store | 409 | 8 | 2026-09-09 | activo_medido | v75 — Almacén canónico de cuotas históricas (`odds_historico.db`). |
 | calibracion_mercado | 350 | 8 | 2026-07-29 | activo_medido | v71 — Corrección de la sobreconfianza del pick contra el mercado sharp |
 | remates_jugador | 1080 | 2 | 2026-08-23 | activo_medido | v163 — QUIÉN REMATA: probabilidad por jugador, con la alineación cuand |
+| cuotas_mx | 925 | 6 | 2026-09-21 | activo_medido | v192 — CINCO CASAS MEXICANAS POR UNA PUERTA ABIERTA. |
 | leagues_cup | 285 | 3 | 2026-08-04 | activo_sin_medir | v97 — Leagues Cup (MLS vs Liga MX). |
-| cuotas_mx | 925 | 5 | 2026-09-21 | activo_medido | v192 — CINCO CASAS MEXICANAS POR UNA PUERTA ABIERTA. |
 | nfl_datos | 851 | 5 | 2026-09-10 | activo_medido | v131 · NFL — capa de datos. |
 | contexto_partido | 598 | 6 | 2026-09-19 | activo_medido | v172 — EL CONTEXTO DEL PARTIDO: H2H, FORMA Y NIVEL. |
 | aprendizaje_continuo | 550 | 3 | 2026-08-05 | activo_medido | v101 — Aprendizaje autónomo: el sistema corrige su propia confianza. |
@@ -62,7 +62,7 @@ Ordenado por número de módulos que dependen de él. Se listan los que tienen a
 | _v101_ab_contexto_futbol | 178 | 1 | 2026-08-05 | sondeo_historico | v101 — ¿El contexto del partido anterior explica el error del modelo d |
 | pronosticos_guardados | 1059 | 4 | 2026-09-20 | activo_medido | v176 — LO QUE LA APLICACIÓN DIJO ANTES DEL PITIDO, GUARDADO Y LIQUIDAD |
 | tenis_fuentes | 1010 | 3 | 2026-08-04 | activo_medido | v67 — Capa de datos MULTIFUENTE de tenis. |
-| panel_equipos | 791 | 4 | 2026-08-11 | activo_medido | v107 — EL PANEL DE EQUIPOS: H2H, clasificación y forma, en un solo sit |
+| panel_equipos | 805 | 4 | 2026-09-21 | activo_medido | v107 — EL PANEL DE EQUIPOS: H2H, clasificación y forma, en un solo sit |
 | stats_espn | 664 | 3 | 2026-09-20 | activo_medido | v162 — LAS ESTADÍSTICAS REALES DE ESPN, PARA TODAS LAS COMPETICIONES. |
 | fiabilidad_picks | 424 | 4 | 2026-09-19 | activo_medido | v217 — Cuándo fiarse de un verde: qué acierta DE VERDAD cada probabili |
 | scraper_contexto | 392 | 4 | 2026-09-18 | activo_medido | v212 — Contexto y noticias, normalizado, multideporte y con el hueco a |
@@ -83,6 +83,7 @@ Ordenado por número de módulos que dependen de él. Se listan los que tienen a
 | sgp_correlation | 457 | 3 | 2026-07-24 | activo_medido | Correlación empírica para Same Game Parlays — SGP (v25, spec §1.1). |
 | calibrador_bandas | 431 | 3 | 2026-09-18 | activo_medido | v215 — Calibración por banda de cuota: arreglar el mapeo sin tocar el  |
 | cordura_probabilidad | 417 | 2 | 2026-09-20 | activo_medido | v165 — CONTROL DE CORDURA: NINGÚN PORCENTAJE SIN ALGO CONTRA LO QUE ME |
+| semaforo_capa1 | 353 | 2 | 2026-09-21 | activo_medido | v274 — Cuál meter, cuál no, y en qué orden. Dicho para quien apuesta. |
 | handicap | 349 | 3 | 2026-09-20 | activo_medido | v106 — HÁNDICAP ASIÁTICO: el mercado que fallaba, y por qué. |
 | edge_engine | 341 | 4 | 2026-07-23 | activo_medido | Motor de Rentabilidad (v38) — selección de apuestas VALIDADA con datos |
 | partidos_jugados | 317 | 3 | 2026-09-19 | activo_medido | v162 — LOS PARTIDOS YA JUGADOS, CON EL PRONÓSTICO QUE SE HIZO ANTES. |
@@ -92,9 +93,8 @@ Ordenado por número de módulos que dependen de él. Se listan los que tienen a
 | cuotas_manual | 227 | 3 | 2026-08-11 | activo_medido | Cuotas manuales (v63) — el usuario PEGA las cuotas de su casa y la app |
 | distributions | 227 | 4 | 2026-07-27 | activo_medido | Distribuciones probabilísticas de mercados cuantitativos (M2, v13). |
 | modelos_remotos | 200 | 3 | 2026-08-21 | activo_medido | v148 — Los pesos entrenados dejan de vivir en la historia de git. |
-| calibrador_lambda | 130 | 3 | 2026-09-20 | activo_medido | v251 — La lambda de goles no va corta: va demasiado extrema. |
 
-_Se muestran 70 de 186._
+_Se muestran 70 de 188._
 
 ## 1.2 Inventario de reglas de negocio
 
@@ -127,8 +127,9 @@ Una regla es una decisión con evidencia detrás. Esta tabla no sale del AST: se
 | módulo | líneas | último commit | tipo | qué decidir |
 |---|---|---|---|---|
 | feature_engineering | 411 | 2026-07-25 | grande_activo_sin_medicion | 9 módulos dependen de él y no lleva medición encima |
+| anclas_backfill | 257 | 2026-09-21 | escrito_sin_importadores | nadie lo importa y no es script de entrada: o se engancha, o se retira con test de regresión |
 
-_1 banderas en total._
+_2 banderas en total._
 
 ## 1.4 Cobertura por deporte
 
