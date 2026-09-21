@@ -16,3 +16,10 @@
 *.py       text eol=lf
 *.md       text eol=lf
 *.yml      text eol=lf
+
+# v264 - El modelo del selector es un .txt, asi que git lo trata como
+# texto y le cambia los saltos de linea. Es el MISMO fallo que la v68
+# documenta arriba, sin la ventaja de que git lo detecte solo: la
+# extension dice «texto» y el contenido es un booster de LightGBM.
+# `-text` desactiva toda conversion.
+selector_apuestas.txt  -text
