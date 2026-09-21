@@ -101,7 +101,29 @@ VS_EV_MIN = 0.01
 # listón.
 VS_TENIS_CIRCUITOS = {'wta'}
 VS_TENIS_PROB_MIN = 0.30
-VS_TENIS_EV_MIN = 0.01
+# v269 — LA VENTAJA MINIMA BAJA DE 1 % A 0,5 %.
+#
+# El usuario lo pidio claro: «quiero que a pesar de que sea lunes haya
+# buenos picks de Capa 1». Se probaron cuatro combinaciones de umbrales,
+# cada una medida POR SEPARADO en el 70 % antiguo (eleccion) y el 30 %
+# reciente (juicio), que es como se cazan los espejismos:
+#
+#     umbral                      eleccion p5    JUICIO p5
+#     EV>0,010 prob>=0,30 (hoy)     +1,67 %       +0,20 %
+#     EV>0,005 prob>=0,30           +1,74 %       +1,31 %   <- gana
+#     EV>0,010 prob>=0,15           +0,38 %       -3,31 %
+#     EV>0,005 prob>=0,15           +1,14 %       -0,25 %
+#
+# Bajar la VENTAJA sale bien en los dos tramos y da un 12 % mas de picks
+# (1.820 contra 1.629). Bajar la PROBABILIDAD se hunde en el juicio, asi
+# que el liston de 0,30 se queda donde esta: no es lo mismo relajar por
+# donde el dato aguanta que relajar por donde apetece.
+#
+# Y el dato que sorprende: entre semana hay MENOS picks pero MEJORES
+# (1,7 al dia con ROI +16,31 % contra 4,8 al dia con +6,29 % en fin de
+# semana). Menos casas cotizando un martes es mas sitio para que una se
+# descuelgue.
+VS_TENIS_EV_MIN = 0.005
 
 # v83 — la misma estrategia en MLB.
 #

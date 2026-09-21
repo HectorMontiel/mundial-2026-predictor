@@ -1,0 +1,86 @@
+name: Radar de errores de cuota (diario)
+
+# v271 — POR QUÉ ESTO VIVE APARTE Y NO DENTRO DE `recalibrar`.
+#
+# El radar estaba en la cadena semanal, pegado a la reconstrucción de los
+# ledgers. Medido: **el radar entrena en 6,9 segundos** y la cadena semanal
+# tarda hasta tres horas. O sea que algo que cuesta siete segundos esperaba
+# una semana porque compartía workflow con algo que cuesta tres horas.
+#
+# Y ahora es justo cuando más duele, porque el radar está en su fase de
+# crecimiento: su vocabulario de ligas pasó de 34 a 78 CON UN SOLO BARRIDO,
+# cuando empezaron a entrar las capturas propias. Cada día que pasa acumula
+# ligas que antes no conocía. Entrenar los lunes es tirar seis días de
+# información nueva.
+#
+# Lo que NO se mueve aquí y sigue siendo semanal:
+#
+#     la reconstrucción de `pick_ledger.csv` .... ~76 min
+#     el selector (1,9 millones de apuestas) .... minutos
+#
+# Ésos sí son caros, y su materia prima apenas cambia en un día: un día suma
+# unas decenas de apuestas resueltas sobre casi dos millones. Separarlos es
+# todo lo que hacía falta.
+#
+# EL COSTE: cero. El repositorio es público, así que los minutos de Actions
+# son gratis, y el trabajo real son siete segundos más la instalación.
+#
+# LA PUERTA SIGUE PUESTA: `radar_errores.entrenar` sólo publica si el AUC
+# supera 0,55 sobre el tramo de juicio. Entrenar más a menudo no relaja nada;
+# si un día el modelo saliera peor, no se publica y el barrido sigue cortando
+# como el día anterior.
+
+on:
+  schedule:
+    - cron: '40 5 * * *'      # diario, después del reentrenamiento de ligas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-diario
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      # Sólo lo que el entrenamiento toca: LightGBM para el modelo, scikit
+      # para el AUC, pandas y numpy para el universo. Nada más.
+      - name: Instalar dependencias mínimas
+        run: pip install lightgbm scikit-learn pandas numpy
+
+      - name: Entrenar el radar
+        run: |
+          python radar_errores.py \
+            || echo "::warning::el radar no se pudo entrenar"
+
+      - name: Commitear el radar
+        run: |
+          git config user.name  "radar-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Uno por línea: si alguno no existe todavía, un `git add` con
+          # varias rutas falla ENTERO y se lleva por delante a los demás.
+          git add radar_errores.txt || echo "::warning::sin modelo del radar"
+          git add radar_errores.json || echo "::warning::sin ficha del radar"
+          if git diff --cached --quiet; then
+            echo "El radar no cambió."
+          else
+            git commit -m "chore(radar): reentrenado ($(date -u +%Y-%m-%dT%H:%MZ))
+
+            Entrenado con el histórico de pick_ledger.csv y las capturas
+            propias de radar_capturas.csv. Ver radar_errores.py."
+            # Rebase: el workflow de cuotas empuja capturas cada dos horas.
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

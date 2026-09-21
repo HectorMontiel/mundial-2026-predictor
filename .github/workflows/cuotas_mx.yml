@@ -81,10 +81,13 @@ jobs:
           python-version: '3.12'
           cache: pip
 
-      # Sólo `requests`: este módulo no toca pandas ni los modelos. Instalar
-      # el requirements entero serían tres minutos por nada.
+      # v271 — ya no basta `requests`. El paso de anotar capturas necesita
+      # `cuotas_multi` (pandas) para emparejar Pinnacle con las casas, y el
+      # radar necesita LightGBM para ordenar el barrido. Sigue sin ser el
+      # requirements entero: son cuatro paquetes con caché de pip, no los
+      # tres minutos de instalarlo todo.
       - name: Instalar dependencias mínimas
-        run: pip install requests
+        run: pip install requests pandas numpy lightgbm
 
       - name: Barrer las cinco casas
         run: |
@@ -113,11 +116,34 @@ jobs:
           python cuotas_mx.py --dias "$_DIAS" --max 400 \
             || echo "::warning::barrido de casas mexicanas con avisos"
 
+      # v271 — ANOTAR LO QUE SE ACABA DE VER, QUE ES LO QUE HACE CRECER EL RADAR.
+      #
+      # El barrido empareja Pinnacle con las cinco casas y calcula dónde
+      # alguna se ha descolgado. Ese emparejamiento vivía un instante en
+      # memoria y se tiraba; ahora queda en `radar_capturas.csv`.
+      #
+      # Tiene que correr AQUÍ y no sólo en la aplicación: el disco de
+      # Streamlit Cloud se borra en cada despliegue, así que lo anotado allí
+      # se pierde. Aquí se commitea y se queda.
+      #
+      # No cuesta ninguna petición a las casas: las cuotas ya están en
+      # `cuotas_mx.json`, que el paso anterior acaba de escribir.
+      - name: Anotar las capturas del radar
+        run: |
+          python barrido_capa1.py \
+            || echo "::warning::el barrido de la capa 1 salio con avisos"
+
       - name: Commitear las cuotas
         run: |
           git config user.name  "cuotas-mx-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Uno por linea, y no `git add a b`: si `radar_capturas.csv` no
+          # existe todavia —el primer dia, o una pasada en la que el barrido
+          # no anotara nada— un `git add` con las dos rutas falla ENTERO y se
+          # lleva por delante el de las cuotas, que si estaban. Lo vigila
+          # `test_catalogo_y_cuotas`, que es quien lo cazo aqui.
           git add cuotas_mx.json || echo "::warning::git add de cuotas_mx.json fallo"
+          git add radar_capturas.csv || echo "::warning::todavia no hay capturas del radar"
           if git diff --cached --quiet; then
             echo "Las cuotas no cambiaron."
           else

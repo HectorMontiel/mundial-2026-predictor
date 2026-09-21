@@ -405,6 +405,59 @@ def cuotas_evento(evento_id: str, casa_id: int, mercado: str,
 # ---------------------------------------------------------------------------
 # el barrido de fondo
 # ---------------------------------------------------------------------------
+
+def _prioriza(dep: str, evs: List[dict], tope: int) -> List[dict]:
+    """Los `tope` partidos donde es más probable que haya error de cuota.
+
+    POR QUÉ ESTO IMPORTA MÁS DE LO QUE PARECE
+    El tope de 120 por deporte existe porque las peticiones cuestan: una pasada
+    completa son ~8.000 y hay doce al día. Hasta la v270 ese corte era por
+    ORDEN DE LLEGADA — los 120 primeros que devolviera el servicio, que es casi
+    como tirar los demás a suertes.
+
+    El radar ordena antes de cortar. Sus variables salen del precio de
+    Pinnacle, y el tablón entero de Pinnacle cuesta dos peticiones por deporte,
+    así que ordenar es prácticamente gratis: el gasto sigue siendo el mismo y
+    se va a los partidos que valen.
+
+    Medido fuera de muestra sobre 7.995 partidos: barriendo el 20 % mejor se
+    encuentran 2,07 veces más errores que barriendo al azar.
+
+    Si el radar no está, o Pinnacle no responde, se corta como siempre. Esto
+    NUNCA puede dejar sin cuotas a un barrido.
+    """
+    try:
+        if not evs or len(evs) <= tope:
+            return evs[:tope] if evs else []
+        import radar_errores as _radar
+        if not _radar.disponible():
+            return evs[:tope]
+        import cuotas_multi as _cm
+        idx = _cm._indice(dep) or {}
+        if not idx:
+            return evs[:tope]
+        partidos = []
+        for ev in evs:
+            clave = '%s|%s' % (_cm.normalizar(ev.get('home') or ''),
+                               _cm.normalizar(ev.get('away') or ''))
+            cu = ((idx.get(clave) or {}).get('cuotas') or {})
+            partidos.append({'pinnacle': {'home': cu.get('home'),
+                                          'draw': cu.get('draw'),
+                                          'away': cu.get('away')},
+                             'liga': ev.get('liga'),
+                             'inicio': ev.get('inicio'),
+                             '_ev': ev})
+        ordenados = _radar.ordenar(partidos)
+        fuera = [p['_ev'] for p in ordenados[:tope]]
+        con_precio = sum(1 for p in ordenados[:tope]
+                         if (p['pinnacle'] or {}).get('home'))
+        logger.info('[mx] %-10s radar: %d de %d, %d con ancla de Pinnacle',
+                    dep, len(fuera), len(evs), con_precio)
+        return fuera
+    except Exception as e:
+        logger.warning('[mx] el radar no pudo priorizar %s: %s', dep, e)
+        return (evs or [])[:tope]
+
 def barrer(dias: int = 3, max_por_deporte: int = 120,
            deportes: Optional[List[int]] = None) -> Dict:
     """
@@ -425,7 +478,8 @@ def barrer(dias: int = 3, max_por_deporte: int = 120,
         dep = DEPORTES.get(sid)
         if not dep:
             continue
-        evs = eventos(sid, dias=dias, sesion=ses)[:max_por_deporte]
+        evs = _prioriza(dep, eventos(sid, dias=dias, sesion=ses),
+                        max_por_deporte)
         con = 0
 
         # EN PARALELO, porque en serie no escala. Medido en serie: 1.830

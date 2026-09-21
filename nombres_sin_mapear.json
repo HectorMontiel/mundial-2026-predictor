@@ -35,6 +35,12 @@
     "contexto": "evid",
     "visto": "2026-08-25"
   },
+  "América de Cali": {
+    "candidato": "America RN U20",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6207,
+    "visto": "2026-09-20"
+  },
   "Anderson Angulo": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
@@ -75,6 +81,24 @@
     "contexto": "evid",
     "visto": "2026-08-25"
   },
+  "Atletico Balboa": {
+    "candidato": "Atletico Albericia",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7879,
+    "visto": "2026-09-20"
+  },
+  "Atlético Madrid": {
+    "candidato": "Atletico Albericia",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7273,
+    "visto": "2026-09-20"
+  },
+  "Atlético Tucumán": {
+    "candidato": "Atletico de Porcuna",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6857,
+    "visto": "2026-09-20"
+  },
   "Atlético de San Luis": {
     "contexto": "evid",
     "visto": "2026-08-25"
@@ -86,6 +110,18 @@
   "Bahamas": {
     "contexto": "selecciones",
     "visto": "2026-08-26"
+  },
+  "Barracas Central": {
+    "candidato": "Sportivo Barracas",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.4848,
+    "visto": "2026-09-21"
+  },
+  "Belgrano (Córdoba)": {
+    "candidato": "Racing Cordoba",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7333,
+    "visto": "2026-09-20"
   },
   "Bonaire": {
     "contexto": "selecciones",
@@ -127,6 +163,12 @@
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
   },
+  "Casa Pia": {
+    "candidato": "Casa de Portugal",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5833,
+    "visto": "2026-09-20"
+  },
   "Cazares": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
@@ -135,13 +177,37 @@
     "contexto": "remates_jugador/roster",
     "visto": "2026-08-25"
   },
+  "Central Español Fútbol Club": {
+    "candidato": "Central Ballester",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.625,
+    "visto": "2026-09-21"
+  },
+  "Chippa United": {
+    "candidato": "Racing United",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6923,
+    "visto": "2026-09-20"
+  },
   "Christian": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
   },
+  "Cienciano del Cusco": {
+    "candidato": "Quintanar del Rey",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5,
+    "visto": "2026-09-20"
+  },
   "Claudio Spinelli": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
+  },
+  "Club Olimpia": {
+    "candidato": "Club America W",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5833,
+    "visto": "2026-09-20"
   },
   "Cristian Blanco": {
     "contexto": "remates_jugador",
@@ -191,9 +257,27 @@
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
   },
+  "Defensor Sporting": {
+    "candidato": "Defensor Sp.",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7857,
+    "visto": "2026-09-20"
+  },
   "Delio Ramírez": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
+  },
+  "Deportivo Moquegua": {
+    "candidato": "Deportivo Moron",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7273,
+    "visto": "2026-09-20"
+  },
+  "Deportivo Recoleta": {
+    "candidato": "Deportivo Rincon",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7647,
+    "visto": "2026-09-20"
   },
   "Diego Dieppa": {
     "contexto": "lineas_jugador",
@@ -246,6 +330,18 @@
   "Estiven Sarria": {
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
+  },
+  "Estudiantes de La Plata": {
+    "candidato": "Estudiantes Merida",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6829,
+    "visto": "2026-09-21"
+  },
+  "Estudiantes de Río Cuarto": {
+    "candidato": "Rio Verde",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.2941,
+    "visto": "2026-09-20"
   },
   "Ever Meza": {
     "contexto": "lineas_jugador",
@@ -307,6 +403,12 @@
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
   },
+  "Fuerte San Francisco": {
+    "candidato": "San Antonio",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5161,
+    "visto": "2026-09-21"
+  },
   "Gabriel Barbosa": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
@@ -334,6 +436,12 @@
   "Ghampani Lungu": {
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
+  },
+  "Gimnasia y Esgrima (Jujuy)": {
+    "candidato": "Gimnasia Jujuy",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7368,
+    "visto": "2026-09-20"
   },
   "Goitseone Phoko": {
     "contexto": "remates_jugador",
@@ -419,9 +527,45 @@
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
+  "Independiente Medellín": {
+    "candidato": "Independiente CBBA",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7,
+    "visto": "2026-09-20"
+  },
+  "Independiente Rivadavia": {
+    "candidato": "Independiente CBBA",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7317,
+    "visto": "2026-09-20"
+  },
+  "Independiente Santa Fe": {
+    "candidato": "Independiente CBBA",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.75,
+    "visto": "2026-09-20"
+  },
+  "Independiente del Valle": {
+    "candidato": "Independiente CBBA",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7317,
+    "visto": "2026-09-20"
+  },
   "Inter D'Escaldes": {
     "contexto": "fixture→conference_league",
     "visto": "2026-08-25"
+  },
+  "Inter Miami CF": {
+    "candidato": "Inter de Limeira",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6667,
+    "visto": "2026-09-20"
+  },
+  "Inter de San Carlos": {
+    "candidato": "Villa San Carlos",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6857,
+    "visto": "2026-09-20"
   },
   "Isaac Camargo": {
     "contexto": "remates_jugador",
@@ -430,6 +574,12 @@
   "Jagiellonia Bialystok": {
     "contexto": "fixture→europa_league",
     "visto": "2026-08-25"
+  },
+  "Jaguares de Córdoba": {
+    "candidato": "Central Cordoba",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5294,
+    "visto": "2026-09-21"
   },
   "Jaime Peralta": {
     "contexto": "lineas_jugador",
@@ -683,6 +833,12 @@
     "contexto": "fixture→champions",
     "visto": "2026-08-25"
   },
+  "Las Palmas": {
+    "candidato": "Huracan Las Heras",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.4444,
+    "visto": "2026-09-20"
+  },
   "Lautaro López": {
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
@@ -710,6 +866,12 @@
   "León": {
     "contexto": "evid",
     "visto": "2026-08-25"
+  },
+  "Liga de Quito": {
+    "candidato": "LDU Quito",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7273,
+    "visto": "2026-09-20"
   },
   "Lucas Romero": {
     "contexto": "lineas_jugador",
@@ -775,6 +937,12 @@
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
+  "Manchester United": {
+    "candidato": "Atlanta United 2",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6061,
+    "visto": "2026-09-20"
+  },
   "Marlon Carabalí": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
@@ -831,6 +999,18 @@
     "contexto": "evid",
     "visto": "2026-08-25"
   },
+  "Montevideo City Torque": {
+    "candidato": "Racing Montevideo",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5128,
+    "visto": "2026-09-21"
+  },
+  "Montevideo Wanderers": {
+    "candidato": "HFX Wanderers",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6061,
+    "visto": "2026-09-20"
+  },
   "Montserrat": {
     "contexto": "selecciones",
     "visto": "2026-08-26"
@@ -883,6 +1063,12 @@
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
+  "Nueva Chicago": {
+    "candidato": "Chicago Fire II",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5,
+    "visto": "2026-09-20"
+  },
   "Nyiko Mobbie": {
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
@@ -930,6 +1116,54 @@
   "Querétaro": {
     "contexto": "evid",
     "visto": "2026-08-25"
+  },
+  "RC Celta Fortuna": {
+    "candidato": "Celta Vigo B",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5,
+    "visto": "2026-09-20"
+  },
+  "Racing (Montevideo)": {
+    "candidato": "Racing United",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7333,
+    "visto": "2026-09-20"
+  },
+  "Real Betis": {
+    "candidato": "Real Bedford W",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6364,
+    "visto": "2026-09-20"
+  },
+  "Real Madrid": {
+    "candidato": "Real Bedford W",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6957,
+    "visto": "2026-09-20"
+  },
+  "Real Oviedo": {
+    "candidato": "Real Bedford W",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6957,
+    "visto": "2026-09-20"
+  },
+  "Real Salt Lake": {
+    "candidato": "Real Monarchs",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.4444,
+    "visto": "2026-09-21"
+  },
+  "Real Sociedad": {
+    "candidato": "Real Bedford W",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.64,
+    "visto": "2026-09-20"
+  },
+  "Real Valladolid": {
+    "candidato": "Real Madrid B W",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6429,
+    "visto": "2026-09-20"
   },
   "Renan Lodi": {
     "contexto": "remates_jugador",
@@ -983,6 +1217,18 @@
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
+  "San Antonio FC": {
+    "candidato": "San Martin Formosa",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5517,
+    "visto": "2026-09-20"
+  },
+  "San Diego FC": {
+    "candidato": "San Lorenzo",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6,
+    "visto": "2026-09-20"
+  },
   "Sander Navarro": {
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
@@ -1030,6 +1276,12 @@
   "Slovan Bratislava": {
     "contexto": "remates_jugador/roster",
     "visto": "2026-08-25"
+  },
+  "Sportivo Luqueño": {
+    "candidato": "Sp. Luqueno",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.7692,
+    "visto": "2026-09-20"
   },
   "St. Martin": {
     "contexto": "selecciones",
@@ -1095,6 +1347,24 @@
     "contexto": "remates_jugador",
     "visto": "2026-08-25"
   },
+  "Técnico Universitario": {
+    "candidato": "Tecnico U.",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6,
+    "visto": "2026-09-20"
+  },
+  "Union St.-Gilloise": {
+    "candidato": "Royale Union SG",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.5,
+    "visto": "2026-09-20"
+  },
+  "Universidad Católica (Quito)": {
+    "candidato": "Universidad O&M",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6341,
+    "visto": "2026-09-20"
+  },
   "Vicente Bernedo": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
@@ -1143,9 +1413,15 @@
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
   },
+  "Wolverhampton Wanderers": {
+    "candidato": "HFX Wanderers",
+    "contexto": "cuotas_mx→futbol",
+    "ratio": 0.6111,
+    "visto": "2026-09-20"
+  },
   "Wroclaw Panthers": {
     "contexto": "nfl",
-    "visto": "2026-09-20"
+    "visto": "2026-09-21"
   },
   "Yael López": {
     "contexto": "lineas_jugador",
@@ -1186,281 +1462,5 @@
   "Éverson": {
     "contexto": "lineas_jugador",
     "visto": "2026-08-25"
-  },
-  "Belgrano (Córdoba)": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Cordoba",
-    "ratio": 0.7333,
-    "visto": "2026-09-20"
-  },
-  "Estudiantes de Río Cuarto": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Rio Verde",
-    "ratio": 0.2941,
-    "visto": "2026-09-20"
-  },
-  "Inter Miami CF": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter de Limeira",
-    "ratio": 0.6667,
-    "visto": "2026-09-20"
-  },
-  "San Diego FC": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo",
-    "ratio": 0.6,
-    "visto": "2026-09-20"
-  },
-  "Barracas Central": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Sportivo Barracas",
-    "ratio": 0.4848,
-    "visto": "2026-09-21"
-  },
-  "Independiente Rivadavia": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente CBBA",
-    "ratio": 0.7317,
-    "visto": "2026-09-20"
-  },
-  "Real Madrid": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.6957,
-    "visto": "2026-09-20"
-  },
-  "Real Betis": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.6364,
-    "visto": "2026-09-20"
-  },
-  "Real Sociedad": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.64,
-    "visto": "2026-09-20"
-  },
-  "Casa Pia": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Casa de Portugal",
-    "ratio": 0.5833,
-    "visto": "2026-09-20"
-  },
-  "Wolverhampton Wanderers": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "HFX Wanderers",
-    "ratio": 0.6111,
-    "visto": "2026-09-20"
-  },
-  "Real Valladolid": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B W",
-    "ratio": 0.6429,
-    "visto": "2026-09-20"
-  },
-  "Las Palmas": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Huracan Las Heras",
-    "ratio": 0.4444,
-    "visto": "2026-09-20"
-  },
-  "Real Oviedo": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.6957,
-    "visto": "2026-09-20"
-  },
-  "Union St.-Gilloise": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Royale Union SG",
-    "ratio": 0.5,
-    "visto": "2026-09-20"
-  },
-  "América de Cali": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "America RN U20",
-    "ratio": 0.6207,
-    "visto": "2026-09-20"
-  },
-  "Gimnasia y Esgrima (Jujuy)": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia Jujuy",
-    "ratio": 0.7368,
-    "visto": "2026-09-20"
-  },
-  "Independiente Medellín": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente CBBA",
-    "ratio": 0.7,
-    "visto": "2026-09-20"
-  },
-  "Jaguares de Córdoba": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Cordoba",
-    "ratio": 0.5294,
-    "visto": "2026-09-21"
-  },
-  "San Antonio FC": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin Formosa",
-    "ratio": 0.5517,
-    "visto": "2026-09-20"
-  },
-  "Deportivo Moquegua": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Moron",
-    "ratio": 0.7273,
-    "visto": "2026-09-20"
-  },
-  "Técnico Universitario": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Tecnico U.",
-    "ratio": 0.6,
-    "visto": "2026-09-20"
-  },
-  "Independiente del Valle": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente CBBA",
-    "ratio": 0.7317,
-    "visto": "2026-09-20"
-  },
-  "Montevideo Wanderers": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "HFX Wanderers",
-    "ratio": 0.6061,
-    "visto": "2026-09-20"
-  },
-  "Defensor Sporting": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Defensor Sp.",
-    "ratio": 0.7857,
-    "visto": "2026-09-20"
-  },
-  "Deportivo Recoleta": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Rincon",
-    "ratio": 0.7647,
-    "visto": "2026-09-20"
-  },
-  "Racing (Montevideo)": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing United",
-    "ratio": 0.7333,
-    "visto": "2026-09-20"
-  },
-  "Club Olimpia": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Club America W",
-    "ratio": 0.5833,
-    "visto": "2026-09-20"
-  },
-  "Central Español Fútbol Club": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Ballester",
-    "ratio": 0.625,
-    "visto": "2026-09-21"
-  },
-  "Montevideo City Torque": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Montevideo",
-    "ratio": 0.5128,
-    "visto": "2026-09-21"
-  },
-  "Inter de San Carlos": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Villa San Carlos",
-    "ratio": 0.6857,
-    "visto": "2026-09-20"
-  },
-  "Chippa United": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing United",
-    "ratio": 0.6923,
-    "visto": "2026-09-20"
-  },
-  "Atlético Tucumán": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico de Porcuna",
-    "ratio": 0.6857,
-    "visto": "2026-09-20"
-  },
-  "Manchester United": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Atlanta United 2",
-    "ratio": 0.6061,
-    "visto": "2026-09-20"
-  },
-  "Atlético Madrid": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Albericia",
-    "ratio": 0.7273,
-    "visto": "2026-09-20"
-  },
-  "RC Celta Fortuna": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Celta Vigo B",
-    "ratio": 0.5,
-    "visto": "2026-09-20"
-  },
-  "Nueva Chicago": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Chicago Fire II",
-    "ratio": 0.5,
-    "visto": "2026-09-20"
-  },
-  "Atletico Balboa": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Albericia",
-    "ratio": 0.7879,
-    "visto": "2026-09-20"
-  },
-  "Sportivo Luqueño": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Sp. Luqueno",
-    "ratio": 0.7692,
-    "visto": "2026-09-20"
-  },
-  "Independiente Santa Fe": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente CBBA",
-    "ratio": 0.75,
-    "visto": "2026-09-20"
-  },
-  "Cienciano del Cusco": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Quintanar del Rey",
-    "ratio": 0.5,
-    "visto": "2026-09-20"
-  },
-  "Estudiantes de La Plata": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes Merida",
-    "ratio": 0.6829,
-    "visto": "2026-09-21"
-  },
-  "Liga de Quito": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "LDU Quito",
-    "ratio": 0.7273,
-    "visto": "2026-09-20"
-  },
-  "Universidad Católica (Quito)": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Universidad O&M",
-    "ratio": 0.6341,
-    "visto": "2026-09-20"
-  },
-  "Real Salt Lake": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Monarchs",
-    "ratio": 0.4444,
-    "visto": "2026-09-21"
-  },
-  "Fuerte San Francisco": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "San Antonio",
-    "ratio": 0.5161,
-    "visto": "2026-09-21"
   }
 }

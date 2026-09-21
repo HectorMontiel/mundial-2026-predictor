@@ -30,6 +30,36 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='repla
 fallos = []
 
 
+def _sin_precalculo():
+    """Aparta el precálculo del camino mientras se prueba el cerrojo.
+
+    POR QUÉ HACE FALTA, Y POR QUÉ NO ES HACER TRAMPA
+    Este fichero prueba UNA cosa: que N sesiones simultáneas no lancen N
+    barridos. Cuando se escribió (v86) el guardia sólo tenía el cerrojo.
+
+    La v220 le puso delante el día cocinado: si hay un `pronostico_dia.json`
+    fresco, el guardia lo sirve y NO llama a `calcular` — que es justo lo que
+    debe hacer en producción, porque un barrido pica a 1,3 GB y el servidor
+    tiene 1 GB. Con eso, el test quedó a merced de si el fichero del día
+    estaba fresco o no: con precálculo fresco contaba cero barridos y fallaba;
+    sin él, pasaba. Nada que ver con la concurrencia.
+
+    Así que aquí se aparta el precálculo a propósito, y lo que queda medido es
+    el cerrojo, que es lo que este fichero dice que mide. El camino del
+    precálculo tiene sus propias pruebas.
+    """
+    import precalculo_dia as pre
+    previo = (pre.FICHERO, pre.SOLO_PRECALCULO, pre.mas_nuevo_publicado)
+    pre.FICHERO = '_no_existe_a_proposito.json'
+    pre.SOLO_PRECALCULO = False
+    pre.mas_nuevo_publicado = lambda *a, **k: None
+    return pre, previo
+
+
+def _devolver_precalculo(pre, previo):
+    pre.FICHERO, pre.SOLO_PRECALCULO, pre.mas_nuevo_publicado = previo
+
+
 def ok(cond, msg, detalle=''):
     if cond:
         print(f'OK    {msg}')
@@ -51,7 +81,9 @@ def prueba_dos_sesiones():
     print('\n=== N sesiones simultáneas pidiendo el barrido ===')
     import guardia_barrido
 
-    guardia_barrido.reiniciar()
+    # el disco tambien: un .cache_barrido.pkl de una pasada anterior
+    # haria que la primera llamada se sirviera de el sin barrer
+    guardia_barrido.reiniciar(borrar_disco=True)
 
     solapes = []
     dentro = [0]
@@ -108,7 +140,14 @@ def prueba_dos_sesiones():
        'forzar=True sí recalcula (botón Actualizar ahora)')
 
     # ...pero N usuarios pulsando "Actualizar" a la vez siguen dando UN barrido
-    guardia_barrido.reiniciar()
+    #
+    # v271 — `borrar_disco=True`, y no es un detalle. `reiniciar()` a secas
+    # vacía la memoria pero deja el `.cache_barrido.pkl` que los barridos de
+    # arriba acaban de escribir, así que la llamada siguiente se servía DEL
+    # DISCO sin llamar a `calcular` y el contador se quedaba en cero. Lo que
+    # se quiere medir aquí es qué pasa al forzar, y para eso hay que empezar
+    # sin nada en ningún sitio.
+    guardia_barrido.reiniciar(borrar_disco=True)
     guardia_barrido.barrido(barrido_falso)          # deja algo fresco
     solapes.clear()
 
@@ -128,13 +167,26 @@ def prueba_dos_sesiones():
        f'{N} usuarios pulsando Actualizar a la vez = 1 barrido nuevo '
        f'(total {est2["barridos"]})')
 
-    guardia_barrido.reiniciar()
+    guardia_barrido.reiniciar(borrar_disco=True)
 
     fuente = open('dashboard_ui.py', encoding='utf-8').read()
     ok('guardia_barrido.barrido' in fuente,
        'el dashboard pasa por el guardia')
-    ok('_forzar_barrido' in fuente,
-       'el botón Actualizar usa el forzado por sesión, no un clear() global')
+    # v271 — ESTA COMPROBACIÓN SE ACTUALIZA PORQUE EL BOTÓN YA NO EXISTE.
+    #
+    # Hasta aquí se exigía `_forzar_barrido` en el código, que era el forzado
+    # por sesión del botón «Actualizar ahora». Ese botón se retiró en la v236
+    # —está anotado en `dashboard_ui.py`— y con él la variable, así que la
+    # comprobación llevaba desde entonces fallando por buscar algo que ya no
+    # tenía que estar.
+    #
+    # Lo que SÍ hay que seguir garantizando es lo de fondo: que ninguna
+    # pantalla pueda disparar un barrido de 1,3 GB en un servidor de 1 GB. O
+    # sea que nadie llame al barrido con `forzar=True`.
+    import re
+    ok(not re.search(r'barrido_universal\(\s*(forzar\s*=\s*True|True)',
+                     fuente),
+       'ninguna pantalla fuerza un barrido nuevo (el botón se retiró en v236)')
 
 
 # --------------------------------------------------------------------------
@@ -332,7 +384,12 @@ def main():
     prueba_techo_ligas()
     prueba_escritura_atomica()
     prueba_reparacion_entre_hilos()
-    prueba_dos_sesiones()
+    # el cerrojo se prueba con el precálculo apartado: ver `_sin_precalculo`
+    _pre, _previo = _sin_precalculo()
+    try:
+        prueba_dos_sesiones()
+    finally:
+        _devolver_precalculo(_pre, _previo)
 
     print('\n' + '=' * 40)
     if fallos:

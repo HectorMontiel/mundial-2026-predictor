@@ -259,11 +259,35 @@ def descargar(url: Optional[str] = None,
         # Se guarda para que la siguiente pasada lo tenga sin volver a la red.
         # Falla en blando: no poder escribir —disco de sólo lectura— no puede
         # impedir que este usuario vea los datos que acaba de pedir.
+        #
+        # v271 — SE ESCRIBE APARTE Y SE MUEVE ENCIMA, NUNCA DIRECTAMENTE.
+        #
+        # Escribir sobre el fichero vivo lo deja a medias mientras se escribe,
+        # y en ese hueco otra sesion lo lee roto. No es teorico: con cinco
+        # sesiones simultaneas `test_concurrencia` lo reproduce siempre, y el
+        # error sale en un sitio distinto cada vez —«Expecting value», «line 1
+        # column 154829»— que es la firma de un fichero partido, no de un JSON
+        # mal generado.
+        #
+        # En produccion son varios usuarios a la vez sobre el mismo disco, o
+        # sea el mismo caso. `os.replace` es atomico en Windows y en POSIX: o
+        # esta el de antes o esta el nuevo, nunca medio.
+        #
+        # El temporal lleva el pid para que dos procesos que bajan a la vez no
+        # se pisen tampoco el temporal.
         try:
-            with open(_ruta(guardar_en), 'w', encoding='utf-8') as f:
+            destino = _ruta(guardar_en)
+            tmp = '%s.%d.nuevo' % (destino, os.getpid())
+            with open(tmp, 'w', encoding='utf-8') as f:
                 json.dump(doc, f, ensure_ascii=False)
+            os.replace(tmp, destino)
         except Exception as e:
             logger.info('[precalculo] bajado pero no guardado: %s', e)
+            try:
+                if os.path.exists(tmp):
+                    os.remove(tmp)
+            except Exception:
+                pass
     logger.info('[precalculo] bajado el publicado (%s)', doc.get('generado'))
     return {'datos': doc['datos'], 'ts': ts,
             'edad_s': max(0.0, time.time() - ts),

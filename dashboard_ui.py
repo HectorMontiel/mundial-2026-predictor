@@ -6205,6 +6205,80 @@ def render_alpha_finder():
             return '🟡 Sólo pata'
         return '· informativo'
 
+    # v268 — LA CAPA 1, ARRIBA DEL TODO Y CON SU NOMBRE.
+    #
+    # EL FALLO QUE ARREGLA. La v266 separó las capas... en
+    # `render_ev_automatico`, que es el panel por deporte. Esta pantalla
+    # —«Apuestas del Día», la que se mira de verdad— sólo usaba `capa1` para
+    # contar un KPI: NUNCA listaba sus picks. El usuario lo dijo tal cual: «en
+    # la interfaz yo no veo nada de capa uno capa dos, no hay ninguna
+    # distinción». Tenía razón, y arreglarlo en la pantalla equivocada es no
+    # arreglarlo.
+    #
+    # POR QUÉ VA ARRIBA Y NO EN UNA PESTAÑA. Simulado sobre el histórico real,
+    # con el banco resuelto por día:
+    #
+    #     CAPA 1 (n=1.629)   plano 1 %  2,26x · caída  9,6 % · sin ruina
+    #                        Kelly 1/4  4,68x · caída 23,0 % · sin ruina
+    #     CAPA 2 (n=80.893)  cualquier estrategia -> banco CERO
+    #     LAS DOS JUNTAS     cualquier estrategia -> banco CERO
+    #
+    # No son «dos listas de picks». Una gana y la otra arruina, y mezclarlas
+    # arruina. Enseñarlas con el mismo aspecto, o esconder la buena detrás de
+    # una pestaña, es lo que llevó al usuario a armar sus boletos con la
+    # perdedora.
+    _c1 = _filtra(r.get('capa1'))
+    _c1_val = [p for p in _c1 if p.get('validado') is not False]
+    _c1_nov = [p for p in _c1 if p.get('validado') is False]
+    if _c1_val:
+        st.markdown('### 🟢 Capa 1 — lo único con ventaja medida (%d)'
+                    % len(_c1_val))
+        st.caption(
+            'La casa paga **por encima del precio justo de Pinnacle**. No usa '
+            'el modelo para nada: es una discrepancia entre casas, que es un '
+            'hecho observable. Simulado sobre 1.629 apuestas de este canal '
+            '(2021-2026): a **1 % fijo** el banco se multiplica por **2,26**; '
+            'con **Kelly 1/4**, por **4,68**. Ninguna arruina.')
+        for _p in _c1_val:
+            _k = None
+            try:
+                import barrido_capa1 as _bc
+                _k = _bc.kelly(_p.get('prob'), _p.get('cuota'))
+            except Exception as _e_k:
+                logger.debug('[capa1] kelly: %s', _e_k)
+            _linea = ('**%s** · %s — @%s · ventaja **+%.1f %%**'
+                      % (_p.get('apuesta', '?'), _p.get('partido', '?'),
+                         _p.get('cuota'), 100 * (_p.get('ev') or 0)))
+            if _p.get('casa'):
+                _linea += ' · en **%s**' % _p['casa']
+            st.markdown(_linea)
+            if _k:
+                st.caption('💰 Kelly 1/4: **%.2f %% del banco** — con $10.000 '
+                           'serían $%s.'
+                           % (100 * _k, format(int(10000 * _k), ',d')))
+        st.divider()
+    else:
+        st.markdown('### 🟢 Capa 1 — lo único con ventaja medida')
+        st.info(
+            'Hoy no hay ninguna. **Cero no es un fallo**: significa que las '
+            'casas y Pinnacle coinciden, y ahí no hay nada que ganar. El '
+            'histórico dice que salen **3,7 al día en sábado** y **0,2 el '
+            'jueves**, así que los días flojos son normales. Lo de abajo es '
+            'Capa 2 y está medido como perdedor.')
+    if _c1_nov:
+        with st.expander('🔬 Sin validar todavía (%d) — se están midiendo'
+                         % len(_c1_nov), expanded=False):
+            st.caption(
+                'Mismo método, pero en deportes donde ese canal **aún no '
+                'tiene medición propia**. Están para acumular histórico, no '
+                'como apuesta. Una ventaja enorme aquí suele ser un precio '
+                'mal leído.')
+            for _p in _c1_nov:
+                st.markdown('· %s · %s — @%s · +%.1f %%'
+                            % (_p.get('apuesta', '?'), _p.get('partido', '?'),
+                               _p.get('cuota'),
+                               100 * (_p.get('ev') or 0)))
+
     _s1_f = _filtra(r.get('seccion1'))
     _s2_f = _filtra(r.get('seccion2'))
     if _deps_sel:

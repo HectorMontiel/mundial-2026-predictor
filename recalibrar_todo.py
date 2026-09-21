@@ -463,6 +463,35 @@ def _selector():
                m.get('p5', 0), extra))
 
 
+def _radar():
+    """Reentrena el radar de errores de cuota (v270-v271).
+
+    Aprende en QUÉ partidos es probable que una casa se haya descolgado, y con
+    eso el barrido decide a cuáles gastarles las peticiones. Come de dos
+    sitios: el histórico de `pick_ledger.csv` —26.647 partidos desde 2021— y
+    las capturas que cada barrido va dejando en `radar_capturas.csv`, que son
+    las casas que el usuario juega de verdad y crecen solas.
+
+    Tiene su propia puerta: si no ordena mejor que el azar (AUC < 0,55) no se
+    publica y el barrido sigue cortando como antes.
+    """
+    import radar_capturas as cap
+    import radar_errores as radar
+    doc = radar.entrenar()
+    if not doc:
+        return 'sin universo suficiente'
+    m = doc.get('medicion') or {}
+    if not doc.get('activo'):
+        return 'NO se publica: AUC %.4f por debajo del mínimo' % m.get('auc', 0)
+    g = (m.get('ganancia') or {}).get('top_20') or {}
+    c = cap.resumen()
+    return ('%s partidos · AUC %.4f · barriendo el 20 %% mejor, %sx errores '
+            '· capturas propias: %s filas en %s días'
+            % (format(doc.get('n_total', 0), ',d'), m.get('auc', 0),
+               g.get('veces', '?'), format(c.get('filas', 0), ',d'),
+               c.get('dias', 0)))
+
+
 def _memoria_equipos():
     """Reajusta en que se viene equivocando el modelo con cada equipo (v265).
 
@@ -519,6 +548,11 @@ PASOS = [
     ('12. ledger del hándicap asiático', _ledger_handicap),
     ('13. memoria de errores por equipo', _memoria_equipos),
     ('14. selector de apuestas (aprende cuál tomar)', _selector),
+    # El radar va DESPUÉS del selector porque no depende de él: son dos
+    # preguntas distintas. El selector decide si una apuesta concreta se
+    # toma; el radar decide dónde ir a buscarlas. Si uno falla, el otro
+    # sigue.
+    ('15. radar de errores de cuota (dónde mirar)', _radar),
 ]
 
 

@@ -1,0 +1,206 @@
+fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,margen_pin,hay_error,ev_max,casa
+2026-09-20,futbol,NICARAGUA: Liga Primera - Apertura,Sport Sebaco,Matagalpa,1789938000,2.09,3.31,3.22,0.438503,0.284618,0.091143,0,0.0,
+2026-09-20,futbol,ARGENTINA: Liga Profesional - Clausura,Aldosivi,Atl. Tucuman,1790011800,3.27,2.96,2.56,0.295677,0.377681,0.034273,0,0.0,
+2026-09-20,futbol,ARGENTINA: Primera Nacional,Tristan Suarez,Atletico Atlanta,1790013600,1.9434,3.12,4.51,0.486904,0.209811,0.056804,0,0.0,
+2026-09-20,futbol,BULGARIA: Vtora liga,Svoge,Vihren,1789999200,4.34,3.12,1.7194,0.203452,0.513541,0.132526,0,0.0,
+2026-09-20,futbol,BULGARIA: Vtora liga,Dobrudzha,CSKA Sofia II,1790006400,2.77,3.64,2.02,0.319257,0.437793,0.130786,1,0.0906,Novibet
+2026-09-20,futbol,BULGARIA: Vtora liga,Spartak Pleven,Ludogorets II,1790006400,2.39,2.95,2.72,0.371907,0.326786,0.12504,0,0.0,
+2026-09-20,futbol,BULGARIA: Vtora liga,Montana,Hebar,1790008200,2.13,3.13,2.98,0.417488,0.298406,0.124543,0,0.0,
+2026-09-20,futbol,COLOMBIA: Primera B - Clausura,Bogota,Barranquilla,1790022600,1.885,3.38,3.96,0.491714,0.234061,0.078887,0,0.0,
+2026-09-20,futbol,DENMARK: 1st Division,Koge,Hobro,1790010000,2.48,3.52,2.77,0.384637,0.344368,0.048328,0,0.0,
+2026-09-20,futbol,ECUADOR: Liga Pro - Relegation Group,Manta,Orense,1790017200,2.53,3.13,2.94,0.374693,0.32244,0.054882,0,0.0,
+2026-09-20,futbol,ENGLAND: Southern League Premier Central,Redditch,Racing Club Warwick,1790016300,1.8696,3.37,3.65,0.483794,0.247808,0.105582,0,0.0,
+2026-09-20,futbol,ENGLAND: Premier League 2,Bournemouth U21,Stoke City U21,1790013600,1.6135,5.09,3.63,0.567703,0.252339,0.091716,0,0.0,
+2026-09-20,futbol,GERMANY: Regionalliga West,Paderborn II,Dortmund II,1790006400,2.79,3.45,2.26,0.328601,0.405662,0.090756,0,0.0,
+2026-09-20,futbol,GREECE: Super League 2,Pyrgos,AEL Larissa,1789995600,3.89,3.04,1.9259,0.232588,0.46979,0.105255,0,0.0,
+2026-09-20,futbol,GUATEMALA: Liga Nacional - Apertura,Suchitepequez,Xelaju,1789945200,2.82,3.1,2.41,0.324696,0.379935,0.092128,0,0.0,
+2026-09-20,futbol,ITALY: Serie C - Group A,Dolomiti Bellunesi,Lumezzane,1790015400,2.16,3.01,3.55,0.429912,0.26158,0.076879,0,0.0,
+2026-09-20,futbol,ITALY: Serie C - Group A,Trento,Pro Vercelli,1790015400,1.7576,3.44,4.59,0.528025,0.202191,0.07752,0,0.0,
+2026-09-20,futbol,ITALY: Serie C - Group A,Treviso,Desenzano,1790015400,2.1,2.92,3.86,0.441848,0.240384,0.077724,0,0.0,
+2026-09-20,futbol,ITALY: Serie C - Group B,Guidonia,Livorno,1790015400,2.36,2.94,3.17,0.392588,0.292274,0.079322,0,0.0,
+2026-09-20,futbol,ITALY: Serie C - Group B,Pianese,Sambenedettese,1790015400,2.38,2.79,3.34,0.389769,0.27774,0.077992,1,0.0298,Playdoit
+2026-09-20,futbol,ITALY: Serie C - Group B,Spezia,Vis Pesaro,1790015400,1.2268,5.87,10.46,0.753989,0.088431,0.081089,0,0.0,
+2026-09-20,futbol,NICARAGUA: Liga Primera - Apertura,Rancho Santana,Managua FC,1789945200,6.44,4.65,1.3861,0.142226,0.660799,0.091782,0,0.0,
+2026-09-20,futbol,PORTUGAL: Liga Next Gen U23,Vizela U23,SC Farense U23,1789984800,2.49,3.28,2.59,0.367575,0.353383,0.092585,0,0.0,
+2026-09-20,futbol,PORTUGAL: Liga Next Gen U23,Leiria U23,Gil Vicente U23,1790002800,2.49,3.48,2.48,0.367708,0.369191,0.092189,0,0.0,
+2026-09-20,futbol,ROMANIA: Superliga,Otelul,Corvinul,1790002800,2.61,2.93,3.1,0.365936,0.308094,0.047019,1,0.0257,Novibet
+2026-09-20,futbol,ROMANIA: Superliga,Petrolul,Csikszereda M. Ciuc,1790013600,1.6944,3.85,4.82,0.558148,0.196209,0.057389,1,0.052,Novibet
+2026-09-20,futbol,SLOVAKIA: 2. liga,Petrzalka,Pohronie,1790002800,1.5102,4.2,5.2,0.606063,0.176015,0.092567,0,0.0,
+2026-09-20,futbol,UZBEKISTAN: Super League,Xorazm Urganch,Qizilqum,1790003700,2.06,3.12,3.66,0.449823,0.253179,0.079174,0,0.0,
+2026-09-20,futbol,UZBEKISTAN: Pro Liga,Lochin,Respublika FA,1789988400,1.5882,3.69,4.42,0.558744,0.200769,0.126891,0,0.0,
+2026-09-20,futbol,WORLD: Friendly International,Fiji,Vanuatu,1789974000,1.8621,3.8,3.78,0.504377,0.248466,0.064736,0,0.0,
+2026-09-20,tenis,"WTA - SINGLES: Sao Paulo (Brazil), hard",Quevedo K.,Podoroska N.,1789929000,1.7874,,2.15,0.546046,0.453954,0.024588,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Buenos Aires 3 (Argentina) - Qualification, clay",Aguilar Cardozo J.,Del Pino M.,1789931700,1.0083,,23.79,0.95934,0.04066,0.033803,1,0.0379,Novibet
+2026-09-20,tenis,"WTA - SINGLES: Seoul (South Korea), hard",Astakhova D.,Linette M.,1789972200,2.78,,1.4926,0.349342,0.650658,0.029684,0,0.0,
+2026-09-20,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Gibson T.,Ferro F.,1789970400,1.6536,,2.36,0.588001,0.411999,0.02847,1,0.0355,Novibet
+2026-09-20,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Sramkova R.,Chwalinska M.,1789970400,2.74,,1.5051,0.35455,0.64545,0.029371,0,0.0,
+2026-09-20,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Okamura K.,Fernandez L.,1789986600,17.19,,1.0281,0.056433,0.943567,0.030841,1,0.0253,Novibet
+2026-09-20,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Hunter S.,Garland J.,1789992000,2.04,,1.8403,0.474267,0.525733,0.033586,0,0.0,
+2026-09-20,tenis,"WTA - DOUBLES: Seoul (South Korea), hard",Bondar A./Stollar F.,Joint M./Ruse G.,1789970400,2.55,,1.5263,0.374433,0.625567,0.047336,0,0.0,
+2026-09-20,tenis,"WTA - DOUBLES: Seoul (South Korea), hard",Lee E./Park S.,Lee Y./Ye Q.,1789977600,3.64,,1.2933,0.262157,0.737843,0.047941,0,0.0,
+2026-09-20,tenis,"WTA - DOUBLES: Singapore (Singapore), hard (indoor)",Kato M./Perez E.,Sakkari M./Vekic D.,1789975800,1.4274,,2.88,0.668617,0.331383,0.047797,1,0.021,Novibet
+2026-09-20,tenis,"WTA - DOUBLES: Singapore (Singapore), hard (indoor)",Ferro F./Fruhvirtova L.,Tang Q./Xu Y.,1789981200,2.89,,1.4255,0.330321,0.669679,0.047529,1,0.0494,Novibet
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Buenos Aires 3 (Argentina), clay",Villanueva G.,Justo G. I.,1789995600,1.9709,,1.8475,0.483841,0.516159,0.048654,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy), clay",Blanch D.,Kopp S.,1789995600,2.23,,1.6711,0.428366,0.571634,0.046839,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Barranco Cosano J.,Sperle J.,1789984800,1.5952,,2.33,0.5936,0.4064,0.056065,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Nijboer R.,Juan Mano A.,1789984800,1.3906,,2.96,0.680366,0.319634,0.056952,1,0.1279,Novibet
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Sakellaridis D.,Berto L.,1789984800,1.4237,,2.82,0.664514,0.335486,0.057005,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Basile P.,Oradini G.,1789990200,1.5025,,2.56,0.630154,0.369846,0.056182,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Rottoli L.,D'Agostino S.,1789990200,1.7042,,2.13,0.555527,0.444473,0.056269,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Zeitune M.,Iannaccone F.,1789990200,2.26,,1.6289,0.418859,0.581141,0.056389,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria), clay",Hassan B.,Martin Tiffon P.,1789997400,2.4,,1.5882,0.398225,0.601775,0.04631,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Almazan Valiente I.,Lazarov G.,1789977600,1.6211,,2.28,0.584451,0.415549,0.055462,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Lagutin P.,Gulin S.,1789977600,1.5618,,2.4,0.605785,0.394215,0.056954,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Misolic F.,Gima S.,1789977600,1.1427,,5.42,0.82588,0.17412,0.059622,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Obradovic D.,Andreev A.,1789983000,2.56,,1.5025,0.369846,0.630154,0.056182,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Tsitsipas Pa.,Mashtakov N.,1789983000,4.93,,1.1718,0.192042,0.807958,0.056228,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Wiedenmann L.,Milev Y.,1789983000,2.39,,1.565,0.395702,0.604298,0.057388,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Guerrieri A.,Maestrelli F.,1789995600,1.7042,,2.22,0.56572,0.43428,0.037236,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Goffin D.,Lajal M.,1790006400,3.91,,1.2778,0.246309,0.753691,0.03835,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Domenc M.,Jade D.,1789977600,3.07,,1.3922,0.311999,0.688001,0.044021,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Janvier M.,Masur D.,1789977600,2.45,,1.5747,0.391259,0.608741,0.043205,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Martineau M.,Boulais J.,1789977600,1.565,,2.47,0.612144,0.387856,0.043836,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Cassone M.,Zahraj P.,1789983000,1.2874,,3.69,0.741351,0.258649,0.047762,0,0.0,
+2026-09-20,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Echargui M.,Poling K.,1789983000,1.339,,3.32,0.712599,0.287401,0.048031,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Hruncakova V.,Iatcenko P.,1789983000,2.35,,1.6061,0.405981,0.594019,0.048158,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Naito Y.,Avdeeva J.,1789983000,2.58,,1.5128,0.369625,0.630375,0.048623,1,0.3679,Novibet
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Falei A.,Tian F.,1789988400,1.5291,,2.54,0.624217,0.375783,0.04768,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Mert A.,Shinikova I.,1789999200,2.12,,1.7407,0.450877,0.549123,0.04618,1,0.0333,Novibet
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Egorova D.,Ercan M.,1789977600,1.2141,,4.56,0.789733,0.210267,0.042954,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Vogt M.,Yashina E.,1789977600,1.2688,,3.92,0.755473,0.244527,0.043248,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Zaytseva K.,Yoruk I.,1789977600,1.0356,,12.63,0.924218,0.075782,0.0448,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Falkowska W.,Smith A.,1789983000,1.4237,,2.9,0.670722,0.329278,0.047223,1,0.0245,Novibet
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Koevermans A.,Akli A.,1789990200,1.5464,,2.49,0.616886,0.383114,0.04827,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Cabrera L.,Kraus S.,1789995600,4.46,,1.2146,0.214042,0.785958,0.047532,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Bandecchi S.,Dodin O.,1790002800,1.3774,,3.1,0.692366,0.307634,0.048586,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Collins K.,Steiner V.,1789984800,1.3195,,3.45,0.723346,0.276654,0.047718,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Johnson S.,Brantmeier R.,1789984800,2.53,,1.5348,0.377583,0.622417,0.046808,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Voloshchuk A.,Arseneault A.,1789984800,1.6993,,2.18,0.561957,0.438043,0.047193,1,0.0407,Novibet
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Yamalapalli S.,Bains N.,1789990200,2.2,,1.6897,0.434404,0.565596,0.046366,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Maristany G.,Papamichail D.,1789988400,1.1698,,5.2,0.816352,0.183648,0.047155,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Ristic M.,Rus A.,1789988400,1.6993,,2.18,0.561957,0.438043,0.047193,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Hercog P.,Romero Gormaz L.,1789997400,2.34,,1.6135,0.408119,0.591881,0.047121,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Spiteri D.,Primorac I.,1789977600,2.03,,1.8197,0.472686,0.527314,0.042152,1,0.0361,Novibet
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Zaar L.,Chiesa E.,1789977600,1.1408,,5.9,0.837973,0.162027,0.046069,0,0.0,
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Laboutkova A.,Tsygourova K.,1789983000,1.7874,,2.05,0.534216,0.465784,0.047277,1,0.0358,Novibet
+2026-09-20,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Pieri J.,Kucmova A.,1789983000,2.06,,1.7812,0.463709,0.536291,0.046856,0,0.0,
+2026-09-20,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Frydrych V.,Bernet H.,1789992000,13.92,,1.0274,0.068734,0.931266,0.04517,0,0.0,
+2026-09-20,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Ryden V.,Sigsgaard C.,1789992000,6.3,,1.107,0.149453,0.850547,0.062073,0,0.0,
+2026-09-20,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Rejchtman Vinciguerra W.,Simonsson J.,1789997400,1.2309,,3.94,0.761956,0.238044,0.066221,0,0.0,
+2026-09-20,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",Baragiola Mordini T. C.,Carboni L.,1789981200,4.33,,1.2242,0.22041,0.77959,0.047807,0,0.0,
+2026-09-20,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",de Marchi A.,Cocola S.,1789981200,1.3378,,3.33,0.713398,0.286602,0.047796,0,0.0,
+2026-09-20,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",McCormick T.,Johns G.,1789981200,3.24,,1.3521,0.29444,0.70556,0.048232,1,0.0235,Novibet
+2026-09-20,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",Vanshelboim E.,Bracci V.,1789981200,1.0161,,24.41,0.960037,0.039963,0.025122,0,0.0,
+2026-09-20,nba,MEXICO: LNBP,El Calor de Cancun,Diablos Rojos,1789942500,1.9709,,1.7143,0.465185,0.534815,0.090711,0,0.0,
+2026-09-20,nba,MEXICO: LNBP,Abejas,Freseros,1789948800,1.6098,,2.12,0.568395,0.431605,0.092893,0,0.0,
+2026-09-20,nba,MEXICO: LNBP,Mineros,Gambusinos,1789949100,1.1258,,4.28,0.791742,0.208258,0.121902,0,0.0,
+2026-09-20,nba,MEXICO: LNBP,Santos,Lobos Plateados,1789952400,1.8333,,1.8333,0.5,0.5,0.090929,1,0.2,Novibet
+2026-09-20,nba,MEXICO: LNBP,Soles,Panteras,1789952400,1.7407,,1.9346,0.526379,0.473621,0.091384,1,0.3625,Novibet
+2026-09-20,nba,SWEDEN: Superettan,Djurgarden,AIK Basket,1790010000,1.625,,2.09,0.562584,0.437416,0.093854,0,0.0,
+2026-09-20,mlb,JAPAN: NPB,Chiba Lotte Marines,Seibu Lions,1789981200,2.11,,1.8,0.460358,0.539642,0.029489,0,0.0,
+2026-09-21,futbol,NICARAGUA: Liga Primera - Apertura,Sport Sebaco,Matagalpa,1789938000,2.09,3.31,3.22,0.438503,0.284618,0.091143,0,0.0,
+2026-09-21,futbol,ARGENTINA: Liga Profesional - Clausura,Aldosivi,Atl. Tucuman,1790011800,3.27,2.96,2.56,0.295677,0.377681,0.034273,0,0.0,
+2026-09-21,futbol,ARGENTINA: Primera Nacional,Tristan Suarez,Atletico Atlanta,1790013600,1.9434,3.12,4.51,0.486904,0.209811,0.056804,0,0.0,
+2026-09-21,futbol,BULGARIA: Vtora liga,Svoge,Vihren,1789999200,4.34,3.12,1.7194,0.203452,0.513541,0.132526,0,0.0,
+2026-09-21,futbol,BULGARIA: Vtora liga,Dobrudzha,CSKA Sofia II,1790006400,2.77,3.64,2.02,0.319257,0.437793,0.130786,1,0.0906,Novibet
+2026-09-21,futbol,BULGARIA: Vtora liga,Spartak Pleven,Ludogorets II,1790006400,2.39,2.95,2.72,0.371907,0.326786,0.12504,0,0.0,
+2026-09-21,futbol,BULGARIA: Vtora liga,Montana,Hebar,1790008200,2.13,3.13,2.98,0.417488,0.298406,0.124543,0,0.0,
+2026-09-21,futbol,COLOMBIA: Primera B - Clausura,Bogota,Barranquilla,1790022600,1.885,3.38,3.96,0.491714,0.234061,0.078887,0,0.0,
+2026-09-21,futbol,DENMARK: 1st Division,Koge,Hobro,1790010000,2.48,3.52,2.77,0.384637,0.344368,0.048328,0,0.0,
+2026-09-21,futbol,ECUADOR: Liga Pro - Relegation Group,Manta,Orense,1790017200,2.53,3.13,2.94,0.374693,0.32244,0.054882,0,0.0,
+2026-09-21,futbol,ENGLAND: Southern League Premier Central,Redditch,Racing Club Warwick,1790016300,1.8696,3.37,3.65,0.483794,0.247808,0.105582,0,0.0,
+2026-09-21,futbol,ENGLAND: Premier League 2,Bournemouth U21,Stoke City U21,1790013600,1.6135,5.09,3.63,0.567703,0.252339,0.091716,0,0.0,
+2026-09-21,futbol,GERMANY: Regionalliga West,Paderborn II,Dortmund II,1790006400,2.79,3.45,2.26,0.328601,0.405662,0.090756,0,0.0,
+2026-09-21,futbol,GREECE: Super League 2,Pyrgos,AEL Larissa,1789995600,3.89,3.04,1.9259,0.232588,0.46979,0.105255,0,0.0,
+2026-09-21,futbol,GUATEMALA: Liga Nacional - Apertura,Suchitepequez,Xelaju,1789945200,2.82,3.1,2.41,0.324696,0.379935,0.092128,0,0.0,
+2026-09-21,futbol,ITALY: Serie C - Group A,Dolomiti Bellunesi,Lumezzane,1790015400,2.16,3.01,3.55,0.429912,0.26158,0.076879,0,0.0,
+2026-09-21,futbol,ITALY: Serie C - Group A,Trento,Pro Vercelli,1790015400,1.7576,3.44,4.59,0.528025,0.202191,0.07752,0,0.0,
+2026-09-21,futbol,ITALY: Serie C - Group A,Treviso,Desenzano,1790015400,2.1,2.92,3.86,0.441848,0.240384,0.077724,0,0.0,
+2026-09-21,futbol,ITALY: Serie C - Group B,Guidonia,Livorno,1790015400,2.36,2.94,3.17,0.392588,0.292274,0.079322,0,0.0,
+2026-09-21,futbol,ITALY: Serie C - Group B,Pianese,Sambenedettese,1790015400,2.38,2.79,3.34,0.389769,0.27774,0.077992,1,0.0298,Playdoit
+2026-09-21,futbol,ITALY: Serie C - Group B,Spezia,Vis Pesaro,1790015400,1.2268,5.87,10.46,0.753989,0.088431,0.081089,0,0.0,
+2026-09-21,futbol,NICARAGUA: Liga Primera - Apertura,Rancho Santana,Managua FC,1789945200,6.44,4.65,1.3861,0.142226,0.660799,0.091782,0,0.0,
+2026-09-21,futbol,PORTUGAL: Liga Next Gen U23,Vizela U23,SC Farense U23,1789984800,2.49,3.28,2.59,0.367575,0.353383,0.092585,0,0.0,
+2026-09-21,futbol,PORTUGAL: Liga Next Gen U23,Leiria U23,Gil Vicente U23,1790002800,2.49,3.48,2.48,0.367708,0.369191,0.092189,0,0.0,
+2026-09-21,futbol,ROMANIA: Superliga,Otelul,Corvinul,1790002800,2.61,2.93,3.1,0.365936,0.308094,0.047019,1,0.0257,Novibet
+2026-09-21,futbol,ROMANIA: Superliga,Petrolul,Csikszereda M. Ciuc,1790013600,1.6944,3.85,4.82,0.558148,0.196209,0.057389,1,0.052,Novibet
+2026-09-21,futbol,SLOVAKIA: 2. liga,Petrzalka,Pohronie,1790002800,1.5102,4.2,5.2,0.606063,0.176015,0.092567,0,0.0,
+2026-09-21,futbol,UZBEKISTAN: Super League,Xorazm Urganch,Qizilqum,1790003700,2.06,3.12,3.66,0.449823,0.253179,0.079174,0,0.0,
+2026-09-21,futbol,UZBEKISTAN: Pro Liga,Lochin,Respublika FA,1789988400,1.5882,3.69,4.42,0.558744,0.200769,0.126891,0,0.0,
+2026-09-21,futbol,WORLD: Friendly International,Fiji,Vanuatu,1789974000,1.8621,3.8,3.78,0.504377,0.248466,0.064736,0,0.0,
+2026-09-21,tenis,"WTA - SINGLES: Sao Paulo (Brazil), hard",Quevedo K.,Podoroska N.,1789929000,1.7874,,2.15,0.546046,0.453954,0.024588,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Buenos Aires 3 (Argentina) - Qualification, clay",Aguilar Cardozo J.,Del Pino M.,1789931700,1.0083,,23.79,0.95934,0.04066,0.033803,1,0.0379,Novibet
+2026-09-21,tenis,"WTA - SINGLES: Seoul (South Korea), hard",Astakhova D.,Linette M.,1789972200,2.78,,1.4926,0.349342,0.650658,0.029684,0,0.0,
+2026-09-21,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Gibson T.,Ferro F.,1789970400,1.6536,,2.36,0.588001,0.411999,0.02847,1,0.0355,Novibet
+2026-09-21,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Sramkova R.,Chwalinska M.,1789970400,2.74,,1.5051,0.35455,0.64545,0.029371,0,0.0,
+2026-09-21,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Okamura K.,Fernandez L.,1789986600,17.19,,1.0281,0.056433,0.943567,0.030841,1,0.0253,Novibet
+2026-09-21,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Hunter S.,Garland J.,1789992000,2.04,,1.8403,0.474267,0.525733,0.033586,0,0.0,
+2026-09-21,tenis,"WTA - DOUBLES: Seoul (South Korea), hard",Bondar A./Stollar F.,Joint M./Ruse G.,1789970400,2.55,,1.5263,0.374433,0.625567,0.047336,0,0.0,
+2026-09-21,tenis,"WTA - DOUBLES: Seoul (South Korea), hard",Lee E./Park S.,Lee Y./Ye Q.,1789977600,3.64,,1.2933,0.262157,0.737843,0.047941,0,0.0,
+2026-09-21,tenis,"WTA - DOUBLES: Singapore (Singapore), hard (indoor)",Kato M./Perez E.,Sakkari M./Vekic D.,1789975800,1.4274,,2.88,0.668617,0.331383,0.047797,1,0.021,Novibet
+2026-09-21,tenis,"WTA - DOUBLES: Singapore (Singapore), hard (indoor)",Ferro F./Fruhvirtova L.,Tang Q./Xu Y.,1789981200,2.89,,1.4255,0.330321,0.669679,0.047529,1,0.0494,Novibet
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Buenos Aires 3 (Argentina), clay",Villanueva G.,Justo G. I.,1789995600,1.9709,,1.8475,0.483841,0.516159,0.048654,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy), clay",Blanch D.,Kopp S.,1789995600,2.23,,1.6711,0.428366,0.571634,0.046839,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Barranco Cosano J.,Sperle J.,1789984800,1.5952,,2.33,0.5936,0.4064,0.056065,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Nijboer R.,Juan Mano A.,1789984800,1.3906,,2.96,0.680366,0.319634,0.056952,1,0.1279,Novibet
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Sakellaridis D.,Berto L.,1789984800,1.4237,,2.82,0.664514,0.335486,0.057005,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Basile P.,Oradini G.,1789990200,1.5025,,2.56,0.630154,0.369846,0.056182,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Rottoli L.,D'Agostino S.,1789990200,1.7042,,2.13,0.555527,0.444473,0.056269,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy) - Qualification, clay",Zeitune M.,Iannaccone F.,1789990200,2.26,,1.6289,0.418859,0.581141,0.056389,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria), clay",Hassan B.,Martin Tiffon P.,1789997400,2.4,,1.5882,0.398225,0.601775,0.04631,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Almazan Valiente I.,Lazarov G.,1789977600,1.6211,,2.28,0.584451,0.415549,0.055462,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Lagutin P.,Gulin S.,1789977600,1.5618,,2.4,0.605785,0.394215,0.056954,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Misolic F.,Gima S.,1789977600,1.1427,,5.42,0.82588,0.17412,0.059622,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Obradovic D.,Andreev A.,1789983000,2.56,,1.5025,0.369846,0.630154,0.056182,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Tsitsipas Pa.,Mashtakov N.,1789983000,4.93,,1.1718,0.192042,0.807958,0.056228,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria) - Qualification, clay",Wiedenmann L.,Milev Y.,1789983000,2.39,,1.565,0.395702,0.604298,0.057388,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Guerrieri A.,Maestrelli F.,1789995600,1.7042,,2.22,0.56572,0.43428,0.037236,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Goffin D.,Lajal M.,1790006400,3.91,,1.2778,0.246309,0.753691,0.03835,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Domenc M.,Jade D.,1789977600,3.07,,1.3922,0.311999,0.688001,0.044021,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Janvier M.,Masur D.,1789977600,2.45,,1.5747,0.391259,0.608741,0.043205,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Martineau M.,Boulais J.,1789977600,1.565,,2.47,0.612144,0.387856,0.043836,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Cassone M.,Zahraj P.,1789983000,1.2874,,3.69,0.741351,0.258649,0.047762,0,0.0,
+2026-09-21,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France) - Qualification, hard",Echargui M.,Poling K.,1789983000,1.339,,3.32,0.712599,0.287401,0.048031,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Hruncakova V.,Iatcenko P.,1789983000,2.35,,1.6061,0.405981,0.594019,0.048158,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Naito Y.,Avdeeva J.,1789983000,2.58,,1.5128,0.369625,0.630375,0.048623,1,0.3679,Novibet
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Falei A.,Tian F.,1789988400,1.5291,,2.54,0.624217,0.375783,0.04768,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Mert A.,Shinikova I.,1789999200,2.12,,1.7407,0.450877,0.549123,0.04618,1,0.0333,Novibet
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Egorova D.,Ercan M.,1789977600,1.2141,,4.56,0.789733,0.210267,0.042954,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Vogt M.,Yashina E.,1789977600,1.2688,,3.92,0.755473,0.244527,0.043248,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Zaytseva K.,Yoruk I.,1789977600,1.0356,,12.63,0.924218,0.075782,0.0448,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey) - Qualification, hard",Falkowska W.,Smith A.,1789983000,1.4237,,2.9,0.670722,0.329278,0.047223,1,0.0245,Novibet
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Koevermans A.,Akli A.,1789990200,1.5464,,2.49,0.616886,0.383114,0.04827,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Cabrera L.,Kraus S.,1789995600,4.46,,1.2146,0.214042,0.785958,0.047532,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Bandecchi S.,Dodin O.,1790002800,1.3774,,3.1,0.692366,0.307634,0.048586,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Collins K.,Steiner V.,1789984800,1.3195,,3.45,0.723346,0.276654,0.047718,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Johnson S.,Brantmeier R.,1789984800,2.53,,1.5348,0.377583,0.622417,0.046808,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Voloshchuk A.,Arseneault A.,1789984800,1.6993,,2.18,0.561957,0.438043,0.047193,1,0.0407,Novibet
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal) - Qualification, hard",Yamalapalli S.,Bains N.,1789990200,2.2,,1.6897,0.434404,0.565596,0.046366,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Maristany G.,Papamichail D.,1789988400,1.1698,,5.2,0.816352,0.183648,0.047155,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Ristic M.,Rus A.,1789988400,1.6993,,2.18,0.561957,0.438043,0.047193,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Hercog P.,Romero Gormaz L.,1789997400,2.34,,1.6135,0.408119,0.591881,0.047121,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Spiteri D.,Primorac I.,1789977600,2.03,,1.8197,0.472686,0.527314,0.042152,1,0.0361,Novibet
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Zaar L.,Chiesa E.,1789977600,1.1408,,5.9,0.837973,0.162027,0.046069,0,0.0,
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Laboutkova A.,Tsygourova K.,1789983000,1.7874,,2.05,0.534216,0.465784,0.047277,1,0.0358,Novibet
+2026-09-21,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy) - Qualification, clay",Pieri J.,Kucmova A.,1789983000,2.06,,1.7812,0.463709,0.536291,0.046856,0,0.0,
+2026-09-21,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Frydrych V.,Bernet H.,1789992000,13.92,,1.0274,0.068734,0.931266,0.04517,0,0.0,
+2026-09-21,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Ryden V.,Sigsgaard C.,1789992000,6.3,,1.107,0.149453,0.850547,0.062073,0,0.0,
+2026-09-21,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Rejchtman Vinciguerra W.,Simonsson J.,1789997400,1.2309,,3.94,0.761956,0.238044,0.066221,0,0.0,
+2026-09-21,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",Baragiola Mordini T. C.,Carboni L.,1789981200,4.33,,1.2242,0.22041,0.77959,0.047807,0,0.0,
+2026-09-21,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",de Marchi A.,Cocola S.,1789981200,1.3378,,3.33,0.713398,0.286602,0.047796,0,0.0,
+2026-09-21,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",McCormick T.,Johns G.,1789981200,3.24,,1.3521,0.29444,0.70556,0.048232,1,0.0235,Novibet
+2026-09-21,tenis,"ITF MEN - SINGLES: M25 Santa Margherita di Pula 8 (Italy), clay",Vanshelboim E.,Bracci V.,1789981200,1.0161,,24.41,0.960037,0.039963,0.025122,0,0.0,
+2026-09-21,nba,MEXICO: LNBP,El Calor de Cancun,Diablos Rojos,1789942500,1.9709,,1.7143,0.465185,0.534815,0.090711,0,0.0,
+2026-09-21,nba,MEXICO: LNBP,Abejas,Freseros,1789948800,1.6098,,2.12,0.568395,0.431605,0.092893,0,0.0,
+2026-09-21,nba,MEXICO: LNBP,Mineros,Gambusinos,1789949100,1.1258,,4.28,0.791742,0.208258,0.121902,0,0.0,
+2026-09-21,nba,MEXICO: LNBP,Santos,Lobos Plateados,1789952400,1.8333,,1.8333,0.5,0.5,0.090929,1,0.2,Novibet
+2026-09-21,nba,MEXICO: LNBP,Soles,Panteras,1789952400,1.7407,,1.9346,0.526379,0.473621,0.091384,1,0.3625,Novibet
+2026-09-21,nba,SWEDEN: Superettan,Djurgarden,AIK Basket,1790010000,1.625,,2.09,0.562584,0.437416,0.093854,0,0.0,
+2026-09-21,mlb,JAPAN: NPB,Chiba Lotte Marines,Seibu Lions,1789981200,2.11,,1.8,0.460358,0.539642,0.029489,0,0.0,
+2026-09-21,futbol,COLOMBIA: Primera B - Clausura,Bogota,Barranquilla,1790022600,1.7353,3.58,4.48,0.53417,0.206907,0.078813,1,0.0412,Novibet
+2026-09-21,futbol,ARGENTINA: Primera C,Central Ballester,Central Cordoba,1790013600,3.41,2.6,2.24,0.260834,0.397073,0.124299,0,0.0,
+2026-09-21,futbol,ARGENTINA: Primera C,Claypole,Yupanqui,1790013600,2.1,2.77,3.47,0.423135,0.256076,0.125386,0,0.0,
+2026-09-21,futbol,ARGENTINA: Primera C,El Porvenir,Deportivo Espanol,1790013600,2.94,2.62,2.48,0.302332,0.35841,0.125041,1,0.0301,Novibet
+2026-09-21,futbol,ARGENTINA: Primera C,Sacachispas,Victoriano A.,1790013600,1.8696,2.82,4.24,0.475303,0.209582,0.125333,0,0.0,
+2026-09-21,futbol,ARGENTINA: Primera C,Sportivo Barracas,Canuelas,1790013600,2.8,2.53,2.69,0.317701,0.330693,0.124147,0,0.0,
+2026-09-21,futbol,GEORGIA: Crystalbet Erovnuli Liga,Spaeri,Dila Gori,1790010000,2.71,3.44,2.32,0.338307,0.395178,0.090736,1,0.0489,Novibet

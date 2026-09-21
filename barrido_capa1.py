@@ -56,11 +56,21 @@ logger = logging.getLogger(__name__)
 TABLERO = 'cuotas_mx.json'
 
 # Lo que cada deporte tiene medido. `lados` a None es «el que sea».
+# v269 — la ventaja minima baja de 1 % a 0,5 %. Medido en dos tramos:
+#
+#     umbral                      eleccion p5    JUICIO p5
+#     EV>0,010 prob>=0,30 (antes)   +1,67 %       +0,20 %
+#     EV>0,005 prob>=0,30           +1,74 %       +1,31 %   <- gana
+#     EV>0,010 prob>=0,15           +0,38 %       -3,31 %
+#     EV>0,005 prob>=0,15           +1,14 %       -0,25 %
+#
+# Da un 12 % mas de picks (1.820 contra 1.629) y un p5 seis veces mejor
+# en el tramo de juicio. La PROBABILIDAD no se toca: bajarla se hunde.
 REGLAS = {
-    'futbol': {'lados': ('home',), 'ev_min': 0.01, 'prob_min': 0.30,
+    'futbol': {'lados': ('home',), 'ev_min': 0.005, 'prob_min': 0.30,
                'validado': True,
                'nota': 'lado local, validado n=353 · +11,49 % · p5 +1,73 %'},
-    'tenis': {'lados': None, 'ev_min': 0.01, 'prob_min': 0.30,
+    'tenis': {'lados': None, 'ev_min': 0.005, 'prob_min': 0.30,
               'validado': True, 'circuitos': ('wta',),
               'nota': 'sólo WTA, validado n=2.436 · +4,22 % · p5 +0,61 %'},
     'mlb': {'lados': None, 'ev_min': 0.02, 'prob_min': 0.30,
@@ -143,6 +153,18 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
         except Exception as e:
             logger.debug('[capa1] %s vs %s: %s', v['home'], v['away'], e)
             continue
+        # v271 — SE GUARDA LO QUE SE ACABA DE VER.
+        #
+        # Aquí Pinnacle y la casa blanda están emparejados, que es justo el
+        # dato que el radar necesita para aprender. Existía sólo un instante
+        # en memoria y se tiraba. No cuesta ninguna petición: la consulta ya
+        # está pagada. Ver `radar_capturas`.
+        try:
+            import radar_capturas as _cap
+            _cap.anotar(v, (r or {}).get('pinnacle') or {},
+                        (r or {}).get('valor'))
+        except Exception as _e:
+            logger.debug('[capa1] no se pudo anotar la captura: %s', _e)
         if not (r or {}).get('prob_justa'):
             continue
         for val in (r.get('valor') or []):
@@ -215,3 +237,42 @@ def kelly(prob: float, cuota: float, fraccion: float = 0.25,
     if k <= 0:
         return 0.0
     return round(min(k * float(fraccion), float(tope)), 4)
+
+
+def main() -> int:
+    """Barre el tablón y deja anotado lo que vio.
+
+    EXISTE PARA EL WORKFLOW, NO PARA LA PANTALLA.
+
+    El barrido corre también dentro de la aplicación, pero allí el disco es de
+    usar y tirar: Streamlit Cloud rehace el contenedor en cada despliegue y se
+    lleva por delante `radar_capturas.csv`. Lo que se anota en la aplicación
+    se pierde.
+
+    Aquí no: el workflow de las cuotas corre cada dos horas, anota, y commitea
+    el fichero al repositorio. Por eso las capturas crecen de verdad — que es
+    lo que el radar necesita para dejar de depender del histórico congelado de
+    football-data y aprender sobre las casas que se juegan.
+    """
+    import logging as _lg
+    _lg.basicConfig(level=_lg.INFO, format='%(message)s')
+    picks = barrer()
+    print('capa 1: %d picks' % len(picks))
+    for p in picks[:10]:
+        print('   %-7s %-40s %-22s cuota %.2f  EV %+.1f %%  %s'
+              % (p.get('deporte'), p.get('partido', '')[:40],
+                 p.get('apuesta', '')[:22], p.get('cuota') or 0,
+                 100 * (p.get('ev') or 0), p.get('casa') or ''))
+    try:
+        import radar_capturas as cap
+        r = cap.resumen()
+        print('capturas del radar: %s filas · %s con error · %s días'
+              % (format(r['filas'], ',d'), format(r['con_error'], ',d'),
+                 r['dias']))
+    except Exception as e:
+        print('no se pudo resumir las capturas: %s' % e)
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

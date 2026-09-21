@@ -23,3 +23,9 @@
 # extension dice «texto» y el contenido es un booster de LightGBM.
 # `-text` desactiva toda conversion.
 selector_apuestas.txt  -text
+
+# v270 - el radar de errores es otro booster de LightGBM con extension
+# .txt. Sin esta linea, un clon en Windows lo recibe con CRLF y
+# LightGBM lo rechaza con "Model format error, expect a tree here".
+# No es hipotetico: le paso al selector el 2026-09-20.
+radar_errores.txt      -text
