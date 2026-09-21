@@ -8895,6 +8895,29 @@ def render_escalera():
         _picks += _capa1_en_vivo()
     except Exception as _e:
         logger.debug('[escalera] sin barrido en vivo: %s', _e)
+
+    # v296 — EL MERCADO DE GOLES YA VIENE EN ESA LISTA.
+    #
+    # El usuario lo pidió: «que no sean sólo para el gane sino para cualquier
+    # otra estadística». `barrer()` ya llama a `barrer_goles()` desde la v283,
+    # así que los picks de goles SIEMPRE han estado aquí: lo que los tumbaba
+    # era el filtro `validado is False` de la escalera. Ahora entran por el
+    # nivel 7, el último y con su aviso.
+    #
+    # Se intentó añadir un `_goles_en_vivo()` aparte y era un segundo barrido
+    # para traer lo que ya estaba: trece segundos de red por duplicado.
+
+    # v297 — Y LAS COMBINADAS DEL MISMO PARTIDO, QUE EL USUARIO ENSEÑÓ.
+    #
+    # Se arman con los picks que ya están en la lista: cada uno trae en
+    # `combi` la segunda pata (el «más de 2,5» de la misma casa), así que
+    # esto no pide ni una petición de red más. Ver `combinada.py` para lo
+    # medido — es el único canal nuevo de la sesión que pasa las dos puertas.
+    try:
+        import combinada as _cb
+        _picks += _cb.todas(_picks)
+    except Exception as _e:
+        logger.debug('[escalera] sin combinadas: %s', _e)
     for _p in _picks:
         if isinstance(_p, dict) and _p.get('prob') is None:
             _cu = _p.get('cuota') or 0
@@ -8949,6 +8972,16 @@ def render_escalera():
           % (_pick_esc.get('apuesta', '?'), _pick_esc.get('partido', '?'),
              ('  ·  _%s_' % _etq_e) if _etq_e else ''))
 
+    # v297 — si es una combinada, las dos patas por separado. Sin esto la
+    # tarjeta dice «Gana X + Más de 2.5 @2,10» y no se ve de dónde sale el
+    # 2,10 ni qué hay que marcar en la casa.
+    for _pata in (_pick_esc.get('patas') or []):
+        try:
+            st.caption('· %s  —  @%.2f' % (_pata.get('texto', '?'),
+                                           float(_pata.get('cuota') or 0)))
+        except (TypeError, ValueError):
+            pass
+
     _col = st.columns(4)
     _col[0].metric('Cuota', '%.2f' % _cu_e)
     _col[1].metric('Entra', '%.0f %%' % (100 * _pr_e))
@@ -8957,6 +8990,50 @@ def render_escalera():
     if _pick_esc.get('casa'):
         st.caption('En **%s**. %s' % (_pick_esc['casa'],
                                       _esc.resumen(_pick_esc, 100)))
+
+    # v295 — ¿EL EQUIPO VIENE GANANDO?
+    #
+    # El usuario lo pidió después de que la app le recomendara al Spaeri, que
+    # perdió 1-4: «no basta el error de cuota, tiene que coincidir con que el
+    # equipo también es fuerte y estadísticamente puede ganar».
+    #
+    # Se midió sobre 1.803 picks y NO sirve como filtro: exigir buena forma
+    # sube el acierto en el pasado (65,4 % contra 49,0 %) y se cae en el tramo
+    # de juicio (p5 -8,70 %). Así que el dato se enseña y no se filtra por él:
+    # decidir con el dato delante es del usuario, no mío.
+    #
+    # Ojo con la cobertura: de la segunda de Georgia o de Jamaica no hay
+    # histórico, y ahí sale en blanco. Por eso el texto dice «no tengo datos»
+    # en vez de callar — callar se leería como «no viene bien».
+    try:
+        import forma_equipos as _fe
+        _f = _fe.resumen_pick(_pick_esc)
+        _eq = _fe.del_pick(_pick_esc)
+        if _f:
+            _g = (_fe.de(_eq) or {}).get('gana', 9)
+            # Si viene flojo, el usuario va a pensar en el Spaeri. Y lo medido
+            # dice justo lo contrario, así que se dice aquí y no en un anexo.
+            _extra = ('Viene flojo, pero es la banda que **más** ha rendido: '
+                      '+23 % histórico, porque el precio ya castiga de más.'
+                      if _g <= 2 else
+                      'La probabilidad de arriba ya lo tiene en cuenta: es lo '
+                      'que el mercado le da a ESTE partido.')
+            st.caption('📊 **%s** %s. %s' % (_eq, _f, _extra))
+        elif _eq:
+            st.caption('📊 De **%s** no tengo histórico de resultados (liga '
+                       'pequeña). Lo único que hay es el precio: el mercado le '
+                       'da un %.0f %% a este partido.' % (_eq, 100 * _pr_e))
+        # v296 — y si la apuesta es de goles, la media del par, que es el dato
+        # que de verdad habla de ESE mercado.
+        _mg = _fe.goles_del_partido(_pick_esc)
+        if _mg is not None and 'gol' in str(_pick_esc.get('apuesta') or
+                                            '').lower():
+            st.caption('⚽ Entre los dos promedian **%.2f goles** por partido '
+                       'en lo que llevan. Es contexto, no el motivo: elegir '
+                       'por la media se probó en 15.411 partidos y pierde.'
+                       % _mg)
+    except Exception as _e:
+        logger.debug('[escalera] sin forma: %s', _e)
 
     _pl = _esc.plan(100.0, _cu_e)
     _filas = []
@@ -8986,6 +9063,12 @@ def render_escalera():
             'Si hoy no hay ninguna de las mejores, se baja de nivel y se avisa '
             'en la etiqueta. Lo que nunca se ofrece son las que el semáforo '
             'marca en rojo por precio rancio.')
+        st.caption(
+            '**¿Y que el equipo venga ganando?** Se midió sobre 1.803 picks. '
+            'Los equipos en buena forma aciertan más —65 % contra 49 %— pero '
+            'rinden la mitad, porque el precio ya lo sabe. Filtrar por forma '
+            'mejora el pasado y empeora el tramo reciente, así que el dato se '
+            'enseña y no se filtra por él.')
 
 
 def render_sonadora():

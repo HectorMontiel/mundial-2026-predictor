@@ -67,15 +67,32 @@ def probar_filtros():
     check('NO dobla' in (e2['nivel_escalera'].get('nota') or ''),
           'y la nota avisa de que ganar no dobla el dinero')
 
+    # v297 — «Aceptable» paso del 3 al 4 al meterse la combinada en medio.
     e3 = esc.elegir([_pick(cuota=2.50, ev=0.02)])     # prob 40,8 %
     check(e3 is not None
-          and (e3.get('nivel_escalera') or {}).get('n') == 3,
-          'probabilidad 0,41 baja al nivel 3 («aceptable»)')
+          and (e3.get('nivel_escalera') or {}).get('etiqueta') == 'Aceptable',
+          'probabilidad 0,41 baja al nivel «aceptable»')
 
     check(esc.elegir([_pick(cuota=1.30, ev=0.02)]) is None,
           'por debajo de TODOS los niveles si devuelve None')
-    check(esc.elegir([_pick(margen_pin=0.13)]) is None,
-          'liga con margen de Pinnacle del 13 % queda fuera')
+    # v294/v295 — EL MARGEN ALTO YA NO DEVUELVE None, PERO TIENE TECHO.
+    #
+    # Antes un margen del 13 % tumbaba el pick y la seccion salia vacia, que es
+    # lo que el usuario vio en produccion el 2026-09-21 con siete picks en
+    # pantalla. Ahora cae al nivel 6 CON el aviso por delante. Lo que no puede
+    # es no tener limite: por encima del 15 % el precio de Pinnacle ya no
+    # informa de nada y ahi no se ofrece nada, ni con bandera.
+    alto = esc.elegir([_pick(margen_pin=0.13)])
+    check(alto is not None
+          and (alto.get('nivel_escalera') or {}).get('n') == 6,
+          'margen del 13 % baja al nivel 6, «fuera de lo medido»')
+    check((alto.get('nivel_escalera') or {}).get('margen_libre') is True
+          and 'sin red' in (alto['nivel_escalera'].get('nota') or ''),
+          'y sale marcado como sin respaldo, no como una mas')
+    check(esc.elegir([_pick(margen_pin=0.18)]) is None,
+          'margen del 18 % NO sale: por encima del techo no hay señal')
+    check(esc.MARGEN_PIN_TOPE > esc.MARGEN_PIN_MAXIMO,
+          'el techo esta por encima de la puerta validada, no al reves')
     check(esc.elegir([_pick(validado=False)]) is None,
           'un deporte sin validar queda fuera')
     check(esc.elegir([]) is None, 'sin picks devuelve None')
@@ -111,20 +128,34 @@ def probar_varias_opciones():
     import escalera as esc
     import semaforo_capa1 as sm
 
+    # v296 — cada una en SU partido. Desde que «una sola por partido» es la
+    # regla, cinco picks del mismo encuentro colapsan en uno solo y este test
+    # media otra cosa sin enterarse.
     picks = sm.ordenar([
-        _pick(apuesta='mas probable', cuota=1.95, ev=0.01),
-        _pick(apuesta='dobla', cuota=2.20, ev=0.04),
-        _pick(apuesta='aceptable', cuota=2.40, ev=0.02),
-        _pick(apuesta='no dobla', cuota=1.85, ev=0.03),
-        _pick(apuesta='ROJA', cuota=2.30, ev=0.39),
+        _pick(apuesta='mas probable', partido='A1 vs B1', cuota=1.95, ev=0.01),
+        _pick(apuesta='dobla', partido='A2 vs B2', cuota=2.20, ev=0.04),
+        _pick(apuesta='aceptable', partido='A3 vs B3', cuota=2.40, ev=0.02),
+        _pick(apuesta='no dobla', partido='A4 vs B4', cuota=1.85, ev=0.03),
+        _pick(apuesta='ROJA', partido='A5 vs B5', cuota=2.30, ev=0.39),
     ])
     t = esc.todas(picks)
     check(len(t) == 4, 'salen las cuatro que sirven, no una (salieron %d)'
           % len(t))
     check(t and t[0].get('apuesta') == 'mas probable',
           'y la primera es la MAS PROBABLE, no la que mas paga')
-    check(all((x.get('semaforo') or {}).get('nivel') != sm.ROJO for x in t),
+    # v295 — ESTO SE COMPROBABA EN VACIO. `todas` no ponia la clave `semaforo`,
+    # asi que `(x.get('semaforo') or {}).get('nivel')` valia None para todas y
+    # la comprobacion pasaba sin mirar nada. Y en la pantalla el circulo de
+    # color caia siempre en el amarillo por defecto. Primero se exige que la
+    # clave ESTE, y despues ya se mira lo que dice.
+    check(all(isinstance(x.get('semaforo'), dict) for x in t),
+          'cada opcion trae su veredicto del semaforo (la pantalla lo pinta)')
+    check(all((x.get('semaforo') or {}).get('nivel') in
+              (sm.VERDE, sm.AMBAR) for x in t),
           'y NINGUNA de ellas es roja, este en la posicion que este')
+    check(all((x.get('semaforo') or {}).get('nivel')
+              == sm.clasificar(x).get('nivel') for x in t),
+          'el veredicto adjunto es el MISMO que da el semaforo por su cuenta')
     niveles = [(x.get('nivel_escalera') or {}).get('n') for x in t]
     check(niveles == sorted(niveles),
           'salen ordenadas de mejor a peor nivel (%s)' % niveles)
@@ -139,6 +170,95 @@ def probar_varias_opciones():
     e = esc.elegir(picks)
     check(e is not None and t and e.get('apuesta') == t[0].get('apuesta'),
           'la primera de la lista es la que elegir() recomienda')
+
+
+def probar_otros_mercados():
+    """v296 — «que no sean sólo para el gane sino para cualquier estadística»."""
+    import escalera as esc
+
+    gol = _pick(apuesta='Más de 2.5 goles', partido='A vs B', mercado='Goles',
+                cuota=2.10, ev=0.04, validado=False, margen_pin=0.06)
+
+    # entra, pero SOLO por el nivel que lo dice, y ese va el ultimo
+    e = esc.elegir([gol])
+    check(e is not None, 'un pick de goles ya no se cae de la escalera')
+    etq = (e.get('nivel_escalera') or {}).get('etiqueta') if e else None
+    check(etq == 'Otro mercado',
+          'entra por el nivel de «otro mercado» (salio %s)' % etq)
+    # v297.1 — y NO por el de la combinada, que tiene medicion propia y no
+    # es la suya. Un «Más de 2,5» suelto no puede heredar esos numeros.
+    check(etq != 'Combinada del partido',
+          'un pick de goles suelto NO se cuela en el nivel de la combinada')
+    check((e.get('nivel_escalera') or {}).get('otros_mercados') is True,
+          'y ese nivel esta marcado como de otros mercados')
+    check('no tiene medición propia' in
+          ((e.get('nivel_escalera') or {}).get('nota') or ''),
+          'con el aviso de que el canal aun acumula')
+
+    # lo que NO puede pasar: colarse en un nivel medido y salir con su sello
+    for nv in esc.NIVELES:
+        if nv.get('otros_mercados'):
+            continue
+        check(not esc.candidatas([gol], nv),
+              'el pick de goles no entra en el nivel %s, que es del 1X2'
+              % nv['n'])
+
+    # y el 1X2 de siempre sigue yendo delante
+    t = esc.todas([gol, _pick(apuesta='Gana X', partido='C vs D',
+                              cuota=1.95, ev=0.01)])
+    check(len(t) == 2 and t[0].get('apuesta') == 'Gana X',
+          'el ganador medido va ANTES que el mercado sin medir')
+
+
+def probar_una_sola_por_partido():
+    """«Sólo apuesta de una»: el mismo partido no ocupa dos huecos."""
+    import escalera as esc
+
+    # v297.1 — la regla es «un partido, un MERCADO». El mismo encuentro puede
+    # salir como ganador y como combinada —son dos productos y el usuario
+    # elige— pero NUNCA con dos lineas de goles, que parecen dos
+    # oportunidades y son la misma apuesta a distinto precio.
+    dos_goles = [
+        _pick(apuesta='Más de 2.5 goles', partido='A vs B', mercado='Goles',
+              cuota=2.10, ev=0.04, validado=False),
+        _pick(apuesta='Más de 3.5 goles', partido='A vs B', mercado='Goles',
+              cuota=3.10, ev=0.06, validado=False),
+        _pick(apuesta='Gana Otro', partido='C vs D', cuota=2.20, ev=0.04),
+    ]
+    t = esc.todas(dos_goles)
+    claves = [(x.get('partido'), x.get('mercado')) for x in t]
+    check(len(claves) == len(set(claves)),
+          'ningun partido repite mercado (%s)' % claves)
+    check(len(t) == 2,
+          'las dos lineas de goles del mismo partido cuentan como una (%d)'
+          % len(t))
+
+    mixto = [
+        _pick(apuesta='Gana Local', partido='A vs B', mercado='Ganador',
+              cuota=1.95, ev=0.01),
+        _pick(apuesta='Gana Local + Más de 2.5', partido='A vs B',
+              mercado='Combinada', cuota=2.60, ev=0.08, prob=0.42,
+              validado=False),
+    ]
+    t = esc.todas(mixto)
+    check(len(t) == 2,
+          'el mismo partido SI puede salir como ganador y como combinada')
+
+
+def probar_no_baja_a_cuota_1_50_en_el_1x2():
+    """La banda 1,50-1,80 se midio y es la PEOR. No se abre por gusto."""
+    import escalera as esc
+
+    # medido sobre 1.803 picks: 1,50-1,80 da ROI -0,61 % global y, en el tramo
+    # de juicio, -11,98 % con p5 -26,76 %. Es la unica banda que pierde.
+    for nv in esc.NIVELES:
+        if nv.get('otros_mercados'):
+            continue      # el nivel 7 es de otro mercado y otro canal
+        check(nv['cuota'] >= 1.80,
+              'ningun nivel del 1X2 baja de 1,80 (el %s pide %.2f)'
+              % (nv['n'], nv['cuota']))
+    check(esc.elegir([_pick(cuota=1.60, ev=0.02)]) is None,
+          'un ganador a cuota 1,60 NO se ofrece: esa banda pierde')
 
 
 def probar_orden():
@@ -222,6 +342,12 @@ if __name__ == '__main__':
     probar_no_contradice_al_semaforo()
     print('\n=== 2c. varias opciones ===')
     probar_varias_opciones()
+    print('\n=== 2d. otros mercados (v296) ===')
+    probar_otros_mercados()
+    print('\n=== 2e. una sola por partido ===')
+    probar_una_sola_por_partido()
+    print('\n=== 2f. la banda 1,50 no se abre ===')
+    probar_no_baja_a_cuota_1_50_en_el_1x2()
     print('\n=== 3. el orden ===')
     probar_orden()
     print('\n=== 4. el plan ===')

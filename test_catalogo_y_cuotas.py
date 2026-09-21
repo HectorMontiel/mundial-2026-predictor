@@ -21922,10 +21922,42 @@ def test_la_capa1_barre_todo_el_tablero_no_solo_lo_que_hay_modelo():
     import barrido_capa1 as bc
 
     # los filtros son los VALIDADOS, ni uno mas ni uno menos
-    check(bc.REGLAS['futbol']['lados'] == ('home',),
-          'v266: futbol sigue siendo solo el lado LOCAL — el visitante lucia '
-          'bien en el tramo de eleccion y se hundia en el de juicio '
-          '(p5 -5,10 %)')
+    #
+    # v297.4 — EL VISITANTE SE ABRE, Y LA v266 NO SE EQUIVOCABA.
+    #
+    # Esto exigia `('home',)` porque el visitante «lucia bien en el tramo de
+    # eleccion y se hundia en el de juicio (p5 -5,10 %)». Era cierto CON LOS
+    # DATOS DE ENTONCES, y se reprodujo antes de tocarlo: cortando el ledger
+    # en marzo de 2025 el tramo de juicio da p5 -0,53 %.
+    #
+    # Con un año mas de partidos deja de hundirse, y no en una ventana suelta
+    # sino en cuatro cortes seguidos:
+    #
+    #     ledger hasta   eleccion p5   juicio p5
+    #     2025-03-31       -0,47 %      -0,53 %   <- lo que vio la v266
+    #     2025-06-30       -0,63 %     +10,72 %
+    #     2025-09-30       -0,51 %      +7,97 %
+    #     2025-12-31       +1,06 %      +3,12 %
+    #     2026-09-30       +0,83 %      +2,30 %
+    #
+    # Medido entero (n=1.326) y con el corte por fecha comun con el local,
+    # para que los dos tramos sean los mismos: eleccion +8,08 % (p5 +0,26),
+    # juicio +10,40 % (p5 +2,75). Aguanta quitar la mejor liga (+8,24 %,
+    # p5 +2,26) y quitar las 40 mayores ganancias (+1,47 %).
+    #
+    # EL PUNTO DEBIL, QUE SE DICE: el p5 de eleccion es +0,83 %, apenas por
+    # encima de cero, y fue negativo en todos los cortes anteriores. El canal
+    # es real y mas fino que el del local. Si vuelve a hundirse, esta tabla es
+    # el sitio donde se ve.
+    #
+    # Lo destapo un boleto ganador del usuario: Dila Gori @2,25 y CSKA Sofia
+    # II @2,08, los dos visitantes, en los dos partidos donde la Capa 1
+    # apuntaba al local (Spaeri perdio 1-4, Dobrudzha perdio 1-3).
+    check(bc.REGLAS['futbol']['lados'] is None,
+          'v297: futbol acepta los DOS lados; el visitante ya no se hunde en '
+          'el tramo de juicio (p5 +2,75 % con el corte comun, n=1.326)')
+    check('visitante' in (bc.REGLAS['futbol'].get('nota') or ''),
+          'v297: y la nota del canal dice lo medido de cada lado')
     check(bc.REGLAS['tenis'].get('circuitos') == ('wta',),
           'v266: tenis sigue siendo solo WTA')
     check(bc.REGLAS['futbol']['validado'] and bc.REGLAS['tenis']['validado'],

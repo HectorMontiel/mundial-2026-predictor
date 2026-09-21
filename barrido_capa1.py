@@ -67,9 +67,35 @@ TABLERO = 'cuotas_mx.json'
 # Da un 12 % mas de picks (1.820 contra 1.629) y un p5 seis veces mejor
 # en el tramo de juicio. La PROBABILIDAD no se toca: bajarla se hunde.
 REGLAS = {
-    'futbol': {'lados': ('home',), 'ev_min': 0.005, 'prob_min': 0.30,
+    # v297.4 — EL VISITANTE SE ABRE, Y LO DESTAPO UN BOLETO DEL USUARIO.
+    #
+    # Esto decia `('home',)`, asi que el barrido TIRABA todos los picks del
+    # visitante antes de enseñarlos. No era una omision de medicion: era una
+    # puerta cerrada en produccion. Por eso cada pick del tablero empezaba por
+    # «Gana» y el nombre del local, siempre.
+    #
+    # El 2026-09-21 el usuario enseño un parlay ganador de Novibet con el Dila
+    # Gori @2,25 y el CSKA Sofia II @2,08, los dos VISITANTES, en los dos
+    # partidos donde la Capa 1 apuntaba al local: Spaeri perdio 1-4 en casa y
+    # Dobrudzha perdio 1-3 en casa.
+    #
+    # Medido despues sobre el ledger, con la misma regla y el mismo bootstrap:
+    #
+    #     canal        eleccion (70 %)        juicio (30 %)
+    #     local      +6,81 % (p5 +1,58)   +10,67 % (p5 +2,79)
+    #     visitante  +7,55 % (p5 +1,03)   +13,14 % (p5 +2,50)   n=1.326
+    #
+    # El visitante rinde IGUAL O MAS. Y su mejor banda es justo la del boleto:
+    # cuota 1,50-1,80, n=89, acierta el 75,3 %, ROI +24,09 %, p5 +11,65 %.
+    #
+    # Tiene sentido que sea asi: un visitante al que Pinnacle hace favorito en
+    # una liga pequeña es donde mas se equivoca la casa blanda, porque el
+    # sesgo de local es justo lo que esas casas cobran de mas.
+    'futbol': {'lados': None, 'ev_min': 0.005, 'prob_min': 0.30,
                'validado': True,
-               'nota': 'lado local, validado n=353 · +11,49 % · p5 +1,73 %'},
+               'nota': 'los dos lados, medidos por separado: local n=1.803 '
+                       '+6,81 %/+10,67 % · visitante n=1.326 +7,55 %/+13,14 %, '
+                       'p5 positivo en los cuatro tramos'},
     'tenis': {'lados': None, 'ev_min': 0.005, 'prob_min': 0.30,
               'validado': True, 'circuitos': ('wta',),
               'nota': 'sólo WTA, validado n=2.436 · +4,22 % · p5 +0,61 %'},
@@ -237,6 +263,18 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
                 'nota_canal': regla['nota'],
                 'origen': 'line shopping vs Pinnacle (barrido completo)',
                 'margen_pin': _mp,
+                # v297 — LA SEGUNDA PATA, PARA LA COMBINADA DEL MISMO PARTIDO.
+                #
+                # El «más de 2,5» de ESTE partido y de LA MISMA CASA. Tiene
+                # que ser la misma casa o el usuario no puede meter las dos
+                # patas en un boleto, y una combinada repartida entre dos
+                # casas no es una combinada: son dos apuestas sueltas.
+                #
+                # Va aquí y no en un barrido aparte porque el precio ya está
+                # en la mano: `v['casas'][casa]` es justo lo que se acaba de
+                # leer para el 1X2.
+                'over25': _over25_de(v, val.get('casa')),
+                'combi': _pata_combinada(v, r, lado),
             })
             break          # una por partido: la de mejor EV, que va primera
     # v283 — y las discrepancias del mercado de goles, que es el que el
@@ -291,6 +329,121 @@ def _fecha_de(inicio) -> str:
 #
 # Por eso entra marcado como NO VALIDADO. Acumula su propio historico y se
 # juzgara cuando lo tenga, igual que se hizo con todo lo demas.
+def _over25_de(v: Dict, casa) -> Optional[Dict]:
+    """El «más de 2,5» de ese partido en esa casa. None si no está.
+
+    v297 — La segunda pata de la combinada. La probabilidad sale de quitarle
+    el vig a la pareja over/under de LA PROPIA CASA, no de Pinnacle: aquí no
+    se busca un error de precio en esta pata, sólo saber lo que vale para
+    calcular la conjunta. El error de precio lo pone la pata del 1X2, y la
+    ventaja de la combinada la pone la correlación (ver `combinada.py`).
+
+    NUNCA lanza.
+    """
+    try:
+        mk = ((v.get('casas') or {}).get(casa) or {})
+        ou = (mk.get('OVER_UNDER') or {})
+        for L in (ou.get('lineas') or []):
+            try:
+                if abs(float(L.get('linea')) - 2.5) > 1e-6:
+                    continue
+                cu_ov, cu_un = float(L.get('over')), float(L.get('under'))
+            except (TypeError, ValueError):
+                continue
+            if not (cu_ov > 1 and cu_un > 1):
+                continue
+            s = 1.0 / cu_ov + 1.0 / cu_un
+            return {'cuota': cu_ov,
+                    'prob': round((1.0 / cu_ov) / s, 4),
+                    'margen': round(s - 1.0, 4),
+                    'casa': casa}
+    except Exception as e:
+        logger.debug('[capa1/over25] %s', e)
+    return None
+
+
+def _num_seguro(x) -> Optional[float]:
+    try:
+        f = float(x)
+    except (TypeError, ValueError):
+        return None
+    return f if f == f else None
+
+
+def _pata_combinada(v: Dict, r: Dict, lado: str = 'home') -> Optional[Dict]:
+    """Las DOS patas de la combinada, en una casa que tenga las dos cosas.
+
+    v297.1 — LA PRIMERA VERSION NO SACABA NINGUNA, Y POR UN MOTIVO REAL.
+    Se pedia el «más de 2,5» en la casa que gana el line shopping, y en las
+    ligas pequeñas —que es donde la Capa 1 encuentra sus errores— esa casa
+    publica el 1X2 y NO publica totales. Medido el 2026-09-21: de diez picks
+    vivos, diez sin línea de 2,5 en su casa (Novibet y Playdoit, `lineas=[]`).
+
+    Asi que se busca la mejor casa que ofrezca LAS DOS. El precio del 1X2 sale
+    peor que el del line shopping puro, y da igual mientras siga teniendo EV
+    contra Pinnacle: la medicion de `combinada.py` filtra exactamente por eso
+    —EV > 0,5 % con el precio que se use— asi que el resultado sigue valiendo.
+
+    Lo que NO se hace es repartir las patas entre dos casas. Eso no es una
+    combinada, son dos apuestas sueltas, y el usuario enseñó un boleto único.
+
+    NUNCA lanza.
+    """
+    try:
+        # v297.2 — HAY QUE MIRAR TODAS LAS CASAS, NO SOLO LAS QUE GANAN.
+        #
+        # `r['valor']` solo lista las casas que baten a Pinnacle, y en estas
+        # ligas es UNA sola (Novibet), justo la que no publica totales. Pero
+        # la linea de 2,5 SI existe en otras: de diez picks vivos, seis la
+        # tenian en Calientemx o 1xBet.
+        #
+        # Asi que se recorre el tablero entero y se le calcula el EV a cada
+        # casa con el mismo justo de Pinnacle. Sigue siendo la misma regla
+        # —que la casa pague por encima del justo— solo que aplicada a todas.
+        #
+        # v297.3 — Y EL LADO SALE DEL PICK, NO SIEMPRE «home».
+        #
+        # La primera version lo tenia fijo en el local, que es el mismo punto
+        # ciego que el usuario destapo con su boleto: gano con el Dila Gori y
+        # el CSKA Sofia II, los dos VISITANTES, en los dos partidos donde la
+        # Capa 1 apuntaba al local. Medido despues sobre 1.326 picks, el
+        # canal del visitante rinde igual o mas que el del local
+        # (+7,55 %/+13,14 % contra +6,81 %/+10,67 %, p5 positivo en los dos
+        # tramos), asi que dejarlo fuera de la combinada seria repetir el
+        # fallo a proposito.
+        lado = 'away' if str(lado) == 'away' else 'home'
+        pr = _num_seguro((r or {}).get('prob_justa', {}).get(lado))
+        if pr is None or not (0 < pr <= 1):
+            return None
+        mejor = None
+        for casa, mk in ((v or {}).get('casas') or {}).items():
+            try:
+                cu = float(((mk or {}).get('HOME_DRAW_AWAY') or {})
+                           .get(lado))
+            except (TypeError, ValueError):
+                continue
+            if not cu > 1:
+                continue
+            ev = pr * cu - 1.0
+            if ev <= 0.005:
+                continue
+            ou = _over25_de(v, casa)
+            if not ou:
+                continue
+            val = {'casa': casa}
+            # la que deje la combinada mas alta, que es la que mas paga por
+            # el mismo riesgo
+            total = cu * float(ou['cuota'])
+            if mejor is None or total > mejor['cuota_total']:
+                mejor = {'casa': val.get('casa'), 'cuota_1x2': cu,
+                         'prob_1x2': round(pr, 4), 'ev_1x2': round(ev, 4),
+                         'over25': ou, 'cuota_total': round(total, 2)}
+        return mejor
+    except Exception as e:
+        logger.debug('[capa1/combi] %s', e)
+        return None
+
+
 def barrer_goles(ruta: str = TABLERO) -> List[Dict]:
     """Discrepancias en el mercado de goles. NUNCA lanza.
 

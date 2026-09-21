@@ -81,6 +81,23 @@ CUOTA_MEDIA = 2.16
 # fiable. Misma puerta que el semaforo (v276).
 MARGEN_PIN_MAXIMO = 0.07
 
+# v295 — Y UN TECHO DURO, QUE NI EL NIVEL 6 SALTA.
+#
+# El nivel 6 deja pasar margen alto para no dejar la seccion vacia, pero sin
+# tope eso admitiria cualquier cosa: con un margen del 25 % la probabilidad
+# «de Pinnacle» ya no es de Pinnacle, es de como se le haya quitado el vig, y
+# el «error de cuota» pasa a ser un artefacto del metodo.
+#
+# ESTE NUMERO NO ESTA MEDIDO, Y NO PUEDE ESTARLO. En las 1.803 apuestas del
+# historico solo hay SEIS por encima del 7 % y NINGUNA por encima del 12 %: el
+# ledger se construye con las ligas de las que hay cuotas de cierre, y estas
+# ligas pequeñas no estan. Con n=6 no se decide nada.
+#
+# Asi que es un criterio, y se declara como tal: 15 % es mas del doble de la
+# puerta validada y deja fuera lo absurdo sin cerrar la seccion. Si algun dia
+# hay muestra, se mide y se sustituye.
+MARGEN_PIN_TOPE = 0.15
+
 # v281 — LA CASCADA: SIEMPRE HAY ALGO, PERO SE DICE DE QUE CALIDAD ES.
 #
 # El usuario lo pidio claro: «no quiero que nunca me des apuesta; que si hay
@@ -129,7 +146,45 @@ NIVELES = (
      'etiqueta': 'La que dobla', 'dias': 0.556,
      'nota': 'Ésta sí dobla limpio. Entra algo menos que la más probable, '
              'pero cuando entra pagas el doble.'},
-    {'n': 3, 'cuota': 2.00, 'prob': 0.40, 'acierta': 0.472,
+    # v297 — LA COMBINADA DEL MISMO PARTIDO, QUE EL USUARIO ENSEÑO.
+    #
+    # Su boleto: gana local 1,21 + más de 2,5 1,27 = 1,44. Dos patas del mismo
+    # partido en un solo ticket. Va AQUI, tercera, y no antes: los niveles 1 y
+    # 2 aciertan el 51,8 % y el 48,9 %, y ésta el 30,2 %. Paga mucho más y
+    # entra bastante menos.
+    #
+    # Es el unico canal nuevo de toda la sesion que PASA LAS DOS PUERTAS:
+    #
+    #     elección (70 % antiguo)   +11,11 %   p5 +2,35 %
+    #     juicio   (30 % reciente)  +22,74 %   p5 +8,61 %
+    #
+    # y le gana a jugar la pata sola (+14,60 % contra +7,46 %, mejora de
+    # +7,14 pp con p5 +1,34, en el 97,8 % de los remuestreos). Ver la cabecera
+    # de `combinada.py` para el porque: la casa la cobra multiplicando las dos
+    # cuotas y las patas no son independientes.
+    #
+    # EL PISO ES EL DEL CANAL MEDIDO, NO UNO MAS ALTO «POR SEGURIDAD».
+    #
+    # La primera version pedia prob >= 0,45 pensando en el «lo mas probable»
+    # que pidio el usuario. Pero lo medido —entra el 30,2 %— es el canal
+    # ENTERO; recortarlo al 45 % seria ofrecer un subconjunto que no se ha
+    # medido por separado y ademas tumbaria la mayoria de los dias. La lista
+    # ya sale ordenada de mas a menos probable y el usuario elige, que es
+    # exactamente lo que pidio en la v291.
+    {'n': 3, 'cuota': 1.50, 'prob': 0.22, 'acierta': 0.302,
+     'otros_mercados': True, 'margen_libre': True,
+     # v297.1 — y SOLO combinadas. Sin esto un «Más de 2,5» suelto, que no
+     # tiene medicion propia, entraba por aqui y salia con la etiqueta y los
+     # numeros de un canal validado que no es el suyo.
+     'solo_mercado': 'Combinada',
+     'etiqueta': 'Combinada del partido', 'dias': None,
+     'nota': 'Dos patas del mismo partido en un boleto, como la que me '
+             'enseñaste. La casa las cobra multiplicando las cuotas, como si '
+             'no tuvieran nada que ver, y sí lo tienen: si el local gana, '
+             'suele haber goles. Medido en 17.420 partidos, entran juntas un '
+             '18,4 % más de lo que ese precio supone. Ojo: paga más y entra '
+             'menos que las de arriba.'},
+    {'n': 4, 'cuota': 2.00, 'prob': 0.40, 'acierta': 0.472,
      'etiqueta': 'Aceptable', 'dias': 0.676,
      'nota': 'Hoy no había ninguna de las dos mejores. Dobla igual, pero '
              'es de un grupo que a la larga acierta un par de puntos menos.'},
@@ -143,6 +198,61 @@ NIVELES = (
      'nota': 'Ojo: con esta cuota ganar NO dobla tu dinero. Entra más a '
              'menudo, pero 100 se te quedan en unos 180. Para la escalera no '
              'sirve; para no quedarte quieto, sí.'},
+    # v294 — EL FONDO DE ARMARIO, PARA NO DEJAR LA SECCION VACIA.
+    #
+    # El 2026-09-21 la seccion salio con «hoy no hay nada» mientras habia
+    # siete picks de Capa 1 en pantalla: todos en ligas donde Pinnacle cobra
+    # mas del 7 % de margen, asi que la puerta de la v276 los tumbo a todos.
+    #
+    # La puerta es correcta y no se toca: por encima del 7 % no hay medicion
+    # que respalde nada (siete apuestas en cuatro años y medio). Lo que estaba
+    # mal era la consecuencia: decir «nada» cuando hay algo que enseñar.
+    #
+    # Este nivel los deja pasar, ULTIMO y con el aviso por delante. El usuario
+    # lo pidio dos veces: «no quiero que nunca me des apuesta». Que lo vea y
+    # decida es distinto de que yo elija por el sin decirselo.
+    {'n': 6, 'cuota': 1.80, 'prob': 0.30, 'acierta': None, 'dias': None,
+     'margen_libre': True,
+     'etiqueta': 'Fuera de lo medido',
+     'nota': 'Esto es lo único que hay hoy, y va sin red: Pinnacle le cobra '
+             'a esta liga un margen alto, así que su precio no sirve de '
+             'referencia fiable. De apuestas así tenemos siete en cuatro años '
+             'y medio — no puedo prometerte nada. Tú decides.'},
+    # v296 — OTROS MERCADOS, NO SOLO EL GANADOR.
+    #
+    # El usuario: «que no sean sólo para el gane sino para cualquier otra
+    # estadística». Tiene sentido y la via correcta NO es la que propuso.
+    #
+    # LO QUE SE MIDIO Y NO SIRVE: elegir por la tendencia estadistica. Sobre
+    # 15.411 partidos CON CUOTA REAL de mas/menos 2,5, apostando cuando la
+    # media de goles del par se aparta del precio:
+    #
+    #     se aparta > 5 pp    eleccion  -9,74 %   juicio  -9,46 %
+    #     se aparta > 10 pp   eleccion -11,11 %   juicio  -9,85 %
+    #     se aparta > 15 pp   eleccion -13,90 %   juicio -12,76 %
+    #
+    # Y con el modelo del repo en vez de la media, igual de mal (-8 a -10 %).
+    # No es ruido: pierde lo MISMO en los dos tramos. El motivo esta a la
+    # vista — la media SI predice (41 % de overs cuando el par promedia menos
+    # de 2, 59 % cuando promedia mas de 3,2) pero el precio ya lo sabe, y el
+    # margen medio de la pareja over/under es del 6,51 %. Informacion que el
+    # mercado ya tiene no paga el peaje.
+    #
+    # LO QUE SI SIRVE es el mismo mecanismo del 1X2: que OTRA CASA pague por
+    # encima del justo de Pinnacle. `barrido_capa1.barrer_goles` ya lo hace.
+    # No tiene medicion propia todavia —esta acumulando— asi que entra ULTIMO
+    # y marcado, igual que el nivel 6.
+    #
+    # `una_sola` esta puesto porque el usuario lo pidio explicito: «sólo
+    # apuesta de una». Una linea por partido, nunca dos del mismo.
+    {'n': 7, 'cuota': 1.50, 'prob': 0.30, 'acierta': None, 'dias': None,
+     'margen_libre': True, 'otros_mercados': True, 'una_sola': True,
+     'etiqueta': 'Otro mercado',
+     'nota': 'No es al ganador: es goles. Sale por el mismo motivo que las '
+             'demás —otra casa paga por encima del justo de Pinnacle— pero '
+             'este mercado aún no tiene medición propia, está acumulando. '
+             'Elegir por la media de goles se probó sobre 15.411 partidos y '
+             'pierde un 10 %: el precio ya se sabe la media.'},
 )
 
 
@@ -175,9 +285,38 @@ def candidatas(picks: List[Dict], nivel: Optional[Dict] = None) -> List[Dict]:
             if prob < nv['prob']:
                 continue
             margen = _num(p.get('margen_pin'))
-            if margen is not None and margen > MARGEN_PIN_MAXIMO:
+            if margen is not None:
+                if margen > MARGEN_PIN_TOPE:
+                    continue          # ni con la bandera: ahi no hay señal
+                if margen > MARGEN_PIN_MAXIMO and not nv.get('margen_libre'):
+                    continue
+            # v296 — QUE MERCADOS ENTRAN EN ESTE NIVEL.
+            #
+            # Todo lo medido de la Escalera es del 1X2, asi que los demas
+            # mercados solo entran en los niveles que lo dicen (`otros
+            # mercados`), y esos niveles van los ultimos. Al reves —que un
+            # pick de goles se cuele en el nivel 1 y salga con el sello de
+            # «acierta el 51,8 %»— seria prestarle a un canal sin medir el
+            # aval de otro.
+            #
+            # `validado` es la bandera que el barrido pone a False en los
+            # canales que aun acumulan, y por eso se lee junto con esto.
+            #
+            # Y AL REVES TAMBIEN, que costo un fallo en el test: el nivel 7
+            # pide cuota 1,50, y sin esta segunda mitad un pick del GANADOR a
+            # 1,60 se colaba por ahi. Esa banda se midio y es la unica que
+            # pierde —ROI -0,61 % global, -11,98 % en el tramo de juicio con
+            # p5 -26,76 %— asi que el 1,50 vale para goles y no para el 1X2.
+            _mk = str(p.get('mercado') or '')
+            _otro = _mk not in ('', '1X2', 'Ganador')
+            if nv.get('otros_mercados'):
+                if not _otro:
+                    continue
+                if nv.get('solo_mercado') and _mk != nv['solo_mercado']:
+                    continue
+            elif _otro:
                 continue
-            if p.get('validado') is False:
+            elif p.get('validado') is False:
                 continue
             # v280.1 — LA ESCALERA NO PUEDE CONTRADECIR AL SEMAFORO.
             #
@@ -223,12 +362,45 @@ def todas(picks: List[Dict], tope: int = 8) -> List[Dict]:
     try:
         for nv in NIVELES:
             for p in candidatas(picks, nv):
-                k = (str(p.get('partido')), str(p.get('apuesta')))
+                # v296 — UN PARTIDO, UNA OPCION.
+                #
+                # El usuario lo pidio explicito: «sólo apuesta de una». Antes
+                # la clave era (partido, apuesta), asi que el mismo partido
+                # podia ocupar dos huecos —«Gana X» por un lado y «Más de 2,5»
+                # por otro— y la lista parecia ofrecer mas donde habia menos.
+                # Con el mercado de goles dentro eso pasaria a diario.
+                # v297.1 — el partido, PERO POR MERCADO.
+                #
+                # Con la clave sólo del partido, la combinada de un encuentro
+                # nunca aparecía: su pick del 1X2 ya había ocupado el hueco en
+                # el nivel 1, que va antes. Y son dos productos distintos —el
+                # ganador solo, o el ganador más los goles— entre los que el
+                # usuario tiene que poder elegir.
+                #
+                # Lo que la clave sigue impidiendo es lo que motivó la regla:
+                # el mismo partido con dos líneas de goles distintas, que
+                # parecen dos oportunidades y son una.
+                k = (str(p.get('partido')), str(p.get('mercado') or ''))
                 if k in vistos:
                     continue
                 vistos.add(k)
                 q = dict(p)
                 q['nivel_escalera'] = nv
+                # v295 — EL VEREDICTO DEL SEMAFORO, ADJUNTO.
+                #
+                # La pantalla pinta un circulo de color por opcion leyendo
+                # `semaforo.nivel`, y esta clave NUNCA se ponia: `_ICO.get(...)`
+                # caia siempre en su valor por defecto y TODAS salian amarillas,
+                # las buenas y las regulares igual. El selector prometia un
+                # semaforo y enseñaba una fila de bombillas del mismo color.
+                #
+                # `candidatas` ya llama a `clasificar` para descartar las rojas,
+                # asi que el veredicto existe; solo habia que guardarlo.
+                try:
+                    import semaforo_capa1 as _sem
+                    q['semaforo'] = _sem.clasificar(p)
+                except Exception as _e:
+                    logger.debug('[escalera] sin semaforo: %s', _e)
                 fuera.append(q)
                 if len(fuera) >= tope:
                     return fuera
@@ -322,7 +494,11 @@ def resumen(pick: Optional[Dict], banco: float = 100.0) -> str:
                 'ésas no te las voy a poner.')
     try:
         cuota = float(pick.get('cuota'))
-        prob = float(pick.get('prob_escalera') or 0)
+        # v297.1 — `prob_escalera` la pone `candidatas`, asi que un pick que
+        # llegue aqui por otro camino —una combinada recien armada, por
+        # ejemplo— salia con «Entra 0 de cada 100 veces». Cero. Justo el
+        # numero que hace que nadie la juegue, y falso.
+        prob = float(pick.get('prob_escalera') or pick.get('prob') or 0)
         base = ('Si entra, tus **%.0f $** se convierten en **%.0f $**. '
                 'Entra **%.0f de cada 100 veces**.'
                 % (banco, banco * cuota, 100 * prob))
