@@ -394,6 +394,45 @@ def _goles_por_linea():
                100 * sesgo_sin, 100 * sesgo_con))
 
 
+def _ledger_handicap():
+    """Rehace el ledger del handicap asiatico (v261).
+
+    POR QUE ESTE PASO FALTABA, Y ES DEUDA PROPIA
+    `pick_ledger_handicap.csv` estaba en el 8 de agosto —seis semanas— y nadie
+    lo regeneraba. Lo LEEN `calibracion_confianza` y `mercado_estabilidad`, o
+    sea que decide, y desde la v254 el handicap ademas se publica como
+    apuesta: se encendio un mercado cuya validacion llevaba mes y medio
+    congelada.
+
+    Es exactamente el fallo que la v256 arreglo con el ledger de totales (42
+    dias, workflow en verde cada lunes) y que la auditoria del propio repo
+    marcaba en rojo como «handicap: grande_activo_sin_medicion».
+
+    No re-predice nada: deriva de `pick_ledger_totales.csv` y
+    `pick_ledger_total.csv`, asi que tiene que ir DETRAS del paso 1, que es
+    quien los reconstruye.
+    """
+    import build_ledger_handicap as blh
+    d = blh.construir()
+    if d is None or not len(d):
+        return 'sin partidos con lambda y 1X2 a la vez'
+    # cordura: lo que se prometio contra lo que se cubrio, en la linea mas
+    # usada. Un ledger que sale sesgado es peor que no tenerlo.
+    import numpy as np
+    partes = []
+    for L in ('-0p50', '+0p00', '+0p50'):
+        cp, cr = 'p_ah_%s' % L, 'ah_%s_real' % L
+        if cp not in d.columns or cr not in d.columns:
+            continue
+        m = d[cp].notna() & d[cr].notna()
+        if int(m.sum()) < 500:
+            continue
+        partes.append('%s dijo %.3f pasa %.3f'
+                      % (L.replace('p', ','), float(d.loc[m, cp].mean()),
+                         float(np.asarray(d.loc[m, cr], dtype=float).mean())))
+    return '%d partidos · %s' % (len(d), ' · '.join(partes) or 'sin cordura')
+
+
 PASOS = [
     ('1. ledger (re-predice el histórico con los modelos de hoy)', _ledger),
     ('2. calibración de confianza (acierto real por banda)', _confianza),
@@ -421,6 +460,7 @@ PASOS = [
     # sigue como estaba—, así que este paso no puede empeorar nada por sí
     # solo.
     ('11. curva por línea del mercado de goles', _goles_por_linea),
+    ('12. ledger del hándicap asiático', _ledger_handicap),
 ]
 
 

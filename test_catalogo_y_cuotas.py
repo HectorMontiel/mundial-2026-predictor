@@ -21485,6 +21485,46 @@ def test_el_selector_de_ligas_sigue_al_de_deportes():
           'v260: ordenadas por numero de partidos — la que mas juega es la '
           'que mas probablemente se busca')
 
+
+def test_el_ledger_del_handicap_se_rehace_solo():
+    """
+    DEUDA QUE CREO LA v254 Y QUE LA AUDITORIA DESTAPO.
+
+    `pick_ledger_handicap.csv` estaba en el 8 de agosto —seis semanas— y nadie
+    lo regeneraba. Lo LEEN `calibracion_confianza` y `mercado_estabilidad`, o
+    sea que decide; y desde la v254 el handicap ademas se publica como
+    apuesta. Se encendio un mercado cuya validacion llevaba mes y medio
+    congelada, que es el mismo fallo que la v256 arreglo con el ledger de
+    totales y que el auditor del repo marcaba como «handicap:
+    grande_activo_sin_medicion».
+
+    Reconstruido, el mercado resulta ser el MEJOR calibrado del proyecto:
+    linea -0,50 dijo 0,446 y paso 0,445; +0,00 dijo 0,607 y paso 0,604; +0,50
+    dijo 0,710 y paso 0,708. Menos de medio punto en las tres.
+    """
+    import io as _io
+    r = _io.open('recalibrar_todo.py', encoding='utf-8').read()
+    check('build_ledger_handicap' in r,
+          'v261: la cadena semanal rehace el ledger del handicap')
+    i_led = r.find("('1. ledger")
+    i_h = r.find("('12. ledger del hándicap")
+    check(i_led > 0 and i_h > i_led,
+          'v261: y DETRAS del paso 1, del que deriva — no re-predice nada, '
+          'sale de `pick_ledger_totales` y `pick_ledger_total`')
+    y = _io.open('.github/workflows/recalibrar.yml', encoding='utf-8').read()
+    check('pick_ledger_handicap.csv' in y,
+          'v261: el workflow lo commitea, o el reajuste muere con el runner')
+    # y sigue habiendo quien lo lea: si nadie lo leyera, no habria que rehacerlo
+    import os
+    lectores = []
+    for f in ('calibracion_confianza.py', 'mercado_estabilidad.py'):
+        if os.path.exists(f) and 'pick_ledger_handicap' in _io.open(
+                f, encoding='utf-8').read():
+            lectores.append(f)
+    check(len(lectores) >= 2,
+          'v261: y lo siguen leyendo los dos modulos que deciden con el (%s)'
+          % lectores)
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -22095,6 +22135,7 @@ if __name__ == '__main__':
     test_la_curva_de_goles_se_reajusta_sola_y_con_su_puerta()
     test_el_ledger_de_totales_usa_la_lambda_de_produccion()
     test_la_curva_de_goles_la_enciende_la_medicion_no_una_constante()
+    test_el_ledger_del_handicap_se_rehace_solo()
     test_el_h2h_pesa_en_el_1x2_y_arrastra_a_la_doble()
     test_los_avisos_los_entiende_quien_apuesta()
 

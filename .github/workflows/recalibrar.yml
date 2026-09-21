@@ -224,7 +224,7 @@ jobs:
           #
           # Bucle por fichero, como en `precalculo_dia`: un `git add` con un
           # pathspec que no existe falla ENTERO y se lleva los demas.
-          for _f in pick_ledger_totales.csv calibracion_bandas.json calibracion_goles.json pick_ledger_deportes.csv pronosticos_emitidos.json; do
+          for _f in pick_ledger_totales.csv calibracion_bandas.json calibracion_goles.json pick_ledger_handicap.csv pick_ledger_deportes.csv pronosticos_emitidos.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi
