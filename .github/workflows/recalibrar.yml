@@ -257,11 +257,47 @@ jobs:
           # seguiria encendida en produccion. Es el mismo fallo que la v202
           # arreglo con el indice de riesgo.
           git add -A activacion_v212.json backtesting_v212.md || echo "::warning::git add de la activacion v212 fallo"
+          # v284 — EL PUSH SIN REBASE TIRABA HORA Y MEDIA DE TRABAJO.
+          #
+          # El 2026-09-21 este job corrio 1 h 36 min, commiteo 26 ficheros con
+          # 923.854 lineas... y el push salio rechazado:
+          #
+          #     ! [rejected]  main -> main (fetch first)
+          #     hint: the remote contains work that you do not have locally
+          #
+          # Entre que el runner hizo `checkout` y que llego aqui, el workflow
+          # de las cuotas (cada 2 h) y un empujon manual habian movido `main`.
+          # El commit se quedo DENTRO del runner, el runner se destruyo, y la
+          # recalibracion semanal entera se perdio.
+          #
+          # Esto es el mismo tipo de fallo que este propio fichero documenta
+          # tres veces mas arriba: un paso que falla al final y se lleva por
+          # delante el trabajo de todo el job. La diferencia es que aqui ni
+          # siquiera se callaba —el job salio en rojo— pero el resultado para
+          # el proyecto es identico: cero.
+          #
+          # Y era el UNICO workflow del repositorio con `git push` a secas.
+          # `cuotas_mx`, `precalculo_dia`, `precalcular_rosters`, `radar_diario`
+          # y `retrain_leagues` ya rebasan antes. Este bucle es literalmente el
+          # de `retrain_leagues`, que lleva funcionando desde la v186.
           if git diff --cached --quiet; then
             echo "Las calibraciones no cambiaron esta semana."
           else
             fecha=$(date -u +%Y-%m-%d)
             git commit -m "chore(calibracion): recalibración semanal de la cadena ($fecha)"
-            git push
-            echo "Calibraciones actualizadas y publicadas."
+            _ok=0
+            for intento in 1 2 3; do
+              if git push; then
+                echo "Calibraciones actualizadas y publicadas."
+                _ok=1
+                break
+              fi
+              echo "push rechazado (intento $intento): alguien empujó mientras corría el job."
+              git fetch origin main || true
+              git pull --rebase --autostash origin main || true
+            done
+            if [ "$_ok" != "1" ]; then
+              echo "::error::No se pudo publicar la recalibración tras 3 intentos."
+              exit 1
+            fi
           fi
