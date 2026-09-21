@@ -224,7 +224,23 @@ jobs:
           #
           # Bucle por fichero, como en `precalculo_dia`: un `git add` con un
           # pathspec que no existe falla ENTERO y se lleva los demas.
-          for _f in pick_ledger_totales.csv calibracion_bandas.json calibracion_goles.json pick_ledger_handicap.csv pick_ledger_deportes.csv pronosticos_emitidos.json; do
+          # v263 — `pick_ledger.csv` y `pick_ledger_total.csv` FALTABAN.
+          #
+          # El paso 1 los reconstruye cada lunes —76 minutos medidos el
+          # 2026-09-14: futbol 80.908 filas (+32.960), deportes 328.865
+          # (+256.733)— y al no estar en esta lista el runner se destruia
+          # con el trabajo dentro. Produccion se quedo con la version del
+          # 2026-07-28: OCHO SEMANAS, mientras el workflow salia en verde
+          # cada lunes y su propio informe decia «ok: true».
+          #
+          # `pick_ledger.csv` no es uno cualquiera: es el 1X2 de futbol,
+          # el unico que guarda el precio de Pinnacle (26.666 filas) y por
+          # tanto el unico con el que se puede validar `valor_vs_sharp`,
+          # que es el canal que de verdad gana. Tambien es el que impide
+          # medir el movimiento de linea: el historico de precios empieza
+          # el 2026-07-30 y el de resultados acaba el 2026-07-28, con dos
+          # dias de separacion y cero solape.
+          for _f in pick_ledger.csv pick_ledger_total.csv pick_ledger_totales.csv calibracion_bandas.json calibracion_goles.json pick_ledger_handicap.csv pick_ledger_deportes.csv pronosticos_emitidos.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

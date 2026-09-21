@@ -157,7 +157,19 @@ TIMEOUT = 20
 PAUSA = 0.02
 # Un fichero de más de este tiempo no se usa: son precios, y un precio de
 # ayer no es un precio.
-TTL_HORAS = 8
+#
+# v263 — DE 8 HORAS A 4, PORQUE EL BARRIDO PASA A CORRER CADA DOS.
+#
+# Las 8 horas estaban dimensionadas para el cron de seis: seis más margen. De
+# nada sirve bajar precios cada dos horas si después se siguen usando los de
+# hace ocho — el pick saldría con un precio que el mercado ya corrigió, que es
+# exactamente el fallo que este cambio viene a arreglar.
+#
+# Cuatro y no tres: con ejecuciones cada dos horas, un fichero fresco tiene
+# como mucho dos. Cuatro tolera que se pierda UNA ejecución sin dejar el
+# tablero sin precios; tres no. El precio de esa holgura es que en el peor
+# caso se usa un precio de cuatro horas, la mitad que antes.
+TTL_HORAS = 4
 
 
 # ---------------------------------------------------------------------------

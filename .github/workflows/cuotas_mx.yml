@@ -29,7 +29,36 @@ name: Cuotas de las casas mexicanas
 
 on:
   schedule:
-    - cron: '10 */6 * * *'      # cada seis horas
+    # v263 — CADA DOS HORAS, Y ESTA MEDIDO POR QUE.
+    #
+    # Un error de cuota es una casa que no ha movido su precio cuando Pinnacle
+    # si lo movio. Es transitorio por definicion. Medido sobre 43.159
+    # comparaciones casa-vs-Pinnacle de `odds_snapshots.csv`:
+    #
+    #   · solo el 0,5 % de las comparaciones tiene ventaja > 1 %
+    #   · de las ventajas detectadas en una foto, SOLO EL 36 % sigue en la
+    #     siguiente; su EV medio cae de +9,4 % a +2,1 %
+    #   · las que no la tienen, casi nunca la ganan despues (0,3 %)
+    #
+    # O sea: dos tercios de los errores mueren entre foto y foto, y no
+    # aparecen de la nada. Con seis horas veiamos cuatro fotos al dia de algo
+    # que dura menos que eso, y por eso la Capa 1 sacaba uno o dos picks.
+    #
+    # Y el dia del partido es cuando MAS errores hay y MAS grandes son (0,6 %
+    # de las comparaciones, EV medio +16 %), que es justo cuando peor los
+    # cazabamos.
+    #
+    # EL COSTE: el repositorio es publico, asi que los minutos de Actions son
+    # gratis. El ritmo por ejecucion no cambia —8 hilos, pausa de 20 ms, 29,3
+    # peticiones/s—: es la misma cortesia con las casas, solo que mas a
+    # menudo. Pasa de 32.320 a 96.960 peticiones al dia.
+    #
+    # LO QUE ESTE CAMBIO NO SABE TODAVIA, Y CONVIENE DECIRLO: la caida medida
+    # es entre fotos de DIAS distintos, porque es lo unico que hay guardado.
+    # La caida DENTRO del dia no esta medida. Este cambio es justamente lo que
+    # generara esos datos: dentro de unas semanas se podra medir si dos horas
+    # es lo correcto, o si hay que bajar mas, o si con cuatro bastaba.
+    - cron: '10 */2 * * *'      # cada dos horas
   workflow_dispatch:
 
 permissions:

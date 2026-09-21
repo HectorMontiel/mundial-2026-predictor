@@ -21525,6 +21525,53 @@ def test_el_ledger_del_handicap_se_rehace_solo():
           'v261: y lo siguen leyendo los dos modulos que deciden con el (%s)'
           % lectores)
 
+
+def test_los_ledgers_que_se_reconstruyen_tambien_se_guardan():
+    """
+    EL FALLO MAS CARO DE LA AUDITORIA, Y EL MAS SILENCIOSO.
+
+    El paso 1 de la cadena reconstruye `pick_ledger.csv` (futbol 1X2) y
+    `pick_ledger_total.csv` cada lunes. Medido en la ejecucion del 2026-09-14:
+    4.588 segundos —76 minutos— para 80.908 filas de futbol y 328.865 de
+    deportes. Su propio informe decia «ok: true».
+
+    Y el runner se destruia con el trabajo dentro, porque esos dos ficheros no
+    estaban en la lista que el workflow commitea. Produccion se quedo con la
+    version del 2026-07-28: OCHO SEMANAS, con el workflow en verde cada lunes.
+
+    Por que duele tanto en ESTE fichero:
+      · es el unico ledger con el precio de Pinnacle (26.666 filas), asi que
+        es el unico con el que se puede validar `valor_vs_sharp`, que es el
+        canal que de verdad gana;
+      · y es el que bloquea medir el movimiento de linea: el historico de
+        precios empieza el 2026-07-30 y el de resultados acababa el
+        2026-07-28. Dos dias de separacion, cero solape, y por eso
+        `contexto_mercado` dice que su senal «no esta medida».
+
+    Regla que fija esta prueba: lo que la cadena reconstruye, el workflow lo
+    guarda. Reconstruir sin guardar es gastar 76 minutos de CI para nada y,
+    peor, creer que el fichero esta fresco.
+    """
+    import io as _io
+    import re as _re
+
+    y = _io.open('.github/workflows/recalibrar.yml', encoding='utf-8').read()
+    m = _re.search(r'for _f in ([^;]+); do', y)
+    check(m is not None, 'v263: el workflow tiene su lista de ficheros')
+    guardados = set((m.group(1) if m else '').split())
+
+    r = _io.open('recalibrar_todo.py', encoding='utf-8').read()
+    # lo que el paso 1 reconstruye de verdad
+    for fichero in ('pick_ledger.csv', 'pick_ledger_total.csv',
+                    'pick_ledger_totales.csv', 'pick_ledger_deportes.csv',
+                    'pick_ledger_handicap.csv'):
+        check(fichero in guardados,
+              'v263: el workflow guarda `%s`, que la cadena reconstruye'
+              % fichero)
+    check('calibracion_goles.json' in guardados and
+          'calibracion_bandas.json' in guardados,
+          'v263: y las dos calibraciones que tambien se reajustan')
+
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')
     test_catalogo_sin_duplicados()
@@ -22136,6 +22183,7 @@ if __name__ == '__main__':
     test_el_ledger_de_totales_usa_la_lambda_de_produccion()
     test_la_curva_de_goles_la_enciende_la_medicion_no_una_constante()
     test_el_ledger_del_handicap_se_rehace_solo()
+    test_los_ledgers_que_se_reconstruyen_tambien_se_guardan()
     test_el_h2h_pesa_en_el_1x2_y_arrastra_a_la_doble()
     test_los_avisos_los_entiende_quien_apuesta()
 
