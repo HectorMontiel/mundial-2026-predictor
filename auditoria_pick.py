@@ -120,7 +120,11 @@ _CONFIANZA = (('ALTA', 0.75), ('MEDIA', 0.50), ('BAJA', 0.0))
 # Los únicos canales que suben la confianza: los que `clasificador` deja subir
 # a la Sección 1 porque tienen percentil 5 de bootstrap positivo. `ev_del_modelo`
 # NO está aquí a propósito — es el anti-indicador medido.
-CANALES_MEDIDOS = ('precio_local', 'precio_nfl', 'tenis_90')
+# v297.4 — `precio_visitante` entra aqui el mismo dia que sube a la Seccion 1,
+# y no despues: si sube alli y no esta en esta tupla, sus picks salen en la
+# seccion de los medidos con la confianza de los que no lo estan.
+CANALES_MEDIDOS = ('precio_local', 'precio_visitante', 'precio_nfl',
+                   'tenis_90')
 
 
 # ---------------------------------------------------------------------------

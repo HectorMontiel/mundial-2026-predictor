@@ -91,6 +91,15 @@ REGLAS = [
      'evidencia': 'p5 de bootstrap +1,73 % en el tramo de juicio; ROI +8,22 % '
                   'entre 5 % y 100 % de ventaja contra −11,48 % entre 0 y 5 %',
      'estado': 'VIGENTE — medida y positiva', 'tocar': 'no sin nueva evidencia'},
+    {'regla': 'Ventaja de precio al lado VISITANTE (Sección 1)',
+     'modulo': 'clasificador.canal_del_pick', 'version': 'v297',
+     'evidencia': 'n=1.326; cortando por la misma fecha que el local, '
+                  'elección +8,08 % (p5 +0,26 %) y juicio +10,40 % '
+                  '(p5 +2,75 %). Antes estaba cerrado con p5 −5,10 % sobre '
+                  '234 apuestas de juicio; con 656 deja de hundirse, y en '
+                  'cuatro cortes seguidos',
+     'estado': 'VIGENTE — medida, pero FINA: el p5 de elección roza el cero',
+     'tocar': 'vigilar; si el p5 de elección vuelve a negativo, cerrar'},
     {'regla': 'EV del modelo como criterio de selección',
      'modulo': 'alpha_finder / valor_apuesta', 'version': 'v128',
      'evidencia': '−4,66 % a −6,52 % de ROI sobre 37.158 apuestas; '

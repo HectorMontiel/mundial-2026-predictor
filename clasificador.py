@@ -414,9 +414,27 @@ CANAL_LOCAL_MEDICION = {
     'n_elige': 1817, 'roi_elige': 0.0509, 'p5_elige': 0.0109,
     'n_juicio': 353, 'roi_juicio': 0.1149, 'p5_juicio': 0.0173,
 }
+# v297.4 — EL VISITANTE SALE DE AQUI Y SE MIDE APARTE.
+#
+# Estaba con el empate, en la bolsa de «mismo canal, peor lado», con
+# `p5_juicio: -0.0510` sobre 234 apuestas. Era correcto entonces. Ahora hay
+# 656 apuestas en ese tramo y el p5 es positivo, asi que el sitio del
+# visitante ya no es la Seccion 2.
+#
+# Se vio venir por un boleto del usuario, no por una revision: gano con el
+# Dila Gori y el CSKA Sofia II, los dos visitantes, en los dos partidos donde
+# la Capa 1 recomendaba al local.
+CANAL_VISITANTE_MEDICION = {
+    'n_elige': 670, 'roi_elige': 0.0808, 'p5_elige': 0.0026,
+    'n_juicio': 656, 'roi_juicio': 0.1040, 'p5_juicio': 0.0275,
+}
 CANAL_NO_LOCAL_MEDICION = {
     'empate': {'n_juicio': 56, 'roi_juicio': -0.0709, 'p5_juicio': -0.3891},
-    'visitante': {'n_juicio': 234, 'roi_juicio': 0.0792, 'p5_juicio': -0.0510},
+    # Se deja el numero VIEJO del visitante a proposito, porque es la unica
+    # forma de que se vea que cambio y por que. No lo usa nadie: la rama del
+    # visitante mira `CANAL_VISITANTE_MEDICION`.
+    'visitante_antes_de_v297': {'n_juicio': 234, 'roi_juicio': 0.0792,
+                                'p5_juicio': -0.0510},
 }
 
 
@@ -486,18 +504,41 @@ def canal_del_pick(p: Dict) -> Dict:
         if dep == 'Fútbol' and lado == 'home':
             c = CANAL_LOCAL_MEDICION
             return {'seccion': 1, 'canal': 'precio_local', 'medicion': c,
+                    # v297.4 — aquí ponía «el ÚNICO del canal con p5 positivo
+                    # en las dos mitades». Dejó de ser cierto cuando el
+                    # visitante paso a tener el suyo. Sigue siendo el MEJOR
+                    # medido, que es lo que de verdad importa aquí.
                     'motivo': f"una casa blanda paga por encima del precio "
                               f"justo de Pinnacle, y es el LADO LOCAL: el "
-                              f"único del canal con p5 positivo en las dos "
-                              f"mitades del ledger "
+                              f"mejor medido del canal, con p5 positivo en "
+                              f"las dos mitades del ledger "
                               f"({c['roi_juicio']*100:+.2f} % con p5 "
                               f"{c['p5_juicio']*100:+.2f} % sobre "
                               f"{c['n_juicio']} apuestas de juicio)"}
+        # v297.4 — EL VISITANTE SUBE A LA SECCION 1, CON SU PROPIA MEDICION.
+        #
+        # Y sube por la misma disciplina que en su dia lo bajo: una medicion
+        # concreta, con su lado, su n y su p5 en LAS DOS mitades. Cortando por
+        # la misma fecha que el local, para que los tramos sean comparables:
+        # eleccion +8,08 % (p5 +0,26) y juicio +10,40 % (p5 +2,75).
+        #
+        # No se le dice al usuario que es igual de bueno que el local, porque
+        # no lo es: el p5 de eleccion esta pegado a cero.
+        if dep == 'Fútbol' and lado == 'away':
+            c = CANAL_VISITANTE_MEDICION
+            return {'seccion': 1, 'canal': 'precio_visitante', 'medicion': c,
+                    'motivo': f"una casa blanda paga por encima del precio "
+                              f"justo de Pinnacle, y es el LADO VISITANTE: "
+                              f"p5 positivo en las dos mitades desde la v297 "
+                              f"({c['roi_juicio']*100:+.2f} % con p5 "
+                              f"{c['p5_juicio']*100:+.2f} % sobre "
+                              f"{c['n_juicio']} apuestas de juicio). Más fino "
+                              f"que el local: en la mitad con la que se eligió "
+                              f"su p5 es {c['p5_elige']*100:+.2f} %"}
         if dep == 'Fútbol':
-            nom = 'empate' if lado == 'draw' else 'visitante'
-            d = CANAL_NO_LOCAL_MEDICION.get(nom) or {}
+            d = CANAL_NO_LOCAL_MEDICION.get('empate') or {}
             return {'seccion': 2, 'canal': 'precio_no_local',
-                    'motivo': f"mismo canal de precio, pero al {nom}: en el "
+                    'motivo': f"mismo canal de precio, pero al empate: en el "
                               f"tramo de juicio da p5 "
                               f"{(d.get('p5_juicio') or 0)*100:+.1f} % con "
                               f"{d.get('n_juicio', 0)} apuestas. Luce bien en "
@@ -560,10 +601,15 @@ def secciones_del_dia(capa1: List[Dict], capa2: Optional[List[Dict]] = None,
 
     El orden de la Sección 1 no es por EV ni por probabilidad: es por la
     FUERZA DE LA MEDICIÓN que respalda cada canal. El precio al lado local
-    tiene p5 +1,73 % en juicio; el tenis, +0,18 %. Poner primero lo mejor
-    medido es la única prioridad que este proyecto puede defender.
+    tiene p5 +1,73 % en juicio; el visitante, +2,75 % en juicio pero sólo
+    +0,26 % en elección (v297); el tenis, +0,18 %. Poner primero lo mejor
+    medido es la única prioridad que este proyecto puede defender — y «mejor
+    medido» es el peor de los dos tramos, no el que más luce.
     """
-    orden_canal = {'precio_local': 0, 'precio_nfl': 1, 'tenis_90': 2}
+    # v297.4 — el visitante entra DETRAS del local, no delante: su p5 de
+    # eleccion es +0,26 % contra +1,09 % del local. Mejor medido primero.
+    orden_canal = {'precio_local': 0, 'precio_visitante': 1,
+                   'precio_nfl': 2, 'tenis_90': 3}
     s1, s2, vistos = [], [], set()
     for p in list(capa1 or []) + list(capa2 or []):
         if not isinstance(p, dict):

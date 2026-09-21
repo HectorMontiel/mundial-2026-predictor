@@ -4878,9 +4878,15 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # fraccion de esos.
     #
     # Los filtros son los MISMOS que ya estaban validados, ni uno mas ni uno
-    # menos: futbol solo al lado local, tenis solo WTA, y lo que no tiene
-    # medicion propia entra marcado como no validado para que se acumule y
-    # pueda juzgarse. Ver `barrido_capa1`.
+    # menos: tenis solo WTA, y lo que no tiene medicion propia entra marcado
+    # como no validado para que se acumule y pueda juzgarse.
+    #
+    # v297.4 — aqui ponia «futbol solo al lado local» y ya no es cierto: el
+    # visitante se abrio despues de medirlo (n=1.326, eleccion +8,08 % con
+    # p5 +0,26, juicio +10,40 % con p5 +2,75, cortando por la misma fecha que
+    # el local). La tabla entera y el porque la v266 lo habia cerrado estan en
+    # `test_catalogo_y_cuotas.test_la_capa1_barre_todo_el_tablero...`.
+    # Ver `barrido_capa1.REGLAS`, que es la fuente, no este comentario.
     try:
         import barrido_capa1 as _bc1
         _ya = {(str(p.get('partido')), p.get('lado'))

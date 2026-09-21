@@ -775,6 +775,64 @@ def _capa1_en_vivo() -> list:
         return []
 
 
+def solo_del_dia(picks: list, modo: str) -> list:
+    """Los picks de ese día. Ver `dia_picks`, que es donde vive la lógica."""
+    try:
+        import dia_picks as _dp
+        return _dp.solo_del_dia(picks, modo)
+    except Exception as e:
+        logger.debug('[solo_del_dia] %s', e)
+        return [p for p in (picks or []) if isinstance(p, dict)]
+
+
+def modo_de_dia(picks: list, clave: str, etiqueta: str = '📅 Cuándo') -> str:
+    """Pinta el selector y devuelve 'todo', 'hoy' o 'mañana'. NUNCA lanza.
+
+    Por defecto enseña TODO: el problema que esto arregla era que faltaban
+    picks, así que el valor por defecto no puede ser uno que los esconda.
+
+    Y sólo se ofrece el selector cuando hay algo en los DOS días, para no
+    prometer una pestaña vacía.
+    """
+    try:
+        import dia_picks as _dp
+        c = _dp.cuenta(picks)
+        if not (c['hoy'] and c['mañana']):
+            return _dp.TODO
+        ops = ['todo (%d)' % c['todo'], 'hoy (%d)' % c['hoy'],
+               'mañana (%d)' % c['mañana']]
+        return st.radio(etiqueta, ops, index=0, horizontal=True,
+                        key=clave).split(' ')[0]
+    except Exception as e:
+        logger.debug('[modo_de_dia] %s', e)
+        return 'todo'
+
+
+def filtro_de_dia(picks: list, clave: str, etiqueta: str = '📅 Cuándo') -> list:
+    """Pinta el selector hoy/mañana/todo y devuelve la lista filtrada.
+
+    v298 — EL USUARIO LO PIDIO PORQUE LOS PICKS DE MAÑANA SE PERDIAN.
+
+        «Capa uno sólo me da apuestas de hoy, a pesar de que aplique el
+         filtro de mañana en apuestas del día. También tengo que tener filtro
+         de hoy y de mañana en la sección de escaleras.»
+
+    Y tenía razón a medias, que es lo interesante: el barrido SÍ trae mañana
+    —el tablero tiene 418 partidos del día siguiente contra 78 de hoy— y el
+    selector de hoy/mañana existía SÓLO en Soñadoras. En Apuestas del Día los
+    días se agrupaban con un encabezado, así que los de mañana quedaban abajo
+    del todo, y en la Escalera no había nada que los separase.
+
+    Por defecto enseña TODO: el problema era que faltaban picks, así que el
+    valor por defecto no puede ser uno que los esconda.
+
+    Sólo se ofrecen los días que de verdad tienen algo, para que el selector
+    no prometa una pestaña vacía. NUNCA lanza.
+    """
+    lista = [p for p in (picks or []) if isinstance(p, dict)]
+    return solo_del_dia(lista, modo_de_dia(lista, clave, etiqueta))
+
+
 def barrido_universal(forzar: bool = False) -> dict:
     """Barrido de alpha_finder con garantía de no solaparse consigo mismo."""
     import alpha_finder
@@ -7577,11 +7635,32 @@ def render_alpha_finder():
         # intacto para Telegram y la exportación.
         _s1 = _s1_f
         _s2 = _s2_f
+        # v298 — HOY O MAÑANA, TAMBIEN AQUI.
+        #
+        # El usuario: «Capa uno sólo me da apuestas de hoy, a pesar de que
+        # aplique el filtro de mañana». El selector de día existía sólo en
+        # Soñadoras; aquí los días se agrupaban con un encabezado, así que los
+        # de mañana quedaban al final de la lista y parecían no existir.
+        #
+        # Filtra las DOS secciones con un solo mando, porque separar «hoy» en
+        # una y no en la otra es peor que no tenerlo.
+        _modo_dia = modo_de_dia(list(_s1) + list(_s2), 'dia_del_dia')
+        _s1 = solo_del_dia(_s1, _modo_dia)
+        _s2 = solo_del_dia(_s2, _modo_dia)
         _CANALES = {
             'precio_local': ('💰 Ventaja de precio al local',
                              'Una casa blanda paga por encima del precio justo '
                              'de Pinnacle. No depende de que el modelo acierte: '
                              'son dos precios del mismo suceso.'),
+            # v297 — sin esta entrada los picks de visitante salían en la
+            # Sección 1 sin título ni explicación, que es peor que no salir.
+            'precio_visitante': ('✈️ Ventaja de precio al visitante',
+                                 'Lo mismo, pero al equipo de fuera. Estuvo '
+                                 'cerrado hasta que hubo bastantes partidos '
+                                 'para medirlo: rinde +2,75 % en la mitad del '
+                                 'histórico que no se usó para elegirlo. Más '
+                                 'fino que el local — en la otra mitad se '
+                                 'queda en +0,26 %, pegado a cero.'),
             'tenis_90': ('🎾 Tenis con probabilidad ≥ 90 %',
                          'La única banda del proyecto con p5 positivo. Cuotas '
                          'cortas (~1,15 de media): se gana por volumen y un '
@@ -8922,6 +9001,10 @@ def render_escalera():
         if isinstance(_p, dict) and _p.get('prob') is None:
             _cu = _p.get('cuota') or 0
             _p['prob'] = ((1 + (_p.get('ev') or 0)) / _cu) if _cu else 0
+
+    # v298 — hoy o mañana, aquí también. El barrido trae los dos días y en
+    # esta sección no había forma de separarlos.
+    _picks = filtro_de_dia(_picks, 'escalera_dia')
 
     # v291 — VARIAS OPCIONES Y EL USUARIO ELIGE.
     #

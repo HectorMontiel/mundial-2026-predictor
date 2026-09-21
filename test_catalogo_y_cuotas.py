@@ -11397,7 +11397,7 @@ def test_corners_no_suben_a_seccion1_sin_medicion():
           "y que sirve como señal, no como apuesta validada")
 
     import clasificador
-    canales_s1 = {'precio_local', 'precio_nfl', 'tenis_90'}
+    canales_s1 = {'precio_local', 'precio_visitante', 'precio_nfl', 'tenis_90'}
     # `canal_del_pick` es la puerta de la Seccion 1 del dia: ningun pick de
     # córners puede salir de ella con seccion 1.
     pick = {'deporte': 'Fútbol', 'mercado': 'Más de 9.5 córners',
