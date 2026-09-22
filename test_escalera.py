@@ -261,6 +261,41 @@ def probar_no_baja_a_cuota_1_50_en_el_1x2():
           'un ganador a cuota 1,60 NO se ofrece: esa banda pierde')
 
 
+def probar_no_miente_cuando_se_rompe():
+    """v299 — «no hay apuestas» y «me he roto» no pueden decirse igual.
+
+    En producción salió cuatro veces `module 'escalera' has no attribute
+    'todas'` y el usuario vio «Hoy no hay nada que ofrecer» con quince picks
+    en el tablero. El `except` se tragaba el fallo y el `if not opciones` de
+    abajo lo contaba como un día flojo.
+
+    Es la segunda vez que el usuario señala esta pantalla por lo mismo. Una
+    sección que dice «no hay» cuando lo que pasa es que no funciona hace que
+    deje de mirarla, y ahí se acaba el producto.
+    """
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    i = src.find('def render_escalera')
+    j = src.find('\ndef ', i + 10)
+    bloque = src[i:j if j > 0 else len(src)]
+
+    check('_roto' in bloque,
+          'la pantalla guarda el fallo aparte, no lo confunde con lista vacía')
+    check('st.error(' in bloque,
+          'y cuando se rompe lo dice en rojo, no con un st.info amable')
+    check('no es que hoy no' in bloque.lower(),
+          'con un texto que aclara que NO es que no haya apuestas')
+    check('_il.reload' in bloque or 'importlib' in bloque,
+          'y recarga el módulo, que es la causa real: Streamlit conserva '
+          '`sys.modules` entre pasadas y se queda con la versión vieja')
+    check('elegir(' in bloque,
+          'con `elegir()` de último recurso: mejor una opción que ninguna')
+
+    # el mensaje de «hoy no hay» tiene que seguir existiendo para el caso
+    # de verdad, que es distinto
+    check('Vuelve más tarde' in bloque,
+          'y el mensaje de día vacío de verdad sigue estando')
+
+
 def probar_orden():
     import escalera as esc
 
@@ -348,6 +383,8 @@ if __name__ == '__main__':
     probar_una_sola_por_partido()
     print('\n=== 2f. la banda 1,50 no se abre ===')
     probar_no_baja_a_cuota_1_50_en_el_1x2()
+    print('\n=== 2g. no miente cuando se rompe (v299) ===')
+    probar_no_miente_cuando_se_rompe()
     print('\n=== 3. el orden ===')
     probar_orden()
     print('\n=== 4. el plan ===')

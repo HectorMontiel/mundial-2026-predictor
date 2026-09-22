@@ -4969,6 +4969,11 @@ VISTAS_PRINCIPALES = ('hoy', 'manana', 'pasado', 'combi', 'estado')
 
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
+    # v299 — El día que gobierna TODA la pantalla. Se pinta el mando sobre la
+    # Capa 1, que es lo primero que se ve, y su valor viaja hasta las
+    # secciones del clasificador, mucho más abajo. Se inicializa aquí para
+    # que exista aunque la Capa 1 no llegue a pintarse.
+    _modo_dia = 'todo'
     # v128 — EL CHIP DE CASAS DEJA DE SER UN LITERAL.
     #
     # Decía «6 casas» escrito a mano, así que seguía diciendo 6 tanto si el
@@ -6338,6 +6343,11 @@ def render_alpha_finder():
     _c1 = _filtra(r.get('capa1'))
     # v275 — LA CAPA 1 SE CALCULA EN VIVO, Y NO DEPENDE DEL CRON.
     #
+    # v299: el filtro de día se aplica DESPUÉS del barrido en vivo, unas
+    # líneas más abajo. Aquí todavía no, porque los picks de mañana entran
+    # justo por ese barrido y filtrarlos antes los borraría sin haberlos
+    # contado.
+    #
     # EL FALLO QUE ARREGLA, QUE PASO TRES VECES SEGUIDAS. El usuario vio «Hoy
     # no hay ninguna» tres veces por tres causas DISTINTAS: codigo sin
     # empujar, el bloque del barrido metido en la funcion equivocada, y el
@@ -6363,6 +6373,21 @@ def render_alpha_finder():
             logger.info('[capa1] %d picks anadidos en vivo', len(_nuevos))
     except Exception as _e_vivo:
         logger.warning('[capa1] barrido en vivo omitido: %s', _e_vivo)
+    # v299 — EL FILTRO DE DIA, Y ESTA VEZ SOBRE LA CAPA 1 DE VERDAD.
+    #
+    # El usuario: «cuando aplico el filtro de apuestas del día a mañana no se
+    # aplica en capa 1». Tenía razón: la v298 puso el selector sobre las
+    # secciones 1 y 2 del clasificador, que son OTRA lista. Este bloque —el
+    # que lleva el título «🟢 Capa 1 — lo único con ventaja medida»— no lo
+    # tocaba nadie.
+    #
+    # El mando se pinta AQUI, que es lo primero que el usuario ve de la
+    # pantalla, y su elección gobierna todo lo de abajo: `_modo_dia` viaja
+    # hasta las secciones del clasificador, que ya no pintan uno propio.
+    # Dos mandos para el mismo concepto en la misma pantalla es peor que
+    # ninguno: se contradicen y nadie sabe cuál manda.
+    _modo_dia = modo_de_dia(_c1, 'dia_del_dia')
+    _c1 = solo_del_dia(_c1, _modo_dia)
     try:
         import semaforo_capa1 as _sem
         _c1 = _sem.ordenar(_c1)
@@ -7644,7 +7669,10 @@ def render_alpha_finder():
         #
         # Filtra las DOS secciones con un solo mando, porque separar «hoy» en
         # una y no en la otra es peor que no tenerlo.
-        _modo_dia = modo_de_dia(list(_s1) + list(_s2), 'dia_del_dia')
+        # v299 — usa el mando que ya se pintó arriba, sobre la Capa 1. Aquí
+        # se pintaba un SEGUNDO selector con la misma clave, y dos radios de
+        # Streamlit compartiendo `key` se pisan: el de abajo reescribía la
+        # elección del de arriba en cada pasada.
         _s1 = solo_del_dia(_s1, _modo_dia)
         _s2 = solo_del_dia(_s2, _modo_dia)
         _CANALES = {
@@ -9012,11 +9040,52 @@ def render_escalera():
     # ordenada por calidad —nivel 1 primero— y el selector deja quedarse con
     # cualquiera. Lo que NO cambia es el filtro: las que el semáforo marca en
     # rojo no aparecen en ninguna posición.
-    _opciones = []
+    # v299 — «NO HAY NADA» Y «SE ROMPIO» NO SON LO MISMO.
+    #
+    # En producción salió esto, cuatro veces seguidas:
+    #
+    #     WARNING [escalera] no se pudieron listar: module 'escalera' has no
+    #     attribute 'todas'
+    #
+    # y el usuario vio «Hoy no hay nada que ofrecer». Mentira: había 15 picks
+    # en el tablero. El `except` se tragaba el fallo, dejaba la lista vacía y
+    # el `if not _opciones` de abajo lo contaba como un día sin oportunidades.
+    #
+    # Es el peor fallo que puede tener esta pantalla y es la SEGUNDA vez que
+    # el usuario lo señala. Una sección que miente diciendo «no hay» cuando lo
+    # que pasa es que no funciona hace que deje de mirarla, y ahí se acaba todo.
+    #
+    # El fallo se guarda aparte y se dice tal cual. Vacío de verdad es otra
+    # cosa y tiene su propio mensaje.
+    _opciones, _roto = [], None
     try:
+        # El «has no attribute» es el modulo viejo cacheado: Streamlit
+        # conserva `sys.modules` entre pasadas, asi que un proceso que
+        # arranco antes del despliegue se queda con la version anterior de
+        # `escalera` para siempre. Recargarlo cuesta nada y lo cura.
+        if not hasattr(_esc, 'todas'):
+            import importlib as _il
+            _esc = _il.reload(_esc)
+            logger.info('[escalera] modulo recargado: estaba cacheado viejo')
         _opciones = _esc.todas(_picks)
     except Exception as _e:
-        logger.warning('[escalera] no se pudieron listar: %s', _e)
+        _roto = '%s: %s' % (type(_e).__name__, _e)
+        logger.warning('[escalera] no se pudieron listar: %s', _roto)
+        # Ultimo recurso: la de siempre, una sola. Mejor una que ninguna.
+        try:
+            _una = _esc.elegir(_picks)
+            _opciones = [_una] if _una else []
+        except Exception as _e2:
+            logger.warning('[escalera] ni con elegir(): %s', _e2)
+
+    if _roto and not _opciones:
+        st.error('**La Escalera no se ha podido calcular.** No es que hoy no '
+                 'haya apuestas: es un fallo mío, y prefiero decírtelo a '
+                 'enseñarte una sección vacía como si no hubiera nada.')
+        st.caption('Detalle técnico: %s' % _roto)
+        st.caption('Mientras tanto, los mismos picks están en **Apuestas del '
+                   'Día**, sin el plan de escalones.')
+        return
 
     if not _opciones:
         st.info(_esc.resumen(None, 100))

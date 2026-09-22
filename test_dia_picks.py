@@ -111,8 +111,28 @@ def probar_la_pantalla_lo_usa():
     import re
     src = open('dashboard_ui.py', encoding='utf-8').read()
     check('dia_picks' in src, 'la pantalla importa el módulo')
-    check("modo_de_dia(list(_s1) + list(_s2)" in src,
-          'Apuestas del Día filtra las DOS secciones con un solo mando')
+    # v299 — LA CAPA 1 ES OTRA LISTA, Y ERA LA QUE EL USUARIO MIRABA.
+    #
+    # La v298 puso el filtro sobre `_s1`/`_s2`, las secciones del
+    # clasificador. El bloque titulado «🟢 Capa 1 — lo único con ventaja
+    # medida» usa `_c1`, que no tocaba nadie, y por eso el usuario dijo
+    # «cuando aplico el filtro a mañana no se aplica en capa 1».
+    check("solo_del_dia(_c1, _modo_dia)" in src,
+          'el bloque de Capa 1 se filtra por día')
+    check("modo_de_dia(_c1, 'dia_del_dia')" in src,
+          'y el mando se pinta ahí, que es lo primero que se ve')
+    # Lo que importa no es cuántas veces se nombra la función —hay una
+    # definición y un ayudante— sino que UNA SOLA la llame con esta clave.
+    # Dos radios de Streamlit compartiendo `key` se pisan: el de abajo
+    # reescribe la elección del de arriba en cada pasada.
+    check(src.count("'dia_del_dia'") == 1,
+          'un solo selector con la clave `dia_del_dia` (hay %d)'
+          % src.count("'dia_del_dia'"))
+    check(src.count("'escalera_dia'") == 1,
+          'y el de la Escalera tiene su propia clave, para no pisarse con él')
+    check("solo_del_dia(_s1, _modo_dia)" in src
+          and "solo_del_dia(_s2, _modo_dia)" in src,
+          'y las secciones del clasificador obedecen a ESE mando')
     check("filtro_de_dia(_picks, 'escalera_dia')" in src,
           'y la Escalera tiene el suyo, que es lo que el usuario pidió')
     # ninguna de las dos pantallas puede tener su propia idea de qué es «hoy»
