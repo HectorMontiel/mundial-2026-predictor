@@ -81,8 +81,36 @@ on:
     # LO QUE ESTO NO ARREGLA, Y POR ESO LA v275 EXISTE: si aun asi se salta una
     # pasada, la pantalla calcula la Capa 1 en vivo y avisa de la edad de los
     # precios. El cron es el camino rapido, no el unico.
-    - cron: '37 */2 * * *'      # cada dos horas
+    # v300 — SE DECLARAN 48 PASADAS AL DIA PARA CONSEGUIR UNA CADA DOS HORAS.
+    #
+    # LOS DATOS, QUE SON LO QUE MANDA. Con `37 */2` declarado —cada dos
+    # horas— esto es lo que GitHub ejecuto de verdad:
+    #
+    #     23:31 · 20:31 · 16:24 · 09:51 · 20:45 · 16:00 · 11:17 · 04:49
+    #             3h00    4h07    6h33            4h43    6h28
+    #
+    # Huecos de SEIS HORAS Y MEDIA. El usuario lo noto solo: «la ultima fue a
+    # las 16 y ya son las 19». No es que el cron este mal escrito: el
+    # programador de GitHub DESCARTA ejecuciones bajo carga, y declarar «cada
+    # dos horas» no da cada dos horas. Mover el minuto (v285) ayudo y no
+    # basto, porque el problema no es la congestion del minuto en punto.
+    #
+    # LA SOLUCION NO ES PEDIRLO MAS EDUCADAMENTE, ES PEDIRLO MAS VECES. Se
+    # declaran dos pasadas por hora y la PRIMERA COSA que hace el trabajo es
+    # mirar la edad del fichero: si tiene menos de `FRESCURA_MINUTOS`, sale
+    # en quince segundos sin gastar nada. Asi GitHub puede tirar tres de cada
+    # cuatro y el hueco real sigue por debajo de las dos horas.
+    #
+    # El coste son ~46 arranques vacios al dia de unos 15 s. En un repo
+    # publico los minutos de Actions son gratis, y aunque no lo fueran, 12
+    # minutos de CPU al dia es el precio de que los precios sean precios.
+    - cron: '7,37 * * * *'
   workflow_dispatch:
+    inputs:
+      forzar:
+        description: 'Barrer aunque el fichero esté fresco'
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -99,7 +127,60 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # v300 — LA GUARDA DE FRESCURA: aqui muere el 95 % de las pasadas.
+      #
+      # LA EDAD SALE DEL PROPIO FICHERO, que lleva dentro `generado` con la
+      # hora en que se barrio. Las otras dos formas de saberlo estan mal:
+      #
+      #   · `stat` da la hora del CHECKOUT, no la del barrido. `actions/
+      #     checkout` le pone la hora actual a todo lo que escribe, asi que
+      #     diria «recien creado» siempre y la guarda no guardaria nada. Es
+      #     el mismo tipo de fallo que la v279: una comprobacion que parece
+      #     proteger y no protege.
+      #   · `git log -1 -- cuotas_mx.json` necesita historia hasta encontrar
+      #     el commit que toco ESE fichero, y con una copia superficial
+      #     devuelve vacio en cuanto los ultimos commits son de codigo. Habria
+      #     que traerse el repo entero para una fecha que ya esta en el JSON.
+      #
+      # `date -d` entiende el formato ISO con Z directamente.
+      - name: ¿Hace falta barrer?
+        id: frescura
+        run: |
+          FRESCURA_MINUTOS=100
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "Lanzado a mano: se barre sin mirar la edad."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ ! -f cuotas_mx.json ]; then
+            echo "No hay tablero todavia: se barre."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          GEN=$(python3 -c "import json;print(json.load(open('cuotas_mx.json',encoding='utf-8')).get('generado') or '')" 2>/dev/null || echo '')
+          if [ -z "$GEN" ]; then
+            echo "El tablero no dice cuando se genero: se barre."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          SEG=$(date -u -d "$GEN" +%s 2>/dev/null || echo 0)
+          if [ "$SEG" = "0" ]; then
+            echo "Fecha ilegible ($GEN): se barre."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          EDAD=$(( ( $(date -u +%s) - SEG ) / 60 ))
+          echo "El tablero se genero hace $EDAD min (umbral $FRESCURA_MINUTOS) — $GEN"
+          if [ "$EDAD" -lt "$FRESCURA_MINUTOS" ] && [ "$EDAD" -ge 0 ]; then
+            echo "Fresco: esta pasada no hace nada."
+            echo "saltar=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Viejo: se barre."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v5
+        if: steps.frescura.outputs.saltar != 'true'
         with:
           python-version: '3.12'
           cache: pip
@@ -110,9 +191,11 @@ jobs:
       # requirements entero: son cuatro paquetes con caché de pip, no los
       # tres minutos de instalarlo todo.
       - name: Instalar dependencias mínimas
+        if: steps.frescura.outputs.saltar != 'true'
         run: pip install requests pandas numpy lightgbm
 
       - name: Barrer las cinco casas
+        if: steps.frescura.outputs.saltar != 'true'
         run: |
           # v267 — DOS PASADAS: una corta y otra larga.
           #
@@ -152,6 +235,7 @@ jobs:
       # No cuesta ninguna petición a las casas: las cuotas ya están en
       # `cuotas_mx.json`, que el paso anterior acaba de escribir.
       - name: Anotar las capturas del radar
+        if: steps.frescura.outputs.saltar != 'true'
         run: |
           python barrido_capa1.py \
             || echo "::warning::el barrido de la capa 1 salio con avisos"
@@ -169,11 +253,13 @@ jobs:
       #
       # Son ~550 peticiones más sobre las 8.080 de la pasada: un 7 %.
       - name: Acumular las anclas candidatas
+        if: steps.frescura.outputs.saltar != 'true'
         run: |
           python anclas.py \
             || echo "::warning::la captura de anclas salio con avisos"
 
       - name: Commitear las cuotas
+        if: steps.frescura.outputs.saltar != 'true'
         run: |
           git config user.name  "cuotas-mx-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"

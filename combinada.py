@@ -145,6 +145,25 @@ def de_pick(pick: Dict) -> Optional[Dict]:
     try:
         if not isinstance(pick, dict):
             return None
+        # v300 — LA PUERTA DEFINITIVA: SOLO FUTBOL.
+        #
+        # `barrido_capa1` ya corta por deporte al armar `combi`, pero habia un
+        # SEGUNDO camino —`over25`, que se rellena sin mirar el deporte— y por
+        # ahi seguian colandose. Medido en produccion despues de poner el
+        # primer corte, la tarjeta seguia diciendo:
+        #
+        #     Gana Kenin S. + Más de 2.5 goles   @4,16   <- TENIS
+        #
+        # La comprobacion va AQUI porque este es el unico sitio por el que
+        # pasan todas las combinadas, vengan por donde vengan. Un corte en el
+        # productor se puede esquivar; uno en el consumidor, no.
+        #
+        # En tenis la linea de 2,5 son SETS y en beisbol CARRERAS. Y sobre
+        # todo: los +18,4 % de correlacion que justifican esta seccion entera
+        # estan medidos SOBRE FUTBOL. Fuera de ahi el numero es inventado.
+        _dep = str(pick.get('deporte') or '').lower()
+        if _dep and not _dep.startswith(('fútbol', 'futbol')):
+            return None
         # v297.1 — `combi` trae las dos patas de UNA MISMA casa, que es lo
         # unico con lo que se puede llenar un boleto. `over25` a secas es el
         # caso facil: la casa que gana el line shopping ya tenia el 2,5.

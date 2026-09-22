@@ -22090,8 +22090,37 @@ def test_el_tablero_de_cuotas_acumula_y_limpia():
     # v293 — igual que arriba: lo que la v267 garantiza es la FRECUENCIA
     # (cada dos horas, porque dos tercios de los errores de cuota mueren entre
     # foto y foto), no el minuto concreto.
-    check(_re_cron.search(r"cron: '\d+ \*/2 \* \* \*'", y) is not None,
-          'v267: y la corta sigue siendo cada dos horas')
+    #
+    # v300 — Y AHORA NI SIQUIERA EL `*/2`, PORQUE `*/2` NO DABA DOS HORAS.
+    #
+    # Medido sobre las ejecuciones reales con `*/2` declarado: 23:31, 20:31,
+    # 16:24, 09:51... huecos de SEIS HORAS Y MEDIA. El programador de GitHub
+    # descarta ejecuciones bajo carga, asi que declarar la frecuencia deseada
+    # no la consigue.
+    #
+    # Lo que ahora garantiza las dos horas son DOS COSAS JUNTAS, y las dos se
+    # comprueban aqui: se declaran muchas mas pasadas de las necesarias, y
+    # cada una sale gratis si el tablero todavia esta fresco. Quitar
+    # cualquiera de las dos rompe la garantia — sin la guarda, 48 barridos
+    # diarios de 30.000 peticiones; sin las 48 pasadas, los huecos vuelven.
+    _cron = _re_cron.search(r"cron: '([^']+)'", y)
+    check(_cron is not None, 'v300: el workflow sigue teniendo cron')
+    if _cron:
+        _min = _cron.group(1).split(' ')[0]
+        _veces = len([x for x in _min.split(',') if x.strip()])
+        check(_veces >= 2 and _cron.group(1).split(' ')[1] == '*',
+              'v300: se declaran al menos dos pasadas por hora, porque GitHub '
+              'descarta la mayoria (cron: %s)' % _cron.group(1))
+    check('frescura' in y and 'FRESCURA_MINUTOS' in y,
+          'v300: y la guarda de frescura, que es lo que hace que 48 pasadas '
+          'declaradas no sean 48 barridos')
+    _fm = _re_cron.search(r'FRESCURA_MINUTOS=(\d+)', y)
+    check(_fm is not None and int(_fm.group(1)) <= 120,
+          'v300: con un umbral que no pase de dos horas (%s)'
+          % (_fm.group(1) if _fm else 'no encontrado'))
+    check("get('generado')" in y,
+          'v300: y la edad sale del `generado` del propio JSON, no de `stat`: '
+          'el checkout le pone la hora actual a todo lo que escribe')
 
 if __name__ == '__main__':
     print('=== v75: catálogo de ligas ===')

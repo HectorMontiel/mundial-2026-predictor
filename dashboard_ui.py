@@ -9030,9 +9030,15 @@ def render_escalera():
             _cu = _p.get('cuota') or 0
             _p['prob'] = ((1 + (_p.get('ev') or 0)) / _cu) if _cu else 0
 
-    # v298 — hoy o mañana, aquí también. El barrido trae los dos días y en
-    # esta sección no había forma de separarlos.
-    _picks = filtro_de_dia(_picks, 'escalera_dia')
+    # v300 — AQUI NO HAY FILTRO DE DIA, Y ES A PROPOSITO.
+    #
+    # La v298 puso un selector hoy/mañana y el usuario seguia sin ver las de
+    # mañana. El problema de fondo es que un mando puede quedarse en la
+    # posicion equivocada y esconderle la mitad de la lista sin que se note —
+    # que es exactamente lo que le pasaba. Ahora el dia va como COLUMNA de la
+    # tabla: se ven los dos a la vez y no hay nada que ajustar.
+    #
+    # «No quiero seleccionar cosas, sólo quiero que esté la visualización.»
 
     # v291 — VARIAS OPCIONES Y EL USUARIO ELIGE.
     #
@@ -9093,134 +9099,63 @@ def render_escalera():
         st.caption('Vuelve más tarde: el tablero se refresca cada dos horas.')
         return
 
+    # v300 — SOLO LA TABLA. NI SELECTOR, NI PLAN, NI PARRAFOS.
+    #
+    # El usuario, literal: «en el reto escalera yo no quiero seleccionar
+    # cosas, sólo quiero que esté la visualización, no quiero más texto
+    # innecesario. Sólo el partido, la apuesta que me das, cuota y
+    # probabilidad de acertar».
+    #
+    # Lo que se va, y por qué se fue de verdad:
+    #   · el `st.radio` de «¿cuál vas a jugar?» — elegir no es ver, y él
+    #     mira esto para decidir rápido, no para configurar nada.
+    #   · la tabla de cinco escalones con la probabilidad de llegar — es un
+    #     plan, no una apuesta, y ocupaba más que todas las opciones juntas.
+    #   · los cuatro `st.metric` y los párrafos de forma, media de goles y
+    #     «por qué estos números». Todo eso está medido y sigue siendo
+    #     verdad, pero contarlo aquí convertía una lista de cuatro apuestas
+    #     en una pantalla de scroll.
+    #
+    # Y EL DIA VA COMO COLUMNA, NO COMO FILTRO. Se quejó dos veces de que sólo
+    # veía las de hoy; con la columna se ven las dos a la vez y no hay ningún
+    # mando que pueda estar en la posición equivocada escondiéndole la mitad.
+    import datetime as _dt
+    import dia_picks as _dp
+
+    _hoy = _dt.date.today().strftime('%Y-%m-%d')
+    _man = (_dt.date.today() + _dt.timedelta(days=1)).strftime('%Y-%m-%d')
     _ICO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴'}
-    _etqs = []
-    for _i, _o in enumerate(_opciones):
-        _nv = _o.get('nivel_escalera') or {}
-        _sf = (_o.get('semaforo') or {})
-        _etqs.append('%s  %s · %s — @%.2f · %.0f %%  ·  %s'
-                     % (_ICO.get(_sf.get('nivel'), '🟡'),
-                        str(_o.get('apuesta'))[:34],
-                        str(_o.get('partido'))[:30],
-                        float(_o.get('cuota') or 0),
-                        100 * float(_o.get('prob_escalera') or 0),
-                        _nv.get('etiqueta', '')))
-    if len(_opciones) > 1:
-        st.caption('**%d opciones** hoy, ordenadas de mejor a peor. La primera '
-                   'es la recomendada.' % len(_opciones))
-        _sel = st.radio('¿Cuál vas a jugar?', range(len(_opciones)),
-                        format_func=lambda i: _etqs[i], index=0,
-                        key='escalera_opcion')
-    else:
-        _sel = 0
-    _pick_esc = _opciones[_sel]
 
-    _cu_e = float(_pick_esc.get('cuota') or 0)
-    _pr_e = float(_pick_esc.get('prob_escalera') or 0)
-    _nv_e = _pick_esc.get('nivel_escalera') or {}
-    _etq_e = _nv_e.get('etiqueta', '')
-    _caja = st.success if _nv_e.get('n', 1) == 1 else st.warning
-    _caja('**%s**  ·  %s%s'
-          % (_pick_esc.get('apuesta', '?'), _pick_esc.get('partido', '?'),
-             ('  ·  _%s_' % _etq_e) if _etq_e else ''))
+    def _cuando(_p):
+        _d = _dp.dia_de(_p)
+        if _d == _hoy:
+            return 'Hoy'
+        if _d == _man:
+            return 'Mañana'
+        return _d[5:] if _d else '—'
 
-    # v297 — si es una combinada, las dos patas por separado. Sin esto la
-    # tarjeta dice «Gana X + Más de 2.5 @2,10» y no se ve de dónde sale el
-    # 2,10 ni qué hay que marcar en la casa.
-    for _pata in (_pick_esc.get('patas') or []):
-        try:
-            st.caption('· %s  —  @%.2f' % (_pata.get('texto', '?'),
-                                           float(_pata.get('cuota') or 0)))
-        except (TypeError, ValueError):
-            pass
-
-    _col = st.columns(4)
-    _col[0].metric('Cuota', '%.2f' % _cu_e)
-    _col[1].metric('Entra', '%.0f %%' % (100 * _pr_e))
-    _col[2].metric('Pones', '100 $')
-    _col[3].metric('Si entra', '%.0f $' % (100 * _cu_e))
-    if _pick_esc.get('casa'):
-        st.caption('En **%s**. %s' % (_pick_esc['casa'],
-                                      _esc.resumen(_pick_esc, 100)))
-
-    # v295 — ¿EL EQUIPO VIENE GANANDO?
-    #
-    # El usuario lo pidió después de que la app le recomendara al Spaeri, que
-    # perdió 1-4: «no basta el error de cuota, tiene que coincidir con que el
-    # equipo también es fuerte y estadísticamente puede ganar».
-    #
-    # Se midió sobre 1.803 picks y NO sirve como filtro: exigir buena forma
-    # sube el acierto en el pasado (65,4 % contra 49,0 %) y se cae en el tramo
-    # de juicio (p5 -8,70 %). Así que el dato se enseña y no se filtra por él:
-    # decidir con el dato delante es del usuario, no mío.
-    #
-    # Ojo con la cobertura: de la segunda de Georgia o de Jamaica no hay
-    # histórico, y ahí sale en blanco. Por eso el texto dice «no tengo datos»
-    # en vez de callar — callar se leería como «no viene bien».
-    try:
-        import forma_equipos as _fe
-        _f = _fe.resumen_pick(_pick_esc)
-        _eq = _fe.del_pick(_pick_esc)
-        if _f:
-            _g = (_fe.de(_eq) or {}).get('gana', 9)
-            # Si viene flojo, el usuario va a pensar en el Spaeri. Y lo medido
-            # dice justo lo contrario, así que se dice aquí y no en un anexo.
-            _extra = ('Viene flojo, pero es la banda que **más** ha rendido: '
-                      '+23 % histórico, porque el precio ya castiga de más.'
-                      if _g <= 2 else
-                      'La probabilidad de arriba ya lo tiene en cuenta: es lo '
-                      'que el mercado le da a ESTE partido.')
-            st.caption('📊 **%s** %s. %s' % (_eq, _f, _extra))
-        elif _eq:
-            st.caption('📊 De **%s** no tengo histórico de resultados (liga '
-                       'pequeña). Lo único que hay es el precio: el mercado le '
-                       'da un %.0f %% a este partido.' % (_eq, 100 * _pr_e))
-        # v296 — y si la apuesta es de goles, la media del par, que es el dato
-        # que de verdad habla de ESE mercado.
-        _mg = _fe.goles_del_partido(_pick_esc)
-        if _mg is not None and 'gol' in str(_pick_esc.get('apuesta') or
-                                            '').lower():
-            st.caption('⚽ Entre los dos promedian **%.2f goles** por partido '
-                       'en lo que llevan. Es contexto, no el motivo: elegir '
-                       'por la media se probó en 15.411 partidos y pierde.'
-                       % _mg)
-    except Exception as _e:
-        logger.debug('[escalera] sin forma: %s', _e)
-
-    _pl = _esc.plan(100.0, _cu_e)
     _filas = []
-    for _x in _pl.get('escalones', []):
-        _filas.append('| %d | %.0f $ | %.2f | %.0f $ | **%.1f %%** |'
-                      % (_x['paso'], _x['apuesta'], _x['cuota'],
-                         _x['si_entra'], 100 * _x['prob_llegar']))
-    if _filas:
-        st.markdown('| Paso | Pones | Cuota | Si entra | Probabilidad de '
-                    'llegar |\n|---|---|---|---|---|\n' + '\n'.join(_filas))
-    st.caption('⚠️ Cada escalón te juegas todo lo acumulado.')
+    for _o in _opciones:
+        try:
+            _sf = (_o.get('semaforo') or {}).get('nivel')
+            _ap = str(_o.get('apuesta') or '?').replace('|', '/')
+            _pa = str(_o.get('partido') or '?').replace('|', '/')
+            _filas.append('| %s | %s | %s %s | **%.2f** | %.0f %% |'
+                          % (_cuando(_o), _pa, _ICO.get(_sf, '🟡'), _ap,
+                             float(_o.get('cuota') or 0),
+                             100 * float(_o.get('prob_escalera') or
+                                         _o.get('prob') or 0)))
+        except (TypeError, ValueError):
+            continue
 
-    with st.expander('Por qué estos números', expanded=False):
-        st.caption(
-            'Sale de la Capa 1 con cuota ≥ 2,00 y probabilidad ≥ 0,45. '
-            'Medido en 440 apuestas históricas, por separado en el tramo '
-            'antiguo y el reciente: acierta **47,6 %** y **51,9 %**.')
-        st.caption(
-            'Rodando todo, llegar a 1.000 $ sale **8,9 %**. Apostando 100 '
-            'fijos cada vez, **12,6 %**. Kelly demostró en 1956 que apostarlo '
-            'todo lleva a la ruina aunque cada apuesta sea buena.')
-        st.caption(
-            'Y el tamaño del escalón casi no importa: de 100 a 500 sale entre '
-            '13 % y 17 % con cualquier cuota, porque los pasos pequeños '
-            'entran más veces pero hacen falta más.')
-        st.caption(
-            'Si hoy no hay ninguna de las mejores, se baja de nivel y se avisa '
-            'en la etiqueta. Lo que nunca se ofrece son las que el semáforo '
-            'marca en rojo por precio rancio.')
-        st.caption(
-            '**¿Y que el equipo venga ganando?** Se midió sobre 1.803 picks. '
-            'Los equipos en buena forma aciertan más —65 % contra 49 %— pero '
-            'rinden la mitad, porque el precio ya lo sabe. Filtrar por forma '
-            'mejora el pasado y empeora el tramo reciente, así que el dato se '
-            'enseña y no se filtra por él.')
+    if _filas:
+        st.markdown('| Cuándo | Partido | Apuesta | Cuota | Entra |\n'
+                    '|---|---|---|---|---|\n' + '\n'.join(_filas))
+
+    # Una sola línea debajo, y dice lo único que no se ve en la tabla: que
+    # están ordenadas y que las de precio rancio no están.
+    st.caption('De mejor a peor. Las que el semáforo marca en rojo no salen. '
+               '🟢 dentro de lo medido · 🟡 más flojo.')
 
 
 def render_sonadora():

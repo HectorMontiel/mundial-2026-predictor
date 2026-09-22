@@ -128,13 +128,20 @@ def probar_la_pantalla_lo_usa():
     check(src.count("'dia_del_dia'") == 1,
           'un solo selector con la clave `dia_del_dia` (hay %d)'
           % src.count("'dia_del_dia'"))
-    check(src.count("'escalera_dia'") == 1,
-          'y el de la Escalera tiene su propia clave, para no pisarse con él')
     check("solo_del_dia(_s1, _modo_dia)" in src
           and "solo_del_dia(_s2, _modo_dia)" in src,
           'y las secciones del clasificador obedecen a ESE mando')
-    check("filtro_de_dia(_picks, 'escalera_dia')" in src,
-          'y la Escalera tiene el suyo, que es lo que el usuario pidió')
+    # v300 — LA ESCALERA YA NO FILTRA, ENSEÑA EL DIA COMO COLUMNA.
+    #
+    # La v298 le puso un selector y el usuario seguía sin ver las de mañana:
+    # un mando puede quedarse en la posición equivocada y esconderle media
+    # lista sin que se note. Con la columna se ven los dos días a la vez y no
+    # hay nada que ajustar. Además pidió expresamente no tener que
+    # seleccionar nada en esa sección.
+    check("'escalera_dia'" not in src,
+          'la Escalera ya no tiene selector de día: el día es una columna')
+    check('def _cuando(' in src,
+          'y hay una columna «Cuándo» que dice Hoy o Mañana por fila')
     # ninguna de las dos pantallas puede tener su propia idea de qué es «hoy»
     propias = re.findall(r'date\.today\(\)', src)
     check(len(propias) <= 2,

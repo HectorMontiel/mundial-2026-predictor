@@ -29,9 +29,11 @@ LOS FILTROS SON LOS VALIDADOS, NI UNO MÁS NI UNO MENOS
 No se relaja nada para sacar más picks. Cada deporte entra con el criterio que
 pasó su propia medición, y los que no la pasaron siguen fuera:
 
-    fútbol .... sólo el lado LOCAL. El visitante y el empate lucían bien en el
-                tramo de elección y se hundían en el de juicio (visitante
-                +7,92 % pero p5 −5,10 %). No es un olvido: está medido.
+    fútbol .... LOS DOS LADOS desde la v297. Estuvo cerrado al local porque el
+                visitante se hundía en el tramo de juicio (+7,92 % pero p5
+                −5,10 % sobre 234 apuestas). Con 656 deja de hundirse: local
+                +6,81 %/+10,67 % y visitante +7,55 %/+13,14 %, p5 positivo en
+                los cuatro tramos. El EMPATE sigue fuera (p5 −38,9 %).
     tenis ..... sólo WTA. En ATP ninguna configuración sobrevive a los dos
                 periodos, y su `Odd_Max` tiene valores atípicos que hay que
                 limpiar antes de bajar el listón.
@@ -274,7 +276,7 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
                 # en la mano: `v['casas'][casa]` es justo lo que se acaba de
                 # leer para el 1X2.
                 'over25': _over25_de(v, val.get('casa')),
-                'combi': _pata_combinada(v, r, lado),
+                'combi': _pata_combinada(v, r, lado, dep),
             })
             break          # una por partido: la de mejor EV, que va primera
     # v283 — y las discrepancias del mercado de goles, que es el que el
@@ -370,7 +372,8 @@ def _num_seguro(x) -> Optional[float]:
     return f if f == f else None
 
 
-def _pata_combinada(v: Dict, r: Dict, lado: str = 'home') -> Optional[Dict]:
+def _pata_combinada(v: Dict, r: Dict, lado: str = 'home',
+                    dep: str = 'futbol') -> Optional[Dict]:
     """Las DOS patas de la combinada, en una casa que tenga las dos cosas.
 
     v297.1 — LA PRIMERA VERSION NO SACABA NINGUNA, Y POR UN MOTIVO REAL.
@@ -390,6 +393,25 @@ def _pata_combinada(v: Dict, r: Dict, lado: str = 'home') -> Optional[Dict]:
     NUNCA lanza.
     """
     try:
+        # v300 — SOLO FUTBOL, Y ESTO ERA UN FALLO DE CALIBRACION DE LOS GORDOS.
+        #
+        # Sin esta linea salian tarjetas como estas, vistas el 2026-09-21:
+        #
+        #     Gana Kenin S. + Más de 2.5 goles    @4,16   <- TENIS
+        #     Gana SSG Landers + Más de 2.5 goles @1,85   <- BEISBOL (KBO)
+        #
+        # En tenis la linea de 2,5 son SETS y en beisbol CARRERAS, no goles.
+        # La tarjeta mentia en el nombre del mercado, y lo peor: la ventaja
+        # que justifica TODA la combinada —la correlacion de +18,4 % entre
+        # ganar y que haya goles— esta medida sobre futbol y nada mas.
+        # Aplicarla a un partido de tenis es inventarse el numero.
+        #
+        # El usuario avisa de esto cada vez: «que este bien calibrado, que no
+        # pase como el Spaeri». Aqui no habria sido mala suerte: habria sido
+        # una cuenta que no significaba nada.
+        if str(dep).lower() != 'futbol':
+            return None
+
         # v297.2 — HAY QUE MIRAR TODAS LAS CASAS, NO SOLO LAS QUE GANAN.
         #
         # `r['valor']` solo lista las casas que baten a Pinnacle, y en estas

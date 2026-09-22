@@ -38,6 +38,47 @@ def _pick(**kw):
     return base
 
 
+def probar_solo_futbol():
+    """v300 — la correlación medida es DE FÚTBOL. En otro deporte no vale.
+
+    Sin este corte salían estas tarjetas, vistas en producción:
+
+        Gana Kenin S. + Más de 2.5 goles    @4,16   <- TENIS
+        Gana SSG Landers + Más de 2.5 goles @1,85   <- BÉISBOL (KBO)
+
+    En tenis la línea de 2,5 son SETS y en béisbol CARRERAS. La tarjeta
+    mentía en el nombre del mercado, y la ventaja que justifica toda la
+    combinada —los +18,4 % de correlación— está medida sobre fútbol y nada
+    más. Aplicarla fuera es inventarse el número.
+    """
+    import barrido_capa1 as bc
+
+    v = {'home': 'A', 'away': 'B',
+         'casas': {'C1': {'HOME_DRAW_AWAY': {'home': 2.0},
+                          'OVER_UNDER': {'lineas': [
+                              {'linea': 2.5, 'over': 1.9, 'under': 1.9}]}}}}
+    r = {'prob_justa': {'home': 0.60, 'away': 0.25}}
+
+    check(bc._pata_combinada(v, r, 'home', 'futbol') is not None,
+          'en fútbol la combinada se arma')
+    for dep in ('tenis', 'mlb', 'nba', 'nfl', '', None):
+        check(bc._pata_combinada(v, r, 'home', dep) is None,
+              'en %r NO se arma: la correlación no está medida ahí' % (dep,))
+
+    # LA SEGUNDA PUERTA, Y HACE FALTA. Con sólo el corte de arriba las de
+    # tenis SEGUÍAN saliendo en producción, porque hay un camino alternativo
+    # —`over25`— que se rellena sin mirar el deporte. Un corte en el
+    # productor se puede esquivar; uno en el consumidor, no.
+    import combinada as cb
+
+    for dep, debe in (('Fútbol', True), ('Futbol', True), ('Tenis', False),
+                      ('MLB', False), ('NBA', False), ('NFL', False)):
+        p = _pick(deporte=dep)
+        sale = cb.de_pick(p) is not None
+        check(sale is debe,
+              'de_pick con deporte %r %s' % (dep, 'sale' if debe else 'NO sale'))
+
+
 def probar_la_ventaja_es_la_correlacion():
     import combinada as cb
 
@@ -214,6 +255,8 @@ def probar_el_visitante_no_esta_bloqueado():
 if __name__ == '__main__':
     print('=== 0. el visitante no esta bloqueado ===')
     probar_el_visitante_no_esta_bloqueado()
+    print('\n=== 0b. solo futbol (v300) ===')
+    probar_solo_futbol()
     print('\n=== 1. la ventaja ES la correlacion ===')
     probar_la_ventaja_es_la_correlacion()
     print('\n=== 2. la conjunta tiene techo ===')

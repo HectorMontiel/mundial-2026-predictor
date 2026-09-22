@@ -1,4 +1,4 @@
-name: Precálculo del día (cada 3 h)
+name: Precálculo del día
 
 # v220 — EL CÁLCULO SALE DEL RENDER, Y ESTE WORKFLOW ES LA MITAD QUE LO PAGA.
 #
@@ -31,7 +31,17 @@ name: Precálculo del día (cada 3 h)
 
 on:
   schedule:
-    - cron: '53 */3 * * *'        # cada 3 h, pasadas las de cuotas_mx
+    # v300 — MISMO PATRON QUE `cuotas_mx`: se declara mucho, se ejecuta poco.
+    #
+    # El usuario lo pidio explicito —«quiero que sea cada 2 horas... que sea
+    # automatico y QUE FUNCIONE»— y con `53 */3` declarado el programador de
+    # GitHub daba huecos de mas de seis horas. Declarar la frecuencia deseada
+    # no la consigue; declararla cuatro veces mas a menudo y salir gratis
+    # cuando no toca, si.
+    #
+    # El :23 y el :53 caen DESPUES del :07 y el :37 de las cuotas, que es el
+    # orden que hace falta: el precalculo lee el tablero que aquellas dejan.
+    - cron: '23,53 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -52,12 +62,53 @@ jobs:
       - name: Clonar repositorio
         uses: actions/checkout@v4
 
+      # v300 — LA GUARDA DE FRESCURA. Ver `cuotas_mx.yml` para el por que
+      # entero: se declaran 48 pasadas al dia y la inmensa mayoria muere aqui
+      # en quince segundos, que es lo que convierte «cada dos horas
+      # declarado» en «cada dos horas de verdad».
+      #
+      # La edad sale de `generado` DENTRO del JSON, no de `stat`: el checkout
+      # le pone la hora actual a todo lo que escribe, asi que mirar el disco
+      # diria «recien creado» siempre.
+      - name: ¿Hace falta cocinar el día?
+        id: frescura
+        run: |
+          FRESCURA_MINUTOS=100
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "Lanzado a mano: se cocina sin mirar la edad."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ ! -f pronostico_dia.json ]; then
+            echo "No hay precalculo todavia: se cocina."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          GEN=$(python3 -c "import json;print(json.load(open('pronostico_dia.json',encoding='utf-8')).get('generado') or '')" 2>/dev/null || echo '')
+          SEG=$(date -u -d "$GEN" +%s 2>/dev/null || echo 0)
+          if [ -z "$GEN" ] || [ "$SEG" = "0" ]; then
+            echo "Sin fecha legible ($GEN): se cocina."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          EDAD=$(( ( $(date -u +%s) - SEG ) / 60 ))
+          echo "El dia se cocino hace $EDAD min (umbral $FRESCURA_MINUTOS) — $GEN"
+          if [ "$EDAD" -lt "$FRESCURA_MINUTOS" ] && [ "$EDAD" -ge 0 ]; then
+            echo "Fresco: esta pasada no hace nada."
+            echo "saltar=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Viejo: se cocina."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Configurar Python
+        if: steps.frescura.outputs.saltar != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Instalar dependencias
+        if: steps.frescura.outputs.saltar != 'true'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -67,6 +118,7 @@ jobs:
       # datos. Dos intentos con dos minutos en medio cubren lo transitorio; lo
       # que no se arregle así es una avería de verdad y se ve en el aviso.
       - name: Cocinar el día
+        if: steps.frescura.outputs.saltar != 'true'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
@@ -85,9 +137,11 @@ jobs:
       # vacío es casi siempre una fuente caída, no una regresión, y el
       # precálculo anterior sigue siendo mejor que ninguno.
       - name: Comprobar lo que se generó
+        if: steps.frescura.outputs.saltar != 'true'
         run: python precalculo_dia.py --estado
 
       - name: Publicar el día cocinado
+        if: steps.frescura.outputs.saltar != 'true'
         run: |
           git config user.name  "precalculo-bot"
           git config user.email "actions@github.com"
