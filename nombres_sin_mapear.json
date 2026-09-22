@@ -1471,8 +1471,8 @@
   },
   "Ayr United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "United Arab Emirates U23",
-    "ratio": 0.3529,
+    "candidato": "JEF United W",
+    "ratio": 0.7,
     "visto": "2026-09-22"
   },
   "Queen's Park": {
@@ -1489,8 +1489,8 @@
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "United Arab Emirates U23",
-    "ratio": 0.3158,
+    "candidato": "JEF United W",
+    "ratio": 0.5833,
     "visto": "2026-09-22"
   },
   "Hartford Athletic": {
@@ -1515,6 +1515,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Atletico F.C.",
     "ratio": 0.625,
+    "visto": "2026-09-22"
+  },
+  "Sporting JAX": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sporting Lagos",
+    "ratio": 0.7692,
     "visto": "2026-09-22"
   }
 }
