@@ -1121,8 +1121,8 @@
   },
   "RC Celta Fortuna": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Fortuna Hjorring W",
-    "ratio": 0.4375,
+    "candidato": "Fortuna Koln",
+    "ratio": 0.5,
     "visto": "2026-09-23"
   },
   "Racing (Montevideo)": {
@@ -1280,10 +1280,10 @@
     "visto": "2026-08-25"
   },
   "Sportivo Luqueño": {
-    "candidato": "Sp. Luqueno",
     "contexto": "cuotas_mx→futbol",
+    "candidato": "Sp. Luqueno",
     "ratio": 0.7692,
-    "visto": "2026-09-20"
+    "visto": "2026-09-23"
   },
   "St. Martin": {
     "contexto": "selecciones",
@@ -1503,8 +1503,8 @@
   },
   "São Bernardo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Tome and Principe",
-    "ratio": 0.4242,
+    "candidato": "Sao Paulo Crystal",
+    "ratio": 0.4138,
     "visto": "2026-09-23"
   },
   "Nacional Asunción": {
@@ -1703,6 +1703,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Riestra 2",
     "ratio": 0.5143,
+    "visto": "2026-09-23"
+  },
+  "Mineros de Zacatecas": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Zacatecas Mineros",
+    "ratio": 0.4865,
+    "visto": "2026-09-23"
+  },
+  "Club Jaiba Brava": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Racing Club 2",
+    "ratio": 0.3448,
     "visto": "2026-09-23"
   }
 }
