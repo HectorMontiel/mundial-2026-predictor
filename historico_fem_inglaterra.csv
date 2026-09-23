@@ -1,0 +1,682 @@
+date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
+2021-09-03,Manchester United,Reading FC Women,2.0,0.0,"WSL (Inglaterra, femenil)",3676211,20210903_Manchester-United_Reading-FC-Women
+2021-09-04,Aston Villa,Leicester City,2.0,1.0,"WSL (Inglaterra, femenil)",3676214,20210904_Aston-Villa_Leicester-City
+2021-09-04,Everton,Manchester City,0.0,4.0,"WSL (Inglaterra, femenil)",3676212,20210904_Everton_Manchester-City
+2021-09-04,Tottenham Hotspur,Birmingham City,1.0,0.0,"WSL (Inglaterra, femenil)",3676210,20210904_Tottenham-Hotspur_Birmingham-City
+2021-09-05,Arsenal,Chelsea,3.0,2.0,"WSL (Inglaterra, femenil)",3676215,20210905_Arsenal_Chelsea
+2021-09-05,Brighton,West Ham United,2.0,0.0,"WSL (Inglaterra, femenil)",3676213,20210905_Brighton_West-Ham-United
+2021-09-11,West Ham United,Aston Villa,1.0,1.0,"WSL (Inglaterra, femenil)",3676217,20210911_West-Ham-United_Aston-Villa
+2021-09-12,Chelsea,Everton,4.0,0.0,"WSL (Inglaterra, femenil)",3676221,20210912_Chelsea_Everton
+2021-09-12,Birmingham City,Brighton,0.0,5.0,"WSL (Inglaterra, femenil)",3676222,20210912_Birmingham-City_Brighton
+2021-09-12,Leicester City,Manchester United,1.0,3.0,"WSL (Inglaterra, femenil)",3676220,20210912_Leicester-City_Manchester-United
+2021-09-12,Reading FC Women,Arsenal,0.0,4.0,"WSL (Inglaterra, femenil)",3676218,20210912_Reading-FC-Women_Arsenal
+2021-09-12,Manchester City,Tottenham Hotspur,1.0,2.0,"WSL (Inglaterra, femenil)",3676219,20210912_Manchester-City_Tottenham-Hotspur
+2021-09-25,Everton,Birmingham City,3.0,1.0,"WSL (Inglaterra, femenil)",3676226,20210925_Everton_Birmingham-City
+2021-09-26,Manchester United,Chelsea,1.0,6.0,"WSL (Inglaterra, femenil)",3676225,20210926_Manchester-United_Chelsea
+2021-09-26,Brighton,Aston Villa,0.0,1.0,"WSL (Inglaterra, femenil)",3676227,20210926_Brighton_Aston-Villa
+2021-09-26,Tottenham Hotspur,Reading FC Women,1.0,0.0,"WSL (Inglaterra, femenil)",3676224,20210926_Tottenham-Hotspur_Reading-FC-Women
+2021-09-26,West Ham United,Leicester City,4.0,0.0,"WSL (Inglaterra, femenil)",3676223,20210926_West-Ham-United_Leicester-City
+2021-09-26,Arsenal,Manchester City,5.0,0.0,"WSL (Inglaterra, femenil)",3676228,20210926_Arsenal_Manchester-City
+2021-10-02,Chelsea,Brighton,3.0,1.0,"WSL (Inglaterra, femenil)",3676233,20211002_Chelsea_Brighton
+2021-10-02,Aston Villa,Arsenal,0.0,4.0,"WSL (Inglaterra, femenil)",3676235,20211002_Aston-Villa_Arsenal
+2021-10-03,Leicester City,Tottenham Hotspur,0.0,2.0,"WSL (Inglaterra, femenil)",3676232,20211003_Leicester-City_Tottenham-Hotspur
+2021-10-03,Manchester City,West Ham United,0.0,2.0,"WSL (Inglaterra, femenil)",3676231,20211003_Manchester-City_West-Ham-United
+2021-10-03,Reading FC Women,Everton,0.0,3.0,"WSL (Inglaterra, femenil)",3676230,20211003_Reading-FC-Women_Everton
+2021-10-03,Birmingham City,Manchester United,0.0,2.0,"WSL (Inglaterra, femenil)",3676234,20211003_Birmingham-City_Manchester-United
+2021-10-09,Manchester United,Manchester City,2.0,2.0,"WSL (Inglaterra, femenil)",3676238,20211009_Manchester-United_Manchester-City
+2021-10-10,Chelsea,Leicester City,2.0,0.0,"WSL (Inglaterra, femenil)",3676239,20211010_Chelsea_Leicester-City
+2021-10-10,Brighton,Tottenham Hotspur,2.0,1.0,"WSL (Inglaterra, femenil)",3676240,20211010_Brighton_Tottenham-Hotspur
+2021-10-10,Reading FC Women,Aston Villa,3.0,0.0,"WSL (Inglaterra, femenil)",3676237,20211010_Reading-FC-Women_Aston-Villa
+2021-10-10,Arsenal,Everton,3.0,0.0,"WSL (Inglaterra, femenil)",3676241,20211010_Arsenal_Everton
+2021-10-10,West Ham United,Birmingham City,1.0,1.0,"WSL (Inglaterra, femenil)",3676236,20211010_West-Ham-United_Birmingham-City
+2021-11-06,Aston Villa,Chelsea,0.0,1.0,"WSL (Inglaterra, femenil)",3676246,20211106_Aston-Villa_Chelsea
+2021-11-06,Everton,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",3676244,20211106_Everton_Brighton
+2021-11-07,Tottenham Hotspur,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",3676242,20211107_Tottenham-Hotspur_Manchester-United
+2021-11-07,Birmingham City,Reading FC Women,0.0,3.0,"WSL (Inglaterra, femenil)",3676245,20211107_Birmingham-City_Reading-FC-Women
+2021-11-07,Leicester City,Manchester City,1.0,4.0,"WSL (Inglaterra, femenil)",3676243,20211107_Leicester-City_Manchester-City
+2021-11-07,Arsenal,West Ham United,4.0,0.0,"WSL (Inglaterra, femenil)",3676247,20211107_Arsenal_West-Ham-United
+2021-11-13,Tottenham Hotspur,Arsenal,1.0,1.0,"WSL (Inglaterra, femenil)",3676249,20211113_Tottenham-Hotspur_Arsenal
+2021-11-14,Everton,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",3676251,20211114_Everton_Manchester-United
+2021-11-14,Birmingham City,Aston Villa,0.0,1.0,"WSL (Inglaterra, femenil)",3676253,20211114_Birmingham-City_Aston-Villa
+2021-11-14,Brighton,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",3676252,20211114_Brighton_Leicester-City
+2021-11-14,Manchester City,Chelsea,0.0,4.0,"WSL (Inglaterra, femenil)",3676250,20211114_Manchester-City_Chelsea
+2021-11-14,West Ham United,Reading FC Women,2.0,2.0,"WSL (Inglaterra, femenil)",3676248,20211114_West-Ham-United_Reading-FC-Women
+2021-11-20,Manchester City,Aston Villa,5.0,0.0,"WSL (Inglaterra, femenil)",3676257,20211120_Manchester-City_Aston-Villa
+2021-11-21,Manchester United,Arsenal,0.0,2.0,"WSL (Inglaterra, femenil)",3676256,20211121_Manchester-United_Arsenal
+2021-11-21,Chelsea,Birmingham City,5.0,0.0,"WSL (Inglaterra, femenil)",3676259,20211121_Chelsea_Birmingham-City
+2021-11-21,Leicester City,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",3676258,20211121_Leicester-City_Everton
+2021-11-21,Reading FC Women,Brighton,2.0,0.0,"WSL (Inglaterra, femenil)",3676255,20211121_Reading-FC-Women_Brighton
+2021-11-21,West Ham United,Tottenham Hotspur,1.0,0.0,"WSL (Inglaterra, femenil)",3676254,20211121_West-Ham-United_Tottenham-Hotspur
+2021-12-11,Reading FC Women,Chelsea,1.0,0.0,"WSL (Inglaterra, femenil)",3676260,20211211_Reading-FC-Women_Chelsea
+2021-12-12,Brighton,Manchester United,0.0,2.0,"WSL (Inglaterra, femenil)",3676262,20211212_Brighton_Manchester-United
+2021-12-12,Everton,West Ham United,1.0,1.0,"WSL (Inglaterra, femenil)",3676261,20211212_Everton_West-Ham-United
+2021-12-12,Birmingham City,Manchester City,2.0,3.0,"WSL (Inglaterra, femenil)",3676263,20211212_Birmingham-City_Manchester-City
+2021-12-12,Aston Villa,Tottenham Hotspur,1.0,2.0,"WSL (Inglaterra, femenil)",3676264,20211212_Aston-Villa_Tottenham-Hotspur
+2021-12-12,Arsenal,Leicester City,4.0,0.0,"WSL (Inglaterra, femenil)",3676265,20211212_Arsenal_Leicester-City
+2021-12-19,Manchester United,Aston Villa,5.0,0.0,"WSL (Inglaterra, femenil)",3676269,20211219_Manchester-United_Aston-Villa
+2021-12-19,Leicester City,Birmingham City,2.0,0.0,"WSL (Inglaterra, femenil)",3676271,20211219_Leicester-City_Birmingham-City
+2021-12-19,Tottenham Hotspur,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",3676268,20211219_Tottenham-Hotspur_Everton
+2022-01-09,Brighton,Manchester City,0.0,6.0,"WSL (Inglaterra, femenil)",3676277,20220109_Brighton_Manchester-City
+2022-01-09,Birmingham City,Arsenal,2.0,0.0,"WSL (Inglaterra, femenil)",3676278,20220109_Birmingham-City_Arsenal
+2022-01-09,Reading FC Women,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",3676275,20220109_Reading-FC-Women_Leicester-City
+2022-01-15,Manchester United,Birmingham City,5.0,0.0,"WSL (Inglaterra, femenil)",3676281,20220115_Manchester-United_Birmingham-City
+2022-01-15,Aston Villa,Manchester City,0.0,3.0,"WSL (Inglaterra, femenil)",3676284,20220115_Aston-Villa_Manchester-City
+2022-01-16,Leicester City,Brighton,1.0,0.0,"WSL (Inglaterra, femenil)",3676282,20220116_Leicester-City_Brighton
+2022-01-16,Tottenham Hotspur,West Ham United,1.0,1.0,"WSL (Inglaterra, femenil)",3676280,20220116_Tottenham-Hotspur_West-Ham-United
+2022-01-23,Manchester United,Tottenham Hotspur,3.0,0.0,"WSL (Inglaterra, femenil)",3676288,20220123_Manchester-United_Tottenham-Hotspur
+2022-01-23,Brighton,Chelsea,0.0,0.0,"WSL (Inglaterra, femenil)",3676291,20220123_Brighton_Chelsea
+2022-01-23,Leicester City,Aston Villa,1.0,2.0,"WSL (Inglaterra, femenil)",3676290,20220123_Leicester-City_Aston-Villa
+2022-01-23,Reading FC Women,Birmingham City,3.0,2.0,"WSL (Inglaterra, femenil)",3676287,20220123_Reading-FC-Women_Birmingham-City
+2022-01-23,West Ham United,Everton,3.0,0.0,"WSL (Inglaterra, femenil)",3676286,20220123_West-Ham-United_Everton
+2022-01-23,Manchester City,Arsenal,1.0,1.0,"WSL (Inglaterra, femenil)",3676289,20220123_Manchester-City_Arsenal
+2022-01-26,Chelsea,West Ham United,2.0,0.0,"WSL (Inglaterra, femenil)",3676272,20220126_Chelsea_West-Ham-United
+2022-01-27,Arsenal,Brighton,2.0,1.0,"WSL (Inglaterra, femenil)",3676273,20220127_Arsenal_Brighton
+2022-02-05,Arsenal,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",3676297,20220205_Arsenal_Manchester-United
+2022-02-06,Chelsea,Manchester City,1.0,0.0,"WSL (Inglaterra, femenil)",3676294,20220206_Chelsea_Manchester-City
+2022-02-06,Everton,Reading FC Women,1.0,2.0,"WSL (Inglaterra, femenil)",3676293,20220206_Everton_Reading-FC-Women
+2022-02-06,Birmingham City,Leicester City,1.0,2.0,"WSL (Inglaterra, femenil)",3676295,20220206_Birmingham-City_Leicester-City
+2022-02-06,Tottenham Hotspur,Brighton,4.0,0.0,"WSL (Inglaterra, femenil)",3676292,20220206_Tottenham-Hotspur_Brighton
+2022-02-06,Aston Villa,West Ham United,1.0,2.0,"WSL (Inglaterra, femenil)",3676296,20220206_Aston-Villa_West-Ham-United
+2022-02-11,Chelsea,Arsenal,0.0,0.0,"WSL (Inglaterra, femenil)",3676301,20220211_Chelsea_Arsenal
+2022-02-13,Manchester City,Manchester United,1.0,0.0,"WSL (Inglaterra, femenil)",3676298,20220213_Manchester-City_Manchester-United
+2022-02-13,Everton,Aston Villa,0.0,2.0,"WSL (Inglaterra, femenil)",3676300,20220213_Everton_Aston-Villa
+2022-02-13,Birmingham City,Tottenham Hotspur,0.0,2.0,"WSL (Inglaterra, femenil)",3676303,20220213_Birmingham-City_Tottenham-Hotspur
+2022-02-13,Brighton,Reading FC Women,4.0,1.0,"WSL (Inglaterra, femenil)",3676302,20220213_Brighton_Reading-FC-Women
+2022-02-13,Leicester City,West Ham United,3.0,0.0,"WSL (Inglaterra, femenil)",3676299,20220213_Leicester-City_West-Ham-United
+2022-03-02,Aston Villa,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",3676279,20220302_Aston-Villa_Everton
+2022-03-02,Arsenal,Reading FC Women,4.0,0.0,"WSL (Inglaterra, femenil)",3676285,20220302_Arsenal_Reading-FC-Women
+2022-03-05,Aston Villa,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",3676308,20220305_Aston-Villa_Brighton
+2022-03-05,Manchester United,Leicester City,4.0,0.0,"WSL (Inglaterra, femenil)",3676306,20220305_Manchester-United_Leicester-City
+2022-03-06,Arsenal,Birmingham City,4.0,2.0,"WSL (Inglaterra, femenil)",3676309,20220306_Arsenal_Birmingham-City
+2022-03-06,Reading FC Women,Tottenham Hotspur,0.0,0.0,"WSL (Inglaterra, femenil)",3676305,20220306_Reading-FC-Women_Tottenham-Hotspur
+2022-03-10,West Ham United,Chelsea,1.0,4.0,"WSL (Inglaterra, femenil)",3676304,20220310_West-Ham-United_Chelsea
+2022-03-12,Reading FC Women,Manchester United,1.0,3.0,"WSL (Inglaterra, femenil)",3676311,20220312_Reading-FC-Women_Manchester-United
+2022-03-12,Everton,Leicester City,3.0,2.0,"WSL (Inglaterra, femenil)",3676312,20220312_Everton_Leicester-City
+2022-03-13,Tottenham Hotspur,Manchester City,0.0,1.0,"WSL (Inglaterra, femenil)",3676310,20220313_Tottenham-Hotspur_Manchester-City
+2022-03-13,Chelsea,Aston Villa,1.0,0.0,"WSL (Inglaterra, femenil)",3676313,20220313_Chelsea_Aston-Villa
+2022-03-13,Birmingham City,West Ham United,0.0,1.0,"WSL (Inglaterra, femenil)",3676315,20220313_Birmingham-City_West-Ham-United
+2022-03-13,Brighton,Arsenal,0.0,3.0,"WSL (Inglaterra, femenil)",3676314,20220313_Brighton_Arsenal
+2022-03-16,Everton,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",3676283,20220316_Everton_Chelsea
+2022-03-16,Manchester City,Reading FC Women,2.0,0.0,"WSL (Inglaterra, femenil)",3676270,20220316_Manchester-City_Reading-FC-Women
+2022-03-16,West Ham United,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",3676274,20220316_West-Ham-United_Manchester-United
+2022-03-23,Manchester City,Everton,4.0,0.0,"WSL (Inglaterra, femenil)",3676307,20220323_Manchester-City_Everton
+2022-03-26,Aston Villa,Reading FC Women,1.0,1.0,"WSL (Inglaterra, femenil)",3676320,20220326_Aston-Villa_Reading-FC-Women
+2022-03-27,Manchester United,Everton,3.0,1.0,"WSL (Inglaterra, femenil)",3676317,20220327_Manchester-United_Everton
+2022-03-27,Leicester City,Chelsea,0.0,9.0,"WSL (Inglaterra, femenil)",3676319,20220327_Leicester-City_Chelsea
+2022-03-27,West Ham United,Brighton,0.0,2.0,"WSL (Inglaterra, femenil)",3676316,20220327_West-Ham-United_Brighton
+2022-04-01,Birmingham City,Everton,0.0,0.0,"WSL (Inglaterra, femenil)",3676327,20220401_Birmingham-City_Everton
+2022-04-02,West Ham United,Manchester City,0.0,2.0,"WSL (Inglaterra, femenil)",3676322,20220402_West-Ham-United_Manchester-City
+2022-04-03,Manchester United,Brighton,1.0,0.0,"WSL (Inglaterra, femenil)",3676324,20220403_Manchester-United_Brighton
+2022-04-03,Leicester City,Arsenal,0.0,5.0,"WSL (Inglaterra, femenil)",3676325,20220403_Leicester-City_Arsenal
+2022-04-03,Tottenham Hotspur,Aston Villa,0.0,1.0,"WSL (Inglaterra, femenil)",3676323,20220403_Tottenham-Hotspur_Aston-Villa
+2022-04-03,Chelsea,Reading FC Women,5.0,0.0,"WSL (Inglaterra, femenil)",3676326,20220403_Chelsea_Reading-FC-Women
+2022-04-23,Brighton,Birmingham City,1.0,3.0,"WSL (Inglaterra, femenil)",3676332,20220423_Brighton_Birmingham-City
+2022-04-24,Manchester City,Leicester City,4.0,0.0,"WSL (Inglaterra, femenil)",3676330,20220424_Manchester-City_Leicester-City
+2022-04-24,Reading FC Women,West Ham United,1.0,2.0,"WSL (Inglaterra, femenil)",3676329,20220424_Reading-FC-Women_West-Ham-United
+2022-04-24,Tottenham Hotspur,Chelsea,1.0,3.0,"WSL (Inglaterra, femenil)",3676328,20220424_Tottenham-Hotspur_Chelsea
+2022-04-24,Aston Villa,Manchester United,0.0,0.0,"WSL (Inglaterra, femenil)",3676333,20220424_Aston-Villa_Manchester-United
+2022-04-24,Everton,Arsenal,0.0,3.0,"WSL (Inglaterra, femenil)",3676331,20220424_Everton_Arsenal
+2022-04-28,Chelsea,Tottenham Hotspur,2.0,1.0,"WSL (Inglaterra, femenil)",3676276,20220428_Chelsea_Tottenham-Hotspur
+2022-04-30,Manchester City,Brighton,7.0,2.0,"WSL (Inglaterra, femenil)",3676335,20220430_Manchester-City_Brighton
+2022-05-01,Manchester United,West Ham United,3.0,0.0,"WSL (Inglaterra, femenil)",3676334,20220501_Manchester-United_West-Ham-United
+2022-05-01,Leicester City,Reading FC Women,0.0,0.0,"WSL (Inglaterra, femenil)",3676336,20220501_Leicester-City_Reading-FC-Women
+2022-05-01,Arsenal,Aston Villa,7.0,0.0,"WSL (Inglaterra, femenil)",3676339,20220501_Arsenal_Aston-Villa
+2022-05-01,Birmingham City,Chelsea,0.0,1.0,"WSL (Inglaterra, femenil)",3676338,20220501_Birmingham-City_Chelsea
+2022-05-01,Everton,Tottenham Hotspur,2.0,2.0,"WSL (Inglaterra, femenil)",3676337,20220501_Everton_Tottenham-Hotspur
+2022-05-04,Manchester City,Birmingham City,6.0,0.0,"WSL (Inglaterra, femenil)",3676318,20220504_Manchester-City_Birmingham-City
+2022-05-04,Arsenal,Tottenham Hotspur,3.0,0.0,"WSL (Inglaterra, femenil)",3676321,20220504_Arsenal_Tottenham-Hotspur
+2022-05-08,Aston Villa,Birmingham City,0.0,1.0,"WSL (Inglaterra, femenil)",3676345,20220508_Aston-Villa_Birmingham-City
+2022-05-08,Brighton,Everton,1.0,1.0,"WSL (Inglaterra, femenil)",3676344,20220508_Brighton_Everton
+2022-05-08,Chelsea,Manchester United,4.0,2.0,"WSL (Inglaterra, femenil)",3676343,20220508_Chelsea_Manchester-United
+2022-05-08,Reading FC Women,Manchester City,0.0,4.0,"WSL (Inglaterra, femenil)",3676342,20220508_Reading-FC-Women_Manchester-City
+2022-05-08,Tottenham Hotspur,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",3676341,20220508_Tottenham-Hotspur_Leicester-City
+2022-05-08,West Ham United,Arsenal,0.0,2.0,"WSL (Inglaterra, femenil)",3676340,20220508_West-Ham-United_Arsenal
+2022-09-16,Arsenal,Brighton,4.0,0.0,"WSL (Inglaterra, femenil)",3952581,20220916_Arsenal_Brighton
+2022-09-17,Manchester United,Reading FC Women,4.0,0.0,"WSL (Inglaterra, femenil)",3952573,20220917_Manchester-United_Reading-FC-Women
+2022-09-18,Aston Villa,Manchester City,4.0,3.0,"WSL (Inglaterra, femenil)",3952580,20220918_Aston-Villa_Manchester-City
+2022-09-18,Leicester City,Tottenham Hotspur,1.0,2.0,"WSL (Inglaterra, femenil)",3952571,20220918_Leicester-City_Tottenham-Hotspur
+2022-09-18,West Ham United,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",3952574,20220918_West-Ham-United_Everton
+2022-09-18,Liverpool,Chelsea,2.0,1.0,"WSL (Inglaterra, femenil)",3952572,20220918_Liverpool_Chelsea
+2022-09-24,Arsenal,Tottenham Hotspur,4.0,0.0,"WSL (Inglaterra, femenil)",3952585,20220924_Arsenal_Tottenham-Hotspur
+2022-09-25,Brighton,Reading FC Women,2.0,1.0,"WSL (Inglaterra, femenil)",3952586,20220925_Brighton_Reading-FC-Women
+2022-09-25,Leicester City,Aston Villa,0.0,2.0,"WSL (Inglaterra, femenil)",3952588,20220925_Leicester-City_Aston-Villa
+2022-09-25,West Ham United,Manchester United,0.0,2.0,"WSL (Inglaterra, femenil)",3952590,20220925_West-Ham-United_Manchester-United
+2022-09-25,Chelsea,Manchester City,2.0,0.0,"WSL (Inglaterra, femenil)",3952587,20220925_Chelsea_Manchester-City
+2022-09-25,Liverpool,Everton,0.0,3.0,"WSL (Inglaterra, femenil)",3952589,20220925_Liverpool_Everton
+2022-09-28,Chelsea,West Ham United,3.0,1.0,"WSL (Inglaterra, femenil)",3952576,20220928_Chelsea_West-Ham-United
+2022-09-29,Everton,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",3952577,20220929_Everton_Leicester-City
+2022-10-15,Aston Villa,West Ham United,1.0,2.0,"WSL (Inglaterra, femenil)",3952568,20221015_Aston-Villa_West-Ham-United
+2022-10-16,Manchester United,Brighton,4.0,0.0,"WSL (Inglaterra, femenil)",3952582,20221016_Manchester-United_Brighton
+2022-10-16,Everton,Chelsea,1.0,3.0,"WSL (Inglaterra, femenil)",3952569,20221016_Everton_Chelsea
+2022-10-16,Manchester City,Leicester City,4.0,0.0,"WSL (Inglaterra, femenil)",3952570,20221016_Manchester-City_Leicester-City
+2022-10-16,Tottenham Hotspur,Liverpool,1.0,0.0,"WSL (Inglaterra, femenil)",3952584,20221016_Tottenham-Hotspur_Liverpool
+2022-10-16,Reading FC Women,Arsenal,0.0,1.0,"WSL (Inglaterra, femenil)",3952583,20221016_Reading-FC-Women_Arsenal
+2022-10-22,Tottenham Hotspur,Manchester City,0.0,3.0,"WSL (Inglaterra, femenil)",3952555,20221022_Tottenham-Hotspur_Manchester-City
+2022-10-22,Aston Villa,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",3952551,20221022_Aston-Villa_Everton
+2022-10-23,Liverpool,Arsenal,0.0,2.0,"WSL (Inglaterra, femenil)",3952554,20221023_Liverpool_Arsenal
+2022-10-23,Leicester City,Manchester United,0.0,1.0,"WSL (Inglaterra, femenil)",3952553,20221023_Leicester-City_Manchester-United
+2022-10-23,West Ham United,Reading FC Women,3.0,2.0,"WSL (Inglaterra, femenil)",3952556,20221023_West-Ham-United_Reading-FC-Women
+2022-10-23,Brighton,Chelsea,0.0,2.0,"WSL (Inglaterra, femenil)",3952552,20221023_Brighton_Chelsea
+2022-10-30,Brighton,Tottenham Hotspur,0.0,8.0,"WSL (Inglaterra, femenil)",3952558,20221030_Brighton_Tottenham-Hotspur
+2022-10-30,Chelsea,Aston Villa,3.0,1.0,"WSL (Inglaterra, femenil)",3952557,20221030_Chelsea_Aston-Villa
+2022-10-30,Everton,Manchester United,0.0,3.0,"WSL (Inglaterra, femenil)",3952548,20221030_Everton_Manchester-United
+2022-10-30,Manchester City,Liverpool,2.0,1.0,"WSL (Inglaterra, femenil)",3952549,20221030_Manchester-City_Liverpool
+2022-10-30,Reading FC Women,Leicester City,2.0,1.0,"WSL (Inglaterra, femenil)",3952550,20221030_Reading-FC-Women_Leicester-City
+2022-10-30,Arsenal,West Ham United,3.0,1.0,"WSL (Inglaterra, femenil)",3952567,20221030_Arsenal_West-Ham-United
+2022-11-06,Leicester City,Arsenal,0.0,4.0,"WSL (Inglaterra, femenil)",3952561,20221106_Leicester-City_Arsenal
+2022-11-06,Liverpool,Aston Villa,0.0,1.0,"WSL (Inglaterra, femenil)",3952562,20221106_Liverpool_Aston-Villa
+2022-11-06,Reading FC Women,Manchester City,0.0,3.0,"WSL (Inglaterra, femenil)",3952564,20221106_Reading-FC-Women_Manchester-City
+2022-11-06,West Ham United,Brighton,4.0,5.0,"WSL (Inglaterra, femenil)",3952566,20221106_West-Ham-United_Brighton
+2022-11-06,Manchester United,Chelsea,1.0,3.0,"WSL (Inglaterra, femenil)",3952563,20221106_Manchester-United_Chelsea
+2022-11-19,Everton,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",3952559,20221119_Everton_Manchester-City
+2022-11-19,Arsenal,Manchester United,2.0,3.0,"WSL (Inglaterra, femenil)",3952595,20221119_Arsenal_Manchester-United
+2022-11-20,Chelsea,Tottenham Hotspur,3.0,0.0,"WSL (Inglaterra, femenil)",3952547,20221120_Chelsea_Tottenham-Hotspur
+2022-11-20,Aston Villa,Reading FC Women,3.0,1.0,"WSL (Inglaterra, femenil)",3952594,20221120_Aston-Villa_Reading-FC-Women
+2022-11-20,Brighton,Liverpool,3.0,3.0,"WSL (Inglaterra, femenil)",3952593,20221120_Brighton_Liverpool
+2022-11-20,West Ham United,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",3952560,20221120_West-Ham-United_Leicester-City
+2022-11-24,Reading FC Women,Liverpool,3.0,3.0,"WSL (Inglaterra, femenil)",3952579,20221124_Reading-FC-Women_Liverpool
+2022-12-03,Manchester United,Aston Villa,5.0,0.0,"WSL (Inglaterra, femenil)",3952597,20221203_Manchester-United_Aston-Villa
+2022-12-03,Arsenal,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",3952601,20221203_Arsenal_Everton
+2022-12-03,Leicester City,Chelsea,0.0,8.0,"WSL (Inglaterra, femenil)",3952600,20221203_Leicester-City_Chelsea
+2022-12-04,Reading FC Women,Tottenham Hotspur,1.0,0.0,"WSL (Inglaterra, femenil)",3952596,20221204_Reading-FC-Women_Tottenham-Hotspur
+2022-12-04,Liverpool,West Ham United,2.0,0.0,"WSL (Inglaterra, femenil)",3952599,20221204_Liverpool_West-Ham-United
+2022-12-04,Manchester City,Brighton,3.0,1.0,"WSL (Inglaterra, femenil)",3952598,20221204_Manchester-City_Brighton
+2022-12-11,Manchester City,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",3952602,20221211_Manchester-City_Manchester-United
+2022-12-11,Tottenham Hotspur,West Ham United,0.0,2.0,"WSL (Inglaterra, femenil)",3952592,20221211_Tottenham-Hotspur_West-Ham-United
+2022-12-11,Aston Villa,Arsenal,1.0,4.0,"WSL (Inglaterra, femenil)",3952621,20221211_Aston-Villa_Arsenal
+2022-12-11,Chelsea,Reading FC Women,3.0,2.0,"WSL (Inglaterra, femenil)",3952619,20221211_Chelsea_Reading-FC-Women
+2022-12-14,Tottenham Hotspur,Everton,0.0,3.0,"WSL (Inglaterra, femenil)",3952565,20221214_Tottenham-Hotspur_Everton
+2023-01-14,Aston Villa,Tottenham Hotspur,2.0,1.0,"WSL (Inglaterra, femenil)",3952626,20230114_Aston-Villa_Tottenham-Hotspur
+2023-01-15,Arsenal,Chelsea,1.0,1.0,"WSL (Inglaterra, femenil)",3952627,20230115_Arsenal_Chelsea
+2023-01-15,Everton,Reading FC Women,3.0,2.0,"WSL (Inglaterra, femenil)",3952625,20230115_Everton_Reading-FC-Women
+2023-01-15,Manchester United,Liverpool,6.0,0.0,"WSL (Inglaterra, femenil)",3952623,20230115_Manchester-United_Liverpool
+2023-01-15,Leicester City,Brighton,3.0,0.0,"WSL (Inglaterra, femenil)",3952624,20230115_Leicester-City_Brighton
+2023-01-15,West Ham United,Manchester City,0.0,1.0,"WSL (Inglaterra, femenil)",3952622,20230115_West-Ham-United_Manchester-City
+2023-01-21,Manchester City,Aston Villa,1.0,1.0,"WSL (Inglaterra, femenil)",3952617,20230121_Manchester-City_Aston-Villa
+2023-01-22,Everton,West Ham United,3.0,0.0,"WSL (Inglaterra, femenil)",3952616,20230122_Everton_West-Ham-United
+2023-01-22,Reading FC Women,Manchester United,0.0,1.0,"WSL (Inglaterra, femenil)",3952629,20230122_Reading-FC-Women_Manchester-United
+2023-02-04,Leicester City,Manchester City,0.0,2.0,"WSL (Inglaterra, femenil)",3952608,20230204_Leicester-City_Manchester-City
+2023-02-04,Aston Villa,Brighton,1.0,1.0,"WSL (Inglaterra, femenil)",3952609,20230204_Aston-Villa_Brighton
+2023-02-05,Manchester United,Everton,0.0,0.0,"WSL (Inglaterra, femenil)",3952606,20230205_Manchester-United_Everton
+2023-02-05,Tottenham Hotspur,Chelsea,2.0,3.0,"WSL (Inglaterra, femenil)",3952605,20230205_Tottenham-Hotspur_Chelsea
+2023-02-05,Liverpool,Reading FC Women,2.0,0.0,"WSL (Inglaterra, femenil)",3952607,20230205_Liverpool_Reading-FC-Women
+2023-02-05,West Ham United,Arsenal,0.0,0.0,"WSL (Inglaterra, femenil)",3952604,20230205_West-Ham-United_Arsenal
+2023-02-11,Manchester City,Arsenal,2.0,1.0,"WSL (Inglaterra, femenil)",3952578,20230211_Manchester-City_Arsenal
+2023-02-12,Tottenham Hotspur,Manchester United,1.0,2.0,"WSL (Inglaterra, femenil)",3952591,20230212_Tottenham-Hotspur_Manchester-United
+2023-02-12,Brighton,Aston Villa,2.0,6.0,"WSL (Inglaterra, femenil)",3952575,20230212_Brighton_Aston-Villa
+2023-02-12,Liverpool,Leicester City,0.0,1.0,"WSL (Inglaterra, femenil)",3952618,20230212_Liverpool_Leicester-City
+2023-03-05,Manchester United,Leicester City,5.0,1.0,"WSL (Inglaterra, femenil)",3952611,20230305_Manchester-United_Leicester-City
+2023-03-05,Everton,Aston Villa,0.0,2.0,"WSL (Inglaterra, femenil)",3952613,20230305_Everton_Aston-Villa
+2023-03-05,Manchester City,Tottenham Hotspur,3.0,1.0,"WSL (Inglaterra, femenil)",3952612,20230305_Manchester-City_Tottenham-Hotspur
+2023-03-05,Reading FC Women,West Ham United,2.0,1.0,"WSL (Inglaterra, femenil)",3952610,20230305_Reading-FC-Women_West-Ham-United
+2023-03-08,Arsenal,Liverpool,2.0,0.0,"WSL (Inglaterra, femenil)",3952630,20230308_Arsenal_Liverpool
+2023-03-08,Chelsea,Brighton,3.0,1.0,"WSL (Inglaterra, femenil)",3952614,20230308_Chelsea_Brighton
+2023-03-12,Chelsea,Manchester United,1.0,0.0,"WSL (Inglaterra, femenil)",3952647,20230312_Chelsea_Manchester-United
+2023-03-12,Brighton,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",3952648,20230312_Brighton_Manchester-City
+2023-03-12,Liverpool,Tottenham Hotspur,2.0,1.0,"WSL (Inglaterra, femenil)",3952645,20230312_Liverpool_Tottenham-Hotspur
+2023-03-12,Leicester City,Everton,0.0,0.0,"WSL (Inglaterra, femenil)",3952646,20230312_Leicester-City_Everton
+2023-03-12,West Ham United,Aston Villa,1.0,2.0,"WSL (Inglaterra, femenil)",3952631,20230312_West-Ham-United_Aston-Villa
+2023-03-12,Arsenal,Reading FC Women,4.0,0.0,"WSL (Inglaterra, femenil)",3952649,20230312_Arsenal_Reading-FC-Women
+2023-03-15,Tottenham Hotspur,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",3952628,20230315_Tottenham-Hotspur_Leicester-City
+2023-03-24,Everton,Liverpool,1.0,1.0,"WSL (Inglaterra, femenil)",3952654,20230324_Everton_Liverpool
+2023-03-25,Tottenham Hotspur,Arsenal,1.0,5.0,"WSL (Inglaterra, femenil)",3952650,20230325_Tottenham-Hotspur_Arsenal
+2023-03-25,Manchester United,West Ham United,4.0,0.0,"WSL (Inglaterra, femenil)",3952652,20230325_Manchester-United_West-Ham-United
+2023-03-26,Manchester City,Chelsea,2.0,0.0,"WSL (Inglaterra, femenil)",3952653,20230326_Manchester-City_Chelsea
+2023-03-26,Aston Villa,Leicester City,5.0,0.0,"WSL (Inglaterra, femenil)",3952655,20230326_Aston-Villa_Leicester-City
+2023-03-26,Reading FC Women,Brighton,2.0,2.0,"WSL (Inglaterra, femenil)",3952651,20230326_Reading-FC-Women_Brighton
+2023-04-01,Brighton,Manchester United,0.0,4.0,"WSL (Inglaterra, femenil)",3952633,20230401_Brighton_Manchester-United
+2023-04-02,Arsenal,Manchester City,2.0,1.0,"WSL (Inglaterra, femenil)",3952635,20230402_Arsenal_Manchester-City
+2023-04-02,Everton,Tottenham Hotspur,2.0,1.0,"WSL (Inglaterra, femenil)",3952632,20230402_Everton_Tottenham-Hotspur
+2023-04-02,Leicester City,Reading FC Women,2.0,1.0,"WSL (Inglaterra, femenil)",3952643,20230402_Leicester-City_Reading-FC-Women
+2023-04-02,West Ham United,Liverpool,0.0,0.0,"WSL (Inglaterra, femenil)",3952644,20230402_West-Ham-United_Liverpool
+2023-04-02,Aston Villa,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",3952634,20230402_Aston-Villa_Chelsea
+2023-04-19,Brighton,Everton,3.0,2.0,"WSL (Inglaterra, femenil)",3952620,20230419_Brighton_Everton
+2023-04-19,Manchester United,Arsenal,1.0,0.0,"WSL (Inglaterra, femenil)",3952638,20230419_Manchester-United_Arsenal
+2023-04-23,Liverpool,Brighton,2.0,1.0,"WSL (Inglaterra, femenil)",3952640,20230423_Liverpool_Brighton
+2023-04-23,Reading FC Women,Everton,2.0,3.0,"WSL (Inglaterra, femenil)",3952637,20230423_Reading-FC-Women_Everton
+2023-04-23,Tottenham Hotspur,Aston Villa,3.0,3.0,"WSL (Inglaterra, femenil)",3952636,20230423_Tottenham-Hotspur_Aston-Villa
+2023-04-23,Manchester City,West Ham United,6.0,2.0,"WSL (Inglaterra, femenil)",3952639,20230423_Manchester-City_West-Ham-United
+2023-04-28,Aston Villa,Manchester United,2.0,3.0,"WSL (Inglaterra, femenil)",3952664,20230428_Aston-Villa_Manchester-United
+2023-04-29,Leicester City,Liverpool,4.0,0.0,"WSL (Inglaterra, femenil)",3952666,20230429_Leicester-City_Liverpool
+2023-04-29,Tottenham Hotspur,Brighton,2.0,2.0,"WSL (Inglaterra, femenil)",3952656,20230429_Tottenham-Hotspur_Brighton
+2023-04-30,Manchester City,Reading FC Women,4.0,1.0,"WSL (Inglaterra, femenil)",3952667,20230430_Manchester-City_Reading-FC-Women
+2023-05-03,Chelsea,Liverpool,2.0,1.0,"WSL (Inglaterra, femenil)",3952615,20230503_Chelsea_Liverpool
+2023-05-05,Arsenal,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",3952658,20230505_Arsenal_Leicester-City
+2023-05-07,Manchester United,Tottenham Hotspur,3.0,0.0,"WSL (Inglaterra, femenil)",3952662,20230507_Manchester-United_Tottenham-Hotspur
+2023-05-07,Brighton,West Ham United,1.0,0.0,"WSL (Inglaterra, femenil)",3952659,20230507_Brighton_West-Ham-United
+2023-05-07,Liverpool,Manchester City,2.0,1.0,"WSL (Inglaterra, femenil)",3952661,20230507_Liverpool_Manchester-City
+2023-05-07,Reading FC Women,Aston Villa,0.0,5.0,"WSL (Inglaterra, femenil)",3952663,20230507_Reading-FC-Women_Aston-Villa
+2023-05-07,Chelsea,Everton,7.0,0.0,"WSL (Inglaterra, femenil)",3952660,20230507_Chelsea_Everton
+2023-05-10,Chelsea,Leicester City,6.0,0.0,"WSL (Inglaterra, femenil)",3952641,20230510_Chelsea_Leicester-City
+2023-05-10,Brighton,Arsenal,0.0,4.0,"WSL (Inglaterra, femenil)",3952603,20230510_Brighton_Arsenal
+2023-05-17,Everton,Arsenal,1.0,4.0,"WSL (Inglaterra, femenil)",3952665,20230517_Everton_Arsenal
+2023-05-17,West Ham United,Chelsea,0.0,4.0,"WSL (Inglaterra, femenil)",3952642,20230517_West-Ham-United_Chelsea
+2023-05-20,Tottenham Hotspur,Reading FC Women,4.0,1.0,"WSL (Inglaterra, femenil)",3952657,20230520_Tottenham-Hotspur_Reading-FC-Women
+2023-05-21,Chelsea,Arsenal,2.0,0.0,"WSL (Inglaterra, femenil)",3952674,20230521_Chelsea_Arsenal
+2023-05-21,Everton,Brighton,2.0,1.0,"WSL (Inglaterra, femenil)",3952675,20230521_Everton_Brighton
+2023-05-21,Aston Villa,Liverpool,3.0,3.0,"WSL (Inglaterra, femenil)",3952673,20230521_Aston-Villa_Liverpool
+2023-05-21,Leicester City,West Ham United,1.0,2.0,"WSL (Inglaterra, femenil)",3952676,20230521_Leicester-City_West-Ham-United
+2023-05-21,Manchester United,Manchester City,2.0,1.0,"WSL (Inglaterra, femenil)",3952677,20230521_Manchester-United_Manchester-City
+2023-05-27,Arsenal,Aston Villa,0.0,2.0,"WSL (Inglaterra, femenil)",3952678,20230527_Arsenal_Aston-Villa
+2023-05-27,Brighton,Leicester City,0.0,1.0,"WSL (Inglaterra, femenil)",3952671,20230527_Brighton_Leicester-City
+2023-05-27,Liverpool,Manchester United,0.0,1.0,"WSL (Inglaterra, femenil)",3952670,20230527_Liverpool_Manchester-United
+2023-05-27,Manchester City,Everton,3.0,2.0,"WSL (Inglaterra, femenil)",3952669,20230527_Manchester-City_Everton
+2023-05-27,Reading FC Women,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",3952668,20230527_Reading-FC-Women_Chelsea
+2023-05-27,West Ham United,Tottenham Hotspur,2.0,2.0,"WSL (Inglaterra, femenil)",3952672,20230527_West-Ham-United_Tottenham-Hotspur
+2023-10-01,Aston Villa,Manchester United,1.0,2.0,"WSL (Inglaterra, femenil)",4255736,20231001_Aston-Villa_Manchester-United
+2023-10-01,Everton,Brighton,1.0,2.0,"WSL (Inglaterra, femenil)",4255739,20231001_Everton_Brighton
+2023-10-01,Arsenal,Liverpool,0.0,1.0,"WSL (Inglaterra, femenil)",4255735,20231001_Arsenal_Liverpool
+2023-10-01,Bristol City,Leicester City,2.0,4.0,"WSL (Inglaterra, femenil)",4255737,20231001_Bristol-City_Leicester-City
+2023-10-01,West Ham United,Manchester City,0.0,2.0,"WSL (Inglaterra, femenil)",4255783,20231001_West-Ham-United_Manchester-City
+2023-10-01,Chelsea,Tottenham Hotspur,2.0,1.0,"WSL (Inglaterra, femenil)",4255738,20231001_Chelsea_Tottenham-Hotspur
+2023-10-06,Manchester United,Arsenal,2.0,2.0,"WSL (Inglaterra, femenil)",4255767,20231006_Manchester-United_Arsenal
+2023-10-08,Brighton,West Ham United,0.0,2.0,"WSL (Inglaterra, femenil)",4255771,20231008_Brighton_West-Ham-United
+2023-10-08,Manchester City,Chelsea,1.0,1.0,"WSL (Inglaterra, femenil)",4255768,20231008_Manchester-City_Chelsea
+2023-10-08,Tottenham Hotspur,Bristol City,3.0,1.0,"WSL (Inglaterra, femenil)",4255766,20231008_Tottenham-Hotspur_Bristol-City
+2023-10-08,Leicester City,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",4255770,20231008_Leicester-City_Everton
+2023-10-08,Liverpool,Aston Villa,2.0,0.0,"WSL (Inglaterra, femenil)",4255769,20231008_Liverpool_Aston-Villa
+2023-10-14,Chelsea,West Ham United,2.0,0.0,"WSL (Inglaterra, femenil)",4255763,20231014_Chelsea_West-Ham-United
+2023-10-15,Manchester United,Leicester City,1.0,1.0,"WSL (Inglaterra, femenil)",4255782,20231015_Manchester-United_Leicester-City
+2023-10-15,Manchester City,Bristol City,5.0,0.0,"WSL (Inglaterra, femenil)",4255773,20231015_Manchester-City_Bristol-City
+2023-10-15,Arsenal,Aston Villa,2.0,1.0,"WSL (Inglaterra, femenil)",4255765,20231015_Arsenal_Aston-Villa
+2023-10-15,Brighton,Tottenham Hotspur,1.0,3.0,"WSL (Inglaterra, femenil)",4255764,20231015_Brighton_Tottenham-Hotspur
+2023-10-15,Liverpool,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",4255772,20231015_Liverpool_Everton
+2023-10-21,Aston Villa,Tottenham Hotspur,2.0,4.0,"WSL (Inglaterra, femenil)",4255781,20231021_Aston-Villa_Tottenham-Hotspur
+2023-10-21,Leicester City,Manchester City,0.0,1.0,"WSL (Inglaterra, femenil)",4255777,20231021_Leicester-City_Manchester-City
+2023-10-22,Everton,Manchester United,0.0,5.0,"WSL (Inglaterra, femenil)",4255778,20231022_Everton_Manchester-United
+2023-10-22,Chelsea,Brighton,4.0,2.0,"WSL (Inglaterra, femenil)",4255779,20231022_Chelsea_Brighton
+2023-10-22,West Ham United,Liverpool,1.0,1.0,"WSL (Inglaterra, femenil)",4255776,20231022_West-Ham-United_Liverpool
+2023-10-22,Bristol City,Arsenal,1.0,2.0,"WSL (Inglaterra, femenil)",4255780,20231022_Bristol-City_Arsenal
+2023-11-04,Aston Villa,Chelsea,0.0,6.0,"WSL (Inglaterra, femenil)",4255774,20231104_Aston-Villa_Chelsea
+2023-11-05,Arsenal,Manchester City,2.0,1.0,"WSL (Inglaterra, femenil)",4255775,20231105_Arsenal_Manchester-City
+2023-11-05,Liverpool,Leicester City,2.0,1.0,"WSL (Inglaterra, femenil)",4255761,20231105_Liverpool_Leicester-City
+2023-11-05,Tottenham Hotspur,Everton,1.0,1.0,"WSL (Inglaterra, femenil)",4255749,20231105_Tottenham-Hotspur_Everton
+2023-11-05,West Ham United,Bristol City,2.0,3.0,"WSL (Inglaterra, femenil)",4255748,20231105_West-Ham-United_Bristol-City
+2023-11-05,Brighton,Manchester United,2.0,2.0,"WSL (Inglaterra, femenil)",4255762,20231105_Brighton_Manchester-United
+2023-11-12,Manchester United,West Ham United,5.0,0.0,"WSL (Inglaterra, femenil)",4255743,20231112_Manchester-United_West-Ham-United
+2023-11-12,Tottenham Hotspur,Liverpool,1.0,1.0,"WSL (Inglaterra, femenil)",4255742,20231112_Tottenham-Hotspur_Liverpool
+2023-11-12,Everton,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",4255746,20231112_Everton_Chelsea
+2023-11-12,Manchester City,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",4255744,20231112_Manchester-City_Brighton
+2023-11-12,Bristol City,Aston Villa,0.0,2.0,"WSL (Inglaterra, femenil)",4255747,20231112_Bristol-City_Aston-Villa
+2023-11-12,Leicester City,Arsenal,2.0,6.0,"WSL (Inglaterra, femenil)",4255745,20231112_Leicester-City_Arsenal
+2023-11-18,Chelsea,Liverpool,5.0,1.0,"WSL (Inglaterra, femenil)",4255750,20231118_Chelsea_Liverpool
+2023-11-19,Everton,Bristol City,2.0,2.0,"WSL (Inglaterra, femenil)",4255751,20231119_Everton_Bristol-City
+2023-11-19,Brighton,Arsenal,0.0,3.0,"WSL (Inglaterra, femenil)",4255741,20231119_Brighton_Arsenal
+2023-11-19,Leicester City,Tottenham Hotspur,1.0,1.0,"WSL (Inglaterra, femenil)",4255760,20231119_Leicester-City_Tottenham-Hotspur
+2023-11-19,West Ham United,Aston Villa,2.0,3.0,"WSL (Inglaterra, femenil)",4255758,20231119_West-Ham-United_Aston-Villa
+2023-11-19,Manchester United,Manchester City,1.0,3.0,"WSL (Inglaterra, femenil)",4255759,20231119_Manchester-United_Manchester-City
+2023-11-26,Bristol City,Manchester United,0.0,2.0,"WSL (Inglaterra, femenil)",4255755,20231126_Bristol-City_Manchester-United
+2023-11-26,Arsenal,West Ham United,3.0,0.0,"WSL (Inglaterra, femenil)",4255757,20231126_Arsenal_West-Ham-United
+2023-11-26,Chelsea,Leicester City,5.0,2.0,"WSL (Inglaterra, femenil)",4255754,20231126_Chelsea_Leicester-City
+2023-11-26,Liverpool,Brighton,4.0,0.0,"WSL (Inglaterra, femenil)",4255753,20231126_Liverpool_Brighton
+2023-11-26,Aston Villa,Everton,1.0,2.0,"WSL (Inglaterra, femenil)",4255756,20231126_Aston-Villa_Everton
+2023-11-26,Manchester City,Tottenham Hotspur,7.0,0.0,"WSL (Inglaterra, femenil)",4255752,20231126_Manchester-City_Tottenham-Hotspur
+2023-12-09,Manchester City,Aston Villa,2.0,1.0,"WSL (Inglaterra, femenil)",4255818,20231209_Manchester-City_Aston-Villa
+2023-12-10,Arsenal,Chelsea,4.0,1.0,"WSL (Inglaterra, femenil)",4255740,20231210_Arsenal_Chelsea
+2023-12-10,Brighton,Leicester City,2.0,2.0,"WSL (Inglaterra, femenil)",4255832,20231210_Brighton_Leicester-City
+2023-12-10,Liverpool,Bristol City,1.0,1.0,"WSL (Inglaterra, femenil)",4255819,20231210_Liverpool_Bristol-City
+2023-12-10,West Ham United,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",4255816,20231210_West-Ham-United_Everton
+2023-12-10,Tottenham Hotspur,Manchester United,0.0,4.0,"WSL (Inglaterra, femenil)",4255817,20231210_Tottenham-Hotspur_Manchester-United
+2023-12-16,Tottenham Hotspur,Arsenal,1.0,0.0,"WSL (Inglaterra, femenil)",4255810,20231216_Tottenham-Hotspur_Arsenal
+2023-12-17,Manchester United,Liverpool,1.0,2.0,"WSL (Inglaterra, femenil)",4255811,20231217_Manchester-United_Liverpool
+2023-12-17,Everton,Manchester City,1.0,4.0,"WSL (Inglaterra, femenil)",4255813,20231217_Everton_Manchester-City
+2023-12-17,Bristol City,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",4255814,20231217_Bristol-City_Chelsea
+2023-12-17,Leicester City,West Ham United,1.0,1.0,"WSL (Inglaterra, femenil)",4255812,20231217_Leicester-City_West-Ham-United
+2023-12-17,Aston Villa,Brighton,1.0,0.0,"WSL (Inglaterra, femenil)",4255815,20231217_Aston-Villa_Brighton
+2024-01-19,Leicester City,Aston Villa,0.0,1.0,"WSL (Inglaterra, femenil)",4255830,20240119_Leicester-City_Aston-Villa
+2024-01-20,Arsenal,Everton,2.0,1.0,"WSL (Inglaterra, femenil)",4255820,20240120_Arsenal_Everton
+2024-01-21,Chelsea,Manchester United,3.0,1.0,"WSL (Inglaterra, femenil)",4255831,20240121_Chelsea_Manchester-United
+2024-01-21,Brighton,Bristol City,3.0,2.0,"WSL (Inglaterra, femenil)",4255821,20240121_Brighton_Bristol-City
+2024-01-21,Manchester City,Liverpool,5.0,1.0,"WSL (Inglaterra, femenil)",4255829,20240121_Manchester-City_Liverpool
+2024-01-21,West Ham United,Tottenham Hotspur,3.0,4.0,"WSL (Inglaterra, femenil)",4255828,20240121_West-Ham-United_Tottenham-Hotspur
+2024-01-27,Brighton,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",4255827,20240127_Brighton_Chelsea
+2024-01-28,Manchester United,Aston Villa,2.0,1.0,"WSL (Inglaterra, femenil)",4255823,20240128_Manchester-United_Aston-Villa
+2024-01-28,Everton,Leicester City,0.0,1.0,"WSL (Inglaterra, femenil)",4255825,20240128_Everton_Leicester-City
+2024-01-28,Bristol City,West Ham United,1.0,2.0,"WSL (Inglaterra, femenil)",4255826,20240128_Bristol-City_West-Ham-United
+2024-01-28,Tottenham Hotspur,Manchester City,0.0,2.0,"WSL (Inglaterra, femenil)",4255822,20240128_Tottenham-Hotspur_Manchester-City
+2024-01-28,Liverpool,Arsenal,0.0,2.0,"WSL (Inglaterra, femenil)",4255824,20240128_Liverpool_Arsenal
+2024-02-03,Aston Villa,Bristol City,2.0,2.0,"WSL (Inglaterra, femenil)",4255809,20240203_Aston-Villa_Bristol-City
+2024-02-04,Manchester United,Brighton,2.0,0.0,"WSL (Inglaterra, femenil)",4255793,20240204_Manchester-United_Brighton
+2024-02-04,West Ham United,Arsenal,2.0,1.0,"WSL (Inglaterra, femenil)",4255792,20240204_West-Ham-United_Arsenal
+2024-02-04,Manchester City,Leicester City,2.0,0.0,"WSL (Inglaterra, femenil)",4255794,20240204_Manchester-City_Leicester-City
+2024-02-04,Liverpool,Tottenham Hotspur,1.0,1.0,"WSL (Inglaterra, femenil)",4255807,20240204_Liverpool_Tottenham-Hotspur
+2024-02-04,Chelsea,Everton,3.0,0.0,"WSL (Inglaterra, femenil)",4255808,20240204_Chelsea_Everton
+2024-02-16,Chelsea,Manchester City,0.0,1.0,"WSL (Inglaterra, femenil)",4255789,20240216_Chelsea_Manchester-City
+2024-02-17,Arsenal,Manchester United,3.0,1.0,"WSL (Inglaterra, femenil)",4255791,20240217_Arsenal_Manchester-United
+2024-02-18,Brighton,Liverpool,0.0,1.0,"WSL (Inglaterra, femenil)",4255790,20240218_Brighton_Liverpool
+2024-02-18,Everton,West Ham United,2.0,0.0,"WSL (Inglaterra, femenil)",4255788,20240218_Everton_West-Ham-United
+2024-02-18,Tottenham Hotspur,Aston Villa,1.0,2.0,"WSL (Inglaterra, femenil)",4255786,20240218_Tottenham-Hotspur_Aston-Villa
+2024-02-18,Leicester City,Bristol City,5.0,2.0,"WSL (Inglaterra, femenil)",4255787,20240218_Leicester-City_Bristol-City
+2024-03-02,Manchester City,Everton,2.0,1.0,"WSL (Inglaterra, femenil)",4255805,20240302_Manchester-City_Everton
+2024-03-03,Arsenal,Tottenham Hotspur,1.0,0.0,"WSL (Inglaterra, femenil)",4255785,20240303_Arsenal_Tottenham-Hotspur
+2024-03-03,Aston Villa,Liverpool,1.0,4.0,"WSL (Inglaterra, femenil)",4255795,20240303_Aston-Villa_Liverpool
+2024-03-03,Bristol City,Brighton,3.0,7.0,"WSL (Inglaterra, femenil)",4255796,20240303_Bristol-City_Brighton
+2024-03-03,West Ham United,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",4255804,20240303_West-Ham-United_Manchester-United
+2024-03-03,Leicester City,Chelsea,0.0,4.0,"WSL (Inglaterra, femenil)",4255806,20240303_Leicester-City_Chelsea
+2024-03-15,Chelsea,Arsenal,3.0,1.0,"WSL (Inglaterra, femenil)",4255802,20240315_Chelsea_Arsenal
+2024-03-16,Everton,Aston Villa,1.0,2.0,"WSL (Inglaterra, femenil)",4255801,20240316_Everton_Aston-Villa
+2024-03-17,Liverpool,West Ham United,3.0,1.0,"WSL (Inglaterra, femenil)",4255800,20240317_Liverpool_West-Ham-United
+2024-03-17,Manchester United,Bristol City,2.0,0.0,"WSL (Inglaterra, femenil)",4255799,20240317_Manchester-United_Bristol-City
+2024-03-17,Brighton,Manchester City,1.0,4.0,"WSL (Inglaterra, femenil)",4255803,20240317_Brighton_Manchester-City
+2024-03-17,Tottenham Hotspur,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",4255798,20240317_Tottenham-Hotspur_Leicester-City
+2024-03-23,Manchester City,Manchester United,3.0,1.0,"WSL (Inglaterra, femenil)",4255852,20240323_Manchester-City_Manchester-United
+2024-03-24,Everton,Liverpool,0.0,0.0,"WSL (Inglaterra, femenil)",4255833,20240324_Everton_Liverpool
+2024-03-24,Bristol City,Tottenham Hotspur,0.0,1.0,"WSL (Inglaterra, femenil)",4255784,20240324_Bristol-City_Tottenham-Hotspur
+2024-03-24,Leicester City,Brighton,2.0,3.0,"WSL (Inglaterra, femenil)",4255851,20240324_Leicester-City_Brighton
+2024-03-24,West Ham United,Chelsea,0.0,2.0,"WSL (Inglaterra, femenil)",4255853,20240324_West-Ham-United_Chelsea
+2024-03-24,Aston Villa,Arsenal,1.0,3.0,"WSL (Inglaterra, femenil)",4255797,20240324_Aston-Villa_Arsenal
+2024-03-30,Aston Villa,Leicester City,2.0,2.0,"WSL (Inglaterra, femenil)",4255855,20240330_Aston-Villa_Leicester-City
+2024-03-30,Liverpool,Manchester City,1.0,4.0,"WSL (Inglaterra, femenil)",4255856,20240330_Liverpool_Manchester-City
+2024-03-31,Manchester United,Everton,4.0,1.0,"WSL (Inglaterra, femenil)",4255857,20240331_Manchester-United_Everton
+2024-03-31,West Ham United,Brighton,0.0,0.0,"WSL (Inglaterra, femenil)",4255859,20240331_West-Ham-United_Brighton
+2024-04-14,Arsenal,Bristol City,5.0,0.0,"WSL (Inglaterra, femenil)",4255854,20240414_Arsenal_Bristol-City
+2024-04-17,Chelsea,Aston Villa,3.0,0.0,"WSL (Inglaterra, femenil)",4255863,20240417_Chelsea_Aston-Villa
+2024-04-19,Brighton,Everton,1.0,2.0,"WSL (Inglaterra, femenil)",4255861,20240419_Brighton_Everton
+2024-04-20,Bristol City,Liverpool,0.0,1.0,"WSL (Inglaterra, femenil)",4255862,20240420_Bristol-City_Liverpool
+2024-04-21,Manchester United,Tottenham Hotspur,2.0,2.0,"WSL (Inglaterra, femenil)",4255865,20240421_Manchester-United_Tottenham-Hotspur
+2024-04-21,Arsenal,Leicester City,3.0,0.0,"WSL (Inglaterra, femenil)",4255860,20240421_Arsenal_Leicester-City
+2024-04-21,Manchester City,West Ham United,5.0,0.0,"WSL (Inglaterra, femenil)",4255864,20240421_Manchester-City_West-Ham-United
+2024-04-28,Everton,Arsenal,1.0,1.0,"WSL (Inglaterra, femenil)",4255834,20240428_Everton_Arsenal
+2024-04-28,Aston Villa,West Ham United,1.0,1.0,"WSL (Inglaterra, femenil)",4255850,20240428_Aston-Villa_West-Ham-United
+2024-04-28,Tottenham Hotspur,Brighton,1.0,1.0,"WSL (Inglaterra, femenil)",4255837,20240428_Tottenham-Hotspur_Brighton
+2024-04-28,Leicester City,Manchester United,0.0,1.0,"WSL (Inglaterra, femenil)",4255835,20240428_Leicester-City_Manchester-United
+2024-04-28,Bristol City,Manchester City,0.0,4.0,"WSL (Inglaterra, femenil)",4255849,20240428_Bristol-City_Manchester-City
+2024-05-01,Liverpool,Chelsea,4.0,3.0,"WSL (Inglaterra, femenil)",4255836,20240501_Liverpool_Chelsea
+2024-05-04,Everton,Tottenham Hotspur,2.0,2.0,"WSL (Inglaterra, femenil)",4255840,20240504_Everton_Tottenham-Hotspur
+2024-05-04,Brighton,Aston Villa,0.0,1.0,"WSL (Inglaterra, femenil)",4255838,20240504_Brighton_Aston-Villa
+2024-05-05,Liverpool,Manchester United,1.0,0.0,"WSL (Inglaterra, femenil)",4255841,20240505_Liverpool_Manchester-United
+2024-05-05,Manchester City,Arsenal,1.0,2.0,"WSL (Inglaterra, femenil)",4255842,20240505_Manchester-City_Arsenal
+2024-05-05,West Ham United,Leicester City,1.0,1.0,"WSL (Inglaterra, femenil)",4255843,20240505_West-Ham-United_Leicester-City
+2024-05-05,Chelsea,Bristol City,8.0,0.0,"WSL (Inglaterra, femenil)",4255839,20240505_Chelsea_Bristol-City
+2024-05-15,Tottenham Hotspur,Chelsea,0.0,1.0,"WSL (Inglaterra, femenil)",4255858,20240515_Tottenham-Hotspur_Chelsea
+2024-05-18,Arsenal,Brighton,5.0,0.0,"WSL (Inglaterra, femenil)",4255844,20240518_Arsenal_Brighton
+2024-05-18,Aston Villa,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",4255845,20240518_Aston-Villa_Manchester-City
+2024-05-18,Bristol City,Everton,0.0,4.0,"WSL (Inglaterra, femenil)",4255846,20240518_Bristol-City_Everton
+2024-05-18,Leicester City,Liverpool,0.0,4.0,"WSL (Inglaterra, femenil)",4255847,20240518_Leicester-City_Liverpool
+2024-05-18,Manchester United,Chelsea,0.0,6.0,"WSL (Inglaterra, femenil)",4255848,20240518_Manchester-United_Chelsea
+2024-05-18,Tottenham Hotspur,West Ham United,3.0,1.0,"WSL (Inglaterra, femenil)",4255866,20240518_Tottenham-Hotspur_West-Ham-United
+2024-09-20,Chelsea,Aston Villa,1.0,0.0,"WSL (Inglaterra, femenil)",4570481,20240920_Chelsea_Aston-Villa
+2024-09-21,Manchester United,West Ham United,3.0,0.0,"WSL (Inglaterra, femenil)",4570483,20240921_Manchester-United_West-Ham-United
+2024-09-21,Brighton,Everton,4.0,0.0,"WSL (Inglaterra, femenil)",4570480,20240921_Brighton_Everton
+2024-09-22,Arsenal,Manchester City,2.0,2.0,"WSL (Inglaterra, femenil)",4570479,20240922_Arsenal_Manchester-City
+2024-09-22,Liverpool,Leicester City,1.0,1.0,"WSL (Inglaterra, femenil)",4570482,20240922_Liverpool_Leicester-City
+2024-09-22,Tottenham Hotspur,Crystal Palace,4.0,0.0,"WSL (Inglaterra, femenil)",4570484,20240922_Tottenham-Hotspur_Crystal-Palace
+2024-09-27,Crystal Palace,Chelsea,0.0,7.0,"WSL (Inglaterra, femenil)",4570485,20240927_Crystal-Palace_Chelsea
+2024-09-29,Manchester City,Brighton,1.0,0.0,"WSL (Inglaterra, femenil)",4570486,20240929_Manchester-City_Brighton
+2024-09-29,Everton,Manchester United,0.0,1.0,"WSL (Inglaterra, femenil)",4570488,20240929_Everton_Manchester-United
+2024-09-29,Leicester City,Arsenal,0.0,1.0,"WSL (Inglaterra, femenil)",4570489,20240929_Leicester-City_Arsenal
+2024-09-29,West Ham United,Liverpool,1.0,1.0,"WSL (Inglaterra, femenil)",4570490,20240929_West-Ham-United_Liverpool
+2024-09-29,Aston Villa,Tottenham Hotspur,2.0,2.0,"WSL (Inglaterra, femenil)",4570487,20240929_Aston-Villa_Tottenham-Hotspur
+2024-10-05,Brighton,Aston Villa,4.0,2.0,"WSL (Inglaterra, femenil)",4570502,20241005_Brighton_Aston-Villa
+2024-10-06,Manchester City,West Ham United,2.0,0.0,"WSL (Inglaterra, femenil)",4570509,20241006_Manchester-City_West-Ham-United
+2024-10-06,Arsenal,Everton,0.0,0.0,"WSL (Inglaterra, femenil)",4570491,20241006_Arsenal_Everton
+2024-10-06,Tottenham Hotspur,Liverpool,2.0,3.0,"WSL (Inglaterra, femenil)",4570508,20241006_Tottenham-Hotspur_Liverpool
+2024-10-06,Leicester City,Crystal Palace,0.0,2.0,"WSL (Inglaterra, femenil)",4570510,20241006_Leicester-City_Crystal-Palace
+2024-10-12,Arsenal,Chelsea,1.0,2.0,"WSL (Inglaterra, femenil)",4570507,20241012_Arsenal_Chelsea
+2024-10-13,Manchester United,Tottenham Hotspur,3.0,0.0,"WSL (Inglaterra, femenil)",4570492,20241013_Manchester-United_Tottenham-Hotspur
+2024-10-13,Aston Villa,Leicester City,0.0,0.0,"WSL (Inglaterra, femenil)",4570506,20241013_Aston-Villa_Leicester-City
+2024-10-13,Crystal Palace,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",4570505,20241013_Crystal-Palace_Brighton
+2024-10-13,Everton,West Ham United,1.0,1.0,"WSL (Inglaterra, femenil)",4570504,20241013_Everton_West-Ham-United
+2024-10-13,Liverpool,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",4570503,20241013_Liverpool_Manchester-City
+2024-10-19,Brighton,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",4570501,20241019_Brighton_Manchester-United
+2024-10-20,Manchester City,Aston Villa,2.0,1.0,"WSL (Inglaterra, femenil)",4570497,20241020_Manchester-City_Aston-Villa
+2024-10-20,Liverpool,Crystal Palace,1.0,1.0,"WSL (Inglaterra, femenil)",4570498,20241020_Liverpool_Crystal-Palace
+2024-10-20,Leicester City,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",4570499,20241020_Leicester-City_Everton
+2024-10-20,West Ham United,Arsenal,0.0,2.0,"WSL (Inglaterra, femenil)",4570496,20241020_West-Ham-United_Arsenal
+2024-10-20,Chelsea,Tottenham Hotspur,5.0,2.0,"WSL (Inglaterra, femenil)",4570500,20241020_Chelsea_Tottenham-Hotspur
+2024-11-03,Manchester United,Arsenal,1.0,1.0,"WSL (Inglaterra, femenil)",4570544,20241103_Manchester-United_Arsenal
+2024-11-03,Brighton,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",4570494,20241103_Brighton_Leicester-City
+2024-11-03,Crystal Palace,Manchester City,0.0,3.0,"WSL (Inglaterra, femenil)",4570493,20241103_Crystal-Palace_Manchester-City
+2024-11-03,Tottenham Hotspur,West Ham United,2.0,1.0,"WSL (Inglaterra, femenil)",4570543,20241103_Tottenham-Hotspur_West-Ham-United
+2024-11-03,Aston Villa,Liverpool,1.0,2.0,"WSL (Inglaterra, femenil)",4570495,20241103_Aston-Villa_Liverpool
+2024-11-03,Everton,Chelsea,0.0,5.0,"WSL (Inglaterra, femenil)",4570529,20241103_Everton_Chelsea
+2024-11-08,Arsenal,Brighton,5.0,0.0,"WSL (Inglaterra, femenil)",4570542,20241108_Arsenal_Brighton
+2024-11-08,Manchester City,Tottenham Hotspur,4.0,0.0,"WSL (Inglaterra, femenil)",4570539,20241108_Manchester-City_Tottenham-Hotspur
+2024-11-10,Liverpool,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",4570540,20241110_Liverpool_Chelsea
+2024-11-10,Crystal Palace,Everton,1.0,1.0,"WSL (Inglaterra, femenil)",4570541,20241110_Crystal-Palace_Everton
+2024-11-10,West Ham United,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",4570537,20241110_West-Ham-United_Leicester-City
+2024-11-10,Manchester United,Aston Villa,0.0,0.0,"WSL (Inglaterra, femenil)",4570538,20241110_Manchester-United_Aston-Villa
+2024-11-16,Brighton,West Ham United,3.0,2.0,"WSL (Inglaterra, femenil)",4570535,20241116_Brighton_West-Ham-United
+2024-11-16,Tottenham Hotspur,Arsenal,0.0,3.0,"WSL (Inglaterra, femenil)",4570531,20241116_Tottenham-Hotspur_Arsenal
+2024-11-16,Chelsea,Manchester City,2.0,0.0,"WSL (Inglaterra, femenil)",4570534,20241116_Chelsea_Manchester-City
+2024-11-17,Aston Villa,Crystal Palace,3.0,2.0,"WSL (Inglaterra, femenil)",4570536,20241117_Aston-Villa_Crystal-Palace
+2024-11-17,Everton,Liverpool,1.0,0.0,"WSL (Inglaterra, femenil)",4570533,20241117_Everton_Liverpool
+2024-11-17,Leicester City,Manchester United,0.0,2.0,"WSL (Inglaterra, femenil)",4570532,20241117_Leicester-City_Manchester-United
+2024-11-24,Chelsea,Manchester United,1.0,0.0,"WSL (Inglaterra, femenil)",4570511,20241124_Chelsea_Manchester-United
+2024-12-08,Manchester United,Liverpool,4.0,0.0,"WSL (Inglaterra, femenil)",4570514,20241208_Manchester-United_Liverpool
+2024-12-08,Manchester City,Leicester City,4.0,0.0,"WSL (Inglaterra, femenil)",4570513,20241208_Manchester-City_Leicester-City
+2024-12-08,Tottenham Hotspur,Everton,2.0,1.0,"WSL (Inglaterra, femenil)",4570515,20241208_Tottenham-Hotspur_Everton
+2024-12-08,Arsenal,Aston Villa,4.0,0.0,"WSL (Inglaterra, femenil)",4570530,20241208_Arsenal_Aston-Villa
+2024-12-08,Chelsea,Brighton,4.0,2.0,"WSL (Inglaterra, femenil)",4570521,20241208_Chelsea_Brighton
+2024-12-08,West Ham United,Crystal Palace,5.0,2.0,"WSL (Inglaterra, femenil)",4570516,20241208_West-Ham-United_Crystal-Palace
+2024-12-14,Leicester City,Chelsea,1.0,1.0,"WSL (Inglaterra, femenil)",4570512,20241214_Leicester-City_Chelsea
+2024-12-14,Brighton,Tottenham Hotspur,1.0,1.0,"WSL (Inglaterra, femenil)",4570518,20241214_Brighton_Tottenham-Hotspur
+2024-12-15,Everton,Manchester City,2.0,1.0,"WSL (Inglaterra, femenil)",4570520,20241215_Everton_Manchester-City
+2024-12-15,Aston Villa,West Ham United,3.0,1.0,"WSL (Inglaterra, femenil)",4570517,20241215_Aston-Villa_West-Ham-United
+2024-12-15,Crystal Palace,Manchester United,0.0,1.0,"WSL (Inglaterra, femenil)",4570519,20241215_Crystal-Palace_Manchester-United
+2024-12-15,Liverpool,Arsenal,0.0,1.0,"WSL (Inglaterra, femenil)",4570522,20241215_Liverpool_Arsenal
+2025-01-17,Liverpool,Brighton,2.0,1.0,"WSL (Inglaterra, femenil)",4570525,20250117_Liverpool_Brighton
+2025-01-18,Everton,Aston Villa,1.0,1.0,"WSL (Inglaterra, femenil)",4570524,20250118_Everton_Aston-Villa
+2025-01-19,Tottenham Hotspur,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",4570527,20250119_Tottenham-Hotspur_Leicester-City
+2025-01-19,Arsenal,Crystal Palace,5.0,0.0,"WSL (Inglaterra, femenil)",4570523,20250119_Arsenal_Crystal-Palace
+2025-01-19,West Ham United,Chelsea,0.0,5.0,"WSL (Inglaterra, femenil)",4570528,20250119_West-Ham-United_Chelsea
+2025-01-19,Manchester City,Manchester United,2.0,4.0,"WSL (Inglaterra, femenil)",4570526,20250119_Manchester-City_Manchester-United
+2025-01-25,Aston Villa,Manchester City,2.0,4.0,"WSL (Inglaterra, femenil)",4570562,20250125_Aston-Villa_Manchester-City
+2025-01-26,Chelsea,Arsenal,1.0,0.0,"WSL (Inglaterra, femenil)",4570577,20250126_Chelsea_Arsenal
+2025-01-26,Crystal Palace,Tottenham Hotspur,2.0,3.0,"WSL (Inglaterra, femenil)",4570576,20250126_Crystal-Palace_Tottenham-Hotspur
+2025-01-26,Leicester City,Liverpool,2.0,1.0,"WSL (Inglaterra, femenil)",4570575,20250126_Leicester-City_Liverpool
+2025-01-26,West Ham United,Everton,2.0,0.0,"WSL (Inglaterra, femenil)",4570573,20250126_West-Ham-United_Everton
+2025-01-26,Manchester United,Brighton,3.0,0.0,"WSL (Inglaterra, femenil)",4570574,20250126_Manchester-United_Brighton
+2025-02-02,Manchester City,Arsenal,3.0,4.0,"WSL (Inglaterra, femenil)",4570568,20250202_Manchester-City_Arsenal
+2025-02-02,Brighton,Crystal Palace,1.0,1.0,"WSL (Inglaterra, femenil)",4570571,20250202_Brighton_Crystal-Palace
+2025-02-02,Everton,Leicester City,4.0,1.0,"WSL (Inglaterra, femenil)",4570570,20250202_Everton_Leicester-City
+2025-02-02,Liverpool,West Ham United,1.0,0.0,"WSL (Inglaterra, femenil)",4570569,20250202_Liverpool_West-Ham-United
+2025-02-02,Aston Villa,Chelsea,0.0,1.0,"WSL (Inglaterra, femenil)",4570572,20250202_Aston-Villa_Chelsea
+2025-02-02,Tottenham Hotspur,Manchester United,0.0,1.0,"WSL (Inglaterra, femenil)",4570567,20250202_Tottenham-Hotspur_Manchester-United
+2025-02-16,Manchester United,Crystal Palace,3.0,1.0,"WSL (Inglaterra, femenil)",4570554,20250216_Manchester-United_Crystal-Palace
+2025-02-16,Arsenal,Tottenham Hotspur,5.0,0.0,"WSL (Inglaterra, femenil)",4570566,20250216_Arsenal_Tottenham-Hotspur
+2025-02-16,Chelsea,Everton,2.0,1.0,"WSL (Inglaterra, femenil)",4570565,20250216_Chelsea_Everton
+2025-02-16,Leicester City,Aston Villa,3.0,0.0,"WSL (Inglaterra, femenil)",4570564,20250216_Leicester-City_Aston-Villa
+2025-02-16,West Ham United,Brighton,3.0,1.0,"WSL (Inglaterra, femenil)",4570546,20250216_West-Ham-United_Brighton
+2025-02-16,Manchester City,Liverpool,4.0,0.0,"WSL (Inglaterra, femenil)",4570563,20250216_Manchester-City_Liverpool
+2025-03-02,Manchester United,Leicester City,2.0,0.0,"WSL (Inglaterra, femenil)",4570551,20250302_Manchester-United_Leicester-City
+2025-03-02,Aston Villa,Everton,0.0,2.0,"WSL (Inglaterra, femenil)",4570548,20250302_Aston-Villa_Everton
+2025-03-02,Crystal Palace,Liverpool,0.0,1.0,"WSL (Inglaterra, femenil)",4570550,20250302_Crystal-Palace_Liverpool
+2025-03-02,Tottenham Hotspur,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",4570552,20250302_Tottenham-Hotspur_Manchester-City
+2025-03-02,Brighton,Chelsea,2.0,2.0,"WSL (Inglaterra, femenil)",4570549,20250302_Brighton_Chelsea
+2025-03-02,Arsenal,West Ham United,4.0,3.0,"WSL (Inglaterra, femenil)",4570547,20250302_Arsenal_West-Ham-United
+2025-03-05,West Ham United,Manchester City,1.0,1.0,"WSL (Inglaterra, femenil)",4570558,20250305_West-Ham-United_Manchester-City
+2025-03-05,Chelsea,Leicester City,3.0,1.0,"WSL (Inglaterra, femenil)",4570553,20250305_Chelsea_Leicester-City
+2025-03-14,Everton,Arsenal,1.0,3.0,"WSL (Inglaterra, femenil)",4570555,20250314_Everton_Arsenal
+2025-03-14,Liverpool,Manchester United,3.0,1.0,"WSL (Inglaterra, femenil)",4570556,20250314_Liverpool_Manchester-United
+2025-03-16,Crystal Palace,Aston Villa,3.0,1.0,"WSL (Inglaterra, femenil)",4570545,20250316_Crystal-Palace_Aston-Villa
+2025-03-16,Tottenham Hotspur,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",4570557,20250316_Tottenham-Hotspur_Brighton
+2025-03-22,Everton,Crystal Palace,3.0,0.0,"WSL (Inglaterra, femenil)",4570561,20250322_Everton_Crystal-Palace
+2025-03-22,Arsenal,Liverpool,4.0,0.0,"WSL (Inglaterra, femenil)",4570559,20250322_Arsenal_Liverpool
+2025-03-23,West Ham United,Tottenham Hotspur,2.0,0.0,"WSL (Inglaterra, femenil)",4570580,20250323_West-Ham-United_Tottenham-Hotspur
+2025-03-23,Manchester City,Chelsea,1.0,2.0,"WSL (Inglaterra, femenil)",4570579,20250323_Manchester-City_Chelsea
+2025-03-23,Leicester City,Brighton,3.0,2.0,"WSL (Inglaterra, femenil)",4570578,20250323_Leicester-City_Brighton
+2025-03-23,Aston Villa,Manchester United,0.0,4.0,"WSL (Inglaterra, femenil)",4570560,20250323_Aston-Villa_Manchester-United
+2025-03-30,Manchester United,Everton,2.0,0.0,"WSL (Inglaterra, femenil)",4570586,20250330_Manchester-United_Everton
+2025-03-30,Brighton,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",4570581,20250330_Brighton_Manchester-City
+2025-03-30,Crystal Palace,Arsenal,0.0,4.0,"WSL (Inglaterra, femenil)",4570583,20250330_Crystal-Palace_Arsenal
+2025-03-30,Leicester City,Tottenham Hotspur,1.0,1.0,"WSL (Inglaterra, femenil)",4570584,20250330_Leicester-City_Tottenham-Hotspur
+2025-03-30,Liverpool,Aston Villa,1.0,2.0,"WSL (Inglaterra, femenil)",4570585,20250330_Liverpool_Aston-Villa
+2025-03-30,Chelsea,West Ham United,2.0,2.0,"WSL (Inglaterra, femenil)",4570582,20250330_Chelsea_West-Ham-United
+2025-04-15,Arsenal,Leicester City,5.0,1.0,"WSL (Inglaterra, femenil)",4570599,20250415_Arsenal_Leicester-City
+2025-04-19,West Ham United,Manchester United,0.0,0.0,"WSL (Inglaterra, femenil)",4570606,20250419_West-Ham-United_Manchester-United
+2025-04-19,Brighton,Liverpool,1.0,2.0,"WSL (Inglaterra, femenil)",4570610,20250419_Brighton_Liverpool
+2025-04-20,Manchester City,Everton,1.0,1.0,"WSL (Inglaterra, femenil)",4570608,20250420_Manchester-City_Everton
+2025-04-20,Tottenham Hotspur,Aston Villa,2.0,3.0,"WSL (Inglaterra, femenil)",4570607,20250420_Tottenham-Hotspur_Aston-Villa
+2025-04-23,Chelsea,Crystal Palace,4.0,0.0,"WSL (Inglaterra, femenil)",4570609,20250423_Chelsea_Crystal-Palace
+2025-04-27,Liverpool,Tottenham Hotspur,2.0,2.0,"WSL (Inglaterra, femenil)",4570601,20250427_Liverpool_Tottenham-Hotspur
+2025-04-27,Crystal Palace,West Ham United,1.0,7.0,"WSL (Inglaterra, femenil)",4570604,20250427_Crystal-Palace_West-Ham-United
+2025-04-27,Everton,Brighton,2.0,3.0,"WSL (Inglaterra, femenil)",4570603,20250427_Everton_Brighton
+2025-04-27,Leicester City,Manchester City,0.0,1.0,"WSL (Inglaterra, femenil)",4570602,20250427_Leicester-City_Manchester-City
+2025-04-30,Aston Villa,Arsenal,5.0,2.0,"WSL (Inglaterra, femenil)",4570605,20250430_Aston-Villa_Arsenal
+2025-04-30,Manchester United,Chelsea,0.0,1.0,"WSL (Inglaterra, femenil)",4570600,20250430_Manchester-United_Chelsea
+2025-05-04,Liverpool,Everton,0.0,2.0,"WSL (Inglaterra, femenil)",4570597,20250504_Liverpool_Everton
+2025-05-04,Manchester United,Manchester City,2.0,2.0,"WSL (Inglaterra, femenil)",4570596,20250504_Manchester-United_Manchester-City
+2025-05-04,Crystal Palace,Leicester City,2.0,2.0,"WSL (Inglaterra, femenil)",4570598,20250504_Crystal-Palace_Leicester-City
+2025-05-04,Tottenham Hotspur,Chelsea,0.0,1.0,"WSL (Inglaterra, femenil)",4570595,20250504_Tottenham-Hotspur_Chelsea
+2025-05-04,West Ham United,Aston Villa,2.0,3.0,"WSL (Inglaterra, femenil)",4570594,20250504_West-Ham-United_Aston-Villa
+2025-05-05,Brighton,Arsenal,4.0,2.0,"WSL (Inglaterra, femenil)",4570587,20250505_Brighton_Arsenal
+2025-05-10,Arsenal,Manchester United,4.0,3.0,"WSL (Inglaterra, femenil)",4570593,20250510_Arsenal_Manchester-United
+2025-05-10,Aston Villa,Brighton,3.0,1.0,"WSL (Inglaterra, femenil)",4570592,20250510_Aston-Villa_Brighton
+2025-05-10,Chelsea,Liverpool,1.0,0.0,"WSL (Inglaterra, femenil)",4570591,20250510_Chelsea_Liverpool
+2025-05-10,Everton,Tottenham Hotspur,1.0,1.0,"WSL (Inglaterra, femenil)",4570590,20250510_Everton_Tottenham-Hotspur
+2025-05-10,Leicester City,West Ham United,4.0,2.0,"WSL (Inglaterra, femenil)",4570589,20250510_Leicester-City_West-Ham-United
+2025-05-10,Manchester City,Crystal Palace,5.0,2.0,"WSL (Inglaterra, femenil)",4570588,20250510_Manchester-City_Crystal-Palace
+2025-09-05,Chelsea,Manchester City,2.0,1.0,"WSL (Inglaterra, femenil)",4892931,20250905_Chelsea_Manchester-City
+2025-09-06,Arsenal,London City Lionesses,4.0,1.0,"WSL (Inglaterra, femenil)",4892932,20250906_Arsenal_London-City-Lionesses
+2025-09-07,Brighton,Aston Villa,0.0,0.0,"WSL (Inglaterra, femenil)",4892934,20250907_Brighton_Aston-Villa
+2025-09-07,Liverpool,Everton,1.0,4.0,"WSL (Inglaterra, femenil)",4892933,20250907_Liverpool_Everton
+2025-09-07,Manchester United,Leicester City,4.0,0.0,"WSL (Inglaterra, femenil)",4892935,20250907_Manchester-United_Leicester-City
+2025-09-07,Tottenham Hotspur,West Ham United,1.0,0.0,"WSL (Inglaterra, femenil)",4892936,20250907_Tottenham-Hotspur_West-Ham-United
+2025-09-12,Manchester City,Brighton,2.0,1.0,"WSL (Inglaterra, femenil)",4892969,20250912_Manchester-City_Brighton
+2025-09-12,West Ham United,Arsenal,1.0,5.0,"WSL (Inglaterra, femenil)",4892971,20250912_West-Ham-United_Arsenal
+2025-09-14,Aston Villa,Chelsea,1.0,3.0,"WSL (Inglaterra, femenil)",4892972,20250914_Aston-Villa_Chelsea
+2025-09-14,Leicester City,Liverpool,1.0,0.0,"WSL (Inglaterra, femenil)",4892974,20250914_Leicester-City_Liverpool
+2025-09-14,London City Lionesses,Manchester United,1.0,5.0,"WSL (Inglaterra, femenil)",4892970,20250914_London-City-Lionesses_Manchester-United
+2025-09-14,Everton,Tottenham Hotspur,0.0,2.0,"WSL (Inglaterra, femenil)",4892973,20250914_Everton_Tottenham-Hotspur
+2025-09-19,Everton,London City Lionesses,1.0,2.0,"WSL (Inglaterra, femenil)",4892979,20250919_Everton_London-City-Lionesses
+2025-09-19,Tottenham Hotspur,Manchester City,1.0,5.0,"WSL (Inglaterra, femenil)",4892980,20250919_Tottenham-Hotspur_Manchester-City
+2025-09-21,Brighton,West Ham United,4.0,1.0,"WSL (Inglaterra, femenil)",4892977,20250921_Brighton_West-Ham-United
+2025-09-21,Chelsea,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",4892978,20250921_Chelsea_Leicester-City
+2025-09-21,Manchester United,Arsenal,0.0,0.0,"WSL (Inglaterra, femenil)",4892975,20250921_Manchester-United_Arsenal
+2025-09-27,Arsenal,Aston Villa,1.0,1.0,"WSL (Inglaterra, femenil)",4892981,20250927_Arsenal_Aston-Villa
+2025-09-28,Brighton,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",4892985,20250928_Brighton_Everton
+2025-09-28,Leicester City,Tottenham Hotspur,1.0,2.0,"WSL (Inglaterra, femenil)",4892982,20250928_Leicester-City_Tottenham-Hotspur
+2025-09-28,Liverpool,Manchester United,0.0,2.0,"WSL (Inglaterra, femenil)",4892986,20250928_Liverpool_Manchester-United
+2025-09-28,Manchester City,London City Lionesses,4.0,1.0,"WSL (Inglaterra, femenil)",4892983,20250928_Manchester-City_London-City-Lionesses
+2025-09-28,West Ham United,Chelsea,0.0,4.0,"WSL (Inglaterra, femenil)",4892984,20250928_West-Ham-United_Chelsea
+2025-10-03,Manchester United,Chelsea,1.0,1.0,"WSL (Inglaterra, femenil)",4892988,20251003_Manchester-United_Chelsea
+2025-10-04,Manchester City,Arsenal,3.0,2.0,"WSL (Inglaterra, femenil)",4892987,20251004_Manchester-City_Arsenal
+2025-10-05,Leicester City,Everton,1.0,1.0,"WSL (Inglaterra, femenil)",4892992,20251005_Leicester-City_Everton
+2025-10-05,London City Lionesses,Liverpool,1.0,0.0,"WSL (Inglaterra, femenil)",4892990,20251005_London-City-Lionesses_Liverpool
+2025-10-05,Tottenham Hotspur,Brighton,1.0,0.0,"WSL (Inglaterra, femenil)",4892991,20251005_Tottenham-Hotspur_Brighton
+2025-10-05,West Ham United,Aston Villa,0.0,2.0,"WSL (Inglaterra, femenil)",4892989,20251005_West-Ham-United_Aston-Villa
+2025-10-12,Aston Villa,Leicester City,0.0,0.0,"WSL (Inglaterra, femenil)",4892996,20251012_Aston-Villa_Leicester-City
+2025-10-12,Chelsea,Tottenham Hotspur,1.0,0.0,"WSL (Inglaterra, femenil)",4892993,20251012_Chelsea_Tottenham-Hotspur
+2025-10-12,Everton,Manchester United,1.0,4.0,"WSL (Inglaterra, femenil)",4892997,20251012_Everton_Manchester-United
+2025-10-12,London City Lionesses,West Ham United,1.0,0.0,"WSL (Inglaterra, femenil)",4892994,20251012_London-City-Lionesses_West-Ham-United
+2025-10-12,Arsenal,Brighton,1.0,0.0,"WSL (Inglaterra, femenil)",4892995,20251012_Arsenal_Brighton
+2025-10-12,Liverpool,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",4892998,20251012_Liverpool_Manchester-City
+2025-11-01,Chelsea,London City Lionesses,2.0,0.0,"WSL (Inglaterra, femenil)",4893122,20251101_Chelsea_London-City-Lionesses
+2025-11-01,Manchester City,West Ham United,1.0,0.0,"WSL (Inglaterra, femenil)",4893119,20251101_Manchester-City_West-Ham-United
+2025-11-02,Aston Villa,Everton,3.0,3.0,"WSL (Inglaterra, femenil)",4893120,20251102_Aston-Villa_Everton
+2025-11-02,Brighton,Manchester United,2.0,3.0,"WSL (Inglaterra, femenil)",4893121,20251102_Brighton_Manchester-United
+2025-11-02,Leicester City,Arsenal,1.0,4.0,"WSL (Inglaterra, femenil)",4893124,20251102_Leicester-City_Arsenal
+2025-11-02,Tottenham Hotspur,Liverpool,2.0,1.0,"WSL (Inglaterra, femenil)",4893123,20251102_Tottenham-Hotspur_Liverpool
+2025-11-08,Arsenal,Chelsea,1.0,1.0,"WSL (Inglaterra, femenil)",4893125,20251108_Arsenal_Chelsea
+2025-11-08,Manchester United,Aston Villa,0.0,1.0,"WSL (Inglaterra, femenil)",4893126,20251108_Manchester-United_Aston-Villa
+2025-11-09,London City Lionesses,Tottenham Hotspur,4.0,2.0,"WSL (Inglaterra, femenil)",4893127,20251109_London-City-Lionesses_Tottenham-Hotspur
+2025-11-09,Liverpool,Brighton,1.0,1.0,"WSL (Inglaterra, femenil)",4893130,20251109_Liverpool_Brighton
+2025-11-09,West Ham United,Leicester City,1.0,1.0,"WSL (Inglaterra, femenil)",4893128,20251109_West-Ham-United_Leicester-City
+2025-11-09,Everton,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",4893129,20251109_Everton_Manchester-City
+2025-11-15,Manchester City,Manchester United,3.0,0.0,"WSL (Inglaterra, femenil)",4893136,20251115_Manchester-City_Manchester-United
+2025-11-16,Aston Villa,London City Lionesses,1.0,3.0,"WSL (Inglaterra, femenil)",4893132,20251116_Aston-Villa_London-City-Lionesses
+2025-11-16,Brighton,Leicester City,4.0,1.0,"WSL (Inglaterra, femenil)",4893133,20251116_Brighton_Leicester-City
+2025-11-16,Liverpool,Chelsea,1.0,1.0,"WSL (Inglaterra, femenil)",4893134,20251116_Liverpool_Chelsea
+2025-11-16,West Ham United,Everton,3.0,1.0,"WSL (Inglaterra, femenil)",4893131,20251116_West-Ham-United_Everton
+2025-11-16,Tottenham Hotspur,Arsenal,0.0,0.0,"WSL (Inglaterra, femenil)",4893135,20251116_Tottenham-Hotspur_Arsenal
+2025-12-06,Arsenal,Liverpool,2.0,1.0,"WSL (Inglaterra, femenil)",4893137,20251206_Arsenal_Liverpool
+2025-12-07,Leicester City,Manchester City,0.0,3.0,"WSL (Inglaterra, femenil)",4893142,20251207_Leicester-City_Manchester-City
+2025-12-07,London City Lionesses,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",4893140,20251207_London-City-Lionesses_Brighton
+2025-12-07,Tottenham Hotspur,Aston Villa,2.0,1.0,"WSL (Inglaterra, femenil)",4893141,20251207_Tottenham-Hotspur_Aston-Villa
+2025-12-07,Manchester United,West Ham United,2.0,1.0,"WSL (Inglaterra, femenil)",4893138,20251207_Manchester-United_West-Ham-United
+2025-12-07,Chelsea,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",4893139,20251207_Chelsea_Everton
+2025-12-11,Aston Villa,Liverpool,3.0,0.0,"WSL (Inglaterra, femenil)",4892976,20251211_Aston-Villa_Liverpool
+2025-12-13,Everton,Arsenal,1.0,3.0,"WSL (Inglaterra, femenil)",4893147,20251213_Everton_Arsenal
+2025-12-14,Brighton,Chelsea,0.0,3.0,"WSL (Inglaterra, femenil)",4893146,20251214_Brighton_Chelsea
+2025-12-14,Leicester City,London City Lionesses,1.0,0.0,"WSL (Inglaterra, femenil)",4893148,20251214_Leicester-City_London-City-Lionesses
+2025-12-14,Manchester City,Aston Villa,6.0,1.0,"WSL (Inglaterra, femenil)",4893144,20251214_Manchester-City_Aston-Villa
+2025-12-14,West Ham United,Liverpool,2.0,2.0,"WSL (Inglaterra, femenil)",4893143,20251214_West-Ham-United_Liverpool
+2025-12-14,Manchester United,Tottenham Hotspur,3.0,3.0,"WSL (Inglaterra, femenil)",4893145,20251214_Manchester-United_Tottenham-Hotspur
+2026-01-10,Arsenal,Manchester United,0.0,0.0,"WSL (Inglaterra, femenil)",4893179,20260110_Arsenal_Manchester-United
+2026-01-11,Aston Villa,Brighton,2.0,1.0,"WSL (Inglaterra, femenil)",4893180,20260111_Aston-Villa_Brighton
+2026-01-11,Chelsea,West Ham United,5.0,0.0,"WSL (Inglaterra, femenil)",4893181,20260111_Chelsea_West-Ham-United
+2026-01-11,Manchester City,Everton,2.0,0.0,"WSL (Inglaterra, femenil)",4893178,20260111_Manchester-City_Everton
+2026-01-11,Tottenham Hotspur,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",4893183,20260111_Tottenham-Hotspur_Leicester-City
+2026-01-11,Liverpool,London City Lionesses,0.0,0.0,"WSL (Inglaterra, femenil)",4893182,20260111_Liverpool_London-City-Lionesses
+2026-01-23,Everton,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",4893186,20260123_Everton_Brighton
+2026-01-24,Chelsea,Arsenal,0.0,2.0,"WSL (Inglaterra, femenil)",4893185,20260124_Chelsea_Arsenal
+2026-01-25,Aston Villa,Manchester United,1.0,4.0,"WSL (Inglaterra, femenil)",4893184,20260125_Aston-Villa_Manchester-United
+2026-01-25,Leicester City,West Ham United,1.0,2.0,"WSL (Inglaterra, femenil)",4893189,20260125_Leicester-City_West-Ham-United
+2026-01-25,Liverpool,Tottenham Hotspur,2.0,0.0,"WSL (Inglaterra, femenil)",4893187,20260125_Liverpool_Tottenham-Hotspur
+2026-01-25,London City Lionesses,Manchester City,1.0,2.0,"WSL (Inglaterra, femenil)",4893188,20260125_London-City-Lionesses_Manchester-City
+2026-02-01,Brighton,London City Lionesses,1.0,2.0,"WSL (Inglaterra, femenil)",4893193,20260201_Brighton_London-City-Lionesses
+2026-02-01,Everton,Aston Villa,2.0,1.0,"WSL (Inglaterra, femenil)",4893194,20260201_Everton_Aston-Villa
+2026-02-01,Manchester United,Liverpool,3.0,1.0,"WSL (Inglaterra, femenil)",4893192,20260201_Manchester-United_Liverpool
+2026-02-01,West Ham United,Tottenham Hotspur,1.0,2.0,"WSL (Inglaterra, femenil)",4893191,20260201_West-Ham-United_Tottenham-Hotspur
+2026-02-01,Manchester City,Chelsea,5.0,1.0,"WSL (Inglaterra, femenil)",4893195,20260201_Manchester-City_Chelsea
+2026-02-07,Leicester City,Manchester United,0.0,2.0,"WSL (Inglaterra, femenil)",4893201,20260207_Leicester-City_Manchester-United
+2026-02-08,Arsenal,Manchester City,1.0,0.0,"WSL (Inglaterra, femenil)",4893198,20260208_Arsenal_Manchester-City
+2026-02-08,Liverpool,Aston Villa,4.0,1.0,"WSL (Inglaterra, femenil)",4893199,20260208_Liverpool_Aston-Villa
+2026-02-08,London City Lionesses,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",4893196,20260208_London-City-Lionesses_Everton
+2026-02-08,West Ham United,Brighton,3.0,2.0,"WSL (Inglaterra, femenil)",4893197,20260208_West-Ham-United_Brighton
+2026-02-08,Tottenham Hotspur,Chelsea,0.0,2.0,"WSL (Inglaterra, femenil)",4893200,20260208_Tottenham-Hotspur_Chelsea
+2026-02-13,Manchester City,Leicester City,6.0,0.0,"WSL (Inglaterra, femenil)",4893202,20260213_Manchester-City_Leicester-City
+2026-02-15,Aston Villa,Tottenham Hotspur,3.0,7.0,"WSL (Inglaterra, femenil)",4893204,20260215_Aston-Villa_Tottenham-Hotspur
+2026-02-15,Chelsea,Liverpool,2.0,0.0,"WSL (Inglaterra, femenil)",4893206,20260215_Chelsea_Liverpool
+2026-02-15,Everton,West Ham United,1.0,0.0,"WSL (Inglaterra, femenil)",4893207,20260215_Everton_West-Ham-United
+2026-02-15,Manchester United,London City Lionesses,2.0,1.0,"WSL (Inglaterra, femenil)",4893203,20260215_Manchester-United_London-City-Lionesses
+2026-03-15,Aston Villa,Manchester City,0.0,0.0,"WSL (Inglaterra, femenil)",4893209,20260315_Aston-Villa_Manchester-City
+2026-03-15,Liverpool,Leicester City,2.0,0.0,"WSL (Inglaterra, femenil)",4893211,20260315_Liverpool_Leicester-City
+2026-03-15,London City Lionesses,Arsenal,0.0,2.0,"WSL (Inglaterra, femenil)",4893212,20260315_London-City-Lionesses_Arsenal
+2026-03-15,Tottenham Hotspur,Everton,1.0,2.0,"WSL (Inglaterra, femenil)",4893213,20260315_Tottenham-Hotspur_Everton
+2026-03-18,Chelsea,Brighton,2.0,1.0,"WSL (Inglaterra, femenil)",4893210,20260318_Chelsea_Brighton
+2026-03-18,West Ham United,Manchester United,0.0,0.0,"WSL (Inglaterra, femenil)",4893208,20260318_West-Ham-United_Manchester-United
+2026-03-21,Arsenal,West Ham United,5.0,0.0,"WSL (Inglaterra, femenil)",4893214,20260321_Arsenal_West-Ham-United
+2026-03-21,London City Lionesses,Chelsea,1.0,1.0,"WSL (Inglaterra, femenil)",4893216,20260321_London-City-Lionesses_Chelsea
+2026-03-21,Manchester City,Tottenham Hotspur,5.0,2.0,"WSL (Inglaterra, femenil)",4893217,20260321_Manchester-City_Tottenham-Hotspur
+2026-03-21,Manchester United,Everton,2.0,1.0,"WSL (Inglaterra, femenil)",4893215,20260321_Manchester-United_Everton
+2026-03-22,Brighton,Liverpool,0.0,0.0,"WSL (Inglaterra, femenil)",4893218,20260322_Brighton_Liverpool
+2026-03-22,Leicester City,Aston Villa,1.0,2.0,"WSL (Inglaterra, femenil)",4893219,20260322_Leicester-City_Aston-Villa
+2026-03-28,Everton,Liverpool,2.0,3.0,"WSL (Inglaterra, femenil)",4893224,20260328_Everton_Liverpool
+2026-03-28,Manchester United,Manchester City,0.0,3.0,"WSL (Inglaterra, femenil)",4893221,20260328_Manchester-United_Manchester-City
+2026-03-28,Arsenal,Tottenham Hotspur,5.0,2.0,"WSL (Inglaterra, femenil)",4893222,20260328_Arsenal_Tottenham-Hotspur
+2026-03-29,Chelsea,Aston Villa,4.0,3.0,"WSL (Inglaterra, femenil)",4893223,20260329_Chelsea_Aston-Villa
+2026-03-29,West Ham United,London City Lionesses,1.0,1.0,"WSL (Inglaterra, femenil)",4893220,20260329_West-Ham-United_London-City-Lionesses
+2026-03-29,Leicester City,Brighton,0.0,1.0,"WSL (Inglaterra, femenil)",4893225,20260329_Leicester-City_Brighton
+2026-04-25,Brighton,Manchester City,3.0,2.0,"WSL (Inglaterra, femenil)",4893228,20260425_Brighton_Manchester-City
+2026-04-26,Everton,Chelsea,1.0,4.0,"WSL (Inglaterra, femenil)",4893229,20260426_Everton_Chelsea
+2026-04-26,London City Lionesses,Leicester City,5.0,1.0,"WSL (Inglaterra, femenil)",4893226,20260426_London-City-Lionesses_Leicester-City
+2026-04-26,Tottenham Hotspur,Manchester United,0.0,0.0,"WSL (Inglaterra, femenil)",4893231,20260426_Tottenham-Hotspur_Manchester-United
+2026-04-26,Liverpool,West Ham United,0.0,1.0,"WSL (Inglaterra, femenil)",4893230,20260426_Liverpool_West-Ham-United
+2026-04-29,Arsenal,Leicester City,7.0,0.0,"WSL (Inglaterra, femenil)",4893190,20260429_Arsenal_Leicester-City
+2026-05-02,Manchester United,Brighton,1.0,1.0,"WSL (Inglaterra, femenil)",4893233,20260502_Manchester-United_Brighton
+2026-05-03,Manchester City,Liverpool,1.0,0.0,"WSL (Inglaterra, femenil)",4893232,20260503_Manchester-City_Liverpool
+2026-05-03,Tottenham Hotspur,London City Lionesses,2.0,1.0,"WSL (Inglaterra, femenil)",4893236,20260503_Tottenham-Hotspur_London-City-Lionesses
+2026-05-03,Leicester City,Chelsea,1.0,3.0,"WSL (Inglaterra, femenil)",4893237,20260503_Leicester-City_Chelsea
+2026-05-04,Aston Villa,West Ham United,0.0,2.0,"WSL (Inglaterra, femenil)",4893235,20260504_Aston-Villa_West-Ham-United
+2026-05-06,Brighton,Arsenal,1.0,1.0,"WSL (Inglaterra, femenil)",4893205,20260506_Brighton_Arsenal
+2026-05-09,Aston Villa,Arsenal,0.0,3.0,"WSL (Inglaterra, femenil)",4893227,20260509_Aston-Villa_Arsenal
+2026-05-13,Arsenal,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",4893234,20260513_Arsenal_Everton
+2026-05-16,Brighton,Tottenham Hotspur,1.0,2.0,"WSL (Inglaterra, femenil)",4893238,20260516_Brighton_Tottenham-Hotspur
+2026-05-16,Chelsea,Manchester United,1.0,0.0,"WSL (Inglaterra, femenil)",4893239,20260516_Chelsea_Manchester-United
+2026-05-16,Everton,Leicester City,1.0,0.0,"WSL (Inglaterra, femenil)",4893240,20260516_Everton_Leicester-City
+2026-05-16,Liverpool,Arsenal,1.0,3.0,"WSL (Inglaterra, femenil)",4893241,20260516_Liverpool_Arsenal
+2026-05-16,London City Lionesses,Aston Villa,2.0,1.0,"WSL (Inglaterra, femenil)",4893242,20260516_London-City-Lionesses_Aston-Villa
+2026-05-16,West Ham United,Manchester City,1.0,4.0,"WSL (Inglaterra, femenil)",4893243,20260516_West-Ham-United_Manchester-City
+2026-09-04,London City Lionesses,Manchester United,2.0,1.0,"WSL (Inglaterra, femenil)",5981531,20260904_London-City-Lionesses_Manchester-United
+2026-09-05,Chelsea,Aston Villa,1.0,1.0,"WSL (Inglaterra, femenil)",5981532,20260905_Chelsea_Aston-Villa
+2026-09-06,Brighton,Arsenal,0.0,1.0,"WSL (Inglaterra, femenil)",5981533,20260906_Brighton_Arsenal
+2026-09-06,Tottenham Hotspur,West Ham United,3.0,1.0,"WSL (Inglaterra, femenil)",5981534,20260906_Tottenham-Hotspur_West-Ham-United
+2026-09-06,Charlton,Liverpool,0.0,4.0,"WSL (Inglaterra, femenil)",5981535,20260906_Charlton_Liverpool
+2026-09-06,Crystal Palace,Everton,1.0,0.0,"WSL (Inglaterra, femenil)",5981536,20260906_Crystal-Palace_Everton
+2026-09-06,Manchester City,Birmingham City,3.0,1.0,"WSL (Inglaterra, femenil)",5981537,20260906_Manchester-City_Birmingham-City
+2026-09-12,West Ham United,London City Lionesses,2.0,1.0,"WSL (Inglaterra, femenil)",5981634,20260912_West-Ham-United_London-City-Lionesses
+2026-09-13,Manchester United,Chelsea,0.0,5.0,"WSL (Inglaterra, femenil)",5981635,20260913_Manchester-United_Chelsea
+2026-09-13,Birmingham City,Brighton,2.0,2.0,"WSL (Inglaterra, femenil)",5981636,20260913_Birmingham-City_Brighton
+2026-09-13,Everton,Charlton,1.0,0.0,"WSL (Inglaterra, femenil)",5981637,20260913_Everton_Charlton
+2026-09-13,Liverpool,Tottenham Hotspur,1.0,1.0,"WSL (Inglaterra, femenil)",5981638,20260913_Liverpool_Tottenham-Hotspur
+2026-09-13,Arsenal,Crystal Palace,0.0,0.0,"WSL (Inglaterra, femenil)",5981639,20260913_Arsenal_Crystal-Palace
+2026-09-13,Aston Villa,Manchester City,1.0,4.0,"WSL (Inglaterra, femenil)",5981640,20260913_Aston-Villa_Manchester-City
+2026-09-18,Manchester City,Liverpool,4.0,2.0,"WSL (Inglaterra, femenil)",5981641,20260918_Manchester-City_Liverpool
+2026-09-19,Charlton,London City Lionesses,1.0,4.0,"WSL (Inglaterra, femenil)",5981642,20260919_Charlton_London-City-Lionesses
+2026-09-19,Chelsea,Birmingham City,2.0,0.0,"WSL (Inglaterra, femenil)",5981643,20260919_Chelsea_Birmingham-City
+2026-09-19,Arsenal,Manchester United,1.0,1.0,"WSL (Inglaterra, femenil)",5981644,20260919_Arsenal_Manchester-United
+2026-09-20,Brighton,Aston Villa,1.0,1.0,"WSL (Inglaterra, femenil)",5981645,20260920_Brighton_Aston-Villa
+2026-09-20,Crystal Palace,Tottenham Hotspur,0.0,7.0,"WSL (Inglaterra, femenil)",5981646,20260920_Crystal-Palace_Tottenham-Hotspur
+2026-09-20,West Ham United,Everton,0.0,1.0,"WSL (Inglaterra, femenil)",5981647,20260920_West-Ham-United_Everton

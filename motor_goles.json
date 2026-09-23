@@ -1,0 +1,96 @@
+{
+ "ligas": {
+  "mex_femenil": {
+   "clave": "mex_femenil",
+   "n": 646,
+   "ll_1x2_motor": 0.8168,
+   "ll_1x2_base": 1.0319,
+   "mejora_1x2_p5": 0.1813,
+   "ll_o25_motor": 0.6382,
+   "ll_o25_base": 0.663,
+   "mejora_o25_p5": 0.0074,
+   "ok_1x2": true,
+   "ok_goles": true,
+   "ok": true
+  },
+  "champions_femenil": {
+   "clave": "champions_femenil",
+   "n": 251,
+   "ll_1x2_motor": 0.8324,
+   "ll_1x2_base": 0.9611,
+   "mejora_1x2_p5": 0.0891,
+   "ll_o25_motor": 0.603,
+   "ll_o25_base": 0.6073,
+   "mejora_o25_p5": -0.0176,
+   "ok_1x2": true,
+   "ok_goles": false,
+   "ok": true
+  },
+  "fem_inglaterra": {
+   "clave": "fem_inglaterra",
+   "n": 281,
+   "ll_1x2_motor": 0.8733,
+   "ll_1x2_base": 1.0548,
+   "mejora_1x2_p5": 0.1412,
+   "ll_o25_motor": 0.6834,
+   "ll_o25_base": 0.6882,
+   "mejora_o25_p5": -0.0165,
+   "ok_1x2": true,
+   "ok_goles": false,
+   "ok": true
+  },
+  "fem_espana": {
+   "clave": "fem_espana",
+   "n": 493,
+   "ll_1x2_motor": 0.892,
+   "ll_1x2_base": 1.0681,
+   "mejora_1x2_p5": 0.1404,
+   "ll_o25_motor": 0.6822,
+   "ll_o25_base": 0.7049,
+   "mejora_o25_p5": -0.0044,
+   "ok_1x2": true,
+   "ok_goles": false,
+   "ok": true
+  },
+  "fem_alemania": {
+   "clave": "fem_alemania",
+   "n": 333,
+   "ll_1x2_motor": 0.7834,
+   "ll_1x2_base": 1.0099,
+   "mejora_1x2_p5": 0.1869,
+   "ll_o25_motor": 0.6482,
+   "ll_o25_base": 0.6561,
+   "mejora_o25_p5": -0.0147,
+   "ok_1x2": true,
+   "ok_goles": false,
+   "ok": true
+  },
+  "fem_francia": {
+   "clave": "fem_francia",
+   "n": 282,
+   "ll_1x2_motor": 0.8022,
+   "ll_1x2_base": 1.049,
+   "mejora_1x2_p5": 0.2035,
+   "ll_o25_motor": 0.6638,
+   "ll_o25_base": 0.6777,
+   "mejora_o25_p5": -0.0149,
+   "ok_1x2": true,
+   "ok_goles": false,
+   "ok": true
+  },
+  "fem_italia": {
+   "clave": "fem_italia",
+   "n": 262,
+   "ll_1x2_motor": 0.9442,
+   "ll_1x2_base": 1.0744,
+   "mejora_1x2_p5": 0.0916,
+   "ll_o25_motor": 0.6901,
+   "ll_o25_base": 0.6875,
+   "mejora_o25_p5": -0.0266,
+   "ok_1x2": true,
+   "ok_goles": false,
+   "ok": true
+  }
+ },
+ "generado": "2026-09-23T07:21:58Z"
+}

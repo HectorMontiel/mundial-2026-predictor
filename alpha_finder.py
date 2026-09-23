@@ -4041,6 +4041,13 @@ def _una_fila(p):
 
 
 
+def _picks_sin_motor() -> Dict:
+    """v303 — ligas con resultados y sin motor entrenado. Ver
+    `ligas_sin_motor`."""
+    import ligas_sin_motor
+    return ligas_sin_motor.barrer()
+
+
 def _picks_selecciones() -> Dict:
     """v302 — la rama de selecciones nacionales. Ver `selecciones_dia`."""
     import selecciones_dia
@@ -4086,7 +4093,10 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               # Nations League en el calendario y ni un partido en Apuestas
               # del Dia: el motor de selecciones solo lo usaba la vista de
               # «Partidos Internacionales». Ver `selecciones_dia`.
-              'selecciones': _picks_selecciones}
+              'selecciones': _picks_selecciones,
+              # v303 — ligas que sólo tienen resultados (Liga MX Femenil,
+              # desde FotMob), con `motor_goles` validado fuera de muestra
+              'sin_motor': _picks_sin_motor}
     _res: Dict[str, Dict] = {}
     _fallos: Dict[str, str] = {}
     with ThreadPoolExecutor(max_workers=len(_ramas),
@@ -4204,7 +4214,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     evaluados_dep = int(r.get('partidos_evaluados') or 0)
     cobertura_dep = dict(r.get('cobertura_ligas') or {})
     for nombre in ('mlb', 'tenis', 'nba', 'kbo', 'nfl',   # v97: +KBO · v131: +NFL
-                   'selecciones'):                       # v302
+                   'selecciones', 'sin_motor'):          # v302 · v303
         sub = _res.get(nombre) or {}
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])

@@ -1,0 +1,1233 @@
+date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
+2021-09-04,Barcelona,UD Tenerife,5.0,0.0,"Liga F (España, femenil)",3699287,20210904_Barcelona_UD-Tenerife
+2021-09-04,Atlético Madrid,Rayo Vallecano,5.0,0.0,"Liga F (España, femenil)",3699288,20210904_Atlético-Madrid_Rayo-Vallecano
+2021-09-05,Eibar,Sevilla,3.0,2.0,"Liga F (España, femenil)",3699293,20210905_Eibar_Sevilla
+2021-09-05,Levante,Real Madrid,4.0,0.0,"Liga F (España, femenil)",3699290,20210905_Levante_Real-Madrid
+2021-09-05,Huelva,Villarreal,0.0,0.0,"Liga F (España, femenil)",3699286,20210905_Huelva_Villarreal
+2021-09-05,Deportivo Alavés,Real Betis,2.0,1.0,"Liga F (España, femenil)",3699291,20210905_Deportivo-Alavés_Real-Betis
+2021-09-05,Real Sociedad,Valencia,4.0,1.0,"Liga F (España, femenil)",3699292,20210905_Real-Sociedad_Valencia
+2021-09-05,Madrid CFF,Athletic Club,0.0,2.0,"Liga F (España, femenil)",3699289,20210905_Madrid-CFF_Athletic-Club
+2021-09-11,Real Betis,Barcelona,0.0,5.0,"Liga F (España, femenil)",3699294,20210911_Real-Betis_Barcelona
+2021-09-12,Sevilla,Levante,0.0,0.0,"Liga F (España, femenil)",3699296,20210912_Sevilla_Levante
+2021-09-12,Villarreal,Eibar,1.0,0.0,"Liga F (España, femenil)",3699301,20210912_Villarreal_Eibar
+2021-09-12,Valencia,Huelva,2.0,2.0,"Liga F (España, femenil)",3699300,20210912_Valencia_Huelva
+2021-09-12,Athletic Club,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",3699302,20210912_Athletic-Club_Real-Sociedad
+2021-09-12,Rayo Vallecano,Deportivo Alavés,1.0,2.0,"Liga F (España, femenil)",3699297,20210912_Rayo-Vallecano_Deportivo-Alavés
+2021-09-12,Real Madrid,Atlético Madrid,0.0,2.0,"Liga F (España, femenil)",3699298,20210912_Real-Madrid_Atlético-Madrid
+2021-09-12,UD Tenerife,Madrid CFF,1.0,2.0,"Liga F (España, femenil)",3699299,20210912_UD-Tenerife_Madrid-CFF
+2021-09-25,Eibar,Athletic Club,1.0,2.0,"Liga F (España, femenil)",3699312,20210925_Eibar_Athletic-Club
+2021-09-25,Barcelona,Valencia,8.0,0.0,"Liga F (España, femenil)",3699304,20210925_Barcelona_Valencia
+2021-09-25,Real Sociedad,Sevilla,2.0,0.0,"Liga F (España, femenil)",3699311,20210925_Real-Sociedad_Sevilla
+2021-09-25,Deportivo Alavés,Villarreal,2.0,0.0,"Liga F (España, femenil)",3699310,20210925_Deportivo-Alavés_Villarreal
+2021-09-25,Madrid CFF,Rayo Vallecano,4.0,2.0,"Liga F (España, femenil)",3699307,20210925_Madrid-CFF_Rayo-Vallecano
+2021-09-25,UD Tenerife,Real Madrid,1.0,1.0,"Liga F (España, femenil)",3699308,20210925_UD-Tenerife_Real-Madrid
+2021-09-26,Levante,Real Betis,1.0,1.0,"Liga F (España, femenil)",3699309,20210926_Levante_Real-Betis
+2021-09-26,Huelva,Atlético Madrid,0.0,3.0,"Liga F (España, femenil)",3699303,20210926_Huelva_Atlético-Madrid
+2021-09-29,Rayo Vallecano,Huelva,0.0,0.0,"Liga F (España, femenil)",3699317,20210929_Rayo-Vallecano_Huelva
+2021-09-29,Sevilla,Madrid CFF,2.0,2.0,"Liga F (España, femenil)",3699314,20210929_Sevilla_Madrid-CFF
+2021-09-29,Levante,Eibar,5.0,0.0,"Liga F (España, femenil)",3699319,20210929_Levante_Eibar
+2021-09-29,Villarreal,Barcelona,0.0,8.0,"Liga F (España, femenil)",3699321,20210929_Villarreal_Barcelona
+2021-09-29,Real Madrid,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",3699318,20210929_Real-Madrid_Real-Sociedad
+2021-09-29,Valencia,Athletic Club,1.0,3.0,"Liga F (España, femenil)",3699320,20210929_Valencia_Athletic-Club
+2021-09-29,Atlético Madrid,Deportivo Alavés,3.0,2.0,"Liga F (España, femenil)",3699315,20210929_Atlético-Madrid_Deportivo-Alavés
+2021-09-29,Real Betis,UD Tenerife,2.0,2.0,"Liga F (España, femenil)",3699313,20210929_Real-Betis_UD-Tenerife
+2021-10-02,Barcelona,Deportivo Alavés,9.0,1.0,"Liga F (España, femenil)",3699323,20211002_Barcelona_Deportivo-Alavés
+2021-10-03,Eibar,Rayo Vallecano,4.0,0.0,"Liga F (España, femenil)",3699329,20211003_Eibar_Rayo-Vallecano
+2021-10-03,Athletic Club,Real Madrid,2.0,0.0,"Liga F (España, femenil)",3699327,20211003_Athletic-Club_Real-Madrid
+2021-10-03,Huelva,Real Betis,0.0,1.0,"Liga F (España, femenil)",3699322,20211003_Huelva_Real-Betis
+2021-10-03,Real Sociedad,Villarreal,4.0,0.0,"Liga F (España, femenil)",3699328,20211003_Real-Sociedad_Villarreal
+2021-10-03,Valencia,Sevilla,1.0,2.0,"Liga F (España, femenil)",3699326,20211003_Valencia_Sevilla
+2021-10-03,Madrid CFF,Atlético Madrid,2.0,2.0,"Liga F (España, femenil)",3699324,20211003_Madrid-CFF_Atlético-Madrid
+2021-10-03,UD Tenerife,Levante,2.0,0.0,"Liga F (España, femenil)",3699325,20211003_UD-Tenerife_Levante
+2021-10-09,Deportivo Alavés,Huelva,0.0,0.0,"Liga F (España, femenil)",3699337,20211009_Deportivo-Alavés_Huelva
+2021-10-09,Atlético Madrid,Barcelona,0.0,3.0,"Liga F (España, femenil)",3699332,20211009_Atlético-Madrid_Barcelona
+2021-10-10,Levante,Valencia,1.0,0.0,"Liga F (España, femenil)",3699335,20211010_Levante_Valencia
+2021-10-10,Real Betis,Madrid CFF,4.0,5.0,"Liga F (España, femenil)",3699330,20211010_Real-Betis_Madrid-CFF
+2021-10-10,Sevilla,Athletic Club,0.0,0.0,"Liga F (España, femenil)",3699331,20211010_Sevilla_Athletic-Club
+2021-10-10,Rayo Vallecano,Real Sociedad,1.0,3.0,"Liga F (España, femenil)",3699333,20211010_Rayo-Vallecano_Real-Sociedad
+2021-10-10,Real Madrid,Eibar,2.0,1.0,"Liga F (España, femenil)",3699334,20211010_Real-Madrid_Eibar
+2021-10-16,Valencia,Rayo Vallecano,1.0,0.0,"Liga F (España, femenil)",3699342,20211016_Valencia_Rayo-Vallecano
+2021-10-16,Sevilla,Real Madrid,3.0,0.0,"Liga F (España, femenil)",3699338,20211016_Sevilla_Real-Madrid
+2021-10-17,Eibar,Real Betis,1.0,2.0,"Liga F (España, femenil)",3699345,20211017_Eibar_Real-Betis
+2021-10-17,Huelva,Barcelona,0.0,5.0,"Liga F (España, femenil)",3699339,20211017_Huelva_Barcelona
+2021-10-17,Madrid CFF,Deportivo Alavés,0.0,1.0,"Liga F (España, femenil)",3699340,20211017_Madrid-CFF_Deportivo-Alavés
+2021-10-17,UD Tenerife,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",3699341,20211017_UD-Tenerife_Atlético-Madrid
+2021-10-17,Athletic Club,Villarreal,2.0,1.0,"Liga F (España, femenil)",3699343,20211017_Athletic-Club_Villarreal
+2021-10-17,Real Sociedad,Levante,0.0,1.0,"Liga F (España, femenil)",3699344,20211017_Real-Sociedad_Levante
+2021-10-31,Levante,Huelva,0.0,0.0,"Liga F (España, femenil)",3699352,20211031_Levante_Huelva
+2021-10-31,Real Betis,Athletic Club,4.0,2.0,"Liga F (España, femenil)",3699346,20211031_Real-Betis_Athletic-Club
+2021-10-31,Atlético Madrid,Villarreal,3.0,0.0,"Liga F (España, femenil)",3699348,20211031_Atlético-Madrid_Villarreal
+2021-10-31,Barcelona,Real Sociedad,8.0,1.0,"Liga F (España, femenil)",3699347,20211031_Barcelona_Real-Sociedad
+2021-10-31,Deportivo Alavés,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",3699353,20211031_Deportivo-Alavés_UD-Tenerife
+2021-10-31,Rayo Vallecano,Sevilla,1.0,0.0,"Liga F (España, femenil)",3699350,20211031_Rayo-Vallecano_Sevilla
+2021-10-31,Real Madrid,Valencia,2.0,1.0,"Liga F (España, femenil)",3699351,20211031_Real-Madrid_Valencia
+2021-10-31,Madrid CFF,Eibar,1.0,3.0,"Liga F (España, femenil)",3699349,20211031_Madrid-CFF_Eibar
+2021-11-06,Eibar,Barcelona,0.0,3.0,"Liga F (España, femenil)",3699361,20211106_Eibar_Barcelona
+2021-11-06,Huelva,UD Tenerife,0.0,3.0,"Liga F (España, femenil)",3699355,20211106_Huelva_UD-Tenerife
+2021-11-06,Real Madrid,Rayo Vallecano,1.0,0.0,"Liga F (España, femenil)",3699356,20211106_Real-Madrid_Rayo-Vallecano
+2021-11-06,Villarreal,Madrid CFF,0.0,3.0,"Liga F (España, femenil)",3699358,20211106_Villarreal_Madrid-CFF
+2021-11-06,Athletic Club,Levante,2.0,3.0,"Liga F (España, femenil)",3699359,20211106_Athletic-Club_Levante
+2021-11-06,Real Sociedad,Real Betis,4.0,0.0,"Liga F (España, femenil)",3699360,20211106_Real-Sociedad_Real-Betis
+2021-11-06,Sevilla,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",3699354,20211106_Sevilla_Deportivo-Alavés
+2021-11-07,Valencia,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",3699357,20211107_Valencia_Atlético-Madrid
+2021-11-10,Villarreal,UD Tenerife,0.0,2.0,"Liga F (España, femenil)",3699336,20211110_Villarreal_UD-Tenerife
+2021-11-13,Atlético Madrid,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",3699364,20211113_Atlético-Madrid_Real-Sociedad
+2021-11-13,Barcelona,Levante,4.0,0.0,"Liga F (España, femenil)",3699363,20211113_Barcelona_Levante
+2021-11-13,Madrid CFF,Huelva,2.0,1.0,"Liga F (España, femenil)",3699365,20211113_Madrid-CFF_Huelva
+2021-11-13,Real Betis,Real Madrid,1.0,4.0,"Liga F (España, femenil)",3699362,20211113_Real-Betis_Real-Madrid
+2021-11-14,Rayo Vallecano,Athletic Club,0.0,2.0,"Liga F (España, femenil)",3699366,20211114_Rayo-Vallecano_Athletic-Club
+2021-11-14,Villarreal,Sevilla,2.0,3.0,"Liga F (España, femenil)",3699368,20211114_Villarreal_Sevilla
+2021-11-14,Deportivo Alavés,Eibar,1.0,0.0,"Liga F (España, femenil)",3699369,20211114_Deportivo-Alavés_Eibar
+2021-11-14,UD Tenerife,Valencia,2.0,1.0,"Liga F (España, femenil)",3699367,20211114_UD-Tenerife_Valencia
+2021-11-20,Athletic Club,Huelva,2.0,2.0,"Liga F (España, femenil)",3699375,20211120_Athletic-Club_Huelva
+2021-11-20,Levante,Madrid CFF,4.0,0.0,"Liga F (España, femenil)",3699373,20211120_Levante_Madrid-CFF
+2021-11-20,Sevilla,Barcelona,1.0,10.0,"Liga F (España, femenil)",3699370,20211120_Sevilla_Barcelona
+2021-11-21,Valencia,Real Betis,1.0,0.0,"Liga F (España, femenil)",3699374,20211121_Valencia_Real-Betis
+2021-11-21,Eibar,Atlético Madrid,0.0,3.0,"Liga F (España, femenil)",3699377,20211121_Eibar_Atlético-Madrid
+2021-11-21,Real Sociedad,UD Tenerife,3.0,0.0,"Liga F (España, femenil)",3699376,20211121_Real-Sociedad_UD-Tenerife
+2021-11-21,Rayo Vallecano,Villarreal,2.0,2.0,"Liga F (España, femenil)",3699371,20211121_Rayo-Vallecano_Villarreal
+2021-11-21,Real Madrid,Deportivo Alavés,1.0,1.0,"Liga F (España, femenil)",3699372,20211121_Real-Madrid_Deportivo-Alavés
+2021-12-04,Barcelona,Athletic Club,4.0,0.0,"Liga F (España, femenil)",3699380,20211204_Barcelona_Athletic-Club
+2021-12-04,Real Betis,Sevilla,0.0,0.0,"Liga F (España, femenil)",3699378,20211204_Real-Betis_Sevilla
+2021-12-04,UD Tenerife,Rayo Vallecano,3.0,2.0,"Liga F (España, femenil)",3699383,20211204_UD-Tenerife_Rayo-Vallecano
+2021-12-04,Villarreal,Real Madrid,0.0,2.0,"Liga F (España, femenil)",3699384,20211204_Villarreal_Real-Madrid
+2021-12-05,Huelva,Eibar,1.0,1.0,"Liga F (España, femenil)",3699379,20211205_Huelva_Eibar
+2021-12-05,Atlético Madrid,Levante,2.0,1.0,"Liga F (España, femenil)",3699381,20211205_Atlético-Madrid_Levante
+2021-12-05,Deportivo Alavés,Valencia,3.0,1.0,"Liga F (España, femenil)",3699385,20211205_Deportivo-Alavés_Valencia
+2021-12-05,Madrid CFF,Real Sociedad,1.0,2.0,"Liga F (España, femenil)",3699382,20211205_Madrid-CFF_Real-Sociedad
+2021-12-11,Athletic Club,Deportivo Alavés,4.0,1.0,"Liga F (España, femenil)",3699391,20211211_Athletic-Club_Deportivo-Alavés
+2021-12-12,Levante,Villarreal,1.0,2.0,"Liga F (España, femenil)",3699389,20211212_Levante_Villarreal
+2021-12-12,Valencia,Madrid CFF,1.0,3.0,"Liga F (España, femenil)",3699390,20211212_Valencia_Madrid-CFF
+2021-12-12,Rayo Vallecano,Real Betis,0.0,2.0,"Liga F (España, femenil)",3699387,20211212_Rayo-Vallecano_Real-Betis
+2021-12-12,Eibar,UD Tenerife,0.0,2.0,"Liga F (España, femenil)",3699393,20211212_Eibar_UD-Tenerife
+2021-12-12,Real Madrid,Barcelona,1.0,3.0,"Liga F (España, femenil)",3699388,20211212_Real-Madrid_Barcelona
+2021-12-12,Real Sociedad,Huelva,2.0,2.0,"Liga F (España, femenil)",3699392,20211212_Real-Sociedad_Huelva
+2021-12-12,Sevilla,Atlético Madrid,0.0,0.0,"Liga F (España, femenil)",3699386,20211212_Sevilla_Atlético-Madrid
+2021-12-18,Eibar,Real Sociedad,2.0,3.0,"Liga F (España, femenil)",3699407,20211218_Eibar_Real-Sociedad
+2021-12-18,Atlético Madrid,Real Betis,6.0,1.0,"Liga F (España, femenil)",3699396,20211218_Atlético-Madrid_Real-Betis
+2021-12-18,Barcelona,Rayo Vallecano,4.0,0.0,"Liga F (España, femenil)",3699395,20211218_Barcelona_Rayo-Vallecano
+2021-12-18,Huelva,Sevilla,0.0,0.0,"Liga F (España, femenil)",3699394,20211218_Huelva_Sevilla
+2021-12-18,Villarreal,Valencia,0.0,2.0,"Liga F (España, femenil)",3699405,20211218_Villarreal_Valencia
+2021-12-18,UD Tenerife,Athletic Club,2.0,0.0,"Liga F (España, femenil)",3699404,20211218_UD-Tenerife_Athletic-Club
+2021-12-19,Madrid CFF,Real Madrid,1.0,3.0,"Liga F (España, femenil)",3699397,20211219_Madrid-CFF_Real-Madrid
+2021-12-19,Deportivo Alavés,Levante,1.0,1.0,"Liga F (España, femenil)",3699406,20211219_Deportivo-Alavés_Levante
+2021-12-22,Real Betis,Villarreal,0.0,1.0,"Liga F (España, femenil)",3699408,20211222_Real-Betis_Villarreal
+2021-12-22,Real Madrid,Huelva,3.0,0.0,"Liga F (España, femenil)",3699411,20211222_Real-Madrid_Huelva
+2021-12-22,Barcelona,Madrid CFF,7.0,0.0,"Liga F (España, femenil)",3699410,20211222_Barcelona_Madrid-CFF
+2021-12-22,Deportivo Alavés,Real Sociedad,0.0,4.0,"Liga F (España, femenil)",3699415,20211222_Deportivo-Alavés_Real-Sociedad
+2021-12-22,Sevilla,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",3699409,20211222_Sevilla_UD-Tenerife
+2021-12-22,Valencia,Eibar,2.0,0.0,"Liga F (España, femenil)",3699413,20211222_Valencia_Eibar
+2022-01-08,Madrid CFF,Sevilla,1.0,2.0,"Liga F (España, femenil)",3699419,20220108_Madrid-CFF_Sevilla
+2022-01-08,Villarreal,Deportivo Alavés,3.0,1.0,"Liga F (España, femenil)",3699422,20220108_Villarreal_Deportivo-Alavés
+2022-01-08,UD Tenerife,Barcelona,0.0,7.0,"Liga F (España, femenil)",3699421,20220108_UD-Tenerife_Barcelona
+2022-01-09,Rayo Vallecano,Eibar,0.0,1.0,"Liga F (España, femenil)",3699420,20220109_Rayo-Vallecano_Eibar
+2022-01-09,Real Betis,Levante,1.0,0.0,"Liga F (España, femenil)",3699416,20220109_Real-Betis_Levante
+2022-01-09,Huelva,Valencia,2.0,0.0,"Liga F (España, femenil)",3699417,20220109_Huelva_Valencia
+2022-01-09,Real Sociedad,Athletic Club,1.0,0.0,"Liga F (España, femenil)",3699423,20220109_Real-Sociedad_Athletic-Club
+2022-01-12,Eibar,Levante,1.0,2.0,"Liga F (España, femenil)",3699431,20220112_Eibar_Levante
+2022-01-12,Villarreal,Atlético Madrid,0.0,5.0,"Liga F (España, femenil)",3699428,20220112_Villarreal_Atlético-Madrid
+2022-01-12,Barcelona,Huelva,5.0,0.0,"Liga F (España, femenil)",3699425,20220112_Barcelona_Huelva
+2022-01-12,Sevilla,Rayo Vallecano,2.0,1.0,"Liga F (España, femenil)",3699424,20220112_Sevilla_Rayo-Vallecano
+2022-01-12,Valencia,Real Sociedad,0.0,3.0,"Liga F (España, femenil)",3699427,20220112_Valencia_Real-Sociedad
+2022-01-12,Deportivo Alavés,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",3699430,20220112_Deportivo-Alavés_Madrid-CFF
+2022-01-12,Athletic Club,Real Betis,1.0,1.0,"Liga F (España, femenil)",3699429,20220112_Athletic-Club_Real-Betis
+2022-01-15,Madrid CFF,Villarreal,2.0,4.0,"Liga F (España, femenil)",3699435,20220115_Madrid-CFF_Villarreal
+2022-01-16,Levante,Athletic Club,2.0,3.0,"Liga F (España, femenil)",3699438,20220116_Levante_Athletic-Club
+2022-01-16,Real Betis,Eibar,2.0,0.0,"Liga F (España, femenil)",3699432,20220116_Real-Betis_Eibar
+2022-01-16,Atlético Madrid,Huelva,3.0,2.0,"Liga F (España, femenil)",3699434,20220116_Atlético-Madrid_Huelva
+2022-01-16,Sevilla,Valencia,3.0,1.0,"Liga F (España, femenil)",3699433,20220116_Sevilla_Valencia
+2022-01-16,UD Tenerife,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",3699437,20220116_UD-Tenerife_Deportivo-Alavés
+2022-01-29,Barcelona,Real Betis,4.0,0.0,"Liga F (España, femenil)",3699441,20220129_Barcelona_Real-Betis
+2022-01-29,Villarreal,Real Sociedad,1.0,4.0,"Liga F (España, femenil)",3699444,20220129_Villarreal_Real-Sociedad
+2022-01-29,Real Madrid,Sevilla,3.0,1.0,"Liga F (España, femenil)",3699442,20220129_Real-Madrid_Sevilla
+2022-01-30,Eibar,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",3699447,20220130_Eibar_Madrid-CFF
+2022-01-30,Valencia,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",3699443,20220130_Valencia_UD-Tenerife
+2022-01-30,Athletic Club,Rayo Vallecano,2.0,1.0,"Liga F (España, femenil)",3699445,20220130_Athletic-Club_Rayo-Vallecano
+2022-01-30,Deportivo Alavés,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",3699446,20220130_Deportivo-Alavés_Atlético-Madrid
+2022-01-30,Huelva,Levante,1.0,1.0,"Liga F (España, femenil)",3699440,20220130_Huelva_Levante
+2022-02-02,UD Tenerife,Huelva,1.0,0.0,"Liga F (España, femenil)",3699452,20220202_UD-Tenerife_Huelva
+2022-02-02,Real Betis,Deportivo Alavés,4.0,1.0,"Liga F (España, femenil)",3699448,20220202_Real-Betis_Deportivo-Alavés
+2022-02-02,Atlético Madrid,Madrid CFF,3.0,2.0,"Liga F (España, femenil)",3699450,20220202_Atlético-Madrid_Madrid-CFF
+2022-02-02,Levante,Barcelona,1.0,4.0,"Liga F (España, femenil)",3699453,20220202_Levante_Barcelona
+2022-02-02,Rayo Vallecano,Valencia,1.0,1.0,"Liga F (España, femenil)",3699451,20220202_Rayo-Vallecano_Valencia
+2022-02-02,Sevilla,Villarreal,0.0,3.0,"Liga F (España, femenil)",3699449,20220202_Sevilla_Villarreal
+2022-02-02,Real Sociedad,Real Madrid,1.0,3.0,"Liga F (España, femenil)",3699455,20220202_Real-Sociedad_Real-Madrid
+2022-02-02,Athletic Club,Eibar,3.0,1.0,"Liga F (España, femenil)",3699454,20220202_Athletic-Club_Eibar
+2022-02-06,Real Sociedad,Atlético Madrid,2.0,2.0,"Liga F (España, femenil)",3699463,20220206_Real-Sociedad_Atlético-Madrid
+2022-02-06,Barcelona,Eibar,7.0,0.0,"Liga F (España, femenil)",3699457,20220206_Barcelona_Eibar
+2022-02-06,Deportivo Alavés,Sevilla,1.0,1.0,"Liga F (España, femenil)",3699462,20220206_Deportivo-Alavés_Sevilla
+2022-02-06,Huelva,Athletic Club,2.0,0.0,"Liga F (España, femenil)",3699456,20220206_Huelva_Athletic-Club
+2022-02-06,Madrid CFF,UD Tenerife,0.0,1.0,"Liga F (España, femenil)",3699458,20220206_Madrid-CFF_UD-Tenerife
+2022-02-06,Real Madrid,Real Betis,1.0,0.0,"Liga F (España, femenil)",3699459,20220206_Real-Madrid_Real-Betis
+2022-02-06,Villarreal,Rayo Vallecano,1.0,0.0,"Liga F (España, femenil)",3699461,20220206_Villarreal_Rayo-Vallecano
+2022-02-06,Valencia,Levante,2.0,0.0,"Liga F (España, femenil)",3699460,20220206_Valencia_Levante
+2022-02-09,Levante,Rayo Vallecano,4.0,2.0,"Liga F (España, femenil)",3699412,20220209_Levante_Rayo-Vallecano
+2022-02-09,Real Sociedad,Barcelona,1.0,9.0,"Liga F (España, femenil)",3699439,20220209_Real-Sociedad_Barcelona
+2022-02-09,Athletic Club,Atlético Madrid,2.0,1.0,"Liga F (España, femenil)",3699414,20220209_Athletic-Club_Atlético-Madrid
+2022-02-12,Real Betis,Huelva,0.0,0.0,"Liga F (España, femenil)",3699464,20220212_Real-Betis_Huelva
+2022-02-13,Eibar,Real Madrid,0.0,2.0,"Liga F (España, femenil)",3699471,20220213_Eibar_Real-Madrid
+2022-02-13,Levante,Real Sociedad,1.0,0.0,"Liga F (España, femenil)",3699468,20220213_Levante_Real-Sociedad
+2022-02-13,Valencia,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",3699469,20220213_Valencia_Deportivo-Alavés
+2022-02-13,Athletic Club,Barcelona,0.0,3.0,"Liga F (España, femenil)",3699470,20220213_Athletic-Club_Barcelona
+2022-02-13,Atlético Madrid,Sevilla,5.0,0.0,"Liga F (España, femenil)",3699465,20220213_Atlético-Madrid_Sevilla
+2022-02-13,Rayo Vallecano,Madrid CFF,3.0,2.0,"Liga F (España, femenil)",3699466,20220213_Rayo-Vallecano_Madrid-CFF
+2022-02-13,UD Tenerife,Villarreal,3.0,1.0,"Liga F (España, femenil)",3699467,20220213_UD-Tenerife_Villarreal
+2022-03-05,Real Madrid,Athletic Club,2.0,0.0,"Liga F (España, femenil)",3699476,20220305_Real-Madrid_Athletic-Club
+2022-03-06,Atlético Madrid,UD Tenerife,4.0,1.0,"Liga F (España, femenil)",3699474,20220306_Atlético-Madrid_UD-Tenerife
+2022-03-06,Deportivo Alavés,Barcelona,0.0,6.0,"Liga F (España, femenil)",3699478,20220306_Deportivo-Alavés_Barcelona
+2022-03-06,Huelva,Rayo Vallecano,1.0,1.0,"Liga F (España, femenil)",3699473,20220306_Huelva_Rayo-Vallecano
+2022-03-06,Madrid CFF,Valencia,1.0,0.0,"Liga F (España, femenil)",3699475,20220306_Madrid-CFF_Valencia
+2022-03-06,Real Sociedad,Eibar,2.0,1.0,"Liga F (España, femenil)",3699479,20220306_Real-Sociedad_Eibar
+2022-03-06,Sevilla,Real Betis,0.0,0.0,"Liga F (España, femenil)",3699472,20220306_Sevilla_Real-Betis
+2022-03-09,Atlético Madrid,Real Madrid,0.0,2.0,"Liga F (España, femenil)",3699418,20220309_Atlético-Madrid_Real-Madrid
+2022-03-12,Eibar,Huelva,1.0,2.0,"Liga F (España, femenil)",3699487,20220312_Eibar_Huelva
+2022-03-12,Athletic Club,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",3699486,20220312_Athletic-Club_Madrid-CFF
+2022-03-12,Real Betis,Real Sociedad,0.0,3.0,"Liga F (España, femenil)",3699480,20220312_Real-Betis_Real-Sociedad
+2022-03-13,Rayo Vallecano,Atlético Madrid,0.0,0.0,"Liga F (España, femenil)",3699482,20220313_Rayo-Vallecano_Atlético-Madrid
+2022-03-13,Barcelona,Real Madrid,5.0,0.0,"Liga F (España, femenil)",3699481,20220313_Barcelona_Real-Madrid
+2022-03-13,UD Tenerife,Sevilla,1.0,0.0,"Liga F (España, femenil)",3699483,20220313_UD-Tenerife_Sevilla
+2022-03-19,Real Madrid,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",3699426,20220319_Real-Madrid_UD-Tenerife
+2022-03-20,Villarreal,Levante,0.0,2.0,"Liga F (España, femenil)",3699477,20220320_Villarreal_Levante
+2022-03-26,Madrid CFF,Barcelona,1.0,2.0,"Liga F (España, femenil)",3699491,20220326_Madrid-CFF_Barcelona
+2022-03-26,Real Madrid,Levante,1.0,0.0,"Liga F (España, femenil)",3699492,20220326_Real-Madrid_Levante
+2022-03-26,Sevilla,Eibar,4.0,1.0,"Liga F (España, femenil)",3699488,20220326_Sevilla_Eibar
+2022-03-26,Atlético Madrid,Valencia,3.0,0.0,"Liga F (España, femenil)",3699490,20220326_Atlético-Madrid_Valencia
+2022-03-26,Deportivo Alavés,Rayo Vallecano,3.0,1.0,"Liga F (España, femenil)",3699495,20220326_Deportivo-Alavés_Rayo-Vallecano
+2022-03-26,Villarreal,Athletic Club,1.0,1.0,"Liga F (España, femenil)",3699494,20220326_Villarreal_Athletic-Club
+2022-03-27,Huelva,Real Sociedad,1.0,2.0,"Liga F (España, femenil)",3699489,20220327_Huelva_Real-Sociedad
+2022-03-27,UD Tenerife,Real Betis,0.0,0.0,"Liga F (España, femenil)",3699493,20220327_UD-Tenerife_Real-Betis
+2022-03-30,Levante,Deportivo Alavés,3.0,0.0,"Liga F (España, femenil)",3699484,20220330_Levante_Deportivo-Alavés
+2022-03-30,Valencia,Villarreal,2.0,1.0,"Liga F (España, femenil)",3699485,20220330_Valencia_Villarreal
+2022-04-02,Athletic Club,Valencia,2.0,2.0,"Liga F (España, femenil)",3699501,20220402_Athletic-Club_Valencia
+2022-04-02,Barcelona,Villarreal,6.0,1.0,"Liga F (España, femenil)",3699498,20220402_Barcelona_Villarreal
+2022-04-02,Real Sociedad,Madrid CFF,0.0,1.0,"Liga F (España, femenil)",3699502,20220402_Real-Sociedad_Madrid-CFF
+2022-04-02,Real Betis,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",3699496,20220402_Real-Betis_Atlético-Madrid
+2022-04-03,Levante,Sevilla,3.0,0.0,"Liga F (España, femenil)",3699500,20220403_Levante_Sevilla
+2022-04-03,Eibar,Deportivo Alavés,2.0,0.0,"Liga F (España, femenil)",3699503,20220403_Eibar_Deportivo-Alavés
+2022-04-03,Huelva,Real Madrid,3.0,1.0,"Liga F (España, femenil)",3699497,20220403_Huelva_Real-Madrid
+2022-04-03,Rayo Vallecano,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",3699499,20220403_Rayo-Vallecano_UD-Tenerife
+2022-04-16,Sevilla,Real Sociedad,1.0,2.0,"Liga F (España, femenil)",3699504,20220416_Sevilla_Real-Sociedad
+2022-04-16,Valencia,Barcelona,0.0,2.0,"Liga F (España, femenil)",3699509,20220416_Valencia_Barcelona
+2022-04-16,UD Tenerife,Eibar,3.0,2.0,"Liga F (España, femenil)",3699508,20220416_UD-Tenerife_Eibar
+2022-04-17,Deportivo Alavés,Real Madrid,0.0,1.0,"Liga F (España, femenil)",3699511,20220417_Deportivo-Alavés_Real-Madrid
+2022-04-17,Rayo Vallecano,Levante,3.0,4.0,"Liga F (España, femenil)",3699507,20220417_Rayo-Vallecano_Levante
+2022-04-17,Atlético Madrid,Athletic Club,3.0,0.0,"Liga F (España, femenil)",3699505,20220417_Atlético-Madrid_Athletic-Club
+2022-04-17,Madrid CFF,Real Betis,2.0,2.0,"Liga F (España, femenil)",3699506,20220417_Madrid-CFF_Real-Betis
+2022-04-17,Villarreal,Huelva,1.0,1.0,"Liga F (España, femenil)",3699510,20220417_Villarreal_Huelva
+2022-04-20,Rayo Vallecano,Real Madrid,0.0,1.0,"Liga F (España, femenil)",3699436,20220420_Rayo-Vallecano_Real-Madrid
+2022-04-30,Real Betis,Valencia,0.0,0.0,"Liga F (España, femenil)",3699512,20220430_Real-Betis_Valencia
+2022-04-30,Athletic Club,UD Tenerife,2.0,1.0,"Liga F (España, femenil)",3699517,20220430_Athletic-Club_UD-Tenerife
+2022-05-01,Levante,Atlético Madrid,0.0,5.0,"Liga F (España, femenil)",3699516,20220501_Levante_Atlético-Madrid
+2022-05-01,Real Madrid,Madrid CFF,1.0,0.0,"Liga F (España, femenil)",3699515,20220501_Real-Madrid_Madrid-CFF
+2022-05-01,Eibar,Villarreal,1.0,1.0,"Liga F (España, femenil)",3699519,20220501_Eibar_Villarreal
+2022-05-01,Huelva,Deportivo Alavés,2.0,1.0,"Liga F (España, femenil)",3699513,20220501_Huelva_Deportivo-Alavés
+2022-05-01,Real Sociedad,Rayo Vallecano,4.0,0.0,"Liga F (España, femenil)",3699518,20220501_Real-Sociedad_Rayo-Vallecano
+2022-05-05,Barcelona,Sevilla,5.0,1.0,"Liga F (España, femenil)",3699514,20220505_Barcelona_Sevilla
+2022-05-07,Deportivo Alavés,Athletic Club,1.0,3.0,"Liga F (España, femenil)",3699527,20220507_Deportivo-Alavés_Athletic-Club
+2022-05-08,Atlético Madrid,Eibar,3.0,1.0,"Liga F (España, femenil)",3699521,20220508_Atlético-Madrid_Eibar
+2022-05-08,UD Tenerife,Real Sociedad,1.0,1.0,"Liga F (España, femenil)",3699524,20220508_UD-Tenerife_Real-Sociedad
+2022-05-08,Sevilla,Huelva,3.0,1.0,"Liga F (España, femenil)",3699520,20220508_Sevilla_Huelva
+2022-05-08,Valencia,Real Madrid,0.0,0.0,"Liga F (España, femenil)",3699525,20220508_Valencia_Real-Madrid
+2022-05-08,Villarreal,Real Betis,2.0,0.0,"Liga F (España, femenil)",3699526,20220508_Villarreal_Real-Betis
+2022-05-08,Madrid CFF,Levante,1.0,3.0,"Liga F (España, femenil)",3699522,20220508_Madrid-CFF_Levante
+2022-05-08,Rayo Vallecano,Barcelona,1.0,6.0,"Liga F (España, femenil)",3699523,20220508_Rayo-Vallecano_Barcelona
+2022-05-14,Real Betis,Rayo Vallecano,1.0,3.0,"Liga F (España, femenil)",3699528,20220514_Real-Betis_Rayo-Vallecano
+2022-05-14,Levante,UD Tenerife,4.0,1.0,"Liga F (España, femenil)",3699532,20220514_Levante_UD-Tenerife
+2022-05-15,Eibar,Valencia,5.0,1.0,"Liga F (España, femenil)",3699535,20220515_Eibar_Valencia
+2022-05-15,Huelva,Madrid CFF,2.0,0.0,"Liga F (España, femenil)",3699529,20220515_Huelva_Madrid-CFF
+2022-05-15,Athletic Club,Sevilla,1.0,4.0,"Liga F (España, femenil)",3699533,20220515_Athletic-Club_Sevilla
+2022-05-15,Barcelona,Atlético Madrid,2.0,1.0,"Liga F (España, femenil)",3699530,20220515_Barcelona_Atlético-Madrid
+2022-05-15,Real Madrid,Villarreal,1.0,0.0,"Liga F (España, femenil)",3699531,20220515_Real-Madrid_Villarreal
+2022-05-15,Real Sociedad,Deportivo Alavés,6.0,1.0,"Liga F (España, femenil)",3699534,20220515_Real-Sociedad_Deportivo-Alavés
+2022-09-17,Barcelona,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",3995559,20220917_Barcelona_UD-Tenerife
+2022-09-17,Deportivo Alavés,Madrid CFF,1.0,2.0,"Liga F (España, femenil)",3995568,20220917_Deportivo-Alavés_Madrid-CFF
+2022-09-17,Real Madrid,Valencia,2.0,0.0,"Liga F (España, femenil)",3995558,20220917_Real-Madrid_Valencia
+2022-09-17,Real Sociedad,Villarreal,2.0,0.0,"Liga F (España, femenil)",3995567,20220917_Real-Sociedad_Villarreal
+2022-09-17,Sevilla,Atlético Madrid,1.0,3.0,"Liga F (España, femenil)",3995588,20220917_Sevilla_Atlético-Madrid
+2022-09-18,Alhama CF,Levante,2.0,3.0,"Liga F (España, femenil)",3995556,20220918_Alhama-CF_Levante
+2022-09-18,Athletic Club,Huelva,3.0,0.0,"Liga F (España, femenil)",3995555,20220918_Athletic-Club_Huelva
+2022-09-18,Real Betis,Levante Badalona,1.0,2.0,"Liga F (España, femenil)",3995557,20220918_Real-Betis_Levante-Badalona
+2022-09-24,Huelva,Alhama CF,1.0,0.0,"Liga F (España, femenil)",3995594,20220924_Huelva_Alhama-CF
+2022-09-24,Madrid CFF,Levante Badalona,3.0,1.0,"Liga F (España, femenil)",3995590,20220924_Madrid-CFF_Levante-Badalona
+2022-09-24,Valencia,Sevilla,2.0,0.0,"Liga F (España, femenil)",3995592,20220924_Valencia_Sevilla
+2022-09-24,Real Sociedad,Real Betis,2.0,2.0,"Liga F (España, femenil)",3995593,20220924_Real-Sociedad_Real-Betis
+2022-09-25,Atlético Madrid,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",3995596,20220925_Atlético-Madrid_Deportivo-Alavés
+2022-09-25,Villarreal,Barcelona,1.0,4.0,"Liga F (España, femenil)",3995589,20220925_Villarreal_Barcelona
+2022-09-25,Levante,Athletic Club,2.0,0.0,"Liga F (España, femenil)",3995595,20220925_Levante_Athletic-Club
+2022-10-01,Deportivo Alavés,Villarreal,0.0,4.0,"Liga F (España, femenil)",3995601,20221001_Deportivo-Alavés_Villarreal
+2022-10-01,Real Betis,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",3995598,20221001_Real-Betis_UD-Tenerife
+2022-10-01,Huelva,Valencia,0.0,0.0,"Liga F (España, femenil)",3995599,20221001_Huelva_Valencia
+2022-10-01,Barcelona,Madrid CFF,7.0,0.0,"Liga F (España, femenil)",3995597,20221001_Barcelona_Madrid-CFF
+2022-10-02,Levante Badalona,Alhama CF,3.0,1.0,"Liga F (España, femenil)",3995603,20221002_Levante-Badalona_Alhama-CF
+2022-10-02,Levante,Atlético Madrid,2.0,1.0,"Liga F (España, femenil)",3995602,20221002_Levante_Atlético-Madrid
+2022-10-02,Sevilla,Real Sociedad,2.0,2.0,"Liga F (España, femenil)",3995587,20221002_Sevilla_Real-Sociedad
+2022-10-02,Athletic Club,Real Madrid,0.0,3.0,"Liga F (España, femenil)",3995600,20221002_Athletic-Club_Real-Madrid
+2022-10-15,Levante Badalona,Levante,1.0,1.0,"Liga F (España, femenil)",3995586,20221015_Levante-Badalona_Levante
+2022-10-15,Real Sociedad,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",3995571,20221015_Real-Sociedad_UD-Tenerife
+2022-10-15,Atlético Madrid,Huelva,5.0,0.0,"Liga F (España, femenil)",3995585,20221015_Atlético-Madrid_Huelva
+2022-10-15,Athletic Club,Barcelona,0.0,3.0,"Liga F (España, femenil)",3995570,20221015_Athletic-Club_Barcelona
+2022-10-16,Real Madrid,Deportivo Alavés,7.0,1.0,"Liga F (España, femenil)",3995574,20221016_Real-Madrid_Deportivo-Alavés
+2022-10-16,Villarreal,Sevilla,0.0,5.0,"Liga F (España, femenil)",3995572,20221016_Villarreal_Sevilla
+2022-10-16,Alhama CF,Valencia,0.0,1.0,"Liga F (España, femenil)",3995569,20221016_Alhama-CF_Valencia
+2022-10-16,Madrid CFF,Real Betis,4.0,0.0,"Liga F (España, femenil)",3995573,20221016_Madrid-CFF_Real-Betis
+2022-10-22,Atlético Madrid,Madrid CFF,1.0,1.0,"Liga F (España, femenil)",3995576,20221022_Atlético-Madrid_Madrid-CFF
+2022-10-22,Deportivo Alavés,Athletic Club,1.0,1.0,"Liga F (España, femenil)",3995579,20221022_Deportivo-Alavés_Athletic-Club
+2022-10-22,Huelva,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",3995582,20221022_Huelva_Real-Sociedad
+2022-10-22,Real Betis,Barcelona,0.0,3.0,"Liga F (España, femenil)",3995577,20221022_Real-Betis_Barcelona
+2022-10-23,Levante,Real Madrid,2.0,2.0,"Liga F (España, femenil)",3995575,20221023_Levante_Real-Madrid
+2022-10-23,UD Tenerife,Villarreal,2.0,0.0,"Liga F (España, femenil)",3995578,20221023_UD-Tenerife_Villarreal
+2022-10-23,Valencia,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",3995580,20221023_Valencia_Levante-Badalona
+2022-10-23,Sevilla,Alhama CF,2.0,0.0,"Liga F (España, femenil)",3995581,20221023_Sevilla_Alhama-CF
+2022-10-29,Athletic Club,Atlético Madrid,1.0,4.0,"Liga F (España, femenil)",3995636,20221029_Athletic-Club_Atlético-Madrid
+2022-10-29,Madrid CFF,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",3995649,20221029_Madrid-CFF_UD-Tenerife
+2022-10-29,Deportivo Alavés,Real Sociedad,1.0,5.0,"Liga F (España, femenil)",3995635,20221029_Deportivo-Alavés_Real-Sociedad
+2022-10-29,Alhama CF,Real Betis,0.0,2.0,"Liga F (España, femenil)",3995637,20221029_Alhama-CF_Real-Betis
+2022-10-30,Barcelona,Levante,2.0,1.0,"Liga F (España, femenil)",3995583,20221030_Barcelona_Levante
+2022-10-30,Levante Badalona,Huelva,1.0,2.0,"Liga F (España, femenil)",3995584,20221030_Levante-Badalona_Huelva
+2022-10-30,Villarreal,Valencia,1.0,1.0,"Liga F (España, femenil)",3995634,20221030_Villarreal_Valencia
+2022-10-30,Real Madrid,Sevilla,2.0,0.0,"Liga F (España, femenil)",3995604,20221030_Real-Madrid_Sevilla
+2022-11-01,Atlético Madrid,Real Sociedad,1.0,1.0,"Liga F (España, femenil)",3995554,20221101_Atlético-Madrid_Real-Sociedad
+2022-11-01,UD Tenerife,Athletic Club,0.0,2.0,"Liga F (España, femenil)",3995561,20221101_UD-Tenerife_Athletic-Club
+2022-11-01,Alhama CF,Madrid CFF,0.0,3.0,"Liga F (España, femenil)",3995566,20221101_Alhama-CF_Madrid-CFF
+2022-11-02,Huelva,Sevilla,1.0,1.0,"Liga F (España, femenil)",3995563,20221102_Huelva_Sevilla
+2022-11-02,Levante,Deportivo Alavés,2.0,1.0,"Liga F (España, femenil)",3995560,20221102_Levante_Deportivo-Alavés
+2022-11-02,Valencia,Real Betis,3.0,0.0,"Liga F (España, femenil)",3995562,20221102_Valencia_Real-Betis
+2022-11-03,Villarreal,Real Madrid,0.0,4.0,"Liga F (España, femenil)",3995564,20221103_Villarreal_Real-Madrid
+2022-11-03,Levante Badalona,Barcelona,0.0,4.0,"Liga F (España, femenil)",3995565,20221103_Levante-Badalona_Barcelona
+2022-11-05,Real Sociedad,Madrid CFF,0.0,2.0,"Liga F (España, femenil)",3995630,20221105_Real-Sociedad_Madrid-CFF
+2022-11-05,Valencia,Athletic Club,1.0,2.0,"Liga F (España, femenil)",3995639,20221105_Valencia_Athletic-Club
+2022-11-05,Atlético Madrid,Alhama CF,1.0,0.0,"Liga F (España, femenil)",3995638,20221105_Atlético-Madrid_Alhama-CF
+2022-11-05,Levante,Huelva,3.0,0.0,"Liga F (España, femenil)",3995633,20221105_Levante_Huelva
+2022-11-06,UD Tenerife,Deportivo Alavés,1.0,1.0,"Liga F (España, femenil)",3995648,20221106_UD-Tenerife_Deportivo-Alavés
+2022-11-06,Villarreal,Real Betis,0.0,3.0,"Liga F (España, femenil)",3995629,20221106_Villarreal_Real-Betis
+2022-11-06,Sevilla,Levante Badalona,5.0,0.0,"Liga F (España, femenil)",3995631,20221106_Sevilla_Levante-Badalona
+2022-11-06,Real Madrid,Barcelona,0.0,4.0,"Liga F (España, femenil)",3995632,20221106_Real-Madrid_Barcelona
+2022-11-19,Alhama CF,UD Tenerife,1.0,0.0,"Liga F (España, femenil)",3995645,20221119_Alhama-CF_UD-Tenerife
+2022-11-19,Madrid CFF,Villarreal,1.0,2.0,"Liga F (España, femenil)",3995647,20221119_Madrid-CFF_Villarreal
+2022-11-19,Huelva,Real Madrid,0.0,1.0,"Liga F (España, femenil)",3995642,20221119_Huelva_Real-Madrid
+2022-11-19,Valencia,Levante,4.0,2.0,"Liga F (España, femenil)",3995643,20221119_Valencia_Levante
+2022-11-19,Athletic Club,Real Sociedad,1.0,3.0,"Liga F (España, femenil)",3995644,20221119_Athletic-Club_Real-Sociedad
+2022-11-20,Barcelona,Deportivo Alavés,8.0,0.0,"Liga F (España, femenil)",3995640,20221120_Barcelona_Deportivo-Alavés
+2022-11-20,Levante Badalona,Atlético Madrid,1.0,2.0,"Liga F (España, femenil)",3995641,20221120_Levante-Badalona_Atlético-Madrid
+2022-11-20,Real Betis,Sevilla,3.0,0.0,"Liga F (España, femenil)",3995646,20221120_Real-Betis_Sevilla
+2022-11-26,Levante,Sevilla,5.0,1.0,"Liga F (España, femenil)",3995628,20221126_Levante_Sevilla
+2022-11-26,Madrid CFF,Huelva,2.0,3.0,"Liga F (España, femenil)",3995626,20221126_Madrid-CFF_Huelva
+2022-11-26,Villarreal,Athletic Club,1.0,6.0,"Liga F (España, femenil)",3995610,20221126_Villarreal_Athletic-Club
+2022-11-26,Real Madrid,Alhama CF,5.0,1.0,"Liga F (España, femenil)",3995611,20221126_Real-Madrid_Alhama-CF
+2022-11-27,UD Tenerife,Valencia,1.0,0.0,"Liga F (España, femenil)",3995614,20221127_UD-Tenerife_Valencia
+2022-11-27,Deportivo Alavés,Real Betis,3.0,1.0,"Liga F (España, femenil)",3995613,20221127_Deportivo-Alavés_Real-Betis
+2022-11-27,Real Sociedad,Levante Badalona,3.0,0.0,"Liga F (España, femenil)",3995612,20221127_Real-Sociedad_Levante-Badalona
+2022-11-27,Atlético Madrid,Barcelona,1.0,6.0,"Liga F (España, femenil)",3995627,20221127_Atlético-Madrid_Barcelona
+2022-12-03,Barcelona,Real Sociedad,2.0,1.0,"Liga F (España, femenil)",3995609,20221203_Barcelona_Real-Sociedad
+2022-12-03,Sevilla,UD Tenerife,2.0,2.0,"Liga F (España, femenil)",3995607,20221203_Sevilla_UD-Tenerife
+2022-12-03,Athletic Club,Madrid CFF,0.0,2.0,"Liga F (España, femenil)",3995616,20221203_Athletic-Club_Madrid-CFF
+2022-12-03,Levante Badalona,Real Madrid,1.0,4.0,"Liga F (España, femenil)",3995608,20221203_Levante-Badalona_Real-Madrid
+2022-12-04,Huelva,Deportivo Alavés,2.0,2.0,"Liga F (España, femenil)",3995624,20221204_Huelva_Deportivo-Alavés
+2022-12-04,Valencia,Atlético Madrid,0.0,1.0,"Liga F (España, femenil)",3995625,20221204_Valencia_Atlético-Madrid
+2022-12-04,Alhama CF,Villarreal,0.0,1.0,"Liga F (España, femenil)",3995615,20221204_Alhama-CF_Villarreal
+2022-12-04,Real Betis,Levante,0.0,7.0,"Liga F (España, femenil)",3995606,20221204_Real-Betis_Levante
+2022-12-10,Madrid CFF,Valencia,3.0,1.0,"Liga F (España, femenil)",3995623,20221210_Madrid-CFF_Valencia
+2022-12-10,Barcelona,Alhama CF,4.0,0.0,"Liga F (España, femenil)",3995617,20221210_Barcelona_Alhama-CF
+2022-12-11,Deportivo Alavés,Sevilla,2.0,0.0,"Liga F (España, femenil)",3995622,20221211_Deportivo-Alavés_Sevilla
+2022-12-11,Villarreal,Huelva,2.0,3.0,"Liga F (España, femenil)",3995618,20221211_Villarreal_Huelva
+2022-12-11,UD Tenerife,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",3995621,20221211_UD-Tenerife_Levante-Badalona
+2022-12-11,Real Betis,Athletic Club,1.0,0.0,"Liga F (España, femenil)",3995605,20221211_Real-Betis_Athletic-Club
+2022-12-11,Real Sociedad,Levante,3.0,4.0,"Liga F (España, femenil)",3995620,20221211_Real-Sociedad_Levante
+2022-12-11,Real Madrid,Atlético Madrid,1.0,0.0,"Liga F (España, femenil)",3995619,20221211_Real-Madrid_Atlético-Madrid
+2022-12-17,Levante Badalona,Villarreal,2.0,2.0,"Liga F (España, femenil)",3995655,20221217_Levante-Badalona_Villarreal
+2022-12-17,Atlético Madrid,Real Betis,2.0,1.0,"Liga F (España, femenil)",3995652,20221217_Atlético-Madrid_Real-Betis
+2022-12-17,Sevilla,Athletic Club,1.0,1.0,"Liga F (España, femenil)",3995656,20221217_Sevilla_Athletic-Club
+2022-12-17,Alhama CF,Deportivo Alavés,3.0,1.0,"Liga F (España, femenil)",3995672,20221217_Alhama-CF_Deportivo-Alavés
+2022-12-17,Levante,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",3995654,20221217_Levante_Madrid-CFF
+2022-12-18,Huelva,UD Tenerife,2.0,2.0,"Liga F (España, femenil)",3995651,20221218_Huelva_UD-Tenerife
+2023-01-07,Deportivo Alavés,Valencia,4.0,1.0,"Liga F (España, femenil)",3995677,20230107_Deportivo-Alavés_Valencia
+2023-01-07,Villarreal,Levante,0.0,6.0,"Liga F (España, femenil)",3995678,20230107_Villarreal_Levante
+2023-01-07,Real Sociedad,Alhama CF,2.0,1.0,"Liga F (España, femenil)",3995680,20230107_Real-Sociedad_Alhama-CF
+2023-01-07,Barcelona,Sevilla,4.0,0.0,"Liga F (España, femenil)",3995673,20230107_Barcelona_Sevilla
+2023-01-08,Athletic Club,Levante Badalona,2.0,0.0,"Liga F (España, femenil)",3995676,20230108_Athletic-Club_Levante-Badalona
+2023-01-08,UD Tenerife,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",3995679,20230108_UD-Tenerife_Atlético-Madrid
+2023-01-08,Real Betis,Huelva,0.0,0.0,"Liga F (España, femenil)",3995675,20230108_Real-Betis_Huelva
+2023-01-08,Madrid CFF,Real Madrid,0.0,4.0,"Liga F (España, femenil)",3995674,20230108_Madrid-CFF_Real-Madrid
+2023-01-14,Levante Badalona,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",3995658,20230114_Levante-Badalona_Deportivo-Alavés
+2023-01-14,Huelva,Barcelona,0.0,3.0,"Liga F (España, femenil)",3995684,20230114_Huelva_Barcelona
+2023-01-14,Atlético Madrid,Villarreal,2.0,2.0,"Liga F (España, femenil)",3995682,20230114_Atlético-Madrid_Villarreal
+2023-01-15,Alhama CF,Athletic Club,2.0,1.0,"Liga F (España, femenil)",3995683,20230115_Alhama-CF_Athletic-Club
+2023-01-15,Levante,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",3995681,20230115_Levante_UD-Tenerife
+2023-01-15,Valencia,Real Sociedad,2.0,1.0,"Liga F (España, femenil)",3995657,20230115_Valencia_Real-Sociedad
+2023-01-15,Real Madrid,Real Betis,4.0,0.0,"Liga F (España, femenil)",3995670,20230115_Real-Madrid_Real-Betis
+2023-01-15,Sevilla,Madrid CFF,4.0,2.0,"Liga F (España, femenil)",3995671,20230115_Sevilla_Madrid-CFF
+2023-01-24,Athletic Club,Levante,0.0,3.0,"Liga F (España, femenil)",3995662,20230124_Athletic-Club_Levante
+2023-01-24,Real Betis,Alhama CF,1.0,2.0,"Liga F (España, femenil)",3995665,20230124_Real-Betis_Alhama-CF
+2023-01-24,Valencia,Villarreal,2.0,0.0,"Liga F (España, femenil)",3995660,20230124_Valencia_Villarreal
+2023-01-25,Barcelona,Levante Badalona,7.0,0.0,"Liga F (España, femenil)",3995659,20230125_Barcelona_Levante-Badalona
+2023-01-25,Deportivo Alavés,Real Madrid,1.0,3.0,"Liga F (España, femenil)",3995663,20230125_Deportivo-Alavés_Real-Madrid
+2023-01-25,Madrid CFF,Atlético Madrid,2.0,2.0,"Liga F (España, femenil)",3995664,20230125_Madrid-CFF_Atlético-Madrid
+2023-01-26,UD Tenerife,Real Sociedad,2.0,1.0,"Liga F (España, femenil)",3995666,20230126_UD-Tenerife_Real-Sociedad
+2023-01-28,Villarreal,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",3995700,20230128_Villarreal_Deportivo-Alavés
+2023-01-28,Real Betis,Madrid CFF,1.0,3.0,"Liga F (España, femenil)",3995669,20230128_Real-Betis_Madrid-CFF
+2023-01-28,Levante,Alhama CF,3.0,1.0,"Liga F (España, femenil)",3995698,20230128_Levante_Alhama-CF
+2023-01-28,Real Madrid,Athletic Club,2.0,1.0,"Liga F (España, femenil)",3995699,20230128_Real-Madrid_Athletic-Club
+2023-01-29,Atlético Madrid,Sevilla,1.0,1.0,"Liga F (España, femenil)",3995668,20230129_Atlético-Madrid_Sevilla
+2023-01-29,Real Sociedad,Huelva,4.0,0.0,"Liga F (España, femenil)",3995685,20230129_Real-Sociedad_Huelva
+2023-01-29,Levante Badalona,Valencia,0.0,3.0,"Liga F (España, femenil)",3995667,20230129_Levante-Badalona_Valencia
+2023-01-29,UD Tenerife,Barcelona,0.0,6.0,"Liga F (España, femenil)",3995686,20230129_UD-Tenerife_Barcelona
+2023-02-01,Sevilla,Huelva,1.0,0.0,"Liga F (España, femenil)",3995661,20230201_Sevilla_Huelva
+2023-02-01,Valencia,Barcelona,0.0,4.0,"Liga F (España, femenil)",3995650,20230201_Valencia_Barcelona
+2023-02-01,Real Madrid,Real Sociedad,4.0,1.0,"Liga F (España, femenil)",3995653,20230201_Real-Madrid_Real-Sociedad
+2023-02-04,Alhama CF,Levante Badalona,0.0,0.0,"Liga F (España, femenil)",3995703,20230204_Alhama-CF_Levante-Badalona
+2023-02-04,Athletic Club,UD Tenerife,0.0,1.0,"Liga F (España, femenil)",3995704,20230204_Athletic-Club_UD-Tenerife
+2023-02-04,Deportivo Alavés,Levante,0.0,2.0,"Liga F (España, femenil)",3995705,20230204_Deportivo-Alavés_Levante
+2023-02-04,Valencia,Real Madrid,1.0,6.0,"Liga F (España, femenil)",3995697,20230204_Valencia_Real-Madrid
+2023-02-05,Huelva,Atlético Madrid,1.0,3.0,"Liga F (España, femenil)",3995696,20230205_Huelva_Atlético-Madrid
+2023-02-05,Madrid CFF,Real Sociedad,2.0,2.0,"Liga F (España, femenil)",3995701,20230205_Madrid-CFF_Real-Sociedad
+2023-02-05,Sevilla,Villarreal,1.0,0.0,"Liga F (España, femenil)",3995702,20230205_Sevilla_Villarreal
+2023-02-05,Barcelona,Real Betis,7.0,0.0,"Liga F (España, femenil)",3995695,20230205_Barcelona_Real-Betis
+2023-02-08,UD Tenerife,Real Madrid,2.0,3.0,"Liga F (España, femenil)",3995591,20230208_UD-Tenerife_Real-Madrid
+2023-02-11,Levante,Levante Badalona,5.0,0.0,"Liga F (España, femenil)",3995691,20230211_Levante_Levante-Badalona
+2023-02-11,Real Betis,Valencia,0.0,1.0,"Liga F (España, femenil)",3995688,20230211_Real-Betis_Valencia
+2023-02-11,Villarreal,Madrid CFF,0.0,3.0,"Liga F (España, femenil)",3995692,20230211_Villarreal_Madrid-CFF
+2023-02-11,Deportivo Alavés,Barcelona,0.0,4.0,"Liga F (España, femenil)",3995690,20230211_Deportivo-Alavés_Barcelona
+2023-02-12,Atlético Madrid,Athletic Club,1.0,0.0,"Liga F (España, femenil)",3995694,20230212_Atlético-Madrid_Athletic-Club
+2023-02-12,UD Tenerife,Alhama CF,0.0,0.0,"Liga F (España, femenil)",3995693,20230212_UD-Tenerife_Alhama-CF
+2023-02-12,Real Sociedad,Sevilla,0.0,3.0,"Liga F (España, femenil)",3995689,20230212_Real-Sociedad_Sevilla
+2023-02-12,Real Madrid,Huelva,1.0,0.0,"Liga F (España, femenil)",3995687,20230212_Real-Madrid_Huelva
+2023-03-04,Huelva,Athletic Club,2.0,3.0,"Liga F (España, femenil)",3995719,20230304_Huelva_Athletic-Club
+2023-03-04,Real Sociedad,Atlético Madrid,1.0,2.0,"Liga F (España, femenil)",3995722,20230304_Real-Sociedad_Atlético-Madrid
+2023-03-04,Madrid CFF,Deportivo Alavés,5.0,1.0,"Liga F (España, femenil)",3995718,20230304_Madrid-CFF_Deportivo-Alavés
+2023-03-04,Valencia,UD Tenerife,2.0,1.0,"Liga F (España, femenil)",3995720,20230304_Valencia_UD-Tenerife
+2023-03-04,Alhama CF,Real Madrid,1.0,5.0,"Liga F (España, femenil)",3995707,20230304_Alhama-CF_Real-Madrid
+2023-03-05,Barcelona,Villarreal,5.0,0.0,"Liga F (España, femenil)",3995706,20230305_Barcelona_Villarreal
+2023-03-05,Sevilla,Levante,2.0,4.0,"Liga F (España, femenil)",3995723,20230305_Sevilla_Levante
+2023-03-05,Levante Badalona,Real Betis,2.0,2.0,"Liga F (España, femenil)",3995721,20230305_Levante-Badalona_Real-Betis
+2023-03-11,Deportivo Alavés,Huelva,2.0,1.0,"Liga F (España, femenil)",3995713,20230311_Deportivo-Alavés_Huelva
+2023-03-11,Levante Badalona,Sevilla,1.0,1.0,"Liga F (España, femenil)",3995717,20230311_Levante-Badalona_Sevilla
+2023-03-11,Real Betis,Real Sociedad,0.0,0.0,"Liga F (España, femenil)",3995715,20230311_Real-Betis_Real-Sociedad
+2023-03-11,Levante,Barcelona,0.0,4.0,"Liga F (España, femenil)",3995712,20230311_Levante_Barcelona
+2023-03-12,Athletic Club,Valencia,0.0,2.0,"Liga F (España, femenil)",3995714,20230312_Athletic-Club_Valencia
+2023-03-12,Villarreal,Alhama CF,3.0,1.0,"Liga F (España, femenil)",3995710,20230312_Villarreal_Alhama-CF
+2023-03-12,UD Tenerife,Madrid CFF,5.0,2.0,"Liga F (España, femenil)",3995711,20230312_UD-Tenerife_Madrid-CFF
+2023-03-12,Atlético Madrid,Real Madrid,0.0,0.0,"Liga F (España, femenil)",3995716,20230312_Atlético-Madrid_Real-Madrid
+2023-03-17,Barcelona,Valencia,5.0,1.0,"Liga F (España, femenil)",3995709,20230317_Barcelona_Valencia
+2023-03-18,Madrid CFF,Athletic Club,3.0,2.0,"Liga F (España, femenil)",3995745,20230318_Madrid-CFF_Athletic-Club
+2023-03-18,Real Madrid,UD Tenerife,0.0,1.0,"Liga F (España, femenil)",3995708,20230318_Real-Madrid_UD-Tenerife
+2023-03-18,Sevilla,Real Betis,3.0,0.0,"Liga F (España, femenil)",3995744,20230318_Sevilla_Real-Betis
+2023-03-19,Real Sociedad,Deportivo Alavés,6.0,5.0,"Liga F (España, femenil)",3995746,20230319_Real-Sociedad_Deportivo-Alavés
+2023-03-19,Villarreal,Levante Badalona,0.0,0.0,"Liga F (España, femenil)",3995725,20230319_Villarreal_Levante-Badalona
+2023-03-19,Huelva,Levante,0.0,3.0,"Liga F (España, femenil)",3995743,20230319_Huelva_Levante
+2023-03-19,Alhama CF,Atlético Madrid,1.0,3.0,"Liga F (España, femenil)",3995724,20230319_Alhama-CF_Atlético-Madrid
+2023-03-24,Athletic Club,Sevilla,1.0,1.0,"Liga F (España, femenil)",3995751,20230324_Athletic-Club_Sevilla
+2023-03-25,UD Tenerife,Huelva,2.0,0.0,"Liga F (España, femenil)",3995753,20230325_UD-Tenerife_Huelva
+2023-03-25,Real Betis,Villarreal,1.0,1.0,"Liga F (España, femenil)",3995750,20230325_Real-Betis_Villarreal
+2023-03-25,Barcelona,Real Madrid,1.0,0.0,"Liga F (España, femenil)",3995747,20230325_Barcelona_Real-Madrid
+2023-03-26,Deportivo Alavés,Atlético Madrid,1.0,2.0,"Liga F (España, femenil)",3995752,20230326_Deportivo-Alavés_Atlético-Madrid
+2023-03-26,Levante Badalona,Madrid CFF,2.0,2.0,"Liga F (España, femenil)",3995748,20230326_Levante-Badalona_Madrid-CFF
+2023-03-26,Valencia,Alhama CF,1.0,3.0,"Liga F (España, femenil)",3995754,20230326_Valencia_Alhama-CF
+2023-03-26,Levante,Real Sociedad,4.0,1.0,"Liga F (España, femenil)",3995749,20230326_Levante_Real-Sociedad
+2023-03-31,Real Madrid,Levante Badalona,3.0,0.0,"Liga F (España, femenil)",3995742,20230331_Real-Madrid_Levante-Badalona
+2023-04-01,Madrid CFF,Levante,1.0,0.0,"Liga F (España, femenil)",3995741,20230401_Madrid-CFF_Levante
+2023-04-01,Villarreal,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",3995726,20230401_Villarreal_UD-Tenerife
+2023-04-01,Sevilla,Deportivo Alavés,4.0,2.0,"Liga F (España, femenil)",3995728,20230401_Sevilla_Deportivo-Alavés
+2023-04-01,Atlético Madrid,Valencia,6.0,2.0,"Liga F (España, femenil)",3995755,20230401_Atlético-Madrid_Valencia
+2023-04-02,Huelva,Real Betis,0.0,1.0,"Liga F (España, femenil)",3995740,20230402_Huelva_Real-Betis
+2023-04-02,Real Sociedad,Athletic Club,1.0,1.0,"Liga F (España, femenil)",3995727,20230402_Real-Sociedad_Athletic-Club
+2023-04-02,Alhama CF,Barcelona,0.0,2.0,"Liga F (España, femenil)",3995756,20230402_Alhama-CF_Barcelona
+2023-04-15,Alhama CF,Real Sociedad,1.0,1.0,"Liga F (España, femenil)",3995733,20230415_Alhama-CF_Real-Sociedad
+2023-04-15,Athletic Club,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",3995736,20230415_Athletic-Club_Deportivo-Alavés
+2023-04-15,Barcelona,Atlético Madrid,4.0,0.0,"Liga F (España, femenil)",3995734,20230415_Barcelona_Atlético-Madrid
+2023-04-15,Levante Badalona,UD Tenerife,2.0,3.0,"Liga F (España, femenil)",3995729,20230415_Levante-Badalona_UD-Tenerife
+2023-04-15,Levante,Villarreal,3.0,1.0,"Liga F (España, femenil)",3995730,20230415_Levante_Villarreal
+2023-04-16,Valencia,Huelva,1.0,2.0,"Liga F (España, femenil)",3995735,20230416_Valencia_Huelva
+2023-04-16,Madrid CFF,Sevilla,0.0,0.0,"Liga F (España, femenil)",3995731,20230416_Madrid-CFF_Sevilla
+2023-04-16,Real Betis,Real Madrid,1.0,3.0,"Liga F (España, femenil)",3995732,20230416_Real-Betis_Real-Madrid
+2023-04-21,Athletic Club,Alhama CF,1.0,0.0,"Liga F (España, femenil)",3995761,20230421_Athletic-Club_Alhama-CF
+2023-04-22,Real Sociedad,Valencia,4.0,0.0,"Liga F (España, femenil)",3995739,20230422_Real-Sociedad_Valencia
+2023-04-22,UD Tenerife,Real Betis,0.0,2.0,"Liga F (España, femenil)",3995760,20230422_UD-Tenerife_Real-Betis
+2023-04-22,Deportivo Alavés,Levante Badalona,1.0,0.0,"Liga F (España, femenil)",3995757,20230422_Deportivo-Alavés_Levante-Badalona
+2023-04-23,Atlético Madrid,Levante,2.0,1.0,"Liga F (España, femenil)",3995738,20230423_Atlético-Madrid_Levante
+2023-04-23,Huelva,Madrid CFF,1.0,2.0,"Liga F (España, femenil)",3995759,20230423_Huelva_Madrid-CFF
+2023-04-23,Real Madrid,Villarreal,2.0,1.0,"Liga F (España, femenil)",3995737,20230423_Real-Madrid_Villarreal
+2023-04-28,Alhama CF,Sevilla,0.0,0.0,"Liga F (España, femenil)",3995779,20230428_Alhama-CF_Sevilla
+2023-04-29,UD Tenerife,Levante,0.0,1.0,"Liga F (España, femenil)",3995780,20230429_UD-Tenerife_Levante
+2023-04-29,Valencia,Deportivo Alavés,2.0,1.0,"Liga F (España, femenil)",3995785,20230429_Valencia_Deportivo-Alavés
+2023-04-29,Levante Badalona,Athletic Club,0.0,1.0,"Liga F (España, femenil)",3995783,20230429_Levante-Badalona_Athletic-Club
+2023-04-30,Real Betis,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",3995781,20230430_Real-Betis_Atlético-Madrid
+2023-04-30,Villarreal,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",3995784,20230430_Villarreal_Real-Sociedad
+2023-04-30,Barcelona,Huelva,3.0,0.0,"Liga F (España, femenil)",3995762,20230430_Barcelona_Huelva
+2023-04-30,Real Madrid,Madrid CFF,3.0,2.0,"Liga F (España, femenil)",3995782,20230430_Real-Madrid_Madrid-CFF
+2023-05-05,Sevilla,Real Madrid,0.0,2.0,"Liga F (España, femenil)",3995792,20230505_Sevilla_Real-Madrid
+2023-05-06,Atlético Madrid,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",3995787,20230506_Atlético-Madrid_Levante-Badalona
+2023-05-06,Deportivo Alavés,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",3995790,20230506_Deportivo-Alavés_UD-Tenerife
+2023-05-06,Madrid CFF,Alhama CF,6.0,2.0,"Liga F (España, femenil)",3995778,20230506_Madrid-CFF_Alhama-CF
+2023-05-06,Real Sociedad,Barcelona,2.0,5.0,"Liga F (España, femenil)",3995791,20230506_Real-Sociedad_Barcelona
+2023-05-07,Athletic Club,Real Betis,2.0,0.0,"Liga F (España, femenil)",3995789,20230507_Athletic-Club_Real-Betis
+2023-05-07,Huelva,Villarreal,1.0,1.0,"Liga F (España, femenil)",3995788,20230507_Huelva_Villarreal
+2023-05-07,Levante,Valencia,1.0,1.0,"Liga F (España, femenil)",3995786,20230507_Levante_Valencia
+2023-05-10,Sevilla,Barcelona,1.0,1.0,"Liga F (España, femenil)",3995758,20230510_Sevilla_Barcelona
+2023-05-13,Alhama CF,Huelva,0.0,0.0,"Liga F (España, femenil)",3995763,20230513_Alhama-CF_Huelva
+2023-05-13,Barcelona,Athletic Club,3.0,0.0,"Liga F (España, femenil)",3995768,20230513_Barcelona_Athletic-Club
+2023-05-13,Levante Badalona,Real Sociedad,1.0,0.0,"Liga F (España, femenil)",3995777,20230513_Levante-Badalona_Real-Sociedad
+2023-05-13,Real Betis,Deportivo Alavés,1.0,1.0,"Liga F (España, femenil)",3995769,20230513_Real-Betis_Deportivo-Alavés
+2023-05-13,Villarreal,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",3995765,20230513_Villarreal_Atlético-Madrid
+2023-05-14,UD Tenerife,Sevilla,3.0,1.0,"Liga F (España, femenil)",3995767,20230514_UD-Tenerife_Sevilla
+2023-05-14,Real Madrid,Levante,3.0,2.0,"Liga F (España, femenil)",3995764,20230514_Real-Madrid_Levante
+2023-05-14,Valencia,Madrid CFF,0.0,2.0,"Liga F (España, femenil)",3995766,20230514_Valencia_Madrid-CFF
+2023-05-19,Real Sociedad,Real Madrid,1.0,1.0,"Liga F (España, femenil)",3995776,20230519_Real-Sociedad_Real-Madrid
+2023-05-19,Sevilla,Valencia,2.0,0.0,"Liga F (España, femenil)",3995771,20230519_Sevilla_Valencia
+2023-05-19,Atlético Madrid,UD Tenerife,4.0,0.0,"Liga F (España, femenil)",3995770,20230519_Atlético-Madrid_UD-Tenerife
+2023-05-20,Athletic Club,Villarreal,1.0,1.0,"Liga F (España, femenil)",3995772,20230520_Athletic-Club_Villarreal
+2023-05-20,Deportivo Alavés,Alhama CF,1.0,1.0,"Liga F (España, femenil)",3995773,20230520_Deportivo-Alavés_Alhama-CF
+2023-05-20,Huelva,Levante Badalona,2.0,0.0,"Liga F (España, femenil)",3995775,20230520_Huelva_Levante-Badalona
+2023-05-21,Madrid CFF,Barcelona,2.0,1.0,"Liga F (España, femenil)",3995774,20230521_Madrid-CFF_Barcelona
+2023-05-21,Levante,Real Betis,4.0,0.0,"Liga F (España, femenil)",3995793,20230521_Levante_Real-Betis
+2023-09-15,Valencia,Real Madrid,0.0,2.0,"Liga F (España, femenil)",4271090,20230915_Valencia_Real-Madrid
+2023-09-16,Atlético Madrid,Athletic Club,3.0,0.0,"Liga F (España, femenil)",4271103,20230916_Atlético-Madrid_Athletic-Club
+2023-09-16,Eibar,Levante Badalona,1.0,2.0,"Liga F (España, femenil)",4271102,20230916_Eibar_Levante-Badalona
+2023-09-16,Real Betis,Villarreal,1.0,0.0,"Liga F (España, femenil)",4271101,20230916_Real-Betis_Villarreal
+2023-09-16,Madrid CFF,Barcelona,0.0,2.0,"Liga F (España, femenil)",4271091,20230916_Madrid-CFF_Barcelona
+2023-09-17,UD Tenerife,Huelva,2.0,0.0,"Liga F (España, femenil)",4271089,20230917_UD-Tenerife_Huelva
+2023-09-17,Granada,Real Sociedad,2.0,1.0,"Liga F (España, femenil)",4271099,20230917_Granada_Real-Sociedad
+2023-09-17,Levante,Sevilla,2.0,0.0,"Liga F (España, femenil)",4271100,20230917_Levante_Sevilla
+2023-09-30,Sevilla,Madrid CFF,1.0,5.0,"Liga F (España, femenil)",4271080,20230930_Sevilla_Madrid-CFF
+2023-09-30,Granada,Eibar,1.0,2.0,"Liga F (España, femenil)",4271083,20230930_Granada_Eibar
+2023-09-30,Levante,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4271078,20230930_Levante_Atlético-Madrid
+2023-09-30,Villarreal,Valencia,1.0,2.0,"Liga F (España, femenil)",4271084,20230930_Villarreal_Valencia
+2023-10-01,UD Tenerife,Real Madrid,1.0,2.0,"Liga F (España, femenil)",4271082,20231001_UD-Tenerife_Real-Madrid
+2023-10-01,Real Sociedad,Real Betis,2.0,1.0,"Liga F (España, femenil)",4271081,20231001_Real-Sociedad_Real-Betis
+2023-10-01,Levante Badalona,Athletic Club,2.0,1.0,"Liga F (España, femenil)",4271077,20231001_Levante-Badalona_Athletic-Club
+2023-10-01,Huelva,Barcelona,1.0,2.0,"Liga F (España, femenil)",4271079,20231001_Huelva_Barcelona
+2023-10-03,Villarreal,Atlético Madrid,1.0,3.0,"Liga F (España, femenil)",4271096,20231003_Villarreal_Atlético-Madrid
+2023-10-04,Athletic Club,Granada,1.0,0.0,"Liga F (España, femenil)",4271076,20231004_Athletic-Club_Granada
+2023-10-04,Sevilla,UD Tenerife,5.0,1.0,"Liga F (España, femenil)",4271095,20231004_Sevilla_UD-Tenerife
+2023-10-04,Real Sociedad,Levante,1.0,1.0,"Liga F (España, femenil)",4271097,20231004_Real-Sociedad_Levante
+2023-10-04,Eibar,Madrid CFF,1.0,6.0,"Liga F (España, femenil)",4271094,20231004_Eibar_Madrid-CFF
+2023-10-04,Real Madrid,Real Betis,5.0,1.0,"Liga F (España, femenil)",4271098,20231004_Real-Madrid_Real-Betis
+2023-10-05,Levante Badalona,Huelva,1.0,1.0,"Liga F (España, femenil)",4271093,20231005_Levante-Badalona_Huelva
+2023-10-05,Barcelona,Valencia,6.0,0.0,"Liga F (España, femenil)",4271092,20231005_Barcelona_Valencia
+2023-10-07,Atlético Madrid,Sevilla,2.0,1.0,"Liga F (España, femenil)",4271086,20231007_Atlético-Madrid_Sevilla
+2023-10-07,Real Madrid,Villarreal,1.0,0.0,"Liga F (España, femenil)",4271104,20231007_Real-Madrid_Villarreal
+2023-10-08,Eibar,UD Tenerife,0.0,1.0,"Liga F (España, femenil)",4271105,20231008_Eibar_UD-Tenerife
+2023-10-08,Real Betis,Levante,0.0,4.0,"Liga F (España, femenil)",4271088,20231008_Real-Betis_Levante
+2023-10-08,Madrid CFF,Granada,1.0,0.0,"Liga F (España, femenil)",4271117,20231008_Madrid-CFF_Granada
+2023-10-08,Barcelona,Real Sociedad,3.0,0.0,"Liga F (España, femenil)",4271087,20231008_Barcelona_Real-Sociedad
+2023-10-09,Athletic Club,Huelva,3.0,0.0,"Liga F (España, femenil)",4271085,20231009_Athletic-Club_Huelva
+2023-10-09,Valencia,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4271116,20231009_Valencia_Levante-Badalona
+2023-10-14,Villarreal,Athletic Club,3.0,0.0,"Liga F (España, femenil)",4271121,20231014_Villarreal_Athletic-Club
+2023-10-14,Granada,Real Madrid,2.0,5.0,"Liga F (España, femenil)",4271119,20231014_Granada_Real-Madrid
+2023-10-14,Real Sociedad,Eibar,3.0,1.0,"Liga F (España, femenil)",4271114,20231014_Real-Sociedad_Eibar
+2023-10-14,Sevilla,Valencia,1.0,2.0,"Liga F (España, femenil)",4271120,20231014_Sevilla_Valencia
+2023-10-15,UD Tenerife,Real Betis,1.0,0.0,"Liga F (España, femenil)",4271115,20231015_UD-Tenerife_Real-Betis
+2023-10-15,Huelva,Madrid CFF,1.0,3.0,"Liga F (España, femenil)",4271123,20231015_Huelva_Madrid-CFF
+2023-10-15,Levante,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4271122,20231015_Levante_Levante-Badalona
+2023-10-15,Atlético Madrid,Barcelona,0.0,1.0,"Liga F (España, femenil)",4271118,20231015_Atlético-Madrid_Barcelona
+2023-10-21,Eibar,Villarreal,0.0,0.0,"Liga F (España, femenil)",4271111,20231021_Eibar_Villarreal
+2023-10-21,Real Betis,Valencia,2.0,2.0,"Liga F (España, femenil)",4271110,20231021_Real-Betis_Valencia
+2023-10-21,Huelva,Atlético Madrid,0.0,2.0,"Liga F (España, femenil)",4271112,20231021_Huelva_Atlético-Madrid
+2023-10-21,Barcelona,Granada,6.0,1.0,"Liga F (España, femenil)",4271107,20231021_Barcelona_Granada
+2023-10-22,Athletic Club,Real Sociedad,2.0,1.0,"Liga F (España, femenil)",4271106,20231022_Athletic-Club_Real-Sociedad
+2023-10-22,Madrid CFF,UD Tenerife,3.0,2.0,"Liga F (España, femenil)",4271109,20231022_Madrid-CFF_UD-Tenerife
+2023-10-22,Levante Badalona,Sevilla,1.0,2.0,"Liga F (España, femenil)",4271108,20231022_Levante-Badalona_Sevilla
+2023-10-22,Real Madrid,Levante,1.0,2.0,"Liga F (España, femenil)",4271113,20231022_Real-Madrid_Levante
+2023-11-04,Real Sociedad,Villarreal,1.0,0.0,"Liga F (España, femenil)",4271137,20231104_Real-Sociedad_Villarreal
+2023-11-04,Real Betis,Athletic Club,1.0,0.0,"Liga F (España, femenil)",4271139,20231104_Real-Betis_Athletic-Club
+2023-11-04,Valencia,Huelva,2.0,0.0,"Liga F (España, femenil)",4271142,20231104_Valencia_Huelva
+2023-11-04,Eibar,Real Madrid,0.0,1.0,"Liga F (España, femenil)",4271138,20231104_Eibar_Real-Madrid
+2023-11-05,UD Tenerife,Atlético Madrid,2.0,1.0,"Liga F (España, femenil)",4271140,20231105_UD-Tenerife_Atlético-Madrid
+2023-11-05,Granada,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",4271125,20231105_Granada_Levante-Badalona
+2023-11-05,Barcelona,Sevilla,8.0,0.0,"Liga F (España, femenil)",4271124,20231105_Barcelona_Sevilla
+2023-11-05,Madrid CFF,Levante,0.0,1.0,"Liga F (España, femenil)",4271141,20231105_Madrid-CFF_Levante
+2023-11-10,Real Madrid,Real Sociedad,7.0,1.0,"Liga F (España, femenil)",4271134,20231110_Real-Madrid_Real-Sociedad
+2023-11-11,Atlético Madrid,Eibar,3.0,0.0,"Liga F (España, femenil)",4271144,20231111_Atlético-Madrid_Eibar
+2023-11-11,Villarreal,Barcelona,0.0,6.0,"Liga F (España, femenil)",4271126,20231111_Villarreal_Barcelona
+2023-11-11,Huelva,Real Betis,1.0,3.0,"Liga F (España, femenil)",4271128,20231111_Huelva_Real-Betis
+2023-11-12,Levante Badalona,UD Tenerife,3.0,1.0,"Liga F (España, femenil)",4271136,20231112_Levante-Badalona_UD-Tenerife
+2023-11-12,Sevilla,Granada,1.0,0.0,"Liga F (España, femenil)",4271127,20231112_Sevilla_Granada
+2023-11-12,Levante,Valencia,3.0,1.0,"Liga F (España, femenil)",4271135,20231112_Levante_Valencia
+2023-11-12,Athletic Club,Madrid CFF,1.0,2.0,"Liga F (España, femenil)",4271143,20231112_Athletic-Club_Madrid-CFF
+2023-11-18,UD Tenerife,Levante,0.0,1.0,"Liga F (España, femenil)",4271161,20231118_UD-Tenerife_Levante
+2023-11-18,Real Sociedad,Sevilla,1.0,2.0,"Liga F (España, femenil)",4271132,20231118_Real-Sociedad_Sevilla
+2023-11-18,Eibar,Huelva,1.0,0.0,"Liga F (España, femenil)",4271133,20231118_Eibar_Huelva
+2023-11-18,Valencia,Athletic Club,1.0,2.0,"Liga F (España, femenil)",4271145,20231118_Valencia_Athletic-Club
+2023-11-19,Barcelona,Real Madrid,5.0,0.0,"Liga F (España, femenil)",4271129,20231119_Barcelona_Real-Madrid
+2023-11-19,Granada,Villarreal,1.0,2.0,"Liga F (España, femenil)",4271130,20231119_Granada_Villarreal
+2023-11-19,Madrid CFF,Atlético Madrid,1.0,4.0,"Liga F (España, femenil)",4271146,20231119_Madrid-CFF_Atlético-Madrid
+2023-11-19,Real Betis,Levante Badalona,1.0,0.0,"Liga F (España, femenil)",4271131,20231119_Real-Betis_Levante-Badalona
+2023-11-25,Real Sociedad,Valencia,2.0,0.0,"Liga F (España, femenil)",4271166,20231125_Real-Sociedad_Valencia
+2023-11-25,Villarreal,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",4271169,20231125_Villarreal_UD-Tenerife
+2023-11-25,Levante,Eibar,3.0,0.0,"Liga F (España, femenil)",4271168,20231125_Levante_Eibar
+2023-11-25,Sevilla,Real Betis,6.0,0.0,"Liga F (España, femenil)",4271167,20231125_Sevilla_Real-Betis
+2023-11-26,Atlético Madrid,Granada,2.0,0.0,"Liga F (España, femenil)",4271163,20231126_Atlético-Madrid_Granada
+2023-11-26,Real Madrid,Huelva,5.0,2.0,"Liga F (España, femenil)",4271165,20231126_Real-Madrid_Huelva
+2023-11-26,Levante Badalona,Madrid CFF,3.0,4.0,"Liga F (España, femenil)",4271164,20231126_Levante-Badalona_Madrid-CFF
+2023-11-26,Athletic Club,Barcelona,0.0,4.0,"Liga F (España, femenil)",4271162,20231126_Athletic-Club_Barcelona
+2023-12-09,UD Tenerife,Granada,2.0,0.0,"Liga F (España, femenil)",4271159,20231209_UD-Tenerife_Granada
+2023-12-09,Huelva,Real Sociedad,1.0,2.0,"Liga F (España, femenil)",4271148,20231209_Huelva_Real-Sociedad
+2023-12-09,Barcelona,Eibar,5.0,0.0,"Liga F (España, femenil)",4271149,20231209_Barcelona_Eibar
+2023-12-09,Real Madrid,Sevilla,1.0,3.0,"Liga F (España, femenil)",4271171,20231209_Real-Madrid_Sevilla
+2023-12-10,Athletic Club,Levante,1.0,0.0,"Liga F (España, femenil)",4271170,20231210_Athletic-Club_Levante
+2023-12-10,Villarreal,Levante Badalona,2.0,2.0,"Liga F (España, femenil)",4271160,20231210_Villarreal_Levante-Badalona
+2023-12-10,Real Betis,Atlético Madrid,0.0,2.0,"Liga F (España, femenil)",4271172,20231210_Real-Betis_Atlético-Madrid
+2023-12-10,Valencia,Madrid CFF,3.0,4.0,"Liga F (España, femenil)",4271147,20231210_Valencia_Madrid-CFF
+2023-12-16,Atlético Madrid,Real Sociedad,1.0,1.0,"Liga F (España, femenil)",4271150,20231216_Atlético-Madrid_Real-Sociedad
+2023-12-16,Madrid CFF,Villarreal,2.0,0.0,"Liga F (España, femenil)",4271154,20231216_Madrid-CFF_Villarreal
+2023-12-16,Levante,Huelva,2.0,0.0,"Liga F (España, femenil)",4271153,20231216_Levante_Huelva
+2023-12-16,Eibar,Real Betis,3.0,2.0,"Liga F (España, femenil)",4271157,20231216_Eibar_Real-Betis
+2023-12-17,UD Tenerife,Barcelona,0.0,2.0,"Liga F (España, femenil)",4271156,20231217_UD-Tenerife_Barcelona
+2023-12-17,Levante Badalona,Real Madrid,0.0,2.0,"Liga F (España, femenil)",4271151,20231217_Levante-Badalona_Real-Madrid
+2023-12-17,Granada,Valencia,0.0,1.0,"Liga F (España, femenil)",4271152,20231217_Granada_Valencia
+2023-12-17,Sevilla,Athletic Club,1.0,1.0,"Liga F (España, femenil)",4271155,20231217_Sevilla_Athletic-Club
+2024-01-06,Barcelona,Levante Badalona,9.0,1.0,"Liga F (España, femenil)",4271173,20240106_Barcelona_Levante-Badalona
+2024-01-06,Villarreal,Levante,0.0,5.0,"Liga F (España, femenil)",4271184,20240106_Villarreal_Levante
+2024-01-07,Athletic Club,Eibar,2.0,0.0,"Liga F (España, femenil)",4271158,20240107_Athletic-Club_Eibar
+2024-01-07,Real Sociedad,UD Tenerife,3.0,3.0,"Liga F (España, femenil)",4271186,20240107_Real-Sociedad_UD-Tenerife
+2024-01-07,Real Betis,Granada,2.0,3.0,"Liga F (España, femenil)",4271174,20240107_Real-Betis_Granada
+2024-01-07,Valencia,Atlético Madrid,1.0,6.0,"Liga F (España, femenil)",4271185,20240107_Valencia_Atlético-Madrid
+2024-01-07,Real Madrid,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",4271183,20240107_Real-Madrid_Madrid-CFF
+2024-01-07,Huelva,Sevilla,1.0,3.0,"Liga F (España, femenil)",4271182,20240107_Huelva_Sevilla
+2024-01-20,Sevilla,Villarreal,3.0,1.0,"Liga F (España, femenil)",4271176,20240120_Sevilla_Villarreal
+2024-01-20,Levante Badalona,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4271179,20240120_Levante-Badalona_Real-Sociedad
+2024-01-20,Madrid CFF,Real Betis,3.0,1.0,"Liga F (España, femenil)",4271187,20240120_Madrid-CFF_Real-Betis
+2024-01-21,UD Tenerife,Athletic Club,1.0,1.0,"Liga F (España, femenil)",4271175,20240121_UD-Tenerife_Athletic-Club
+2024-01-21,Granada,Huelva,0.0,1.0,"Liga F (España, femenil)",4271178,20240121_Granada_Huelva
+2024-01-21,Eibar,Valencia,1.0,0.0,"Liga F (España, femenil)",4271177,20240121_Eibar_Valencia
+2024-01-27,Valencia,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",4271213,20240127_Valencia_UD-Tenerife
+2024-01-27,Levante Badalona,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4271209,20240127_Levante-Badalona_Atlético-Madrid
+2024-01-27,Huelva,Villarreal,0.0,1.0,"Liga F (España, femenil)",4271208,20240127_Huelva_Villarreal
+2024-01-27,Athletic Club,Real Madrid,0.0,1.0,"Liga F (España, femenil)",4271188,20240127_Athletic-Club_Real-Madrid
+2024-01-28,Levante,Granada,2.0,2.0,"Liga F (España, femenil)",4271210,20240128_Levante_Granada
+2024-01-28,Real Betis,Barcelona,0.0,6.0,"Liga F (España, femenil)",4271207,20240128_Real-Betis_Barcelona
+2024-01-28,Real Sociedad,Madrid CFF,1.0,1.0,"Liga F (España, femenil)",4271211,20240128_Real-Sociedad_Madrid-CFF
+2024-01-28,Sevilla,Eibar,3.0,0.0,"Liga F (España, femenil)",4271212,20240128_Sevilla_Eibar
+2024-02-03,Granada,Athletic Club,2.0,0.0,"Liga F (España, femenil)",4271219,20240203_Granada_Athletic-Club
+2024-02-03,Madrid CFF,Sevilla,3.0,3.0,"Liga F (España, femenil)",4271216,20240203_Madrid-CFF_Sevilla
+2024-02-03,Atlético Madrid,Levante,0.0,1.0,"Liga F (España, femenil)",4271214,20240203_Atlético-Madrid_Levante
+2024-02-03,Villarreal,Real Betis,2.0,1.0,"Liga F (España, femenil)",4271221,20240203_Villarreal_Real-Betis
+2024-02-03,Real Madrid,Valencia,7.0,1.0,"Liga F (España, femenil)",4271217,20240203_Real-Madrid_Valencia
+2024-02-04,Eibar,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4271218,20240204_Eibar_Real-Sociedad
+2024-02-04,UD Tenerife,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4271220,20240204_UD-Tenerife_Levante-Badalona
+2024-02-04,Barcelona,Huelva,4.0,0.0,"Liga F (España, femenil)",4271215,20240204_Barcelona_Huelva
+2024-02-10,Levante Badalona,Eibar,1.0,1.0,"Liga F (España, femenil)",4271192,20240210_Levante-Badalona_Eibar
+2024-02-10,Valencia,Villarreal,0.0,1.0,"Liga F (España, femenil)",4271189,20240210_Valencia_Villarreal
+2024-02-10,Sevilla,Barcelona,0.0,3.0,"Liga F (España, femenil)",4271191,20240210_Sevilla_Barcelona
+2024-02-11,Levante,UD Tenerife,1.0,0.0,"Liga F (España, femenil)",4271205,20240211_Levante_UD-Tenerife
+2024-02-11,Real Sociedad,Granada,1.0,1.0,"Liga F (España, femenil)",4271193,20240211_Real-Sociedad_Granada
+2024-02-11,Real Betis,Real Madrid,1.0,4.0,"Liga F (España, femenil)",4271204,20240211_Real-Betis_Real-Madrid
+2024-02-11,Atlético Madrid,Madrid CFF,1.0,1.0,"Liga F (España, femenil)",4271206,20240211_Atlético-Madrid_Madrid-CFF
+2024-02-11,Huelva,Athletic Club,1.0,2.0,"Liga F (España, femenil)",4271190,20240211_Huelva_Athletic-Club
+2024-02-14,Barcelona,Levante,1.0,1.0,"Liga F (España, femenil)",4271180,20240214_Barcelona_Levante
+2024-02-14,Atlético Madrid,Real Madrid,1.0,1.0,"Liga F (España, femenil)",4271181,20240214_Atlético-Madrid_Real-Madrid
+2024-02-17,Huelva,Valencia,1.0,3.0,"Liga F (España, femenil)",4271198,20240217_Huelva_Valencia
+2024-02-17,Granada,Sevilla,2.0,2.0,"Liga F (España, femenil)",4271195,20240217_Granada_Sevilla
+2024-02-17,Athletic Club,Real Betis,1.0,0.0,"Liga F (España, femenil)",4271194,20240217_Athletic-Club_Real-Betis
+2024-02-17,Villarreal,Real Sociedad,1.0,1.0,"Liga F (España, femenil)",4271201,20240217_Villarreal_Real-Sociedad
+2024-02-18,Eibar,Levante,0.0,0.0,"Liga F (España, femenil)",4271197,20240218_Eibar_Levante
+2024-02-18,Barcelona,Atlético Madrid,2.0,0.0,"Liga F (España, femenil)",4271199,20240218_Barcelona_Atlético-Madrid
+2024-02-18,Real Madrid,UD Tenerife,2.0,1.0,"Liga F (España, femenil)",4271196,20240218_Real-Madrid_UD-Tenerife
+2024-02-18,Madrid CFF,Levante Badalona,2.0,1.0,"Liga F (España, femenil)",4271200,20240218_Madrid-CFF_Levante-Badalona
+2024-03-09,UD Tenerife,Villarreal,1.0,1.0,"Liga F (España, femenil)",4271203,20240309_UD-Tenerife_Villarreal
+2024-03-09,Levante Badalona,Granada,1.0,2.0,"Liga F (España, femenil)",4271224,20240309_Levante-Badalona_Granada
+2024-03-09,Madrid CFF,Eibar,1.0,2.0,"Liga F (España, femenil)",4271227,20240309_Madrid-CFF_Eibar
+2024-03-09,Sevilla,Real Madrid,0.0,1.0,"Liga F (España, femenil)",4271226,20240309_Sevilla_Real-Madrid
+2024-03-10,Levante,Athletic Club,1.0,2.0,"Liga F (España, femenil)",4271222,20240310_Levante_Athletic-Club
+2024-03-10,Real Sociedad,Barcelona,1.0,7.0,"Liga F (España, femenil)",4271223,20240310_Real-Sociedad_Barcelona
+2024-03-10,Valencia,Real Betis,2.0,2.0,"Liga F (España, femenil)",4271225,20240310_Valencia_Real-Betis
+2024-03-10,Atlético Madrid,Huelva,1.0,0.0,"Liga F (España, femenil)",4271202,20240310_Atlético-Madrid_Huelva
+2024-03-16,Villarreal,Madrid CFF,1.0,4.0,"Liga F (España, femenil)",4271253,20240316_Villarreal_Madrid-CFF
+2024-03-16,Huelva,Levante,1.0,1.0,"Liga F (España, femenil)",4271255,20240316_Huelva_Levante
+2024-03-16,Sevilla,Levante Badalona,3.0,0.0,"Liga F (España, femenil)",4271256,20240316_Sevilla_Levante-Badalona
+2024-03-16,Real Madrid,Eibar,1.0,0.0,"Liga F (España, femenil)",4271254,20240316_Real-Madrid_Eibar
+2024-03-17,Granada,Atlético Madrid,0.0,1.0,"Liga F (España, femenil)",4271257,20240317_Granada_Atlético-Madrid
+2024-03-17,Barcelona,UD Tenerife,7.0,0.0,"Liga F (España, femenil)",4271259,20240317_Barcelona_UD-Tenerife
+2024-03-17,Real Betis,Real Sociedad,0.0,0.0,"Liga F (España, femenil)",4271258,20240317_Real-Betis_Real-Sociedad
+2024-03-17,Athletic Club,Valencia,2.0,0.0,"Liga F (España, femenil)",4271260,20240317_Athletic-Club_Valencia
+2024-03-23,UD Tenerife,Sevilla,5.0,0.0,"Liga F (España, femenil)",4271267,20240323_UD-Tenerife_Sevilla
+2024-03-23,Levante,Real Betis,7.0,0.0,"Liga F (España, femenil)",4271268,20240323_Levante_Real-Betis
+2024-03-23,Real Sociedad,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4271262,20240323_Real-Sociedad_Athletic-Club
+2024-03-23,Valencia,Granada,4.0,1.0,"Liga F (España, femenil)",4271269,20240323_Valencia_Granada
+2024-03-24,Eibar,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4271271,20240324_Eibar_Atlético-Madrid
+2024-03-24,Levante Badalona,Villarreal,1.0,1.0,"Liga F (España, femenil)",4271252,20240324_Levante-Badalona_Villarreal
+2024-03-24,Madrid CFF,Huelva,2.0,1.0,"Liga F (España, femenil)",4271261,20240324_Madrid-CFF_Huelva
+2024-03-24,Real Madrid,Barcelona,0.0,3.0,"Liga F (España, femenil)",4271270,20240324_Real-Madrid_Barcelona
+2024-03-30,Sevilla,Real Sociedad,4.0,2.0,"Liga F (España, femenil)",4271237,20240330_Sevilla_Real-Sociedad
+2024-03-30,Real Betis,Eibar,0.0,0.0,"Liga F (España, femenil)",4271263,20240330_Real-Betis_Eibar
+2024-03-30,Atlético Madrid,Valencia,1.0,0.0,"Liga F (España, femenil)",4271265,20240330_Atlético-Madrid_Valencia
+2024-03-30,Villarreal,Real Madrid,0.0,2.0,"Liga F (España, femenil)",4271249,20240330_Villarreal_Real-Madrid
+2024-03-31,Huelva,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",4271251,20240331_Huelva_UD-Tenerife
+2024-03-31,Granada,Madrid CFF,3.0,0.0,"Liga F (España, femenil)",4271264,20240331_Granada_Madrid-CFF
+2024-03-31,Athletic Club,Levante Badalona,4.0,1.0,"Liga F (España, femenil)",4271266,20240331_Athletic-Club_Levante-Badalona
+2024-03-31,Levante,Barcelona,0.0,5.0,"Liga F (España, femenil)",4271250,20240331_Levante_Barcelona
+2024-04-13,Real Sociedad,Huelva,1.0,1.0,"Liga F (España, femenil)",4271234,20240413_Real-Sociedad_Huelva
+2024-04-13,Eibar,Sevilla,3.0,0.0,"Liga F (España, femenil)",4271233,20240413_Eibar_Sevilla
+2024-04-13,Levante Badalona,Real Betis,1.0,2.0,"Liga F (España, femenil)",4271229,20240413_Levante-Badalona_Real-Betis
+2024-04-13,Barcelona,Villarreal,5.0,1.0,"Liga F (España, femenil)",4271235,20240413_Barcelona_Villarreal
+2024-04-14,Athletic Club,Atlético Madrid,1.0,0.0,"Liga F (España, femenil)",4271236,20240414_Athletic-Club_Atlético-Madrid
+2024-04-14,UD Tenerife,Madrid CFF,2.0,2.0,"Liga F (España, femenil)",4271230,20240414_UD-Tenerife_Madrid-CFF
+2024-04-14,Valencia,Levante,1.0,1.0,"Liga F (España, femenil)",4271231,20240414_Valencia_Levante
+2024-04-14,Real Madrid,Granada,5.0,0.0,"Liga F (España, femenil)",4271232,20240414_Real-Madrid_Granada
+2024-04-20,Levante,Real Madrid,2.0,4.0,"Liga F (España, femenil)",4271248,20240420_Levante_Real-Madrid
+2024-04-20,Granada,UD Tenerife,2.0,1.0,"Liga F (España, femenil)",4271239,20240420_Granada_UD-Tenerife
+2024-04-20,Huelva,Eibar,0.0,1.0,"Liga F (España, femenil)",4271244,20240420_Huelva_Eibar
+2024-04-20,Madrid CFF,Athletic Club,2.0,1.0,"Liga F (España, femenil)",4271247,20240420_Madrid-CFF_Athletic-Club
+2024-04-21,Atlético Madrid,Real Betis,5.0,1.0,"Liga F (España, femenil)",4271238,20240421_Atlético-Madrid_Real-Betis
+2024-04-21,Villarreal,Sevilla,1.0,2.0,"Liga F (España, femenil)",4271243,20240421_Villarreal_Sevilla
+2024-04-21,Valencia,Real Sociedad,3.0,0.0,"Liga F (España, femenil)",4271245,20240421_Valencia_Real-Sociedad
+2024-04-24,Levante Badalona,Barcelona,2.0,4.0,"Liga F (España, femenil)",4271246,20240424_Levante-Badalona_Barcelona
+2024-04-27,UD Tenerife,Valencia,1.0,0.0,"Liga F (España, femenil)",4271240,20240427_UD-Tenerife_Valencia
+2024-04-27,Villarreal,Granada,1.0,2.0,"Liga F (España, femenil)",4271303,20240427_Villarreal_Granada
+2024-04-27,Real Betis,Huelva,3.0,1.0,"Liga F (España, femenil)",4271241,20240427_Real-Betis_Huelva
+2024-04-27,Sevilla,Levante,1.0,3.0,"Liga F (España, femenil)",4271302,20240427_Sevilla_Levante
+2024-04-28,Eibar,Athletic Club,0.0,2.0,"Liga F (España, femenil)",4271228,20240428_Eibar_Athletic-Club
+2024-04-28,Real Sociedad,Atlético Madrid,0.0,2.0,"Liga F (España, femenil)",4271272,20240428_Real-Sociedad_Atlético-Madrid
+2024-04-28,Real Madrid,Levante Badalona,2.0,1.0,"Liga F (España, femenil)",4271304,20240428_Real-Madrid_Levante-Badalona
+2024-05-01,Barcelona,Madrid CFF,8.0,0.0,"Liga F (España, femenil)",4271242,20240501_Barcelona_Madrid-CFF
+2024-05-04,Atlético Madrid,UD Tenerife,1.0,0.0,"Liga F (España, femenil)",4271300,20240504_Atlético-Madrid_UD-Tenerife
+2024-05-04,Valencia,Eibar,0.0,2.0,"Liga F (España, femenil)",4271306,20240504_Valencia_Eibar
+2024-05-04,Athletic Club,Villarreal,1.0,0.0,"Liga F (España, femenil)",4271301,20240504_Athletic-Club_Villarreal
+2024-05-04,Granada,Barcelona,1.0,4.0,"Liga F (España, femenil)",4271296,20240504_Granada_Barcelona
+2024-05-05,Levante,Real Sociedad,4.0,3.0,"Liga F (España, femenil)",4271299,20240505_Levante_Real-Sociedad
+2024-05-05,Huelva,Levante Badalona,1.0,2.0,"Liga F (España, femenil)",4271305,20240505_Huelva_Levante-Badalona
+2024-05-05,Real Betis,Sevilla,1.0,1.0,"Liga F (España, femenil)",4271297,20240505_Real-Betis_Sevilla
+2024-05-05,Madrid CFF,Real Madrid,0.0,1.0,"Liga F (España, femenil)",4271298,20240505_Madrid-CFF_Real-Madrid
+2024-05-10,Villarreal,Eibar,1.0,1.0,"Liga F (España, femenil)",4271308,20240510_Villarreal_Eibar
+2024-05-10,Barcelona,Athletic Club,7.0,0.0,"Liga F (España, femenil)",4271312,20240510_Barcelona_Athletic-Club
+2024-05-11,Granada,Real Betis,2.0,3.0,"Liga F (España, femenil)",4271310,20240511_Granada_Real-Betis
+2024-05-11,Levante Badalona,Levante,1.0,1.0,"Liga F (España, femenil)",4271315,20240511_Levante-Badalona_Levante
+2024-05-11,Real Madrid,Atlético Madrid,2.0,3.0,"Liga F (España, femenil)",4271311,20240511_Real-Madrid_Atlético-Madrid
+2024-05-12,UD Tenerife,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",4271309,20240512_UD-Tenerife_Real-Sociedad
+2024-05-12,Sevilla,Huelva,2.0,0.0,"Liga F (España, femenil)",4271313,20240512_Sevilla_Huelva
+2024-05-12,Madrid CFF,Valencia,6.0,1.0,"Liga F (España, femenil)",4271314,20240512_Madrid-CFF_Valencia
+2024-05-14,Eibar,Barcelona,0.0,4.0,"Liga F (España, femenil)",4271281,20240514_Eibar_Barcelona
+2024-05-24,Athletic Club,UD Tenerife,4.0,1.0,"Liga F (España, femenil)",4271307,20240524_Athletic-Club_UD-Tenerife
+2024-05-24,Atlético Madrid,Levante Badalona,3.0,1.0,"Liga F (España, femenil)",4271295,20240524_Atlético-Madrid_Levante-Badalona
+2024-05-25,Huelva,Granada,2.0,1.0,"Liga F (España, femenil)",4271280,20240525_Huelva_Granada
+2024-05-25,Levante,Villarreal,2.0,1.0,"Liga F (España, femenil)",4271294,20240525_Levante_Villarreal
+2024-05-26,Valencia,Sevilla,3.0,1.0,"Liga F (España, femenil)",4271278,20240526_Valencia_Sevilla
+2024-05-26,Real Sociedad,Real Madrid,1.0,2.0,"Liga F (España, femenil)",4271279,20240526_Real-Sociedad_Real-Madrid
+2024-05-26,Real Betis,Madrid CFF,0.0,0.0,"Liga F (España, femenil)",4271282,20240526_Real-Betis_Madrid-CFF
+2024-06-09,UD Tenerife,Eibar,1.0,1.0,"Liga F (España, femenil)",4271293,20240609_UD-Tenerife_Eibar
+2024-06-09,Madrid CFF,Real Sociedad,2.0,3.0,"Liga F (España, femenil)",4271275,20240609_Madrid-CFF_Real-Sociedad
+2024-06-09,Real Madrid,Athletic Club,1.0,0.0,"Liga F (España, femenil)",4271274,20240609_Real-Madrid_Athletic-Club
+2024-06-09,Barcelona,Real Betis,5.0,1.0,"Liga F (España, femenil)",4271284,20240609_Barcelona_Real-Betis
+2024-06-09,Levante Badalona,Valencia,3.0,0.0,"Liga F (España, femenil)",4271277,20240609_Levante-Badalona_Valencia
+2024-06-09,Granada,Levante,0.0,3.0,"Liga F (España, femenil)",4271276,20240609_Granada_Levante
+2024-06-09,Sevilla,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4271283,20240609_Sevilla_Atlético-Madrid
+2024-06-09,Villarreal,Huelva,2.0,0.0,"Liga F (España, femenil)",4271292,20240609_Villarreal_Huelva
+2024-06-14,Huelva,Real Madrid,1.0,4.0,"Liga F (España, femenil)",4271273,20240614_Huelva_Real-Madrid
+2024-06-15,Atlético Madrid,Villarreal,1.0,0.0,"Liga F (España, femenil)",4271290,20240615_Atlético-Madrid_Villarreal
+2024-06-15,Eibar,Granada,0.0,2.0,"Liga F (España, femenil)",4271287,20240615_Eibar_Granada
+2024-06-15,Levante,Madrid CFF,3.0,0.0,"Liga F (España, femenil)",4271289,20240615_Levante_Madrid-CFF
+2024-06-15,Real Betis,UD Tenerife,1.0,0.0,"Liga F (España, femenil)",4271288,20240615_Real-Betis_UD-Tenerife
+2024-06-15,Real Sociedad,Levante Badalona,2.0,2.0,"Liga F (España, femenil)",4271285,20240615_Real-Sociedad_Levante-Badalona
+2024-06-16,Valencia,Barcelona,0.0,3.0,"Liga F (España, femenil)",4271286,20240616_Valencia_Barcelona
+2024-06-16,Athletic Club,Sevilla,2.0,1.0,"Liga F (España, femenil)",4271291,20240616_Athletic-Club_Sevilla
+2024-09-06,Espanyol,Real Madrid,0.0,5.0,"Liga F (España, femenil)",4613300,20240906_Espanyol_Real-Madrid
+2024-09-07,Madrid CFF,UD Tenerife,2.0,1.0,"Liga F (España, femenil)",4613298,20240907_Madrid-CFF_UD-Tenerife
+2024-09-07,Eibar,Real Betis,2.0,0.0,"Liga F (España, femenil)",4613301,20240907_Eibar_Real-Betis
+2024-09-07,Sevilla,Real Sociedad,3.0,2.0,"Liga F (España, femenil)",4613297,20240907_Sevilla_Real-Sociedad
+2024-09-08,Levante,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4613299,20240908_Levante_Athletic-Club
+2024-09-08,Deportivo de A Coruña,Barcelona,0.0,3.0,"Liga F (España, femenil)",4613302,20240908_Deportivo-de-A-Coruña_Barcelona
+2024-09-08,Valencia,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4613296,20240908_Valencia_Levante-Badalona
+2024-09-11,Atlético Madrid,Granada,2.0,0.0,"Liga F (España, femenil)",4613289,20240911_Atlético-Madrid_Granada
+2024-09-13,Barcelona,Real Sociedad,3.0,1.0,"Liga F (España, femenil)",4613293,20240913_Barcelona_Real-Sociedad
+2024-09-14,UD Tenerife,Sevilla,4.0,1.0,"Liga F (España, femenil)",4613288,20240914_UD-Tenerife_Sevilla
+2024-09-14,Real Betis,Real Madrid,0.0,3.0,"Liga F (España, femenil)",4613274,20240914_Real-Betis_Real-Madrid
+2024-09-14,Levante Badalona,Levante,2.0,0.0,"Liga F (España, femenil)",4613291,20240914_Levante-Badalona_Levante
+2024-09-15,Athletic Club,Granada,2.0,1.0,"Liga F (España, femenil)",4613295,20240915_Athletic-Club_Granada
+2024-09-15,Madrid CFF,Espanyol,2.0,1.0,"Liga F (España, femenil)",4613290,20240915_Madrid-CFF_Espanyol
+2024-09-15,Atlético Madrid,Deportivo de A Coruña,2.0,1.0,"Liga F (España, femenil)",4613294,20240915_Atlético-Madrid_Deportivo-de-A-Coruña
+2024-09-15,Eibar,Valencia,2.0,0.0,"Liga F (España, femenil)",4613292,20240915_Eibar_Valencia
+2024-09-21,Granada,Eibar,2.0,0.0,"Liga F (España, femenil)",4613285,20240921_Granada_Eibar
+2024-09-21,Levante,Real Sociedad,1.0,2.0,"Liga F (España, femenil)",4613284,20240921_Levante_Real-Sociedad
+2024-09-21,Levante Badalona,Madrid CFF,1.0,0.0,"Liga F (España, femenil)",4613283,20240921_Levante-Badalona_Madrid-CFF
+2024-09-21,Sevilla,Barcelona,0.0,1.0,"Liga F (España, femenil)",4613281,20240921_Sevilla_Barcelona
+2024-09-22,Espanyol,UD Tenerife,0.0,0.0,"Liga F (España, femenil)",4613286,20240922_Espanyol_UD-Tenerife
+2024-09-22,Valencia,Atlético Madrid,0.0,4.0,"Liga F (España, femenil)",4613280,20240922_Valencia_Atlético-Madrid
+2024-09-22,Deportivo de A Coruña,Real Betis,0.0,0.0,"Liga F (España, femenil)",4613287,20240922_Deportivo-de-A-Coruña_Real-Betis
+2024-09-22,Real Madrid,Athletic Club,2.0,0.0,"Liga F (España, femenil)",4613282,20240922_Real-Madrid_Athletic-Club
+2024-09-27,Atlético Madrid,Madrid CFF,4.0,0.0,"Liga F (España, femenil)",4613279,20240927_Atlético-Madrid_Madrid-CFF
+2024-09-28,Eibar,Levante,0.0,3.0,"Liga F (España, femenil)",4613276,20240928_Eibar_Levante
+2024-09-28,Real Betis,Espanyol,0.0,0.0,"Liga F (España, femenil)",4613275,20240928_Real-Betis_Espanyol
+2024-09-28,Barcelona,Granada,10.0,1.0,"Liga F (España, femenil)",4613278,20240928_Barcelona_Granada
+2024-09-28,Deportivo de A Coruña,Athletic Club,2.0,2.0,"Liga F (España, femenil)",4613277,20240928_Deportivo-de-A-Coruña_Athletic-Club
+2024-09-29,Valencia,Sevilla,1.0,3.0,"Liga F (España, femenil)",4613329,20240929_Valencia_Sevilla
+2024-09-29,Real Sociedad,Levante Badalona,2.0,1.0,"Liga F (España, femenil)",4613317,20240929_Real-Sociedad_Levante-Badalona
+2024-09-29,UD Tenerife,Real Madrid,1.0,4.0,"Liga F (España, femenil)",4613330,20240929_UD-Tenerife_Real-Madrid
+2024-10-04,Real Madrid,Valencia,1.0,0.0,"Liga F (España, femenil)",4613321,20241004_Real-Madrid_Valencia
+2024-10-05,Athletic Club,Atlético Madrid,0.0,2.0,"Liga F (España, femenil)",4613328,20241005_Athletic-Club_Atlético-Madrid
+2024-10-05,Madrid CFF,Barcelona,1.0,8.0,"Liga F (España, femenil)",4613323,20241005_Madrid-CFF_Barcelona
+2024-10-05,Levante,Sevilla,0.0,0.0,"Liga F (España, femenil)",4613325,20241005_Levante_Sevilla
+2024-10-06,Granada,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4613326,20241006_Granada_Real-Sociedad
+2024-10-06,Real Betis,UD Tenerife,0.0,1.0,"Liga F (España, femenil)",4613322,20241006_Real-Betis_UD-Tenerife
+2024-10-06,Espanyol,Eibar,2.0,1.0,"Liga F (España, femenil)",4613327,20241006_Espanyol_Eibar
+2024-10-06,Levante Badalona,Deportivo de A Coruña,1.0,0.0,"Liga F (España, femenil)",4613324,20241006_Levante-Badalona_Deportivo-de-A-Coruña
+2024-10-12,Real Sociedad,Real Betis,4.0,0.0,"Liga F (España, femenil)",4613316,20241012_Real-Sociedad_Real-Betis
+2024-10-12,UD Tenerife,Levante,0.0,0.0,"Liga F (España, femenil)",4613314,20241012_UD-Tenerife_Levante
+2024-10-12,Deportivo de A Coruña,Madrid CFF,1.0,0.0,"Liga F (España, femenil)",4613319,20241012_Deportivo-de-A-Coruña_Madrid-CFF
+2024-10-13,Eibar,Athletic Club,1.0,2.0,"Liga F (España, femenil)",4613318,20241013_Eibar_Athletic-Club
+2024-10-13,Valencia,Granada,0.0,2.0,"Liga F (España, femenil)",4613313,20241013_Valencia_Granada
+2024-10-13,Sevilla,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",4613315,20241013_Sevilla_Levante-Badalona
+2024-10-13,Barcelona,Espanyol,7.0,1.0,"Liga F (España, femenil)",4613320,20241013_Barcelona_Espanyol
+2024-10-13,Real Madrid,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4613303,20241013_Real-Madrid_Atlético-Madrid
+2024-10-19,Levante Badalona,UD Tenerife,0.0,0.0,"Liga F (España, femenil)",4613307,20241019_Levante-Badalona_UD-Tenerife
+2024-10-19,Granada,Real Betis,1.0,2.0,"Liga F (España, femenil)",4613309,20241019_Granada_Real-Betis
+2024-10-19,Atlético Madrid,Real Sociedad,1.0,0.0,"Liga F (España, femenil)",4613311,20241019_Atlético-Madrid_Real-Sociedad
+2024-10-19,Sevilla,Espanyol,1.0,0.0,"Liga F (España, femenil)",4613305,20241019_Sevilla_Espanyol
+2024-10-20,Athletic Club,Valencia,1.0,1.0,"Liga F (España, femenil)",4613312,20241020_Athletic-Club_Valencia
+2024-10-20,Eibar,Deportivo de A Coruña,0.0,0.0,"Liga F (España, femenil)",4613310,20241020_Eibar_Deportivo-de-A-Coruña
+2024-10-20,Levante,Barcelona,1.0,4.0,"Liga F (España, femenil)",4613308,20241020_Levante_Barcelona
+2024-10-20,Madrid CFF,Real Madrid,0.0,1.0,"Liga F (España, femenil)",4613306,20241020_Madrid-CFF_Real-Madrid
+2024-11-02,UD Tenerife,Athletic Club,2.0,1.0,"Liga F (España, femenil)",4613357,20241102_UD-Tenerife_Athletic-Club
+2024-11-02,Espanyol,Atlético Madrid,0.0,0.0,"Liga F (España, femenil)",4613331,20241102_Espanyol_Atlético-Madrid
+2024-11-02,Real Betis,Levante Badalona,4.0,3.0,"Liga F (España, femenil)",4613360,20241102_Real-Betis_Levante-Badalona
+2024-11-02,Barcelona,Eibar,4.0,0.0,"Liga F (España, femenil)",4613304,20241102_Barcelona_Eibar
+2024-11-03,Granada,Sevilla,3.0,0.0,"Liga F (España, femenil)",4613347,20241103_Granada_Sevilla
+2024-11-03,Real Sociedad,Madrid CFF,2.0,2.0,"Liga F (España, femenil)",4613358,20241103_Real-Sociedad_Madrid-CFF
+2024-11-09,Madrid CFF,Sevilla,2.0,1.0,"Liga F (España, femenil)",4613348,20241109_Madrid-CFF_Sevilla
+2024-11-09,Levante Badalona,Real Madrid,1.0,3.0,"Liga F (España, femenil)",4613349,20241109_Levante-Badalona_Real-Madrid
+2024-11-09,Atlético Madrid,Barcelona,0.0,3.0,"Liga F (España, femenil)",4613354,20241109_Atlético-Madrid_Barcelona
+2024-11-10,Deportivo de A Coruña,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",4613353,20241110_Deportivo-de-A-Coruña_Real-Sociedad
+2024-11-10,Eibar,UD Tenerife,0.0,0.0,"Liga F (España, femenil)",4613352,20241110_Eibar_UD-Tenerife
+2024-11-10,Athletic Club,Real Betis,3.0,0.0,"Liga F (España, femenil)",4613355,20241110_Athletic-Club_Real-Betis
+2024-11-10,Espanyol,Granada,1.0,0.0,"Liga F (España, femenil)",4613351,20241110_Espanyol_Granada
+2024-11-16,UD Tenerife,Valencia,2.0,0.0,"Liga F (España, femenil)",4613340,20241116_UD-Tenerife_Valencia
+2024-11-16,Granada,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4613346,20241116_Granada_Levante-Badalona
+2024-11-16,Madrid CFF,Eibar,2.0,1.0,"Liga F (España, femenil)",4613345,20241116_Madrid-CFF_Eibar
+2024-11-16,Real Madrid,Barcelona,0.0,4.0,"Liga F (España, femenil)",4613343,20241116_Real-Madrid_Barcelona
+2024-11-17,Deportivo de A Coruña,Espanyol,0.0,1.0,"Liga F (España, femenil)",4613332,20241117_Deportivo-de-A-Coruña_Espanyol
+2024-11-17,Real Betis,Levante,1.0,2.0,"Liga F (España, femenil)",4613344,20241117_Real-Betis_Levante
+2024-11-17,Sevilla,Atlético Madrid,1.0,2.0,"Liga F (España, femenil)",4613341,20241117_Sevilla_Atlético-Madrid
+2024-11-17,Real Sociedad,Athletic Club,1.0,0.0,"Liga F (España, femenil)",4613342,20241117_Real-Sociedad_Athletic-Club
+2024-11-23,Levante Badalona,Espanyol,1.0,1.0,"Liga F (España, femenil)",4613335,20241123_Levante-Badalona_Espanyol
+2024-11-23,Sevilla,Deportivo de A Coruña,2.0,1.0,"Liga F (España, femenil)",4613333,20241123_Sevilla_Deportivo-de-A-Coruña
+2024-11-23,Athletic Club,Madrid CFF,1.0,0.0,"Liga F (España, femenil)",4613339,20241123_Athletic-Club_Madrid-CFF
+2024-11-24,Barcelona,UD Tenerife,5.0,1.0,"Liga F (España, femenil)",4613337,20241124_Barcelona_UD-Tenerife
+2024-11-24,Levante,Granada,2.0,3.0,"Liga F (España, femenil)",4613336,20241124_Levante_Granada
+2024-11-24,Atlético Madrid,Eibar,1.0,1.0,"Liga F (España, femenil)",4613338,20241124_Atlético-Madrid_Eibar
+2024-11-24,Valencia,Real Betis,0.0,2.0,"Liga F (España, femenil)",4613374,20241124_Valencia_Real-Betis
+2024-12-07,Granada,Deportivo de A Coruña,5.0,0.0,"Liga F (España, femenil)",4613381,20241207_Granada_Deportivo-de-A-Coruña
+2024-12-07,Athletic Club,Levante Badalona,1.0,0.0,"Liga F (España, femenil)",4613385,20241207_Athletic-Club_Levante-Badalona
+2024-12-07,Real Madrid,Sevilla,4.0,1.0,"Liga F (España, femenil)",4613379,20241207_Real-Madrid_Sevilla
+2024-12-07,Barcelona,Real Betis,4.0,1.0,"Liga F (España, femenil)",4613384,20241207_Barcelona_Real-Betis
+2024-12-08,Eibar,Real Sociedad,1.0,1.0,"Liga F (España, femenil)",4613383,20241208_Eibar_Real-Sociedad
+2024-12-08,UD Tenerife,Atlético Madrid,2.0,2.0,"Liga F (España, femenil)",4613378,20241208_UD-Tenerife_Atlético-Madrid
+2024-12-08,Madrid CFF,Levante,2.0,1.0,"Liga F (España, femenil)",4613380,20241208_Madrid-CFF_Levante
+2024-12-08,Espanyol,Valencia,1.0,0.0,"Liga F (España, femenil)",4613382,20241208_Espanyol_Valencia
+2024-12-14,Granada,Madrid CFF,1.0,0.0,"Liga F (España, femenil)",4613376,20241214_Granada_Madrid-CFF
+2024-12-14,Real Betis,Atlético Madrid,2.0,1.0,"Liga F (España, femenil)",4613373,20241214_Real-Betis_Atlético-Madrid
+2024-12-14,Deportivo de A Coruña,Real Madrid,1.0,4.0,"Liga F (España, femenil)",4613377,20241214_Deportivo-de-A-Coruña_Real-Madrid
+2024-12-14,Real Sociedad,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",4613372,20241214_Real-Sociedad_UD-Tenerife
+2024-12-15,Valencia,Barcelona,0.0,1.0,"Liga F (España, femenil)",4613370,20241215_Valencia_Barcelona
+2024-12-15,Levante Badalona,Eibar,0.0,1.0,"Liga F (España, femenil)",4613361,20241215_Levante-Badalona_Eibar
+2024-12-15,Levante,Espanyol,1.0,1.0,"Liga F (España, femenil)",4613375,20241215_Levante_Espanyol
+2024-12-15,Sevilla,Athletic Club,2.0,5.0,"Liga F (España, femenil)",4613371,20241215_Sevilla_Athletic-Club
+2024-12-18,Valencia,Deportivo de A Coruña,0.0,2.0,"Liga F (España, femenil)",4613356,20241218_Valencia_Deportivo-de-A-Coruña
+2025-01-05,Atlético Madrid,Real Madrid,1.0,2.0,"Liga F (España, femenil)",4613415,20250105_Atlético-Madrid_Real-Madrid
+2025-01-05,Levante,Valencia,0.0,1.0,"Liga F (España, femenil)",4613350,20250105_Levante_Valencia
+2025-01-05,Real Sociedad,Barcelona,0.0,6.0,"Liga F (España, femenil)",4613410,20250105_Real-Sociedad_Barcelona
+2025-01-08,Real Madrid,Levante,6.0,0.0,"Liga F (España, femenil)",4613359,20250108_Real-Madrid_Levante
+2025-01-11,UD Tenerife,Deportivo de A Coruña,5.0,1.0,"Liga F (España, femenil)",4613363,20250111_UD-Tenerife_Deportivo-de-A-Coruña
+2025-01-11,Espanyol,Athletic Club,1.0,2.0,"Liga F (España, femenil)",4613366,20250111_Espanyol_Athletic-Club
+2025-01-11,Eibar,Sevilla,0.0,3.0,"Liga F (España, femenil)",4613367,20250111_Eibar_Sevilla
+2025-01-11,Barcelona,Levante Badalona,6.0,0.0,"Liga F (España, femenil)",4613368,20250111_Barcelona_Levante-Badalona
+2025-01-12,Atlético Madrid,Levante,3.0,0.0,"Liga F (España, femenil)",4613369,20250112_Atlético-Madrid_Levante
+2025-01-12,Valencia,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4613362,20250112_Valencia_Real-Sociedad
+2025-01-12,Real Betis,Madrid CFF,1.0,1.0,"Liga F (España, femenil)",4613365,20250112_Real-Betis_Madrid-CFF
+2025-01-12,Real Madrid,Granada,3.0,1.0,"Liga F (España, femenil)",4613364,20250112_Real-Madrid_Granada
+2025-01-17,Deportivo de A Coruña,Levante,1.0,0.0,"Liga F (España, femenil)",4613387,20250117_Deportivo-de-A-Coruña_Levante
+2025-01-18,Levante Badalona,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4613389,20250118_Levante-Badalona_Atlético-Madrid
+2025-01-18,Granada,UD Tenerife,2.0,1.0,"Liga F (España, femenil)",4613388,20250118_Granada_UD-Tenerife
+2025-01-18,Athletic Club,Barcelona,0.0,2.0,"Liga F (España, femenil)",4613386,20250118_Athletic-Club_Barcelona
+2025-01-18,Madrid CFF,Valencia,1.0,1.0,"Liga F (España, femenil)",4613405,20250118_Madrid-CFF_Valencia
+2025-01-19,Real Madrid,Eibar,0.0,1.0,"Liga F (España, femenil)",4613418,20250119_Real-Madrid_Eibar
+2025-01-19,Real Sociedad,Espanyol,4.0,1.0,"Liga F (España, femenil)",4613417,20250119_Real-Sociedad_Espanyol
+2025-01-19,Sevilla,Real Betis,2.0,0.0,"Liga F (España, femenil)",4613416,20250119_Sevilla_Real-Betis
+2025-01-25,UD Tenerife,Madrid CFF,2.0,0.0,"Liga F (España, femenil)",4613409,20250125_UD-Tenerife_Madrid-CFF
+2025-01-25,Levante,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4613412,20250125_Levante_Levante-Badalona
+2025-01-25,Valencia,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4613408,20250125_Valencia_Athletic-Club
+2025-01-25,Eibar,Granada,0.0,0.0,"Liga F (España, femenil)",4613414,20250125_Eibar_Granada
+2025-01-26,Real Betis,Deportivo de A Coruña,0.0,2.0,"Liga F (España, femenil)",4613411,20250126_Real-Betis_Deportivo-de-A-Coruña
+2025-01-26,Espanyol,Sevilla,0.0,0.0,"Liga F (España, femenil)",4613413,20250126_Espanyol_Sevilla
+2025-01-31,Real Madrid,Espanyol,5.0,0.0,"Liga F (España, femenil)",4613401,20250131_Real-Madrid_Espanyol
+2025-02-01,Madrid CFF,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4613402,20250201_Madrid-CFF_Real-Sociedad
+2025-02-01,Deportivo de A Coruña,Valencia,1.0,1.0,"Liga F (España, femenil)",4613390,20250201_Deportivo-de-A-Coruña_Valencia
+2025-02-01,Barcelona,Levante,1.0,2.0,"Liga F (España, femenil)",4613406,20250201_Barcelona_Levante
+2025-02-02,Athletic Club,Eibar,0.0,1.0,"Liga F (España, femenil)",4613407,20250202_Athletic-Club_Eibar
+2025-02-02,Sevilla,UD Tenerife,0.0,2.0,"Liga F (España, femenil)",4613400,20250202_Sevilla_UD-Tenerife
+2025-02-02,Levante Badalona,Real Betis,2.0,1.0,"Liga F (España, femenil)",4613403,20250202_Levante-Badalona_Real-Betis
+2025-02-02,Granada,Atlético Madrid,0.0,0.0,"Liga F (España, femenil)",4613404,20250202_Granada_Atlético-Madrid
+2025-02-04,Real Sociedad,Real Madrid,1.0,4.0,"Liga F (España, femenil)",4613334,20250204_Real-Sociedad_Real-Madrid
+2025-02-07,Atlético Madrid,Sevilla,1.0,0.0,"Liga F (España, femenil)",4613399,20250207_Atlético-Madrid_Sevilla
+2025-02-08,Eibar,Madrid CFF,1.0,2.0,"Liga F (España, femenil)",4613398,20250208_Eibar_Madrid-CFF
+2025-02-08,Levante Badalona,Granada,0.0,2.0,"Liga F (España, femenil)",4613395,20250208_Levante-Badalona_Granada
+2025-02-08,Levante,Real Madrid,1.0,2.0,"Liga F (España, femenil)",4613396,20250208_Levante_Real-Madrid
+2025-02-08,Real Sociedad,Deportivo de A Coruña,1.0,2.0,"Liga F (España, femenil)",4613393,20250208_Real-Sociedad_Deportivo-de-A-Coruña
+2025-02-09,Espanyol,Barcelona,0.0,2.0,"Liga F (España, femenil)",4613397,20250209_Espanyol_Barcelona
+2025-02-09,Valencia,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",4613392,20250209_Valencia_UD-Tenerife
+2025-02-09,Real Betis,Athletic Club,0.0,4.0,"Liga F (España, femenil)",4613394,20250209_Real-Betis_Athletic-Club
+2025-02-15,Sevilla,Valencia,3.0,1.0,"Liga F (España, femenil)",4613436,20250215_Sevilla_Valencia
+2025-02-15,UD Tenerife,Eibar,1.0,1.0,"Liga F (España, femenil)",4613435,20250215_UD-Tenerife_Eibar
+2025-02-16,Athletic Club,Real Sociedad,2.0,0.0,"Liga F (España, femenil)",4613391,20250216_Athletic-Club_Real-Sociedad
+2025-02-16,Deportivo de A Coruña,Atlético Madrid,0.0,0.0,"Liga F (España, femenil)",4613440,20250216_Deportivo-de-A-Coruña_Atlético-Madrid
+2025-02-16,Granada,Espanyol,2.0,1.0,"Liga F (España, femenil)",4613439,20250216_Granada_Espanyol
+2025-02-16,Barcelona,Madrid CFF,5.0,1.0,"Liga F (España, femenil)",4613430,20250216_Barcelona_Madrid-CFF
+2025-02-16,Levante,Real Betis,1.0,2.0,"Liga F (España, femenil)",4613438,20250216_Levante_Real-Betis
+2025-02-16,Real Madrid,Levante Badalona,3.0,2.0,"Liga F (España, femenil)",4613437,20250216_Real-Madrid_Levante-Badalona
+2025-03-01,Real Betis,Granada,1.0,3.0,"Liga F (España, femenil)",4613419,20250301_Real-Betis_Granada
+2025-03-01,Valencia,Levante,1.0,1.0,"Liga F (España, femenil)",4613427,20250301_Valencia_Levante
+2025-03-02,Athletic Club,Real Madrid,1.0,2.0,"Liga F (España, femenil)",4613434,20250302_Athletic-Club_Real-Madrid
+2025-03-02,Espanyol,Deportivo de A Coruña,1.0,1.0,"Liga F (España, femenil)",4613432,20250302_Espanyol_Deportivo-de-A-Coruña
+2025-03-02,UD Tenerife,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4613428,20250302_UD-Tenerife_Levante-Badalona
+2025-03-02,Eibar,Barcelona,1.0,8.0,"Liga F (España, femenil)",4613433,20250302_Eibar_Barcelona
+2025-03-02,Madrid CFF,Atlético Madrid,0.0,3.0,"Liga F (España, femenil)",4613431,20250302_Madrid-CFF_Atlético-Madrid
+2025-03-02,Real Sociedad,Sevilla,0.0,0.0,"Liga F (España, femenil)",4613429,20250302_Real-Sociedad_Sevilla
+2025-03-08,Levante,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",4613421,20250308_Levante_UD-Tenerife
+2025-03-08,Levante Badalona,Real Sociedad,0.0,0.0,"Liga F (España, femenil)",4613420,20250308_Levante-Badalona_Real-Sociedad
+2025-03-08,Espanyol,Madrid CFF,3.0,3.0,"Liga F (España, femenil)",4613423,20250308_Espanyol_Madrid-CFF
+2025-03-09,Barcelona,Valencia,4.0,1.0,"Liga F (España, femenil)",4613425,20250309_Barcelona_Valencia
+2025-03-09,Granada,Athletic Club,0.0,2.0,"Liga F (España, femenil)",4613422,20250309_Granada_Athletic-Club
+2025-03-09,Sevilla,Real Madrid,0.0,4.0,"Liga F (España, femenil)",4613441,20250309_Sevilla_Real-Madrid
+2025-03-09,Atlético Madrid,Real Betis,0.0,0.0,"Liga F (España, femenil)",4613426,20250309_Atlético-Madrid_Real-Betis
+2025-03-09,Deportivo de A Coruña,Eibar,0.0,1.0,"Liga F (España, femenil)",4613424,20250309_Deportivo-de-A-Coruña_Eibar
+2025-03-15,Real Madrid,Deportivo de A Coruña,2.0,2.0,"Liga F (España, femenil)",4613447,20250315_Real-Madrid_Deportivo-de-A-Coruña
+2025-03-15,Real Betis,Valencia,0.0,1.0,"Liga F (España, femenil)",4613446,20250315_Real-Betis_Valencia
+2025-03-15,Athletic Club,Sevilla,0.0,1.0,"Liga F (España, femenil)",4613442,20250315_Athletic-Club_Sevilla
+2025-03-15,UD Tenerife,Barcelona,0.0,2.0,"Liga F (España, femenil)",4613476,20250315_UD-Tenerife_Barcelona
+2025-03-16,Atlético Madrid,Espanyol,1.0,1.0,"Liga F (España, femenil)",4613443,20250316_Atlético-Madrid_Espanyol
+2025-03-16,Real Sociedad,Levante,1.0,2.0,"Liga F (España, femenil)",4613463,20250316_Real-Sociedad_Levante
+2025-03-16,Madrid CFF,Granada,3.0,1.0,"Liga F (España, femenil)",4613445,20250316_Madrid-CFF_Granada
+2025-03-16,Eibar,Levante Badalona,1.0,0.0,"Liga F (España, femenil)",4613444,20250316_Eibar_Levante-Badalona
+2025-03-22,Deportivo de A Coruña,UD Tenerife,0.0,0.0,"Liga F (España, femenil)",4613474,20250322_Deportivo-de-A-Coruña_UD-Tenerife
+2025-03-22,Real Betis,Eibar,0.0,1.0,"Liga F (España, femenil)",4613471,20250322_Real-Betis_Eibar
+2025-03-22,Levante Badalona,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4613472,20250322_Levante-Badalona_Athletic-Club
+2025-03-22,Espanyol,Levante,1.0,0.0,"Liga F (España, femenil)",4613473,20250322_Espanyol_Levante
+2025-03-23,Barcelona,Real Madrid,1.0,3.0,"Liga F (España, femenil)",4613475,20250323_Barcelona_Real-Madrid
+2025-03-23,Real Sociedad,Atlético Madrid,0.0,2.0,"Liga F (España, femenil)",4613470,20250323_Real-Sociedad_Atlético-Madrid
+2025-03-23,Sevilla,Granada,0.0,2.0,"Liga F (España, femenil)",4613469,20250323_Sevilla_Granada
+2025-03-23,Valencia,Madrid CFF,4.0,1.0,"Liga F (España, femenil)",4613468,20250323_Valencia_Madrid-CFF
+2025-03-29,Levante,Eibar,1.0,2.0,"Liga F (España, femenil)",4613464,20250329_Levante_Eibar
+2025-03-29,UD Tenerife,Espanyol,4.0,1.0,"Liga F (España, femenil)",4613460,20250329_UD-Tenerife_Espanyol
+2025-03-29,Madrid CFF,Real Betis,2.0,0.0,"Liga F (España, femenil)",4613462,20250329_Madrid-CFF_Real-Betis
+2025-03-29,Atlético Madrid,Valencia,3.0,0.0,"Liga F (España, femenil)",4613466,20250329_Atlético-Madrid_Valencia
+2025-03-30,Athletic Club,Deportivo de A Coruña,2.0,0.0,"Liga F (España, femenil)",4613467,20250330_Athletic-Club_Deportivo-de-A-Coruña
+2025-03-30,Granada,Barcelona,0.0,2.0,"Liga F (España, femenil)",4613465,20250330_Granada_Barcelona
+2025-03-30,Levante Badalona,Sevilla,0.0,0.0,"Liga F (España, femenil)",4613448,20250330_Levante-Badalona_Sevilla
+2025-03-30,Real Madrid,Real Sociedad,3.0,0.0,"Liga F (España, femenil)",4613461,20250330_Real-Madrid_Real-Sociedad
+2025-04-12,Sevilla,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",4613454,20250412_Sevilla_Madrid-CFF
+2025-04-12,Deportivo de A Coruña,Levante Badalona,3.0,1.0,"Liga F (España, femenil)",4613457,20250412_Deportivo-de-A-Coruña_Levante-Badalona
+2025-04-12,Real Betis,Real Sociedad,3.0,1.0,"Liga F (España, femenil)",4613455,20250412_Real-Betis_Real-Sociedad
+2025-04-12,Eibar,Real Madrid,0.0,3.0,"Liga F (España, femenil)",4613456,20250412_Eibar_Real-Madrid
+2025-04-13,Barcelona,Atlético Madrid,6.0,0.0,"Liga F (España, femenil)",4613458,20250413_Barcelona_Atlético-Madrid
+2025-04-13,UD Tenerife,Granada,1.0,2.0,"Liga F (España, femenil)",4613453,20250413_UD-Tenerife_Granada
+2025-04-13,Athletic Club,Levante,2.0,3.0,"Liga F (España, femenil)",4613459,20250413_Athletic-Club_Levante
+2025-04-13,Valencia,Espanyol,1.0,1.0,"Liga F (España, femenil)",4613452,20250413_Valencia_Espanyol
+2025-04-16,Barcelona,Sevilla,5.0,1.0,"Liga F (España, femenil)",4613450,20250416_Barcelona_Sevilla
+2025-04-18,Real Sociedad,Eibar,0.0,0.0,"Liga F (España, femenil)",4613492,20250418_Real-Sociedad_Eibar
+2025-04-18,Atlético Madrid,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",4613451,20250418_Atlético-Madrid_UD-Tenerife
+2025-04-19,Granada,Valencia,2.0,1.0,"Liga F (España, femenil)",4613489,20250419_Granada_Valencia
+2025-04-19,Madrid CFF,Athletic Club,1.0,1.0,"Liga F (España, femenil)",4613490,20250419_Madrid-CFF_Athletic-Club
+2025-04-19,Espanyol,Levante Badalona,2.0,0.0,"Liga F (España, femenil)",4613449,20250419_Espanyol_Levante-Badalona
+2025-04-20,Levante,Deportivo de A Coruña,2.0,1.0,"Liga F (España, femenil)",4613477,20250420_Levante_Deportivo-de-A-Coruña
+2025-04-20,Real Madrid,Real Betis,5.0,1.0,"Liga F (España, femenil)",4613491,20250420_Real-Madrid_Real-Betis
+2025-04-25,Real Madrid,Madrid CFF,7.0,3.0,"Liga F (España, femenil)",4613498,20250425_Real-Madrid_Madrid-CFF
+2025-04-26,Deportivo de A Coruña,Granada,1.0,2.0,"Liga F (España, femenil)",4613494,20250426_Deportivo-de-A-Coruña_Granada
+2025-04-26,Eibar,Espanyol,1.0,1.0,"Liga F (España, femenil)",4613495,20250426_Eibar_Espanyol
+2025-04-27,Athletic Club,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",4613493,20250427_Athletic-Club_UD-Tenerife
+2025-04-27,Levante,Atlético Madrid,2.0,2.0,"Liga F (España, femenil)",4613496,20250427_Levante_Atlético-Madrid
+2025-04-27,Real Sociedad,Valencia,0.0,2.0,"Liga F (España, femenil)",4613487,20250427_Real-Sociedad_Valencia
+2025-04-27,Real Betis,Sevilla,1.0,1.0,"Liga F (España, femenil)",4613488,20250427_Real-Betis_Sevilla
+2025-05-01,Levante Badalona,Barcelona,0.0,2.0,"Liga F (España, femenil)",4613497,20250501_Levante-Badalona_Barcelona
+2025-05-03,Valencia,Eibar,2.0,0.0,"Liga F (España, femenil)",4613479,20250503_Valencia_Eibar
+2025-05-03,UD Tenerife,Real Betis,2.0,0.0,"Liga F (España, femenil)",4613480,20250503_UD-Tenerife_Real-Betis
+2025-05-03,Sevilla,Levante,2.0,0.0,"Liga F (España, femenil)",4613481,20250503_Sevilla_Levante
+2025-05-03,Espanyol,Real Sociedad,0.0,3.0,"Liga F (España, femenil)",4613484,20250503_Espanyol_Real-Sociedad
+2025-05-04,Atlético Madrid,Athletic Club,1.0,0.0,"Liga F (España, femenil)",4613486,20250504_Atlético-Madrid_Athletic-Club
+2025-05-04,Madrid CFF,Levante Badalona,1.0,2.0,"Liga F (España, femenil)",4613482,20250504_Madrid-CFF_Levante-Badalona
+2025-05-04,Granada,Real Madrid,1.0,2.0,"Liga F (España, femenil)",4613483,20250504_Granada_Real-Madrid
+2025-05-04,Barcelona,Deportivo de A Coruña,4.0,0.0,"Liga F (España, femenil)",4613485,20250504_Barcelona_Deportivo-de-A-Coruña
+2025-05-11,Deportivo de A Coruña,Sevilla,1.0,1.0,"Liga F (España, femenil)",4613499,20250511_Deportivo-de-A-Coruña_Sevilla
+2025-05-11,Real Betis,Barcelona,0.0,9.0,"Liga F (España, femenil)",4613503,20250511_Real-Betis_Barcelona
+2025-05-11,Real Madrid,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",4613504,20250511_Real-Madrid_UD-Tenerife
+2025-05-11,Real Sociedad,Granada,4.0,2.0,"Liga F (España, femenil)",4613505,20250511_Real-Sociedad_Granada
+2025-05-11,Athletic Club,Espanyol,1.0,0.0,"Liga F (España, femenil)",4613478,20250511_Athletic-Club_Espanyol
+2025-05-11,Eibar,Atlético Madrid,0.0,2.0,"Liga F (España, femenil)",4613500,20250511_Eibar_Atlético-Madrid
+2025-05-11,Levante Badalona,Valencia,1.0,1.0,"Liga F (España, femenil)",4613502,20250511_Levante-Badalona_Valencia
+2025-05-11,Levante,Madrid CFF,0.0,0.0,"Liga F (España, femenil)",4613501,20250511_Levante_Madrid-CFF
+2025-05-18,Atlético Madrid,Levante Badalona,5.0,0.0,"Liga F (España, femenil)",4613506,20250518_Atlético-Madrid_Levante-Badalona
+2025-05-18,Barcelona,Athletic Club,6.0,0.0,"Liga F (España, femenil)",4613507,20250518_Barcelona_Athletic-Club
+2025-05-18,UD Tenerife,Real Sociedad,4.0,1.0,"Liga F (España, femenil)",4613512,20250518_UD-Tenerife_Real-Sociedad
+2025-05-18,Espanyol,Real Betis,6.0,2.0,"Liga F (España, femenil)",4613508,20250518_Espanyol_Real-Betis
+2025-05-18,Granada,Levante,0.0,1.0,"Liga F (España, femenil)",4613509,20250518_Granada_Levante
+2025-05-18,Madrid CFF,Deportivo de A Coruña,4.0,3.0,"Liga F (España, femenil)",4613510,20250518_Madrid-CFF_Deportivo-de-A-Coruña
+2025-05-18,Sevilla,Eibar,1.0,3.0,"Liga F (España, femenil)",4613511,20250518_Sevilla_Eibar
+2025-05-18,Valencia,Real Madrid,2.0,2.0,"Liga F (España, femenil)",4613513,20250518_Valencia_Real-Madrid
+2025-08-30,Athletic Club,UD Tenerife,0.0,0.0,"Liga F (España, femenil)",4910211,20250830_Athletic-Club_UD-Tenerife
+2025-08-30,Levante,Granada,1.0,2.0,"Liga F (España, femenil)",4910218,20250830_Levante_Granada
+2025-08-30,Deportivo de A Coruña,Levante Badalona,0.0,0.0,"Liga F (España, femenil)",4910217,20250830_Deportivo-de-A-Coruña_Levante-Badalona
+2025-08-30,Barcelona,Alhama CF,8.0,0.0,"Liga F (España, femenil)",4910215,20250830_Barcelona_Alhama-CF
+2025-08-31,Eibar,Sevilla,0.0,1.0,"Liga F (España, femenil)",4910213,20250831_Eibar_Sevilla
+2025-08-31,Espanyol,Atlético Madrid,0.0,5.0,"Liga F (España, femenil)",4910216,20250831_Espanyol_Atlético-Madrid
+2025-08-31,Madrid CFF,Real Sociedad,2.0,2.0,"Liga F (España, femenil)",4910214,20250831_Madrid-CFF_Real-Sociedad
+2025-08-31,Logroño United,Real Madrid,2.0,2.0,"Liga F (España, femenil)",4910212,20250831_Logroño-United_Real-Madrid
+2025-09-05,Atlético Madrid,Real Madrid,2.0,1.0,"Liga F (España, femenil)",4910220,20250905_Atlético-Madrid_Real-Madrid
+2025-09-06,Espanyol,Deportivo de A Coruña,1.0,1.0,"Liga F (España, femenil)",4910225,20250906_Espanyol_Deportivo-de-A-Coruña
+2025-09-06,Sevilla,UD Tenerife,0.0,4.0,"Liga F (España, femenil)",4910222,20250906_Sevilla_UD-Tenerife
+2025-09-06,Madrid CFF,Eibar,1.0,0.0,"Liga F (España, femenil)",4910226,20250906_Madrid-CFF_Eibar
+2025-09-06,Logroño United,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",4910221,20250906_Logroño-United_Real-Sociedad
+2025-09-07,Athletic Club,Barcelona,1.0,8.0,"Liga F (España, femenil)",4910219,20250907_Athletic-Club_Barcelona
+2025-09-07,Granada,Levante Badalona,0.0,2.0,"Liga F (España, femenil)",4910224,20250907_Granada_Levante-Badalona
+2025-09-07,Levante,Alhama CF,0.0,0.0,"Liga F (España, femenil)",4910223,20250907_Levante_Alhama-CF
+2025-09-12,Barcelona,Logroño United,4.0,0.0,"Liga F (España, femenil)",4910232,20250912_Barcelona_Logroño-United
+2025-09-13,Real Sociedad,Sevilla,3.0,0.0,"Liga F (España, femenil)",4910229,20250913_Real-Sociedad_Sevilla
+2025-09-13,UD Tenerife,Espanyol,0.0,0.0,"Liga F (España, femenil)",4910233,20250913_UD-Tenerife_Espanyol
+2025-09-13,Alhama CF,Granada,1.0,1.0,"Liga F (España, femenil)",4910227,20250913_Alhama-CF_Granada
+2025-09-14,Deportivo de A Coruña,Athletic Club,1.0,0.0,"Liga F (España, femenil)",4910230,20250914_Deportivo-de-A-Coruña_Athletic-Club
+2025-09-14,Eibar,Levante Badalona,0.0,0.0,"Liga F (España, femenil)",4910231,20250914_Eibar_Levante-Badalona
+2025-09-14,Real Madrid,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",4910234,20250914_Real-Madrid_Madrid-CFF
+2025-09-14,Atlético Madrid,Levante,4.0,0.0,"Liga F (España, femenil)",4910228,20250914_Atlético-Madrid_Levante
+2025-09-20,Espanyol,Athletic Club,1.0,1.0,"Liga F (España, femenil)",4910237,20250920_Espanyol_Athletic-Club
+2025-09-20,Granada,Eibar,3.0,1.0,"Liga F (España, femenil)",4910240,20250920_Granada_Eibar
+2025-09-20,Levante Badalona,Logroño United,0.0,0.0,"Liga F (España, femenil)",4910236,20250920_Levante-Badalona_Logroño-United
+2025-09-20,Real Sociedad,Levante,2.0,1.0,"Liga F (España, femenil)",4910242,20250920_Real-Sociedad_Levante
+2025-09-21,Alhama CF,UD Tenerife,0.0,4.0,"Liga F (España, femenil)",4910235,20250921_Alhama-CF_UD-Tenerife
+2025-09-21,Madrid CFF,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4910238,20250921_Madrid-CFF_Atlético-Madrid
+2025-09-21,Sevilla,Barcelona,0.0,5.0,"Liga F (España, femenil)",4910241,20250921_Sevilla_Barcelona
+2025-09-21,Real Madrid,Deportivo de A Coruña,4.0,0.0,"Liga F (España, femenil)",4910239,20250921_Real-Madrid_Deportivo-de-A-Coruña
+2025-09-27,Levante Badalona,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4910244,20250927_Levante-Badalona_Real-Sociedad
+2025-09-27,Logroño United,Alhama CF,2.0,4.0,"Liga F (España, femenil)",4910246,20250927_Logroño-United_Alhama-CF
+2025-09-27,Barcelona,Espanyol,2.0,0.0,"Liga F (España, femenil)",4910249,20250927_Barcelona_Espanyol
+2025-09-28,Athletic Club,Sevilla,1.0,1.0,"Liga F (España, femenil)",4910243,20250928_Athletic-Club_Sevilla
+2025-09-28,Granada,Atlético Madrid,0.0,4.0,"Liga F (España, femenil)",4910247,20250928_Granada_Atlético-Madrid
+2025-09-28,Levante,Eibar,0.0,1.0,"Liga F (España, femenil)",4910248,20250928_Levante_Eibar
+2025-09-28,Deportivo de A Coruña,Madrid CFF,1.0,2.0,"Liga F (España, femenil)",4910245,20250928_Deportivo-de-A-Coruña_Madrid-CFF
+2025-09-28,UD Tenerife,Real Madrid,0.0,0.0,"Liga F (España, femenil)",4910250,20250928_UD-Tenerife_Real-Madrid
+2025-10-04,Atlético Madrid,Athletic Club,1.0,1.0,"Liga F (España, femenil)",4910255,20251004_Atlético-Madrid_Athletic-Club
+2025-10-04,Real Sociedad,UD Tenerife,1.0,2.0,"Liga F (España, femenil)",4910254,20251004_Real-Sociedad_UD-Tenerife
+2025-10-04,Eibar,Barcelona,0.0,4.0,"Liga F (España, femenil)",4910253,20251004_Eibar_Barcelona
+2025-10-04,Real Madrid,Levante Badalona,3.0,0.0,"Liga F (España, femenil)",4910256,20251004_Real-Madrid_Levante-Badalona
+2025-10-04,Sevilla,Espanyol,1.0,0.0,"Liga F (España, femenil)",4910257,20251004_Sevilla_Espanyol
+2025-10-05,Alhama CF,Deportivo de A Coruña,3.0,1.0,"Liga F (España, femenil)",4910251,20251005_Alhama-CF_Deportivo-de-A-Coruña
+2025-10-05,Logroño United,Granada,1.0,1.0,"Liga F (España, femenil)",4910252,20251005_Logroño-United_Granada
+2025-10-05,Madrid CFF,Levante,2.0,0.0,"Liga F (España, femenil)",4910258,20251005_Madrid-CFF_Levante
+2025-10-11,Levante Badalona,Madrid CFF,1.0,0.0,"Liga F (España, femenil)",4910261,20251011_Levante-Badalona_Madrid-CFF
+2025-10-11,Granada,Real Sociedad,2.0,2.0,"Liga F (España, femenil)",4910263,20251011_Granada_Real-Sociedad
+2025-10-11,Espanyol,Alhama CF,3.0,0.0,"Liga F (España, femenil)",4910265,20251011_Espanyol_Alhama-CF
+2025-10-11,Deportivo de A Coruña,Logroño United,2.0,2.0,"Liga F (España, femenil)",4910262,20251011_Deportivo-de-A-Coruña_Logroño-United
+2025-10-12,Atlético Madrid,Barcelona,0.0,6.0,"Liga F (España, femenil)",4910260,20251012_Atlético-Madrid_Barcelona
+2025-10-12,UD Tenerife,Eibar,0.0,1.0,"Liga F (España, femenil)",4910266,20251012_UD-Tenerife_Eibar
+2025-10-12,Levante,Sevilla,0.0,1.0,"Liga F (España, femenil)",4910264,20251012_Levante_Sevilla
+2025-10-12,Athletic Club,Real Madrid,1.0,4.0,"Liga F (España, femenil)",4910259,20251012_Athletic-Club_Real-Madrid
+2025-10-18,Alhama CF,Athletic Club,0.0,0.0,"Liga F (España, femenil)",4910267,20251018_Alhama-CF_Athletic-Club
+2025-10-18,Logroño United,Espanyol,0.0,2.0,"Liga F (España, femenil)",4910268,20251018_Logroño-United_Espanyol
+2025-10-19,Deportivo de A Coruña,Atlético Madrid,1.0,1.0,"Liga F (España, femenil)",4910271,20251019_Deportivo-de-A-Coruña_Atlético-Madrid
+2025-10-19,Eibar,Real Sociedad,0.0,3.0,"Liga F (España, femenil)",4910269,20251019_Eibar_Real-Sociedad
+2025-10-19,Sevilla,Madrid CFF,1.0,3.0,"Liga F (España, femenil)",4910274,20251019_Sevilla_Madrid-CFF
+2025-10-19,Real Madrid,Levante,4.0,0.0,"Liga F (España, femenil)",4910273,20251019_Real-Madrid_Levante
+2025-10-19,UD Tenerife,Levante Badalona,2.0,2.0,"Liga F (España, femenil)",4910272,20251019_UD-Tenerife_Levante-Badalona
+2025-10-19,Barcelona,Granada,2.0,0.0,"Liga F (España, femenil)",4910270,20251019_Barcelona_Granada
+2025-11-01,Atlético Madrid,Alhama CF,4.0,0.0,"Liga F (España, femenil)",4910279,20251101_Atlético-Madrid_Alhama-CF
+2025-11-01,Levante Badalona,Sevilla,0.0,0.0,"Liga F (España, femenil)",4910276,20251101_Levante-Badalona_Sevilla
+2025-11-01,Levante,UD Tenerife,2.0,4.0,"Liga F (España, femenil)",4910278,20251101_Levante_UD-Tenerife
+2025-11-01,Eibar,Deportivo de A Coruña,1.0,0.0,"Liga F (España, femenil)",4910280,20251101_Eibar_Deportivo-de-A-Coruña
+2025-11-01,Madrid CFF,Granada,0.0,1.0,"Liga F (España, femenil)",4910282,20251101_Madrid-CFF_Granada
+2025-11-01,Espanyol,Real Madrid,0.0,1.0,"Liga F (España, femenil)",4910277,20251101_Espanyol_Real-Madrid
+2025-11-02,Athletic Club,Logroño United,0.0,0.0,"Liga F (España, femenil)",4910275,20251102_Athletic-Club_Logroño-United
+2025-11-02,Real Sociedad,Barcelona,1.0,0.0,"Liga F (España, femenil)",4910281,20251102_Real-Sociedad_Barcelona
+2025-11-08,Athletic Club,Eibar,2.0,0.0,"Liga F (España, femenil)",4910283,20251108_Athletic-Club_Eibar
+2025-11-08,Real Madrid,Alhama CF,5.0,0.0,"Liga F (España, femenil)",4910288,20251108_Real-Madrid_Alhama-CF
+2025-11-09,Barcelona,Deportivo de A Coruña,8.0,0.0,"Liga F (España, femenil)",4910290,20251109_Barcelona_Deportivo-de-A-Coruña
+2025-11-09,Levante Badalona,Levante,1.0,1.0,"Liga F (España, femenil)",4910284,20251109_Levante-Badalona_Levante
+2025-11-09,Granada,Sevilla,0.0,2.0,"Liga F (España, femenil)",4910286,20251109_Granada_Sevilla
+2025-11-09,Logroño United,Atlético Madrid,0.0,5.0,"Liga F (España, femenil)",4910289,20251109_Logroño-United_Atlético-Madrid
+2025-11-09,Espanyol,Real Sociedad,2.0,3.0,"Liga F (España, femenil)",4910285,20251109_Espanyol_Real-Sociedad
+2025-11-09,Madrid CFF,UD Tenerife,0.0,2.0,"Liga F (España, femenil)",4910287,20251109_Madrid-CFF_UD-Tenerife
+2025-11-14,Deportivo de A Coruña,Levante,1.0,0.0,"Liga F (España, femenil)",4910293,20251114_Deportivo-de-A-Coruña_Levante
+2025-11-15,Alhama CF,Madrid CFF,1.0,4.0,"Liga F (España, femenil)",4910291,20251115_Alhama-CF_Madrid-CFF
+2025-11-15,Barcelona,Real Madrid,4.0,0.0,"Liga F (España, femenil)",4910295,20251115_Barcelona_Real-Madrid
+2025-11-16,Atlético Madrid,Levante Badalona,2.0,0.0,"Liga F (España, femenil)",4910292,20251116_Atlético-Madrid_Levante-Badalona
+2025-11-16,Real Sociedad,Athletic Club,1.0,1.0,"Liga F (España, femenil)",4910296,20251116_Real-Sociedad_Athletic-Club
+2025-11-16,UD Tenerife,Granada,2.0,2.0,"Liga F (España, femenil)",4910298,20251116_UD-Tenerife_Granada
+2025-11-16,Sevilla,Logroño United,1.0,0.0,"Liga F (España, femenil)",4910297,20251116_Sevilla_Logroño-United
+2025-11-16,Eibar,Espanyol,1.0,2.0,"Liga F (España, femenil)",4910294,20251116_Eibar_Espanyol
+2025-11-22,Granada,Athletic Club,1.0,5.0,"Liga F (España, femenil)",4910301,20251122_Granada_Athletic-Club
+2025-11-22,Sevilla,Deportivo de A Coruña,3.0,1.0,"Liga F (España, femenil)",4910303,20251122_Sevilla_Deportivo-de-A-Coruña
+2025-11-22,Levante Badalona,Espanyol,1.0,1.0,"Liga F (España, femenil)",4910299,20251122_Levante-Badalona_Espanyol
+2025-11-22,Madrid CFF,Logroño United,1.0,0.0,"Liga F (España, femenil)",4910304,20251122_Madrid-CFF_Logroño-United
+2025-11-23,Real Sociedad,Alhama CF,3.0,1.0,"Liga F (España, femenil)",4910300,20251123_Real-Sociedad_Alhama-CF
+2025-11-23,UD Tenerife,Atlético Madrid,2.0,1.0,"Liga F (España, femenil)",4910302,20251123_UD-Tenerife_Atlético-Madrid
+2025-11-23,Real Madrid,Eibar,3.0,0.0,"Liga F (España, femenil)",4910305,20251123_Real-Madrid_Eibar
+2025-11-23,Levante,Barcelona,0.0,4.0,"Liga F (España, femenil)",4910306,20251123_Levante_Barcelona
+2025-12-06,Atlético Madrid,Sevilla,2.0,2.0,"Liga F (España, femenil)",4910309,20251206_Atlético-Madrid_Sevilla
+2025-12-06,Deportivo de A Coruña,Granada,2.0,0.0,"Liga F (España, femenil)",4910310,20251206_Deportivo-de-A-Coruña_Granada
+2025-12-06,Barcelona,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",4910313,20251206_Barcelona_UD-Tenerife
+2025-12-06,Espanyol,Madrid CFF,2.0,5.0,"Liga F (España, femenil)",4910312,20251206_Espanyol_Madrid-CFF
+2025-12-06,Real Madrid,Real Sociedad,1.0,0.0,"Liga F (España, femenil)",4910314,20251206_Real-Madrid_Real-Sociedad
+2025-12-07,Alhama CF,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",4910307,20251207_Alhama-CF_Levante-Badalona
+2025-12-07,Athletic Club,Levante,1.0,0.0,"Liga F (España, femenil)",4910308,20251207_Athletic-Club_Levante
+2025-12-07,Logroño United,Eibar,0.0,1.0,"Liga F (España, femenil)",4910311,20251207_Logroño-United_Eibar
+2025-12-13,Granada,Real Madrid,0.0,3.0,"Liga F (España, femenil)",4910316,20251213_Granada_Real-Madrid
+2025-12-13,Levante,Espanyol,0.0,1.0,"Liga F (España, femenil)",4910321,20251213_Levante_Espanyol
+2025-12-13,Levante Badalona,Barcelona,1.0,5.0,"Liga F (España, femenil)",4910315,20251213_Levante-Badalona_Barcelona
+2025-12-13,Sevilla,Alhama CF,2.0,1.0,"Liga F (España, femenil)",4910317,20251213_Sevilla_Alhama-CF
+2025-12-13,Madrid CFF,Athletic Club,0.0,2.0,"Liga F (España, femenil)",4910322,20251213_Madrid-CFF_Athletic-Club
+2025-12-14,UD Tenerife,Logroño United,1.0,1.0,"Liga F (España, femenil)",4910320,20251214_UD-Tenerife_Logroño-United
+2025-12-14,Eibar,Atlético Madrid,2.0,2.0,"Liga F (España, femenil)",4910318,20251214_Eibar_Atlético-Madrid
+2025-12-14,Real Sociedad,Deportivo de A Coruña,3.0,0.0,"Liga F (España, femenil)",4910319,20251214_Real-Sociedad_Deportivo-de-A-Coruña
+2026-01-10,Alhama CF,Eibar,0.0,1.0,"Liga F (España, femenil)",4910323,20260110_Alhama-CF_Eibar
+2026-01-10,Atlético Madrid,Real Sociedad,5.0,5.0,"Liga F (España, femenil)",4910325,20260110_Atlético-Madrid_Real-Sociedad
+2026-01-10,Athletic Club,Levante Badalona,0.0,0.0,"Liga F (España, femenil)",4910324,20260110_Athletic-Club_Levante-Badalona
+2026-01-10,Real Madrid,Sevilla,2.0,0.0,"Liga F (España, femenil)",4910330,20260110_Real-Madrid_Sevilla
+2026-01-10,Barcelona,Madrid CFF,12.0,1.0,"Liga F (España, femenil)",4910329,20260110_Barcelona_Madrid-CFF
+2026-01-11,Deportivo de A Coruña,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",4910326,20260111_Deportivo-de-A-Coruña_UD-Tenerife
+2026-01-11,Espanyol,Granada,0.0,2.0,"Liga F (España, femenil)",4910328,20260111_Espanyol_Granada
+2026-01-11,Logroño United,Levante,2.0,3.0,"Liga F (España, femenil)",4910327,20260111_Logroño-United_Levante
+2026-01-13,Real Madrid,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4910341,20260113_Real-Madrid_Athletic-Club
+2026-01-14,Barcelona,Atlético Madrid,5.0,0.0,"Liga F (España, femenil)",4910342,20260114_Barcelona_Atlético-Madrid
+2026-01-17,Granada,Logroño United,1.0,0.0,"Liga F (España, femenil)",4910337,20260117_Granada_Logroño-United
+2026-01-17,Levante,Real Madrid,1.0,2.0,"Liga F (España, femenil)",4910335,20260117_Levante_Real-Madrid
+2026-01-17,Atlético Madrid,Espanyol,0.0,1.0,"Liga F (España, femenil)",4910332,20260117_Atlético-Madrid_Espanyol
+2026-01-17,Eibar,Madrid CFF,1.0,3.0,"Liga F (España, femenil)",4910334,20260117_Eibar_Madrid-CFF
+2026-01-18,Alhama CF,Barcelona,0.0,2.0,"Liga F (España, femenil)",4910331,20260118_Alhama-CF_Barcelona
+2026-01-18,UD Tenerife,Athletic Club,5.0,0.0,"Liga F (España, femenil)",4910336,20260118_UD-Tenerife_Athletic-Club
+2026-01-18,Levante Badalona,Deportivo de A Coruña,1.0,0.0,"Liga F (España, femenil)",4910333,20260118_Levante-Badalona_Deportivo-de-A-Coruña
+2026-01-18,Sevilla,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4910338,20260118_Sevilla_Real-Sociedad
+2026-01-25,Espanyol,UD Tenerife,0.0,0.0,"Liga F (España, femenil)",4910339,20260125_Espanyol_UD-Tenerife
+2026-01-25,Real Sociedad,Eibar,3.0,0.0,"Liga F (España, femenil)",4910345,20260125_Real-Sociedad_Eibar
+2026-01-25,Sevilla,Levante,4.0,2.0,"Liga F (España, femenil)",4910346,20260125_Sevilla_Levante
+2026-01-25,Logroño United,Deportivo de A Coruña,0.0,4.0,"Liga F (España, femenil)",4910344,20260125_Logroño-United_Deportivo-de-A-Coruña
+2026-01-25,Madrid CFF,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",4910343,20260125_Madrid-CFF_Levante-Badalona
+2026-01-25,Granada,Alhama CF,2.0,0.0,"Liga F (España, femenil)",4910340,20260125_Granada_Alhama-CF
+2026-01-31,Atlético Madrid,Granada,1.0,1.0,"Liga F (España, femenil)",4910349,20260131_Atlético-Madrid_Granada
+2026-01-31,Levante,Madrid CFF,2.0,1.0,"Liga F (España, femenil)",4910353,20260131_Levante_Madrid-CFF
+2026-01-31,Athletic Club,Espanyol,2.0,1.0,"Liga F (España, femenil)",4910348,20260131_Athletic-Club_Espanyol
+2026-01-31,Alhama CF,Logroño United,0.0,4.0,"Liga F (España, femenil)",4910347,20260131_Alhama-CF_Logroño-United
+2026-02-01,Deportivo de A Coruña,Real Madrid,2.0,4.0,"Liga F (España, femenil)",4910351,20260201_Deportivo-de-A-Coruña_Real-Madrid
+2026-02-01,Levante Badalona,Eibar,2.0,1.0,"Liga F (España, femenil)",4910350,20260201_Levante-Badalona_Eibar
+2026-02-01,UD Tenerife,Real Sociedad,1.0,1.0,"Liga F (España, femenil)",4910354,20260201_UD-Tenerife_Real-Sociedad
+2026-02-01,Barcelona,Sevilla,4.0,1.0,"Liga F (España, femenil)",4910352,20260201_Barcelona_Sevilla
+2026-02-07,Eibar,Granada,0.0,2.0,"Liga F (España, femenil)",4910356,20260207_Eibar_Granada
+2026-02-08,UD Tenerife,Alhama CF,1.0,0.0,"Liga F (España, femenil)",4910357,20260208_UD-Tenerife_Alhama-CF
+2026-02-08,Levante,Atlético Madrid,0.0,1.0,"Liga F (España, femenil)",4910359,20260208_Levante_Atlético-Madrid
+2026-02-08,Sevilla,Athletic Club,4.0,0.0,"Liga F (España, femenil)",4910358,20260208_Sevilla_Athletic-Club
+2026-02-08,Madrid CFF,Deportivo de A Coruña,1.0,6.0,"Liga F (España, femenil)",4910361,20260208_Madrid-CFF_Deportivo-de-A-Coruña
+2026-02-08,Real Madrid,Espanyol,3.0,0.0,"Liga F (España, femenil)",4910362,20260208_Real-Madrid_Espanyol
+2026-02-08,Real Sociedad,Levante Badalona,2.0,0.0,"Liga F (España, femenil)",4910360,20260208_Real-Sociedad_Levante-Badalona
+2026-02-08,Logroño United,Barcelona,0.0,3.0,"Liga F (España, femenil)",4910355,20260208_Logroño-United_Barcelona
+2026-02-14,Levante Badalona,UD Tenerife,0.0,2.0,"Liga F (España, femenil)",4910366,20260214_Levante-Badalona_UD-Tenerife
+2026-02-14,Granada,Levante,1.0,0.0,"Liga F (España, femenil)",4910368,20260214_Granada_Levante
+2026-02-14,Deportivo de A Coruña,Sevilla,0.0,4.0,"Liga F (España, femenil)",4910367,20260214_Deportivo-de-A-Coruña_Sevilla
+2026-02-14,Barcelona,Eibar,4.0,0.0,"Liga F (España, femenil)",4910370,20260214_Barcelona_Eibar
+2026-02-15,Alhama CF,Real Madrid,0.0,3.0,"Liga F (España, femenil)",4910363,20260215_Alhama-CF_Real-Madrid
+2026-02-15,Athletic Club,Real Sociedad,0.0,2.0,"Liga F (España, femenil)",4910364,20260215_Athletic-Club_Real-Sociedad
+2026-02-15,Espanyol,Logroño United,1.0,1.0,"Liga F (España, femenil)",4910369,20260215_Espanyol_Logroño-United
+2026-02-15,Atlético Madrid,Madrid CFF,0.0,0.0,"Liga F (España, femenil)",4910365,20260215_Atlético-Madrid_Madrid-CFF
+2026-02-21,Levante,Deportivo de A Coruña,1.0,2.0,"Liga F (España, femenil)",4910376,20260221_Levante_Deportivo-de-A-Coruña
+2026-02-21,Madrid CFF,Alhama CF,5.0,0.0,"Liga F (España, femenil)",4910372,20260221_Madrid-CFF_Alhama-CF
+2026-02-21,Logroño United,Levante Badalona,2.0,3.0,"Liga F (España, femenil)",4910375,20260221_Logroño-United_Levante-Badalona
+2026-02-21,Granada,Barcelona,0.0,2.0,"Liga F (España, femenil)",4910378,20260221_Granada_Barcelona
+2026-02-22,Eibar,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4910373,20260222_Eibar_Athletic-Club
+2026-02-22,Real Madrid,UD Tenerife,2.0,0.0,"Liga F (España, femenil)",4910371,20260222_Real-Madrid_UD-Tenerife
+2026-02-22,Real Sociedad,Espanyol,2.0,1.0,"Liga F (España, femenil)",4910377,20260222_Real-Sociedad_Espanyol
+2026-02-22,Sevilla,Atlético Madrid,2.0,1.0,"Liga F (España, femenil)",4910374,20260222_Sevilla_Atlético-Madrid
+2026-03-14,Atlético Madrid,Logroño United,5.0,0.0,"Liga F (España, femenil)",4910381,20260314_Atlético-Madrid_Logroño-United
+2026-03-14,UD Tenerife,Levante,4.0,0.0,"Liga F (España, femenil)",4910385,20260314_UD-Tenerife_Levante
+2026-03-14,Real Sociedad,Real Madrid,0.0,3.0,"Liga F (España, femenil)",4910386,20260314_Real-Sociedad_Real-Madrid
+2026-03-15,Alhama CF,Sevilla,0.0,1.0,"Liga F (España, femenil)",4910379,20260315_Alhama-CF_Sevilla
+2026-03-15,Deportivo de A Coruña,Barcelona,0.0,2.0,"Liga F (España, femenil)",4910383,20260315_Deportivo-de-A-Coruña_Barcelona
+2026-03-15,Levante Badalona,Granada,0.0,4.0,"Liga F (España, femenil)",4910382,20260315_Levante-Badalona_Granada
+2026-03-15,Athletic Club,Madrid CFF,4.0,1.0,"Liga F (España, femenil)",4910380,20260315_Athletic-Club_Madrid-CFF
+2026-03-16,Espanyol,Eibar,2.0,0.0,"Liga F (España, femenil)",4910384,20260316_Espanyol_Eibar
+2026-03-21,Levante,Real Sociedad,0.0,1.0,"Liga F (España, femenil)",4910390,20260321_Levante_Real-Sociedad
+2026-03-21,Madrid CFF,Espanyol,1.0,1.0,"Liga F (España, femenil)",4910394,20260321_Madrid-CFF_Espanyol
+2026-03-21,Barcelona,Athletic Club,7.0,1.0,"Liga F (España, femenil)",4910391,20260321_Barcelona_Athletic-Club
+2026-03-22,Alhama CF,Atlético Madrid,1.0,2.0,"Liga F (España, femenil)",4910387,20260322_Alhama-CF_Atlético-Madrid
+2026-03-22,Logroño United,UD Tenerife,0.0,1.0,"Liga F (España, femenil)",4910388,20260322_Logroño-United_UD-Tenerife
+2026-03-22,Eibar,Real Madrid,0.0,1.0,"Liga F (España, femenil)",4910389,20260322_Eibar_Real-Madrid
+2026-03-22,Sevilla,Levante Badalona,1.0,5.0,"Liga F (España, femenil)",4910392,20260322_Sevilla_Levante-Badalona
+2026-03-23,Granada,Deportivo de A Coruña,1.0,0.0,"Liga F (España, femenil)",4910393,20260323_Granada_Deportivo-de-A-Coruña
+2026-03-28,Levante Badalona,Alhama CF,3.0,2.0,"Liga F (España, femenil)",4910398,20260328_Levante-Badalona_Alhama-CF
+2026-03-28,Espanyol,Levante,1.0,0.0,"Liga F (España, femenil)",4910397,20260328_Espanyol_Levante
+2026-03-28,Deportivo de A Coruña,Eibar,2.0,1.0,"Liga F (España, femenil)",4910396,20260328_Deportivo-de-A-Coruña_Eibar
+2026-03-28,Sevilla,Granada,0.0,1.0,"Liga F (España, femenil)",4910401,20260328_Sevilla_Granada
+2026-03-29,Real Sociedad,Logroño United,1.0,1.0,"Liga F (España, femenil)",4910399,20260329_Real-Sociedad_Logroño-United
+2026-03-29,UD Tenerife,Madrid CFF,2.0,0.0,"Liga F (España, femenil)",4910402,20260329_UD-Tenerife_Madrid-CFF
+2026-03-29,Athletic Club,Atlético Madrid,1.0,2.0,"Liga F (España, femenil)",4910395,20260329_Athletic-Club_Atlético-Madrid
+2026-03-29,Real Madrid,Barcelona,0.0,3.0,"Liga F (España, femenil)",4910400,20260329_Real-Madrid_Barcelona
+2026-04-03,Eibar,UD Tenerife,0.0,0.0,"Liga F (España, femenil)",4910406,20260403_Eibar_UD-Tenerife
+2026-04-04,Alhama CF,Real Sociedad,1.0,5.0,"Liga F (España, femenil)",4910403,20260404_Alhama-CF_Real-Sociedad
+2026-04-04,Granada,Espanyol,2.0,0.0,"Liga F (España, femenil)",4910410,20260404_Granada_Espanyol
+2026-04-04,Logroño United,Sevilla,2.0,1.0,"Liga F (España, femenil)",4910405,20260404_Logroño-United_Sevilla
+2026-04-05,Atlético Madrid,Deportivo de A Coruña,2.0,0.0,"Liga F (España, femenil)",4910404,20260405_Atlético-Madrid_Deportivo-de-A-Coruña
+2026-04-05,Levante,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4910408,20260405_Levante_Athletic-Club
+2026-04-05,Madrid CFF,Real Madrid,0.0,2.0,"Liga F (España, femenil)",4910407,20260405_Madrid-CFF_Real-Madrid
+2026-04-06,Barcelona,Levante Badalona,6.0,0.0,"Liga F (España, femenil)",4910409,20260406_Barcelona_Levante-Badalona
+2026-04-22,Espanyol,Barcelona,1.0,4.0,"Liga F (España, femenil)",4910413,20260422_Espanyol_Barcelona
+2026-04-25,Athletic Club,Granada,1.0,2.0,"Liga F (España, femenil)",4910411,20260425_Athletic-Club_Granada
+2026-04-25,Levante Badalona,Atlético Madrid,2.0,4.0,"Liga F (España, femenil)",4910415,20260425_Levante-Badalona_Atlético-Madrid
+2026-04-25,Eibar,Levante,2.0,1.0,"Liga F (España, femenil)",4910412,20260425_Eibar_Levante
+2026-04-26,Deportivo de A Coruña,Alhama CF,2.0,2.0,"Liga F (España, femenil)",4910414,20260426_Deportivo-de-A-Coruña_Alhama-CF
+2026-04-26,UD Tenerife,Sevilla,3.0,0.0,"Liga F (España, femenil)",4910418,20260426_UD-Tenerife_Sevilla
+2026-04-26,Real Sociedad,Madrid CFF,2.0,0.0,"Liga F (España, femenil)",4910417,20260426_Real-Sociedad_Madrid-CFF
+2026-04-26,Real Madrid,Logroño United,1.0,1.0,"Liga F (España, femenil)",4910416,20260426_Real-Madrid_Logroño-United
+2026-05-01,Alhama CF,Espanyol,3.0,1.0,"Liga F (España, femenil)",4910419,20260501_Alhama-CF_Espanyol
+2026-05-01,Granada,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",4910424,20260501_Granada_UD-Tenerife
+2026-05-02,Levante Badalona,Athletic Club,0.0,1.0,"Liga F (España, femenil)",4910425,20260502_Levante-Badalona_Athletic-Club
+2026-05-02,Logroño United,Madrid CFF,3.0,0.0,"Liga F (España, femenil)",4910422,20260502_Logroño-United_Madrid-CFF
+2026-05-02,Sevilla,Real Madrid,0.0,2.0,"Liga F (España, femenil)",4910426,20260502_Sevilla_Real-Madrid
+2026-05-03,Atlético Madrid,Eibar,4.0,0.0,"Liga F (España, femenil)",4910420,20260503_Atlético-Madrid_Eibar
+2026-05-03,Deportivo de A Coruña,Real Sociedad,1.0,2.0,"Liga F (España, femenil)",4910421,20260503_Deportivo-de-A-Coruña_Real-Sociedad
+2026-05-06,Barcelona,Levante,5.0,0.0,"Liga F (España, femenil)",4910423,20260506_Barcelona_Levante
+2026-05-09,Espanyol,Levante Badalona,1.0,1.0,"Liga F (España, femenil)",4910431,20260509_Espanyol_Levante-Badalona
+2026-05-09,Real Sociedad,Granada,3.0,0.0,"Liga F (España, femenil)",4910433,20260509_Real-Sociedad_Granada
+2026-05-09,Eibar,Alhama CF,2.0,0.0,"Liga F (España, femenil)",4910429,20260509_Eibar_Alhama-CF
+2026-05-09,Athletic Club,Deportivo de A Coruña,0.0,1.0,"Liga F (España, femenil)",4910427,20260509_Athletic-Club_Deportivo-de-A-Coruña
+2026-05-10,Levante,Logroño United,1.0,4.0,"Liga F (España, femenil)",4910434,20260510_Levante_Logroño-United
+2026-05-10,Real Madrid,Atlético Madrid,1.0,0.0,"Liga F (España, femenil)",4910430,20260510_Real-Madrid_Atlético-Madrid
+2026-05-10,UD Tenerife,Barcelona,1.0,3.0,"Liga F (España, femenil)",4910432,20260510_UD-Tenerife_Barcelona
+2026-05-11,Madrid CFF,Sevilla,2.0,0.0,"Liga F (España, femenil)",4910428,20260511_Madrid-CFF_Sevilla
+2026-05-26,Alhama CF,Levante,2.0,2.0,"Liga F (España, femenil)",4910435,20260526_Alhama-CF_Levante
+2026-05-26,Levante Badalona,Real Madrid,0.0,4.0,"Liga F (España, femenil)",4910437,20260526_Levante-Badalona_Real-Madrid
+2026-05-26,Granada,Madrid CFF,3.0,4.0,"Liga F (España, femenil)",4910438,20260526_Granada_Madrid-CFF
+2026-05-26,Logroño United,Athletic Club,0.0,2.0,"Liga F (España, femenil)",4910439,20260526_Logroño-United_Athletic-Club
+2026-05-26,Sevilla,Eibar,0.0,0.0,"Liga F (España, femenil)",4910440,20260526_Sevilla_Eibar
+2026-05-26,Atlético Madrid,UD Tenerife,2.0,2.0,"Liga F (España, femenil)",4910436,20260526_Atlético-Madrid_UD-Tenerife
+2026-05-27,Barcelona,Real Sociedad,2.0,1.0,"Liga F (España, femenil)",4910442,20260527_Barcelona_Real-Sociedad
+2026-05-27,Deportivo de A Coruña,Espanyol,2.0,2.0,"Liga F (España, femenil)",4910441,20260527_Deportivo-de-A-Coruña_Espanyol
+2026-05-31,Eibar,Logroño United,2.0,1.0,"Liga F (España, femenil)",4910448,20260531_Eibar_Logroño-United
+2026-05-31,Real Madrid,Granada,2.0,0.0,"Liga F (España, femenil)",4910450,20260531_Real-Madrid_Granada
+2026-05-31,Real Sociedad,Atlético Madrid,2.0,0.0,"Liga F (España, femenil)",4910445,20260531_Real-Sociedad_Atlético-Madrid
+2026-05-31,UD Tenerife,Deportivo de A Coruña,2.0,0.0,"Liga F (España, femenil)",4910447,20260531_UD-Tenerife_Deportivo-de-A-Coruña
+2026-05-31,Athletic Club,Alhama CF,4.0,1.0,"Liga F (España, femenil)",4910444,20260531_Athletic-Club_Alhama-CF
+2026-05-31,Espanyol,Sevilla,0.0,0.0,"Liga F (España, femenil)",4910443,20260531_Espanyol_Sevilla
+2026-05-31,Levante,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",4910446,20260531_Levante_Levante-Badalona
+2026-05-31,Madrid CFF,Barcelona,0.0,4.0,"Liga F (España, femenil)",4910449,20260531_Madrid-CFF_Barcelona
+2026-08-29,Deportivo de A Coruña,Sevilla,0.0,1.0,"Liga F (España, femenil)",5882270,20260829_Deportivo-de-A-Coruña_Sevilla
+2026-08-29,Real Sociedad,Logroño United,0.0,2.0,"Liga F (España, femenil)",5882273,20260829_Real-Sociedad_Logroño-United
+2026-08-29,Eibar,Espanyol,1.0,0.0,"Liga F (España, femenil)",5882271,20260829_Eibar_Espanyol
+2026-08-29,Madrid CFF,Granada,3.0,1.0,"Liga F (España, femenil)",5882272,20260829_Madrid-CFF_Granada
+2026-08-30,Athletic Club,Levante Badalona,3.0,1.0,"Liga F (España, femenil)",5882268,20260830_Athletic-Club_Levante-Badalona
+2026-08-30,Deportivo Alavés,Valencia,2.0,0.0,"Liga F (España, femenil)",5882267,20260830_Deportivo-Alavés_Valencia
+2026-08-30,Barcelona,UD Tenerife,5.0,0.0,"Liga F (España, femenil)",5882269,20260830_Barcelona_UD-Tenerife
+2026-08-30,Real Madrid,Atlético Madrid,3.0,2.0,"Liga F (España, femenil)",5882274,20260830_Real-Madrid_Atlético-Madrid
+2026-09-05,Espanyol,Levante Badalona,0.0,1.0,"Liga F (España, femenil)",5882277,20260905_Espanyol_Levante-Badalona
+2026-09-05,Valencia,Madrid CFF,1.0,3.0,"Liga F (España, femenil)",5882282,20260905_Valencia_Madrid-CFF
+2026-09-05,Sevilla,Barcelona,0.0,4.0,"Liga F (España, femenil)",5882281,20260905_Sevilla_Barcelona
+2026-09-06,Atlético Madrid,Deportivo Alavés,1.0,0.0,"Liga F (España, femenil)",5882275,20260906_Atlético-Madrid_Deportivo-Alavés
+2026-09-06,UD Tenerife,Deportivo de A Coruña,0.0,0.0,"Liga F (España, femenil)",5882280,20260906_UD-Tenerife_Deportivo-de-A-Coruña
+2026-09-06,Logroño United,Athletic Club,0.0,1.0,"Liga F (España, femenil)",5882278,20260906_Logroño-United_Athletic-Club
+2026-09-06,Real Madrid,Eibar,0.0,0.0,"Liga F (España, femenil)",5882279,20260906_Real-Madrid_Eibar
+2026-09-07,Granada,Real Sociedad,3.0,2.0,"Liga F (España, femenil)",5882276,20260907_Granada_Real-Sociedad
+2026-09-11,Deportivo de A Coruña,Real Madrid,0.0,2.0,"Liga F (España, femenil)",5882286,20260911_Deportivo-de-A-Coruña_Real-Madrid
+2026-09-12,Athletic Club,Espanyol,2.0,2.0,"Liga F (España, femenil)",5882285,20260912_Athletic-Club_Espanyol
+2026-09-12,Madrid CFF,Sevilla,1.0,0.0,"Liga F (España, femenil)",5882289,20260912_Madrid-CFF_Sevilla
+2026-09-12,Barcelona,Atlético Madrid,4.0,2.0,"Liga F (España, femenil)",5882287,20260912_Barcelona_Atlético-Madrid
+2026-09-13,Deportivo Alavés,Granada,1.0,0.0,"Liga F (España, femenil)",5882283,20260913_Deportivo-Alavés_Granada
+2026-09-13,Real Sociedad,UD Tenerife,1.0,1.0,"Liga F (España, femenil)",5882290,20260913_Real-Sociedad_UD-Tenerife
+2026-09-13,Logroño United,Valencia,2.0,1.0,"Liga F (España, femenil)",5882284,20260913_Logroño-United_Valencia
+2026-09-13,Eibar,Levante Badalona,1.0,4.0,"Liga F (España, femenil)",5882288,20260913_Eibar_Levante-Badalona
+2026-09-18,Deportivo Alavés,Barcelona,0.0,6.0,"Liga F (España, femenil)",5882291,20260918_Deportivo-Alavés_Barcelona
+2026-09-19,Levante Badalona,Real Sociedad,0.0,0.0,"Liga F (España, femenil)",5882297,20260919_Levante-Badalona_Real-Sociedad
+2026-09-19,Espanyol,Madrid CFF,5.0,1.0,"Liga F (España, femenil)",5882294,20260919_Espanyol_Madrid-CFF
+2026-09-19,Atlético Madrid,Logroño United,1.0,0.0,"Liga F (España, femenil)",5882292,20260919_Atlético-Madrid_Logroño-United
+2026-09-19,Real Madrid,Valencia,3.0,1.0,"Liga F (España, femenil)",5882298,20260919_Real-Madrid_Valencia
+2026-09-20,UD Tenerife,Sevilla,1.0,3.0,"Liga F (España, femenil)",5882293,20260920_UD-Tenerife_Sevilla
+2026-09-20,Granada,Deportivo de A Coruña,0.0,3.0,"Liga F (España, femenil)",5882296,20260920_Granada_Deportivo-de-A-Coruña
+2026-09-20,Eibar,Athletic Club,1.0,0.0,"Liga F (España, femenil)",5882295,20260920_Eibar_Athletic-Club

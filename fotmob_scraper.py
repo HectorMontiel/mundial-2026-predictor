@@ -74,6 +74,11 @@ STATS_INTERES = {
     'Keeper saves': 'paradas',
     'Fouls committed': 'faltas',
     'Corners': 'corners',
+    # v303 — las tarjetas, que faltaban: son la otra mitad de lo que el
+    # usuario juega además de los goles, y FotMob las publica en el mismo
+    # bloque de estadísticas del partido.
+    'Yellow cards': 'amarillas',
+    'Red cards': 'rojas',
 }
 
 

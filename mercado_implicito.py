@@ -350,6 +350,42 @@ def _cuota(sel) -> Optional[float]:
     return v if v > 1.0 else None
 
 
+_RE_DC_GOLES = re.compile(
+    r'^doble oportunidad y total ([0-9]+(?:[.,][0-9]+)?) de goles$')
+
+
+def _dc_con_goles(sels, casa_home: str, casa_away: str) -> Dict[str, float]:
+    """`{'1X_menos': cuota, 'X2_mas': cuota, ...}` de «Doble oportunidad y
+    total N de goles». Las selecciones van como «Japón/empate y menos de
+    2.5»: el lado sale de QUÉ DOS se nombran, no del orden. Se guardan las
+    cuotas tal cual: aquí no hay «dos lados» que devigar, son seis salidas."""
+    fuera: Dict[str, float] = {}
+    for s in sels or []:
+        if not isinstance(s, dict):
+            continue
+        c = _cuota(s)
+        n = _norm(s.get('nombre'))
+        if c is None or ' y ' not in n:
+            continue
+        izq, der = n.rsplit(' y ', 1)
+        sentido = 'mas' if der.startswith(('mas', 'más')) else (
+            'menos' if der.startswith('menos') else None)
+        if not sentido:
+            continue
+        partes = {x.strip() for x in izq.split('/')}
+        emp = 'empate' in partes
+        loc = bool(casa_home) and any(_menciona(x, casa_home) or x == casa_home
+                                      for x in partes)
+        vis = bool(casa_away) and any(_menciona(x, casa_away) or x == casa_away
+                                      for x in partes)
+        lado = ('1X' if loc and emp and not vis else
+                'X2' if vis and emp and not loc else
+                '12' if loc and vis and not emp else None)
+        if lado:
+            fuera['%s_%s' % (lado, sentido)] = round(float(c), 3)
+    return fuera
+
+
 def del_tablero(tablero: Optional[Dict]) -> Dict:
     """
     1X2, goles y BTTS de un tablero de la casa, ya sin margen.
@@ -375,6 +411,28 @@ def del_tablero(tablero: Optional[Dict]) -> Dict:
         nom = _norm(m.get('nombre'))
         sels = m.get('selecciones') or []
         if not sels:
+            continue
+        # v303 — LOS GOLES DE CADA EQUIPO Y LA DOBLE OPORTUNIDAD CON GOLES.
+        #
+        # El usuario: «podemos irnos al under de goles individual por equipo»
+        # y «habrá juegos donde es mejor la doble oportunidad y meter over u
+        # under». Playdoit publica las dos cosas con precio propio —medido en
+        # Japón-Uruguay el 2026-09-23: «Japón total de goles» (0,5/1,5/2,5) y
+        # «Doble oportunidad y total 1.5/2.5/3.5 de goles»— y este lector las
+        # tiraba. Sin su precio la tarjeta no puede proponerlas.
+        if nom.endswith('total de goles') and not _RE_MITAD.search(nom):
+            _lado_g = _lado_de(nom, casa_home, casa_away, invertido)
+            if _lado_g and ('goles' + _lado_g) not in salida:
+                _lg = _lineas_dos_lados(sels)
+                if _lg:
+                    salida['goles' + _lado_g] = _lg
+            continue
+        _mdc = _RE_DC_GOLES.match(nom)
+        if _mdc:
+            _dc = _dc_con_goles(sels, casa_home, casa_away)
+            if _dc:
+                salida.setdefault('dc_goles', {})[
+                    clave_linea(_mdc.group(1)) or _mdc.group(1)] = _dc
             continue
         # --- 1X2 --------------------------------------------------------
         if '1x2' not in salida and any(nom.startswith(x) for x in _N_1X2) \

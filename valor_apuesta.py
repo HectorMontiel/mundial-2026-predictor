@@ -778,6 +778,169 @@ def _de_resultado(pick: Dict) -> List[Dict]:
     return salida
 
 
+
+# ---------------------------------------------------------------------------
+# v303 — GOLES DE CADA EQUIPO, Y DOBLE OPORTUNIDAD CON GOLES
+# ---------------------------------------------------------------------------
+# El usuario: «si el equipo A tiene media de goles de 0,5 y el B de 0,8 ...
+# podemos irnos al under de goles individual por equipo», y «habrá juegos
+# donde es mejor la doble oportunidad y meter over u under por lo parejos que
+# serán». Playdoit publica las dos cosas con precio propio (ver
+# `mercado_implicito._dc_con_goles`); hasta aquí no existían como candidatas.
+#
+# LO QUE NO ESTÁ MEDIDO, Y SE MARCA: ninguno de los dos mercados tiene
+# histórico propio de acierto todavía. Viajan con `sin_medir` para que la
+# tarjeta lo diga, igual que los mercados en cuarentena.
+
+def _de_goles_equipo(pick: Dict) -> List[Dict]:
+    """«<Equipo> total de goles»: cada línea que la casa publica."""
+    import mercado_implicito as mi
+    import modo_modelo as mm
+    imp = pick.get('implicitas') or {}
+    ge = pick.get('goles_equipo') or {}
+    h, a = mm._equipos(pick)
+    salida = []
+    for lado, nombre, clave in (('local', h, 'goles_home'),
+                                ('visitante', a, 'goles_away')):
+        lineas = ge.get(lado) or {}
+        for linea, dato in (imp.get(clave) or {}).items():
+            p_mas = lineas.get(linea)
+            if p_mas is None or not nombre:
+                continue
+            try:
+                p_mas = float(p_mas)
+            except (TypeError, ValueError):
+                continue
+            imp_mas = mi.prob_de(dato)
+            for es_mas, p, cuota, i in (
+                    (True, p_mas, mi.cuota_de(dato, 'mas'), imp_mas),
+                    (False, 1.0 - p_mas, mi.cuota_de(dato, 'menos'),
+                     None if imp_mas is None else 1.0 - imp_mas)):
+                texto = '%s: %s de %s' % (nombre, 'Más' if es_mas
+                                          else 'Menos', linea)
+                salida.append(_fila('Goles equipo', lado.capitalize(),
+                                    'Goles %s' % texto, p, cuota, i,
+                                    'goles_equipo', float(linea),
+                                    {'sin_medir': True}))
+    return salida
+
+
+def _num_ok(v) -> bool:
+    try:
+        float(v)
+        return True
+    except (TypeError, ValueError):
+        return False
+
+
+def _conjunta_dc_goles(pick: Dict):
+    """Matriz de marcadores coherente con el 1X2 Y con la escalera de goles
+    que enseña la tarjeta (ajuste proporcional iterativo). None si falta
+    algo. Así «Japón o empate y menos de 2.5» no puede contradecir ni al 1X2
+    ni al «menos de 2.5» que la misma tarjeta enseña."""
+    import math
+    import modo_modelo as mm
+    tri = mm.probabilidades_1x2(pick)
+    gl = pick.get('goles_lineas') or {}
+    ge = pick.get('goles_equipo') or {}
+    gx = pick.get('goles_xg') or {}
+    if not tri or not gl:
+        return None
+    try:
+        lh = float(gx.get('local') or -math.log(
+            1 - float(ge['local']['0.5'])))
+        la = float(gx.get('visitante') or -math.log(
+            1 - float(ge['visitante']['0.5'])))
+    except (KeyError, TypeError, ValueError):
+        return None
+    n = 9
+
+    def pois(k, lam):
+        return math.exp(-lam) * lam ** k / math.factorial(k)
+    M = [[pois(i, lh) * pois(j, la) for j in range(n)] for i in range(n)]
+    p_mas = {float(k): float(v) for k, v in gl.items() if _num_ok(v)}
+    obj_t = {}
+    t = 0
+    while True:
+        arriba = 1.0 if t == 0 else p_mas.get(t - 0.5)
+        abajo = p_mas.get(t + 0.5)
+        if arriba is None:
+            break
+        if abajo is None:
+            obj_t[t] = max(arriba, 0.0)       # «t o más»: la cola
+            break
+        obj_t[t] = max(arriba - abajo, 0.0)
+        t += 1
+    tope = max(obj_t) if obj_t else None
+    obj_r = {'home': tri[0], 'draw': tri[1], 'away': tri[2]}
+
+    def region(i, j):
+        return 'home' if i > j else ('draw' if i == j else 'away')
+    for _ in range(40):
+        tot = {}
+        for i in range(n):
+            for j in range(n):
+                tot[region(i, j)] = tot.get(region(i, j), 0.0) + M[i][j]
+        for i in range(n):
+            for j in range(n):
+                r = region(i, j)
+                if tot.get(r):
+                    M[i][j] *= obj_r[r] / tot[r]
+        if tope is not None:
+            st = {}
+            for i in range(n):
+                for j in range(n):
+                    k = min(i + j, tope)
+                    st[k] = st.get(k, 0.0) + M[i][j]
+            for i in range(n):
+                for j in range(n):
+                    k = min(i + j, tope)
+                    if st.get(k):
+                        M[i][j] *= obj_t[k] / st[k]
+    s = sum(map(sum, M)) or 1.0
+    return [[x / s for x in fila] for fila in M]
+
+
+def _de_dc_goles(pick: Dict) -> List[Dict]:
+    """«Doble oportunidad y total N de goles», con el precio de la casa."""
+    import modo_modelo as mm
+    dcg = (pick.get('implicitas') or {}).get('dc_goles') or {}
+    if not dcg:
+        return []
+    M = _conjunta_dc_goles(pick)
+    if not M:
+        return []
+    h, a = mm._equipos(pick)
+    if not (h and a):
+        return []
+    n = len(M)
+    nombres = {'1X': '%s o empate' % h, 'X2': '%s o empate' % a,
+               '12': '%s o %s' % (h, a)}
+    cumple = {'1X': lambda i, j: i >= j, 'X2': lambda i, j: j >= i,
+              '12': lambda i, j: i != j}
+    salida = []
+    for linea, cuotas in dcg.items():
+        try:
+            L = float(linea)
+        except (TypeError, ValueError):
+            continue
+        for clave, cuota in (cuotas or {}).items():
+            try:
+                lado, sentido = clave.split('_')
+            except ValueError:
+                continue
+            if lado not in cumple:
+                continue
+            p = sum(M[i][j] for i in range(n) for j in range(n)
+                    if cumple[lado](i, j)
+                    and ((i + j > L) if sentido == 'mas' else (i + j < L)))
+            texto = '%s y %s de %s' % (nombres[lado],
+                                       'más' if sentido == 'mas' else 'menos',
+                                       linea)
+            salida.append(_fila('Doble y goles', lado, texto, p, cuota, None,
+                                'dc_goles', L, {'sin_medir': True}))
+    return salida
+
 # ---------------------------------------------------------------------------
 # la puerta de entrada
 # ---------------------------------------------------------------------------
@@ -817,6 +980,15 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
         filas += _de_conteo(pick, bloques or {})
     except Exception as e:
         logger.debug('[valor] conteo: %s', e)
+    # v303 — goles de cada equipo y doble oportunidad con goles
+    try:
+        filas += _de_goles_equipo(pick)
+    except Exception as e:
+        logger.debug('[valor] goles por equipo: %s', e)
+    try:
+        filas += _de_dc_goles(pick)
+    except Exception as e:
+        logger.debug('[valor] doble con goles: %s', e)
     # v175 — LA CUARENTENA DEJA DE APARTAR NADA: SOLO MARCA.
     #
     # La v168 la puso como muro (un bloque mal calibrado en esa liga no

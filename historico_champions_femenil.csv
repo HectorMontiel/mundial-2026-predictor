@@ -1,0 +1,805 @@
+date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
+2021-08-17,TSG 1899 Hoffenheim,Valur,1.0,0.0,Champions League femenina,3642060,20210817_TSG-1899-Hoffenheim_Valur
+2021-08-17,FC Zürich Frauen,Milan,1.0,2.0,Champions League femenina,3642066,20210817_FC-Zürich-Frauen_Milan
+2021-08-17,Ferencvarosi TC,Czarni Sosnowiec,2.0,1.0,Champions League femenina,3642065,20210817_Ferencvarosi-TC_Czarni-Sosnowiec
+2021-08-18,Breidablik,KI Klaksvik,7.0,0.0,Champions League femenina,3642045,20210818_Breidablik_KI-Klaksvik
+2021-08-18,FC Kharkiv,NSA Sofia,5.0,1.0,Champions League femenina,3642059,20210818_FC-Kharkiv_NSA-Sofia
+2021-08-18,Glasgow City,Birkirkara FC,3.0,0.0,Champions League femenina,3642042,20210818_Glasgow-City_Birkirkara-FC
+2021-08-18,SFK 2000 Sarajevo,Racing FC Union Luxembourg,0.0,1.0,Champions League femenina,3642050,20210818_SFK-2000-Sarajevo_Racing-FC-Union-Luxembourg
+2021-08-18,Arsenal,Okzhetpes,4.0,0.0,Champions League femenina,3642038,20210818_Arsenal_Okzhetpes
+2021-08-18,FC Minsk,Rosenborg BK,1.0,2.0,Champions League femenina,3642037,20210818_FC-Minsk_Rosenborg-BK
+2021-08-18,ZFK Spartak Subotica,Peamount United,5.0,2.0,Champions League femenina,3642061,20210818_ZFK-Spartak-Subotica_Peamount-United
+2021-08-18,Servette,Glentoran Belfast United,1.0,0.0,Champions League femenina,3642048,20210818_Servette_Glentoran-Belfast-United
+2021-08-18,Brøndby IF,Kristianstads DFF,0.0,1.0,Champions League femenina,3642062,20210818_Brøndby-IF_Kristianstads-DFF
+2021-08-18,Anderlecht,Hayasa,3.0,0.0,Champions League femenina,3642043,20210818_Anderlecht_Hayasa
+2021-08-18,Juventus,ZFK Kamenica Sasa,12.0,0.0,Champions League femenina,3642056,20210818_Juventus_ZFK-Kamenica-Sasa
+2021-08-18,BIIK Kazygurt,SK Slovan Bratislava,4.0,0.0,Champions League femenina,3642040,20210818_BIIK-Kazygurt_SK-Slovan-Bratislava
+2021-08-18,PAOK Thessaloniki FC,SS Anenii Noi,6.0,0.0,Champions League femenina,3642039,20210818_PAOK-Thessaloniki-FC_SS-Anenii-Noi
+2021-08-18,Vålerenga,Mitrovica,5.0,0.0,Champions League femenina,3642054,20210818_Vålerenga_Mitrovica
+2021-08-18,Apollon Limassol LFC,Dinamo Minsk,2.0,0.0,Champions League femenina,3642053,20210818_Apollon-Limassol-LFC_Dinamo-Minsk
+2021-08-18,FK Gintra Universitetas,Flora Tallinn,2.0,0.0,Champions League femenina,3642051,20210818_FK-Gintra-Universitetas_Flora-Tallinn
+2021-08-18,Benfica,Kiryat Gat,4.0,0.0,Champions League femenina,3642058,20210818_Benfica_Kiryat-Gat
+2021-08-18,ZNK Mura,Rigas FS,6.0,1.0,Champions League femenina,3642057,20210818_ZNK-Mura_Rigas-FS
+2021-08-18,Levante,Celtic,2.0,1.0,Champions League femenina,3642064,20210818_Levante_Celtic
+2021-08-18,PSV,Lokomotiv Moscow,3.0,1.0,Champions League femenina,3642049,20210818_PSV_Lokomotiv-Moscow
+2021-08-18,FC Twente,Samegrelo,9.0,0.0,Champions League femenina,3642055,20210818_FC-Twente_Samegrelo
+2021-08-18,Olimpia UT Cluj-Napoca,Åland United,0.0,4.0,Champions League femenina,3642041,20210818_Olimpia-UT-Cluj-Napoca_Åland-United
+2021-08-18,Bordeaux,Slovácko,2.0,1.0,Champions League femenina,3642063,20210818_Bordeaux_Slovácko
+2021-08-18,SKN St. Pölten,Beşiktaş,7.0,0.0,Champions League femenina,3642052,20210818_SKN-St.-Pölten_Beşiktaş
+2021-08-18,WFC Osijek,Breznica,5.0,0.0,Champions League femenina,3642047,20210818_WFC-Osijek_Breznica
+2021-08-18,CSKA Moscow,Swansea,4.0,1.0,Champions League femenina,3642046,20210818_CSKA-Moscow_Swansea
+2021-08-20,FC Zürich Frauen,Valur,1.0,3.0,Champions League femenina,3706305,20210820_FC-Zürich-Frauen_Valur
+2021-08-20,KF Vllaznia,Ferencvarosi TC,0.0,0.0,Champions League femenina,3706304,20210820_KF-Vllaznia_Ferencvarosi-TC
+2021-08-20,TSG 1899 Hoffenheim,Milan,2.0,0.0,Champions League femenina,3706303,20210820_TSG-1899-Hoffenheim_Milan
+2021-08-21,KI Klaksvik,Flora Tallinn,0.0,1.0,Champions League femenina,3707162,20210821_KI-Klaksvik_Flora-Tallinn
+2021-08-21,NSA Sofia,Rigas FS,2.0,1.0,Champions League femenina,3707166,20210821_NSA-Sofia_Rigas-FS
+2021-08-21,SFK 2000 Sarajevo,Kiryat Gat,1.0,1.0,Champions League femenina,3707163,20210821_SFK-2000-Sarajevo_Kiryat-Gat
+2021-08-21,FC Minsk,Celtic,3.0,2.0,Champions League femenina,3707161,20210821_FC-Minsk_Celtic
+2021-08-21,Okzhetpes,Lokomotiv Moscow,0.0,4.0,Champions League femenina,3707167,20210821_Okzhetpes_Lokomotiv-Moscow
+2021-08-21,Peamount United,Samegrelo,3.0,0.0,Champions League femenina,3707165,20210821_Peamount-United_Samegrelo
+2021-08-21,Olimpia UT Cluj-Napoca,Glentoran Belfast United,0.0,2.0,Champions League femenina,3707159,20210821_Olimpia-UT-Cluj-Napoca_Glentoran-Belfast-United
+2021-08-21,Brøndby IF,Slovácko,2.0,1.0,Champions League femenina,3707164,20210821_Brøndby-IF_Slovácko
+2021-08-21,Beşiktaş,ZFK Kamenica Sasa,4.0,0.0,Champions League femenina,3707175,20210821_Beşiktaş_ZFK-Kamenica-Sasa
+2021-08-21,Breznica,Hayasa,3.0,2.0,Champions League femenina,3707174,20210821_Breznica_Hayasa
+2021-08-21,SK Slovan Bratislava,Birkirkara FC,1.0,0.0,Champions League femenina,3707158,20210821_SK-Slovan-Bratislava_Birkirkara-FC
+2021-08-21,Vålerenga,PAOK Thessaloniki FC,2.0,0.0,Champions League femenina,3707085,20210821_Vålerenga_PAOK-Thessaloniki-FC
+2021-08-21,Mitrovica,SS Anenii Noi,3.0,0.0,Champions League femenina,3707160,20210821_Mitrovica_SS-Anenii-Noi
+2021-08-21,Dinamo Minsk,Swansea,2.0,0.0,Champions League femenina,3707178,20210821_Dinamo-Minsk_Swansea
+2021-08-21,FC Kharkiv,ZNK Mura,4.0,1.0,Champions League femenina,3707120,20210821_FC-Kharkiv_ZNK-Mura
+2021-08-21,FK Gintra Universitetas,Breidablik,1.0,8.0,Champions League femenina,3707118,20210821_FK-Gintra-Universitetas_Breidablik
+2021-08-21,Benfica,Racing FC Union Luxembourg,7.0,0.0,Champions League femenina,3707119,20210821_Benfica_Racing-FC-Union-Luxembourg
+2021-08-21,Arsenal,PSV,3.0,1.0,Champions League femenina,3707149,20210821_Arsenal_PSV
+2021-08-21,Levante,Rosenborg BK,4.0,3.0,Champions League femenina,3707143,20210821_Levante_Rosenborg-BK
+2021-08-21,FC Twente,ZFK Spartak Subotica,5.0,3.0,Champions League femenina,3707150,20210821_FC-Twente_ZFK-Spartak-Subotica
+2021-08-21,Servette,Åland United,1.0,0.0,Champions League femenina,3707148,20210821_Servette_Åland-United
+2021-08-21,Bordeaux,Kristianstads DFF,3.0,1.0,Champions League femenina,3707156,20210821_Bordeaux_Kristianstads-DFF
+2021-08-21,Anderlecht,WFC Osijek,0.0,1.0,Champions League femenina,3707170,20210821_Anderlecht_WFC-Osijek
+2021-08-21,BIIK Kazygurt,Glasgow City,0.0,1.0,Champions League femenina,3707082,20210821_BIIK-Kazygurt_Glasgow-City
+2021-08-21,SKN St. Pölten,Juventus,1.0,4.0,Champions League femenina,3707171,20210821_SKN-St.-Pölten_Juventus
+2021-08-21,Apollon Limassol LFC,CSKA Moscow,2.0,1.0,Champions League femenina,3707177,20210821_Apollon-Limassol-LFC_CSKA-Moscow
+2021-08-31,Apollon Limassol LFC,FC Kharkiv,1.0,2.0,Champions League femenina,3709282,20210831_Apollon-Limassol-LFC_FC-Kharkiv
+2021-08-31,FC Rosengård,TSG 1899 Hoffenheim,0.0,3.0,Champions League femenina,3709287,20210831_FC-Rosengård_TSG-1899-Hoffenheim
+2021-08-31,FC Twente,Benfica,1.0,1.0,Champions League femenina,3709281,20210831_FC-Twente_Benfica
+2021-08-31,Arsenal,Slavia Prague,3.0,0.0,Champions League femenina,3709295,20210831_Arsenal_Slavia-Prague
+2021-08-31,Real Madrid,Manchester City,1.0,1.0,Champions League femenina,3709279,20210831_Real-Madrid_Manchester-City
+2021-09-01,Sparta Prague,HB Køge,0.0,1.0,Champions League femenina,3709291,20210901_Sparta-Prague_HB-Køge
+2021-09-01,VfL Wolfsburg,Bordeaux,3.0,2.0,Champions League femenina,3709297,20210901_VfL-Wolfsburg_Bordeaux
+2021-09-01,WFC Osijek,Breidablik,1.0,1.0,Champions League femenina,3709292,20210901_WFC-Osijek_Breidablik
+2021-09-01,KF Vllaznia,Juventus,0.0,2.0,Champions League femenina,3709301,20210901_KF-Vllaznia_Juventus
+2021-09-01,Vålerenga,BK Häcken,1.0,3.0,Champions League femenina,3709289,20210901_Vålerenga_BK-Häcken
+2021-09-01,Servette,Glasgow City,1.0,1.0,Champions League femenina,3709285,20210901_Servette_Glasgow-City
+2021-09-01,Levante,OL Lyonnes,1.0,2.0,Champions League femenina,3709299,20210901_Levante_OL-Lyonnes
+2021-09-08,Glasgow City,Servette,1.0,2.0,Champions League femenina,3709286,20210908_Glasgow-City_Servette
+2021-09-08,HB Køge,Sparta Prague,2.0,0.0,Champions League femenina,3709293,20210908_HB-Køge_Sparta-Prague
+2021-09-08,OL Lyonnes,Levante,2.0,1.0,Champions League femenina,3709300,20210908_OL-Lyonnes_Levante
+2021-09-08,BK Häcken,Vålerenga,3.0,2.0,Champions League femenina,3709290,20210908_BK-Häcken_Vålerenga
+2021-09-08,Bordeaux,VfL Wolfsburg,3.0,2.0,Champions League femenina,3709298,20210908_Bordeaux_VfL-Wolfsburg
+2021-09-08,TSG 1899 Hoffenheim,FC Rosengård,3.0,3.0,Champions League femenina,3709288,20210908_TSG-1899-Hoffenheim_FC-Rosengård
+2021-09-08,Manchester City,Real Madrid,0.0,1.0,Champions League femenina,3709280,20210908_Manchester-City_Real-Madrid
+2021-09-09,FC Kharkiv,Apollon Limassol LFC,3.0,1.0,Champions League femenina,3709284,20210909_FC-Kharkiv_Apollon-Limassol-LFC
+2021-09-09,Slavia Prague,Arsenal,0.0,4.0,Champions League femenina,3709296,20210909_Slavia-Prague_Arsenal
+2021-09-09,Breidablik,WFC Osijek,3.0,0.0,Champions League femenina,3709294,20210909_Breidablik_WFC-Osijek
+2021-09-09,Juventus,KF Vllaznia,1.0,0.0,Champions League femenina,3709302,20210909_Juventus_KF-Vllaznia
+2021-09-09,Benfica,FC Twente,4.0,0.0,Champions League femenina,3709283,20210909_Benfica_FC-Twente
+2021-10-05,BK Häcken,OL Lyonnes,0.0,3.0,Champions League femenina,3726602,20211005_BK-Häcken_OL-Lyonnes
+2021-10-05,TSG 1899 Hoffenheim,HB Køge,5.0,0.0,Champions League femenina,3726590,20211005_TSG-1899-Hoffenheim_HB-Køge
+2021-10-05,Barcelona,Arsenal,4.0,1.0,Champions League femenina,3726591,20211005_Barcelona_Arsenal
+2021-10-05,Benfica,Bayern München,0.0,0.0,Champions League femenina,3726603,20211005_Benfica_Bayern-München
+2021-10-06,FC Kharkiv,Real Madrid,0.0,1.0,Champions League femenina,3726578,20211006_FC-Kharkiv_Real-Madrid
+2021-10-06,Servette,Juventus,0.0,3.0,Champions League femenina,3726566,20211006_Servette_Juventus
+2021-10-06,Breidablik,Paris Saint Germain,0.0,2.0,Champions League femenina,3726579,20211006_Breidablik_Paris-Saint-Germain
+2021-10-06,Chelsea,VfL Wolfsburg,3.0,3.0,Champions League femenina,3726567,20211006_Chelsea_VfL-Wolfsburg
+2021-10-13,Paris Saint Germain,FC Kharkiv,5.0,0.0,Champions League femenina,3726580,20211013_Paris-Saint-Germain_FC-Kharkiv
+2021-10-13,VfL Wolfsburg,Servette,5.0,0.0,Champions League femenina,3726568,20211013_VfL-Wolfsburg_Servette
+2021-10-13,Juventus,Chelsea,1.0,2.0,Champions League femenina,3726569,20211013_Juventus_Chelsea
+2021-10-13,Real Madrid,Breidablik,5.0,0.0,Champions League femenina,3726581,20211013_Real-Madrid_Breidablik
+2021-10-14,Bayern München,BK Häcken,4.0,0.0,Champions League femenina,3726604,20211014_Bayern-München_BK-Häcken
+2021-10-14,HB Køge,Barcelona,0.0,2.0,Champions League femenina,3726592,20211014_HB-Køge_Barcelona
+2021-10-14,Arsenal,TSG 1899 Hoffenheim,4.0,0.0,Champions League femenina,3726593,20211014_Arsenal_TSG-1899-Hoffenheim
+2021-10-14,OL Lyonnes,Benfica,5.0,0.0,Champions League femenina,3726605,20211014_OL-Lyonnes_Benfica
+2021-11-09,FC Kharkiv,Breidablik,0.0,0.0,Champions League femenina,3726582,20211109_FC-Kharkiv_Breidablik
+2021-11-09,Servette,Chelsea,0.0,7.0,Champions League femenina,3726570,20211109_Servette_Chelsea
+2021-11-09,Juventus,VfL Wolfsburg,2.0,2.0,Champions League femenina,3726571,20211109_Juventus_VfL-Wolfsburg
+2021-11-09,Paris Saint Germain,Real Madrid,4.0,0.0,Champions League femenina,3726583,20211109_Paris-Saint-Germain_Real-Madrid
+2021-11-10,Barcelona,TSG 1899 Hoffenheim,4.0,0.0,Champions League femenina,3726594,20211110_Barcelona_TSG-1899-Hoffenheim
+2021-11-10,HB Køge,Arsenal,1.0,5.0,Champions League femenina,3726595,20211110_HB-Køge_Arsenal
+2021-11-10,OL Lyonnes,Bayern München,2.0,1.0,Champions League femenina,3726607,20211110_OL-Lyonnes_Bayern-München
+2021-11-10,Benfica,BK Häcken,0.0,1.0,Champions League femenina,3726606,20211110_Benfica_BK-Häcken
+2021-11-17,BK Häcken,Benfica,1.0,2.0,Champions League femenina,3726608,20211117_BK-Häcken_Benfica
+2021-11-17,TSG 1899 Hoffenheim,Barcelona,0.0,5.0,Champions League femenina,3726596,20211117_TSG-1899-Hoffenheim_Barcelona
+2021-11-17,Arsenal,HB Køge,3.0,0.0,Champions League femenina,3726597,20211117_Arsenal_HB-Køge
+2021-11-17,Bayern München,OL Lyonnes,1.0,0.0,Champions League femenina,3726609,20211117_Bayern-München_OL-Lyonnes
+2021-11-18,Breidablik,FC Kharkiv,0.0,2.0,Champions League femenina,3726584,20211118_Breidablik_FC-Kharkiv
+2021-11-18,VfL Wolfsburg,Juventus,0.0,2.0,Champions League femenina,3726572,20211118_VfL-Wolfsburg_Juventus
+2021-11-18,Chelsea,Servette,1.0,0.0,Champions League femenina,3726573,20211118_Chelsea_Servette
+2021-11-18,Real Madrid,Paris Saint Germain,0.0,2.0,Champions League femenina,3726585,20211118_Real-Madrid_Paris-Saint-Germain
+2021-12-08,FC Kharkiv,Paris Saint Germain,0.0,6.0,Champions League femenina,3726586,20211208_FC-Kharkiv_Paris-Saint-Germain
+2021-12-08,Servette,VfL Wolfsburg,0.0,3.0,Champions League femenina,3726574,20211208_Servette_VfL-Wolfsburg
+2021-12-08,Breidablik,Real Madrid,0.0,3.0,Champions League femenina,3726587,20211208_Breidablik_Real-Madrid
+2021-12-08,Chelsea,Juventus,0.0,0.0,Champions League femenina,3726575,20211208_Chelsea_Juventus
+2021-12-09,BK Häcken,Bayern München,1.0,5.0,Champions League femenina,3726611,20211209_BK-Häcken_Bayern-München
+2021-12-09,HB Køge,TSG 1899 Hoffenheim,1.0,2.0,Champions League femenina,3726599,20211209_HB-Køge_TSG-1899-Hoffenheim
+2021-12-09,Arsenal,Barcelona,0.0,4.0,Champions League femenina,3726598,20211209_Arsenal_Barcelona
+2021-12-09,Benfica,OL Lyonnes,0.0,5.0,Champions League femenina,3726610,20211209_Benfica_OL-Lyonnes
+2021-12-15,Bayern München,Benfica,4.0,0.0,Champions League femenina,3726612,20211215_Bayern-München_Benfica
+2021-12-15,OL Lyonnes,BK Häcken,4.0,0.0,Champions League femenina,3726613,20211215_OL-Lyonnes_BK-Häcken
+2021-12-15,Barcelona,HB Køge,5.0,0.0,Champions League femenina,3726600,20211215_Barcelona_HB-Køge
+2021-12-15,TSG 1899 Hoffenheim,Arsenal,4.0,1.0,Champions League femenina,3726601,20211215_TSG-1899-Hoffenheim_Arsenal
+2021-12-16,Paris Saint Germain,Breidablik,6.0,0.0,Champions League femenina,3726589,20211216_Paris-Saint-Germain_Breidablik
+2021-12-16,Real Madrid,FC Kharkiv,3.0,0.0,Champions League femenina,3726588,20211216_Real-Madrid_FC-Kharkiv
+2021-12-16,Juventus,Servette,4.0,0.0,Champions League femenina,3726576,20211216_Juventus_Servette
+2021-12-16,VfL Wolfsburg,Chelsea,4.0,0.0,Champions League femenina,3726577,20211216_VfL-Wolfsburg_Chelsea
+2022-03-22,Bayern München,Paris Saint Germain,1.0,2.0,Champions League femenina,3786599,20220322_Bayern-München_Paris-Saint-Germain
+2022-03-22,Real Madrid,Barcelona,1.0,3.0,Champions League femenina,3786601,20220322_Real-Madrid_Barcelona
+2022-03-23,Juventus,OL Lyonnes,2.0,1.0,Champions League femenina,3786600,20220323_Juventus_OL-Lyonnes
+2022-03-23,Arsenal,VfL Wolfsburg,1.0,1.0,Champions League femenina,3786598,20220323_Arsenal_VfL-Wolfsburg
+2022-03-30,Barcelona,Real Madrid,5.0,2.0,Champions League femenina,3786602,20220330_Barcelona_Real-Madrid
+2022-03-30,Paris Saint Germain,Bayern München,2.0,2.0,Champions League femenina,3786604,20220330_Paris-Saint-Germain_Bayern-München
+2022-03-31,VfL Wolfsburg,Arsenal,2.0,0.0,Champions League femenina,3786605,20220331_VfL-Wolfsburg_Arsenal
+2022-03-31,OL Lyonnes,Juventus,3.0,1.0,Champions League femenina,3786603,20220331_OL-Lyonnes_Juventus
+2022-04-22,Barcelona,VfL Wolfsburg,5.0,1.0,Champions League femenina,3786772,20220422_Barcelona_VfL-Wolfsburg
+2022-04-24,OL Lyonnes,Paris Saint Germain,3.0,2.0,Champions League femenina,3786773,20220424_OL-Lyonnes_Paris-Saint-Germain
+2022-04-30,VfL Wolfsburg,Barcelona,2.0,0.0,Champions League femenina,3786774,20220430_VfL-Wolfsburg_Barcelona
+2022-04-30,Paris Saint Germain,OL Lyonnes,1.0,2.0,Champions League femenina,3786775,20220430_Paris-Saint-Germain_OL-Lyonnes
+2022-05-21,Barcelona,OL Lyonnes,1.0,3.0,Champions League femenina,3854034,20220521_Barcelona_OL-Lyonnes
+2022-08-18,SFK 2000 Sarajevo,Birkirkara FC,4.0,0.0,Champions League femenina,3919631,20220818_SFK-2000-Sarajevo_Birkirkara-FC
+2022-08-18,Dinamo Minsk,Lokomotiv Stara Zagora,5.0,0.0,Champions League femenina,3919624,20220818_Dinamo-Minsk_Lokomotiv-Stara-Zagora
+2022-08-18,Valur,Hayasa,2.0,0.0,Champions League femenina,3919639,20220818_Valur_Hayasa
+2022-08-18,Vorskla Poltava,Guria Lanchkhuti,5.0,0.0,Champions League femenina,3919637,20220818_Vorskla-Poltava_Guria-Lanchkhuti
+2022-08-18,FC Minsk,Slovácko,2.0,1.0,Champions League femenina,3919642,20220818_FC-Minsk_Slovácko
+2022-08-18,Benfica,Hajvalia,9.0,0.0,Champions League femenina,3919643,20220818_Benfica_Hajvalia
+2022-08-18,Ajax,Kristianstads DFF,3.0,1.0,Champions League femenina,3919638,20220818_Ajax_Kristianstads-DFF
+2022-08-18,FK Gintra Universitetas,KuPS,0.0,2.0,Champions League femenina,3919640,20220818_FK-Gintra-Universitetas_KuPS
+2022-08-18,Paris FC,Servette,3.0,0.0,Champions League femenina,3919636,20220818_Paris-FC_Servette
+2022-08-18,Flora Tallinn,Kiryat Gat,0.0,5.0,Champions League femenina,3919645,20220818_Flora-Tallinn_Kiryat-Gat
+2022-08-18,PAOK Thessaloniki FC,Swansea,2.0,0.0,Champions League femenina,3919644,20220818_PAOK-Thessaloniki-FC_Swansea
+2022-08-18,Apollon Limassol LFC,SFK Riga,3.0,0.0,Champions League femenina,3919632,20220818_Apollon-Limassol-LFC_SFK-Riga
+2022-08-18,Brann,ALG Spor,1.0,0.0,Champions League femenina,3919641,20220818_Brann_ALG-Spor
+2022-08-18,Olimpia UT Cluj-Napoca,Glentoran Belfast United,0.0,0.0,Champions League femenina,3919630,20220818_Olimpia-UT-Cluj-Napoca_Glentoran-Belfast-United
+2022-08-18,SKN St. Pölten,ZFK Ljuboten,7.0,0.0,Champions League femenina,3919635,20220818_SKN-St.-Pölten_ZFK-Ljuboten
+2022-08-18,ZNK Mura,Shelbourne,0.0,1.0,Champions League femenina,3919621,20220818_ZNK-Mura_Shelbourne
+2022-08-18,BIIK Kazygurt,Split,5.0,1.0,Champions League femenina,3919627,20220818_BIIK-Kazygurt_Split
+2022-08-18,Breidablik,Rosenborg BK,2.0,4.0,Champions League femenina,3919626,20220818_Breidablik_Rosenborg-BK
+2022-08-18,Breznica,Spartak Myjava,2.0,3.0,Champions League femenina,3919648,20220818_Breznica_Spartak-Myjava
+2022-08-18,FC Twente,SS Anenii Noi,13.0,0.0,Champions League femenina,3919647,20220818_FC-Twente_SS-Anenii-Noi
+2022-08-18,Fortuna Hjørring,Eintracht Frankfurt,0.0,2.0,Champions League femenina,3919625,20220818_Fortuna-Hjørring_Eintracht-Frankfurt
+2022-08-18,Anderlecht,UKS SMS Łódź,3.0,2.0,Champions League femenina,3919623,20220818_Anderlecht_UKS-SMS-Łódź
+2022-08-18,Ferencvarosi TC,Rangers,1.0,3.0,Champions League femenina,3919633,20220818_Ferencvarosi-TC_Rangers
+2022-08-18,Juventus,Racing FC Union Luxembourg,4.0,0.0,Champions League femenina,3919622,20220818_Juventus_Racing-FC-Union-Luxembourg
+2022-08-18,Glasgow City,Roma,1.0,3.0,Champions League femenina,3919629,20220818_Glasgow-City_Roma
+2022-08-18,FC Zürich Frauen,KI Klaksvik,6.0,0.0,Champions League femenina,3919646,20220818_FC-Zürich-Frauen_KI-Klaksvik
+2022-08-18,Manchester City,Tomiris-Turan,6.0,0.0,Champions League femenina,3919634,20220818_Manchester-City_Tomiris-Turan
+2022-08-18,Real Madrid,Sturm Graz,6.0,0.0,Champions League femenina,3919628,20220818_Real-Madrid_Sturm-Graz
+2022-08-21,Birkirkara FC,Glentoran Belfast United,2.0,1.0,Champions League femenina,4000265,20220821_Birkirkara-FC_Glentoran-Belfast-United
+2022-08-21,Guria Lanchkhuti,Split,0.0,2.0,Champions League femenina,4000266,20220821_Guria-Lanchkhuti_Split
+2022-08-21,SKN St. Pölten,Dinamo Minsk,3.0,0.0,Champions League femenina,4000250,20220821_SKN-St.-Pölten_Dinamo-Minsk
+2022-08-21,Slovácko,Breidablik,0.0,3.0,Champions League femenina,4000274,20220821_Slovácko_Breidablik
+2022-08-21,Sturm Graz,Tomiris-Turan,5.0,1.0,Champions League femenina,4000273,20220821_Sturm-Graz_Tomiris-Turan
+2022-08-21,ZNK Mura,Hayasa,2.0,1.0,Champions League femenina,4000268,20220821_ZNK-Mura_Hayasa
+2022-08-21,FK Gintra Universitetas,UKS SMS Łódź,0.0,1.0,Champions League femenina,4000272,20220821_FK-Gintra-Universitetas_UKS-SMS-Łódź
+2022-08-21,SS Anenii Noi,Hajvalia,0.0,7.0,Champions League femenina,4000267,20220821_SS-Anenii-Noi_Hajvalia
+2022-08-21,Ajax,Eintracht Frankfurt,2.0,1.0,Champions League femenina,4000256,20220821_Ajax_Eintracht-Frankfurt
+2022-08-21,Servette,Glasgow City,1.0,0.0,Champions League femenina,4000271,20220821_Servette_Glasgow-City
+2022-08-21,Flora Tallinn,Racing FC Union Luxembourg,1.0,3.0,Champions League femenina,4000275,20220821_Flora-Tallinn_Racing-FC-Union-Luxembourg
+2022-08-21,PAOK Thessaloniki FC,Rangers,0.0,4.0,Champions League femenina,4000254,20220821_PAOK-Thessaloniki-FC_Rangers
+2022-08-21,FC Zürich Frauen,Apollon Limassol LFC,1.0,0.0,Champions League femenina,4000251,20220821_FC-Zürich-Frauen_Apollon-Limassol-LFC
+2022-08-21,FC Minsk,Rosenborg BK,0.0,1.0,Champions League femenina,4000260,20220821_FC-Minsk_Rosenborg-BK
+2022-08-21,Lokomotiv Stara Zagora,ZFK Ljuboten,5.0,1.0,Champions League femenina,4000269,20220821_Lokomotiv-Stara-Zagora_ZFK-Ljuboten
+2022-08-21,SFK 2000 Sarajevo,Olimpia UT Cluj-Napoca,2.0,1.0,Champions League femenina,4000261,20220821_SFK-2000-Sarajevo_Olimpia-UT-Cluj-Napoca
+2022-08-21,Valur,Shelbourne,3.0,0.0,Champions League femenina,4000262,20220821_Valur_Shelbourne
+2022-08-21,Anderlecht,KuPS,2.0,2.0,Champions League femenina,4000255,20220821_Anderlecht_KuPS
+2022-08-21,BIIK Kazygurt,Vorskla Poltava,0.0,2.0,Champions League femenina,4000258,20220821_BIIK-Kazygurt_Vorskla-Poltava
+2022-08-21,FC Twente,Benfica,1.0,2.0,Champions League femenina,4000259,20220821_FC-Twente_Benfica
+2022-08-21,Fortuna Hjørring,Kristianstads DFF,2.0,3.0,Champions League femenina,4000270,20220821_Fortuna-Hjørring_Kristianstads-DFF
+2022-08-21,KF Vllaznia,Spartak Myjava,1.0,0.0,Champions League femenina,4000257,20220821_KF-Vllaznia_Spartak-Myjava
+2022-08-21,Paris FC,Roma,0.0,0.0,Champions League femenina,4000253,20220821_Paris-FC_Roma
+2022-08-21,ZFK Spartak Subotica,Brann,1.0,3.0,Champions League femenina,4000263,20220821_ZFK-Spartak-Subotica_Brann
+2022-08-21,Juventus,Kiryat Gat,3.0,1.0,Champions League femenina,4000252,20220821_Juventus_Kiryat-Gat
+2022-08-21,Swansea,Ferencvarosi TC,0.0,7.0,Champions League femenina,4000276,20220821_Swansea_Ferencvarosi-TC
+2022-08-21,KI Klaksvik,SFK Riga,1.0,2.0,Champions League femenina,4000277,20220821_KI-Klaksvik_SFK-Riga
+2022-08-21,Manchester City,Real Madrid,0.0,1.0,Champions League femenina,4000264,20220821_Manchester-City_Real-Madrid
+2022-09-20,HB Køge,Juventus,1.0,1.0,Champions League femenina,4014853,20220920_HB-Køge_Juventus
+2022-09-20,Real Sociedad,Bayern München,0.0,1.0,Champions League femenina,4014862,20220920_Real-Sociedad_Bayern-München
+2022-09-20,Arsenal,Ajax,2.0,2.0,Champions League femenina,4014857,20220920_Arsenal_Ajax
+2022-09-20,Rangers,Benfica,2.0,3.0,Champions League femenina,4014855,20220920_Rangers_Benfica
+2022-09-21,SFK 2000 Sarajevo,FC Zürich Frauen,0.0,7.0,Champions League femenina,4014869,20220921_SFK-2000-Sarajevo_FC-Zürich-Frauen
+2022-09-21,KuPS,SKN St. Pölten,0.0,1.0,Champions League femenina,4014867,20220921_KuPS_SKN-St.-Pölten
+2022-09-21,Brann,FC Rosengård,1.0,1.0,Champions League femenina,4014851,20220921_Brann_FC-Rosengård
+2022-09-21,Rosenborg BK,Real Madrid,0.0,3.0,Champions League femenina,4014871,20220921_Rosenborg-BK_Real-Madrid
+2022-09-21,Vorskla Poltava,KF Vllaznia,1.0,1.0,Champions League femenina,4014859,20220921_Vorskla-Poltava_KF-Vllaznia
+2022-09-21,Sparta Prague,Roma,1.0,2.0,Champions League femenina,4014873,20220921_Sparta-Prague_Roma
+2022-09-21,Valur,Slavia Prague,0.0,1.0,Champions League femenina,4014861,20220921_Valur_Slavia-Prague
+2022-09-21,Paris Saint Germain,BK Häcken,2.0,1.0,Champions League femenina,4014865,20220921_Paris-Saint-Germain_BK-Häcken
+2022-09-28,Slavia Prague,Valur,0.0,0.0,Champions League femenina,4014874,20220928_Slavia-Prague_Valur
+2022-09-28,KF Vllaznia,Vorskla Poltava,2.0,1.0,Champions League femenina,4014860,20220928_KF-Vllaznia_Vorskla-Poltava
+2022-09-28,FC Rosengård,Brann,3.0,1.0,Champions League femenina,4014864,20220928_FC-Rosengård_Brann
+2022-09-28,BK Häcken,Paris Saint Germain,0.0,2.0,Champions League femenina,4014866,20220928_BK-Häcken_Paris-Saint-Germain
+2022-09-28,Ajax,Arsenal,0.0,1.0,Champions League femenina,4014858,20220928_Ajax_Arsenal
+2022-09-28,SKN St. Pölten,KuPS,2.0,2.0,Champions League femenina,4014868,20220928_SKN-St.-Pölten_KuPS
+2022-09-28,FC Zürich Frauen,SFK 2000 Sarajevo,3.0,0.0,Champions League femenina,4014870,20220928_FC-Zürich-Frauen_SFK-2000-Sarajevo
+2022-09-28,Real Madrid,Rosenborg BK,2.0,1.0,Champions League femenina,4014872,20220928_Real-Madrid_Rosenborg-BK
+2022-09-28,Juventus,HB Køge,2.0,0.0,Champions League femenina,4014854,20220928_Juventus_HB-Køge
+2022-09-28,Benfica,Rangers,2.0,1.0,Champions League femenina,4014856,20220928_Benfica_Rangers
+2022-09-29,Roma,Sparta Prague,4.0,1.0,Champions League femenina,4014863,20220929_Roma_Sparta-Prague
+2022-09-29,Bayern München,Real Sociedad,3.0,1.0,Champions League femenina,4014852,20220929_Bayern-München_Real-Sociedad
+2022-10-19,Bayern München,FC Rosengård,2.0,1.0,Champions League femenina,4041415,20221019_Bayern-München_FC-Rosengård
+2022-10-19,FC Zürich Frauen,Juventus,0.0,2.0,Champions League femenina,4041404,20221019_FC-Zürich-Frauen_Juventus
+2022-10-19,Barcelona,Benfica,9.0,0.0,Champions League femenina,4041401,20221019_Barcelona_Benfica
+2022-10-19,OL Lyonnes,Arsenal,1.0,5.0,Champions League femenina,4041400,20221019_OL-Lyonnes_Arsenal
+2022-10-20,KF Vllaznia,Real Madrid,0.0,2.0,Champions League femenina,4041388,20221020_KF-Vllaznia_Real-Madrid
+2022-10-20,VfL Wolfsburg,SKN St. Pölten,4.0,0.0,Champions League femenina,4041377,20221020_VfL-Wolfsburg_SKN-St.-Pölten
+2022-10-20,Paris Saint Germain,Chelsea,0.0,1.0,Champions League femenina,4041394,20221020_Paris-Saint-Germain_Chelsea
+2022-10-20,Roma,Slavia Prague,1.0,0.0,Champions League femenina,4041386,20221020_Roma_Slavia-Prague
+2022-10-26,Real Madrid,Paris Saint Germain,0.0,0.0,Champions League femenina,4041397,20221026_Real-Madrid_Paris-Saint-Germain
+2022-10-26,SKN St. Pölten,Roma,3.0,4.0,Champions League femenina,4041381,20221026_SKN-St.-Pölten_Roma
+2022-10-26,Chelsea,KF Vllaznia,8.0,0.0,Champions League femenina,4041390,20221026_Chelsea_KF-Vllaznia
+2022-10-26,Slavia Prague,VfL Wolfsburg,0.0,2.0,Champions League femenina,4041382,20221026_Slavia-Prague_VfL-Wolfsburg
+2022-10-27,FC Rosengård,Barcelona,1.0,4.0,Champions League femenina,4041420,20221027_FC-Rosengård_Barcelona
+2022-10-27,Juventus,OL Lyonnes,1.0,1.0,Champions League femenina,4041408,20221027_Juventus_OL-Lyonnes
+2022-10-27,Arsenal,FC Zürich Frauen,3.0,1.0,Champions League femenina,4041411,20221027_Arsenal_FC-Zürich-Frauen
+2022-10-27,Benfica,Bayern München,2.0,3.0,Champions League femenina,4041417,20221027_Benfica_Bayern-München
+2022-11-23,Paris Saint Germain,KF Vllaznia,5.0,0.0,Champions League femenina,4041392,20221123_Paris-Saint-Germain_KF-Vllaznia
+2022-11-23,Slavia Prague,SKN St. Pölten,0.0,1.0,Champions League femenina,4041379,20221123_Slavia-Prague_SKN-St.-Pölten
+2022-11-23,Chelsea,Real Madrid,2.0,0.0,Champions League femenina,4041389,20221123_Chelsea_Real-Madrid
+2022-11-23,Roma,VfL Wolfsburg,1.0,1.0,Champions League femenina,4041384,20221123_Roma_VfL-Wolfsburg
+2022-11-24,Barcelona,Bayern München,3.0,0.0,Champions League femenina,4041403,20221124_Barcelona_Bayern-München
+2022-11-24,FC Zürich Frauen,OL Lyonnes,0.0,3.0,Champions League femenina,4041407,20221124_FC-Zürich-Frauen_OL-Lyonnes
+2022-11-24,Juventus,Arsenal,1.0,1.0,Champions League femenina,4041406,20221124_Juventus_Arsenal
+2022-11-24,Benfica,FC Rosengård,1.0,0.0,Champions League femenina,4041416,20221124_Benfica_FC-Rosengård
+2022-12-07,FC Rosengård,Benfica,1.0,3.0,Champions League femenina,4041422,20221207_FC-Rosengård_Benfica
+2022-12-07,OL Lyonnes,FC Zürich Frauen,4.0,0.0,Champions League femenina,4041413,20221207_OL-Lyonnes_FC-Zürich-Frauen
+2022-12-07,Arsenal,Juventus,1.0,0.0,Champions League femenina,4041412,20221207_Arsenal_Juventus
+2022-12-07,Bayern München,Barcelona,3.0,1.0,Champions League femenina,4041421,20221207_Bayern-München_Barcelona
+2022-12-08,KF Vllaznia,Paris Saint Germain,0.0,4.0,Champions League femenina,4041398,20221208_KF-Vllaznia_Paris-Saint-Germain
+2022-12-08,VfL Wolfsburg,Roma,4.0,2.0,Champions League femenina,4041378,20221208_VfL-Wolfsburg_Roma
+2022-12-08,Real Madrid,Chelsea,1.0,1.0,Champions League femenina,4041395,20221208_Real-Madrid_Chelsea
+2022-12-08,SKN St. Pölten,Slavia Prague,1.0,1.0,Champions League femenina,4041385,20221208_SKN-St.-Pölten_Slavia-Prague
+2022-12-15,FC Rosengård,Bayern München,0.0,4.0,Champions League femenina,4041418,20221215_FC-Rosengård_Bayern-München
+2022-12-15,Juventus,FC Zürich Frauen,5.0,0.0,Champions League femenina,4041410,20221215_Juventus_FC-Zürich-Frauen
+2022-12-15,Arsenal,OL Lyonnes,0.0,1.0,Champions League femenina,4041409,20221215_Arsenal_OL-Lyonnes
+2022-12-15,Benfica,Barcelona,2.0,6.0,Champions League femenina,4041419,20221215_Benfica_Barcelona
+2022-12-16,KF Vllaznia,Chelsea,0.0,4.0,Champions League femenina,4041396,20221216_KF-Vllaznia_Chelsea
+2022-12-16,Roma,SKN St. Pölten,5.0,0.0,Champions League femenina,4041399,20221216_Roma_SKN-St.-Pölten
+2022-12-16,Paris Saint Germain,Real Madrid,2.0,1.0,Champions League femenina,4041391,20221216_Paris-Saint-Germain_Real-Madrid
+2022-12-16,VfL Wolfsburg,Slavia Prague,0.0,0.0,Champions League femenina,4041387,20221216_VfL-Wolfsburg_Slavia-Prague
+2022-12-21,FC Zürich Frauen,Arsenal,1.0,9.0,Champions League femenina,4041405,20221221_FC-Zürich-Frauen_Arsenal
+2022-12-21,OL Lyonnes,Juventus,0.0,0.0,Champions League femenina,4041414,20221221_OL-Lyonnes_Juventus
+2022-12-21,Barcelona,FC Rosengård,6.0,0.0,Champions League femenina,4041402,20221221_Barcelona_FC-Rosengård
+2022-12-21,Bayern München,Benfica,2.0,0.0,Champions League femenina,4041423,20221221_Bayern-München_Benfica
+2022-12-22,SKN St. Pölten,VfL Wolfsburg,2.0,8.0,Champions League femenina,4041383,20221222_SKN-St.-Pölten_VfL-Wolfsburg
+2022-12-22,Slavia Prague,Roma,0.0,3.0,Champions League femenina,4041380,20221222_Slavia-Prague_Roma
+2022-12-22,Chelsea,Paris Saint Germain,3.0,0.0,Champions League femenina,4041376,20221222_Chelsea_Paris-Saint-Germain
+2022-12-22,Real Madrid,KF Vllaznia,5.0,1.0,Champions League femenina,4041393,20221222_Real-Madrid_KF-Vllaznia
+2023-03-21,Bayern München,Arsenal,1.0,0.0,Champions League femenina,4120287,20230321_Bayern-München_Arsenal
+2023-03-21,Roma,Barcelona,0.0,1.0,Champions League femenina,4120289,20230321_Roma_Barcelona
+2023-03-22,OL Lyonnes,Chelsea,0.0,1.0,Champions League femenina,4120288,20230322_OL-Lyonnes_Chelsea
+2023-03-22,Paris Saint Germain,VfL Wolfsburg,0.0,1.0,Champions League femenina,4120290,20230322_Paris-Saint-Germain_VfL-Wolfsburg
+2023-03-29,Barcelona,Roma,5.0,1.0,Champions League femenina,4120293,20230329_Barcelona_Roma
+2023-03-29,Arsenal,Bayern München,2.0,0.0,Champions League femenina,4120291,20230329_Arsenal_Bayern-München
+2023-03-30,VfL Wolfsburg,Paris Saint Germain,1.0,1.0,Champions League femenina,4120294,20230330_VfL-Wolfsburg_Paris-Saint-Germain
+2023-03-30,Chelsea,OL Lyonnes,1.0,2.0,Champions League femenina,4120292,20230330_Chelsea_OL-Lyonnes
+2023-04-22,Chelsea,Barcelona,0.0,1.0,Champions League femenina,4120297,20230422_Chelsea_Barcelona
+2023-04-23,VfL Wolfsburg,Arsenal,2.0,2.0,Champions League femenina,4120295,20230423_VfL-Wolfsburg_Arsenal
+2023-04-27,Barcelona,Chelsea,1.0,1.0,Champions League femenina,4120298,20230427_Barcelona_Chelsea
+2023-05-01,Arsenal,VfL Wolfsburg,2.0,3.0,Champions League femenina,4120296,20230501_Arsenal_VfL-Wolfsburg
+2023-06-03,Barcelona,VfL Wolfsburg,3.0,2.0,Champions League femenina,4149060,20230603_Barcelona_VfL-Wolfsburg
+2023-09-06,Ferencvarosi TC,Kiryat Gat,2.0,2.0,Champions League femenina,4223328,20230906_Ferencvarosi-TC_Kiryat-Gat
+2023-09-06,Apollon Limassol LFC,ZFK Ljuboten,9.0,0.0,Champions League femenina,4223333,20230906_Apollon-Limassol-LFC_ZFK-Ljuboten
+2023-09-06,Glasgow City,Shelbourne,2.0,0.0,Champions League femenina,4223325,20230906_Glasgow-City_Shelbourne
+2023-09-06,Vorskla Poltava,Flora Tallinn,4.0,3.0,Champions League femenina,4223338,20230906_Vorskla-Poltava_Flora-Tallinn
+2023-09-06,Valur,Fomget Gençlik ve Spor,2.0,1.0,Champions League femenina,4223330,20230906_Valur_Fomget-Gençlik-ve-Spor
+2023-09-06,Juventus,Okzhetpes,6.0,0.0,Champions League femenina,4223335,20230906_Juventus_Okzhetpes
+2023-09-06,Levante,Stjarnan,4.0,0.0,Champions League femenina,4223349,20230906_Levante_Stjarnan
+2023-09-06,Brann,Lokomotiv Stara Zagora,5.0,0.0,Champions League femenina,4223348,20230906_Brann_Lokomotiv-Stara-Zagora
+2023-09-06,Brøndby IF,Celtic,0.0,1.0,Champions League femenina,4223346,20230906_Brøndby-IF_Celtic
+2023-09-06,BIIK Kazygurt,SFK Riga,0.0,1.0,Champions League femenina,4223344,20230906_BIIK-Kazygurt_SFK-Riga
+2023-09-06,Olimpia UT Cluj-Napoca,Spartak Myjava,6.0,2.0,Champions League femenina,4223326,20230906_Olimpia-UT-Cluj-Napoca_Spartak-Myjava
+2023-09-06,ZFK Spartak Subotica,KI Klaksvik,7.0,0.0,Champions League femenina,4223345,20230906_ZFK-Spartak-Subotica_KI-Klaksvik
+2023-09-06,ZNK Mura,Samegrelo,0.0,0.0,Champions League femenina,4223336,20230906_ZNK-Mura_Samegrelo
+2023-09-06,Arsenal,Linköpings FC,3.0,0.0,Champions League femenina,4223334,20230906_Arsenal_Linköpings-FC
+2023-09-06,Dinamo Minsk,SS Anenii Noi,9.0,0.0,Champions League femenina,4223347,20230906_Dinamo-Minsk_SS-Anenii-Noi
+2023-09-06,FK Gintra Universitetas,Cardiff City FC,2.0,0.0,Champions League femenina,4223340,20230906_FK-Gintra-Universitetas_Cardiff-City-FC
+2023-09-06,SFK 2000 Sarajevo,WFC Osijek,0.0,4.0,Champions League femenina,4223327,20230906_SFK-2000-Sarajevo_WFC-Osijek
+2023-09-06,Breznica,Birkirkara FC,0.0,1.0,Champions League femenina,4223343,20230906_Breznica_Birkirkara-FC
+2023-09-06,KF Vllaznia,Hajvalia,4.0,2.0,Champions League femenina,4223331,20230906_KF-Vllaznia_Hajvalia
+2023-09-06,PAOK Thessaloniki FC,Racing FC Union Luxembourg,6.0,1.0,Champions League femenina,4223351,20230906_PAOK-Thessaloniki-FC_Racing-FC-Union-Luxembourg
+2023-09-06,Eintracht Frankfurt,Slovácko,1.0,0.0,Champions League femenina,4223350,20230906_Eintracht-Frankfurt_Slovácko
+2023-09-06,FC Twente,Sturm Graz,6.0,0.0,Champions League femenina,4223341,20230906_FC-Twente_Sturm-Graz
+2023-09-06,HB Køge,KuPS,1.0,2.0,Champions League femenina,4223342,20230906_HB-Køge_KuPS
+2023-09-06,Anderlecht,GKS Katowice,5.0,0.0,Champions League femenina,4223329,20230906_Anderlecht_GKS-Katowice
+2023-09-06,FC Minsk,Vålerenga,1.0,3.0,Champions League femenina,4223332,20230906_FC-Minsk_Vålerenga
+2023-09-06,Benfica,Cliftonville,8.0,1.0,Champions League femenina,4223337,20230906_Benfica_Cliftonville
+2023-09-06,Paris FC,FC Kryvbas,4.0,0.0,Champions League femenina,4223339,20230906_Paris-FC_FC-Kryvbas
+2023-09-09,Ferencvarosi TC,Spartak Myjava,7.0,0.0,Champions League femenina,4322336,20230909_Ferencvarosi-TC_Spartak-Myjava
+2023-09-09,SFK 2000 Sarajevo,Flora Tallinn,5.0,3.0,Champions League femenina,4322360,20230909_SFK-2000-Sarajevo_Flora-Tallinn
+2023-09-09,Shelbourne,Cardiff City FC,3.0,0.0,Champions League femenina,4322359,20230909_Shelbourne_Cardiff-City-FC
+2023-09-09,ZNK Mura,ZFK Ljuboten,7.0,1.0,Champions League femenina,4322361,20230909_ZNK-Mura_ZFK-Ljuboten
+2023-09-09,BIIK Kazygurt,Cliftonville,4.0,2.0,Champions League femenina,4322413,20230909_BIIK-Kazygurt_Cliftonville
+2023-09-09,Hajvalia,Fomget Gençlik ve Spor,0.0,6.0,Champions League femenina,4322378,20230909_Hajvalia_Fomget-Gençlik-ve-Spor
+2023-09-09,HB Køge,KI Klaksvik,3.0,1.0,Champions League femenina,4322382,20230909_HB-Køge_KI-Klaksvik
+2023-09-09,Juventus,Eintracht Frankfurt,1.0,1.0,Champions League femenina,4322377,20230909_Juventus_Eintracht-Frankfurt
+2023-09-09,Sturm Graz,Stjarnan,0.0,0.0,Champions League femenina,4322384,20230909_Sturm-Graz_Stjarnan
+2023-09-09,Brøndby IF,FC Minsk,2.0,1.0,Champions League femenina,4322399,20230909_Brøndby-IF_FC-Minsk
+2023-09-09,Lokomotiv Stara Zagora,GKS Katowice,0.0,0.0,Champions League femenina,4322398,20230909_Lokomotiv-Stara-Zagora_GKS-Katowice
+2023-09-09,Arsenal,Paris FC,3.0,3.0,Champions League femenina,4322411,20230909_Arsenal_Paris-FC
+2023-09-09,Olimpia UT Cluj-Napoca,Kiryat Gat,0.0,0.0,Champions League femenina,4322335,20230909_Olimpia-UT-Cluj-Napoca_Kiryat-Gat
+2023-09-09,ZFK Spartak Subotica,KuPS,2.0,1.0,Champions League femenina,4322379,20230909_ZFK-Spartak-Subotica_KuPS
+2023-09-09,Apollon Limassol LFC,Samegrelo,3.0,0.0,Champions League femenina,4322358,20230909_Apollon-Limassol-LFC_Samegrelo
+2023-09-09,Ajax,Dinamo Minsk,3.0,0.0,Champions League femenina,4322353,20230909_Ajax_Dinamo-Minsk
+2023-09-09,Glasgow City,FK Gintra Universitetas,3.0,0.0,Champions League femenina,4322352,20230909_Glasgow-City_FK-Gintra-Universitetas
+2023-09-09,Vorskla Poltava,WFC Osijek,3.0,0.0,Champions League femenina,4322354,20230909_Vorskla-Poltava_WFC-Osijek
+2023-09-09,FC Zürich Frauen,Birkirkara FC,3.0,1.0,Champions League femenina,4322372,20230909_FC-Zürich-Frauen_Birkirkara-FC
+2023-09-09,KF Vllaznia,Valur,1.0,2.0,Champions League femenina,4322373,20230909_KF-Vllaznia_Valur
+2023-09-09,SKN St. Pölten,PAOK Thessaloniki FC,3.0,0.0,Champions League femenina,4322374,20230909_SKN-St.-Pölten_PAOK-Thessaloniki-FC
+2023-09-09,Slovácko,Okzhetpes,3.0,0.0,Champions League femenina,4322381,20230909_Slovácko_Okzhetpes
+2023-09-09,Linköpings FC,FC Kryvbas,3.0,0.0,Champions League femenina,4322412,20230909_Linköpings-FC_FC-Kryvbas
+2023-09-09,Benfica,SFK Riga,4.0,0.0,Champions League femenina,4322405,20230909_Benfica_SFK-Riga
+2023-09-09,Levante,FC Twente,2.0,3.0,Champions League femenina,4322380,20230909_Levante_FC-Twente
+2023-09-09,Anderlecht,Brann,0.0,3.0,Champions League femenina,4322391,20230909_Anderlecht_Brann
+2023-09-09,Vålerenga,Celtic,2.0,2.0,Champions League femenina,4322392,20230909_Vålerenga_Celtic
+2023-10-10,Eintracht Frankfurt,Sparta Prague,5.0,0.0,Champions League femenina,4329408,20231010_Eintracht-Frankfurt_Sparta-Prague
+2023-10-10,Paris FC,VfL Wolfsburg,3.0,3.0,Champions League femenina,4329416,20231010_Paris-FC_VfL-Wolfsburg
+2023-10-10,Valur,SKN St. Pölten,0.0,4.0,Champions League femenina,4329415,20231010_Valur_SKN-St.-Pölten
+2023-10-10,Manchester United,Paris Saint Germain,1.0,1.0,Champions League femenina,4329404,20231010_Manchester-United_Paris-Saint-Germain
+2023-10-11,Roma,Vorskla Poltava,3.0,0.0,Champions League femenina,4329422,20231011_Roma_Vorskla-Poltava
+2023-10-11,Apollon Limassol LFC,Benfica,0.0,7.0,Champions League femenina,4329418,20231011_Apollon-Limassol-LFC_Benfica
+2023-10-11,ZFK Spartak Subotica,FC Rosengård,1.0,2.0,Champions League femenina,4329412,20231011_ZFK-Spartak-Subotica_FC-Rosengård
+2023-10-11,Slavia Prague,Olimpia UT Cluj-Napoca,5.0,0.0,Champions League femenina,4329402,20231011_Slavia-Prague_Olimpia-UT-Cluj-Napoca
+2023-10-11,BK Häcken,FC Twente,2.0,2.0,Champions League femenina,4329420,20231011_BK-Häcken_FC-Twente
+2023-10-11,FC Zürich Frauen,Ajax,0.0,6.0,Champions League femenina,4329406,20231011_FC-Zürich-Frauen_Ajax
+2023-10-11,Real Madrid,Vålerenga,2.0,1.0,Champions League femenina,4329401,20231011_Real-Madrid_Vålerenga
+2023-10-11,Glasgow City,Brann,0.0,4.0,Champions League femenina,4329410,20231011_Glasgow-City_Brann
+2023-10-18,Vorskla Poltava,Roma,1.0,6.0,Champions League femenina,4329421,20231018_Vorskla-Poltava_Roma
+2023-10-18,Olimpia UT Cluj-Napoca,Slavia Prague,0.0,6.0,Champions League femenina,4329414,20231018_Olimpia-UT-Cluj-Napoca_Slavia-Prague
+2023-10-18,FC Rosengård,ZFK Spartak Subotica,5.0,1.0,Champions League femenina,4329411,20231018_FC-Rosengård_ZFK-Spartak-Subotica
+2023-10-18,Sparta Prague,Eintracht Frankfurt,0.0,3.0,Champions League femenina,4329407,20231018_Sparta-Prague_Eintracht-Frankfurt
+2023-10-18,VfL Wolfsburg,Paris FC,0.0,2.0,Champions League femenina,4329424,20231018_VfL-Wolfsburg_Paris-FC
+2023-10-18,Ajax,FC Zürich Frauen,2.0,0.0,Champions League femenina,4329405,20231018_Ajax_FC-Zürich-Frauen
+2023-10-18,Brann,Glasgow City,2.0,0.0,Champions League femenina,4329409,20231018_Brann_Glasgow-City
+2023-10-18,FC Twente,BK Häcken,1.0,2.0,Champions League femenina,4329419,20231018_FC-Twente_BK-Häcken
+2023-10-18,SKN St. Pölten,Valur,0.0,1.0,Champions League femenina,4329423,20231018_SKN-St.-Pölten_Valur
+2023-10-18,Vålerenga,Real Madrid,0.0,3.0,Champions League femenina,4329413,20231018_Vålerenga_Real-Madrid
+2023-10-18,Paris Saint Germain,Manchester United,3.0,1.0,Champions League femenina,4329403,20231018_Paris-Saint-Germain_Manchester-United
+2023-10-18,Benfica,Apollon Limassol LFC,4.0,0.0,Champions League femenina,4329417,20231018_Benfica_Apollon-Limassol-LFC
+2023-11-14,FC Rosengård,Eintracht Frankfurt,1.0,2.0,Champions League femenina,4351153,20231114_FC-Rosengård_Eintracht-Frankfurt
+2023-11-14,SKN St. Pölten,Brann,1.0,2.0,Champions League femenina,4351159,20231114_SKN-St.-Pölten_Brann
+2023-11-14,Barcelona,Benfica,5.0,0.0,Champions League femenina,4351147,20231114_Barcelona_Benfica
+2023-11-14,Slavia Prague,OL Lyonnes,0.0,9.0,Champions League femenina,4351180,20231114_Slavia-Prague_OL-Lyonnes
+2023-11-15,Bayern München,Roma,2.0,2.0,Champions League femenina,4351164,20231115_Bayern-München_Roma
+2023-11-15,Paris FC,BK Häcken,1.0,2.0,Champions League femenina,4351177,20231115_Paris-FC_BK-Häcken
+2023-11-15,Ajax,Paris Saint Germain,2.0,0.0,Champions League femenina,4351187,20231115_Ajax_Paris-Saint-Germain
+2023-11-15,Real Madrid,Chelsea,2.0,2.0,Champions League femenina,4351172,20231115_Real-Madrid_Chelsea
+2023-11-22,Brann,Slavia Prague,1.0,0.0,Champions League femenina,4351182,20231122_Brann_Slavia-Prague
+2023-11-22,OL Lyonnes,SKN St. Pölten,2.0,0.0,Champions League femenina,4351176,20231122_OL-Lyonnes_SKN-St.-Pölten
+2023-11-22,Eintracht Frankfurt,Barcelona,1.0,3.0,Champions League femenina,4351155,20231122_Eintracht-Frankfurt_Barcelona
+2023-11-22,Benfica,FC Rosengård,1.0,0.0,Champions League femenina,4351151,20231122_Benfica_FC-Rosengård
+2023-11-23,BK Häcken,Real Madrid,2.0,1.0,Champions League femenina,4351192,20231123_BK-Häcken_Real-Madrid
+2023-11-23,Paris Saint Germain,Bayern München,0.0,1.0,Champions League femenina,4351166,20231123_Paris-Saint-Germain_Bayern-München
+2023-11-23,Chelsea,Paris FC,4.0,1.0,Champions League femenina,4351171,20231123_Chelsea_Paris-FC
+2023-11-23,Roma,Ajax,3.0,0.0,Champions League femenina,4351185,20231123_Roma_Ajax
+2023-12-13,FC Rosengård,Barcelona,0.0,6.0,Champions League femenina,4351149,20231213_FC-Rosengård_Barcelona
+2023-12-13,SKN St. Pölten,Slavia Prague,0.0,0.0,Champions League femenina,4351161,20231213_SKN-St.-Pölten_Slavia-Prague
+2023-12-13,OL Lyonnes,Brann,3.0,1.0,Champions League femenina,4351178,20231213_OL-Lyonnes_Brann
+2023-12-13,Benfica,Eintracht Frankfurt,1.0,0.0,Champions League femenina,4351154,20231213_Benfica_Eintracht-Frankfurt
+2023-12-14,Bayern München,Ajax,1.0,1.0,Champions League femenina,4351165,20231214_Bayern-München_Ajax
+2023-12-14,Paris FC,Real Madrid,2.0,1.0,Champions League femenina,4351193,20231214_Paris-FC_Real-Madrid
+2023-12-14,Chelsea,BK Häcken,0.0,0.0,Champions League femenina,4351170,20231214_Chelsea_BK-Häcken
+2023-12-14,Paris Saint Germain,Roma,2.0,1.0,Champions League femenina,4351183,20231214_Paris-Saint-Germain_Roma
+2023-12-20,Ajax,Bayern München,1.0,0.0,Champions League femenina,4351168,20231220_Ajax_Bayern-München
+2023-12-20,Roma,Paris Saint Germain,1.0,3.0,Champions League femenina,4351186,20231220_Roma_Paris-Saint-Germain
+2023-12-20,BK Häcken,Chelsea,1.0,3.0,Champions League femenina,4351173,20231220_BK-Häcken_Chelsea
+2023-12-20,Real Madrid,Paris FC,0.0,1.0,Champions League femenina,4351190,20231220_Real-Madrid_Paris-FC
+2023-12-21,Brann,OL Lyonnes,2.0,2.0,Champions League femenina,4351181,20231221_Brann_OL-Lyonnes
+2023-12-21,Eintracht Frankfurt,Benfica,1.0,1.0,Champions League femenina,4351157,20231221_Eintracht-Frankfurt_Benfica
+2023-12-21,Barcelona,FC Rosengård,7.0,0.0,Champions League femenina,4351146,20231221_Barcelona_FC-Rosengård
+2024-01-18,Slavia Prague,SKN St. Pölten,1.0,0.0,Champions League femenina,4351175,20240118_Slavia-Prague_SKN-St.-Pölten
+2024-01-24,BK Häcken,Paris FC,0.0,0.0,Champions League femenina,4351191,20240124_BK-Häcken_Paris-FC
+2024-01-24,Roma,Bayern München,2.0,2.0,Champions League femenina,4351167,20240124_Roma_Bayern-München
+2024-01-24,Chelsea,Real Madrid,2.0,1.0,Champions League femenina,4351169,20240124_Chelsea_Real-Madrid
+2024-01-24,Paris Saint Germain,Ajax,3.0,1.0,Champions League femenina,4351184,20240124_Paris-Saint-Germain_Ajax
+2024-01-25,FC Rosengård,Benfica,2.0,2.0,Champions League femenina,4351148,20240125_FC-Rosengård_Benfica
+2024-01-25,Slavia Prague,Brann,0.0,1.0,Champions League femenina,4351179,20240125_Slavia-Prague_Brann
+2024-01-25,Barcelona,Eintracht Frankfurt,2.0,0.0,Champions League femenina,4351152,20240125_Barcelona_Eintracht-Frankfurt
+2024-01-25,SKN St. Pölten,OL Lyonnes,0.0,7.0,Champions League femenina,4351160,20240125_SKN-St.-Pölten_OL-Lyonnes
+2024-01-30,Paris FC,Chelsea,0.0,4.0,Champions League femenina,4351174,20240130_Paris-FC_Chelsea
+2024-01-30,Real Madrid,BK Häcken,0.0,1.0,Champions League femenina,4351189,20240130_Real-Madrid_BK-Häcken
+2024-01-30,Ajax,Roma,2.0,1.0,Champions League femenina,4351188,20240130_Ajax_Roma
+2024-01-30,Bayern München,Paris Saint Germain,2.0,2.0,Champions League femenina,4351163,20240130_Bayern-München_Paris-Saint-Germain
+2024-01-31,Brann,SKN St. Pölten,2.0,1.0,Champions League femenina,4351162,20240131_Brann_SKN-St.-Pölten
+2024-01-31,OL Lyonnes,Slavia Prague,2.0,2.0,Champions League femenina,4351158,20240131_OL-Lyonnes_Slavia-Prague
+2024-01-31,Eintracht Frankfurt,FC Rosengård,5.0,0.0,Champions League femenina,4351156,20240131_Eintracht-Frankfurt_FC-Rosengård
+2024-01-31,Benfica,Barcelona,4.0,4.0,Champions League femenina,4351150,20240131_Benfica_Barcelona
+2024-03-19,Ajax,Chelsea,0.0,3.0,Champions League femenina,4420024,20240319_Ajax_Chelsea
+2024-03-19,Benfica,OL Lyonnes,1.0,2.0,Champions League femenina,4420023,20240319_Benfica_OL-Lyonnes
+2024-03-20,BK Häcken,Paris Saint Germain,1.0,2.0,Champions League femenina,4420025,20240320_BK-Häcken_Paris-Saint-Germain
+2024-03-20,Brann,Barcelona,1.0,2.0,Champions League femenina,4420022,20240320_Brann_Barcelona
+2024-03-27,OL Lyonnes,Benfica,4.0,1.0,Champions League femenina,4420027,20240327_OL-Lyonnes_Benfica
+2024-03-27,Chelsea,Ajax,1.0,1.0,Champions League femenina,4420028,20240327_Chelsea_Ajax
+2024-03-28,Barcelona,Brann,3.0,1.0,Champions League femenina,4420026,20240328_Barcelona_Brann
+2024-03-28,Paris Saint Germain,BK Häcken,3.0,0.0,Champions League femenina,4420029,20240328_Paris-Saint-Germain_BK-Häcken
+2024-04-20,Barcelona,Chelsea,0.0,1.0,Champions League femenina,4420068,20240420_Barcelona_Chelsea
+2024-04-20,OL Lyonnes,Paris Saint Germain,3.0,2.0,Champions League femenina,4420069,20240420_OL-Lyonnes_Paris-Saint-Germain
+2024-04-27,Chelsea,Barcelona,0.0,2.0,Champions League femenina,4420070,20240427_Chelsea_Barcelona
+2024-04-28,Paris Saint Germain,OL Lyonnes,1.0,2.0,Champions League femenina,4420071,20240428_Paris-Saint-Germain_OL-Lyonnes
+2024-05-25,Barcelona,OL Lyonnes,2.0,0.0,Champions League femenina,4420072,20240525_Barcelona_OL-Lyonnes
+2024-09-04,Dinamo Minsk,Peamount United,1.0,2.0,Champions League femenina,4537879,20240904_Dinamo-Minsk_Peamount-United
+2024-09-04,KuPS,Celtic,1.0,3.0,Champions League femenina,4537889,20240904_KuPS_Celtic
+2024-09-04,SFK 2000 Sarajevo,KI Klaksvik,3.0,0.0,Champions League femenina,4537899,20240904_SFK-2000-Sarajevo_KI-Klaksvik
+2024-09-04,PAOK Thessaloniki FC,Kiryat Gat,2.0,1.0,Champions League femenina,4537881,20240904_PAOK-Thessaloniki-FC_Kiryat-Gat
+2024-09-04,Vorskla Poltava,SFK Riga,5.0,0.0,Champions League femenina,4537874,20240904_Vorskla-Poltava_SFK-Riga
+2024-09-04,Atlético Madrid,Rosenborg BK,2.0,2.0,Champions League femenina,4537887,20240904_Atlético-Madrid_Rosenborg-BK
+2024-09-04,BIIK Kazygurt,NSA Sofia,3.0,0.0,Champions League femenina,4537878,20240904_BIIK-Kazygurt_NSA-Sofia
+2024-09-04,Valur,ZFK Ljuboten,10.0,0.0,Champions League femenina,4537885,20240904_Valur_ZFK-Ljuboten
+2024-09-04,Ajax,FC Kolos Kovalivka,4.0,1.0,Champions League femenina,4537896,20240904_Ajax_FC-Kolos-Kovalivka
+2024-09-04,Paris FC,First Vienna,9.0,0.0,Champions League femenina,4537892,20240904_Paris-FC_First-Vienna
+2024-09-04,Eintracht Frankfurt,Sporting CP,0.0,2.0,Champions League femenina,4537898,20240904_Eintracht-Frankfurt_Sporting-CP
+2024-09-04,KF Vllaznia,Guria Lanchkhuti,3.0,0.0,Champions League femenina,4537894,20240904_KF-Vllaznia_Guria-Lanchkhuti
+2024-09-04,SKN St. Pölten,Neftçi PFC,5.0,0.0,Champions League femenina,4537900,20240904_SKN-St.-Pölten_Neftçi-PFC
+2024-09-04,ZNK Mura,Glentoran Belfast United,3.0,2.0,Champions League femenina,4537884,20240904_ZNK-Mura_Glentoran-Belfast-United
+2024-09-04,Ferencvarosi TC,Flora Tallinn,2.0,1.0,Champions League femenina,4537875,20240904_Ferencvarosi-TC_Flora-Tallinn
+2024-09-04,FK Gintra Universitetas,SS Anenii Noi,5.0,0.0,Champions League femenina,4537882,20240904_FK-Gintra-Universitetas_SS-Anenii-Noi
+2024-09-04,Mitrovica,Farul Constanța,0.0,4.0,Champions League femenina,4537873,20240904_Mitrovica_Farul-Constanța
+2024-09-04,Benfica,FC Nordsjælland,3.0,1.0,Champions League femenina,4537893,20240904_Benfica_FC-Nordsjælland
+2024-09-04,WFC Osijek,Spartak Myjava,2.0,0.0,Champions League femenina,4537876,20240904_WFC-Osijek_Spartak-Myjava
+2024-09-04,Anderlecht,ZFK Crvena Zvezda,4.0,1.0,Champions League femenina,4537886,20240904_Anderlecht_ZFK-Crvena-Zvezda
+2024-09-04,Brøndby IF,Fiorentina,0.0,1.0,Champions League femenina,4537890,20240904_Brøndby-IF_Fiorentina
+2024-09-04,FC Twente,Cardiff City FC,7.0,0.0,Champions League femenina,4537888,20240904_FC-Twente_Cardiff-City-FC
+2024-09-04,Racing FC Union Luxembourg,Galatasaray,1.0,4.0,Champions League femenina,4537880,20240904_Racing-FC-Union-Luxembourg_Galatasaray
+2024-09-04,Sparta Prague,Linköpings FC,3.0,1.0,Champions League femenina,4537897,20240904_Sparta-Prague_Linköpings-FC
+2024-09-04,Servette,Pogoń Szczecin,1.0,0.0,Champions League femenina,4537877,20240904_Servette_Pogoń-Szczecin
+2024-09-04,Apollon Limassol LFC,Pyunik,3.0,0.0,Champions League femenina,4537872,20240904_Apollon-Limassol-LFC_Pyunik
+2024-09-04,Arsenal,Rangers,6.0,0.0,Champions League femenina,4537895,20240904_Arsenal_Rangers
+2024-09-04,FC Minsk,Breidablik,1.0,6.0,Champions League femenina,4537891,20240904_FC-Minsk_Breidablik
+2024-09-04,Breznica,Birkirkara FC,1.0,2.0,Champions League femenina,4537883,20240904_Breznica_Birkirkara-FC
+2024-09-07,Dinamo Minsk,Spartak Myjava,3.0,2.0,Champions League femenina,4627126,20240907_Dinamo-Minsk_Spartak-Myjava
+2024-09-07,KI Klaksvik,FC Nordsjælland,0.0,2.0,Champions League femenina,4627127,20240907_KI-Klaksvik_FC-Nordsjælland
+2024-09-07,KuPS,SS Anenii Noi,6.0,0.0,Champions League femenina,4627125,20240907_KuPS_SS-Anenii-Noi
+2024-09-07,Brøndby IF,FC Kolos Kovalivka,2.0,1.0,Champions League femenina,4627128,20240907_Brøndby-IF_FC-Kolos-Kovalivka
+2024-09-07,Kiryat Gat,Pogoń Szczecin,0.0,1.0,Champions League femenina,4627131,20240907_Kiryat-Gat_Pogoń-Szczecin
+2024-09-07,SFK Riga,Flora Tallinn,0.0,0.0,Champions League femenina,4627124,20240907_SFK-Riga_Flora-Tallinn
+2024-09-07,ZFK Ljuboten,Cardiff City FC,2.0,0.0,Champions League femenina,4627132,20240907_ZFK-Ljuboten_Cardiff-City-FC
+2024-09-07,Atlético Madrid,Rangers,3.0,0.0,Champions League femenina,4627134,20240907_Atlético-Madrid_Rangers
+2024-09-07,Linköpings FC,First Vienna,8.0,0.0,Champions League femenina,4627130,20240907_Linköpings-FC_First-Vienna
+2024-09-07,Racing FC Union Luxembourg,NSA Sofia,2.0,0.0,Champions League femenina,4627129,20240907_Racing-FC-Union-Luxembourg_NSA-Sofia
+2024-09-07,Eintracht Frankfurt,FC Minsk,6.0,0.0,Champions League femenina,4627135,20240907_Eintracht-Frankfurt_FC-Minsk
+2024-09-07,Vålerenga,Farul Constanța,3.0,1.0,Champions League femenina,4627141,20240907_Vålerenga_Farul-Constanța
+2024-09-07,Guria Lanchkhuti,Neftçi PFC,2.0,1.0,Champions League femenina,4627123,20240907_Guria-Lanchkhuti_Neftçi-PFC
+2024-09-07,Ajax,Fiorentina,0.0,1.0,Champions League femenina,4627143,20240907_Ajax_Fiorentina
+2024-09-07,Glentoran Belfast United,Pyunik,1.0,0.0,Champions League femenina,4627133,20240907_Glentoran-Belfast-United_Pyunik
+2024-09-07,Vorskla Poltava,Ferencvarosi TC,2.0,0.0,Champions League femenina,4627138,20240907_Vorskla-Poltava_Ferencvarosi-TC
+2024-09-07,FK Gintra Universitetas,Celtic,0.0,2.0,Champions League femenina,4627139,20240907_FK-Gintra-Universitetas_Celtic
+2024-09-07,Benfica,SFK 2000 Sarajevo,4.0,0.0,Champions League femenina,4627142,20240907_Benfica_SFK-2000-Sarajevo
+2024-09-07,WFC Osijek,Peamount United,2.0,1.0,Champions League femenina,4627140,20240907_WFC-Osijek_Peamount-United
+2024-09-07,ZFK Crvena Zvezda,Breznica,3.0,0.0,Champions League femenina,4627136,20240907_ZFK-Crvena-Zvezda_Breznica
+2024-09-07,FC Twente,Valur,5.0,0.0,Champions League femenina,4627144,20240907_FC-Twente_Valur
+2024-09-07,Paris FC,Sparta Prague,2.0,0.0,Champions League femenina,4627146,20240907_Paris-FC_Sparta-Prague
+2024-09-07,SKN St. Pölten,KF Vllaznia,1.0,0.0,Champions League femenina,4627137,20240907_SKN-St.-Pölten_KF-Vllaznia
+2024-09-07,BIIK Kazygurt,Galatasaray,0.0,5.0,Champions League femenina,4627145,20240907_BIIK-Kazygurt_Galatasaray
+2024-09-07,Breidablik,Sporting CP,0.0,2.0,Champions League femenina,4627150,20240907_Breidablik_Sporting-CP
+2024-09-07,Servette,PAOK Thessaloniki FC,2.0,0.0,Champions League femenina,4627147,20240907_Servette_PAOK-Thessaloniki-FC
+2024-09-07,Apollon Limassol LFC,ZNK Mura,2.0,3.0,Champions League femenina,4627149,20240907_Apollon-Limassol-LFC_ZNK-Mura
+2024-09-07,Arsenal,Rosenborg BK,1.0,0.0,Champions League femenina,4627148,20240907_Arsenal_Rosenborg-BK
+2024-09-07,Anderlecht,Birkirkara FC,5.0,0.0,Champions League femenina,4627151,20240907_Anderlecht_Birkirkara-FC
+2024-09-18,Roma,Servette,3.0,1.0,Champions League femenina,4631269,20240918_Roma_Servette
+2024-09-18,WFC Osijek,FC Twente,1.0,4.0,Champions League femenina,4631261,20240918_WFC-Osijek_FC-Twente
+2024-09-18,Paris FC,Manchester City,0.0,5.0,Champions League femenina,4631267,20240918_Paris-FC_Manchester-City
+2024-09-18,BK Häcken,Arsenal,1.0,0.0,Champions League femenina,4631271,20240918_BK-Häcken_Arsenal
+2024-09-18,Hammarby IF,Benfica,1.0,2.0,Champions League femenina,4631257,20240918_Hammarby-IF_Benfica
+2024-09-18,Juventus,Paris Saint Germain,3.0,1.0,Champions League femenina,4631265,20240918_Juventus_Paris-Saint-Germain
+2024-09-18,Anderlecht,Vålerenga,1.0,2.0,Champions League femenina,4631251,20240918_Anderlecht_Vålerenga
+2024-09-18,Fiorentina,VfL Wolfsburg,0.0,7.0,Champions League femenina,4631256,20240918_Fiorentina_VfL-Wolfsburg
+2024-09-19,Sporting CP,Real Madrid,1.0,2.0,Champions League femenina,4631263,20240919_Sporting-CP_Real-Madrid
+2024-09-19,Galatasaray,Slavia Prague,2.0,2.0,Champions League femenina,4631274,20240919_Galatasaray_Slavia-Prague
+2024-09-19,SKN St. Pölten,ZNK Mura,3.0,0.0,Champions League femenina,4631253,20240919_SKN-St.-Pölten_ZNK-Mura
+2024-09-22,Vorskla Poltava,Celtic,0.0,1.0,Champions League femenina,4631259,20240922_Vorskla-Poltava_Celtic
+2024-09-25,Slavia Prague,Galatasaray,1.0,2.0,Champions League femenina,4631272,20240925_Slavia-Prague_Galatasaray
+2024-09-25,Vålerenga,Anderlecht,3.0,0.0,Champions League femenina,4631262,20240925_Vålerenga_Anderlecht
+2024-09-25,VfL Wolfsburg,Fiorentina,5.0,0.0,Champions League femenina,4631255,20240925_VfL-Wolfsburg_Fiorentina
+2024-09-25,Benfica,Hammarby IF,0.0,2.0,Champions League femenina,4631254,20240925_Benfica_Hammarby-IF
+2024-09-26,Paris Saint Germain,Juventus,1.0,2.0,Champions League femenina,4631264,20240926_Paris-Saint-Germain_Juventus
+2024-09-26,Servette,Roma,2.0,7.0,Champions League femenina,4631268,20240926_Servette_Roma
+2024-09-26,ZNK Mura,SKN St. Pölten,0.0,5.0,Champions League femenina,4631252,20240926_ZNK-Mura_SKN-St.-Pölten
+2024-09-26,FC Twente,WFC Osijek,4.0,0.0,Champions League femenina,4631260,20240926_FC-Twente_WFC-Osijek
+2024-09-26,Manchester City,Paris FC,3.0,0.0,Champions League femenina,4631266,20240926_Manchester-City_Paris-FC
+2024-09-26,Real Madrid,Sporting CP,3.0,1.0,Champions League femenina,4631273,20240926_Real-Madrid_Sporting-CP
+2024-09-26,Celtic,Vorskla Poltava,2.0,0.0,Champions League femenina,4631258,20240926_Celtic_Vorskla-Poltava
+2024-09-26,Arsenal,BK Häcken,4.0,0.0,Champions League femenina,4631270,20240926_Arsenal_BK-Häcken
+2024-10-08,OL Lyonnes,Galatasaray,3.0,0.0,Champions League femenina,4649148,20241008_OL-Lyonnes_Galatasaray
+2024-10-08,Roma,VfL Wolfsburg,1.0,0.0,Champions League femenina,4649163,20241008_Roma_VfL-Wolfsburg
+2024-10-08,Celtic,FC Twente,0.0,2.0,Champions League femenina,4649192,20241008_Celtic_FC-Twente
+2024-10-08,Chelsea,Real Madrid,3.0,2.0,Champions League femenina,4649142,20241008_Chelsea_Real-Madrid
+2024-10-09,Bayern München,Arsenal,5.0,2.0,Champions League femenina,4649193,20241009_Bayern-München_Arsenal
+2024-10-09,Hammarby IF,SKN St. Pölten,2.0,0.0,Champions League femenina,4649149,20241009_Hammarby-IF_SKN-St.-Pölten
+2024-10-09,Manchester City,Barcelona,2.0,0.0,Champions League femenina,4649202,20241009_Manchester-City_Barcelona
+2024-10-09,Vålerenga,Juventus,0.0,1.0,Champions League femenina,4649155,20241009_Vålerenga_Juventus
+2024-10-16,Juventus,Bayern München,0.0,2.0,Champions League femenina,4649157,20241016_Juventus_Bayern-München
+2024-10-16,SKN St. Pölten,Manchester City,2.0,3.0,Champions League femenina,4649203,20241016_SKN-St.-Pölten_Manchester-City
+2024-10-16,Arsenal,Vålerenga,4.0,1.0,Champions League femenina,4649195,20241016_Arsenal_Vålerenga
+2024-10-16,Barcelona,Hammarby IF,9.0,0.0,Champions League femenina,4649153,20241016_Barcelona_Hammarby-IF
+2024-10-17,Galatasaray,Roma,1.0,6.0,Champions League femenina,4649143,20241017_Galatasaray_Roma
+2024-10-17,Real Madrid,Celtic,4.0,0.0,Champions League femenina,4649139,20241017_Real-Madrid_Celtic
+2024-10-17,FC Twente,Chelsea,1.0,3.0,Champions League femenina,4649189,20241017_FC-Twente_Chelsea
+2024-10-17,VfL Wolfsburg,OL Lyonnes,0.0,2.0,Champions League femenina,4649165,20241017_VfL-Wolfsburg_OL-Lyonnes
+2024-11-12,Barcelona,SKN St. Pölten,7.0,0.0,Champions League femenina,4649154,20241112_Barcelona_SKN-St.-Pölten
+2024-11-12,Juventus,Arsenal,0.0,4.0,Champions League femenina,4649197,20241112_Juventus_Arsenal
+2024-11-12,Bayern München,Vålerenga,3.0,0.0,Champions League femenina,4649159,20241112_Bayern-München_Vålerenga
+2024-11-12,Manchester City,Hammarby IF,2.0,0.0,Champions League femenina,4649201,20241112_Manchester-City_Hammarby-IF
+2024-11-13,Galatasaray,VfL Wolfsburg,0.0,5.0,Champions League femenina,4649144,20241113_Galatasaray_VfL-Wolfsburg
+2024-11-13,Real Madrid,FC Twente,7.0,0.0,Champions League femenina,4649162,20241113_Real-Madrid_FC-Twente
+2024-11-13,Celtic,Chelsea,1.0,2.0,Champions League femenina,4649190,20241113_Celtic_Chelsea
+2024-11-13,Roma,OL Lyonnes,0.0,3.0,Champions League femenina,4649164,20241113_Roma_OL-Lyonnes
+2024-11-20,FC Twente,Real Madrid,2.0,3.0,Champions League femenina,4649161,20241120_FC-Twente_Real-Madrid
+2024-11-20,VfL Wolfsburg,Galatasaray,5.0,0.0,Champions League femenina,4649147,20241120_VfL-Wolfsburg_Galatasaray
+2024-11-20,Chelsea,Celtic,3.0,0.0,Champions League femenina,4649140,20241120_Chelsea_Celtic
+2024-11-20,OL Lyonnes,Roma,4.0,1.0,Champions League femenina,4649167,20241120_OL-Lyonnes_Roma
+2024-11-21,Hammarby IF,Manchester City,1.0,2.0,Champions League femenina,4649204,20241121_Hammarby-IF_Manchester-City
+2024-11-21,Vålerenga,Bayern München,1.0,1.0,Champions League femenina,4649156,20241121_Vålerenga_Bayern-München
+2024-11-21,Arsenal,Juventus,1.0,0.0,Champions League femenina,4649194,20241121_Arsenal_Juventus
+2024-11-21,SKN St. Pölten,Barcelona,1.0,4.0,Champions League femenina,4649151,20241121_SKN-St.-Pölten_Barcelona
+2024-12-11,Galatasaray,OL Lyonnes,0.0,6.0,Champions League femenina,4649145,20241211_Galatasaray_OL-Lyonnes
+2024-12-11,VfL Wolfsburg,Roma,6.0,1.0,Champions League femenina,4649166,20241211_VfL-Wolfsburg_Roma
+2024-12-11,Celtic,Real Madrid,0.0,3.0,Champions League femenina,4649191,20241211_Celtic_Real-Madrid
+2024-12-11,Chelsea,FC Twente,6.0,1.0,Champions League femenina,4649141,20241211_Chelsea_FC-Twente
+2024-12-12,Bayern München,Juventus,4.0,0.0,Champions League femenina,4649160,20241212_Bayern-München_Juventus
+2024-12-12,Vålerenga,Arsenal,1.0,3.0,Champions League femenina,4649198,20241212_Vålerenga_Arsenal
+2024-12-12,Hammarby IF,Barcelona,0.0,3.0,Champions League femenina,4649150,20241212_Hammarby-IF_Barcelona
+2024-12-12,Manchester City,SKN St. Pölten,2.0,0.0,Champions League femenina,4649200,20241212_Manchester-City_SKN-St.-Pölten
+2024-12-17,FC Twente,Celtic,3.0,0.0,Champions League femenina,4649138,20241217_FC-Twente_Celtic
+2024-12-17,Real Madrid,Chelsea,1.0,2.0,Champions League femenina,4649137,20241217_Real-Madrid_Chelsea
+2024-12-17,OL Lyonnes,VfL Wolfsburg,1.0,0.0,Champions League femenina,4649152,20241217_OL-Lyonnes_VfL-Wolfsburg
+2024-12-17,Roma,Galatasaray,3.0,0.0,Champions League femenina,4649146,20241217_Roma_Galatasaray
+2024-12-18,Barcelona,Manchester City,3.0,0.0,Champions League femenina,4649199,20241218_Barcelona_Manchester-City
+2024-12-18,SKN St. Pölten,Hammarby IF,1.0,2.0,Champions League femenina,4649136,20241218_SKN-St.-Pölten_Hammarby-IF
+2024-12-18,Arsenal,Bayern München,3.0,2.0,Champions League femenina,4649196,20241218_Arsenal_Bayern-München
+2024-12-18,Juventus,Vålerenga,3.0,0.0,Champions League femenina,4649158,20241218_Juventus_Vålerenga
+2025-03-18,Real Madrid,Arsenal,2.0,0.0,Champions League femenina,4728304,20250318_Real-Madrid_Arsenal
+2025-03-18,Bayern München,OL Lyonnes,0.0,2.0,Champions League femenina,4728310,20250318_Bayern-München_OL-Lyonnes
+2025-03-19,VfL Wolfsburg,Barcelona,1.0,4.0,Champions League femenina,4728308,20250319_VfL-Wolfsburg_Barcelona
+2025-03-19,Manchester City,Chelsea,2.0,0.0,Champions League femenina,4728306,20250319_Manchester-City_Chelsea
+2025-03-26,OL Lyonnes,Bayern München,4.0,1.0,Champions League femenina,4728311,20250326_OL-Lyonnes_Bayern-München
+2025-03-26,Arsenal,Real Madrid,3.0,0.0,Champions League femenina,4728305,20250326_Arsenal_Real-Madrid
+2025-03-27,Barcelona,VfL Wolfsburg,6.0,1.0,Champions League femenina,4728309,20250327_Barcelona_VfL-Wolfsburg
+2025-03-27,Chelsea,Manchester City,3.0,0.0,Champions League femenina,4728307,20250327_Chelsea_Manchester-City
+2025-04-19,Arsenal,OL Lyonnes,1.0,2.0,Champions League femenina,4728320,20250419_Arsenal_OL-Lyonnes
+2025-04-20,Barcelona,Chelsea,4.0,1.0,Champions League femenina,4728318,20250420_Barcelona_Chelsea
+2025-04-27,Chelsea,Barcelona,1.0,4.0,Champions League femenina,4728319,20250427_Chelsea_Barcelona
+2025-04-27,OL Lyonnes,Arsenal,1.0,4.0,Champions League femenina,4728321,20250427_OL-Lyonnes_Arsenal
+2025-05-24,Arsenal,Barcelona,1.0,0.0,Champions League femenina,4728324,20250524_Arsenal_Barcelona
+2025-07-30,NSA Sofia,Pyunik,0.0,1.0,Champions League femenina,4822610,20250730_NSA-Sofia_Pyunik
+2025-07-30,SS Anenii Noi,Swieqi United,0.0,5.0,Champions League femenina,4822603,20250730_SS-Anenii-Noi_Swieqi-United
+2025-07-30,Flora Tallinn,Riga FC,1.0,4.0,Champions League femenina,4822605,20250730_Flora-Tallinn_Riga-FC
+2025-07-30,Mitrovica,Cliftonville,1.0,3.0,Champions League femenina,4822608,20250730_Mitrovica_Cliftonville
+2025-07-30,ZFK Ljuboten,NSÍ Runavik,4.0,1.0,Champions League femenina,4822607,20250730_ZFK-Ljuboten_NSÍ-Runavik
+2025-07-30,Fomget Gençlik ve Spor,Neftçi PFC,2.0,0.0,Champions League femenina,4822606,20250730_Fomget-Gençlik-ve-Spor_Neftçi-PFC
+2025-07-30,Racing FC Union Luxembourg,AEK Athens,5.0,3.0,Champions League femenina,4822611,20250730_Racing-FC-Union-Luxembourg_AEK-Athens
+2025-07-30,Spartak Myjava,Budućnost Podgorica,3.0,0.0,Champions League femenina,4822609,20250730_Spartak-Myjava_Budućnost-Podgorica
+2025-07-30,Cardiff City FC,Athlone Town,0.0,4.0,Champions League femenina,4822604,20250730_Cardiff-City-FC_Athlone-Town
+2025-08-02,NSA Sofia,NSÍ Runavik,0.0,4.0,Champions League femenina,4905883,20250802_NSA-Sofia_NSÍ-Runavik
+2025-08-02,SS Anenii Noi,Budućnost Podgorica,0.0,3.0,Champions League femenina,4905995,20250802_SS-Anenii-Noi_Budućnost-Podgorica
+2025-08-02,Flora Tallinn,AEK Athens,0.0,1.0,Champions League femenina,4906366,20250802_Flora-Tallinn_AEK-Athens
+2025-08-02,Agram,Athlone Town,0.0,3.0,Champions League femenina,4906374,20250802_Agram_Athlone-Town
+2025-08-02,ZFK Ljuboten,Pyunik,4.0,0.0,Champions League femenina,4905884,20250802_ZFK-Ljuboten_Pyunik
+2025-08-02,Kiryat Gat,Fomget Gençlik ve Spor,1.0,3.0,Champions League femenina,4905921,20250802_Kiryat-Gat_Fomget-Gençlik-ve-Spor
+2025-08-02,Guria Lanchkhuti,Cliftonville,2.0,1.0,Champions League femenina,4905838,20250802_Guria-Lanchkhuti_Cliftonville
+2025-08-02,Racing FC Union Luxembourg,Riga FC,2.0,1.0,Champions League femenina,4906367,20250802_Racing-FC-Union-Luxembourg_Riga-FC
+2025-08-02,Spartak Myjava,Swieqi United,2.0,1.0,Champions League femenina,4905994,20250802_Spartak-Myjava_Swieqi-United
+2025-08-27,Ferencvarosi TC,Racing FC Union Luxembourg,3.0,0.0,Champions League femenina,4930461,20250827_Ferencvarosi-TC_Racing-FC-Union-Luxembourg
+2025-08-27,BIIK Kazygurt,GKS Katowice,0.0,2.0,Champions League femenina,4822687,20250827_BIIK-Kazygurt_GKS-Katowice
+2025-08-27,Vorskla Poltava,Guria Lanchkhuti,5.0,0.0,Champions League femenina,4930472,20250827_Vorskla-Poltava_Guria-Lanchkhuti
+2025-08-27,Manchester United,PSV,4.0,0.0,Champions League femenina,4822685,20250827_Manchester-United_PSV
+2025-08-27,Slavia Prague,Fomget Gençlik ve Spor,2.0,1.0,Champions League femenina,4930473,20250827_Slavia-Prague_Fomget-Gençlik-ve-Spor
+2025-08-27,Breidablik,Athlone Town,3.0,1.0,Champions League femenina,4930497,20250827_Breidablik_Athlone-Town
+2025-08-27,FC Rosengård,ZFK Ljuboten,5.0,0.0,Champions League femenina,4930474,20250827_FC-Rosengård_ZFK-Ljuboten
+2025-08-27,Roma,Aktobe,2.0,0.0,Champions League femenina,4822679,20250827_Roma_Aktobe
+2025-08-27,Apollon Limassol LFC,BSC Young Boys,0.0,1.0,Champions League femenina,4822678,20250827_Apollon-Limassol-LFC_BSC-Young-Boys
+2025-08-27,Brann,Inter,2.0,1.0,Champions League femenina,4822680,20250827_Brann_Inter
+2025-08-27,FK Gintra Universitetas,Farul Constanța,2.0,1.0,Champions League femenina,4822682,20250827_FK-Gintra-Universitetas_Farul-Constanța
+2025-08-27,Sparta Prague,FC Nordsjælland,4.0,4.0,Champions League femenina,4822688,20250827_Sparta-Prague_FC-Nordsjælland
+2025-08-27,Vålerenga,HJK,1.0,0.0,Champions League femenina,4822690,20250827_Vålerenga_HJK
+2025-08-27,ZNK Mura,Spartak Myjava,3.0,2.0,Champions League femenina,4930498,20250827_ZNK-Mura_Spartak-Myjava
+2025-08-27,FC Twente,ZFK Crvena Zvezda,6.0,0.0,Champions League femenina,4822689,20250827_FC-Twente_ZFK-Crvena-Zvezda
+2025-08-27,Glasgow City,Austria Wien,0.0,2.0,Champions League femenina,4822683,20250827_Glasgow-City_Austria-Wien
+2025-08-27,Hammarby IF,FC Kharkiv,5.0,4.0,Champions League femenina,4822684,20250827_Hammarby-IF_FC-Kharkiv
+2025-08-27,KF Vllaznia,Dinamo Minsk,1.0,2.0,Champions League femenina,4822692,20250827_KF-Vllaznia_Dinamo-Minsk
+2025-08-27,SFK 2000 Sarajevo,Oud-Heverlee Leuven,1.0,2.0,Champions League femenina,4822686,20250827_SFK-2000-Sarajevo_Oud-Heverlee-Leuven
+2025-08-27,Fortuna Hjørring,Hibernian LFC,2.0,1.0,Champions League femenina,4822681,20250827_Fortuna-Hjørring_Hibernian-LFC
+2025-08-27,Valur,Braga,1.0,3.0,Champions League femenina,4822691,20250827_Valur_Braga
+2025-08-30,KF Vllaznia,Racing FC Union Luxembourg,3.0,1.0,Champions League femenina,4946468,20250830_KF-Vllaznia_Racing-FC-Union-Luxembourg
+2025-08-30,BIIK Kazygurt,Spartak Myjava,2.0,1.0,Champions League femenina,4946470,20250830_BIIK-Kazygurt_Spartak-Myjava
+2025-08-30,Guria Lanchkhuti,Farul Constanța,1.0,4.0,Champions League femenina,4946474,20250830_Guria-Lanchkhuti_Farul-Constanța
+2025-08-30,Valur,Inter,1.0,4.0,Champions League femenina,4946472,20250830_Valur_Inter
+2025-08-30,FC Kharkiv,PSV,0.0,2.0,Champions League femenina,4946476,20250830_FC-Kharkiv_PSV
+2025-08-30,HJK,Fomget Gençlik ve Spor,2.0,3.0,Champions League femenina,4946478,20250830_HJK_Fomget-Gençlik-ve-Spor
+2025-08-30,SFK 2000 Sarajevo,ZFK Ljuboten,5.0,0.0,Champions League femenina,4946480,20250830_SFK-2000-Sarajevo_ZFK-Ljuboten
+2025-08-30,ZFK Crvena Zvezda,Athlone Town,0.0,2.0,Champions League femenina,4946482,20250830_ZFK-Crvena-Zvezda_Athlone-Town
+2025-08-30,FC Minsk,Austria Wien,0.0,3.0,Champions League femenina,4946484,20250830_FC-Minsk_Austria-Wien
+2025-08-30,FC Nordsjælland,Aktobe,4.0,2.0,Champions League femenina,4946486,20250830_FC-Nordsjælland_Aktobe
+2025-08-30,Roma,Sparta Prague,5.0,1.0,Champions League femenina,4946485,20250830_Roma_Sparta-Prague
+2025-08-30,Apollon Limassol LFC,Hibernian LFC,2.0,3.0,Champions League femenina,4946487,20250830_Apollon-Limassol-LFC_Hibernian-LFC
+2025-08-30,Brann,Braga,1.0,0.0,Champions League femenina,4946473,20250830_Brann_Braga
+2025-08-30,Vorskla Poltava,FK Gintra Universitetas,2.0,0.0,Champions League femenina,4946475,20250830_Vorskla-Poltava_FK-Gintra-Universitetas
+2025-08-30,Slavia Prague,Vålerenga,0.0,4.0,Champions League femenina,4946479,20250830_Slavia-Prague_Vålerenga
+2025-08-30,ZNK Mura,GKS Katowice,0.0,2.0,Champions League femenina,4946471,20250830_ZNK-Mura_GKS-Katowice
+2025-08-30,FC Twente,Breidablik,2.0,0.0,Champions League femenina,4946483,20250830_FC-Twente_Breidablik
+2025-08-30,Ferencvarosi TC,Dinamo Minsk,4.0,0.0,Champions League femenina,4946469,20250830_Ferencvarosi-TC_Dinamo-Minsk
+2025-08-30,Manchester United,Hammarby IF,1.0,0.0,Champions League femenina,4946477,20250830_Manchester-United_Hammarby-IF
+2025-08-30,FC Rosengård,Oud-Heverlee Leuven,2.0,3.0,Champions League femenina,4946481,20250830_FC-Rosengård_Oud-Heverlee-Leuven
+2025-08-30,Fortuna Hjørring,BSC Young Boys,1.0,0.0,Champions League femenina,4946488,20250830_Fortuna-Hjørring_BSC-Young-Boys
+2025-09-11,GKS Katowice,FC Twente,0.0,4.0,Champions League femenina,4950804,20250911_GKS-Katowice_FC-Twente
+2025-09-11,BK Häcken,Atlético Madrid,1.0,1.0,Champions League femenina,4950806,20250911_BK-Häcken_Atlético-Madrid
+2025-09-11,Brann,Manchester United,1.0,0.0,Champions League femenina,4950810,20250911_Brann_Manchester-United
+2025-09-11,Eintracht Frankfurt,Real Madrid,1.0,2.0,Champions League femenina,4950812,20250911_Eintracht-Frankfurt_Real-Madrid
+2025-09-11,Paris FC,Austria Wien,0.0,0.0,Champions League femenina,4950808,20250911_Paris-FC_Austria-Wien
+2025-09-11,Vålerenga,Ferencvarosi TC,3.0,0.0,Champions League femenina,4950798,20250911_Vålerenga_Ferencvarosi-TC
+2025-09-11,SKN St. Pölten,Fortuna Hjørring,3.0,1.0,Champions League femenina,4950802,20250911_SKN-St.-Pölten_Fortuna-Hjørring
+2025-09-11,Vorskla Poltava,Oud-Heverlee Leuven,0.0,2.0,Champions League femenina,4950800,20250911_Vorskla-Poltava_Oud-Heverlee-Leuven
+2025-09-11,Roma,Sporting CP,1.0,2.0,Champions League femenina,4950814,20250911_Roma_Sporting-CP
+2025-09-18,Ferencvarosi TC,Vålerenga,1.0,2.0,Champions League femenina,4950799,20250918_Ferencvarosi-TC_Vålerenga
+2025-09-18,Sporting CP,Roma,0.0,2.0,Champions League femenina,4950815,20250918_Sporting-CP_Roma
+2025-09-18,Fortuna Hjørring,SKN St. Pölten,1.0,2.0,Champions League femenina,4950803,20250918_Fortuna-Hjørring_SKN-St.-Pölten
+2025-09-18,Atlético Madrid,BK Häcken,2.0,1.0,Champions League femenina,4950807,20250918_Atlético-Madrid_BK-Häcken
+2025-09-18,FC Twente,GKS Katowice,4.0,1.0,Champions League femenina,4950805,20250918_FC-Twente_GKS-Katowice
+2025-09-18,Austria Wien,Paris FC,0.0,2.0,Champions League femenina,4950809,20250918_Austria-Wien_Paris-FC
+2025-09-18,Manchester United,Brann,3.0,0.0,Champions League femenina,4950811,20250918_Manchester-United_Brann
+2025-09-18,Oud-Heverlee Leuven,Vorskla Poltava,0.0,0.0,Champions League femenina,4950801,20250918_Oud-Heverlee-Leuven_Vorskla-Poltava
+2025-09-18,Real Madrid,Eintracht Frankfurt,3.0,0.0,Champions League femenina,4950813,20250918_Real-Madrid_Eintracht-Frankfurt
+2025-10-07,Juventus,Benfica,2.0,1.0,Champions League femenina,4973468,20251007_Juventus_Benfica
+2025-10-07,Arsenal,OL Lyonnes,1.0,2.0,Champions League femenina,4973448,20251007_Arsenal_OL-Lyonnes
+2025-10-07,Barcelona,Bayern München,7.0,1.0,Champions League femenina,4973457,20251007_Barcelona_Bayern-München
+2025-10-07,Paris FC,Oud-Heverlee Leuven,2.0,2.0,Champions League femenina,4973479,20251007_Paris-FC_Oud-Heverlee-Leuven
+2025-10-08,FC Twente,Chelsea,1.0,1.0,Champions League femenina,4973494,20251008_FC-Twente_Chelsea
+2025-10-08,Real Madrid,Roma,6.0,2.0,Champions League femenina,4973484,20251008_Real-Madrid_Roma
+2025-10-08,Manchester United,Vålerenga,1.0,0.0,Champions League femenina,4973477,20251008_Manchester-United_Vålerenga
+2025-10-08,SKN St. Pölten,Atlético Madrid,0.0,6.0,Champions League femenina,4973490,20251008_SKN-St.-Pölten_Atlético-Madrid
+2025-10-08,VfL Wolfsburg,Paris Saint Germain,4.0,0.0,Champions League femenina,4973501,20251008_VfL-Wolfsburg_Paris-Saint-Germain
+2025-10-15,OL Lyonnes,SKN St. Pölten,3.0,0.0,Champions League femenina,4973473,20251015_OL-Lyonnes_SKN-St.-Pölten
+2025-10-15,Vålerenga,VfL Wolfsburg,1.0,2.0,Champions League femenina,4973498,20251015_Vålerenga_VfL-Wolfsburg
+2025-10-15,Chelsea,Paris FC,4.0,0.0,Champions League femenina,4973465,20251015_Chelsea_Paris-FC
+2025-10-15,Oud-Heverlee Leuven,FC Twente,2.0,1.0,Champions League femenina,4973471,20251015_Oud-Heverlee-Leuven_FC-Twente
+2025-10-15,Roma,Barcelona,0.0,4.0,Champions League femenina,4973451,20251015_Roma_Barcelona
+2025-10-16,Atlético Madrid,Manchester United,0.0,1.0,Champions League femenina,4973456,20251016_Atlético-Madrid_Manchester-United
+2025-10-16,Bayern München,Juventus,2.0,1.0,Champions League femenina,4973461,20251016_Bayern-München_Juventus
+2025-10-16,Paris Saint Germain,Real Madrid,1.0,2.0,Champions League femenina,4973483,20251016_Paris-Saint-Germain_Real-Madrid
+2025-10-16,Benfica,Arsenal,0.0,2.0,Champions League femenina,4973487,20251016_Benfica_Arsenal
+2025-11-11,Roma,Vålerenga,0.0,1.0,Champions League femenina,4973453,20251111_Roma_Vålerenga
+2025-11-11,OL Lyonnes,VfL Wolfsburg,3.0,1.0,Champions League femenina,4973474,20251111_OL-Lyonnes_VfL-Wolfsburg
+2025-11-11,Real Madrid,Paris FC,1.0,1.0,Champions League femenina,4973485,20251111_Real-Madrid_Paris-FC
+2025-11-11,SKN St. Pölten,Chelsea,0.0,6.0,Champions League femenina,4973491,20251111_SKN-St.-Pölten_Chelsea
+2025-11-12,Barcelona,Oud-Heverlee Leuven,3.0,0.0,Champions League femenina,4973458,20251112_Barcelona_Oud-Heverlee-Leuven
+2025-11-12,Bayern München,Arsenal,3.0,2.0,Champions League femenina,4973460,20251112_Bayern-München_Arsenal
+2025-11-12,Atlético Madrid,Juventus,1.0,2.0,Champions League femenina,4973455,20251112_Atlético-Madrid_Juventus
+2025-11-12,Manchester United,Paris Saint Germain,2.0,1.0,Champions League femenina,4973476,20251112_Manchester-United_Paris-Saint-Germain
+2025-11-12,Benfica,FC Twente,1.0,1.0,Champions League femenina,4973489,20251112_Benfica_FC-Twente
+2025-11-19,Juventus,OL Lyonnes,3.0,3.0,Champions League femenina,4973466,20251119_Juventus_OL-Lyonnes
+2025-11-19,VfL Wolfsburg,Manchester United,5.0,2.0,Champions League femenina,4973500,20251119_VfL-Wolfsburg_Manchester-United
+2025-11-19,Arsenal,Real Madrid,2.0,1.0,Champions League femenina,4973449,20251119_Arsenal_Real-Madrid
+2025-11-19,Paris FC,Benfica,2.0,0.0,Champions League femenina,4973480,20251119_Paris-FC_Benfica
+2025-11-19,Vålerenga,SKN St. Pölten,2.0,2.0,Champions League femenina,4973497,20251119_Vålerenga_SKN-St.-Pölten
+2025-11-20,FC Twente,Atlético Madrid,0.0,4.0,Champions League femenina,4973493,20251120_FC-Twente_Atlético-Madrid
+2025-11-20,Chelsea,Barcelona,1.0,1.0,Champions League femenina,4973464,20251120_Chelsea_Barcelona
+2025-11-20,Oud-Heverlee Leuven,Roma,1.0,1.0,Champions League femenina,4973470,20251120_Oud-Heverlee-Leuven_Roma
+2025-11-20,Paris Saint Germain,Bayern München,1.0,3.0,Champions League femenina,4973481,20251120_Paris-Saint-Germain_Bayern-München
+2025-12-09,SKN St. Pölten,Juventus,0.0,5.0,Champions League femenina,4973492,20251209_SKN-St.-Pölten_Juventus
+2025-12-09,Arsenal,FC Twente,1.0,0.0,Champions League femenina,4973450,20251209_Arsenal_FC-Twente
+2025-12-09,Paris Saint Germain,Oud-Heverlee Leuven,0.0,0.0,Champions League femenina,4973482,20251209_Paris-Saint-Germain_Oud-Heverlee-Leuven
+2025-12-09,Real Madrid,VfL Wolfsburg,2.0,0.0,Champions League femenina,4973486,20251209_Real-Madrid_VfL-Wolfsburg
+2025-12-10,Barcelona,Benfica,3.0,1.0,Champions League femenina,4973459,20251210_Barcelona_Benfica
+2025-12-10,Vålerenga,Paris FC,0.0,1.0,Champions League femenina,4973496,20251210_Vålerenga_Paris-FC
+2025-12-10,Atlético Madrid,Bayern München,2.0,2.0,Champions League femenina,4973454,20251210_Atlético-Madrid_Bayern-München
+2025-12-10,Chelsea,Roma,6.0,0.0,Champions League femenina,4973463,20251210_Chelsea_Roma
+2025-12-10,Manchester United,OL Lyonnes,0.0,3.0,Champions League femenina,4973475,20251210_Manchester-United_OL-Lyonnes
+2025-12-17,Bayern München,Vålerenga,3.0,0.0,Champions League femenina,4973462,20251217_Bayern-München_Vålerenga
+2025-12-17,FC Twente,Real Madrid,1.0,1.0,Champions League femenina,4973495,20251217_FC-Twente_Real-Madrid
+2025-12-17,Juventus,Manchester United,0.0,1.0,Champions League femenina,4973467,20251217_Juventus_Manchester-United
+2025-12-17,OL Lyonnes,Atlético Madrid,4.0,0.0,Champions League femenina,4973472,20251217_OL-Lyonnes_Atlético-Madrid
+2025-12-17,Oud-Heverlee Leuven,Arsenal,0.0,3.0,Champions League femenina,4973469,20251217_Oud-Heverlee-Leuven_Arsenal
+2025-12-17,Paris FC,Barcelona,0.0,2.0,Champions League femenina,4973478,20251217_Paris-FC_Barcelona
+2025-12-17,Roma,SKN St. Pölten,6.0,1.0,Champions League femenina,4973452,20251217_Roma_SKN-St.-Pölten
+2025-12-17,Benfica,Paris Saint Germain,1.0,1.0,Champions League femenina,4973488,20251217_Benfica_Paris-Saint-Germain
+2025-12-17,VfL Wolfsburg,Chelsea,1.0,2.0,Champions League femenina,4973499,20251217_VfL-Wolfsburg_Chelsea
+2026-02-11,Oud-Heverlee Leuven,Arsenal,0.0,4.0,Champions League femenina,5103019,20260211_Oud-Heverlee-Leuven_Arsenal
+2026-02-11,Paris FC,Real Madrid,2.0,3.0,Champions League femenina,5103021,20260211_Paris-FC_Real-Madrid
+2026-02-12,VfL Wolfsburg,Juventus,2.0,2.0,Champions League femenina,5103023,20260212_VfL-Wolfsburg_Juventus
+2026-02-12,Atlético Madrid,Manchester United,0.0,3.0,Champions League femenina,5103017,20260212_Atlético-Madrid_Manchester-United
+2026-02-18,Real Madrid,Paris FC,2.0,0.0,Champions League femenina,5103022,20260218_Real-Madrid_Paris-FC
+2026-02-18,Arsenal,Oud-Heverlee Leuven,3.0,1.0,Champions League femenina,5103020,20260218_Arsenal_Oud-Heverlee-Leuven
+2026-02-19,Juventus,VfL Wolfsburg,0.0,2.0,Champions League femenina,5103024,20260219_Juventus_VfL-Wolfsburg
+2026-02-19,Manchester United,Atlético Madrid,2.0,0.0,Champions League femenina,5103018,20260219_Manchester-United_Atlético-Madrid
+2026-03-24,VfL Wolfsburg,OL Lyonnes,1.0,0.0,Champions League femenina,5103032,20260324_VfL-Wolfsburg_OL-Lyonnes
+2026-03-24,Arsenal,Chelsea,3.0,1.0,Champions League femenina,5103030,20260324_Arsenal_Chelsea
+2026-03-25,Real Madrid,Barcelona,2.0,6.0,Champions League femenina,5103028,20260325_Real-Madrid_Barcelona
+2026-03-25,Manchester United,Bayern München,2.0,3.0,Champions League femenina,5103026,20260325_Manchester-United_Bayern-München
+2026-04-01,Bayern München,Manchester United,2.0,1.0,Champions League femenina,5103027,20260401_Bayern-München_Manchester-United
+2026-04-01,Chelsea,Arsenal,1.0,0.0,Champions League femenina,5103031,20260401_Chelsea_Arsenal
+2026-04-02,Barcelona,Real Madrid,6.0,0.0,Champions League femenina,5103029,20260402_Barcelona_Real-Madrid
+2026-04-02,OL Lyonnes,VfL Wolfsburg,4.0,0.0,Champions League femenina,5103033,20260402_OL-Lyonnes_VfL-Wolfsburg
+2026-04-25,Bayern München,Barcelona,1.0,1.0,Champions League femenina,5103036,20260425_Bayern-München_Barcelona
+2026-04-26,Arsenal,OL Lyonnes,2.0,1.0,Champions League femenina,5103038,20260426_Arsenal_OL-Lyonnes
+2026-05-02,OL Lyonnes,Arsenal,3.0,1.0,Champions League femenina,5103039,20260502_OL-Lyonnes_Arsenal
+2026-05-03,Barcelona,Bayern München,4.0,2.0,Champions League femenina,5103037,20260503_Barcelona_Bayern-München
+2026-05-23,Barcelona,OL Lyonnes,4.0,0.0,Champions League femenina,5103040,20260523_Barcelona_OL-Lyonnes
+2026-07-22,Neftçi PFC,Budućnost Podgorica,0.0,0.0,Champions League femenina,5796881,20260722_Neftçi-PFC_Budućnost-Podgorica
+2026-07-22,Athlone Town,Skopje 2014,4.0,0.0,Champions League femenina,5796887,20260722_Athlone-Town_Skopje-2014
+2026-07-22,Glentoran Belfast United,Riga FC,1.0,4.0,Champions League femenina,5796885,20260722_Glentoran-Belfast-United_Riga-FC
+2026-07-22,KI Klaksvik,Ludogorets Razgrad,0.0,3.0,Champions League femenina,5796882,20260722_KI-Klaksvik_Ludogorets-Razgrad
+2026-07-22,Mitrovica,Zimbru,10.0,0.0,Champions League femenina,5796883,20260722_Mitrovica_Zimbru
+2026-07-22,PAOK Thessaloniki FC,Hapoel Katamon Jerusalem,3.0,1.0,Champions League femenina,5796880,20260722_PAOK-Thessaloniki-FC_Hapoel-Katamon-Jerusalem
+2026-07-22,Czarni Sosnowiec,Nike Lusso,7.0,1.0,Champions League femenina,5796886,20260722_Czarni-Sosnowiec_Nike-Lusso
+2026-07-22,Flora Tallinn,Mgarr United,0.0,4.0,Champions League femenina,5796888,20260722_Flora-Tallinn_Mgarr-United
+2026-07-22,Pyunik,Wrexham,2.0,4.0,Champions League femenina,5796884,20260722_Pyunik_Wrexham
+2026-07-25,Budućnost Podgorica,Hapoel Katamon Jerusalem,0.0,1.0,Champions League femenina,5961804,20260725_Budućnost-Podgorica_Hapoel-Katamon-Jerusalem
+2026-07-25,Nike Lusso,Skopje 2014,2.0,0.0,Champions League femenina,5961810,20260725_Nike-Lusso_Skopje-2014
+2026-07-25,Glentoran Belfast United,Pyunik,4.0,2.0,Champions League femenina,5961808,20260725_Glentoran-Belfast-United_Pyunik
+2026-07-25,KI Klaksvik,Zimbru,4.0,1.0,Champions League femenina,5961806,20260725_KI-Klaksvik_Zimbru
+2026-07-25,PAOK Thessaloniki FC,Neftçi PFC,3.0,0.0,Champions League femenina,5961805,20260725_PAOK-Thessaloniki-FC_Neftçi-PFC
+2026-07-25,Athlone Town,Czarni Sosnowiec,1.0,3.0,Champions League femenina,5961811,20260725_Athlone-Town_Czarni-Sosnowiec
+2026-07-25,Riga FC,Wrexham,4.0,1.0,Champions League femenina,5961809,20260725_Riga-FC_Wrexham
+2026-07-25,Spartak Myjava,Mgarr United,6.0,1.0,Champions League femenina,5961812,20260725_Spartak-Myjava_Mgarr-United
+2026-07-25,Mitrovica,Ludogorets Razgrad,2.0,0.0,Champions League femenina,5961807,20260725_Mitrovica_Ludogorets-Razgrad
+2026-08-04,Dinamo Minsk,Servette,0.0,3.0,Champions League femenina,5797174,20260804_Dinamo-Minsk_Servette
+2026-08-04,Breidablik,Aktobe,1.0,1.0,Champions League femenina,5797175,20260804_Breidablik_Aktobe
+2026-08-05,Brann,Mitrovica,5.0,0.0,Champions League femenina,5972809,20260805_Brann_Mitrovica
+2026-08-05,Austria Wien,Hajduk Split,3.0,2.0,Champions League femenina,5797172,20260805_Austria-Wien_Hajduk-Split
+2026-08-05,FC Kharkiv,Fenerbahçe,1.0,2.0,Champions League femenina,5797178,20260805_FC-Kharkiv_Fenerbahçe
+2026-08-05,SFK 2000 Sarajevo,PSV,2.0,3.0,Champions League femenina,5797176,20260805_SFK-2000-Sarajevo_PSV
+2026-08-05,Vålerenga,Malmö FF,0.0,1.0,Champions League femenina,5797198,20260805_Vålerenga_Malmö-FF
+2026-08-05,Sporting CP,SeaSters Odesa,5.0,0.0,Champions League femenina,5797200,20260805_Sporting-CP_SeaSters-Odesa
+2026-08-05,Ajax,Brøndby IF,2.0,0.0,Champions League femenina,5797181,20260805_Ajax_Brøndby-IF
+2026-08-05,FK Gintra Universitetas,Heart of Midlothian,1.0,2.0,Champions League femenina,5797180,20260805_FK-Gintra-Universitetas_Heart-of-Midlothian
+2026-08-05,Hammarby IF,Apolonia,4.0,0.0,Champions League femenina,5797184,20260805_Hammarby-IF_Apolonia
+2026-08-05,Apollon Limassol LFC,Czarni Sosnowiec,3.0,3.0,Champions League femenina,5972811,20260805_Apollon-Limassol-LFC_Czarni-Sosnowiec
+2026-08-05,Ferencvarosi TC,PAOK Thessaloniki FC,2.0,3.0,Champions League femenina,5972810,20260805_Ferencvarosi-TC_PAOK-Thessaloniki-FC
+2026-08-05,SKN St. Pölten,BSC Young Boys,4.0,3.0,Champions League femenina,5797201,20260805_SKN-St.-Pölten_BSC-Young-Boys
+2026-08-05,ZNK Mura,Farul Constanța,1.0,3.0,Champions League femenina,5797173,20260805_ZNK-Mura_Farul-Constanța
+2026-08-05,Eintracht Frankfurt,Omonia Nicosia,8.0,0.0,Champions League femenina,5797199,20260805_Eintracht-Frankfurt_Omonia-Nicosia
+2026-08-05,HB Køge,Riga FC,4.0,1.0,Champions League femenina,5972813,20260805_HB-Køge_Riga-FC
+2026-08-05,Racing FC Union Luxembourg,HJK,0.0,2.0,Champions League femenina,5797177,20260805_Racing-FC-Union-Luxembourg_HJK
+2026-08-05,Oud-Heverlee Leuven,TSC Bačka Topola,4.0,0.0,Champions League femenina,5797179,20260805_Oud-Heverlee-Leuven_TSC-Bačka-Topola
+2026-08-05,KF Vllaznia,Spartak Myjava,1.0,2.0,Champions League femenina,5972812,20260805_KF-Vllaznia_Spartak-Myjava
+2026-08-05,Slavia Prague,Rangers,1.0,2.0,Champions League femenina,5797182,20260805_Slavia-Prague_Rangers
+2026-08-05,Juventus,Torreense,2.0,1.0,Champions League femenina,5797183,20260805_Juventus_Torreense
+2026-08-07,Breidablik,Dinamo Minsk,3.0,2.0,Champions League femenina,5991776,20260807_Breidablik_Dinamo-Minsk
+2026-08-07,Servette,Aktobe,4.0,0.0,Champions League femenina,5991777,20260807_Servette_Aktobe
+2026-08-08,Ferencvarosi TC,Mitrovica,1.0,2.0,Champions League femenina,5996581,20260808_Ferencvarosi-TC_Mitrovica
+2026-08-08,ZNK Mura,Hajduk Split,0.0,2.0,Champions League femenina,5996579,20260808_ZNK-Mura_Hajduk-Split
+2026-08-08,FK Gintra Universitetas,Riga FC,4.0,1.0,Champions League femenina,5996590,20260808_FK-Gintra-Universitetas_Riga-FC
+2026-08-08,FC Kharkiv,TSC Bačka Topola,3.0,2.0,Champions League femenina,5996585,20260808_FC-Kharkiv_TSC-Bačka-Topola
+2026-08-08,SFK 2000 Sarajevo,Racing FC Union Luxembourg,4.0,1.0,Champions League femenina,5996583,20260808_SFK-2000-Sarajevo_Racing-FC-Union-Luxembourg
+2026-08-08,Vålerenga,Omonia Nicosia,2.0,0.0,Champions League femenina,5996575,20260808_Vålerenga_Omonia-Nicosia
+2026-08-08,BSC Young Boys,SeaSters Odesa,1.0,3.0,Champions League femenina,5996577,20260808_BSC-Young-Boys_SeaSters-Odesa
+2026-08-08,HB Køge,Heart of Midlothian,2.0,1.0,Champions League femenina,5996591,20260808_HB-Køge_Heart-of-Midlothian
+2026-08-08,Torreense,Apolonia,5.0,2.0,Champions League femenina,5996573,20260808_Torreense_Apolonia
+2026-08-08,KF Vllaznia,Apollon Limassol LFC,1.0,2.0,Champions League femenina,5996588,20260808_KF-Vllaznia_Apollon-Limassol-LFC
+2026-08-08,Brann,PAOK Thessaloniki FC,3.0,2.0,Champions League femenina,5996582,20260808_Brann_PAOK-Thessaloniki-FC
+2026-08-08,Austria Wien,Farul Constanța,5.0,0.0,Champions League femenina,5996580,20260808_Austria-Wien_Farul-Constanța
+2026-08-08,SKN St. Pölten,Sporting CP,1.0,1.0,Champions League femenina,5996578,20260808_SKN-St.-Pölten_Sporting-CP
+2026-08-08,Eintracht Frankfurt,Malmö FF,2.0,0.0,Champions League femenina,5996576,20260808_Eintracht-Frankfurt_Malmö-FF
+2026-08-08,PSV,HJK,3.0,1.0,Champions League femenina,5996584,20260808_PSV_HJK
+2026-08-08,Oud-Heverlee Leuven,Fenerbahçe,1.0,1.0,Champions League femenina,5996586,20260808_Oud-Heverlee-Leuven_Fenerbahçe
+2026-08-08,Ajax,Rangers,2.0,1.0,Champions League femenina,5996572,20260808_Ajax_Rangers
+2026-08-08,Slavia Prague,Brøndby IF,1.0,1.0,Champions League femenina,5996571,20260808_Slavia-Prague_Brøndby-IF
+2026-08-08,Spartak Myjava,Czarni Sosnowiec,2.0,4.0,Champions League femenina,5996589,20260808_Spartak-Myjava_Czarni-Sosnowiec
+2026-08-08,Juventus,Hammarby IF,3.0,1.0,Champions League femenina,5996574,20260808_Juventus_Hammarby-IF
+2026-08-25,Brann,Austria Wien,2.0,1.0,Champions League femenina,6009052,20260825_Brann_Austria-Wien
+2026-08-26,VfL Wolfsburg,Inter,2.0,0.0,Champions League femenina,6009060,20260826_VfL-Wolfsburg_Inter
+2026-08-26,Sparta Prague,Servette,3.0,2.0,Champions League femenina,6009048,20260826_Sparta-Prague_Servette
+2026-08-26,Czarni Sosnowiec,Oud-Heverlee Leuven,1.0,4.0,Champions League femenina,6009055,20260826_Czarni-Sosnowiec_Oud-Heverlee-Leuven
+2026-08-26,Eintracht Frankfurt,Paris Saint Germain,1.0,1.0,Champions League femenina,6009056,20260826_Eintracht-Frankfurt_Paris-Saint-Germain
+2026-08-26,PSV,HB Køge,0.0,1.0,Champions League femenina,6009050,20260826_PSV_HB-Køge
+2026-08-26,Ajax,Real Madrid,0.0,2.0,Champions League femenina,6009064,20260826_Ajax_Real-Madrid
+2026-08-26,Chelsea,Real Sociedad,5.0,2.0,Champions League femenina,6009062,20260826_Chelsea_Real-Sociedad
+2026-08-26,SKN St. Pölten,Juventus,0.0,3.0,Champions League femenina,6009058,20260826_SKN-St.-Pölten_Juventus
+2026-09-01,Austria Wien,Brann,4.0,0.0,Champions League femenina,6009053,20260901_Austria-Wien_Brann
+2026-09-02,Inter,VfL Wolfsburg,3.0,1.0,Champions League femenina,6009061,20260902_Inter_VfL-Wolfsburg
+2026-09-02,Paris Saint Germain,Eintracht Frankfurt,5.0,1.0,Champions League femenina,6009057,20260902_Paris-Saint-Germain_Eintracht-Frankfurt
+2026-09-02,Servette,Sparta Prague,3.0,0.0,Champions League femenina,6009049,20260902_Servette_Sparta-Prague
+2026-09-02,HB Køge,PSV,1.0,1.0,Champions League femenina,6009051,20260902_HB-Køge_PSV
+2026-09-02,Real Sociedad,Chelsea,0.0,1.0,Champions League femenina,6009063,20260902_Real-Sociedad_Chelsea
+2026-09-02,Oud-Heverlee Leuven,Czarni Sosnowiec,2.0,1.0,Champions League femenina,6009054,20260902_Oud-Heverlee-Leuven_Czarni-Sosnowiec
+2026-09-02,Real Madrid,Ajax,2.0,1.0,Champions League femenina,6009065,20260902_Real-Madrid_Ajax
+2026-09-02,Juventus,SKN St. Pölten,1.0,1.0,Champions League femenina,6009059,20260902_Juventus_SKN-St.-Pölten
+2026-09-22,Bayern München,Manchester City,2.0,2.0,Champions League femenina,6148576,20260922_Bayern-München_Manchester-City
+2026-09-22,Inter,BK Häcken,1.0,0.0,Champions League femenina,6148611,20260922_Inter_BK-Häcken
+2026-09-22,Arsenal,HB Køge,1.0,0.0,Champions League femenina,6148591,20260922_Arsenal_HB-Køge
+2026-09-22,Juventus,Benfica,1.0,2.0,Champions League femenina,6148599,20260922_Juventus_Benfica
+2026-09-22,Real Madrid,Paris Saint Germain,1.0,1.0,Champions League femenina,6148601,20260922_Real-Madrid_Paris-Saint-Germain

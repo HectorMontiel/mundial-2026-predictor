@@ -1,0 +1,655 @@
+date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
+2021-08-28,Parma Calcio 1913,Roma,0.0,3.0,Serie A Femminile,3693416,20210828_Parma-Calcio-1913_Roma
+2021-08-28,Juventus,Pomigliano Calcio,3.0,0.0,Serie A Femminile,3693415,20210828_Juventus_Pomigliano-Calcio
+2021-08-28,S.S.D. Napoli Femminile,Inter,0.0,3.0,Serie A Femminile,3693419,20210828_S.S.D.-Napoli-Femminile_Inter
+2021-08-29,Milan,Hellas Verona,4.0,0.0,Serie A Femminile,3693418,20210829_Milan_Hellas-Verona
+2021-08-29,Lazio,UC Sampdoria,1.0,2.0,Serie A Femminile,3693417,20210829_Lazio_UC-Sampdoria
+2021-08-29,Sassuolo,Fiorentina,2.0,1.0,Serie A Femminile,3693420,20210829_Sassuolo_Fiorentina
+2021-09-04,Hellas Verona,Sassuolo,0.0,4.0,Serie A Femminile,3693423,20210904_Hellas-Verona_Sassuolo
+2021-09-04,Roma,S.S.D. Napoli Femminile,4.0,1.0,Serie A Femminile,3693421,20210904_Roma_S.S.D.-Napoli-Femminile
+2021-09-04,UC Sampdoria,Milan,0.0,1.0,Serie A Femminile,3693426,20210904_UC-Sampdoria_Milan
+2021-09-05,Fiorentina,Juventus,0.0,3.0,Serie A Femminile,3693422,20210905_Fiorentina_Juventus
+2021-09-05,Inter,Lazio,1.0,0.0,Serie A Femminile,3693424,20210905_Inter_Lazio
+2021-09-05,Pomigliano Calcio,Parma Calcio 1913,2.0,2.0,Serie A Femminile,3693425,20210905_Pomigliano-Calcio_Parma-Calcio-1913
+2021-09-11,Lazio,Milan,1.0,8.0,Serie A Femminile,3693429,20210911_Lazio_Milan
+2021-09-11,Pomigliano Calcio,Roma,1.0,2.0,Serie A Femminile,3693431,20210911_Pomigliano-Calcio_Roma
+2021-09-11,Sassuolo,UC Sampdoria,2.0,0.0,Serie A Femminile,3693432,20210911_Sassuolo_UC-Sampdoria
+2021-09-12,Juventus,Hellas Verona,3.0,0.0,Serie A Femminile,3693428,20210912_Juventus_Hellas-Verona
+2021-09-12,Parma Calcio 1913,Inter,1.0,4.0,Serie A Femminile,3693427,20210912_Parma-Calcio-1913_Inter
+2021-09-12,S.S.D. Napoli Femminile,Fiorentina,1.0,0.0,Serie A Femminile,3693430,20210912_S.S.D.-Napoli-Femminile_Fiorentina
+2021-09-25,Juventus,Parma Calcio 1913,1.0,0.0,Serie A Femminile,3693435,20210925_Juventus_Parma-Calcio-1913
+2021-09-25,Milan,Sassuolo,0.0,2.0,Serie A Femminile,3693438,20210925_Milan_Sassuolo
+2021-09-25,Hellas Verona,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,3693433,20210925_Hellas-Verona_S.S.D.-Napoli-Femminile
+2021-09-26,Lazio,Fiorentina,1.0,6.0,Serie A Femminile,3693437,20210926_Lazio_Fiorentina
+2021-10-02,Fiorentina,UC Sampdoria,4.0,2.0,Serie A Femminile,3693442,20211002_Fiorentina_UC-Sampdoria
+2021-10-02,Parma Calcio 1913,Hellas Verona,3.0,1.0,Serie A Femminile,3693441,20211002_Parma-Calcio-1913_Hellas-Verona
+2021-10-02,Roma,Juventus,1.0,2.0,Serie A Femminile,3693440,20211002_Roma_Juventus
+2021-10-03,S.S.D. Napoli Femminile,Milan,0.0,1.0,Serie A Femminile,3693443,20211003_S.S.D.-Napoli-Femminile_Milan
+2021-10-03,Pomigliano Calcio,Inter,2.0,0.0,Serie A Femminile,3693444,20211003_Pomigliano-Calcio_Inter
+2021-10-03,Sassuolo,Lazio,3.0,0.0,Serie A Femminile,3693445,20211003_Sassuolo_Lazio
+2021-10-09,UC Sampdoria,Inter,3.0,0.0,Serie A Femminile,3693450,20211009_UC-Sampdoria_Inter
+2021-10-09,Juventus,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,3693447,20211009_Juventus_S.S.D.-Napoli-Femminile
+2021-10-09,Lazio,Pomigliano Calcio,1.0,2.0,Serie A Femminile,3693448,20211009_Lazio_Pomigliano-Calcio
+2021-10-10,Milan,Roma,1.0,1.0,Serie A Femminile,3693449,20211010_Milan_Roma
+2021-10-10,Hellas Verona,Fiorentina,1.0,3.0,Serie A Femminile,3693446,20211010_Hellas-Verona_Fiorentina
+2021-10-10,Sassuolo,Parma Calcio 1913,3.0,2.0,Serie A Femminile,3693451,20211010_Sassuolo_Parma-Calcio-1913
+2021-10-14,UC Sampdoria,Pomigliano Calcio,1.0,0.0,Serie A Femminile,3693439,20211014_UC-Sampdoria_Pomigliano-Calcio
+2021-10-16,Inter,Roma,1.0,0.0,Serie A Femminile,3693434,20211016_Inter_Roma
+2021-10-30,Parma Calcio 1913,Lazio,2.0,0.0,Serie A Femminile,3693453,20211030_Parma-Calcio-1913_Lazio
+2021-10-30,Inter,Juventus,1.0,2.0,Serie A Femminile,3693455,20211030_Inter_Juventus
+2021-10-30,Pomigliano Calcio,Hellas Verona,2.0,1.0,Serie A Femminile,3693457,20211030_Pomigliano-Calcio_Hellas-Verona
+2021-10-31,Fiorentina,Milan,0.0,1.0,Serie A Femminile,3693454,20211031_Fiorentina_Milan
+2021-10-31,Roma,Sassuolo,2.0,0.0,Serie A Femminile,3693452,20211031_Roma_Sassuolo
+2021-10-31,S.S.D. Napoli Femminile,UC Sampdoria,0.0,1.0,Serie A Femminile,3693456,20211031_S.S.D.-Napoli-Femminile_UC-Sampdoria
+2021-11-05,UC Sampdoria,Juventus,0.0,1.0,Serie A Femminile,3693462,20211105_UC-Sampdoria_Juventus
+2021-11-06,Fiorentina,Inter,2.0,3.0,Serie A Femminile,3693458,20211106_Fiorentina_Inter
+2021-11-06,Hellas Verona,Roma,1.0,5.0,Serie A Femminile,3693459,20211106_Hellas-Verona_Roma
+2021-11-07,Sassuolo,Pomigliano Calcio,4.0,2.0,Serie A Femminile,3693463,20211107_Sassuolo_Pomigliano-Calcio
+2021-11-07,Milan,Parma Calcio 1913,1.0,0.0,Serie A Femminile,3693461,20211107_Milan_Parma-Calcio-1913
+2021-11-07,Lazio,S.S.D. Napoli Femminile,3.0,4.0,Serie A Femminile,3693460,20211107_Lazio_S.S.D.-Napoli-Femminile
+2021-11-13,Juventus,Lazio,5.0,0.0,Serie A Femminile,3693467,20211113_Juventus_Lazio
+2021-11-13,Roma,Fiorentina,1.0,0.0,Serie A Femminile,3693464,20211113_Roma_Fiorentina
+2021-11-13,S.S.D. Napoli Femminile,Sassuolo,0.0,1.0,Serie A Femminile,3693468,20211113_S.S.D.-Napoli-Femminile_Sassuolo
+2021-11-14,Pomigliano Calcio,Milan,0.0,2.0,Serie A Femminile,3693469,20211114_Pomigliano-Calcio_Milan
+2021-11-14,Inter,Hellas Verona,5.0,0.0,Serie A Femminile,3693466,20211114_Inter_Hellas-Verona
+2021-11-14,Parma Calcio 1913,UC Sampdoria,2.0,2.0,Serie A Femminile,3693465,20211114_Parma-Calcio-1913_UC-Sampdoria
+2021-12-04,Lazio,Hellas Verona,1.0,0.0,Serie A Femminile,3693471,20211204_Lazio_Hellas-Verona
+2021-12-04,Fiorentina,Pomigliano Calcio,3.0,1.0,Serie A Femminile,3693470,20211204_Fiorentina_Pomigliano-Calcio
+2021-12-04,Sassuolo,Juventus,0.0,2.0,Serie A Femminile,3693475,20211204_Sassuolo_Juventus
+2021-12-05,UC Sampdoria,Roma,1.0,2.0,Serie A Femminile,3693474,20211205_UC-Sampdoria_Roma
+2021-12-05,Milan,Inter,0.0,3.0,Serie A Femminile,3693472,20211205_Milan_Inter
+2021-12-05,S.S.D. Napoli Femminile,Parma Calcio 1913,0.0,1.0,Serie A Femminile,3693473,20211205_S.S.D.-Napoli-Femminile_Parma-Calcio-1913
+2021-12-11,Pomigliano Calcio,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,3693481,20211211_Pomigliano-Calcio_S.S.D.-Napoli-Femminile
+2021-12-11,Hellas Verona,UC Sampdoria,1.0,2.0,Serie A Femminile,3693478,20211211_Hellas-Verona_UC-Sampdoria
+2021-12-11,Inter,Sassuolo,2.0,2.0,Serie A Femminile,3693479,20211211_Inter_Sassuolo
+2021-12-12,Roma,Lazio,3.0,2.0,Serie A Femminile,3693476,20211212_Roma_Lazio
+2021-12-12,Parma Calcio 1913,Fiorentina,1.0,1.0,Serie A Femminile,3693477,20211212_Parma-Calcio-1913_Fiorentina
+2021-12-12,Juventus,Milan,5.0,2.0,Serie A Femminile,3693480,20211212_Juventus_Milan
+2022-01-15,Roma,Parma Calcio 1913,2.0,1.0,Serie A Femminile,3693482,20220115_Roma_Parma-Calcio-1913
+2022-01-15,Hellas Verona,Milan,0.0,6.0,Serie A Femminile,3693485,20220115_Hellas-Verona_Milan
+2022-01-15,UC Sampdoria,Lazio,2.0,1.0,Serie A Femminile,3693484,20220115_UC-Sampdoria_Lazio
+2022-01-16,Pomigliano Calcio,Juventus,0.0,5.0,Serie A Femminile,3693483,20220116_Pomigliano-Calcio_Juventus
+2022-01-16,Fiorentina,Sassuolo,1.0,6.0,Serie A Femminile,3693487,20220116_Fiorentina_Sassuolo
+2022-01-16,Inter,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,3693486,20220116_Inter_S.S.D.-Napoli-Femminile
+2022-01-22,Sassuolo,Hellas Verona,4.0,0.0,Serie A Femminile,3693490,20220122_Sassuolo_Hellas-Verona
+2022-01-22,Juventus,Fiorentina,2.0,2.0,Serie A Femminile,3693489,20220122_Juventus_Fiorentina
+2022-01-22,Parma Calcio 1913,Pomigliano Calcio,1.0,2.0,Serie A Femminile,3693492,20220122_Parma-Calcio-1913_Pomigliano-Calcio
+2022-01-23,S.S.D. Napoli Femminile,Roma,0.0,1.0,Serie A Femminile,3693488,20220123_S.S.D.-Napoli-Femminile_Roma
+2022-01-23,Milan,UC Sampdoria,4.0,0.0,Serie A Femminile,3693493,20220123_Milan_UC-Sampdoria
+2022-01-23,Lazio,Inter,1.0,3.0,Serie A Femminile,3693491,20220123_Lazio_Inter
+2022-02-05,Milan,Lazio,3.0,1.0,Serie A Femminile,3693496,20220205_Milan_Lazio
+2022-02-05,Roma,Pomigliano Calcio,5.0,2.0,Serie A Femminile,3693500,20220205_Roma_Pomigliano-Calcio
+2022-02-05,UC Sampdoria,Sassuolo,1.0,3.0,Serie A Femminile,3693501,20220205_UC-Sampdoria_Sassuolo
+2022-02-06,Fiorentina,S.S.D. Napoli Femminile,0.0,2.0,Serie A Femminile,3693499,20220206_Fiorentina_S.S.D.-Napoli-Femminile
+2022-02-06,Hellas Verona,Juventus,0.0,1.0,Serie A Femminile,3693495,20220206_Hellas-Verona_Juventus
+2022-02-06,Inter,Parma Calcio 1913,3.0,2.0,Serie A Femminile,3693494,20220206_Inter_Parma-Calcio-1913
+2022-02-26,Fiorentina,Lazio,2.0,2.0,Serie A Femminile,3693505,20220226_Fiorentina_Lazio
+2022-02-26,S.S.D. Napoli Femminile,Hellas Verona,2.0,1.0,Serie A Femminile,3693502,20220226_S.S.D.-Napoli-Femminile_Hellas-Verona
+2022-02-26,Sassuolo,Milan,0.0,0.0,Serie A Femminile,3693506,20220226_Sassuolo_Milan
+2022-02-27,Parma Calcio 1913,Juventus,2.0,1.0,Serie A Femminile,3693504,20220227_Parma-Calcio-1913_Juventus
+2022-02-27,Pomigliano Calcio,UC Sampdoria,0.0,1.0,Serie A Femminile,3693507,20220227_Pomigliano-Calcio_UC-Sampdoria
+2022-02-27,Roma,Inter,2.0,0.0,Serie A Femminile,3693503,20220227_Roma_Inter
+2022-03-05,UC Sampdoria,Fiorentina,2.0,0.0,Serie A Femminile,3693510,20220305_UC-Sampdoria_Fiorentina
+2022-03-05,Hellas Verona,Parma Calcio 1913,0.0,1.0,Serie A Femminile,3693509,20220305_Hellas-Verona_Parma-Calcio-1913
+2022-03-05,Juventus,Roma,1.0,1.0,Serie A Femminile,3693508,20220305_Juventus_Roma
+2022-03-06,Lazio,Sassuolo,3.0,1.0,Serie A Femminile,3693513,20220306_Lazio_Sassuolo
+2022-03-06,Milan,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,3693511,20220306_Milan_S.S.D.-Napoli-Femminile
+2022-03-06,Inter,Pomigliano Calcio,0.0,1.0,Serie A Femminile,3693512,20220306_Inter_Pomigliano-Calcio
+2022-03-19,S.S.D. Napoli Femminile,Juventus,0.0,2.0,Serie A Femminile,3693515,20220319_S.S.D.-Napoli-Femminile_Juventus
+2022-03-19,Roma,Milan,1.0,1.0,Serie A Femminile,3693517,20220319_Roma_Milan
+2022-03-19,Parma Calcio 1913,Sassuolo,1.0,1.0,Serie A Femminile,3693519,20220319_Parma-Calcio-1913_Sassuolo
+2022-03-20,Fiorentina,Hellas Verona,6.0,0.0,Serie A Femminile,3693514,20220320_Fiorentina_Hellas-Verona
+2022-03-20,Inter,UC Sampdoria,4.0,3.0,Serie A Femminile,3693518,20220320_Inter_UC-Sampdoria
+2022-03-26,Hellas Verona,Pomigliano Calcio,2.0,0.0,Serie A Femminile,3693525,20220326_Hellas-Verona_Pomigliano-Calcio
+2022-03-26,Lazio,Parma Calcio 1913,0.0,0.0,Serie A Femminile,3693521,20220326_Lazio_Parma-Calcio-1913
+2022-03-26,Sassuolo,Roma,0.0,3.0,Serie A Femminile,3693520,20220326_Sassuolo_Roma
+2022-03-27,Milan,Fiorentina,2.0,0.0,Serie A Femminile,3693522,20220327_Milan_Fiorentina
+2022-03-27,Juventus,Inter,3.0,1.0,Serie A Femminile,3693523,20220327_Juventus_Inter
+2022-03-27,UC Sampdoria,S.S.D. Napoli Femminile,1.0,0.0,Serie A Femminile,3693524,20220327_UC-Sampdoria_S.S.D.-Napoli-Femminile
+2022-04-02,Pomigliano Calcio,Sassuolo,0.0,3.0,Serie A Femminile,3693531,20220402_Pomigliano-Calcio_Sassuolo
+2022-04-02,Inter,Fiorentina,2.0,0.0,Serie A Femminile,3693526,20220402_Inter_Fiorentina
+2022-04-02,S.S.D. Napoli Femminile,Lazio,0.0,1.0,Serie A Femminile,3693528,20220402_S.S.D.-Napoli-Femminile_Lazio
+2022-04-03,Roma,Hellas Verona,7.0,1.0,Serie A Femminile,3693527,20220403_Roma_Hellas-Verona
+2022-04-03,Juventus,UC Sampdoria,3.0,1.0,Serie A Femminile,3693530,20220403_Juventus_UC-Sampdoria
+2022-04-03,Parma Calcio 1913,Milan,0.0,3.0,Serie A Femminile,3693529,20220403_Parma-Calcio-1913_Milan
+2022-04-16,Pomigliano Calcio,Lazio,1.0,1.0,Serie A Femminile,3693516,20220416_Pomigliano-Calcio_Lazio
+2022-04-23,Hellas Verona,Inter,0.0,4.0,Serie A Femminile,3693534,20220423_Hellas-Verona_Inter
+2022-04-23,Fiorentina,Roma,2.0,3.0,Serie A Femminile,3693532,20220423_Fiorentina_Roma
+2022-04-23,UC Sampdoria,Parma Calcio 1913,1.0,3.0,Serie A Femminile,3693533,20220423_UC-Sampdoria_Parma-Calcio-1913
+2022-04-24,Lazio,Juventus,1.0,5.0,Serie A Femminile,3693535,20220424_Lazio_Juventus
+2022-04-24,Milan,Pomigliano Calcio,6.0,2.0,Serie A Femminile,3693537,20220424_Milan_Pomigliano-Calcio
+2022-04-24,Sassuolo,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,3693536,20220424_Sassuolo_S.S.D.-Napoli-Femminile
+2022-05-07,Inter,Milan,0.0,3.0,Serie A Femminile,3693540,20220507_Inter_Milan
+2022-05-07,Juventus,Sassuolo,3.0,1.0,Serie A Femminile,3693543,20220507_Juventus_Sassuolo
+2022-05-07,Roma,UC Sampdoria,8.0,0.0,Serie A Femminile,3693542,20220507_Roma_UC-Sampdoria
+2022-05-08,Hellas Verona,Lazio,4.0,4.0,Serie A Femminile,3693539,20220508_Hellas-Verona_Lazio
+2022-05-08,Parma Calcio 1913,S.S.D. Napoli Femminile,1.0,3.0,Serie A Femminile,3693541,20220508_Parma-Calcio-1913_S.S.D.-Napoli-Femminile
+2022-05-08,Pomigliano Calcio,Fiorentina,0.0,1.0,Serie A Femminile,3693538,20220508_Pomigliano-Calcio_Fiorentina
+2022-05-14,Lazio,Roma,0.0,3.0,Serie A Femminile,3693544,20220514_Lazio_Roma
+2022-05-14,Milan,Juventus,1.0,2.0,Serie A Femminile,3693548,20220514_Milan_Juventus
+2022-05-14,S.S.D. Napoli Femminile,Pomigliano Calcio,1.0,3.0,Serie A Femminile,3693549,20220514_S.S.D.-Napoli-Femminile_Pomigliano-Calcio
+2022-05-15,Fiorentina,Parma Calcio 1913,6.0,0.0,Serie A Femminile,3693545,20220515_Fiorentina_Parma-Calcio-1913
+2022-05-15,Sassuolo,Inter,2.0,1.0,Serie A Femminile,3693547,20220515_Sassuolo_Inter
+2022-05-15,UC Sampdoria,Hellas Verona,3.0,1.0,Serie A Femminile,3693546,20220515_UC-Sampdoria_Hellas-Verona
+2022-08-27,Como Women,Juventus,0.0,6.0,Serie A Femminile,3983018,20220827_Como-Women_Juventus
+2022-08-28,Milan,Fiorentina,1.0,3.0,Serie A Femminile,3983033,20220828_Milan_Fiorentina
+2022-08-28,Pomigliano Calcio,Roma,0.0,2.0,Serie A Femminile,3983034,20220828_Pomigliano-Calcio_Roma
+2022-08-28,Inter,Parma Calcio 1913,4.0,1.0,Serie A Femminile,3983032,20220828_Inter_Parma-Calcio-1913
+2022-08-28,Sassuolo,UC Sampdoria,1.0,2.0,Serie A Femminile,3983035,20220828_Sassuolo_UC-Sampdoria
+2022-09-10,Roma,Milan,2.0,0.0,Serie A Femminile,3983039,20220910_Roma_Milan
+2022-09-11,UC Sampdoria,Pomigliano Calcio,2.0,1.0,Serie A Femminile,3983040,20220911_UC-Sampdoria_Pomigliano-Calcio
+2022-09-11,Juventus,Inter,3.0,3.0,Serie A Femminile,3983037,20220911_Juventus_Inter
+2022-09-11,Fiorentina,Como Women,2.0,1.0,Serie A Femminile,3983036,20220911_Fiorentina_Como-Women
+2022-09-12,Parma Calcio 1913,Sassuolo,2.0,1.0,Serie A Femminile,3983038,20220912_Parma-Calcio-1913_Sassuolo
+2022-09-16,Juventus,Roma,1.0,0.0,Serie A Femminile,3983030,20220916_Juventus_Roma
+2022-09-17,Inter,Pomigliano Calcio,6.0,1.0,Serie A Femminile,3983031,20220917_Inter_Pomigliano-Calcio
+2022-09-18,Fiorentina,Parma Calcio 1913,2.0,1.0,Serie A Femminile,3983042,20220918_Fiorentina_Parma-Calcio-1913
+2022-09-18,Milan,Sassuolo,3.0,1.0,Serie A Femminile,3983019,20220918_Milan_Sassuolo
+2022-09-18,Como Women,UC Sampdoria,0.0,1.0,Serie A Femminile,3983041,20220918_Como-Women_UC-Sampdoria
+2022-09-24,Sassuolo,Juventus,1.0,1.0,Serie A Femminile,3983024,20220924_Sassuolo_Juventus
+2022-09-24,Parma Calcio 1913,Milan,0.0,4.0,Serie A Femminile,3983020,20220924_Parma-Calcio-1913_Milan
+2022-09-24,Roma,Fiorentina,2.0,1.0,Serie A Femminile,3983022,20220924_Roma_Fiorentina
+2022-09-25,Pomigliano Calcio,Como Women,2.0,2.0,Serie A Femminile,3983021,20220925_Pomigliano-Calcio_Como-Women
+2022-09-25,UC Sampdoria,Inter,0.0,2.0,Serie A Femminile,3983023,20220925_UC-Sampdoria_Inter
+2022-09-30,Como Women,Inter,1.0,3.0,Serie A Femminile,3983025,20220930_Como-Women_Inter
+2022-10-01,Fiorentina,Sassuolo,2.0,0.0,Serie A Femminile,3983026,20221001_Fiorentina_Sassuolo
+2022-10-01,Milan,UC Sampdoria,2.0,1.0,Serie A Femminile,3983028,20221001_Milan_UC-Sampdoria
+2022-10-02,Juventus,Pomigliano Calcio,3.0,0.0,Serie A Femminile,3983027,20221002_Juventus_Pomigliano-Calcio
+2022-10-02,Roma,Parma Calcio 1913,5.0,0.0,Serie A Femminile,3983029,20221002_Roma_Parma-Calcio-1913
+2022-10-15,Pomigliano Calcio,Fiorentina,0.0,1.0,Serie A Femminile,3983059,20221015_Pomigliano-Calcio_Fiorentina
+2022-10-15,Como Women,Parma Calcio 1913,4.0,1.0,Serie A Femminile,3983043,20221015_Como-Women_Parma-Calcio-1913
+2022-10-15,Inter,Milan,4.0,0.0,Serie A Femminile,3983044,20221015_Inter_Milan
+2022-10-16,Sassuolo,Roma,0.0,1.0,Serie A Femminile,3983061,20221016_Sassuolo_Roma
+2022-10-16,UC Sampdoria,Juventus,0.0,4.0,Serie A Femminile,3983060,20221016_UC-Sampdoria_Juventus
+2022-10-22,Parma Calcio 1913,Pomigliano Calcio,1.0,3.0,Serie A Femminile,3983064,20221022_Parma-Calcio-1913_Pomigliano-Calcio
+2022-10-22,Milan,Juventus,4.0,3.0,Serie A Femminile,3983063,20221022_Milan_Juventus
+2022-10-23,Roma,Como Women,1.0,0.0,Serie A Femminile,3983065,20221023_Roma_Como-Women
+2022-10-23,Fiorentina,UC Sampdoria,2.0,1.0,Serie A Femminile,3983062,20221023_Fiorentina_UC-Sampdoria
+2022-10-23,Sassuolo,Inter,1.0,1.0,Serie A Femminile,3983066,20221023_Sassuolo_Inter
+2022-10-29,Inter,Roma,1.0,2.0,Serie A Femminile,3983068,20221029_Inter_Roma
+2022-10-29,Pomigliano Calcio,Milan,2.0,1.0,Serie A Femminile,3983070,20221029_Pomigliano-Calcio_Milan
+2022-10-30,Juventus,Fiorentina,2.0,0.0,Serie A Femminile,3983069,20221030_Juventus_Fiorentina
+2022-10-30,Como Women,Sassuolo,2.0,2.0,Serie A Femminile,3983067,20221030_Como-Women_Sassuolo
+2022-10-30,UC Sampdoria,Parma Calcio 1913,0.0,0.0,Serie A Femminile,3983058,20221030_UC-Sampdoria_Parma-Calcio-1913
+2022-11-19,Roma,UC Sampdoria,2.0,0.0,Serie A Femminile,3983047,20221119_Roma_UC-Sampdoria
+2022-11-19,Parma Calcio 1913,Juventus,1.0,2.0,Serie A Femminile,3983046,20221119_Parma-Calcio-1913_Juventus
+2022-11-20,Sassuolo,Pomigliano Calcio,2.0,1.0,Serie A Femminile,3983048,20221120_Sassuolo_Pomigliano-Calcio
+2022-11-20,Milan,Como Women,3.0,3.0,Serie A Femminile,3983045,20221120_Milan_Como-Women
+2022-11-20,Fiorentina,Inter,0.0,0.0,Serie A Femminile,3983057,20221120_Fiorentina_Inter
+2022-11-26,Roma,Pomigliano Calcio,2.0,0.0,Serie A Femminile,3983053,20221126_Roma_Pomigliano-Calcio
+2022-11-26,Fiorentina,Milan,1.0,6.0,Serie A Femminile,3983052,20221126_Fiorentina_Milan
+2022-11-27,UC Sampdoria,Sassuolo,0.0,2.0,Serie A Femminile,3983051,20221127_UC-Sampdoria_Sassuolo
+2022-11-27,Juventus,Como Women,1.0,1.0,Serie A Femminile,3983050,20221127_Juventus_Como-Women
+2022-11-28,Parma Calcio 1913,Inter,2.0,2.0,Serie A Femminile,3983049,20221128_Parma-Calcio-1913_Inter
+2022-12-03,Pomigliano Calcio,UC Sampdoria,1.0,0.0,Serie A Femminile,3983072,20221203_Pomigliano-Calcio_UC-Sampdoria
+2022-12-03,Inter,Juventus,0.0,2.0,Serie A Femminile,3983055,20221203_Inter_Juventus
+2022-12-04,Sassuolo,Parma Calcio 1913,2.0,2.0,Serie A Femminile,3983056,20221204_Sassuolo_Parma-Calcio-1913
+2022-12-04,Milan,Roma,0.0,2.0,Serie A Femminile,3983071,20221204_Milan_Roma
+2022-12-04,Como Women,Fiorentina,2.0,3.0,Serie A Femminile,3983054,20221204_Como-Women_Fiorentina
+2022-12-10,Pomigliano Calcio,Inter,1.0,2.0,Serie A Femminile,3983075,20221210_Pomigliano-Calcio_Inter
+2022-12-10,Parma Calcio 1913,Fiorentina,0.0,4.0,Serie A Femminile,3983076,20221210_Parma-Calcio-1913_Fiorentina
+2022-12-10,Sassuolo,Milan,0.0,1.0,Serie A Femminile,3983074,20221210_Sassuolo_Milan
+2022-12-11,UC Sampdoria,Como Women,0.0,1.0,Serie A Femminile,3983093,20221211_UC-Sampdoria_Como-Women
+2022-12-11,Roma,Juventus,2.0,4.0,Serie A Femminile,3983073,20221211_Roma_Juventus
+2023-01-14,Como Women,Pomigliano Calcio,0.0,1.0,Serie A Femminile,3983095,20230114_Como-Women_Pomigliano-Calcio
+2023-01-14,Inter,UC Sampdoria,4.0,0.0,Serie A Femminile,3983097,20230114_Inter_UC-Sampdoria
+2023-01-14,Fiorentina,Roma,1.0,7.0,Serie A Femminile,3983096,20230114_Fiorentina_Roma
+2023-01-15,Milan,Parma Calcio 1913,2.0,0.0,Serie A Femminile,3983094,20230115_Milan_Parma-Calcio-1913
+2023-01-15,Juventus,Sassuolo,1.0,1.0,Serie A Femminile,3983098,20230115_Juventus_Sassuolo
+2023-01-21,UC Sampdoria,Milan,0.0,3.0,Serie A Femminile,3983100,20230121_UC-Sampdoria_Milan
+2023-01-21,Sassuolo,Fiorentina,0.0,1.0,Serie A Femminile,3983103,20230121_Sassuolo_Fiorentina
+2023-01-22,Pomigliano Calcio,Juventus,1.0,2.0,Serie A Femminile,3983101,20230122_Pomigliano-Calcio_Juventus
+2023-01-22,Parma Calcio 1913,Roma,2.0,3.0,Serie A Femminile,3983099,20230122_Parma-Calcio-1913_Roma
+2023-01-22,Inter,Como Women,1.0,1.0,Serie A Femminile,3983102,20230122_Inter_Como-Women
+2023-01-28,Milan,Inter,1.0,4.0,Serie A Femminile,3983105,20230128_Milan_Inter
+2023-01-28,Fiorentina,Pomigliano Calcio,2.0,0.0,Serie A Femminile,3983106,20230128_Fiorentina_Pomigliano-Calcio
+2023-01-29,Juventus,UC Sampdoria,5.0,0.0,Serie A Femminile,3983092,20230129_Juventus_UC-Sampdoria
+2023-01-29,Parma Calcio 1913,Como Women,1.0,0.0,Serie A Femminile,3983104,20230129_Parma-Calcio-1913_Como-Women
+2023-01-29,Roma,Sassuolo,5.0,0.0,Serie A Femminile,3983091,20230129_Roma_Sassuolo
+2023-02-04,Como Women,Roma,0.0,1.0,Serie A Femminile,3983081,20230204_Como-Women_Roma
+2023-02-04,UC Sampdoria,Fiorentina,1.0,4.0,Serie A Femminile,3983078,20230204_UC-Sampdoria_Fiorentina
+2023-02-04,Juventus,Milan,1.0,2.0,Serie A Femminile,3983079,20230204_Juventus_Milan
+2023-02-04,Pomigliano Calcio,Parma Calcio 1913,0.0,0.0,Serie A Femminile,3983080,20230204_Pomigliano-Calcio_Parma-Calcio-1913
+2023-02-05,Inter,Sassuolo,3.0,0.0,Serie A Femminile,3983082,20230205_Inter_Sassuolo
+2023-02-11,Fiorentina,Juventus,0.0,3.0,Serie A Femminile,3983084,20230211_Fiorentina_Juventus
+2023-02-11,Roma,Inter,3.0,2.0,Serie A Femminile,3983083,20230211_Roma_Inter
+2023-02-12,Parma Calcio 1913,UC Sampdoria,3.0,1.0,Serie A Femminile,3983086,20230212_Parma-Calcio-1913_UC-Sampdoria
+2023-02-12,Milan,Pomigliano Calcio,1.0,0.0,Serie A Femminile,3983085,20230212_Milan_Pomigliano-Calcio
+2023-02-12,Sassuolo,Como Women,2.0,0.0,Serie A Femminile,3983077,20230212_Sassuolo_Como-Women
+2023-02-25,Inter,Fiorentina,3.0,1.0,Serie A Femminile,3983087,20230225_Inter_Fiorentina
+2023-02-25,Pomigliano Calcio,Sassuolo,0.0,2.0,Serie A Femminile,3983107,20230225_Pomigliano-Calcio_Sassuolo
+2023-02-26,UC Sampdoria,Roma,0.0,1.0,Serie A Femminile,3983090,20230226_UC-Sampdoria_Roma
+2023-02-26,Como Women,Milan,0.0,4.0,Serie A Femminile,3983088,20230226_Como-Women_Milan
+2023-02-26,Juventus,Parma Calcio 1913,2.0,1.0,Serie A Femminile,3983089,20230226_Juventus_Parma-Calcio-1913
+2023-03-17,Fiorentina,Roma,1.0,5.0,Serie A Femminile,4130538,20230317_Fiorentina_Roma
+2023-03-18,Sassuolo,UC Sampdoria,3.0,0.0,Serie A Femminile,4130540,20230318_Sassuolo_UC-Sampdoria
+2023-03-18,Juventus,Milan,2.0,0.0,Serie A Femminile,4130558,20230318_Juventus_Milan
+2023-03-19,Pomigliano Calcio,Parma Calcio 1913,4.0,1.0,Serie A Femminile,4130539,20230319_Pomigliano-Calcio_Parma-Calcio-1913
+2023-03-25,UC Sampdoria,Como Women,1.0,1.0,Serie A Femminile,4130542,20230325_UC-Sampdoria_Como-Women
+2023-03-25,Inter,Juventus,1.0,3.0,Serie A Femminile,4130559,20230325_Inter_Juventus
+2023-03-26,Parma Calcio 1913,Sassuolo,0.0,1.0,Serie A Femminile,4130541,20230326_Parma-Calcio-1913_Sassuolo
+2023-03-26,Milan,Fiorentina,3.0,3.0,Serie A Femminile,4130560,20230326_Milan_Fiorentina
+2023-04-01,Como Women,Parma Calcio 1913,1.0,0.0,Serie A Femminile,4130543,20230401_Como-Women_Parma-Calcio-1913
+2023-04-01,Roma,Milan,3.0,1.0,Serie A Femminile,4130562,20230401_Roma_Milan
+2023-04-02,Sassuolo,Pomigliano Calcio,2.0,0.0,Serie A Femminile,4130544,20230402_Sassuolo_Pomigliano-Calcio
+2023-04-02,Fiorentina,Inter,1.0,0.0,Serie A Femminile,4130561,20230402_Fiorentina_Inter
+2023-04-15,Pomigliano Calcio,Como Women,1.0,3.0,Serie A Femminile,4130546,20230415_Pomigliano-Calcio_Como-Women
+2023-04-15,Inter,Roma,1.0,6.0,Serie A Femminile,4130563,20230415_Inter_Roma
+2023-04-16,Parma Calcio 1913,UC Sampdoria,1.0,1.0,Serie A Femminile,4130545,20230416_Parma-Calcio-1913_UC-Sampdoria
+2023-04-16,Juventus,Fiorentina,4.0,3.0,Serie A Femminile,4130564,20230416_Juventus_Fiorentina
+2023-04-22,Milan,Inter,3.0,1.0,Serie A Femminile,4130565,20230422_Milan_Inter
+2023-04-22,Roma,Juventus,3.0,2.0,Serie A Femminile,4130566,20230422_Roma_Juventus
+2023-04-23,UC Sampdoria,Pomigliano Calcio,4.0,1.0,Serie A Femminile,4130548,20230423_UC-Sampdoria_Pomigliano-Calcio
+2023-04-23,Como Women,Sassuolo,2.0,1.0,Serie A Femminile,4130547,20230423_Como-Women_Sassuolo
+2023-04-29,UC Sampdoria,Sassuolo,0.0,2.0,Serie A Femminile,4130550,20230429_UC-Sampdoria_Sassuolo
+2023-04-29,Roma,Fiorentina,2.0,1.0,Serie A Femminile,4130567,20230429_Roma_Fiorentina
+2023-04-30,Parma Calcio 1913,Pomigliano Calcio,2.0,2.0,Serie A Femminile,4130549,20230430_Parma-Calcio-1913_Pomigliano-Calcio
+2023-04-30,Milan,Juventus,3.0,3.0,Serie A Femminile,4130574,20230430_Milan_Juventus
+2023-05-06,Sassuolo,Parma Calcio 1913,5.0,4.0,Serie A Femminile,4130551,20230506_Sassuolo_Parma-Calcio-1913
+2023-05-06,Juventus,Inter,2.0,2.0,Serie A Femminile,4130573,20230506_Juventus_Inter
+2023-05-07,Como Women,UC Sampdoria,2.0,1.0,Serie A Femminile,4130552,20230507_Como-Women_UC-Sampdoria
+2023-05-07,Fiorentina,Milan,1.0,1.0,Serie A Femminile,4130572,20230507_Fiorentina_Milan
+2023-05-13,Inter,Fiorentina,4.0,0.0,Serie A Femminile,4130571,20230513_Inter_Fiorentina
+2023-05-13,Pomigliano Calcio,Sassuolo,1.0,2.0,Serie A Femminile,4130554,20230513_Pomigliano-Calcio_Sassuolo
+2023-05-13,Milan,Roma,2.0,2.0,Serie A Femminile,4130570,20230513_Milan_Roma
+2023-05-14,Parma Calcio 1913,Como Women,2.0,2.0,Serie A Femminile,4130553,20230514_Parma-Calcio-1913_Como-Women
+2023-05-20,Como Women,Pomigliano Calcio,0.0,1.0,Serie A Femminile,4130575,20230520_Como-Women_Pomigliano-Calcio
+2023-05-20,UC Sampdoria,Parma Calcio 1913,3.0,0.0,Serie A Femminile,4130555,20230520_UC-Sampdoria_Parma-Calcio-1913
+2023-05-20,Roma,Inter,2.0,1.0,Serie A Femminile,4130569,20230520_Roma_Inter
+2023-05-21,Fiorentina,Juventus,4.0,2.0,Serie A Femminile,4130568,20230521_Fiorentina_Juventus
+2023-05-27,Pomigliano Calcio,UC Sampdoria,2.0,4.0,Serie A Femminile,4130577,20230527_Pomigliano-Calcio_UC-Sampdoria
+2023-05-27,Sassuolo,Como Women,2.0,1.0,Serie A Femminile,4130576,20230527_Sassuolo_Como-Women
+2023-05-27,Inter,Milan,0.0,1.0,Serie A Femminile,4130557,20230527_Inter_Milan
+2023-05-27,Juventus,Roma,5.0,2.0,Serie A Femminile,4130556,20230527_Juventus_Roma
+2023-09-16,Pomigliano Calcio,Juventus,2.0,3.0,Serie A Femminile,4300776,20230916_Pomigliano-Calcio_Juventus
+2023-09-16,Fiorentina,Sassuolo,2.0,1.0,Serie A Femminile,4300778,20230916_Fiorentina_Sassuolo
+2023-09-17,Como Women,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,4300771,20230917_Como-Women_S.S.D.-Napoli-Femminile
+2023-09-17,Milan,Roma,2.0,4.0,Serie A Femminile,4300777,20230917_Milan_Roma
+2023-09-17,UC Sampdoria,Inter,0.0,2.0,Serie A Femminile,4300775,20230917_UC-Sampdoria_Inter
+2023-09-30,Roma,Como Women,4.0,1.0,Serie A Femminile,4300817,20230930_Roma_Como-Women
+2023-10-01,S.S.D. Napoli Femminile,Milan,0.0,1.0,Serie A Femminile,4300772,20231001_S.S.D.-Napoli-Femminile_Milan
+2023-10-01,Sassuolo,Pomigliano Calcio,1.0,1.0,Serie A Femminile,4300800,20231001_Sassuolo_Pomigliano-Calcio
+2023-10-01,Juventus,UC Sampdoria,4.0,1.0,Serie A Femminile,4300773,20231001_Juventus_UC-Sampdoria
+2023-10-02,Inter,Fiorentina,1.0,1.0,Serie A Femminile,4300774,20231002_Inter_Fiorentina
+2023-10-07,UC Sampdoria,Como Women,1.0,2.0,Serie A Femminile,4300804,20231007_UC-Sampdoria_Como-Women
+2023-10-07,Pomigliano Calcio,Roma,0.0,5.0,Serie A Femminile,4300803,20231007_Pomigliano-Calcio_Roma
+2023-10-07,Milan,Juventus,0.0,1.0,Serie A Femminile,4300802,20231007_Milan_Juventus
+2023-10-08,Fiorentina,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4300801,20231008_Fiorentina_S.S.D.-Napoli-Femminile
+2023-10-08,Sassuolo,Inter,1.0,2.0,Serie A Femminile,4300805,20231008_Sassuolo_Inter
+2023-10-14,S.S.D. Napoli Femminile,UC Sampdoria,0.0,2.0,Serie A Femminile,4300808,20231014_S.S.D.-Napoli-Femminile_UC-Sampdoria
+2023-10-14,Como Women,Milan,0.0,0.0,Serie A Femminile,4300806,20231014_Como-Women_Milan
+2023-10-15,Pomigliano Calcio,Fiorentina,1.0,4.0,Serie A Femminile,4300809,20231015_Pomigliano-Calcio_Fiorentina
+2023-10-15,Roma,Inter,2.0,0.0,Serie A Femminile,4300810,20231015_Roma_Inter
+2023-10-15,Juventus,Sassuolo,4.0,0.0,Serie A Femminile,4300807,20231015_Juventus_Sassuolo
+2023-10-21,Inter,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4300812,20231021_Inter_S.S.D.-Napoli-Femminile
+2023-10-21,Sassuolo,Como Women,1.0,2.0,Serie A Femminile,4300815,20231021_Sassuolo_Como-Women
+2023-10-22,Milan,Pomigliano Calcio,4.0,1.0,Serie A Femminile,4300813,20231022_Milan_Pomigliano-Calcio
+2023-10-22,Fiorentina,Juventus,1.0,2.0,Serie A Femminile,4300811,20231022_Fiorentina_Juventus
+2023-10-22,UC Sampdoria,Roma,0.0,5.0,Serie A Femminile,4300814,20231022_UC-Sampdoria_Roma
+2023-11-04,Pomigliano Calcio,UC Sampdoria,0.0,1.0,Serie A Femminile,4300786,20231104_Pomigliano-Calcio_UC-Sampdoria
+2023-11-04,Fiorentina,Milan,1.0,0.0,Serie A Femminile,4300799,20231104_Fiorentina_Milan
+2023-11-05,Juventus,Roma,1.0,3.0,Serie A Femminile,4300798,20231105_Juventus_Roma
+2023-11-05,S.S.D. Napoli Femminile,Sassuolo,0.0,1.0,Serie A Femminile,4300797,20231105_S.S.D.-Napoli-Femminile_Sassuolo
+2023-11-05,Como Women,Inter,2.0,1.0,Serie A Femminile,4300816,20231105_Como-Women_Inter
+2023-11-11,Roma,S.S.D. Napoli Femminile,6.0,0.0,Serie A Femminile,4300782,20231111_Roma_S.S.D.-Napoli-Femminile
+2023-11-11,Milan,Sassuolo,1.0,1.0,Serie A Femminile,4300783,20231111_Milan_Sassuolo
+2023-11-12,UC Sampdoria,Fiorentina,0.0,1.0,Serie A Femminile,4300781,20231112_UC-Sampdoria_Fiorentina
+2023-11-12,Inter,Pomigliano Calcio,2.0,1.0,Serie A Femminile,4300784,20231112_Inter_Pomigliano-Calcio
+2023-11-12,Como Women,Juventus,0.0,3.0,Serie A Femminile,4300785,20231112_Como-Women_Juventus
+2023-11-18,Fiorentina,Como Women,3.0,0.0,Serie A Femminile,4300780,20231118_Fiorentina_Como-Women
+2023-11-18,Milan,UC Sampdoria,1.0,1.0,Serie A Femminile,4300787,20231118_Milan_UC-Sampdoria
+2023-11-19,Sassuolo,Roma,0.0,2.0,Serie A Femminile,4300796,20231119_Sassuolo_Roma
+2023-11-19,Juventus,Inter,5.0,0.0,Serie A Femminile,4300779,20231119_Juventus_Inter
+2023-11-19,Pomigliano Calcio,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,4300788,20231119_Pomigliano-Calcio_S.S.D.-Napoli-Femminile
+2023-11-25,Como Women,Pomigliano Calcio,0.0,0.0,Serie A Femminile,4300795,20231125_Como-Women_Pomigliano-Calcio
+2023-11-25,Inter,Milan,1.0,0.0,Serie A Femminile,4300794,20231125_Inter_Milan
+2023-11-26,Roma,Fiorentina,2.0,1.0,Serie A Femminile,4300792,20231126_Roma_Fiorentina
+2023-11-26,S.S.D. Napoli Femminile,Juventus,1.0,3.0,Serie A Femminile,4300793,20231126_S.S.D.-Napoli-Femminile_Juventus
+2023-11-26,UC Sampdoria,Sassuolo,0.0,4.0,Serie A Femminile,4300791,20231126_UC-Sampdoria_Sassuolo
+2023-12-09,Inter,UC Sampdoria,1.0,1.0,Serie A Femminile,4300834,20231209_Inter_UC-Sampdoria
+2023-12-09,Juventus,Pomigliano Calcio,4.0,0.0,Serie A Femminile,4300833,20231209_Juventus_Pomigliano-Calcio
+2023-12-10,Roma,Milan,2.0,1.0,Serie A Femminile,4300818,20231210_Roma_Milan
+2023-12-10,S.S.D. Napoli Femminile,Como Women,0.0,0.0,Serie A Femminile,4300790,20231210_S.S.D.-Napoli-Femminile_Como-Women
+2023-12-11,Sassuolo,Fiorentina,1.0,2.0,Serie A Femminile,4300789,20231211_Sassuolo_Fiorentina
+2023-12-16,Milan,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,4300837,20231216_Milan_S.S.D.-Napoli-Femminile
+2023-12-16,UC Sampdoria,Juventus,1.0,0.0,Serie A Femminile,4300836,20231216_UC-Sampdoria_Juventus
+2023-12-17,Pomigliano Calcio,Sassuolo,0.0,2.0,Serie A Femminile,4300839,20231217_Pomigliano-Calcio_Sassuolo
+2023-12-17,Como Women,Roma,2.0,3.0,Serie A Femminile,4300838,20231217_Como-Women_Roma
+2023-12-18,Fiorentina,Inter,4.0,2.0,Serie A Femminile,4300835,20231218_Fiorentina_Inter
+2024-01-13,S.S.D. Napoli Femminile,Fiorentina,2.0,4.0,Serie A Femminile,4300840,20240113_S.S.D.-Napoli-Femminile_Fiorentina
+2024-01-13,Juventus,Milan,2.0,1.0,Serie A Femminile,4300841,20240113_Juventus_Milan
+2024-01-13,Roma,Pomigliano Calcio,3.0,0.0,Serie A Femminile,4300842,20240113_Roma_Pomigliano-Calcio
+2024-01-14,Inter,Sassuolo,0.0,1.0,Serie A Femminile,4300844,20240114_Inter_Sassuolo
+2024-01-14,Como Women,UC Sampdoria,0.0,1.0,Serie A Femminile,4300843,20240114_Como-Women_UC-Sampdoria
+2024-01-20,UC Sampdoria,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4300819,20240120_UC-Sampdoria_S.S.D.-Napoli-Femminile
+2024-01-20,Inter,Roma,2.0,0.0,Serie A Femminile,4300821,20240120_Inter_Roma
+2024-01-21,Fiorentina,Pomigliano Calcio,3.0,1.0,Serie A Femminile,4300820,20240121_Fiorentina_Pomigliano-Calcio
+2024-01-21,Sassuolo,Juventus,0.0,1.0,Serie A Femminile,4300831,20240121_Sassuolo_Juventus
+2024-01-22,Milan,Como Women,3.0,2.0,Serie A Femminile,4300832,20240122_Milan_Como-Women
+2024-01-27,S.S.D. Napoli Femminile,Inter,2.0,3.0,Serie A Femminile,4300823,20240127_S.S.D.-Napoli-Femminile_Inter
+2024-01-27,Roma,UC Sampdoria,2.0,0.0,Serie A Femminile,4300825,20240127_Roma_UC-Sampdoria
+2024-01-28,Pomigliano Calcio,Milan,0.0,0.0,Serie A Femminile,4300824,20240128_Pomigliano-Calcio_Milan
+2024-01-28,Como Women,Sassuolo,0.0,1.0,Serie A Femminile,4300826,20240128_Como-Women_Sassuolo
+2024-01-29,Juventus,Fiorentina,2.0,2.0,Serie A Femminile,4300822,20240129_Juventus_Fiorentina
+2024-02-03,Sassuolo,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4300830,20240203_Sassuolo_S.S.D.-Napoli-Femminile
+2024-02-03,Milan,Fiorentina,2.0,2.0,Serie A Femminile,4300828,20240203_Milan_Fiorentina
+2024-02-03,Inter,Como Women,2.0,3.0,Serie A Femminile,4300827,20240203_Inter_Como-Women
+2024-02-04,UC Sampdoria,Pomigliano Calcio,1.0,0.0,Serie A Femminile,4300845,20240204_UC-Sampdoria_Pomigliano-Calcio
+2024-02-04,Roma,Juventus,3.0,1.0,Serie A Femminile,4300829,20240204_Roma_Juventus
+2024-02-10,S.S.D. Napoli Femminile,Roma,0.0,1.0,Serie A Femminile,4300857,20240210_S.S.D.-Napoli-Femminile_Roma
+2024-02-10,Sassuolo,Milan,1.0,0.0,Serie A Femminile,4300858,20240210_Sassuolo_Milan
+2024-02-11,Pomigliano Calcio,Inter,2.0,6.0,Serie A Femminile,4300859,20240211_Pomigliano-Calcio_Inter
+2024-02-11,Fiorentina,UC Sampdoria,2.0,1.0,Serie A Femminile,4300856,20240211_Fiorentina_UC-Sampdoria
+2024-02-11,Juventus,Como Women,5.0,0.0,Serie A Femminile,4300846,20240211_Juventus_Como-Women
+2024-02-13,Roma,Sassuolo,3.0,0.0,Serie A Femminile,4300851,20240213_Roma_Sassuolo
+2024-02-14,Como Women,Fiorentina,0.0,1.0,Serie A Femminile,4300855,20240214_Como-Women_Fiorentina
+2024-02-14,UC Sampdoria,Milan,1.0,3.0,Serie A Femminile,4300853,20240214_UC-Sampdoria_Milan
+2024-02-14,Inter,Juventus,0.0,2.0,Serie A Femminile,4300854,20240214_Inter_Juventus
+2024-02-15,S.S.D. Napoli Femminile,Pomigliano Calcio,2.0,0.0,Serie A Femminile,4300852,20240215_S.S.D.-Napoli-Femminile_Pomigliano-Calcio
+2024-02-17,Sassuolo,UC Sampdoria,2.0,0.0,Serie A Femminile,4300860,20240217_Sassuolo_UC-Sampdoria
+2024-02-17,Fiorentina,Roma,0.0,1.0,Serie A Femminile,4300847,20240217_Fiorentina_Roma
+2024-02-18,Juventus,S.S.D. Napoli Femminile,4.0,1.0,Serie A Femminile,4300848,20240218_Juventus_S.S.D.-Napoli-Femminile
+2024-02-18,Pomigliano Calcio,Como Women,3.0,4.0,Serie A Femminile,4300850,20240218_Pomigliano-Calcio_Como-Women
+2024-02-18,Milan,Inter,2.0,1.0,Serie A Femminile,4300849,20240218_Milan_Inter
+2024-03-16,Pomigliano Calcio,UC Sampdoria,0.0,5.0,Serie A Femminile,4432467,20240316_Pomigliano-Calcio_UC-Sampdoria
+2024-03-16,Sassuolo,Fiorentina,1.0,0.0,Serie A Femminile,4432437,20240316_Sassuolo_Fiorentina
+2024-03-17,Como Women,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,4432468,20240317_Como-Women_S.S.D.-Napoli-Femminile
+2024-03-17,Inter,Juventus,3.0,3.0,Serie A Femminile,4432436,20240317_Inter_Juventus
+2024-03-23,UC Sampdoria,Como Women,1.0,0.0,Serie A Femminile,4432465,20240323_UC-Sampdoria_Como-Women
+2024-03-23,Roma,Sassuolo,3.0,0.0,Serie A Femminile,4432439,20240323_Roma_Sassuolo
+2024-03-24,Milan,Pomigliano Calcio,4.0,0.0,Serie A Femminile,4432466,20240324_Milan_Pomigliano-Calcio
+2024-03-24,Fiorentina,Inter,0.0,3.0,Serie A Femminile,4432438,20240324_Fiorentina_Inter
+2024-03-29,Inter,Roma,1.0,2.0,Serie A Femminile,4432440,20240329_Inter_Roma
+2024-03-30,S.S.D. Napoli Femminile,UC Sampdoria,2.0,0.0,Serie A Femminile,4432463,20240330_S.S.D.-Napoli-Femminile_UC-Sampdoria
+2024-03-30,Juventus,Fiorentina,4.0,0.0,Serie A Femminile,4432441,20240330_Juventus_Fiorentina
+2024-03-30,Como Women,Milan,1.0,4.0,Serie A Femminile,4432464,20240330_Como-Women_Milan
+2024-04-13,Sassuolo,Inter,2.0,1.0,Serie A Femminile,4432443,20240413_Sassuolo_Inter
+2024-04-14,Pomigliano Calcio,Como Women,1.0,2.0,Serie A Femminile,4432461,20240414_Pomigliano-Calcio_Como-Women
+2024-04-14,Milan,S.S.D. Napoli Femminile,3.0,2.0,Serie A Femminile,4432448,20240414_Milan_S.S.D.-Napoli-Femminile
+2024-04-15,Roma,Juventus,2.0,1.0,Serie A Femminile,4432442,20240415_Roma_Juventus
+2024-04-20,Juventus,Sassuolo,2.0,1.0,Serie A Femminile,4432445,20240420_Juventus_Sassuolo
+2024-04-20,Fiorentina,Roma,0.0,0.0,Serie A Femminile,4432444,20240420_Fiorentina_Roma
+2024-04-21,UC Sampdoria,Milan,1.0,3.0,Serie A Femminile,4432459,20240421_UC-Sampdoria_Milan
+2024-04-21,S.S.D. Napoli Femminile,Pomigliano Calcio,1.0,1.0,Serie A Femminile,4432460,20240421_S.S.D.-Napoli-Femminile_Pomigliano-Calcio
+2024-04-26,Juventus,Inter,0.0,2.0,Serie A Femminile,4432446,20240426_Juventus_Inter
+2024-04-27,UC Sampdoria,Pomigliano Calcio,2.0,2.0,Serie A Femminile,4432457,20240427_UC-Sampdoria_Pomigliano-Calcio
+2024-04-27,S.S.D. Napoli Femminile,Como Women,1.0,1.0,Serie A Femminile,4432458,20240427_S.S.D.-Napoli-Femminile_Como-Women
+2024-04-27,Fiorentina,Sassuolo,4.0,4.0,Serie A Femminile,4432447,20240427_Fiorentina_Sassuolo
+2024-05-01,Inter,Fiorentina,2.0,2.0,Serie A Femminile,4432462,20240501_Inter_Fiorentina
+2024-05-01,Pomigliano Calcio,Milan,2.0,2.0,Serie A Femminile,4432456,20240501_Pomigliano-Calcio_Milan
+2024-05-01,Como Women,UC Sampdoria,3.0,1.0,Serie A Femminile,4432455,20240501_Como-Women_UC-Sampdoria
+2024-05-01,Sassuolo,Roma,5.0,6.0,Serie A Femminile,4432475,20240501_Sassuolo_Roma
+2024-05-05,Roma,Inter,4.0,3.0,Serie A Femminile,4432474,20240505_Roma_Inter
+2024-05-05,UC Sampdoria,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4432453,20240505_UC-Sampdoria_S.S.D.-Napoli-Femminile
+2024-05-05,Milan,Como Women,1.0,0.0,Serie A Femminile,4432454,20240505_Milan_Como-Women
+2024-05-06,Fiorentina,Juventus,0.0,2.0,Serie A Femminile,4432473,20240506_Fiorentina_Juventus
+2024-05-12,Como Women,Pomigliano Calcio,2.0,0.0,Serie A Femminile,4432451,20240512_Como-Women_Pomigliano-Calcio
+2024-05-12,S.S.D. Napoli Femminile,Milan,1.0,1.0,Serie A Femminile,4432452,20240512_S.S.D.-Napoli-Femminile_Milan
+2024-05-12,Inter,Sassuolo,2.0,4.0,Serie A Femminile,4432471,20240512_Inter_Sassuolo
+2024-05-13,Juventus,Roma,3.0,1.0,Serie A Femminile,4432472,20240513_Juventus_Roma
+2024-05-18,Sassuolo,Juventus,2.0,3.0,Serie A Femminile,4432469,20240518_Sassuolo_Juventus
+2024-05-18,Milan,UC Sampdoria,3.0,1.0,Serie A Femminile,4432449,20240518_Milan_UC-Sampdoria
+2024-05-19,Pomigliano Calcio,S.S.D. Napoli Femminile,3.0,1.0,Serie A Femminile,4432450,20240519_Pomigliano-Calcio_S.S.D.-Napoli-Femminile
+2024-05-19,Roma,Fiorentina,5.0,0.0,Serie A Femminile,4432470,20240519_Roma_Fiorentina
+2024-08-30,Fiorentina,S.S.D. Napoli Femminile,1.0,0.0,Serie A Femminile,4540624,20240830_Fiorentina_S.S.D.-Napoli-Femminile
+2024-08-30,Lazio,Roma,2.0,2.0,Serie A Femminile,4540626,20240830_Lazio_Roma
+2024-08-31,Inter,UC Sampdoria,5.0,0.0,Serie A Femminile,4540625,20240831_Inter_UC-Sampdoria
+2024-09-01,Sassuolo,Juventus,3.0,6.0,Serie A Femminile,4540627,20240901_Sassuolo_Juventus
+2024-09-01,Como Women,Milan,1.0,0.0,Serie A Femminile,4540623,20240901_Como-Women_Milan
+2024-09-14,Roma,Sassuolo,1.0,1.0,Serie A Femminile,4540631,20240914_Roma_Sassuolo
+2024-09-14,Juventus,Como Women,4.0,2.0,Serie A Femminile,4540628,20240914_Juventus_Como-Women
+2024-09-14,Milan,Fiorentina,1.0,2.0,Serie A Femminile,4540629,20240914_Milan_Fiorentina
+2024-09-15,UC Sampdoria,Lazio,1.0,1.0,Serie A Femminile,4540632,20240915_UC-Sampdoria_Lazio
+2024-09-15,S.S.D. Napoli Femminile,Inter,1.0,4.0,Serie A Femminile,4540630,20240915_S.S.D.-Napoli-Femminile_Inter
+2024-09-20,S.S.D. Napoli Femminile,Sassuolo,1.0,0.0,Serie A Femminile,4540637,20240920_S.S.D.-Napoli-Femminile_Sassuolo
+2024-09-21,Lazio,Juventus,1.0,2.0,Serie A Femminile,4540636,20240921_Lazio_Juventus
+2024-09-22,Como Women,Roma,1.0,3.0,Serie A Femminile,4540633,20240922_Como-Women_Roma
+2024-09-22,Inter,Milan,1.0,1.0,Serie A Femminile,4540635,20240922_Inter_Milan
+2024-09-22,Fiorentina,UC Sampdoria,4.0,0.0,Serie A Femminile,4540634,20240922_Fiorentina_UC-Sampdoria
+2024-09-28,Como Women,UC Sampdoria,1.0,1.0,Serie A Femminile,4540660,20240928_Como-Women_UC-Sampdoria
+2024-09-28,Sassuolo,Inter,1.0,3.0,Serie A Femminile,4540656,20240928_Sassuolo_Inter
+2024-09-29,Roma,S.S.D. Napoli Femminile,3.0,1.0,Serie A Femminile,4540657,20240929_Roma_S.S.D.-Napoli-Femminile
+2024-09-29,Milan,Lazio,2.0,1.0,Serie A Femminile,4540658,20240929_Milan_Lazio
+2024-09-30,Juventus,Fiorentina,4.0,0.0,Serie A Femminile,4540659,20240930_Juventus_Fiorentina
+2024-10-05,Fiorentina,Como Women,3.0,1.0,Serie A Femminile,4540655,20241005_Fiorentina_Como-Women
+2024-10-05,Inter,Roma,1.0,1.0,Serie A Femminile,4540654,20241005_Inter_Roma
+2024-10-05,UC Sampdoria,Juventus,0.0,2.0,Serie A Femminile,4540651,20241005_UC-Sampdoria_Juventus
+2024-10-06,Lazio,Sassuolo,3.0,2.0,Serie A Femminile,4540653,20241006_Lazio_Sassuolo
+2024-10-06,S.S.D. Napoli Femminile,Milan,0.0,1.0,Serie A Femminile,4540652,20241006_S.S.D.-Napoli-Femminile_Milan
+2024-10-12,Sassuolo,Fiorentina,1.0,3.0,Serie A Femminile,4540647,20241012_Sassuolo_Fiorentina
+2024-10-12,Como Women,Inter,0.0,1.0,Serie A Femminile,4540638,20241012_Como-Women_Inter
+2024-10-13,Milan,UC Sampdoria,1.0,0.0,Serie A Femminile,4540648,20241013_Milan_UC-Sampdoria
+2024-10-13,Juventus,Roma,2.0,1.0,Serie A Femminile,4540650,20241013_Juventus_Roma
+2024-10-13,Lazio,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4540649,20241013_Lazio_S.S.D.-Napoli-Femminile
+2024-10-19,UC Sampdoria,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4540643,20241019_UC-Sampdoria_S.S.D.-Napoli-Femminile
+2024-10-19,Fiorentina,Lazio,3.0,2.0,Serie A Femminile,4540646,20241019_Fiorentina_Lazio
+2024-10-20,Inter,Juventus,0.0,0.0,Serie A Femminile,4540645,20241020_Inter_Juventus
+2024-10-20,Roma,Milan,2.0,1.0,Serie A Femminile,4540644,20241020_Roma_Milan
+2024-10-20,Sassuolo,Como Women,2.0,4.0,Serie A Femminile,4540642,20241020_Sassuolo_Como-Women
+2024-11-02,Lazio,Como Women,1.0,2.0,Serie A Femminile,4540640,20241102_Lazio_Como-Women
+2024-11-03,Fiorentina,Inter,2.0,1.0,Serie A Femminile,4540641,20241103_Fiorentina_Inter
+2024-11-03,S.S.D. Napoli Femminile,Juventus,0.0,3.0,Serie A Femminile,4540678,20241103_S.S.D.-Napoli-Femminile_Juventus
+2024-11-03,UC Sampdoria,Roma,1.0,5.0,Serie A Femminile,4540693,20241103_UC-Sampdoria_Roma
+2024-11-03,Milan,Sassuolo,1.0,0.0,Serie A Femminile,4540639,20241103_Milan_Sassuolo
+2024-11-09,Roma,Fiorentina,1.0,0.0,Serie A Femminile,4540689,20241109_Roma_Fiorentina
+2024-11-09,Juventus,Milan,3.0,0.0,Serie A Femminile,4540690,20241109_Juventus_Milan
+2024-11-09,Sassuolo,UC Sampdoria,3.0,0.0,Serie A Femminile,4540688,20241109_Sassuolo_UC-Sampdoria
+2024-11-10,Como Women,S.S.D. Napoli Femminile,3.0,0.0,Serie A Femminile,4540692,20241110_Como-Women_S.S.D.-Napoli-Femminile
+2024-11-10,Inter,Lazio,1.0,0.0,Serie A Femminile,4540691,20241110_Inter_Lazio
+2024-11-16,S.S.D. Napoli Femminile,Fiorentina,0.0,0.0,Serie A Femminile,4540686,20241116_S.S.D.-Napoli-Femminile_Fiorentina
+2024-11-16,UC Sampdoria,Inter,0.0,3.0,Serie A Femminile,4540685,20241116_UC-Sampdoria_Inter
+2024-11-17,Juventus,Sassuolo,2.0,2.0,Serie A Femminile,4540683,20241117_Juventus_Sassuolo
+2024-11-17,Roma,Lazio,2.0,1.0,Serie A Femminile,4540684,20241117_Roma_Lazio
+2024-11-17,Milan,Como Women,0.0,1.0,Serie A Femminile,4540687,20241117_Milan_Como-Women
+2024-11-23,Lazio,UC Sampdoria,0.0,0.0,Serie A Femminile,4540670,20241123_Lazio_UC-Sampdoria
+2024-11-23,Inter,S.S.D. Napoli Femminile,1.0,0.0,Serie A Femminile,4540680,20241123_Inter_S.S.D.-Napoli-Femminile
+2024-11-24,Fiorentina,Milan,2.0,2.0,Serie A Femminile,4540681,20241124_Fiorentina_Milan
+2024-11-24,Sassuolo,Roma,1.0,1.0,Serie A Femminile,4540679,20241124_Sassuolo_Roma
+2024-11-24,Como Women,Juventus,1.0,4.0,Serie A Femminile,4540682,20241124_Como-Women_Juventus
+2024-12-06,Roma,Como Women,2.0,1.0,Serie A Femminile,4540662,20241206_Roma_Como-Women
+2024-12-07,Sassuolo,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,4540666,20241207_Sassuolo_S.S.D.-Napoli-Femminile
+2024-12-07,UC Sampdoria,Fiorentina,1.0,3.0,Serie A Femminile,4540663,20241207_UC-Sampdoria_Fiorentina
+2024-12-08,Juventus,Lazio,3.0,2.0,Serie A Femminile,4540665,20241208_Juventus_Lazio
+2024-12-08,Milan,Inter,1.0,1.0,Serie A Femminile,4540664,20241208_Milan_Inter
+2024-12-14,Lazio,Milan,2.0,0.0,Serie A Femminile,4540669,20241214_Lazio_Milan
+2024-12-14,S.S.D. Napoli Femminile,Roma,1.0,2.0,Serie A Femminile,4540661,20241214_S.S.D.-Napoli-Femminile_Roma
+2024-12-15,Inter,Sassuolo,3.0,0.0,Serie A Femminile,4540671,20241215_Inter_Sassuolo
+2024-12-15,UC Sampdoria,Como Women,1.0,2.0,Serie A Femminile,4540667,20241215_UC-Sampdoria_Como-Women
+2024-12-15,Fiorentina,Juventus,0.0,3.0,Serie A Femminile,4540668,20241215_Fiorentina_Juventus
+2025-01-11,Juventus,UC Sampdoria,3.0,0.0,Serie A Femminile,4540676,20250111_Juventus_UC-Sampdoria
+2025-01-11,Como Women,Fiorentina,2.0,0.0,Serie A Femminile,4540672,20250111_Como-Women_Fiorentina
+2025-01-11,Sassuolo,Lazio,3.0,1.0,Serie A Femminile,4540674,20250111_Sassuolo_Lazio
+2025-01-12,Milan,S.S.D. Napoli Femminile,6.0,0.0,Serie A Femminile,4540675,20250112_Milan_S.S.D.-Napoli-Femminile
+2025-01-12,Roma,Inter,1.0,2.0,Serie A Femminile,4540673,20250112_Roma_Inter
+2025-01-18,S.S.D. Napoli Femminile,Lazio,0.0,4.0,Serie A Femminile,4540695,20250118_S.S.D.-Napoli-Femminile_Lazio
+2025-01-19,Inter,Como Women,1.0,0.0,Serie A Femminile,4540677,20250119_Inter_Como-Women
+2025-01-19,UC Sampdoria,Milan,2.0,2.0,Serie A Femminile,4540696,20250119_UC-Sampdoria_Milan
+2025-01-19,Roma,Juventus,3.0,1.0,Serie A Femminile,4540694,20250119_Roma_Juventus
+2025-01-19,Fiorentina,Sassuolo,1.0,1.0,Serie A Femminile,4540697,20250119_Fiorentina_Sassuolo
+2025-01-24,Juventus,Inter,2.0,0.0,Serie A Femminile,4540699,20250124_Juventus_Inter
+2025-01-25,Como Women,Sassuolo,0.0,3.0,Serie A Femminile,4540702,20250125_Como-Women_Sassuolo
+2025-01-25,Lazio,Fiorentina,2.0,0.0,Serie A Femminile,4540698,20250125_Lazio_Fiorentina
+2025-01-25,Milan,Roma,3.0,2.0,Serie A Femminile,4540700,20250125_Milan_Roma
+2025-01-26,S.S.D. Napoli Femminile,UC Sampdoria,0.0,1.0,Serie A Femminile,4540701,20250126_S.S.D.-Napoli-Femminile_UC-Sampdoria
+2025-02-01,Inter,Fiorentina,2.0,0.0,Serie A Femminile,4540703,20250201_Inter_Fiorentina
+2025-02-01,Roma,UC Sampdoria,4.0,0.0,Serie A Femminile,4540707,20250201_Roma_UC-Sampdoria
+2025-02-01,Sassuolo,Milan,2.0,3.0,Serie A Femminile,4540705,20250201_Sassuolo_Milan
+2025-02-02,Juventus,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,4540706,20250202_Juventus_S.S.D.-Napoli-Femminile
+2025-02-02,Como Women,Lazio,1.0,2.0,Serie A Femminile,4540704,20250202_Como-Women_Lazio
+2025-02-09,Lazio,Inter,4.0,4.0,Serie A Femminile,4540709,20250209_Lazio_Inter
+2025-02-09,UC Sampdoria,Sassuolo,0.0,2.0,Serie A Femminile,4540712,20250209_UC-Sampdoria_Sassuolo
+2025-02-09,Milan,Juventus,0.0,6.0,Serie A Femminile,4540710,20250209_Milan_Juventus
+2025-02-09,Fiorentina,Roma,0.0,0.0,Serie A Femminile,4540711,20250209_Fiorentina_Roma
+2025-02-09,S.S.D. Napoli Femminile,Como Women,4.0,2.0,Serie A Femminile,4540708,20250209_S.S.D.-Napoli-Femminile_Como-Women
+2025-03-01,Lazio,UC Sampdoria,3.0,0.0,Serie A Femminile,4732278,20250301_Lazio_UC-Sampdoria
+2025-03-02,Sassuolo,S.S.D. Napoli Femminile,3.0,1.0,Serie A Femminile,4732279,20250302_Sassuolo_S.S.D.-Napoli-Femminile
+2025-03-02,Juventus,Roma,4.0,3.0,Serie A Femminile,4732257,20250302_Juventus_Roma
+2025-03-02,Fiorentina,Milan,0.0,0.0,Serie A Femminile,4732256,20250302_Fiorentina_Milan
+2025-03-08,S.S.D. Napoli Femminile,Lazio,0.0,4.0,Serie A Femminile,4732281,20250308_S.S.D.-Napoli-Femminile_Lazio
+2025-03-09,Roma,Inter,2.0,1.0,Serie A Femminile,4732259,20250309_Roma_Inter
+2025-03-09,Milan,Juventus,2.0,2.0,Serie A Femminile,4732258,20250309_Milan_Juventus
+2025-03-10,Como Women,Sassuolo,3.0,0.0,Serie A Femminile,4732280,20250310_Como-Women_Sassuolo
+2025-03-15,UC Sampdoria,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4732283,20250315_UC-Sampdoria_S.S.D.-Napoli-Femminile
+2025-03-15,Juventus,Fiorentina,0.0,2.0,Serie A Femminile,4732261,20250315_Juventus_Fiorentina
+2025-03-16,Lazio,Como Women,0.0,2.0,Serie A Femminile,4732282,20250316_Lazio_Como-Women
+2025-03-16,Inter,Milan,3.0,3.0,Serie A Femminile,4732260,20250316_Inter_Milan
+2025-03-22,Sassuolo,Lazio,0.0,2.0,Serie A Femminile,4732285,20250322_Sassuolo_Lazio
+2025-03-22,Milan,Roma,3.0,1.0,Serie A Femminile,4732262,20250322_Milan_Roma
+2025-03-23,Fiorentina,Inter,1.0,0.0,Serie A Femminile,4732263,20250323_Fiorentina_Inter
+2025-03-23,Como Women,UC Sampdoria,2.0,2.0,Serie A Femminile,4732284,20250323_Como-Women_UC-Sampdoria
+2025-03-29,Roma,Fiorentina,2.0,0.0,Serie A Femminile,4732264,20250329_Roma_Fiorentina
+2025-03-30,S.S.D. Napoli Femminile,Como Women,0.0,2.0,Serie A Femminile,4732286,20250330_S.S.D.-Napoli-Femminile_Como-Women
+2025-03-30,UC Sampdoria,Sassuolo,2.0,5.0,Serie A Femminile,4732287,20250330_UC-Sampdoria_Sassuolo
+2025-03-30,Inter,Juventus,3.0,2.0,Serie A Femminile,4732265,20250330_Inter_Juventus
+2025-04-12,UC Sampdoria,Lazio,0.0,3.0,Serie A Femminile,4732289,20250412_UC-Sampdoria_Lazio
+2025-04-12,Milan,Fiorentina,5.0,3.0,Serie A Femminile,4732266,20250412_Milan_Fiorentina
+2025-04-13,Roma,Juventus,1.0,2.0,Serie A Femminile,4732267,20250413_Roma_Juventus
+2025-04-13,S.S.D. Napoli Femminile,Sassuolo,0.0,1.0,Serie A Femminile,4732288,20250413_S.S.D.-Napoli-Femminile_Sassuolo
+2025-04-18,Juventus,Milan,2.0,0.0,Serie A Femminile,4732269,20250418_Juventus_Milan
+2025-04-18,Lazio,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,4732290,20250418_Lazio_S.S.D.-Napoli-Femminile
+2025-04-19,Sassuolo,Como Women,3.0,0.0,Serie A Femminile,4732291,20250419_Sassuolo_Como-Women
+2025-04-19,Inter,Roma,3.0,0.0,Serie A Femminile,4732268,20250419_Inter_Roma
+2025-04-25,Fiorentina,Juventus,3.0,1.0,Serie A Femminile,4732271,20250425_Fiorentina_Juventus
+2025-04-25,Milan,Inter,1.0,4.0,Serie A Femminile,4732270,20250425_Milan_Inter
+2025-04-27,Como Women,Lazio,0.0,4.0,Serie A Femminile,4732292,20250427_Como-Women_Lazio
+2025-04-27,S.S.D. Napoli Femminile,UC Sampdoria,2.0,1.0,Serie A Femminile,4732293,20250427_S.S.D.-Napoli-Femminile_UC-Sampdoria
+2025-05-03,Inter,Fiorentina,1.0,3.0,Serie A Femminile,4732273,20250503_Inter_Fiorentina
+2025-05-03,Lazio,Sassuolo,5.0,0.0,Serie A Femminile,4732294,20250503_Lazio_Sassuolo
+2025-05-03,UC Sampdoria,Como Women,3.0,0.0,Serie A Femminile,4732295,20250503_UC-Sampdoria_Como-Women
+2025-05-04,Roma,Milan,3.0,3.0,Serie A Femminile,4732272,20250504_Roma_Milan
+2025-05-10,Fiorentina,Roma,0.0,1.0,Serie A Femminile,4732274,20250510_Fiorentina_Roma
+2025-05-10,Juventus,Inter,0.0,1.0,Serie A Femminile,4732275,20250510_Juventus_Inter
+2025-05-11,Como Women,S.S.D. Napoli Femminile,3.0,1.0,Serie A Femminile,4732296,20250511_Como-Women_S.S.D.-Napoli-Femminile
+2025-05-11,Sassuolo,UC Sampdoria,4.0,2.0,Serie A Femminile,4732297,20250511_Sassuolo_UC-Sampdoria
+2025-10-04,Inter,Ternana Femminile,5.0,0.0,Serie A Femminile,4895811,20251004_Inter_Ternana-Femminile
+2025-10-04,Roma,Parma Calcio 1913,4.0,0.0,Serie A Femminile,4895808,20251004_Roma_Parma-Calcio-1913
+2025-10-04,S.S.D. Napoli Femminile,Fiorentina,1.0,0.0,Serie A Femminile,4895812,20251004_S.S.D.-Napoli-Femminile_Fiorentina
+2025-10-04,Sassuolo,Juventus,0.0,0.0,Serie A Femminile,4895813,20251004_Sassuolo_Juventus
+2025-10-05,Como Women,Lazio,1.0,2.0,Serie A Femminile,4895809,20251005_Como-Women_Lazio
+2025-10-05,Genoa,Milan,1.0,2.0,Serie A Femminile,4895810,20251005_Genoa_Milan
+2025-10-11,Lazio,Genoa,2.0,1.0,Serie A Femminile,4895817,20251011_Lazio_Genoa
+2025-10-11,Juventus,Como Women,0.0,1.0,Serie A Femminile,4895816,20251011_Juventus_Como-Women
+2025-10-11,Fiorentina,Inter,2.0,2.0,Serie A Femminile,4895815,20251011_Fiorentina_Inter
+2025-10-12,Milan,Roma,1.0,2.0,Serie A Femminile,4895814,20251012_Milan_Roma
+2025-10-12,Ternana Femminile,S.S.D. Napoli Femminile,3.0,4.0,Serie A Femminile,4895819,20251012_Ternana-Femminile_S.S.D.-Napoli-Femminile
+2025-10-12,Parma Calcio 1913,Sassuolo,2.0,1.0,Serie A Femminile,4895818,20251012_Parma-Calcio-1913_Sassuolo
+2025-10-18,Genoa,Ternana Femminile,3.0,1.0,Serie A Femminile,4895821,20251018_Genoa_Ternana-Femminile
+2025-10-18,Sassuolo,Como Women,1.0,0.0,Serie A Femminile,4895825,20251018_Sassuolo_Como-Women
+2025-10-18,Fiorentina,Milan,4.0,3.0,Serie A Femminile,4895820,20251018_Fiorentina_Milan
+2025-10-19,S.S.D. Napoli Femminile,Roma,1.0,3.0,Serie A Femminile,4895824,20251019_S.S.D.-Napoli-Femminile_Roma
+2025-10-19,Lazio,Juventus,0.0,1.0,Serie A Femminile,4895823,20251019_Lazio_Juventus
+2025-10-19,Inter,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895822,20251019_Inter_Parma-Calcio-1913
+2025-11-01,Parma Calcio 1913,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,4895830,20251101_Parma-Calcio-1913_S.S.D.-Napoli-Femminile
+2025-11-01,Milan,Lazio,4.0,2.0,Serie A Femminile,4895826,20251101_Milan_Lazio
+2025-11-01,Como Women,Genoa,2.0,1.0,Serie A Femminile,4895828,20251101_Como-Women_Genoa
+2025-11-02,Roma,Inter,3.0,0.0,Serie A Femminile,4895827,20251102_Roma_Inter
+2025-11-02,Juventus,Ternana Femminile,2.0,1.0,Serie A Femminile,4895829,20251102_Juventus_Ternana-Femminile
+2025-11-02,Sassuolo,Fiorentina,0.0,1.0,Serie A Femminile,4895831,20251102_Sassuolo_Fiorentina
+2025-11-07,Fiorentina,Roma,5.0,2.0,Serie A Femminile,4895833,20251107_Fiorentina_Roma
+2025-11-08,Inter,Sassuolo,2.0,2.0,Serie A Femminile,4895835,20251108_Inter_Sassuolo
+2025-11-08,Milan,Juventus,2.0,1.0,Serie A Femminile,4895832,20251108_Milan_Juventus
+2025-11-09,Ternana Femminile,Como Women,2.0,4.0,Serie A Femminile,4895837,20251109_Ternana-Femminile_Como-Women
+2025-11-09,Lazio,S.S.D. Napoli Femminile,1.0,0.0,Serie A Femminile,4895836,20251109_Lazio_S.S.D.-Napoli-Femminile
+2025-11-09,Genoa,Parma Calcio 1913,1.0,0.0,Serie A Femminile,4895834,20251109_Genoa_Parma-Calcio-1913
+2025-11-15,Sassuolo,Ternana Femminile,0.0,1.0,Serie A Femminile,4895843,20251115_Sassuolo_Ternana-Femminile
+2025-11-15,Parma Calcio 1913,Fiorentina,1.0,1.0,Serie A Femminile,4895842,20251115_Parma-Calcio-1913_Fiorentina
+2025-11-15,Como Women,Milan,1.0,0.0,Serie A Femminile,4895839,20251115_Como-Women_Milan
+2025-11-16,S.S.D. Napoli Femminile,Inter,1.0,0.0,Serie A Femminile,4895841,20251116_S.S.D.-Napoli-Femminile_Inter
+2025-11-16,Roma,Lazio,1.0,0.0,Serie A Femminile,4895838,20251116_Roma_Lazio
+2025-11-16,Juventus,Genoa,2.0,0.0,Serie A Femminile,4895840,20251116_Juventus_Genoa
+2025-11-22,Genoa,S.S.D. Napoli Femminile,1.0,3.0,Serie A Femminile,4895846,20251122_Genoa_S.S.D.-Napoli-Femminile
+2025-11-22,Ternana Femminile,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895849,20251122_Ternana-Femminile_Parma-Calcio-1913
+2025-11-23,Como Women,Roma,0.0,1.0,Serie A Femminile,4895845,20251123_Como-Women_Roma
+2025-11-23,Lazio,Inter,0.0,2.0,Serie A Femminile,4895848,20251123_Lazio_Inter
+2025-11-23,Juventus,Fiorentina,1.0,0.0,Serie A Femminile,4895847,20251123_Juventus_Fiorentina
+2025-11-23,Milan,Sassuolo,2.0,2.0,Serie A Femminile,4895844,20251123_Milan_Sassuolo
+2025-12-06,S.S.D. Napoli Femminile,Milan,0.0,2.0,Serie A Femminile,4895853,20251206_S.S.D.-Napoli-Femminile_Milan
+2025-12-06,Roma,Juventus,1.0,1.0,Serie A Femminile,4895850,20251206_Roma_Juventus
+2025-12-07,Inter,Genoa,5.0,0.0,Serie A Femminile,4895852,20251207_Inter_Genoa
+2025-12-07,Fiorentina,Ternana Femminile,1.0,0.0,Serie A Femminile,4895851,20251207_Fiorentina_Ternana-Femminile
+2025-12-07,Parma Calcio 1913,Como Women,0.0,1.0,Serie A Femminile,4895854,20251207_Parma-Calcio-1913_Como-Women
+2025-12-08,Sassuolo,Lazio,1.0,2.0,Serie A Femminile,4895855,20251208_Sassuolo_Lazio
+2025-12-13,Como Women,Fiorentina,1.0,3.0,Serie A Femminile,4895857,20251213_Como-Women_Fiorentina
+2025-12-13,Juventus,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,4895859,20251213_Juventus_S.S.D.-Napoli-Femminile
+2025-12-13,Milan,Inter,1.0,5.0,Serie A Femminile,4895856,20251213_Milan_Inter
+2025-12-13,Ternana Femminile,Roma,0.0,2.0,Serie A Femminile,4895861,20251213_Ternana-Femminile_Roma
+2025-12-14,Genoa,Sassuolo,0.0,1.0,Serie A Femminile,4895858,20251214_Genoa_Sassuolo
+2025-12-14,Lazio,Parma Calcio 1913,1.0,0.0,Serie A Femminile,4895860,20251214_Lazio_Parma-Calcio-1913
+2026-01-17,Parma Calcio 1913,Milan,0.0,0.0,Serie A Femminile,4895866,20260117_Parma-Calcio-1913_Milan
+2026-01-17,Fiorentina,Genoa,1.0,1.0,Serie A Femminile,4895863,20260117_Fiorentina_Genoa
+2026-01-17,S.S.D. Napoli Femminile,Como Women,0.0,0.0,Serie A Femminile,4895865,20260117_S.S.D.-Napoli-Femminile_Como-Women
+2026-01-18,Roma,Sassuolo,2.0,1.0,Serie A Femminile,4895862,20260118_Roma_Sassuolo
+2026-01-18,Ternana Femminile,Lazio,1.0,0.0,Serie A Femminile,4895867,20260118_Ternana-Femminile_Lazio
+2026-01-18,Inter,Juventus,2.0,1.0,Serie A Femminile,4895864,20260118_Inter_Juventus
+2026-01-24,Lazio,Fiorentina,3.0,0.0,Serie A Femminile,4895872,20260124_Lazio_Fiorentina
+2026-01-25,Milan,Ternana Femminile,3.0,0.0,Serie A Femminile,4895868,20260125_Milan_Ternana-Femminile
+2026-01-25,Genoa,Roma,0.0,1.0,Serie A Femminile,4895870,20260125_Genoa_Roma
+2026-01-25,Como Women,Inter,2.0,3.0,Serie A Femminile,4895869,20260125_Como-Women_Inter
+2026-01-25,Sassuolo,S.S.D. Napoli Femminile,0.0,2.0,Serie A Femminile,4895873,20260125_Sassuolo_S.S.D.-Napoli-Femminile
+2026-01-26,Juventus,Parma Calcio 1913,3.0,0.0,Serie A Femminile,4895871,20260126_Juventus_Parma-Calcio-1913
+2026-02-01,Milan,Genoa,2.0,1.0,Serie A Femminile,4895874,20260201_Milan_Genoa
+2026-02-01,Lazio,Como Women,1.0,1.0,Serie A Femminile,4895877,20260201_Lazio_Como-Women
+2026-02-01,Parma Calcio 1913,Roma,3.0,3.0,Serie A Femminile,4895878,20260201_Parma-Calcio-1913_Roma
+2026-02-01,Ternana Femminile,Inter,0.0,1.0,Serie A Femminile,4895879,20260201_Ternana-Femminile_Inter
+2026-02-01,Juventus,Sassuolo,4.0,0.0,Serie A Femminile,4895876,20260201_Juventus_Sassuolo
+2026-02-02,Fiorentina,S.S.D. Napoli Femminile,1.0,2.0,Serie A Femminile,4895875,20260202_Fiorentina_S.S.D.-Napoli-Femminile
+2026-02-07,Genoa,Lazio,2.0,5.0,Serie A Femminile,4895882,20260207_Genoa_Lazio
+2026-02-07,Sassuolo,Parma Calcio 1913,1.0,0.0,Serie A Femminile,4895885,20260207_Sassuolo_Parma-Calcio-1913
+2026-02-07,Como Women,Juventus,0.0,2.0,Serie A Femminile,4895881,20260207_Como-Women_Juventus
+2026-02-08,Roma,Milan,1.0,0.0,Serie A Femminile,4895880,20260208_Roma_Milan
+2026-02-08,S.S.D. Napoli Femminile,Ternana Femminile,3.0,1.0,Serie A Femminile,4895884,20260208_S.S.D.-Napoli-Femminile_Ternana-Femminile
+2026-02-08,Inter,Fiorentina,3.0,0.0,Serie A Femminile,4895883,20260208_Inter_Fiorentina
+2026-02-14,Como Women,Sassuolo,2.0,0.0,Serie A Femminile,4895888,20260214_Como-Women_Sassuolo
+2026-02-14,Ternana Femminile,Genoa,3.0,1.0,Serie A Femminile,4895891,20260214_Ternana-Femminile_Genoa
+2026-02-14,Milan,Fiorentina,0.0,1.0,Serie A Femminile,4895886,20260214_Milan_Fiorentina
+2026-02-15,Parma Calcio 1913,Inter,2.0,3.0,Serie A Femminile,4895890,20260215_Parma-Calcio-1913_Inter
+2026-02-15,Juventus,Lazio,0.0,0.0,Serie A Femminile,4895889,20260215_Juventus_Lazio
+2026-02-15,Roma,S.S.D. Napoli Femminile,2.0,2.0,Serie A Femminile,4895887,20260215_Roma_S.S.D.-Napoli-Femminile
+2026-02-21,Genoa,Como Women,0.0,1.0,Serie A Femminile,4895893,20260221_Genoa_Como-Women
+2026-02-21,S.S.D. Napoli Femminile,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895896,20260221_S.S.D.-Napoli-Femminile_Parma-Calcio-1913
+2026-02-21,Lazio,Milan,2.0,2.0,Serie A Femminile,4895895,20260221_Lazio_Milan
+2026-02-22,Ternana Femminile,Juventus,2.0,2.0,Serie A Femminile,4895897,20260222_Ternana-Femminile_Juventus
+2026-02-22,Inter,Roma,0.0,1.0,Serie A Femminile,4895894,20260222_Inter_Roma
+2026-02-22,Fiorentina,Sassuolo,3.0,2.0,Serie A Femminile,4895892,20260222_Fiorentina_Sassuolo
+2026-03-14,Parma Calcio 1913,Genoa,1.0,1.0,Serie A Femminile,4895902,20260314_Parma-Calcio-1913_Genoa
+2026-03-14,S.S.D. Napoli Femminile,Lazio,0.0,1.0,Serie A Femminile,4895901,20260314_S.S.D.-Napoli-Femminile_Lazio
+2026-03-15,Como Women,Ternana Femminile,0.0,0.0,Serie A Femminile,4895899,20260315_Como-Women_Ternana-Femminile
+2026-03-15,Juventus,Milan,0.0,1.0,Serie A Femminile,4895900,20260315_Juventus_Milan
+2026-03-15,Roma,Fiorentina,1.0,1.0,Serie A Femminile,4895898,20260315_Roma_Fiorentina
+2026-03-16,Sassuolo,Inter,0.0,3.0,Serie A Femminile,4895903,20260316_Sassuolo_Inter
+2026-03-21,Genoa,Juventus,0.0,0.0,Serie A Femminile,4895906,20260321_Genoa_Juventus
+2026-03-21,Inter,S.S.D. Napoli Femminile,2.0,2.0,Serie A Femminile,4895907,20260321_Inter_S.S.D.-Napoli-Femminile
+2026-03-21,Lazio,Roma,1.0,2.0,Serie A Femminile,4895908,20260321_Lazio_Roma
+2026-03-22,Fiorentina,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895905,20260322_Fiorentina_Parma-Calcio-1913
+2026-03-22,Ternana Femminile,Sassuolo,1.0,1.0,Serie A Femminile,4895909,20260322_Ternana-Femminile_Sassuolo
+2026-03-22,Milan,Como Women,0.0,0.0,Serie A Femminile,4895904,20260322_Milan_Como-Women
+2026-04-03,Roma,Como Women,4.0,3.0,Serie A Femminile,4895910,20260403_Roma_Como-Women
+2026-04-03,Sassuolo,Milan,0.0,3.0,Serie A Femminile,4895915,20260403_Sassuolo_Milan
+2026-04-04,Fiorentina,Juventus,1.0,2.0,Serie A Femminile,4895911,20260404_Fiorentina_Juventus
+2026-04-04,S.S.D. Napoli Femminile,Genoa,4.0,1.0,Serie A Femminile,4895913,20260404_S.S.D.-Napoli-Femminile_Genoa
+2026-04-04,Inter,Lazio,5.0,2.0,Serie A Femminile,4895912,20260404_Inter_Lazio
+2026-04-04,Parma Calcio 1913,Ternana Femminile,2.0,0.0,Serie A Femminile,4895914,20260404_Parma-Calcio-1913_Ternana-Femminile
+2026-04-25,Como Women,Parma Calcio 1913,1.0,1.0,Serie A Femminile,4895917,20260425_Como-Women_Parma-Calcio-1913
+2026-04-25,Juventus,Roma,0.0,1.0,Serie A Femminile,4895919,20260425_Juventus_Roma
+2026-04-25,Lazio,Sassuolo,0.0,3.0,Serie A Femminile,4895920,20260425_Lazio_Sassuolo
+2026-04-25,Milan,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4895916,20260425_Milan_S.S.D.-Napoli-Femminile
+2026-04-25,Genoa,Inter,1.0,2.0,Serie A Femminile,4895918,20260425_Genoa_Inter
+2026-04-26,Ternana Femminile,Fiorentina,2.0,2.0,Serie A Femminile,4895921,20260426_Ternana-Femminile_Fiorentina
+2026-05-02,S.S.D. Napoli Femminile,Juventus,2.0,3.0,Serie A Femminile,4895925,20260502_S.S.D.-Napoli-Femminile_Juventus
+2026-05-02,Sassuolo,Genoa,0.0,0.0,Serie A Femminile,4895927,20260502_Sassuolo_Genoa
+2026-05-02,Inter,Milan,1.0,0.0,Serie A Femminile,4895924,20260502_Inter_Milan
+2026-05-02,Roma,Ternana Femminile,2.0,0.0,Serie A Femminile,4895922,20260502_Roma_Ternana-Femminile
+2026-05-03,Parma Calcio 1913,Lazio,1.0,3.0,Serie A Femminile,4895926,20260503_Parma-Calcio-1913_Lazio
+2026-05-03,Fiorentina,Como Women,1.0,0.0,Serie A Femminile,4895923,20260503_Fiorentina_Como-Women
+2026-05-09,Como Women,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4895929,20260509_Como-Women_S.S.D.-Napoli-Femminile
+2026-05-09,Genoa,Fiorentina,2.0,3.0,Serie A Femminile,4895930,20260509_Genoa_Fiorentina
+2026-05-10,Milan,Parma Calcio 1913,3.0,1.0,Serie A Femminile,4895928,20260510_Milan_Parma-Calcio-1913
+2026-05-10,Juventus,Inter,3.0,3.0,Serie A Femminile,4895931,20260510_Juventus_Inter
+2026-05-10,Sassuolo,Roma,0.0,3.0,Serie A Femminile,4895933,20260510_Sassuolo_Roma
+2026-05-10,Lazio,Ternana Femminile,2.0,0.0,Serie A Femminile,4895932,20260510_Lazio_Ternana-Femminile
+2026-05-16,Roma,Genoa,2.0,0.0,Serie A Femminile,4895934,20260516_Roma_Genoa
+2026-05-16,Inter,Como Women,0.0,3.0,Serie A Femminile,4895936,20260516_Inter_Como-Women
+2026-05-17,S.S.D. Napoli Femminile,Sassuolo,1.0,1.0,Serie A Femminile,4895937,20260517_S.S.D.-Napoli-Femminile_Sassuolo
+2026-05-17,Ternana Femminile,Milan,1.0,0.0,Serie A Femminile,4895939,20260517_Ternana-Femminile_Milan
+2026-05-17,Fiorentina,Lazio,2.0,1.0,Serie A Femminile,4895935,20260517_Fiorentina_Lazio
+2026-05-17,Parma Calcio 1913,Juventus,1.0,3.0,Serie A Femminile,4895938,20260517_Parma-Calcio-1913_Juventus

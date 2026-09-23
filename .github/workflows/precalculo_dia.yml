@@ -117,6 +117,20 @@ jobs:
       # y una caída de ESPN de treinta segundos no puede costar tres horas de
       # datos. Dos intentos con dos minutos en medio cubren lo transitorio; lo
       # que no se arregle así es una avería de verdad y se ve en el aviso.
+      # v303 — LOS HISTÓRICOS QUE NO SALEN DE FOOTBALL-DATA NI DE LAS LIGAS
+      # DE ESPN: selecciones (resultado + boxscore REAL de ESPN, porque el
+      # de `historico_partidos` trae córners y tarjetas sintéticos) y la Liga
+      # MX Femenil (resultados de FotMob). Son incrementales: los partidos que
+      # ya están no se vuelven a pedir. Van ANTES de cocinar porque la tarjeta
+      # saca de ellos la forma, los córners y el porqué de cada apuesta.
+      - name: Refrescar selecciones y Femenil
+        if: steps.frescura.outputs.saltar != 'true'
+        continue-on-error: true
+        timeout-minutes: 15
+        run: |
+          python historico_selecciones.py || echo "::warning::historico de selecciones con avisos"
+          python historico_fotmob.py || echo "::warning::historico de FotMob con avisos"
+
       - name: Cocinar el día
         if: steps.frescura.outputs.saltar != 'true'
         env:
@@ -172,7 +186,7 @@ jobs:
           #
           # El bucle anade lo que hay y se salta lo que no, sin tragarse un
           # fallo real en los ficheros que SI estan.
-          for _f in pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
+          for _f in historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

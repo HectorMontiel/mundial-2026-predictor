@@ -1361,6 +1361,8 @@ CSS = """
               opacity:.7; flex-basis:100%; }
 .mm-rec-ap { font-size:.92rem; font-weight:800; line-height:1.2; }
 .mm-rec-cu { font-size:.74rem; opacity:.85; }
+/* v303 — el porqué de la apuesta: una línea pequeña a lo ancho. */
+.mm-rec-rz { flex-basis:100%; font-size:.72rem; opacity:.8; line-height:1.3; }
 .mm-rec-si { background:rgba(26,127,55,.14); border-color:var(--ok); }
 .mm-rec-ambar { background:rgba(154,103,0,.14); border-color:var(--mira); }
 .mm-rec-no { background:var(--panel2); opacity:.8; }
@@ -2082,6 +2084,10 @@ _MERCADOS_TARJETA = (
     ('1X2', '📊', 'Resultado'),
     ('Doble oportunidad', '🛡️', 'Doble'),
     ('Goles', '⚽', 'Goles'),
+    # v303 — los dos mercados que el usuario pidió: goles de un solo equipo y
+    # doble oportunidad junto con el total. La casa los publica con precio.
+    ('Goles equipo', '⚽', 'Goles eq.'),
+    ('Doble y goles', '🛡️', 'Doble+goles'),
     ('BTTS', '🤝', 'Ambos marcan'),
     ('Córners', '⛳', 'Córners'),
     ('Tarjetas', '🟨', 'Tarjetas'),
@@ -2422,18 +2428,26 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     # en mitad de una cadena implicita rompe la adyacencia y el `%`
     # de abajo pasa a formatear solo el ultimo trozo. Costo un
     # TypeError en la suite entera.
+    # v303 — Y POR QUÉ, EN UNA LÍNEA: «decir brevemente por qué es que estás
+    # escogiendo esa apuesta, sólo para que yo pueda checar... algo corto».
+    # Sale de `razon_apuesta` con cifras reales de los dos equipos.
+    _rz = str(rec.get('razon') or '').strip()
+    if rec.get('sin_medir'):
+        coleta = (coleta + ' · ' if coleta else '') + 'Sin medición propia'
     st.markdown(
         '<div class="mm-rec %s">'
         '<span class="mm-rec-tit">%s</span>'
         '<span class="mm-rec-ap">%s %s — %.0f %%</span>'
-        '<span class="mm-rec-cu">%s %s</span>%s'
+        '<span class="mm-rec-cu">%s %s</span>%s%s'
         '</div>' % (tono, titulo, icono,
                     _esc_mm(rec['apuesta']).upper(),
                     rec['prob'] * 100,
                     (rec.get('estabilidad') or {}).get('icono', ''),
                     precio,
                     ('<span class="mm-rec-cu">%s</span>' % coleta)
-                    if coleta else ''),
+                    if coleta else '',
+                    ('<span class="mm-rec-rz">💡 %s</span>' % _esc_mm(_rz))
+                    if _rz else ''),
         unsafe_allow_html=True)
     # v177 — EL BOTON DE PLAYDOIT SE RETIRA, A PETICION.
     #
@@ -2810,9 +2824,18 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     pass
 
             def _vista(r0):
-                if not r0 or r0.get('apuesta') not in _corr:
+                if not r0:
                     return r0
                 r1 = dict(r0)
+                # v303 — el porqué, en una línea y con cifras reales de los
+                # dos equipos. Ver `razon_apuesta`.
+                try:
+                    import razon_apuesta as _ra
+                    r1['razon'] = _ra.razon(pick, r0)
+                except Exception as _e_ra:
+                    logger.debug('[modo_modelo] razon: %s', _e_ra)
+                if r0.get('apuesta') not in _corr:
+                    return r1
                 r1['prob'] = _corr[r0['apuesta']]
                 if r1.get('cuota'):
                     # lo que devuelve, con la MISMA probabilidad que se enseña

@@ -1,0 +1,1751 @@
+date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
+2021-07-16,Querétaro,Monterrey,1.0,1.0,Liga MX Femenil,3641523,20210716_Querétaro_Monterrey
+2021-07-17,Pumas,Necaxa,0.0,0.0,Liga MX Femenil,3641524,20210717_Pumas_Necaxa
+2021-07-18,CF América,Santos Laguna,2.0,1.0,Liga MX Femenil,3641531,20210718_CF-América_Santos-Laguna
+2021-07-18,Puebla,Club León,3.0,1.0,Liga MX Femenil,3641526,20210718_Puebla_Club-León
+2021-07-19,Toluca,Atlas,2.0,3.0,Liga MX Femenil,3641527,20210719_Toluca_Atlas
+2021-07-20,Pachuca,Club Tijuana,0.0,0.0,Liga MX Femenil,3641528,20210720_Pachuca_Club-Tijuana
+2021-07-20,Tigres,Mazatlán FC,2.0,0.0,Liga MX Femenil,3641530,20210720_Tigres_Mazatlán-FC
+2021-07-20,Chivas,Atlético de San Luis,5.0,0.0,Liga MX Femenil,3641525,20210720_Chivas_Atlético-de-San-Luis
+2021-07-20,FC Juárez,Cruz Azul,0.0,1.0,Liga MX Femenil,3641532,20210720_FC-Juárez_Cruz-Azul
+2021-07-23,CF América,Puebla,3.0,0.0,Liga MX Femenil,3641533,20210723_CF-América_Puebla
+2021-07-24,Mazatlán FC,Santos Laguna,0.0,2.0,Liga MX Femenil,3641534,20210724_Mazatlán-FC_Santos-Laguna
+2021-07-24,Atlas,Querétaro,2.0,1.0,Liga MX Femenil,3641535,20210724_Atlas_Querétaro
+2021-07-24,Cruz Azul,Chivas,1.0,1.0,Liga MX Femenil,3641536,20210724_Cruz-Azul_Chivas
+2021-07-25,Monterrey,FC Juárez,2.0,0.0,Liga MX Femenil,3641537,20210725_Monterrey_FC-Juárez
+2021-07-25,Atlético de San Luis,Pumas,2.0,1.0,Liga MX Femenil,3641538,20210725_Atlético-de-San-Luis_Pumas
+2021-07-26,Necaxa,Pachuca,1.0,2.0,Liga MX Femenil,3641539,20210726_Necaxa_Pachuca
+2021-07-27,Club León,Tigres,0.0,2.0,Liga MX Femenil,3641540,20210727_Club-León_Tigres
+2021-07-27,Club Tijuana,Toluca,2.0,0.0,Liga MX Femenil,3641541,20210727_Club-Tijuana_Toluca
+2021-07-30,Querétaro,CF América,1.0,3.0,Liga MX Femenil,3641542,20210730_Querétaro_CF-América
+2021-07-31,Toluca,Atlético de San Luis,1.0,0.0,Liga MX Femenil,3641543,20210731_Toluca_Atlético-de-San-Luis
+2021-08-01,Pachuca,Cruz Azul,0.0,1.0,Liga MX Femenil,3641544,20210801_Pachuca_Cruz-Azul
+2021-08-01,Puebla,Mazatlán FC,2.0,0.0,Liga MX Femenil,3641545,20210801_Puebla_Mazatlán-FC
+2021-08-02,Pumas,Monterrey,0.0,3.0,Liga MX Femenil,3641546,20210802_Pumas_Monterrey
+2021-08-03,Chivas,Club León,2.0,1.0,Liga MX Femenil,3641547,20210803_Chivas_Club-León
+2021-08-03,Tigres,Necaxa,8.0,1.0,Liga MX Femenil,3641548,20210803_Tigres_Necaxa
+2021-08-03,FC Juárez,Atlas,0.0,3.0,Liga MX Femenil,3641550,20210803_FC-Juárez_Atlas
+2021-08-03,Santos Laguna,Club Tijuana,0.0,0.0,Liga MX Femenil,3641549,20210803_Santos-Laguna_Club-Tijuana
+2021-08-07,Atlas,Tigres,0.0,4.0,Liga MX Femenil,3642427,20210807_Atlas_Tigres
+2021-08-07,Cruz Azul,Pumas,1.0,1.0,Liga MX Femenil,3642428,20210807_Cruz-Azul_Pumas
+2021-08-08,Atlético de San Luis,Pachuca,1.0,1.0,Liga MX Femenil,3642429,20210808_Atlético-de-San-Luis_Pachuca
+2021-08-09,Club León,Mazatlán FC,5.0,0.0,Liga MX Femenil,3642431,20210809_Club-León_Mazatlán-FC
+2021-08-09,Necaxa,Santos Laguna,0.0,3.0,Liga MX Femenil,3642430,20210809_Necaxa_Santos-Laguna
+2021-08-10,CF América,Toluca,1.0,3.0,Liga MX Femenil,3642432,20210810_CF-América_Toluca
+2021-08-10,Monterrey,Puebla,2.0,0.0,Liga MX Femenil,3642433,20210810_Monterrey_Puebla
+2021-08-10,Club Tijuana,Querétaro,1.0,1.0,Liga MX Femenil,3642434,20210810_Club-Tijuana_Querétaro
+2021-08-10,FC Juárez,Chivas,1.0,2.0,Liga MX Femenil,3642435,20210810_FC-Juárez_Chivas
+2021-08-13,Querétaro,Club León,1.0,1.0,Liga MX Femenil,3642436,20210813_Querétaro_Club-León
+2021-08-14,Mazatlán FC,Monterrey,0.0,3.0,Liga MX Femenil,3642437,20210814_Mazatlán-FC_Monterrey
+2021-08-14,Toluca,FC Juárez,1.0,1.0,Liga MX Femenil,3642438,20210814_Toluca_FC-Juárez
+2021-08-15,Chivas,Necaxa,6.0,0.0,Liga MX Femenil,3642439,20210815_Chivas_Necaxa
+2021-08-15,Puebla,Cruz Azul,3.0,0.0,Liga MX Femenil,3642440,20210815_Puebla_Cruz-Azul
+2021-08-16,Pumas,Club Tijuana,1.0,2.0,Liga MX Femenil,3642441,20210816_Pumas_Club-Tijuana
+2021-08-17,Pachuca,CF América,0.0,2.0,Liga MX Femenil,3642442,20210817_Pachuca_CF-América
+2021-08-17,Tigres,Atlético de San Luis,5.0,1.0,Liga MX Femenil,3642443,20210817_Tigres_Atlético-de-San-Luis
+2021-08-17,Santos Laguna,Atlas,2.0,2.0,Liga MX Femenil,3642444,20210817_Santos-Laguna_Atlas
+2021-08-20,Querétaro,FC Juárez,4.0,0.0,Liga MX Femenil,3642445,20210820_Querétaro_FC-Juárez
+2021-08-21,Cruz Azul,Tigres,0.0,3.0,Liga MX Femenil,3642447,20210821_Cruz-Azul_Tigres
+2021-08-22,Atlas,Pumas,0.0,0.0,Liga MX Femenil,3642446,20210822_Atlas_Pumas
+2021-08-23,Necaxa,Puebla,1.0,0.0,Liga MX Femenil,3642448,20210823_Necaxa_Puebla
+2021-08-24,CF América,Atlético de San Luis,4.0,0.0,Liga MX Femenil,3642449,20210824_CF-América_Atlético-de-San-Luis
+2021-08-24,Club León,Santos Laguna,1.0,6.0,Liga MX Femenil,3642450,20210824_Club-León_Santos-Laguna
+2021-08-24,Monterrey,Toluca,2.0,0.0,Liga MX Femenil,3642451,20210824_Monterrey_Toluca
+2021-08-24,Mazatlán FC,Pachuca,3.0,3.0,Liga MX Femenil,3642452,20210824_Mazatlán-FC_Pachuca
+2021-08-24,Club Tijuana,Chivas,0.0,1.0,Liga MX Femenil,3642453,20210824_Club-Tijuana_Chivas
+2021-08-28,Atlas,Monterrey,1.0,2.0,Liga MX Femenil,3642454,20210828_Atlas_Monterrey
+2021-08-28,Pumas,Querétaro,2.0,0.0,Liga MX Femenil,3642455,20210828_Pumas_Querétaro
+2021-08-29,Chivas,Mazatlán FC,2.0,0.0,Liga MX Femenil,3642461,20210829_Chivas_Mazatlán-FC
+2021-08-29,Atlético de San Luis,Club Tijuana,1.0,3.0,Liga MX Femenil,3642456,20210829_Atlético-de-San-Luis_Club-Tijuana
+2021-08-30,Necaxa,CF América,0.0,2.0,Liga MX Femenil,3642457,20210830_Necaxa_CF-América
+2021-08-31,Pachuca,Puebla,6.0,2.0,Liga MX Femenil,3642460,20210831_Pachuca_Puebla
+2021-08-31,Tigres,Toluca,4.0,0.0,Liga MX Femenil,3642459,20210831_Tigres_Toluca
+2021-08-31,FC Juárez,Club León,0.0,2.0,Liga MX Femenil,3642462,20210831_FC-Juárez_Club-León
+2021-08-31,Santos Laguna,Cruz Azul,4.0,0.0,Liga MX Femenil,3642458,20210831_Santos-Laguna_Cruz-Azul
+2021-09-03,Querétaro,Tigres,1.0,2.0,Liga MX Femenil,3642463,20210903_Querétaro_Tigres
+2021-09-04,Mazatlán FC,FC Juárez,1.0,2.0,Liga MX Femenil,3642464,20210904_Mazatlán-FC_FC-Juárez
+2021-09-04,Cruz Azul,Atlético de San Luis,2.0,0.0,Liga MX Femenil,3642465,20210904_Cruz-Azul_Atlético-de-San-Luis
+2021-09-04,Chivas,Atlas,1.0,0.0,Liga MX Femenil,3642468,20210904_Chivas_Atlas
+2021-09-05,CF América,Pumas,2.0,2.0,Liga MX Femenil,3642466,20210905_CF-América_Pumas
+2021-09-05,Puebla,Santos Laguna,2.0,3.0,Liga MX Femenil,3642467,20210905_Puebla_Santos-Laguna
+2021-09-06,Toluca,Necaxa,0.0,1.0,Liga MX Femenil,3642469,20210906_Toluca_Necaxa
+2021-09-07,Pachuca,Monterrey,0.0,1.0,Liga MX Femenil,3642470,20210907_Pachuca_Monterrey
+2021-09-07,Club Tijuana,Club León,4.0,0.0,Liga MX Femenil,3642471,20210907_Club-Tijuana_Club-León
+2021-09-11,Cruz Azul,Toluca,2.0,1.0,Liga MX Femenil,3642472,20210911_Cruz-Azul_Toluca
+2021-09-12,FC Juárez,CF América,1.0,1.0,Liga MX Femenil,3642479,20210912_FC-Juárez_CF-América
+2021-09-12,Monterrey,Club Tijuana,4.0,0.0,Liga MX Femenil,3642473,20210912_Monterrey_Club-Tijuana
+2021-09-12,Puebla,Querétaro,0.0,1.0,Liga MX Femenil,3642474,20210912_Puebla_Querétaro
+2021-09-12,Atlético de San Luis,Atlas,0.0,0.0,Liga MX Femenil,3642475,20210912_Atlético-de-San-Luis_Atlas
+2021-09-13,Santos Laguna,Chivas,5.0,4.0,Liga MX Femenil,3642480,20210913_Santos-Laguna_Chivas
+2021-09-13,Tigres,Pachuca,5.0,0.0,Liga MX Femenil,3642478,20210913_Tigres_Pachuca
+2021-09-13,Necaxa,Mazatlán FC,3.0,0.0,Liga MX Femenil,3642476,20210913_Necaxa_Mazatlán-FC
+2021-09-14,Club León,Pumas,0.0,0.0,Liga MX Femenil,3642477,20210914_Club-León_Pumas
+2021-09-24,Querétaro,Atlético de San Luis,1.0,1.0,Liga MX Femenil,3642481,20210924_Querétaro_Atlético-de-San-Luis
+2021-09-25,Mazatlán FC,CF América,0.0,0.0,Liga MX Femenil,3642482,20210925_Mazatlán-FC_CF-América
+2021-09-26,Atlas,Cruz Azul,3.0,0.0,Liga MX Femenil,3642484,20210926_Atlas_Cruz-Azul
+2021-09-27,Santos Laguna,Monterrey,2.0,2.0,Liga MX Femenil,3642490,20210927_Santos-Laguna_Monterrey
+2021-09-28,Club León,Necaxa,1.0,1.0,Liga MX Femenil,3642488,20210928_Club-León_Necaxa
+2021-09-28,Pumas,FC Juárez,3.0,0.0,Liga MX Femenil,3642485,20210928_Pumas_FC-Juárez
+2021-09-28,Tigres,Club Tijuana,3.0,0.0,Liga MX Femenil,3642487,20210928_Tigres_Club-Tijuana
+2021-09-28,Toluca,Puebla,1.0,1.0,Liga MX Femenil,3642486,20210928_Toluca_Puebla
+2021-09-28,Chivas,Pachuca,2.0,1.0,Liga MX Femenil,3642489,20210928_Chivas_Pachuca
+2021-10-02,Pumas,Chivas,1.0,0.0,Liga MX Femenil,3642491,20211002_Pumas_Chivas
+2021-10-03,Pachuca,Toluca,1.0,1.0,Liga MX Femenil,3642492,20211003_Pachuca_Toluca
+2021-10-03,Puebla,Tigres,0.0,3.0,Liga MX Femenil,3642493,20211003_Puebla_Tigres
+2021-10-03,Atlético de San Luis,Mazatlán FC,1.0,1.0,Liga MX Femenil,3642494,20211003_Atlético-de-San-Luis_Mazatlán-FC
+2021-10-04,Necaxa,Querétaro,2.0,0.0,Liga MX Femenil,3642495,20211004_Necaxa_Querétaro
+2021-10-05,CF América,Cruz Azul,2.0,1.0,Liga MX Femenil,3642496,20211005_CF-América_Cruz-Azul
+2021-10-05,Monterrey,Club León,3.0,1.0,Liga MX Femenil,3642497,20211005_Monterrey_Club-León
+2021-10-05,Club Tijuana,Atlas,1.0,2.0,Liga MX Femenil,3642498,20211005_Club-Tijuana_Atlas
+2021-10-05,FC Juárez,Santos Laguna,1.0,2.0,Liga MX Femenil,3642499,20211005_FC-Juárez_Santos-Laguna
+2021-10-09,Mazatlán FC,Querétaro,1.0,0.0,Liga MX Femenil,3642500,20211009_Mazatlán-FC_Querétaro
+2021-10-09,Atlas,Necaxa,1.0,0.0,Liga MX Femenil,3642501,20211009_Atlas_Necaxa
+2021-10-09,Cruz Azul,Club León,0.0,0.0,Liga MX Femenil,3642502,20211009_Cruz-Azul_Club-León
+2021-10-09,Toluca,Santos Laguna,1.0,0.0,Liga MX Femenil,3642503,20211009_Toluca_Santos-Laguna
+2021-10-10,Tigres,Monterrey,2.0,1.0,Liga MX Femenil,3642504,20211010_Tigres_Monterrey
+2021-10-10,Atlético de San Luis,FC Juárez,4.0,0.0,Liga MX Femenil,3642505,20211010_Atlético-de-San-Luis_FC-Juárez
+2021-10-12,Pachuca,Pumas,1.0,1.0,Liga MX Femenil,3642506,20211012_Pachuca_Pumas
+2021-10-12,Chivas,CF América,2.0,1.0,Liga MX Femenil,3642507,20211012_Chivas_CF-América
+2021-10-12,Club Tijuana,Puebla,2.0,0.0,Liga MX Femenil,3642508,20211012_Club-Tijuana_Puebla
+2021-10-15,Querétaro,Toluca,0.0,1.0,Liga MX Femenil,3642509,20211015_Querétaro_Toluca
+2021-10-16,Chivas,Tigres,1.0,1.0,Liga MX Femenil,3642515,20211016_Chivas_Tigres
+2021-10-16,Cruz Azul,Mazatlán FC,2.0,0.0,Liga MX Femenil,3642510,20211016_Cruz-Azul_Mazatlán-FC
+2021-10-17,Necaxa,Monterrey,1.0,6.0,Liga MX Femenil,3642512,20211017_Necaxa_Monterrey
+2021-10-17,Puebla,Atlético de San Luis,1.0,1.0,Liga MX Femenil,3642511,20211017_Puebla_Atlético-de-San-Luis
+2021-10-17,CF América,Club Tijuana,2.0,0.0,Liga MX Femenil,3642513,20211017_CF-América_Club-Tijuana
+2021-10-18,Club León,Atlas,0.0,1.0,Liga MX Femenil,3642514,20211018_Club-León_Atlas
+2021-10-18,Santos Laguna,Pumas,2.0,0.0,Liga MX Femenil,3642517,20211018_Santos-Laguna_Pumas
+2021-10-19,FC Juárez,Pachuca,1.0,3.0,Liga MX Femenil,3642516,20211019_FC-Juárez_Pachuca
+2021-10-29,Querétaro,Cruz Azul,1.0,2.0,Liga MX Femenil,3642518,20211029_Querétaro_Cruz-Azul
+2021-10-30,Mazatlán FC,Atlas,0.0,3.0,Liga MX Femenil,3642519,20211030_Mazatlán-FC_Atlas
+2021-10-30,Pumas,Toluca,2.0,0.0,Liga MX Femenil,3642520,20211030_Pumas_Toluca
+2021-10-31,Puebla,Chivas,1.0,1.0,Liga MX Femenil,3642521,20211031_Puebla_Chivas
+2021-11-01,Necaxa,Club Tijuana,1.0,2.0,Liga MX Femenil,3642522,20211101_Necaxa_Club-Tijuana
+2021-11-02,Club León,Pachuca,1.0,3.0,Liga MX Femenil,3642523,20211102_Club-León_Pachuca
+2021-11-02,Monterrey,CF América,3.0,1.0,Liga MX Femenil,3642524,20211102_Monterrey_CF-América
+2021-11-02,Tigres,FC Juárez,3.0,0.0,Liga MX Femenil,3642525,20211102_Tigres_FC-Juárez
+2021-11-02,Santos Laguna,Atlético de San Luis,3.0,1.0,Liga MX Femenil,3642526,20211102_Santos-Laguna_Atlético-de-San-Luis
+2021-11-06,Atlas,CF América,3.0,2.0,Liga MX Femenil,3642527,20211106_Atlas_CF-América
+2021-11-06,Cruz Azul,Necaxa,1.0,0.0,Liga MX Femenil,3642528,20211106_Cruz-Azul_Necaxa
+2021-11-07,Chivas,Querétaro,0.0,2.0,Liga MX Femenil,3642529,20211107_Chivas_Querétaro
+2021-11-07,Atlético de San Luis,Monterrey,0.0,3.0,Liga MX Femenil,3642530,20211107_Atlético-de-San-Luis_Monterrey
+2021-11-08,Toluca,Club León,0.0,3.0,Liga MX Femenil,3642531,20211108_Toluca_Club-León
+2021-11-09,Pachuca,Santos Laguna,4.0,0.0,Liga MX Femenil,3642532,20211109_Pachuca_Santos-Laguna
+2021-11-09,Tigres,Pumas,2.0,1.0,Liga MX Femenil,3642533,20211109_Tigres_Pumas
+2021-11-09,Club Tijuana,Mazatlán FC,5.0,0.0,Liga MX Femenil,3642534,20211109_Club-Tijuana_Mazatlán-FC
+2021-11-09,FC Juárez,Puebla,1.0,2.0,Liga MX Femenil,3642535,20211109_FC-Juárez_Puebla
+2021-11-13,Club León,Atlético de San Luis,0.0,0.0,Liga MX Femenil,3642537,20211113_Club-León_Atlético-de-San-Luis
+2021-11-13,Mazatlán FC,Toluca,0.0,1.0,Liga MX Femenil,3642538,20211113_Mazatlán-FC_Toluca
+2021-11-13,Atlas,Pachuca,2.0,1.0,Liga MX Femenil,3642539,20211113_Atlas_Pachuca
+2021-11-13,Pumas,Puebla,0.0,1.0,Liga MX Femenil,3642540,20211113_Pumas_Puebla
+2021-11-13,Necaxa,FC Juárez,3.0,1.0,Liga MX Femenil,3642541,20211113_Necaxa_FC-Juárez
+2021-11-13,Querétaro,Santos Laguna,4.0,2.0,Liga MX Femenil,3642536,20211113_Querétaro_Santos-Laguna
+2021-11-14,CF América,Tigres,1.0,1.0,Liga MX Femenil,3642542,20211114_CF-América_Tigres
+2021-11-16,Monterrey,Chivas,2.0,1.0,Liga MX Femenil,3642543,20211116_Monterrey_Chivas
+2021-11-16,Club Tijuana,Cruz Azul,4.0,1.0,Liga MX Femenil,3642544,20211116_Club-Tijuana_Cruz-Azul
+2021-11-19,Toluca,Chivas,0.0,4.0,Liga MX Femenil,3642545,20211119_Toluca_Chivas
+2021-11-20,CF América,Club León,4.0,1.0,Liga MX Femenil,3642546,20211120_CF-América_Club-León
+2021-11-20,Pumas,Mazatlán FC,4.0,0.0,Liga MX Femenil,3642551,20211120_Pumas_Mazatlán-FC
+2021-11-20,FC Juárez,Club Tijuana,2.0,4.0,Liga MX Femenil,3642556,20211120_FC-Juárez_Club-Tijuana
+2021-11-20,Monterrey,Cruz Azul,5.0,0.0,Liga MX Femenil,3642555,20211120_Monterrey_Cruz-Azul
+2021-11-21,Pachuca,Querétaro,2.0,0.0,Liga MX Femenil,3642552,20211121_Pachuca_Querétaro
+2021-11-21,Puebla,Atlas,0.0,4.0,Liga MX Femenil,3642553,20211121_Puebla_Atlas
+2021-11-21,Atlético de San Luis,Necaxa,1.0,1.0,Liga MX Femenil,3642554,20211121_Atlético-de-San-Luis_Necaxa
+2021-11-22,Santos Laguna,Tigres,0.0,2.0,Liga MX Femenil,3642557,20211122_Santos-Laguna_Tigres
+2021-12-03,Cruz Azul,Tigres,0.0,4.0,Liga MX Femenil,3771975,20211203_Cruz-Azul_Tigres
+2021-12-04,Santos Laguna,Atlas,2.0,2.0,Liga MX Femenil,3771981,20211204_Santos-Laguna_Atlas
+2021-12-04,CF América,Chivas,2.0,1.0,Liga MX Femenil,3771979,20211204_CF-América_Chivas
+2021-12-04,Club Tijuana,Monterrey,1.0,1.0,Liga MX Femenil,3771976,20211204_Club-Tijuana_Monterrey
+2021-12-06,Atlas,Santos Laguna,2.0,1.0,Liga MX Femenil,3771992,20211206_Atlas_Santos-Laguna
+2021-12-07,Chivas,CF América,0.0,0.0,Liga MX Femenil,3771980,20211207_Chivas_CF-América
+2021-12-07,Tigres,Cruz Azul,4.0,0.0,Liga MX Femenil,3771977,20211207_Tigres_Cruz-Azul
+2021-12-07,Monterrey,Club Tijuana,1.0,1.0,Liga MX Femenil,3771978,20211207_Monterrey_Club-Tijuana
+2021-12-10,Atlas,Monterrey,1.0,0.0,Liga MX Femenil,3777911,20211210_Atlas_Monterrey
+2021-12-11,CF América,Tigres,2.0,1.0,Liga MX Femenil,3777909,20211211_CF-América_Tigres
+2021-12-14,Tigres,CF América,4.0,0.0,Liga MX Femenil,3777910,20211214_Tigres_CF-América
+2021-12-14,Monterrey,Atlas,2.0,1.0,Liga MX Femenil,3777912,20211214_Monterrey_Atlas
+2021-12-18,Monterrey,Tigres,2.0,2.0,Liga MX Femenil,3781096,20211218_Monterrey_Tigres
+2021-12-21,Tigres,Monterrey,0.0,0.0,Liga MX Femenil,3781109,20211221_Tigres_Monterrey
+2022-01-08,Mazatlán FC,Cruz Azul,1.0,2.0,Liga MX Femenil,3788933,20220108_Mazatlán-FC_Cruz-Azul
+2022-01-08,Pumas,Club León,1.0,0.0,Liga MX Femenil,3788949,20220108_Pumas_Club-León
+2022-01-09,Puebla,Toluca,1.0,3.0,Liga MX Femenil,3788950,20220109_Puebla_Toluca
+2022-01-10,FC Juárez,Atlético de San Luis,0.0,1.0,Liga MX Femenil,3788951,20220110_FC-Juárez_Atlético-de-San-Luis
+2022-01-10,Necaxa,Tigres,1.0,3.0,Liga MX Femenil,3788952,20220110_Necaxa_Tigres
+2022-01-11,CF América,Atlas,1.0,1.0,Liga MX Femenil,3788953,20220111_CF-América_Atlas
+2022-01-11,Club Tijuana,Santos Laguna,2.0,1.0,Liga MX Femenil,3788956,20220111_Club-Tijuana_Santos-Laguna
+2022-01-11,Pachuca,Chivas,1.0,4.0,Liga MX Femenil,3788955,20220111_Pachuca_Chivas
+2022-01-15,Pumas,CF América,0.0,1.0,Liga MX Femenil,3788958,20220115_Pumas_CF-América
+2022-01-15,Querétaro,Pachuca,0.0,2.0,Liga MX Femenil,3788957,20220115_Querétaro_Pachuca
+2022-01-16,Puebla,Monterrey,0.0,3.0,Liga MX Femenil,3788959,20220116_Puebla_Monterrey
+2022-01-17,Atlas,Mazatlán FC,1.0,1.0,Liga MX Femenil,3788961,20220117_Atlas_Mazatlán-FC
+2022-01-17,Toluca,Club Tijuana,3.0,3.0,Liga MX Femenil,3788948,20220117_Toluca_Club-Tijuana
+2022-01-18,Tigres,Chivas,1.0,1.0,Liga MX Femenil,3788934,20220118_Tigres_Chivas
+2022-01-18,Club León,FC Juárez,1.0,3.0,Liga MX Femenil,3788947,20220118_Club-León_FC-Juárez
+2022-01-18,Atlético de San Luis,Cruz Azul,1.0,1.0,Liga MX Femenil,3788960,20220118_Atlético-de-San-Luis_Cruz-Azul
+2022-01-20,Santos Laguna,Necaxa,1.0,1.0,Liga MX Femenil,3788935,20220120_Santos-Laguna_Necaxa
+2022-01-22,Atlas,Santos Laguna,1.0,0.0,Liga MX Femenil,3788936,20220122_Atlas_Santos-Laguna
+2022-01-22,Cruz Azul,Querétaro,0.0,1.0,Liga MX Femenil,3788937,20220122_Cruz-Azul_Querétaro
+2022-01-24,Mazatlán FC,Puebla,0.0,0.0,Liga MX Femenil,3788938,20220124_Mazatlán-FC_Puebla
+2022-01-24,Necaxa,Pumas,1.0,0.0,Liga MX Femenil,3788939,20220124_Necaxa_Pumas
+2022-01-25,CF América,Monterrey,0.0,2.0,Liga MX Femenil,3788940,20220125_CF-América_Monterrey
+2022-01-25,Pachuca,Club León,3.0,0.0,Liga MX Femenil,3788941,20220125_Pachuca_Club-León
+2022-01-25,Chivas,Toluca,2.0,0.0,Liga MX Femenil,3788942,20220125_Chivas_Toluca
+2022-01-25,Club Tijuana,Atlético de San Luis,2.0,2.0,Liga MX Femenil,3788943,20220125_Club-Tijuana_Atlético-de-San-Luis
+2022-01-27,Cruz Azul,FC Juárez,1.0,0.0,Liga MX Femenil,3788946,20220127_Cruz-Azul_FC-Juárez
+2022-01-27,Puebla,Pachuca,1.0,2.0,Liga MX Femenil,3788962,20220127_Puebla_Pachuca
+2022-01-28,Club León,Club Tijuana,1.0,1.0,Liga MX Femenil,3788963,20220128_Club-León_Club-Tijuana
+2022-01-28,Monterrey,Mazatlán FC,4.0,0.0,Liga MX Femenil,3788945,20220128_Monterrey_Mazatlán-FC
+2022-01-28,Santos Laguna,Toluca,1.0,0.0,Liga MX Femenil,3788974,20220128_Santos-Laguna_Toluca
+2022-01-28,Necaxa,Chivas,0.0,3.0,Liga MX Femenil,3788975,20220128_Necaxa_Chivas
+2022-01-28,Atlético de San Luis,CF América,1.0,4.0,Liga MX Femenil,3788976,20220128_Atlético-de-San-Luis_CF-América
+2022-01-28,Querétaro,Pumas,0.0,0.0,Liga MX Femenil,3788977,20220128_Querétaro_Pumas
+2022-01-29,Tigres,Atlas,5.0,1.0,Liga MX Femenil,3788978,20220129_Tigres_Atlas
+2022-01-30,Toluca,Pachuca,1.0,3.0,Liga MX Femenil,3788979,20220130_Toluca_Pachuca
+2022-01-31,Atlas,Puebla,1.0,0.0,Liga MX Femenil,3788981,20220131_Atlas_Puebla
+2022-01-31,CF América,Necaxa,3.0,0.0,Liga MX Femenil,3788973,20220131_CF-América_Necaxa
+2022-02-01,FC Juárez,Monterrey,1.0,3.0,Liga MX Femenil,3788980,20220201_FC-Juárez_Monterrey
+2022-02-01,Chivas,Cruz Azul,1.0,0.0,Liga MX Femenil,3788964,20220201_Chivas_Cruz-Azul
+2022-02-01,Club León,Querétaro,4.0,2.0,Liga MX Femenil,3788965,20220201_Club-León_Querétaro
+2022-02-01,Mazatlán FC,Atlético de San Luis,1.0,0.0,Liga MX Femenil,3788966,20220201_Mazatlán-FC_Atlético-de-San-Luis
+2022-02-01,Pumas,Santos Laguna,4.0,0.0,Liga MX Femenil,3788972,20220201_Pumas_Santos-Laguna
+2022-02-01,Club Tijuana,Tigres,1.0,1.0,Liga MX Femenil,3788967,20220201_Club-Tijuana_Tigres
+2022-02-04,Querétaro,Chivas,2.0,2.0,Liga MX Femenil,3788968,20220204_Querétaro_Chivas
+2022-02-05,Mazatlán FC,Tigres,2.0,4.0,Liga MX Femenil,3788969,20220205_Mazatlán-FC_Tigres
+2022-02-05,Cruz Azul,CF América,1.0,3.0,Liga MX Femenil,3788970,20220205_Cruz-Azul_CF-América
+2022-02-06,Puebla,Club Tijuana,2.0,0.0,Liga MX Femenil,3788971,20220206_Puebla_Club-Tijuana
+2022-02-06,Atlético de San Luis,Toluca,2.0,2.0,Liga MX Femenil,3788982,20220206_Atlético-de-San-Luis_Toluca
+2022-02-07,Necaxa,Atlas,1.0,1.0,Liga MX Femenil,3788983,20220207_Necaxa_Atlas
+2022-02-07,Pachuca,FC Juárez,3.0,1.0,Liga MX Femenil,3789000,20220207_Pachuca_FC-Juárez
+2022-02-08,Monterrey,Pumas,5.0,2.0,Liga MX Femenil,3788999,20220208_Monterrey_Pumas
+2022-02-08,Santos Laguna,Club León,1.0,3.0,Liga MX Femenil,3788998,20220208_Santos-Laguna_Club-León
+2022-02-11,Club León,CF América,1.0,4.0,Liga MX Femenil,3788997,20220211_Club-León_CF-América
+2022-02-11,Tigres,Puebla,2.0,0.0,Liga MX Femenil,3788996,20220211_Tigres_Puebla
+2022-02-11,Club Tijuana,Pachuca,1.0,1.0,Liga MX Femenil,3788995,20220211_Club-Tijuana_Pachuca
+2022-02-11,Querétaro,Mazatlán FC,2.0,1.0,Liga MX Femenil,3788994,20220211_Querétaro_Mazatlán-FC
+2022-02-11,Toluca,Monterrey,1.0,3.0,Liga MX Femenil,3788993,20220211_Toluca_Monterrey
+2022-02-12,Atlas,Atlético de San Luis,1.0,1.0,Liga MX Femenil,3788991,20220212_Atlas_Atlético-de-San-Luis
+2022-02-12,Pumas,Cruz Azul,1.0,1.0,Liga MX Femenil,3788992,20220212_Pumas_Cruz-Azul
+2022-02-13,Chivas,Santos Laguna,1.0,0.0,Liga MX Femenil,3788990,20220213_Chivas_Santos-Laguna
+2022-02-13,FC Juárez,Necaxa,2.0,3.0,Liga MX Femenil,3788989,20220213_FC-Juárez_Necaxa
+2022-02-22,Monterrey,Querétaro,3.0,0.0,Liga MX Femenil,3788954,20220222_Monterrey_Querétaro
+2022-02-24,FC Juárez,Tigres,1.0,2.0,Liga MX Femenil,3788944,20220224_FC-Juárez_Tigres
+2022-02-26,Cruz Azul,Club Tijuana,2.0,2.0,Liga MX Femenil,3788988,20220226_Cruz-Azul_Club-Tijuana
+2022-02-27,Puebla,Pumas,2.0,1.0,Liga MX Femenil,3788987,20220227_Puebla_Pumas
+2022-02-27,Atlético de San Luis,Chivas,0.0,0.0,Liga MX Femenil,3788986,20220227_Atlético-de-San-Luis_Chivas
+2022-02-27,FC Juárez,Toluca,0.0,1.0,Liga MX Femenil,3788985,20220227_FC-Juárez_Toluca
+2022-02-28,CF América,Mazatlán FC,3.0,0.0,Liga MX Femenil,3789001,20220228_CF-América_Mazatlán-FC
+2022-03-01,Necaxa,Club León,0.0,0.0,Liga MX Femenil,3788984,20220301_Necaxa_Club-León
+2022-03-01,Pachuca,Tigres,0.0,1.0,Liga MX Femenil,3789031,20220301_Pachuca_Tigres
+2022-03-01,Santos Laguna,Querétaro,0.0,1.0,Liga MX Femenil,3789030,20220301_Santos-Laguna_Querétaro
+2022-03-01,Monterrey,Atlas,5.0,1.0,Liga MX Femenil,3789029,20220301_Monterrey_Atlas
+2022-03-05,Mazatlán FC,Necaxa,2.0,1.0,Liga MX Femenil,3789028,20220305_Mazatlán-FC_Necaxa
+2022-03-05,Atlas,Club Tijuana,6.0,1.0,Liga MX Femenil,3789027,20220305_Atlas_Club-Tijuana
+2022-03-05,Pumas,Pachuca,1.0,0.0,Liga MX Femenil,3789026,20220305_Pumas_Pachuca
+2022-03-12,Cruz Azul,Santos Laguna,2.0,3.0,Liga MX Femenil,3789005,20220312_Cruz-Azul_Santos-Laguna
+2022-03-13,Mazatlán FC,Club León,0.0,0.0,Liga MX Femenil,3789006,20220313_Mazatlán-FC_Club-León
+2022-03-13,Pachuca,Atlético de San Luis,2.0,0.0,Liga MX Femenil,3789004,20220313_Pachuca_Atlético-de-San-Luis
+2022-03-13,Puebla,FC Juárez,2.0,1.0,Liga MX Femenil,3789003,20220313_Puebla_FC-Juárez
+2022-03-14,CF América,Chivas,1.0,2.0,Liga MX Femenil,3789013,20220314_CF-América_Chivas
+2022-03-14,Toluca,Tigres,2.0,2.0,Liga MX Femenil,3789014,20220314_Toluca_Tigres
+2022-03-15,Monterrey,Necaxa,5.0,2.0,Liga MX Femenil,3789024,20220315_Monterrey_Necaxa
+2022-03-15,Club Tijuana,Pumas,0.0,0.0,Liga MX Femenil,3789023,20220315_Club-Tijuana_Pumas
+2022-03-16,CF América,Querétaro,4.0,1.0,Liga MX Femenil,3789021,20220316_CF-América_Querétaro
+2022-03-17,FC Juárez,Mazatlán FC,1.0,1.0,Liga MX Femenil,3789022,20220317_FC-Juárez_Mazatlán-FC
+2022-03-17,Club León,Puebla,2.0,0.0,Liga MX Femenil,3789019,20220317_Club-León_Puebla
+2022-03-17,Necaxa,Toluca,2.0,2.0,Liga MX Femenil,3789032,20220317_Necaxa_Toluca
+2022-03-18,Santos Laguna,Pachuca,0.0,1.0,Liga MX Femenil,3789018,20220318_Santos-Laguna_Pachuca
+2022-03-18,Tigres,Cruz Azul,4.0,0.0,Liga MX Femenil,3789017,20220318_Tigres_Cruz-Azul
+2022-03-18,Monterrey,Atlético de San Luis,1.0,0.0,Liga MX Femenil,3789020,20220318_Monterrey_Atlético-de-San-Luis
+2022-03-18,Chivas,Club Tijuana,3.0,0.0,Liga MX Femenil,3789015,20220318_Chivas_Club-Tijuana
+2022-03-18,Pumas,Atlas,0.0,0.0,Liga MX Femenil,3789016,20220318_Pumas_Atlas
+2022-03-20,Atlético de San Luis,Santos Laguna,2.0,4.0,Liga MX Femenil,3789033,20220320_Atlético-de-San-Luis_Santos-Laguna
+2022-03-20,Querétaro,Necaxa,3.0,0.0,Liga MX Femenil,3789002,20220320_Querétaro_Necaxa
+2022-03-21,Atlas,FC Juárez,2.0,1.0,Liga MX Femenil,3789063,20220321_Atlas_FC-Juárez
+2022-03-21,Cruz Azul,Pachuca,0.0,2.0,Liga MX Femenil,3789062,20220321_Cruz-Azul_Pachuca
+2022-03-21,Toluca,CF América,0.0,4.0,Liga MX Femenil,3789061,20220321_Toluca_CF-América
+2022-03-22,Chivas,Puebla,1.0,0.0,Liga MX Femenil,3789060,20220322_Chivas_Puebla
+2022-03-22,Tigres,Club León,6.0,0.0,Liga MX Femenil,3789059,20220322_Tigres_Club-León
+2022-03-22,Mazatlán FC,Pumas,0.0,2.0,Liga MX Femenil,3789058,20220322_Mazatlán-FC_Pumas
+2022-03-22,Club Tijuana,Monterrey,2.0,0.0,Liga MX Femenil,3789057,20220322_Club-Tijuana_Monterrey
+2022-03-26,Cruz Azul,Atlas,2.0,1.0,Liga MX Femenil,3789056,20220326_Cruz-Azul_Atlas
+2022-03-27,FC Juárez,Pumas,1.0,0.0,Liga MX Femenil,3789064,20220327_FC-Juárez_Pumas
+2022-03-27,Monterrey,Santos Laguna,3.0,1.0,Liga MX Femenil,3789065,20220327_Monterrey_Santos-Laguna
+2022-03-27,Puebla,CF América,1.0,1.0,Liga MX Femenil,3789066,20220327_Puebla_CF-América
+2022-03-27,Atlético de San Luis,Tigres,0.0,6.0,Liga MX Femenil,3789074,20220327_Atlético-de-San-Luis_Tigres
+2022-03-28,Toluca,Querétaro,3.0,0.0,Liga MX Femenil,3789073,20220328_Toluca_Querétaro
+2022-03-29,Pachuca,Mazatlán FC,5.0,0.0,Liga MX Femenil,3789072,20220329_Pachuca_Mazatlán-FC
+2022-03-29,Club León,Chivas,0.0,2.0,Liga MX Femenil,3789071,20220329_Club-León_Chivas
+2022-03-29,Club Tijuana,Necaxa,1.0,1.0,Liga MX Femenil,3789070,20220329_Club-Tijuana_Necaxa
+2022-03-31,Necaxa,Atlético de San Luis,1.0,2.0,Liga MX Femenil,3789069,20220331_Necaxa_Atlético-de-San-Luis
+2022-04-01,Club León,Cruz Azul,2.0,3.0,Liga MX Femenil,3789068,20220401_Club-León_Cruz-Azul
+2022-04-01,Santos Laguna,Puebla,0.0,0.0,Liga MX Femenil,3789055,20220401_Santos-Laguna_Puebla
+2022-04-01,CF América,FC Juárez,2.0,1.0,Liga MX Femenil,3789054,20220401_CF-América_FC-Juárez
+2022-04-01,Querétaro,Club Tijuana,0.0,2.0,Liga MX Femenil,3789053,20220401_Querétaro_Club-Tijuana
+2022-04-02,Atlas,Toluca,3.0,2.0,Liga MX Femenil,3789041,20220402_Atlas_Toluca
+2022-04-02,Pumas,Tigres,0.0,1.0,Liga MX Femenil,3789040,20220402_Pumas_Tigres
+2022-04-04,Mazatlán FC,Chivas,0.0,1.0,Liga MX Femenil,3789042,20220404_Mazatlán-FC_Chivas
+2022-04-04,Monterrey,Pachuca,5.0,0.0,Liga MX Femenil,3789067,20220404_Monterrey_Pachuca
+2022-04-07,Querétaro,Atlas,1.0,3.0,Liga MX Femenil,3789007,20220407_Querétaro_Atlas
+2022-04-11,Club León,Monterrey,1.0,6.0,Liga MX Femenil,3789010,20220411_Club-León_Monterrey
+2022-04-11,Atlético de San Luis,Puebla,3.0,1.0,Liga MX Femenil,3789025,20220411_Atlético-de-San-Luis_Puebla
+2022-04-11,Chivas,FC Juárez,0.0,0.0,Liga MX Femenil,3789011,20220411_Chivas_FC-Juárez
+2022-04-11,Toluca,Cruz Azul,3.0,1.0,Liga MX Femenil,3789012,20220411_Toluca_Cruz-Azul
+2022-04-12,Santos Laguna,CF América,0.0,3.0,Liga MX Femenil,3789008,20220412_Santos-Laguna_CF-América
+2022-04-15,Tigres,Querétaro,0.0,0.0,Liga MX Femenil,3789009,20220415_Tigres_Querétaro
+2022-04-16,Cruz Azul,Monterrey,1.0,3.0,Liga MX Femenil,3789039,20220416_Cruz-Azul_Monterrey
+2022-04-16,Atlético de San Luis,Club León,4.0,0.0,Liga MX Femenil,3789036,20220416_Atlético-de-San-Luis_Club-León
+2022-04-17,Puebla,Necaxa,0.0,1.0,Liga MX Femenil,3789037,20220417_Puebla_Necaxa
+2022-04-17,FC Juárez,Querétaro,2.0,1.0,Liga MX Femenil,3789035,20220417_FC-Juárez_Querétaro
+2022-04-18,Chivas,Pumas,2.0,1.0,Liga MX Femenil,3789038,20220418_Chivas_Pumas
+2022-04-18,Toluca,Mazatlán FC,2.0,0.0,Liga MX Femenil,3789043,20220418_Toluca_Mazatlán-FC
+2022-04-19,Pachuca,Atlas,2.0,2.0,Liga MX Femenil,3789044,20220419_Pachuca_Atlas
+2022-04-19,Tigres,Santos Laguna,4.0,1.0,Liga MX Femenil,3789052,20220419_Tigres_Santos-Laguna
+2022-04-19,Club Tijuana,CF América,2.0,2.0,Liga MX Femenil,3789051,20220419_Club-Tijuana_CF-América
+2022-04-22,Necaxa,Cruz Azul,1.0,2.0,Liga MX Femenil,3789046,20220422_Necaxa_Cruz-Azul
+2022-04-22,Querétaro,Puebla,1.0,0.0,Liga MX Femenil,3789050,20220422_Querétaro_Puebla
+2022-04-23,Atlas,Chivas,0.0,1.0,Liga MX Femenil,3789048,20220423_Atlas_Chivas
+2022-04-23,Pumas,Atlético de San Luis,2.0,1.0,Liga MX Femenil,3789047,20220423_Pumas_Atlético-de-San-Luis
+2022-04-25,Mazatlán FC,Club Tijuana,2.0,1.0,Liga MX Femenil,3789049,20220425_Mazatlán-FC_Club-Tijuana
+2022-04-26,CF América,Pachuca,4.0,0.0,Liga MX Femenil,3789045,20220426_CF-América_Pachuca
+2022-04-26,Club León,Toluca,2.0,2.0,Liga MX Femenil,3789034,20220426_Club-León_Toluca
+2022-04-26,Santos Laguna,FC Juárez,3.0,1.0,Liga MX Femenil,3789081,20220426_Santos-Laguna_FC-Juárez
+2022-04-26,Monterrey,Tigres,0.0,0.0,Liga MX Femenil,3789080,20220426_Monterrey_Tigres
+2022-04-29,Atlético de San Luis,Querétaro,3.0,1.0,Liga MX Femenil,3789077,20220429_Atlético-de-San-Luis_Querétaro
+2022-04-30,Cruz Azul,Puebla,3.0,1.0,Liga MX Femenil,3789079,20220430_Cruz-Azul_Puebla
+2022-05-01,Pachuca,Necaxa,1.0,1.0,Liga MX Femenil,3789078,20220501_Pachuca_Necaxa
+2022-05-01,Tigres,CF América,1.0,1.0,Liga MX Femenil,3789076,20220501_Tigres_CF-América
+2022-05-02,Atlas,Club León,2.0,1.0,Liga MX Femenil,3789075,20220502_Atlas_Club-León
+2022-05-02,Toluca,Pumas,2.0,3.0,Liga MX Femenil,3789082,20220502_Toluca_Pumas
+2022-05-03,Chivas,Monterrey,1.0,0.0,Liga MX Femenil,3789083,20220503_Chivas_Monterrey
+2022-05-03,Santos Laguna,Mazatlán FC,1.0,0.0,Liga MX Femenil,3789084,20220503_Santos-Laguna_Mazatlán-FC
+2022-05-03,Club Tijuana,FC Juárez,3.0,2.0,Liga MX Femenil,3789085,20220503_Club-Tijuana_FC-Juárez
+2022-05-05,Atlas,Tigres,0.0,7.0,Liga MX Femenil,3871391,20220505_Atlas_Tigres
+2022-05-06,Pachuca,CF América,2.0,1.0,Liga MX Femenil,3871390,20220506_Pachuca_CF-América
+2022-05-06,Pumas,Chivas,2.0,2.0,Liga MX Femenil,3871393,20220506_Pumas_Chivas
+2022-05-07,Club Tijuana,Monterrey,0.0,1.0,Liga MX Femenil,3871392,20220507_Club-Tijuana_Monterrey
+2022-05-08,CF América,Pachuca,1.0,2.0,Liga MX Femenil,3871396,20220508_CF-América_Pachuca
+2022-05-09,Tigres,Atlas,2.0,1.0,Liga MX Femenil,3871397,20220509_Tigres_Atlas
+2022-05-10,Chivas,Pumas,3.0,2.0,Liga MX Femenil,3871399,20220510_Chivas_Pumas
+2022-05-10,Monterrey,Club Tijuana,2.0,1.0,Liga MX Femenil,3871398,20220510_Monterrey_Club-Tijuana
+2022-05-13,Pachuca,Monterrey,2.0,0.0,Liga MX Femenil,3873946,20220513_Pachuca_Monterrey
+2022-05-14,Tigres,Chivas,2.0,0.0,Liga MX Femenil,3873948,20220514_Tigres_Chivas
+2022-05-17,Chivas,Tigres,2.0,0.0,Liga MX Femenil,3873949,20220517_Chivas_Tigres
+2022-05-17,Monterrey,Pachuca,2.0,1.0,Liga MX Femenil,3873947,20220517_Monterrey_Pachuca
+2022-05-21,Pachuca,Chivas,2.0,4.0,Liga MX Femenil,3878152,20220521_Pachuca_Chivas
+2022-05-24,Chivas,Pachuca,0.0,1.0,Liga MX Femenil,3878153,20220524_Chivas_Pachuca
+2022-05-28,Chivas,Monterrey,1.0,1.0,Liga MX Femenil,3882355,20220528_Chivas_Monterrey
+2022-05-31,Monterrey,Chivas,0.0,0.0,Liga MX Femenil,3882356,20220531_Monterrey_Chivas
+2022-07-08,CF América,Toluca,2.0,1.0,Liga MX Femenil,3896361,20220708_CF-América_Toluca
+2022-07-09,Atlas,Tigres,1.0,0.0,Liga MX Femenil,3896377,20220709_Atlas_Tigres
+2022-07-09,Pumas,Mazatlán FC,3.0,0.0,Liga MX Femenil,3896376,20220709_Pumas_Mazatlán-FC
+2022-07-10,Atlético de San Luis,Monterrey,3.0,4.0,Liga MX Femenil,3896375,20220710_Atlético-de-San-Luis_Monterrey
+2022-07-11,Santos Laguna,Querétaro,4.0,3.0,Liga MX Femenil,3896374,20220711_Santos-Laguna_Querétaro
+2022-07-11,FC Juárez,Cruz Azul,1.0,2.0,Liga MX Femenil,3896373,20220711_FC-Juárez_Cruz-Azul
+2022-07-11,Necaxa,Club León,0.0,2.0,Liga MX Femenil,3896372,20220711_Necaxa_Club-León
+2022-07-11,Pachuca,Puebla,3.0,0.0,Liga MX Femenil,3896371,20220711_Pachuca_Puebla
+2022-07-12,Chivas,Club Tijuana,2.0,1.0,Liga MX Femenil,3896370,20220712_Chivas_Club-Tijuana
+2022-07-15,Querétaro,Monterrey,3.0,2.0,Liga MX Femenil,3896369,20220715_Querétaro_Monterrey
+2022-07-16,Cruz Azul,Tigres,0.0,0.0,Liga MX Femenil,3896368,20220716_Cruz-Azul_Tigres
+2022-07-17,Chivas,Necaxa,3.0,0.0,Liga MX Femenil,3896366,20220717_Chivas_Necaxa
+2022-07-17,Mazatlán FC,FC Juárez,1.0,2.0,Liga MX Femenil,3896367,20220717_Mazatlán-FC_FC-Juárez
+2022-07-18,Club Tijuana,Atlético de San Luis,2.0,0.0,Liga MX Femenil,3896364,20220718_Club-Tijuana_Atlético-de-San-Luis
+2022-07-18,Puebla,Pumas,1.0,2.0,Liga MX Femenil,3896365,20220718_Puebla_Pumas
+2022-07-18,Club León,Atlas,1.0,1.0,Liga MX Femenil,3896362,20220718_Club-León_Atlas
+2022-07-18,Toluca,Pachuca,3.0,2.0,Liga MX Femenil,3896363,20220718_Toluca_Pachuca
+2022-07-20,CF América,Santos Laguna,2.0,0.0,Liga MX Femenil,3896378,20220720_CF-América_Santos-Laguna
+2022-07-23,Atlas,CF América,2.0,2.0,Liga MX Femenil,3896379,20220723_Atlas_CF-América
+2022-07-23,Pumas,Toluca,1.0,2.0,Liga MX Femenil,3896398,20220723_Pumas_Toluca
+2022-07-24,Atlético de San Luis,Chivas,0.0,1.0,Liga MX Femenil,3896399,20220724_Atlético-de-San-Luis_Chivas
+2022-07-24,Club León,Cruz Azul,0.0,2.0,Liga MX Femenil,3896400,20220724_Club-León_Cruz-Azul
+2022-07-25,Necaxa,Mazatlán FC,1.0,1.0,Liga MX Femenil,3896401,20220725_Necaxa_Mazatlán-FC
+2022-07-26,Santos Laguna,Pachuca,3.0,2.0,Liga MX Femenil,3896403,20220726_Santos-Laguna_Pachuca
+2022-07-26,Tigres,Querétaro,4.0,0.0,Liga MX Femenil,3896402,20220726_Tigres_Querétaro
+2022-07-26,FC Juárez,Club Tijuana,0.0,1.0,Liga MX Femenil,3896404,20220726_FC-Juárez_Club-Tijuana
+2022-07-26,Monterrey,Puebla,3.0,1.0,Liga MX Femenil,3896405,20220726_Monterrey_Puebla
+2022-07-28,Cruz Azul,Atlas,0.0,0.0,Liga MX Femenil,3896406,20220728_Cruz-Azul_Atlas
+2022-07-28,Puebla,Atlético de San Luis,6.0,2.0,Liga MX Femenil,3896408,20220728_Puebla_Atlético-de-San-Luis
+2022-07-28,Pachuca,Club León,3.0,0.0,Liga MX Femenil,3896407,20220728_Pachuca_Club-León
+2022-07-29,Chivas,Querétaro,2.0,0.0,Liga MX Femenil,3896409,20220729_Chivas_Querétaro
+2022-07-29,Club Tijuana,Monterrey,2.0,2.0,Liga MX Femenil,3896410,20220729_Club-Tijuana_Monterrey
+2022-07-29,FC Juárez,Pumas,1.0,4.0,Liga MX Femenil,3896411,20220729_FC-Juárez_Pumas
+2022-07-29,Toluca,Santos Laguna,2.0,0.0,Liga MX Femenil,3896412,20220729_Toluca_Santos-Laguna
+2022-07-30,Mazatlán FC,CF América,0.0,3.0,Liga MX Femenil,3896397,20220730_Mazatlán-FC_CF-América
+2022-07-30,Tigres,Necaxa,2.0,0.0,Liga MX Femenil,3896396,20220730_Tigres_Necaxa
+2022-07-31,Atlético de San Luis,Cruz Azul,2.0,1.0,Liga MX Femenil,3896395,20220731_Atlético-de-San-Luis_Cruz-Azul
+2022-07-31,Querétaro,Club Tijuana,1.0,2.0,Liga MX Femenil,3896380,20220731_Querétaro_Club-Tijuana
+2022-08-01,Atlas,Toluca,2.0,2.0,Liga MX Femenil,3896381,20220801_Atlas_Toluca
+2022-08-01,Necaxa,Pumas,2.0,2.0,Liga MX Femenil,3896382,20220801_Necaxa_Pumas
+2022-08-01,Pachuca,Chivas,0.0,1.0,Liga MX Femenil,3896383,20220801_Pachuca_Chivas
+2022-08-02,CF América,Tigres,0.0,1.0,Liga MX Femenil,3896384,20220802_CF-América_Tigres
+2022-08-02,Santos Laguna,Club León,1.0,2.0,Liga MX Femenil,3896385,20220802_Santos-Laguna_Club-León
+2022-08-02,Mazatlán FC,Puebla,1.0,0.0,Liga MX Femenil,3896386,20220802_Mazatlán-FC_Puebla
+2022-08-02,Monterrey,FC Juárez,1.0,1.0,Liga MX Femenil,3896387,20220802_Monterrey_FC-Juárez
+2022-08-05,Querétaro,Mazatlán FC,2.0,2.0,Liga MX Femenil,3896388,20220805_Querétaro_Mazatlán-FC
+2022-08-06,Tigres,Puebla,4.0,1.0,Liga MX Femenil,3896389,20220806_Tigres_Puebla
+2022-08-06,Cruz Azul,Santos Laguna,0.0,1.0,Liga MX Femenil,3896390,20220806_Cruz-Azul_Santos-Laguna
+2022-08-06,Pumas,Atlético de San Luis,3.0,0.0,Liga MX Femenil,3896391,20220806_Pumas_Atlético-de-San-Luis
+2022-08-08,Chivas,Toluca,2.0,0.0,Liga MX Femenil,3896393,20220808_Chivas_Toluca
+2022-08-08,Necaxa,Monterrey,0.0,4.0,Liga MX Femenil,3896392,20220808_Necaxa_Monterrey
+2022-08-09,Club León,CF América,2.0,2.0,Liga MX Femenil,3896413,20220809_Club-León_CF-América
+2022-08-09,FC Juárez,Atlas,0.0,2.0,Liga MX Femenil,3896394,20220809_FC-Juárez_Atlas
+2022-08-09,Club Tijuana,Pachuca,3.0,3.0,Liga MX Femenil,3896445,20220809_Club-Tijuana_Pachuca
+2022-08-11,CF América,Necaxa,3.0,1.0,Liga MX Femenil,3896444,20220811_CF-América_Necaxa
+2022-08-12,Monterrey,Club León,3.0,0.0,Liga MX Femenil,3896443,20220812_Monterrey_Club-León
+2022-08-13,Atlas,Chivas,1.0,3.0,Liga MX Femenil,3896442,20220813_Atlas_Chivas
+2022-08-14,Puebla,Club Tijuana,3.0,2.0,Liga MX Femenil,3896441,20220814_Puebla_Club-Tijuana
+2022-08-14,Atlético de San Luis,FC Juárez,2.0,0.0,Liga MX Femenil,3896440,20220814_Atlético-de-San-Luis_FC-Juárez
+2022-08-15,Toluca,Cruz Azul,2.0,0.0,Liga MX Femenil,3896439,20220815_Toluca_Cruz-Azul
+2022-08-16,Pachuca,Querétaro,4.0,1.0,Liga MX Femenil,3896438,20220816_Pachuca_Querétaro
+2022-08-16,Mazatlán FC,Tigres,0.0,8.0,Liga MX Femenil,3896437,20220816_Mazatlán-FC_Tigres
+2022-08-16,Santos Laguna,Pumas,1.0,2.0,Liga MX Femenil,3896446,20220816_Santos-Laguna_Pumas
+2022-08-19,Chivas,Santos Laguna,3.0,1.0,Liga MX Femenil,3896447,20220819_Chivas_Santos-Laguna
+2022-08-20,Querétaro,Atlas,0.0,0.0,Liga MX Femenil,3896448,20220820_Querétaro_Atlas
+2022-08-20,Tigres,Pachuca,3.0,1.0,Liga MX Femenil,3896456,20220820_Tigres_Pachuca
+2022-08-20,Club Tijuana,Pumas,4.0,1.0,Liga MX Femenil,3896457,20220820_Club-Tijuana_Pumas
+2022-08-20,Cruz Azul,Necaxa,3.0,0.0,Liga MX Femenil,3896455,20220820_Cruz-Azul_Necaxa
+2022-08-22,Toluca,FC Juárez,1.0,2.0,Liga MX Femenil,3896453,20220822_Toluca_FC-Juárez
+2022-08-23,Club León,Atlético de San Luis,0.0,1.0,Liga MX Femenil,3896451,20220823_Club-León_Atlético-de-San-Luis
+2022-08-23,Mazatlán FC,Monterrey,0.0,1.0,Liga MX Femenil,3896452,20220823_Mazatlán-FC_Monterrey
+2022-08-23,Pumas,Querétaro,1.0,1.0,Liga MX Femenil,3896436,20220823_Pumas_Querétaro
+2022-08-24,Atlas,Club Tijuana,0.0,2.0,Liga MX Femenil,3896450,20220824_Atlas_Club-Tijuana
+2022-08-24,CF América,Cruz Azul,3.0,0.0,Liga MX Femenil,3896449,20220824_CF-América_Cruz-Azul
+2022-08-25,Necaxa,Puebla,3.0,3.0,Liga MX Femenil,3896435,20220825_Necaxa_Puebla
+2022-08-25,Santos Laguna,Tigres,1.0,4.0,Liga MX Femenil,3896423,20220825_Santos-Laguna_Tigres
+2022-08-25,Atlético de San Luis,Pachuca,2.0,4.0,Liga MX Femenil,3896422,20220825_Atlético-de-San-Luis_Pachuca
+2022-08-25,Club León,Mazatlán FC,3.0,1.0,Liga MX Femenil,3896421,20220825_Club-León_Mazatlán-FC
+2022-08-26,FC Juárez,Chivas,1.0,0.0,Liga MX Femenil,3896420,20220826_FC-Juárez_Chivas
+2022-08-27,Atlas,Santos Laguna,2.0,1.0,Liga MX Femenil,3896418,20220827_Atlas_Santos-Laguna
+2022-08-28,Querétaro,Necaxa,0.0,2.0,Liga MX Femenil,3896417,20220828_Querétaro_Necaxa
+2022-08-28,Club Tijuana,CF América,1.0,3.0,Liga MX Femenil,3896416,20220828_Club-Tijuana_CF-América
+2022-08-28,Chivas,Mazatlán FC,7.0,0.0,Liga MX Femenil,3896415,20220828_Chivas_Mazatlán-FC
+2022-08-28,Cruz Azul,Puebla,2.0,0.0,Liga MX Femenil,3896424,20220828_Cruz-Azul_Puebla
+2022-08-28,Pachuca,Monterrey,0.0,1.0,Liga MX Femenil,3896425,20220828_Pachuca_Monterrey
+2022-08-29,Tigres,Pumas,3.0,0.0,Liga MX Femenil,3896434,20220829_Tigres_Pumas
+2022-08-29,FC Juárez,Club León,2.0,4.0,Liga MX Femenil,3896433,20220829_FC-Juárez_Club-León
+2022-08-29,Toluca,Atlético de San Luis,2.0,0.0,Liga MX Femenil,3896432,20220829_Toluca_Atlético-de-San-Luis
+2022-09-04,Puebla,CF América,1.0,0.0,Liga MX Femenil,3896454,20220904_Puebla_CF-América
+2022-09-06,Monterrey,Toluca,5.0,2.0,Liga MX Femenil,3896419,20220906_Monterrey_Toluca
+2022-09-09,Pumas,Cruz Azul,2.0,2.0,Liga MX Femenil,3896431,20220909_Pumas_Cruz-Azul
+2022-09-11,Puebla,Chivas,2.0,3.0,Liga MX Femenil,3896430,20220911_Puebla_Chivas
+2022-09-11,Atlético de San Luis,Tigres,1.0,5.0,Liga MX Femenil,3896429,20220911_Atlético-de-San-Luis_Tigres
+2022-09-12,CF América,FC Juárez,2.0,0.0,Liga MX Femenil,3896426,20220912_CF-América_FC-Juárez
+2022-09-12,Necaxa,Pachuca,0.0,1.0,Liga MX Femenil,3896428,20220912_Necaxa_Pachuca
+2022-09-12,Club León,Querétaro,0.0,1.0,Liga MX Femenil,3896427,20220912_Club-León_Querétaro
+2022-09-13,Santos Laguna,Club Tijuana,1.0,2.0,Liga MX Femenil,3896414,20220913_Santos-Laguna_Club-Tijuana
+2022-09-13,Mazatlán FC,Toluca,3.0,1.0,Liga MX Femenil,3896465,20220913_Mazatlán-FC_Toluca
+2022-09-13,Monterrey,Atlas,4.0,1.0,Liga MX Femenil,3896464,20220913_Monterrey_Atlas
+2022-09-16,Querétaro,Puebla,1.0,0.0,Liga MX Femenil,3896463,20220916_Querétaro_Puebla
+2022-09-17,Atlas,Atlético de San Luis,2.0,3.0,Liga MX Femenil,3896462,20220917_Atlas_Atlético-de-San-Luis
+2022-09-17,Cruz Azul,Mazatlán FC,1.0,0.0,Liga MX Femenil,3896461,20220917_Cruz-Azul_Mazatlán-FC
+2022-09-19,Toluca,Necaxa,2.0,1.0,Liga MX Femenil,3896460,20220919_Toluca_Necaxa
+2022-09-19,Pachuca,Pumas,3.0,0.0,Liga MX Femenil,3896459,20220919_Pachuca_Pumas
+2022-09-20,CF América,Monterrey,1.0,2.0,Liga MX Femenil,3896466,20220920_CF-América_Monterrey
+2022-09-20,Club Tijuana,Club León,2.0,2.0,Liga MX Femenil,3896458,20220920_Club-Tijuana_Club-León
+2022-09-20,Chivas,Tigres,1.0,0.0,Liga MX Femenil,3896483,20220920_Chivas_Tigres
+2022-09-20,FC Juárez,Santos Laguna,4.0,1.0,Liga MX Femenil,3896467,20220920_FC-Juárez_Santos-Laguna
+2022-09-22,Necaxa,Santos Laguna,1.0,1.0,Liga MX Femenil,3896486,20220922_Necaxa_Santos-Laguna
+2022-09-22,Querétaro,Toluca,2.0,3.0,Liga MX Femenil,3896490,20220922_Querétaro_Toluca
+2022-09-23,Atlético de San Luis,CF América,1.0,3.0,Liga MX Femenil,3896485,20220923_Atlético-de-San-Luis_CF-América
+2022-09-23,Pachuca,Atlas,4.0,0.0,Liga MX Femenil,3896487,20220923_Pachuca_Atlas
+2022-09-23,Mazatlán FC,Club Tijuana,0.0,5.0,Liga MX Femenil,3896488,20220923_Mazatlán-FC_Club-Tijuana
+2022-09-23,Monterrey,Cruz Azul,1.0,0.0,Liga MX Femenil,3896489,20220923_Monterrey_Cruz-Azul
+2022-09-23,Pumas,Chivas,1.0,2.0,Liga MX Femenil,3896491,20220923_Pumas_Chivas
+2022-09-24,Tigres,FC Juárez,3.0,0.0,Liga MX Femenil,3896492,20220924_Tigres_FC-Juárez
+2022-09-25,Cruz Azul,Club Tijuana,1.0,1.0,Liga MX Femenil,3896493,20220925_Cruz-Azul_Club-Tijuana
+2022-09-25,Atlético de San Luis,Querétaro,1.0,0.0,Liga MX Femenil,3896494,20220925_Atlético-de-San-Luis_Querétaro
+2022-09-26,Atlas,Puebla,2.0,0.0,Liga MX Femenil,3896495,20220926_Atlas_Puebla
+2022-09-26,Toluca,Tigres,1.0,4.0,Liga MX Femenil,3896482,20220926_Toluca_Tigres
+2022-09-26,Club León,Chivas,0.0,1.0,Liga MX Femenil,3896481,20220926_Club-León_Chivas
+2022-09-27,CF América,Pachuca,2.0,1.0,Liga MX Femenil,3896468,20220927_CF-América_Pachuca
+2022-09-27,Santos Laguna,Mazatlán FC,3.0,2.0,Liga MX Femenil,3896469,20220927_Santos-Laguna_Mazatlán-FC
+2022-09-27,FC Juárez,Necaxa,3.0,0.0,Liga MX Femenil,3896470,20220927_FC-Juárez_Necaxa
+2022-09-27,Monterrey,Pumas,6.0,0.0,Liga MX Femenil,3896471,20220927_Monterrey_Pumas
+2022-09-30,Querétaro,Cruz Azul,0.0,1.0,Liga MX Femenil,3896472,20220930_Querétaro_Cruz-Azul
+2022-10-01,Club Tijuana,Toluca,1.0,0.0,Liga MX Femenil,3896473,20221001_Club-Tijuana_Toluca
+2022-10-01,Tigres,Monterrey,2.0,2.0,Liga MX Femenil,3896474,20221001_Tigres_Monterrey
+2022-10-01,Pumas,Club León,4.0,0.0,Liga MX Femenil,3896475,20221001_Pumas_Club-León
+2022-10-02,Puebla,Santos Laguna,1.0,3.0,Liga MX Femenil,3896476,20221002_Puebla_Santos-Laguna
+2022-10-02,Necaxa,Atlas,0.0,2.0,Liga MX Femenil,3896477,20221002_Necaxa_Atlas
+2022-10-03,Pachuca,FC Juárez,3.0,2.0,Liga MX Femenil,3896478,20221003_Pachuca_FC-Juárez
+2022-10-03,Mazatlán FC,Atlético de San Luis,1.0,3.0,Liga MX Femenil,3896480,20221003_Mazatlán-FC_Atlético-de-San-Luis
+2022-10-03,Chivas,CF América,2.0,2.0,Liga MX Femenil,3896479,20221003_Chivas_CF-América
+2022-10-15,Atlas,Mazatlán FC,5.0,0.0,Liga MX Femenil,3896496,20221015_Atlas_Mazatlán-FC
+2022-10-15,Cruz Azul,Pachuca,1.0,0.0,Liga MX Femenil,3896497,20221015_Cruz-Azul_Pachuca
+2022-10-16,Atlético de San Luis,Santos Laguna,0.0,2.0,Liga MX Femenil,3896506,20221016_Atlético-de-San-Luis_Santos-Laguna
+2022-10-17,CF América,Pumas,6.0,1.0,Liga MX Femenil,3896502,20221017_CF-América_Pumas
+2022-10-17,Club León,Tigres,2.0,0.0,Liga MX Femenil,3896504,20221017_Club-León_Tigres
+2022-10-17,Toluca,Puebla,1.0,1.0,Liga MX Femenil,3896505,20221017_Toluca_Puebla
+2022-10-18,Club Tijuana,Necaxa,1.0,1.0,Liga MX Femenil,3896503,20221018_Club-Tijuana_Necaxa
+2022-10-18,FC Juárez,Querétaro,2.0,1.0,Liga MX Femenil,3896501,20221018_FC-Juárez_Querétaro
+2022-10-18,Monterrey,Chivas,1.0,0.0,Liga MX Femenil,3896500,20221018_Monterrey_Chivas
+2022-10-20,Puebla,Club León,0.0,3.0,Liga MX Femenil,3896484,20221020_Puebla_Club-León
+2022-10-21,Querétaro,CF América,0.0,1.0,Liga MX Femenil,3896499,20221021_Querétaro_CF-América
+2022-10-21,Pumas,Atlas,3.0,2.0,Liga MX Femenil,3896498,20221021_Pumas_Atlas
+2022-10-23,Puebla,FC Juárez,0.0,3.0,Liga MX Femenil,3896507,20221023_Puebla_FC-Juárez
+2022-10-24,Club León,Toluca,1.0,2.0,Liga MX Femenil,3896510,20221024_Club-León_Toluca
+2022-10-24,Necaxa,Atlético de San Luis,0.0,2.0,Liga MX Femenil,3896508,20221024_Necaxa_Atlético-de-San-Luis
+2022-10-25,Chivas,Cruz Azul,3.0,0.0,Liga MX Femenil,3896509,20221025_Chivas_Cruz-Azul
+2022-10-25,Tigres,Club Tijuana,5.0,2.0,Liga MX Femenil,3896511,20221025_Tigres_Club-Tijuana
+2022-10-25,Mazatlán FC,Pachuca,3.0,1.0,Liga MX Femenil,3896512,20221025_Mazatlán-FC_Pachuca
+2022-10-25,Santos Laguna,Monterrey,0.0,4.0,Liga MX Femenil,3896513,20221025_Santos-Laguna_Monterrey
+2022-10-27,Cruz Azul,Chivas,0.0,1.0,Liga MX Femenil,4054371,20221027_Cruz-Azul_Chivas
+2022-10-28,Pachuca,Monterrey,2.0,1.0,Liga MX Femenil,4054369,20221028_Pachuca_Monterrey
+2022-10-29,Toluca,Tigres,0.0,4.0,Liga MX Femenil,4054373,20221029_Toluca_Tigres
+2022-10-29,Club Tijuana,CF América,0.0,1.0,Liga MX Femenil,4054367,20221029_Club-Tijuana_CF-América
+2022-10-30,Chivas,Cruz Azul,1.0,1.0,Liga MX Femenil,4054372,20221030_Chivas_Cruz-Azul
+2022-10-31,CF América,Club Tijuana,2.0,0.0,Liga MX Femenil,4054368,20221031_CF-América_Club-Tijuana
+2022-11-01,Tigres,Toluca,5.0,0.0,Liga MX Femenil,4054374,20221101_Tigres_Toluca
+2022-11-01,Monterrey,Pachuca,4.0,0.0,Liga MX Femenil,4054370,20221101_Monterrey_Pachuca
+2022-11-05,CF América,Chivas,3.0,1.0,Liga MX Femenil,4057374,20221105_CF-América_Chivas
+2022-11-05,Tigres,Monterrey,2.0,1.0,Liga MX Femenil,4057376,20221105_Tigres_Monterrey
+2022-11-08,Chivas,CF América,3.0,3.0,Liga MX Femenil,4057375,20221108_Chivas_CF-América
+2022-11-08,Monterrey,Tigres,2.0,2.0,Liga MX Femenil,4057388,20221108_Monterrey_Tigres
+2022-11-12,CF América,Tigres,0.0,1.0,Liga MX Femenil,4060898,20221112_CF-América_Tigres
+2022-11-15,Tigres,CF América,2.0,0.0,Liga MX Femenil,4060899,20221115_Tigres_CF-América
+2023-01-06,Querétaro,Pachuca,0.0,1.0,Liga MX Femenil,4071585,20230106_Querétaro_Pachuca
+2023-01-07,Chivas,Pumas,5.0,1.0,Liga MX Femenil,4071598,20230107_Chivas_Pumas
+2023-01-07,Cruz Azul,CF América,1.0,1.0,Liga MX Femenil,4071599,20230107_Cruz-Azul_CF-América
+2023-01-08,Puebla,Monterrey,0.0,2.0,Liga MX Femenil,4071600,20230108_Puebla_Monterrey
+2023-01-08,FC Juárez,Mazatlán FC,7.0,0.0,Liga MX Femenil,4071601,20230108_FC-Juárez_Mazatlán-FC
+2023-01-09,Toluca,Club Tijuana,0.0,1.0,Liga MX Femenil,4071602,20230109_Toluca_Club-Tijuana
+2023-01-09,Club León,Necaxa,2.0,0.0,Liga MX Femenil,4071603,20230109_Club-León_Necaxa
+2023-01-10,Tigres,Atlas,6.0,0.0,Liga MX Femenil,4071604,20230110_Tigres_Atlas
+2023-01-10,Santos Laguna,Atlético de San Luis,2.0,0.0,Liga MX Femenil,4071605,20230110_Santos-Laguna_Atlético-de-San-Luis
+2023-01-13,Querétaro,FC Juárez,0.0,1.0,Liga MX Femenil,4071606,20230113_Querétaro_FC-Juárez
+2023-01-14,Pumas,Tigres,1.0,3.0,Liga MX Femenil,4071597,20230114_Pumas_Tigres
+2023-01-15,Atlético de San Luis,Club León,3.0,1.0,Liga MX Femenil,4071596,20230115_Atlético-de-San-Luis_Club-León
+2023-01-16,Club Tijuana,Cruz Azul,1.0,1.0,Liga MX Femenil,4071595,20230116_Club-Tijuana_Cruz-Azul
+2023-01-16,Necaxa,Chivas,1.0,4.0,Liga MX Femenil,4071586,20230116_Necaxa_Chivas
+2023-01-16,Pachuca,Toluca,10.0,2.0,Liga MX Femenil,4071587,20230116_Pachuca_Toluca
+2023-01-17,CF América,Puebla,7.0,0.0,Liga MX Femenil,4071588,20230117_CF-América_Puebla
+2023-01-17,Monterrey,Santos Laguna,2.0,1.0,Liga MX Femenil,4071589,20230117_Monterrey_Santos-Laguna
+2023-01-17,Mazatlán FC,Atlas,0.0,2.0,Liga MX Femenil,4071590,20230117_Mazatlán-FC_Atlas
+2023-01-20,FC Juárez,Pachuca,2.0,0.0,Liga MX Femenil,4071591,20230120_FC-Juárez_Pachuca
+2023-01-21,Atlas,Necaxa,4.0,1.0,Liga MX Femenil,4071592,20230121_Atlas_Necaxa
+2023-01-21,Cruz Azul,Atlético de San Luis,3.0,0.0,Liga MX Femenil,4071593,20230121_Cruz-Azul_Atlético-de-San-Luis
+2023-01-22,CF América,Club Tijuana,5.0,0.0,Liga MX Femenil,4071594,20230122_CF-América_Club-Tijuana
+2023-01-23,Toluca,Querétaro,0.0,1.0,Liga MX Femenil,4071613,20230123_Toluca_Querétaro
+2023-01-23,Club León,Pumas,0.0,3.0,Liga MX Femenil,4071641,20230123_Club-León_Pumas
+2023-01-24,Monterrey,Mazatlán FC,9.0,0.0,Liga MX Femenil,4071640,20230124_Monterrey_Mazatlán-FC
+2023-01-24,Santos Laguna,Chivas,1.0,2.0,Liga MX Femenil,4071639,20230124_Santos-Laguna_Chivas
+2023-01-24,Puebla,Tigres,0.0,2.0,Liga MX Femenil,4071607,20230124_Puebla_Tigres
+2023-01-28,Querétaro,Santos Laguna,0.0,0.0,Liga MX Femenil,4071638,20230128_Querétaro_Santos-Laguna
+2023-01-28,Pumas,Pachuca,2.0,3.0,Liga MX Femenil,4071637,20230128_Pumas_Pachuca
+2023-01-28,Club León,Monterrey,0.0,1.0,Liga MX Femenil,4071636,20230128_Club-León_Monterrey
+2023-01-29,Atlético de San Luis,Atlas,5.0,1.0,Liga MX Femenil,4071635,20230129_Atlético-de-San-Luis_Atlas
+2023-01-30,Club Tijuana,Puebla,4.0,1.0,Liga MX Femenil,4071634,20230130_Club-Tijuana_Puebla
+2023-01-30,Necaxa,CF América,0.0,6.0,Liga MX Femenil,4071642,20230130_Necaxa_CF-América
+2023-01-31,Tigres,Toluca,2.0,0.0,Liga MX Femenil,4071643,20230131_Tigres_Toluca
+2023-01-31,Mazatlán FC,Cruz Azul,1.0,3.0,Liga MX Femenil,4071650,20230131_Mazatlán-FC_Cruz-Azul
+2023-01-31,Chivas,FC Juárez,2.0,1.0,Liga MX Femenil,4071651,20230131_Chivas_FC-Juárez
+2023-02-03,Toluca,Chivas,0.0,0.0,Liga MX Femenil,4071649,20230203_Toluca_Chivas
+2023-02-04,Atlas,FC Juárez,1.0,2.0,Liga MX Femenil,4071648,20230204_Atlas_FC-Juárez
+2023-02-04,Cruz Azul,Pumas,1.0,1.0,Liga MX Femenil,4071647,20230204_Cruz-Azul_Pumas
+2023-02-05,Puebla,Necaxa,2.0,0.0,Liga MX Femenil,4071646,20230205_Puebla_Necaxa
+2023-02-06,Club Tijuana,Mazatlán FC,0.0,1.0,Liga MX Femenil,4071645,20230206_Club-Tijuana_Mazatlán-FC
+2023-02-06,CF América,Club León,2.0,0.0,Liga MX Femenil,4071644,20230206_CF-América_Club-León
+2023-02-07,Tigres,Atlético de San Luis,3.0,1.0,Liga MX Femenil,4071632,20230207_Tigres_Atlético-de-San-Luis
+2023-02-07,Pachuca,Santos Laguna,6.0,0.0,Liga MX Femenil,4071633,20230207_Pachuca_Santos-Laguna
+2023-02-07,Monterrey,Querétaro,1.0,0.0,Liga MX Femenil,4071621,20230207_Monterrey_Querétaro
+2023-02-09,Necaxa,Querétaro,0.0,1.0,Liga MX Femenil,4071620,20230209_Necaxa_Querétaro
+2023-02-09,Santos Laguna,CF América,1.0,1.0,Liga MX Femenil,4071619,20230209_Santos-Laguna_CF-América
+2023-02-10,Toluca,Atlas,3.0,4.0,Liga MX Femenil,4071618,20230210_Toluca_Atlas
+2023-02-10,Chivas,Puebla,2.0,1.0,Liga MX Femenil,4071622,20230210_Chivas_Puebla
+2023-02-10,Cruz Azul,Monterrey,0.0,3.0,Liga MX Femenil,4071616,20230210_Cruz-Azul_Monterrey
+2023-02-10,Atlético de San Luis,Mazatlán FC,4.0,1.0,Liga MX Femenil,4071615,20230210_Atlético-de-San-Luis_Mazatlán-FC
+2023-02-10,Club León,Pachuca,0.0,3.0,Liga MX Femenil,4071617,20230210_Club-León_Pachuca
+2023-02-11,FC Juárez,Tigres,3.0,1.0,Liga MX Femenil,4071614,20230211_FC-Juárez_Tigres
+2023-02-11,Pumas,Club Tijuana,0.0,1.0,Liga MX Femenil,4071623,20230211_Pumas_Club-Tijuana
+2023-02-23,CF América,Atlético de San Luis,3.0,0.0,Liga MX Femenil,4071625,20230223_CF-América_Atlético-de-San-Luis
+2023-02-24,Querétaro,Club León,2.0,2.0,Liga MX Femenil,4071631,20230224_Querétaro_Club-León
+2023-02-25,Club Tijuana,FC Juárez,1.0,1.0,Liga MX Femenil,4071630,20230225_Club-Tijuana_FC-Juárez
+2023-02-25,Pumas,Santos Laguna,4.0,1.0,Liga MX Femenil,4071629,20230225_Pumas_Santos-Laguna
+2023-02-26,Puebla,Toluca,0.0,2.0,Liga MX Femenil,4071628,20230226_Puebla_Toluca
+2023-02-26,Atlas,Cruz Azul,1.0,0.0,Liga MX Femenil,4071627,20230226_Atlas_Cruz-Azul
+2023-02-27,Monterrey,Necaxa,3.0,0.0,Liga MX Femenil,4071626,20230227_Monterrey_Necaxa
+2023-02-28,Mazatlán FC,Chivas,0.0,6.0,Liga MX Femenil,4071652,20230228_Mazatlán-FC_Chivas
+2023-02-28,Pachuca,Tigres,2.0,1.0,Liga MX Femenil,4071624,20230228_Pachuca_Tigres
+2023-03-04,FC Juárez,Monterrey,0.0,2.0,Liga MX Femenil,4071653,20230304_FC-Juárez_Monterrey
+2023-03-04,Cruz Azul,Querétaro,1.0,1.0,Liga MX Femenil,4071681,20230304_Cruz-Azul_Querétaro
+2023-03-05,Puebla,Mazatlán FC,1.0,0.0,Liga MX Femenil,4071680,20230305_Puebla_Mazatlán-FC
+2023-03-05,Atlético de San Luis,Club Tijuana,0.0,0.0,Liga MX Femenil,4071679,20230305_Atlético-de-San-Luis_Club-Tijuana
+2023-03-05,Chivas,Atlas,2.0,1.0,Liga MX Femenil,4071678,20230305_Chivas_Atlas
+2023-03-06,Tigres,Club León,4.0,1.0,Liga MX Femenil,4071675,20230306_Tigres_Club-León
+2023-03-06,Toluca,Pumas,0.0,0.0,Liga MX Femenil,4071677,20230306_Toluca_Pumas
+2023-03-07,Pachuca,CF América,2.0,3.0,Liga MX Femenil,4071676,20230307_Pachuca_CF-América
+2023-03-07,Santos Laguna,Necaxa,3.0,0.0,Liga MX Femenil,4071674,20230307_Santos-Laguna_Necaxa
+2023-03-10,Querétaro,Chivas,0.0,1.0,Liga MX Femenil,4071682,20230310_Querétaro_Chivas
+2023-03-11,Club Tijuana,Tigres,2.0,0.0,Liga MX Femenil,4071683,20230311_Club-Tijuana_Tigres
+2023-03-11,Pumas,Puebla,1.0,1.0,Liga MX Femenil,4071691,20230311_Pumas_Puebla
+2023-03-12,Atlético de San Luis,Toluca,1.0,1.0,Liga MX Femenil,4071690,20230312_Atlético-de-San-Luis_Toluca
+2023-03-13,Necaxa,Cruz Azul,1.0,0.0,Liga MX Femenil,4071689,20230313_Necaxa_Cruz-Azul
+2023-03-14,CF América,Atlas,5.0,0.0,Liga MX Femenil,4071688,20230314_CF-América_Atlas
+2023-03-14,Mazatlán FC,Santos Laguna,1.0,1.0,Liga MX Femenil,4071686,20230314_Mazatlán-FC_Santos-Laguna
+2023-03-14,Club León,FC Juárez,1.0,0.0,Liga MX Femenil,4071687,20230314_Club-León_FC-Juárez
+2023-03-14,Monterrey,Pachuca,5.0,0.0,Liga MX Femenil,4071685,20230314_Monterrey_Pachuca
+2023-03-17,Atlas,Pumas,1.0,1.0,Liga MX Femenil,4071684,20230317_Atlas_Pumas
+2023-03-18,FC Juárez,Atlético de San Luis,3.0,2.0,Liga MX Femenil,4071673,20230318_FC-Juárez_Atlético-de-San-Luis
+2023-03-18,Cruz Azul,Club León,2.0,2.0,Liga MX Femenil,4071672,20230318_Cruz-Azul_Club-León
+2023-03-19,Puebla,Querétaro,1.0,1.0,Liga MX Femenil,4071661,20230319_Puebla_Querétaro
+2023-03-19,Chivas,Monterrey,2.0,2.0,Liga MX Femenil,4071660,20230319_Chivas_Monterrey
+2023-03-20,Necaxa,Club Tijuana,2.0,3.0,Liga MX Femenil,4071659,20230320_Necaxa_Club-Tijuana
+2023-03-20,Santos Laguna,Toluca,0.0,2.0,Liga MX Femenil,4071658,20230320_Santos-Laguna_Toluca
+2023-03-21,Tigres,CF América,1.0,0.0,Liga MX Femenil,4071657,20230321_Tigres_CF-América
+2023-03-21,Pachuca,Mazatlán FC,2.0,0.0,Liga MX Femenil,4071656,20230321_Pachuca_Mazatlán-FC
+2023-03-25,CF América,Chivas,2.0,0.0,Liga MX Femenil,4071663,20230325_CF-América_Chivas
+2023-03-25,Querétaro,Pumas,0.0,0.0,Liga MX Femenil,4071655,20230325_Querétaro_Pumas
+2023-03-25,Cruz Azul,FC Juárez,1.0,1.0,Liga MX Femenil,4071654,20230325_Cruz-Azul_FC-Juárez
+2023-03-25,Pachuca,Club Tijuana,7.0,2.0,Liga MX Femenil,4071662,20230325_Pachuca_Club-Tijuana
+2023-03-26,Monterrey,Tigres,1.0,1.0,Liga MX Femenil,4071671,20230326_Monterrey_Tigres
+2023-03-26,Toluca,Mazatlán FC,2.0,1.0,Liga MX Femenil,4071670,20230326_Toluca_Mazatlán-FC
+2023-03-26,Atlético de San Luis,Necaxa,1.0,0.0,Liga MX Femenil,4071669,20230326_Atlético-de-San-Luis_Necaxa
+2023-03-26,Santos Laguna,Atlas,1.0,2.0,Liga MX Femenil,4071668,20230326_Santos-Laguna_Atlas
+2023-03-28,Club León,Puebla,3.0,1.0,Liga MX Femenil,4071667,20230328_Club-León_Puebla
+2023-03-31,Tigres,Cruz Azul,1.0,0.0,Liga MX Femenil,4071666,20230331_Tigres_Cruz-Azul
+2023-03-31,Chivas,Atlético de San Luis,4.0,0.0,Liga MX Femenil,4071665,20230331_Chivas_Atlético-de-San-Luis
+2023-04-01,Pumas,Monterrey,2.0,2.0,Liga MX Femenil,4071692,20230401_Pumas_Monterrey
+2023-04-02,Puebla,Pachuca,1.0,1.0,Liga MX Femenil,4071693,20230402_Puebla_Pachuca
+2023-04-02,Atlas,Querétaro,1.0,0.0,Liga MX Femenil,4071714,20230402_Atlas_Querétaro
+2023-04-02,Necaxa,Toluca,1.0,4.0,Liga MX Femenil,4071713,20230402_Necaxa_Toluca
+2023-04-03,Mazatlán FC,Club León,0.0,3.0,Liga MX Femenil,4071715,20230403_Mazatlán-FC_Club-León
+2023-04-03,FC Juárez,CF América,3.0,3.0,Liga MX Femenil,4071716,20230403_FC-Juárez_CF-América
+2023-04-04,Club Tijuana,Santos Laguna,2.0,1.0,Liga MX Femenil,4071664,20230404_Club-Tijuana_Santos-Laguna
+2023-04-14,Querétaro,Atlético de San Luis,1.0,0.0,Liga MX Femenil,4071717,20230414_Querétaro_Atlético-de-San-Luis
+2023-04-15,Pumas,CF América,1.0,1.0,Liga MX Femenil,4071718,20230415_Pumas_CF-América
+2023-04-16,Puebla,Cruz Azul,2.0,0.0,Liga MX Femenil,4071719,20230416_Puebla_Cruz-Azul
+2023-04-17,Club Tijuana,Atlas,1.0,1.0,Liga MX Femenil,4071720,20230417_Club-Tijuana_Atlas
+2023-04-17,Toluca,Monterrey,2.0,0.0,Liga MX Femenil,4071721,20230417_Toluca_Monterrey
+2023-04-17,Chivas,Club León,3.0,0.0,Liga MX Femenil,4071722,20230417_Chivas_Club-León
+2023-04-18,Tigres,Mazatlán FC,5.0,0.0,Liga MX Femenil,4071728,20230418_Tigres_Mazatlán-FC
+2023-04-18,Pachuca,Necaxa,5.0,1.0,Liga MX Femenil,4071729,20230418_Pachuca_Necaxa
+2023-04-18,Santos Laguna,FC Juárez,3.0,2.0,Liga MX Femenil,4071727,20230418_Santos-Laguna_FC-Juárez
+2023-04-22,Cruz Azul,Chivas,0.0,2.0,Liga MX Femenil,4071725,20230422_Cruz-Azul_Chivas
+2023-04-23,Atlas,Pachuca,1.0,1.0,Liga MX Femenil,4071723,20230423_Atlas_Pachuca
+2023-04-23,Atlético de San Luis,Puebla,2.0,1.0,Liga MX Femenil,4071724,20230423_Atlético-de-San-Luis_Puebla
+2023-04-24,FC Juárez,Toluca,1.0,1.0,Liga MX Femenil,4071726,20230424_FC-Juárez_Toluca
+2023-04-24,Necaxa,Tigres,1.0,4.0,Liga MX Femenil,4071712,20230424_Necaxa_Tigres
+2023-04-25,CF América,Querétaro,2.0,1.0,Liga MX Femenil,4071694,20230425_CF-América_Querétaro
+2023-04-25,Mazatlán FC,Pumas,0.0,6.0,Liga MX Femenil,4071696,20230425_Mazatlán-FC_Pumas
+2023-04-25,Club León,Santos Laguna,1.0,1.0,Liga MX Femenil,4071711,20230425_Club-León_Santos-Laguna
+2023-04-25,Monterrey,Club Tijuana,5.0,2.0,Liga MX Femenil,4071695,20230425_Monterrey_Club-Tijuana
+2023-04-28,Pachuca,Atlético de San Luis,4.0,0.0,Liga MX Femenil,4071697,20230428_Pachuca_Atlético-de-San-Luis
+2023-04-29,Tigres,Chivas,1.0,1.0,Liga MX Femenil,4071698,20230429_Tigres_Chivas
+2023-04-30,Puebla,Atlas,1.0,3.0,Liga MX Femenil,4071701,20230430_Puebla_Atlas
+2023-05-01,Club Tijuana,Querétaro,1.0,1.0,Liga MX Femenil,4071699,20230501_Club-Tijuana_Querétaro
+2023-05-01,Toluca,Club León,2.0,0.0,Liga MX Femenil,4071702,20230501_Toluca_Club-León
+2023-05-02,Mazatlán FC,Necaxa,0.0,1.0,Liga MX Femenil,4071704,20230502_Mazatlán-FC_Necaxa
+2023-05-02,Monterrey,CF América,2.0,0.0,Liga MX Femenil,4071703,20230502_Monterrey_CF-América
+2023-05-02,Santos Laguna,Cruz Azul,1.0,1.0,Liga MX Femenil,4071705,20230502_Santos-Laguna_Cruz-Azul
+2023-05-03,Pumas,FC Juárez,1.0,0.0,Liga MX Femenil,4071700,20230503_Pumas_FC-Juárez
+2023-05-05,CF América,Mazatlán FC,6.0,1.0,Liga MX Femenil,4071707,20230505_CF-América_Mazatlán-FC
+2023-05-05,Querétaro,Tigres,0.0,4.0,Liga MX Femenil,4071706,20230505_Querétaro_Tigres
+2023-05-06,Atlas,Monterrey,3.0,2.0,Liga MX Femenil,4071708,20230506_Atlas_Monterrey
+2023-05-06,Cruz Azul,Toluca,0.0,1.0,Liga MX Femenil,4071709,20230506_Cruz-Azul_Toluca
+2023-05-08,Atlético de San Luis,Pumas,1.0,3.0,Liga MX Femenil,4071710,20230508_Atlético-de-San-Luis_Pumas
+2023-05-08,Necaxa,FC Juárez,0.0,1.0,Liga MX Femenil,4071730,20230508_Necaxa_FC-Juárez
+2023-05-08,Club León,Club Tijuana,2.0,1.0,Liga MX Femenil,4071731,20230508_Club-León_Club-Tijuana
+2023-05-09,Santos Laguna,Puebla,2.0,1.0,Liga MX Femenil,4071732,20230509_Santos-Laguna_Puebla
+2023-05-09,Chivas,Pachuca,4.0,4.0,Liga MX Femenil,4071733,20230509_Chivas_Pachuca
+2023-05-12,Toluca,CF América,1.0,4.0,Liga MX Femenil,4071741,20230512_Toluca_CF-América
+2023-05-12,Pachuca,Cruz Azul,3.0,0.0,Liga MX Femenil,4071740,20230512_Pachuca_Cruz-Azul
+2023-05-13,Tigres,Santos Laguna,9.0,0.0,Liga MX Femenil,4071738,20230513_Tigres_Santos-Laguna
+2023-05-13,FC Juárez,Puebla,2.0,0.0,Liga MX Femenil,4071739,20230513_FC-Juárez_Puebla
+2023-05-13,Club Tijuana,Chivas,1.0,0.0,Liga MX Femenil,4071737,20230513_Club-Tijuana_Chivas
+2023-05-13,Pumas,Necaxa,1.0,0.0,Liga MX Femenil,4071735,20230513_Pumas_Necaxa
+2023-05-16,Mazatlán FC,Querétaro,0.0,2.0,Liga MX Femenil,4071742,20230516_Mazatlán-FC_Querétaro
+2023-05-16,Atlas,Club León,2.0,2.0,Liga MX Femenil,4071734,20230516_Atlas_Club-León
+2023-05-16,Monterrey,Atlético de San Luis,4.0,2.0,Liga MX Femenil,4071736,20230516_Monterrey_Atlético-de-San-Luis
+2023-05-19,Pachuca,Chivas,3.0,3.0,Liga MX Femenil,4172678,20230519_Pachuca_Chivas
+2023-05-20,Atlas,Tigres,0.0,5.0,Liga MX Femenil,4172674,20230520_Atlas_Tigres
+2023-05-20,FC Juárez,CF América,1.0,3.0,Liga MX Femenil,4172676,20230520_FC-Juárez_CF-América
+2023-05-20,Club Tijuana,Monterrey,2.0,0.0,Liga MX Femenil,4172672,20230520_Club-Tijuana_Monterrey
+2023-05-21,Chivas,Pachuca,1.0,3.0,Liga MX Femenil,4172679,20230521_Chivas_Pachuca
+2023-05-22,CF América,FC Juárez,5.0,1.0,Liga MX Femenil,4172677,20230522_CF-América_FC-Juárez
+2023-05-23,Tigres,Atlas,2.0,0.0,Liga MX Femenil,4172675,20230523_Tigres_Atlas
+2023-05-23,Monterrey,Club Tijuana,6.0,1.0,Liga MX Femenil,4172673,20230523_Monterrey_Club-Tijuana
+2023-05-27,CF América,Tigres,1.0,0.0,Liga MX Femenil,4177244,20230527_CF-América_Tigres
+2023-05-27,Pachuca,Monterrey,0.0,0.0,Liga MX Femenil,4177246,20230527_Pachuca_Monterrey
+2023-05-30,Tigres,CF América,0.0,1.0,Liga MX Femenil,4181553,20230530_Tigres_CF-América
+2023-05-30,Monterrey,Pachuca,0.0,1.0,Liga MX Femenil,4181552,20230530_Monterrey_Pachuca
+2023-06-03,Pachuca,CF América,1.0,2.0,Liga MX Femenil,4181794,20230603_Pachuca_CF-América
+2023-06-06,CF América,Pachuca,2.0,1.0,Liga MX Femenil,4181795,20230606_CF-América_Pachuca
+2023-07-08,CF América,Tigres,0.0,2.0,Liga MX Femenil,4208925,20230708_CF-América_Tigres
+2023-07-11,Tigres,CF América,1.0,0.0,Liga MX Femenil,4208926,20230711_Tigres_CF-América
+2023-07-14,Toluca,Monterrey,1.0,1.0,Liga MX Femenil,4208935,20230714_Toluca_Monterrey
+2023-07-14,Club León,Necaxa,2.0,0.0,Liga MX Femenil,4208934,20230714_Club-León_Necaxa
+2023-07-15,Santos Laguna,Pachuca,1.0,3.0,Liga MX Femenil,4208936,20230715_Santos-Laguna_Pachuca
+2023-07-15,Pumas,CF América,2.0,5.0,Liga MX Femenil,4208937,20230715_Pumas_CF-América
+2023-07-17,Mazatlán FC,Cruz Azul,2.0,3.0,Liga MX Femenil,4208939,20230717_Mazatlán-FC_Cruz-Azul
+2023-07-17,Club Tijuana,Chivas,1.0,1.0,Liga MX Femenil,4208940,20230717_Club-Tijuana_Chivas
+2023-07-18,Tigres,Puebla,4.0,0.0,Liga MX Femenil,4208941,20230718_Tigres_Puebla
+2023-07-18,FC Juárez,Atlético de San Luis,1.0,1.0,Liga MX Femenil,4208960,20230718_FC-Juárez_Atlético-de-San-Luis
+2023-07-21,Querétaro,Atlético de San Luis,4.0,0.0,Liga MX Femenil,4208961,20230721_Querétaro_Atlético-de-San-Luis
+2023-07-22,Mazatlán FC,Toluca,0.0,3.0,Liga MX Femenil,4208963,20230722_Mazatlán-FC_Toluca
+2023-07-22,FC Juárez,Tigres,0.0,4.0,Liga MX Femenil,4208962,20230722_FC-Juárez_Tigres
+2023-07-22,Pumas,Atlas,4.0,1.0,Liga MX Femenil,4208964,20230722_Pumas_Atlas
+2023-07-23,Monterrey,Club León,7.0,0.0,Liga MX Femenil,4208965,20230723_Monterrey_Club-León
+2023-07-23,CF América,Santos Laguna,6.0,0.0,Liga MX Femenil,4208966,20230723_CF-América_Santos-Laguna
+2023-07-24,Chivas,Puebla,2.0,0.0,Liga MX Femenil,4208967,20230724_Chivas_Puebla
+2023-07-24,Necaxa,Club Tijuana,1.0,2.0,Liga MX Femenil,4208968,20230724_Necaxa_Club-Tijuana
+2023-07-25,Pachuca,Cruz Azul,0.0,2.0,Liga MX Femenil,4208969,20230725_Pachuca_Cruz-Azul
+2023-07-27,Atlas,Querétaro,0.0,2.0,Liga MX Femenil,4208938,20230727_Atlas_Querétaro
+2023-07-29,Santos Laguna,Chivas,0.0,3.0,Liga MX Femenil,4208970,20230729_Santos-Laguna_Chivas
+2023-07-29,Tigres,Mazatlán FC,6.0,0.0,Liga MX Femenil,4208971,20230729_Tigres_Mazatlán-FC
+2023-07-29,Cruz Azul,Pumas,2.0,1.0,Liga MX Femenil,4208972,20230729_Cruz-Azul_Pumas
+2023-07-30,Atlas,FC Juárez,3.0,2.0,Liga MX Femenil,4208973,20230730_Atlas_FC-Juárez
+2023-07-30,Puebla,Monterrey,0.0,3.0,Liga MX Femenil,4208975,20230730_Puebla_Monterrey
+2023-07-30,Toluca,Pachuca,2.0,1.0,Liga MX Femenil,4208959,20230730_Toluca_Pachuca
+2023-07-30,Atlético de San Luis,Necaxa,1.0,0.0,Liga MX Femenil,4208958,20230730_Atlético-de-San-Luis_Necaxa
+2023-08-01,Club León,Querétaro,2.0,0.0,Liga MX Femenil,4208942,20230801_Club-León_Querétaro
+2023-08-04,Querétaro,Club Tijuana,0.0,2.0,Liga MX Femenil,4208943,20230804_Querétaro_Club-Tijuana
+2023-08-05,Pachuca,Atlético de San Luis,3.0,1.0,Liga MX Femenil,4208944,20230805_Pachuca_Atlético-de-San-Luis
+2023-08-05,FC Juárez,Cruz Azul,1.0,0.0,Liga MX Femenil,4208945,20230805_FC-Juárez_Cruz-Azul
+2023-08-05,Pumas,Santos Laguna,1.0,0.0,Liga MX Femenil,4208946,20230805_Pumas_Santos-Laguna
+2023-08-05,CF América,Toluca,4.0,1.0,Liga MX Femenil,4208947,20230805_CF-América_Toluca
+2023-08-06,Monterrey,Atlas,2.0,0.0,Liga MX Femenil,4208948,20230806_Monterrey_Atlas
+2023-08-06,Chivas,Tigres,2.0,2.0,Liga MX Femenil,4208949,20230806_Chivas_Tigres
+2023-08-06,Necaxa,Puebla,2.0,1.0,Liga MX Femenil,4208950,20230806_Necaxa_Puebla
+2023-08-07,Mazatlán FC,Club León,0.0,1.0,Liga MX Femenil,4208951,20230807_Mazatlán-FC_Club-León
+2023-08-09,Club Tijuana,CF América,1.0,5.0,Liga MX Femenil,4208974,20230809_Club-Tijuana_CF-América
+2023-08-12,Club León,Club Tijuana,3.0,2.0,Liga MX Femenil,4208952,20230812_Club-León_Club-Tijuana
+2023-08-12,Santos Laguna,Querétaro,1.0,3.0,Liga MX Femenil,4208953,20230812_Santos-Laguna_Querétaro
+2023-08-12,Cruz Azul,Monterrey,0.0,3.0,Liga MX Femenil,4208954,20230812_Cruz-Azul_Monterrey
+2023-08-13,Necaxa,Chivas,0.0,3.0,Liga MX Femenil,4208956,20230813_Necaxa_Chivas
+2023-08-13,Tigres,Pachuca,4.0,2.0,Liga MX Femenil,4208957,20230813_Tigres_Pachuca
+2023-08-13,Puebla,Pumas,1.0,1.0,Liga MX Femenil,4208976,20230813_Puebla_Pumas
+2023-08-13,Toluca,FC Juárez,1.0,1.0,Liga MX Femenil,4208977,20230813_Toluca_FC-Juárez
+2023-08-13,Atlético de San Luis,Mazatlán FC,4.0,1.0,Liga MX Femenil,4208978,20230813_Atlético-de-San-Luis_Mazatlán-FC
+2023-08-15,Atlas,CF América,1.0,5.0,Liga MX Femenil,4208955,20230815_Atlas_CF-América
+2023-08-17,Atlético de San Luis,Santos Laguna,2.0,0.0,Liga MX Femenil,4208979,20230817_Atlético-de-San-Luis_Santos-Laguna
+2023-08-17,Querétaro,Puebla,3.0,0.0,Liga MX Femenil,4208980,20230817_Querétaro_Puebla
+2023-08-17,Club Tijuana,Pumas,3.0,2.0,Liga MX Femenil,4208981,20230817_Club-Tijuana_Pumas
+2023-08-18,Tigres,Toluca,3.0,1.0,Liga MX Femenil,4209014,20230818_Tigres_Toluca
+2023-08-18,Chivas,Monterrey,1.0,0.0,Liga MX Femenil,4209012,20230818_Chivas_Monterrey
+2023-08-18,Mazatlán FC,Necaxa,0.0,2.0,Liga MX Femenil,4209013,20230818_Mazatlán-FC_Necaxa
+2023-08-19,CF América,Cruz Azul,4.0,0.0,Liga MX Femenil,4209011,20230819_CF-América_Cruz-Azul
+2023-08-20,Puebla,Pachuca,4.0,3.0,Liga MX Femenil,4209009,20230820_Puebla_Pachuca
+2023-08-21,Club Tijuana,Toluca,3.0,0.0,Liga MX Femenil,4209008,20230821_Club-Tijuana_Toluca
+2023-08-21,Cruz Azul,Chivas,1.0,5.0,Liga MX Femenil,4209006,20230821_Cruz-Azul_Chivas
+2023-08-21,Pumas,Mazatlán FC,4.0,1.0,Liga MX Femenil,4209016,20230821_Pumas_Mazatlán-FC
+2023-08-22,Necaxa,Querétaro,0.0,2.0,Liga MX Femenil,4209007,20230822_Necaxa_Querétaro
+2023-08-22,Club León,CF América,2.0,3.0,Liga MX Femenil,4209025,20230822_Club-León_CF-América
+2023-08-22,Monterrey,FC Juárez,2.0,2.0,Liga MX Femenil,4209024,20230822_Monterrey_FC-Juárez
+2023-08-22,Santos Laguna,Tigres,0.0,7.0,Liga MX Femenil,4209023,20230822_Santos-Laguna_Tigres
+2023-08-26,Tigres,Atlas,2.0,0.0,Liga MX Femenil,4209022,20230826_Tigres_Atlas
+2023-08-26,Mazatlán FC,CF América,1.0,3.0,Liga MX Femenil,4209019,20230826_Mazatlán-FC_CF-América
+2023-08-26,Monterrey,Pumas,0.0,0.0,Liga MX Femenil,4209020,20230826_Monterrey_Pumas
+2023-08-26,FC Juárez,Pachuca,1.0,1.0,Liga MX Femenil,4209021,20230826_FC-Juárez_Pachuca
+2023-08-26,Cruz Azul,Querétaro,2.0,1.0,Liga MX Femenil,4209018,20230826_Cruz-Azul_Querétaro
+2023-08-27,Atlético de San Luis,Chivas,1.0,1.0,Liga MX Femenil,4209017,20230827_Atlético-de-San-Luis_Chivas
+2023-08-27,Club León,Puebla,1.0,0.0,Liga MX Femenil,4209005,20230827_Club-León_Puebla
+2023-08-28,Toluca,Necaxa,2.0,0.0,Liga MX Femenil,4209004,20230828_Toluca_Necaxa
+2023-08-29,Santos Laguna,Club Tijuana,0.0,3.0,Liga MX Femenil,4209003,20230829_Santos-Laguna_Club-Tijuana
+2023-08-31,Pachuca,Atlas,4.0,3.0,Liga MX Femenil,4209026,20230831_Pachuca_Atlas
+2023-09-01,Querétaro,Toluca,1.0,2.0,Liga MX Femenil,4208990,20230901_Querétaro_Toluca
+2023-09-02,Pumas,Club León,2.0,1.0,Liga MX Femenil,4208988,20230902_Pumas_Club-León
+2023-09-03,Chivas,FC Juárez,2.0,0.0,Liga MX Femenil,4208986,20230903_Chivas_FC-Juárez
+2023-09-03,Puebla,Atlético de San Luis,2.0,2.0,Liga MX Femenil,4208987,20230903_Puebla_Atlético-de-San-Luis
+2023-09-04,Club Tijuana,Monterrey,1.0,1.0,Liga MX Femenil,4208985,20230904_Club-Tijuana_Monterrey
+2023-09-04,Necaxa,Cruz Azul,1.0,1.0,Liga MX Femenil,4208984,20230904_Necaxa_Cruz-Azul
+2023-09-05,Pachuca,Mazatlán FC,5.0,0.0,Liga MX Femenil,4208983,20230905_Pachuca_Mazatlán-FC
+2023-09-05,Atlas,Santos Laguna,0.0,0.0,Liga MX Femenil,4208989,20230905_Atlas_Santos-Laguna
+2023-09-07,CF América,Tigres,1.0,3.0,Liga MX Femenil,4208991,20230907_CF-América_Tigres
+2023-09-08,Atlas,Atlético de San Luis,2.0,1.0,Liga MX Femenil,4209015,20230908_Atlas_Atlético-de-San-Luis
+2023-09-09,Chivas,Querétaro,3.0,1.0,Liga MX Femenil,4208993,20230909_Chivas_Querétaro
+2023-09-10,Mazatlán FC,Club Tijuana,0.0,2.0,Liga MX Femenil,4208999,20230910_Mazatlán-FC_Club-Tijuana
+2023-09-10,Pachuca,Pumas,2.0,1.0,Liga MX Femenil,4209001,20230910_Pachuca_Pumas
+2023-09-11,Santos Laguna,Monterrey,1.0,3.0,Liga MX Femenil,4209000,20230911_Santos-Laguna_Monterrey
+2023-09-11,FC Juárez,Necaxa,6.0,0.0,Liga MX Femenil,4208998,20230911_FC-Juárez_Necaxa
+2023-09-11,Cruz Azul,Atlas,2.0,0.0,Liga MX Femenil,4208992,20230911_Cruz-Azul_Atlas
+2023-09-12,Tigres,Club León,3.0,1.0,Liga MX Femenil,4208996,20230912_Tigres_Club-León
+2023-09-13,Atlético de San Luis,CF América,1.0,4.0,Liga MX Femenil,4208997,20230913_Atlético-de-San-Luis_CF-América
+2023-09-15,FC Juárez,Puebla,3.0,0.0,Liga MX Femenil,4209031,20230915_FC-Juárez_Puebla
+2023-09-15,Necaxa,Santos Laguna,2.0,2.0,Liga MX Femenil,4208982,20230915_Necaxa_Santos-Laguna
+2023-09-15,Querétaro,Tigres,0.0,4.0,Liga MX Femenil,4208994,20230915_Querétaro_Tigres
+2023-09-16,Monterrey,Pachuca,2.0,2.0,Liga MX Femenil,4209055,20230916_Monterrey_Pachuca
+2023-09-16,Pumas,Toluca,5.0,1.0,Liga MX Femenil,4209054,20230916_Pumas_Toluca
+2023-09-17,Puebla,Cruz Azul,2.0,0.0,Liga MX Femenil,4209053,20230917_Puebla_Cruz-Azul
+2023-09-17,CF América,Chivas,2.0,1.0,Liga MX Femenil,4209052,20230917_CF-América_Chivas
+2023-09-18,Club León,Atlético de San Luis,3.0,0.0,Liga MX Femenil,4209051,20230918_Club-León_Atlético-de-San-Luis
+2023-09-18,Club Tijuana,Atlas,1.0,1.0,Liga MX Femenil,4208995,20230918_Club-Tijuana_Atlas
+2023-09-18,Mazatlán FC,FC Juárez,0.0,1.0,Liga MX Femenil,4209050,20230918_Mazatlán-FC_FC-Juárez
+2023-09-29,Necaxa,Monterrey,0.0,4.0,Liga MX Femenil,4209049,20230929_Necaxa_Monterrey
+2023-09-30,Cruz Azul,Club León,0.0,1.0,Liga MX Femenil,4209048,20230930_Cruz-Azul_Club-León
+2023-10-01,Chivas,Mazatlán FC,5.0,0.0,Liga MX Femenil,4209056,20231001_Chivas_Mazatlán-FC
+2023-10-02,Pachuca,CF América,4.0,2.0,Liga MX Femenil,4209057,20231002_Pachuca_CF-América
+2023-10-02,FC Juárez,Querétaro,2.0,2.0,Liga MX Femenil,4209065,20231002_FC-Juárez_Querétaro
+2023-10-03,Atlético de San Luis,Club Tijuana,0.0,2.0,Liga MX Femenil,4209063,20231003_Atlético-de-San-Luis_Club-Tijuana
+2023-10-03,Tigres,Pumas,3.0,0.0,Liga MX Femenil,4209062,20231003_Tigres_Pumas
+2023-10-03,Atlas,Puebla,2.0,1.0,Liga MX Femenil,4209064,20231003_Atlas_Puebla
+2023-10-03,Santos Laguna,Toluca,2.0,2.0,Liga MX Femenil,4209061,20231003_Santos-Laguna_Toluca
+2023-10-05,FC Juárez,Club León,1.0,0.0,Liga MX Femenil,4209010,20231005_FC-Juárez_Club-León
+2023-10-05,Toluca,Puebla,3.0,0.0,Liga MX Femenil,4209002,20231005_Toluca_Puebla
+2023-10-06,Cruz Azul,Atlético de San Luis,3.0,1.0,Liga MX Femenil,4209060,20231006_Cruz-Azul_Atlético-de-San-Luis
+2023-10-07,Atlas,Mazatlán FC,3.0,1.0,Liga MX Femenil,4209059,20231007_Atlas_Mazatlán-FC
+2023-10-08,Puebla,Santos Laguna,2.0,1.0,Liga MX Femenil,4209047,20231008_Puebla_Santos-Laguna
+2023-10-08,CF América,FC Juárez,5.0,2.0,Liga MX Femenil,4209046,20231008_CF-América_FC-Juárez
+2023-10-08,Club Tijuana,Tigres,0.0,0.0,Liga MX Femenil,4209058,20231008_Club-Tijuana_Tigres
+2023-10-09,Club León,Pachuca,0.0,6.0,Liga MX Femenil,4209029,20231009_Club-León_Pachuca
+2023-10-09,Toluca,Chivas,2.0,4.0,Liga MX Femenil,4209045,20231009_Toluca_Chivas
+2023-10-10,Pumas,Necaxa,6.0,0.0,Liga MX Femenil,4209028,20231010_Pumas_Necaxa
+2023-10-10,Monterrey,Querétaro,3.0,1.0,Liga MX Femenil,4209030,20231010_Monterrey_Querétaro
+2023-10-12,Mazatlán FC,Santos Laguna,2.0,2.0,Liga MX Femenil,4209032,20231012_Mazatlán-FC_Santos-Laguna
+2023-10-12,CF América,Necaxa,5.0,0.0,Liga MX Femenil,4209038,20231012_CF-América_Necaxa
+2023-10-12,Querétaro,Pumas,3.0,2.0,Liga MX Femenil,4209033,20231012_Querétaro_Pumas
+2023-10-13,Toluca,Atlas,2.0,1.0,Liga MX Femenil,4209034,20231013_Toluca_Atlas
+2023-10-13,Atlético de San Luis,Monterrey,1.0,2.0,Liga MX Femenil,4209036,20231013_Atlético-de-San-Luis_Monterrey
+2023-10-13,Chivas,Club León,2.0,0.0,Liga MX Femenil,4209037,20231013_Chivas_Club-León
+2023-10-13,Tigres,Cruz Azul,1.0,0.0,Liga MX Femenil,4209035,20231013_Tigres_Cruz-Azul
+2023-10-13,Pachuca,Club Tijuana,2.0,3.0,Liga MX Femenil,4209039,20231013_Pachuca_Club-Tijuana
+2023-10-15,Cruz Azul,Club Tijuana,3.0,6.0,Liga MX Femenil,4209040,20231015_Cruz-Azul_Club-Tijuana
+2023-10-15,Puebla,CF América,1.0,6.0,Liga MX Femenil,4209041,20231015_Puebla_CF-América
+2023-10-15,Atlético de San Luis,Tigres,0.0,1.0,Liga MX Femenil,4209043,20231015_Atlético-de-San-Luis_Tigres
+2023-10-15,Necaxa,Atlas,0.0,1.0,Liga MX Femenil,4209044,20231015_Necaxa_Atlas
+2023-10-16,Chivas,Pumas,3.0,0.0,Liga MX Femenil,4209027,20231016_Chivas_Pumas
+2023-10-16,Querétaro,Pachuca,1.0,1.0,Liga MX Femenil,4209042,20231016_Querétaro_Pachuca
+2023-10-17,Monterrey,Mazatlán FC,3.0,1.0,Liga MX Femenil,4209075,20231017_Monterrey_Mazatlán-FC
+2023-10-17,Club León,Toluca,0.0,1.0,Liga MX Femenil,4209074,20231017_Club-León_Toluca
+2023-10-17,Santos Laguna,FC Juárez,0.0,4.0,Liga MX Femenil,4209073,20231017_Santos-Laguna_FC-Juárez
+2023-10-19,CF América,Querétaro,4.0,1.0,Liga MX Femenil,4209072,20231019_CF-América_Querétaro
+2023-10-20,Atlas,Chivas,1.0,2.0,Liga MX Femenil,4209066,20231020_Atlas_Chivas
+2023-10-20,Tigres,Monterrey,1.0,3.0,Liga MX Femenil,4209076,20231020_Tigres_Monterrey
+2023-10-20,Pachuca,Necaxa,3.0,1.0,Liga MX Femenil,4209071,20231020_Pachuca_Necaxa
+2023-10-20,Toluca,Cruz Azul,3.0,0.0,Liga MX Femenil,4209070,20231020_Toluca_Cruz-Azul
+2023-10-21,Mazatlán FC,Puebla,3.0,4.0,Liga MX Femenil,4209069,20231021_Mazatlán-FC_Puebla
+2023-10-21,Santos Laguna,Club León,2.0,2.0,Liga MX Femenil,4209068,20231021_Santos-Laguna_Club-León
+2023-10-21,Pumas,Atlético de San Luis,4.0,1.0,Liga MX Femenil,4209067,20231021_Pumas_Atlético-de-San-Luis
+2023-10-23,Club Tijuana,FC Juárez,0.0,1.0,Liga MX Femenil,4209077,20231023_Club-Tijuana_FC-Juárez
+2023-11-03,Club León,Atlas,1.0,1.0,Liga MX Femenil,4209084,20231103_Club-León_Atlas
+2023-11-03,Necaxa,Tigres,1.0,3.0,Liga MX Femenil,4209085,20231103_Necaxa_Tigres
+2023-11-04,Chivas,Pachuca,3.0,0.0,Liga MX Femenil,4209083,20231104_Chivas_Pachuca
+2023-11-04,Monterrey,CF América,2.0,1.0,Liga MX Femenil,4209082,20231104_Monterrey_CF-América
+2023-11-04,FC Juárez,Pumas,0.0,2.0,Liga MX Femenil,4209081,20231104_FC-Juárez_Pumas
+2023-11-04,Cruz Azul,Santos Laguna,6.0,0.0,Liga MX Femenil,4209080,20231104_Cruz-Azul_Santos-Laguna
+2023-11-05,Puebla,Club Tijuana,1.0,3.0,Liga MX Femenil,4209079,20231105_Puebla_Club-Tijuana
+2023-11-05,Atlético de San Luis,Toluca,0.0,1.0,Liga MX Femenil,4209078,20231105_Atlético-de-San-Luis_Toluca
+2023-11-06,Querétaro,Mazatlán FC,0.0,0.0,Liga MX Femenil,4209086,20231106_Querétaro_Mazatlán-FC
+2023-11-09,Toluca,Chivas,0.0,3.0,Liga MX Femenil,4358630,20231109_Toluca_Chivas
+2023-11-10,Pachuca,CF América,0.0,6.0,Liga MX Femenil,4358626,20231110_Pachuca_CF-América
+2023-11-11,Club Tijuana,Monterrey,1.0,2.0,Liga MX Femenil,4358624,20231111_Club-Tijuana_Monterrey
+2023-11-11,Pumas,Tigres,1.0,3.0,Liga MX Femenil,4358628,20231111_Pumas_Tigres
+2023-11-12,CF América,Pachuca,3.0,2.0,Liga MX Femenil,4358627,20231112_CF-América_Pachuca
+2023-11-13,Chivas,Toluca,2.0,1.0,Liga MX Femenil,4358631,20231113_Chivas_Toluca
+2023-11-14,Tigres,Pumas,2.0,1.0,Liga MX Femenil,4358629,20231114_Tigres_Pumas
+2023-11-14,Monterrey,Club Tijuana,6.0,3.0,Liga MX Femenil,4358625,20231114_Monterrey_Club-Tijuana
+2023-11-17,Chivas,CF América,2.0,2.0,Liga MX Femenil,4364053,20231117_Chivas_CF-América
+2023-11-18,Monterrey,Tigres,0.0,0.0,Liga MX Femenil,4364055,20231118_Monterrey_Tigres
+2023-11-19,CF América,Chivas,2.0,1.0,Liga MX Femenil,4364054,20231119_CF-América_Chivas
+2023-11-21,Tigres,Monterrey,1.0,0.0,Liga MX Femenil,4364056,20231121_Tigres_Monterrey
+2023-11-25,CF América,Tigres,0.0,3.0,Liga MX Femenil,4366994,20231125_CF-América_Tigres
+2023-11-28,Tigres,CF América,0.0,0.0,Liga MX Femenil,4366995,20231128_Tigres_CF-América
+2024-01-05,Querétaro,FC Juárez,1.0,1.0,Liga MX Femenil,4388907,20240105_Querétaro_FC-Juárez
+2024-01-06,Mazatlán FC,Pachuca,0.0,5.0,Liga MX Femenil,4388897,20240106_Mazatlán-FC_Pachuca
+2024-01-06,Monterrey,Puebla,1.0,0.0,Liga MX Femenil,4388898,20240106_Monterrey_Puebla
+2024-01-06,Cruz Azul,Necaxa,0.0,2.0,Liga MX Femenil,4388899,20240106_Cruz-Azul_Necaxa
+2024-01-06,CF América,Atlas,2.0,1.0,Liga MX Femenil,4388900,20240106_CF-América_Atlas
+2024-01-07,Chivas,Club Tijuana,1.0,0.0,Liga MX Femenil,4388901,20240107_Chivas_Club-Tijuana
+2024-01-07,Tigres,Atlético de San Luis,1.0,0.0,Liga MX Femenil,4388902,20240107_Tigres_Atlético-de-San-Luis
+2024-01-07,Toluca,Santos Laguna,7.0,0.0,Liga MX Femenil,4388903,20240107_Toluca_Santos-Laguna
+2024-01-09,Club León,Pumas,4.0,1.0,Liga MX Femenil,4388904,20240109_Club-León_Pumas
+2024-01-11,Necaxa,CF América,1.0,1.0,Liga MX Femenil,4388905,20240111_Necaxa_CF-América
+2024-01-12,Santos Laguna,Cruz Azul,0.0,0.0,Liga MX Femenil,4388906,20240112_Santos-Laguna_Cruz-Azul
+2024-01-12,Club Tijuana,Mazatlán FC,4.0,1.0,Liga MX Femenil,4388896,20240112_Club-Tijuana_Mazatlán-FC
+2024-01-12,Puebla,Club León,2.0,1.0,Liga MX Femenil,4388908,20240112_Puebla_Club-León
+2024-01-13,Atlas,Toluca,2.0,2.0,Liga MX Femenil,4388909,20240113_Atlas_Toluca
+2024-01-13,Pumas,Tigres,1.0,5.0,Liga MX Femenil,4388910,20240113_Pumas_Tigres
+2024-01-14,Pachuca,Monterrey,2.0,2.0,Liga MX Femenil,4388911,20240114_Pachuca_Monterrey
+2024-01-14,Atlético de San Luis,Querétaro,1.0,1.0,Liga MX Femenil,4388912,20240114_Atlético-de-San-Luis_Querétaro
+2024-01-15,FC Juárez,Chivas,2.0,0.0,Liga MX Femenil,4388913,20240115_FC-Juárez_Chivas
+2024-01-16,Cruz Azul,Mazatlán FC,1.0,2.0,Liga MX Femenil,4388914,20240116_Cruz-Azul_Mazatlán-FC
+2024-01-17,Toluca,Pumas,2.0,2.0,Liga MX Femenil,4388915,20240117_Toluca_Pumas
+2024-01-18,Tigres,Santos Laguna,7.0,1.0,Liga MX Femenil,4388916,20240118_Tigres_Santos-Laguna
+2024-01-18,Atlas,Club León,0.0,3.0,Liga MX Femenil,4388886,20240118_Atlas_Club-León
+2024-01-18,CF América,Club Tijuana,4.0,0.0,Liga MX Femenil,4388876,20240118_CF-América_Club-Tijuana
+2024-01-18,Puebla,Querétaro,0.0,1.0,Liga MX Femenil,4388877,20240118_Puebla_Querétaro
+2024-01-19,Pachuca,FC Juárez,1.0,1.0,Liga MX Femenil,4388878,20240119_Pachuca_FC-Juárez
+2024-01-19,Monterrey,Necaxa,7.0,0.0,Liga MX Femenil,4388879,20240119_Monterrey_Necaxa
+2024-01-19,Chivas,Atlético de San Luis,4.0,1.0,Liga MX Femenil,4388880,20240119_Chivas_Atlético-de-San-Luis
+2024-01-20,Club León,Tigres,2.0,7.0,Liga MX Femenil,4388881,20240120_Club-León_Tigres
+2024-01-21,Mazatlán FC,Atlas,1.0,3.0,Liga MX Femenil,4388882,20240121_Mazatlán-FC_Atlas
+2024-01-21,Cruz Azul,Puebla,0.0,4.0,Liga MX Femenil,4388883,20240121_Cruz-Azul_Puebla
+2024-01-21,Querétaro,Monterrey,0.0,3.0,Liga MX Femenil,4388884,20240121_Querétaro_Monterrey
+2024-01-22,Chivas,Toluca,1.0,1.0,Liga MX Femenil,4388885,20240122_Chivas_Toluca
+2024-01-22,Club Tijuana,Atlético de San Luis,3.0,2.0,Liga MX Femenil,4388875,20240122_Club-Tijuana_Atlético-de-San-Luis
+2024-01-22,Necaxa,Pachuca,0.0,4.0,Liga MX Femenil,4388887,20240122_Necaxa_Pachuca
+2024-01-23,Pumas,FC Juárez,2.0,1.0,Liga MX Femenil,4388889,20240123_Pumas_FC-Juárez
+2024-01-23,Santos Laguna,CF América,0.0,5.0,Liga MX Femenil,4388888,20240123_Santos-Laguna_CF-América
+2024-01-25,Puebla,Chivas,1.0,1.0,Liga MX Femenil,4388890,20240125_Puebla_Chivas
+2024-01-26,Atlas,Necaxa,3.0,2.0,Liga MX Femenil,4388891,20240126_Atlas_Necaxa
+2024-01-26,Monterrey,Cruz Azul,5.0,0.0,Liga MX Femenil,4388892,20240126_Monterrey_Cruz-Azul
+2024-01-26,FC Juárez,Santos Laguna,5.0,1.0,Liga MX Femenil,4388893,20240126_FC-Juárez_Santos-Laguna
+2024-01-26,CF América,Club León,1.0,2.0,Liga MX Femenil,4388894,20240126_CF-América_Club-León
+2024-01-26,Atlético de San Luis,Pumas,0.0,3.0,Liga MX Femenil,4388895,20240126_Atlético-de-San-Luis_Pumas
+2024-01-26,Toluca,Mazatlán FC,6.0,0.0,Liga MX Femenil,4388917,20240126_Toluca_Mazatlán-FC
+2024-01-27,Pachuca,Querétaro,4.0,1.0,Liga MX Femenil,4388918,20240127_Pachuca_Querétaro
+2024-01-27,Tigres,Club Tijuana,2.0,0.0,Liga MX Femenil,4388919,20240127_Tigres_Club-Tijuana
+2024-02-01,Cruz Azul,Tigres,1.0,2.0,Liga MX Femenil,4388920,20240201_Cruz-Azul_Tigres
+2024-02-01,Querétaro,Chivas,1.0,2.0,Liga MX Femenil,4388921,20240201_Querétaro_Chivas
+2024-02-02,Mazatlán FC,Atlético de San Luis,3.0,1.0,Liga MX Femenil,4388922,20240202_Mazatlán-FC_Atlético-de-San-Luis
+2024-02-02,Club Tijuana,Puebla,1.0,1.0,Liga MX Femenil,4388923,20240202_Club-Tijuana_Puebla
+2024-02-03,CF América,Monterrey,4.0,0.0,Liga MX Femenil,4388924,20240203_CF-América_Monterrey
+2024-02-03,Club León,FC Juárez,1.0,1.0,Liga MX Femenil,4388925,20240203_Club-León_FC-Juárez
+2024-02-03,Pumas,Pachuca,1.0,2.0,Liga MX Femenil,4388926,20240203_Pumas_Pachuca
+2024-02-05,Santos Laguna,Atlas,0.0,0.0,Liga MX Femenil,4388943,20240205_Santos-Laguna_Atlas
+2024-02-05,Necaxa,Toluca,0.0,0.0,Liga MX Femenil,4388958,20240205_Necaxa_Toluca
+2024-02-08,Querétaro,CF América,1.0,5.0,Liga MX Femenil,4388957,20240208_Querétaro_CF-América
+2024-02-09,Atlas,Club Tijuana,0.0,4.0,Liga MX Femenil,4388956,20240209_Atlas_Club-Tijuana
+2024-02-09,FC Juárez,Mazatlán FC,3.0,2.0,Liga MX Femenil,4388955,20240209_FC-Juárez_Mazatlán-FC
+2024-02-09,Atlético de San Luis,Cruz Azul,3.0,5.0,Liga MX Femenil,4388954,20240209_Atlético-de-San-Luis_Cruz-Azul
+2024-02-09,Chivas,Santos Laguna,10.0,2.0,Liga MX Femenil,4388953,20240209_Chivas_Santos-Laguna
+2024-02-09,Toluca,Tigres,0.0,7.0,Liga MX Femenil,4388952,20240209_Toluca_Tigres
+2024-02-10,Pachuca,Club León,0.0,1.0,Liga MX Femenil,4388951,20240210_Pachuca_Club-León
+2024-02-10,Pumas,Monterrey,2.0,3.0,Liga MX Femenil,4388950,20240210_Pumas_Monterrey
+2024-02-11,Puebla,Necaxa,1.0,0.0,Liga MX Femenil,4388949,20240211_Puebla_Necaxa
+2024-02-16,CF América,Mazatlán FC,5.0,0.0,Liga MX Femenil,4388948,20240216_CF-América_Mazatlán-FC
+2024-02-17,Necaxa,Pumas,0.0,5.0,Liga MX Femenil,4388947,20240217_Necaxa_Pumas
+2024-02-17,Cruz Azul,Pachuca,1.0,4.0,Liga MX Femenil,4388945,20240217_Cruz-Azul_Pachuca
+2024-02-18,Club León,Chivas,1.0,1.0,Liga MX Femenil,4388927,20240218_Club-León_Chivas
+2024-02-19,Santos Laguna,Atlético de San Luis,0.0,2.0,Liga MX Femenil,4388942,20240219_Santos-Laguna_Atlético-de-San-Luis
+2024-02-19,Club Tijuana,Querétaro,1.0,2.0,Liga MX Femenil,4388941,20240219_Club-Tijuana_Querétaro
+2024-03-02,Pumas,Club Tijuana,3.0,3.0,Liga MX Femenil,4388939,20240302_Pumas_Club-Tijuana
+2024-03-03,Mazatlán FC,Tigres,0.0,4.0,Liga MX Femenil,4388938,20240303_Mazatlán-FC_Tigres
+2024-03-03,Atlético de San Luis,Club León,0.0,2.0,Liga MX Femenil,4388937,20240303_Atlético-de-San-Luis_Club-León
+2024-03-04,FC Juárez,Atlas,1.0,3.0,Liga MX Femenil,4388936,20240304_FC-Juárez_Atlas
+2024-03-04,Querétaro,Cruz Azul,3.0,0.0,Liga MX Femenil,4388935,20240304_Querétaro_Cruz-Azul
+2024-03-04,Toluca,CF América,3.0,0.0,Liga MX Femenil,4388934,20240304_Toluca_CF-América
+2024-03-05,Pachuca,Puebla,2.0,0.0,Liga MX Femenil,4388933,20240305_Pachuca_Puebla
+2024-03-05,Chivas,Necaxa,4.0,0.0,Liga MX Femenil,4388932,20240305_Chivas_Necaxa
+2024-03-05,Monterrey,Santos Laguna,6.0,0.0,Liga MX Femenil,4388931,20240305_Monterrey_Santos-Laguna
+2024-03-08,CF América,Puebla,4.0,1.0,Liga MX Femenil,4388930,20240308_CF-América_Puebla
+2024-03-08,Atlas,Pumas,0.0,2.0,Liga MX Femenil,4388929,20240308_Atlas_Pumas
+2024-03-08,Club León,Monterrey,1.0,4.0,Liga MX Femenil,4388988,20240308_Club-León_Monterrey
+2024-03-09,Tigres,Querétaro,2.0,0.0,Liga MX Femenil,4388987,20240309_Tigres_Querétaro
+2024-03-09,Cruz Azul,FC Juárez,1.0,4.0,Liga MX Femenil,4388928,20240309_Cruz-Azul_FC-Juárez
+2024-03-11,Mazatlán FC,Chivas,0.0,2.0,Liga MX Femenil,4388975,20240311_Mazatlán-FC_Chivas
+2024-03-11,Toluca,Atlético de San Luis,5.0,1.0,Liga MX Femenil,4388989,20240311_Toluca_Atlético-de-San-Luis
+2024-03-12,Santos Laguna,Necaxa,3.0,2.0,Liga MX Femenil,4388986,20240312_Santos-Laguna_Necaxa
+2024-03-13,Puebla,Atlas,0.0,0.0,Liga MX Femenil,4388944,20240313_Puebla_Atlas
+2024-03-16,Monterrey,Tigres,0.0,0.0,Liga MX Femenil,4388984,20240316_Monterrey_Tigres
+2024-03-16,Pumas,Cruz Azul,4.0,2.0,Liga MX Femenil,4388983,20240316_Pumas_Cruz-Azul
+2024-03-17,FC Juárez,Club Tijuana,1.0,2.0,Liga MX Femenil,4388982,20240317_FC-Juárez_Club-Tijuana
+2024-03-18,Chivas,CF América,2.0,1.0,Liga MX Femenil,4388980,20240318_Chivas_CF-América
+2024-03-18,Atlético de San Luis,Atlas,0.0,0.0,Liga MX Femenil,4388979,20240318_Atlético-de-San-Luis_Atlas
+2024-03-18,Necaxa,Club León,2.0,1.0,Liga MX Femenil,4388978,20240318_Necaxa_Club-León
+2024-03-18,Puebla,Mazatlán FC,1.0,2.0,Liga MX Femenil,4388981,20240318_Puebla_Mazatlán-FC
+2024-03-19,Pachuca,Toluca,4.0,0.0,Liga MX Femenil,4388977,20240319_Pachuca_Toluca
+2024-03-19,Querétaro,Santos Laguna,2.0,1.0,Liga MX Femenil,4388976,20240319_Querétaro_Santos-Laguna
+2024-03-23,Club Tijuana,Cruz Azul,0.0,2.0,Liga MX Femenil,4388974,20240323_Club-Tijuana_Cruz-Azul
+2024-03-23,Pumas,Puebla,3.0,3.0,Liga MX Femenil,4388973,20240323_Pumas_Puebla
+2024-03-23,Toluca,Club León,0.0,0.0,Liga MX Femenil,4388972,20240323_Toluca_Club-León
+2024-03-24,Atlas,Monterrey,0.0,1.0,Liga MX Femenil,4388971,20240324_Atlas_Monterrey
+2024-03-24,Mazatlán FC,Querétaro,2.0,2.0,Liga MX Femenil,4388959,20240324_Mazatlán-FC_Querétaro
+2024-03-24,Tigres,Chivas,1.0,0.0,Liga MX Femenil,4388970,20240324_Tigres_Chivas
+2024-03-24,CF América,Atlético de San Luis,2.0,1.0,Liga MX Femenil,4388969,20240324_CF-América_Atlético-de-San-Luis
+2024-03-25,Necaxa,FC Juárez,1.0,4.0,Liga MX Femenil,4388968,20240325_Necaxa_FC-Juárez
+2024-03-26,Pachuca,Santos Laguna,4.0,0.0,Liga MX Femenil,4388967,20240326_Pachuca_Santos-Laguna
+2024-03-29,Monterrey,Club Tijuana,3.0,1.0,Liga MX Femenil,4388966,20240329_Monterrey_Club-Tijuana
+2024-03-29,Cruz Azul,CF América,1.0,5.0,Liga MX Femenil,4388965,20240329_Cruz-Azul_CF-América
+2024-03-29,Querétaro,Necaxa,1.0,1.0,Liga MX Femenil,4388964,20240329_Querétaro_Necaxa
+2024-03-30,Club León,Mazatlán FC,3.0,0.0,Liga MX Femenil,4388963,20240330_Club-León_Mazatlán-FC
+2024-03-30,Atlético de San Luis,Pachuca,1.0,3.0,Liga MX Femenil,4388960,20240330_Atlético-de-San-Luis_Pachuca
+2024-03-31,FC Juárez,Toluca,0.0,0.0,Liga MX Femenil,4388962,20240331_FC-Juárez_Toluca
+2024-03-31,Chivas,Atlas,1.0,1.0,Liga MX Femenil,4388961,20240331_Chivas_Atlas
+2024-03-31,Puebla,Tigres,0.0,6.0,Liga MX Femenil,4388990,20240331_Puebla_Tigres
+2024-04-01,Santos Laguna,Pumas,2.0,3.0,Liga MX Femenil,4388991,20240401_Santos-Laguna_Pumas
+2024-04-11,Toluca,Querétaro,1.0,2.0,Liga MX Femenil,4388997,20240411_Toluca_Querétaro
+2024-04-13,Pumas,Chivas,1.0,1.0,Liga MX Femenil,4388992,20240413_Pumas_Chivas
+2024-04-14,Club León,Cruz Azul,2.0,1.0,Liga MX Femenil,4388994,20240414_Club-León_Cruz-Azul
+2024-04-14,Atlético de San Luis,FC Juárez,0.0,3.0,Liga MX Femenil,4388993,20240414_Atlético-de-San-Luis_FC-Juárez
+2024-04-15,Mazatlán FC,Monterrey,0.0,3.0,Liga MX Femenil,4388995,20240415_Mazatlán-FC_Monterrey
+2024-04-15,Atlas,Pachuca,1.0,3.0,Liga MX Femenil,4388996,20240415_Atlas_Pachuca
+2024-04-16,Tigres,CF América,1.0,2.0,Liga MX Femenil,4388998,20240416_Tigres_CF-América
+2024-04-16,Santos Laguna,Puebla,0.0,1.0,Liga MX Femenil,4388999,20240416_Santos-Laguna_Puebla
+2024-04-16,Club Tijuana,Necaxa,3.0,0.0,Liga MX Femenil,4389000,20240416_Club-Tijuana_Necaxa
+2024-04-19,Monterrey,Toluca,1.0,0.0,Liga MX Femenil,4388946,20240419_Monterrey_Toluca
+2024-04-19,Querétaro,Club León,3.0,2.0,Liga MX Femenil,4389027,20240419_Querétaro_Club-León
+2024-04-20,Atlas,Tigres,0.0,1.0,Liga MX Femenil,4389026,20240420_Atlas_Tigres
+2024-04-21,Puebla,FC Juárez,3.0,3.0,Liga MX Femenil,4389025,20240421_Puebla_FC-Juárez
+2024-04-21,Pachuca,Chivas,3.0,0.0,Liga MX Femenil,4389024,20240421_Pachuca_Chivas
+2024-04-22,Club Tijuana,Santos Laguna,5.0,2.0,Liga MX Femenil,4389023,20240422_Club-Tijuana_Santos-Laguna
+2024-04-22,Cruz Azul,Toluca,2.0,3.0,Liga MX Femenil,4389015,20240422_Cruz-Azul_Toluca
+2024-04-22,Necaxa,Mazatlán FC,2.0,3.0,Liga MX Femenil,4389022,20240422_Necaxa_Mazatlán-FC
+2024-04-23,CF América,Pumas,3.0,0.0,Liga MX Femenil,4389021,20240423_CF-América_Pumas
+2024-04-23,Monterrey,Atlético de San Luis,7.0,0.0,Liga MX Femenil,4389020,20240423_Monterrey_Atlético-de-San-Luis
+2024-04-26,Tigres,FC Juárez,1.0,0.0,Liga MX Femenil,4388940,20240426_Tigres_FC-Juárez
+2024-04-26,Club Tijuana,Pachuca,3.0,4.0,Liga MX Femenil,4388985,20240426_Club-Tijuana_Pachuca
+2024-04-28,Atlético de San Luis,Puebla,2.0,2.0,Liga MX Femenil,4389018,20240428_Atlético-de-San-Luis_Puebla
+2024-04-28,Chivas,Cruz Azul,4.0,0.0,Liga MX Femenil,4389019,20240428_Chivas_Cruz-Azul
+2024-04-29,Mazatlán FC,Pumas,2.0,7.0,Liga MX Femenil,4389017,20240429_Mazatlán-FC_Pumas
+2024-04-29,Querétaro,Atlas,0.0,2.0,Liga MX Femenil,4389001,20240429_Querétaro_Atlas
+2024-04-29,Toluca,Club Tijuana,2.0,1.0,Liga MX Femenil,4389016,20240429_Toluca_Club-Tijuana
+2024-04-30,Tigres,Necaxa,3.0,1.0,Liga MX Femenil,4389014,20240430_Tigres_Necaxa
+2024-04-30,Club León,Santos Laguna,4.0,0.0,Liga MX Femenil,4389012,20240430_Club-León_Santos-Laguna
+2024-04-30,CF América,Pachuca,2.0,4.0,Liga MX Femenil,4389013,20240430_CF-América_Pachuca
+2024-04-30,FC Juárez,Monterrey,1.0,0.0,Liga MX Femenil,4389011,20240430_FC-Juárez_Monterrey
+2024-05-03,Necaxa,Atlético de San Luis,2.0,1.0,Liga MX Femenil,4389010,20240503_Necaxa_Atlético-de-San-Luis
+2024-05-03,Puebla,Toluca,1.0,2.0,Liga MX Femenil,4389009,20240503_Puebla_Toluca
+2024-05-04,Atlas,Cruz Azul,1.0,1.0,Liga MX Femenil,4389008,20240504_Atlas_Cruz-Azul
+2024-05-04,Club Tijuana,Club León,1.0,1.0,Liga MX Femenil,4389007,20240504_Club-Tijuana_Club-León
+2024-05-04,Pumas,Querétaro,4.0,1.0,Liga MX Femenil,4389006,20240504_Pumas_Querétaro
+2024-05-04,Pachuca,Tigres,1.0,1.0,Liga MX Femenil,4389005,20240504_Pachuca_Tigres
+2024-05-05,Monterrey,Chivas,0.0,1.0,Liga MX Femenil,4389004,20240505_Monterrey_Chivas
+2024-05-05,Santos Laguna,Mazatlán FC,3.0,2.0,Liga MX Femenil,4389003,20240505_Santos-Laguna_Mazatlán-FC
+2024-05-05,FC Juárez,CF América,1.0,1.0,Liga MX Femenil,4389002,20240505_FC-Juárez_CF-América
+2024-05-10,Club León,Pachuca,1.0,4.0,Liga MX Femenil,4473895,20240510_Club-León_Pachuca
+2024-05-10,Chivas,CF América,0.0,2.0,Liga MX Femenil,4473891,20240510_Chivas_CF-América
+2024-05-11,Pumas,Monterrey,0.0,2.0,Liga MX Femenil,4473893,20240511_Pumas_Monterrey
+2024-05-11,FC Juárez,Tigres,0.0,1.0,Liga MX Femenil,4473897,20240511_FC-Juárez_Tigres
+2024-05-12,CF América,Chivas,4.0,1.0,Liga MX Femenil,4473892,20240512_CF-América_Chivas
+2024-05-13,Pachuca,Club León,1.0,0.0,Liga MX Femenil,4473896,20240513_Pachuca_Club-León
+2024-05-14,Tigres,FC Juárez,1.0,1.0,Liga MX Femenil,4473898,20240514_Tigres_FC-Juárez
+2024-05-14,Monterrey,Pumas,1.0,0.0,Liga MX Femenil,4473894,20240514_Monterrey_Pumas
+2024-05-18,Monterrey,Pachuca,2.0,0.0,Liga MX Femenil,4478725,20240518_Monterrey_Pachuca
+2024-05-18,CF América,Tigres,3.0,1.0,Liga MX Femenil,4478723,20240518_CF-América_Tigres
+2024-05-21,Tigres,CF América,1.0,0.0,Liga MX Femenil,4478724,20240521_Tigres_CF-América
+2024-05-21,Pachuca,Monterrey,2.0,4.0,Liga MX Femenil,4478726,20240521_Pachuca_Monterrey
+2024-05-25,CF América,Monterrey,1.0,0.0,Liga MX Femenil,4481612,20240525_CF-América_Monterrey
+2024-05-28,Monterrey,CF América,2.0,1.0,Liga MX Femenil,4481613,20240528_Monterrey_CF-América
+2024-06-28,Monterrey,Tigres,0.0,0.0,Liga MX Femenil,4500391,20240628_Monterrey_Tigres
+2024-07-02,Tigres,Monterrey,3.0,2.0,Liga MX Femenil,4500392,20240702_Tigres_Monterrey
+2024-07-04,Necaxa,Pachuca,0.0,5.0,Liga MX Femenil,4505059,20240704_Necaxa_Pachuca
+2024-07-05,FC Juárez,Chivas,0.0,1.0,Liga MX Femenil,4505050,20240705_FC-Juárez_Chivas
+2024-07-05,Pumas,Club León,2.0,0.0,Liga MX Femenil,4505051,20240705_Pumas_Club-León
+2024-07-07,Santos Laguna,Toluca,0.0,2.0,Liga MX Femenil,4505053,20240707_Santos-Laguna_Toluca
+2024-07-07,Cruz Azul,CF América,2.0,1.0,Liga MX Femenil,4505052,20240707_Cruz-Azul_CF-América
+2024-07-07,Puebla,Monterrey,0.0,1.0,Liga MX Femenil,4505054,20240707_Puebla_Monterrey
+2024-07-07,Atlético de San Luis,Mazatlán FC,1.0,0.0,Liga MX Femenil,4505056,20240707_Atlético-de-San-Luis_Mazatlán-FC
+2024-07-07,Querétaro,Club Tijuana,1.0,0.0,Liga MX Femenil,4505055,20240707_Querétaro_Club-Tijuana
+2024-07-08,Atlas,Tigres,1.0,3.0,Liga MX Femenil,4505057,20240708_Atlas_Tigres
+2024-07-19,Club León,FC Juárez,1.0,0.0,Liga MX Femenil,4505145,20240719_Club-León_FC-Juárez
+2024-07-19,Toluca,Pumas,1.0,2.0,Liga MX Femenil,4505058,20240719_Toluca_Pumas
+2024-07-20,Santos Laguna,Atlético de San Luis,0.0,0.0,Liga MX Femenil,4505049,20240720_Santos-Laguna_Atlético-de-San-Luis
+2024-07-21,Mazatlán FC,Cruz Azul,1.0,5.0,Liga MX Femenil,4505060,20240721_Mazatlán-FC_Cruz-Azul
+2024-07-23,Tigres,Puebla,3.0,0.0,Liga MX Femenil,4505061,20240723_Tigres_Puebla
+2024-07-23,Pachuca,Querétaro,3.0,1.0,Liga MX Femenil,4505062,20240723_Pachuca_Querétaro
+2024-07-24,Monterrey,Atlas,5.0,0.0,Liga MX Femenil,4505063,20240724_Monterrey_Atlas
+2024-07-25,Club Tijuana,Necaxa,3.0,0.0,Liga MX Femenil,4505064,20240725_Club-Tijuana_Necaxa
+2024-07-26,Pumas,FC Juárez,3.0,2.0,Liga MX Femenil,4505067,20240726_Pumas_FC-Juárez
+2024-07-28,Cruz Azul,Atlas,0.0,0.0,Liga MX Femenil,4505165,20240728_Cruz-Azul_Atlas
+2024-07-28,Querétaro,Atlético de San Luis,1.0,1.0,Liga MX Femenil,4505040,20240728_Querétaro_Atlético-de-San-Luis
+2024-07-29,Necaxa,Santos Laguna,1.0,0.0,Liga MX Femenil,4505174,20240729_Necaxa_Santos-Laguna
+2024-07-29,Club León,Puebla,0.0,0.0,Liga MX Femenil,4505031,20240729_Club-León_Puebla
+2024-07-30,CF América,Toluca,2.0,2.0,Liga MX Femenil,4505032,20240730_CF-América_Toluca
+2024-08-02,Atlas,Club León,0.0,0.0,Liga MX Femenil,4505038,20240802_Atlas_Club-León
+2024-08-03,Atlético de San Luis,Pumas,1.0,2.0,Liga MX Femenil,4505039,20240803_Atlético-de-San-Luis_Pumas
+2024-08-04,FC Juárez,Santos Laguna,3.0,1.0,Liga MX Femenil,4505030,20240804_FC-Juárez_Santos-Laguna
+2024-08-05,Cruz Azul,Pachuca,0.0,4.0,Liga MX Femenil,4505041,20240805_Cruz-Azul_Pachuca
+2024-08-06,Necaxa,Monterrey,0.0,4.0,Liga MX Femenil,4505042,20240806_Necaxa_Monterrey
+2024-08-06,Puebla,Chivas,0.0,1.0,Liga MX Femenil,4505045,20240806_Puebla_Chivas
+2024-08-06,Toluca,Club Tijuana,2.0,4.0,Liga MX Femenil,4505044,20240806_Toluca_Club-Tijuana
+2024-08-07,Querétaro,CF América,0.0,4.0,Liga MX Femenil,4505046,20240807_Querétaro_CF-América
+2024-08-09,Club León,Cruz Azul,1.0,0.0,Liga MX Femenil,4505047,20240809_Club-León_Cruz-Azul
+2024-08-10,Pumas,Pachuca,0.0,2.0,Liga MX Femenil,4505097,20240810_Pumas_Pachuca
+2024-08-10,Mazatlán FC,FC Juárez,0.0,6.0,Liga MX Femenil,4505048,20240810_Mazatlán-FC_FC-Juárez
+2024-08-11,Santos Laguna,Atlas,0.0,3.0,Liga MX Femenil,4505088,20240811_Santos-Laguna_Atlas
+2024-08-12,CF América,Necaxa,4.0,0.0,Liga MX Femenil,4505089,20240812_CF-América_Necaxa
+2024-08-13,Toluca,Tigres,0.0,6.0,Liga MX Femenil,4505090,20240813_Toluca_Tigres
+2024-08-13,Chivas,Querétaro,0.0,0.0,Liga MX Femenil,4505091,20240813_Chivas_Querétaro
+2024-08-13,Monterrey,Atlético de San Luis,1.0,0.0,Liga MX Femenil,4505092,20240813_Monterrey_Atlético-de-San-Luis
+2024-08-13,Club Tijuana,Puebla,3.0,2.0,Liga MX Femenil,4505093,20240813_Club-Tijuana_Puebla
+2024-08-16,Necaxa,Mazatlán FC,1.0,2.0,Liga MX Femenil,4505094,20240816_Necaxa_Mazatlán-FC
+2024-08-17,Atlas,Club Tijuana,3.0,1.0,Liga MX Femenil,4505095,20240817_Atlas_Club-Tijuana
+2024-08-17,FC Juárez,Monterrey,0.0,1.0,Liga MX Femenil,4505096,20240817_FC-Juárez_Monterrey
+2024-08-17,Cruz Azul,Santos Laguna,4.0,1.0,Liga MX Femenil,4505087,20240817_Cruz-Azul_Santos-Laguna
+2024-08-17,Puebla,CF América,0.0,0.0,Liga MX Femenil,4505098,20240817_Puebla_CF-América
+2024-08-18,Pachuca,Club León,1.0,0.0,Liga MX Femenil,4505099,20240818_Pachuca_Club-León
+2024-08-18,Tigres,Pumas,3.0,1.0,Liga MX Femenil,4505100,20240818_Tigres_Pumas
+2024-08-19,Querétaro,Toluca,1.0,0.0,Liga MX Femenil,4505102,20240819_Querétaro_Toluca
+2024-08-20,Atlético de San Luis,Chivas,0.0,3.0,Liga MX Femenil,4505101,20240820_Atlético-de-San-Luis_Chivas
+2024-08-22,Pachuca,Atlas,3.0,0.0,Liga MX Femenil,4505034,20240822_Pachuca_Atlas
+2024-08-23,Chivas,Club León,2.0,1.0,Liga MX Femenil,4505065,20240823_Chivas_Club-León
+2024-08-23,Club Tijuana,Cruz Azul,3.0,0.0,Liga MX Femenil,4505035,20240823_Club-Tijuana_Cruz-Azul
+2024-08-24,Pumas,Puebla,2.0,1.0,Liga MX Femenil,4505103,20240824_Pumas_Puebla
+2024-08-25,Atlético de San Luis,Pachuca,2.0,3.0,Liga MX Femenil,4505105,20240825_Atlético-de-San-Luis_Pachuca
+2024-08-26,Santos Laguna,Tigres,0.0,3.0,Liga MX Femenil,4505078,20240826_Santos-Laguna_Tigres
+2024-08-26,FC Juárez,Club Tijuana,4.0,0.0,Liga MX Femenil,4505069,20240826_FC-Juárez_Club-Tijuana
+2024-08-26,Mazatlán FC,Querétaro,0.0,2.0,Liga MX Femenil,4505104,20240826_Mazatlán-FC_Querétaro
+2024-08-26,Necaxa,Atlas,0.0,1.0,Liga MX Femenil,4505070,20240826_Necaxa_Atlas
+2024-08-27,Monterrey,Toluca,5.0,0.0,Liga MX Femenil,4505073,20240827_Monterrey_Toluca
+2024-08-27,Club León,CF América,0.0,1.0,Liga MX Femenil,4505071,20240827_Club-León_CF-América
+2024-08-27,Chivas,Cruz Azul,2.0,0.0,Liga MX Femenil,4505072,20240827_Chivas_Cruz-Azul
+2024-08-30,CF América,FC Juárez,0.0,0.0,Liga MX Femenil,4505066,20240830_CF-América_FC-Juárez
+2024-08-30,Tigres,Necaxa,6.0,0.0,Liga MX Femenil,4505037,20240830_Tigres_Necaxa
+2024-08-30,Club Tijuana,Santos Laguna,1.0,0.0,Liga MX Femenil,4505074,20240830_Club-Tijuana_Santos-Laguna
+2024-09-01,CF América,Pumas,2.0,2.0,Liga MX Femenil,4505076,20240901_CF-América_Pumas
+2024-09-01,Puebla,Atlético de San Luis,2.0,2.0,Liga MX Femenil,4505075,20240901_Puebla_Atlético-de-San-Luis
+2024-09-01,Pachuca,Mazatlán FC,7.0,0.0,Liga MX Femenil,4505077,20240901_Pachuca_Mazatlán-FC
+2024-09-02,Tigres,Club León,1.0,0.0,Liga MX Femenil,4505068,20240902_Tigres_Club-León
+2024-09-02,Toluca,Chivas,2.0,0.0,Liga MX Femenil,4505079,20240902_Toluca_Chivas
+2024-09-02,Querétaro,Monterrey,1.0,3.0,Liga MX Femenil,4505080,20240902_Querétaro_Monterrey
+2024-09-03,Cruz Azul,Necaxa,1.0,1.0,Liga MX Femenil,4505081,20240903_Cruz-Azul_Necaxa
+2024-09-04,Atlas,FC Juárez,1.0,0.0,Liga MX Femenil,4505082,20240904_Atlas_FC-Juárez
+2024-09-05,Mazatlán FC,Tigres,0.0,2.0,Liga MX Femenil,4505043,20240905_Mazatlán-FC_Tigres
+2024-09-07,Santos Laguna,Querétaro,0.0,2.0,Liga MX Femenil,4505083,20240907_Santos-Laguna_Querétaro
+2024-09-07,Pumas,Atlas,4.0,2.0,Liga MX Femenil,4505084,20240907_Pumas_Atlas
+2024-09-07,Toluca,Puebla,1.0,0.0,Liga MX Femenil,4505085,20240907_Toluca_Puebla
+2024-09-08,FC Juárez,Pachuca,0.0,0.0,Liga MX Femenil,4505086,20240908_FC-Juárez_Pachuca
+2024-09-08,Chivas,Necaxa,3.0,1.0,Liga MX Femenil,4505115,20240908_Chivas_Necaxa
+2024-09-09,Club León,Club Tijuana,4.0,3.0,Liga MX Femenil,4505122,20240909_Club-León_Club-Tijuana
+2024-09-09,Monterrey,Cruz Azul,1.0,0.0,Liga MX Femenil,4505121,20240909_Monterrey_Cruz-Azul
+2024-09-09,Mazatlán FC,CF América,1.0,8.0,Liga MX Femenil,4505120,20240909_Mazatlán-FC_CF-América
+2024-09-09,Atlético de San Luis,Tigres,1.0,2.0,Liga MX Femenil,4505123,20240909_Atlético-de-San-Luis_Tigres
+2024-09-13,Atlas,Toluca,1.0,1.0,Liga MX Femenil,4505119,20240913_Atlas_Toluca
+2024-09-13,Querétaro,Club León,2.0,1.0,Liga MX Femenil,4505118,20240913_Querétaro_Club-León
+2024-09-14,Cruz Azul,Atlético de San Luis,2.0,0.0,Liga MX Femenil,4505117,20240914_Cruz-Azul_Atlético-de-San-Luis
+2024-09-15,Tigres,Monterrey,0.0,0.0,Liga MX Femenil,4505116,20240915_Tigres_Monterrey
+2024-09-15,CF América,Chivas,7.0,0.0,Liga MX Femenil,4505106,20240915_CF-América_Chivas
+2024-09-15,Puebla,Mazatlán FC,3.0,1.0,Liga MX Femenil,4505114,20240915_Puebla_Mazatlán-FC
+2024-09-16,Pachuca,Santos Laguna,3.0,0.0,Liga MX Femenil,4505113,20240916_Pachuca_Santos-Laguna
+2024-09-16,Club Tijuana,Pumas,5.0,1.0,Liga MX Femenil,4505112,20240916_Club-Tijuana_Pumas
+2024-09-16,Necaxa,FC Juárez,0.0,2.0,Liga MX Femenil,4505111,20240916_Necaxa_FC-Juárez
+2024-09-20,Chivas,Mazatlán FC,1.0,2.0,Liga MX Femenil,4505033,20240920_Chivas_Mazatlán-FC
+2024-09-20,Pumas,Querétaro,0.0,0.0,Liga MX Femenil,4505110,20240920_Pumas_Querétaro
+2024-09-21,Santos Laguna,Puebla,2.0,1.0,Liga MX Femenil,4505109,20240921_Santos-Laguna_Puebla
+2024-09-22,FC Juárez,Cruz Azul,1.0,0.0,Liga MX Femenil,4505108,20240922_FC-Juárez_Cruz-Azul
+2024-09-22,Atlético de San Luis,Necaxa,2.0,1.0,Liga MX Femenil,4505143,20240922_Atlético-de-San-Luis_Necaxa
+2024-09-22,Chivas,Pachuca,3.0,3.0,Liga MX Femenil,4505134,20240922_Chivas_Pachuca
+2024-09-23,Club Tijuana,Tigres,0.0,1.0,Liga MX Femenil,4505142,20240923_Club-Tijuana_Tigres
+2024-09-23,Mazatlán FC,Atlas,0.0,2.0,Liga MX Femenil,4505107,20240923_Mazatlán-FC_Atlas
+2024-09-23,Toluca,Club León,2.0,0.0,Liga MX Femenil,4505141,20240923_Toluca_Club-León
+2024-09-24,Monterrey,CF América,2.0,4.0,Liga MX Femenil,4505140,20240924_Monterrey_CF-América
+2024-09-26,CF América,Santos Laguna,2.0,0.0,Liga MX Femenil,4505138,20240926_CF-América_Santos-Laguna
+2024-09-26,Querétaro,FC Juárez,0.0,2.0,Liga MX Femenil,4505139,20240926_Querétaro_FC-Juárez
+2024-09-27,Pumas,Chivas,3.0,1.0,Liga MX Femenil,4505136,20240927_Pumas_Chivas
+2024-09-27,Pachuca,Puebla,2.0,0.0,Liga MX Femenil,4505137,20240927_Pachuca_Puebla
+2024-09-27,Tigres,Cruz Azul,2.0,0.0,Liga MX Femenil,4505135,20240927_Tigres_Cruz-Azul
+2024-09-27,Atlas,Atlético de San Luis,3.0,0.0,Liga MX Femenil,4505131,20240927_Atlas_Atlético-de-San-Luis
+2024-09-27,Club León,Monterrey,1.0,1.0,Liga MX Femenil,4505133,20240927_Club-León_Monterrey
+2024-09-27,Necaxa,Toluca,1.0,4.0,Liga MX Femenil,4505132,20240927_Necaxa_Toluca
+2024-09-30,Santos Laguna,Pumas,1.0,3.0,Liga MX Femenil,4505128,20240930_Santos-Laguna_Pumas
+2024-09-30,Chivas,Tigres,1.0,1.0,Liga MX Femenil,4505129,20240930_Chivas_Tigres
+2024-09-30,Club Tijuana,CF América,1.0,4.0,Liga MX Femenil,4505127,20240930_Club-Tijuana_CF-América
+2024-09-30,Atlético de San Luis,FC Juárez,2.0,3.0,Liga MX Femenil,4505126,20240930_Atlético-de-San-Luis_FC-Juárez
+2024-09-30,Puebla,Querétaro,0.0,1.0,Liga MX Femenil,4505130,20240930_Puebla_Querétaro
+2024-10-01,Toluca,Pachuca,1.0,3.0,Liga MX Femenil,4505125,20241001_Toluca_Pachuca
+2024-10-01,Monterrey,Mazatlán FC,6.0,1.0,Liga MX Femenil,4505164,20241001_Monterrey_Mazatlán-FC
+2024-10-03,Club León,Necaxa,1.0,0.0,Liga MX Femenil,4505173,20241003_Club-León_Necaxa
+2024-10-04,Monterrey,Santos Laguna,4.0,1.0,Liga MX Femenil,4505036,20241004_Monterrey_Santos-Laguna
+2024-10-04,Querétaro,Atlas,1.0,1.0,Liga MX Femenil,4505166,20241004_Querétaro_Atlas
+2024-10-05,FC Juárez,Toluca,2.0,1.0,Liga MX Femenil,4505168,20241005_FC-Juárez_Toluca
+2024-10-06,Mazatlán FC,Pumas,2.0,1.0,Liga MX Femenil,4505169,20241006_Mazatlán-FC_Pumas
+2024-10-06,Cruz Azul,Puebla,3.0,0.0,Liga MX Femenil,4505167,20241006_Cruz-Azul_Puebla
+2024-10-07,Chivas,Club Tijuana,3.0,1.0,Liga MX Femenil,4505170,20241007_Chivas_Club-Tijuana
+2024-10-07,Tigres,CF América,0.0,1.0,Liga MX Femenil,4505171,20241007_Tigres_CF-América
+2024-10-07,Atlético de San Luis,Club León,2.0,2.0,Liga MX Femenil,4505163,20241007_Atlético-de-San-Luis_Club-León
+2024-10-08,Pachuca,Monterrey,0.0,0.0,Liga MX Femenil,4505172,20241008_Pachuca_Monterrey
+2024-10-11,Mazatlán FC,Club Tijuana,1.0,3.0,Liga MX Femenil,4505124,20241011_Mazatlán-FC_Club-Tijuana
+2024-10-12,Tigres,Querétaro,5.0,3.0,Liga MX Femenil,4505176,20241012_Tigres_Querétaro
+2024-10-12,Atlas,Chivas,1.0,5.0,Liga MX Femenil,4505177,20241012_Atlas_Chivas
+2024-10-12,Toluca,Cruz Azul,3.0,1.0,Liga MX Femenil,4505181,20241012_Toluca_Cruz-Azul
+2024-10-12,CF América,Pachuca,5.0,0.0,Liga MX Femenil,4505178,20241012_CF-América_Pachuca
+2024-10-13,Puebla,Necaxa,2.0,0.0,Liga MX Femenil,4505180,20241013_Puebla_Necaxa
+2024-10-13,Pumas,Monterrey,1.0,2.0,Liga MX Femenil,4505179,20241013_Pumas_Monterrey
+2024-10-14,Club Tijuana,Atlético de San Luis,6.0,1.0,Liga MX Femenil,4505154,20241014_Club-Tijuana_Atlético-de-San-Luis
+2024-10-15,Santos Laguna,Mazatlán FC,0.0,0.0,Liga MX Femenil,4505175,20241015_Santos-Laguna_Mazatlán-FC
+2024-10-17,Necaxa,Querétaro,0.0,3.0,Liga MX Femenil,4505146,20241017_Necaxa_Querétaro
+2024-10-18,Atlas,Puebla,3.0,0.0,Liga MX Femenil,4505147,20241018_Atlas_Puebla
+2024-10-18,Mazatlán FC,Toluca,2.0,5.0,Liga MX Femenil,4505148,20241018_Mazatlán-FC_Toluca
+2024-10-18,Santos Laguna,Club León,5.0,0.0,Liga MX Femenil,4505149,20241018_Santos-Laguna_Club-León
+2024-10-19,Cruz Azul,Pumas,4.0,5.0,Liga MX Femenil,4505150,20241019_Cruz-Azul_Pumas
+2024-10-20,Atlético de San Luis,CF América,0.0,6.0,Liga MX Femenil,4505152,20241020_Atlético-de-San-Luis_CF-América
+2024-10-21,Pachuca,Club Tijuana,2.0,2.0,Liga MX Femenil,4505151,20241021_Pachuca_Club-Tijuana
+2024-10-21,Monterrey,Chivas,3.0,2.0,Liga MX Femenil,4505144,20241021_Monterrey_Chivas
+2024-10-21,FC Juárez,Tigres,3.0,1.0,Liga MX Femenil,4505153,20241021_FC-Juárez_Tigres
+2024-10-31,Querétaro,Cruz Azul,1.0,3.0,Liga MX Femenil,4505155,20241031_Querétaro_Cruz-Azul
+2024-11-01,Club León,Mazatlán FC,2.0,1.0,Liga MX Femenil,4505157,20241101_Club-León_Mazatlán-FC
+2024-11-01,Toluca,Atlético de San Luis,4.0,0.0,Liga MX Femenil,4505156,20241101_Toluca_Atlético-de-San-Luis
+2024-11-02,Pumas,Necaxa,1.0,2.0,Liga MX Femenil,4505158,20241102_Pumas_Necaxa
+2024-11-03,Puebla,FC Juárez,2.0,4.0,Liga MX Femenil,4505159,20241103_Puebla_FC-Juárez
+2024-11-03,CF América,Atlas,4.0,1.0,Liga MX Femenil,4505160,20241103_CF-América_Atlas
+2024-11-04,Chivas,Santos Laguna,6.0,0.0,Liga MX Femenil,4505161,20241104_Chivas_Santos-Laguna
+2024-11-04,Tigres,Pachuca,2.0,1.0,Liga MX Femenil,4505162,20241104_Tigres_Pachuca
+2024-11-04,Club Tijuana,Monterrey,0.0,2.0,Liga MX Femenil,4505182,20241104_Club-Tijuana_Monterrey
+2024-11-08,FC Juárez,Pachuca,1.0,0.0,Liga MX Femenil,4672477,20241108_FC-Juárez_Pachuca
+2024-11-08,Chivas,CF América,1.0,4.0,Liga MX Femenil,4672475,20241108_Chivas_CF-América
+2024-11-09,Toluca,Monterrey,1.0,0.0,Liga MX Femenil,4672473,20241109_Toluca_Monterrey
+2024-11-09,Pumas,Tigres,0.0,0.0,Liga MX Femenil,4672479,20241109_Pumas_Tigres
+2024-11-11,Pachuca,FC Juárez,2.0,1.0,Liga MX Femenil,4672478,20241111_Pachuca_FC-Juárez
+2024-11-11,CF América,Chivas,3.0,2.0,Liga MX Femenil,4672476,20241111_CF-América_Chivas
+2024-11-12,Monterrey,Toluca,1.0,0.0,Liga MX Femenil,4672474,20241112_Monterrey_Toluca
+2024-11-12,Tigres,Pumas,7.0,1.0,Liga MX Femenil,4672480,20241112_Tigres_Pumas
+2024-11-15,CF América,Tigres,1.0,1.0,Liga MX Femenil,4674771,20241115_CF-América_Tigres
+2024-11-16,Pachuca,Monterrey,0.0,3.0,Liga MX Femenil,4674769,20241116_Pachuca_Monterrey
+2024-11-18,Tigres,CF América,2.0,2.0,Liga MX Femenil,4674772,20241118_Tigres_CF-América
+2024-11-19,Monterrey,Pachuca,4.0,1.0,Liga MX Femenil,4674770,20241119_Monterrey_Pachuca
+2024-11-23,Tigres,Monterrey,1.0,0.0,Liga MX Femenil,4677369,20241123_Tigres_Monterrey
+2024-11-26,Monterrey,Tigres,3.0,2.0,Liga MX Femenil,4677370,20241126_Monterrey_Tigres
+2025-01-04,Atlas,Santos Laguna,1.0,3.0,Liga MX Femenil,4692500,20250104_Atlas_Santos-Laguna
+2025-01-04,Pumas,Atlético de San Luis,2.0,0.0,Liga MX Femenil,4692501,20250104_Pumas_Atlético-de-San-Luis
+2025-01-06,Club León,Toluca,1.0,1.0,Liga MX Femenil,4692502,20250106_Club-León_Toluca
+2025-01-06,Mazatlán FC,Monterrey,0.0,7.0,Liga MX Femenil,4692503,20250106_Mazatlán-FC_Monterrey
+2025-01-06,Necaxa,Chivas,0.0,3.0,Liga MX Femenil,4692505,20250106_Necaxa_Chivas
+2025-01-06,Querétaro,Pachuca,1.0,7.0,Liga MX Femenil,4692504,20250106_Querétaro_Pachuca
+2025-01-07,FC Juárez,Puebla,3.0,0.0,Liga MX Femenil,4692506,20250107_FC-Juárez_Puebla
+2025-01-07,CF América,Cruz Azul,2.0,1.0,Liga MX Femenil,4692507,20250107_CF-América_Cruz-Azul
+2025-01-07,Tigres,Club Tijuana,1.0,2.0,Liga MX Femenil,4692508,20250107_Tigres_Club-Tijuana
+2025-01-09,Toluca,Mazatlán FC,5.0,0.0,Liga MX Femenil,4692509,20250109_Toluca_Mazatlán-FC
+2025-01-10,Atlas,Pachuca,2.0,3.0,Liga MX Femenil,4692510,20250110_Atlas_Pachuca
+2025-01-10,Monterrey,Pumas,2.0,1.0,Liga MX Femenil,4692511,20250110_Monterrey_Pumas
+2025-01-10,CF América,Querétaro,7.0,0.0,Liga MX Femenil,4692513,20250110_CF-América_Querétaro
+2025-01-10,Santos Laguna,Chivas,0.0,1.0,Liga MX Femenil,4692512,20250110_Santos-Laguna_Chivas
+2025-01-11,Club León,Atlético de San Luis,0.0,1.0,Liga MX Femenil,4692514,20250111_Club-León_Atlético-de-San-Luis
+2025-01-12,Puebla,Tigres,0.0,3.0,Liga MX Femenil,4692515,20250112_Puebla_Tigres
+2025-01-12,Cruz Azul,Club Tijuana,1.0,1.0,Liga MX Femenil,4692516,20250112_Cruz-Azul_Club-Tijuana
+2025-01-13,FC Juárez,Necaxa,1.0,0.0,Liga MX Femenil,4692517,20250113_FC-Juárez_Necaxa
+2025-01-14,Pumas,Santos Laguna,6.0,1.0,Liga MX Femenil,4692518,20250114_Pumas_Santos-Laguna
+2025-01-15,Pachuca,Cruz Azul,2.0,2.0,Liga MX Femenil,4692519,20250115_Pachuca_Cruz-Azul
+2025-01-16,Atlético de San Luis,Monterrey,1.0,0.0,Liga MX Femenil,4692520,20250116_Atlético-de-San-Luis_Monterrey
+2025-01-16,Puebla,Club León,1.0,2.0,Liga MX Femenil,4692521,20250116_Puebla_Club-León
+2025-01-16,Querétaro,Mazatlán FC,3.0,1.0,Liga MX Femenil,4692522,20250116_Querétaro_Mazatlán-FC
+2025-01-16,Necaxa,CF América,0.0,5.0,Liga MX Femenil,4692523,20250116_Necaxa_CF-América
+2025-01-17,Tigres,Atlas,1.0,2.0,Liga MX Femenil,4692524,20250117_Tigres_Atlas
+2025-01-17,Chivas,FC Juárez,0.0,0.0,Liga MX Femenil,4692525,20250117_Chivas_FC-Juárez
+2025-01-18,Club Tijuana,Toluca,3.0,1.0,Liga MX Femenil,4692553,20250118_Club-Tijuana_Toluca
+2025-01-20,Monterrey,Puebla,5.0,1.0,Liga MX Femenil,4692545,20250120_Monterrey_Puebla
+2025-01-20,Mazatlán FC,Pachuca,0.0,2.0,Liga MX Femenil,4692546,20250120_Mazatlán-FC_Pachuca
+2025-01-20,Club León,Tigres,2.0,2.0,Liga MX Femenil,4692548,20250120_Club-León_Tigres
+2025-01-20,FC Juárez,Pumas,1.0,1.0,Liga MX Femenil,4692550,20250120_FC-Juárez_Pumas
+2025-01-20,Atlético de San Luis,Club Tijuana,2.0,0.0,Liga MX Femenil,4692547,20250120_Atlético-de-San-Luis_Club-Tijuana
+2025-01-21,Toluca,Querétaro,1.0,2.0,Liga MX Femenil,4692549,20250121_Toluca_Querétaro
+2025-01-21,Cruz Azul,Chivas,1.0,1.0,Liga MX Femenil,4692551,20250121_Cruz-Azul_Chivas
+2025-01-22,Atlas,CF América,0.0,3.0,Liga MX Femenil,4692552,20250122_Atlas_CF-América
+2025-01-22,Santos Laguna,Necaxa,2.0,3.0,Liga MX Femenil,4692544,20250122_Santos-Laguna_Necaxa
+2025-01-25,Club Tijuana,Querétaro,0.0,1.0,Liga MX Femenil,4692554,20250125_Club-Tijuana_Querétaro
+2025-01-25,CF América,Club León,5.0,0.0,Liga MX Femenil,4692561,20250125_CF-América_Club-León
+2025-01-26,Puebla,Atlas,0.0,3.0,Liga MX Femenil,4692555,20250126_Puebla_Atlas
+2025-01-26,Cruz Azul,Mazatlán FC,4.0,0.0,Liga MX Femenil,4692556,20250126_Cruz-Azul_Mazatlán-FC
+2025-01-26,Chivas,Monterrey,0.0,1.0,Liga MX Femenil,4692557,20250126_Chivas_Monterrey
+2025-01-27,Tigres,Toluca,5.0,0.0,Liga MX Femenil,4692558,20250127_Tigres_Toluca
+2025-01-27,Pachuca,Atlético de San Luis,5.0,0.0,Liga MX Femenil,4692559,20250127_Pachuca_Atlético-de-San-Luis
+2025-01-28,Necaxa,Pumas,1.0,4.0,Liga MX Femenil,4692560,20250128_Necaxa_Pumas
+2025-01-28,Santos Laguna,FC Juárez,1.0,2.0,Liga MX Femenil,4692535,20250128_Santos-Laguna_FC-Juárez
+2025-01-31,Atlas,Cruz Azul,1.0,1.0,Liga MX Femenil,4692527,20250131_Atlas_Cruz-Azul
+2025-01-31,Pumas,Toluca,3.0,0.0,Liga MX Femenil,4692528,20250131_Pumas_Toluca
+2025-02-01,Atlético de San Luis,Santos Laguna,3.0,0.0,Liga MX Femenil,4692530,20250201_Atlético-de-San-Luis_Santos-Laguna
+2025-02-01,Querétaro,Tigres,1.0,1.0,Liga MX Femenil,4692529,20250201_Querétaro_Tigres
+2025-02-02,Necaxa,Puebla,1.0,1.0,Liga MX Femenil,4692533,20250202_Necaxa_Puebla
+2025-02-03,Monterrey,Club Tijuana,1.0,1.0,Liga MX Femenil,4692531,20250203_Monterrey_Club-Tijuana
+2025-02-03,Mazatlán FC,Chivas,0.0,8.0,Liga MX Femenil,4692532,20250203_Mazatlán-FC_Chivas
+2025-02-03,FC Juárez,Club León,4.0,1.0,Liga MX Femenil,4692526,20250203_FC-Juárez_Club-León
+2025-02-04,Pachuca,CF América,2.0,1.0,Liga MX Femenil,4692534,20250204_Pachuca_CF-América
+2025-02-05,Cruz Azul,Tigres,1.0,2.0,Liga MX Femenil,4692536,20250205_Cruz-Azul_Tigres
+2025-02-05,Puebla,Pumas,0.0,1.0,Liga MX Femenil,4692537,20250205_Puebla_Pumas
+2025-02-06,Toluca,Atlas,0.0,2.0,Liga MX Femenil,4692538,20250206_Toluca_Atlas
+2025-02-06,Monterrey,Necaxa,4.0,0.0,Liga MX Femenil,4692539,20250206_Monterrey_Necaxa
+2025-02-07,Chivas,Atlético de San Luis,3.0,1.0,Liga MX Femenil,4692541,20250207_Chivas_Atlético-de-San-Luis
+2025-02-07,CF América,Mazatlán FC,6.0,0.0,Liga MX Femenil,4692540,20250207_CF-América_Mazatlán-FC
+2025-02-07,Santos Laguna,Club Tijuana,1.0,3.0,Liga MX Femenil,4692542,20250207_Santos-Laguna_Club-Tijuana
+2025-02-07,FC Juárez,Querétaro,1.0,0.0,Liga MX Femenil,4692543,20250207_FC-Juárez_Querétaro
+2025-02-08,Club León,Pachuca,0.0,2.0,Liga MX Femenil,4692562,20250208_Club-León_Pachuca
+2025-02-09,Toluca,Santos Laguna,2.0,1.0,Liga MX Femenil,4692563,20250209_Toluca_Santos-Laguna
+2025-02-10,Pumas,Cruz Azul,2.0,0.0,Liga MX Femenil,4692565,20250210_Pumas_Cruz-Azul
+2025-02-10,Tigres,Atlético de San Luis,2.0,1.0,Liga MX Femenil,4692564,20250210_Tigres_Atlético-de-San-Luis
+2025-02-11,Querétaro,Puebla,0.0,0.0,Liga MX Femenil,4692566,20250211_Querétaro_Puebla
+2025-02-11,Pachuca,FC Juárez,6.0,1.0,Liga MX Femenil,4692567,20250211_Pachuca_FC-Juárez
+2025-02-11,CF América,Monterrey,3.0,2.0,Liga MX Femenil,4692568,20250211_CF-América_Monterrey
+2025-02-11,Club Tijuana,Chivas,1.0,1.0,Liga MX Femenil,4692569,20250211_Club-Tijuana_Chivas
+2025-02-12,Atlas,Necaxa,4.0,1.0,Liga MX Femenil,4692570,20250212_Atlas_Necaxa
+2025-02-12,Mazatlán FC,Club León,1.0,2.0,Liga MX Femenil,4692585,20250212_Mazatlán-FC_Club-León
+2025-02-14,Chivas,Toluca,1.0,0.0,Liga MX Femenil,4692597,20250214_Chivas_Toluca
+2025-02-14,Necaxa,Club Tijuana,1.0,3.0,Liga MX Femenil,4692596,20250214_Necaxa_Club-Tijuana
+2025-02-14,Santos Laguna,Pachuca,1.0,3.0,Liga MX Femenil,4692595,20250214_Santos-Laguna_Pachuca
+2025-02-15,Pumas,CF América,1.0,3.0,Liga MX Femenil,4692594,20250215_Pumas_CF-América
+2025-02-15,Monterrey,Tigres,1.0,5.0,Liga MX Femenil,4692593,20250215_Monterrey_Tigres
+2025-02-15,Atlético de San Luis,Querétaro,1.0,2.0,Liga MX Femenil,4692592,20250215_Atlético-de-San-Luis_Querétaro
+2025-02-16,Puebla,Cruz Azul,0.0,5.0,Liga MX Femenil,4692591,20250216_Puebla_Cruz-Azul
+2025-02-16,Club León,Atlas,4.0,3.0,Liga MX Femenil,4692590,20250216_Club-León_Atlas
+2025-02-17,FC Juárez,Mazatlán FC,0.0,1.0,Liga MX Femenil,4692589,20250217_FC-Juárez_Mazatlán-FC
+2025-02-28,Toluca,Necaxa,3.0,0.0,Liga MX Femenil,4692629,20250228_Toluca_Necaxa
+2025-03-01,CF América,Atlético de San Luis,4.0,0.0,Liga MX Femenil,4692588,20250301_CF-América_Atlético-de-San-Luis
+2025-03-03,Club Tijuana,Club León,2.0,3.0,Liga MX Femenil,4692587,20250303_Club-Tijuana_Club-León
+2025-03-03,Mazatlán FC,Puebla,3.0,0.0,Liga MX Femenil,4692586,20250303_Mazatlán-FC_Puebla
+2025-03-03,Cruz Azul,Monterrey,2.0,3.0,Liga MX Femenil,4692571,20250303_Cruz-Azul_Monterrey
+2025-03-03,Pachuca,Necaxa,1.0,0.0,Liga MX Femenil,4692582,20250303_Pachuca_Necaxa
+2025-03-04,Atlas,Pumas,0.0,1.0,Liga MX Femenil,4692584,20250304_Atlas_Pumas
+2025-03-04,Tigres,Chivas,2.0,0.0,Liga MX Femenil,4692583,20250304_Tigres_Chivas
+2025-03-04,Toluca,FC Juárez,3.0,1.0,Liga MX Femenil,4692581,20250304_Toluca_FC-Juárez
+2025-03-05,Querétaro,Santos Laguna,3.0,0.0,Liga MX Femenil,4692580,20250305_Querétaro_Santos-Laguna
+2025-03-07,Monterrey,Pachuca,2.0,2.0,Liga MX Femenil,4692578,20250307_Monterrey_Pachuca
+2025-03-07,Pumas,Mazatlán FC,5.0,0.0,Liga MX Femenil,4692577,20250307_Pumas_Mazatlán-FC
+2025-03-07,Necaxa,Tigres,0.0,4.0,Liga MX Femenil,4692579,20250307_Necaxa_Tigres
+2025-03-08,Chivas,CF América,1.0,1.0,Liga MX Femenil,4692576,20250308_Chivas_CF-América
+2025-03-09,Puebla,Club Tijuana,2.0,2.0,Liga MX Femenil,4692575,20250309_Puebla_Club-Tijuana
+2025-03-09,Atlético de San Luis,Toluca,1.0,0.0,Liga MX Femenil,4692574,20250309_Atlético-de-San-Luis_Toluca
+2025-03-09,FC Juárez,Atlas,1.0,0.0,Liga MX Femenil,4692625,20250309_FC-Juárez_Atlas
+2025-03-11,Club León,Querétaro,0.0,0.0,Liga MX Femenil,4692573,20250311_Club-León_Querétaro
+2025-03-11,Santos Laguna,Cruz Azul,0.0,1.0,Liga MX Femenil,4692572,20250311_Santos-Laguna_Cruz-Azul
+2025-03-12,CF América,Puebla,7.0,0.0,Liga MX Femenil,4692617,20250312_CF-América_Puebla
+2025-03-13,Pachuca,Pumas,1.0,1.0,Liga MX Femenil,4692618,20250313_Pachuca_Pumas
+2025-03-13,Cruz Azul,Toluca,2.0,1.0,Liga MX Femenil,4692619,20250313_Cruz-Azul_Toluca
+2025-03-13,Querétaro,Chivas,1.0,1.0,Liga MX Femenil,4692620,20250313_Querétaro_Chivas
+2025-03-14,Necaxa,Club León,1.0,0.0,Liga MX Femenil,4692623,20250314_Necaxa_Club-León
+2025-03-14,Atlas,Monterrey,2.0,1.0,Liga MX Femenil,4692621,20250314_Atlas_Monterrey
+2025-03-14,Club Tijuana,FC Juárez,2.0,2.0,Liga MX Femenil,4692622,20250314_Club-Tijuana_FC-Juárez
+2025-03-15,Mazatlán FC,Atlético de San Luis,0.0,0.0,Liga MX Femenil,4692624,20250315_Mazatlán-FC_Atlético-de-San-Luis
+2025-03-15,Tigres,Santos Laguna,5.0,0.0,Liga MX Femenil,4692616,20250315_Tigres_Santos-Laguna
+2025-03-16,Puebla,Pachuca,0.0,1.0,Liga MX Femenil,4692626,20250316_Puebla_Pachuca
+2025-03-17,FC Juárez,CF América,1.0,1.0,Liga MX Femenil,4692627,20250317_FC-Juárez_CF-América
+2025-03-17,Pumas,Club Tijuana,1.0,0.0,Liga MX Femenil,4692628,20250317_Pumas_Club-Tijuana
+2025-03-18,Club León,Chivas,1.0,3.0,Liga MX Femenil,4692631,20250318_Club-León_Chivas
+2025-03-18,Tigres,Mazatlán FC,7.0,0.0,Liga MX Femenil,4692630,20250318_Tigres_Mazatlán-FC
+2025-03-18,Atlético de San Luis,Cruz Azul,1.0,5.0,Liga MX Femenil,4692632,20250318_Atlético-de-San-Luis_Cruz-Azul
+2025-03-19,Atlas,Querétaro,1.0,0.0,Liga MX Femenil,4692633,20250319_Atlas_Querétaro
+2025-03-19,Santos Laguna,Monterrey,1.0,3.0,Liga MX Femenil,4692607,20250319_Santos-Laguna_Monterrey
+2025-03-21,Pachuca,Toluca,2.0,3.0,Liga MX Femenil,4692604,20250321_Pachuca_Toluca
+2025-03-22,Club Tijuana,Mazatlán FC,1.0,1.0,Liga MX Femenil,4692599,20250322_Club-Tijuana_Mazatlán-FC
+2025-03-22,Cruz Azul,Club León,1.0,2.0,Liga MX Femenil,4692600,20250322_Cruz-Azul_Club-León
+2025-03-23,Necaxa,Atlético de San Luis,3.0,0.0,Liga MX Femenil,4692601,20250323_Necaxa_Atlético-de-San-Luis
+2025-03-23,CF América,Tigres,2.0,1.0,Liga MX Femenil,4692602,20250323_CF-América_Tigres
+2025-03-23,Puebla,Santos Laguna,2.0,1.0,Liga MX Femenil,4692603,20250323_Puebla_Santos-Laguna
+2025-03-23,Chivas,Atlas,2.0,0.0,Liga MX Femenil,4692605,20250323_Chivas_Atlas
+2025-03-24,Querétaro,Pumas,2.0,2.0,Liga MX Femenil,4692606,20250324_Querétaro_Pumas
+2025-03-25,Club Tijuana,Pachuca,0.0,0.0,Liga MX Femenil,4692615,20250325_Club-Tijuana_Pachuca
+2025-03-25,Monterrey,FC Juárez,2.0,1.0,Liga MX Femenil,4692598,20250325_Monterrey_FC-Juárez
+2025-03-28,Cruz Azul,Querétaro,0.0,0.0,Liga MX Femenil,4692608,20250328_Cruz-Azul_Querétaro
+2025-03-29,Mazatlán FC,Necaxa,3.0,1.0,Liga MX Femenil,4692609,20250329_Mazatlán-FC_Necaxa
+2025-03-29,Santos Laguna,CF América,0.0,3.0,Liga MX Femenil,4692610,20250329_Santos-Laguna_CF-América
+2025-03-29,Club León,Pumas,2.0,3.0,Liga MX Femenil,4692611,20250329_Club-León_Pumas
+2025-03-30,Toluca,Monterrey,2.0,2.0,Liga MX Femenil,4692612,20250330_Toluca_Monterrey
+2025-03-30,Atlético de San Luis,Atlas,0.0,4.0,Liga MX Femenil,4692613,20250330_Atlético-de-San-Luis_Atlas
+2025-03-30,Chivas,Puebla,3.0,0.0,Liga MX Femenil,4692614,20250330_Chivas_Puebla
+2025-03-31,Tigres,FC Juárez,0.0,0.0,Liga MX Femenil,4692644,20250331_Tigres_FC-Juárez
+2025-04-12,Necaxa,Cruz Azul,1.0,0.0,Liga MX Femenil,4692652,20250412_Necaxa_Cruz-Azul
+2025-04-13,Puebla,Toluca,1.0,3.0,Liga MX Femenil,4692651,20250413_Puebla_Toluca
+2025-04-13,Pumas,Tigres,2.0,0.0,Liga MX Femenil,4692650,20250413_Pumas_Tigres
+2025-04-13,Atlas,Mazatlán FC,4.0,1.0,Liga MX Femenil,4692649,20250413_Atlas_Mazatlán-FC
+2025-04-13,CF América,Club Tijuana,4.0,1.0,Liga MX Femenil,4692646,20250413_CF-América_Club-Tijuana
+2025-04-13,FC Juárez,Atlético de San Luis,2.0,0.0,Liga MX Femenil,4692647,20250413_FC-Juárez_Atlético-de-San-Luis
+2025-04-14,Pachuca,Chivas,1.0,0.0,Liga MX Femenil,4692648,20250414_Pachuca_Chivas
+2025-04-15,Club León,Santos Laguna,3.0,1.0,Liga MX Femenil,4692634,20250415_Club-León_Santos-Laguna
+2025-04-15,Monterrey,Querétaro,3.0,1.0,Liga MX Femenil,4692645,20250415_Monterrey_Querétaro
+2025-04-17,Cruz Azul,FC Juárez,5.0,0.0,Liga MX Femenil,4692643,20250417_Cruz-Azul_FC-Juárez
+2025-04-17,Atlético de San Luis,Puebla,1.0,0.0,Liga MX Femenil,4692642,20250417_Atlético-de-San-Luis_Puebla
+2025-04-18,Chivas,Pumas,0.0,0.0,Liga MX Femenil,4692641,20250418_Chivas_Pumas
+2025-04-18,Mazatlán FC,Santos Laguna,1.0,2.0,Liga MX Femenil,4692640,20250418_Mazatlán-FC_Santos-Laguna
+2025-04-18,Querétaro,Necaxa,1.0,0.0,Liga MX Femenil,4692639,20250418_Querétaro_Necaxa
+2025-04-18,Toluca,CF América,4.0,3.0,Liga MX Femenil,4692638,20250418_Toluca_CF-América
+2025-04-19,Club Tijuana,Atlas,0.0,1.0,Liga MX Femenil,4692637,20250419_Club-Tijuana_Atlas
+2025-04-19,Pachuca,Tigres,0.0,0.0,Liga MX Femenil,4692636,20250419_Pachuca_Tigres
+2025-04-19,Monterrey,Club León,2.0,0.0,Liga MX Femenil,4692635,20250419_Monterrey_Club-León
+2025-04-24,Atlas,Pachuca,1.0,1.0,Liga MX Femenil,4776254,20250424_Atlas_Pachuca
+2025-04-24,FC Juárez,CF América,2.0,2.0,Liga MX Femenil,4776253,20250424_FC-Juárez_CF-América
+2025-04-25,Chivas,Pumas,2.0,0.0,Liga MX Femenil,4776255,20250425_Chivas_Pumas
+2025-04-26,Tigres,Monterrey,1.0,1.0,Liga MX Femenil,4776256,20250426_Tigres_Monterrey
+2025-04-27,CF América,FC Juárez,5.0,0.0,Liga MX Femenil,4776257,20250427_CF-América_FC-Juárez
+2025-04-27,Pachuca,Atlas,4.0,1.0,Liga MX Femenil,4776258,20250427_Pachuca_Atlas
+2025-04-27,Pumas,Chivas,0.0,1.0,Liga MX Femenil,4776259,20250427_Pumas_Chivas
+2025-04-29,Monterrey,Tigres,1.0,1.0,Liga MX Femenil,4776260,20250429_Monterrey_Tigres
+2025-05-02,Chivas,CF América,2.0,2.0,Liga MX Femenil,4781023,20250502_Chivas_CF-América
+2025-05-03,Monterrey,Pachuca,1.0,0.0,Liga MX Femenil,4781024,20250503_Monterrey_Pachuca
+2025-05-04,CF América,Chivas,2.0,0.0,Liga MX Femenil,4781025,20250504_CF-América_Chivas
+2025-05-06,Pachuca,Monterrey,4.0,1.0,Liga MX Femenil,4781026,20250506_Pachuca_Monterrey
+2025-05-10,Pachuca,CF América,3.0,0.0,Liga MX Femenil,4784727,20250510_Pachuca_CF-América
+2025-05-13,CF América,Pachuca,2.0,0.0,Liga MX Femenil,4784728,20250513_CF-América_Pachuca
+2025-07-11,Necaxa,Mazatlán FC,2.0,1.0,Liga MX Femenil,4810302,20250711_Necaxa_Mazatlán-FC
+2025-07-11,Querétaro,Santos Laguna,1.0,1.0,Liga MX Femenil,4810303,20250711_Querétaro_Santos-Laguna
+2025-07-12,Club León,Club Tijuana,1.0,1.0,Liga MX Femenil,4810304,20250712_Club-León_Club-Tijuana
+2025-07-13,FC Juárez,Atlas,1.0,1.0,Liga MX Femenil,4810305,20250713_FC-Juárez_Atlas
+2025-07-13,Puebla,Pachuca,1.0,5.0,Liga MX Femenil,4810306,20250713_Puebla_Pachuca
+2025-07-13,Pumas,Monterrey,4.0,0.0,Liga MX Femenil,4810307,20250713_Pumas_Monterrey
+2025-07-13,Atlético de San Luis,Chivas,0.0,2.0,Liga MX Femenil,4810308,20250713_Atlético-de-San-Luis_Chivas
+2025-07-13,CF América,Cruz Azul,2.0,1.0,Liga MX Femenil,4810309,20250713_CF-América_Cruz-Azul
+2025-07-14,Tigres,Toluca,1.0,1.0,Liga MX Femenil,4810310,20250714_Tigres_Toluca
+2025-07-17,Pachuca,Monterrey,1.0,0.0,Liga MX Femenil,4801912,20250717_Pachuca_Monterrey
+2025-07-18,Querétaro,Chivas,0.0,1.0,Liga MX Femenil,4810311,20250718_Querétaro_Chivas
+2025-07-19,Tigres,Necaxa,4.0,0.0,Liga MX Femenil,4810312,20250719_Tigres_Necaxa
+2025-07-19,FC Juárez,Puebla,2.0,0.0,Liga MX Femenil,4810313,20250719_FC-Juárez_Puebla
+2025-07-19,Cruz Azul,Atlas,4.0,0.0,Liga MX Femenil,4810314,20250719_Cruz-Azul_Atlas
+2025-07-19,Toluca,Santos Laguna,1.0,0.0,Liga MX Femenil,4810315,20250719_Toluca_Santos-Laguna
+2025-07-20,Mazatlán FC,Club León,1.0,3.0,Liga MX Femenil,4810316,20250720_Mazatlán-FC_Club-León
+2025-07-20,CF América,Club Tijuana,2.0,0.0,Liga MX Femenil,4810317,20250720_CF-América_Club-Tijuana
+2025-07-22,Atlético de San Luis,Monterrey,0.0,3.0,Liga MX Femenil,4810318,20250722_Atlético-de-San-Luis_Monterrey
+2025-07-25,Atlas,Puebla,2.0,0.0,Liga MX Femenil,4810319,20250725_Atlas_Puebla
+2025-07-25,Club Tijuana,Toluca,1.0,3.0,Liga MX Femenil,4810320,20250725_Club-Tijuana_Toluca
+2025-07-26,Monterrey,Querétaro,4.0,2.0,Liga MX Femenil,4810321,20250726_Monterrey_Querétaro
+2025-07-27,Pumas,Necaxa,1.0,0.0,Liga MX Femenil,4810322,20250727_Pumas_Necaxa
+2025-07-27,Club León,CF América,0.0,3.0,Liga MX Femenil,4810323,20250727_Club-León_CF-América
+2025-07-28,Cruz Azul,Atlético de San Luis,0.0,1.0,Liga MX Femenil,4810324,20250728_Cruz-Azul_Atlético-de-San-Luis
+2025-07-29,Santos Laguna,Tigres,0.0,2.0,Liga MX Femenil,4810325,20250729_Santos-Laguna_Tigres
+2025-07-29,Mazatlán FC,Pachuca,0.0,9.0,Liga MX Femenil,4810326,20250729_Mazatlán-FC_Pachuca
+2025-08-01,Chivas,FC Juárez,1.0,0.0,Liga MX Femenil,4810327,20250801_Chivas_FC-Juárez
+2025-08-01,Pachuca,Pumas,1.0,1.0,Liga MX Femenil,4810328,20250801_Pachuca_Pumas
+2025-08-01,Club Tijuana,Atlas,2.0,2.0,Liga MX Femenil,4810329,20250801_Club-Tijuana_Atlas
+2025-08-01,Necaxa,Club León,1.0,1.0,Liga MX Femenil,4810330,20250801_Necaxa_Club-León
+2025-08-02,Tigres,Mazatlán FC,5.0,0.0,Liga MX Femenil,4810331,20250802_Tigres_Mazatlán-FC
+2025-08-03,Puebla,Monterrey,0.0,5.0,Liga MX Femenil,4810332,20250803_Puebla_Monterrey
+2025-08-03,CF América,Querétaro,11.0,0.0,Liga MX Femenil,4810333,20250803_CF-América_Querétaro
+2025-08-04,Atlético de San Luis,FC Juárez,0.0,2.0,Liga MX Femenil,4810334,20250804_Atlético-de-San-Luis_FC-Juárez
+2025-08-04,Pumas,Cruz Azul,3.0,1.0,Liga MX Femenil,4810335,20250804_Pumas_Cruz-Azul
+2025-08-05,Pachuca,Toluca,1.0,2.0,Liga MX Femenil,4810336,20250805_Pachuca_Toluca
+2025-08-05,Santos Laguna,Chivas,2.0,1.0,Liga MX Femenil,4810337,20250805_Santos-Laguna_Chivas
+2025-08-08,Chivas,Cruz Azul,1.0,1.0,Liga MX Femenil,4810338,20250808_Chivas_Cruz-Azul
+2025-08-08,Querétaro,Atlético de San Luis,0.0,2.0,Liga MX Femenil,4810339,20250808_Querétaro_Atlético-de-San-Luis
+2025-08-09,Atlas,Tigres,0.0,3.0,Liga MX Femenil,4810340,20250809_Atlas_Tigres
+2025-08-09,Monterrey,Mazatlán FC,5.0,0.0,Liga MX Femenil,4810341,20250809_Monterrey_Mazatlán-FC
+2025-08-09,FC Juárez,Club Tijuana,2.0,0.0,Liga MX Femenil,4810342,20250809_FC-Juárez_Club-Tijuana
+2025-08-09,Puebla,Pumas,1.0,2.0,Liga MX Femenil,4810343,20250809_Puebla_Pumas
+2025-08-09,Necaxa,CF América,0.0,4.0,Liga MX Femenil,4810344,20250809_Necaxa_CF-América
+2025-08-09,Pachuca,Santos Laguna,3.0,1.0,Liga MX Femenil,4810345,20250809_Pachuca_Santos-Laguna
+2025-08-10,Toluca,Club León,1.0,0.0,Liga MX Femenil,4810346,20250810_Toluca_Club-León
+2025-08-12,Cruz Azul,Monterrey,4.0,0.0,Liga MX Femenil,4810347,20250812_Cruz-Azul_Monterrey
+2025-08-12,Atlético de San Luis,Atlas,0.0,0.0,Liga MX Femenil,4810348,20250812_Atlético-de-San-Luis_Atlas
+2025-08-12,Querétaro,Pachuca,2.0,2.0,Liga MX Femenil,4810349,20250812_Querétaro_Pachuca
+2025-08-13,Tigres,Club Tijuana,2.0,0.0,Liga MX Femenil,4810350,20250813_Tigres_Club-Tijuana
+2025-08-13,Club León,FC Juárez,3.0,2.0,Liga MX Femenil,4810351,20250813_Club-León_FC-Juárez
+2025-08-14,CF América,Puebla,3.0,0.0,Liga MX Femenil,4810352,20250814_CF-América_Puebla
+2025-08-14,Toluca,Chivas,2.0,1.0,Liga MX Femenil,4810353,20250814_Toluca_Chivas
+2025-08-16,Tigres,Pachuca,2.0,3.0,Liga MX Femenil,4810355,20250816_Tigres_Pachuca
+2025-08-17,Club Tijuana,Atlético de San Luis,1.0,2.0,Liga MX Femenil,4810356,20250817_Club-Tijuana_Atlético-de-San-Luis
+2025-08-17,Monterrey,Santos Laguna,3.0,1.0,Liga MX Femenil,4810357,20250817_Monterrey_Santos-Laguna
+2025-08-17,Pumas,CF América,2.0,3.0,Liga MX Femenil,4810358,20250817_Pumas_CF-América
+2025-08-18,Atlas,Chivas,0.0,2.0,Liga MX Femenil,4810359,20250818_Atlas_Chivas
+2025-08-18,FC Juárez,Toluca,0.0,0.0,Liga MX Femenil,4810360,20250818_FC-Juárez_Toluca
+2025-08-18,Necaxa,Cruz Azul,3.0,3.0,Liga MX Femenil,4810361,20250818_Necaxa_Cruz-Azul
+2025-08-19,Club León,Querétaro,2.0,2.0,Liga MX Femenil,4810362,20250819_Club-León_Querétaro
+2025-08-19,Mazatlán FC,Puebla,1.0,1.0,Liga MX Femenil,4810363,20250819_Mazatlán-FC_Puebla
+2025-08-24,Atlético de San Luis,Necaxa,3.0,0.0,Liga MX Femenil,4810364,20250824_Atlético-de-San-Luis_Necaxa
+2025-08-26,Pumas,Club Tijuana,1.0,0.0,Liga MX Femenil,4810365,20250826_Pumas_Club-Tijuana
+2025-08-26,Puebla,Club León,0.0,2.0,Liga MX Femenil,4810366,20250826_Puebla_Club-León
+2025-08-26,FC Juárez,Mazatlán FC,2.0,1.0,Liga MX Femenil,4810367,20250826_FC-Juárez_Mazatlán-FC
+2025-08-26,Cruz Azul,Toluca,4.0,3.0,Liga MX Femenil,4810368,20250826_Cruz-Azul_Toluca
+2025-08-26,Querétaro,Tigres,0.0,7.0,Liga MX Femenil,4810369,20250826_Querétaro_Tigres
+2025-08-27,Chivas,Monterrey,1.0,1.0,Liga MX Femenil,4810370,20250827_Chivas_Monterrey
+2025-08-27,Pachuca,Atlas,3.0,1.0,Liga MX Femenil,4810371,20250827_Pachuca_Atlas
+2025-08-29,CF América,Santos Laguna,6.0,3.0,Liga MX Femenil,4810372,20250829_CF-América_Santos-Laguna
+2025-08-30,Monterrey,FC Juárez,1.0,1.0,Liga MX Femenil,4810373,20250830_Monterrey_FC-Juárez
+2025-08-30,Cruz Azul,Club León,1.0,2.0,Liga MX Femenil,4810374,20250830_Cruz-Azul_Club-León
+2025-08-31,Club Tijuana,Necaxa,1.0,0.0,Liga MX Femenil,4810375,20250831_Club-Tijuana_Necaxa
+2025-08-31,Chivas,Tigres,2.0,4.0,Liga MX Femenil,4810376,20250831_Chivas_Tigres
+2025-08-31,Puebla,Atlético de San Luis,0.0,6.0,Liga MX Femenil,4810377,20250831_Puebla_Atlético-de-San-Luis
+2025-08-31,Toluca,Querétaro,2.0,0.0,Liga MX Femenil,4810378,20250831_Toluca_Querétaro
+2025-09-01,Pachuca,CF América,3.0,2.0,Liga MX Femenil,4810379,20250901_Pachuca_CF-América
+2025-09-02,Atlas,Mazatlán FC,2.0,1.0,Liga MX Femenil,4810380,20250902_Atlas_Mazatlán-FC
+2025-09-02,Santos Laguna,Pumas,3.0,5.0,Liga MX Femenil,4810381,20250902_Santos-Laguna_Pumas
+2025-09-05,Santos Laguna,Necaxa,1.0,2.0,Liga MX Femenil,4810382,20250905_Santos-Laguna_Necaxa
+2025-09-06,Atlas,Querétaro,6.0,2.0,Liga MX Femenil,4810383,20250906_Atlas_Querétaro
+2025-09-06,Club León,Chivas,1.0,2.0,Liga MX Femenil,4810384,20250906_Club-León_Chivas
+2025-09-06,FC Juárez,Pachuca,2.0,3.0,Liga MX Femenil,4810385,20250906_FC-Juárez_Pachuca
+2025-09-06,Mazatlán FC,Cruz Azul,1.0,4.0,Liga MX Femenil,4810386,20250906_Mazatlán-FC_Cruz-Azul
+2025-09-06,Pumas,Toluca,1.0,2.0,Liga MX Femenil,4810387,20250906_Pumas_Toluca
+2025-09-07,CF América,Atlético de San Luis,2.0,2.0,Liga MX Femenil,4810388,20250907_CF-América_Atlético-de-San-Luis
+2025-09-08,Club Tijuana,Santos Laguna,1.0,1.0,Liga MX Femenil,4810390,20250908_Club-Tijuana_Santos-Laguna
+2025-09-08,Tigres,Monterrey,4.0,0.0,Liga MX Femenil,4810389,20250908_Tigres_Monterrey
+2025-09-08,Necaxa,Puebla,0.0,1.0,Liga MX Femenil,4810391,20250908_Necaxa_Puebla
+2025-09-11,Querétaro,Puebla,1.0,1.0,Liga MX Femenil,4810392,20250911_Querétaro_Puebla
+2025-09-13,Toluca,Monterrey,0.0,1.0,Liga MX Femenil,4810393,20250913_Toluca_Monterrey
+2025-09-13,Tigres,Pumas,5.0,1.0,Liga MX Femenil,4810394,20250913_Tigres_Pumas
+2025-09-13,Cruz Azul,FC Juárez,0.0,2.0,Liga MX Femenil,4810395,20250913_Cruz-Azul_FC-Juárez
+2025-09-14,Mazatlán FC,Club Tijuana,0.0,3.0,Liga MX Femenil,4810396,20250914_Mazatlán-FC_Club-Tijuana
+2025-09-14,CF América,Chivas,0.0,2.0,Liga MX Femenil,4810397,20250914_CF-América_Chivas
+2025-09-15,Pachuca,Necaxa,5.0,0.0,Liga MX Femenil,4810398,20250915_Pachuca_Necaxa
+2025-09-15,Atlético de San Luis,Club León,0.0,3.0,Liga MX Femenil,4810399,20250915_Atlético-de-San-Luis_Club-León
+2025-09-16,Santos Laguna,Atlas,1.0,2.0,Liga MX Femenil,4810400,20250916_Santos-Laguna_Atlas
+2025-09-19,Querétaro,Pumas,2.0,1.0,Liga MX Femenil,4810401,20250919_Querétaro_Pumas
+2025-09-20,FC Juárez,Tigres,0.0,0.0,Liga MX Femenil,4810402,20250920_FC-Juárez_Tigres
+2025-09-20,Necaxa,Atlas,0.0,1.0,Liga MX Femenil,4810403,20250920_Necaxa_Atlas
+2025-09-21,Chivas,Club Tijuana,2.0,0.0,Liga MX Femenil,4810404,20250921_Chivas_Club-Tijuana
+2025-09-21,Puebla,Cruz Azul,0.0,3.0,Liga MX Femenil,4810405,20250921_Puebla_Cruz-Azul
+2025-09-22,Atlético de San Luis,Mazatlán FC,1.0,1.0,Liga MX Femenil,4810406,20250922_Atlético-de-San-Luis_Mazatlán-FC
+2025-09-23,Toluca,CF América,3.0,3.0,Liga MX Femenil,4810407,20250923_Toluca_CF-América
+2025-09-23,Club León,Santos Laguna,5.0,0.0,Liga MX Femenil,4810408,20250923_Club-León_Santos-Laguna
+2025-09-23,Monterrey,Pachuca,0.0,2.0,Liga MX Femenil,4810409,20250923_Monterrey_Pachuca
+2025-09-25,Mazatlán FC,Pumas,0.0,4.0,Liga MX Femenil,4810354,20250925_Mazatlán-FC_Pumas
+2025-09-26,Club Tijuana,Querétaro,2.0,0.0,Liga MX Femenil,4810410,20250926_Club-Tijuana_Querétaro
+2025-09-27,CF América,FC Juárez,4.0,0.0,Liga MX Femenil,4810411,20250927_CF-América_FC-Juárez
+2025-09-27,Tigres,Club León,9.0,0.0,Liga MX Femenil,4810412,20250927_Tigres_Club-León
+2025-09-29,Pachuca,Cruz Azul,2.0,2.0,Liga MX Femenil,4810415,20250929_Pachuca_Cruz-Azul
+2025-09-29,Pumas,Atlético de San Luis,1.0,2.0,Liga MX Femenil,4810413,20250929_Pumas_Atlético-de-San-Luis
+2025-09-30,Atlas,Toluca,2.0,2.0,Liga MX Femenil,4810414,20250930_Atlas_Toluca
+2025-09-30,Necaxa,Monterrey,0.0,5.0,Liga MX Femenil,4810416,20250930_Necaxa_Monterrey
+2025-09-30,Santos Laguna,Puebla,1.0,0.0,Liga MX Femenil,4810417,20250930_Santos-Laguna_Puebla
+2025-10-01,Mazatlán FC,Chivas,0.0,1.0,Liga MX Femenil,4810418,20251001_Mazatlán-FC_Chivas
+2025-10-03,Querétaro,Necaxa,1.0,0.0,Liga MX Femenil,4810419,20251003_Querétaro_Necaxa
+2025-10-04,Cruz Azul,Club Tijuana,4.0,3.0,Liga MX Femenil,4810420,20251004_Cruz-Azul_Club-Tijuana
+2025-10-04,Toluca,Mazatlán FC,6.0,0.0,Liga MX Femenil,4810421,20251004_Toluca_Mazatlán-FC
+2025-10-05,Chivas,Pumas,4.0,3.0,Liga MX Femenil,4810422,20251005_Chivas_Pumas
+2025-10-05,Puebla,Tigres,0.0,3.0,Liga MX Femenil,4810423,20251005_Puebla_Tigres
+2025-10-05,Atlas,Club León,2.0,4.0,Liga MX Femenil,4810424,20251005_Atlas_Club-León
+2025-10-06,Pachuca,Atlético de San Luis,5.0,0.0,Liga MX Femenil,4810425,20251006_Pachuca_Atlético-de-San-Luis
+2025-10-07,Santos Laguna,FC Juárez,0.0,0.0,Liga MX Femenil,4810426,20251007_Santos-Laguna_FC-Juárez
+2025-10-07,Monterrey,CF América,1.0,2.0,Liga MX Femenil,4810427,20251007_Monterrey_CF-América
+2025-10-10,Club León,Pachuca,2.0,5.0,Liga MX Femenil,4810428,20251010_Club-León_Pachuca
+2025-10-11,CF América,Tigres,1.0,2.0,Liga MX Femenil,4810429,20251011_CF-América_Tigres
+2025-10-11,Club Tijuana,Monterrey,1.0,4.0,Liga MX Femenil,4810430,20251011_Club-Tijuana_Monterrey
+2025-10-11,Pumas,Atlas,3.0,4.0,Liga MX Femenil,4810431,20251011_Pumas_Atlas
+2025-10-11,Cruz Azul,Santos Laguna,4.0,1.0,Liga MX Femenil,4810432,20251011_Cruz-Azul_Santos-Laguna
+2025-10-11,FC Juárez,Necaxa,2.0,1.0,Liga MX Femenil,4810433,20251011_FC-Juárez_Necaxa
+2025-10-12,Mazatlán FC,Querétaro,0.0,3.0,Liga MX Femenil,4810434,20251012_Mazatlán-FC_Querétaro
+2025-10-12,Chivas,Puebla,1.0,1.0,Liga MX Femenil,4810435,20251012_Chivas_Puebla
+2025-10-12,Atlético de San Luis,Toluca,1.0,1.0,Liga MX Femenil,4810436,20251012_Atlético-de-San-Luis_Toluca
+2025-10-16,Atlas,CF América,2.0,3.0,Liga MX Femenil,4810437,20251016_Atlas_CF-América
+2025-10-17,Pumas,FC Juárez,2.0,2.0,Liga MX Femenil,4810438,20251017_Pumas_FC-Juárez
+2025-10-17,Necaxa,Toluca,0.0,2.0,Liga MX Femenil,4810439,20251017_Necaxa_Toluca
+2025-10-17,Querétaro,Cruz Azul,1.0,4.0,Liga MX Femenil,4810440,20251017_Querétaro_Cruz-Azul
+2025-10-18,Santos Laguna,Mazatlán FC,2.0,1.0,Liga MX Femenil,4810441,20251018_Santos-Laguna_Mazatlán-FC
+2025-10-18,Tigres,Atlético de San Luis,5.0,1.0,Liga MX Femenil,4810442,20251018_Tigres_Atlético-de-San-Luis
+2025-10-19,Puebla,Club Tijuana,1.0,2.0,Liga MX Femenil,4810443,20251019_Puebla_Club-Tijuana
+2025-10-19,Monterrey,Club León,3.0,1.0,Liga MX Femenil,4810444,20251019_Monterrey_Club-León
+2025-10-20,Pachuca,Chivas,2.0,1.0,Liga MX Femenil,4810445,20251020_Pachuca_Chivas
+2025-10-31,Chivas,Necaxa,4.0,0.0,Liga MX Femenil,4810446,20251031_Chivas_Necaxa
+2025-10-31,Toluca,Puebla,4.0,1.0,Liga MX Femenil,4810447,20251031_Toluca_Puebla
+2025-11-01,FC Juárez,Querétaro,4.0,0.0,Liga MX Femenil,4810448,20251101_FC-Juárez_Querétaro
+2025-11-01,Club Tijuana,Pachuca,1.0,6.0,Liga MX Femenil,4810449,20251101_Club-Tijuana_Pachuca
+2025-11-01,Monterrey,Atlas,2.0,1.0,Liga MX Femenil,4810450,20251101_Monterrey_Atlas
+2025-11-01,Cruz Azul,Tigres,2.0,2.0,Liga MX Femenil,4810451,20251101_Cruz-Azul_Tigres
+2025-11-01,Atlético de San Luis,Santos Laguna,3.0,1.0,Liga MX Femenil,4810452,20251101_Atlético-de-San-Luis_Santos-Laguna
+2025-11-01,Club León,Pumas,2.0,0.0,Liga MX Femenil,4810453,20251101_Club-León_Pumas
+2025-11-02,Mazatlán FC,CF América,1.0,5.0,Liga MX Femenil,4810454,20251102_Mazatlán-FC_CF-América
+2025-11-06,Cruz Azul,Pachuca,1.0,2.0,Liga MX Femenil,5041185,20251106_Cruz-Azul_Pachuca
+2025-11-07,FC Juárez,Tigres,0.0,1.0,Liga MX Femenil,5041186,20251107_FC-Juárez_Tigres
+2025-11-07,Monterrey,CF América,1.0,1.0,Liga MX Femenil,5041187,20251107_Monterrey_CF-América
+2025-11-07,Chivas,Toluca,2.0,2.0,Liga MX Femenil,5041188,20251107_Chivas_Toluca
+2025-11-09,Pachuca,Cruz Azul,0.0,5.0,Liga MX Femenil,5041189,20251109_Pachuca_Cruz-Azul
+2025-11-09,Tigres,FC Juárez,0.0,0.0,Liga MX Femenil,5041190,20251109_Tigres_FC-Juárez
+2025-11-10,CF América,Monterrey,5.0,0.0,Liga MX Femenil,5041191,20251110_CF-América_Monterrey
+2025-11-10,Toluca,Chivas,0.0,2.0,Liga MX Femenil,5041192,20251110_Toluca_Chivas
+2025-11-14,Cruz Azul,Tigres,1.0,1.0,Liga MX Femenil,5056259,20251114_Cruz-Azul_Tigres
+2025-11-14,Chivas,CF América,0.0,2.0,Liga MX Femenil,5056260,20251114_Chivas_CF-América
+2025-11-16,Tigres,Cruz Azul,2.0,1.0,Liga MX Femenil,5056261,20251116_Tigres_Cruz-Azul
+2025-11-17,CF América,Chivas,2.0,0.0,Liga MX Femenil,5056262,20251117_CF-América_Chivas
+2025-11-21,CF América,Tigres,3.0,3.0,Liga MX Femenil,5063235,20251121_CF-América_Tigres
+2025-11-23,Tigres,CF América,1.0,0.0,Liga MX Femenil,5063236,20251123_Tigres_CF-América
+2026-01-04,Chivas,Atlético de San Luis,2.0,0.0,Liga MX Femenil,5111252,20260104_Chivas_Atlético-de-San-Luis
+2026-01-04,Pumas,Querétaro,4.0,1.0,Liga MX Femenil,5111253,20260104_Pumas_Querétaro
+2026-01-04,Necaxa,Tigres,1.0,4.0,Liga MX Femenil,5111254,20260104_Necaxa_Tigres
+2026-01-05,Monterrey,Puebla,4.0,0.0,Liga MX Femenil,5111255,20260105_Monterrey_Puebla
+2026-01-06,Club León,Cruz Azul,0.0,5.0,Liga MX Femenil,5111256,20260106_Club-León_Cruz-Azul
+2026-01-06,Toluca,Club Tijuana,5.0,3.0,Liga MX Femenil,5111257,20260106_Toluca_Club-Tijuana
+2026-01-06,Santos Laguna,CF América,1.0,2.0,Liga MX Femenil,5111258,20260106_Santos-Laguna_CF-América
+2026-01-07,Atlas,Pachuca,0.0,3.0,Liga MX Femenil,5111259,20260107_Atlas_Pachuca
+2026-01-07,Mazatlán FC,FC Juárez,3.0,2.0,Liga MX Femenil,5111260,20260107_Mazatlán-FC_FC-Juárez
+2026-01-10,Atlético de San Luis,Pumas,1.0,1.0,Liga MX Femenil,5111261,20260110_Atlético-de-San-Luis_Pumas
+2026-01-10,Cruz Azul,Chivas,0.0,0.0,Liga MX Femenil,5111262,20260110_Cruz-Azul_Chivas
+2026-01-10,FC Juárez,Club León,1.0,0.0,Liga MX Femenil,5111264,20260110_FC-Juárez_Club-León
+2026-01-11,Club Tijuana,CF América,0.0,0.0,Liga MX Femenil,5111265,20260111_Club-Tijuana_CF-América
+2026-01-12,Monterrey,Necaxa,5.0,0.0,Liga MX Femenil,5111266,20260112_Monterrey_Necaxa
+2026-01-12,Pachuca,Querétaro,4.0,0.0,Liga MX Femenil,5111267,20260112_Pachuca_Querétaro
+2026-01-13,Toluca,Atlas,2.0,0.0,Liga MX Femenil,5111268,20260113_Toluca_Atlas
+2026-01-13,Mazatlán FC,Santos Laguna,2.0,1.0,Liga MX Femenil,5111269,20260113_Mazatlán-FC_Santos-Laguna
+2026-01-16,Cruz Azul,Pachuca,1.0,0.0,Liga MX Femenil,5111270,20260116_Cruz-Azul_Pachuca
+2026-01-17,Pumas,Mazatlán FC,3.0,0.0,Liga MX Femenil,5111271,20260117_Pumas_Mazatlán-FC
+2026-01-17,Atlas,Club Tijuana,1.0,2.0,Liga MX Femenil,5111272,20260117_Atlas_Club-Tijuana
+2026-01-17,FC Juárez,Atlético de San Luis,1.0,0.0,Liga MX Femenil,5111273,20260117_FC-Juárez_Atlético-de-San-Luis
+2026-01-17,Club León,Tigres,1.0,1.0,Liga MX Femenil,5111274,20260117_Club-León_Tigres
+2026-01-17,Puebla,Toluca,0.0,1.0,Liga MX Femenil,5111275,20260117_Puebla_Toluca
+2026-01-17,CF América,Necaxa,6.0,0.0,Liga MX Femenil,5111276,20260117_CF-América_Necaxa
+2026-01-18,Querétaro,Monterrey,0.0,1.0,Liga MX Femenil,5111277,20260118_Querétaro_Monterrey
+2026-01-18,Chivas,Santos Laguna,1.0,0.0,Liga MX Femenil,5111278,20260118_Chivas_Santos-Laguna
+2026-01-21,Pachuca,Puebla,7.0,0.0,Liga MX Femenil,5111279,20260121_Pachuca_Puebla
+2026-01-21,Atlético de San Luis,CF América,0.0,2.0,Liga MX Femenil,5111280,20260121_Atlético-de-San-Luis_CF-América
+2026-01-21,Club Tijuana,FC Juárez,1.0,2.0,Liga MX Femenil,5111281,20260121_Club-Tijuana_FC-Juárez
+2026-01-22,Necaxa,Pumas,0.0,1.0,Liga MX Femenil,5111282,20260122_Necaxa_Pumas
+2026-01-22,Toluca,Tigres,1.0,2.0,Liga MX Femenil,5111283,20260122_Toluca_Tigres
+2026-01-22,Santos Laguna,Club León,0.0,0.0,Liga MX Femenil,5111284,20260122_Santos-Laguna_Club-León
+2026-01-22,Chivas,Querétaro,2.0,0.0,Liga MX Femenil,5111285,20260122_Chivas_Querétaro
+2026-01-22,Monterrey,Cruz Azul,2.0,1.0,Liga MX Femenil,5111286,20260122_Monterrey_Cruz-Azul
+2026-01-22,Mazatlán FC,Atlas,1.0,1.0,Liga MX Femenil,5111287,20260122_Mazatlán-FC_Atlas
+2026-01-24,Atlético de San Luis,Club Tijuana,2.0,3.0,Liga MX Femenil,5111288,20260124_Atlético-de-San-Luis_Club-Tijuana
+2026-01-25,FC Juárez,Cruz Azul,1.0,1.0,Liga MX Femenil,5111289,20260125_FC-Juárez_Cruz-Azul
+2026-01-25,Tigres,Atlas,3.0,1.0,Liga MX Femenil,5111290,20260125_Tigres_Atlas
+2026-01-25,Puebla,Chivas,1.0,3.0,Liga MX Femenil,5111291,20260125_Puebla_Chivas
+2026-01-25,Pumas,Santos Laguna,1.0,0.0,Liga MX Femenil,5111292,20260125_Pumas_Santos-Laguna
+2026-01-25,CF América,Mazatlán FC,4.0,0.0,Liga MX Femenil,5111293,20260125_CF-América_Mazatlán-FC
+2026-01-26,Querétaro,Toluca,1.0,4.0,Liga MX Femenil,5111294,20260126_Querétaro_Toluca
+2026-01-27,Necaxa,Pachuca,0.0,6.0,Liga MX Femenil,5111295,20260127_Necaxa_Pachuca
+2026-01-27,Club León,Monterrey,1.0,1.0,Liga MX Femenil,5111296,20260127_Club-León_Monterrey
+2026-01-31,Toluca,FC Juárez,3.0,2.0,Liga MX Femenil,5111297,20260131_Toluca_FC-Juárez
+2026-01-31,Atlas,Atlético de San Luis,2.0,2.0,Liga MX Femenil,5111298,20260131_Atlas_Atlético-de-San-Luis
+2026-01-31,Cruz Azul,Querétaro,3.0,1.0,Liga MX Femenil,5111299,20260131_Cruz-Azul_Querétaro
+2026-02-01,Mazatlán FC,Necaxa,5.0,0.0,Liga MX Femenil,5111300,20260201_Mazatlán-FC_Necaxa
+2026-02-01,Club Tijuana,Puebla,3.0,0.0,Liga MX Femenil,5111301,20260201_Club-Tijuana_Puebla
+2026-02-01,Chivas,Club León,3.0,1.0,Liga MX Femenil,5111302,20260201_Chivas_Club-León
+2026-02-01,CF América,Pumas,5.0,1.0,Liga MX Femenil,5111303,20260201_CF-América_Pumas
+2026-02-02,Pachuca,Tigres,2.0,2.0,Liga MX Femenil,5111304,20260202_Pachuca_Tigres
+2026-02-03,Santos Laguna,Monterrey,1.0,5.0,Liga MX Femenil,5111305,20260203_Santos-Laguna_Monterrey
+2026-02-05,Toluca,Atlético de San Luis,4.0,0.0,Liga MX Femenil,5111306,20260205_Toluca_Atlético-de-San-Luis
+2026-02-05,Querétaro,Club León,2.0,3.0,Liga MX Femenil,5111307,20260205_Querétaro_Club-León
+2026-02-06,Necaxa,Chivas,0.0,2.0,Liga MX Femenil,5111308,20260206_Necaxa_Chivas
+2026-02-06,FC Juárez,CF América,1.0,1.0,Liga MX Femenil,5111309,20260206_FC-Juárez_CF-América
+2026-02-06,Tigres,Cruz Azul,4.0,2.0,Liga MX Femenil,5111310,20260206_Tigres_Cruz-Azul
+2026-02-06,Atlas,Pumas,4.0,1.0,Liga MX Femenil,5111311,20260206_Atlas_Pumas
+2026-02-06,Puebla,Santos Laguna,2.0,0.0,Liga MX Femenil,5111312,20260206_Puebla_Santos-Laguna
+2026-02-07,Pachuca,Mazatlán FC,3.0,0.0,Liga MX Femenil,5111313,20260207_Pachuca_Mazatlán-FC
+2026-02-07,Monterrey,Club Tijuana,2.0,0.0,Liga MX Femenil,5111314,20260207_Monterrey_Club-Tijuana
+2026-02-09,Cruz Azul,CF América,1.0,2.0,Liga MX Femenil,5111315,20260209_Cruz-Azul_CF-América
+2026-02-09,Club León,Necaxa,3.0,1.0,Liga MX Femenil,5111316,20260209_Club-León_Necaxa
+2026-02-10,Pumas,Chivas,1.0,0.0,Liga MX Femenil,5111318,20260210_Pumas_Chivas
+2026-02-10,Tigres,FC Juárez,0.0,1.0,Liga MX Femenil,5111317,20260210_Tigres_FC-Juárez
+2026-02-10,Querétaro,Mazatlán FC,1.0,1.0,Liga MX Femenil,5111319,20260210_Querétaro_Mazatlán-FC
+2026-02-10,Monterrey,Toluca,2.0,0.0,Liga MX Femenil,5111320,20260210_Monterrey_Toluca
+2026-02-10,Puebla,Atlas,2.0,1.0,Liga MX Femenil,5111321,20260210_Puebla_Atlas
+2026-02-11,Atlético de San Luis,Pachuca,0.0,3.0,Liga MX Femenil,5111322,20260211_Atlético-de-San-Luis_Pachuca
+2026-02-11,Santos Laguna,Club Tijuana,2.0,2.0,Liga MX Femenil,5111323,20260211_Santos-Laguna_Club-Tijuana
+2026-02-14,Tigres,Puebla,4.0,0.0,Liga MX Femenil,5111263,20260214_Tigres_Puebla
+2026-02-14,FC Juárez,Pumas,1.0,1.0,Liga MX Femenil,5111324,20260214_FC-Juárez_Pumas
+2026-02-15,Necaxa,Santos Laguna,0.0,2.0,Liga MX Femenil,5111325,20260215_Necaxa_Santos-Laguna
+2026-02-15,Club Tijuana,Cruz Azul,1.0,1.0,Liga MX Femenil,5111326,20260215_Club-Tijuana_Cruz-Azul
+2026-02-16,CF América,Monterrey,1.0,1.0,Liga MX Femenil,5111328,20260216_CF-América_Monterrey
+2026-02-16,Club León,Puebla,6.0,0.0,Liga MX Femenil,5111332,20260216_Club-León_Puebla
+2026-02-17,Toluca,Pachuca,1.0,1.0,Liga MX Femenil,5111329,20260217_Toluca_Pachuca
+2026-02-17,Atlético de San Luis,Querétaro,4.0,1.0,Liga MX Femenil,5111330,20260217_Atlético-de-San-Luis_Querétaro
+2026-02-17,Chivas,Atlas,4.0,2.0,Liga MX Femenil,5111327,20260217_Chivas_Atlas
+2026-02-17,Mazatlán FC,Tigres,0.0,0.0,Liga MX Femenil,5111331,20260217_Mazatlán-FC_Tigres
+2026-02-21,Pumas,Tigres,0.0,2.0,Liga MX Femenil,5111333,20260221_Pumas_Tigres
+2026-02-21,Atlas,Cruz Azul,4.0,6.0,Liga MX Femenil,5111334,20260221_Atlas_Cruz-Azul
+2026-02-21,Santos Laguna,Toluca,0.0,1.0,Liga MX Femenil,5111335,20260221_Santos-Laguna_Toluca
+2026-02-21,Monterrey,Atlético de San Luis,6.0,0.0,Liga MX Femenil,5111336,20260221_Monterrey_Atlético-de-San-Luis
+2026-02-22,Club Tijuana,Club León,2.0,1.0,Liga MX Femenil,5111337,20260222_Club-Tijuana_Club-León
+2026-02-22,Puebla,Mazatlán FC,1.0,2.0,Liga MX Femenil,5111338,20260222_Puebla_Mazatlán-FC
+2026-02-22,Necaxa,Querétaro,2.0,1.0,Liga MX Femenil,5111340,20260222_Necaxa_Querétaro
+2026-02-23,Pachuca,FC Juárez,3.0,0.0,Liga MX Femenil,5111341,20260223_Pachuca_FC-Juárez
+2026-03-11,Chivas,CF América,3.0,2.0,Liga MX Femenil,5111339,20260311_Chivas_CF-América
+2026-03-12,Atlético de San Luis,Puebla,2.0,0.0,Liga MX Femenil,5111342,20260312_Atlético-de-San-Luis_Puebla
+2026-03-12,Cruz Azul,Necaxa,3.0,0.0,Liga MX Femenil,5111344,20260312_Cruz-Azul_Necaxa
+2026-03-13,Toluca,Pumas,4.0,2.0,Liga MX Femenil,5111349,20260313_Toluca_Pumas
+2026-03-13,Querétaro,Atlas,0.0,1.0,Liga MX Femenil,5111345,20260313_Querétaro_Atlas
+2026-03-13,Pachuca,Club Tijuana,2.0,0.0,Liga MX Femenil,5111346,20260313_Pachuca_Club-Tijuana
+2026-03-13,Tigres,Santos Laguna,4.0,1.0,Liga MX Femenil,5111347,20260313_Tigres_Santos-Laguna
+2026-03-13,Mazatlán FC,Monterrey,0.0,2.0,Liga MX Femenil,5111348,20260313_Mazatlán-FC_Monterrey
+2026-03-14,CF América,Club León,4.0,2.0,Liga MX Femenil,5111350,20260314_CF-América_Club-León
+2026-03-15,Chivas,Pachuca,1.0,1.0,Liga MX Femenil,5111351,20260315_Chivas_Pachuca
+2026-03-15,Puebla,FC Juárez,0.0,2.0,Liga MX Femenil,5111352,20260315_Puebla_FC-Juárez
+2026-03-15,Necaxa,Atlético de San Luis,1.0,1.0,Liga MX Femenil,5111353,20260315_Necaxa_Atlético-de-San-Luis
+2026-03-16,Tigres,Querétaro,6.0,0.0,Liga MX Femenil,5111354,20260316_Tigres_Querétaro
+2026-03-17,Atlas,Monterrey,0.0,3.0,Liga MX Femenil,5111355,20260317_Atlas_Monterrey
+2026-03-17,CF América,Toluca,2.0,0.0,Liga MX Femenil,5111356,20260317_CF-América_Toluca
+2026-03-17,Club León,Mazatlán FC,1.0,3.0,Liga MX Femenil,5111357,20260317_Club-León_Mazatlán-FC
+2026-03-18,Santos Laguna,Cruz Azul,0.0,2.0,Liga MX Femenil,5111358,20260318_Santos-Laguna_Cruz-Azul
+2026-03-18,Club Tijuana,Pumas,2.0,1.0,Liga MX Femenil,5111359,20260318_Club-Tijuana_Pumas
+2026-03-21,Toluca,Necaxa,5.0,1.0,Liga MX Femenil,5111360,20260321_Toluca_Necaxa
+2026-03-21,Monterrey,Chivas,0.0,0.0,Liga MX Femenil,5111361,20260321_Monterrey_Chivas
+2026-03-21,Cruz Azul,Mazatlán FC,1.0,0.0,Liga MX Femenil,5111362,20260321_Cruz-Azul_Mazatlán-FC
+2026-03-21,FC Juárez,Santos Laguna,2.0,0.0,Liga MX Femenil,5111363,20260321_FC-Juárez_Santos-Laguna
+2026-03-22,Querétaro,Club Tijuana,0.0,3.0,Liga MX Femenil,5111364,20260322_Querétaro_Club-Tijuana
+2026-03-22,Puebla,CF América,0.0,3.0,Liga MX Femenil,5111365,20260322_Puebla_CF-América
+2026-03-22,Pumas,Pachuca,1.0,2.0,Liga MX Femenil,5111366,20260322_Pumas_Pachuca
+2026-03-22,Atlético de San Luis,Tigres,0.0,2.0,Liga MX Femenil,5111367,20260322_Atlético-de-San-Luis_Tigres
+2026-03-24,Club León,Atlas,4.0,0.0,Liga MX Femenil,5111368,20260324_Club-León_Atlas
+2026-03-26,Tigres,CF América,0.0,1.0,Liga MX Femenil,5111369,20260326_Tigres_CF-América
+2026-03-28,Pumas,Club León,2.0,1.0,Liga MX Femenil,5111370,20260328_Pumas_Club-León
+2026-03-28,Atlas,Necaxa,3.0,2.0,Liga MX Femenil,5111371,20260328_Atlas_Necaxa
+2026-03-28,Pachuca,Monterrey,0.0,1.0,Liga MX Femenil,5111372,20260328_Pachuca_Monterrey
+2026-03-28,Mazatlán FC,Toluca,2.0,3.0,Liga MX Femenil,5111373,20260328_Mazatlán-FC_Toluca
+2026-03-28,Cruz Azul,Puebla,4.0,0.0,Liga MX Femenil,5111374,20260328_Cruz-Azul_Puebla
+2026-03-28,Santos Laguna,Atlético de San Luis,1.0,2.0,Liga MX Femenil,5111375,20260328_Santos-Laguna_Atlético-de-San-Luis
+2026-03-29,Querétaro,FC Juárez,2.0,1.0,Liga MX Femenil,5111376,20260329_Querétaro_FC-Juárez
+2026-03-30,Club Tijuana,Chivas,1.0,1.0,Liga MX Femenil,5111377,20260330_Club-Tijuana_Chivas
+2026-03-31,Club León,Toluca,3.0,3.0,Liga MX Femenil,5111378,20260331_Club-León_Toluca
+2026-04-01,Puebla,Querétaro,0.0,0.0,Liga MX Femenil,5111379,20260401_Puebla_Querétaro
+2026-04-01,Necaxa,FC Juárez,0.0,6.0,Liga MX Femenil,5111383,20260401_Necaxa_FC-Juárez
+2026-04-02,Atlético de San Luis,Cruz Azul,3.0,2.0,Liga MX Femenil,5111380,20260402_Atlético-de-San-Luis_Cruz-Azul
+2026-04-02,CF América,Atlas,2.0,0.0,Liga MX Femenil,5111381,20260402_CF-América_Atlas
+2026-04-02,Monterrey,Pumas,3.0,0.0,Liga MX Femenil,5111382,20260402_Monterrey_Pumas
+2026-04-03,Chivas,Mazatlán FC,1.0,0.0,Liga MX Femenil,5111384,20260403_Chivas_Mazatlán-FC
+2026-04-03,Santos Laguna,Pachuca,1.0,2.0,Liga MX Femenil,5111385,20260403_Santos-Laguna_Pachuca
+2026-04-03,Club Tijuana,Tigres,0.0,2.0,Liga MX Femenil,5111386,20260403_Club-Tijuana_Tigres
+2026-04-04,Toluca,Cruz Azul,0.0,4.0,Liga MX Femenil,5111387,20260404_Toluca_Cruz-Azul
+2026-04-05,Querétaro,CF América,1.0,4.0,Liga MX Femenil,5111388,20260405_Querétaro_CF-América
+2026-04-05,Pumas,Puebla,2.0,2.0,Liga MX Femenil,5111389,20260405_Pumas_Puebla
+2026-04-05,Necaxa,Club Tijuana,1.0,6.0,Liga MX Femenil,5111390,20260405_Necaxa_Club-Tijuana
+2026-04-05,Atlas,Santos Laguna,1.0,1.0,Liga MX Femenil,5111391,20260405_Atlas_Santos-Laguna
+2026-04-05,FC Juárez,Monterrey,1.0,1.0,Liga MX Femenil,5111392,20260405_FC-Juárez_Monterrey
+2026-04-06,Tigres,Chivas,2.0,2.0,Liga MX Femenil,5111393,20260406_Tigres_Chivas
+2026-04-06,Pachuca,Club León,5.0,4.0,Liga MX Femenil,5111394,20260406_Pachuca_Club-León
+2026-04-06,Mazatlán FC,Atlético de San Luis,0.0,1.0,Liga MX Femenil,5111395,20260406_Mazatlán-FC_Atlético-de-San-Luis
+2026-04-21,FC Juárez,Chivas,1.0,1.0,Liga MX Femenil,5111343,20260421_FC-Juárez_Chivas
+2026-04-24,Club León,Atlético de San Luis,1.0,2.0,Liga MX Femenil,5111396,20260424_Club-León_Atlético-de-San-Luis
+2026-04-25,CF América,Pachuca,3.0,2.0,Liga MX Femenil,5111397,20260425_CF-América_Pachuca
+2026-04-25,Chivas,Toluca,1.0,1.0,Liga MX Femenil,5111398,20260425_Chivas_Toluca
+2026-04-25,Club Tijuana,Mazatlán FC,2.0,0.0,Liga MX Femenil,5111399,20260425_Club-Tijuana_Mazatlán-FC
+2026-04-25,Monterrey,Tigres,0.0,3.0,Liga MX Femenil,5111400,20260425_Monterrey_Tigres
+2026-04-25,Atlas,FC Juárez,1.0,2.0,Liga MX Femenil,5111401,20260425_Atlas_FC-Juárez
+2026-04-25,Puebla,Necaxa,3.0,2.0,Liga MX Femenil,5111402,20260425_Puebla_Necaxa
+2026-04-25,Cruz Azul,Pumas,1.0,1.0,Liga MX Femenil,5111403,20260425_Cruz-Azul_Pumas
+2026-04-25,Santos Laguna,Querétaro,3.0,0.0,Liga MX Femenil,5111404,20260425_Santos-Laguna_Querétaro
+2026-04-30,Cruz Azul,Monterrey,1.0,1.0,Liga MX Femenil,5408178,20260430_Cruz-Azul_Monterrey
+2026-04-30,FC Juárez,CF América,1.0,1.0,Liga MX Femenil,5408179,20260430_FC-Juárez_CF-América
+2026-05-01,Chivas,Pachuca,2.0,1.0,Liga MX Femenil,5408180,20260501_Chivas_Pachuca
+2026-05-01,Toluca,Tigres,2.0,1.0,Liga MX Femenil,5408181,20260501_Toluca_Tigres
+2026-05-02,CF América,FC Juárez,3.0,2.0,Liga MX Femenil,5408182,20260502_CF-América_FC-Juárez
+2026-05-03,Monterrey,Cruz Azul,4.0,0.0,Liga MX Femenil,5408183,20260503_Monterrey_Cruz-Azul
+2026-05-04,Tigres,Toluca,1.0,2.0,Liga MX Femenil,5408184,20260504_Tigres_Toluca
+2026-05-04,Pachuca,Chivas,2.0,0.0,Liga MX Femenil,5408185,20260504_Pachuca_Chivas
+2026-05-08,Pachuca,Monterrey,2.0,0.0,Liga MX Femenil,5466838,20260508_Pachuca_Monterrey
+2026-05-08,Toluca,CF América,1.0,7.0,Liga MX Femenil,5466839,20260508_Toluca_CF-América
+2026-05-10,CF América,Toluca,4.0,3.0,Liga MX Femenil,5466840,20260510_CF-América_Toluca
+2026-05-11,Monterrey,Pachuca,4.0,1.0,Liga MX Femenil,5466841,20260511_Monterrey_Pachuca
+2026-05-15,Monterrey,CF América,1.0,0.0,Liga MX Femenil,5529342,20260515_Monterrey_CF-América
+2026-05-17,CF América,Monterrey,3.0,0.0,Liga MX Femenil,5529343,20260517_CF-América_Monterrey
+2026-07-27,CF América,Tigres,1.0,1.0,Liga MX Femenil,5856831,20260727_CF-América_Tigres
+2026-08-01,Cruz Azul,Atlas,3.0,1.0,Liga MX Femenil,5977292,20260801_Cruz-Azul_Atlas
+2026-08-01,FC Juárez,Pachuca,1.0,0.0,Liga MX Femenil,5977293,20260801_FC-Juárez_Pachuca
+2026-08-02,Tigres,Puebla,8.0,0.0,Liga MX Femenil,5977294,20260802_Tigres_Puebla
+2026-08-02,Club Tijuana,Monterrey,1.0,2.0,Liga MX Femenil,5977295,20260802_Club-Tijuana_Monterrey
+2026-08-02,Pumas,Club León,2.0,5.0,Liga MX Femenil,5977296,20260802_Pumas_Club-León
+2026-08-02,Chivas,Querétaro,3.0,1.0,Liga MX Femenil,5977298,20260802_Chivas_Querétaro
+2026-08-03,Atlético de San Luis,Toluca,1.0,4.0,Liga MX Femenil,5977297,20260803_Atlético-de-San-Luis_Toluca
+2026-08-03,Atlante,Necaxa,1.0,0.0,Liga MX Femenil,5977299,20260803_Atlante_Necaxa
+2026-08-04,Santos Laguna,CF América,0.0,3.0,Liga MX Femenil,5977300,20260804_Santos-Laguna_CF-América
+2026-08-08,Atlas,Pachuca,1.0,1.0,Liga MX Femenil,5977301,20260808_Atlas_Pachuca
+2026-08-08,CF América,Cruz Azul,10.0,0.0,Liga MX Femenil,5977302,20260808_CF-América_Cruz-Azul
+2026-08-08,Querétaro,Santos Laguna,1.0,2.0,Liga MX Femenil,5977303,20260808_Querétaro_Santos-Laguna
+2026-08-09,Necaxa,Pumas,1.0,2.0,Liga MX Femenil,5977304,20260809_Necaxa_Pumas
+2026-08-09,Monterrey,Atlante,3.0,1.0,Liga MX Femenil,5977305,20260809_Monterrey_Atlante
+2026-08-09,Puebla,Chivas,1.0,4.0,Liga MX Femenil,5977306,20260809_Puebla_Chivas
+2026-08-09,Atlético de San Luis,Club Tijuana,2.0,1.0,Liga MX Femenil,5977307,20260809_Atlético-de-San-Luis_Club-Tijuana
+2026-08-11,Toluca,FC Juárez,2.0,0.0,Liga MX Femenil,5977308,20260811_Toluca_FC-Juárez
+2026-08-11,Club León,Tigres,1.0,2.0,Liga MX Femenil,5977309,20260811_Club-León_Tigres
+2026-08-15,Cruz Azul,Atlante,3.0,1.0,Liga MX Femenil,5977310,20260815_Cruz-Azul_Atlante
+2026-08-15,CF América,Puebla,5.0,1.0,Liga MX Femenil,5977311,20260815_CF-América_Puebla
+2026-08-15,Pachuca,Pumas,3.0,1.0,Liga MX Femenil,5977312,20260815_Pachuca_Pumas
+2026-08-16,Tigres,FC Juárez,1.0,0.0,Liga MX Femenil,5977313,20260816_Tigres_FC-Juárez
+2026-08-16,Club Tijuana,Necaxa,5.0,1.0,Liga MX Femenil,5977314,20260816_Club-Tijuana_Necaxa
+2026-08-16,Chivas,Atlético de San Luis,3.0,1.0,Liga MX Femenil,5977315,20260816_Chivas_Atlético-de-San-Luis
+2026-08-17,Club León,Querétaro,0.0,1.0,Liga MX Femenil,5977316,20260817_Club-León_Querétaro
+2026-08-18,Toluca,Atlas,1.0,1.0,Liga MX Femenil,5977317,20260818_Toluca_Atlas
+2026-08-18,Santos Laguna,Monterrey,1.0,4.0,Liga MX Femenil,5977318,20260818_Santos-Laguna_Monterrey
+2026-08-21,Pumas,Querétaro,5.0,0.0,Liga MX Femenil,5977319,20260821_Pumas_Querétaro
+2026-08-22,Monterrey,Club León,2.0,3.0,Liga MX Femenil,5977320,20260822_Monterrey_Club-León
+2026-08-23,Cruz Azul,Tigres,0.0,3.0,Liga MX Femenil,5977322,20260823_Cruz-Azul_Tigres
+2026-08-23,FC Juárez,Santos Laguna,3.0,2.0,Liga MX Femenil,5977321,20260823_FC-Juárez_Santos-Laguna
+2026-08-23,Puebla,Atlético de San Luis,2.0,5.0,Liga MX Femenil,5977323,20260823_Puebla_Atlético-de-San-Luis
+2026-08-23,Pachuca,Chivas,3.0,1.0,Liga MX Femenil,5977324,20260823_Pachuca_Chivas
+2026-08-24,Necaxa,CF América,0.0,7.0,Liga MX Femenil,5977325,20260824_Necaxa_CF-América
+2026-08-24,Atlante,Toluca,1.0,2.0,Liga MX Femenil,5977326,20260824_Atlante_Toluca
+2026-08-25,Atlas,Club Tijuana,2.0,0.0,Liga MX Femenil,5977327,20260825_Atlas_Club-Tijuana
+2026-08-29,Toluca,Club León,1.0,0.0,Liga MX Femenil,5977328,20260829_Toluca_Club-León
+2026-08-29,Querétaro,Monterrey,0.0,4.0,Liga MX Femenil,5977329,20260829_Querétaro_Monterrey
+2026-08-30,Tigres,Pachuca,2.0,0.0,Liga MX Femenil,5977330,20260830_Tigres_Pachuca
+2026-08-30,FC Juárez,Cruz Azul,1.0,0.0,Liga MX Femenil,5977331,20260830_FC-Juárez_Cruz-Azul
+2026-08-30,Puebla,Necaxa,4.0,1.0,Liga MX Femenil,5977332,20260830_Puebla_Necaxa
+2026-08-30,CF América,Club Tijuana,3.0,1.0,Liga MX Femenil,5977333,20260830_CF-América_Club-Tijuana
+2026-08-30,Atlético de San Luis,Atlas,6.0,1.0,Liga MX Femenil,5977334,20260830_Atlético-de-San-Luis_Atlas
+2026-08-30,Chivas,Pumas,0.0,2.0,Liga MX Femenil,5977335,20260830_Chivas_Pumas
+2026-09-01,Santos Laguna,Atlante,1.0,0.0,Liga MX Femenil,5977336,20260901_Santos-Laguna_Atlante
+2026-09-05,Atlas,Chivas,0.0,4.0,Liga MX Femenil,5977337,20260905_Atlas_Chivas
+2026-09-05,Pumas,CF América,1.0,2.0,Liga MX Femenil,5977338,20260905_Pumas_CF-América
+2026-09-05,Necaxa,Atlético de San Luis,0.0,2.0,Liga MX Femenil,5977339,20260905_Necaxa_Atlético-de-San-Luis
+2026-09-06,Monterrey,Toluca,5.0,1.0,Liga MX Femenil,5977340,20260906_Monterrey_Toluca
+2026-09-06,Club Tijuana,Pachuca,3.0,1.0,Liga MX Femenil,5977341,20260906_Club-Tijuana_Pachuca
+2026-09-06,Querétaro,Cruz Azul,0.0,2.0,Liga MX Femenil,5977342,20260906_Querétaro_Cruz-Azul
+2026-09-07,Tigres,Santos Laguna,3.0,0.0,Liga MX Femenil,5977343,20260907_Tigres_Santos-Laguna
+2026-09-08,Club León,Puebla,5.0,2.0,Liga MX Femenil,5977345,20260908_Club-León_Puebla
+2026-09-08,Atlante,FC Juárez,0.0,1.0,Liga MX Femenil,5977344,20260908_Atlante_FC-Juárez
+2026-09-12,Cruz Azul,Pumas,3.0,2.0,Liga MX Femenil,5977346,20260912_Cruz-Azul_Pumas
+2026-09-12,Atlas,Atlante,1.0,0.0,Liga MX Femenil,5977347,20260912_Atlas_Atlante
+2026-09-12,Chivas,Monterrey,2.0,3.0,Liga MX Femenil,5977348,20260912_Chivas_Monterrey
+2026-09-13,FC Juárez,Necaxa,1.0,0.0,Liga MX Femenil,5977349,20260913_FC-Juárez_Necaxa
+2026-09-13,Puebla,Querétaro,2.0,6.0,Liga MX Femenil,5977350,20260913_Puebla_Querétaro
+2026-09-13,Atlético de San Luis,Santos Laguna,2.0,3.0,Liga MX Femenil,5977351,20260913_Atlético-de-San-Luis_Santos-Laguna
+2026-09-13,CF América,Tigres,5.0,2.0,Liga MX Femenil,5977352,20260913_CF-América_Tigres
+2026-09-15,Toluca,Club Tijuana,6.0,0.0,Liga MX Femenil,5977353,20260915_Toluca_Club-Tijuana
+2026-09-15,Pachuca,Club León,0.0,1.0,Liga MX Femenil,5977354,20260915_Pachuca_Club-León
+2026-09-19,Monterrey,Necaxa,10.0,0.0,Liga MX Femenil,5977355,20260919_Monterrey_Necaxa
+2026-09-19,Club Tijuana,Chivas,0.0,2.0,Liga MX Femenil,5977356,20260919_Club-Tijuana_Chivas
+2026-09-20,Pumas,Puebla,2.0,0.0,Liga MX Femenil,5977357,20260920_Pumas_Puebla
+2026-09-20,CF América,Atlas,2.0,2.0,Liga MX Femenil,5977358,20260920_CF-América_Atlas
+2026-09-20,Atlético de San Luis,Pachuca,2.0,1.0,Liga MX Femenil,5977359,20260920_Atlético-de-San-Luis_Pachuca
+2026-09-21,Atlante,Querétaro,2.0,1.0,Liga MX Femenil,5977360,20260921_Atlante_Querétaro
+2026-09-21,Club León,FC Juárez,0.0,2.0,Liga MX Femenil,5977361,20260921_Club-León_FC-Juárez
+2026-09-22,Toluca,Tigres,2.0,7.0,Liga MX Femenil,5977362,20260922_Toluca_Tigres
+2026-09-22,Santos Laguna,Cruz Azul,2.0,0.0,Liga MX Femenil,5977363,20260922_Santos-Laguna_Cruz-Azul
