@@ -292,12 +292,33 @@ def barrer(ruta: str = TABLERO, incluir_no_validados: bool = True) -> List[Dict]
 
 
 def _fecha_de(inicio) -> str:
-    """La fecha del partido en formato AAAA-MM-DD, o cadena vacia."""
-    import datetime as _dt
+    """La fecha del partido EN HORA DE CDMX, o cadena vacia.
+
+    v301 — ESTO USABA LA HORA DEL SERVIDOR Y EL SERVIDOR VA EN UTC.
+
+    `datetime.fromtimestamp()` sin zona usa la del proceso, que en Streamlit
+    Cloud es UTC. Medido el 2026-09-22: de los 618 partidos del tablero, 123
+    caen en un dia distinto segun se mire en UTC o en CDMX, porque Mexico va
+    seis horas por detras y los partidos de Sudamerica empiezan de noche.
+
+        Lanus vs Estudiantes L.P.    UTC 22 00:15  |  CDMX 21 18:15
+
+    Ese partido salia con fecha del 22 para alguien que lo iba a ver el 21 por
+    la tarde. Y a las 04:26 UTC del 22, el servidor creia que «hoy» era el 23
+    mientras que para el usuario era el 22 — la aplicacion entera iba un dia
+    por delante de el.
+
+    `horario.fecha` ya hacia esto bien desde la v106 y llevaba el caso escrito
+    en su docstring. El fallo no fue no tener la herramienta: fue no usarla.
+    """
     try:
-        return _dt.datetime.fromtimestamp(float(inicio)).strftime('%Y-%m-%d')
-    except (TypeError, ValueError, OSError, OverflowError):
-        return ''
+        import horario as _h
+        f = _h.fecha(inicio)
+        if f:
+            return f
+    except Exception as e:
+        logger.debug('[capa1] horario.fecha(%r): %s', inicio, e)
+    return ''
 
 
 

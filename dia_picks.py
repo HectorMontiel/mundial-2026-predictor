@@ -35,30 +35,79 @@ MANANA = 'mañana'
 TODO = 'todo'
 
 
-def dia_de(pick) -> str:
-    """La fecha del pick en AAAA-MM-DD, o cadena vacía. NUNCA lanza.
+def hoy_local() -> _dt.date:
+    """Qué día es HOY para el usuario, que vive en CDMX. NUNCA lanza.
 
-    Los picks llegan por dos caminos con la fecha en dos formatos: el barrido
-    en vivo la trae normalizada en `fecha`, y el precálculo puede traer sólo
-    `inicio`, que es una marca de tiempo Unix. Leer sólo uno de los dos deja
-    fuera media lista sin avisar — el mismo tropiezo que la v279, donde un
-    `inicio` en crudo llegó a `_etiqueta_dia` y tumbó la app entera.
+    v301 — ESTO ERA `date.today()` Y ESTABA MAL, CON CONSECUENCIAS.
+
+    `date.today()` da el día del SERVIDOR, y el servidor de Streamlit va en
+    UTC. Medido el 2026-09-22 a las 04:26 UTC:
+
+        hoy en UTC ..... 2026-09-23
+        hoy en CDMX .... 2026-09-22
+
+    O sea que la aplicación iba un día por delante del usuario y todo lo que
+    llamaba «hoy» era su mañana. Él lo vio como «me estás combinando los
+    días», que es exactamente lo que pasaba.
+    """
+    try:
+        import horario as _h
+        return _dt.datetime.now(_dt.timezone.utc).astimezone(
+            _h._zona()).date()
+    except Exception as e:
+        logger.warning('[dia_picks] sin zona de CDMX (%s); se usa UTC-6', e)
+        return (_dt.datetime.now(_dt.timezone.utc)
+                - _dt.timedelta(hours=6)).date()
+
+
+def dia_de(pick) -> str:
+    """El día del pick EN HORA DE CDMX, en AAAA-MM-DD. NUNCA lanza.
+
+    v301 — SE CONVIERTE DESDE `inicio`, QUE ES LA VERDAD EN UTC.
+
+    El proyecto tiene un invariante que un test vigila (`test_un_solo_reloj`):
+    todo el barrido razona en UTC, porque las fechas de las fuentes son UTC y
+    mezclar relojes ya costó un día entero de partidos descartados (v91). La
+    conversión a CDMX es de PRESENTACIÓN, y este módulo es presentación.
+
+    Por qué importa tanto: de los 618 partidos del tablero del 2026-09-22,
+    **123 cambian de día** según la zona que se use.
+
+        Lanus vs Estudiantes L.P.    UTC 22 00:15  |  CDMX 21 18:15
+        Independiente vs Tomayapo    UTC 22 00:30  |  CDMX 21 18:30
+
+    Un partido de las 18:15 en México es de HOY por la tarde, y en UTC ya es
+    del día siguiente. Con `fecha` —que el barrido calcula en la hora del
+    servidor— salía como «mañana» a alguien que lo iba a ver esa misma noche.
+
+    Por eso se prefiere SIEMPRE `inicio`: es la marca de tiempo real y se
+    puede convertir. `fecha` sólo se usa cuando no hay `inicio`, y entonces se
+    toma tal cual, que es lo único que se puede hacer con una cadena ya
+    calculada en otra zona.
     """
     if not isinstance(pick, dict):
         return ''
+    ini = pick.get('inicio')
+    if ini not in (None, ''):
+        try:
+            import horario as _h
+            f = _h.fecha(ini)
+            if f:
+                return f
+        except Exception as e:
+            logger.debug('[dia_picks] horario.fecha(%r): %s', ini, e)
     f = str(pick.get('fecha') or '')[:10]
     if len(f) == 10 and f[4:5] == '-' and f[7:8] == '-':
         return f
-    try:
-        return _dt.datetime.fromtimestamp(
-            float(pick.get('inicio'))).strftime('%Y-%m-%d')
-    except (TypeError, ValueError, OSError, OverflowError):
-        return ''
+    return ''
 
 
 def fecha_del_modo(modo: str, hoy: Optional[_dt.date] = None) -> str:
-    """La fecha que representa 'hoy' o 'mañana'. Cadena vacía para el resto."""
-    base = hoy or _dt.date.today()
+    """La fecha que representa 'hoy' o 'mañana' EN CDMX.
+
+    Cadena vacía para cualquier otro modo.
+    """
+    base = hoy or hoy_local()
     if modo == HOY:
         return base.strftime('%Y-%m-%d')
     if modo == MANANA:

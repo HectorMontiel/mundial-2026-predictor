@@ -68,6 +68,54 @@ def probar_no_esconde_nada_por_accidente():
     check(dp.solo_del_dia(None, dp.HOY, HOY) == [], 'None no rompe')
 
 
+def probar_la_hora_es_la_de_cdmx():
+    """v301 — EL FALLO QUE HACIA QUE LOS DIAS SALIERAN MEZCLADOS.
+
+    El usuario: «me estás combinando los días... recuerda que estamos
+    ocupando hora de CDMX». Tenía razón y era de raíz: `date.today()` y
+    `fromtimestamp()` sin zona dan la hora del SERVIDOR, y el servidor de
+    Streamlit va en UTC. Medido el 2026-09-22 a las 04:26 UTC:
+
+        hoy en UTC ..... 2026-09-23      <- lo que creia la aplicacion
+        hoy en CDMX .... 2026-09-22      <- el dia del usuario
+
+    Y de los 618 partidos del tablero, 123 caen en un dia distinto segun la
+    zona, porque México va seis horas por detrás y el fútbol sudamericano
+    empieza de noche.
+    """
+    import datetime as dt
+    import dia_picks as dp
+    import horario as h
+
+    # Lanus vs Estudiantes: 00:15 UTC del 22 es el 21 a las 18:15 en México.
+    ts = dt.datetime(2026, 9, 22, 0, 15, tzinfo=dt.timezone.utc).timestamp()
+    check(dp.dia_de({'inicio': ts}) == '2026-09-21',
+          'un partido de las 00:15 UTC es del DIA ANTERIOR en CDMX')
+    check(dp.dia_de({'inicio': str(int(ts))}) == '2026-09-21',
+          'y también cuando `inicio` viene como texto, que es como lo guarda '
+          'el tablero (`inicio: "1790074800"`)')
+
+    # `inicio` manda sobre `fecha`: la cadena pudo calcularse en otra zona
+    check(dp.dia_de({'inicio': ts, 'fecha': '2026-09-22'}) == '2026-09-21',
+          '`inicio` manda sobre `fecha`: es la marca de tiempo real')
+
+    # el día de hoy sale de CDMX, no del reloj del servidor
+    esperado = dt.datetime.now(dt.timezone.utc).astimezone(h._zona()).date()
+    check(dp.hoy_local() == esperado, 'hoy_local() da el día de CDMX')
+    check(dp.fecha_del_modo(dp.HOY) == esperado.strftime('%Y-%m-%d'),
+          'y el modo «hoy» usa ese día, no el del servidor')
+
+    # y horario aguanta las formas en que llega la marca de tiempo
+    for v, q in ((ts, '2026-09-21'), (int(ts), '2026-09-21'),
+                 (str(int(ts)), '2026-09-21'),
+                 (str(int(ts * 1000)), '2026-09-21'),
+                 ('2026-09-22T00:15:00Z', '2026-09-21')):
+        check(h.fecha(v) == q, 'horario.fecha(%r) da %s' % (v, q))
+    for malo in ('', None, 'no es fecha', 'NaN'):
+        check(h.fecha(malo) == '',
+              'y con %r devuelve vacío en vez de inventarse un día' % (malo,))
+
+
 def probar_el_cambio_de_mes():
     """El 30 y el 31 son donde fallan estas cosas."""
     import dia_picks as dp
@@ -131,17 +179,16 @@ def probar_la_pantalla_lo_usa():
     check("solo_del_dia(_s1, _modo_dia)" in src
           and "solo_del_dia(_s2, _modo_dia)" in src,
           'y las secciones del clasificador obedecen a ESE mando')
-    # v300 — LA ESCALERA YA NO FILTRA, ENSEÑA EL DIA COMO COLUMNA.
+    # v301 — EL FILTRO DE LA ESCALERA VUELVE.
     #
-    # La v298 le puso un selector y el usuario seguía sin ver las de mañana:
-    # un mando puede quedarse en la posición equivocada y esconderle media
-    # lista sin que se note. Con la columna se ven los dos días a la vez y no
-    # hay nada que ajustar. Además pidió expresamente no tener que
-    # seleccionar nada en esa sección.
-    check("'escalera_dia'" not in src,
-          'la Escalera ya no tiene selector de día: el día es una columna')
-    check('def _cuando(' in src,
-          'y hay una columna «Cuándo» que dice Hoy o Mañana por fila')
+    # La v300 lo quito y lo convirtio en una columna de tabla. Mala lectura:
+    # «te pedí que los filtros SÍ fueran consistentes con lo de hoy y con lo
+    # de mañana». Queria el filtro arreglado, no quitado — y lo que lo tenia
+    # roto era el reloj, no el mando.
+    check("'escalera_dia'" in src,
+          'la Escalera tiene su filtro de día, con su propia clave')
+    check('st.markdown' in src and 'st.container' in src,
+          'y la Escalera pinta tarjetas, no una tabla de markdown')
     # ninguna de las dos pantallas puede tener su propia idea de qué es «hoy»
     propias = re.findall(r'date\.today\(\)', src)
     check(len(propias) <= 2,
@@ -154,6 +201,8 @@ if __name__ == '__main__':
     probar_las_dos_formas_de_la_fecha()
     print('\n=== 2. no esconde nada por accidente ===')
     probar_no_esconde_nada_por_accidente()
+    print('\n=== 2b. la hora es la de CDMX (v301) ===')
+    probar_la_hora_es_la_de_cdmx()
     print('\n=== 3. el cambio de mes ===')
     probar_el_cambio_de_mes()
     print('\n=== 4. la cuenta del selector ===')

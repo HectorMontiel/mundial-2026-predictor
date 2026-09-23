@@ -8985,11 +8985,29 @@ def render_escalera():
     st.caption('**Una sola apuesta al día** para ir doblando: 100 → 200 → 400. '
                'Sale de la Capa 1, que es el único canal con ventaja medida.')
 
+    # v301 — SE RECARGA SIEMPRE, PORQUE RECARGAR LA PAGINA NO BASTABA.
+    #
+    # La v299 recargaba `escalera` sólo si le faltaba `todas`. El usuario
+    # probó a refrescar el navegador y siguió sin funcionar: «si no funciona
+    # lo que dices prefiero que la regreses a que se cargue cada que abra la
+    # app». Tiene razón y es lo que se hace.
+    #
+    # Refrescar la PÁGINA no reinicia el PROCESO de Streamlit: `sys.modules`
+    # sobrevive, así que un contenedor levantado antes del despliegue sigue
+    # sirviendo el módulo viejo por mucho que el navegador recargue. Sólo se
+    # cura reimportando a mano o reiniciando el contenedor, y lo segundo no
+    # está en manos del usuario.
+    #
+    # El coste es una reimportación por pasada: `escalera` no tiene imports
+    # de nivel de módulo ni estado, así que son microsegundos. Barato al lado
+    # de una sección que enseña «no hay nada» durante horas.
     try:
+        import importlib as _il
         import escalera as _esc
+        _esc = _il.reload(_esc)
     except Exception as _e:
-        st.error('La Escalera no está disponible ahora (%s).'
-                 % type(_e).__name__)
+        st.error('La Escalera no está disponible ahora (%s: %s).'
+                 % (type(_e).__name__, _e))
         return
 
     _picks = []
@@ -9030,15 +9048,20 @@ def render_escalera():
             _cu = _p.get('cuota') or 0
             _p['prob'] = ((1 + (_p.get('ev') or 0)) / _cu) if _cu else 0
 
-    # v300 — AQUI NO HAY FILTRO DE DIA, Y ES A PROPOSITO.
+    # v301 — EL FILTRO DE DIA VUELVE, Y AHORA EN HORA DE CDMX.
     #
-    # La v298 puso un selector hoy/mañana y el usuario seguia sin ver las de
-    # mañana. El problema de fondo es que un mando puede quedarse en la
-    # posicion equivocada y esconderle la mitad de la lista sin que se note —
-    # que es exactamente lo que le pasaba. Ahora el dia va como COLUMNA de la
-    # tabla: se ven los dos a la vez y no hay nada que ajustar.
+    # La v300 lo quito y lo convirtio en una columna. Fue una mala lectura de
+    # lo que el usuario pidio: «te pedí que los filtros SÍ fueran consistentes
+    # con lo de hoy y con lo de mañana». Queria el filtro arreglado, no
+    # quitado.
     #
-    # «No quiero seleccionar cosas, sólo quiero que esté la visualización.»
+    # Y lo que lo tenia roto no era el mando, era el reloj: `date.today()` da
+    # el dia del SERVIDOR, que en Streamlit Cloud es UTC, y CDMX va seis horas
+    # por detras. Medido el 2026-09-22 a las 04:26 UTC, la aplicacion creia
+    # que era dia 23 mientras el usuario estaba en el 22, y 123 de los 618
+    # partidos del tablero caian en un dia distinto segun la zona. Ver
+    # `dia_picks.hoy_local`.
+    _picks = filtro_de_dia(_picks, 'escalera_dia')
 
     # v291 — VARIAS OPCIONES Y EL USUARIO ELIGE.
     #
@@ -9099,61 +9122,60 @@ def render_escalera():
         st.caption('Vuelve más tarde: el tablero se refresca cada dos horas.')
         return
 
-    # v300 — SOLO LA TABLA. NI SELECTOR, NI PLAN, NI PARRAFOS.
+    # v301 — TARJETAS, NO UNA TABLA. Y SIN SELECTOR DE APUESTA.
     #
-    # El usuario, literal: «en el reto escalera yo no quiero seleccionar
-    # cosas, sólo quiero que esté la visualización, no quiero más texto
-    # innecesario. Sólo el partido, la apuesta que me das, cuota y
-    # probabilidad de acertar».
+    # La v300 lo convirtió en una tabla de markdown y el usuario fue claro:
+    # «no te pedí en ningún momento una tabla». Lo que pidió fue la
+    # VISUALIZACIÓN sin adornos y sin tener que elegir nada:
     #
-    # Lo que se va, y por qué se fue de verdad:
-    #   · el `st.radio` de «¿cuál vas a jugar?» — elegir no es ver, y él
-    #     mira esto para decidir rápido, no para configurar nada.
-    #   · la tabla de cinco escalones con la probabilidad de llegar — es un
-    #     plan, no una apuesta, y ocupaba más que todas las opciones juntas.
-    #   · los cuatro `st.metric` y los párrafos de forma, media de goles y
-    #     «por qué estos números». Todo eso está medido y sigue siendo
-    #     verdad, pero contarlo aquí convertía una lista de cuatro apuestas
-    #     en una pantalla de scroll.
+    #     «sólo quiero que esté la visualización, no quiero más texto
+    #      innecesario. Sólo el partido, la apuesta que me das, cuota y
+    #      probabilidad de acertar.»
     #
-    # Y EL DIA VA COMO COLUMNA, NO COMO FILTRO. Se quejó dos veces de que sólo
-    # veía las de hoy; con la columna se ven las dos a la vez y no hay ningún
-    # mando que pueda estar en la posición equivocada escondiéndole la mitad.
-    import datetime as _dt
-    import dia_picks as _dp
-
-    _hoy = _dt.date.today().strftime('%Y-%m-%d')
-    _man = (_dt.date.today() + _dt.timedelta(days=1)).strftime('%Y-%m-%d')
+    # Así que vuelve la tarjeta, una por opción, con esos cuatro datos y
+    # nada más. Lo que NO vuelve es el `st.radio` de «¿cuál vas a jugar?»
+    # —elegir no es ver— ni la tabla de cinco escalones ni los párrafos de
+    # forma y media de goles, que convertían cuatro apuestas en scroll.
     _ICO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴'}
 
-    def _cuando(_p):
-        _d = _dp.dia_de(_p)
-        if _d == _hoy:
-            return 'Hoy'
-        if _d == _man:
-            return 'Mañana'
-        return _d[5:] if _d else '—'
-
-    _filas = []
     for _o in _opciones:
         try:
-            _sf = (_o.get('semaforo') or {}).get('nivel')
-            _ap = str(_o.get('apuesta') or '?').replace('|', '/')
-            _pa = str(_o.get('partido') or '?').replace('|', '/')
-            _filas.append('| %s | %s | %s %s | **%.2f** | %.0f %% |'
-                          % (_cuando(_o), _pa, _ICO.get(_sf, '🟡'), _ap,
-                             float(_o.get('cuota') or 0),
-                             100 * float(_o.get('prob_escalera') or
-                                         _o.get('prob') or 0)))
+            _cu = float(_o.get('cuota') or 0)
+            _pr = float(_o.get('prob_escalera') or _o.get('prob') or 0)
         except (TypeError, ValueError):
             continue
+        _sf = (_o.get('semaforo') or {}).get('nivel')
+        _nv = _o.get('nivel_escalera') or {}
 
-    if _filas:
-        st.markdown('| Cuándo | Partido | Apuesta | Cuota | Entra |\n'
-                    '|---|---|---|---|---|\n' + '\n'.join(_filas))
+        with st.container(border=True):
+            st.markdown('**%s %s**'
+                        % (_ICO.get(_sf, '🟡'), _o.get('apuesta', '?')))
+            # El partido y, si la hay, la hora de CDMX: sin ella «mañana» no
+            # dice si es a las 9 o a las 21, y con eso se decide si da tiempo.
+            _cuando = ''
+            try:
+                import horario as _hr
+                _cuando = _hr.etiqueta(_o.get('inicio'))
+            except Exception:
+                _cuando = ''
+            st.caption('%s%s' % (_o.get('partido', '?'),
+                                 ('  ·  ' + _cuando) if _cuando else ''))
+            # Las dos patas de una combinada, para poder marcarlas en la casa.
+            for _pata in (_o.get('patas') or []):
+                try:
+                    st.caption('· %s — @%.2f' % (_pata.get('texto', '?'),
+                                                 float(_pata.get('cuota') or 0)))
+                except (TypeError, ValueError):
+                    pass
+            _c = st.columns(3)
+            _c[0].metric('Cuota', '%.2f' % _cu)
+            _c[1].metric('Acierta', '%.0f %%' % (100 * _pr))
+            _c[2].metric('100 dan', '%.0f' % (100 * _cu))
+            if _o.get('casa'):
+                st.caption('En **%s**%s' % (_o['casa'],
+                                            ('  ·  ' + _nv['etiqueta'])
+                                            if _nv.get('etiqueta') else ''))
 
-    # Una sola línea debajo, y dice lo único que no se ve en la tabla: que
-    # están ordenadas y que las de precio rancio no están.
     st.caption('De mejor a peor. Las que el semáforo marca en rojo no salen. '
                '🟢 dentro de lo medido · 🟡 más flojo.')
 

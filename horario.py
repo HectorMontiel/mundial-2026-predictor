@@ -102,6 +102,20 @@ def _a_utc(valor) -> Optional[_dt.datetime]:
         txt = str(valor).strip()
         if not txt:
             return None
+        # v301 — UNA MARCA DE TIEMPO EN TEXTO SIGUE SIENDO UNA MARCA DE TIEMPO.
+        #
+        # `cuotas_mx.json` guarda `inicio` como CADENA: '1790074800'. Caia por
+        # la rama de texto, `fromisoformat` no lo entendia, `pd.Timestamp` lo
+        # leia como NANOsegundos —el mismo error que costo las v94 y v95— y la
+        # guardia del año lo tumbaba. Resultado: cadena vacia.
+        #
+        # Lo cazo un test al conectar `horario` al barrido: sin esto, TODOS
+        # los picks del tablero se habrian quedado sin fecha de golpe.
+        if txt.lstrip('-').replace('.', '', 1).isdigit():
+            try:
+                return _a_utc(float(txt))
+            except (TypeError, ValueError):
+                return None
         if txt.endswith('Z'):
             txt = txt[:-1] + '+00:00'
         try:
