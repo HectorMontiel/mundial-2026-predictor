@@ -170,7 +170,16 @@ def pronostico(motor, f: Dict, h: str, a: str) -> Optional[Dict]:
                    float(pb.get('away') or 0))
     if ph + pd_ + pa <= 0:
         return None
-    home, away = str(f.get('home')), str(f.get('away'))
+    # v304.1 — el nombre CANÓNICO en inglés, que es el de ESPN y el de
+    # `historico_selecciones`. Un partido que entraba por el tablón en
+    # español («Azerbaiyán vs Tajikistán») no encontraba su histórico y la
+    # tarjeta se quedaba sin forma, sin córners y sin el porqué.
+    try:
+        from config import TEAM_NAMES_EN as _EN
+    except Exception:
+        _EN = {}
+    home = str(_EN.get(h) or f.get('home'))
+    away = str(_EN.get(a) or f.get('away'))
     mk = _mercados_de_matriz(r.get('score_matrix') or [])
     board = {'Gana %s' % home: round(ph, 3), 'Empate': round(pd_, 3),
              'Gana %s' % away: round(pa, 3)}
