@@ -775,6 +775,24 @@ def _capa1_en_vivo() -> list:
         return []
 
 
+@st.cache_data(ttl=600, show_spinner=False)
+def _probables_en_vivo(_pronosticos=None) -> list:
+    """v302 — las probables con buena cuota, del tablero. NUNCA lanza.
+
+    Mismo tablero y misma caché de diez minutos que la Capa 1: son precios.
+    `_pronosticos` va con guion bajo para que Streamlit no lo use de clave de
+    caché (serializar cuatrocientos pronósticos en cada pasada costaría más
+    que el barrido); sólo sirve para saber si el modelo está de acuerdo.
+    """
+    try:
+        import probables as _pb
+        return _pb.barrer(_pronosticos)
+    except Exception as e:
+        logger.warning('[probables] barrido en vivo fallo: %s: %s',
+                       type(e).__name__, e)
+        return []
+
+
 def solo_del_dia(picks: list, modo: str) -> list:
     """Los picks de ese día. Ver `dia_picks`, que es donde vive la lógica."""
     try:
@@ -786,26 +804,66 @@ def solo_del_dia(picks: list, modo: str) -> list:
 
 
 def modo_de_dia(picks: list, clave: str, etiqueta: str = '📅 Cuándo') -> str:
-    """Pinta el selector y devuelve 'todo', 'hoy' o 'mañana'. NUNCA lanza.
+    """Pinta el selector y devuelve 'hoy', 'mañana' o 'pasado'. NUNCA lanza.
 
-    Por defecto enseña TODO: el problema que esto arregla era que faltaban
-    picks, así que el valor por defecto no puede ser uno que los esconda.
+    v302 — ARRANCA EN HOY Y NO DESAPARECE. Las dos cosas eran el fallo.
 
-    Y sólo se ofrece el selector cuando hay algo en los DOS días, para no
-    prometer una pestaña vacía.
+    El usuario: «el filtro de día en reto escalera y capa 1 sigue sin
+    funcionar, me estás adelantando un día las cosas». El cálculo del día ya
+    era correcto (CDMX, v301). Lo que lo rompía era el mando:
+
+      · arrancaba en «todo», así que la lista mezclaba los tres días y las
+        tarjetas sólo decían la hora: un partido de mañana a las 10:00 se
+        leía como de hoy a las 10:00;
+      · y SE ESCONDÍA cuando hoy estaba vacío —de noche, casi siempre—, con
+        lo que lo único que quedaba en pantalla era mañana, sin decirlo.
+
+    Ahora son los mismos tres días que las pestañas de Apuestas del Día, el
+    de hoy primero, siempre visibles y con su cuenta. Y cada fila dice su día.
     """
     try:
         import dia_picks as _dp
         c = _dp.cuenta(picks)
-        if not (c['hoy'] and c['mañana']):
-            return _dp.TODO
-        ops = ['todo (%d)' % c['todo'], 'hoy (%d)' % c['hoy'],
-               'mañana (%d)' % c['mañana']]
-        return st.radio(etiqueta, ops, index=0, horizontal=True,
-                        key=clave).split(' ')[0]
+        claves = [_dp.HOY, _dp.MANANA, _dp.PASADO]
+        rot = {_dp.HOY: 'Hoy (%d)' % c.get(_dp.HOY, 0),
+               _dp.MANANA: 'Mañana (%d)' % c.get(_dp.MANANA, 0),
+               _dp.PASADO: 'Pasado (%d)' % c.get(_dp.PASADO, 0)}
+        if st.session_state.get(clave) not in claves:
+            st.session_state[clave] = _dp.HOY
+        sel = st.segmented_control(etiqueta, claves, key=clave,
+                                   format_func=lambda k: rot.get(k, k))
+        # `segmented_control` deja deseleccionar: sin esto la lista se
+        # quedaría en blanco al pulsar dos veces el mismo día
+        return sel if sel in claves else _dp.HOY
     except Exception as e:
         logger.debug('[modo_de_dia] %s', e)
-        return 'todo'
+        return 'hoy'
+
+
+def dia_de_vista() -> str:
+    """El día que enseña la pestaña de Apuestas del Día. NUNCA lanza.
+
+    v302 — la Capa 1 se pinta ANTES que las pestañas, pero Streamlit ya tiene
+    en `session_state` la pestaña elegida al empezar la pasada, así que se
+    puede leer aquí sin esperar a que se dibuje.
+    """
+    try:
+        import dia_picks as _dp
+        # En la PRIMERA pasada de una sesión la pestaña guardada todavía no
+        # está sembrada: se siembra aquí, igual que hará el selector más abajo
+        # (`recordar` no pisa lo que ya haya), para que la Capa 1 y las
+        # pestañas no arranquen en días distintos.
+        if '_vista_principal' not in st.session_state:
+            try:
+                import preferencias_usuario as _pv
+                _pv.recordar(st, '_vista_principal',
+                             list(VISTAS_PRINCIPALES), 'hoy')
+            except Exception as _e_pv:
+                logger.debug('[dia_de_vista] preferencia: %s', _e_pv)
+        return _dp.modo_de_vista(st.session_state.get('_vista_principal'))
+    except Exception as e:
+        logger.debug('[dia_de_vista] %s', e)
+        return 'hoy'
 
 
 def filtro_de_dia(picks: list, clave: str, etiqueta: str = '📅 Cuándo') -> list:
@@ -6373,130 +6431,130 @@ def render_alpha_finder():
             logger.info('[capa1] %d picks anadidos en vivo', len(_nuevos))
     except Exception as _e_vivo:
         logger.warning('[capa1] barrido en vivo omitido: %s', _e_vivo)
-    # v299 — EL FILTRO DE DIA, Y ESTA VEZ SOBRE LA CAPA 1 DE VERDAD.
+    # v302 — LA CAPA 1 OBEDECE A LA PESTAÑA, VA PLEGADA Y EN FILAS.
     #
-    # El usuario: «cuando aplico el filtro de apuestas del día a mañana no se
-    # aplica en capa 1». Tenía razón: la v298 puso el selector sobre las
-    # secciones 1 y 2 del clasificador, que son OTRA lista. Este bloque —el
-    # que lleva el título «🟢 Capa 1 — lo único con ventaja medida»— no lo
-    # tocaba nadie.
+    # Tres peticiones del usuario en el mismo mensaje, y las tres se atienden
+    # aquí:
     #
-    # El mando se pinta AQUI, que es lo primero que el usuario ve de la
-    # pantalla, y su elección gobierna todo lo de abajo: `_modo_dia` viaja
-    # hasta las secciones del clasificador, que ya no pintan uno propio.
-    # Dos mandos para el mismo concepto en la misma pantalla es peor que
-    # ninguno: se contradicen y nadie sabe cuál manda.
-    _modo_dia = modo_de_dia(_c1, 'dia_del_dia')
+    #   «el filtro de día en capa 1 sigue sin funcionar, me estás adelantando
+    #    un día las cosas. Usa la misma lógica que usas en apuestas del día»
+    #   «Capa 1 quiero que se pueda minimizar porque ocupa mucho espacio y que
+    #    sólo cuando yo lo abra se despliegue»
+    #   «igual quiero el diseño sencillo: el partido, la cuota, la
+    #    probabilidad, el semáforo y la hora»
+    #
+    # EL DÍA. La v299 le puso a la Capa 1 un mando propio (`dia_del_dia`) que
+    # arrancaba en «todo». Con la pestaña de abajo en «Hoy», la Capa 1 seguía
+    # mezclando los tres días, y como la tarjeta sólo decía la hora, un
+    # partido de mañana a las 10:00 se leía como de hoy. Ahora no hay mando
+    # propio: manda la pestaña (Hoy / Mañana / Pasado), que es la lógica de
+    # Apuestas del Día, y cada fila dice su día además de su hora.
+    #
+    # EL ESPACIO. Cada pick eran dos líneas de markdown más un desplegable con
+    # otra línea por pick. Ahora es una fila de ~46 px dentro de un
+    # desplegable CERRADO cuyo rótulo ya dice cuántas hay: se ve sin abrir.
+    #
+    # Y LAS PROBABLES (v302, `probables.py`) entran aquí, en su propio grupo:
+    # el usuario pidió que «las probables con buena cuota lleguen a capa 1».
+    # No se mezclan con las medidas porque no pasan la misma puerta — se dice
+    # en su rótulo con su número.
+    _modo_dia = dia_de_vista()
     _c1 = solo_del_dia(_c1, _modo_dia)
+
+    # Sin cuota en una casa donde se pueda apostar no hay Capa 1: la ventaja
+    # ES el precio. Visto el 2026-09-22 en local: el único pick «de hoy» era
+    # un Padres-Dodgers cuyo precio era de Pinnacle y se le quitó (v91), y el
+    # rótulo decía «1 para hoy» sobre una lista vacía.
+    def _con_cuota(p):
+        try:
+            return float(p.get('cuota')) > 1.0
+        except (TypeError, ValueError):
+            return False
+    _c1 = [p for p in _c1 if _con_cuota(p)]
+    _NOMBRE_DIA = {'hoy': 'hoy', 'mañana': 'mañana', 'pasado': 'pasado mañana'}
     try:
         import semaforo_capa1 as _sem
         _c1 = _sem.ordenar(_c1)
-        _frase = _sem.resumen(_c1)
+        # el resumen se hace sobre las MEDIDAS (las sin validar no se meten)
+        # y dice el día de la pestaña: «de las 22 de hoy» salía con la
+        # pestaña en Mañana y contando las 16 sin validar.
+        _frase = _sem.resumen([p for p in _c1
+                               if p.get('validado') is not False])
+        _frase = _frase.replace(
+            'de hoy', 'de %s' % _NOMBRE_DIA.get(_modo_dia, _modo_dia))
     except Exception as _e_sem:
         logger.debug('[capa1] semaforo: %s', _e_sem)
         _sem, _frase = None, ''
     _c1_val = [p for p in _c1 if p.get('validado') is not False]
     _c1_nov = [p for p in _c1 if p.get('validado') is False]
-    if _c1_val:
-        st.markdown('### 🟢 Capa 1 — lo único con ventaja medida (%d)'
-                    % len(_c1_val))
-        if _frase:
-            st.success(_frase)
-        st.caption(
-            'La casa paga **por encima del precio justo de Pinnacle**. No usa '
-            'el modelo para nada: es una discrepancia entre casas, que es un '
-            'hecho observable. Simulado sobre 1.629 apuestas de este canal '
-            '(2021-2026): a **1 % fijo** el banco se multiplica por **2,26**; '
-            'con **Kelly 1/4**, por **4,68**. Ninguna arruina.')
-        # v276 — TARJETAS PEQUEÑAS. El usuario lo pidio tal cual: «quiero
-        # tarjetas pequeñas que muestren el partido y qué voy a apostar, con
-        # probabilidad y cuota, y listo; es mucho por leer y no se entiende
-        # nada». Tenia razon: cada pick ocupaba seis lineas de texto y la
-        # pantalla era un muro.
-        #
-        # Asi que la tarjeta trae SOLO lo que hace falta para apostar —qué,
-        # dónde, a cuánto, cuánto meter— y una etiqueta de tres palabras. El
-        # porqué entero sigue estando, pero plegado: quien quiera el analisis
-        # lo abre, quien quiera apostar no tiene que leerlo.
-        _ICONO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴'}
-        for _i, _p in enumerate(_c1_val, 1):
-            _k = None
-            try:
-                import barrido_capa1 as _bc
-                _k = _bc.kelly(_p.get('prob'), _p.get('cuota'))
-            except Exception as _e_k:
-                logger.debug('[capa1] kelly: %s', _e_k)
-            _sf = _p.get('semaforo') or {}
-            _ico = _ICONO.get(_sf.get('nivel'), '')
-            _pr = _p.get('prob')
-            _partes = ['**%d. %s %s**' % (_i, _ico, _p.get('apuesta', '?')),
-                       str(_p.get('partido', '?'))]
-            _det = ['**@%s**' % _p.get('cuota')]
-            if _pr:
-                _det.append('%.0f %%' % (100 * float(_pr)))
-            if _p.get('casa'):
-                _det.append(str(_p['casa']))
-            if _k and _sf.get('nivel') != 'rojo':
-                _det.append('meter **%.1f %%**' % (100 * _k))
-            st.markdown(' · '.join(_partes))
-            st.caption(' · '.join(_det) + '  ·  _%s_'
-                       % _sf.get('etiqueta', ''))
-        with st.expander('¿Por qué estos colores? El detalle de cada una',
-                         expanded=False):
-            st.caption(
-                '🟢 **Métela** · 🟡 **Puedes meterla** · 🔴 **No la metas**. '
-                'El orden NO es por probabilidad de acertar: medido sobre '
-                '1.820 apuestas, las de cuota 2,80-4,00 aciertan el 38,8 % y '
-                'rinden **+21,8 %**, mientras que las de cuota 1,15-1,80 '
-                'aciertan el 65,9 % y rinden **+0,3 %**. Se gana por lo que '
-                'pagan, no por cuántas entran.')
-            for _i, _p in enumerate(_c1_val, 1):
-                _sf = _p.get('semaforo') or {}
-                st.markdown('**%d. %s** — %s' % (_i, _p.get('apuesta', '?'),
-                                                 _sf.get('porque', '')))
-        st.divider()
-    else:
-        st.markdown('### 🟢 Capa 1 — lo único con ventaja medida')
-        # v275 — el vacio dice la EDAD del dato. Antes decia «cero no es un
-        # fallo» pasara lo que pasara, y eso tapo tres averias seguidas.
-        _edad = ''
+    _prob_c1 = []
+    try:
+        _prob_c1 = solo_del_dia(_probables_en_vivo(r.get('pronosticos')),
+                                _modo_dia)
+        _ya_c1 = {str(p.get('partido')) for p in _c1_val}
+        _prob_c1 = [p for p in _prob_c1 if str(p.get('partido')) not in _ya_c1]
+    except Exception as _e_pb:
+        logger.warning('[capa1] probables omitidas: %s', _e_pb)
+    _rot_c1 = ('🟢 Capa 1 — ventaja medida · %d para %s'
+               % (len(_c1_val), _NOMBRE_DIA.get(_modo_dia, _modo_dia)))
+    if _prob_c1:
+        _rot_c1 += ' · 🎯 %d probables' % len(_prob_c1)
+    with st.expander(_rot_c1, expanded=False):
         try:
-            import cuotas_mx as _cmx_e
-            _d = _cmx_e.cargar() or {}
-            _g = _d.get('generado')
-            if _g:
-                import datetime as _dt_e
-                _t0 = _dt_e.datetime.strptime(_g, '%Y-%m-%dT%H:%M:%SZ')
-                _h = (_dt_e.datetime.utcnow() - _t0).total_seconds() / 3600.0
-                if _h > 4:
-                    _edad = ('\n\n⚠️ **Y ojo: los precios que tengo son de '
-                             'hace %.0f horas.** Con datos tan viejos no se '
-                             'puede saber si hoy hay oportunidades o no.'
-                             % _h)
-                else:
-                    _edad = ('\n\nLos precios son de hace %.0f h, así que '
-                             'esto sí es un cero de verdad.' % _h)
-        except Exception as _e_ed:
-            logger.debug('[capa1] edad del tablero: %s', _e_ed)
-        st.info(
-            'Hoy no hay ninguna. **Cero no es un fallo**: significa que las '
-            'casas y Pinnacle coinciden, y ahí no hay nada que ganar. El '
-            'histórico dice que salen **3,7 al día en sábado** y **0,2 el '
-            'jueves**, así que los días flojos son normales. Lo de abajo es '
-            'Capa 2 y está medido como perdedor.' + _edad)
-    if _c1_nov:
-        with st.expander('🔬 Sin validar todavía (%d) — se están midiendo'
-                         % len(_c1_nov), expanded=False):
-            st.caption(
-                'Mismo método, pero en deportes donde ese canal **aún no '
-                'tiene medición propia**. Están para acumular histórico, no '
-                'como apuesta. Una ventaja enorme aquí suele ser un precio '
-                'mal leído.')
-            for _p in _c1_nov:
-                st.markdown('· %s · %s — @%s · +%.1f %%'
-                            % (_p.get('apuesta', '?'), _p.get('partido', '?'),
-                               _p.get('cuota'),
-                               100 * (_p.get('ev') or 0)))
+            import vista_compacta as _vc
+        except Exception as _e_vc:
+            _vc = None
+            st.error('No se pudo cargar la vista de la Capa 1 (%s).'
+                     % type(_e_vc).__name__)
+        if _c1_val and _vc is not None:
+            if _frase:
+                st.caption(_frase)
+            st.markdown(_vc.html_lista(_c1_val), unsafe_allow_html=True)
+            st.caption('🟢 Métela · 🟡 Puedes meterla · 🔴 No la metas. Van '
+                       'por calidad medida, no por probabilidad: las de cuota '
+                       '2,80-4,00 aciertan menos y rinden más. La casa paga '
+                       'por encima del precio justo de Pinnacle; no usa el '
+                       'modelo.')
+        elif not _c1_val:
+            # v275 — el vacío dice la EDAD del dato. Antes decía «cero no es
+            # un fallo» pasara lo que pasara, y eso tapó tres averías.
+            _edad = ''
+            try:
+                import cuotas_mx as _cmx_e
+                _d = _cmx_e.cargar() or {}
+                _g = _d.get('generado')
+                if _g:
+                    import datetime as _dt_e
+                    _t0 = _dt_e.datetime.strptime(_g, '%Y-%m-%dT%H:%M:%SZ')
+                    _h = (_dt_e.datetime.utcnow() - _t0).total_seconds() / 3600.0
+                    if _h > 4:
+                        _edad = (' ⚠️ **Ojo: los precios son de hace %.0f '
+                                 'horas**; con datos tan viejos no se puede '
+                                 'saber si hay oportunidades.' % _h)
+                    else:
+                        _edad = (' Los precios son de hace %.0f h, así que '
+                                 'es un cero de verdad.' % _h)
+            except Exception as _e_ed:
+                logger.debug('[capa1] edad del tablero: %s', _e_ed)
+            st.info('Para %s no hay ningún error de cuota: las casas y '
+                    'Pinnacle coinciden.%s'
+                    % (_NOMBRE_DIA.get(_modo_dia, _modo_dia), _edad))
+        if _prob_c1 and _vc is not None:
+            st.markdown('**🎯 Probables con buena cuota (%d)**'
+                        % len(_prob_c1))
+            st.caption('Visitante favorito que el mercado paga a 1,50 o más. '
+                       'Medido: acierta el 68 % cuando el modelo también lo '
+                       've y el 63 % cuando sólo lo ve Pinnacle. Probable, no '
+                       'ventaja medida: no pasa la puerta del p5.')
+            st.markdown(_vc.html_lista(_prob_c1, con_css=not _c1_val),
+                        unsafe_allow_html=True)
+        if _c1_nov and _vc is not None:
+            st.markdown('**🔬 Sin validar todavía (%d)**' % len(_c1_nov))
+            st.caption('Mismo método en mercados o deportes que aún no tienen '
+                       'medición propia. Acumulan histórico; no son apuesta.')
+            st.markdown(_vc.html_lista(
+                _c1_nov, con_css=not (_c1_val or _prob_c1)),
+                unsafe_allow_html=True)
 
     _s1_f = _filtra(r.get('seccion1'))
     _s2_f = _filtra(r.get('seccion2'))
@@ -9011,6 +9069,7 @@ def render_escalera():
         return
 
     _picks = []
+    _r = {}
     try:
         _r = barrido_universal()
         _picks = list(_r.get('capa1') or [])
@@ -9020,6 +9079,14 @@ def render_escalera():
         _picks += _capa1_en_vivo()
     except Exception as _e:
         logger.debug('[escalera] sin barrido en vivo: %s', _e)
+    # v302 — Y LAS PROBABLES CON BUENA CUOTA, que el usuario pidió para la
+    # Escalera: «que tenga apuestas más seguras y con buena cuota». Entran por
+    # sus dos niveles propios (ver `escalera.NIVELES`), nunca por los de la
+    # Capa 1.
+    try:
+        _picks += _probables_en_vivo((_r or {}).get('pronosticos'))
+    except Exception as _e:
+        logger.warning('[escalera] sin probables: %s', _e)
 
     # v296 — EL MERCADO DE GOLES YA VIENE EN ESA LISTA.
     #
@@ -9048,59 +9115,60 @@ def render_escalera():
             _cu = _p.get('cuota') or 0
             _p['prob'] = ((1 + (_p.get('ev') or 0)) / _cu) if _cu else 0
 
-    # v301 — EL FILTRO DE DIA VUELVE, Y AHORA EN HORA DE CDMX.
+    # v302 — EL DÍA, OTRA VEZ, Y ESTA VEZ EL FALLO ERA EL MANDO.
     #
-    # La v300 lo quito y lo convirtio en una columna. Fue una mala lectura de
-    # lo que el usuario pidio: «te pedí que los filtros SÍ fueran consistentes
-    # con lo de hoy y con lo de mañana». Queria el filtro arreglado, no
-    # quitado.
+    # «El filtro de día en reto escalera sigue sin funcionar, me estás
+    # adelantando un día las cosas.» El reloj ya era el de CDMX desde la v301
+    # —comprobado el 2026-09-22 a las 22:43 CDMX: los 31 picks del tablero
+    # tenían su día bien puesto—. Lo que fallaba era lo que se enseñaba:
     #
-    # Y lo que lo tenia roto no era el mando, era el reloj: `date.today()` da
-    # el dia del SERVIDOR, que en Streamlit Cloud es UTC, y CDMX va seis horas
-    # por detras. Medido el 2026-09-22 a las 04:26 UTC, la aplicacion creia
-    # que era dia 23 mientras el usuario estaba en el 22, y 123 de los 618
-    # partidos del tablero caian en un dia distinto segun la zona. Ver
-    # `dia_picks.hoy_local`.
-    _picks = filtro_de_dia(_picks, 'escalera_dia')
+    #   · el mando arrancaba en «todo» y la lista mezclaba los tres días;
+    #   · desaparecía cuando hoy estaba vacío, así que de noche sólo quedaba
+    #     mañana en pantalla sin decirlo;
+    #   · y la tarjeta ponía la hora sin el día. Un partido de mañana a las
+    #     10:00 parecía de hoy a las 10:00.
+    #
+    # Ahora: el mismo mando que las pestañas de Apuestas del Día (Hoy /
+    # Mañana / Pasado), arrancando en Hoy y siempre visible, y cada fila con
+    # su día y su hora.
+    # Sin cuota no hay escalón que subir: el mando contaba «Hoy (1)» por un
+    # Padres-Dodgers al que se le quitó el precio de Pinnacle, y la lista
+    # salía vacía debajo de su propio contador.
+    def _con_cuota_esc(p):
+        try:
+            return float(p.get('cuota')) > 1.0
+        except (TypeError, ValueError):
+            return False
+    _todas_picks = [p for p in _picks
+                    if isinstance(p, dict) and _con_cuota_esc(p)]
+    _modo = modo_de_dia(_todas_picks, 'escalera_dia', '📅 Día')
+    _picks = solo_del_dia(_todas_picks, _modo)
 
-    # v291 — VARIAS OPCIONES Y EL USUARIO ELIGE.
+    # v291 — VARIAS OPCIONES Y EL USUARIO ELIGE. Lo que NO cambia es el
+    # filtro: las que el semáforo marca en rojo no aparecen en ninguna
+    # posición.
     #
-    # «Que haya varias opciones, no sólo una, y yo escojo cuál.» La lista sale
-    # ordenada por calidad —nivel 1 primero— y el selector deja quedarse con
-    # cualquiera. Lo que NO cambia es el filtro: las que el semáforo marca en
-    # rojo no aparecen en ninguna posición.
-    # v299 — «NO HAY NADA» Y «SE ROMPIO» NO SON LO MISMO.
-    #
-    # En producción salió esto, cuatro veces seguidas:
-    #
-    #     WARNING [escalera] no se pudieron listar: module 'escalera' has no
-    #     attribute 'todas'
-    #
-    # y el usuario vio «Hoy no hay nada que ofrecer». Mentira: había 15 picks
-    # en el tablero. El `except` se tragaba el fallo, dejaba la lista vacía y
-    # el `if not _opciones` de abajo lo contaba como un día sin oportunidades.
-    #
-    # Es el peor fallo que puede tener esta pantalla y es la SEGUNDA vez que
-    # el usuario lo señala. Una sección que miente diciendo «no hay» cuando lo
-    # que pasa es que no funciona hace que deje de mirarla, y ahí se acaba todo.
-    #
-    # El fallo se guarda aparte y se dice tal cual. Vacío de verdad es otra
-    # cosa y tiene su propio mensaje.
-    _opciones, _roto = [], None
-    try:
-        # El «has no attribute» es el modulo viejo cacheado: Streamlit
-        # conserva `sys.modules` entre pasadas, asi que un proceso que
-        # arranco antes del despliegue se queda con la version anterior de
-        # `escalera` para siempre. Recargarlo cuesta nada y lo cura.
+    # v299 — «NO HAY NADA» Y «SE ROMPIO» NO SON LO MISMO. En producción el
+    # usuario vio «Hoy no hay nada que ofrecer» con 15 picks en el tablero:
+    # el `except` se tragaba un `has no attribute 'todas'` y la lista vacía se
+    # contaba como un día sin oportunidades. El fallo se guarda aparte y se
+    # dice tal cual.
+    def _listar(lista):
+        nonlocal _esc
+        # El «has no attribute» es el módulo viejo cacheado: Streamlit
+        # conserva `sys.modules` entre pasadas. Recargarlo lo cura.
         if not hasattr(_esc, 'todas'):
             import importlib as _il
             _esc = _il.reload(_esc)
             logger.info('[escalera] modulo recargado: estaba cacheado viejo')
-        _opciones = _esc.todas(_picks)
+        return _esc.todas(lista)
+
+    _opciones, _roto = [], None
+    try:
+        _opciones = _listar(_picks)
     except Exception as _e:
         _roto = '%s: %s' % (type(_e).__name__, _e)
         logger.warning('[escalera] no se pudieron listar: %s', _roto)
-        # Ultimo recurso: la de siempre, una sola. Mejor una que ninguna.
         try:
             _una = _esc.elegir(_picks)
             _opciones = [_una] if _una else []
@@ -9108,76 +9176,62 @@ def render_escalera():
             logger.warning('[escalera] ni con elegir(): %s', _e2)
 
     if _roto and not _opciones:
-        st.error('**La Escalera no se ha podido calcular.** No es que hoy no '
-                 'haya apuestas: es un fallo mío, y prefiero decírtelo a '
-                 'enseñarte una sección vacía como si no hubiera nada.')
+        st.error('**La Escalera no se ha podido calcular.** No es que hoy no haya '
+                 'apuestas: es un fallo mío, y prefiero decírtelo a enseñarte '
+                 'una sección vacía como si no hubiera nada.')
         st.caption('Detalle técnico: %s' % _roto)
         st.caption('Mientras tanto, los mismos picks están en **Apuestas del '
                    'Día**, sin el plan de escalones.')
         return
 
-    if not _opciones:
-        st.info(_esc.resumen(None, 100))
-        st.divider()
-        st.caption('Vuelve más tarde: el tablero se refresca cada dos horas.')
+    try:
+        import vista_compacta as _vc
+    except Exception as _e:
+        st.error('La vista de la Escalera no está disponible (%s: %s).'
+                 % (type(_e).__name__, _e))
         return
 
-    # v301 — TARJETAS, NO UNA TABLA. Y SIN SELECTOR DE APUESTA.
-    #
-    # La v300 lo convirtió en una tabla de markdown y el usuario fue claro:
-    # «no te pedí en ningún momento una tabla». Lo que pidió fue la
-    # VISUALIZACIÓN sin adornos y sin tener que elegir nada:
-    #
-    #     «sólo quiero que esté la visualización, no quiero más texto
-    #      innecesario. Sólo el partido, la apuesta que me das, cuota y
-    #      probabilidad de acertar.»
-    #
-    # Así que vuelve la tarjeta, una por opción, con esos cuatro datos y
-    # nada más. Lo que NO vuelve es el `st.radio` de «¿cuál vas a jugar?»
-    # —elegir no es ver— ni la tabla de cinco escalones ni los párrafos de
-    # forma y media de goles, que convertían cuatro apuestas en scroll.
-    _ICO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴'}
-
-    for _o in _opciones:
-        try:
-            _cu = float(_o.get('cuota') or 0)
-            _pr = float(_o.get('prob_escalera') or _o.get('prob') or 0)
-        except (TypeError, ValueError):
-            continue
-        _sf = (_o.get('semaforo') or {}).get('nivel')
-        _nv = _o.get('nivel_escalera') or {}
-
-        with st.container(border=True):
-            st.markdown('**%s %s**'
-                        % (_ICO.get(_sf, '🟡'), _o.get('apuesta', '?')))
-            # El partido y, si la hay, la hora de CDMX: sin ella «mañana» no
-            # dice si es a las 9 o a las 21, y con eso se decide si da tiempo.
-            _cuando = ''
+    _NOMBRE = {'hoy': 'hoy', 'mañana': 'mañana', 'pasado': 'pasado mañana'}
+    if not _opciones:
+        # «Siempre alguna apuesta, aunque sea mala, con su aviso»: si el día
+        # elegido está vacío se enseña el siguiente que tenga algo, y se dice
+        # cuál es. Cada fila lleva su día, así que no hay forma de confundirlo
+        # con el de hoy.
+        _otro, _alt = None, []
+        for _m in ('hoy', 'mañana', 'pasado'):
+            if _m == _modo:
+                continue
             try:
-                import horario as _hr
-                _cuando = _hr.etiqueta(_o.get('inicio'))
-            except Exception:
-                _cuando = ''
-            st.caption('%s%s' % (_o.get('partido', '?'),
-                                 ('  ·  ' + _cuando) if _cuando else ''))
-            # Las dos patas de una combinada, para poder marcarlas en la casa.
-            for _pata in (_o.get('patas') or []):
-                try:
-                    st.caption('· %s — @%.2f' % (_pata.get('texto', '?'),
-                                                 float(_pata.get('cuota') or 0)))
-                except (TypeError, ValueError):
-                    pass
-            _c = st.columns(3)
-            _c[0].metric('Cuota', '%.2f' % _cu)
-            _c[1].metric('Acierta', '%.0f %%' % (100 * _pr))
-            _c[2].metric('100 dan', '%.0f' % (100 * _cu))
-            if _o.get('casa'):
-                st.caption('En **%s**%s' % (_o['casa'],
-                                            ('  ·  ' + _nv['etiqueta'])
-                                            if _nv.get('etiqueta') else ''))
+                _alt = _listar(solo_del_dia(_todas_picks, _m))
+            except Exception as _e:
+                logger.debug('[escalera] %s: %s', _m, _e)
+                _alt = []
+            if _alt:
+                _otro = _m
+                break
+        if _otro:
+            st.info('Para **%s** no queda ninguna. Estas son las de **%s**: '
+                    'cada una dice su día y su hora.'
+                    % (_NOMBRE.get(_modo, _modo), _NOMBRE.get(_otro, _otro)))
+            st.markdown(_vc.html_lista(_alt), unsafe_allow_html=True)
+        else:
+            st.info(_esc.resumen(None, 100))
+            st.caption('Vuelve más tarde: el tablero se refresca cada dos '
+                       'horas.')
+        return
 
-    st.caption('De mejor a peor. Las que el semáforo marca en rojo no salen. '
-               '🟢 dentro de lo medido · 🟡 más flojo.')
+    # v302 — FILAS, NO TARJETAS.
+    #
+    # «Las tarjetas están bien grandes y tengo que scrollear mucho.
+    # Simplemente quiero un diseño sencillo en el que me diga lo relevante: el
+    # partido, la cuota, la probabilidad, el semáforo y la hora.» Cada opción
+    # era un contenedor con borde, dos líneas y tres métricas (~190 px);
+    # ocho opciones, 1.500 px de scroll. Una fila son ~46 px y dice lo mismo
+    # más el día. El porqué de cada una va en el aviso al pasar el cursor.
+    st.markdown(_vc.html_lista(_opciones), unsafe_allow_html=True)
+    st.caption('De mejor a peor. 🎯 la más segura (visitante favorito, acierta '
+               '68 de cada 100, no dobla) · 🟢 dentro de lo medido · 🟡 más '
+               'flojo. Las rojas no salen.')
 
 
 def render_sonadora():

@@ -167,14 +167,17 @@ def probar_la_pantalla_lo_usa():
     # «cuando aplico el filtro a mañana no se aplica en capa 1».
     check("solo_del_dia(_c1, _modo_dia)" in src,
           'el bloque de Capa 1 se filtra por día')
-    check("modo_de_dia(_c1, 'dia_del_dia')" in src,
-          'y el mando se pinta ahí, que es lo primero que se ve')
-    # Lo que importa no es cuántas veces se nombra la función —hay una
-    # definición y un ayudante— sino que UNA SOLA la llame con esta clave.
-    # Dos radios de Streamlit compartiendo `key` se pisan: el de abajo
-    # reescribe la elección del de arriba en cada pasada.
-    check(src.count("'dia_del_dia'") == 1,
-          'un solo selector con la clave `dia_del_dia` (hay %d)'
+    # v302 — Y EL DÍA LO DECIDE LA PESTAÑA, NO UN MANDO PROPIO.
+    #
+    # El mando `dia_del_dia` de la v299 arrancaba en «todo» y era OTRO mando
+    # distinto de las pestañas Hoy / Mañana / Pasado que hay debajo: con la
+    # pestaña en Hoy, la Capa 1 seguía enseñando mañana. El usuario: «me
+    # estás adelantando un día las cosas... usa la misma lógica que usas en
+    # apuestas del día».
+    check("_modo_dia = dia_de_vista()" in src,
+          'la Capa 1 toma el día de la pestaña de Apuestas del Día')
+    check(src.count("'dia_del_dia'") == 0,
+          'y ya no hay un mando propio que la contradiga (hay %d)'
           % src.count("'dia_del_dia'"))
     check("solo_del_dia(_s1, _modo_dia)" in src
           and "solo_del_dia(_s2, _modo_dia)" in src,

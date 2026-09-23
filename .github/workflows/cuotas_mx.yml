@@ -114,6 +114,10 @@ on:
 
 permissions:
   contents: write
+  # v302 — para disparar el relevo y el precalculo al acabar. Un
+  # `workflow_dispatch` lanzado con el GITHUB_TOKEN SI crea ejecucion (es una
+  # de las dos excepciones de GitHub a «un token no dispara workflows»).
+  actions: write
 
 concurrency:
   group: cuotas-mx
@@ -146,8 +150,12 @@ jobs:
       - name: ¿Hace falta barrer?
         id: frescura
         run: |
-          FRESCURA_MINUTOS=100
-          if [ "${{ github.event_name }}" != "schedule" ]; then
+          # v302 — el relevo dispara con `forzar=false` y le toca pasar por
+          # esta misma guarda. Espera 95 min desde el ultimo barrido, asi que
+          # llega siempre por encima de los 80: barre. Si por lo que sea le
+          # dispararan dos veces seguidas, la segunda sale aqui gratis.
+          FRESCURA_MINUTOS=80
+          if [ "${{ github.event_name }}" != "schedule" ] && [ "${{ inputs.forzar }}" != "false" ]; then
             echo "Lanzado a mano: se barre sin mirar la edad."
             echo "saltar=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -216,9 +224,17 @@ jobs:
           # pasada larga no hay que repetirla cada dos horas, que seria
           # multiplicar por tres y medio las peticiones (de 8.080 a ~28.000
           # por pasada) y pedir que una casa nos corte.
-          _H=$(date -u +%H)
-          if [ "$_H" = "00" ] || [ "$_H" = "12" ]; then _DIAS=7; else _DIAS=2; fi
-          echo "barrido de $_DIAS dias (hora UTC $_H)"
+          # v302 — LA LARGA SE DECIDE POR EDAD, NO POR LA HORA.
+          #
+          # Con el relevo las pasadas caen cada ~110 min y la hora deriva:
+          # esperar a las 00 o las 12 UTC dejaria dias enteros sin semana.
+          # `ultimo_largo` lo escribe `cuotas_mx.py` en el propio tablero; si
+          # tiene mas de 11 h, o no esta, toca la de siete dias.
+          _LARGO=$(python3 -c "import json;print(json.load(open('cuotas_mx.json',encoding='utf-8')).get('ultimo_largo') or '')" 2>/dev/null || echo '')
+          _SEG=$(date -u -d "$_LARGO" +%s 2>/dev/null || echo 0)
+          _EDAD_H=$(( ( $(date -u +%s) - _SEG ) / 3600 ))
+          if [ -z "$_LARGO" ] || [ "$_SEG" = "0" ] || [ "$_EDAD_H" -ge 11 ]; then _DIAS=7; else _DIAS=2; fi
+          echo "barrido de $_DIAS dias (ultima larga: ${_LARGO:-nunca}, hace ${_EDAD_H} h)"
           python cuotas_mx.py --dias "$_DIAS" --max 400 \
             || echo "::warning::barrido de casas mexicanas con avisos"
 
@@ -284,3 +300,49 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+
+      # v302 — EL PRECALCULO SE CUELGA DETRAS, EN VEZ DE ESPERAR A SU CRON.
+      #
+      # El precalculo lee este tablero. Dispararlo aqui es el orden correcto
+      # por construccion —no por minutos elegidos para caer despues— y ademas
+      # no depende del programador de GitHub, que es el que falla.
+      - name: Cocinar el dia con los precios nuevos
+        if: steps.frescura.outputs.saltar != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run precalculo_dia.yml --repo "${{ github.repository }}" --ref main || echo "::warning::no se pudo disparar el precalculo"
+
+      # v302 — EL RELEVO: LA PASADA SIGUIENTE LA PIDE ESTA, NO EL CRON.
+      #
+      # LOS DATOS. Con 48 pasadas declaradas al dia (`7,37 * * * *`) GitHub
+      # creo SEIS el 2026-09-22: 04:17 · 09:27 · 14:09 · 18:15 · 21:38 ·
+      # 00:22, con huecos de 5h10, 4h42, 4h06, 3h23 y 2h44. El programador
+      # no descarta las que le sobran: descarta casi todas, y declarar mas no
+      # lo cambia. La guarda de frescura hacia baratas las sobrantes, pero no
+      # puede crear las que faltan.
+      #
+      # LO QUE SI ES FIABLE es `workflow_dispatch`: no pasa por la cola del
+      # cron. Asi que cada pasada dispara `relevo.yml`, que duerme hasta 95
+      # min despues de ESTE barrido y dispara el siguiente. La cadena no
+      # depende de ningun cron; el cron queda de red por si se rompe.
+      #
+      # `always()`: si el barrido o el push fallan, la cadena NO se puede
+      # romper aqui, que es justo cuando mas falta la pasada siguiente.
+      #
+      # Las pasadas que salen por la guarda solo relevan si no hay ya un
+      # relevo vivo. Si lo hay, su hora objetivo sale del tablero y no ha
+      # cambiado: relanzarlo solo llenaria la lista de ejecuciones canceladas.
+      - name: Pasar el relevo
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ steps.frescura.outputs.saltar }}" = "true" ]; then
+            _VIVOS=$(gh run list --repo "${{ github.repository }}" --workflow=relevo.yml --limit 10 --json status --jq '[.[] | select(.status != "completed")] | length' 2>/dev/null || echo 0)
+            if [ "${_VIVOS:-0}" -gt 0 ]; then
+              echo "Ya hay un relevo esperando: no se toca."
+              exit 0
+            fi
+          fi
+          gh workflow run relevo.yml --repo "${{ github.repository }}" --ref main || echo "::warning::no se pudo pasar el relevo; el cron queda de red"

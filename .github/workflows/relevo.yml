@@ -1,0 +1,106 @@
+name: Relevo de las dos horas
+
+# v302 — LA PASADA SIGUIENTE LA PIDE LA ANTERIOR, NO EL CRON.
+#
+# POR QUÉ EXISTE
+# --------------
+# El usuario pidió las cuotas cada dos horas «y que funcione». El cron no lo
+# consigue, y está medido tres veces:
+#
+#     declarado            creadas de verdad el 2026-09-22
+#     `37 */2`  (12/día)   huecos de hasta 6h33
+#     `7,37 * * * *` (48)  04:17 · 09:27 · 14:09 · 18:15 · 21:38 · 00:22
+#                          huecos de 5h10, 4h42, 4h06, 3h23, 2h44
+#
+# Declarar 48 dio SEIS. El programador de GitHub no tira las que sobran: tira
+# casi todas, y ningún truco del lado del cron (minuto impar, más pasadas,
+# guarda de frescura) crea las que no crea.
+#
+# LO QUE SÍ ES FIABLE
+# -------------------
+# `workflow_dispatch` no pasa por la cola del cron: se crea al instante. Y es
+# una de las dos excepciones a «el GITHUB_TOKEN no dispara workflows», así que
+# un workflow puede pedir el siguiente sin credenciales aparte. La cadena:
+#
+#     cuotas_mx ──(al acabar)──> relevo ──(duerme)──> cuotas_mx ──> ...
+#          └──> precalculo_dia (con los precios recién barridos)
+#
+# CUÁNTO DUERME, Y POR QUÉ ES UNA HORA ABSOLUTA
+# ---------------------------------------------
+# El objetivo es `generado` del tablero + 95 min. Como `generado` se escribe al
+# EMPEZAR el barrido y el barrido dura ~10 min, el ciclo real es ~95 + 1 de
+# arranque = una pasada cada ~96-100 min, con margen bajo las dos horas.
+#
+# Que sea una hora ABSOLUTA —y no «duerme 95 min»— es lo que hace segura la
+# cancelación: si llega un relevo nuevo mientras otro duerme, el nuevo cancela
+# al viejo (`cancel-in-progress`) y calcula LA MISMA hora objetivo desde el
+# mismo fichero. Relevar dos veces no adelanta ni atrasa nada.
+#
+# LAS DOS REDES
+# -------------
+#   · Mínimo de 20 min de espera siempre. Si el barrido fallara sin escribir
+#     el tablero, `generado` no avanzaría y sin este suelo la cadena dispararía
+#     en bucle cada pocos minutos contra las casas.
+#   · El cron de aquí abajo y el de `cuotas_mx` siguen puestos. Si la cadena se
+#     rompiera —GitHub caído en el momento del relevo— la primera pasada de
+#     cron que GitHub SÍ cree la vuelve a enganchar.
+#
+# EL COSTE: un runner dormido ~95 min de cada ~100. El repositorio es público,
+# así que los minutos de Actions son gratis; y un `sleep` no hace ni una
+# petición a nadie.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */3 * * *'
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: relevo-cuotas
+  cancel-in-progress: true
+
+jobs:
+  relevo:
+    runs-on: ubuntu-latest
+    # El techo de un job son 6 h. La espera máxima es de 5 h (abajo), así que
+    # siempre cabe.
+    timeout-minutes: 330
+
+    steps:
+      # Sólo el tablero: la edad está dentro, y traerse el repo entero —con
+      # sus CSV de histórico— para leer una fecha sería tirar un minuto.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            cuotas_mx.json
+          sparse-checkout-cone-mode: false
+
+      - name: Esperar a que toque
+        run: |
+          CICLO_MIN=95
+          MINIMO_MIN=20
+          MAXIMO_MIN=300
+          GEN=$(python3 -c "import json;print(json.load(open('cuotas_mx.json',encoding='utf-8')).get('generado') or '')" 2>/dev/null || echo '')
+          SEG=$(date -u -d "$GEN" +%s 2>/dev/null || echo 0)
+          AHORA=$(date -u +%s)
+          if [ -z "$GEN" ] || [ "$SEG" = "0" ]; then
+            ESPERA=$(( MINIMO_MIN * 60 ))
+            echo "El tablero no dice cuándo se generó: espero el mínimo."
+          else
+            ESPERA=$(( SEG + CICLO_MIN * 60 - AHORA ))
+            echo "Último barrido: $GEN. Siguiente a los $CICLO_MIN min."
+          fi
+          if [ "$ESPERA" -lt $(( MINIMO_MIN * 60 )) ]; then ESPERA=$(( MINIMO_MIN * 60 )); fi
+          if [ "$ESPERA" -gt $(( MAXIMO_MIN * 60 )) ]; then ESPERA=$(( MAXIMO_MIN * 60 )); fi
+          echo "Duermo $(( ESPERA / 60 )) min (hasta $(date -u -d "@$(( AHORA + ESPERA ))" +%H:%MZ))."
+          sleep "$ESPERA"
+
+      - name: Disparar el barrido
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run cuotas_mx.yml --repo "${{ github.repository }}" --ref main -f forzar=false
+          echo "Relevo pasado a las $(date -u +%H:%MZ)."

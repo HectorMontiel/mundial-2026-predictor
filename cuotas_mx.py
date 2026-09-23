@@ -548,11 +548,26 @@ def barrer(dias: int = 3, max_por_deporte: int = 120,
     # Y los precios lejanos son los MÁS valiosos: medido, la ventaja media de
     # las discrepancias es +27 % a siete u ocho días contra +16 % el mismo día.
     # La casa blanda todavía no ha ajustado.
+    # v302 — CUÁNDO FUE LA ÚLTIMA PASADA LARGA, DENTRO DEL PROPIO FICHERO.
+    #
+    # El workflow decidía la pasada larga por la HORA: «si son las 00 o las
+    # 12 UTC, siete días». Eso sólo funciona si el cron dispara a su hora, y
+    # medido no lo hace (seis pasadas al día de 48 declaradas). Con el relevo
+    # de la v302 las pasadas caen cada ~110 min y la hora deriva: habría días
+    # sin ninguna pasada en las 00 ni en las 12, y la semana dejaría de
+    # entrar. Guardar la fecha aquí deja decidirlo por EDAD, que no depende
+    # de a qué hora se despierte nadie.
+    doc['dias'] = dias
+    if dias >= 7:
+        doc['ultimo_largo'] = doc['generado']
     try:
         previo = {}
         if os.path.exists(FICHERO):
             with io.open(FICHERO, encoding='utf-8') as f:
-                previo = (json.load(f) or {}).get('partidos') or {}
+                _doc_previo = json.load(f) or {}
+            previo = _doc_previo.get('partidos') or {}
+            if 'ultimo_largo' not in doc and _doc_previo.get('ultimo_largo'):
+                doc['ultimo_largo'] = _doc_previo['ultimo_largo']
         ahora = time.time()
         rescatados = 0
         for k, v in previo.items():

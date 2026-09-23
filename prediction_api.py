@@ -626,8 +626,17 @@ class PredictionEngine:
     # API principal                                                        #
     # ------------------------------------------------------------------ #
     def predecir(self, home: str, away: str, arbitro: Optional[str] = None,
-                 fase: str = 'grupos', estadio: Optional[str] = None) -> Dict:
-        """Predicción completa para CUALQUIER par de selecciones cubiertas."""
+                 fase: str = 'grupos', estadio: Optional[str] = None,
+                 en_casa: bool = False) -> Dict:
+        """Predicción completa para CUALQUIER par de selecciones cubiertas.
+
+        v302 — `en_casa=True`: el local juega en SU país. El motor nació para
+        el Mundial, donde casi todo es sede neutral, y sin decirle nada
+        promedia las dos ópticas. En la Nations League o en un amistoso el
+        local está en casa, que es justo el caso con el que el clasificador
+        aprendió la ventaja de campo: se usa la óptica directa, la misma que
+        ya se usaba con el anfitrión del Mundial.
+        """
         if not self.listo:
             return {'error': f"Motor no inicializado: {self.error}"}
         if home not in self.equipos or away not in self.equipos:
@@ -656,6 +665,8 @@ class PredictionEngine:
         X_esp, _, probs_esp_cruda = self._inferencia_modelo(away, home, s_v, s_l, ctx_esp)
         probs_espejo = probs_esp_cruda[::-1]          # a la óptica de `home`
         pais_sede = self._pais_sede(estadio)
+        if en_casa:
+            pais_sede = home
         if pais_sede == home:
             probs, metodo_localia = probs_directa, 'anfitrion_local'
         elif pais_sede == away:
@@ -742,7 +753,10 @@ class PredictionEngine:
         insights, factor = self._insights(
             home, away, s_l, s_v, ctx, lam_h, lam_a,
             clave_l[0] if clave_l else None, clave_v[0] if clave_v else None)
-        if pais_sede in (home, away):
+        if en_casa:
+            insights.append(f"🏟️ {NOMBRES_PAIS.get(home, home)} juega en casa: "
+                            f"se le aplica la ventaja de localía real.")
+        elif pais_sede in (home, away):
             insights.append(f"🏟️ {NOMBRES_PAIS.get(pais_sede, pais_sede)} juega como "
                             f"anfitrión del Mundial en esta sede: se le aplica la "
                             f"ventaja de localía real.")

@@ -32,7 +32,27 @@ logger = logging.getLogger(__name__)
 
 HOY = 'hoy'
 MANANA = 'mañana'
+PASADO = 'pasado'
 TODO = 'todo'
+
+# v302 — LAS PESTAÑAS DE APUESTAS DEL DÍA, TRADUCIDAS A MODO DE DÍA.
+#
+# El usuario: «el filtro de día en reto escalera y capa 1 sigue sin funcionar,
+# me estás adelantando un día las cosas. Usa la misma lógica que usas en
+# apuestas del día». Y era eso: Apuestas del Día reparte por las pestañas Hoy
+# / Mañana / Pasado y la Capa 1, pintada en la misma pantalla, tenía un mando
+# PROPIO que arrancaba en «todo». Con la pestaña en Hoy, la Capa 1 enseñaba
+# mañana mezclado, sin decir de qué día era cada una.
+#
+# Ahora la Capa 1 obedece a la pestaña. Cualquier pestaña que no sea de un
+# día (Combinadas, Estado) cae en HOY, nunca en «todo».
+_VISTA_A_MODO = {'hoy': HOY, 'manana': MANANA, 'mañana': MANANA,
+                 'pasado': PASADO}
+
+
+def modo_de_vista(vista) -> str:
+    """'hoy' / 'mañana' / 'pasado' para una pestaña de Apuestas del Día."""
+    return _VISTA_A_MODO.get(str(vista or '').strip().lower(), HOY)
 
 
 def hoy_local() -> _dt.date:
@@ -112,6 +132,8 @@ def fecha_del_modo(modo: str, hoy: Optional[_dt.date] = None) -> str:
         return base.strftime('%Y-%m-%d')
     if modo == MANANA:
         return (base + _dt.timedelta(days=1)).strftime('%Y-%m-%d')
+    if modo == PASADO:
+        return (base + _dt.timedelta(days=2)).strftime('%Y-%m-%d')
     return ''
 
 
@@ -137,8 +159,9 @@ def solo_del_dia(picks: List[dict], modo: str,
 
 
 def cuenta(picks: List[dict], hoy: Optional[_dt.date] = None) -> dict:
-    """{'todo': n, 'hoy': n, 'mañana': n} para rotular el selector."""
+    """{'todo': n, 'hoy': n, 'mañana': n, 'pasado': n} para el selector."""
     lista = [p for p in (picks or []) if isinstance(p, dict)]
     return {TODO: len(lista),
             HOY: len(solo_del_dia(lista, HOY, hoy)),
-            MANANA: len(solo_del_dia(lista, MANANA, hoy))}
+            MANANA: len(solo_del_dia(lista, MANANA, hoy)),
+            PASADO: len(solo_del_dia(lista, PASADO, hoy))}

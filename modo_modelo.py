@@ -1350,12 +1350,17 @@ CSS = """
    `mm-fc` es una fila de mercado en rejilla — nombre, linea, dos lados y una
    insignia CORTA. Lo que antes era un parrafo aqui es una etiqueta de dos
    palabras, y el parrafo vive en el desplegable. */
-.mm-rec { display:flex; flex-direction:column; gap:.15rem; margin:.5rem 0 .35rem;
-          padding:.55rem .7rem; border-radius:10px; border:1px solid var(--borde); }
-.mm-rec-tit { font-size:.64rem; font-weight:800; letter-spacing:.06em;
-              opacity:.75; }
-.mm-rec-ap { font-size:1.05rem; font-weight:800; line-height:1.25; }
-.mm-rec-cu { font-size:.76rem; opacity:.85; }
+.mm-rec { display:flex; flex-wrap:wrap; align-items:baseline; gap:.1rem .6rem;
+          margin:.2rem 0; padding:.3rem .6rem; border-radius:8px;
+          border:1px solid var(--borde); }
+/* v302 — UNA FILA, NO UNA CAJA DE CUATRO LINEAS. El usuario: «me gustaria
+   ver en que se puede simplificar y hacer que ocupe menos espacio». La caja
+   apilaba titulo, apuesta, precio y coletilla en cuatro renglones (~100 px);
+   en fila son uno o dos. Nada se quita: cambia la disposicion. */
+.mm-rec-tit { font-size:.6rem; font-weight:800; letter-spacing:.05em;
+              opacity:.7; flex-basis:100%; }
+.mm-rec-ap { font-size:.92rem; font-weight:800; line-height:1.2; }
+.mm-rec-cu { font-size:.74rem; opacity:.85; }
 .mm-rec-si { background:rgba(26,127,55,.14); border-color:var(--ok); }
 .mm-rec-ambar { background:rgba(154,103,0,.14); border-color:var(--mira); }
 .mm-rec-no { background:var(--panel2); opacity:.8; }
@@ -1385,9 +1390,9 @@ CSS = """
 .mm-val-real { font-weight:800; text-align:right; }
 .mm-val-e { font-size:.66rem; opacity:.75; text-align:right; }
 .mm-otros { font-size:.64rem; font-weight:800; letter-spacing:.06em;
-            opacity:.7; margin:.5rem 0 .2rem; }
+            opacity:.7; margin:.35rem 0 .1rem; }
 .mm-fc { display:grid; grid-template-columns:7.5rem 2.4rem 1fr 1fr auto;
-         gap:.4rem; align-items:center; font-size:.78rem; line-height:1.9;
+         gap:.4rem; align-items:center; font-size:.78rem; line-height:1.55;
          border-top:1px solid var(--borde); }
 .mm-fc-n { font-weight:600; }
 .mm-fc-l { opacity:.75; text-align:right; }
@@ -1998,17 +2003,36 @@ def _bloque_contexto(pick: Dict) -> str:
             % (cr['n'], anchos[0], anchos[1], anchos[2],
                cr['v_home'], cr['empates'], cr['v_away'],
                (' · %.1f goles' % cr['goles']) if cr.get('goles') else ''))
-    for etq, equipo, f in (('Forma L', h, ctx.get('forma_home') or {}),
-                           ('Forma V', a, ctx.get('forma_away') or {})):
+    # v302 — LAS DOS FORMAS EN UNA FILA. Eran dos filas con la misma forma;
+    # juntas se comparan de un vistazo y la tarjeta pierde un renglón.
+    _formas = []
+    for etq, f in (('L', ctx.get('forma_home') or {}),
+                   ('V', ctx.get('forma_away') or {})):
         if not f.get('racha'):
             continue
-        trozos.append(
-            '<div class="mm-fc"><span class="mm-fc-n">%s</span>'
-            '<span class="mm-fc-barra">%s <span class="mm-ck-pct">%s pts · '
-            '%s goles</span></span></div>'
+        _formas.append(
+            '<b>%s</b> %s <span class="mm-ck-pct">%s pts · %s g</span>'
             % (etq, racha_html(f['racha']),
                ('%.1f' % f['ppp']) if f.get('ppp') is not None else '—',
                ('%.1f' % f['gf']) if f.get('gf') is not None else '—'))
+    if _formas:
+        trozos.append(
+            '<div class="mm-fc"><span class="mm-fc-n">Forma</span>'
+            '<span class="mm-fc-barra">%s</span></div>'
+            % ' &nbsp;·&nbsp; '.join(_formas))
+    # v302 — EL PATRÓN DE LA LIGA, que el usuario pidió ver: «entender que
+    # los equipos top de tabla normalmente golean y los de media y baja tabla
+    # no anotan». `patrones_liga` lo mide y lo corrige; aquí se enseña en qué
+    # tercio de la tabla está cada uno.
+    _pl = pick.get('patron_liga') or {}
+    _ter = {'arriba': '⬆️ arriba', 'medio': '↔️ mitad', 'abajo': '⬇️ abajo'}
+    if _pl.get('tercio_local') or _pl.get('tercio_visitante'):
+        trozos.append(
+            '<div class="mm-fc"><span class="mm-fc-n">📈 Tabla</span>'
+            '<span class="mm-fc-barra"><b>L</b> %s &nbsp;·&nbsp; <b>V</b> %s'
+            '</span></div>'
+            % (_ter.get(_pl.get('tercio_local'), '—'),
+               _ter.get(_pl.get('tercio_visitante'), '—')))
     # v176 — PATRONES RECIENTES: lo observado, no lo predicho.
     #
     # Va aquí, dentro de CONTEXTO, porque es de la misma naturaleza que el
@@ -2091,7 +2115,8 @@ def _apuesta_corta(f: Dict) -> str:
     return ap[:26]
 
 
-def _filas_de_mercados(pick: Dict, bloques: Dict, clave_liga) -> list:
+def _filas_de_mercados(pick: Dict, bloques: Dict, clave_liga,
+                       correcciones: Optional[Dict] = None) -> list:
     """
     v175 — CADA MERCADO DE PLAYDOIT, CON SU RECOMENDACION. SIN CANDADOS.
 
@@ -2122,6 +2147,13 @@ def _filas_de_mercados(pick: Dict, bloques: Dict, clave_liga) -> list:
         f = mejores.get(clave)
         if not f:
             continue      # Playdoit no lo publica: no se inventa un bloque
+        # v302 — la misma apuesta, el mismo número que «meter o no meter».
+        _pc = (correcciones or {}).get(f.get('apuesta'))
+        if _pc is not None:
+            f = dict(f)
+            f['prob'] = _pc
+            if f.get('cuota'):
+                f['score'] = float(f['cuota']) * _pc
         aviso = _incertidumbre(clave_liga, f.get('bloque') or '')
         if not aviso and f.get('incierto'):
             aviso = ('<span class="mm-ck-est">⚠️ Alta '
@@ -2552,6 +2584,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
     b = _board(pick)
     h, a = _equipos(pick)
     clave_vista = str(pick.get('_clave_vista', 'x'))
+    _porque_detalle = []          # v302: el «por qué» largo, al desplegable
+    _corr = {}                    # v302: apuesta -> probabilidad corregida
     with st.container(border=True):
         meta = [str(pick.get('deporte') or 'Fútbol'),
                 str(pick.get('liga') or '')]
@@ -2650,6 +2684,13 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             # `con_contexto=False`: las señales de bajas salen a la red y esto
             # se pinta una vez por tarjeta. El contexto completo se pide en la
             # ficha del partido.
+            # v302 — LAS FRASES SUELTAS, EN UNA SOLA LÍNEA. Eran hasta cinco
+            # `st.caption` seguidos (cada uno con su margen) y el usuario pidió
+            # que la tarjeta ocupe menos. Se juntan con « · »; el «por qué» del
+            # veredicto —la frase más larga y la que menos decide— baja al
+            # desplegable de Análisis.
+            _lineas_tarjeta = []
+            _vers = []
             try:
                 import veredicto_pick as _vp
                 _vers = _vp.evaluar_lista(recos, con_contexto=False)
@@ -2667,8 +2708,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                         st.caption('⏱️ Precio capturado antes del inicio: la '
                                    'casa ya retiró estos mercados.')
                     _porques = [r for v in _vers[:1] for r in v['razones']]
-                    for _pq in _porques[:1]:
-                        st.caption(_pq)
+                    _porque_detalle.extend(_porques[:1])
                     # v248 — LO QUE DICEN SUS PROPIOS PARTIDOS, A LA VISTA.
                     #
                     # «Aquí estás dando un Under de 3.5 cuando estos dos
@@ -2685,12 +2725,12 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     _hs = [(v['pick'].get('historico') or {}) for v in _vers]
                     _hs = [h for h in _hs if h.get('razon')]
                     if _hs:
-                        st.caption('📊 %s' % _hs[0]['razon'])
+                        _lineas_tarjeta.append('📊 %s' % _hs[0]['razon'])
                     # v258 — y el historial mutuo, cuando movio el 1X2.
                     _h2 = [(v['pick'].get('h2h') or {}) for v in _vers]
                     _h2 = [x for x in _h2 if x.get('razon')]
                     if _h2:
-                        st.caption('%s' % _h2[0]['razon'])
+                        _lineas_tarjeta.append('%s' % _h2[0]['razon'])
                     # v229 — LA LAMBDA, QUE ES LO QUE FALTABA PARA ENTENDERLO.
                     #
                     # El usuario miró un América-Chivas con las dos formas en
@@ -2708,7 +2748,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     # Una línea y no un párrafo: ya se avisó de que sobra texto.
                     _cap = _caption_goles(pick)
                     if _cap:
-                        st.caption(_cap)
+                        _lineas_tarjeta.append(_cap)
                     # v230 — EL CARÁCTER DE LA LIGA, JUNTO AL PICK.
                     #
                     # El usuario perdió dos patas de un parley y las dos eran de
@@ -2728,7 +2768,13 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     # rellenar con «está en la media» sería gastar renglón.
                     _rg = _rasgo_liga(pick, _vers)
                     if _rg:
-                        st.caption(_rg)
+                        _lineas_tarjeta.append(_rg)
+                # v302 — y el patrón de la liga que corrigió estos goles
+                _txp = (pick.get('patron_liga') or {}).get('texto')
+                if _txp:
+                    _lineas_tarjeta.append(_txp)
+                if _lineas_tarjeta:
+                    st.caption('  ·  '.join(_lineas_tarjeta))
             except Exception as _e_vp:
                 logger.debug('[modo_modelo] veredicto: %s', _e_vp)
 
@@ -2749,7 +2795,32 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             # vuelve a haber una vía de entrada. Lo que desaparece es la carga
             # de trabajo sobre el usuario, que es lo que pidió.
 
-            _bloque_recomendada(st, rec, clave_vista, n_boton,
+            # v302 — UN SOLO NÚMERO POR APUESTA. «Meter o no meter» enseña la
+            # probabilidad corregida por lo que ese mercado acierta de verdad
+            # y la recomendada, justo debajo, la del modelo: en la tarjeta del
+            # usuario, «Menos de 4.5» salía al 78 % arriba y al 80 % abajo, y
+            # «La Paz o empate» al 69 % y al 58 %. Se enseña la corregida en
+            # las dos, que es la honesta; lo que se GUARDA sigue siendo la del
+            # modelo, porque `guardar` recibe `recos` sin tocar.
+            for _v in (_vers or []):
+                try:
+                    _corr[(_v.get('pick') or {}).get('apuesta')] = float(
+                        _v['prob_ajustada'])
+                except (KeyError, TypeError, ValueError):
+                    pass
+
+            def _vista(r0):
+                if not r0 or r0.get('apuesta') not in _corr:
+                    return r0
+                r1 = dict(r0)
+                r1['prob'] = _corr[r0['apuesta']]
+                if r1.get('cuota'):
+                    # lo que devuelve, con la MISMA probabilidad que se enseña
+                    r1['score'] = float(r1['cuota']) * r1['prob']
+                return r1
+
+            rec_vista = _vista(rec)
+            _bloque_recomendada(st, rec_vista, clave_vista, n_boton,
                                 motivo=_motivo_sin_apuesta(pick))
             # v176 — LAS ALTERNATIVAS SON RECOMENDACIONES, NO UNA TABLA.
             #
@@ -2759,7 +2830,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             # Score— y salen de la misma lista ordenada, así que no pueden
             # contradecir a la primera.
             for otra in recos[1:]:
-                _bloque_recomendada(st, otra, clave_vista, n_boton)
+                _bloque_recomendada(st, _vista(otra), clave_vista, n_boton)
             # v176 — SE ANOTA LO QUE SE ENSEÑA, Y AQUÍ ES DONDE SE
             # ENSEÑA. Podría anotarse en `render`, que también calcula
             # una recomendación para ordenar la lista, pero esa va SIN
@@ -2799,12 +2870,14 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             pick, {'Córners': _ck, 'Tarjetas': _tj,
                    'Remates': (_rm or {}).get('totales'),
                    'Remates a puerta': (_rm or {}).get('a_puerta')},
-            pick.get('clave_liga'))
+            pick.get('clave_liga'), correcciones=_corr)
         filas.append(_quien_remata_compacto(_qr))
         filas = [f for f in filas if f]
         if filas:
-            st.markdown(_tira_estabilidad(pick.get('clave_liga'))
-                        + '<div class="mm-otros">📊 MERCADOS</div>'
+            # v302 — la tira de estabilidad (seis iconos y sus rótulos) baja
+            # al desplegable: es contexto de la liga, no del partido, y era un
+            # bloque entero entre la apuesta y los mercados.
+            st.markdown('<div class="mm-otros">📊 MERCADOS</div>'
                         + ''.join(filas), unsafe_allow_html=True)
 
         if str(pick.get('deporte') or '') == 'Tenis':
@@ -2812,6 +2885,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
 
         # ---- 3) y todo el detalle, plegado ------------------------------
         with st.expander('🔍 Análisis'):
+            _tira = _tira_estabilidad(pick.get('clave_liga'))
+            if _tira:
+                st.markdown(_tira, unsafe_allow_html=True)
+            for _pq in _porque_detalle:
+                st.caption(_pq)
             _analisis_completo(st, pick, b, rec, _ck, _tj, _rm, _qr)
             if navegar is not None:
                 if st.button('Ver ficha del partido',

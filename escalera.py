@@ -138,6 +138,32 @@ MARGEN_PIN_TOPE = 0.15
 # Diez pesos menos por escalon a cambio de 2,6 puntos mas de acierto. Para
 # quien quiera doblar exacto, el nivel 2 sigue ahi.
 NIVELES = (
+    # v302 — LA MÁS SEGURA: VISITANTE FAVORITO QUE EL MODELO TAMBIÉN VE.
+    #
+    # El usuario: «quiero que esas [las probables de Apuestas del Día] lleguen
+    # a la escalera y tenga apuestas más seguras y con buena cuota». Medido en
+    # `_v302_probables.py` sobre 78.020 partidos, 293 reglas: ninguna pasa la
+    # puerta del p5, y la que más cerca se queda es ésta —
+    #
+    #     visitante favorito, modelo y Pinnacle >= 55 %, cuota >= 1,50
+    #     n=325 · acierta 68,0 % · ELECCIÓN +8,19 % (p5 +0,15)
+    #                             · JUICIO   +12,55 % (p5 -0,53)
+    #
+    # Va PRIMERA porque es lo que la Escalera necesita: de cada 100 acierta 68
+    # a una cuota media de 1,61, o sea 110 por escalón de media contra 98 de
+    # la «más probable» de abajo. Lo que NO hace es doblar: 100 se quedan en
+    # unos 160. Y el aviso va con ella: no es ventaja medida del todo.
+    #
+    # `probable` hace de puerta en los dos sentidos: aquí sólo entran las
+    # probables de ese tipo, y en los demás niveles NO entra ninguna — una
+    # probable con cuota 2,05 no puede colarse en el nivel de la Capa 1 con
+    # el sello de «acierta el 51,8 %», que es de otro canal.
+    {'n': 0, 'cuota': 1.50, 'prob': 0.55, 'acierta': 0.680,
+     'probable': 'ambos', 'margen_libre': True,
+     'etiqueta': 'La más segura', 'dias': None,
+     'nota': 'Visitante favorito para el modelo y para Pinnacle. Acierta 68 '
+             'de cada 100 en 325 partidos medidos. No dobla: 100 se quedan '
+             'en unos 160. Es probable, no es ventaja medida del todo.'},
     {'n': 1, 'cuota': 1.90, 'prob': 0.50, 'acierta': 0.518,
      'etiqueta': 'La más probable', 'dias': 0.404,
      'nota': 'La que más entra de todas las medidas: 52 de cada 100. Ojo, a '
@@ -184,6 +210,18 @@ NIVELES = (
              'suele haber goles. Medido en 17.420 partidos, entran juntas un '
              '18,4 % más de lo que ese precio supone. Ojo: paga más y entra '
              'menos que las de arriba.'},
+    # v302 — LA PROBABLE DE SÓLO MERCADO, DETRÁS DE LAS QUE DOBLAN.
+    #
+    # El mismo visitante favorito, pero en ligas que el modelo no cubre: sólo
+    # Pinnacle lo ve favorito. Medido aparte, más flojo:
+    #
+    #     n=859 · acierta 63,2 % · ELECCIÓN +2,25 % · JUICIO +7,54 %
+    {'n': 3, 'cuota': 1.50, 'prob': 0.55, 'acierta': 0.632,
+     'probable': 'mercado', 'margen_libre': True,
+     'etiqueta': 'Segura, sólo mercado', 'dias': None,
+     'nota': 'Visitante favorito según Pinnacle, en una liga que el modelo '
+             'no cubre. Acierta 63 de cada 100 en 859 partidos medidos. No '
+             'dobla, y es más floja que cuando el modelo también lo ve.'},
     {'n': 4, 'cuota': 2.00, 'prob': 0.40, 'acierta': 0.472,
      'etiqueta': 'Aceptable', 'dias': 0.676,
      'nota': 'Hoy no había ninguna de las dos mejores. Dobla igual, pero '
@@ -284,6 +322,12 @@ def candidatas(picks: List[Dict], nivel: Optional[Dict] = None) -> List[Dict]:
                 prob = (1.0 + ev) / cuota      # la justa que implica el EV
             if prob < nv['prob']:
                 continue
+            # v302 — LAS PROBABLES VAN SÓLO POR SU NIVEL, Y SÓLO ELLAS.
+            if nv.get('probable'):
+                if p.get('probable') != nv['probable']:
+                    continue
+            elif p.get('probable'):
+                continue
             margen = _num(p.get('margen_pin'))
             if margen is not None:
                 if margen > MARGEN_PIN_TOPE:
@@ -316,7 +360,9 @@ def candidatas(picks: List[Dict], nivel: Optional[Dict] = None) -> List[Dict]:
                     continue
             elif _otro:
                 continue
-            elif p.get('validado') is False:
+            elif p.get('validado') is False and not nv.get('probable'):
+                # las probables van marcadas `validado=False` A PROPÓSITO (no
+                # pasan el p5) y tienen su nivel propio con su número
                 continue
             # v280.1 — LA ESCALERA NO PUEDE CONTRADECIR AL SEMAFORO.
             #
@@ -332,12 +378,19 @@ def candidatas(picks: List[Dict], nivel: Optional[Dict] = None) -> List[Dict]:
             #
             # Se arregla usando el MISMO juez, no uno paralelo. Asi no pueden
             # divergir nunca, por construccion.
-            try:
-                import semaforo_capa1 as _sem
-                if (_sem.clasificar(p) or {}).get('nivel') == _sem.ROJO:
-                    continue
-            except Exception as _e:
-                logger.debug('[escalera] semaforo no disponible: %s', _e)
+            #
+            # v302 — salvo para las probables: el semáforo de la Capa 1 juzga
+            # un ERROR DE CUOTA (cuánto paga por encima de Pinnacle) y una
+            # probable no lo es — casi siempre paga por DEBAJO del justo y
+            # aun así acierta lo medido. Pasarla por ese juez la tumbaría por
+            # no ser lo que no pretende ser.
+            if not p.get('probable'):
+                try:
+                    import semaforo_capa1 as _sem
+                    if (_sem.clasificar(p) or {}).get('nivel') == _sem.ROJO:
+                        continue
+                except Exception as _e:
+                    logger.debug('[escalera] semaforo no disponible: %s', _e)
             q = dict(p)
             q['prob_escalera'] = round(prob, 4)
             fuera.append(q)
@@ -396,11 +449,18 @@ def todas(picks: List[Dict], tope: int = 8) -> List[Dict]:
                 #
                 # `candidatas` ya llama a `clasificar` para descartar las rojas,
                 # asi que el veredicto existe; solo habia que guardarlo.
-                try:
-                    import semaforo_capa1 as _sem
-                    q['semaforo'] = _sem.clasificar(p)
-                except Exception as _e:
-                    logger.debug('[escalera] sin semaforo: %s', _e)
+                if p.get('probable'):
+                    # su propio color: ni verde de la Capa 1 ni rojo de ella
+                    q['semaforo'] = {
+                        'nivel': 'probable',
+                        'etiqueta': nv.get('etiqueta') or 'Probable',
+                        'porque': nv.get('nota') or ''}
+                else:
+                    try:
+                        import semaforo_capa1 as _sem
+                        q['semaforo'] = _sem.clasificar(p)
+                    except Exception as _e:
+                        logger.debug('[escalera] sin semaforo: %s', _e)
                 fuera.append(q)
                 if len(fuera) >= tope:
                     return fuera

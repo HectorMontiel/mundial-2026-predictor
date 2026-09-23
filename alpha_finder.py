@@ -1737,6 +1737,16 @@ def _barrido_fixtures(motores: Dict, evaluados_pares: set):
                     # v200 — y los goles de CADA equipo, que Playdoit cotiza
                     # aparte y hasta ahora no se publicaban
                     'goles_equipo': lineas_por_equipo(pred),
+                    # v302 — la lambda de CADA equipo tal y como sale del
+                    # regresor. Es la cantidad con la que se entrenó
+                    # `patrones_liga` (la del ledger); los goles por equipo
+                    # de arriba salen de la matriz re-ponderada al 1X2 y no
+                    # son lo mismo.
+                    'goles_xg': dict(
+                        (k, (pred.get('prediction') or {})
+                         .get('expected_goals', {}).get(v))
+                        for k, v in (('local', 'home'),
+                                     ('visitante', 'away'))),
                     # v254 — la escalera de handicap, que nunca salia de aqui.
                     # Ver `lineas_de_handicap`: medido, 0 de 340 picks la
                     # llevaban y por eso el mercado no decidia nada.
@@ -4031,6 +4041,12 @@ def _una_fila(p):
 
 
 
+def _picks_selecciones() -> Dict:
+    """v302 — la rama de selecciones nacionales. Ver `selecciones_dia`."""
+    import selecciones_dia
+    return selecciones_dia.barrer()
+
+
 def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     """Barrido de TODAS las competiciones activas (11 de fútbol + MLB, NBA,
     tenis) con clasificación en dos capas (§1.2, §5.1)."""
@@ -4065,7 +4081,12 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     _ramas = {'futbol': lambda: apuestas_del_dia(max_partidos=max_partidos),
               'mlb': _picks_mlb, 'tenis': _picks_tenis, 'nba': _picks_nba,
               'kbo': _picks_kbo,                       # v97
-              'nfl': _picks_nfl}                       # v131
+              'nfl': _picks_nfl,                       # v131
+              # v302 — LAS SELECCIONES, QUE NO TENIAN RAMA. El usuario vio la
+              # Nations League en el calendario y ni un partido en Apuestas
+              # del Dia: el motor de selecciones solo lo usaba la vista de
+              # «Partidos Internacionales». Ver `selecciones_dia`.
+              'selecciones': _picks_selecciones}
     _res: Dict[str, Dict] = {}
     _fallos: Dict[str, str] = {}
     with ThreadPoolExecutor(max_workers=len(_ramas),
@@ -4084,6 +4105,19 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
                 _res[nombre] = {}
 
     r = _res.get('futbol') or {}
+    # v302 — EL CARACTER DE CADA LIGA, APLICADO A LOS GOLES DEL DIA.
+    #
+    # El modelo se queda corto con los de arriba de la tabla y se pasa con
+    # los de abajo (Premier: el local de arriba mete 1,94 y el modelo decia
+    # 1,70). `patrones_liga` lo aprendio liga por liga y lo corrige en mas de
+    # 2,5 y en «marca cada equipo», que son los tres mercados que le ganaron a
+    # la linea base calibrada con p5 positivo. Ver su cabecera.
+    try:
+        import patrones_liga as _pat
+        _n_pat = _pat.ajustar_lista(r.get('pronosticos') or [])
+        logger.info(f'[alpha] patrones de liga aplicados a {_n_pat} partidos')
+    except Exception as e:
+        logger.warning(f'[alpha] patrones de liga no aplicados: {e}')
     capa1 = list(r.get('elite') or [])
     for p in capa1:
         p.setdefault('deporte', 'Fútbol')
@@ -4169,7 +4203,8 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # (`evaluados` + `cobertura`) y aquí se suman.
     evaluados_dep = int(r.get('partidos_evaluados') or 0)
     cobertura_dep = dict(r.get('cobertura_ligas') or {})
-    for nombre in ('mlb', 'tenis', 'nba', 'kbo', 'nfl'):   # v97: +KBO · v131: +NFL
+    for nombre in ('mlb', 'tenis', 'nba', 'kbo', 'nfl',   # v97: +KBO · v131: +NFL
+                   'selecciones'):                       # v302
         sub = _res.get(nombre) or {}
         capa1 += sub.get('capa1', [])
         capa2 += sub.get('capa2', [])

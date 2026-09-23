@@ -254,6 +254,20 @@ def probar_no_baja_a_cuota_1_50_en_el_1x2():
     for nv in esc.NIVELES:
         if nv.get('otros_mercados'):
             continue      # el nivel 7 es de otro mercado y otro canal
+        if nv.get('probable'):
+            # v302 — las probables son OTRO canal, medido aparte y justo en
+            # esa banda: visitante favorito, cuota media 1,61, +8,19 % y
+            # +12,55 % en los dos tramos. La banda que pierde es la del ERROR
+            # DE CUOTA de la Capa 1, y ahí sigue cerrada: lo vigila el check
+            # de abajo, que exige que ese nivel sólo admita probables.
+            check(nv['cuota'] >= 1.50 and nv['prob'] >= 0.55,
+                  'el nivel de probables usa la regla medida (%.2f, %.2f)'
+                  % (nv['cuota'], nv['prob']))
+            capa1 = _pick(apuesta='Gana Local', partido='Z vs W',
+                          mercado='Ganador', cuota=1.60, ev=0.03, prob=0.66)
+            check(not esc.candidatas([capa1], nv),
+                  'y un pick de Capa 1 a 1,60 NO entra por él')
+            continue
         check(nv['cuota'] >= 1.80,
               'ningun nivel del 1X2 baja de 1,80 (el %s pide %.2f)'
               % (nv['n'], nv['cuota']))

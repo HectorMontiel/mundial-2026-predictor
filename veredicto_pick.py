@@ -346,8 +346,8 @@ def evaluar_lista(picks, con_contexto: bool = False) -> List[Dict]:
 # ---------------------------------------------------------------------------
 CSS = """
 <style>
-.vp{display:flex;align-items:center;gap:.6rem;margin:.25rem 0;
-    padding:.45rem .6rem;border-radius:.5rem;
+.vp{display:flex;align-items:center;gap:.6rem;margin:.15rem 0;
+    padding:.28rem .6rem;border-radius:.5rem;
     background:color-mix(in srgb, var(--fondo,#111) 92%, transparent);
     border-left:4px solid var(--vp-c)}
 .vp-ic{font-size:1.15rem;line-height:1}

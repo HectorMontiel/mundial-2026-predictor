@@ -1,0 +1,4700 @@
+{
+ "patrones": {
+  "afc_champions": {
+   "local_arriba": {
+    "n": 82,
+    "goles": 2.256,
+    "modelo": 2.121,
+    "residuo": 0.135,
+    "se": 0.187,
+    "no_marca": 0.11
+   },
+   "local_medio": {
+    "n": 55,
+    "goles": 1.418,
+    "modelo": 1.682,
+    "residuo": -0.264,
+    "se": 0.183,
+    "no_marca": 0.291
+   },
+   "visitante_arriba": {
+    "n": 73,
+    "goles": 1.493,
+    "modelo": 1.608,
+    "residuo": -0.115,
+    "se": 0.176,
+    "no_marca": 0.315
+   },
+   "visitante_medio": {
+    "n": 61,
+    "goles": 1.016,
+    "modelo": 1.171,
+    "residuo": -0.155,
+    "se": 0.121,
+    "no_marca": 0.311
+   },
+   "sin_ninguno_arriba": {
+    "n": 70,
+    "mas25": 0.429,
+    "modelo_mas25": 0.562
+   }
+  },
+  "arg_primera_nacional": {
+   "local_arriba": {
+    "n": 626,
+    "goles": 1.23,
+    "modelo": 1.276,
+    "residuo": -0.046,
+    "se": 0.044,
+    "no_marca": 0.265
+   },
+   "local_medio": {
+    "n": 583,
+    "goles": 1.127,
+    "modelo": 1.159,
+    "residuo": -0.032,
+    "se": 0.042,
+    "no_marca": 0.309
+   },
+   "local_abajo": {
+    "n": 517,
+    "goles": 0.977,
+    "modelo": 1.099,
+    "residuo": -0.122,
+    "se": 0.044,
+    "no_marca": 0.381
+   },
+   "visitante_arriba": {
+    "n": 652,
+    "goles": 0.735,
+    "modelo": 0.86,
+    "residuo": -0.125,
+    "se": 0.037,
+    "no_marca": 0.494
+   },
+   "visitante_medio": {
+    "n": 589,
+    "goles": 0.754,
+    "modelo": 0.771,
+    "residuo": -0.017,
+    "se": 0.037,
+    "no_marca": 0.469
+   },
+   "visitante_abajo": {
+    "n": 483,
+    "goles": 0.621,
+    "modelo": 0.746,
+    "residuo": -0.124,
+    "se": 0.038,
+    "no_marca": 0.532
+   },
+   "arriba_vs_abajo": {
+    "n": 156,
+    "mas25": 0.314,
+    "modelo_mas25": 0.309
+   },
+   "sin_ninguno_arriba": {
+    "n": 710,
+    "mas25": 0.299,
+    "modelo_mas25": 0.293
+   }
+  },
+  "argentina": {
+   "local_arriba": {
+    "n": 716,
+    "goles": 1.281,
+    "modelo": 1.208,
+    "residuo": 0.072,
+    "se": 0.043,
+    "no_marca": 0.286
+   },
+   "local_medio": {
+    "n": 594,
+    "goles": 1.121,
+    "modelo": 1.11,
+    "residuo": 0.012,
+    "se": 0.042,
+    "no_marca": 0.301
+   },
+   "local_abajo": {
+    "n": 559,
+    "goles": 1.097,
+    "modelo": 1.088,
+    "residuo": 0.008,
+    "se": 0.044,
+    "no_marca": 0.329
+   },
+   "visitante_arriba": {
+    "n": 746,
+    "goles": 0.954,
+    "modelo": 1.019,
+    "residuo": -0.064,
+    "se": 0.037,
+    "no_marca": 0.397
+   },
+   "visitante_medio": {
+    "n": 621,
+    "goles": 0.787,
+    "modelo": 0.968,
+    "residuo": -0.181,
+    "se": 0.037,
+    "no_marca": 0.446
+   },
+   "visitante_abajo": {
+    "n": 504,
+    "goles": 0.825,
+    "modelo": 0.991,
+    "residuo": -0.165,
+    "se": 0.042,
+    "no_marca": 0.437
+   },
+   "arriba_vs_abajo": {
+    "n": 183,
+    "mas25": 0.377,
+    "modelo_mas25": 0.37
+   },
+   "sin_ninguno_arriba": {
+    "n": 724,
+    "mas25": 0.319,
+    "modelo_mas25": 0.337
+   }
+  },
+  "aus_aleague": {
+   "local_arriba": {
+    "n": 154,
+    "goles": 1.688,
+    "modelo": 1.885,
+    "residuo": -0.197,
+    "se": 0.118,
+    "no_marca": 0.162
+   },
+   "local_medio": {
+    "n": 129,
+    "goles": 1.705,
+    "modelo": 1.726,
+    "residuo": -0.02,
+    "se": 0.136,
+    "no_marca": 0.225
+   },
+   "local_abajo": {
+    "n": 111,
+    "goles": 1.351,
+    "modelo": 1.582,
+    "residuo": -0.231,
+    "se": 0.118,
+    "no_marca": 0.27
+   },
+   "visitante_arriba": {
+    "n": 154,
+    "goles": 1.442,
+    "modelo": 1.533,
+    "residuo": -0.091,
+    "se": 0.108,
+    "no_marca": 0.26
+   },
+   "visitante_medio": {
+    "n": 132,
+    "goles": 1.561,
+    "modelo": 1.437,
+    "residuo": 0.124,
+    "se": 0.119,
+    "no_marca": 0.22
+   },
+   "visitante_abajo": {
+    "n": 109,
+    "goles": 1.44,
+    "modelo": 1.337,
+    "residuo": 0.103,
+    "se": 0.116,
+    "no_marca": 0.202
+   },
+   "arriba_vs_abajo": {
+    "n": 38,
+    "mas25": 0.605,
+    "modelo_mas25": 0.621
+   },
+   "sin_ninguno_arriba": {
+    "n": 165,
+    "mas25": 0.655,
+    "modelo_mas25": 0.601
+   }
+  },
+  "aut_bundesliga": {
+   "local_arriba": {
+    "n": 273,
+    "goles": 1.714,
+    "modelo": 1.714,
+    "residuo": 0.0,
+    "se": 0.084,
+    "no_marca": 0.19
+   },
+   "local_medio": {
+    "n": 250,
+    "goles": 1.372,
+    "modelo": 1.424,
+    "residuo": -0.052,
+    "se": 0.074,
+    "no_marca": 0.256
+   },
+   "local_abajo": {
+    "n": 234,
+    "goles": 1.282,
+    "modelo": 1.258,
+    "residuo": 0.025,
+    "se": 0.083,
+    "no_marca": 0.278
+   },
+   "visitante_arriba": {
+    "n": 283,
+    "goles": 1.491,
+    "modelo": 1.5,
+    "residuo": -0.009,
+    "se": 0.072,
+    "no_marca": 0.201
+   },
+   "visitante_medio": {
+    "n": 246,
+    "goles": 1.207,
+    "modelo": 1.383,
+    "residuo": -0.175,
+    "se": 0.075,
+    "no_marca": 0.305
+   },
+   "visitante_abajo": {
+    "n": 228,
+    "goles": 1.075,
+    "modelo": 1.224,
+    "residuo": -0.15,
+    "se": 0.078,
+    "no_marca": 0.399
+   },
+   "arriba_vs_abajo": {
+    "n": 75,
+    "mas25": 0.613,
+    "modelo_mas25": 0.541
+   },
+   "sin_ninguno_arriba": {
+    "n": 309,
+    "mas25": 0.508,
+    "modelo_mas25": 0.511
+   }
+  },
+  "bel_pro_league": {
+   "local_arriba": {
+    "n": 305,
+    "goles": 1.721,
+    "modelo": 1.825,
+    "residuo": -0.104,
+    "se": 0.077,
+    "no_marca": 0.19
+   },
+   "local_medio": {
+    "n": 257,
+    "goles": 1.451,
+    "modelo": 1.482,
+    "residuo": -0.031,
+    "se": 0.079,
+    "no_marca": 0.265
+   },
+   "local_abajo": {
+    "n": 210,
+    "goles": 1.371,
+    "modelo": 1.345,
+    "residuo": 0.027,
+    "se": 0.088,
+    "no_marca": 0.252
+   },
+   "visitante_arriba": {
+    "n": 324,
+    "goles": 1.404,
+    "modelo": 1.425,
+    "residuo": -0.021,
+    "se": 0.069,
+    "no_marca": 0.25
+   },
+   "visitante_medio": {
+    "n": 246,
+    "goles": 1.049,
+    "modelo": 1.229,
+    "residuo": -0.18,
+    "se": 0.072,
+    "no_marca": 0.402
+   },
+   "visitante_abajo": {
+    "n": 203,
+    "goles": 1.158,
+    "modelo": 1.069,
+    "residuo": 0.089,
+    "se": 0.077,
+    "no_marca": 0.305
+   },
+   "arriba_vs_abajo": {
+    "n": 78,
+    "mas25": 0.513,
+    "modelo_mas25": 0.55
+   },
+   "sin_ninguno_arriba": {
+    "n": 275,
+    "mas25": 0.531,
+    "modelo_mas25": 0.521
+   }
+  },
+  "bol_division": {
+   "local_arriba": {
+    "n": 304,
+    "goles": 2.326,
+    "modelo": 2.114,
+    "residuo": 0.211,
+    "se": 0.097,
+    "no_marca": 0.138
+   },
+   "local_medio": {
+    "n": 249,
+    "goles": 1.807,
+    "modelo": 1.584,
+    "residuo": 0.223,
+    "se": 0.099,
+    "no_marca": 0.193
+   },
+   "local_abajo": {
+    "n": 217,
+    "goles": 1.696,
+    "modelo": 1.538,
+    "residuo": 0.158,
+    "se": 0.097,
+    "no_marca": 0.194
+   },
+   "visitante_arriba": {
+    "n": 315,
+    "goles": 1.46,
+    "modelo": 1.262,
+    "residuo": 0.198,
+    "se": 0.079,
+    "no_marca": 0.241
+   },
+   "visitante_medio": {
+    "n": 247,
+    "goles": 1.081,
+    "modelo": 1.007,
+    "residuo": 0.074,
+    "se": 0.066,
+    "no_marca": 0.3
+   },
+   "visitante_abajo": {
+    "n": 203,
+    "goles": 1.039,
+    "modelo": 0.934,
+    "residuo": 0.105,
+    "se": 0.073,
+    "no_marca": 0.355
+   },
+   "arriba_vs_abajo": {
+    "n": 80,
+    "mas25": 0.725,
+    "modelo_mas25": 0.616
+   },
+   "sin_ninguno_arriba": {
+    "n": 282,
+    "mas25": 0.56,
+    "modelo_mas25": 0.572
+   }
+  },
+  "bra_serie_b": {
+   "local_arriba": {
+    "n": 368,
+    "goles": 1.416,
+    "modelo": 1.271,
+    "residuo": 0.145,
+    "se": 0.057,
+    "no_marca": 0.196
+   },
+   "local_medio": {
+    "n": 342,
+    "goles": 1.237,
+    "modelo": 1.15,
+    "residuo": 0.086,
+    "se": 0.058,
+    "no_marca": 0.257
+   },
+   "local_abajo": {
+    "n": 272,
+    "goles": 1.213,
+    "modelo": 1.072,
+    "residuo": 0.141,
+    "se": 0.062,
+    "no_marca": 0.261
+   },
+   "visitante_arriba": {
+    "n": 383,
+    "goles": 0.885,
+    "modelo": 0.959,
+    "residuo": -0.074,
+    "se": 0.049,
+    "no_marca": 0.405
+   },
+   "visitante_medio": {
+    "n": 344,
+    "goles": 0.913,
+    "modelo": 0.96,
+    "residuo": -0.047,
+    "se": 0.05,
+    "no_marca": 0.369
+   },
+   "visitante_abajo": {
+    "n": 251,
+    "goles": 1.028,
+    "modelo": 1.002,
+    "residuo": 0.026,
+    "se": 0.071,
+    "no_marca": 0.386
+   },
+   "arriba_vs_abajo": {
+    "n": 98,
+    "mas25": 0.418,
+    "modelo_mas25": 0.413
+   },
+   "sin_ninguno_arriba": {
+    "n": 397,
+    "mas25": 0.428,
+    "modelo_mas25": 0.369
+   }
+  },
+  "brasil": {
+   "local_arriba": {
+    "n": 535,
+    "goles": 1.664,
+    "modelo": 1.623,
+    "residuo": 0.04,
+    "se": 0.055,
+    "no_marca": 0.174
+   },
+   "local_medio": {
+    "n": 530,
+    "goles": 1.389,
+    "modelo": 1.425,
+    "residuo": -0.036,
+    "se": 0.048,
+    "no_marca": 0.24
+   },
+   "local_abajo": {
+    "n": 408,
+    "goles": 1.292,
+    "modelo": 1.306,
+    "residuo": -0.015,
+    "se": 0.055,
+    "no_marca": 0.238
+   },
+   "visitante_arriba": {
+    "n": 564,
+    "goles": 1.211,
+    "modelo": 1.043,
+    "residuo": 0.168,
+    "se": 0.046,
+    "no_marca": 0.303
+   },
+   "visitante_medio": {
+    "n": 525,
+    "goles": 0.973,
+    "modelo": 0.93,
+    "residuo": 0.043,
+    "se": 0.044,
+    "no_marca": 0.371
+   },
+   "visitante_abajo": {
+    "n": 386,
+    "goles": 0.946,
+    "modelo": 0.877,
+    "residuo": 0.069,
+    "se": 0.05,
+    "no_marca": 0.36
+   },
+   "arriba_vs_abajo": {
+    "n": 133,
+    "mas25": 0.504,
+    "modelo_mas25": 0.483
+   },
+   "sin_ninguno_arriba": {
+    "n": 606,
+    "mas25": 0.465,
+    "modelo_mas25": 0.449
+   }
+  },
+  "bundesliga": {
+   "local_arriba": {
+    "n": 870,
+    "goles": 2.177,
+    "modelo": 1.846,
+    "residuo": 0.331,
+    "se": 0.052,
+    "no_marca": 0.126
+   },
+   "local_medio": {
+    "n": 819,
+    "goles": 1.663,
+    "modelo": 1.522,
+    "residuo": 0.141,
+    "se": 0.047,
+    "no_marca": 0.189
+   },
+   "local_abajo": {
+    "n": 730,
+    "goles": 1.355,
+    "modelo": 1.419,
+    "residuo": -0.064,
+    "se": 0.045,
+    "no_marca": 0.288
+   },
+   "visitante_arriba": {
+    "n": 883,
+    "goles": 1.788,
+    "modelo": 1.579,
+    "residuo": 0.209,
+    "se": 0.046,
+    "no_marca": 0.179
+   },
+   "visitante_medio": {
+    "n": 832,
+    "goles": 1.297,
+    "modelo": 1.334,
+    "residuo": -0.037,
+    "se": 0.042,
+    "no_marca": 0.292
+   },
+   "visitante_abajo": {
+    "n": 696,
+    "goles": 1.103,
+    "modelo": 1.289,
+    "residuo": -0.185,
+    "se": 0.04,
+    "no_marca": 0.32
+   },
+   "arriba_vs_abajo": {
+    "n": 246,
+    "mas25": 0.63,
+    "modelo_mas25": 0.627
+   },
+   "sin_ninguno_arriba": {
+    "n": 1003,
+    "mas25": 0.563,
+    "modelo_mas25": 0.591
+   }
+  },
+  "champions": {
+   "local_arriba": {
+    "n": 143,
+    "goles": 2.364,
+    "modelo": 2.047,
+    "residuo": 0.317,
+    "se": 0.149,
+    "no_marca": 0.098
+   },
+   "local_medio": {
+    "n": 105,
+    "goles": 1.819,
+    "modelo": 1.53,
+    "residuo": 0.289,
+    "se": 0.155,
+    "no_marca": 0.21
+   },
+   "local_abajo": {
+    "n": 63,
+    "goles": 1.492,
+    "modelo": 1.314,
+    "residuo": 0.178,
+    "se": 0.187,
+    "no_marca": 0.27
+   },
+   "visitante_arriba": {
+    "n": 136,
+    "goles": 1.779,
+    "modelo": 1.738,
+    "residuo": 0.041,
+    "se": 0.141,
+    "no_marca": 0.213
+   },
+   "visitante_medio": {
+    "n": 110,
+    "goles": 1.309,
+    "modelo": 1.435,
+    "residuo": -0.126,
+    "se": 0.122,
+    "no_marca": 0.318
+   },
+   "visitante_abajo": {
+    "n": 68,
+    "goles": 1.191,
+    "modelo": 1.169,
+    "residuo": 0.022,
+    "se": 0.158,
+    "no_marca": 0.353
+   },
+   "sin_ninguno_arriba": {
+    "n": 151,
+    "mas25": 0.609,
+    "modelo_mas25": 0.607
+   }
+  },
+  "chi_primera": {
+   "local_arriba": {
+    "n": 252,
+    "goles": 1.667,
+    "modelo": 1.604,
+    "residuo": 0.063,
+    "se": 0.087,
+    "no_marca": 0.234
+   },
+   "local_medio": {
+    "n": 184,
+    "goles": 1.538,
+    "modelo": 1.437,
+    "residuo": 0.101,
+    "se": 0.093,
+    "no_marca": 0.207
+   },
+   "local_abajo": {
+    "n": 199,
+    "goles": 1.482,
+    "modelo": 1.305,
+    "residuo": 0.178,
+    "se": 0.093,
+    "no_marca": 0.246
+   },
+   "visitante_arriba": {
+    "n": 266,
+    "goles": 1.267,
+    "modelo": 1.255,
+    "residuo": 0.012,
+    "se": 0.078,
+    "no_marca": 0.327
+   },
+   "visitante_medio": {
+    "n": 201,
+    "goles": 1.214,
+    "modelo": 1.249,
+    "residuo": -0.035,
+    "se": 0.082,
+    "no_marca": 0.279
+   },
+   "visitante_abajo": {
+    "n": 171,
+    "goles": 1.006,
+    "modelo": 1.106,
+    "residuo": -0.1,
+    "se": 0.076,
+    "no_marca": 0.327
+   },
+   "arriba_vs_abajo": {
+    "n": 62,
+    "mas25": 0.645,
+    "modelo_mas25": 0.526
+   },
+   "sin_ninguno_arriba": {
+    "n": 225,
+    "mas25": 0.507,
+    "modelo_mas25": 0.513
+   }
+  },
+  "china": {
+   "local_arriba": {
+    "n": 351,
+    "goles": 2.148,
+    "modelo": 2.007,
+    "residuo": 0.141,
+    "se": 0.082,
+    "no_marca": 0.117
+   },
+   "local_medio": {
+    "n": 286,
+    "goles": 1.538,
+    "modelo": 1.611,
+    "residuo": -0.072,
+    "se": 0.074,
+    "no_marca": 0.22
+   },
+   "local_abajo": {
+    "n": 256,
+    "goles": 1.41,
+    "modelo": 1.35,
+    "residuo": 0.06,
+    "se": 0.073,
+    "no_marca": 0.238
+   },
+   "visitante_arriba": {
+    "n": 362,
+    "goles": 1.555,
+    "modelo": 1.535,
+    "residuo": 0.02,
+    "se": 0.067,
+    "no_marca": 0.202
+   },
+   "visitante_medio": {
+    "n": 286,
+    "goles": 1.304,
+    "modelo": 1.13,
+    "residuo": 0.174,
+    "se": 0.067,
+    "no_marca": 0.248
+   },
+   "visitante_abajo": {
+    "n": 241,
+    "goles": 1.021,
+    "modelo": 0.951,
+    "residuo": 0.07,
+    "se": 0.069,
+    "no_marca": 0.373
+   },
+   "arriba_vs_abajo": {
+    "n": 97,
+    "mas25": 0.608,
+    "modelo_mas25": 0.601
+   },
+   "sin_ninguno_arriba": {
+    "n": 319,
+    "mas25": 0.524,
+    "modelo_mas25": 0.574
+   }
+  },
+  "col_primera_a": {
+   "local_arriba": {
+    "n": 462,
+    "goles": 1.446,
+    "modelo": 1.426,
+    "residuo": 0.02,
+    "se": 0.054,
+    "no_marca": 0.223
+   },
+   "local_medio": {
+    "n": 384,
+    "goles": 1.409,
+    "modelo": 1.334,
+    "residuo": 0.075,
+    "se": 0.061,
+    "no_marca": 0.219
+   },
+   "local_abajo": {
+    "n": 275,
+    "goles": 1.116,
+    "modelo": 1.103,
+    "residuo": 0.013,
+    "se": 0.066,
+    "no_marca": 0.327
+   },
+   "visitante_arriba": {
+    "n": 465,
+    "goles": 1.062,
+    "modelo": 1.046,
+    "residuo": 0.017,
+    "se": 0.048,
+    "no_marca": 0.331
+   },
+   "visitante_medio": {
+    "n": 382,
+    "goles": 0.961,
+    "modelo": 0.922,
+    "residuo": 0.039,
+    "se": 0.053,
+    "no_marca": 0.377
+   },
+   "visitante_abajo": {
+    "n": 276,
+    "goles": 0.754,
+    "modelo": 0.806,
+    "residuo": -0.052,
+    "se": 0.057,
+    "no_marca": 0.493
+   },
+   "arriba_vs_abajo": {
+    "n": 97,
+    "mas25": 0.505,
+    "modelo_mas25": 0.422
+   },
+   "sin_ninguno_arriba": {
+    "n": 405,
+    "mas25": 0.417,
+    "modelo_mas25": 0.403
+   }
+  },
+  "conference_league": {
+   "local_arriba": {
+    "n": 91,
+    "goles": 1.582,
+    "modelo": 1.729,
+    "residuo": -0.146,
+    "se": 0.133,
+    "no_marca": 0.176
+   },
+   "local_medio": {
+    "n": 65,
+    "goles": 1.431,
+    "modelo": 1.545,
+    "residuo": -0.114,
+    "se": 0.174,
+    "no_marca": 0.277
+   },
+   "visitante_arriba": {
+    "n": 95,
+    "goles": 1.253,
+    "modelo": 1.363,
+    "residuo": -0.11,
+    "se": 0.126,
+    "no_marca": 0.305
+   },
+   "visitante_medio": {
+    "n": 52,
+    "goles": 1.269,
+    "modelo": 1.279,
+    "residuo": -0.01,
+    "se": 0.184,
+    "no_marca": 0.365
+   },
+   "sin_ninguno_arriba": {
+    "n": 93,
+    "mas25": 0.473,
+    "modelo_mas25": 0.524
+   }
+  },
+  "crc_fpd": {
+   "local_arriba": {
+    "n": 256,
+    "goles": 1.664,
+    "modelo": 1.631,
+    "residuo": 0.033,
+    "se": 0.074,
+    "no_marca": 0.168
+   },
+   "local_medio": {
+    "n": 208,
+    "goles": 1.337,
+    "modelo": 1.425,
+    "residuo": -0.088,
+    "se": 0.081,
+    "no_marca": 0.269
+   },
+   "local_abajo": {
+    "n": 172,
+    "goles": 1.18,
+    "modelo": 1.283,
+    "residuo": -0.103,
+    "se": 0.094,
+    "no_marca": 0.355
+   },
+   "visitante_arriba": {
+    "n": 263,
+    "goles": 1.167,
+    "modelo": 1.264,
+    "residuo": -0.097,
+    "se": 0.069,
+    "no_marca": 0.312
+   },
+   "visitante_medio": {
+    "n": 202,
+    "goles": 1.134,
+    "modelo": 1.173,
+    "residuo": -0.04,
+    "se": 0.084,
+    "no_marca": 0.351
+   },
+   "visitante_abajo": {
+    "n": 172,
+    "goles": 0.849,
+    "modelo": 1.132,
+    "residuo": -0.284,
+    "se": 0.071,
+    "no_marca": 0.413
+   },
+   "arriba_vs_abajo": {
+    "n": 65,
+    "mas25": 0.538,
+    "modelo_mas25": 0.491
+   },
+   "sin_ninguno_arriba": {
+    "n": 221,
+    "mas25": 0.489,
+    "modelo_mas25": 0.475
+   }
+  },
+  "dinamarca": {
+   "local_arriba": {
+    "n": 293,
+    "goles": 1.809,
+    "modelo": 1.753,
+    "residuo": 0.056,
+    "se": 0.081,
+    "no_marca": 0.157
+   },
+   "local_medio": {
+    "n": 280,
+    "goles": 1.561,
+    "modelo": 1.62,
+    "residuo": -0.059,
+    "se": 0.078,
+    "no_marca": 0.189
+   },
+   "local_abajo": {
+    "n": 227,
+    "goles": 1.269,
+    "modelo": 1.425,
+    "residuo": -0.156,
+    "se": 0.077,
+    "no_marca": 0.291
+   },
+   "visitante_arriba": {
+    "n": 311,
+    "goles": 1.617,
+    "modelo": 1.508,
+    "residuo": 0.109,
+    "se": 0.07,
+    "no_marca": 0.209
+   },
+   "visitante_medio": {
+    "n": 266,
+    "goles": 1.274,
+    "modelo": 1.299,
+    "residuo": -0.025,
+    "se": 0.067,
+    "no_marca": 0.267
+   },
+   "visitante_abajo": {
+    "n": 219,
+    "goles": 1.178,
+    "modelo": 1.155,
+    "residuo": 0.023,
+    "se": 0.075,
+    "no_marca": 0.288
+   },
+   "arriba_vs_abajo": {
+    "n": 69,
+    "mas25": 0.594,
+    "modelo_mas25": 0.577
+   },
+   "sin_ninguno_arriba": {
+    "n": 317,
+    "mas25": 0.555,
+    "modelo_mas25": 0.572
+   }
+  },
+  "ecu_liga_pro": {
+   "local_arriba": {
+    "n": 275,
+    "goles": 1.582,
+    "modelo": 1.739,
+    "residuo": -0.157,
+    "se": 0.081,
+    "no_marca": 0.196
+   },
+   "local_medio": {
+    "n": 199,
+    "goles": 1.377,
+    "modelo": 1.425,
+    "residuo": -0.048,
+    "se": 0.095,
+    "no_marca": 0.261
+   },
+   "local_abajo": {
+    "n": 205,
+    "goles": 1.21,
+    "modelo": 1.213,
+    "residuo": -0.004,
+    "se": 0.079,
+    "no_marca": 0.302
+   },
+   "visitante_arriba": {
+    "n": 277,
+    "goles": 1.213,
+    "modelo": 1.221,
+    "residuo": -0.008,
+    "se": 0.072,
+    "no_marca": 0.278
+   },
+   "visitante_medio": {
+    "n": 228,
+    "goles": 1.031,
+    "modelo": 0.97,
+    "residuo": 0.061,
+    "se": 0.073,
+    "no_marca": 0.368
+   },
+   "visitante_abajo": {
+    "n": 174,
+    "goles": 0.948,
+    "modelo": 0.872,
+    "residuo": 0.076,
+    "se": 0.079,
+    "no_marca": 0.356
+   },
+   "arriba_vs_abajo": {
+    "n": 71,
+    "mas25": 0.521,
+    "modelo_mas25": 0.479
+   },
+   "sin_ninguno_arriba": {
+    "n": 239,
+    "mas25": 0.427,
+    "modelo_mas25": 0.444
+   }
+  },
+  "eng_championship": {
+   "local_arriba": {
+    "n": 489,
+    "goles": 1.573,
+    "modelo": 1.468,
+    "residuo": 0.104,
+    "se": 0.056,
+    "no_marca": 0.188
+   },
+   "local_medio": {
+    "n": 445,
+    "goles": 1.422,
+    "modelo": 1.324,
+    "residuo": 0.098,
+    "se": 0.058,
+    "no_marca": 0.238
+   },
+   "local_abajo": {
+    "n": 428,
+    "goles": 1.273,
+    "modelo": 1.246,
+    "residuo": 0.027,
+    "se": 0.055,
+    "no_marca": 0.28
+   },
+   "visitante_arriba": {
+    "n": 495,
+    "goles": 1.309,
+    "modelo": 1.253,
+    "residuo": 0.057,
+    "se": 0.051,
+    "no_marca": 0.253
+   },
+   "visitante_medio": {
+    "n": 461,
+    "goles": 1.046,
+    "modelo": 1.138,
+    "residuo": -0.093,
+    "se": 0.048,
+    "no_marca": 0.33
+   },
+   "visitante_abajo": {
+    "n": 410,
+    "goles": 0.968,
+    "modelo": 1.112,
+    "residuo": -0.144,
+    "se": 0.047,
+    "no_marca": 0.354
+   },
+   "arriba_vs_abajo": {
+    "n": 145,
+    "mas25": 0.503,
+    "modelo_mas25": 0.481
+   },
+   "sin_ninguno_arriba": {
+    "n": 551,
+    "mas25": 0.461,
+    "modelo_mas25": 0.466
+   }
+  },
+  "eng_league_one": {
+   "local_arriba": {
+    "n": 1475,
+    "goles": 1.641,
+    "modelo": 1.63,
+    "residuo": 0.011,
+    "se": 0.034,
+    "no_marca": 0.192
+   },
+   "local_medio": {
+    "n": 1449,
+    "goles": 1.392,
+    "modelo": 1.403,
+    "residuo": -0.011,
+    "se": 0.031,
+    "no_marca": 0.253
+   },
+   "local_abajo": {
+    "n": 1315,
+    "goles": 1.252,
+    "modelo": 1.258,
+    "residuo": -0.007,
+    "se": 0.033,
+    "no_marca": 0.308
+   },
+   "visitante_arriba": {
+    "n": 1529,
+    "goles": 1.342,
+    "modelo": 1.339,
+    "residuo": 0.003,
+    "se": 0.03,
+    "no_marca": 0.264
+   },
+   "visitante_medio": {
+    "n": 1463,
+    "goles": 1.16,
+    "modelo": 1.165,
+    "residuo": -0.005,
+    "se": 0.029,
+    "no_marca": 0.329
+   },
+   "visitante_abajo": {
+    "n": 1250,
+    "goles": 1.037,
+    "modelo": 1.023,
+    "residuo": 0.014,
+    "se": 0.029,
+    "no_marca": 0.354
+   },
+   "arriba_vs_abajo": {
+    "n": 432,
+    "mas25": 0.519,
+    "modelo_mas25": 0.498
+   },
+   "sin_ninguno_arriba": {
+    "n": 1796,
+    "mas25": 0.484,
+    "modelo_mas25": 0.486
+   }
+  },
+  "eng_league_two": {
+   "local_arriba": {
+    "n": 1501,
+    "goles": 1.544,
+    "modelo": 1.499,
+    "residuo": 0.044,
+    "se": 0.032,
+    "no_marca": 0.21
+   },
+   "local_medio": {
+    "n": 1469,
+    "goles": 1.379,
+    "modelo": 1.359,
+    "residuo": 0.02,
+    "se": 0.031,
+    "no_marca": 0.239
+   },
+   "local_abajo": {
+    "n": 1317,
+    "goles": 1.231,
+    "modelo": 1.267,
+    "residuo": -0.036,
+    "se": 0.031,
+    "no_marca": 0.295
+   },
+   "visitante_arriba": {
+    "n": 1524,
+    "goles": 1.28,
+    "modelo": 1.229,
+    "residuo": 0.051,
+    "se": 0.029,
+    "no_marca": 0.274
+   },
+   "visitante_medio": {
+    "n": 1451,
+    "goles": 1.135,
+    "modelo": 1.142,
+    "residuo": -0.007,
+    "se": 0.028,
+    "no_marca": 0.325
+   },
+   "visitante_abajo": {
+    "n": 1314,
+    "goles": 1.015,
+    "modelo": 1.05,
+    "residuo": -0.034,
+    "se": 0.029,
+    "no_marca": 0.375
+   },
+   "arriba_vs_abajo": {
+    "n": 460,
+    "mas25": 0.467,
+    "modelo_mas25": 0.493
+   },
+   "sin_ninguno_arriba": {
+    "n": 1834,
+    "mas25": 0.46,
+    "modelo_mas25": 0.483
+   }
+  },
+  "eng_national": {
+   "local_arriba": {
+    "n": 1519,
+    "goles": 1.71,
+    "modelo": 1.676,
+    "residuo": 0.034,
+    "se": 0.034,
+    "no_marca": 0.191
+   },
+   "local_medio": {
+    "n": 1411,
+    "goles": 1.439,
+    "modelo": 1.433,
+    "residuo": 0.006,
+    "se": 0.033,
+    "no_marca": 0.237
+   },
+   "local_abajo": {
+    "n": 1277,
+    "goles": 1.32,
+    "modelo": 1.317,
+    "residuo": 0.003,
+    "se": 0.033,
+    "no_marca": 0.286
+   },
+   "visitante_arriba": {
+    "n": 1541,
+    "goles": 1.406,
+    "modelo": 1.378,
+    "residuo": 0.028,
+    "se": 0.03,
+    "no_marca": 0.253
+   },
+   "visitante_medio": {
+    "n": 1442,
+    "goles": 1.187,
+    "modelo": 1.191,
+    "residuo": -0.004,
+    "se": 0.028,
+    "no_marca": 0.294
+   },
+   "visitante_abajo": {
+    "n": 1223,
+    "goles": 1.145,
+    "modelo": 1.087,
+    "residuo": 0.057,
+    "se": 0.031,
+    "no_marca": 0.337
+   },
+   "arriba_vs_abajo": {
+    "n": 430,
+    "mas25": 0.549,
+    "modelo_mas25": 0.546
+   },
+   "sin_ninguno_arriba": {
+    "n": 1729,
+    "mas25": 0.496,
+    "modelo_mas25": 0.528
+   }
+  },
+  "eredivisie": {
+   "local_arriba": {
+    "n": 472,
+    "goles": 2.199,
+    "modelo": 2.022,
+    "residuo": 0.177,
+    "se": 0.068,
+    "no_marca": 0.112
+   },
+   "local_medio": {
+    "n": 472,
+    "goles": 1.576,
+    "modelo": 1.516,
+    "residuo": 0.06,
+    "se": 0.058,
+    "no_marca": 0.197
+   },
+   "local_abajo": {
+    "n": 390,
+    "goles": 1.387,
+    "modelo": 1.406,
+    "residuo": -0.019,
+    "se": 0.066,
+    "no_marca": 0.277
+   },
+   "visitante_arriba": {
+    "n": 481,
+    "goles": 1.879,
+    "modelo": 1.72,
+    "residuo": 0.159,
+    "se": 0.064,
+    "no_marca": 0.16
+   },
+   "visitante_medio": {
+    "n": 475,
+    "goles": 1.219,
+    "modelo": 1.237,
+    "residuo": -0.018,
+    "se": 0.051,
+    "no_marca": 0.314
+   },
+   "visitante_abajo": {
+    "n": 370,
+    "goles": 1.016,
+    "modelo": 1.131,
+    "residuo": -0.114,
+    "se": 0.056,
+    "no_marca": 0.389
+   },
+   "arriba_vs_abajo": {
+    "n": 133,
+    "mas25": 0.624,
+    "modelo_mas25": 0.628
+   },
+   "sin_ninguno_arriba": {
+    "n": 550,
+    "mas25": 0.569,
+    "modelo_mas25": 0.578
+   }
+  },
+  "esp_hypermotion": {
+   "local_arriba": {
+    "n": 772,
+    "goles": 1.514,
+    "modelo": 1.47,
+    "residuo": 0.044,
+    "se": 0.043,
+    "no_marca": 0.22
+   },
+   "local_medio": {
+    "n": 663,
+    "goles": 1.368,
+    "modelo": 1.361,
+    "residuo": 0.007,
+    "se": 0.046,
+    "no_marca": 0.247
+   },
+   "local_abajo": {
+    "n": 591,
+    "goles": 1.152,
+    "modelo": 1.236,
+    "residuo": -0.083,
+    "se": 0.041,
+    "no_marca": 0.276
+   },
+   "visitante_arriba": {
+    "n": 804,
+    "goles": 1.046,
+    "modelo": 1.07,
+    "residuo": -0.024,
+    "se": 0.036,
+    "no_marca": 0.361
+   },
+   "visitante_medio": {
+    "n": 653,
+    "goles": 0.986,
+    "modelo": 0.977,
+    "residuo": 0.009,
+    "se": 0.04,
+    "no_marca": 0.371
+   },
+   "visitante_abajo": {
+    "n": 566,
+    "goles": 1.005,
+    "modelo": 0.875,
+    "residuo": 0.13,
+    "se": 0.044,
+    "no_marca": 0.376
+   },
+   "arriba_vs_abajo": {
+    "n": 210,
+    "mas25": 0.49,
+    "modelo_mas25": 0.442
+   },
+   "sin_ninguno_arriba": {
+    "n": 772,
+    "mas25": 0.437,
+    "modelo_mas25": 0.431
+   }
+  },
+  "europa_league": {
+   "local_arriba": {
+    "n": 187,
+    "goles": 1.909,
+    "modelo": 1.806,
+    "residuo": 0.103,
+    "se": 0.105,
+    "no_marca": 0.155
+   },
+   "local_medio": {
+    "n": 141,
+    "goles": 1.809,
+    "modelo": 1.708,
+    "residuo": 0.101,
+    "se": 0.116,
+    "no_marca": 0.135
+   },
+   "local_abajo": {
+    "n": 96,
+    "goles": 1.292,
+    "modelo": 1.489,
+    "residuo": -0.197,
+    "se": 0.144,
+    "no_marca": 0.312
+   },
+   "visitante_arriba": {
+    "n": 199,
+    "goles": 1.266,
+    "modelo": 1.286,
+    "residuo": -0.02,
+    "se": 0.09,
+    "no_marca": 0.312
+   },
+   "visitante_medio": {
+    "n": 135,
+    "goles": 1.289,
+    "modelo": 1.26,
+    "residuo": 0.029,
+    "se": 0.097,
+    "no_marca": 0.274
+   },
+   "visitante_abajo": {
+    "n": 91,
+    "goles": 0.934,
+    "modelo": 1.062,
+    "residuo": -0.128,
+    "se": 0.107,
+    "no_marca": 0.385
+   },
+   "arriba_vs_abajo": {
+    "n": 32,
+    "mas25": 0.531,
+    "modelo_mas25": 0.564
+   },
+   "sin_ninguno_arriba": {
+    "n": 198,
+    "mas25": 0.591,
+    "modelo_mas25": 0.554
+   }
+  },
+  "finlandia": {
+   "local_arriba": {
+    "n": 215,
+    "goles": 1.795,
+    "modelo": 1.766,
+    "residuo": 0.03,
+    "se": 0.094,
+    "no_marca": 0.172
+   },
+   "local_medio": {
+    "n": 221,
+    "goles": 1.457,
+    "modelo": 1.475,
+    "residuo": -0.018,
+    "se": 0.078,
+    "no_marca": 0.24
+   },
+   "local_abajo": {
+    "n": 189,
+    "goles": 1.328,
+    "modelo": 1.242,
+    "residuo": 0.086,
+    "se": 0.084,
+    "no_marca": 0.265
+   },
+   "visitante_arriba": {
+    "n": 227,
+    "goles": 1.524,
+    "modelo": 1.504,
+    "residuo": 0.02,
+    "se": 0.077,
+    "no_marca": 0.194
+   },
+   "visitante_medio": {
+    "n": 206,
+    "goles": 1.209,
+    "modelo": 1.419,
+    "residuo": -0.21,
+    "se": 0.082,
+    "no_marca": 0.325
+   },
+   "visitante_abajo": {
+    "n": 191,
+    "goles": 1.147,
+    "modelo": 1.145,
+    "residuo": 0.001,
+    "se": 0.086,
+    "no_marca": 0.325
+   },
+   "arriba_vs_abajo": {
+    "n": 68,
+    "mas25": 0.588,
+    "modelo_mas25": 0.553
+   },
+   "sin_ninguno_arriba": {
+    "n": 285,
+    "mas25": 0.558,
+    "modelo_mas25": 0.553
+   }
+  },
+  "fra_ligue2": {
+   "local_arriba": {
+    "n": 547,
+    "goles": 1.578,
+    "modelo": 1.542,
+    "residuo": 0.035,
+    "se": 0.053,
+    "no_marca": 0.205
+   },
+   "local_medio": {
+    "n": 538,
+    "goles": 1.303,
+    "modelo": 1.352,
+    "residuo": -0.049,
+    "se": 0.051,
+    "no_marca": 0.27
+   },
+   "local_abajo": {
+    "n": 457,
+    "goles": 1.193,
+    "modelo": 1.241,
+    "residuo": -0.049,
+    "se": 0.055,
+    "no_marca": 0.322
+   },
+   "visitante_arriba": {
+    "n": 558,
+    "goles": 1.197,
+    "modelo": 1.18,
+    "residuo": 0.018,
+    "se": 0.049,
+    "no_marca": 0.317
+   },
+   "visitante_medio": {
+    "n": 567,
+    "goles": 1.12,
+    "modelo": 1.053,
+    "residuo": 0.066,
+    "se": 0.046,
+    "no_marca": 0.333
+   },
+   "visitante_abajo": {
+    "n": 418,
+    "goles": 1.002,
+    "modelo": 1.025,
+    "residuo": -0.023,
+    "se": 0.051,
+    "no_marca": 0.368
+   },
+   "arriba_vs_abajo": {
+    "n": 142,
+    "mas25": 0.423,
+    "modelo_mas25": 0.475
+   },
+   "sin_ninguno_arriba": {
+    "n": 654,
+    "mas25": 0.466,
+    "modelo_mas25": 0.456
+   }
+  },
+  "ger_bundesliga2": {
+   "local_arriba": {
+    "n": 456,
+    "goles": 1.862,
+    "modelo": 1.81,
+    "residuo": 0.052,
+    "se": 0.064,
+    "no_marca": 0.136
+   },
+   "local_medio": {
+    "n": 480,
+    "goles": 1.654,
+    "modelo": 1.621,
+    "residuo": 0.034,
+    "se": 0.059,
+    "no_marca": 0.179
+   },
+   "local_abajo": {
+    "n": 407,
+    "goles": 1.405,
+    "modelo": 1.457,
+    "residuo": -0.052,
+    "se": 0.06,
+    "no_marca": 0.265
+   },
+   "visitante_arriba": {
+    "n": 493,
+    "goles": 1.495,
+    "modelo": 1.436,
+    "residuo": 0.059,
+    "se": 0.058,
+    "no_marca": 0.231
+   },
+   "visitante_medio": {
+    "n": 471,
+    "goles": 1.268,
+    "modelo": 1.304,
+    "residuo": -0.036,
+    "se": 0.051,
+    "no_marca": 0.274
+   },
+   "visitante_abajo": {
+    "n": 381,
+    "goles": 1.265,
+    "modelo": 1.245,
+    "residuo": 0.02,
+    "se": 0.065,
+    "no_marca": 0.328
+   },
+   "arriba_vs_abajo": {
+    "n": 118,
+    "mas25": 0.627,
+    "modelo_mas25": 0.602
+   },
+   "sin_ninguno_arriba": {
+    "n": 581,
+    "mas25": 0.578,
+    "modelo_mas25": 0.576
+   }
+  },
+  "gre_super_league": {
+   "local_arriba": {
+    "n": 390,
+    "goles": 1.874,
+    "modelo": 1.549,
+    "residuo": 0.325,
+    "se": 0.067,
+    "no_marca": 0.167
+   },
+   "local_medio": {
+    "n": 388,
+    "goles": 1.16,
+    "modelo": 1.148,
+    "residuo": 0.012,
+    "se": 0.055,
+    "no_marca": 0.32
+   },
+   "local_abajo": {
+    "n": 280,
+    "goles": 1.068,
+    "modelo": 1.068,
+    "residuo": 0.0,
+    "se": 0.064,
+    "no_marca": 0.371
+   },
+   "visitante_arriba": {
+    "n": 409,
+    "goles": 1.43,
+    "modelo": 1.272,
+    "residuo": 0.159,
+    "se": 0.062,
+    "no_marca": 0.264
+   },
+   "visitante_medio": {
+    "n": 382,
+    "goles": 0.987,
+    "modelo": 1.057,
+    "residuo": -0.07,
+    "se": 0.047,
+    "no_marca": 0.361
+   },
+   "visitante_abajo": {
+    "n": 266,
+    "goles": 0.936,
+    "modelo": 1.008,
+    "residuo": -0.072,
+    "se": 0.06,
+    "no_marca": 0.421
+   },
+   "arriba_vs_abajo": {
+    "n": 80,
+    "mas25": 0.613,
+    "modelo_mas25": 0.51
+   },
+   "sin_ninguno_arriba": {
+    "n": 434,
+    "mas25": 0.442,
+    "modelo_mas25": 0.453
+   }
+  },
+  "ind_isl": {
+   "local_arriba": {
+    "n": 114,
+    "goles": 1.684,
+    "modelo": 1.724,
+    "residuo": -0.039,
+    "se": 0.116,
+    "no_marca": 0.193
+   },
+   "local_medio": {
+    "n": 96,
+    "goles": 1.552,
+    "modelo": 1.427,
+    "residuo": 0.126,
+    "se": 0.153,
+    "no_marca": 0.24
+   },
+   "local_abajo": {
+    "n": 76,
+    "goles": 1.224,
+    "modelo": 1.31,
+    "residuo": -0.087,
+    "se": 0.137,
+    "no_marca": 0.303
+   },
+   "visitante_arriba": {
+    "n": 120,
+    "goles": 1.467,
+    "modelo": 1.538,
+    "residuo": -0.071,
+    "se": 0.114,
+    "no_marca": 0.242
+   },
+   "visitante_medio": {
+    "n": 81,
+    "goles": 1.42,
+    "modelo": 1.273,
+    "residuo": 0.147,
+    "se": 0.158,
+    "no_marca": 0.259
+   },
+   "visitante_abajo": {
+    "n": 83,
+    "goles": 0.988,
+    "modelo": 1.271,
+    "residuo": -0.283,
+    "se": 0.117,
+    "no_marca": 0.373
+   },
+   "arriba_vs_abajo": {
+    "n": 30,
+    "mas25": 0.467,
+    "modelo_mas25": 0.546
+   },
+   "sin_ninguno_arriba": {
+    "n": 107,
+    "mas25": 0.589,
+    "modelo_mas25": 0.525
+   }
+  },
+  "irlanda": {
+   "local_arriba": {
+    "n": 278,
+    "goles": 1.579,
+    "modelo": 1.552,
+    "residuo": 0.028,
+    "se": 0.074,
+    "no_marca": 0.205
+   },
+   "local_medio": {
+    "n": 205,
+    "goles": 1.376,
+    "modelo": 1.393,
+    "residuo": -0.017,
+    "se": 0.082,
+    "no_marca": 0.259
+   },
+   "local_abajo": {
+    "n": 185,
+    "goles": 1.168,
+    "modelo": 1.102,
+    "residuo": 0.066,
+    "se": 0.085,
+    "no_marca": 0.33
+   },
+   "visitante_arriba": {
+    "n": 281,
+    "goles": 1.135,
+    "modelo": 1.11,
+    "residuo": 0.025,
+    "se": 0.065,
+    "no_marca": 0.32
+   },
+   "visitante_medio": {
+    "n": 213,
+    "goles": 1.146,
+    "modelo": 1.043,
+    "residuo": 0.102,
+    "se": 0.071,
+    "no_marca": 0.305
+   },
+   "visitante_abajo": {
+    "n": 177,
+    "goles": 1.0,
+    "modelo": 0.841,
+    "residuo": 0.159,
+    "se": 0.078,
+    "no_marca": 0.362
+   },
+   "arriba_vs_abajo": {
+    "n": 75,
+    "mas25": 0.533,
+    "modelo_mas25": 0.465
+   },
+   "sin_ninguno_arriba": {
+    "n": 223,
+    "mas25": 0.484,
+    "modelo_mas25": 0.445
+   }
+  },
+  "ita_serie_b": {
+   "local_arriba": {
+    "n": 624,
+    "goles": 1.575,
+    "modelo": 1.461,
+    "residuo": 0.114,
+    "se": 0.05,
+    "no_marca": 0.191
+   },
+   "local_medio": {
+    "n": 590,
+    "goles": 1.288,
+    "modelo": 1.277,
+    "residuo": 0.011,
+    "se": 0.047,
+    "no_marca": 0.269
+   },
+   "local_abajo": {
+    "n": 455,
+    "goles": 1.213,
+    "modelo": 1.21,
+    "residuo": 0.003,
+    "se": 0.052,
+    "no_marca": 0.257
+   },
+   "visitante_arriba": {
+    "n": 635,
+    "goles": 1.235,
+    "modelo": 1.23,
+    "residuo": 0.005,
+    "se": 0.044,
+    "no_marca": 0.282
+   },
+   "visitante_medio": {
+    "n": 593,
+    "goles": 1.022,
+    "modelo": 1.088,
+    "residuo": -0.066,
+    "se": 0.043,
+    "no_marca": 0.352
+   },
+   "visitante_abajo": {
+    "n": 445,
+    "goles": 0.998,
+    "modelo": 1.033,
+    "residuo": -0.035,
+    "se": 0.046,
+    "no_marca": 0.342
+   },
+   "arriba_vs_abajo": {
+    "n": 163,
+    "mas25": 0.436,
+    "modelo_mas25": 0.475
+   },
+   "sin_ninguno_arriba": {
+    "n": 665,
+    "mas25": 0.45,
+    "modelo_mas25": 0.451
+   }
+  },
+  "jpn_j1": {
+   "local_arriba": {
+    "n": 452,
+    "goles": 1.496,
+    "modelo": 1.479,
+    "residuo": 0.017,
+    "se": 0.06,
+    "no_marca": 0.237
+   },
+   "local_medio": {
+    "n": 410,
+    "goles": 1.398,
+    "modelo": 1.314,
+    "residuo": 0.083,
+    "se": 0.057,
+    "no_marca": 0.249
+   },
+   "local_abajo": {
+    "n": 350,
+    "goles": 1.249,
+    "modelo": 1.141,
+    "residuo": 0.107,
+    "se": 0.064,
+    "no_marca": 0.309
+   },
+   "visitante_arriba": {
+    "n": 449,
+    "goles": 1.327,
+    "modelo": 1.263,
+    "residuo": 0.064,
+    "se": 0.055,
+    "no_marca": 0.267
+   },
+   "visitante_medio": {
+    "n": 425,
+    "goles": 1.148,
+    "modelo": 1.106,
+    "residuo": 0.042,
+    "se": 0.058,
+    "no_marca": 0.311
+   },
+   "visitante_abajo": {
+    "n": 344,
+    "goles": 1.026,
+    "modelo": 0.958,
+    "residuo": 0.069,
+    "se": 0.057,
+    "no_marca": 0.363
+   },
+   "arriba_vs_abajo": {
+    "n": 123,
+    "mas25": 0.455,
+    "modelo_mas25": 0.458
+   },
+   "sin_ninguno_arriba": {
+    "n": 488,
+    "mas25": 0.465,
+    "modelo_mas25": 0.449
+   }
+  },
+  "ksa_pro": {
+   "local_arriba": {
+    "n": 212,
+    "goles": 2.156,
+    "modelo": 2.103,
+    "residuo": 0.053,
+    "se": 0.097,
+    "no_marca": 0.104
+   },
+   "local_medio": {
+    "n": 195,
+    "goles": 1.349,
+    "modelo": 1.445,
+    "residuo": -0.096,
+    "se": 0.091,
+    "no_marca": 0.277
+   },
+   "local_abajo": {
+    "n": 172,
+    "goles": 1.116,
+    "modelo": 1.252,
+    "residuo": -0.135,
+    "se": 0.084,
+    "no_marca": 0.297
+   },
+   "visitante_arriba": {
+    "n": 210,
+    "goles": 1.924,
+    "modelo": 1.946,
+    "residuo": -0.023,
+    "se": 0.103,
+    "no_marca": 0.133
+   },
+   "visitante_medio": {
+    "n": 196,
+    "goles": 1.23,
+    "modelo": 1.229,
+    "residuo": 0.001,
+    "se": 0.088,
+    "no_marca": 0.306
+   },
+   "visitante_abajo": {
+    "n": 173,
+    "goles": 1.017,
+    "modelo": 1.06,
+    "residuo": -0.042,
+    "se": 0.083,
+    "no_marca": 0.41
+   },
+   "arriba_vs_abajo": {
+    "n": 57,
+    "mas25": 0.544,
+    "modelo_mas25": 0.608
+   },
+   "sin_ninguno_arriba": {
+    "n": 234,
+    "mas25": 0.543,
+    "modelo_mas25": 0.546
+   }
+  },
+  "laliga": {
+   "local_arriba": {
+    "n": 1139,
+    "goles": 1.791,
+    "modelo": 1.649,
+    "residuo": 0.142,
+    "se": 0.039,
+    "no_marca": 0.169
+   },
+   "local_medio": {
+    "n": 1051,
+    "goles": 1.314,
+    "modelo": 1.309,
+    "residuo": 0.005,
+    "se": 0.034,
+    "no_marca": 0.25
+   },
+   "local_abajo": {
+    "n": 832,
+    "goles": 1.214,
+    "modelo": 1.246,
+    "residuo": -0.032,
+    "se": 0.037,
+    "no_marca": 0.276
+   },
+   "visitante_arriba": {
+    "n": 1136,
+    "goles": 1.347,
+    "modelo": 1.363,
+    "residuo": -0.016,
+    "se": 0.034,
+    "no_marca": 0.269
+   },
+   "visitante_medio": {
+    "n": 1074,
+    "goles": 1.006,
+    "modelo": 1.095,
+    "residuo": -0.09,
+    "se": 0.03,
+    "no_marca": 0.352
+   },
+   "visitante_abajo": {
+    "n": 808,
+    "goles": 0.934,
+    "modelo": 1.076,
+    "residuo": -0.141,
+    "se": 0.033,
+    "no_marca": 0.381
+   },
+   "arriba_vs_abajo": {
+    "n": 305,
+    "mas25": 0.541,
+    "modelo_mas25": 0.519
+   },
+   "sin_ninguno_arriba": {
+    "n": 1160,
+    "mas25": 0.435,
+    "modelo_mas25": 0.476
+   }
+  },
+  "leagues_cup": {
+   "local_arriba": {
+    "n": 1325,
+    "goles": 1.873,
+    "modelo": 1.79,
+    "residuo": 0.083,
+    "se": 0.038,
+    "no_marca": 0.162
+   },
+   "local_medio": {
+    "n": 1110,
+    "goles": 1.62,
+    "modelo": 1.591,
+    "residuo": 0.029,
+    "se": 0.039,
+    "no_marca": 0.192
+   },
+   "local_abajo": {
+    "n": 905,
+    "goles": 1.51,
+    "modelo": 1.46,
+    "residuo": 0.05,
+    "se": 0.041,
+    "no_marca": 0.218
+   },
+   "visitante_arriba": {
+    "n": 1271,
+    "goles": 1.404,
+    "modelo": 1.29,
+    "residuo": 0.115,
+    "se": 0.034,
+    "no_marca": 0.249
+   },
+   "visitante_medio": {
+    "n": 1167,
+    "goles": 1.177,
+    "modelo": 1.176,
+    "residuo": 0.0,
+    "se": 0.032,
+    "no_marca": 0.304
+   },
+   "visitante_abajo": {
+    "n": 896,
+    "goles": 1.195,
+    "modelo": 1.093,
+    "residuo": 0.102,
+    "se": 0.037,
+    "no_marca": 0.312
+   },
+   "arriba_vs_abajo": {
+    "n": 353,
+    "mas25": 0.674,
+    "modelo_mas25": 0.574
+   },
+   "sin_ninguno_arriba": {
+    "n": 1283,
+    "mas25": 0.564,
+    "modelo_mas25": 0.559
+   }
+  },
+  "libertadores": {
+   "local_arriba": {
+    "n": 121,
+    "goles": 1.529,
+    "modelo": 1.836,
+    "residuo": -0.307,
+    "se": 0.135,
+    "no_marca": 0.24
+   },
+   "local_medio": {
+    "n": 77,
+    "goles": 1.234,
+    "modelo": 1.39,
+    "residuo": -0.156,
+    "se": 0.14,
+    "no_marca": 0.338
+   },
+   "local_abajo": {
+    "n": 45,
+    "goles": 1.422,
+    "modelo": 1.318,
+    "residuo": 0.104,
+    "se": 0.214,
+    "no_marca": 0.244
+   },
+   "visitante_arriba": {
+    "n": 114,
+    "goles": 0.877,
+    "modelo": 1.002,
+    "residuo": -0.125,
+    "se": 0.1,
+    "no_marca": 0.439
+   },
+   "visitante_medio": {
+    "n": 81,
+    "goles": 0.802,
+    "modelo": 0.91,
+    "residuo": -0.107,
+    "se": 0.108,
+    "no_marca": 0.481
+   },
+   "sin_ninguno_arriba": {
+    "n": 108,
+    "mas25": 0.435,
+    "modelo_mas25": 0.413
+   }
+  },
+  "liga_mx": {
+   "local_arriba": {
+    "n": 508,
+    "goles": 1.876,
+    "modelo": 1.641,
+    "residuo": 0.235,
+    "se": 0.061,
+    "no_marca": 0.161
+   },
+   "local_medio": {
+    "n": 418,
+    "goles": 1.488,
+    "modelo": 1.452,
+    "residuo": 0.036,
+    "se": 0.058,
+    "no_marca": 0.22
+   },
+   "local_abajo": {
+    "n": 376,
+    "goles": 1.412,
+    "modelo": 1.344,
+    "residuo": 0.068,
+    "se": 0.058,
+    "no_marca": 0.223
+   },
+   "visitante_arriba": {
+    "n": 508,
+    "goles": 1.388,
+    "modelo": 1.399,
+    "residuo": -0.011,
+    "se": 0.055,
+    "no_marca": 0.262
+   },
+   "visitante_medio": {
+    "n": 441,
+    "goles": 1.163,
+    "modelo": 1.274,
+    "residuo": -0.111,
+    "se": 0.052,
+    "no_marca": 0.302
+   },
+   "visitante_abajo": {
+    "n": 353,
+    "goles": 1.062,
+    "modelo": 1.214,
+    "residuo": -0.151,
+    "se": 0.056,
+    "no_marca": 0.348
+   },
+   "arriba_vs_abajo": {
+    "n": 128,
+    "mas25": 0.633,
+    "modelo_mas25": 0.552
+   },
+   "sin_ninguno_arriba": {
+    "n": 499,
+    "mas25": 0.545,
+    "modelo_mas25": 0.533
+   }
+  },
+  "ligue_1": {
+   "local_arriba": {
+    "n": 1054,
+    "goles": 1.803,
+    "modelo": 1.698,
+    "residuo": 0.105,
+    "se": 0.042,
+    "no_marca": 0.176
+   },
+   "local_medio": {
+    "n": 980,
+    "goles": 1.428,
+    "modelo": 1.364,
+    "residuo": 0.063,
+    "se": 0.039,
+    "no_marca": 0.243
+   },
+   "local_abajo": {
+    "n": 800,
+    "goles": 1.209,
+    "modelo": 1.256,
+    "residuo": -0.047,
+    "se": 0.038,
+    "no_marca": 0.301
+   },
+   "visitante_arriba": {
+    "n": 1070,
+    "goles": 1.51,
+    "modelo": 1.447,
+    "residuo": 0.063,
+    "se": 0.038,
+    "no_marca": 0.236
+   },
+   "visitante_medio": {
+    "n": 970,
+    "goles": 1.177,
+    "modelo": 1.197,
+    "residuo": -0.019,
+    "se": 0.033,
+    "no_marca": 0.296
+   },
+   "visitante_abajo": {
+    "n": 795,
+    "goles": 0.964,
+    "modelo": 1.086,
+    "residuo": -0.122,
+    "se": 0.035,
+    "no_marca": 0.384
+   },
+   "arriba_vs_abajo": {
+    "n": 283,
+    "mas25": 0.516,
+    "modelo_mas25": 0.539
+   },
+   "sin_ninguno_arriba": {
+    "n": 1101,
+    "mas25": 0.492,
+    "modelo_mas25": 0.512
+   }
+  },
+  "mex_expansion": {
+   "local_arriba": {
+    "n": 273,
+    "goles": 1.813,
+    "modelo": 1.636,
+    "residuo": 0.177,
+    "se": 0.087,
+    "no_marca": 0.168
+   },
+   "local_medio": {
+    "n": 232,
+    "goles": 1.737,
+    "modelo": 1.444,
+    "residuo": 0.293,
+    "se": 0.089,
+    "no_marca": 0.172
+   },
+   "local_abajo": {
+    "n": 192,
+    "goles": 1.536,
+    "modelo": 1.335,
+    "residuo": 0.201,
+    "se": 0.098,
+    "no_marca": 0.25
+   },
+   "visitante_arriba": {
+    "n": 304,
+    "goles": 1.145,
+    "modelo": 1.157,
+    "residuo": -0.013,
+    "se": 0.071,
+    "no_marca": 0.336
+   },
+   "visitante_medio": {
+    "n": 222,
+    "goles": 1.131,
+    "modelo": 1.003,
+    "residuo": 0.127,
+    "se": 0.077,
+    "no_marca": 0.324
+   },
+   "visitante_abajo": {
+    "n": 171,
+    "goles": 1.216,
+    "modelo": 0.922,
+    "residuo": 0.294,
+    "se": 0.086,
+    "no_marca": 0.269
+   },
+   "arriba_vs_abajo": {
+    "n": 64,
+    "mas25": 0.625,
+    "modelo_mas25": 0.529
+   },
+   "sin_ninguno_arriba": {
+    "n": 247,
+    "mas25": 0.583,
+    "modelo_mas25": 0.515
+   }
+  },
+  "mls": {
+   "local_arriba": {
+    "n": 670,
+    "goles": 1.851,
+    "modelo": 1.72,
+    "residuo": 0.13,
+    "se": 0.053,
+    "no_marca": 0.173
+   },
+   "local_medio": {
+    "n": 631,
+    "goles": 1.746,
+    "modelo": 1.601,
+    "residuo": 0.145,
+    "se": 0.052,
+    "no_marca": 0.152
+   },
+   "local_abajo": {
+    "n": 529,
+    "goles": 1.567,
+    "modelo": 1.509,
+    "residuo": 0.058,
+    "se": 0.053,
+    "no_marca": 0.219
+   },
+   "visitante_arriba": {
+    "n": 712,
+    "goles": 1.434,
+    "modelo": 1.419,
+    "residuo": 0.015,
+    "se": 0.044,
+    "no_marca": 0.246
+   },
+   "visitante_medio": {
+    "n": 609,
+    "goles": 1.233,
+    "modelo": 1.348,
+    "residuo": -0.114,
+    "se": 0.046,
+    "no_marca": 0.286
+   },
+   "visitante_abajo": {
+    "n": 505,
+    "goles": 1.244,
+    "modelo": 1.311,
+    "residuo": -0.067,
+    "se": 0.051,
+    "no_marca": 0.303
+   },
+   "arriba_vs_abajo": {
+    "n": 190,
+    "mas25": 0.605,
+    "modelo_mas25": 0.596
+   },
+   "sin_ninguno_arriba": {
+    "n": 724,
+    "mas25": 0.584,
+    "modelo_mas25": 0.583
+   }
+  },
+  "ned_eerste": {
+   "local_arriba": {
+    "n": 344,
+    "goles": 1.965,
+    "modelo": 1.726,
+    "residuo": 0.239,
+    "se": 0.075,
+    "no_marca": 0.137
+   },
+   "local_medio": {
+    "n": 339,
+    "goles": 1.64,
+    "modelo": 1.559,
+    "residuo": 0.081,
+    "se": 0.068,
+    "no_marca": 0.189
+   },
+   "local_abajo": {
+    "n": 271,
+    "goles": 1.59,
+    "modelo": 1.435,
+    "residuo": 0.155,
+    "se": 0.084,
+    "no_marca": 0.232
+   },
+   "visitante_arriba": {
+    "n": 354,
+    "goles": 1.605,
+    "modelo": 1.441,
+    "residuo": 0.164,
+    "se": 0.07,
+    "no_marca": 0.206
+   },
+   "visitante_medio": {
+    "n": 322,
+    "goles": 1.351,
+    "modelo": 1.426,
+    "residuo": -0.075,
+    "se": 0.072,
+    "no_marca": 0.289
+   },
+   "visitante_abajo": {
+    "n": 270,
+    "goles": 1.23,
+    "modelo": 1.394,
+    "residuo": -0.165,
+    "se": 0.073,
+    "no_marca": 0.333
+   },
+   "arriba_vs_abajo": {
+    "n": 90,
+    "mas25": 0.589,
+    "modelo_mas25": 0.608
+   },
+   "sin_ninguno_arriba": {
+    "n": 394,
+    "mas25": 0.599,
+    "modelo_mas25": 0.594
+   }
+  },
+  "noruega": {
+   "local_arriba": {
+    "n": 351,
+    "goles": 2.128,
+    "modelo": 2.141,
+    "residuo": -0.013,
+    "se": 0.083,
+    "no_marca": 0.134
+   },
+   "local_medio": {
+    "n": 321,
+    "goles": 1.623,
+    "modelo": 1.605,
+    "residuo": 0.018,
+    "se": 0.075,
+    "no_marca": 0.215
+   },
+   "local_abajo": {
+    "n": 248,
+    "goles": 1.411,
+    "modelo": 1.362,
+    "residuo": 0.05,
+    "se": 0.082,
+    "no_marca": 0.274
+   },
+   "visitante_arriba": {
+    "n": 357,
+    "goles": 1.616,
+    "modelo": 1.69,
+    "residuo": -0.073,
+    "se": 0.07,
+    "no_marca": 0.204
+   },
+   "visitante_medio": {
+    "n": 303,
+    "goles": 1.211,
+    "modelo": 1.256,
+    "residuo": -0.045,
+    "se": 0.069,
+    "no_marca": 0.337
+   },
+   "visitante_abajo": {
+    "n": 258,
+    "goles": 1.171,
+    "modelo": 1.158,
+    "residuo": 0.012,
+    "se": 0.072,
+    "no_marca": 0.306
+   },
+   "arriba_vs_abajo": {
+    "n": 93,
+    "mas25": 0.613,
+    "modelo_mas25": 0.629
+   },
+   "sin_ninguno_arriba": {
+    "n": 353,
+    "mas25": 0.603,
+    "modelo_mas25": 0.579
+   }
+  },
+  "par_division": {
+   "local_arriba": {
+    "n": 241,
+    "goles": 1.444,
+    "modelo": 1.422,
+    "residuo": 0.022,
+    "se": 0.085,
+    "no_marca": 0.22
+   },
+   "local_medio": {
+    "n": 210,
+    "goles": 1.119,
+    "modelo": 1.189,
+    "residuo": -0.07,
+    "se": 0.079,
+    "no_marca": 0.338
+   },
+   "local_abajo": {
+    "n": 193,
+    "goles": 1.145,
+    "modelo": 1.048,
+    "residuo": 0.097,
+    "se": 0.084,
+    "no_marca": 0.321
+   },
+   "visitante_arriba": {
+    "n": 234,
+    "goles": 1.179,
+    "modelo": 1.293,
+    "residuo": -0.113,
+    "se": 0.076,
+    "no_marca": 0.308
+   },
+   "visitante_medio": {
+    "n": 220,
+    "goles": 1.105,
+    "modelo": 1.145,
+    "residuo": -0.04,
+    "se": 0.073,
+    "no_marca": 0.341
+   },
+   "visitante_abajo": {
+    "n": 190,
+    "goles": 1.063,
+    "modelo": 0.956,
+    "residuo": 0.107,
+    "se": 0.085,
+    "no_marca": 0.342
+   },
+   "arriba_vs_abajo": {
+    "n": 78,
+    "mas25": 0.474,
+    "modelo_mas25": 0.427
+   },
+   "sin_ninguno_arriba": {
+    "n": 254,
+    "mas25": 0.437,
+    "modelo_mas25": 0.428
+   }
+  },
+  "per_liga1": {
+   "local_arriba": {
+    "n": 303,
+    "goles": 1.957,
+    "modelo": 1.943,
+    "residuo": 0.014,
+    "se": 0.083,
+    "no_marca": 0.139
+   },
+   "local_medio": {
+    "n": 272,
+    "goles": 1.551,
+    "modelo": 1.504,
+    "residuo": 0.047,
+    "se": 0.077,
+    "no_marca": 0.199
+   },
+   "local_abajo": {
+    "n": 249,
+    "goles": 1.285,
+    "modelo": 1.297,
+    "residuo": -0.012,
+    "se": 0.075,
+    "no_marca": 0.257
+   },
+   "visitante_arriba": {
+    "n": 320,
+    "goles": 1.212,
+    "modelo": 1.331,
+    "residuo": -0.118,
+    "se": 0.07,
+    "no_marca": 0.297
+   },
+   "visitante_medio": {
+    "n": 275,
+    "goles": 0.942,
+    "modelo": 1.017,
+    "residuo": -0.076,
+    "se": 0.063,
+    "no_marca": 0.382
+   },
+   "visitante_abajo": {
+    "n": 229,
+    "goles": 0.93,
+    "modelo": 0.84,
+    "residuo": 0.09,
+    "se": 0.072,
+    "no_marca": 0.41
+   },
+   "arriba_vs_abajo": {
+    "n": 89,
+    "mas25": 0.629,
+    "modelo_mas25": 0.517
+   },
+   "sin_ninguno_arriba": {
+    "n": 320,
+    "mas25": 0.475,
+    "modelo_mas25": 0.486
+   }
+  },
+  "polonia": {
+   "local_arriba": {
+    "n": 421,
+    "goles": 1.77,
+    "modelo": 1.762,
+    "residuo": 0.008,
+    "se": 0.072,
+    "no_marca": 0.185
+   },
+   "local_medio": {
+    "n": 392,
+    "goles": 1.421,
+    "modelo": 1.473,
+    "residuo": -0.053,
+    "se": 0.064,
+    "no_marca": 0.255
+   },
+   "local_abajo": {
+    "n": 331,
+    "goles": 1.378,
+    "modelo": 1.426,
+    "residuo": -0.049,
+    "se": 0.063,
+    "no_marca": 0.218
+   },
+   "visitante_arriba": {
+    "n": 444,
+    "goles": 1.264,
+    "modelo": 1.164,
+    "residuo": 0.1,
+    "se": 0.051,
+    "no_marca": 0.257
+   },
+   "visitante_medio": {
+    "n": 396,
+    "goles": 1.053,
+    "modelo": 1.073,
+    "residuo": -0.02,
+    "se": 0.055,
+    "no_marca": 0.369
+   },
+   "visitante_abajo": {
+    "n": 299,
+    "goles": 1.164,
+    "modelo": 1.062,
+    "residuo": 0.102,
+    "se": 0.061,
+    "no_marca": 0.281
+   },
+   "arriba_vs_abajo": {
+    "n": 103,
+    "mas25": 0.602,
+    "modelo_mas25": 0.532
+   },
+   "sin_ninguno_arriba": {
+    "n": 443,
+    "mas25": 0.463,
+    "modelo_mas25": 0.508
+   }
+  },
+  "premier": {
+   "local_arriba": {
+    "n": 1128,
+    "goles": 1.94,
+    "modelo": 1.7,
+    "residuo": 0.24,
+    "se": 0.041,
+    "no_marca": 0.158
+   },
+   "local_medio": {
+    "n": 1050,
+    "goles": 1.412,
+    "modelo": 1.432,
+    "residuo": -0.019,
+    "se": 0.036,
+    "no_marca": 0.255
+   },
+   "local_abajo": {
+    "n": 814,
+    "goles": 1.205,
+    "modelo": 1.315,
+    "residuo": -0.11,
+    "se": 0.038,
+    "no_marca": 0.299
+   },
+   "visitante_arriba": {
+    "n": 1130,
+    "goles": 1.573,
+    "modelo": 1.506,
+    "residuo": 0.067,
+    "se": 0.039,
+    "no_marca": 0.227
+   },
+   "visitante_medio": {
+    "n": 1074,
+    "goles": 1.24,
+    "modelo": 1.285,
+    "residuo": -0.045,
+    "se": 0.035,
+    "no_marca": 0.294
+   },
+   "visitante_abajo": {
+    "n": 798,
+    "goles": 1.031,
+    "modelo": 1.213,
+    "residuo": -0.182,
+    "se": 0.037,
+    "no_marca": 0.375
+   },
+   "arriba_vs_abajo": {
+    "n": 321,
+    "mas25": 0.592,
+    "modelo_mas25": 0.577
+   },
+   "sin_ninguno_arriba": {
+    "n": 1151,
+    "mas25": 0.5,
+    "modelo_mas25": 0.546
+   }
+  },
+  "primeira": {
+   "local_arriba": {
+    "n": 536,
+    "goles": 2.002,
+    "modelo": 2.011,
+    "residuo": -0.009,
+    "se": 0.059,
+    "no_marca": 0.127
+   },
+   "local_medio": {
+    "n": 527,
+    "goles": 1.237,
+    "modelo": 1.217,
+    "residuo": 0.02,
+    "se": 0.05,
+    "no_marca": 0.294
+   },
+   "local_abajo": {
+    "n": 451,
+    "goles": 1.129,
+    "modelo": 1.133,
+    "residuo": -0.005,
+    "se": 0.052,
+    "no_marca": 0.333
+   },
+   "visitante_arriba": {
+    "n": 540,
+    "goles": 1.637,
+    "modelo": 1.614,
+    "residuo": 0.023,
+    "se": 0.052,
+    "no_marca": 0.196
+   },
+   "visitante_medio": {
+    "n": 520,
+    "goles": 0.977,
+    "modelo": 0.949,
+    "residuo": 0.027,
+    "se": 0.043,
+    "no_marca": 0.377
+   },
+   "visitante_abajo": {
+    "n": 459,
+    "goles": 0.919,
+    "modelo": 0.914,
+    "residuo": 0.005,
+    "se": 0.045,
+    "no_marca": 0.403
+   },
+   "arriba_vs_abajo": {
+    "n": 152,
+    "mas25": 0.625,
+    "modelo_mas25": 0.54
+   },
+   "sin_ninguno_arriba": {
+    "n": 622,
+    "mas25": 0.426,
+    "modelo_mas25": 0.473
+   }
+  },
+  "rsa_premier": {
+   "local_arriba": {
+    "n": 235,
+    "goles": 1.464,
+    "modelo": 1.434,
+    "residuo": 0.03,
+    "se": 0.088,
+    "no_marca": 0.247
+   },
+   "local_medio": {
+    "n": 199,
+    "goles": 1.02,
+    "modelo": 1.047,
+    "residuo": -0.027,
+    "se": 0.071,
+    "no_marca": 0.317
+   },
+   "local_abajo": {
+    "n": 148,
+    "goles": 0.926,
+    "modelo": 0.951,
+    "residuo": -0.025,
+    "se": 0.083,
+    "no_marca": 0.378
+   },
+   "visitante_arriba": {
+    "n": 239,
+    "goles": 1.071,
+    "modelo": 1.087,
+    "residuo": -0.016,
+    "se": 0.073,
+    "no_marca": 0.351
+   },
+   "visitante_medio": {
+    "n": 199,
+    "goles": 0.719,
+    "modelo": 0.846,
+    "residuo": -0.128,
+    "se": 0.065,
+    "no_marca": 0.482
+   },
+   "visitante_abajo": {
+    "n": 143,
+    "goles": 0.832,
+    "modelo": 0.815,
+    "residuo": 0.017,
+    "se": 0.08,
+    "no_marca": 0.42
+   },
+   "arriba_vs_abajo": {
+    "n": 58,
+    "mas25": 0.362,
+    "modelo_mas25": 0.366
+   },
+   "sin_ninguno_arriba": {
+    "n": 210,
+    "mas25": 0.3,
+    "modelo_mas25": 0.327
+   }
+  },
+  "rumania": {
+   "local_arriba": {
+    "n": 479,
+    "goles": 1.626,
+    "modelo": 1.559,
+    "residuo": 0.068,
+    "se": 0.058,
+    "no_marca": 0.192
+   },
+   "local_medio": {
+    "n": 404,
+    "goles": 1.421,
+    "modelo": 1.349,
+    "residuo": 0.072,
+    "se": 0.063,
+    "no_marca": 0.24
+   },
+   "local_abajo": {
+    "n": 307,
+    "goles": 1.143,
+    "modelo": 1.143,
+    "residuo": 0.0,
+    "se": 0.062,
+    "no_marca": 0.316
+   },
+   "visitante_arriba": {
+    "n": 489,
+    "goles": 1.135,
+    "modelo": 1.188,
+    "residuo": -0.053,
+    "se": 0.048,
+    "no_marca": 0.313
+   },
+   "visitante_medio": {
+    "n": 381,
+    "goles": 1.073,
+    "modelo": 1.02,
+    "residuo": 0.054,
+    "se": 0.053,
+    "no_marca": 0.339
+   },
+   "visitante_abajo": {
+    "n": 319,
+    "goles": 0.969,
+    "modelo": 0.913,
+    "residuo": 0.055,
+    "se": 0.055,
+    "no_marca": 0.354
+   },
+   "arriba_vs_abajo": {
+    "n": 120,
+    "mas25": 0.583,
+    "modelo_mas25": 0.461
+   },
+   "sin_ninguno_arriba": {
+    "n": 423,
+    "mas25": 0.416,
+    "modelo_mas25": 0.433
+   }
+  },
+  "rus_premier": {
+   "local_arriba": {
+    "n": 386,
+    "goles": 1.847,
+    "modelo": 1.866,
+    "residuo": -0.019,
+    "se": 0.067,
+    "no_marca": 0.14
+   },
+   "local_medio": {
+    "n": 278,
+    "goles": 1.428,
+    "modelo": 1.407,
+    "residuo": 0.021,
+    "se": 0.067,
+    "no_marca": 0.234
+   },
+   "local_abajo": {
+    "n": 270,
+    "goles": 1.185,
+    "modelo": 1.238,
+    "residuo": -0.053,
+    "se": 0.072,
+    "no_marca": 0.311
+   },
+   "visitante_arriba": {
+    "n": 384,
+    "goles": 1.469,
+    "modelo": 1.483,
+    "residuo": -0.014,
+    "se": 0.064,
+    "no_marca": 0.227
+   },
+   "visitante_medio": {
+    "n": 308,
+    "goles": 1.133,
+    "modelo": 1.125,
+    "residuo": 0.008,
+    "se": 0.065,
+    "no_marca": 0.347
+   },
+   "visitante_abajo": {
+    "n": 242,
+    "goles": 0.872,
+    "modelo": 1.021,
+    "residuo": -0.149,
+    "se": 0.067,
+    "no_marca": 0.417
+   },
+   "arriba_vs_abajo": {
+    "n": 100,
+    "mas25": 0.63,
+    "modelo_mas25": 0.535
+   },
+   "sin_ninguno_arriba": {
+    "n": 319,
+    "mas25": 0.461,
+    "modelo_mas25": 0.489
+   }
+  },
+  "sco_championship": {
+   "local_arriba": {
+    "n": 302,
+    "goles": 1.563,
+    "modelo": 1.645,
+    "residuo": -0.082,
+    "se": 0.08,
+    "no_marca": 0.242
+   },
+   "local_medio": {
+    "n": 229,
+    "goles": 1.459,
+    "modelo": 1.32,
+    "residuo": 0.138,
+    "se": 0.093,
+    "no_marca": 0.262
+   },
+   "local_abajo": {
+    "n": 211,
+    "goles": 1.175,
+    "modelo": 1.237,
+    "residuo": -0.062,
+    "se": 0.079,
+    "no_marca": 0.327
+   },
+   "visitante_arriba": {
+    "n": 317,
+    "goles": 1.341,
+    "modelo": 1.312,
+    "residuo": 0.029,
+    "se": 0.077,
+    "no_marca": 0.309
+   },
+   "visitante_medio": {
+    "n": 232,
+    "goles": 1.052,
+    "modelo": 1.147,
+    "residuo": -0.095,
+    "se": 0.071,
+    "no_marca": 0.345
+   },
+   "visitante_abajo": {
+    "n": 196,
+    "goles": 1.051,
+    "modelo": 1.064,
+    "residuo": -0.013,
+    "se": 0.077,
+    "no_marca": 0.367
+   },
+   "arriba_vs_abajo": {
+    "n": 89,
+    "mas25": 0.573,
+    "modelo_mas25": 0.489
+   },
+   "sin_ninguno_arriba": {
+    "n": 248,
+    "mas25": 0.504,
+    "modelo_mas25": 0.465
+   }
+  },
+  "sco_premiership": {
+   "local_arriba": {
+    "n": 642,
+    "goles": 1.933,
+    "modelo": 1.883,
+    "residuo": 0.05,
+    "se": 0.056,
+    "no_marca": 0.173
+   },
+   "local_medio": {
+    "n": 611,
+    "goles": 1.345,
+    "modelo": 1.319,
+    "residuo": 0.026,
+    "se": 0.047,
+    "no_marca": 0.275
+   },
+   "local_abajo": {
+    "n": 530,
+    "goles": 1.204,
+    "modelo": 1.226,
+    "residuo": -0.022,
+    "se": 0.047,
+    "no_marca": 0.287
+   },
+   "visitante_arriba": {
+    "n": 657,
+    "goles": 1.519,
+    "modelo": 1.607,
+    "residuo": -0.088,
+    "se": 0.049,
+    "no_marca": 0.253
+   },
+   "visitante_medio": {
+    "n": 623,
+    "goles": 1.01,
+    "modelo": 1.02,
+    "residuo": -0.011,
+    "se": 0.042,
+    "no_marca": 0.393
+   },
+   "visitante_abajo": {
+    "n": 513,
+    "goles": 0.955,
+    "modelo": 0.95,
+    "residuo": 0.005,
+    "se": 0.043,
+    "no_marca": 0.404
+   },
+   "arriba_vs_abajo": {
+    "n": 175,
+    "mas25": 0.571,
+    "modelo_mas25": 0.542
+   },
+   "sin_ninguno_arriba": {
+    "n": 728,
+    "mas25": 0.475,
+    "modelo_mas25": 0.508
+   }
+  },
+  "serie_a": {
+   "local_arriba": {
+    "n": 1113,
+    "goles": 1.839,
+    "modelo": 1.667,
+    "residuo": 0.172,
+    "se": 0.039,
+    "no_marca": 0.153
+   },
+   "local_medio": {
+    "n": 1074,
+    "goles": 1.316,
+    "modelo": 1.366,
+    "residuo": -0.051,
+    "se": 0.033,
+    "no_marca": 0.263
+   },
+   "local_abajo": {
+    "n": 811,
+    "goles": 1.144,
+    "modelo": 1.229,
+    "residuo": -0.084,
+    "se": 0.036,
+    "no_marca": 0.316
+   },
+   "visitante_arriba": {
+    "n": 1124,
+    "goles": 1.564,
+    "modelo": 1.524,
+    "residuo": 0.04,
+    "se": 0.035,
+    "no_marca": 0.203
+   },
+   "visitante_medio": {
+    "n": 1092,
+    "goles": 1.185,
+    "modelo": 1.243,
+    "residuo": -0.058,
+    "se": 0.033,
+    "no_marca": 0.321
+   },
+   "visitante_abajo": {
+    "n": 785,
+    "goles": 0.968,
+    "modelo": 1.141,
+    "residuo": -0.173,
+    "se": 0.034,
+    "no_marca": 0.366
+   },
+   "arriba_vs_abajo": {
+    "n": 287,
+    "mas25": 0.592,
+    "modelo_mas25": 0.507
+   },
+   "sin_ninguno_arriba": {
+    "n": 1175,
+    "mas25": 0.498,
+    "modelo_mas25": 0.479
+   }
+  },
+  "slv_primera": {
+   "local_arriba": {
+    "n": 254,
+    "goles": 1.614,
+    "modelo": 1.607,
+    "residuo": 0.007,
+    "se": 0.085,
+    "no_marca": 0.22
+   },
+   "local_medio": {
+    "n": 240,
+    "goles": 1.25,
+    "modelo": 1.261,
+    "residuo": -0.011,
+    "se": 0.079,
+    "no_marca": 0.296
+   },
+   "local_abajo": {
+    "n": 172,
+    "goles": 1.029,
+    "modelo": 1.114,
+    "residuo": -0.085,
+    "se": 0.078,
+    "no_marca": 0.337
+   },
+   "visitante_arriba": {
+    "n": 272,
+    "goles": 1.426,
+    "modelo": 1.309,
+    "residuo": 0.118,
+    "se": 0.077,
+    "no_marca": 0.261
+   },
+   "visitante_medio": {
+    "n": 234,
+    "goles": 1.081,
+    "modelo": 1.138,
+    "residuo": -0.057,
+    "se": 0.08,
+    "no_marca": 0.355
+   },
+   "visitante_abajo": {
+    "n": 156,
+    "goles": 0.981,
+    "modelo": 0.991,
+    "residuo": -0.01,
+    "se": 0.084,
+    "no_marca": 0.378
+   },
+   "arriba_vs_abajo": {
+    "n": 56,
+    "mas25": 0.464,
+    "modelo_mas25": 0.488
+   },
+   "sin_ninguno_arriba": {
+    "n": 229,
+    "mas25": 0.432,
+    "modelo_mas25": 0.45
+   }
+  },
+  "sudamericana": {
+   "local_arriba": {
+    "n": 104,
+    "goles": 1.519,
+    "modelo": 1.559,
+    "residuo": -0.04,
+    "se": 0.134,
+    "no_marca": 0.183
+   },
+   "local_medio": {
+    "n": 64,
+    "goles": 1.281,
+    "modelo": 1.401,
+    "residuo": -0.12,
+    "se": 0.152,
+    "no_marca": 0.25
+   },
+   "visitante_arriba": {
+    "n": 114,
+    "goles": 1.061,
+    "modelo": 1.061,
+    "residuo": 0.001,
+    "se": 0.111,
+    "no_marca": 0.351
+   },
+   "visitante_medio": {
+    "n": 65,
+    "goles": 1.0,
+    "modelo": 0.962,
+    "residuo": 0.038,
+    "se": 0.143,
+    "no_marca": 0.4
+   },
+   "sin_ninguno_arriba": {
+    "n": 84,
+    "mas25": 0.476,
+    "modelo_mas25": 0.434
+   }
+  },
+  "suecia": {
+   "local_arriba": {
+    "n": 349,
+    "goles": 1.877,
+    "modelo": 1.891,
+    "residuo": -0.014,
+    "se": 0.079,
+    "no_marca": 0.183
+   },
+   "local_medio": {
+    "n": 304,
+    "goles": 1.411,
+    "modelo": 1.536,
+    "residuo": -0.124,
+    "se": 0.07,
+    "no_marca": 0.263
+   },
+   "local_abajo": {
+    "n": 250,
+    "goles": 1.284,
+    "modelo": 1.326,
+    "residuo": -0.042,
+    "se": 0.074,
+    "no_marca": 0.264
+   },
+   "visitante_arriba": {
+    "n": 355,
+    "goles": 1.431,
+    "modelo": 1.414,
+    "residuo": 0.017,
+    "se": 0.067,
+    "no_marca": 0.27
+   },
+   "visitante_medio": {
+    "n": 273,
+    "goles": 1.264,
+    "modelo": 1.177,
+    "residuo": 0.087,
+    "se": 0.073,
+    "no_marca": 0.293
+   },
+   "visitante_abajo": {
+    "n": 277,
+    "goles": 1.144,
+    "modelo": 1.101,
+    "residuo": 0.043,
+    "se": 0.064,
+    "no_marca": 0.321
+   },
+   "arriba_vs_abajo": {
+    "n": 113,
+    "mas25": 0.513,
+    "modelo_mas25": 0.559
+   },
+   "sin_ninguno_arriba": {
+    "n": 354,
+    "mas25": 0.545,
+    "modelo_mas25": 0.538
+   }
+  },
+  "turquia": {
+   "local_arriba": {
+    "n": 572,
+    "goles": 1.913,
+    "modelo": 1.869,
+    "residuo": 0.044,
+    "se": 0.054,
+    "no_marca": 0.164
+   },
+   "local_medio": {
+    "n": 533,
+    "goles": 1.475,
+    "modelo": 1.486,
+    "residuo": -0.012,
+    "se": 0.054,
+    "no_marca": 0.227
+   },
+   "local_abajo": {
+    "n": 411,
+    "goles": 1.367,
+    "modelo": 1.344,
+    "residuo": 0.023,
+    "se": 0.059,
+    "no_marca": 0.26
+   },
+   "visitante_arriba": {
+    "n": 586,
+    "goles": 1.543,
+    "modelo": 1.593,
+    "residuo": -0.05,
+    "se": 0.053,
+    "no_marca": 0.234
+   },
+   "visitante_medio": {
+    "n": 529,
+    "goles": 1.197,
+    "modelo": 1.125,
+    "residuo": 0.072,
+    "se": 0.048,
+    "no_marca": 0.308
+   },
+   "visitante_abajo": {
+    "n": 394,
+    "goles": 1.028,
+    "modelo": 1.055,
+    "residuo": -0.028,
+    "se": 0.056,
+    "no_marca": 0.378
+   },
+   "arriba_vs_abajo": {
+    "n": 142,
+    "mas25": 0.634,
+    "modelo_mas25": 0.562
+   },
+   "sin_ninguno_arriba": {
+    "n": 588,
+    "mas25": 0.531,
+    "modelo_mas25": 0.525
+   }
+  },
+  "uru_primera": {
+   "local_arriba": {
+    "n": 330,
+    "goles": 1.527,
+    "modelo": 1.489,
+    "residuo": 0.039,
+    "se": 0.069,
+    "no_marca": 0.212
+   },
+   "local_medio": {
+    "n": 232,
+    "goles": 1.142,
+    "modelo": 1.199,
+    "residuo": -0.057,
+    "se": 0.075,
+    "no_marca": 0.315
+   },
+   "local_abajo": {
+    "n": 205,
+    "goles": 1.083,
+    "modelo": 1.033,
+    "residuo": 0.05,
+    "se": 0.076,
+    "no_marca": 0.337
+   },
+   "visitante_arriba": {
+    "n": 307,
+    "goles": 1.241,
+    "modelo": 1.271,
+    "residuo": -0.03,
+    "se": 0.069,
+    "no_marca": 0.3
+   },
+   "visitante_medio": {
+    "n": 250,
+    "goles": 0.924,
+    "modelo": 1.043,
+    "residuo": -0.119,
+    "se": 0.062,
+    "no_marca": 0.372
+   },
+   "visitante_abajo": {
+    "n": 210,
+    "goles": 0.995,
+    "modelo": 0.964,
+    "residuo": 0.031,
+    "se": 0.073,
+    "no_marca": 0.348
+   },
+   "arriba_vs_abajo": {
+    "n": 80,
+    "mas25": 0.463,
+    "modelo_mas25": 0.443
+   },
+   "sin_ninguno_arriba": {
+    "n": 265,
+    "mas25": 0.381,
+    "modelo_mas25": 0.408
+   }
+  },
+  "usl_championship": {
+   "local_arriba": {
+    "n": 413,
+    "goles": 1.697,
+    "modelo": 1.764,
+    "residuo": -0.066,
+    "se": 0.073,
+    "no_marca": 0.203
+   },
+   "local_medio": {
+    "n": 366,
+    "goles": 1.492,
+    "modelo": 1.559,
+    "residuo": -0.067,
+    "se": 0.065,
+    "no_marca": 0.246
+   },
+   "local_abajo": {
+    "n": 332,
+    "goles": 1.301,
+    "modelo": 1.412,
+    "residuo": -0.111,
+    "se": 0.065,
+    "no_marca": 0.283
+   },
+   "visitante_arriba": {
+    "n": 413,
+    "goles": 1.245,
+    "modelo": 1.317,
+    "residuo": -0.073,
+    "se": 0.06,
+    "no_marca": 0.337
+   },
+   "visitante_medio": {
+    "n": 366,
+    "goles": 1.178,
+    "modelo": 1.194,
+    "residuo": -0.016,
+    "se": 0.059,
+    "no_marca": 0.292
+   },
+   "visitante_abajo": {
+    "n": 332,
+    "goles": 1.057,
+    "modelo": 1.102,
+    "residuo": -0.044,
+    "se": 0.06,
+    "no_marca": 0.352
+   },
+   "arriba_vs_abajo": {
+    "n": 125,
+    "mas25": 0.544,
+    "modelo_mas25": 0.536
+   },
+   "sin_ninguno_arriba": {
+    "n": 448,
+    "mas25": 0.487,
+    "modelo_mas25": 0.514
+   }
+  },
+  "ven_primera": {
+   "local_arriba": {
+    "n": 271,
+    "goles": 1.498,
+    "modelo": 1.536,
+    "residuo": -0.038,
+    "se": 0.078,
+    "no_marca": 0.214
+   },
+   "local_medio": {
+    "n": 238,
+    "goles": 1.256,
+    "modelo": 1.279,
+    "residuo": -0.023,
+    "se": 0.071,
+    "no_marca": 0.261
+   },
+   "local_abajo": {
+    "n": 138,
+    "goles": 1.297,
+    "modelo": 1.177,
+    "residuo": 0.12,
+    "se": 0.09,
+    "no_marca": 0.275
+   },
+   "visitante_arriba": {
+    "n": 295,
+    "goles": 1.186,
+    "modelo": 1.179,
+    "residuo": 0.007,
+    "se": 0.07,
+    "no_marca": 0.319
+   },
+   "visitante_medio": {
+    "n": 228,
+    "goles": 0.969,
+    "modelo": 1.01,
+    "residuo": -0.04,
+    "se": 0.068,
+    "no_marca": 0.382
+   },
+   "visitante_abajo": {
+    "n": 125,
+    "goles": 1.0,
+    "modelo": 0.877,
+    "residuo": 0.123,
+    "se": 0.09,
+    "no_marca": 0.352
+   },
+   "arriba_vs_abajo": {
+    "n": 45,
+    "mas25": 0.556,
+    "modelo_mas25": 0.461
+   },
+   "sin_ninguno_arriba": {
+    "n": 210,
+    "mas25": 0.49,
+    "modelo_mas25": 0.433
+   }
+  }
+ },
+ "aprendizaje": {
+  "corte": "2025-05-08",
+  "n_eleccion": 56505,
+  "n_juicio": 24231,
+  "objetivos": {
+   "mas25": {
+    "ll_modelo": 0.6829,
+    "ll_aprendido": 0.68029,
+    "brier_modelo": 0.24489,
+    "brier_aprendido": 0.24365,
+    "mejora_ll": 0.00261,
+    "mejora_p5": 0.00133,
+    "ligas_mejor": 38,
+    "ligas_total": 61,
+    "importancia": {
+     "liga_cod": 22965,
+     "logit_modelo": 5650,
+     "gf_h": 4639,
+     "lam_h": 4143,
+     "liga_goles": 3176,
+     "lam_a": 3153,
+     "gf_a": 2921,
+     "pct_a": 2815,
+     "pct_h": 2795,
+     "gc_a": 2427,
+     "ppg_h": 1876,
+     "ppg_a": 1873,
+     "gc_h": 1492
+    },
+    "por_liga": {
+     "afc_champions": {
+      "n": 102,
+      "mejora_ll": -0.0066
+     },
+     "arg_primera_nacional": {
+      "n": 909,
+      "mejora_ll": 0.0024
+     },
+     "argentina": {
+      "n": 653,
+      "mejora_ll": 0.0008
+     },
+     "aus_aleague": {
+      "n": 170,
+      "mejora_ll": 0.0123
+     },
+     "aut_bundesliga": {
+      "n": 246,
+      "mejora_ll": 0.0062
+     },
+     "bel_pro_league": {
+      "n": 376,
+      "mejora_ll": 0.0084
+     },
+     "bol_division": {
+      "n": 345,
+      "mejora_ll": 0.0097
+     },
+     "bra_serie_b": {
+      "n": 591,
+      "mejora_ll": 0.004
+     },
+     "brasil": {
+      "n": 574,
+      "mejora_ll": -0.0053
+     },
+     "bundesliga": {
+      "n": 348,
+      "mejora_ll": 0.0085
+     },
+     "champions": {
+      "n": 184,
+      "mejora_ll": 0.0222
+     },
+     "chi_primera": {
+      "n": 341,
+      "mejora_ll": -0.0008
+     },
+     "china": {
+      "n": 356,
+      "mejora_ll": -0.0001
+     },
+     "col_primera_a": {
+      "n": 564,
+      "mejora_ll": -0.007
+     },
+     "conference_league": {
+      "n": 111,
+      "mejora_ll": 0.0236
+     },
+     "crc_fpd": {
+      "n": 238,
+      "mejora_ll": 0.0102
+     },
+     "dinamarca": {
+      "n": 255,
+      "mejora_ll": -0.007
+     },
+     "ecu_liga_pro": {
+      "n": 462,
+      "mejora_ll": 0.0062
+     },
+     "eng_championship": {
+      "n": 618,
+      "mejora_ll": -0.0005
+     },
+     "eng_league_one": {
+      "n": 615,
+      "mejora_ll": 0.0033
+     },
+     "eng_league_two": {
+      "n": 624,
+      "mejora_ll": 0.0001
+     },
+     "eng_national": {
+      "n": 630,
+      "mejora_ll": 0.0016
+     },
+     "eredivisie": {
+      "n": 384,
+      "mejora_ll": 0.0018
+     },
+     "esp_hypermotion": {
+      "n": 552,
+      "mejora_ll": -0.0059
+     },
+     "europa_league": {
+      "n": 173,
+      "mejora_ll": -0.0009
+     },
+     "finlandia": {
+      "n": 289,
+      "mejora_ll": 0.0069
+     },
+     "fra_ligue2": {
+      "n": 359,
+      "mejora_ll": 0.006
+     },
+     "ger_bundesliga2": {
+      "n": 363,
+      "mejora_ll": -0.001
+     },
+     "gre_super_league": {
+      "n": 271,
+      "mejora_ll": -0.0008
+     },
+     "ind_isl": {
+      "n": 85,
+      "mejora_ll": -0.0104
+     },
+     "irlanda": {
+      "n": 263,
+      "mejora_ll": 0.004
+     },
+     "ita_serie_b": {
+      "n": 437,
+      "mejora_ll": -0.0018
+     },
+     "jpn_j1": {
+      "n": 300,
+      "mejora_ll": -0.0047
+     },
+     "ksa_pro": {
+      "n": 393,
+      "mejora_ll": 0.0035
+     },
+     "laliga": {
+      "n": 476,
+      "mejora_ll": 0.0109
+     },
+     "leagues_cup": {
+      "n": 1288,
+      "mejora_ll": 0.0084
+     },
+     "libertadores": {
+      "n": 182,
+      "mejora_ll": -0.0075
+     },
+     "liga_mx": {
+      "n": 417,
+      "mejora_ll": 0.0002
+     },
+     "ligue_1": {
+      "n": 354,
+      "mejora_ll": 0.0055
+     },
+     "mex_expansion": {
+      "n": 300,
+      "mejora_ll": 0.0042
+     },
+     "mls": {
+      "n": 748,
+      "mejora_ll": 0.0091
+     },
+     "ned_eerste": {
+      "n": 451,
+      "mejora_ll": -0.0022
+     },
+     "noruega": {
+      "n": 356,
+      "mejora_ll": 0.0073
+     },
+     "par_division": {
+      "n": 348,
+      "mejora_ll": -0.0012
+     },
+     "per_liga1": {
+      "n": 463,
+      "mejora_ll": 0.0165
+     },
+     "polonia": {
+      "n": 401,
+      "mejora_ll": 0.0073
+     },
+     "premier": {
+      "n": 447,
+      "mejora_ll": -0.0031
+     },
+     "primeira": {
+      "n": 371,
+      "mejora_ll": 0.0042
+     },
+     "rsa_premier": {
+      "n": 295,
+      "mejora_ll": 0.0029
+     },
+     "rumania": {
+      "n": 401,
+      "mejora_ll": -0.0116
+     },
+     "rus_premier": {
+      "n": 279,
+      "mejora_ll": 0.0179
+     },
+     "sco_championship": {
+      "n": 204,
+      "mejora_ll": 0.0001
+     },
+     "sco_premiership": {
+      "n": 279,
+      "mejora_ll": 0.005
+     },
+     "serie_a": {
+      "n": 447,
+      "mejora_ll": -0.006
+     },
+     "slv_primera": {
+      "n": 342,
+      "mejora_ll": -0.0032
+     },
+     "sudamericana": {
+      "n": 176,
+      "mejora_ll": -0.0363
+     },
+     "suecia": {
+      "n": 350,
+      "mejora_ll": -0.0003
+     },
+     "turquia": {
+      "n": 376,
+      "mejora_ll": 0.0021
+     },
+     "uru_primera": {
+      "n": 409,
+      "mejora_ll": 0.0023
+     },
+     "usl_championship": {
+      "n": 574,
+      "mejora_ll": 0.0107
+     },
+     "ven_primera": {
+      "n": 316,
+      "mejora_ll": 0.0095
+     }
+    }
+   },
+   "btts": {
+    "ll_modelo": 0.71619,
+    "ll_aprendido": 0.68661,
+    "brier_modelo": 0.25973,
+    "brier_aprendido": 0.24673,
+    "mejora_ll": 0.02958,
+    "mejora_p5": 0.02693,
+    "ligas_mejor": 60,
+    "ligas_total": 61,
+    "importancia": {
+     "liga_cod": 17808,
+     "liga_goles": 3391,
+     "lam_a": 3048,
+     "gf_a": 2885,
+     "logit_modelo": 2877,
+     "lam_h": 2854,
+     "pct_h": 2543,
+     "pct_a": 2443,
+     "gc_h": 2096,
+     "gf_h": 2010,
+     "ppg_a": 1955,
+     "gc_a": 1814,
+     "ppg_h": 1637
+    },
+    "por_liga": {
+     "afc_champions": {
+      "n": 102,
+      "mejora_ll": 0.0393
+     },
+     "arg_primera_nacional": {
+      "n": 909,
+      "mejora_ll": 0.0281
+     },
+     "argentina": {
+      "n": 653,
+      "mejora_ll": 0.0211
+     },
+     "aus_aleague": {
+      "n": 170,
+      "mejora_ll": 0.0726
+     },
+     "aut_bundesliga": {
+      "n": 246,
+      "mejora_ll": 0.0417
+     },
+     "bel_pro_league": {
+      "n": 376,
+      "mejora_ll": 0.0263
+     },
+     "bol_division": {
+      "n": 345,
+      "mejora_ll": 0.0903
+     },
+     "bra_serie_b": {
+      "n": 591,
+      "mejora_ll": 0.0483
+     },
+     "brasil": {
+      "n": 574,
+      "mejora_ll": 0.0267
+     },
+     "bundesliga": {
+      "n": 348,
+      "mejora_ll": 0.0149
+     },
+     "champions": {
+      "n": 184,
+      "mejora_ll": 0.0589
+     },
+     "chi_primera": {
+      "n": 341,
+      "mejora_ll": 0.0205
+     },
+     "china": {
+      "n": 356,
+      "mejora_ll": 0.0591
+     },
+     "col_primera_a": {
+      "n": 564,
+      "mejora_ll": 0.0431
+     },
+     "conference_league": {
+      "n": 111,
+      "mejora_ll": 0.0333
+     },
+     "crc_fpd": {
+      "n": 238,
+      "mejora_ll": 0.0226
+     },
+     "dinamarca": {
+      "n": 255,
+      "mejora_ll": 0.0261
+     },
+     "ecu_liga_pro": {
+      "n": 462,
+      "mejora_ll": 0.0699
+     },
+     "eng_championship": {
+      "n": 618,
+      "mejora_ll": 0.0273
+     },
+     "eng_league_one": {
+      "n": 615,
+      "mejora_ll": 0.0091
+     },
+     "eng_league_two": {
+      "n": 624,
+      "mejora_ll": 0.0126
+     },
+     "eng_national": {
+      "n": 630,
+      "mejora_ll": 0.0181
+     },
+     "eredivisie": {
+      "n": 384,
+      "mejora_ll": 0.0195
+     },
+     "esp_hypermotion": {
+      "n": 552,
+      "mejora_ll": 0.0104
+     },
+     "europa_league": {
+      "n": 173,
+      "mejora_ll": 0.0012
+     },
+     "finlandia": {
+      "n": 289,
+      "mejora_ll": 0.038
+     },
+     "fra_ligue2": {
+      "n": 359,
+      "mejora_ll": 0.0204
+     },
+     "ger_bundesliga2": {
+      "n": 363,
+      "mejora_ll": 0.0088
+     },
+     "gre_super_league": {
+      "n": 271,
+      "mejora_ll": 0.0568
+     },
+     "ind_isl": {
+      "n": 85,
+      "mejora_ll": 0.0575
+     },
+     "irlanda": {
+      "n": 263,
+      "mejora_ll": 0.0738
+     },
+     "ita_serie_b": {
+      "n": 437,
+      "mejora_ll": 0.0115
+     },
+     "jpn_j1": {
+      "n": 300,
+      "mejora_ll": 0.048
+     },
+     "ksa_pro": {
+      "n": 393,
+      "mejora_ll": 0.0333
+     },
+     "laliga": {
+      "n": 476,
+      "mejora_ll": 0.0296
+     },
+     "leagues_cup": {
+      "n": 1288,
+      "mejora_ll": 0.031
+     },
+     "libertadores": {
+      "n": 182,
+      "mejora_ll": 0.0425
+     },
+     "liga_mx": {
+      "n": 417,
+      "mejora_ll": 0.0196
+     },
+     "ligue_1": {
+      "n": 354,
+      "mejora_ll": 0.0129
+     },
+     "mex_expansion": {
+      "n": 300,
+      "mejora_ll": 0.0483
+     },
+     "mls": {
+      "n": 748,
+      "mejora_ll": -0.0059
+     },
+     "ned_eerste": {
+      "n": 451,
+      "mejora_ll": 0.0233
+     },
+     "noruega": {
+      "n": 356,
+      "mejora_ll": 0.0279
+     },
+     "par_division": {
+      "n": 348,
+      "mejora_ll": 0.0444
+     },
+     "per_liga1": {
+      "n": 463,
+      "mejora_ll": 0.0564
+     },
+     "polonia": {
+      "n": 401,
+      "mejora_ll": 0.0236
+     },
+     "premier": {
+      "n": 447,
+      "mejora_ll": 0.0173
+     },
+     "primeira": {
+      "n": 371,
+      "mejora_ll": 0.0222
+     },
+     "rsa_premier": {
+      "n": 295,
+      "mejora_ll": 0.0454
+     },
+     "rumania": {
+      "n": 401,
+      "mejora_ll": 0.0099
+     },
+     "rus_premier": {
+      "n": 279,
+      "mejora_ll": 0.0566
+     },
+     "sco_championship": {
+      "n": 204,
+      "mejora_ll": 0.0369
+     },
+     "sco_premiership": {
+      "n": 279,
+      "mejora_ll": 0.011
+     },
+     "serie_a": {
+      "n": 447,
+      "mejora_ll": 0.0069
+     },
+     "slv_primera": {
+      "n": 342,
+      "mejora_ll": 0.0324
+     },
+     "sudamericana": {
+      "n": 176,
+      "mejora_ll": 0.0139
+     },
+     "suecia": {
+      "n": 350,
+      "mejora_ll": 0.029
+     },
+     "turquia": {
+      "n": 376,
+      "mejora_ll": 0.0216
+     },
+     "uru_primera": {
+      "n": 409,
+      "mejora_ll": 0.0427
+     },
+     "usl_championship": {
+      "n": 574,
+      "mejora_ll": 0.0229
+     },
+     "ven_primera": {
+      "n": 316,
+      "mejora_ll": 0.0616
+     }
+    }
+   },
+   "marca_local": {
+    "ll_modelo": 0.53411,
+    "ll_aprendido": 0.51482,
+    "brier_modelo": 0.17595,
+    "brier_aprendido": 0.16811,
+    "mejora_ll": 0.01928,
+    "mejora_p5": 0.01694,
+    "ligas_mejor": 58,
+    "ligas_total": 61,
+    "importancia": {
+     "liga_cod": 18685,
+     "lam_h": 8918,
+     "logit_modelo": 8743,
+     "lam_a": 6200,
+     "gf_h": 6187,
+     "ppg_h": 4882,
+     "pct_a": 3989,
+     "gc_a": 3845,
+     "ppg_a": 3220,
+     "pct_h": 2782,
+     "gc_h": 1904,
+     "liga_goles": 1727,
+     "gf_a": 1221
+    },
+    "por_liga": {
+     "afc_champions": {
+      "n": 102,
+      "mejora_ll": 0.085
+     },
+     "arg_primera_nacional": {
+      "n": 909,
+      "mejora_ll": 0.0223
+     },
+     "argentina": {
+      "n": 653,
+      "mejora_ll": 0.0032
+     },
+     "aus_aleague": {
+      "n": 170,
+      "mejora_ll": 0.0398
+     },
+     "aut_bundesliga": {
+      "n": 246,
+      "mejora_ll": 0.0505
+     },
+     "bel_pro_league": {
+      "n": 376,
+      "mejora_ll": 0.0256
+     },
+     "bol_division": {
+      "n": 345,
+      "mejora_ll": 0.0112
+     },
+     "bra_serie_b": {
+      "n": 591,
+      "mejora_ll": 0.0364
+     },
+     "brasil": {
+      "n": 574,
+      "mejora_ll": 0.0214
+     },
+     "bundesliga": {
+      "n": 348,
+      "mejora_ll": 0.0122
+     },
+     "champions": {
+      "n": 184,
+      "mejora_ll": 0.0713
+     },
+     "chi_primera": {
+      "n": 341,
+      "mejora_ll": 0.0389
+     },
+     "china": {
+      "n": 356,
+      "mejora_ll": 0.0356
+     },
+     "col_primera_a": {
+      "n": 564,
+      "mejora_ll": 0.0341
+     },
+     "conference_league": {
+      "n": 111,
+      "mejora_ll": -0.0233
+     },
+     "crc_fpd": {
+      "n": 238,
+      "mejora_ll": 0.0246
+     },
+     "dinamarca": {
+      "n": 255,
+      "mejora_ll": 0.0089
+     },
+     "ecu_liga_pro": {
+      "n": 462,
+      "mejora_ll": 0.0305
+     },
+     "eng_championship": {
+      "n": 618,
+      "mejora_ll": 0.0218
+     },
+     "eng_league_one": {
+      "n": 615,
+      "mejora_ll": 0.01
+     },
+     "eng_league_two": {
+      "n": 624,
+      "mejora_ll": 0.0055
+     },
+     "eng_national": {
+      "n": 630,
+      "mejora_ll": 0.0053
+     },
+     "eredivisie": {
+      "n": 384,
+      "mejora_ll": 0.0341
+     },
+     "esp_hypermotion": {
+      "n": 552,
+      "mejora_ll": 0.0057
+     },
+     "europa_league": {
+      "n": 173,
+      "mejora_ll": 0.0161
+     },
+     "finlandia": {
+      "n": 289,
+      "mejora_ll": 0.0172
+     },
+     "fra_ligue2": {
+      "n": 359,
+      "mejora_ll": 0.0106
+     },
+     "ger_bundesliga2": {
+      "n": 363,
+      "mejora_ll": -0.0044
+     },
+     "gre_super_league": {
+      "n": 271,
+      "mejora_ll": 0.018
+     },
+     "ind_isl": {
+      "n": 85,
+      "mejora_ll": 0.0566
+     },
+     "irlanda": {
+      "n": 263,
+      "mejora_ll": 0.0177
+     },
+     "ita_serie_b": {
+      "n": 437,
+      "mejora_ll": 0.0252
+     },
+     "jpn_j1": {
+      "n": 300,
+      "mejora_ll": 0.0069
+     },
+     "ksa_pro": {
+      "n": 393,
+      "mejora_ll": 0.0081
+     },
+     "laliga": {
+      "n": 476,
+      "mejora_ll": 0.031
+     },
+     "leagues_cup": {
+      "n": 1288,
+      "mejora_ll": 0.0119
+     },
+     "libertadores": {
+      "n": 182,
+      "mejora_ll": 0.0799
+     },
+     "liga_mx": {
+      "n": 417,
+      "mejora_ll": 0.0073
+     },
+     "ligue_1": {
+      "n": 354,
+      "mejora_ll": 0.0061
+     },
+     "mex_expansion": {
+      "n": 300,
+      "mejora_ll": 0.0131
+     },
+     "mls": {
+      "n": 748,
+      "mejora_ll": 0.0062
+     },
+     "ned_eerste": {
+      "n": 451,
+      "mejora_ll": 0.0173
+     },
+     "noruega": {
+      "n": 356,
+      "mejora_ll": 0.0114
+     },
+     "par_division": {
+      "n": 348,
+      "mejora_ll": 0.0263
+     },
+     "per_liga1": {
+      "n": 463,
+      "mejora_ll": 0.0478
+     },
+     "polonia": {
+      "n": 401,
+      "mejora_ll": 0.0111
+     },
+     "premier": {
+      "n": 447,
+      "mejora_ll": 0.0145
+     },
+     "primeira": {
+      "n": 371,
+      "mejora_ll": 0.0175
+     },
+     "rsa_premier": {
+      "n": 295,
+      "mejora_ll": 0.0253
+     },
+     "rumania": {
+      "n": 401,
+      "mejora_ll": 0.011
+     },
+     "rus_premier": {
+      "n": 279,
+      "mejora_ll": 0.0306
+     },
+     "sco_championship": {
+      "n": 204,
+      "mejora_ll": 0.0254
+     },
+     "sco_premiership": {
+      "n": 279,
+      "mejora_ll": 0.0286
+     },
+     "serie_a": {
+      "n": 447,
+      "mejora_ll": 0.0125
+     },
+     "slv_primera": {
+      "n": 342,
+      "mejora_ll": 0.0307
+     },
+     "sudamericana": {
+      "n": 176,
+      "mejora_ll": 0.0433
+     },
+     "suecia": {
+      "n": 350,
+      "mejora_ll": 0.0122
+     },
+     "turquia": {
+      "n": 376,
+      "mejora_ll": -0.011
+     },
+     "uru_primera": {
+      "n": 409,
+      "mejora_ll": 0.0229
+     },
+     "usl_championship": {
+      "n": 574,
+      "mejora_ll": 0.0158
+     },
+     "ven_primera": {
+      "n": 316,
+      "mejora_ll": 0.0306
+     }
+    }
+   },
+   "marca_visitante": {
+    "ll_modelo": 0.62991,
+    "ll_aprendido": 0.60669,
+    "brier_modelo": 0.21904,
+    "brier_aprendido": 0.20901,
+    "mejora_ll": 0.02322,
+    "mejora_p5": 0.02061,
+    "ligas_mejor": 58,
+    "ligas_total": 61,
+    "importancia": {
+     "liga_cod": 20275,
+     "logit_modelo": 6995,
+     "gf_a": 6894,
+     "lam_h": 6453,
+     "lam_a": 5702,
+     "pct_h": 4938,
+     "gc_h": 3800,
+     "ppg_a": 3452,
+     "pct_a": 3097,
+     "ppg_h": 2449,
+     "liga_goles": 2311,
+     "gc_a": 1432,
+     "gf_h": 1401
+    },
+    "por_liga": {
+     "afc_champions": {
+      "n": 102,
+      "mejora_ll": 0.0263
+     },
+     "arg_primera_nacional": {
+      "n": 909,
+      "mejora_ll": 0.0371
+     },
+     "argentina": {
+      "n": 653,
+      "mejora_ll": 0.0033
+     },
+     "aus_aleague": {
+      "n": 170,
+      "mejora_ll": 0.0151
+     },
+     "aut_bundesliga": {
+      "n": 246,
+      "mejora_ll": 0.024
+     },
+     "bel_pro_league": {
+      "n": 376,
+      "mejora_ll": 0.0083
+     },
+     "bol_division": {
+      "n": 345,
+      "mejora_ll": 0.0821
+     },
+     "bra_serie_b": {
+      "n": 591,
+      "mejora_ll": 0.0346
+     },
+     "brasil": {
+      "n": 574,
+      "mejora_ll": 0.031
+     },
+     "bundesliga": {
+      "n": 348,
+      "mejora_ll": 0.024
+     },
+     "champions": {
+      "n": 184,
+      "mejora_ll": 0.04
+     },
+     "chi_primera": {
+      "n": 341,
+      "mejora_ll": 0.0425
+     },
+     "china": {
+      "n": 356,
+      "mejora_ll": 0.0236
+     },
+     "col_primera_a": {
+      "n": 564,
+      "mejora_ll": 0.0314
+     },
+     "conference_league": {
+      "n": 111,
+      "mejora_ll": 0.0629
+     },
+     "crc_fpd": {
+      "n": 238,
+      "mejora_ll": 0.0091
+     },
+     "dinamarca": {
+      "n": 255,
+      "mejora_ll": 0.0123
+     },
+     "ecu_liga_pro": {
+      "n": 462,
+      "mejora_ll": 0.0584
+     },
+     "eng_championship": {
+      "n": 618,
+      "mejora_ll": 0.0183
+     },
+     "eng_league_one": {
+      "n": 615,
+      "mejora_ll": 0.0024
+     },
+     "eng_league_two": {
+      "n": 624,
+      "mejora_ll": 0.0098
+     },
+     "eng_national": {
+      "n": 630,
+      "mejora_ll": 0.0091
+     },
+     "eredivisie": {
+      "n": 384,
+      "mejora_ll": -0.0048
+     },
+     "esp_hypermotion": {
+      "n": 552,
+      "mejora_ll": 0.0049
+     },
+     "europa_league": {
+      "n": 173,
+      "mejora_ll": 0.0353
+     },
+     "finlandia": {
+      "n": 289,
+      "mejora_ll": 0.0426
+     },
+     "fra_ligue2": {
+      "n": 359,
+      "mejora_ll": 0.0268
+     },
+     "ger_bundesliga2": {
+      "n": 363,
+      "mejora_ll": 0.0125
+     },
+     "gre_super_league": {
+      "n": 271,
+      "mejora_ll": 0.0425
+     },
+     "ind_isl": {
+      "n": 85,
+      "mejora_ll": 0.052
+     },
+     "irlanda": {
+      "n": 263,
+      "mejora_ll": 0.0598
+     },
+     "ita_serie_b": {
+      "n": 437,
+      "mejora_ll": -0.0012
+     },
+     "jpn_j1": {
+      "n": 300,
+      "mejora_ll": 0.0452
+     },
+     "ksa_pro": {
+      "n": 393,
+      "mejora_ll": 0.0179
+     },
+     "laliga": {
+      "n": 476,
+      "mejora_ll": 0.0042
+     },
+     "leagues_cup": {
+      "n": 1288,
+      "mejora_ll": 0.0211
+     },
+     "libertadores": {
+      "n": 182,
+      "mejora_ll": 0.039
+     },
+     "liga_mx": {
+      "n": 417,
+      "mejora_ll": 0.0259
+     },
+     "ligue_1": {
+      "n": 354,
+      "mejora_ll": 0.0144
+     },
+     "mex_expansion": {
+      "n": 300,
+      "mejora_ll": 0.0599
+     },
+     "mls": {
+      "n": 748,
+      "mejora_ll": -0.0077
+     },
+     "ned_eerste": {
+      "n": 451,
+      "mejora_ll": 0.0132
+     },
+     "noruega": {
+      "n": 356,
+      "mejora_ll": 0.0178
+     },
+     "par_division": {
+      "n": 348,
+      "mejora_ll": 0.0391
+     },
+     "per_liga1": {
+      "n": 463,
+      "mejora_ll": 0.0402
+     },
+     "polonia": {
+      "n": 401,
+      "mejora_ll": 0.0194
+     },
+     "premier": {
+      "n": 447,
+      "mejora_ll": 0.0116
+     },
+     "primeira": {
+      "n": 371,
+      "mejora_ll": 0.0232
+     },
+     "rsa_premier": {
+      "n": 295,
+      "mejora_ll": 0.0436
+     },
+     "rumania": {
+      "n": 401,
+      "mejora_ll": 0.0012
+     },
+     "rus_premier": {
+      "n": 279,
+      "mejora_ll": 0.0504
+     },
+     "sco_championship": {
+      "n": 204,
+      "mejora_ll": 0.0488
+     },
+     "sco_premiership": {
+      "n": 279,
+      "mejora_ll": 0.0016
+     },
+     "serie_a": {
+      "n": 447,
+      "mejora_ll": 0.0037
+     },
+     "slv_primera": {
+      "n": 342,
+      "mejora_ll": 0.0414
+     },
+     "sudamericana": {
+      "n": 176,
+      "mejora_ll": 0.0646
+     },
+     "suecia": {
+      "n": 350,
+      "mejora_ll": 0.0298
+     },
+     "turquia": {
+      "n": 376,
+      "mejora_ll": 0.0104
+     },
+     "uru_primera": {
+      "n": 409,
+      "mejora_ll": 0.0332
+     },
+     "usl_championship": {
+      "n": 574,
+      "mejora_ll": 0.0084
+     },
+     "ven_primera": {
+      "n": 316,
+      "mejora_ll": 0.039
+     }
+    }
+   }
+  },
+  "contra_calibrado": {
+   "mas25": {
+    "ll_calibrado_por_liga": 0.68225,
+    "ll_aprendido": 0.68029,
+    "mejora": 0.00196,
+    "p5": 0.00088
+   },
+   "btts": {
+    "ll_calibrado_por_liga": 0.68722,
+    "ll_aprendido": 0.68661,
+    "mejora": 0.00061,
+    "p5": -0.00028
+   },
+   "marca_local": {
+    "ll_calibrado_por_liga": 0.52115,
+    "ll_aprendido": 0.51482,
+    "mejora": 0.00633,
+    "p5": 0.00482
+   },
+   "marca_visitante": {
+    "ll_calibrado_por_liga": 0.61234,
+    "ll_aprendido": 0.60669,
+    "mejora": 0.00565,
+    "p5": 0.0043
+   }
+  }
+ }
+}

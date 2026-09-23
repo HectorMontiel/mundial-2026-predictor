@@ -42,8 +42,23 @@ def stakes_jornada(apuestas: List[Dict], bankroll: float) -> List[Dict]:
     (escalados si la exposición supera el cap global)."""
     out = []
     for a in apuestas:
-        b = max(a['cuota'] - 1.0, 1e-6)
-        kelly = (b * a['prob'] - (1 - a['prob'])) / b
+        # v302 — UNA APUESTA SIN CUOTA NO PUEDE TUMBAR LA PANTALLA.
+        #
+        # `valida_render` lo cazó en main el 2026-09-22: un pick de élite
+        # llegó con `cuota: None` y `None - 1.0` reventó `render_alpha_finder`
+        # entero —«Apuestas del Día: la app no arranca»—. Sin precio no hay
+        # Kelly que calcular: esa apuesta va con stake cero y las demás siguen.
+        try:
+            cuota = float(a.get('cuota'))
+            prob = float(a.get('prob'))
+        except (TypeError, ValueError):
+            out.append({**a, 'stake_pct': 0.0})
+            continue
+        if not (cuota > 1.0 and 0.0 < prob < 1.0):
+            out.append({**a, 'stake_pct': 0.0})
+            continue
+        b = max(cuota - 1.0, 1e-6)
+        kelly = (b * prob - (1 - prob)) / b
         # v28 (§2.5): las apuestas EVC Platino ponderan ×1.5 ANTES del cap
         peso = 1.5 if a.get('platino') else 1.0
         frac = float(np.clip(kelly * FRACCION * peso, 0.0, TOPE_APUESTA))

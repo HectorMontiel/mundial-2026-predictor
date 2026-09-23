@@ -1,0 +1,6756 @@
+{
+ "filas": 78020,
+ "corte": "2025-05-04",
+ "reglas": {
+  "A_modelo|home|p0.50|c1.30": {
+   "eleccion": {
+    "n": 5853,
+    "acierta": 0.584,
+    "roi": -0.0331,
+    "p5": -0.0517
+   },
+   "juicio": {
+    "n": 3555,
+    "acierta": 0.5879,
+    "roi": -0.0366,
+    "p5": -0.0594
+   },
+   "global": {
+    "n": 9408,
+    "acierta": 0.5855,
+    "roi": -0.0344,
+    "p5": -0.0489
+   },
+   "cuota_media": 1.695,
+   "pasa": false,
+   "peor_p5": -0.0594
+  },
+  "B_mercado|home|p0.50|c1.30": {
+   "eleccion": {
+    "n": 5985,
+    "acierta": 0.6015,
+    "roi": -0.0219,
+    "p5": -0.0395
+   },
+   "juicio": {
+    "n": 1667,
+    "acierta": 0.5867,
+    "roi": -0.0547,
+    "p5": -0.0869
+   },
+   "global": {
+    "n": 7652,
+    "acierta": 0.5983,
+    "roi": -0.029,
+    "p5": -0.044
+   },
+   "cuota_media": 1.646,
+   "pasa": false,
+   "peor_p5": -0.0869
+  },
+  "C_ambos|home|p0.50|c1.30": {
+   "eleccion": {
+    "n": 4255,
+    "acierta": 0.6216,
+    "roi": -0.02,
+    "p5": -0.0398
+   },
+   "juicio": {
+    "n": 1241,
+    "acierta": 0.6108,
+    "roi": -0.0432,
+    "p5": -0.0809
+   },
+   "global": {
+    "n": 5496,
+    "acierta": 0.6192,
+    "roi": -0.0252,
+    "p5": -0.0424
+   },
+   "cuota_media": 1.594,
+   "pasa": false,
+   "peor_p5": -0.0809
+  },
+  "A_modelo|away|p0.50|c1.30": {
+   "eleccion": {
+    "n": 1320,
+    "acierta": 0.5795,
+    "roi": -0.0228,
+    "p5": -0.061
+   },
+   "juicio": {
+    "n": 871,
+    "acierta": 0.6028,
+    "roi": -0.0017,
+    "p5": -0.0491
+   },
+   "global": {
+    "n": 2191,
+    "acierta": 0.5888,
+    "roi": -0.0144,
+    "p5": -0.0456
+   },
+   "cuota_media": 1.728,
+   "pasa": false,
+   "peor_p5": -0.061
+  },
+  "B_mercado|away|p0.50|c1.30": {
+   "eleccion": {
+    "n": 1666,
+    "acierta": 0.596,
+    "roi": -0.0186,
+    "p5": -0.0508
+   },
+   "juicio": {
+    "n": 492,
+    "acierta": 0.6077,
+    "roi": -0.0181,
+    "p5": -0.0797
+   },
+   "global": {
+    "n": 2158,
+    "acierta": 0.5987,
+    "roi": -0.0185,
+    "p5": -0.0477
+   },
+   "cuota_media": 1.662,
+   "pasa": false,
+   "peor_p5": -0.0797
+  },
+  "C_ambos|away|p0.50|c1.30": {
+   "eleccion": {
+    "n": 936,
+    "acierta": 0.6357,
+    "roi": 0.0009,
+    "p5": -0.0396
+   },
+   "juicio": {
+    "n": 291,
+    "acierta": 0.6701,
+    "roi": 0.0471,
+    "p5": -0.0244
+   },
+   "global": {
+    "n": 1227,
+    "acierta": 0.6438,
+    "roi": 0.0119,
+    "p5": -0.024
+   },
+   "cuota_media": 1.591,
+   "pasa": false,
+   "peor_p5": -0.0396
+  },
+  "A_modelo|home|p0.50|c1.40": {
+   "eleccion": {
+    "n": 5183,
+    "acierta": 0.5599,
+    "roi": -0.0419,
+    "p5": -0.0619
+   },
+   "juicio": {
+    "n": 3091,
+    "acierta": 0.571,
+    "roi": -0.0333,
+    "p5": -0.0597
+   },
+   "global": {
+    "n": 8274,
+    "acierta": 0.5641,
+    "roi": -0.0387,
+    "p5": -0.0545
+   },
+   "cuota_media": 1.743,
+   "pasa": false,
+   "peor_p5": -0.0619
+  },
+  "B_mercado|home|p0.50|c1.40": {
+   "eleccion": {
+    "n": 5372,
+    "acierta": 0.5815,
+    "roi": -0.0294,
+    "p5": -0.0478
+   },
+   "juicio": {
+    "n": 1475,
+    "acierta": 0.5715,
+    "roi": -0.0548,
+    "p5": -0.0903
+   },
+   "global": {
+    "n": 6847,
+    "acierta": 0.5794,
+    "roi": -0.0348,
+    "p5": -0.051
+   },
+   "cuota_media": 1.681,
+   "pasa": false,
+   "peor_p5": -0.0903
+  },
+  "C_ambos|home|p0.50|c1.40": {
+   "eleccion": {
+    "n": 3653,
+    "acierta": 0.5962,
+    "roi": -0.0303,
+    "p5": -0.052
+   },
+   "juicio": {
+    "n": 1050,
+    "acierta": 0.5933,
+    "roi": -0.0422,
+    "p5": -0.0838
+   },
+   "global": {
+    "n": 4703,
+    "acierta": 0.5956,
+    "roi": -0.0329,
+    "p5": -0.0524
+   },
+   "cuota_media": 1.636,
+   "pasa": false,
+   "peor_p5": -0.0838
+  },
+  "A_modelo|away|p0.50|c1.40": {
+   "eleccion": {
+    "n": 1186,
+    "acierta": 0.5632,
+    "roi": -0.0221,
+    "p5": -0.0642
+   },
+   "juicio": {
+    "n": 776,
+    "acierta": 0.5812,
+    "roi": -0.0071,
+    "p5": -0.0607
+   },
+   "global": {
+    "n": 1962,
+    "acierta": 0.5703,
+    "roi": -0.0162,
+    "p5": -0.0483
+   },
+   "cuota_media": 1.772,
+   "pasa": false,
+   "peor_p5": -0.0642
+  },
+  "B_mercado|away|p0.50|c1.40": {
+   "eleccion": {
+    "n": 1528,
+    "acierta": 0.5838,
+    "roi": -0.0188,
+    "p5": -0.0528
+   },
+   "juicio": {
+    "n": 440,
+    "acierta": 0.5886,
+    "roi": -0.0239,
+    "p5": -0.0856
+   },
+   "global": {
+    "n": 1968,
+    "acierta": 0.5849,
+    "roi": -0.0199,
+    "p5": -0.0515
+   },
+   "cuota_media": 1.693,
+   "pasa": false,
+   "peor_p5": -0.0856
+  },
+  "C_ambos|away|p0.50|c1.40": {
+   "eleccion": {
+    "n": 806,
+    "acierta": 0.6191,
+    "roi": 0.0024,
+    "p5": -0.0471
+   },
+   "juicio": {
+    "n": 244,
+    "acierta": 0.6516,
+    "roi": 0.0514,
+    "p5": -0.0316
+   },
+   "global": {
+    "n": 1050,
+    "acierta": 0.6267,
+    "roi": 0.0138,
+    "p5": -0.0247
+   },
+   "cuota_media": 1.633,
+   "pasa": false,
+   "peor_p5": -0.0471
+  },
+  "A_modelo|home|p0.50|c1.50": {
+   "eleccion": {
+    "n": 4452,
+    "acierta": 0.5413,
+    "roi": -0.044,
+    "p5": -0.0678
+   },
+   "juicio": {
+    "n": 2574,
+    "acierta": 0.5466,
+    "roi": -0.0399,
+    "p5": -0.0691
+   },
+   "global": {
+    "n": 7026,
+    "acierta": 0.5433,
+    "roi": -0.0425,
+    "p5": -0.0595
+   },
+   "cuota_media": 1.796,
+   "pasa": false,
+   "peor_p5": -0.0691
+  },
+  "B_mercado|home|p0.50|c1.50": {
+   "eleccion": {
+    "n": 4657,
+    "acierta": 0.5682,
+    "roi": -0.0283,
+    "p5": -0.0489
+   },
+   "juicio": {
+    "n": 1241,
+    "acierta": 0.5439,
+    "roi": -0.0718,
+    "p5": -0.1142
+   },
+   "global": {
+    "n": 5898,
+    "acierta": 0.5631,
+    "roi": -0.0375,
+    "p5": -0.0563
+   },
+   "cuota_media": 1.719,
+   "pasa": false,
+   "peor_p5": -0.1142
+  },
+  "C_ambos|home|p0.50|c1.50": {
+   "eleccion": {
+    "n": 2988,
+    "acierta": 0.5797,
+    "roi": -0.0297,
+    "p5": -0.0546
+   },
+   "juicio": {
+    "n": 827,
+    "acierta": 0.5574,
+    "roi": -0.0664,
+    "p5": -0.1131
+   },
+   "global": {
+    "n": 3815,
+    "acierta": 0.5748,
+    "roi": -0.0376,
+    "p5": -0.0594
+   },
+   "cuota_media": 1.681,
+   "pasa": false,
+   "peor_p5": -0.1131
+  },
+  "A_modelo|away|p0.50|c1.50": {
+   "eleccion": {
+    "n": 998,
+    "acierta": 0.5451,
+    "roi": -0.0163,
+    "p5": -0.0631
+   },
+   "juicio": {
+    "n": 650,
+    "acierta": 0.5677,
+    "roi": 0.0034,
+    "p5": -0.056
+   },
+   "global": {
+    "n": 1648,
+    "acierta": 0.554,
+    "roi": -0.0085,
+    "p5": -0.0438
+   },
+   "cuota_media": 1.836,
+   "pasa": false,
+   "peor_p5": -0.0631
+  },
+  "B_mercado|away|p0.50|c1.50": {
+   "eleccion": {
+    "n": 1309,
+    "acierta": 0.5714,
+    "roi": -0.0128,
+    "p5": -0.0519
+   },
+   "juicio": {
+    "n": 380,
+    "acierta": 0.5711,
+    "roi": -0.0289,
+    "p5": -0.101
+   },
+   "global": {
+    "n": 1689,
+    "acierta": 0.5713,
+    "roi": -0.0164,
+    "p5": -0.0547
+   },
+   "cuota_media": 1.735,
+   "pasa": false,
+   "peor_p5": -0.101
+  },
+  "C_ambos|away|p0.50|c1.50": {
+   "eleccion": {
+    "n": 622,
+    "acierta": 0.6093,
+    "roi": 0.0221,
+    "p5": -0.0335
+   },
+   "juicio": {
+    "n": 192,
+    "acierta": 0.6302,
+    "roi": 0.0513,
+    "p5": -0.0481
+   },
+   "global": {
+    "n": 814,
+    "acierta": 0.6143,
+    "roi": 0.029,
+    "p5": -0.018
+   },
+   "cuota_media": 1.69,
+   "pasa": false,
+   "peor_p5": -0.0481
+  },
+  "A_modelo|home|p0.50|c1.60": {
+   "eleccion": {
+    "n": 3573,
+    "acierta": 0.5214,
+    "roi": -0.0449,
+    "p5": -0.0709
+   },
+   "juicio": {
+    "n": 2029,
+    "acierta": 0.5283,
+    "roi": -0.0363,
+    "p5": -0.0708
+   },
+   "global": {
+    "n": 5602,
+    "acierta": 0.5239,
+    "roi": -0.0418,
+    "p5": -0.0618
+   },
+   "cuota_media": 1.86,
+   "pasa": false,
+   "peor_p5": -0.0709
+  },
+  "B_mercado|home|p0.50|c1.60": {
+   "eleccion": {
+    "n": 3735,
+    "acierta": 0.5529,
+    "roi": -0.0285,
+    "p5": -0.0517
+   },
+   "juicio": {
+    "n": 991,
+    "acierta": 0.5348,
+    "roi": -0.0633,
+    "p5": -0.1077
+   },
+   "global": {
+    "n": 4726,
+    "acierta": 0.5491,
+    "roi": -0.0358,
+    "p5": -0.0564
+   },
+   "cuota_media": 1.763,
+   "pasa": false,
+   "peor_p5": -0.1077
+  },
+  "C_ambos|home|p0.50|c1.60": {
+   "eleccion": {
+    "n": 2186,
+    "acierta": 0.5627,
+    "roi": -0.0278,
+    "p5": -0.0588
+   },
+   "juicio": {
+    "n": 610,
+    "acierta": 0.5475,
+    "roi": -0.0553,
+    "p5": -0.1141
+   },
+   "global": {
+    "n": 2796,
+    "acierta": 0.5594,
+    "roi": -0.0338,
+    "p5": -0.059
+   },
+   "cuota_media": 1.732,
+   "pasa": false,
+   "peor_p5": -0.1141
+  },
+  "A_modelo|away|p0.50|c1.60": {
+   "eleccion": {
+    "n": 825,
+    "acierta": 0.5236,
+    "roi": -0.0192,
+    "p5": -0.0757
+   },
+   "juicio": {
+    "n": 501,
+    "acierta": 0.5529,
+    "roi": 0.0187,
+    "p5": -0.0501
+   },
+   "global": {
+    "n": 1326,
+    "acierta": 0.5347,
+    "roi": -0.0049,
+    "p5": -0.0478
+   },
+   "cuota_media": 1.908,
+   "pasa": false,
+   "peor_p5": -0.0757
+  },
+  "B_mercado|away|p0.50|c1.60": {
+   "eleccion": {
+    "n": 1085,
+    "acierta": 0.5604,
+    "roi": -0.008,
+    "p5": -0.0519
+   },
+   "juicio": {
+    "n": 302,
+    "acierta": 0.5331,
+    "roi": -0.0643,
+    "p5": -0.1485
+   },
+   "global": {
+    "n": 1387,
+    "acierta": 0.5544,
+    "roi": -0.0203,
+    "p5": -0.0604
+   },
+   "cuota_media": 1.776,
+   "pasa": false,
+   "peor_p5": -0.1485
+  },
+  "C_ambos|away|p0.50|c1.60": {
+   "eleccion": {
+    "n": 462,
+    "acierta": 0.5844,
+    "roi": 0.0125,
+    "p5": -0.0535
+   },
+   "juicio": {
+    "n": 135,
+    "acierta": 0.6222,
+    "roi": 0.073,
+    "p5": -0.0464
+   },
+   "global": {
+    "n": 597,
+    "acierta": 0.593,
+    "roi": 0.0261,
+    "p5": -0.0316
+   },
+   "cuota_media": 1.743,
+   "pasa": false,
+   "peor_p5": -0.0535
+  },
+  "A_modelo|home|p0.50|c1.80": {
+   "eleccion": {
+    "n": 1827,
+    "acierta": 0.4669,
+    "roi": -0.0644,
+    "p5": -0.1044
+   },
+   "juicio": {
+    "n": 978,
+    "acierta": 0.4949,
+    "roi": -0.0117,
+    "p5": -0.066
+   },
+   "global": {
+    "n": 2805,
+    "acierta": 0.4766,
+    "roi": -0.046,
+    "p5": -0.0774
+   },
+   "cuota_media": 2.034,
+   "pasa": false,
+   "peor_p5": -0.1044
+  },
+  "B_mercado|home|p0.50|c1.80": {
+   "eleccion": {
+    "n": 1459,
+    "acierta": 0.5127,
+    "roi": -0.0393,
+    "p5": -0.0797
+   },
+   "juicio": {
+    "n": 343,
+    "acierta": 0.5015,
+    "roi": -0.0533,
+    "p5": -0.1369
+   },
+   "global": {
+    "n": 1802,
+    "acierta": 0.5105,
+    "roi": -0.0419,
+    "p5": -0.0771
+   },
+   "cuota_media": 1.878,
+   "pasa": false,
+   "peor_p5": -0.1369
+  },
+  "C_ambos|home|p0.50|c1.80": {
+   "eleccion": {
+    "n": 590,
+    "acierta": 0.5169,
+    "roi": -0.0395,
+    "p5": -0.1006
+   },
+   "juicio": {
+    "n": 155,
+    "acierta": 0.529,
+    "roi": -0.0135,
+    "p5": -0.133
+   },
+   "global": {
+    "n": 745,
+    "acierta": 0.5195,
+    "roi": -0.0341,
+    "p5": -0.0895
+   },
+   "cuota_media": 1.86,
+   "pasa": false,
+   "peor_p5": -0.133
+  },
+  "A_modelo|away|p0.50|c1.80": {
+   "eleccion": {
+    "n": 487,
+    "acierta": 0.4579,
+    "roi": -0.0612,
+    "p5": -0.1383
+   },
+   "juicio": {
+    "n": 283,
+    "acierta": 0.4806,
+    "roi": -0.0323,
+    "p5": -0.136
+   },
+   "global": {
+    "n": 770,
+    "acierta": 0.4662,
+    "roi": -0.0506,
+    "p5": -0.111
+   },
+   "cuota_media": 2.068,
+   "pasa": false,
+   "peor_p5": -0.1383
+  },
+  "B_mercado|away|p0.50|c1.80": {
+   "eleccion": {
+    "n": 477,
+    "acierta": 0.5199,
+    "roi": -0.0195,
+    "p5": -0.0917
+   },
+   "juicio": {
+    "n": 117,
+    "acierta": 0.4786,
+    "roi": -0.0902,
+    "p5": -0.2319
+   },
+   "global": {
+    "n": 594,
+    "acierta": 0.5118,
+    "roi": -0.0334,
+    "p5": -0.099
+   },
+   "cuota_media": 1.888,
+   "pasa": false,
+   "peor_p5": -0.2319
+  },
+  "C_ambos|away|p0.50|c1.80": {
+   "eleccion": {
+    "n": 149,
+    "acierta": 0.4765,
+    "roi": -0.1093,
+    "p5": -0.2354
+   },
+   "juicio": {
+    "n": 42,
+    "acierta": 0.5238,
+    "roi": -0.0129,
+    "p5": -0.2567
+   },
+   "global": {
+    "n": 191,
+    "acierta": 0.4869,
+    "roi": -0.0881,
+    "p5": -0.1984
+   },
+   "cuota_media": 1.868,
+   "pasa": false,
+   "peor_p5": -0.2567
+  },
+  "A_modelo|home|p0.50|c2.00": {
+   "eleccion": {
+    "n": 774,
+    "acierta": 0.416,
+    "roi": -0.0787,
+    "p5": -0.1435
+   },
+   "juicio": {
+    "n": 371,
+    "acierta": 0.4286,
+    "roi": -0.0376,
+    "p5": -0.1314
+   },
+   "global": {
+    "n": 1145,
+    "acierta": 0.4201,
+    "roi": -0.0654,
+    "p5": -0.1229
+   },
+   "cuota_media": 2.263,
+   "pasa": false,
+   "peor_p5": -0.1435
+  },
+  "B_mercado|home|p0.50|c2.00": {
+   "eleccion": {
+    "n": 127,
+    "acierta": 0.5118,
+    "roi": 0.0598,
+    "p5": -0.0951
+   },
+   "juicio": {
+    "n": 41,
+    "acierta": 0.5122,
+    "roi": 0.0763,
+    "p5": -0.1859
+   },
+   "global": {
+    "n": 168,
+    "acierta": 0.5119,
+    "roi": 0.0638,
+    "p5": -0.0687
+   },
+   "cuota_media": 2.084,
+   "pasa": false,
+   "peor_p5": -0.1859
+  },
+  "C_ambos|home|p0.50|c2.00": {
+   "eleccion": {
+    "n": 20,
+    "acierta": 0.7,
+    "roi": 0.4245,
+    "p5": null
+   },
+   "juicio": {
+    "n": 11,
+    "acierta": 0.3636,
+    "roi": -0.2582,
+    "p5": null
+   },
+   "global": {
+    "n": 31,
+    "acierta": 0.5806,
+    "roi": 0.1823,
+    "p5": -0.092
+   },
+   "cuota_media": 2.045,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.50|c2.00": {
+   "eleccion": {
+    "n": 234,
+    "acierta": 0.453,
+    "roi": 0.0146,
+    "p5": -0.1056
+   },
+   "juicio": {
+    "n": 131,
+    "acierta": 0.4427,
+    "roi": -0.0197,
+    "p5": -0.1722
+   },
+   "global": {
+    "n": 365,
+    "acierta": 0.4493,
+    "roi": 0.0023,
+    "p5": -0.0954
+   },
+   "cuota_media": 2.281,
+   "pasa": false,
+   "peor_p5": -0.1722
+  },
+  "B_mercado|away|p0.50|c2.00": {
+   "eleccion": {
+    "n": 56,
+    "acierta": 0.6071,
+    "roi": 0.2604,
+    "p5": 0.0321
+   },
+   "juicio": {
+    "n": 20,
+    "acierta": 0.4,
+    "roi": -0.1345,
+    "p5": null
+   },
+   "global": {
+    "n": 76,
+    "acierta": 0.5526,
+    "roi": 0.1564,
+    "p5": -0.0352
+   },
+   "cuota_media": 2.101,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.50|c2.00": {
+   "eleccion": {
+    "n": 9,
+    "acierta": 0.4444,
+    "roi": -0.0522,
+    "p5": null
+   },
+   "juicio": {
+    "n": 5,
+    "acierta": 0.6,
+    "roi": 0.312,
+    "p5": null
+   },
+   "global": {
+    "n": 14,
+    "acierta": 0.5,
+    "roi": 0.0779,
+    "p5": null
+   },
+   "cuota_media": 2.103,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.55|c1.30": {
+   "eleccion": {
+    "n": 3522,
+    "acierta": 0.6289,
+    "roi": -0.0076,
+    "p5": -0.0301
+   },
+   "juicio": {
+    "n": 2163,
+    "acierta": 0.6181,
+    "roi": -0.0415,
+    "p5": -0.0694
+   },
+   "global": {
+    "n": 5685,
+    "acierta": 0.6248,
+    "roi": -0.0205,
+    "p5": -0.0382
+   },
+   "cuota_media": 1.596,
+   "pasa": false,
+   "peor_p5": -0.0694
+  },
+  "B_mercado|home|p0.55|c1.30": {
+   "eleccion": {
+    "n": 3843,
+    "acierta": 0.6425,
+    "roi": -0.0118,
+    "p5": -0.032
+   },
+   "juicio": {
+    "n": 1086,
+    "acierta": 0.6271,
+    "roi": -0.0421,
+    "p5": -0.0792
+   },
+   "global": {
+    "n": 4929,
+    "acierta": 0.6391,
+    "roi": -0.0185,
+    "p5": -0.036
+   },
+   "cuota_media": 1.549,
+   "pasa": false,
+   "peor_p5": -0.0792
+  },
+  "C_ambos|home|p0.55|c1.30": {
+   "eleccion": {
+    "n": 2474,
+    "acierta": 0.6633,
+    "roi": -0.0082,
+    "p5": -0.0324
+   },
+   "juicio": {
+    "n": 720,
+    "acierta": 0.6361,
+    "roi": -0.0571,
+    "p5": -0.0991
+   },
+   "global": {
+    "n": 3194,
+    "acierta": 0.6572,
+    "roi": -0.0192,
+    "p5": -0.0402
+   },
+   "cuota_media": 1.505,
+   "pasa": false,
+   "peor_p5": -0.0991
+  },
+  "A_modelo|away|p0.55|c1.30": {
+   "eleccion": {
+    "n": 776,
+    "acierta": 0.6302,
+    "roi": 0.0047,
+    "p5": -0.0411
+   },
+   "juicio": {
+    "n": 513,
+    "acierta": 0.6277,
+    "roi": 0.0001,
+    "p5": -0.0574
+   },
+   "global": {
+    "n": 1289,
+    "acierta": 0.6292,
+    "roi": 0.0029,
+    "p5": -0.0344
+   },
+   "cuota_media": 1.636,
+   "pasa": false,
+   "peor_p5": -0.0574
+  },
+  "B_mercado|away|p0.55|c1.30": {
+   "eleccion": {
+    "n": 1007,
+    "acierta": 0.6455,
+    "roi": 0.0009,
+    "p5": -0.0378
+   },
+   "juicio": {
+    "n": 318,
+    "acierta": 0.6887,
+    "roi": 0.0588,
+    "p5": -0.0064
+   },
+   "global": {
+    "n": 1325,
+    "acierta": 0.6558,
+    "roi": 0.0148,
+    "p5": -0.019
+   },
+   "cuota_media": 1.555,
+   "pasa": false,
+   "peor_p5": -0.0378
+  },
+  "C_ambos|away|p0.55|c1.30": {
+   "eleccion": {
+    "n": 521,
+    "acierta": 0.6833,
+    "roi": 0.0191,
+    "p5": -0.0349
+   },
+   "juicio": {
+    "n": 162,
+    "acierta": 0.7099,
+    "roi": 0.0592,
+    "p5": -0.0272
+   },
+   "global": {
+    "n": 683,
+    "acierta": 0.6896,
+    "roi": 0.0286,
+    "p5": -0.0146
+   },
+   "cuota_media": 1.498,
+   "pasa": false,
+   "peor_p5": -0.0349
+  },
+  "A_modelo|home|p0.55|c1.40": {
+   "eleccion": {
+    "n": 2893,
+    "acierta": 0.5976,
+    "roi": -0.0176,
+    "p5": -0.0446
+   },
+   "juicio": {
+    "n": 1725,
+    "acierta": 0.5971,
+    "roi": -0.0373,
+    "p5": -0.0669
+   },
+   "global": {
+    "n": 4618,
+    "acierta": 0.5974,
+    "roi": -0.025,
+    "p5": -0.045
+   },
+   "cuota_media": 1.654,
+   "pasa": false,
+   "peor_p5": -0.0669
+  },
+  "B_mercado|home|p0.55|c1.40": {
+   "eleccion": {
+    "n": 3230,
+    "acierta": 0.617,
+    "roi": -0.0223,
+    "p5": -0.0456
+   },
+   "juicio": {
+    "n": 894,
+    "acierta": 0.6107,
+    "roi": -0.0396,
+    "p5": -0.0823
+   },
+   "global": {
+    "n": 4124,
+    "acierta": 0.6157,
+    "roi": -0.026,
+    "p5": -0.0456
+   },
+   "cuota_media": 1.589,
+   "pasa": false,
+   "peor_p5": -0.0823
+  },
+  "C_ambos|home|p0.55|c1.40": {
+   "eleccion": {
+    "n": 1901,
+    "acierta": 0.6281,
+    "roi": -0.0252,
+    "p5": -0.0535
+   },
+   "juicio": {
+    "n": 541,
+    "acierta": 0.6118,
+    "roi": -0.0609,
+    "p5": -0.1134
+   },
+   "global": {
+    "n": 2442,
+    "acierta": 0.6245,
+    "roi": -0.0331,
+    "p5": -0.0584
+   },
+   "cuota_media": 1.555,
+   "pasa": false,
+   "peor_p5": -0.1134
+  },
+  "A_modelo|away|p0.55|c1.40": {
+   "eleccion": {
+    "n": 656,
+    "acierta": 0.6143,
+    "roi": 0.0129,
+    "p5": -0.0384
+   },
+   "juicio": {
+    "n": 431,
+    "acierta": 0.6032,
+    "roi": -0.002,
+    "p5": -0.0677
+   },
+   "global": {
+    "n": 1087,
+    "acierta": 0.6099,
+    "roi": 0.007,
+    "p5": -0.0345
+   },
+   "cuota_media": 1.691,
+   "pasa": false,
+   "peor_p5": -0.0677
+  },
+  "B_mercado|away|p0.55|c1.40": {
+   "eleccion": {
+    "n": 869,
+    "acierta": 0.6318,
+    "roi": 0.0038,
+    "p5": -0.0401
+   },
+   "juicio": {
+    "n": 266,
+    "acierta": 0.6729,
+    "roi": 0.0642,
+    "p5": -0.0115
+   },
+   "global": {
+    "n": 1135,
+    "acierta": 0.6414,
+    "roi": 0.018,
+    "p5": -0.0202
+   },
+   "cuota_media": 1.591,
+   "pasa": false,
+   "peor_p5": -0.0401
+  },
+  "C_ambos|away|p0.55|c1.40": {
+   "eleccion": {
+    "n": 403,
+    "acierta": 0.6725,
+    "roi": 0.0349,
+    "p5": -0.0277
+   },
+   "juicio": {
+    "n": 121,
+    "acierta": 0.6942,
+    "roi": 0.076,
+    "p5": -0.0267
+   },
+   "global": {
+    "n": 524,
+    "acierta": 0.6775,
+    "roi": 0.0444,
+    "p5": -0.0072
+   },
+   "cuota_media": 1.545,
+   "pasa": false,
+   "peor_p5": -0.0277
+  },
+  "A_modelo|home|p0.55|c1.50": {
+   "eleccion": {
+    "n": 2271,
+    "acierta": 0.5795,
+    "roi": -0.0106,
+    "p5": -0.0398
+   },
+   "juicio": {
+    "n": 1298,
+    "acierta": 0.5616,
+    "roi": -0.055,
+    "p5": -0.0944
+   },
+   "global": {
+    "n": 3569,
+    "acierta": 0.573,
+    "roi": -0.0268,
+    "p5": -0.0522
+   },
+   "cuota_media": 1.717,
+   "pasa": false,
+   "peor_p5": -0.0944
+  },
+  "B_mercado|home|p0.55|c1.50": {
+   "eleccion": {
+    "n": 2516,
+    "acierta": 0.6021,
+    "roi": -0.0188,
+    "p5": -0.0456
+   },
+   "juicio": {
+    "n": 661,
+    "acierta": 0.5734,
+    "roi": -0.0652,
+    "p5": -0.1177
+   },
+   "global": {
+    "n": 3177,
+    "acierta": 0.5962,
+    "roi": -0.0285,
+    "p5": -0.0524
+   },
+   "cuota_media": 1.632,
+   "pasa": false,
+   "peor_p5": -0.1177
+  },
+  "C_ambos|home|p0.55|c1.50": {
+   "eleccion": {
+    "n": 1324,
+    "acierta": 0.6118,
+    "roi": -0.0181,
+    "p5": -0.0546
+   },
+   "juicio": {
+    "n": 353,
+    "acierta": 0.5467,
+    "roi": -0.124,
+    "p5": -0.193
+   },
+   "global": {
+    "n": 1677,
+    "acierta": 0.5981,
+    "roi": -0.0404,
+    "p5": -0.0729
+   },
+   "cuota_media": 1.606,
+   "pasa": false,
+   "peor_p5": -0.193
+  },
+  "A_modelo|away|p0.55|c1.50": {
+   "eleccion": {
+    "n": 493,
+    "acierta": 0.5943,
+    "roi": 0.0279,
+    "p5": -0.0395
+   },
+   "juicio": {
+    "n": 329,
+    "acierta": 0.5988,
+    "roi": 0.0321,
+    "p5": -0.0493
+   },
+   "global": {
+    "n": 822,
+    "acierta": 0.5961,
+    "roi": 0.0296,
+    "p5": -0.0176
+   },
+   "cuota_media": 1.774,
+   "pasa": false,
+   "peor_p5": -0.0493
+  },
+  "B_mercado|away|p0.55|c1.50": {
+   "eleccion": {
+    "n": 652,
+    "acierta": 0.6227,
+    "roi": 0.0225,
+    "p5": -0.0311
+   },
+   "juicio": {
+    "n": 207,
+    "acierta": 0.6618,
+    "roi": 0.0754,
+    "p5": -0.0201
+   },
+   "global": {
+    "n": 859,
+    "acierta": 0.6321,
+    "roi": 0.0352,
+    "p5": -0.0084
+   },
+   "cuota_media": 1.64,
+   "pasa": false,
+   "peor_p5": -0.0311
+  },
+  "C_ambos|away|p0.55|c1.50": {
+   "eleccion": {
+    "n": 245,
+    "acierta": 0.6735,
+    "roi": 0.0819,
+    "p5": 0.0015
+   },
+   "juicio": {
+    "n": 80,
+    "acierta": 0.7,
+    "roi": 0.1255,
+    "p5": -0.0053
+   },
+   "global": {
+    "n": 325,
+    "acierta": 0.68,
+    "roi": 0.0926,
+    "p5": 0.0277
+   },
+   "cuota_media": 1.613,
+   "pasa": false,
+   "peor_p5": -0.0053
+  },
+  "A_modelo|home|p0.55|c1.60": {
+   "eleccion": {
+    "n": 1600,
+    "acierta": 0.5606,
+    "roi": 0.0012,
+    "p5": -0.0374
+   },
+   "juicio": {
+    "n": 881,
+    "acierta": 0.5369,
+    "roi": -0.0544,
+    "p5": -0.1038
+   },
+   "global": {
+    "n": 2481,
+    "acierta": 0.5522,
+    "roi": -0.0186,
+    "p5": -0.0489
+   },
+   "cuota_media": 1.794,
+   "pasa": false,
+   "peor_p5": -0.1038
+  },
+  "B_mercado|home|p0.55|c1.60": {
+   "eleccion": {
+    "n": 1606,
+    "acierta": 0.5853,
+    "roi": -0.0152,
+    "p5": -0.0484
+   },
+   "juicio": {
+    "n": 417,
+    "acierta": 0.5731,
+    "roi": -0.0361,
+    "p5": -0.1037
+   },
+   "global": {
+    "n": 2023,
+    "acierta": 0.5828,
+    "roi": -0.0195,
+    "p5": -0.0492
+   },
+   "cuota_media": 1.684,
+   "pasa": false,
+   "peor_p5": -0.1037
+  },
+  "C_ambos|home|p0.55|c1.60": {
+   "eleccion": {
+    "n": 706,
+    "acierta": 0.5963,
+    "roi": -0.0066,
+    "p5": -0.0561
+   },
+   "juicio": {
+    "n": 191,
+    "acierta": 0.5236,
+    "roi": -0.1302,
+    "p5": -0.2262
+   },
+   "global": {
+    "n": 897,
+    "acierta": 0.5808,
+    "roi": -0.0329,
+    "p5": -0.0785
+   },
+   "cuota_media": 1.664,
+   "pasa": false,
+   "peor_p5": -0.2262
+  },
+  "A_modelo|away|p0.55|c1.60": {
+   "eleccion": {
+    "n": 372,
+    "acierta": 0.5699,
+    "roi": 0.0274,
+    "p5": -0.0509
+   },
+   "juicio": {
+    "n": 226,
+    "acierta": 0.5885,
+    "roi": 0.0657,
+    "p5": -0.0395
+   },
+   "global": {
+    "n": 598,
+    "acierta": 0.5769,
+    "roi": 0.0419,
+    "p5": -0.021
+   },
+   "cuota_media": 1.861,
+   "pasa": false,
+   "peor_p5": -0.0509
+  },
+  "B_mercado|away|p0.55|c1.60": {
+   "eleccion": {
+    "n": 435,
+    "acierta": 0.623,
+    "roi": 0.054,
+    "p5": -0.0121
+   },
+   "juicio": {
+    "n": 132,
+    "acierta": 0.6288,
+    "roi": 0.0552,
+    "p5": -0.0649
+   },
+   "global": {
+    "n": 567,
+    "acierta": 0.6243,
+    "roi": 0.0543,
+    "p5": -0.002
+   },
+   "cuota_media": 1.69,
+   "pasa": false,
+   "peor_p5": -0.0649
+  },
+  "C_ambos|away|p0.55|c1.60": {
+   "eleccion": {
+    "n": 137,
+    "acierta": 0.6496,
+    "roi": 0.0825,
+    "p5": -0.0283
+   },
+   "juicio": {
+    "n": 40,
+    "acierta": 0.725,
+    "roi": 0.211,
+    "p5": 0.0037
+   },
+   "global": {
+    "n": 177,
+    "acierta": 0.6667,
+    "roi": 0.1115,
+    "p5": 0.0165
+   },
+   "cuota_media": 1.675,
+   "pasa": false,
+   "peor_p5": -0.0283
+  },
+  "A_modelo|home|p0.55|c1.80": {
+   "eleccion": {
+    "n": 570,
+    "acierta": 0.5105,
+    "roi": 0.0243,
+    "p5": -0.0496
+   },
+   "juicio": {
+    "n": 290,
+    "acierta": 0.5207,
+    "roi": 0.0184,
+    "p5": -0.0776
+   },
+   "global": {
+    "n": 860,
+    "acierta": 0.514,
+    "roi": 0.0223,
+    "p5": -0.0385
+   },
+   "cuota_media": 2.014,
+   "pasa": false,
+   "peor_p5": -0.0776
+  },
+  "B_mercado|home|p0.55|c1.80": {
+   "eleccion": {
+    "n": 123,
+    "acierta": 0.5772,
+    "roi": 0.0724,
+    "p5": -0.0698
+   },
+   "juicio": {
+    "n": 30,
+    "acierta": 0.7333,
+    "roi": 0.379,
+    "p5": 0.115
+   },
+   "global": {
+    "n": 153,
+    "acierta": 0.6078,
+    "roi": 0.1325,
+    "p5": 0.0147
+   },
+   "cuota_media": 1.862,
+   "pasa": false,
+   "peor_p5": -0.0698
+  },
+  "C_ambos|home|p0.55|c1.80": {
+   "eleccion": {
+    "n": 18,
+    "acierta": 0.7778,
+    "roi": 0.4222,
+    "p5": null
+   },
+   "juicio": {
+    "n": 6,
+    "acierta": 0.8333,
+    "roi": 0.54,
+    "p5": null
+   },
+   "global": {
+    "n": 24,
+    "acierta": 0.7917,
+    "roi": 0.4517,
+    "p5": null
+   },
+   "cuota_media": 1.835,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.55|c1.80": {
+   "eleccion": {
+    "n": 179,
+    "acierta": 0.4749,
+    "roi": -0.0555,
+    "p5": -0.1762
+   },
+   "juicio": {
+    "n": 110,
+    "acierta": 0.5,
+    "roi": 0.0007,
+    "p5": -0.1575
+   },
+   "global": {
+    "n": 289,
+    "acierta": 0.4844,
+    "roi": -0.0341,
+    "p5": -0.1283
+   },
+   "cuota_media": 2.054,
+   "pasa": false,
+   "peor_p5": -0.1762
+  },
+  "B_mercado|away|p0.55|c1.80": {
+   "eleccion": {
+    "n": 51,
+    "acierta": 0.6471,
+    "roi": 0.201,
+    "p5": 0.0092
+   },
+   "juicio": {
+    "n": 16,
+    "acierta": 0.625,
+    "roi": 0.1381,
+    "p5": null
+   },
+   "global": {
+    "n": 67,
+    "acierta": 0.6418,
+    "roi": 0.186,
+    "p5": 0.016
+   },
+   "cuota_media": 1.849,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.55|c1.80": {
+   "eleccion": {
+    "n": 13,
+    "acierta": 0.3077,
+    "roi": -0.4362,
+    "p5": null
+   },
+   "juicio": {
+    "n": 4,
+    "acierta": 1.0,
+    "roi": 0.8075,
+    "p5": null
+   },
+   "global": {
+    "n": 17,
+    "acierta": 0.4706,
+    "roi": -0.1435,
+    "p5": null
+   },
+   "cuota_media": 1.822,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.55|c2.00": {
+   "eleccion": {
+    "n": 191,
+    "acierta": 0.4712,
+    "roi": 0.0859,
+    "p5": -0.0667
+   },
+   "juicio": {
+    "n": 82,
+    "acierta": 0.4146,
+    "roi": -0.0672,
+    "p5": -0.2687
+   },
+   "global": {
+    "n": 273,
+    "acierta": 0.4542,
+    "roi": 0.0399,
+    "p5": -0.0923
+   },
+   "cuota_media": 2.319,
+   "pasa": false,
+   "peor_p5": -0.2687
+  },
+  "B_mercado|home|p0.55|c2.00": {
+   "eleccion": {
+    "n": 9,
+    "acierta": 0.4444,
+    "roi": -0.0567,
+    "p5": null
+   },
+   "juicio": {
+    "n": 4,
+    "acierta": 1.0,
+    "roi": 1.0875,
+    "p5": null
+   },
+   "global": {
+    "n": 13,
+    "acierta": 0.6154,
+    "roi": 0.2954,
+    "p5": null
+   },
+   "cuota_media": 2.103,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.55|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.55|c2.00": {
+   "eleccion": {
+    "n": 71,
+    "acierta": 0.4507,
+    "roi": -0.0168,
+    "p5": -0.2232
+   },
+   "juicio": {
+    "n": 44,
+    "acierta": 0.3864,
+    "roi": -0.1027,
+    "p5": -0.4027
+   },
+   "global": {
+    "n": 115,
+    "acierta": 0.4261,
+    "roi": -0.0497,
+    "p5": -0.2217
+   },
+   "cuota_media": 2.338,
+   "pasa": false,
+   "peor_p5": -0.4027
+  },
+  "B_mercado|away|p0.55|c2.00": {
+   "eleccion": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 1.0167,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "global": {
+    "n": 5,
+    "acierta": 0.6,
+    "roi": 0.21,
+    "p5": null
+   },
+   "cuota_media": 2.09,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.55|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.60|c1.30": {
+   "eleccion": {
+    "n": 1913,
+    "acierta": 0.6581,
+    "roi": -0.0125,
+    "p5": -0.0399
+   },
+   "juicio": {
+    "n": 1204,
+    "acierta": 0.6586,
+    "roi": -0.0228,
+    "p5": -0.0562
+   },
+   "global": {
+    "n": 3117,
+    "acierta": 0.6583,
+    "roi": -0.0165,
+    "p5": -0.0381
+   },
+   "cuota_media": 1.514,
+   "pasa": false,
+   "peor_p5": -0.0562
+  },
+  "B_mercado|home|p0.60|c1.30": {
+   "eleccion": {
+    "n": 2223,
+    "acierta": 0.6923,
+    "roi": 0.0091,
+    "p5": -0.0148
+   },
+   "juicio": {
+    "n": 627,
+    "acierta": 0.6762,
+    "roi": -0.0214,
+    "p5": -0.0686
+   },
+   "global": {
+    "n": 2850,
+    "acierta": 0.6888,
+    "roi": 0.0024,
+    "p5": -0.0191
+   },
+   "cuota_media": 1.461,
+   "pasa": false,
+   "peor_p5": -0.0686
+  },
+  "C_ambos|home|p0.60|c1.30": {
+   "eleccion": {
+    "n": 1255,
+    "acierta": 0.7012,
+    "roi": -0.0026,
+    "p5": -0.0318
+   },
+   "juicio": {
+    "n": 369,
+    "acierta": 0.7019,
+    "roi": -0.0028,
+    "p5": -0.0582
+   },
+   "global": {
+    "n": 1624,
+    "acierta": 0.7014,
+    "roi": -0.0027,
+    "p5": -0.0305
+   },
+   "cuota_media": 1.428,
+   "pasa": false,
+   "peor_p5": -0.0582
+  },
+  "A_modelo|away|p0.60|c1.30": {
+   "eleccion": {
+    "n": 488,
+    "acierta": 0.6639,
+    "roi": 0.0233,
+    "p5": -0.0313
+   },
+   "juicio": {
+    "n": 292,
+    "acierta": 0.6747,
+    "roi": 0.0175,
+    "p5": -0.0522
+   },
+   "global": {
+    "n": 780,
+    "acierta": 0.6679,
+    "roi": 0.0211,
+    "p5": -0.0219
+   },
+   "cuota_media": 1.553,
+   "pasa": false,
+   "peor_p5": -0.0522
+  },
+  "B_mercado|away|p0.60|c1.30": {
+   "eleccion": {
+    "n": 574,
+    "acierta": 0.6794,
+    "roi": -0.0049,
+    "p5": -0.0519
+   },
+   "juicio": {
+    "n": 169,
+    "acierta": 0.7337,
+    "roi": 0.0676,
+    "p5": -0.0136
+   },
+   "global": {
+    "n": 743,
+    "acierta": 0.6918,
+    "roi": 0.0116,
+    "p5": -0.0302
+   },
+   "cuota_media": 1.464,
+   "pasa": false,
+   "peor_p5": -0.0519
+  },
+  "C_ambos|away|p0.60|c1.30": {
+   "eleccion": {
+    "n": 302,
+    "acierta": 0.7185,
+    "roi": 0.0291,
+    "p5": -0.0332
+   },
+   "juicio": {
+    "n": 89,
+    "acierta": 0.7528,
+    "roi": 0.0654,
+    "p5": -0.0373
+   },
+   "global": {
+    "n": 391,
+    "acierta": 0.7263,
+    "roi": 0.0373,
+    "p5": -0.0177
+   },
+   "cuota_media": 1.428,
+   "pasa": false,
+   "peor_p5": -0.0373
+  },
+  "A_modelo|home|p0.60|c1.40": {
+   "eleccion": {
+    "n": 1377,
+    "acierta": 0.6151,
+    "roi": -0.03,
+    "p5": -0.0645
+   },
+   "juicio": {
+    "n": 836,
+    "acierta": 0.64,
+    "roi": -0.0072,
+    "p5": -0.0497
+   },
+   "global": {
+    "n": 2213,
+    "acierta": 0.6245,
+    "roi": -0.0214,
+    "p5": -0.0482
+   },
+   "cuota_media": 1.583,
+   "pasa": false,
+   "peor_p5": -0.0645
+  },
+  "B_mercado|home|p0.60|c1.40": {
+   "eleccion": {
+    "n": 1610,
+    "acierta": 0.6602,
+    "roi": -0.0041,
+    "p5": -0.0343
+   },
+   "juicio": {
+    "n": 435,
+    "acierta": 0.6644,
+    "roi": -0.007,
+    "p5": -0.063
+   },
+   "global": {
+    "n": 2045,
+    "acierta": 0.6611,
+    "roi": -0.0047,
+    "p5": -0.0318
+   },
+   "cuota_media": 1.507,
+   "pasa": false,
+   "peor_p5": -0.063
+  },
+  "C_ambos|home|p0.60|c1.40": {
+   "eleccion": {
+    "n": 756,
+    "acierta": 0.6587,
+    "roi": -0.0224,
+    "p5": -0.0653
+   },
+   "juicio": {
+    "n": 224,
+    "acierta": 0.692,
+    "roi": 0.0185,
+    "p5": -0.0537
+   },
+   "global": {
+    "n": 980,
+    "acierta": 0.6663,
+    "roi": -0.0131,
+    "p5": -0.0494
+   },
+   "cuota_media": 1.483,
+   "pasa": false,
+   "peor_p5": -0.0653
+  },
+  "A_modelo|away|p0.60|c1.40": {
+   "eleccion": {
+    "n": 384,
+    "acierta": 0.6536,
+    "roi": 0.0457,
+    "p5": -0.0202
+   },
+   "juicio": {
+    "n": 219,
+    "acierta": 0.6438,
+    "roi": 0.0152,
+    "p5": -0.0683
+   },
+   "global": {
+    "n": 603,
+    "acierta": 0.6501,
+    "roi": 0.0346,
+    "p5": -0.0163
+   },
+   "cuota_media": 1.615,
+   "pasa": false,
+   "peor_p5": -0.0683
+  },
+  "B_mercado|away|p0.60|c1.40": {
+   "eleccion": {
+    "n": 436,
+    "acierta": 0.6628,
+    "roi": -0.0011,
+    "p5": -0.0589
+   },
+   "juicio": {
+    "n": 117,
+    "acierta": 0.7179,
+    "roi": 0.0839,
+    "p5": -0.0209
+   },
+   "global": {
+    "n": 553,
+    "acierta": 0.6745,
+    "roi": 0.0169,
+    "p5": -0.0352
+   },
+   "cuota_media": 1.505,
+   "pasa": false,
+   "peor_p5": -0.0589
+  },
+  "C_ambos|away|p0.60|c1.40": {
+   "eleccion": {
+    "n": 199,
+    "acierta": 0.7236,
+    "roi": 0.0701,
+    "p5": -0.0035
+   },
+   "juicio": {
+    "n": 53,
+    "acierta": 0.7358,
+    "roi": 0.0849,
+    "p5": -0.0645
+   },
+   "global": {
+    "n": 252,
+    "acierta": 0.7262,
+    "roi": 0.0732,
+    "p5": 0.0064
+   },
+   "cuota_media": 1.477,
+   "pasa": false,
+   "peor_p5": -0.0645
+  },
+  "A_modelo|home|p0.60|c1.50": {
+   "eleccion": {
+    "n": 918,
+    "acierta": 0.5959,
+    "roi": -0.0149,
+    "p5": -0.0604
+   },
+   "juicio": {
+    "n": 515,
+    "acierta": 0.6019,
+    "roi": -0.0174,
+    "p5": -0.075
+   },
+   "global": {
+    "n": 1433,
+    "acierta": 0.598,
+    "roi": -0.0158,
+    "p5": -0.0521
+   },
+   "cuota_media": 1.661,
+   "pasa": false,
+   "peor_p5": -0.075
+  },
+  "B_mercado|home|p0.60|c1.50": {
+   "eleccion": {
+    "n": 907,
+    "acierta": 0.6494,
+    "roi": 0.0143,
+    "p5": -0.0241
+   },
+   "juicio": {
+    "n": 208,
+    "acierta": 0.601,
+    "roi": -0.0594,
+    "p5": -0.1473
+   },
+   "global": {
+    "n": 1115,
+    "acierta": 0.6404,
+    "roi": 0.0005,
+    "p5": -0.0382
+   },
+   "cuota_media": 1.561,
+   "pasa": false,
+   "peor_p5": -0.1473
+  },
+  "C_ambos|home|p0.60|c1.50": {
+   "eleccion": {
+    "n": 336,
+    "acierta": 0.6577,
+    "roi": 0.0146,
+    "p5": -0.0532
+   },
+   "juicio": {
+    "n": 82,
+    "acierta": 0.6098,
+    "roi": -0.0577,
+    "p5": -0.2043
+   },
+   "global": {
+    "n": 418,
+    "acierta": 0.6483,
+    "roi": 0.0005,
+    "p5": -0.0596
+   },
+   "cuota_media": 1.543,
+   "pasa": false,
+   "peor_p5": -0.2043
+  },
+  "A_modelo|away|p0.60|c1.50": {
+   "eleccion": {
+    "n": 253,
+    "acierta": 0.6285,
+    "roi": 0.0665,
+    "p5": -0.0228
+   },
+   "juicio": {
+    "n": 141,
+    "acierta": 0.6312,
+    "roi": 0.0471,
+    "p5": -0.0633
+   },
+   "global": {
+    "n": 394,
+    "acierta": 0.6294,
+    "roi": 0.0595,
+    "p5": -0.0107
+   },
+   "cuota_media": 1.711,
+   "pasa": false,
+   "peor_p5": -0.0633
+  },
+  "B_mercado|away|p0.60|c1.50": {
+   "eleccion": {
+    "n": 225,
+    "acierta": 0.6533,
+    "roi": 0.028,
+    "p5": -0.0504
+   },
+   "juicio": {
+    "n": 64,
+    "acierta": 0.7344,
+    "roi": 0.1506,
+    "p5": 0.0055
+   },
+   "global": {
+    "n": 289,
+    "acierta": 0.6713,
+    "roi": 0.0551,
+    "p5": -0.0201
+   },
+   "cuota_media": 1.567,
+   "pasa": false,
+   "peor_p5": -0.0504
+  },
+  "C_ambos|away|p0.60|c1.50": {
+   "eleccion": {
+    "n": 77,
+    "acierta": 0.7273,
+    "roi": 0.1294,
+    "p5": -0.0014
+   },
+   "juicio": {
+    "n": 18,
+    "acierta": 0.7778,
+    "roi": 0.2078,
+    "p5": null
+   },
+   "global": {
+    "n": 95,
+    "acierta": 0.7368,
+    "roi": 0.1442,
+    "p5": 0.0255
+   },
+   "cuota_media": 1.554,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.60|c1.60": {
+   "eleccion": {
+    "n": 525,
+    "acierta": 0.5733,
+    "roi": 0.0032,
+    "p5": -0.0592
+   },
+   "juicio": {
+    "n": 277,
+    "acierta": 0.574,
+    "roi": -0.009,
+    "p5": -0.0978
+   },
+   "global": {
+    "n": 802,
+    "acierta": 0.5736,
+    "roi": -0.001,
+    "p5": -0.0512
+   },
+   "cuota_media": 1.76,
+   "pasa": false,
+   "peor_p5": -0.0978
+  },
+  "B_mercado|home|p0.60|c1.60": {
+   "eleccion": {
+    "n": 178,
+    "acierta": 0.6461,
+    "roi": 0.0707,
+    "p5": -0.0266
+   },
+   "juicio": {
+    "n": 47,
+    "acierta": 0.5745,
+    "roi": -0.0391,
+    "p5": -0.23
+   },
+   "global": {
+    "n": 225,
+    "acierta": 0.6311,
+    "roi": 0.0478,
+    "p5": -0.0417
+   },
+   "cuota_media": 1.657,
+   "pasa": false,
+   "peor_p5": -0.23
+  },
+  "C_ambos|home|p0.60|c1.60": {
+   "eleccion": {
+    "n": 38,
+    "acierta": 0.7368,
+    "roi": 0.1974,
+    "p5": 0.0164
+   },
+   "juicio": {
+    "n": 15,
+    "acierta": 0.4667,
+    "roi": -0.236,
+    "p5": null
+   },
+   "global": {
+    "n": 53,
+    "acierta": 0.6604,
+    "roi": 0.0747,
+    "p5": -0.1111
+   },
+   "cuota_media": 1.627,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.60|c1.60": {
+   "eleccion": {
+    "n": 169,
+    "acierta": 0.5917,
+    "roi": 0.0604,
+    "p5": -0.0518
+   },
+   "juicio": {
+    "n": 80,
+    "acierta": 0.55,
+    "roi": -0.0214,
+    "p5": -0.1828
+   },
+   "global": {
+    "n": 249,
+    "acierta": 0.5783,
+    "roi": 0.0341,
+    "p5": -0.0593
+   },
+   "cuota_media": 1.812,
+   "pasa": false,
+   "peor_p5": -0.1828
+  },
+  "B_mercado|away|p0.60|c1.60": {
+   "eleccion": {
+    "n": 57,
+    "acierta": 0.7719,
+    "roi": 0.2842,
+    "p5": 0.1345
+   },
+   "juicio": {
+    "n": 15,
+    "acierta": 0.7333,
+    "roi": 0.2227,
+    "p5": null
+   },
+   "global": {
+    "n": 72,
+    "acierta": 0.7639,
+    "roi": 0.2714,
+    "p5": 0.1285
+   },
+   "cuota_media": 1.661,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.60|c1.60": {
+   "eleccion": {
+    "n": 15,
+    "acierta": 0.8,
+    "roi": 0.318,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.66,
+    "p5": null
+   },
+   "global": {
+    "n": 17,
+    "acierta": 0.8235,
+    "roi": 0.3582,
+    "p5": null
+   },
+   "cuota_media": 1.655,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.60|c1.80": {
+   "eleccion": {
+    "n": 145,
+    "acierta": 0.5103,
+    "roi": 0.0144,
+    "p5": -0.1214
+   },
+   "juicio": {
+    "n": 55,
+    "acierta": 0.5818,
+    "roi": 0.1604,
+    "p5": -0.0767
+   },
+   "global": {
+    "n": 200,
+    "acierta": 0.53,
+    "roi": 0.0546,
+    "p5": -0.0642
+   },
+   "cuota_media": 2.036,
+   "pasa": false,
+   "peor_p5": -0.1214
+  },
+  "B_mercado|home|p0.60|c1.80": {
+   "eleccion": {
+    "n": 10,
+    "acierta": 0.7,
+    "roi": 0.34,
+    "p5": null
+   },
+   "juicio": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 0.8533,
+    "p5": null
+   },
+   "global": {
+    "n": 13,
+    "acierta": 0.7692,
+    "roi": 0.4585,
+    "p5": null
+   },
+   "cuota_media": 1.874,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.60|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.60|c1.80": {
+   "eleccion": {
+    "n": 68,
+    "acierta": 0.5441,
+    "roi": 0.0832,
+    "p5": -0.1168
+   },
+   "juicio": {
+    "n": 32,
+    "acierta": 0.5312,
+    "roi": 0.0375,
+    "p5": -0.2508
+   },
+   "global": {
+    "n": 100,
+    "acierta": 0.54,
+    "roi": 0.0686,
+    "p5": -0.0857
+   },
+   "cuota_media": 2.011,
+   "pasa": false,
+   "peor_p5": -0.2508
+  },
+  "B_mercado|away|p0.60|c1.80": {
+   "eleccion": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.1,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.825,
+    "p5": null
+   },
+   "global": {
+    "n": 4,
+    "acierta": 0.75,
+    "roi": 0.3625,
+    "p5": null
+   },
+   "cuota_media": 1.812,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.60|c1.80": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "cuota_media": 1.8,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.60|c2.00": {
+   "eleccion": {
+    "n": 47,
+    "acierta": 0.5532,
+    "roi": 0.2134,
+    "p5": -0.0493
+   },
+   "juicio": {
+    "n": 15,
+    "acierta": 0.5333,
+    "roi": 0.264,
+    "p5": null
+   },
+   "global": {
+    "n": 62,
+    "acierta": 0.5484,
+    "roi": 0.2256,
+    "p5": -0.0197
+   },
+   "cuota_media": 2.4,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.60|c2.00": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "cuota_media": 2.39,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.60|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.60|c2.00": {
+   "eleccion": {
+    "n": 21,
+    "acierta": 0.5238,
+    "roi": 0.179,
+    "p5": null
+   },
+   "juicio": {
+    "n": 10,
+    "acierta": 0.5,
+    "roi": 0.095,
+    "p5": null
+   },
+   "global": {
+    "n": 31,
+    "acierta": 0.5161,
+    "roi": 0.1519,
+    "p5": -0.193
+   },
+   "cuota_media": 2.33,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.60|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.60|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.65|c1.30": {
+   "eleccion": {
+    "n": 1006,
+    "acierta": 0.6829,
+    "roi": -0.0083,
+    "p5": -0.0456
+   },
+   "juicio": {
+    "n": 626,
+    "acierta": 0.6709,
+    "roi": -0.032,
+    "p5": -0.0748
+   },
+   "global": {
+    "n": 1632,
+    "acierta": 0.6783,
+    "roi": -0.0174,
+    "p5": -0.0454
+   },
+   "cuota_media": 1.461,
+   "pasa": false,
+   "peor_p5": -0.0748
+  },
+  "B_mercado|home|p0.65|c1.30": {
+   "eleccion": {
+    "n": 1169,
+    "acierta": 0.728,
+    "roi": 0.0156,
+    "p5": -0.0159
+   },
+   "juicio": {
+    "n": 347,
+    "acierta": 0.7118,
+    "roi": -0.0079,
+    "p5": -0.0601
+   },
+   "global": {
+    "n": 1516,
+    "acierta": 0.7243,
+    "roi": 0.0102,
+    "p5": -0.0164
+   },
+   "cuota_media": 1.398,
+   "pasa": false,
+   "peor_p5": -0.0601
+  },
+  "C_ambos|home|p0.65|c1.30": {
+   "eleccion": {
+    "n": 569,
+    "acierta": 0.7346,
+    "roi": 0.0085,
+    "p5": -0.035
+   },
+   "juicio": {
+    "n": 164,
+    "acierta": 0.75,
+    "roi": 0.0368,
+    "p5": -0.0425
+   },
+   "global": {
+    "n": 733,
+    "acierta": 0.7381,
+    "roi": 0.0148,
+    "p5": -0.0234
+   },
+   "cuota_media": 1.376,
+   "pasa": false,
+   "peor_p5": -0.0425
+  },
+  "A_modelo|away|p0.65|c1.30": {
+   "eleccion": {
+    "n": 281,
+    "acierta": 0.6797,
+    "roi": 0.0231,
+    "p5": -0.0477
+   },
+   "juicio": {
+    "n": 154,
+    "acierta": 0.7143,
+    "roi": 0.0358,
+    "p5": -0.0534
+   },
+   "global": {
+    "n": 435,
+    "acierta": 0.692,
+    "roi": 0.0276,
+    "p5": -0.0275
+   },
+   "cuota_media": 1.499,
+   "pasa": false,
+   "peor_p5": -0.0534
+  },
+  "B_mercado|away|p0.65|c1.30": {
+   "eleccion": {
+    "n": 319,
+    "acierta": 0.6991,
+    "roi": -0.0214,
+    "p5": -0.083
+   },
+   "juicio": {
+    "n": 87,
+    "acierta": 0.7011,
+    "roi": -0.0322,
+    "p5": -0.1407
+   },
+   "global": {
+    "n": 406,
+    "acierta": 0.6995,
+    "roi": -0.0237,
+    "p5": -0.0779
+   },
+   "cuota_media": 1.399,
+   "pasa": false,
+   "peor_p5": -0.1407
+  },
+  "C_ambos|away|p0.65|c1.30": {
+   "eleccion": {
+    "n": 155,
+    "acierta": 0.6839,
+    "roi": -0.0477,
+    "p5": -0.1354
+   },
+   "juicio": {
+    "n": 46,
+    "acierta": 0.7174,
+    "roi": -0.0291,
+    "p5": -0.1826
+   },
+   "global": {
+    "n": 201,
+    "acierta": 0.6915,
+    "roi": -0.0435,
+    "p5": -0.1191
+   },
+   "cuota_media": 1.386,
+   "pasa": false,
+   "peor_p5": -0.1826
+  },
+  "A_modelo|home|p0.65|c1.40": {
+   "eleccion": {
+    "n": 604,
+    "acierta": 0.6341,
+    "roi": -0.0233,
+    "p5": -0.074
+   },
+   "juicio": {
+    "n": 355,
+    "acierta": 0.662,
+    "roi": 0.0074,
+    "p5": -0.0585
+   },
+   "global": {
+    "n": 959,
+    "acierta": 0.6444,
+    "roi": -0.012,
+    "p5": -0.0518
+   },
+   "cuota_media": 1.544,
+   "pasa": false,
+   "peor_p5": -0.074
+  },
+  "B_mercado|home|p0.65|c1.40": {
+   "eleccion": {
+    "n": 568,
+    "acierta": 0.6796,
+    "roi": -0.0095,
+    "p5": -0.0562
+   },
+   "juicio": {
+    "n": 163,
+    "acierta": 0.7239,
+    "roi": 0.0472,
+    "p5": -0.0384
+   },
+   "global": {
+    "n": 731,
+    "acierta": 0.6895,
+    "roi": 0.0031,
+    "p5": -0.04
+   },
+   "cuota_media": 1.456,
+   "pasa": false,
+   "peor_p5": -0.0562
+  },
+  "C_ambos|home|p0.65|c1.40": {
+   "eleccion": {
+    "n": 196,
+    "acierta": 0.6939,
+    "roi": -0.0009,
+    "p5": -0.0791
+   },
+   "juicio": {
+    "n": 61,
+    "acierta": 0.8525,
+    "roi": 0.2231,
+    "p5": 0.1092
+   },
+   "global": {
+    "n": 257,
+    "acierta": 0.7315,
+    "roi": 0.0523,
+    "p5": -0.0168
+   },
+   "cuota_media": 1.441,
+   "pasa": false,
+   "peor_p5": -0.0791
+  },
+  "A_modelo|away|p0.65|c1.40": {
+   "eleccion": {
+    "n": 202,
+    "acierta": 0.6733,
+    "roi": 0.0581,
+    "p5": -0.0299
+   },
+   "juicio": {
+    "n": 97,
+    "acierta": 0.6701,
+    "roi": 0.0269,
+    "p5": -0.0953
+   },
+   "global": {
+    "n": 299,
+    "acierta": 0.6722,
+    "roi": 0.048,
+    "p5": -0.0197
+   },
+   "cuota_media": 1.572,
+   "pasa": false,
+   "peor_p5": -0.0953
+  },
+  "B_mercado|away|p0.65|c1.40": {
+   "eleccion": {
+    "n": 185,
+    "acierta": 0.6757,
+    "roi": -0.0238,
+    "p5": -0.1112
+   },
+   "juicio": {
+    "n": 37,
+    "acierta": 0.5946,
+    "roi": -0.1357,
+    "p5": -0.3303
+   },
+   "global": {
+    "n": 222,
+    "acierta": 0.6622,
+    "roi": -0.0425,
+    "p5": -0.1166
+   },
+   "cuota_media": 1.445,
+   "pasa": false,
+   "peor_p5": -0.3303
+  },
+  "C_ambos|away|p0.65|c1.40": {
+   "eleccion": {
+    "n": 80,
+    "acierta": 0.675,
+    "roi": -0.0263,
+    "p5": -0.1516
+   },
+   "juicio": {
+    "n": 15,
+    "acierta": 0.5333,
+    "roi": -0.2433,
+    "p5": null
+   },
+   "global": {
+    "n": 95,
+    "acierta": 0.6526,
+    "roi": -0.0605,
+    "p5": -0.1697
+   },
+   "cuota_media": 1.439,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.65|c1.50": {
+   "eleccion": {
+    "n": 333,
+    "acierta": 0.6036,
+    "roi": -0.0128,
+    "p5": -0.0877
+   },
+   "juicio": {
+    "n": 171,
+    "acierta": 0.614,
+    "roi": 0.0013,
+    "p5": -0.1067
+   },
+   "global": {
+    "n": 504,
+    "acierta": 0.6071,
+    "roi": -0.008,
+    "p5": -0.0678
+   },
+   "cuota_media": 1.641,
+   "pasa": false,
+   "peor_p5": -0.1067
+  },
+  "B_mercado|home|p0.65|c1.50": {
+   "eleccion": {
+    "n": 123,
+    "acierta": 0.6829,
+    "roi": 0.062,
+    "p5": -0.0479
+   },
+   "juicio": {
+    "n": 27,
+    "acierta": 0.5556,
+    "roi": -0.1233,
+    "p5": null
+   },
+   "global": {
+    "n": 150,
+    "acierta": 0.66,
+    "roi": 0.0287,
+    "p5": -0.0777
+   },
+   "cuota_media": 1.554,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.65|c1.50": {
+   "eleccion": {
+    "n": 30,
+    "acierta": 0.7333,
+    "roi": 0.1133,
+    "p5": -0.0913
+   },
+   "juicio": {
+    "n": 6,
+    "acierta": 0.8333,
+    "roi": 0.27,
+    "p5": null
+   },
+   "global": {
+    "n": 36,
+    "acierta": 0.75,
+    "roi": 0.1394,
+    "p5": -0.0356
+   },
+   "cuota_media": 1.523,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.65|c1.50": {
+   "eleccion": {
+    "n": 110,
+    "acierta": 0.6818,
+    "roi": 0.1484,
+    "p5": 0.0224
+   },
+   "juicio": {
+    "n": 46,
+    "acierta": 0.6957,
+    "roi": 0.1328,
+    "p5": -0.0552
+   },
+   "global": {
+    "n": 156,
+    "acierta": 0.6859,
+    "roi": 0.1438,
+    "p5": 0.0359
+   },
+   "cuota_media": 1.699,
+   "pasa": false,
+   "peor_p5": -0.0552
+  },
+  "B_mercado|away|p0.65|c1.50": {
+   "eleccion": {
+    "n": 31,
+    "acierta": 0.6452,
+    "roi": -0.0135,
+    "p5": -0.2568
+   },
+   "juicio": {
+    "n": 8,
+    "acierta": 0.625,
+    "roi": -0.0275,
+    "p5": null
+   },
+   "global": {
+    "n": 39,
+    "acierta": 0.641,
+    "roi": -0.0164,
+    "p5": -0.2159
+   },
+   "cuota_media": 1.532,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.65|c1.50": {
+   "eleccion": {
+    "n": 13,
+    "acierta": 0.6923,
+    "roi": 0.0523,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 13,
+    "acierta": 0.6923,
+    "roi": 0.0523,
+    "p5": null
+   },
+   "cuota_media": 1.519,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.65|c1.60": {
+   "eleccion": {
+    "n": 165,
+    "acierta": 0.5455,
+    "roi": -0.0379,
+    "p5": -0.1507
+   },
+   "juicio": {
+    "n": 79,
+    "acierta": 0.5443,
+    "roi": -0.0333,
+    "p5": -0.1952
+   },
+   "global": {
+    "n": 244,
+    "acierta": 0.5451,
+    "roi": -0.0364,
+    "p5": -0.1333
+   },
+   "cuota_media": 1.756,
+   "pasa": false,
+   "peor_p5": -0.1952
+  },
+  "B_mercado|home|p0.65|c1.60": {
+   "eleccion": {
+    "n": 22,
+    "acierta": 0.8182,
+    "roi": 0.3745,
+    "p5": null
+   },
+   "juicio": {
+    "n": 7,
+    "acierta": 0.5714,
+    "roi": -0.0071,
+    "p5": null
+   },
+   "global": {
+    "n": 29,
+    "acierta": 0.7586,
+    "roi": 0.2824,
+    "p5": null
+   },
+   "cuota_media": 1.682,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.65|c1.60": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.62,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "global": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.19,
+    "p5": null
+   },
+   "cuota_media": 1.61,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.65|c1.60": {
+   "eleccion": {
+    "n": 70,
+    "acierta": 0.6143,
+    "roi": 0.1031,
+    "p5": -0.0748
+   },
+   "juicio": {
+    "n": 25,
+    "acierta": 0.64,
+    "roi": 0.1016,
+    "p5": null
+   },
+   "global": {
+    "n": 95,
+    "acierta": 0.6211,
+    "roi": 0.1027,
+    "p5": -0.0426
+   },
+   "cuota_media": 1.804,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.65|c1.60": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.62,
+    "p5": null
+   },
+   "global": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.61,
+    "p5": null
+   },
+   "cuota_media": 1.61,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.65|c1.60": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.65|c1.80": {
+   "eleccion": {
+    "n": 46,
+    "acierta": 0.5435,
+    "roi": 0.0993,
+    "p5": -0.1507
+   },
+   "juicio": {
+    "n": 17,
+    "acierta": 0.6471,
+    "roi": 0.4024,
+    "p5": null
+   },
+   "global": {
+    "n": 63,
+    "acierta": 0.5714,
+    "roi": 0.1811,
+    "p5": -0.0398
+   },
+   "cuota_media": 2.033,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.65|c1.80": {
+   "eleccion": {
+    "n": 3,
+    "acierta": 0.6667,
+    "roi": 0.3967,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.8,
+    "p5": null
+   },
+   "global": {
+    "n": 4,
+    "acierta": 0.75,
+    "roi": 0.4975,
+    "p5": null
+   },
+   "cuota_media": 1.948,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.65|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.65|c1.80": {
+   "eleccion": {
+    "n": 27,
+    "acierta": 0.5185,
+    "roi": 0.0719,
+    "p5": null
+   },
+   "juicio": {
+    "n": 4,
+    "acierta": 1.0,
+    "roi": 0.8675,
+    "p5": null
+   },
+   "global": {
+    "n": 31,
+    "acierta": 0.5806,
+    "roi": 0.1745,
+    "p5": -0.1361
+   },
+   "cuota_media": 2.085,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.65|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.65|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.65|c2.00": {
+   "eleccion": {
+    "n": 13,
+    "acierta": 0.6923,
+    "roi": 0.5762,
+    "p5": null
+   },
+   "juicio": {
+    "n": 6,
+    "acierta": 1.0,
+    "roi": 1.4383,
+    "p5": null
+   },
+   "global": {
+    "n": 19,
+    "acierta": 0.7895,
+    "roi": 0.8484,
+    "p5": null
+   },
+   "cuota_media": 2.425,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.65|c2.00": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "cuota_media": 2.39,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.65|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.65|c2.00": {
+   "eleccion": {
+    "n": 8,
+    "acierta": 0.75,
+    "roi": 0.7413,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.0,
+    "p5": null
+   },
+   "global": {
+    "n": 9,
+    "acierta": 0.7778,
+    "roi": 0.77,
+    "p5": null
+   },
+   "cuota_media": 2.641,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.65|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.65|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.70|c1.30": {
+   "eleccion": {
+    "n": 521,
+    "acierta": 0.7198,
+    "roi": 0.0287,
+    "p5": -0.0182
+   },
+   "juicio": {
+    "n": 269,
+    "acierta": 0.7249,
+    "roi": 0.0226,
+    "p5": -0.0416
+   },
+   "global": {
+    "n": 790,
+    "acierta": 0.7215,
+    "roi": 0.0266,
+    "p5": -0.0104
+   },
+   "cuota_media": 1.433,
+   "pasa": false,
+   "peor_p5": -0.0416
+  },
+  "B_mercado|home|p0.70|c1.30": {
+   "eleccion": {
+    "n": 442,
+    "acierta": 0.7715,
+    "roi": 0.0394,
+    "p5": -0.0081
+   },
+   "juicio": {
+    "n": 127,
+    "acierta": 0.7165,
+    "roi": -0.0279,
+    "p5": -0.1217
+   },
+   "global": {
+    "n": 569,
+    "acierta": 0.7592,
+    "roi": 0.0244,
+    "p5": -0.0176
+   },
+   "cuota_media": 1.35,
+   "pasa": false,
+   "peor_p5": -0.1217
+  },
+  "C_ambos|home|p0.70|c1.30": {
+   "eleccion": {
+    "n": 186,
+    "acierta": 0.8118,
+    "roi": 0.0842,
+    "p5": 0.0164
+   },
+   "juicio": {
+    "n": 43,
+    "acierta": 0.7442,
+    "roi": -0.0044,
+    "p5": -0.1586
+   },
+   "global": {
+    "n": 229,
+    "acierta": 0.7991,
+    "roi": 0.0676,
+    "p5": 0.0079
+   },
+   "cuota_media": 1.336,
+   "pasa": false,
+   "peor_p5": -0.1586
+  },
+  "A_modelo|away|p0.70|c1.30": {
+   "eleccion": {
+    "n": 146,
+    "acierta": 0.7534,
+    "roi": 0.1202,
+    "p5": 0.0314
+   },
+   "juicio": {
+    "n": 91,
+    "acierta": 0.7363,
+    "roi": 0.0549,
+    "p5": -0.0574
+   },
+   "global": {
+    "n": 237,
+    "acierta": 0.7468,
+    "roi": 0.0951,
+    "p5": 0.0245
+   },
+   "cuota_media": 1.465,
+   "pasa": false,
+   "peor_p5": -0.0574
+  },
+  "B_mercado|away|p0.70|c1.30": {
+   "eleccion": {
+    "n": 135,
+    "acierta": 0.7481,
+    "roi": 0.021,
+    "p5": -0.0619
+   },
+   "juicio": {
+    "n": 30,
+    "acierta": 0.8667,
+    "roi": 0.1627,
+    "p5": 0.0243
+   },
+   "global": {
+    "n": 165,
+    "acierta": 0.7697,
+    "roi": 0.0467,
+    "p5": -0.0276
+   },
+   "cuota_media": 1.359,
+   "pasa": false,
+   "peor_p5": -0.0619
+  },
+  "C_ambos|away|p0.70|c1.30": {
+   "eleccion": {
+    "n": 46,
+    "acierta": 0.8043,
+    "roi": 0.0924,
+    "p5": -0.052
+   },
+   "juicio": {
+    "n": 11,
+    "acierta": 0.8182,
+    "roi": 0.0809,
+    "p5": null
+   },
+   "global": {
+    "n": 57,
+    "acierta": 0.807,
+    "roi": 0.0902,
+    "p5": -0.0295
+   },
+   "cuota_media": 1.352,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.70|c1.40": {
+   "eleccion": {
+    "n": 258,
+    "acierta": 0.6473,
+    "roi": -0.0016,
+    "p5": -0.0779
+   },
+   "juicio": {
+    "n": 115,
+    "acierta": 0.7304,
+    "roi": 0.1007,
+    "p5": -0.0039
+   },
+   "global": {
+    "n": 373,
+    "acierta": 0.6729,
+    "roi": 0.0299,
+    "p5": -0.0321
+   },
+   "cuota_media": 1.539,
+   "pasa": false,
+   "peor_p5": -0.0779
+  },
+  "B_mercado|home|p0.70|c1.40": {
+   "eleccion": {
+    "n": 62,
+    "acierta": 0.6935,
+    "roi": 0.011,
+    "p5": -0.1324
+   },
+   "juicio": {
+    "n": 19,
+    "acierta": 0.7895,
+    "roi": 0.1637,
+    "p5": null
+   },
+   "global": {
+    "n": 81,
+    "acierta": 0.716,
+    "roi": 0.0468,
+    "p5": -0.0758
+   },
+   "cuota_media": 1.457,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.70|c1.40": {
+   "eleccion": {
+    "n": 12,
+    "acierta": 0.75,
+    "roi": 0.0767,
+    "p5": null
+   },
+   "juicio": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 0.4133,
+    "p5": null
+   },
+   "global": {
+    "n": 15,
+    "acierta": 0.8,
+    "roi": 0.144,
+    "p5": null
+   },
+   "cuota_media": 1.429,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.70|c1.40": {
+   "eleccion": {
+    "n": 97,
+    "acierta": 0.7526,
+    "roi": 0.1759,
+    "p5": 0.0579
+   },
+   "juicio": {
+    "n": 52,
+    "acierta": 0.6923,
+    "roi": 0.055,
+    "p5": -0.1075
+   },
+   "global": {
+    "n": 149,
+    "acierta": 0.7315,
+    "roi": 0.1337,
+    "p5": 0.0401
+   },
+   "cuota_media": 1.542,
+   "pasa": false,
+   "peor_p5": -0.1075
+  },
+  "B_mercado|away|p0.70|c1.40": {
+   "eleccion": {
+    "n": 41,
+    "acierta": 0.8049,
+    "roi": 0.1476,
+    "p5": 0.0039
+   },
+   "juicio": {
+    "n": 5,
+    "acierta": 0.8,
+    "roi": 0.136,
+    "p5": null
+   },
+   "global": {
+    "n": 46,
+    "acierta": 0.8043,
+    "roi": 0.1463,
+    "p5": -0.0037
+   },
+   "cuota_media": 1.423,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.70|c1.40": {
+   "eleccion": {
+    "n": 14,
+    "acierta": 0.8571,
+    "roi": 0.2164,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "global": {
+    "n": 15,
+    "acierta": 0.8,
+    "roi": 0.1353,
+    "p5": null
+   },
+   "cuota_media": 1.417,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.70|c1.50": {
+   "eleccion": {
+    "n": 126,
+    "acierta": 0.6349,
+    "roi": 0.0548,
+    "p5": -0.065
+   },
+   "juicio": {
+    "n": 46,
+    "acierta": 0.6739,
+    "roi": 0.1033,
+    "p5": -0.0898
+   },
+   "global": {
+    "n": 172,
+    "acierta": 0.6453,
+    "roi": 0.0678,
+    "p5": -0.0316
+   },
+   "cuota_media": 1.661,
+   "pasa": false,
+   "peor_p5": -0.0898
+  },
+  "B_mercado|home|p0.70|c1.50": {
+   "eleccion": {
+    "n": 13,
+    "acierta": 0.7692,
+    "roi": 0.2223,
+    "p5": null
+   },
+   "juicio": {
+    "n": 5,
+    "acierta": 0.8,
+    "roi": 0.28,
+    "p5": null
+   },
+   "global": {
+    "n": 18,
+    "acierta": 0.7778,
+    "roi": 0.2383,
+    "p5": null
+   },
+   "cuota_media": 1.583,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.70|c1.50": {
+   "eleccion": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.5,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.5,
+    "p5": null
+   },
+   "cuota_media": 1.5,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.70|c1.50": {
+   "eleccion": {
+    "n": 48,
+    "acierta": 0.7708,
+    "roi": 0.3006,
+    "p5": 0.1233
+   },
+   "juicio": {
+    "n": 22,
+    "acierta": 0.7727,
+    "roi": 0.26,
+    "p5": null
+   },
+   "global": {
+    "n": 70,
+    "acierta": 0.7714,
+    "roi": 0.2879,
+    "p5": 0.1381
+   },
+   "cuota_media": 1.668,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.70|c1.50": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.5,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.5,
+    "p5": null
+   },
+   "cuota_media": 1.5,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.70|c1.50": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.70|c1.60": {
+   "eleccion": {
+    "n": 61,
+    "acierta": 0.5902,
+    "roi": 0.0739,
+    "p5": -0.1212
+   },
+   "juicio": {
+    "n": 16,
+    "acierta": 0.6875,
+    "roi": 0.2619,
+    "p5": null
+   },
+   "global": {
+    "n": 77,
+    "acierta": 0.6104,
+    "roi": 0.113,
+    "p5": -0.0578
+   },
+   "cuota_media": 1.818,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.70|c1.60": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.125,
+    "p5": null
+   },
+   "global": {
+    "n": 3,
+    "acierta": 0.6667,
+    "roi": 0.38,
+    "p5": null
+   },
+   "cuota_media": 1.927,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.70|c1.60": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.70|c1.60": {
+   "eleccion": {
+    "n": 28,
+    "acierta": 0.75,
+    "roi": 0.3475,
+    "p5": null
+   },
+   "juicio": {
+    "n": 13,
+    "acierta": 0.6923,
+    "roi": 0.1854,
+    "p5": null
+   },
+   "global": {
+    "n": 41,
+    "acierta": 0.7317,
+    "roi": 0.2961,
+    "p5": 0.088
+   },
+   "cuota_media": 1.759,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.70|c1.60": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.70|c1.60": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.70|c1.80": {
+   "eleccion": {
+    "n": 22,
+    "acierta": 0.6364,
+    "roi": 0.3195,
+    "p5": null
+   },
+   "juicio": {
+    "n": 6,
+    "acierta": 0.8333,
+    "roi": 0.7383,
+    "p5": null
+   },
+   "global": {
+    "n": 28,
+    "acierta": 0.6786,
+    "roi": 0.4093,
+    "p5": null
+   },
+   "cuota_media": 2.101,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.70|c1.80": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "cuota_media": 2.39,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.70|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.70|c1.80": {
+   "eleccion": {
+    "n": 8,
+    "acierta": 0.625,
+    "roi": 0.3962,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.9,
+    "p5": null
+   },
+   "global": {
+    "n": 10,
+    "acierta": 0.7,
+    "roi": 0.497,
+    "p5": null
+   },
+   "cuota_media": 2.056,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.70|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.70|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.70|c2.00": {
+   "eleccion": {
+    "n": 9,
+    "acierta": 0.7778,
+    "roi": 0.7533,
+    "p5": null
+   },
+   "juicio": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 1.2533,
+    "p5": null
+   },
+   "global": {
+    "n": 12,
+    "acierta": 0.8333,
+    "roi": 0.8783,
+    "p5": null
+   },
+   "cuota_media": 2.411,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.70|c2.00": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "cuota_media": 2.39,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.70|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.70|c2.00": {
+   "eleccion": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 1.71,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.0,
+    "p5": null
+   },
+   "global": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 1.4733,
+    "p5": null
+   },
+   "cuota_media": 2.473,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.70|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.70|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.75|c1.30": {
+   "eleccion": {
+    "n": 256,
+    "acierta": 0.7578,
+    "roi": 0.0614,
+    "p5": -0.0013
+   },
+   "juicio": {
+    "n": 107,
+    "acierta": 0.6822,
+    "roi": -0.0534,
+    "p5": -0.1574
+   },
+   "global": {
+    "n": 363,
+    "acierta": 0.7355,
+    "roi": 0.0275,
+    "p5": -0.0267
+   },
+   "cuota_media": 1.412,
+   "pasa": false,
+   "peor_p5": -0.1574
+  },
+  "B_mercado|home|p0.75|c1.30": {
+   "eleccion": {
+    "n": 55,
+    "acierta": 0.8364,
+    "roi": 0.1289,
+    "p5": 0.014
+   },
+   "juicio": {
+    "n": 15,
+    "acierta": 0.6667,
+    "roi": -0.0607,
+    "p5": null
+   },
+   "global": {
+    "n": 70,
+    "acierta": 0.8,
+    "roi": 0.0883,
+    "p5": -0.0227
+   },
+   "cuota_media": 1.351,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.75|c1.30": {
+   "eleccion": {
+    "n": 18,
+    "acierta": 0.8889,
+    "roi": 0.17,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.32,
+    "p5": null
+   },
+   "global": {
+    "n": 20,
+    "acierta": 0.85,
+    "roi": 0.121,
+    "p5": null
+   },
+   "cuota_media": 1.316,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.75|c1.30": {
+   "eleccion": {
+    "n": 62,
+    "acierta": 0.7581,
+    "roi": 0.0987,
+    "p5": -0.034
+   },
+   "juicio": {
+    "n": 47,
+    "acierta": 0.7447,
+    "roi": 0.0647,
+    "p5": -0.0875
+   },
+   "global": {
+    "n": 109,
+    "acierta": 0.7523,
+    "roi": 0.084,
+    "p5": -0.0164
+   },
+   "cuota_media": 1.436,
+   "pasa": false,
+   "peor_p5": -0.0875
+  },
+  "B_mercado|away|p0.75|c1.30": {
+   "eleccion": {
+    "n": 18,
+    "acierta": 0.8333,
+    "roi": 0.1089,
+    "p5": null
+   },
+   "juicio": {
+    "n": 4,
+    "acierta": 1.0,
+    "roi": 0.3275,
+    "p5": null
+   },
+   "global": {
+    "n": 22,
+    "acierta": 0.8636,
+    "roi": 0.1486,
+    "p5": null
+   },
+   "cuota_media": 1.33,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.75|c1.30": {
+   "eleccion": {
+    "n": 5,
+    "acierta": 0.8,
+    "roi": 0.052,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 5,
+    "acierta": 0.8,
+    "roi": 0.052,
+    "p5": null
+   },
+   "cuota_media": 1.318,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.75|c1.40": {
+   "eleccion": {
+    "n": 102,
+    "acierta": 0.6373,
+    "roi": -0.0259,
+    "p5": -0.1523
+   },
+   "juicio": {
+    "n": 40,
+    "acierta": 0.65,
+    "roi": -0.0398,
+    "p5": -0.2112
+   },
+   "global": {
+    "n": 142,
+    "acierta": 0.6408,
+    "roi": -0.0298,
+    "p5": -0.1306
+   },
+   "cuota_media": 1.527,
+   "pasa": false,
+   "peor_p5": -0.2112
+  },
+  "B_mercado|home|p0.75|c1.40": {
+   "eleccion": {
+    "n": 4,
+    "acierta": 1.0,
+    "roi": 0.6575,
+    "p5": null
+   },
+   "juicio": {
+    "n": 4,
+    "acierta": 1.0,
+    "roi": 0.55,
+    "p5": null
+   },
+   "global": {
+    "n": 8,
+    "acierta": 1.0,
+    "roi": 0.6038,
+    "p5": null
+   },
+   "cuota_media": 1.604,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.75|c1.40": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.75|c1.40": {
+   "eleccion": {
+    "n": 36,
+    "acierta": 0.8056,
+    "roi": 0.2244,
+    "p5": 0.0491
+   },
+   "juicio": {
+    "n": 23,
+    "acierta": 0.7391,
+    "roi": 0.1374,
+    "p5": null
+   },
+   "global": {
+    "n": 59,
+    "acierta": 0.7797,
+    "roi": 0.1905,
+    "p5": 0.0485
+   },
+   "cuota_media": 1.522,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.75|c1.40": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.4,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.4,
+    "p5": null
+   },
+   "cuota_media": 1.4,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.75|c1.40": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.75|c1.50": {
+   "eleccion": {
+    "n": 48,
+    "acierta": 0.6042,
+    "roi": 0.0015,
+    "p5": -0.1932
+   },
+   "juicio": {
+    "n": 15,
+    "acierta": 0.4,
+    "roi": -0.352,
+    "p5": null
+   },
+   "global": {
+    "n": 63,
+    "acierta": 0.5556,
+    "roi": -0.0827,
+    "p5": -0.2695
+   },
+   "cuota_media": 1.648,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.75|c1.50": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.64,
+    "p5": null
+   },
+   "global": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 0.89,
+    "p5": null
+   },
+   "cuota_media": 1.89,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.75|c1.50": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.75|c1.50": {
+   "eleccion": {
+    "n": 15,
+    "acierta": 0.8,
+    "roi": 0.3107,
+    "p5": null
+   },
+   "juicio": {
+    "n": 12,
+    "acierta": 0.9167,
+    "roi": 0.465,
+    "p5": null
+   },
+   "global": {
+    "n": 27,
+    "acierta": 0.8519,
+    "roi": 0.3793,
+    "p5": null
+   },
+   "cuota_media": 1.626,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.75|c1.50": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.75|c1.50": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.75|c1.60": {
+   "eleccion": {
+    "n": 23,
+    "acierta": 0.5217,
+    "roi": -0.0391,
+    "p5": null
+   },
+   "juicio": {
+    "n": 8,
+    "acierta": 0.375,
+    "roi": -0.3625,
+    "p5": null
+   },
+   "global": {
+    "n": 31,
+    "acierta": 0.4839,
+    "roi": -0.1226,
+    "p5": -0.4023
+   },
+   "cuota_media": 1.767,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.75|c1.60": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.75,
+    "p5": null
+   },
+   "global": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 1.07,
+    "p5": null
+   },
+   "cuota_media": 2.07,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.75|c1.60": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.75|c1.60": {
+   "eleccion": {
+    "n": 10,
+    "acierta": 0.8,
+    "roi": 0.353,
+    "p5": null
+   },
+   "juicio": {
+    "n": 7,
+    "acierta": 0.8571,
+    "roi": 0.4157,
+    "p5": null
+   },
+   "global": {
+    "n": 17,
+    "acierta": 0.8235,
+    "roi": 0.3788,
+    "p5": null
+   },
+   "cuota_media": 1.683,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.75|c1.60": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.75|c1.60": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.75|c1.80": {
+   "eleccion": {
+    "n": 6,
+    "acierta": 0.5,
+    "roi": 0.18,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.085,
+    "p5": null
+   },
+   "global": {
+    "n": 8,
+    "acierta": 0.5,
+    "roi": 0.1138,
+    "p5": null
+   },
+   "cuota_media": 2.076,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.75|c1.80": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "cuota_media": 2.39,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.75|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.75|c1.80": {
+   "eleccion": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.085,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.085,
+    "p5": null
+   },
+   "cuota_media": 1.815,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.75|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.75|c1.80": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|home|p0.75|c2.00": {
+   "eleccion": {
+    "n": 4,
+    "acierta": 0.75,
+    "roi": 0.77,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 4,
+    "acierta": 0.75,
+    "roi": 0.77,
+    "p5": null
+   },
+   "cuota_media": 2.282,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|home|p0.75|c2.00": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 1.39,
+    "p5": null
+   },
+   "cuota_media": 2.39,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|home|p0.75|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "A_modelo|away|p0.75|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "B_mercado|away|p0.75|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "C_ambos|away|p0.75|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.60|c1.15": {
+   "eleccion": {
+    "n": 12502,
+    "acierta": 0.7267,
+    "roi": -0.0493,
+    "p5": -0.058
+   },
+   "juicio": {
+    "n": 3353,
+    "acierta": 0.7104,
+    "roi": -0.0681,
+    "p5": -0.0859
+   },
+   "global": {
+    "n": 15855,
+    "acierta": 0.7232,
+    "roi": -0.0533,
+    "p5": -0.0608
+   },
+   "cuota_media": 1.318,
+   "pasa": false,
+   "peor_p5": -0.0859
+  },
+  "D_x2|p0.60|c1.15": {
+   "eleccion": {
+    "n": 7518,
+    "acierta": 0.6987,
+    "roi": -0.038,
+    "p5": -0.0503
+   },
+   "juicio": {
+    "n": 2178,
+    "acierta": 0.7089,
+    "roi": -0.0251,
+    "p5": -0.0472
+   },
+   "global": {
+    "n": 9696,
+    "acierta": 0.701,
+    "roi": -0.0351,
+    "p5": -0.0457
+   },
+   "cuota_media": 1.386,
+   "pasa": false,
+   "peor_p5": -0.0503
+  },
+  "D_1x|p0.60|c1.25": {
+   "eleccion": {
+    "n": 8250,
+    "acierta": 0.6899,
+    "roi": -0.0525,
+    "p5": -0.0642
+   },
+   "juicio": {
+    "n": 2237,
+    "acierta": 0.6817,
+    "roi": -0.0628,
+    "p5": -0.0855
+   },
+   "global": {
+    "n": 10487,
+    "acierta": 0.6882,
+    "roi": -0.0547,
+    "p5": -0.0652
+   },
+   "cuota_media": 1.379,
+   "pasa": false,
+   "peor_p5": -0.0855
+  },
+  "D_x2|p0.60|c1.25": {
+   "eleccion": {
+    "n": 6279,
+    "acierta": 0.6791,
+    "roi": -0.0376,
+    "p5": -0.0507
+   },
+   "juicio": {
+    "n": 1820,
+    "acierta": 0.6896,
+    "roi": -0.0241,
+    "p5": -0.0505
+   },
+   "global": {
+    "n": 8099,
+    "acierta": 0.6814,
+    "roi": -0.0346,
+    "p5": -0.0467
+   },
+   "cuota_media": 1.422,
+   "pasa": false,
+   "peor_p5": -0.0507
+  },
+  "D_1x|p0.60|c1.35": {
+   "eleccion": {
+    "n": 4515,
+    "acierta": 0.6538,
+    "roi": -0.0565,
+    "p5": -0.0729
+   },
+   "juicio": {
+    "n": 1260,
+    "acierta": 0.6452,
+    "roi": -0.0682,
+    "p5": -0.1009
+   },
+   "global": {
+    "n": 5775,
+    "acierta": 0.6519,
+    "roi": -0.0591,
+    "p5": -0.0747
+   },
+   "cuota_media": 1.445,
+   "pasa": false,
+   "peor_p5": -0.1009
+  },
+  "D_x2|p0.60|c1.35": {
+   "eleccion": {
+    "n": 4518,
+    "acierta": 0.6602,
+    "roi": -0.0315,
+    "p5": -0.0485
+   },
+   "juicio": {
+    "n": 1323,
+    "acierta": 0.6674,
+    "roi": -0.0236,
+    "p5": -0.0556
+   },
+   "global": {
+    "n": 5841,
+    "acierta": 0.6619,
+    "roi": -0.0297,
+    "p5": -0.0442
+   },
+   "cuota_media": 1.468,
+   "pasa": false,
+   "peor_p5": -0.0556
+  },
+  "D_1x|p0.60|c1.50": {
+   "eleccion": {
+    "n": 976,
+    "acierta": 0.6434,
+    "roi": -0.0022,
+    "p5": -0.0391
+   },
+   "juicio": {
+    "n": 268,
+    "acierta": 0.6381,
+    "roi": -0.0063,
+    "p5": -0.0832
+   },
+   "global": {
+    "n": 1244,
+    "acierta": 0.6423,
+    "roi": -0.0031,
+    "p5": -0.0366
+   },
+   "cuota_media": 1.552,
+   "pasa": false,
+   "peor_p5": -0.0832
+  },
+  "D_x2|p0.60|c1.50": {
+   "eleccion": {
+    "n": 1503,
+    "acierta": 0.6414,
+    "roi": -0.0015,
+    "p5": -0.0324
+   },
+   "juicio": {
+    "n": 397,
+    "acierta": 0.6373,
+    "roi": -0.0054,
+    "p5": -0.0676
+   },
+   "global": {
+    "n": 1900,
+    "acierta": 0.6405,
+    "roi": -0.0023,
+    "p5": -0.0308
+   },
+   "cuota_media": 1.559,
+   "pasa": false,
+   "peor_p5": -0.0676
+  },
+  "D_1x|p0.70|c1.15": {
+   "eleccion": {
+    "n": 8003,
+    "acierta": 0.7702,
+    "roi": -0.0392,
+    "p5": -0.0485
+   },
+   "juicio": {
+    "n": 1987,
+    "acierta": 0.7549,
+    "roi": -0.0616,
+    "p5": -0.0818
+   },
+   "global": {
+    "n": 9990,
+    "acierta": 0.7672,
+    "roi": -0.0437,
+    "p5": -0.0524
+   },
+   "cuota_media": 1.249,
+   "pasa": false,
+   "peor_p5": -0.0818
+  },
+  "D_x2|p0.70|c1.15": {
+   "eleccion": {
+    "n": 3076,
+    "acierta": 0.7598,
+    "roi": -0.0372,
+    "p5": -0.0522
+   },
+   "juicio": {
+    "n": 816,
+    "acierta": 0.788,
+    "roi": -0.0029,
+    "p5": -0.032
+   },
+   "global": {
+    "n": 3892,
+    "acierta": 0.7657,
+    "roi": -0.03,
+    "p5": -0.0446
+   },
+   "cuota_media": 1.27,
+   "pasa": false,
+   "peor_p5": -0.0522
+  },
+  "D_1x|p0.70|c1.25": {
+   "eleccion": {
+    "n": 3777,
+    "acierta": 0.7376,
+    "roi": -0.0365,
+    "p5": -0.0516
+   },
+   "juicio": {
+    "n": 877,
+    "acierta": 0.7366,
+    "roi": -0.042,
+    "p5": -0.0745
+   },
+   "global": {
+    "n": 4654,
+    "acierta": 0.7374,
+    "roi": -0.0375,
+    "p5": -0.0513
+   },
+   "cuota_media": 1.306,
+   "pasa": false,
+   "peor_p5": -0.0745
+  },
+  "D_x2|p0.70|c1.25": {
+   "eleccion": {
+    "n": 1847,
+    "acierta": 0.7342,
+    "roi": -0.035,
+    "p5": -0.0582
+   },
+   "juicio": {
+    "n": 463,
+    "acierta": 0.7754,
+    "roi": 0.0203,
+    "p5": -0.0228
+   },
+   "global": {
+    "n": 2310,
+    "acierta": 0.7424,
+    "roi": -0.0239,
+    "p5": -0.0431
+   },
+   "cuota_media": 1.316,
+   "pasa": false,
+   "peor_p5": -0.0582
+  },
+  "D_1x|p0.70|c1.35": {
+   "eleccion": {
+    "n": 478,
+    "acierta": 0.7218,
+    "roi": -0.0016,
+    "p5": -0.049
+   },
+   "juicio": {
+    "n": 111,
+    "acierta": 0.6577,
+    "roi": -0.0902,
+    "p5": -0.1939
+   },
+   "global": {
+    "n": 589,
+    "acierta": 0.7097,
+    "roi": -0.0183,
+    "p5": -0.0623
+   },
+   "cuota_media": 1.383,
+   "pasa": false,
+   "peor_p5": -0.1939
+  },
+  "D_x2|p0.70|c1.35": {
+   "eleccion": {
+    "n": 344,
+    "acierta": 0.6831,
+    "roi": -0.0499,
+    "p5": -0.1051
+   },
+   "juicio": {
+    "n": 94,
+    "acierta": 0.7979,
+    "roi": 0.1107,
+    "p5": 0.0165
+   },
+   "global": {
+    "n": 438,
+    "acierta": 0.7078,
+    "roi": -0.0154,
+    "p5": -0.0646
+   },
+   "cuota_media": 1.39,
+   "pasa": false,
+   "peor_p5": -0.1051
+  },
+  "D_1x|p0.70|c1.50": {
+   "eleccion": {
+    "n": 9,
+    "acierta": 0.6667,
+    "roi": 0.0401,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 0.5,
+    "roi": -0.2286,
+    "p5": null
+   },
+   "global": {
+    "n": 11,
+    "acierta": 0.6364,
+    "roi": -0.0087,
+    "p5": null
+   },
+   "cuota_media": 1.54,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.70|c1.50": {
+   "eleccion": {
+    "n": 10,
+    "acierta": 0.6,
+    "roi": -0.0618,
+    "p5": null
+   },
+   "juicio": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.6036,
+    "p5": null
+   },
+   "global": {
+    "n": 12,
+    "acierta": 0.6667,
+    "roi": 0.0491,
+    "p5": null
+   },
+   "cuota_media": 1.567,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.75|c1.15": {
+   "eleccion": {
+    "n": 4756,
+    "acierta": 0.7967,
+    "roi": -0.036,
+    "p5": -0.0477
+   },
+   "juicio": {
+    "n": 1128,
+    "acierta": 0.7801,
+    "roi": -0.0572,
+    "p5": -0.0821
+   },
+   "global": {
+    "n": 5884,
+    "acierta": 0.7935,
+    "roi": -0.0401,
+    "p5": -0.0502
+   },
+   "cuota_media": 1.21,
+   "pasa": false,
+   "peor_p5": -0.0821
+  },
+  "D_x2|p0.75|c1.15": {
+   "eleccion": {
+    "n": 1413,
+    "acierta": 0.8096,
+    "roi": -0.0133,
+    "p5": -0.0341
+   },
+   "juicio": {
+    "n": 350,
+    "acierta": 0.7943,
+    "roi": -0.0381,
+    "p5": -0.0811
+   },
+   "global": {
+    "n": 1763,
+    "acierta": 0.8066,
+    "roi": -0.0182,
+    "p5": -0.037
+   },
+   "cuota_media": 1.218,
+   "pasa": false,
+   "peor_p5": -0.0811
+  },
+  "D_1x|p0.75|c1.25": {
+   "eleccion": {
+    "n": 763,
+    "acierta": 0.7746,
+    "roi": -0.0105,
+    "p5": -0.0417
+   },
+   "juicio": {
+    "n": 173,
+    "acierta": 0.7688,
+    "roi": -0.0152,
+    "p5": -0.0888
+   },
+   "global": {
+    "n": 936,
+    "acierta": 0.7735,
+    "roi": -0.0114,
+    "p5": -0.0417
+   },
+   "cuota_media": 1.279,
+   "pasa": false,
+   "peor_p5": -0.0888
+  },
+  "D_x2|p0.75|c1.25": {
+   "eleccion": {
+    "n": 300,
+    "acierta": 0.8467,
+    "roi": 0.0887,
+    "p5": 0.0433
+   },
+   "juicio": {
+    "n": 65,
+    "acierta": 0.6923,
+    "roi": -0.1084,
+    "p5": -0.2304
+   },
+   "global": {
+    "n": 365,
+    "acierta": 0.8192,
+    "roi": 0.0536,
+    "p5": 0.0111
+   },
+   "cuota_media": 1.287,
+   "pasa": false,
+   "peor_p5": -0.2304
+  },
+  "D_1x|p0.75|c1.35": {
+   "eleccion": {
+    "n": 23,
+    "acierta": 0.7826,
+    "roi": 0.091,
+    "p5": null
+   },
+   "juicio": {
+    "n": 8,
+    "acierta": 0.875,
+    "roi": 0.2228,
+    "p5": null
+   },
+   "global": {
+    "n": 31,
+    "acierta": 0.8065,
+    "roi": 0.125,
+    "p5": -0.0458
+   },
+   "cuota_media": 1.392,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.75|c1.35": {
+   "eleccion": {
+    "n": 26,
+    "acierta": 0.8462,
+    "roi": 0.1716,
+    "p5": null
+   },
+   "juicio": {
+    "n": 5,
+    "acierta": 0.8,
+    "roi": 0.1174,
+    "p5": null
+   },
+   "global": {
+    "n": 31,
+    "acierta": 0.8387,
+    "roi": 0.1629,
+    "p5": -0.0105
+   },
+   "cuota_media": 1.389,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.75|c1.50": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "cuota_media": 1.686,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.75|c1.50": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "cuota_media": 1.565,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.80|c1.15": {
+   "eleccion": {
+    "n": 1557,
+    "acierta": 0.8073,
+    "roi": -0.05,
+    "p5": -0.0692
+   },
+   "juicio": {
+    "n": 303,
+    "acierta": 0.8053,
+    "roi": -0.051,
+    "p5": -0.0956
+   },
+   "global": {
+    "n": 1860,
+    "acierta": 0.807,
+    "roi": -0.0501,
+    "p5": -0.0681
+   },
+   "cuota_media": 1.177,
+   "pasa": false,
+   "peor_p5": -0.0956
+  },
+  "D_x2|p0.80|c1.15": {
+   "eleccion": {
+    "n": 368,
+    "acierta": 0.856,
+    "roi": 0.0087,
+    "p5": -0.0294
+   },
+   "juicio": {
+    "n": 94,
+    "acierta": 0.8617,
+    "roi": 0.0171,
+    "p5": -0.0558
+   },
+   "global": {
+    "n": 462,
+    "acierta": 0.8571,
+    "roi": 0.0104,
+    "p5": -0.0217
+   },
+   "cuota_media": 1.179,
+   "pasa": false,
+   "peor_p5": -0.0558
+  },
+  "D_1x|p0.80|c1.25": {
+   "eleccion": {
+    "n": 32,
+    "acierta": 0.7812,
+    "roi": 0.0013,
+    "p5": -0.1569
+   },
+   "juicio": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 0.2877,
+    "p5": null
+   },
+   "global": {
+    "n": 35,
+    "acierta": 0.8,
+    "roi": 0.0258,
+    "p5": -0.1317
+   },
+   "cuota_media": 1.284,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.80|c1.25": {
+   "eleccion": {
+    "n": 10,
+    "acierta": 0.8,
+    "roi": 0.0121,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.3527,
+    "p5": null
+   },
+   "global": {
+    "n": 11,
+    "acierta": 0.8182,
+    "roi": 0.0431,
+    "p5": null
+   },
+   "cuota_media": 1.274,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.80|c1.35": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.354,
+    "p5": null
+   },
+   "global": {
+    "n": 2,
+    "acierta": 1.0,
+    "roi": 0.5198,
+    "p5": null
+   },
+   "cuota_media": 1.52,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.80|c1.35": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.3527,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.3527,
+    "p5": null
+   },
+   "cuota_media": 1.353,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.80|c1.50": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "cuota_media": 1.686,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.80|c1.50": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.85|c1.15": {
+   "eleccion": {
+    "n": 50,
+    "acierta": 0.78,
+    "roi": -0.0801,
+    "p5": -0.2063
+   },
+   "juicio": {
+    "n": 7,
+    "acierta": 0.7143,
+    "roi": -0.1587,
+    "p5": null
+   },
+   "global": {
+    "n": 57,
+    "acierta": 0.7719,
+    "roi": -0.0897,
+    "p5": -0.2026
+   },
+   "cuota_media": 1.178,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.85|c1.15": {
+   "eleccion": {
+    "n": 6,
+    "acierta": 0.8333,
+    "roi": -0.0357,
+    "p5": null
+   },
+   "juicio": {
+    "n": 3,
+    "acierta": 1.0,
+    "roi": 0.1634,
+    "p5": null
+   },
+   "global": {
+    "n": 9,
+    "acierta": 0.8889,
+    "roi": 0.0307,
+    "p5": null
+   },
+   "cuota_media": 1.159,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.85|c1.25": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "cuota_media": 1.686,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.85|c1.25": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.85|c1.35": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "cuota_media": 1.686,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.85|c1.35": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_1x|p0.85|c1.50": {
+   "eleccion": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 1,
+    "acierta": 1.0,
+    "roi": 0.6857,
+    "p5": null
+   },
+   "cuota_media": 1.686,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "D_x2|p0.85|c1.50": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "E_1x_u25|p0.00|c1.50": {
+   "eleccion": {
+    "n": 9840,
+    "acierta": 0.3666,
+    "roi": -0.0468,
+    "p5": -0.0708
+   },
+   "juicio": {
+    "n": 3172,
+    "acierta": 0.3584,
+    "roi": -0.0566,
+    "p5": -0.0971
+   },
+   "global": {
+    "n": 13012,
+    "acierta": 0.3646,
+    "roi": -0.0492,
+    "p5": -0.0695
+   },
+   "cuota_media": 2.875,
+   "pasa": false,
+   "peor_p5": -0.0971
+  },
+  "E_x2_u25|p0.00|c1.50": {
+   "eleccion": {
+    "n": 9839,
+    "acierta": 0.3192,
+    "roi": 0.0068,
+    "p5": -0.0208
+   },
+   "juicio": {
+    "n": 3172,
+    "acierta": 0.3203,
+    "roi": 0.0241,
+    "p5": -0.0258
+   },
+   "global": {
+    "n": 13011,
+    "acierta": 0.3195,
+    "roi": 0.011,
+    "p5": -0.0135
+   },
+   "cuota_media": 3.817,
+   "pasa": false,
+   "peor_p5": -0.0258
+  },
+  "E_1x_u25|p0.00|c1.80": {
+   "eleccion": {
+    "n": 9613,
+    "acierta": 0.3614,
+    "roi": -0.048,
+    "p5": -0.0714
+   },
+   "juicio": {
+    "n": 3107,
+    "acierta": 0.356,
+    "roi": -0.054,
+    "p5": -0.0951
+   },
+   "global": {
+    "n": 12720,
+    "acierta": 0.3601,
+    "roi": -0.0495,
+    "p5": -0.0701
+   },
+   "cuota_media": 2.902,
+   "pasa": false,
+   "peor_p5": -0.0951
+  },
+  "E_x2_u25|p0.00|c1.80": {
+   "eleccion": {
+    "n": 9806,
+    "acierta": 0.3185,
+    "roi": 0.007,
+    "p5": -0.0223
+   },
+   "juicio": {
+    "n": 3164,
+    "acierta": 0.3186,
+    "roi": 0.0223,
+    "p5": -0.0279
+   },
+   "global": {
+    "n": 12970,
+    "acierta": 0.3185,
+    "roi": 0.0107,
+    "p5": -0.0121
+   },
+   "cuota_media": 3.824,
+   "pasa": false,
+   "peor_p5": -0.0279
+  },
+  "E_1x_u25|p0.00|c2.00": {
+   "eleccion": {
+    "n": 8787,
+    "acierta": 0.3517,
+    "roi": -0.0423,
+    "p5": -0.0678
+   },
+   "juicio": {
+    "n": 2838,
+    "acierta": 0.3545,
+    "roi": -0.0317,
+    "p5": -0.0749
+   },
+   "global": {
+    "n": 11625,
+    "acierta": 0.3523,
+    "roi": -0.0397,
+    "p5": -0.0605
+   },
+   "cuota_media": 2.995,
+   "pasa": false,
+   "peor_p5": -0.0749
+  },
+  "E_x2_u25|p0.00|c2.00": {
+   "eleccion": {
+    "n": 9574,
+    "acierta": 0.3131,
+    "roi": 0.0063,
+    "p5": -0.0218
+   },
+   "juicio": {
+    "n": 3081,
+    "acierta": 0.3145,
+    "roi": 0.0255,
+    "p5": -0.029
+   },
+   "global": {
+    "n": 12655,
+    "acierta": 0.3135,
+    "roi": 0.011,
+    "p5": -0.0145
+   },
+   "cuota_media": 3.871,
+   "pasa": false,
+   "peor_p5": -0.029
+  },
+  "E_1x_u25|p0.30|c1.50": {
+   "eleccion": {
+    "n": 7166,
+    "acierta": 0.4132,
+    "roi": -0.0459,
+    "p5": -0.0679
+   },
+   "juicio": {
+    "n": 2242,
+    "acierta": 0.3974,
+    "roi": -0.079,
+    "p5": -0.1171
+   },
+   "global": {
+    "n": 9408,
+    "acierta": 0.4094,
+    "roi": -0.0538,
+    "p5": -0.0738
+   },
+   "cuota_media": 2.344,
+   "pasa": false,
+   "peor_p5": -0.1171
+  },
+  "E_x2_u25|p0.30|c1.50": {
+   "eleccion": {
+    "n": 4764,
+    "acierta": 0.3938,
+    "roi": -0.0291,
+    "p5": -0.0584
+   },
+   "juicio": {
+    "n": 1416,
+    "acierta": 0.3856,
+    "roi": -0.0624,
+    "p5": -0.1123
+   },
+   "global": {
+    "n": 6180,
+    "acierta": 0.3919,
+    "roi": -0.0367,
+    "p5": -0.0626
+   },
+   "cuota_media": 2.492,
+   "pasa": false,
+   "peor_p5": -0.1123
+  },
+  "E_1x_u25|p0.30|c1.80": {
+   "eleccion": {
+    "n": 6939,
+    "acierta": 0.4076,
+    "roi": -0.0476,
+    "p5": -0.0709
+   },
+   "juicio": {
+    "n": 2177,
+    "acierta": 0.395,
+    "roi": -0.0759,
+    "p5": -0.117
+   },
+   "global": {
+    "n": 9116,
+    "acierta": 0.4046,
+    "roi": -0.0543,
+    "p5": -0.0739
+   },
+   "cuota_media": 2.365,
+   "pasa": false,
+   "peor_p5": -0.117
+  },
+  "E_x2_u25|p0.30|c1.80": {
+   "eleccion": {
+    "n": 4731,
+    "acierta": 0.3927,
+    "roi": -0.029,
+    "p5": -0.0571
+   },
+   "juicio": {
+    "n": 1408,
+    "acierta": 0.3821,
+    "roi": -0.0669,
+    "p5": -0.1193
+   },
+   "global": {
+    "n": 6139,
+    "acierta": 0.3903,
+    "roi": -0.0377,
+    "p5": -0.0624
+   },
+   "cuota_media": 2.497,
+   "pasa": false,
+   "peor_p5": -0.1193
+  },
+  "E_1x_u25|p0.30|c2.00": {
+   "eleccion": {
+    "n": 6113,
+    "acierta": 0.3998,
+    "roi": -0.0392,
+    "p5": -0.0646
+   },
+   "juicio": {
+    "n": 1908,
+    "acierta": 0.3983,
+    "roi": -0.0458,
+    "p5": -0.0916
+   },
+   "global": {
+    "n": 8021,
+    "acierta": 0.3995,
+    "roi": -0.0408,
+    "p5": -0.0632
+   },
+   "cuota_media": 2.426,
+   "pasa": false,
+   "peor_p5": -0.0916
+  },
+  "E_x2_u25|p0.30|c2.00": {
+   "eleccion": {
+    "n": 4499,
+    "acierta": 0.3852,
+    "roi": -0.0323,
+    "p5": -0.0635
+   },
+   "juicio": {
+    "n": 1325,
+    "acierta": 0.3766,
+    "roi": -0.0652,
+    "p5": -0.1218
+   },
+   "global": {
+    "n": 5824,
+    "acierta": 0.3832,
+    "roi": -0.0398,
+    "p5": -0.0651
+   },
+   "cuota_media": 2.528,
+   "pasa": false,
+   "peor_p5": -0.1218
+  },
+  "E_1x_u25|p0.35|c1.50": {
+   "eleccion": {
+    "n": 5210,
+    "acierta": 0.4347,
+    "roi": -0.0514,
+    "p5": -0.0749
+   },
+   "juicio": {
+    "n": 1506,
+    "acierta": 0.4216,
+    "roi": -0.0868,
+    "p5": -0.1322
+   },
+   "global": {
+    "n": 6716,
+    "acierta": 0.4318,
+    "roi": -0.0593,
+    "p5": -0.081
+   },
+   "cuota_media": 2.194,
+   "pasa": false,
+   "peor_p5": -0.1322
+  },
+  "E_x2_u25|p0.35|c1.50": {
+   "eleccion": {
+    "n": 2703,
+    "acierta": 0.4269,
+    "roi": -0.0251,
+    "p5": -0.0621
+   },
+   "juicio": {
+    "n": 810,
+    "acierta": 0.4185,
+    "roi": -0.057,
+    "p5": -0.1227
+   },
+   "global": {
+    "n": 3513,
+    "acierta": 0.425,
+    "roi": -0.0325,
+    "p5": -0.0649
+   },
+   "cuota_media": 2.292,
+   "pasa": false,
+   "peor_p5": -0.1227
+  },
+  "E_1x_u25|p0.35|c1.80": {
+   "eleccion": {
+    "n": 4983,
+    "acierta": 0.4279,
+    "roi": -0.054,
+    "p5": -0.0804
+   },
+   "juicio": {
+    "n": 1441,
+    "acierta": 0.4192,
+    "roi": -0.0825,
+    "p5": -0.1297
+   },
+   "global": {
+    "n": 6424,
+    "acierta": 0.4259,
+    "roi": -0.0604,
+    "p5": -0.0833
+   },
+   "cuota_media": 2.216,
+   "pasa": false,
+   "peor_p5": -0.1297
+  },
+  "E_x2_u25|p0.35|c1.80": {
+   "eleccion": {
+    "n": 2670,
+    "acierta": 0.4255,
+    "roi": -0.0249,
+    "p5": -0.0618
+   },
+   "juicio": {
+    "n": 802,
+    "acierta": 0.4127,
+    "roi": -0.0648,
+    "p5": -0.1316
+   },
+   "global": {
+    "n": 3472,
+    "acierta": 0.4225,
+    "roi": -0.0341,
+    "p5": -0.0662
+   },
+   "cuota_media": 2.299,
+   "pasa": false,
+   "peor_p5": -0.1316
+  },
+  "E_1x_u25|p0.35|c2.00": {
+   "eleccion": {
+    "n": 4157,
+    "acierta": 0.4205,
+    "roi": -0.0431,
+    "p5": -0.0725
+   },
+   "juicio": {
+    "n": 1172,
+    "acierta": 0.43,
+    "roi": -0.035,
+    "p5": -0.0864
+   },
+   "global": {
+    "n": 5329,
+    "acierta": 0.4226,
+    "roi": -0.0413,
+    "p5": -0.0671
+   },
+   "cuota_media": 2.277,
+   "pasa": false,
+   "peor_p5": -0.0864
+  },
+  "E_x2_u25|p0.35|c2.00": {
+   "eleccion": {
+    "n": 2438,
+    "acierta": 0.4147,
+    "roi": -0.0306,
+    "p5": -0.0694
+   },
+   "juicio": {
+    "n": 719,
+    "acierta": 0.4061,
+    "roi": -0.0614,
+    "p5": -0.1304
+   },
+   "global": {
+    "n": 3157,
+    "acierta": 0.4127,
+    "roi": -0.0376,
+    "p5": -0.0712
+   },
+   "cuota_media": 2.336,
+   "pasa": false,
+   "peor_p5": -0.1304
+  },
+  "E_1x_u25|p0.40|c1.50": {
+   "eleccion": {
+    "n": 2823,
+    "acierta": 0.4612,
+    "roi": -0.0634,
+    "p5": -0.094
+   },
+   "juicio": {
+    "n": 762,
+    "acierta": 0.4331,
+    "roi": -0.126,
+    "p5": -0.1837
+   },
+   "global": {
+    "n": 3585,
+    "acierta": 0.4552,
+    "roi": -0.0767,
+    "p5": -0.1046
+   },
+   "cuota_media": 2.036,
+   "pasa": false,
+   "peor_p5": -0.1837
+  },
+  "E_x2_u25|p0.40|c1.50": {
+   "eleccion": {
+    "n": 1069,
+    "acierta": 0.4584,
+    "roi": -0.0422,
+    "p5": -0.0957
+   },
+   "juicio": {
+    "n": 295,
+    "acierta": 0.478,
+    "roi": -0.015,
+    "p5": -0.1122
+   },
+   "global": {
+    "n": 1364,
+    "acierta": 0.4626,
+    "roi": -0.0363,
+    "p5": -0.0816
+   },
+   "cuota_media": 2.096,
+   "pasa": false,
+   "peor_p5": -0.1122
+  },
+  "E_1x_u25|p0.40|c1.80": {
+   "eleccion": {
+    "n": 2596,
+    "acierta": 0.4503,
+    "roi": -0.0695,
+    "p5": -0.1026
+   },
+   "juicio": {
+    "n": 697,
+    "acierta": 0.429,
+    "roi": -0.1208,
+    "p5": -0.1821
+   },
+   "global": {
+    "n": 3293,
+    "acierta": 0.4458,
+    "roi": -0.0804,
+    "p5": -0.1101
+   },
+   "cuota_media": 2.065,
+   "pasa": false,
+   "peor_p5": -0.1821
+  },
+  "E_x2_u25|p0.40|c1.80": {
+   "eleccion": {
+    "n": 1036,
+    "acierta": 0.4556,
+    "roi": -0.0422,
+    "p5": -0.0943
+   },
+   "juicio": {
+    "n": 287,
+    "acierta": 0.4634,
+    "roi": -0.0356,
+    "p5": -0.133
+   },
+   "global": {
+    "n": 1323,
+    "acierta": 0.4573,
+    "roi": -0.0407,
+    "p5": -0.0886
+   },
+   "cuota_media": 2.107,
+   "pasa": false,
+   "peor_p5": -0.133
+  },
+  "E_1x_u25|p0.40|c2.00": {
+   "eleccion": {
+    "n": 1775,
+    "acierta": 0.4434,
+    "roi": -0.0515,
+    "p5": -0.0936
+   },
+   "juicio": {
+    "n": 428,
+    "acierta": 0.465,
+    "roi": -0.0148,
+    "p5": -0.1005
+   },
+   "global": {
+    "n": 2203,
+    "acierta": 0.4476,
+    "roi": -0.0443,
+    "p5": -0.0813
+   },
+   "cuota_media": 2.138,
+   "pasa": false,
+   "peor_p5": -0.1005
+  },
+  "E_x2_u25|p0.40|c2.00": {
+   "eleccion": {
+    "n": 804,
+    "acierta": 0.4316,
+    "roi": -0.0645,
+    "p5": -0.1252
+   },
+   "juicio": {
+    "n": 205,
+    "acierta": 0.4585,
+    "roi": -0.0168,
+    "p5": -0.1411
+   },
+   "global": {
+    "n": 1009,
+    "acierta": 0.4371,
+    "roi": -0.0548,
+    "p5": -0.1103
+   },
+   "cuota_media": 2.165,
+   "pasa": false,
+   "peor_p5": -0.1411
+  },
+  "E_1x_u25|p0.45|c1.50": {
+   "eleccion": {
+    "n": 994,
+    "acierta": 0.495,
+    "roi": -0.0727,
+    "p5": -0.1207
+   },
+   "juicio": {
+    "n": 240,
+    "acierta": 0.4458,
+    "roi": -0.1734,
+    "p5": -0.2708
+   },
+   "global": {
+    "n": 1234,
+    "acierta": 0.4854,
+    "roi": -0.0923,
+    "p5": -0.1387
+   },
+   "cuota_media": 1.877,
+   "pasa": false,
+   "peor_p5": -0.2708
+  },
+  "E_x2_u25|p0.45|c1.50": {
+   "eleccion": {
+    "n": 259,
+    "acierta": 0.5367,
+    "roi": 0.0324,
+    "p5": -0.0639
+   },
+   "juicio": {
+    "n": 65,
+    "acierta": 0.5538,
+    "roi": 0.0462,
+    "p5": -0.151
+   },
+   "global": {
+    "n": 324,
+    "acierta": 0.5401,
+    "roi": 0.0352,
+    "p5": -0.0501
+   },
+   "cuota_media": 1.92,
+   "pasa": false,
+   "peor_p5": -0.151
+  },
+  "E_1x_u25|p0.45|c1.80": {
+   "eleccion": {
+    "n": 767,
+    "acierta": 0.4681,
+    "roi": -0.0961,
+    "p5": -0.1519
+   },
+   "juicio": {
+    "n": 177,
+    "acierta": 0.435,
+    "roi": -0.1695,
+    "p5": -0.2858
+   },
+   "global": {
+    "n": 944,
+    "acierta": 0.4619,
+    "roi": -0.1099,
+    "p5": -0.1626
+   },
+   "cuota_media": 1.927,
+   "pasa": false,
+   "peor_p5": -0.2858
+  },
+  "E_x2_u25|p0.45|c1.80": {
+   "eleccion": {
+    "n": 226,
+    "acierta": 0.5354,
+    "roi": 0.0434,
+    "p5": -0.0614
+   },
+   "juicio": {
+    "n": 57,
+    "acierta": 0.4912,
+    "roi": -0.049,
+    "p5": -0.2597
+   },
+   "global": {
+    "n": 283,
+    "acierta": 0.5265,
+    "roi": 0.0248,
+    "p5": -0.0691
+   },
+   "cuota_media": 1.946,
+   "pasa": false,
+   "peor_p5": -0.2597
+  },
+  "E_1x_u25|p0.45|c2.00": {
+   "eleccion": {
+    "n": 141,
+    "acierta": 0.4681,
+    "roi": -0.0395,
+    "p5": -0.1839
+   },
+   "juicio": {
+    "n": 18,
+    "acierta": 0.5556,
+    "roi": 0.1385,
+    "p5": null
+   },
+   "global": {
+    "n": 159,
+    "acierta": 0.478,
+    "roi": -0.0194,
+    "p5": -0.1492
+   },
+   "cuota_media": 2.048,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "E_x2_u25|p0.45|c2.00": {
+   "eleccion": {
+    "n": 62,
+    "acierta": 0.4839,
+    "roi": -0.0012,
+    "p5": -0.2024
+   },
+   "juicio": {
+    "n": 9,
+    "acierta": 0.5556,
+    "roi": 0.1527,
+    "p5": null
+   },
+   "global": {
+    "n": 71,
+    "acierta": 0.493,
+    "roi": 0.0183,
+    "p5": -0.1866
+   },
+   "cuota_media": 2.063,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "E_1x_u25|p0.50|c1.50": {
+   "eleccion": {
+    "n": 248,
+    "acierta": 0.5565,
+    "roi": -0.0353,
+    "p5": -0.1247
+   },
+   "juicio": {
+    "n": 42,
+    "acierta": 0.5,
+    "roi": -0.1465,
+    "p5": -0.3584
+   },
+   "global": {
+    "n": 290,
+    "acierta": 0.5483,
+    "roi": -0.0514,
+    "p5": -0.1371
+   },
+   "cuota_media": 1.733,
+   "pasa": false,
+   "peor_p5": -0.3584
+  },
+  "E_x2_u25|p0.50|c1.50": {
+   "eleccion": {
+    "n": 25,
+    "acierta": 0.44,
+    "roi": -0.2037,
+    "p5": null
+   },
+   "juicio": {
+    "n": 6,
+    "acierta": 0.8333,
+    "roi": 0.4285,
+    "p5": null
+   },
+   "global": {
+    "n": 31,
+    "acierta": 0.5161,
+    "roi": -0.0814,
+    "p5": -0.3207
+   },
+   "cuota_media": 1.771,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "E_1x_u25|p0.50|c1.80": {
+   "eleccion": {
+    "n": 58,
+    "acierta": 0.3966,
+    "roi": -0.2649,
+    "p5": -0.4572
+   },
+   "juicio": {
+    "n": 6,
+    "acierta": 0.6667,
+    "roi": 0.2443,
+    "p5": null
+   },
+   "global": {
+    "n": 64,
+    "acierta": 0.4219,
+    "roi": -0.2171,
+    "p5": -0.3953
+   },
+   "cuota_media": 1.849,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "E_x2_u25|p0.50|c1.80": {
+   "eleccion": {
+    "n": 11,
+    "acierta": 0.5455,
+    "roi": 0.0293,
+    "p5": null
+   },
+   "juicio": {
+    "n": 1,
+    "acierta": 0.0,
+    "roi": -1.0,
+    "p5": null
+   },
+   "global": {
+    "n": 12,
+    "acierta": 0.5,
+    "roi": -0.0565,
+    "p5": null
+   },
+   "cuota_media": 1.872,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "E_1x_u25|p0.50|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "E_x2_u25|p0.50|c2.00": {
+   "eleccion": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "juicio": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "global": {
+    "n": 0,
+    "acierta": null,
+    "roi": null,
+    "p5": null
+   },
+   "cuota_media": null,
+   "pasa": false,
+   "peor_p5": null
+  },
+  "F_home_o25|todas": {
+   "eleccion": {
+    "n": 9840,
+    "acierta": 0.2592,
+    "roi": 0.0218,
+    "p5": -0.0118
+   },
+   "juicio": {
+    "n": 7580,
+    "acierta": 0.2681,
+    "roi": 0.0161,
+    "p5": -0.0203
+   },
+   "global": {
+    "n": 17420,
+    "acierta": 0.2631,
+    "roi": 0.0193,
+    "p5": -0.0048
+   },
+   "cuota_media": 4.881,
+   "pasa": false,
+   "peor_p5": -0.0203
+  }
+ },
+ "correlacion_1x_u25": {
+  "n": 13028,
+  "real": 0.3648,
+  "producto": 0.3434
+ },
+ "correlacion_x2_u25": {
+  "n": 13028,
+  "real": 0.3196,
+  "producto": 0.2844
+ },
+ "pasan": []
+}
