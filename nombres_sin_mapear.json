@@ -1569,8 +1569,8 @@
   },
   "Boston United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Boston River",
-    "ratio": 0.72,
+    "candidato": "Delta United",
+    "ratio": 0.64,
     "visto": "2026-09-23"
   },
   "Real Sociedad II": {
@@ -1629,8 +1629,8 @@
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes L.P. 2",
-    "ratio": 0.6341,
+    "candidato": "Estudiantes Rio Cuarto 2",
+    "ratio": 0.625,
     "visto": "2026-09-23"
   },
   "San Miguel": {
@@ -1715,6 +1715,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Racing Club 2",
     "ratio": 0.3448,
+    "visto": "2026-09-23"
+  },
+  "Sportivo Ameliano": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sportivo Iteno",
+    "ratio": 0.7742,
+    "visto": "2026-09-23"
+  },
+  "Sportivo Trinidense": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sportivo Iteno",
+    "ratio": 0.7273,
     "visto": "2026-09-23"
   }
 }
