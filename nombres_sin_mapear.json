@@ -234,8 +234,10 @@
     "visto": "2026-08-25"
   },
   "Cruz Azul": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Santa Cruz RS",
+    "ratio": 0.4545,
+    "visto": "2026-09-23"
   },
   "Cássio": {
     "contexto": "lineas_jugador",
@@ -1473,7 +1475,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "JEF United W",
     "ratio": 0.7,
-    "visto": "2026-09-22"
+    "visto": "2026-09-23"
   },
   "Queen's Park": {
     "contexto": "cuotas_mx→futbol",
@@ -1491,7 +1493,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "JEF United W",
     "ratio": 0.5833,
-    "visto": "2026-09-22"
+    "visto": "2026-09-23"
   },
   "Hartford Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1503,13 +1505,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sao Tome and Principe",
     "ratio": 0.4242,
-    "visto": "2026-09-22"
+    "visto": "2026-09-23"
   },
   "Nacional Asunción": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Nacional Potosi",
-    "ratio": 0.6875,
-    "visto": "2026-09-22"
+    "candidato": "Libertad Asuncion",
+    "ratio": 0.5882,
+    "visto": "2026-09-23"
   },
   "Club Atlético La Paz": {
     "contexto": "cuotas_mx→futbol",
@@ -1522,5 +1524,155 @@
     "candidato": "Sporting Lagos",
     "ratio": 0.7692,
     "visto": "2026-09-22"
+  },
+  "Atlanta United FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "JEF United W",
+    "ratio": 0.5833,
+    "visto": "2026-09-23"
+  },
+  "New York City FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "New Zealand",
+    "ratio": 0.4211,
+    "visto": "2026-09-23"
+  },
+  "Philadelphia Union": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Union La Calera",
+    "ratio": 0.303,
+    "visto": "2026-09-23"
+  },
+  "Red Bull New York": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "New Zealand",
+    "ratio": 0.2857,
+    "visto": "2026-09-23"
+  },
+  "Cambridge United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rivers United",
+    "ratio": 0.6897,
+    "visto": "2026-09-23"
+  },
+  "Peterborough United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rivers United",
+    "ratio": 0.5625,
+    "visto": "2026-09-23"
+  },
+  "Sheffield Wednesday": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sheffield Utd W",
+    "ratio": 0.6875,
+    "visto": "2026-09-23"
+  },
+  "Boston United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Boston River",
+    "ratio": 0.72,
+    "visto": "2026-09-23"
+  },
+  "Real Sociedad II": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Real Madrid B",
+    "ratio": 0.5517,
+    "visto": "2026-09-23"
+  },
+  "Carlisle United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rivers United",
+    "ratio": 0.7143,
+    "visto": "2026-09-23"
+  },
+  "Rotherham United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rivers United",
+    "ratio": 0.6897,
+    "visto": "2026-09-23"
+  },
+  "Colchester United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rivers United",
+    "ratio": 0.6,
+    "visto": "2026-09-23"
+  },
+  "Scunthorpe United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "JEF United W",
+    "ratio": 0.5926,
+    "visto": "2026-09-23"
+  },
+  "Hartlepool United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rivers United",
+    "ratio": 0.6,
+    "visto": "2026-09-23"
+  },
+  "Southend United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "JEF United W",
+    "ratio": 0.64,
+    "visto": "2026-09-23"
+  },
+  "Sutton United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rivers United",
+    "ratio": 0.6154,
+    "visto": "2026-09-23"
+  },
+  "Helmond Sport": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Omega Sport",
+    "ratio": 0.5833,
+    "visto": "2026-09-23"
+  },
+  "Estudiantes (Buenos Aires)": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Estudiantes L.P. 2",
+    "ratio": 0.6341,
+    "visto": "2026-09-23"
+  },
+  "San Miguel": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "San Lorenzo",
+    "ratio": 0.4762,
+    "visto": "2026-09-23"
+  },
+  "Central Norte": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Central Africa",
+    "ratio": 0.6667,
+    "visto": "2026-09-23"
+  },
+  "Chacarita Juniors": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Cumnock Juniors",
+    "ratio": 0.625,
+    "visto": "2026-09-23"
+  },
+  "Cerro Largo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "CA Cerro",
+    "ratio": 0.5263,
+    "visto": "2026-09-23"
+  },
+  "Internacional Santa Tecla": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Santa Fe",
+    "ratio": 0.4242,
+    "visto": "2026-09-23"
+  },
+  "Cruz Azul Hidalgo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Santa Cruz RS",
+    "ratio": 0.3333,
+    "visto": "2026-09-23"
+  },
+  "Cerro Porteño": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "CA Cerro",
+    "ratio": 0.4762,
+    "visto": "2026-09-23"
   }
 }
