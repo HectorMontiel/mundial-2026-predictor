@@ -1581,3 +1581,37 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-09-23,nba,EUROPE: AdmiralBet ABA League,Studentski Centar,Spartak Subotica,1790447400,1.9615,,1.8621,0.487002,0.512998,0.046842,0,0.0,
 2026-09-23,nba,EUROPE: AdmiralBet ABA League,Mega Basket,Cluj-Napoca,1790503200,2.15,,1.7143,0.443625,0.556375,0.048445,0,0.0,
 2026-09-23,nfl,USA: NFL,Green Bay Packers,Atlanta Falcons,1790295300,1.3663,,3.31,0.707825,0.292175,0.034018,1,0.0203,Novibet
+2026-09-23,futbol,ARGENTINA: Reserve League - Clausura,Belgrano 2,Talleres Cordoba 2,1790200800,3.04,3.02,2.57,0.313529,0.370866,0.049178,1,0.0387,Novibet
+2026-09-23,futbol,CANADA: Canadian Premier League,Vancouver FC,Inter Toronto,1790215200,2.48,3.97,2.15,0.359949,0.415197,0.120231,1,0.1037,Novibet
+2026-09-23,tenis,"ATP - DOUBLES: Hangzhou (China), hard",Arends S./Pel D.,Reyes-Varela M. A./Stalder R.,1790236800,1.6369,,2.26,0.579948,0.420052,0.053389,0,0.0,
+2026-09-23,tenis,"WTA - DOUBLES: Singapore (Singapore), hard (indoor)",Costoulas S./Gibson T.,Mladenovic K./Panova A.,1790233200,2.3,,1.6211,0.41343,0.58657,0.051648,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria), clay",Almazan Valiente I.,Mrva M.,1790244000,2.63,,1.4975,0.36281,0.63719,0.048008,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria), clay",Ivanov I.,Andreev A.,1790244000,2.13,,1.7299,0.448172,0.551828,0.047552,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria), clay",Forejtek J.,Chazal M.,1790254800,1.5435,,2.5,0.618276,0.381724,0.047878,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: Plovdiv 4 (Bulgaria), clay",Gill F.,Radulov I.,1790258400,1.3676,,3.16,0.697942,0.302058,0.047664,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: San Diego 2 (USA), hard",Smith K.,Dietrich D.,1790202600,2.32,,1.6211,0.411332,0.588668,0.0479,1,0.0236,Novibet
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Harris B.,Cassone M.,1790238600,2.01,,1.8547,0.479908,0.520092,0.036683,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Martineau M.,Masur D.,1790244000,2.04,,1.8264,0.472377,0.527623,0.037721,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Butvilas E.,Mayot H.,1790249400,1.7246,,2.18,0.558316,0.441684,0.03856,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: St. Tropez (France), hard",Guerrieri A.,De Jong J.,1790263800,3.0,,1.4184,0.321021,0.678979,0.038353,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Steiner V.,Swan K.,1790256600,5.03,,1.1786,0.189833,0.810167,0.047271,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - DOUBLES: Tolentino (Italy), clay",Kucmova A./Laboutkova A.,Morderger T./Morderger Y.,1790240400,1.1333,,5.22,0.82162,0.17838,0.07395,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Baku (Azerbaijan), hard",Brown O.,Yilmaz K.,1790229600,1.7874,,1.9709,0.524413,0.475587,0.066854,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Baku (Azerbaijan), hard",Gretskiy I.,Majdandzic M.,1790229600,3.83,,1.2415,0.244799,0.755201,0.066574,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Covato M.,Seifert S.,1790236800,7.56,,1.0975,0.126769,0.873231,0.043437,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Van Sambeek F.,Thomas F.,1790236800,1.6623,,2.24,0.57402,0.42598,0.048005,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Hoffmann M.,De Jonge D.,1790242200,8.33,,1.0845,0.115195,0.884805,0.042132,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Nagel A.,Theate P.,1790242200,1.0196,,21.58,0.954884,0.045116,0.027116,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Trufelli T.,Van Herck L.,1790247600,1.7143,,2.16,0.55752,0.44248,0.046291,1,0.021,Playdoit
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Zeuch T.,Boutleux N.,1790263800,1.2347,,4.2,0.772812,0.227188,0.048009,0,0.0,
+2026-09-23,mlb,TAIWAN: CPBL - Second stage,TSG Hawks,Fubon Guardians,1790246100,1.9009,,1.9174,0.502161,0.497839,0.047606,0,0.0,
+2026-09-23,mlb,TAIWAN: CPBL - Second stage,Uni Lions,Wei Chuan Dragons,1790246100,1.9804,,1.8403,0.481666,0.518334,0.048338,0,0.0,
+2026-09-23,futbol,SPAIN: Primera RFEF - Group 2,Atl. Madrid B,Villarreal B,1790355600,2.36,3.43,2.66,0.38831,0.344515,0.091214,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - DOUBLES: Ankara (Turkey), hard",Kostovic T./Micic E.,Falei A./Iatcenko P.,1790240400,2.39,,1.5263,0.38973,0.61027,0.073589,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - DOUBLES: Ankara (Turkey), hard",Ercan M./Naito Y.,Monnet C./Riera J.,1790240400,2.85,,1.3831,0.326735,0.673265,0.073891,1,0.1803,Novibet
+2026-09-23,tenis,"WTA - SINGLES: Seoul (South Korea), hard",Tararudee L.,Joint M.,1790298000,1.7692,,2.14,0.547427,0.452573,0.032517,0,0.0,
+2026-09-23,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Andreeva M.,Fernandez L.,1790301600,1.2786,,4.04,0.759598,0.240402,0.02963,0,0.0,
+2026-09-23,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Mertens E.,Chwalinska M.,1790301600,1.4762,,2.84,0.657986,0.342014,0.029528,0,0.0,
+2026-09-23,tenis,"ATP - SINGLES: Hangzhou (China), hard",Jacquet K.,Etcheverry T. M.,1790388000,2.45,,1.5988,0.394882,0.605118,0.033632,0,0.0,
+2026-09-23,tenis,"ATP - SINGLES: Hangzhou (China), hard",Medvedev D.,Royer V.,1790388000,1.2212,,4.66,0.792355,0.207645,0.033459,0,0.0,
+2026-09-23,nba,SWEDEN: Basketligan,BC Lulea,Koping Stars,1790359440,1.1613,,4.31,0.787747,0.212253,0.093122,0,0.0,
