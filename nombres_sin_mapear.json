@@ -1533,8 +1533,8 @@
   },
   "New York City FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "New Zealand",
-    "ratio": 0.4211,
+    "candidato": "New Caledonia",
+    "ratio": 0.4762,
     "visto": "2026-09-23"
   },
   "Philadelphia Union": {
@@ -1545,8 +1545,8 @@
   },
   "Red Bull New York": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "New Zealand",
-    "ratio": 0.2857,
+    "candidato": "Papua New Guinea",
+    "ratio": 0.3636,
     "visto": "2026-09-23"
   },
   "Cambridge United": {
@@ -1673,6 +1673,36 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "CA Cerro",
     "ratio": 0.4762,
+    "visto": "2026-09-23"
+  },
+  "Deportivo Pasto": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.7059,
+    "visto": "2026-09-23"
+  },
+  "All Boys": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Newells Old Boys 2",
+    "ratio": 0.5385,
+    "visto": "2026-09-23"
+  },
+  "Deportivo Pereira": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.7222,
+    "visto": "2026-09-23"
+  },
+  "Deportivo Madryn": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.6286,
+    "visto": "2026-09-23"
+  },
+  "Cúcuta Deportivo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.5143,
     "visto": "2026-09-23"
   }
 }
