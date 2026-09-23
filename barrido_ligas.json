@@ -751,10 +751,10 @@
   },
   {
    "liga": "kbo",
-   "precision": 0.558,
+   "precision": 0.5556,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 13162,
+   "partidos": 13166,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -814,10 +814,10 @@
   },
   {
    "liga": "mlb",
-   "precision": 0.5549,
+   "precision": 0.5555,
    "techo_mercado": null,
    "margen": null,
-   "partidos": 27121,
+   "partidos": 27135,
    "roi_sim": null,
    "n_apuestas": null,
    "p5": null,
@@ -938,7 +938,7 @@
   },
   {
    "liga": "tennis",
-   "precision": 0.6758,
+   "precision": 0.6757,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
@@ -954,7 +954,7 @@
   },
   {
    "liga": "tennis_wta",
-   "precision": 0.695,
+   "precision": 0.6948,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
