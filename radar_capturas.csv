@@ -1352,3 +1352,46 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-09-23,mlb,USA: MLB,Chicago Cubs,Miami Marlins,1790206800,1.6024,,2.49,0.608445,0.391555,0.02567,0,0.0,
 2026-09-23,mlb,USA: MLB,Kansas City Royals,Chicago White Sox,1790206800,1.9901,,1.9091,0.489613,0.510387,0.026294,0,0.0,
 2026-09-23,futbol,AFRICA: Africa Cup of Nations - Qualification,Nigeria,Madagascar,1790352000,1.2008,5.73,14.01,0.772037,0.066171,0.078676,1,0.048,Novibet
+2026-09-23,futbol,BRAZIL: Copa Rio,Madureira,Sampaio Correa FE,1790185500,2.61,2.54,2.87,0.340487,0.309642,0.125275,1,0.0732,Novibet
+2026-09-23,futbol,SPAIN: Copa Federacion,Saguntino,Navalcarnero,1790186400,2.99,2.84,2.28,0.297246,0.389809,0.125157,0,0.0,
+2026-09-23,tenis,"ATP - SINGLES: Chengdu (China) - Qualification, hard",Mochizuki S.,Kotov P.,1790146253,2.35,,1.6289,0.409385,0.590615,0.039443,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: Genova 2 (Italy), clay",Moeller M.,Arnaboldi F.,1790163000,1.3676,,3.16,0.697942,0.302058,0.047664,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Baku (Azerbaijan), hard",Singh D.,Skvortcov P.,1790148600,1.1497,,5.13,0.816918,0.183082,0.064724,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",Tosetto R.,Wendler Filho J.,1790172000,1.2079,,4.2,0.776642,0.223358,0.065978,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",Zanellato N.,Braga B.,1790172000,1.0269,,14.07,0.931979,0.068021,0.044878,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",Castro L. C.,Chabalgoity P. H.,1790177400,1.8333,,1.9259,0.512316,0.487684,0.064702,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",Leite W.,Roveri Sidney G.,1790177400,1.2695,,3.59,0.738759,0.261241,0.066263,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",Remondy Pagotto V. H.,Bini V.,1790177400,1.1106,,6.17,0.847458,0.152542,0.062489,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",De Dios F.,Pereira J.,1790182800,3.43,,1.2907,0.273413,0.726587,0.066319,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",Lage E.,Schiessl J. E.,1790182800,4.62,,1.1773,0.203077,0.796923,0.065851,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Curitiba (Brazil), clay",Alves M.,Mouilleron Salvo M.,1790193600,1.0194,,16.76,0.942664,0.057336,0.040635,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Mueller C.,Van Sambeek F.,1790150400,1.4464,,2.74,0.6545,0.3455,0.056335,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Thurner N.,De Jonge D.,1790150400,7.01,,1.099,0.135528,0.864472,0.052571,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Garcian A.,Seifert S.,1790155800,2.15,,1.6944,0.440745,0.559255,0.055296,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Nagel A.,Dugardin R.,1790155800,1.1451,,5.49,0.827418,0.172582,0.055436,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Thomas F.,Clerc D.,1790155800,1.431,,2.79,0.660981,0.339019,0.057235,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Riu M.,McHugh A.,1790179200,19.39,,1.0147,0.049729,0.950271,0.037086,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Blaydes B.,Domingos D.,1790152200,1.211,,4.51,0.788324,0.211676,0.047493,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Chen C.,Colombo A.,1790152200,3.68,,1.2874,0.25917,0.74083,0.048498,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Makk P.,Tessa L.,1790152200,1.0758,,8.95,0.892697,0.107303,0.041273,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Ogunsakin O.,Rathi A.,1790152200,2.55,,1.5263,0.374433,0.625567,0.047336,1,0.0597,Novibet
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Corbinais S.,Donnet E.,1790157600,5.16,,1.1721,0.185104,0.814896,0.046968,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Vincent Ruggeri S.,Kadiri Hassani Y.,1790157600,1.2525,,3.86,0.755012,0.244988,0.057471,1,0.0582,Novibet
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Anavatan M.,Lumsden E.,1790163000,3.41,,1.3086,0.277328,0.722672,0.057431,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Bilardo J.,Malige M.,1790163000,2.33,,1.5952,0.4064,0.5936,0.056065,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Verwerft L. G.,Sibanda M. D. A.,1790163000,1.3344,,3.25,0.708926,0.291074,0.057093,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Ferrari F.,Derepasko T.,1790148600,2.66,,1.4878,0.358696,0.641304,0.048073,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Khoeblal E.,Shvangiradze A.,1790148600,1.0439,,11.69,0.918022,0.081978,0.043489,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Kukasian A.,Mecarelli M.,1790148600,4.5,,1.2114,0.212102,0.787898,0.047713,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Losaberidze V.,Monzon I.,1790148600,14.81,,1.0354,0.065344,0.934656,0.033332,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Basile A.,Gschwendtner J.,1790152200,1.9901,,1.8403,0.480446,0.519554,0.045877,1,0.078,Novibet
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Bidzinashvili N.,Grippo V.,1790152200,6.92,,1.1112,0.13836,0.86164,0.044437,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Klok D.,Angeloni L.,1790152200,1.3817,,3.09,0.691012,0.308988,0.047371,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Valle F.,Sabbatini M.,1790152200,2.03,,1.8,0.469974,0.530026,0.048166,1,0.0525,Novibet
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Bosio G.,Cherie Ligniere E.,1790157600,1.6757,,2.22,0.569859,0.430141,0.047216,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Fumagalli F.,Fiorentini A.,1790157600,1.6494,,2.27,0.57917,0.42083,0.04681,0,0.0,
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Tkemaladze Z.,Tiukaev R.,1790157600,3.37,,1.3311,0.283146,0.716854,0.047994,1,0.026,Novibet
+2026-09-23,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Villoslada E.,Dimic M.,1790157600,2.13,,1.7353,0.448943,0.551057,0.045753,1,0.0913,Novibet
+2026-09-23,tenis,TEAMS - WOMEN: Billie Jean King Cup - World Group (World),Kazakhstan W,Spain W,1790154000,3.59,,1.2933,0.264841,0.735159,0.051767,0,0.0,
+2026-09-23,nba,DENMARK: Basketligaen,BMS Herlev,Gladsaxe,1790182800,1.4739,,2.51,0.630036,0.369964,0.076878,1,0.0623,Playdoit
+2026-09-23,nba,CHILE: LNB - Clausura - Losers,Las Animas,Espanol de Talca,1790292600,1.0396,,5.39,0.83831,0.16169,0.147437,0,0.0,
