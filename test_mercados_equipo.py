@@ -158,6 +158,31 @@ def probar_la_razon():
           'sólo cita córners y tarjetas observados')
 
 
+def probar_la_cache_del_tablero():
+    """Lo guardado es lo que se lee después en el mismo proceso: si no, cada
+    precálculo salía con los precios de la pasada anterior."""
+    import os
+    import tempfile
+    import mercado_implicito as mi
+    ruta_orig = mi.FICHERO
+    d = tempfile.mkdtemp()
+    mi.FICHERO = os.path.join(d, 'mercado_dia.json')
+    try:
+        mi.guardar({'partidos': {'a|b': {'goles': {}}}}, mi.FICHERO)
+        mi.cargar(mi.FICHERO, recargar=True)
+        mi._MEM.clear()
+        mi.del_partido('a', 'b')
+        mi.guardar({'partidos': {'a|b': {'goles': {},
+                                         'dc_goles': {'2.5': {}}}}},
+                   mi.FICHERO)
+        check('dc_goles' in mi.del_partido('a', 'b'),
+              'tras guardar, el mismo proceso lee el tablero NUEVO')
+    finally:
+        mi.FICHERO = ruta_orig
+        mi._DISCO = None
+        mi._MEM.clear()
+
+
 def probar_la_tarjeta():
     src = open('modo_modelo.py', encoding='utf-8').read()
     check("razon_apuesta" in src and 'mm-rec-rz' in src,
@@ -175,7 +200,9 @@ if __name__ == '__main__':
     probar_las_candidatas()
     print('\n=== 4. la razón ===')
     probar_la_razon()
-    print('\n=== 5. la tarjeta ===')
+    print('\n=== 5. la caché del tablero ===')
+    probar_la_cache_del_tablero()
+    print('\n=== 6. la tarjeta ===')
     probar_la_tarjeta()
     print('\n' + '=' * 40)
     print('TODO OK' if not FALLOS else '%d FALLOS' % len(FALLOS))

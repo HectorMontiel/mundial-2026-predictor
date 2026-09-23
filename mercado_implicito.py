@@ -860,13 +860,27 @@ def _f_ts(valor) -> Optional[float]:
 
 
 def guardar(doc: Dict, ruta: str = FICHERO) -> None:
-    """Sin sangrado: son cifras y se commitea todos los días."""
+    """Sin sangrado: son cifras y se commitea todos los días.
+
+    v304 — Y LO GUARDADO ES LO QUE SE LEE DESPUÉS EN EL MISMO PROCESO.
+
+    `precalculo_dia` hace `fusionar(nuevo, cargar(recargar=True))`: esa
+    llamada deja en `_DISCO` el tablero VIEJO. Luego se guardaba el nuevo en
+    disco, pero `construir()` —en el mismo proceso— seguía leyendo la caché,
+    así que cada tarjeta salía con los precios de la pasada anterior. Se vio
+    al publicar los goles por equipo el 2026-09-23: `mercado_dia.json` los
+    traía en 89 partidos y ningún pronóstico los recibió.
+    """
+    global _DISCO
     try:
         import io_atomico
         io_atomico.escribir_json(ruta, doc)
     except Exception:
         with open(ruta, 'w', encoding='utf-8') as f:
             json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
+    if ruta == FICHERO:
+        _DISCO = doc
+        _MEM.clear()
 
 
 def main() -> int:
