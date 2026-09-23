@@ -218,8 +218,42 @@ def pronostico(motor, f: Dict, h: str, a: str) -> Optional[Dict]:
         'localia': (r.get('localia') or {}).get('metodo'),
         'motivo_modelo': str(r.get('decisive_factor') or '')[:240],
     }
+    # v303 — LOS PRECIOS DE TODOS LOS MERCADOS, NO SÓLO DEL 1X2.
+    #
+    # El usuario, con Japan-Uruguay delante: «me agrada que me des ganador,
+    # pero no me estás dando más métricas... habrá juegos donde es mejor la
+    # doble oportunidad y meter over u under por lo parejos que serán». La
+    # tarjeta sólo propone apuestas que la casa COTIZA (v174: sin precio no
+    # hay apuesta), y aquí sólo se adjuntaba el 1X2 de Pinnacle. Se usa la
+    # misma función que el fútbol de clubes, con los nombres CRUDOS del
+    # calendario, que son los que indexan el tablero de la casa.
     pin = precio.get('pinnacle') or {}
-    if all(pin.get(k) for k in ('home', 'draw', 'away')):
+    try:
+        import alpha_finder as _af
+        o_espn = {'pin_home': pin.get('home'), 'pin_draw': pin.get('draw'),
+                  'pin_away': pin.get('away')}
+        imp = {}
+        # Playdoit publica las selecciones EN ESPAÑOL («Japón|Uruguay») y
+        # ESPN en inglés: se prueban los dos. Visto el 2026-09-23: con el
+        # nombre inglés Japan-Uruguay no encontraba su tablero y la tarjeta
+        # sólo podía proponer el ganador.
+        try:
+            from prediction_api import NOMBRES_PAIS as _NP
+        except Exception:
+            _NP = {}
+        for _hh, _aa in ((_NP.get(h, ''), _NP.get(a, '')), (home, away)):
+            if not (_hh and _aa):
+                continue
+            imp = _af.implicitas_de_la_casa(
+                {'home': _hh, 'away': _aa}, o_espn) or {}
+            if len(imp) > 2:          # más que el 1X2 de respaldo
+                break
+        if imp:
+            p['implicitas'] = imp
+    except Exception as e:
+        logger.debug('[selecciones] precios de la casa %s: %s', home, e)
+    if not p.get('implicitas') and all(pin.get(k) for k in
+                                       ('home', 'draw', 'away')):
         p['implicitas'] = {'1x2_cuotas': {k: pin[k] for k in
                                           ('home', 'draw', 'away')}}
     try:
