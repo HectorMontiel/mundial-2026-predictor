@@ -1421,3 +1421,30 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-09-23,mlb,USA: MLB,Atlanta Braves,Cincinnati Reds,1790205300,1.3817,,3.28,0.703606,0.296394,0.028624,1,0.0258,Novibet
 2026-09-23,nba,EUROPE: Euroleague,Besiktas,Valencia,1790355600,1.7042,,2.15,0.557833,0.442167,0.051902,0,0.0,
 2026-09-23,nba,EUROPE: Euroleague,Fenerbahce,Virtus Bologna,1790358300,1.1224,,6.3,0.848782,0.151218,0.049678,0,0.0,
+2026-09-23,futbol,BRAZIL: Gaucho 2,Brasil de Pelotas,GE Gloria,1790186400,1.5587,3.26,5.66,0.570282,0.157049,0.124987,0,0.0,
+2026-09-23,futbol,BRAZIL: Gaucho 2,Gramadense,Pelotas,1790186400,2.3,2.62,3.25,0.386764,0.27371,0.124154,0,0.0,
+2026-09-23,futbol,INDIA: IFA Shield,Mohun Bagan,Sreenidi Deccan,1790155800,1.1376,7.87,11.9,0.806357,0.077085,0.090142,0,0.0,
+2026-09-23,futbol,PARAGUAY: Copa Paraguay,San Lorenzo,4 de Mayo,1790190000,1.1009,7.52,12.76,0.811245,0.069992,0.119696,0,0.0,
+2026-09-23,futbol,PARAGUAY: Copa Paraguay,Fernando de la Mora,Libertad Asuncion,1790199000,15.63,4.02,1.2242,0.056639,0.723144,0.129596,0,0.0,
+2026-09-23,futbol,SCOTLAND: Lowland League,Cumnock Juniors,Troon FC,1790189100,1.7042,3.76,3.66,0.521139,0.242657,0.125967,0,0.0,
+2026-09-23,futbol,EL SALVADOR: Primera Division - Apertura,Luis Angel Firpo,Cacahuatique,1790211600,1.4348,3.98,5.84,0.622592,0.152962,0.11945,1,0.0386,Novibet
+2026-09-23,futbol,ESTONIA: Estonian Cup,Elva,Tallinna Kalev,1790258400,2.84,3.21,2.17,0.313137,0.40982,0.124469,0,0.0,
+2026-09-23,futbol,OMAN: FA Cup,Oman Club,Sur Club,1790260200,1.9524,2.95,3.64,0.454917,0.244005,0.125898,0,0.0,
+2026-09-23,futbol,OMAN: FA Cup,Sohar,Al Seeb,1790260800,4.55,3.33,1.6494,0.195124,0.538265,0.126362,0,0.0,
+2026-09-23,futbol,SLOVAKIA: 3. Liga - Central,Podkonice,Ruzomberok B,1790256600,2.24,3.15,2.77,0.396861,0.320927,0.1249,0,0.0,
+2026-09-23,futbol,SWEDEN: Division 2 - Västra Götaland,Kongahalla,Lindome,1790273700,2.35,3.47,2.43,0.37817,0.36572,0.125239,0,0.0,
+2026-09-23,futbol,WORLD: Friendly International,Uzbekistan,Iran,1790258400,2.98,3.12,2.38,0.311796,0.3904,0.076251,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: Buenos Aires 3 (Argentina), clay",Kicker N.,Dellien H.,1790186400,4.53,,1.2092,0.210691,0.789309,0.047744,1,0.0219,Novibet
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: San Diego 2 (USA), hard",Boyer T.,Gorzny S.,1790182800,1.7299,,2.13,0.551828,0.448172,0.047552,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: San Diego 2 (USA), hard",Searle H.,Draxl L.,1790186400,2.28,,1.6452,0.419138,0.580862,0.046425,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - DOUBLES: Ankara (Turkey), hard",Dilek D./Mert A.,Haverlag I./Kubka M.,1790179200,5.54,,1.1189,0.168031,0.831969,0.07424,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - DOUBLES: Porto (Portugal), hard",Akli A./Voloshchuk A.,Arseneault A./Lacasse R.,1790173800,2.16,,1.6369,0.431115,0.568885,0.073874,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - DOUBLES: Tolentino (Italy), clay",Snells J./Walker B.,De Angelis G./Ovarelli A.,1790157600,1.1294,,5.3,0.824338,0.175662,0.074105,0,0.0,
+2026-09-23,tenis,"CHALLENGER WOMEN - DOUBLES: Tolentino (Italy), clay",Serban I. M./Struplova J.,Fossa Huergo N./Herrero Linana A.,1790170200,3.96,,1.2174,0.235137,0.764863,0.073948,0,0.0,
+2026-09-23,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Sakkari M.,Hibino N.,1790215200,1.2045,,5.04,0.80711,0.19289,0.028633,0,0.0,
+2026-09-23,tenis,"CHALLENGER MEN - SINGLES: San Diego 2 (USA), hard",Smith K.,Dietrich D.,1790202600,1.9524,,1.8696,0.489168,0.510832,0.047064,0,0.0,
+2026-09-23,nba,EUROPE: FIBA Europe Cup - Qualification,Neftchi IK,Parnu,1790175600,1.2105,,3.78,0.757439,0.242561,0.090655,1,0.0267,Novibet
+2026-09-23,nba,SINGAPORE: NBL,Tong Whye,Xin Hua,1790163000,2.14,,1.5405,0.418557,0.581443,0.11643,0,0.0,
+2026-09-23,nba,SINGAPORE: NBL,SG Basketball,SBA,1790169300,1.1451,,3.68,0.762678,0.237322,0.145025,0,0.0,
+2026-09-23,mlb,SOUTH KOREA: KBO,Doosan Bears,KIA Tigers,1790155800,1.9524,,1.8696,0.489168,0.510832,0.047064,1,0.0501,Novibet
+2026-09-23,nfl,USA: NFL,Chicago Bears,Philadelphia Eagles,1790640900,3.02,,1.4348,0.32208,0.67792,0.028087,1,0.0212,Novibet
