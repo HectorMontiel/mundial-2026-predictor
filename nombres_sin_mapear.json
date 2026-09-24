@@ -235,8 +235,8 @@
   },
   "Cruz Azul": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CD Santa Cruz",
-    "ratio": 0.3636,
+    "candidato": "Godoy Cruz 2",
+    "ratio": 0.4762,
     "visto": "2026-09-24"
   },
   "Cássio": {
@@ -407,8 +407,8 @@
   },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Marino U21",
-    "ratio": 0.4118,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.5128,
     "visto": "2026-09-24"
   },
   "Gabriel Barbosa": {
@@ -579,9 +579,9 @@
   },
   "Jaguares de Córdoba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Cordoba",
-    "ratio": 0.5294,
-    "visto": "2026-09-21"
+    "candidato": "Talleres Cordoba W",
+    "ratio": 0.6857,
+    "visto": "2026-09-24"
   },
   "Jaime Peralta": {
     "contexto": "lineas_jugador",
@@ -1145,8 +1145,8 @@
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Pilar",
-    "ratio": 0.5714,
+    "candidato": "Real Potosi",
+    "ratio": 0.6364,
     "visto": "2026-09-24"
   },
   "Real Salt Lake": {
@@ -1551,8 +1551,8 @@
   },
   "Cambridge United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rivers United",
-    "ratio": 0.6897,
+    "candidato": "Delta United",
+    "ratio": 0.5714,
     "visto": "2026-09-24"
   },
   "Peterborough United": {
@@ -1581,14 +1581,14 @@
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rivers United",
-    "ratio": 0.7143,
+    "candidato": "Delta United",
+    "ratio": 0.5926,
     "visto": "2026-09-24"
   },
   "Rotherham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rivers United",
-    "ratio": 0.6897,
+    "candidato": "Delta United",
+    "ratio": 0.6429,
     "visto": "2026-09-24"
   },
   "Colchester United": {
@@ -1605,7 +1605,7 @@
   },
   "Hartlepool United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rivers United",
+    "candidato": "Treaty United",
     "ratio": 0.6,
     "visto": "2026-09-24"
   },
@@ -1641,8 +1641,8 @@
   },
   "Central Norte": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Africa",
-    "ratio": 0.6667,
+    "candidato": "Central Cordoba",
+    "ratio": 0.7143,
     "visto": "2026-09-24"
   },
   "Chacarita Juniors": {
@@ -1665,8 +1665,8 @@
   },
   "Cruz Azul Hidalgo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CD Santa Cruz",
-    "ratio": 0.2667,
+    "candidato": "Godoy Cruz 2",
+    "ratio": 0.3448,
     "visto": "2026-09-24"
   },
   "Cerro Porteño": {
@@ -1689,19 +1689,19 @@
   },
   "Deportivo Pereira": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Riestra 2",
+    "candidato": "Deportivo San Pedro",
     "ratio": 0.7222,
     "visto": "2026-09-24"
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Espanol",
-    "ratio": 0.7273,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.7429,
     "visto": "2026-09-24"
   },
   "Cúcuta Deportivo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Espanol",
+    "candidato": "Deportivo Armenio",
     "ratio": 0.5455,
     "visto": "2026-09-24"
   },
@@ -1743,8 +1743,8 @@
   },
   "San Jose Earthquakes": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Marino U21",
-    "ratio": 0.4118,
+    "candidato": "San Martin Burzaco",
+    "ratio": 0.4737,
     "visto": "2026-09-24"
   },
   "D.C. United": {
@@ -1761,8 +1761,8 @@
   },
   "Mitre (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ind. del Valle",
-    "ratio": 0.4211,
+    "candidato": "Estrella Del Sur",
+    "ratio": 0.5366,
     "visto": "2026-09-24"
   },
   "San Telmo": {
@@ -1785,20 +1785,20 @@
   },
   "Deportivo Maipú": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Espanol",
-    "ratio": 0.6875,
+    "candidato": "Deportivo Armenio",
+    "ratio": 0.75,
     "visto": "2026-09-24"
   },
   "Racing (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Club 2",
-    "ratio": 0.6667,
+    "candidato": "Central Cordoba",
+    "ratio": 0.6897,
     "visto": "2026-09-24"
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CD Santa Cruz",
-    "ratio": 0.3243,
+    "candidato": "Godoy Cruz 2",
+    "ratio": 0.6111,
     "visto": "2026-09-24"
   },
   "New Mexico United": {
@@ -1931,6 +1931,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Osasco Sporting U20",
     "ratio": 0.5455,
+    "visto": "2026-09-24"
+  },
+  "Boston River": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "River Plate 2",
+    "ratio": 0.4,
     "visto": "2026-09-24"
   }
 }
