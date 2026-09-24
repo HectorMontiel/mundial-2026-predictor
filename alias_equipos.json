@@ -1,7 +1,7 @@
 {
- "generado": "2026-09-23T23:50:48Z",
- "fixtures_revisados": 20,
- "ya_casaban": 19,
+ "generado": "2026-09-24T00:22:10Z",
+ "fixtures_revisados": 97,
+ "ya_casaban": 84,
  "min_parecido": 0.82,
  "alias": {
   "sint truiden": {
@@ -12,6 +12,15 @@
    "lado_ancla": "kvc westerlo",
    "ultima_vez": "2026-09-20T06:23:45Z",
    "primera_vez": "2026-09-20T06:23:45Z"
+  },
+  "cambridge utd": {
+   "canonico": "cambridge united",
+   "parecido": 0.8966,
+   "visto_en": "Cambridge United vs AFC Wimbledon",
+   "liga": "eng_league_one",
+   "lado_ancla": "afc wimbledon",
+   "ultima_vez": "2026-09-24T00:22:10Z",
+   "primera_vez": "2026-09-24T00:22:10Z"
   }
  }
 }
