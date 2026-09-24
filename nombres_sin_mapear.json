@@ -260,10 +260,10 @@
     "visto": "2026-08-25"
   },
   "Defensor Sporting": {
-    "candidato": "Defensor Sp.",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.7857,
-    "visto": "2026-09-20"
+    "candidato": "Osasco Sporting U20",
+    "ratio": 0.6111,
+    "visto": "2026-09-24"
   },
   "Delio Ramírez": {
     "contexto": "lineas_jugador",
@@ -1521,9 +1521,9 @@
   },
   "Sporting JAX": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting Lagos",
-    "ratio": 0.7692,
-    "visto": "2026-09-22"
+    "candidato": "Osasco Sporting U20",
+    "ratio": 0.5806,
+    "visto": "2026-09-24"
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
@@ -1563,9 +1563,9 @@
   },
   "Sheffield Wednesday": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sheffield Utd W",
-    "ratio": 0.6875,
-    "visto": "2026-09-23"
+    "candidato": "Sheffield Wed U21",
+    "ratio": 0.7222,
+    "visto": "2026-09-24"
   },
   "Boston United": {
     "contexto": "cuotas_mx→futbol",
@@ -1593,8 +1593,8 @@
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Delta United",
-    "ratio": 0.6207,
+    "candidato": "Colchester U21",
+    "ratio": 0.7742,
     "visto": "2026-09-24"
   },
   "Scunthorpe United": {
@@ -1841,6 +1841,96 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Defensores Unidos",
     "ratio": 0.6667,
+    "visto": "2026-09-24"
+  },
+  "Cheltenham Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.6,
+    "visto": "2026-09-24"
+  },
+  "Fleetwood Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4138,
+    "visto": "2026-09-24"
+  },
+  "Mansfield Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.5517,
+    "visto": "2026-09-24"
+  },
+  "Crawley Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.6667,
+    "visto": "2026-09-24"
+  },
+  "Aldershot Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4828,
+    "visto": "2026-09-24"
+  },
+  "Harrogate Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.6897,
+    "visto": "2026-09-24"
+  },
+  "Grimsby Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.5185,
+    "visto": "2026-09-24"
+  },
+  "Yeovil Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4615,
+    "visto": "2026-09-24"
+  },
+  "Shrewsbury Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4667,
+    "visto": "2026-09-24"
+  },
+  "Northampton Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.5806,
+    "visto": "2026-09-24"
+  },
+  "Swindon Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4444,
+    "visto": "2026-09-24"
+  },
+  "FC Halifax Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4667,
+    "visto": "2026-09-24"
+  },
+  "Houston Dynamo FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Dynamo Barnaul",
+    "ratio": 0.4286,
+    "visto": "2026-09-24"
+  },
+  "Sporting Kansas City": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Osasco Sporting U20",
+    "ratio": 0.5294,
+    "visto": "2026-09-24"
+  },
+  "Sporting Gijón": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Osasco Sporting U20",
+    "ratio": 0.5455,
     "visto": "2026-09-24"
   }
 }
