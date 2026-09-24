@@ -8050,14 +8050,29 @@ def test_los_remates_por_equipo_salen_de_sus_datos():
               f"que es lo medido (2,09 contra 1,35)")
 
     # v163 — sin remates observados sale la estimacion, marcada.
+    #
+    # v307 — Desde que `remates_fotmob` (y Flashscore en las ligas que FotMob
+    # no cubre) trae los remates de cada partido, una liga sin remates en su
+    # histórico ya no cae a la estimación con sus equipos reales: usa lo
+    # observado de ESOS equipos. La estimación queda para quien no sale en
+    # ninguna fuente, y eso es lo que se comprueba aquí: con dos equipos que
+    # no existen, sale la estimación y sale MARCADA.
     _sin = _liga_sin_observar('remates')
     if _sin:
+        e = rq.remates_equipo(_sin, 'Equipo Inexistente A',
+                              'Equipo Inexistente B')
+        check(e is not None
+              and (e.get('totales') or {}).get('origen') == 'estimado',
+              f"sin remates observados en ninguna fuente ({_sin}) sale una "
+              f"estimacion MARCADA")
         d = rq._historico(_sin)
         e = rq.remates_equipo(_sin, str(d['home_team'].iloc[-1]),
                               str(d['away_team'].iloc[-1]))
-        check(e is not None
-              and (e.get('totales') or {}).get('origen') == 'estimado',
-              f"sin remates observados ({_sin}) sale una estimacion MARCADA")
+        if (e or {}).get('totales', {}).get('origen') == 'observado':
+            check('FotMob' in str(e['totales'].get('base'))
+                  and e['totales'].get('error_calibracion') is None,
+                  f"y con sus equipos reales ({_sin}) sale lo OBSERVADO en "
+                  f"FotMob, sin colgarle el error del estimador")
 
 
 def test_el_nivel_de_remates_no_se_mide_sobre_dos_epocas():
@@ -8613,7 +8628,10 @@ def test_la_tarjeta_no_pinta_remates_por_equipo():
           and '_bloque_remates_html' in detalle,
           "y su detalle completo vive en el desplegable")
     import modo_modelo as mm
-    bloque = mm.remates_tarjeta({'partido': 'Danubio vs Racing (Montevideo)',
+    # v307 — equipos que no están en ninguna fuente: Uruguay ya trae remates
+    # observados (Flashscore) y Danubio–Racing dejó de ser estimado.
+    bloque = mm.remates_tarjeta({'partido': 'Equipo Inexistente A vs '
+                                            'Equipo Inexistente B',
                                  'clave_liga': 'uru_primera',
                                  'deporte': 'Fútbol'})
     if bloque:

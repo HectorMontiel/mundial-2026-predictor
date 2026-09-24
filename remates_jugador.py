@@ -752,6 +752,24 @@ def jugadores_equipo(clave_liga: str, equipo: str,
         filas = _de_roster(clave_liga, equipo, solo_cache=not en_vivo)
         origen = 'temporada'
     if not filas:
+        # v307 — FOTMOB, PARTIDO A PARTIDO, CUANDO ESPN NO TIENE AL EQUIPO.
+        #
+        # Es lo que faltaba en las selecciones (0 de 92 partidos con «quién
+        # remata» el 2026-09-23) y en la femenil (0 de 11): ESPN no publica
+        # su plantilla. `remates_fotmob` guarda, de cada partido terminado,
+        # los remates y remates a puerta de cada jugador que jugó —también los
+        # que no dispararon— y aquí se leen del fichero, sin red. Lo que llega
+        # es la misma media por titularidad que usa el modelo calibrado.
+        try:
+            import remates_fotmob
+            filas = [f for f in remates_fotmob.filas_equipo(clave_liga,
+                                                            equipo)
+                     if float(f.get('apariciones') or 0) >= MIN_APARICIONES]
+        except Exception as e:
+            logger.debug('[remates_jugador] FotMob de %s: %s', equipo, e)
+            filas = []
+        origen = 'últimos partidos (FotMob)'
+    if not filas:
         return []
 
     titulares, casados_de = None, None
@@ -926,7 +944,22 @@ def partido(clave_liga: str, home: str, away: str, fecha: str = '',
         eq = rq.remates_equipo(clave_liga, home, away)
     except Exception as e:
         logger.debug('[remates_jugador] remates de equipo: %s', e)
-        return None
+        eq = None
+    # v307 — Si nuestro histórico no trae remates de esta competición
+    # (selecciones, femenil) el nivel del equipo salía ESTIMADO desde los
+    # goles. FotMob los trae observados partido a partido: lo que tira cada
+    # uno promediado con lo que concede el otro. Manda lo observado.
+    if not eq or all((b or {}).get('origen') == 'estimado'
+                     for b in eq.values()):
+        try:
+            import remates_fotmob
+            fm_eq = remates_fotmob.lambdas_partido(clave_liga, home, away)
+        except Exception as e:
+            logger.debug('[remates_jugador] FotMob de equipo: %s', e)
+            fm_eq = None
+        if fm_eq:
+            eq = dict(eq or {})
+            eq.update(fm_eq)
     if not eq:
         return None
     tot = eq.get('totales') or {}

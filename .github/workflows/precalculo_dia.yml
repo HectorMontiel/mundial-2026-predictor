@@ -133,6 +133,21 @@ jobs:
           # v306 — las bajas (lesiones y sanciones) de los partidos próximos
           python bajas_fotmob.py || echo "::warning::bajas con avisos"
 
+      # v307 — REMATES Y REMATES A PUERTA POR JUGADOR Y POR EQUIPO, de las
+      # 67 ligas y de las selecciones (FotMob, ficha de cada partido). Es
+      # incremental: sólo pide los partidos terminados que aún no están, con
+      # tope de 500 fichas por pasada. Sin esto «quién remata» no sale en
+      # selecciones ni en la femenil (ESPN no publica sus plantillas).
+      - name: Remates por jugador (FotMob)
+        if: steps.frescura.outputs.saltar != 'true'
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          python remates_fotmob.py --max 500 || echo "::warning::remates de FotMob con avisos"
+          # la Liga MX Femenil: FotMob sólo da su marcador; los remates de
+          # cada equipo salen de Flashscore
+          python remates_flashscore.py || echo "::warning::remates de Flashscore con avisos"
+
       - name: Cocinar el día
         if: steps.frescura.outputs.saltar != 'true'
         env:
@@ -188,7 +203,7 @@ jobs:
           #
           # El bucle anade lo que hay y se salta lo que no, sin tragarse un
           # fallo real en los ficheros que SI estan.
-          for _f in bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
+          for _f in remates_fotmob_jugadores.csv remates_fotmob_equipos.csv remates_fotmob_vacios.txt fotmob_ligas.json bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

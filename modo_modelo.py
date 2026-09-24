@@ -2345,11 +2345,24 @@ def _quien_remata_compacto(qr: Optional[Dict]) -> str:
             continue
         color = ('var(--ok)' if p >= 0.60
                  else 'var(--mira)' if p >= 0.45 else 'var(--tenue)')
-        nombres.append('<span style="color:%s">%s <b>%.0f %%</b></span>'
-                       % (color, _esc_mm(j.get('jugador') or ''), p * 100))
+        # v307 — Y SU REMATE A PUERTA, que es lo que pidió el usuario («los
+        # remates a puerta y remates por jugador»): «Kane 78 %/41 %». Misma
+        # regla que arriba: la línea de la casa si la cotiza; si no, al menos
+        # uno a puerta.
+        q = j.get('p_linea_on')
+        if q is None:
+            q = j.get('p_al_arco')
+        try:
+            q = ('<span style="color:var(--tenue)">/%.0f %%</span>'
+                 % (float(q) * 100))
+        except (TypeError, ValueError):
+            q = ''
+        nombres.append('<span style="color:%s">%s <b>%.0f %%</b>%s</span>'
+                       % (color, _esc_mm(j.get('jugador') or ''), p * 100, q))
     if not nombres:
         return ''
-    return ('<div class="mm-fc"><span class="mm-fc-n">🎯 Remata</span>'
+    return ('<div class="mm-fc"><span class="mm-fc-n" title="probabilidad de '
+            'rematar / de rematar a puerta">🎯 Remata / a puerta</span>'
             '<span class="mm-fc-jug">%s</span></div>'
             % ' &nbsp;·&nbsp; '.join(nombres))
 

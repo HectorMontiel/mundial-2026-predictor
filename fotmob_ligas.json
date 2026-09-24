@@ -1,0 +1,541 @@
+{
+ "ligas": {
+  "liga_mx": {
+   "id": 230,
+   "nombre": "Liga MX",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "liga-mx"
+  },
+  "mls": {
+   "id": 130,
+   "nombre": "MLS",
+   "solape": 1.0,
+   "equipos": 30,
+   "origen": "conocido",
+   "slug": "mls"
+  },
+  "brasil": {
+   "id": 268,
+   "nombre": "Série A",
+   "solape": 0.95,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "serie-a"
+  },
+  "argentina": {
+   "id": 112,
+   "nombre": "Liga Profesional",
+   "solape": 1.0,
+   "equipos": 30,
+   "origen": "conocido",
+   "slug": "liga-profesional"
+  },
+  "noruega": {
+   "id": 59,
+   "nombre": "Eliteserien",
+   "solape": 0.875,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "eliteserien"
+  },
+  "suecia": {
+   "id": 67,
+   "nombre": "Allsvenskan",
+   "solape": 1.0,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "allsvenskan"
+  },
+  "finlandia": {
+   "id": 51,
+   "nombre": "Veikkausliiga",
+   "solape": 1.0,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "veikkausliiga"
+  },
+  "rumania": {
+   "id": 189,
+   "nombre": "Liga I",
+   "solape": 0.812,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "liga-i"
+  },
+  "irlanda": {
+   "id": 126,
+   "nombre": "Premier Division",
+   "solape": 0.9,
+   "equipos": 10,
+   "origen": "conocido",
+   "slug": "premier-division"
+  },
+  "turquia": {
+   "id": 71,
+   "nombre": "Super Lig",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "super-lig"
+  },
+  "dinamarca": {
+   "id": 46,
+   "nombre": "Superligaen",
+   "solape": 0.917,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "superligaen"
+  },
+  "china": {
+   "id": 120,
+   "nombre": "Super League",
+   "solape": 0.938,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "super-league"
+  },
+  "polonia": {
+   "id": 196,
+   "nombre": "Ekstraklasa",
+   "solape": 0.944,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "ekstraklasa"
+  },
+  "aut_bundesliga": {
+   "id": 38,
+   "nombre": "Bundesliga",
+   "solape": 0.917,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "bundesliga"
+  },
+  "rus_premier": {
+   "id": 63,
+   "nombre": "Premier League",
+   "solape": 0.938,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "premier-league"
+  },
+  "gre_super_league": {
+   "id": 135,
+   "nombre": "Super League 1",
+   "solape": 0.929,
+   "equipos": 14,
+   "origen": "conocido",
+   "slug": "super-league-1"
+  },
+  "suiza": {
+   "id": 69,
+   "nombre": "Super League",
+   "solape": 0.917,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "super-league"
+  },
+  "premier": {
+   "id": 47,
+   "nombre": "Premier League",
+   "solape": 1.0,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "premier-league"
+  },
+  "laliga": {
+   "id": 87,
+   "nombre": "LaLiga",
+   "solape": 0.95,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "laliga"
+  },
+  "serie_a": {
+   "id": 55,
+   "nombre": "Serie A",
+   "solape": 1.0,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "serie-a"
+  },
+  "bundesliga": {
+   "id": 54,
+   "nombre": "Bundesliga",
+   "solape": 0.944,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "bundesliga"
+  },
+  "ligue_1": {
+   "id": 53,
+   "nombre": "Ligue 1",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "ligue-1"
+  },
+  "eredivisie": {
+   "id": 57,
+   "nombre": "Eredivisie",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "eredivisie"
+  },
+  "primeira": {
+   "id": 61,
+   "nombre": "Liga Portugal",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "liga-portugal"
+  },
+  "champions": {
+   "id": 42,
+   "nombre": "Champions League",
+   "solape": 0.972,
+   "equipos": 36,
+   "origen": "conocido",
+   "slug": "champions-league"
+  },
+  "europa_league": {
+   "id": 73,
+   "nombre": "Europa League",
+   "solape": 0.611,
+   "equipos": 36,
+   "origen": "conocido",
+   "slug": "europa-league"
+  },
+  "conference_league": {
+   "id": 10216,
+   "nombre": "Conference League",
+   "solape": 0.222,
+   "equipos": 36,
+   "origen": "conocido",
+   "slug": "conference-league"
+  },
+  "leagues_cup": {
+   "id": 10043,
+   "nombre": "Leagues Cup",
+   "solape": 1.0,
+   "equipos": 36,
+   "origen": "conocido",
+   "slug": "leagues-cup"
+  },
+  "eng_championship": {
+   "id": 48,
+   "nombre": "Championship",
+   "solape": 1.0,
+   "equipos": 24,
+   "origen": "conocido",
+   "slug": "championship"
+  },
+  "eng_league_one": {
+   "id": 108,
+   "nombre": "League One",
+   "solape": 1.0,
+   "equipos": 24,
+   "origen": "conocido",
+   "slug": "league-one"
+  },
+  "eng_league_two": {
+   "id": 109,
+   "nombre": "League Two",
+   "solape": 1.0,
+   "equipos": 24,
+   "origen": "conocido",
+   "slug": "league-two"
+  },
+  "eng_national": {
+   "id": 117,
+   "nombre": "National League",
+   "solape": 1.0,
+   "equipos": 24,
+   "origen": "conocido",
+   "slug": "national-league"
+  },
+  "sco_premiership": {
+   "id": 64,
+   "nombre": "Premiership",
+   "solape": 1.0,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "premiership"
+  },
+  "sco_championship": {
+   "id": 123,
+   "nombre": "Championship",
+   "solape": 1.0,
+   "equipos": 10,
+   "origen": "conocido",
+   "slug": "championship"
+  },
+  "esp_hypermotion": {
+   "id": 140,
+   "nombre": "LaLiga2",
+   "solape": 1.0,
+   "equipos": 22,
+   "origen": "conocido",
+   "slug": "laliga2"
+  },
+  "ita_serie_b": {
+   "id": 86,
+   "nombre": "Serie B",
+   "solape": 1.0,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "serie-b"
+  },
+  "fra_ligue2": {
+   "id": 110,
+   "nombre": "Ligue 2",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "ligue-2"
+  },
+  "ger_bundesliga2": {
+   "id": 146,
+   "nombre": "2. Bundesliga",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "2-bundesliga"
+  },
+  "bel_pro_league": {
+   "id": 40,
+   "nombre": "First Division A",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "first-division-a"
+  },
+  "jpn_j1": {
+   "id": 223,
+   "nombre": "J. League",
+   "solape": 1.0,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "j-league"
+  },
+  "arg_primera_nacional": {
+   "id": 8965,
+   "nombre": "Primera B Nacional",
+   "solape": 0.917,
+   "equipos": 36,
+   "origen": "conocido",
+   "slug": "primera-b-nacional"
+  },
+  "col_primera_a": {
+   "id": 274,
+   "nombre": "Primera A",
+   "solape": 0.95,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "primera-a"
+  },
+  "usl_championship": {
+   "id": 8972,
+   "nombre": "USL Championship",
+   "solape": 1.0,
+   "equipos": 25,
+   "origen": "conocido",
+   "slug": "usl-championship"
+  },
+  "ned_eerste": {
+   "id": 111,
+   "nombre": "Eerste Divisie",
+   "solape": 1.0,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "eerste-divisie"
+  },
+  "bra_serie_b": {
+   "id": 8814,
+   "nombre": "Serie B",
+   "solape": 0.95,
+   "equipos": 20,
+   "origen": "conocido",
+   "slug": "serie-b"
+  },
+  "per_liga1": {
+   "id": 131,
+   "nombre": "Liga 1",
+   "solape": 0.944,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "liga-1"
+  },
+  "uru_primera": {
+   "id": 161,
+   "nombre": "Liga AUF Uruguaya",
+   "solape": 1.0,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "liga-auf-uruguaya"
+  },
+  "ecu_liga_pro": {
+   "id": 246,
+   "nombre": "Serie A",
+   "solape": 1.0,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "serie-a"
+  },
+  "slv_primera": {
+   "id": 335,
+   "nombre": "Primera Division",
+   "solape": 0.917,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "primera-division"
+  },
+  "bol_division": {
+   "id": 144,
+   "nombre": "Primera Division",
+   "solape": 1.0,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "primera-division"
+  },
+  "par_division": {
+   "id": 199,
+   "nombre": "Division Profesional",
+   "solape": 1.0,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "division-profesional"
+  },
+  "crc_fpd": {
+   "id": 121,
+   "nombre": "Primera Division",
+   "solape": 0.9,
+   "equipos": 10,
+   "origen": "conocido",
+   "slug": "primera-division"
+  },
+  "mex_expansion": {
+   "id": 8976,
+   "nombre": "Liga de Expansión MX",
+   "solape": 0.938,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "liga-de-expansion-mx"
+  },
+  "chi_primera": {
+   "id": 273,
+   "nombre": "Liga de Primera",
+   "solape": 1.0,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "liga-de-primera"
+  },
+  "rsa_premier": {
+   "id": 537,
+   "nombre": "Premier Soccer League",
+   "solape": 1.0,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "premier-soccer-league"
+  },
+  "ven_primera": {
+   "id": 339,
+   "nombre": "Primera Division",
+   "solape": 0.929,
+   "equipos": 14,
+   "origen": "conocido",
+   "slug": "primera-division"
+  },
+  "aus_aleague": {
+   "id": 113,
+   "nombre": "A-League",
+   "solape": 1.0,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "aleague"
+  },
+  "libertadores": {
+   "id": 45,
+   "nombre": "Copa Libertadores",
+   "solape": 0.938,
+   "equipos": 48,
+   "origen": "conocido",
+   "slug": "copa-libertadores"
+  },
+  "sudamericana": {
+   "id": 299,
+   "nombre": "Copa Sudamericana",
+   "solape": 0.947,
+   "equipos": 57,
+   "origen": "conocido",
+   "slug": "copa-sudamericana"
+  },
+  "eng_fa_cup": {
+   "id": 132,
+   "nombre": "FA Cup",
+   "solape": 1.0,
+   "equipos": 124,
+   "origen": "conocido",
+   "slug": "fa-cup"
+  },
+  "ind_isl": {
+   "id": 9478,
+   "nombre": "Indian Super League",
+   "solape": 0.857,
+   "equipos": 14,
+   "origen": "conocido",
+   "slug": "indian-super-league"
+  },
+  "esp_copa_rey": {
+   "id": 138,
+   "nombre": "Copa del Rey",
+   "solape": 0.974,
+   "equipos": 116,
+   "origen": "conocido",
+   "slug": "copa-del-rey"
+  },
+  "afc_champions": {
+   "id": 525,
+   "nombre": "AFC Champions League Elite",
+   "solape": 0.594,
+   "equipos": 32,
+   "origen": "conocido",
+   "slug": "afc-champions-league-elite"
+  },
+  "bra_copa": {
+   "id": 9067,
+   "nombre": "Copa do Brasil",
+   "solape": 0.961,
+   "equipos": 128,
+   "origen": "conocido",
+   "slug": "copa-do-brasil"
+  },
+  "eng_carabao": {
+   "id": 133,
+   "nombre": "EFL Cup",
+   "solape": 0.989,
+   "equipos": 90,
+   "origen": "conocido",
+   "slug": "efl-cup"
+  },
+  "ksa_pro": {
+   "id": 536,
+   "nombre": "Saudi Pro League",
+   "solape": 1.0,
+   "equipos": 18,
+   "origen": "conocido",
+   "slug": "saudi-pro-league"
+  },
+  "isr_premier": {
+   "id": 127,
+   "nombre": "Ligat ha'Al",
+   "solape": 0.857,
+   "equipos": 14,
+   "origen": "conocido",
+   "slug": "ligat-haal"
+  }
+ },
+ "sin_resolver": {}
+}

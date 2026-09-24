@@ -46,20 +46,37 @@ FICHERO = 'bajas_dia.json'
 HISTORICO = 'bajas_historico.csv'
 DIAS = 3
 PAUSA = 1.2
+HILOS = 4
 
-# clave del proyecto -> (id de FotMob, slug). Las ligas de clubes que
-# `fotmob_scraper` ya conocía, más las femeninas de `historico_fotmob`.
-def ligas() -> Dict[str, tuple]:
-    fuera = {}
+# clave del proyecto -> [(id de FotMob, slug)]. v307: TODAS las ligas del
+# proyecto (`fotmob_ligas`, 67 verificadas por sus equipos; antes eran las
+# diez de `fotmob_scraper`), las femeninas de `historico_fotmob` y las
+# competiciones de selecciones de `remates_fotmob`.
+def ligas() -> Dict[str, list]:
+    fuera: Dict[str, list] = {}
     try:
-        import fotmob_scraper as fm
-        fuera.update(fm.FOTMOB_LEAGUE_IDS)
+        import fotmob_ligas as fl
+        for k, par in fl.ids().items():
+            fuera.setdefault(k, []).append(tuple(par))
     except Exception:
-        pass
+        try:
+            import fotmob_scraper as fm
+            for k, par in fm.FOTMOB_LEAGUE_IDS.items():
+                fuera.setdefault(k, []).append(tuple(par))
+        except Exception:
+            pass
     try:
         import historico_fotmob as hf
         for clave, (paginas, _) in hf.LIGAS.items():
-            fuera[clave] = paginas[0]
+            fuera.setdefault(clave, [])
+            for par in paginas:
+                if tuple(par) not in fuera[clave]:
+                    fuera[clave].append(tuple(par))
+    except Exception:
+        pass
+    try:
+        import remates_fotmob as rf
+        fuera['selecciones'] = [tuple(x) for x in rf.SELECCIONES]
     except Exception:
         pass
     return fuera
@@ -93,12 +110,19 @@ def capturar(dias: int = DIAS) -> Dict:
     doc = {'generado': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
            'partidos': {}}
     filas = []
-    for clave, (lid, slug) in ligas().items():
+    # v307 — con 67 ligas y las selecciones ya no cabe en serie: primero la
+    # lista de partidos de cada competición y luego sus fichas, en cuatro
+    # hilos con su pausa cada uno.
+    from concurrent.futures import ThreadPoolExecutor
+
+    def _proximos(item):
+        clave, lid, slug = item
         try:
             partidos = hf._temporada(lid, slug)
         except Exception as e:
             logger.debug('[bajas] %s: %s', clave, e)
-            continue
+            return []
+        fuera = []
         for m in partidos:
             st = m.get('status') or {}
             if st.get('finished') or st.get('started') or st.get('cancelled'):
@@ -107,32 +131,50 @@ def capturar(dias: int = DIAS) -> Dict:
             if pd.isna(f):
                 continue
             f = f.tz_convert(None)
-            if not (ahora <= f <= limite):
-                continue
-            try:
-                b = _bajas_de_partido(str(m.get('id')))
-            except Exception as e:
-                logger.debug('[bajas] partido %s: %s', m.get('id'), e)
-                b = {}
-            time.sleep(PAUSA)
-            if not b:
-                continue
-            h = hf._limpia((m.get('home') or {}).get('name'))
-            a = hf._limpia((m.get('away') or {}).get('name'))
-            k = '%s|%s|%s' % (clave, h, a)
-            doc['partidos'][k] = {'clave_liga': clave, 'home': h, 'away': a,
-                                  'inicio': f.strftime('%Y-%m-%d %H:%M:%S'),
-                                  'fotmob_id': str(m.get('id')), **b}
-            for lado, eq in (('home', h), ('away', a)):
-                bl = (b.get(lado) or {}).get('bajas') or []
-                filas.append({
-                    'capturado': doc['generado'], 'clave_liga': clave,
-                    'fecha': f.strftime('%Y-%m-%d'), 'partido': '%s vs %s' % (h, a),
-                    'lado': lado, 'equipo': eq, 'n_bajas': len(bl),
-                    'n_lesion': sum(1 for x in bl if x.get('tipo') == 'injury'),
-                    'n_sancion': sum(1 for x in bl
-                                     if x.get('tipo') == 'suspension'),
-                    'jugadores': '; '.join(str(x.get('jugador')) for x in bl)})
+            if ahora <= f <= limite:
+                fuera.append((clave, m, f))
+        return fuera
+
+    comps = [(k, lid, slug) for k, pares in ligas().items()
+             for lid, slug in pares]
+    cola, vistos = [], set()
+    with ThreadPoolExecutor(HILOS) as ex:
+        for lista in ex.map(_proximos, comps):
+            for c, m, f in lista:
+                if str(m.get('id')) not in vistos:
+                    vistos.add(str(m.get('id')))
+                    cola.append((c, m, f))
+
+    def _ficha(item):
+        try:
+            b = _bajas_de_partido(str(item[1].get('id')))
+        except Exception as e:
+            logger.debug('[bajas] partido %s: %s', item[1].get('id'), e)
+            b = {}
+        time.sleep(PAUSA)
+        return item, b
+
+    with ThreadPoolExecutor(HILOS) as ex:
+        fichas = list(ex.map(_ficha, cola))
+    for (clave, m, f), b in fichas:
+        if not b:
+            continue
+        h = hf._limpia((m.get('home') or {}).get('name'))
+        a = hf._limpia((m.get('away') or {}).get('name'))
+        k = '%s|%s|%s' % (clave, h, a)
+        doc['partidos'][k] = {'clave_liga': clave, 'home': h, 'away': a,
+                              'inicio': f.strftime('%Y-%m-%d %H:%M:%S'),
+                              'fotmob_id': str(m.get('id')), **b}
+        for lado, eq in (('home', h), ('away', a)):
+            bl = (b.get(lado) or {}).get('bajas') or []
+            filas.append({
+                'capturado': doc['generado'], 'clave_liga': clave,
+                'fecha': f.strftime('%Y-%m-%d'), 'partido': '%s vs %s' % (h, a),
+                'lado': lado, 'equipo': eq, 'n_bajas': len(bl),
+                'n_lesion': sum(1 for x in bl if x.get('tipo') == 'injury'),
+                'n_sancion': sum(1 for x in bl
+                                 if x.get('tipo') == 'suspension'),
+                'jugadores': '; '.join(str(x.get('jugador')) for x in bl)})
     tmp = FICHERO + '.nuevo'
     with open(tmp, 'w', encoding='utf-8') as fh:
         json.dump(doc, fh, ensure_ascii=False)

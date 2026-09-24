@@ -1565,7 +1565,32 @@ def _remates_de_objetivo(clave: str, home: str, away: str, n: int,
     la = (lambda_remates_equipo(clave, away, home, False, n, objetivo)
           if disp_eq else None)
     if disp_eq is None or disp_tot is None or lh is None or la is None:
-        return _estimado(clave, 'rem' if objetivo == 'tot' else 'rem_on')
+        est = _estimado(clave, 'rem' if objetivo == 'tot' else 'rem_on')
+        # v307 — ANTES DE ESTIMAR, LO OBSERVADO EN FOTMOB. Las ligas cuyo
+        # histórico no trae remates (la femenil, sobre todo) caían al nivel
+        # de la competición derivado de sus goles: el mismo número para
+        # todos sus partidos. `remates_fotmob` guarda los remates y a puerta
+        # de cada partido terminado; con ellos la λ es la de ESTOS dos
+        # equipos. La dispersión se queda la del estimador, que es la
+        # medida para la competición.
+        try:
+            import remates_fotmob
+            fm = (remates_fotmob.lambdas_partido(clave, home, away) or {}).get(
+                'totales' if objetivo == 'tot' else 'a_puerta')
+        except Exception as e:
+            logger.debug('[rendimiento] FotMob %s: %s', clave, e)
+            fm = None
+        if fm and est:
+            est = dict(est)
+            est.update({k: fm[k] for k in ('lambda_home', 'lambda_away',
+                                           'lambda_total')})
+            est['origen'] = 'observado'
+            est['base'] = ('últimos partidos de cada equipo (FotMob; en la '
+                           'Liga MX Femenil, Flashscore)')
+            # el error medido era el del ESTIMADOR por goles, no el de esto
+            est.pop('error_calibracion', None)
+            est.pop('aceptable', None)
+        return est
     return {'lambda_home': lh, 'lambda_away': la,
             'lambda_total': round(lh + la, 3),
             'dispersion': disp_eq, 'dispersion_total': disp_tot,

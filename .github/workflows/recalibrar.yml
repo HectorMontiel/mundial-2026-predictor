@@ -165,6 +165,14 @@ jobs:
       # calibrada: un mercado que deje de ganar con p5 positivo se APAGA solo
       # en el fichero, y una liga nueva entra en cuanto tiene histórico. Es lo
       # que el usuario pidió: «que tenga cada vez mayor precisión».
+      # v307 — los ids de FotMob de las 67 ligas, re-verificados por sus
+      # equipos: si FotMob renumera una liga, el id viejo deja de casar y se
+      # busca el nuevo en vez de seguir leyendo bajas y remates de otra.
+      - name: Verificar los ids de FotMob de las ligas
+        continue-on-error: true
+        timeout-minutes: 20
+        run: python fotmob_ligas.py --forzar || echo "::warning::ids de FotMob con avisos"
+
       - name: Patrones por liga
         run: python patrones_liga.py --entrenar || echo "::warning::patrones por liga con avisos"
 
@@ -306,6 +314,7 @@ jobs:
           git add -A indice_volatilidad_liga.json || echo "::warning::git add del indice de riesgo fallo"
           git add -A patrones_liga.json || echo "::warning::git add de los patrones por liga fallo"
           git add -A motor_goles.json || echo "::warning::git add del motor de goles fallo"
+          git add -A fotmob_ligas.json || echo "::warning::git add de los ids de FotMob fallo"
           # v212 — el veredicto de la puerta. Sin commitearlo, la app
           # desplegada leeria la activacion del dia en que alguien corrio el
           # backtest a mano, y una regla que dejo de cumplir los criterios
