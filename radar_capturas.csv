@@ -2276,3 +2276,40 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-09-24,nba,SPAIN: Primera FEB,Alicante,Fuenlabrada,1790442000,1.8264,,2.0,0.522685,0.477315,0.047525,0,0.0,
 2026-09-24,nba,SPAIN: Primera FEB,Estela,Hestia Menorca,1790442000,2.47,,1.5464,0.385021,0.614979,0.051522,0,0.0,
 2026-09-24,nba,TURKEY: TBL,Harem Spor,iLab Basketbol,1790429400,1.1016,,4.15,0.790235,0.209765,0.148734,1,0.027,Novibet
+2026-09-24,futbol,VIETNAM: V.League 2,Ho Chi Minh City,Van Hien,1790330400,1.8696,2.98,3.93,0.475487,0.226201,0.124897,0,0.0,
+2026-09-24,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Wang Xin.,Prozorova T.,1790317800,1.4651,,2.89,0.66359,0.33641,0.028568,0,0.0,
+2026-09-24,tenis,"ATP - DOUBLES: Chengdu (China), hard",Borges N./Cerundolo J. M.,Schnaitter J./Wallner M.,1790317800,2.58,,1.5155,0.37004,0.62996,0.047445,1,0.0459,Novibet
+2026-09-24,tenis,"ATP - DOUBLES: Laver Cup (World), hard (indoor)",Alcaraz C./Mensik J.,Bublik A./Fritz T.,1790364600,1.7092,,2.16,0.558255,0.441745,0.048032,0,0.0,
+2026-09-24,tenis,"CHALLENGER WOMEN - SINGLES: Ankara (Turkey), hard",Dilek D.,Gasanova A.,1790343000,5.45,,1.1524,0.174543,0.825457,0.05124,1,0.0226,Novibet
+2026-09-24,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Pohankova M.,Swan K.,1790343000,1.8264,,2.0,0.522685,0.477315,0.047525,0,0.0,
+2026-09-24,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Gorgodze E.,Selekhmeteva O.,1790350200,2.75,,1.4608,0.346917,0.653083,0.048193,0,0.0,
+2026-09-24,tenis,"CHALLENGER WOMEN - SINGLES: Tolentino (Italy), clay",Brancaccio N.,Grabher J.,1790357400,2.2,,1.6897,0.434404,0.565596,0.046366,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Baku (Azerbaijan), hard",Dolzhenkov D.,Majdandzic M.,1790316000,5.47,,1.135,0.17184,0.82816,0.063873,1,0.0954,Novibet
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Baku (Azerbaijan), hard",Singh D.,Kirci K.,1790316000,1.3788,,2.94,0.680745,0.319255,0.065404,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Seifert S.,De Jonge D.,1790326800,2.21,,1.6098,0.421436,0.578564,0.073684,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Nagel A.,Trufelli T.,1790334000,1.1656,,4.62,0.798534,0.201466,0.074377,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Forbach (France), hard",Thomas F.,Herrmann T.,1790344800,1.3937,,2.8,0.667668,0.332332,0.074657,1,0.0517,Novibet
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Colin P.,Domingos D.,1790325000,1.6993,,2.06,0.547974,0.452026,0.073915,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Martin T.,Lumsden E.,1790325000,2.12,,1.6623,0.439494,0.560506,0.073274,1,0.0599,Novibet
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Vincent Ruggeri S.,Colombo A.,1790325000,1.5025,,2.44,0.618897,0.381103,0.075393,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Monastir 32 (Tunisia), hard",Branger L.,Donnet E.,1790330400,2.45,,1.5,0.379747,0.620253,0.07483,1,0.1101,Novibet
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Cherie Ligniere E.,Mecarelli M.,1790319600,2.33,,1.5495,0.399407,0.600593,0.074554,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Paardekooper S.,Ferrari F.,1790319600,1.3175,,3.26,0.712179,0.287821,0.065762,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Bernet H.,Petrovic A.,1790348400,1.1972,,4.17,0.776941,0.223059,0.07509,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Falun (Sweden), hard",Vasa E.,Banerjee S.,1790348400,4.38,,1.1815,0.212443,0.787557,0.074692,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Sabadell 2 (Spain), clay",Giustino L.,Campana Lee G.,1790330400,1.5882,,2.25,0.586212,0.413788,0.074088,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Sabadell 2 (Spain), clay",Marmousez L.,Talan Lopatic L.,1790332200,1.087,,6.71,0.860587,0.139413,0.068994,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Sabadell 2 (Spain), clay",Jong S.,Xilas I.,1790335800,1.361,,2.94,0.683562,0.316438,0.07489,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Setubal (Portugal), hard",Deckers A.,Morais D.,1790328600,1.304,,3.24,0.713028,0.286972,0.075513,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Setubal (Portugal), hard",Murgett F.,Agwi M.,1790328600,2.88,,1.3745,0.32307,0.67693,0.07476,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Setubal (Portugal), hard",Bertrand R.,Henning P.,1790334000,2.52,,1.4739,0.369038,0.630962,0.075297,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Setubal (Portugal), hard",Montes-De La Torre I.,Maxted L.,1790334000,1.3096,,3.21,0.71024,0.28976,0.075118,0,0.0,
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Sharm ElSheikh 4 (Egypt), hard",Djuric B.,Duhan C.,1790319600,1.0784,,7.12,0.868462,0.131538,0.067749,1,0.0205,Novibet
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Sharm ElSheikh 4 (Egypt), hard",Fellin P. O.,Jubb P.,1790319600,4.3,,1.1873,0.216372,0.783628,0.074805,1,0.0227,Novibet
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Sharm ElSheikh 4 (Egypt), hard",Singh K.,Faucon R.,1790319600,1.565,,2.3,0.595084,0.404916,0.07376,1,0.0908,Novibet
+2026-09-24,tenis,"ITF MEN - SINGLES: M25 Sharm ElSheikh 4 (Egypt), hard",Strombachs R.,Zakaria F.,1790319600,1.3322,,3.08,0.698064,0.301936,0.075313,0,0.0,
+2026-09-24,futbol,AFRICA: Africa Cup of Nations - Qualification,Kenya,Eritrea,1790427600,1.3953,4.05,8.83,0.665541,0.105168,0.076856,0,0.0,
+2026-09-24,futbol,ARGENTINA: Primera B,Ituzaingo,Defensores Unidos,1790373600,3.07,2.81,2.37,0.295169,0.38235,0.103546,1,0.0264,Novibet
+2026-09-24,futbol,ARGENTINA: Primera B,Excursionistas,Real Pilar,1790377200,2.01,2.92,3.78,0.45043,0.239514,0.104528,0,0.0,
+2026-09-24,futbol,NORTHERN IRELAND: NIFL Premiership,Coleraine,Linfield,1790361900,2.08,3.83,3.18,0.455131,0.297696,0.056331,1,0.0395,Novibet
+2026-09-24,futbol,WORLD: Friendly International,Australia,Brazil,1790330400,9.9,5.4,1.2976,0.095577,0.729199,0.056849,1,0.0262,Novibet
