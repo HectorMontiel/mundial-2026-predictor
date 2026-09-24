@@ -493,8 +493,15 @@ def main() -> int:
     try:
         import datetime as _dt
         import partidos_jugados as _pj
-        _hoy = _dt.datetime.now()
-        _n = _pj.escribir_dia(_hoy.strftime('%Y-%m-%d'))
+        # v305 — EL DÍA DE CDMX, NO EL DEL SERVIDOR. `datetime.now()` en el
+        # runner es UTC: de 18:00 a 24:00 de CDMX cocinaba el día siguiente y
+        # la aplicación, que pide el de CDMX, no encontraba el de hoy. Y el
+        # pronóstico que se pasa es el ANTERIOR (aún en disco): de ahí salen
+        # los partidos que ya empezaron desde la última pasada.
+        import dia_picks as _dpk
+        _hoy = _dpk.hoy_local()
+        _n = _pj.escribir_dia(_hoy.strftime('%Y-%m-%d'),
+                              ruta_pronostico=a.salida)
         logger.info('partidos jugados precocinados: %d', _n)
     except Exception as e:
         logger.warning('[precalculo] no se pudieron cocinar los jugados: %s', e)

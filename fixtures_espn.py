@@ -747,7 +747,7 @@ def fecha_local(inicio, respaldo=None) -> str:
 
 
 def jugados_del_dia(claves: List[str], dia: str,
-                    max_hilos: int = 8) -> List[Dict]:
+                    max_hilos: int = 8, usar_cache: bool = True) -> List[Dict]:
     """
     v161 — los partidos de `dia` que YA SE JUGARON, con su marcador.
 
@@ -801,8 +801,11 @@ def jugados_del_dia(claves: List[str], dia: str,
         # LO QUE EL BARRIDO YA TRAJO NO SE VUELVE A PEDIR. `_fixtures_de_codigo`
         # apunta cada evento acabado al recorrer el scoreboard, así que cuando
         # la interfaz llega aquí lo normal es que no haga falta la red.
-        cacheado, faltan = [], False
-        for d_utc in (dia, dia_sig):
+        cacheado, faltan = [], not usar_cache
+        # v305 — el precálculo pide `usar_cache=False`: allí el barrido del día
+        # acaba de marcar los dos días como «ya barridos», y con esa marca sólo
+        # salían los partidos que estaban terminados EN ESE INSTANTE.
+        for d_utc in ((dia, dia_sig) if usar_cache else ()):
             guardado = _JUGADOS.get(f'{clave}:{d_utc}')
             if guardado and time.time() - guardado[0] < _TTL:
                 cacheado.extend(guardado[1])

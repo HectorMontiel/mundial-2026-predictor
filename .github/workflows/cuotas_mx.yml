@@ -160,6 +160,15 @@ jobs:
             echo "saltar=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          # v305 — EL TABLERO DE MAIN AHORA, NO EL DEL CHECKOUT.
+          #
+          # El 2026-09-23 fallaron dos pasadas del cron (18:59 y 22:13) por lo
+          # mismo: arrancaron justo cuando acababa un barrido del relevo, su
+          # checkout era de ANTES de que aquel subiera su commit, la guarda
+          # leyó un tablero de hace 105 min, barrió otra vez, y al subir chocó
+          # con el commit del relevo en `anclas.json` y `anclas_capturas.csv`.
+          # Se trae main otra vez justo antes de medir la edad.
+          git fetch --quiet --depth=1 origin main && git checkout --quiet FETCH_HEAD -- cuotas_mx.json 2>/dev/null || echo "::warning::no se pudo refrescar el tablero de main"
           if [ ! -f cuotas_mx.json ]; then
             echo "No hay tablero todavia: se barre."
             echo "saltar=false" >> "$GITHUB_OUTPUT"
@@ -297,8 +306,25 @@ jobs:
             publico de Flashscore. Ver el encabezado de cuotas_mx.py."
             # Rebase antes de empujar: el reentrenamiento puede haber empujado
             # entre medias y sólo toca datos.
-            git pull --rebase origin main
-            git push origin HEAD:main
+            # v305 — SUBIR NO PUEDE ROMPER POR UNA CARRERA CON OTRA PASADA.
+            #
+            # Todo lo que este paso commitea son capturas de ESTA pasada:
+            # si otra subió entre medias, lo nuestro es lo más reciente y
+            # manda (`-X theirs`: en un rebase, «theirs» es el commit que se
+            # reaplica, o sea el nuestro). Tres intentos con espera por si
+            # la otra pasada sigue subiendo.
+            _OK=0
+            for _i in 1 2 3; do
+              if git pull --rebase -X theirs origin main && git push origin HEAD:main; then
+                _OK=1; break
+              fi
+              git rebase --abort 2>/dev/null || true
+              sleep $((_i * 15))
+            done
+            if [ "$_OK" != "1" ]; then
+              echo "::error::no se pudieron subir las cuotas tras tres intentos"
+              exit 1
+            fi
           fi
 
       # v302 — EL PRECALCULO SE CUELGA DETRAS, EN VEZ DE ESPERAR A SU CRON.

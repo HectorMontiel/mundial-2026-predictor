@@ -154,7 +154,8 @@ def _leer_precalculo(dia: str):
     # ¿es el día de hoy? entonces caduca
     try:
         import datetime as _dt
-        hoy = _dt.datetime.now().strftime('%Y-%m-%d')
+        import dia_picks as _dp
+        hoy = _dp.hoy_local().strftime('%Y-%m-%d')      # v305: CDMX, no el servidor
     except Exception:
         hoy = None
     if str(dia) == hoy:
@@ -167,8 +168,155 @@ def _leer_precalculo(dia: str):
     return partidos
 
 
-def escribir_dia(dia: str, ruta: str = '') -> int:
+# ---------------------------------------------------------------------------
+# v305 — NINGÚN FINALIZADO DEL DÍA SE PIERDE
+# ---------------------------------------------------------------------------
+# El usuario, con «Partidos de hoy (2)» delante a las 17:44 de CDMX: «me
+# borras los anteriores del día de hoy, cuando debería mostrarme todos los
+# finalizados del día hasta la hora de actualización». Eran tres fallos:
+#
+#   1. EL DÍA ERA EL DEL SERVIDOR. `precalculo_dia` llamaba con
+#      `datetime.now()`, que en el runner es UTC: de 18:00 a 24:00 de CDMX
+#      cocinaba el día SIGUIENTE, y la aplicación, que pide el de CDMX, no lo
+#      encontraba.
+#   2. NO IBA A LA RED. El barrido del mismo proceso deja los días marcados
+#      como «ya barridos» y `jugados_del_dia` se fiaba: sólo salían los que
+#      estaban terminados en el instante del barrido.
+#   3. SÓLO MIRABA LAS LIGAS DE CLUBES DE ESPN. Los partidos de otras ramas
+#      —selecciones, Champions femenina, Liga MX Femenil— estaban por la
+#      mañana en «Hoy» con su pronóstico, desaparecían de la lista en cuanto
+#      empezaban (el barrido sólo guarda lo que está por jugarse) y nunca
+#      volvían como finalizados.
+#
+# Ahora cada pasada del precálculo: va a la red de verdad, ARCHIVA los
+# partidos del pronóstico anterior que ya empezaron (con su pronóstico previo
+# y el marcador de su histórico si ya está), y UNE con lo que ya había en el
+# fichero del mismo día. Una lista del día sólo puede crecer.
+
+HORAS_PARTIDO = 2.5          # un partido que empezó hace más, ya terminó
+
+
+def _norm(t) -> str:
+    import unicodedata
+    t = unicodedata.normalize('NFKD', str(t or '').lower())
+    return ''.join(c for c in t.encode('ascii', 'ignore').decode('ascii')
+                   if c.isalnum())
+
+
+def _llave(p: Dict) -> str:
+    par = str(p.get('partido') or '')
+    return _norm(par)
+
+
+def _marcador(p: Dict):
+    """(goles local, goles visitante) desde el histórico de su competición,
+    o None. Para las ramas que no son las ligas de ESPN."""
+    import os
+    clave = str(p.get('clave_liga') or '')
+    ruta = 'historico_%s.csv' % clave
+    if not clave or not os.path.exists(ruta):
+        return None
+    par = str(p.get('partido') or '')
+    if ' vs ' not in par:
+        return None
+    h, a = (_norm(x) for x in par.split(' vs ', 1))
+    if clave == 'selecciones':
+        # el pronóstico pudo salir con el nombre del tablón en español
+        # («Azerbaiyán»); el histórico va en inglés. Se pasa por el código.
+        try:
+            from config import TEAM_NAMES_EN as _EN
+            import name_mapper as _nm
+            import selecciones_dia as _sd
+            cat = _sd.catalogo(_sd._motor())
+            hh, aa = (x.strip() for x in par.split(' vs ', 1))
+            ch = _nm.mapear(hh, list(cat), contexto='selecciones')
+            ca = _nm.mapear(aa, list(cat), contexto='selecciones')
+            if ch and ca:
+                h = _norm(_EN.get(cat[ch], ch))
+                a = _norm(_EN.get(cat[ca], ca))
+        except Exception as e:
+            logger.debug('[jugados] nombre canónico de %s: %s', par, e)
+    try:
+        import pandas as pd
+        import dia_picks as dp
+        d = pd.read_csv(ruta, usecols=lambda c: c in (
+            'date', 'home_team', 'away_team', 'home_goals', 'away_goals'))
+        fecha_utc = str(p.get('fecha') or '')[:10]
+        dias = {fecha_utc, dp.dia_de(p)}
+        d = d[d['date'].astype(str).str[:10].isin(dias)]
+        for r in d.itertuples(index=False):
+            if _norm(r.home_team) == h and _norm(r.away_team) == a:
+                return float(r.home_goals), float(r.away_goals)
+    except Exception as e:
+        logger.debug('[jugados] marcador de %s: %s', par, e)
+    return None
+
+
+def archivar_del_pronostico(dia: str, ruta_pronostico: str,
+                            ahora: float = None) -> List[Dict]:
+    """Los partidos de fútbol de `dia` (CDMX) que estaban en el pronóstico y
+    ya se jugaron, como tarjetas de finalizado con su pronóstico previo."""
+    import json
+    import os
+    import time
+    ahora = float(ahora if ahora is not None else time.time())
+    if not os.path.exists(ruta_pronostico):
+        return []
+    try:
+        with open(ruta_pronostico, encoding='utf-8') as f:
+            doc = json.load(f)
+        pr = ((doc.get('datos') or doc).get('pronosticos')) or []
+    except Exception as e:
+        logger.debug('[jugados] pronóstico previo ilegible: %s', e)
+        return []
+    try:
+        import dia_picks as dp
+        import horario as hz
+    except Exception:
+        return []
+    fuera = []
+    for p in pr:
+        if not isinstance(p, dict) or str(p.get('deporte') or '') != 'Fútbol':
+            continue
+        if dp.dia_de(p) != dia:
+            continue
+        ini = hz._a_utc(p.get('inicio'))
+        if ini is None or ini.timestamp() + HORAS_PARTIDO * 3600 > ahora:
+            continue                     # no ha empezado o puede seguir en juego
+        q = dict(p)
+        q['jugado'] = True
+        q['archivado_del_pronostico'] = True
+        m = _marcador(q)
+        if m:
+            q['goles_home'], q['goles_away'] = m
+        fuera.append(q)
+    return fuera
+
+
+def unir(*listas: List[Dict]) -> List[Dict]:
+    """Une sin repetir; ante el mismo partido gana el que trae marcador."""
+    por: Dict[str, Dict] = {}
+    for lista in listas:
+        for p in (lista or []):
+            if not isinstance(p, dict):
+                continue
+            k = _llave(p)
+            if not k:
+                continue
+            viejo = por.get(k)
+            if viejo is None or (viejo.get('goles_home') is None
+                                 and p.get('goles_home') is not None):
+                por[k] = p
+    return list(por.values())
+
+
+def escribir_dia(dia: str, ruta: str = '',
+                 ruta_pronostico: str = 'pronostico_dia.json') -> int:
     """Cocina los partidos jugados de `dia` y los deja en disco. Para el cron.
+
+    `dia` es un día de CDMX. v305: va siempre a la red, archiva lo que ya se
+    jugó del pronóstico anterior y UNE con lo que el fichero ya tuviera de
+    ese mismo día, así que la lista del día sólo crece (ver arriba).
 
     Devuelve cuántos escribió. No lanza: si falla, la aplicación sigue con el
     respaldo por red, que es más lento pero correcto.
@@ -178,7 +326,24 @@ def escribir_dia(dia: str, ruta: str = '') -> int:
     try:
         import os
         os.environ.pop('_JUGADOS_DESDE_PRECALCULO', None)
-        partidos = _de_dia_por_red(dia)
+        de_red = _de_dia_por_red(dia, usar_cache=False)
+        previos = []
+        try:
+            with open(ruta or _ruta_jugados(), encoding='utf-8') as f:
+                _doc = json.load(f) or {}
+            if str(_doc.get('dia') or '') == str(dia):
+                previos = _doc.get('partidos') or []
+        except Exception:
+            previos = []
+        archivados = archivar_del_pronostico(dia, ruta_pronostico)
+        partidos = unir(de_red, previos, archivados)
+        # los archivados que aún no tenían marcador, se buscan otra vez
+        for _p in partidos:
+            if _p.get('archivado_del_pronostico') and _p.get('goles_home') is None:
+                _m = _marcador(_p)
+                if _m:
+                    _p['goles_home'], _p['goles_away'] = _m
+        partidos.sort(key=lambda p: str(p.get('inicio') or ''))
         doc = {'dia': str(dia), 'ts': time.time(),
                'generado': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
                'partidos': partidos}
@@ -226,7 +391,8 @@ def de_dia(dia: str, maximo: int = 200) -> List[Dict]:
     return _de_dia_por_red(dia, maximo)
 
 
-def _de_dia_por_red(dia: str, maximo: int = 200) -> List[Dict]:
+def _de_dia_por_red(dia: str, maximo: int = 200,
+                    usar_cache: bool = True) -> List[Dict]:
     """El camino largo: 62 competiciones contra ESPN. Lo usa el cron, y la
     aplicación sólo cuando no hay precálculo del día."""
     if not dia:
@@ -238,7 +404,7 @@ def _de_dia_por_red(dia: str, maximo: int = 200) -> List[Dict]:
         return []
     try:
         crudos = fixtures_espn.jugados_del_dia(
-            fixtures_espn.claves_de_futbol(), dia)
+            fixtures_espn.claves_de_futbol(), dia, usar_cache=usar_cache)
     except Exception as e:
         logger.warning('[jugados] no se pudieron pedir los resultados: %s', e)
         return []
