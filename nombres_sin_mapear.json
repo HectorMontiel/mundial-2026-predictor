@@ -559,8 +559,8 @@
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter Toronto",
-    "ratio": 0.5,
+    "candidato": "Inter de Minas",
+    "ratio": 0.72,
     "visto": "2026-09-24"
   },
   "Inter de San Carlos": {
@@ -1126,10 +1126,10 @@
     "visto": "2026-09-24"
   },
   "Racing (Montevideo)": {
-    "candidato": "Racing United",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.7333,
-    "visto": "2026-09-20"
+    "candidato": "Racing Club 2",
+    "ratio": 0.4667,
+    "visto": "2026-09-24"
   },
   "Real Betis": {
     "candidato": "Real Bedford W",
@@ -1221,8 +1221,8 @@
   },
   "San Antonio FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Marino U21",
-    "ratio": 0.56,
+    "candidato": "San Martin Burzaco",
+    "ratio": 0.4828,
     "visto": "2026-09-24"
   },
   "San Diego FC": {
@@ -1509,8 +1509,8 @@
   },
   "Nacional Asunción": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atl. Nacional",
-    "ratio": 0.5517,
+    "candidato": "Nacional de Muriae",
+    "ratio": 0.5714,
     "visto": "2026-09-24"
   },
   "Club Atlético La Paz": {
