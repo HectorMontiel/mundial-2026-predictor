@@ -194,6 +194,21 @@ def capturar(dias: int = DIAS) -> Dict:
 _CACHE: Dict = {}
 
 
+def _equipo(v: Dict, lado: str) -> str:
+    """El nombre del equipo de un partido guardado.
+
+    v308 — `capturar` guarda `'home': 'Arsenal'` y justo detrás `**b`, cuyo
+    `'home'` es el bloque de bajas `{'equipo': ..., 'bajas': [...]}`, así que
+    el nombre quedaba PISADO por el bloque. Esta función buscaba el nombre en
+    `v['home']`, recibía un dict y no casaba nunca: desde la v306 ninguna
+    tarjeta de producción enseñó sus bajas (0 de 106 pronósticos cruzados el
+    2026-09-24). Se lee el nombre de donde esté."""
+    x = v.get(lado)
+    if isinstance(x, dict):
+        return str(x.get('equipo') or '')
+    return str(x or '')
+
+
 def de_partido(pick: Dict) -> Dict:
     """Las bajas de un pronóstico, buscando por liga y nombres. {} si no."""
     try:
@@ -209,11 +224,13 @@ def de_partido(pick: Dict) -> Dict:
                 if v.get('clave_liga') == pick.get('clave_liga')]
         if not cand:
             return {}
-        ch = nm.mapear(h, [v['home'] for v in cand], contexto='bajas')
+        ch = nm.mapear(h, [_equipo(v, 'home') for v in cand],
+                       contexto='bajas')
         if not ch:
             return {}
         for v in cand:
-            if v['home'] == ch and nm.mapear(a, [v['away']], contexto='bajas'):
+            if _equipo(v, 'home') == ch and nm.mapear(
+                    a, [_equipo(v, 'away')], contexto='bajas'):
                 return v
     except Exception as e:
         logger.debug('[bajas] %s: %s', pick.get('partido'), e)
@@ -235,7 +252,18 @@ def texto(pick: Dict) -> str:
         trozos.append('%s %d (%s%s)' % ((v.get(lado) or {}).get('equipo')
                                         or lado, len(b), nombres,
                                         '…' if len(b) > 2 else ''))
-    return ('🚑 Bajas: ' + ' · '.join(trozos)) if trozos else ''
+    if not trozos:
+        return ''
+    # v308 — y cuánto mueven los goles, si el modelo las aplicó
+    efecto = ''
+    try:
+        import bajas_modelo as _bm
+        e = _bm.texto(pick).replace('🚑 Bajas: ', '')
+        if e:
+            efecto = ' → ' + e
+    except Exception:
+        pass
+    return '🚑 Bajas: ' + ' · '.join(trozos) + efecto
 
 
 def main() -> int:

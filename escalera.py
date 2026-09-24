@@ -293,6 +293,27 @@ NIVELES = (
              'pierde un 10 %: el precio ya se sabe la media.'},
 )
 
+# v308 — LOS NIVELES SIN ACIERTO MEDIDO SALEN DE LA ESCALERA.
+#
+# El usuario: «todo debe estar bien calibrado, no quiero meter una apuesta
+# que me dé mal». Los niveles 6 y 7 eran los únicos sin número propio:
+#
+#   · 6 «Fuera de lo medido»: ligas donde Pinnacle cobra más del 7 % y su
+#     precio no sirve de referencia; siete apuestas así en cuatro años y
+#     medio. No se puede calibrar.
+#   · 7 «Otro mercado» (goles por diferencia de precio): ya NO está sin medir.
+#     Medido en v308 sobre 48.510 partidos de football-data, igual que se
+#     validó el ganador (cierre de Pinnacle contra la media del mercado):
+#     215 apuestas, +7,2 % en elección y −12,5 % en juicio (p5 −33,6 %).
+#     Ni contra el MEJOR precio de más de 40 casas pasa (juicio p5 −0,54 %).
+#     Ver `_v308_canal_goles.json`.
+#
+# Se quedan escritos arriba para que conste por qué existieron; lo que se
+# ofrece son sólo los que tienen su acierto medido.
+_TODOS_LOS_NIVELES = NIVELES
+NIVELES = tuple(nv for nv in _TODOS_LOS_NIVELES
+                if nv.get('acierta') is not None)
+
 
 def _num(x) -> Optional[float]:
     try:

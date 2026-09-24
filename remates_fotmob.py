@@ -29,7 +29,7 @@ a puerta, xG, goles y córners a favor.
 
 QUÉ ESCRIBE (incremental: un partido ya guardado no se vuelve a pedir)
     remates_fotmob_jugadores.csv   una fila por jugador que jugó y partido
-                                   (se conservan los últimos 8 de cada equipo)
+                                   (se conservan los últimos 10 de cada equipo)
     remates_fotmob_equipos.csv     una fila por equipo y partido (entero)
 
 Y `filas_equipo(clave, equipo)` devuelve las filas con la forma que usa
@@ -66,7 +66,8 @@ EQUIPOS = 'remates_fotmob_equipos.csv'
 VACIOS = 'remates_fotmob_vacios.txt'
 PAUSA = 1.0
 HILOS = 4
-VENTANA = 8                       # partidos por equipo para las medias
+# v308 — 10, la ventana con la que se midió y entrenó `remates_ml` (antes 8)
+VENTANA = 10                      # partidos por equipo para las medias
 MAX_PAGINAS = 1500                # por pasada, para no pasarse de cortesía
 # Partidos por equipo que se conservan en el fichero de jugadores: los de la
 # ventana y ni uno más. Con 67 ligas, guardarlos todos crecería ~50 MB al año
@@ -108,8 +109,13 @@ NOMBRES_SELECCION = {
     'Turkiye': 'Türkiye', 'UAE': 'United Arab Emirates',
 }
 
+# v308 — `pos` (el puesto de ESE partido: línea y carril, 105 es el nueve),
+# `up` (su puesto habitual) y `mv` (valor de mercado): son tres de los rasgos
+# que más pesan en el modelo de remates por jugador (`remates_ml`), medido
+# sobre 165.620 titulares.
 COL_J = ['match_id', 'fecha', 'liga', 'equipo', 'jugador', 'jugador_id',
-         'posicion', 'titular', 'minutos', 'tiros', 'a_puerta', 'goles', 'xg']
+         'posicion', 'titular', 'minutos', 'tiros', 'a_puerta', 'goles', 'xg',
+         'pos', 'up', 'mv']
 COL_E = ['match_id', 'fecha', 'liga', 'equipo', 'rival', 'local', 'tiros',
          'a_puerta', 'xg', 'goles', 'corners', 'por_jugador']
 
@@ -297,7 +303,10 @@ def extraer_de(raw: Dict, mid: str, liga: str) -> tuple:
                                'tiros': int(d.get('tiros', 0)),
                                'a_puerta': int(d.get('a_puerta', 0)),
                                'goles': int(d.get('goles', 0)),
-                               'xg': round(float(d.get('xg', 0.0)), 3)})
+                               'xg': round(float(d.get('xg', 0.0)), 3),
+                               'pos': j.get('positionId'),
+                               'up': j.get('usualPlayingPositionId'),
+                               'mv': j.get('marketValue')})
     # 3) totales del equipo: las estadísticas del partido mandan; si faltan,
     #    la suma del mapa de disparos
     ste = _stats_equipo(cont)
@@ -353,6 +362,17 @@ def extraer(mid: str, liga: str) -> Optional[tuple]:
 def _anexar(ruta: str, filas: List[Dict], cols: List[str]) -> None:
     if not filas:
         return
+    # un fichero escrito antes de añadir columnas: se reescribe una vez con
+    # la cabecera nueva (las columnas que le faltan quedan vacías)
+    if os.path.exists(ruta):
+        with open(ruta, encoding='utf-8') as f:
+            cab = f.readline().strip().split(',')
+        if cab != cols:
+            viejo = pd.read_csv(ruta, low_memory=False)
+            for c in cols:
+                if c not in viejo.columns:
+                    viejo[c] = None
+            viejo[cols].to_csv(ruta, index=False)
     nuevo = not os.path.exists(ruta)
     with open(ruta, 'a', encoding='utf-8', newline='') as f:
         w = csv.DictWriter(f, fieldnames=cols)

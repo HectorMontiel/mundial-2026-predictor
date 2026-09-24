@@ -24,6 +24,15 @@ import plotly.graph_objects as go
 
 import horario as _horario          # v106: hora de los partidos en CDMX
 from prediction_api import PredictionEngine, NOMBRES_PAIS, plantilla_a_markdown
+
+# v308 — por qué no se enseñan las que no tienen validación propia. El canal
+# de goles por precio se midió sobre 48.510 partidos (football-data, cierre
+# de Pinnacle contra la media del mercado): no pasa en el tramo de juicio.
+_TEXTO_SIN_VALIDAR = (
+    '🔒 %d apuestas más no se enseñan: son de mercados o deportes sin '
+    'validación propia (goles por diferencia de precio, medido en 48.510 '
+    'partidos: no gana fuera de muestra; baloncesto y NFL, sin histórico '
+    'suficiente). Se registran para medirlas, no para apostarlas.')
 from arbitros import ARBITROS
 from altitud import ESTADIOS_MUNDIAL, nivel_aclimatacion
 
@@ -2652,17 +2661,11 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
             except Exception as _e_k:
                 logger.debug('[capa1] kelly: %s', _e_k)
         if _nov:
-            with st.expander(
-                    f"🔬 Sin validar todavía ({len(_nov)}) — se están midiendo",
-                    expanded=False):
-                st.caption(
-                    'Salen del mismo método, pero en deportes donde ese canal '
-                    '**aún no tiene su propia medición**. Se muestran para que '
-                    'se acumule histórico y se puedan juzgar, no como apuesta '
-                    'recomendada. Un EV enorme aquí suele ser un precio mal '
-                    'leído, no una oportunidad.')
-                for pk in _nov:
-                    _tarjeta(pk, con_ev=True)
+            # v308 — LO QUE NO ESTÁ VALIDADO YA NO SE PINTA COMO APUESTA.
+            # El usuario: «todo debe estar bien calibrado, no quiero meter
+            # una apuesta que me dé mal». Se siguen registrando para medirlas;
+            # aquí sólo se dice cuántas hay y por qué no salen.
+            st.caption(_TEXTO_SIN_VALIDAR % len(_nov))
     elif _estilo is not None:
         _pinta(_estilo.vacio(
             f"Hoy ninguna apuesta de {deporte} pasa los filtros",
@@ -6548,13 +6551,8 @@ def render_alpha_finder():
                        'ventaja medida: no pasa la puerta del p5.')
             st.markdown(_vc.html_lista(_prob_c1, con_css=not _c1_val),
                         unsafe_allow_html=True)
-        if _c1_nov and _vc is not None:
-            st.markdown('**🔬 Sin validar todavía (%d)**' % len(_c1_nov))
-            st.caption('Mismo método en mercados o deportes que aún no tienen '
-                       'medición propia. Acumulan histórico; no son apuesta.')
-            st.markdown(_vc.html_lista(
-                _c1_nov, con_css=not (_c1_val or _prob_c1)),
-                unsafe_allow_html=True)
+        if _c1_nov:
+            st.caption(_TEXTO_SIN_VALIDAR % len(_c1_nov))
 
     _s1_f = _filtra(r.get('seccion1'))
     _s2_f = _filtra(r.get('seccion2'))

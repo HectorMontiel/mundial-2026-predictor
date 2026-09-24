@@ -246,11 +246,16 @@ def pronostico(motor, f: Dict, h: str, a: str) -> Optional[Dict]:
         # ESPN en inglés: se prueban los dos. Visto el 2026-09-23: con el
         # nombre inglés Japan-Uruguay no encontraba su tablero y la tarjeta
         # sólo podía proponer el ganador.
+        # v308 — `NOMBRES_PAIS` va por CÓDIGO FIFA («WAL»: «Gales») y aquí se
+        # le pasaba el nombre inglés («Wales»): nunca encontraba el español y
+        # la selección se quedaba sin sus mercados. Se traduce inglés →
+        # código → español con la misma función que las líneas de jugador.
         try:
-            from prediction_api import NOMBRES_PAIS as _NP
+            import lineas_jugador as _lj
+            _pares = _lj.nombres_de_casa('selecciones', home, away)
         except Exception:
-            _NP = {}
-        for _hh, _aa in ((_NP.get(h, ''), _NP.get(a, '')), (home, away)):
+            _pares = [(home, away)]
+        for _hh, _aa in _pares:
             if not (_hh and _aa):
                 continue
             imp = _af.implicitas_de_la_casa(

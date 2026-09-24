@@ -195,7 +195,14 @@ def _bloque_tenis(st, pick: Dict) -> None:
 # ---------------------------------------------------------------------------
 # v153.1 — LA APUESTA DEL PARTIDO, Y EL SEMÁFORO POR PROBABILIDAD
 # ---------------------------------------------------------------------------
-MAX_RECOMENDADAS = 3        # la principal y sus dos alternativas
+# v308 — HASTA CUATRO, Y SÓLO LAS QUE SE METEN. El usuario, con Portugal–
+# Gales delante: «sólo me estás dando una apuesta cuando debería haber más:
+# córners, tarjetas, goles, remates». Las alternativas pasan de dos a tres,
+# pero a cambio NINGUNA alternativa puede ser un «no la metas»: antes, si no
+# había tres verdes, el hueco se llenaba con rojos (Seattle–Salt Lake enseñaba
+# tres, las tres «no meter»). La principal sí puede ser roja —es la única
+# forma de decir «esto es lo mejor que hay y no llega»—, las demás no.
+MAX_RECOMENDADAS = 4        # la principal y hasta tres alternativas
 ANCHO_CANDIDATAS = 12       # v241: entre cuántas se elige esas tres
 # El AJUSTE de orden es uno solo para las dos pestañas; sus widgets no
 # pueden compartir clave (Streamlit lo prohíbe). Ver `render`.
@@ -1197,7 +1204,25 @@ def _bloque_quien_remata_html(qr: Optional[Dict]) -> str:
             # y sigue siendo información honesta — pero no se inventa un
             # porcentaje sobre una línea que la casa no ofrece.
             trozo = None
-            if j.get('p_linea_tot') is not None:
+            if j.get('escalera_on'):
+                # v308 — la escalera entera con la cuota de cada peldaño
+                e_on = j['escalera_on']
+                cu_on = j.get('cuotas_on') or {}
+                pelda = []
+                for k in (1, 2, 3):
+                    p = e_on.get(k)
+                    if p is None:
+                        continue
+                    cu = cu_on.get(k)
+                    pelda.append('%d+ <b>%.0f %%</b>%s' % (
+                        k, 100 * float(p),
+                        (' @%.2f' % float(cu)) if cu else ''))
+                e_t = j.get('escalera_tot') or {}
+                trozo = ('%s — a puerta %s · remates 1+ %.0f %% · 2+ %.0f %%'
+                         % (j.get('jugador'), ' · '.join(pelda),
+                            100 * float(e_t.get(1) or 0),
+                            100 * float(e_t.get(2) or 0)))
+            elif j.get('p_linea_tot') is not None:
                 trozo = ('%s <b>%.0f %%</b> de +%.1f'
                          % (j.get('jugador'), j['p_linea_tot'] * 100,
                             j['linea_tot']))
@@ -1751,7 +1776,10 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
         import veredicto_pick as _vp
         _vers = _vp.evaluar_lista(candidatas, con_contexto=False)
         if _vers:
-            candidatas = [v['pick'] for v in _vers]
+            candidatas = []
+            for v in _vers:
+                v['pick']['veredicto_vp'] = v.get('veredicto')
+                candidatas.append(v['pick'])
     except Exception as e:
         logger.debug('[modo_modelo] veredicto no aplicado al orden: %s', e)
 
@@ -2331,9 +2359,12 @@ def _quien_remata_compacto(qr: Optional[Dict]) -> str:
     """
     if not qr:
         return ''
+    todos = ((qr.get('home_jugadores') or [])
+             + (qr.get('away_jugadores') or []))
+    if any(j.get('escalera_on') for j in todos):
+        return _escalera_compacta(qr)
     nombres = []
-    for j in ((qr.get('home_jugadores') or [])
-              + (qr.get('away_jugadores') or []))[:6]:
+    for j in todos[:6]:
         # La línea de la casa manda sobre la nuestra (v164): si Playdoit cotiza
         # a este jugador, su cifra es la de ESA línea. Sin ella, la de rematar.
         p = j.get('p_linea_tot')
@@ -2365,6 +2396,108 @@ def _quien_remata_compacto(qr: Optional[Dict]) -> str:
             'rematar / de rematar a puerta">🎯 Remata / a puerta</span>'
             '<span class="mm-fc-jug">%s</span></div>'
             % ' &nbsp;·&nbsp; '.join(nombres))
+
+
+def _escalera_compacta(qr: Dict) -> str:
+    """
+    v308 — «Cristiano 1+ 78 % · 2+ 41 %»: la escalera a puerta, que es lo
+    que pidió el usuario con la captura de su casa. Los tres de cada equipo
+    con más probabilidad de rematar a puerta.
+    """
+    trozos = []
+    for lado in ('home', 'away'):
+        js = [j for j in (qr.get(lado + '_jugadores') or [])
+              if j.get('escalera_on')]
+        js.sort(key=lambda j: -(j['escalera_on'].get(1) or 0))
+        for j in js[:3]:
+            e = j['escalera_on']
+            p1 = float(e.get(1) or 0)
+            color = ('var(--ok)' if p1 >= 0.60
+                     else 'var(--mira)' if p1 >= 0.45 else 'var(--tenue)')
+            trozos.append(
+                '<span style="color:%s">%s <b>%.0f %%</b>'
+                '<span style="color:var(--tenue)"> · 2+ %.0f %%</span></span>'
+                % (color, _esc_mm(j.get('jugador') or ''), 100 * p1,
+                   100 * float(e.get(2) or 0)))
+    if not trozos:
+        return ''
+    return ('<div class="mm-fc"><span class="mm-fc-n" title="probabilidad de '
+            'hacer 1 y 2 remates a puerta si es titular">🥅 A puerta 1+ / 2+'
+            '</span><span class="mm-fc-jug">%s</span></div>'
+            % ' &nbsp;·&nbsp; '.join(trozos))
+
+
+# v308 — cuándo un peldaño de la escalera de remates «paga»: la probabilidad
+# calibrada por la cuota de la casa deja al menos un 5 % y el peldaño no es
+# una lotería (≥ 40 %). Es la regla del precio, no una ventaja medida: aún no
+# hay histórico de cuotas de jugador (se acumula desde la v308).
+EV_REMATE = 0.05
+PROB_REMATE = 0.40
+# La probabilidad es SI ES TITULAR. La casa, en cambio, cobra sabiendo que un
+# suplente juega poco: Lewis Koumas (Gales) salía con un 54 % a @3,00, +62 %,
+# y lo más probable es que no sea titular. Por eso sólo se marca valor en
+# quien está en el once publicado o ha sido titular en al menos el 75 % de
+# sus últimas apariciones; y un valor por encima del 40 % no se marca: casi
+# siempre es información que la casa tiene y el modelo no (la misma lección
+# que el semáforo de la Capa 1 con los precios viejos).
+TITULARIDAD_REMATE = 0.75
+EV_REMATE_TECHO = 0.40
+
+
+def _titular_probable(j: Dict) -> bool:
+    if j.get('titular') is True:
+        return True
+    try:
+        t = float(j.get('tits_ml') or 0)
+        a = float(j.get('apar_ml') or 0)
+    except (TypeError, ValueError):
+        return False
+    return a >= 4 and t / max(a, 5.0) >= TITULARIDAD_REMATE
+
+
+def remates_con_valor(qr: Optional[Dict], tope: int = 3) -> List[Dict]:
+    """Los peldaños de la escalera (a puerta y totales) en los que la casa
+    paga por encima de la probabilidad calibrada, de más a menos valor."""
+    fuera = []
+    if not qr:
+        return fuera
+    for lado in ('home', 'away'):
+        for j in qr.get(lado + '_jugadores') or []:
+            if not _titular_probable(j):
+                continue
+            for obj, nombre in (('on', 'a puerta'), ('tot', 'remates')):
+                esc = j.get('escalera_' + obj) or {}
+                for k, cu in (j.get('cuotas_' + obj) or {}).items():
+                    p = esc.get(k)
+                    try:
+                        p, cu = float(p), float(cu)
+                    except (TypeError, ValueError):
+                        continue
+                    ev = p * cu - 1.0
+                    if (p >= PROB_REMATE
+                            and EV_REMATE <= ev <= EV_REMATE_TECHO):
+                        fuera.append({'jugador': j.get('jugador'),
+                                      'equipo': qr.get(lado),
+                                      'mercado': nombre, 'k': int(k),
+                                      'prob': round(p, 4), 'cuota': cu,
+                                      'ev': round(ev, 4)})
+    fuera.sort(key=lambda x: -x['ev'])
+    return fuera[:tope]
+
+
+def _fila_remates_con_valor(qr: Optional[Dict]) -> str:
+    vs = remates_con_valor(qr)
+    if not vs:
+        return ''
+    trozos = ['%s %d+ %s <b>%.0f %%</b> @%.2f' % (
+        _esc_mm(v['jugador']), v['k'], v['mercado'], 100 * v['prob'],
+        v['cuota']) for v in vs]
+    return ('<div class="mm-fc"><span class="mm-fc-n" title="probabilidad '
+            'calibrada (medida en 165.620 titulares) que la cuota de la casa '
+            'paga por encima; si es titular. La rentabilidad contra la cuota '
+            'aún no tiene histórico propio">💎 Remate con valor</span>'
+            '<span class="mm-fc-jug" style="color:var(--mira)">%s</span></div>'
+            % ' &nbsp;·&nbsp; '.join(trozos))
 
 
 def _esc_mm(t) -> str:
@@ -2877,7 +3010,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             # lo que son —1ª, 2ª y 3ª recomendada, con su color y su
             # Score— y salen de la misma lista ordenada, así que no pueden
             # contradecir a la primera.
-            for otra in recos[1:]:
+            for otra in [o for o in recos[1:]
+                         if o.get('veredicto_vp') != 'no_meter']:
                 _bloque_recomendada(st, _vista(otra), clave_vista, n_boton)
             # v176 — SE ANOTA LO QUE SE ENSEÑA, Y AQUÍ ES DONDE SE
             # ENSEÑA. Podría anotarse en `render`, que también calcula
@@ -2920,6 +3054,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                    'Remates a puerta': (_rm or {}).get('a_puerta')},
             pick.get('clave_liga'), correcciones=_corr)
         filas.append(_quien_remata_compacto(_qr))
+        filas.append(_fila_remates_con_valor(_qr))
         filas = [f for f in filas if f]
         if filas:
             # v302 — la tira de estabilidad (seis iconos y sus rótulos) baja

@@ -1,0 +1,425 @@
+{
+ "cierre_media": {
+  "eleccion": {
+   "n": 150,
+   "acierto": 0.4933,
+   "roi": 0.072,
+   "p5": -0.0767
+  },
+  "juicio": {
+   "n": 65,
+   "acierto": 0.4308,
+   "roi": -0.1245,
+   "p5": -0.3363
+  },
+  "pasa": false,
+  "por_lado": {
+   "over": {
+    "eleccion": {
+     "n": 57,
+     "acierto": 0.4912,
+     "roi": -0.0082,
+     "p5": -0.2412
+    },
+    "juicio": {
+     "n": 25,
+     "acierto": 0.48,
+     "roi": -0.0732,
+     "p5": -0.4039
+    },
+    "pasa": false
+   },
+   "under": {
+    "eleccion": {
+     "n": 93,
+     "acierto": 0.5161,
+     "roi": 0.1568,
+     "p5": -0.0416
+    },
+    "juicio": {
+     "n": 40,
+     "acierto": 0.35,
+     "roi": -0.2393,
+     "p5": -0.5023
+    },
+    "pasa": false
+   }
+  },
+  "calibracion": [
+   {
+    "banda": "(0.3, 0.4]",
+    "n": 45,
+    "dice": 0.361,
+    "pasa": 0.3778
+   },
+   {
+    "banda": "(0.4, 0.5]",
+    "n": 64,
+    "dice": 0.4638,
+    "pasa": 0.4219
+   },
+   {
+    "banda": "(0.5, 0.6]",
+    "n": 91,
+    "dice": 0.541,
+    "pasa": 0.4835
+   },
+   {
+    "banda": "(0.6, 0.7]",
+    "n": 13,
+    "dice": 0.6308,
+    "pasa": 1.0
+   },
+   {
+    "banda": "(0.7, 1.0]",
+    "n": 2,
+    "dice": 0.7845,
+    "pasa": 0.5
+   }
+  ],
+  "por_cuota": {
+   "1.15-1.60": {
+    "eleccion": {
+     "n": 4,
+     "acierto": 0.75,
+     "roi": 0.055,
+     "p5": -0.61
+    },
+    "juicio": {
+     "n": 2,
+     "acierto": 1.0,
+     "roi": 0.52,
+     "p5": 0.46
+    },
+    "pasa": false
+   },
+   "1.60-2.00": {
+    "eleccion": {
+     "n": 57,
+     "acierto": 0.5614,
+     "roi": 0.0374,
+     "p5": -0.1702
+    },
+    "juicio": {
+     "n": 25,
+     "acierto": 0.48,
+     "roi": -0.1376,
+     "p5": -0.4296
+    },
+    "pasa": false
+   },
+   "2.00-2.80": {
+    "eleccion": {
+     "n": 66,
+     "acierto": 0.4091,
+     "roi": -0.0967,
+     "p5": -0.308
+    },
+    "juicio": {
+     "n": 29,
+     "acierto": 0.3793,
+     "roi": -0.1886,
+     "p5": -0.4897
+    },
+    "pasa": false
+   },
+   "2.80-10.00": {
+    "eleccion": {
+     "n": 22,
+     "acierto": 0.5,
+     "roi": 0.5468,
+     "p5": -0.0346
+    },
+    "juicio": {
+     "n": 10,
+     "acierto": 0.4,
+     "roi": 0.258,
+     "p5": -0.4502
+    },
+    "pasa": false
+   }
+  }
+ },
+ "apertura_media": {
+  "eleccion": {
+   "n": 30,
+   "acierto": 0.6333,
+   "roi": 0.464,
+   "p5": 0.1136
+  },
+  "juicio": {
+   "n": 13,
+   "acierto": 0.1538,
+   "roi": -0.4977,
+   "p5": -1.0
+  },
+  "pasa": false,
+  "por_lado": {
+   "over": {
+    "eleccion": {
+     "n": 11,
+     "acierto": 0.8182,
+     "roi": 0.5455,
+     "p5": 0.1491
+    },
+    "juicio": {
+     "n": 5,
+     "acierto": 0.6,
+     "roi": 0.252,
+     "p5": -0.568
+    },
+    "pasa": false
+   },
+   "under": {
+    "eleccion": {
+     "n": 19,
+     "acierto": 0.3684,
+     "roi": 0.0874,
+     "p5": -0.43
+    },
+    "juicio": {
+     "n": 8,
+     "acierto": 0.25,
+     "roi": -0.1838,
+     "p5": -1.0
+    },
+    "pasa": false
+   }
+  },
+  "calibracion": [
+   {
+    "banda": "(0.3, 0.4]",
+    "n": 20,
+    "dice": 0.3596,
+    "pasa": 0.35
+   },
+   {
+    "banda": "(0.4, 0.5]",
+    "n": 7,
+    "dice": 0.473,
+    "pasa": 0.5714
+   },
+   {
+    "banda": "(0.5, 0.6]",
+    "n": 10,
+    "dice": 0.5478,
+    "pasa": 0.5
+   },
+   {
+    "banda": "(0.6, 0.7]",
+    "n": 4,
+    "dice": 0.6132,
+    "pasa": 0.75
+   },
+   {
+    "banda": "(0.7, 1.0]",
+    "n": 1,
+    "dice": 0.7305,
+    "pasa": 1.0
+   }
+  ],
+  "por_cuota": {
+   "1.15-1.60": {
+    "eleccion": {
+     "n": 1,
+     "acierto": 1.0,
+     "roi": 0.38,
+     "p5": 0.38
+    },
+    "juicio": {
+     "n": 0,
+     "acierto": null,
+     "roi": null,
+     "p5": null
+    },
+    "pasa": false
+   },
+   "1.60-2.00": {
+    "eleccion": {
+     "n": 8,
+     "acierto": 0.875,
+     "roi": 0.5912,
+     "p5": 0.1588
+    },
+    "juicio": {
+     "n": 3,
+     "acierto": 0.0,
+     "roi": -1.0,
+     "p5": -1.0
+    },
+    "pasa": false
+   },
+   "2.00-2.80": {
+    "eleccion": {
+     "n": 9,
+     "acierto": 0.5556,
+     "roi": 0.22,
+     "p5": -0.2789
+    },
+    "juicio": {
+     "n": 4,
+     "acierto": 0.0,
+     "roi": -1.0,
+     "p5": -1.0
+    },
+    "pasa": false
+   },
+   "2.80-10.00": {
+    "eleccion": {
+     "n": 15,
+     "acierto": 0.4,
+     "roi": 0.2553,
+     "p5": -0.3907
+    },
+    "juicio": {
+     "n": 3,
+     "acierto": 0.6667,
+     "roi": 1.1767,
+     "p5": 0.03
+    },
+    "pasa": false
+   }
+  }
+ },
+ "cierre_maxima": {
+  "eleccion": {
+   "n": 15347,
+   "acierto": 0.5026,
+   "roi": 0.0223,
+   "p5": 0.0085
+  },
+  "juicio": {
+   "n": 6527,
+   "acierto": 0.4878,
+   "roi": 0.0159,
+   "p5": -0.0054
+  },
+  "pasa": false,
+  "por_lado": {
+   "over": {
+    "eleccion": {
+     "n": 7492,
+     "acierto": 0.4991,
+     "roi": 0.015,
+     "p5": -0.0045
+    },
+    "juicio": {
+     "n": 3178,
+     "acierto": 0.5088,
+     "roi": 0.0386,
+     "p5": 0.0114
+    },
+    "pasa": false
+   },
+   "under": {
+    "eleccion": {
+     "n": 7843,
+     "acierto": 0.5067,
+     "roi": 0.0284,
+     "p5": 0.0086
+    },
+    "juicio": {
+     "n": 3361,
+     "acierto": 0.4665,
+     "roi": -0.0035,
+     "p5": -0.0351
+    },
+    "pasa": false
+   }
+  },
+  "calibracion": [
+   {
+    "banda": "(0.3, 0.4]",
+    "n": 2299,
+    "dice": 0.3587,
+    "pasa": 0.3384
+   },
+   {
+    "banda": "(0.4, 0.5]",
+    "n": 8576,
+    "dice": 0.4581,
+    "pasa": 0.4502
+   },
+   {
+    "banda": "(0.5, 0.6]",
+    "n": 8800,
+    "dice": 0.5417,
+    "pasa": 0.5462
+   },
+   {
+    "banda": "(0.6, 0.7]",
+    "n": 2038,
+    "dice": 0.6336,
+    "pasa": 0.6541
+   },
+   {
+    "banda": "(0.7, 1.0]",
+    "n": 158,
+    "dice": 0.7343,
+    "pasa": 0.7468
+   }
+  ],
+  "por_cuota": {
+   "1.15-1.60": {
+    "eleccion": {
+     "n": 605,
+     "acierto": 0.681,
+     "roi": 0.0279,
+     "p5": -0.0175
+    },
+    "juicio": {
+     "n": 260,
+     "acierto": 0.7154,
+     "roi": 0.0717,
+     "p5": 0.0022
+    },
+    "pasa": false
+   },
+   "1.60-2.00": {
+    "eleccion": {
+     "n": 5803,
+     "acierto": 0.5714,
+     "roi": 0.0376,
+     "p5": 0.0173
+    },
+    "juicio": {
+     "n": 2469,
+     "acierto": 0.5674,
+     "roi": 0.0473,
+     "p5": 0.016
+    },
+    "pasa": true
+   },
+   "2.00-2.80": {
+    "eleccion": {
+     "n": 7998,
+     "acierto": 0.4499,
+     "roi": 0.004,
+     "p5": -0.016
+    },
+    "juicio": {
+     "n": 3409,
+     "acierto": 0.4564,
+     "roi": 0.0165,
+     "p5": -0.0148
+    },
+    "pasa": false
+   },
+   "2.80-10.00": {
+    "eleccion": {
+     "n": 931,
+     "acierto": 0.3308,
+     "roi": 0.013,
+     "p5": -0.0659
+    },
+    "juicio": {
+     "n": 398,
+     "acierto": 0.304,
+     "roi": -0.0598,
+     "p5": -0.174
+    },
+    "pasa": false
+   }
+  }
+ }
+}

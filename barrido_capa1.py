@@ -112,6 +112,20 @@ REGLAS = {
             'nota': 'no medible: ESPN sólo guarda multi-casa de una temporada'},
 }
 
+def texto_linea(linea) -> str:
+    """v308 — «2.25», no «2.2». Las líneas asiáticas de cuarto (2,25; 4,25)
+    salían con un decimal y se leían como una línea que no existe: el usuario
+    vio «Más de 2.2 goles» y «Más de 4.2 goles». Un cuarto se escribe con dos
+    decimales; el resto, con uno."""
+    try:
+        x = float(linea)
+    except (TypeError, ValueError):
+        return str(linea)
+    if abs(x * 2 - round(x * 2)) > 1e-9:
+        return '%.2f' % x
+    return '%.1f' % x
+
+
 # Por debajo de esto no es una apuesta. El mismo suelo que el resto del
 # proyecto usa para no proponer trámites de 1,05.
 MIN_CUOTA = 1.15
@@ -548,8 +562,9 @@ def barrer_goles(ruta: str = TABLERO) -> List[Dict]:
                         if k in vistos:
                             continue
                         vistos.add(k)
-                        etq = ('Más de %.1f goles' % linea if lado == 'over'
-                               else 'Menos de %.1f goles' % linea)
+                        etq = ('Más de %s goles' % texto_linea(linea)
+                               if lado == 'over'
+                               else 'Menos de %s goles' % texto_linea(linea))
                         fuera.append({
                             'deporte': 'Fútbol',
                             'liga': v.get('liga') or '',

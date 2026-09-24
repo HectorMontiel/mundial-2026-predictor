@@ -714,12 +714,28 @@ def precalcular(dias: int = 2, max_hilos: int = 4) -> Dict:
         # hueco, da un contraste falso, y este módulo existe justo para
         # contrastar.
         clave, h, a, fecha, nombre_liga = par
+        # v308 — LAS SELECCIONES, CON SU NOMBRE EN ESPAÑOL. Playdoit las
+        # publica como «Portugal–Gales» y el fixture de ESPN dice «Wales»:
+        # con el inglés no se encontraba el tablero y el partido se quedaba
+        # sólo con el 1X2 de respaldo, así que la tarjeta no podía proponer
+        # goles, córners, tarjetas ni remates (Portugal–Gales, 2026-09-23:
+        # una sola apuesta, «Gana Portugal»). Se prueba primero en español.
+        precio = {}
         try:
-            precio = del_tablero(cm.mercados_playdoit(
-                'futbol', h, a, fecha=fecha, liga=nombre_liga))
-        except Exception as e:
-            logger.debug('[mercado] %s-%s: %s', h, a, e)
-            return None
+            import lineas_jugador as _lj
+            nombres = _lj.nombres_de_casa('selecciones' if not clave
+                                          else clave, h, a)
+        except Exception:
+            nombres = [(h, a)]
+        for hh, aa in nombres:
+            try:
+                precio = del_tablero(cm.mercados_playdoit(
+                    'futbol', hh, aa, fecha=fecha, liga=nombre_liga))
+            except Exception as e:
+                logger.debug('[mercado] %s-%s: %s', hh, aa, e)
+                precio = {}
+            if precio:
+                break
         if not precio:
             return None
         return (llave(h, a), {'clave_liga': clave, 'home': h, 'away': a,

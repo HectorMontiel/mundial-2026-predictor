@@ -163,6 +163,21 @@ jobs:
           fi
           echo "::warning::el precalculo no se pudo generar. La app sigue sirviendo el anterior mientras tenga menos de 36 h."
 
+      # v308 — LAS LÍNEAS DE REMATES POR JUGADOR, EN CADA PASADA Y CON SU
+      # HISTÓRICO. Sólo corrían una vez al día a las 05:30 UTC en
+      # `retrain_leagues`, y Playdoit publica los mercados de jugador más
+      # cerca del partido: el 2026-09-23 había 2 partidos con líneas; con el
+      # mismo código a media tarde, 23. Va DESPUÉS de cocinar porque lee los
+      # partidos del pronóstico (selecciones incluidas). Guarda la escalera
+      # 1+/2+/3+ y el precio de cada peldaño en `lineas_jugador_hist/`, y
+      # liquida los de partidos ya jugados: con eso se podrá medir si el
+      # modelo de remates gana contra la cuota.
+      - name: Líneas de remates por jugador
+        if: steps.frescura.outputs.saltar != 'true'
+        continue-on-error: true
+        timeout-minutes: 15
+        run: python lineas_jugador.py --dias 2 || echo "::warning::líneas de jugador con avisos"
+
       # `precalculo_dia` NO escribe si el barrido sale vacío, y devuelve 1.
       # Este paso lo convierte en un aviso en vez de un job rojo: un barrido
       # vacío es casi siempre una fuente caída, no una regresión, y el
@@ -203,7 +218,7 @@ jobs:
           #
           # El bucle anade lo que hay y se salta lo que no, sin tragarse un
           # fallo real en los ficheros que SI estan.
-          for _f in remates_fotmob_jugadores.csv remates_fotmob_equipos.csv remates_fotmob_vacios.txt fotmob_ligas.json bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
+          for _f in lineas_jugador_dia.json lineas_jugador_hist remates_fotmob_jugadores.csv remates_fotmob_equipos.csv remates_fotmob_vacios.txt fotmob_ligas.json bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

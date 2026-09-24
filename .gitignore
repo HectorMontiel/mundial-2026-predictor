@@ -222,3 +222,8 @@ cambios_entrenador.json
 # v230 — el informe de auditoría de ligas se REGENERA (`auditoria_ligas.py`)
 # pero `auditoria_ligas.json` SÍ se versiona: lo lee la pantalla para contar el
 # carácter de cada liga, y sin él las tarjetas se quedan mudas en un clon nuevo.
+
+# v308 — datos de medición reproducibles (se regeneran con _v308_canal_goles.py
+# y _v308_fondo_fotmob.py); 25 + 22 MB que no deben entrar en un repo de 16 GB
+_v308_fd/
+_v308_fondo/

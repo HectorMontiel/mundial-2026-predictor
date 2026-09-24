@@ -4128,6 +4128,16 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         logger.info(f'[alpha] patrones de liga aplicados a {_n_pat} partidos')
     except Exception as e:
         logger.warning(f'[alpha] patrones de liga no aplicados: {e}')
+    # v308 — LAS BAJAS MUEVEN LOS GOLES. Medido sobre 9.772 partidos contra
+    # nuestra propia λ de producción (ver `bajas_modelo`): el xG que pierde el
+    # ataque y la zaga que le falta al rival mejoran los goles y el más/menos
+    # 2,5 en los dos tramos. El 1X2 no se toca (no pasó).
+    try:
+        import bajas_modelo as _bm
+        _n_baj = _bm.ajustar_lista(r.get('pronosticos') or [])
+        logger.info(f'[alpha] bajas aplicadas a {_n_baj} partidos')
+    except Exception as e:
+        logger.warning(f'[alpha] bajas no aplicadas: {e}')
     capa1 = list(r.get('elite') or [])
     for p in capa1:
         p.setdefault('deporte', 'Fútbol')

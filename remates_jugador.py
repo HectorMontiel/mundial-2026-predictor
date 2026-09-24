@@ -128,6 +128,7 @@ frecuencia. Se enseña en gris/ámbar y como información, igual que córners y
 tarjetas, y con más motivo.
 """
 import json
+import math
 import logging
 import os
 from typing import Dict, List, Optional
@@ -986,6 +987,9 @@ def partido(clave_liga: str, home: str, away: str, fecha: str = '',
             lambda_on=on.get('lambda_' + lado),
             once=(once or {}).get(lado) if once else None,
             en_vivo=en_vivo, lineas=lineas)
+        js = con_modelo_ml(clave_liga, equipo,
+                           away if lado == 'home' else home, lado == 'home',
+                           js, lineas)
         if js:
             algo = True
             # cuántos del once se encontraron, para que la interfaz no rotule
@@ -993,6 +997,105 @@ def partido(clave_liga: str, home: str, away: str, fecha: str = '',
             salida[lado + '_casados_de'] = js[0].get('casados_de')
         salida[lado + '_jugadores'] = js[:tope] if tope else js
     return salida if algo else None
+
+
+def _linea_a_k(linea) -> Optional[int]:
+    """«Más de 1.5» se gana con 2: el peldaño k de P(X ≥ k)."""
+    try:
+        return int(math.floor(float(linea))) + 1
+    except (TypeError, ValueError):
+        return None
+
+
+def con_modelo_ml(clave_liga: str, equipo: str, rival: str, local: bool,
+                  js: List[Dict], lineas: Optional[Dict]) -> List[Dict]:
+    """
+    v308 — LA ESCALERA 1+ / 2+ / 3+ CON EL MODELO QUE GANÓ.
+
+    `remates_ml` le gana al de arriba (v163) en los siete umbrales medidos y
+    en los dos tramos, y calibra mejor (a puerta 1+: ECE 0,018 → 0,005). Aquí
+    se cuelga a cada jugador que tiene historia en FotMob su escalera entera
+    —`escalera_on` {1: p, 2: p, 3: p} y `escalera_tot` {1..5}—, la cuota de la
+    casa de cada peldaño cuando la cotiza, y se rehacen con este modelo la
+    probabilidad de rematar, la de rematar a puerta y la de la línea de la
+    casa. Quien no tiene historia en FotMob se queda con lo de la v163.
+
+    Si ESPN no trajo a nadie de este equipo, la lista sale entera de aquí.
+    """
+    try:
+        import remates_ml
+        if not remates_ml.disponible():
+            return js
+        ml = remates_ml.escalera_equipo(clave_liga, equipo, rival, local)
+    except Exception as e:
+        logger.debug('[remates_jugador] ml de %s: %s', equipo, e)
+        return js
+    if not ml:
+        return js
+    try:
+        import lineas_jugador as lj
+        por_nombre = {m['jugador']: m for m in ml}
+    except Exception:
+        return js
+    usados = set()
+    base = js or []
+    if not base:
+        base = [{'jugador': m['jugador'], 'posicion': m.get('posicion') or '',
+                 'apariciones': m.get('apar'),
+                 'titularidades': m.get('tits'),
+                 'origen': 'últimos partidos (FotMob)'}
+                for m in ml if (m.get('apar') or 0) >= MIN_APARICIONES]
+    salida = []
+    for f in base:
+        nombre = f.get('jugador')
+        m = por_nombre.get(nombre)
+        if m is None:
+            clave = lj.por_apellidos(nombre, list(por_nombre))
+            m = por_nombre.get(clave) if clave else None
+        f = dict(f)
+        if m is not None:
+            usados.add(m['jugador'])
+            f['lambda_on'] = m['lam_sot']
+            f['lambda_tot'] = m['lam_sh']
+            f['escalera_on'] = m['p_sot']
+            f['escalera_tot'] = m['p_sh']
+            f['p_al_arco'] = m['p_sot'][1]
+            f['p_remata'] = m['p_sh'][1]
+            f['modelo'] = 'ml'
+            f['on_del_previo'] = False
+            f['tits_ml'] = m.get('tits')
+            f['apar_ml'] = m.get('apar')
+            ficha = buscar_linea(lineas, nombre)
+            for obj, esc in (('on', m['p_sot']), ('tot', m['p_sh'])):
+                bloque = (ficha or {}).get(obj) or {}
+                cuotas = {}
+                for L, cu in (bloque.get('lineas') or {}).items():
+                    k = _linea_a_k(L)
+                    if k:
+                        cuotas[k] = cu
+                f['cuotas_' + obj] = cuotas
+                L = f.get('linea_' + obj)
+                k = _linea_a_k(L) if L is not None else None
+                if k is not None:
+                    lam = m['lam_sot'] if obj == 'on' else m['lam_sh']
+                    alpha = 0.0
+                    try:
+                        import remates_ml as _rm
+                        alpha = float(((_rm._modelos() or ({}, {}))[1]
+                                       .get('alpha') or {})
+                                      .get('sot' if obj == 'on' else 'sh', 0))
+                    except Exception:
+                        pass
+                    f['p_linea_' + obj] = esc.get(k) or round(
+                        _prob_k(lam, k, alpha), 4)
+        salida.append(f)
+    salida.sort(key=lambda x: (x.get('p_al_arco') or 0.0), reverse=True)
+    return salida
+
+
+def _prob_k(lam: float, k: int, alpha: float) -> float:
+    import remates_ml
+    return remates_ml.p_al_menos(lam, k, alpha)
 
 
 # ---------------------------------------------------------------------------

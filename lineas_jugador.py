@@ -172,7 +172,12 @@ def del_tablero(tablero: Optional[Dict]) -> Dict[str, Dict]:
 
 
 # Qué se GUARDA en el fichero del día, que no es todo lo que se extrae.
-_CAMPOS_GUARDADOS = ('principal', 'cuota')
+#
+# v308 — Y LA ESCALERA ENTERA. El usuario la pidió con una captura de su casa:
+# «1+, 2+, 3+ remates a puerta» con la cuota de cada peldaño, y que el modelo
+# diga la probabilidad de cada uno. Playdoit la publica (0.5 / 1.5 / 2.5 son
+# 1+ / 2+ / 3+) y aquí se tiraba. Son tres números por mercado.
+_CAMPOS_GUARDADOS = ('principal', 'cuota', 'lineas')
 
 
 def _compacta(ficha: Dict) -> Dict:
@@ -359,18 +364,32 @@ def precalcular(dias: int = 2, max_hilos: int = 4) -> Dict:
         for f in (lista or []):
             h, a = f.get('home'), f.get('away')
             if h and a:
-                pendientes.append((clave, h, a))
+                pendientes.append((clave, h, a, str(f.get('fecha') or '')[:10]))
+    # v308 — Y TODO LO DEL PRONÓSTICO DEL DÍA, selecciones incluidas. Antes
+    # sólo entraban las ligas con código de ESPN, así que ninguna selección
+    # tenía líneas aunque Playdoit sí las cotiza (Portugal–Gales: Cristiano,
+    # 1+ a puerta @1,09 · 2+ @1,65 · 3+ @3,10).
+    vistos = {_llave(p[1], p[2]) for p in pendientes}
+    for clave, h, a, fecha in partidos_del_pronostico():
+        if _llave(h, a) not in vistos:
+            vistos.add(_llave(h, a))
+            pendientes.append((clave, h, a, fecha))
 
     def _uno(par):
-        clave, h, a = par
-        try:
-            lin = del_tablero(cm.mercados_playdoit('futbol', h, a))
-        except Exception as e:
-            logger.debug('[lineas_jugador] %s-%s: %s', h, a, e)
-            return None
+        clave, h, a, fecha = par
+        lin = {}
+        for hh, aa in nombres_de_casa(clave, h, a):
+            try:
+                lin = del_tablero(cm.mercados_playdoit('futbol', hh, aa))
+            except Exception as e:
+                logger.debug('[lineas_jugador] %s-%s: %s', hh, aa, e)
+                lin = {}
+            if lin:
+                break
         if not lin:
             return None
         return (_llave(h, a), {'clave_liga': clave, 'home': h, 'away': a,
+                               'fecha': fecha,
                                **{k: _compacta(v) for k, v in lin.items()}})
 
     salida: Dict[str, Dict] = {}
@@ -382,6 +401,181 @@ def precalcular(dias: int = 2, max_hilos: int = 4) -> Dict:
                 len(pendientes), len(salida))
     return {'generado': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
             'partidos': salida}
+
+
+def partidos_del_pronostico(ruta: str = 'pronostico_dia.json') -> List[tuple]:
+    """[(clave_liga, home, away, fecha)] de los partidos de fútbol del
+    pronóstico del día. Vacío si no está."""
+    try:
+        with open(ruta, encoding='utf-8') as f:
+            d = (json.load(f) or {}).get('datos') or {}
+    except Exception:
+        return []
+    fuera, vistos = [], set()
+    for p in list(d.get('pronosticos') or []) + list(d.get('candidatos') or []):
+        if not isinstance(p, dict):
+            continue
+        if str(p.get('deporte') or 'Fútbol') != 'Fútbol':
+            continue
+        par = str(p.get('partido') or '')
+        if ' vs ' not in par:
+            continue
+        h, a = (x.strip() for x in par.split(' vs ', 1))
+        k = _llave(h, a)
+        if k in vistos:
+            continue
+        vistos.add(k)
+        fuera.append((str(p.get('clave_liga') or ''), h, a,
+                      str(p.get('fecha') or p.get('inicio') or '')[:10]))
+    return fuera
+
+
+def nombres_de_casa(clave: str, home: str, away: str) -> List[tuple]:
+    """Los nombres con los que probar en la casa. Las selecciones van en
+    español en Playdoit («Gales», no «Wales»): se prueba primero así."""
+    fuera = []
+    if clave == 'selecciones':
+        try:
+            from config import TEAM_NAMES_EN
+            from prediction_api import NOMBRES_PAIS
+            en_es = {TEAM_NAMES_EN[c]: es for c, es in NOMBRES_PAIS.items()
+                     if c in TEAM_NAMES_EN}
+            hh, aa = en_es.get(home), en_es.get(away)
+            if hh and aa:
+                fuera.append((hh, aa))
+        except Exception as e:
+            logger.debug('[lineas_jugador] nombres: %s', e)
+    fuera.append((home, away))
+    return fuera
+
+
+# ---------------------------------------------------------------------------
+# v308 — el histórico de precios, para poder medir contra la cuota
+# ---------------------------------------------------------------------------
+#
+# Sin histórico de líneas de jugador no se puede saber si apostar donde el
+# modelo ve más probabilidad que la casa GANA dinero: la calibración se mide
+# con los partidos, el ROI sólo con los precios que hubo. Se guarda el último
+# precio visto de cada peldaño (el más cercano al saque) y el primero, y
+# cuando el partido se juega se liquida con los remates reales de
+# `remates_fotmob`.
+#
+# Un fichero por mes: sólo cambia el del mes en curso, así que los viejos no
+# vuelven a pesar en cada commit.
+HIST_DIR = 'lineas_jugador_hist'
+COL_HIST = ['fecha', 'clave_liga', 'home', 'away', 'jugador', 'equipo',
+            'objetivo', 'linea', 'cuota_primera', 'cuota', 'capturado',
+            'real', 'minutos']
+
+
+def _ruta_hist(fecha: str) -> str:
+    return os.path.join(HIST_DIR, '%s.csv' % (str(fecha)[:7] or 'sin-fecha'))
+
+
+def _leer_hist(ruta: str) -> List[Dict]:
+    import csv
+    if not os.path.exists(ruta):
+        return []
+    with open(ruta, encoding='utf-8', newline='') as fh:
+        return list(csv.DictReader(fh))
+
+
+def _escribir_hist(ruta: str, filas: List[Dict]) -> None:
+    import csv
+    os.makedirs(HIST_DIR, exist_ok=True)
+    tmp = ruta + '.nuevo'
+    with open(tmp, 'w', encoding='utf-8', newline='') as fh:
+        w = csv.DictWriter(fh, fieldnames=COL_HIST, lineterminator='\n',
+                           extrasaction='ignore')
+        w.writeheader()
+        for r in sorted(filas, key=lambda x: (
+                x['fecha'], x['home'], x['jugador'], x['objetivo'],
+                float(x['linea']))):
+            w.writerow({c: r.get(c, '') for c in COL_HIST})
+    os.replace(tmp, ruta)
+
+
+def registrar_historico(doc: Dict) -> int:
+    """Añade o actualiza los precios del día. Devuelve los peldaños tocados."""
+    ahora = str(doc.get('generado') or time.strftime('%Y-%m-%dT%H:%M:%SZ',
+                                                     time.gmtime()))
+    por_ruta: Dict[str, List[Dict]] = {}
+    for v in (doc.get('partidos') or {}).values():
+        fecha = str(v.get('fecha') or ahora)[:10]
+        for jugador, f in v.items():
+            if not isinstance(f, dict):
+                continue
+            for obj in ('tot', 'on'):
+                for L, cu in ((f.get(obj) or {}).get('lineas') or {}).items():
+                    por_ruta.setdefault(_ruta_hist(fecha), []).append({
+                        'fecha': fecha, 'clave_liga': v.get('clave_liga'),
+                        'home': v.get('home'), 'away': v.get('away'),
+                        'jugador': jugador, 'equipo': f.get('equipo'),
+                        'objetivo': obj, 'linea': str(L), 'cuota': cu,
+                        'capturado': ahora})
+    tocadas = 0
+    for ruta, nuevas in por_ruta.items():
+        filas = {(r['fecha'], r['home'], r['away'], r['jugador'],
+                  r['objetivo'], r['linea']): r for r in _leer_hist(ruta)}
+        for r in nuevas:
+            k = (r['fecha'], r['home'], r['away'], r['jugador'],
+                 r['objetivo'], r['linea'])
+            viejo = filas.get(k) or {}
+            r['cuota_primera'] = viejo.get('cuota_primera') or r['cuota']
+            r['real'] = viejo.get('real', '')
+            r['minutos'] = viejo.get('minutos', '')
+            filas[k] = r
+            tocadas += 1
+        _escribir_hist(ruta, list(filas.values()))
+    return tocadas
+
+
+def liquidar(dias: int = 10) -> int:
+    """Pone el número real (remates o a puerta) y los minutos a los peldaños
+    de partidos ya jugados, con lo que guardó `remates_fotmob`."""
+    import datetime as dt
+    try:
+        import remates_fotmob as rf
+        dj = rf._jugadores()
+    except Exception:
+        return 0
+    if dj is None or dj.empty or not os.path.isdir(HIST_DIR):
+        return 0
+    hoy = dt.date.today()
+    desde = (hoy - dt.timedelta(days=dias)).isoformat()
+    eqs = sorted(set(dj['equipo'].astype(str)))
+    hechos = 0
+    for nombre in sorted(os.listdir(HIST_DIR)):
+        ruta = os.path.join(HIST_DIR, nombre)
+        filas = _leer_hist(ruta)
+        cambio = False
+        for r in filas:
+            if r.get('real') not in ('', None):
+                continue
+            if not (desde <= r['fecha'] < hoy.isoformat()):
+                continue
+            # FotMob va en UTC: el partido puede caer al día siguiente
+            f0 = dt.date.fromisoformat(r['fecha'])
+            fechas = {f0.isoformat(), (f0 + dt.timedelta(days=1)).isoformat()}
+            cand = [e for e in (rf._resolver_equipo(r['home'], eqs),
+                                rf._resolver_equipo(r['away'], eqs)) if e]
+            s = dj[dj['equipo'].isin(cand)
+                   & dj['fecha'].astype(str).isin(fechas)]
+            if s.empty:
+                continue
+            j = por_apellidos(r['jugador'],
+                              sorted(set(s['jugador'].astype(str))))
+            if not j:
+                continue
+            fila = s[s['jugador'] == j].iloc[0]
+            r['real'] = int(fila['a_puerta'] if r['objetivo'] == 'on'
+                            else fila['tiros'])
+            r['minutos'] = int(fila['minutos'])
+            cambio = True
+            hechos += 1
+        if cambio:
+            _escribir_hist(ruta, filas)
+    return hechos
 
 
 def guardar(doc: Dict, ruta: str = FICHERO) -> None:
@@ -422,6 +616,11 @@ def main() -> int:
 
     doc = precalcular(dias=args.dias)
     guardar(doc, args.salida)
+    try:
+        print('histórico de precios: %d peldaños · liquidados %d'
+              % (registrar_historico(doc), liquidar()))
+    except Exception as e:
+        logger.warning('[lineas_jugador] histórico: %s', e)
     n_jug = sum(len([k for k in v if k not in
                      ('clave_liga', 'home', 'away', 'equipo')])
                 for v in (doc.get('partidos') or {}).values())

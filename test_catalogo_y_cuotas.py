@@ -8361,7 +8361,10 @@ def test_remates_no_suben_a_seccion1_sin_medicion():
     # Y la probabilidad del jugador no se presenta como apuesta recomendada.
     j = src.find('def _bloque_quien_remata_html')
     check(j > 0, "existe el bloque de quien remata")
-    cuerpo = src[j:j + 3000]
+    # v308 — la función entera, no sus 3.000 primeros caracteres: la escalera
+    # 1+/2+/3+ que se le añadió empujó el pie más abajo sin quitarlo.
+    fin = src.find('\ndef ', j + 10)
+    cuerpo = src[j:fin if fin > 0 else j + 6000]
     check('informativa' in cuerpo,
           "el bloque de jugadores se presenta como informativo")
 
@@ -22061,8 +22064,11 @@ def test_la_pantalla_separa_las_dos_capas():
     check('barrido_capa1' in d, 'v266: y sale del modulo que lo mide')
     check('medido como perdedor' in d,
           'v266: y la Capa 2 dice lo que es, medido')
-    check('sin validar todavía' in d.lower(),
-          'v266: y lo que aun no tiene medicion propia va aparte')
+    # v308 — lo que no tiene medición propia ya no va «aparte»: NO SE
+    # ENSEÑA como apuesta (el usuario: «todo debe estar calibrado»). Se dice
+    # cuántas quedan fuera y por qué, que es lo que esta comprobación cuida.
+    check('_TEXTO_SIN_VALIDAR' in d and 'no se enseñan' in d,
+          'v308: lo que no tiene medicion propia no se enseña, y se dice')
 
 
 def test_el_tablero_de_cuotas_acumula_y_limpia():

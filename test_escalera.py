@@ -82,13 +82,17 @@ def probar_filtros():
     # pantalla. Ahora cae al nivel 6 CON el aviso por delante. Lo que no puede
     # es no tener limite: por encima del 15 % el precio de Pinnacle ya no
     # informa de nada y ahi no se ofrece nada, ni con bandera.
+    #
+    # v308 — el nivel 6 «fuera de lo medido» SE QUITÓ: siete apuestas en
+    # cuatro años y medio no se pueden calibrar, y el usuario pidió que todo
+    # lo que se ofrezca esté calibrado. Un margen del 13 % vuelve a no salir.
     alto = esc.elegir([_pick(margen_pin=0.13)])
-    check(alto is not None
-          and (alto.get('nivel_escalera') or {}).get('n') == 6,
-          'margen del 13 % baja al nivel 6, «fuera de lo medido»')
-    check((alto.get('nivel_escalera') or {}).get('margen_libre') is True
-          and 'sin red' in (alto['nivel_escalera'].get('nota') or ''),
-          'y sale marcado como sin respaldo, no como una mas')
+    check(alto is None,
+          'margen del 13 %% ya no sale: el nivel sin medir se quitó (v308)')
+    check(all(nv.get('acierta') is not None for nv in esc.NIVELES),
+          'todos los niveles que quedan tienen su acierto medido')
+    check(any(nv.get('n') == 6 for nv in esc._TODOS_LOS_NIVELES),
+          'y los quitados siguen escritos, para que conste por qué existieron')
     check(esc.elegir([_pick(margen_pin=0.18)]) is None,
           'margen del 18 % NO sale: por encima del techo no hay señal')
     check(esc.MARGEN_PIN_TOPE > esc.MARGEN_PIN_MAXIMO,
@@ -179,21 +183,16 @@ def probar_otros_mercados():
     gol = _pick(apuesta='Más de 2.5 goles', partido='A vs B', mercado='Goles',
                 cuota=2.10, ev=0.04, validado=False, margen_pin=0.06)
 
-    # entra, pero SOLO por el nivel que lo dice, y ese va el ultimo
+    # v308 — el canal de goles por precio YA SE MIDIÓ (48.510 partidos,
+    # `_v308_canal_goles.json`) y no gana fuera de muestra: el nivel 7 que lo
+    # dejaba entrar se quitó. Un pick de goles suelto no sale.
     e = esc.elegir([gol])
-    check(e is not None, 'un pick de goles ya no se cae de la escalera')
     etq = (e.get('nivel_escalera') or {}).get('etiqueta') if e else None
-    check(etq == 'Otro mercado',
-          'entra por el nivel de «otro mercado» (salio %s)' % etq)
-    # v297.1 — y NO por el de la combinada, que tiene medicion propia y no
-    # es la suya. Un «Más de 2,5» suelto no puede heredar esos numeros.
+    check(e is None,
+          'un pick de goles por precio ya no entra: medido, pierde (salio %s)'
+          % etq)
     check(etq != 'Combinada del partido',
           'un pick de goles suelto NO se cuela en el nivel de la combinada')
-    check((e.get('nivel_escalera') or {}).get('otros_mercados') is True,
-          'y ese nivel esta marcado como de otros mercados')
-    check('no tiene medición propia' in
-          ((e.get('nivel_escalera') or {}).get('nota') or ''),
-          'con el aviso de que el canal aun acumula')
 
     # lo que NO puede pasar: colarse en un nivel medido y salir con su sello
     for nv in esc.NIVELES:
@@ -206,8 +205,9 @@ def probar_otros_mercados():
     # y el 1X2 de siempre sigue yendo delante
     t = esc.todas([gol, _pick(apuesta='Gana X', partido='C vs D',
                               cuota=1.95, ev=0.01)])
-    check(len(t) == 2 and t[0].get('apuesta') == 'Gana X',
-          'el ganador medido va ANTES que el mercado sin medir')
+    # v308 — y el de goles ya ni sale (se quitó el nivel 7, medido y pierde)
+    check(len(t) == 1 and t[0].get('apuesta') == 'Gana X',
+          'sólo sale el ganador medido; el mercado que pierde, no')
 
 
 def probar_una_sola_por_partido():
@@ -229,8 +229,10 @@ def probar_una_sola_por_partido():
     claves = [(x.get('partido'), x.get('mercado')) for x in t]
     check(len(claves) == len(set(claves)),
           'ningun partido repite mercado (%s)' % claves)
-    check(len(t) == 2,
-          'las dos lineas de goles del mismo partido cuentan como una (%d)'
+    # v308 — las de goles por precio ya no entran (nivel 7 quitado): queda
+    # sólo el ganador
+    check(len(t) == 1,
+          'las líneas de goles por precio no entran; queda el ganador (%d)'
           % len(t))
 
     mixto = [

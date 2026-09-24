@@ -53,11 +53,37 @@ def main():
         check(bf.texto({'partido': None}) == '', 'con un pick roto no lanza')
     except Exception as e:
         check(False, 'lanzó: %s' % e)
+    # v308 — el cruce con el fichero REAL, con la forma que deja `capturar`
+    # (el nombre queda dentro del bloque de bajas). Antes el test sustituía
+    # `de_partido` entero y nunca vio que no casaba nada.
+    import json
+    import os
+    import tempfile
+    tmp = os.path.join(tempfile.mkdtemp(), 'bajas.json')
+    with open(tmp, 'w', encoding='utf-8') as fh:
+        json.dump({'partidos': {'premier|Arsenal|Leeds United': {
+            'clave_liga': 'premier', 'inicio': '2026-09-27 14:00:00',
+            'fotmob_id': '1', **bloque}}}, fh)
+    orig_f = bf.FICHERO
+    try:
+        bf.FICHERO = tmp
+        bf._CACHE.clear()
+        v = bf.de_partido({'partido': 'Arsenal vs Leeds United',
+                           'clave_liga': 'premier'})
+    finally:
+        bf.FICHERO = orig_f
+        bf._CACHE.clear()
+    check(bool(v) and len(v['home']['bajas']) == 3,
+          'el pronóstico encuentra sus bajas en el fichero real')
     mm = open('modo_modelo.py', encoding='utf-8').read()
     check('bajas_fotmob' in mm, 'la tarjeta enseña las bajas')
-    for f in ('patrones_liga.py', 'valor_apuesta.py', 'alpha_finder.py'):
+    # v308 — ya están MEDIDAS (bajas_modelo, 9.772 partidos): entran en los
+    # goles por `alpha_finder` -> `bajas_modelo`, y en nada más.
+    check('bajas_modelo' in open('alpha_finder.py', encoding='utf-8').read(),
+          'las bajas entran en el modelo de goles (medidas en la v308)')
+    for f in ('patrones_liga.py', 'valor_apuesta.py'):
         check('bajas_fotmob' not in open(f, encoding='utf-8').read(),
-              '%s no las usa para calcular: todavía no están medidas' % f)
+              '%s no las usa por su cuenta' % f)
     wf = open('.github/workflows/precalculo_dia.yml', encoding='utf-8').read()
     check('bajas_fotmob.py' in wf and 'bajas_historico.csv' in wf,
           'el precálculo las refresca y guarda el histórico')
