@@ -179,8 +179,8 @@
   },
   "Central Español Fútbol Club": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Africa",
-    "ratio": 0.6207,
+    "candidato": "Central Ballester",
+    "ratio": 0.625,
     "visto": "2026-09-24"
   },
   "Chippa United": {
@@ -1145,15 +1145,15 @@
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Salt Lake",
-    "ratio": 0.48,
+    "candidato": "Real Pilar",
+    "ratio": 0.5714,
     "visto": "2026-09-24"
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Santander",
-    "ratio": 0.7143,
-    "visto": "2026-09-22"
+    "candidato": "Real Pilar",
+    "ratio": 0.5833,
+    "visto": "2026-09-24"
   },
   "Real Sociedad": {
     "candidato": "Real Bedford W",
@@ -1163,8 +1163,8 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Salt Lake",
-    "ratio": 0.6207,
+    "candidato": "Real Pilar",
+    "ratio": 0.56,
     "visto": "2026-09-24"
   },
   "Renan Lodi": {
@@ -1227,8 +1227,8 @@
   },
   "San Diego FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Marino U21",
-    "ratio": 0.5217,
+    "candidato": "San Miguel",
+    "ratio": 0.6316,
     "visto": "2026-09-24"
   },
   "Sander Navarro": {
@@ -1575,8 +1575,8 @@
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Salt Lake",
-    "ratio": 0.4667,
+    "candidato": "Real Pilar",
+    "ratio": 0.5385,
     "visto": "2026-09-24"
   },
   "Carlisle United": {
@@ -1623,14 +1623,14 @@
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Omega Sport",
-    "ratio": 0.5833,
-    "visto": "2026-09-23"
+    "candidato": "Wiener Sport-Club",
+    "ratio": 0.64,
+    "visto": "2026-09-24"
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes Rio Cuarto 2",
-    "ratio": 0.625,
+    "candidato": "Estudiantes L.P.",
+    "ratio": 0.6667,
     "visto": "2026-09-24"
   },
   "San Miguel": {
@@ -1659,8 +1659,8 @@
   },
   "Internacional Santa Tecla": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CD Santa Cruz",
-    "ratio": 0.4737,
+    "candidato": "Colon Santa Fe",
+    "ratio": 0.5641,
     "visto": "2026-09-24"
   },
   "Cruz Azul Hidalgo": {
@@ -1695,14 +1695,14 @@
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Riestra 2",
-    "ratio": 0.6286,
+    "candidato": "Deportivo Espanol",
+    "ratio": 0.7273,
     "visto": "2026-09-24"
   },
   "Cúcuta Deportivo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Riestra 2",
-    "ratio": 0.5143,
+    "candidato": "Deportivo Espanol",
+    "ratio": 0.5455,
     "visto": "2026-09-24"
   },
   "Mineros de Zacatecas": {
@@ -1713,8 +1713,8 @@
   },
   "Club Jaiba Brava": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Club 2",
-    "ratio": 0.3448,
+    "candidato": "Club A. Guemes",
+    "ratio": 0.4828,
     "visto": "2026-09-24"
   },
   "Sportivo Ameliano": {
@@ -1767,8 +1767,8 @@
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Marino U21",
-    "ratio": 0.5217,
+    "candidato": "San Miguel",
+    "ratio": 0.6316,
     "visto": "2026-09-24"
   },
   "San Martín (San Juan)": {
@@ -1779,14 +1779,14 @@
   },
   "Deportivo Maldonado": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Riestra 2",
-    "ratio": 0.5789,
+    "candidato": "Deportivo Camioneros",
+    "ratio": 0.7179,
     "visto": "2026-09-24"
   },
   "Deportivo Maipú": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Riestra 2",
-    "ratio": 0.6471,
+    "candidato": "Deportivo Espanol",
+    "ratio": 0.6875,
     "visto": "2026-09-24"
   },
   "Racing (Córdoba)": {
@@ -1829,6 +1829,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "CD Santa Cruz",
     "ratio": 0.5926,
+    "visto": "2026-09-24"
+  },
+  "Almirante Brown": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Brown Adrogue",
+    "ratio": 0.3571,
+    "visto": "2026-09-24"
+  },
+  "Defensores de Belgrano": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Defensores Unidos",
+    "ratio": 0.6667,
     "visto": "2026-09-24"
   }
 }
