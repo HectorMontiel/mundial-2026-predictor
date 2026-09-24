@@ -60,22 +60,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4196557,2025-09-04,selecciones,Paraguay,Kaku,600850,M,0,13,0,0,0,0.0,,2.0,
 4196557,2025-09-04,selecciones,Paraguay,Damian Bobadilla,1252913,M,0,5,0,0,0,0.0,,2.0,
 4196557,2025-09-04,selecciones,Paraguay,Alex Arce,1320444,F,0,5,0,0,0,0.0,,3.0,2566061.0
-4196557,2025-09-04,selecciones,Ecuador,Hernán Galindez,146801,G,1,90,0,0,0,0.0,11.0,0.0,758429.0
-4196557,2025-09-04,selecciones,Ecuador,Joel Ordonez,1354085,D,1,90,0,0,0,0.0,32.0,1.0,33374236.0
-4196557,2025-09-04,selecciones,Ecuador,Willian Pacho,1137670,D,1,90,0,0,0,0.0,34.0,1.0,63634071.0
-4196557,2025-09-04,selecciones,Ecuador,Piero Hincapié,1137667,D,1,90,0,0,0,0.0,36.0,1.0,62460661.0
-4196557,2025-09-04,selecciones,Ecuador,Pervis Estupinán,688278,D,1,85,0,0,0,0.0,38.0,1.0,32110526.0
-4196557,2025-09-04,selecciones,Ecuador,Angelo Preciado,848593,M,1,90,0,0,0,0.0,72.0,2.0,1889350.0
-4196557,2025-09-04,selecciones,Ecuador,Jordy Alcivar,950396,M,1,90,0,0,0,0.0,74.0,2.0,947292.0
-4196557,2025-09-04,selecciones,Ecuador,Pedro Vite,1108611,M,1,89,1,0,0,0.06,76.0,2.0,6596460.0
-4196557,2025-09-04,selecciones,Ecuador,Nilson Angulo,1287010,F,1,85,1,1,0,0.03,78.0,3.0,2167807.0
-4196557,2025-09-04,selecciones,Ecuador,Kendry Paez,1443464,F,1,70,1,0,0,0.1,95.0,3.0,14617566.0
-4196557,2025-09-04,selecciones,Ecuador,Enner Valencia,195927,F,1,70,3,0,0,0.05,115.0,3.0,1510930.0
-4196557,2025-09-04,selecciones,Ecuador,Gonzalo Plata,980311,F,0,20,0,0,0,0.0,,3.0,9232096.0
-4196557,2025-09-04,selecciones,Ecuador,Kevin Rodriguez,1421270,F,0,20,0,0,0,0.0,,3.0,1389482.0
-4196557,2025-09-04,selecciones,Ecuador,Félix Torres,825641,D,0,5,0,0,0,0.0,,1.0,
-4196557,2025-09-04,selecciones,Ecuador,Alan Minda,1274400,M,0,5,0,0,0,0.0,,2.0,4730577.0
-4196557,2025-09-04,selecciones,Ecuador,John Mercado,1109100,F,0,1,0,0,0,0.0,,3.0,2315462.0
 4822523,2025-09-04,selecciones,Suriname,Etienne Vaessen,665170,G,1,90,0,0,0,0.0,11.0,0.0,1386885.0
 4822523,2025-09-04,selecciones,Suriname,Radinio Balker,957358,D,1,74,1,0,0,0.1,33.0,1.0,567957.0
 4822523,2025-09-04,selecciones,Suriname,Myenty Abena,523380,D,1,90,0,0,0,0.0,35.0,1.0,528356.0
@@ -128158,3 +128142,58 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5104952,2026-07-18,noruega,Viking,Joe Bell,848345,M,0,15,0,0,0,0.0,,,
 5104952,2026-07-18,noruega,Viking,Ola Visted,1636179,M,0,15,0,0,0,0.0,,,
 5104952,2026-07-18,noruega,Viking,Herman Haugen,1019527,F,0,1,0,0,0,0.0,,,
+6280195,2026-09-24,selecciones,South Korea,Seung-Gyu Kim,167247,G,1,90,0,0,0,0.0,11.0,0.0,246194.0
+6280195,2026-09-24,selecciones,South Korea,Young-Woo Seol,1132818,D,1,90,0,0,0,0.0,32.0,1.0,1919063.0
+6280195,2026-09-24,selecciones,South Korea,Han-Beom Lee,1232253,D,1,90,0,0,0,0.0,34.0,1.0,2278977.0
+6280195,2026-09-24,selecciones,South Korea,Min-Jae Kim,828159,D,1,75,1,1,0,0.0,36.0,1.0,20622973.0
+6280195,2026-09-24,selecciones,South Korea,Hyun-Taek Cho,1136082,D,1,90,0,0,0,0.0,38.0,1.0,390000.0
+6280195,2026-09-24,selecciones,South Korea,Seung-Won Jung,734965,M,1,65,1,0,0,0.0,72.0,2.0,339384.0
+6280195,2026-09-24,selecciones,South Korea,Jin-Seob Park,925647,M,1,90,0,0,0,0.0,74.0,2.0,643145.0
+6280195,2026-09-24,selecciones,South Korea,Jae-Sung Lee,523749,M,1,90,1,0,0,0.0,76.0,2.0,1320102.0
+6280195,2026-09-24,selecciones,South Korea,Min-Kyu Song,927102,M,1,90,0,0,0,0.0,78.0,2.0,751995.0
+6280195,2026-09-24,selecciones,South Korea,Hyeon-Gyu Oh,1044299,F,1,75,1,1,1,0.0,104.0,3.0,9833292.0
+6280195,2026-09-24,selecciones,South Korea,Heung-Min Son,212867,F,1,85,3,1,1,0.0,106.0,3.0,6741121.0
+6280195,2026-09-24,selecciones,South Korea,Tae-Hyeon Kim,1053477,D,0,25,1,0,0,0.0,,1.0,654543.0
+6280195,2026-09-24,selecciones,South Korea,Dong-Gyeong Lee,954131,M,0,5,1,1,1,0.0,,2.0,1072606.0
+6280195,2026-09-24,selecciones,South Korea,Se-Hun Oh,688340,F,0,15,2,1,0,0.0,,3.0,767026.0
+6280195,2026-09-24,selecciones,Ecuador,Hernán Galindez,146801,G,1,90,0,0,0,0.0,11.0,0.0,995500.0
+6280195,2026-09-24,selecciones,Ecuador,Ángelo Preciado,848593,D,1,90,0,0,0,0.0,32.0,1.0,2230734.0
+6280195,2026-09-24,selecciones,Ecuador,Jackson Porozo,1032039,D,1,90,0,0,0,0.0,34.0,1.0,1631278.0
+6280195,2026-09-24,selecciones,Ecuador,Willian Pacho,1137670,D,1,90,0,0,0,0.0,36.0,1.0,54957924.0
+6280195,2026-09-24,selecciones,Ecuador,Pervis Estupinán,688278,D,1,90,1,0,0,0.0,38.0,1.0,13165302.0
+6280195,2026-09-24,selecciones,Ecuador,Pedro Vite,1108611,M,1,67,1,0,0,0.0,64.0,2.0,5093891.0
+6280195,2026-09-24,selecciones,Ecuador,Alan Franco,832171,M,1,90,1,0,0,0.0,66.0,2.0,2662077.0
+6280195,2026-09-24,selecciones,Ecuador,Keny Arroyo,1626714,F,1,66,1,0,0,0.0,83.0,3.0,9369224.0
+6280195,2026-09-24,selecciones,Ecuador,John Yeboah,845368,F,1,75,1,1,0,0.0,85.0,3.0,2011673.0
+6280195,2026-09-24,selecciones,Ecuador,Nilson Angulo,1287010,F,1,90,0,0,0,0.0,87.0,3.0,6267264.0
+6280195,2026-09-24,selecciones,Ecuador,Jordy Caicedo,766159,F,1,67,1,0,0,0.0,115.0,3.0,1292336.0
+6280195,2026-09-24,selecciones,Ecuador,John Mercado,1109100,F,0,24,1,0,0,0.0,,3.0,2705536.0
+6280195,2026-09-24,selecciones,Ecuador,Juan Angulo,1829355,F,0,23,2,2,0,0.0,,3.0,808277.0
+6280195,2026-09-24,selecciones,Ecuador,Alan Minda,1274400,F,0,16,1,0,0,0.0,,3.0,1871966.0
+6280196,2026-09-24,selecciones,China,Dianzuo Liu,259250,G,1,90,0,0,0,0.0,11.0,0.0,264266.0
+6280196,2026-09-24,selecciones,China,Zhunyi Gao,648366,D,1,60,1,0,0,0.0,32.0,1.0,248656.0
+6280196,2026-09-24,selecciones,China,Pengfei Han,678682,D,1,45,1,0,0,0.0,34.0,1.0,385379.0
+6280196,2026-09-24,selecciones,China,Yang Li,1059847,D,1,90,0,0,0,0.0,36.0,1.0,248857.0
+6280196,2026-09-24,selecciones,China,Yang Liu,768634,D,1,90,0,0,0,0.0,38.0,1.0,383117.0
+6280196,2026-09-24,selecciones,China,Bunyamin Abdusalam,1913204,M,1,45,1,1,0,0.0,72.0,2.0,929744.0
+6280196,2026-09-24,selecciones,China,Jiahui Huang,1061141,M,1,90,0,0,0,0.0,74.0,2.0,345958.0
+6280196,2026-09-24,selecciones,China,Ming-Yang Yang,462945,M,1,90,0,0,0,0.0,76.0,2.0,276508.0
+6280196,2026-09-24,selecciones,China,Yihao Zhong,938373,M,1,45,1,0,0,0.0,78.0,2.0,287143.0
+6280196,2026-09-24,selecciones,China,Ziming Wang,915251,F,1,73,6,3,3,0.0,104.0,3.0,329266.0
+6280196,2026-09-24,selecciones,China,Shihao Wei,570357,F,1,45,3,1,0,0.0,106.0,3.0,481706.0
+6280196,2026-09-24,selecciones,China,Tyias Browning,419196,D,0,30,1,1,0,0.0,,1.0,248857.0
+6280196,2026-09-24,selecciones,China,Mingrui Yang,1660335,M,0,45,2,0,0,0.0,,2.0,1411131.0
+6280196,2026-09-24,selecciones,China,Wai-Tsun Dai,865153,M,0,45,1,0,0,0.0,,2.0,297389.0
+6280196,2026-09-24,selecciones,China,Shangyuan Wang,465720,M,0,45,1,0,0,0.0,,2.0,386281.0
+6280196,2026-09-24,selecciones,China,Yuezheng Du,1366725,F,0,17,1,0,0,0.0,,3.0,469595.0
+6280196,2026-09-24,selecciones,Maldives,Hussain Shareef,932397,G,1,90,0,0,0,0.0,11.0,0.0,
+6280196,2026-09-24,selecciones,Maldives,Ahmed Aiham,1503404,D,1,90,0,0,0,0.0,32.0,1.0,
+6280196,2026-09-24,selecciones,Maldives,Ali Samooh,675752,D,1,90,0,0,0,0.0,34.0,1.0,
+6280196,2026-09-24,selecciones,Maldives,Amdaan Ali,0,D,1,90,0,0,0,0.0,36.0,1.0,
+6280196,2026-09-24,selecciones,Maldives,Haisham Hassan,1089157,D,1,90,0,0,0,0.0,38.0,1.0,
+6280196,2026-09-24,selecciones,Maldives,Ahmed Aiham,0,,1,90,0,0,0,0.0,64.0,,
+6280196,2026-09-24,selecciones,Maldives,Ibrahim Aisham,1089161,M,1,90,0,0,0,0.0,66.0,2.0,
+6280196,2026-09-24,selecciones,Maldives,Ibrahim Hassan,932392,F,1,90,0,0,0,0.0,83.0,3.0,
+6280196,2026-09-24,selecciones,Maldives,Hassan Eenaaz,0,,1,90,0,0,0,0.0,85.0,,
+6280196,2026-09-24,selecciones,Maldives,Areen Abdulla Ibrahim,0,,1,90,0,0,0,0.0,87.0,,
+6280196,2026-09-24,selecciones,Maldives,Muzdhan Hassan,0,,1,90,0,0,0,0.0,115.0,,
