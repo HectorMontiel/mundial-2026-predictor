@@ -1,8 +1,8 @@
 {
- "generado": "2026-09-24T20:29:44Z",
- "revisados": 126,
+ "generado": "2026-09-24T22:24:01Z",
+ "revisados": 132,
  "descartados": {
-  "el corto tiene un token que el largo no": 122,
+  "el corto tiene un token que el largo no": 128,
   "una sola palabra: no hay apellido que comprobar": 1,
   "una inicial del corto no casa con ningun token": 2
  },
@@ -13,7 +13,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.4865,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-09-24T20:29:44Z",
+   "ultima_vez": "2026-09-24T22:24:01Z",
    "primera_vez": "2026-09-23T19:03:30Z"
   }
  }
