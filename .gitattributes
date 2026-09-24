@@ -29,3 +29,7 @@ selector_apuestas.txt  -text
 # LightGBM lo rechaza con "Model format error, expect a tree here".
 # No es hipotetico: le paso al selector el 2026-09-20.
 radar_errores.txt      -text
+# v308 — el modelo de LightGBM se guarda como TEXTO pero es un artefacto: con
+# autocrlf=true la copia de Windows salía con CRLF y LightGBM no la leía
+# («Model format error»). Se declara binario para que git no lo toque.
+modelos/remates_ml_*.txt binary
