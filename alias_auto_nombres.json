@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-24T07:55:30Z",
+ "generado": "2026-09-24T09:29:38Z",
  "revisados": 110,
  "descartados": {
   "el corto tiene un token que el largo no": 107,
@@ -13,7 +13,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.4865,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-09-24T07:55:30Z",
+   "ultima_vez": "2026-09-24T09:29:38Z",
    "primera_vez": "2026-09-23T19:03:30Z"
   }
  }
