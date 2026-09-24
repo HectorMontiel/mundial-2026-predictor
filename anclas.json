@@ -1,6 +1,6 @@
 {
  "activo": false,
- "generado": "2026-09-24T04:39:32Z",
+ "generado": "2026-09-24T06:12:09Z",
  "casas": {
   "575": {
    "n_pares": 223,
@@ -12,9 +12,9 @@
   },
   "925": {
    "n_pares": 192,
-   "n_partidos": 709,
-   "margen_mediano": 10.588,
-   "margen_desviacion": 2.348,
+   "n_partidos": 723,
+   "margen_mediano": 10.578,
+   "margen_desviacion": 2.335,
    "error_mediano_pp": 0.941,
    "suficiente": false
   },
