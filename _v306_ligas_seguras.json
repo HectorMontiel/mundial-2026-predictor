@@ -1,0 +1,126 @@
+{
+ "corte": "2025-03-15",
+ "ligas_clasificadas": 29,
+ "grupos": {
+  "seguras": [
+   "sco_championship",
+   "fra_ligue2",
+   "china",
+   "rumania",
+   "ligue_1",
+   "bel_pro_league",
+   "brasil",
+   "rus_premier",
+   "laliga"
+  ],
+  "medias": [
+   "primeira",
+   "gre_super_league",
+   "sco_premiership",
+   "leagues_cup",
+   "finlandia",
+   "eredivisie",
+   "ger_bundesliga2",
+   "esp_hypermotion",
+   "eng_league_one"
+  ],
+  "inciertas": [
+   "dinamarca",
+   "polonia",
+   "suecia",
+   "eng_national",
+   "jpn_j1",
+   "bundesliga",
+   "eng_championship",
+   "noruega",
+   "argentina",
+   "irlanda",
+   "eng_league_two"
+  ]
+ },
+ "eleccion": {
+  "seguras": {
+   "n": 1402,
+   "acierta": 0.7068,
+   "esperado": 0.6436,
+   "exceso": 0.0633,
+   "roi": 0.0562,
+   "p5": 0.0255
+  },
+  "medias": {
+   "n": 1779,
+   "acierta": 0.6925,
+   "esperado": 0.6641,
+   "exceso": 0.0285,
+   "roi": 0.0045,
+   "p5": -0.022
+  },
+  "inciertas": {
+   "n": 1716,
+   "acierta": 0.6142,
+   "esperado": 0.6407,
+   "exceso": -0.0265,
+   "roi": -0.0867,
+   "p5": -0.1155
+  }
+ },
+ "juicio": {
+  "seguras": {
+   "n": 628,
+   "acierta": 0.6736,
+   "esperado": 0.6503,
+   "exceso": 0.0233,
+   "roi": -0.0132,
+   "p5": -0.0604
+  },
+  "medias": {
+   "n": 670,
+   "acierta": 0.6851,
+   "esperado": 0.6526,
+   "exceso": 0.0324,
+   "roi": 0.004,
+   "p5": -0.0402
+  },
+  "inciertas": {
+   "n": 634,
+   "acierta": 0.6514,
+   "esperado": 0.6306,
+   "exceso": 0.0208,
+   "roi": -0.0211,
+   "p5": -0.0685
+  }
+ },
+ "exceso_por_liga": {
+  "sco_championship": 0.1018,
+  "fra_ligue2": 0.0954,
+  "china": 0.0763,
+  "rumania": 0.0644,
+  "ligue_1": 0.0621,
+  "bel_pro_league": 0.0567,
+  "brasil": 0.0547,
+  "rus_premier": 0.0526,
+  "laliga": 0.0477,
+  "primeira": 0.0467,
+  "gre_super_league": 0.0408,
+  "sco_premiership": 0.0284,
+  "leagues_cup": 0.027,
+  "finlandia": 0.0265,
+  "eredivisie": 0.0183,
+  "ger_bundesliga2": 0.0089,
+  "esp_hypermotion": 0.0074,
+  "eng_league_one": 0.0069,
+  "dinamarca": 0.0024,
+  "polonia": -0.0008,
+  "suecia": -0.0017,
+  "eng_national": -0.01,
+  "jpn_j1": -0.0195,
+  "bundesliga": -0.0223,
+  "eng_championship": -0.0342,
+  "noruega": -0.0347,
+  "argentina": -0.0381,
+  "irlanda": -0.0455,
+  "eng_league_two": -0.1131
+ },
+ "correlacion_exceso": 0.077,
+ "ligas_en_comun": 27
+}

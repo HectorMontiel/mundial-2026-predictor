@@ -203,9 +203,36 @@ def _norm(t) -> str:
                    if c.isalnum())
 
 
-def _llave(p: Dict) -> str:
+def _nombres(p: Dict):
+    """(local, visitante) normalizados; en selecciones, por el nombre
+    CANÓNICO en inglés, que el mismo partido puede llegar como «Azerbaiyán»
+    desde el tablón y como «Azerbaijan» desde ESPN."""
     par = str(p.get('partido') or '')
-    return _norm(par)
+    if ' vs ' not in par:
+        return _norm(par), ''
+    hh, aa = (x.strip() for x in par.split(' vs ', 1))
+    h, a = _norm(hh), _norm(aa)
+    if str(p.get('clave_liga') or '') == 'selecciones':
+        try:
+            from config import TEAM_NAMES_EN as _EN
+            import name_mapper as _nm
+            import selecciones_dia as _sd
+            m = _sd._motor()
+            if m is not None:
+                cat = _sd.catalogo(m)
+                ch = _nm.mapear(hh, list(cat), contexto='selecciones')
+                ca = _nm.mapear(aa, list(cat), contexto='selecciones')
+                if ch and ca:
+                    h = _norm(_EN.get(cat[ch], ch))
+                    a = _norm(_EN.get(cat[ca], ca))
+        except Exception as e:
+            logger.debug('[jugados] nombre canónico de %s: %s', par, e)
+    return h, a
+
+
+def _llave(p: Dict) -> str:
+    h, a = _nombres(p)
+    return h + '|' + a
 
 
 def _marcador(p: Dict):
@@ -219,23 +246,7 @@ def _marcador(p: Dict):
     par = str(p.get('partido') or '')
     if ' vs ' not in par:
         return None
-    h, a = (_norm(x) for x in par.split(' vs ', 1))
-    if clave == 'selecciones':
-        # el pronóstico pudo salir con el nombre del tablón en español
-        # («Azerbaiyán»); el histórico va en inglés. Se pasa por el código.
-        try:
-            from config import TEAM_NAMES_EN as _EN
-            import name_mapper as _nm
-            import selecciones_dia as _sd
-            cat = _sd.catalogo(_sd._motor())
-            hh, aa = (x.strip() for x in par.split(' vs ', 1))
-            ch = _nm.mapear(hh, list(cat), contexto='selecciones')
-            ca = _nm.mapear(aa, list(cat), contexto='selecciones')
-            if ch and ca:
-                h = _norm(_EN.get(cat[ch], ch))
-                a = _norm(_EN.get(cat[ca], ca))
-        except Exception as e:
-            logger.debug('[jugados] nombre canónico de %s: %s', par, e)
+    h, a = _nombres(p)
     try:
         import pandas as pd
         import dia_picks as dp

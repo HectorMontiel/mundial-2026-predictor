@@ -173,25 +173,38 @@ def _pronostico(clave: str, nombre: str, fx: Dict, m: Dict) -> Dict:
             'goles_xg': {'local': round(lam[0], 3),
                          'visitante': round(lam[1], 3)},
             'sin_cuota': True, 'motor': 'motor_goles'}
-    # Si en esta liga el motor NO le gana a su base en goles (medido: la
-    # Champions femenina), la escalera de goles es la frecuencia histórica de
-    # la liga, y los goles por equipo no se publican: no hay nada validado
-    # con qué calcularlos.
+    # v306 — LA ESCALERA DE GOLES MIRA EL CRUCE, SIEMPRE.
+    #
+    # La v304 ponía, en las ligas donde el motor no le ganaba a la base en
+    # goles, la frecuencia media de la LIGA — idéntica en todos los partidos.
+    # El 2026-09-23 eso dio a Servette-Lyon y a Leuven-Roma exactamente las
+    # mismas probabilidades (71 % de más de 2,5 en los dos), recomendó «Menos
+    # de 6.5» en un partido que terminó 0-8, y como además quitaba los goles
+    # por equipo, no podía proponer «Lyon más de 2,5», que el motor daba al
+    # 56 %. El usuario lo vio en su boleto: «no sé por qué lo cerraste a menos
+    # de 6.5». Error de diseño: la media de la liga es la mejor respuesta
+    # PROMEDIO y la peor para un partido desigual.
+    #
+    # Ahora: sin validar, la escalera es mitad motor y mitad base (el motor
+    # aporta el cruce, la base frena su exceso de confianza), y los goles por
+    # equipo SIEMPRE salen del motor. Con precio, todo se encoge al mercado
+    # más abajo, igual que el 1X2.
     v = (mg.estado().get('ligas') or {}).get(clave) or {}
     if not v.get('ok_goles', True):
         base = mg.lineas_base(clave)
         if base:
-            pron['goles_lineas'] = base
-            board['Más de 2.5'] = round(base['2.5'], 3)
-            board['Menos de 2.5'] = round(1 - base['2.5'], 3)
-            for mm_ in mercados:
-                if mm_['apuesta'] == 'Más de 2.5':
-                    mm_['prob'] = board['Más de 2.5']
-                elif mm_['apuesta'] == 'Menos de 2.5':
-                    mm_['prob'] = board['Menos de 2.5']
-        for k in ('goles_equipo', 'goles_xg', 'goles_lambda'):
-            pron.pop(k, None)
-        pron['goles_de_la_liga'] = True
+            mezcla = {k: round(0.5 * float(p['lineas'][k]) + 0.5 * float(bv), 4)
+                      for k, bv in base.items() if k in p['lineas']}
+            pron['goles_lineas'] = mezcla
+        pron['goles_sin_validar'] = True
+    _gl = pron['goles_lineas']
+    board['Más de 2.5'] = round(_gl['2.5'], 3)
+    board['Menos de 2.5'] = round(1 - _gl['2.5'], 3)
+    for mm_ in mercados:
+        if mm_['apuesta'] == 'Más de 2.5':
+            mm_['prob'] = board['Más de 2.5']
+        elif mm_['apuesta'] == 'Menos de 2.5':
+            mm_['prob'] = board['Menos de 2.5']
     try:
         # el tablero de las casas mexicanas, con la categoría exigida por la
         # liga; NO el emparejador general, que cruzaba con el varonil
@@ -224,6 +237,22 @@ def _pronostico(clave: str, nombre: str, fx: Dict, m: Dict) -> Dict:
                 pron['prob'] = round(prob, 3)
                 pron['cuota_justa'] = round(1 / prob, 2)
                 pron['encogido_al_mercado'] = w
+            # y la escalera de goles, línea a línea, con el mismo peso
+            _mg = imp.get('goles') or {}
+            _gl = dict(pron.get('goles_lineas') or {})
+            for _k, _dat in _mg.items():
+                try:
+                    _pm = float(_dat.get('p'))
+                except (TypeError, ValueError, AttributeError):
+                    continue
+                if _k in _gl:
+                    _gl[_k] = round(MODELO_W * float(_gl[_k])
+                                    + (1 - MODELO_W) * _pm, 4)
+            if _gl:
+                pron['goles_lineas'] = _gl
+                if '2.5' in _gl:
+                    board['Más de 2.5'] = round(_gl['2.5'], 3)
+                    board['Menos de 2.5'] = round(1 - _gl['2.5'], 3)
             cu = (imp.get('1x2_cuotas') or {}).get(lado)
             if cu:
                 pron['cuota'] = cu

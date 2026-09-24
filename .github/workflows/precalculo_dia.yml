@@ -130,6 +130,8 @@ jobs:
         run: |
           python historico_selecciones.py || echo "::warning::historico de selecciones con avisos"
           python historico_fotmob.py || echo "::warning::historico de FotMob con avisos"
+          # v306 — las bajas (lesiones y sanciones) de los partidos próximos
+          python bajas_fotmob.py || echo "::warning::bajas con avisos"
 
       - name: Cocinar el día
         if: steps.frescura.outputs.saltar != 'true'
@@ -186,7 +188,7 @@ jobs:
           #
           # El bucle anade lo que hay y se salta lo que no, sin tragarse un
           # fallo real en los ficheros que SI estan.
-          for _f in historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
+          for _f in bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

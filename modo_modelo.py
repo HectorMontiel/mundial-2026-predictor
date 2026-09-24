@@ -2022,6 +2022,18 @@ def _bloque_contexto(pick: Dict) -> str:
             '<div class="mm-fc"><span class="mm-fc-n">Forma</span>'
             '<span class="mm-fc-barra">%s</span></div>'
             % ' &nbsp;·&nbsp; '.join(_formas))
+    # v306 — LAS BAJAS DE CADA EQUIPO, reales, de la ficha del partido en
+    # FotMob (`bajas_fotmob`). Se ENSEÑAN y todavía no mueven ninguna
+    # probabilidad: se acumulan para medir si aportan antes de usarlas.
+    try:
+        import bajas_fotmob as _bf
+        _tb = _bf.texto(pick)
+        if _tb:
+            trozos.append('<div class="mm-fc"><span class="mm-fc-n">🚑 Bajas'
+                          '</span><span class="mm-fc-barra">%s</span></div>'
+                          % _esc_mm(_tb.replace('🚑 Bajas: ', '')))
+    except Exception as _e_bf:
+        logger.debug('[modo_modelo] bajas: %s', _e_bf)
     # v302 — EL PATRÓN DE LA LIGA, que el usuario pidió ver: «entender que
     # los equipos top de tabla normalmente golean y los de media y baja tabla
     # no anotan». `patrones_liga` lo mide y lo corrige; aquí se enseña en qué

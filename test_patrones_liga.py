@@ -121,6 +121,8 @@ def probar_la_correccion():
     check(abs(p['board']['Más de 2.5'] + p['board']['Menos de 2.5'] - 1) < 0.002,
           'más y menos de 2,5 siguen sumando uno')
     des = (p.get('patron_liga') or {}).get('desplazamiento') or {}
+    check('local_mas15' in des or 'visit_mas15' in des,
+          'corrige también «un equipo mete dos o más» (v306)')
     check(all(abs(v) <= 1.0 + 1e-9 for v in des.values()),
           'ningún desplazamiento pasa del tope (%s)' % des)
     otro = _pick('liga_que_no_existe', 'A', 'B')

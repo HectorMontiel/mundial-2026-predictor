@@ -99,6 +99,32 @@ def probar_el_motor():
           '(%.2f)' % (pr or {}).get('home', 0))
 
 
+def probar_cada_cruce_tiene_sus_goles():
+    """v306 — el 2026-09-23 Servette-Lyon y Leuven-Roma salieron con la MISMA
+    escalera de goles (la media de la liga) y la tarjeta recomendó «Menos de
+    6.5» en un 0-8. Dos cruces distintos no pueden tener los mismos goles, y
+    los goles por equipo tienen que estar."""
+    import ligas_sin_motor as l
+    import motor_goles as mg
+    m = mg.modelo('champions_femenil')
+    if not m:
+        check(False, 'sin modelo de la Champions femenina')
+        return
+    a = l._pronostico('champions_femenil', 'x', {
+        'home': 'Servette', 'away': 'OL Lyonnes',
+        'inicio': '2026-09-23 16:45:00', 'fecha': '2026-09-23'}, m)
+    b = l._pronostico('champions_femenil', 'x', {
+        'home': 'Oud-Heverlee Leuven', 'away': 'Roma',
+        'inicio': '2026-09-23 16:45:00', 'fecha': '2026-09-23'}, m)
+    check(a and b and a['goles_lineas'] != b['goles_lineas'],
+          'dos cruces distintos, dos escaleras de goles distintas')
+    check(a and a['goles_lineas']['4.5'] > b['goles_lineas']['4.5'],
+          'y el desigual (Lyon) espera más goles (%.2f > %.2f)'
+          % (a['goles_lineas']['4.5'], b['goles_lineas']['4.5']))
+    check(bool((a or {}).get('goles_equipo')),
+          'los goles por equipo están, para poder proponer «Lyon más de 2,5»')
+
+
 def probar_la_rama():
     import ligas_sin_motor as l
     check(abs(l.MODELO_W - 0.25) < 1e-9,
@@ -152,7 +178,9 @@ if __name__ == '__main__':
     probar_fotmob()
     print('\n=== 3. el motor de goles ===')
     probar_el_motor()
-    print('\n=== 4. la rama ===')
+    print('\n=== 4. cada cruce tiene sus goles ===')
+    probar_cada_cruce_tiene_sus_goles()
+    print('\n=== 5. la rama ===')
     probar_la_rama()
     print('\n' + '=' * 40)
     print('TODO OK' if not FALLOS else '%d FALLOS' % len(FALLOS))
