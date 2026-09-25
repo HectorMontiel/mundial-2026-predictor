@@ -1,85 +1,17 @@
 {
-  "AEK Athens FC": {
-    "contexto": "remates_jugador/roster",
-    "visto": "2026-08-25"
-  },
-  "AGF": {
-    "contexto": "fixture→europa_league",
-    "visto": "2026-08-25"
-  },
-  "AS Monaco": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Agustín Morales": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Alan Minda": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Albin Valencia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Aldair Quintana": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Alejo Dramisino": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "América": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
   "América de Cali": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Dep. Cali",
     "ratio": 0.6087,
     "visto": "2026-09-22"
   },
-  "Anderson Angulo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Andrés Copete": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Andy Velasco": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
   "Anguilla": {
     "contexto": "selecciones",
     "visto": "2026-08-26"
   },
-  "Arlen Banguero": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
   "Aruba": {
     "contexto": "selecciones",
     "visto": "2026-08-26"
-  },
-  "Arón Rodríguez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Atalanta": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Atlante": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Atlas": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
   },
   "Atletico Balboa": {
     "contexto": "cuotas_mx→futbol",
@@ -101,13 +33,9 @@
   },
   "Atlético de San Luis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico La Paz",
-    "ratio": 0.6286,
-    "visto": "2026-09-24"
-  },
-  "Austria Lustenau": {
-    "contexto": "fixture→aut_bundesliga",
-    "visto": "2026-08-25"
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.4615,
+    "visto": "2026-09-25"
   },
   "Bahamas": {
     "contexto": "selecciones",
@@ -129,61 +57,17 @@
     "contexto": "selecciones",
     "visto": "2026-08-26"
   },
-  "Branndon Zapata": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Brayam Palacios": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Brighton & Hove Albion": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Caio Paulista": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Carlos Eduardo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Carlos Esparragoza": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Carlos Rentería": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Carlos Sierra": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Carlão": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
   "Casa Pia": {
     "candidato": "Casa de Portugal",
     "contexto": "cuotas_mx→futbol",
     "ratio": 0.5833,
     "visto": "2026-09-20"
   },
-  "Cazares": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Celje": {
-    "contexto": "remates_jugador/roster",
-    "visto": "2026-08-25"
-  },
   "Central Español Fútbol Club": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Central Ballester",
     "ratio": 0.625,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Chippa United": {
     "candidato": "Racing United",
@@ -191,85 +75,29 @@
     "ratio": 0.6923,
     "visto": "2026-09-20"
   },
-  "Christian": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
   "Cienciano del Cusco": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delfines Del Este",
     "ratio": 0.4444,
     "visto": "2026-09-23"
   },
-  "Claudio Spinelli": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
   "Club Olimpia": {
-    "candidato": "Club America W",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.5833,
-    "visto": "2026-09-20"
-  },
-  "Cristian Blanco": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Cristian Santander": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Cristian Tovar": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Cristian Trujillo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Cristian Vergara": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Cristian Zabala": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
+    "candidato": "Club A. Guemes",
+    "ratio": 0.48,
+    "visto": "2026-09-25"
   },
   "Cruz Azul": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Godoy Cruz 2",
     "ratio": 0.4762,
-    "visto": "2026-09-24"
-  },
-  "Cássio": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "D'Angelo Kazeem": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Darío Denis": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Darío Melo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Dayan Pérez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
+    "visto": "2026-09-25"
   },
   "Defensor Sporting": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Osasco Sporting U20",
     "ratio": 0.6111,
-    "visto": "2026-09-24"
-  },
-  "Delio Ramírez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
+    "visto": "2026-09-25"
   },
   "Deportivo Moquegua": {
     "candidato": "Deportivo Moron",
@@ -278,62 +106,10 @@
     "visto": "2026-09-20"
   },
   "Deportivo Recoleta": {
-    "candidato": "Deportivo Rincon",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.7647,
-    "visto": "2026-09-20"
-  },
-  "Diego Dieppa": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Diego Sánchez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Djorkaeff Reasco": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Dylan Borrero": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Edgard Camargo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Edson Tortolero": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Eduardo Banguero": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Edwar López": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Egnatia": {
-    "contexto": "fixture→europa_league",
-    "visto": "2026-08-25"
-  },
-  "Elian Peralta": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Emmanuel Garcia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Estefáno Arango": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Estiven Sarria": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
+    "candidato": "Deportivo Armenio",
+    "ratio": 0.7429,
+    "visto": "2026-09-25"
   },
   "Estudiantes de La Plata": {
     "contexto": "cuotas_mx→futbol",
@@ -347,189 +123,17 @@
     "ratio": 0.2941,
     "visto": "2026-09-20"
   },
-  "Ever Meza": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Ever Valencia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Everton Morelli": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Ewerton": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "FC Hradec Králové": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "FC Inter Turku": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "FC Juarez": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "FC Sion": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "FC Twente": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Fabián Cantillo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Facundo Pons": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Fausto Vera": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Federico Abadía": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Fenerbahçe": {
-    "contexto": "remates_jugador/roster",
-    "visto": "2026-08-25"
-  },
-  "Frank Salas": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo San Pedro",
     "ratio": 0.5128,
-    "visto": "2026-09-24"
-  },
-  "Gabriel Barbosa": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Gabriel Menino": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Gabriel Teixeira": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Gastón Sirino": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Geovany Soares": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Getafe": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Ghampani Lungu": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
+    "visto": "2026-09-25"
   },
   "Gimnasia y Esgrima (Jujuy)": {
     "candidato": "Gimnasia Jujuy",
     "contexto": "cuotas_mx→futbol",
     "ratio": 0.7368,
     "visto": "2026-09-20"
-  },
-  "Goitseone Phoko": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Gonzalo Flores": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Gornik Zabrze": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Guadalajara": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Guido Vadalá": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Guido Villar": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Guilherme Arana": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Guilherme Mariano": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Guilherme Queiroz": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Gustavo Cortéz": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Hajduk Split": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Hapoel Be'er": {
-    "contexto": "fixture→champions",
-    "visto": "2026-08-25"
-  },
-  "Hapoel Tel Aviv": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Harold Majadibodu": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Heart of Midlothian": {
-    "contexto": "remates_jugador/roster",
-    "visto": "2026-08-25"
-  },
-  "Hibernian": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Homer Martínez": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Hugo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Hulk": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Igor Gomes": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Imraan Jones": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
   },
   "Independiente Medellín": {
     "contexto": "cuotas_mx→futbol",
@@ -555,15 +159,11 @@
     "ratio": 0.45,
     "visto": "2026-09-22"
   },
-  "Inter D'Escaldes": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Inter de Minas",
     "ratio": 0.72,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Inter de San Carlos": {
     "candidato": "Villa San Carlos",
@@ -571,271 +171,11 @@
     "ratio": 0.6857,
     "visto": "2026-09-20"
   },
-  "Isaac Camargo": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jagiellonia Bialystok": {
-    "contexto": "fixture→europa_league",
-    "visto": "2026-08-25"
-  },
   "Jaguares de Córdoba": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Talleres Cordoba W",
     "ratio": 0.6857,
-    "visto": "2026-09-24"
-  },
-  "Jaime Peralta": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jair Castillo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jairo Molina": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jaisen Clifford": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jan Angulo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jean": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jefferson Mena": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jefferson Nem": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jesús Figueroa": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jherson Mosquera": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhildrey Lasso": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhojan Valencia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhon Espinoza": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhon Palacios": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhon Quiñónes": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhon Solis": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhon Velázquez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhonatan Agudelo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhonier Blanco": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhonier Negrete": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhonier Salas": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jhonny Jordán": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Joan Cajares": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Johan Bocanegra": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Johan Wallens": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "John Henry Sánchez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "John Mokone": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jonathan Jesus": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jonathan Lemos": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jordan": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jorge Hurtado": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Jorge Valencia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Josy Pérez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "José Ampudia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "José García": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "João Costa": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "João Marcelo": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Angulo": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Arcila": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Ceballos": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Chaverra": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan David Ramírez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Díaz": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Marcelin": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Quiceno": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Rossel": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Viacava": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Juan Viveros": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Julio Sinisterra": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Junior Hernández": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Júnior Alonso": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Júnior Santos": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kabelo Mofokeng": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kaiki": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kauno Zalgiris": {
-    "contexto": "fixture→europa_league",
-    "visto": "2026-08-25"
-  },
-  "Kauã Moraes Silva": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kauã Pascini": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kelvin Florez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kevin Angulo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kevin Balanta": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kevin Cortés": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Kevin Londoño": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "LASK Linz": {
-    "contexto": "fixture→champions",
-    "visto": "2026-08-25"
+    "visto": "2026-09-25"
   },
   "Las Palmas": {
     "candidato": "Huracan Las Heras",
@@ -843,165 +183,17 @@
     "ratio": 0.4444,
     "visto": "2026-09-20"
   },
-  "Lautaro López": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Layan Loor": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Leider Berdugo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Leison Ochoa": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Leonardo Barroso": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Levski Sofia": {
-    "contexto": "remates_jugador/roster",
-    "visto": "2026-08-25"
-  },
-  "León": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
   "Liga de Quito": {
     "candidato": "LDU Quito",
     "contexto": "cuotas_mx→futbol",
     "ratio": 0.7273,
     "visto": "2026-09-20"
   },
-  "Lucas Romero": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Lucas Ríos": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Lucas Villalba": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Luis Quiñones": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Luis Sandoval": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Luis Segura": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Luis Sinisterra": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Luis Sánchez": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Luis Zárate": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Luiz Guilherme Vieira Da Silva": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Lukas Soza": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Lyanco": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Lyon": {
-    "contexto": "remates_jugador/roster",
-    "visto": "2026-08-25"
-  },
-  "Léo Tocantins": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Maliele Pule": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Mamady Cissé": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
   "Manchester United": {
     "candidato": "Atlanta United 2",
     "contexto": "cuotas_mx→futbol",
     "ratio": 0.6061,
     "visto": "2026-09-20"
-  },
-  "Marlon Carabalí": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Marquinhos": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Martín Barraza": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Martín Gómez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Matheus Sales": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Matías Fernández": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Matías Perelló": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Melusi Buthelezi": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Michael Barragán": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Michael Gómez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Michael Hoyos": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Misael Martínez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Mjällby AIF": {
-    "contexto": "fixture→europa_league",
-    "visto": "2026-08-25"
-  },
-  "Monterrey": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
   },
   "Montevideo City Torque": {
     "candidato": "Racing Montevideo",
@@ -1019,113 +211,17 @@
     "contexto": "selecciones",
     "visto": "2026-08-26"
   },
-  "Motherwell": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Mthetheleli Mthiyane": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Márcio Maranhão": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "NEC Nijmegen": {
-    "contexto": "fixture→champions",
-    "visto": "2026-08-25"
-  },
-  "Natã": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Necaxa": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Neneco": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Neto": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Nicolás Valencia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Nilson Castrillón": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Njabulo Ngcobo": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Ntuthuko Mlotshwa": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
   "Nueva Chicago": {
     "candidato": "Chicago Fire II",
     "contexto": "cuotas_mx→futbol",
     "ratio": 0.5,
     "visto": "2026-09-20"
   },
-  "Nyiko Mobbie": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "OFI Crete": {
-    "contexto": "fixture→europa_league",
-    "visto": "2026-08-25"
-  },
-  "Omar Bertel": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Oscar Quiñónez": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Otávio": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Pachuca": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Patrick Brey": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Paulo Vítor": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Peixoto": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Puebla": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Pumas UNAM": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Querétaro": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
   "RC Celta Fortuna": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Fortuna Koln",
     "ratio": 0.5,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Racing (Montevideo)": {
     "contexto": "cuotas_mx→futbol",
@@ -1149,13 +245,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Real Potosi",
     "ratio": 0.6364,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Real Pilar",
     "ratio": 0.5833,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Real Sociedad": {
     "candidato": "Real Bedford W",
@@ -1167,189 +263,37 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Real Pilar",
     "ratio": 0.56,
-    "visto": "2026-09-24"
-  },
-  "Renan Lodi": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Renato Ibarra": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Renzo Saravia": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Richardson Rivas": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Riga FC": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Rogerio Caicedo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Ronald Briones": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Rony": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Ruan": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "SC Freiburg": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "SK Brann": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
-  "Sam Rogers": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Samuel Williams": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
+    "visto": "2026-09-25"
   },
   "San Antonio FC": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "San Martin Burzaco",
     "ratio": 0.4828,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "San Diego FC": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "San Miguel",
     "ratio": 0.6316,
-    "visto": "2026-09-24"
-  },
-  "Sander Navarro": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Santiago Mera": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Santos": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Sebastián Colón": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Sebastián Guzmán": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Sergio Aguayo": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Shane Saralina": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Simphiwe Masilela": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
+    "visto": "2026-09-25"
   },
   "Sint Maarten": {
     "contexto": "selecciones",
     "visto": "2026-08-26"
   },
-  "Sint-Truidense": {
-    "contexto": "fixture→europa_league",
-    "visto": "2026-08-25"
-  },
-  "Siyabonga Msomi": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Slovan Bratislava": {
-    "contexto": "remates_jugador/roster",
-    "visto": "2026-08-25"
-  },
   "Sportivo Luqueño": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sp. Luqueno",
     "ratio": 0.7692,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "St. Martin": {
     "contexto": "selecciones",
     "visto": "2026-08-26"
   },
-  "Tashreeq Morris": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Teun Wilke": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Thapelo Mokobodi": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Thiago Borbas": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Thiago Moraes": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Thiago Santamaría": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Tigres UANL": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Tijuana": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Toluca": {
-    "contexto": "evid",
-    "visto": "2026-08-25"
-  },
-  "Tomás Cuello": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Tomás Pérez": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Tomás Rodríguez": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Tromso": {
-    "contexto": "fixture→conference_league",
-    "visto": "2026-08-25"
-  },
   "Turks and Caicos Islands": {
     "contexto": "selecciones",
     "visto": "2026-08-26"
-  },
-  "Tylo Sanger": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
   },
   "Técnico Universitario": {
     "candidato": "Tecnico U.",
@@ -1369,54 +313,6 @@
     "ratio": 0.6341,
     "visto": "2026-09-20"
   },
-  "Vicente Bernedo": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Victor Souza": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Viking FK": {
-    "contexto": "fixture→champions",
-    "visto": "2026-08-25"
-  },
-  "Viktor Radojevic": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Vitão": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Vladimir Hernández": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Walace": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Wallace": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Wanderson": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Warley": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Williams Barlasina": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Wiston Fernández": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
   "Wolverhampton Wanderers": {
     "candidato": "HFX Wanderers",
     "contexto": "cuotas_mx→futbol",
@@ -1427,51 +323,11 @@
     "contexto": "nfl",
     "visto": "2026-09-21"
   },
-  "Yael López": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Yannick Bolasie": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Yeiner Londoño": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Yeison Guzmán": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Yesus Cabrera": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Yhorman Hurtado": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Yilson Rosales": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Youri Ochoa": {
-    "contexto": "remates_jugador",
-    "visto": "2026-08-25"
-  },
-  "Yuri": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
-  "Éverson": {
-    "contexto": "lineas_jugador",
-    "visto": "2026-08-25"
-  },
   "Deportivo Cali": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Espanol",
+    "candidato": "Deportivo Armenio",
     "ratio": 0.7742,
-    "visto": "2026-09-21"
+    "visto": "2026-09-25"
   },
   "Ayr United": {
     "contexto": "cuotas_mx→futbol",
@@ -1489,13 +345,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Nacional Potosi",
     "ratio": 0.5,
-    "visto": "2026-09-22"
+    "visto": "2026-09-25"
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.6154,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Hartford Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1513,25 +369,25 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Nacional Potosi",
     "ratio": 0.6875,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Club Atlético La Paz": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico F.C.",
-    "ratio": 0.625,
-    "visto": "2026-09-22"
+    "candidato": "Club A. Guemes",
+    "ratio": 0.4242,
+    "visto": "2026-09-25"
   },
   "Sporting JAX": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Osasco Sporting U20",
     "ratio": 0.5806,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.7692,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "New York City FC": {
     "contexto": "cuotas_mx→futbol",
@@ -1543,7 +399,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "SV Union Gnas",
     "ratio": 0.3871,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Red Bull New York": {
     "contexto": "cuotas_mx→futbol",
@@ -1555,85 +411,85 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.5714,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Peterborough United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.5806,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Sheffield Wednesday": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sheffield Wed U21",
     "ratio": 0.7222,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Boston United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.64,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Real Pilar",
     "ratio": 0.5385,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.5926,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Rotherham United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.6429,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Colchester U21",
     "ratio": 0.7742,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Scunthorpe United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Treaty United",
     "ratio": 0.6667,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Hartlepool United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Treaty United",
     "ratio": 0.6,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Southend United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Treaty United",
     "ratio": 0.6429,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Sutton United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Treaty United",
     "ratio": 0.6923,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Wiener Sport-Club",
     "ratio": 0.64,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Estudiantes L.P.",
     "ratio": 0.6667,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "San Miguel": {
     "contexto": "cuotas_mx→futbol",
@@ -1645,13 +501,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Central Cordoba",
     "ratio": 0.7143,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Chacarita Juniors": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Boca Juniors 2",
     "ratio": 0.6452,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Cerro Largo": {
     "contexto": "cuotas_mx→futbol",
@@ -1663,13 +519,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Colon Santa Fe",
     "ratio": 0.5641,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Cruz Azul Hidalgo": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Godoy Cruz 2",
     "ratio": 0.3448,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Cerro Porteño": {
     "contexto": "cuotas_mx→futbol",
@@ -1693,19 +549,19 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo San Pedro",
     "ratio": 0.7222,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo San Pedro",
     "ratio": 0.7429,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Cúcuta Deportivo": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Armenio",
     "ratio": 0.5455,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Mineros de Zacatecas": {
     "contexto": "cuotas_mx→futbol",
@@ -1717,7 +573,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Club Brugge W",
     "ratio": 0.5185,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Sportivo Ameliano": {
     "contexto": "cuotas_mx→futbol",
@@ -1729,31 +585,31 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sportivo Italiano",
     "ratio": 0.6667,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Minnesota United FC": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.7143,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "New England Revolution": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "England U21",
     "ratio": 0.5455,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "San Jose Earthquakes": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "San Martin Burzaco",
     "ratio": 0.4737,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "D.C. United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.7273,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Deportivo Morón": {
     "contexto": "cuotas_mx→futbol",
@@ -1765,13 +621,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Estrella Del Sur",
     "ratio": 0.5366,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "San Miguel",
     "ratio": 0.6316,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "San Martín (San Juan)": {
     "contexto": "cuotas_mx→futbol",
@@ -1783,37 +639,37 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Camioneros",
     "ratio": 0.7179,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Deportivo Maipú": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Armenio",
     "ratio": 0.75,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Racing (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Central Cordoba",
     "ratio": 0.6897,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Godoy Cruz 2",
     "ratio": 0.6111,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "New Mexico United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Delta United",
     "ratio": 0.5517,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Sacramento Republic FC": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Czech Republic U21",
     "ratio": 0.5946,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Gimnasia y Tiro (Salta)": {
     "contexto": "cuotas_mx→futbol",
@@ -1837,109 +693,109 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Brown Adrogue",
     "ratio": 0.3571,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Defensores de Belgrano": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Defensores Unidos",
     "ratio": 0.6667,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Cheltenham Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.6,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Fleetwood Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.4138,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Mansfield Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.5517,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Crawley Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.6667,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Aldershot Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.4828,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Harrogate Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.6897,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Grimsby Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.5185,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Yeovil Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.4615,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Shrewsbury Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.4667,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Northampton Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.5806,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Swindon Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.4444,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "FC Halifax Town": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Carmarthen Town",
     "ratio": 0.4667,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Houston Dynamo FC": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Dynamo Barnaul",
     "ratio": 0.4286,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Sporting Kansas City": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Osasco Sporting U20",
     "ratio": 0.5294,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Sporting Gijón": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Osasco Sporting U20",
     "ratio": 0.5455,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Boston River": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "River Plate 2",
     "ratio": 0.4,
-    "visto": "2026-09-24"
+    "visto": "2026-09-25"
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
@@ -1955,9 +811,9 @@
   },
   "Club Atlético Morelia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico La Paz",
-    "ratio": 0.6111,
-    "visto": "2026-09-24"
+    "candidato": "Club A. Guemes",
+    "ratio": 0.5294,
+    "visto": "2026-09-25"
   },
   "Atlético Junior": {
     "contexto": "cuotas_mx→futbol",
@@ -1970,5 +826,17 @@
     "candidato": "Atletico La Paz",
     "ratio": 0.7097,
     "visto": "2026-09-24"
+  },
+  "San Martín (Tucumán)": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "San Martin Burzaco",
+    "ratio": 0.7222,
+    "visto": "2026-09-25"
+  },
+  "Sportivo San Lorenzo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.6667,
+    "visto": "2026-09-25"
   }
 }
