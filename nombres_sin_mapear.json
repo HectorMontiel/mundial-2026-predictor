@@ -125,8 +125,8 @@
   },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo San Pedro",
-    "ratio": 0.5128,
+    "candidato": "San Antonio",
+    "ratio": 0.5161,
     "visto": "2026-09-25"
   },
   "Gimnasia y Esgrima (Jujuy)": {
@@ -219,8 +219,8 @@
   },
   "RC Celta Fortuna": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Fortuna Koln",
-    "ratio": 0.5,
+    "candidato": "Fortuna Hjorring W",
+    "ratio": 0.4375,
     "visto": "2026-09-25"
   },
   "Racing (Montevideo)": {
@@ -655,8 +655,8 @@
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Santa Cruz",
-    "ratio": 0.2941,
+    "candidato": "San Antonio",
+    "ratio": 0.4571,
     "visto": "2026-09-25"
   },
   "New Mexico United": {
@@ -849,6 +849,30 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Inter Bogotá",
     "ratio": 0.6857,
+    "visto": "2026-09-25"
+  },
+  "Notts County": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Stockport County",
+    "ratio": 0.6429,
+    "visto": "2026-09-25"
+  },
+  "Forest Green Rovers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Bristol Rovers",
+    "ratio": 0.6061,
+    "visto": "2026-09-25"
+  },
+  "Tranmere Rovers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Bristol Rovers",
+    "ratio": 0.5517,
+    "visto": "2026-09-25"
+  },
+  "Orange County SC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Stockport County",
+    "ratio": 0.6207,
     "visto": "2026-09-25"
   }
 }
