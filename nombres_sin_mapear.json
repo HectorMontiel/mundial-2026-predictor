@@ -137,9 +137,9 @@
   },
   "Independiente Medellín": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente 2",
-    "ratio": 0.7568,
-    "visto": "2026-09-24"
+    "candidato": "Independiente FBC",
+    "ratio": 0.7179,
+    "visto": "2026-09-25"
   },
   "Independiente Rivadavia": {
     "candidato": "Independiente CBBA",
@@ -202,10 +202,10 @@
     "visto": "2026-09-21"
   },
   "Montevideo Wanderers": {
-    "candidato": "HFX Wanderers",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.6061,
-    "visto": "2026-09-20"
+    "candidato": "S. Wanderers",
+    "ratio": 0.6452,
+    "visto": "2026-09-25"
   },
   "Montserrat": {
     "contexto": "selecciones",
@@ -837,6 +837,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo San Pedro",
     "ratio": 0.6667,
+    "visto": "2026-09-25"
+  },
+  "Wycombe Wanderers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "S. Wanderers",
+    "ratio": 0.7143,
+    "visto": "2026-09-25"
+  },
+  "Internacional de Bogotá": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Inter Bogotá",
+    "ratio": 0.6857,
     "visto": "2026-09-25"
   }
 }
