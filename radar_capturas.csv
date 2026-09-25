@@ -2872,3 +2872,29 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-09-25,mlb,TAIWAN: CPBL - Second stage,Rakuten Monkeys,Wei Chuan Dragons,1790764500,2.07,,1.7692,0.460825,0.539175,0.048319,0,0.0,
 2026-09-25,futbol,WALES: Cymru South,Baglan Dragons,Carmarthen Town,1790361000,2.64,3.56,2.31,0.346689,0.396216,0.092587,1,0.0422,Novibet
 2026-09-25,futbol,AFRICA: Africa Cup of Nations - Qualification,Kenya,Eritrea,1790427600,1.3268,4.46,10.23,0.70068,0.090876,0.07566,1,0.0244,Novibet
+2026-09-25,futbol,ARGENTINA: Primera B,Arsenal Sarandi,Liniers,1790445600,1.4292,3.73,7.29,0.633227,0.124144,0.104963,0,0.0,
+2026-09-25,futbol,ARGENTINA: Primera B,Brown Adrogue,Deportivo Camioneros,1790445600,2.58,2.83,2.75,0.350897,0.329205,0.10459,1,0.058,Novibet
+2026-09-25,futbol,ARGENTINA: Primera B,Talleres (R.E),San Martin Burzaco,1790445600,1.4975,3.49,6.6,0.603873,0.137015,0.105828,0,0.0,
+2026-09-25,futbol,CZECH REPUBLIC: 3. CFL - Group B,Chrudim,Pardubice B,1790410500,2.9,3.95,1.9709,0.311955,0.459014,0.105375,0,0.0,
+2026-09-25,futbol,CZECH REPUBLIC: 3. CFL - Group B,Horni Redice,Teplice B,1790410500,3.57,3.75,1.7874,0.253208,0.505737,0.106251,0,0.0,
+2026-09-25,futbol,CZECH REPUBLIC: 3. CFL - Group B,Mlada Boleslav B,Varnsdorf,1790410500,1.9259,3.74,3.14,0.469861,0.288186,0.105089,0,0.0,
+2026-09-25,futbol,CZECH REPUBLIC: 3. CFL - Group B,Neratovice,Caslav,1790431200,1.6993,3.84,3.9,0.532412,0.231982,0.105305,0,0.0,
+2026-09-25,futbol,CZECH REPUBLIC: 3. MSFL,Blansko,SK Hranice,1790429400,2.11,3.6,2.83,0.428873,0.31976,0.105068,0,0.0,
+2026-09-25,futbol,CZECH REPUBLIC: 3. MSFL,Uhersky Brod,Sigma Olomouc B,1790429400,3.81,3.78,1.7299,0.237508,0.523098,0.105086,0,0.0,
+2026-09-25,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Fernandez L.,Chwalinska M.,1790416800,1.6897,,2.29,0.57542,0.42458,0.028502,0,0.0,
+2026-09-25,tenis,"ATP - DOUBLES: Hangzhou (China), hard",Cabral F./Tracy J.,Gonzalez S./Jebens H.,1790400600,1.4545,,2.74,0.653236,0.346764,0.052485,0,0.0,
+2026-09-25,tenis,"ATP - DOUBLES: Hangzhou (China), hard",Reynolds F./Watt J.,King E./Stevens B.,1790406000,1.5556,,2.44,0.610672,0.389328,0.052675,0,0.0,
+2026-09-25,tenis,"ATP - DOUBLES: Hangzhou (China), hard",Halys Q./Miedler L.,Rojer J./Winegar T.,1790407800,1.7812,,2.04,0.533864,0.466136,0.051615,0,0.0,
+2026-09-25,tenis,"WTA - DOUBLES: Singapore (Singapore), hard (indoor)",Tang Q./Xu Y.,Kato M./Perez E.,1790404200,2.08,,1.7519,0.457188,0.542812,0.051578,0,0.0,
+2026-09-25,tenis,"CHALLENGER WOMEN - SINGLES: Porto (Portugal), hard",Brantmeier R.,Kraus S.,1790416800,1.7246,,2.18,0.558316,0.441684,0.03856,0,0.0,
+2026-09-25,nba,FRANCE: LFB Women,Flammes Carolo W,Lyon W,1790445600,1.2646,,3.12,0.711581,0.288419,0.111277,1,0.0286,Novibet
+2026-09-25,nba,JAPAN: B.League One,Kumamoto,Kagawa Five Arrows,1790402700,1.2247,,3.36,0.732872,0.267128,0.114146,0,0.0,
+2026-09-25,nba,JAPAN: B.League One,Saitama,Tokyo United BC,1790402700,1.3226,,2.85,0.683027,0.316973,0.106964,1,0.0261,Playdoit
+2026-09-25,nba,MEXICO: LNBP,Freseros,Panteras,1790388000,2.27,,1.5263,0.402049,0.597951,0.095708,1,0.0215,Playdoit
+2026-09-25,nba,SPAIN: Copa España,Tres Cantos,Sant Antoni,1790436600,5.68,,1.0312,0.153654,0.846346,0.1458,0,0.0,
+2026-09-25,nba,SPAIN: Copa España,Lliria,Cartagena,1790440200,1.5128,,2.2,0.592545,0.407455,0.115571,0,0.0,
+2026-09-25,nba,SPAIN: Copa España,Peixegalego,CBC Valladolid,1790445600,6.6,,1.0134,0.133107,0.866893,0.138292,0,0.0,
+2026-09-25,nfl,USA: NCAA,Eastern Michigan,Lindenwood Lions,1790442000,1.0286,,12.19,0.922185,0.077815,0.05423,0,0.0,
+2026-09-25,nfl,USA: NCAA,Marshall,Gardner-Webb,1790451000,1.0404,,10.34,0.90858,0.09142,0.057881,0,0.0,
+2026-09-25,futbol,ARGENTINA: Primera B,Argentino de Merlo,Villa San Carlos,1790445600,2.73,2.59,2.83,0.331266,0.319561,0.105758,0,0.0,
+2026-09-25,nba,USA: WNBA - Play Offs,Las Vegas Aces W,Indiana Fever W,1790539200,1.6623,,2.24,0.57402,0.42598,0.048005,1,0.0725,Novibet
