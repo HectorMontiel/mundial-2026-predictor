@@ -2261,22 +2261,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822552,2025-10-10,selecciones,Nicaragua,Anyelo Velasquez,1634225,F,0,23,1,1,0,0.01,,3.0,
 4822552,2025-10-10,selecciones,Nicaragua,Jorge Garcia,852103,F,0,22,0,0,0,0.0,,3.0,
 4822552,2025-10-10,selecciones,Nicaragua,Widman Talavera,1141589,F,0,7,0,0,0,0.0,,3.0,
-4822552,2025-10-10,selecciones,Haiti,Johny Placide,103468,G,1,90,0,0,0,0.0,11.0,0.0,76003.0
-4822552,2025-10-10,selecciones,Haiti,Carlens Arcus,634110,D,1,90,0,0,0,0.0,32.0,1.0,1028845.0
-4822552,2025-10-10,selecciones,Haiti,Ricardo Ade,532700,D,1,90,0,0,0,0.0,34.0,1.0,303087.0
-4822552,2025-10-10,selecciones,Haiti,Jean-Kevin Duverne,769168,D,1,90,0,0,0,0.0,36.0,1.0,1802693.0
-4822552,2025-10-10,selecciones,Haiti,Duke Lacroix,649744,D,1,90,1,1,0,0.05,38.0,1.0,50000.0
-4822552,2025-10-10,selecciones,Haiti,Ruben Providence,1200016,M,1,67,0,0,0,0.0,72.0,2.0,262991.0
-4822552,2025-10-10,selecciones,Haiti,Josué Casimir,1199382,F,1,82,2,0,0,0.08,74.0,3.0,5344245.0
-4822552,2025-10-10,selecciones,Haiti,Jean-Ricner Bellegarde,769166,M,1,90,2,1,0,0.04,76.0,2.0,20928038.0
-4822552,2025-10-10,selecciones,Haiti,Danley Jean Jacques,1329461,M,1,82,1,1,1,0.11,78.0,2.0,1699545.0
-4822552,2025-10-10,selecciones,Haiti,Frantzdy Pierrot,833641,F,1,90,1,0,0,0.11,104.0,3.0,1738764.0
-4822552,2025-10-10,selecciones,Haiti,Duckens Nazon,525445,F,1,82,1,1,1,0.25,106.0,3.0,922032.0
-4822552,2025-10-10,selecciones,Haiti,Derrick Etienne,643482,F,0,23,0,0,0,0.0,,3.0,503375.0
-4822552,2025-10-10,selecciones,Haiti,Martin Experience,1181438,D,0,8,0,0,0,0.0,,1.0,269494.0
-4822552,2025-10-10,selecciones,Haiti,Leverton Pierre,899318,M,0,8,0,0,0,0.0,,2.0,174206.0
-4822552,2025-10-10,selecciones,Haiti,Don Deedson Louicius,1079194,F,0,8,2,2,1,0.32,,3.0,
-4822552,2025-10-10,selecciones,Haiti,Keeto Thermoncy,1807873,D,0,1,0,0,0,0.0,,1.0,
 4689411,2025-10-11,selecciones,Serbia,Djordje Petrovic,1067256,G,1,90,0,0,0,0.0,11.0,0.0,25664672.0
 4689411,2025-10-11,selecciones,Serbia,Veljko Milosavljevic,1666977,D,1,90,0,0,0,0.0,33.0,1.0,6482153.0
 4689411,2025-10-11,selecciones,Serbia,Milos Veljkovic,515333,D,1,90,0,0,0,0.0,35.0,1.0,1812210.0
@@ -27322,22 +27306,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014064,2026-08-02,col_primera_a,Junior FC,Guillermo Paiva,1000532,F,0,30,0,0,0,0.0,,3.0,713517.0
 1000014064,2026-08-02,col_primera_a,Junior FC,Kevin Pérez,1248701,F,0,17,0,0,0,0.0,,3.0,396745.0
 1000014064,2026-08-02,col_primera_a,Junior FC,Dilan Villarreal,1893754,M,0,10,0,0,0,0.0,,2.0,
-1000014064,2026-08-02,col_primera_a,Millonarios,Javier Burrai,262597,G,1,90,0,0,0,0.0,11.0,0.0,279839.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Andrés Llinás,1130853,D,1,86,0,0,0,0.0,33.0,1.0,
-1000014064,2026-08-02,col_primera_a,Millonarios,Sergio Mosquera,496937,D,1,90,0,0,0,0.0,35.0,1.0,
-1000014064,2026-08-02,col_primera_a,Millonarios,Jorge Arias,344139,D,1,90,0,0,0,0.0,37.0,1.0,293324.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Jhomier Guerrero,1353655,D,1,90,1,1,0,0.02,51.0,1.0,909954.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Sebastián Valencia,1772540,D,1,67,2,0,0,0.03,59.0,1.0,528634.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Francisco Chaverra,1310086,M,1,77,2,0,0,0.07,72.0,2.0,872323.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Mateo García,1403320,M,1,78,2,0,0,0.06,74.0,2.0,950969.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Rodrigo Ureña,304875,M,1,90,1,0,0,0.04,76.0,2.0,487392.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Daniel Ruiz,1266136,M,1,67,0,0,0,0.0,78.0,2.0,809597.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Rodrigo Contreras,410434,F,1,90,5,2,1,0.26,115.0,3.0,875751.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Andrey Estupiñán,977773,F,0,23,0,0,0,0.0,,3.0,485985.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Leonardo Castro,731805,F,0,23,2,0,0,0.09,,3.0,584241.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Danovis Banguero,113984,D,0,13,0,0,0,0.0,,1.0,261038.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Sebastián Viveros,1746303,M,0,12,2,0,0,0.07,,2.0,704355.0
-1000014064,2026-08-02,col_primera_a,Millonarios,Stiven Barreiro,282254,D,0,4,0,0,0,0.0,,1.0,1161317.0
 5071256,2026-08-02,mls,Sporting Kansas City,Stefan Cleveland,846521,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5071256,2026-08-02,mls,Sporting Kansas City,Jacob Davis,1082905,M,1,65,0,0,0,0.0,32.0,2.0,1217235.0
 5071256,2026-08-02,mls,Sporting Kansas City,Moisés Mosquera,1187762,D,1,65,0,0,0,0.0,34.0,1.0,1786590.0
@@ -128345,3 +128313,106 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5181812,2026-09-24,selecciones,Israel,Dor Turgeman,1177306,F,0,17,0,0,0,0.0,,3.0,2990214.0
 5181812,2026-09-24,selecciones,Israel,Eliazer Dasa,451209,D,0,5,1,0,0,0.01,,1.0,281757.0
 5181812,2026-09-24,selecciones,Israel,Liel Abada,1091975,F,0,5,0,0,0,0.0,,3.0,2311641.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Franco Armani,206758,G,1,90,0,0,0,0.0,11.0,0.0,396108.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Andrés Román,925847,D,1,90,2,0,0,0.17,32.0,1.0,774799.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Neider Parra,1910334,D,1,90,0,0,0,0.0,34.0,1.0,522830.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Andrés Reyes,1053717,D,1,90,1,1,1,0.36,36.0,1.0,566632.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,William Tesillo,207383,D,1,90,0,0,0,0.0,38.0,1.0,242825.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Elías Cabrera,1400295,M,1,90,1,1,0,0.02,64.0,2.0,1392483.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Andrés Marín,1813504,M,1,90,0,0,0,0.0,66.0,2.0,
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Ian Poveda,962075,F,1,90,2,0,0,0.11,83.0,3.0,824112.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Juan Zapata,1199834,M,1,60,0,0,0,0.0,85.0,2.0,933421.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Marlos Moreno,677249,F,1,67,1,0,0,0.06,87.0,3.0,315224.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Cristian Arango,452368,F,1,15,0,0,0,0.0,115.0,3.0,1787565.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Andrés Sarmiento,942987,F,0,70,3,1,0,0.09,,3.0,737589.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,James Rodríguez,164684,M,0,30,2,0,0,0.07,,2.0,760084.0
+1000014157,2026-09-25,col_primera_a,Atlético Nacional,Kevin Parra,1439545,M,0,23,1,0,0,0.11,,2.0,1142357.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Javier Burrai,262597,G,1,90,0,0,0,0.0,11.0,0.0,261698.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Stiven Barreiro,282254,D,1,90,0,0,0,0.0,33.0,1.0,1216520.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Sergio Mosquera,496937,D,1,90,0,0,0,0.0,35.0,1.0,
+1000014157,2026-09-25,col_primera_a,Millonarios,Danovis Banguero,113984,D,1,90,0,0,0,0.0,37.0,1.0,239669.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Carlos Sarabia,1683414,D,1,90,0,0,0,0.0,51.0,1.0,865613.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Francisco Chaverra,1310086,D,1,90,1,1,0,0.03,59.0,1.0,697858.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Julián Angulo,1341009,M,1,45,1,1,1,0.37,73.0,2.0,590672.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Stiven Vega,1130854,M,1,90,0,0,0,0.0,75.0,2.0,315106.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Rodrigo Ureña,304875,M,1,88,0,0,0,0.0,77.0,2.0,484925.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Daniel Ruiz,1266136,F,1,67,0,0,0,0.0,104.0,3.0,647677.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Andrey Estupiñán,977773,F,1,90,2,1,0,0.14,106.0,3.0,486536.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Leonardo Castro,731805,F,0,44,0,0,0,0.0,,3.0,584241.0
+1000014157,2026-09-25,col_primera_a,Millonarios,David Silva,95546,M,0,23,0,0,0,0.0,,2.0,259322.0
+1000014157,2026-09-25,col_primera_a,Millonarios,Sebastián Viveros,1746303,M,0,2,0,0,0,0.0,,2.0,845226.0
+5991878,2026-09-25,selecciones,Haiti,Alexandre Pierre,1209244,G,1,90,0,0,0,0.0,11.0,0.0,390578.0
+5991878,2026-09-25,selecciones,Haiti,Carlens Arcus,634110,D,1,90,1,0,0,0.0,32.0,1.0,920437.0
+5991878,2026-09-25,selecciones,Haiti,Garven Metusala,1286428,D,1,90,2,1,1,0.0,34.0,1.0,53805.0
+5991878,2026-09-25,selecciones,Haiti,Hannes Delcroix,822716,D,1,90,2,1,0,0.0,36.0,1.0,1340684.0
+5991878,2026-09-25,selecciones,Haiti,Martin Expérience,1181438,D,1,90,1,0,0,0.0,38.0,1.0,168076.0
+5991878,2026-09-25,selecciones,Haiti,Carl Sainté,1107287,D,1,90,0,0,0,0.0,64.0,1.0,69402.0
+5991878,2026-09-25,selecciones,Haiti,Danley Jean Jacques,1329461,M,1,84,2,2,0,0.0,66.0,2.0,1719266.0
+5991878,2026-09-25,selecciones,Haiti,Don Deedson Louicius,1079194,M,1,69,2,0,0,0.0,83.0,2.0,967350.0
+5991878,2026-09-25,selecciones,Haiti,Fabrice Picault,580600,F,1,58,1,1,1,0.0,85.0,3.0,83119.0
+5991878,2026-09-25,selecciones,Haiti,Dany Jean,1246713,F,1,58,2,1,0,0.0,87.0,3.0,761680.0
+5991878,2026-09-25,selecciones,Haiti,Wilson Isidor,887703,F,1,90,5,1,1,0.0,115.0,3.0,15778828.0
+5991878,2026-09-25,selecciones,Haiti,Ruben Providence,1200016,F,0,21,2,0,0,0.0,,3.0,205138.0
+5991878,2026-09-25,selecciones,Haiti,Yassin Fortuné,759569,F,0,32,1,1,0,0.0,,3.0,214727.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Denzil Smith,1240335,G,1,90,0,0,0,0.0,11.0,0.0,185861.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Rio Cardines,1422586,D,1,90,0,0,0,0.0,32.0,1.0,633681.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Josiah Trimmingham,885253,D,1,90,0,0,0,0.0,34.0,1.0,124253.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Justin García,1057837,D,1,90,1,1,0,0.0,36.0,1.0,72000.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Noah Powder,791456,D,1,90,0,0,0,0.0,38.0,1.0,147339.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Andre Rampersad,1062313,M,1,90,1,0,0,0.0,64.0,2.0,50000.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Daniel Phillips,1086546,M,1,90,0,0,0,0.0,66.0,2.0,234079.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Levi García,717557,F,1,76,5,2,1,0.0,83.0,3.0,6808000.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Wayne Frederick,1610223,M,1,84,1,1,1,0.0,85.0,2.0,367887.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Tyrese Spicer,1600850,F,1,90,0,0,0,0.0,87.0,3.0,355675.0
+5991878,2026-09-25,selecciones,Trinidad and Tobago,Ryan Telfer,835270,D,1,90,3,1,0,0.0,115.0,1.0,94468.0
+5991904,2026-09-25,selecciones,Cayman Islands,Lachlin Lambert,1627452,G,1,90,0,0,0,0.0,11.0,0.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Jabari Campbell,1240739,D,1,90,0,0,0,0.0,32.0,1.0,
+5991904,2026-09-25,selecciones,Cayman Islands,D'Andre Rowe,1240745,D,1,90,0,0,0,0.0,34.0,1.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Cameron Gray,1240743,D,1,90,1,0,0,0.0,36.0,1.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Joshwa Campbell,1627461,D,1,90,2,0,0,0.0,38.0,1.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Zachary Scott,1627480,M,1,90,0,0,0,0.0,64.0,2.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Jordan Bonilla,1650891,M,1,90,0,0,0,0.0,66.0,2.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Christopher Reeves,1242268,F,1,90,1,1,0,0.0,83.0,3.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Sebastian Martinez,1768001,M,1,90,0,0,0,0.0,85.0,2.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Elijah Seymour,1272210,F,1,70,1,0,0,0.0,87.0,3.0,
+5991904,2026-09-25,selecciones,Cayman Islands,Gunnar Studenhofft,1240740,F,1,70,3,1,0,0.0,115.0,3.0,166241.0
+5991904,2026-09-25,selecciones,Dominica,Donté Newton,1240768,G,1,90,0,0,0,0.0,11.0,0.0,
+5991904,2026-09-25,selecciones,Dominica,Tobi Jnohope,1680056,D,1,90,1,1,0,0.0,33.0,1.0,98797.0
+5991904,2026-09-25,selecciones,Dominica,Eustace Marshall,1582135,D,1,90,0,0,0,0.0,35.0,1.0,
+5991904,2026-09-25,selecciones,Dominica,Triston Sandy,1240770,D,1,61,1,0,0,0.0,37.0,1.0,
+5991904,2026-09-25,selecciones,Dominica,Marcus Bredas,1650207,D,1,90,1,0,0,0.0,51.0,1.0,
+5991904,2026-09-25,selecciones,Dominica,Javid George,1240548,D,1,90,1,1,0,0.0,59.0,1.0,
+5991904,2026-09-25,selecciones,Dominica,Audel Laville,1113284,M,1,90,3,1,0,0.0,72.0,2.0,
+5991904,2026-09-25,selecciones,Dominica,Briel Thomas,521468,M,1,90,3,0,0,0.0,74.0,2.0,
+5991904,2026-09-25,selecciones,Dominica,Lyon Edwards,1765679,M,1,90,1,0,0,0.0,76.0,2.0,
+5991904,2026-09-25,selecciones,Dominica,Reon Cuffy,1240769,M,1,84,1,0,0,0.0,78.0,2.0,
+5991904,2026-09-25,selecciones,Dominica,Troy Jules,1546320,F,1,90,6,1,0,0.0,115.0,3.0,
+5991904,2026-09-25,selecciones,Dominica,Savio Anselm,1650203,M,0,29,2,1,0,0.0,,2.0,
+5991879,2026-09-25,selecciones,Dominican Republic,Xavier Valdez,1357558,G,1,90,0,0,0,0.0,11.0,0.0,151690.0
+5991879,2026-09-25,selecciones,Dominican Republic,Luiyi de Lucas,1135659,D,1,90,1,1,0,0.0,32.0,1.0,198100.0
+5991879,2026-09-25,selecciones,Dominican Republic,Pablo Rosario,664226,D,1,90,1,1,1,0.0,34.0,1.0,4290161.0
+5991879,2026-09-25,selecciones,Dominican Republic,Noah Dollenmayer,1455534,D,1,90,2,0,0,0.0,36.0,1.0,102594.0
+5991879,2026-09-25,selecciones,Dominican Republic,Juan Familia-Castillo,872988,D,1,90,1,0,0,0.0,38.0,1.0,179953.0
+5991879,2026-09-25,selecciones,Dominican Republic,Jean López,1024183,M,1,78,2,0,0,0.0,64.0,2.0,150443.0
+5991879,2026-09-25,selecciones,Dominican Republic,Heinz Mörschel,770523,M,1,90,5,2,1,0.0,66.0,2.0,550921.0
+5991879,2026-09-25,selecciones,Dominican Republic,Peter González,1229280,F,1,70,2,0,0,0.0,83.0,3.0,1467451.0
+5991879,2026-09-25,selecciones,Dominican Republic,Júnior Firpo,743192,D,1,78,1,1,0,0.0,85.0,1.0,2559864.0
+5991879,2026-09-25,selecciones,Dominican Republic,Edarlyn Reyes,1246162,F,1,61,3,1,0,0.0,87.0,3.0,232850.0
+5991879,2026-09-25,selecciones,Dominican Republic,Mariano Díaz,518525,F,1,70,5,2,1,0.0,115.0,3.0,324702.0
+5991879,2026-09-25,selecciones,Dominican Republic,Edison Azcona,1174821,M,0,20,1,1,0,0.0,,2.0,84233.0
+5991879,2026-09-25,selecciones,Dominican Republic,Daniel Flores,1422716,M,0,12,1,0,0,0.0,,2.0,255808.0
+5991879,2026-09-25,selecciones,Dominican Republic,Lucas Bretón,1648064,M,0,12,1,0,0,0.0,,2.0,
+5991879,2026-09-25,selecciones,Dominican Republic,Dorny Romero,1102243,F,0,29,1,0,0,0.0,,3.0,
+5991879,2026-09-25,selecciones,Nicaragua,Jason Vega,1410193,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5991879,2026-09-25,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,0,0,0,0.0,33.0,1.0,119152.0
+5991879,2026-09-25,selecciones,Nicaragua,Marvin Fletes,1141522,D,1,90,0,0,0,0.0,35.0,1.0,
+5991879,2026-09-25,selecciones,Nicaragua,Juan Pérez,1253899,D,1,90,3,2,1,0.0,37.0,1.0,74360.0
+5991879,2026-09-25,selecciones,Nicaragua,Joab Gutiérrez,1609737,D,1,63,1,0,0,0.0,51.0,1.0,
+5991879,2026-09-25,selecciones,Nicaragua,Emmanuel Gómez,1527616,M,1,90,0,0,0,0.0,59.0,2.0,166064.0
+5991879,2026-09-25,selecciones,Nicaragua,Raheem Giusseppe Cole Martínez,0,M,1,90,0,0,0,0.0,72.0,2.0,
+5991879,2026-09-25,selecciones,Nicaragua,Jonathan Moncada,1057770,M,1,63,1,0,0,0.0,74.0,2.0,
+5991879,2026-09-25,selecciones,Nicaragua,Kadeem Cole,1431704,M,1,90,0,0,0,0.0,76.0,2.0,
+5991879,2026-09-25,selecciones,Nicaragua,Efrain Mejia,2019751,M,1,70,1,0,0,0.0,78.0,2.0,
+5991879,2026-09-25,selecciones,Nicaragua,Jaime Moreno,495524,F,1,64,1,1,0,0.0,115.0,3.0,181322.0
+5991879,2026-09-25,selecciones,Nicaragua,Widman Talavera,1141589,F,0,27,1,0,0,0.0,,3.0,
+5991879,2026-09-25,selecciones,Nicaragua,Byron Bonilla,1032173,F,0,20,1,1,1,0.0,,3.0,
