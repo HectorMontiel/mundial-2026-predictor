@@ -1300,22 +1300,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4196561,2025-09-09,selecciones,Bolivia,Yomar Rocha,1368559,D,0,45,0,0,0,0.0,,1.0,1292445.0
 4196561,2025-09-09,selecciones,Bolivia,Hector Cuellar,1413860,M,0,30,0,0,0,0.0,,2.0,
 4196561,2025-09-09,selecciones,Bolivia,Carmelo Algaranaz,728435,F,0,20,3,2,0,0.16,,3.0,
-4196561,2025-09-09,selecciones,Brazil,Alisson Becker,319784,G,1,90,0,0,0,0.0,11.0,0.0,16852639.0
-4196561,2025-09-09,selecciones,Brazil,Vitinho,905498,D,1,61,0,0,0,0.0,32.0,1.0,7288873.0
-4196561,2025-09-09,selecciones,Brazil,Fabricio Bruno,750046,D,1,90,0,0,0,0.0,34.0,1.0,10936366.0
-4196561,2025-09-09,selecciones,Brazil,Alexsandro Ribeiro,1186553,D,1,90,0,0,0,0.0,36.0,1.0,22640538.0
-4196561,2025-09-09,selecciones,Brazil,Caio Henrique,769525,D,1,90,0,0,0,0.0,38.0,1.0,13664101.0
-4196561,2025-09-09,selecciones,Brazil,Lucas Paquetá,766435,M,1,90,1,0,0,0.01,73.0,2.0,63077805.0
-4196561,2025-09-09,selecciones,Brazil,Andrey Santos,1372921,M,1,73,0,0,0,0.0,75.0,2.0,49321263.0
-4196561,2025-09-09,selecciones,Brazil,Bruno Guimaraes,850354,M,1,90,1,1,0,0.03,77.0,2.0,79097141.0
-4196561,2025-09-09,selecciones,Brazil,Luiz Henrique,1176214,F,1,61,2,1,0,0.07,103.0,3.0,25157496.0
-4196561,2025-09-09,selecciones,Brazil,Richarlison,654908,F,1,61,1,0,0,0.02,105.0,3.0,19255907.0
-4196561,2025-09-09,selecciones,Brazil,Samuel Dias Lino,1082941,M,1,61,0,0,0,0.0,107.0,2.0,22675958.0
-4196561,2025-09-09,selecciones,Brazil,Marquinhos,267365,D,0,29,0,0,0,0.0,,1.0,39111290.0
-4196561,2025-09-09,selecciones,Brazil,Estevao,1580774,F,0,29,0,0,0,0.0,,3.0,76290672.0
-4196561,2025-09-09,selecciones,Brazil,Joao Pedro,1021382,F,0,29,1,0,0,0.07,,3.0,61379454.0
-4196561,2025-09-09,selecciones,Brazil,Raphinha,696679,F,0,29,2,1,0,0.07,,3.0,107009824.0
-4196561,2025-09-09,selecciones,Brazil,Jean Lucas,934675,M,0,17,2,0,0,0.07,,2.0,11222435.0
 4196581,2025-09-09,selecciones,Ecuador,Hernán Galindez,146801,G,1,90,0,0,0,0.0,11.0,0.0,758429.0
 4196581,2025-09-09,selecciones,Ecuador,Alan Franco,832171,M,1,90,1,0,0,0.02,32.0,2.0,
 4196581,2025-09-09,selecciones,Ecuador,Joel Ordonez,1354085,D,1,90,0,0,0,0.0,34.0,1.0,33374236.0
@@ -128427,3 +128411,36 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991877,2026-09-25,selecciones,Curaçao,Tahith Chong,751066,M,0,33,1,1,1,0.0,,2.0,2300056.0
 5991877,2026-09-25,selecciones,Curaçao,Jordi Paulina,1606589,F,0,32,3,2,1,0.0,,3.0,520146.0
 5991877,2026-09-25,selecciones,Curaçao,Kenji Gorré,643232,F,0,33,3,2,2,0.0,,3.0,250173.0
+5924776,2026-09-25,selecciones,Australia,Patrick Beach,1335765,G,1,90,0,0,0,0.0,11.0,0.0,1483768.0
+5924776,2026-09-25,selecciones,Australia,Alessandro Circati,1318686,D,1,90,2,0,0,0.0,33.0,1.0,10131223.0
+5924776,2026-09-25,selecciones,Australia,Harry Souttar,671518,D,1,90,0,0,0,0.0,35.0,1.0,2101408.0
+5924776,2026-09-25,selecciones,Australia,Lucas Herrington,1686118,D,1,90,0,0,0,0.0,37.0,1.0,1225345.0
+5924776,2026-09-25,selecciones,Australia,Jacob Italiano,889093,M,1,84,0,0,0,0.0,62.0,2.0,304026.0
+5924776,2026-09-25,selecciones,Australia,Jackson Irvine,369742,M,1,90,0,0,0,0.0,64.0,2.0,724581.0
+5924776,2026-09-25,selecciones,Australia,Paul Okon-Engstler,1527363,M,1,84,0,0,0,0.0,66.0,2.0,1361733.0
+5924776,2026-09-25,selecciones,Australia,Aziz Behich,192735,D,1,90,0,0,0,0.0,68.0,1.0,163442.0
+5924776,2026-09-25,selecciones,Australia,Connor Metcalfe,885870,M,1,84,2,0,0,0.0,84.0,2.0,869636.0
+5924776,2026-09-25,selecciones,Australia,Nestory Irankunda,1327214,M,1,76,3,2,1,0.0,86.0,2.0,7186586.0
+5924776,2026-09-25,selecciones,Australia,Tete Yengi,1220549,F,1,90,0,0,0,0.0,105.0,3.0,396114.0
+5924776,2026-09-25,selecciones,Australia,Riley McGree,733486,M,0,14,0,0,0,0.0,,2.0,2207614.0
+5924776,2026-09-25,selecciones,Australia,Jason Geria,418799,D,0,6,0,0,0,0.0,,1.0,292346.0
+5924776,2026-09-25,selecciones,Australia,Aiden O'Neill,785377,M,0,6,0,0,0,0.0,,2.0,1765612.0
+5924776,2026-09-25,selecciones,Australia,Marcus Younis,1432615,F,0,6,0,0,0,0.0,,3.0,671592.0
+5924776,2026-09-25,selecciones,Australia,Patrick Yazbek,1235411,M,0,1,0,0,0,0.0,,2.0,2391846.0
+5924776,2026-09-25,selecciones,Brazil,Hugo Souza,960887,G,1,90,0,0,0,0.0,11.0,0.0,8012750.0
+5924776,2026-09-25,selecciones,Brazil,Matheuzinho,1174660,D,1,90,0,0,0,0.0,32.0,1.0,5177176.0
+5924776,2026-09-25,selecciones,Brazil,Marquinhos,267365,D,1,90,0,0,0,0.0,34.0,1.0,20650034.0
+5924776,2026-09-25,selecciones,Brazil,Vitor Reis,1580952,D,1,76,0,0,0,0.0,36.0,1.0,31147463.0
+5924776,2026-09-25,selecciones,Brazil,Douglas Santos,346000,D,1,76,0,0,0,0.0,38.0,1.0,2978919.0
+5924776,2026-09-25,selecciones,Brazil,Bruno Guimarães,850354,M,1,62,2,1,0,0.0,64.0,2.0,51077070.0
+5924776,2026-09-25,selecciones,Brazil,Danilo,1181700,M,1,90,0,0,0,0.0,66.0,2.0,18001432.0
+5924776,2026-09-25,selecciones,Brazil,Estêvão,1580774,F,1,76,4,0,0,0.0,83.0,3.0,78710467.0
+5924776,2026-09-25,selecciones,Brazil,Raphinha,696679,F,1,90,4,1,0,0.0,85.0,3.0,50732964.0
+5924776,2026-09-25,selecciones,Brazil,Vinícius Júnior,846033,F,1,65,3,2,0,0.0,87.0,3.0,86613483.0
+5924776,2026-09-25,selecciones,Brazil,Endrick,1406729,F,1,65,0,0,0,0.0,115.0,3.0,28498700.0
+5924776,2026-09-25,selecciones,Brazil,Douglas Luiz,787350,M,0,28,1,0,0,0.0,,2.0,15361008.0
+5924776,2026-09-25,selecciones,Brazil,Pedro,750067,F,0,25,0,0,0,0.0,,3.0,10519296.0
+5924776,2026-09-25,selecciones,Brazil,Samuel Dias Lino,1082941,F,0,25,0,0,0,0.0,,3.0,13264677.0
+5924776,2026-09-25,selecciones,Brazil,Jair Cunha,1391209,D,0,14,1,0,0,0.0,,1.0,13310855.0
+5924776,2026-09-25,selecciones,Brazil,Mauro Júnior,873556,D,0,14,0,0,0,0.0,,1.0,12196668.0
+5924776,2026-09-25,selecciones,Brazil,Rayan,1478295,F,0,14,1,1,1,0.0,,3.0,47583920.0
