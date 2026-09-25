@@ -1930,21 +1930,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822539,2025-10-10,selecciones,Trinidad and Tobago,Deron Payne,1419408,D,0,16,0,0,0,0.0,,1.0,905257.0
 4822539,2025-10-10,selecciones,Trinidad and Tobago,Molik Khan,1378106,M,0,16,1,1,0,0.02,,2.0,246233.0
 4822539,2025-10-10,selecciones,Trinidad and Tobago,Kaile Auvray,1498729,F,0,11,2,1,0,0.22,,3.0,
-4822538,2025-10-10,selecciones,Curaçao,Eloy Room,150242,G,1,90,0,0,0,0.0,11.0,0.0,
-4822538,2025-10-10,selecciones,Curaçao,Shurandy Sambo,1125997,D,1,90,0,0,0,0.0,32.0,1.0,1798627.0
-4822538,2025-10-10,selecciones,Curaçao,Jurien Gaari,708738,D,1,90,0,0,0,0.0,34.0,1.0,
-4822538,2025-10-10,selecciones,Curaçao,Armando Obispo,794244,D,1,90,0,0,0,0.0,36.0,1.0,2015264.0
-4822538,2025-10-10,selecciones,Curaçao,Joshua Brenet,389845,D,1,90,1,1,0,0.03,38.0,1.0,1267305.0
-4822538,2025-10-10,selecciones,Curaçao,Leandro Bacuna,183500,M,1,90,1,1,0,0.03,73.0,2.0,236532.0
-4822538,2025-10-10,selecciones,Curaçao,Livano Comenencia,1243246,M,1,87,1,1,1,0.03,75.0,2.0,868890.0
-4822538,2025-10-10,selecciones,Curaçao,Juninho Bacuna,614574,M,1,90,0,0,0,0.0,77.0,2.0,1925105.0
-4822538,2025-10-10,selecciones,Curaçao,Jearl Margaritha,1180784,F,1,58,2,0,0,0.18,103.0,3.0,350368.0
-4822538,2025-10-10,selecciones,Curaçao,Jürgen Locadia,289441,F,1,89,1,0,0,0.01,105.0,3.0,
-4822538,2025-10-10,selecciones,Curaçao,Sontje Hansen,1050160,F,1,46,0,0,0,0.0,107.0,3.0,4675525.0
-4822538,2025-10-10,selecciones,Curaçao,Kenji Gorré,643232,F,0,45,1,1,1,0.14,,3.0,614575.0
-4822538,2025-10-10,selecciones,Curaçao,Tyrese Noslin,1439121,M,0,32,0,0,0,0.0,,2.0,864032.0
-4822538,2025-10-10,selecciones,Curaçao,Godfried Roemeratoe,938524,M,0,3,0,0,0,0.0,,2.0,204387.0
-4822538,2025-10-10,selecciones,Curaçao,Roshon van Eijma,924844,D,0,1,0,0,0,0.0,,1.0,155916.0
 4822538,2025-10-10,selecciones,Jamaica,Andre Blake,525631,G,1,90,0,0,0,0.0,11.0,0.0,305477.0
 4822538,2025-10-10,selecciones,Jamaica,Dexter Lembikisa,1350598,D,1,90,0,0,0,0.0,32.0,1.0,1151796.0
 4822538,2025-10-10,selecciones,Jamaica,Richard King,1293486,D,1,90,2,0,0,0.25,34.0,1.0,422366.0
@@ -128416,3 +128401,29 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991879,2026-09-25,selecciones,Nicaragua,Jaime Moreno,495524,F,1,64,1,1,0,0.0,115.0,3.0,181322.0
 5991879,2026-09-25,selecciones,Nicaragua,Widman Talavera,1141589,F,0,27,1,0,0,0.0,,3.0,
 5991879,2026-09-25,selecciones,Nicaragua,Byron Bonilla,1032173,F,0,20,1,1,1,0.0,,3.0,
+5991877,2026-09-25,selecciones,Costa Rica,Abraham Madriz,1434702,G,1,90,0,0,0,0.0,11.0,0.0,134071.0
+5991877,2026-09-25,selecciones,Costa Rica,Carlos Barahona,1310442,D,1,90,0,0,0,0.0,32.0,1.0,
+5991877,2026-09-25,selecciones,Costa Rica,Jeyland Mitchell,1340071,D,1,90,0,0,0,0.0,34.0,1.0,1842237.0
+5991877,2026-09-25,selecciones,Costa Rica,Francisco Calvo,272005,D,1,90,0,0,0,0.0,36.0,1.0,385311.0
+5991877,2026-09-25,selecciones,Costa Rica,Darril Araya,1183175,D,1,90,1,0,0,0.0,38.0,1.0,92669.0
+5991877,2026-09-25,selecciones,Costa Rica,Sebastián Acuña,1410207,M,1,90,1,0,0,0.0,65.0,2.0,169521.0
+5991877,2026-09-25,selecciones,Costa Rica,Carlos Mora,1202707,M,1,90,3,2,2,0.0,82.0,2.0,1345070.0
+5991877,2026-09-25,selecciones,Costa Rica,Orlando Galo,988815,M,1,90,0,0,0,0.0,84.0,2.0,240838.0
+5991877,2026-09-25,selecciones,Costa Rica,Josimar Méndez,1100269,M,1,90,1,0,0,0.0,86.0,2.0,163087.0
+5991877,2026-09-25,selecciones,Costa Rica,Josimar Alcócer,1296660,M,1,90,0,0,0,0.0,88.0,2.0,3498514.0
+5991877,2026-09-25,selecciones,Costa Rica,Orlando Sinclair,967020,F,1,58,3,1,1,0.0,115.0,3.0,84225.0
+5991877,2026-09-25,selecciones,Costa Rica,Doryan Rodríguez,1294826,F,0,4,1,1,0,0.0,,3.0,94928.0
+5991877,2026-09-25,selecciones,Curaçao,Eloy Room,150242,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5991877,2026-09-25,selecciones,Curaçao,Juriën Gaari,708738,D,1,90,0,0,0,0.0,33.0,1.0,144490.0
+5991877,2026-09-25,selecciones,Curaçao,Armando Obispo,794244,D,1,90,1,0,0,0.0,35.0,1.0,1828112.0
+5991877,2026-09-25,selecciones,Curaçao,Sherel Floranus,671327,D,1,90,1,0,0,0.0,37.0,1.0,425683.0
+5991877,2026-09-25,selecciones,Curaçao,Shurandy Sambo,1125997,M,1,90,1,0,0,0.0,71.0,2.0,1159781.0
+5991877,2026-09-25,selecciones,Curaçao,Arjany Martha,1180735,M,1,90,0,0,0,0.0,73.0,2.0,394417.0
+5991877,2026-09-25,selecciones,Curaçao,Leandro Bacuna,183500,M,1,90,0,0,0,0.0,75.0,2.0,95951.0
+5991877,2026-09-25,selecciones,Curaçao,Livano Comenencia,1243246,M,1,90,2,0,0,0.0,77.0,2.0,746403.0
+5991877,2026-09-25,selecciones,Curaçao,Jearl Margaritha,1180784,M,1,90,0,0,0,0.0,79.0,2.0,929193.0
+5991877,2026-09-25,selecciones,Curaçao,Jürgen Locadia,289441,F,1,90,0,0,0,0.0,104.0,3.0,63563.0
+5991877,2026-09-25,selecciones,Curaçao,Juninho Bacuna,614574,M,1,90,0,0,0,0.0,106.0,2.0,780181.0
+5991877,2026-09-25,selecciones,Curaçao,Tahith Chong,751066,M,0,33,1,1,1,0.0,,2.0,2300056.0
+5991877,2026-09-25,selecciones,Curaçao,Jordi Paulina,1606589,F,0,32,3,2,1,0.0,,3.0,520146.0
+5991877,2026-09-25,selecciones,Curaçao,Kenji Gorré,643232,F,0,33,3,2,2,0.0,,3.0,250173.0
