@@ -202,22 +202,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689249,2025-09-04,selecciones,Luxembourg,Michael Pinto,361317,D,0,9,0,0,0,0.0,,1.0,79017.0
 4689249,2025-09-04,selecciones,Luxembourg,Edvin Muratovic,754958,F,0,9,1,0,0,0.14,,3.0,50000.0
 4689249,2025-09-04,selecciones,Luxembourg,Enzo Duarte,1729839,M,0,1,0,0,0,0.0,,2.0,
-4689249,2025-09-04,selecciones,Northern Ireland,Bailey Peacock-Farrell,698500,G,1,90,0,0,0,0.0,11.0,0.0,808306.0
-4689249,2025-09-04,selecciones,Northern Ireland,Trai Hume,1067763,D,1,90,0,0,0,0.0,33.0,1.0,18271801.0
-4689249,2025-09-04,selecciones,Northern Ireland,Patrick McNair,575780,D,1,84,0,0,0,0.0,35.0,1.0,1784762.0
-4689249,2025-09-04,selecciones,Northern Ireland,Eoin Toal,860282,D,1,77,1,1,0,0.06,37.0,1.0,525726.0
-4689249,2025-09-04,selecciones,Northern Ireland,Conor Bradley,1113690,D,1,77,0,0,0,0.0,71.0,1.0,38855594.0
-4689249,2025-09-04,selecciones,Northern Ireland,Ethan Galbraith,1077926,M,1,90,1,0,0,0.03,73.0,2.0,1100667.0
-4689249,2025-09-04,selecciones,Northern Ireland,Shea Charles,1281452,M,1,90,1,1,1,0.04,75.0,2.0,12891843.0
-4689249,2025-09-04,selecciones,Northern Ireland,Alistair McCann,928440,M,1,90,1,1,0,0.02,77.0,2.0,1953840.0
-4689249,2025-09-04,selecciones,Northern Ireland,Justin Devenny,1336751,M,1,90,2,1,1,0.11,79.0,2.0,10055964.0
-4689249,2025-09-04,selecciones,Northern Ireland,Jamie Reid,406928,F,1,69,1,1,1,0.64,104.0,3.0,348464.0
-4689249,2025-09-04,selecciones,Northern Ireland,Isaac Price,1246270,M,1,84,3,1,0,0.82,106.0,2.0,1617293.0
-4689249,2025-09-04,selecciones,Northern Ireland,Callum Marshall,1327325,F,0,21,1,0,0,0.19,,3.0,4013079.0
-4689249,2025-09-04,selecciones,Northern Ireland,Ruairi McConville,1355258,D,0,13,0,0,0,0.0,,1.0,1470000.0
-4689249,2025-09-04,selecciones,Northern Ireland,Jamie Donley,1211646,M,0,13,0,0,0,0.0,,2.0,3888188.0
-4689249,2025-09-04,selecciones,Northern Ireland,George Saville,417067,M,0,6,0,0,0,0.0,,2.0,532764.0
-4689249,2025-09-04,selecciones,Northern Ireland,Dion Charles,471276,F,0,6,0,0,0,0.0,,3.0,906499.0
 4689269,2025-09-04,selecciones,Lithuania,Edvinas Gertmonas,463783,G,1,90,0,0,0,0.0,11.0,0.0,741940.0
 4689269,2025-09-04,selecciones,Lithuania,Klaudijus Upstas,463798,D,1,69,1,0,0,0.01,32.0,1.0,50000.0
 4689269,2025-09-04,selecciones,Lithuania,Edvinas Girdvainis,463270,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
@@ -128444,3 +128428,67 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5924776,2026-09-25,selecciones,Brazil,Jair Cunha,1391209,D,0,14,1,0,0,0.0,,1.0,13310855.0
 5924776,2026-09-25,selecciones,Brazil,Mauro Júnior,873556,D,0,14,0,0,0,0.0,,1.0,12196668.0
 5924776,2026-09-25,selecciones,Brazil,Rayan,1478295,F,0,14,1,1,1,0.0,,3.0,47583920.0
+5181800,2026-09-25,selecciones,Georgia,Giorgi Mamardashvili,948800,G,1,90,0,0,0,0.0,11.0,0.0,24973501.0
+5181800,2026-09-25,selecciones,Georgia,Saba Goglichidze,1507697,D,1,85,0,0,0,0.0,33.0,1.0,3892565.0
+5181800,2026-09-25,selecciones,Georgia,Lasha Dvali,436553,D,1,90,0,0,0,0.0,35.0,1.0,744357.0
+5181800,2026-09-25,selecciones,Georgia,Luka Lochoshvili,784175,D,1,85,1,0,0,0.03,37.0,1.0,1548765.0
+5181800,2026-09-25,selecciones,Georgia,Otar Kakabadze,463993,D,1,90,0,0,0,0.0,62.0,1.0,563558.0
+5181800,2026-09-25,selecciones,Georgia,Giorgi Kochorashvili,953958,M,1,90,0,0,0,0.0,64.0,2.0,2272441.0
+5181800,2026-09-25,selecciones,Georgia,Anzor Mekvabishvili,1176843,M,1,77,1,0,0,0.02,66.0,2.0,1562131.0
+5181800,2026-09-25,selecciones,Georgia,Saba Kharebashvili,1658140,D,1,46,0,0,0,0.0,68.0,1.0,
+5181800,2026-09-25,selecciones,Georgia,Georges Mikautadze,1117069,F,1,90,4,2,0,0.72,84.0,3.0,22702601.0
+5181800,2026-09-25,selecciones,Georgia,Giorgi Kvernadze,1342748,F,1,77,1,1,0,0.03,86.0,3.0,1938682.0
+5181800,2026-09-25,selecciones,Georgia,Khvicha Kvaratskhelia,900433,F,1,90,1,1,0,0.79,105.0,3.0,91829294.0
+5181800,2026-09-25,selecciones,Georgia,Giorgi Chakvetadze,837847,M,0,44,0,0,0,0.0,,2.0,1764182.0
+5181800,2026-09-25,selecciones,Georgia,Otar Kiteishvili,652954,M,0,13,2,1,0,0.03,,2.0,1802319.0
+5181800,2026-09-25,selecciones,Georgia,Zuriko Davitashvili,966146,F,0,13,1,0,0,0.03,,3.0,7828187.0
+5181800,2026-09-25,selecciones,Georgia,Ilia Beriashvili,1165564,D,0,5,0,0,0,0.0,,1.0,214444.0
+5181800,2026-09-25,selecciones,Georgia,Jemal Tabidze,821647,D,0,5,0,0,0,0.0,,1.0,511402.0
+5181800,2026-09-25,selecciones,Northern Ireland,Pierce Charles,1420144,G,1,90,0,0,0,0.0,11.0,0.0,1421313.0
+5181800,2026-09-25,selecciones,Northern Ireland,Tom Atcheson,1443861,D,1,85,0,0,0,0.0,33.0,1.0,996000.0
+5181800,2026-09-25,selecciones,Northern Ireland,Daniel Ballard,974268,D,1,90,0,0,0,0.0,35.0,1.0,15577760.0
+5181800,2026-09-25,selecciones,Northern Ireland,Ciaron Brown,816368,D,1,73,0,0,0,0.0,37.0,1.0,875645.0
+5181800,2026-09-25,selecciones,Northern Ireland,Trai Hume,1067763,D,1,90,2,2,0,0.07,62.0,1.0,22553752.0
+5181800,2026-09-25,selecciones,Northern Ireland,Shea Charles,1281452,M,1,90,5,2,1,0.96,64.0,2.0,10412946.0
+5181800,2026-09-25,selecciones,Northern Ireland,Ethan Galbraith,1077926,M,1,90,1,0,0,0.02,66.0,2.0,1973113.0
+5181800,2026-09-25,selecciones,Northern Ireland,Justin Devenny,1336751,M,1,90,0,0,0,0.0,68.0,2.0,11659274.0
+5181800,2026-09-25,selecciones,Northern Ireland,Patrick Kelly,1395985,M,1,73,0,0,0,0.0,84.0,2.0,631464.0
+5181800,2026-09-25,selecciones,Northern Ireland,Isaac Price,1246270,M,1,90,3,1,0,0.13,86.0,2.0,1940579.0
+5181800,2026-09-25,selecciones,Northern Ireland,Jamie Donley,1211646,M,1,73,1,0,0,0.03,105.0,2.0,1813923.0
+5181800,2026-09-25,selecciones,Northern Ireland,Brodie Spencer,1367702,D,0,17,0,0,0,0.0,,1.0,1159892.0
+5181800,2026-09-25,selecciones,Northern Ireland,Ruairi McConville,1355258,D,0,17,0,0,0,0.0,,1.0,2524352.0
+5181800,2026-09-25,selecciones,Northern Ireland,Josh Magennis,180137,F,0,17,0,0,0,0.0,,3.0,186038.0
+5181800,2026-09-25,selecciones,Northern Ireland,Ceadach O'Neill,1669872,F,0,5,0,0,0,0.0,,3.0,
+5181800,2026-09-25,selecciones,Northern Ireland,Paddy McNair,575780,D,0,1,0,0,0,0.0,,1.0,1138730.0
+5181921,2026-09-25,selecciones,Armenia,Ognjen Čančarević,280873,G,1,90,0,0,0,0.0,11.0,0.0,124416.0
+5181921,2026-09-25,selecciones,Armenia,Erik Piloyan,1455285,D,1,90,0,0,0,0.0,33.0,1.0,71244.0
+5181921,2026-09-25,selecciones,Armenia,Junior Julio,1211626,D,1,45,2,0,0,0.03,35.0,1.0,50000.0
+5181921,2026-09-25,selecciones,Armenia,Georgiy Arutiunian,1393690,D,1,82,2,1,1,0.28,37.0,1.0,1233234.0
+5181921,2026-09-25,selecciones,Armenia,Artem Bandikyan,1690753,D,1,90,0,0,0,0.0,51.0,1.0,1083015.0
+5181921,2026-09-25,selecciones,Armenia,Nair Tiknizyan,951976,D,1,90,0,0,0,0.0,59.0,1.0,1818437.0
+5181921,2026-09-25,selecciones,Armenia,Artur Serobyan,1300497,F,1,82,3,1,0,0.1,72.0,3.0,255328.0
+5181921,2026-09-25,selecciones,Armenia,Ugochukwu Iwu,1200931,M,1,90,0,0,0,0.0,74.0,2.0,1966580.0
+5181921,2026-09-25,selecciones,Armenia,Eduard Spertsyan,938297,M,1,90,3,0,0,0.08,76.0,2.0,18493155.0
+5181921,2026-09-25,selecciones,Armenia,Narek Hovhannisyan,1667700,F,1,60,0,0,0,0.0,78.0,3.0,124102.0
+5181921,2026-09-25,selecciones,Armenia,Artur Miranyan,546185,F,1,69,0,0,0,0.0,115.0,3.0,258491.0
+5181921,2026-09-25,selecciones,Armenia,Argishti Petrosyan,1256461,D,0,44,0,0,0,0.0,,1.0,50000.0
+5181921,2026-09-25,selecciones,Armenia,Zhirayr Shaghoyan,1065537,F,0,30,0,0,0,0.0,,3.0,125352.0
+5181921,2026-09-25,selecciones,Armenia,Artur Gharibyan,1527112,F,0,21,1,1,1,0.3,,3.0,
+5181921,2026-09-25,selecciones,Armenia,Erik Simonyan,1238687,D,0,8,0,0,0,0.0,,1.0,198473.0
+5181921,2026-09-25,selecciones,Armenia,Edgar Sevikyan,1128940,F,0,8,1,1,0,0.05,,3.0,936259.0
+5181921,2026-09-25,selecciones,Latvia,Rihards Matrevics,807745,G,1,90,0,0,0,0.0,11.0,0.0,102145.0
+5181921,2026-09-25,selecciones,Latvia,Deniss Meļņiks,1415282,D,1,90,0,0,0,0.0,33.0,1.0,108692.0
+5181921,2026-09-25,selecciones,Latvia,Antonijs Černomordijs,630039,D,1,86,0,0,0,0.0,35.0,1.0,50882.0
+5181921,2026-09-25,selecciones,Latvia,Dennis Cirkin,1118480,D,1,90,1,0,0,0.03,37.0,1.0,5510031.0
+5181921,2026-09-25,selecciones,Latvia,Raivis Jurkovskis,632243,D,1,58,0,0,0,0.0,72.0,1.0,72000.0
+5181921,2026-09-25,selecciones,Latvia,Lūkass Vapne,1197667,M,1,90,0,0,0,0.0,74.0,2.0,560418.0
+5181921,2026-09-25,selecciones,Latvia,Dmitrijs Zelenkovs,1080582,D,1,90,1,1,0,0.02,76.0,1.0,166456.0
+5181921,2026-09-25,selecciones,Latvia,Andrejs Cigaņiks,839642,D,1,90,0,0,0,0.0,78.0,1.0,113836.0
+5181921,2026-09-25,selecciones,Latvia,Eduards Dašķevičs,1295622,F,1,68,0,0,0,0.0,103.0,3.0,188486.0
+5181921,2026-09-25,selecciones,Latvia,Vladislavs Gutkovskis,310642,F,1,87,2,0,0,0.11,105.0,3.0,173859.0
+5181921,2026-09-25,selecciones,Latvia,Markuss Strods,1690586,F,1,68,1,0,0,0.03,107.0,3.0,259472.0
+5181921,2026-09-25,selecciones,Latvia,Maksims Toņiševs,1197671,D,0,32,0,0,0,0.0,,1.0,129270.0
+5181921,2026-09-25,selecciones,Latvia,Oskars Vientiess,1388271,D,0,22,0,0,0,0.0,,1.0,193062.0
+5181921,2026-09-25,selecciones,Latvia,Roberts Uldriķis,690207,F,0,22,0,0,0,0.0,,3.0,243481.0
+5181921,2026-09-25,selecciones,Latvia,Danila Patijčuks,1453220,M,0,4,0,0,0,0.0,,2.0,116059.0
+5181921,2026-09-25,selecciones,Latvia,Albert Aleksanjan,1637865,F,0,4,0,0,0,0.0,,3.0,228096.0
