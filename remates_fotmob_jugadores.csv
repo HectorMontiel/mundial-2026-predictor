@@ -21136,22 +21136,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190638,2026-07-28,bra_serie_b,Avaí,William,1929091,D,0,7,1,0,0,0.03,,1.0,
 5190638,2026-07-28,bra_serie_b,Avaí,Gabriel Cipriano,1726399,F,0,7,0,0,0,0.0,,3.0,
 5190638,2026-07-28,bra_serie_b,Avaí,Isaías Pereira,1930344,F,0,1,2,1,0,0.11,,3.0,
-1000014055,2026-07-27,col_primera_a,Once Caldas,Joan Parra,1433152,G,1,90,0,0,0,0.0,11.0,0.0,417069.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Juan Cuesta,1381137,D,1,90,1,1,0,0.01,32.0,1.0,
-1000014055,2026-07-27,col_primera_a,Once Caldas,Juan Castaño,1605747,D,1,46,0,0,0,0.0,34.0,1.0,375294.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Jorge Cardona,1433076,D,1,90,2,0,0,0.13,36.0,1.0,381716.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Andrés Correa,344121,D,1,90,2,2,0,0.06,38.0,1.0,325657.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Andrés Roa,627218,M,1,75,1,1,1,0.04,71.0,2.0,294210.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Michael Barrios,521250,M,1,90,3,1,1,0.34,73.0,2.0,339767.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Jaime Alvarado,1053718,M,1,90,1,0,0,0.01,75.0,2.0,533690.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Jader Quiñónes,1512745,M,1,54,0,0,0,0.0,77.0,2.0,370375.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Pipe Gómez,1334537,M,1,66,0,0,0,0.0,79.0,2.0,411887.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Jefry Zapata,1407228,F,1,65,2,1,1,0.03,115.0,3.0,934460.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Daniel Londoño,496939,D,0,44,0,0,0,0.0,,1.0,420470.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Andrés Colorado,1031648,M,0,36,0,0,0,0.0,,2.0,289581.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Dayro Moreno,50111,F,0,25,1,1,1,0.33,,3.0,467235.0
-1000014055,2026-07-27,col_primera_a,Once Caldas,Edwin Torres,1028609,F,0,24,1,0,0,0.02,,3.0,
-1000014055,2026-07-27,col_primera_a,Once Caldas,Mateo Zuleta,1440055,M,0,15,2,1,1,0.08,,2.0,759093.0
 1000014055,2026-07-27,col_primera_a,Cúcuta,Federico Abadía,1606820,G,1,90,0,0,0,0.0,11.0,0.0,289782.0
 1000014055,2026-07-27,col_primera_a,Cúcuta,Diego Calcaterra,1215717,D,1,90,3,2,0,0.19,33.0,1.0,332221.0
 1000014055,2026-07-27,col_primera_a,Cúcuta,Víctor Mejía,466632,D,1,90,1,1,0,0.12,35.0,1.0,272210.0
@@ -128875,3 +128859,34 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991890,2026-09-26,selecciones,Guatemala,Darwin Lom,1131954,F,1,90,2,0,0,0.0,106.0,3.0,
 5991890,2026-09-26,selecciones,Guatemala,Olger Escobar,1650206,F,0,7,2,0,0,0.0,,3.0,606725.0
 5991890,2026-09-26,selecciones,Guatemala,William Fajardo,971173,F,0,33,1,0,0,0.0,,3.0,
+1000014163,2026-09-26,col_primera_a,Once Caldas,Jesús Camargo,1416691,G,1,90,0,0,0,0.0,11.0,0.0,244258.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Juan Cuesta,1381137,D,1,89,3,0,0,0.09,32.0,1.0,
+1000014163,2026-09-26,col_primera_a,Once Caldas,Juan Castaño,1605747,D,1,46,0,0,0,0.0,34.0,1.0,404286.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Daniel Londoño,496939,D,1,90,3,2,0,0.12,36.0,1.0,384764.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Andrés Correa,344121,D,1,90,0,0,0,0.0,38.0,1.0,267065.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Andrés Colorado,1031648,M,1,90,0,0,0,0.0,64.0,2.0,406458.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Jaime Alvarado,1053718,M,1,45,1,0,0,0.02,66.0,2.0,376318.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Jefry Zapata,1407228,F,1,90,9,4,0,0.41,83.0,3.0,772346.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Andrés Roa,627218,M,1,90,5,3,0,0.21,85.0,2.0,295710.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Helieyker Guzman,1931420,F,1,45,1,1,0,0.08,87.0,3.0,
+1000014163,2026-09-26,col_primera_a,Once Caldas,Dayro Moreno,50111,F,1,90,4,2,1,0.63,115.0,3.0,353465.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Daniel Marmolejo,1901108,M,0,44,0,0,0,0.0,,2.0,
+1000014163,2026-09-26,col_primera_a,Once Caldas,Juan Nieto,466647,M,0,44,0,0,0,0.0,,2.0,
+1000014163,2026-09-26,col_primera_a,Once Caldas,Pipe Gómez,1334537,F,0,45,3,0,0,0.09,,3.0,532173.0
+1000014163,2026-09-26,col_primera_a,Once Caldas,Efraín Navarro,1432966,D,0,1,0,0,0,0.0,,1.0,265081.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Diego Novoa,72994,G,1,90,0,0,0,0.0,11.0,0.0,262837.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,José Ortiz,1071475,D,1,90,1,0,0,0.1,33.0,1.0,867552.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Carlos Romaña,1221306,D,1,90,0,0,0,0.0,35.0,1.0,300609.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,José García,1562699,D,1,90,0,0,0,0.0,37.0,1.0,909660.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Nilson Castrillón,739740,D,1,90,0,0,0,0.0,51.0,1.0,211265.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Fredy Hinestroza,323438,D,1,71,0,0,0,0.0,59.0,1.0,238330.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Fabián Sambueza,615929,M,1,71,1,1,0,0.14,72.0,2.0,239468.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Felix Charrupí,1387848,M,1,89,1,1,1,0.1,74.0,2.0,410542.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Fabry Castro,466633,M,1,90,1,1,1,0.03,76.0,2.0,258370.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Emerson Batalla,1190851,M,1,84,1,1,1,0.14,78.0,2.0,1640575.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Luciano Pons,412815,F,1,84,2,1,0,0.06,115.0,3.0,454193.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Aldair Gutiérrez,1319785,D,0,19,0,0,0,0.0,,1.0,311763.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Leonardo Flores,921607,M,0,19,0,0,0,0.0,,2.0,380231.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Brandon Caicedo,1054273,F,0,6,0,0,0,0.0,,3.0,451566.0
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Jhon Salazar,629672,F,0,6,1,0,0,0.02,,3.0,
+1000014163,2026-09-26,col_primera_a,Bucaramanga,Víctor Cantillo,496760,M,0,1,0,0,0,0.0,,2.0,218860.0
