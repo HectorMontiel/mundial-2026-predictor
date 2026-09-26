@@ -16123,22 +16123,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109843,2026-07-22,usl_championship,Oakland Roots SC,Julian Bravo,1366626,D,0,10,1,1,0,0.0,,1.0,81001.0
 5109843,2026-07-22,usl_championship,Oakland Roots SC,Faysal Bettache,959244,F,0,2,0,0,0,0.0,,3.0,82951.0
 5109843,2026-07-22,usl_championship,Oakland Roots SC,Jackson Kiil,1921667,F,0,1,0,0,0,0.0,,3.0,72000.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Vágner,128083,G,1,90,0,0,0,0.0,11.0,0.0,204599.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Maguinho,755230,D,1,90,0,0,0,0.0,32.0,1.0,191813.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Klaus,787400,D,1,90,4,0,0,1.02,34.0,1.0,263390.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Miranda,941735,D,1,90,0,0,0,0.0,36.0,1.0,575858.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Gabriel Feliciano,1671532,D,1,85,1,0,0,0.03,38.0,1.0,350392.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Gabriel Boschilia,535938,M,1,90,4,1,0,0.17,73.0,2.0,841587.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Matheus Trindade,846028,M,1,64,0,0,0,0.0,75.0,2.0,239207.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Vinícius Diniz,1526680,M,1,90,4,0,0,0.22,77.0,2.0,327641.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Hildeberto,623984,F,1,79,1,1,1,0.2,103.0,3.0,221892.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Pablo,287902,F,1,85,2,1,1,0.09,105.0,3.0,360015.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Aylon,543787,F,1,65,1,0,0,0.11,107.0,3.0,299622.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Neto Paraíba,955583,M,0,26,2,0,0,0.04,,2.0,215311.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Moraes,930817,D,0,25,0,0,0,0.0,,1.0,288939.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Vinícius Mingotti,1072282,F,0,11,0,0,0,0.0,,3.0,216405.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Caio Dantas,1129860,F,0,5,1,1,1,0.39,,3.0,233808.0
-5190622,2026-07-22,bra_serie_b,Operário-PR,Maxwell,646352,F,0,5,0,0,0,0.0,,3.0,126208.0
 5115874,2026-07-23,argentina,Belgrano,Manuel Vicentini,369831,G,1,90,0,0,0,0.0,11.0,0.0,305984.0
 5115874,2026-07-23,argentina,Belgrano,Leonardo Morales,795485,D,1,90,0,0,0,0.0,32.0,1.0,822869.0
 5115874,2026-07-23,argentina,Belgrano,Alexis Maldonado,743052,D,1,90,0,0,0,0.0,34.0,1.0,1140329.0
@@ -18890,38 +18874,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190635,2026-07-26,bra_serie_b,Criciúma,Diego Gonçalves,478416,F,0,22,0,0,0,0.0,,3.0,
 5190635,2026-07-26,bra_serie_b,Criciúma,Hiago Alves,1670283,M,0,8,1,0,0,0.23,,2.0,316201.0
 5190635,2026-07-26,bra_serie_b,Criciúma,Ronald,1176041,M,0,8,1,0,0,0.06,,2.0,696356.0
-5190635,2026-07-26,bra_serie_b,Náutico,Muriel,121848,G,1,90,0,0,0,0.0,11.0,0.0,83739.0
-5190635,2026-07-26,bra_serie_b,Náutico,Arnaldo,659758,D,1,90,0,0,0,0.0,32.0,1.0,50000.0
-5190635,2026-07-26,bra_serie_b,Náutico,Léo Índio,1462342,D,1,90,0,0,0,0.0,34.0,1.0,
-5190635,2026-07-26,bra_serie_b,Náutico,Gustavo Henrique,1481531,D,1,46,0,0,0,0.0,36.0,1.0,
-5190635,2026-07-26,bra_serie_b,Náutico,Matheus Ribeiro,638764,D,1,45,0,0,0,0.0,38.0,1.0,134446.0
-5190635,2026-07-26,bra_serie_b,Náutico,Samuel,1641852,M,1,68,0,0,0,0.0,64.0,2.0,
-5190635,2026-07-26,bra_serie_b,Náutico,Wenderson,841882,M,1,90,1,0,0,0.03,66.0,2.0,122345.0
-5190635,2026-07-26,bra_serie_b,Náutico,Luiz Felipe,1460478,F,1,20,0,0,0,0.0,83.0,3.0,99802.0
-5190635,2026-07-26,bra_serie_b,Náutico,Jean,239279,M,1,90,4,3,0,0.09,85.0,2.0,299619.0
-5190635,2026-07-26,bra_serie_b,Náutico,Derek,1274485,F,1,68,1,0,0,0.12,87.0,3.0,280550.0
-5190635,2026-07-26,bra_serie_b,Náutico,Maranhão,1723280,F,1,90,4,1,0,0.13,115.0,3.0,
-5190635,2026-07-26,bra_serie_b,Náutico,Benjamín Borasi,1213657,M,0,70,1,0,0,0.14,,2.0,199036.0
-5190635,2026-07-26,bra_serie_b,Náutico,Betão,1653469,D,0,45,0,0,0,0.0,,1.0,
-5190635,2026-07-26,bra_serie_b,Náutico,Wanderson,1468784,D,0,45,1,0,0,0.19,,1.0,
-5190635,2026-07-26,bra_serie_b,Náutico,Reginaldo,540105,D,0,22,0,0,0,0.0,,1.0,
-5190635,2026-07-26,bra_serie_b,Náutico,Auremir,319680,M,0,22,0,0,0,0.0,,2.0,50305.0
-5190630,2026-07-26,bra_serie_b,Ceará,Richard,934515,G,1,90,0,0,0,0.0,11.0,0.0,212743.0
-5190630,2026-07-26,bra_serie_b,Ceará,Júlio César,1480127,D,1,90,0,0,0,0.0,32.0,1.0,
-5190630,2026-07-26,bra_serie_b,Ceará,Thalisson,1350755,D,1,45,1,0,0,0.02,34.0,1.0,416988.0
-5190630,2026-07-26,bra_serie_b,Ceará,Éder,844505,D,1,90,1,0,0,0.01,36.0,1.0,211265.0
-5190630,2026-07-26,bra_serie_b,Ceará,Sávio,1043436,D,1,90,1,0,0,0.03,38.0,1.0,177507.0
-5190630,2026-07-26,bra_serie_b,Ceará,Bryan,844564,M,1,90,1,0,0,0.03,72.0,2.0,198904.0
-5190630,2026-07-26,bra_serie_b,Ceará,Giovanni Pavani,1028612,M,1,66,2,0,0,0.04,74.0,2.0,281411.0
-5190630,2026-07-26,bra_serie_b,Ceará,João Gabriel,1905651,M,1,90,1,1,1,0.08,76.0,2.0,
-5190630,2026-07-26,bra_serie_b,Ceará,Nicolás Ferreira,1356884,M,1,89,2,2,1,0.18,78.0,2.0,544503.0
-5190630,2026-07-26,bra_serie_b,Ceará,Vina,320026,M,1,85,1,1,1,0.34,95.0,2.0,183273.0
-5190630,2026-07-26,bra_serie_b,Ceará,Renzo López,520530,F,1,45,1,0,0,0.05,115.0,3.0,445171.0
-5190630,2026-07-26,bra_serie_b,Ceará,Lucca,1441321,F,0,45,1,0,0,0.01,,3.0,641137.0
-5190630,2026-07-26,bra_serie_b,Ceará,Giulio,1905639,F,0,45,3,1,0,0.24,,3.0,
-5190630,2026-07-26,bra_serie_b,Ceará,Richardson,331759,M,0,24,0,0,0,0.0,,2.0,194196.0
-5190630,2026-07-26,bra_serie_b,Ceará,Melk,1905640,M,0,5,0,0,0,0.0,,2.0,
-5190630,2026-07-26,bra_serie_b,Ceará,Enzo Lodovico,1905653,F,0,1,2,2,1,0.1,,3.0,
 1000011163,2026-07-26,bol_division,Blooming,Gustavo Almada,1648022,G,1,90,0,0,0,0.0,11.0,0.0,137570.0
 1000011163,2026-07-26,bol_division,Blooming,Mauricio Cabral,1130893,D,1,83,1,0,0,0.0,32.0,1.0,258194.0
 1000011163,2026-07-26,bol_division,Blooming,Gabriel Valverde,214666,D,1,90,0,0,0,0.0,34.0,1.0,88857.0
@@ -20399,20 +20351,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013174,2026-07-26,chi_primera,La Serena,Matías Pinto,1309240,D,0,37,0,0,0,0.0,,1.0,
 1000013174,2026-07-26,chi_primera,La Serena,Fernando Dinamarca,1717594,D,0,13,0,0,0,0.0,,1.0,557370.0
 1000013174,2026-07-26,chi_primera,La Serena,Milovan Velásquez,1900061,M,0,1,0,0,0,0.0,,2.0,
-5190636,2026-07-27,bra_serie_b,Sport Recife,Thiago Couto,844408,G,1,90,0,0,0,0.0,11.0,0.0,328552.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Augusto,1904116,D,1,90,0,0,0,0.0,32.0,1.0,
-5190636,2026-07-27,bra_serie_b,Sport Recife,Benevenuto,492254,D,1,90,0,0,0,0.0,34.0,1.0,602290.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Habraão,1320951,D,1,90,1,0,0,0.01,36.0,1.0,604654.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Felipinho,1368360,D,1,90,2,0,0,0.1,38.0,1.0,564856.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Biel,1233136,M,1,71,1,0,0,0.08,72.0,2.0,317687.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Zé Gabriel,1069976,M,1,90,0,0,0,0.0,74.0,2.0,267129.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Pedro Martins,1269872,M,1,33,0,0,0,0.0,76.0,2.0,290359.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Clayson,629937,M,1,68,0,0,0,0.0,78.0,2.0,424291.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Chrystian Barletta,1372923,M,1,90,1,0,0,0.05,95.0,2.0,1669357.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Perotti,750084,F,1,90,7,2,1,0.35,115.0,3.0,468050.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Diego Hernández,1227357,F,0,57,5,1,0,0.06,,3.0,1000357.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Dudu Teodora,1252093,F,0,22,0,0,0,0.0,,3.0,846331.0
-5190636,2026-07-27,bra_serie_b,Sport Recife,Yago,535888,M,0,19,0,0,0,0.0,,2.0,793348.0
 5190636,2026-07-27,bra_serie_b,Cuiabá,Marcelo Carné,202408,G,1,90,0,0,0,0.0,11.0,0.0,187187.0
 5190636,2026-07-27,bra_serie_b,Cuiabá,João Basso,793033,D,1,90,1,1,0,0.07,33.0,1.0,593301.0
 5190636,2026-07-27,bra_serie_b,Cuiabá,Calebe,1489569,D,1,90,0,0,0,0.0,35.0,1.0,
@@ -21149,38 +21087,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115894,2026-07-29,argentina,River Plate,Rafael Borré,533775,F,0,29,0,0,0,0.0,,3.0,3590468.0
 5115894,2026-07-29,argentina,River Plate,Facundo Colidio,949735,F,0,19,0,0,0,0.0,,3.0,4270825.0
 5115894,2026-07-29,argentina,River Plate,Lautaro Pereyra,1946519,F,0,9,0,0,0,0.0,,3.0,
-1000017358,2026-07-28,par_division,Rubio Ñú,Carlos Servín,68482,G,1,90,0,0,0,0.0,11.0,0.0,225803.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Víctor Cabañas,1634832,D,1,90,1,1,0,0.0,32.0,1.0,367440.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Javier Vallejos,1458798,D,1,90,1,0,0,0.0,34.0,1.0,
-1000017358,2026-07-28,par_division,Rubio Ñú,Pedro Álvarez,1458739,D,1,90,0,0,0,0.0,36.0,1.0,
-1000017358,2026-07-28,par_division,Rubio Ñú,Carlos Giménez,1910568,D,1,90,0,0,0,0.0,38.0,1.0,
-1000017358,2026-07-28,par_division,Rubio Ñú,Marcelo Acosta,1299635,M,1,76,4,2,1,0.0,72.0,2.0,394914.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Rodrigo Rojas,71324,M,1,90,0,0,0,0.0,74.0,2.0,318967.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Cristian Nuñez,918511,M,1,76,0,0,0,0.0,76.0,2.0,351211.0
-1000017358,2026-07-28,par_division,Rubio Ñú,William Mendieta,202710,M,1,61,3,0,0,0.0,78.0,2.0,254217.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Rodrigo Ruiz Díaz,823684,F,1,61,2,0,0,0.0,104.0,3.0,479900.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Estiven Pérez,1061256,F,1,86,3,1,0,0.0,106.0,3.0,437142.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Sergio Fretes,938681,M,0,29,0,0,0,0.0,,2.0,315979.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Octavio Alfonso,1736528,F,0,29,1,0,0,0.0,,3.0,427835.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Lucas Gómez,1785004,D,0,14,0,0,0,0.0,,1.0,435031.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Elías Alfonso,1346620,M,0,14,0,0,0,0.0,,2.0,453843.0
-1000017358,2026-07-28,par_division,Rubio Ñú,Mauricio Roldán,1457902,F,0,4,0,0,0,0.0,,3.0,555040.0
-1000017357,2026-07-28,par_division,2 de Mayo,Nicolás Rossi,1249290,G,1,90,0,0,0,0.0,11.0,0.0,259822.0
-1000017357,2026-07-28,par_division,2 de Mayo,Camilo Saiz,207608,D,1,64,1,1,1,0.0,33.0,1.0,325349.0
-1000017357,2026-07-28,par_division,2 de Mayo,Pedro Sosa,1642554,D,1,90,0,0,0,0.0,35.0,1.0,297448.0
-1000017357,2026-07-28,par_division,2 de Mayo,César Ramírez,1579231,D,1,90,0,0,0,0.0,37.0,1.0,391558.0
-1000017357,2026-07-28,par_division,2 de Mayo,Alberto Espínola,308590,D,1,90,1,1,0,0.0,51.0,1.0,247558.0
-1000017357,2026-07-28,par_division,2 de Mayo,César Castro,1693777,D,1,90,1,0,0,0.0,59.0,1.0,333423.0
-1000017357,2026-07-28,par_division,2 de Mayo,Marcelo González,589519,M,1,73,0,0,0,0.0,72.0,2.0,154597.0
-1000017357,2026-07-28,par_division,2 de Mayo,Óscar Romero,1626718,M,1,81,1,1,1,0.0,74.0,2.0,319982.0
-1000017357,2026-07-28,par_division,2 de Mayo,Marcos Gómez,1339408,M,1,90,2,0,0,0.0,76.0,2.0,433899.0
-1000017357,2026-07-28,par_division,2 de Mayo,Alan Gómez,1443927,M,1,45,1,1,0,0.0,78.0,2.0,
-1000017357,2026-07-28,par_division,2 de Mayo,Jorge Sanguina,834637,F,1,73,1,0,0,0.0,115.0,3.0,367364.0
-1000017357,2026-07-28,par_division,2 de Mayo,Pedro Delvalle,1137312,F,0,45,2,0,0,0.0,,3.0,294871.0
-1000017357,2026-07-28,par_division,2 de Mayo,Ángel Aguilera,1787367,M,0,26,0,0,0,0.0,,2.0,326340.0
-1000017357,2026-07-28,par_division,2 de Mayo,Ulises Coronel,1680050,D,0,17,0,0,0,0.0,,1.0,273959.0
-1000017357,2026-07-28,par_division,2 de Mayo,Tobías Cervera,1378924,F,0,17,1,0,0,0.0,,3.0,429068.0
-1000017357,2026-07-28,par_division,2 de Mayo,Ángel Aguayo,1669709,M,0,9,0,0,0,0.0,,2.0,
 1000017357,2026-07-28,par_division,Cerro Porteño,Manuel Roffo,847982,G,1,90,0,0,0,0.0,11.0,0.0,2232590.0
 1000017357,2026-07-28,par_division,Cerro Porteño,Iván Ramírez,497399,D,1,90,1,0,0,0.0,32.0,1.0,445302.0
 1000017357,2026-07-28,par_division,Cerro Porteño,Gustavo Velázquez,497352,D,1,90,0,0,0,0.0,34.0,1.0,402114.0
@@ -130133,3 +130039,145 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5832881,2026-09-26,ned_eerste,TOP Oss,Siriné Doucouré,1178334,F,0,30,0,0,0,0.0,,3.0,203791.0
 5832881,2026-09-26,ned_eerste,TOP Oss,Andy Visser,1585688,F,0,18,0,0,0,0.0,,3.0,205432.0
 5832881,2026-09-26,ned_eerste,TOP Oss,Mert Erkan,1700206,F,0,9,0,0,0,0.0,,3.0,261801.0
+5190736,2026-09-26,bra_serie_b,Náutico,Muriel,121848,G,1,90,0,0,0,0.0,11.0,0.0,80389.0
+5190736,2026-09-26,bra_serie_b,Náutico,Arnaldo,659758,D,1,46,0,0,0,0.0,32.0,1.0,54880.0
+5190736,2026-09-26,bra_serie_b,Náutico,Betão,1653469,D,1,90,0,0,0,0.0,34.0,1.0,154032.0
+5190736,2026-09-26,bra_serie_b,Náutico,Igor Fernandes,448256,D,1,90,0,0,0,0.0,36.0,1.0,111804.0
+5190736,2026-09-26,bra_serie_b,Náutico,Ryan,1444010,D,1,57,0,0,0,0.0,38.0,1.0,422685.0
+5190736,2026-09-26,bra_serie_b,Náutico,Wenderson,841882,M,1,90,1,0,0,0.0,64.0,2.0,146574.0
+5190736,2026-09-26,bra_serie_b,Náutico,Samuel,1641852,M,1,90,1,0,0,0.12,66.0,2.0,
+5190736,2026-09-26,bra_serie_b,Náutico,Júnior Todinho,845740,F,1,67,3,1,0,0.67,83.0,3.0,108621.0
+5190736,2026-09-26,bra_serie_b,Náutico,Jean,239279,M,1,74,3,1,1,0.09,85.0,2.0,191756.0
+5190736,2026-09-26,bra_serie_b,Náutico,Vinícius,202104,F,1,90,2,1,1,0.08,87.0,3.0,183418.0
+5190736,2026-09-26,bra_serie_b,Náutico,Derek,1274485,F,1,58,0,0,0,0.0,115.0,3.0,179552.0
+5190736,2026-09-26,bra_serie_b,Náutico,Reginaldo,540105,D,0,44,0,0,0,0.0,,1.0,
+5190736,2026-09-26,bra_serie_b,Náutico,Gustavo Henrique,1481531,D,0,33,1,1,1,0.19,,1.0,362461.0
+5190736,2026-09-26,bra_serie_b,Náutico,Benjamín Borasi,1213657,M,0,32,0,0,0,0.0,,2.0,127383.0
+5190736,2026-09-26,bra_serie_b,Náutico,Paulo Sérgio,79273,F,0,23,1,0,0,0.11,,3.0,81825.0
+5190736,2026-09-26,bra_serie_b,Náutico,Maranhão,1723280,F,0,16,0,0,0,0.0,,3.0,
+5190736,2026-09-26,bra_serie_b,Sport Recife,Thiago Couto,844408,G,1,90,0,0,0,0.0,11.0,0.0,473115.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Augusto,1904116,D,1,46,0,0,0,0.0,32.0,1.0,1136374.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Benevenuto,492254,D,1,90,1,0,0,0.1,34.0,1.0,483595.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Marcelo Ajul,1277901,D,1,90,3,0,0,0.35,36.0,1.0,
+5190736,2026-09-26,bra_serie_b,Sport Recife,Ral,1174634,D,1,90,1,0,0,0.01,38.0,1.0,
+5190736,2026-09-26,bra_serie_b,Sport Recife,Fernando Sobral,950835,M,1,46,0,0,0,0.0,64.0,2.0,747315.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Willian,450868,M,1,90,1,0,0,0.01,66.0,2.0,323852.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Chrystian Barletta,1372923,F,1,90,4,1,0,0.13,83.0,3.0,1934064.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Diego Hernández,1227357,M,1,61,1,0,0,0.01,85.0,2.0,1220084.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Marlon,989457,F,1,71,3,1,0,0.07,87.0,3.0,229013.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Perotti,750084,F,1,71,2,0,0,0.12,115.0,3.0,648535.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Claudinho,1281562,D,0,44,0,0,0,0.0,,1.0,
+5190736,2026-09-26,bra_serie_b,Sport Recife,Juan,935034,F,0,45,1,0,0,0.08,,3.0,494533.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Patrick de Paula,1137664,M,0,29,3,0,0,0.06,,2.0,1336941.0
+5190736,2026-09-26,bra_serie_b,Sport Recife,Kervin Andrade,1249296,F,0,19,2,1,0,0.04,,3.0,
+5190736,2026-09-26,bra_serie_b,Sport Recife,Neto Pessôa,1248050,F,0,19,2,1,1,0.69,,3.0,346833.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Vágner,128083,G,1,90,0,0,0,0.0,11.0,0.0,209307.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Doka,1206587,D,1,90,3,1,0,0.19,32.0,1.0,393775.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Klaus,787400,D,1,90,0,0,0,0.0,34.0,1.0,321066.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Miranda,941735,D,1,90,0,0,0,0.0,36.0,1.0,577457.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Gabriel Feliciano,1671532,D,1,90,0,0,0,0.0,38.0,1.0,352306.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Matheus Trindade,846028,M,1,82,0,0,0,0.0,64.0,2.0,193876.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Vinícius Diniz,1526680,M,1,90,1,0,0,0.02,66.0,2.0,471802.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Hildeberto,623984,F,1,81,3,1,0,0.14,83.0,3.0,228074.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Boschilia,535938,M,1,64,1,1,1,0.22,85.0,2.0,1111188.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Maxwell,646352,F,1,42,0,0,0,0.0,87.0,3.0,181740.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Caio Dantas,1129860,F,1,65,1,1,1,0.24,115.0,3.0,233808.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Aylon,543787,F,0,48,1,0,0,0.02,,3.0,308075.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Neto Paraíba,955583,M,0,26,0,0,0,0.0,,2.0,191959.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Moraes,930817,D,0,25,2,0,0,0.03,,1.0,213166.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Vinícius Mingotti,1072282,F,0,9,0,0,0,0.0,,3.0,207748.0
+5190732,2026-09-26,bra_serie_b,Operário-PR,Índio,1130080,M,0,8,0,0,0,0.0,,2.0,194397.0
+5190732,2026-09-26,bra_serie_b,Ceará,Richard,934515,G,1,90,0,0,0,0.0,11.0,0.0,204599.0
+5190732,2026-09-26,bra_serie_b,Ceará,Bryan,844564,D,1,89,1,0,0,0.02,32.0,1.0,286422.0
+5190732,2026-09-26,bra_serie_b,Ceará,Luizão,689080,D,1,90,0,0,0,0.0,34.0,1.0,256239.0
+5190732,2026-09-26,bra_serie_b,Ceará,Luiz Otávio,498729,D,1,90,0,0,0,0.0,36.0,1.0,128684.0
+5190732,2026-09-26,bra_serie_b,Ceará,Sánchez,670806,D,1,90,0,0,0,0.0,38.0,1.0,212805.0
+5190732,2026-09-26,bra_serie_b,Ceará,Júlio César,1480127,M,1,90,1,0,0,0.01,64.0,2.0,
+5190732,2026-09-26,bra_serie_b,Ceará,João Gabriel,1905651,M,1,89,2,0,0,0.05,66.0,2.0,
+5190732,2026-09-26,bra_serie_b,Ceará,Enzo,1905653,F,1,45,1,1,0,0.06,83.0,3.0,
+5190732,2026-09-26,bra_serie_b,Ceará,Melk,1905640,M,1,89,3,1,0,0.42,85.0,2.0,
+5190732,2026-09-26,bra_serie_b,Ceará,Rian Santana,1788181,F,1,61,1,0,0,0.02,87.0,3.0,
+5190732,2026-09-26,bra_serie_b,Ceará,Saulo Mineiro,1127467,F,1,90,2,0,0,0.05,115.0,3.0,756001.0
+5190732,2026-09-26,bra_serie_b,Ceará,Matheus Araújo,1233129,M,0,45,1,1,1,0.42,,2.0,1319172.0
+5190732,2026-09-26,bra_serie_b,Ceará,Vina,320026,M,0,29,3,2,1,0.93,,2.0,184517.0
+5190732,2026-09-26,bra_serie_b,Ceará,Lucas Mugni,201788,M,0,1,0,0,0,0.0,,2.0,322260.0
+5190732,2026-09-26,bra_serie_b,Ceará,Éder,844505,D,0,1,0,0,0,0.0,,1.0,220955.0
+5190732,2026-09-26,bra_serie_b,Ceará,Giovanni Pavani,1028612,M,0,1,0,0,0,0.0,,2.0,321066.0
+5991951,2026-09-26,selecciones,St. Martin,Sébastien Raphose,715619,G,1,90,0,0,0,0.0,11.0,0.0,
+5991951,2026-09-26,selecciones,St. Martin,Malik Denis,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991951,2026-09-26,selecciones,St. Martin,Belony Dumas,492144,D,1,90,2,0,0,0.0,34.0,1.0,
+5991951,2026-09-26,selecciones,St. Martin,Fabien Fonrose,1618063,D,1,90,1,0,0,0.0,36.0,1.0,
+5991951,2026-09-26,selecciones,St. Martin,Stéphan Varsovie,608211,D,1,90,1,0,0,0.0,38.0,1.0,
+5991951,2026-09-26,selecciones,St. Martin,David Chevalier,0,,1,90,0,0,0,0.0,64.0,,
+5991951,2026-09-26,selecciones,St. Martin,Yanis Montantin,0,,1,90,0,0,0,0.0,66.0,,
+5991951,2026-09-26,selecciones,St. Martin,Pierre-Bertrand Arné,1374263,M,1,90,3,0,0,0.0,83.0,2.0,
+5991951,2026-09-26,selecciones,St. Martin,Mattéo Makhabe,1428561,M,1,90,3,0,0,0.0,85.0,2.0,
+5991951,2026-09-26,selecciones,St. Martin,Jordan Alexandre,1610096,F,1,90,3,3,0,0.0,87.0,3.0,
+5991951,2026-09-26,selecciones,St. Martin,Axel Raga Rigobert,0,,1,90,0,0,0,0.0,115.0,,
+5991951,2026-09-26,selecciones,St. Martin,Rahim Denis,1695065,F,0,45,6,1,0,0.0,,3.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Dylan Ramos,1260941,G,1,90,0,0,0,0.0,11.0,0.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Jett Blaschka,1240289,D,1,90,0,0,0,0.0,32.0,1.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Karson Kendall,1260893,D,1,90,0,0,0,0.0,34.0,1.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Quinn Farrell,1240296,D,1,90,0,0,0,0.0,36.0,1.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Joshua Ramos,1240291,D,1,90,0,0,0,0.0,38.0,1.0,170824.0
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Christopher Griffith,0,,1,90,0,0,0,0.0,65.0,,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Rakeem Joseph,1261768,M,1,79,1,0,0,0.0,82.0,2.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Kaden Royer,0,M,1,90,0,0,0,0.0,84.0,2.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Jannick Liburd,1166305,M,1,90,4,3,2,0.0,86.0,2.0,191491.0
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Jimson St. Louis,1240297,M,1,90,3,0,0,0.0,88.0,2.0,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Noah Armour,0,,1,90,0,0,0,0.0,115.0,,
+5991951,2026-09-26,selecciones,U.S. Virgin Islands,Gabriel Catone-Highfield,1677758,F,0,11,1,0,0,0.0,,3.0,
+1000017422,2026-09-26,par_division,Rubio Ñú,Franco Fragueda,1025392,G,1,90,0,0,0,0.0,11.0,0.0,382968.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Brian Blasi,693432,D,1,24,1,0,0,0.0,32.0,1.0,248857.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Javier Vallejos,1458798,D,1,90,2,1,1,0.0,34.0,1.0,
+1000017422,2026-09-26,par_division,Rubio Ñú,Pedro Álvarez,1458739,D,1,90,0,0,0,0.0,36.0,1.0,
+1000017422,2026-09-26,par_division,Rubio Ñú,Maximiliano Garrone,1923415,D,1,72,0,0,0,0.0,38.0,1.0,
+1000017422,2026-09-26,par_division,Rubio Ñú,Sergio Fretes,938681,M,1,64,0,0,0,0.0,72.0,2.0,291520.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Víctor Cabañas,1634832,M,1,90,0,0,0,0.0,74.0,2.0,367440.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Cristian Nuñez,918511,M,1,90,0,0,0,0.0,76.0,2.0,235635.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Carlos Giménez,1910568,M,1,72,1,1,0,0.0,78.0,2.0,
+1000017422,2026-09-26,par_division,Rubio Ñú,Estiven Pérez,1061256,F,1,90,5,2,0,0.0,104.0,3.0,373156.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Rodrigo Rojas,71324,F,1,64,0,0,0,0.0,106.0,3.0,240713.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Marcelo Acosta,1299635,M,0,66,1,0,0,0.0,,2.0,369574.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Elías Alfonso,1346620,M,0,26,1,0,0,0.0,,2.0,313075.0
+1000017422,2026-09-26,par_division,Rubio Ñú,William Mendieta,202710,M,0,26,1,0,0,0.0,,2.0,238475.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Rodrigo Ruiz Díaz,823684,F,0,18,0,0,0,0.0,,3.0,330748.0
+1000017422,2026-09-26,par_division,Rubio Ñú,Kevin Paredes,1958018,F,0,18,2,0,0,0.0,,3.0,
+1000017422,2026-09-26,par_division,2 de Mayo,Nicolás Rossi,1249290,G,1,90,0,0,0,0.0,11.0,0.0,286041.0
+1000017422,2026-09-26,par_division,2 de Mayo,Rodrigo Gómez,1736534,D,1,90,0,0,0,0.0,32.0,1.0,879891.0
+1000017422,2026-09-26,par_division,2 de Mayo,Pedro Sosa,1642554,D,1,90,0,0,0,0.0,34.0,1.0,248751.0
+1000017422,2026-09-26,par_division,2 de Mayo,César Ramírez,1579231,D,1,90,0,0,0,0.0,36.0,1.0,376105.0
+1000017422,2026-09-26,par_division,2 de Mayo,Ulises Coronel,1680050,D,1,83,1,0,0,0.0,38.0,1.0,274160.0
+1000017422,2026-09-26,par_division,2 de Mayo,Luis Delgadillo,1867174,M,1,46,0,0,0,0.0,64.0,2.0,
+1000017422,2026-09-26,par_division,2 de Mayo,Óscar Romero,1626718,M,1,90,2,1,1,0.0,66.0,2.0,296429.0
+1000017422,2026-09-26,par_division,2 de Mayo,Marcelo González,589519,F,1,59,0,0,0,0.0,83.0,3.0,185516.0
+1000017422,2026-09-26,par_division,2 de Mayo,Alexis Fariña,1458741,M,1,90,2,2,1,0.0,85.0,2.0,799061.0
+1000017422,2026-09-26,par_division,2 de Mayo,Tobías Portillo,1356260,F,1,63,1,0,0,0.0,87.0,3.0,
+1000017422,2026-09-26,par_division,2 de Mayo,Matías Cáceres,724324,F,1,63,2,0,0,0.0,115.0,3.0,263701.0
+1000017422,2026-09-26,par_division,2 de Mayo,Marcos Gómez,1339408,M,0,44,0,0,0,0.0,,2.0,394872.0
+1000017422,2026-09-26,par_division,2 de Mayo,Alan Gómez,1443927,M,0,31,1,0,0,0.0,,2.0,
+1000017422,2026-09-26,par_division,2 de Mayo,Estifen Díaz,1553802,M,0,27,0,0,0,0.0,,2.0,553427.0
+1000017422,2026-09-26,par_division,2 de Mayo,Jorge Sanguina,834637,F,0,27,0,0,0,0.0,,3.0,458132.0
+1000017422,2026-09-26,par_division,2 de Mayo,Alexis Villalva,1036576,D,0,7,0,0,0,0.0,,1.0,288562.0
+5991939,2026-09-26,selecciones,Montserrat,Trent Carter-Rodgers,1650209,G,1,90,0,0,0,0.0,11.0,0.0,
+5991939,2026-09-26,selecciones,Montserrat,Lucas Kirnon,1307667,D,1,90,1,0,0,0.0,32.0,1.0,
+5991939,2026-09-26,selecciones,Montserrat,Nico Gordon,1159160,D,1,90,1,0,0,0.0,34.0,1.0,116095.0
+5991939,2026-09-26,selecciones,Montserrat,Jeriel Dorsett,1113824,D,1,90,1,0,0,0.0,36.0,1.0,312638.0
+5991939,2026-09-26,selecciones,Montserrat,Mackye Townsend-West,1113357,D,1,90,0,0,0,0.0,38.0,1.0,
+5991939,2026-09-26,selecciones,Montserrat,Brandon Barzey,1306601,M,1,87,3,1,1,0.0,72.0,2.0,
+5991939,2026-09-26,selecciones,Montserrat,Brandon Comley,621869,M,1,90,0,0,0,0.0,74.0,2.0,88126.0
+5991939,2026-09-26,selecciones,Montserrat,Alex Dyer,98961,M,1,70,1,0,0,0.0,76.0,2.0,
+5991939,2026-09-26,selecciones,Montserrat,Tyrone Baker,0,M,1,90,0,0,0,0.0,78.0,2.0,
+5991939,2026-09-26,selecciones,Montserrat,Ashley Boatswain,1613563,F,1,90,3,2,0,0.0,104.0,3.0,
+5991939,2026-09-26,selecciones,Montserrat,Lyle Taylor,156937,F,1,79,7,3,2,0.0,106.0,3.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Frankie Beckles,1626098,G,1,90,0,0,0,0.0,11.0,0.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Kristian Javier,1240826,D,1,90,0,0,0,0.0,32.0,1.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Jerry Wiltshire,1102712,D,1,90,0,0,0,0.0,34.0,1.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Joshua Bertie,1240822,D,1,90,0,0,0,0.0,36.0,1.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Joel Mars,1650867,D,1,66,1,0,0,0.0,38.0,1.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,T'Sharne Gallimore,1219867,M,1,90,0,0,0,0.0,64.0,2.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Carson Price,1083263,D,1,90,0,0,0,0.0,66.0,1.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Tyler Forbes,1091096,M,1,90,1,1,0,0.0,83.0,2.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Luka Chalwell,1240830,M,1,90,2,1,0,0.0,85.0,2.0,
+5991939,2026-09-26,selecciones,British Virgin Islands,Kyran Samadi,0,,1,90,0,0,0,0.0,87.0,,
+5991939,2026-09-26,selecciones,British Virgin Islands,Javaun Splatt,1203669,F,1,90,0,0,0,0.0,115.0,3.0,
