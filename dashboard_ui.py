@@ -766,6 +766,16 @@ def cargar_motor() -> PredictionEngine:
 # guardia_barrido.py, que es un módulo importado de verdad: app.py re-ejecuta
 # ESTE script con runpy en cada rerun, así que un global de aquí no recordaría
 # nada entre interacciones.
+def _con_nombres_de_liga(lista):
+    """v309 — la lista con el nombre ÚNICO de cada competición. NUNCA lanza."""
+    try:
+        import nombres_ligas
+        nombres_ligas.aplicar(lista)
+    except Exception as e:
+        logger.debug('[dashboard] nombres de liga: %s', e)
+    return lista
+
+
 @st.cache_data(ttl=600, show_spinner=False)
 def _capa1_en_vivo() -> list:
     """El barrido de la Capa 1, calculado aqui y ahora. NUNCA lanza.
@@ -777,7 +787,9 @@ def _capa1_en_vivo() -> list:
     """
     try:
         import barrido_capa1 as _bc1
-        return _bc1.barrer()
+        # v309 — el tablero escribe «SPAIN: LaLiga2»; aquí, «LaLiga
+        # Hypermotion», como en el resto de la pantalla (ver `nombres_ligas`)
+        return _con_nombres_de_liga(_bc1.barrer())
     except Exception as e:
         logger.warning('[capa1] barrido en vivo fallo: %s: %s',
                        type(e).__name__, e)
@@ -795,7 +807,7 @@ def _probables_en_vivo(_pronosticos=None) -> list:
     """
     try:
         import probables as _pb
-        return _pb.barrer(_pronosticos)
+        return _con_nombres_de_liga(_pb.barrer(_pronosticos))
     except Exception as e:
         logger.warning('[probables] barrido en vivo fallo: %s: %s',
                        type(e).__name__, e)
@@ -904,8 +916,21 @@ def barrido_universal(forzar: bool = False) -> dict:
     """Barrido de alpha_finder con garantía de no solaparse consigo mismo."""
     import alpha_finder
     import guardia_barrido
-    return guardia_barrido.barrido(alpha_finder.apuestas_del_dia_universal,
-                                   forzar=forzar)
+    r = guardia_barrido.barrido(alpha_finder.apuestas_del_dia_universal,
+                                forzar=forzar)
+    # v309 — UN SOLO NOMBRE POR COMPETICIÓN. Cada fuente escribe la suya
+    # («International - Friendlies», «Partidos Amistosos Internacionales»,
+    # «WORLD: Friendly International») y el filtro de «Liga» las enseñaba
+    # como tres ligas con partidos distintos. `nombres_ligas` las junta en
+    # español sin tocar `clave_liga`, que es la llave de los modelos; el
+    # nombre original queda en `liga_origen`. Es idempotente, así que no
+    # importa que el mismo objeto pase por aquí en cada pasada de Streamlit.
+    try:
+        import nombres_ligas
+        nombres_ligas.aplicar(r)
+    except Exception as e:
+        logger.debug('[dashboard] nombres de liga: %s', e)
+    return r
 
 
 @st.cache_data(show_spinner=False)

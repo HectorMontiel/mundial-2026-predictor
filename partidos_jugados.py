@@ -126,8 +126,13 @@ def _ruta_jugados() -> str:
     return os.environ.get('JUGADOS_DIA_FICHERO') or FICHERO_JUGADOS
 
 
-def _leer_precalculo(dia: str):
+def _leer_precalculo(dia: str, permitir_viejo: bool = False):
     """La lista precocinada de `dia`, o `None` si no sirve.
+
+    v309 — con `permitir_viejo=True` devuelve también la del día en curso
+    aunque haya caducado: `de_dia` la UNE con la red en vez de tirarla,
+    porque ahí dentro están los partidos archivados del pronóstico (con su
+    apuesta previa) que ESPN no conoce.
 
     `None` y `[]` NO son lo mismo: `[]` es «ese día no se jugó nada», que es
     una respuesta legítima y ahorra la red; `None` es «no hay precálculo», y
@@ -158,7 +163,7 @@ def _leer_precalculo(dia: str):
         hoy = _dp.hoy_local().strftime('%Y-%m-%d')      # v305: CDMX, no el servidor
     except Exception:
         hoy = None
-    if str(dia) == hoy:
+    if str(dia) == hoy and not permitir_viejo:
         edad = time.time() - float(doc.get('ts') or 0)
         if edad > CADUCIDAD_HOY_S:
             logger.info('[jugados] el precálculo del día en curso tiene %.1f h '
@@ -194,6 +199,257 @@ def _leer_precalculo(dia: str):
 # fichero del mismo día. Una lista del día sólo puede crecer.
 
 HORAS_PARTIDO = 2.5          # un partido que empezó hace más, ya terminó
+
+
+# ---------------------------------------------------------------------------
+# v309 — SE ARCHIVA EN CUANTO EMPIEZA, CON LA APUESTA QUE SE RECOMENDÓ
+# ---------------------------------------------------------------------------
+# El usuario: «en los partidos finalizados no me despliegas todos los que
+# finalizaron ya y con su apuesta que tú recomendaste; quiero que estén
+# todas».
+#
+# MEDIDO el 2026-09-25 (viernes de fecha FIFA) sobre las ocho pasadas del
+# precálculo: 47 partidos de fútbol del día pasaron por el pronóstico y
+# `jugados_dia.json` tenía SIETE. Faltaban los 25 de selecciones (Italia-
+# Bélgica, Turquía-Francia, Mozambique-Senegal…), justo los que el usuario
+# había mirado.
+#
+# LA CAUSA era aritmética. El archivo exigía que el partido hubiera empezado
+# hace más de 2,5 h, y leía el pronóstico ANTERIOR, el que la pasada va a
+# sobrescribir. Las pasadas van cada ~1,6 h: un partido que empieza entre
+# dos pasadas tiene, en la siguiente, entre 0 y 1,6 h de juego — nunca 2,5 —
+# y esa pasada escribe un pronóstico nuevo en el que ya no está. En la
+# siguiente ya no había de dónde archivarlo. Se salvaban sólo los que ESPN
+# trae por su cuenta (ligas de clubes), y las selecciones no están ahí.
+#
+# Ahora se archiva en cuanto EMPIEZA, con tres cosas:
+#   · la apuesta que la tarjeta recomendaba antes del pitido
+#     (`recomendadas_previas`), calculada sobre el pick del pronóstico
+#     anterior, que es estado de antes del partido. Si ya estaba archivado,
+#     no se toca: gana siempre el primero (el más cercano al inicio por
+#     delante), igual que el registro de `pronosticos_guardados`;
+#   · el marcador, del histórico de su competición o de FotMob (una
+#     petición por día UTC, trae TODOS los partidos: selecciones, femenil,
+#     ligas chicas);
+#   · mientras no tiene marcador y no han pasado 2,5 h, la tarjeta dice «en
+#     juego» en vez de «Finalizado»: no se inventa un final.
+
+
+def _recomendadas_previas(pick: Dict) -> List[Dict]:
+    """Lo que la tarjeta recomendaba de este partido ANTES de empezar.
+
+    Es la misma cuenta que pinta la tarjeta (`modo_modelo.recomendadas` con
+    los bloques de córners, tarjetas y remates), sobre el pick del
+    pronóstico anterior. Si la casa no cotizaba nada jugable, la lectura del
+    modelo sin precio (`pronosticos_guardados._del_board`), que la tarjeta
+    rotula como tal. Nunca lanza.
+    """
+    try:
+        import modo_modelo as mm
+        import pronosticos_guardados as pg
+    except Exception as e:
+        logger.debug('[jugados] sin modo_modelo: %s', e)
+        return []
+    q = {k: v for k, v in pick.items()
+         if k not in ('jugado', 'archivado_del_pronostico')}
+    recos = []
+    try:
+        _rm = mm.remates_tarjeta(q) or {}
+        bloques = {'Córners': mm.corners_tarjeta(q),
+                   'Tarjetas': mm.tarjetas_tarjeta(q),
+                   'Remates': _rm.get('totales'),
+                   'Remates a puerta': _rm.get('a_puerta')}
+        recos = mm.recomendadas(q, bloques, n=mm.MAX_RECOMENDADAS) or []
+    except Exception as e:
+        logger.debug('[jugados] recomendadas de %s: %s', pick.get('partido'), e)
+    if recos:
+        return [dict(pg._fila(r), origen='archivo') for r in recos]
+    try:
+        return pg._del_board(q)
+    except Exception:
+        return []
+
+
+def _sin_femenino(t: str) -> str:
+    import re
+    return re.sub(r'\s*(\((W|F)\)|\bW\b|\bWomen\b|\bFemenil\b)\s*$', '',
+                  str(t or ''), flags=re.I).strip()
+
+
+def marcadores_fotmob(dia: str) -> List[Dict]:
+    """Los partidos TERMINADOS de FotMob que caen en el día `dia` de CDMX.
+
+    Un día de CDMX son dos días UTC, así que se piden los dos. Devuelve
+    `[{'ini', 'home', 'away', 'gh', 'ga', 'liga'}]` con `ini` en UTC.
+    Nunca lanza; sin red, lista vacía.
+    """
+    import datetime as _dt
+    try:
+        import fuente_bajas as fb
+        import horario as hz
+    except Exception:
+        return []
+    try:
+        d0 = _dt.date.fromisoformat(str(dia)[:10])
+    except Exception:
+        return []
+    fuera = []
+    for d in (d0, d0 + _dt.timedelta(days=1)):
+        doc = fb._get(fb.FOTMOB_DIA.format(fecha=d.strftime('%Y%m%d'))) or {}
+        for L in doc.get('leagues') or []:
+            for m in L.get('matches') or []:
+                est = m.get('status') or {}
+                if not est.get('finished') or est.get('cancelled'):
+                    continue
+                ini = hz._a_utc(est.get('utcTime'))
+                h, a = m.get('home') or {}, m.get('away') or {}
+                if ini is None or h.get('score') is None or a.get('score') is None:
+                    continue
+                fuera.append({'ini': ini, 'home': h.get('name'),
+                              'away': a.get('name'), 'id': m.get('id'),
+                              'gh': float(h['score']), 'ga': float(a['score']),
+                              'liga': L.get('name')})
+    logger.info('[jugados] FotMob: %d partidos terminados alrededor del %s',
+                len(fuera), dia)
+    return fuera
+
+
+def _casar_fotmob(p: Dict, lista: List[Dict]) -> Optional[Dict]:
+    """El partido de FotMob que es `p`: misma hora de inicio (±20 min) y los
+    dos nombres parecidos. La hora hace casi todo el trabajo — a la misma
+    hora hay pocos partidos —, así que el listón de nombre puede ser el del
+    emparejador de clubes sin cruzar equipos."""
+    try:
+        import cuotas_multi as cm
+        import horario as hz
+    except Exception:
+        return None
+    ini = hz._a_utc(p.get('inicio'))
+    par = str(p.get('partido') or '')
+    if ini is None or ' vs ' not in par:
+        return None
+    hh, aa = (_sin_femenino(x.strip()) for x in par.split(' vs ', 1))
+    mejor, mejor_s = None, 0.0
+    for f in lista or []:
+        if abs((f['ini'] - ini).total_seconds()) > 20 * 60:
+            continue
+        sh = cm._sim_club(hh, _sin_femenino(f.get('home')))
+        sa = cm._sim_club(aa, _sin_femenino(f.get('away')))
+        s = min(sh, sa)
+        if max(sh, sa) >= 0.85:
+            s = max(s, 0.6)          # uno clavado y a la misma hora
+        if s > mejor_s:
+            mejor, mejor_s = f, s
+    return mejor if mejor_s >= 0.55 else None
+
+
+# Los mercados que no salen del marcador y necesitan la estadística del
+# partido. Sin ella la tarjeta los deja ⏳; con ella, verde o rojo.
+_BLOQUES_STATS = ('corners', 'tarjetas', 'remates', 'remates_on')
+
+
+def _stats_de_fotmob(mid) -> Optional[Dict]:
+    """Córners, amarillas, remates y a puerta de un partido TERMINADO, de su
+    ficha de FotMob (`matchDetails`, con la caché de disco de
+    `fuente_bajas`). Mismas claves que `pronosticos_guardados`
+    (`corners_home`…). Las amarillas, como en la caché de ESPN: sólo
+    amarillas. None si la ficha no trae estadísticas (amistosos menores)."""
+    try:
+        import fuente_bajas as fb
+        import remates_fotmob as rf
+        det = fb.detalle(mid)
+        s = rf._stats_equipo(((det or {}).get('content')) or {})
+    except Exception as e:
+        logger.debug('[jugados] stats FotMob %s: %s', mid, e)
+        return None
+    if not s:
+        return None
+
+    def par(k):
+        v = s.get(k) or (None, None)
+        return v[0], v[1]
+    ch, ca = par('corners')
+    th, ta = par('yellow_cards')
+    rh, ra = par('total_shots')
+    oh, oa = par('ShotsOnTarget')
+    out = {'fuente': 'fotmob', 'corners_home': ch, 'corners_away': ca,
+           'tarjetas_home': th, 'tarjetas_away': ta,
+           'remates_home': rh, 'remates_away': ra,
+           'remates_on_home': oh, 'remates_on_away': oa}
+    if all(v is None for k, v in out.items() if k != 'fuente'):
+        return None
+    return out
+
+
+def poner_estadisticas(partidos: List[Dict], dia: str,
+                       fotmob: List[Dict] = None) -> int:
+    """v309 — la estadística de los partidos terminados cuya apuesta
+    recomendada la necesita (córners, tarjetas, remates). Una ficha de
+    FotMob por partido, y sólo de ésos. Devuelve cuántos rellenó."""
+    faltan = [p for p in (partidos or [])
+              if p.get('goles_home') is not None and not p.get('stats_partido')
+              and any(str((r or {}).get('bloque')) in _BLOQUES_STATS
+                      for r in (p.get('recomendadas_previas') or []))]
+    if not faltan:
+        return 0
+    lista = fotmob if fotmob is not None else marcadores_fotmob(dia)
+    n = 0
+    for p in faltan:
+        mid = p.get('fotmob_id')
+        if not mid:
+            f = _casar_fotmob(p, lista)
+            mid = f.get('id') if f else None
+        if not mid:
+            continue
+        p['fotmob_id'] = mid
+        st = _stats_de_fotmob(mid)
+        if st:
+            p['stats_partido'] = st
+            n += 1
+    return n
+
+
+def poner_marcadores(partidos: List[Dict], dia: str,
+                     ahora: float = None, fotmob: List[Dict] = None) -> int:
+    """Rellena el marcador de los que ya deberían haber terminado y no lo
+    tienen: primero el histórico de su competición, luego FotMob. Devuelve
+    cuántos rellenó."""
+    import time
+    ahora = float(ahora if ahora is not None else time.time())
+    try:
+        import horario as hz
+    except Exception:
+        return 0
+    faltan = []
+    for p in partidos or []:
+        if p.get('goles_home') is not None:
+            continue
+        ini = hz._a_utc(p.get('inicio'))
+        if ini is None or ini.timestamp() + 1.75 * 3600 > ahora:
+            continue                 # aún no puede haber terminado
+        m = _marcador(p)
+        if m:
+            p['goles_home'], p['goles_away'] = m
+            p['marcador_fuente'] = 'historico'
+        else:
+            faltan.append(p)
+    n = sum(1 for p in partidos or [] if p.get('marcador_fuente') == 'historico')
+    lista = fotmob
+    if faltan:
+        lista = lista if lista is not None else marcadores_fotmob(dia)
+        for p in faltan:
+            f = _casar_fotmob(p, lista)
+            if f:
+                p['goles_home'], p['goles_away'] = f['gh'], f['ga']
+                p['marcador_fuente'] = 'fotmob'
+                p['fotmob_id'] = f.get('id')
+                n += 1
+    try:
+        _s = poner_estadisticas(partidos, dia, fotmob=lista)
+        logger.info('[jugados] estadísticas de FotMob: %d partidos', _s)
+    except Exception as e:
+        logger.debug('[jugados] estadísticas: %s', e)
+    return n
 
 
 def _norm(t) -> str:
@@ -264,9 +520,12 @@ def _marcador(p: Dict):
 
 
 def archivar_del_pronostico(dia: str, ruta_pronostico: str,
-                            ahora: float = None) -> List[Dict]:
+                            ahora: float = None,
+                            ya: Optional[set] = None) -> List[Dict]:
     """Los partidos de fútbol de `dia` (CDMX) que estaban en el pronóstico y
-    ya se jugaron, como tarjetas de finalizado con su pronóstico previo."""
+    ya EMPEZARON (v309), como tarjetas de finalizado con su pronóstico previo
+    y la apuesta que se recomendaba. `ya` son las llaves que el fichero ya
+    tiene archivadas con su apuesta: ésas no se recalculan."""
     import json
     import os
     import time
@@ -277,6 +536,7 @@ def archivar_del_pronostico(dia: str, ruta_pronostico: str,
         with open(ruta_pronostico, encoding='utf-8') as f:
             doc = json.load(f)
         pr = ((doc.get('datos') or doc).get('pronosticos')) or []
+        generado_ts = float(doc.get('generado_ts') or 0) or None
     except Exception as e:
         logger.debug('[jugados] pronóstico previo ilegible: %s', e)
         return []
@@ -292,20 +552,77 @@ def archivar_del_pronostico(dia: str, ruta_pronostico: str,
         if dp.dia_de(p) != dia:
             continue
         ini = hz._a_utc(p.get('inicio'))
-        if ini is None or ini.timestamp() + HORAS_PARTIDO * 3600 > ahora:
-            continue                     # no ha empezado o puede seguir en juego
+        if ini is None or ini.timestamp() > ahora:
+            continue                     # v309: basta con que haya EMPEZADO
         q = dict(p)
         q['jugado'] = True
         q['archivado_del_pronostico'] = True
+        q['archivado_ts'] = ahora
+        if generado_ts:
+            # si el pronóstico se escribió ya empezado el partido, se sabe
+            q['pronostico_ts'] = generado_ts
+        if not (ya and _llave(q) in ya):
+            q['recomendadas_previas'] = _recomendadas_previas(p)
         m = _marcador(q)
         if m:
             q['goles_home'], q['goles_away'] = m
+            q['marcador_fuente'] = 'historico'
         fuera.append(q)
     return fuera
 
 
+_CAMPOS_MARCADOR = ('goles_home', 'goles_away', 'marcador_fuente')
+_CAMPOS_SUMA = ('_home_crudo', '_away_crudo', 'board', 'goles_lineas', 'prob')
+
+
+def _misma_cita(a: Dict, b: Dict) -> bool:
+    """El mismo partido escrito distinto: misma competición, misma hora de
+    inicio y al menos un equipo que casa. Pasa cuando ESPN dice «Inverness
+    C» y el pronóstico «Inverness Caledonian Thistle»."""
+    if str(a.get('clave_liga') or '') != str(b.get('clave_liga') or ''):
+        return False
+    try:
+        import cuotas_multi as cm
+        import horario as hz
+        ia, ib = hz._a_utc(a.get('inicio')), hz._a_utc(b.get('inicio'))
+        if ia is None or ib is None or abs((ia - ib).total_seconds()) > 15 * 60:
+            return False
+        pa, pb = str(a.get('partido') or ''), str(b.get('partido') or '')
+        if ' vs ' not in pa or ' vs ' not in pb:
+            return False
+        ha, aa = pa.split(' vs ', 1)
+        hb, ab = pb.split(' vs ', 1)
+        return max(cm._sim_club(ha, hb), cm._sim_club(aa, ab)) >= 0.8
+    except Exception:
+        return False
+
+
+def _fusion(viejo: Dict, nuevo: Dict) -> Dict:
+    """v309 — dos copias del mismo partido. Manda la que trae la apuesta
+    previa (y de ellas la PRIMERA archivada, que es la de antes del
+    inicio); de la otra se toma lo que le falte: el marcador y los nombres
+    crudos de ESPN, que son la llave del precálculo del día."""
+    if 'recomendadas_previas' in nuevo and 'recomendadas_previas' not in viejo:
+        base, otro = nuevo, viejo
+    else:
+        base, otro = viejo, nuevo
+    out = dict(base)
+    if out.get('goles_home') is None and otro.get('goles_home') is not None:
+        for c in _CAMPOS_MARCADOR:
+            if otro.get(c) is not None:
+                out[c] = otro[c]
+    for c in _CAMPOS_SUMA:
+        if out.get(c) in (None, {}, []) and otro.get(c) not in (None, {}, []):
+            out[c] = otro[c]
+    if out.get('sin_modelo') and out.get('board'):
+        out.pop('sin_modelo', None)
+    return out
+
+
 def unir(*listas: List[Dict]) -> List[Dict]:
-    """Une sin repetir; ante el mismo partido gana el que trae marcador."""
+    """Une sin repetir. v309: ante el mismo partido no se elige uno y se
+    tira el otro — se FUSIONAN (`_fusion`), para que el marcador de ESPN y
+    la apuesta archivada acaben en la misma tarjeta."""
     por: Dict[str, Dict] = {}
     for lista in listas:
         for p in (lista or []):
@@ -314,10 +631,13 @@ def unir(*listas: List[Dict]) -> List[Dict]:
             k = _llave(p)
             if not k:
                 continue
+            if k not in por:
+                gemelo = next((k2 for k2, v in por.items()
+                               if _misma_cita(v, p)), None)
+                if gemelo is not None:
+                    k = gemelo
             viejo = por.get(k)
-            if viejo is None or (viejo.get('goles_home') is None
-                                 and p.get('goles_home') is not None):
-                por[k] = p
+            por[k] = p if viejo is None else _fusion(viejo, p)
     return list(por.values())
 
 
@@ -346,14 +666,17 @@ def escribir_dia(dia: str, ruta: str = '',
                 previos = _doc.get('partidos') or []
         except Exception:
             previos = []
-        archivados = archivar_del_pronostico(dia, ruta_pronostico)
-        partidos = unir(de_red, previos, archivados)
-        # los archivados que aún no tenían marcador, se buscan otra vez
-        for _p in partidos:
-            if _p.get('archivado_del_pronostico') and _p.get('goles_home') is None:
-                _m = _marcador(_p)
-                if _m:
-                    _p['goles_home'], _p['goles_away'] = _m
+        ya = {_llave(p) for p in previos
+              if isinstance(p, dict) and 'recomendadas_previas' in p}
+        archivados = archivar_del_pronostico(dia, ruta_pronostico, ya=ya)
+        # v309 — el orden importa: lo ya archivado va ANTES que lo recién
+        # archivado, para que gane la apuesta más antigua (la de antes del
+        # inicio) y no la de un pronóstico escrito con el partido en juego.
+        partidos = unir(previos, archivados, de_red)
+        # los que ya deberían haber terminado y no tienen marcador: su
+        # histórico y, si no, FotMob (selecciones, femenil, ligas chicas)
+        _n = poner_marcadores(partidos, dia)
+        logger.info('[jugados] marcadores rellenados: %d', _n)
         partidos.sort(key=lambda p: str(p.get('inicio') or ''))
         doc = {'dia': str(dia), 'ts': time.time(),
                'generado': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
@@ -398,8 +721,43 @@ def de_dia(dia: str, maximo: int = 200) -> List[Dict]:
     if precocinado is not None:
         logger.info('[jugados] %d partidos del %s desde el precálculo '
                     '(sin tocar la red)', len(precocinado), dia)
-        return precocinado[:maximo]
-    return _de_dia_por_red(dia, maximo)
+        return _para_la_vista(precocinado[:maximo])
+    # v309 — un precálculo CADUCADO del día en curso no se tira: lleva los
+    # partidos archivados con su apuesta, que la red de ESPN no sabe
+    # reconstruir (las selecciones no están ahí). Se une con lo de la red.
+    viejo = _leer_precalculo(dia, permitir_viejo=True) or []
+    return _para_la_vista(unir(viejo, _de_dia_por_red(dia, maximo))[:maximo])
+
+
+def _para_la_vista(partidos: List[Dict], ahora: float = None) -> List[Dict]:
+    """v309 — lo que la vista necesita y el fichero no guarda: el nombre
+    ÚNICO de la competición (`nombres_ligas`), para que el filtro de liga
+    case con el de los que aún no se juegan, y la marca `en_juego` de los
+    que empezaron hace menos de 2,5 h y todavía no tienen marcador."""
+    import time
+    ahora = float(ahora if ahora is not None else time.time())
+    try:
+        import nombres_ligas as nl
+    except Exception:
+        nl = None
+    try:
+        import horario as hz
+    except Exception:
+        hz = None
+    fuera = []
+    for p in partidos or []:
+        if not isinstance(p, dict):
+            continue
+        q = dict(p)
+        if nl is not None:
+            nl.aplicar(q)
+        q.pop('en_juego', None)
+        if q.get('goles_home') is None and hz is not None:
+            ini = hz._a_utc(q.get('inicio'))
+            if ini is not None and ini.timestamp() + HORAS_PARTIDO * 3600 > ahora:
+                q['en_juego'] = True
+        fuera.append(q)
+    return fuera
 
 
 def _de_dia_por_red(dia: str, maximo: int = 200,

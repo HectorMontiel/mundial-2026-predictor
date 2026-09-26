@@ -63,9 +63,14 @@ def probar_el_archivo_y_la_union():
     nombres = [p['partido'] for p in arch]
     check('Equipo A vs Equipo B' in nombres,
           'el que ya se jugó entra como finalizado')
-    check('Equipo C vs Equipo D' not in nombres
-          and 'Equipo E vs Equipo F' not in nombres,
-          'el que puede seguir en juego y el futuro, no (%s)' % nombres)
+    # v309 — el que empezó hace 30 min SÍ se archiva: esperar 2,5 h con
+    # pasadas cada 1,6 h hacía que no se archivara NUNCA (ver la cabecera
+    # v309 de `partidos_jugados`). La vista lo marca «en juego».
+    check('Equipo C vs Equipo D' in nombres,
+          'v309: el que ya empezó se archiva aunque siga en juego (%s)'
+          % nombres)
+    check('Equipo E vs Equipo F' not in nombres,
+          'el que no ha empezado, no (%s)' % nombres)
     check(all(p.get('jugado') and p.get('board') for p in arch),
           'y conserva su pronóstico previo')
     # la unión: lo previo no se pierde y gana el que trae marcador
@@ -85,11 +90,14 @@ def probar_el_archivo_y_la_union():
                                  'goles_away': 1,
                                  'inicio': '2000-01-01 00:00:00'}]}, f)
     orig = pj._de_dia_por_red
+    orig_fm = pj.marcadores_fotmob
     pj._de_dia_por_red = lambda dia, maximo=200, usar_cache=True: []
+    pj.marcadores_fotmob = lambda dia: []          # sin red en el test
     try:
         pj.escribir_dia(hoy, ruta=rj, ruta_pronostico=rp)
     finally:
         pj._de_dia_por_red = orig
+        pj.marcadores_fotmob = orig_fm
     doc = json.load(open(rj, encoding='utf-8'))
     ps = [p['partido'] for p in doc['partidos']]
     check('Previo vs Anterior' in ps,

@@ -67,10 +67,14 @@ CUMPLIDO = 'cumplido'
 CERCA = 'cerca'
 FALLADO = 'fallado'
 PENDIENTE = 'pendiente'
+# v309 — un hándicap asiático que acaba JUSTO en la línea no se gana ni se
+# pierde: la casa devuelve. Pintarlo ⏳ diría «todavía no se sabe», y sí se
+# sabe.
+NULA = 'nula'
 ICONO = {CUMPLIDO: '\U0001f7e2', CERCA: '\U0001f7e1', FALLADO: '\U0001f534',
-         PENDIENTE: '⏳'}
+         PENDIENTE: '⏳', NULA: '⚪'}
 ROTULO = {CUMPLIDO: 'Cumplido', CERCA: 'Cerca', FALLADO: 'No cumplido',
-          PENDIENTE: 'Pendiente'}
+          PENDIENTE: 'Pendiente', NULA: 'Nula (se devuelve)'}
 MARGEN_CERCA = 1.0         # «a una unidad de la línea»
 PROB_FLOJA = 0.50          # acertar por debajo de aquí es acertar de suerte
 
@@ -406,7 +410,7 @@ def _stats_del_partido(clave_liga, home: str, away: str,
         import stats_espn as se
         d = se.leer(str(clave_liga or ''))
         if d is None or getattr(d, 'empty', True):
-            return None
+            return _stats_fotmob(home, away, fecha)
         f = str(fecha or '')[:10]
         # el día se mira con un día de margen: ESPN publica en UTC y la lista
         # reparte en hora de CDMX, así que un partido de la tarde mexicana cae
@@ -419,7 +423,7 @@ def _stats_del_partido(clave_liga, home: str, away: str,
             dias = {f}
         m = d[d['fecha'].astype(str).str[:10].isin(dias)]
         if m.empty:
-            return None
+            return _stats_fotmob(home, away, fecha)
         h, a = str(home or '').strip(), str(away or '').strip()
         fila = m[(m['home'].astype(str) == h) & (m['away'].astype(str) == a)]
         if fila.empty:
@@ -444,7 +448,7 @@ def _stats_del_partido(clave_liga, home: str, away: str,
                     if s > mejor_s:
                         mejor, mejor_s = r2, s
                 if mejor is None or mejor_s < 0.80:
-                    return None
+                    return _stats_fotmob(home, away, fecha)
                 fila = None
                 r = mejor
             except Exception as e:
@@ -460,6 +464,7 @@ def _stats_del_partido(clave_liga, home: str, away: str,
             except (TypeError, ValueError):
                 return None
         return {
+            'fuente': 'espn',
             'corners_home': _n('home_corners'), 'corners_away': _n('away_corners'),
             'tarjetas_home': _n('home_yellow'), 'tarjetas_away': _n('away_yellow'),
             'remates_on_home': _n('home_shots_on'),
@@ -473,6 +478,67 @@ def _stats_del_partido(clave_liga, home: str, away: str,
         }
     except Exception as e:
         logger.debug('[pronosticos] stats de %s-%s: %s', home, away, e)
+        return None
+
+
+def _stats_fotmob(home: str, away: str, fecha: str) -> Optional[Dict]:
+    """
+    v309 — CÓRNERS Y REMATES DE FOTMOB CUANDO ESPN NO LOS TIENE.
+
+    Las selecciones y la femenil no están en la caché de `stats_espn`, así
+    que una apuesta de córners o de remates de Italia-Bélgica se quedaba en
+    ⏳ Pendiente para siempre. `remates_fotmob_equipos.csv` —lo escribe el
+    precálculo desde la v307, una fila por equipo y partido— trae remates, a
+    puerta y córners de esos partidos. Tarjetas no: siguen pendientes, que
+    es la verdad.
+
+    Mismo emparejador que arriba (`cuotas_multi._sim_club`, listón 0,80 y
+    los DOS equipos), con la fila del LOCAL. Nunca lanza.
+    """
+    try:
+        import pandas as pd
+        import cuotas_multi as _cm
+        ruta = 'remates_fotmob_equipos.csv'
+        import os
+        if not os.path.exists(ruta):
+            return None
+        d = pd.read_csv(ruta)
+        f = str(fecha or '')[:10]
+        dia = pd.Timestamp(f)
+        dias = {f, (dia - pd.Timedelta(days=1)).strftime('%Y-%m-%d'),
+                (dia + pd.Timedelta(days=1)).strftime('%Y-%m-%d')}
+        m = d[d['fecha'].astype(str).str[:10].isin(dias)
+              & (d['local'].astype(str).isin(('1', 'True', '1.0')))]
+        mejor, mejor_s = None, 0.0
+        for _, r in m.iterrows():
+            s = min(_cm._sim_club(str(home), str(r.get('equipo'))),
+                    _cm._sim_club(str(away), str(r.get('rival'))))
+            if s > mejor_s:
+                mejor, mejor_s = r, s
+        if mejor is None or mejor_s < 0.80:
+            return None
+        otro = d[(d['match_id'] == mejor['match_id'])
+                 & (d['equipo'] == mejor['rival'])]
+        if otro.empty:
+            return None
+        v = otro.iloc[0]
+
+        def _x(x):
+            try:
+                y = float(x)
+                return None if y != y else y
+            except (TypeError, ValueError):
+                return None
+        return {'fuente': 'fotmob',
+                'corners_home': _x(mejor.get('corners')),
+                'corners_away': _x(v.get('corners')),
+                'tarjetas_home': None, 'tarjetas_away': None,
+                'remates_on_home': _x(mejor.get('a_puerta')),
+                'remates_on_away': _x(v.get('a_puerta')),
+                'remates_home': _x(mejor.get('tiros')),
+                'remates_away': _x(v.get('tiros'))}
+    except Exception as e:
+        logger.debug('[pronosticos] stats FotMob de %s-%s: %s', home, away, e)
         return None
 
 
@@ -491,6 +557,22 @@ def _valor_real(guardada: Dict, gh, ga, stats: Optional[Dict]):
     etq = str(guardada.get('etiqueta') or '')
     if bloque == 'goles':
         return None if gh is None or ga is None else float(gh) + float(ga)
+    # v309 — los mercados que el marcador resuelve y se quedaban ⏳: goles de
+    # un equipo, doble oportunidad con goles y hándicap asiático. Medido el
+    # 2026-09-25: 72 de 131 apuestas archivadas del día seguían «pendientes»
+    # con el marcador delante, y 41 eran de estos tres mercados.
+    if bloque == 'goles_equipo':
+        if gh is None or ga is None:
+            return None
+        if etq.lower().startswith('local'):
+            return float(gh)
+        if etq.lower().startswith('visit'):
+            return float(ga)
+        return None
+    if bloque in ('dc_goles', 'handicap'):
+        if gh is None or ga is None:
+            return None
+        return (float(gh), float(ga))
     if bloque == 'btts':
         if gh is None or ga is None:
             return None
@@ -521,6 +603,15 @@ def _acierto(guardada: Dict, real, home: str, away: str):
         return None, None
     apuesta = str(guardada.get('apuesta') or '')
     bloque = str(guardada.get('bloque') or '')
+    if bloque == 'dc_goles' and isinstance(real, tuple):
+        return _acierto_dc_goles(guardada, real)
+    if bloque == 'handicap' and isinstance(real, tuple):
+        ok, dist = _acierto_handicap(apuesta, guardada.get('linea'), real,
+                                     home, away)
+        # la devolución sale como (None, 0.0): quien cuenta aciertos
+        # (`fiabilidad_picks`, `resolver_pendientes`) la salta, y `validar`
+        # la pinta ⚪ Nula
+        return (None, 0.0) if ok == 'nula' else (ok, dist)
     par = _linea_de(apuesta)
     if par is not None and not isinstance(real, str):
         linea, es_mas = par
@@ -553,6 +644,62 @@ def _acierto(guardada: Dict, real, home: str, away: str):
         if nombra_a and not nombra_h:
             return bool(real == 'away'), None
     return None, None
+
+
+_LADOS_DC = {'1X': ('home', 'draw'), 'X2': ('draw', 'away'),
+             '12': ('home', 'away')}
+
+
+def _acierto_dc_goles(guardada: Dict, real: tuple):
+    """«Senegal o empate y más de 1.5»: las DOS patas tienen que cumplirse.
+    La doble va en la etiqueta (1X, X2, 12) y la línea en el texto."""
+    gh, ga = real
+    lados = _LADOS_DC.get(str(guardada.get('etiqueta') or '').upper())
+    par = _linea_de(guardada.get('apuesta'))
+    if not lados or par is None:
+        return None, None
+    linea, es_mas = par
+    res = 'home' if gh > ga else ('away' if ga > gh else 'draw')
+    total = gh + ga
+    ok_goles = (total > linea) if es_mas else (total < linea)
+    return bool(res in lados and ok_goles), abs(total - linea)
+
+
+_RE_HANDICAP = re.compile(r'handicap:\s*(.+?)\s*([+-]\d+(?:[.,]\d+)?)\s*$',
+                          re.I)
+
+
+def _acierto_handicap(apuesta: str, linea, real: tuple, home: str, away: str):
+    """Hándicap asiático: margen del equipo + línea. Las líneas de cuarto
+    (±0.25, ±0.75) son media apuesta a cada línea vecina: si una mitad gana y
+    la otra se devuelve, se cobra (verde); si una pierde y la otra se
+    devuelve, se pierde (rojo). Justo en la línea entera: `'nula'`."""
+    m = _RE_HANDICAP.search(str(apuesta or ''))
+    if not m:
+        return None, None
+    equipo = m.group(1).strip()
+    try:
+        h = float(m.group(2).replace(',', '.'))
+    except ValueError:
+        return None, None
+    gh, ga = real
+    if home and equipo == str(home).strip():
+        margen = gh - ga
+    elif away and equipo == str(away).strip():
+        margen = ga - gh
+    else:
+        return None, None
+    frac = round(abs(h) % 1, 2)
+    mitades = ([h - 0.25, h + 0.25] if frac in (0.25, 0.75) else [h])
+    res = []
+    for x in mitades:
+        v = margen + x
+        res.append(1 if v > 1e-9 else (-1 if v < -1e-9 else 0))
+    if all(r == 0 for r in res):
+        return 'nula', 0.0
+    if any(r > 0 for r in res) and not any(r < 0 for r in res):
+        return True, abs(margen + h)
+    return False, abs(margen + h)
 
 
 def _estado(acierto, distancia, prob) -> str:
@@ -738,6 +885,14 @@ def validar(pick: Dict) -> List[Dict]:
     g = de_partido(pick.get('clave_liga'), h, a, pick.get('fecha'))
     filas_previas = list((g or {}).get('recomendadas') or [])
     if not filas_previas:
+        # v309 — la apuesta que `partidos_jugados` archivó al empezar el
+        # partido, calculada sobre el pick de antes del pitido. Es la vía de
+        # las selecciones y la femenil, que no están en `predicciones_dia` y
+        # por eso no se podían reconstruir: salían «sin evaluar» aunque la
+        # tarjeta hubiera recomendado algo toda la mañana.
+        filas_previas = [dict(f) for f in (pick.get('recomendadas_previas')
+                                           or []) if isinstance(f, dict)]
+    if not filas_previas:
         # v177 — la red debajo: se reconstruye del precálculo de esa
         # mañana. Ver `reconstruir`.
         filas_previas = reconstruir(pick)
@@ -748,11 +903,23 @@ def validar(pick: Dict) -> List[Dict]:
     if any(str(f.get('bloque')) in _CAMPO for f in filas_previas):
         stats = _stats_del_partido(pick.get('clave_liga'), h, a,
                                    pick.get('fecha'))
+        # v309 — lo que falte, de la ficha de FotMob que `partidos_jugados`
+        # guardó con el partido (selecciones y femenil no están en ESPN, y
+        # las tarjetas no están en `remates_fotmob_equipos.csv`)
+        extra = pick.get('stats_partido') or {}
+        if extra:
+            stats = dict(stats or {})
+            for k, v in extra.items():
+                if stats.get(k) is None and v is not None:
+                    stats[k] = v
     salida = []
     for f in filas_previas:
         real = _valor_real(f, gh, ga, stats)
         acierto, dist = _acierto(f, real, h, a)
         est = _estado(acierto, dist, f.get('prob'))
+        if (acierto is None and dist == 0.0 and real is not None
+                and str(f.get('bloque')) == 'handicap'):
+            est = NULA                   # v309: justo en la línea, se devuelve
         # v217 — LA DISTANCIA SE DEVUELVE, aunque ya no decida el color.
         #
         # Se calculaba y se tiraba. Desde que el estado es binario, la
@@ -768,7 +935,7 @@ def validar(pick: Dict) -> List[Dict]:
 
 def resumen(filas: List[Dict]) -> Dict:
     """Cuántas cumplieron, cuántas quedaron cerca y cuántas no. Para el estado."""
-    c = {CUMPLIDO: 0, CERCA: 0, FALLADO: 0, PENDIENTE: 0}
+    c = {CUMPLIDO: 0, CERCA: 0, FALLADO: 0, PENDIENTE: 0, NULA: 0}
     for f in (filas or []):
         c[f.get('estado', PENDIENTE)] = c.get(f.get('estado', PENDIENTE), 0) + 1
     return c

@@ -2653,11 +2653,13 @@ def _bloque_validacion(st, pick: Dict) -> bool:
         return False
     import pronosticos_guardados as pgs
     res = pgs.resumen(filas)
-    juzgadas = len(filas) - res.get(pgs.PENDIENTE, 0)
+    juzgadas = (len(filas) - res.get(pgs.PENDIENTE, 0)
+                - res.get(getattr(pgs, 'NULA', 'nula'), 0))
     gh, ga = pick.get('goles_home'), pick.get('goles_away')
     marcador = ('%d – %d' % (int(gh), int(ga))
                 if gh is not None and ga is not None else '—')
     origen = {'guardado': 'lo que se anunció',
+              'archivo': 'lo que se recomendó antes del inicio',
               'precalculo': 'del precálculo del día',
               'modelo': 'sin precio de la casa'}.get(
         str(filas[0].get('origen') or 'guardado'), '')
@@ -2674,6 +2676,12 @@ def _bloque_validacion(st, pick: Dict) -> bool:
         real = f.get('real')
         if real is None:
             texto_real = '—'
+        elif isinstance(real, (tuple, list)):
+            # v309 — doble con goles y hándicap se liquidan con el marcador
+            try:
+                texto_real = '%d–%d' % (int(real[0]), int(real[1]))
+            except Exception:
+                texto_real = '—'
         elif isinstance(real, str):
             texto_real = {'home': 'local', 'away': 'visita',
                           'draw': 'empate', 'si': 'sí',
@@ -2688,6 +2696,8 @@ def _bloque_validacion(st, pick: Dict) -> bool:
         # si quedara alguna fila liquidada con el esquema viejo en el disco.
         color = {pgs.CUMPLIDO: 'var(--ok)', pgs.CERCA: 'var(--no)',
                  pgs.FALLADO: 'var(--no)'}.get(f['estado'], 'var(--tenue)')
+        if f['estado'] == getattr(pgs, 'NULA', 'nula'):
+            texto_real += ' · nula'
         trozos.append(
             '<div class="mm-val">'
             '<span class="mm-val-ic">%s</span>'
@@ -2799,8 +2809,16 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             if gh is not None and ga is not None:
                 st.markdown('### ✅ Finalizado — %d &nbsp;–&nbsp; %d'
                             % (int(gh), int(ga)))
+            elif pick.get('en_juego'):
+                # v309 — se archiva en cuanto empieza (ver
+                # `partidos_jugados`); mientras no haya marcador y no hayan
+                # pasado 2,5 h, decir «Finalizado» sería inventar un final.
+                st.markdown('### ⏱️ En juego')
+                st.caption('La apuesta de abajo es la que se recomendó antes '
+                           'del inicio; el marcador llega al terminar.')
             else:
                 st.markdown('### ✅ Finalizado')
+                st.caption('Marcador pendiente: la fuente aún no lo publica.')
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
             # v177 — el pronóstico que se emitió, liquidado contra el
             # marcador. `validar` lo busca por tres vías —guardado,
