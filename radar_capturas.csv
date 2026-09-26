@@ -3458,3 +3458,31 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-09-26,mlb,SOUTH KOREA: KBO,NC Dinos,Kiwoom Heroes,1790496000,1.5464,,2.49,0.616886,0.383114,0.04827,0,0.0,
 2026-09-26,futbol,ALGERIA: Ligue 2,MSP Batna,MO Constantine,1790434800,1.4926,3.4,6.19,0.595192,0.143519,0.12564,1,0.1112,Novibet
 2026-09-26,futbol,BRAZIL: Serie B,Nautico,Sport Recife,1790451000,2.33,3.28,3.29,0.413467,0.29282,0.038014,1,0.0203,Novibet
+2026-09-26,futbol,BRAZIL: Brasiliense 2,Canaa EC,Luziania,1790447400,1.9615,3.08,3.45,0.453432,0.257799,0.124344,0,0.0,
+2026-09-26,futbol,BRAZIL: Brasiliense 2,Legiao,Gremio Valparaiso,1790447400,2.03,3.44,2.87,0.435268,0.307873,0.131741,0,0.0,
+2026-09-26,futbol,EUROPE: Euro U21 - Qualification,Croatia U21,Hungary U21,1790434800,1.2475,5.97,10.67,0.754217,0.08818,0.062828,0,0.0,
+2026-09-26,futbol,EUROPE: Euro U21 - Qualification,Georgia U21,Greece U21,1790434800,4.36,3.83,1.7752,0.217654,0.534572,0.053771,0,0.0,
+2026-09-26,futbol,EUROPE: Euro U21 - Qualification,Latvia U21,Germany U21,1790438400,27.21,14.5,1.0577,0.034962,0.899429,0.051164,0,0.0,
+2026-09-26,futbol,EUROPE: Euro U21 - Qualification,Malta U21,Northern Ireland U21,1790442000,10.73,6.47,1.2278,0.087738,0.766757,0.062221,0,0.0,
+2026-09-26,futbol,EUROPE: Elite League U20,Portugal U20,Poland U20,1790438400,1.4762,4.36,5.85,0.628567,0.158614,0.077713,0,0.0,
+2026-09-26,futbol,FINLAND: Ykkosliiga,Klubi 04,JaPS,1790438400,1.5882,4.71,4.69,0.596718,0.20207,0.055177,0,0.0,
+2026-09-26,futbol,FRANCE: Ligue 3,Quevilly Rouen,Amiens,1790448300,3.75,3.4,2.04,0.253731,0.466418,0.05098,0,0.0,
+2026-09-26,futbol,FRANCE: Ligue 3,Thionville,La Roche,1790448300,2.7,3.34,2.63,0.352734,0.362122,0.05,0,0.0,
+2026-09-26,futbol,FRANCE: Ligue 3,Valenciennes,Le Puy-en-Velay,1790448300,2.31,3.36,3.14,0.412683,0.303598,0.048991,0,0.0,
+2026-09-26,tenis,"ATP - SINGLES: Chengdu (China), hard",Muller A.,Davidovich Fokina A.,1790490600,3.24,,1.3876,0.299853,0.700147,0.029311,0,0.0,
+2026-09-26,tenis,"ATP - SINGLES: Chengdu (China), hard",Harris L.,Hurkacz H.,1790501400,2.7,,1.5181,0.359901,0.640099,0.029089,0,0.0,
+2026-09-26,tenis,"WTA - SINGLES: Singapore (Singapore), hard (indoor)",Fernandez L.,Gibson T.,1790499600,1.463,,2.89,0.66391,0.33609,0.029548,0,0.0,
+2026-09-26,tenis,"CHALLENGER WOMEN - SINGLES: Adana (Turkey) - Qualification, hard",Andreeva E.,Micic E.,1790496000,1.369,,3.15,0.697057,0.302943,0.047921,1,0.0673,Playdoit
+2026-09-26,tenis,"CHALLENGER WOMEN - SINGLES: Adana (Turkey) - Qualification, hard",Hruncakova V.,Tikhonova A.,1790496000,1.5556,,2.47,0.613573,0.386427,0.047697,0,0.0,
+2026-09-26,tenis,"CHALLENGER WOMEN - SINGLES: Jingshan (China) - Qualification, hard",Wang J.,Zheng W.,1790478000,1.6579,,2.25,0.575757,0.424243,0.047617,0,0.0,
+2026-09-26,tenis,"ITF MEN - SINGLES: M15 Baku (Azerbaijan), hard",Singh D.,Nordquist A.,1790488800,1.9804,,1.7812,0.473522,0.526478,0.066368,0,0.0,
+2026-09-26,tenis,"ITF MEN - SINGLES: M15 Telavi (Georgia), clay",Mecarelli M.,Popko D.,1790492400,3.66,,1.2604,0.256158,0.743842,0.066623,0,0.0,
+2026-09-26,tenis,"ITF MEN - SINGLES: M25 Pardubice (Czech Republic), clay",Baum S.,Dominko S.,1790496000,3.97,,1.2141,0.234197,0.765803,0.075545,0,0.0,
+2026-09-26,tenis,"ITF MEN - SINGLES: M25 Sabadell 2 (Spain), clay",Campana Lee G.,Jong S.,1790499600,2.14,,1.6711,0.438482,0.561518,0.065698,0,0.0,
+2026-09-26,tenis,"ITF MEN - SINGLES: M25 Setubal (Portugal), hard",Montes-De La Torre I.,Deckers A.,1790499600,1.2404,,3.72,0.74994,0.25006,0.075009,0,0.0,
+2026-09-26,nba,CZECH REPUBLIC: NBL,Opava,Decin,1790438400,1.5814,,2.27,0.589396,0.410604,0.07288,1,0.0813,Playdoit
+2026-09-26,nba,SWEDEN: Superettan,Alvik,AIK Basket,1790517600,1.3155,,2.88,0.68645,0.31355,0.107389,1,0.1078,Novibet
+2026-09-26,mlb,USA: MLB,Washington Nationals,New York Mets,1790453100,2.01,,1.9091,0.487127,0.512873,0.021319,1,0.0319,Novibet
+2026-09-26,mlb,USA: MLB,Minnesota Twins,Texas Rangers,1790453400,2.08,,1.8403,0.469428,0.530572,0.024159,0,0.0,
+2026-09-26,mlb,USA: MLB,Milwaukee Brewers,St.Louis Cardinals,1790464200,1.6757,,2.37,0.585807,0.414193,0.018706,1,0.0708,Novibet
+2026-09-26,mlb,USA: MLB,Philadelphia Phillies,Tampa Bay Rays,1790464500,1.9346,,1.9709,0.504647,0.495353,0.024285,0,0.0,
