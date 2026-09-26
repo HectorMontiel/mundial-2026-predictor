@@ -145,8 +145,8 @@
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter Bogotá",
-    "ratio": 0.6087,
+    "candidato": "Inter Sibiu",
+    "ratio": 0.7273,
     "visto": "2026-09-26"
   },
   "Inter de San Carlos": {
@@ -353,8 +353,8 @@
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6667,
+    "candidato": "Galway United W",
+    "ratio": 0.7407,
     "visto": "2026-09-26"
   },
   "New York City FC": {
@@ -683,8 +683,8 @@
   },
   "Mansfield Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shifnal Town",
-    "ratio": 0.5385,
+    "candidato": "Newbridge Town",
+    "ratio": 0.5714,
     "visto": "2026-09-26"
   },
   "Crawley Town": {
@@ -701,14 +701,14 @@
   },
   "Harrogate Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shifnal Town",
-    "ratio": 0.5385,
+    "candidato": "Newbridge Town",
+    "ratio": 0.5714,
     "visto": "2026-09-26"
   },
   "Grimsby Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shifnal Town",
-    "ratio": 0.5,
+    "candidato": "Newbridge Town",
+    "ratio": 0.5385,
     "visto": "2026-09-26"
   },
   "Yeovil Town": {
@@ -719,8 +719,8 @@
   },
   "Shrewsbury Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shifnal Town",
-    "ratio": 0.5185,
+    "candidato": "Newbridge Town",
+    "ratio": 0.6207,
     "visto": "2026-09-26"
   },
   "Northampton Town": {
@@ -827,8 +827,8 @@
   },
   "Forest Green Rovers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Bristol Rovers",
-    "ratio": 0.6061,
+    "candidato": "Letterkenny Rovers",
+    "ratio": 0.5405,
     "visto": "2026-09-26"
   },
   "Tranmere Rovers": {
@@ -865,6 +865,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "AFC Toronto W",
     "ratio": 0.4,
+    "visto": "2026-09-26"
+  },
+  "Deportes Tolima": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "U. de Deportes W",
+    "ratio": 0.5714,
+    "visto": "2026-09-26"
+  },
+  "Tampa Bay Rowdies": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Kids Tampa Brasov",
+    "ratio": 0.5294,
     "visto": "2026-09-26"
   }
 }
