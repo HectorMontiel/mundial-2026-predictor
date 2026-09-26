@@ -245,7 +245,11 @@ def _fila(f: Dict) -> Dict:
                      else round(float(f['prob']), 4)),
             'cuota': f.get('cuota'), 'score': f.get('score'),
             'semaforo': f.get('semaforo'),
-            'incierto': bool(f.get('incierto'))}
+            'incierto': bool(f.get('incierto')),
+            # v310 — si la tarjeta dijo «meter» y con qué probabilidad
+            'veredicto': f.get('veredicto_vp'),
+            'prob_meter': (None if f.get('prob_meter') is None
+                           else round(float(f['prob_meter']), 4))}
 
 
 def ya_anotado(pick: Dict) -> bool:

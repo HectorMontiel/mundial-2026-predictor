@@ -227,3 +227,7 @@ cambios_entrenador.json
 # y _v308_fondo_fotmob.py); 25 + 22 MB que no deben entrar en un repo de 16 GB
 _v308_fd/
 _v308_fondo/
+# v310 — tablas intermedias de medición (se regeneran con _v310_conteos.py y
+# _v310_replay_semana.py); los resultados que importan van en sus .json
+_v310_conteos.csv
+_v310_replay_semana.csv

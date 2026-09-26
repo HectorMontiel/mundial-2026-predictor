@@ -47,7 +47,13 @@ def _pron(partido, inicio_ts, liga='champions_femenil'):
 def probar_el_archivo_y_la_union():
     import partidos_jugados as pj
     import dia_picks as dp
-    ahora = time.time()
+    import datetime as _dt
+    # v310 — una hora FIJA de referencia (las 23:00 UTC de hoy, 17:00 de
+    # CDMX): con `time.time()` el test fallaba de madrugada en México, cuando
+    # «hace 4 h» y «hace 30 min» caen en días distintos de CDMX.
+    _hoy = _dt.datetime.now(_dt.timezone.utc).replace(hour=23, minute=0,
+                                                       second=0, microsecond=0)
+    ahora = _hoy.timestamp()
     d = tempfile.mkdtemp()
     hoy = dp.hoy_local().strftime('%Y-%m-%d')
     # un partido de hoy que empezó hace 4 h y otro que empezó hace 30 min

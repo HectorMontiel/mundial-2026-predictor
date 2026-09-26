@@ -262,6 +262,13 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
         recos = mm.recomendadas(q, bloques, n=mm.MAX_RECOMENDADAS) or []
     except Exception as e:
         logger.debug('[jugados] recomendadas de %s: %s', pick.get('partido'), e)
+    # v310 — LO QUE LA TARJETA ENSEÑÓ, NI UNA MÁS: la principal (aunque sea
+    # «no meter», es la única forma de decir «esto es lo mejor y no llega») y
+    # las alternativas que sí eran «meter» (`modo_modelo`, regla de la v308).
+    # Guardar también las «no meter» mezclaba en la liquidación apuestas que
+    # la tarjeta nunca propuso.
+    recos = recos[:1] + [o for o in recos[1:]
+                         if o.get('veredicto_vp') != 'no_meter']
     if recos:
         return [dict(pg._fila(r), origen='archivo') for r in recos]
     try:

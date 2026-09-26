@@ -1204,8 +1204,110 @@ def lambda_tarjetas_equipo(clave: str, equipo: str, rival: str,
         return None
 
 
+# ---------------------------------------------------------------------------
+# v310 — TARJETAS Y REMATES, A MEDIO CAMINO DE LA MEDIA DE SU COMPETICIÓN
+# ---------------------------------------------------------------------------
+# El usuario: «analiza las estadísticas de UEFA, CONCACAF y Liga MX; siento
+# que el modelo no está bien». Medido fuera de muestra (`_v310_conteos.py`:
+# ~2.800 partidos de Liga MX, selecciones y copas UEFA, cada uno predicho sólo
+# con lo anterior a su fecha, con ESTE código):
+#
+#   · TARJETAS: el estimador ataque/defensa del rival PIERDE contra la simple
+#     media de la competición en Liga MX (Brier 0,2028 contra 0,1998),
+#     selecciones UEFA (0,2031 / 0,1990) y amistosos (0,2061 / 0,1767, se
+#     pasaba +1,2 tarjetas: en un amistoso se pita mucho menos).
+#   · REMATES: se quedaba corto ~1,2 en copas UEFA y selecciones.
+#
+# `_v310_ajuste_conteos.py` probó mezclas λ = w·λ_modelo + (1−w)·λ_media con
+# w ∈ {0; 0,25; 0,5; 0,75} y el reescalado por sesgo. Con w = 0,5, log-loss
+# de todas las líneas, mejora contra el modelo solo y p5 del bootstrap:
+#
+#     tarjetas      elección +0,0070 (p5 +0,0003) · juicio +0,0259 (p5 +0,0194)
+#     remates       elección +0,0327 (p5 +0,0196) · juicio +0,0184 (p5 +0,0102)
+#     a puerta      elección +0,0128 (p5 +0,0053) · juicio +0,0058 (p5 +0,0005)
+#
+# Los córners NO se tocan: ninguna mezcla pasó el tramo de juicio.
+#
+# La media es la del TIPO de torneo: en selecciones, amistosos por un lado y
+# partidos oficiales por otro (lo decide el nombre de la competición que trae
+# el pick). Se aplica sólo a lo observado, que es lo medido; lo estimado ya es
+# el nivel de la competición. Los dos equipos se escalan con el mismo factor
+# que el total, para que las líneas por equipo sumen lo mismo.
+MEZCLA_MEDIA = {'tarjetas': 0.5, 'remates': 0.5, 'a_puerta': 0.5}
+DIAS_MEDIA = 730
+MIN_PARTIDOS_MEDIA = 20
+_COL_MEDIA = {'tarjetas': ('yellow',), 'a_puerta': ('shots_on',),
+              'remates': ('shots_on', 'shots_off')}
+_CACHE_MEDIA: Dict = {}
+
+
+def es_amistoso(torneo: str) -> bool:
+    import re as _re
+    return bool(_re.search(r'amistos|friendl', str(torneo or ''), _re.I))
+
+
+def media_competicion(clave: str, mercado: str,
+                      torneo: str = '') -> Optional[float]:
+    """La media del total de `mercado` en la competición (sus últimos dos
+    años de datos), y en selecciones la del TIPO de torneo. None sin datos."""
+    tipo = ''
+    if clave == 'selecciones':
+        tipo = 'amistoso' if es_amistoso(torneo) else 'oficial'
+    k = (clave, mercado, tipo)
+    if k in _CACHE_MEDIA:
+        return _CACHE_MEDIA[k]
+    valor = None
+    try:
+        d = _historico(clave)
+        cols = _COL_MEDIA.get(mercado)
+        if d is not None and not d.empty and cols:
+            ok = all('home_' + c in d.columns and 'away_' + c in d.columns
+                     for c in cols)
+            if ok:
+                x = d
+                if 'date' in x.columns and x['date'].notna().any():
+                    x = x[x['date'] >= x['date'].max()
+                          - pd.Timedelta(days=DIAS_MEDIA)]
+                if tipo and 'tournament' in x.columns:
+                    ama = x['tournament'].astype(str).map(es_amistoso)
+                    x = x[ama] if tipo == 'amistoso' else x[~ama]
+                tot = sum(pd.to_numeric(x['home_' + c], errors='coerce')
+                          + pd.to_numeric(x['away_' + c], errors='coerce')
+                          for c in cols).dropna()
+                if len(tot) >= MIN_PARTIDOS_MEDIA:
+                    valor = float(tot.mean())
+    except Exception as e:
+        logger.debug('[rendimiento] media de %s/%s: %s', clave, mercado, e)
+    _CACHE_MEDIA[k] = valor
+    return valor
+
+
+def _a_la_media(bloque: Optional[Dict], clave: str, mercado: str,
+                torneo: str = '') -> Optional[Dict]:
+    """v310 — la mezcla medida (ver arriba). Devuelve un bloque NUEVO."""
+    w = MEZCLA_MEDIA.get(mercado)
+    if (not bloque or w is None or bloque.get('origen') != 'observado'
+            or not bloque.get('lambda_total')):
+        return bloque
+    media = media_competicion(clave, mercado, torneo)
+    if not media:
+        return bloque
+    lt = float(bloque['lambda_total'])
+    nuevo_t = w * lt + (1.0 - w) * media
+    r = nuevo_t / lt if lt > 0 else 1.0
+    b = dict(bloque)
+    b['lambda_total_modelo'] = round(lt, 3)
+    b['media_competicion'] = round(media, 3)
+    b['lambda_total'] = round(nuevo_t, 3)
+    for kk in ('lambda_home', 'lambda_away'):
+        if b.get(kk) is not None:
+            b[kk] = round(float(b[kk]) * r, 3)
+    return b
+
+
 def tarjetas_equipo(clave: str, home: str, away: str, n: int = 10,
-                    factor_arbitro: Optional[float] = None) -> Optional[Dict]:
+                    factor_arbitro: Optional[float] = None,
+                    torneo: str = '') -> Optional[Dict]:
     """
     Las tarjetas esperadas de los dos equipos y del partido, con la dispersión
     con la que convertirlas en probabilidades.
@@ -1248,11 +1350,21 @@ def tarjetas_equipo(clave: str, home: str, away: str, n: int = 10,
             f = 1.0
         if not (0.5 <= f <= 1.6):    # fuera de rango no se aplica, se ignora
             f = 1.0
-    return {'lambda_home': round(lh * f, 3), 'lambda_away': round(la * f, 3),
-            'lambda_total': round((lh + la) * f, 3),
-            'dispersion': disp_eq, 'dispersion_total': disp_tot,
-            'factor_arbitro': round(f, 4), 'origen': 'observado',
-            'clave_liga': clave}
+    # v310 — primero a medio camino de la media de la competición (medido
+    # sin árbitro), y después el árbitro, que mueve el partido entero
+    b = _a_la_media({'lambda_home': lh, 'lambda_away': la,
+                     'lambda_total': lh + la, 'origen': 'observado'},
+                    clave, 'tarjetas', torneo)
+    lh, la = float(b['lambda_home']), float(b['lambda_away'])
+    fuera = {'lambda_home': round(lh * f, 3), 'lambda_away': round(la * f, 3),
+             'lambda_total': round((lh + la) * f, 3),
+             'dispersion': disp_eq, 'dispersion_total': disp_tot,
+             'factor_arbitro': round(f, 4), 'origen': 'observado',
+             'clave_liga': clave}
+    for kk in ('lambda_total_modelo', 'media_competicion'):
+        if kk in b:
+            fuera[kk] = b[kk]
+    return fuera
 
 
 # ---------------------------------------------------------------------------
@@ -1598,7 +1710,7 @@ def _remates_de_objetivo(clave: str, home: str, away: str, n: int,
 
 
 def remates_equipo(clave: str, home: str, away: str,
-                   n: int = 10) -> Optional[Dict]:
+                   n: int = 10, torneo: str = '') -> Optional[Dict]:
     """
     Los remates esperados del partido, en sus dos mercados.
 
@@ -1621,6 +1733,10 @@ def remates_equipo(clave: str, home: str, away: str,
     salida = {}
     for nombre, objetivo in (('totales', 'tot'), ('a_puerta', 'on')):
         bloque = _remates_de_objetivo(clave, home, away, n, objetivo)
+        # v310 — a medio camino de la media de la competición (ver arriba)
+        bloque = _a_la_media(bloque, clave,
+                             'remates' if objetivo == 'tot' else 'a_puerta',
+                             torneo)
         if bloque:
             salida[nombre] = bloque
     return salida or None

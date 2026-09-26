@@ -1023,7 +1023,10 @@ def tarjetas_tarjeta(pick: Dict) -> Optional[Dict]:
 
     try:
         import rendimiento_equipos as rq
-        tj = rq.tarjetas_equipo(clave, h, a, factor_arbitro=f_arb)
+        # v310 — el torneo decide la media: un amistoso se pita menos
+        tj = rq.tarjetas_equipo(clave, h, a, factor_arbitro=f_arb,
+                                torneo=str(pick.get('liga_origen')
+                                           or pick.get('liga') or ''))
     except Exception as e:
         logger.debug('[modo_modelo] tarjetas de %s: %s', clave, e)
         return None
@@ -1109,7 +1112,9 @@ def remates_tarjeta(pick: Dict) -> Optional[Dict]:
         return None
     try:
         import rendimiento_equipos as rq
-        eq = rq.remates_equipo(clave, h, a)
+        eq = rq.remates_equipo(clave, h, a,
+                               torneo=str(pick.get('liga_origen')
+                                          or pick.get('liga') or ''))
     except Exception as e:
         logger.debug('[modo_modelo] remates de %s: %s', clave, e)
         return None
@@ -1245,8 +1250,10 @@ def _bloque_quien_remata_html(qr: Optional[Dict]) -> str:
     con_linea = sum(1 for j in filas if j.get('p_linea_tot') is not None)
     if con_linea:
         pie = ('«+1.5» es la línea que cotiza la casa y el porcentaje es la '
-               'probabilidad del modelo para ESA línea. Es informativa: el '
-               'mercado de jugador no tiene aquí ventaja de precio medida.')
+               'probabilidad del modelo para ESA línea. Es informativa: '
+               'medido con las cuotas de Playdoit desde agosto, apostar '
+               'remates de jugador pierde dinero, así que no se ofrece como '
+               'apuesta.')
         if con_linea < len(filas):
             pie += (' A %d de estos %d jugadores la casa no les cotiza línea, '
                     'y para ésos se enseña la probabilidad de rematar al menos '
@@ -1255,8 +1262,8 @@ def _bloque_quien_remata_html(qr: Optional[Dict]) -> str:
     else:
         pie = ('probabilidad de tirar al menos un remate, y de que al menos '
                'uno vaya a puerta. La casa no cotiza líneas de jugador en este '
-               'partido. Son informativas: el mercado de jugador no tiene aquí '
-               'ventaja de precio medida.')
+               'partido. Son informativas: medido con las cuotas de Playdoit '
+               'desde agosto, apostar remates de jugador pierde dinero.')
     if not al:
         pie = ('todavía no hay alineación publicada, así que no se sabe quién '
                'sale de inicio — ' + pie)
@@ -1677,6 +1684,8 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             # es un partido que la casa no cotiza. La tarjeta lo enseña
             # con su probabilidad y sin precio, en vez de callarse.
             'p_mercado': _p_mercado,        # v243
+            # v310 — el veredicto exige cuota mínima sólo en fútbol
+            'deporte': str(pick.get('deporte') or 'Fútbol'),
             'ev': (None if _mej.get('score') is None
                    else _mej['score'] - 1.0),
             'score': _mej.get('score'),
@@ -1779,6 +1788,9 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
             candidatas = []
             for v in _vers:
                 v['pick']['veredicto_vp'] = v.get('veredicto')
+                # v310 — la probabilidad con la que se decidió «meter», para
+                # guardarla y poder liquidar lo que se dijo de verdad
+                v['pick']['prob_meter'] = v.get('prob_ajustada')
                 candidatas.append(v['pick'])
     except Exception as e:
         logger.debug('[modo_modelo] veredicto no aplicado al orden: %s', e)
@@ -2431,6 +2443,8 @@ def _escalera_compacta(qr: Dict) -> str:
 # calibrada por la cuota de la casa deja al menos un 5 % y el peldaño no es
 # una lotería (≥ 40 %). Es la regla del precio, no una ventaja medida: aún no
 # hay histórico de cuotas de jugador (se acumula desde la v308).
+# v310 — MEDIDA Y RECHAZADA (ver el comentario donde se pintaba): la función
+# se conserva para poder volver a medirla, pero la tarjeta ya no la enseña.
 EV_REMATE = 0.05
 PROB_REMATE = 0.40
 # La probabilidad es SI ES TITULAR. La casa, en cambio, cobra sabiendo que un
@@ -2664,12 +2678,20 @@ def _bloque_validacion(st, pick: Dict) -> bool:
               'modelo': 'sin precio de la casa'}.get(
         str(filas[0].get('origen') or 'guardado'), '')
     tira = ''.join(f['icono'] for f in filas)
+    # v310 — DE LAS QUE SE DIJO «METER», CUÁNTAS. Es la pregunta del usuario
+    # («ver si estuvieron verdes las que diste»), y la principal puede ser un
+    # «no meter»: contarlas juntas mezclaba lo recomendado con lo descartado.
+    _met = [f for f in filas if f.get('veredicto') == 'meter'
+            and f.get('estado') in (pgs.CUMPLIDO, pgs.FALLADO, pgs.CERCA)]
+    _txt_met = ('🎯 meter: %d de %d · ' % (
+        sum(1 for f in _met if f['estado'] == pgs.CUMPLIDO), len(_met))
+        if _met else '')
     trozos = [
         '<div class="mm-val-res">'
         '<span class="mm-val-marc">%s</span>'
         '<span class="mm-val-cnt">%s</span>'
-        '<span class="mm-val-sub">%s%s</span></div>'
-        % (marcador, tira,
+        '<span class="mm-val-sub">%s%s%s</span></div>'
+        % (marcador, tira, _txt_met,
            ('%d de %d · ' % (res.get(pgs.CUMPLIDO, 0), juzgadas)
             if juzgadas else ''), origen)]
     for f in filas:
@@ -2708,7 +2730,8 @@ def _bloque_validacion(st, pick: Dict) -> bool:
             '<span class="mm-val-e">%.0f %%</span>'
             '<span class="mm-val-real" style="color:%s">%s</span>'
             '</div>'
-            % (f['icono'], _esc_mm(f.get('apuesta') or '')[:30],
+            % (f['icono'], ('🎯 ' if f.get('veredicto') == 'meter' else '')
+               + _esc_mm(f.get('apuesta') or '')[:30],
                max(3.0, min(100.0, p * 100)), color, p * 100,
                color, _esc_mm(texto_real)))
     st.markdown(''.join(trozos), unsafe_allow_html=True)
@@ -3072,7 +3095,16 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                    'Remates a puerta': (_rm or {}).get('a_puerta')},
             pick.get('clave_liga'), correcciones=_corr)
         filas.append(_quien_remata_compacto(_qr))
-        filas.append(_fila_remates_con_valor(_qr))
+        # v310 — «💎 Remate con valor» YA NO SE PINTA. Medido con las
+        # cuotas reales de Playdoit que el bot guarda desde el 2026-08-23
+        # (`_v310_remates_cuotas.py`: 16.932 líneas de 499 partidos, modelo
+        # entrenado sólo con lo anterior, cuota de la mañana y liquidado con
+        # lo que el jugador jugó): la regla de este aviso (valor 5-40 %,
+        # titular probable) pierde −7,9 % en elección y −9,6 % en juicio,
+        # p5 negativo en los dos. Ni con la alineación ya conocida gana. Y
+        # donde el modelo «ve valor» promete 49 % y pasa el 38 %: la casa
+        # sabe algo que el modelo no. La escalera de probabilidades sigue a
+        # la vista como información; como apuesta, no.
         filas = [f for f in filas if f]
         if filas:
             # v302 — la tira de estabilidad (seis iconos y sus rótulos) baja

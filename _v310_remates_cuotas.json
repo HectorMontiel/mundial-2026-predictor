@@ -1,0 +1,1072 @@
+{
+ "corte_modelo": "2026-08-22",
+ "corte_70": "2026-09-13",
+ "lineas": 16932,
+ "partidos": 499,
+ "calibracion": {
+  "on": {
+   "n": 8364,
+   "brier_modelo": 0.1529,
+   "brier_casa": 0.1883,
+   "bandas": {
+    "(0.0, 0.2]": {
+     "n": 4437,
+     "p": 0.135,
+     "real": 0.118
+    },
+    "(0.2, 0.3]": {
+     "n": 1673,
+     "p": 0.244,
+     "real": 0.235
+    },
+    "(0.3, 0.4]": {
+     "n": 889,
+     "p": 0.345,
+     "real": 0.3
+    },
+    "(0.4, 0.5]": {
+     "n": 722,
+     "p": 0.447,
+     "real": 0.452
+    },
+    "(0.5, 0.6]": {
+     "n": 489,
+     "p": 0.547,
+     "real": 0.566
+    },
+    "(0.6, 0.7]": {
+     "n": 141,
+     "p": 0.637,
+     "real": 0.617
+    },
+    "(0.7, 0.8]": {
+     "n": 13,
+     "p": 0.72,
+     "real": 0.692
+    }
+   }
+  },
+  "tot": {
+   "n": 8568,
+   "brier_modelo": 0.1941,
+   "brier_casa": 0.2585,
+   "bandas": {
+    "(0.0, 0.2]": {
+     "n": 1912,
+     "p": 0.123,
+     "real": 0.122
+    },
+    "(0.2, 0.3]": {
+     "n": 1597,
+     "p": 0.253,
+     "real": 0.242
+    },
+    "(0.3, 0.4]": {
+     "n": 2217,
+     "p": 0.35,
+     "real": 0.299
+    },
+    "(0.4, 0.5]": {
+     "n": 1807,
+     "p": 0.444,
+     "real": 0.411
+    },
+    "(0.5, 0.6]": {
+     "n": 763,
+     "p": 0.542,
+     "real": 0.509
+    },
+    "(0.6, 0.7]": {
+     "n": 226,
+     "p": 0.637,
+     "real": 0.544
+    },
+    "(0.7, 0.8]": {
+     "n": 41,
+     "p": 0.746,
+     "real": 0.537
+    },
+    "(0.8, 0.9]": {
+     "n": 4,
+     "p": 0.822,
+     "real": 1.0
+    },
+    "(0.9, 1.0]": {
+     "n": 1,
+     "p": 0.9,
+     "real": 1.0
+    }
+   }
+  }
+ },
+ "reglas": {
+  "on": {
+   "todas_las_lineas": {
+    "eleccion": {
+     "n": 6012,
+     "partidos": 358,
+     "acierto": 0.229,
+     "p_media": 0.2396,
+     "cuota_media": 3.301,
+     "roi": -0.4365,
+     "p5": -0.4628,
+     "p95": -0.4102
+    },
+    "juicio": {
+     "n": 2352,
+     "partidos": 141,
+     "acierto": 0.2143,
+     "p_media": 0.2389,
+     "cuota_media": 3.073,
+     "roi": -0.4782,
+     "p5": -0.517,
+     "p95": -0.4393
+    },
+    "total": {
+     "n": 8364,
+     "partidos": 499,
+     "acierto": 0.2249,
+     "p_media": 0.2394,
+     "cuota_media": 3.237,
+     "roi": -0.4482,
+     "p5": -0.4697,
+     "p95": -0.4265
+    }
+   },
+   "ev>0": {
+    "eleccion": {
+     "n": 372,
+     "partidos": 189,
+     "acierto": 0.2339,
+     "p_media": 0.2848,
+     "cuota_media": 6.115,
+     "roi": -0.0855,
+     "p5": -0.2574,
+     "p95": 0.0928
+    },
+    "juicio": {
+     "n": 109,
+     "partidos": 66,
+     "acierto": 0.2385,
+     "p_media": 0.3356,
+     "cuota_media": 4.665,
+     "roi": -0.2573,
+     "p5": -0.5405,
+     "p95": 0.1137
+    },
+    "total": {
+     "n": 481,
+     "partidos": 255,
+     "acierto": 0.2349,
+     "p_media": 0.2963,
+     "cuota_media": 5.787,
+     "roi": -0.1245,
+     "p5": -0.2814,
+     "p95": 0.0461
+    }
+   },
+   "ev>5%": {
+    "eleccion": {
+     "n": 281,
+     "partidos": 160,
+     "acierto": 0.2171,
+     "p_media": 0.2652,
+     "cuota_media": 6.728,
+     "roi": 0.0141,
+     "p5": -0.2135,
+     "p95": 0.2409
+    },
+    "juicio": {
+     "n": 77,
+     "partidos": 55,
+     "acierto": 0.2078,
+     "p_media": 0.3173,
+     "cuota_media": 5.163,
+     "roi": -0.2317,
+     "p5": -0.5766,
+     "p95": 0.2273
+    },
+    "total": {
+     "n": 358,
+     "partidos": 215,
+     "acierto": 0.2151,
+     "p_media": 0.2764,
+     "cuota_media": 6.391,
+     "roi": -0.0388,
+     "p5": -0.2266,
+     "p95": 0.162
+    }
+   },
+   "ev>10%": {
+    "eleccion": {
+     "n": 225,
+     "partidos": 136,
+     "acierto": 0.2044,
+     "p_media": 0.2591,
+     "cuota_media": 7.221,
+     "roi": 0.0149,
+     "p5": -0.2449,
+     "p95": 0.2884
+    },
+    "juicio": {
+     "n": 59,
+     "partidos": 47,
+     "acierto": 0.2373,
+     "p_media": 0.3106,
+     "cuota_media": 5.428,
+     "roi": -0.1024,
+     "p5": -0.5461,
+     "p95": 0.4728
+    },
+    "total": {
+     "n": 284,
+     "partidos": 183,
+     "acierto": 0.2113,
+     "p_media": 0.2698,
+     "cuota_media": 6.849,
+     "roi": -0.0094,
+     "p5": -0.236,
+     "p95": 0.2263
+    }
+   },
+   "app_v308 (5%<ev<40%)": {
+    "eleccion": {
+     "n": 223,
+     "partidos": 139,
+     "acierto": 0.2466,
+     "p_media": 0.283,
+     "cuota_media": 5.695,
+     "roi": 0.0334,
+     "p5": -0.187,
+     "p95": 0.2826
+    },
+    "juicio": {
+     "n": 67,
+     "partidos": 50,
+     "acierto": 0.2388,
+     "p_media": 0.332,
+     "cuota_media": 4.531,
+     "roi": -0.117,
+     "p5": -0.5092,
+     "p95": 0.4078
+    },
+    "total": {
+     "n": 290,
+     "partidos": 189,
+     "acierto": 0.2448,
+     "p_media": 0.2943,
+     "cuota_media": 5.426,
+     "roi": -0.0013,
+     "p5": -0.1987,
+     "p95": 0.2172
+    }
+   },
+   "p>=60% y ev>0": {
+    "eleccion": {
+     "n": 21,
+     "partidos": 16,
+     "acierto": 0.5714,
+     "p_media": 0.6615,
+     "cuota_media": 1.866,
+     "roi": 0.1598,
+     "p5": -0.3819,
+     "p95": 0.6874
+    },
+    "juicio": {
+     "n": 7,
+     "partidos": 6,
+     "acierto": 0.8571,
+     "p_media": 0.6584,
+     "cuota_media": 1.644,
+     "roi": 0.4175,
+     "p5": -0.0833,
+     "p95": 0.7243
+    },
+    "total": {
+     "n": 28,
+     "partidos": 22,
+     "acierto": 0.6429,
+     "p_media": 0.6607,
+     "cuota_media": 1.81,
+     "roi": 0.2242,
+     "p5": -0.1801,
+     "p95": 0.6479
+    }
+   },
+   "p>=60% y ev>5%": {
+    "eleccion": {
+     "n": 11,
+     "partidos": 10,
+     "acierto": 0.3636,
+     "p_media": 0.6615,
+     "cuota_media": 2.145,
+     "roi": 0.072,
+     "p5": -0.8286,
+     "p95": 1.0487
+    },
+    "juicio": {
+     "n": 2,
+     "partidos": 2,
+     "acierto": 1.0,
+     "p_media": 0.6386,
+     "cuota_media": 1.875,
+     "roi": 0.875,
+     "p5": 0.75,
+     "p95": 1.0
+    },
+    "total": {
+     "n": 13,
+     "partidos": 12,
+     "acierto": 0.4615,
+     "p_media": 0.658,
+     "cuota_media": 2.103,
+     "roi": 0.1955,
+     "p5": -0.5643,
+     "p95": 1.0232
+    }
+   },
+   "p>=50%, cuota>=1.5 y ev>5%": {
+    "eleccion": {
+     "n": 27,
+     "partidos": 23,
+     "acierto": 0.4815,
+     "p_media": 0.5818,
+     "cuota_media": 2.273,
+     "roi": 0.215,
+     "p5": -0.2895,
+     "p95": 0.7737
+    },
+    "juicio": {
+     "n": 9,
+     "partidos": 8,
+     "acierto": 0.4444,
+     "p_media": 0.5677,
+     "cuota_media": 2.074,
+     "roi": -0.1167,
+     "p5": -0.5889,
+     "p95": 0.365
+    },
+    "total": {
+     "n": 36,
+     "partidos": 31,
+     "acierto": 0.4722,
+     "p_media": 0.5783,
+     "cuota_media": 2.223,
+     "roi": 0.1321,
+     "p5": -0.2568,
+     "p95": 0.5567
+    }
+   }
+  },
+  "tot": {
+   "todas_las_lineas": {
+    "eleccion": {
+     "n": 6176,
+     "partidos": 353,
+     "acierto": 0.2965,
+     "p_media": 0.3278,
+     "cuota_media": 1.969,
+     "roi": -0.4458,
+     "p5": -0.4662,
+     "p95": -0.4253
+    },
+    "juicio": {
+     "n": 2392,
+     "partidos": 141,
+     "acierto": 0.306,
+     "p_media": 0.3273,
+     "cuota_media": 1.915,
+     "roi": -0.443,
+     "p5": -0.4726,
+     "p95": -0.4115
+    },
+    "total": {
+     "n": 8568,
+     "partidos": 494,
+     "acierto": 0.2991,
+     "p_media": 0.3277,
+     "cuota_media": 1.954,
+     "roi": -0.445,
+     "p5": -0.4626,
+     "p95": -0.4268
+    }
+   },
+   "ev>0": {
+    "eleccion": {
+     "n": 420,
+     "partidos": 206,
+     "acierto": 0.3595,
+     "p_media": 0.4825,
+     "cuota_media": 2.594,
+     "roi": -0.1577,
+     "p5": -0.2513,
+     "p95": -0.0572
+    },
+    "juicio": {
+     "n": 120,
+     "partidos": 74,
+     "acierto": 0.4167,
+     "p_media": 0.5273,
+     "cuota_media": 2.327,
+     "roi": -0.0996,
+     "p5": -0.2685,
+     "p95": 0.0809
+    },
+    "total": {
+     "n": 540,
+     "partidos": 280,
+     "acierto": 0.3722,
+     "p_media": 0.4924,
+     "cuota_media": 2.534,
+     "roi": -0.1448,
+     "p5": -0.2315,
+     "p95": -0.0618
+    }
+   },
+   "ev>5%": {
+    "eleccion": {
+     "n": 285,
+     "partidos": 162,
+     "acierto": 0.3298,
+     "p_media": 0.4714,
+     "cuota_media": 2.796,
+     "roi": -0.1719,
+     "p5": -0.2962,
+     "p95": -0.0394
+    },
+    "juicio": {
+     "n": 81,
+     "partidos": 59,
+     "acierto": 0.3827,
+     "p_media": 0.5277,
+     "cuota_media": 2.455,
+     "roi": -0.1287,
+     "p5": -0.3337,
+     "p95": 0.0844
+    },
+    "total": {
+     "n": 366,
+     "partidos": 221,
+     "acierto": 0.3415,
+     "p_media": 0.4838,
+     "cuota_media": 2.721,
+     "roi": -0.1623,
+     "p5": -0.2668,
+     "p95": -0.0485
+    }
+   },
+   "ev>10%": {
+    "eleccion": {
+     "n": 205,
+     "partidos": 129,
+     "acierto": 0.3122,
+     "p_media": 0.4543,
+     "cuota_media": 3.017,
+     "roi": -0.146,
+     "p5": -0.2985,
+     "p95": 0.0148
+    },
+    "juicio": {
+     "n": 62,
+     "partidos": 50,
+     "acierto": 0.4194,
+     "p_media": 0.5262,
+     "cuota_media": 2.555,
+     "roi": -0.0445,
+     "p5": -0.2827,
+     "p95": 0.1917
+    },
+    "total": {
+     "n": 267,
+     "partidos": 179,
+     "acierto": 0.3371,
+     "p_media": 0.471,
+     "cuota_media": 2.91,
+     "roi": -0.1224,
+     "p5": -0.2448,
+     "p95": 0.0141
+    }
+   },
+   "app_v308 (5%<ev<40%)": {
+    "eleccion": {
+     "n": 257,
+     "partidos": 155,
+     "acierto": 0.3385,
+     "p_media": 0.4771,
+     "cuota_media": 2.655,
+     "roi": -0.1774,
+     "p5": -0.3083,
+     "p95": -0.0369
+    },
+    "juicio": {
+     "n": 74,
+     "partidos": 55,
+     "acierto": 0.4054,
+     "p_media": 0.535,
+     "cuota_media": 2.302,
+     "roi": -0.0774,
+     "p5": -0.2978,
+     "p95": 0.1514
+    },
+    "total": {
+     "n": 331,
+     "partidos": 210,
+     "acierto": 0.3535,
+     "p_media": 0.49,
+     "cuota_media": 2.576,
+     "roi": -0.155,
+     "p5": -0.2646,
+     "p95": -0.0304
+    }
+   },
+   "p>=60% y ev>0": {
+    "eleccion": {
+     "n": 82,
+     "partidos": 67,
+     "acierto": 0.561,
+     "p_media": 0.6856,
+     "cuota_media": 1.612,
+     "roi": -0.0895,
+     "p5": -0.2303,
+     "p95": 0.0524
+    },
+    "juicio": {
+     "n": 39,
+     "partidos": 35,
+     "acierto": 0.5897,
+     "p_media": 0.6699,
+     "cuota_media": 1.711,
+     "roi": 0.0002,
+     "p5": -0.2325,
+     "p95": 0.2412
+    },
+    "total": {
+     "n": 121,
+     "partidos": 102,
+     "acierto": 0.5702,
+     "p_media": 0.6805,
+     "cuota_media": 1.643,
+     "roi": -0.0606,
+     "p5": -0.1903,
+     "p95": 0.0608
+    }
+   },
+   "p>=60% y ev>5%": {
+    "eleccion": {
+     "n": 48,
+     "partidos": 44,
+     "acierto": 0.6042,
+     "p_media": 0.696,
+     "cuota_media": 1.67,
+     "roi": 0.0168,
+     "p5": -0.1968,
+     "p95": 0.2178
+    },
+    "juicio": {
+     "n": 28,
+     "partidos": 25,
+     "acierto": 0.5714,
+     "p_media": 0.6718,
+     "cuota_media": 1.778,
+     "roi": 0.0211,
+     "p5": -0.2624,
+     "p95": 0.3226
+    },
+    "total": {
+     "n": 76,
+     "partidos": 69,
+     "acierto": 0.5921,
+     "p_media": 0.6871,
+     "cuota_media": 1.709,
+     "roi": 0.0184,
+     "p5": -0.1497,
+     "p95": 0.1806
+    }
+   },
+   "p>=50%, cuota>=1.5 y ev>5%": {
+    "eleccion": {
+     "n": 95,
+     "partidos": 79,
+     "acierto": 0.3789,
+     "p_media": 0.5978,
+     "cuota_media": 1.992,
+     "roi": -0.2615,
+     "p5": -0.4286,
+     "p95": -0.0806
+    },
+    "juicio": {
+     "n": 43,
+     "partidos": 35,
+     "acierto": 0.4186,
+     "p_media": 0.6081,
+     "cuota_media": 1.982,
+     "roi": -0.1979,
+     "p5": -0.4128,
+     "p95": 0.0192
+    },
+    "total": {
+     "n": 138,
+     "partidos": 114,
+     "acierto": 0.3913,
+     "p_media": 0.601,
+     "cuota_media": 1.989,
+     "roi": -0.2417,
+     "p5": -0.3815,
+     "p95": -0.1031
+    }
+   }
+  },
+  "ambos": {
+   "todas_las_lineas": {
+    "eleccion": {
+     "n": 12188,
+     "partidos": 358,
+     "acierto": 0.2632,
+     "p_media": 0.2843,
+     "cuota_media": 2.626,
+     "roi": -0.4412,
+     "p5": -0.4608,
+     "p95": -0.4217
+    },
+    "juicio": {
+     "n": 4744,
+     "partidos": 141,
+     "acierto": 0.2605,
+     "p_media": 0.2835,
+     "cuota_media": 2.489,
+     "roi": -0.4604,
+     "p5": -0.4902,
+     "p95": -0.4283
+    },
+    "total": {
+     "n": 16932,
+     "partidos": 499,
+     "acierto": 0.2625,
+     "p_media": 0.2841,
+     "cuota_media": 2.587,
+     "roi": -0.4466,
+     "p5": -0.4633,
+     "p95": -0.4303
+    }
+   },
+   "ev>0": {
+    "eleccion": {
+     "n": 792,
+     "partidos": 232,
+     "acierto": 0.3005,
+     "p_media": 0.3896,
+     "cuota_media": 4.248,
+     "roi": -0.1238,
+     "p5": -0.2335,
+     "p95": -0.0138
+    },
+    "juicio": {
+     "n": 229,
+     "partidos": 82,
+     "acierto": 0.3319,
+     "p_media": 0.4361,
+     "cuota_media": 3.44,
+     "roi": -0.1747,
+     "p5": -0.3579,
+     "p95": 0.053
+    },
+    "total": {
+     "n": 1021,
+     "partidos": 314,
+     "acierto": 0.3075,
+     "p_media": 0.4001,
+     "cuota_media": 4.067,
+     "roi": -0.1352,
+     "p5": -0.2301,
+     "p95": -0.0392
+    }
+   },
+   "ev>5%": {
+    "eleccion": {
+     "n": 566,
+     "partidos": 195,
+     "acierto": 0.2739,
+     "p_media": 0.369,
+     "cuota_media": 4.748,
+     "roi": -0.0796,
+     "p5": -0.2109,
+     "p95": 0.0604
+    },
+    "juicio": {
+     "n": 158,
+     "partidos": 67,
+     "acierto": 0.2975,
+     "p_media": 0.4251,
+     "cuota_media": 3.775,
+     "roi": -0.1789,
+     "p5": -0.4085,
+     "p95": 0.1144
+    },
+    "total": {
+     "n": 724,
+     "partidos": 262,
+     "acierto": 0.279,
+     "p_media": 0.3813,
+     "cuota_media": 4.536,
+     "roi": -0.1012,
+     "p5": -0.2164,
+     "p95": 0.0211
+    }
+   },
+   "ev>10%": {
+    "eleccion": {
+     "n": 430,
+     "partidos": 169,
+     "acierto": 0.2558,
+     "p_media": 0.3521,
+     "cuota_media": 5.217,
+     "roi": -0.0618,
+     "p5": -0.2222,
+     "p95": 0.1059
+    },
+    "juicio": {
+     "n": 121,
+     "partidos": 61,
+     "acierto": 0.3306,
+     "p_media": 0.4211,
+     "cuota_media": 3.956,
+     "roi": -0.0727,
+     "p5": -0.3449,
+     "p95": 0.2856
+    },
+    "total": {
+     "n": 551,
+     "partidos": 230,
+     "acierto": 0.2722,
+     "p_media": 0.3673,
+     "cuota_media": 4.94,
+     "roi": -0.0642,
+     "p5": -0.201,
+     "p95": 0.081
+    }
+   },
+   "app_v308 (5%<ev<40%)": {
+    "eleccion": {
+     "n": 480,
+     "partidos": 187,
+     "acierto": 0.2958,
+     "p_media": 0.3869,
+     "cuota_media": 4.067,
+     "roi": -0.0794,
+     "p5": -0.206,
+     "p95": 0.0577
+    },
+    "juicio": {
+     "n": 141,
+     "partidos": 64,
+     "acierto": 0.3262,
+     "p_media": 0.4385,
+     "cuota_media": 3.361,
+     "roi": -0.0962,
+     "p5": -0.3534,
+     "p95": 0.2241
+    },
+    "total": {
+     "n": 621,
+     "partidos": 251,
+     "acierto": 0.3027,
+     "p_media": 0.3986,
+     "cuota_media": 3.907,
+     "roi": -0.0833,
+     "p5": -0.1978,
+     "p95": 0.0366
+    }
+   },
+   "p>=60% y ev>0": {
+    "eleccion": {
+     "n": 103,
+     "partidos": 76,
+     "acierto": 0.5631,
+     "p_media": 0.6807,
+     "cuota_media": 1.663,
+     "roi": -0.0387,
+     "p5": -0.2073,
+     "p95": 0.1452
+    },
+    "juicio": {
+     "n": 46,
+     "partidos": 40,
+     "acierto": 0.6304,
+     "p_media": 0.6682,
+     "cuota_media": 1.7,
+     "roi": 0.0637,
+     "p5": -0.1716,
+     "p95": 0.2754
+    },
+    "total": {
+     "n": 149,
+     "partidos": 116,
+     "acierto": 0.5839,
+     "p_media": 0.6768,
+     "cuota_media": 1.675,
+     "roi": -0.0071,
+     "p5": -0.1428,
+     "p95": 0.1372
+    }
+   },
+   "p>=60% y ev>5%": {
+    "eleccion": {
+     "n": 59,
+     "partidos": 52,
+     "acierto": 0.5593,
+     "p_media": 0.6895,
+     "cuota_media": 1.758,
+     "roi": 0.0271,
+     "p5": -0.2503,
+     "p95": 0.3201
+    },
+    "juicio": {
+     "n": 30,
+     "partidos": 26,
+     "acierto": 0.6,
+     "p_media": 0.6696,
+     "cuota_media": 1.784,
+     "roi": 0.0781,
+     "p5": -0.2136,
+     "p95": 0.3601
+    },
+    "total": {
+     "n": 89,
+     "partidos": 78,
+     "acierto": 0.573,
+     "p_media": 0.6828,
+     "cuota_media": 1.767,
+     "roi": 0.0443,
+     "p5": -0.164,
+     "p95": 0.2562
+    }
+   },
+   "p>=50%, cuota>=1.5 y ev>5%": {
+    "eleccion": {
+     "n": 122,
+     "partidos": 92,
+     "acierto": 0.4016,
+     "p_media": 0.5942,
+     "cuota_media": 2.054,
+     "roi": -0.1561,
+     "p5": -0.3522,
+     "p95": 0.043
+    },
+    "juicio": {
+     "n": 52,
+     "partidos": 38,
+     "acierto": 0.4231,
+     "p_media": 0.6011,
+     "cuota_media": 1.998,
+     "roi": -0.1838,
+     "p5": -0.4076,
+     "p95": 0.037
+    },
+    "total": {
+     "n": 174,
+     "partidos": 130,
+     "acierto": 0.408,
+     "p_media": 0.5963,
+     "cuota_media": 2.037,
+     "roi": -0.1644,
+     "p5": -0.3192,
+     "p95": -0.0049
+    }
+   }
+  }
+ },
+ "por_linea": {
+  "on 0.5": {
+   "n": 352,
+   "partidos": 212,
+   "acierto": 0.2131,
+   "p_media": 0.273,
+   "cuota_media": 6.459,
+   "roi": -0.0342,
+   "p5": -0.2379,
+   "p95": 0.1722
+  },
+  "on 1.5": {
+   "n": 6,
+   "partidos": 6,
+   "acierto": 0.3333,
+   "p_media": 0.4764,
+   "cuota_media": 2.401,
+   "roi": -0.3083,
+   "p5": -1.0,
+   "p95": 0.3833
+  },
+  "tot 0.5": {
+   "n": 312,
+   "partidos": 202,
+   "acierto": 0.3333,
+   "p_media": 0.4747,
+   "cuota_media": 2.815,
+   "roi": -0.1572,
+   "p5": -0.2728,
+   "p95": -0.0346
+  },
+  "tot 1.5": {
+   "n": 45,
+   "partidos": 43,
+   "acierto": 0.4,
+   "p_media": 0.5304,
+   "cuota_media": 2.194,
+   "roi": -0.1501,
+   "p5": -0.4248,
+   "p95": 0.1191
+  },
+  "tot 2.5": {
+   "n": 7,
+   "partidos": 7,
+   "acierto": 0.2857,
+   "p_media": 0.5745,
+   "cuota_media": 2.104,
+   "roi": -0.4738,
+   "p5": -1.0,
+   "p95": 0.0524
+  },
+  "tot 3.5": {
+   "n": 1,
+   "partidos": 1,
+   "acierto": 0.0,
+   "p_media": 0.4654,
+   "cuota_media": 2.3,
+   "roi": -1.0,
+   "p5": -1.0,
+   "p95": -1.0
+  }
+ },
+ "por_liga": {
+  "argentina": {
+   "n": 92,
+   "partidos": 33,
+   "acierto": 0.3043,
+   "p_media": 0.3654,
+   "cuota_media": 4.869,
+   "roi": 0.086,
+   "p5": -0.2371,
+   "p95": 0.3846
+  },
+  "brasil": {
+   "n": 58,
+   "partidos": 26,
+   "acierto": 0.3966,
+   "p_media": 0.4595,
+   "cuota_media": 3.801,
+   "roi": 0.2443,
+   "p5": -0.222,
+   "p95": 0.8876
+  },
+  "bundesliga": {
+   "n": 41,
+   "partidos": 12,
+   "acierto": 0.2439,
+   "p_media": 0.356,
+   "cuota_media": 4.844,
+   "roi": -0.0678,
+   "p5": -0.5782,
+   "p95": 0.5516
+  },
+  "champions": {
+   "n": 40,
+   "partidos": 8,
+   "acierto": 0.275,
+   "p_media": 0.4318,
+   "cuota_media": 3.673,
+   "roi": -0.3855,
+   "p5": -0.6384,
+   "p95": 0.0109
+  },
+  "eng_championship": {
+   "n": 68,
+   "partidos": 29,
+   "acierto": 0.2353,
+   "p_media": 0.3857,
+   "cuota_media": 4.321,
+   "roi": -0.2061,
+   "p5": -0.5674,
+   "p95": 0.2158
+  },
+  "eredivisie": {
+   "n": 28,
+   "partidos": 14,
+   "acierto": 0.2143,
+   "p_media": 0.3225,
+   "cuota_media": 5.669,
+   "roi": -0.4106,
+   "p5": -0.7306,
+   "p95": 0.0637
+  },
+  "laliga": {
+   "n": 56,
+   "partidos": 19,
+   "acierto": 0.1607,
+   "p_media": 0.3163,
+   "cuota_media": 5.918,
+   "roi": -0.3194,
+   "p5": -0.8014,
+   "p95": 0.4703
+  },
+  "liga_mx": {
+   "n": 42,
+   "partidos": 14,
+   "acierto": 0.2143,
+   "p_media": 0.3491,
+   "cuota_media": 5.019,
+   "roi": -0.2454,
+   "p5": -0.6158,
+   "p95": 0.165
+  },
+  "ligue_1": {
+   "n": 32,
+   "partidos": 11,
+   "acierto": 0.5312,
+   "p_media": 0.4151,
+   "cuota_media": 4.35,
+   "roi": 0.4302,
+   "p5": -0.0041,
+   "p95": 0.8737
+  },
+  "mls": {
+   "n": 38,
+   "partidos": 16,
+   "acierto": 0.2632,
+   "p_media": 0.3439,
+   "cuota_media": 4.974,
+   "roi": -0.225,
+   "p5": -0.5743,
+   "p95": 0.1663
+  },
+  "premier": {
+   "n": 118,
+   "partidos": 34,
+   "acierto": 0.3051,
+   "p_media": 0.3894,
+   "cuota_media": 4.101,
+   "roi": -0.0332,
+   "p5": -0.2904,
+   "p95": 0.2377
+  },
+  "primeira": {
+   "n": 58,
+   "partidos": 20,
+   "acierto": 0.2931,
+   "p_media": 0.4048,
+   "cuota_media": 3.774,
+   "roi": -0.1049,
+   "p5": -0.4066,
+   "p95": 0.2857
+  },
+  "serie_a": {
+   "n": 43,
+   "partidos": 20,
+   "acierto": 0.2093,
+   "p_media": 0.3673,
+   "cuota_media": 4.965,
+   "roi": -0.2543,
+   "p5": -0.6633,
+   "p95": 0.296
+  }
+ }
+}

@@ -56,6 +56,55 @@ METER, NO_METER = 'meter', 'no_meter'
 # entero está al 17,9 %.
 UMBRAL_METER = 0.65
 
+# v310 — Y UNA CUOTA QUE MEREZCA LA PENA, EN FÚTBOL.
+#
+# El usuario: «tiene que haber una probabilidad alta, pero no abras tanto
+# los rangos; la cosa es tener buenas cuotas». Simulado sobre los ledgers
+# fuera de muestra con cuota (`_v310_simulacion.py`, 1X2 y más/menos 2,5,
+# probabilidad calibrada contra la casa; elección / juicio):
+#
+#     p ≥ 65 % y cuota ≥ 1,20   prometido 70,9/70,8 %   real 72,0/71,6 %
+#                               cuota media 1,38        ROI −1,1 / −2,4 %
+#     p ≥ 65 % y cuota ≥ 1,40   prometido 67,4/67,1 %   real 69,5/67,6 %
+#                               cuota media 1,45        ROI +0,4 / −2,7 %
+#
+# Las dos cumplen lo que prometen CON CUOTAS DE CIERRE. Pero la prueba que
+# manda es la de las apuestas que da la tarjeta con los precios de Playdoit
+# (`_v310_replay_semana.py`, 276 partidos de la última semana, cada uno con
+# la última foto previa a su inicio):
+#
+#     meter ≥ 65 %                 709 apuestas  prometido 73,6  real 71,4
+#                                  cuota 1,32    ROI −6,5 %
+#     meter ≥ 65 % y cuota ≥ 1,40  165 apuestas  prometido 70,0  real 63,6
+#                                  cuota 1,47    ROI −6,7 %
+#
+# RECHAZADA. En Playdoit, un «65 % o más» que paga 1,40 o más es justo el caso
+# en que el modelo dice más que la casa, y ahí es donde falla (ya se había
+# visto en el registro de apuestas: dijo 68 % con la casa en 65 % y pasó el
+# 61 %). No paga más y cumple peor. Queda desactivada (None) y documentada
+# para que no se vuelva a proponer sin datos nuevos.
+CUOTA_METER_FUTBOL = None
+
+# v310 — LOS CONTEOS NO SE CORRIGEN POR BANDA.
+#
+# `correccion` (abajo) trae la curva por banda de cuota que se midió sobre
+# 1X2 y goles, y se aplicaba a todo. En córners, tarjetas y remates SUBÍA la
+# probabilidad hasta 10 puntos. En la semana reproducida (apuestas «meter»):
+#
+#                        modelo  corregida  real     n
+#     Tarjetas            66,8     71,4     62,0    50
+#     Remates a puerta    69,1     72,4     69,1    81
+#     Córners             75,2     73,5     74,6   134
+#
+# Y fuera de muestra, con años de partidos (`_v310_conteos.py`), estos modelos
+# ya salen calibrados solos (ECE ≤ 0,03 en Liga MX, selecciones y UEFA). En
+# tarjetas y remates la corrección los empujaba a «meter» cuando no tocaba
+# (Monterrey–Cruz Azul, «Más de 3,5 tarjetas»: 58 % → 68 %).
+#
+# Los CÓRNERS se quedan con la corrección: ahí BAJA la cifra y acierta. Probado
+# quitándosela también: 119 apuestas, prometido 76,9 %, real 73,9 %; con ella,
+# 134, prometido 73,5 %, real 74,6 %.
+MERCADOS_SIN_CORRECCION = ('Tarjetas', 'Remates', 'Remates a puerta')
 # Cuánto puede corregir la fiabilidad medida. Topado porque una banda con
 # muestra corta puede tener una brecha grande por azar, y sin tope esa brecha
 # se convertiría en una corrección enorme.
@@ -99,6 +148,9 @@ def correccion(prob: Optional[float], mercado: str = '',
              'veredicto_banda': 'sin_medir'}
     if p is None:
         return vacio
+    if str(mercado or '') in MERCADOS_SIN_CORRECCION:
+        # v310 — ver MERCADOS_SIN_CORRECCION: calibrados solos, medido
+        return dict(vacio, fuente='conteo_calibrado')
     try:
         import fiabilidad_picks as fp
         fi = fp.fiabilidad(p, str(mercado or ''))
@@ -305,6 +357,14 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     if not mete and c['medido'] and c['veredicto_banda'] != 'optimista':
         razones.append(f'queda por debajo del {UMBRAL_METER:.0%} que pide '
                        f'una pata de combinada')
+    # v310 — la cuota mínima está MEDIDA Y RECHAZADA (CUOTA_METER_FUTBOL
+    # es None); la comprobación se deja para poder volver a medirla
+    if (mete and CUOTA_METER_FUTBOL and cuota is not None
+            and cuota < CUOTA_METER_FUTBOL
+            and str(p.get('deporte') or 'Fútbol') == 'Fútbol'):
+        mete = False
+        razones.append('cuota %.2f: por debajo de %.2f no compensa'
+                       % (cuota, CUOTA_METER_FUTBOL))
 
     # La fuerza es cuánto margen sobra (o falta) respecto al listón, llevada
     # a 0-1 sobre una ventana de 20 puntos. No es una probabilidad: es cuánto

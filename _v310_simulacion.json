@@ -1,0 +1,429 @@
+{
+ "corte_50": "2025-02-09",
+ "corte_70": "2025-09-19",
+ "coeficientes": {
+  "eleccion": {
+   "Goles 2.5": [
+    -0.032,
+    1.106
+   ],
+   "1X2": [
+    0.028,
+    1.079
+   ]
+  },
+  "juicio": {
+   "1X2": [
+    0.05,
+    1.062
+   ],
+   "Goles 2.5": [
+    -0.037,
+    1.094
+   ]
+  }
+ },
+ "reglas": {
+  "R0 hoy (p≥50, c≥1.20, max p·c)": {
+   "1X2": {
+    "eleccion": {
+     "n": 2568,
+     "prometido": 0.5996,
+     "real": 0.6083,
+     "cuota": 1.668,
+     "roi": -0.0166,
+     "p5": -0.044
+    },
+    "eleccion_por_grupo": {
+     "Leagues Cup": {
+      "n": 245,
+      "prometido": 0.5685,
+      "real": 0.6041,
+      "cuota": 1.699,
+      "roi": -0.0032,
+      "p5": -0.0922
+     },
+     "Resto": {
+      "n": 2301,
+      "prometido": 0.6032,
+      "real": 0.608,
+      "cuota": 1.663,
+      "roi": -0.02,
+      "p5": -0.0468
+     },
+     "UEFA clubes": {
+      "n": 22,
+      "prometido": 0.5719,
+      "real": 0.6818,
+      "cuota": 1.827,
+      "roi": 0.1941,
+      "p5": -0.12
+     }
+    },
+    "juicio": {
+     "n": 3548,
+     "prometido": 0.5961,
+     "real": 0.6077,
+     "cuota": 1.647,
+     "roi": -0.0249,
+     "p5": -0.0471
+    },
+    "juicio_por_grupo": {
+     "Leagues Cup": {
+      "n": 257,
+      "prometido": 0.5813,
+      "real": 0.5953,
+      "cuota": 1.623,
+      "roi": -0.0565,
+      "p5": -0.1427
+     },
+     "Resto": {
+      "n": 3291,
+      "prometido": 0.5972,
+      "real": 0.6086,
+      "cuota": 1.649,
+      "roi": -0.0225,
+      "p5": -0.048
+     }
+    }
+   },
+   "Goles 2.5": {
+    "eleccion": {
+     "n": 3566,
+     "prometido": 0.5547,
+     "real": 0.5454,
+     "cuota": 1.773,
+     "roi": -0.0536,
+     "p5": -0.0781
+    },
+    "eleccion_por_grupo": {
+     "Resto": {
+      "n": 3566,
+      "prometido": 0.5547,
+      "real": 0.5454,
+      "cuota": 1.773,
+      "roi": -0.0536,
+      "p5": -0.0772
+     }
+    },
+    "juicio": {
+     "n": 6310,
+     "prometido": 0.5539,
+     "real": 0.5401,
+     "cuota": 1.755,
+     "roi": -0.069,
+     "p5": -0.0864
+    },
+    "juicio_por_grupo": {
+     "Resto": {
+      "n": 6310,
+      "prometido": 0.5539,
+      "real": 0.5401,
+      "cuota": 1.755,
+      "roi": -0.069,
+      "p5": -0.0877
+     }
+    }
+   }
+  },
+  "R1 p≥60, c≥1.40": {
+   "1X2": {
+    "eleccion": {
+     "n": 947,
+     "prometido": 0.6442,
+     "real": 0.6484,
+     "cuota": 1.52,
+     "roi": -0.0165,
+     "p5": -0.054
+    },
+    "eleccion_por_grupo": {
+     "Leagues Cup": {
+      "n": 88,
+      "prometido": 0.6428,
+      "real": 0.7045,
+      "cuota": 1.526,
+      "roi": 0.0756,
+      "p5": -0.0456
+     },
+     "Resto": {
+      "n": 851,
+      "prometido": 0.6444,
+      "real": 0.6428,
+      "cuota": 1.519,
+      "roi": -0.0256,
+      "p5": -0.0647
+     },
+     "UEFA clubes": {
+      "n": 8
+     }
+    },
+    "juicio": {
+     "n": 1287,
+     "prometido": 0.6443,
+     "real": 0.6457,
+     "cuota": 1.509,
+     "roi": -0.027,
+     "p5": -0.0599
+    },
+    "juicio_por_grupo": {
+     "Leagues Cup": {
+      "n": 108,
+      "prometido": 0.6422,
+      "real": 0.6204,
+      "cuota": 1.506,
+      "roi": -0.0669,
+      "p5": -0.1808
+     },
+     "Resto": {
+      "n": 1179,
+      "prometido": 0.6444,
+      "real": 0.648,
+      "cuota": 1.509,
+      "roi": -0.0234,
+      "p5": -0.0588
+     }
+    }
+   },
+   "Goles 2.5": {
+    "eleccion": {
+     "n": 891,
+     "prometido": 0.6351,
+     "real": 0.6364,
+     "cuota": 1.512,
+     "roi": -0.0397,
+     "p5": -0.0776
+    },
+    "eleccion_por_grupo": {
+     "Resto": {
+      "n": 891,
+      "prometido": 0.6351,
+      "real": 0.6364,
+      "cuota": 1.512,
+      "roi": -0.0397,
+      "p5": -0.0829
+     }
+    },
+    "juicio": {
+     "n": 1244,
+     "prometido": 0.63,
+     "real": 0.6053,
+     "cuota": 1.503,
+     "roi": -0.0923,
+     "p5": -0.1251
+    },
+    "juicio_por_grupo": {
+     "Resto": {
+      "n": 1244,
+      "prometido": 0.63,
+      "real": 0.6053,
+      "cuota": 1.503,
+      "roi": -0.0923,
+      "p5": -0.1269
+     }
+    }
+   }
+  },
+  "R2 p≥55, c≥1.50, EV≥0": {
+   "1X2": {
+    "eleccion": {
+     "n": 14
+    },
+    "eleccion_por_grupo": {
+     "Resto": {
+      "n": 13
+     },
+     "UEFA clubes": {
+      "n": 1
+     }
+    },
+    "juicio": {
+     "n": 45,
+     "prometido": 0.6121,
+     "real": 0.6444,
+     "cuota": 1.685,
+     "roi": 0.0758,
+     "p5": -0.1236
+    },
+    "juicio_por_grupo": {
+     "Resto": {
+      "n": 45,
+      "prometido": 0.6121,
+      "real": 0.6444,
+      "cuota": 1.685,
+      "roi": 0.0758,
+      "p5": -0.1292
+     }
+    }
+   },
+   "Goles 2.5": {
+    "eleccion": {
+     "n": 0
+    },
+    "eleccion_por_grupo": {},
+    "juicio": {
+     "n": 13
+    },
+    "juicio_por_grupo": {
+     "Resto": {
+      "n": 13
+     }
+    }
+   }
+  },
+  "R3 p≥65, c≥1.30": {
+   "1X2": {
+    "eleccion": {
+     "n": 661,
+     "prometido": 0.6991,
+     "real": 0.702,
+     "cuota": 1.403,
+     "roi": -0.017,
+     "p5": -0.0593
+    },
+    "eleccion_por_grupo": {
+     "Leagues Cup": {
+      "n": 61,
+      "prometido": 0.6946,
+      "real": 0.6721,
+      "cuota": 1.409,
+      "roi": -0.0584,
+      "p5": -0.1986
+     },
+     "Resto": {
+      "n": 594,
+      "prometido": 0.6996,
+      "real": 0.7037,
+      "cuota": 1.402,
+      "roi": -0.0148,
+      "p5": -0.0605
+     },
+     "UEFA clubes": {
+      "n": 6
+     }
+    },
+    "juicio": {
+     "n": 931,
+     "prometido": 0.6969,
+     "real": 0.696,
+     "cuota": 1.397,
+     "roi": -0.0279,
+     "p5": -0.06
+    },
+    "juicio_por_grupo": {
+     "Leagues Cup": {
+      "n": 64,
+      "prometido": 0.6976,
+      "real": 0.7344,
+      "cuota": 1.388,
+      "roi": 0.0166,
+      "p5": -0.1158
+     },
+     "Resto": {
+      "n": 867,
+      "prometido": 0.6968,
+      "real": 0.6932,
+      "cuota": 1.398,
+      "roi": -0.0312,
+      "p5": -0.0683
+     }
+    }
+   },
+   "Goles 2.5": {
+    "eleccion": {
+     "n": 388,
+     "prometido": 0.6842,
+     "real": 0.6985,
+     "cuota": 1.41,
+     "roi": -0.0139,
+     "p5": -0.0659
+    },
+    "eleccion_por_grupo": {
+     "Resto": {
+      "n": 388,
+      "prometido": 0.6842,
+      "real": 0.6985,
+      "cuota": 1.41,
+      "roi": -0.0139,
+      "p5": -0.0714
+     }
+    },
+    "juicio": {
+     "n": 479,
+     "prometido": 0.6834,
+     "real": 0.6827,
+     "cuota": 1.391,
+     "roi": -0.0519,
+     "p5": -0.0987
+    },
+    "juicio_por_grupo": {
+     "Resto": {
+      "n": 479,
+      "prometido": 0.6834,
+      "real": 0.6827,
+      "cuota": 1.391,
+      "roi": -0.0519,
+      "p5": -0.0989
+     }
+    }
+   }
+  },
+  "R4 p≥60, c≥1.40, EV≥0": {
+   "1X2": {
+    "eleccion": {
+     "n": 15
+    },
+    "eleccion_por_grupo": {
+     "Resto": {
+      "n": 15
+     }
+    },
+    "juicio": {
+     "n": 46,
+     "prometido": 0.6518,
+     "real": 0.6522,
+     "cuota": 1.552,
+     "roi": 0.0174,
+     "p5": -0.1803
+    },
+    "juicio_por_grupo": {
+     "Resto": {
+      "n": 46,
+      "prometido": 0.6518,
+      "real": 0.6522,
+      "cuota": 1.552,
+      "roi": 0.0174,
+      "p5": -0.1585
+     }
+    }
+   },
+   "Goles 2.5": {
+    "eleccion": {
+     "n": 0
+    },
+    "eleccion_por_grupo": {},
+    "juicio": {
+     "n": 8
+    },
+    "juicio_por_grupo": {
+     "Resto": {
+      "n": 8
+     }
+    }
+   }
+  }
+ },
+ "coef_final": {
+  "Goles 2.5": {
+   "a": -0.0,
+   "b_modelo": -0.0484,
+   "c_casa": 1.0854,
+   "n": 34840
+  },
+  "1X2": {
+   "a": 0.0716,
+   "b_modelo": 0.0559,
+   "c_casa": 1.0528,
+   "n": 105052
+  }
+ }
+}

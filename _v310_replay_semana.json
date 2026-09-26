@@ -1,0 +1,152 @@
+{
+ "partidos": 465,
+ "con_resultado": 277,
+ "reglas": {
+  "vieja": {
+   "n": 709,
+   "prometido": 0.7358,
+   "real": 0.7137,
+   "cuota": 1.315,
+   "roi": -0.0654,
+   "p5": -0.1018,
+   "por_mercado": {
+    "1X2": {
+     "n": 43,
+     "prometido": 0.708,
+     "real": 0.674,
+     "roi": -0.087
+    },
+    "BTTS": {
+     "n": 24,
+     "prometido": 0.691,
+     "real": 0.667,
+     "roi": -0.072
+    },
+    "Córners": {
+     "n": 134,
+     "prometido": 0.735,
+     "real": 0.746,
+     "roi": -0.048
+    },
+    "Doble oportunidad": {
+     "n": 85,
+     "prometido": 0.719,
+     "real": 0.718,
+     "roi": -0.047
+    },
+    "Doble y goles": {
+     "n": 46,
+     "prometido": 0.764,
+     "real": 0.761,
+     "roi": -0.01
+    },
+    "Goles": {
+     "n": 208,
+     "prometido": 0.751,
+     "real": 0.745,
+     "roi": -0.054
+    },
+    "Goles equipo": {
+     "n": 35,
+     "prometido": 0.782,
+     "real": 0.686,
+     "roi": -0.048
+    },
+    "Handicap": {
+     "n": 9,
+     "prometido": 0.69,
+     "real": 0.556,
+     "roi": -0.077
+    },
+    "Remates": {
+     "n": 4,
+     "prometido": 0.708,
+     "real": 0.75,
+     "roi": 0.105
+    },
+    "Remates a puerta": {
+     "n": 73,
+     "prometido": 0.725,
+     "real": 0.658,
+     "roi": -0.114
+    },
+    "Tarjetas": {
+     "n": 48,
+     "prometido": 0.716,
+     "real": 0.625,
+     "roi": -0.175
+    }
+   }
+  },
+  "nueva": {
+   "n": 692,
+   "prometido": 0.7348,
+   "real": 0.7197,
+   "cuota": 1.315,
+   "roi": -0.0571,
+   "p5": -0.0964,
+   "por_mercado": {
+    "1X2": {
+     "n": 47,
+     "prometido": 0.705,
+     "real": 0.66,
+     "roi": -0.103
+    },
+    "BTTS": {
+     "n": 26,
+     "prometido": 0.689,
+     "real": 0.692,
+     "roi": -0.03
+    },
+    "Córners": {
+     "n": 134,
+     "prometido": 0.734,
+     "real": 0.746,
+     "roi": -0.048
+    },
+    "Doble oportunidad": {
+     "n": 88,
+     "prometido": 0.718,
+     "real": 0.716,
+     "roi": -0.048
+    },
+    "Doble y goles": {
+     "n": 47,
+     "prometido": 0.764,
+     "real": 0.745,
+     "roi": -0.031
+    },
+    "Goles": {
+     "n": 210,
+     "prometido": 0.75,
+     "real": 0.748,
+     "roi": -0.049
+    },
+    "Goles equipo": {
+     "n": 35,
+     "prometido": 0.782,
+     "real": 0.686,
+     "roi": -0.048
+    },
+    "Handicap": {
+     "n": 9,
+     "prometido": 0.69,
+     "real": 0.556,
+     "roi": -0.077
+    },
+    "Remates a puerta": {
+     "n": 63,
+     "prometido": 0.718,
+     "real": 0.698,
+     "roi": -0.059
+    },
+    "Tarjetas": {
+     "n": 33,
+     "prometido": 0.718,
+     "real": 0.636,
+     "roi": -0.162
+    }
+   }
+  }
+ }
+}
