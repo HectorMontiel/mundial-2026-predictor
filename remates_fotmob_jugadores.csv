@@ -128890,3 +128890,57 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014163,2026-09-26,col_primera_a,Bucaramanga,Brandon Caicedo,1054273,F,0,6,0,0,0,0.0,,3.0,451566.0
 1000014163,2026-09-26,col_primera_a,Bucaramanga,Jhon Salazar,629672,F,0,6,1,0,0,0.02,,3.0,
 1000014163,2026-09-26,col_primera_a,Bucaramanga,Víctor Cantillo,496760,M,0,1,0,0,0,0.0,,2.0,218860.0
+1000014581,2026-09-26,liga_mx,Tijuana,José Antonio Rodriguez,324432,G,1,90,0,0,0,0.0,11,0,423395
+1000014581,2026-09-26,liga_mx,Tijuana,Ramiro Árciga,1455072,D,1,72,0,0,0,0.0,32,1,2374297
+1000014581,2026-09-26,liga_mx,Tijuana,Unai Bilbao,616540,D,1,41,0,0,0,0.0,34,1,655535
+1000014581,2026-09-26,liga_mx,Tijuana,Alejandro Gómez,1010407,D,1,90,0,0,0,0.0,36,1,2610160
+1000014581,2026-09-26,liga_mx,Tijuana,Alan Vega,1225758,D,1,90,0,0,0,0.0,38,1,720916
+1000014581,2026-09-26,liga_mx,Tijuana,Iván Tona,1071276,M,1,90,1,0,0,0.03,65,2,1385943
+1000014581,2026-09-26,liga_mx,Tijuana,Adonis Preciado,1072829,F,1,90,0,0,0,0.0,82,3,1178818
+1000014581,2026-09-26,liga_mx,Tijuana,Aldahir Pérez,1572472,M,1,46,0,0,0,0.0,84,2,1116822
+1000014581,2026-09-26,liga_mx,Tijuana,Ignacio Rivero,430015,M,1,90,2,1,1,0.98,86,2,1182038
+1000014581,2026-09-26,liga_mx,Tijuana,Francisco González,1042571,F,1,65,2,1,0,0.05,88,3,1141445
+1000014581,2026-09-26,liga_mx,Tijuana,Mourad El Ghezouani,1119943,F,1,90,2,2,1,0.84,115,3,1543165
+1000014581,2026-09-26,liga_mx,Tijuana,Alejandro Magallón,1945812,D,0,49,0,0,0,0.0,,1,
+1000014581,2026-09-26,liga_mx,Tijuana,Frank Boya,791820,M,0,45,1,0,0,0.2,,2,473632
+1000014581,2026-09-26,liga_mx,Tijuana,Jonathan Padilla,1457724,F,0,25,1,1,0,0.53,,3,
+1000014581,2026-09-26,liga_mx,Tijuana,Ángel Zapata,1173461,M,0,18,1,0,0,0.02,,2,541495
+1000014581,2026-09-26,liga_mx,Atlas,Camilo Vargas,50207,G,1,90,0,0,0,0.0,11,0,678214
+1000014581,2026-09-26,liga_mx,Atlas,Gaddi Aguirre,721448,D,1,90,2,0,0,0.16,33,1,545424
+1000014581,2026-09-26,liga_mx,Atlas,Juan Purata,950069,D,1,90,2,0,0,0.08,35,1,1858920
+1000014581,2026-09-26,liga_mx,Atlas,Édgar Zaldívar,766852,D,1,90,1,0,0,0.06,37,1,466322
+1000014581,2026-09-26,liga_mx,Atlas,Paulo Ramírez,1664780,M,1,57,1,1,0,0.03,65,2,1259748
+1000014581,2026-09-26,liga_mx,Atlas,Elías Montiel,1502909,F,1,90,0,0,0,0.0,82,3,
+1000014581,2026-09-26,liga_mx,Atlas,Luís Esteves,1222175,M,1,90,4,2,1,1.03,84,2,1382656
+1000014581,2026-09-26,liga_mx,Atlas,Kevin Zenón,1201039,M,1,89,2,0,0,0.24,86,2,2388701
+1000014581,2026-09-26,liga_mx,Atlas,Milton Valenzuela,724490,F,1,90,0,0,0,0.0,88,3,418490
+1000014581,2026-09-26,liga_mx,Atlas,Ryan Mmaee,635606,F,1,74,6,3,1,0.72,104,3,1345337
+1000014581,2026-09-26,liga_mx,Atlas,Florián Monzón,1200720,F,1,90,3,1,1,0.2,106,3,2204593
+1000014581,2026-09-26,liga_mx,Atlas,Sergio Hernández,1696068,M,0,33,0,0,0,0.0,,2,1284392
+1000014581,2026-09-26,liga_mx,Atlas,José Martín,1783371,F,0,16,0,0,0,0.0,,3,
+1000014581,2026-09-26,liga_mx,Atlas,Arturo González,292903,F,0,1,0,0,0,0.0,,3,1609362
+5991891,2026-09-26,selecciones,El Salvador,Mario González,1261973,G,1,90,0,0,0,0.0,11,0,72000
+5991891,2026-09-26,selecciones,El Salvador,Jefferson Valladares,1356360,D,1,90,0,0,0,0.0,32,1,80877
+5991891,2026-09-26,selecciones,El Salvador,Rudy Clavel,689262,D,1,90,0,0,0,0.0,34,1,50000
+5991891,2026-09-26,selecciones,El Salvador,Jorge Cruz,1309308,D,1,90,0,0,0,0.0,36,1,76894
+5991891,2026-09-26,selecciones,El Salvador,Diego Flores,1605562,D,1,90,0,0,0,0.0,38,1,
+5991891,2026-09-26,selecciones,El Salvador,Rafael Tejada,1397226,M,1,79,1,0,0,0.0,72,2,91300
+5991891,2026-09-26,selecciones,El Salvador,Mauricio Cerritos,1410063,M,1,90,0,0,0,0.0,74,2,50000
+5991891,2026-09-26,selecciones,El Salvador,Cristian Francisco Martínez Bení,0,M,1,90,0,0,0,0.0,76,2,
+5991891,2026-09-26,selecciones,El Salvador,Marcelo Díaz,1214013,M,1,90,2,0,0,0.0,78,2,86159
+5991891,2026-09-26,selecciones,El Salvador,Brayan Gil,1080753,F,1,79,3,2,2,0.0,104,3,1805916
+5991891,2026-09-26,selecciones,El Salvador,Harold Osorio,1292371,M,1,45,2,1,1,0.0,106,2,
+5991891,2026-09-26,selecciones,El Salvador,Mayer Gil,1377890,M,0,11,1,0,0,0.0,,2,448928
+5991891,2026-09-26,selecciones,Martinique,Xavier Lenogue,561045,G,1,90,0,0,0,0.0,11,0,158893
+5991891,2026-09-26,selecciones,Martinique,Kenny Lala,279461,D,1,90,0,0,0,0.0,32,1,758620
+5991891,2026-09-26,selecciones,Martinique,Florent Poulolo,1110835,D,1,90,0,0,0,0.0,34,1,254953
+5991891,2026-09-26,selecciones,Martinique,Boris Moltenis,950487,D,1,90,1,0,0,0.0,36,1,124484
+5991891,2026-09-26,selecciones,Martinique,Ronny Labonne,999698,D,1,90,0,0,0,0.0,38,1,195996
+5991891,2026-09-26,selecciones,Martinique,Cyril Mandouki,492128,M,1,90,0,0,0,0.0,73,2,165232
+5991891,2026-09-26,selecciones,Martinique,Jonathan Varane,1250510,M,1,45,3,0,0,0.0,75,2,1919831
+5991891,2026-09-26,selecciones,Martinique,Kévin Appin,964579,M,1,66,1,0,0,0.0,77,2,395996
+5991891,2026-09-26,selecciones,Martinique,Ludovic Blas,693171,M,1,90,3,0,0,0.0,103,2,9215245
+5991891,2026-09-26,selecciones,Martinique,Brighton Labeau,769932,F,1,66,1,0,0,0.0,105,3,404912
+5991891,2026-09-26,selecciones,Martinique,Janis Antiste,1131220,F,1,84,3,1,1,0.0,107,3,877016
+5991891,2026-09-26,selecciones,Martinique,Jonathan Mexique,659991,M,0,45,2,1,0,0.0,,2,165433
+5991891,2026-09-26,selecciones,Martinique,Alexandre Duville-Parsemain,1283074,F,0,24,1,0,0,0.0,,3,393325
