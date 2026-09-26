@@ -361,9 +361,9 @@
   },
   "São Bernardo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Paulo Crystal",
-    "ratio": 0.4138,
-    "visto": "2026-09-24"
+    "candidato": "Sao Paulo W",
+    "ratio": 0.5714,
+    "visto": "2026-09-25"
   },
   "Nacional Asunción": {
     "contexto": "cuotas_mx→futbol",
@@ -873,6 +873,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Stockport County",
     "ratio": 0.6207,
+    "visto": "2026-09-25"
+  },
+  "Vila Nova": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Nova Cidade",
+    "ratio": 0.4,
     "visto": "2026-09-25"
   }
 }
