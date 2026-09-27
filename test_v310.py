@@ -168,9 +168,38 @@ def probar_la_tarjeta_y_el_archivo():
     finally:
         (mm.recomendadas, mm.remates_tarjeta, mm.corners_tarjeta,
          mm.tarjetas_tarjeta) = orig
-    check([f['apuesta'] for f in filas] == ['A', 'C'],
-          'se archiva lo que la tarjeta enseñó: la principal y las «meter» '
-          '(%s)' % [f['apuesta'] for f in filas])
+    # v311 — la tarjeta ya sólo enseña (y se archiva) lo que se mete
+    check([f['apuesta'] for f in filas] == ['C'],
+          'se archiva lo que la tarjeta enseñó: sólo las «meter» (%s)'
+          % [f['apuesta'] for f in filas])
+
+
+def probar_los_aplazados():
+    import horario as hz
+    import partidos_jugados as pj
+    import pronosticos_guardados as pg
+    lista = [{'ini': hz._a_utc('2026-09-26 11:30:00'), 'home': 'Crawley Town',
+              'away': 'Barnet', 'id': 9, 'gh': None, 'ga': None,
+              'aplazado': True, 'motivo': 'Postponed'}]
+    ps = [{'partido': 'Crawley Town vs Barnet', 'jugado': True,
+           'clave_liga': 'eng_league_two', 'inicio': '2026-09-26 11:30:00',
+           'recomendadas_previas': [{'apuesta': 'Goles: Más de 1.5',
+                                     'bloque': 'goles', 'etiqueta': 'Total'}]}]
+    orig = pj._marcador
+    pj._marcador = lambda q: None
+    try:
+        pj.poner_marcadores(ps, '2026-09-26',
+                            ahora=hz._a_utc('2026-09-27 03:00:00').timestamp(),
+                            fotmob=lista)
+    finally:
+        pj._marcador = orig
+    check(ps[0].get('aplazado') and ps[0].get('goles_home') is None,
+          'v310.1: el aplazado de FotMob queda marcado y sin marcador')
+    v = pj._para_la_vista(ps)[0]
+    check(not v.get('en_juego'), 'no se enseña «en juego»')
+    check(pg.validar(ps[0]) == [], 'y sus apuestas no se liquidan')
+    src = open('modo_modelo.py', encoding='utf-8').read()
+    check('### ⏸️ Aplazado' in src, 'la tarjeta dice «Aplazado»')
 
 
 if __name__ == '__main__':
@@ -182,6 +211,8 @@ if __name__ == '__main__':
     probar_el_meter()
     print('\n=== 4-5. la tarjeta y el archivo ===')
     probar_la_tarjeta_y_el_archivo()
+    print('\n=== 6. los aplazados ===')
+    probar_los_aplazados()
     print('\n' + '=' * 40)
     print('TODO OK' if not FALLOS else '%d FALLOS' % len(FALLOS))
     raise SystemExit(1 if FALLOS else 0)

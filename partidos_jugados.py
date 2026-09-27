@@ -269,12 +269,12 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
     # la tarjeta nunca propuso.
     recos = recos[:1] + [o for o in recos[1:]
                          if o.get('veredicto_vp') != 'no_meter']
-    if recos:
-        return [dict(pg._fila(r), origen='archivo') for r in recos]
-    try:
-        return pg._del_board(q)
-    except Exception:
-        return []
+    # v311 — y desde que la tarjeta sólo enseña lo que se mete, sólo eso se
+    # archiva. Sin «meter» se guarda la lista VACÍA a propósito: el
+    # finalizado dirá «no había nada que meter» en vez de reconstruir una
+    # apuesta que nadie propuso.
+    recos = [o for o in recos if o.get('veredicto_vp') == 'meter']
+    return [dict(pg._fila(r), origen='archivo') for r in recos]
 
 
 def _sin_femenino(t: str) -> str:
@@ -306,10 +306,23 @@ def marcadores_fotmob(dia: str) -> List[Dict]:
         for L in doc.get('leagues') or []:
             for m in L.get('matches') or []:
                 est = m.get('status') or {}
-                if not est.get('finished') or est.get('cancelled'):
-                    continue
                 ini = hz._a_utc(est.get('utcTime'))
                 h, a = m.get('home') or {}, m.get('away') or {}
+                # v310.1 — LOS APLAZADOS TAMBIÉN SE TRAEN, MARCADOS. El
+                # 2026-09-26 seis partidos de League One/Two y el Red Bulls–
+                # St. Louis se aplazaron; como no tenían marcador, la lista
+                # los enseñaba «✅ Finalizado · marcador pendiente», que es
+                # falso. FotMob los marca `cancelled` con motivo «PP».
+                if est.get('cancelled') and ini is not None:
+                    fuera.append({'ini': ini, 'home': h.get('name'),
+                                  'away': a.get('name'), 'id': m.get('id'),
+                                  'gh': None, 'ga': None, 'aplazado': True,
+                                  'motivo': ((est.get('reason') or {})
+                                             .get('long') or 'Postponed'),
+                                  'liga': L.get('name')})
+                    continue
+                if not est.get('finished'):
+                    continue
                 if ini is None or h.get('score') is None or a.get('score') is None:
                     continue
                 fuera.append({'ini': ini, 'home': h.get('name'),
@@ -446,6 +459,10 @@ def poner_marcadores(partidos: List[Dict], dia: str,
         lista = lista if lista is not None else marcadores_fotmob(dia)
         for p in faltan:
             f = _casar_fotmob(p, lista)
+            if f and f.get('aplazado'):
+                p['aplazado'] = True          # v310.1: no se jugó
+                p['fotmob_id'] = f.get('id')
+                continue
             if f:
                 p['goles_home'], p['goles_away'] = f['gh'], f['ga']
                 p['marcador_fuente'] = 'fotmob'
@@ -759,7 +776,8 @@ def _para_la_vista(partidos: List[Dict], ahora: float = None) -> List[Dict]:
         if nl is not None:
             nl.aplicar(q)
         q.pop('en_juego', None)
-        if q.get('goles_home') is None and hz is not None:
+        if q.get('goles_home') is None and hz is not None \
+                and not q.get('aplazado'):
             ini = hz._a_utc(q.get('inicio'))
             if ini is not None and ini.timestamp() + HORAS_PARTIDO * 3600 > ahora:
                 q['en_juego'] = True

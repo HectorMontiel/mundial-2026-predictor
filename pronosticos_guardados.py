@@ -877,8 +877,8 @@ def validar(pick: Dict) -> List[Dict]:
     partido no lo evaluó nadie. La tarjeta lo enseña distinto: «sin
     pronóstico previo» no es lo mismo que «falló».
     """
-    if not pick:
-        return []
+    if not pick or pick.get('aplazado'):
+        return []                     # v310.1: un aplazado no se liquida
     try:
         import modo_modelo as mm
         h, a = mm._equipos(pick)
@@ -896,6 +896,8 @@ def validar(pick: Dict) -> List[Dict]:
         # tarjeta hubiera recomendado algo toda la mañana.
         filas_previas = [dict(f) for f in (pick.get('recomendadas_previas')
                                            or []) if isinstance(f, dict)]
+    if not filas_previas and 'recomendadas_previas' in pick:
+        return []        # v311: archivado sin nada que meter — no se inventa
     if not filas_previas:
         # v177 — la red debajo: se reconstruye del precálculo de esa
         # mañana. Ver `reconstruir`.

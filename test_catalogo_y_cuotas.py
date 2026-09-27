@@ -9549,8 +9549,11 @@ def test_la_tarjeta_enseña_todos_los_mercados():
     # candado. Ahora hay una tabla —`_MERCADOS_TARJETA`— y un solo bucle,
     # que es lo que permite la regla del encargo: una fila por mercado
     # QUE PLAYDOIT COTICE, con su recomendacion, y ninguna para el que no.
-    check('_filas_de_mercados' in cuerpo,
-          "la tarjeta recorre el catalogo de mercados")
+    # v311 — la «mejor de cada mercado» se retiró de la tarjeta a petición
+    # del usuario («sólo lo que se mete»); el catálogo sigue definido.
+    check('filas += _filas_de_mercados(' not in cuerpo
+          and 'LA «MEJOR DE CADA MERCADO» YA NO SE PINTA' in cuerpo,
+          "v311: la tarjeta ya no pinta una recomendación por mercado")
     catalogo = {c for c, _, _ in mm._MERCADOS_TARJETA}
     for mercado in ('1X2', 'Goles', 'BTTS', 'Córners', 'Tarjetas',
                     'Remates', 'Remates a puerta', 'Doble oportunidad'):
@@ -10565,8 +10568,8 @@ def test_la_tarjeta_ensena_el_catalogo_completo():
     # v175 — el catalogo vive en `_MERCADOS_TARJETA` y la tarjeta lo
     # recorre con un bucle. Antes estaba escrito mercado a mercado en
     # el cuerpo, cada cual con su llamada y su candado.
-    check('_filas_de_mercados' in cuerpo,
-          "la tarjeta recorre el catalogo completo")
+    check('filas += _filas_de_mercados(' not in cuerpo,
+          "v311: el catálogo ya no se pinta como apuestas en la tarjeta")
     rotulos = {r for _, _, r in mm._MERCADOS_TARJETA}
     for pieza in ('Goles', 'Ambos marcan', 'Córners', 'Tarjetas',
                   'Remates', 'A puerta', 'Doble', 'Resultado'):
@@ -12086,7 +12089,7 @@ def test_manana_enseña_lo_mismo_que_hoy():
           "`con_apuesta` ya solo decide la ETIQUETA, no si hay apuesta")
 
     # el contexto y los mercados tambien se pintan en las dos vistas
-    for pieza in ('_bloque_contexto', '_filas_de_mercados',
+    for pieza in ('_bloque_contexto',
                   '_tira_estabilidad', 'recomendadas('):
         check(pieza in cuerpo, f"mañana tambien pinta {pieza}")
 

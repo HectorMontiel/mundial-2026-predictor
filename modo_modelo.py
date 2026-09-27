@@ -1795,9 +1795,44 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
     except Exception as e:
         logger.debug('[modo_modelo] veredicto no aplicado al orden: %s', e)
 
+    # v311 — UNA SOLA APUESTA DE RESULTADO POR PARTIDO.
+    #
+    # El usuario, con México–Colombia (1-1) delante: la tarjeta decía «México
+    # o Colombia y menos de 5» Y «México o empate» a la vez. «No es posible
+    # meter las dos: tiene que ser una o la otra». Son dos lecturas OPUESTAS
+    # del empate —una lo excluye, la otra lo incluye— y con el 1-1 sólo podía
+    # ganar una. 1X2, doble oportunidad, doble con goles y hándicap hablan del
+    # mismo resultado: se queda la primera de la lista, que ya viene ordenada
+    # por «meter» y probabilidad corregida.
+    #
+    # Medido qué tipo conviene (pick_ledger.csv, ~117.000 casos fuera de
+    # muestra con p ≥ 60 %): los tres cumplen en conjunto (1X 75,0→74,7 %,
+    # X2 69,2→70,0 %, 12 73,7→73,7 %); el «12» se pasa arriba (87 %→82 %,
+    # 94 %→86 %: el empate llega más de lo que el modelo cree en partidos
+    # desiguales) y ya lo modera la mezcla con la casa del veredicto. Ningún
+    # tipo gana siempre, así que manda la probabilidad, no el tipo.
+    _vistas, _fuera = set(), []
+    for _c in candidatas:
+        _fam = ('resultado' if str(_c.get('mercado') or '') in FAMILIA_RESULTADO
+                else str(_c.get('mercado') or ''))
+        if _fam in _vistas:
+            continue
+        _vistas.add(_fam)
+        _fuera.append(_c)
+    candidatas = _fuera
     for _i, _c in enumerate(candidatas[:n]):
         _c['puesto_valor'] = _i + 1
     return candidatas[:n]
+
+
+# v311 — los mercados que hablan del RESULTADO del partido: uno por tarjeta
+FAMILIA_RESULTADO = ('1X2', 'Doble oportunidad', 'Doble y goles', 'Handicap',
+                     'Ganador')
+
+
+def metidas(recos: list) -> list:
+    """v311 — de las recomendadas, sólo las que se dicen «meter»."""
+    return [r for r in (recos or []) if r.get('veredicto_vp') == 'meter']
 
 
 def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None
@@ -2663,6 +2698,18 @@ def _bloque_validacion(st, pick: Dict) -> bool:
     except Exception as e:
         logger.debug('[modo_modelo] validacion: %s', e)
         return False
+    # v311 — sólo las que se dijeron «meter» (si la fila guarda el veredicto;
+    # las anteriores a la v310 no lo llevan y se enseñan como estaban). Las
+    # lecturas del modelo SIN precio de la casa (`origen='modelo'`) no fueron
+    # nunca una apuesta: fuera.
+    filas = [f for f in filas if f.get('origen') != 'modelo']
+    if any(f.get('veredicto') is not None for f in filas):
+        filas = [f for f in filas if f.get('veredicto') == 'meter']
+    # y el porcentaje que se enseña es con el que se DECIDIÓ meter: la del
+    # modelo a secas daba «meter» junto a un 59 %, que no se entiende
+    for f in filas:
+        if f.get('prob_meter') is not None:
+            f['prob'] = f['prob_meter']
     if not filas:
         return False
     import pronosticos_guardados as pgs
@@ -2743,21 +2790,9 @@ def _bloque_validacion(st, pick: Dict) -> bool:
     # entera cumple lo que promete, y eso está medido sobre los picks que esta
     # misma aplicación publicó. Se enseña aquí, pegado a los puntos, porque es
     # donde nace la pregunta «¿por qué salió rojo si daba 60 %?».
-    try:
-        import fiabilidad_picks as _fpk
-        _vistas, _lineas = set(), []
-        for f in filas:
-            _b = _fpk.nombre_banda(f.get('prob'))
-            if not _b or _b in _vistas:
-                continue
-            _vistas.add(_b)
-            _fi = _fpk.fiabilidad(f.get('prob'), str(f.get('mercado') or ''))
-            if _fi.get('veredicto') != 'sin_medir':
-                _lineas.append('%s: %s' % (_b, _fi['texto']))
-        for _l in _lineas[:2]:
-            st.caption(_l)
-    except Exception as _e_fi:
-        logger.debug('[modo_modelo] fiabilidad: %s', _e_fi)
+    # v311 — las notas del histórico por banda se retiran de aquí: el
+    # usuario pidió la tarjeta sin «tanto rollo». La medición sigue viva en
+    # `fiabilidad_picks` y en el estado del sistema.
     return True
 
 
@@ -2829,7 +2864,12 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     'Remates a puerta': (_rm or {}).get('a_puerta')}
         if pick.get('jugado'):
             gh, ga = pick.get('goles_home'), pick.get('goles_away')
-            if gh is not None and ga is not None:
+            if pick.get('aplazado'):
+                # v310.1 — no se jugó: ni «Finalizado» ni sus apuestas
+                st.markdown('### ⏸️ Aplazado')
+                st.caption('El partido no se jugó. Sus apuestas no cuentan '
+                           '(la casa las anula).')
+            elif gh is not None and ga is not None:
                 st.markdown('### ✅ Finalizado — %d &nbsp;–&nbsp; %d'
                             % (int(gh), int(ga)))
             elif pick.get('en_juego'):
@@ -2852,9 +2892,13 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             #
             # Y sigue sin decirse «falló»: un hueco de datos no es un
             # error del modelo, y colapsarlos era el defecto de fondo.
-            if not _bloque_validacion(st, pick):
-                st.caption('Este partido no llegó a evaluarse: no hay '
-                           'modelo suyo en el precálculo del día.')
+            if not pick.get('aplazado') and not _bloque_validacion(st, pick):
+                if 'recomendadas_previas' in pick:
+                    st.markdown('**🚫 No había nada que meter en este '
+                                'partido**')
+                else:
+                    st.caption('Este partido no llegó a evaluarse: no hay '
+                               'modelo suyo en el precálculo del día.')
         elif sin_modelo:
             # v190 — SE DICE POR QUÉ FALTA, Y NO SE TAPA CON EL MERCADO.
             #
@@ -2882,6 +2926,12 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 st.caption('📅 Análisis previo (no jugable aún)')
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
             recos = recomendadas(pick, _bloques, n=MAX_RECOMENDADAS)
+            # v311 — SÓLO LO QUE SE METE. El usuario: «quiero que ya sólo me
+            # des las de meter; es más importante que me digas esto se mete, y
+            # que sea la única que se muestra; no quiero tanto rollo». La
+            # principal ya no sale cuando es un «no meter»: si no hay nada que
+            # meter, la tarjeta lo dice en una línea.
+            recos = metidas(recos)
             rec = recos[0] if recos else None
 
             # v218 — METER O NO METER, DE UN VISTAZO Y ANTES DEL DETALLE.
@@ -2908,8 +2958,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 import veredicto_pick as _vp
                 _vers = _vp.evaluar_lista(recos, con_contexto=False)
                 if _vers:
-                    _vp.pintar(st, _vers, 'Meter o no meter, corregido por lo '
-                                          'que este mercado acierta de verdad')
+                    _vp.pintar(st, _vers, '🎯 Se mete')
                     # v242 — un precio de antes del saque se declara.
                     #
                     # `mercado_implicito.fusionar` conserva los mercados que
@@ -3042,8 +3091,12 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 return r1
 
             rec_vista = _vista(rec)
-            _bloque_recomendada(st, rec_vista, clave_vista, n_boton,
-                                motivo=_motivo_sin_apuesta(pick))
+            if rec_vista is None:
+                # v311 — nada que meter: una línea, sin la lista de descartes
+                st.markdown('**🚫 Nada que meter en este partido**')
+            else:
+                _bloque_recomendada(st, rec_vista, clave_vista, n_boton,
+                                    motivo=_motivo_sin_apuesta(pick))
             # v176 — LAS ALTERNATIVAS SON RECOMENDACIONES, NO UNA TABLA.
             #
             # La v175 las pintaba como filas sueltas bajo el rótulo «Otras
@@ -3089,11 +3142,12 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 '<div class="mm-fc"><span class="mm-fc-n">📊 Resultado</span>'
                 '<span class="mm-fc-barra">%s</span></div>'
                 % _barra_1x2(tri[0], tri[1], tri[2], h, a))
-        filas += _filas_de_mercados(
-            pick, {'Córners': _ck, 'Tarjetas': _tj,
-                   'Remates': (_rm or {}).get('totales'),
-                   'Remates a puerta': (_rm or {}).get('a_puerta')},
-            pick.get('clave_liga'), correcciones=_corr)
+        # v311 — LA «MEJOR DE CADA MERCADO» YA NO SE PINTA. Eran filas con
+        # pinta de apuesta («⚪ Gana Fiji — 41 % · devuelve $85») aunque
+        # nadie dijera meterlas, y el usuario pidió lo contrario: «esto se
+        # mete, y es la única que se muestra; no quiero tanto rollo». Arriba
+        # quedan las «🎯 meter»; aquí, sólo información (resultado, quién
+        # remata). `_filas_de_mercados` se conserva por si se vuelve a pedir.
         filas.append(_quien_remata_compacto(_qr))
         # v310 — «💎 Remate con valor» YA NO SE PINTA. Medido con las
         # cuotas reales de Playdoit que el bot guarda desde el 2026-08-23
