@@ -18102,22 +18102,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000011156,2026-07-26,bol_division,Real Tomayapo,Francisco Nouet,1134280,F,0,34,0,0,0,0.0,,3.0,163138.0
 1000011156,2026-07-26,bol_division,Real Tomayapo,Jesús Velásquez,1739269,M,0,25,0,0,0,0.0,,2.0,
 1000011156,2026-07-26,bol_division,Real Tomayapo,Jorge Orozco,1131670,F,0,25,0,0,0,0.0,,3.0,221000.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Johan Wallens,281984,G,1,90,0,0,0,0.0,11.0,0.0,272120.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Israel Alba,971619,D,1,78,3,1,0,0.1,32.0,1.0,247613.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Jesús Figueroa,1279157,D,1,60,0,0,0,0.0,34.0,1.0,303443.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Pedro Franco,187324,D,1,90,0,0,0,0.0,36.0,1.0,308503.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Jhildrey Lasso,1531184,D,1,90,1,0,0,0.01,38.0,1.0,366911.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Wiston Fernández,934315,M,1,90,2,1,0,0.06,65.0,2.0,262426.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Jesús Muñoz,1432967,F,1,78,0,0,0,0.0,82.0,3.0,424378.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Deinner Quiñónes,496867,M,1,69,0,0,0,0.0,84.0,2.0,246419.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Carlos Esparragoza,1350532,M,1,90,3,0,0,0.05,86.0,2.0,405814.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Yeiner Londoño,1537629,F,1,60,1,0,0,0.01,88.0,3.0,361228.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Cristian Vergara,1404375,F,1,90,2,1,1,0.3,115.0,3.0,
-1000014051,2026-07-26,col_primera_a,Alianza FC,Juan Viveros,1473800,D,0,30,0,0,0,0.0,,1.0,425654.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Jhair Castillo,1134076,M,0,30,0,0,0,0.0,,2.0,303825.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Felipe Pardo,101434,M,0,21,0,0,0,0.0,,2.0,275517.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Yilson Rosales,1353352,D,0,12,0,0,0,0.0,,1.0,546840.0
-1000014051,2026-07-26,col_primera_a,Alianza FC,Leyner Palacios,1683587,M,0,12,1,1,0,0.01,,2.0,
 1000014051,2026-07-26,col_primera_a,Fortaleza FC,Cristian Santander,1610967,G,1,90,0,0,0,0.0,11.0,0.0,380027.0
 1000014051,2026-07-26,col_primera_a,Fortaleza FC,Joan Cajares,1635203,D,1,90,0,0,0,0.0,32.0,1.0,417447.0
 1000014051,2026-07-26,col_primera_a,Fortaleza FC,Yesid Díaz,1132536,D,1,90,0,0,0,0.0,34.0,1.0,394478.0
@@ -20803,22 +20787,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115897,2026-07-30,argentina,Club Atlético Platense,Gonzalo Lencina,1030998,F,0,30,0,0,0,0.0,,3.0,425221.0
 5115897,2026-07-30,argentina,Club Atlético Platense,Héctor Bobadilla,1666607,F,0,20,2,2,1,0.28,,3.0,339806.0
 5115897,2026-07-30,argentina,Club Atlético Platense,Juan Gauto,1218336,F,0,8,0,0,0,0.0,,3.0,1165569.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,João Ricardo,498728,G,1,90,0,0,0,0.0,11.0,0.0,366235.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Maílton,1086537,D,1,90,1,0,0,0.04,32.0,1.0,1198867.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Neris,750063,D,1,90,1,0,0,0.02,34.0,1.0,229659.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Gazal,1362665,D,1,90,1,0,0,0.03,36.0,1.0,653859.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Maurício Mucuri,1612209,D,1,90,0,0,0,0.0,38.0,1.0,
-5190633,2026-07-29,bra_serie_b,Fortaleza,Lucas Sasha,202227,M,1,89,2,1,0,0.29,64.0,2.0,288371.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Ronald,1462842,M,1,90,2,1,1,0.94,66.0,2.0,
-5190633,2026-07-29,bra_serie_b,Fortaleza,Vitinho,1256627,F,1,82,4,2,0,0.15,83.0,3.0,1771991.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Rodriguinho,1355637,M,1,89,2,1,0,0.15,85.0,2.0,584249.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Pedro Henrique,304856,F,1,82,3,0,0,0.45,87.0,3.0,219397.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Juan Miritello,1107747,F,1,72,0,0,0,0.0,115.0,3.0,1425787.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Nathan Fogaça,951629,F,0,18,0,0,0,0.0,,3.0,754807.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Welliton,1362434,F,0,8,0,0,0,0.0,,3.0,349631.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Luiz Fernando,751235,F,0,8,2,0,0,0.19,,3.0,968339.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Tomás Cardona,616168,D,0,1,0,0,0,0.0,,1.0,396987.0
-5190633,2026-07-29,bra_serie_b,Fortaleza,Rodrigo,1623466,M,0,1,0,0,0,0.0,,2.0,392051.0
 5190633,2026-07-29,bra_serie_b,Botafogo SP,Victor Souza,1189602,G,1,90,0,0,0,0.0,11.0,0.0,195951.0
 5190633,2026-07-29,bra_serie_b,Botafogo SP,Pedrinho,1847897,D,1,90,0,0,0,0.0,32.0,1.0,
 5190633,2026-07-29,bra_serie_b,Botafogo SP,Ericson,905495,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -131454,3 +131422,66 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5181815,2026-09-27,selecciones,Republic of Ireland,Thomas Cannon,1113736,F,0,21,0,0,0,0.0,,3.0,7745119.0
 5181815,2026-09-27,selecciones,Republic of Ireland,Rocco Vata,1394402,F,0,14,0,0,0,0.0,,3.0,1780841.0
 5181815,2026-09-27,selecciones,Republic of Ireland,Joel Bagan,1130978,D,0,2,0,0,0,0.0,,1.0,1157515.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,João Ricardo,498728,G,1,90,0,0,0,0.0,11.0,0.0,359522.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Maílton,1086537,D,1,90,4,2,1,0.85,32.0,1.0,1477847.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Gazal,1362665,D,1,90,1,0,0,0.03,34.0,1.0,941557.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Tomás Cardona,616168,D,1,90,1,0,0,0.01,36.0,1.0,381108.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Kaio Henrique,1685243,D,1,90,0,0,0,0.0,38.0,1.0,1784581.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Lucas Sasha,202227,M,1,89,2,2,1,0.41,73.0,2.0,198957.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Pierre,1320961,M,1,90,0,0,0,0.0,75.0,2.0,1142510.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Rodriguinho,1355637,M,1,85,0,0,0,0.0,77.0,2.0,841317.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Vitinho,1256627,F,1,85,1,1,0,0.12,103.0,3.0,2028473.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Luiz Fernando,751235,F,1,90,4,1,0,0.62,105.0,3.0,1246127.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Pedro Henrique,304856,F,1,69,0,0,0,0.0,107.0,3.0,315931.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Juan Camilo Cantillo,1347689,F,0,21,1,0,0,0.06,,3.0,146564.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Lucca Prior,1744854,M,0,5,2,1,0,0.04,,2.0,
+5190733,2026-09-27,bra_serie_b,Fortaleza,Nathan Fogaça,951629,F,0,5,0,0,0,0.0,,3.0,1086922.0
+5190733,2026-09-27,bra_serie_b,Fortaleza,Rodrigo,1623466,M,0,1,0,0,0,0.0,,2.0,508044.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Luan Polli,535786,G,1,90,0,0,0,0.0,11.0,0.0,264404.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Jhonatan,1215655,D,1,90,0,0,0,0.0,33.0,1.0,
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Lucas Belezi,1276550,D,1,90,0,0,0,0.0,35.0,1.0,1299003.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Jhan Torres,1402320,D,1,69,0,0,0,0.0,37.0,1.0,282536.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Douglas Pelé,1376166,M,1,90,0,0,0,0.0,72.0,2.0,376822.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Jota,1741569,M,1,58,0,0,0,0.0,74.0,2.0,473562.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Felipe Negrucci,1481530,M,1,83,1,1,0,0.03,76.0,2.0,
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Marcelo Henrique,1673758,M,1,58,0,0,0,0.0,78.0,2.0,706217.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Dixon Vera,1354140,F,1,58,0,0,0,0.0,103.0,3.0,581257.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Max,1605938,F,1,90,2,0,0,0.28,105.0,3.0,343536.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Kauan Lindes,1732667,F,1,90,2,1,1,0.04,107.0,3.0,399788.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Enzo,1737574,D,0,32,1,1,1,0.65,,1.0,
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Pedro Oliveira,1710264,M,0,32,0,0,0,0.0,,2.0,
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Wilinton Aponzá,1292408,F,0,32,0,0,0,0.0,,3.0,235074.0
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Felipe Vieira,1807909,D,0,21,0,0,0,0.0,,1.0,
+5190733,2026-09-27,bra_serie_b,Athletic Club MG,Yago Santos,1320166,M,0,7,0,0,0,0.0,,2.0,290568.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Diego Martínez,857772,G,1,90,0,0,0,0.0,11.0,0.0,239669.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Edwin Martínez,1433010,D,1,90,0,0,0,0.0,32.0,1.0,
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Jerson Malagón,978132,D,1,80,0,0,0,0.0,34.0,1.0,220652.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Carlos Henao,280230,D,1,90,3,2,0,0.15,36.0,1.0,221928.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Luis Jiménez,1451963,D,1,80,1,1,0,0.04,38.0,1.0,301505.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Royscer Colpa,1348856,M,1,90,0,0,0,0.0,64.0,2.0,246419.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Rafael Bustamante,950973,M,1,90,1,0,0,0.03,66.0,2.0,316055.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Santiago Cubides,1382532,F,1,56,2,1,0,0.22,83.0,3.0,306797.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Esteban Beltrán,1512740,M,1,64,1,0,0,0.02,85.0,2.0,300609.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Johar Mejía,1331593,F,1,63,1,0,0,0.01,87.0,3.0,326203.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Andrés Rentería,317122,F,1,90,2,1,1,0.37,115.0,3.0,306485.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Darwin López,310483,F,0,34,2,0,0,0.04,,3.0,279018.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Duván Rodríguez,1111056,F,0,27,0,0,0,0.0,,3.0,289976.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Cristian Álvarez,319884,M,0,26,1,0,0,0.01,,2.0,225398.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Andrés Alfonso,1433043,M,0,10,1,1,0,0.01,,2.0,238994.0
+1000014165,2026-09-27,col_primera_a,CD Jaguares,Wilfrido De La Rosa,496863,F,0,10,0,0,0,0.0,,3.0,233669.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Eduar Esteban,1706922,G,1,90,0,0,0,0.0,11.0,0.0,
+1000014165,2026-09-27,col_primera_a,Alianza FC,Israel Alba,971619,D,1,90,1,0,0,0.03,32.0,1.0,248952.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Kevin Moreno,1031643,D,1,64,0,0,0,0.0,34.0,1.0,344753.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Jesús Figueroa,1279157,D,1,90,2,0,0,0.03,36.0,1.0,379304.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Juan Viveros,1473800,D,1,90,1,1,0,0.01,38.0,1.0,445250.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Deinner Quiñónes,496867,M,1,80,1,1,0,0.01,72.0,2.0,242240.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Ever Meza,1339060,M,1,65,2,1,0,0.11,74.0,2.0,280947.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Jhair Castillo,1134076,M,1,90,3,2,1,0.25,76.0,2.0,248857.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Jhildrey Lasso,1531184,M,1,90,2,2,1,0.11,78.0,2.0,367112.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Cristian Vergara,1404375,F,1,90,0,0,0,0.0,104.0,3.0,
+1000014165,2026-09-27,col_primera_a,Alianza FC,Jesús Muñoz,1432967,F,1,80,2,1,0,0.1,106.0,3.0,374619.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Sebastián Quiñones,1693017,D,0,26,0,0,0,0.0,,1.0,
+1000014165,2026-09-27,col_primera_a,Alianza FC,Wiston Fernández,934315,M,0,25,0,0,0,0.0,,2.0,253974.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Leyner Palacios,1683587,M,0,10,1,0,0,0.04,,2.0,110000.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Charly Villegas,1724711,F,0,10,1,0,0,0.03,,3.0,404918.0
+1000014165,2026-09-27,col_primera_a,Alianza FC,Josy Pérez,1800326,M,0,1,0,0,0,0.0,,2.0,298945.0
