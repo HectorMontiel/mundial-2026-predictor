@@ -130816,3 +130816,303 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5977771,2026-09-27,fem_italia,Como Women,Veronica Bernardi,1819201,F,1,78,0,0,0,0.0,106,3,
 5977771,2026-09-27,fem_italia,Como Women,Valery Vigilucci,886667,D,0,12,0,0,0,0.0,,1,
 5977771,2026-09-27,fem_italia,Como Women,Laura Mas,2262766,M,0,4,0,0,0,0.0,,2,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Lize Kop,887265,G,1,90,0,0,0,0.0,11,0,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Caitlin Dijkstra,1215012,D,1,87,3,2,1,0.89,32,1,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Toko Koga,1627765,D,1,90,2,0,0,0.25,34,1,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Amanda Nildén,1050882,D,1,89,1,1,0,0.04,36,1,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Julie Blakstad,1031793,D,1,90,6,2,0,0.72,38,1,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Signe Gaupset,1285343,M,1,82,4,0,0,1.0,64,2,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Drew Spence,884402,M,1,90,0,0,0,0.0,66,2,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Olivia Holdt,1030313,M,1,87,6,1,0,0.18,83,2,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Victoria Pelova,1055898,M,1,90,4,2,2,0.52,85,2,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Kirsty Hanson,1082557,F,1,82,3,0,0,0.34,87,3,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Cathinka Tandberg,1140227,F,1,90,4,2,1,0.56,115,3,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Eveliina Summanen,943694,M,0,8,0,0,0,0.0,,2,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Matilda Vinberg,1241170,F,0,8,2,2,0,0.06,,3,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Ellia Morris,1257462,D,0,3,0,0,0,0.0,,1,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Matilda Nildén,1349374,F,0,3,0,0,0,0.0,,3,
+5981653,2026-09-27,fem_inglaterra,Tottenham Hotspur,Alice Sombath,1214575,D,0,1,0,0,0,0.0,,1,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Akane Okuma,1714774,G,1,90,0,0,0,0.0,11,0,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Lynn Wilms,1091618,D,1,90,0,0,0,0.0,32,1,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Anna Patten,1224338,D,1,90,1,0,0,0.13,34,1,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Mathilde Harviken,1031790,D,1,90,0,0,0,0.0,36,1,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Noëlle Maritz,646111,D,1,71,0,0,0,0.0,38,1,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Lucy Parker,1291026,D,1,29,1,1,0,0.02,64,1,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Miri Taylor,1359554,M,1,61,1,0,0,0.07,66,2,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Chasity Grant,1215011,M,1,61,1,0,0,0.06,83,2,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Lucia Kendall,1609367,M,1,90,0,0,0,0.0,85,2,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Maya Hijikata,1619992,M,1,61,0,0,0,0.0,87,2,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Amalie Vangsgaard,566231,F,1,90,2,0,0,0.16,115,3,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Justine Kielland,944746,M,0,61,0,0,0,0.0,,2,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Océane Deslandes,1246632,D,0,29,0,0,0,0.0,,1,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Georgia Mullett,1414471,F,0,29,0,0,0,0.0,,3,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Mia McAulay,1715343,F,0,29,0,0,0,0.0,,3,
+5981653,2026-09-27,fem_inglaterra,Aston Villa,Rachel Maltby,1729832,M,0,19,0,0,0,0.0,,2,
+5977770,2026-09-27,fem_italia,Sassuolo,Noemi Benz,1214646,G,1,90,0,0,0,0.0,11,0,
+5977770,2026-09-27,fem_italia,Sassuolo,Martina Brustia,1184900,D,1,80,0,0,0,0.0,32,1,
+5977770,2026-09-27,fem_italia,Sassuolo,Sara Caiazzo,1195200,D,1,90,1,0,0,0.0,34,1,
+5977770,2026-09-27,fem_italia,Sassuolo,Danielle Cox,1290602,D,1,90,0,0,0,0.0,36,1,
+5977770,2026-09-27,fem_italia,Sassuolo,Laura Palakovics,1554602,D,1,90,0,0,0,0.0,38,1,
+5977770,2026-09-27,fem_italia,Sassuolo,Giulia Guerzoni,1826923,F,1,76,1,1,1,0.0,73,3,
+5977770,2026-09-27,fem_italia,Sassuolo,Hélène Fercocq,1345815,M,1,90,0,0,0,0.0,75,2,
+5977770,2026-09-27,fem_italia,Sassuolo,Bea Sprung,1290429,M,1,65,1,0,0,0.0,77,2,
+5977770,2026-09-27,fem_italia,Sassuolo,Katja Skupień,1554595,D,1,76,0,0,0,0.0,103,1,
+5977770,2026-09-27,fem_italia,Sassuolo,Annika Paz,1899882,F,1,76,2,0,0,0.0,105,3,
+5977770,2026-09-27,fem_italia,Sassuolo,Lana Clelland,858296,F,1,90,1,0,0,0.0,107,3,
+5977770,2026-09-27,fem_italia,Sassuolo,Annija Andersone,1718357,M,0,25,0,0,0,0.0,,2,
+5977770,2026-09-27,fem_italia,Sassuolo,Ilaria Azzena,2262928,M,0,14,0,0,0,0.0,,2,
+5977770,2026-09-27,fem_italia,Sassuolo,Paulina Stanić,1751591,M,0,14,0,0,0,0.0,,2,
+5977770,2026-09-27,fem_italia,Sassuolo,Kinga Wyrwas,2028755,F,0,14,0,0,0,0.0,,3,
+5977770,2026-09-27,fem_italia,Sassuolo,Alice Pellinghelli,1184975,D,0,10,0,0,0,0.0,,1,
+5977770,2026-09-27,fem_italia,Roma,Rachele Baldi,1185131,G,1,90,0,0,0,0.0,11,0,
+5977770,2026-09-27,fem_italia,Roma,Valentina Bergamaschi,887253,D,1,90,0,0,0,0.0,32,1,
+5977770,2026-09-27,fem_italia,Roma,Maya Antoine,1636886,D,1,46,0,0,0,0.0,34,1,
+5977770,2026-09-27,fem_italia,Roma,Oladipo Shukurat,1640465,D,1,90,0,0,0,0.0,36,1,
+5977770,2026-09-27,fem_italia,Roma,Elisabetta Oliviero,1184953,M,1,90,1,0,0,0.0,38,2,
+5977770,2026-09-27,fem_italia,Roma,Maya Doms,1624204,M,1,79,4,2,0,0.0,72,2,
+5977770,2026-09-27,fem_italia,Roma,Annalena Rieke,881741,M,1,90,0,0,0,0.0,74,2,
+5977770,2026-09-27,fem_italia,Roma,Giada Greggi,1111407,M,1,90,3,0,0,0.0,76,2,
+5977770,2026-09-27,fem_italia,Roma,Manuela Giugliano,859266,M,1,90,7,4,2,0.0,78,2,
+5977770,2026-09-27,fem_italia,Roma,Martina Piemonte,1102701,F,1,89,1,1,1,0.0,104,3,
+5977770,2026-09-27,fem_italia,Roma,Kayleigh van Dooren,1214629,F,1,59,1,0,0,0.0,106,3,
+5977770,2026-09-27,fem_italia,Roma,Bianca Vergani,1185130,D,0,44,0,0,0,0.0,,1,
+5977770,2026-09-27,fem_italia,Roma,Alice Corelli,1184909,F,0,31,3,2,0,0.0,,3,
+5977770,2026-09-27,fem_italia,Roma,Frederikke Thøgersen,492532,D,0,11,0,0,0,0.0,,1,
+5977770,2026-09-27,fem_italia,Roma,Winonah Heatley,1227426,D,0,1,0,0,0,0.0,,1,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Khiara Keating,1233943,G,1,90,0,0,0,0.0,11,0,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Samantha Kerr,887700,M,1,90,0,0,0,0.0,32,2,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Jenna Clark,1091512,D,1,90,0,0,0,0.0,34,1,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Grace Fisk,1130943,D,1,90,2,0,0,0.21,36,1,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Alejandra Bernabé,1214674,D,1,90,0,0,0,0.0,38,1,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Fuka Nagano,980953,M,1,90,0,0,0,0.0,64,2,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Kirsty MacLean,1549633,M,1,63,0,0,0,0.0,66,2,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Vivien Endemann,1238256,F,1,76,3,1,0,0.59,83,3,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Natalia Ramos,1044298,M,1,89,6,2,0,0.58,85,2,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Cornelia Kapocs,1130061,M,1,90,4,2,1,0.68,87,2,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Beata Olsson,1130066,F,1,90,2,2,1,0.1,115,3,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Marie Therese Höbinger,1159515,M,0,27,0,0,0,0.0,,2,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Alice Bergström,1349451,D,0,14,0,0,0,0.0,,1,
+5981652,2026-09-27,fem_inglaterra,Liverpool,Maizie Trueman,1862620,M,0,1,0,0,0,0.0,,2,
+5981652,2026-09-27,fem_inglaterra,Everton,Courtney Brosnan,1082595,G,1,90,0,0,0,0.0,11,0,
+5981652,2026-09-27,fem_inglaterra,Everton,Hannah Blundell,887427,D,1,90,0,0,0,0.0,32,1,
+5981652,2026-09-27,fem_inglaterra,Everton,Naomi Layzell,1182839,D,1,90,1,0,0,0.05,34,1,
+5981652,2026-09-27,fem_inglaterra,Everton,Hannah Silcock,1406665,D,1,78,0,0,0,0.0,36,1,
+5981652,2026-09-27,fem_inglaterra,Everton,Hikaru Kitagawa,1627763,D,1,79,0,0,0,0.0,38,1,
+5981652,2026-09-27,fem_inglaterra,Everton,Ruby Mace,1130961,D,1,90,1,1,0,0.07,64,1,
+5981652,2026-09-27,fem_inglaterra,Everton,Clare Wheeler,1231013,M,1,90,0,0,0,0.0,66,2,
+5981652,2026-09-27,fem_inglaterra,Everton,Hannah Cain,1000849,F,1,59,1,0,0,0.12,83,3,
+5981652,2026-09-27,fem_inglaterra,Everton,Rosa van Gool,1578196,M,1,70,1,0,0,0.02,85,2,
+5981652,2026-09-27,fem_inglaterra,Everton,Ornella Vignola,1302357,M,1,90,2,0,0,0.08,87,2,
+5981652,2026-09-27,fem_inglaterra,Everton,Zara Kramžar,1408450,F,1,70,0,0,0,0.0,115,3,
+5981652,2026-09-27,fem_inglaterra,Everton,Mayumi Pacheco,1082564,D,0,31,1,1,0,0.13,,1,
+5981652,2026-09-27,fem_inglaterra,Everton,Holly McNamara,1319365,F,0,20,1,1,0,0.11,,3,
+5981652,2026-09-27,fem_inglaterra,Everton,Yuka Momiki,980950,F,0,20,0,0,0,0.0,,3,
+5981652,2026-09-27,fem_inglaterra,Everton,Megan Finnigan,1082527,D,0,12,0,0,0,0.0,,1,
+5981652,2026-09-27,fem_inglaterra,Everton,Noémie Mouchon,1544680,F,0,11,0,0,0,0.0,,3,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Sophie Baggaley,939626,G,1,90,0,0,0,0.0,11,0,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Marie Levasseur,1315310,D,1,90,3,0,0,0.3,32,1,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Millie Turner,939849,D,1,90,0,0,0,0.0,34,1,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Neve Herron,1686848,D,1,90,4,0,0,0.32,36,1,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Rebecca McKenna,1077530,D,1,90,0,0,0,0.0,38,1,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Asato Miyagawa,1055850,M,1,90,1,1,0,0.06,64,2,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Lisa Naalsund,314998,M,1,90,0,0,0,0.0,66,2,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Lily Crosthwaite,1314649,F,1,90,1,1,0,0.02,83,3,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Geum-Min Lee,646764,M,1,81,1,1,0,0.06,85,2,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Océane Hurtré,1214987,F,1,90,5,4,2,0.67,87,3,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Veatriki Sarri,1243898,F,1,71,2,0,0,0.28,115,3,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Chancelle Effa Effa,1406595,F,0,19,1,1,0,0.07,,3,
+5981651,2026-09-27,fem_inglaterra,Birmingham City,Suzu Amano,1620100,M,0,9,1,1,1,0.09,,2,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Pauline Peyraud-Magnin,887466,G,1,90,0,0,0,0.0,11,0,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Jamie-Lee Napier,1091654,D,1,46,0,0,0,0.0,32,1,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Molly Bartrip,1082565,D,1,90,1,0,0,0.01,34,1,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Allyson Swaby,1055708,D,1,90,0,0,0,0.0,36,1,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Teyah Goldie,1241548,D,1,90,1,0,0,0.04,38,1,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Aimee Everett,1536960,D,1,90,1,0,0,0.07,64,1,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Shanade Hopcroft,1562962,M,1,90,2,1,1,0.06,66,2,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Shannon O'Brien,1137290,F,1,70,1,0,0,0.22,83,3,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Annabel Blanchard,1136500,M,1,90,2,0,0,0.05,85,2,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Lexi Lloyd-Smith,1564143,M,1,90,1,1,1,0.09,87,2,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Bethany England,915252,F,1,90,7,3,1,1.9,115,3,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Sierra Enge,1455364,M,0,45,1,1,0,0.11,,2,
+5981651,2026-09-27,fem_inglaterra,Crystal Palace,Abbie Larkin,1262482,F,0,20,0,0,0,0.0,,3,
+5181881,2026-09-27,selecciones,Lithuania,Džiugas Bartkus,258206,G,1,90,0,0,0,0.0,11,0,147364
+5181881,2026-09-27,selecciones,Lithuania,Vilius Armalas,948709,D,1,90,0,0,0,0.0,33,1,446102
+5181881,2026-09-27,selecciones,Lithuania,Edgaras Utkus,973827,D,1,90,1,0,0,0.04,35,1,1192359
+5181881,2026-09-27,selecciones,Lithuania,Artemijus Tutyškinas,1281972,D,1,90,0,0,0,0.0,37,1,844864
+5181881,2026-09-27,selecciones,Lithuania,Adrian Lickūnas,1841063,F,1,66,0,0,0,0.0,72,3,313070
+5181881,2026-09-27,selecciones,Lithuania,Lukas Michelbrink,1701764,M,1,66,1,0,0,0.08,74,2,874276
+5181881,2026-09-27,selecciones,Lithuania,Gvidas Gineitis,1421505,M,1,90,3,1,0,0.09,76,2,6275878
+5181881,2026-09-27,selecciones,Lithuania,Justas Lasickas,652962,D,1,90,1,0,0,0.1,78,1,307302
+5181881,2026-09-27,selecciones,Lithuania,Vykintas Slivka,527840,M,1,57,0,0,0,0.0,103,2,123784
+5181881,2026-09-27,selecciones,Lithuania,Armandas Kučys,1312274,F,1,77,2,1,1,0.81,105,3,508986
+5181881,2026-09-27,selecciones,Lithuania,Artūr Dolžnikov,1065982,F,1,77,0,0,0,0.0,107,3,285266
+5181881,2026-09-27,selecciones,Lithuania,Domantas Šluta,1838162,M,0,33,0,0,0,0.0,,2,89372
+5181881,2026-09-27,selecciones,Lithuania,Modestas Vorobjovas,463746,M,0,24,0,0,0,0.0,,2,165208
+5181881,2026-09-27,selecciones,Lithuania,Motiejus Burba,1178624,F,0,24,1,1,0,0.05,,3,187726
+5181881,2026-09-27,selecciones,Lithuania,Ignas Venckus,1246937,M,0,13,0,0,0,0.0,,2,156997
+5181881,2026-09-27,selecciones,Lithuania,Eligijus Jankauskas,762882,F,0,13,0,0,0,0.0,,3,218183
+5181881,2026-09-27,selecciones,Azerbaijan,Emil Balayev,304890,G,1,90,0,0,0,0.0,11,0,202615
+5181881,2026-09-27,selecciones,Azerbaijan,Rahil Məmmədov,652285,D,1,90,0,0,0,0.0,33,1,137570
+5181881,2026-09-27,selecciones,Azerbaijan,Bədavi Hüseynov,251855,D,1,90,0,0,0,0.0,35,1,98141
+5181881,2026-09-27,selecciones,Azerbaijan,Rəhman Daşdəmirov,1441450,D,1,90,0,0,0,0.0,37,1,247336
+5181881,2026-09-27,selecciones,Azerbaijan,Tellur Mütallimov,763300,M,1,87,1,0,0,0.09,51,2,153512
+5181881,2026-09-27,selecciones,Azerbaijan,Rüfat Abbasov,1387408,D,1,60,0,0,0,0.0,59,1,1078580
+5181881,2026-09-27,selecciones,Azerbaijan,Mahir Emreli,464251,F,1,90,2,1,1,0.21,72,3,466025
+5181881,2026-09-27,selecciones,Azerbaijan,Abdulakh Khaybulaev,1351085,M,1,89,1,0,0,0.09,74,2,256563
+5181881,2026-09-27,selecciones,Azerbaijan,Emil Səfərov,1312262,M,1,46,0,0,0,0.0,76,2,338973
+5181881,2026-09-27,selecciones,Azerbaijan,Aleksey İsayev,688887,M,1,90,1,0,0,0.1,78,2,537396
+5181881,2026-09-27,selecciones,Azerbaijan,Renat Dadashov,749737,F,1,60,2,2,0,0.24,115,3,218295
+5181881,2026-09-27,selecciones,Azerbaijan,Rüfat Abdullazadə,1178593,F,0,45,1,0,0,0.1,,3,338416
+5181881,2026-09-27,selecciones,Azerbaijan,Tural Bayramov,1119168,M,0,30,0,0,0,0.0,,2,1367303
+5181881,2026-09-27,selecciones,Azerbaijan,Musa Qurbanlı,1179484,F,0,30,1,1,0,0.03,,3,498589
+5181881,2026-09-27,selecciones,Azerbaijan,Vüsal İsgəndərli,857642,F,0,3,0,0,0,0.0,,3,246479
+5181881,2026-09-27,selecciones,Azerbaijan,Cəlal Hüseynov,1306106,D,0,1,0,0,0,0.0,,1,625248
+5981650,2026-09-27,fem_inglaterra,Manchester United,Phallon Tullis-Joyce,1266208,G,1,90,0,0,0,0.0,11,0,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Hanna Lundkvist,1241169,D,1,90,2,1,0,0.25,32,1,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Maya Le Tissier,1082509,D,1,90,0,0,0,0.0,34,1,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Dominique Janssen,646180,D,1,90,0,0,0,0.0,36,1,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Anna Sandberg,1241251,D,1,90,0,0,0,0.0,38,1,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Julia Zigiotti Olme,961414,M,1,63,0,0,0,0.0,64,2,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Hinata Miyazawa,980954,M,1,90,0,0,0,0.0,66,2,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Jessica Park,1082541,F,1,90,4,1,0,0.36,83,3,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Ella Toone,1082550,M,1,77,1,1,0,0.04,85,2,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Andrea Medina,1242064,D,1,84,3,1,1,0.24,87,1,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Elisabeth Terland,838945,F,1,77,2,2,1,0.6,115,3,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Simi Awujo,1418337,M,0,27,2,0,0,0.07,,2,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Rebeca Bernal,1269074,M,0,13,1,0,0,0.11,,2,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Lea Schüller,886678,F,0,13,0,0,0,0.0,,3,
+5981650,2026-09-27,fem_inglaterra,Manchester United,Monica Jusu Bah,1174847,F,0,6,0,0,0,0.0,,3,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Constance Picaud,1246631,G,1,90,0,0,0,0.0,11,0,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Nadine Riesen,1380227,D,1,90,1,0,0,0.09,32,1,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Eva Nyström,1131500,D,1,90,0,0,0,0.0,34,1,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Estelle Cascarino,734731,D,1,90,1,1,0,0.02,36,1,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Inès Belloumou,1127401,D,1,90,0,0,0,0.0,38,1,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Seraina Piubel,888015,F,1,73,1,0,0,0.03,72,3,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Katie Zelem,1082553,M,1,90,0,0,0,0.0,74,2,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Saki Kumagai,129931,M,1,90,0,0,0,0.0,76,2,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Viviane Asseyi,890339,F,1,90,5,1,1,0.94,78,3,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Oona Siren,1179968,M,1,63,0,0,0,0.0,104,2,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Kelly Gago,1303607,F,1,90,1,0,0,0.05,106,3,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Leila Wandeler,1640198,M,0,27,0,0,0,0.0,,2,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Ebony Salmon,1082524,F,0,9,0,0,0,0.0,,3,
+5981650,2026-09-27,fem_inglaterra,West Ham United,Ylinn Tennebø,1076666,M,0,8,0,0,0,0.0,,2,
+5832886,2026-09-27,ned_eerste,De Graafschap,Ties Wieggers,1299593,G,1,90,0,0,0,0.0,11,0,238692
+5832886,2026-09-27,ned_eerste,De Graafschap,Jannes Wieckhoff,1085995,D,1,60,0,0,0,0.0,32,1,246154
+5832886,2026-09-27,ned_eerste,De Graafschap,Rowan Besselink,1393113,D,1,90,1,1,0,0.0,34,1,742125
+5832886,2026-09-27,ned_eerste,De Graafschap,Gijs Bolk,1599304,D,1,90,0,0,0,0.0,36,1,341202
+5832886,2026-09-27,ned_eerste,De Graafschap,Nolan Martens,1587680,D,1,90,2,1,0,0.0,38,1,540410
+5832886,2026-09-27,ned_eerste,De Graafschap,Kaya Symon,1509550,D,1,90,1,1,0,0.0,65,1,413432
+5832886,2026-09-27,ned_eerste,De Graafschap,Fedde de Jong,1196708,M,1,90,3,0,0,0.0,82,2,224938
+5832886,2026-09-27,ned_eerste,De Graafschap,Donny Warmerdam,1180744,M,1,80,1,0,0,0.0,84,2,288808
+5832886,2026-09-27,ned_eerste,De Graafschap,Nart Ahmeti,1800227,F,1,60,1,0,0,0.0,86,3,
+5832886,2026-09-27,ned_eerste,De Graafschap,Bjorn van Zijl,1712584,F,1,60,3,2,1,0.0,88,3,320898
+5832886,2026-09-27,ned_eerste,De Graafschap,Julian Kania,1515970,F,1,70,0,0,0,0.0,115,3,274080
+5832886,2026-09-27,ned_eerste,De Graafschap,Mark Diemers,351898,M,0,30,1,0,0,0.0,,2,210565
+5832886,2026-09-27,ned_eerste,De Graafschap,Nic Hartgers,1701769,M,0,30,0,0,0,0.0,,2,
+5832886,2026-09-27,ned_eerste,De Graafschap,Nathan Kaninda,1658662,F,0,30,1,0,0,0.0,,3,233659
+5832886,2026-09-27,ned_eerste,De Graafschap,Kyano Kwint,1696246,F,0,20,1,0,0,0.0,,3,466224
+5832886,2026-09-27,ned_eerste,De Graafschap,Joran Hardeman,1389268,D,0,10,0,0,0,0.0,,1,260467
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Pepijn van de Merbel,1203185,G,1,90,0,0,0,0.0,11,0,163287
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Jeffry Fortes,165525,D,1,90,0,0,0,0.0,33,1,75470
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Silvan Bröker,1838048,D,1,61,0,0,0,0.0,35,1,
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Stan Maas,1188317,D,1,74,2,0,0,0.0,37,1,146933
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Hessel Eikelboom,1899803,M,1,90,1,0,0,0.0,65,2,
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Emian Semedo,1709788,F,1,61,3,1,0,0.0,82,3,
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Bohao Wang,1624770,M,1,85,1,0,0,0.0,84,2,194815
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Giovanni Hessels,2130310,M,1,45,1,0,0,0.0,86,2,
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Mees Laros,1526219,M,1,90,1,0,0,0.0,88,2,
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Kévin Monzialo,1107299,F,1,90,0,0,0,0.0,104,3,493728
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Devon De Corte,1610982,M,1,90,2,0,0,0.0,106,2,661867
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Jari de Kruijff,2304034,M,0,44,0,0,0,0.0,,2,
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Jack De Vries,1078085,F,0,29,0,0,0,0.0,,3,178389
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Sebastian Karlsson Grach,1232944,F,0,29,1,0,0,0.0,,3,255786
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Lorenzo Hoffman,2130308,F,0,16,1,1,0,0.0,,3,
+5832886,2026-09-27,ned_eerste,FC Den Bosch,Jasper van Heertum,602824,D,0,5,0,0,0,0.0,,1,89968
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Álvaro Aceves,1357591,G,1,90,0,0,0,0.0,11,0,522318
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Trilli,1785753,D,1,90,0,0,0,0.0,32,1,331703
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Miguel Rubio,938564,D,1,45,1,0,0,0.05,34,1,1123467
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,David Torres,1395716,D,1,90,0,0,0,0.0,36,1,1774874
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Iván Garriel,1526226,D,1,90,0,0,0,0.0,38,1,504927
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Stanko Jurić,953065,M,1,90,0,0,0,0.0,65,2,582637
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Luis Chacón,1411822,F,1,90,2,2,0,0.1,83,3,972504
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Víctor Fernández,1670167,M,1,72,2,2,1,0.11,85,2,704055
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Julien Ponceau,955206,M,1,81,0,0,0,0.0,87,2,1569030
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Adrián Arnuncio,1553774,F,1,63,2,1,1,1.08,104,3,
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Juanmi Latasa,1231032,F,1,72,3,1,0,1.21,106,3,1316812
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Pablo Tomeo,1287470,D,0,44,0,0,0,0.0,,1,928756
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Víctor Barberà,1403392,F,0,27,1,1,1,0.68,,3,526006
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Robin van Duiven,1554140,F,0,18,0,0,0,0.0,,3,1209969
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Yeray Cabanzón,1324054,F,0,18,1,0,0,0.03,,3,667268
+5868469,2026-09-27,esp_hypermotion,Real Valladolid,Mathis Lachuer,1228047,M,0,9,0,0,0,0.0,,2,936706
+5868469,2026-09-27,esp_hypermotion,Córdoba,Guilherme Fernandes,1532197,G,1,90,0,0,0,0.0,11,0,741357
+5868469,2026-09-27,esp_hypermotion,Córdoba,Daniel Budesca,1617612,D,1,90,2,1,0,0.04,32,1,1081699
+5868469,2026-09-27,esp_hypermotion,Córdoba,Álex Martin,1081302,D,1,46,0,0,0,0.0,34,1,258604
+5868469,2026-09-27,esp_hypermotion,Córdoba,Rubén Alves,717021,D,1,90,0,0,0,0.0,36,1,323504
+5868469,2026-09-27,esp_hypermotion,Córdoba,Carlos Albarrán,282478,D,1,78,0,0,0,0.0,38,1,191813
+5868469,2026-09-27,esp_hypermotion,Córdoba,Youssouf Diarra,1227376,M,1,68,1,0,0,0.01,73,2,
+5868469,2026-09-27,esp_hypermotion,Córdoba,Ismael Ruiz,1203885,M,1,90,1,0,0,0.03,75,2,1214587
+5868469,2026-09-27,esp_hypermotion,Córdoba,Adnane Ghailan,1642593,M,1,90,3,1,0,0.04,77,2,
+5868469,2026-09-27,esp_hypermotion,Córdoba,Cristian Carracedo,1221257,F,1,68,0,0,0,0.0,103,3,670806
+5868469,2026-09-27,esp_hypermotion,Córdoba,Percan,1321439,F,1,90,0,0,0,0.0,105,3,298640
+5868469,2026-09-27,esp_hypermotion,Córdoba,Kevin Medina,1213117,F,1,45,2,1,0,0.11,107,3,493713
+5868469,2026-09-27,esp_hypermotion,Córdoba,Diego Bri,1158927,D,0,45,1,1,0,0.05,,1,566702
+5868469,2026-09-27,esp_hypermotion,Córdoba,Juan Gutiérrez,1324045,D,0,44,0,0,0,0.0,,1,711423
+5868469,2026-09-27,esp_hypermotion,Córdoba,Théo Zidane,1368330,M,0,22,1,0,0,0.04,,2,346648
+5868469,2026-09-27,esp_hypermotion,Córdoba,Enol Rodríguez,1231073,F,0,22,3,0,0,0.61,,3,768614
+5868469,2026-09-27,esp_hypermotion,Córdoba,Salim El Jebari,1489445,F,0,12,2,0,0,0.06,,3,456761
+6280212,2026-09-27,selecciones,China,Junling Yan,432795,G,1,90,0,0,0,0.0,11,0,437993
+6280212,2026-09-27,selecciones,China,Aihui Zhang,1785467,D,1,90,0,0,0,0.0,32,1,876419
+6280212,2026-09-27,selecciones,China,Tyias Browning,419196,D,1,90,0,0,0,0.0,34,1,248857
+6280212,2026-09-27,selecciones,China,Zhen Wei,768631,D,1,90,0,0,0,0.0,36,1,427209
+6280212,2026-09-27,selecciones,China,Yang Liu,768634,D,1,90,0,0,0,0.0,38,1,383117
+6280212,2026-09-27,selecciones,China,Wenneng Xie,1248506,M,1,62,2,0,0,0.0,72,2,879511
+6280212,2026-09-27,selecciones,China,Jiahui Huang,1061141,M,1,90,0,0,0,0.0,74,2,345958
+6280212,2026-09-27,selecciones,China,Shangyuan Wang,465720,M,1,90,0,0,0,0.0,76,2,386281
+6280212,2026-09-27,selecciones,China,Pu Chen,1079758,M,1,90,0,0,0,0.0,78,2,275537
+6280212,2026-09-27,selecciones,China,Ziming Wang,915251,F,1,80,3,0,0,0.0,104,3,329266
+6280212,2026-09-27,selecciones,China,Shihao Wei,570357,F,1,80,2,1,0,0.0,106,3,481706
+6280212,2026-09-27,selecciones,China,Qianglong Tao,1027306,F,0,45,1,1,0,0.0,,3,513478
+6280212,2026-09-27,selecciones,China,Bunyamin Abdusalam,1913204,F,0,45,1,0,0,0.0,,3,929744
+6280212,2026-09-27,selecciones,New Zealand,Alex Paulsen,1272118,G,1,90,0,0,0,0.0,11,0,643732
+6280212,2026-09-27,selecciones,New Zealand,Callan Elliot,1013276,D,1,90,0,0,0,0.0,32,1,171098
+6280212,2026-09-27,selecciones,New Zealand,Bill Poni Tuiloma,505792,D,1,90,0,0,0,0.0,34,1,124416
+6280212,2026-09-27,selecciones,New Zealand,Tyler Bindon,1524716,D,1,90,2,1,1,0.0,36,1,1363913
+6280212,2026-09-27,selecciones,New Zealand,Benjamin Old,1257745,D,1,90,0,0,0,0.0,38,1,1259139
+6280212,2026-09-27,selecciones,New Zealand,Logan Rogerson,676431,M,1,79,2,0,0,0.0,64,2,184656
+6280212,2026-09-27,selecciones,New Zealand,Marko Stamenić,1209597,M,1,90,0,0,0,0.0,66,2,2487205
+6280212,2026-09-27,selecciones,New Zealand,Elijah Just,1053736,M,1,79,1,0,0,0.0,83,2,1397156
+6280212,2026-09-27,selecciones,New Zealand,Callum McCowatt,848352,M,1,90,0,0,0,0.0,85,2,1701220
+6280212,2026-09-27,selecciones,New Zealand,Jesse Randall,1460327,F,1,65,2,1,0,0.0,87,3,749677
+6280212,2026-09-27,selecciones,New Zealand,Ben Waine,1034995,F,1,69,3,2,1,0.0,115,3,296464
+6280212,2026-09-27,selecciones,New Zealand,Owen Parker-Price,1627236,M,0,11,1,1,1,0.0,,2,290208
+6280212,2026-09-27,selecciones,New Zealand,Moses Dyer,628064,F,0,21,2,1,0,0.0,,3,
+5977767,2026-09-27,fem_italia,Inter,Cecilia Rán Runarsdottir,1241206,G,1,90,0,0,0,0.0,11,0,
+5977767,2026-09-27,fem_italia,Inter,Emma Kullberg,1038494,D,1,62,1,1,0,0.0,32,1,
+5977767,2026-09-27,fem_italia,Inter,Marija Milinković,1398364,D,1,90,1,1,0,0.0,34,1,
+5977767,2026-09-27,fem_italia,Inter,Samantha van Diemen,1215003,D,1,61,1,0,0,0.0,36,1,
+5977767,2026-09-27,fem_italia,Inter,Chiara Robustellini,1400282,M,1,90,0,0,0,0.0,38,2,
+5977767,2026-09-27,fem_italia,Inter,Benedetta Glionna,1184942,M,1,90,5,2,0,0.0,72,2,
+5977767,2026-09-27,fem_italia,Inter,Irene Santi,1185040,M,1,76,2,0,0,0.0,74,2,
+5977767,2026-09-27,fem_italia,Inter,Lina Magull,859030,M,1,79,1,1,1,0.0,76,2,
+5977767,2026-09-27,fem_italia,Inter,Clarisse Le Bihan,859736,M,1,90,1,0,0,0.0,78,2,
+5977767,2026-09-27,fem_italia,Inter,Elisa Polli,1184940,F,1,62,5,2,0,0.0,104,3,
+5977767,2026-09-27,fem_italia,Inter,Brittany Raphino,1622303,F,1,90,5,1,1,0.0,106,3,
+5977767,2026-09-27,fem_italia,Inter,Ivana Andrés,646113,D,0,28,0,0,0,0.0,,1,
+5977767,2026-09-27,fem_italia,Inter,Shei García,1044302,D,0,28,1,0,0,0.0,,1,
+5977767,2026-09-27,fem_italia,Inter,Haley Bugeja,1138109,F,0,28,0,0,0,0.0,,3,
+5977767,2026-09-27,fem_italia,Inter,Karolina Lea Vilhjálmsdottir,1091704,M,0,14,0,0,0,0.0,,2,
+5977767,2026-09-27,fem_italia,Inter,Maša Tomašević,1555904,M,0,11,0,0,0,0.0,,2,
+5977767,2026-09-27,fem_italia,Fiorentina,Cecilie Fiskerstrand,562804,G,1,90,0,0,0,0.0,11,0,
+5977767,2026-09-27,fem_italia,Fiorentina,Carolina Correia,1301427,D,1,90,0,0,0,0.0,33,1,
+5977767,2026-09-27,fem_italia,Fiorentina,Guro Bergsvand,534780,D,1,90,0,0,0,0.0,35,1,
+5977767,2026-09-27,fem_italia,Fiorentina,Ilse van der Zanden,1585491,D,1,90,0,0,0,0.0,37,1,
+5977767,2026-09-27,fem_italia,Fiorentina,Emilie Woldvik,839894,D,1,90,0,0,0,0.0,72,1,
+5977767,2026-09-27,fem_italia,Fiorentina,Millaray Cortés,1676716,M,1,90,0,0,0,0.0,74,2,
+5977767,2026-09-27,fem_italia,Fiorentina,Emma Severini,1184912,M,1,90,0,0,0,0.0,76,2,
+5977767,2026-09-27,fem_italia,Fiorentina,Oda Johansen,1300113,D,1,90,0,0,0,0.0,78,1,
+5977767,2026-09-27,fem_italia,Fiorentina,Sofie Bruun Bredgaard,966277,F,1,66,4,2,0,0.0,103,3,
+5977767,2026-09-27,fem_italia,Fiorentina,Ivonne Chacón,1406321,M,1,67,0,0,0,0.0,105,2,
+5977767,2026-09-27,fem_italia,Fiorentina,Emma Strøm Snerle,895557,M,1,66,0,0,0,0.0,107,2,
+5977767,2026-09-27,fem_italia,Fiorentina,Katla Tryggvadóttir,1604955,M,0,24,0,0,0,0.0,,2,
+5977767,2026-09-27,fem_italia,Fiorentina,Lina Hurtig,886421,F,0,24,1,0,0,0.0,,3,
+5977767,2026-09-27,fem_italia,Fiorentina,Iris Omarsdottir,960970,F,0,23,0,0,0,0.0,,3,
