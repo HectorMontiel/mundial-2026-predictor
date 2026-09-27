@@ -7,8 +7,8 @@
   },
   "Atletico Balboa": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Atlanta",
-    "ratio": 0.7742,
+    "candidato": "Atletico Colina",
+    "ratio": 0.6667,
     "visto": "2026-09-27"
   },
   "Atlético Madrid": {
@@ -485,8 +485,8 @@
   },
   "Internacional Santa Tecla": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union de Santa Fe W",
-    "ratio": 0.5714,
+    "candidato": "CD Santa Cruz",
+    "ratio": 0.4737,
     "visto": "2026-09-27"
   },
   "Cruz Azul Hidalgo": {
@@ -515,7 +515,7 @@
   },
   "Deportivo Pereira": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Moron",
+    "candidato": "Deportivo Maipu",
     "ratio": 0.6875,
     "visto": "2026-09-27"
   },
@@ -587,8 +587,8 @@
   },
   "Mitre (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter Playa Del Carmen",
-    "ratio": 0.4255,
+    "candidato": "Ind. Valle del Cauca",
+    "ratio": 0.3182,
     "visto": "2026-09-27"
   },
   "San Telmo": {
@@ -913,6 +913,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Los Andes",
     "ratio": 0.7,
+    "visto": "2026-09-27"
+  },
+  "Pumas UNAM": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "UNAM Pumas W",
+    "ratio": 0.5,
     "visto": "2026-09-27"
   }
 }
