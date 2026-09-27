@@ -1,28 +1,28 @@
 {
  "activo": false,
- "generado": "2026-09-27T06:11:44Z",
+ "generado": "2026-09-27T07:49:13Z",
  "casas": {
   "575": {
-   "n_pares": 340,
-   "n_partidos": 1133,
-   "margen_mediano": 9.966,
-   "margen_desviacion": 3.469,
-   "error_mediano_pp": 0.344,
+   "n_pares": 345,
+   "n_partidos": 1160,
+   "margen_mediano": 10.048,
+   "margen_desviacion": 3.47,
+   "error_mediano_pp": 0.346,
    "suficiente": false
   },
   "925": {
    "n_pares": 282,
-   "n_partidos": 1375,
-   "margen_mediano": 10.63,
-   "margen_desviacion": 2.032,
+   "n_partidos": 1389,
+   "margen_mediano": 10.631,
+   "margen_desviacion": 2.03,
    "error_mediano_pp": 1.005,
    "suficiente": false
   },
   "1187": {
    "n_pares": 312,
-   "n_partidos": 1214,
+   "n_partidos": 1221,
    "margen_mediano": 9.446,
-   "margen_desviacion": 1.83,
+   "margen_desviacion": 1.828,
    "error_mediano_pp": 0.356,
    "suficiente": false
   },
@@ -35,5 +35,5 @@
    "suficiente": false
   }
  },
- "motivo": "ninguna candidata pasa todavia: faltan 60 pares"
+ "motivo": "ninguna candidata pasa todavia: faltan 55 pares"
 }
