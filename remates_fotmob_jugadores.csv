@@ -677,21 +677,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822547,2025-09-06,selecciones,Costa Rica,Anthony Contreras,1073924,F,0,26,1,0,0,0.03,,3.0,282302.0
 4822547,2025-09-06,selecciones,Costa Rica,Kenay Myrie,1641118,D,0,5,0,0,0,0.0,,1.0,
 4822547,2025-09-06,selecciones,Costa Rica,Ariel Lassiter,564832,M,0,5,0,0,0,0.0,,2.0,299818.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Denzil Smith,1240335,G,1,90,0,0,0,0.0,11.0,0.0,
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Rio Cardines,1422586,D,1,90,0,0,0,0.0,32.0,1.0,
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Josiah Trimmingham,885253,D,1,89,2,0,0,0.04,34.0,1.0,
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Kobi Henry,1172163,D,1,90,0,0,0,0.0,36.0,1.0,
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Noah Powder,791456,M,1,90,0,0,0,0.0,38.0,2.0,
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Dante Sealy,1026050,F,1,84,4,1,0,0.18,72.0,3.0,846573.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Daniel Phillips,1086546,M,1,90,0,0,0,0.0,74.0,2.0,262476.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Andre Rampersad,1062313,M,1,90,1,1,0,0.03,76.0,2.0,174300.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Tyrese Spicer,1600850,M,1,90,3,3,0,0.15,78.0,2.0,236683.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Levi Garcia,717557,F,1,83,3,1,0,0.15,104.0,3.0,13015329.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Kevin Molino,503719,M,1,84,0,0,0,0.0,106.0,2.0,
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Justin Obikwu,1513928,F,0,7,0,0,0,0.0,,3.0,
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Steffen Yeates,1346748,M,0,6,0,0,0,0.0,,2.0,161479.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Ryan Telfer,835270,F,0,6,0,0,0,0.0,,3.0,113761.0
-4822535,2025-09-06,selecciones,Trinidad and Tobago,Jerrin Jackie,1808436,D,0,1,0,0,0,0.0,,1.0,
 4689252,2025-09-07,selecciones,Northern Ireland,Bailey Peacock-Farrell,698500,G,1,90,0,0,0,0.0,11.0,0.0,808306.0
 4689252,2025-09-07,selecciones,Northern Ireland,Trai Hume,1067763,D,1,90,0,0,0,0.0,33.0,1.0,18271801.0
 4689252,2025-09-07,selecciones,Northern Ireland,Patrick McNair,575780,D,1,90,1,0,0,0.08,35.0,1.0,1784762.0
@@ -17993,22 +17978,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115876,2026-07-26,argentina,Boca Juniors,Tomás Aranda,1899032,M,0,25,1,0,0,0.08,,2.0,1666177.0
 5115876,2026-07-26,argentina,Boca Juniors,Miguel Merentiel,826418,F,0,24,0,0,0,0.0,,3.0,2793612.0
 5115876,2026-07-26,argentina,Boca Juniors,Camilo Rey Domenech,1710297,M,0,15,0,0,0,0.0,,2.0,656982.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Pedro Gallese,116920,G,1,90,0,0,0,0.0,11.0,0.0,332900.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Keimer Sandoval,1640741,D,1,90,1,0,0,0.01,33.0,1.0,380284.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,José Caldera,1302803,D,1,90,0,0,0,0.0,35.0,1.0,391954.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Fernando Álvarez,1280284,D,1,90,1,0,0,0.02,37.0,1.0,955809.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Fabián Viáfara,630859,D,1,66,0,0,0,0.0,51.0,1.0,325657.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Kalazan Suárez,1335180,D,1,66,0,0,0,0.0,59.0,1.0,425273.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Daniel Giraldo,282156,M,1,79,0,0,0,0.0,73.0,2.0,248857.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Gustavo Cuéllar,207520,M,1,90,0,0,0,0.0,75.0,2.0,849147.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Steven Rodríguez,1105327,M,1,90,6,3,1,0.6,77.0,2.0,816459.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Emanuel Reynoso,797871,F,1,46,0,0,0,0.0,104.0,3.0,848104.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Juan Dinenno,486453,F,1,66,2,0,0,0.16,106.0,3.0,554828.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Avilés Hurtado,206227,F,0,45,1,1,0,0.06,,3.0,438160.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Leyser Chaverra,1289117,D,0,24,1,1,0,0.07,,1.0,626166.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Edwin Velasco,496855,D,0,24,0,0,0,0.0,,1.0,321401.0
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Johan Martínez,1433044,F,0,24,1,1,1,0.04,,3.0,
-1000014056,2026-07-25,col_primera_a,Deportivo Cali,Nicolás Benedetti,658135,M,0,11,0,0,0,0.0,,2.0,1100815.0
 1000014056,2026-07-25,col_primera_a,CD Jaguares,Franklin Mosquera,1433009,G,1,90,0,0,0,0.0,11.0,0.0,299283.0
 1000014056,2026-07-25,col_primera_a,CD Jaguares,Edwin Martínez,1433010,D,1,90,0,0,0,0.0,32.0,1.0,
 1000014056,2026-07-25,col_primera_a,CD Jaguares,Jerson Malagón,978132,D,1,66,0,0,0,0.0,34.0,1.0,153231.0
@@ -131543,3 +131512,91 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5071387,2026-09-27,mls,Inter Miami CF,Riquelme Fillipi,1664487,F,0,19,0,0,0,0.0,,3.0,
 5071387,2026-09-27,mls,Inter Miami CF,Ezequiel Abadia-Reda,1469015,D,0,4,0,0,0,0.0,,1.0,249395.0
 5071387,2026-09-27,mls,Inter Miami CF,Santiago Morales,1529403,F,0,4,0,0,0,0.0,,3.0,631575.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Jabari Brice,1825730,G,1,90,0,0,0,0.0,11.0,0.0,
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Rio Cardines,1422586,D,1,90,3,1,0,0.0,32.0,1.0,633681.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Jaheim Joseph,0,D,1,90,0,0,0,0.0,34.0,1.0,
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Justin García,1057837,D,1,90,0,0,0,0.0,36.0,1.0,72000.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Noah Powder,791456,D,1,90,0,0,0,0.0,38.0,1.0,147339.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Wayne Frederick,1610223,M,1,89,1,0,0,0.0,72.0,2.0,367887.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Daniel Phillips,1086546,M,1,90,2,2,1,0.0,74.0,2.0,234079.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Andre Rampersad,1062313,M,1,55,1,1,0,0.0,76.0,2.0,50000.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Dantaye Gilbert,1552459,M,1,90,4,1,0,0.0,78.0,2.0,401731.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Levi García,717557,F,1,90,5,1,0,0.0,104.0,3.0,6808000.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Reon Moore,1057839,D,1,90,0,0,0,0.0,106.0,1.0,72000.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Neveal Hackshaw,675103,D,0,45,2,0,0,0.0,,1.0,50000.0
+5991881,2026-09-28,selecciones,Trinidad and Tobago,Ryan Telfer,835270,F,0,15,1,0,0,0.0,,3.0,94468.0
+5991881,2026-09-28,selecciones,Dominican Republic,Xavier Valdez,1357558,G,1,90,0,0,0,0.0,11.0,0.0,151690.0
+5991881,2026-09-28,selecciones,Dominican Republic,Luiyi de Lucas,1135659,D,1,90,0,0,0,0.0,32.0,1.0,198100.0
+5991881,2026-09-28,selecciones,Dominican Republic,Edgar Pujol,1418028,D,1,90,0,0,0,0.0,34.0,1.0,
+5991881,2026-09-28,selecciones,Dominican Republic,Noah Dollenmayer,1455534,D,1,90,0,0,0,0.0,36.0,1.0,102594.0
+5991881,2026-09-28,selecciones,Dominican Republic,Júnior Firpo,743192,D,1,90,0,0,0,0.0,38.0,1.0,2559864.0
+5991881,2026-09-28,selecciones,Dominican Republic,Jean López,1024183,M,1,90,2,0,0,0.0,64.0,2.0,150443.0
+5991881,2026-09-28,selecciones,Dominican Republic,Pablo Rosario,664226,M,1,90,1,0,0,0.0,66.0,2.0,4290161.0
+5991881,2026-09-28,selecciones,Dominican Republic,Peter González,1229280,F,1,66,3,1,0,0.0,83.0,3.0,1467451.0
+5991881,2026-09-28,selecciones,Dominican Republic,Dorny Romero,1102243,F,1,80,3,2,0,0.0,85.0,3.0,
+5991881,2026-09-28,selecciones,Dominican Republic,Heinz Mörschel,770523,M,1,66,2,1,1,0.0,87.0,2.0,550921.0
+5991881,2026-09-28,selecciones,Dominican Republic,Mariano Díaz,518525,F,1,89,5,3,1,0.0,115.0,3.0,324702.0
+5991881,2026-09-28,selecciones,Dominican Republic,Juan Pineda,1350021,F,0,24,1,0,0,0.0,,3.0,315424.0
+1000014587,2026-09-28,liga_mx,León,Irving Martínez,2119822,G,1,90,0,0,0,0.0,11.0,0.0,
+1000014587,2026-09-28,liga_mx,León,Iván Moreno,949958,D,1,90,0,0,0,0.0,32.0,1.0,942131.0
+1000014587,2026-09-28,liga_mx,León,Jhohan Romaña,1133142,D,1,90,0,0,0,0.0,34.0,1.0,2501330.0
+1000014587,2026-09-28,liga_mx,León,Juan Guevara,1610383,D,1,90,0,0,0,0.0,36.0,1.0,992464.0
+1000014587,2026-09-28,liga_mx,León,Sebastián Vegas,478454,D,1,46,0,0,0,0.0,38.0,1.0,1072318.0
+1000014587,2026-09-28,liga_mx,León,Iván Rodríguez,819851,M,1,90,0,0,0,0.0,65.0,2.0,776326.0
+1000014587,2026-09-28,liga_mx,León,Jordi Cortizo,737290,F,1,45,1,0,0,0.01,82.0,3.0,1337209.0
+1000014587,2026-09-28,liga_mx,León,Jesús Lara,1838718,M,1,90,1,1,0,0.05,84.0,2.0,
+1000014587,2026-09-28,liga_mx,León,Fernando Beltrán,861896,M,1,58,0,0,0,0.0,86.0,2.0,1859623.0
+1000014587,2026-09-28,liga_mx,León,Ismael Díaz,574077,F,1,58,1,1,0,0.33,88.0,3.0,1406454.0
+1000014587,2026-09-28,liga_mx,León,Díber Cambindo,1232523,F,1,83,2,0,0,0.18,115.0,3.0,2216333.0
+1000014587,2026-09-28,liga_mx,León,Salvador Reyes,914119,M,0,44,0,0,0,0.0,,2.0,926429.0
+1000014587,2026-09-28,liga_mx,León,Juan Domínguez,1294724,M,0,44,0,0,0,0.0,,2.0,1575037.0
+1000014587,2026-09-28,liga_mx,León,Edgar Guerra,1200722,M,0,32,0,0,0,0.0,,2.0,1827873.0
+1000014587,2026-09-28,liga_mx,León,José Alvarado,921579,F,0,32,2,1,1,0.17,,3.0,1114457.0
+1000014587,2026-09-28,liga_mx,León,Paúl Bellón,1203345,D,0,7,0,0,0,0.0,,1.0,654279.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Sebastián Jurado,876495,G,1,90,0,0,0,0.0,11.0,0.0,1379157.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Jesús Murillo,425744,D,1,90,1,0,0,0.01,33.0,1.0,925702.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Gilberto Sepúlveda,988723,D,1,81,0,0,0,0.0,35.0,1.0,1237248.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Daniel Piña,1335338,D,1,90,0,0,0,0.0,37.0,1.0,271765.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Francisco Nevárez,1071281,D,1,90,0,0,0,0.0,51.0,1.0,755501.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Alejandro Mayorga,848043,D,1,62,1,0,0,0.09,59.0,1.0,1146983.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Monchu,907253,M,1,90,2,0,0,0.06,73.0,2.0,2827104.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Leonardo Rodríguez,1435885,M,1,90,0,0,0,0.0,75.0,2.0,
+1000014587,2026-09-28,liga_mx,FC Juárez,Ricardinho,1195451,M,1,62,0,0,0,0.0,77.0,2.0,1096967.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Madson,1116481,F,1,90,0,0,0,0.0,104.0,3.0,1265957.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Óscar Estupiñán,683880,F,1,90,3,1,1,1.11,106.0,3.0,1883984.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Eder López,1658522,D,0,28,0,0,0,0.0,,1.0,1319696.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Raymundo Fulgencio,952904,M,0,28,1,0,0,0.02,,2.0,1774832.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Luca Martínez Dupuy,1200027,F,0,9,1,0,0,0.01,,3.0,900713.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Haret Ortega,1015112,D,0,1,0,0,0,0.0,,1.0,726561.0
+1000014587,2026-09-28,liga_mx,FC Juárez,Javier Aquino,172324,M,0,1,0,0,0,0.0,,2.0,287959.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Alejandro Rodríguez,1513661,G,1,90,0,0,0,0.0,11.0,0.0,662043.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Fabián Viáfara,630859,D,1,65,0,0,0,0.0,32.0,1.0,248656.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,José Caldera,1302803,D,1,90,0,0,0,0.0,34.0,1.0,557744.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Fernando Álvarez,1280284,D,1,90,0,0,0,0.0,36.0,1.0,1222707.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Edwin Velasco,496855,D,1,84,1,0,0,0.03,38.0,1.0,249996.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Johan Martínez,1433044,M,1,65,1,1,0,0.03,72.0,2.0,
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Leyser Chaverra,1289117,M,1,90,1,1,0,0.03,74.0,2.0,601118.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Gustavo Cuéllar,207520,M,1,90,1,1,0,0.02,76.0,2.0,553097.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Eduard Bello,495825,M,1,84,2,2,2,0.4,78.0,2.0,567220.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Steven Rodríguez,1105327,F,1,90,1,1,0,0.02,104.0,3.0,798131.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Emanuel Reynoso,797871,F,1,77,2,1,0,0.1,106.0,3.0,794240.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Keimer Sandoval,1640741,D,0,25,0,0,0,0.0,,1.0,547608.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Carlos Bacca,166648,F,0,25,1,1,0,0.03,,3.0,287766.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Daniel Giraldo,282156,M,0,13,2,1,0,0.07,,2.0,248857.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Juan Tello,1353754,D,0,6,0,0,0,0.0,,1.0,324115.0
+1000014074,2026-09-28,col_primera_a,Deportivo Cali,Alexis Manyoma,1332390,M,0,6,0,0,0,0.0,,2.0,1216513.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Jorge Soto,1393528,G,1,90,0,0,0,0.0,11.0,0.0,247613.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Frank Lozano,496862,D,1,90,2,1,0,0.14,33.0,1.0,248656.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Andrés Mosquera,205863,D,1,90,0,0,0,0.0,35.0,1.0,240713.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,John Ontaneda,1345064,D,1,90,0,0,0,0.0,37.0,1.0,971054.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Fabián Charales,1435327,M,1,90,6,1,0,0.33,62.0,2.0,
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Iván Rojas,764267,M,1,90,1,0,0,0.01,64.0,2.0,248632.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Tomás Blandón,1897627,M,1,84,2,0,0,0.1,66.0,2.0,
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Javier Mena,1556344,M,1,90,1,0,0,0.02,68.0,2.0,
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Andrés Ricaurte,407911,M,1,79,1,0,0,0.01,84.0,2.0,248857.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Eduar Arízalas,1622462,M,1,63,0,0,0,0.0,86.0,2.0,393378.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Anthony Vásquez,1359916,F,1,63,1,1,0,0.08,105.0,3.0,
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Matías Ramírez,504322,F,0,27,1,0,0,0.04,,3.0,
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Ricardo Márquez,1021589,F,0,27,2,0,0,0.04,,3.0,245882.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Juan Ávalo,1434854,M,0,11,0,0,0,0.0,,2.0,370759.0
+1000014074,2026-09-28,col_primera_a,Águilas Doradas,Jhon Meléndez,1333447,D,0,6,0,0,0,0.0,,1.0,434597.0
