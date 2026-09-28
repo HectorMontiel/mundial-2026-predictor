@@ -3090,22 +3090,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822554,2025-10-14,selecciones,Honduras,Jose Mario Pinto,696082,F,0,14,2,1,0,0.09,,3.0,
 4822554,2025-10-14,selecciones,Honduras,Alexy Vega,1335342,M,0,8,2,1,0,0.18,,2.0,
 4822554,2025-10-14,selecciones,Honduras,Jorge Benguche,590757,F,0,2,0,0,0,0.0,,3.0,
-4822554,2025-10-14,selecciones,Haiti,Johny Placide,103468,G,1,90,0,0,0,0.0,11.0,0.0,76003.0
-4822554,2025-10-14,selecciones,Haiti,Garven-Michee Metusala,1286428,D,1,46,0,0,0,0.0,32.0,1.0,
-4822554,2025-10-14,selecciones,Haiti,Ricardo Ade,532700,D,1,90,0,0,0,0.0,34.0,1.0,303087.0
-4822554,2025-10-14,selecciones,Haiti,Jean-Kevin Duverne,769168,D,1,90,0,0,0,0.0,36.0,1.0,1802693.0
-4822554,2025-10-14,selecciones,Haiti,Martin Experience,1181438,D,1,90,0,0,0,0.0,38.0,1.0,269494.0
-4822554,2025-10-14,selecciones,Haiti,Josué Casimir,1199382,F,1,90,1,0,0,0.03,72.0,3.0,5344245.0
-4822554,2025-10-14,selecciones,Haiti,Jean-Ricner Bellegarde,769166,M,1,85,3,1,0,0.07,74.0,2.0,20928038.0
-4822554,2025-10-14,selecciones,Haiti,Danley Jean Jacques,1329461,M,1,90,1,0,0,0.04,76.0,2.0,1699545.0
-4822554,2025-10-14,selecciones,Haiti,Derrick Etienne,643482,F,1,45,1,0,0,0.05,78.0,3.0,503375.0
-4822554,2025-10-14,selecciones,Haiti,Duckens Nazon,525445,F,1,63,2,0,0,0.1,104.0,3.0,922032.0
-4822554,2025-10-14,selecciones,Haiti,Frantzdy Pierrot,833641,F,1,87,0,0,0,0.0,106.0,3.0,1738764.0
-4822554,2025-10-14,selecciones,Haiti,Hannes Delcroix,822716,D,0,44,0,0,0,0.0,,1.0,2229729.0
-4822554,2025-10-14,selecciones,Haiti,Leverton Pierre,899318,M,0,45,1,0,0,0.03,,2.0,174206.0
-4822554,2025-10-14,selecciones,Haiti,Ruben Providence,1200016,M,0,27,2,1,0,0.07,,2.0,262991.0
-4822554,2025-10-14,selecciones,Haiti,Don Deedson Louicius,1079194,F,0,5,1,1,0,0.03,,3.0,
-4822554,2025-10-14,selecciones,Haiti,Woobens Pacius,1291388,F,0,3,0,0,0,0.0,,3.0,106754.0
 4822529,2025-10-15,selecciones,El Salvador,Mario Gonzalez,1261973,G,1,90,0,0,0,0.0,11.0,0.0,
 4822529,2025-10-15,selecciones,El Salvador,Julio Sibrian,1048983,D,1,90,0,0,0,0.0,33.0,1.0,
 4822529,2025-10-15,selecciones,El Salvador,Marcelo Diaz,1214013,M,1,90,0,0,0,0.0,35.0,2.0,86159.0
@@ -18102,22 +18086,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000011156,2026-07-26,bol_division,Real Tomayapo,Francisco Nouet,1134280,F,0,34,0,0,0,0.0,,3.0,163138.0
 1000011156,2026-07-26,bol_division,Real Tomayapo,Jesús Velásquez,1739269,M,0,25,0,0,0,0.0,,2.0,
 1000011156,2026-07-26,bol_division,Real Tomayapo,Jorge Orozco,1131670,F,0,25,0,0,0,0.0,,3.0,221000.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Cristian Santander,1610967,G,1,90,0,0,0,0.0,11.0,0.0,380027.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Joan Cajares,1635203,D,1,90,0,0,0,0.0,32.0,1.0,417447.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Yesid Díaz,1132536,D,1,90,0,0,0,0.0,34.0,1.0,394478.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Jhon Balanta,1292388,D,1,90,0,0,0,0.0,36.0,1.0,
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Juan Castillo,1253556,D,1,90,1,0,0,0.02,38.0,1.0,
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Leonardo Pico,425805,M,1,90,0,0,0,0.0,65.0,2.0,301653.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Ítalo Montaño,885505,F,1,69,2,1,0,0.18,82.0,3.0,325234.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Sebastián Navarro,1335223,M,1,82,0,0,0,0.0,84.0,2.0,462623.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Santiago Vivas,1838233,M,1,60,0,0,0,0.0,86.0,2.0,
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Jhon Solís,1343323,F,1,82,2,1,1,0.16,88.0,3.0,251377.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Teun Wilke,1391709,F,1,69,0,0,0,0.0,115.0,3.0,584032.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Kevin Balanta,1604109,M,0,30,0,0,0,0.0,,2.0,824608.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Richardson Rivas,1795352,M,0,21,0,0,0,0.0,,2.0,512922.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Sebastián Herrera,529477,F,0,21,0,0,0,0.0,,3.0,124416.0
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Sebastián Ramírez,1641115,M,0,8,0,0,0,0.0,,2.0,
-1000014051,2026-07-26,col_primera_a,Fortaleza FC,Jhonier Blanco,1248443,F,0,8,0,0,0,0.0,,3.0,350724.0
 5103554,2026-07-26,brasil,RB Bragantino,Tiago Volpi,409017,G,1,90,0,0,0,0.0,11.0,0.0,696492.0
 5103554,2026-07-26,brasil,RB Bragantino,José Hurtado,1212487,D,1,90,0,0,0,0.0,32.0,1.0,
 5103554,2026-07-26,brasil,RB Bragantino,Alix,1231596,D,1,90,1,0,0,0.01,34.0,1.0,1486714.0
@@ -19569,22 +19537,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109853,2026-07-26,usl_championship,Oakland Roots SC,Tyler Gibson,756396,M,0,6,0,0,0,0.0,,2.0,
 5109853,2026-07-26,usl_championship,Oakland Roots SC,Julian Bravo,1366626,D,0,1,0,0,0,0.0,,1.0,81001.0
 5109853,2026-07-26,usl_championship,Oakland Roots SC,Jackson Kiil,1921667,F,0,1,0,0,0,0.0,,3.0,72000.0
-1000014047,2026-07-26,col_primera_a,Tolima,Miguel Ortega,797357,G,1,90,0,0,0,0.0,11.0,0.0,335782.0
-1000014047,2026-07-26,col_primera_a,Tolima,Jherson Mosquera,1362307,D,1,90,0,0,0,0.0,32.0,1.0,404813.0
-1000014047,2026-07-26,col_primera_a,Tolima,Jan Ángulo,1438665,D,1,90,0,0,0,0.0,34.0,1.0,910519.0
-1000014047,2026-07-26,col_primera_a,Tolima,Anderson Angulo,1106037,D,1,90,0,0,0,0.0,36.0,1.0,509064.0
-1000014047,2026-07-26,col_primera_a,Tolima,Junior Hernández,1200384,D,1,90,2,1,0,0.2,38.0,1.0,553940.0
-1000014047,2026-07-26,col_primera_a,Tolima,Jorge Hurtado,1341010,M,1,68,3,1,1,0.31,72.0,2.0,400956.0
-1000014047,2026-07-26,col_primera_a,Tolima,Cristian Trujillo,1248700,M,1,46,0,0,0,0.0,74.0,2.0,
-1000014047,2026-07-26,col_primera_a,Tolima,Sebastián Guzmán,1020112,M,1,90,0,0,0,0.0,76.0,2.0,368573.0
-1000014047,2026-07-26,col_primera_a,Tolima,Kelvin Flórez,1634837,M,1,59,1,1,1,0.64,78.0,2.0,1131152.0
-1000014047,2026-07-26,col_primera_a,Tolima,Ever Valencia,840964,F,1,59,2,1,0,0.15,104.0,3.0,297838.0
-1000014047,2026-07-26,col_primera_a,Tolima,Luis Sandoval,950571,F,1,86,1,0,0,0.05,106.0,3.0,558129.0
-1000014047,2026-07-26,col_primera_a,Tolima,Homer Martínez,1028441,M,0,44,0,0,0,0.0,,2.0,840001.0
-1000014047,2026-07-26,col_primera_a,Tolima,Adrián Parra,1337886,F,0,31,0,0,0,0.0,,3.0,626889.0
-1000014047,2026-07-26,col_primera_a,Tolima,Jader Valencia,925846,F,0,31,1,0,0,0.05,,3.0,354015.0
-1000014047,2026-07-26,col_primera_a,Tolima,Cristian Arrieta,830518,D,0,22,0,0,0,0.0,,1.0,324401.0
-1000014047,2026-07-26,col_primera_a,Tolima,Shean Barbosa,1461049,D,0,4,0,0,0,0.0,,1.0,
 1000014047,2026-07-26,col_primera_a,Junior FC,Jefersson Martínez,279007,G,1,90,0,0,0,0.0,11.0,0.0,240317.0
 1000014047,2026-07-26,col_primera_a,Junior FC,Daniel Rivera,1371032,D,1,90,3,1,0,0.26,32.0,1.0,459241.0
 1000014047,2026-07-26,col_primera_a,Junior FC,Edwin Herrera,952530,D,1,90,1,0,0,0.01,34.0,1.0,594058.0
@@ -131485,3 +131437,60 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014165,2026-09-27,col_primera_a,Alianza FC,Leyner Palacios,1683587,M,0,10,1,0,0,0.04,,2.0,110000.0
 1000014165,2026-09-27,col_primera_a,Alianza FC,Charly Villegas,1724711,F,0,10,1,0,0,0.03,,3.0,404918.0
 1000014165,2026-09-27,col_primera_a,Alianza FC,Josy Pérez,1800326,M,0,1,0,0,0,0.0,,2.0,298945.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Williams Barlasina,1206589,G,1,90,0,0,0,0.0,11.0,0.0,390783.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Joan Cajares,1635203,D,1,90,1,1,0,0.05,32.0,1.0,372203.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Yesid Díaz,1132536,D,1,90,1,0,0,0.05,34.0,1.0,288344.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Jeferson Medina,1790250,D,1,90,0,0,0,0.0,36.0,1.0,
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Santiago Cuero,1520739,D,1,80,2,1,0,0.04,38.0,1.0,624751.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Brandón Mejía,1793882,M,1,80,1,0,0,0.02,65.0,2.0,
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Mariano Vázquez,783600,F,1,64,1,1,0,0.02,82.0,3.0,137570.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Sebastián Navarro,1335223,M,1,90,3,2,1,0.08,84.0,2.0,421684.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Santiago Vivas,1838233,M,1,64,0,0,0,0.0,86.0,2.0,
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Jordan Garcia,2164853,F,1,71,0,0,0,0.0,88.0,3.0,
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Sebastián Herrera,529477,F,1,90,3,1,1,0.24,115.0,3.0,179158.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Jhonier Salas,1543758,F,0,26,0,0,0,0.0,,3.0,
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Ítalo Montaño,885505,F,0,26,0,0,0,0.0,,3.0,415378.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Leonardo Pico,425805,M,0,19,0,0,0,0.0,,2.0,248656.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Franco Pulicastro,1086412,F,0,10,2,0,0,0.17,,3.0,263657.0
+1000014158,2026-09-27,col_primera_a,Fortaleza FC,Julio Sinisterra,1897422,F,0,10,0,0,0,0.0,,3.0,
+1000014158,2026-09-27,col_primera_a,Tolima,Neto,319677,G,1,90,0,0,0,0.0,11.0,0.0,425498.0
+1000014158,2026-09-27,col_primera_a,Tolima,Edwar López,930398,D,1,90,0,0,0,0.0,32.0,1.0,287143.0
+1000014158,2026-09-27,col_primera_a,Tolima,Jan Ángulo,1438665,D,1,90,0,0,0,0.0,34.0,1.0,727892.0
+1000014158,2026-09-27,col_primera_a,Tolima,Anderson Angulo,1106037,D,1,90,0,0,0,0.0,36.0,1.0,348688.0
+1000014158,2026-09-27,col_primera_a,Tolima,Shean Barbosa,1461049,D,1,90,0,0,0,0.0,38.0,1.0,
+1000014158,2026-09-27,col_primera_a,Tolima,Homer Martínez,1028441,M,1,45,1,0,0,0.04,64.0,2.0,618841.0
+1000014158,2026-09-27,col_primera_a,Tolima,Cristian Arrieta,830518,M,1,46,0,0,0,0.0,66.0,2.0,249676.0
+1000014158,2026-09-27,col_primera_a,Tolima,Adrián Parra,1337886,F,1,90,0,0,0,0.0,83.0,3.0,514621.0
+1000014158,2026-09-27,col_primera_a,Tolima,Ever Valencia,840964,M,1,68,0,0,0,0.0,85.0,2.0,286232.0
+1000014158,2026-09-27,col_primera_a,Tolima,Junior Hernández,1200384,F,1,45,2,0,0,0.03,87.0,3.0,570468.0
+1000014158,2026-09-27,col_primera_a,Tolima,Sergio Aguayo,1603853,F,1,68,1,0,0,0.09,115.0,3.0,
+1000014158,2026-09-27,col_primera_a,Tolima,Brayan Rovira,801008,M,0,45,2,0,0,0.05,,2.0,423735.0
+1000014158,2026-09-27,col_primera_a,Tolima,Sebastián Guzmán,1020112,M,0,44,0,0,0,0.0,,2.0,530744.0
+1000014158,2026-09-27,col_primera_a,Tolima,Jorge Hurtado,1341010,F,0,45,1,1,1,0.05,,3.0,501195.0
+1000014158,2026-09-27,col_primera_a,Tolima,Luis Sánchez,1037137,M,0,22,0,0,0,0.0,,2.0,521013.0
+1000014158,2026-09-27,col_primera_a,Tolima,Luis Sandoval,950571,F,0,22,0,0,0,0.0,,3.0,803706.0
+5991880,2026-09-27,selecciones,Haiti,Alexandre Pierre,1209244,G,1,90,0,0,0,0.0,11.0,0.0,390578.0
+5991880,2026-09-27,selecciones,Haiti,Carlens Arcus,634110,D,1,90,0,0,0,0.0,32.0,1.0,920437.0
+5991880,2026-09-27,selecciones,Haiti,Carl Sainté,1107287,D,1,90,0,0,0,0.0,34.0,1.0,69402.0
+5991880,2026-09-27,selecciones,Haiti,Garven Metusala,1286428,D,1,90,0,0,0,0.0,36.0,1.0,53805.0
+5991880,2026-09-27,selecciones,Haiti,Martin Expérience,1181438,D,1,90,0,0,0,0.0,38.0,1.0,168076.0
+5991880,2026-09-27,selecciones,Haiti,Jean-Ricner Bellegarde,769166,M,1,86,2,1,1,0.0,64.0,2.0,12847101.0
+5991880,2026-09-27,selecciones,Haiti,Danley Jean Jacques,1329461,M,1,90,1,0,0,0.0,66.0,2.0,1719266.0
+5991880,2026-09-27,selecciones,Haiti,Don Deedson Louicius,1079194,M,1,90,0,0,0,0.0,83.0,2.0,967350.0
+5991880,2026-09-27,selecciones,Haiti,Fabrice Picault,580600,F,1,90,0,0,0,0.0,85.0,3.0,83119.0
+5991880,2026-09-27,selecciones,Haiti,Ruben Providence,1200016,F,1,90,1,0,0,0.0,87.0,3.0,205138.0
+5991880,2026-09-27,selecciones,Haiti,Wilson Isidor,887703,F,1,90,1,0,0,0.0,115.0,3.0,15778828.0
+5991880,2026-09-27,selecciones,Haiti,Dany Jean,1246713,F,0,36,1,1,0,0.0,,3.0,761680.0
+5991880,2026-09-27,selecciones,Costa Rica,Abraham Madriz,1434702,G,1,90,0,0,0,0.0,11.0,0.0,134071.0
+5991880,2026-09-27,selecciones,Costa Rica,Carlos Barahona,1310442,D,1,90,2,0,0,0.0,32.0,1.0,
+5991880,2026-09-27,selecciones,Costa Rica,Jeyland Mitchell,1340071,D,1,90,2,1,0,0.0,34.0,1.0,1842237.0
+5991880,2026-09-27,selecciones,Costa Rica,Francisco Calvo,272005,D,1,90,0,0,0,0.0,36.0,1.0,385311.0
+5991880,2026-09-27,selecciones,Costa Rica,Darril Araya,1183175,D,1,90,1,0,0,0.0,38.0,1.0,92669.0
+5991880,2026-09-27,selecciones,Costa Rica,Orlando Galo,988815,M,1,89,1,0,0,0.0,73.0,2.0,240838.0
+5991880,2026-09-27,selecciones,Costa Rica,Sebastián Acuña,1410207,M,1,90,0,0,0,0.0,75.0,2.0,169521.0
+5991880,2026-09-27,selecciones,Costa Rica,Josimar Méndez,1100269,M,1,77,6,1,0,0.0,77.0,2.0,163087.0
+5991880,2026-09-27,selecciones,Costa Rica,Carlos Mora,1202707,M,1,90,0,0,0,0.0,103.0,2.0,1345070.0
+5991880,2026-09-27,selecciones,Costa Rica,Orlando Sinclair,967020,F,1,61,2,2,0,0.0,105.0,3.0,84225.0
+5991880,2026-09-27,selecciones,Costa Rica,Josimar Alcócer,1296660,F,1,90,3,1,0,0.0,107.0,3.0,3498514.0
+5991880,2026-09-27,selecciones,Costa Rica,Douglas López,964355,M,0,45,2,1,0,0.0,,2.0,50000.0
+5991880,2026-09-27,selecciones,Costa Rica,Gerson Torres,720167,F,0,45,1,0,0,0.0,,3.0,50000.0

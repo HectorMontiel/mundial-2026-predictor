@@ -63,13 +63,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Ind. Valle del Cauca",
     "ratio": 0.5263,
-    "visto": "2026-09-27"
+    "visto": "2026-09-28"
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Club Lujan",
     "ratio": 0.6364,
-    "visto": "2026-09-27"
+    "visto": "2026-09-28"
   },
   "Cruz Azul": {
     "contexto": "cuotas_mx→futbol",
@@ -109,15 +109,15 @@
   },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atl. San Luis W",
-    "ratio": 0.5,
-    "visto": "2026-09-27"
+    "candidato": "San Marino",
+    "ratio": 0.4667,
+    "visto": "2026-09-28"
   },
   "Gimnasia y Esgrima (Jujuy)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia Jujuy",
-    "ratio": 0.7368,
-    "visto": "2026-09-27"
+    "candidato": "Gimnasia L.P. W",
+    "ratio": 0.5556,
+    "visto": "2026-09-28"
   },
   "Independiente Medellín": {
     "contexto": "cuotas_mx→futbol",
@@ -311,9 +311,9 @@
   },
   "Atlético Nacional": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Nacional Potosi",
-    "ratio": 0.5,
-    "visto": "2026-09-25"
+    "candidato": "Atletico Balboa",
+    "ratio": 0.6875,
+    "visto": "2026-09-28"
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
@@ -637,7 +637,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Czech Republic",
     "ratio": 0.6667,
-    "visto": "2026-09-26"
+    "visto": "2026-09-28"
   },
   "Gimnasia y Tiro (Salta)": {
     "contexto": "cuotas_mx→futbol",
@@ -649,7 +649,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Platense Municipal",
     "ratio": 0.5333,
-    "visto": "2026-09-27"
+    "visto": "2026-09-28"
   },
   "Colón (Santa Fe)": {
     "contexto": "cuotas_mx→futbol",
@@ -785,9 +785,9 @@
   },
   "Atlético Junior": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Colina",
+    "candidato": "Atletico Balboa",
     "ratio": 0.6667,
-    "visto": "2026-09-27"
+    "visto": "2026-09-28"
   },
   "Atletico Rafaela": {
     "contexto": "cuotas_mx→futbol",
@@ -797,9 +797,9 @@
   },
   "San Martín (Tucumán)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin S.J.",
-    "ratio": 0.6875,
-    "visto": "2026-09-27"
+    "candidato": "San Marino",
+    "ratio": 0.6429,
+    "visto": "2026-09-28"
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
@@ -881,9 +881,9 @@
   },
   "Luis Ángel Firpo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Luis W",
+    "candidato": "San Luis",
     "ratio": 0.3333,
-    "visto": "2026-09-27"
+    "visto": "2026-09-28"
   },
   "CD Municipal Limeño": {
     "contexto": "cuotas_mx→futbol",
@@ -907,7 +907,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "America MG",
     "ratio": 0.72,
-    "visto": "2026-09-27"
+    "visto": "2026-09-28"
   },
   "Los Chankas": {
     "contexto": "cuotas_mx→futbol",
@@ -920,5 +920,11 @@
     "candidato": "UNAM Pumas W",
     "ratio": 0.5,
     "visto": "2026-09-27"
+  },
+  "León": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Club Leon W",
+    "ratio": 0.6154,
+    "visto": "2026-09-28"
   }
 }
