@@ -1,120 +1,112 @@
 {
- "generado": "2026-09-21T15:22:32Z",
+ "generado": "2026-09-28T12:36:15Z",
  "n_folds": 5,
  "inicio_train": 0.5,
- "filas": 81030,
+ "filas": 78134,
  "ligas": 63,
- "con_cuota_mercado": 0,
- "con_cuota_pinnacle": 0,
+ "con_cuota_mercado": 60796,
+ "con_cuota_pinnacle": 51811,
  "rango": [
   "2018-02-24",
-  "2026-09-17"
+  "2026-09-24"
  ],
  "fallos": {},
  "por_liga": {
   "eng_league_two": {
-   "n": 4325,
-   "con_cuota": 0
+   "n": 4331,
+   "con_cuota": 4325
   },
   "eng_league_one": {
-   "n": 4288,
-   "con_cuota": 0
+   "n": 4294,
+   "con_cuota": 4290
   },
   "eng_national": {
-   "n": 4250,
-   "con_cuota": 0
+   "n": 4256,
+   "con_cuota": 4241
   },
   "leagues_cup": {
    "n": 3360,
-   "con_cuota": 0
+   "con_cuota": 3079
   },
   "laliga": {
-   "n": 3033,
-   "con_cuota": 0
+   "n": 3038,
+   "con_cuota": 3038
   },
   "serie_a": {
-   "n": 3015,
-   "con_cuota": 0
+   "n": 3020,
+   "con_cuota": 3017
   },
   "premier": {
-   "n": 3012,
-   "con_cuota": 0
+   "n": 3017,
+   "con_cuota": 3017
   },
   "ligue_1": {
-   "n": 2856,
-   "con_cuota": 0
+   "n": 2861,
+   "con_cuota": 2859
   },
   "bundesliga": {
-   "n": 2426,
-   "con_cuota": 0
+   "n": 2430,
+   "con_cuota": 2430
   },
   "esp_hypermotion": {
-   "n": 2045,
-   "con_cuota": 0
+   "n": 2050,
+   "con_cuota": 2045
   },
   "argentina": {
-   "n": 1875,
-   "con_cuota": 0
-  },
-  "mls": {
-   "n": 1849,
-   "con_cuota": 0
+   "n": 1876,
+   "con_cuota": 1874
   },
   "sco_premiership": {
-   "n": 1800,
-   "con_cuota": 0
+   "n": 1803,
+   "con_cuota": 1801
   },
   "arg_primera_nacional": {
    "n": 1744,
    "con_cuota": 0
   },
   "ita_serie_b": {
-   "n": 1692,
-   "con_cuota": 0
+   "n": 1697,
+   "con_cuota": 1696
   },
   "fra_ligue2": {
-   "n": 1560,
-   "con_cuota": 0
+   "n": 1564,
+   "con_cuota": 1560
   },
   "primeira": {
-   "n": 1525,
-   "con_cuota": 0
+   "n": 1530,
+   "con_cuota": 1528
   },
   "turquia": {
-   "n": 1525,
-   "con_cuota": 0
+   "n": 1529,
+   "con_cuota": 1495
   },
   "brasil": {
-   "n": 1499,
-   "con_cuota": 0
+   "n": 1501,
+   "con_cuota": 1501
   },
   "eng_championship": {
-   "n": 1376,
-   "con_cuota": 0
+   "n": 1382,
+   "con_cuota": 1382
   },
   "ger_bundesliga2": {
-   "n": 1359,
-   "con_cuota": 0
+   "n": 1364,
+   "con_cuota": 1364
   },
   "eredivisie": {
-   "n": 1339,
-   "con_cuota": 0
-  },
-  "liga_mx": {
-   "n": 1303,
-   "con_cuota": 0
+   "n": 1343,
+   "con_cuota": 1343
   },
   "jpn_j1": {
    "n": 1231,
-   "con_cuota": 0
+   "con_cuota": 1231
   },
   "rumania": {
-   "n": 1200,
-   "con_cuota": 0
+   "n": 1201,
+   "con_cuota": 1197
   },
   "polonia": {
-   "n": 1151,
-   "con_cuota": 0
+   "n": 1154,
+   "con_cuota": 1154
   },
   "usl_championship": {
    "n": 1140,
@@ -125,8 +117,8 @@
    "con_cuota": 0
   },
   "gre_super_league": {
-   "n": 1063,
-   "con_cuota": 0
+   "n": 1066,
+   "con_cuota": 1058
   },
   "bra_serie_b": {
    "n": 1002,
@@ -138,19 +130,19 @@
   },
   "rus_premier": {
    "n": 942,
-   "con_cuota": 0
+   "con_cuota": 934
   },
   "suecia": {
-   "n": 936,
-   "con_cuota": 0
+   "n": 937,
+   "con_cuota": 937
   },
   "noruega": {
    "n": 934,
-   "con_cuota": 0
+   "con_cuota": 934
   },
   "china": {
-   "n": 899,
-   "con_cuota": 0
+   "n": 895,
+   "con_cuota": 893
   },
   "per_liga1": {
    "n": 830,
@@ -158,11 +150,11 @@
   },
   "dinamarca": {
    "n": 803,
-   "con_cuota": 0
+   "con_cuota": 803
   },
   "bel_pro_league": {
-   "n": 778,
-   "con_cuota": 0
+   "n": 783,
+   "con_cuota": 778
   },
   "bol_division": {
    "n": 772,
@@ -174,11 +166,11 @@
   },
   "aut_bundesliga": {
    "n": 760,
-   "con_cuota": 0
+   "con_cuota": 760
   },
   "sco_championship": {
-   "n": 753,
-   "con_cuota": 0
+   "n": 755,
+   "con_cuota": 755
   },
   "mex_expansion": {
    "n": 701,
@@ -190,7 +182,7 @@
   },
   "irlanda": {
    "n": 672,
-   "con_cuota": 0
+   "con_cuota": 672
   },
   "slv_primera": {
    "n": 670,
@@ -205,8 +197,8 @@
    "con_cuota": 0
   },
   "finlandia": {
-   "n": 646,
-   "con_cuota": 0
+   "n": 645,
+   "con_cuota": 645
   },
   "chi_primera": {
    "n": 642,
@@ -260,9 +252,17 @@
    "n": 154,
    "con_cuota": 0
   },
+  "liga_mx": {
+   "n": 144,
+   "con_cuota": 144
+  },
   "bra_copa": {
    "n": 140,
    "con_cuota": 0
+  },
+  "mls": {
+   "n": 16,
+   "con_cuota": 16
   }
  }
 }
