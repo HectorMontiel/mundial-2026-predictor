@@ -662,22 +662,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822548,2025-09-06,selecciones,Honduras,Carlos Pineda,848541,M,0,10,0,0,0,0.0,,2.0,
 4822548,2025-09-06,selecciones,Honduras,David Ruiz,1348286,M,0,10,0,0,0,0.0,,2.0,1811864.0
 4822548,2025-09-06,selecciones,Honduras,Alexy Vega,1335342,M,0,1,0,0,0,0.0,,2.0,
-4822547,2025-09-06,selecciones,Nicaragua,Miguel Rodriguez,1527317,G,1,90,0,0,0,0.0,11.0,0.0,
-4822547,2025-09-06,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,1,0,0,0.02,33.0,1.0,
-4822547,2025-09-06,selecciones,Nicaragua,Henry Nino,859309,D,1,90,0,0,0,0.0,35.0,1.0,
-4822547,2025-09-06,selecciones,Nicaragua,Oscar Acevedo,1141649,D,1,90,1,1,0,0.03,37.0,1.0,
-4822547,2025-09-06,selecciones,Nicaragua,Josue Quijano,503263,D,1,90,1,0,0,0.02,71.0,1.0,
-4822547,2025-09-06,selecciones,Nicaragua,Ariel Arauz,1133137,M,1,87,1,0,0,0.03,73.0,2.0,
-4822547,2025-09-06,selecciones,Nicaragua,Junior Arteaga,1057781,M,1,45,2,0,0,0.05,75.0,2.0,
-4822547,2025-09-06,selecciones,Nicaragua,Jason Coronel,688018,M,1,90,0,0,0,0.0,77.0,2.0,
-4822547,2025-09-06,selecciones,Nicaragua,Emmanuel Gomez,1527616,M,1,68,0,0,0,0.0,79.0,2.0,
-4822547,2025-09-06,selecciones,Nicaragua,Juan Barrera,435170,M,1,68,0,0,0,0.0,95.0,2.0,
-4822547,2025-09-06,selecciones,Nicaragua,Ariagner Smith,624696,F,1,57,1,0,0,0.02,115.0,3.0,88954.0
-4822547,2025-09-06,selecciones,Nicaragua,Jacob Montes,1283365,M,0,44,0,0,0,0.0,,2.0,149035.0
-4822547,2025-09-06,selecciones,Nicaragua,Marlon Lopez,623493,M,0,33,0,0,0,0.0,,2.0,
-4822547,2025-09-06,selecciones,Nicaragua,Bancy Hernandez,1558434,F,0,22,0,0,0,0.0,,3.0,
-4822547,2025-09-06,selecciones,Nicaragua,Byron Bonilla,1032173,F,0,22,2,1,1,0.84,,3.0,
-4822547,2025-09-06,selecciones,Nicaragua,Evert Martinez,1609728,D,0,3,0,0,0,0.0,,1.0,
 4822547,2025-09-06,selecciones,Costa Rica,Keylor Navas,51949,G,1,90,0,0,0,0.0,11.0,0.0,778422.0
 4822547,2025-09-06,selecciones,Costa Rica,Juan Pablo Vargas,734283,D,1,90,1,0,0,0.01,33.0,1.0,
 4822547,2025-09-06,selecciones,Costa Rica,Alexis Gamboa,942986,D,1,90,1,1,1,0.07,35.0,1.0,
@@ -2716,20 +2700,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4341124,2025-10-14,selecciones,Mauritania,Ibrahima Keita,1368634,D,0,17,0,0,0,0.0,,1.0,183847.0
 4341124,2025-10-14,selecciones,Mauritania,Amar Haïdara,1671548,F,0,16,0,0,0,0.0,,3.0,
 4341124,2025-10-14,selecciones,Mauritania,Mohamed Saïd,1792228,F,0,16,0,0,0,0.0,,3.0,
-4822541,2025-10-14,selecciones,Curaçao,Eloy Room,150242,G,1,90,0,0,0,0.0,11.0,0.0,
-4822541,2025-10-14,selecciones,Curaçao,Shurandy Sambo,1125997,D,1,90,0,0,0,0.0,32.0,1.0,1798627.0
-4822541,2025-10-14,selecciones,Curaçao,Jurien Gaari,708738,D,1,90,0,0,0,0.0,34.0,1.0,
-4822541,2025-10-14,selecciones,Curaçao,Armando Obispo,794244,D,1,90,1,0,0,0.1,36.0,1.0,2015264.0
-4822541,2025-10-14,selecciones,Curaçao,Sherel Floranus,671327,D,1,90,0,0,0,0.0,38.0,1.0,447439.0
-4822541,2025-10-14,selecciones,Curaçao,Leandro Bacuna,183500,M,1,90,0,0,0,0.0,73.0,2.0,236532.0
-4822541,2025-10-14,selecciones,Curaçao,Livano Comenencia,1243246,M,1,74,2,0,0,0.1,75.0,2.0,868890.0
-4822541,2025-10-14,selecciones,Curaçao,Juninho Bacuna,614574,M,1,90,0,0,0,0.0,77.0,2.0,1925105.0
-4822541,2025-10-14,selecciones,Curaçao,Kenji Gorré,643232,F,1,90,1,1,1,0.18,103.0,3.0,614575.0
-4822541,2025-10-14,selecciones,Curaçao,Gervane Kastaneer,380942,F,1,46,0,0,0,0.0,105.0,3.0,102336.0
-4822541,2025-10-14,selecciones,Curaçao,Jeremy Antonisse,1210947,F,1,45,1,0,0,0.03,107.0,3.0,
-4822541,2025-10-14,selecciones,Curaçao,Jearl Margaritha,1180784,F,0,45,3,0,0,0.35,,3.0,350368.0
-4822541,2025-10-14,selecciones,Curaçao,Jürgen Locadia,289441,F,0,45,1,0,0,0.07,,3.0,
-4822541,2025-10-14,selecciones,Curaçao,Godfried Roemeratoe,938524,M,0,16,0,0,0,0.0,,2.0,204387.0
 4822541,2025-10-14,selecciones,Trinidad and Tobago,Denzil Smith,1240335,G,1,90,0,0,0,0.0,11.0,0.0,
 4822541,2025-10-14,selecciones,Trinidad and Tobago,Josiah Trimmingham,885253,D,1,79,1,0,0,0.03,33.0,1.0,
 4822541,2025-10-14,selecciones,Trinidad and Tobago,Jerrin Jackie,1808436,D,1,90,0,0,0,0.0,35.0,1.0,
@@ -131494,3 +131464,82 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991880,2026-09-27,selecciones,Costa Rica,Josimar Alcócer,1296660,F,1,90,3,1,0,0.0,107.0,3.0,3498514.0
 5991880,2026-09-27,selecciones,Costa Rica,Douglas López,964355,M,0,45,2,1,0,0.0,,2.0,50000.0
 5991880,2026-09-27,selecciones,Costa Rica,Gerson Torres,720167,F,0,45,1,0,0,0.0,,3.0,50000.0
+5991906,2026-09-28,selecciones,Dominica,Donté Newton,1240768,G,1,90,0,0,0,0.0,11.0,0.0,
+5991906,2026-09-28,selecciones,Dominica,Tobi Jnohope,1680056,D,1,90,0,0,0,0.0,33.0,1.0,98797.0
+5991906,2026-09-28,selecciones,Dominica,Eustace Marshall,1582135,D,1,90,1,0,0,0.0,35.0,1.0,
+5991906,2026-09-28,selecciones,Dominica,Marcus Bredas,1650207,D,1,90,0,0,0,0.0,37.0,1.0,
+5991906,2026-09-28,selecciones,Dominica,Savio Anselm,1650203,M,1,90,1,1,0,0.0,51.0,2.0,
+5991906,2026-09-28,selecciones,Dominica,Triston Sandy,1240770,F,1,90,0,0,0,0.0,59.0,3.0,
+5991906,2026-09-28,selecciones,Dominica,Lyon Edwards,1765679,M,1,90,0,0,0,0.0,73.0,2.0,
+5991906,2026-09-28,selecciones,Dominica,Briel Thomas,521468,M,1,90,2,0,0,0.0,75.0,2.0,
+5991906,2026-09-28,selecciones,Dominica,Javid George,1240548,M,1,90,1,0,0,0.0,77.0,2.0,
+5991906,2026-09-28,selecciones,Dominica,Troy Jules,1546320,F,1,90,3,0,0,0.0,104.0,3.0,
+5991906,2026-09-28,selecciones,Dominica,Audel Laville,1113284,F,1,89,2,1,0,0.0,106.0,3.0,
+5991906,2026-09-28,selecciones,Puerto Rico,Sebastián Cutler,1634220,G,1,90,0,0,0,0.0,11.0,0.0,
+5991906,2026-09-28,selecciones,Puerto Rico,Nicolás Cardona,1240356,D,1,90,0,0,0,0.0,32.0,1.0,151912.0
+5991906,2026-09-28,selecciones,Puerto Rico,Andre Cutler,1634205,D,1,90,1,0,0,0.0,34.0,1.0,
+5991906,2026-09-28,selecciones,Puerto Rico,Rodolfo Sulia,1223324,D,1,90,2,1,1,0.0,36.0,1.0,
+5991906,2026-09-28,selecciones,Puerto Rico,Sidney Paris,1649305,D,1,90,0,0,0,0.0,38.0,1.0,
+5991906,2026-09-28,selecciones,Puerto Rico,Ignacio Antonetti,1651683,M,1,85,2,0,0,0.0,64.0,2.0,
+5991906,2026-09-28,selecciones,Puerto Rico,Gerald Díaz,855287,M,1,63,1,0,0,0.0,66.0,2.0,53317.0
+5991906,2026-09-28,selecciones,Puerto Rico,Jeremy de León,1457971,M,1,78,2,2,0,0.0,83.0,2.0,216983.0
+5991906,2026-09-28,selecciones,Puerto Rico,Wilfredo Rivera,1174820,F,1,85,3,1,1,0.0,85.0,3.0,500207.0
+5991906,2026-09-28,selecciones,Puerto Rico,Jaden Servania,1170973,M,1,90,2,0,0,0.0,87.0,2.0,78213.0
+5991906,2026-09-28,selecciones,Puerto Rico,Leandro Antonetti,1362632,F,1,90,3,1,0,0.0,115.0,3.0,546194.0
+5991906,2026-09-28,selecciones,Puerto Rico,Dante Williams,2019755,M,0,5,2,1,0,0.0,,2.0,
+5991906,2026-09-28,selecciones,Puerto Rico,Ricardo Rivera,790102,F,0,12,1,0,0,0.0,,3.0,50000.0
+5991882,2026-09-28,selecciones,Curaçao,Eloy Room,150242,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5991882,2026-09-28,selecciones,Curaçao,Shurandy Sambo,1125997,D,1,90,0,0,0,0.0,32.0,1.0,1159781.0
+5991882,2026-09-28,selecciones,Curaçao,Juriën Gaari,708738,D,1,90,2,1,0,0.0,34.0,1.0,144490.0
+5991882,2026-09-28,selecciones,Curaçao,Jurich Carolina,665192,D,1,90,0,0,0,0.0,36.0,1.0,106196.0
+5991882,2026-09-28,selecciones,Curaçao,Sherel Floranus,671327,D,1,90,1,1,0,0.0,38.0,1.0,425683.0
+5991882,2026-09-28,selecciones,Curaçao,Livano Comenencia,1243246,M,1,90,1,1,1,0.0,64.0,2.0,746403.0
+5991882,2026-09-28,selecciones,Curaçao,Leandro Bacuna,183500,M,1,45,2,1,1,0.0,66.0,2.0,95951.0
+5991882,2026-09-28,selecciones,Curaçao,Juninho Bacuna,614574,M,1,45,3,2,1,0.0,83.0,2.0,780181.0
+5991882,2026-09-28,selecciones,Curaçao,Jeremy Antonisse,1210947,F,1,90,3,0,0,0.0,85.0,3.0,417333.0
+5991882,2026-09-28,selecciones,Curaçao,Kenji Gorré,643232,F,1,78,3,2,2,0.0,87.0,3.0,250173.0
+5991882,2026-09-28,selecciones,Curaçao,Jordi Paulina,1606589,F,1,57,1,1,0,0.0,115.0,3.0,520146.0
+5991882,2026-09-28,selecciones,Curaçao,Kyano Penso,1843230,D,0,12,1,0,0,0.0,,1.0,
+5991882,2026-09-28,selecciones,Curaçao,Tahith Chong,751066,M,0,45,4,3,0,0.0,,2.0,2300056.0
+5991882,2026-09-28,selecciones,Curaçao,Jürgen Locadia,289441,F,0,33,1,1,1,0.0,,3.0,63563.0
+5991882,2026-09-28,selecciones,Nicaragua,Jason Vega,1410193,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5991882,2026-09-28,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,0,0,0,0.0,33.0,1.0,119152.0
+5991882,2026-09-28,selecciones,Nicaragua,Óscar Acevedo,1141649,D,1,90,0,0,0,0.0,35.0,1.0,
+5991882,2026-09-28,selecciones,Nicaragua,Juan Pérez,1253899,D,1,90,0,0,0,0.0,37.0,1.0,74360.0
+5991882,2026-09-28,selecciones,Nicaragua,Emmanuel Gómez,1527616,D,1,90,0,0,0,0.0,51.0,1.0,166064.0
+5991882,2026-09-28,selecciones,Nicaragua,Melvin Hernández,1032812,D,1,90,1,0,0,0.0,59.0,1.0,
+5991882,2026-09-28,selecciones,Nicaragua,Raheem Giusseppe Cole Martínez,0,M,1,90,0,0,0,0.0,72.0,2.0,
+5991882,2026-09-28,selecciones,Nicaragua,Kadeem Cole,1431704,M,1,90,0,0,0,0.0,74.0,2.0,
+5991882,2026-09-28,selecciones,Nicaragua,Jacob Montes,1283365,M,1,90,0,0,0,0.0,76.0,2.0,125088.0
+5991882,2026-09-28,selecciones,Nicaragua,Efrain Mejia,2019751,M,1,90,0,0,0,0.0,78.0,2.0,
+5991882,2026-09-28,selecciones,Nicaragua,Byron Bonilla,1032173,F,1,90,2,0,0,0.0,115.0,3.0,
+5991882,2026-09-28,selecciones,Nicaragua,Jaime Moreno,495524,F,0,45,2,1,1,0.0,,3.0,181322.0
+5071387,2026-09-27,mls,Columbus Crew,Patrick Schulte,1083292,G,1,90,0,0,0,0.0,11.0,0.0,2411290.0
+5071387,2026-09-27,mls,Columbus Crew,Eric Bailly,574200,D,1,82,0,0,0,0.0,33.0,1.0,584723.0
+5071387,2026-09-27,mls,Columbus Crew,Sean Zawadzki,1338763,D,1,90,0,0,0,0.0,35.0,1.0,1539008.0
+5071387,2026-09-27,mls,Columbus Crew,Malte Amundsen,623145,D,1,90,0,0,0,0.0,37.0,1.0,1467021.0
+5071387,2026-09-27,mls,Columbus Crew,Mohamed Farsi,1194635,M,1,90,0,0,0,0.0,72.0,2.0,1278431.0
+5071387,2026-09-27,mls,Columbus Crew,Dylan Chambost,770306,M,1,78,0,0,0,0.0,74.0,2.0,1448084.0
+5071387,2026-09-27,mls,Columbus Crew,Taha Habroune,1482266,M,1,90,1,0,0,0.03,76.0,2.0,1740622.0
+5071387,2026-09-27,mls,Columbus Crew,Anass Zaroury,1069536,F,1,90,4,0,0,0.08,78.0,3.0,5357564.0
+5071387,2026-09-27,mls,Columbus Crew,Brais Méndez,640122,M,1,90,4,4,0,0.08,103.0,2.0,9238405.0
+5071387,2026-09-27,mls,Columbus Crew,Josef Martínez,239287,F,1,83,2,1,1,1.07,105.0,3.0,774499.0
+5071387,2026-09-27,mls,Columbus Crew,Santiago Rodríguez,1028704,F,1,90,1,0,0,0.02,107.0,3.0,2989033.0
+5071387,2026-09-27,mls,Columbus Crew,Sékou Bangoura,1355686,M,0,12,0,0,0,0.0,,2.0,455704.0
+5071387,2026-09-27,mls,Columbus Crew,Andrés Herrera,965091,M,0,7,1,0,0,0.02,,2.0,1002286.0
+5071387,2026-09-27,mls,Columbus Crew,Jamal Thiaré,420216,F,0,7,1,1,1,0.58,,3.0,92653.0
+5071387,2026-09-27,mls,Inter Miami CF,Rocco Ríos Novo,1216069,G,1,90,0,0,0,0.0,11.0,0.0,398281.0
+5071387,2026-09-27,mls,Inter Miami CF,Gonzalo Luján,1257342,D,1,90,0,0,0,0.0,33.0,1.0,1507136.0
+5071387,2026-09-27,mls,Inter Miami CF,Casemiro,208494,M,1,90,1,0,0,0.06,35.0,2.0,3902946.0
+5071387,2026-09-27,mls,Inter Miami CF,Micael,1262208,D,1,90,0,0,0,0.0,37.0,1.0,2476162.0
+5071387,2026-09-27,mls,Inter Miami CF,Facundo Mura,1029392,D,1,71,0,0,0,0.0,72.0,1.0,1371203.0
+5071387,2026-09-27,mls,Inter Miami CF,Rodrigo De Paul,324578,M,1,90,1,1,0,0.04,74.0,2.0,7717323.0
+5071387,2026-09-27,mls,Inter Miami CF,Yannick Bright,1600844,M,1,40,0,0,0,0.0,76.0,2.0,1428244.0
+5071387,2026-09-27,mls,Inter Miami CF,Sergio Reguilón,724436,D,1,86,0,0,0,0.0,78.0,1.0,2002403.0
+5071387,2026-09-27,mls,Inter Miami CF,Lionel Messi,30981,F,1,90,3,2,1,0.17,103.0,3.0,10354546.0
+5071387,2026-09-27,mls,Inter Miami CF,Luis Suárez,40636,F,1,90,0,0,0,0.0,105.0,3.0,864778.0
+5071387,2026-09-27,mls,Inter Miami CF,Dániel Pintér,1626969,F,1,86,0,0,0,0.0,107.0,3.0,687356.0
+5071387,2026-09-27,mls,Inter Miami CF,David Ayala,1118540,M,0,50,0,0,0,0.0,,2.0,1529072.0
+5071387,2026-09-27,mls,Inter Miami CF,Riquelme Fillipi,1664487,F,0,19,0,0,0,0.0,,3.0,
+5071387,2026-09-27,mls,Inter Miami CF,Ezequiel Abadia-Reda,1469015,D,0,4,0,0,0,0.0,,1.0,249395.0
+5071387,2026-09-27,mls,Inter Miami CF,Santiago Morales,1529403,F,0,4,0,0,0,0.0,,3.0,631575.0
