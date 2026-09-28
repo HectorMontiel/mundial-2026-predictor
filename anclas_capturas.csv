@@ -7858,3 +7858,490 @@ fecha,capturado,event_id,deporte,liga,home,away,inicio,casa_id,c_home,c_draw,c_a
 2026-09-27,2026-09-27T23:34:39Z,GvxFXcFU,futbol,WORLD: Friendly International,Australia,Brazil,1790676000,1207,7.7,4.8,1.26,,,
 2026-09-27,2026-09-27T23:34:39Z,GvxFXcFU,futbol,WORLD: Friendly International,Australia,Brazil,1790676000,575,8.55,5.7,1.32,,,
 2026-09-27,2026-09-27T23:34:39Z,GvxFXcFU,futbol,WORLD: Friendly International,Australia,Brazil,1790676000,925,10.7,5.9,1.32,,,
+2026-09-28,2026-09-28T01:12:07Z,nPgd3LeT,futbol,AFRICA: Africa Cup of Nations - Qualification,Central Africa,Burkina Faso,1790611200,1187,8.3,3.98,1.34,,,
+2026-09-28,2026-09-28T01:12:07Z,nPgd3LeT,futbol,AFRICA: Africa Cup of Nations - Qualification,Central Africa,Burkina Faso,1790611200,575,9.06,4.29,1.38,,,
+2026-09-28,2026-09-28T01:12:07Z,nPgd3LeT,futbol,AFRICA: Africa Cup of Nations - Qualification,Central Africa,Burkina Faso,1790611200,925,8.7,4.35,1.36,,,
+2026-09-28,2026-09-28T01:12:07Z,0lkl0eqK,futbol,AFRICA: Africa Cup of Nations - Qualification,Equatorial Guinea,Sierra Leone,1790611200,1187,1.85,2.96,4.2,1.9174,3.07,4.31
+2026-09-28,2026-09-28T01:12:07Z,0lkl0eqK,futbol,AFRICA: Africa Cup of Nations - Qualification,Equatorial Guinea,Sierra Leone,1790611200,575,1.98,3.07,4.31,1.9174,3.07,4.31
+2026-09-28,2026-09-28T01:12:07Z,0lkl0eqK,futbol,AFRICA: Africa Cup of Nations - Qualification,Equatorial Guinea,Sierra Leone,1790611200,925,1.91,3.2,4.12,1.9174,3.07,4.31
+2026-09-28,2026-09-28T01:12:07Z,WWuKfZ6s,futbol,AFRICA: Africa Cup of Nations - Qualification,Zimbabwe,D.R. Congo,1790611200,1187,4.5,2.86,1.83,,,
+2026-09-28,2026-09-28T01:12:07Z,WWuKfZ6s,futbol,AFRICA: Africa Cup of Nations - Qualification,Zimbabwe,D.R. Congo,1790611200,575,4.72,3.12,1.88,,,
+2026-09-28,2026-09-28T01:12:07Z,WWuKfZ6s,futbol,AFRICA: Africa Cup of Nations - Qualification,Zimbabwe,D.R. Congo,1790611200,925,4.71,3.22,1.8,,,
+2026-09-28,2026-09-28T01:12:07Z,UaJYk5M5,futbol,AFRICA: Africa Cup of Nations - Qualification,Tunisia,Botswana,1790622000,1187,1.19,5.0,13.0,1.211,5.47,14.2
+2026-09-28,2026-09-28T01:12:07Z,UaJYk5M5,futbol,AFRICA: Africa Cup of Nations - Qualification,Tunisia,Botswana,1790622000,575,1.22,5.47,14.2,1.211,5.47,14.2
+2026-09-28,2026-09-28T01:12:07Z,UaJYk5M5,futbol,AFRICA: Africa Cup of Nations - Qualification,Tunisia,Botswana,1790622000,925,1.2,5.75,14.4,1.211,5.47,14.2
+2026-09-28,2026-09-28T01:12:07Z,Od5iFvCF,futbol,AFRICA: Africa Cup of Nations U23 - Qualification - Qualification,Mauritania U23,D.R. Congo U23,1790614800,1187,3.99,2.9,1.94,,,
+2026-09-28,2026-09-28T01:12:07Z,Od5iFvCF,futbol,AFRICA: Africa Cup of Nations U23 - Qualification - Qualification,Mauritania U23,D.R. Congo U23,1790614800,925,4.04,2.96,1.91,,,
+2026-09-28,2026-09-28T01:12:07Z,0YR3RYmU,futbol,ARGENTINA: Primera B,Flandria,Dock Sud,1790618400,1187,2.38,2.98,2.96,,,
+2026-09-28,2026-09-28T01:12:07Z,0YR3RYmU,futbol,ARGENTINA: Primera B,Flandria,Dock Sud,1790618400,925,2.34,2.91,2.99,,,
+2026-09-28,2026-09-28T01:12:07Z,S4NGoEcC,futbol,ARGENTINA: Primera C,CSR Espanol,Def. de Cambaceres,1790618400,1187,1.65,3.14,5.3,,,
+2026-09-28,2026-09-28T01:12:07Z,S4NGoEcC,futbol,ARGENTINA: Primera C,CSR Espanol,Def. de Cambaceres,1790618400,925,1.61,3.24,5.56,,,
+2026-09-28,2026-09-28T01:12:07Z,6kZ7mzTa,futbol,ARGENTINA: Primera C,Justo Jose de Urquiza,Leandro N. Alem,1790618400,1187,2.7,2.25,3.4,,,
+2026-09-28,2026-09-28T01:12:07Z,6kZ7mzTa,futbol,ARGENTINA: Primera C,Justo Jose de Urquiza,Leandro N. Alem,1790618400,925,2.47,2.56,3.2,,,
+2026-09-28,2026-09-28T01:12:07Z,rqzgdjL0,futbol,ARGENTINA: Primera C,Leones de Rosario,Club Lujan,1790618400,1187,3.01,2.81,2.37,,,
+2026-09-28,2026-09-28T01:12:07Z,rqzgdjL0,futbol,ARGENTINA: Primera C,Leones de Rosario,Club Lujan,1790618400,925,3.03,2.8,2.37,,,
+2026-09-28,2026-09-28T01:12:07Z,hA0oBNYi,futbol,ARGENTINA: Primera A Women - Clausura,Social Atletico Television W,Gimnasia L.P. W,1790596800,1187,1.85,3.17,4.2,,,
+2026-09-28,2026-09-28T01:12:07Z,hA0oBNYi,futbol,ARGENTINA: Primera A Women - Clausura,Social Atletico Television W,Gimnasia L.P. W,1790596800,575,1.85,3.18,4.19,,,
+2026-09-28,2026-09-28T01:12:07Z,hA0oBNYi,futbol,ARGENTINA: Primera A Women - Clausura,Social Atletico Television W,Gimnasia L.P. W,1790596800,925,1.82,3.13,4.17,,,
+2026-09-28,2026-09-28T01:12:07Z,Wz2KLX8r,futbol,ASIA: FIFA ASEAN Cup - Division 1,Singapore,Bangladesh,1790582400,1187,1.56,3.8,5.1,1.578,3.94,5.26
+2026-09-28,2026-09-28T01:12:07Z,Wz2KLX8r,futbol,ASIA: FIFA ASEAN Cup - Division 1,Singapore,Bangladesh,1790582400,1207,1.56,3.8,5.1,1.578,3.94,5.26
+2026-09-28,2026-09-28T01:12:07Z,Wz2KLX8r,futbol,ASIA: FIFA ASEAN Cup - Division 1,Singapore,Bangladesh,1790582400,575,1.59,3.94,5.26,1.578,3.94,5.26
+2026-09-28,2026-09-28T01:12:07Z,Wz2KLX8r,futbol,ASIA: FIFA ASEAN Cup - Division 1,Singapore,Bangladesh,1790582400,925,1.54,4.05,5.45,1.578,3.94,5.26
+2026-09-28,2026-09-28T01:12:07Z,v15SJBwe,futbol,ASIA: FIFA ASEAN Cup - Division 1,Indonesia,Malaysia,1790595000,1187,1.52,4.33,4.3,,,
+2026-09-28,2026-09-28T01:12:07Z,v15SJBwe,futbol,ASIA: FIFA ASEAN Cup - Division 1,Indonesia,Malaysia,1790595000,1207,1.52,4.33,4.3,,,
+2026-09-28,2026-09-28T01:12:07Z,v15SJBwe,futbol,ASIA: FIFA ASEAN Cup - Division 1,Indonesia,Malaysia,1790595000,575,1.55,4.56,5.22,,,
+2026-09-28,2026-09-28T01:12:07Z,v15SJBwe,futbol,ASIA: FIFA ASEAN Cup - Division 1,Indonesia,Malaysia,1790595000,925,1.5,4.25,5.62,,,
+2026-09-28,2026-09-28T01:12:07Z,AF8SYdBk,futbol,BHUTAN: Premier League,Tensung,RTC,1790586000,925,12.7,6.1,1.18,,,
+2026-09-28,2026-09-28T01:12:07Z,K4rNxMUG,futbol,BRAZIL: Carioca B2,Barra Mansa,Buzios,1790617500,925,1.54,3.7,5.28,,,
+2026-09-28,2026-09-28T01:12:07Z,YitXLIaU,futbol,BRAZIL: Copa FMF (Mato Grosso),Várzea Grande,Chapada,1790539200,925,2.25,3.4,2.84,,,
+2026-09-28,2026-09-28T01:12:07Z,pj8xTqb4,futbol,BRAZIL: Potiguar U20 - Play Offs,QFC U20,America RN U20,1790618400,1187,2.32,3.29,2.78,,,
+2026-09-28,2026-09-28T01:12:07Z,pj8xTqb4,futbol,BRAZIL: Potiguar U20 - Play Offs,QFC U20,America RN U20,1790618400,925,2.28,3.3,2.89,,,
+2026-09-28,2026-09-28T01:12:07Z,CEVX91Kl,futbol,BRAZIL: Sergipano U20,Desportiva Aracaju U20,Falcon U20,1790532000,1187,7.0,4.33,1.42,,,
+2026-09-28,2026-09-28T01:12:07Z,CEVX91Kl,futbol,BRAZIL: Sergipano U20,Desportiva Aracaju U20,Falcon U20,1790532000,925,6.17,4.46,1.44,,,
+2026-09-28,2026-09-28T01:12:07Z,xGPbHqt1,futbol,BRAZIL: Goiano Women - First stage,Planalto EC W,Anapolina W,1790620200,925,2.26,3.35,2.62,,,
+2026-09-28,2026-09-28T01:12:07Z,S6sivyJO,futbol,COLOMBIA: Primera A - Clausura,Dep. Cali,Aguilas,1790557800,1187,1.71,3.45,5.4,,,
+2026-09-28,2026-09-28T01:12:07Z,S6sivyJO,futbol,COLOMBIA: Primera A - Clausura,Dep. Cali,Aguilas,1790557800,1207,1.66,3.29,5.1,,,
+2026-09-28,2026-09-28T01:12:07Z,S6sivyJO,futbol,COLOMBIA: Primera A - Clausura,Dep. Cali,Aguilas,1790557800,575,1.76,3.58,5.43,,,
+2026-09-28,2026-09-28T01:12:07Z,S6sivyJO,futbol,COLOMBIA: Primera A - Clausura,Dep. Cali,Aguilas,1790557800,925,1.78,3.5,5.15,,,
+2026-09-28,2026-09-28T01:12:07Z,C8KmUqsI,futbol,COLOMBIA: Primera B - Clausura,Ind. Valle del Cauca,Orsomarso,1790627400,1187,2.06,2.98,3.64,,,
+2026-09-28,2026-09-28T01:12:07Z,C8KmUqsI,futbol,COLOMBIA: Primera B - Clausura,Ind. Valle del Cauca,Orsomarso,1790627400,1207,2.03,2.91,3.55,,,
+2026-09-28,2026-09-28T01:12:07Z,C8KmUqsI,futbol,COLOMBIA: Primera B - Clausura,Ind. Valle del Cauca,Orsomarso,1790627400,575,2.1,3.05,3.76,,,
+2026-09-28,2026-09-28T01:12:07Z,C8KmUqsI,futbol,COLOMBIA: Primera B - Clausura,Ind. Valle del Cauca,Orsomarso,1790627400,925,2.05,2.9,3.65,,,
+2026-09-28,2026-09-28T01:12:07Z,GvnLByRj,futbol,COLOMBIA: Primera B - Clausura,Inter Palmira,Leones,1790629200,1187,1.8,3.37,3.86,,,
+2026-09-28,2026-09-28T01:12:07Z,GvnLByRj,futbol,COLOMBIA: Primera B - Clausura,Inter Palmira,Leones,1790629200,1207,1.78,3.3,3.77,,,
+2026-09-28,2026-09-28T01:12:07Z,GvnLByRj,futbol,COLOMBIA: Primera B - Clausura,Inter Palmira,Leones,1790629200,575,1.8,3.4,3.7,,,
+2026-09-28,2026-09-28T01:12:07Z,GvnLByRj,futbol,COLOMBIA: Primera B - Clausura,Inter Palmira,Leones,1790629200,925,1.77,3.36,4.1,,,
+2026-09-28,2026-09-28T01:12:07Z,OAAMHNW9,futbol,ENGLAND: Professional Development League,Swansea U21,QPR U21,1790618400,1187,1.73,4.4,3.26,,,
+2026-09-28,2026-09-28T01:12:07Z,OAAMHNW9,futbol,ENGLAND: Professional Development League,Swansea U21,QPR U21,1790618400,575,1.76,4.49,3.4,,,
+2026-09-28,2026-09-28T01:12:07Z,OAAMHNW9,futbol,ENGLAND: Professional Development League,Swansea U21,QPR U21,1790618400,925,1.69,4.25,3.56,,,
+2026-09-28,2026-09-28T01:12:07Z,40zZ9MQ7,futbol,EUROPE: UEFA Nations League - League A,Belgium,France,1790621100,1187,3.74,4.1,1.95,3.76,4.0,1.9259
+2026-09-28,2026-09-28T01:12:07Z,40zZ9MQ7,futbol,EUROPE: UEFA Nations League - League A,Belgium,France,1790621100,1207,3.64,3.97,1.91,3.76,4.0,1.9259
+2026-09-28,2026-09-28T01:12:07Z,40zZ9MQ7,futbol,EUROPE: UEFA Nations League - League A,Belgium,France,1790621100,575,3.77,4.0,1.95,3.76,4.0,1.9259
+2026-09-28,2026-09-28T01:12:07Z,40zZ9MQ7,futbol,EUROPE: UEFA Nations League - League A,Belgium,France,1790621100,925,3.72,4.1,1.93,3.76,4.0,1.9259
+2026-09-28,2026-09-28T01:12:07Z,CbRrKL65,futbol,EUROPE: UEFA Nations League - League A,Turkey,Italy,1790621100,1187,2.69,3.5,2.72,,,
+2026-09-28,2026-09-28T01:12:07Z,CbRrKL65,futbol,EUROPE: UEFA Nations League - League A,Turkey,Italy,1790621100,1207,2.6,3.35,2.62,,,
+2026-09-28,2026-09-28T01:12:07Z,CbRrKL65,futbol,EUROPE: UEFA Nations League - League A,Turkey,Italy,1790621100,575,2.66,3.51,2.71,,,
+2026-09-28,2026-09-28T01:12:07Z,CbRrKL65,futbol,EUROPE: UEFA Nations League - League A,Turkey,Italy,1790621100,925,2.59,3.71,2.66,,,
+2026-09-28,2026-09-28T01:12:07Z,jwbpuB8k,futbol,EUROPE: UEFA Nations League - League B,Georgia,Ukraine,1790611200,1187,2.77,3.21,2.72,2.75,3.22,2.75
+2026-09-28,2026-09-28T01:12:07Z,jwbpuB8k,futbol,EUROPE: UEFA Nations League - League B,Georgia,Ukraine,1790611200,1207,2.71,3.13,2.66,2.75,3.22,2.75
+2026-09-28,2026-09-28T01:12:07Z,jwbpuB8k,futbol,EUROPE: UEFA Nations League - League B,Georgia,Ukraine,1790611200,575,2.8,3.22,2.76,2.75,3.22,2.75
+2026-09-28,2026-09-28T01:12:07Z,jwbpuB8k,futbol,EUROPE: UEFA Nations League - League B,Georgia,Ukraine,1790611200,925,2.73,3.29,2.77,2.75,3.22,2.75
+2026-09-28,2026-09-28T01:12:07Z,tp6blFo3,futbol,EUROPE: UEFA Nations League - League B,Northern Ireland,Hungary,1790621100,1187,2.86,3.11,2.82,2.83,3.07,2.79
+2026-09-28,2026-09-28T01:12:07Z,tp6blFo3,futbol,EUROPE: UEFA Nations League - League B,Northern Ireland,Hungary,1790621100,1207,2.8,3.03,2.76,2.83,3.07,2.79
+2026-09-28,2026-09-28T01:12:07Z,tp6blFo3,futbol,EUROPE: UEFA Nations League - League B,Northern Ireland,Hungary,1790621100,575,2.84,3.07,2.9,2.83,3.07,2.79
+2026-09-28,2026-09-28T01:12:07Z,tp6blFo3,futbol,EUROPE: UEFA Nations League - League B,Northern Ireland,Hungary,1790621100,925,2.79,3.18,2.79,2.83,3.07,2.79
+2026-09-28,2026-09-28T01:12:07Z,jFVbVftH,futbol,EUROPE: UEFA Nations League - League B,Romania,Bosnia & Herzegovina,1790621100,1187,2.24,3.45,3.47,,,
+2026-09-28,2026-09-28T01:12:07Z,jFVbVftH,futbol,EUROPE: UEFA Nations League - League B,Romania,Bosnia & Herzegovina,1790621100,1207,2.19,3.36,3.38,,,
+2026-09-28,2026-09-28T01:12:07Z,jFVbVftH,futbol,EUROPE: UEFA Nations League - League B,Romania,Bosnia & Herzegovina,1790621100,575,2.28,3.4,3.38,,,
+2026-09-28,2026-09-28T01:12:07Z,jFVbVftH,futbol,EUROPE: UEFA Nations League - League B,Romania,Bosnia & Herzegovina,1790621100,925,2.19,3.52,3.44,,,
+2026-09-28,2026-09-28T01:12:07Z,rVycBZlo,futbol,EUROPE: UEFA Nations League - League B,Sweden,Poland,1790621100,1187,2.13,3.71,3.5,2.13,3.65,3.38
+2026-09-28,2026-09-28T01:12:07Z,rVycBZlo,futbol,EUROPE: UEFA Nations League - League B,Sweden,Poland,1790621100,1207,2.11,3.61,3.34,2.13,3.65,3.38
+2026-09-28,2026-09-28T01:12:07Z,rVycBZlo,futbol,EUROPE: UEFA Nations League - League B,Sweden,Poland,1790621100,575,2.14,3.65,3.46,2.13,3.65,3.38
+2026-09-28,2026-09-28T01:12:07Z,rVycBZlo,futbol,EUROPE: UEFA Nations League - League B,Sweden,Poland,1790621100,925,2.13,3.78,3.36,2.13,3.65,3.38
+2026-09-28,2026-09-28T01:12:07Z,lKvp6VgM,futbol,EUROPE: UEFA Nations League - League C,Armenia,Montenegro,1790611200,1187,3.0,3.19,2.64,2.93,3.19,2.57
+2026-09-28,2026-09-28T01:12:07Z,lKvp6VgM,futbol,EUROPE: UEFA Nations League - League C,Armenia,Montenegro,1790611200,1207,2.89,3.07,2.54,2.93,3.19,2.57
+2026-09-28,2026-09-28T01:12:07Z,lKvp6VgM,futbol,EUROPE: UEFA Nations League - League C,Armenia,Montenegro,1790611200,575,2.95,3.19,2.63,2.93,3.19,2.57
+2026-09-28,2026-09-28T01:12:07Z,lKvp6VgM,futbol,EUROPE: UEFA Nations League - League C,Armenia,Montenegro,1790611200,925,2.92,3.36,2.56,2.93,3.19,2.57
+2026-09-28,2026-09-28T01:12:07Z,YBWWKeL8,futbol,EUROPE: UEFA Nations League - League C,Latvia,Cyprus,1790611200,1187,2.68,3.19,2.96,2.63,3.1,2.93
+2026-09-28,2026-09-28T01:12:07Z,YBWWKeL8,futbol,EUROPE: UEFA Nations League - League C,Latvia,Cyprus,1790611200,1207,2.61,3.11,2.89,2.63,3.1,2.93
+2026-09-28,2026-09-28T01:12:07Z,YBWWKeL8,futbol,EUROPE: UEFA Nations League - League C,Latvia,Cyprus,1790611200,575,2.64,3.2,2.95,2.63,3.1,2.93
+2026-09-28,2026-09-28T01:12:07Z,YBWWKeL8,futbol,EUROPE: UEFA Nations League - League C,Latvia,Cyprus,1790611200,925,2.64,3.28,2.88,2.63,3.1,2.93
+2026-09-28,2026-09-28T01:12:07Z,8bHNn7BL,futbol,EUROPE: Euro U21 - Qualification,Denmark U21,Belarus U21,1790613000,1187,1.18,6.3,12.0,,,
+2026-09-28,2026-09-28T01:12:07Z,8bHNn7BL,futbol,EUROPE: Euro U21 - Qualification,Denmark U21,Belarus U21,1790613000,575,1.21,6.54,11.98,,,
+2026-09-28,2026-09-28T01:12:07Z,8bHNn7BL,futbol,EUROPE: Euro U21 - Qualification,Denmark U21,Belarus U21,1790613000,925,1.19,6.35,12.6,,,
+2026-09-28,2026-09-28T01:12:07Z,voDeyrM7,futbol,FINLAND: Kansallinen Ykkonen Women - Relegation Group,Keski-Uusimaa W,HJK Akatemia W,1790611200,1187,2.09,4.0,2.71,,,
+2026-09-28,2026-09-28T01:12:07Z,voDeyrM7,futbol,FINLAND: Kansallinen Ykkonen Women - Relegation Group,Keski-Uusimaa W,HJK Akatemia W,1790611200,575,2.04,3.91,2.64,,,
+2026-09-28,2026-09-28T01:12:07Z,voDeyrM7,futbol,FINLAND: Kansallinen Ykkonen Women - Relegation Group,Keski-Uusimaa W,HJK Akatemia W,1790611200,925,2.07,3.82,2.74,,,
+2026-09-28,2026-09-28T01:12:07Z,GOukuFwI,futbol,GREECE: Super League 2,Athens Kallithea,Asteras Tripolis B,1790600400,1187,1.65,3.4,5.1,,,
+2026-09-28,2026-09-28T01:12:07Z,GOukuFwI,futbol,GREECE: Super League 2,Athens Kallithea,Asteras Tripolis B,1790600400,575,1.65,3.4,5.09,,,
+2026-09-28,2026-09-28T01:12:07Z,GOukuFwI,futbol,GREECE: Super League 2,Athens Kallithea,Asteras Tripolis B,1790600400,925,1.61,3.28,5.46,,,
+2026-09-28,2026-09-28T01:12:07Z,hSeOtSEM,futbol,GREECE: Super League 2,Marko,Panthrakikos,1790600400,1187,1.52,3.8,5.7,1.5208,3.67,5.67
+2026-09-28,2026-09-28T01:12:07Z,hSeOtSEM,futbol,GREECE: Super League 2,Marko,Panthrakikos,1790600400,575,1.52,3.8,5.67,1.5208,3.67,5.67
+2026-09-28,2026-09-28T01:12:07Z,hSeOtSEM,futbol,GREECE: Super League 2,Marko,Panthrakikos,1790600400,925,1.47,3.64,6.49,1.5208,3.67,5.67
+2026-09-28,2026-09-28T01:12:07Z,UB9zH4SH,futbol,ISRAEL: Leumit League,Hapoel Kfar Saba,Bnei Yehuda,1790611200,1187,5.1,3.96,1.55,,,
+2026-09-28,2026-09-28T01:12:07Z,UB9zH4SH,futbol,ISRAEL: Leumit League,Hapoel Kfar Saba,Bnei Yehuda,1790611200,1207,4.9,3.83,1.53,,,
+2026-09-28,2026-09-28T01:12:07Z,UB9zH4SH,futbol,ISRAEL: Leumit League,Hapoel Kfar Saba,Bnei Yehuda,1790611200,575,5.1,4.15,1.55,,,
+2026-09-28,2026-09-28T01:12:07Z,UB9zH4SH,futbol,ISRAEL: Leumit League,Hapoel Kfar Saba,Bnei Yehuda,1790611200,925,5.28,3.9,1.51,,,
+2026-09-28,2026-09-28T01:12:07Z,jRwnOLZp,futbol,ISRAEL: Leumit League,Hapoel Kfar Shalem,Maccabi Jaffa,1790611200,1187,1.84,3.61,3.64,,,
+2026-09-28,2026-09-28T01:12:07Z,jRwnOLZp,futbol,ISRAEL: Leumit League,Hapoel Kfar Shalem,Maccabi Jaffa,1790611200,1207,1.81,3.51,3.53,,,
+2026-09-28,2026-09-28T01:12:07Z,jRwnOLZp,futbol,ISRAEL: Leumit League,Hapoel Kfar Shalem,Maccabi Jaffa,1790611200,575,1.85,3.7,3.71,,,
+2026-09-28,2026-09-28T01:12:07Z,jRwnOLZp,futbol,ISRAEL: Leumit League,Hapoel Kfar Shalem,Maccabi Jaffa,1790611200,925,1.8,3.58,3.65,,,
+2026-09-28,2026-09-28T01:12:07Z,xxDrFrcU,futbol,ISRAEL: Leumit League,Kiryat Gat,MS Kafr Qasim,1790611200,1187,2.4,3.02,2.76,,,
+2026-09-28,2026-09-28T01:12:07Z,xxDrFrcU,futbol,ISRAEL: Leumit League,Kiryat Gat,MS Kafr Qasim,1790611200,1207,2.36,2.96,2.71,,,
+2026-09-28,2026-09-28T01:12:07Z,xxDrFrcU,futbol,ISRAEL: Leumit League,Kiryat Gat,MS Kafr Qasim,1790611200,575,2.41,3.15,2.86,,,
+2026-09-28,2026-09-28T01:12:07Z,xxDrFrcU,futbol,ISRAEL: Leumit League,Kiryat Gat,MS Kafr Qasim,1790611200,925,2.35,3.04,2.82,,,
+2026-09-28,2026-09-28T01:12:07Z,nVl8V3sB,futbol,ISRAEL: Leumit League,Maccabi Bnei Raina,H. Raanana,1790613900,1187,2.13,3.27,3.12,,,
+2026-09-28,2026-09-28T01:12:07Z,nVl8V3sB,futbol,ISRAEL: Leumit League,Maccabi Bnei Raina,H. Raanana,1790613900,1207,2.09,3.19,3.04,,,
+2026-09-28,2026-09-28T01:12:07Z,nVl8V3sB,futbol,ISRAEL: Leumit League,Maccabi Bnei Raina,H. Raanana,1790613900,575,2.18,3.45,3.13,,,
+2026-09-28,2026-09-28T01:12:07Z,nVl8V3sB,futbol,ISRAEL: Leumit League,Maccabi Bnei Raina,H. Raanana,1790613900,925,2.11,3.2,3.1,,,
+2026-09-28,2026-09-28T01:12:07Z,fLi6a4sg,futbol,MEXICO: Liga MX - Apertura,Necaxa,Club America,1790565000,1187,4.0,3.73,1.88,4.04,3.73,1.9259
+2026-09-28,2026-09-28T01:12:07Z,fLi6a4sg,futbol,MEXICO: Liga MX - Apertura,Necaxa,Club America,1790565000,1207,3.77,3.53,1.81,4.04,3.73,1.9259
+2026-09-28,2026-09-28T01:12:07Z,fLi6a4sg,futbol,MEXICO: Liga MX - Apertura,Necaxa,Club America,1790565000,575,4.04,3.78,1.94,4.04,3.73,1.9259
+2026-09-28,2026-09-28T01:12:07Z,fLi6a4sg,futbol,MEXICO: Liga MX - Apertura,Necaxa,Club America,1790565000,925,3.75,3.6,1.87,4.04,3.73,1.9259
+2026-09-28,2026-09-28T01:12:07Z,f5c4Xdjl,futbol,MEXICO: Liga MX Women - Apertura,Atlante W,UNAM Pumas W,1790631900,1187,5.2,4.7,1.42,,,
+2026-09-28,2026-09-28T01:12:07Z,f5c4Xdjl,futbol,MEXICO: Liga MX Women - Apertura,Atlante W,UNAM Pumas W,1790631900,575,5.6,4.87,1.45,,,
+2026-09-28,2026-09-28T01:12:07Z,f5c4Xdjl,futbol,MEXICO: Liga MX Women - Apertura,Atlante W,UNAM Pumas W,1790631900,925,6.51,4.55,1.36,,,
+2026-09-28,2026-09-28T01:12:07Z,UTWw1tYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Guadeloupe,Barbados,1790622000,1187,1.83,3.4,4.2,1.813,3.34,4.16
+2026-09-28,2026-09-28T01:12:07Z,UTWw1tYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Guadeloupe,Barbados,1790622000,1207,1.78,3.26,3.97,1.813,3.34,4.16
+2026-09-28,2026-09-28T01:12:07Z,UTWw1tYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Guadeloupe,Barbados,1790622000,575,1.89,3.4,4.16,1.813,3.34,4.16
+2026-09-28,2026-09-28T01:12:07Z,UTWw1tYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Guadeloupe,Barbados,1790622000,925,1.86,3.34,4.12,1.813,3.34,4.16
+2026-09-28,2026-09-28T01:12:07Z,Sp4LXv9L,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Cuba,Bonaire,1790629200,1187,1.14,7.0,13.0,1.1456,7.07,13.19
+2026-09-28,2026-09-28T01:12:07Z,Sp4LXv9L,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Cuba,Bonaire,1790629200,1207,1.13,6.4,12.0,1.1456,7.07,13.19
+2026-09-28,2026-09-28T01:12:07Z,Sp4LXv9L,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Cuba,Bonaire,1790629200,575,1.16,7.8,15.5,1.1456,7.07,13.19
+2026-09-28,2026-09-28T01:12:07Z,Sp4LXv9L,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Cuba,Bonaire,1790629200,925,1.11,7.8,17.0,1.1456,7.07,13.19
+2026-09-28,2026-09-28T01:12:07Z,pCUAE7Er,futbol,NORWAY: Division 3 - Group 6,Raelingen,Lyn 2,1790611200,1187,2.51,4.1,2.2,,,
+2026-09-28,2026-09-28T01:12:07Z,pCUAE7Er,futbol,NORWAY: Division 3 - Group 6,Raelingen,Lyn 2,1790611200,925,2.44,4.1,2.14,,,
+2026-09-28,2026-09-28T01:12:07Z,6JJIJAp3,futbol,PARAGUAY: Copa de Primera - Clausura,San Lorenzo,Recoleta,1790623800,1187,2.81,3.15,2.29,,,
+2026-09-28,2026-09-28T01:12:07Z,6JJIJAp3,futbol,PARAGUAY: Copa de Primera - Clausura,San Lorenzo,Recoleta,1790623800,575,2.96,3.45,2.41,,,
+2026-09-28,2026-09-28T01:12:07Z,6JJIJAp3,futbol,PARAGUAY: Copa de Primera - Clausura,San Lorenzo,Recoleta,1790623800,925,2.93,3.3,2.35,,,
+2026-09-28,2026-09-28T01:12:07Z,lxjPv04l,futbol,PARAGUAY: Division Intermedia,Atl. Tembetary,Paraguari AC,1790623800,1187,3.17,3.31,2.03,,,
+2026-09-28,2026-09-28T01:12:07Z,lxjPv04l,futbol,PARAGUAY: Division Intermedia,Atl. Tembetary,Paraguari AC,1790623800,925,3.18,3.28,2.04,,,
+2026-09-28,2026-09-28T01:12:07Z,06xOS314,futbol,PORTUGAL: Liga Next Gen U23,Leixoes U23,Vizela U23,1790607600,575,2.03,3.92,3.0,,,
+2026-09-28,2026-09-28T01:12:07Z,06xOS314,futbol,PORTUGAL: Liga Next Gen U23,Leixoes U23,Vizela U23,1790607600,925,2.0,3.7,2.95,,,
+2026-09-28,2026-09-28T01:12:07Z,nHilOugC,futbol,QATAR: QSL Cup,Al-Kharitiyath,Al Wakra,1790607600,575,4.0,3.8,1.76,,,
+2026-09-28,2026-09-28T01:12:07Z,nHilOugC,futbol,QATAR: QSL Cup,Al-Kharitiyath,Al Wakra,1790607600,925,4.25,3.52,1.7,,,
+2026-09-28,2026-09-28T01:12:07Z,zeu5tN8t,futbol,QATAR: QSL Cup,Al Sailiya,Al Rayyan,1790615700,575,4.1,4.0,1.68,4.05,3.81,1.6757
+2026-09-28,2026-09-28T01:12:07Z,zeu5tN8t,futbol,QATAR: QSL Cup,Al Sailiya,Al Rayyan,1790615700,925,4.46,3.74,1.62,4.05,3.81,1.6757
+2026-09-28,2026-09-28T01:12:07Z,KUkdMJNO,futbol,QATAR: QSL Cup,Al-Shahaniya,Al-Duhail,1790615700,575,3.08,3.65,2.12,3.08,3.25,2.12
+2026-09-28,2026-09-28T01:12:07Z,KUkdMJNO,futbol,QATAR: QSL Cup,Al-Shahaniya,Al-Duhail,1790615700,925,3.1,3.22,2.1,3.08,3.25,2.12
+2026-09-28,2026-09-28T01:12:07Z,jcCn5bgt,futbol,SERBIA: Mozzart Bet Prva Liga,Graficar Beograd,Teleoptik,1790600400,1187,1.93,3.55,3.4,,,
+2026-09-28,2026-09-28T01:12:07Z,jcCn5bgt,futbol,SERBIA: Mozzart Bet Prva Liga,Graficar Beograd,Teleoptik,1790600400,1207,1.89,3.45,3.31,,,
+2026-09-28,2026-09-28T01:12:07Z,jcCn5bgt,futbol,SERBIA: Mozzart Bet Prva Liga,Graficar Beograd,Teleoptik,1790600400,925,1.9,3.6,3.53,,,
+2026-09-28,2026-09-28T01:12:07Z,bNFf3xOh,futbol,SERBIA: Mozzart Bet Prva Liga,Bor 1919,Metalac,1790611200,1187,2.26,3.35,2.82,,,
+2026-09-28,2026-09-28T01:12:07Z,bNFf3xOh,futbol,SERBIA: Mozzart Bet Prva Liga,Bor 1919,Metalac,1790611200,1207,2.22,3.27,2.76,,,
+2026-09-28,2026-09-28T01:12:07Z,bNFf3xOh,futbol,SERBIA: Mozzart Bet Prva Liga,Bor 1919,Metalac,1790611200,925,2.39,3.1,2.85,,,
+2026-09-28,2026-09-28T01:12:07Z,xAh7BD8b,futbol,SERBIA: Mozzart Bet Prva Liga,Dubocica,Javor,1790611200,1187,3.84,3.82,1.75,,,
+2026-09-28,2026-09-28T01:12:07Z,xAh7BD8b,futbol,SERBIA: Mozzart Bet Prva Liga,Dubocica,Javor,1790611200,1207,3.73,3.71,1.72,,,
+2026-09-28,2026-09-28T01:12:07Z,xAh7BD8b,futbol,SERBIA: Mozzart Bet Prva Liga,Dubocica,Javor,1790611200,925,4.14,3.7,1.73,,,
+2026-09-28,2026-09-28T01:12:07Z,MNVMlw9a,futbol,SERBIA: Mozzart Bet Prva Liga,Proleter 023,Jedinstvo U.,1790611200,925,1.9,3.4,3.74,,,
+2026-09-28,2026-09-28T01:12:07Z,EcSEjavm,futbol,SERBIA: Mozzart Bet Prva Liga,Loznica,Sp. Subotica,1790618400,1187,2.58,3.12,2.58,,,
+2026-09-28,2026-09-28T01:12:07Z,EcSEjavm,futbol,SERBIA: Mozzart Bet Prva Liga,Loznica,Sp. Subotica,1790618400,1207,2.53,3.04,2.53,,,
+2026-09-28,2026-09-28T01:12:07Z,EcSEjavm,futbol,SERBIA: Mozzart Bet Prva Liga,Loznica,Sp. Subotica,1790618400,925,2.55,3.2,2.55,,,
+2026-09-28,2026-09-28T01:12:07Z,nabtQzsS,futbol,SLOVAKIA: 2. liga,Zilina B,FK Humenne,1790607600,1187,1.87,3.95,3.25,,,
+2026-09-28,2026-09-28T01:12:07Z,nabtQzsS,futbol,SLOVAKIA: 2. liga,Zilina B,FK Humenne,1790607600,575,1.78,3.62,3.18,,,
+2026-09-28,2026-09-28T01:12:07Z,nabtQzsS,futbol,SLOVAKIA: 2. liga,Zilina B,FK Humenne,1790607600,925,1.85,3.74,3.32,,,
+2026-09-28,2026-09-28T01:12:07Z,Oz0GKsf5,futbol,SLOVENIA: 2. SNL,Rudar,Dravinja,1790614800,1187,1.5,4.1,5.0,,,
+2026-09-28,2026-09-28T01:12:07Z,Oz0GKsf5,futbol,SLOVENIA: 2. SNL,Rudar,Dravinja,1790614800,575,1.52,3.9,4.25,,,
+2026-09-28,2026-09-28T01:12:07Z,Oz0GKsf5,futbol,SLOVENIA: 2. SNL,Rudar,Dravinja,1790614800,925,1.45,4.0,5.93,,,
+2026-09-28,2026-09-28T01:12:07Z,8vS0PJz1,futbol,SPAIN: LaLiga2,Leganes,Castellon,1790620200,1187,3.14,3.21,2.22,3.27,3.37,2.29
+2026-09-28,2026-09-28T01:12:07Z,8vS0PJz1,futbol,SPAIN: LaLiga2,Leganes,Castellon,1790620200,1207,3.02,3.09,2.15,3.27,3.37,2.29
+2026-09-28,2026-09-28T01:12:07Z,8vS0PJz1,futbol,SPAIN: LaLiga2,Leganes,Castellon,1790620200,575,3.27,3.37,2.32,3.27,3.37,2.29
+2026-09-28,2026-09-28T01:12:07Z,8vS0PJz1,futbol,SPAIN: LaLiga2,Leganes,Castellon,1790620200,925,3.2,3.45,2.28,3.27,3.37,2.29
+2026-09-28,2026-09-28T01:12:07Z,QFORXk0D,futbol,UKRAINE: Persha Liga,Zhytomyr 2,Kolos Kovalivka 2,1790589600,1187,1.93,3.61,3.33,,,
+2026-09-28,2026-09-28T01:12:07Z,QFORXk0D,futbol,UKRAINE: Persha Liga,Zhytomyr 2,Kolos Kovalivka 2,1790589600,1207,1.9,3.52,3.25,,,
+2026-09-28,2026-09-28T01:12:07Z,QFORXk0D,futbol,UKRAINE: Persha Liga,Zhytomyr 2,Kolos Kovalivka 2,1790589600,575,1.89,3.6,3.25,,,
+2026-09-28,2026-09-28T01:12:07Z,QFORXk0D,futbol,UKRAINE: Persha Liga,Zhytomyr 2,Kolos Kovalivka 2,1790589600,925,1.94,3.5,3.34,,,
+2026-09-28,2026-09-28T01:12:07Z,COYISB3m,futbol,UNITED ARAB EMIRATES: Presidents Cup,Al Arabi,Al Thaid,1790606400,575,2.18,3.6,3.08,,,
+2026-09-28,2026-09-28T01:12:07Z,COYISB3m,futbol,UNITED ARAB EMIRATES: Presidents Cup,Al Arabi,Al Thaid,1790606400,925,2.13,3.22,3.05,,,
+2026-09-28,2026-09-28T01:12:07Z,Yw3pRbSr,futbol,UNITED ARAB EMIRATES: Presidents Cup,Al-Ittifaq,Al Urooba,1790606400,575,4.3,4.05,1.76,4.06,3.75,1.7246
+2026-09-28,2026-09-28T01:12:07Z,Yw3pRbSr,futbol,UNITED ARAB EMIRATES: Presidents Cup,Al-Ittifaq,Al Urooba,1790606400,925,4.41,3.62,1.65,4.06,3.75,1.7246
+2026-09-28,2026-09-28T01:12:07Z,Ey9ZMvNs,futbol,WORLD: Friendly International,Faroe Islands U19,Ireland U19,1790586000,925,23.0,9.9,1.07,,,
+2026-09-28,2026-09-28T01:12:07Z,OpPe9aWh,futbol,WORLD: Friendly International,Kazakhstan U19,Switzerland U19,1790587800,1187,3.92,3.87,1.71,,,
+2026-09-28,2026-09-28T01:12:07Z,OpPe9aWh,futbol,WORLD: Friendly International,Kazakhstan U19,Switzerland U19,1790587800,575,3.96,3.91,1.71,,,
+2026-09-28,2026-09-28T01:12:07Z,OpPe9aWh,futbol,WORLD: Friendly International,Kazakhstan U19,Switzerland U19,1790587800,925,4.3,3.8,1.63,,,
+2026-09-28,2026-09-28T01:12:07Z,lUH8T9oR,futbol,WORLD: Friendly International,Japan,Venezuela,1790591100,1187,1.25,5.6,11.0,1.2725,5.65,10.67
+2026-09-28,2026-09-28T01:12:07Z,lUH8T9oR,futbol,WORLD: Friendly International,Japan,Venezuela,1790591100,1207,1.25,5.2,9.4,1.2725,5.65,10.67
+2026-09-28,2026-09-28T01:12:07Z,lUH8T9oR,futbol,WORLD: Friendly International,Japan,Venezuela,1790591100,575,1.29,5.53,10.16,1.2725,5.65,10.67
+2026-09-28,2026-09-28T01:12:07Z,lUH8T9oR,futbol,WORLD: Friendly International,Japan,Venezuela,1790591100,925,1.29,6.08,12.7,1.2725,5.65,10.67
+2026-09-28,2026-09-28T01:12:07Z,QFjGp8LP,futbol,WORLD: Friendly International,South Korea,Uruguay,1790593200,1187,2.36,3.08,3.05,2.39,3.19,3.15
+2026-09-28,2026-09-28T01:12:07Z,QFjGp8LP,futbol,WORLD: Friendly International,South Korea,Uruguay,1790593200,1207,2.26,2.92,2.9,2.39,3.19,3.15
+2026-09-28,2026-09-28T01:12:07Z,QFjGp8LP,futbol,WORLD: Friendly International,South Korea,Uruguay,1790593200,575,2.39,3.21,3.19,2.39,3.19,3.15
+2026-09-28,2026-09-28T01:12:07Z,QFjGp8LP,futbol,WORLD: Friendly International,South Korea,Uruguay,1790593200,925,2.45,3.29,3.25,2.39,3.19,3.15
+2026-09-28,2026-09-28T01:12:07Z,nwkq7Eup,futbol,WORLD: Friendly International,Tajikistan,Palestine,1790596800,575,2.71,3.05,2.35,,,
+2026-09-28,2026-09-28T01:12:07Z,nwkq7Eup,futbol,WORLD: Friendly International,Tajikistan,Palestine,1790596800,925,3.25,3.43,2.38,,,
+2026-09-28,2026-09-28T01:12:07Z,W6t6Ek2C,futbol,WORLD: Friendly International,Kyrgyzstan,Maldives,1790604000,1187,1.06,13.0,19.0,1.0565,13.25,19.41
+2026-09-28,2026-09-28T01:12:07Z,W6t6Ek2C,futbol,WORLD: Friendly International,Kyrgyzstan,Maldives,1790604000,1207,1.04,10.0,14.0,1.0565,13.25,19.41
+2026-09-28,2026-09-28T01:12:07Z,W6t6Ek2C,futbol,WORLD: Friendly International,Kyrgyzstan,Maldives,1790604000,575,1.07,13.25,19.41,1.0565,13.25,19.41
+2026-09-28,2026-09-28T01:12:07Z,W6t6Ek2C,futbol,WORLD: Friendly International,Kyrgyzstan,Maldives,1790604000,925,1.06,18.5,42.0,1.0565,13.25,19.41
+2026-09-28,2026-09-28T01:12:07Z,MuJPe2QN,futbol,WORLD: Friendly International,North Macedonia U21,Russia U21,1790604000,925,6.88,3.65,1.45,,,
+2026-09-28,2026-09-28T01:12:07Z,2FzNJ8Ci,futbol,WORLD: Friendly International,Slovakia U19,Poland U19,1790607600,1187,4.33,3.5,1.71,,,
+2026-09-28,2026-09-28T01:12:07Z,2FzNJ8Ci,futbol,WORLD: Friendly International,Slovakia U19,Poland U19,1790607600,575,4.38,3.53,1.74,,,
+2026-09-28,2026-09-28T01:12:07Z,2FzNJ8Ci,futbol,WORLD: Friendly International,Slovakia U19,Poland U19,1790607600,925,4.52,3.5,1.66,,,
+2026-09-28,2026-09-28T01:12:07Z,2e8hnBz3,futbol,WORLD: Club Friendly,Maribor (Slo),Gorica (Cro),1790604000,1187,1.93,3.47,3.18,,,
+2026-09-28,2026-09-28T01:12:07Z,2e8hnBz3,futbol,WORLD: Club Friendly,Maribor (Slo),Gorica (Cro),1790604000,1207,1.92,3.45,3.15,,,
+2026-09-28,2026-09-28T01:12:07Z,2e8hnBz3,futbol,WORLD: Club Friendly,Maribor (Slo),Gorica (Cro),1790604000,925,2.01,3.67,3.26,,,
+2026-09-28,2026-09-28T01:12:07Z,pt9GwWv9,futbol,WORLD: Club Friendly,Petrovac (Mne),Mladost DG (Mne),1790607600,1187,1.82,3.39,3.79,,,
+2026-09-28,2026-09-28T01:12:07Z,pt9GwWv9,futbol,WORLD: Club Friendly,Petrovac (Mne),Mladost DG (Mne),1790607600,1207,1.8,3.35,3.74,,,
+2026-09-28,2026-09-28T01:12:07Z,pt9GwWv9,futbol,WORLD: Club Friendly,Petrovac (Mne),Mladost DG (Mne),1790607600,925,1.83,3.53,4.09,,,
+2026-09-28,2026-09-28T01:12:07Z,42LnNFn2,futbol,AFRICA: Africa Cup of Nations - Qualification,Comoros,Namibia,1790679600,1187,2.05,2.65,3.78,2.13,2.77,4.02
+2026-09-28,2026-09-28T01:12:07Z,42LnNFn2,futbol,AFRICA: Africa Cup of Nations - Qualification,Comoros,Namibia,1790679600,575,2.13,2.86,4.02,2.13,2.77,4.02
+2026-09-28,2026-09-28T01:12:07Z,42LnNFn2,futbol,AFRICA: Africa Cup of Nations - Qualification,Comoros,Namibia,1790679600,925,2.03,3.04,3.87,2.13,2.77,4.02
+2026-09-28,2026-09-28T01:12:07Z,Aw7Wv0V1,futbol,AFRICA: Africa Cup of Nations - Qualification,Burundi,Algeria,1790686800,1187,9.4,4.4,1.26,10.72,4.91,1.2849
+2026-09-28,2026-09-28T01:12:07Z,Aw7Wv0V1,futbol,AFRICA: Africa Cup of Nations - Qualification,Burundi,Algeria,1790686800,575,10.72,4.91,1.28,10.72,4.91,1.2849
+2026-09-28,2026-09-28T01:12:07Z,Aw7Wv0V1,futbol,AFRICA: Africa Cup of Nations - Qualification,Burundi,Algeria,1790686800,925,11.0,5.15,1.26,10.72,4.91,1.2849
+2026-09-28,2026-09-28T01:12:07Z,hfQ8McEs,futbol,AFRICA: Africa Cup of Nations - Qualification,Ethiopia,Senegal,1790686800,1187,7.6,3.74,1.37,7.87,3.81,1.3984
+2026-09-28,2026-09-28T01:12:07Z,hfQ8McEs,futbol,AFRICA: Africa Cup of Nations - Qualification,Ethiopia,Senegal,1790686800,575,7.87,4.0,1.4,7.87,3.81,1.3984
+2026-09-28,2026-09-28T01:12:07Z,hfQ8McEs,futbol,AFRICA: Africa Cup of Nations - Qualification,Ethiopia,Senegal,1790686800,925,7.38,4.55,1.38,7.87,3.81,1.3984
+2026-09-28,2026-09-28T01:12:07Z,AqO6yclT,futbol,AFRICA: Africa Cup of Nations - Qualification,Lesotho,Morocco,1790686800,1187,21.0,9.6,1.03,31.04,14.1,1.0347
+2026-09-28,2026-09-28T01:12:07Z,AqO6yclT,futbol,AFRICA: Africa Cup of Nations - Qualification,Lesotho,Morocco,1790686800,575,31.04,14.1,1.03,31.04,14.1,1.0347
+2026-09-28,2026-09-28T01:12:07Z,AqO6yclT,futbol,AFRICA: Africa Cup of Nations - Qualification,Lesotho,Morocco,1790686800,925,55.0,13.5,1.03,31.04,14.1,1.0347
+2026-09-28,2026-09-28T01:12:07Z,QP5ykvf2,futbol,AFRICA: Africa Cup of Nations - Qualification,Madagascar,Tanzania,1790686800,1187,2.74,2.62,2.62,2.87,2.74,2.74
+2026-09-28,2026-09-28T01:12:07Z,QP5ykvf2,futbol,AFRICA: Africa Cup of Nations - Qualification,Madagascar,Tanzania,1790686800,575,2.87,2.74,2.74,2.87,2.74,2.74
+2026-09-28,2026-09-28T01:12:07Z,QP5ykvf2,futbol,AFRICA: Africa Cup of Nations - Qualification,Madagascar,Tanzania,1790686800,925,2.73,2.96,2.62,2.87,2.74,2.74
+2026-09-28,2026-09-28T01:12:07Z,OvzwSJjK,futbol,AFRICA: Africa Cup of Nations - Qualification,Mozambique,Sudan,1790686800,1187,1.97,2.65,4.1,2.05,2.78,4.35
+2026-09-28,2026-09-28T01:12:07Z,OvzwSJjK,futbol,AFRICA: Africa Cup of Nations - Qualification,Mozambique,Sudan,1790686800,575,2.05,2.78,4.35,2.05,2.78,4.35
+2026-09-28,2026-09-28T01:12:07Z,OvzwSJjK,futbol,AFRICA: Africa Cup of Nations - Qualification,Mozambique,Sudan,1790686800,925,1.97,2.98,4.23,2.05,2.78,4.35
+2026-09-28,2026-09-28T01:12:07Z,UqJp68gK,futbol,AFRICA: Africa Cup of Nations - Qualification,South Sudan,Egypt,1790686800,1187,12.0,5.1,1.17,13.65,5.7,1.2045
+2026-09-28,2026-09-28T01:12:07Z,UqJp68gK,futbol,AFRICA: Africa Cup of Nations - Qualification,South Sudan,Egypt,1790686800,575,13.65,5.7,1.2,13.65,5.7,1.2045
+2026-09-28,2026-09-28T01:12:07Z,UqJp68gK,futbol,AFRICA: Africa Cup of Nations - Qualification,South Sudan,Egypt,1790686800,925,14.4,6.0,1.19,13.65,5.7,1.2045
+2026-09-28,2026-09-28T01:12:07Z,MVuwX5YG,futbol,AFRICA: Africa Cup of Nations - Qualification,Cape Verde,Rwanda,1790697600,1187,1.46,3.41,6.7,1.4975,3.63,7.51
+2026-09-28,2026-09-28T01:12:07Z,MVuwX5YG,futbol,AFRICA: Africa Cup of Nations - Qualification,Cape Verde,Rwanda,1790697600,575,1.5,3.63,7.51,1.4975,3.63,7.51
+2026-09-28,2026-09-28T01:12:07Z,MVuwX5YG,futbol,AFRICA: Africa Cup of Nations - Qualification,Cape Verde,Rwanda,1790697600,925,1.47,3.8,7.4,1.4975,3.63,7.51
+2026-09-28,2026-09-28T01:12:07Z,QDuyQ2pg,futbol,AFRICA: Africa Cup of Nations - Qualification,Ghana,Gambia,1790697600,1187,1.57,3.33,5.2,1.6211,3.53,5.62
+2026-09-28,2026-09-28T01:12:07Z,QDuyQ2pg,futbol,AFRICA: Africa Cup of Nations - Qualification,Ghana,Gambia,1790697600,575,1.62,3.53,5.62,1.6211,3.53,5.62
+2026-09-28,2026-09-28T01:12:07Z,QDuyQ2pg,futbol,AFRICA: Africa Cup of Nations - Qualification,Ghana,Gambia,1790697600,925,1.62,3.7,5.22,1.6211,3.53,5.62
+2026-09-28,2026-09-28T01:12:07Z,hWcNCsn9,futbol,AFRICA: Africa Cup of Nations - Qualification,Guinea Bissau,Nigeria,1790697600,1187,6.4,3.26,1.5,6.84,3.5,1.5495
+2026-09-28,2026-09-28T01:12:07Z,hWcNCsn9,futbol,AFRICA: Africa Cup of Nations - Qualification,Guinea Bissau,Nigeria,1790697600,575,6.84,3.5,1.55,6.84,3.5,1.5495
+2026-09-28,2026-09-28T01:12:07Z,hWcNCsn9,futbol,AFRICA: Africa Cup of Nations - Qualification,Guinea Bissau,Nigeria,1790697600,925,6.86,3.74,1.5,6.84,3.5,1.5495
+2026-09-28,2026-09-28T01:12:07Z,MZFQiRig,futbol,AFRICA: Africa Cup of Nations - Qualification,Uganda,Libya,1790697600,1187,1.99,2.72,3.86,2.07,2.86,4.1
+2026-09-28,2026-09-28T01:12:07Z,MZFQiRig,futbol,AFRICA: Africa Cup of Nations - Qualification,Uganda,Libya,1790697600,575,2.07,2.86,4.1,2.07,2.86,4.1
+2026-09-28,2026-09-28T01:12:07Z,MZFQiRig,futbol,AFRICA: Africa Cup of Nations - Qualification,Uganda,Libya,1790697600,925,2.0,3.05,3.97,2.07,2.86,4.1
+2026-09-28,2026-09-28T01:12:07Z,2D3OtM0k,futbol,AFRICA: Africa Cup of Nations - Qualification,Zambia,Togo,1790697600,1187,2.14,2.88,3.17,2.22,3.02,3.37
+2026-09-28,2026-09-28T01:12:07Z,2D3OtM0k,futbol,AFRICA: Africa Cup of Nations - Qualification,Zambia,Togo,1790697600,575,2.22,3.02,3.37,2.22,3.02,3.37
+2026-09-28,2026-09-28T01:12:07Z,2D3OtM0k,futbol,AFRICA: Africa Cup of Nations - Qualification,Zambia,Togo,1790697600,925,2.2,3.02,3.41,2.22,3.02,3.37
+2026-09-28,2026-09-28T01:12:07Z,vajl5sRG,futbol,AFRICA: Africa Cup of Nations - Qualification,Benin,Mauritania,1790701200,1187,2.31,2.47,3.41,2.41,2.59,3.62
+2026-09-28,2026-09-28T01:12:07Z,vajl5sRG,futbol,AFRICA: Africa Cup of Nations - Qualification,Benin,Mauritania,1790701200,575,2.41,2.59,3.62,2.41,2.59,3.62
+2026-09-28,2026-09-28T01:12:07Z,vajl5sRG,futbol,AFRICA: Africa Cup of Nations - Qualification,Benin,Mauritania,1790701200,925,2.25,3.04,3.27,2.41,2.59,3.62
+2026-09-28,2026-09-28T01:12:07Z,UuDYpJv9,futbol,AFRICA: Africa Cup of Nations - Qualification,Congo,Cameroon,1790708400,1187,5.5,3.23,1.57,,,
+2026-09-28,2026-09-28T01:12:07Z,UuDYpJv9,futbol,AFRICA: Africa Cup of Nations - Qualification,Congo,Cameroon,1790708400,575,5.91,3.47,1.61,,,
+2026-09-28,2026-09-28T01:12:07Z,UuDYpJv9,futbol,AFRICA: Africa Cup of Nations - Qualification,Congo,Cameroon,1790708400,925,5.13,3.5,1.67,,,
+2026-09-28,2026-09-28T01:12:07Z,4nLbwJJG,futbol,AFRICA: Africa Cup of Nations - Qualification,Gabon,Niger,1790708400,1187,1.51,3.29,6.0,1.5682,3.49,6.51
+2026-09-28,2026-09-28T01:12:07Z,4nLbwJJG,futbol,AFRICA: Africa Cup of Nations - Qualification,Gabon,Niger,1790708400,575,1.57,3.49,6.51,1.5682,3.49,6.51
+2026-09-28,2026-09-28T01:12:07Z,4nLbwJJG,futbol,AFRICA: Africa Cup of Nations - Qualification,Gabon,Niger,1790708400,925,1.57,3.64,5.95,1.5682,3.49,6.51
+2026-09-28,2026-09-28T01:12:07Z,UeqoVq3T,futbol,AFRICA: Africa Cup of Nations - Qualification,Liberia,Mali,1790708400,1187,6.5,3.5,1.45,7.19,3.74,1.4902
+2026-09-28,2026-09-28T01:12:07Z,UeqoVq3T,futbol,AFRICA: Africa Cup of Nations - Qualification,Liberia,Mali,1790708400,575,7.19,3.74,1.49,7.19,3.74,1.4902
+2026-09-28,2026-09-28T01:12:07Z,UeqoVq3T,futbol,AFRICA: Africa Cup of Nations - Qualification,Liberia,Mali,1790708400,925,7.0,3.9,1.47,7.19,3.74,1.4902
+2026-09-28,2026-09-28T01:12:07Z,YwqqOtF5,futbol,AFRICA: Africa Cup of Nations - Qualification,Somalia,Ivory Coast,1790708400,925,70.0,19.0,1.03,,,
+2026-09-28,2026-09-28T01:12:07Z,UXr8WlN0,futbol,ASIA: FIFA ASEAN Cup - Division 1,Philippines,Pakistan,1790668800,575,1.17,6.6,13.53,1.1727,6.6,13.53
+2026-09-28,2026-09-28T01:12:07Z,UXr8WlN0,futbol,ASIA: FIFA ASEAN Cup - Division 1,Philippines,Pakistan,1790668800,925,1.16,6.65,14.3,1.1727,6.6,13.53
+2026-09-28,2026-09-28T01:12:07Z,zVoGUSiD,futbol,ASIA: FIFA ASEAN Cup - Division 1,Thailand,Vietnam,1790681400,575,2.46,3.3,2.96,2.46,3.0,2.96
+2026-09-28,2026-09-28T01:12:07Z,zVoGUSiD,futbol,ASIA: FIFA ASEAN Cup - Division 1,Thailand,Vietnam,1790681400,925,2.38,3.24,2.86,2.46,3.0,2.96
+2026-09-28,2026-09-28T01:12:07Z,bcfoyOwg,futbol,ASIA: Asian Games Women - Play Offs,North Korea W,China W,1790661600,1187,1.4,3.95,7.1,,,
+2026-09-28,2026-09-28T01:12:07Z,bcfoyOwg,futbol,ASIA: Asian Games Women - Play Offs,North Korea W,China W,1790661600,575,1.32,4.15,6.3,,,
+2026-09-28,2026-09-28T01:12:07Z,bcfoyOwg,futbol,ASIA: Asian Games Women - Play Offs,North Korea W,China W,1790661600,925,1.35,4.25,7.5,,,
+2026-09-28,2026-09-28T01:12:07Z,vgsM35E5,futbol,ASIA: Asian Games Women - Play Offs,Japan W,South Korea W,1790677800,575,1.16,5.3,9.8,,,
+2026-09-28,2026-09-28T01:12:07Z,vgsM35E5,futbol,ASIA: Asian Games Women - Play Offs,Japan W,South Korea W,1790677800,925,1.18,5.0,11.5,,,
+2026-09-28,2026-09-28T01:12:07Z,6yXAIpfn,futbol,BRAZIL: Serie B,America MG,Juventude,1790634600,1187,3.63,3.25,2.06,,,
+2026-09-28,2026-09-28T01:12:07Z,6yXAIpfn,futbol,BRAZIL: Serie B,America MG,Juventude,1790634600,1207,3.65,3.26,2.07,,,
+2026-09-28,2026-09-28T01:12:07Z,6yXAIpfn,futbol,BRAZIL: Serie B,America MG,Juventude,1790634600,575,3.74,3.33,2.11,,,
+2026-09-28,2026-09-28T01:12:07Z,6yXAIpfn,futbol,BRAZIL: Serie B,America MG,Juventude,1790634600,925,3.55,3.18,2.07,,,
+2026-09-28,2026-09-28T01:12:07Z,2sLJeQnJ,futbol,CHINA: League One,Wuxi Wugou,Ningbo Professional,1790679600,575,2.17,3.23,3.4,,,
+2026-09-28,2026-09-28T01:12:07Z,2sLJeQnJ,futbol,CHINA: League One,Wuxi Wugou,Ningbo Professional,1790679600,925,2.18,3.22,3.33,,,
+2026-09-28,2026-09-28T01:12:07Z,rJH0bv4t,futbol,COLOMBIA: Primera A - Clausura,Pereira,Santa Fe,1790713800,1187,4.3,3.27,1.81,,,
+2026-09-28,2026-09-28T01:12:07Z,rJH0bv4t,futbol,COLOMBIA: Primera A - Clausura,Pereira,Santa Fe,1790713800,1207,4.1,3.14,1.76,,,
+2026-09-28,2026-09-28T01:12:07Z,rJH0bv4t,futbol,COLOMBIA: Primera A - Clausura,Pereira,Santa Fe,1790713800,575,4.44,3.4,1.91,,,
+2026-09-28,2026-09-28T01:12:07Z,rJH0bv4t,futbol,COLOMBIA: Primera A - Clausura,Pereira,Santa Fe,1790713800,925,4.37,3.32,1.82,,,
+2026-09-28,2026-09-28T01:12:07Z,8YY6ZvJc,futbol,COLOMBIA: Primera B - Clausura,Quindio,Bogota,1790636400,1187,1.78,3.18,4.5,,,
+2026-09-28,2026-09-28T01:12:07Z,8YY6ZvJc,futbol,COLOMBIA: Primera B - Clausura,Quindio,Bogota,1790636400,1207,1.75,3.1,4.4,,,
+2026-09-28,2026-09-28T01:12:07Z,8YY6ZvJc,futbol,COLOMBIA: Primera B - Clausura,Quindio,Bogota,1790636400,575,1.81,3.3,4.65,,,
+2026-09-28,2026-09-28T01:12:07Z,8YY6ZvJc,futbol,COLOMBIA: Primera B - Clausura,Quindio,Bogota,1790636400,925,1.75,3.14,4.67,,,
+2026-09-28,2026-09-28T01:12:07Z,nqpfrzRe,futbol,COSTA RICA: Liga de Ascenso - Apertura,Cariari Pococi,CS Uruguay,1790643600,575,1.66,3.78,4.08,,,
+2026-09-28,2026-09-28T01:12:07Z,nqpfrzRe,futbol,COSTA RICA: Liga de Ascenso - Apertura,Cariari Pococi,CS Uruguay,1790643600,925,1.65,3.56,4.51,,,
+2026-09-28,2026-09-28T01:12:07Z,I7rmyYz1,futbol,CZECH REPUBLIC: Jihomoravsky KP,Rosice,Boskovice - Letovice,1790692200,925,2.78,3.86,2.16,,,
+2026-09-28,2026-09-28T01:12:07Z,zVepEqTb,futbol,ENGLAND: National League,Boreham Wood,Kidderminster,1790704800,1187,1.45,3.78,6.4,,,
+2026-09-28,2026-09-28T01:12:07Z,zVepEqTb,futbol,ENGLAND: National League,Boreham Wood,Kidderminster,1790704800,1207,1.43,3.68,6.2,,,
+2026-09-28,2026-09-28T01:12:07Z,zVepEqTb,futbol,ENGLAND: National League,Boreham Wood,Kidderminster,1790704800,575,1.49,4.16,6.77,,,
+2026-09-28,2026-09-28T01:12:07Z,zVepEqTb,futbol,ENGLAND: National League,Boreham Wood,Kidderminster,1790704800,925,1.45,3.88,6.29,,,
+2026-09-28,2026-09-28T01:12:07Z,nXsWag8l,futbol,ENGLAND: National League,AFC Fylde,Carlisle,1790707500,1187,2.44,3.65,2.35,,,
+2026-09-28,2026-09-28T01:12:07Z,nXsWag8l,futbol,ENGLAND: National League,AFC Fylde,Carlisle,1790707500,1207,2.4,3.58,2.31,,,
+2026-09-28,2026-09-28T01:12:07Z,nXsWag8l,futbol,ENGLAND: National League,AFC Fylde,Carlisle,1790707500,575,2.53,3.92,2.45,,,
+2026-09-28,2026-09-28T01:12:07Z,nXsWag8l,futbol,ENGLAND: National League,AFC Fylde,Carlisle,1790707500,925,2.44,3.58,2.33,,,
+2026-09-28,2026-09-28T01:12:07Z,fcovbXx1,futbol,ENGLAND: National League,Barrow,Scunthorpe,1790707500,1187,2.02,3.53,3.01,,,
+2026-09-28,2026-09-28T01:12:07Z,fcovbXx1,futbol,ENGLAND: National League,Barrow,Scunthorpe,1790707500,1207,1.99,3.45,2.95,,,
+2026-09-28,2026-09-28T01:12:07Z,fcovbXx1,futbol,ENGLAND: National League,Barrow,Scunthorpe,1790707500,575,2.14,3.71,3.14,,,
+2026-09-28,2026-09-28T01:12:07Z,fcovbXx1,futbol,ENGLAND: National League,Barrow,Scunthorpe,1790707500,925,2.02,3.44,3.13,,,
+2026-09-28,2026-09-28T01:12:07Z,SAqndB7D,futbol,ENGLAND: National League,FC Halifax,Boston Utd,1790707500,1187,2.13,3.47,2.84,,,
+2026-09-28,2026-09-28T01:12:07Z,SAqndB7D,futbol,ENGLAND: National League,FC Halifax,Boston Utd,1790707500,1207,2.1,3.39,2.78,,,
+2026-09-28,2026-09-28T01:12:07Z,SAqndB7D,futbol,ENGLAND: National League,FC Halifax,Boston Utd,1790707500,575,2.27,3.63,2.97,,,
+2026-09-28,2026-09-28T01:12:07Z,SAqndB7D,futbol,ENGLAND: National League,FC Halifax,Boston Utd,1790707500,925,2.15,3.38,2.91,,,
+2026-09-28,2026-09-28T01:12:07Z,hj0c3SEt,futbol,ENGLAND: National League,Forest Green,Wealdstone,1790707500,1187,1.66,3.94,3.93,,,
+2026-09-28,2026-09-28T01:12:07Z,hj0c3SEt,futbol,ENGLAND: National League,Forest Green,Wealdstone,1790707500,1207,1.64,3.85,3.83,,,
+2026-09-28,2026-09-28T01:12:07Z,hj0c3SEt,futbol,ENGLAND: National League,Forest Green,Wealdstone,1790707500,575,1.72,4.13,4.14,,,
+2026-09-28,2026-09-28T01:12:07Z,hj0c3SEt,futbol,ENGLAND: National League,Forest Green,Wealdstone,1790707500,925,1.65,3.92,4.08,,,
+2026-09-28,2026-09-28T01:12:07Z,bm3516qg,futbol,ENGLAND: National League,Gateshead,Altrincham,1790707500,1187,3.79,3.91,1.69,4.01,4.08,1.7353
+2026-09-28,2026-09-28T01:12:07Z,bm3516qg,futbol,ENGLAND: National League,Gateshead,Altrincham,1790707500,1207,3.71,3.82,1.67,4.01,4.08,1.7353
+2026-09-28,2026-09-28T01:12:07Z,bm3516qg,futbol,ENGLAND: National League,Gateshead,Altrincham,1790707500,575,4.21,4.08,1.74,4.01,4.08,1.7353
+2026-09-28,2026-09-28T01:12:07Z,bm3516qg,futbol,ENGLAND: National League,Gateshead,Altrincham,1790707500,925,3.98,3.82,1.69,4.01,4.08,1.7353
+2026-09-28,2026-09-28T01:12:07Z,W01DapE5,futbol,ENGLAND: National League,Hartlepool,Harrogate,1790707500,1187,3.41,3.8,1.8,,,
+2026-09-28,2026-09-28T01:12:07Z,W01DapE5,futbol,ENGLAND: National League,Hartlepool,Harrogate,1790707500,1207,3.35,3.71,1.78,,,
+2026-09-28,2026-09-28T01:12:07Z,W01DapE5,futbol,ENGLAND: National League,Hartlepool,Harrogate,1790707500,575,3.88,3.97,1.88,,,
+2026-09-28,2026-09-28T01:12:07Z,W01DapE5,futbol,ENGLAND: National League,Hartlepool,Harrogate,1790707500,925,3.52,3.64,1.83,,,
+2026-09-28,2026-09-28T01:12:07Z,vR4LcOrI,futbol,ENGLAND: National League,Hornchurch,Aldershot,1790707500,1187,2.04,3.57,2.95,,,
+2026-09-28,2026-09-28T01:12:07Z,vR4LcOrI,futbol,ENGLAND: National League,Hornchurch,Aldershot,1790707500,1207,2.01,3.5,2.9,,,
+2026-09-28,2026-09-28T01:12:07Z,vR4LcOrI,futbol,ENGLAND: National League,Hornchurch,Aldershot,1790707500,575,2.12,3.71,3.08,,,
+2026-09-28,2026-09-28T01:12:07Z,vR4LcOrI,futbol,ENGLAND: National League,Hornchurch,Aldershot,1790707500,925,2.06,3.45,3.02,,,
+2026-09-28,2026-09-28T01:12:07Z,ni8Te2DU,futbol,ENGLAND: National League,Woking,Solihull Moors,1790707500,1187,1.88,3.55,3.39,1.9434,3.7,3.53
+2026-09-28,2026-09-28T01:12:07Z,ni8Te2DU,futbol,ENGLAND: National League,Woking,Solihull Moors,1790707500,1207,1.85,3.47,3.32,1.9434,3.7,3.53
+2026-09-28,2026-09-28T01:12:07Z,ni8Te2DU,futbol,ENGLAND: National League,Woking,Solihull Moors,1790707500,575,1.97,3.78,3.53,1.9434,3.7,3.53
+2026-09-28,2026-09-28T01:12:07Z,ni8Te2DU,futbol,ENGLAND: National League,Woking,Solihull Moors,1790707500,925,1.87,3.52,3.48,1.9434,3.7,3.53
+2026-09-28,2026-09-28T01:12:07Z,23rwG5bn,futbol,ENGLAND: National League,Yeovil,Worthing,1790707500,1187,2.05,3.8,2.78,,,
+2026-09-28,2026-09-28T01:12:07Z,23rwG5bn,futbol,ENGLAND: National League,Yeovil,Worthing,1790707500,1207,2.02,3.72,2.73,,,
+2026-09-28,2026-09-28T01:12:07Z,23rwG5bn,futbol,ENGLAND: National League,Yeovil,Worthing,1790707500,575,2.16,3.98,2.9,,,
+2026-09-28,2026-09-28T01:12:07Z,23rwG5bn,futbol,ENGLAND: National League,Yeovil,Worthing,1790707500,925,2.06,3.72,2.84,,,
+2026-09-28,2026-09-28T01:12:07Z,Mm5zEA33,futbol,ENGLAND: National League North,Brackley Town,South Shields,1790707500,1187,3.81,3.6,1.76,3.95,3.68,1.8065
+2026-09-28,2026-09-28T01:12:07Z,Mm5zEA33,futbol,ENGLAND: National League North,Brackley Town,South Shields,1790707500,575,3.95,3.68,1.81,3.95,3.68,1.8065
+2026-09-28,2026-09-28T01:12:07Z,Mm5zEA33,futbol,ENGLAND: National League North,Brackley Town,South Shields,1790707500,925,4.1,3.56,1.72,3.95,3.68,1.8065
+2026-09-28,2026-09-28T01:12:07Z,Wx5FQvCb,futbol,ENGLAND: National League South,Slough,Ebbsfleet,1790707500,1187,5.3,4.3,1.45,,,
+2026-09-28,2026-09-28T01:12:07Z,Wx5FQvCb,futbol,ENGLAND: National League South,Slough,Ebbsfleet,1790707500,1207,4.3,3.71,1.62,,,
+2026-09-28,2026-09-28T01:12:07Z,Wx5FQvCb,futbol,ENGLAND: National League South,Slough,Ebbsfleet,1790707500,575,5.58,4.52,1.48,,,
+2026-09-28,2026-09-28T01:12:07Z,Wx5FQvCb,futbol,ENGLAND: National League South,Slough,Ebbsfleet,1790707500,925,5.84,4.33,1.42,,,
+2026-09-28,2026-09-28T01:12:07Z,vTqgNrio,futbol,ENGLAND: NPL Premier Division,Alfreton,Guiseley,1790707500,925,2.16,3.32,2.9,,,
+2026-09-28,2026-09-28T01:12:07Z,vLe2urDT,futbol,ENGLAND: NPL Premier Division,Emley,Workington,1790707500,925,3.07,3.48,2.02,,,
+2026-09-28,2026-09-28T01:12:07Z,zisYZLzi,futbol,ENGLAND: NPL Premier Division,Ilkeston,Warrington Rylands,1790707500,925,2.92,3.36,2.13,,,
+2026-09-28,2026-09-28T01:12:07Z,fw93YTGq,futbol,ENGLAND: NPL Premier Division,Warrington,Gainsborough,1790707500,925,2.33,3.32,2.55,,,
+2026-09-28,2026-09-28T01:12:07Z,23CBW7od,futbol,ENGLAND: NPL Premier Division,Whitby,Lancaster,1790707500,925,2.5,3.3,2.39,,,
+2026-09-28,2026-09-28T01:12:07Z,EyFzIyUI,futbol,ENGLAND: Southern League Premier Central,Alvechurch,Stourbridge,1790707500,925,1.87,3.6,3.64,,,
+2026-09-28,2026-09-28T01:12:07Z,tr7MuuMP,futbol,ENGLAND: Southern League Premier Central,Banbury,Stratford,1790707500,925,2.16,3.5,2.94,,,
+2026-09-28,2026-09-28T01:12:07Z,xEhhzJqm,futbol,ENGLAND: Southern League Premier Central,Bishop's Stortford,Bury Town,1790707500,925,3.34,3.5,1.98,,,
+2026-09-28,2026-09-28T01:12:07Z,OUj0YdEa,futbol,ENGLAND: Southern League Premier Central,Bromsgrove,Leamington,1790707500,925,1.77,3.8,3.83,,,
+2026-09-28,2026-09-28T01:12:07Z,Wff8WzqC,futbol,ENGLAND: Southern League Premier Central,Halesowen,Rushall,1790707500,925,2.16,3.5,2.94,,,
+2026-09-28,2026-09-28T01:12:07Z,48hGUEDO,futbol,ENGLAND: Southern League Premier Central,Hitchin,Leighton Town,1790707500,925,2.4,3.4,2.6,,,
+2026-09-28,2026-09-28T01:12:07Z,fXXPlIbt,futbol,ENGLAND: Southern League Premier Central,Kettering,Anstey Nomads,1790707500,925,2.25,3.4,2.84,,,
+2026-09-28,2026-09-28T01:12:07Z,nujXndTh,futbol,ENGLAND: Southern League Premier Central,Needham Market,Stamford,1790707500,925,1.38,4.6,6.76,,,
+2026-09-28,2026-09-28T01:12:07Z,Khluozb5,futbol,ENGLAND: Southern League Premier Central,Peterborough Sports,Redditch,1790707500,925,2.02,3.6,3.14,,,
+2026-09-28,2026-09-28T01:12:07Z,SIimqESH,futbol,ENGLAND: Southern League Premier Central,Racing Club Warwick,Worcester,1790707500,925,2.89,3.3,2.27,,,
+2026-09-28,2026-09-28T01:12:07Z,zqeeshcU,futbol,ENGLAND: Southern League Premier Central,Real Bedford,Leiston,1790707500,925,1.33,4.9,7.47,,,
+2026-09-28,2026-09-28T01:12:07Z,dfJwrLMj,futbol,ENGLAND: Southern League Premier South,Wimborne,Yate Town,1790706600,925,2.09,3.5,3.04,,,
+2026-09-28,2026-09-28T01:12:07Z,ll6P5OEc,futbol,ENGLAND: Southern League Premier South,Bath,Malvern Town,1790707500,925,1.49,4.3,5.32,,,
+2026-09-28,2026-09-28T01:12:07Z,0r44I1b3,futbol,ENGLAND: Southern League Premier South,Chertsey,Poole,1790707500,925,1.95,3.7,3.24,,,
+2026-09-28,2026-09-28T01:12:07Z,dE9X32qA,futbol,ENGLAND: Southern League Premier South,Evesham,Chippenham,1790707500,925,2.37,3.6,2.5,,,
+2026-09-28,2026-09-28T01:12:07Z,4vDu2tEM,futbol,ENGLAND: Southern League Premier South,Gloucester,Plymouth Parkway,1790707500,925,2.05,3.8,2.94,,,
+2026-09-28,2026-09-28T01:12:07Z,0AbBdKyp,futbol,ENGLAND: Southern League Premier South,Hanworth,Chichester,1790707500,925,1.67,3.9,4.23,,,
+2026-09-28,2026-09-28T01:12:07Z,YyCIfb6d,futbol,ENGLAND: Southern League Premier South,Havant & W,Hanwell Town,1790707500,925,2.28,3.6,2.6,,,
+2026-09-28,2026-09-28T01:12:07Z,Ye2CGuTF,futbol,ENGLAND: Southern League Premier South,Sholing,Berkhamsted,1790707500,925,2.3,3.5,2.65,,,
+2026-09-28,2026-09-28T01:12:07Z,tM5KEJcS,futbol,ENGLAND: Southern League Premier South,Uxbridge,Basingstoke,1790707500,925,1.72,3.7,4.23,,,
+2026-09-28,2026-09-28T01:12:07Z,rsQj0cpo,futbol,ENGLAND: Isthmian League Premier Division,Dartford,Whitehawk,1790707500,925,1.25,4.95,9.45,,,
+2026-09-28,2026-09-28T01:12:07Z,zyDxO0xh,futbol,ENGLAND: Isthmian League Premier Division,Dulwich Hamlet,Aveley,1790707500,925,2.07,3.5,2.95,,,
+2026-09-28,2026-09-28T01:12:07Z,4x60S0Bm,futbol,ENGLAND: Isthmian League Premier Division,Maldon & Tiptree,Cray Wanderers,1790707500,1187,2.66,3.7,2.3,,,
+2026-09-28,2026-09-28T01:12:07Z,4x60S0Bm,futbol,ENGLAND: Isthmian League Premier Division,Maldon & Tiptree,Cray Wanderers,1790707500,575,2.42,3.97,2.27,,,
+2026-09-28,2026-09-28T01:12:07Z,4x60S0Bm,futbol,ENGLAND: Isthmian League Premier Division,Maldon & Tiptree,Cray Wanderers,1790707500,925,3.77,3.76,1.73,,,
+2026-09-28,2026-09-28T01:12:07Z,AeCCmlWQ,futbol,EUROPE: UEFA Nations League - League A,Czech Republic,England,1790707500,1187,8.3,5.3,1.4,,,
+2026-09-28,2026-09-28T01:12:07Z,AeCCmlWQ,futbol,EUROPE: UEFA Nations League - League A,Czech Republic,England,1790707500,1207,7.7,5.0,1.36,,,
+2026-09-28,2026-09-28T01:12:07Z,AeCCmlWQ,futbol,EUROPE: UEFA Nations League - League A,Czech Republic,England,1790707500,575,8.45,5.22,1.39,,,
+2026-09-28,2026-09-28T01:12:07Z,AeCCmlWQ,futbol,EUROPE: UEFA Nations League - League A,Czech Republic,England,1790707500,925,8.5,5.06,1.4,,,
+2026-09-28,2026-09-28T01:12:07Z,2T1rwtCi,futbol,EUROPE: UEFA Nations League - League A,Spain,Croatia,1790707500,1187,1.2,7.7,13.0,1.1976,7.57,13.24
+2026-09-28,2026-09-28T01:12:07Z,2T1rwtCi,futbol,EUROPE: UEFA Nations League - League A,Spain,Croatia,1790707500,1207,1.19,7.2,12.0,1.1976,7.57,13.24
+2026-09-28,2026-09-28T01:12:07Z,2T1rwtCi,futbol,EUROPE: UEFA Nations League - League A,Spain,Croatia,1790707500,575,1.21,7.6,14.5,1.1976,7.57,13.24
+2026-09-28,2026-09-28T01:12:07Z,2T1rwtCi,futbol,EUROPE: UEFA Nations League - League A,Spain,Croatia,1790707500,925,1.2,7.49,15.5,1.1976,7.57,13.24
+2026-09-28,2026-09-28T01:12:07Z,KxQwPbIi,futbol,EUROPE: UEFA Nations League - League B,Scotland,Switzerland,1790707500,1187,4.1,3.55,1.94,4.03,3.48,1.9346
+2026-09-28,2026-09-28T01:12:07Z,KxQwPbIi,futbol,EUROPE: UEFA Nations League - League B,Scotland,Switzerland,1790707500,1207,3.98,3.45,1.91,4.03,3.48,1.9346
+2026-09-28,2026-09-28T01:12:07Z,KxQwPbIi,futbol,EUROPE: UEFA Nations League - League B,Scotland,Switzerland,1790707500,575,4.06,3.48,1.95,4.03,3.48,1.9346
+2026-09-28,2026-09-28T01:12:07Z,KxQwPbIi,futbol,EUROPE: UEFA Nations League - League B,Scotland,Switzerland,1790707500,925,4.1,3.56,1.97,4.03,3.48,1.9346
+2026-09-28,2026-09-28T01:12:07Z,hOq1JfnT,futbol,EUROPE: UEFA Nations League - League B,Slovenia,North Macedonia,1790707500,1187,1.66,3.75,5.9,1.6369,3.72,5.72
+2026-09-28,2026-09-28T01:12:07Z,hOq1JfnT,futbol,EUROPE: UEFA Nations League - League B,Slovenia,North Macedonia,1790707500,1207,1.63,3.63,5.7,1.6369,3.72,5.72
+2026-09-28,2026-09-28T01:12:07Z,hOq1JfnT,futbol,EUROPE: UEFA Nations League - League B,Slovenia,North Macedonia,1790707500,575,1.67,3.72,5.91,1.6369,3.72,5.72
+2026-09-28,2026-09-28T01:12:07Z,hOq1JfnT,futbol,EUROPE: UEFA Nations League - League B,Slovenia,North Macedonia,1790707500,925,1.68,3.81,5.77,1.6369,3.72,5.72
+2026-09-28,2026-09-28T01:12:07Z,lbP1YpZq,futbol,EUROPE: UEFA Nations League - League C,Finland,Belarus,1790697600,1187,1.71,3.69,5.9,1.6711,3.52,5.6
+2026-09-28,2026-09-28T01:12:07Z,lbP1YpZq,futbol,EUROPE: UEFA Nations League - League C,Finland,Belarus,1790697600,1207,1.67,3.51,5.6,1.6711,3.52,5.6
+2026-09-28,2026-09-28T01:12:07Z,lbP1YpZq,futbol,EUROPE: UEFA Nations League - League C,Finland,Belarus,1790697600,575,1.72,3.55,5.6,1.6711,3.52,5.6
+2026-09-28,2026-09-28T01:12:07Z,lbP1YpZq,futbol,EUROPE: UEFA Nations League - League C,Finland,Belarus,1790697600,925,1.72,3.66,5.66,1.6711,3.52,5.6
+2026-09-28,2026-09-28T01:12:07Z,rFy9RxMa,futbol,EUROPE: UEFA Nations League - League C,Moldova,Faroe Islands,1790697600,1187,2.95,2.91,2.91,2.87,2.83,2.83
+2026-09-28,2026-09-28T01:12:07Z,rFy9RxMa,futbol,EUROPE: UEFA Nations League - League C,Moldova,Faroe Islands,1790697600,1207,2.84,2.8,2.8,2.87,2.83,2.83
+2026-09-28,2026-09-28T01:12:07Z,rFy9RxMa,futbol,EUROPE: UEFA Nations League - League C,Moldova,Faroe Islands,1790697600,575,2.93,2.94,2.84,2.87,2.83,2.83
+2026-09-28,2026-09-28T01:12:07Z,rFy9RxMa,futbol,EUROPE: UEFA Nations League - League C,Moldova,Faroe Islands,1790697600,925,2.89,3.14,2.73,2.87,2.83,2.83
+2026-09-28,2026-09-28T01:12:07Z,hSJlvG55,futbol,EUROPE: UEFA Nations League - League C,Bulgaria,Estonia,1790707500,1187,1.69,3.56,6.0,1.6623,3.51,5.74
+2026-09-28,2026-09-28T01:12:07Z,hSJlvG55,futbol,EUROPE: UEFA Nations League - League C,Bulgaria,Estonia,1790707500,1207,1.66,3.45,5.7,1.6623,3.51,5.74
+2026-09-28,2026-09-28T01:12:07Z,hSJlvG55,futbol,EUROPE: UEFA Nations League - League C,Bulgaria,Estonia,1790707500,575,1.68,3.65,5.74,1.6623,3.51,5.74
+2026-09-28,2026-09-28T01:12:07Z,hSJlvG55,futbol,EUROPE: UEFA Nations League - League C,Bulgaria,Estonia,1790707500,925,1.68,3.75,5.92,1.6623,3.51,5.74
+2026-09-28,2026-09-28T01:12:07Z,UsxpFQlm,futbol,EUROPE: UEFA Nations League - League C,Luxembourg,Iceland,1790707500,1187,3.09,3.41,2.44,2.99,3.35,2.37
+2026-09-28,2026-09-28T01:12:07Z,UsxpFQlm,futbol,EUROPE: UEFA Nations League - League C,Luxembourg,Iceland,1790707500,1207,2.97,3.28,2.36,2.99,3.35,2.37
+2026-09-28,2026-09-28T01:12:07Z,UsxpFQlm,futbol,EUROPE: UEFA Nations League - League C,Luxembourg,Iceland,1790707500,575,3.11,3.35,2.39,2.99,3.35,2.37
+2026-09-28,2026-09-28T01:12:07Z,UsxpFQlm,futbol,EUROPE: UEFA Nations League - League C,Luxembourg,Iceland,1790707500,925,3.1,3.42,2.4,2.99,3.35,2.37
+2026-09-28,2026-09-28T01:12:07Z,IB2UjgkB,futbol,EUROPE: UEFA Nations League - League C,San Marino,Albania,1790707500,1187,46.0,23.0,1.04,35.29,18.27,1.0358
+2026-09-28,2026-09-28T01:12:07Z,IB2UjgkB,futbol,EUROPE: UEFA Nations League - League C,San Marino,Albania,1790707500,1207,31.0,17.0,1.03,35.29,18.27,1.0358
+2026-09-28,2026-09-28T01:12:07Z,IB2UjgkB,futbol,EUROPE: UEFA Nations League - League C,San Marino,Albania,1790707500,575,42.0,18.27,1.06,35.29,18.27,1.0358
+2026-09-28,2026-09-28T01:12:07Z,IB2UjgkB,futbol,EUROPE: UEFA Nations League - League C,San Marino,Albania,1790707500,925,55.0,18.5,1.04,35.29,18.27,1.0358
+2026-09-28,2026-09-28T01:12:07Z,xb24bvhD,futbol,EUROPE: UEFA Nations League - League C,Slovakia,Kazakhstan,1790707500,1187,1.29,5.6,12.0,1.2732,5.33,11.12
+2026-09-28,2026-09-28T01:12:07Z,xb24bvhD,futbol,EUROPE: UEFA Nations League - League C,Slovakia,Kazakhstan,1790707500,1207,1.27,5.3,11.0,1.2732,5.33,11.12
+2026-09-28,2026-09-28T01:12:07Z,xb24bvhD,futbol,EUROPE: UEFA Nations League - League C,Slovakia,Kazakhstan,1790707500,575,1.29,5.33,11.12,1.2732,5.33,11.12
+2026-09-28,2026-09-28T01:12:07Z,xb24bvhD,futbol,EUROPE: UEFA Nations League - League C,Slovakia,Kazakhstan,1790707500,925,1.3,5.51,12.3,1.2732,5.33,11.12
+2026-09-28,2026-09-28T01:12:07Z,bLO9xZFb,futbol,JAPAN: J.League Cup - First stage,Osaka,Avispa Fukuoka,1790676000,1187,5.4,4.5,1.48,,,
+2026-09-28,2026-09-28T01:12:07Z,bLO9xZFb,futbol,JAPAN: J.League Cup - First stage,Osaka,Avispa Fukuoka,1790676000,575,5.7,4.49,1.49,,,
+2026-09-28,2026-09-28T01:12:07Z,bLO9xZFb,futbol,JAPAN: J.League Cup - First stage,Osaka,Avispa Fukuoka,1790676000,925,6.58,4.2,1.45,,,
+2026-09-28,2026-09-28T01:12:07Z,MR5y59hC,futbol,MEXICO: Primera Premier,Chiapas,Racing de Veracruz,1790647500,1187,3.09,3.41,2.03,,,
+2026-09-28,2026-09-28T01:12:07Z,MR5y59hC,futbol,MEXICO: Primera Premier,Chiapas,Racing de Veracruz,1790647500,925,3.16,3.36,2.02,,,
+2026-09-28,2026-09-28T01:12:07Z,2V0CVzL0,futbol,MEXICO: Liga MX Women - Apertura,Club Leon W,Club America W,1790636400,1187,9.1,6.0,1.2,,,
+2026-09-28,2026-09-28T01:12:07Z,2V0CVzL0,futbol,MEXICO: Liga MX Women - Apertura,Club Leon W,Club America W,1790636400,575,9.65,6.41,1.25,,,
+2026-09-28,2026-09-28T01:12:07Z,2V0CVzL0,futbol,MEXICO: Liga MX Women - Apertura,Club Leon W,Club America W,1790636400,925,10.2,6.15,1.18,,,
+2026-09-28,2026-09-28T01:12:07Z,zqaKTEkD,futbol,MEXICO: Liga MX Women - Apertura,Necaxa W,Toluca W,1790643960,1187,17.0,13.0,1.03,,,
+2026-09-28,2026-09-28T01:12:07Z,zqaKTEkD,futbol,MEXICO: Liga MX Women - Apertura,Necaxa W,Toluca W,1790643960,575,23.79,18.18,1.04,,,
+2026-09-28,2026-09-28T01:12:07Z,zqaKTEkD,futbol,MEXICO: Liga MX Women - Apertura,Necaxa W,Toluca W,1790643960,925,23.0,15.0,1.04,,,
+2026-09-28,2026-09-28T01:12:07Z,YHPKi23d,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Suriname,Martinique,1790632800,1187,1.52,3.92,6.0,1.5263,3.95,6.01
+2026-09-28,2026-09-28T01:12:07Z,YHPKi23d,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Suriname,Martinique,1790632800,1207,1.49,3.72,5.6,1.5263,3.95,6.01
+2026-09-28,2026-09-28T01:12:07Z,YHPKi23d,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Suriname,Martinique,1790632800,575,1.54,4.0,6.14,1.5263,3.95,6.01
+2026-09-28,2026-09-28T01:12:07Z,YHPKi23d,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Suriname,Martinique,1790632800,925,1.55,3.82,5.79,1.5263,3.95,6.01
+2026-09-28,2026-09-28T01:12:07Z,04RCgOYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Jamaica,Honduras,1790640000,1187,2.24,3.32,3.0,2.27,3.37,3.04
+2026-09-28,2026-09-28T01:12:07Z,04RCgOYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Jamaica,Honduras,1790640000,1207,2.17,3.19,2.89,2.27,3.37,3.04
+2026-09-28,2026-09-28T01:12:07Z,04RCgOYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Jamaica,Honduras,1790640000,575,2.29,3.41,3.1,2.27,3.37,3.04
+2026-09-28,2026-09-28T01:12:07Z,04RCgOYq,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Jamaica,Honduras,1790640000,925,2.16,3.34,3.15,2.27,3.37,3.04
+2026-09-28,2026-09-28T01:12:07Z,0OH6F5e3,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Guatemala,El Salvador,1790647200,1187,2.03,3.21,3.45,2.07,3.31,3.55
+2026-09-28,2026-09-28T01:12:07Z,0OH6F5e3,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Guatemala,El Salvador,1790647200,1207,1.97,3.1,3.32,2.07,3.31,3.55
+2026-09-28,2026-09-28T01:12:07Z,0OH6F5e3,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Guatemala,El Salvador,1790647200,575,2.07,3.45,3.55,2.07,3.31,3.55
+2026-09-28,2026-09-28T01:12:07Z,0OH6F5e3,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League A,Guatemala,El Salvador,1790647200,925,2.03,3.35,3.46,2.07,3.31,3.55
+2026-09-28,2026-09-28T01:12:07Z,t8jvwzo1,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Kitts and Nevis,Grenada,1790640000,1187,3.29,3.94,1.86,3.3,3.96,1.8621
+2026-09-28,2026-09-28T01:12:07Z,t8jvwzo1,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Kitts and Nevis,Grenada,1790640000,1207,3.17,3.79,1.82,3.3,3.96,1.8621
+2026-09-28,2026-09-28T01:12:07Z,t8jvwzo1,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Kitts and Nevis,Grenada,1790640000,575,3.3,3.96,1.86,3.3,3.96,1.8621
+2026-09-28,2026-09-28T01:12:07Z,t8jvwzo1,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Kitts and Nevis,Grenada,1790640000,925,3.66,3.84,1.83,3.3,3.96,1.8621
+2026-09-28,2026-09-28T01:12:07Z,K0AJDJHk,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Lucia,Bermuda,1790640000,1187,2.73,3.5,2.26,2.74,3.5,2.27
+2026-09-28,2026-09-28T01:12:07Z,K0AJDJHk,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Lucia,Bermuda,1790640000,1207,2.64,3.38,2.2,2.74,3.5,2.27
+2026-09-28,2026-09-28T01:12:07Z,K0AJDJHk,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Lucia,Bermuda,1790640000,575,2.74,3.55,2.27,2.74,3.5,2.27
+2026-09-28,2026-09-28T01:12:07Z,K0AJDJHk,futbol,NORTH & CENTRAL AMERICA: CONCACAF Nations League - League B,Saint Lucia,Bermuda,1790640000,925,2.78,3.46,2.32,2.74,3.5,2.27
+2026-09-28,2026-09-28T01:12:07Z,d8gEG78t,futbol,NORWAY: Division 3 - Group 1,Union Carl Berner,KFUM Oslo 2,1790705700,1187,1.62,4.6,4.1,,,
+2026-09-28,2026-09-28T01:12:07Z,d8gEG78t,futbol,NORWAY: Division 3 - Group 1,Union Carl Berner,KFUM Oslo 2,1790705700,575,1.67,4.26,3.58,,,
+2026-09-28,2026-09-28T01:12:07Z,d8gEG78t,futbol,NORWAY: Division 3 - Group 1,Union Carl Berner,KFUM Oslo 2,1790705700,925,1.43,4.9,5.05,,,
+2026-09-28,2026-09-28T01:12:07Z,6eZUn1iK,futbol,PANAMA: LPF - Apertura,Alianza,Independiente,1790643600,1187,2.23,3.08,2.98,,,
+2026-09-28,2026-09-28T01:12:07Z,6eZUn1iK,futbol,PANAMA: LPF - Apertura,Alianza,Independiente,1790643600,1207,2.19,3.02,2.92,,,
+2026-09-28,2026-09-28T01:12:07Z,6eZUn1iK,futbol,PANAMA: LPF - Apertura,Alianza,Independiente,1790643600,575,2.26,3.11,3.04,,,
+2026-09-28,2026-09-28T01:12:07Z,6eZUn1iK,futbol,PANAMA: LPF - Apertura,Alianza,Independiente,1790643600,925,2.25,3.04,2.99,,,
+2026-09-28,2026-09-28T01:12:07Z,ncLYFSqS,futbol,PARAGUAY: Copa de Primera - Clausura,Libertad Asuncion,Olimpia Asuncion,1790632800,1187,2.77,3.11,2.34,2.94,3.28,2.44
+2026-09-28,2026-09-28T01:12:07Z,ncLYFSqS,futbol,PARAGUAY: Copa de Primera - Clausura,Libertad Asuncion,Olimpia Asuncion,1790632800,575,2.94,3.4,2.44,2.94,3.28,2.44
+2026-09-28,2026-09-28T01:12:07Z,ncLYFSqS,futbol,PARAGUAY: Copa de Primera - Clausura,Libertad Asuncion,Olimpia Asuncion,1790632800,925,2.89,3.22,2.43,2.94,3.28,2.44
+2026-09-28,2026-09-28T01:12:07Z,fZhXxvZ0,futbol,PARAGUAY: Division Intermedia,Guairena,Fernando de la Mora,1790632800,925,3.17,3.2,2.08,,,
+2026-09-28,2026-09-28T01:12:07Z,QT3ejJGP,futbol,PORTUGAL: Liga Next Gen U23,Rio Ave U23,Penafiel U23,1790709300,925,1.73,3.64,3.9,,,
+2026-09-28,2026-09-28T01:12:07Z,2LoZHHgR,futbol,SCOTLAND: Challenge Cup,Forfar Athletic,Formartine Utd,1790707500,1187,1.66,3.79,4.7,,,
+2026-09-28,2026-09-28T01:12:07Z,2LoZHHgR,futbol,SCOTLAND: Challenge Cup,Forfar Athletic,Formartine Utd,1790707500,575,1.64,3.72,4.95,,,
+2026-09-28,2026-09-28T01:12:07Z,2LoZHHgR,futbol,SCOTLAND: Challenge Cup,Forfar Athletic,Formartine Utd,1790707500,925,1.61,3.68,5.36,,,
+2026-09-28,2026-09-28T01:12:07Z,IRtqdLGP,futbol,SERBIA: Mozzart Bet Prva Liga,Vozdovac,Napredak,1790697600,925,1.97,3.3,3.55,,,
+2026-09-28,2026-09-28T01:12:07Z,hAdgb6CU,futbol,URUGUAY: Liga AUF Uruguaya - Clausura,Wanderers,Albion,1790636400,1187,2.23,2.95,3.25,,,
+2026-09-28,2026-09-28T01:12:07Z,hAdgb6CU,futbol,URUGUAY: Liga AUF Uruguaya - Clausura,Wanderers,Albion,1790636400,1207,2.26,3.0,3.3,,,
+2026-09-28,2026-09-28T01:12:07Z,hAdgb6CU,futbol,URUGUAY: Liga AUF Uruguaya - Clausura,Wanderers,Albion,1790636400,575,2.32,3.1,3.4,,,
+2026-09-28,2026-09-28T01:12:07Z,hAdgb6CU,futbol,URUGUAY: Liga AUF Uruguaya - Clausura,Wanderers,Albion,1790636400,925,2.14,3.14,3.12,,,
+2026-09-28,2026-09-28T01:12:07Z,4llx8bVF,futbol,URUGUAY: Segunda Division,Paysandu FC,Tacuarembo,1790632800,1187,2.46,3.01,2.94,2.43,2.97,2.9
+2026-09-28,2026-09-28T01:12:07Z,4llx8bVF,futbol,URUGUAY: Segunda Division,Paysandu FC,Tacuarembo,1790632800,1207,2.38,2.9,2.83,2.43,2.97,2.9
+2026-09-28,2026-09-28T01:12:07Z,4llx8bVF,futbol,URUGUAY: Segunda Division,Paysandu FC,Tacuarembo,1790632800,575,2.43,3.05,2.9,2.43,2.97,2.9
+2026-09-28,2026-09-28T01:12:07Z,4llx8bVF,futbol,URUGUAY: Segunda Division,Paysandu FC,Tacuarembo,1790632800,925,2.4,2.89,2.89,2.43,2.97,2.9
+2026-09-28,2026-09-28T01:12:07Z,ShMUjFvm,futbol,WALES: Cymru Premier,Cardiff Metropolitan,Haverfordwest,1790707500,925,1.96,3.4,3.32,,,
+2026-09-28,2026-09-28T01:12:07Z,GvxFXcFU,futbol,WORLD: Friendly International,Australia,Brazil,1790676000,1187,8.6,5.3,1.3,8.55,5.26,1.3003
+2026-09-28,2026-09-28T01:12:07Z,GvxFXcFU,futbol,WORLD: Friendly International,Australia,Brazil,1790676000,1207,7.7,4.8,1.26,8.55,5.26,1.3003
+2026-09-28,2026-09-28T01:12:07Z,GvxFXcFU,futbol,WORLD: Friendly International,Australia,Brazil,1790676000,575,8.55,5.7,1.32,8.55,5.26,1.3003
+2026-09-28,2026-09-28T01:12:07Z,GvxFXcFU,futbol,WORLD: Friendly International,Australia,Brazil,1790676000,925,10.9,5.83,1.32,8.55,5.26,1.3003
+2026-09-28,2026-09-28T01:12:07Z,AsDPeCGr,futbol,WORLD: Friendly International,Russia,Iran,1790697600,1187,1.67,3.47,5.3,,,
+2026-09-28,2026-09-28T01:12:07Z,AsDPeCGr,futbol,WORLD: Friendly International,Russia,Iran,1790697600,1207,1.61,3.27,4.9,,,
+2026-09-28,2026-09-28T01:12:07Z,AsDPeCGr,futbol,WORLD: Friendly International,Russia,Iran,1790697600,925,1.74,3.77,5.57,,,
+2026-09-28,2026-09-28T01:12:07Z,EeeHo1Y0,futbol,ASIA: Asian Games - Play Offs,South Korea U23,China U23,1790748000,925,1.23,4.75,13.6,,,
+2026-09-28,2026-09-28T01:12:07Z,S2o8i9BD,futbol,ASIA: Asian Games - Play Offs,Uzbekistan U23,Japan U23,1790764200,925,3.29,3.0,2.12,,,
+2026-09-28,2026-09-28T01:12:07Z,Khg606iL,futbol,CHILE: Liga de Ascenso,San Felipe,San Luis,1790802000,1187,3.52,3.5,1.96,,,
+2026-09-28,2026-09-28T01:12:07Z,Khg606iL,futbol,CHILE: Liga de Ascenso,San Felipe,San Luis,1790802000,1207,3.45,3.41,1.94,,,
+2026-09-28,2026-09-28T01:12:07Z,tGbl9eIb,futbol,COLOMBIA: Primera A - Clausura,Ind. Medellin,Millonarios,1790730300,1187,2.26,3.13,3.06,,,
+2026-09-28,2026-09-28T01:12:07Z,tGbl9eIb,futbol,COLOMBIA: Primera A - Clausura,Ind. Medellin,Millonarios,1790730300,1207,2.19,3.01,2.94,,,
+2026-09-28,2026-09-28T01:12:07Z,tGbl9eIb,futbol,COLOMBIA: Primera A - Clausura,Ind. Medellin,Millonarios,1790730300,575,2.33,3.3,3.13,,,
+2026-09-28,2026-09-28T01:12:07Z,tGbl9eIb,futbol,COLOMBIA: Primera A - Clausura,Ind. Medellin,Millonarios,1790730300,925,2.26,3.2,3.09,,,
+2026-09-28,2026-09-28T01:12:07Z,reahCNcB,futbol,ENGLAND: National League,Eastleigh,Southend,1790793900,1187,3.73,3.79,1.73,,,
+2026-09-28,2026-09-28T01:12:07Z,reahCNcB,futbol,ENGLAND: National League,Eastleigh,Southend,1790793900,1207,3.65,3.7,1.71,,,
+2026-09-28,2026-09-28T01:12:07Z,reahCNcB,futbol,ENGLAND: National League,Eastleigh,Southend,1790793900,575,3.96,4.01,1.8,,,
+2026-09-28,2026-09-28T01:12:07Z,reahCNcB,futbol,ENGLAND: National League,Eastleigh,Southend,1790793900,925,3.99,3.74,1.7,,,
+2026-09-28,2026-09-28T01:12:07Z,G8c0A1SN,futbol,ENGLAND: National League,Tamworth,Sutton,1790793900,1187,2.22,3.34,2.78,,,
+2026-09-28,2026-09-28T01:12:07Z,G8c0A1SN,futbol,ENGLAND: National League,Tamworth,Sutton,1790793900,1207,2.18,3.28,2.73,,,
+2026-09-28,2026-09-28T01:12:07Z,G8c0A1SN,futbol,ENGLAND: National League,Tamworth,Sutton,1790793900,575,2.32,3.5,2.9,,,
+2026-09-28,2026-09-28T01:12:07Z,G8c0A1SN,futbol,ENGLAND: National League,Tamworth,Sutton,1790793900,925,2.21,3.34,2.83,,,
+2026-09-28,2026-09-28T01:12:07Z,Aydj9cLk,futbol,ENGLAND: Southern League Premier South,Frome,Taunton,1790793900,925,1.82,3.9,3.53,,,
+2026-09-28,2026-09-28T01:12:07Z,rkfb7yj2,futbol,ENGLAND: Southern League Premier South,Gosport,Bracknell,1790793900,925,2.12,3.7,2.88,,,
+2026-09-28,2026-09-28T01:12:07Z,4YVC7uhB,futbol,ENGLAND: Isthmian League Premier Division,Whyteleafe,Brentwood,1790793900,925,2.76,3.54,2.16,,,
+2026-09-28,2026-09-28T01:12:07Z,hId6OEA7,futbol,EUROPE: UEFA Champions League Women - League phase,AS Roma W,Barcelona W,1790786700,1187,19.0,11.0,1.05,,,
+2026-09-28,2026-09-28T01:12:07Z,hId6OEA7,futbol,EUROPE: UEFA Champions League Women - League phase,AS Roma W,Barcelona W,1790786700,1207,17.0,9.4,1.04,,,
+2026-09-28,2026-09-28T01:12:07Z,hId6OEA7,futbol,EUROPE: UEFA Champions League Women - League phase,AS Roma W,Barcelona W,1790786700,575,20.09,12.8,1.06,,,
+2026-09-28,2026-09-28T01:12:07Z,hId6OEA7,futbol,EUROPE: UEFA Champions League Women - League phase,AS Roma W,Barcelona W,1790786700,925,36.0,12.5,1.01,,,
+2026-09-28,2026-09-28T01:12:07Z,nDDSzq0U,futbol,EUROPE: UEFA Champions League Women - League phase,Hacken W,Juventus W,1790786700,1187,2.42,3.45,2.56,,,
+2026-09-28,2026-09-28T01:12:07Z,nDDSzq0U,futbol,EUROPE: UEFA Champions League Women - League phase,Hacken W,Juventus W,1790786700,1207,2.35,3.33,2.48,,,
+2026-09-28,2026-09-28T01:12:07Z,nDDSzq0U,futbol,EUROPE: UEFA Champions League Women - League phase,Hacken W,Juventus W,1790786700,575,2.44,3.53,2.59,,,
+2026-09-28,2026-09-28T01:12:07Z,nDDSzq0U,futbol,EUROPE: UEFA Champions League Women - League phase,Hacken W,Juventus W,1790786700,925,2.38,3.32,2.52,,,
