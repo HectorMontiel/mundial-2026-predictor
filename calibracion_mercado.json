@@ -1,31 +1,263 @@
 {
- "generado": "2026-09-26T11:21:19Z",
+ "generado": "2026-09-29T12:34:38Z",
  "nota": "v75/v104. Peso del modelo frente al cierre devigado (Pinnacle, método potencia). Elegido por log-loss fuera de muestra con encogimiento jerárquico hacia el w global y validado en un pliegue que no participó en la selección. Liga ausente = cae al w GLOBAL (v80), NO a w=1: medido sobre las 30 competiciones sin peso propio, w=0,25 mejora el log-loss frente a w=1 en +0,0173 (p5 +0,0136) y el acierto del 48,85 % al 49,23 %. Sustituye a los w de la v71, que salían de 4-11 partidos por liga.",
  "w_global": 0.25,
  "global": {
-  "logloss_antes": 0.6223,
-  "logloss_despues": 0.5901,
-  "delta_logloss": 0.0322,
-  "acc_antes": 0.651,
-  "acc_despues": 0.6847,
-  "delta_acc": 0.0337
+  "logloss_antes": 0.876,
+  "logloss_despues": 0.8544,
+  "delta_logloss": 0.0216,
+  "acc_antes": 0.5518,
+  "acc_despues": 0.5729,
+  "delta_acc": 0.0212
  },
  "ligas": {
   "ATP": {
    "w": 0.25,
-   "sesgo_pick": 0.0276,
-   "n_partidos": 15941,
-   "delta_logloss": 0.0287,
-   "delta_acc": 0.0357,
+   "sesgo_pick": 0.026,
+   "n_partidos": 16060,
+   "delta_logloss": 0.0294,
+   "delta_acc": 0.0343,
    "ancla": "mercado"
   },
   "WTA": {
    "w": 0.25,
-   "sesgo_pick": 0.0389,
-   "n_partidos": 11675,
-   "delta_logloss": 0.0354,
-   "delta_acc": 0.0319,
+   "sesgo_pick": 0.0391,
+   "n_partidos": 11671,
+   "delta_logloss": 0.0352,
+   "delta_acc": 0.0322,
    "ancla": "mercado"
+  },
+  "argentina": {
+   "w": 0.25,
+   "sesgo_pick": -0.0273,
+   "n_partidos": 1875,
+   "delta_logloss": 0.0201,
+   "delta_acc": 0.0347,
+   "ancla": "pinnacle"
+  },
+  "aut_bundesliga": {
+   "w": 0.25,
+   "sesgo_pick": 0.0227,
+   "n_partidos": 760,
+   "delta_logloss": 0.0346,
+   "delta_acc": 0.0592,
+   "ancla": "pinnacle"
+  },
+  "bel_pro_league": {
+   "w": 0.25,
+   "sesgo_pick": -0.0007,
+   "n_partidos": 780,
+   "delta_logloss": 0.0057,
+   "delta_acc": 0.013,
+   "ancla": "pinnacle"
+  },
+  "brasil": {
+   "w": 0.25,
+   "sesgo_pick": 0.0241,
+   "n_partidos": 1501,
+   "delta_logloss": 0.0164,
+   "delta_acc": 0.0233,
+   "ancla": "pinnacle"
+  },
+  "bundesliga": {
+   "w": 0.25,
+   "sesgo_pick": 0.0002,
+   "n_partidos": 2430,
+   "delta_logloss": 0.0267,
+   "delta_acc": 0.0041,
+   "ancla": "pinnacle"
+  },
+  "china": {
+   "w": 0.25,
+   "sesgo_pick": 0.0123,
+   "n_partidos": 895,
+   "delta_logloss": 0.0155,
+   "delta_acc": 0.0335,
+   "ancla": "pinnacle"
+  },
+  "eng_championship": {
+   "w": 0.25,
+   "sesgo_pick": -0.0126,
+   "n_partidos": 1382,
+   "delta_logloss": 0.0106,
+   "delta_acc": 0.0181,
+   "ancla": "pinnacle"
+  },
+  "eng_league_one": {
+   "w": 0.25,
+   "sesgo_pick": -0.0134,
+   "n_partidos": 4292,
+   "delta_logloss": 0.0089,
+   "delta_acc": 0.0198,
+   "ancla": "pinnacle"
+  },
+  "eng_league_two": {
+   "w": 0.25,
+   "sesgo_pick": -0.0121,
+   "n_partidos": 4329,
+   "delta_logloss": 0.0078,
+   "delta_acc": 0.0035,
+   "ancla": "pinnacle"
+  },
+  "eng_national": {
+   "w": 0.25,
+   "sesgo_pick": -0.0177,
+   "n_partidos": 4256,
+   "delta_logloss": 0.0116,
+   "delta_acc": 0.0023,
+   "ancla": "pinnacle"
+  },
+  "eredivisie": {
+   "w": 0.25,
+   "sesgo_pick": -0.0026,
+   "n_partidos": 1343,
+   "delta_logloss": 0.0262,
+   "delta_acc": 0.0558,
+   "ancla": "pinnacle"
+  },
+  "esp_hypermotion": {
+   "w": 0.25,
+   "sesgo_pick": 0.0037,
+   "n_partidos": 2050,
+   "delta_logloss": 0.0102,
+   "delta_acc": 0.0195,
+   "ancla": "pinnacle"
+  },
+  "finlandia": {
+   "w": 0.25,
+   "sesgo_pick": 0.0144,
+   "n_partidos": 645,
+   "delta_logloss": 0.0377,
+   "delta_acc": 0.0465,
+   "ancla": "pinnacle"
+  },
+  "ger_bundesliga2": {
+   "w": 0.25,
+   "sesgo_pick": -0.0096,
+   "n_partidos": 1364,
+   "delta_logloss": 0.017,
+   "delta_acc": 0.0256,
+   "ancla": "pinnacle"
+  },
+  "gre_super_league": {
+   "w": 0.25,
+   "sesgo_pick": -0.0344,
+   "n_partidos": 1058,
+   "delta_logloss": 0.0044,
+   "delta_acc": 0.0097,
+   "ancla": "pinnacle"
+  },
+  "irlanda": {
+   "w": 0.25,
+   "sesgo_pick": -0.0284,
+   "n_partidos": 672,
+   "delta_logloss": 0.0414,
+   "delta_acc": 0.0074,
+   "ancla": "pinnacle"
+  },
+  "ita_serie_b": {
+   "w": 0.25,
+   "sesgo_pick": -0.0398,
+   "n_partidos": 1697,
+   "delta_logloss": 0.0254,
+   "delta_acc": 0.0118,
+   "ancla": "pinnacle"
+  },
+  "laliga": {
+   "w": 0.25,
+   "sesgo_pick": 0.0021,
+   "n_partidos": 3038,
+   "delta_logloss": 0.0099,
+   "delta_acc": 0.0115,
+   "ancla": "pinnacle"
+  },
+  "leagues_cup": {
+   "w": 0.25,
+   "sesgo_pick": -0.0141,
+   "n_partidos": 3079,
+   "delta_logloss": 0.0205,
+   "delta_acc": 0.0082,
+   "ancla": "pinnacle"
+  },
+  "ligue_1": {
+   "w": 0.25,
+   "sesgo_pick": -0.0131,
+   "n_partidos": 2861,
+   "delta_logloss": 0.014,
+   "delta_acc": 0.0087,
+   "ancla": "pinnacle"
+  },
+  "noruega": {
+   "w": 0.25,
+   "sesgo_pick": -0.0362,
+   "n_partidos": 934,
+   "delta_logloss": 0.0265,
+   "delta_acc": 0.0214,
+   "ancla": "pinnacle"
+  },
+  "premier": {
+   "w": 0.25,
+   "sesgo_pick": -0.0064,
+   "n_partidos": 3017,
+   "delta_logloss": 0.0075,
+   "delta_acc": 0.005,
+   "ancla": "pinnacle"
+  },
+  "primeira": {
+   "w": 0.25,
+   "sesgo_pick": 0.0126,
+   "n_partidos": 1530,
+   "delta_logloss": 0.0294,
+   "delta_acc": 0.0196,
+   "ancla": "pinnacle"
+  },
+  "rumania": {
+   "w": 0.25,
+   "sesgo_pick": 0.0067,
+   "n_partidos": 1197,
+   "delta_logloss": 0.0068,
+   "delta_acc": 0.0422,
+   "ancla": "pinnacle"
+  },
+  "rus_premier": {
+   "w": 0.25,
+   "sesgo_pick": -0.0315,
+   "n_partidos": 934,
+   "delta_logloss": 0.0373,
+   "delta_acc": 0.0166,
+   "ancla": "pinnacle"
+  },
+  "sco_championship": {
+   "w": 0.25,
+   "sesgo_pick": -0.0263,
+   "n_partidos": 755,
+   "delta_logloss": 0.007,
+   "delta_acc": 0.0132,
+   "ancla": "pinnacle"
+  },
+  "sco_premiership": {
+   "w": 0.25,
+   "sesgo_pick": -0.0142,
+   "n_partidos": 1803,
+   "delta_logloss": 0.0188,
+   "delta_acc": 0.0166,
+   "ancla": "pinnacle"
+  },
+  "suecia": {
+   "w": 0.25,
+   "sesgo_pick": -0.0226,
+   "n_partidos": 937,
+   "delta_logloss": 0.0291,
+   "delta_acc": 0.0426,
+   "ancla": "pinnacle"
+  },
+  "turquia": {
+   "w": 0.25,
+   "sesgo_pick": 0.024,
+   "n_partidos": 1500,
+   "delta_logloss": 0.0837,
+   "delta_acc": 0.0261,
+   "ancla": "pinnacle"
   }
  }
 }
