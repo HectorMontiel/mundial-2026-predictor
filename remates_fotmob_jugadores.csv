@@ -6011,23 +6011,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5147840,2026-03-26,selecciones,Croatia,Kristijan Jakic,643448,M,0,11,0,0,0,0.0,,2.0,6542044.0
 5147840,2026-03-26,selecciones,Croatia,Luka Modric,31097,M,0,11,0,0,0,0.0,,2.0,2177851.0
 5147840,2026-03-26,selecciones,Croatia,Toni Fruk,1300358,M,0,7,0,0,0,0.0,,2.0,7704814.0
-5089476,2026-03-26,selecciones,Brazil,Ederson,363364,G,1,90,0,0,0,0.0,11.0,0.0,15635318.0
-5089476,2026-03-26,selecciones,Brazil,Wesley,1320176,M,1,71,0,0,0,0.0,32.0,2.0,28465191.0
-5089476,2026-03-26,selecciones,Brazil,Gleison Bremer,857269,D,1,90,2,1,1,0.0,34.0,1.0,54522383.0
-5089476,2026-03-26,selecciones,Brazil,Léo Pereira,523801,D,1,90,1,1,0,0.0,36.0,1.0,7568627.0
-5089476,2026-03-26,selecciones,Brazil,Douglas Santos,346000,D,1,90,0,0,0,0.0,38.0,1.0,6607882.0
-5089476,2026-03-26,selecciones,Brazil,Raphinha,696679,F,1,45,1,0,0,0.0,72.0,3.0,77960393.0
-5089476,2026-03-26,selecciones,Brazil,Casemiro,208494,M,1,84,4,1,0,0.0,74.0,2.0,5716927.0
-5089476,2026-03-26,selecciones,Brazil,Andrey Santos,1372921,M,1,71,0,0,0,0.0,76.0,2.0,50091072.0
-5089476,2026-03-26,selecciones,Brazil,Gabriel Martinelli,1021586,F,1,62,2,0,0,0.0,78.0,3.0,48821141.0
-5089476,2026-03-26,selecciones,Brazil,Matheus Cunha,863098,F,1,71,1,0,0,0.0,104.0,3.0,58900201.0
-5089476,2026-03-26,selecciones,Brazil,Vinícius Júnior,846033,F,1,90,2,0,0,0.0,106.0,3.0,99925886.0
-5089476,2026-03-26,selecciones,Brazil,Luiz Henrique,1176214,F,0,45,3,1,0,0.0,,3.0,22669277.0
-5089476,2026-03-26,selecciones,Brazil,João Pedro,1021382,F,0,28,0,0,0,0.0,,3.0,71828935.0
-5089476,2026-03-26,selecciones,Brazil,Roger Ibañez,862538,D,0,19,0,0,0,0.0,,1.0,12160060.0
-5089476,2026-03-26,selecciones,Brazil,Danilo,1181700,M,0,19,1,0,0,0.0,,2.0,31462282.0
-5089476,2026-03-26,selecciones,Brazil,Igor Thiago,1302005,F,0,19,0,0,0,0.0,,3.0,25490228.0
-5089476,2026-03-26,selecciones,Brazil,Gabriel Sara,902710,M,0,6,0,0,0,0.0,,2.0,22484707.0
 5067292,2026-03-26,selecciones,Poland,Kamil Grabara,760722,G,1,90,0,0,0,0.0,11.0,0.0,13927375.0
 5067292,2026-03-26,selecciones,Poland,Tomasz Kedziora,306174,D,1,62,0,0,0,0.0,33.0,1.0,1003755.0
 5067292,2026-03-26,selecciones,Poland,Jan Bednarek,490868,D,1,90,0,0,0,0.0,35.0,1.0,8122741.0
@@ -132038,3 +132021,40 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991893,2026-09-29,selecciones,El Salvador,Jairo Henríquez,533162,M,0,45,1,0,0,0.0,,2.0,50000.0
 5991893,2026-09-29,selecciones,El Salvador,Mayer Gil,1377890,M,0,59,2,0,0,0.0,,2.0,448928.0
 5991893,2026-09-29,selecciones,El Salvador,Styven Vásquez,1288292,F,0,15,1,0,0,0.0,,3.0,170957.0
+5924777,2026-09-29,selecciones,Australia,Patrick Beach,1335765,G,1,90,0,0,0,0.0,11.0,0.0,1483768.0
+5924777,2026-09-29,selecciones,Australia,Alessandro Circati,1318686,D,1,90,2,1,1,0.0,33.0,1.0,10131223.0
+5924777,2026-09-29,selecciones,Australia,Harry Souttar,671518,D,1,90,0,0,0,0.0,35.0,1.0,2101408.0
+5924777,2026-09-29,selecciones,Australia,Lucas Herrington,1686118,D,1,90,0,0,0,0.0,37.0,1.0,1225345.0
+5924777,2026-09-29,selecciones,Australia,Jacob Italiano,889093,M,1,83,0,0,0,0.0,62.0,2.0,304026.0
+5924777,2026-09-29,selecciones,Australia,Jackson Irvine,369742,M,1,88,0,0,0,0.0,64.0,2.0,724581.0
+5924777,2026-09-29,selecciones,Australia,Paul Okon-Engstler,1527363,M,1,82,0,0,0,0.0,66.0,2.0,1361733.0
+5924777,2026-09-29,selecciones,Australia,Aziz Behich,192735,D,1,90,0,0,0,0.0,68.0,1.0,163442.0
+5924777,2026-09-29,selecciones,Australia,Connor Metcalfe,885870,M,1,69,1,1,1,0.0,84.0,2.0,869636.0
+5924777,2026-09-29,selecciones,Australia,Nestory Irankunda,1327214,M,1,81,1,0,0,0.0,86.0,2.0,7186586.0
+5924777,2026-09-29,selecciones,Australia,Tete Yengi,1220549,F,1,88,2,0,0,0.0,105.0,3.0,396114.0
+5924777,2026-09-29,selecciones,Australia,Riley McGree,733486,M,0,21,1,0,0,0.0,,2.0,2207614.0
+5924777,2026-09-29,selecciones,Australia,Aiden O'Neill,785377,M,0,8,0,0,0,0.0,,2.0,1765612.0
+5924777,2026-09-29,selecciones,Australia,Marcus Younis,1432615,F,0,8,0,0,0,0.0,,3.0,671592.0
+5924777,2026-09-29,selecciones,Australia,Jason Geria,418799,D,0,7,0,0,0,0.0,,1.0,292346.0
+5924777,2026-09-29,selecciones,Australia,Patrick Yazbek,1235411,M,0,2,0,0,0,0.0,,2.0,2391846.0
+5924777,2026-09-29,selecciones,Australia,Nishan Velupillay,1250885,F,0,2,0,0,0,0.0,,3.0,365372.0
+5924777,2026-09-29,selecciones,Brazil,Otávio,1732742,G,1,90,0,0,0,0.0,11.0,0.0,1092370.0
+5924777,2026-09-29,selecciones,Brazil,Vanderson,1207992,D,1,61,1,1,1,0.0,32.0,1.0,16548150.0
+5924777,2026-09-29,selecciones,Brazil,Jair Cunha,1391209,D,1,87,1,0,0,0.0,34.0,1.0,13310855.0
+5924777,2026-09-29,selecciones,Brazil,Gabriel,795179,D,1,90,1,1,0,0.0,36.0,1.0,82588929.0
+5924777,2026-09-29,selecciones,Brazil,Mauro Júnior,873556,D,1,88,0,0,0,0.0,38.0,1.0,12196668.0
+5924777,2026-09-29,selecciones,Brazil,Bruno Guimarães,850354,M,1,83,2,1,1,0.0,64.0,2.0,51077070.0
+5924777,2026-09-29,selecciones,Brazil,Danilo,1181700,M,1,87,2,0,0,0.0,66.0,2.0,18001432.0
+5924777,2026-09-29,selecciones,Brazil,Rayan,1478295,F,1,61,1,0,0,0.0,83.0,3.0,47583920.0
+5924777,2026-09-29,selecciones,Brazil,Gabriel Bontempo,1712138,F,1,61,1,0,0,0.0,85.0,3.0,5193470.0
+5924777,2026-09-29,selecciones,Brazil,Vinícius Júnior,846033,F,1,82,2,1,1,0.0,87.0,3.0,86613483.0
+5924777,2026-09-29,selecciones,Brazil,Raphinha,696679,F,1,45,3,3,1,0.0,115.0,3.0,50732964.0
+5924777,2026-09-29,selecciones,Brazil,Endrick,1406729,F,0,45,2,0,0,0.0,,3.0,28498700.0
+5924777,2026-09-29,selecciones,Brazil,Matheuzinho,1174660,D,0,29,0,0,0,0.0,,1.0,5177176.0
+5924777,2026-09-29,selecciones,Brazil,Andrey Santos,1372921,M,0,29,0,0,0,0.0,,2.0,39950938.0
+5924777,2026-09-29,selecciones,Brazil,Estêvão,1580774,F,0,29,2,1,0,0.0,,3.0,78710467.0
+5924777,2026-09-29,selecciones,Brazil,Martinelli,1187836,M,0,7,0,0,0,0.0,,2.0,12521016.0
+5924777,2026-09-29,selecciones,Brazil,Samuel Dias Lino,1082941,F,0,7,0,0,0,0.0,,3.0,13264677.0
+5924777,2026-09-29,selecciones,Brazil,Arthur Dias,1681911,D,0,2,0,0,0,0.0,,1.0,2167572.0
+5924777,2026-09-29,selecciones,Brazil,Vitor Reis,1580952,D,0,2,0,0,0,0.0,,1.0,31147463.0
+5924777,2026-09-29,selecciones,Brazil,Breno Bidon,1380775,M,0,2,0,0,0,0.0,,2.0,16769819.0
