@@ -229,7 +229,8 @@ jobs:
             # `--rebase` porque los otros workflows commitean a la vez y este
             # corre ocho veces al día: sin él, la carrera se pierde seguro.
             git commit -m "chore(dia): precálculo del día ($(date -u +%Y-%m-%dT%H:%MZ))"
-            git pull --rebase --autostash origin main || true
-            git push
+            # v312 — el mismo `|| true` que tumbaba al reentrenamiento: ver
+            # `git_sin_conflictos.py`
+            python git_sin_conflictos.py publicar
             echo "Día cocinado y publicado."
           fi

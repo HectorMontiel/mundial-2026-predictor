@@ -5151,16 +5151,28 @@ def render_alpha_finder():
     # Va como fichero adjunto y no como mensajes: medido, un día real son 368
     # partidos y 5.951 mercados, unos 457 KB, o sea 107 mensajes de Telegram
     # con su límite de frecuencia por medio.
+    # v312 — PASADO MAÑANA Y «TODO», Y EL FORMATO PARA UNA IA. El usuario:
+    # «deberá haber uno de pasado mañana y uno de enviar todo (hoy, mañana y
+    # pasado), y en eso que se envía deberán ir todas las estadísticas de las
+    # apuestas… para pasarlo a un LLM como segunda validación». El documento
+    # lo arma `formato_ia` (guía de lectura, 🎯 meter, modelo, contexto y
+    # mercados de cada partido).
+    _ayuda_ia = ('Envía a Telegram, como fichero adjunto, cada partido con las '
+                 'apuestas 🎯 meter de la app, todas sus estadísticas y sus '
+                 'mercados, en un formato listo para pegarlo en tu agente de IA.')
     if cacc3.button("🗂️ Todo lo de hoy", key='tg_send_hoy', width='stretch',
-                    help="Envía a Telegram TODOS los partidos de hoy de todos "
-                         "los deportes, con todos sus mercados y sus cuotas, "
-                         "como fichero adjunto."):
+                    help=_ayuda_ia):
         st.session_state['_enviar_dia_completo'] = 0
     if cacc4.button("🗓️ Todo lo de mañana", key='tg_send_manana',
-                    width='stretch',
-                    help="Lo mismo que el botón de al lado, pero con los "
-                         "partidos de mañana."):
+                    width='stretch', help=_ayuda_ia):
         st.session_state['_enviar_dia_completo'] = 1
+    cacc5, cacc6 = st.columns(2)
+    if cacc5.button("📅 Todo lo de pasado mañana", key='tg_send_pasado',
+                    width='stretch', help=_ayuda_ia):
+        st.session_state['_enviar_dia_completo'] = 2
+    if cacc6.button("📦 Enviar todo (hoy, mañana y pasado)", key='tg_send_todo',
+                    width='stretch', help=_ayuda_ia):
+        st.session_state['_enviar_dia_completo'] = 'todo'
 
     # v86: pasa por el guardia de proceso (ver barrido_universal), que impide
     # que dos sesiones lancen el barrido a la vez. El spinner se pone aquí
@@ -5231,15 +5243,19 @@ def render_alpha_finder():
     # widget que no se vuelve a registrar deja de estar vivo.
     _desp = st.session_state.pop('_enviar_dia_completo', None)
     if _desp is not None:
-        _etq = 'HOY' if _desp == 0 else 'MAÑANA'
+        _etq = {0: 'HOY', 1: 'MAÑANA', 2: 'PASADO MAÑANA',
+                'todo': 'HOY, MAÑANA Y PASADO MAÑANA'}.get(_desp, 'HOY')
         try:
             import bot_telegram as _bt_dia
+            import formato_ia as _fia
             import mercados_dia as _md_dia
-            _dia = _md_dia.dia_cdmx(int(_desp))
+            _dias = ([_md_dia.dia_cdmx(i) for i in (0, 1, 2)]
+                     if _desp == 'todo' else [_md_dia.dia_cdmx(int(_desp))])
+            _dia = _dias[0] if len(_dias) == 1 else '%s_a_%s' % (_dias[0],
+                                                                 _dias[-1])
             with st.spinner(f"Preparando todas las apuestas de {_etq.lower()}…"):
-                _ps = _md_dia.partidos_del_dia(r, _dia)
-                _txt = _bt_dia.texto_dia_completo(r, _dia, True, _ps)
-                _pie = _bt_dia.resumen_dia_completo(r, _dia, _etq, True, _ps)
+                _txt = _fia.texto(r, _dias)
+                _pie = _fia.resumen(r, _dias, _etq)
                 _ok = _bt_dia.enviar_documento(_txt, f"apuestas_{_dia}.txt",
                                                _pie)
             st.session_state['_dia_completo_listo'] = {

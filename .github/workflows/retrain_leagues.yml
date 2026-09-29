@@ -398,14 +398,15 @@ jobs:
           else
             fecha=$(date -u +%Y-%m-%d)
             git commit -m "chore(datos): históricos y estado de equipos ($fecha)"
-            for intento in 1 2 3; do
-              if git push; then
-                echo "Históricos guardados en main."
-                break
-              fi
-              echo "push rechazado (intento $intento), se rebasa y se reintenta"
-              git pull --rebase --autostash || true
-            done
+            # v312 — antes: `git pull --rebase --autostash || true`. Cuando
+            # otro bot había empujado, el autostash chocaba al devolver
+            # `lineas_jugador_hist/*.csv`, lo dejaba a medio fundir («U») y el
+            # `|| true` lo escondía; el paso FINAL moría una hora después
+            # (24, 25, 27 y 28 de septiembre). `git_sin_conflictos.py` une
+            # las filas de los CSV de histórico, se queda con lo recién
+            # generado en el resto y nunca deja un fichero en «U».
+            python git_sin_conflictos.py publicar \
+              || echo "::warning::los históricos se publicarán en el paso final"
           fi
 
       - name: Publicar los modelos como assets del Release
@@ -615,6 +616,10 @@ jobs:
         run: |
           git config user.name  "retrain-bot"
           git config user.email "actions@github.com"
+          # v312 — si algún paso anterior dejó un fichero a medio fundir, se
+          # resuelve AQUÍ, antes de tocar nada: era lo que mataba este paso
+          # («Committing is not possible because you have unmerged files»).
+          python git_sin_conflictos.py resolver
           # v148 — `modelos/` ya no entra: sus pesos viajan como assets del
           # Release. El `git add` se conserva por si el paso de transición
           # aún no ha corrido; con la carpeta ignorada es un no-op.
@@ -667,75 +672,15 @@ jobs:
           else
             fecha=$(date -u +%Y-%m-%d)
             git commit -m "chore(datos): reentrenamiento automático de ligas ($fecha)"
-
-            # v148 — UN PUSH HUMANO A MITAD DEL JOB YA NO TIRA EL DÍA ENTERO.
-            #
-            # Pasó el 2026-08-21: el job clonó a las 05:58, la v147 se empujó a
-            # `main` a las 06:26, y a las 06:50 el push del bot salió
-            # «! [rejected] main -> main (fetch first)». Todos los pasos
-            # anteriores en verde y **52 minutos de reentrenamiento a la
-            # basura**, porque el commit se queda en el runner y el runner se
-            # destruye. La ventana de colisión son los ~55 minutos que dura el
-            # job, todos los días.
-            #
-            # Se reintenta con rebase. En un conflicto la versión BUENA es la
-            # del bot: acaba de regenerar esos ficheros desde los datos de hoy,
-            # así que lo que hubiera en `main` es más viejo por construcción.
-            # Pero eso vale para los ARTEFACTOS y no para el código: si lo que
-            # choca es un `.py` o algo de `.github/`, aquí no hay criterio para
-            # decidir y se aborta con un aviso en vez de pisar el trabajo de
-            # alguien.
-            # v195.3 — EL REBASE PUEDE FALLAR SIN HABER EMPEZADO, Y ESO NO
-            # ES UN CONFLICTO.
-            #
-            # El 2026-09-12 el job murió con exit 128 después de 1 h 26 min de
-            # reentrenamiento. El push chocó con `cuotas_mx` (a3ac94a..29e6146)
-            # y al reintentar, el rebase ni arrancó:
-            #
-            #     error: cannot rebase: You have unstaged changes.
-            #
-            # Son ficheros que el job toca y NO se commitean —cachés, y sobre
-            # todo `odds_snapshots.csv`, que git renormaliza CRLF al añadirlo y
-            # deja el árbol distinto del índice—. El manejador de abajo dio por
-            # hecho que había un rebase a medias: no encontró conflictos, dijo
-            # «conflicto sólo en artefactos», y su propio `git rebase --abort`
-            # respondió «fatal: no rebase in progress». Con `bash -e`, eso mata
-            # el paso. O sea que el código escrito para SALVAR el día fue el
-            # que lo tiró.
-            #
-            # Dos arreglos. Primero, `--autostash`: aparta lo que esté sin
-            # guardar, rebasa y lo devuelve. No es un invento — es EXACTAMENTE
-            # lo que el paso hermano de más arriba («Guardar históricos y
-            # estado») ya usaba, y a éste se le quedó sin poner. Segundo, mirar
-            # si de verdad hay un rebase en marcha antes de tratarlo como un
-            # conflicto, y que ningún `abort` pueda tumbar el job.
-            for intento in 1 2 3; do
-              if git push; then
-                echo "Modelos actualizados y publicados."
-                exit 0
-              fi
-              echo "push rechazado (intento $intento): alguien empujó mientras corría el job."
-              git fetch origin main || true
-              if git rebase --autostash origin/main; then
-                continue
-              fi
-              if [ ! -d .git/rebase-merge ] && [ ! -d .git/rebase-apply ]; then
-                echo "::warning::el rebase no llegó a empezar (intento $intento). Se reintenta limpio."
-                git rebase --abort >/dev/null 2>&1 || true
-                git reset --hard HEAD >/dev/null 2>&1 || true
-                continue
-              fi
-              conflictos=$(git diff --name-only --diff-filter=U)
-              codigo=$(echo "$conflictos" | grep -E '\.py$|^\.github/' || true)
-              if [ -n "$codigo" ]; then
-                echo "::warning::conflicto en CÓDIGO durante el rebase ($codigo); no se pisa. Se aborta y se publicará en la próxima ejecución."
-                git rebase --abort || true
-                exit 0
-              fi
-              echo "conflicto sólo en artefactos: se toma la versión recién generada."
-              for f in $conflictos; do git checkout --theirs -- "$f" || git rm -f -- "$f"; done
-              git add -A
-              GIT_EDITOR=true git rebase --continue || { git rebase --abort || true; exit 0; }
-            done
-            echo "::warning::no se pudo publicar tras tres intentos; los artefactos se regeneran mañana."
+            # v148 → v195.3 → v312 — UN PUSH AJENO A MITAD DEL JOB NO TIRA EL
+            # DÍA. La historia de este bucle (un push humano que tiraba 52 min
+            # de trabajo, un rebase que no llegaba a empezar, un `abort` que
+            # mataba el paso con `bash -e`) terminó con un fichero en «U» que
+            # nadie resolvía. Ahora todo eso vive en `git_sin_conflictos.py`:
+            # une las filas de los CSV de histórico, gana lo recién generado en
+            # el resto de artefactos, no pisa código y nunca deja nada a medio
+            # fundir. Probado con los dos casos del fallo real (conflicto al
+            # devolver el autostash y conflicto dentro del rebase).
+            python git_sin_conflictos.py publicar \
+              || echo "::warning::no se pudo publicar tras varios intentos; los artefactos se regeneran mañana."
           fi

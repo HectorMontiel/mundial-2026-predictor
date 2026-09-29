@@ -113,6 +113,9 @@ VISTAS = {
             ('tg_send_top', 'envío del resumen a Telegram'),
             ('tg_send_hoy', 'envío de todo lo de hoy'),
             ('tg_send_manana', 'envío de todo lo de mañana'),
+            # v312 — pasado mañana y los tres días juntos
+            ('tg_send_pasado', 'envío de todo lo de pasado mañana'),
+            ('tg_send_todo', 'envío de hoy, mañana y pasado'),
         ],
         # Botones que además se PULSAN. Se eligen los del día completo
         # porque su rama construye el documento entero —368 partidos y 5.951
@@ -120,6 +123,8 @@ VISTAS = {
         'pulsar': [
             ('tg_send_hoy', 'envío de todo lo de hoy', 'dl_dia_completo'),
             ('tg_send_manana', 'envío de todo lo de mañana',
+             'dl_dia_completo'),
+            ('tg_send_todo', 'envío de hoy, mañana y pasado',
              'dl_dia_completo'),
         ],
         # `man_orden` YA NO ESTÁ, y no es un descuido. La vista que no se

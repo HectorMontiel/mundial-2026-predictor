@@ -349,19 +349,11 @@ jobs:
           else
             fecha=$(date -u +%Y-%m-%d)
             git commit -m "chore(calibracion): recalibración semanal de la cadena ($fecha)"
-            _ok=0
-            for intento in 1 2 3; do
-              if git push; then
-                echo "Calibraciones actualizadas y publicadas."
-                _ok=1
-                break
-              fi
-              echo "push rechazado (intento $intento): alguien empujó mientras corría el job."
-              git fetch origin main || true
-              git pull --rebase --autostash origin main || true
-            done
-            if [ "$_ok" != "1" ]; then
-              echo "::error::No se pudo publicar la recalibración tras 3 intentos."
+            # v312 — ver `git_sin_conflictos.py` (el `|| true` de antes podía
+            # dejar ficheros a medio fundir)
+            if ! python git_sin_conflictos.py publicar; then
+              echo "::error::No se pudo publicar la recalibración."
               exit 1
             fi
+            echo "Calibraciones actualizadas y publicadas."
           fi

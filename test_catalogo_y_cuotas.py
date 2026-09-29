@@ -13051,21 +13051,19 @@ def test_el_push_del_reentrenamiento_sobrevive_a_una_carrera():
     with open(ruta, encoding='utf-8') as f:
         yml = f.read()
 
-    # el bucle de reintento, tal cual esta en el workflow. Hay DOS en este
-    # fichero; el que fallo es el ultimo, el que publica los artefactos.
-    FIN_BUCLE = chr(10) + ' ' * 12 + 'done'
-    ini = yml.rfind('for intento in 1 2 3; do')
-    fin = yml.find(FIN_BUCLE, ini)
-    check(ini >= 0 and fin > ini,
-          'se encuentra el bucle de reintento del push en el workflow')
-    if not (ini >= 0 and fin > ini):
-        return
-    bloque = yml[ini:fin + len(FIN_BUCLE)]
-    guion = '\n'.join(l[12:] if l.startswith(' ' * 12) else l.lstrip()
-                      for l in bloque.splitlines())
-    check('rebase-merge' in guion or 'rebase-apply' in guion,
-          'el bucle comprueba si el rebase llego a empezar antes de tratarlo '
+    # v312 — el bucle de reintento del workflow se sustituyó por
+    # `git_sin_conflictos.py publicar` (el `|| true` del autostash dejaba
+    # ficheros a medio fundir). El ensayo es el MISMO escenario de siempre,
+    # pero ejecutando lo que el workflow ejecuta ahora.
+    import sys as _sys
+    check('python git_sin_conflictos.py publicar' in yml,
+          'el workflow publica con git_sin_conflictos.py')
+    _script = os.path.abspath('git_sin_conflictos.py')
+    check('_en_rebase' in open(_script, encoding='utf-8').read(),
+          'el script comprueba si el rebase llego a empezar antes de tratarlo '
           'como un conflicto')
+    guion = '"%s" "%s" publicar' % (_sys.executable.replace(chr(92), '/'),
+                                    _script.replace(chr(92), '/'))
 
     if shutil.which('git') is None:
         print('AVISO  sin git en el PATH: no se ejecuta el ensayo')
@@ -13307,9 +13305,12 @@ def test_el_envio_del_dia_completo_no_lanza_un_segundo_barrido():
         panel = fh.read()
     check("_enviar_dia_completo" in panel,
           'el panel tiene los botones del dia completo')
-    check('_bt_dia.texto_dia_completo(r, _dia' in panel,
+    # v312 — el documento lo arma `formato_ia` (formato para una IA), con el
+    # mismo barrido `r` ya en memoria
+    check('_fia.texto(r, _dias)' in panel,
           'y le pasan el barrido `r` que ya esta en memoria')
-    for boton in ('tg_send_hoy', 'tg_send_manana'):
+    for boton in ('tg_send_hoy', 'tg_send_manana', 'tg_send_pasado',
+                  'tg_send_todo'):
         check(f"key='{boton}'" in panel,
               f'existe el boton {boton}')
 

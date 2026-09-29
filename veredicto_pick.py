@@ -105,6 +105,62 @@ CUOTA_METER_FUTBOL = None
 # quitándosela también: 119 apuestas, prometido 76,9 %, real 73,9 %; con ella,
 # 134, prometido 73,5 %, real 74,6 %.
 MERCADOS_SIN_CORRECCION = ('Tarjetas', 'Remates', 'Remates a puerta')
+
+# v312 — LO QUE SE DICE «METER» EN FÚTBOL, DONDE SALEN MENOS ROJOS.
+#
+# El usuario: «lo que quiero evitar es tener muchos rojos; que me muestre más
+# verdes… las validaciones las harás con simulaciones de los partidos de hoy».
+# `_v312_patrones.py` reprodujo las 2.017 apuestas candidatas de 425
+# partidos (20-28 sep, última foto previa a cada partido, precios de
+# Playdoit, históricos recortados) y las liquidó. Los patrones de los rojos,
+# sacados SÓLO con los días 20-26:
+#
+#     «Doble y goles»            prometía 77,7 %  → pasó 70,3 %  (111)
+#     probabilidad 80-85 %       prometía 81,8 %  → pasó 67,0 %  ( 97)
+#     probabilidad 65-70 %       prometía 67,7 %  → pasó 63,4 %  (194)
+#     cuota ≥ 1,35               prometía 70,5 %  → pasó 64,8 %  (230)
+#     remates a puerta           ~72 %            → pasó 62 %    ( 77)
+#     hándicap                   71 %             → pasó 25 %    (  8)
+#
+# La regla que los quita (meter = 70-80 %, cuota < 1,35, sin esos mercados),
+# frente a la de antes, con el acierto de lo que se dice «meter»:
+#
+#                      antes                 ahora
+#     20-26 (elige)    71,7 % (895)          75,7 % (465)
+#     27-28 (juzga)    73,1 % (227)          80,2 % (101)   ROI −4,9 → +0,7 %
+#     hoy 28           72,3 % ( 83)          75,6 % ( 41)
+#
+# Bootstrap por partido de la mejora: +4,0 pts (p5 +2,0) al elegir y +7,0
+# (p5 +2,4) al juzgar. Menos apuestas —1,6 por partido en vez de 2,9— y
+# más verdes, que es lo que se pidió. Sólo fútbol: es lo medido.
+METER_FUTBOL_MIN = 0.70
+METER_FUTBOL_MAX = 0.80
+CUOTA_METER_FUTBOL_MAX = 1.35
+MERCADOS_NO_METER_FUTBOL = ('Doble y goles', 'Remates', 'Remates a puerta',
+                            'Handicap')
+
+
+def franja_futbol(v: Dict) -> Optional[str]:
+    """v312 — `None` si un «meter» de FÚTBOL de la tarjeta está en la franja
+    medida; si no, el motivo corto. Se aplica en `modo_modelo.recomendadas`
+    (la tarjeta, el documento de Telegram y el archivo de finalizados), NO en
+    `evaluar`: la Soñadora y las patas de combinada también usan el veredicto
+    y allí esta regla no está medida (y su cuota mínima por pata, 1,30, casi
+    no dejaría sitio bajo el tope de 1,35)."""
+    pick = v.get('pick') or {}
+    if str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+        return None
+    mercado = str(v.get('mercado') or pick.get('mercado') or '')
+    if mercado in MERCADOS_NO_METER_FUTBOL:
+        return '«%s» falla más de lo que promete' % mercado
+    p = _f(v.get('prob_ajustada'))
+    if p is None or not (METER_FUTBOL_MIN <= p <= METER_FUTBOL_MAX):
+        return 'fuera de la franja 70-80 %, donde se cumple lo prometido'
+    c = _f(v.get('cuota') if v.get('cuota') is not None else pick.get('cuota'))
+    if c is not None and c >= CUOTA_METER_FUTBOL_MAX:
+        return 'cuota %.2f: a partir de %.2f salen más rojos' % (
+            c, CUOTA_METER_FUTBOL_MAX)
+    return None
 # Cuánto puede corregir la fiabilidad medida. Topado porque una banda con
 # muestra corta puede tener una brecha grande por azar, y sin tope esa brecha
 # se convertiría en una corrección enorme.

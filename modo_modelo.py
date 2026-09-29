@@ -1785,6 +1785,17 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
         import veredicto_pick as _vp
         _vers = _vp.evaluar_lista(candidatas, con_contexto=False)
         if _vers:
+            # v312 — la franja medida de «meter» en fútbol (ver
+            # `veredicto_pick.franja_futbol`): fuera de ella, «no meter», y se
+            # reordena para que un descartado no ocupe el sitio de un «meter»
+            for v in _vers:
+                if v.get('veredicto') == _vp.METER:
+                    _fuera = _vp.franja_futbol(v)
+                    if _fuera:
+                        v['veredicto'] = _vp.NO_METER
+                        v.setdefault('razones', []).append(_fuera)
+            _vers.sort(key=lambda v: (v['veredicto'] != _vp.METER,
+                                      -float(v.get('prob_ajustada') or 0)))
             candidatas = []
             for v in _vers:
                 v['pick']['veredicto_vp'] = v.get('veredicto')

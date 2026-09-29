@@ -1,0 +1,342 @@
+{
+ "por_dia": {
+  "2026-09-20": {
+   "antes": {
+    "apuestas": 344,
+    "partidos": 122,
+    "verdes": 251,
+    "rojos": 93,
+    "acierto": 0.7297,
+    "prometido": 0.7291,
+    "roi": -0.0468
+   },
+   "ahora": {
+    "apuestas": 210,
+    "partidos": 113,
+    "verdes": 156,
+    "rojos": 54,
+    "acierto": 0.7429,
+    "prometido": 0.7443,
+    "roi": -0.0577
+   }
+  },
+  "2026-09-21": {
+   "antes": {
+    "apuestas": 21,
+    "partidos": 7,
+    "verdes": 17,
+    "rojos": 4,
+    "acierto": 0.8095,
+    "prometido": 0.7269,
+    "roi": 0.069
+   },
+   "ahora": {
+    "apuestas": 8,
+    "partidos": 6,
+    "verdes": 7,
+    "rojos": 1,
+    "acierto": 0.875,
+    "prometido": 0.7356,
+    "roi": 0.1179
+   }
+  },
+  "2026-09-22": {
+   "antes": {
+    "apuestas": 7,
+    "partidos": 2,
+    "verdes": 7,
+    "rojos": 0,
+    "acierto": 1.0,
+    "prometido": 0.7262,
+    "roi": 0.2934
+   },
+   "ahora": {
+    "apuestas": 5,
+    "partidos": 2,
+    "verdes": 5,
+    "rojos": 0,
+    "acierto": 1.0,
+    "prometido": 0.7391,
+    "roi": 0.2674
+   }
+  },
+  "2026-09-23": {
+   "antes": {
+    "apuestas": 15,
+    "partidos": 10,
+    "verdes": 10,
+    "rojos": 5,
+    "acierto": 0.6667,
+    "prometido": 0.7423,
+    "roi": -0.1352
+   },
+   "ahora": {
+    "apuestas": 8,
+    "partidos": 7,
+    "verdes": 6,
+    "rojos": 2,
+    "acierto": 0.75,
+    "prometido": 0.7574,
+    "roi": -0.0572
+   }
+  },
+  "2026-09-24": {
+   "antes": {
+    "apuestas": 74,
+    "partidos": 26,
+    "verdes": 56,
+    "rojos": 18,
+    "acierto": 0.7568,
+    "prometido": 0.7447,
+    "roi": 0.0129
+   },
+   "ahora": {
+    "apuestas": 31,
+    "partidos": 19,
+    "verdes": 22,
+    "rojos": 9,
+    "acierto": 0.7097,
+    "prometido": 0.7483,
+    "roi": -0.0993
+   }
+  },
+  "2026-09-25": {
+   "antes": {
+    "apuestas": 125,
+    "partidos": 43,
+    "verdes": 86,
+    "rojos": 39,
+    "acierto": 0.688,
+    "prometido": 0.7542,
+    "roi": -0.1079
+   },
+   "ahora": {
+    "apuestas": 71,
+    "partidos": 35,
+    "verdes": 49,
+    "rojos": 22,
+    "acierto": 0.6901,
+    "prometido": 0.7506,
+    "roi": -0.1336
+   }
+  },
+  "2026-09-26": {
+   "antes": {
+    "apuestas": 309,
+    "partidos": 97,
+    "verdes": 215,
+    "rojos": 94,
+    "acierto": 0.6958,
+    "prometido": 0.755,
+    "roi": -0.1026
+   },
+   "ahora": {
+    "apuestas": 166,
+    "partidos": 90,
+    "verdes": 128,
+    "rojos": 38,
+    "acierto": 0.7711,
+    "prometido": 0.7513,
+    "roi": -0.03
+   }
+  },
+  "2026-09-27": {
+   "antes": {
+    "apuestas": 144,
+    "partidos": 49,
+    "verdes": 106,
+    "rojos": 38,
+    "acierto": 0.7361,
+    "prometido": 0.7586,
+    "roi": -0.0424
+   },
+   "ahora": {
+    "apuestas": 70,
+    "partidos": 43,
+    "verdes": 58,
+    "rojos": 12,
+    "acierto": 0.8286,
+    "prometido": 0.7486,
+    "roi": 0.0495
+   }
+  },
+  "2026-09-28": {
+   "antes": {
+    "apuestas": 85,
+    "partidos": 28,
+    "verdes": 62,
+    "rojos": 23,
+    "acierto": 0.7294,
+    "prometido": 0.7596,
+    "roi": -0.0502
+   },
+   "ahora": {
+    "apuestas": 55,
+    "partidos": 27,
+    "verdes": 43,
+    "rojos": 12,
+    "acierto": 0.7818,
+    "prometido": 0.7496,
+    "roi": -0.0118
+   }
+  }
+ },
+ "eleccion": {
+  "antes": {
+   "apuestas": 895,
+   "partidos": 307,
+   "verdes": 642,
+   "rojos": 253,
+   "acierto": 0.7173,
+   "prometido": 0.743,
+   "roi": -0.0657
+  },
+  "ahora": {
+   "apuestas": 499,
+   "partidos": 272,
+   "verdes": 373,
+   "rojos": 126,
+   "acierto": 0.7475,
+   "prometido": 0.7478,
+   "roi": -0.0558
+  },
+  "bootstrap": {
+   "mejora_pts": 3.07,
+   "p5_pts": 0.83
+  }
+ },
+ "prueba": {
+  "dias": [
+   "2026-09-27",
+   "2026-09-28"
+  ],
+  "antes": {
+   "apuestas": 229,
+   "partidos": 77,
+   "verdes": 168,
+   "rojos": 61,
+   "acierto": 0.7336,
+   "prometido": 0.7589,
+   "roi": -0.0453
+  },
+  "ahora": {
+   "apuestas": 125,
+   "partidos": 70,
+   "verdes": 101,
+   "rojos": 24,
+   "acierto": 0.808,
+   "prometido": 0.7491,
+   "roi": 0.0225
+  },
+  "bootstrap": {
+   "mejora_pts": 7.43,
+   "p5_pts": 2.76
+  }
+ },
+ "hoy": {
+  "dia": "2026-09-28",
+  "antes": {
+   "apuestas": 85,
+   "partidos": 28,
+   "verdes": 62,
+   "rojos": 23,
+   "acierto": 0.7294,
+   "prometido": 0.7596,
+   "roi": -0.0502
+  },
+  "ahora": {
+   "apuestas": 55,
+   "partidos": 27,
+   "verdes": 43,
+   "rojos": 12,
+   "acierto": 0.7818,
+   "prometido": 0.7496,
+   "roi": -0.0118
+  }
+ },
+ "total": {
+  "antes": {
+   "apuestas": 1124,
+   "partidos": 384,
+   "verdes": 810,
+   "rojos": 314,
+   "acierto": 0.7206,
+   "prometido": 0.7462,
+   "roi": -0.0616
+  },
+  "ahora": {
+   "apuestas": 624,
+   "partidos": 342,
+   "verdes": 474,
+   "rojos": 150,
+   "acierto": 0.7596,
+   "prometido": 0.748,
+   "roi": -0.0401
+  }
+ },
+ "ahora_por_mercado": {
+  "1X2": {
+   "apuestas": 32,
+   "partidos": 32,
+   "verdes": 24,
+   "rojos": 8,
+   "acierto": 0.75,
+   "prometido": 0.7324,
+   "roi": -0.0298
+  },
+  "BTTS": {
+   "apuestas": 9,
+   "partidos": 9,
+   "verdes": 7,
+   "rojos": 2,
+   "acierto": 0.7778,
+   "prometido": 0.7266,
+   "roi": 0.0146
+  },
+  "Córners": {
+   "apuestas": 158,
+   "partidos": 158,
+   "verdes": 124,
+   "rojos": 34,
+   "acierto": 0.7848,
+   "prometido": 0.7424,
+   "roi": -0.0178
+  },
+  "Doble oportunidad": {
+   "apuestas": 102,
+   "partidos": 101,
+   "verdes": 73,
+   "rojos": 29,
+   "acierto": 0.7157,
+   "prometido": 0.729,
+   "roi": -0.0602
+  },
+  "Goles": {
+   "apuestas": 277,
+   "partidos": 276,
+   "verdes": 209,
+   "rojos": 68,
+   "acierto": 0.7545,
+   "prometido": 0.7605,
+   "roi": -0.0572
+  },
+  "Goles equipo": {
+   "apuestas": 18,
+   "partidos": 18,
+   "verdes": 16,
+   "rojos": 2,
+   "acierto": 0.8889,
+   "prometido": 0.7551,
+   "roi": 0.1118
+  },
+  "Tarjetas": {
+   "apuestas": 28,
+   "partidos": 28,
+   "verdes": 21,
+   "rojos": 7,
+   "acierto": 0.75,
+   "prometido": 0.7467,
+   "roi": -0.0505
+  }
+ }
+}

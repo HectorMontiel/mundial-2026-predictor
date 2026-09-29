@@ -113,8 +113,12 @@ def probar_el_meter():
           'meter sigue siendo probabilidad ≥ 65 %')
     base = {'apuesta': 'Goles: Más de 1.5', 'mercado': 'Goles', 'prob': 0.86,
             'deporte': 'Fútbol'}
-    check(vp.evaluar(dict(base, cuota=1.18))['veredicto'] == vp.METER,
-          'un 86 % a 1,18 se sigue metiendo')
+    # v312 — un 86 % ya no se mete en fútbol (franja 70-80 %, ver
+    # `veredicto_pick.METER_FUTBOL_MAX`); lo que se vigila aquí es que la
+    # cuota mínima de 1,40 no volvió
+    b75 = dict(base, prob=0.76)
+    check(vp.evaluar(dict(b75, cuota=1.18))['veredicto'] == vp.METER,
+          'un 76 % a 1,18 se mete: no hay cuota mínima')
     check('Córners' not in vp.MERCADOS_SIN_CORRECCION,
           'los córners conservan la corrección (ahí baja la cifra y acierta)')
     for m in ('Tarjetas', 'Remates', 'Remates a puerta'):

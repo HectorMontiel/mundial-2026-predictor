@@ -32,15 +32,15 @@ def probar_una_de_resultado():
     import modo_modelo as mm
     import valor_apuesta as va
     import veredicto_pick as vp
+    # v312 — dentro de la franja medida de «meter» (70-80 %, cuota < 1,35):
+    # dos apuestas de resultado (doble oportunidad y 1X2) y una de goles
     filas = [
-        {'mercado': 'Doble y goles', 'apuesta': 'Mexico o Colombia y menos de 5',
-         'prob': .70, 'cuota': 1.45, 'bloque': 'dc_goles', 'etiqueta': '12'},
         {'mercado': 'Doble oportunidad', 'apuesta': 'Mexico o empate',
-         'prob': .68, 'cuota': 1.40, 'bloque': 'resultado', 'etiqueta': 'Doble'},
-        {'mercado': 'Goles', 'apuesta': 'Goles: Menos de 3.5', 'prob': .75,
-         'cuota': 1.35, 'bloque': 'goles', 'etiqueta': 'Total'},
-        {'mercado': '1X2', 'apuesta': 'Gana Mexico', 'prob': .55,
-         'cuota': 2.0, 'bloque': 'resultado', 'etiqueta': 'Resultado'},
+         'prob': .76, 'cuota': 1.25, 'bloque': 'resultado', 'etiqueta': 'Doble'},
+        {'mercado': '1X2', 'apuesta': 'Gana Mexico', 'prob': .72,
+         'cuota': 1.30, 'bloque': 'resultado', 'etiqueta': 'Resultado'},
+        {'mercado': 'Goles', 'apuesta': 'Goles: Menos de 3.5', 'prob': .78,
+         'cuota': 1.22, 'bloque': 'goles', 'etiqueta': 'Total'},
     ]
     orig_m, orig_e = va.mejores, vp.evaluar_lista
     va.mejores = lambda pick, bloques, n=3: [dict(f) for f in filas]
@@ -57,7 +57,7 @@ def probar_una_de_resultado():
     res = [m for m in merc if m in mm.FAMILIA_RESULTADO]
     check(len(res) == 1, 'una sola apuesta de resultado por partido (%s)' % merc)
     check(r and r[0]['apuesta'] == 'Goles: Menos de 3.5'
-          and res == ['Doble y goles'],
+          and res == ['Doble oportunidad'],
           'y es la mejor de las de resultado, no la primera que llega')
     check(mm.metidas(r) and all(x['veredicto_vp'] == 'meter'
                                 for x in mm.metidas(r)),
