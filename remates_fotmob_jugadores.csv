@@ -17821,22 +17821,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014049,2026-07-26,col_primera_a,Águilas Doradas,Ricardo Márquez,1021589,F,0,19,0,0,0,0.0,,3.0,170752.0
 1000014049,2026-07-26,col_primera_a,Águilas Doradas,Iván Rojas,764267,M,0,1,0,0,0,0.0,,2.0,290133.0
 1000014049,2026-07-26,col_primera_a,Águilas Doradas,Sebastián Rodríguez,1032046,D,0,1,0,0,0,0.0,,1.0,339581.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Andrés Mosquera,520959,G,1,90,0,0,0,0.0,11.0,0.0,255364.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Mateo Puerta,845721,D,1,71,0,0,0,0.0,32.0,1.0,248656.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Emanuel Olivera,197456,D,1,90,1,1,0,0.05,34.0,1.0,249573.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Iván Scarpeta,1236305,D,1,90,0,0,0,0.0,36.0,1.0,342694.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Jeison Angulo,643523,D,1,90,0,0,0,0.0,38.0,1.0,250197.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Luis Palacios,1454807,M,1,62,2,1,0,0.08,73.0,2.0,566223.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Kilian Toscano,1572864,M,1,90,0,0,0,0.0,75.0,2.0,
-1000014049,2026-07-26,col_primera_a,Santa Fe,Jhojan Torres,1422890,M,1,90,0,0,0,0.0,77.0,2.0,1071486.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Franco Fagúndez,1345056,F,1,56,0,0,0,0.0,103.0,3.0,740597.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Nahuel Lautaro Bustos,835409,F,1,71,3,2,1,0.82,105.0,3.0,826923.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Omar Fernández,579659,F,1,56,0,0,0,0.0,107.0,3.0,505170.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Alexis Zapata,491242,M,0,34,3,0,0,0.09,,2.0,249676.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Maximiliano Lovera,747221,F,0,34,1,1,0,0.03,,3.0,438070.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Jáder Obrian,800063,F,0,28,0,0,0,0.0,,3.0,909386.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Kevin Balanta,675918,D,0,19,0,0,0,0.0,,1.0,917707.0
-1000014049,2026-07-26,col_primera_a,Santa Fe,Hugo Rodallega,71550,F,0,19,0,0,0,0.0,,3.0,593456.0
 1000009044,2026-07-26,ecu_liga_pro,Orense,Jordy Ortiz,1354139,G,1,90,0,0,0,0.0,11.0,0.0,173985.0
 1000009044,2026-07-26,ecu_liga_pro,Orense,Pedro Velasco,244574,D,1,90,1,0,0,0.0,32.0,1.0,246635.0
 1000009044,2026-07-26,ecu_liga_pro,Orense,Alan Lorenzo,1191068,D,1,90,0,0,0,0.0,34.0,1.0,173267.0
@@ -132290,3 +132274,81 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5181778,2026-09-29,selecciones,Switzerland,Vincent Sierro,634310,M,0,20,0,0,0,0.0,,2.0,1497819.0
 5181778,2026-09-29,selecciones,Switzerland,Alvyn Sanches,1203528,M,0,4,1,0,0,0.02,,2.0,7863835.0
 5181778,2026-09-29,selecciones,Switzerland,Cedric Itten,726956,F,0,4,0,0,0,0.0,,3.0,1442325.0
+5991932,2026-09-29,selecciones,French Guiana,Kayne Bonnevie,1297163,G,1,90,0,0,0,0.0,11.0,0.0,154606.0
+5991932,2026-09-29,selecciones,French Guiana,Mickaël Colino,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991932,2026-09-29,selecciones,French Guiana,Yoann Salmier,593612,D,1,90,0,0,0,0.0,34.0,1.0,221322.0
+5991932,2026-09-29,selecciones,French Guiana,Donovan Sini,0,D,1,90,0,0,0,0.0,36.0,1.0,
+5991932,2026-09-29,selecciones,French Guiana,Yohan Damien Marmot,0,D,1,90,0,0,0,0.0,38.0,1.0,
+5991932,2026-09-29,selecciones,French Guiana,Thomas Vancaeyezeele,936220,D,1,90,2,0,0,0.0,64.0,1.0,50000.0
+5991932,2026-09-29,selecciones,French Guiana,Zedan Charlec,1544917,M,1,90,0,0,0,0.0,66.0,2.0,
+5991932,2026-09-29,selecciones,French Guiana,Yvelin Nozile,1695196,F,1,90,2,0,0,0.0,83.0,3.0,
+5991932,2026-09-29,selecciones,French Guiana,Marcio Andelmon,0,,1,90,0,0,0,0.0,85.0,,
+5991932,2026-09-29,selecciones,French Guiana,Calvin Soga,0,,1,90,0,0,0,0.0,87.0,,
+5991932,2026-09-29,selecciones,French Guiana,Joël Sarrucco,1112946,F,1,45,2,0,0,0.0,115.0,3.0,
+5991932,2026-09-29,selecciones,French Guiana,Jules Haabo,859850,F,0,22,1,1,1,0.0,,3.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Ishan Kort,1112721,G,1,90,0,0,0,0.0,11.0,0.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Nathaniël Cristiano Krabbendam,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Imar Kort,1564707,D,1,90,0,0,0,0.0,34.0,1.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Mitchell Gerard de Nooijer,0,D,1,90,0,0,0,0.0,36.0,1.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Ties Kerssies,1372743,D,1,90,0,0,0,0.0,38.0,1.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Quintón Christopher Edson Christ,0,,1,90,0,0,0,0.0,64.0,,
+5991932,2026-09-29,selecciones,Sint Maarten,Oliver Noel Hobgood,0,,1,90,0,0,0,0.0,66.0,,
+5991932,2026-09-29,selecciones,Sint Maarten,Elmer de Vries,1455599,F,1,90,2,0,0,0.0,83.0,3.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Kay Gerritsen,1371887,M,1,90,0,0,0,0.0,85.0,2.0,
+5991932,2026-09-29,selecciones,Sint Maarten,Chovanie Amatkarijo,776247,F,1,90,1,1,0,0.0,87.0,3.0,126766.0
+5991932,2026-09-29,selecciones,Sint Maarten,Len Bleeker,0,,1,90,0,0,0,0.0,115.0,,
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Yimy Gómez,921719,G,1,90,0,0,0,0.0,11.0,0.0,427706.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Walmer Pacheco,831043,D,1,77,0,0,0,0.0,32.0,1.0,247613.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Sebastián Urrea,1455431,D,1,78,1,1,0,0.02,34.0,1.0,370827.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Danilo Ortiz,274514,D,1,90,2,0,0,0.12,36.0,1.0,234377.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Tobías Bovone,1437157,D,1,90,0,0,0,0.0,38.0,1.0,317394.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Jorge Bermúdez,1477842,M,1,90,1,0,0,0.02,65.0,2.0,346169.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Jordy Monroy,930613,F,1,90,1,0,0,0.04,82.0,3.0,248857.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Sebastián Acosta,1286381,M,1,71,0,0,0,0.0,84.0,2.0,234312.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Luis Moreno,0,M,1,71,0,0,0,0.0,86.0,2.0,
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Jhon Largacha,1451126,F,1,82,0,0,0,0.0,88.0,3.0,
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Marco Pérez,8780,F,1,82,2,2,1,0.92,115.0,3.0,280420.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Ederson Moreno,952312,M,0,19,0,0,0,0.0,,2.0,271874.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Ánderson Plata,299093,F,0,19,1,0,0,0.05,,3.0,199569.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Manuel Diaz,1944864,F,0,13,2,1,0,0.14,,3.0,
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Richard Rentería,1031649,D,0,8,0,0,0,0.0,,1.0,263781.0
+1000014076,2026-09-29,col_primera_a,Deportivo Pereira,Miguel Aguirre,1838246,M,0,8,0,0,0,0.0,,2.0,
+1000014076,2026-09-29,col_primera_a,Santa Fe,Andrés Mosquera,520959,G,1,90,0,0,0,0.0,11.0,0.0,163432.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Helibelton Palacios,282162,D,1,90,1,0,0,0.1,32.0,1.0,382978.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Emanuel Olivera,197456,D,1,90,0,0,0,0.0,34.0,1.0,159726.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Víctor Moreno,1097612,D,1,90,0,0,0,0.0,36.0,1.0,228664.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Christian Mafla,282301,D,1,90,2,2,0,0.09,38.0,1.0,274786.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Jáder Obrian,800063,M,1,87,0,0,0,0.0,72.0,2.0,809607.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Kilian Toscano,1572864,M,1,90,1,0,0,0.02,74.0,2.0,
+1000014076,2026-09-29,col_primera_a,Santa Fe,Jhojan Torres,1422890,M,1,66,0,0,0,0.0,76.0,2.0,709432.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Luis Palacios,1454807,M,1,64,1,1,0,0.02,78.0,2.0,620937.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Nahuel Lautaro Bustos,835409,F,1,79,3,3,2,0.78,104.0,3.0,808873.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Franco Fagúndez,1345056,F,1,66,0,0,0,0.0,106.0,3.0,887866.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Ewil Murillo,1202617,M,0,24,0,0,0,0.0,,2.0,608357.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Alexis Zapata,491242,M,0,24,0,0,0,0.0,,2.0,249876.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Hugo Rodallega,71550,F,0,11,1,0,0,0.03,,3.0,500025.0
+1000014076,2026-09-29,col_primera_a,Santa Fe,Iván Scarpeta,1236305,D,0,3,0,0,0,0.0,,1.0,248857.0
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Dylan Ramos,1260941,G,1,90,0,0,0,0.0,11.0,0.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Jett Blaschka,1240289,D,1,90,0,0,0,0.0,32.0,1.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Karson Kendall,1260893,D,1,90,0,0,0,0.0,34.0,1.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Quinn Farrell,1240296,D,1,90,0,0,0,0.0,36.0,1.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Andrew Shaffer,1625124,D,1,90,0,0,0,0.0,38.0,1.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Kaden Royer,0,,1,90,0,0,0,0.0,64.0,,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Joshua Ramos,1240291,D,1,90,3,1,0,0.0,66.0,1.0,170824.0
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Rakeem Joseph,1261768,F,1,78,1,1,1,0.0,83.0,3.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Jannick Liburd,1166305,D,1,90,0,0,0,0.0,85.0,1.0,191491.0
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Jimson St. Louis,1240297,M,1,90,2,1,1,0.0,87.0,2.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Gabriel Catone-Highfield,1677758,M,1,45,1,0,0,0.0,115.0,2.0,
+5991952,2026-09-29,selecciones,U.S. Virgin Islands,Naqwan Henry,1566105,F,0,31,2,0,0,0.0,,3.0,
+5991952,2026-09-29,selecciones,Bahamas,Ian Paul Lowe,0,G,1,90,0,0,0,0.0,11.0,0.0,
+5991952,2026-09-29,selecciones,Bahamas,Prince Cooper,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991952,2026-09-29,selecciones,Bahamas,Happy McNair Hall,0,D,1,90,0,0,0,0.0,34.0,1.0,
+5991952,2026-09-29,selecciones,Bahamas,Christopher Rahming,1544553,D,1,90,1,1,1,0.0,36.0,1.0,
+5991952,2026-09-29,selecciones,Bahamas,Quinton Carey,1102721,D,1,90,1,1,0,0.0,38.0,1.0,
+5991952,2026-09-29,selecciones,Bahamas,Nathan Wells,1032828,F,1,90,0,0,0,0.0,64.0,3.0,
+5991952,2026-09-29,selecciones,Bahamas,Marcel Joseph,623510,M,1,90,4,0,0,0.0,66.0,2.0,
+5991952,2026-09-29,selecciones,Bahamas,Peter Julmis,1242350,F,1,90,3,0,0,0.0,83.0,3.0,
+5991952,2026-09-29,selecciones,Bahamas,Michael Massey,1650884,M,1,90,0,0,0,0.0,85.0,2.0,
+5991952,2026-09-29,selecciones,Bahamas,Omari Bain,1687112,F,1,64,2,1,0,0.0,87.0,3.0,
+5991952,2026-09-29,selecciones,Bahamas,Brandon Adderley,1650879,F,1,90,3,2,0,0.0,115.0,3.0,
+5991952,2026-09-29,selecciones,Bahamas,William Bayles,1767358,M,0,26,1,1,0,0.0,,2.0,
