@@ -2950,8 +2950,9 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     st.markdown('**🚫 Nada que meter en este partido**')
             except Exception as _e_sm:
                 logger.debug('[modo_modelo] sin modelo: %s', _e_sm)
-            st.caption('Sin modelo propio para esta competición: las '
-                       'probabilidades son las de Pinnacle sin su margen.')
+            st.caption(str(pick.get('motivo_modelo') or
+                           'Sin modelo propio para esta competición: las '
+                           'probabilidades son las de Pinnacle sin su margen.'))
             try:
                 import pronosticos_guardados as _pgs
                 _pgs.guardar(pick, _recos_sm)

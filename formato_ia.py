@@ -59,6 +59,16 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   «meter» con Pinnacle 80-90 %, cuota 1,10-1,35 y local o local/empate
   (medido: 92 % de acierto en la réplica del 20-28 sep; más exigente que
   el modelo porque Pinnacle al 75 % acierta ~75 %, y eso bajaría el total).
+  Y en goles, «Más de 1.5» con las casas 80-90 % y cuota 1,10-1,35 (86,6 %
+  y 93,9 % en los dos tramos). Menos de 3,5 y ambos marcan ahí NO (medido).
+  «GOLES POR EQUIPO (sin cuota)»: sale de las λ que reproducen el 1X2 y el
+  más/menos de las casas; «más de 0.5» está bien calibrado, «más de 1.5»
+  promete un poco de más. Tus casas no los cotizan en esas ligas: si los
+  encuentras, métela sólo si pagan más que la «justa».
+- Patrones de cada liga (goles, local fuerte…): medido en 140 ligas chicas,
+  las casas ya los tienen en el precio; no suman.
+- Córners y tarjetas en ligas sin modelo: no hay estadística ni cuota; la
+  app no los ofrece.
 - «MERCADOS»: todo lo cotizado. «justa» = 1/probabilidad del modelo.
   EV = prob × cuota − 1 (positivo = la casa paga de más según el modelo).
 - «🚑 Bajas», «Árbitro», «Alineación»: contexto; puede faltar.
@@ -149,8 +159,25 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
         if pick.get('solo_mercado'):
             # v313 — sin modelo: el 1X2 de Pinnacle, dicho como lo que es
             b = pick.get('board') or {}
-            L.append('SIN MODELO PROPIO — 1X2 de Pinnacle sin margen: '
+            L.append('SIN MODELO PROPIO — 1X2 de %s sin margen: '
+                     % ('Pinnacle' if pick.get('pinnacle') else 'las casas')
                      + ' · '.join('%s %s' % (k, _pct(v)) for k, v in b.items()))
+            # v314 — goles por equipo, sin cuota (de las λ del mercado)
+            try:
+                import mercado_sin_modelo as _msm
+                lam = pick.get('lambdas_mercado')
+                ge = _msm.goles_equipo(lam)
+                if ge:
+                    h_, a_ = (reg['partido'].split(' vs ', 1) + [''])[:2]
+                    L.append('GOLES POR EQUIPO (sin cuota; λ %s y %s): %s más '
+                             'de 0.5 %s · más de 1.5 %s · %s más de 0.5 %s · '
+                             'más de 1.5 %s'
+                             % (_num(lam[0]), _num(lam[1]), h_,
+                                _pct(ge['local_0.5']), _pct(ge['local_1.5']),
+                                a_, _pct(ge['visita_0.5']),
+                                _pct(ge['visita_1.5'])))
+            except Exception:
+                pass
             if reg.get('mercados'):
                 L.append('MERCADOS:')
                 import bot_telegram as _bt

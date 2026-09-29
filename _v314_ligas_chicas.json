@@ -1,0 +1,798 @@
+{
+ "partidos": 753,
+ "eleccion_dias": "< 2026-09-27",
+ "prueba_dias": ">= 2026-09-27",
+ "ligas": 140,
+ "patrones_liga": {
+  "resultado": {
+   "grid_eleccion": {
+    "0": 0.18793102943049877,
+    "0.25": 0.18839750013105705,
+    "0.5": 0.18912965623199238,
+    "0.75": 0.19009079515349242,
+    "1": 0.19124631027279537
+   },
+   "w": 0,
+   "eleccion": {
+    "mejora_brier": -0.0,
+    "p5": -0.0
+   },
+   "prueba": {
+    "mejora_brier": -0.0,
+    "p5": -0.0
+   },
+   "pasa": false
+  },
+  "goles": {
+   "grid_eleccion": {
+    "0": 0.20430418555621263,
+    "0.25": 0.20548450304077,
+    "0.5": 0.2073488253851428,
+    "0.75": 0.20979019020163536,
+    "1": 0.21270266498132653
+   },
+   "w": 0,
+   "eleccion": {
+    "mejora_brier": -0.0,
+    "p5": -0.0
+   },
+   "prueba": {
+    "mejora_brier": -0.0,
+    "p5": -0.0
+   },
+   "pasa": false
+  },
+  "ambos": {
+   "grid_eleccion": {
+    "0": 0.23437118770016463,
+    "0.25": 0.23392280827798195,
+    "0.5": 0.23414565936889814,
+    "0.75": 0.2349578472592854,
+    "1": 0.23627009347323827
+   },
+   "w": 0.25,
+   "eleccion": {
+    "mejora_brier": 0.00048,
+    "p5": -0.00077
+   },
+   "prueba": {
+    "mejora_brier": 0.00124,
+    "p5": -0.00199
+   },
+   "pasa": false
+  }
+ },
+ "calibracion_mercado": {
+  "resultado": {
+   "(0.5, 0.6]": {
+    "n": 396,
+    "p": 0.551,
+    "real": 0.596
+   },
+   "(0.6, 0.7]": {
+    "n": 414,
+    "p": 0.649,
+    "real": 0.669
+   },
+   "(0.7, 0.75]": {
+    "n": 179,
+    "p": 0.724,
+    "real": 0.732
+   },
+   "(0.75, 0.8]": {
+    "n": 147,
+    "p": 0.775,
+    "real": 0.816
+   },
+   "(0.8, 0.85]": {
+    "n": 140,
+    "p": 0.824,
+    "real": 0.814
+   },
+   "(0.85, 0.9]": {
+    "n": 103,
+    "p": 0.873,
+    "real": 0.883
+   },
+   "(0.9, 1.0]": {
+    "n": 127,
+    "p": 0.945,
+    "real": 0.961
+   }
+  },
+  "goles": {
+   "(0.5, 0.6]": {
+    "n": 579,
+    "p": 0.554,
+    "real": 0.563
+   },
+   "(0.6, 0.7]": {
+    "n": 607,
+    "p": 0.649,
+    "real": 0.634
+   },
+   "(0.7, 0.75]": {
+    "n": 269,
+    "p": 0.724,
+    "real": 0.703
+   },
+   "(0.75, 0.8]": {
+    "n": 239,
+    "p": 0.776,
+    "real": 0.762
+   },
+   "(0.8, 0.85]": {
+    "n": 299,
+    "p": 0.825,
+    "real": 0.819
+   },
+   "(0.85, 0.9]": {
+    "n": 129,
+    "p": 0.874,
+    "real": 0.86
+   },
+   "(0.9, 1.0]": {
+    "n": 121,
+    "p": 0.932,
+    "real": 0.876
+   }
+  },
+  "ambos": {
+   "(0.5, 0.6]": {
+    "n": 429,
+    "p": 0.547,
+    "real": 0.545
+   },
+   "(0.6, 0.7]": {
+    "n": 223,
+    "p": 0.637,
+    "real": 0.673
+   },
+   "(0.7, 0.75]": {
+    "n": 28,
+    "p": 0.724,
+    "real": 0.75
+   },
+   "(0.75, 0.8]": {
+    "n": 9,
+    "p": 0.775,
+    "real": 0.556
+   },
+   "(0.8, 0.85]": {
+    "n": 4,
+    "p": 0.823,
+    "real": 0.75
+   },
+   "(0.85, 0.9]": {
+    "n": 2,
+    "p": 0.86,
+    "real": 1.0
+   }
+  }
+ },
+ "reglas_goles": {
+  "goles (todas las líneas) · 70-80 %": {
+   "eleccion": {
+    "n": 235,
+    "acierto": 0.7617,
+    "p5": 0.7191,
+    "roi": -0.0382,
+    "cuota_media": 1.263
+   },
+   "prueba": {
+    "n": 46,
+    "acierto": 0.7391,
+    "p5": 0.6304,
+    "roi": -0.0696,
+    "cuota_media": 1.263
+   }
+  },
+  "goles (todas las líneas) · 75-85 %": {
+   "eleccion": {
+    "n": 446,
+    "acierto": 0.7848,
+    "p5": 0.7534,
+    "roi": -0.046,
+    "cuota_media": 1.217
+   },
+   "prueba": {
+    "n": 89,
+    "acierto": 0.8315,
+    "p5": 0.764,
+    "roi": 0.0065,
+    "cuota_media": 1.213
+   }
+  },
+  "goles (todas las líneas) · 80-90 %": {
+   "eleccion": {
+    "n": 349,
+    "acierto": 0.8252,
+    "p5": 0.7908,
+    "roi": -0.0346,
+    "cuota_media": 1.171
+   },
+   "prueba": {
+    "n": 66,
+    "acierto": 0.8788,
+    "p5": 0.803,
+    "roi": 0.0285,
+    "cuota_media": 1.171
+   }
+  },
+  "más de 1,5 · 70-80 %": {
+   "eleccion": {
+    "n": 138,
+    "acierto": 0.7174,
+    "p5": 0.6522,
+    "roi": -0.0876,
+    "cuota_media": 1.272
+   },
+   "prueba": {
+    "n": 31,
+    "acierto": 0.5484,
+    "p5": 0.3871,
+    "roi": -0.3029,
+    "cuota_media": 1.282
+   }
+  },
+  "más de 1,5 · 75-85 %": {
+   "eleccion": {
+    "n": 258,
+    "acierto": 0.7984,
+    "p5": 0.7558,
+    "roi": -0.0355,
+    "cuota_media": 1.211
+   },
+   "prueba": {
+    "n": 40,
+    "acierto": 0.825,
+    "p5": 0.725,
+    "roi": -0.0105,
+    "cuota_media": 1.206
+   }
+  },
+  "más de 1,5 · 80-90 %": {
+   "eleccion": {
+    "n": 232,
+    "acierto": 0.8664,
+    "p5": 0.8319,
+    "roi": 0.0112,
+    "cuota_media": 1.168
+   },
+   "prueba": {
+    "n": 33,
+    "acierto": 0.9394,
+    "p5": 0.8485,
+    "roi": 0.0958,
+    "cuota_media": 1.168
+   }
+  },
+  "menos de 3,5 · 70-80 %": {
+   "eleccion": {
+    "n": 115,
+    "acierto": 0.7826,
+    "p5": 0.7217,
+    "roi": -0.0061,
+    "cuota_media": 1.27
+   },
+   "prueba": {
+    "n": 34,
+    "acierto": 0.8824,
+    "p5": 0.7941,
+    "roi": 0.1241,
+    "cuota_media": 1.276
+   }
+  },
+  "menos de 3,5 · 75-85 %": {
+   "eleccion": {
+    "n": 146,
+    "acierto": 0.7808,
+    "p5": 0.726,
+    "roi": -0.0422,
+    "cuota_media": 1.225
+   },
+   "prueba": {
+    "n": 47,
+    "acierto": 0.8511,
+    "p5": 0.7447,
+    "roi": 0.0396,
+    "cuota_media": 1.219
+   }
+  },
+  "menos de 3,5 · 80-90 %": {
+   "eleccion": {
+    "n": 94,
+    "acierto": 0.7553,
+    "p5": 0.6809,
+    "roi": -0.1101,
+    "cuota_media": 1.176
+   },
+   "prueba": {
+    "n": 32,
+    "acierto": 0.8125,
+    "p5": 0.6875,
+    "roi": -0.0444,
+    "cuota_media": 1.174
+   }
+  },
+  "más de 1,5 y menos de 3,5 · 70-80 %": {
+   "eleccion": {
+    "n": 182,
+    "acierto": 0.7692,
+    "p5": 0.7143,
+    "roi": -0.0323,
+    "cuota_media": 1.257
+   },
+   "prueba": {
+    "n": 41,
+    "acierto": 0.7805,
+    "p5": 0.6585,
+    "roi": -0.0202,
+    "cuota_media": 1.259
+   }
+  },
+  "más de 1,5 y menos de 3,5 · 75-85 %": {
+   "eleccion": {
+    "n": 402,
+    "acierto": 0.791,
+    "p5": 0.7562,
+    "roi": -0.0396,
+    "cuota_media": 1.216
+   },
+   "prueba": {
+    "n": 87,
+    "acierto": 0.8391,
+    "p5": 0.7701,
+    "roi": 0.0166,
+    "cuota_media": 1.213
+   }
+  },
+  "más de 1,5 y menos de 3,5 · 80-90 %": {
+   "eleccion": {
+    "n": 326,
+    "acierto": 0.8344,
+    "p5": 0.8006,
+    "roi": -0.0238,
+    "cuota_media": 1.171
+   },
+   "prueba": {
+    "n": 65,
+    "acierto": 0.8769,
+    "p5": 0.8154,
+    "roi": 0.0268,
+    "cuota_media": 1.171
+   }
+  },
+  "ambos marcan · 70-80 %": {
+   "eleccion": {
+    "n": 21,
+    "acierto": 0.7143,
+    "p5": 0.5714,
+    "roi": -0.0781,
+    "cuota_media": 1.29
+   },
+   "prueba": {
+    "n": 3,
+    "acierto": 0.3333,
+    "p5": 0.0,
+    "roi": -0.5633,
+    "cuota_media": 1.253
+   }
+  },
+  "ambos marcan · 75-85 %": {
+   "eleccion": {
+    "n": 9,
+    "acierto": 0.7778,
+    "p5": 0.5556,
+    "roi": -0.05,
+    "cuota_media": 1.231
+   },
+   "prueba": {
+    "n": 4,
+    "acierto": 0.25,
+    "p5": 0.0,
+    "roi": -0.7075,
+    "cuota_media": 1.203
+   }
+  },
+  "ambos marcan · 80-90 %": {
+   "eleccion": {
+    "n": 4,
+    "acierto": 1.0,
+    "p5": 1.0,
+    "roi": 0.15,
+    "cuota_media": 1.15
+   },
+   "prueba": {
+    "n": 2,
+    "acierto": 0.5,
+    "p5": 0.0,
+    "roi": -0.415,
+    "cuota_media": 1.18
+   }
+  }
+ },
+ "regla_goles_elegida": "más de 1,5 · 80-90 %",
+ "regla_goles_por_dia": {
+  "2026-09-19": {
+   "n": 25,
+   "acierto": 0.8,
+   "p5": 0.68,
+   "roi": -0.0544,
+   "cuota_media": 1.184
+  },
+  "2026-09-20": {
+   "n": 60,
+   "acierto": 0.9333,
+   "p5": 0.8833,
+   "roi": 0.099,
+   "cuota_media": 1.179
+  },
+  "2026-09-21": {
+   "n": 18,
+   "acierto": 0.9444,
+   "p5": 0.8333,
+   "roi": 0.1106,
+   "cuota_media": 1.176
+  },
+  "2026-09-22": {
+   "n": 37,
+   "acierto": 0.9189,
+   "p5": 0.8378,
+   "roi": 0.0635,
+   "cuota_media": 1.157
+  },
+  "2026-09-23": {
+   "n": 32,
+   "acierto": 0.8438,
+   "p5": 0.7484,
+   "roi": -0.0306,
+   "cuota_media": 1.152
+  },
+  "2026-09-24": {
+   "n": 5,
+   "acierto": 0.8,
+   "p5": 0.4,
+   "roi": -0.058,
+   "cuota_media": 1.178
+  },
+  "2026-09-25": {
+   "n": 21,
+   "acierto": 0.8571,
+   "p5": 0.7143,
+   "roi": -0.0095,
+   "cuota_media": 1.158
+  },
+  "2026-09-26": {
+   "n": 34,
+   "acierto": 0.7353,
+   "p5": 0.6176,
+   "roi": -0.1426,
+   "cuota_media": 1.167
+  },
+  "2026-09-27": {
+   "n": 24,
+   "acierto": 0.9167,
+   "p5": 0.7917,
+   "roi": 0.0679,
+   "cuota_media": 1.167
+  },
+  "2026-09-28": {
+   "n": 9,
+   "acierto": 1.0,
+   "p5": 1.0,
+   "roi": 0.17,
+   "cuota_media": 1.17
+  }
+ },
+ "sumado": {
+  "eleccion": {
+   "hasta_v313": "420/549 = 76.5 %",
+   "goles_ligas_chicas": "201/232",
+   "juntos": "621/781 = 79.5 %"
+  },
+  "prueba": {
+   "hasta_v313": "116/142 = 81.7 %",
+   "goles_ligas_chicas": "31/33",
+   "juntos": "147/175 = 84.0 %"
+  },
+  "hoy": {
+   "hasta_v313": "48/60 = 80.0 %",
+   "goles_ligas_chicas": "9/9",
+   "juntos": "57/69 = 82.6 %"
+  }
+ },
+ "goles_equipo": {
+  "más de 0.5": {
+   "(0.0, 0.5]": {
+    "n": 105,
+    "p": 0.409,
+    "real": 0.381
+   },
+   "(0.5, 0.6]": {
+    "n": 184,
+    "p": 0.557,
+    "real": 0.505
+   },
+   "(0.6, 0.7]": {
+    "n": 324,
+    "p": 0.657,
+    "real": 0.657
+   },
+   "(0.7, 0.8]": {
+    "n": 427,
+    "p": 0.754,
+    "real": 0.775
+   },
+   "(0.8, 0.9]": {
+    "n": 333,
+    "p": 0.846,
+    "real": 0.877
+   },
+   "(0.9, 1.0]": {
+    "n": 133,
+    "p": 0.943,
+    "real": 0.955
+   }
+  },
+  "más de 1.5": {
+   "(0.0, 0.5]": {
+    "n": 1084,
+    "p": 0.312,
+    "real": 0.319
+   },
+   "(0.5, 0.6]": {
+    "n": 204,
+    "p": 0.546,
+    "real": 0.554
+   },
+   "(0.6, 0.7]": {
+    "n": 98,
+    "p": 0.641,
+    "real": 0.582
+   },
+   "(0.7, 0.8]": {
+    "n": 64,
+    "p": 0.743,
+    "real": 0.719
+   },
+   "(0.8, 0.9]": {
+    "n": 48,
+    "p": 0.844,
+    "real": 0.812
+   },
+   "(0.9, 1.0]": {
+    "n": 8,
+    "p": 0.908,
+    "real": 0.75
+   }
+  }
+ },
+ "ligas_patron": [
+  {
+   "liga": "Federal A Relegation Zona A",
+   "partidos_medidos": 40,
+   "historia_60d": 277,
+   "local_gana": 0.45,
+   "mas_2.5": 0.321,
+   "ambos_marcan": 0.359,
+   "goles_partido": 2.02
+  },
+  {
+   "liga": "EFL Trophy Northern Grp. A",
+   "partidos_medidos": 23,
+   "historia_60d": 36,
+   "local_gana": 0.424,
+   "mas_2.5": 0.667,
+   "ambos_marcan": 0.688,
+   "goles_partido": 3.54
+  },
+  {
+   "liga": "Challenge Cup",
+   "partidos_medidos": 22,
+   "historia_60d": 99,
+   "local_gana": 0.492,
+   "mas_2.5": 0.719,
+   "ambos_marcan": 0.607,
+   "goles_partido": 3.74
+  },
+  {
+   "liga": "National League North",
+   "partidos_medidos": 19,
+   "historia_60d": 208,
+   "local_gana": 0.42,
+   "mas_2.5": 0.51,
+   "ambos_marcan": 0.539,
+   "goles_partido": 2.77
+  },
+  {
+   "liga": "Serie C Grp. A",
+   "partidos_medidos": 18,
+   "historia_60d": 204,
+   "local_gana": 0.421,
+   "mas_2.5": 0.499,
+   "ambos_marcan": 0.539,
+   "goles_partido": 2.62
+  },
+  {
+   "liga": "EURO U21 Qualification Grp. I",
+   "partidos_medidos": 18,
+   "historia_60d": 17,
+   "local_gana": 0.429,
+   "mas_2.5": 0.563,
+   "ambos_marcan": 0.534,
+   "goles_partido": 2.9
+  },
+  {
+   "liga": "Regionalliga North",
+   "partidos_medidos": 17,
+   "historia_60d": 442,
+   "local_gana": 0.385,
+   "mas_2.5": 0.641,
+   "ambos_marcan": 0.624,
+   "goles_partido": 3.31
+  },
+  {
+   "liga": "Southern Premier Division Central",
+   "partidos_medidos": 17,
+   "historia_60d": 345,
+   "local_gana": 0.476,
+   "mas_2.5": 0.606,
+   "ambos_marcan": 0.572,
+   "goles_partido": 3.14
+  },
+  {
+   "liga": "Second Professional League",
+   "partidos_medidos": 17,
+   "historia_60d": 88,
+   "local_gana": 0.514,
+   "mas_2.5": 0.488,
+   "ambos_marcan": 0.472,
+   "goles_partido": 2.75
+  },
+  {
+   "liga": "3. Divisjon Avd. 2",
+   "partidos_medidos": 16,
+   "historia_60d": 333,
+   "local_gana": 0.491,
+   "mas_2.5": 0.783,
+   "ambos_marcan": 0.694,
+   "goles_partido": 4.4
+  },
+  {
+   "liga": "Asian Games Grp. B",
+   "partidos_medidos": 16,
+   "historia_60d": 24,
+   "local_gana": 0.431,
+   "mas_2.5": 0.539,
+   "ambos_marcan": 0.512,
+   "goles_partido": 3.06
+  },
+  {
+   "liga": "MLS Next Pro",
+   "partidos_medidos": 15,
+   "historia_60d": 135,
+   "local_gana": 0.486,
+   "mas_2.5": 0.668,
+   "ambos_marcan": 0.665,
+   "goles_partido": 3.48
+  },
+  {
+   "liga": "Cup",
+   "partidos_medidos": 14,
+   "historia_60d": 23,
+   "local_gana": 0.439,
+   "mas_2.5": 0.544,
+   "ambos_marcan": 0.486,
+   "goles_partido": 2.78
+  },
+  {
+   "liga": "UEFA Women's Europa Cup - 2nd Qualifying Round",
+   "partidos_medidos": 14,
+   "historia_60d": 38,
+   "local_gana": 0.42,
+   "mas_2.5": 0.57,
+   "ambos_marcan": 0.541,
+   "goles_partido": 3.33
+  },
+  {
+   "liga": "Primera B",
+   "partidos_medidos": 13,
+   "historia_60d": 68,
+   "local_gana": 0.388,
+   "mas_2.5": 0.441,
+   "ambos_marcan": 0.491,
+   "goles_partido": 2.44
+  },
+  {
+   "liga": "NPFL",
+   "partidos_medidos": 12,
+   "historia_60d": 46,
+   "local_gana": 0.559,
+   "mas_2.5": 0.527,
+   "ambos_marcan": 0.527,
+   "goles_partido": 2.77
+  },
+  {
+   "liga": "Azadegan League",
+   "partidos_medidos": 12,
+   "historia_60d": 21,
+   "local_gana": 0.289,
+   "mas_2.5": 0.414,
+   "ambos_marcan": 0.414,
+   "goles_partido": 2.32
+  },
+  {
+   "liga": "Primera A",
+   "partidos_medidos": 11,
+   "historia_60d": 95,
+   "local_gana": 0.373,
+   "mas_2.5": 0.516,
+   "ambos_marcan": 0.582,
+   "goles_partido": 2.73
+  },
+  {
+   "liga": "Super League 2",
+   "partidos_medidos": 11,
+   "historia_60d": 30,
+   "local_gana": 0.526,
+   "mas_2.5": 0.468,
+   "ambos_marcan": 0.484,
+   "goles_partido": 2.56
+  },
+  {
+   "liga": "Primera Federacion - Group 1",
+   "partidos_medidos": 11,
+   "historia_60d": 98,
+   "local_gana": 0.469,
+   "mas_2.5": 0.518,
+   "ambos_marcan": 0.529,
+   "goles_partido": 2.69
+  },
+  {
+   "liga": "Primera Nacional",
+   "partidos_medidos": 10,
+   "historia_60d": 168,
+   "local_gana": 0.509,
+   "mas_2.5": 0.387,
+   "ambos_marcan": 0.405,
+   "goles_partido": 2.14
+  },
+  {
+   "liga": "Segunda Federacion - Group 2",
+   "partidos_medidos": 10,
+   "historia_60d": 175,
+   "local_gana": 0.45,
+   "mas_2.5": 0.508,
+   "ambos_marcan": 0.482,
+   "goles_partido": 2.61
+  },
+  {
+   "liga": "WSL",
+   "partidos_medidos": 10,
+   "historia_60d": 27,
+   "local_gana": 0.432,
+   "mas_2.5": 0.544,
+   "ambos_marcan": 0.554,
+   "goles_partido": 2.99
+  },
+  {
+   "liga": "WSL 2",
+   "partidos_medidos": 10,
+   "historia_60d": 19,
+   "local_gana": 0.393,
+   "mas_2.5": 0.557,
+   "ambos_marcan": 0.546,
+   "goles_partido": 2.86
+  },
+  {
+   "liga": "QSL Cup",
+   "partidos_medidos": 10,
+   "historia_60d": 10,
+   "local_gana": 0.46,
+   "mas_2.5": 0.497,
+   "ambos_marcan": 0.47,
+   "goles_partido": 2.77
+  }
+ ]
+}

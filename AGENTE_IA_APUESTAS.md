@@ -100,7 +100,15 @@ léela primero. Luego, por partido:
   de 1,35 y nunca en «doble y goles», remates ni hándicap. Así lo marcado se
   cumplió ~76-81 % (20-28 sep).
 - Fútbol SIN modelo propio: sólo marca «meter» con Pinnacle 80-90 %, cuota
-  1,10-1,35 y «gana el local» o «local o empate» (92 % en la réplica).
+  1,10-1,35 y «gana el local» o «local o empate» (92 % en la réplica), y en
+  goles sólo «Más de 1.5» con las casas 80-90 % y cuota 1,10-1,35 (87-94 %).
+  «GOLES POR EQUIPO (sin cuota)» es un dato: si lo encuentras en una casa,
+  sólo vale si paga más que su cuota justa (1/prob).
+- Los patrones de cada liga chica (muchos o pocos goles, local fuerte) ya
+  están en el precio de las casas: medido en 140 ligas, no suman. No subas
+  una probabilidad sólo porque «en esa liga hay muchos goles».
+- Córners y tarjetas en ligas sin modelo: no hay estadística ni cuota. Si te
+  los piden, dilo y usa sólo lo que encuentres en la web.
 - Aun acertando mucho, las casas conservan su margen: la cuota tiene que
   pagar. Una del 85 % a 1,10 casi no deja nada.
 - Si la prob del predictor está MÁS DE 5 PUNTOS por encima de «casa sin
