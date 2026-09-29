@@ -534,22 +534,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4196556,2025-09-05,selecciones,Chile,Rodrigo Echeverria,517555,M,0,13,0,0,0,0.0,,2.0,
 4196556,2025-09-05,selecciones,Chile,Lucas Assadi,1278686,F,0,13,0,0,0,0.0,,3.0,1336252.0
 4196556,2025-09-05,selecciones,Chile,Maximiliano Gutierrez,1404859,F,0,12,0,0,0,0.0,,3.0,1019892.0
-4822522,2025-09-05,selecciones,Guatemala,Nicholas Hagen,960923,G,1,90,0,0,0,0.0,11.0,0.0,
-4822522,2025-09-05,selecciones,Guatemala,Aaron Herrera,847991,D,1,90,1,0,0,0.04,32.0,1.0,1013527.0
-4822522,2025-09-05,selecciones,Guatemala,Jose Carlos Pinto,423070,D,1,90,0,0,0,0.0,34.0,1.0,
-4822522,2025-09-05,selecciones,Guatemala,Nicolas Samayoa,928507,D,1,79,0,0,0,0.0,36.0,1.0,
-4822522,2025-09-05,selecciones,Guatemala,José Morales,1104411,D,1,90,3,1,0,0.13,38.0,1.0,
-4822522,2025-09-05,selecciones,Guatemala,Stheven Robles,921826,M,1,26,0,0,0,0.0,64.0,2.0,
-4822522,2025-09-05,selecciones,Guatemala,Jonathan Franco,1418087,M,1,90,3,1,0,0.25,66.0,2.0,
-4822522,2025-09-05,selecciones,Guatemala,Oscar Santis,1204475,F,1,79,1,0,0,0.03,83.0,3.0,
-4822522,2025-09-05,selecciones,Guatemala,Olger Escobar,1650206,M,1,56,3,1,0,0.18,85.0,2.0,704218.0
-4822522,2025-09-05,selecciones,Guatemala,Rudy Munoz,1477459,M,1,56,1,0,0,0.02,87.0,2.0,
-4822522,2025-09-05,selecciones,Guatemala,Rubio Rubin,570980,F,1,90,1,0,0,0.08,115.0,3.0,146112.0
-4822522,2025-09-05,selecciones,Guatemala,Oscar Castellanos,988814,M,0,64,1,1,0,0.02,,2.0,
-4822522,2025-09-05,selecciones,Guatemala,Arquimides Ordonez,1269658,F,0,34,3,0,0,0.24,,3.0,166903.0
-4822522,2025-09-05,selecciones,Guatemala,Pedro Altan,662447,F,0,34,0,0,0,0.0,,3.0,
-4822522,2025-09-05,selecciones,Guatemala,Darwin Lom,1131954,F,0,11,1,1,0,0.05,,3.0,
-4822522,2025-09-05,selecciones,Guatemala,Nathaniel Mendez-Laing,206435,F,0,11,1,0,0,0.04,,3.0,199877.0
 4822522,2025-09-05,selecciones,El Salvador,Mario Gonzalez,1261973,G,1,90,0,0,0,0.0,11.0,0.0,
 4822522,2025-09-05,selecciones,El Salvador,Julio Sibrian,1048983,D,1,90,0,0,0,0.0,32.0,1.0,50000.0
 4822522,2025-09-05,selecciones,El Salvador,Henry Romero,599868,D,1,90,1,0,0,0.04,34.0,1.0,50000.0
@@ -131954,77 +131938,103 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991924,2026-09-28,selecciones,Bonaire,Berry Sonnenschein,1374560,M,1,90,0,0,0,0.0,86.0,2.0,
 5991924,2026-09-28,selecciones,Bonaire,Ninho Felicia,2128837,M,1,90,1,1,0,0.0,88.0,2.0,
 5991924,2026-09-28,selecciones,Bonaire,Ayrton Cicilia,1371884,M,1,90,1,1,0,0.0,115.0,2.0,
-5991892,2026-09-29,selecciones,Jamaica,Andre Blake,525631,G,1,90,0,0,0,0.0,11,0,62112
-5991892,2026-09-29,selecciones,Jamaica,Brandon Cover,1203656,D,1,90,0,0,0,0.0,32,1,182334
-5991892,2026-09-29,selecciones,Jamaica,Richard King,1293486,D,1,90,0,0,0,0.0,34,1,399652
-5991892,2026-09-29,selecciones,Jamaica,Joel Latibeaudiere,863822,D,1,90,0,0,0,0.0,36,1,2490952
-5991892,2026-09-29,selecciones,Jamaica,Ronaldo Webster,1529853,D,1,90,0,0,0,0.0,38,1,426988
-5991892,2026-09-29,selecciones,Jamaica,Karoy Anderson,1422736,M,1,90,1,0,0,0.0,64,2,689348
-5991892,2026-09-29,selecciones,Jamaica,Isaac Hayden,489627,M,1,90,0,0,0,0.0,66,2,257617
-5991892,2026-09-29,selecciones,Jamaica,Renaldo Cephas,1381623,F,1,90,0,0,0,0.0,83,3,764333
-5991892,2026-09-29,selecciones,Jamaica,Kasey Palmer,740171,M,1,62,2,1,0,0.0,85,2,443969
-5991892,2026-09-29,selecciones,Jamaica,Kaheim Dixon,1624340,F,1,90,3,0,0,0.0,87,3,375157
-5991892,2026-09-29,selecciones,Jamaica,Bailey Cadamarteri,1420266,F,1,90,3,1,0,0.0,115,3,2117698
-5991892,2026-09-29,selecciones,Jamaica,Miguel Freckleton,1420822,D,0,45,2,0,0,0.0,,1,504800
-5991892,2026-09-29,selecciones,Jamaica,Courtney Clarke,1235101,M,0,28,1,0,0,0.0,,2,149440
-5991892,2026-09-29,selecciones,Jamaica,Javon East,919525,F,0,28,1,1,0,0.0,,3,396855
-5991892,2026-09-29,selecciones,Honduras,Edrick Menjívar,562677,G,1,90,0,0,0,0.0,11,0,
-5991892,2026-09-29,selecciones,Honduras,Cristopher Meléndez,1092564,D,1,90,0,0,0,0.0,32,1,
-5991892,2026-09-29,selecciones,Honduras,Giancarlos Sacaza,1447406,D,1,90,0,0,0,0.0,34,1,
-5991892,2026-09-29,selecciones,Honduras,Denil Maldonado,848535,D,1,90,0,0,0,0.0,36,1,1479699
-5991892,2026-09-29,selecciones,Honduras,Joseph Rosales,1028458,D,1,90,0,0,0,0.0,38,1,1694734
-5991892,2026-09-29,selecciones,Honduras,Deybi Flores,621554,M,1,90,2,0,0,0.0,64,2,244225
-5991892,2026-09-29,selecciones,Honduras,José Reyes,848539,M,1,72,1,1,0,0.0,66,2,
-5991892,2026-09-29,selecciones,Honduras,Dereck Moncada,1738403,F,1,68,3,1,0,0.0,83,3,2120534
-5991892,2026-09-29,selecciones,Honduras,Jonathan Toro,664531,M,1,71,1,0,0,0.0,85,2,137570
-5991892,2026-09-29,selecciones,Honduras,Luis Palma,881626,F,1,83,4,3,0,0.0,87,3,2453418
-5991892,2026-09-29,selecciones,Honduras,Keyrol Figueroa,1448043,F,1,75,3,1,1,0.0,115,3,180000
-5991892,2026-09-29,selecciones,Honduras,Alenis Vargas,1504896,F,0,18,1,1,0,0.0,,3,656627
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Julani Archibald,505019,G,1,90,0,0,0,0.0,11,0,98141
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Malique Roberts,1240554,D,1,90,0,0,0,0.0,32,1,
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Rico Browne,1290869,D,1,90,1,1,0,0.0,34,1,275669
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Jordan Bowery,149895,D,1,90,0,0,0,0.0,36,1,119877
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Micaah Garnette,1634296,D,1,90,0,0,0,0.0,38,1,
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Theo Wharton,672489,M,1,90,0,0,0,0.0,65,2,50000
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Omari Sterling-James,563227,M,1,67,1,1,0,0.0,82,2,
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Romaine Sawyers,173410,M,1,79,1,1,0,0.0,84,2,138267
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Kyle Kelly,1423787,M,1,90,1,0,0,0.0,86,2,
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Harry Panayiotou,316685,M,1,90,0,0,0,0.0,88,2,72000
-5991925,2026-09-29,selecciones,St. Kitts and Nevis,Tiquanny Williams,1261522,F,1,79,4,4,3,0.0,115,3,
-5991925,2026-09-29,selecciones,Grenada,Chad Phillip,1240232,G,1,90,0,0,0,0.0,11,0,
-5991925,2026-09-29,selecciones,Grenada,Greg Sandiford,1519623,D,1,90,0,0,0,0.0,32,1,
-5991925,2026-09-29,selecciones,Grenada,Dorrel Pierre,1455080,D,1,90,0,0,0,0.0,34,1,
-5991925,2026-09-29,selecciones,Grenada,AJ Paterson,1059682,D,1,90,0,0,0,0.0,36,1,
-5991925,2026-09-29,selecciones,Grenada,Jabari De Coteau,1899033,D,1,90,0,0,0,0.0,38,1,
-5991925,2026-09-29,selecciones,Grenada,Myles Hippolyte,564531,M,1,90,3,1,0,0.0,64,2,179128
-5991925,2026-09-29,selecciones,Grenada,Kayden Harrack,1189707,D,1,90,0,0,0,0.0,66,1,268431
-5991925,2026-09-29,selecciones,Grenada,Shavon John-Brown,734911,F,1,90,0,0,0,0.0,83,3,213809
-5991925,2026-09-29,selecciones,Grenada,Caleb Redhead,0,,1,90,0,0,0,0.0,85,,
-5991925,2026-09-29,selecciones,Grenada,Jermaine Francis,1532880,F,1,90,0,0,0,0.0,87,3,
-5991925,2026-09-29,selecciones,Grenada,Benjamin Ettienne,1242551,D,1,87,2,1,0,0.0,115,1,60145
-5991925,2026-09-29,selecciones,Grenada,Josh Gabriel,1240244,D,0,13,1,1,0,0.0,,1,
-5991925,2026-09-29,selecciones,Grenada,Jamal Gittens,1731310,F,0,3,1,1,0,0.0,,3,
-5991925,2026-09-29,selecciones,Grenada,Joshua Isaac,1455082,F,0,13,1,0,0,0.0,,3,
-5991916,2026-09-29,selecciones,Saint Lucia,Vino Barclette,1261460,G,1,90,0,0,0,0.0,11,0,
-5991916,2026-09-29,selecciones,Saint Lucia,Ajani Louis,1934542,D,1,90,0,0,0,0.0,32,1,
-5991916,2026-09-29,selecciones,Saint Lucia,Doneal Lionel,1934543,D,1,90,0,0,0,0.0,34,1,
-5991916,2026-09-29,selecciones,Saint Lucia,Terell Thomas,589126,D,1,90,0,0,0,0.0,36,1,72000
-5991916,2026-09-29,selecciones,Saint Lucia,Shaquan Nelson,1650457,D,1,90,0,0,0,0.0,38,1,
-5991916,2026-09-29,selecciones,Saint Lucia,Melvin Doxilly,1261465,D,1,90,0,0,0,0.0,64,1,
-5991916,2026-09-29,selecciones,Saint Lucia,Kurt Frederick,501173,D,1,90,2,1,1,0.0,66,1,
-5991916,2026-09-29,selecciones,Saint Lucia,Arkell Jude-Boyd,1424756,D,1,80,2,0,0,0.0,83,1,241857
-5991916,2026-09-29,selecciones,Saint Lucia,Caniggia Ginola Elva,560114,F,1,90,1,0,0,0.0,85,3,89809
-5991916,2026-09-29,selecciones,Saint Lucia,Shevon Byron,1934548,F,1,80,1,1,1,0.0,87,3,
-5991916,2026-09-29,selecciones,Saint Lucia,Kegan Caull,1768907,M,1,80,8,5,3,0.0,115,2,
-5991916,2026-09-29,selecciones,Bermuda,Milai Perott,1697224,G,1,90,0,0,0,0.0,11,0,
-5991916,2026-09-29,selecciones,Bermuda,Brighton Morrison,1846385,D,1,90,0,0,0,0.0,32,1,
-5991916,2026-09-29,selecciones,Bermuda,Emeer Shannon Warren Peets,0,D,1,90,0,0,0,0.0,34,1,
-5991916,2026-09-29,selecciones,Bermuda,Harry Twite,1650139,D,1,90,0,0,0,0.0,36,1,
-5991916,2026-09-29,selecciones,Bermuda,Deniche Hill,1463764,D,1,90,2,1,0,0.0,38,1,
-5991916,2026-09-29,selecciones,Bermuda,Ajani Burchall,1215659,M,1,74,4,3,1,0.0,72,2,275989
-5991916,2026-09-29,selecciones,Bermuda,Zeiko Lewis,502490,M,1,90,0,0,0,0.0,74,2,
-5991916,2026-09-29,selecciones,Bermuda,Ne-Jai Tucker,1228226,M,1,90,0,0,0,0.0,76,2,
-5991916,2026-09-29,selecciones,Bermuda,Justin Donawa,623391,M,1,90,2,1,0,0.0,78,2,
-5991916,2026-09-29,selecciones,Bermuda,Nahki Wells,243132,F,1,89,6,3,0,0.0,104,3,211195
-5991916,2026-09-29,selecciones,Bermuda,Enrique Russell,1056294,F,1,74,1,0,0,0.0,106,3,
-5991916,2026-09-29,selecciones,Bermuda,Riley Robinson,1650133,M,0,25,3,3,1,0.0,,2,
+5991892,2026-09-29,selecciones,Jamaica,Andre Blake,525631,G,1,90,0,0,0,0.0,11.0,0.0,62112.0
+5991892,2026-09-29,selecciones,Jamaica,Brandon Cover,1203656,D,1,90,0,0,0,0.0,32.0,1.0,182334.0
+5991892,2026-09-29,selecciones,Jamaica,Richard King,1293486,D,1,90,0,0,0,0.0,34.0,1.0,399652.0
+5991892,2026-09-29,selecciones,Jamaica,Joel Latibeaudiere,863822,D,1,90,0,0,0,0.0,36.0,1.0,2490952.0
+5991892,2026-09-29,selecciones,Jamaica,Ronaldo Webster,1529853,D,1,90,0,0,0,0.0,38.0,1.0,426988.0
+5991892,2026-09-29,selecciones,Jamaica,Karoy Anderson,1422736,M,1,90,1,0,0,0.0,64.0,2.0,689348.0
+5991892,2026-09-29,selecciones,Jamaica,Isaac Hayden,489627,M,1,90,0,0,0,0.0,66.0,2.0,257617.0
+5991892,2026-09-29,selecciones,Jamaica,Renaldo Cephas,1381623,F,1,90,0,0,0,0.0,83.0,3.0,764333.0
+5991892,2026-09-29,selecciones,Jamaica,Kasey Palmer,740171,M,1,62,2,1,0,0.0,85.0,2.0,443969.0
+5991892,2026-09-29,selecciones,Jamaica,Kaheim Dixon,1624340,F,1,90,3,0,0,0.0,87.0,3.0,375157.0
+5991892,2026-09-29,selecciones,Jamaica,Bailey Cadamarteri,1420266,F,1,90,3,1,0,0.0,115.0,3.0,2117698.0
+5991892,2026-09-29,selecciones,Jamaica,Miguel Freckleton,1420822,D,0,45,2,0,0,0.0,,1.0,504800.0
+5991892,2026-09-29,selecciones,Jamaica,Courtney Clarke,1235101,M,0,28,1,0,0,0.0,,2.0,149440.0
+5991892,2026-09-29,selecciones,Jamaica,Javon East,919525,F,0,28,1,1,0,0.0,,3.0,396855.0
+5991892,2026-09-29,selecciones,Honduras,Edrick Menjívar,562677,G,1,90,0,0,0,0.0,11.0,0.0,
+5991892,2026-09-29,selecciones,Honduras,Cristopher Meléndez,1092564,D,1,90,0,0,0,0.0,32.0,1.0,
+5991892,2026-09-29,selecciones,Honduras,Giancarlos Sacaza,1447406,D,1,90,0,0,0,0.0,34.0,1.0,
+5991892,2026-09-29,selecciones,Honduras,Denil Maldonado,848535,D,1,90,0,0,0,0.0,36.0,1.0,1479699.0
+5991892,2026-09-29,selecciones,Honduras,Joseph Rosales,1028458,D,1,90,0,0,0,0.0,38.0,1.0,1694734.0
+5991892,2026-09-29,selecciones,Honduras,Deybi Flores,621554,M,1,90,2,0,0,0.0,64.0,2.0,244225.0
+5991892,2026-09-29,selecciones,Honduras,José Reyes,848539,M,1,72,1,1,0,0.0,66.0,2.0,
+5991892,2026-09-29,selecciones,Honduras,Dereck Moncada,1738403,F,1,68,3,1,0,0.0,83.0,3.0,2120534.0
+5991892,2026-09-29,selecciones,Honduras,Jonathan Toro,664531,M,1,71,1,0,0,0.0,85.0,2.0,137570.0
+5991892,2026-09-29,selecciones,Honduras,Luis Palma,881626,F,1,83,4,3,0,0.0,87.0,3.0,2453418.0
+5991892,2026-09-29,selecciones,Honduras,Keyrol Figueroa,1448043,F,1,75,3,1,1,0.0,115.0,3.0,180000.0
+5991892,2026-09-29,selecciones,Honduras,Alenis Vargas,1504896,F,0,18,1,1,0,0.0,,3.0,656627.0
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Julani Archibald,505019,G,1,90,0,0,0,0.0,11.0,0.0,98141.0
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Malique Roberts,1240554,D,1,90,0,0,0,0.0,32.0,1.0,
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Rico Browne,1290869,D,1,90,1,1,0,0.0,34.0,1.0,275669.0
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Jordan Bowery,149895,D,1,90,0,0,0,0.0,36.0,1.0,119877.0
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Micaah Garnette,1634296,D,1,90,0,0,0,0.0,38.0,1.0,
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Theo Wharton,672489,M,1,90,0,0,0,0.0,65.0,2.0,50000.0
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Omari Sterling-James,563227,M,1,67,1,1,0,0.0,82.0,2.0,
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Romaine Sawyers,173410,M,1,79,1,1,0,0.0,84.0,2.0,138267.0
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Kyle Kelly,1423787,M,1,90,1,0,0,0.0,86.0,2.0,
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Harry Panayiotou,316685,M,1,90,0,0,0,0.0,88.0,2.0,72000.0
+5991925,2026-09-29,selecciones,St. Kitts and Nevis,Tiquanny Williams,1261522,F,1,79,4,4,3,0.0,115.0,3.0,
+5991925,2026-09-29,selecciones,Grenada,Chad Phillip,1240232,G,1,90,0,0,0,0.0,11.0,0.0,
+5991925,2026-09-29,selecciones,Grenada,Greg Sandiford,1519623,D,1,90,0,0,0,0.0,32.0,1.0,
+5991925,2026-09-29,selecciones,Grenada,Dorrel Pierre,1455080,D,1,90,0,0,0,0.0,34.0,1.0,
+5991925,2026-09-29,selecciones,Grenada,AJ Paterson,1059682,D,1,90,0,0,0,0.0,36.0,1.0,
+5991925,2026-09-29,selecciones,Grenada,Jabari De Coteau,1899033,D,1,90,0,0,0,0.0,38.0,1.0,
+5991925,2026-09-29,selecciones,Grenada,Myles Hippolyte,564531,M,1,90,3,1,0,0.0,64.0,2.0,179128.0
+5991925,2026-09-29,selecciones,Grenada,Kayden Harrack,1189707,D,1,90,0,0,0,0.0,66.0,1.0,268431.0
+5991925,2026-09-29,selecciones,Grenada,Shavon John-Brown,734911,F,1,90,0,0,0,0.0,83.0,3.0,213809.0
+5991925,2026-09-29,selecciones,Grenada,Caleb Redhead,0,,1,90,0,0,0,0.0,85.0,,
+5991925,2026-09-29,selecciones,Grenada,Jermaine Francis,1532880,F,1,90,0,0,0,0.0,87.0,3.0,
+5991925,2026-09-29,selecciones,Grenada,Benjamin Ettienne,1242551,D,1,87,2,1,0,0.0,115.0,1.0,60145.0
+5991925,2026-09-29,selecciones,Grenada,Josh Gabriel,1240244,D,0,13,1,1,0,0.0,,1.0,
+5991925,2026-09-29,selecciones,Grenada,Jamal Gittens,1731310,F,0,3,1,1,0,0.0,,3.0,
+5991925,2026-09-29,selecciones,Grenada,Joshua Isaac,1455082,F,0,13,1,0,0,0.0,,3.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Vino Barclette,1261460,G,1,90,0,0,0,0.0,11.0,0.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Ajani Louis,1934542,D,1,90,0,0,0,0.0,32.0,1.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Doneal Lionel,1934543,D,1,90,0,0,0,0.0,34.0,1.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Terell Thomas,589126,D,1,90,0,0,0,0.0,36.0,1.0,72000.0
+5991916,2026-09-29,selecciones,Saint Lucia,Shaquan Nelson,1650457,D,1,90,0,0,0,0.0,38.0,1.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Melvin Doxilly,1261465,D,1,90,0,0,0,0.0,64.0,1.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Kurt Frederick,501173,D,1,90,2,1,1,0.0,66.0,1.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Arkell Jude-Boyd,1424756,D,1,80,2,0,0,0.0,83.0,1.0,241857.0
+5991916,2026-09-29,selecciones,Saint Lucia,Caniggia Ginola Elva,560114,F,1,90,1,0,0,0.0,85.0,3.0,89809.0
+5991916,2026-09-29,selecciones,Saint Lucia,Shevon Byron,1934548,F,1,80,1,1,1,0.0,87.0,3.0,
+5991916,2026-09-29,selecciones,Saint Lucia,Kegan Caull,1768907,M,1,80,8,5,3,0.0,115.0,2.0,
+5991916,2026-09-29,selecciones,Bermuda,Milai Perott,1697224,G,1,90,0,0,0,0.0,11.0,0.0,
+5991916,2026-09-29,selecciones,Bermuda,Brighton Morrison,1846385,D,1,90,0,0,0,0.0,32.0,1.0,
+5991916,2026-09-29,selecciones,Bermuda,Emeer Shannon Warren Peets,0,D,1,90,0,0,0,0.0,34.0,1.0,
+5991916,2026-09-29,selecciones,Bermuda,Harry Twite,1650139,D,1,90,0,0,0,0.0,36.0,1.0,
+5991916,2026-09-29,selecciones,Bermuda,Deniche Hill,1463764,D,1,90,2,1,0,0.0,38.0,1.0,
+5991916,2026-09-29,selecciones,Bermuda,Ajani Burchall,1215659,M,1,74,4,3,1,0.0,72.0,2.0,275989.0
+5991916,2026-09-29,selecciones,Bermuda,Zeiko Lewis,502490,M,1,90,0,0,0,0.0,74.0,2.0,
+5991916,2026-09-29,selecciones,Bermuda,Ne-Jai Tucker,1228226,M,1,90,0,0,0,0.0,76.0,2.0,
+5991916,2026-09-29,selecciones,Bermuda,Justin Donawa,623391,M,1,90,2,1,0,0.0,78.0,2.0,
+5991916,2026-09-29,selecciones,Bermuda,Nahki Wells,243132,F,1,89,6,3,0,0.0,104.0,3.0,211195.0
+5991916,2026-09-29,selecciones,Bermuda,Enrique Russell,1056294,F,1,74,1,0,0,0.0,106.0,3.0,
+5991916,2026-09-29,selecciones,Bermuda,Riley Robinson,1650133,M,0,25,3,3,1,0.0,,2.0,
+5991893,2026-09-29,selecciones,Guatemala,Nicholas Hagen,960923,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5991893,2026-09-29,selecciones,Guatemala,Aarón Herrera,847991,D,1,90,3,0,0,0.0,32.0,1.0,674322.0
+5991893,2026-09-29,selecciones,Guatemala,Allen Yanes,725295,D,1,90,0,0,0,0.0,34.0,1.0,
+5991893,2026-09-29,selecciones,Guatemala,Nicolás Samayoa,928507,D,1,90,0,0,0,0.0,36.0,1.0,258762.0
+5991893,2026-09-29,selecciones,Guatemala,José Morales,1104411,D,1,90,0,0,0,0.0,38.0,1.0,236073.0
+5991893,2026-09-29,selecciones,Guatemala,Óscar Santis,1204475,M,1,44,3,1,0,0.0,72.0,2.0,164128.0
+5991893,2026-09-29,selecciones,Guatemala,José Rosales,782403,M,1,90,0,0,0,0.0,74.0,2.0,124253.0
+5991893,2026-09-29,selecciones,Guatemala,Jorge Aparicio,528123,M,1,90,2,1,1,0.0,76.0,2.0,
+5991893,2026-09-29,selecciones,Guatemala,William Fajardo,971173,M,1,90,4,3,3,0.0,78.0,2.0,
+5991893,2026-09-29,selecciones,Guatemala,Darwin Lom,1131954,F,1,66,2,1,1,0.0,104.0,3.0,
+5991893,2026-09-29,selecciones,Guatemala,Rubio Rubín,570980,F,1,45,3,1,1,0.0,106.0,3.0,73916.0
+5991893,2026-09-29,selecciones,Guatemala,Olger Escobar,1650206,F,0,45,1,0,0,0.0,,3.0,606725.0
+5991893,2026-09-29,selecciones,El Salvador,Mario González,1261973,G,1,90,0,0,0,0.0,11.0,0.0,72000.0
+5991893,2026-09-29,selecciones,El Salvador,Julio Sibrián,1048983,D,1,90,0,0,0,0.0,33.0,1.0,50000.0
+5991893,2026-09-29,selecciones,El Salvador,Rudy Clavel,689262,D,1,90,1,0,0,0.0,35.0,1.0,50000.0
+5991893,2026-09-29,selecciones,El Salvador,Jorge Cruz,1309308,D,1,90,0,0,0,0.0,37.0,1.0,76894.0
+5991893,2026-09-29,selecciones,El Salvador,Jefferson Valladares,1356360,D,1,90,0,0,0,0.0,51.0,1.0,80877.0
+5991893,2026-09-29,selecciones,El Salvador,Diego Flores,1605562,D,1,90,2,0,0,0.0,59.0,1.0,
+5991893,2026-09-29,selecciones,El Salvador,Mauricio Cerritos,1410063,M,1,90,0,0,0,0.0,73.0,2.0,50000.0
+5991893,2026-09-29,selecciones,El Salvador,Christian Martínez,708876,M,1,90,0,0,0,0.0,75.0,2.0,66166.0
+5991893,2026-09-29,selecciones,El Salvador,Marcelo Díaz,1214013,M,1,90,2,0,0,0.0,77.0,2.0,86159.0
+5991893,2026-09-29,selecciones,El Salvador,Rafael Tejada,1397226,M,1,90,1,1,0,0.0,104.0,2.0,91300.0
+5991893,2026-09-29,selecciones,El Salvador,Brayan Gil,1080753,F,1,75,3,0,0,0.0,106.0,3.0,1805916.0
+5991893,2026-09-29,selecciones,El Salvador,Jairo Henríquez,533162,M,0,45,1,0,0,0.0,,2.0,50000.0
+5991893,2026-09-29,selecciones,El Salvador,Mayer Gil,1377890,M,0,59,2,0,0,0.0,,2.0,448928.0
+5991893,2026-09-29,selecciones,El Salvador,Styven Vásquez,1288292,F,0,15,1,0,0,0.0,,3.0,170957.0
