@@ -129,6 +129,15 @@ def construir() -> Dict:
     datos = alpha_finder.apuestas_del_dia_universal()
     logger.info('barrido en %.0f s · %d pronósticos', time.time() - t0,
                 len(datos.get('pronosticos') or []))
+    # v313 — los partidos de fútbol del tablero que el modelo no cubre, con
+    # la probabilidad de Pinnacle y su regla medida de «meter». Va en su
+    # propia lista para no mezclarse con lo que el resto del sistema da por
+    # salido del modelo (élite, combinadas, Soñadora).
+    try:
+        import mercado_sin_modelo as _msm
+        datos['solo_mercado'] = _msm.construir(datos)
+    except Exception as e:
+        logger.warning('[precalculo] partidos sin modelo: %s', e)
     return datos
 
 

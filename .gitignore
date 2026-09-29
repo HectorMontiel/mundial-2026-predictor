@@ -233,3 +233,9 @@ _v310_conteos.csv
 _v310_replay_semana.csv
 # v312 — reproducciones de las apuestas candidatas (se regeneran con _v312_patrones.py)
 _v312_candidatas*.csv
+# v313 — réplica de los partidos sin modelo (se regenera con _v313_sin_modelo.py)
+_v313_sin_modelo.csv
+# v314 — cachés de medición (se regeneran con _v314_ligas_chicas.py)
+_v314_fotmob.csv
+_v314_precios.json
+_v314_partidos.csv

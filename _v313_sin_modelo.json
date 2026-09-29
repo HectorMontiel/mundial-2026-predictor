@@ -1,0 +1,232 @@
+{
+ "regla": "prob Pinnacle 0.80-0.90, cuota 1.10-1.35, home/homeOrDraw, una por partido",
+ "replica": {
+  "todo": {
+   "n": 110,
+   "acierto": 0.9,
+   "p5": 0.8545,
+   "roi": 0.0392
+  },
+  "sin_modelo": {
+   "n": 67,
+   "acierto": 0.9254,
+   "p5": 0.8657,
+   "roi": 0.0731
+  },
+  "con_modelo": {
+   "n": 43,
+   "acierto": 0.8605,
+   "p5": 0.7674,
+   "roi": -0.0137
+  },
+  "eleccion_sin_modelo": {
+   "n": 50,
+   "acierto": 0.94,
+   "p5": 0.88,
+   "roi": 0.0918
+  },
+  "prueba_sin_modelo": {
+   "n": 17,
+   "acierto": 0.8824,
+   "p5": 0.7647,
+   "roi": 0.0182
+  },
+  "por_mercado_sin_modelo": {
+   "home": {
+    "n": 12,
+    "acierto": 1.0,
+    "p5": 1.0,
+    "roi": 0.1708
+   },
+   "homeOrDraw": {
+    "n": 55,
+    "acierto": 0.9091,
+    "p5": 0.8364,
+    "roi": 0.0518
+   }
+  },
+  "por_dia_sin_modelo": {
+   "2026-09-21": {
+    "n": 5,
+    "acierto": 1.0,
+    "p5": 1.0,
+    "roi": 0.184
+   },
+   "2026-09-22": {
+    "n": 9,
+    "acierto": 0.8889,
+    "p5": 0.6667,
+    "roi": 0.0256
+   },
+   "2026-09-23": {
+    "n": 9,
+    "acierto": 1.0,
+    "p5": 1.0,
+    "roi": 0.1467
+   },
+   "2026-09-24": {
+    "n": 5,
+    "acierto": 1.0,
+    "p5": 1.0,
+    "roi": 0.176
+   },
+   "2026-09-25": {
+    "n": 6,
+    "acierto": 0.8333,
+    "p5": 0.5,
+    "roi": -0.035
+   },
+   "2026-09-26": {
+    "n": 16,
+    "acierto": 0.9375,
+    "p5": 0.8125,
+    "roi": 0.0906
+   },
+   "2026-09-27": {
+    "n": 12,
+    "acierto": 0.8333,
+    "p5": 0.6667,
+    "roi": -0.0425
+   },
+   "2026-09-28": {
+    "n": 5,
+    "acierto": 1.0,
+    "p5": 1.0,
+    "roi": 0.164
+   }
+  },
+  "corte": "2026-09-27"
+ },
+ "sumado_a_v312": {
+  "eleccion": {
+   "solo_modelo": "373/499 = 74.8 %",
+   "sin_modelo": "47/50",
+   "juntos": "420/549 = 76.5 %"
+  },
+  "prueba": {
+   "solo_modelo": "101/125 = 80.8 %",
+   "sin_modelo": "15/17",
+   "juntos": "116/142 = 81.7 %"
+  },
+  "hoy": {
+   "solo_modelo": "43/55 = 78.2 %",
+   "sin_modelo": "5/5",
+   "juntos": "48/60 = 80.0 %"
+  }
+ },
+ "variantes": {
+  "misma regla que el modelo (70-80 %, los cuatro)": {
+   "eleccion": {
+    "n": 79,
+    "acierto": 0.7975,
+    "p5": 0.7215,
+    "roi": 0.0024
+   },
+   "prueba": {
+    "n": 21,
+    "acierto": 0.6667,
+    "p5": 0.4762,
+    "roi": -0.1486
+   }
+  },
+  "70-80 %, local / local o empate": {
+   "eleccion": {
+    "n": 56,
+    "acierto": 0.7857,
+    "p5": 0.6964,
+    "roi": -0.0134
+   },
+   "prueba": {
+    "n": 17,
+    "acierto": 0.7059,
+    "p5": 0.5294,
+    "roi": -0.0988
+   }
+  },
+  "75-85 %, local / local o empate": {
+   "eleccion": {
+    "n": 67,
+    "acierto": 0.8358,
+    "p5": 0.7612,
+    "roi": 0.0085
+   },
+   "prueba": {
+    "n": 18,
+    "acierto": 0.8333,
+    "p5": 0.6667,
+    "roi": 0.0061
+   }
+  },
+  "78-90 %, los cuatro": {
+   "eleccion": {
+    "n": 88,
+    "acierto": 0.8182,
+    "p5": 0.75,
+    "roi": -0.038
+   },
+   "prueba": {
+    "n": 27,
+    "acierto": 0.8889,
+    "p5": 0.7778,
+    "roi": 0.0319
+   }
+  },
+  "80-90 %, los cuatro": {
+   "eleccion": {
+    "n": 67,
+    "acierto": 0.8358,
+    "p5": 0.7612,
+    "roi": -0.0297
+   },
+   "prueba": {
+    "n": 24,
+    "acierto": 0.9167,
+    "p5": 0.8333,
+    "roi": 0.0546
+   }
+  },
+  "80-90 %, sólo 1X2": {
+   "eleccion": {
+    "n": 14,
+    "acierto": 0.8571,
+    "p5": 0.7143,
+    "roi": 0.0029
+   },
+   "prueba": {
+    "n": 2,
+    "acierto": 1.0,
+    "p5": 1.0,
+    "roi": 0.165
+   }
+  },
+  "80-90 %, local / local o empate (ELEGIDA)": {
+   "eleccion": {
+    "n": 50,
+    "acierto": 0.94,
+    "p5": 0.88,
+    "roi": 0.0918
+   },
+   "prueba": {
+    "n": 17,
+    "acierto": 0.8824,
+    "p5": 0.7647,
+    "roi": 0.0182
+   }
+  }
+ },
+ "ledger": {
+  "eleccion": {
+   "n": 795,
+   "acierto": 0.8277,
+   "p5": 0.8063,
+   "roi": -0.0219
+  },
+  "prueba": {
+   "n": 347,
+   "acierto": 0.8473,
+   "p5": 0.8156,
+   "roi": 0.0034
+  },
+  "corte": "2024-05-12"
+ }
+}

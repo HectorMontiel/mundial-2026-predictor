@@ -7450,7 +7450,10 @@ def render_alpha_finder():
     # el día sin picks sigue teniendo dónde mirar.
     # v141: los contadores cuentan HOY. Un rótulo que suma los dos días y una
     # lista que enseña uno solo es lo que hacía que 227 y 148 no cuadraran.
-    _pron_f = _filtra(r.get('pronosticos'))
+    # v313 — con los partidos sin modelo propio (sub-21, copas, ligas chicas)
+    # que tienen algo que meter o salen en la Capa 1: ver `mercado_sin_modelo`
+    _pron_f = _filtra((r.get('pronosticos') or [])
+                      + (r.get('solo_mercado') or []))
     _pron_hoy = _del_dia(_pron_f, _HOY_S)
     _pron_man = _del_dia(_pron_f, _MANANA_S)
     _pron_pas = _del_dia(_pron_f, _PASADO_S)          # v250

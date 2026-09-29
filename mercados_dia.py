@@ -338,9 +338,21 @@ def dia_cdmx(desplazamiento: int = 0) -> str:
 # propósito: un partido puede llegar por `pronosticos` y su mejor mercado por
 # `candidatos`, y quedarse con una sola lista era justo el fallo que la v195.4
 # encontró en el guardia de casas (miraba tres listas y había catorce).
-LISTAS = ('pronosticos', 'capa1', 'capa2', 'capa1_prob', 'candidatos',
+LISTAS = ('pronosticos', 'solo_mercado', 'capa1', 'capa2', 'capa1_prob',
+          'candidatos',
           'seleccion_dia', 'sin_modelo', 'btts_destacado', 'mejores_patas',
           'seccion1', 'seccion2', 'elite')
+
+
+def _mismo_reg(por_partido: Dict, clave: tuple, dia: str) -> Optional[Dict]:
+    try:
+        import mercado_sin_modelo as msm
+    except Exception:
+        return None
+    for (dep, par), reg in por_partido.items():
+        if dep == clave[0] and msm.mismo_partido(par, clave[1]):
+            return reg
+    return None
 
 
 def partidos_del_dia(r: Dict, dia: Optional[str] = None,
@@ -364,6 +376,13 @@ def partidos_del_dia(r: Dict, dia: Optional[str] = None,
                 continue
             clave = (str(p.get('deporte') or 'Fútbol'), str(p['partido']))
             reg = por_partido.get(clave)
+            if reg is None and clave[0] == 'Fútbol':
+                # v313 — EL MISMO PARTIDO ESCRITO DE OTRA FORMA. La Capa 1
+                # escribe como la casa («USA vs Chile», «Botafogo SP») y el
+                # modelo como su catálogo («United States vs Chile»,
+                # «Botafogo-SP»): salían dos bloques, uno sin hora y sin
+                # veredicto. Se juntan en el del modelo, que llega primero.
+                reg = _mismo_reg(por_partido, clave, dia)
             if reg is None:
                 reg = {
                     'deporte': clave[0], 'partido': clave[1],
@@ -378,6 +397,14 @@ def partidos_del_dia(r: Dict, dia: Optional[str] = None,
                 por_partido[clave] = reg
             if not reg['hora'] and p.get('hora_cdmx'):
                 reg['hora'] = p['hora_cdmx']
+            if not reg['hora'] and p.get('inicio'):
+                # v313 — la Capa 1 trae la hora como marca Unix y sin
+                # `hora_cdmx`: salía «--:--» en Telegram
+                try:
+                    import horario
+                    reg['hora'] = horario.hora(p['inicio']) or ''
+                except Exception:
+                    pass
             if not reg['fiabilidad'] and p.get('fiabilidad'):
                 reg['fiabilidad'] = p['fiabilidad']
             if p.get('nota') and p['nota'] not in reg['notas']:

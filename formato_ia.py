@@ -48,7 +48,17 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   (20-28 sep). A cuotas de Playdoit la casa conserva margen: la única ventaja
   de precio medida es cuando la casa paga por encima del justo (EV > 0).
 - «MODELO»: probabilidades del modelo sin mezclar. λ = media esperada.
-  Córners y tarjetas: total del partido y de cada equipo.
+  Córners y tarjetas: total del partido y de cada equipo. En CÓRNERS el
+  total es a propósito la MEDIA DE LA COMPETICIÓN (por eso se repite, p. ej.
+  9,1 en toda la Liga de Naciones): medido, sumar lo de los dos equipos no
+  predice mejor el total. Lo que cambia por partido es lo de cada equipo.
+- «[estimado]»: la competición no publica esa estadística; es su nivel
+  general, no algo de estos dos equipos. No lo uses para decidir.
+- «SIN MODELO PROPIO»: sub-21, sub-19, copas y ligas que el modelo no cubre.
+  La probabilidad es la de Pinnacle sin margen. Ahí la app sólo dice
+  «meter» con Pinnacle 80-90 %, cuota 1,10-1,35 y local o local/empate
+  (medido: 92 % de acierto en la réplica del 20-28 sep; más exigente que
+  el modelo porque Pinnacle al 75 % acierta ~75 %, y eso bajaría el total).
 - «MERCADOS»: todo lo cotizado. «justa» = 1/probabilidad del modelo.
   EV = prob × cuota − 1 (positivo = la casa paga de más según el modelo).
 - «🚑 Bajas», «Árbitro», «Alineación»: contexto; puede faltar.
@@ -136,6 +146,18 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
                     L.append('     por qué: %s' % m['razon'])
         else:
             L.append('🚫 Nada que meter según la app')
+        if pick.get('solo_mercado'):
+            # v313 — sin modelo: el 1X2 de Pinnacle, dicho como lo que es
+            b = pick.get('board') or {}
+            L.append('SIN MODELO PROPIO — 1X2 de Pinnacle sin margen: '
+                     + ' · '.join('%s %s' % (k, _pct(v)) for k, v in b.items()))
+            if reg.get('mercados'):
+                L.append('MERCADOS:')
+                import bot_telegram as _bt
+                L += [_bt._linea_mercado(m) for m in reg['mercados']]
+            for nota in (reg.get('notas') or []):
+                L.append('   ! %s' % nota)
+            return L
         # el modelo
         b = pick.get('board') or {}
         tri = [(k, v) for k, v in b.items()
@@ -167,8 +189,13 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
                                 ('a_puerta', 'Remates a puerta')):
                 c = _conteo_crudo(pick, que)
                 if c and c.get('lambda_total'):
-                    L.append('MODELO %s: λ total %s (local %s · visita %s)%s'
+                    # v313 — en córners el total ES la media de la
+                    # competición (medido: sumar los equipos no predice
+                    # mejor). Se dice, o parece un valor por defecto.
+                    media = (que == 'corners' and c.get('origen') == 'observado')
+                    L.append('MODELO %s: λ total %s%s (local %s · visita %s)%s'
                              % (nombre, _num(c['lambda_total'], 1),
+                                ' = media de la competición' if media else '',
                                 _num(c.get('lambda_home'), 1),
                                 _num(c.get('lambda_away'), 1),
                                 '' if c.get('origen') == 'observado'
@@ -204,10 +231,23 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
 
 
 def _pick_de(r: Dict, reg: Dict) -> Optional[Dict]:
-    for p in (r.get('pronosticos') or []):
+    # v313 — también los partidos sin modelo propio (`solo_mercado`)
+    lista = (r.get('pronosticos') or []) + (r.get('solo_mercado') or [])
+    for p in lista:
         if (isinstance(p, dict) and str(p.get('partido')) == reg['partido']
                 and str(p.get('deporte') or 'Fútbol') == reg['deporte']):
             return p
+    if reg['deporte'] == 'Fútbol':
+        try:
+            import mercado_sin_modelo as msm
+            for p in lista:
+                if (isinstance(p, dict)
+                        and str(p.get('deporte') or 'Fútbol') == 'Fútbol'
+                        and msm.mismo_partido(str(p.get('partido')),
+                                              reg['partido'])):
+                    return p
+        except Exception:
+            pass
     return None
 
 

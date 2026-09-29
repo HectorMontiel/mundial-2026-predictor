@@ -1744,6 +1744,15 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
     """
     if pick.get('jugado') or pick.get('sin_modelo'):
         return []
+    # v313 — partido sin modelo propio (sub-21, copas, ligas chicas): la regla
+    # medida con el precio de Pinnacle. Ver `mercado_sin_modelo`.
+    if pick.get('solo_mercado'):
+        try:
+            import mercado_sin_modelo as _msm
+            return _msm.recomendadas(pick)[:n]
+        except Exception as e:
+            logger.debug('[modo_modelo] sin modelo: %s', e)
+            return []
     try:
         import valor_apuesta as va
         # v241 — se piden MAS candidatas de las que se van a enseñar, porque
@@ -2846,10 +2855,15 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                                       ' · '.join([m for m in meta if m])))
 
         sin_modelo = bool(pick.get('sin_modelo') or pick.get('prob') is None)
-        _ck = corners_tarjeta(pick)
-        _tj = tarjetas_tarjeta(pick)
-        _rm = remates_tarjeta(pick)
-        _qr = quien_remata_tarjeta(pick)
+        if pick.get('solo_mercado'):
+            # v313 — sin modelo no hay córners ni remates que estimar: se
+            # dejarían los de la media genérica, que parecerían del partido
+            _ck = _tj = _rm = _qr = None
+        else:
+            _ck = corners_tarjeta(pick)
+            _tj = tarjetas_tarjeta(pick)
+            _rm = remates_tarjeta(pick)
+            _qr = quien_remata_tarjeta(pick)
 
         # ---- 1) las apuestas recomendadas, o por qué no las hay -------
         #
@@ -2910,6 +2924,39 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 else:
                     st.caption('Este partido no llegó a evaluarse: no hay '
                                'modelo suyo en el precálculo del día.')
+        elif pick.get('solo_mercado'):
+            # v313 — LOS PARTIDOS QUE EL MODELO NO CUBRE, CON SU «METER».
+            #
+            # El usuario: «en Capa 1 me mandas Sub 21, Sub 19, Japón… y en
+            # las apuestas del día no aparecen». Aquí la probabilidad es la
+            # de Pinnacle sin margen —se dice en la tarjeta— y la regla de
+            # «meter» es la medida para estos partidos (80-90 %, cuota
+            # 1,10-1,35, local o local/empate: 92 % en la réplica). Ver
+            # `mercado_sin_modelo`.
+            _recos_sm = metidas(recomendadas(pick, None, n=MAX_RECOMENDADAS))
+            recos = _recos_sm
+            rec = recos[0] if recos else None
+            try:
+                import veredicto_pick as _vp
+                if _recos_sm:
+                    _vp.pintar(st, [{'pick': r0, 'veredicto': _vp.METER,
+                                     'prob_ajustada': r0['prob']}
+                                    for r0 in _recos_sm], '🎯 Se mete')
+                    for r0 in _recos_sm:
+                        st.markdown('**%s** · cuota **%.2f** en %s'
+                                    % (r0['apuesta'], float(r0['cuota']),
+                                       r0.get('casa') or '—'))
+                else:
+                    st.markdown('**🚫 Nada que meter en este partido**')
+            except Exception as _e_sm:
+                logger.debug('[modo_modelo] sin modelo: %s', _e_sm)
+            st.caption('Sin modelo propio para esta competición: las '
+                       'probabilidades son las de Pinnacle sin su margen.')
+            try:
+                import pronosticos_guardados as _pgs
+                _pgs.guardar(pick, _recos_sm)
+            except Exception as _e_pg:
+                logger.debug('[modo_modelo] anotar pronostico: %s', _e_pg)
         elif sin_modelo:
             # v190 — SE DICE POR QUÉ FALTA, Y NO SE TAPA CON EL MERCADO.
             #

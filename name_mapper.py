@@ -140,6 +140,31 @@ def _expandir(n: str) -> str:
 
 MIN_PREFIJO_CONTENCION = 3
 
+# v313 — LAS PALABRAS QUE HACEN OTRO PAÍS (U OTRO CLUB) NO PUEDEN SOBRAR.
+#
+# El usuario, con el documento de Telegram delante: «Egipto, no meter. El
+# documento lo pone contra "Sudán", pero el partido real es contra Sudán del
+# Sur, en Juba». Las casas lo publicaban bien —«South Sudan vs Egypt»—, pero
+# Sudán del Sur no está en el catálogo del motor de selecciones y la regla de
+# contención de abajo casaba «South Sudan» con «Sudan»: al largo le sobraba
+# «south» y «sudan» casaba entera, que es exactamente el caso «Ajax / Ajax
+# Amsterdam» que la regla quiere aceptar. Resultado: el partido se predijo con
+# la fuerza de SUDÁN, y ese mismo día salía también «Mozambique vs Sudan»,
+# el mismo equipo jugando dos partidos a la misma hora.
+#
+# «Amsterdam» es un apellido del club; «South», «North», «Equatorial» o «DR»
+# cambian de país: Sudán / Sudán del Sur, Irlanda / Irlanda del Norte, Guinea /
+# Guinea Ecuatorial, Congo / RD del Congo, Sydney / Western Sydney. Si lo que
+# sobra es una de éstas, no es el mismo equipo. La única pareja que sí lo es
+# («Macedonia», el nombre viejo de Macedonia del Norte) va aparte.
+CALIFICADORES_OTRO_EQUIPO = frozenset((
+    'south', 'north', 'northern', 'southern', 'east', 'eastern', 'west',
+    'western', 'equatorial', 'dr', 'rd', 'sur', 'norte', 'ecuatorial'))
+MISMO_EQUIPO_CON_CALIFICADOR = frozenset((
+    frozenset(('macedonia', 'north macedonia')),
+    frozenset(('macedonia', 'macedonia del norte')),
+))
+
 
 def _contencion_fiable(objetivo: str, candidato: str) -> bool:
     """
@@ -186,6 +211,10 @@ def _contencion_fiable(objetivo: str, candidato: str) -> bool:
     """
     corto, largo = sorted((objetivo, candidato), key=len)
     if corto not in largo:
+        return False
+    # v313 — lo que le sobra al largo no puede ser «South», «North»…
+    sobra = set(largo.split()) - set(corto.split())
+    if sobra & CALIFICADORES_OTRO_EQUIPO             and frozenset((corto, largo)) not in MISMO_EQUIPO_CON_CALIFICADOR:
         return False
     t_corto, restantes = corto.split(), list(largo.split())
     if not t_corto or not restantes:

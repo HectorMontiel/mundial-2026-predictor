@@ -253,6 +253,10 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
     q = {k: v for k, v in pick.items()
          if k not in ('jugado', 'archivado_del_pronostico')}
     recos = []
+    if q.get('solo_mercado'):
+        # v313 — sin modelo: la regla de mercado, sin bloques que estimar
+        return [dict(pg._fila(r), origen='archivo')
+                for r in mm.metidas(mm.recomendadas(q))]
     try:
         _rm = mm.remates_tarjeta(q) or {}
         bloques = {'Córners': mm.corners_tarjeta(q),
@@ -559,7 +563,9 @@ def archivar_del_pronostico(dia: str, ruta_pronostico: str,
     try:
         with open(ruta_pronostico, encoding='utf-8') as f:
             doc = json.load(f)
-        pr = ((doc.get('datos') or doc).get('pronosticos')) or []
+        _dd = (doc.get('datos') or doc)
+        # v313 — y los partidos sin modelo propio, que también dicen «meter»
+        pr = (_dd.get('pronosticos') or []) + (_dd.get('solo_mercado') or [])
         generado_ts = float(doc.get('generado_ts') or 0) or None
     except Exception as e:
         logger.debug('[jugados] pronóstico previo ilegible: %s', e)
