@@ -839,6 +839,12 @@ def _clave_tenista(nombre: str) -> tuple:
     crudo = str(nombre or '').strip()
     # 1) fuera lo que va entre paréntesis (país, categoría, etc.)
     crudo = re.sub(r'\([^)]*\)', ' ', crudo)
+    # v317 — formato «Apellido, Nombre» («Morag, Snir»): daba ('snir', 'm')
+    # y el mismo partido salía dos veces en la app y en Telegram
+    if ',' in crudo:
+        ape, _c, nom = crudo.partition(',')
+        if ape.strip() and nom.strip():
+            crudo = '%s %s' % (nom.strip(), ape.strip())
     # 3) el apellido compuesto se vuelve un token: «Auger-Aliassime» ->
     #    «augeraliassime», igual se escriba en un formato o en el otro
     crudo_unido = re.sub(r'(\w)[-‐‑’\']\s*(\w)', r'\1\2', crudo)

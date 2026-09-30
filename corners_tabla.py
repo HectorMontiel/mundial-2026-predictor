@@ -27,7 +27,10 @@ juega), así que el total sigue siendo la media de la competición.
 QUÉ HACE
 Dos regresiones LightGBM de Poisson (córners del local y del visitante) con
 esos rasgos, entrenadas con el histórico de todas las ligas con córners
-reales. `rendimiento_equipos.corners_equipo` usa estas λ en lugar del
+reales (69.920 partidos con córners OBSERVADOS; los del generador
+sintético se descartan). Contra PRODUCCIÓN (`_v316_corners_tabla.py`, 1.915
+partidos fuera de muestra): log-loss 0,59786 → 0,58331 (p5 +0,01022), la
+franja de meter 70-80 % acierta 74,3 % → 77,2 %. `rendimiento_equipos.corners_equipo` usa estas λ en lugar del
 estimador ataque/defensa SÓLO si `corners_tabla.json` dice que ganaron a
 producción en `_v316_corners_tabla.py` (con las predicciones reales de
 producción, fuera de muestra).
@@ -115,18 +118,28 @@ class Estado:
 
 
 def _historico(liga: str):
+    """El histórico de la liga por `rendimiento_equipos._historico` (el que
+    recortan las simulaciones por fecha: leerlo del fichero dejaba ver
+    partidos posteriores al simular un día pasado) y con los córners SÓLO
+    donde son observados: en las ligas que `stats_espn` rellenó, las filas
+    sin `stats_origen` llevan córners del generador sintético
+    (`rendimiento_equipos._solo_reales`), y ésos se dejan en blanco. Los goles
+    son siempre reales."""
     import pandas as pd
-    ruta = 'historico_%s.csv' % liga
-    if not os.path.exists(ruta):
+    import rendimiento_equipos as rq
+    d = rq._historico(liga)
+    if d is None or getattr(d, 'empty', True) or 'home_corners' not in d.columns:
         return pd.DataFrame()
-    d = pd.read_csv(ruta, low_memory=False, usecols=lambda c: c in (
-        'date', 'home_team', 'away_team', 'home_goals', 'away_goals',
-        'home_corners', 'away_corners'))
-    if 'home_corners' not in d.columns:
-        return pd.DataFrame()
+    d = d[[c for c in ('date', 'home_team', 'away_team', 'home_goals',
+                       'away_goals', 'home_corners', 'away_corners',
+                       'stats_origen') if c in d.columns]].copy()
     d['date'] = pd.to_datetime(d['date'], errors='coerce')
-    return d.dropna(subset=['date', 'home_team', 'away_team', 'home_goals',
-                            'away_goals']).sort_values('date').reset_index(drop=True)
+    d = d.dropna(subset=['date', 'home_team', 'away_team', 'home_goals', 'away_goals'])
+    if 'stats_origen' in d.columns:
+        marcadas = d['stats_origen'].notna()
+        if marcadas.any():
+            d.loc[~marcadas, ['home_corners', 'away_corners']] = float('nan')
+    return d.sort_values('date').reset_index(drop=True)
 
 
 def recorrer(liga: str, hasta=None, registrar: bool = True):
@@ -156,7 +169,8 @@ def recorrer(liga: str, hasta=None, registrar: bool = True):
 
 def ligas():
     return sorted(r[len('historico_'):-4] for r in glob.glob('historico_*.csv')
-                  if r[len('historico_'):-4] not in FUERA)
+                  if r[len('historico_'):-4] not in FUERA
+                  and not r[len('historico_'):-4].startswith('estadisticas'))
 
 
 def conjunto():
@@ -245,9 +259,14 @@ def lambdas(clave: str, home: str, away: str, fecha=None) -> Optional[Tuple[floa
         doc = cargar()
         if not doc.get('activo') or clave not in (doc.get('codigos') or {}):
             return None
-        if clave not in _EST:
-            _EST[clave] = recorrer(clave, registrar=False)[0]
-        e = _EST[clave]
+        # la llave lleva el tamaño y la última fecha del histórico: si una
+        # simulación lo recorta a otro día, el estado se rehace
+        h = _historico(clave)
+        llave = (clave, len(h), str(h['date'].iloc[-1]) if len(h) else '')
+        if llave not in _EST:
+            _EST.clear() if len(_EST) > 80 else None
+            _EST[llave] = recorrer(clave, registrar=False)[0]
+        e = _EST[llave]
         if not e.listo(home, away):
             return None
         d = pd.Timestamp(fecha) if fecha is not None else pd.Timestamp.now()

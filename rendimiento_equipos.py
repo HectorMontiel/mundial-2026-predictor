@@ -973,9 +973,10 @@ def corners_equipo(clave: str, home: str, away: str,
         return _estimado(clave, 'ck')
     # v316 — LOS CÓRNERS DE CADA EQUIPO CON LA TABLA DE GOLES. Medido contra
     # este mismo estimador en 1.952 partidos de producción fuera de muestra
-    # (`_v316_corners_tabla.py`, misma dispersión, líneas 2,5 a 6,5): log-loss
-    # 0,59804 -> 0,58507 (p5 +0,00903); lo ofrecido al 70 % acierta 78,4 % ->
-    # 81,0 % y la franja de meter (70-80 %) 74,2 % -> 77,7 %. Sólo si el
+    # (`_v316_corners_tabla.py`, misma dispersión, líneas 2,5 a 6,5; sólo
+    # córners observados y el histórico recortado a cada fecha): log-loss
+    # 0,59786 -> 0,58331 (p5 +0,01022); lo ofrecido al 70 % acierta 78,4 % ->
+    # 80,9 % y la franja de meter (70-80 %) 74,3 % -> 77,2 %. Sólo si el
     # fichero dice que ganó; si no, sigue el estimador de siempre.
     fuente = 'ataque_defensa'
     try:

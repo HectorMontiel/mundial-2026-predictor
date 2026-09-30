@@ -230,6 +230,11 @@ def probar_agente():
 
 
 if __name__ == '__main__':
+    # v317 — los partidos fuera del motor están APAGADOS por decisión del
+    # usuario (`mercado_sin_modelo.MOSTRAR`), pero el código sigue: aquí se
+    # prueba encendido, que es como se usaría si se vuelve a activar
+    import mercado_sin_modelo as _msm_t
+    _msm_t.MOSTRAR = True
     print('=== 1. Sudán del Sur ===')
     probar_sudan()
     print('\n=== 2. partidos sin modelo ===')

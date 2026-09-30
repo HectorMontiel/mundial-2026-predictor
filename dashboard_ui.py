@@ -6539,8 +6539,23 @@ def render_alpha_finder():
         _prob_c1 = [p for p in _prob_c1 if str(p.get('partido')) not in _ya_c1]
     except Exception as _e_pb:
         logger.warning('[capa1] probables omitidas: %s', _e_pb)
-    _rot_c1 = ('🟢 Capa 1 — ventaja medida · %d para %s'
-               % (len(_c1_val), _NOMBRE_DIA.get(_modo_dia, _modo_dia)))
+    # v317 — LO MEJOR DEL MODELO, primero. El usuario: «Capa 1 no me
+    # muestra nada y eso está mal… ahí debería ser lo mejor de lo mejor».
+    # Resultado con el modelo ≥ 70 % y la casa sin margen 80-88 %: 85-87 %
+    # de acierto en 60.796 partidos; en la simulación de la tarjeta 89,8 % y
+    # 95,0 % (ver `lo_mejor.py`).
+    _lm_c1, _lm_r1 = [], []
+    try:
+        import lo_mejor as _lm
+        _lm_c1 = solo_del_dia(_lm.del_dia(r), _modo_dia)
+        # y el segundo nivel, 🔷 más riesgo y más cuota (~1,43, 71-72 %)
+        _lm_r1 = solo_del_dia(_lm.del_dia(r, riesgo=True), _modo_dia)
+    except Exception as _e_lm:
+        logger.warning('[capa1] lo mejor del modelo omitido: %s', _e_lm)
+    _rot_c1 = ('🟢 Capa 1 · 🏆 %d lo mejor del modelo · 🔷 %d con más cuota · '
+               '%d errores de precio para %s'
+               % (len(_lm_c1), len(_lm_r1), len(_c1_val),
+                  _NOMBRE_DIA.get(_modo_dia, _modo_dia)))
     if _prob_c1:
         _rot_c1 += ' · 🎯 %d probables' % len(_prob_c1)
     with st.expander(_rot_c1, expanded=False):
@@ -6550,10 +6565,29 @@ def render_alpha_finder():
             _vc = None
             st.error('No se pudo cargar la vista de la Capa 1 (%s).'
                      % type(_e_vc).__name__)
+        if _lm_c1 and _vc is not None:
+            st.markdown('**🏆 Lo mejor del modelo (%d)**' % len(_lm_c1))
+            st.caption('El modelo en 70 % o más y la casa, sin su margen, '
+                       'entre 80 % y 88 %: medido en 60.796 partidos, acierta '
+                       '85 % (doble oportunidad) y 87 % (ganador). Cuota baja '
+                       '(1,10-1,20): es lo más seguro, sirve de pata.')
+            st.markdown(_vc.html_lista(_lm_c1), unsafe_allow_html=True)
+        if _lm_r1 and _vc is not None:
+            st.markdown('**🔷 Más riesgo, más cuota (%d)**' % len(_lm_r1))
+            st.caption('OTRA PROBABILIDAD: ganador que el modelo ve claro y la '
+                       'casa tiene entre 55 % y 70 %. Medido en 2.354 partidos: '
+                       'acierta 71-72 % a cuota media 1,43. Menos '
+                       'seguro que las 🏆; sirve para multiplicar (una doble de '
+                       'dos de éstas paga ~2,10 y sale ~50 % de las veces).')
+            st.markdown(_vc.html_lista(_lm_r1, con_css=not _lm_c1),
+                        unsafe_allow_html=True)
         if _c1_val and _vc is not None:
+            st.markdown('**💰 Errores de precio contra Pinnacle (%d)**'
+                        % len(_c1_val))
             if _frase:
                 st.caption(_frase)
-            st.markdown(_vc.html_lista(_c1_val), unsafe_allow_html=True)
+            st.markdown(_vc.html_lista(_c1_val, con_css=not (_lm_c1 or _lm_r1)),
+                        unsafe_allow_html=True)
             st.caption('🟢 Métela · 🟡 Puedes meterla · 🔴 No la metas. Van '
                        'por calidad medida, no por probabilidad: las de cuota '
                        '2,80-4,00 aciertan menos y rinden más. La casa paga '
@@ -7452,8 +7486,15 @@ def render_alpha_finder():
     # lista que enseña uno solo es lo que hacía que 227 y 148 no cuadraran.
     # v313 — con los partidos sin modelo propio (sub-21, copas, ligas chicas)
     # que tienen algo que meter o salen en la Capa 1: ver `mercado_sin_modelo`
+    # v317 — apagados (ver `mercado_sin_modelo.MOSTRAR`): un día cocinado
+    # antes del cambio todavía los trae, y no deben salir
+    try:
+        import mercado_sin_modelo as _msm_v
+        _sm_ok = bool(_msm_v.MOSTRAR)
+    except Exception:
+        _sm_ok = False
     _pron_f = _filtra((r.get('pronosticos') or [])
-                      + (r.get('solo_mercado') or []))
+                      + ((r.get('solo_mercado') or []) if _sm_ok else []))
     _pron_hoy = _del_dia(_pron_f, _HOY_S)
     _pron_man = _del_dia(_pron_f, _MANANA_S)
     _pron_pas = _del_dia(_pron_f, _PASADO_S)          # v250

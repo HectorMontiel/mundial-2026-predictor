@@ -1815,6 +1815,29 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
     except Exception as e:
         logger.debug('[modo_modelo] veredicto no aplicado al orden: %s', e)
 
+    # v317 — LO MEJOR DEL MODELO (la Capa 1) VA PRIMERO Y SE METE.
+    #
+    # Resultado con el modelo en 70 % o más y la casa sin margen entre 80 % y
+    # 88 %: medido en 60.796 partidos, 85 % de acierto en doble oportunidad y
+    # 87 % en ganador, contra el 73 % del resto (ver `lo_mejor.py`). No pasaba
+    # por la franja de «meter» (70-80 %, cuota ≥ 1,20 para ser candidata)
+    # porque su cuota es de 1,10-1,20; aquí entra, y como es de la familia
+    # del resultado, la regla de abajo quita cualquier otra de resultado.
+    try:
+        import lo_mejor as _lm
+        _el = _lm.del_pick(pick)
+    except Exception as e:
+        logger.debug('[modo_modelo] lo mejor: %s', e)
+        _el = None
+    if _el:
+        _c = _enriquece(pick, dict(_el, score=_el['prob'] * _el['cuota'],
+                                   semaforo='🟢'), 1)
+        _c.update(veredicto_vp='meter', prob_meter=_el['prob'], elite=True,
+                  razon=_el['razon'], casa=_el.get('casa'),
+                  p_mercado=_el['p_mercado'])
+        candidatas = [_c] + [c for c in candidatas
+                             if c.get('apuesta') != _c['apuesta']]
+
     # v311 — UNA SOLA APUESTA DE RESULTADO POR PARTIDO.
     #
     # El usuario, con México–Colombia (1-1) delante: la tarjeta decía «México
@@ -3061,6 +3084,20 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 _vers = _vp.evaluar_lista(recos, con_contexto=False)
                 if _vers:
                     _vp.pintar(st, _vers, '🎯 Se mete')
+                # v317 — 🔷 el segundo nivel de la Capa 1, aparte y dicho como
+                # lo que es: otra probabilidad (71-72 % medido, cuota ~1,43)
+                try:
+                    import lo_mejor as _lm_t
+                    _rz = _lm_t.del_pick_riesgo(pick)
+                    if _rz:
+                        st.markdown(
+                            '<div style="font-size:.84rem;margin:.2rem 0">🔷 '
+                            '<b>Más riesgo, más cuota:</b> %s · cuota %.2f · '
+                            'modelo %.0f %% · medido 71-72 %%</div>'
+                            % (_rz['apuesta'], _rz['cuota'], 100 * _rz['prob']),
+                            unsafe_allow_html=True)
+                except Exception as _e_rz:
+                    logger.debug('[modo_modelo] riesgo: %s', _e_rz)
                     # v242 — un precio de antes del saque se declara.
                     #
                     # `mercado_implicito.fusionar` conserva los mercados que

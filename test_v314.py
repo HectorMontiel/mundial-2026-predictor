@@ -107,9 +107,9 @@ def probar_regla():
 
 def probar_telegram():
     import formato_ia as fi
-    check('Más de 1.5' in fi.GUIA and 'no suman' in fi.GUIA
-          and 'Córners y tarjetas en ligas sin modelo' in fi.GUIA,
-          'la guía para la IA explica la regla de goles, los patrones y los córners')
+    # v317 — la guía ya no explica la regla de fuera del motor: no se envían
+    check('Sólo van partidos con MODELO' in fi.GUIA,
+          'la guía para la IA dice que sólo van partidos con modelo (v317)')
     import mercado_sin_modelo as msm
     v = _v((1.45, 4.5, 6.5, 1.10, 2.6), btts=(1.8, 1.9),
            ou=[(1.5, 1.20, 4.2), (2.5, 1.70, 2.1), (3.5, 2.9, 1.38)])
@@ -122,6 +122,11 @@ def probar_telegram():
 
 
 if __name__ == '__main__':
+    # v317 — los partidos fuera del motor están APAGADOS por decisión del
+    # usuario (`mercado_sin_modelo.MOSTRAR`), pero el código sigue: aquí se
+    # prueba encendido, que es como se usaría si se vuelve a activar
+    import mercado_sin_modelo as _msm_t
+    _msm_t.MOSTRAR = True
     print('=== 1. la medición ===')
     probar_medicion()
     print('\n=== 2. la regla ===')

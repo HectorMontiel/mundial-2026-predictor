@@ -619,6 +619,24 @@ def _en_capa(datos: Dict) -> List[Tuple[str, str]]:
     return fuera
 
 
+# v317 — APAGADO POR DECISIÓN DEL USUARIO, AUNQUE ACIERTA.
+#
+#   «o le agregamos el motor, todo el modelo matemático, estadístico y de
+#    machine learning que le hemos estado haciendo a todas las ligas, o
+#    quitamos esas ligas para que no nos hagan ruido… prefiero no tenerlas,
+#    tener pocas pero de calidad»
+#
+# El motor completo (histórico con estadísticas, calibración por liga,
+# correctores de patrones, córners con tabla) no se puede construir para
+# estas 437 competiciones: de ellas sólo hay goles. Así que se quitan de la
+# aplicación y de Telegram. Lo medido, para que conste lo que se deja: la
+# regla de «meter» en estos partidos acertó 85,7 % (843) y 87,1 % (255) en
+# `_v316_modelo_flashscore.py`, y casi todo lo que metía era «más de 1,5» o
+# «gana el local»; el usuario prefiere variedad y modelo propio. Todo el
+# código queda: basta con poner esto en True para volver a enseñarlos.
+MOSTRAR = False
+
+
 def construir(datos: Dict, ruta: str = TABLERO) -> List[Dict]:
     """Los partidos de fútbol del tablero que el motor de ligas no cubre.
 
@@ -628,6 +646,8 @@ def construir(datos: Dict, ruta: str = TABLERO) -> List[Dict]:
     la base propia. Y se enseña si tiene algo que meter o está en la Capa
     1/2. NUNCA lanza."""
     import time
+    if not MOSTRAR:
+        return []
     try:
         import horario as hz
         import modelo_competiciones as mc

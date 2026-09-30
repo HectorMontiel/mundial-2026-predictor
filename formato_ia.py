@@ -54,29 +54,19 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   predice mejor el total. Lo que cambia por partido es lo de cada equipo,
   que ya usa la TABLA (diferencia de goles, posición): el fuerte saca más
   córners. Medido en partidos no vistos: lo ofrecido al 70-80 % acierta
-  77,7 % contra 74,2 % sin la tabla.
+  77,2 % contra 74,3 % sin la tabla.
 - «[estimado]»: la competición no publica esa estadística; es su nivel
   general, no algo de estos dos equipos. No lo uses para decidir.
-- «FUERA DEL MOTOR DE LIGAS»: sub-21, sub-20, copas, ascensos, femenil…
-  (v315) Tienen MODELO PROPIO (ataque/defensa de cada equipo sobre la base
-  propia de resultados de FotMob): es una segunda opinión. Medido: solo
-  acierta menos que Pinnacle y usarlo para vetar no sumó; si discrepa mucho
-  de Pinnacle, busca el motivo (bajas, rotaciones) antes de meter.
-  Precios: sólo Playdoit y Novibet (las casas del usuario).
-  La probabilidad es la de Pinnacle sin margen. Ahí la app sólo dice
-  «meter» con Pinnacle 80-90 %, cuota 1,10-1,35 y local o local/empate
-  (medido: 92 % de acierto en la réplica del 20-28 sep; más exigente que
-  el modelo porque Pinnacle al 75 % acierta ~75 %, y eso bajaría el total).
-  Y en goles, «Más de 1.5» con las casas 80-90 % y cuota 1,10-1,35 (86,6 %
-  y 93,9 % en los dos tramos). Menos de 3,5 y ambos marcan ahí NO (medido).
-  «GOLES POR EQUIPO (sin cuota)»: sale de las λ que reproducen el 1X2 y el
-  más/menos de las casas; «más de 0.5» está bien calibrado, «más de 1.5»
-  promete un poco de más. Tus casas no los cotizan en esas ligas: si los
-  encuentras, métela sólo si pagan más que la «justa».
-- Patrones de cada liga (goles, local fuerte…): medido en 140 ligas chicas,
-  las casas ya los tienen en el precio; no suman.
-- Córners y tarjetas en ligas sin modelo: no hay estadística ni cuota; la
-  app no los ofrece.
+- Sólo van partidos con MODELO (el motor de ligas o el de cada deporte). Los
+  de competiciones fuera del motor (sub-21, copas, ligas chicas) ya no se
+  envían: sin el modelo completo son ruido (decisión del usuario, v317).
+- «🏆 LO MEJOR DEL MODELO»: la Capa 1 de la app, la parte de las «meter»
+  que más acierta según la simulación con partidos terminados.
+- «🔷 MÁS RIESGO, MÁS CUOTA»: OTRA PROBABILIDAD, más baja que la de la
+  Capa 1 (71-72 % medido, cuota ~1,43). Para multiplicar en dobles; no se
+  cuenta como «meter».
+- «🎯 APUESTAS A METER POR CATEGORÍA»: todas las «meter» del día agrupadas
+  por mercado; debajo, el detalle de cada partido.
 - «MERCADOS»: todo lo cotizado. «justa» = 1/probabilidad del modelo.
   EV = prob × cuota − 1 (positivo = la casa paga de más según el modelo).
 - «TABLA» (v316): posición, puntos a la zona de arriba (el 25 % de la
@@ -308,7 +298,13 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
 
 def _pick_de(r: Dict, reg: Dict) -> Optional[Dict]:
     # v313 — también los partidos sin modelo propio (`solo_mercado`)
-    lista = (r.get('pronosticos') or []) + (r.get('solo_mercado') or [])
+    # v317 — apagados salvo que `mercado_sin_modelo.MOSTRAR` diga otra cosa
+    try:
+        import mercado_sin_modelo as _msm_v
+        _sm_ok = bool(_msm_v.MOSTRAR)
+    except Exception:
+        _sm_ok = False
+    lista = (r.get('pronosticos') or []) + ((r.get('solo_mercado') or []) if _sm_ok else [])
     for p in lista:
         if (isinstance(p, dict) and str(p.get('partido')) == reg['partido']
                 and str(p.get('deporte') or 'Fútbol') == reg['deporte']):
@@ -327,6 +323,65 @@ def _pick_de(r: Dict, reg: Dict) -> Optional[Dict]:
     return None
 
 
+# v317 — EL DOCUMENTO, CATALOGADO.
+#
+# El usuario: «que me esté mandando diferentes métricas de recomendaciones,
+# no sólo de un solo mercado, sino de varias, y que esté bien catalogado en
+# lo que estamos mandando a Telegram. Todo tiene que estar bien estructurado
+# porque se lo vamos a dar a una IA generativa». Y: «quiero que únicamente
+# esté lo que nosotros hemos analizado y puesto con el modelo».
+#
+# Cada día lleva ahora, en este orden:
+#   1. 🏆 LO MEJOR DEL MODELO: lo que sale en la Capa 1 (`lo_mejor.py`);
+#   2. 🎯 APUESTAS A METER POR CATEGORÍA: todas las «meter» del día agrupadas
+#      por mercado (resultado, goles del partido, goles de cada equipo, ambos
+#      marcan, córners, tarjetas; y en los otros deportes, por deporte), una
+#      línea por apuesta con hora, partido, probabilidad, cuota y casa;
+#   3. DETALLE POR PARTIDO: sólo los partidos con modelo (antes entraban
+#      también los que sólo tenían precio de las casas: Capa 2, candidatos,
+#      «sin modelo»).
+CATEGORIAS = (('RESULTADO', ('1X2', 'Doble oportunidad', 'Ganador', 'Handicap')),
+              ('GOLES DEL PARTIDO', ('Goles',)),
+              ('GOLES DE CADA EQUIPO', ('Goles equipo',)),
+              ('AMBOS MARCAN', ('BTTS',)),
+              ('CÓRNERS', ('Córners',)),
+              ('TARJETAS', ('Tarjetas',)))
+
+
+def categoria(m: Dict, deporte: str) -> str:
+    if deporte != 'Fútbol':
+        return deporte.upper()
+    mer = str(m.get('mercado') or '')
+    for nombre, mercados in CATEGORIAS:
+        if mer in mercados:
+            return nombre
+    return 'OTROS (%s)' % mer if mer else 'OTROS'
+
+
+def _con_modelo(pick: Optional[Dict]) -> bool:
+    if not pick or pick.get('sin_modelo'):
+        return False
+    if pick.get('solo_mercado'):
+        # los de fuera del motor, sólo si están encendidos
+        try:
+            import mercado_sin_modelo as _msm
+            return bool(_msm.MOSTRAR)
+        except Exception:
+            return False
+    return True
+
+
+def _linea_meter(reg: Dict, m: Dict) -> str:
+    p = m.get('prob_meter', m.get('prob'))
+    trozos = ['prob %s' % _pct(p)]
+    if m.get('cuota'):
+        trozos.append('cuota %s' % _num(m['cuota']))
+    if m.get('casa'):
+        trozos.append(str(m['casa']))
+    return '   • %s  %s — %s · %s' % (reg.get('hora') or '--:--', reg['partido'],
+                                     m.get('apuesta'), ' · '.join(trozos))
+
+
 def texto(r: Dict, dias: List[str]) -> str:
     """El documento de uno o varios días, listo para pegar en una IA."""
     import datetime as _dt
@@ -338,16 +393,85 @@ def texto(r: Dict, dias: List[str]) -> str:
          '', GUIA]
     total_meter = 0
     for dia in dias:
-        partidos = md.partidos_del_dia(r, dia, con_extras=True)
-        L += ['', '=' * 70, 'DÍA %s — %d partidos' % (dia, len(partidos)),
+        filas = []
+        for reg in md.partidos_del_dia(r, dia, con_extras=True):
+            pick = _pick_de(r, reg)
+            if _con_modelo(pick):
+                filas.append((reg, pick, _meter(pick)))
+        L += ['', '=' * 70, 'DÍA %s — %d partidos con modelo' % (dia, len(filas)),
               '=' * 70]
-        if not partidos:
+        if not filas:
             L.append('Sin partidos con pronóstico para este día.')
             continue
-        for reg in partidos:
-            bloque = bloque_partido(reg, _pick_de(r, reg))
-            total_meter += sum(1 for x in bloque if x.startswith('   • '))
-            L += bloque
+        # 1. lo mejor del modelo (la Capa 1)
+        try:
+            import lo_mejor as _lm
+            top = _lm.del_dia(r, dia)
+        except Exception as e:
+            logger.debug('[ia] lo mejor: %s', e)
+            top = []
+        L += ['', '🏆 LO MEJOR DEL MODELO (Capa 1) — %d' % len(top)]
+        if top:
+            L += ['   • %s  %s — %s · prob %s · cuota %s · %s'
+                  % (t.get('hora') or '--:--', t.get('partido'), t.get('apuesta'),
+                     _pct(t.get('prob')), _num(t.get('cuota')), t.get('casa') or '')
+                  for t in top]
+            try:
+                L.append('   (%s)' % _lm.NOTA)
+            except Exception:
+                pass
+        else:
+            L.append('   Ninguna apuesta del día llega al nivel de la Capa 1.')
+        # 1b. 🔷 más riesgo, más cuota: otra probabilidad, dicha aparte
+        try:
+            import lo_mejor as _lm
+            rz = _lm.del_dia(r, dia, riesgo=True)
+        except Exception as e:
+            logger.debug('[ia] riesgo: %s', e)
+            rz = []
+        L += ['', '🔷 MÁS RIESGO, MÁS CUOTA (Capa 1, otra probabilidad) — %d' % len(rz)]
+        if rz:
+            L += ['   • %s  %s — %s · modelo %s · casa sin margen %s · cuota %s · %s'
+                  % (t.get('hora') or '--:--', t.get('partido'), t.get('apuesta'),
+                     _pct(t.get('prob')), _pct(t.get('p_mercado')),
+                     _num(t.get('cuota')), t.get('casa') or '') for t in rz]
+            L.append('   (%s)' % _lm.NOTA_RIESGO)
+            # la doble sugerida: las dos de riesgo de partidos distintos, o
+            # una de riesgo con la mejor del primer nivel
+            pares = []
+            if len(rz) >= 2:
+                pares.append((rz[0], rz[1], 0.715 * 0.715))
+            otra = next((t for t in top if t.get('partido') != rz[0].get('partido')), None)
+            if otra:
+                pares.append((rz[0], otra, 0.715 * 0.85))
+            for x, y, pr in pares:
+                L.append('   DOBLE SUGERIDA: %s (%s) + %s (%s) → cuota %s · se cumple '
+                         '~%s según lo medido'
+                         % (x.get('apuesta'), x.get('partido'), y.get('apuesta'),
+                            y.get('partido'), _num((x.get('cuota') or 1) * (y.get('cuota') or 1)),
+                            _pct(pr)))
+        else:
+            L.append('   Ninguna hoy.')
+        # 2. todas las «meter», por categoría
+        grupos: Dict[str, List[str]] = {}
+        for reg, pick, mets in filas:
+            for m in mets:
+                grupos.setdefault(categoria(m, reg['deporte']), []).append(
+                    _linea_meter(reg, m))
+        n = sum(len(v) for v in grupos.values())
+        total_meter += n
+        L += ['', '🎯 APUESTAS A METER POR CATEGORÍA — %d' % n]
+        orden = [c for c, _ in CATEGORIAS]
+        for cat in sorted(grupos, key=lambda c: (orden.index(c) if c in orden
+                                                 else len(orden), c)):
+            L.append('%s (%d)' % (cat, len(grupos[cat])))
+            L += grupos[cat]
+        if not grupos:
+            L.append('   Ninguna.')
+        # 3. el detalle de cada partido
+        L += ['', 'DETALLE POR PARTIDO']
+        for reg, pick, _m in filas:
+            L += bloque_partido(reg, pick)
     L += ['', '=' * 70, 'Total de apuestas «meter» de la app: %d' % total_meter]
     return '\n'.join(L)
 

@@ -3719,6 +3719,56 @@ def _pronosticos_multideporte(res: Dict[str, Dict]) -> List[Dict]:
                 q['cobertura_parcial'] = True
             fuera.append(q)
 
+    # v317 — EL MISMO PARTIDO DE TENIS ESCRITO POR DOS FUENTES.
+    #
+    # El usuario lo vio en Telegram: «Zheng W. vs Sorribes Tormo S.» y
+    # «Wushuang Zheng vs Sara Sorribes Tormo», o «Morag, Snir» y «Snir
+    # Morag», cada uno con su apuesta. La clave (deporte, partido, fecha) no
+    # los junta y la de apellido tampoco con apellidos compuestos (una casa
+    # dice «Sorribes», otra «Tormo»). Aquí: misma hora de inicio y los DOS
+    # jugadores comparten un apellido (palabra de 3+ letras). Se queda el de
+    # nombres completos, que es el de la fuente con la hora más fiable.
+    def _tokens(nom):
+        import re as _re
+        s = str(nom or '')
+        if ',' in s:
+            a_, _c, n_ = s.partition(',')
+            s = '%s %s' % (n_, a_)
+        try:
+            import cuotas_multi as _cm
+            s = _cm.normalizar(s)
+        except Exception:
+            s = s.lower()
+        return {t for t in _re.split(r'[^a-z0-9]+', s) if len(t) >= 3}
+
+    def _mismo_tenis(p, q):
+        if str(p.get('inicio') or '')[:13] != str(q.get('inicio') or '')[:13]:
+            return False
+        try:
+            ph, pa = str(p['partido']).split(' vs ', 1)
+            qh, qa = str(q['partido']).split(' vs ', 1)
+        except ValueError:
+            return False
+        tp = (_tokens(ph), _tokens(pa))
+        tq = (_tokens(qh), _tokens(qa))
+        return bool((tp[0] & tq[0] and tp[1] & tq[1])
+                    or (tp[0] & tq[1] and tp[1] & tq[0]))
+
+    def _sin_tenis_repetido(lista):
+        quedan = []
+        for p in lista:
+            if str(p.get('deporte')) != 'Tenis':
+                quedan.append(p)
+                continue
+            dup = next((i for i, q in enumerate(quedan)
+                        if str(q.get('deporte')) == 'Tenis' and _mismo_tenis(p, q)), None)
+            if dup is None:
+                quedan.append(p)
+            elif ('.' in quedan[dup]['partido'] or ',' in quedan[dup]['partido']) \
+                    and not ('.' in p['partido'] or ',' in p['partido']):
+                quedan[dup] = p
+        return quedan
+
     for nombre, r in (res or {}).items():
         r = r or {}
         propios = r.get('pronosticos')
@@ -3727,6 +3777,7 @@ def _pronosticos_multideporte(res: Dict[str, Dict]) -> List[Dict]:
         else:
             _añadir(r.get('capa1') or r.get('picks'), respaldo=True)
             _añadir(r.get('capa2') or r.get('confianza'), respaldo=True)
+    fuera = _sin_tenis_repetido(fuera)
     fuera.sort(key=lambda p: (str(p.get('fecha') or ''),
                               str(p.get('inicio') or '') == '',
                               str(p.get('inicio') or ''),

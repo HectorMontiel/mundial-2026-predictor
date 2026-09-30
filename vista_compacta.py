@@ -39,7 +39,10 @@ from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
-ICONO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴', 'probable': '🎯'}
+ICONO = {'verde': '🟢', 'ambar': '🟡', 'rojo': '🔴', 'probable': '🎯',
+         # v317 — el segundo nivel de la Capa 1 (`lo_mejor.py`): otra
+         # probabilidad, y se ve distinto
+         'riesgo': '🔷'}
 
 # Colores con transparencia: se leen igual sobre el tema claro y el oscuro de
 # Streamlit, que es lo que el resto de la aplicación ya hace con `mm-*`.

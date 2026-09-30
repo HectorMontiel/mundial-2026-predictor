@@ -1,0 +1,170 @@
+{
+ "ledger_partidos": 60796,
+ "ledger_corte": "2025-02-15",
+ "capa1": {
+  "doble": {
+   "elegir": {
+    "n": 8166,
+    "cuota_media": 1.131,
+    "acierto": 0.8533,
+    "p5_acierto": 0.8469
+   },
+   "juzgar": {
+    "n": 3680,
+    "cuota_media": 1.116,
+    "acierto": 0.8484,
+    "p5_acierto": 0.8386
+   }
+  },
+  "ganador": {
+   "elegir": {
+    "n": 594,
+    "cuota_media": 1.136,
+    "acierto": 0.8687,
+    "p5_acierto": 0.8468
+   },
+   "juzgar": {
+    "n": 132,
+    "cuota_media": 1.128,
+    "acierto": 0.8788,
+    "p5_acierto": 0.8333
+   }
+  }
+ },
+ "resto_modelo_70_80": {
+  "elegir": {
+   "n": 17074,
+   "cuota_media": 1.315,
+   "acierto": 0.7318,
+   "p5_acierto": 0.7262
+  },
+  "juzgar": {
+   "n": 7472,
+   "cuota_media": 1.301,
+   "acierto": 0.7272,
+   "p5_acierto": 0.7185
+  }
+ },
+ "riesgo": {
+  "elegir": {
+   "n": 1706,
+   "cuota_media": 1.425,
+   "acierto": 0.714,
+   "p5_acierto": 0.6952,
+   "ganancia": 0.0155,
+   "p5_ganancia": -0.0109
+  },
+  "juzgar": {
+   "n": 648,
+   "cuota_media": 1.423,
+   "acierto": 0.7238,
+   "p5_acierto": 0.696,
+   "ganancia": 0.0302,
+   "p5_ganancia": -0.0102
+  }
+ },
+ "riesgo_por_cuota": {
+  "(1.3, 1.45]": {
+   "elegir": {
+    "n": 1441,
+    "acierto": 0.7238,
+    "ganancia": 0.015
+   },
+   "juzgar": {
+    "n": 540,
+    "acierto": 0.713,
+    "ganancia": -0.0045
+   }
+  },
+  "(1.45, 1.6]": {
+   "elegir": {
+    "n": 214,
+    "acierto": 0.6729,
+    "ganancia": 0.0219
+   },
+   "juzgar": {
+    "n": 84,
+    "acierto": 0.8095,
+    "ganancia": 0.2326
+   }
+  },
+  "(1.6, 1.8]": {
+   "elegir": {
+    "n": 51,
+    "acierto": 0.6078,
+    "ganancia": 0.0016
+   },
+   "juzgar": {
+    "n": 24,
+    "acierto": 0.6667,
+    "ganancia": 0.1021
+   }
+  }
+ },
+ "doble_con_cuota_alta": {
+  "elegir": {
+   "n": 15898,
+   "cuota_media": 1.54,
+   "acierto": 0.6226,
+   "p5_acierto": 0.6166,
+   "ganancia": -0.0467,
+   "p5_ganancia": -0.0562
+  },
+  "juzgar": {
+   "n": 6341,
+   "cuota_media": 1.54,
+   "acierto": 0.6168,
+   "p5_acierto": 0.6067,
+   "ganancia": -0.0557,
+   "p5_ganancia": -0.0711
+  }
+ },
+ "simulacion": {
+  "partidos": 473,
+  "candidatas": 2287,
+  "antes": {
+   "elegir": {
+    "apuestas": 440,
+    "acierto": 0.7568,
+    "rojos": 107
+   },
+   "juzgar": {
+    "apuestas": 175,
+    "acierto": 0.7886,
+    "rojos": 37
+   },
+   "partidos_con_algo": 383
+  },
+  "ahora": {
+   "elegir": {
+    "apuestas": 465,
+    "acierto": 0.7742,
+    "rojos": 105
+   },
+   "juzgar": {
+    "apuestas": 186,
+    "acierto": 0.8065,
+    "rojos": 36
+   },
+   "partidos_con_algo": 391
+  },
+  "mejora_elegir": {
+   "puntos": 0.0174,
+   "p5": 0.006
+  },
+  "mejora_juzgar": {
+   "puntos": 0.0179,
+   "p5": 0.0011
+  },
+  "capa1_en_la_simulacion": {
+   "elegir": {
+    "n": 52,
+    "acierto": 0.8846
+   },
+   "juzgar": {
+    "n": 20,
+    "acierto": 0.95
+   }
+  }
+ }
+}

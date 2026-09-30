@@ -351,6 +351,13 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
             'razones': [], 'senales': [], 'mercado': mercado}
     if prob is None:
         return {**base, 'razones': ['sin probabilidad']}
+    # v317 — LO MEJOR DEL MODELO (`lo_mejor.py`) YA VIENE MEDIDO: modelo y
+    # casa de acuerdo acierta ~85 % a cuota 1,10-1,20. No pasa por la franja
+    # ni por la cuota mínima de las demás, que son las que dejaban esta
+    # apuesta fuera.
+    if p.get('elite'):
+        return {**base, 'veredicto': METER, 'fuerza': 1.0, 'medido': True,
+                'razones': [str(p.get('razon') or 'Capa 1: modelo y casa de acuerdo')]}
 
     c = correccion(prob, mercado, cuota)
     ajustada = max(0.01, min(0.99, prob + c['delta']))
