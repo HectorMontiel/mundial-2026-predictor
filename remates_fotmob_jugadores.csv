@@ -7806,23 +7806,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5154125,2026-04-01,selecciones,Tunisia,Anis Ben Slimane,1055316,M,1,90,1,1,0,0.0,85.0,2.0,2223754.0
 5154125,2026-04-01,selecciones,Tunisia,Elias Saad,1285773,F,1,58,1,1,0,0.0,87.0,3.0,2660186.0
 5154125,2026-04-01,selecciones,Tunisia,Louey Ben Farhat,1620628,F,1,90,0,0,0,0.0,115.0,3.0,4465094.0
-5124813,2026-04-01,selecciones,Mexico,Raúl Rangel,1227878,G,1,90,0,0,0,0.0,11.0,0.0,5607669.0
-5124813,2026-04-01,selecciones,Mexico,Jorge Sánchez,727586,D,1,69,1,1,1,0.0,32.0,1.0,2130161.0
-5124813,2026-04-01,selecciones,Mexico,César Montes,664644,D,1,90,0,0,0,0.0,34.0,1.0,5212344.0
-5124813,2026-04-01,selecciones,Mexico,Johan Vásquez,914103,D,1,90,0,0,0,0.0,36.0,1.0,15921505.0
-5124813,2026-04-01,selecciones,Mexico,Jesús Gallardo,597976,D,1,90,1,0,0,0.0,38.0,1.0,2332517.0
-5124813,2026-04-01,selecciones,Mexico,Érik Lira,971628,D,1,90,0,0,0,0.0,65.0,1.0,10529540.0
-5124813,2026-04-01,selecciones,Mexico,Brian Gutiérrez,1170238,M,1,84,3,0,0,0.0,82.0,2.0,6544026.0
-5124813,2026-04-01,selecciones,Mexico,Orbelín Pineda,559986,M,1,69,0,0,0,0.0,84.0,2.0,4589851.0
-5124813,2026-04-01,selecciones,Mexico,Álvaro Fidalgo,895954,M,1,69,0,0,0,0.0,86.0,2.0,4845921.0
-5124813,2026-04-01,selecciones,Mexico,Julián Quiñones,720560,F,1,69,5,2,0,0.0,88.0,3.0,12139266.0
-5124813,2026-04-01,selecciones,Mexico,Raul Jiménez,292313,F,1,68,0,0,0,0.0,115.0,3.0,4283538.0
-5124813,2026-04-01,selecciones,Mexico,Armando González,1456983,F,0,22,0,0,0,0.0,,3.0,2423056.0
-5124813,2026-04-01,selecciones,Mexico,Israel Reyes,1074586,D,0,21,0,0,0,0.0,,1.0,2564366.0
-5124813,2026-04-01,selecciones,Mexico,Obed Vargas,1254394,M,0,21,0,0,0,0.0,,2.0,8436435.0
-5124813,2026-04-01,selecciones,Mexico,Roberto Alvarado,720737,M,0,21,0,0,0,0.0,,2.0,6404311.0
-5124813,2026-04-01,selecciones,Mexico,Alexis Vega,728365,F,0,21,0,0,0,0.0,,3.0,6441702.0
-5124813,2026-04-01,selecciones,Mexico,Erick Sánchez,772320,M,0,6,0,0,0,0.0,,2.0,7340278.0
 5449531,2026-05-16,selecciones,Republic of Ireland,Max O'Leary,496732,G,1,74,0,0,0,0.0,11.0,0.0,1504048.0
 5449531,2026-05-16,selecciones,Republic of Ireland,Mark McGuinness,1109477,D,1,45,1,1,0,0.0,33.0,1.0,7037842.0
 5449531,2026-05-16,selecciones,Republic of Ireland,Dara O'Shea,789578,D,1,90,1,0,0,0.0,35.0,1.0,17721728.0
@@ -16513,21 +16496,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013179,2026-07-25,chi_primera,Cobresal,César Yanis,1137803,F,0,21,1,0,0,0.0,,3.0,226895.0
 1000013179,2026-07-25,chi_primera,Cobresal,Franco Bechtholdt,531751,D,0,9,0,0,0,0.0,,1.0,144490.0
 1000013179,2026-07-25,chi_primera,Cobresal,Bryan Carvallo,524514,M,0,7,1,0,0,0.0,,2.0,150592.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Salvador Ichazo,394824,G,1,90,0,0,0,0.0,11.0,0.0,306004.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Esneyder Mena,1015282,D,1,90,0,0,0,0.0,32.0,1.0,589960.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Luis Escorcia,1680046,D,1,90,0,0,0,0.0,34.0,1.0,666089.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Joaquín Varela,1093120,D,1,90,0,0,0,0.0,36.0,1.0,429791.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Jhan Mena,1775298,D,1,90,2,1,1,0.31,38.0,1.0,
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Halam Loboa,1755507,M,1,59,0,0,0,0.0,64.0,2.0,2021037.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Didier Moreno,245171,M,1,90,1,0,0,0.04,66.0,2.0,349613.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Hayen Palacios,971613,F,1,59,1,1,1,0.69,83.0,3.0,371945.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Daniel Cataño,725051,M,1,77,1,0,0,0.01,85.0,2.0,273099.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,John Montaño,1512606,F,1,89,2,1,1,0.21,87.0,3.0,1335885.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Jeison Medina,922887,F,1,90,0,0,0,0.0,115.0,3.0,439733.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Agustín Martegani,1075450,M,0,31,0,0,0,0.0,,2.0,689019.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Juan Córdoba,1369540,F,0,31,1,0,0,0.03,,3.0,833738.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Baldomero Perlaza,281545,M,0,13,0,0,0,0.0,,2.0,296943.0
-1000014050,2026-07-25,col_primera_a,Independiente Medellín,Keiner Klinger,1934818,M,0,1,0,0,0,0.0,,2.0,
 1000011158,2026-07-25,bol_division,Guabirá,Jorge Araúz,1021472,G,1,90,0,0,0,0.0,11.0,0.0,
 1000011158,2026-07-25,bol_division,Guabirá,Pablo Melgar,1946199,D,1,90,1,0,0,0.0,32.0,1.0,
 1000011158,2026-07-25,bol_division,Guabirá,Carlos Áñez,514639,D,1,90,3,2,1,0.0,34.0,1.0,153675.0
@@ -26667,22 +26635,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844827,2026-08-05,leagues_cup,Atlante,Maximiliano García,1432163,M,0,16,0,0,0,0.0,,2.0,297393.0
 5844827,2026-08-05,leagues_cup,Atlante,Christian Bermúdez,70577,M,0,4,0,0,0,0.0,,2.0,120245.0
 5844827,2026-08-05,leagues_cup,Atlante,José González,1288844,F,0,4,0,0,0,0.0,,3.0,
-1000014070,2026-08-05,col_primera_a,Millonarios,Javier Burrai,262597,G,1,90,0,0,0,0.0,11.0,0.0,279839.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Andrés Llinás,1130853,D,1,90,1,1,1,0.13,33.0,1.0,
-1000014070,2026-08-05,col_primera_a,Millonarios,Sergio Mosquera,496937,D,1,90,1,1,0,0.02,35.0,1.0,
-1000014070,2026-08-05,col_primera_a,Millonarios,Jorge Arias,344139,D,1,90,0,0,0,0.0,37.0,1.0,293324.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Jhomier Guerrero,1353655,D,1,90,1,0,0,0.07,51.0,1.0,909954.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Sebastián Valencia,1772540,D,1,75,1,1,0,0.04,59.0,1.0,528634.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Francisco Chaverra,1310086,M,1,83,6,2,0,0.39,73.0,2.0,872323.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Mateo García,1403320,M,1,70,1,1,0,0.05,75.0,2.0,950969.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Rodrigo Ureña,304875,M,1,90,1,0,0,0.01,77.0,2.0,487392.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Leonardo Castro,731805,F,1,69,2,2,1,0.92,104.0,3.0,584241.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Rodrigo Contreras,410434,F,1,84,1,1,0,0.05,106.0,3.0,875751.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Daniel Ruiz,1266136,F,0,21,0,0,0,0.0,,3.0,809597.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Sebastián Viveros,1746303,M,0,20,1,1,0,0.01,,2.0,704355.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Andrey Estupiñán,977773,F,0,15,1,0,0,0.07,,3.0,485985.0
-1000014070,2026-08-05,col_primera_a,Millonarios,Danovis Banguero,113984,D,0,7,0,0,0,0.0,,1.0,261038.0
-1000014070,2026-08-05,col_primera_a,Millonarios,David Silva,95546,M,0,6,0,0,0,0.0,,2.0,259322.0
 1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Ederson Cabezas,1513184,G,1,90,0,0,0,0.0,11.0,0.0,259501.0
 1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Mateo Garavito,1330783,D,1,90,1,0,0,0.01,32.0,1.0,390375.0
 1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Julián Quiñónes,341597,D,1,66,0,0,0,0.0,34.0,1.0,256856.0
@@ -132396,3 +132348,90 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991874,2026-09-30,selecciones,Chile,Rodrigo Echeverría,517555,M,0,20,0,0,0,0.0,,2.0,1821977.0
 5991874,2026-09-30,selecciones,Chile,Vicente Pizarro,1133369,M,0,20,1,1,0,0.0,,2.0,2461828.0
 5991874,2026-09-30,selecciones,Chile,Gonzalo Tapia,1108614,F,0,6,0,0,0,0.0,,3.0,2057963.0
+5991933,2026-09-30,selecciones,Belize,Woodrow West,503069,G,1,90,0,0,0,0.0,11.0,0.0,
+5991933,2026-09-30,selecciones,Belize,Jahryl Smith,1650949,D,1,90,0,0,0,0.0,32.0,1.0,
+5991933,2026-09-30,selecciones,Belize,Jaylen Lennan,1650941,D,1,90,0,0,0,0.0,34.0,1.0,
+5991933,2026-09-30,selecciones,Belize,Freybin Pagoada,1765669,D,1,90,0,0,0,0.0,36.0,1.0,
+5991933,2026-09-30,selecciones,Belize,Nahjib Guerra,624094,D,1,90,1,0,0,0.0,38.0,1.0,
+5991933,2026-09-30,selecciones,Belize,Darrel Myvett,1261610,M,1,90,0,0,0,0.0,65.0,2.0,
+5991933,2026-09-30,selecciones,Belize,Horace Ávila,1373501,M,1,67,1,0,0,0.0,82.0,2.0,
+5991933,2026-09-30,selecciones,Belize,Jordi Polanco,624101,M,1,90,2,0,0,0.0,84.0,2.0,
+5991933,2026-09-30,selecciones,Belize,Moisés Hernández,1687863,M,1,90,0,0,0,0.0,86.0,2.0,
+5991933,2026-09-30,selecciones,Belize,Krisean López,953891,M,1,90,0,0,0,0.0,88.0,2.0,
+5991933,2026-09-30,selecciones,Belize,Desmond Wade,1240652,F,1,45,1,0,0,0.0,115.0,3.0,
+5991933,2026-09-30,selecciones,Belize,Owen Sosa,1650940,M,0,45,3,2,0,0.0,,2.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Lemus Christopher,647060,G,1,90,0,0,0,0.0,11.0,0.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Tristan Marshall,1261527,D,1,90,0,0,0,0.0,32.0,1.0,145336.0
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Andrew Johnson,1768006,D,1,70,2,2,1,0.0,34.0,1.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Joseph Barter,0,D,1,90,0,0,0,0.0,36.0,1.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Kirtney Franklyn,1650154,D,1,90,2,1,0,0.0,38.0,1.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Kennijah Joseph,1261591,D,1,90,0,0,0,0.0,64.0,1.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Micah Joseph,1768007,D,1,90,1,1,0,0.0,66.0,1.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Steven Pierre,1650151,F,1,81,2,1,0,0.0,83.0,3.0,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Cornelius Stewart,443490,F,1,62,3,1,0,0.0,85.0,3.0,86400.0
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Jordan Ragguette,0,,1,90,0,0,0,0.0,87.0,,
+5991933,2026-09-30,selecciones,Saint Vincent and The Grenadines,Azinho Solomon,521305,F,1,70,3,2,0,0.0,115.0,3.0,
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Eder Chaux,425610,G,1,90,0,0,0,0.0,11.0,0.0,248857.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Hayen Palacios,971613,D,1,90,1,1,1,0.09,32.0,1.0,361230.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Luis Escorcia,1680046,D,1,90,0,0,0,0.0,34.0,1.0,583904.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Alfonso Simarra,1350531,D,1,90,0,0,0,0.0,36.0,1.0,314102.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Esneyder Mena,1015282,D,1,90,0,0,0,0.0,38.0,1.0,606580.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Baldomero Perlaza,281545,M,1,90,2,0,0,0.24,64.0,2.0,248857.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Didier Moreno,245171,M,1,90,1,0,0,0.03,66.0,2.0,380329.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Yony González,496944,F,1,78,1,1,0,0.04,83.0,3.0,426584.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Agustín Martegani,1075450,M,1,78,1,0,0,0.03,85.0,2.0,484567.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,John Montaño,1512606,F,1,72,1,0,0,0.19,87.0,3.0,1616238.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Carlos Lucumí,1200724,F,1,46,0,0,0,0.0,115.0,3.0,386324.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Nivaldo Hernandez,1937621,M,0,45,1,1,1,0.16,,2.0,
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Jaidinson Córdoba,1917101,D,0,18,0,0,0,0.0,,1.0,
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Diego Moreno,851912,M,0,12,1,0,0,0.01,,2.0,382628.0
+1000014078,2026-09-30,col_primera_a,Independiente Medellín,Andrés Dávila,1536731,F,0,12,0,0,0,0.0,,3.0,
+1000014078,2026-09-30,col_primera_a,Millonarios,Javier Burrai,262597,G,1,90,0,0,0,0.0,11.0,0.0,261698.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Sebastián Viveros,1746303,D,1,90,0,0,0,0.0,32.0,1.0,845226.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Stiven Barreiro,282254,D,1,90,1,0,0,0.03,34.0,1.0,1216520.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Jorge Arias,344139,D,1,90,0,0,0,0.0,36.0,1.0,264599.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Danovis Banguero,113984,D,1,90,0,0,0,0.0,38.0,1.0,239669.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Leonai,1136606,M,1,83,1,0,0,0.03,65.0,2.0,600321.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Francisco Chaverra,1310086,F,1,87,1,1,0,0.02,83.0,3.0,697858.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Stiven Vega,1130854,M,1,90,0,0,0,0.0,85.0,2.0,315106.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Juan Cuadrado,155066,F,1,59,1,0,0,0.01,87.0,3.0,497409.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Leonardo Castro,731805,F,1,87,3,2,1,0.27,104.0,3.0,584241.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Daniel Ruiz,1266136,F,1,58,1,1,0,0.04,106.0,3.0,647677.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Andrey Estupiñán,977773,F,0,32,0,0,0,0.0,,3.0,486536.0
+1000014078,2026-09-30,col_primera_a,Millonarios,David Silva,95546,M,0,31,0,0,0,0.0,,2.0,259322.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Carlos Darwin Quintero,51334,M,0,7,1,0,0,0.06,,2.0,239669.0
+1000014078,2026-09-30,col_primera_a,Millonarios,Andrés Llinás,1130853,D,0,3,0,0,0,0.0,,1.0,
+1000014078,2026-09-30,col_primera_a,Millonarios,Sebastián Valencia,1772540,D,0,3,0,0,0,0.0,,1.0,634360.0
+6280444,2026-09-30,selecciones,Mexico,Óscar García,1339704,G,1,90,0,0,0,0.0,11.0,0.0,1684364.0
+6280444,2026-09-30,selecciones,Mexico,Jeremy Márquez,1125498,M,1,90,0,0,0,0.0,32.0,2.0,3086570.0
+6280444,2026-09-30,selecciones,Mexico,Víctor Guzmán,1128493,D,1,61,1,1,1,0.0,34.0,1.0,4366009.0
+6280444,2026-09-30,selecciones,Mexico,Everardo López,1353113,D,1,90,1,0,0,0.0,36.0,1.0,1492119.0
+6280444,2026-09-30,selecciones,Mexico,Mateo Chávez,1432212,D,1,90,1,1,0,0.0,38.0,1.0,2724324.0
+6280444,2026-09-30,selecciones,Mexico,Denzell García,1347199,M,1,61,0,0,0,0.0,73.0,2.0,4383164.0
+6280444,2026-09-30,selecciones,Mexico,Obed Vargas,1254394,M,1,90,1,0,0,0.0,75.0,2.0,7681721.0
+6280444,2026-09-30,selecciones,Mexico,Álvaro Fidalgo,895954,M,1,78,1,0,0,0.0,77.0,2.0,3865300.0
+6280444,2026-09-30,selecciones,Mexico,Isaías Violante,1197375,F,1,78,2,1,0,0.0,103.0,3.0,4485875.0
+6280444,2026-09-30,selecciones,Mexico,Germán Berterame,743536,F,1,61,0,0,0,0.0,105.0,3.0,6503172.0
+6280444,2026-09-30,selecciones,Mexico,Orbelín Pineda,559986,M,1,79,2,0,0,0.0,107.0,2.0,2399561.0
+6280444,2026-09-30,selecciones,Mexico,Diego Campillo,1169763,D,0,29,0,0,0,0.0,,1.0,1868809.0
+6280444,2026-09-30,selecciones,Mexico,Luis Romo,921174,D,0,29,0,0,0,0.0,,1.0,2273143.0
+6280444,2026-09-30,selecciones,Mexico,Santiago Giménez,954092,F,0,29,0,0,0,0.0,,3.0,16267878.0
+6280444,2026-09-30,selecciones,Mexico,Roberto Alvarado,720737,M,0,12,0,0,0,0.0,,2.0,3989938.0
+6280444,2026-09-30,selecciones,Mexico,Santiago Sandoval,1786010,M,0,12,0,0,0,0.0,,2.0,2658962.0
+6280444,2026-09-30,selecciones,Mexico,Hugo Camberos,1603101,M,0,11,0,0,0,0.0,,2.0,
+6280444,2026-09-30,selecciones,Peru,Pedro Gallese,116920,G,1,90,0,0,0,0.0,11.0,0.0,369120.0
+6280444,2026-09-30,selecciones,Peru,Marco Huamán,1248844,D,1,80,0,0,0,0.0,32.0,1.0,985557.0
+6280444,2026-09-30,selecciones,Peru,Erick Noriega,1134464,M,1,90,0,0,0,0.0,34.0,2.0,1625158.0
+6280444,2026-09-30,selecciones,Peru,Renzo Garcés,751527,D,1,90,0,0,0,0.0,36.0,1.0,848272.0
+6280444,2026-09-30,selecciones,Peru,Marcos López,823209,D,1,90,0,0,0,0.0,38.0,1.0,2443724.0
+6280444,2026-09-30,selecciones,Peru,Wilder Cartagena,427216,M,1,90,1,0,0,0.0,65.0,2.0,453405.0
+6280444,2026-09-30,selecciones,Peru,Piero Magallanes,1605043,F,1,68,0,0,0,0.0,83.0,3.0,355845.0
+6280444,2026-09-30,selecciones,Peru,Oslimg Mora,1048042,M,1,90,0,0,0,0.0,85.0,2.0,288457.0
+6280444,2026-09-30,selecciones,Peru,Yoshimar Yotún,116911,M,1,84,0,0,0,0.0,87.0,2.0,185709.0
+6280444,2026-09-30,selecciones,Peru,Adrián Ugarriza,547722,F,1,69,0,0,0,0.0,104.0,3.0,645892.0
+6280444,2026-09-30,selecciones,Peru,Jairo Vélez,526949,M,1,84,1,1,1,0.0,106.0,2.0,418760.0
+6280444,2026-09-30,selecciones,Peru,Jhonny Vidales,355713,F,0,22,0,0,0,0.0,,3.0,232385.0
+6280444,2026-09-30,selecciones,Peru,Álex Valera,1133998,F,0,22,3,1,0,0.0,,3.0,728300.0
+6280444,2026-09-30,selecciones,Peru,Oliver Sonne,1060617,D,0,10,0,0,0,0.0,,1.0,2550667.0
+6280444,2026-09-30,selecciones,Peru,César Inga,1415328,D,0,6,0,0,0,0.0,,1.0,1009394.0
+6280444,2026-09-30,selecciones,Peru,Jairo Concha,988208,M,0,6,0,0,0,0.0,,2.0,804800.0
