@@ -67,6 +67,13 @@ def _v(home, away, inicio, q):
             'liga': 'EUROPE: Euro U21', 'inicio': str(inicio), 'casas': casas}
 
 
+def _pred(lh=2.4, la=0.45):
+    """v315 — desde la v315 un partido fuera del motor sólo se ofrece con
+    modelo propio; en los tests se le da uno fijo."""
+    import modelo_competiciones as mc
+    return {'p': mc.probabilidades(lh, la), 'lambdas': (lh, la), 'n': (20, 20)}
+
+
 def probar_sin_modelo():
     import time
     import mercado_sin_modelo as msm
@@ -85,7 +92,7 @@ def probar_sin_modelo():
     fav = _v('Belgium U21', 'Wales U21', ini,
              {'home': 1.23, 'draw': 7.5, 'away': 13.0, '1X': 1.05, 'X2': 4.5})
     pin = {'home': 1.18, 'draw': 7.8, 'away': 15.0}
-    p = msm.pick_de(fav, pin)
+    p = msm.pick_de(fav, pin, pred=_pred(), t_pd={})
     check(p['solo_mercado'] and p['partido'] == 'Belgium U21 vs Wales U21'
           and abs(sum(p['board'].values()) - 1) < 0.01 and p.get('hora_cdmx'),
           'el pick de mercado lleva 1X2 de Pinnacle sin margen y la hora')
@@ -93,17 +100,17 @@ def probar_sin_modelo():
     check(len(r) == 1 and r[0]['apuesta'] == 'Gana Belgium U21'
           and r[0]['veredicto_vp'] == 'meter' and 0.80 <= r[0]['prob'] <= 0.90,
           'Pinnacle 80-90 %% a 1,23: se mete (%s)' % [x['apuesta'] for x in r])
-    p2 = msm.pick_de(fav, {'home': 1.40, 'draw': 4.5, 'away': 8.0})
+    p2 = msm.pick_de(fav, {'home': 1.40, 'draw': 4.5, 'away': 8.0}, pred=_pred(), t_pd={})
     check(msm.recomendadas(p2) == [], 'con Pinnacle ~70 % no se mete')
     vis = _v('A', 'B', ini, {'home': 13.0, 'draw': 7.5, 'away': 1.23,
                              '1X': 4.5, 'X2': 1.05})
     check(msm.recomendadas(msm.pick_de(vis, {'home': 15.0, 'draw': 7.8,
-                                             'away': 1.18})) == [],
+                                             'away': 1.18}, pred=_pred(), t_pd={})) == [],
           'el visitante no entra (no medido)')
     barato = _v('C', 'D', ini, {'home': 1.06, 'draw': 12, 'away': 30,
                                 '1X': 1.01, 'X2': 9})
     check(msm.recomendadas(msm.pick_de(barato, {'home': 1.12, 'draw': 9,
-                                                'away': 25})) == [],
+                                                'away': 25}, pred=_pred(), t_pd={})) == [],
           'a cuota menor de 1,10 no se mete')
     # construir: lo que el modelo cubre no se duplica
     tmp = os.path.join(tempfile.mkdtemp(), 'cuotas_mx.json')
@@ -112,6 +119,10 @@ def probar_sin_modelo():
                                       '1X': 1.04, 'X2': 5})})
     orig = msm._pinnacle
     msm._pinnacle = lambda h, a: {'home': 1.18, 'draw': 7.8, 'away': 15.0}
+    import modelo_competiciones as mc
+    orig_p, orig_t = mc.predecir, msm._tablero_playdoit
+    mc.predecir = lambda h, a, i: _pred()
+    msm._tablero_playdoit = lambda v, fecha=None: {}
     try:
         import horario as hz
         datos = {'pronosticos': [{'deporte': 'Fútbol',
@@ -120,6 +131,7 @@ def probar_sin_modelo():
         L = msm.construir(datos, ruta=tmp)
     finally:
         msm._pinnacle = orig
+        mc.predecir, msm._tablero_playdoit = orig_p, orig_t
     check([x['partido'] for x in L] == ['Belgium U21 vs Wales U21'],
           'construir: entra el sub-21 y NO el partido que ya cubre el modelo '
           '(%s)' % [x['partido'] for x in L])
@@ -144,7 +156,8 @@ def probar_que_llega():
     ini = int(time.time()) + 86400
     p = msm.pick_de(_v('Belgium U21', 'Wales U21', ini,
                        {'home': 1.23, 'draw': 7.5, 'away': 13.0, '1X': 1.05,
-                        'X2': 4.5}), {'home': 1.18, 'draw': 7.8, 'away': 15.0})
+                        'X2': 4.5}), {'home': 1.18, 'draw': 7.8, 'away': 15.0},
+                    pred=_pred(), t_pd={})
     r = mm.metidas(mm.recomendadas(p))
     check(r and r[0]['apuesta'] == 'Gana Belgium U21',
           'la tarjeta de la app usa la regla de mercado en estos partidos')
@@ -186,7 +199,7 @@ def probar_que_llega():
           '(%s)' % nombres)
     check(all(x['hora'] for x in regs), 'ningún partido sale sin hora (--:--)')
     t = fi.texto(r_, [dia])
-    check('Belgium U21 vs Wales U21' in t and 'SIN MODELO PROPIO' in t
+    check('Belgium U21 vs Wales U21' in t and 'FUERA DEL MOTOR DE LIGAS' in t
           and '• Gana Belgium U21' in t,
           'Telegram: el sub-21 sale con su 🎯 METER y dice que es sin modelo')
 
@@ -209,7 +222,7 @@ def probar_agente():
     for pieza in ('REGLA 1', 'SIN QUE TE LO PIDA', 'búsqueda web',
                   'No tengo búsqueda web', 'REGLA 2', 'NUNCA TE NIEGAS',
                   'cuota mínima', 'Probabilidad conjunta', 'fuera del meter',
-                  'South Sudan', 'sigue', 'SIN MODELO PROPIO',
+                  'South Sudan', 'sigue', 'FUERA DEL MOTOR DE LIGAS',
                   'Prompt de sistema', 'No inventes datos', 'Formato de salida'):
         check(pieza in t, 'el prompt del agente trata «%s»' % pieza)
     check('máximo\n  3 patas' not in t and 'máximo 3 patas' not in t,

@@ -1,0 +1,2345 @@
+{
+ "apuestas": 742,
+ "verdes": 524,
+ "acierto": 0.7062,
+ "por_dia": {
+  "2026-09-21": {
+   "n": 9,
+   "acierto": 0.889
+  },
+  "2026-09-23": {
+   "n": 8,
+   "acierto": 0.375
+  },
+  "2026-09-25": {
+   "n": 160,
+   "acierto": 0.625
+  },
+  "2026-09-26": {
+   "n": 269,
+   "acierto": 0.684
+  },
+  "2026-09-27": {
+   "n": 112,
+   "acierto": 0.759
+  },
+  "2026-09-28": {
+   "n": 81,
+   "acierto": 0.741
+  },
+  "2026-09-29": {
+   "n": 103,
+   "acierto": 0.816
+  }
+ },
+ "por_mercado": {
+  "1X2": {
+   "n": 52,
+   "acierto": 0.615
+  },
+  "BTTS": {
+   "n": 47,
+   "acierto": 0.489
+  },
+  "Córners": {
+   "n": 110,
+   "acierto": 0.709
+  },
+  "Doble oportunidad": {
+   "n": 79,
+   "acierto": 0.81
+  },
+  "Doble y goles": {
+   "n": 73,
+   "acierto": 0.699
+  },
+  "Goles": {
+   "n": 280,
+   "acierto": 0.746
+  },
+  "Goles equipo": {
+   "n": 52,
+   "acierto": 0.712
+  },
+  "Handicap": {
+   "n": 10,
+   "acierto": 0.5
+  },
+  "Remates a puerta": {
+   "n": 12,
+   "acierto": 0.583
+  },
+  "Tarjetas": {
+   "n": 27,
+   "acierto": 0.667
+  }
+ },
+ "por_sin_modelo": {
+  "False": {
+   "n": 695,
+   "acierto": 0.695
+  },
+  "True": {
+   "n": 47,
+   "acierto": 0.872
+  }
+ },
+ "por_banda": {
+  "(0.0, 0.7]": {
+   "n": 257,
+   "acierto": 0.611
+  },
+  "(0.7, 0.75]": {
+   "n": 135,
+   "acierto": 0.652
+  },
+  "(0.75, 0.8]": {
+   "n": 203,
+   "acierto": 0.803
+  },
+  "(0.8, 0.85]": {
+   "n": 123,
+   "acierto": 0.78
+  },
+  "(0.85, 0.9]": {
+   "n": 23,
+   "acierto": 0.826
+  },
+  "(0.9, 1.0]": {
+   "n": 1,
+   "acierto": 1.0
+  }
+ },
+ "ligas_con_mas_rojos": {
+  "WSL (Inglaterra, femenil)": {
+   "n": 6,
+   "acierto": 0.333
+  },
+  "Serie A Femminile": {
+   "n": 6,
+   "acierto": 0.333
+  },
+  "Liga F (España, femenil)": {
+   "n": 14,
+   "acierto": 0.429
+  },
+  "Liga de Expansión MX": {
+   "n": 11,
+   "acierto": 0.455
+  },
+  "Liga MX": {
+   "n": 12,
+   "acierto": 0.5
+  },
+  "Brasileirão Série B": {
+   "n": 25,
+   "acierto": 0.56
+  },
+  "CONCACAF - Nations League A": {
+   "n": 23,
+   "acierto": 0.565
+  },
+  "CONCACAF - Nations League B": {
+   "n": 21,
+   "acierto": 0.571
+  },
+  "UEFA - Nations League D": {
+   "n": 7,
+   "acierto": 0.571
+  },
+  "Liga MX Femenil": {
+   "n": 18,
+   "acierto": 0.611
+  },
+  "EFL League Two": {
+   "n": 26,
+   "acierto": 0.615
+  },
+  "Eerste Divisie": {
+   "n": 19,
+   "acierto": 0.632
+  }
+ },
+ "rojos": [
+  {
+   "dia": "2026-09-21",
+   "partido": "Manta F.C. vs Orense",
+   "liga": "LigaPro Serie A",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.5134,
+   "cuota": 1.8,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-23",
+   "partido": "Birmingham Legion FC vs Brooklyn FC",
+   "liga": "USL Championship",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.6094,
+   "cuota": 1.5,
+   "marcador": "4-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-23",
+   "partido": "Alianza FC vs Fuerte San Francisco",
+   "liga": "Primera División",
+   "apuesta": "Goles: Menos de 2.5",
+   "prob": 0.6123,
+   "cuota": 1.556,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-23",
+   "partido": "Alianza FC vs Fuerte San Francisco",
+   "liga": "Primera División",
+   "apuesta": "Gana Alianza FC",
+   "prob": 0.5402,
+   "cuota": 1.867,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-23",
+   "partido": "Luis Ángel Firpo vs Cacahuatique",
+   "liga": "Primera División",
+   "apuesta": "Gana Luis Ángel Firpo",
+   "prob": 0.6112,
+   "cuota": 1.571,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-23",
+   "partido": "Luis Ángel Firpo vs Cacahuatique",
+   "liga": "Primera División",
+   "apuesta": "Goles: Más de 2.5",
+   "prob": 0.5135,
+   "cuota": 1.75,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Mozambique vs Senegal",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Gana Senegal",
+   "prob": 0.7745,
+   "cuota": 1.2,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Mozambique vs Senegal",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles Senegal: Más de 1.5",
+   "prob": 0.6725,
+   "cuota": 1.333,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Tanzania vs Guinea-Bissau",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Gana Tanzania",
+   "prob": 0.4568,
+   "cuota": 2.19,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "India vs Panama",
+   "liga": "International - Friendlies",
+   "apuesta": "Gana Panama",
+   "prob": 0.7364,
+   "cuota": 1.3,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "India vs Panama",
+   "liga": "International - Friendlies",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.5826,
+   "cuota": 1.615,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Nigeria vs Madagascar",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.674,
+   "cuota": 1.4,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Togo vs Burundi",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.694,
+   "cuota": 1.4,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Togo vs Burundi",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles Togo: Más de 1.5",
+   "prob": 0.6781,
+   "cuota": 1.9,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Togo vs Burundi",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Togo o empate y más de 1.5",
+   "prob": 0.738,
+   "cuota": 1.5,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Armenia vs Latvia",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Córners: Menos de 12",
+   "prob": 0.8506,
+   "cuota": 1.25,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Georgia vs Northern Ireland",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Goles Georgia: Más de 0.5",
+   "prob": 0.8281,
+   "cuota": 1.235,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Girona vs Albacete",
+   "liga": "LaLiga Hypermotion",
+   "apuesta": "Tarjetas: Más de 3.5",
+   "prob": 0.6436,
+   "cuota": 1.364,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Arbroath vs Queens Park",
+   "liga": "Scottish Championship",
+   "apuesta": "Queens Park o empate y menos de 4.5",
+   "prob": 0.6942,
+   "cuota": 1.75,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Arbroath vs Queens Park",
+   "liga": "Scottish Championship",
+   "apuesta": "Handicap: Queens Park +0.5",
+   "prob": 0.8216,
+   "cuota": 1.909,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Inverness C vs Morton",
+   "liga": "Scottish Championship",
+   "apuesta": "Handicap: Morton +1.5",
+   "prob": 0.877,
+   "cuota": 1.741,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Raith Rvs vs Livingston",
+   "liga": "Scottish Championship",
+   "apuesta": "Goles Raith Rvs: Más de 0.5",
+   "prob": 0.7294,
+   "cuota": 1.3,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Poland vs Bosnia and Herzegovina",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7999,
+   "cuota": 1.222,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Poland vs Bosnia and Herzegovina",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Poland o empate y más de 1.5",
+   "prob": 0.7217,
+   "cuota": 1.308,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Poland vs Bosnia and Herzegovina",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Remates a puerta Visita: Más de 1.5",
+   "prob": 0.8311,
+   "cuota": 1.222,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Hungary vs Ukraine",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Goles Hungary: Más de 0.5",
+   "prob": 0.805,
+   "cuota": 1.357,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Hungary vs Ukraine",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Hungary o empate y menos de 5.5",
+   "prob": 0.7282,
+   "cuota": 1.35,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Turkey vs France",
+   "liga": "UEFA - Nations League A",
+   "apuesta": "Goles: Más de 2.5",
+   "prob": 0.6904,
+   "cuota": 1.308,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Italy vs Belgium",
+   "liga": "UEFA - Nations League A",
+   "apuesta": "Italy o empate y menos de 5.5",
+   "prob": 0.6984,
+   "cuota": 1.364,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Italy vs Belgium",
+   "liga": "UEFA - Nations League A",
+   "apuesta": "Córners: Menos de 12",
+   "prob": 0.8045,
+   "cuota": 1.3,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "FC Dordrecht vs Almere City",
+   "liga": "Eerste Divisie",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.7399,
+   "cuota": 1.3,
+   "marcador": "3-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "FC Dordrecht vs Almere City",
+   "liga": "Eerste Divisie",
+   "apuesta": "Almere City o empate",
+   "prob": 0.7214,
+   "cuota": 1.333,
+   "marcador": "3-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Morocco vs Gabon",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Morocco o empate y más de 2.5",
+   "prob": 0.6673,
+   "cuota": 1.375,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Egypt vs Angola",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Córners: Menos de 10.5",
+   "prob": 0.7108,
+   "cuota": 1.4,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Egypt vs Angola",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Gana Egypt",
+   "prob": 0.6933,
+   "cuota": 1.385,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Egypt vs Angola",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Egypt o empate y más de 1.5",
+   "prob": 0.7253,
+   "cuota": 1.417,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Burkina Faso vs Benin",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.6094,
+   "cuota": 1.455,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Mali vs Cape Verde",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Córners: Más de 7.5",
+   "prob": 0.6618,
+   "cuota": 1.4,
+   "marcador": "3-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Mali vs Cape Verde",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles: Menos de 2.5",
+   "prob": 0.65,
+   "cuota": 1.4,
+   "marcador": "3-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Mali vs Cape Verde",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.5445,
+   "cuota": 1.556,
+   "marcador": "3-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Bermuda vs Guadeloupe",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Gana Bermuda",
+   "prob": 0.4179,
+   "cuota": 2.07,
+   "marcador": "1-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Grenada vs Cuba",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Goles Grenada: Más de 0.5",
+   "prob": 0.7457,
+   "cuota": 1.4,
+   "marcador": "0-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Grenada vs Cuba",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.5198,
+   "cuota": 1.875,
+   "marcador": "0-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Nacional Asunción vs Sportivo Ameliano",
+   "liga": "División Profesional",
+   "apuesta": "Córners: Menos de 9.5",
+   "prob": 0.5526,
+   "cuota": 1.75,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Novorizontino vs São Bernardo",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7693,
+   "cuota": 1.25,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Novorizontino vs São Bernardo",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Remates a puerta Local: Más de 4.5",
+   "prob": 0.6423,
+   "cuota": 1.35,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Vila Nova vs Londrina",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Córners: Menos de 12.5",
+   "prob": 0.759,
+   "cuota": 1.333,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Sporting JAX vs Loudoun United FC",
+   "liga": "USL Championship",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.7617,
+   "cuota": 1.273,
+   "marcador": "1-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Sporting JAX vs Loudoun United FC",
+   "liga": "USL Championship",
+   "apuesta": "Goles Loudoun United FC: Menos de 2.5",
+   "prob": 0.7462,
+   "cuota": 1.364,
+   "marcador": "1-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Sporting JAX vs Loudoun United FC",
+   "liga": "USL Championship",
+   "apuesta": "Sporting JAX o Loudoun United FC y menos de 3.5",
+   "prob": 0.5496,
+   "cuota": 2.05,
+   "marcador": "1-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Jamaica vs Guatemala",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7522,
+   "cuota": 1.222,
+   "marcador": "3-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Jamaica vs Guatemala",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.5215,
+   "cuota": 1.667,
+   "marcador": "3-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Barbados vs Saint Lucia",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Saint Lucia o empate",
+   "prob": 0.645,
+   "cuota": 1.3,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Barbados vs Saint Lucia",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.5921,
+   "cuota": 1.6,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Honduras vs Suriname",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7717,
+   "cuota": 1.2,
+   "marcador": "2-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Honduras vs Suriname",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.542,
+   "cuota": 1.625,
+   "marcador": "2-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Honduras vs Suriname",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Gana Honduras",
+   "prob": 0.5695,
+   "cuota": 1.636,
+   "marcador": "2-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "El Paso Locomotive FC vs FC Tulsa",
+   "liga": "USL Championship",
+   "apuesta": "Gana El Paso Locomotive FC",
+   "prob": 0.5078,
+   "cuota": 1.875,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Atlante vs Monterrey",
+   "liga": "Liga MX",
+   "apuesta": "Atlante o empate y menos de 5.5",
+   "prob": 0.7066,
+   "cuota": 1.571,
+   "marcador": "4-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Atlante vs Monterrey",
+   "liga": "Liga MX",
+   "apuesta": "Tarjetas: Más de 2.5",
+   "prob": 0.7436,
+   "cuota": 1.222,
+   "marcador": "4-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Cruz Azul vs Chivas",
+   "liga": "Liga MX Femenil",
+   "apuesta": "Más de 2.5",
+   "prob": 0.564,
+   "cuota": NaN,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Cruz Azul vs Chivas",
+   "liga": "Liga MX Femenil",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.593,
+   "cuota": NaN,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Correcaminos UAT vs Club Jaiba Brava",
+   "liga": "Liga de Expansión MX",
+   "apuesta": "Handicap: Club Jaiba Brava +0.5",
+   "prob": 0.7905,
+   "cuota": 1.625,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Correcaminos UAT vs Club Jaiba Brava",
+   "liga": "Liga de Expansión MX",
+   "apuesta": "Goles: Más de 2.5",
+   "prob": 0.5927,
+   "cuota": 1.645,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Once Caldas vs Atlético Bucaramanga",
+   "liga": "Categoría Primera A",
+   "apuesta": "Once Caldas o empate y menos de 5.5",
+   "prob": 0.702,
+   "cuota": 1.2,
+   "marcador": "1-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-25",
+   "partido": "Once Caldas vs Atlético Bucaramanga",
+   "liga": "Categoría Primera A",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7803,
+   "cuota": 1.222,
+   "marcador": "1-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Real Sociedad vs Real Madrid",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Menos de 2.5",
+   "prob": 0.513,
+   "cuota": NaN,
+   "marcador": "3-5",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Real Sociedad vs Real Madrid",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.503,
+   "cuota": NaN,
+   "marcador": "3-5",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Levante Badalona vs Granada",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.528,
+   "cuota": NaN,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Juventus vs S.S.D. Napoli Femminile",
+   "liga": "Serie A Femminile",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.502,
+   "cuota": NaN,
+   "marcador": "3-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Charlton vs Manchester City",
+   "liga": "WSL (Inglaterra, femenil)",
+   "apuesta": "Más de 2.5",
+   "prob": 0.707,
+   "cuota": NaN,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Charlton vs Manchester City",
+   "liga": "WSL (Inglaterra, femenil)",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.551,
+   "cuota": NaN,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Lazio vs Parma Calcio 1913",
+   "liga": "Serie A Femminile",
+   "apuesta": "Más de 2.5",
+   "prob": 0.533,
+   "cuota": NaN,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Lazio vs Parma Calcio 1913",
+   "liga": "Serie A Femminile",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.504,
+   "cuota": NaN,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Lazio vs Parma Calcio 1913",
+   "liga": "Serie A Femminile",
+   "apuesta": "Gana Lazio",
+   "prob": 0.551,
+   "cuota": NaN,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Slovenia vs Scotland",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Goles Scotland: Más de 0.5",
+   "prob": 0.7641,
+   "cuota": 1.4,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Slovenia vs Scotland",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Slovenia o Scotland",
+   "prob": 0.692,
+   "cuota": 1.364,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Bristol Rvs vs Exeter",
+   "liga": "EFL League Two",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7479,
+   "cuota": 1.273,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Kidderminster vs Yeovil",
+   "liga": "National League",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7679,
+   "cuota": 1.273,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Southend vs Barrow",
+   "liga": "National League",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.8252,
+   "cuota": 1.2,
+   "marcador": "2-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Aldershot vs Tamworth",
+   "liga": "National League",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.7895,
+   "cuota": 1.222,
+   "marcador": "5-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Aldershot vs Tamworth",
+   "liga": "National League",
+   "apuesta": "Tamworth o empate",
+   "prob": 0.5865,
+   "cuota": 1.471,
+   "marcador": "5-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Cheltenham vs Chesterfield",
+   "liga": "EFL League Two",
+   "apuesta": "Córners: Menos de 10.5",
+   "prob": 0.7022,
+   "cuota": 1.455,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Cheltenham vs Chesterfield",
+   "liga": "EFL League Two",
+   "apuesta": "Chesterfield o empate",
+   "prob": 0.5819,
+   "cuota": 1.35,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "York vs Gillingham",
+   "liga": "EFL League Two",
+   "apuesta": "Córners: Más de 8.5",
+   "prob": 0.6148,
+   "cuota": 1.222,
+   "marcador": "3-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Altrincham vs Hornchurch",
+   "liga": "National League",
+   "apuesta": "Handicap: Hornchurch +0.5",
+   "prob": 0.5227,
+   "cuota": 1.69,
+   "marcador": "3-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Boston Utd vs Fylde",
+   "liga": "National League",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.6575,
+   "cuota": 1.455,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Swindon vs Accrington",
+   "liga": "EFL League Two",
+   "apuesta": "Córners: Menos de 12.5",
+   "prob": 0.825,
+   "cuota": 1.222,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Shrewsbury vs Colchester",
+   "liga": "EFL League Two",
+   "apuesta": "Córners: Menos de 11.5",
+   "prob": 0.7484,
+   "cuota": 1.286,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Shrewsbury vs Colchester",
+   "liga": "EFL League Two",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7436,
+   "cuota": 1.3,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Shrewsbury vs Colchester",
+   "liga": "EFL League Two",
+   "apuesta": "Shrewsbury o Colchester",
+   "prob": 0.7074,
+   "cuota": 1.3,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Tranmere vs Walsall",
+   "liga": "EFL League Two",
+   "apuesta": "Tranmere o Walsall",
+   "prob": 0.7035,
+   "cuota": 1.308,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Scunthorpe vs Hartlepool",
+   "liga": "National League",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.828,
+   "cuota": 1.2,
+   "marcador": "4-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Solihull vs Boreham Wood",
+   "liga": "National League",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.6644,
+   "cuota": 1.4,
+   "marcador": "0-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Carlisle vs Woking",
+   "liga": "National League",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.801,
+   "cuota": 1.2,
+   "marcador": "2-5",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Granada vs Andorra",
+   "liga": "LaLiga Hypermotion",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7469,
+   "cuota": 1.273,
+   "marcador": "2-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Granada vs Andorra",
+   "liga": "LaLiga Hypermotion",
+   "apuesta": "Granada o empate",
+   "prob": 0.7448,
+   "cuota": 1.3,
+   "marcador": "2-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Logroño United vs Barcelona",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Más de 2.5",
+   "prob": 0.651,
+   "cuota": NaN,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Heracles Almelo vs Vitesse",
+   "liga": "Eerste Divisie",
+   "apuesta": "Córners: Menos de 11.5",
+   "prob": 0.6742,
+   "cuota": 1.455,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "San Marino vs Finland",
+   "liga": "International — UEFA Nations League",
+   "apuesta": "Córners: Más de 7.5",
+   "prob": 0.765,
+   "cuota": 1.333,
+   "marcador": "0-7",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "San Marino vs Finland",
+   "liga": "International — UEFA Nations League",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.7256,
+   "cuota": 1.4,
+   "marcador": "0-7",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Iceland vs Estonia",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Gana Iceland",
+   "prob": 0.7327,
+   "cuota": 1.273,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Bulgaria vs Luxembourg",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Goles: Menos de 2.5",
+   "prob": 0.6436,
+   "cuota": 1.375,
+   "marcador": "1-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Faroe Islands vs Kazakhstan",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Faroe Islands o Kazakhstan y menos de 5.5",
+   "prob": 0.6743,
+   "cuota": 1.231,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Faroe Islands vs Kazakhstan",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Córners: Menos de 11",
+   "prob": 0.7513,
+   "cuota": 1.333,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "London City Lionesses vs Brighton",
+   "liga": "WSL (Inglaterra, femenil)",
+   "apuesta": "Más de 2.5",
+   "prob": 0.543,
+   "cuota": NaN,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "London City Lionesses vs Brighton",
+   "liga": "WSL (Inglaterra, femenil)",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.556,
+   "cuota": NaN,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Celta B vs Sabadell",
+   "liga": "LaLiga Hypermotion",
+   "apuesta": "Gana Sabadell",
+   "prob": 0.4119,
+   "cuota": 2.117,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Madrid CFF vs Deportivo Alavés",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Más de 2.5",
+   "prob": 0.538,
+   "cuota": NaN,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Madrid CFF vs Deportivo Alavés",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.603,
+   "cuota": NaN,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Madrid CFF vs Deportivo Alavés",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Gana Deportivo Alavés",
+   "prob": 0.395,
+   "cuota": NaN,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Oldham vs Salford",
+   "liga": "EFL League Two",
+   "apuesta": "Tarjetas: Más de 2.5",
+   "prob": 0.694,
+   "cuota": 1.3,
+   "marcador": "1-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "MVV Maastricht vs Helmond Sport",
+   "liga": "Eerste Divisie",
+   "apuesta": "Córners: Más de 8.5",
+   "prob": 0.5785,
+   "cuota": 1.455,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "NAC Breda vs FC Eindhoven",
+   "liga": "Eerste Divisie",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.7508,
+   "cuota": 1.3,
+   "marcador": "4-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Roda JC Kerkrade vs RKC Waalwijk",
+   "liga": "Eerste Divisie",
+   "apuesta": "Córners: Más de 8.5",
+   "prob": 0.6076,
+   "cuota": 1.455,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Querétaro vs Atlas",
+   "liga": "Liga MX Femenil",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.8239,
+   "cuota": 1.2,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "North Macedonia vs Switzerland",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Remates a puerta Local: Más de 1.5",
+   "prob": 0.7813,
+   "cuota": 1.2,
+   "marcador": "0-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Ciudad de Bolívar vs Chaco For Ever",
+   "liga": "Primera Nacional",
+   "apuesta": "Goles: Menos de 2.5",
+   "prob": 0.705,
+   "cuota": 1.375,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Operário PR vs Ceará",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7985,
+   "cuota": 1.2,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Operário PR vs Ceará",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Operário PR o Ceará",
+   "prob": 0.7301,
+   "cuota": 1.308,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Rubio Ñú vs 2 de Mayo",
+   "liga": "División Profesional",
+   "apuesta": "Rubio Ñú o 2 de Mayo",
+   "prob": 0.6882,
+   "cuota": 1.333,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Rubio Ñú vs 2 de Mayo",
+   "liga": "División Profesional",
+   "apuesta": "Córners: Más de 7.5",
+   "prob": 0.5987,
+   "cuota": 1.364,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Náutico vs Sport",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.77,
+   "cuota": 1.333,
+   "marcador": "3-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Saint Vincent and the Grenadines vs Guyana",
+   "liga": "CONCACAF — Nations League",
+   "apuesta": "Gana Guyana",
+   "prob": 0.407,
+   "cuota": NaN,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Goiás vs Atlético Goianiense",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Córners: Menos de 11.5",
+   "prob": 0.7636,
+   "cuota": 1.3,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Goiás vs Atlético Goianiense",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Remates a puerta Visita: Más de 2.5",
+   "prob": 0.7054,
+   "cuota": 1.333,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Tlaxcala FC vs Cancún FC",
+   "liga": "Liga de Expansión MX",
+   "apuesta": "Córners: Más de 8.5",
+   "prob": 0.6292,
+   "cuota": 1.455,
+   "marcador": "4-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Cruz Azul vs Toluca",
+   "liga": "Liga MX",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.8072,
+   "cuota": 1.2,
+   "marcador": "3-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Cruz Azul vs Toluca",
+   "liga": "Liga MX",
+   "apuesta": "Cruz Azul o Toluca",
+   "prob": 0.6668,
+   "cuota": 1.32,
+   "marcador": "3-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Colegiales vs Chacarita Juniors",
+   "liga": "Primera Nacional",
+   "apuesta": "Goles: Menos de 2.5",
+   "prob": 0.7003,
+   "cuota": 1.385,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Venados FC vs Club Atlético Morelia",
+   "liga": "Liga de Expansión MX",
+   "apuesta": "Córners: Menos de 11.5",
+   "prob": 0.6603,
+   "cuota": 1.4,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Guadalajara Chivas vs Queretaro",
+   "liga": "Liga MX",
+   "apuesta": "Córners: Menos de 13",
+   "prob": 0.7975,
+   "cuota": 1.273,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Charlotte vs Chicago Fire",
+   "liga": "MLS",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.6419,
+   "cuota": 1.417,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Atlanta Utd vs New York City",
+   "liga": "MLS",
+   "apuesta": "Córners: Más de 7",
+   "prob": 0.8363,
+   "cuota": 1.25,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Philadelphia Union vs Orlando City",
+   "liga": "MLS",
+   "apuesta": "Goles: Menos de 5.5",
+   "prob": 0.8172,
+   "cuota": 1.222,
+   "marcador": "4-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Philadelphia Union vs Orlando City",
+   "liga": "MLS",
+   "apuesta": "Tarjetas: Menos de 5.5",
+   "prob": 0.7784,
+   "cuota": 1.3,
+   "marcador": "4-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Internacional Santa Tecla vs Atletico Balboa",
+   "liga": "Primera División",
+   "apuesta": "Gana Internacional Santa Tecla",
+   "prob": 0.6149,
+   "cuota": 1.452,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "FC Dallas vs Los Angeles FC",
+   "liga": "MLS",
+   "apuesta": "Handicap: Los Angeles FC +0.5",
+   "prob": 0.5979,
+   "cuota": 1.667,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Nashville SC vs Toronto FC",
+   "liga": "MLS",
+   "apuesta": "Tarjetas: Más de 2.5",
+   "prob": 0.6894,
+   "cuota": 1.25,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Austin FC vs San Diego FC",
+   "liga": "MLS",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.8116,
+   "cuota": 1.2,
+   "marcador": "3-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Austin FC vs San Diego FC",
+   "liga": "MLS",
+   "apuesta": "Córners: Más de 7.5",
+   "prob": 0.8086,
+   "cuota": 1.222,
+   "marcador": "3-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Houston Dynamo vs Sporting Kansas City",
+   "liga": "MLS",
+   "apuesta": "Tarjetas: Menos de 4.5",
+   "prob": 0.7074,
+   "cuota": 1.4,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Dorados de Sinaloa vs Durango",
+   "liga": "Liga de Expansión MX",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7622,
+   "cuota": 1.25,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Dorados de Sinaloa vs Durango",
+   "liga": "Liga de Expansión MX",
+   "apuesta": "Córners: Menos de 10.5",
+   "prob": 0.6252,
+   "cuota": 1.455,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Mexico vs Colombia",
+   "liga": "International - Friendlies",
+   "apuesta": "Mexico o Colombia y menos de 5.5",
+   "prob": 0.6511,
+   "cuota": 1.25,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "FC Juárez vs Club Tijuana",
+   "liga": "Liga MX Femenil",
+   "apuesta": "Menos de 2.5",
+   "prob": 0.559,
+   "cuota": NaN,
+   "marcador": "5-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "FC Juárez vs Club Tijuana",
+   "liga": "Liga MX Femenil",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.549,
+   "cuota": NaN,
+   "marcador": "5-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Orange County SC vs Pittsburgh Riverhounds",
+   "liga": "USL Championship",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.6851,
+   "cuota": 1.4,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "San Jose Earthquakes vs Portland Timbers",
+   "liga": "MLS",
+   "apuesta": "Córners: Menos de 12",
+   "prob": 0.7716,
+   "cuota": 1.3,
+   "marcador": "3-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Vancouver Whitecaps vs DC United",
+   "liga": "MLS",
+   "apuesta": "Gana Vancouver Whitecaps",
+   "prob": 0.6883,
+   "cuota": 1.25,
+   "marcador": "3-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-26",
+   "partido": "Vancouver Whitecaps vs DC United",
+   "liga": "MLS",
+   "apuesta": "Córners: Menos de 12.5",
+   "prob": 0.7485,
+   "cuota": 1.312,
+   "marcador": "3-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "De Graafschap vs FC Den Bosch",
+   "liga": "Eerste Divisie",
+   "apuesta": "Ambos marcan: Sí",
+   "prob": 0.6959,
+   "cuota": 1.273,
+   "marcador": "1-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Lithuania vs Azerbaijan",
+   "liga": "UEFA - Nations League D",
+   "apuesta": "Lithuania o Azerbaijan y menos de 4.5",
+   "prob": 0.6021,
+   "cuota": 1.364,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Criciúma vs Avaí",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Córners: Más de 8.5",
+   "prob": 0.5899,
+   "cuota": 1.273,
+   "marcador": "3-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Gibraltar vs Andorra",
+   "liga": "UEFA - Nations League D",
+   "apuesta": "Goles: Más de 0.5",
+   "prob": 0.8168,
+   "cuota": 1.2,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Gibraltar vs Andorra",
+   "liga": "UEFA - Nations League D",
+   "apuesta": "Goles Gibraltar: Más de 0.5",
+   "prob": 0.7942,
+   "cuota": 1.8,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Deportivo de A Coruña vs Espanyol",
+   "liga": "Liga F (España, femenil)",
+   "apuesta": "Deportivo de A Coruña o Espanyol",
+   "prob": 0.71,
+   "cuota": 1.3,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Eibar vs Las Palmas",
+   "liga": "LaLiga Hypermotion",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7489,
+   "cuota": 1.32,
+   "marcador": "3-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Jordan vs Syria",
+   "liga": "International - Friendlies",
+   "apuesta": "Gana Jordan",
+   "prob": 0.6605,
+   "cuota": 1.429,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "UNAM Pumas vs Atl. San Luis",
+   "liga": "Liga MX",
+   "apuesta": "Córners: Menos de 12",
+   "prob": 0.7653,
+   "cuota": 1.25,
+   "marcador": "2-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Juventud vs Cerro",
+   "liga": "Primera División",
+   "apuesta": "Córners: Más de 6.5",
+   "prob": 0.5954,
+   "cuota": 1.2,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Defensores de Belgrano vs Ferro Carril Oeste",
+   "liga": "Primera Nacional",
+   "apuesta": "Defensores de Belgrano o empate",
+   "prob": 0.6887,
+   "cuota": 1.333,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Los Andes vs Deportivo Morón",
+   "liga": "Primera Nacional",
+   "apuesta": "Goles: Menos de 2.5",
+   "prob": 0.7008,
+   "cuota": 1.32,
+   "marcador": "2-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Germany vs Greece",
+   "liga": "UEFA - Nations League A",
+   "apuesta": "Germany o empate y menos de 5.5",
+   "prob": 0.812,
+   "cuota": 1.2,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Israel vs Republic of Ireland",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Córners: Más de 6",
+   "prob": 0.8339,
+   "cuota": 1.231,
+   "marcador": "0-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Guyana vs Cayman Islands",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Goles: Más de 2.5",
+   "prob": 0.734,
+   "cuota": 1.3,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Guyana vs Cayman Islands",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Guyana o empate y más de 2.5",
+   "prob": 0.7231,
+   "cuota": 1.286,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Guyana vs Cayman Islands",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Goles Guyana: Más de 2.5",
+   "prob": 0.6595,
+   "cuota": 1.455,
+   "marcador": "2-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Patronato vs San Martín (San Juan)",
+   "liga": "Primera Nacional",
+   "apuesta": "Goles: Menos de 2.5",
+   "prob": 0.6924,
+   "cuota": 1.375,
+   "marcador": "3-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Bolivia vs Paraguay",
+   "liga": "International - Friendlies",
+   "apuesta": "Goles Bolivia: Más de 0.5",
+   "prob": 0.6514,
+   "cuota": 1.8,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Alianza FC vs Inca Aruba",
+   "liga": "Primera División",
+   "apuesta": "Gana Alianza FC",
+   "prob": 0.6199,
+   "cuota": 1.471,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Fortaleza vs Athletic",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.8095,
+   "cuota": 1.2,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Fortaleza vs Athletic",
+   "liga": "Brasileirão Série B",
+   "apuesta": "Córners: Más de 7.5",
+   "prob": 0.7892,
+   "cuota": 1.222,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Fortaleza CEIF vs Deportes Tolima",
+   "liga": "Categoría Primera A",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7879,
+   "cuota": 1.231,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Fortaleza CEIF vs Deportes Tolima",
+   "liga": "Categoría Primera A",
+   "apuesta": "Fortaleza CEIF o Deportes Tolima",
+   "prob": 0.7216,
+   "cuota": 1.32,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Dominica vs Puerto Rico",
+   "liga": "CONCACAF - Nations League B",
+   "apuesta": "Goles Dominica: Más de 0.5",
+   "prob": 0.7688,
+   "cuota": 1.667,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Tigres vs Atlético de San Luis",
+   "liga": "Liga MX Femenil",
+   "apuesta": "Goles: Más de 2.5",
+   "prob": 0.7969,
+   "cuota": 1.22,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-27",
+   "partido": "Trinidad and Tobago vs Dominican Republic",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Trinidad and Tobago o empate y menos de 4.5",
+   "prob": 0.6611,
+   "cuota": 1.636,
+   "marcador": "1-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "South Korea vs Uruguay",
+   "liga": "International - Friendlies",
+   "apuesta": "South Korea o Uruguay y menos de 4.5",
+   "prob": 0.577,
+   "cuota": 1.455,
+   "marcador": "1-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "South Korea vs Uruguay",
+   "liga": "International - Friendlies",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7396,
+   "cuota": 1.273,
+   "marcador": "1-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Tajikistan vs Palestine",
+   "liga": "Partidos Amistosos Internacionales",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7831,
+   "cuota": 1.222,
+   "marcador": "2-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Central African Republic vs Burkina Faso",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7897,
+   "cuota": 1.222,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Georgia vs Ukraine",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Georgia o Ukraine y menos de 5.5",
+   "prob": 0.6835,
+   "cuota": 1.308,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Georgia vs Ukraine",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Goles Ukraine: Más de 0.5",
+   "prob": 0.7394,
+   "cuota": 1.364,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Georgia vs Ukraine",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7656,
+   "cuota": 1.286,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Georgia vs Ukraine",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Córners: Más de 6.5",
+   "prob": 0.8157,
+   "cuota": 1.235,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Latvia vs Cyprus",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Latvia o Cyprus y menos de 4.5",
+   "prob": 0.6355,
+   "cuota": 1.417,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Latvia vs Cyprus",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Goles Cyprus: Más de 0.5",
+   "prob": 0.6997,
+   "cuota": 1.4,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Latvia vs Cyprus",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Tarjetas: Menos de 5.5",
+   "prob": 0.7712,
+   "cuota": 1.286,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Armenia vs Montenegro",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7528,
+   "cuota": 1.273,
+   "marcador": "2-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Northern Ireland vs Hungary",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Remates a puerta Visita: Más de 2.5",
+   "prob": 0.6922,
+   "cuota": 1.35,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Romania vs Bosnia and Herzegovina",
+   "liga": "UEFA - Nations League B",
+   "apuesta": "Romania o empate y menos de 5.5",
+   "prob": 0.7104,
+   "cuota": 1.32,
+   "marcador": "2-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Tunisia vs Botswana",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Ambos marcan: No",
+   "prob": 0.6869,
+   "cuota": 1.333,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Sportivo San Lorenzo vs Deportivo Recoleta",
+   "liga": "División Profesional",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7452,
+   "cuota": 1.273,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Atlante vs Pumas",
+   "liga": "Liga MX Femenil",
+   "apuesta": "Gana Pumas",
+   "prob": 0.655,
+   "cuota": 1.36,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Jamaica vs Honduras",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Goles Jamaica: Más de 0.5",
+   "prob": 0.8229,
+   "cuota": 1.222,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Jamaica vs Honduras",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Jamaica o empate y menos de 4.5",
+   "prob": 0.6556,
+   "cuota": 1.32,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Guatemala vs El Salvador",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Guatemala o empate y menos de 4.5",
+   "prob": 0.6557,
+   "cuota": 1.333,
+   "marcador": "6-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-28",
+   "partido": "Guatemala vs El Salvador",
+   "liga": "CONCACAF - Nations League A",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7663,
+   "cuota": 1.25,
+   "marcador": "6-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Australia vs Brazil",
+   "liga": "International - Friendlies",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.8067,
+   "cuota": 1.2,
+   "marcador": "2-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Kumamoto vs Kawasaki Frontale",
+   "liga": "Japón: J.League Cup - First stage",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.8637,
+   "cuota": 1.14,
+   "marcador": "0-1",
+   "sin_modelo": true
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Lesotho vs Morocco",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles: Más de 2.5",
+   "prob": 0.7119,
+   "cuota": 1.25,
+   "marcador": "0-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Burundi vs Algeria",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Gana Algeria",
+   "prob": 0.7668,
+   "cuota": 1.286,
+   "marcador": "2-2",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Ethiopia vs Senegal",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7486,
+   "cuota": 1.3,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Ghana vs Gambia",
+   "liga": "CAF - Africa Cup of Nations Qualifiers",
+   "apuesta": "Goles: Menos de 3.5",
+   "prob": 0.7509,
+   "cuota": 1.25,
+   "marcador": "2-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Finland vs Belarus",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.74,
+   "cuota": 1.308,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Moldova vs Faroe Islands",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Tarjetas: Más de 2.5",
+   "prob": 0.7394,
+   "cuota": 1.222,
+   "marcador": "1-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Belgium U21 vs Wales U21",
+   "liga": "Europa: Euro U21",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.8705,
+   "cuota": 1.14,
+   "marcador": "1-0",
+   "sin_modelo": true
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "San Marino vs Albania",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Tarjetas: Más de 2.5",
+   "prob": 0.7386,
+   "cuota": 1.333,
+   "marcador": "0-3",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Spain vs Croatia",
+   "liga": "UEFA - Nations League A",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.7445,
+   "cuota": 1.333,
+   "marcador": "4-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Bulgaria vs Estonia",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Córners: Menos de 12",
+   "prob": 0.8084,
+   "cuota": 1.2,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Bulgaria vs Estonia",
+   "liga": "UEFA - Nations League C",
+   "apuesta": "Bulgaria o Estonia",
+   "prob": 0.756,
+   "cuota": 1.3,
+   "marcador": "0-0",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Hartlepool vs Harrogate",
+   "liga": "National League",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.7963,
+   "cuota": 1.222,
+   "marcador": "0-1",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Woking vs Solihull",
+   "liga": "National League",
+   "apuesta": "Goles: Menos de 4.5",
+   "prob": 0.791,
+   "cuota": 1.231,
+   "marcador": "2-4",
+   "sin_modelo": false
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Alfreton vs Guiseley",
+   "liga": "Inglaterra: NPL Premier Division",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.8283,
+   "cuota": 1.17,
+   "marcador": "1-0",
+   "sin_modelo": true
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Ilkeston vs Warrington Rylands",
+   "liga": "Inglaterra: NPL Premier Division",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.813,
+   "cuota": 1.19,
+   "marcador": "0-1",
+   "sin_modelo": true
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "Halesowen vs Rushall",
+   "liga": "Inglaterra: Southern League Premier Central",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.8173,
+   "cuota": 1.18,
+   "marcador": "1-0",
+   "sin_modelo": true
+  },
+  {
+   "dia": "2026-09-29",
+   "partido": "French Guiana vs Sint Maarten",
+   "liga": "Liga de Naciones CONCACAF",
+   "apuesta": "Goles: Más de 1.5",
+   "prob": 0.8173,
+   "cuota": 1.2,
+   "marcador": "1-0",
+   "sin_modelo": true
+  }
+ ]
+}

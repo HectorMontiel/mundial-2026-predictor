@@ -217,9 +217,11 @@ def probar_fotmob():
     p = {'partido': 'Italy vs Belgium', 'inicio': '2026-09-25 18:45:00'}
     f = pj._casar_fotmob(p, lista)
     check(bool(f) and f['id'] == 1, 'casa por hora y nombres')
-    p2 = {'partido': 'Italy vs Belgium', 'inicio': '2026-09-25 21:00:00'}
+    # v315 — con los DOS nombres clavados se acepta hasta ±3 h (la hora de la
+    # casa venía mal en Filipinas–Pakistán); otro día sigue sin casar
+    p2 = {'partido': 'Italy vs Belgium', 'inicio': '2026-09-26 18:45:00'}
     check(pj._casar_fotmob(p2, lista) is None,
-          'no casa el mismo par a otra hora')
+          'no casa el mismo par otro día')
     p3 = {'partido': 'Chivas vs Cruz Azul', 'inicio': '2026-09-26 01:00:00'}
     f3 = pj._casar_fotmob(p3, lista)
     check(bool(f3) and f3['id'] == 3, 'quita la marca femenina «(W)»')

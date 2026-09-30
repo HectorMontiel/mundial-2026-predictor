@@ -1850,9 +1850,23 @@ FAMILIA_RESULTADO = ('1X2', 'Doble oportunidad', 'Doble y goles', 'Handicap',
                      'Ganador')
 
 
+# v315 — COMO MUCHO DOS «METER» POR PARTIDO. Analizando los rojos del 28 y
+# 29 de septiembre: 13 de 40 salieron de partidos que acabaron 0-0, y varios
+# del MISMO partido (Georgia–Ucrania se llevó cuatro: más de 1,5, goles de
+# Ucrania, córners y «doble y goles»). Las apuestas de un mismo partido
+# fallan juntas. Medido en la réplica de la v312 (`_v312_candidatas.csv`),
+# quedándose con las dos primeras de cada partido:
+#     elección 75,7 % (465, 113 rojos) → 76,2 % (420, 100 rojos)
+#     prueba   80,4 % (102,  20 rojos) → 80,6 % (98,   19 rojos)
+# Con UNA sola la prueba baja (78,5 %): se quedan dos.
+MAX_METER_POR_PARTIDO = 2
+
+
 def metidas(recos: list) -> list:
-    """v311 — de las recomendadas, sólo las que se dicen «meter»."""
-    return [r for r in (recos or []) if r.get('veredicto_vp') == 'meter']
+    """v311 — de las recomendadas, sólo las que se dicen «meter» (v315: como
+    mucho dos, las primeras)."""
+    return [r for r in (recos or [])
+            if r.get('veredicto_vp') == 'meter'][:MAX_METER_POR_PARTIDO]
 
 
 def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None

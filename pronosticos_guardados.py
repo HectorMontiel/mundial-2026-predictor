@@ -630,7 +630,14 @@ def _acierto(guardada: Dict, real, home: str, away: str):
         etq = str(guardada.get('etiqueta') or '')
         nombra_h = bool(home and home in apuesta)
         nombra_a = bool(away and away in apuesta)
-        if etq == 'Doble':
+        # v315 — «X o empate» ES doble oportunidad aunque la etiqueta no sea
+        # «Doble». Los partidos sin modelo (v313) la guardaban como «Doble
+        # oportunidad», y aquí caía en «gana X»: «Bromsgrove o empate» con
+        # 1-1 salió 🔴 el 2026-09-29, siendo verde.
+        es_doble = (etq in ('Doble', 'Doble oportunidad')
+                    or str(guardada.get('mercado') or '') == 'Doble oportunidad'
+                    or (' o ' in apuesta and apuesta.strip().lower() != 'empate'))
+        if es_doble:
             lados = set()
             if nombra_h:
                 lados.add('home')

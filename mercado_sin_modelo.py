@@ -93,6 +93,21 @@ de FotMob para los patrones (15.464 partidos, 298 ligas):
     (National League, Liga de Expansión, Primera Nacional, Uruguay: 0 de
     33 fichas) ni las casas del usuario la cotizan. Sin datos no hay regla:
     no se ofrecen.
+
+v315 — MODELO PROPIO, SÓLO LAS CASAS DEL USUARIO, Y NADA SIN BASE
+El usuario: «tenemos que tener un modelo propio para cada una de esas ligas
+y competiciones, porque si no van a pasar estos errores» (sub-19 sin
+marcador), y «sólo ocupo Playdoit, comparada con Pinnacle; y Draftea y
+Novibet».
+  · Base propia: `resultados_fotmob.py` (83.505 partidos, 500 competiciones
+    desde julio de 2025). Modelo propio: `modelo_competiciones.py`.
+  · Un partido sólo entra si sus dos equipos están en la base (así siempre
+    se puede liquidar). Los que FotMob no publica ya no se ofrecen.
+  · Precio: el mejor de Playdoit (su tablero completo) y Novibet. Nada de
+    Winpot, Caliente, 1xBet ni Sportium.
+  · Medido (`_v315_modelo_competiciones.py`, 696 partidos): el modelo propio
+    solo acierta menos que Pinnacle (Brier 0,207 contra 0,186) y como veto
+    no sumó; se exige y se enseña como segunda opinión.
 """
 from __future__ import annotations
 
@@ -115,6 +130,13 @@ LADOS_METER = ('home', 'homeOrDraw')
 # v314 — goles en partidos sin modelo (ver el docstring)
 GOLES_METER = ('mas_1.5',)
 GOLES_P_MIN, GOLES_P_MAX = 0.80, 0.90
+# v315 — el veto del modelo propio se MIDIÓ y NO pasó (ver
+# `_v315_modelo_competiciones.py`, «veto_modelo»): con el acierto sumado a lo
+# que ya se dice «meter», en elección «sin veto» da 79,62 % y el mejor veto
+# (≥ 60 %) 79,53 %. Así que el modelo propio no quita apuestas: se EXIGE que
+# exista (partido y equipos en la base propia, lo que garantiza que se pueda
+# liquidar) y se enseña como segunda opinión. 0 = sin veto.
+MODELO_MIN = 0.0
 LINEAS_GOLES = (1.5, 2.5, 3.5)
 
 # Selecciones: la casa y el modelo no escriben igual el país.
@@ -123,7 +145,8 @@ _ALIAS = {
     'korea republic': 'south korea', 'republic of korea': 'south korea',
     'korea dpr': 'north korea', 'ir iran': 'iran', 'turkiye': 'turkey',
     'czechia': 'czech republic', "cote d'ivoire": 'ivory coast',
-    'cote divoire': 'ivory coast', 'bosnia & herzegovina':
+    'cote divoire': 'ivory coast', 'united arab emirates': 'uae',
+    'bosnia & herzegovina':
     'bosnia and herzegovina', 'china pr': 'china',
 }
 
@@ -134,10 +157,21 @@ def _norm(nombre: str) -> str:
 
 
 def _categoria(nombre: str) -> str:
-    """«U19», «U21», «W» (femenino)… lo que separa dos equipos del mismo
-    país. Dos nombres con distinta categoría nunca son el mismo equipo."""
-    m = re.search(r'\bu[- ]?(\d{2})\b', str(nombre or '').lower())
-    return 'u' + m.group(1) if m else ''
+    """«U19», «U21», «W» (femenil)… lo que separa dos equipos del mismo
+    país. Dos nombres con distinta categoría nunca son el mismo equipo.
+
+    v315 — el femenil cuenta: «River Plate W» no es «River Plate», y en la
+    base de FotMob las mujeres van como «West Ham United (W)»."""
+    t = str(nombre or '').lower()
+    m = re.search(r'\bu[- ]?(\d{2})\b', t)
+    cat = 'u' + m.group(1) if m else ''
+    if re.search(r'(\(w\)|\bw$|\bwomen\b|\bfemenil\b|\bfem\.?$)', t.strip()):
+        cat += 'w'
+    # v315 — las reservas tampoco son el primer equipo: «Platense 2» se
+    # casaba con «Platense FC»
+    if re.search(r'(\s(2|ii|b)$|\breserv|\(res\))', t.strip()):
+        cat += 'r'
+    return cat
 
 
 def mismo_equipo(a: str, b: str) -> bool:
@@ -300,6 +334,73 @@ def goles_equipo(lam: Optional[Tuple[float, float]]) -> Dict[str, float]:
     return out
 
 
+# v315 — LAS CASAS DEL USUARIO SON TRES, Y SÓLO TRES. El usuario: «no ocupo
+# tantas casas; sólo ocupo la principal (Playdoit) y la comparamos con
+# Pinnacle; también Draftea y Novibet, sólo esas tres». La v313/v314 tomaba la
+# mejor cuota de cinco casas mexicanas (salía «cuota 1.14 en Winpot»). Ahora
+# el precio es el mejor de Playdoit (su tablero completo, `mercados_playdoit`)
+# y Novibet (tablero de casas). Draftea no tiene fuente pública de precios
+# (`cuotas_multi.CASAS_PRIORITARIAS`): en cuanto la haya, entra sola.
+CASAS_USUARIO = ('Playdoit', 'Novibet', 'Draftea')
+
+
+def precios_usuario(v: Dict, fecha=None,
+                    t_pd: Optional[Dict] = None) -> Dict[str, Tuple[float, str]]:
+    """{selección: (mejor cuota, casa)} de Playdoit y Novibet."""
+    mejor: Dict[str, Tuple[float, str]] = {}
+
+    def _pon(sel, q, casa):
+        try:
+            q = float(q)
+        except (TypeError, ValueError):
+            return
+        if q > 1 and q > mejor.get(sel, (0.0, ''))[0]:
+            mejor[sel] = (q, casa)
+    nv = (v.get('casas') or {}).get('Novibet') or {}
+    x = nv.get('HOME_DRAW_AWAY') or {}
+    for k in ('home', 'draw', 'away'):
+        _pon(k, x.get(k), 'Novibet')
+    x = nv.get('DOUBLE_CHANCE') or {}
+    _pon('homeOrDraw', x.get('homeOrDraw'), 'Novibet')
+    _pon('awayOrDraw', x.get('awayOrDraw'), 'Novibet')
+    x = nv.get('BOTH_TEAMS_TO_SCORE') or {}
+    _pon('btts_si', x.get('yes'), 'Novibet')
+    _pon('btts_no', x.get('no'), 'Novibet')
+    t = t_pd if t_pd is not None else _tablero_playdoit(v, fecha)
+    c = t.get('1x2_cuotas') or {}
+    for k in ('home', 'draw', 'away'):
+        _pon(k, c.get(k), 'Playdoit')
+    c = t.get('doble_cuotas') or {}
+    _pon('homeOrDraw', c.get('1X'), 'Playdoit')
+    _pon('awayOrDraw', c.get('X2'), 'Playdoit')
+    c = t.get('btts_cuotas') or {}
+    _pon('btts_si', c.get('si'), 'Playdoit')
+    _pon('btts_no', c.get('no'), 'Playdoit')
+    for L, e in (t.get('goles') or {}).items():
+        _pon('mas_%s' % L, (e or {}).get('mas'), 'Playdoit')
+        _pon('menos_%s' % L, (e or {}).get('menos'), 'Playdoit')
+    for lado, clave in (('local', 'goles_home'), ('visita', 'goles_away')):
+        for L, e in (t.get(clave) or {}).items():
+            _pon('%s_mas_%s' % (lado, L), (e or {}).get('mas'), 'Playdoit')
+            _pon('%s_menos_%s' % (lado, L), (e or {}).get('menos'), 'Playdoit')
+    return mejor
+
+
+def _pinnacle_totales(home: str, away: str) -> Optional[float]:
+    """P(más de 2,5) de Pinnacle sin margen, si cotiza esa línea."""
+    try:
+        import cuotas_multi as cm
+        ent = cm._buscar(cm._indice('futbol'), home, away, 'futbol')
+        ln = ((ent or {}).get('totales_alt') or {}).get('2.5') or             ((ent or {}).get('totales') or {}).get('2.5')
+        if not ln:
+            return None
+        f = cm.devig({'o': float(ln['over']), 'u': float(ln['under'])},
+                     metodo='potencia')
+        return float(f['o'])
+    except Exception:
+        return None
+
+
 def _pinnacle(home: str, away: str) -> Optional[Dict[str, float]]:
     try:
         import cuotas_multi as cm
@@ -353,41 +454,87 @@ def unox2_casas(v: Dict) -> Optional[Dict[str, float]]:
     return f
 
 
-def pick_de(v: Dict, pin: Optional[Dict[str, float]]) -> Dict:
-    """El pronóstico «de mercado» de un partido del tablero. Con Pinnacle, su
-    1X2 sin margen; sin él (v314), el de las casas del usuario."""
+def _tablero_playdoit(v: Dict, fecha=None) -> Dict:
+    try:
+        import cuotas_multi as cm
+        import mercado_implicito as mi
+        return mi.del_tablero(cm.mercados_playdoit(
+            'futbol', v['home'], v['away'], fecha=fecha, liga=v.get('liga'))) or {}
+    except Exception as e:
+        logger.debug('[sin_modelo] playdoit %s: %s', v.get('home'), e)
+        return {}
+
+
+# v315 — lo que se ofrece de cada partido, con su texto y su mercado
+def _textos(h: str, a: str) -> Dict[str, Tuple[str, str]]:
+    t = {'home': ('1X2', 'Gana %s' % h), 'draw': ('1X2', 'Empate'),
+         'away': ('1X2', 'Gana %s' % a),
+         'homeOrDraw': ('Doble oportunidad', '%s o empate' % h),
+         'awayOrDraw': ('Doble oportunidad', '%s o empate' % a),
+         'btts_si': ('BTTS', 'Ambos marcan: Sí'),
+         'btts_no': ('BTTS', 'Ambos marcan: No')}
+    for L in LINEAS_GOLES:
+        t['mas_%s' % L] = ('Goles', 'Goles: Más de %s' % L)
+        t['menos_%s' % L] = ('Goles', 'Goles: Menos de %s' % L)
+    for L in (0.5, 1.5):
+        t['local_mas_%s' % L] = ('Goles equipo', 'Goles %s: Más de %s' % (h, L))
+        t['visita_mas_%s' % L] = ('Goles equipo', 'Goles %s: Más de %s' % (a, L))
+    return t
+
+
+def pick_de(v: Dict, pin: Optional[Dict[str, float]],
+            pred: Optional[Dict] = None, t_pd: Optional[Dict] = None,
+            precios: Optional[Dict] = None) -> Dict:
+    """El pronóstico de un partido que el motor de ligas no cubre.
+
+    v315 — tres fuentes, cada una con su papel:
+      · MERCADO: Pinnacle sin margen (1X2 y, con su más/menos 2,5, las λ de
+        las que salen todas las líneas de goles y los goles por equipo); sin
+        Pinnacle, el tablero de Playdoit sin margen;
+      · MODELO PROPIO (`modelo_competiciones`): ataque/defensa de cada equipo
+        con la base propia de resultados; decide el veto;
+      · PRECIO: el mejor de las casas del usuario (Playdoit y Novibet).
+    """
     import horario as hz
+    import modelo_competiciones as mc
     import nombres_ligas as nl
     h, a = str(v['home']), str(v['away'])
-    f = justas(pin) if pin else unox2_casas(v)
-    q = _mejores(v)
+    t_pd = t_pd or {}
+    precios = precios if precios is not None else precios_usuario(v, t_pd=t_pd)
+    if pin:
+        f = justas(pin)
+    else:
+        c = t_pd.get('1x2') or {}
+        f = ({'home': c['home'], 'draw': c['draw'], 'away': c['away'],
+              'homeOrDraw': c['home'] + c['draw'],
+              'awayOrDraw': c['away'] + c['draw']}
+             if all(k in c for k in ('home', 'draw', 'away')) else unox2_casas(v))
+    p_o25 = _pinnacle_totales(h, a) if pin else None
+    if p_o25 is None:
+        p_o25 = ((t_pd.get('goles') or {}).get('2.5') or {}).get('p')
+    lam = lambdas_mercado(f['home'], f['away'], p_o25) if f else None
+    pm = dict(f or {})
+    if lam:
+        dp = mc.probabilidades(lam[0], lam[1])
+        for k, x in dp.items():
+            if k not in ('home', 'draw', 'away', 'homeOrDraw', 'awayOrDraw'):
+                pm[k] = x
+    pmod = (pred or {}).get('p') or {}
     mercados = []
-    for lado in ('home', 'draw', 'away', 'homeOrDraw', 'awayOrDraw'):
-        merc, apuesta = _texto(lado, h, a)
-        cuota, casa = q.get(lado, (None, None))
+    for sel, (merc, apuesta) in _textos(h, a).items():
+        if sel not in pm:
+            continue
+        cuota, casa = precios.get(sel, (None, None))
+        pr = float(pm[sel])
         mercados.append({
-            'mercado': merc, 'apuesta': apuesta, 'lado': lado,
-            'prob': round(f[lado], 4), 'cuota': cuota, 'casa': casa,
-            'cuota_justa': round(1 / f[lado], 3) if f[lado] > 0 else None,
-            'ev': round(f[lado] * cuota - 1, 4) if cuota else None})
-    # v314 — goles y ambos marcan de las casas del usuario
-    textos = {'btts_si': 'Ambos marcan: Sí', 'btts_no': 'Ambos marcan: No'}
-    for L in LINEAS_GOLES:
-        textos['mas_%s' % L] = 'Goles: Más de %s' % L
-        textos['menos_%s' % L] = 'Goles: Menos de %s' % L
-    gc = goles_casas(v)
-    for sel in sorted(gc, key=lambda s: list(textos).index(s)):
-        pr, cuota, casa = gc[sel]
-        mercados.append({
-            'mercado': 'BTTS' if sel.startswith('btts') else 'Goles',
-            'apuesta': textos[sel], 'lado': sel, 'prob': round(pr, 4),
-            'cuota': cuota, 'casa': casa, 'fuente': 'casas',
+            'mercado': merc, 'apuesta': apuesta, 'lado': sel,
+            'prob': round(pr, 4), 'cuota': cuota, 'casa': casa,
+            'prob_modelo': round(float(pmod[sel]), 4) if sel in pmod else None,
             'cuota_justa': round(1 / pr, 3) if pr > 0 else None,
             'ev': round(pr * cuota - 1, 4) if cuota else None})
-    lam = lambdas_mercado(f['home'], f['away'],
-                          (gc.get('mas_2.5') or (None,))[0])
     ini = hz._a_utc(v.get('inicio'))
     liga = str(v.get('liga') or '')
+    fuente = 'Pinnacle' if pin else 'Playdoit'
     p = {
         'deporte': 'Fútbol', 'partido': '%s vs %s' % (h, a),
         'liga': nl.canonica(liga, liga.lower(), 'Fútbol'),
@@ -396,16 +543,21 @@ def pick_de(v: Dict, pin: Optional[Dict[str, float]]) -> Dict:
         'fecha': hz.fecha(v.get('inicio')),
         'solo_mercado': True,
         'pinnacle': pin,
-        'board': {'Gana %s' % h: round(f['home'], 4),
-                  'Empate': round(f['draw'], 4),
-                  'Gana %s' % a: round(f['away'], 4)},
+        'modelo_propio': ({'lambdas': pred.get('lambdas'), 'n': pred.get('n'),
+                           'p': {k: round(float(x), 4) for k, x in pmod.items()}}
+                          if pmod else None),
+        'fotmob': (pred or {}).get('fotmob'),
+        'board': ({'Gana %s' % h: round(f['home'], 4),
+                   'Empate': round(f['draw'], 4),
+                   'Gana %s' % a: round(f['away'], 4)} if f else {}),
         'mercados': mercados,
         'lambdas_mercado': lam,
-        'motivo_modelo': ('Sin modelo propio para esta competición: las '
-                          'probabilidades son las de %s sin margen.'
-                          % ('Pinnacle' if pin else 'las casas')),
+        'motivo_modelo': ('Competición fuera del motor de ligas: probabilidad '
+                          'de %s sin margen, con el visto bueno del modelo '
+                          'propio de la competición.' % fuente),
     }
-    top = max(mercados[:3], key=lambda m: m['prob'])
+    top = max([m for m in mercados if m['lado'] in ('home', 'draw', 'away')] or
+              mercados, key=lambda m: m['prob'])
     p.update({'mercado': top['mercado'], 'apuesta': top['apuesta'],
               'prob': top['prob'], 'cuota': top['cuota'], 'casa': top['casa']})
     hz.anotar(p)
@@ -413,41 +565,42 @@ def pick_de(v: Dict, pin: Optional[Dict[str, float]]) -> Dict:
 
 
 def recomendadas(pick: Dict) -> List[Dict]:
-    """Lo que se mete en un partido sin modelo: como mucho UNA, con la regla
-    medida. Misma forma que `modo_modelo.recomendadas` para que la tarjeta,
-    Telegram y el archivo de finalizados la traten igual."""
+    """Lo que se mete: como mucho una de resultado y una de goles, con las
+    reglas medidas y el veto del modelo propio (v315). Misma forma que
+    `modo_modelo.recomendadas`."""
     fuera, goles = [], []
     for m in (pick.get('mercados') or []):
-        if m.get('lado') in GOLES_METER and m.get('cuota'):
-            p, q = float(m['prob']), float(m['cuota'])
-            if GOLES_P_MIN <= p <= GOLES_P_MAX and CUOTA_MIN <= q < CUOTA_MAX:
-                goles.append({
-                    'apuesta': m['apuesta'], 'mercado': 'Goles',
-                    'bloque': 'goles', 'etiqueta': 'Total',
-                    'linea': 1.5, 'prob': p, 'prob_meter': p, 'p_mercado': p,
-                    'cuota': q, 'casa': m.get('casa'), 'ev': m.get('ev'),
-                    'veredicto_vp': 'meter', 'origen': 'casas',
-                    'razon': ('las casas, sin su margen, le dan %.0f %%; regla '
-                              'medida en ligas sin modelo (86,6 %% y 93,9 %% en '
-                              'los dos tramos)' % (100 * p))})
-            continue
-        if m.get('lado') not in LADOS_METER or not m.get('cuota') \
-                or not pick.get('pinnacle'):
+        if not m.get('cuota'):
             continue
         p, q = float(m['prob']), float(m['cuota'])
-        if not (P_MIN <= p <= P_MAX and CUOTA_MIN <= q < CUOTA_MAX):
+        if not (CUOTA_MIN <= q < CUOTA_MAX):
             continue
-        fuera.append({
-            'apuesta': m['apuesta'], 'mercado': m['mercado'],
-            'bloque': 'resultado', 'etiqueta': m['mercado'],
-            'prob': p, 'prob_meter': p, 'p_mercado': p,
-            'cuota': q, 'casa': m.get('casa'), 'ev': m.get('ev'),
-            'veredicto_vp': 'meter', 'origen': 'pinnacle',
-            'razon': ('Pinnacle, sin su margen, le da %.0f %%; regla medida '
-                      'para partidos sin modelo (acertó 92 %% en la réplica '
-                      'del 20-28 sep)' % (100 * p))})
+        # v315 — sin modelo propio no se mete (no se podría ni liquidar);
+        # el umbral del veto es 0: medido, vetar no sumó (ver MODELO_MIN)
+        pmod = m.get('prob_modelo')
+        if pmod is None or float(pmod) < MODELO_MIN:
+            continue
+        base = {'apuesta': m['apuesta'], 'mercado': m['mercado'],
+                'prob': p, 'prob_meter': p, 'p_mercado': p,
+                'prob_modelo': float(pmod),
+                'cuota': q, 'casa': m.get('casa'), 'ev': m.get('ev'),
+                'veredicto_vp': 'meter'}
+        if m.get('lado') in GOLES_METER and GOLES_P_MIN <= p <= GOLES_P_MAX:
+            goles.append(dict(base, bloque='goles', etiqueta='Total', linea=1.5,
+                              origen='mercado',
+                              razon=('el mercado le da %.0f %% y el modelo propio '
+                                     '%.0f %%; regla medida en competiciones '
+                                     'fuera del motor' % (100 * p, 100 * pmod))))
+        elif m.get('lado') in LADOS_METER and pick.get('pinnacle') \
+                and P_MIN <= p <= P_MAX:
+            fuera.append(dict(base, bloque='resultado',
+                              etiqueta=('Doble' if m['mercado'] == 'Doble oportunidad'
+                                        else 'Resultado'), origen='pinnacle',
+                              razon=('Pinnacle le da %.0f %% y el modelo propio '
+                                     '%.0f %%; regla medida en competiciones '
+                                     'fuera del motor' % (100 * p, 100 * pmod))))
     fuera.sort(key=lambda x: -x['prob'])
-    # una de resultado (Pinnacle) y una de goles (casas), como la tarjeta
+    goles.sort(key=lambda x: -x['prob'])
     return fuera[:1] + goles[:1]
 
 
@@ -467,16 +620,22 @@ def _en_capa(datos: Dict) -> List[Tuple[str, str]]:
 
 
 def construir(datos: Dict, ruta: str = TABLERO) -> List[Dict]:
-    """Los partidos de fútbol del tablero que el modelo no cubre y que o bien
-    tienen algo que meter con la regla medida, o bien están en la Capa 1 /
-    Capa 2 (para que lo que se ve ahí aparezca también en el día). NUNCA
-    lanza."""
+    """Los partidos de fútbol del tablero que el motor de ligas no cubre.
+
+    v315 — SÓLO LOS QUE TIENEN MODELO PROPIO. Un partido entra si FotMob lo
+    lista (así se puede liquidar: los sub-19 y sub-20 que no lista salían
+    «Finalizado · marcador pendiente») y sus dos equipos tienen historia en
+    la base propia. Y se enseña si tiene algo que meter o está en la Capa
+    1/2. NUNCA lanza."""
     import time
     try:
+        import horario as hz
+        import modelo_competiciones as mc
         modelo = _del_modelo(datos)
         capa = _en_capa(datos)
         ahora = time.time()
         fuera: List[Dict] = []
+        n_sin = 0
         for v in _cargar(ruta).values():
             if v.get('deporte') != 'futbol' or not v.get('home'):
                 continue
@@ -486,19 +645,24 @@ def construir(datos: Dict, ruta: str = TABLERO) -> List[Dict]:
             except (TypeError, ValueError):
                 continue
             par = '%s vs %s' % (v['home'], v['away'])
-            import horario as hz
             dia = hz.fecha(v.get('inicio'))
             if any(mismo_partido(par, x) for d, x in modelo
                    if not d or not dia or abs(_dias(d, dia)) <= 1):
                 continue
-            pin = _pinnacle(v['home'], v['away'])
-            if not pin and not unox2_casas(v):
+            pred = mc.predecir(v['home'], v['away'], v.get('inicio'))
+            if not pred or not pred.get('p'):
+                n_sin += 1
                 continue
-            p = pick_de(v, pin)
+            pin = _pinnacle(v['home'], v['away'])
+            t_pd = _tablero_playdoit(v)
+            if not pin and not t_pd.get('1x2'):
+                continue
+            p = pick_de(v, pin, pred=pred, t_pd=t_pd)
             en_capa = any(mismo_partido(par, x) for _d, x in capa)
             if recomendadas(p) or en_capa:
                 fuera.append(p)
-        logger.info('[sin_modelo] %d partidos de mercado', len(fuera))
+        logger.info('[sin_modelo] %d partidos con modelo propio · %d sin base '
+                    'para modelo (no se ofrecen)', len(fuera), n_sin)
         return fuera
     except Exception as e:
         logger.warning('[sin_modelo] no se pudo construir: %s', e)

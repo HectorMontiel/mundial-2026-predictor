@@ -54,7 +54,12 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   predice mejor el total. Lo que cambia por partido es lo de cada equipo.
 - «[estimado]»: la competición no publica esa estadística; es su nivel
   general, no algo de estos dos equipos. No lo uses para decidir.
-- «SIN MODELO PROPIO»: sub-21, sub-19, copas y ligas que el modelo no cubre.
+- «FUERA DEL MOTOR DE LIGAS»: sub-21, sub-20, copas, ascensos, femenil…
+  (v315) Tienen MODELO PROPIO (ataque/defensa de cada equipo sobre la base
+  propia de resultados de FotMob): es una segunda opinión. Medido: solo
+  acierta menos que Pinnacle y usarlo para vetar no sumó; si discrepa mucho
+  de Pinnacle, busca el motivo (bajas, rotaciones) antes de meter.
+  Precios: sólo Playdoit y Novibet (las casas del usuario).
   La probabilidad es la de Pinnacle sin margen. Ahí la app sólo dice
   «meter» con Pinnacle 80-90 %, cuota 1,10-1,35 y local o local/empate
   (medido: 92 % de acierto en la réplica del 20-28 sep; más exigente que
@@ -159,9 +164,23 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
         if pick.get('solo_mercado'):
             # v313 — sin modelo: el 1X2 de Pinnacle, dicho como lo que es
             b = pick.get('board') or {}
-            L.append('SIN MODELO PROPIO — 1X2 de %s sin margen: '
-                     % ('Pinnacle' if pick.get('pinnacle') else 'las casas')
+            L.append('FUERA DEL MOTOR DE LIGAS — 1X2 de %s sin margen: '
+                     % ('Pinnacle' if pick.get('pinnacle') else 'Playdoit')
                      + ' · '.join('%s %s' % (k, _pct(v)) for k, v in b.items()))
+            # v315 — el modelo propio de la competición (ver
+            # `modelo_competiciones`): segunda opinión
+            mp = pick.get('modelo_propio') or {}
+            if mp.get('p'):
+                q_ = mp['p']
+                L.append('MODELO PROPIO (λ %s y %s; %s y %s partidos en la base): '
+                         'local %s · empate %s · visita %s · más de 1.5 %s · '
+                         'más de 2.5 %s · ambos marcan %s'
+                         % (_num((mp.get('lambdas') or [0, 0])[0]),
+                            _num((mp.get('lambdas') or [0, 0])[1]),
+                            (mp.get('n') or ['?', '?'])[0], (mp.get('n') or ['?', '?'])[1],
+                            _pct(q_.get('home')), _pct(q_.get('draw')),
+                            _pct(q_.get('away')), _pct(q_.get('mas_1.5')),
+                            _pct(q_.get('mas_2.5')), _pct(q_.get('btts_si'))))
             # v314 — goles por equipo, sin cuota (de las λ del mercado)
             try:
                 import mercado_sin_modelo as _msm

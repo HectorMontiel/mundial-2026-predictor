@@ -278,6 +278,8 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
     # finalizado dirá «no había nada que meter» en vez de reconstruir una
     # apuesta que nadie propuso.
     recos = [o for o in recos if o.get('veredicto_vp') == 'meter']
+    # v315 — y como mucho dos por partido, lo mismo que enseña la tarjeta
+    recos = recos[:mm.MAX_METER_POR_PARTIDO]
     return [dict(pg._fila(r), origen='archivo') for r in recos]
 
 
@@ -364,7 +366,29 @@ def _casar_fotmob(p: Dict, lista: List[Dict]) -> Optional[Dict]:
             s = max(s, 0.6)          # uno clavado y a la misma hora
         if s > mejor_s:
             mejor, mejor_s = f, s
-    return mejor if mejor_s >= 0.55 else None
+    if mejor_s >= 0.55:
+        return mejor
+    # v315 — LA HORA DE LA CASA PUEDE ESTAR MAL. Filipinas–Pakistán
+    # (2026-09-29) venía del tablero a las 08:00 UTC y FotMob lo jugó a las
+    # 09:00: con ±20 min no casaba y la tarjeta se quedó «marcador pendiente».
+    # Con los DOS nombres clavados se acepta hasta ±3 h: a esa distancia no
+    # hay otro partido de los mismos dos equipos.
+    for f in lista or []:
+        if abs((f['ini'] - ini).total_seconds()) > 3 * 3600:
+            continue
+        if min(cm._sim_club(hh, _sin_femenino(f.get('home'))),
+               cm._sim_club(aa, _sin_femenino(f.get('away')))) >= 0.85:
+            return f
+        # v315 — y con los bandos al revés (la casa dijo «Hong Kong vs
+        # Brunei»; FotMob, «Brunei - Hong Kong»): el marcador se voltea
+        if min(cm._sim_club(hh, _sin_femenino(f.get('away'))),
+               cm._sim_club(aa, _sin_femenino(f.get('home')))) >= 0.85:
+            g = dict(f)
+            g['home'], g['away'] = f.get('away'), f.get('home')
+            g['gh'], g['ga'] = f.get('ga'), f.get('gh')
+            g['volteado'] = True
+            return g
+    return None
 
 
 # Los mercados que no salen del marcador y necesitan la estadística del

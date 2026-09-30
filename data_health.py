@@ -52,6 +52,46 @@ def _ultima_captura() -> Dict:
             'horas_desde': round(horas, 1) if horas is not None else None}
 
 
+def _precios_publicados() -> Dict:
+    """v315 — LO QUE LA APLICACIÓN USA DE VERDAD: los precios que trae el
+    precálculo del cron (`pronostico_dia.json`) y el tablero de casas
+    (`cuotas_mx.json`), con su edad. Nada de red.
+
+    El 2026-09-29 la pantalla gritó «🚨 no están llegando cuotas de ninguna
+    fuente» con precios de hace hora y media en la misma pantalla. La cuenta
+    salía de `cuotas_multi.diagnostico()`, que pide Pinnacle EN VIVO desde el
+    servidor de Streamlit Cloud: ese servidor ya no recibe respuesta de
+    Pinnacle (desde un equipo normal devuelve 648 partidos), y además pedirla
+    al pintar es justo lo que la v220 sacó del render. La aplicación no usa
+    esa petición para nada: sus precios llegan en el precálculo."""
+    out = {}
+    for nombre, ruta in (('precalculo', 'pronostico_dia.json'),
+                         ('tablero', 'cuotas_mx.json')):
+        try:
+            if not os.path.exists(ruta):
+                continue
+            with open(ruta, encoding='utf-8') as f:
+                doc = json.load(f) or {}
+            gen = doc.get('generado_ts') or doc.get('generado')
+            ts = (pd.Timestamp(float(gen), unit='s', tz='UTC')
+                  if isinstance(gen, (int, float)) else
+                  pd.to_datetime(gen, errors='coerce', utc=True))
+            if nombre == 'precalculo':
+                dat = doc.get('datos') or doc
+                n = sum(1 for p in (dat.get('pronosticos') or [])
+                        if isinstance(p, dict) and p.get('cuota'))
+                n += len(dat.get('solo_mercado') or [])
+            else:
+                n = len(doc.get('partidos') or {})
+            horas = ((pd.Timestamp.now('UTC') - ts).total_seconds() / 3600
+                     if ts is not None and not pd.isna(ts) else None)
+            out[nombre] = {'n': int(n),
+                           'horas': round(horas, 1) if horas is not None else None}
+        except Exception as e:
+            logger.debug('[salud] %s: %s', ruta, e)
+    return out
+
+
 def estado_datos() -> Dict:
     """Diagnóstico completo de la llegada de datos. Nunca lanza.
 
@@ -68,12 +108,25 @@ def estado_datos() -> Dict:
 
     n_cuotas = 0
     detalle_multi = {}
-    try:
-        import cuotas_multi as _cm
-        detalle_multi = _cm.diagnostico()
-        n_cuotas = sum(detalle_multi.values())
-    except Exception:
-        pass
+    publicados = _precios_publicados()
+    if publicados:
+        # v315 — los precios que la aplicación enseña, no una petición en vivo
+        frescos = {k: v for k, v in publicados.items()
+                   if v.get('horas') is not None and v['horas'] <= HORAS_FRESCURA}
+        n_cuotas = sum(v['n'] for v in frescos.values())
+        detalle_multi = {k: v['n'] for k, v in frescos.items()}
+        if n_cuotas == 0:
+            edades = [v['horas'] for v in publicados.values()
+                      if v.get('horas') is not None]
+            captura = {'existe': True, 'horas_desde': min(edades) if edades else None,
+                       'total_snapshots': sum(v['n'] for v in publicados.values())}
+    else:
+        try:
+            import cuotas_multi as _cm
+            detalle_multi = _cm.diagnostico()
+            n_cuotas = sum(detalle_multi.values())
+        except Exception:
+            pass
 
     if n_cuotas == 0:
         horas = captura.get('horas_desde')
@@ -89,12 +142,16 @@ def estado_datos() -> Dict:
         nivel = 'degradado'
         det.append(f"⚠️ Solo {n_cuotas} cuotas vigentes (poca cobertura hoy).")
     else:
-        det.append(f"✅ {n_cuotas} partidos con cuota de fuentes sin límite "
-                   f"(Pinnacle + Bovada + Playdoit): "
+        det.append(f"✅ {n_cuotas} precios vigentes: "
                    + ' · '.join(f'{k} {v}' for k, v in detalle_multi.items()
                                 if v))
 
-    if captura.get('existe') and captura.get('horas_desde') is not None:
+    # v315 — la base de fotos de línea sólo la mantiene el pipeline; en el
+    # servidor de la aplicación es una copia vieja y no dice nada de los
+    # precios que se enseñan. Se nombra sólo cuando no hay precálculo.
+    if publicados:
+        pass
+    elif captura.get('existe') and captura.get('horas_desde') is not None:
         h = captura['horas_desde']
         det.append(f"{'✅' if h <= HORAS_FRESCURA else '⚠️'} Última foto de la "
                    f"línea hace {h:.0f} h "
@@ -105,9 +162,9 @@ def estado_datos() -> Dict:
 
     alarma = None
     if nivel == 'critico':
-        alarma = ("🚨 ALERTA DE DATOS: no están llegando cuotas de ninguna "
-                  "fuente (Pinnacle/Bovada/Playdoit/ESPN caídas o bloqueadas). "
-                  "Los picks de hoy pueden estar incompletos.")
+        alarma = ("🚨 ALERTA DE DATOS: el precálculo no trae precios de hace "
+                  "menos de %d h (las casas o el cron pueden estar caídos). "
+                  "Los picks de hoy pueden estar incompletos." % HORAS_FRESCURA)
     return {'nivel': nivel, 'ok': nivel == 'ok',
             'cuotas_vigentes': n_cuotas, 'captura': captura,
             'detalles': det, 'alarma': alarma}

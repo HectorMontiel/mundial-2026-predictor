@@ -88,9 +88,9 @@ léela primero. Luego, por partido:
   O «🚫 Nada que meter según la app».
 - «MODELO …»: probabilidades y medias (λ) del modelo: 1X2, goles, ambos
   marcan, goles por equipo, córners, tarjetas y remates.
-- «SIN MODELO PROPIO — 1X2 de Pinnacle sin margen»: partidos que el modelo
-  no cubre (sub-21, sub-19, copas, ligas chicas). Ahí la probabilidad es la de
-  Pinnacle, la casa de referencia.
+- «FUERA DEL MOTOR DE LIGAS — 1X2 de Pinnacle sin margen»: sub-21, sub-20,
+  copas, ascensos, femenil… Traen además «MODELO PROPIO»: el modelo de ataque
+  y defensa de cada equipo hecho con la base propia de resultados.
 - «🚑 Bajas», «Árbitro», «Nota del modelo»: contexto (puede faltar).
 - «MERCADOS»: todo lo cotizado, con probabilidad, cuota, casa, EV
   (= prob × cuota − 1) y cuota justa (= 1/prob).
@@ -99,11 +99,17 @@ léela primero. Luego, por partido:
 - Fútbol con modelo: marca «meter» sólo con probabilidad 70-80 %, cuota menor
   de 1,35 y nunca en «doble y goles», remates ni hándicap. Así lo marcado se
   cumplió ~76-81 % (20-28 sep).
-- Fútbol SIN modelo propio: sólo marca «meter» con Pinnacle 80-90 %, cuota
-  1,10-1,35 y «gana el local» o «local o empate» (92 % en la réplica), y en
-  goles sólo «Más de 1.5» con las casas 80-90 % y cuota 1,10-1,35 (87-94 %).
+- Fútbol FUERA DEL MOTOR DE LIGAS: sólo marca «meter» con Pinnacle 80-90 %,
+  cuota 1,10-1,35 y «gana el local» o «local o empate», o «Más de 1.5» con el
+  mercado 80-90 %, y sólo si el partido está en la base propia (así se puede
+  liquidar). El MODELO PROPIO solo acierta menos que Pinnacle: úsalo como
+  segunda opinión. Si discrepa mucho de Pinnacle, busca por qué (bajas,
+  rotaciones, alineación juvenil) antes de dar ✅.
   «GOLES POR EQUIPO (sin cuota)» es un dato: si lo encuentras en una casa,
   sólo vale si paga más que su cuota justa (1/prob).
+- Las casas del usuario son TRES: Playdoit (la principal), Novibet y
+  Draftea, y la referencia es Pinnacle. Cuando busques la cuota actual,
+  búscala en esas; las demás casas sólo sirven de referencia de mercado.
 - Los patrones de cada liga chica (muchos o pocos goles, local fuerte) ya
   están en el precio de las casas: medido en 140 ligas, no suman. No subas
   una probabilidad sólo porque «en esa liga hay muchos goles».

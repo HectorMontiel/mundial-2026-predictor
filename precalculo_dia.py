@@ -134,6 +134,13 @@ def construir() -> Dict:
     # propia lista para no mezclarse con lo que el resto del sistema da por
     # salido del modelo (élite, combinadas, Soñadora).
     try:
+        # v315 — la base propia de resultados, al día (1-3 peticiones), antes
+        # de entrenar el modelo propio de estas competiciones
+        import resultados_fotmob as _rf
+        logger.info('resultados propios nuevos: %d', _rf.actualizar())
+    except Exception as e:
+        logger.warning('[precalculo] base de resultados: %s', e)
+    try:
         import mercado_sin_modelo as _msm
         datos['solo_mercado'] = _msm.construir(datos)
     except Exception as e:

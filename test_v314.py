@@ -58,11 +58,25 @@ def _v(q, btts=None, ou=None, casas=('Novibet', 'Winpot')):
             'casas': {c: m for c in casas}}
 
 
+def _pred(lh=2.4, la=0.45):
+    """v315 — desde la v315 un partido fuera del motor sólo se ofrece con
+    modelo propio; en los tests se le da uno fijo."""
+    import modelo_competiciones as mc
+    return {'p': mc.probabilidades(lh, la), 'lambdas': (lh, la), 'n': (20, 20)}
+
+
+def _tpd(o15=(1.20, 4.2), o25=(1.70, 2.1)):
+    # v315 — el tablero de Playdoit (su 1X2 sin margen y sus goles)
+    return {'1x2': {'home': 0.66, 'draw': 0.21, 'away': 0.13},
+            'goles': {'1.5': {'p': 0.82, 'mas': o15[0], 'menos': o15[1]},
+                      '2.5': {'p': 0.58, 'mas': o25[0], 'menos': o25[1]}}}
+
+
 def probar_regla():
     import mercado_sin_modelo as msm
     v = _v((1.45, 4.5, 6.5, 1.10, 2.6), btts=(1.8, 1.9),
            ou=[(1.5, 1.20, 4.2), (2.5, 1.70, 2.1), (3.5, 2.9, 1.38)])
-    p = msm.pick_de(v, None)
+    p = msm.pick_de(v, None, pred=_pred(), t_pd=_tpd())
     check(not p.get('pinnacle') and abs(sum(p['board'].values()) - 1) < .01,
           'sin Pinnacle: el 1X2 sale de las casas del usuario sin margen')
     r = msm.recomendadas(p)
@@ -72,14 +86,14 @@ def probar_regla():
           % (100 * r[0]['prob'] if r else 0))
     v2 = _v((1.23, 7.5, 13.0, 1.05, 4.5), btts=(1.8, 1.9),
             ou=[(1.5, 1.20, 4.2), (2.5, 1.70, 2.1), (3.5, 2.9, 1.38)])
-    p2 = msm.pick_de(v2, {'home': 1.18, 'draw': 7.8, 'away': 15.0})
+    p2 = msm.pick_de(v2, {'home': 1.18, 'draw': 7.8, 'away': 15.0}, pred=_pred(), t_pd=_tpd())
     r2 = msm.recomendadas(p2)
     check([x['bloque'] for x in r2] == ['resultado', 'goles'],
           'con Pinnacle: una de resultado y una de goles (%s)'
           % [x['apuesta'] for x in r2])
     v3 = _v((1.45, 4.5, 6.5, 1.10, 2.6), btts=(2.4, 1.2),
             ou=[(1.5, 1.8, 1.9), (3.5, 5.0, 1.12)])
-    check(msm.recomendadas(msm.pick_de(v3, None)) == [],
+    check(msm.recomendadas(msm.pick_de(v3, None, pred=_pred(), t_pd={})) == [],
           'menos de 3,5 y ambos marcan: No no se meten (no pasaron)')
     lam = p['lambdas_mercado']
     ge = msm.goles_equipo(lam)
@@ -87,7 +101,7 @@ def probar_regla():
           and ge['local_1.5'] < ge['local_0.5'],
           'goles por equipo de las λ del mercado (λ %s)' % (lam,))
     # el pick de mercado se anuncia con la fuente correcta
-    check('las casas' in p['motivo_modelo'] and 'Pinnacle' in p2['motivo_modelo'],
+    check('Playdoit' in p['motivo_modelo'] and 'Pinnacle' in p2['motivo_modelo'],
           'la tarjeta dice de dónde sale la probabilidad')
 
 
@@ -99,12 +113,12 @@ def probar_telegram():
     import mercado_sin_modelo as msm
     v = _v((1.45, 4.5, 6.5, 1.10, 2.6), btts=(1.8, 1.9),
            ou=[(1.5, 1.20, 4.2), (2.5, 1.70, 2.1), (3.5, 2.9, 1.38)])
-    p = msm.pick_de(v, None)
+    p = msm.pick_de(v, None, pred=_pred(), t_pd=_tpd())
     r = {'pronosticos': [], 'solo_mercado': [p]}
     t = fi.texto(r, [p['fecha']])
     check('• Goles: Más de 1.5' in t and 'GOLES POR EQUIPO (sin cuota' in t
-          and '1X2 de las casas sin margen' in t,
-          'Telegram: 🎯 más de 1,5, goles por equipo y el 1X2 de las casas')
+          and '1X2 de Playdoit sin margen' in t,
+          'Telegram: 🎯 más de 1,5, goles por equipo y el 1X2 de Playdoit (v315)')
 
 
 if __name__ == '__main__':
