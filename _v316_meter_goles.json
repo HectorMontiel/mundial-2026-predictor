@@ -1,0 +1,52 @@
+{
+ "partidos_juicio": 24310,
+ "corte": "2025-05-11",
+ "linea_1.5": {
+  "hoy": {
+   "apuestas": 12743,
+   "verdes": 9547,
+   "acierto": 0.7492,
+   "mas": 12743,
+   "menos": 0
+  },
+  "v316": {
+   "apuestas": 12308,
+   "verdes": 9336,
+   "acierto": 0.7585,
+   "mas": 12308,
+   "menos": 0
+  }
+ },
+ "linea_3.5": {
+  "hoy": {
+   "apuestas": 10815,
+   "verdes": 7905,
+   "acierto": 0.7309,
+   "mas": 0,
+   "menos": 10815
+  },
+  "v316": {
+   "apuestas": 10963,
+   "verdes": 8039,
+   "acierto": 0.7333,
+   "mas": 0,
+   "menos": 10963
+  }
+ },
+ "total": {
+  "hoy": {
+   "apuestas": 23558,
+   "verdes": 17452,
+   "rojos": 6106,
+   "acierto": 0.7408
+  },
+  "v316": {
+   "apuestas": 23271,
+   "verdes": 17375,
+   "rojos": 5896,
+   "acierto": 0.7466
+  },
+  "diferencia_acierto_p5": -0.0008,
+  "diferencia_acierto_media": 0.0058
+ }
+}

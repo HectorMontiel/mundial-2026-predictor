@@ -1,0 +1,101 @@
+{
+ "n": 80829,
+ "n_juicio": 24310,
+ "corte": "2025-05-11",
+ "mas15": {
+  "log-loss base calibrada": 0.55916,
+  "siempre": {
+   "log-loss": 0.55687,
+   "mejora_vs_base": 0.00228,
+   "p5_vs_base": 0.00127
+  },
+  "+ 4 o más goles": {
+   "log-loss": 0.5572,
+   "mejora_vs_base": 0.00196,
+   "p5_vs_base": 0.0009,
+   "mejora_vs_siempre": -0.00033,
+   "p5_vs_siempre": -0.00086,
+   "adopta": false
+  },
+  "+ zonas de la tabla": {
+   "log-loss": 0.5567,
+   "mejora_vs_base": 0.00246,
+   "p5_vs_base": 0.0014,
+   "mejora_vs_siempre": 0.00017,
+   "p5_vs_siempre": -0.00036,
+   "adopta": false
+  },
+  "+ todo": {
+   "log-loss": 0.5567,
+   "mejora_vs_base": 0.00246,
+   "p5_vs_base": 0.00143,
+   "mejora_vs_siempre": 0.00018,
+   "p5_vs_siempre": -0.00044,
+   "adopta": false
+  }
+ },
+ "mas25": {
+  "log-loss base calibrada": 0.68247,
+  "siempre": {
+   "log-loss": 0.67997,
+   "mejora_vs_base": 0.0025,
+   "p5_vs_base": 0.00139
+  },
+  "+ 4 o más goles": {
+   "log-loss": 0.68044,
+   "mejora_vs_base": 0.00203,
+   "p5_vs_base": 0.00089,
+   "mejora_vs_siempre": -0.00046,
+   "p5_vs_siempre": -0.00102,
+   "adopta": false
+  },
+  "+ zonas de la tabla": {
+   "log-loss": 0.67994,
+   "mejora_vs_base": 0.00253,
+   "p5_vs_base": 0.00137,
+   "mejora_vs_siempre": 4e-05,
+   "p5_vs_siempre": -0.0005,
+   "adopta": false
+  },
+  "+ todo": {
+   "log-loss": 0.68016,
+   "mejora_vs_base": 0.00231,
+   "p5_vs_base": 0.00115,
+   "mejora_vs_siempre": -0.00018,
+   "p5_vs_siempre": -0.00088,
+   "adopta": false
+  }
+ },
+ "mas35": {
+  "log-loss base calibrada": 0.58916,
+  "siempre": {
+   "log-loss": 0.58751,
+   "mejora_vs_base": 0.00165,
+   "p5_vs_base": 0.00057
+  },
+  "+ 4 o más goles": {
+   "log-loss": 0.58743,
+   "mejora_vs_base": 0.00174,
+   "p5_vs_base": 0.00055,
+   "mejora_vs_siempre": 8e-05,
+   "p5_vs_siempre": -0.00052,
+   "adopta": false
+  },
+  "+ zonas de la tabla": {
+   "log-loss": 0.58703,
+   "mejora_vs_base": 0.00214,
+   "p5_vs_base": 0.00103,
+   "mejora_vs_siempre": 0.00048,
+   "p5_vs_siempre": -5e-05,
+   "adopta": false
+  },
+  "+ todo": {
+   "log-loss": 0.58659,
+   "mejora_vs_base": 0.00258,
+   "p5_vs_base": 0.00144,
+   "mejora_vs_siempre": 0.00092,
+   "p5_vs_siempre": 0.00021,
+   "adopta": true
+  }
+ }
+}

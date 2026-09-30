@@ -100,9 +100,45 @@ RASGOS_NUEVOS = ['gf5_h', 'gc5_h', 'gf5_a', 'gc5_a', 'ult_gf_h', 'ult_gf_a',
                  'casa_gf_h', 'casa_gc_h', 'fuera_gf_a', 'fuera_gc_a',
                  'adj_h', 'adj_a', 'dif_ppg']
 RASGOS = RASGOS_V1[:-2] + RASGOS_NUEVOS + ['liga_cod', 'logit_modelo']
+# v316 — LO QUE PROPUSO EL USUARIO: «puntos a la zona de playoffs o descenso,
+# y si el partido es decisivo para ambos», y «el % de partidos con 4 o más
+# goles». Se calculan con la tabla de la TEMPORADA (una temporada nueva
+# empieza cuando la liga para más de 35 días): zona de arriba = el 25 % de
+# la tabla, descenso = el 15 % de abajo. Medido en `_v316_patrones_extra.py`
+# contra los rasgos de siempre (juicio 24.310 partidos, bootstrap 2.000):
+#     más de 1,5 ....  no añaden (p5 −0,00044)
+#     más de 2,5 ....  no añaden (p5 −0,00088)
+#     más de 3,5 ....  SÍ: log-loss 0,58751 → 0,58659, p5 +0,00021
+# O sea, ayudan justo en la cola (4+ goles). `entrenar` los prueba en cada
+# mercado y sólo los deja donde ganan con p5 > 0.
+RASGOS_TEMPORADA = ['p4_h', 'p4_a', 'gap_top_h', 'gap_bot_h', 'gap_top_a',
+                    'gap_bot_a', 'prog', 'decisivo_ambos', 'nada_en_juego']
+RASGOS_V3 = RASGOS_V1[:-2] + RASGOS_TEMPORADA + ['liga_cod', 'logit_modelo']
+# v316 — LO QUE PREGUNTÓ EL USUARIO DESPUÉS: «¿por qué no se mide también la
+# probabilidad de gol de cada equipo? … la tabla, la clasificación, la
+# diferencia de goles, cuánto anotó». La tabla de la TEMPORADA de cada uno:
+# diferencia de goles, a favor y en contra por partido y posición (0 = último,
+# 1 = líder). Medido en `_v316_tabla_mercados.py` (61 ligas, juicio 24.310
+# partidos, bootstrap 2.000), contra los rasgos de siempre:
+#     marca el local .......... +0,00063  p5 −0,00013  no
+#     marca el visitante ...... +0,00077  p5 +0,00006  sí (justo)
+#     el local mete 2+ ........ +0,00200  p5 +0,00113  sí
+#     el visitante mete 2+ .... +0,00099  p5 +0,00030  sí
+# `entrenar` lo vuelve a probar en cada mercado y sólo lo deja donde gana.
+RASGOS_TABLA = ['gdpj_h', 'gdpj_a', 'gfpj_h', 'gcpj_h', 'gfpj_a', 'gcpj_a',
+                'pos_h', 'pos_a']
+RASGOS_V4 = (RASGOS_V1[:-2] + RASGOS_TABLA + RASGOS_TEMPORADA
+             + ['liga_cod', 'logit_modelo'])
+COPAS = {'champions', 'europa_league', 'conference_league', 'libertadores',
+         'sudamericana', 'leagues_cup', 'afc_champions'}
+PAUSA_TEMPORADA = 35
 EW_ALFA = 0.35
 # objetivo: (columna real, columna de la predicción actual)
 OBJETIVOS = {'mas25': ('over_2.5_real', 'p_over_2.5'),
+             # v316 — la línea que la aplicación más mete. Medido: la
+             # corrección de siempre le gana a la calibración (log-loss
+             # 0,55916 → 0,55687, p5 +0,00127).
+             'mas15': ('over_1.5_real', 'p_over_1.5'),
              'marca_local': ('marca_h', 'p_marca_h'),
              'marca_visitante': ('marca_v', 'p_marca_v'),
              'btts': ('btts_real', 'p_btts'),
@@ -147,7 +183,12 @@ class Tabla:
     """El estado de una liga partido a partido. `rasgos()` lee ANTES de
     `sumar()`, que es lo que garantiza que no hay fuga."""
 
-    def __init__(self):
+    def __init__(self, copa: bool = False):
+        # v316 — la tabla de la TEMPORADA (ver RASGOS_TEMPORADA)
+        self.copa = copa
+        self.temp = {}
+        self.temp_fecha = None
+        self.temp_n_prev = None
         self.pts = defaultdict(lambda: deque(maxlen=VENTANA_PPG))
         self.gf = defaultdict(lambda: deque(maxlen=VENTANA_GOLES))
         self.gc = defaultdict(lambda: deque(maxlen=VENTANA_GOLES))
@@ -186,7 +227,8 @@ class Tabla:
             return float(dq[-1]) if len(dq) else float('nan')
         nan = float('nan')
         ph, pa = ppg.get(h, nan), ppg.get(a, nan)
-        return {'pct_h': pct(h), 'pct_a': pct(a),
+        tmp = self._temporada(h, a, d)
+        return {**tmp, 'pct_h': pct(h), 'pct_a': pct(a),
                 'ppg_h': ph, 'ppg_a': pa,
                 'gf_h': m(self.gf[h]), 'gc_h': m(self.gc[h]),
                 'gf_a': m(self.gf[a]), 'gc_a': m(self.gc[a]),
@@ -206,8 +248,75 @@ class Tabla:
                 'adj_h': m(self.adj[h]), 'adj_a': m(self.adj[a]),
                 'dif_ppg': (ph - pa) if ph == ph and pa == pa else nan}
 
+    def _temporada(self, h, a, d) -> Dict:
+        """v316 — puntos a las zonas, avance y % de 4+ goles, con la tabla
+        de la temporada ANTES del partido (lo mismo que `_v316_contexto`)."""
+        nan = float('nan')
+        if self.temp_fecha is not None and (d - self.temp_fecha).days > PAUSA_TEMPORADA:
+            self.temp_n_prev = len(self.temp) or self.temp_n_prev
+            self.temp = {}
+        eh = self.temp.get(h) or {'pts': 0, 'pj': 0, 'gd': 0, 'n4': 0}
+        ea = self.temp.get(a) or {'pts': 0, 'pj': 0, 'gd': 0, 'n4': 0}
+        # v316 — diferencia de goles, a favor y en contra por partido, y
+        # posición en la tabla de la temporada (ver RASGOS_TABLA)
+        tabla = sorted(self.temp, key=lambda t: (-self.temp[t]['pts'],
+                                                 -self.temp[t]['gd']))
+        extra = {}
+        for lado, eq, e in (('h', h, eh), ('a', a, ea)):
+            if e['pj'] < 3:
+                for k in ('gdpj', 'gfpj', 'gcpj', 'pos'):
+                    extra['%s_%s' % (k, lado)] = nan
+                continue
+            extra['gdpj_' + lado] = e['gd'] / e['pj']
+            extra['gfpj_' + lado] = e.get('gf', 0) / e['pj']
+            extra['gcpj_' + lado] = e.get('gc', 0) / e['pj']
+            extra['pos_' + lado] = 1 - tabla.index(eq) / max(1, len(tabla) - 1)
+        N = max(len(set(self.temp) | {h, a}), self.temp_n_prev or 0)
+        filas = dict(self.temp)
+        filas.setdefault(h, eh)
+        filas.setdefault(a, ea)
+        orden = sorted(filas.values(), key=lambda e: (-e['pts'], -e['gd']))
+        pts = [e['pts'] for e in orden]
+        k_top, k_bot = max(1, round(0.25 * N)), max(1, round(0.15 * N))
+        b_top = pts[min(k_top, len(pts)) - 1]
+        b_bot = pts[max(0, len(pts) - k_bot)] if len(pts) >= N - k_bot + 1 else pts[-1]
+        prog = ((eh['pj'] + ea['pj']) / 2) / max(1, 2 * (N - 1))
+        out = {**extra, 'prog': prog,
+               'p4_h': eh['n4'] / eh['pj'] if eh['pj'] >= 3 else nan,
+               'p4_a': ea['n4'] / ea['pj'] if ea['pj'] >= 3 else nan}
+        if self.copa:
+            out.update({k: nan for k in ('gap_top_h', 'gap_bot_h', 'gap_top_a',
+                                         'gap_bot_a')})
+            out['decisivo_ambos'] = 0.0
+            out['nada_en_juego'] = 0.0
+            return out
+        gt_h, gb_h = eh['pts'] - b_top, eh['pts'] - b_bot
+        gt_a, gb_a = ea['pts'] - b_top, ea['pts'] - b_bot
+        juega = lambda t, b: abs(t) <= 3 or abs(b) <= 3
+        lejos = lambda t, b: abs(t) > 6 and abs(b) > 6
+        out.update({'gap_top_h': gt_h, 'gap_bot_h': gb_h,
+                    'gap_top_a': gt_a, 'gap_bot_a': gb_a,
+                    'decisivo_ambos': float(prog >= 0.5 and juega(gt_h, gb_h)
+                                            and juega(gt_a, gb_a)),
+                    'nada_en_juego': float(prog >= 0.6 and lejos(gt_h, gb_h)
+                                           and lejos(gt_a, gb_a))})
+        return out
+
     def sumar(self, h, a, d, hg, ag) -> None:
         import numpy as np
+        # v316 — la tabla de la temporada
+        if self.temp_fecha is not None and (d - self.temp_fecha).days > PAUSA_TEMPORADA:
+            self.temp_n_prev = len(self.temp) or self.temp_n_prev
+            self.temp = {}
+        self.temp_fecha = d
+        for eq, f_, c_ in ((h, hg, ag), (a, ag, hg)):
+            e = self.temp.setdefault(eq, {'pts': 0, 'pj': 0, 'gd': 0, 'n4': 0})
+            e['pj'] += 1
+            e['gd'] += f_ - c_
+            e['n4'] += int(hg + ag >= 4)
+            e['gf'] = e.get('gf', 0) + f_
+            e['gc'] = e.get('gc', 0) + c_
+            e['pts'] += 3 if f_ > c_ else (1 if f_ == c_ else 0)
         # el ataque ajustado se calcula con lo que el RIVAL encajaba ANTES
         gc_rival_h = (float(np.mean(self.gc[a])) if len(self.gc[a]) >= 3
                       else None)
@@ -252,7 +361,7 @@ def conjunto():
         h = _historico(liga)
         if h.empty or 'MATCH_ID' not in h.columns:
             continue
-        t = Tabla()
+        t = Tabla(copa=liga in COPAS)
         filas = []
         for r in h.itertuples(index=False):
             f = t.rasgos(r.home_team, r.away_team, r.date)
@@ -392,6 +501,41 @@ def entrenar(guardar: bool = True) -> Dict:
             activo = bool(dif0.mean() > 0 and p5 > 0)
             dif = dif0
         rasgos_ok = RASGOS if nuevos else RASGOS_V1
+        # v316 — y los rasgos de la temporada (zonas, 4+ goles), si le ganan
+        # al de siempre con p5 > 0 y más que la forma reciente
+        v3 = lgb.train(PARAMS, lgb.Dataset(
+            _X(e, p_col, codigos, RASGOS_V3), label=e[y_col].astype(int),
+            categorical_feature=['liga_cod']), num_boost_round=RONDAS)
+        p_v3 = v3.predict(_X(j, p_col, codigos, RASGOS_V3))
+        dif3 = _ll(y, p_v1) - _ll(y, p_v3)
+        p5_3 = float(np.percentile(dif3[idx].mean(axis=1), 5))
+        temporada = bool(dif3.mean() > 0 and p5_3 > 0
+                         and (not nuevos or dif3.mean() > dif1.mean()))
+        if temporada:
+            nuevos = False
+            rasgos_ok = RASGOS_V3
+            dif_t = _ll(y, p_cal) - _ll(y, p_v3)
+            p5 = float(np.percentile(dif_t[idx].mean(axis=1), 5))
+            activo = bool(dif_t.mean() > 0 and p5 > 0)
+            dif = dif_t
+        # v316 — y la tabla de la temporada (diferencia de goles, a favor y
+        # en contra por partido, posición), si le gana al de siempre con
+        # p5 > 0 y más que lo elegido hasta aquí
+        v4 = lgb.train(PARAMS, lgb.Dataset(
+            _X(e, p_col, codigos, RASGOS_V4), label=e[y_col].astype(int),
+            categorical_feature=['liga_cod']), num_boost_round=RONDAS)
+        p_v4 = v4.predict(_X(j, p_col, codigos, RASGOS_V4))
+        dif4 = _ll(y, p_v1) - _ll(y, p_v4)
+        p5_4 = float(np.percentile(dif4[idx].mean(axis=1), 5))
+        mejor = (dif3.mean() if temporada else dif1.mean() if nuevos else 0.0)
+        tabla_t = bool(dif4.mean() > 0 and p5_4 > 0 and dif4.mean() > mejor)
+        if tabla_t:
+            nuevos = temporada = False
+            rasgos_ok = RASGOS_V4
+            dif_t = _ll(y, p_cal) - _ll(y, p_v4)
+            p5 = float(np.percentile(dif_t[idx].mean(axis=1), 5))
+            activo = bool(dif_t.mean() > 0 and p5 > 0)
+            dif = dif_t
         doc['medicion'][nombre] = {
             'll_base_calibrada': round(float(_ll(y, p_cal).mean()), 5),
             'll_rasgos_v1': round(float(_ll(y, p_v1).mean()), 5),
@@ -399,7 +543,16 @@ def entrenar(guardar: bool = True) -> Dict:
             'mejora': round(float(dif.mean()), 5), 'p5': round(p5, 5),
             'mejora_v2_vs_v1': round(float(dif1.mean()), 5),
             'p5_v2_vs_v1': round(p5_1, 5),
-            'rasgos': 'forma reciente' if nuevos else 'tabla y medias',
+            'll_rasgos_v3': round(float(_ll(y, p_v3).mean()), 5),
+            'mejora_v3_vs_v1': round(float(dif3.mean()), 5),
+            'p5_v3_vs_v1': round(p5_3, 5),
+            'll_rasgos_v4': round(float(_ll(y, p_v4).mean()), 5),
+            'mejora_v4_vs_v1': round(float(dif4.mean()), 5),
+            'p5_v4_vs_v1': round(p5_4, 5),
+            'rasgos': ('tabla de la temporada (diferencia de goles, posición)'
+                       if tabla_t else
+                       'temporada (zonas y 4+ goles)' if temporada else
+                       'forma reciente' if nuevos else 'tabla y medias'),
             'activo': activo}
         logger.info('[patrones] %-16s mejora %+.5f p5 %+.5f (%s) -> %s',
                     nombre, dif.mean(), p5,
@@ -470,7 +623,7 @@ def tabla_liga(liga: str) -> Optional[Tabla]:
     t = None
     h = _historico(liga)
     if not h.empty:
-        t = Tabla()
+        t = Tabla(copa=liga in COPAS)
         for r in h.itertuples(index=False):
             t.sumar(r.home_team, r.away_team, r.date, float(r.home_goals),
                     float(r.away_goals))
@@ -589,6 +742,12 @@ def ajustar(pick: Dict, ahora=None) -> bool:
         except Exception:
             p35_cruda = None
         p35 = _p(gl.get('3.5'))
+        # v316 — y la de 1,5
+        try:
+            p15_cruda = (_p(1 - float(_po2.cdf(1, lam_tot))) if lam_tot else None)
+        except Exception:
+            p15_cruda = None
+        p15 = _p(gl.get('1.5'))
         p_h15 = _p((ge.get('local') or {}).get('1.5'))
         p_a15 = _p((ge.get('visitante') or {}).get('1.5'))
         pin_h15 = 1 - math.exp(-lam_h) * (1 + lam_h)
@@ -600,7 +759,8 @@ def ajustar(pick: Dict, ahora=None) -> bool:
                                     ('marca_visitante', pin_a, p_a),
                                     ('local_mas15', pin_h15, p_h15),
                                     ('visit_mas15', pin_a15, p_a15),
-                                    ('mas35', p35_cruda, p35)):
+                                    ('mas35', p35_cruda, p35),
+                                    ('mas15', p15_cruda, p15)):
             if p_in is None or p_old is None:
                 continue
             b = _booster(nombre)
@@ -633,15 +793,22 @@ def ajustar(pick: Dict, ahora=None) -> bool:
                 fuera[k] = round(techo, 4)
             return fuera
 
-        if 'mas25' in cambios or 'mas35' in cambios:
+        if 'mas25' in cambios or 'mas35' in cambios or 'mas15' in cambios:
             nuevas = {}
             for k, v in gl.items():
                 pv = _p(v)
                 if pv is None:
                     nuevas[k] = v
                     continue
-                d_ = (cambios.get('mas35', cambios.get('mas25', 0.0))
-                      if float(k) >= 3.5 else cambios.get('mas25', 0.0))
+                # v316 — cada tramo de la escalera con su corrector: 1,5 (y
+                # menos) con el suyo, 2,5 con el de 2,5, 3,5 y más con el de
+                # 3,5; si falta alguno, el de 2,5
+                if float(k) >= 3.5:
+                    d_ = cambios.get('mas35', cambios.get('mas25', 0.0))
+                elif float(k) < 2:
+                    d_ = cambios.get('mas15', cambios.get('mas25', 0.0))
+                else:
+                    d_ = cambios.get('mas25', 0.0)
                 nuevas[k] = round(_mover(pv, d_), 4)
             nuevas = _ordenada(nuevas)
             pick['goles_lineas'] = nuevas

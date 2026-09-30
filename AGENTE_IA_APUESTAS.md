@@ -119,9 +119,15 @@ léela primero. Luego, por partido:
   pagar. Una del 85 % a 1,10 casi no deja nada.
 - Si la prob del predictor está MÁS DE 5 PUNTOS por encima de «casa sin
   margen», falla más de lo que promete: la casa suele saber algo.
+- «TABLA»: la zona, el 4+ goles y los goles a favor/en contra ya están
+  medidos y metidos en el modelo donde suman (la línea de 3,5). Un partido
+  «decisivo para los dos» NO hace fallar más los «menos de 3,5» (medido:
+  75,7 % contra 73,8 %); en «menos de 2,5» sí algo (55 % contra 58 %): ahí
+  baja la confianza a MEDIA.
 - Córners: el «λ total» es a propósito la MEDIA DE LA COMPETICIÓN (por eso se
   repite, p. ej. 9,1 en toda la Liga de Naciones); lo que cambia por partido
-  es lo de cada equipo. «[estimado]» = la competición no publica ese dato; es
+  es lo de cada equipo, calculado con la tabla (el equipo fuerte saca más
+  córners; medido, acierta más que sin ella). «[estimado]» = la competición no publica ese dato; es
   un nivel genérico, no de estos equipos: no decidas con él.
 - Tarjetas y remates: corregidos hacia la media de su competición.
 - Tenis: el modelo NO le gana a la casa (medido en 108.657 partidos). Juzga

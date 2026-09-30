@@ -218,7 +218,7 @@ jobs:
           #
           # El bucle anade lo que hay y se salta lo que no, sin tragarse un
           # fallo real en los ficheros que SI estan.
-          for _f in lineas_jugador_dia.json lineas_jugador_hist remates_fotmob_jugadores.csv remates_fotmob_equipos.csv remates_fotmob_vacios.txt fotmob_ligas.json bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json resultados_fotmob.csv.gz; do
+          for _f in lineas_jugador_dia.json lineas_jugador_hist remates_fotmob_jugadores.csv remates_fotmob_equipos.csv remates_fotmob_vacios.txt fotmob_ligas.json bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json resultados_fotmob.csv.gz resultados_flashscore.csv.gz resultados_flashscore_reciente.csv.gz rutas_flashscore.json historia_flashscore.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

@@ -2121,16 +2121,45 @@ def _bloque_contexto(pick: Dict) -> str:
                    ('V', ctx.get('forma_away') or {})):
         if not f.get('racha'):
             continue
+        # v316 — «0.6 g» se leía como goles del partido: son los goles A
+        # FAVOR por partido de los últimos cinco, y sumando los dos salía 3,0
+        # con 2,2 esperados. Se dice qué es y se pone al lado lo que recibe.
         _formas.append(
-            '<b>%s</b> %s <span class="mm-ck-pct">%s pts · %s g</span>'
+            '<b>%s</b> %s <span class="mm-ck-pct">%s pts · ⚽ %s a favor · '
+            '%s en contra</span>'
             % (etq, racha_html(f['racha']),
                ('%.1f' % f['ppp']) if f.get('ppp') is not None else '—',
-               ('%.1f' % f['gf']) if f.get('gf') is not None else '—'))
+               ('%.1f' % f['gf']) if f.get('gf') is not None else '—',
+               ('%.1f' % f['gc']) if f.get('gc') is not None else '—'))
     if _formas:
         trozos.append(
             '<div class="mm-fc"><span class="mm-fc-n">Forma</span>'
             '<span class="mm-fc-barra">%s</span></div>'
             % ' &nbsp;·&nbsp; '.join(_formas))
+    # v316 — LA TABLA, COMO PIDIÓ EL USUARIO: posición, puntos a la zona de
+    # arriba y al descenso, goles a favor y en contra por partido (el local
+    # en casa, el visitante fuera) y % de sus partidos con 4+ goles.
+    try:
+        import tabla_liga as _tl
+        _t = _tl.de_partido(pick)
+        if _t:
+            def _lin(etq, e, casa):
+                gf = e['casa_gf'] if casa else e['fuera_gf']
+                gc = e['casa_gc'] if casa else e['fuera_gc']
+                return ('<b>%s</b> %dº · %d pts · %s ⚽ %s / %s · 4+ %s'
+                        % (etq, e['pos'], e['pts'], 'casa' if casa else 'fuera',
+                           '—' if gf is None else '%.1f' % gf,
+                           '—' if gc is None else '%.1f' % gc,
+                           '—' if e['pct_4mas'] is None
+                           else '%.0f%%' % (100 * e['pct_4mas'])))
+            trozos.append(
+                '<div class="mm-fc"><span class="mm-fc-n">📋 Tabla</span>'
+                '<span class="mm-fc-barra">%s &nbsp;·&nbsp; %s%s</span></div>'
+                % (_lin('L', _t['local'], True), _lin('V', _t['visita'], False),
+                   ' &nbsp;·&nbsp; ⚠️ decisivo para los dos'
+                   if _t['decisivo_ambos'] else ''))
+    except Exception as _e_tl:
+        logger.debug('[modo_modelo] tabla: %s', _e_tl)
     # v306 — LAS BAJAS DE CADA EQUIPO, reales, de la ficha del partido en
     # FotMob (`bajas_fotmob`). Se ENSEÑAN y todavía no mueven ninguna
     # probabilidad: se acumulan para medir si aportan antes de usarlas.

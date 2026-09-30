@@ -51,7 +51,10 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   Córners y tarjetas: total del partido y de cada equipo. En CÓRNERS el
   total es a propósito la MEDIA DE LA COMPETICIÓN (por eso se repite, p. ej.
   9,1 en toda la Liga de Naciones): medido, sumar lo de los dos equipos no
-  predice mejor el total. Lo que cambia por partido es lo de cada equipo.
+  predice mejor el total. Lo que cambia por partido es lo de cada equipo,
+  que ya usa la TABLA (diferencia de goles, posición): el fuerte saca más
+  córners. Medido en partidos no vistos: lo ofrecido al 70-80 % acierta
+  77,7 % contra 74,2 % sin la tabla.
 - «[estimado]»: la competición no publica esa estadística; es su nivel
   general, no algo de estos dos equipos. No lo uses para decidir.
 - «FUERA DEL MOTOR DE LIGAS»: sub-21, sub-20, copas, ascensos, femenil…
@@ -76,6 +79,16 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   app no los ofrece.
 - «MERCADOS»: todo lo cotizado. «justa» = 1/probabilidad del modelo.
   EV = prob × cuota − 1 (positivo = la casa paga de más según el modelo).
+- «TABLA» (v316): posición, puntos a la zona de arriba (el 25 % de la
+  tabla) y al descenso (el 15 % de abajo), goles a favor y en contra por
+  partido (el local en casa, el visitante fuera) y % de sus partidos con 4+
+  goles; «⚠️ decisivo para los dos» si ambos están a ≤ 3 puntos de una zona
+  pasada la mitad de la temporada. Medido en 80.829 partidos: la zona y el
+  4+ ya van DENTRO del modelo en «más de 3,5» (lo mejoran); en decisivos los
+  «menos de 3,5» NO fallan más (75,7 % contra 73,8 %), los «menos de 2,5»
+  algo sí (55 % contra 58 %).
+- «Forma»: puntos por partido y goles A FAVOR / EN CONTRA por partido de los
+  últimos cinco (no son goles del partido: no se suman).
 - «🚑 Bajas», «Árbitro», «Alineación»: contexto; puede faltar.
 - Remates por jugador: SOLO información (medido: apostarlos pierde).
 """
@@ -181,6 +194,14 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
                             _pct(q_.get('home')), _pct(q_.get('draw')),
                             _pct(q_.get('away')), _pct(q_.get('mas_1.5')),
                             _pct(q_.get('mas_2.5')), _pct(q_.get('btts_si'))))
+            # v316 — y su tabla (base de Flashscore)
+            try:
+                import tabla_liga as _tl
+                _tt = _tl.texto(pick)
+                if _tt:
+                    L.append(_tt)
+            except Exception:
+                pass
             # v314 — goles por equipo, sin cuota (de las λ del mercado)
             try:
                 import mercado_sin_modelo as _msm
@@ -246,6 +267,15 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
                                 _num(c.get('lambda_away'), 1),
                                 '' if c.get('origen') == 'observado'
                                 else ' [estimado]'))
+        # v316 — la tabla de la temporada (goles a favor/en contra, 4+ goles,
+        # puntos a las zonas)
+        try:
+            import tabla_liga as tl
+            tt = tl.texto(pick)
+            if tt:
+                L.append(tt)
+        except Exception:
+            pass
         # contexto
         try:
             import bajas_fotmob as bf

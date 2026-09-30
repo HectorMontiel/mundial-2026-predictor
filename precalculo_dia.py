@@ -138,6 +138,9 @@ def construir() -> Dict:
         # de entrenar el modelo propio de estas competiciones
         import resultados_fotmob as _rf
         logger.info('resultados propios nuevos: %d', _rf.actualizar())
+        # v316 — y la base de Flashscore de las competiciones del tablero
+        import resultados_flashscore as _rfs
+        logger.info('resultados Flashscore nuevos: %d', _rfs.actualizar())
     except Exception as e:
         logger.warning('[precalculo] base de resultados: %s', e)
     try:

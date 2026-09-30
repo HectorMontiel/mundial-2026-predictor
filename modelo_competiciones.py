@@ -301,7 +301,71 @@ def buscar_equipo(nombre: str) -> Optional[tuple]:
     return cands[0]
 
 
-def predecir(home: str, away: str, inicio) -> Optional[Dict]:
+def motor_flashscore() -> Optional[Motor]:
+    """v316 — el mismo modelo sobre la base de Flashscore
+    (`resultados_flashscore`), que cubre TODAS las competiciones del tablero
+    con los nombres exactos del tablero: reservas, sub-20, femenil, amateur."""
+    if 'mfs' in _MEM:
+        return _MEM['mfs']
+    try:
+        import pandas as pd
+        import resultados_flashscore as rf
+        df = rf.cargar()
+        if not len(df):
+            _MEM['mfs'] = None
+            return None
+        x = pd.DataFrame({
+            'match_id': df['match_id'], 'ini': df['ini'], 'liga_id': df['ruta'],
+            'home_id': [rf.clave_equipo(r, h) for r, h in zip(df['ruta'], df['home'])],
+            'away_id': [rf.clave_equipo(r, a) for r, a in zip(df['ruta'], df['away'])],
+            'home': df['home'], 'away': df['away'], 'gh': df['gh'], 'ga': df['ga']})
+        m, _ = entrenar(x)
+        _MEM['mfs'] = m
+        logger.info('[modelo_comp] Flashscore: %d partidos, %d equipos, %d '
+                    'competiciones', len(x), len(m.n), x['liga_id'].nunique())
+        return m
+    except Exception as e:
+        logger.warning('[modelo_comp] Flashscore: %s', e)
+        _MEM['mfs'] = None
+        return None
+
+
+def predecir_flashscore(home: str, away: str, liga: str) -> Optional[Dict]:
+    """Con la base de Flashscore: la competición por su nombre del tablero y
+    los equipos por su nombre exacto. None si la competición no está."""
+    import json
+    import resultados_flashscore as rf
+    m = motor_flashscore()
+    if m is None or not liga:
+        return None
+    try:
+        rutas = json.load(open(rf.RUTAS, encoding='utf-8'))
+    except Exception:
+        rutas = {}
+    ruta = rutas.get(liga)
+    if not ruta:
+        return None
+    kh, ka = rf.clave_equipo(ruta, home), rf.clave_equipo(ruta, away)
+    nh, na = m.partidos(kh), m.partidos(ka)
+    if min(nh, na) < MIN_PARTIDOS:
+        return {'sin_historia': True, 'n': (nh, na), 'fuente': 'flashscore'}
+    lh, la = m.lambdas(ruta, kh, ka)
+    return {'lambdas': (round(lh, 3), round(la, 3)), 'n': (nh, na),
+            'fuente': 'flashscore', 'fotmob': None,
+            'p': probabilidades(lh, la)}
+
+
+def predecir(home: str, away: str, inicio, liga: str = None) -> Optional[Dict]:
+    """v316 — primero la base de Flashscore (nombres exactos del tablero);
+    si la competición no está, la de FotMob."""
+    if liga:
+        r = predecir_flashscore(home, away, liga)
+        if r and r.get('p'):
+            return r
+    return predecir_fotmob(home, away, inicio)
+
+
+def predecir_fotmob(home: str, away: str, inicio) -> Optional[Dict]:
     """Probabilidades del modelo propio para un partido del tablero, o None
     si FotMob no lo lista o algún equipo tiene poca historia."""
     m = motor_actual()

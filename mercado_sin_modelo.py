@@ -649,7 +649,8 @@ def construir(datos: Dict, ruta: str = TABLERO) -> List[Dict]:
             if any(mismo_partido(par, x) for d, x in modelo
                    if not d or not dia or abs(_dias(d, dia)) <= 1):
                 continue
-            pred = mc.predecir(v['home'], v['away'], v.get('inicio'))
+            pred = mc.predecir(v['home'], v['away'], v.get('inicio'),
+                               liga=v.get('liga'))
             if not pred or not pred.get('p'):
                 n_sin += 1
                 continue

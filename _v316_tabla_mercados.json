@@ -1,0 +1,278 @@
+{
+ "goles_equipo": {
+  "n": 80829,
+  "ligas": 61,
+  "corte": "2025-05-11",
+  "marca_local": {
+   "n_juicio": 24310,
+   "tasa_real": 0.7766,
+   "log-loss base calibrada": 0.52064,
+   "siempre": {
+    "log-loss": 0.51429,
+    "mejora_vs_base": 0.00635,
+    "p5_vs_base": 0.00489,
+    "ofrecidas_70": 19037,
+    "acierto_70": 0.8067
+   },
+   "+ tabla": {
+    "log-loss": 0.51366,
+    "mejora_vs_base": 0.00698,
+    "p5_vs_base": 0.00549,
+    "ofrecidas_70": 18954,
+    "acierto_70": 0.8077,
+    "mejora_vs_siempre": 0.00063,
+    "p5_vs_siempre": -0.00013,
+    "adopta": false
+   }
+  },
+  "marca_visitante": {
+   "n_juicio": 24310,
+   "tasa_real": 0.687,
+   "log-loss base calibrada": 0.61191,
+   "siempre": {
+    "log-loss": 0.60697,
+    "mejora_vs_base": 0.00494,
+    "p5_vs_base": 0.00353,
+    "ofrecidas_70": 9223,
+    "acierto_70": 0.7601
+   },
+   "+ tabla": {
+    "log-loss": 0.6062,
+    "mejora_vs_base": 0.00571,
+    "p5_vs_base": 0.00421,
+    "ofrecidas_70": 9353,
+    "acierto_70": 0.7642,
+    "mejora_vs_siempre": 0.00077,
+    "p5_vs_siempre": 6e-05,
+    "adopta": true
+   }
+  },
+  "local_mas15": {
+   "n_juicio": 24310,
+   "tasa_real": 0.4404,
+   "log-loss base calibrada": 0.66888,
+   "siempre": {
+    "log-loss": 0.66165,
+    "mejora_vs_base": 0.00723,
+    "p5_vs_base": 0.00549,
+    "ofrecidas_70": 4198,
+    "acierto_70": 0.7187
+   },
+   "+ tabla": {
+    "log-loss": 0.65965,
+    "mejora_vs_base": 0.00923,
+    "p5_vs_base": 0.00738,
+    "ofrecidas_70": 4331,
+    "acierto_70": 0.7218,
+    "mejora_vs_siempre": 0.002,
+    "p5_vs_siempre": 0.00113,
+    "adopta": true
+   }
+  },
+  "visit_mas15": {
+   "n_juicio": 24310,
+   "tasa_real": 0.3316,
+   "log-loss base calibrada": 0.6222,
+   "siempre": {
+    "log-loss": 0.61419,
+    "mejora_vs_base": 0.00801,
+    "p5_vs_base": 0.00645,
+    "ofrecidas_70": 11769,
+    "acierto_70": 0.7459
+   },
+   "+ tabla": {
+    "log-loss": 0.6132,
+    "mejora_vs_base": 0.009,
+    "p5_vs_base": 0.00735,
+    "ofrecidas_70": 11897,
+    "acierto_70": 0.7462,
+    "mejora_vs_siempre": 0.00099,
+    "p5_vs_siempre": 0.0003,
+    "adopta": true
+   }
+  }
+ },
+ "corners": {
+  "n": 158166,
+  "ligas": 66,
+  "corte": "2024-03-09",
+  "por_liga": {
+   "eng_league_two": 8658,
+   "eng_league_one": 8579,
+   "eng_national": 8509,
+   "laliga": 6055,
+   "serie_a": 6020,
+   "premier": 6014,
+   "ligue_1": 5701,
+   "bundesliga": 4837,
+   "esp_hypermotion": 4094,
+   "argentina": 3743,
+   "mls": 3688,
+   "sco_premiership": 3573,
+   "arg_primera_nacional": 3487,
+   "ita_serie_b": 3377,
+   "fra_ligue2": 3108,
+   "primeira": 3036,
+   "turquia": 3035,
+   "brasil": 2983,
+   "eng_championship": 2750,
+   "ger_bundesliga2": 2704,
+   "eredivisie": 2663,
+   "liga_mx": 2587,
+   "jpn_j1": 2441,
+   "rumania": 2372,
+   "polonia": 2281,
+   "usl_championship": 2276,
+   "col_primera_a": 2229,
+   "gre_super_league": 2106,
+   "bra_serie_b": 1983,
+   "ned_eerste": 1891,
+   "rus_premier": 1857,
+   "suecia": 1848,
+   "noruega": 1841,
+   "china": 1765,
+   "per_liga1": 1638,
+   "dinamarca": 1576,
+   "bel_pro_league": 1542,
+   "suiza": 1530,
+   "bol_division": 1518,
+   "uru_primera": 1516,
+   "aut_bundesliga": 1488,
+   "sco_championship": 1479,
+   "mex_expansion": 1379,
+   "ecu_liga_pro": 1340,
+   "irlanda": 1314,
+   "slv_primera": 1308,
+   "ven_primera": 1285,
+   "finlandia": 1265,
+   "chi_primera": 1262,
+   "par_division": 1261,
+   "crc_fpd": 1247,
+   "selecciones": 1242,
+   "rsa_premier": 1150,
+   "ksa_pro": 1142,
+   "europa_league": 972,
+   "aus_aleague": 781,
+   "champions": 719,
+   "isr_premier": 661,
+   "ind_isl": 563,
+   "libertadores": 555,
+   "sudamericana": 493,
+   "conference_league": 449,
+   "afc_champions": 389,
+   "eng_fa_cup": 384,
+   "bra_copa": 337,
+   "eng_carabao": 290
+  },
+  "total_mas_8.5": {
+   "n_juicio": 47450,
+   "tasa_real": 0.6044,
+   "log-loss base calibrada": 0.66893,
+   "siempre": {
+    "log-loss": 0.66703,
+    "mejora_vs_base": 0.0019,
+    "p5_vs_base": 0.00137,
+    "ofrecidas_70": 3277,
+    "acierto_70": 0.7058
+   },
+   "+ tabla": {
+    "log-loss": 0.66653,
+    "mejora_vs_base": 0.0024,
+    "p5_vs_base": 0.00183,
+    "ofrecidas_70": 3395,
+    "acierto_70": 0.7034,
+    "mejora_vs_siempre": 0.0005,
+    "p5_vs_siempre": 0.00014,
+    "adopta": true
+   }
+  },
+  "total_mas_9.5": {
+   "n_juicio": 47450,
+   "tasa_real": 0.4911,
+   "log-loss base calibrada": 0.69046,
+   "siempre": {
+    "log-loss": 0.68886,
+    "mejora_vs_base": 0.0016,
+    "p5_vs_base": 0.00111,
+    "ofrecidas_70": 47,
+    "acierto_70": 0.617
+   },
+   "+ tabla": {
+    "log-loss": 0.68828,
+    "mejora_vs_base": 0.00218,
+    "p5_vs_base": 0.00164,
+    "ofrecidas_70": 64,
+    "acierto_70": 0.6562,
+    "mejora_vs_siempre": 0.00058,
+    "p5_vs_siempre": 0.00022,
+    "adopta": true
+   }
+  },
+  "total_mas_10.5": {
+   "n_juicio": 47450,
+   "tasa_real": 0.3798,
+   "log-loss base calibrada": 0.66175,
+   "siempre": {
+    "log-loss": 0.65969,
+    "mejora_vs_base": 0.00206,
+    "p5_vs_base": 0.00155,
+    "ofrecidas_70": 2190,
+    "acierto_70": 0.7078
+   },
+   "+ tabla": {
+    "log-loss": 0.65909,
+    "mejora_vs_base": 0.00266,
+    "p5_vs_base": 0.00212,
+    "ofrecidas_70": 2239,
+    "acierto_70": 0.6936,
+    "mejora_vs_siempre": 0.0006,
+    "p5_vs_siempre": 0.00023,
+    "adopta": true
+   }
+  },
+  "local_mas_4.5": {
+   "n_juicio": 47450,
+   "tasa_real": 0.551,
+   "log-loss base calibrada": 0.68189,
+   "siempre": {
+    "log-loss": 0.67614,
+    "mejora_vs_base": 0.00575,
+    "p5_vs_base": 0.00493,
+    "ofrecidas_70": 2603,
+    "acierto_70": 0.7342
+   },
+   "+ tabla": {
+    "log-loss": 0.67086,
+    "mejora_vs_base": 0.01103,
+    "p5_vs_base": 0.00999,
+    "ofrecidas_70": 3579,
+    "acierto_70": 0.741,
+    "mejora_vs_siempre": 0.00528,
+    "p5_vs_siempre": 0.00451,
+    "adopta": true
+   }
+  },
+  "visit_mas_3.5": {
+   "n_juicio": 47450,
+   "tasa_real": 0.5921,
+   "log-loss base calibrada": 0.66908,
+   "siempre": {
+    "log-loss": 0.66437,
+    "mejora_vs_base": 0.00471,
+    "p5_vs_base": 0.00399,
+    "ofrecidas_70": 4367,
+    "acierto_70": 0.7314
+   },
+   "+ tabla": {
+    "log-loss": 0.6593,
+    "mejora_vs_base": 0.00978,
+    "p5_vs_base": 0.00879,
+    "ofrecidas_70": 6577,
+    "acierto_70": 0.7318,
+    "mejora_vs_siempre": 0.00507,
+    "p5_vs_siempre": 0.00425,
+    "adopta": true
+   }
+  }
+ }
+}

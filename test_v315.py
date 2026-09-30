@@ -145,7 +145,7 @@ def probar_sin_base():
              'HOME_DRAW_AWAY': {'home': 1.2, 'draw': 7, 'away': 14}}}}
     json.dump({'partidos': {'1': v}}, open(tmp, 'w'))
     orig = mc.predecir
-    mc.predecir = lambda h, a, i: None          # FotMob no los tiene
+    mc.predecir = lambda h, a, i, liga=None: None          # FotMob no los tiene
     try:
         L = msm.construir({'pronosticos': []}, ruta=tmp)
     finally:

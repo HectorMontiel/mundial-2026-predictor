@@ -457,6 +457,23 @@ def poner_estadisticas(partidos: List[Dict], dia: str,
     return n
 
 
+def marcadores_flashscore(dia: str) -> List[Dict]:
+    """v316 — los terminados de Flashscore alrededor del día `dia` (CDMX).
+    Nunca lanza."""
+    import datetime as _dt
+    try:
+        import resultados_flashscore as rf
+        d0 = _dt.date.fromisoformat(str(dia)[:10])
+        hoy = _dt.datetime.utcnow().date()
+        fuera = []
+        for off in {(d0 - hoy).days, (d0 - hoy).days + 1}:
+            if -7 <= off <= 0:
+                fuera += rf.marcadores_del_dia(off)
+        return fuera
+    except Exception:
+        return []
+
+
 def poner_marcadores(partidos: List[Dict], dia: str,
                      ahora: float = None, fotmob: List[Dict] = None) -> int:
     """Rellena el marcador de los que ya deberían haber terminado y no lo
@@ -485,6 +502,10 @@ def poner_marcadores(partidos: List[Dict], dia: str,
     lista = fotmob
     if faltan:
         lista = lista if lista is not None else marcadores_fotmob(dia)
+        # v316 — y Flashscore, que publica TODAS las competiciones del
+        # tablero (FotMob no lista sub-19, sub-20, reservas, femenil chica)
+        if fotmob is None:
+            lista = list(lista) + marcadores_flashscore(dia)
         for p in faltan:
             f = _casar_fotmob(p, lista)
             if f and f.get('aplazado'):

@@ -121,7 +121,7 @@ def probar_sin_modelo():
     msm._pinnacle = lambda h, a: {'home': 1.18, 'draw': 7.8, 'away': 15.0}
     import modelo_competiciones as mc
     orig_p, orig_t = mc.predecir, msm._tablero_playdoit
-    mc.predecir = lambda h, a, i: _pred()
+    mc.predecir = lambda h, a, i, liga=None: _pred()
     msm._tablero_playdoit = lambda v, fecha=None: {}
     try:
         import horario as hz

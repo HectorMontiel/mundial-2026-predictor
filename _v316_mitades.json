@@ -1,0 +1,162 @@
+{
+ "n": 180583,
+ "competiciones": 430,
+ "corte": "2026-02-21",
+ "parte_goles_1a_mitad": 0.4503,
+ "1a_mas_0.5": {
+  "n_juicio": 54185,
+  "tasa_real": 0.7242,
+  "log-loss base calibrada": 0.57866,
+  "siempre": {
+   "log-loss": 0.57816,
+   "mejora_vs_base": 0.0005,
+   "p5_vs_base": 1e-05,
+   "ofrecidas_70": 32272,
+   "acierto_70": 0.7678
+  },
+  "+ tabla": {
+   "log-loss": 0.57794,
+   "mejora_vs_base": 0.00071,
+   "p5_vs_base": 0.00022,
+   "ofrecidas_70": 32125,
+   "acierto_70": 0.7685,
+   "mejora_vs_siempre": 0.00022,
+   "p5_vs_siempre": -4e-05,
+   "adopta": false
+  },
+  "poisson_sin_corregir": {
+   "p_media": 0.7164,
+   "log-loss": 0.58104
+  }
+ },
+ "1a_mas_1.5": {
+  "n_juicio": 54185,
+  "tasa_real": 0.3811,
+  "log-loss base calibrada": 0.64743,
+  "siempre": {
+   "log-loss": 0.64626,
+   "mejora_vs_base": 0.00117,
+   "p5_vs_base": 0.00062,
+   "ofrecidas_70": 12948,
+   "acierto_70": 0.7325
+  },
+  "+ tabla": {
+   "log-loss": 0.64622,
+   "mejora_vs_base": 0.0012,
+   "p5_vs_base": 0.00066,
+   "ofrecidas_70": 12983,
+   "acierto_70": 0.7277,
+   "mejora_vs_siempre": 3e-05,
+   "p5_vs_siempre": -0.00021,
+   "adopta": false
+  },
+  "poisson_sin_corregir": {
+   "p_media": 0.3756,
+   "log-loss": 0.65145
+  }
+ },
+ "2a_mas_0.5": {
+  "n_juicio": 54185,
+  "tasa_real": 0.7972,
+  "log-loss base calibrada": 0.49639,
+  "siempre": {
+   "log-loss": 0.49559,
+   "mejora_vs_base": 0.0008,
+   "p5_vs_base": 0.00032,
+   "ofrecidas_70": 48858,
+   "acierto_70": 0.8081
+  },
+  "+ tabla": {
+   "log-loss": 0.49559,
+   "mejora_vs_base": 0.0008,
+   "p5_vs_base": 0.00027,
+   "ofrecidas_70": 48590,
+   "acierto_70": 0.8087,
+   "mejora_vs_siempre": -0.0,
+   "p5_vs_siempre": -0.0003,
+   "adopta": false
+  },
+  "poisson_sin_corregir": {
+   "p_media": 0.7819,
+   "log-loss": 0.49986
+  }
+ },
+ "2a_mas_1.5": {
+  "n_juicio": 54185,
+  "tasa_real": 0.479,
+  "log-loss base calibrada": 0.67684,
+  "siempre": {
+   "log-loss": 0.67606,
+   "mejora_vs_base": 0.00078,
+   "p5_vs_base": 0.00021,
+   "ofrecidas_70": 3264,
+   "acierto_70": 0.7093
+  },
+  "+ tabla": {
+   "log-loss": 0.67607,
+   "mejora_vs_base": 0.00077,
+   "p5_vs_base": 0.00016,
+   "ofrecidas_70": 3284,
+   "acierto_70": 0.6988,
+   "mejora_vs_siempre": -1e-05,
+   "p5_vs_siempre": -0.00032,
+   "adopta": false
+  },
+  "poisson_sin_corregir": {
+   "p_media": 0.4678,
+   "log-loss": 0.68447
+  }
+ },
+ "local_marca_1a": {
+  "n_juicio": 54185,
+  "tasa_real": 0.5057,
+  "log-loss base calibrada": 0.67521,
+  "siempre": {
+   "log-loss": 0.67262,
+   "mejora_vs_base": 0.00259,
+   "p5_vs_base": 0.00183,
+   "ofrecidas_70": 4580,
+   "acierto_70": 0.7275
+  },
+  "+ tabla": {
+   "log-loss": 0.67256,
+   "mejora_vs_base": 0.00265,
+   "p5_vs_base": 0.00188,
+   "ofrecidas_70": 4590,
+   "acierto_70": 0.7327,
+   "mejora_vs_siempre": 6e-05,
+   "p5_vs_siempre": -0.00031,
+   "adopta": false
+  },
+  "poisson_sin_corregir": {
+   "p_media": 0.5007,
+   "log-loss": 0.67537
+  }
+ },
+ "visit_marca_1a": {
+  "n_juicio": 54185,
+  "tasa_real": 0.4297,
+  "log-loss base calibrada": 0.66394,
+  "siempre": {
+   "log-loss": 0.66168,
+   "mejora_vs_base": 0.00226,
+   "p5_vs_base": 0.00156,
+   "ofrecidas_70": 7571,
+   "acierto_70": 0.7191
+  },
+  "+ tabla": {
+   "log-loss": 0.66163,
+   "mejora_vs_base": 0.00231,
+   "p5_vs_base": 0.0016,
+   "ofrecidas_70": 7693,
+   "acierto_70": 0.7164,
+   "mejora_vs_siempre": 5e-05,
+   "p5_vs_siempre": -0.00029,
+   "adopta": false
+  },
+  "poisson_sin_corregir": {
+   "p_media": 0.4278,
+   "log-loss": 0.66444
+  }
+ }
+}

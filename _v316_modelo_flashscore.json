@@ -1,0 +1,127 @@
+{
+ "base_partidos": 225962,
+ "base_competiciones": 437,
+ "partidos_fuera_del_motor": 2259,
+ "con_modelo_flashscore": 1914,
+ "cobertura": 0.847,
+ "brier": {
+  "ambos": {
+   "n": 3476,
+   "mercado": 0.23783,
+   "modelo": 0.24341,
+   "mezcla_50": 0.23869
+  },
+  "goles": {
+   "n": 11232,
+   "mercado": 0.20084,
+   "modelo": 0.20622,
+   "mezcla_50": 0.20093
+  },
+  "resultado": {
+   "n": 7652,
+   "mercado": 0.19127,
+   "modelo": 0.20743,
+   "mezcla_50": 0.19488
+  }
+ },
+ "mezcla": {
+  "ambos": {
+   "eleccion": {
+    "n": 2588,
+    "w=0.25": {
+     "mejora": 0.00046,
+     "p5": -0.00048
+    },
+    "w=0.5": {
+     "mejora": -7e-05,
+     "p5": -0.00203
+    }
+   },
+   "prueba": {
+    "n": 888,
+    "w=0.25": {
+     "mejora": -0.00114,
+     "p5": -0.00278
+    },
+    "w=0.5": {
+     "mejora": -0.00318,
+     "p5": -0.00649
+    }
+   }
+  },
+  "goles": {
+   "eleccion": {
+    "n": 8364,
+    "w=0.25": {
+     "mejora": 0.00078,
+     "p5": -0.00011
+    },
+    "w=0.5": {
+     "mejora": 0.00028,
+     "p5": -0.00133
+    }
+   },
+   "prueba": {
+    "n": 2868,
+    "w=0.25": {
+     "mejora": 5e-05,
+     "p5": -0.00133
+    },
+    "w=0.5": {
+     "mejora": -0.00122,
+     "p5": -0.00416
+    }
+   }
+  },
+  "resultado": {
+   "eleccion": {
+    "n": 5696,
+    "w=0.25": {
+     "mejora": -0.00095,
+     "p5": -0.00207
+    },
+    "w=0.5": {
+     "mejora": -0.00412,
+     "p5": -0.00649
+    }
+   },
+   "prueba": {
+    "n": 1956,
+    "w=0.25": {
+     "mejora": 9e-05,
+     "p5": -0.00179
+    },
+    "w=0.5": {
+     "mejora": -0.00212,
+     "p5": -0.0059
+    }
+   }
+  }
+ },
+ "mas15_p_mer_eleccion": {
+  "n": 542,
+  "acierto": 0.8542
+ },
+ "mas15_p_mer_prueba": {
+  "n": 154,
+  "acierto": 0.8636
+ },
+ "mas15_p_mix_eleccion": {
+  "n": 464,
+  "acierto": 0.847
+ },
+ "mas15_p_mix_prueba": {
+  "n": 138,
+  "acierto": 0.8478
+ },
+ "meter_eleccion": {
+  "n": 843,
+  "acierto": 0.8565,
+  "p5": 0.8363
+ },
+ "meter_prueba": {
+  "n": 255,
+  "acierto": 0.8706,
+  "p5": 0.8353
+ }
+}

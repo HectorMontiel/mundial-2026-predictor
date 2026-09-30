@@ -1,0 +1,50 @@
+{
+ "partidos": 1952,
+ "de_v310": 2033,
+ "corte": "2024-07-01",
+ "por_competicion": {
+  "liga_mx": 749,
+  "selecciones": 398,
+  "champions": 327,
+  "europa_league": 325,
+  "conference_league": 153
+ },
+ "prod": {
+  "log-loss": 0.59804,
+  "ofrecidas_70": 8580,
+  "acierto_70": 0.7843,
+  "franja_70_80": 4997,
+  "acierto_70_80": 0.7424
+ },
+ "forma": {
+  "log-loss": 0.59096,
+  "ofrecidas_70": 8221,
+  "acierto_70": 0.7975,
+  "franja_70_80": 5537,
+  "acierto_70_80": 0.7638,
+  "mejora_vs_prod": 0.00708,
+  "p5_vs_prod": 0.00331
+ },
+ "tabla": {
+  "log-loss": 0.58507,
+  "ofrecidas_70": 8178,
+  "acierto_70": 0.8101,
+  "franja_70_80": 5466,
+  "acierto_70_80": 0.777,
+  "mejora_vs_prod": 0.01297,
+  "p5_vs_prod": 0.00903
+ },
+ "adopta": true,
+ "por_lado": {
+  "local": {
+   "prod": 0.60144,
+   "forma": 0.5944,
+   "tabla": 0.58799
+  },
+  "visita": {
+   "prod": 0.59464,
+   "forma": 0.58752,
+   "tabla": 0.58215
+  }
+ }
+}
