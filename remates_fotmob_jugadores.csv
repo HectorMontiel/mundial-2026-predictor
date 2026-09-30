@@ -6739,25 +6739,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5067208,2026-03-27,selecciones,Jamaica,Jamal Lowe,369754,F,0,11,0,0,0,0.0,,3.0,940039.0
 5067208,2026-03-27,selecciones,Jamaica,Amari'i Bell,471271,D,0,6,0,0,0,0.0,,1.0,1008678.0
 5067208,2026-03-27,selecciones,Jamaica,Damion Lowe,621943,D,0,6,0,0,0,0.0,,1.0,
-5124810,2026-03-28,selecciones,United States,Matt Turner,729988,G,1,90,0,0,0,0.0,11.0,0.0,1452220.0
-5124810,2026-03-28,selecciones,United States,Timothy Weah,889536,M,1,64,1,0,0,0.0,32.0,2.0,22953686.0
-5124810,2026-03-28,selecciones,United States,Mark McKenzie,924485,D,1,90,0,0,0,0.0,34.0,1.0,5951491.0
-5124810,2026-03-28,selecciones,United States,Tim Ream,198444,D,1,90,0,0,0,0.0,36.0,1.0,59469.0
-5124810,2026-03-28,selecciones,United States,Antonee Robinson,662428,D,1,64,1,1,0,0.0,38.0,1.0,39073730.0
-5124810,2026-03-28,selecciones,United States,Johnny Cardoso,1173678,M,1,46,0,0,0,0.0,64.0,2.0,25215858.0
-5124810,2026-03-28,selecciones,United States,Tanner Tessmann,1057433,M,1,64,1,0,0,0.0,66.0,2.0,12312899.0
-5124810,2026-03-28,selecciones,United States,Weston McKennie,848266,M,1,70,2,2,1,0.0,83.0,2.0,16447013.0
-5124810,2026-03-28,selecciones,United States,Malik Tillman,1126058,M,1,71,0,0,0,0.0,85.0,2.0,41194131.0
-5124810,2026-03-28,selecciones,United States,Christian Pulisic,688295,F,1,71,3,0,0,0.0,87.0,3.0,47365970.0
-5124810,2026-03-28,selecciones,United States,Folarin Balogun,982677,F,1,71,2,1,0,0.0,115.0,3.0,19779665.0
-5124810,2026-03-28,selecciones,United States,Cristian Roldan,621946,M,0,44,0,0,0,0.0,,2.0,2124977.0
-5124810,2026-03-28,selecciones,United States,Alex Freeman,1338696,D,0,26,0,0,0,0.0,,1.0,1942573.0
-5124810,2026-03-28,selecciones,United States,Max Arfsten,1348329,D,0,26,0,0,0,0.0,,1.0,2590244.0
-5124810,2026-03-28,selecciones,United States,Sebastian Berhalter,1136096,M,0,26,0,0,0,0.0,,2.0,2893154.0
-5124810,2026-03-28,selecciones,United States,Giovanni Reyna,1071179,M,0,20,0,0,0,0.0,,2.0,10398269.0
-5124810,2026-03-28,selecciones,United States,Joseph Scally,959696,D,0,19,0,0,0,0.0,,1.0,13134571.0
-5124810,2026-03-28,selecciones,United States,Patrick Agyemang,1439800,F,0,19,2,1,1,0.0,,3.0,8529699.0
-5124810,2026-03-28,selecciones,United States,Ricardo Pepi,1036401,F,0,19,0,0,0,0.0,,3.0,18246897.0
 5159759,2026-03-28,selecciones,Hungary,Balázs Tóth,861001,G,1,90,0,0,0,0.0,11.0,0.0,738724.0
 5159759,2026-03-28,selecciones,Hungary,Bendegúz Bolla,888904,D,1,46,0,0,0,0.0,32.0,1.0,1845894.0
 5159759,2026-03-28,selecciones,Hungary,Márton Dárdai,1153342,D,1,90,0,0,0,0.0,34.0,1.0,2184064.0
@@ -132353,27 +132334,65 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190729,2026-09-29,bra_serie_b,Ponte Preta,Felipe Di Mauro,2240040,D,0,15,0,0,0,0.0,,1.0,
 5190729,2026-09-29,bra_serie_b,Ponte Preta,Diego Porfírio,1334351,D,0,15,0,0,0,0.0,,1.0,251597.0
 5190729,2026-09-29,bra_serie_b,Ponte Preta,Gustavo Teles,1800471,M,0,15,0,0,0,0.0,,2.0,
-5991946,2026-09-29,selecciones,Anguilla,Jelanie Lawrence,1625108,G,1,90,0,0,0,0.0,11,0,
-5991946,2026-09-29,selecciones,Anguilla,Kieron Lake-Bryan,1625111,D,1,90,0,0,0,0.0,32,1,
-5991946,2026-09-29,selecciones,Anguilla,Nathaniel Owen,1767432,D,1,90,2,0,0,0.0,34,1,
-5991946,2026-09-29,selecciones,Anguilla,Sedu Bradshaw,1240846,D,1,90,0,0,0,0.0,36,1,
-5991946,2026-09-29,selecciones,Anguilla,Tjivari Leveret-Francisca,1767431,D,1,90,0,0,0,0.0,38,1,
-5991946,2026-09-29,selecciones,Anguilla,Carlton Carty,0,M,1,90,0,0,0,0.0,71,2,
-5991946,2026-09-29,selecciones,Anguilla,Kayne Connor,1625110,M,1,90,1,0,0,0.0,73,2,
-5991946,2026-09-29,selecciones,Anguilla,Jordan Deans,1625109,M,1,90,0,0,0,0.0,75,2,
-5991946,2026-09-29,selecciones,Anguilla,Gemain Hughes,624298,M,1,90,0,0,0,0.0,77,2,
-5991946,2026-09-29,selecciones,Anguilla,Jayvon Lloyd,1650870,M,1,62,1,0,0,0.0,79,2,
-5991946,2026-09-29,selecciones,Anguilla,Tarique Jackson,1767426,F,1,62,1,1,0,0.0,115,3,
-5991946,2026-09-29,selecciones,Aruba,Matthew Lentink,212183,G,1,90,0,0,0,0.0,11,0,
-5991946,2026-09-29,selecciones,Aruba,Gladwin Curiel,1460580,D,1,90,2,0,0,0.0,32,1,234127
-5991946,2026-09-29,selecciones,Aruba,Diederick Luydens,873999,D,1,90,1,1,0,0.0,34,1,
-5991946,2026-09-29,selecciones,Aruba,Bradley Martis,931552,D,1,90,2,1,0,0.0,36,1,
-5991946,2026-09-29,selecciones,Aruba,Rainey Breinburg,1553392,D,1,72,1,1,0,0.0,38,1,
-5991946,2026-09-29,selecciones,Aruba,Walter Bennett,1240349,F,1,72,2,1,0,0.0,64,3,
-5991946,2026-09-29,selecciones,Aruba,Roviën Ostiana,1400223,M,1,90,7,3,1,0.0,66,2,
-5991946,2026-09-29,selecciones,Aruba,Mishawn Molina,1566453,M,1,85,3,1,0,0.0,83,2,
-5991946,2026-09-29,selecciones,Aruba,Jaybriën Romano,1634446,M,1,45,1,0,0,0.0,85,2,
-5991946,2026-09-29,selecciones,Aruba,Gello Robertha,1897376,M,1,90,0,0,0,0.0,87,2,
-5991946,2026-09-29,selecciones,Aruba,Carlito Fermina,949169,F,1,90,4,0,0,0.0,115,3,
-5991946,2026-09-29,selecciones,Aruba,Javier Jiménez,1240341,D,0,45,1,0,0,0.0,,1,
-5991946,2026-09-29,selecciones,Aruba,Alljereau Mercera,1432175,F,0,18,2,0,0,0.0,,3,
+5991946,2026-09-29,selecciones,Anguilla,Jelanie Lawrence,1625108,G,1,90,0,0,0,0.0,11.0,0.0,
+5991946,2026-09-29,selecciones,Anguilla,Kieron Lake-Bryan,1625111,D,1,90,0,0,0,0.0,32.0,1.0,
+5991946,2026-09-29,selecciones,Anguilla,Nathaniel Owen,1767432,D,1,90,2,0,0,0.0,34.0,1.0,
+5991946,2026-09-29,selecciones,Anguilla,Sedu Bradshaw,1240846,D,1,90,0,0,0,0.0,36.0,1.0,
+5991946,2026-09-29,selecciones,Anguilla,Tjivari Leveret-Francisca,1767431,D,1,90,0,0,0,0.0,38.0,1.0,
+5991946,2026-09-29,selecciones,Anguilla,Carlton Carty,0,M,1,90,0,0,0,0.0,71.0,2.0,
+5991946,2026-09-29,selecciones,Anguilla,Kayne Connor,1625110,M,1,90,1,0,0,0.0,73.0,2.0,
+5991946,2026-09-29,selecciones,Anguilla,Jordan Deans,1625109,M,1,90,0,0,0,0.0,75.0,2.0,
+5991946,2026-09-29,selecciones,Anguilla,Gemain Hughes,624298,M,1,90,0,0,0,0.0,77.0,2.0,
+5991946,2026-09-29,selecciones,Anguilla,Jayvon Lloyd,1650870,M,1,62,1,0,0,0.0,79.0,2.0,
+5991946,2026-09-29,selecciones,Anguilla,Tarique Jackson,1767426,F,1,62,1,1,0,0.0,115.0,3.0,
+5991946,2026-09-29,selecciones,Aruba,Matthew Lentink,212183,G,1,90,0,0,0,0.0,11.0,0.0,
+5991946,2026-09-29,selecciones,Aruba,Gladwin Curiel,1460580,D,1,90,2,0,0,0.0,32.0,1.0,234127.0
+5991946,2026-09-29,selecciones,Aruba,Diederick Luydens,873999,D,1,90,1,1,0,0.0,34.0,1.0,
+5991946,2026-09-29,selecciones,Aruba,Bradley Martis,931552,D,1,90,2,1,0,0.0,36.0,1.0,
+5991946,2026-09-29,selecciones,Aruba,Rainey Breinburg,1553392,D,1,72,1,1,0,0.0,38.0,1.0,
+5991946,2026-09-29,selecciones,Aruba,Walter Bennett,1240349,F,1,72,2,1,0,0.0,64.0,3.0,
+5991946,2026-09-29,selecciones,Aruba,Roviën Ostiana,1400223,M,1,90,7,3,1,0.0,66.0,2.0,
+5991946,2026-09-29,selecciones,Aruba,Mishawn Molina,1566453,M,1,85,3,1,0,0.0,83.0,2.0,
+5991946,2026-09-29,selecciones,Aruba,Jaybriën Romano,1634446,M,1,45,1,0,0,0.0,85.0,2.0,
+5991946,2026-09-29,selecciones,Aruba,Gello Robertha,1897376,M,1,90,0,0,0,0.0,87.0,2.0,
+5991946,2026-09-29,selecciones,Aruba,Carlito Fermina,949169,F,1,90,4,0,0,0.0,115.0,3.0,
+5991946,2026-09-29,selecciones,Aruba,Javier Jiménez,1240341,D,0,45,1,0,0,0.0,,1.0,
+5991946,2026-09-29,selecciones,Aruba,Alljereau Mercera,1432175,F,0,18,2,0,0,0.0,,3.0,
+5991874,2026-09-30,selecciones,United States,Chris Brady,1245998,G,1,46,0,0,0,0.0,11.0,0.0,2380886.0
+5991874,2026-09-30,selecciones,United States,Francis Westfield,1474341,D,1,62,0,0,0,0.0,32.0,1.0,1982243.0
+5991874,2026-09-30,selecciones,United States,Neil Pierre,1517896,D,1,63,0,0,0,0.0,34.0,1.0,918221.0
+5991874,2026-09-30,selecciones,United States,Miles Robinson,825623,D,1,63,1,1,0,0.0,36.0,1.0,1601552.0
+5991874,2026-09-30,selecciones,United States,Antonee Robinson,662428,D,1,90,1,1,0,0.0,38.0,1.0,23450391.0
+5991874,2026-09-30,selecciones,United States,Brooklyn Raines,1303876,M,1,90,0,0,0,0.0,64.0,2.0,1703937.0
+5991874,2026-09-30,selecciones,United States,Sebastian Berhalter,1136096,M,1,83,2,1,1,0.0,66.0,2.0,2150220.0
+5991874,2026-09-30,selecciones,United States,Sergiño Dest,892816,D,1,63,0,0,0,0.0,83.0,1.0,23450403.0
+5991874,2026-09-30,selecciones,United States,Giovanni Reyna,1071179,M,1,70,0,0,0,0.0,85.0,2.0,4885164.0
+5991874,2026-09-30,selecciones,United States,Adri Mehmeti,1715268,M,1,62,0,0,0,0.0,87.0,2.0,2681908.0
+5991874,2026-09-30,selecciones,United States,Julian Hall,1489675,F,1,71,5,3,1,0.0,115.0,3.0,2397636.0
+5991874,2026-09-30,selecciones,United States,Brian Schwake,1169991,G,0,44,0,0,0,0.0,,0.0,307954.0
+5991874,2026-09-30,selecciones,United States,Alex Freeman,1338696,D,0,28,1,1,0,0.0,,1.0,1964275.0
+5991874,2026-09-30,selecciones,United States,Tyler Adams,729769,M,0,28,1,0,0,0.0,,2.0,19657997.0
+5991874,2026-09-30,selecciones,United States,Auston Trusty,688271,D,0,27,0,0,0,0.0,,1.0,3104624.0
+5991874,2026-09-30,selecciones,United States,Chris Richards,950829,D,0,27,2,1,1,0.0,,1.0,17528589.0
+5991874,2026-09-30,selecciones,United States,Malik Tillman,1126058,M,0,27,0,0,0,0.0,,2.0,25128449.0
+5991874,2026-09-30,selecciones,United States,Damion Downs,1363536,F,0,19,1,0,0,0.0,,3.0,6848364.0
+5991874,2026-09-30,selecciones,United States,Mathis Albert,1692797,F,0,19,4,1,1,0.0,,3.0,690259.0
+5991874,2026-09-30,selecciones,United States,Cavan Sullivan,1630736,M,0,7,0,0,0,0.0,,2.0,4749187.0
+5991874,2026-09-30,selecciones,Chile,Lawrence Vigouroux,501380,G,1,90,0,0,0,0.0,11.0,0.0,703045.0
+5991874,2026-09-30,selecciones,Chile,Felipe Faúndez,1680021,D,1,58,0,0,0,0.0,32.0,1.0,1100918.0
+5991874,2026-09-30,selecciones,Chile,Jonathan Villagra,1129024,D,1,58,0,0,0,0.0,34.0,1.0,943332.0
+5991874,2026-09-30,selecciones,Chile,Iván Román,1434500,D,1,90,0,0,0,0.0,36.0,1.0,2388990.0
+5991874,2026-09-30,selecciones,Chile,Diego Ulloa,1334617,D,1,70,2,2,1,0.0,38.0,1.0,562436.0
+5991874,2026-09-30,selecciones,Chile,Felipe Loyola,1343374,M,1,70,1,0,0,0.0,64.0,2.0,6481060.0
+5991874,2026-09-30,selecciones,Chile,Felipe Méndez,848123,M,1,70,0,0,0,0.0,66.0,2.0,877576.0
+5991874,2026-09-30,selecciones,Chile,Darío Osorio,1329007,M,1,90,5,2,0,0.0,83.0,2.0,8427546.0
+5991874,2026-09-30,selecciones,Chile,Nils Reichmuth,1159063,M,1,58,2,1,0,0.0,85.0,2.0,830270.0
+5991874,2026-09-30,selecciones,Chile,Maximiliano Gutiérrez,1404859,F,1,90,3,2,1,0.0,87.0,3.0,1412659.0
+5991874,2026-09-30,selecciones,Chile,Ben Brereton,820581,F,1,84,1,0,0,0.0,115.0,3.0,5063179.0
+5991874,2026-09-30,selecciones,Chile,Francisco Salinas,1343554,D,0,32,0,0,0,0.0,,1.0,907007.0
+5991874,2026-09-30,selecciones,Chile,Paulo Díaz,447556,D,0,32,1,0,0,0.0,,1.0,1118354.0
+5991874,2026-09-30,selecciones,Chile,Leandro Hernández,1578873,F,0,32,1,0,0,0.0,,3.0,573388.0
+5991874,2026-09-30,selecciones,Chile,Marcelo Morales,1201259,D,0,20,0,0,0,0.0,,1.0,1438701.0
+5991874,2026-09-30,selecciones,Chile,Rodrigo Echeverría,517555,M,0,20,0,0,0,0.0,,2.0,1821977.0
+5991874,2026-09-30,selecciones,Chile,Vicente Pizarro,1133369,M,0,20,1,1,0,0.0,,2.0,2461828.0
+5991874,2026-09-30,selecciones,Chile,Gonzalo Tapia,1108614,F,0,6,0,0,0,0.0,,3.0,2057963.0
