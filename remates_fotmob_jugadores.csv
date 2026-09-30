@@ -19862,21 +19862,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115889,2026-07-28,argentina,Sarmiento,Jonathan Herrera,623898,F,0,35,1,1,1,0.87,,3.0,508144.0
 5115889,2026-07-28,argentina,Sarmiento,Gastón González,1039687,F,0,29,1,0,0,0.07,,3.0,968866.0
 5115889,2026-07-28,argentina,Sarmiento,Gastón Arturia,1293096,D,0,16,0,0,0,0.0,,1.0,396542.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Vinicius Ferrari,1636515,G,1,90,0,0,0,0.0,11.0,0.0,
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Sergio Palacios,1532951,D,1,90,0,0,0,0.0,33.0,1.0,947612.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Lucas Cunha,631754,D,1,90,0,0,0,0.0,35.0,1.0,793548.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Danilo,498624,D,1,87,0,0,0,0.0,37.0,1.0,86400.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Júlio,1936806,M,1,90,0,0,0,0.0,62.0,2.0,
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Léo Gomes,934247,M,1,87,1,1,1,0.35,64.0,2.0,190619.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,André Lima,1248916,M,1,90,0,0,0,0.0,66.0,2.0,289139.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Diego Porfírio,1334351,M,1,76,0,0,0,0.0,68.0,2.0,234329.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Kevyson,1384965,M,1,90,3,1,0,0.11,84.0,2.0,737481.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Élvis,265703,M,1,90,5,2,0,0.17,86.0,2.0,86400.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,David da Hora,1265991,F,1,67,4,2,0,0.24,105.0,3.0,533977.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Miguel,1766569,M,0,23,0,0,0,0.0,,2.0,
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Nicholas Silva,1478296,M,0,14,0,0,0,0.0,,2.0,
-5190629,2026-07-28,bra_serie_b,Ponte Preta,Rodrigo Souza,500605,M,0,3,0,0,0,0.0,,2.0,142549.0
-5190629,2026-07-28,bra_serie_b,Ponte Preta,João Damião,1929042,F,0,3,0,0,0,0.0,,3.0,
 5190629,2026-07-28,bra_serie_b,Athletic Club MG,Luan Polli,535786,G,1,90,0,0,0,0.0,11.0,0.0,241533.0
 5190629,2026-07-28,bra_serie_b,Athletic Club MG,Diogo Batista,1469119,D,1,54,0,0,0,0.0,32.0,1.0,328291.0
 5190629,2026-07-28,bra_serie_b,Athletic Club MG,Jhonatan,1215655,D,1,90,1,0,0,0.03,34.0,1.0,
@@ -20316,22 +20301,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115897,2026-07-30,argentina,Club Atlético Platense,Gonzalo Lencina,1030998,F,0,30,0,0,0,0.0,,3.0,425221.0
 5115897,2026-07-30,argentina,Club Atlético Platense,Héctor Bobadilla,1666607,F,0,20,2,2,1,0.28,,3.0,339806.0
 5115897,2026-07-30,argentina,Club Atlético Platense,Juan Gauto,1218336,F,0,8,0,0,0,0.0,,3.0,1165569.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Victor Souza,1189602,G,1,90,0,0,0,0.0,11.0,0.0,195951.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Pedrinho,1847897,D,1,90,0,0,0,0.0,32.0,1.0,
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Ericson,905495,D,1,90,0,0,0,0.0,34.0,1.0,
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Vilar,1390279,D,1,90,1,0,0,0.05,36.0,1.0,
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Patrick Brey,937517,D,1,90,2,1,0,0.14,38.0,1.0,125630.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Matheus Sales,583764,M,1,89,0,0,0,0.0,64.0,2.0,186816.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Rafael Gava,762031,M,1,80,1,1,0,0.02,66.0,2.0,139154.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Zé Hugo,1359528,F,1,66,2,1,0,0.04,83.0,3.0,
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Everton Morelli,879585,M,1,90,1,1,0,0.04,85.0,2.0,130512.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Wesley,1895029,F,1,80,0,0,0,0.0,87.0,3.0,
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Arthur Caíke,449837,F,1,66,0,0,0,0.0,115.0,3.0,141284.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Jefferson Nem,751532,F,0,24,2,1,0,0.07,,3.0,155288.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Guilherme Queiróz,750438,F,0,24,0,0,0,0.0,,3.0,139259.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Felipe,1259570,D,0,10,0,0,0,0.0,,1.0,175253.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Marco Antônio,1391241,M,0,10,0,0,0,0.0,,2.0,119603.0
-5190633,2026-07-29,bra_serie_b,Botafogo SP,Thiago Moraes,1290658,M,0,1,0,0,0,0.0,,2.0,
 5103564,2026-07-30,brasil,Fluminense,Fábio,30441,G,1,90,0,0,0,0.0,11.0,0.0,1038045.0
 5103564,2026-07-30,brasil,Fluminense,Samuel Xavier,307072,D,1,90,1,1,0,0.03,32.0,1.0,734816.0
 5103564,2026-07-30,brasil,Fluminense,Ignácio,967692,D,1,90,1,0,0,0.02,34.0,1.0,1178358.0
@@ -132352,3 +132321,35 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991952,2026-09-29,selecciones,Bahamas,Omari Bain,1687112,F,1,64,2,1,0,0.0,87.0,3.0,
 5991952,2026-09-29,selecciones,Bahamas,Brandon Adderley,1650879,F,1,90,3,2,0,0.0,115.0,3.0,
 5991952,2026-09-29,selecciones,Bahamas,William Bayles,1767358,M,0,26,1,1,0,0.0,,2.0,
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Victor Souza,1189602,G,1,90,0,0,0,0.0,11.0,0.0,282169.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Pedrinho,1946533,D,1,90,0,0,0,0.0,32.0,1.0,
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Ericson,905495,D,1,90,0,0,0,0.0,34.0,1.0,
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Vilar,1390279,D,1,90,0,0,0,0.0,36.0,1.0,
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Patrick Brey,937517,D,1,90,1,1,1,0.1,38.0,1.0,180907.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Everton Morelli,879585,M,1,90,2,0,0,0.18,73.0,2.0,187936.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Leandro Maciel,753077,M,1,90,3,0,0,0.12,75.0,2.0,250392.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Rafael Gava,762031,M,1,85,1,1,1,0.79,77.0,2.0,200380.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Zé Hugo,1359528,F,1,85,2,0,0,0.1,103.0,3.0,
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Arthur Caíke,449837,F,1,73,2,1,0,0.17,105.0,3.0,203448.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Kelvin,1358147,F,1,72,1,0,0,0.13,107.0,3.0,259424.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Wesley,1895029,F,0,18,0,0,0,0.0,,3.0,
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Hygor,730760,F,0,17,1,1,0,0.05,,3.0,147456.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Matheus Sales,583764,M,0,5,0,0,0,0.0,,2.0,257713.0
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Thiago Moraes,1290658,M,0,5,0,0,0,0.0,,2.0,
+5190729,2026-09-29,bra_serie_b,Botafogo SP,Jonathan,795212,D,0,1,0,0,0,0.0,,1.0,163486.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Vinicius,1636515,G,1,90,0,0,0,0.0,11.0,0.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Sergio Palacios,1532951,D,1,90,1,0,0,0.01,32.0,1.0,1275497.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Gabriel Caran,1795370,D,1,90,1,1,0,0.25,34.0,1.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Diego Leão,1937502,D,1,90,1,0,0,0.04,36.0,1.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Jonathan,1459750,D,1,75,0,0,0,0.0,38.0,1.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Rodrigo Souza,500605,M,1,75,2,0,0,0.23,65.0,2.0,158491.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,David da Hora,1265991,F,1,90,0,0,0,0.0,82.0,3.0,426916.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,André Lima,1248916,M,1,46,0,0,0,0.0,84.0,2.0,271128.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Denis,1613176,M,1,75,1,0,0,0.07,86.0,2.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Danilo,498624,F,1,46,0,0,0,0.0,88.0,3.0,124416.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Brandão,1550696,F,1,90,1,0,0,0.16,115.0,3.0,321742.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Júlio,1936806,D,0,44,0,0,0,0.0,,1.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Juan,1936789,D,0,44,0,0,0,0.0,,1.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Felipe Di Mauro,2240040,D,0,15,0,0,0,0.0,,1.0,
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Diego Porfírio,1334351,D,0,15,0,0,0,0.0,,1.0,251597.0
+5190729,2026-09-29,bra_serie_b,Ponte Preta,Gustavo Teles,1800471,M,0,15,0,0,0,0.0,,2.0,
