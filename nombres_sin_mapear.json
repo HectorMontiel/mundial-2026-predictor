@@ -461,8 +461,8 @@
   },
   "San Miguel": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Felipe",
-    "ratio": 0.6,
+    "candidato": "San Marino U21",
+    "ratio": 0.5833,
     "visto": "2026-09-30"
   },
   "Central Norte": {
@@ -485,9 +485,9 @@
   },
   "Internacional Santa Tecla": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CD Santa Cruz",
-    "ratio": 0.4737,
-    "visto": "2026-09-27"
+    "candidato": "Colon Santa Fe 2",
+    "ratio": 0.5366,
+    "visto": "2026-09-30"
   },
   "Cruz Azul Hidalgo": {
     "contexto": "cuotas_mx→futbol",
@@ -671,75 +671,75 @@
   },
   "Cheltenham Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shifnal Town",
-    "ratio": 0.5185,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.6,
+    "visto": "2026-09-30"
   },
   "Fleetwood Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shifnal Town",
-    "ratio": 0.5385,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4138,
+    "visto": "2026-09-30"
   },
   "Mansfield Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5714,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.5517,
+    "visto": "2026-09-30"
   },
   "Crawley Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5385,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.6667,
+    "visto": "2026-09-30"
   },
   "Aldershot Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4828,
+    "visto": "2026-09-30"
   },
   "Harrogate Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5714,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.6897,
+    "visto": "2026-09-30"
   },
   "Grimsby Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5385,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.5185,
+    "visto": "2026-09-30"
   },
   "Yeovil Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.56,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4615,
+    "visto": "2026-09-30"
   },
   "Shrewsbury Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.6207,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4667,
+    "visto": "2026-09-30"
   },
   "Northampton Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.4667,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.5806,
+    "visto": "2026-09-30"
   },
   "Swindon Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shifnal Town",
-    "ratio": 0.6667,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4444,
+    "visto": "2026-09-30"
   },
   "FC Halifax Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.4138,
-    "visto": "2026-09-26"
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4667,
+    "visto": "2026-09-30"
   },
   "Houston Dynamo FC": {
     "contexto": "cuotas_mx→futbol",
@@ -803,8 +803,8 @@
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Felipe",
-    "ratio": 0.4,
+    "candidato": "GV San Jose",
+    "ratio": 0.5161,
     "visto": "2026-09-30"
   },
   "Wycombe Wanderers": {
@@ -947,8 +947,8 @@
   },
   "San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Felipe",
-    "ratio": 0.5714,
+    "candidato": "GV San Jose",
+    "ratio": 0.5455,
     "visto": "2026-09-30"
   },
   "Red Bull Bragantino": {
@@ -985,6 +985,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Gimnasia Mendoza 2",
     "ratio": 0.6286,
+    "visto": "2026-09-30"
+  },
+  "Huddersfield Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.4375,
+    "visto": "2026-09-30"
+  },
+  "Luton Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Carmarthen Town",
+    "ratio": 0.56,
     "visto": "2026-09-30"
   }
 }
