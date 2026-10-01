@@ -3741,8 +3741,24 @@ def _pronosticos_multideporte(res: Dict[str, Dict]) -> List[Dict]:
             s = s.lower()
         return {t for t in _re.split(r'[^a-z0-9]+', s) if len(t) >= 3}
 
+    def _ts(x):
+        try:
+            import pandas as _pd
+            s = str(x or '')
+            t = (_pd.Timestamp(float(s), unit='s') if s.replace('.', '').isdigit()
+                 else _pd.Timestamp(s))
+            return t.tz_localize(None) if t.tzinfo else t
+        except Exception:
+            return None
+
     def _mismo_tenis(p, q):
-        if str(p.get('inicio') or '')[:13] != str(q.get('inicio') or '')[:13]:
+        # v318 — hasta 3 h de diferencia: una fuente da la hora de la sesión
+        # y otra la del partido («Balshaw F.» 02:00 y «Felix Balshaw» 03:00)
+        tp, tq = _ts(p.get('inicio')), _ts(q.get('inicio'))
+        if tp is None or tq is None:
+            if str(p.get('inicio') or '')[:13] != str(q.get('inicio') or '')[:13]:
+                return False
+        elif abs((tp - tq).total_seconds()) > 3 * 3600:
             return False
         try:
             ph, pa = str(p['partido']).split(' vs ', 1)

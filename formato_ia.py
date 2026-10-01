@@ -65,6 +65,13 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
 - «🔷 MÁS RIESGO, MÁS CUOTA»: OTRA PROBABILIDAD, más baja que la de la
   Capa 1 (71-72 % medido, cuota ~1,43). Para multiplicar en dobles; no se
   cuenta como «meter».
+- «📊 ASÍ LE FUE A LA APP»: lo que la app dijo «meter» en los últimos días,
+  ya liquidado, por categoría, y los rojos de ayer. Úsalo para saber en qué
+  mercados está acertando ahora.
+- «↗ subir a …»: el siguiente escalón de una «meter» (más de 1,5 → más de
+  2,5; X o empate → gana X), con la probabilidad del modelo, la de la casa
+  sin margen y su cuota. NO es una recomendación de la app: es el dato para
+  decidir, con lo que encuentres en internet, si vale la pena subir.
 - «🎯 APUESTAS A METER POR CATEGORÍA»: todas las «meter» del día agrupadas
   por mercado; debajo, el detalle de cada partido.
 - «MERCADOS»: todo lo cotizado. «justa» = 1/probabilidad del modelo.
@@ -160,6 +167,9 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
                 if m.get('p_mercado') is not None:
                     trozos.append('casa sin margen %s' % _pct(m['p_mercado']))
                 L.append('   • %s · %s' % (m.get('apuesta'), ' · '.join(trozos)))
+                _esc = _texto_escalon(escalon(pick, m))
+                if _esc:
+                    L.append('     ↗ %s' % _esc)
                 if m.get('razon'):
                     L.append('     por qué: %s' % m['razon'])
         else:
@@ -371,15 +381,161 @@ def _con_modelo(pick: Optional[Dict]) -> bool:
     return True
 
 
-def _linea_meter(reg: Dict, m: Dict) -> str:
+def escalon(pick: Optional[Dict], m: Dict) -> Optional[Dict]:
+    """v318 — EL SIGUIENTE ESCALÓN DE UNA «METER», CON SUS NÚMEROS.
+
+    El usuario: «si la app me da más de 1,5 goles, que el agente me diga
+    "súbele a 2,5, veo un ataque muy bueno"; si me dice doble oportunidad,
+    que me diga "dale al ganador"». La app no lo recomienda (no está medido
+    como apuesta); da el dato para que el agente lo decida con lo que
+    encuentre en internet: la apuesta de un escalón más, la probabilidad del
+    modelo, lo que cree la casa sin margen y su cuota. Nunca lanza."""
+    import re
+    try:
+        if not pick:
+            return None
+        ap, mer = str(m.get('apuesta') or ''), str(m.get('mercado') or '')
+        im = pick.get('implicitas') or {}
+
+        def _l(x):
+            return ('%.1f' % x).rstrip('0').rstrip('.') if x != int(x) else '%d' % x
+        mo = re.search(r'(M[aá]s|Menos) de ([0-9]+(?:\.[0-9]+)?)', ap)
+        if mer == 'Goles' and mo:
+            mas, L = 'menos' not in mo.group(1).lower(), float(mo.group(2))
+            L2 = L + 1 if mas else L - 1
+            # «menos de 0,5» es apostar al 0-0: no es un escalón útil
+            if L2 < (0.5 if mas else 1.5):
+                return None
+            k = '%.1f' % L2
+            gl = pick.get('goles_lineas') or {}
+            if gl.get(k) is None:
+                return None
+            pm = gl[k] if mas else 1 - gl[k]
+            c = (im.get('goles') or {}).get(k) or {}
+            q = c.get('p')
+            return {'apuesta': 'Goles: %s de %s' % ('Más' if mas else 'Menos', k),
+                    'prob': pm, 'cuota': c.get('mas' if mas else 'menos'),
+                    'casa': (q if mas else (1 - q)) if q is not None else None}
+        if mer == 'Goles equipo' and mo and ':' in ap:
+            eq = ap.split(':', 1)[0].replace('Goles', '', 1).strip()
+            h, a = (str(pick.get('partido') or '').split(' vs ', 1) + [''])[:2]
+            lado, clave = (('local', 'goles_home') if eq == h else
+                           ('visitante', 'goles_away') if eq == a else (None, None))
+            mas = 'menos' not in mo.group(1).lower()
+            if not lado or not mas:
+                return None
+            k = '%.1f' % (float(mo.group(2)) + 1)
+            ge = (pick.get('goles_equipo') or {}).get(lado) or {}
+            if ge.get(k) is None:
+                return None
+            c = (im.get(clave) or {}).get(k) or {}
+            return {'apuesta': 'Goles %s: Más de %s' % (eq, k), 'prob': ge[k],
+                    'cuota': c.get('mas'), 'casa': c.get('p')}
+        if mer == 'Doble oportunidad' and ap.endswith(' o empate'):
+            eq = ap[:-len(' o empate')]
+            h, a = (str(pick.get('partido') or '').split(' vs ', 1) + [''])[:2]
+            lado = 'home' if eq == h else 'away' if eq == a else None
+            b = pick.get('board') or {}
+            if not lado or b.get('Gana ' + eq) is None:
+                return None
+            return {'apuesta': 'Gana %s' % eq, 'prob': b['Gana ' + eq],
+                    'cuota': (im.get('1x2_cuotas') or {}).get(lado),
+                    'casa': (im.get('1x2') or {}).get(lado)}
+    except Exception as e:
+        logger.debug('[ia] escalón: %s', e)
+    return None
+
+
+def _texto_escalon(e: Optional[Dict]) -> str:
+    if not e:
+        return ''
+    t = 'subir a %s: modelo %s' % (e['apuesta'], _pct(e['prob']))
+    if e.get('casa') is not None:
+        t += ' · casa sin margen %s' % _pct(e['casa'])
+    if e.get('cuota'):
+        t += ' · cuota %s' % _num(e['cuota'])
+    return t
+
+
+def _linea_meter(reg: Dict, m: Dict, pick: Optional[Dict] = None) -> str:
     p = m.get('prob_meter', m.get('prob'))
     trozos = ['prob %s' % _pct(p)]
     if m.get('cuota'):
         trozos.append('cuota %s' % _num(m['cuota']))
     if m.get('casa'):
         trozos.append(str(m['casa']))
-    return '   • %s  %s — %s · %s' % (reg.get('hora') or '--:--', reg['partido'],
-                                     m.get('apuesta'), ' · '.join(trozos))
+    linea = '   • %s  %s — %s · %s' % (reg.get('hora') or '--:--', reg['partido'],
+                                      m.get('apuesta'), ' · '.join(trozos))
+    esc = _texto_escalon(escalon(pick, m))
+    return linea + ('\n       ↗ %s' % esc if esc else '')
+
+
+def balance_app(dias: List[str]) -> List[str]:
+    """v318 — ASÍ LE FUE A LA APP: lo que dijo «meter», ya liquidado.
+
+    El usuario: «en la aplicación sí están los finalizados y hay muchos
+    verdes, y el agente no lo tomó en cuenta». El documento no lo llevaba.
+    Se liquida con lo mismo que la pestaña de finalizados
+    (`partidos_jugados.de_dia` + `pronosticos_guardados.validar`), sólo las
+    apuestas que la app marcó «meter» y sólo de partidos con modelo. Nunca
+    lanza."""
+    import datetime as _dt
+    try:
+        import partidos_jugados as pj
+        import pronosticos_guardados as pg
+    except Exception:
+        return []
+    L = ['', '📊 ASÍ LE FUE A LA APP — lo que dijo «meter», ya liquidado '
+         '(verdes/total por categoría)']
+    try:
+        d0 = _dt.date.fromisoformat(min(dias))
+    except Exception:
+        return []
+    fechas = [(d0 - _dt.timedelta(days=i)).isoformat() for i in (3, 2, 1, 0)]
+    rojos_ayer = []
+    hubo = False
+    for f in fechas:
+        try:
+            J = pj.de_dia(f)
+        except Exception:
+            continue
+        cats: Dict[str, List[int]] = {}
+        for p in J:
+            if p.get('solo_mercado') or p.get('sin_modelo'):
+                continue
+            dep = str(p.get('deporte') or 'Fútbol')
+            try:
+                filas = pg.validar(p)
+            except Exception:
+                continue
+            for fl in filas:
+                if fl.get('veredicto') != 'meter' or fl.get('estado') not in (
+                        pg.CUMPLIDO, pg.FALLADO):
+                    continue
+                ok = fl['estado'] == pg.CUMPLIDO
+                c = cats.setdefault(categoria(fl, dep), [0, 0])
+                c[0] += int(ok)
+                c[1] += 1
+                if not ok and f == fechas[-2]:
+                    rojos_ayer.append('%s — %s (%s-%s)' % (
+                        p.get('partido'), fl.get('apuesta'),
+                        p.get('goles_home', '?'), p.get('goles_away', '?')))
+        v = sum(x[0] for x in cats.values())
+        n = sum(x[1] for x in cats.values())
+        if not n:
+            continue
+        hubo = True
+        orden = [c for c, _ in CATEGORIAS]
+        det = ' · '.join('%s %d/%d' % (c, cats[c][0], cats[c][1]) for c in
+                         sorted(cats, key=lambda c: (orden.index(c) if c in orden
+                                                     else len(orden), c)))
+        L.append('   %s: %d verdes de %d (%s) — %s'
+                 % (f, v, n, _pct(v / n), det))
+    if not hubo:
+        return []
+    if rojos_ayer:
+        L.append('   Rojos del %s: %s' % (fechas[-2], ' | '.join(rojos_ayer[:15])))
+    return L
 
 
 def texto(r: Dict, dias: List[str]) -> str:
@@ -391,6 +547,7 @@ def texto(r: Dict, dias: List[str]) -> str:
                                          _dt.datetime.utcnow().strftime(
                                              '%Y-%m-%d %H:%M')),
          '', GUIA]
+    L += balance_app(dias)
     total_meter = 0
     for dia in dias:
         filas = []
@@ -457,7 +614,7 @@ def texto(r: Dict, dias: List[str]) -> str:
         for reg, pick, mets in filas:
             for m in mets:
                 grupos.setdefault(categoria(m, reg['deporte']), []).append(
-                    _linea_meter(reg, m))
+                    _linea_meter(reg, m, pick))
         n = sum(len(v) for v in grupos.values())
         total_meter += n
         L += ['', '🎯 APUESTAS A METER POR CATEGORÍA — %d' % n]

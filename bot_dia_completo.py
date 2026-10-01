@@ -64,13 +64,20 @@ def main() -> int:
                      type(e).__name__, e)
         return 0            # nunca romper el workflow por un fallo de datos
 
+    # v318 — EL MISMO DOCUMENTO QUE LOS BOTONES DE LA APP.
+    #
+    # El usuario pegó lo que le llegaba cada madrugada: «APUESTAS COMPLETAS
+    # DEL …», el formato de antes de la v312, sin las «🎯 meter» de la app, sin
+    # la Capa 1 y sin categorías. Su agente de IA no podía saber qué
+    # recomendaba la aplicación y proponía otras cosas. Los botones ya
+    # mandaban `formato_ia`; el envío automático se había quedado atrás.
+    import formato_ia as fi
     enviados = 0
     for desplazamiento, etiqueta in dias:
         dia = md.dia_cdmx(desplazamiento)
         try:
-            partidos = md.partidos_del_dia(r, dia)
-            texto = bt.texto_dia_completo(r, dia, True, partidos)
-            pie = bt.resumen_dia_completo(r, dia, etiqueta, True, partidos)
+            texto = fi.texto(r, [dia])
+            pie = fi.resumen(r, [dia], etiqueta)
         except Exception as e:
             logger.error('No se pudo construir el día %s: %s: %s', dia,
                          type(e).__name__, e)
