@@ -16337,22 +16337,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115882,2026-07-25,argentina,Talleres,Rick,1044317,F,0,34,4,1,0,0.26,,3.0,1756912.0
 5115882,2026-07-25,argentina,Talleres,Emiliano Chiavassa,1739039,F,0,8,1,0,0,0.04,,3.0,628028.0
 5115882,2026-07-25,argentina,Talleres,Valentín Dávila,1695460,F,0,5,0,0,0,0.0,,3.0,1261152.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Charlie Lanphier,1928363,G,1,14,0,0,0,0.0,11.0,0.0,
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Nykolas Sessock,1542157,D,1,90,0,0,0,0.0,32.0,1.0,
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Benjamin Ofeimu,942835,D,1,90,1,0,0,0.0,34.0,1.0,121602.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Aarón Guillén,729785,D,1,90,0,0,0,0.0,36.0,1.0,68480.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Themi Antonoglou,1259223,D,1,90,0,0,0,0.0,38.0,1.0,80800.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Marc Ybarra,1341112,M,1,90,0,0,0,0.0,63.0,2.0,50000.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Giorgio Probo,1644436,M,1,90,0,0,0,0.0,65.0,2.0,66205.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Carson Locker,1767539,M,1,89,1,1,0,0.0,67.0,2.0,607233.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Christian Pinzón,1308379,F,1,85,0,0,0,0.0,85.0,3.0,66495.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Johnny Rodriguez,1253163,F,1,89,1,0,0,0.0,104.0,3.0,138096.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Oalex Anderson,521306,F,1,75,1,1,1,0.0,106.0,3.0,50000.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Triston Henry,1067383,G,0,76,0,0,0,0.0,,0.0,50000.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Abraham Okyere,1276879,M,0,15,0,0,0,0.0,,2.0,130710.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Patrick Leal,1368334,M,0,5,0,0,0,0.0,,2.0,66964.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Nate Jones,1610220,D,0,1,0,0,0,0.0,,1.0,94143.0
-5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Manuel Arteaga,242923,F,0,1,0,0,0,0.0,,3.0,67214.0
 1000013179,2026-07-25,chi_primera,Huachipato,Christian Bravo,1686405,G,1,90,0,0,0,0.0,11.0,0.0,
 1000013179,2026-07-25,chi_primera,Huachipato,Nelson Guaiquil,1478292,D,1,72,1,0,0,0.0,32.0,1.0,
 1000013179,2026-07-25,chi_primera,Huachipato,Rafael Caroca,131104,D,1,90,2,1,1,0.0,34.0,1.0,198083.0
@@ -24860,22 +24844,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5071257,2026-08-02,mls,FC Dallas,Santiago Moreno,1101251,F,0,24,0,0,0,0.0,,3.0,2041663.0
 5071257,2026-08-02,mls,FC Dallas,Sebastien Ibeagha,520795,D,0,11,0,0,0,0.0,,1.0,102947.0
 5071257,2026-08-02,mls,FC Dallas,Clay Holstad,1478367,M,0,11,0,0,0,0.0,,2.0,93120.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Danny Vitiello,1079451,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Jack Gurr,1170733,D,1,65,1,1,0,0.0,32.0,1.0,60000.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Jared Timmer,1172907,D,1,90,2,1,1,0.0,34.0,1.0,50000.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Lee Desmond,556023,D,1,90,1,1,1,0.0,36.0,1.0,50000.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Chibuike Ukaegbu,1615719,D,1,90,1,0,0,0.0,38.0,1.0,256074.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Pep Casas,1708523,M,1,90,1,0,0,0.0,64.0,2.0,67597.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Mark-Anthony Kaye,632748,M,1,65,0,0,0,0.0,66.0,2.0,482959.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Blake Willey,1520638,M,1,81,0,0,0,0.0,83.0,2.0,511255.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Memo Rodríguez,621886,M,1,65,2,0,0,0.0,85.0,2.0,134475.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Mayele Malango,1178821,F,1,72,2,1,0,0.0,87.0,3.0,50000.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Tyler Wolff,1166552,F,1,90,4,4,3,0.0,115.0,3.0,155190.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Tim Leibold,458997,D,0,25,0,0,0,0.0,,1.0,131084.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Daniel Crisostomo,1073942,M,0,25,1,1,0,0.0,,2.0,50000.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Kyle Edwards,647068,F,0,25,3,1,0,0.0,,3.0,50000.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Alfredo Midence,1644458,F,0,18,0,0,0,0.0,,3.0,63584.0
-5109867,2026-08-02,usl_championship,Sacramento Republic FC,Arturo Rodríguez,1056536,F,0,9,1,0,0,0.0,,3.0,52582.0
 5109867,2026-08-02,usl_championship,Sporting JAX,Jake McGuire,825635,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5109867,2026-08-02,usl_championship,Sporting JAX,Wahab Ackwei,1059395,D,1,90,0,0,0,0.0,33.0,1.0,50000.0
 5109867,2026-08-02,usl_championship,Sporting JAX,Ventura Alvarado,415706,D,1,61,0,0,0,0.0,35.0,1.0,
@@ -132636,35 +132604,66 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109973,2026-09-30,usl_championship,Detroit City FC,Abdoulaye Diop,1170736,M,0,16,0,0,0,0.0,,2.0,63090.0
 5109973,2026-09-30,usl_championship,Detroit City FC,Alassane Diouf,1042558,F,0,16,0,0,0,0.0,,3.0,174171.0
 5109973,2026-09-30,usl_championship,Detroit City FC,Kobe Hernández-Foster,1079029,M,0,1,1,1,1,0.0,,2.0,99450.0
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Franco Armani,206758,G,1,90,0,0,0,0.0,11,0,396108
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Andrés Román,925847,D,1,90,4,3,2,0.55,32,1,774799
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Neider Parra,1910334,D,1,90,2,0,0,0.17,34,1,522830
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,William Tesillo,207383,D,1,90,0,0,0,0.0,36,1,242825
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Milton Casco,174813,D,1,90,0,0,0,0.0,38,1,295301
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Elías Cabrera,1400295,M,1,74,4,1,0,0.08,64,2,1392483
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Andrés Marín,1813504,M,1,90,0,0,0,0.0,66,2,
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Yeicar Perlaza,1445699,F,1,62,1,0,0,0.01,83,3,442130
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,James Rodríguez,164684,M,1,74,2,1,0,0.08,85,2,760084
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Andrés Sarmiento,942987,F,1,51,2,1,1,0.73,87,3,737589
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Ian Poveda,962075,F,1,74,2,0,0,0.11,115,3,824112
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Juan Rosa,1783367,F,0,39,1,0,0,0.02,,3,
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Edwin Cardona,177507,M,0,28,0,0,0,0.0,,2,249876
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Juan Zapata,1199834,M,0,16,0,0,0,0.0,,2,933421
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Mateus Uribe,320618,M,0,16,1,0,0,0.08,,2,373303
-1000014067,2026-10-01,col_primera_a,Atlético Nacional,Emanuel Benitez,0,F,0,16,0,0,0,0.0,,3,
-1000014067,2026-10-01,col_primera_a,Junior FC,Jefersson Martínez,279007,G,1,90,0,0,0,0.0,11,0,239073
-1000014067,2026-10-01,col_primera_a,Junior FC,Jermein Peña,1414103,D,1,90,0,0,0,0.0,32,1,911262
-1000014067,2026-10-01,col_primera_a,Junior FC,Daniel Rivera,1371032,D,1,90,0,0,0,0.0,34,1,413864
-1000014067,2026-10-01,col_primera_a,Junior FC,Pablo Ortíz,1186360,D,1,90,1,0,0,0.08,36,1,333140
-1000014067,2026-10-01,col_primera_a,Junior FC,Yeison Suárez,921771,D,1,90,0,0,0,0.0,38,1,768188
-1000014067,2026-10-01,col_primera_a,Junior FC,Juan Ríos,727086,M,1,83,0,0,0,0.0,64,2,254871
-1000014067,2026-10-01,col_primera_a,Junior FC,Fabián Ángel,1188381,M,1,73,0,0,0,0.0,66,2,505585
-1000014067,2026-10-01,col_primera_a,Junior FC,Déiber Caicedo,888637,F,1,73,2,0,0,0.1,83,3,602217
-1000014067,2026-10-01,col_primera_a,Junior FC,Guillermo Paiva,1000532,M,1,90,3,2,1,0.83,85,2,715695
-1000014067,2026-10-01,col_primera_a,Junior FC,Bryan Castrillón,1225452,F,1,62,3,0,0,0.11,87,3,437008
-1000014067,2026-10-01,col_primera_a,Junior FC,Teofilo Gutiérrez,98220,F,1,62,0,0,0,0.0,115,3,325038
-1000014067,2026-10-01,col_primera_a,Junior FC,Cristian Barrios,972467,F,0,28,0,0,0,0.0,,3,991844
-1000014067,2026-10-01,col_primera_a,Junior FC,Luis Muriel,196484,F,0,28,0,0,0,0.0,,3,867587
-1000014067,2026-10-01,col_primera_a,Junior FC,Jannenson Sarmiento,1437346,M,0,17,0,0,0,0.0,,2,642032
-1000014067,2026-10-01,col_primera_a,Junior FC,Guillermo Celis,490025,M,0,17,0,0,0,0.0,,2,379079
-1000014067,2026-10-01,col_primera_a,Junior FC,Jesús Rivas,1031796,M,0,7,0,0,0,0.0,,2,800214
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Franco Armani,206758,G,1,90,0,0,0,0.0,11.0,0.0,396108.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Andrés Román,925847,D,1,90,4,3,2,0.55,32.0,1.0,774799.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Neider Parra,1910334,D,1,90,2,0,0,0.17,34.0,1.0,522830.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,William Tesillo,207383,D,1,90,0,0,0,0.0,36.0,1.0,242825.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Milton Casco,174813,D,1,90,0,0,0,0.0,38.0,1.0,295301.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Elías Cabrera,1400295,M,1,74,4,1,0,0.08,64.0,2.0,1392483.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Andrés Marín,1813504,M,1,90,0,0,0,0.0,66.0,2.0,
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Yeicar Perlaza,1445699,F,1,62,1,0,0,0.01,83.0,3.0,442130.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,James Rodríguez,164684,M,1,74,2,1,0,0.08,85.0,2.0,760084.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Andrés Sarmiento,942987,F,1,51,2,1,1,0.73,87.0,3.0,737589.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Ian Poveda,962075,F,1,74,2,0,0,0.11,115.0,3.0,824112.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Juan Rosa,1783367,F,0,39,1,0,0,0.02,,3.0,
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Edwin Cardona,177507,M,0,28,0,0,0,0.0,,2.0,249876.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Juan Zapata,1199834,M,0,16,0,0,0,0.0,,2.0,933421.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Mateus Uribe,320618,M,0,16,1,0,0,0.08,,2.0,373303.0
+1000014067,2026-10-01,col_primera_a,Atlético Nacional,Emanuel Benitez,0,F,0,16,0,0,0,0.0,,3.0,
+1000014067,2026-10-01,col_primera_a,Junior FC,Jefersson Martínez,279007,G,1,90,0,0,0,0.0,11.0,0.0,239073.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Jermein Peña,1414103,D,1,90,0,0,0,0.0,32.0,1.0,911262.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Daniel Rivera,1371032,D,1,90,0,0,0,0.0,34.0,1.0,413864.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Pablo Ortíz,1186360,D,1,90,1,0,0,0.08,36.0,1.0,333140.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Yeison Suárez,921771,D,1,90,0,0,0,0.0,38.0,1.0,768188.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Juan Ríos,727086,M,1,83,0,0,0,0.0,64.0,2.0,254871.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Fabián Ángel,1188381,M,1,73,0,0,0,0.0,66.0,2.0,505585.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Déiber Caicedo,888637,F,1,73,2,0,0,0.1,83.0,3.0,602217.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Guillermo Paiva,1000532,M,1,90,3,2,1,0.83,85.0,2.0,715695.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Bryan Castrillón,1225452,F,1,62,3,0,0,0.11,87.0,3.0,437008.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Teofilo Gutiérrez,98220,F,1,62,0,0,0,0.0,115.0,3.0,325038.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Cristian Barrios,972467,F,0,28,0,0,0,0.0,,3.0,991844.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Luis Muriel,196484,F,0,28,0,0,0,0.0,,3.0,867587.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Jannenson Sarmiento,1437346,M,0,17,0,0,0,0.0,,2.0,642032.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Guillermo Celis,490025,M,0,17,0,0,0,0.0,,2.0,379079.0
+1000014067,2026-10-01,col_primera_a,Junior FC,Jesús Rivas,1031796,M,0,7,0,0,0,0.0,,2.0,800214.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Danny Vitiello,1079451,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Jack Gurr,1170733,D,1,90,0,0,0,0.0,32.0,1.0,72000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Jared Timmer,1172907,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Lee Desmond,556023,D,1,90,2,0,0,0.0,36.0,1.0,50000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Ryan Spaulding,1195444,D,1,68,2,0,0,0.0,38.0,1.0,50000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Daniel Crisostomo,1073942,M,1,90,0,0,0,0.0,64.0,2.0,50000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Pep Casas,1708523,M,1,77,2,0,0,0.0,66.0,2.0,81116.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Alfredo Midence,1644458,M,1,86,0,0,0,0.0,83.0,2.0,50867.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Memo Rodríguez,621886,M,1,90,6,3,1,0.0,85.0,2.0,107580.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Tyler Wolff,1166552,F,1,87,1,1,1,0.0,87.0,3.0,124152.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Cal Jennings,1169331,F,1,68,0,0,0,0.0,115.0,3.0,104880.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Freddy Kleemann,1246735,D,0,22,0,0,0,0.0,,1.0,72000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Kyle Edwards,647068,F,0,21,2,1,1,0.0,,3.0,50000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Blake Willey,1520638,M,0,13,0,0,0,0.0,,2.0,530546.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Michelle Benítez,772825,D,0,4,0,0,0,0.0,,1.0,72000.0
+5109977,2026-10-01,usl_championship,Sacramento Republic FC,Arturo Rodríguez,1056536,F,0,3,0,0,0,0.0,,3.0,52582.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Triston Henry,1067383,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Nykolas Sessock,1542157,D,1,90,0,0,0,0.0,32.0,1.0,78604.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Benjamin Ofeimu,942835,D,1,90,0,0,0,0.0,34.0,1.0,165711.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Nate Jones,1610220,D,1,90,0,0,0,0.0,36.0,1.0,94143.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Blake Pope,1252109,D,1,77,0,0,0,0.0,38.0,1.0,
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Giorgio Probo,1644436,M,1,90,1,0,0,0.0,55.0,2.0,52964.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Marc Ybarra,1341112,M,1,77,0,0,0,0.0,74.0,2.0,72000.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Carson Locker,1767539,M,1,86,2,1,1,0.0,76.0,2.0,779748.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Christian Pinzón,1308379,F,1,90,1,1,0,0.0,95.0,3.0,66495.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Johnny Rodriguez,1253163,F,1,90,2,1,0,0.0,114.0,3.0,88381.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Oalex Anderson,521306,F,1,78,3,1,1,0.0,116.0,3.0,50000.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Themi Antonoglou,1259223,D,0,13,1,0,0,0.0,,1.0,82411.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Kyle Scott,759820,M,0,13,0,0,0,0.0,,2.0,94200.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Manuel Arteaga,242923,F,0,12,1,1,0,0.0,,3.0,84177.0
+5109977,2026-10-01,usl_championship,Las Vegas Lights FC,Patrick Leal,1368334,M,0,4,0,0,0,0.0,,2.0,53098.0
