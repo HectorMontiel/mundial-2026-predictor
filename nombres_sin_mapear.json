@@ -241,8 +241,8 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid W",
-    "ratio": 0.6923,
+    "candidato": "Real Madrid B",
+    "ratio": 0.6429,
     "visto": "2026-10-01"
   },
   "San Antonio FC": {
@@ -401,8 +401,8 @@
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid W",
-    "ratio": 0.5926,
+    "candidato": "Real Madrid B",
+    "ratio": 0.5517,
     "visto": "2026-10-01"
   },
   "Carlisle United": {
@@ -599,9 +599,9 @@
   },
   "San Martín (San Juan)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin T.",
-    "ratio": 0.7097,
-    "visto": "2026-09-27"
+    "candidato": "Saint Martin",
+    "ratio": 0.6452,
+    "visto": "2026-10-01"
   },
   "Deportivo Maldonado": {
     "contexto": "cuotas_mx→futbol",
@@ -623,8 +623,8 @@
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Godoy Cruz 2",
-    "ratio": 0.6111,
+    "candidato": "San Antonio",
+    "ratio": 0.4571,
     "visto": "2026-10-01"
   },
   "New Mexico United": {
@@ -851,21 +851,21 @@
   },
   "AFC Wimbledon": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Toronto W",
-    "ratio": 0.5,
-    "visto": "2026-09-26"
+    "candidato": "AFC Malmo",
+    "ratio": 0.6364,
+    "visto": "2026-10-01"
   },
   "AFC Hornchurch": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Toronto W",
-    "ratio": 0.56,
-    "visto": "2026-09-26"
+    "candidato": "AFC Malmo",
+    "ratio": 0.4348,
+    "visto": "2026-10-01"
   },
   "AFC Fylde": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Toronto W",
-    "ratio": 0.4,
-    "visto": "2026-09-26"
+    "candidato": "AFC Malmo",
+    "ratio": 0.5556,
+    "visto": "2026-10-01"
   },
   "Deportes Tolima": {
     "contexto": "cuotas_mx→futbol",
@@ -1027,6 +1027,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Cuenca Juniors",
     "ratio": 0.7692,
+    "visto": "2026-10-01"
+  },
+  "Argentinos Juniors": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Ind. Juniors",
+    "ratio": 0.6897,
     "visto": "2026-10-01"
   }
 }
