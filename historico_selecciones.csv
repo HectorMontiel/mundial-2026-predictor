@@ -3146,3 +3146,127 @@ date,home_team,away_team,home_goals,away_goals,tournament,neutral,event_id,MATCH
 2026-09-23,Gibraltar,Sao Tome and Principe,0.0,0.0,Amistoso,False,401918083,20260923_Gibraltar_Sao-Tome-and-Principe,,,,,,,,,,,,,,,,,
 2026-09-23,Turks and Caicos Islands,Montserrat,0.0,2.0,CONCACAF Nations League,False,401900641,20260923_Turks-and-Caicos-Islands_Montserrat,espn,2.0,3.0,2.0,3.0,0.0,0.0,0.0,4.0,2.0,9.0,12.0,11.0,43.6,56.4,2.0,1.0
 2026-09-23,Bahamas,St. Martin,0.0,8.0,CONCACAF Nations League,False,401900639,20260923_Bahamas_St.-Martin,espn,1.0,12.0,0.0,0.0,0.0,0.0,0.0,14.0,2.0,15.0,4.0,8.0,36.5,63.5,2.0,1.0
+2026-09-23,Aruba,Antigua and Barbuda,1.0,0.0,CONCACAF Nations League,False,401900640,20260923_Aruba_Antigua-and-Barbuda,espn,8.0,3.0,1.0,2.0,0.0,0.0,5.0,2.0,8.0,7.0,19.0,14.0,55.0,45.0,2.0,2.0
+2026-09-24,Solomon Islands,Vanuatu,3.0,3.0,Amistoso,False,401922311,20260924_Solomon-Islands_Vanuatu,,,,,,,,,,,,,,,,,
+2026-09-24,Papua New Guinea,New Caledonia,1.0,2.0,Amistoso,False,401922332,20260924_Papua-New-Guinea_New-Caledonia,,,,,,,,,,,,,,,,,
+2026-09-24,Palestine,New Zealand,2.0,2.0,Amistoso,False,401920058,20260924_Palestine_New-Zealand,,,,,,,,,,,,,,,,,
+2026-09-24,Japan,Uruguay,3.0,1.0,Amistoso,False,401905330,20260924_Japan_Uruguay,,,,,,,,,,,,,,,,,
+2026-09-24,South Korea,Ecuador,3.0,0.0,Amistoso,False,401905196,20260924_South-Korea_Ecuador,espn,2.0,5.0,4.0,5.0,0.0,0.0,5.0,3.0,6.0,7.0,16.0,21.0,59.3,40.7,1.0,1.0
+2026-09-24,China,Maldives,3.0,0.0,Amistoso,False,401914222,20260924_China_Maldives,espn,15.0,0.0,1.0,0.0,0.0,0.0,10.0,0.0,14.0,0.0,5.0,3.0,67.3,32.7,7.0,0.0
+2026-09-24,Uzbekistan,Iran,3.0,1.0,Amistoso,False,401915914,20260924_Uzbekistan_Iran,,,,,,,,,,,,,,,,,
+2026-09-24,Andorra,Malta,1.0,2.0,UEFA Nations League,False,401861047,20260924_Andorra_Malta,espn,3.0,2.0,5.0,2.0,0.0,0.0,5.0,8.0,8.0,5.0,24.0,12.0,41.2,58.8,1.0,1.0
+2026-09-24,Austria,Israel,3.0,1.0,UEFA Nations League,False,401861048,20260924_Austria_Israel,espn,4.0,2.0,3.0,2.0,0.0,1.0,9.0,1.0,10.0,4.0,15.0,4.0,51.9,48.1,2.0,1.0
+2026-09-24,Kosovo,Republic of Ireland,1.0,0.0,UEFA Nations League,False,401861045,20260924_Kosovo_Republic-of-Ireland,espn,1.0,0.0,0.0,2.0,0.0,0.0,8.0,1.0,14.0,2.0,12.0,15.0,57.3,42.7,2.0,0.0
+2026-09-24,Liechtenstein,Lithuania,0.0,2.0,UEFA Nations League,False,401861043,20260924_Liechtenstein_Lithuania,espn,0.0,8.0,1.0,1.0,0.0,0.0,0.0,7.0,4.0,9.0,15.0,14.0,27.4,72.6,0.0,1.0
+2026-09-24,Netherlands,Germany,1.0,1.0,UEFA Nations League,False,401861041,20260924_Netherlands_Germany,espn,12.0,1.0,3.0,1.0,0.0,0.0,10.0,2.0,12.0,8.0,11.0,16.0,53.5,46.5,3.0,1.0
+2026-09-24,Norway,Denmark,3.0,2.0,UEFA Nations League,False,401861046,20260924_Norway_Denmark,espn,4.0,8.0,0.0,3.0,1.0,0.0,7.0,7.0,6.0,6.0,14.0,10.0,48.7,51.3,1.0,2.0
+2026-09-24,Portugal,Wales,1.0,0.0,UEFA Nations League,False,401861044,20260924_Portugal_Wales,espn,10.0,2.0,0.0,1.0,0.0,0.0,5.0,1.0,18.0,4.0,12.0,10.0,61.4,38.6,3.0,3.0
+2026-09-24,Serbia,Greece,1.0,2.0,UEFA Nations League,False,401861042,20260924_Serbia_Greece,espn,2.0,6.0,2.0,1.0,0.0,0.0,4.0,9.0,5.0,17.0,11.0,7.0,38.5,61.5,2.0,2.0
+2026-09-24,Puerto Rico,Guyana,0.0,1.0,CONCACAF Nations League,False,401900635,20260924_Puerto-Rico_Guyana,espn,1.0,3.0,4.0,4.0,0.0,0.0,1.0,3.0,8.0,8.0,18.0,15.0,46.3,53.7,0.0,0.0
+2026-09-25,Australia,Brazil,1.0,1.0,Amistoso,False,401881899,20260925_Australia_Brazil,espn,9.0,8.0,1.0,0.0,0.0,0.0,2.0,5.0,5.0,11.0,7.0,8.0,35.2,64.8,0.0,0.0
+2026-09-25,India,Panama,1.0,1.0,Amistoso,False,401914098,20260925_India_Panama,,,,,,,,,,,,,,,,,
+2026-09-25,Armenia,Latvia,2.0,0.0,UEFA Nations League,False,401861050,20260925_Armenia_Latvia,espn,10.0,2.0,1.0,0.0,0.0,0.0,4.0,1.0,10.0,4.0,10.0,9.0,56.3,43.7,0.0,3.0
+2026-09-25,Georgia,Northern Ireland,0.0,1.0,UEFA Nations League,False,401861049,20260925_Georgia_Northern-Ireland,espn,9.0,1.0,1.0,3.0,0.0,0.0,5.0,5.0,6.0,7.0,13.0,14.0,62.2,37.8,0.0,3.0
+2026-09-25,Hungary,Ukraine,0.0,1.0,UEFA Nations League,False,401861054,20260925_Hungary_Ukraine,espn,4.0,2.0,4.0,4.0,0.0,1.0,4.0,3.0,13.0,7.0,12.0,19.0,57.0,43.0,1.0,3.0
+2026-09-25,Italy,Belgium,0.0,2.0,UEFA Nations League,False,401861052,20260925_Italy_Belgium,espn,4.0,8.0,3.0,5.0,0.0,0.0,6.0,8.0,15.0,11.0,12.0,11.0,55.9,44.1,1.0,0.0
+2026-09-25,Montenegro,Cyprus,2.0,1.0,UEFA Nations League,False,401861056,20260925_Montenegro_Cyprus,espn,8.0,1.0,1.0,3.0,0.0,0.0,4.0,4.0,15.0,7.0,7.0,7.0,64.2,35.8,1.0,2.0
+2026-09-25,Poland,Bosnia-Herzegovina,0.0,0.0,UEFA Nations League,False,401861055,20260925_Poland_Bosnia-Herzegovina,espn,3.0,3.0,3.0,5.0,0.0,0.0,4.0,1.0,10.0,8.0,18.0,17.0,49.8,50.2,1.0,0.0
+2026-09-25,Sweden,Romania,2.0,1.0,UEFA Nations League,False,401861051,20260925_Sweden_Romania,espn,3.0,0.0,0.0,5.0,0.0,0.0,4.0,1.0,7.0,9.0,6.0,17.0,59.7,40.3,3.0,2.0
+2026-09-25,Türkiye,France,0.0,1.0,UEFA Nations League,False,401861053,20260925_Türkiye_France,espn,5.0,3.0,2.0,3.0,1.0,0.0,3.0,4.0,9.0,8.0,14.0,15.0,36.2,63.8,2.0,2.0
+2026-09-25,Dominican Republic,Nicaragua,3.0,2.0,CONCACAF Nations League,False,401900637,20260925_Dominican-Republic_Nicaragua,espn,1.0,2.0,4.0,4.0,0.0,0.0,9.0,4.0,18.0,5.0,13.0,15.0,52.2,47.8,1.0,1.0
+2026-09-25,Cayman Islands,Dominica,0.0,0.0,CONCACAF Nations League,False,401900634,20260925_Cayman-Islands_Dominica,espn,4.0,12.0,3.0,4.0,0.0,0.0,2.0,5.0,6.0,15.0,18.0,19.0,52.5,47.5,1.0,1.0
+2026-09-25,Haiti,Trinidad and Tobago,3.0,2.0,CONCACAF Nations League,False,401900636,20260925_Haiti_Trinidad-and-Tobago,espn,6.0,3.0,1.0,1.0,0.0,0.0,8.0,5.0,13.0,6.0,11.0,14.0,68.7,31.3,2.0,0.0
+2026-09-25,Costa Rica,Curaçao,3.0,4.0,CONCACAF Nations League,False,401900638,20260925_Costa-Rica_Curaçao,espn,0.0,2.0,1.0,2.0,0.0,0.0,4.0,5.0,6.0,7.0,12.0,11.0,37.8,62.2,2.0,1.0
+2026-09-25,Bermuda,Guadeloupe,1.0,2.0,CONCACAF Nations League,False,401900630,20260925_Bermuda_Guadeloupe,espn,4.0,7.0,2.0,2.0,2.0,0.0,4.0,11.0,8.0,10.0,12.0,22.0,46.5,53.5,1.0,1.0
+2026-09-25,Grenada,Cuba,0.0,3.0,CONCACAF Nations League,False,401900628,20260925_Grenada_Cuba,espn,3.0,9.0,3.0,2.0,0.0,0.0,1.0,9.0,9.0,11.0,9.0,16.0,35.9,64.1,0.0,4.0
+2026-09-26,United States,Peru,4.0,1.0,Amistoso,False,401905203,20260926_United-States_Peru,espn,5.0,2.0,2.0,4.0,0.0,0.0,6.0,2.0,10.0,3.0,16.0,17.0,69.6,30.4,1.0,0.0
+2026-09-26,Canada,Chile,1.0,0.0,Amistoso,False,401900326,20260926_Canada_Chile,espn,13.0,2.0,3.0,0.0,0.0,2.0,6.0,3.0,16.0,8.0,18.0,16.0,65.9,34.1,3.0,3.0
+2026-09-26,Slovenia,Scotland,0.0,0.0,UEFA Nations League,False,401861057,20260926_Slovenia_Scotland,espn,5.0,4.0,3.0,1.0,0.0,0.0,1.0,5.0,3.0,12.0,15.0,18.0,35.3,64.7,2.0,1.0
+2026-09-26,Bulgaria,Luxembourg,1.0,2.0,UEFA Nations League,False,401861061,20260926_Bulgaria_Luxembourg,espn,5.0,4.0,2.0,2.0,0.0,0.0,7.0,7.0,3.0,8.0,10.0,17.0,49.7,50.3,3.0,2.0
+2026-09-26,Faroe Islands,Kazakhstan,1.0,1.0,UEFA Nations League,False,401861060,20260926_Faroe-Islands_Kazakhstan,espn,7.0,5.0,0.0,2.0,0.0,0.0,5.0,2.0,9.0,8.0,10.0,10.0,42.3,57.7,0.0,1.0
+2026-09-26,Iceland,Estonia,1.0,1.0,UEFA Nations League,False,401861058,20260926_Iceland_Estonia,espn,7.0,3.0,1.0,2.0,0.0,0.0,8.0,5.0,11.0,3.0,13.0,13.0,62.7,37.3,3.0,0.0
+2026-09-26,San Marino,Finland,0.0,7.0,UEFA Nations League,False,401861059,20260926_San-Marino_Finland,espn,0.0,4.0,1.0,1.0,1.0,0.0,0.0,11.0,1.0,12.0,14.0,10.0,24.7,75.3,2.0,2.0
+2026-09-26,Albania,Belarus,2.0,0.0,UEFA Nations League,False,401861062,20260926_Albania_Belarus,espn,5.0,2.0,2.0,4.0,0.0,0.0,3.0,2.0,17.0,6.0,9.0,23.0,54.0,46.0,0.0,0.0
+2026-09-26,Czechia,Croatia,1.0,2.0,UEFA Nations League,False,401861063,20260926_Czechia_Croatia,espn,1.0,6.0,2.0,1.0,0.0,0.0,2.0,5.0,3.0,11.0,6.0,9.0,43.6,56.4,6.0,0.0
+2026-09-26,England,Spain,2.0,3.0,UEFA Nations League,False,401861066,20260926_England_Spain,espn,6.0,3.0,3.0,0.0,0.0,0.0,5.0,5.0,8.0,10.0,11.0,16.0,47.4,52.6,1.0,1.0
+2026-09-26,North Macedonia,Switzerland,0.0,3.0,UEFA Nations League,False,401861065,20260926_North-Macedonia_Switzerland,espn,0.0,5.0,4.0,0.0,0.0,0.0,0.0,11.0,2.0,12.0,10.0,7.0,41.3,58.7,1.0,1.0
+2026-09-26,Slovakia,Moldova,2.0,0.0,UEFA Nations League,False,401861064,20260926_Slovakia_Moldova,espn,7.0,3.0,2.0,1.0,0.0,0.0,3.0,1.0,14.0,7.0,8.0,12.0,67.4,32.6,0.0,1.0
+2026-09-26,Barbados,St. Lucia,2.0,0.0,CONCACAF Nations League,False,401900629,20260926_Barbados_St.-Lucia,espn,1.0,5.0,3.0,1.0,0.0,0.0,4.0,1.0,11.0,13.0,12.0,23.0,53.0,47.0,1.0,2.0
+2026-09-26,Bonaire,St. Kitts and Nevis,1.0,2.0,CONCACAF Nations League,False,401900627,20260926_Bonaire_St.-Kitts-and-Nevis,espn,3.0,6.0,2.0,0.0,1.0,0.0,4.0,6.0,6.0,9.0,17.0,6.0,31.9,68.1,3.0,0.0
+2026-09-26,Jamaica,Guatemala,3.0,2.0,CONCACAF Nations League,False,401900631,20260926_Jamaica_Guatemala,espn,1.0,2.0,3.0,2.0,0.0,0.0,4.0,3.0,9.0,14.0,14.0,9.0,58.1,41.9,0.0,3.0
+2026-09-26,Honduras,Suriname,2.0,3.0,CONCACAF Nations League,False,401900633,20260926_Honduras_Suriname,espn,4.0,2.0,0.0,2.0,0.0,0.0,4.0,5.0,9.0,5.0,10.0,16.0,64.5,35.5,0.0,1.0
+2026-09-26,El Salvador,Martinique,3.0,1.0,CONCACAF Nations League,False,401900632,20260926_El-Salvador_Martinique,espn,1.0,6.0,2.0,1.0,1.0,1.0,3.0,2.0,6.0,14.0,18.0,18.0,47.8,52.2,3.0,1.0
+2026-09-26,Montserrat,British Virgin Islands,3.0,0.0,CONCACAF Nations League,False,401900624,20260926_Montserrat_British-Virgin-Islands,espn,4.0,1.0,3.0,4.0,0.0,0.0,7.0,2.0,13.0,3.0,19.0,19.0,59.0,41.0,1.0,0.0
+2026-09-26,St. Martin,US Virgin Islands,0.0,2.0,CONCACAF Nations League,False,401900622,20260926_St.-Martin_US-Virgin-Islands,espn,12.0,3.0,2.0,1.0,0.0,0.0,6.0,3.0,22.0,8.0,13.0,10.0,68.9,31.1,0.0,2.0
+2026-09-26,St. Vincent and the Grenadines,French Guiana,2.0,1.0,CONCACAF Nations League,False,401900626,20260926_St.-Vincent-and-the-Grenadines_French-Guiana,espn,4.0,5.0,3.0,1.0,0.0,0.0,5.0,3.0,5.0,6.0,8.0,8.0,47.2,52.8,2.0,1.0
+2026-09-26,Antigua and Barbuda,Anguilla,5.0,0.0,CONCACAF Nations League,False,401900623,20260926_Antigua-and-Barbuda_Anguilla,espn,4.0,1.0,2.0,2.0,2.0,0.0,10.0,2.0,14.0,6.0,21.0,8.0,73.6,26.4,4.0,0.0
+2026-09-27,Mexico,Colombia,1.0,1.0,Amistoso,False,401903308,20260927_Mexico_Colombia,espn,2.0,5.0,2.0,2.0,0.0,0.0,4.0,2.0,12.0,3.0,19.0,18.0,52.5,47.5,1.0,0.0
+2026-09-27,Cook Islands,Tahiti,1.0,3.0,Amistoso,False,401924630,20260927_Cook-Islands_Tahiti,,,,,,,,,,,,,,,,,
+2026-09-27,Vanuatu,New Caledonia,4.0,1.0,Amistoso,False,401922310,20260927_Vanuatu_New-Caledonia,,,,,,,,,,,,,,,,,
+2026-09-27,Fiji,Papua New Guinea,2.0,0.0,Amistoso,False,401922309,20260927_Fiji_Papua-New-Guinea,,,,,,,,,,,,,,,,,
+2026-09-27,China,New Zealand,0.0,3.0,Amistoso,False,401914142,20260927_China_New-Zealand,espn,3.0,5.0,0.0,1.0,0.0,0.0,2.0,6.0,7.0,7.0,13.0,9.0,42.8,57.2,2.0,2.0
+2026-09-27,Seychelles,Sri Lanka,0.0,3.0,Amistoso,False,401917066,20260927_Seychelles_Sri-Lanka,,,,,,,,,,,,,,,,,
+2026-09-27,Malta,Liechtenstein,2.0,0.0,Amistoso,False,401905204,20260927_Malta_Liechtenstein,,,,,,,,,,,,,,,,,
+2026-09-27,Jordan,Syria,1.0,1.0,Amistoso,False,401919977,20260927_Jordan_Syria,,,,,,,,,,,,,,,,,
+2026-09-27,Bolivia,Paraguay,0.0,2.0,Amistoso,False,401913269,20260927_Bolivia_Paraguay,,,,,,,,,,,,,,,,,
+2026-09-27,Lithuania,Azerbaijan,1.0,1.0,UEFA Nations League,False,401861067,20260927_Lithuania_Azerbaijan,espn,0.0,2.0,1.0,3.0,0.0,0.0,3.0,4.0,6.0,5.0,15.0,16.0,50.7,49.3,3.0,0.0
+2026-09-27,Austria,Kosovo,3.0,1.0,UEFA Nations League,False,401861071,20260927_Austria_Kosovo,espn,5.0,1.0,2.0,2.0,0.0,0.0,6.0,1.0,5.0,5.0,21.0,15.0,52.0,48.0,2.0,1.0
+2026-09-27,Denmark,Wales,2.0,0.0,UEFA Nations League,False,401861070,20260927_Denmark_Wales,espn,2.0,4.0,1.0,2.0,0.0,0.0,4.0,3.0,16.0,7.0,10.0,17.0,61.6,38.4,5.0,3.0
+2026-09-27,Gibraltar,Andorra,0.0,0.0,UEFA Nations League,False,401861069,20260927_Gibraltar_Andorra,espn,4.0,4.0,2.0,3.0,0.0,0.0,1.0,4.0,4.0,6.0,15.0,24.0,43.7,56.3,3.0,1.0
+2026-09-27,Serbia,Netherlands,1.0,2.0,UEFA Nations League,False,401861068,20260927_Serbia_Netherlands,espn,3.0,4.0,1.0,1.0,0.0,0.0,6.0,8.0,5.0,17.0,7.0,10.0,32.8,67.2,4.0,2.0
+2026-09-27,Germany,Greece,0.0,1.0,UEFA Nations League,False,401861074,20260927_Germany_Greece,espn,8.0,2.0,1.0,4.0,0.0,0.0,5.0,1.0,11.0,7.0,12.0,11.0,75.5,24.5,1.0,1.0
+2026-09-27,Israel,Republic of Ireland,0.0,3.0,UEFA Nations League,False,401861072,20260927_Israel_Republic-of-Ireland,espn,2.0,4.0,1.0,2.0,0.0,0.0,4.0,3.0,4.0,6.0,16.0,12.0,64.1,35.9,1.0,1.0
+2026-09-27,Norway,Portugal,1.0,2.0,UEFA Nations League,False,401861073,20260927_Norway_Portugal,espn,7.0,2.0,3.0,6.0,0.0,0.0,6.0,4.0,16.0,8.0,8.0,12.0,62.0,38.0,0.0,1.0
+2026-09-27,Sint Maarten,Belize,0.0,1.0,CONCACAF Nations League,False,401900625,20260927_Sint-Maarten_Belize,espn,5.0,8.0,3.0,2.0,1.0,0.0,0.0,5.0,5.0,9.0,12.0,9.0,33.5,66.5,1.0,7.0
+2026-09-27,Guyana,Cayman Islands,2.0,0.0,CONCACAF Nations League,False,401900621,20260927_Guyana_Cayman-Islands,espn,11.0,1.0,1.0,1.0,0.0,0.0,5.0,2.0,15.0,4.0,14.0,6.0,66.6,33.4,2.0,2.0
+2026-09-27,Haiti,Costa Rica,2.0,0.0,CONCACAF Nations League,False,401900619,20260927_Haiti_Costa-Rica,espn,3.0,2.0,2.0,4.0,0.0,0.0,2.0,7.0,4.0,14.0,14.0,15.0,44.0,56.0,0.0,1.0
+2026-09-28,Japan,Venezuela,2.0,1.0,Amistoso,False,401902642,20260928_Japan_Venezuela,espn,1.0,7.0,1.0,3.0,0.0,0.0,4.0,5.0,8.0,4.0,14.0,15.0,51.9,48.1,0.0,3.0
+2026-09-28,South Korea,Uruguay,1.0,4.0,Amistoso,False,401905195,20260928_South-Korea_Uruguay,espn,7.0,1.0,0.0,1.0,0.0,0.0,7.0,4.0,7.0,5.0,7.0,9.0,59.3,40.7,1.0,0.0
+2026-09-28,Tajikistan,Palestine,2.0,4.0,Amistoso,False,401915925,20260928_Tajikistan_Palestine,,,,,,,,,,,,,,,,,
+2026-09-28,Kyrgyz Republic,Maldives,5.0,0.0,Amistoso,False,401919572,20260928_Kyrgyz-Republic_Maldives,,,,,,,,,,,,,,,,,
+2026-09-28,Armenia,Montenegro,2.0,3.0,UEFA Nations League,False,401861076,20260928_Armenia_Montenegro,espn,2.0,4.0,2.0,2.0,0.0,0.0,4.0,4.0,6.0,8.0,10.0,16.0,54.5,45.5,0.0,0.0
+2026-09-28,Georgia,Ukraine,0.0,0.0,UEFA Nations League,False,401861075,20260928_Georgia_Ukraine,espn,4.0,0.0,2.0,4.0,0.0,0.0,5.0,2.0,9.0,5.0,13.0,14.0,48.8,51.2,1.0,0.0
+2026-09-28,Latvia,Cyprus,0.0,0.0,UEFA Nations League,False,401861082,20260928_Latvia_Cyprus,espn,4.0,11.0,2.0,4.0,0.0,0.0,0.0,5.0,8.0,13.0,16.0,12.0,33.0,67.0,0.0,1.0
+2026-09-28,Belgium,France,0.0,1.0,UEFA Nations League,False,401861081,20260928_Belgium_France,espn,2.0,6.0,3.0,0.0,0.0,0.0,2.0,7.0,10.0,11.0,12.0,9.0,35.4,64.6,0.0,1.0
+2026-09-28,Northern Ireland,Hungary,0.0,0.0,UEFA Nations League,False,401861079,20260928_Northern-Ireland_Hungary,espn,3.0,2.0,4.0,2.0,0.0,0.0,3.0,1.0,7.0,12.0,15.0,15.0,36.1,63.9,4.0,0.0
+2026-09-28,Romania,Bosnia-Herzegovina,2.0,4.0,UEFA Nations League,False,401861078,20260928_Romania_Bosnia-Herzegovina,espn,4.0,3.0,0.0,2.0,0.0,0.0,4.0,7.0,9.0,8.0,15.0,9.0,56.4,43.6,3.0,1.0
+2026-09-28,Sweden,Poland,3.0,1.0,UEFA Nations League,False,401861080,20260928_Sweden_Poland,espn,4.0,4.0,1.0,3.0,0.0,0.0,6.0,7.0,6.0,11.0,8.0,9.0,52.6,47.4,0.0,1.0
+2026-09-28,Türkiye,Italy,1.0,4.0,UEFA Nations League,False,401861077,20260928_Türkiye_Italy,espn,6.0,2.0,3.0,0.0,0.0,0.0,3.0,8.0,12.0,6.0,12.0,21.0,53.8,46.2,1.0,2.0
+2026-09-28,Curaçao,Nicaragua,6.0,1.0,CONCACAF Nations League,False,401900618,20260928_Curaçao_Nicaragua,espn,4.0,2.0,2.0,2.0,0.0,0.0,13.0,1.0,9.0,4.0,20.0,13.0,57.4,42.6,1.0,1.0
+2026-09-28,Dominica,Puerto Rico,0.0,2.0,CONCACAF Nations League,False,401900620,20260928_Dominica_Puerto-Rico,espn,6.0,5.0,3.0,1.0,0.0,0.0,2.0,6.0,8.0,13.0,16.0,12.0,30.7,69.3,0.0,4.0
+2026-09-28,Trinidad and Tobago,Dominican Republic,1.0,2.0,CONCACAF Nations League,False,401900617,20260928_Trinidad-and-Tobago_Dominican-Republic,espn,8.0,3.0,0.0,2.0,1.0,1.0,6.0,7.0,13.0,10.0,11.0,9.0,62.9,37.1,1.0,2.0
+2026-09-28,Guadeloupe,Barbados,2.0,2.0,CONCACAF Nations League,False,401900616,20260928_Guadeloupe_Barbados,espn,2.0,5.0,1.0,4.0,0.0,0.0,3.0,3.0,2.0,7.0,13.0,12.0,39.5,60.5,2.0,2.0
+2026-09-28,Cuba,Bonaire,2.0,0.0,CONCACAF Nations League,False,401900614,20260928_Cuba_Bonaire,espn,7.0,5.0,1.0,3.0,0.0,0.0,7.0,3.0,19.0,4.0,10.0,17.0,67.2,32.8,4.0,1.0
+2026-09-28,Suriname,Martinique,2.0,1.0,CONCACAF Nations League,False,401900611,20260928_Suriname_Martinique,espn,6.0,6.0,0.0,0.0,0.0,0.0,5.0,3.0,9.0,7.0,14.0,20.0,67.8,32.2,1.0,0.0
+2026-09-29,Australia,Brazil,2.0,4.0,Amistoso,False,401881965,20260929_Australia_Brazil,espn,4.0,6.0,2.0,2.0,0.0,0.0,2.0,8.0,5.0,10.0,19.0,13.0,48.7,51.3,1.0,2.0
+2026-09-29,Russia,Iran,2.0,0.0,Amistoso,False,401911182,20260929_Russia_Iran,espn,5.0,5.0,1.0,2.0,0.0,0.0,5.0,3.0,7.0,5.0,11.0,17.0,67.2,32.8,3.0,1.0
+2026-09-29,Finland,Belarus,0.0,0.0,UEFA Nations League,False,401861089,20260929_Finland_Belarus,espn,8.0,2.0,2.0,2.0,0.0,0.0,2.0,3.0,7.0,6.0,18.0,14.0,60.8,39.2,1.0,3.0
+2026-09-29,Moldova,Faroe Islands,1.0,1.0,UEFA Nations League,False,401861090,20260929_Moldova_Faroe-Islands,espn,7.0,2.0,0.0,1.0,0.0,0.0,4.0,1.0,18.0,5.0,12.0,11.0,69.6,30.4,1.0,1.0
+2026-09-29,Bulgaria,Estonia,0.0,0.0,UEFA Nations League,False,401861083,20260929_Bulgaria_Estonia,espn,6.0,6.0,3.0,2.0,0.0,0.0,2.0,2.0,15.0,4.0,9.0,26.0,55.1,44.9,0.0,3.0
+2026-09-29,Czechia,England,0.0,2.0,UEFA Nations League,False,401861092,20260929_Czechia_England,espn,1.0,6.0,0.0,1.0,1.0,0.0,2.0,7.0,4.0,15.0,9.0,12.0,33.7,66.3,2.0,3.0
+2026-09-29,Luxembourg,Iceland,0.0,3.0,UEFA Nations League,False,401861086,20260929_Luxembourg_Iceland,espn,2.0,2.0,2.0,4.0,0.0,0.0,1.0,4.0,4.0,9.0,11.0,13.0,60.5,39.5,2.0,4.0
+2026-09-29,San Marino,Albania,0.0,3.0,UEFA Nations League,False,401861088,20260929_San-Marino_Albania,espn,5.0,6.0,1.0,1.0,0.0,0.0,1.0,8.0,5.0,6.0,6.0,14.0,28.4,71.6,1.0,2.0
+2026-09-29,Scotland,Switzerland,0.0,3.0,UEFA Nations League,False,401861091,20260929_Scotland_Switzerland,espn,2.0,6.0,1.0,0.0,1.0,0.0,0.0,9.0,2.0,14.0,14.0,13.0,23.2,76.8,2.0,0.0
+2026-09-29,Slovakia,Kazakhstan,2.0,1.0,UEFA Nations League,False,401861085,20260929_Slovakia_Kazakhstan,espn,8.0,1.0,2.0,2.0,0.0,0.0,8.0,2.0,9.0,1.0,8.0,18.0,74.7,25.3,3.0,0.0
+2026-09-29,Slovenia,North Macedonia,2.0,0.0,UEFA Nations League,False,401861087,20260929_Slovenia_North-Macedonia,espn,6.0,3.0,1.0,2.0,0.0,0.0,5.0,1.0,11.0,9.0,8.0,8.0,52.0,48.0,1.0,1.0
+2026-09-29,Spain,Croatia,4.0,1.0,UEFA Nations League,False,401861084,20260929_Spain_Croatia,espn,6.0,2.0,1.0,4.0,0.0,0.0,7.0,2.0,9.0,3.0,9.0,10.0,63.7,36.3,5.0,0.0
+2026-09-29,Jamaica,Honduras,0.0,1.0,CONCACAF Nations League,False,401900612,20260929_Jamaica_Honduras,espn,3.0,5.0,4.0,2.0,0.0,1.0,3.0,7.0,10.0,8.0,15.0,15.0,47.1,52.9,1.0,2.0
+2026-09-29,St. Kitts and Nevis,Grenada,3.0,0.0,CONCACAF Nations League,False,401900613,20260929_St.-Kitts-and-Nevis_Grenada,espn,3.0,4.0,2.0,2.0,0.0,0.0,7.0,4.0,1.0,4.0,13.0,11.0,56.3,43.7,2.0,1.0
+2026-09-29,St. Lucia,Bermuda,5.0,2.0,CONCACAF Nations League,False,401900615,20260929_St.-Lucia_Bermuda,espn,3.0,8.0,2.0,1.0,0.0,0.0,7.0,11.0,8.0,8.0,16.0,6.0,42.9,57.1,2.0,2.0
+2026-09-29,Guatemala,El Salvador,6.0,0.0,CONCACAF Nations League,False,401900610,20260929_Guatemala_El-Salvador,espn,4.0,3.0,1.0,1.0,0.0,0.0,7.0,1.0,11.0,12.0,5.0,15.0,51.0,49.0,0.0,2.0
+2026-09-29,British Virgin Islands,Turks and Caicos Islands,0.0,3.0,CONCACAF Nations League,False,401900609,20260929_British-Virgin-Islands_Turks-and-Caicos-Islands,espn,4.0,7.0,2.0,0.0,0.0,0.0,1.0,4.0,7.0,11.0,21.0,15.0,49.7,50.3,3.0,2.0
+2026-09-29,US Virgin Islands,Bahamas,3.0,1.0,CONCACAF Nations League,False,401900606,20260929_US-Virgin-Islands_Bahamas,espn,0.0,5.0,1.0,1.0,0.0,0.0,4.0,6.0,6.0,9.0,12.0,16.0,42.2,57.8,0.0,0.0
+2026-09-29,French Guiana,Sint Maarten,1.0,0.0,CONCACAF Nations League,False,401900607,20260929_French-Guiana_Sint-Maarten,espn,3.0,3.0,1.0,1.0,0.0,0.0,5.0,3.0,7.0,7.0,15.0,9.0,50.1,49.9,8.0,0.0
+2026-09-29,Anguilla,Aruba,0.0,2.0,CONCACAF Nations League,False,401900608,20260929_Anguilla_Aruba,espn,2.0,8.0,1.0,1.0,0.0,0.0,1.0,9.0,4.0,18.0,6.0,21.0,26.8,73.2,0.0,2.0
+2026-09-30,United States,Chile,4.0,2.0,Amistoso,False,401905189,20260930_United-States_Chile,espn,5.0,13.0,1.0,2.0,0.0,0.0,9.0,8.0,9.0,9.0,12.0,10.0,58.2,41.8,1.0,3.0
+2026-09-30,Mexico,Peru,1.0,1.0,Amistoso,False,401903234,20260930_Mexico_Peru,espn,5.0,4.0,1.0,4.0,0.0,0.0,3.0,2.0,6.0,3.0,15.0,10.0,64.0,36.0,2.0,2.0
+2026-09-30,Papua New Guinea,Solomon Islands,1.0,1.0,Amistoso,False,401922308,20260930_Papua-New-Guinea_Solomon-Islands,,,,,,,,,,,,,,,,,
+2026-09-30,Fiji,New Caledonia,2.0,1.0,Amistoso,False,401922307,20260930_Fiji_New-Caledonia,,,,,,,,,,,,,,,,,
+2026-09-30,Seychelles,Sri Lanka,0.0,2.0,Amistoso,False,401917065,20260930_Seychelles_Sri-Lanka,,,,,,,,,,,,,,,,,
+2026-09-30,Botswana,Mozambique,0.0,2.0,Amistoso,False,401922621,20260930_Botswana_Mozambique,,,,,,,,,,,,,,,,,
+2026-09-30,Lithuania,Andorra,3.0,0.0,Amistoso,False,401899825,20260930_Lithuania_Andorra,,,,,,,,,,,,,,,,,
+2026-09-30,Belize,St. Vincent and the Grenadines,0.0,1.0,CONCACAF Nations League,False,401900605,20260930_Belize_St.-Vincent-and-the-Grenadines,espn,2.0,4.0,2.0,1.0,0.0,0.0,3.0,8.0,9.0,5.0,11.0,23.0,60.3,39.7,2.0,1.0
+2026-10-01,Argentina,Bolivia,4.0,0.0,Amistoso,False,401921545,20261001_Argentina_Bolivia,espn,12.0,1.0,0.0,1.0,0.0,0.0,6.0,0.0,12.0,3.0,11.0,12.0,68.6,31.4,1.0,1.0
+2026-10-01,Cook Islands,Tahiti,0.0,0.0,Amistoso,False,401924629,20261001_Cook-Islands_Tahiti,,,,,,,,,,,,,,,,,
+2026-10-01,Maldives,Lebanon,0.0,6.0,Amistoso,False,401919420,20261001_Maldives_Lebanon,,,,,,,,,,,,,,,,,
+2026-10-01,Uzbekistan,Syria,4.0,1.0,Amistoso,False,401921570,20261001_Uzbekistan_Syria,,,,,,,,,,,,,,,,,
