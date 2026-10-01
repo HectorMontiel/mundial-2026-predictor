@@ -6410,3 +6410,40 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-10-01,futbol,WORLD: Friendly International,Georgia U19,Latvia U19,1790949600,2.52,3.45,2.47,0.363547,0.370906,0.091539,1,0.0247,Novibet
 2026-10-01,nba,LITHUANIA: NKL,Ukmerges Stekas,Vytis VDU,1790870400,2.67,,1.3731,0.339616,0.660384,0.102811,1,0.1201,Novibet
 2026-10-01,futbol,MOROCCO: Botola Pro,FUS Rabat,Amal Tiznit,1790956800,1.6329,3.46,5.23,0.56049,0.174995,0.092629,1,0.061,Novibet
+2026-10-01,futbol,EGYPT: Division 2 A,La Viena,Al Nasr,1790857800,2.19,2.75,3.69,0.418435,0.248339,0.09126,1,0.0308,Playdoit
+2026-10-01,futbol,JAPAN: J3 League,Reilac Shiga,Kumamoto,1790935200,2.7,3.18,2.46,0.339372,0.372482,0.09134,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Lys E.,Sun X.,1790852700,1.3831,,3.26,0.702117,0.297883,0.029762,1,0.0273,Playdoit
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Columbus (USA), hard (indoor)",Nakashima B.,Smith K.,1790866800,2.25,,1.6579,0.424243,0.575757,0.047617,0,0.0,
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Columbus (USA), hard (indoor)",Mayo A.,Smith C.,1790872200,2.53,,1.5348,0.377583,0.622417,0.046808,0,0.0,
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Columbus (USA), hard (indoor)",Shelbayh A.,Ostapenkov D.,1790872200,1.2801,,3.75,0.745512,0.254488,0.047856,0,0.0,
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Columbus (USA), hard (indoor)",Kozlov S.,Krueger M.,1790877600,1.6993,,2.18,0.561957,0.438043,0.047193,0,0.0,
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Curitiba (Brazil), clay",Alves M.,Villanueva G.,1790863200,1.6536,,2.26,0.577473,0.422527,0.047219,0,0.0,
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Curitiba (Brazil), clay",Schiessl J. E.,Miguel L. A.,1790868600,4.63,,1.2028,0.206213,0.793787,0.047376,0,0.0,
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Curitiba (Brazil), clay",Justo G. I.,Sakamoto P.,1790874000,1.4098,,2.95,0.676637,0.323363,0.048304,0,0.0,
+2026-10-01,tenis,"CHALLENGER MEN - SINGLES: Curitiba (Brazil), clay",Boscardin Dias P.,Olivieri G. A.,1790879400,1.7634,,2.08,0.541187,0.458813,0.047856,0,0.0,
+2026-10-01,tenis,"CHALLENGER WOMEN - DOUBLES: Adana (Turkey), hard",Moratelli A./Valdmannova V.,Hruncakova V./Siskova A.,1790856000,2.67,,1.4292,0.348653,0.651347,0.074224,0,0.0,
+2026-10-01,tenis,"ATP - SINGLES: Beijing (China), hard",De Minaur A.,Halys Q.,1790906400,1.3165,,3.71,0.738088,0.261912,0.029132,0,0.0,
+2026-10-01,tenis,"ATP - SINGLES: Beijing (China), hard",Molcan A.,Khachanov K.,1790906400,4.43,,1.2445,0.219314,0.780686,0.029269,0,0.0,
+2026-10-01,tenis,"ATP - SINGLES: Tokyo (Japan), hard",Munar J.,Faria J.,1790906400,1.5376,,2.64,0.631942,0.368058,0.029152,0,0.0,
+2026-10-01,tenis,"ATP - SINGLES: Tokyo (Japan), hard",Vacherot V.,Tsitsipas S.,1790911800,2.38,,1.641,0.408107,0.591893,0.029553,0,0.0,
+2026-10-01,tenis,"ATP - SINGLES: Tokyo (Japan), hard",Jacquet K.,Darderi L.,1790924400,2.38,,1.641,0.408107,0.591893,0.029553,1,0.0294,Playdoit
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Alexandrova E.,Sasnovich A.,1790910000,1.6536,,2.33,0.584898,0.415102,0.033926,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Bartunkova N.,Frech M.,1790910000,1.6579,,2.32,0.583222,0.416778,0.034207,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Bejlek S.,Inglis M.,1790910000,1.2994,,3.79,0.744685,0.255315,0.033438,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Fruhvirtova L.,Samsonova L.,1790910000,4.97,,1.2012,0.194646,0.805354,0.033708,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Golubic V.,Stearns P.,1790910000,2.37,,1.6329,0.407929,0.592071,0.034348,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Muchova K.,Boulter K.,1790910000,1.117,,6.9,0.860671,0.139329,0.040183,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Potapova A.,Kraus S.,1790910000,1.3145,,3.66,0.735752,0.264248,0.03397,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Preston T.,Parry D.,1790910000,2.12,,1.7812,0.456577,0.543423,0.033117,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Tauson C.,Kudermetova P.,1790910000,1.5076,,2.7,0.641696,0.358304,0.033676,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Timofeeva M.,Osaka N.,1790910000,3.92,,1.2841,0.246748,0.753252,0.033858,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Tjen J.,Shnaider D.,1790910000,3.33,,1.3636,0.290523,0.709477,0.033653,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Yastremska D.,Chwalinska M.,1790910000,2.56,,1.5556,0.377976,0.622024,0.033464,0,0.0,
+2026-10-01,tenis,"WTA - SINGLES: Beijing (China), hard",Yuan Y.,Andreeva M.,1790910000,11.82,,1.05,0.081585,0.918415,0.036983,1,0.02,Novibet
+2026-10-01,tenis,"CHALLENGER WOMEN - SINGLES: Adana (Turkey), hard",Pridankina E.,Andreeva E.,1790928000,2.04,,1.8,0.46875,0.53125,0.045752,0,0.0,
+2026-10-01,tenis,"ITF MEN - SINGLES: M15 Luan 4 (China), hard",Ehrenschneider N.,Ichikawa T.,1790906400,1.3521,,3.06,0.693547,0.306453,0.066388,0,0.0,
+2026-10-01,tenis,"ITF MEN - SINGLES: M15 Luan 4 (China), hard",Matsuda R.,Ogura K.,1790906400,1.4878,,2.54,0.630617,0.369383,0.065834,0,0.0,
+2026-10-01,tenis,"ITF MEN - SINGLES: M15 Luan 4 (China), hard",Wang K.,Becroft I.,1790906400,3.9,,1.2347,0.240462,0.759538,0.066324,0,0.0,
+2026-10-01,tenis,"ITF MEN - SINGLES: M15 Luan 4 (China), hard",Yamanaka T.,Purcell M.,1790906400,10.69,,1.0438,0.088957,0.911043,0.051583,0,0.0,
+2026-10-01,nba,GREECE: Basket League,Promitheas,Peristeri,1791036000,1.8197,,2.0,0.523601,0.476399,0.049541,1,0.0205,Novibet
+2026-10-01,futbol,EUROPE: UEFA Nations League - League D,Azerbaijan,Liechtenstein,1790870400,1.1076,8.68,28.66,0.857449,0.033137,0.052952,1,0.0244,Novibet
