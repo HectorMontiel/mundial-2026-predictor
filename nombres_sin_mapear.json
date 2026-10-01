@@ -299,9 +299,9 @@
   },
   "Ayr United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6957,
-    "visto": "2026-09-30"
+    "candidato": "Treaty United",
+    "ratio": 0.7826,
+    "visto": "2026-10-01"
   },
   "Queen's Park": {
     "contexto": "cuotas_mx→futbol",
@@ -317,9 +317,9 @@
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.5926,
-    "visto": "2026-09-30"
+    "candidato": "Delta United",
+    "ratio": 0.6154,
+    "visto": "2026-10-01"
   },
   "Hartford Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -383,9 +383,9 @@
   },
   "Peterborough United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.5,
-    "visto": "2026-09-30"
+    "candidato": "Delta United",
+    "ratio": 0.5806,
+    "visto": "2026-10-01"
   },
   "Sheffield Wednesday": {
     "contexto": "cuotas_mx→futbol",
@@ -395,9 +395,9 @@
   },
   "Boston United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mombasa United",
-    "ratio": 0.6667,
-    "visto": "2026-09-30"
+    "candidato": "Delta United",
+    "ratio": 0.64,
+    "visto": "2026-10-01"
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
@@ -407,45 +407,45 @@
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6429,
-    "visto": "2026-09-30"
+    "candidato": "Delta United",
+    "ratio": 0.5926,
+    "visto": "2026-10-01"
   },
   "Rotherham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mombasa United",
-    "ratio": 0.6,
-    "visto": "2026-09-30"
+    "candidato": "Delta United",
+    "ratio": 0.6429,
+    "visto": "2026-10-01"
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mombasa United",
-    "ratio": 0.5806,
-    "visto": "2026-09-30"
+    "candidato": "Delta United",
+    "ratio": 0.6207,
+    "visto": "2026-10-01"
   },
   "Scunthorpe United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6,
-    "visto": "2026-09-30"
+    "candidato": "Staffanstorp United",
+    "ratio": 0.7222,
+    "visto": "2026-10-01"
   },
   "Hartlepool United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6667,
-    "visto": "2026-09-30"
+    "candidato": "Sumsel United",
+    "ratio": 0.6,
+    "visto": "2026-10-01"
   },
   "Southend United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing United",
-    "ratio": 0.5714,
-    "visto": "2026-09-27"
+    "candidato": "Sumsel United",
+    "ratio": 0.7143,
+    "visto": "2026-10-01"
   },
   "Sutton United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing United",
-    "ratio": 0.6154,
-    "visto": "2026-09-27"
+    "candidato": "Sumsel United",
+    "ratio": 0.6923,
+    "visto": "2026-10-01"
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
@@ -509,9 +509,9 @@
   },
   "All Boys": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newells Old Boys 2",
-    "ratio": 0.5385,
-    "visto": "2026-09-30"
+    "candidato": "Young Boys (Sui)",
+    "ratio": 0.4545,
+    "visto": "2026-10-01"
   },
   "Deportivo Pereira": {
     "contexto": "cuotas_mx→futbol",
@@ -629,9 +629,9 @@
   },
   "New Mexico United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "New Caledonia W",
-    "ratio": 0.5333,
-    "visto": "2026-09-28"
+    "candidato": "Delta United",
+    "ratio": 0.5517,
+    "visto": "2026-10-01"
   },
   "Sacramento Republic FC": {
     "contexto": "cuotas_mx→futbol",
@@ -1015,6 +1015,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Vejle (Den)",
     "ratio": 0.381,
+    "visto": "2026-10-01"
+  },
+  "Newell's Old Boys": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Young Boys (Sui)",
+    "ratio": 0.3871,
     "visto": "2026-10-01"
   }
 }
