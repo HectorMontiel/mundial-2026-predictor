@@ -10176,27 +10176,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5344896,2026-06-08,selecciones,Northern Ireland,Jamie McDonnell,1358339,M,0,11,0,0,0,0.0,,2.0,1132485.0
 5344896,2026-06-08,selecciones,Northern Ireland,Ceadach O'Neill,1669872,F,0,11,0,0,0,0.0,,3.0,
 5344896,2026-06-08,selecciones,Northern Ireland,Josh Magennis,180137,F,0,11,0,0,0,0.0,,3.0,220647.0
-5656195,2026-06-07,selecciones,Argentina,Juan Musso,389050,G,1,81,0,0,0,0.0,11.0,0.0,2126726.0
-5656195,2026-06-07,selecciones,Argentina,Agustín Giay,1358345,D,1,90,0,0,0,0.0,32.0,1.0,13897427.0
-5656195,2026-06-07,selecciones,Argentina,Nicolás Otamendi,174321,D,1,86,1,0,0,0.0,34.0,1.0,979023.0
-5656195,2026-06-07,selecciones,Argentina,Lisandro Martínez,847983,D,1,63,1,0,0,0.0,36.0,1.0,40812416.0
-5656195,2026-06-07,selecciones,Argentina,Nicolás Tagliafico,195750,D,1,46,0,0,0,0.0,38.0,1.0,3544637.0
-5656195,2026-06-07,selecciones,Argentina,Giovani Lo Celso,604126,M,1,62,4,1,0,0.0,72.0,2.0,12298559.0
-5656195,2026-06-07,selecciones,Argentina,Valentín Barco,1272440,M,1,46,0,0,0,0.0,74.0,2.0,30853266.0
-5656195,2026-06-07,selecciones,Argentina,Exequiel Palacios,693599,M,1,81,0,0,0,0.0,76.0,2.0,32240347.0
-5656195,2026-06-07,selecciones,Argentina,Giuliano Simeone,1226147,M,1,82,4,3,1,0.0,78.0,2.0,44758504.0
-5656195,2026-06-07,selecciones,Argentina,Lautaro Martínez,690230,F,1,63,3,2,1,0.0,104.0,3.0,72159897.0
-5656195,2026-06-07,selecciones,Argentina,Thiago Almada,955271,M,1,62,2,1,0,0.0,106.0,2.0,22202535.0
-5656195,2026-06-07,selecciones,Argentina,Facundo Medina,812652,D,0,45,1,0,0,0.0,,1.0,20050209.0
-5656195,2026-06-07,selecciones,Argentina,Rodrigo De Paul,324578,M,0,45,1,0,0,0.0,,2.0,11208895.0
-5656195,2026-06-07,selecciones,Argentina,Cristian Romero,789066,D,0,27,1,0,0,0.0,,1.0,57715315.0
-5656195,2026-06-07,selecciones,Argentina,Alexis Mac Allister,831489,M,0,28,1,0,0,0.0,,2.0,94361974.0
-5656195,2026-06-07,selecciones,Argentina,Enzo Fernández,1137705,M,0,27,0,0,0,0.0,,2.0,100424263.0
-5656195,2026-06-07,selecciones,Argentina,José López,1216079,F,0,27,0,0,0,0.0,,3.0,22821489.0
-5656195,2026-06-07,selecciones,Argentina,Santiago Beltrán,1652014,G,0,9,0,0,0,0.0,,0.0,1895177.0
-5656195,2026-06-07,selecciones,Argentina,Nicolás Capaldo,1018564,D,0,9,0,0,0,0.0,,1.0,4810855.0
-5656195,2026-06-07,selecciones,Argentina,Tomás Aranda,1899032,M,0,9,1,1,0,0.0,,2.0,1591857.0
-5656195,2026-06-07,selecciones,Argentina,Joaquín Freitas,1847899,F,0,4,0,0,0,0.0,,3.0,1607850.0
 5656195,2026-06-07,selecciones,Honduras,Edrick Menjívar,562677,G,1,82,0,0,0,0.0,11.0,0.0,
 5656195,2026-06-07,selecciones,Honduras,Cristopher Meléndez,1092564,D,1,83,0,0,0,0.0,32.0,1.0,
 5656195,2026-06-07,selecciones,Honduras,Giancarlos Sacaza,1447406,D,1,78,0,0,0,0.0,34.0,1.0,
@@ -14171,20 +14150,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013495,2026-07-18,per_liga1,Alianza Atlético,José Ingratti,1246591,F,0,44,0,0,0,0.0,,3.0,
 1000013495,2026-07-18,per_liga1,Alianza Atlético,Jairo Molina,496951,F,0,11,0,0,0,0.0,,3.0,450943.0
 1000013495,2026-07-18,per_liga1,Alianza Atlético,Roman Suarez,1668310,D,0,3,0,0,0,0.0,,1.0,277468.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Jake McGuire,825635,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Wahab Ackwei,1059395,D,1,90,0,0,0,0.0,33.0,1.0,50000.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Ryan Edwards,330468,D,1,90,0,0,0,0.0,35.0,1.0,99208.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Danny Wilson,168308,D,1,90,0,0,0,0.0,37.0,1.0,319710.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Edgardo Rito,495686,D,1,37,0,0,0,0.0,72.0,1.0,82243.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Jordan Rossiter,516002,M,1,90,0,0,0,0.0,74.0,2.0,50000.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Harvey Neville,1187155,D,1,90,0,0,0,0.0,76.0,1.0,80719.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Tyshawn Rose,1470132,D,1,90,1,0,0,0.0,78.0,1.0,65470.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Wan Kuzain,941737,M,1,62,0,0,0,0.0,103.0,2.0,90158.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Emil Jääskeläinen,1075184,F,1,76,2,2,1,0.0,105.0,3.0,
-5109841,2026-07-18,usl_championship,Sporting JAX,Ahmad Al-Qaq,1727104,F,1,90,4,3,1,0.0,107.0,3.0,65183.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Raheem Sommersall,855399,M,0,53,1,0,0,0.0,,2.0,50000.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Rafferty Pedder,1562361,M,0,28,1,1,0,0.0,,2.0,98351.0
-5109841,2026-07-18,usl_championship,Sporting JAX,Kieran Sadlier,614458,F,0,14,1,0,0,0.0,,3.0,70375.0
 5190614,2026-07-18,bra_serie_b,Athletic Club MG,Luan Polli,535786,G,1,90,0,0,0,0.0,11.0,0.0,241533.0
 5190614,2026-07-18,bra_serie_b,Athletic Club MG,Zeca,535900,D,1,46,0,0,0,0.0,33.0,1.0,309812.0
 5190614,2026-07-18,bra_serie_b,Athletic Club MG,Jhonatan,1215655,D,1,90,0,0,0,0.0,35.0,1.0,
@@ -15580,22 +15545,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190621,2026-07-23,bra_serie_b,Athletic Club,Dixon Vera,1354140,F,0,38,0,0,0,0.0,,3.0,425846.0
 5190621,2026-07-23,bra_serie_b,Athletic Club,Wilinton Aponzá,1292408,F,0,29,2,0,0,0.08,,3.0,163245.0
 5190621,2026-07-23,bra_serie_b,Athletic Club,Yarlen,1622637,F,0,13,2,1,0,0.05,,3.0,1349293.0
-5109842,2026-07-23,usl_championship,Miami FC,Eloy Room,150242,G,1,90,0,0,0,0.0,11.0,0.0,66931.0
-5109842,2026-07-23,usl_championship,Miami FC,Bachir Ndiaye,1666352,D,1,83,0,0,0,0.0,32.0,1.0,95140.0
-5109842,2026-07-23,usl_championship,Miami FC,Daltyn Knutson,1082131,D,1,90,1,0,0,0.0,34.0,1.0,50000.0
-5109842,2026-07-23,usl_championship,Miami FC,Angelo Calfo,1455128,D,1,90,0,0,0,0.0,36.0,1.0,
-5109842,2026-07-23,usl_championship,Miami FC,Alessandro Milesi,1006668,D,1,90,0,0,0,0.0,38.0,1.0,118339.0
-5109842,2026-07-23,usl_championship,Miami FC,Matías Romero,660079,M,1,90,1,1,0,0.0,73.0,2.0,50000.0
-5109842,2026-07-23,usl_championship,Miami FC,Tori Riyon,1610327,M,1,46,0,0,0,0.0,75.0,2.0,
-5109842,2026-07-23,usl_championship,Miami FC,Joel Soñora,643612,M,1,90,2,1,0,0.0,77.0,2.0,78598.0
-5109842,2026-07-23,usl_championship,Miami FC,Rodrigo Da Costa,1035025,M,1,65,1,1,0,0.0,103.0,2.0,50000.0
-5109842,2026-07-23,usl_championship,Miami FC,Jürgen Locadia,289441,F,1,72,1,0,0,0.0,105.0,3.0,99318.0
-5109842,2026-07-23,usl_championship,Miami FC,Arney Rocha,1392871,F,1,46,0,0,0,0.0,107.0,3.0,174249.0
-5109842,2026-07-23,usl_championship,Miami FC,Thomas Musto,1524674,M,0,44,0,0,0,0.0,,2.0,
-5109842,2026-07-23,usl_championship,Miami FC,Mathieu Ndongo,1810538,F,0,45,1,0,0,0.0,,3.0,269463.0
-5109842,2026-07-23,usl_championship,Miami FC,Gerald Díaz,855287,M,0,25,0,0,0,0.0,,2.0,50000.0
-5109842,2026-07-23,usl_championship,Miami FC,Mason Tunbridge,1626466,M,0,18,1,0,0,0.0,,2.0,89485.0
-5109842,2026-07-23,usl_championship,Miami FC,Diego Mello,1804489,F,0,7,0,0,0,0.0,,3.0,
 5115887,2026-07-24,argentina,Vélez Sarsfield,Tomás Marchiori,886331,G,1,90,0,0,0,0.0,11.0,0.0,1656941.0
 5115887,2026-07-24,argentina,Vélez Sarsfield,Joaquín García,1200718,D,1,90,0,0,0,0.0,32.0,1.0,2414168.0
 5115887,2026-07-24,argentina,Vélez Sarsfield,Thiago Silvero,1662972,D,1,90,0,0,0,0.0,34.0,1.0,889819.0
@@ -16125,22 +16074,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5702729,2026-07-24,sudamericana,O'Higgins,Nicolás Garrido,1252230,D,0,11,0,0,0,0.0,,1.0,293775.0
 5702729,2026-07-24,sudamericana,O'Higgins,Martín Maturana,1457406,M,0,11,0,0,0,0.0,,2.0,262724.0
 5702729,2026-07-24,sudamericana,O'Higgins,Thiago Vecino,1073659,F,0,8,0,0,0,0.0,,3.0,316213.0
-5109845,2026-07-25,usl_championship,Brooklyn,Lukas Burns,1171002,G,1,90,0,0,0,0.0,11.0,0.0,
-5109845,2026-07-25,usl_championship,Brooklyn,Ryan McLaughlin,388894,D,1,90,0,0,0,0.0,32.0,1.0,50000.0
-5109845,2026-07-25,usl_championship,Brooklyn,Callum Frogson,1935110,,1,90,2,1,0,0.0,34.0,,
-5109845,2026-07-25,usl_championship,Brooklyn,Rocco Romeo,1024286,D,1,90,0,0,0,0.0,36.0,1.0,87056.0
-5109845,2026-07-25,usl_championship,Brooklyn,Gabriel Alves,1447526,D,1,90,2,1,0,0.0,38.0,1.0,
-5109845,2026-07-25,usl_championship,Brooklyn,Taimu Okiyoshi,1724754,M,1,79,0,0,0,0.0,64.0,2.0,108812.0
-5109845,2026-07-25,usl_championship,Brooklyn,Thomas Vancaeyezeele,936220,D,1,90,0,0,0,0.0,66.0,1.0,50000.0
-5109845,2026-07-25,usl_championship,Brooklyn,Christopher Olney Jr.,1455583,F,1,90,1,0,0,0.0,83.0,3.0,
-5109845,2026-07-25,usl_championship,Brooklyn,Thomas McNamara,526485,M,1,89,2,1,0,0.0,85.0,2.0,
-5109845,2026-07-25,usl_championship,Brooklyn,Pierre da Silva,754584,F,1,56,2,0,0,0.0,87.0,3.0,124416.0
-5109845,2026-07-25,usl_championship,Brooklyn,Juan Obregón,1098593,F,1,56,1,0,0,0.0,115.0,3.0,
-5109845,2026-07-25,usl_championship,Brooklyn,Markus Anderson,1537807,F,0,34,2,0,0,0.0,,3.0,
-5109845,2026-07-25,usl_championship,Brooklyn,Stefan Stojanovic,1346904,F,0,34,0,0,0,0.0,,3.0,83192.0
-5109845,2026-07-25,usl_championship,Brooklyn,Jaden Servania,1170973,D,0,11,0,0,0,0.0,,1.0,78213.0
-5109845,2026-07-25,usl_championship,Brooklyn,So Nishikawa,1138224,D,0,1,0,0,0,0.0,,1.0,57600.0
-5109845,2026-07-25,usl_championship,Brooklyn,Peter Mangione,1639626,M,0,1,0,0,0,0.0,,2.0,75235.0
 5109845,2026-07-25,usl_championship,San Antonio FC,Joseph Batrouni,1724710,G,1,90,0,0,0,0.0,11.0,0.0,86919.0
 5109845,2026-07-25,usl_championship,San Antonio FC,Alex Crognale,825695,D,1,90,5,1,0,0.0,33.0,1.0,50000.0
 5109845,2026-07-25,usl_championship,San Antonio FC,Santiago Suárez,1344756,D,1,90,0,0,0,0.0,35.0,1.0,
@@ -16203,22 +16136,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014513,2026-07-25,liga_mx,FC Juárez,Jairo Torres,766853,F,0,24,0,0,0,0.0,,3.0,1923126.0
 1000014513,2026-07-25,liga_mx,FC Juárez,Luca Martínez Dupuy,1200027,F,0,20,2,0,0,0.12,,3.0,906621.0
 1000014513,2026-07-25,liga_mx,FC Juárez,Ricardo Juárez,1748492,D,0,8,0,0,0,0.0,,1.0,
-5071236,2026-07-25,mls,Red Bull New York,Ethan Horvath,471274,G,1,90,0,0,0,0.0,11.0,0.0,458579.0
-5071236,2026-07-25,mls,Red Bull New York,Dylan Nealis,1136264,D,1,70,1,0,0,0.06,32.0,1.0,672615.0
-5071236,2026-07-25,mls,Red Bull New York,Justin Che,1245693,D,1,90,0,0,0,0.0,34.0,1.0,648231.0
-5071236,2026-07-25,mls,Red Bull New York,Julián Bazán,1474122,D,1,90,0,0,0,0.0,36.0,1.0,851336.0
-5071236,2026-07-25,mls,Red Bull New York,Matthew Dos Santos,1738397,D,1,84,0,0,0,0.0,38.0,1.0,1388073.0
-5071236,2026-07-25,mls,Red Bull New York,Ronald Donkor,1473738,M,1,90,1,0,0,0.03,73.0,2.0,835727.0
-5071236,2026-07-25,mls,Red Bull New York,Adri Mehmeti,1715268,M,1,90,2,1,0,0.09,75.0,2.0,4190482.0
-5071236,2026-07-25,mls,Red Bull New York,Emil Forsberg,171980,M,1,70,5,2,0,0.6,77.0,2.0,1005634.0
-5071236,2026-07-25,mls,Red Bull New York,Cade Cowell,1025942,F,1,70,4,2,0,0.26,103.0,3.0,2528871.0
-5071236,2026-07-25,mls,Red Bull New York,Julian Hall,1489675,F,1,90,3,0,0,0.83,105.0,3.0,3746308.0
-5071236,2026-07-25,mls,Red Bull New York,Jorge Ruvalcaba,1306870,F,1,84,5,1,0,0.24,107.0,3.0,2872524.0
-5071236,2026-07-25,mls,Red Bull New York,Mohammed Sofo,1527097,F,0,20,2,0,0,0.1,,3.0,933056.0
-5071236,2026-07-25,mls,Red Bull New York,Jahkeele Marshall-Rutty,1082103,D,0,20,0,0,0,0.0,,1.0,1200375.0
-5071236,2026-07-25,mls,Red Bull New York,Mijahir Jiménez,1622640,F,0,20,0,0,0,0.0,,3.0,
-5071236,2026-07-25,mls,Red Bull New York,Omar Valencia,1410553,D,0,6,0,0,0,0.0,,1.0,352915.0
-5071236,2026-07-25,mls,Red Bull New York,Andy Rojas,1452765,F,0,6,1,0,0,0.04,,3.0,1498044.0
 5071236,2026-07-25,mls,Charlotte FC,Kristijan Kahlina,653737,G,1,90,0,0,0,0.0,11.0,0.0,723430.0
 5071236,2026-07-25,mls,Charlotte FC,Nathan Byrne,212705,D,1,90,0,0,0,0.0,32.0,1.0,213496.0
 5071236,2026-07-25,mls,Charlotte FC,Morrison Agyemang,1663548,D,1,90,1,0,0,0.33,34.0,1.0,436832.0
@@ -16235,20 +16152,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5071236,2026-07-25,mls,Charlotte FC,Tyger Smalls,1618023,F,0,19,0,0,0,0.0,,3.0,153489.0
 5071236,2026-07-25,mls,Charlotte FC,Brandt Bronico,828769,M,0,8,0,0,0,0.0,,2.0,758362.0
 5071236,2026-07-25,mls,Charlotte FC,Archie Goodwin,1232133,F,0,8,0,0,0,0.0,,3.0,873460.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Koke Vegas,785824,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Nick Scardina,1082990,D,1,90,1,0,0,0.0,32.0,1.0,98377.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Aldair Sanchez,1448501,D,1,90,0,0,0,0.0,34.0,1.0,
-5109855,2026-07-25,usl_championship,Rhode Island FC,Grant Stoneman,1042584,D,1,90,1,0,0,0.0,36.0,1.0,50000.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Frank Nodarse,1287564,D,1,90,0,0,0,0.0,38.0,1.0,51249.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Hugo Bacharach,1516692,M,1,90,0,0,0,0.0,64.0,2.0,96540.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Amos Shapiro-Thompson,1479926,M,1,90,0,0,0,0.0,66.0,2.0,77000.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Jojea Kwizera,1357481,F,1,86,0,0,0,0.0,83.0,3.0,104412.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Agustín Rodríguez,1257379,M,1,72,0,0,0,0.0,85.0,2.0,
-5109855,2026-07-25,usl_championship,Rhode Island FC,Noah Fuson,1199737,F,1,89,1,0,0,0.0,87.0,3.0,97797.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,JJ Williams,1025934,F,1,90,3,1,1,0.0,115.0,3.0,120392.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Dwayne Atkinson,1348492,M,0,18,0,0,0,0.0,,2.0,50000.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Dani Rovira,1082967,D,0,4,0,0,0,0.0,,1.0,50000.0
-5109855,2026-07-25,usl_championship,Rhode Island FC,Calvin Williams,1928321,M,0,1,0,0,0,0.0,,2.0,
 1000014052,2026-07-25,col_primera_a,Bucaramanga,Cristopher Fiermarín,1195101,G,1,90,0,0,0,0.0,11.0,0.0,1354050.0
 1000014052,2026-07-25,col_primera_a,Bucaramanga,Carlos Romaña,1221306,D,1,90,0,0,0,0.0,33.0,1.0,320980.0
 1000014052,2026-07-25,col_primera_a,Bucaramanga,José Ortiz,1071475,D,1,90,0,0,0,0.0,35.0,1.0,790585.0
@@ -16434,22 +16337,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115882,2026-07-25,argentina,Talleres,Rick,1044317,F,0,34,4,1,0,0.26,,3.0,1756912.0
 5115882,2026-07-25,argentina,Talleres,Emiliano Chiavassa,1739039,F,0,8,1,0,0,0.04,,3.0,628028.0
 5115882,2026-07-25,argentina,Talleres,Valentín Dávila,1695460,F,0,5,0,0,0,0.0,,3.0,1261152.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Carlos Herrera,1357579,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Haruki Yamazaki,1644456,D,1,90,0,0,0,0.0,32.0,1.0,96742.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Devon Amoo-Mensah,1175165,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Callum Montgomery,1026047,D,1,90,1,0,0,0.0,36.0,1.0,60600.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Aedan Stanley,1172869,D,1,90,1,0,0,0.0,38.0,1.0,82935.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Abdoulaye Diop,1170736,M,1,84,1,0,0,0.0,64.0,2.0,63090.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Kobe Hernández-Foster,1079029,M,1,67,1,0,0,0.0,66.0,2.0,83307.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Rafael Mentzingen,1057344,D,1,68,1,1,0,0.0,83.0,1.0,50000.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Maxi Rodriguez,942418,M,1,67,1,1,0,0.0,85.0,2.0,50000.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Alassane Diouf,1042558,F,1,84,3,1,0,0.0,87.0,3.0,
-5109847,2026-07-25,usl_championship,Detroit City FC,Darren Smith,559158,F,1,90,2,1,0,0.0,115.0,3.0,82260.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Tommy Silva,1611186,D,0,23,0,0,0,0.0,,1.0,
-5109847,2026-07-25,usl_championship,Detroit City FC,Ryan Williams,157390,M,0,23,0,0,0,0.0,,2.0,50000.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Tabort Etaka Preston,1042922,F,0,22,1,1,0,0.0,,3.0,
-5109847,2026-07-25,usl_championship,Detroit City FC,Alexander Dalou,1457710,F,0,6,0,0,0,0.0,,3.0,92896.0
-5109847,2026-07-25,usl_championship,Detroit City FC,Ben Morris,749485,F,0,6,0,0,0,0.0,,3.0,68932.0
 5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Charlie Lanphier,1928363,G,1,14,0,0,0,0.0,11.0,0.0,
 5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Nykolas Sessock,1542157,D,1,90,0,0,0,0.0,32.0,1.0,
 5109847,2026-07-25,usl_championship,Las Vegas Lights FC,Benjamin Ofeimu,942835,D,1,90,1,0,0,0.0,34.0,1.0,121602.0
@@ -19154,22 +19041,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109846,2026-07-26,usl_championship,Charleston Battery,Maalique Foster,919527,F,0,32,0,0,0,0.0,,3.0,50000.0
 5109846,2026-07-26,usl_championship,Charleston Battery,Kirill Pakhomov,1902106,M,0,25,0,0,0,0.0,,2.0,84247.0
 5109846,2026-07-26,usl_championship,Charleston Battery,Wilmer Cabrera,1047604,F,0,16,1,1,1,0.0,,3.0,
-5071245,2026-07-26,mls,St. Louis City,Roman Bürki,112978,G,1,90,0,0,0,0.0,11.0,0.0,525747.0
-5071245,2026-07-26,mls,St. Louis City,Jaziel Orozco,1258867,D,1,87,1,0,0,0.07,33.0,1.0,472982.0
-5071245,2026-07-26,mls,St. Louis City,Timo Baumgartl,514301,D,1,90,0,0,0,0.0,35.0,1.0,150393.0
-5071245,2026-07-26,mls,St. Louis City,Dante Polvara,1327826,D,1,90,1,0,0,0.01,37.0,1.0,270004.0
-5071245,2026-07-26,mls,St. Louis City,Conrad Wallem,843710,M,1,90,3,0,0,0.14,72.0,2.0,1237855.0
-5071245,2026-07-26,mls,St. Louis City,Christopher Durkin,848424,M,1,76,1,1,0,0.02,74.0,2.0,898210.0
-5071245,2026-07-26,mls,St. Louis City,Daniel Edelman,1170233,M,1,90,1,0,0,0.03,76.0,2.0,1497834.0
-5071245,2026-07-26,mls,St. Louis City,Tomas Totland,633617,M,1,90,4,1,0,0.26,78.0,2.0,517421.0
-5071245,2026-07-26,mls,St. Louis City,Sang-Bin Jeong,1109166,F,1,58,3,0,0,0.1,103.0,3.0,1047820.0
-5071245,2026-07-26,mls,St. Louis City,Simon Becher,1370582,F,1,76,3,0,0,0.17,105.0,3.0,535579.0
-5071245,2026-07-26,mls,St. Louis City,Marcel Hartel,726692,M,1,87,2,0,0,0.08,107.0,2.0,1781634.0
-5071245,2026-07-26,mls,St. Louis City,Eduard Löwen,794408,M,0,32,0,0,0,0.0,,2.0,1610036.0
-5071245,2026-07-26,mls,St. Louis City,Tomás Ostrák,1065321,M,0,14,1,1,1,0.03,,2.0,513050.0
-5071245,2026-07-26,mls,St. Louis City,Palmer Ault,1343445,F,0,14,0,0,0,0.0,,3.0,
-5071245,2026-07-26,mls,St. Louis City,Lukas MacNaughton,1045804,D,0,4,0,0,0,0.0,,1.0,456316.0
-5071245,2026-07-26,mls,St. Louis City,Miguel Perez,1346875,M,0,1,0,0,0,0.0,,2.0,469614.0
 1000015434,2026-07-26,per_liga1,FBC Melgar,Jorge Cabezudo,1248691,G,1,90,0,0,0,0.0,11.0,0.0,286911.0
 1000015434,2026-07-26,per_liga1,FBC Melgar,Matías Lazo,1202976,D,1,90,1,0,0,0.0,32.0,1.0,1138536.0
 1000015434,2026-07-26,per_liga1,FBC Melgar,Juan Escobar,747701,D,1,90,2,0,0,0.0,34.0,1.0,346128.0
@@ -19921,22 +19792,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109856,2026-07-29,usl_championship,Birmingham Legion FC,Romario Williams,621524,F,0,29,1,0,0,0.0,,3.0,103832.0
 5109856,2026-07-29,usl_championship,Birmingham Legion FC,Sebastián Saucedo,622027,F,0,10,0,0,0,0.0,,3.0,
 5109856,2026-07-29,usl_championship,Birmingham Legion FC,Serge Ngoma,1190660,F,0,2,0,0,0,0.0,,3.0,670583.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Dane Jacomen,1381135,G,1,90,0,0,0,0.0,11.0,0.0,70865.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Ian,1712469,D,1,64,0,0,0,0.0,33.0,1.0,
-5109857,2026-07-29,usl_championship,FC Tulsa,Abdoulaye Cissoko,1172998,D,1,82,0,0,0,0.0,35.0,1.0,60507.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Lamar Batista,860075,D,1,90,0,0,0,0.0,37.0,1.0,54748.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Joel Sangwa,1626133,D,1,74,1,0,0,0.0,51.0,1.0,
-5109857,2026-07-29,usl_championship,FC Tulsa,Lucas Stauffer,923977,D,1,90,0,0,0,0.0,59.0,1.0,50000.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Bailey Sparks,1171033,F,1,63,1,1,0,0.0,73.0,3.0,129600.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Jeorgio Kocevski,1613722,M,1,83,0,0,0,0.0,75.0,2.0,168663.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Jamie Webber,851104,M,1,90,3,0,0,0.0,77.0,2.0,50000.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Logan Dorsey,1060334,F,1,90,3,2,1,0.0,104.0,3.0,115200.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Arquímides Ordóñez,1269658,F,1,90,1,0,0,0.0,106.0,3.0,129076.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Delentz Pierre,1355679,D,0,26,0,0,0,0.0,,1.0,246384.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Kalil ElMedkhar,1244942,F,0,27,1,1,0,0.0,,3.0,78229.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Owen Damm,1252869,M,0,16,0,0,0,0.0,,2.0,90525.0
-5109857,2026-07-29,usl_championship,FC Tulsa,Alonzo Clarke,1913765,D,0,8,0,0,0,0.0,,1.0,
-5109857,2026-07-29,usl_championship,FC Tulsa,Giordano Colli,1207848,M,0,7,0,0,0,0.0,,2.0,78198.0
 1000009041,2026-07-28,ecu_liga_pro,Deportivo Cuenca,Facundo Ferrero,875877,G,1,90,0,0,0,0.0,11.0,0.0,205023.0
 1000009041,2026-07-28,ecu_liga_pro,Deportivo Cuenca,Eddie Guevara,1083607,D,1,90,0,0,0,0.0,32.0,1.0,135408.0
 1000009041,2026-07-28,ecu_liga_pro,Deportivo Cuenca,Patricio Boolsen,1116948,D,1,90,1,0,0,0.0,34.0,1.0,187398.0
@@ -22954,22 +22809,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109868,2026-08-01,usl_championship,San Antonio FC,Diogo Pacheco,1355567,F,0,17,0,0,0,0.0,,3.0,50000.0
 5109868,2026-08-01,usl_championship,San Antonio FC,Nelson Blanco,1175223,D,0,9,2,0,0,0.0,,1.0,66205.0
 5109868,2026-08-01,usl_championship,San Antonio FC,Santiago Patiño,1026107,F,0,3,0,0,0,0.0,,3.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Eric Dick,924432,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Nabi Kibunguchy,1244947,D,1,45,1,1,0,0.0,32.0,1.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Anthony Herbert,1347962,D,1,90,1,0,0,0.0,34.0,1.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Paco Craig,783608,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Aodhan Quinn,639374,D,1,58,0,0,0,0.0,38.0,1.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Josh O'Brien,1393400,M,1,90,4,1,1,0.0,73.0,2.0,99450.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Cameron Lindley,924497,M,1,90,1,0,0,0.0,75.0,2.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Mohamed Omar,1615692,M,1,46,0,0,0,0.0,77.0,2.0,58535.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Bruno Rendón,1349934,F,1,90,0,0,0,0.0,103.0,3.0,
-5109868,2026-08-01,usl_championship,Indy Eleven,Noble Okello,1016092,M,1,71,0,0,0,0.0,105.0,2.0,95207.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Loïc Mesanvi,1349074,F,1,46,0,0,0,0.0,107.0,3.0,110477.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Logan Neidlinger,1615795,D,0,44,0,0,0,0.0,,1.0,137342.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Makel Rasheed,1793931,D,0,45,1,0,0,0.0,,1.0,70206.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Jack Blake,421766,M,0,45,2,1,0,0.0,,2.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Alejandro Mitrano,1044783,D,0,32,0,0,0,0.0,,1.0,50000.0
-5109868,2026-08-01,usl_championship,Indy Eleven,Edward Kizza,1246572,F,0,19,1,0,0,0.0,,3.0,68827.0
 1000009055,2026-08-01,ecu_liga_pro,Libertad,David Cabezas,921934,G,1,90,0,0,0,0.0,11.0,0.0,215072.0
 1000009055,2026-08-01,ecu_liga_pro,Libertad,Bryan Caicedo,1219975,D,1,90,1,0,0,0.0,33.0,1.0,280895.0
 1000009055,2026-08-01,ecu_liga_pro,Libertad,Rodrigo Morínigo,0,D,1,90,0,0,0,0.0,35.0,1.0,
@@ -35471,22 +35310,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109879,2026-08-09,usl_championship,Monterey Bay FC,Diego Otoya,1364473,F,0,14,0,0,0,0.0,,3.0,219057.0
 5109879,2026-08-09,usl_championship,Monterey Bay FC,Stuart Ritchie,1372216,D,0,2,0,0,0,0.0,,1.0,127432.0
 5109879,2026-08-09,usl_championship,Monterey Bay FC,Eduardo Blancas,1348326,M,0,2,0,0,0,0.0,,2.0,158883.0
-5109879,2026-08-09,usl_championship,New Mexico United,Kristopher Shakes,1168844,G,1,90,0,0,0,0.0,11.0,0.0,
-5109879,2026-08-09,usl_championship,New Mexico United,Jake LaCava,1171307,D,1,63,0,0,0,0.0,32.0,1.0,84531.0
-5109879,2026-08-09,usl_championship,New Mexico United,Kipp Keller,1339430,D,1,90,2,0,0,0.0,34.0,1.0,94876.0
-5109879,2026-08-09,usl_championship,New Mexico United,Niko Hämäläinen,662981,D,1,90,0,0,0,0.0,36.0,1.0,75495.0
-5109879,2026-08-09,usl_championship,New Mexico United,Chris Gloster,1054030,D,1,63,0,0,0,0.0,38.0,1.0,97645.0
-5109879,2026-08-09,usl_championship,New Mexico United,Ousman Jabang,1460330,M,1,90,2,1,0,0.0,64.0,2.0,96943.0
-5109879,2026-08-09,usl_championship,New Mexico United,Zico Bailey,1075639,M,1,90,1,0,0,0.0,66.0,2.0,94876.0
-5109879,2026-08-09,usl_championship,New Mexico United,Cristian Nava,1272104,F,1,46,0,0,0,0.0,83.0,3.0,177120.0
-5109879,2026-08-09,usl_championship,New Mexico United,Valentin Noël,959425,M,1,90,2,2,2,0.0,85.0,2.0,50000.0
-5109879,2026-08-09,usl_championship,New Mexico United,Joseph Melto Quiah,1919758,F,1,63,1,1,0,0.0,87.0,3.0,
-5109879,2026-08-09,usl_championship,New Mexico United,Greg Hurst,632285,F,1,89,1,1,1,0.0,115.0,3.0,50000.0
-5109879,2026-08-09,usl_championship,New Mexico United,Niall Reid-Stephen,1240864,F,0,45,1,1,1,0.0,,3.0,103075.0
-5109879,2026-08-09,usl_championship,New Mexico United,Tyler Blackett,501040,D,0,27,0,0,0,0.0,,1.0,57632.0
-5109879,2026-08-09,usl_championship,New Mexico United,Cullen Wilkerson,1172876,M,0,27,0,0,0,0.0,,2.0,
-5109879,2026-08-09,usl_championship,New Mexico United,Dayonn Harris,1172427,F,0,27,2,1,1,0.0,,3.0,50000.0
-5109879,2026-08-09,usl_championship,New Mexico United,Justin Rennicks,1026140,F,0,1,0,0,0,0.0,,3.0,69390.0
 5803526,2026-08-09,jpn_j1,Tokyo Verdy,Matheus Vidotto,320549,G,1,90,0,0,0,0.0,11.0,0.0,222781.0
 5803526,2026-08-09,jpn_j1,Tokyo Verdy,Kaito Suzuki,1176764,D,1,64,1,0,0,0.08,33.0,1.0,280596.0
 5803526,2026-08-09,jpn_j1,Tokyo Verdy,Naoki Hayashi,1232144,D,1,90,1,1,0,0.03,35.0,1.0,272385.0
@@ -132435,187 +132258,381 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 6280444,2026-09-30,selecciones,Peru,Oliver Sonne,1060617,D,0,10,0,0,0,0.0,,1.0,2550667.0
 6280444,2026-09-30,selecciones,Peru,César Inga,1415328,D,0,6,0,0,0,0.0,,1.0,1009394.0
 6280444,2026-09-30,selecciones,Peru,Jairo Concha,988208,M,0,6,0,0,0,0.0,,2.0,804800.0
-6148608,2026-09-30,champions_femenil,BK Häcken,Hanna Karlsson,1741066,G,1,90,0,0,0,0.0,11,0,
-6148608,2026-09-30,champions_femenil,BK Häcken,Josefine Rybrink,961433,D,1,66,0,0,0,0.0,33,1,
-6148608,2026-09-30,champions_femenil,BK Häcken,Aivi Luik,289653,D,1,90,0,0,0,0.0,35,1,
-6148608,2026-09-30,champions_femenil,BK Häcken,Emma Östlund,1038500,D,1,90,0,0,0,0.0,37,1,
-6148608,2026-09-30,champions_femenil,BK Häcken,Thelma Pálmadóttir,1835189,F,1,79,1,0,0,0.0,72,3,
-6148608,2026-09-30,champions_femenil,BK Häcken,Pernille Sanvig,1328793,M,1,90,0,0,0,0.0,74,2,
-6148608,2026-09-30,champions_femenil,BK Häcken,Laney Matriano,1904942,M,1,55,1,0,0,0.0,76,2,
-6148608,2026-09-30,champions_femenil,BK Häcken,Alva Selerud,886420,D,1,66,1,0,0,0.0,78,1,
-6148608,2026-09-30,champions_femenil,BK Häcken,Tabby Tindell,1349459,D,1,90,3,0,0,0.0,103,1,
-6148608,2026-09-30,champions_femenil,BK Häcken,Anna Anvegård,961790,M,1,90,5,1,0,0.0,105,2,
-6148608,2026-09-30,champions_femenil,BK Häcken,Maja Bodin,961451,F,1,79,2,0,0,0.0,107,3,
-6148608,2026-09-30,champions_femenil,BK Häcken,Jóhanna Fossdalsá,1393806,M,0,35,1,1,0,0.0,,2,
-6148608,2026-09-30,champions_femenil,BK Häcken,Stine Sandbech,487124,D,0,24,1,0,0,0.0,,1,
-6148608,2026-09-30,champions_femenil,BK Häcken,Tilde Karlsson,1501889,F,0,24,0,0,0,0.0,,3,
-6148608,2026-09-30,champions_femenil,BK Häcken,Tuva Ölvestad,1636891,M,0,11,0,0,0,0.0,,2,
-6148608,2026-09-30,champions_femenil,BK Häcken,Omewa Joy Ogochuckwu,1328801,F,0,11,1,0,0,0.0,,3,
-6148608,2026-09-30,champions_femenil,Juventus,Daniëlle de Jong,1556341,G,1,90,0,0,0,0.0,11,0,
-6148608,2026-09-30,champions_femenil,Juventus,Martina Lenzini,734764,D,1,72,0,0,0,0.0,33,1,
-6148608,2026-09-30,champions_femenil,Juventus,Cecilia Salvai,859032,D,1,90,0,0,0,0.0,35,1,
-6148608,2026-09-30,champions_femenil,Juventus,Kysha Sylla,1320894,D,1,90,0,0,0,0.0,37,1,
-6148608,2026-09-30,champions_femenil,Juventus,Emma Godø,1082893,M,1,89,2,2,1,0.0,72,2,
-6148608,2026-09-30,champions_femenil,Juventus,Júlia Bartel,1349775,M,1,90,0,0,0,0.0,74,2,
-6148608,2026-09-30,champions_femenil,Juventus,Eva Schatzer,1423051,M,1,90,0,0,0,0.0,76,2,
-6148608,2026-09-30,champions_femenil,Juventus,Estela Carbonell,1345371,D,1,90,0,0,0,0.0,78,1,
-6148608,2026-09-30,champions_femenil,Juventus,Amaiur Sarriegi,1202703,F,1,73,3,0,0,0.0,103,3,
-6148608,2026-09-30,champions_femenil,Juventus,Alba Redondo,1044151,F,1,90,7,1,1,0.0,105,3,
-6148608,2026-09-30,champions_femenil,Juventus,Tatiana Pinto,858370,M,1,63,1,1,1,0.0,107,2,
-6148608,2026-09-30,champions_femenil,Juventus,Danique Noordman,1356047,D,0,27,0,0,0,0.0,,1,
-6148608,2026-09-30,champions_femenil,Juventus,Federica D'Auria,1473402,D,0,18,0,0,0,0.0,,1,
-6148608,2026-09-30,champions_femenil,Juventus,Manaka Hayashi,1727398,M,0,17,0,0,0,0.0,,2,
-6148608,2026-09-30,champions_femenil,Juventus,Matilde Pavan,1191883,M,0,1,0,0,0,0.0,,2,
-6148608,2026-09-30,champions_femenil,Juventus,Ornella Graziani,1681667,M,0,1,0,0,0,0.0,,2,
-6148604,2026-09-30,champions_femenil,Paris FC,Myléne Chavas,1345780,G,1,90,0,0,0,0.0,11,0,
-6148604,2026-09-30,champions_femenil,Paris FC,Melween Ndongala,1345948,D,1,90,0,0,0,0.0,32,1,
-6148604,2026-09-30,champions_femenil,Paris FC,Célina Hocine,1340664,D,1,90,0,0,0,0.0,34,1,
-6148604,2026-09-30,champions_femenil,Paris FC,Théa Greboval,1002037,D,1,58,0,0,0,0.0,36,1,
-6148604,2026-09-30,champions_femenil,Paris FC,Fiona Liaigre,1345783,D,1,81,0,0,0,0.0,38,1,
-6148604,2026-09-30,champions_femenil,Paris FC,Anaële Le Moguédec,1544684,M,1,74,0,0,0,0.0,64,2,
-6148604,2026-09-30,champions_femenil,Paris FC,Kaja Korošec,1099903,M,1,90,1,0,0,0.0,66,2,
-6148604,2026-09-30,champions_femenil,Paris FC,Aurélie Reynders,1807933,F,1,90,2,1,0,0.0,83,3,
-6148604,2026-09-30,champions_femenil,Paris FC,Mariam Toloba,1077623,F,1,58,3,1,0,0.0,85,3,
-6148604,2026-09-30,champions_femenil,Paris FC,Clara Mateo,887657,F,1,81,1,1,1,0.0,87,3,
-6148604,2026-09-30,champions_femenil,Paris FC,Évelyne Viens,1170232,F,1,90,1,0,0,0.0,115,3,
-6148604,2026-09-30,champions_femenil,Paris FC,Hillary Diaz,1406282,D,0,32,0,0,0,0.0,,1,
-6148604,2026-09-30,champions_femenil,Paris FC,Maeline Mendy,1417279,F,0,32,1,1,1,0.0,,3,
-6148604,2026-09-30,champions_femenil,Paris FC,Océane Picard,1544556,M,0,16,0,0,0,0.0,,2,
-6148604,2026-09-30,champions_femenil,Paris FC,Manoly Baquerizo,1466024,D,0,9,0,0,0,0.0,,1,
-6148604,2026-09-30,champions_femenil,Paris FC,Sheika Scott,1510590,M,0,9,0,0,0,0.0,,2,
-6148604,2026-09-30,champions_femenil,Arsenal,Misa,887325,G,1,90,0,0,0,0.0,11,0,
-6148604,2026-09-30,champions_femenil,Arsenal,Emily Fox,1266128,D,1,69,1,0,0,0.0,32,1,
-6148604,2026-09-30,champions_femenil,Arsenal,Leah Williamson,941576,D,1,90,1,0,0,0.0,34,1,
-6148604,2026-09-30,champions_femenil,Arsenal,Lotte Wubben-Moy,1192394,D,1,90,0,0,0,0.0,36,1,
-6148604,2026-09-30,champions_femenil,Arsenal,Ona Batlle,1044313,D,1,90,2,1,0,0.0,38,1,
-6148604,2026-09-30,champions_femenil,Arsenal,Kim Little,324991,M,1,57,0,0,0,0.0,63,2,
-6148604,2026-09-30,champions_femenil,Arsenal,Kyra Cooney-Cross,1111984,M,1,90,1,0,0,0.0,65,2,
-6148604,2026-09-30,champions_femenil,Arsenal,Georgia Stanway,886706,M,1,69,3,1,1,0.0,67,2,
-6148604,2026-09-30,champions_femenil,Arsenal,Lisa Baum,1638167,F,1,89,1,0,0,0.0,84,3,
-6148604,2026-09-30,champions_femenil,Arsenal,Mariona Caldentey,835903,M,1,90,1,0,0,0.0,86,2,
-6148604,2026-09-30,champions_femenil,Arsenal,Alessia Russo,1185212,F,1,89,5,2,1,0.0,115,3,
-6148604,2026-09-30,champions_femenil,Arsenal,Olivia Smith,1514063,F,0,33,1,0,0,0.0,,3,
-6148604,2026-09-30,champions_femenil,Arsenal,Smilla Holmberg,1357677,D,0,21,0,0,0,0.0,,1,
-6148604,2026-09-30,champions_femenil,Arsenal,Frida Maanum,809605,M,0,21,2,2,0,0.0,,2,
-6148604,2026-09-30,champions_femenil,Arsenal,Caitlin Foord,271434,F,0,1,0,0,0,0.0,,3,
-6148604,2026-09-30,champions_femenil,Arsenal,Stina Blackstenius,773402,F,0,1,0,0,0,0.0,,3,
-6148595,2026-09-30,champions_femenil,Roma,Rachele Baldi,1185131,G,1,90,0,0,0,0.0,11,0,
-6148595,2026-09-30,champions_femenil,Roma,Valentina Bergamaschi,887253,D,1,61,0,0,0,0.0,32,1,
-6148595,2026-09-30,champions_femenil,Roma,Maya Antoine,1636886,D,1,90,0,0,0,0.0,34,1,
-6148595,2026-09-30,champions_femenil,Roma,Oladipo Shukurat,1640465,D,1,90,0,0,0,0.0,36,1,
-6148595,2026-09-30,champions_femenil,Roma,Elisabetta Oliviero,1184953,D,1,90,0,0,0,0.0,38,1,
-6148595,2026-09-30,champions_femenil,Roma,Giada Greggi,1111407,M,1,79,0,0,0,0.0,73,2,
-6148595,2026-09-30,champions_femenil,Roma,Annalena Rieke,881741,M,1,71,0,0,0,0.0,75,2,
-6148595,2026-09-30,champions_femenil,Roma,Manuela Giugliano,859266,M,1,61,2,0,0,0.0,77,2,
-6148595,2026-09-30,champions_femenil,Roma,Frederikke Thøgersen,492532,D,1,90,0,0,0,0.0,103,1,
-6148595,2026-09-30,champions_femenil,Roma,Martina Piemonte,1102701,F,1,61,0,0,0,0.0,105,3,
-6148595,2026-09-30,champions_femenil,Roma,Giada Cimò,1484623,F,1,90,1,0,0,0.0,107,3,
-6148595,2026-09-30,champions_femenil,Roma,Ella Ottey,2174791,D,0,29,0,0,0,0.0,,1,
-6148595,2026-09-30,champions_femenil,Roma,Maya Doms,1624204,M,0,29,0,0,0,0.0,,2,
-6148595,2026-09-30,champions_femenil,Roma,Alice Corelli,1184909,F,0,29,1,0,0,0.0,,3,
-6148595,2026-09-30,champions_femenil,Roma,Winonah Heatley,1227426,D,0,19,0,0,0,0.0,,1,
-6148595,2026-09-30,champions_femenil,Roma,Marta Pandini,1184904,M,0,11,0,0,0,0.0,,2,
-6148595,2026-09-30,champions_femenil,Barcelona,Cata Coll,1178008,G,1,90,0,0,0,0.0,11,0,
-6148595,2026-09-30,champions_femenil,Barcelona,Sydney Schertenleib,1660200,M,1,90,2,2,0,0.0,32,2,
-6148595,2026-09-30,champions_femenil,Barcelona,Irene Paredes,298582,D,1,90,0,0,0,0.0,34,1,
-6148595,2026-09-30,champions_femenil,Barcelona,Martina Fernández,1345250,D,1,65,0,0,0,0.0,36,1,
-6148595,2026-09-30,champions_femenil,Barcelona,Esmee Brugts,1214641,D,1,76,2,0,0,0.0,38,1,
-6148595,2026-09-30,champions_femenil,Barcelona,Clara Serrajordi,1686783,M,1,76,0,0,0,0.0,73,2,
-6148595,2026-09-30,champions_femenil,Barcelona,Patri Guijarro,887405,M,1,90,2,1,0,0.0,75,2,
-6148595,2026-09-30,champions_femenil,Barcelona,Clàudia Pina,1031791,F,1,90,5,4,2,0.0,77,3,
-6148595,2026-09-30,champions_femenil,Barcelona,Caroline Graham Hansen,215716,F,1,64,5,3,2,0.0,103,3,
-6148595,2026-09-30,champions_femenil,Barcelona,Ewa Pajor,734720,F,1,90,2,1,1,0.0,105,3,
-6148595,2026-09-30,champions_femenil,Barcelona,Kerolin,1268071,F,1,76,2,0,0,0.0,107,3,
-6148595,2026-09-30,champions_femenil,Barcelona,Aitana Bonmatí,887411,M,0,26,0,0,0,0.0,,2,
-6148595,2026-09-30,champions_femenil,Barcelona,Aïcha Camara,1686782,D,0,25,0,0,0,0.0,,1,
-6148595,2026-09-30,champions_femenil,Barcelona,Carla Juliá,1602001,D,0,14,0,0,0,0.0,,1,
-6148595,2026-09-30,champions_femenil,Barcelona,Renee van Asten,1812076,D,0,14,0,0,0,0.0,,1,
-6148595,2026-09-30,champions_femenil,Barcelona,Rosalía Domínguez,1630741,F,0,14,0,0,0,0.0,,3,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Maria Grohs,1178359,G,1,90,0,0,0,0.0,11,0,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Ingrid Syrstad Engen,534786,D,1,90,0,0,0,0.0,33,1,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Tarciane,1442520,D,1,76,0,0,0,0.0,35,1,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Selma Bacha,887470,D,1,90,1,0,0,0.0,37,1,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Jule Brand,1204258,F,1,90,0,0,0,0.0,62,3,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Damaris Egurrola,1044340,M,1,90,0,0,0,0.0,64,2,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Lily Isabella Yohannes,1581076,M,1,90,0,0,0,0.0,66,2,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Salma Paralluelo,1345439,F,1,76,1,1,0,0.0,68,3,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Caroline Weir,858291,M,1,77,1,0,0,0.0,84,2,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Melchie Dumornay,1130847,M,1,90,2,1,0,0.0,86,2,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Marie-Antoinette Katoto,851324,F,1,64,1,1,0,0.0,105,3,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Ada Stolsmo Hegerberg,256815,F,0,26,1,1,0,0.0,,3,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Wendie Renard,271590,D,0,14,0,0,0,0.0,,1,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Tabitha Chawinga,1400283,F,0,14,1,0,0,0.0,,3,
-6148586,2026-09-30,champions_femenil,OL Lyonnes,Vicki Becho,1214573,F,0,13,1,0,0,0.0,,3,
-6148586,2026-09-30,champions_femenil,Chelsea,Hannah Hampton,1081975,G,1,90,0,0,0,0.0,11,0,
-6148586,2026-09-30,champions_femenil,Chelsea,Lucy Bronze,646031,D,1,90,0,0,0,0.0,33,1,
-6148586,2026-09-30,champions_femenil,Chelsea,Kadeisha Buchanan,646129,D,1,90,1,0,0,0.0,35,1,
-6148586,2026-09-30,champions_femenil,Chelsea,Veerle Buurman,1648650,D,1,90,0,0,0,0.0,37,1,
-6148586,2026-09-30,champions_femenil,Chelsea,Ellie Carpenter,773361,D,1,90,0,0,0,0.0,62,1,
-6148586,2026-09-30,champions_femenil,Chelsea,Keira Walsh,809517,M,1,90,1,0,0,0.0,64,2,
-6148586,2026-09-30,champions_femenil,Chelsea,Alexia Potter,1580519,M,1,90,0,0,0,0.0,66,2,
-6148586,2026-09-30,champions_femenil,Chelsea,Alyssa Thompson,1412460,F,1,90,0,0,0,0.0,68,3,
-6148586,2026-09-30,champions_femenil,Chelsea,Wieke Kaptein,1406578,M,1,90,1,0,0,0.0,84,2,
-6148586,2026-09-30,champions_femenil,Chelsea,Sjoeke Nüsken,1106904,M,1,70,1,0,0,0.0,86,2,
-6148586,2026-09-30,champions_femenil,Chelsea,Melvine Malard,887471,F,1,58,2,1,0,0.0,105,3,
-6148586,2026-09-30,champions_femenil,Chelsea,Lauren James,1082556,F,0,32,1,1,0,0.0,,3,
-6148586,2026-09-30,champions_femenil,Chelsea,Maika Hamano,1441762,F,0,20,2,0,0,0.0,,3,
-6148592,2026-09-30,champions_femenil,Benfica,Lena Pauels,898510,G,1,90,0,0,0,0.0,11,0,
-6148592,2026-09-30,champions_femenil,Benfica,Catarina Amado,1214595,D,1,90,1,0,0,0.0,32,1,
-6148592,2026-09-30,champions_femenil,Benfica,Diana Gomes,858366,D,1,90,1,0,0,0.0,34,1,
-6148592,2026-09-30,champions_femenil,Benfica,Tinkara Testen,1765532,D,1,90,0,0,0,0.0,36,1,
-6148592,2026-09-30,champions_femenil,Benfica,Marit Lund,315002,D,1,90,0,0,0,0.0,38,1,
-6148592,2026-09-30,champions_femenil,Benfica,Pauleta,1214603,M,1,50,0,0,0,0.0,73,2,
-6148592,2026-09-30,champions_femenil,Benfica,Anna Csiki,1161748,M,1,77,0,0,0,0.0,75,2,
-6148592,2026-09-30,champions_femenil,Benfica,Carolina Tristão,1823048,M,1,46,0,0,0,0.0,77,2,
-6148592,2026-09-30,champions_femenil,Benfica,Chandra Davidson,1547728,F,1,77,1,0,0,0.0,103,3,
-6148592,2026-09-30,champions_femenil,Benfica,Frøya Brennskag-Dorsin,1417995,F,1,63,1,1,0,0.0,105,3,
-6148592,2026-09-30,champions_femenil,Benfica,Lúcia Alves,1263134,F,1,90,0,0,0,0.0,107,3,
-6148592,2026-09-30,champions_femenil,Benfica,Andreia Norton,858363,M,0,45,1,1,0,0.0,,2,
-6148592,2026-09-30,champions_femenil,Benfica,Caroline Møller Hansen,743074,M,0,40,0,0,0,0.0,,2,
-6148592,2026-09-30,champions_femenil,Benfica,Nycole Raysla,1214605,F,0,27,1,1,0,0.0,,3,
-6148592,2026-09-30,champions_femenil,Benfica,Clarinha,1819427,M,0,13,0,0,0,0.0,,2,
-6148592,2026-09-30,champions_femenil,Benfica,Flourish Chioma Sabastine,1577765,F,0,13,0,0,0,0.0,,3,
-6148592,2026-09-30,champions_femenil,Bayern München,Ena Mahmutovic,1254235,G,1,90,0,0,0,0.0,11,0,
-6148592,2026-09-30,champions_femenil,Bayern München,Giulia Gwinn,888650,D,1,90,1,0,0,0.0,32,1,
-6148592,2026-09-30,champions_femenil,Bayern München,Glódís Viggósdóttir,858999,D,1,90,2,0,0,0.0,34,1,
-6148592,2026-09-30,champions_femenil,Bayern München,Stine Ballisager Pedersen,289679,D,1,90,0,0,0,0.0,36,1,
-6148592,2026-09-30,champions_femenil,Bayern München,Franziska Kett,1345154,D,1,90,1,1,1,0.0,38,1,
-6148592,2026-09-30,champions_femenil,Bayern München,Momoko Tanikawa,1604389,M,1,90,0,0,0,0.0,64,2,
-6148592,2026-09-30,champions_femenil,Bayern München,Bernadette Amani,1546577,M,1,90,0,0,0,0.0,66,2,
-6148592,2026-09-30,champions_femenil,Bayern München,Linda Dallmann,859028,F,1,89,3,0,0,0.0,83,3,
-6148592,2026-09-30,champions_femenil,Bayern München,Pernille Harder,200707,F,1,84,7,3,1,0.0,85,3,
-6148592,2026-09-30,champions_femenil,Bayern München,Klara Bühl,888165,F,1,90,2,1,1,0.0,87,3,
-6148592,2026-09-30,champions_femenil,Bayern München,Jovana Damnjanović,887423,F,1,69,6,2,0,0.0,115,3,
-6148592,2026-09-30,champions_femenil,Bayern München,Alara Şehitler,1544185,M,0,21,0,0,0,0.0,,2,
-6148592,2026-09-30,champions_femenil,Bayern München,Edna Imade,1546658,F,0,6,0,0,0,0.0,,3,
-6148592,2026-09-30,champions_femenil,Bayern München,Sophie Proost,1684314,F,0,2,0,0,0,0.0,,3,
-1000017242,2026-09-30,per_liga1,Cienciano,Ítalo Espinoza,1036089,G,1,46,0,0,0,0.0,11,0,248407
-1000017242,2026-09-30,per_liga1,Cienciano,Carlos Cabello,951736,D,1,72,1,0,0,0.0,32,1,350056
-1000017242,2026-09-30,per_liga1,Cienciano,Maximiliano Amondarain,427446,D,1,90,0,0,0,0.0,34,1,168973
-1000017242,2026-09-30,per_liga1,Cienciano,Kevin Becerra,1246012,D,1,90,1,1,0,0.0,36,1,216270
-1000017242,2026-09-30,per_liga1,Cienciano,Claudio Núñez,903076,D,1,61,2,0,0,0.0,38,1,150535
-1000017242,2026-09-30,per_liga1,Cienciano,Santiago Arias,921303,M,1,90,1,0,0,0.0,64,2,153006
-1000017242,2026-09-30,per_liga1,Cienciano,Gerson Barreto,547835,M,1,90,0,0,0,0.0,66,2,153030
-1000017242,2026-09-30,per_liga1,Cienciano,Cristian Souza,841483,F,1,90,3,1,0,0.0,83,3,208426
-1000017242,2026-09-30,per_liga1,Cienciano,Matías Succar,982363,M,1,57,4,2,0,0.0,85,2,316497
-1000017242,2026-09-30,per_liga1,Cienciano,Neri Ricardo Bandiera,623864,F,1,90,1,0,0,0.0,87,3,246031
-1000017242,2026-09-30,per_liga1,Cienciano,Carlos Garcés,424444,F,1,90,4,1,0,0.0,115,3,252019
-1000017242,2026-09-30,per_liga1,Cienciano,Gonzalo Falcón,921251,G,0,44,0,0,0,0.0,,0,235873
-1000017242,2026-09-30,per_liga1,Cienciano,Ademar Robles,1605257,M,0,33,1,0,0,0.0,,2,173680
-1000017242,2026-09-30,per_liga1,Cienciano,Sebastián Cavero,1186356,D,0,29,1,0,0,0.0,,1,271485
-1000017242,2026-09-30,per_liga1,Cienciano,Renzo Salazar,1469845,D,0,18,0,0,0,0.0,,1,
-1000017242,2026-09-30,per_liga1,Los Chankas,Hairo Camacho,1432784,G,1,90,0,0,0,0.0,11,0,175154
-1000017242,2026-09-30,per_liga1,Los Chankas,Michel Kaufman,1897193,D,1,64,0,0,0,0.0,32,1,298215
-1000017242,2026-09-30,per_liga1,Los Chankas,Héctor Gonzalez,847141,D,1,90,0,0,0,0.0,34,1,152132
-1000017242,2026-09-30,per_liga1,Los Chankas,Carlos Pimienta,1368496,D,1,90,1,0,0,0.0,36,1,170340
-1000017242,2026-09-30,per_liga1,Los Chankas,Kenyi Barrios,1605042,D,1,78,2,2,1,0.0,38,1,144691
-1000017242,2026-09-30,per_liga1,Los Chankas,Jorge Palomino,1381138,M,1,90,0,0,0,0.0,64,2,171439
-1000017242,2026-09-30,per_liga1,Los Chankas,Christian Velarde,1345062,M,1,90,0,0,0,0.0,66,2,149491
-1000017242,2026-09-30,per_liga1,Los Chankas,Oshiro Takeuchi,625150,F,1,90,1,0,0,0.0,83,3,259414
-1000017242,2026-09-30,per_liga1,Los Chankas,Marlon Torres,1130739,M,1,86,1,0,0,0.0,85,2,287589
-1000017242,2026-09-30,per_liga1,Los Chankas,Abidel Ayarza,1023880,F,1,64,3,0,0,0.0,87,3,161973
-1000017242,2026-09-30,per_liga1,Los Chankas,Franco Torres,988189,F,1,90,0,0,0,0.0,115,3,245967
-1000017242,2026-09-30,per_liga1,Los Chankas,Axel Chávez,941883,D,0,26,0,0,0,0.0,,1,142862
-1000017242,2026-09-30,per_liga1,Los Chankas,Jarlín Quintero,571225,F,0,26,0,0,0,0.0,,3,209066
-1000017242,2026-09-30,per_liga1,Los Chankas,Gonzalo Rizzo,921741,D,0,12,0,0,0,0.0,,1,160633
-1000017242,2026-09-30,per_liga1,Los Chankas,Kelvin Sánchez,1419499,M,0,4,0,0,0,0.0,,2,193137
+6148608,2026-09-30,champions_femenil,BK Häcken,Hanna Karlsson,1741066,G,1,90,0,0,0,0.0,11.0,0.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Josefine Rybrink,961433,D,1,66,0,0,0,0.0,33.0,1.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Aivi Luik,289653,D,1,90,0,0,0,0.0,35.0,1.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Emma Östlund,1038500,D,1,90,0,0,0,0.0,37.0,1.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Thelma Pálmadóttir,1835189,F,1,79,1,0,0,0.0,72.0,3.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Pernille Sanvig,1328793,M,1,90,0,0,0,0.0,74.0,2.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Laney Matriano,1904942,M,1,55,1,0,0,0.0,76.0,2.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Alva Selerud,886420,D,1,66,1,0,0,0.0,78.0,1.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Tabby Tindell,1349459,D,1,90,3,0,0,0.0,103.0,1.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Anna Anvegård,961790,M,1,90,5,1,0,0.0,105.0,2.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Maja Bodin,961451,F,1,79,2,0,0,0.0,107.0,3.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Jóhanna Fossdalsá,1393806,M,0,35,1,1,0,0.0,,2.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Stine Sandbech,487124,D,0,24,1,0,0,0.0,,1.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Tilde Karlsson,1501889,F,0,24,0,0,0,0.0,,3.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Tuva Ölvestad,1636891,M,0,11,0,0,0,0.0,,2.0,
+6148608,2026-09-30,champions_femenil,BK Häcken,Omewa Joy Ogochuckwu,1328801,F,0,11,1,0,0,0.0,,3.0,
+6148608,2026-09-30,champions_femenil,Juventus,Daniëlle de Jong,1556341,G,1,90,0,0,0,0.0,11.0,0.0,
+6148608,2026-09-30,champions_femenil,Juventus,Martina Lenzini,734764,D,1,72,0,0,0,0.0,33.0,1.0,
+6148608,2026-09-30,champions_femenil,Juventus,Cecilia Salvai,859032,D,1,90,0,0,0,0.0,35.0,1.0,
+6148608,2026-09-30,champions_femenil,Juventus,Kysha Sylla,1320894,D,1,90,0,0,0,0.0,37.0,1.0,
+6148608,2026-09-30,champions_femenil,Juventus,Emma Godø,1082893,M,1,89,2,2,1,0.0,72.0,2.0,
+6148608,2026-09-30,champions_femenil,Juventus,Júlia Bartel,1349775,M,1,90,0,0,0,0.0,74.0,2.0,
+6148608,2026-09-30,champions_femenil,Juventus,Eva Schatzer,1423051,M,1,90,0,0,0,0.0,76.0,2.0,
+6148608,2026-09-30,champions_femenil,Juventus,Estela Carbonell,1345371,D,1,90,0,0,0,0.0,78.0,1.0,
+6148608,2026-09-30,champions_femenil,Juventus,Amaiur Sarriegi,1202703,F,1,73,3,0,0,0.0,103.0,3.0,
+6148608,2026-09-30,champions_femenil,Juventus,Alba Redondo,1044151,F,1,90,7,1,1,0.0,105.0,3.0,
+6148608,2026-09-30,champions_femenil,Juventus,Tatiana Pinto,858370,M,1,63,1,1,1,0.0,107.0,2.0,
+6148608,2026-09-30,champions_femenil,Juventus,Danique Noordman,1356047,D,0,27,0,0,0,0.0,,1.0,
+6148608,2026-09-30,champions_femenil,Juventus,Federica D'Auria,1473402,D,0,18,0,0,0,0.0,,1.0,
+6148608,2026-09-30,champions_femenil,Juventus,Manaka Hayashi,1727398,M,0,17,0,0,0,0.0,,2.0,
+6148608,2026-09-30,champions_femenil,Juventus,Matilde Pavan,1191883,M,0,1,0,0,0,0.0,,2.0,
+6148608,2026-09-30,champions_femenil,Juventus,Ornella Graziani,1681667,M,0,1,0,0,0,0.0,,2.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Myléne Chavas,1345780,G,1,90,0,0,0,0.0,11.0,0.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Melween Ndongala,1345948,D,1,90,0,0,0,0.0,32.0,1.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Célina Hocine,1340664,D,1,90,0,0,0,0.0,34.0,1.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Théa Greboval,1002037,D,1,58,0,0,0,0.0,36.0,1.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Fiona Liaigre,1345783,D,1,81,0,0,0,0.0,38.0,1.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Anaële Le Moguédec,1544684,M,1,74,0,0,0,0.0,64.0,2.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Kaja Korošec,1099903,M,1,90,1,0,0,0.0,66.0,2.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Aurélie Reynders,1807933,F,1,90,2,1,0,0.0,83.0,3.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Mariam Toloba,1077623,F,1,58,3,1,0,0.0,85.0,3.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Clara Mateo,887657,F,1,81,1,1,1,0.0,87.0,3.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Évelyne Viens,1170232,F,1,90,1,0,0,0.0,115.0,3.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Hillary Diaz,1406282,D,0,32,0,0,0,0.0,,1.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Maeline Mendy,1417279,F,0,32,1,1,1,0.0,,3.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Océane Picard,1544556,M,0,16,0,0,0,0.0,,2.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Manoly Baquerizo,1466024,D,0,9,0,0,0,0.0,,1.0,
+6148604,2026-09-30,champions_femenil,Paris FC,Sheika Scott,1510590,M,0,9,0,0,0,0.0,,2.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Misa,887325,G,1,90,0,0,0,0.0,11.0,0.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Emily Fox,1266128,D,1,69,1,0,0,0.0,32.0,1.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Leah Williamson,941576,D,1,90,1,0,0,0.0,34.0,1.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Lotte Wubben-Moy,1192394,D,1,90,0,0,0,0.0,36.0,1.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Ona Batlle,1044313,D,1,90,2,1,0,0.0,38.0,1.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Kim Little,324991,M,1,57,0,0,0,0.0,63.0,2.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Kyra Cooney-Cross,1111984,M,1,90,1,0,0,0.0,65.0,2.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Georgia Stanway,886706,M,1,69,3,1,1,0.0,67.0,2.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Lisa Baum,1638167,F,1,89,1,0,0,0.0,84.0,3.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Mariona Caldentey,835903,M,1,90,1,0,0,0.0,86.0,2.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Alessia Russo,1185212,F,1,89,5,2,1,0.0,115.0,3.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Olivia Smith,1514063,F,0,33,1,0,0,0.0,,3.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Smilla Holmberg,1357677,D,0,21,0,0,0,0.0,,1.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Frida Maanum,809605,M,0,21,2,2,0,0.0,,2.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Caitlin Foord,271434,F,0,1,0,0,0,0.0,,3.0,
+6148604,2026-09-30,champions_femenil,Arsenal,Stina Blackstenius,773402,F,0,1,0,0,0,0.0,,3.0,
+6148595,2026-09-30,champions_femenil,Roma,Rachele Baldi,1185131,G,1,90,0,0,0,0.0,11.0,0.0,
+6148595,2026-09-30,champions_femenil,Roma,Valentina Bergamaschi,887253,D,1,61,0,0,0,0.0,32.0,1.0,
+6148595,2026-09-30,champions_femenil,Roma,Maya Antoine,1636886,D,1,90,0,0,0,0.0,34.0,1.0,
+6148595,2026-09-30,champions_femenil,Roma,Oladipo Shukurat,1640465,D,1,90,0,0,0,0.0,36.0,1.0,
+6148595,2026-09-30,champions_femenil,Roma,Elisabetta Oliviero,1184953,D,1,90,0,0,0,0.0,38.0,1.0,
+6148595,2026-09-30,champions_femenil,Roma,Giada Greggi,1111407,M,1,79,0,0,0,0.0,73.0,2.0,
+6148595,2026-09-30,champions_femenil,Roma,Annalena Rieke,881741,M,1,71,0,0,0,0.0,75.0,2.0,
+6148595,2026-09-30,champions_femenil,Roma,Manuela Giugliano,859266,M,1,61,2,0,0,0.0,77.0,2.0,
+6148595,2026-09-30,champions_femenil,Roma,Frederikke Thøgersen,492532,D,1,90,0,0,0,0.0,103.0,1.0,
+6148595,2026-09-30,champions_femenil,Roma,Martina Piemonte,1102701,F,1,61,0,0,0,0.0,105.0,3.0,
+6148595,2026-09-30,champions_femenil,Roma,Giada Cimò,1484623,F,1,90,1,0,0,0.0,107.0,3.0,
+6148595,2026-09-30,champions_femenil,Roma,Ella Ottey,2174791,D,0,29,0,0,0,0.0,,1.0,
+6148595,2026-09-30,champions_femenil,Roma,Maya Doms,1624204,M,0,29,0,0,0,0.0,,2.0,
+6148595,2026-09-30,champions_femenil,Roma,Alice Corelli,1184909,F,0,29,1,0,0,0.0,,3.0,
+6148595,2026-09-30,champions_femenil,Roma,Winonah Heatley,1227426,D,0,19,0,0,0,0.0,,1.0,
+6148595,2026-09-30,champions_femenil,Roma,Marta Pandini,1184904,M,0,11,0,0,0,0.0,,2.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Cata Coll,1178008,G,1,90,0,0,0,0.0,11.0,0.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Sydney Schertenleib,1660200,M,1,90,2,2,0,0.0,32.0,2.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Irene Paredes,298582,D,1,90,0,0,0,0.0,34.0,1.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Martina Fernández,1345250,D,1,65,0,0,0,0.0,36.0,1.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Esmee Brugts,1214641,D,1,76,2,0,0,0.0,38.0,1.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Clara Serrajordi,1686783,M,1,76,0,0,0,0.0,73.0,2.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Patri Guijarro,887405,M,1,90,2,1,0,0.0,75.0,2.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Clàudia Pina,1031791,F,1,90,5,4,2,0.0,77.0,3.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Caroline Graham Hansen,215716,F,1,64,5,3,2,0.0,103.0,3.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Ewa Pajor,734720,F,1,90,2,1,1,0.0,105.0,3.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Kerolin,1268071,F,1,76,2,0,0,0.0,107.0,3.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Aitana Bonmatí,887411,M,0,26,0,0,0,0.0,,2.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Aïcha Camara,1686782,D,0,25,0,0,0,0.0,,1.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Carla Juliá,1602001,D,0,14,0,0,0,0.0,,1.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Renee van Asten,1812076,D,0,14,0,0,0,0.0,,1.0,
+6148595,2026-09-30,champions_femenil,Barcelona,Rosalía Domínguez,1630741,F,0,14,0,0,0,0.0,,3.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Maria Grohs,1178359,G,1,90,0,0,0,0.0,11.0,0.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Ingrid Syrstad Engen,534786,D,1,90,0,0,0,0.0,33.0,1.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Tarciane,1442520,D,1,76,0,0,0,0.0,35.0,1.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Selma Bacha,887470,D,1,90,1,0,0,0.0,37.0,1.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Jule Brand,1204258,F,1,90,0,0,0,0.0,62.0,3.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Damaris Egurrola,1044340,M,1,90,0,0,0,0.0,64.0,2.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Lily Isabella Yohannes,1581076,M,1,90,0,0,0,0.0,66.0,2.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Salma Paralluelo,1345439,F,1,76,1,1,0,0.0,68.0,3.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Caroline Weir,858291,M,1,77,1,0,0,0.0,84.0,2.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Melchie Dumornay,1130847,M,1,90,2,1,0,0.0,86.0,2.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Marie-Antoinette Katoto,851324,F,1,64,1,1,0,0.0,105.0,3.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Ada Stolsmo Hegerberg,256815,F,0,26,1,1,0,0.0,,3.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Wendie Renard,271590,D,0,14,0,0,0,0.0,,1.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Tabitha Chawinga,1400283,F,0,14,1,0,0,0.0,,3.0,
+6148586,2026-09-30,champions_femenil,OL Lyonnes,Vicki Becho,1214573,F,0,13,1,0,0,0.0,,3.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Hannah Hampton,1081975,G,1,90,0,0,0,0.0,11.0,0.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Lucy Bronze,646031,D,1,90,0,0,0,0.0,33.0,1.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Kadeisha Buchanan,646129,D,1,90,1,0,0,0.0,35.0,1.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Veerle Buurman,1648650,D,1,90,0,0,0,0.0,37.0,1.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Ellie Carpenter,773361,D,1,90,0,0,0,0.0,62.0,1.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Keira Walsh,809517,M,1,90,1,0,0,0.0,64.0,2.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Alexia Potter,1580519,M,1,90,0,0,0,0.0,66.0,2.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Alyssa Thompson,1412460,F,1,90,0,0,0,0.0,68.0,3.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Wieke Kaptein,1406578,M,1,90,1,0,0,0.0,84.0,2.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Sjoeke Nüsken,1106904,M,1,70,1,0,0,0.0,86.0,2.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Melvine Malard,887471,F,1,58,2,1,0,0.0,105.0,3.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Lauren James,1082556,F,0,32,1,1,0,0.0,,3.0,
+6148586,2026-09-30,champions_femenil,Chelsea,Maika Hamano,1441762,F,0,20,2,0,0,0.0,,3.0,
+6148592,2026-09-30,champions_femenil,Benfica,Lena Pauels,898510,G,1,90,0,0,0,0.0,11.0,0.0,
+6148592,2026-09-30,champions_femenil,Benfica,Catarina Amado,1214595,D,1,90,1,0,0,0.0,32.0,1.0,
+6148592,2026-09-30,champions_femenil,Benfica,Diana Gomes,858366,D,1,90,1,0,0,0.0,34.0,1.0,
+6148592,2026-09-30,champions_femenil,Benfica,Tinkara Testen,1765532,D,1,90,0,0,0,0.0,36.0,1.0,
+6148592,2026-09-30,champions_femenil,Benfica,Marit Lund,315002,D,1,90,0,0,0,0.0,38.0,1.0,
+6148592,2026-09-30,champions_femenil,Benfica,Pauleta,1214603,M,1,50,0,0,0,0.0,73.0,2.0,
+6148592,2026-09-30,champions_femenil,Benfica,Anna Csiki,1161748,M,1,77,0,0,0,0.0,75.0,2.0,
+6148592,2026-09-30,champions_femenil,Benfica,Carolina Tristão,1823048,M,1,46,0,0,0,0.0,77.0,2.0,
+6148592,2026-09-30,champions_femenil,Benfica,Chandra Davidson,1547728,F,1,77,1,0,0,0.0,103.0,3.0,
+6148592,2026-09-30,champions_femenil,Benfica,Frøya Brennskag-Dorsin,1417995,F,1,63,1,1,0,0.0,105.0,3.0,
+6148592,2026-09-30,champions_femenil,Benfica,Lúcia Alves,1263134,F,1,90,0,0,0,0.0,107.0,3.0,
+6148592,2026-09-30,champions_femenil,Benfica,Andreia Norton,858363,M,0,45,1,1,0,0.0,,2.0,
+6148592,2026-09-30,champions_femenil,Benfica,Caroline Møller Hansen,743074,M,0,40,0,0,0,0.0,,2.0,
+6148592,2026-09-30,champions_femenil,Benfica,Nycole Raysla,1214605,F,0,27,1,1,0,0.0,,3.0,
+6148592,2026-09-30,champions_femenil,Benfica,Clarinha,1819427,M,0,13,0,0,0,0.0,,2.0,
+6148592,2026-09-30,champions_femenil,Benfica,Flourish Chioma Sabastine,1577765,F,0,13,0,0,0,0.0,,3.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Ena Mahmutovic,1254235,G,1,90,0,0,0,0.0,11.0,0.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Giulia Gwinn,888650,D,1,90,1,0,0,0.0,32.0,1.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Glódís Viggósdóttir,858999,D,1,90,2,0,0,0.0,34.0,1.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Stine Ballisager Pedersen,289679,D,1,90,0,0,0,0.0,36.0,1.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Franziska Kett,1345154,D,1,90,1,1,1,0.0,38.0,1.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Momoko Tanikawa,1604389,M,1,90,0,0,0,0.0,64.0,2.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Bernadette Amani,1546577,M,1,90,0,0,0,0.0,66.0,2.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Linda Dallmann,859028,F,1,89,3,0,0,0.0,83.0,3.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Pernille Harder,200707,F,1,84,7,3,1,0.0,85.0,3.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Klara Bühl,888165,F,1,90,2,1,1,0.0,87.0,3.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Jovana Damnjanović,887423,F,1,69,6,2,0,0.0,115.0,3.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Alara Şehitler,1544185,M,0,21,0,0,0,0.0,,2.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Edna Imade,1546658,F,0,6,0,0,0,0.0,,3.0,
+6148592,2026-09-30,champions_femenil,Bayern München,Sophie Proost,1684314,F,0,2,0,0,0,0.0,,3.0,
+1000017242,2026-09-30,per_liga1,Cienciano,Ítalo Espinoza,1036089,G,1,46,0,0,0,0.0,11.0,0.0,248407.0
+1000017242,2026-09-30,per_liga1,Cienciano,Carlos Cabello,951736,D,1,72,1,0,0,0.0,32.0,1.0,350056.0
+1000017242,2026-09-30,per_liga1,Cienciano,Maximiliano Amondarain,427446,D,1,90,0,0,0,0.0,34.0,1.0,168973.0
+1000017242,2026-09-30,per_liga1,Cienciano,Kevin Becerra,1246012,D,1,90,1,1,0,0.0,36.0,1.0,216270.0
+1000017242,2026-09-30,per_liga1,Cienciano,Claudio Núñez,903076,D,1,61,2,0,0,0.0,38.0,1.0,150535.0
+1000017242,2026-09-30,per_liga1,Cienciano,Santiago Arias,921303,M,1,90,1,0,0,0.0,64.0,2.0,153006.0
+1000017242,2026-09-30,per_liga1,Cienciano,Gerson Barreto,547835,M,1,90,0,0,0,0.0,66.0,2.0,153030.0
+1000017242,2026-09-30,per_liga1,Cienciano,Cristian Souza,841483,F,1,90,3,1,0,0.0,83.0,3.0,208426.0
+1000017242,2026-09-30,per_liga1,Cienciano,Matías Succar,982363,M,1,57,4,2,0,0.0,85.0,2.0,316497.0
+1000017242,2026-09-30,per_liga1,Cienciano,Neri Ricardo Bandiera,623864,F,1,90,1,0,0,0.0,87.0,3.0,246031.0
+1000017242,2026-09-30,per_liga1,Cienciano,Carlos Garcés,424444,F,1,90,4,1,0,0.0,115.0,3.0,252019.0
+1000017242,2026-09-30,per_liga1,Cienciano,Gonzalo Falcón,921251,G,0,44,0,0,0,0.0,,0.0,235873.0
+1000017242,2026-09-30,per_liga1,Cienciano,Ademar Robles,1605257,M,0,33,1,0,0,0.0,,2.0,173680.0
+1000017242,2026-09-30,per_liga1,Cienciano,Sebastián Cavero,1186356,D,0,29,1,0,0,0.0,,1.0,271485.0
+1000017242,2026-09-30,per_liga1,Cienciano,Renzo Salazar,1469845,D,0,18,0,0,0,0.0,,1.0,
+1000017242,2026-09-30,per_liga1,Los Chankas,Hairo Camacho,1432784,G,1,90,0,0,0,0.0,11.0,0.0,175154.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Michel Kaufman,1897193,D,1,64,0,0,0,0.0,32.0,1.0,298215.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Héctor Gonzalez,847141,D,1,90,0,0,0,0.0,34.0,1.0,152132.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Carlos Pimienta,1368496,D,1,90,1,0,0,0.0,36.0,1.0,170340.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Kenyi Barrios,1605042,D,1,78,2,2,1,0.0,38.0,1.0,144691.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Jorge Palomino,1381138,M,1,90,0,0,0,0.0,64.0,2.0,171439.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Christian Velarde,1345062,M,1,90,0,0,0,0.0,66.0,2.0,149491.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Oshiro Takeuchi,625150,F,1,90,1,0,0,0.0,83.0,3.0,259414.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Marlon Torres,1130739,M,1,86,1,0,0,0.0,85.0,2.0,287589.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Abidel Ayarza,1023880,F,1,64,3,0,0,0.0,87.0,3.0,161973.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Franco Torres,988189,F,1,90,0,0,0,0.0,115.0,3.0,245967.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Axel Chávez,941883,D,0,26,0,0,0,0.0,,1.0,142862.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Jarlín Quintero,571225,F,0,26,0,0,0,0.0,,3.0,209066.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Gonzalo Rizzo,921741,D,0,12,0,0,0,0.0,,1.0,160633.0
+1000017242,2026-09-30,per_liga1,Los Chankas,Kelvin Sánchez,1419499,M,0,4,0,0,0,0.0,,2.0,193137.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Jacob Castro,1083221,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Frank Nodarse,1287564,D,1,90,2,1,0,0.0,32.0,1.0,51249.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Grant Stoneman,1042584,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Karifa Yao,1058360,D,1,90,0,0,0,0.0,36.0,1.0,85016.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Aldair Sanchez,1448501,D,1,90,2,0,0,0.0,38.0,1.0,197499.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Hugo Bacharach,1516692,M,1,90,0,0,0,0.0,64.0,2.0,119258.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Zachary Herivaux,729986,M,1,60,0,0,0,0.0,66.0,2.0,50000.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Osman Foyo,1292844,F,1,73,3,0,0,0.0,83.0,3.0,258188.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Leo Afonso,1600846,F,1,89,4,1,0,0.0,85.0,3.0,
+5109976,2026-09-30,usl_championship,Rhode Island FC,Yutaro Tsukada,1624044,F,1,72,2,1,0,0.0,87.0,3.0,158360.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Stas Korzeniowski,1515624,F,1,90,2,1,1,0.0,115.0,3.0,244494.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Amos Shapiro-Thompson,1479926,M,0,30,0,0,0,0.0,,2.0,110880.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Nick Scardina,1082990,D,0,18,0,0,0,0.0,,1.0,74096.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Eric Klein,1647608,M,0,17,0,0,0,0.0,,2.0,584911.0
+5109976,2026-09-30,usl_championship,Rhode Island FC,Nikolai Pierre,1843221,F,0,1,0,0,0,0.0,,3.0,
+5109976,2026-09-30,usl_championship,Indy Eleven,Eric Dick,924432,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Makel Rasheed,1793931,D,1,90,1,0,0,0.0,32.0,1.0,70206.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Nabi Kibunguchy,1244947,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Paco Craig,783608,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Alejandro Mitrano,1044783,D,1,90,1,0,0,0.0,38.0,1.0,50000.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Joe Hafferty,1256231,D,1,90,1,1,0,0.0,72.0,1.0,50000.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Josh O'Brien,1393400,M,1,71,1,0,0,0.0,74.0,2.0,99450.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Aodhan Quinn,639374,D,1,81,1,0,0,0.0,76.0,1.0,50000.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Jack Blake,421766,M,1,72,1,1,0,0.0,78.0,2.0,50000.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Loïc Mesanvi,1349074,F,1,90,5,2,0,0.0,104.0,3.0,110477.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Malik Henry-Scott,1606022,F,1,90,2,1,0,0.0,106.0,3.0,72973.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Edward Kizza,1246572,F,0,19,0,0,0,0.0,,3.0,62295.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Hesron Barry,1627007,D,0,18,0,0,0,0.0,,1.0,60567.0
+5109976,2026-09-30,usl_championship,Indy Eleven,Cameron Lindley,924497,M,0,8,0,0,0,0.0,,2.0,50000.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Dane Jacomen,1381135,G,1,90,0,0,0,0.0,11.0,0.0,73007.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Ian,1712469,D,1,78,1,0,0,0.0,33.0,1.0,
+5109974,2026-10-01,usl_championship,FC Tulsa,Lamar Batista,860075,D,1,90,0,0,0,0.0,35.0,1.0,50000.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Delentz Pierre,1355679,D,1,90,0,0,0,0.0,37.0,1.0,236459.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Wilson Eisner,1715116,D,1,90,2,0,0,0.0,72.0,1.0,207360.0
+5109974,2026-10-01,usl_championship,FC Tulsa,William Wilson,1255515,F,1,63,2,1,1,0.0,74.0,3.0,
+5109974,2026-10-01,usl_championship,FC Tulsa,Jeorgio Kocevski,1613722,M,1,90,1,0,0,0.0,76.0,2.0,107944.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Lucas Stauffer,923977,D,1,90,0,0,0,0.0,78.0,1.0,50000.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Jamie Webber,851104,M,1,86,4,3,0,0.0,103.0,2.0,50000.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Arquímides Ordóñez,1269658,F,1,78,3,2,0,0.0,105.0,3.0,82608.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Logan Dorsey,1060334,F,1,86,4,1,0,0.0,107.0,3.0,97256.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Owen Damm,1252869,M,0,27,1,0,0,0.0,,2.0,130356.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Joel Sangwa,1626133,D,0,12,0,0,0,0.0,,1.0,
+5109974,2026-10-01,usl_championship,FC Tulsa,Rémi Cabral,1259810,F,0,12,2,1,0,0.0,,3.0,62697.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Boubacar Diallo,1356036,M,0,4,0,0,0,0.0,,2.0,233339.0
+5109974,2026-10-01,usl_championship,FC Tulsa,Stefan Lukić,1364155,M,0,4,0,0,0,0.0,,2.0,50000.0
+5109974,2026-10-01,usl_championship,New Mexico United,Kristopher Shakes,1168844,G,1,90,0,0,0,0.0,11.0,0.0,
+5109974,2026-10-01,usl_championship,New Mexico United,Maliek Howell,1420380,D,1,46,0,0,0,0.0,32.0,1.0,50000.0
+5109974,2026-10-01,usl_championship,New Mexico United,Kipp Keller,1339430,D,1,90,0,0,0,0.0,34.0,1.0,95207.0
+5109974,2026-10-01,usl_championship,New Mexico United,Niko Hämäläinen,662981,D,1,90,0,0,0,0.0,36.0,1.0,60396.0
+5109974,2026-10-01,usl_championship,New Mexico United,Chris Gloster,1054030,D,1,90,0,0,0,0.0,38.0,1.0,103747.0
+5109974,2026-10-01,usl_championship,New Mexico United,Ousman Jabang,1460330,M,1,90,0,0,0,0.0,64.0,2.0,100659.0
+5109974,2026-10-01,usl_championship,New Mexico United,Cullen Wilkerson,1172876,M,1,59,0,0,0,0.0,66.0,2.0,
+5109974,2026-10-01,usl_championship,New Mexico United,Cristian Nava,1272104,F,1,59,0,0,0,0.0,83.0,3.0,141696.0
+5109974,2026-10-01,usl_championship,New Mexico United,Charlie Dennis,1057932,F,1,68,1,0,0,0.0,85.0,3.0,50000.0
+5109974,2026-10-01,usl_championship,New Mexico United,Joseph Melto Quiah,1919758,F,1,69,1,1,0,0.0,87.0,3.0,
+5109974,2026-10-01,usl_championship,New Mexico United,Greg Hurst,632285,F,1,90,6,4,0,0.0,115.0,3.0,58346.0
+5109974,2026-10-01,usl_championship,New Mexico United,Jake LaCava,1171307,D,0,44,0,0,0,0.0,,1.0,84531.0
+5109974,2026-10-01,usl_championship,New Mexico United,Tyler Blackett,501040,D,0,31,1,1,0,0.0,,1.0,50000.0
+5109974,2026-10-01,usl_championship,New Mexico United,Valentin Noël,959425,M,0,31,1,0,0,0.0,,2.0,51590.0
+5109974,2026-10-01,usl_championship,New Mexico United,Luther Archimède,1005796,F,0,22,0,0,0,0.0,,3.0,50000.0
+5109974,2026-10-01,usl_championship,New Mexico United,Justin Rennicks,1026140,F,0,21,0,0,0,0.0,,3.0,62697.0
+6266052,2026-10-01,selecciones,Argentina,Emiliano Martínez,268375,G,1,90,0,0,0,0.0,11.0,0.0,15086249.0
+6266052,2026-10-01,selecciones,Argentina,Agustín Giay,1358345,D,1,74,0,0,0,0.0,32.0,1.0,10131223.0
+6266052,2026-10-01,selecciones,Argentina,Cristian Romero,789066,D,1,56,2,1,1,0.0,34.0,1.0,42074463.0
+6266052,2026-10-01,selecciones,Argentina,Lisandro Martínez,847983,D,1,81,1,0,0,0.0,36.0,1.0,29752251.0
+6266052,2026-10-01,selecciones,Argentina,Román Vega,1240172,D,1,90,1,0,0,0.0,38.0,1.0,4965679.0
+6266052,2026-10-01,selecciones,Argentina,Nico Paz,1347574,M,1,56,3,1,1,0.0,72.0,2.0,62504920.0
+6266052,2026-10-01,selecciones,Argentina,Alexis Mac Allister,831489,M,1,74,2,0,0,0.0,74.0,2.0,68789878.0
+6266052,2026-10-01,selecciones,Argentina,Exequiel Palacios,693599,M,1,81,0,0,0,0.0,76.0,2.0,23503212.0
+6266052,2026-10-01,selecciones,Argentina,Gianluca Prestianni,1363660,F,1,56,0,0,0,0.0,78.0,3.0,11513378.0
+6266052,2026-10-01,selecciones,Argentina,Lautaro Martínez,690230,F,1,75,2,1,1,0.0,104.0,3.0,52604564.0
+6266052,2026-10-01,selecciones,Argentina,Julián Álvarez,974753,F,1,90,3,1,0,0.0,106.0,3.0,84016674.0
+6266052,2026-10-01,selecciones,Argentina,Leonardo Balerdi,958464,D,0,34,0,0,0,0.0,,1.0,14136752.0
+6266052,2026-10-01,selecciones,Argentina,Valentín Barco,1272440,M,0,34,0,0,0,0.0,,2.0,22492030.0
+6266052,2026-10-01,selecciones,Argentina,Franco Mastantuono,1607566,F,0,34,0,0,0,0.0,,3.0,40036490.0
+6266052,2026-10-01,selecciones,Argentina,Santiago Simón,1208803,D,0,16,0,0,0,0.0,,1.0,2965760.0
+6266052,2026-10-01,selecciones,Argentina,Equi Fernández,1199959,M,0,16,1,0,0,0.0,,2.0,17545935.0
+6266052,2026-10-01,selecciones,Argentina,José López,1216079,F,0,15,2,1,1,0.0,,3.0,16636865.0
+6266052,2026-10-01,selecciones,Argentina,Valentín Gómez,1338016,D,0,9,0,0,0,0.0,,1.0,12160909.0
+6266052,2026-10-01,selecciones,Argentina,Leonel Flores,1899030,F,0,9,1,1,0,0.0,,3.0,
+6266052,2026-10-01,selecciones,Bolivia,Guillermo Viscarra,493691,G,1,90,0,0,0,0.0,11.0,0.0,151987.0
+6266052,2026-10-01,selecciones,Bolivia,Marcelo Tórrez,1897624,D,1,90,0,0,0,0.0,33.0,1.0,
+6266052,2026-10-01,selecciones,Bolivia,Efraín Morales,1179047,D,1,90,0,0,0,0.0,35.0,1.0,730348.0
+6266052,2026-10-01,selecciones,Bolivia,Diego Arroyo,1648049,D,1,43,0,0,0,0.0,37.0,1.0,535380.0
+6266052,2026-10-01,selecciones,Bolivia,Yomar Rocha,1368559,D,1,90,0,0,0,0.0,71.0,1.0,1289872.0
+6266052,2026-10-01,selecciones,Bolivia,Robson Matheus,1613569,M,1,72,1,0,0,0.0,73.0,2.0,
+6266052,2026-10-01,selecciones,Bolivia,Héctor Cuéllar,1413860,M,1,83,0,0,0,0.0,75.0,2.0,585110.0
+6266052,2026-10-01,selecciones,Bolivia,Ramiro Vaca,832400,M,1,46,0,0,0,0.0,77.0,2.0,697071.0
+6266052,2026-10-01,selecciones,Bolivia,Roberto Fernández,921025,D,1,83,0,0,0,0.0,79.0,1.0,1241500.0
+6266052,2026-10-01,selecciones,Bolivia,Miguel Terceros,1312459,F,1,83,0,0,0,0.0,104.0,3.0,
+6266052,2026-10-01,selecciones,Bolivia,Jesús Maraude,1792709,F,1,83,1,0,0,0.0,106.0,3.0,
+6266052,2026-10-01,selecciones,Bolivia,Leonardo Viviani,1648050,F,0,47,0,0,0,0.0,,3.0,551507.0
+6266052,2026-10-01,selecciones,Bolivia,José Flores,1249667,F,0,45,1,0,0,0.0,,3.0,
+6266052,2026-10-01,selecciones,Bolivia,Oscar Lopez,1694764,M,0,18,0,0,0,0.0,,2.0,
+6266052,2026-10-01,selecciones,Bolivia,Diego Medina,1353753,D,0,7,0,0,0,0.0,,1.0,675074.0
+6266052,2026-10-01,selecciones,Bolivia,Luís Haquín,832398,D,0,7,0,0,0,0.0,,1.0,220129.0
+6266052,2026-10-01,selecciones,Bolivia,Pablo Lima,1246642,M,0,7,0,0,0,0.0,,2.0,
+6266052,2026-10-01,selecciones,Bolivia,José Martínez,1356957,F,0,7,0,0,0,0.0,,3.0,554958.0
+5071384,2026-09-30,mls,Red Bull New York,Ethan Horvath,471274,G,1,90,0,0,0,0.0,11.0,0.0,440235.0
+5071384,2026-09-30,mls,Red Bull New York,Dylan Nealis,1136264,D,1,90,0,0,0,0.0,32.0,1.0,968565.0
+5071384,2026-09-30,mls,Red Bull New York,Tim Parker,621559,D,1,87,0,0,0,0.0,34.0,1.0,50000.0
+5071384,2026-09-30,mls,Red Bull New York,Julián Bazán,1474122,D,1,90,0,0,0,0.0,36.0,1.0,794553.0
+5071384,2026-09-30,mls,Red Bull New York,Devin Padelford,1440054,D,1,63,0,0,0,0.0,38.0,1.0,245003.0
+5071384,2026-09-30,mls,Red Bull New York,Mohammed Sofo,1527097,M,1,87,2,0,0,0.23,73.0,2.0,890366.0
+5071384,2026-09-30,mls,Red Bull New York,Sekou Kone,2200730,M,1,84,0,0,0,0.0,75.0,2.0,
+5071384,2026-09-30,mls,Red Bull New York,Emil Forsberg,171980,M,1,90,2,0,0,0.5,77.0,2.0,724809.0
+5071384,2026-09-30,mls,Red Bull New York,Jorge Ruvalcaba,1306870,F,1,64,1,1,0,0.05,103.0,3.0,1838415.0
+5071384,2026-09-30,mls,Red Bull New York,Eric Maxim Choupo-Moting,95082,F,1,90,2,2,0,0.28,105.0,3.0,555750.0
+5071384,2026-09-30,mls,Red Bull New York,Cade Cowell,1025942,F,1,90,3,2,0,0.14,107.0,3.0,2240334.0
+5071384,2026-09-30,mls,Red Bull New York,Connor Faello,2325549,D,0,27,0,0,0,0.0,,1.0,
+5071384,2026-09-30,mls,Red Bull New York,Pedro Castro,2264549,M,0,27,0,0,0,0.0,,2.0,
+5071384,2026-09-30,mls,Red Bull New York,Nate Worth,1374958,M,0,6,0,0,0,0.0,,2.0,825936.0
+5071384,2026-09-30,mls,Red Bull New York,Robert Voloder,1138136,D,0,3,0,0,0,0.0,,1.0,468579.0
+5071384,2026-09-30,mls,Red Bull New York,Andy Rojas,1452765,F,0,3,0,0,0,0.0,,3.0,1693809.0
+5071384,2026-09-30,mls,St. Louis City,Roman Bürki,112978,G,1,90,0,0,0,0.0,11.0,0.0,702275.0
+5071384,2026-09-30,mls,St. Louis City,Dante Polvara,1327826,D,1,90,2,1,0,0.42,33.0,1.0,388804.0
+5071384,2026-09-30,mls,St. Louis City,Timo Baumgartl,514301,D,1,90,0,0,0,0.0,35.0,1.0,216566.0
+5071384,2026-09-30,mls,St. Louis City,Fallou Fall,1473603,D,1,90,0,0,0,0.0,37.0,1.0,2111147.0
+5071384,2026-09-30,mls,St. Louis City,Conrad Wallem,843710,M,1,90,1,0,0,0.02,72.0,2.0,1702579.0
+5071384,2026-09-30,mls,St. Louis City,Christopher Durkin,848424,M,1,90,0,0,0,0.0,74.0,2.0,1293422.0
+5071384,2026-09-30,mls,St. Louis City,Daniel Edelman,1170233,M,1,85,0,0,0,0.0,76.0,2.0,1876486.0
+5071384,2026-09-30,mls,St. Louis City,Tomas Totland,633617,M,1,90,1,0,0,0.03,78.0,2.0,521392.0
+5071384,2026-09-30,mls,St. Louis City,Carlo Holse,862716,M,1,71,5,1,0,0.16,103.0,2.0,3716227.0
+5071384,2026-09-30,mls,St. Louis City,Rafael Navarro,1173474,F,1,85,2,2,1,0.94,105.0,3.0,2728851.0
+5071384,2026-09-30,mls,St. Louis City,Alexandru Mățan,748383,M,1,71,0,0,0,0.0,107.0,2.0,1088968.0
+5071384,2026-09-30,mls,St. Louis City,Sang-Bin Jeong,1109166,F,0,19,1,1,0,0.27,,3.0,1002217.0
+5071384,2026-09-30,mls,St. Louis City,Simon Becher,1370582,F,0,19,1,1,1,0.05,,3.0,613426.0
+5071384,2026-09-30,mls,St. Louis City,Lukas MacNaughton,1045804,D,0,5,0,0,0,0.0,,1.0,292042.0
+5071384,2026-09-30,mls,St. Louis City,Tomás Ostrák,1065321,F,0,5,2,2,1,0.37,,3.0,328352.0
+5109975,2026-09-30,usl_championship,Miami FC,Felipe Rodriguez,1640878,G,1,90,0,0,0,0.0,11.0,0.0,
+5109975,2026-09-30,usl_championship,Miami FC,Bachir Ndiaye,1666352,D,1,75,1,0,0,0.0,32.0,1.0,60889.0
+5109975,2026-09-30,usl_championship,Miami FC,Arthur Rogers,1170994,D,1,85,0,0,0,0.0,34.0,1.0,50000.0
+5109975,2026-09-30,usl_championship,Miami FC,Daltyn Knutson,1082131,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
+5109975,2026-09-30,usl_championship,Miami FC,Alessandro Milesi,1006668,D,1,90,0,0,0,0.0,38.0,1.0,75736.0
+5109975,2026-09-30,usl_championship,Miami FC,Joel Soñora,643612,M,1,9,0,0,0,0.0,73.0,2.0,50302.0
+5109975,2026-09-30,usl_championship,Miami FC,Matías Romero,660079,M,1,90,1,0,0,0.0,75.0,2.0,50000.0
+5109975,2026-09-30,usl_championship,Miami FC,Rodrigo Da Costa,1035025,M,1,90,2,2,0,0.0,77.0,2.0,50000.0
+5109975,2026-09-30,usl_championship,Miami FC,Mason Tunbridge,1626466,F,1,85,1,1,1,0.0,103.0,3.0,70992.0
+5109975,2026-09-30,usl_championship,Miami FC,Denilson Milanés,1421734,F,1,90,5,2,2,0.0,105.0,3.0,
+5109975,2026-09-30,usl_championship,Miami FC,Arney Rocha,1392871,F,1,75,2,1,1,0.0,107.0,3.0,123263.0
+5109975,2026-09-30,usl_championship,Miami FC,Thomas Musto,1524674,M,0,81,0,0,0,0.0,,2.0,238755.0
+5109975,2026-09-30,usl_championship,Miami FC,Walid Yacoubou,1081944,D,0,15,0,0,0,0.0,,1.0,50000.0
+5109975,2026-09-30,usl_championship,Miami FC,Diego Mello,1804489,F,0,15,0,0,0,0.0,,3.0,
+5109975,2026-09-30,usl_championship,Miami FC,Jeremy Medranda,1967853,D,0,5,0,0,0,0.0,,1.0,
+5109975,2026-09-30,usl_championship,Miami FC,Jonathan Levin,668489,M,0,5,0,0,0,0.0,,2.0,50000.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Jake McGuire,825635,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Edgardo Rito,495686,M,1,90,0,0,0,0.0,32.0,2.0,52635.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Ventura Alvarado,415706,D,1,68,0,0,0,0.0,34.0,1.0,
+5109975,2026-09-30,usl_championship,Sporting JAX,Ryan Edwards,330468,D,1,29,1,0,0,0.0,36.0,1.0,63492.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Marcus Godinho,658133,D,1,46,0,0,0,0.0,38.0,1.0,75094.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Wan Kuzain,941737,M,1,30,0,0,0,0.0,72.0,2.0,57700.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Jordan Rossiter,516002,M,1,90,1,0,0,0.0,74.0,2.0,50000.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Thomas Roberts,1026054,M,1,80,1,1,0,0.0,76.0,2.0,65556.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Kieran Sadlier,614458,F,1,80,2,0,0,0.0,78.0,3.0,50000.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Jean Mota,305454,M,1,90,4,2,1,0.0,95.0,2.0,144683.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Emil Jääskeläinen,1075184,F,1,90,1,0,0,0.0,115.0,3.0,92160.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Wahab Ackwei,1059395,D,0,60,0,0,0,0.0,,1.0,50000.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Harvey Neville,1187155,D,0,44,0,0,0,0.0,,1.0,185246.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Danny Wilson,168308,D,0,22,0,0,0,0.0,,1.0,204614.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Rafferty Pedder,1562361,M,0,10,0,0,0,0.0,,2.0,98351.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Adam Luckhurst,1727106,F,0,10,1,0,0,0.0,,3.0,106518.0
+5109975,2026-09-30,usl_championship,Sporting JAX,Mohamed Traore,1177861,D,0,1,0,0,0,0.0,,1.0,54840.0
+5109973,2026-09-30,usl_championship,Brooklyn,Jackson Lee,928437,G,1,90,0,0,0,0.0,11.0,0.0,65115.0
+5109973,2026-09-30,usl_championship,Brooklyn,Malik Pinto,1440048,M,1,71,0,0,0,0.0,32.0,2.0,68062.0
+5109973,2026-09-30,usl_championship,Brooklyn,Callum Frogson,1935110,,1,90,0,0,0,0.0,34.0,,119504.0
+5109973,2026-09-30,usl_championship,Brooklyn,Rocco Romeo,1024286,D,1,90,1,0,0,0.0,36.0,1.0,55715.0
+5109973,2026-09-30,usl_championship,Brooklyn,Gabriel Alves,1447526,D,1,90,0,0,0,0.0,38.0,1.0,126237.0
+5109973,2026-09-30,usl_championship,Brooklyn,Taimu Okiyoshi,1724754,M,1,83,0,0,0,0.0,65.0,2.0,99198.0
+5109973,2026-09-30,usl_championship,Brooklyn,Abdoulaye Kanté,1469822,F,1,46,0,0,0,0.0,82.0,3.0,274808.0
+5109973,2026-09-30,usl_championship,Brooklyn,Anthony Fontana,924483,M,1,90,1,0,0,0.0,84.0,2.0,128046.0
+5109973,2026-09-30,usl_championship,Brooklyn,Thomas McNamara,526485,M,1,71,1,1,1,0.0,86.0,2.0,50000.0
+5109973,2026-09-30,usl_championship,Brooklyn,Christopher Olney Jr.,1455583,F,1,90,1,0,0,0.0,88.0,3.0,633495.0
+5109973,2026-09-30,usl_championship,Brooklyn,Juan Obregón,1098593,F,1,83,3,1,0,0.0,115.0,3.0,
+5109973,2026-09-30,usl_championship,Brooklyn,Stefan Stojanovic,1346904,F,0,45,1,0,0,0.0,,3.0,83192.0
+5109973,2026-09-30,usl_championship,Brooklyn,Ryan McLaughlin,388894,D,0,19,0,0,0,0.0,,1.0,50000.0
+5109973,2026-09-30,usl_championship,Brooklyn,Peter Mangione,1639626,M,0,19,1,1,0,0.0,,2.0,75435.0
+5109973,2026-09-30,usl_championship,Brooklyn,Vuk Latinovich,1248123,D,0,8,1,1,0,0.0,,1.0,50000.0
+5109973,2026-09-30,usl_championship,Brooklyn,Johnny Klein,1460074,M,0,7,0,0,0,0.0,,2.0,76984.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Carlos Herrera,1357579,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Rio Hope-Gund,1246586,D,1,90,0,0,0,0.0,32.0,1.0,50000.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Michael Bryant,1175374,D,1,90,1,0,0,0.0,34.0,1.0,50000.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Devon Amoo-Mensah,1175165,D,1,46,0,0,0,0.0,36.0,1.0,50000.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Tommy Silva,1611186,D,1,90,1,0,0,0.0,38.0,1.0,
+5109973,2026-09-30,usl_championship,Detroit City FC,Ryan Williams,157390,M,1,90,1,0,0,0.0,73.0,2.0,50000.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Ben Morris,749485,F,1,45,1,0,0,0.0,75.0,3.0,69870.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Maxi Rodriguez,942418,M,1,74,1,0,0,0.0,77.0,2.0,72000.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Kian Williams,1083799,F,1,90,2,1,0,0.0,103.0,3.0,
+5109973,2026-09-30,usl_championship,Detroit City FC,Cheikhou Niang,1959674,F,1,74,3,0,0,0.0,105.0,3.0,
+5109973,2026-09-30,usl_championship,Detroit City FC,Alexander Dalou,1457710,F,1,90,0,0,0,0.0,107.0,3.0,63819.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Callum Montgomery,1026047,D,0,45,2,1,1,0.0,,1.0,50000.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Darren Smith,559158,F,0,45,1,1,1,0.0,,3.0,52646.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Abdoulaye Diop,1170736,M,0,16,0,0,0,0.0,,2.0,63090.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Alassane Diouf,1042558,F,0,16,0,0,0,0.0,,3.0,174171.0
+5109973,2026-09-30,usl_championship,Detroit City FC,Kobe Hernández-Foster,1079029,M,0,1,1,1,1,0.0,,2.0,99450.0
