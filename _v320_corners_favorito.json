@@ -1,0 +1,105 @@
+{
+ "partidos": 11874,
+ "acierto_todo": 0.7539,
+ "grupos": {
+  "clubes | equipo | 50-65 %": {
+   "partidos": 2569,
+   "apuestas": 6295,
+   "acierto": 0.7624,
+   "p5": 0.754,
+   "p95": 0.7706,
+   "primera_mitad": 0.7656,
+   "segunda_mitad": 0.7591
+  },
+  "clubes | equipo | 65 %+": {
+   "partidos": 850,
+   "apuestas": 1682,
+   "acierto": 0.7848,
+   "p5": 0.768,
+   "p95": 0.8007,
+   "primera_mitad": 0.7799,
+   "segunda_mitad": 0.7895
+  },
+  "clubes | equipo | menor al 50 %": {
+   "partidos": 4942,
+   "apuestas": 14587,
+   "acierto": 0.7576,
+   "p5": 0.7523,
+   "p95": 0.7633,
+   "primera_mitad": 0.7528,
+   "segunda_mitad": 0.7623
+  },
+  "clubes | equipo | sin cuota": {
+   "partidos": 3324,
+   "apuestas": 8816,
+   "acierto": 0.7574,
+   "p5": 0.7506,
+   "p95": 0.7642,
+   "primera_mitad": 0.7638,
+   "segunda_mitad": 0.751
+  },
+  "clubes | total | 50-65 %": {
+   "partidos": 2584,
+   "apuestas": 4837,
+   "acierto": 0.736,
+   "p5": 0.7271,
+   "p95": 0.7449,
+   "primera_mitad": 0.7292,
+   "segunda_mitad": 0.7428
+  },
+  "clubes | total | 65 %+": {
+   "partidos": 859,
+   "apuestas": 1565,
+   "acierto": 0.7374,
+   "p5": 0.7214,
+   "p95": 0.7532,
+   "primera_mitad": 0.7468,
+   "segunda_mitad": 0.728
+  },
+  "clubes | total | menor al 50 %": {
+   "partidos": 4942,
+   "apuestas": 9045,
+   "acierto": 0.7465,
+   "p5": 0.7397,
+   "p95": 0.7536,
+   "primera_mitad": 0.7423,
+   "segunda_mitad": 0.7506
+  },
+  "clubes | total | sin cuota": {
+   "partidos": 3335,
+   "apuestas": 5477,
+   "acierto": 0.751,
+   "p5": 0.7412,
+   "p95": 0.7599,
+   "primera_mitad": 0.7579,
+   "segunda_mitad": 0.7441
+  },
+  "selecciones | equipo | sin cuota": {
+   "partidos": 154,
+   "apuestas": 377,
+   "acierto": 0.7533,
+   "p5": 0.7157,
+   "p95": 0.7888,
+   "primera_mitad": 0.7112,
+   "segunda_mitad": 0.7947
+  },
+  "selecciones | total | sin cuota": {
+   "partidos": 154,
+   "apuestas": 226,
+   "acierto": 0.7876,
+   "p5": 0.7342,
+   "p95": 0.8378,
+   "primera_mitad": 0.7522,
+   "segunda_mitad": 0.823
+  }
+ },
+ "equipo_65_contra_resto": {
+  "puntos": 0.0259,
+  "p5": 0.0089
+ },
+ "adopta_equipo": true,
+ "total_65": 0.7374,
+ "total_resto": 0.7428,
+ "adopta_total": false,
+ "selecciones_con_cuota": 0
+}

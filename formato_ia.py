@@ -57,7 +57,9 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   temporada; si no, sale «🚫 SIN HISTÓRICO REAL — no apostar este mercado» y
   la app no lo recomienda. Ya no existe el «[estimado]». El λ total de
   córners es la suma de lo esperado de los dos equipos (medido: predice
-  mejor que la media de la competición). Medido en la franja 70-80 %:
+  mejor que la media de la competición). Los córners de UN EQUIPO sólo se
+  meten si el favorito tiene 65 %+ (medido: 78,5 % contra 75,9 %); al total
+  no se le aplica (no mejora). Medido en la franja 70-80 %:
   córners con datos reales 75,4 % (11.874 partidos), tarjetas 72,4 %.
 - Sólo van partidos con MODELO (el motor de ligas o el de cada deporte). Los
   de competiciones fuera del motor (sub-21, copas, ligas chicas) ya no se

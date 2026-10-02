@@ -1,0 +1,64 @@
+{
+ "partidos_con_historico_real": 156,
+ "favorito_de": {
+  "casa": 42,
+  "elo": 114,
+  "ninguna": 0
+ },
+ "grupos": {
+  "equipo | 50-65 %": {
+   "partidos": 61,
+   "apuestas": 143,
+   "acierto": 0.7343
+  },
+  "equipo | 65 %+": {
+   "partidos": 33,
+   "apuestas": 70,
+   "acierto": 0.8
+  },
+  "equipo | menor al 50 %": {
+   "partidos": 62,
+   "apuestas": 165,
+   "acierto": 0.7515
+  },
+  "total | 50-65 %": {
+   "partidos": 61,
+   "apuestas": 84,
+   "acierto": 0.75
+  },
+  "total | 65 %+": {
+   "partidos": 33,
+   "apuestas": 51,
+   "acierto": 0.7451
+  },
+  "total | menor al 50 %": {
+   "partidos": 62,
+   "apuestas": 89,
+   "acierto": 0.8539
+  },
+  "equipo | 50-65 % | sólo con cuota de casa": {
+   "partidos": 13,
+   "acierto": 0.7222
+  },
+  "equipo | 65 %+ | sólo con cuota de casa": {
+   "partidos": 12,
+   "acierto": 0.8519
+  },
+  "equipo | menor al 50 % | sólo con cuota de casa": {
+   "partidos": 17,
+   "acierto": 0.7551
+  },
+  "total | 50-65 % | sólo con cuota de casa": {
+   "partidos": 13,
+   "acierto": 0.75
+  },
+  "total | 65 %+ | sólo con cuota de casa": {
+   "partidos": 12,
+   "acierto": 0.8333
+  },
+  "total | menor al 50 % | sólo con cuota de casa": {
+   "partidos": 17,
+   "acierto": 0.8077
+  }
+ }
+}

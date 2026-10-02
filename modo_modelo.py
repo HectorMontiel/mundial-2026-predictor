@@ -1797,9 +1797,12 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
             # v312 — la franja medida de «meter» en fútbol (ver
             # `veredicto_pick.franja_futbol`): fuera de ella, «no meter», y se
             # reordena para que un descartado no ocupe el sitio de un «meter»
+            _fav = prob_favorito(pick)
             for v in _vers:
                 if v.get('veredicto') == _vp.METER:
                     _fuera = _vp.franja_futbol(v)
+                    if not _fuera:
+                        _fuera = corners_equipo_sin_favorito(v, _fav)
                     if _fuera:
                         v['veredicto'] = _vp.NO_METER
                         v.setdefault('razones', []).append(_fuera)
@@ -1866,6 +1869,60 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
     for _i, _c in enumerate(candidatas[:n]):
         _c['puesto_valor'] = _i + 1
     return candidatas[:n]
+
+
+# v320 — LOS CÓRNERS DE UN EQUIPO, SÓLO CON FAVORITO CLARO.
+#
+# El usuario propuso «córners sólo apostables cuando el favorito tiene 65 %+
+# de probabilidad de ganar». Medido en `_v319_conteos_reales.py` (11.874
+# partidos con histórico real, franja 70-80 %), separado por la probabilidad
+# del favorito (cuotas del histórico, sin margen):
+#
+#                        menor 50 %   50-65 %   65 %+
+#     total de córners     74,7 %     73,6 %    73,7 %   ← no ayuda
+#     córners de equipo    75,8 %     76,2 %    78,5 %   ← sí
+#
+# En los de EQUIPO, +2,6 puntos (p5 +0,9) y estable en las dos mitades del
+# periodo (78,4 % y 78,6 %), en clubes (850 partidos). En SELECCIONES el
+# histórico no trae cuotas, pero el proyecto sí las guardó (historial de git
+# del tablero `cuotas_mx.json` y `anclas_capturas.csv`; antes de septiembre,
+# un Elo que sólo mira hacia atrás): `_v320_selecciones.py`, 156 partidos —
+# córners de equipo con favorito 65 %+ 80,0 % (33 partidos; 85,2 % en los 12
+# con cuota de casa), 50-65 % 73,4 %, menos de 50 % 75,2 %. El mismo patrón:
+# la regla vale igual para selecciones. En el TOTAL no se aplica: no mejora
+# ni en clubes ni en selecciones.
+CORNERS_EQUIPO_FAVORITO_MIN = 0.65
+
+
+def prob_favorito(pick: Dict) -> Optional[float]:
+    """La probabilidad de ganar del favorito: la de la casa sin margen si la
+    hay (es lo que se midió), si no la del modelo. Nunca lanza."""
+    try:
+        q = ((pick.get('implicitas') or {}).get('1x2') or {})
+        if q.get('home') is not None and q.get('away') is not None:
+            return float(max(q['home'], q['away']))
+        h, a = _equipos(pick)
+        b = pick.get('board') or {}
+        ph, pa = b.get('Gana %s' % h), b.get('Gana %s' % a)
+        if ph is not None and pa is not None:
+            return float(max(ph, pa))
+    except Exception:
+        pass
+    return None
+
+
+def corners_equipo_sin_favorito(v: Dict, fav: Optional[float]) -> Optional[str]:
+    """El motivo para NO meter unos córners de un equipo, o None."""
+    c = v.get('pick') or {}
+    if str(v.get('mercado') or c.get('mercado') or '') != 'Córners':
+        return None
+    if str(c.get('etiqueta') or '') not in ('Local', 'Visita'):
+        return None
+    if fav is not None and fav >= CORNERS_EQUIPO_FAVORITO_MIN:
+        return None
+    return ('córners de un equipo: sólo con favorito de 65 %%+ (aquí %s; medido: '
+            '78,5 %% contra 75,9 %%)' % ('%.0f %%' % (100 * fav) if fav is not None
+                                         else 'sin dato'))
 
 
 # v311 — los mercados que hablan del RESULTADO del partido: uno por tarjeta
