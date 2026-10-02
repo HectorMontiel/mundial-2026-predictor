@@ -36,10 +36,10 @@
     "visto": "2026-09-30"
   },
   "Belgrano (Córdoba)": {
-    "candidato": "Racing Cordoba",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.7333,
-    "visto": "2026-09-20"
+    "candidato": "Talleres Cordoba W",
+    "ratio": 0.625,
+    "visto": "2026-10-02"
   },
   "Casa Pia": {
     "candidato": "Casa de Portugal",
@@ -223,9 +223,9 @@
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid W",
-    "ratio": 0.6364,
-    "visto": "2026-09-30"
+    "candidato": "Real Oruro",
+    "ratio": 0.6667,
+    "visto": "2026-10-02"
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
@@ -241,8 +241,8 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B",
-    "ratio": 0.6429,
+    "candidato": "Real Pilar",
+    "ratio": 0.56,
     "visto": "2026-10-02"
   },
   "San Antonio FC": {
@@ -299,8 +299,8 @@
   },
   "Ayr United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
-    "ratio": 0.7826,
+    "candidato": "Mandel United",
+    "ratio": 0.6957,
     "visto": "2026-10-02"
   },
   "Queen's Park": {
@@ -383,8 +383,8 @@
   },
   "Peterborough United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
-    "ratio": 0.5625,
+    "candidato": "Mandel United",
+    "ratio": 0.5,
     "visto": "2026-10-02"
   },
   "Sheffield Wednesday": {
@@ -395,14 +395,14 @@
   },
   "Boston United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
+    "candidato": "Mandel United",
     "ratio": 0.6154,
     "visto": "2026-10-02"
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B",
-    "ratio": 0.5517,
+    "candidato": "Real Pilar",
+    "ratio": 0.5385,
     "visto": "2026-10-02"
   },
   "Carlisle United": {
@@ -413,20 +413,20 @@
   },
   "Rotherham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
-    "ratio": 0.6207,
+    "candidato": "Mandel United",
+    "ratio": 0.5517,
     "visto": "2026-10-02"
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
-    "ratio": 0.6,
+    "candidato": "Mandel United",
+    "ratio": 0.5333,
     "visto": "2026-10-02"
   },
   "Scunthorpe United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
-    "ratio": 0.6667,
+    "candidato": "Mandel United",
+    "ratio": 0.6,
     "visto": "2026-10-02"
   },
   "Hartlepool United": {
@@ -437,21 +437,21 @@
   },
   "Southend United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
+    "candidato": "Mandel United",
     "ratio": 0.6429,
     "visto": "2026-10-02"
   },
   "Sutton United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Treaty United",
-    "ratio": 0.6923,
+    "candidato": "Mandel United",
+    "ratio": 0.6154,
     "visto": "2026-10-02"
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Thes Sport",
-    "ratio": 0.6957,
-    "visto": "2026-09-30"
+    "candidato": "Transilvania Sport Academy",
+    "ratio": 0.4103,
+    "visto": "2026-10-02"
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
@@ -617,9 +617,9 @@
   },
   "Racing (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing United",
-    "ratio": 0.5926,
-    "visto": "2026-09-27"
+    "candidato": "Talleres Cordoba W",
+    "ratio": 0.6,
+    "visto": "2026-10-02"
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
@@ -665,9 +665,9 @@
   },
   "Defensores de Belgrano": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Defensores Unidos",
-    "ratio": 0.6667,
-    "visto": "2026-09-25"
+    "candidato": "Defensores de Glew",
+    "ratio": 0.75,
+    "visto": "2026-10-02"
   },
   "Cheltenham Town": {
     "contexto": "cuotas_mx→futbol",
@@ -803,9 +803,9 @@
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "GV San Jose",
-    "ratio": 0.5161,
-    "visto": "2026-09-30"
+    "candidato": "San Antonio",
+    "ratio": 0.4516,
+    "visto": "2026-10-02"
   },
   "Wycombe Wanderers": {
     "contexto": "cuotas_mx→futbol",
@@ -947,9 +947,9 @@
   },
   "San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "GV San Jose",
-    "ratio": 0.5455,
-    "visto": "2026-09-30"
+    "candidato": "San Antonio",
+    "ratio": 0.6364,
+    "visto": "2026-10-02"
   },
   "Red Bull Bragantino": {
     "contexto": "oddsapi",
@@ -977,9 +977,9 @@
   },
   "Unión (Santa Fe)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Colon Santa Fe 2",
-    "ratio": 0.7333,
-    "visto": "2026-09-30"
+    "candidato": "Colon Santa Fe",
+    "ratio": 0.7857,
+    "visto": "2026-10-02"
   },
   "Gimnasia La Plata": {
     "contexto": "cuotas_mx→futbol",
