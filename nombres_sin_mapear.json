@@ -109,8 +109,8 @@
   },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Antonio",
-    "ratio": 0.5161,
+    "candidato": "Real San Joaquin",
+    "ratio": 0.4444,
     "visto": "2026-10-02"
   },
   "Gimnasia y Esgrima (Jujuy)": {
@@ -247,9 +247,9 @@
   },
   "San Antonio FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Marino U21",
-    "ratio": 0.56,
-    "visto": "2026-10-01"
+    "candidato": "San Luis W",
+    "ratio": 0.5263,
+    "visto": "2026-10-02"
   },
   "San Diego FC": {
     "contexto": "cuotas_mx→futbol",
@@ -473,8 +473,8 @@
   },
   "Chacarita Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cuenca Juniors",
-    "ratio": 0.7097,
+    "candidato": "Boca Juniors W",
+    "ratio": 0.6897,
     "visto": "2026-10-02"
   },
   "Cerro Largo": {
@@ -623,8 +623,8 @@
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Antonio",
-    "ratio": 0.4571,
+    "candidato": "Cruz A.",
+    "ratio": 0.4,
     "visto": "2026-10-02"
   },
   "New Mexico United": {
@@ -803,8 +803,8 @@
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Antonio",
-    "ratio": 0.4516,
+    "candidato": "Villa San Carlos",
+    "ratio": 0.4444,
     "visto": "2026-10-02"
   },
   "Wycombe Wanderers": {
@@ -827,9 +827,9 @@
   },
   "Forest Green Rovers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Letterkenny Rovers",
-    "ratio": 0.5405,
-    "visto": "2026-09-26"
+    "candidato": "Bristol Rovers",
+    "ratio": 0.6061,
+    "visto": "2026-10-02"
   },
   "Tranmere Rovers": {
     "contexto": "cuotas_mx→futbol",
@@ -947,8 +947,8 @@
   },
   "San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Antonio",
-    "ratio": 0.6364,
+    "candidato": "San Luis W",
+    "ratio": 0.5263,
     "visto": "2026-10-02"
   },
   "Red Bull Bragantino": {
@@ -965,14 +965,14 @@
   },
   "Oldham Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Strabane Athletic",
-    "ratio": 0.625,
+    "candidato": "Athletic Club U20",
+    "ratio": 0.5,
     "visto": "2026-10-02"
   },
   "Wigan Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Strabane Athletic",
-    "ratio": 0.7097,
+    "candidato": "Athletic Club U20",
+    "ratio": 0.5161,
     "visto": "2026-10-02"
   },
   "Unión (Santa Fe)": {
@@ -1031,8 +1031,8 @@
   },
   "Argentinos Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ind. Juniors",
-    "ratio": 0.6897,
+    "candidato": "Boca Juniors W",
+    "ratio": 0.6,
     "visto": "2026-10-02"
   },
   "Gimnasia (Mendoza)": {
@@ -1051,6 +1051,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Talleres Cordoba W",
     "ratio": 0.4314,
+    "visto": "2026-10-02"
+  },
+  "Raith Rovers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Bristol Rovers",
+    "ratio": 0.7692,
+    "visto": "2026-10-02"
+  },
+  "Doncaster Rovers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Bristol Rovers",
+    "ratio": 0.6,
     "visto": "2026-10-02"
   }
 }
