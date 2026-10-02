@@ -7193,3 +7193,40 @@ fecha,deporte,liga,home,away,inicio,pin_home,pin_draw,pin_away,q_home,q_away,mar
 2026-10-02,futbol,ASIA: FIFA ASEAN Cup - Division 2 - Play Offs,Hong Kong,Cambodia,1791021600,1.3717,4.65,6.79,0.668,0.134948,0.091352,0,0.0,
 2026-10-02,futbol,AUSTRIA: Regionalliga South,Atus Velden,Treibach,1790960400,1.7692,3.75,3.55,0.507575,0.252958,0.113584,1,0.0204,Novibet
 2026-10-02,futbol,EUROPE: UEFA Nations League - League C,Latvia,Montenegro,1790956800,5.17,3.78,1.7092,0.185442,0.560925,0.043043,1,0.0281,Novibet
+2026-10-02,futbol,SWEDEN: Division 2 - Södra Svealand,Smedby,Nykopings,1790960400,4.17,3.92,1.6173,0.215418,0.555426,0.113225,1,0.0318,Novibet
+2026-10-02,futbol,CHILE: Liga de Primera,U. De Concepcion,Huachipato,1790982000,2.11,3.62,3.46,0.456059,0.278117,0.039194,0,0.0,
+2026-10-02,futbol,CHILE: Liga de Ascenso,Copiapo,D. Puerto Montt,1791050400,1.7937,3.49,4.02,0.510166,0.227633,0.092796,0,0.0,
+2026-10-02,futbol,CHILE: Liga de Ascenso,Recoleta,S. Wanderers,1791050400,2.61,3.42,2.26,0.342698,0.39577,0.118017,0,0.0,
+2026-10-02,futbol,COLOMBIA: Primera A - Clausura,Aguilas,Jaguares de Cordoba,1791054000,1.4785,4.11,6.67,0.632352,0.14017,0.069595,0,0.0,
+2026-10-02,futbol,COLOMBIA: Primera A - Clausura,Deportes Tolima,Chico,1791061500,1.3067,4.79,10.46,0.71545,0.089377,0.069657,0,0.0,
+2026-10-02,tenis,"ATP - DOUBLES: Tokyo (Japan), hard",Miedler L./Oberleitner N.,Arribage T./Olivetti A.,1790992800,2.27,,1.6369,0.418977,0.581023,0.05144,0,0.0,
+2026-10-02,tenis,"ATP - DOUBLES: Tokyo (Japan), hard",Bolelli S./Vavassori A.,Polmans M./Zielinski J.,1791009000,1.5814,,2.39,0.601803,0.398197,0.050761,0,0.0,
+2026-10-02,tenis,"CHALLENGER MEN - SINGLES: Jingshan (China), hard",Harris L.,Bolt A.,1790996400,1.1567,,5.78,0.833249,0.166751,0.037539,0,0.0,
+2026-10-02,tenis,"CHALLENGER MEN - SINGLES: Jingshan (China), hard",Erel Y.,Bellucci M.,1791005400,4.07,,1.2688,0.237656,0.762344,0.033847,0,0.0,
+2026-10-02,tenis,"CHALLENGER WOMEN - SINGLES: Jingshan (China), hard",Jones E.,Shubladze A.,1791001800,2.19,,1.7194,0.439812,0.560188,0.038219,0,0.0,
+2026-10-02,tenis,"CHALLENGER WOMEN - SINGLES: Jingshan (China), hard",Bouzas Maneiro J.,Falei A.,1791005400,1.2445,,4.26,0.773912,0.226088,0.038277,0,0.0,
+2026-10-02,tenis,"CHALLENGER WOMEN - SINGLES: Suzhou (China) - Qualification, hard",Shi H.,Yuan C.,1790996400,1.0948,,6.99,0.864585,0.135415,0.05647,0,0.0,
+2026-10-02,tenis,"CHALLENGER WOMEN - SINGLES: Suzhou (China) - Qualification, hard",Yang Y.,Saigo R.,1790996400,1.9091,,1.9091,0.5,0.5,0.047614,0,0.0,
+2026-10-02,tenis,"ITF MEN - SINGLES: M15 Luan 4 (China), hard",Ehrenschneider N.,Matsuda R.,1790992800,1.4255,,2.74,0.657784,0.342216,0.066472,1,0.1595,Novibet
+2026-10-02,tenis,"ITF MEN - SINGLES: M15 Sharm ElSheikh 11 (Egypt), hard",Strombachs R.,Jubb P.,1791010800,2.73,,1.4292,0.343624,0.656376,0.065993,0,0.0,
+2026-10-02,tenis,"ITF MEN - SINGLES: M25 Slobozia (Romania), clay",Boitan G. A.,Zgola B.,1791014400,1.0601,,8.9,0.893565,0.106435,0.055667,0,0.0,
+2026-10-02,tenis,"ITF MEN - SINGLES: M25 Slobozia (Romania), clay",Turcanu R. D.,Gima S.,1791014400,1.6289,,2.22,0.576788,0.423212,0.064362,0,0.0,
+2026-10-02,nba,AUSTRIA: Superliga,Graz UBSC,Traiskirchen Lions,1790960400,1.6135,,2.21,0.578004,0.421996,0.072259,1,0.1202,Playdoit
+2026-10-02,nba,EUROPE: Latvian-Estonian League,VEF Riga,BK Liepaja,1791036000,1.0365,,8.14,0.887048,0.112952,0.087635,0,0.0,
+2026-10-02,nba,EUROPE: Latvian-Estonian League,Rigas Zelli,BK Ogre,1791039600,1.0679,,6.36,0.856231,0.143769,0.09365,0,0.0,
+2026-10-02,nba,GREECE: Elite League,Papagou,Panerythraikos,1791036000,1.9009,,1.7692,0.482058,0.517942,0.091294,1,0.0548,Playdoit
+2026-10-02,nba,JAPAN: B.League Premier,Altiri Chiba,Brave Thunders,1791003900,1.2674,,3.55,0.736912,0.263088,0.070707,0,0.0,
+2026-10-02,nba,JAPAN: B.League Premier,Levanga Hokkaido,Sendai,1791003900,1.8547,,1.9346,0.510543,0.489457,0.056073,0,0.0,
+2026-10-02,nba,JAPAN: B.League Premier,Osaka,SeaHorses Mikawa,1791003900,1.8547,,1.9346,0.510543,0.489457,0.056073,0,0.0,
+2026-10-02,nba,JAPAN: B.League Premier,Toyama,Utsunomiya Brex,1791003900,2.5,,1.5128,0.376994,0.623006,0.061026,1,0.0597,Novibet
+2026-10-02,nba,JAPAN: B.League Premier,Kyoto,Nagasaki,1791005700,2.07,,1.7463,0.45759,0.54241,0.055731,0,0.0,
+2026-10-02,nba,MEXICO: LNBP,Soles,Diablos Rojos,1790996400,1.1403,,4.1,0.782398,0.217602,0.120865,1,0.0359,Novibet
+2026-10-02,nba,SOUTH KOREA: KBL,KCC Egis,LG Sakers,1791003600,1.8772,,1.9434,0.508664,0.491336,0.04727,0,0.0,
+2026-10-02,nba,SOUTH KOREA: KBL,Anyang JungKwanJang,Mobis Phoebus,1791012600,1.5525,,2.48,0.615003,0.384997,0.047348,0,0.0,
+2026-10-02,nba,SPAIN: ACB,Manresa,Breogan,1791054000,1.4854,,2.64,0.639938,0.360062,0.052007,0,0.0,
+2026-10-02,nba,SWITZERLAND: SB League,Geneva Lions,Fribourg Olympic,1791043200,2.63,,1.4329,0.352679,0.647321,0.078114,0,0.0,
+2026-10-02,futbol,ASIA: Arabian Gulf Cup - Play Offs,Saudi Arabia,Qatar,1791042900,1.7194,3.53,4.58,0.536914,0.201565,0.083225,0,0.0,
+2026-10-02,futbol,ASIA: Arabian Gulf Cup - Play Offs,United Arab Emirates,Oman,1791052200,1.578,3.79,5.34,0.584158,0.172622,0.084832,0,0.0,
+2026-10-02,tenis,"ATP - SINGLES: Tokyo (Japan), hard",Munar J.,Jacquet K.,1791075600,1.6061,,2.46,0.605002,0.394998,0.02913,0,0.0,
+2026-10-02,tenis,"ATP - SINGLES: Tokyo (Japan), hard",Vacherot V.,Fils A.,1791075600,4.32,,1.2532,0.224862,0.775138,0.029439,0,0.0,
+2026-10-02,futbol,SWEDEN: Division 1 - Norra,Karlbergs,Sollentuna,1790960400,2.47,3.03,2.91,0.375378,0.31862,0.078534,1,0.0791,Novibet
