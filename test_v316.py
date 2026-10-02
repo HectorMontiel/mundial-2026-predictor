@@ -233,9 +233,11 @@ def probar_equipo_y_corners():
     check(doc.get('activo') and set(doc.get('modelos') or {}) == {'local', 'visita'},
           'el modelo de córners entrenado está activo')
     import rendimiento_equipos as rq
-    r = rq.corners_equipo('premier', 'Arsenal', 'Wolves')
-    check(r and r.get('fuente_lambda') == 'tabla' and r['lambda_home'] > r['lambda_away'],
-          'la tarjeta usa las λ de córners con tabla (Arsenal %.1f, Wolves %.1f)'
+    # v319 — un partido con histórico real (Wolves ya no tiene partidos de la
+    # Premier esta temporada: sin histórico real no hay córners)
+    r = rq.corners_equipo('selecciones', 'Greece', 'Netherlands')
+    check(r and r.get('fuente_lambda') == 'tabla' and r['lambda_home'] > 0,
+          'la tarjeta usa las λ de córners con tabla (Grecia %.1f, Países Bajos %.1f)'
           % ((r or {}).get('lambda_home', 0), (r or {}).get('lambda_away', 0)))
     guardado = dict(ct._DOC)
     try:

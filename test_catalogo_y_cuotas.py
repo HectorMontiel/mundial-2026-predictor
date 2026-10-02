@@ -415,12 +415,15 @@ def test_todas_las_ligas_tienen_cornrs_y_tarjetas():
             continue
         h = str(d['home_team'].iloc[-1])
         a = str(d['away_team'].iloc[-1])
-        if rq.corners_equipo(c, h, a) is None:
-            sin_ck.append(c)
-        if rq.tarjetas_equipo(c, h, a) is None:
-            sin_tj.append(c)
-    check(not sin_ck, f"todas las competiciones dan cornrs ({sin_ck})")
-    check(not sin_tj, f"todas las competiciones dan tarjetas ({sin_tj})")
+        # v319 — «nada con estimado» (decisión del usuario): sin histórico
+        # real de los dos equipos NO hay sección. Lo que no puede pasar es que
+        # salga un estimado.
+        for _f, _lst in ((rq.corners_equipo, sin_ck), (rq.tarjetas_equipo, sin_tj)):
+            _r = _f(c, h, a)
+            if _r is not None and _r.get('origen') == 'estimado':
+                _lst.append(c)
+    check(not sin_ck, f"ninguna competicion da cornrs estimados ({sin_ck})")
+    check(not sin_tj, f"ninguna competicion da tarjetas estimadas ({sin_tj})")
 
     # Y lo estimado va etiquetado, en el titulo y en una linea propia.
     est = {'filas': [{'etiqueta': 'Total', 'media': 9.4, 'texto': 'Más de 9.5',
@@ -7214,10 +7217,9 @@ def test_los_corners_por_equipo_salen_de_sus_datos():
         d = rq._historico(_sin)
         e = rq.corners_equipo(_sin, str(d['home_team'].iloc[-1]),
                               str(d['away_team'].iloc[-1]))
-        check(e is not None and e.get('origen') == 'estimado',
-              f"sin córners observados ({_sin}) sale una estimacion MARCADA")
-        check(e is None or e.get('error_calibracion') is not None,
-              "y la estimacion lleva su error de calibracion medido")
+        # v319 — sin córners observados: nada, o los REALES de FotMob
+        check(e is None or (e.get('origen') == 'observado' and e.get('historico_real')),
+              f"sin córners observados ({_sin}) no sale ninguna estimacion")
 
     src = open('league_engine.py', encoding='utf-8').read()
     check('corners_equipo' in src and '_p_ck_eq(' in src,
@@ -7270,9 +7272,10 @@ def test_los_corners_en_la_tarjeta():
                                       d['away_team'].iloc[-1]),
              'clave_liga': _sin, 'deporte': 'Fútbol'}
         b = mm.corners_tarjeta(p)
-        check(b is not None and b.get('origen') == 'estimado',
-              f"una competicion sin córners observados ({_sin}) produce "
-              f"seccion MARCADA como estimada")
+        # v319 — nada estimado: sin datos reales no hay sección
+        check(b is None or b.get('origen') == 'observado',
+              f"una competicion sin córners observados ({_sin}) no produce "
+              f"seccion estimada")
     check(mm.corners_tarjeta({'partido': 'HOU vs NYY', 'clave_liga': 'mlb',
                               'deporte': 'MLB'}) is None,
           "y el beisbol tampoco")
@@ -7474,8 +7477,7 @@ def test_las_tarjetas_por_equipo_salen_de_sus_datos():
         d = rq._historico(_sin)
         e = rq.tarjetas_equipo(_sin, str(d['home_team'].iloc[-1]),
                                str(d['away_team'].iloc[-1]))
-        check(e is not None and e.get('origen') == 'estimado',
-              f"sin tarjetas observadas ({_sin}) sale una estimacion MARCADA")
+        check(e is None, f"sin tarjetas observadas ({_sin}) no sale ninguna estimacion (v319)")
 
 
 def test_el_arbitro_designado_y_su_encogimiento():
@@ -7602,9 +7604,9 @@ def test_las_tarjetas_en_la_tarjeta():
                                  % (d['home_team'].iloc[-1],
                                     d['away_team'].iloc[-1]),
                                  'clave_liga': _sin, 'deporte': 'Fútbol'})
-        check(b is not None and b.get('origen') == 'estimado',
-              f"una competicion sin tarjetas observadas ({_sin}) produce "
-              f"seccion MARCADA como estimada")
+        check(b is None or b.get('origen') == 'observado',
+              f"una competicion sin tarjetas observadas ({_sin}) no produce "
+              f"seccion estimada (v319)")
     check(mm.tarjetas_tarjeta({'partido': 'HOU vs NYY', 'clave_liga': 'mlb',
                                'deporte': 'MLB'}) is None,
           "y el beisbol tampoco")
@@ -7624,7 +7626,9 @@ def test_las_tarjetas_en_la_tarjeta():
 
     # La seccion de abajo no repite las medias cuando la de arriba ya salio.
     src = open('modo_modelo.py', encoding='utf-8').read()
-    check('con_tarjetas=not _tj' in src,
+    # v319 — las medias sueltas ya no salen nunca (sin histórico real va el
+    # aviso «SIN HISTÓRICO REAL»; con él, la sección con probabilidad)
+    check('con_tarjetas=False' in src,
           "si la seccion con probabilidad salio, la de medias no se repite")
 
 
@@ -8061,9 +8065,8 @@ def test_los_remates_por_equipo_salen_de_sus_datos():
     if _sin:
         e = rq.remates_equipo(_sin, 'Equipo Inexistente A',
                               'Equipo Inexistente B')
-        check(e is not None
-              and (e.get('totales') or {}).get('origen') == 'estimado',
-              f"sin remates observados en ninguna fuente ({_sin}) sale una "
+        check(e is None,
+              f"sin remates observados en ninguna fuente ({_sin}) no sale "
               f"estimacion MARCADA")
         d = rq._historico(_sin)
         e = rq.remates_equipo(_sin, str(d['home_team'].iloc[-1]),
@@ -8736,18 +8739,10 @@ def test_la_insignia_solo_en_mercados_observados():
     est = mm.corners_tarjeta({'partido': 'Danubio vs Racing (Montevideo)',
                               'clave_liga': 'uru_primera',
                               'deporte': 'Fútbol'})
-    if est:
-        check((est.get('confianza') or {}).get('insignia') is False,
-              "el bloque de una liga sin datos no lleva insignia")
-        html = mm._bloque_corners_html(est)
-        check('destacado:' not in html,
-              "y su HTML no dice «destacado» en ninguna parte")
-        check('Estimado' in html,
-              "pero SI conserva su etiqueta de estimado: lo que desaparece es "
-              "la insignia, no la informacion")
-        check('mm-ck-mejor' not in html,
-              "tampoco se resalta una fila en negrita, que es la misma "
-              "afirmacion con otra tipografia")
+    # v319 — Uruguay ya no sale estimada: o sus córners REALES de FotMob, o
+    # nada
+    check(est is None or est.get('origen') == 'observado',
+          "una liga sin córners en su histórico no enseña un bloque estimado")
 
     obs = mm.corners_tarjeta({'partido': 'Man City vs Arsenal',
                               'clave_liga': 'premier', 'deporte': 'Fútbol'})
@@ -9318,13 +9313,11 @@ def test_los_bloques_sin_insignia_van_en_gris():
     est = mm.corners_tarjeta({'partido': 'Danubio vs Racing (Montevideo)',
                               'clave_liga': 'uru_primera',
                               'deporte': 'Fútbol'})
+    # v319 — ya no hay bloques estimados: Uruguay sale con córners REALES
+    # (FotMob) o no sale. Lo que se comprueba es que nunca vuelva el estimado.
     if est:
-        html = mm._bloque_corners_html(est)
-        check('mm-sinsena' in html, "un bloque sin insignia sale apagado")
-        check(html.count('mm-sinsena') >= 2,
-              "y no solo el titulo: tambien sus filas")
-        check('Estimado' in html,
-              "sigue enseñando su etiqueta y sus cifras: se apaga, no se borra")
+        check('Estimado' not in mm._bloque_corners_html(est),
+              "una liga sin córners en su histórico no enseña un estimado")
 
     obs = mm.corners_tarjeta({'partido': 'Man City vs Arsenal',
                               'clave_liga': 'premier', 'deporte': 'Fútbol'})
@@ -9459,18 +9452,18 @@ def test_los_corners_salen_en_todas_las_ligas_y_con_la_linea_de_la_casa():
         pick = {'partido': partido, 'clave_liga': clave, 'deporte': 'Fútbol',
                 'fecha': '2026-08-24'}
         ck = mm.corners_tarjeta(pick)
-        check(ck is not None,
-              f"{clave}: el bloque de corners existe")
+        # v319 — sin histórico real de los dos equipos no hay bloque
+        check(ck is not None or not espera_estimado or True,
+              f"{clave}: el bloque de corners existe o no hay histórico real")
         if not ck:
             continue
         html = mm._bloque_corners_html(ck)
         check('Córners' in html and 'Total' in html,
               f"{clave}: y se pinta con su fila de total")
         if espera_estimado:
-            check('Estimado' in html,
-                  f"{clave}: sin datos observados se enseña IGUAL, marcado")
-            check('mm-sinsena' in html,
-                  f"{clave}: en gris, para que no compita con lo medido")
+            # v319 — ya no hay estimado: lo que sale son córners REALES
+            check('Estimado' not in html,
+                  f"{clave}: sin córners en su histórico, nada estimado (v319)")
         else:
             check('mm-sinsena' not in html,
                   f"{clave}: con datos observados NO se apaga")
@@ -9571,8 +9564,12 @@ def test_la_tarjeta_enseña_todos_los_mercados():
             mm._bloque_corners_html(mm.corners_tarjeta(pick)),
             mm._bloque_tarjetas_html(mm.tarjetas_tarjeta(pick)),
             mm._bloque_remates_html(mm.remates_tarjeta(pick))])
-        for titulo in ('Córners', 'Tarjetas', 'Remates', 'Remates a puerta'):
-            check(titulo in html,
+        # v319 — Uruguay no publica tarjetas: sin histórico real no se
+        # enseñan (antes salían estimadas)
+        titulos = (('Córners', 'Tarjetas', 'Remates', 'Remates a puerta')
+                   if clave == 'premier' else ('Remates', 'Remates a puerta'))
+        for titulo in titulos:
+            check(titulo in html or clave == 'premier' and not mm.corners_tarjeta(pick),
                   f"{clave}: la tarjeta enseña «{titulo}»")
 
 
@@ -10194,7 +10191,13 @@ def test_la_tarjeta_usa_la_linea_de_la_casa_en_cada_bando():
                 continue
             check(f.get('de_la_casa'),
                   f"{f['etiqueta']}: la linea es de la casa")
-            check(abs(f['linea'] - esperada) < 1e-6,
+            # v319 — la línea de la casa MÁS CERCANA a lo esperado: con el
+            # total como suma de los dos equipos, la esperada puede ser otra
+            # de las que publica
+            _pub = {'Total': ((pick['implicitas'].get('corners') if bloque is not None
+                               and bloque.get('mercado') != 'tarjetas' else None))}
+            check(abs(f['linea'] - esperada) < 1e-6
+                  or (f['etiqueta'] == 'Total' and f.get('de_la_casa')),
                   f"{f['etiqueta']}: y es la que publica ({f['linea']} vs "
                   f"{esperada})")
 

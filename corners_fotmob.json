@@ -1,0 +1,41 @@
+{
+ "partidos_predichos": 1874,
+ "franja_70_80_todas": {
+  "n": 7320,
+  "partidos": 1874,
+  "acierto": 0.7747
+ },
+ "franja_70_80_ligas_sin_historico": {
+  "n": 1846,
+  "partidos": 442,
+  "acierto": 0.7774
+ },
+ "franja_70_80_ligas_con_historico": {
+  "n": 5474,
+  "partidos": 1432,
+  "acierto": 0.7738
+ },
+ "ligas_sin_historico": [
+  "arg_primera_nacional",
+  "champions_femenil",
+  "crc_fpd",
+  "eng_carabao",
+  "fem_alemania",
+  "fem_espana",
+  "fem_francia",
+  "fem_inglaterra",
+  "fem_italia",
+  "finlandia",
+  "irlanda",
+  "isr_premier",
+  "mex_expansion",
+  "mex_femenil",
+  "par_division",
+  "polonia",
+  "slv_primera",
+  "suiza",
+  "uru_primera",
+  "ven_primera"
+ ],
+ "activo": true
+}

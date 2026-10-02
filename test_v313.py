@@ -211,10 +211,13 @@ def probar_corners():
           'el total sigue siendo la media' % m['prueba']['p5'])
     import formato_ia as fi
     src = open('formato_ia.py', encoding='utf-8').read()
-    check('MEDIA DE LA COMPETICIÓN' in fi.GUIA
-          and "' = media de la competición'" in src,
-          'el documento dice que el 9,1 es la media de la competición, a '
-          'propósito')
+    # v319 — el total de córners pasó a ser la suma de los dos equipos: con
+    # el modelo de córners con tabla y 56 ligas, la suma sí le gana a la media
+    # (`_v319_conteos_reales.json`); la medición de aquí era la de antes
+    v = json.load(open('_v319_conteos_reales.json', encoding='utf-8'))
+    check(v['corners']['total']['adopta_suma'] and 'suma de lo esperado' in fi.GUIA
+          and 'media de la competición' not in src.split('def _bloque_conteo')[1][:200],
+          'el total de córners es la suma de los dos equipos (medido, v319)')
 
 
 def probar_agente():

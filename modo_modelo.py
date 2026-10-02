@@ -3324,6 +3324,24 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     navegar(pick)
 
 
+def _sin_historico_html(pick: Dict, stat: str, icono: str) -> str:
+    """v319 — «🚫 SIN HISTÓRICO REAL», en vez del bloque estimado de antes.
+    Sólo en fútbol con modelo (en los demás no hay sección que sustituir)."""
+    if str(pick.get('deporte') or 'Fútbol') != 'Fútbol' or pick.get('solo_mercado') \
+            or pick.get('sin_modelo') or not pick.get('clave_liga'):
+        return ''
+    h, a = _equipos(pick)
+    if not h or not a:
+        return ''
+    try:
+        import historico_real as _hr
+        txt = _hr.aviso(str(pick.get('clave_liga')), h, a, stat)
+    except Exception:
+        return ''
+    import html as _html_e
+    return '<div class="mm-fis mm-nd">%s %s</div>' % (icono, _html_e.escape(txt))
+
+
 def _analisis_completo(st, pick: Dict, b: Dict, rec, _ck, _tj, _rm, _qr
                        ) -> None:
     """
@@ -3341,8 +3359,9 @@ def _analisis_completo(st, pick: Dict, b: Dict, rec, _ck, _tj, _rm, _qr
         # nunca: `goles_lineas` sólo lo llena el fútbol y `totales` sólo los
         # otros, así que van seguidos sin estorbarse.
         _bloque_totales_html(pick),
-        _bloque_corners_html(_ck),
-        _bloque_tarjetas_html(_tj),
+        # v319 — sin histórico real, el aviso y no el estimado
+        _bloque_corners_html(_ck) or _sin_historico_html(pick, 'corners', '⛳'),
+        _bloque_tarjetas_html(_tj) or _sin_historico_html(pick, 'tarjetas', '🟨'),
         _bloque_remates_html(_rm),
         _bloque_quien_remata_html(_qr),
     ]
@@ -3351,8 +3370,9 @@ def _analisis_completo(st, pick: Dict, b: Dict, rec, _ck, _tj, _rm, _qr
         rend = _rendimiento(pick)
     if rend:
         disp = rend.get('disponible') or {}
-        piezas.append(_bloque_fisico(rend, disp, con_corners=not _ck,
-                                     con_tarjetas=not _tj))
+        # v319 — sin histórico real tampoco se pintan sus medias sueltas
+        piezas.append(_bloque_fisico(rend, disp, con_corners=False,
+                                     con_tarjetas=False))
         lineas = [x for x in (_mini_forma(rend.get('forma_home'), disp),
                               _mini_forma(rend.get('forma_away'), disp))
                   if x]

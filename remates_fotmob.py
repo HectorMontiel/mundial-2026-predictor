@@ -116,8 +116,10 @@ NOMBRES_SELECCION = {
 COL_J = ['match_id', 'fecha', 'liga', 'equipo', 'jugador', 'jugador_id',
          'posicion', 'titular', 'minutos', 'tiros', 'a_puerta', 'goles', 'xg',
          'pos', 'up', 'mv']
+# v319 — y las tarjetas (amarillas + rojas) de cada equipo, para tener
+# tarjetas REALES en las ligas cuyo histórico no las trae
 COL_E = ['match_id', 'fecha', 'liga', 'equipo', 'rival', 'local', 'tiros',
-         'a_puerta', 'xg', 'goles', 'corners', 'por_jugador']
+         'a_puerta', 'xg', 'goles', 'corners', 'por_jugador', 'tarjetas']
 
 
 def competiciones(solo_selecciones: bool = False,
@@ -340,7 +342,9 @@ def extraer_de(raw: Dict, mid: str, liga: str) -> tuple:
                    'xg': None if xg is None else round(float(xg), 3),
                    'goles': marcador[i] if marcador else e.get('goles'),
                    'corners': _entero(de('corners')),
-                   'por_jugador': int(por_jugador)})
+                   'por_jugador': int(por_jugador),
+                   'tarjetas': (None if de('yellow_cards') is None and de('red_cards') is None
+                                else int((de('yellow_cards') or 0) + (de('red_cards') or 0)))})
     if len(fe) != 2:
         return [], []
     return fj, fe

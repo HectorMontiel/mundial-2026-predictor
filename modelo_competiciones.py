@@ -253,12 +253,19 @@ def _indice_equipos() -> Dict:
     info: Dict = {}
     for r in rec.itertuples(index=False):
         for eid, nom in ((r.home_id, r.home), (r.away_id, r.away)):
-            e = info.setdefault(eid, [nom, 0, r.liga_id])
-            e[0], e[1], e[2] = nom, e[1] + 1, r.liga_id
+            e = info.setdefault(eid, [nom, 0, r.liga_id, ''])
+            if not e[3] or msm._categoria(str(nom)) == e[3]:
+                e[0] = nom
+            e[1], e[2] = e[1] + 1, r.liga_id
+            # v319 — la categoría se conserva: FotMob escribió al Ajax
+            # femenil como «Ajax» (sin W) en la Champions femenina del
+            # 23-sep, y quedarse sólo con el último nombre lo convertía en
+            # el masculino
+            e[3] = e[3] or msm._categoria(str(nom))
     idx: Dict = {}
-    for eid, (nom, n, liga) in info.items():
+    for eid, (nom, n, liga, cat) in info.items():
         base = pj._sin_femenino(str(nom))
-        ent = (eid, str(nom), msm._categoria(str(nom)), n, liga)
+        ent = (eid, str(nom), cat or msm._categoria(str(nom)), n, liga)
         for tok in set(msm._norm(base).replace('-', ' ').split()):
             if len(tok) >= 3:
                 idx.setdefault(tok, []).append(ent)

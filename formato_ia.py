@@ -48,15 +48,17 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   (20-28 sep). A cuotas de Playdoit la casa conserva margen: la única ventaja
   de precio medida es cuando la casa paga por encima del justo (EV > 0).
 - «MODELO»: probabilidades del modelo sin mezclar. λ = media esperada.
-  Córners y tarjetas: total del partido y de cada equipo. En CÓRNERS el
-  total es a propósito la MEDIA DE LA COMPETICIÓN (por eso se repite, p. ej.
-  9,1 en toda la Liga de Naciones): medido, sumar lo de los dos equipos no
-  predice mejor el total. Lo que cambia por partido es lo de cada equipo,
-  que ya usa la TABLA (diferencia de goles, posición): el fuerte saca más
-  córners. Medido en partidos no vistos: lo ofrecido al 70-80 % acierta
-  77,2 % contra 74,3 % sin la tabla.
-- «[estimado]»: la competición no publica esa estadística; es su nivel
-  general, no algo de estos dos equipos. No lo uses para decidir.
+  Córners y tarjetas: total del partido y de cada equipo. Lo de cada equipo
+  en córners ya usa la TABLA (diferencia de goles, posición): el fuerte
+  saca más córners. Medido en partidos no vistos: lo ofrecido al 70-80 %
+  acierta 77,2 % contra 74,3 % sin la tabla.
+- Córners, tarjetas y remates (v319): SÓLO con datos reales. Cada equipo
+  necesita 5+ partidos con esa estadística observada en la competición esta
+  temporada; si no, sale «🚫 SIN HISTÓRICO REAL — no apostar este mercado» y
+  la app no lo recomienda. Ya no existe el «[estimado]». El λ total de
+  córners es la suma de lo esperado de los dos equipos (medido: predice
+  mejor que la media de la competición). Medido en la franja 70-80 %:
+  córners con datos reales 75,4 % (11.874 partidos), tarjetas 72,4 %.
 - Sólo van partidos con MODELO (el motor de ligas o el de cada deporte). Los
   de competiciones fuera del motor (sub-21, copas, ligas chicas) ya no se
   envían: sin el modelo completo son ruido (decisión del usuario, v317).
@@ -136,6 +138,70 @@ def _conteo_crudo(pick: Dict, que: str) -> Optional[Dict]:
         return rm.get('totales' if que == 'remates' else 'a_puerta')
     except Exception:
         return None
+
+
+# v319 — las líneas que se enseñan de cada conteo
+_LINEAS_CONTEO = {'corners': ((8.5, 'mas'), (9.5, 'mas'), (10.5, 'menos')),
+                  'tarjetas': ((3.5, 'mas'), (4.5, 'mas'), (5.5, 'menos')),
+                  'remates': ((20.5, 'mas'), (24.5, 'mas'), (28.5, 'menos')),
+                  'a_puerta': ((6.5, 'mas'), (8.5, 'mas'), (10.5, 'menos'))}
+
+
+def _bloque_conteo(pick: Dict, que: str, nombre: str) -> List[str]:
+    """v319 — EL FORMATO QUE PIDIÓ EL USUARIO, Y NADA ESTIMADO.
+
+    Con histórico real (5+ partidos de cada equipo esta temporada):
+        MODELO Córners (datos reales · N partidos local en casa · N visitante fuera):
+          λ total esperado: X.X
+          Local (promedio histórico en casa): X.X por partido · modelo X.X
+          Visitante (promedio histórico fuera): X.X por partido · modelo X.X
+          Más de 8.5: XX % · justa X.XX | Más de 9.5 … | Menos de 10.5 …
+    Sin él: «MODELO Córners: 🚫 SIN HISTÓRICO REAL — no apostar este
+    mercado (motivo)»."""
+    c = _conteo_crudo(pick, que)
+    if not c or not c.get('lambda_total'):
+        stat = {'corners': 'corners', 'tarjetas': 'tarjetas'}.get(que, 'remates')
+        motivo = ''
+        try:
+            import historico_real as hr
+            import modo_modelo as mm
+            h, a = mm._equipos(pick)
+            motivo = hr.evaluar(str(pick.get('clave_liga') or ''), h, a, stat).get('motivo') or ''
+        except Exception:
+            pass
+        return ['MODELO %s: 🚫 SIN HISTÓRICO REAL — no apostar este mercado%s'
+                % (nombre, (' (%s)' % motivo) if motivo else '')]
+    try:
+        import rendimiento_equipos as rq
+    except Exception:
+        return []
+    if c.get('historico_real'):
+        cab = ('MODELO %s (datos reales · %s partidos del local en casa · %s del '
+               'visitante fuera; %s y %s en la temporada):'
+               % (nombre, c.get('n_local_casa'), c.get('n_visita_fuera'),
+                  c.get('n_local'), c.get('n_visita')))
+    else:
+        cab = 'MODELO %s (datos reales de FotMob, últimos partidos de cada equipo):' % nombre
+    L = [cab, '   λ total esperado: %s%s' % (_num(c['lambda_total'], 1),
+                                            ' (suma de los dos equipos)'
+                                            if que in ('corners', 'tarjetas') else '')]
+    for lado, prom, lam in (('Local (promedio histórico en casa)', c.get('prom_local_casa'),
+                             c.get('lambda_home')),
+                            ('Visitante (promedio histórico fuera)', c.get('prom_visita_fuera'),
+                             c.get('lambda_away'))):
+        L.append('   %s: %s por partido · modelo %s'
+                 % (lado, _num(prom, 1) if prom is not None else '—', _num(lam, 1)))
+    trozos = []
+    for linea, lado in _LINEAS_CONTEO.get(que, ()):
+        p = rq.prob_mas_de(c['lambda_total'], linea, c.get('dispersion_total'))
+        if p is None:
+            continue
+        p = p if lado == 'mas' else 1 - p
+        trozos.append('%s de %s: %s · justa %s' % ('Más' if lado == 'mas' else 'Menos',
+                                                  linea, _pct(p), _num(1 / max(p, 1e-6))))
+    if trozos:
+        L.append('   ' + ' | '.join(trozos))
+    return L
 
 
 def _meter(pick: Dict) -> List[Dict]:
@@ -254,19 +320,7 @@ def bloque_partido(reg: Dict, pick: Optional[Dict]) -> List[str]:
             for que, nombre in (('corners', 'Córners'), ('tarjetas', 'Tarjetas'),
                                 ('remates', 'Remates'),
                                 ('a_puerta', 'Remates a puerta')):
-                c = _conteo_crudo(pick, que)
-                if c and c.get('lambda_total'):
-                    # v313 — en córners el total ES la media de la
-                    # competición (medido: sumar los equipos no predice
-                    # mejor). Se dice, o parece un valor por defecto.
-                    media = (que == 'corners' and c.get('origen') == 'observado')
-                    L.append('MODELO %s: λ total %s%s (local %s · visita %s)%s'
-                             % (nombre, _num(c['lambda_total'], 1),
-                                ' = media de la competición' if media else '',
-                                _num(c.get('lambda_home'), 1),
-                                _num(c.get('lambda_away'), 1),
-                                '' if c.get('origen') == 'observado'
-                                else ' [estimado]'))
+                L += _bloque_conteo(pick, que, nombre)
         # v316 — la tabla de la temporada (goles a favor/en contra, 4+ goles,
         # puntos a las zonas)
         try:

@@ -97,6 +97,12 @@ class Recorte:
         import rendimiento_equipos as rq
         import contexto_partido as cx
         self.corte = fecha
+        try:
+            import historico_real as _hr
+            _hr.FECHA = fecha
+            _hr._MEMO.clear()
+        except Exception:
+            pass
         for c in claves:
             if c not in self.completo:
                 self.pe._CACHE.pop(c, None)

@@ -52,6 +52,7 @@ partidos cacheados. Cuando la cobertura permita validarlo, entra por aquí sin
 tocar la interfaz: basta con que `stats_disponibles` empiece a incluirlo.
 """
 import logging
+import os
 
 import numpy as np
 import pandas as pd
@@ -949,8 +950,8 @@ def _estimado(clave: str, objetivo: str) -> Optional[Dict]:
         return None
 
 
-def corners_equipo(clave: str, home: str, away: str,
-                   n: int = 10) -> Optional[Dict]:
+def _corners_equipo_crudo(clave: str, home: str, away: str,
+                          n: int = 10) -> Optional[Dict]:
     """
     Los córners esperados de los dos equipos y del partido, con la dispersión
     con la que convertirlos en probabilidades.
@@ -1322,7 +1323,7 @@ def _a_la_media(bloque: Optional[Dict], clave: str, mercado: str,
     return b
 
 
-def tarjetas_equipo(clave: str, home: str, away: str, n: int = 10,
+def _tarjetas_equipo_crudo(clave: str, home: str, away: str, n: int = 10,
                     factor_arbitro: Optional[float] = None,
                     torneo: str = '') -> Optional[Dict]:
     """
@@ -1726,8 +1727,8 @@ def _remates_de_objetivo(clave: str, home: str, away: str, n: int,
             'origen': 'observado', 'clave_liga': clave}
 
 
-def remates_equipo(clave: str, home: str, away: str,
-                   n: int = 10, torneo: str = '') -> Optional[Dict]:
+def _remates_equipo_crudo(clave: str, home: str, away: str,
+                          n: int = 10, torneo: str = '') -> Optional[Dict]:
     """
     Los remates esperados del partido, en sus dos mercados.
 
@@ -1756,4 +1757,118 @@ def remates_equipo(clave: str, home: str, away: str,
                              torneo)
         if bloque:
             salida[nombre] = bloque
+    return salida or None
+
+
+# ---------------------------------------------------------------------------
+# v319 — HISTÓRICO REAL O NADA
+#
+# El usuario: «no quiero nada con estimado… prefiero tener cero picks de
+# córners en un día donde no hay datos reales, a tener picks basadas en
+# promedios genéricos». Y lo mismo para tarjetas y el resto.
+#
+# Las tres funciones de abajo son las que usa TODO el proyecto (tarjeta,
+# candidatas a «meter», Telegram, mercados del día, Soñadora, motor de
+# ligas). Devuelven `None` —ni número, ni apuesta— cuando:
+#   · el bloque es `estimado` (el nivel de la liga sacado de sus goles), o
+#   · alguno de los dos equipos no tiene 5 partidos con esa estadística
+#     OBSERVADA en la competición esta temporada (`historico_real`).
+# Cuando sí hay histórico real, llevan además cuántos partidos y los
+# promedios con el papel correcto (el local en casa, el visitante fuera).
+#
+# Medido antes de activarlo (`_v319_conteos_reales.py`, 56 ligas, 18.811
+# partidos fuera de muestra, 11.874 con histórico real), franja 70-80 %:
+#     córners con datos reales ...... 75,4 %  (umbral del usuario: 72 %)
+#     tarjetas (producción) ......... 72,4 %
+# Y el TOTAL de córners pasa a ser la suma de lo esperado de los dos equipos:
+# log-loss 0,61378 (media de la competición) → 0,61228, p5 +0,00108. Es lo
+# que dejaba el «9,1» repetido en toda la Liga de Naciones.
+#
+# LO QUE NO HACE, PARA QUE CONSTE: no sube el acierto. Sin histórico real
+# los córners acertaban lo mismo (75,1 % contra 75,4 %) y el estimado en los
+# mismos partidos 75,3 %: su defecto era dar el mismo número a todos los
+# partidos de una liga, no fallar más. En la simulación de la tarjeta
+# (20-29 sep, 391 partidos) lo metido pasó de 78,3 % (651) a 77,1 % (634),
+# dentro del ruido. Es una decisión del usuario («menos picks de mejor
+# calidad»), no una mejora medida. Tampoco se baja la confianza en partidos
+# parejos ni con visitante favorito, como se propuso: medido, aciertan lo
+# mismo (75,3 % contra 76,2 %; 75,4 % contra 75,4 %).
+# ---------------------------------------------------------------------------
+def _con_historico_real(r: Optional[Dict], clave: str, home: str, away: str,
+                        stat: str) -> Optional[Dict]:
+    # sólo para las simulaciones que comparan con la versión anterior
+    if os.environ.get('V319_VERSION_VIEJA'):
+        return r
+    if not r or (r.get('origen') or 'observado') == 'estimado':
+        return None
+    try:
+        import historico_real as _hr
+        ev = _hr.evaluar(clave, home, away, stat)
+    except Exception as e:
+        logger.debug('[rendimiento] histórico real %s: %s', clave, e)
+        return None
+    if not ev.get('ok'):
+        return None
+    r = dict(r)
+    r.update({'historico_real': True, 'n_local': ev['n_local'],
+              'n_visita': ev['n_visita'], 'n_local_casa': ev['n_local_casa'],
+              'n_visita_fuera': ev['n_visita_fuera'],
+              'prom_local_casa': ev['prom_local_casa'],
+              'prom_visita_fuera': ev['prom_visita_fuera']})
+    return r
+
+
+def corners_equipo(clave: str, home: str, away: str,
+                   n: int = 10) -> Optional[Dict]:
+    """Los córners del partido SÓLO con histórico real (ver arriba). El total
+    es la suma de lo esperado de los dos equipos."""
+    if os.environ.get('V319_VERSION_VIEJA'):
+        return _corners_equipo_crudo(clave, home, away, n)
+    r = _con_historico_real(_corners_equipo_crudo(clave, home, away, n),
+                            clave, home, away, 'corners')
+    # v319 — la competición no publica córners en su histórico: los REALES
+    # de FotMob de cada equipo (`corners_fotmob`, con su backtest: 77,7 % en
+    # la franja 70-80 % en las 20 ligas que lo usan)
+    if r is None and not (stats_disponibles(clave) or {}).get('corners'):
+        try:
+            import corners_fotmob as _cf
+            return _cf.lambdas(clave, home, away)
+        except Exception as e:
+            logger.debug('[rendimiento] córners de FotMob %s: %s', clave, e)
+            return None
+    if r and r.get('lambda_home') and r.get('lambda_away'):
+        r['lambda_total'] = round(float(r['lambda_home'])
+                                  + float(r['lambda_away']), 3)
+        r['total'] = 'suma de los dos equipos'
+    return r
+
+
+def tarjetas_equipo(clave: str, home: str, away: str, n: int = 10,
+                    factor_arbitro: Optional[float] = None,
+                    torneo: str = '') -> Optional[Dict]:
+    """Las tarjetas del partido SÓLO con histórico real (ver arriba)."""
+    return _con_historico_real(
+        _tarjetas_equipo_crudo(clave, home, away, n, factor_arbitro=factor_arbitro,
+                               torneo=torneo),
+        clave, home, away, 'tarjetas')
+
+
+def remates_equipo(clave: str, home: str, away: str,
+                   n: int = 10, torneo: str = '') -> Optional[Dict]:
+    """Los remates del partido SÓLO con datos reales: los del histórico con
+    sus 5 partidos, o los de FotMob de cada equipo (`remates_fotmob`), que
+    también son observados. Nunca el estimado."""
+    r = _remates_equipo_crudo(clave, home, away, n, torneo=torneo)
+    if not r:
+        return None
+    salida = {}
+    for k, b in r.items():
+        if not b or (b.get('origen') or 'observado') == 'estimado':
+            continue
+        if 'FotMob' in str(b.get('base') or ''):
+            salida[k] = b
+            continue
+        g = _con_historico_real(b, clave, home, away, 'remates')
+        if g:
+            salida[k] = g
     return salida or None
