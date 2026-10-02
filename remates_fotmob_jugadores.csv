@@ -132989,3 +132989,55 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991884,2026-10-02,selecciones,Costa Rica,Orlando Sinclair,967020,F,1,78,2,1,1,0.0,115.0,3.0,73852.0
 5991884,2026-10-02,selecciones,Costa Rica,Juan Pablo Vargas,734283,D,0,71,1,0,0,0.0,,1.0,992452.0
 5991884,2026-10-02,selecciones,Costa Rica,Josimar Méndez,1100269,F,0,34,2,0,0,0.0,,3.0,185838.0
+6280452,2026-10-02,selecciones,South Korea,Bum-Keun Song,848068,G,1,90,0,0,0,0.0,11,0,745349
+6280452,2026-10-02,selecciones,South Korea,Young-Woo Seol,1132818,D,1,90,0,0,0,0.0,32,1,3576253
+6280452,2026-10-02,selecciones,South Korea,Han-Beom Lee,1232253,D,1,90,0,0,0,0.0,34,1,3604596
+6280452,2026-10-02,selecciones,South Korea,Min-Jae Kim,828159,D,1,90,0,0,0,0.0,36,1,18560675
+6280452,2026-10-02,selecciones,South Korea,Hyun-Taek Cho,1136082,D,1,80,2,1,0,0.0,38,1,594602
+6280452,2026-10-02,selecciones,South Korea,Kang-In Lee,940976,M,1,90,2,0,0,0.0,72,2,30951441
+6280452,2026-10-02,selecciones,South Korea,Jin-Seob Park,925647,M,1,90,0,0,0,0.0,74,2,680255
+6280452,2026-10-02,selecciones,South Korea,In-Beom Hwang,623698,M,1,90,0,0,0,0.0,76,2,4973181
+6280452,2026-10-02,selecciones,South Korea,Min-Su Kim,1684578,M,1,90,0,0,0,0.0,78,2,4395518
+6280452,2026-10-02,selecciones,South Korea,Hyeon-Gyu Oh,1044299,F,1,90,0,0,0,0.0,104,3,16158162
+6280452,2026-10-02,selecciones,South Korea,Heung-Min Son,212867,F,1,85,2,1,0,0.0,106,3,8559396
+6280452,2026-10-02,selecciones,South Korea,Dong-Gyeong Lee,954131,M,0,23,1,1,0,0.0,,2,1218692
+6280452,2026-10-02,selecciones,Venezuela,José Contreras,423508,G,1,90,0,0,0,0.0,11,0,630319
+6280452,2026-10-02,selecciones,Venezuela,Jon Aramburu,1249284,D,1,90,0,0,0,0.0,32,1,18650169
+6280452,2026-10-02,selecciones,Venezuela,Nahuel Ferraresi,847910,D,1,90,0,0,0,0.0,34,1,2653749
+6280452,2026-10-02,selecciones,Venezuela,Teo Quintero,1045822,D,1,90,1,1,0,0.0,36,1,828690
+6280452,2026-10-02,selecciones,Venezuela,Luís Balbo,1584085,D,1,90,0,0,0,0.0,38,1,1165353
+6280452,2026-10-02,selecciones,Venezuela,Delvin Alfonzo,1339698,M,1,90,0,0,0,0.0,72,2,232510
+6280452,2026-10-02,selecciones,Venezuela,Yangel Herrera,730901,M,1,63,1,0,0,0.0,74,2,5068086
+6280452,2026-10-02,selecciones,Venezuela,Cristian Cásseres,845943,M,1,90,3,1,0,0.0,76,2,6550644
+6280452,2026-10-02,selecciones,Venezuela,Gleiker Mendoza,1460572,M,1,85,3,1,0,0.0,78,2,1786886
+6280452,2026-10-02,selecciones,Venezuela,Kevin Kelsy,1355550,F,1,69,1,0,0,0.0,104,3,3724720
+6280452,2026-10-02,selecciones,Venezuela,Jesús Ramírez,1075457,F,1,85,2,1,0,0.0,106,3,2453560
+6280452,2026-10-02,selecciones,Venezuela,Jhonder Cádiz,523414,F,0,21,1,0,0,0.0,,3,1624236
+6280453,2026-10-02,selecciones,China,Bingliang Yan,1363325,G,1,90,0,0,0,0.0,11,0,412321
+6280453,2026-10-02,selecciones,China,Zhunyi Gao,648366,D,1,69,1,0,0,0.0,32,1,272210
+6280453,2026-10-02,selecciones,China,Tyias Browning,419196,D,1,90,0,0,0,0.0,34,1,264599
+6280453,2026-10-02,selecciones,China,Zhen Wei,768631,D,1,90,0,0,0,0.0,36,1,450064
+6280453,2026-10-02,selecciones,China,Yang Liu,768634,D,1,90,1,0,0,0.0,38,1,446689
+6280453,2026-10-02,selecciones,China,Mingrui Yang,1660335,M,1,90,0,0,0,0.0,72,2,1029131
+6280453,2026-10-02,selecciones,China,Shangyuan Wang,465720,M,1,90,2,0,0,0.0,74,2,449854
+6280453,2026-10-02,selecciones,China,Shenghao Huang,1776387,M,1,56,1,0,0,0.0,76,2,438564
+6280453,2026-10-02,selecciones,China,Pu Chen,1079758,M,1,90,0,0,0,0.0,78,2,248656
+6280453,2026-10-02,selecciones,China,Qianglong Tao,1027306,F,1,45,1,1,0,0.0,104,3,468439
+6280453,2026-10-02,selecciones,China,Shihao Wei,570357,F,1,62,1,0,0,0.0,106,3,573974
+6280453,2026-10-02,selecciones,China,Wai-Tsun Dai,865153,M,0,21,1,0,0,0.0,,2,295290
+6280453,2026-10-02,selecciones,China,Ziming Wang,915251,F,0,34,3,1,0,0.0,,3,326800
+6280453,2026-10-02,selecciones,Palestine,Rami Hamadeh,610846,G,1,90,0,0,0,0.0,11,0,129772
+6280453,2026-10-02,selecciones,Palestine,Ameed Sawafta,1264339,D,1,72,1,1,0,0.0,32,1,400548
+6280453,2026-10-02,selecciones,Palestine,Michel Termanini,737823,D,1,90,0,0,0,0.0,34,1,218811
+6280453,2026-10-02,selecciones,Palestine,Khalid Abu El Haija,1867186,D,1,90,0,0,0,0.0,36,1,262462
+6280453,2026-10-02,selecciones,Palestine,Wajdi Nabhan,1553360,D,1,73,1,1,0,0.0,38,1,399121
+6280453,2026-10-02,selecciones,Palestine,Ameed Mhagna,979292,M,1,73,2,0,0,0.0,64,2,171295
+6280453,2026-10-02,selecciones,Palestine,Agustín Manzur,918114,M,1,83,1,0,0,0.0,66,2,1314582
+6280453,2026-10-02,selecciones,Palestine,Oday Dabbagh,855623,F,1,82,3,3,2,0.0,83,3,1282255
+6280453,2026-10-02,selecciones,Palestine,Khaled Al-Nabris,1381091,F,1,90,0,0,0,0.0,85,3,406972
+6280453,2026-10-02,selecciones,Palestine,Zaid Qunbar,1553401,F,1,90,0,0,0,0.0,87,3,273935
+6280453,2026-10-02,selecciones,Palestine,Assad Al Hamlawi,1134292,F,1,83,4,2,2,0.0,115,3,1568198
+6280453,2026-10-02,selecciones,Palestine,Ahmad Al-Qaq,1727104,M,0,8,1,1,1,0.0,,2,60047
+6280453,2026-10-02,selecciones,Palestine,Hamed Hamdan,1648712,M,0,18,1,0,0,0.0,,2,1030891
+6280453,2026-10-02,selecciones,Palestine,Adam Kaied,1254150,F,0,7,1,1,0,0.0,,3,447685
+6280453,2026-10-02,selecciones,Palestine,Hassan Alaa Aladdin,1419131,F,0,29,1,0,0,0.0,,3,
