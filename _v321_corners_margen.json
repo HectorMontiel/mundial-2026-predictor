@@ -1,0 +1,60 @@
+{
+ "backtest": {
+  "total": {
+   "margen_minimo": 2.5,
+   "apuestas_todas": 21183,
+   "apuestas_con_margen": 5179,
+   "acierto_todas": 0.7453,
+   "acierto_con_margen": 0.7805,
+   "primera_mitad": 0.7728,
+   "segunda_mitad": 0.788,
+   "p5_mejora": 0.0264
+  },
+  "equipo": {
+   "margen_minimo": 2.0,
+   "apuestas_todas": 1683,
+   "apuestas_con_margen": 723,
+   "acierto_todas": 0.7873,
+   "acierto_con_margen": 0.8147,
+   "primera_mitad": 0.8184,
+   "segunda_mitad": 0.8105,
+   "p5_mejora": 0.0095
+  },
+  "conjunto": {
+   "antes": 0.7484,
+   "despues": 0.7846,
+   "se_queda": 0.2581
+  },
+  "margen_1_5_total": 1.0
+ },
+ "tarjeta_simulada": {
+  "corners_antes": {
+   "apuestas": 98,
+   "acierto": 0.7347,
+   "rojos": 26,
+   "tramo_20_26": 0.7403,
+   "tramo_27_en_adelante": 0.7143
+  },
+  "corners_despues": {
+   "apuestas": 44,
+   "acierto": 0.75,
+   "rojos": 11,
+   "tramo_20_26": 0.7568,
+   "tramo_27_en_adelante": 0.7143
+  },
+  "todo_antes": {
+   "apuestas": 679,
+   "acierto": 0.7629,
+   "rojos": 161,
+   "tramo_20_26": 0.7583,
+   "tramo_27_en_adelante": 0.7719
+  },
+  "todo_despues": {
+   "apuestas": 625,
+   "acierto": 0.7664,
+   "rojos": 146,
+   "tramo_20_26": 0.7616,
+   "tramo_27_en_adelante": 0.7757
+  }
+ }
+}

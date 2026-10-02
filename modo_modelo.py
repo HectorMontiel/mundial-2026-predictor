@@ -1798,11 +1798,14 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
             # `veredicto_pick.franja_futbol`): fuera de ella, «no meter», y se
             # reordena para que un descartado no ocupe el sitio de un «meter»
             _fav = prob_favorito(pick)
+            _lam_ck = lambdas_corners(pick, bloques)
             for v in _vers:
                 if v.get('veredicto') == _vp.METER:
                     _fuera = _vp.franja_futbol(v)
                     if not _fuera:
                         _fuera = corners_equipo_sin_favorito(v, _fav)
+                    if not _fuera:
+                        _fuera = corners_margen_corto(v, _lam_ck)
                     if _fuera:
                         v['veredicto'] = _vp.NO_METER
                         v.setdefault('razones', []).append(_fuera)
@@ -1923,6 +1926,68 @@ def corners_equipo_sin_favorito(v: Dict, fav: Optional[float]) -> Optional[str]:
     return ('córners de un equipo: sólo con favorito de 65 %%+ (aquí %s; medido: '
             '78,5 %% contra 75,9 %%)' % ('%.0f %%' % (100 * fav) if fav is not None
                                          else 'sin dato'))
+
+
+# v321 — LOS CÓRNERS, SÓLO CON LA LÍNEA LEJOS DE LO ESPERADO.
+#
+# El usuario: «apostar "menos de 10,5" cuando el λ es 9,8 es muy diferente a
+# apostarlo cuando el λ es 7,5: en el primer caso cualquier partido activo te
+# tumba la apuesta». Medido en el backtest de la v319 (11.874 partidos con
+# histórico real, franja 70-80 %; `_v321_corners_margen.py`), con la regla
+# del favorito ya aplicada a los de equipo:
+#
+#     margen (línea ↔ λ)   total de córners          córners de un equipo
+#     1,5-2,0              72,5 / 70,6 %             —
+#     2,0-2,5              73,9 / 74,7 %             81,5 % (con ≥ 2,0)
+#     2,5 o más            77,3 / 78,8 %  (78,0 %)   81,7 %
+#     (primera / segunda mitad del periodo)
+#
+# Total con margen ≥ 2,5: 78,0 % contra 74,5 % (p5 +2,7); equipo con margen
+# ≥ 2,0: 81,5 % contra 78,7 % (p5 +0,9). Los córners en conjunto, 74,8 % →
+# ~78,4 %, quedándose con una de cada cuatro. En la simulación de la tarjeta
+# (20-sep a 1-oct, líneas reales de la casa): córners metidos 73,5 % (98) →
+# 75,0 % (44), todo lo metido 76,3 % → 76,6 %, 161 → 146 rojos, en los dos
+# tramos. El 1,5 que se propuso no sirve: en la franja casi todo está ya a
+# 1,5 o más.
+CORNERS_MARGEN_TOTAL = 2.5
+CORNERS_MARGEN_EQUIPO = 2.0
+
+
+def lambdas_corners(pick: Dict, bloques: Optional[Dict] = None) -> Dict:
+    """{'Total': λ, 'Local': λ, 'Visita': λ} de los córners del partido,
+    del mismo bloque que pinta la tarjeta. Nunca lanza."""
+    try:
+        b = (bloques or {}).get('Córners')
+        if b is None:
+            b = corners_tarjeta(pick)
+        return {str(f.get('etiqueta')): float(f['media'])
+                for f in ((b or {}).get('filas') or []) if f.get('media') is not None}
+    except Exception:
+        return {}
+
+
+def corners_margen_corto(v: Dict, lambdas: Dict) -> Optional[str]:
+    """El motivo para NO meter unos córners con la línea pegada a lo
+    esperado, o None."""
+    import re as _re
+    c = v.get('pick') or {}
+    if str(v.get('mercado') or c.get('mercado') or '') != 'Córners':
+        return None
+    et = str(c.get('etiqueta') or '')
+    lam = lambdas.get(et)
+    linea = c.get('linea')
+    if linea is None:
+        m = _re.search(r'de ([0-9]+(?:\.[0-9]+)?)', str(c.get('apuesta') or ''))
+        linea = float(m.group(1)) if m else None
+    if lam is None or linea is None:
+        return 'córners: sin la media esperada no se puede medir el margen'
+    mas = 'Más' in str(c.get('apuesta') or '')
+    margen = (lam - float(linea)) if mas else (float(linea) - lam)
+    pedido = CORNERS_MARGEN_TOTAL if et == 'Total' else CORNERS_MARGEN_EQUIPO
+    if margen >= pedido:
+        return None
+    return ('córners: la línea %s está a %.1f de lo esperado (%.1f); se pide %.1f o '
+            'más (medido: con margen corto falla más)' % (linea, margen, lam, pedido))
 
 
 # v311 — los mercados que hablan del RESULTADO del partido: uno por tarjeta

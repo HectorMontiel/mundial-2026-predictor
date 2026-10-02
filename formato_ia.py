@@ -59,7 +59,10 @@ GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
   córners es la suma de lo esperado de los dos equipos (medido: predice
   mejor que la media de la competición). Los córners de UN EQUIPO sólo se
   meten si el favorito tiene 65 %+ (medido: 78,5 % contra 75,9 %); al total
-  no se le aplica (no mejora). Medido en la franja 70-80 %:
+  no se le aplica (no mejora). Y en córners la línea tiene que estar lejos
+  de lo esperado: 2,5 córners en el total y 2 en los de un equipo (medido:
+  78,0 % y 81,5 % contra 74,5 % y 78,7 %). Una línea pegada al λ la tumba
+  cualquier partido movido. Medido en la franja 70-80 %:
   córners con datos reales 75,4 % (11.874 partidos), tarjetas 72,4 %.
 - Sólo van partidos con MODELO (el motor de ligas o el de cada deporte). Los
   de competiciones fuera del motor (sub-21, copas, ligas chicas) ya no se

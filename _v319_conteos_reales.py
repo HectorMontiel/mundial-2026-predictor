@@ -59,8 +59,10 @@ def _filas_lineas(mid, lam, disp, real, lineas, tipo, extra, rq):
         if p is None:
             continue
         y = int(real > L)
-        out.append(dict(extra, mid=mid, tipo=tipo, linea=L, lado='mas', p=p, y=y))
-        out.append(dict(extra, mid=mid, tipo=tipo, linea=L, lado='menos', p=1 - p, y=1 - y))
+        out.append(dict(extra, mid=mid, tipo=tipo, linea=L, lado='mas', p=p, y=y,
+                        lam=lam, margen=lam - L))
+        out.append(dict(extra, mid=mid, tipo=tipo, linea=L, lado='menos', p=1 - p, y=1 - y,
+                        lam=lam, margen=L - lam))
     return out
 
 
