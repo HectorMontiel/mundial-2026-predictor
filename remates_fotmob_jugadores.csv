@@ -598,21 +598,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822548,2025-09-06,selecciones,Honduras,Carlos Pineda,848541,M,0,10,0,0,0,0.0,,2.0,
 4822548,2025-09-06,selecciones,Honduras,David Ruiz,1348286,M,0,10,0,0,0,0.0,,2.0,1811864.0
 4822548,2025-09-06,selecciones,Honduras,Alexy Vega,1335342,M,0,1,0,0,0,0.0,,2.0,
-4822547,2025-09-06,selecciones,Costa Rica,Keylor Navas,51949,G,1,90,0,0,0,0.0,11.0,0.0,778422.0
-4822547,2025-09-06,selecciones,Costa Rica,Juan Pablo Vargas,734283,D,1,90,1,0,0,0.01,33.0,1.0,
-4822547,2025-09-06,selecciones,Costa Rica,Alexis Gamboa,942986,D,1,90,1,1,1,0.07,35.0,1.0,
-4822547,2025-09-06,selecciones,Costa Rica,Francisco Calvo,272005,D,1,90,2,0,0,0.03,37.0,1.0,193211.0
-4822547,2025-09-06,selecciones,Costa Rica,Carlos Mora,1202707,D,1,85,1,0,0,0.12,51.0,1.0,995085.0
-4822547,2025-09-06,selecciones,Costa Rica,Joseph Mora,242931,D,1,64,0,0,0,0.0,59.0,1.0,
-4822547,2025-09-06,selecciones,Costa Rica,Brandon Aguilera,1021336,M,1,45,2,0,0,0.03,73.0,2.0,1554907.0
-4822547,2025-09-06,selecciones,Costa Rica,Orlando Galo,988815,M,1,90,0,0,0,0.0,75.0,2.0,253390.0
-4822547,2025-09-06,selecciones,Costa Rica,Josimar Alcocer,1296660,F,1,85,0,0,0,0.0,77.0,3.0,4085440.0
-4822547,2025-09-06,selecciones,Costa Rica,Manfred Ugalde,1016738,F,1,90,2,0,0,0.13,104.0,3.0,18980801.0
-4822547,2025-09-06,selecciones,Costa Rica,Alonso Martinez,1024424,F,1,90,1,1,0,0.21,106.0,3.0,5449600.0
-4822547,2025-09-06,selecciones,Costa Rica,Alejandro Bran,1290740,M,0,44,0,0,0,0.0,,2.0,
-4822547,2025-09-06,selecciones,Costa Rica,Anthony Contreras,1073924,F,0,26,1,0,0,0.03,,3.0,282302.0
-4822547,2025-09-06,selecciones,Costa Rica,Kenay Myrie,1641118,D,0,5,0,0,0,0.0,,1.0,
-4822547,2025-09-06,selecciones,Costa Rica,Ariel Lassiter,564832,M,0,5,0,0,0,0.0,,2.0,299818.0
 4689272,2025-09-07,selecciones,Poland,Lukasz Skorupski,178732,G,1,90,0,0,0,0.0,11.0,0.0,2194383.0
 4689272,2025-09-07,selecciones,Poland,Matty Cash,729731,D,1,45,2,1,1,0.1,32.0,1.0,22194956.0
 4689272,2025-09-07,selecciones,Poland,Przemyslaw Wisniewski,934862,D,1,90,2,1,0,0.16,34.0,1.0,1623874.0
@@ -1237,22 +1222,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822550,2025-09-10,selecciones,Honduras,Justin Arboleda,571784,M,0,25,1,1,0,0.26,,2.0,
 4822550,2025-09-10,selecciones,Honduras,Carlos Pineda,848541,M,0,13,0,0,0,0.0,,2.0,
 4822550,2025-09-10,selecciones,Honduras,Jose Mario Pinto,696082,F,0,12,0,0,0,0.0,,3.0,
-4822550,2025-09-10,selecciones,Nicaragua,Miguel Rodriguez,1527317,G,1,90,0,0,0,0.0,11.0,0.0,
-4822550,2025-09-10,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,0,0,0,0.0,33.0,1.0,
-4822550,2025-09-10,selecciones,Nicaragua,Henry Nino,859309,D,1,90,0,0,0,0.0,35.0,1.0,
-4822550,2025-09-10,selecciones,Nicaragua,Oscar Acevedo,1141649,D,1,85,0,0,0,0.0,37.0,1.0,
-4822550,2025-09-10,selecciones,Nicaragua,Josue Quijano,503263,D,1,90,1,0,0,0.04,72.0,1.0,
-4822550,2025-09-10,selecciones,Nicaragua,Ariel Arauz,1133137,M,1,70,1,1,0,0.08,74.0,2.0,
-4822550,2025-09-10,selecciones,Nicaragua,Marlon Lopez,623493,M,1,90,0,0,0,0.0,76.0,2.0,
-4822550,2025-09-10,selecciones,Nicaragua,Emmanuel Gomez,1527616,M,1,46,0,0,0,0.0,78.0,2.0,
-4822550,2025-09-10,selecciones,Nicaragua,Juan Barrera,435170,F,1,45,1,0,0,0.03,103.0,3.0,
-4822550,2025-09-10,selecciones,Nicaragua,Ariagner Smith,624696,F,1,90,0,0,0,0.0,105.0,3.0,88954.0
-4822550,2025-09-10,selecciones,Nicaragua,Jaime Moreno,495524,F,1,56,1,0,0,0.01,107.0,3.0,
-4822550,2025-09-10,selecciones,Nicaragua,Jacob Montes,1283365,M,0,44,0,0,0,0.0,,2.0,149035.0
-4822550,2025-09-10,selecciones,Nicaragua,Byron Bonilla,1032173,F,0,45,2,0,0,0.17,,3.0,
-4822550,2025-09-10,selecciones,Nicaragua,Bancy Hernandez,1558434,F,0,34,0,0,0,0.0,,3.0,
-4822550,2025-09-10,selecciones,Nicaragua,Matias Belli Moldskred,936340,M,0,20,3,0,0,0.19,,2.0,
-4822550,2025-09-10,selecciones,Nicaragua,Anyelo Velasquez,1634225,F,0,5,0,0,0,0.0,,3.0,
 4822536,2025-09-10,selecciones,Jamaica,Jahmali Waite,1352794,G,1,90,0,0,0,0.0,11.0,0.0,140000.0
 4822536,2025-09-10,selecciones,Jamaica,Dexter Lembikisa,1350598,D,1,90,2,0,0,0.07,32.0,1.0,1151796.0
 4822536,2025-09-10,selecciones,Jamaica,Richard King,1293486,D,1,90,0,0,0,0.0,34.0,1.0,435147.0
@@ -18629,20 +18598,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5071240,2026-07-26,mls,Los Angeles FC,Ryan Raposo,1052761,D,0,12,0,0,0,0.0,,1.0,217341.0
 5071240,2026-07-26,mls,Los Angeles FC,Tyler Boyd,396757,F,0,12,0,0,0,0.0,,3.0,126526.0
 5071240,2026-07-26,mls,Los Angeles FC,Jeremy Ebobisse,792024,F,0,5,0,0,0,0.0,,3.0,646751.0
-5071240,2026-07-26,mls,Sporting Kansas City,Stefan Cleveland,846521,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5071240,2026-07-26,mls,Sporting Kansas City,Jacob Davis,1082905,M,1,90,0,0,0,0.0,32.0,2.0,1014363.0
-5071240,2026-07-26,mls,Sporting Kansas City,Or Blorian,1091999,D,1,69,0,0,0,0.0,34.0,1.0,922742.0
-5071240,2026-07-26,mls,Sporting Kansas City,Wyatt Meyer,1600922,D,1,90,0,0,0,0.0,36.0,1.0,196934.0
-5071240,2026-07-26,mls,Sporting Kansas City,Emir Karic,642153,D,1,90,0,0,0,0.0,38.0,1.0,814084.0
-5071240,2026-07-26,mls,Sporting Kansas City,Zorhan Bassong,1023070,M,1,90,3,1,0,0.28,64.0,2.0,480454.0
-5071240,2026-07-26,mls,Sporting Kansas City,Lasse Berg Johnsen,1035206,M,1,90,1,0,0,0.04,66.0,2.0,1702663.0
-5071240,2026-07-26,mls,Sporting Kansas City,Stephen Afrifa,1439990,M,1,62,0,0,0,0.0,83.0,2.0,217122.0
-5071240,2026-07-26,mls,Sporting Kansas City,Manu García,659201,M,1,62,0,0,0,0.0,85.0,2.0,1619117.0
-5071240,2026-07-26,mls,Sporting Kansas City,Calvin Harris,1244938,F,1,90,2,0,0,0.1,87.0,3.0,231625.0
-5071240,2026-07-26,mls,Sporting Kansas City,Dejan Joveljic,749491,F,1,90,2,0,0,0.14,115.0,3.0,5586271.0
-5071240,2026-07-26,mls,Sporting Kansas City,Kwaku Agyabeng,1907812,M,0,28,0,0,0,0.0,,2.0,222432.0
-5071240,2026-07-26,mls,Sporting Kansas City,Magomed-Shapi Suleymanov,861720,M,0,28,0,0,0,0.0,,2.0,1366143.0
-5071240,2026-07-26,mls,Sporting Kansas City,Moisés Mosquera,1187762,D,0,21,0,0,0,0.0,,1.0,1813004.0
 5186561,2026-07-26,china,Yunnan Yukun,Zhifeng Wang,1026523,G,1,90,0,0,0,0.0,11.0,0.0,257398.0
 5186561,2026-07-26,china,Yunnan Yukun,Wang Kit Tsui,899192,D,1,80,0,0,0,0.0,32.0,1.0,255321.0
 5186561,2026-07-26,china,Yunnan Yukun,Ke Shi,432386,D,1,90,0,0,0,0.0,34.0,1.0,268605.0
@@ -132979,3 +132934,58 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190741,2026-10-01,bra_serie_b,Sport Recife,Zé Gabriel,1069976,M,0,20,0,0,0,0.0,,2.0,266816.0
 5190741,2026-10-01,bra_serie_b,Sport Recife,Perotti,750084,F,0,20,0,0,0,0.0,,3.0,764268.0
 5190741,2026-10-01,bra_serie_b,Sport Recife,Edson,1430300,D,0,1,0,0,0,0.0,,1.0,386574.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Andrew Thomas,1268000,G,1,90,0,0,0,0.0,11.0,0.0,202104.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Álex Roldán,924391,D,1,90,1,0,0,0.03,32.0,1.0,1968185.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Stuart Russell Hawkins,1500405,D,1,63,0,0,0,0.0,34.0,1.0,
+5071349,2026-10-02,mls,Seattle Sounders FC,Jackson Ragen,1285885,D,1,90,0,0,0,0.0,36.0,1.0,1846521.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Nouhou Tolo,797551,D,1,90,0,0,0,0.0,38.0,1.0,2039507.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Peter Kingston,1083216,M,1,89,3,2,0,0.09,64.0,2.0,183659.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Cristian Roldan,621946,M,1,90,2,1,1,0.31,66.0,2.0,1557143.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Jordan Morris,578643,F,1,90,3,2,0,0.11,83.0,3.0,1937840.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Albert Rusnák,484858,M,1,89,3,1,0,0.38,85.0,2.0,1452863.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Paul Arriola,462244,F,1,63,4,0,0,0.39,87.0,3.0,1243686.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Danny Musovski,933625,F,1,45,1,0,0,0.05,115.0,3.0,1584423.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Sebastian Gomez,1660654,F,0,45,3,1,1,0.32,,3.0,656421.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Kalani Rienzi,1610334,D,0,27,0,0,0,0.0,,1.0,663007.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Caden Clark,1171305,F,0,27,1,0,0,0.02,,3.0,707384.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Mark Bronnik,1690930,F,0,1,0,0,0,0.0,,3.0,766727.0
+5071349,2026-10-02,mls,Seattle Sounders FC,Yeimar Gómez,590039,D,0,1,0,0,0,0.0,,1.0,448914.0
+5071349,2026-10-02,mls,Sporting Kansas City,Stefan Cleveland,846521,G,1,90,0,0,0,0.0,11.0,0.0,72000.0
+5071349,2026-10-02,mls,Sporting Kansas City,Justin Reynolds,1351033,D,1,90,1,0,0,0.01,32.0,1.0,339228.0
+5071349,2026-10-02,mls,Sporting Kansas City,Jansen Miller,1083287,D,1,90,1,0,0,0.02,34.0,1.0,326499.0
+5071349,2026-10-02,mls,Sporting Kansas City,Wyatt Meyer,1600922,D,1,90,1,1,0,0.17,36.0,1.0,200541.0
+5071349,2026-10-02,mls,Sporting Kansas City,Emir Karić,642153,D,1,90,1,0,0,0.01,38.0,1.0,762835.0
+5071349,2026-10-02,mls,Sporting Kansas City,André Luiz,1284944,F,1,76,5,2,1,0.4,72.0,3.0,6119982.0
+5071349,2026-10-02,mls,Sporting Kansas City,Lasse Berg Johnsen,1035206,M,1,79,0,0,0,0.0,74.0,2.0,1802178.0
+5071349,2026-10-02,mls,Sporting Kansas City,Kwaku Agyabeng,1907812,M,1,90,0,0,0,0.0,76.0,2.0,371864.0
+5071349,2026-10-02,mls,Sporting Kansas City,Calvin Harris,1244938,F,1,76,4,4,0,0.59,78.0,3.0,377098.0
+5071349,2026-10-02,mls,Sporting Kansas City,Taylor Calheira,1625713,F,1,90,4,2,0,0.4,104.0,3.0,
+5071349,2026-10-02,mls,Sporting Kansas City,Stephen Afrifa,1439990,F,1,76,4,1,0,0.34,106.0,3.0,229178.0
+5071349,2026-10-02,mls,Sporting Kansas City,Magomed-Shapi Suleymanov,861720,M,0,14,0,0,0,0.0,,2.0,1318116.0
+5071349,2026-10-02,mls,Sporting Kansas City,Zorhan Bassong,1023070,M,0,14,0,0,0,0.0,,2.0,741526.0
+5071349,2026-10-02,mls,Sporting Kansas City,Seymour Reid,1726789,F,0,14,0,0,0,0.0,,3.0,1180449.0
+5071349,2026-10-02,mls,Sporting Kansas City,Jacob Bartlett,1710542,M,0,11,1,1,0,0.01,,2.0,1362470.0
+5991884,2026-10-02,selecciones,Nicaragua,Brandón Mayorga,1768923,G,1,90,0,0,0,0.0,11.0,0.0,
+5991884,2026-10-02,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,0,0,0,0.0,32.0,1.0,171578.0
+5991884,2026-10-02,selecciones,Nicaragua,Marvin Fletes,1141522,D,1,90,0,0,0,0.0,34.0,1.0,
+5991884,2026-10-02,selecciones,Nicaragua,Juan Pérez,1253899,D,1,90,1,0,0,0.0,36.0,1.0,59488.0
+5991884,2026-10-02,selecciones,Nicaragua,Óscar Acevedo,1141649,D,1,90,1,0,0,0.0,38.0,1.0,
+5991884,2026-10-02,selecciones,Nicaragua,Raheem Giusseppe Cole Martínez,0,M,1,90,0,0,0,0.0,72.0,2.0,
+5991884,2026-10-02,selecciones,Nicaragua,Ramón Estrada,0,M,1,90,0,0,0,0.0,74.0,2.0,
+5991884,2026-10-02,selecciones,Nicaragua,Kadeem Cole,1431704,M,1,90,1,0,0,0.0,76.0,2.0,
+5991884,2026-10-02,selecciones,Nicaragua,Jonathan Moncada,1057770,M,1,90,0,0,0,0.0,78.0,2.0,
+5991884,2026-10-02,selecciones,Nicaragua,Jorge García,852103,F,1,90,0,0,0,0.0,104.0,3.0,
+5991884,2026-10-02,selecciones,Nicaragua,Widman Talavera,1141589,F,1,90,1,1,0,0.0,106.0,3.0,
+5991884,2026-10-02,selecciones,Costa Rica,Keylor Navas,51949,G,1,90,0,0,0,0.0,11.0,0.0,681085.0
+5991884,2026-10-02,selecciones,Costa Rica,Yerlan Andrés Sosa Chavarría,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991884,2026-10-02,selecciones,Costa Rica,Jeyland Mitchell,1340071,D,1,19,1,0,0,0.0,34.0,1.0,3289492.0
+5991884,2026-10-02,selecciones,Costa Rica,Francisco Calvo,272005,D,1,90,1,1,0,0.0,36.0,1.0,531826.0
+5991884,2026-10-02,selecciones,Costa Rica,Darril Araya,1183175,D,1,90,0,0,0,0.0,38.0,1.0,68205.0
+5991884,2026-10-02,selecciones,Costa Rica,Sebastián Acuña,1410207,M,1,90,0,0,0,0.0,64.0,2.0,169521.0
+5991884,2026-10-02,selecciones,Costa Rica,Roan Wilson,1084254,M,1,90,1,0,0,0.0,66.0,2.0,91838.0
+5991884,2026-10-02,selecciones,Costa Rica,Kenyel Jaheim Michel Vargas,0,,1,90,0,0,0,0.0,83.0,,
+5991884,2026-10-02,selecciones,Costa Rica,Claudio Montero,1474188,M,1,56,1,0,0,0.0,85.0,2.0,163482.0
+5991884,2026-10-02,selecciones,Costa Rica,Carlos Mora,1202707,M,1,78,2,2,1,0.0,87.0,2.0,1624276.0
+5991884,2026-10-02,selecciones,Costa Rica,Orlando Sinclair,967020,F,1,78,2,1,1,0.0,115.0,3.0,73852.0
+5991884,2026-10-02,selecciones,Costa Rica,Juan Pablo Vargas,734283,D,0,71,1,0,0,0.0,,1.0,992452.0
+5991884,2026-10-02,selecciones,Costa Rica,Josimar Méndez,1100269,F,0,34,2,0,0,0.0,,3.0,185838.0
