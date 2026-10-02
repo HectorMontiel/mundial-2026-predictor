@@ -3258,6 +3258,9 @@ fecha,circuito,torneo,jugador_1,jugador_2,ganador,sets_1,sets_2,juegos_totales,i
 2026-10-01,ATP,China Open,Zhu Lin,Alycia Parks,Zhu Lin,2,0,18,2026-10-01T12:58:08Z
 2026-10-01,ATP,China Open,Camila Osorio,Lanlana Tararudee,Camila Osorio,2,0,18,2026-10-01T12:58:08Z
 2026-10-01,ATP,China Open,Xinran Sun,Eva Lys,Xinran Sun,2,0,10,2026-10-01T12:58:08Z
+2026-10-01,ATP,China Open,Hubert Hurkacz,Learner Tien,Hubert Hurkacz,2,1,31,2026-10-02T12:33:28Z
+2026-10-01,ATP,China Open,Jakub Mensik,Alexander Bublik,Jakub Mensik,2,0,23,2026-10-02T12:33:28Z
+2026-10-01,ATP,China Open,Panna Udvardy,Gao Xinyu,Gao Xinyu,0,2,17,2026-10-02T12:33:28Z
 2026-10-01,WTA,Jingshan Tennis Open,Kyoka Okamura,Alevtina Ibragimova,Kyoka Okamura,2,1,29,2026-10-01T12:58:08Z
 2026-10-01,WTA,Jingshan Tennis Open,Sofia Costoulas,Sofya Lansere,Sofya Lansere,0,2,19,2026-10-01T12:58:08Z
 2026-10-01,WTA,Jingshan Tennis Open,Wang Yuhan,Jessica Bouzas Maneiro,Jessica Bouzas Maneiro,0,2,14,2026-10-01T12:58:08Z
@@ -3274,3 +3277,29 @@ fecha,circuito,torneo,jugador_1,jugador_2,ganador,sets_1,sets_2,juegos_totales,i
 2026-10-01,ATP,Kinoshita Group Japan Open Tennis Championships,Sho Shimabukuro,Denis Shapovalov,Denis Shapovalov,0,2,19,2026-10-01T12:58:08Z
 2026-10-01,ATP,Kinoshita Group Japan Open Tennis Championships,Matteo Berrettini,Alejandro Davidovich Fokina,Matteo Berrettini,2,1,30,2026-10-01T12:58:08Z
 2026-10-01,ATP,Kinoshita Group Japan Open Tennis Championships,Rafael Jodar,Adolfo Daniel Vallejo,Adolfo Daniel Vallejo,0,2,16,2026-10-01T12:58:08Z
+2026-10-02,ATP,China Open,Karen Khachanov,Alex Molcan,Karen Khachanov,2,0,21,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Pablo Carreno Busta,Daniil Medvedev,Daniil Medvedev,0,2,18,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Sinja Kraus,Anastasia Potapova,Sinja Kraus,1,0,5,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Diana Shnaider,Janice Tjen,Diana Shnaider,2,0,16,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Peyton Stearns,Viktorija Golubic,Viktorija Golubic,1,2,28,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Liudmila Samsonova,Linda Fruhvirtova,Liudmila Samsonova,2,1,26,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Mirra Andreeva,Yuan Yue,Mirra Andreeva,2,1,21,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Maja Chwalinska,Dayana Yastremska,Dayana Yastremska,0,2,16,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Elena-Gabriela Ruse,Linda Noskova,Linda Noskova,0,2,17,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Diane Parry,Taylah Preston,Taylah Preston,0,2,20,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Daria Snigur,Jasmine Paolini,Daria Snigur,2,1,30,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Aliaksandra Sasnovich,Ekaterina Alexandrova,Ekaterina Alexandrova,0,2,17,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Katie Boulter,Karolina Muchova,Karolina Muchova,0,2,20,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Polina Kudermetova,Clara Tauson,Polina Kudermetova,2,1,30,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Maddison Inglis,Sara Bejlek,Sara Bejlek,0,2,21,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Naomi Osaka,Maria Timofeeva,Naomi Osaka,2,1,27,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Magdalena Frech,Nikola Bartunkova,Nikola Bartunkova,0,2,16,2026-10-02T12:33:28Z
+2026-10-02,ATP,China Open,Aryna Sabalenka,Renata Zarazua,Aryna Sabalenka,2,0,16,2026-10-02T12:33:28Z
+2026-10-02,WTA,Jingshan Tennis Open,Emerson Jones,Kyoka Okamura,Emerson Jones,2,0,26,2026-10-02T12:33:28Z
+2026-10-02,WTA,Jingshan Tennis Open,Sara Sorribes Tormo,Aliona Falei,Aliona Falei,0,2,18,2026-10-02T12:33:28Z
+2026-10-02,WTA,Jingshan Tennis Open,Sofya Lansere,Jessica Bouzas Maneiro,Jessica Bouzas Maneiro,0,2,16,2026-10-02T12:33:28Z
+2026-10-02,WTA,Jingshan Tennis Open,Wei Sijia,Alexandra Shubladze,Alexandra Shubladze,1,2,30,2026-10-02T12:33:28Z
+2026-10-02,ATP,Kinoshita Group Japan Open Tennis Championships,Jaime Faria,Jaume Munar,Jaume Munar,0,2,14,2026-10-02T12:33:28Z
+2026-10-02,ATP,Kinoshita Group Japan Open Tennis Championships,Stefanos Tsitsipas,Valentin Vacherot,Valentin Vacherot,1,2,33,2026-10-02T12:33:28Z
+2026-10-02,ATP,Kinoshita Group Japan Open Tennis Championships,Luciano Darderi,Kyrian Jacquet,Kyrian Jacquet,0,2,22,2026-10-02T12:33:28Z
+2026-10-02,ATP,Kinoshita Group Japan Open Tennis Championships,Frances Tiafoe,Arthur Fils,Arthur Fils,0,2,21,2026-10-02T12:33:28Z
