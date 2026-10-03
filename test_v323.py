@@ -387,7 +387,7 @@ def probar_selecciones():
          'home_shots_on': 3, 'away_shots_on': 3, 'home_yellow': 1,
          'away_yellow': 1, 'home_red': 0, 'away_red': 0}])
     espn = pd.DataFrame([
-        {'date': '2026-06-30', 'home_team': 'Mexico', 'away_team': 'Japan',
+        {'date': '2026-06-01', 'home_team': 'Mexico', 'away_team': 'Japan',
          'home_goals': 2, 'away_goals': 0, 'tournament': 'Amistoso',
          'neutral': False},
         {'date': '2026-09-05', 'home_team': 'Mexico', 'away_team': 'Japan',
@@ -400,7 +400,7 @@ def probar_selecciones():
     n = asel.nuevos(hist, espn)
     check(len(n) == 1 and n.iloc[0]['home_team'] == 'MEX'
           and n.iloc[0]['away_team'] == 'JPN',
-          'sólo entra lo posterior al histórico, absoluto masculino y con el '
+          'no entra lo de semanas atrás ni lo femenino; sí lo nuevo, con el '
           'código del motor (%d)' % len(n))
     check(list(n.columns) == list(hist.columns)
           and pd.notna(n.iloc[0]['home_xg']),
@@ -409,6 +409,13 @@ def probar_selecciones():
     h2 = pd.concat([hist, n], ignore_index=True)
     check(len(asel.nuevos(h2, espn)) == 0,
           'repetirlo no añade nada')
+    tarde = pd.concat([espn, pd.DataFrame([
+        {'date': '2026-09-05', 'home_team': 'Colombia', 'away_team': 'Brazil',
+         'home_goals': 1, 'away_goals': 1, 'tournament': 'Amistoso',
+         'neutral': True}])], ignore_index=True)
+    n3 = asel.nuevos(h2, tarde)
+    check(len(n3) == 1 and n3.iloc[0]['home_team'] == 'COL',
+          'un partido del mismo día que llega tarde a ESPN también entra')
     # el estado publicado no puede quedarse atrás del histórico
     h = pd.read_csv('historico_partidos.csv', usecols=['date'])
     ts = json.load(open('team_stats.json', encoding='utf-8'))
