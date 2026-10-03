@@ -80,6 +80,28 @@ logger = logging.getLogger(__name__)
 # medición está sesgada a favor del mercado.
 PESO_MODELO = 0.5
 
+# v325 — EN LA NFL, UN CUARTO PARA EL MODELO Y TRES CUARTOS PARA LA CASA.
+#
+# Medido en `_v325_nfl.py` con 27 temporadas de nflverse: cada temporada con
+# un modelo que no la vio, contra el momio de cierre sin margen. El peso se
+# eligió con 2010-2016 y se juzgó en 2017-2025:
+#
+#                    log-loss elige   log-loss juzga   «meter» (≥65 %) juzga
+#     mitad y mitad      0,61135          0,61293       76,7 % de 1.117
+#     un cuarto          0,61126          0,60920       76,8 % de 1.185
+#
+# Y en los totales de puntos (líneas alternativas, la casa aproximada por su
+# línea de cierre): con mitad y mitad lo que prometía 75-80 % acertó el 68,4 %
+# (342); con un cuarto, lo prometido y lo real van juntos (71,3 → 69,9 %).
+PESO_MODELO_NFL = 0.25
+
+
+def peso_modelo(pick: Optional[Dict]) -> float:
+    """Cuánto pesa el modelo frente a la casa en este deporte."""
+    if str((pick or {}).get('deporte') or '') == 'NFL':
+        return PESO_MODELO_NFL
+    return PESO_MODELO
+
 # Margen admisible de un libro de dos o tres salidas. Por debajo de 1 no es un
 # libro (habría arbitraje seguro y es más probable que falte un lado); por
 # encima de 1,60 el margen es tan bestia que de-marginar no significa nada.
@@ -183,6 +205,14 @@ def prob_mercado(pick: Dict, apuesta: str,
     if c1x2 and (etb in ('empate', 'x') or etb.startswith('gana ')):
         probs = demarginar([c1x2.get('home'), c1x2.get('draw'),
                             c1x2.get('away')])
+        # v325 — la NFL no tiene empate: su «1X2» llega con dos lados y el
+        # libro de tres no se podía de-marginar, así que la NFL decidía SIN la
+        # casa (y con la corrección por bandas del fútbol encima). Sólo NFL: el
+        # tenis llega igual, pero su mezcla con la casa no está medida.
+        if (probs is None and c1x2.get('draw') is None
+                and str((pick or {}).get('deporte') or '') == 'NFL'):
+            dos = demarginar([c1x2.get('home'), c1x2.get('away')])
+            probs = [dos[0], None, dos[1]] if dos else None
         if probs:
             if etb in ('empate', 'x'):
                 return probs[1]
@@ -232,12 +262,13 @@ def prob_mercado(pick: Dict, apuesta: str,
     return None
 
 
-def mezclar(p_modelo, p_mercado) -> Optional[float]:
+def mezclar(p_modelo, p_mercado, peso: Optional[float] = None) -> Optional[float]:
     """La probabilidad con la que hay que decidir. `None` si falta una."""
     a, b = _f(p_modelo), _f(p_mercado)
     if a is None or b is None:
         return None
-    return max(0.01, min(0.99, PESO_MODELO * a + (1.0 - PESO_MODELO) * b))
+    w = PESO_MODELO if peso is None else float(peso)
+    return max(0.01, min(0.99, w * a + (1.0 - w) * b))
 
 
 def evaluar(pick: Dict, apuesta: str, mercado: str = '',
@@ -262,7 +293,7 @@ def evaluar(pick: Dict, apuesta: str, mercado: str = '',
     if pm is None or pmer is None:
         return {'hay': False, 'p_modelo': pm, 'p_mercado': None,
                 'p_mezcla': pm, 'brecha': None, 'razon': ''}
-    mez = mezclar(pm, pmer)
+    mez = mezclar(pm, pmer, peso_modelo(pick))
     brecha = abs(pm - pmer)
     if brecha <= BRECHA_ACUERDO:
         razon = ('modelo y casa coinciden (%.0f %% y %.0f %%): el número es '

@@ -63,6 +63,31 @@ logger = logging.getLogger(__name__)
 ARTEFACTO = os.path.join('modelos', 'nfl_v131.json')
 CALIBRACION = 'nfl_calibracion.json'
 
+# v325 — EL MODELO CON 27 TEMPORADAS (nflverse) Y EL QUARTERBACK DENTRO.
+#
+# El usuario: «quiero que empieces a mejorar el modelo de la NFL; métele recio
+# al histórico». El de la v131 aprendía de 1.143 partidos de ESPN (2022-2026) y
+# no sabía quién jugaba de quarterback. Éste aprende de `historico_nfl_largo.csv`
+# (`nfl_nflverse`: 7.548 partidos desde 1999, con el titular de cada lado, el
+# EPA por jugada, el descanso, el techo y el viento) con el estado sin fuga de
+# `nfl_estado`: Elo con margen, EPA de ataque y defensa (pase y carrera),
+# puntos, ritmo y el valor de cada quarterback por sus propios partidos.
+#
+# Medido en `_v325_nfl.py` (cada temporada con un modelo entrenado SÓLO con las
+# anteriores; ajustes elegidos con 2010-2016, juzgados en 2017-2025):
+#
+#                         log-loss   Brier    acierto del ganador
+#     v131, 2025           0,6351    0,2232   63,0 %
+#     v325, 2025           0,6275    0,2196   62,0 %
+#     cierre de la casa    0,6070    0,2109   66,2 %
+#
+# Mejora al de antes, y no le gana a la casa: nadie le gana al cierre de la
+# NFL con datos públicos, y prometerlo sería mentir. Por eso la decisión de
+# «meter» no usa el modelo solo: lo mezcla con la casa (ver
+# `concordancia.PESO_MODELO_NFL`), y esa mezcla SÍ cumple lo que promete.
+ARTEFACTO_V325 = os.path.join('modelos', 'nfl_v325.json')
+ALPHA_V325 = 20.0
+
 # Ventana del estado rodante, ARRASTRE entre temporadas y regularización: los
 # tres se ELIGIERON MIDIENDO, y midiendo bien.
 #
@@ -389,25 +414,111 @@ class NFLModelo:
         self.estado: Optional[EstadoEquipos] = None
         self.entrenado_hasta: Optional[str] = None
         self.n_entrenamiento = 0
+        # v325 — qué modelo es y con qué variables: el de la v131 (ESPN) o el
+        # de nflverse. El mismo objeto sirve a los dos para que `alpha_finder`
+        # y la pestaña de la NFL no tengan que saber cuál les tocó.
+        self.version = 'v131'
+        self.cols_margen = list(COLS_MARGEN)
+        self.cols_total = list(COLS_TOTAL)
+        self.estado_v325 = None
+        self.pendientes = None        # partidos sin jugar de nflverse (QB previsto)
 
     # -- entrenamiento ----------------------------------------------------
     def entrenar(self, ds: pd.DataFrame, alpha: float = ALPHA) -> 'NFLModelo':
         ent = ds[ds['tipo'].isin(TIPOS_ENTRENAMIENTO)]
         if len(ent) < 60:
             raise ValueError(f'muestra insuficiente para entrenar: {len(ent)}')
-        Xm = ent[COLS_MARGEN].values
-        Xt = ent[COLS_TOTAL].values
+        Xm = ent[self.cols_margen].values
+        Xt = ent[self.cols_total].values
         self.m_margen = _Ridge(alpha).ajustar(Xm, ent['margen'].values)
         self.m_total = _Ridge(alpha).ajustar(Xt, ent['total'].values)
         rm = ent['margen'].values - self.m_margen.predecir(Xm)
         rt = ent['total'].values - self.m_total.predecir(Xt)
-        self.sigma_margen = float(np.std(rm, ddof=len(COLS_MARGEN) + 1))
-        self.sigma_total = float(np.std(rt, ddof=len(COLS_TOTAL) + 1))
+        self.sigma_margen = float(np.std(rm, ddof=len(self.cols_margen) + 1))
+        self.sigma_total = float(np.std(rt, ddof=len(self.cols_total) + 1))
         self.res_margen = np.sort(rm)
         self.res_total = np.sort(rt)
         self.n_entrenamiento = int(len(ent))
-        self.entrenado_hasta = str(pd.to_datetime(ent['fecha']).max().date())
+        self.entrenado_hasta = str(pd.to_datetime(
+            ent['fecha'] if 'fecha' in ent.columns else ent['gameday']).max().date())
         return self
+
+    # -- v325 ---------------------------------------------------------------
+    @staticmethod
+    def v325(alpha: float = ALPHA_V325) -> 'NFLModelo':
+        """Un modelo vacío con las variables de nflverse."""
+        import nfl_estado as ne
+        m = NFLModelo()
+        m.version = 'v325'
+        m.cols_margen, m.cols_total = list(ne.COLS_MARGEN), list(ne.COLS_TOTAL)
+        return m
+
+    def construir_estado_v325(self, largo: Optional[pd.DataFrame] = None
+                              ) -> 'NFLModelo':
+        """Recorre el histórico largo y deja el estado de equipos y QBs tras
+        el último partido jugado, y aparte los que faltan por jugar (con su QB
+        previsto, su descanso y su estadio)."""
+        import nfl_estado as ne
+        import nfl_nflverse as nv
+        d = largo if largo is not None else nv.cargar()
+        if d is None or not len(d):
+            raise ValueError('sin historico_nfl_largo.csv')
+        jug = d[d['home_score'].notna()]
+        _filas, est = ne.dataset(jug)
+        self.estado_v325 = est
+        self.pendientes = d[d['home_score'].isna()].copy()
+        return self
+
+    def _fila_pendiente(self, home: str, away: str, fecha) -> Dict:
+        """La fila de nflverse del partido que se va a jugar (o una hecha a
+        mano con el último QB de cada uno si nflverse aún no lo tiene)."""
+        f = pd.Timestamp(fecha) if fecha is not None else pd.Timestamp.now('UTC')
+        if f.tzinfo is not None:
+            f = f.tz_convert(None)
+        f = f.normalize()
+        pend = self.pendientes
+        if pend is not None and len(pend):
+            c = pend[(pend['home'] == home) & (pend['away'] == away)]
+            if len(c):
+                dias = (pd.to_datetime(c['gameday']) - f).abs()
+                c = c[dias <= pd.Timedelta(days=4)]
+                if len(c):
+                    return c.iloc[0].to_dict()
+        est = self.estado_v325
+        temporada = f.year if f.month >= 3 else f.year - 1
+        return {'season': temporada, 'home': home, 'away': away,
+                'home_qb_id': est.ultimo_qb.get(home),
+                'away_qb_id': est.ultimo_qb.get(away),
+                'home_rest': 7, 'away_rest': 7, 'tipo': 'regular'}
+
+    def _predecir_v325(self, home: str, away: str, fecha=None,
+                       neutral: bool = False, tipo: str = 'regular',
+                       **lineas) -> Dict:
+        import copy as _copy
+        import nfl_estado as ne
+        est = self.estado_v325
+        if est is None or self.m_margen is None:
+            return {'error': 'modelo sin entrenar o sin estado'}
+        faltan = [e for e in (home, away) if e not in est.m]
+        if faltan:
+            return {'error': f'sin historial para {", ".join(faltan)}'}
+        g = self._fila_pendiente(home, away, fecha)
+        if neutral:
+            g['neutral'] = True
+        # Las variables de una temporada nueva tocan el estado (la regresión a
+        # la media de la pretemporada): se calculan sobre una copia para que
+        # predecir dos veces dé lo mismo.
+        v = _copy.deepcopy(est).variables(g)
+        x = ne.derivar(pd.DataFrame([v]))
+        margen = float(self.m_margen.predecir(x[self.cols_margen].values)[0])
+        total = float(self.m_total.predecir(x[self.cols_total].values)[0])
+        r = self.probabilidades(margen, total, **lineas)
+        r['home'], r['away'] = home, away
+        r['n_home'] = int(est.jugados.get(home, 0))
+        r['n_away'] = int(est.jugados.get(away, 0))
+        r['qb_home'] = g.get('home_qb_name')
+        r['qb_away'] = g.get('away_qb_name')
+        return r
 
     # v191 — LOS TOUCHDOWNS, DERIVADOS DEL TOTAL Y CON SU ERROR COMPLETO.
     #
@@ -648,6 +759,12 @@ class NFLModelo:
                          neutral: bool = False, tipo: str = 'regular',
                          **lineas) -> Dict:
         """Entrada de PRODUCCIÓN: dos abreviaturas y, si se tienen, las líneas."""
+        if self.version == 'v325':
+            r = self._predecir_v325(home, away, fecha=fecha, neutral=neutral,
+                                    tipo=tipo, **lineas)
+            if 'error' in r:
+                return r
+            return self._remate(r, total=r.get('total_esperado'), tipo=tipo)
         if self.estado is None or self.m_margen is None:
             return {'error': 'modelo sin entrenar o sin estado'}
         if home not in self.estado.jugados or away not in self.estado.jugados:
@@ -669,6 +786,10 @@ class NFLModelo:
         r['home'], r['away'] = home, away
         r['n_home'] = int(self.estado.jugados.get(home, 0))
         r['n_away'] = int(self.estado.jugados.get(away, 0))
+        return self._remate(r, total=total, tipo=tipo)
+
+    def _remate(self, r: Dict, total, tipo: str) -> Dict:
+        """Lo común a los dos modelos: touchdowns y la pretemporada."""
         r['entrenado_hasta'] = self.entrenado_hasta
         r['tipo'] = tipo
         r['tds_esperados'] = self.tds_esperados(total)
@@ -689,9 +810,9 @@ class NFLModelo:
     def guardar(self, ruta: str = ARTEFACTO) -> str:
         os.makedirs(os.path.dirname(ruta) or '.', exist_ok=True)
         doc = {
-            'version': 'v131', 'ventana': self.ventana, 'arrastre': self.arrastre,
+            'version': self.version, 'ventana': self.ventana, 'arrastre': self.arrastre,
             'margen': self.m_margen.a_dict(), 'total': self.m_total.a_dict(),
-            'cols_margen': COLS_MARGEN, 'cols_total': COLS_TOTAL,
+            'cols_margen': self.cols_margen, 'cols_total': self.cols_total,
             'sigma_margen': self.sigma_margen, 'sigma_total': self.sigma_total,
             'metodo_margen': self.metodo_margen,
             'entrenado_hasta': self.entrenado_hasta,
@@ -713,8 +834,17 @@ class NFLModelo:
         return ruta
 
     @staticmethod
-    def cargar(ruta: str = ARTEFACTO,
+    def cargar(ruta: Optional[str] = None,
                historico: Optional[pd.DataFrame] = None) -> Optional['NFLModelo']:
+        # v325 — el modelo de nflverse si está entero (artefacto e histórico
+        # largo); si no, el de la v131 como hasta ahora.
+        if ruta is None:
+            import nfl_nflverse as _nv
+            if os.path.exists(ARTEFACTO_V325) and os.path.exists(_nv.SALIDA):
+                m = NFLModelo.cargar(ARTEFACTO_V325, historico)
+                if m is not None:
+                    return m
+            ruta = ARTEFACTO
         if not os.path.exists(ruta):
             return None
         try:
@@ -737,6 +867,18 @@ class NFLModelo:
         m.td_b = float(d.get('td_b', NFLModelo.TD_B))
         m.sigma_td = float(d.get('sigma_td', NFLModelo.TD_SIGMA))
         m.n_td = int(d.get('n_td') or 0)
+        m.version = d.get('version', 'v131')
+        m.cols_margen = list(d.get('cols_margen') or COLS_MARGEN)
+        m.cols_total = list(d.get('cols_total') or COLS_TOTAL)
+        if m.version == 'v325':
+            try:
+                m.construir_estado_v325()
+            except Exception as e:
+                logger.warning(f'[nfl] estado v325 no disponible: {e}')
+                return None
+            if historico is not None and len(historico):
+                m.ajustar_touchdowns(historico)
+            return m
         if historico is not None and len(historico):
             m.construir_estado(historico)
         return m

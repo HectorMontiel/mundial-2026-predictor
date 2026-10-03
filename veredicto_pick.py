@@ -359,7 +359,16 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
         return {**base, 'veredicto': METER, 'fuerza': 1.0, 'medido': True,
                 'razones': [str(p.get('razon') or 'Capa 1: modelo y casa de acuerdo')]}
 
-    c = correccion(prob, mercado, cuota)
+    # v325 — LA NFL NO SE CORRIGE CON LAS BANDAS DEL FÚTBOL. Su «1X2» se llama
+    # igual que el del fútbol y recibía la curva medida en el fútbol, que la
+    # subía hasta 10 puntos (Colts el 2026-10-04: modelo 59,8 % → 69,8 % →
+    # «meter»). En la NFL lo medido es la mezcla con la casa que se hace justo
+    # debajo (`PESO_MODELO_NFL`), y esa sí cumple lo que promete.
+    es_nfl = str(p.get('deporte') or '') == 'NFL'
+    if es_nfl:
+        c = {'delta': 0.0, 'medido': False, 'veredicto_banda': None, 'n': 0}
+    else:
+        c = correccion(prob, mercado, cuota)
     ajustada = max(0.01, min(0.99, prob + c['delta']))
 
     # v243 — LA SEGUNDA OPINIÓN: LO QUE LA CASA DICE DE ESTA MISMA APUESTA.
@@ -404,6 +413,9 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
             razones.append(
                 f"el {prob:.0%} se sostiene: {c['real']:.0%} real en "
                 f"{c['n']} picks de este mercado")
+    elif es_nfl:
+        razones.append('en la NFL decide el modelo junto con la casa '
+                       '(medido en 27 temporadas)')
     else:
         razones.append('sin histórico de este mercado y banda todavía')
 
