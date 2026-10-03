@@ -12452,8 +12452,8 @@ def test_la_vista_elegida_no_se_pierde():
     #
     # Hasta la v322 las cinco vistas se ejecutaban siempre y cuatro se
     # escondian con CSS (v177.2/v178), para que sus widgets llegaran vivos al
-    # final de la pasada. Medido el 2026-10-03: abrir la pantalla costaba 48,8 s
-    # y cambiar de vista 43,1 s, calculando cuatro pantallas que nadie miraba.
+    # final de la pasada. Medido el 2026-10-03 sobre la v322: abrir la pantalla
+    # 10,6 s y pasar a mañana 39,8 s; ahora 2,7 s y 13,3 s.
     # Ahora no se esconde nada —no hay CSS que esconda vistas— y lo que el
     # usuario dejo en los controles de una vista que no se ejecuta lo guarda
     # una copia con clave propia (`estado_vistas`), que se repone al volver.

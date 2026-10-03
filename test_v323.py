@@ -344,6 +344,30 @@ def probar_vistas():
           'las vistas que no se ejecutan siguen anotando sus partidos')
 
 
+def probar_motor():
+    """PASO 4 — el motor del Mundial sólo se carga en la vista del Mundial.
+
+    Medido el 2026-10-03: 2,05 s y +436 MB de memoria, que cualquier primera
+    visita pagaba aunque fuera a «Apuestas del Día», que no lo usa.
+    """
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    check(src.count('MOTOR = cargar_motor()') == 1,
+          'el motor se carga en un solo sitio')
+    i_motor = src.index('MOTOR = cargar_motor()')
+    i_alpha = src.index("if _clave_comp == 'alpha':\n    render_alpha_finder()")
+    i_ligas = src.index("if _clave_comp != 'mundial':")
+    check(i_alpha < i_ligas < i_motor,
+          'y sólo después de que las demás vistas hayan terminado (st.stop)')
+    check(src.index('if not MOTOR.listo:') > i_motor,
+          'antes de su primer uso en la vista del Mundial')
+    usos = [i for i in range(len(src)) if src.startswith('MOTOR.', i)]
+    fuera = [i for i in usos if i < i_motor
+             and 'def prediccion_cacheada' not in src[max(0, i - 400):i]
+             and 'def plantilla_cacheada' not in src[max(0, i - 400):i]]
+    check(not fuera, 'nadie lo usa antes de cargarlo, salvo las dos funciones '
+          'cacheadas que sólo llama la vista del Mundial')
+
+
 def probar_selecciones():
     """
     El motor de selecciones, al día (`actualizar_selecciones`).
@@ -420,6 +444,8 @@ if __name__ == '__main__':
     print('\n=== 5. paso 2: pintar sólo lo que se ve ===')
     probar_registro(doc)
     probar_vistas()
+    print('\n=== 6. paso 4: el motor del Mundial, sólo donde se usa ===')
+    probar_motor()
     print('\n=== selecciones: el motor al día ===')
     probar_selecciones()
     shutil.rmtree(TMP, ignore_errors=True)

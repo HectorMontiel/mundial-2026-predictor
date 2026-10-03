@@ -298,9 +298,9 @@ def _bloque_tenis(st, pick: Dict) -> None:
 # tres, las tres «no meter»). La principal sí puede ser roja —es la única
 # forma de decir «esto es lo mejor que hay y no llega»—, las demás no.
 MAX_RECOMENDADAS = 4        # la principal y hasta tres alternativas
-# v323 — TARJETAS DE 20 EN 20. Pintar una tarjeta cuesta 0,2 s con todo ya en
-# memoria (medido el 2026-10-03: 40,3 s para las 200 de «Hoy») y casi nadie
-# baja de la vigésima. El resto sale con «Ver más», sin rehacer la página.
+# v323 — TARJETAS DE 20 EN 20. Una tarjeta nueva cuesta ~0,4-0,5 s (la v322
+# recuerda las ya pintadas; medido el 2026-10-03: 107 s las 200 de «Hoy» en
+# frío) y casi nadie baja de la vigésima. El resto sale con «Ver más», sin rehacer la página.
 TARJETAS_POR_PAGINA = 20
 ANCHO_CANDIDATAS = 12       # v241: entre cuántas se elige esas tres
 # El AJUSTE de orden es uno solo para las dos pestañas; sus widgets no
@@ -4289,9 +4289,9 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     elif pintar:
         # v323 — DE 20 EN 20, Y EL RESTO CON «VER MÁS».
         #
-        # Se pintaban hasta 200 tarjetas en cada pasada: 40,3 s de los 48,8
-        # que costaba abrir «Apuestas del Día» con todo en memoria (medido el
-        # 2026-10-03). La lista, su orden y sus filtros son los mismos; sólo
+        # Se pintaban hasta 200 tarjetas en cada pasada: 107 s en frío al
+        # abrir «Apuestas del Día» y 36 s al pasar a mañana (medido el
+        # 2026-10-03 sobre la v322). La lista, su orden y sus filtros son los mismos; sólo
         # se dibujan las primeras 20 y el botón trae las siguientes. Al cambiar
         # un filtro o el orden se vuelve a las 20 primeras, que es lo que se
         # espera de una lista nueva.

@@ -955,7 +955,20 @@ def plantilla_cacheada(_motor_id: int, home: str, away: str, arbitro: str = None
     return MOTOR.plantilla(home, away, arbitro=arbitro, fase=fase, estadio=estadio)
 
 
-MOTOR = cargar_motor()
+# v323 — EL MOTOR DEL MUNDIAL SE CARGA DONDE SE USA, Y NO EN CADA ARRANQUE.
+#
+# Estaba aquí, en lo alto del script, así que la primera visita de cada
+# proceso lo cargaba entero aunque fuera a «Apuestas del Día», que no lo usa:
+# sólo lo leen la vista del Mundial (al final de este fichero, después de que
+# todas las demás vistas hayan terminado con `st.stop()`) y las dos funciones
+# de arriba, que sólo se llaman desde ella. Se carga justo antes de esa vista;
+# `cargar_motor` sigue siendo `st.cache_resource`, así que se carga una vez
+# por proceso igual que antes. Medido el 2026-10-03: cargarlo cuesta 2,05 s
+# y +436 MB de memoria (215 → 651 MB) en un contenedor de 1 GB, que la
+# primera visita a «Apuestas del Día» ya no paga. Ojo: no es el único que lo
+# carga — `partidos_jugados._nombres` lo pide (vía `selecciones_dia`) cuando
+# hay selecciones entre los partidos terminados del día, para unificar sus
+# nombres; ese caso sigue pagándolo.
 
 
 # ===========================================================================
@@ -7688,9 +7701,9 @@ def render_alpha_finder():
     #
     # Las cinco vistas se ejecutaban en cada pasada para que sus widgets
     # llegaran vivos al final (§27.9) y cuatro se escondían con CSS. Medido el
-    # 2026-10-03 con los 355 partidos del día y todo en memoria: abrir la
-    # pantalla costaba 48,8 s y cambiar de vista 43,1 s, recalculando las
-    # cuatro que nadie miraba. Ahora sólo corre la elegida; lo que el usuario
+    # 2026-10-03 (AppTest, 355 partidos, sobre la v322 que ya recuerda las
+    # tarjetas): abrir 10,6 s → 2,7 s y cambiar de hoy a mañana 39,8 s →
+    # 13,3 s con este cambio y el de 20 en 20. Ahora sólo corre la elegida; lo que el usuario
     # dejó en los controles de las otras lo guarda una copia con clave propia
     # (`estado_vistas`) y se repone al volver, así que no se pierde nada y no
     # puede volver el `KeyError: parlay_base` de la v177.2: aquel salía de
@@ -7716,8 +7729,12 @@ def render_alpha_finder():
     #
     # Cambiar «Ordenar por», una casilla o pulsar «Ver más» rehacía la página
     # ENTERA: la Capa 1, los indicadores, la exportación y las cinco vistas.
-    # Medido el 2026-10-03: 16,5 s por marcar «Sólo alta probabilidad». Con
-    # `st.fragment` sólo se rehace la lista. «Ver ficha del partido» sigue
+    # Con `st.fragment` sólo se rehace la lista. OJO, medido el 2026-10-03: el
+    # PRIMER filtro tarda más que en la v322 (4,2 → 11,0 s en AppTest, que
+    # rehace la página entera; en el navegador sólo la lista): la v322 ya
+    # tenía en memoria las 200 tarjetas que pintaba al abrir, y aquí al filtrar
+    # aparecen tarjetas que nunca se habían calculado. Se aceptó a cambio de
+    # abrir en 2,7 s en vez de 10,6 y cambiar de día en 13 en vez de 40. «Ver ficha del partido» sigue
     # rehaciendo la app entera: `st.rerun()` sin `scope` es de toda la app
     # aunque se llame desde dentro de un fragmento, que es lo que necesita la
     # navegación a otra competición.
@@ -9515,6 +9532,7 @@ if _clave_comp != 'mundial':
     render_liga_club(_clave_comp, NOMBRES_LIGAS[_clave_comp])
     st.stop()
 
+MOTOR = cargar_motor()
 if not MOTOR.listo:
     st.error(
         f"❌ **El motor de predicción no pudo inicializarse.**\n\n"
