@@ -598,7 +598,47 @@ def test_esquema_e_idempotencia():
     os.remove(ruta)
 
 
+def _base_rehidratada() -> None:
+    """
+    v324 — `odds_historico.db` está en `.gitignore` y se RECONSTRUYE desde el
+    repositorio: los cierres se derivan de los `historico_*.csv` y las fotos
+    (con el backfill de BetExplorer) se recargan de `odds_snapshots.csv`. Es
+    `odds_store.rehidratar`, lo mismo que hacen los workflows antes de usarla.
+    En un clon recién hecho la base estaba a medias y estas pruebas fallaban
+    siempre («7372 filas en 22 ligas») sin que nada estuviera roto. Si la
+    reconstrucción se rompiera, la base seguiría corta y las pruebas lo
+    dirían. El resumen que reescribe la importación (`_v75_import_odds.json`,
+    versionado) se deja como estaba.
+    """
+    try:
+        con = sqlite3.connect('odds_historico.db')
+        try:
+            n = con.execute("SELECT COUNT(*) FROM historical_odds "
+                            "WHERE fase='cierre'").fetchone()[0]
+            b = con.execute("SELECT COUNT(*) FROM historical_odds "
+                            "WHERE source_file='betexplorer'").fetchone()[0]
+        finally:
+            con.close()
+    except sqlite3.Error:
+        n = b = 0
+    if n > 50000 and b > 3000:
+        return
+    import import_historical_odds as iho
+    import odds_store
+    previo = (open(iho.SALIDA, 'rb').read() if os.path.exists(iho.SALIDA)
+              else None)
+    try:
+        print('      · base de cuotas reconstruida desde el repo: %s'
+              % odds_store.rehidratar())
+    except Exception as e:
+        print(f"      · la reconstrucción falló: {type(e).__name__}: {e}")
+    finally:
+        if previo is not None:
+            open(iho.SALIDA, 'wb').write(previo)
+
+
 def test_db_poblada():
+    _base_rehidratada()
     if not os.path.exists('odds_historico.db'):
         check(False, 'odds_historico.db existe')
         return
@@ -681,6 +721,7 @@ def test_backfill_betexplorer():
     importadas son plausibles y que no hay partidos duplicados por fuente.
     """
     import sqlite3
+    _base_rehidratada()
     if not os.path.exists('odds_historico.db'):
         check(False, 'odds_historico.db existe')
         return
@@ -714,6 +755,34 @@ def test_backfill_betexplorer():
         con.close()
 
 
+def _playdoit_sin_red() -> bool:
+    """
+    v324 — ¿Este entorno NO puede hablar con Playdoit?
+
+    Las tres pruebas de Playdoit piden su catálogo EN VIVO, y en un entorno sin
+    salida a esa web (el contenedor de pruebas de la nube niega el host
+    `sb2frontend-altenar2.biahosted.com`) fallaban siempre con «0 partidos»,
+    que se leía como «Playdoit está roto» cuando en el cron del mismo día
+    traía 1.543 partidos de fútbol. Si el host no contesta en absoluto (el
+    proxy lo niega, no resuelve, no conecta), no hay nada que probar aquí y se
+    dice; si contesta —con lo que sea— la prueba corre y juzga como siempre.
+    """
+    import requests
+    import cuotas_multi as cm
+    try:
+        requests.get(cm.ALTENAR, timeout=15)
+        return False
+    except (requests.exceptions.ConnectionError,
+            requests.exceptions.Timeout):
+        print('      OMITIDO: sin acceso a Playdoit desde este entorno '
+              '(%s). Lo vigila el precálculo del cron, que avisa en GitHub si '
+              'Playdoit no devuelve partidos.'
+              % cm.ALTENAR.split('/')[2])
+        return True
+    except Exception:
+        return False
+
+
 def test_playdoit_integrada():
     """v76: Playdoit es la casa donde apuesta el usuario — si se cae, la Capa 1
     pierde el precio que de verdad puede tomar, así que tiene que estar
@@ -721,6 +790,8 @@ def test_playdoit_integrada():
     import cuotas_multi as cm
     check(hasattr(cm, '_indice_playdoit'), "cuotas_multi expone _indice_playdoit")
     check(hasattr(cm, 'diagnostico_casas'), "cuotas_multi expone diagnostico_casas")
+    if _playdoit_sin_red():
+        return
     try:
         idx = cm._indice_pdt('futbol')
     except Exception as e:
@@ -753,6 +824,8 @@ def test_tablero_playdoit():
     import cuotas_multi as cm
     check(hasattr(cm, 'mercados_playdoit'),
           "cuotas_multi expone mercados_playdoit")
+    if _playdoit_sin_red():
+        return
     try:
         idx = cm._indice_pdt('futbol')
     except Exception as e:
@@ -1787,6 +1860,8 @@ def test_playdoit_multideporte():
     lleva un `typeId` distinto en cada uno (1 fútbol, 186 tenis, 223 NBA,
     251 MLB), y fijarlo a 1 dejaba tres deportes a cero EN SILENCIO."""
     import cuotas_multi as cm
+    if _playdoit_sin_red():
+        return
     vivos = 0
     for dep in ('futbol', 'tenis', 'mlb', 'nba'):
         try:
