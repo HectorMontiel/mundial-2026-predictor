@@ -7848,7 +7848,10 @@ def test_la_tarjeta_es_la_misma_para_hoy_y_manana():
     import modo_modelo as mm
 
     ui = open('dashboard_ui.py', encoding='utf-8').read()
-    check('_mm_man.render(' in ui, "la vista de mañana usa el mismo render")
+    # v323 — las tres listas del día pasan por `_lista_dia`, que llama al
+    # mismo `render` dentro de un fragmento; ya no hay un `_mm_man.render(`.
+    check('_lista_dia(_pron_man' in ui and '_mm_f.render(' in ui,
+          "la vista de mañana usa el mismo render")
     check('con_apuesta=False' in ui,
           "y lo hace en modo analisis, sin proponer apuesta")
     check('_rtp_m.pintar_con_boton' not in ui,
@@ -7963,7 +7966,9 @@ def test_modo_modelo_esta_enrutado_en_la_interfaz():
     """
     src = open('dashboard_ui.py', encoding='utf-8').read()
     check('import modo_modelo' in src, "la vista de apuestas esta importada")
-    check('_mm.render(' in src, "y se pinta de verdad")
+    # v323 — dentro de `_lista_dia` (ver la prueba de la vista de mañana)
+    check('_mm_f.render(' in src and '_lista_dia(_pron_hoy' in src,
+          "y se pinta de verdad")
     check('Apuestas de hoy' in src, "la pestaña de apuestas de hoy existe")
 
     # La ventaja de precio: su pestaña puede haberse convertido en desplegable,
